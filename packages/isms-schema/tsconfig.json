@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "@nisd2/grc-data-model": [
+        "../grc-data-model/src/index.ts"
+      ],
+      "@nisd2/grc-data-model/*": [
+        "../grc-data-model/src/*"
+      ]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@nisd2/isms-lib",
+  "version": "0.1.0",
+  "description": "Pure-logic helpers for NIS 2 / GRC ISMS apps. Deadline math, formatting, escalation rules — zero-side-effect domain code, no DB / no auth.",
+  "license": "AGPL-3.0-or-later",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./compliance/*": "./src/compliance/*.ts",
+    "./format": "./src/format.ts"
+  },
+  "dependencies": {
+    "date-fns": "^4.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

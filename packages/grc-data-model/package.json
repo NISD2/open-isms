@@ -1,0 +1,93 @@
+{
+  "name": "@nisd2/grc-data-model",
+  "version": "0.10.0",
+  "description": "Relational data model for EU GRC: RoPA, DPA, TOMs, supplier-core, asset-core, risk, incident schemas, plus NIS2↔GDPR mappings. Zod source of truth, JSON Schema export.",
+  "license": "MIT",
+  "homepage": "https://github.com/NISD2/grc-data-model",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NISD2/grc-data-model.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NISD2/grc-data-model/issues"
+  },
+  "author": "Kardashev Catalyst UG (haftungsbeschränkt) <contact@nisd2.eu> (https://nisd2.eu)",
+  "keywords": [
+    "nis2",
+    "gdpr",
+    "compliance",
+    "ropa",
+    "dpa",
+    "toms",
+    "data-model",
+    "zod",
+    "eu"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./enums": {
+      "types": "./dist/enums.d.ts",
+      "import": "./dist/enums.js"
+    },
+    "./schema": {
+      "types": "./dist/schema/index.d.ts",
+      "import": "./dist/schema/index.js"
+    },
+    "./frameworks": {
+      "types": "./dist/frameworks/index.d.ts",
+      "import": "./dist/frameworks/index.js"
+    },
+    "./satisfaction-pairs": {
+      "types": "./dist/satisfaction-pairs.d.ts",
+      "import": "./dist/satisfaction-pairs.js"
+    },
+    "./mappings/nis2-gdpr": {
+      "types": "./dist/mappings/nis2-gdpr.d.ts",
+      "import": "./dist/mappings/nis2-gdpr.js"
+    },
+    "./seed": {
+      "types": "./dist/seed.d.ts",
+      "import": "./dist/seed.js"
+    }
+  },
+  "files": [
+    "dist",
+    "drizzle",
+    "drizzle.config.ts",
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "docs:reference": "bun run scripts/generate-reference.ts",
+    "release": "bun run build && changeset publish"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "drizzle-kit": "^0.31.9",
+    "pg": "^8.13.1",
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

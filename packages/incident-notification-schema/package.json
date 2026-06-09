@@ -1,0 +1,79 @@
+{
+  "name": "@nisd2/incident-notification-schema",
+  "version": "0.3.0",
+  "description": "Open EU data format for NIS 2 Art. 23 incident notifications. Typed Zod schema anchored to the NIS 2 Directive (Directive (EU) 2022/2555), CIR 2024/2690, ENISA Technical Implementation Guidance, and the NIS Cooperation Group common templates (adopted 26 May 2026). Aligned with the W3C DPV NIS 2 vocabulary v2.3. Field-level overlap mappings to GDPR Art. 33, DORA Art. 19, CER Art. 15, eIDAS Art. 19. National portal mappings (BSI Meldeportal, ANSSI, NCSC-NL, ACN, etc.) live as downstream extension layers.",
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://github.com/NISD2/nis2-incident-notification-schema",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NISD2/nis2-incident-notification-schema.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NISD2/nis2-incident-notification-schema/issues"
+  },
+  "author": "Kardashev Catalyst UG (haftungsbeschränkt) <contact@nisd2.eu> (https://nisd2.eu)",
+  "keywords": [
+    "nis2",
+    "incident-notification",
+    "art-23",
+    "cir-2024-2690",
+    "enisa-tig",
+    "w3c-dpv",
+    "gdpr-art-33",
+    "dora-art-19",
+    "cer-art-15",
+    "eidas-art-19",
+    "compliance",
+    "cybersecurity",
+    "zod",
+    "eu"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "import": "./dist/schema.js"
+    },
+    "./data": {
+      "types": "./dist/data.d.ts",
+      "import": "./dist/data.js"
+    },
+    "./db": {
+      "types": "./dist/db/index.d.ts",
+      "import": "./dist/db/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "data",
+    "docs",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

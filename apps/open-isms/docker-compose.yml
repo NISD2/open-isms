@@ -1,0 +1,50 @@
+# Self-hostable open-isms stack: Postgres + the Next.js app.
+#
+# Quick start:
+#   1. cd apps/open-isms
+#   2. cp .env.example .env  (then set AUTH_SECRET via `openssl rand -base64 32`)
+#   3. docker compose up --build
+#   4. open http://localhost:3000
+#
+# Build context is `../..` because the Dockerfile copies workspace packages
+# from sibling directories.
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-open_isms}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "${POSTGRES_DB:-open_isms}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: ../..
+      dockerfile: apps/open-isms/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-open_isms}
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_URL: ${AUTH_URL:-http://localhost:3000}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      # NextAuth email provider — needed once auth pages are ported.
+      # Until then these can be left blank; the placeholder landing page
+      # doesn't reference them.
+      EMAIL_SERVER: ${EMAIL_SERVER:-}
+      EMAIL_FROM: ${EMAIL_FROM:-}
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres-data:

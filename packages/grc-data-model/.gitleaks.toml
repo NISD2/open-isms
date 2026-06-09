@@ -1,0 +1,13 @@
+# gitleaks config — extends the built-in default ruleset.
+# https://github.com/gitleaks/gitleaks
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Documentation examples and test fixtures"
+paths = [
+  '''REFERENCE\.md''',
+  '''README\.md''',
+  '''CHANGELOG\.md''',
+  '''test/.*''',
+]
