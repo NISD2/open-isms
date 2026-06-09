@@ -25,6 +25,9 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@nisd2/grc-data-model/frameworks": [
+        "../../packages/grc-data-model/src/frameworks/index.ts"
       ]
     }
   },

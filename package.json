@@ -4,8 +4,26 @@
   "private": true,
   "license": "AGPL-3.0-or-later",
   "type": "module",
+  "description": "Open-source NIS 2 / GRC ISMS toolkit. Schemas, framework data, and a reference Next.js app, all self-hostable.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NISD2/open-isms.git"
+  },
+  "homepage": "https://github.com/NISD2/open-isms#readme",
+  "bugs": "https://github.com/NISD2/open-isms/issues",
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "typecheck": "bun run --filter='*' typecheck",
+    "build": "bun run --filter='./packages/*' build",
+    "test": "bun test",
+    "release": "bun scripts/release.ts",
+    "audit": "bun scripts/audit-dep-graph.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.10",
+    "typescript": "^5.7.3"
+  }
 }

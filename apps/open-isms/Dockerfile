@@ -68,13 +68,20 @@ ENV NODE_OPTIONS=--max-old-space-size=4096
 
 RUN bun run --cwd apps/open-isms build
 
-# Bundle the migrate script with its deps (pg + pg-protocol + pg-pool +
-# pg-types etc.) so it's a single self-contained file at runtime.
-# Next's standalone tracer only walks routes, so this script's deps
-# aren't picked up automatically.
+# Bundle the migrate + seed scripts with their deps inline. Next's
+# standalone tracer only walks routes, so these scripts' deps (pg + the
+# grc-data-model framework tables) aren't picked up automatically.
+#
+# seed.mjs imports the framework definitions via relative paths to the
+# grc-data-model source (not its built dist/) — the .dockerignore strips
+# packages/*/dist from the context and we don't run tsup in the
+# container. bun build handles the TS source fine.
 RUN bun build --target=node --format=esm \
-    --outfile /tmp/migrate.mjs \
-    apps/open-isms/scripts/migrate.mjs
+      --outfile /tmp/migrate.mjs \
+      apps/open-isms/scripts/migrate.mjs && \
+    bun build --target=node --format=esm \
+      --outfile /tmp/seed.mjs \
+      apps/open-isms/scripts/seed.mjs
 
 # -----------------------------------------------------------------------------
 # Stage 3: runner
@@ -106,11 +113,12 @@ COPY --from=builder /app/packages/grc-data-model/drizzle ./packages/grc-data-mod
 COPY --from=builder /app/packages/isms-schema/drizzle ./packages/isms-schema/drizzle
 COPY --from=builder /app/apps/open-isms/drizzle ./apps/open-isms/drizzle
 
-# Runtime migrator — bundled in the builder stage so it carries pg + its
-# transitive deps inline. Reads the journals, applies pending migrations,
-# handles sentinel-based convergence for pre-existing schemas. See the
-# source at apps/open-isms/scripts/migrate.mjs for the algorithm.
+# Runtime migrator + seeder — bundled in the builder stage so they
+# carry pg + transitive deps inline. migrate.mjs reads journals and
+# applies pending migrations with sentinel-based convergence. seed.mjs
+# is idempotent: skips if the NIS 2 framework row already exists.
 COPY --from=builder /tmp/migrate.mjs ./apps/open-isms/scripts/migrate.mjs
+COPY --from=builder /tmp/seed.mjs ./apps/open-isms/scripts/seed.mjs
 
 EXPOSE 3000
 
@@ -118,6 +126,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
   CMD node -e "fetch('http://localhost:3000').then(r=>{if(!r.ok)throw 1}).catch(()=>process.exit(1))"
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
-# Migrate then start the server. If migrate fails, the container exits
-# and docker compose / orchestrator keeps the previous version running.
-CMD ["sh", "-c", "node apps/open-isms/scripts/migrate.mjs && exec node apps/open-isms/server.js"]
+# Migrate → seed → start. If either pre-flight step fails, the
+# container exits and the orchestrator keeps the previous version
+# running. seed.mjs is idempotent so re-runs are safe.
+CMD ["sh", "-c", "node apps/open-isms/scripts/migrate.mjs && node apps/open-isms/scripts/seed.mjs && exec node apps/open-isms/server.js"]

@@ -50,7 +50,18 @@ export const authConfig: NextAuthConfig = {
       sendVerificationRequest: async ({ identifier: email, url }) => {
         const emailServer = process.env.EMAIL_SERVER;
         if (!emailServer) {
-          // Dev fallback: log the magic link instead of emailing.
+          // Without a transport configured, the magic-link URL is a
+          // login bearer — logging it to stdout in production would
+          // leak credentials to anyone with container log access.
+          // Refuse to start the sign-in flow instead.
+          if (process.env.NODE_ENV === "production") {
+            throw new Error(
+              "EMAIL_SERVER is not set. Magic-link delivery must be " +
+                "configured before deploying — set EMAIL_SERVER in env and " +
+                "wire a transport in lib/auth.ts:sendVerificationRequest.",
+            );
+          }
+          // Dev fallback only: log the magic link instead of emailing.
           // Visible via `docker compose logs app` or `bun dev` output.
           console.log("\n=================================================");
           console.log("MAGIC LINK (dev: configure EMAIL_SERVER for SMTP)");
@@ -63,10 +74,9 @@ export const authConfig: NextAuthConfig = {
         // Examples:
         //   - nodemailer.createTransport(emailServer).sendMail({...})
         //   - new Resend(process.env.RESEND_API_KEY).emails.send({...})
-        // The dev fallback fires on every magic link until this is wired.
         throw new Error(
-          "EMAIL_SERVER is set but no SMTP transport is configured. " +
-            "Edit lib/auth.ts:sendVerificationRequest to wire your mailer.",
+          "EMAIL_SERVER is set but no SMTP transport is wired. " +
+            "Edit lib/auth.ts:sendVerificationRequest to send the link.",
         );
       },
     },

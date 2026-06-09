@@ -7,6 +7,15 @@ export interface FrameworkCategory {
   relevantRoles?: string[];
   grundschutzModule?: string;
   /**
+   * English default display name. Consumers with i18n (e.g. the
+   * nisd2.eu app) override this via their own message catalog keyed
+   * by category code; consumers without i18n (the OSS open-isms app)
+   * render this directly.
+   */
+  name?: string;
+  /** English default one-line description. Same i18n caveat as `name`. */
+  description?: string;
+  /**
    * URL to the framework's primary source of truth for this category.
    * - NIS 2: EUR-Lex / nis-2-directive.com link to the relevant Article.
    * - GDPR: EUR-Lex link to the relevant Article.
