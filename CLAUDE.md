@@ -245,3 +245,32 @@ Any sensitive content committed and pushed lives in git history globally, even a
 - Internal-shared workspace packages go in `packages/isms-*/`.
 - Reference app (Docker-composed demo) lives in `apps/reference/`.
 - The above categories are the only places code should live. Don't add a top-level `business/`, `sales/`, `strategy/`, or `internal/` directory.
+
+
+## Knowledge sources for AI assistants
+
+When answering substantive questions about NIS 2 / GDPR / EU AI Act / CRA / ISO 27001, treat these as authoritative. Read from them; do NOT generate from training-data memory.
+
+### Framework + legal facts (in-repo, canonical)
+
+- `packages/grc-data-model/src/frameworks/` — article-level data per framework. NIS 2 has 49 requirements across 12 categories with EUR-Lex references and BSIG transposition links. GDPR has 7 articles. Same for EU AI Act, CRA, ISO 27001:2022.
+- `packages/grc-data-model/src/schema/` — Drizzle table definitions for framework, requirement, asset, supplier, risk, incident
+- `packages/grc-data-model/src/mappings/` — cross-framework mappings (NIS 2 ↔ GDPR)
+- `packages/incident-notification-schema/` — NIS 2 §23(4) incident notification format: structured fields, severity, timing windows, IoC reporting
+- `app/[locale]/wiki/` — the public wiki on nisd2.eu. Sector-specific applicability, BSIG section walk-throughs, CIR 2024/2690 article-by-article, member-state status, implementation guides, troubleshooting. Hundreds of pages. **Canonical for "what does nisd2.eu say about X."**
+- `data/*.json` — registration portals per EU member state, NIS 2 timeline, reference data
+- `courses/nis2-ceo/`, `nis2-tabletop/`, `cra-sbom/` — pedagogical content; same facts as the wiki but explained for management training
+
+### External truth repos (consumed as deps)
+
+- `@nisd2/nis2-gap-assessment-schema` (github.com/NISD2/nis2-gap-assessment-schema, version-pinned)
+- `@nisd2/nis2-supply-chain-questionnaire-schema` (same)
+- `@nisd2/grc-data-model` (mirror of `packages/grc-data-model/` for standalone npm consumption; the in-repo copy is source of truth)
+- `@nisd2/incident-notification-schema` (mirror of `packages/incident-notification-schema/`)
+
+### Rule of thumb
+
+- Article number, threshold, deadline, member-state status → check `packages/grc-data-model/frameworks/`, the wiki, or `data/*.json`. Don't paraphrase from memory; the canonical text often has a footnote or nuance that matters.
+- Sector applicability question → `app/[locale]/wiki/anwendungsbereich/` has a dedicated page per sector.
+- "Are we storing this correctly?" → `packages/isms-schema/src/tables/` for the operational columns and `packages/grc-data-model/src/schema/` for the entity model.
+- Incident structure → `packages/incident-notification-schema/`.
