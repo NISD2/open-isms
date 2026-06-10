@@ -10,7 +10,7 @@ import { z } from "zod";
 import { eq, and, inArray } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { router, companyProcedure } from "../init";
-import { verifyAssessmentOwnership, enforceAssignment } from "../guards";
+import { verifyAssessmentOwnership, enforceAssignment, getSignerRole } from "../guards";
 import {
   companyCategoryIntake,
   companyAssessment,
@@ -25,6 +25,8 @@ import {
 } from "@/lib/compliance/category-schemas";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
+import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
+import type { Database } from "@/lib/db";
 
 export const intakeRouter = router({
   // --------------------------------------------------------------------------
@@ -215,10 +217,11 @@ export const intakeRouter = router({
           annualSecurityBudget: true,
         },
       });
+      const profileRecord: Record<string, unknown> = companyProfile ?? {};
 
       const signOffSnapshot: Record<string, unknown> = {
         answers: intake.answers,
-        companyProfile: companyProfile ?? {},
+        companyProfile: profileRecord,
         submittedAt: new Date().toISOString(),
       };
 
@@ -235,13 +238,24 @@ export const intakeRouter = router({
         })
         .where(eq(companyCategoryIntake.id, intake.id));
 
-      // Mark ALL mapped requirements as approved (sign-off = approval)
+      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+
+      // Mark ALL mapped requirements as approved (sign-off = approval).
+      // Audit B-2 (2026-06-10): passes a chainContext so each
+      // requirement that transitions to approved gets a
+      // sign_off_history entry with source: "intake".
       await deriveRequirementStatuses(
         ctx.db,
         input.assessmentId,
         input.categoryCode,
         intake.answers as Record<string, unknown>,
         "approved",
+        {
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+          signedOffRole,
+          companyProfile: profileRecord,
+        },
       );
 
       // Recalculate assessment progress
@@ -376,18 +390,33 @@ export const intakeRouter = router({
 /**
  * Derive requirement statuses from intake field answers.
  * For each answered field, find mapped requirement codes and update their status.
+ *
+ * Audit B-2 (2026-06-10): when `chainContext` is supplied and the target
+ * status is terminal (completed / approved), an entry is appended to
+ * `sign_off_history` per affected status row inside the same transaction.
+ * Without the chain, intake-driven sign-offs were the largest writer of
+ * `signOffSnapshot` rows with zero history entries, leaving
+ * verifySignOffChain a no-op for every requirement that landed via intake.
+ * Auto-derive calls from save / saveRequirementAnswers (targetStatus
+ * `in_progress`) intentionally don't pass a chainContext — those are
+ * draft transitions, not sign-offs.
  */
 async function deriveRequirementStatuses(
-  db: import("@/lib/db").Database,
+  db: Database,
   assessmentId: string,
   categoryCode: string,
   answers: Record<string, unknown>,
   targetStatus: "in_progress" | "completed" | "approved",
+  chainContext?: {
+    companyId: string;
+    userId: string;
+    signedOffRole: string;
+    companyProfile: Record<string, unknown>;
+  },
 ) {
   const mapping = CATEGORY_FIELD_MAPPING[categoryCode];
   if (!mapping) return;
 
-  // Collect all requirement codes that have answered fields
   const coveredCodes = new Set<string>();
   for (const [fieldKey, reqCodes] of Object.entries(mapping)) {
     const val = answers[fieldKey];
@@ -401,16 +430,15 @@ async function deriveRequirementStatuses(
 
   if (coveredCodes.size === 0) return;
 
-  // Find requirement IDs by code
   const reqs = await db.query.requirement.findMany({
     where: inArray(requirement.code, Array.from(coveredCodes)),
-    columns: { id: true, code: true },
+    columns: { id: true, code: true, templateVersion: true },
   });
 
   const reqIds = reqs.map((r) => r.id);
   if (reqIds.length === 0) return;
+  const reqById = new Map(reqs.map((r) => [r.id, r]));
 
-  // Get existing statuses for these requirements in this assessment
   const statuses = await db.query.companyRequirementStatus.findMany({
     where: and(
       eq(companyRequirementStatus.assessmentId, assessmentId),
@@ -418,30 +446,73 @@ async function deriveRequirementStatuses(
     ),
   });
 
+  const setsTerminal = targetStatus === "completed" || targetStatus === "approved";
   const now = new Date();
-  for (const status of statuses) {
-    // Never change not_applicable via form saves
-    if (status.status === "not_applicable") continue;
 
-    // If re-saving a completed/approved requirement, invalidate sign-off
-    const isReopen =
-      targetStatus === "in_progress" &&
-      (status.status === "completed" || status.status === "approved");
+  await db.transaction(async (tx) => {
+    for (const status of statuses) {
+      if (status.status === "not_applicable") continue;
 
-    await db
-      .update(companyRequirementStatus)
-      .set({
-        status: targetStatus,
-        ...(targetStatus === "completed" || targetStatus === "approved"
-          ? { completedAt: now, completedBy: null, signedOffAt: now }
-          : {}),
-        ...(isReopen
-          ? { signedOffBy: null, signedOffAt: null, signedOffRole: null, completedAt: null, completedBy: null }
-          : {}),
-        updatedAt: now,
-      })
-      .where(eq(companyRequirementStatus.id, status.id));
-  }
+      const isReopen =
+        targetStatus === "in_progress" &&
+        (status.status === "completed" || status.status === "approved");
+
+      // Build the update payload. When this call originates from
+      // intake.submit (chainContext supplied + terminal), also stamp
+      // signedOffBy and signedOffRole — previously these stayed null
+      // even though signedOffAt was set, so the sign-off row was
+      // unattributable and the chain entry would record a signer the
+      // status row didn't.
+      const terminalPatch =
+        setsTerminal && chainContext
+          ? {
+              completedAt: now,
+              completedBy: chainContext.userId,
+              signedOffAt: now,
+              signedOffBy: chainContext.userId,
+              signedOffRole: chainContext.signedOffRole,
+            }
+          : setsTerminal
+            ? { completedAt: now, completedBy: null, signedOffAt: now }
+            : {};
+
+      const reopenPatch = isReopen
+        ? {
+            signedOffBy: null,
+            signedOffAt: null,
+            signedOffRole: null,
+            completedAt: null,
+            completedBy: null,
+          }
+        : {};
+
+      await tx
+        .update(companyRequirementStatus)
+        .set({
+          status: targetStatus,
+          ...terminalPatch,
+          ...reopenPatch,
+          updatedAt: now,
+        })
+        .where(eq(companyRequirementStatus.id, status.id));
+
+      if (setsTerminal && chainContext) {
+        const req = reqById.get(status.requirementId);
+        if (!req) continue;
+        await recordSignOffChainEntry(tx as unknown as Database, {
+          companyId: chainContext.companyId,
+          statusId: status.id,
+          requirementId: status.requirementId,
+          signedOffBy: chainContext.userId,
+          signedOffRole: chainContext.signedOffRole,
+          source: "intake",
+          templateVersion: req.templateVersion,
+          companyProfile: chainContext.companyProfile,
+          data: { categoryCode, requirementCode: req.code },
+        });
+      }
+    }
+  });
 }
 
 async function recalculateProgress(
