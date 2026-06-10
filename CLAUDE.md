@@ -166,6 +166,24 @@ messages/              # i18n JSON files per namespace per locale
 6. **Company-scoped queries** — always filter by `ctx.companyId` in tRPC procedures
 7. **i18n all user-facing strings** — no hardcoded English in components
 
+## Voice & Copy Rules (shared with NIS2 private notebook)
+
+These apply to any user-facing copy in either repo: marketing pages, wiki, course content, i18n strings (this open-isms platform) AND LinkedIn posts, outreach drafts, sales scripts (NIS2 private notebook). Same rules, same standards. The platform's voice should be consistent across LinkedIn → marketing pages → wiki → in-app strings, so the same rules apply on both sides of the repo split.
+
+- **No emojis.** Audience is CISOs, lawyers, Geschäftsführer. Emojis undermine professional register.
+- **No em-dashes.** They read as AI-generated. Use periods, commas, colons, or parens.
+- **No fear-based marketing.** Don't lead with fines, personal-liability scare, breach loss numbers, insurance threat. Lead with debunking, clarification, observation, or helpful-tactical.
+- **No "no login" framing.** The platform requires sign-up. Use "Kostenlos" / "Open Source" / "Kein Lock-in" instead.
+- **No hyphenated German compounds.** Prefer single-word compounds (Hochrisikopflichten, Selbsteinstufungen) or restructured phrasing ("Anwendungen im Anhang III") over hyphen chains. Hyphen-heavy German reads as Denglish or AI-generated.
+- **No fake numbers.** Every threshold, deadline, fine, statistic is backed by a primary source.
+- **EU-wide English terminology as primary.** RoPA, DPA, DPIA, DPO, TOMs, and EU regulation article numbers. National transpositions (BSIG, BDSG, TDDDG, NIS2UmsuCG) appear as transposition examples, never primary citations.
+- **Mittelstand-operator register for German content.** Between consumer and specialist. Article numbers stay, surrounding language is plain. Test: a GmbH-Geschäftsführer skims and knows the next step.
+- **DE primary, EN secondary** for user-facing copy. NL follows EN. Always check translations side-by-side for tone and nuance.
+- **Factcheck against primary sources.** EUR-Lex, gesetze-im-internet, BSI, ENISA. Verify every article number, threshold, and quote before shipping.
+- **No Claude attribution on git commits.** Never add `Co-Authored-By: Claude` lines to any commit in either repo.
+
+If a copy choice fails one of these, fix it before shipping.
+
 ## Common Patterns
 
 ### Adding a new tRPC router
