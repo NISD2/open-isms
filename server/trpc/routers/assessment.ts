@@ -136,55 +136,8 @@ export const assessmentRouter = router({
       return updated;
     }),
 
-  deleteCompany: adminProcedure.mutation(async ({ ctx }) => {
-    const companyId = ctx.companyId;
-
-    const assessments = await ctx.db.query.companyAssessment.findMany({
-      where: eq(companyAssessment.companyId, companyId),
-    });
-    const assessmentIds = assessments.map((a) => a.id);
-
-    if (assessmentIds.length > 0) {
-      const statuses = await ctx.db.query.companyRequirementStatus.findMany({
-        where: inArray(companyRequirementStatus.assessmentId, assessmentIds),
-      });
-      const statusIds = statuses.map((s) => s.id);
-
-      if (statusIds.length > 0) {
-        await ctx.db
-          .delete(requirementAssignment)
-          .where(inArray(requirementAssignment.statusId, statusIds));
-        await ctx.db
-          .delete(evidence)
-          .where(inArray(evidence.requirementStatusId, statusIds));
-      }
-
-      await ctx.db
-        .delete(companyRequirementStatus)
-        .where(inArray(companyRequirementStatus.assessmentId, assessmentIds));
-
-      await ctx.db
-        .delete(categoryAssignment)
-        .where(inArray(categoryAssignment.assessmentId, assessmentIds));
-
-      await ctx.db
-        .delete(companyAssessment)
-        .where(eq(companyAssessment.companyId, companyId));
-    }
-
-    await ctx.db
-      .delete(auditLog)
-      .where(eq(auditLog.companyId, companyId));
-
-    await ctx.db
-      .update(user)
-      .set({ companyId: null, updatedAt: new Date() })
-      .where(eq(user.companyId, companyId));
-
-    await ctx.db.delete(company).where(eq(company.id, companyId));
-
-    return { deleted: true };
-  }),
+  // deleteCompany and bumpTemplateVersion moved to devRouter (build-gated).
+  // See server/trpc/routers/dev.ts. Audit B-1 / T-1 (2026-06-10).
 
   // ---------------------------------------------------------------------------
   // Assessment queries
@@ -830,74 +783,6 @@ export const assessmentRouter = router({
       });
 
       return { confirmed: updated.length };
-    }),
-
-  bumpTemplateVersion: adminProcedure
-    .input(z.object({ requirementIds: z.array(z.string().uuid()).min(1).max(500) }))
-    .mutation(async ({ ctx, input }) => {
-      // SECURITY: This procedure mutates GLOBAL `requirement` rows shared across
-      // every tenant and flips `companyRequirementStatus` rows for ALL companies.
-      // It is a tenant admin endpoint by ergonomics but a PLATFORM admin endpoint
-      // by effect. Until a proper platform-admin role exists, gate it to dev only.
-      // (Operators can still bump versions via a CLI / migration script in prod.)
-      if (process.env.NODE_ENV === "production") {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "Template version bumps must be performed via CLI in production.",
-        });
-      }
-      const reqs = await ctx.db
-        .select({
-          id: requirement.id,
-          code: requirement.code,
-          templateVersion: requirement.templateVersion,
-          categoryId: requirement.categoryId,
-        })
-        .from(requirement)
-        .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
-        .where(inArray(requirement.id, input.requirementIds));
-
-      if (reqs.length === 0) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "No matching requirements" });
-      }
-
-      const now = new Date();
-      let bumpedCount = 0;
-      let flippedCount = 0;
-
-      for (const req of reqs) {
-        const newVersion = req.templateVersion + 1;
-        await ctx.db
-          .update(requirement)
-          .set({ templateVersion: newVersion, updatedAt: now })
-          .where(eq(requirement.id, req.id));
-
-        const affected = await ctx.db
-          .update(companyRequirementStatus)
-          .set({ status: "needs_review", updatedAt: now })
-          .where(
-            and(
-              eq(companyRequirementStatus.requirementId, req.id),
-              sql`${companyRequirementStatus.status} IN ('completed', 'approved')`,
-              sql`COALESCE((${companyRequirementStatus.signOffSnapshot}->>'templateVersion')::int, 0) < ${newVersion}`,
-            ),
-          )
-          .returning({ id: companyRequirementStatus.id });
-
-        bumpedCount++;
-        flippedCount += affected.length;
-      }
-
-      logAudit({
-        companyId: ctx.companyId,
-        userId: ctx.userId,
-        action: "requirement.template_version_bumped",
-        entityType: "requirement",
-        entityId: reqs[0].id,
-        description: `Bumped template version on ${bumpedCount} requirements, ${flippedCount} statuses flipped to needs_review`,
-      });
-
-      return { bumped: bumpedCount, flipped: flippedCount };
     }),
 
   bulkSignOffCategory: companyProcedure

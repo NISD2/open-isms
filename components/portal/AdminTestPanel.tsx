@@ -22,7 +22,11 @@ export function AdminTestPanel() {
   const [open, setOpen] = useState(false);
   const [seeding, setSeeding] = useState(false);
 
-  const deleteMutation = trpc.assessment.deleteCompany.useMutation({
+  // dev.deleteCompany ships only in dev builds; `?.` for optional chaining
+  // mirrors the switchRole pattern below. In prod builds the panel itself
+  // doesn't render (NODE_ENV check at line 45), so the undefined case is
+  // unreachable at runtime.
+  const deleteMutation = trpc.dev?.deleteCompany.useMutation({
     onSuccess: () => {
       toast.success("Organization deleted");
       router.push("/organization");
@@ -138,11 +142,11 @@ export function AdminTestPanel() {
               variant="destructive"
               size="sm"
               className="w-full text-xs h-7"
-              disabled={deleteMutation.isPending}
-              onClick={() => deleteMutation.mutate()}
+              disabled={deleteMutation?.isPending}
+              onClick={() => deleteMutation?.mutate()}
             >
               <Trash2 className="mr-1.5 size-3" />
-              {deleteMutation.isPending ? "Deleting..." : "Delete Org"}
+              {deleteMutation?.isPending ? "Deleting..." : "Delete Org"}
             </Button>
           </div>
         )}
