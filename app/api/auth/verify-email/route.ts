@@ -93,17 +93,20 @@ export async function POST(request: Request) {
   // is single-use, but defensive), `updated` will be empty and we skip.
   if (updated.length > 0) {
     const userRow = updated[0]!;
+    const admins = [...getPlatformAdminEmails()];
     await Promise.all([
-      sendMail({
-        to: [...getPlatformAdminEmails()],
-        ...newUserSignupEmail({
-          userEmail: email,
-          userName: userRow.name,
-          provider: "credentials",
-        }),
-      }).catch((err) =>
-        console.error("[verify-email] Failed to send admin signup alert:", err),
-      ),
+      admins.length > 0
+        ? sendMail({
+            to: admins,
+            ...newUserSignupEmail({
+              userEmail: email,
+              userName: userRow.name,
+              provider: "credentials",
+            }),
+          }).catch((err) =>
+            console.error("[verify-email] Failed to send admin signup alert:", err),
+          )
+        : Promise.resolve(),
       sendWelcomeEmail({ name: userRow.name, email }).catch((err) =>
         console.error("[verify-email] Failed to send welcome email:", err),
       ),

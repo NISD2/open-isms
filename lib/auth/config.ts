@@ -216,11 +216,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         } else {
           // Truly new user — notify admins + welcome.
           // Awaited so serverless doesn't terminate before send.
+          const admins = [...getPlatformAdminEmails()];
           await Promise.all([
-            sendMail({
-              to: [...getPlatformAdminEmails()],
-              ...newUserSignupEmail({ userEmail: authUser.email, userName: newName, provider: account.provider }),
-            }).catch((err) => console.error("[auth] Failed to send admin signup alert:", err)),
+            admins.length > 0
+              ? sendMail({
+                  to: admins,
+                  ...newUserSignupEmail({ userEmail: authUser.email, userName: newName, provider: account.provider }),
+                }).catch((err) => console.error("[auth] Failed to send admin signup alert:", err))
+              : Promise.resolve(),
             sendWelcomeEmail({ name: newName, email: authUser.email })
               .catch((err) => console.error("[auth] Failed to send welcome email:", err)),
           ]);

@@ -1,47 +1,45 @@
 /node_modules
-.next/
 .dist
-.vercel
-
-# Match all .env variants (.env, .env.local, .env.production, .env.staging, etc.)
-# except the committed .env.example template
+# Match all .env variants (.env, .env.local, .env.vercel, .env.coolify,
+# .env.production, .env.staging, etc.) except the committed .env.example
 .env*
 !.env.example
-
-# Build cache
+.next/
 tsconfig.tsbuildinfo
-next-env.d.ts
-
-# Local Claude state
-.claude/
-
-# Local secret material (gitignored defensively; never committed)
 google-service-account.json
-*.pem
-*.key
-*.p12
-*.pfx
-**/credentials.json
-**/service-account*.json
-
-# Local eval / generation outputs
+.DS_Store
+next-env.d.ts
 eval-bsig-results.json
 eval-panel-results.json
 generated-guides.json
-
-# LaTeX build artifacts for PDF generation
+research/*.pdf
+public/downloads/*.pdf
 courses/**/pdf-book/*.aux
 courses/**/pdf-book/*.log
 courses/**/pdf-book/*.toc
 courses/**/pdf-book/*.out
 courses/**/pdf-book/*.ans
 
-# Workspace package per-package node_modules (Bun creates these for some scoped deps)
+# Local Claude state
+.claude/scheduled_tasks.lock
+
+.vercel
+
+# Business plan PDF build artifacts (regenerated via scripts/generate-business-plan-pdf.ts)
+business/plan/rendered/
+
+
+# Personal submission PDFs (BA GZ 04 contains AfA-Kundennummer)
+business/correspondence/ihk-submission/
+
+# Personal PDFs in correspondence (Eröffnungsbilanz, BA GZ forms with Kundennummer, etc.)
+business/correspondence/**/*.pdf
+
+# Meeting transcripts — private, not for version control
+meeting-transcripts/
+
+# Workspace package symlinks — bun creates per-package node_modules
 packages/*/node_modules
 apps/*/node_modules
 packages/*/tsconfig.tsbuildinfo
 apps/*/tsconfig.tsbuildinfo
-
-# OS
-.DS_Store
-Thumbs.db
