@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
-import { getToken } from "next-auth/jwt";
 import { routing } from "@/i18n/routing";
-import { env } from "@/lib/env";
 
 const handleI18n = createIntlMiddleware(routing);
 
@@ -38,19 +36,14 @@ const protectedPrefixes = [
   "/platform-admin",
 ];
 
-// Audit M-3 (2026-06-10): case-insensitive locale strip — the old
-// `/(de|en|nl)/` regex passed `/DE/dashboard` through unchanged and
-// relied on next-intl to redirect before the prefix check fired.
-const LOCALE_STRIP = /^\/(de|en|nl)(?=\/|$)/i;
-
 function isProtected(pathname: string): boolean {
-  const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
+  const stripped = pathname.replace(/^\/(de|en|nl)(?=\/|$)/, "") || "/";
   return protectedPrefixes.some(
     (p) => stripped === p || stripped.startsWith(p + "/")
   );
 }
 
-export async function proxy(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Skip middleware for API routes, .well-known, static metadata files, and internal tools
@@ -68,17 +61,11 @@ export async function proxy(request: NextRequest) {
   // Run i18n middleware (handles locale detection, redirects, rewrites)
   const response = handleI18n(request);
 
-  // Audit M-3 (2026-06-10): check auth via cryptographic JWT verification,
-  // not cookie presence. The previous cookie-check accepted any value at
-  // the proxy gate and relied on every protected page to call getSession()
-  // independently. The moment one future page forgets that call, the
-  // boundary leaks. getToken validates the JWT signature against
-  // AUTH_SECRET and returns null for missing / tampered / expired tokens.
+  // Check auth for protected routes only
   if (isProtected(pathname)) {
-    const token = await getToken({
-      req: request,
-      secret: env.AUTH_SECRET,
-    });
+    const token =
+      request.cookies.get("__Secure-authjs.session-token") ??
+      request.cookies.get("authjs.session-token");
 
     if (!token) {
       const signinUrl = new URL("/auth/signin", request.url);
@@ -88,7 +75,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // Pass locale-stripped pathname to server components
-  const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
+  const stripped = pathname.replace(/^\/(de|en|nl)(?=\/|$)/, "") || "/";
   response.headers.set("x-pathname", stripped);
 
   return response;
