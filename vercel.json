@@ -1,0 +1,13 @@
+{
+  "installCommand": "bun install --ignore-scripts",
+  "crons": [
+    {
+      "path": "/api/cron/deadlines",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/course-reminders",
+      "schedule": "0 7 * * *"
+    }
+  ]
+}

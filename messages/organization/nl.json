@@ -1,0 +1,120 @@
+{
+  "organization": {
+    "title": "Organisatie instellen",
+    "description": "Registreer uw organisatie om de compliance-beoordeling te starten.",
+    "editTitle": "Organisatie-instellingen",
+    "editDescription": "Werk uw organisatiegegevens bij.",
+    "formTitle": "Organisatiegegevens",
+    "name": "Naam organisatie",
+    "namePlaceholder": "Acme B.V.",
+    "sector": "NIS2-sector",
+    "sectorPlaceholder": "Selecteer sector...",
+    "entityType": "Entiteitsclassificatie",
+    "entityTypeHelp": "Zoals gedefinieerd in BSIG 2025 §28",
+    "entityTypes": {
+      "essential": "Essentiële entiteit",
+      "important": "Belangrijke entiteit",
+      "kritis": "KRITIS-operator"
+    },
+    "legalForm": "Rechtsvorm",
+    "legalFormPlaceholder": "bijv. B.V., N.V., V.O.F.",
+    "employees": "Aantal medewerkers",
+    "contactEmail": "E-mail compliance-contactpersoon",
+    "cisoName": "CISO / IT-beveiligingsfunctionaris",
+    "cisoNamePlaceholder": "Jan de Vries",
+    "cisoReportsTo": "CISO rapporteert aan",
+    "cisoReportsToPlaceholder": "bijv. CEO, Raad van Bestuur",
+    "bsiContactName": "BSI-contactpersoon",
+    "bsiContactNamePlaceholder": "Max Mustermann",
+    "bsiContactEmail": "BSI-contacte-mail",
+    "bsiContactPhone": "BSI-contacttelefoon",
+    "bsiRegistrationId": "BSI-registratie-ID",
+    "annualSecurityBudget": "Jaarlijks beveiligingsbudget (EUR)",
+    "primaryLocations": "Primaire locaties",
+    "primaryLocationsPlaceholder": "bijv. Amsterdam, Rotterdam",
+    "profileSection": "Beveiligingsprofiel",
+    "profileSectionDescription": "Deze velden worden gebruikt in meerdere NIS2-vereisten en vastgelegd in aftekenmomentopnamen.",
+    "submit": "Beoordeling starten",
+    "creating": "Uw organisatie instellen...",
+    "createError": "Aanmaken van organisatie mislukt. Probeer het opnieuw.",
+    "save": "Wijzigingen opslaan",
+    "saving": "Opslaan...",
+    "saved": "Wijzigingen succesvol opgeslagen.",
+    "saveError": "Opslaan van wijzigingen mislukt. Probeer het opnieuw.",
+    "sectors": {
+      "energy": "Energie",
+      "transport": "Transport",
+      "banking": "Bankwezen",
+      "financial_market": "Financiële marktinfrastructuur",
+      "health": "Gezondheidszorg",
+      "drinking_water": "Drinkwater",
+      "waste_water": "Afvalwater",
+      "digital_infrastructure": "Digitale infrastructuur",
+      "ict_service_management": "ICT-dienstverlening (B2B)",
+      "public_administration": "Openbaar bestuur",
+      "space": "Ruimtevaart",
+      "postal_courier": "Post- en koeriersdiensten",
+      "waste_management": "Afvalbeheer",
+      "chemicals": "Chemische industrie",
+      "food": "Voedselproductie en -distributie",
+      "manufacturing": "Maakindustrie",
+      "digital_providers": "Digitale aanbieders",
+      "research": "Onderzoek"
+    },
+    "teamRoles": {
+      "title": "Sleutelpersoneel",
+      "description": "U kunt teamleden nu uitnodigen of dit later doen via Instellingen. Elke persoon die u toevoegt wordt uitgenodigd en kan worden aangewezen als verantwoordelijke voor compliance-categorieën.",
+      "name": "Naam",
+      "email": "E-mail",
+      "role": "Rol",
+      "rolePlaceholder": "Selecteer rol...",
+      "addMember": "Teamlid toevoegen",
+      "removeMember": "Verwijderen",
+      "back": "Terug",
+      "skip": "Voorlopig overslaan",
+      "submit": "Doorgaan",
+      "roles": {
+        "ceo": {
+          "label": "CEO / Directeur",
+          "namePlaceholder": "Jan de Vries",
+          "emailPlaceholder": "ceo@bedrijf.nl"
+        },
+        "ciso": {
+          "label": "CISO / IT-beveiligingsfunctionaris",
+          "namePlaceholder": "Petra Jansen",
+          "emailPlaceholder": "ciso@bedrijf.nl"
+        },
+        "cto": {
+          "label": "CTO / Hoofd Engineering",
+          "namePlaceholder": "Alex Bakker",
+          "emailPlaceholder": "cto@bedrijf.nl"
+        },
+        "coo": {
+          "label": "COO / Operationeel directeur",
+          "namePlaceholder": "Sam Visser",
+          "emailPlaceholder": "coo@bedrijf.nl"
+        },
+        "cpo": {
+          "label": "CPO / Hoofd Inkoop",
+          "namePlaceholder": "Pat Smit",
+          "emailPlaceholder": "cpo@bedrijf.nl"
+        },
+        "hr_director": {
+          "label": "HR-directeur",
+          "namePlaceholder": "Chris Mulder",
+          "emailPlaceholder": "hr@bedrijf.nl"
+        },
+        "legal": {
+          "label": "Juridisch / Compliance-functionaris",
+          "namePlaceholder": "Morgan de Groot",
+          "emailPlaceholder": "legal@bedrijf.nl"
+        },
+        "dpo": {
+          "label": "Functionaris voor Gegevensbescherming",
+          "namePlaceholder": "Robin van Dijk",
+          "emailPlaceholder": "avg@bedrijf.nl"
+        }
+      }
+    }
+  }
+}

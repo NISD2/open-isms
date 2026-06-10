@@ -1,0 +1,36 @@
+{
+  "internalAudits": {
+    "title": "Internal Audits",
+    "description": "Internal audit schedule, execution, and findings. Required by NIS2 Art. 21 effectiveness assessment.",
+    "helpText": "Schedule and document internal audits of your cybersecurity measures. Record scope, findings, and corrective actions. NIS2 requires regular assessment of whether security measures are effective.",
+    "add": "Add Audit",
+    "edit": "Edit Audit",
+    "empty": "No internal audits planned yet. Schedule your first audit.",
+    "deleteConfirm": "Are you sure you want to delete this audit?",
+    "actions": "Actions",
+    "status": {
+      "planned": "Planned",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "fields": {
+      "title": "Title",
+      "auditArea": "Audit Area",
+      "scope": "Scope",
+      "status": "Status",
+      "scheduledDate": "Scheduled Date",
+      "completedAt": "Completed At",
+      "auditorName": "Auditor"
+    },
+    "fieldDescriptions": {
+      "title": "Name of this internal audit (e.g., 'Q2 Access Control Audit', 'Annual NIS2 Compliance Review').",
+      "auditArea": "Security domain or control area being audited (e.g., access control, incident response, supply chain).",
+      "scope": "Define the boundaries of this audit: which systems, processes, departments, or controls are included.",
+      "status": "Current audit status: planned, in progress, completed, or cancelled.",
+      "scheduledDate": "Date when this audit is planned to begin.",
+      "completedAt": "Date when all audit activities and the final report were completed.",
+      "auditorName": "Name of the internal auditor or audit team lead conducting this assessment."
+    }
+  }
+}

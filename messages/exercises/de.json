@@ -1,0 +1,44 @@
+{
+  "exercises": {
+    "title": "Übungen",
+    "description": "BCM/DR-Übungen und Incident-Response-Tests. Erforderlich nach NIS2 Art. 21(2)(c).",
+    "helpText": "Planen und dokumentieren Sie Business-Continuity- und Disaster-Recovery-Übungen. NIS2 verlangt regelmäßige Tests Ihrer Kontinuitätspläne. Erfassen Sie Übungstyp, Teilnehmer, Erkenntnisse und Folgemaßnahmen.",
+    "add": "Übung hinzufügen",
+    "edit": "Übung bearbeiten",
+    "empty": "Noch keine Übungen geplant. Planen Sie Ihre erste Übung.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diese Übung löschen möchten?",
+    "actions": "Aktionen",
+    "type": {
+      "tabletop": "Planspiel",
+      "technical": "Technisch",
+      "red_team": "Red Team",
+      "full_scale": "Vollübung"
+    },
+    "exerciseType": {
+      "tabletop": "Planspiel",
+      "technical": "Technisch",
+      "red_team": "Red Team",
+      "full_scale": "Vollübung"
+    },
+    "fields": {
+      "title": "Titel",
+      "exerciseType": "Übungstyp",
+      "domain": "Bereich",
+      "scheduledDate": "Geplantes Datum",
+      "completedAt": "Abgeschlossen am",
+      "scenarioDescription": "Szenario",
+      "facilitator": "Moderator",
+      "lessonsLearned": "Erkenntnisse"
+    },
+    "fieldDescriptions": {
+      "title": "Geben Sie eine aussagekräftige Bezeichnung für die Übung an (z. B. 'Ransomware-Planspiel Q2 2025').",
+      "exerciseType": "Wählen Sie den Übungstyp: Planspiel, Technisch, Red Team oder Vollübung.",
+      "domain": "Wählen Sie den Fachbereich, der durch diese Übung abgedeckt wird (z. B. BCM, Incident Response, DR).",
+      "scheduledDate": "Geplantes Datum für die Durchführung der Übung.",
+      "completedAt": "Datum und Uhrzeit, zu der die Übung tatsächlich abgeschlossen wurde.",
+      "scenarioDescription": "Beschreiben Sie das Übungsszenario im Detail: Ausgangslage, simulierte Bedrohung und erwartete Reaktion.",
+      "facilitator": "Name der Person, die die Übung moderiert und koordiniert hat.",
+      "lessonsLearned": "Dokumentieren Sie die wichtigsten Erkenntnisse und identifizierten Verbesserungspotenziale aus der Übung."
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Management Reviews",
+    "description": "Management oversight meetings and strategic decisions. Required by NIS2 Art. 20(1).",
+    "helpText": "Document management review meetings where leadership evaluates cybersecurity posture. NIS2 Art. 20 makes management personally responsible for approving and overseeing cybersecurity measures. Record attendees, topics discussed, and decisions made.",
+    "add": "Add Review",
+    "edit": "Edit Review",
+    "empty": "No management reviews recorded yet. Schedule your first review.",
+    "deleteConfirm": "Are you sure you want to delete this review?",
+    "actions": "Actions",
+    "fields": {
+      "title": "Title",
+      "reviewDate": "Review Date",
+      "decisions": "Decisions",
+      "actionItems": "Action Items",
+      "nextReviewDate": "Next Review Date"
+    },
+    "fieldDescriptions": {
+      "title": "Title of the management review meeting (e.g., 'Q1 2025 Cybersecurity Review').",
+      "reviewDate": "Date when the management review meeting took place.",
+      "decisions": "Document key decisions made by management regarding cybersecurity posture, resource allocation, and risk acceptance.",
+      "actionItems": "List specific follow-up actions assigned during the review, including responsible parties and deadlines.",
+      "nextReviewDate": "Date when the next management review is scheduled. NIS2 Art. 20 requires ongoing management oversight."
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "grcComparison": {
+    "meta": {
+      "title": "GRC / ISMS / NIS2 prijsvergelijking: 136 commerciële leveranciers gecontroleerd",
+      "description": "Op 17 mei 2026 hebben we de prijspagina's van 136 commerciële GRC-, ISMS- en NIS2-platforms bezocht. 103 daarvan vertellen je niet wat ze kosten zonder een demo-call. Hier is de hele lijst, sorteerbaar en filterbaar. Negen open-source alternatieven zijn bewust niet opgenomen."
+    },
+    "hero": {
+      "eyebrow": "Marktonderzoek · 17 mei 2026",
+      "title": "We hebben 136 commerciële GRC/ISMS-platforms onderzocht. 103 vertellen je niet wat ze kosten.",
+      "subtitle": "We hebben elke prijspagina woordelijk vastgelegd. Waar prijzen achter een demo-formulier verborgen zijn, schrijven we 'Demo-call vereist'. Geen schattingen, geen derde bronnen. Negen open-source alternatieven (verinice, CISO Assistant, Deming, ISMS Builder, Unicis CE, wijzelf en anderen) staan niet in deze lijst omdat ze je geen abonnement verkopen.",
+      "ctaPlatform": "Gratis starten",
+      "ctaMethodology": "Methodologie"
+    },
+    "stats": {
+      "totalLabel": "Leveranciers onderzocht",
+      "transparentLabel": "Openbare prijzen",
+      "partialLabel": "Alleen startprijs",
+      "gatedLabel": "Demo-call vereist",
+      "nis2Label": "NIS2 als framework",
+      "ossLabel": "Open source",
+      "countriesLabel": "Landen",
+      "lastUpdatedPrefix": "Per:"
+    },
+    "thesis": {
+      "title": "Waarom deze markt klaar is voor disruptie",
+      "body": "76% van deze 136 commerciële GRC/ISMS-leveranciers verbergt hun prijzen. De producten zijn formulieren, sjablonen en checklists bovenop een database. De marginale kosten per extra klant zijn bijna nul. De prijs niet. Hier zijn de bewijzen.",
+      "points": [
+        {
+          "title": "Vijfcijferige jaarcontracten voor een formulier",
+          "body": "Vanta, Drata, Secureframe, OneTrust, MetricStream, IBM OpenPages, ServiceNow GRC, Archer, Diligent — alle enterprise GRC-suites verbergen prijzen en vragen €30.000+/jaar voor een workflow-tool met templates."
+        },
+        {
+          "title": "Oost-EU-leveranciers zijn 10x goedkoper en transparant",
+          "body": "Copla (LT) verkoopt NIS2 voor €3.500/jaar als eigen SKU. NIS2 Manager (CZ) voor ~€980/maand. Conformio (HR) voor €145/maand. Zelfde productcategorie, andere prijsbeslissing."
+        },
+        {
+          "title": "OSS-concurrentie groeit uit Duitsland en Frankrijk",
+          "body": "ISMS Builder (DE, AGPL), CISO Assistant (FR, AGPLv3, 130+ frameworks), Little-ISMS-Helper (DACH), Deming (FR) — allemaal gratis self-hosted, allemaal NIS2 expliciet."
+        },
+        {
+          "title": "Marktconsolidatie versnelt",
+          "body": "AuditBoard → Optro. CONTECHNET → i-doit. DocSetMinder → Allgeier. 3rdRisk → Diligent. RISMA + Wired Relations + ComplyCloud → Cerivo. StandardFusion → Wolters Kluwer. Galvanize → Diligent. Tugboat → OneTrust. Archer → Cinven."
+        }
+      ]
+    },
+    "filters": {
+      "searchPlaceholder": "Leverancier zoeken…",
+      "tierLabel": "Prijsmodel",
+      "tierAll": "Alle",
+      "tierTransparent": "Transparant",
+      "tierPartial": "Gedeeltelijk",
+      "tierGated": "Demo-call",
+      "tierUnverifiable": "Niet te verifiëren",
+      "countryLabel": "Land",
+      "countryAll": "Alle landen",
+      "categoryLabel": "Categorie",
+      "categoryAll": "Alle categorieën",
+      "categoryIsms": "ISMS",
+      "categoryGrc": "GRC",
+      "categoryTprm": "Leveranciersrisico",
+      "categoryConsultancy": "Consultancy + SaaS",
+      "categoryAudit": "Audit",
+      "categoryRatings": "Cyber-ratings",
+      "categoryTemplate": "Template-shop",
+      "categoryAiGrc": "AI-GRC",
+      "categoryEndpoint": "Endpoint",
+      "categoryVuln": "Kwetsbaarheden",
+      "categoryCspm": "Cloud-security",
+      "categoryIam": "IAM/Insider",
+      "categoryTraining": "Awareness",
+      "categoryAsset": "Asset mgmt",
+      "categoryReporting": "Rapportage",
+      "categoryComms": "Veilige comms",
+      "nis2OnlyLabel": "Alleen NIS2-leveranciers",
+      "freeTierLabel": "Met gratis variant",
+      "ossLabel": "Alleen open source",
+      "resetButton": "Filters wissen"
+    },
+    "table": {
+      "name": "Leverancier",
+      "country": "Land",
+      "category": "Categorie",
+      "tier": "Prijs",
+      "entryPrice": "Instap",
+      "nis2": "NIS2",
+      "freeTier": "Gratis",
+      "source": "Bron",
+      "noResults": "Geen leveranciers gevonden. Wis de filters.",
+      "tierBadgeTransparent": "Transparant",
+      "tierBadgePartial": "Gedeeltelijk",
+      "tierBadgeGated": "Demo-call",
+      "tierBadgeUnverifiable": "Niet te verifiëren",
+      "nis2Yes": "Ja",
+      "nis2No": "Nee",
+      "freeTierNone": "—",
+      "freeTierTrial": "Trial",
+      "freeTierFreemium": "Free",
+      "freeTierOss": "OSS",
+      "viewVendorPricing": "Prijspagina openen",
+      "lastVerified": "Gecontroleerd",
+      "dataExport": "Data-export",
+      "dataExportFullOpen": "Volledig open",
+      "dataExportPartial": "Gedeeltelijk",
+      "dataExportReportOnly": "Alleen rapporten",
+      "dataExportNone": "Niets gedocumenteerd",
+      "dataExportUnknown": "—"
+    },
+    "methodology": {
+      "title": "Methodologie",
+      "verified": "Gecontroleerd op",
+      "rules": [
+        "We hebben elke prijspagina handmatig bezocht.",
+        "Prijzen zijn woordelijk overgenomen van de website van de leverancier.",
+        "Geen extrapolatie uit G2, Capterra, blogs van derden of LinkedIn.",
+        "Waar prijzen achter een demo-formulier liggen: 'Demo-call vereist'.",
+        "Waar prijzen alleen als 'vanaf €X' worden vermeld: 'Gedeeltelijk transparant'.",
+        "Driemaandelijkse heraudit. Leveranciers kunnen correcties indienen."
+      ],
+      "correctionsTitle": "Correctie indienen",
+      "correctionsBody": "Zijn onze gegevens over jouw product onjuist? Mail simon@nisd2.eu met de URL van je prijspagina. We werken binnen 48 uur bij en houden een wijzigingslog bij."
+    },
+    "cta": {
+      "title": "Gratis + Open Source + geen lock-in",
+      "body": "We verkopen geen NIS2-compliance. We maken het toegankelijk. Gratis, open source, geen verkoopteam dat je belt.",
+      "button": "Platform starten"
+    }
+  }
+}

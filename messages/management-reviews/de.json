@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Management-Reviews",
+    "description": "Management-Überprüfungen und strategische Entscheidungen. Erforderlich nach NIS2 Art. 20(1).",
+    "helpText": "Dokumentieren Sie Management-Review-Sitzungen, in denen die Geschäftsleitung die Cybersicherheitslage bewertet. NIS2 Art. 20 macht das Management persönlich verantwortlich für die Genehmigung und Überwachung von Cybersicherheitsmaßnahmen. Erfassen Sie Teilnehmer, besprochene Themen und getroffene Entscheidungen.",
+    "add": "Review hinzufügen",
+    "edit": "Review bearbeiten",
+    "empty": "Noch keine Management-Reviews erfasst. Planen Sie Ihr erstes Review.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie dieses Review löschen möchten?",
+    "actions": "Aktionen",
+    "fields": {
+      "title": "Titel",
+      "reviewDate": "Reviewdatum",
+      "decisions": "Entscheidungen",
+      "actionItems": "Maßnahmen",
+      "nextReviewDate": "Nächstes Reviewdatum"
+    },
+    "fieldDescriptions": {
+      "title": "Geben Sie eine Bezeichnung für das Review an (z. B. 'Quartals-Management-Review Q3 2025').",
+      "reviewDate": "Datum, an dem das Management-Review stattgefunden hat.",
+      "decisions": "Dokumentieren Sie alle strategischen Entscheidungen, die von der Geschäftsleitung getroffen wurden.",
+      "actionItems": "Listen Sie die beschlossenen Maßnahmen mit Verantwortlichen und Fristen auf.",
+      "nextReviewDate": "Datum, an dem das nächste Management-Review planmäßig stattfinden soll."
+    }
+  }
+}

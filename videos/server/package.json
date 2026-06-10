@@ -1,0 +1,24 @@
+{
+  "name": "videos-server",
+  "private": true,
+  "scripts": {
+    "start": "bun run index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "hono": "^4.7.0",
+    "drizzle-orm": "^0.38.3",
+    "postgres": "^3.4.5",
+    "drizzle-zod": "^0.7.0",
+    "zod": "^4.0.0",
+    "ai": "^6.0.0",
+    "@ai-sdk/xai": "^3.0.0",
+    "@remotion/install-whisper-cpp": "4.0.422"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.30.4",
+    "@types/bun": "latest",
+    "typescript": "5.9.3"
+  }
+}

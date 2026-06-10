@@ -1,0 +1,120 @@
+{
+  "organization": {
+    "title": "Organization Setup",
+    "description": "Register your organization to start the compliance assessment.",
+    "editTitle": "Organization Settings",
+    "editDescription": "Update your organization details.",
+    "formTitle": "Organization Details",
+    "name": "Organization Name",
+    "namePlaceholder": "Acme GmbH",
+    "sector": "NIS2 Sector",
+    "sectorPlaceholder": "Select sector...",
+    "entityType": "Entity Classification",
+    "entityTypeHelp": "As defined in BSIG 2025 §28",
+    "entityTypes": {
+      "essential": "Essential Entity",
+      "important": "Important Entity",
+      "kritis": "KRITIS Operator"
+    },
+    "legalForm": "Legal Form",
+    "legalFormPlaceholder": "e.g. GmbH, AG, KG",
+    "employees": "Employee Count",
+    "contactEmail": "Compliance Contact Email",
+    "cisoName": "CISO / IT Security Officer",
+    "cisoNamePlaceholder": "Jane Smith",
+    "cisoReportsTo": "CISO Reports To",
+    "cisoReportsToPlaceholder": "e.g. CEO, Board of Directors",
+    "bsiContactName": "BSI Contact Person",
+    "bsiContactNamePlaceholder": "Max Mustermann",
+    "bsiContactEmail": "BSI Contact Email",
+    "bsiContactPhone": "BSI Contact Phone",
+    "bsiRegistrationId": "BSI Registration ID",
+    "annualSecurityBudget": "Annual Security Budget (EUR)",
+    "primaryLocations": "Primary Locations",
+    "primaryLocationsPlaceholder": "e.g. Berlin, Munich",
+    "profileSection": "Security Profile",
+    "profileSectionDescription": "These fields are referenced across multiple NIS2 requirements and captured in sign-off snapshots.",
+    "submit": "Start Assessment",
+    "creating": "Setting up your organization...",
+    "createError": "Failed to create organization. Please try again.",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Changes saved successfully.",
+    "saveError": "Failed to save changes. Please try again.",
+    "sectors": {
+      "energy": "Energy",
+      "transport": "Transport",
+      "banking": "Banking",
+      "financial_market": "Financial Market Infrastructure",
+      "health": "Health",
+      "drinking_water": "Drinking Water",
+      "waste_water": "Waste Water",
+      "digital_infrastructure": "Digital Infrastructure",
+      "ict_service_management": "ICT Service Management (B2B)",
+      "public_administration": "Public Administration",
+      "space": "Space",
+      "postal_courier": "Postal & Courier Services",
+      "waste_management": "Waste Management",
+      "chemicals": "Chemicals",
+      "food": "Food Production & Distribution",
+      "manufacturing": "Manufacturing",
+      "digital_providers": "Digital Providers",
+      "research": "Research"
+    },
+    "teamRoles": {
+      "title": "Key Personnel",
+      "description": "You can invite team members now or do it later from Settings. Each person you add will be invited and can be assigned as owner for compliance categories.",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "rolePlaceholder": "Select role...",
+      "addMember": "Add Team Member",
+      "removeMember": "Remove",
+      "back": "Back",
+      "skip": "Skip for Now",
+      "submit": "Continue",
+      "roles": {
+        "ceo": {
+          "label": "CEO / Managing Director",
+          "namePlaceholder": "Jane Doe",
+          "emailPlaceholder": "ceo@company.com"
+        },
+        "ciso": {
+          "label": "CISO / IT Security Officer",
+          "namePlaceholder": "John Smith",
+          "emailPlaceholder": "ciso@company.com"
+        },
+        "cto": {
+          "label": "CTO / Head of Engineering",
+          "namePlaceholder": "Alex Johnson",
+          "emailPlaceholder": "cto@company.com"
+        },
+        "coo": {
+          "label": "COO / Operations Director",
+          "namePlaceholder": "Sam Williams",
+          "emailPlaceholder": "coo@company.com"
+        },
+        "cpo": {
+          "label": "CPO / Procurement Lead",
+          "namePlaceholder": "Pat Taylor",
+          "emailPlaceholder": "cpo@company.com"
+        },
+        "hr_director": {
+          "label": "HR Director",
+          "namePlaceholder": "Chris Miller",
+          "emailPlaceholder": "hr@company.com"
+        },
+        "legal": {
+          "label": "Legal / Compliance Officer",
+          "namePlaceholder": "Morgan Davis",
+          "emailPlaceholder": "legal@company.com"
+        },
+        "dpo": {
+          "label": "Data Protection Officer",
+          "namePlaceholder": "Robin Garcia",
+          "emailPlaceholder": "dpo@company.com"
+        }
+      }
+    }
+  }
+}

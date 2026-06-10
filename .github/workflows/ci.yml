@@ -1,28 +1,33 @@
 name: CI
 
 on:
-  pull_request:
   push:
     branches: [main]
-
-permissions:
-  contents: read
-
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  pull_request:
+    branches: [main]
 
 jobs:
-  check:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
-      - run: bun install --frozen-lockfile
+      - run: bun install
+
+      - run: bun run test
+        working-directory: packages/grc-data-model
+
       - run: bun run typecheck
+
       - run: bun run build
-      - run: bun test
+        env:
+          SKIP_ENV_VALIDATION: "1"
+          RESEND_API_KEY: "re_dummy_for_ci_build"
+          DATABASE_URL: "postgres://dummy:dummy@localhost:5432/dummy"
+          NEXTAUTH_SECRET: "dummy_for_ci_build"
+          NEXTAUTH_URL: "http://localhost:3026"

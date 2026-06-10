@@ -1,0 +1,845 @@
+{
+  "entries": [
+    {
+      "id": "2026-06-01-content-eu-tracker-and-fact-check",
+      "date": "2026-06-01",
+      "category": "content",
+      "titleDe": "EU-Umsetzungstracker, 10 Laenderseiten, NIS 2 vs DSGVO im CEO-Kurs",
+      "titleEn": "EU implementation tracker, 10 country pages, NIS 2 vs GDPR in the CEO course",
+      "bodyDe": "Mehrere zusammenhaengende Aenderungen: zehn neue Vertiefungen pro Land (IT, ES, BE, SE, FI, DK, IE, PT, PL, CZ) und ein 27-Laender-EU-Umsetzungstracker unter /wiki/zeit-und-status. Fakten gegen Primaerquellen abgeglichen (retsinformation.dk, finlex.fi, ISAP Sejm, NÚKIB, samsik.dk) und Datenkorrekturen ueber Registrierungsportale und Anwendbarkeitspruefung ausgerollt. Zwei neue Grundlagenseiten (NIS 2 in fuenf Minuten fuer die Geschaeftsleitung, NIS 2 vs NIS 1) und ein neuer Abschnitt Datenschutz vs Datensicherheit im CEO-Kurs (Lektion 1.1) plus paralleler Meldetakt nach Artikel 33 DSGVO in Lektion 3.9. Wiki-Hub neu gestaltet, Wiki-Layout an die Navigationsbreite angeglichen, Suche zeigt keine geplanten Seiten mehr.",
+      "bodyEn": "Several related changes: ten new per-country briefings (IT, ES, BE, SE, FI, DK, IE, PT, PL, CZ) and a 27-country EU implementation tracker under /wiki/zeit-und-status. Facts verified against primary sources (retsinformation.dk, finlex.fi, ISAP Sejm, NÚKIB, samsik.dk) and data corrections propagated through registration portals and the applicability check. Two new fundamentals pages (NIS 2 in five minutes for the management body, NIS 2 vs NIS 1) and a new Datenschutz-vs-Datensicherheit section in the CEO course (Lesson 1.1) plus parallel Article 33 GDPR reporting clock in Lesson 3.9. Wiki hub redesigned, wiki layout widened to match the navbar, search no longer shows scheduled-but-not-yet-live pages.",
+      "links": [
+        {
+          "labelDe": "Tracker",
+          "labelEn": "Tracker",
+          "href": "/wiki/zeit-und-status/nis2-tracker-eu"
+        },
+        {
+          "labelDe": "CEO-Kurs",
+          "labelEn": "CEO course",
+          "href": "/training/courses/nis2-ceo"
+        },
+        {
+          "labelDe": "Anwendbarkeitspruefung",
+          "labelEn": "Applicability check",
+          "href": "/applicability"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-28-regulatory-nis360-kritisv",
+      "date": "2026-05-28",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: ENISA NIS360 2026 und neuer KRITIS-Verordnungsentwurf",
+      "titleEn": "Timeline: ENISA NIS360 2026 and new KRITIS-Verordnung draft",
+      "bodyDe": "Zwei neue Ereignisse in der NIS-2-Zeitleiste: ENISA hat am 28.05.2026 die dritte Ausgabe des NIS360-Berichts zur Reife- und Kritikalitaetsbewertung aller Annex-I-Sektoren veroeffentlicht. Acht Sektoren liegen in der Risikozone (u. a. Gesundheit, Schifffahrt, oeffentliche Verwaltung). Zusaetzlich legte das BMI am 26.05.2026 den Referentenentwurf der neuen Verordnung zur Bestimmung kritischer Anlagen vor (Konsultationsfrist 16.06.2026).",
+      "bodyEn": "Two new events on the NIS 2 timeline. ENISA published the third NIS360 report on 28 May 2026 assessing maturity and criticality across all Annex I sectors; eight sectors sit in the risk zone (including health, maritime, public administration). On 26 May 2026 the German Interior Ministry released the referral draft of the new Verordnung zur Bestimmung kritischer Anlagen (consultation deadline 16 June 2026).",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/zeitleiste"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-28-product-supplier-questionnaire-public",
+      "date": "2026-05-28",
+      "category": "product",
+      "titleDe": "Lieferanten-Fragebogen als oeffentliche Seite mit PDF/DOCX-Download",
+      "titleEn": "Supplier questionnaire as public page with PDF/DOCX download",
+      "bodyDe": "Der NIS-2-Lieferantenfragebogen ist jetzt als oeffentliche Seite unter /nis2-lieferanten-fragebogen verfuegbar. Er laesst sich als PDF oder DOCX herunterladen und an Lieferanten weiterleiten, ohne dass eine Anmeldung noetig ist. Ergaenzt die Lieferketten-Inhaltsseite und das eingeloggte Lieferantenportal.",
+      "bodyEn": "The NIS 2 supplier questionnaire is now available as a public page at /nis2-lieferanten-fragebogen. It can be downloaded as PDF or DOCX and forwarded to suppliers with no sign-in required. Complements the supply-chain content page and the authenticated supplier portal.",
+      "links": [
+        {
+          "labelDe": "Fragebogen",
+          "labelEn": "Questionnaire",
+          "href": "/nis2-lieferanten-fragebogen"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-28-product-auth-disposable-block",
+      "date": "2026-05-28",
+      "category": "product",
+      "titleDe": "Anmeldung: bekannte Wegwerf-E-Mail-Domains werden blockiert",
+      "titleEn": "Sign-up: known disposable-email domains are blocked",
+      "bodyDe": "Registrierungen mit bekannten Wegwerf-E-Mail-Domains werden bei der Anmeldung still abgelehnt. Die Domain-Liste wird aus einer oeffentlichen Quelle gepflegt; ergaenzend gibt es eine lokale Override-Datei fuer Faelle, die die externe Liste noch nicht erfasst. Massnahme zur Sauberkeit der Nutzerbasis, keine Auswirkung auf bestehende Konten.",
+      "bodyEn": "Sign-ups using known disposable-email domains are silently rejected. The domain list is maintained from a public source, with a local override file for cases the external list does not yet cover. Cleans up the user base; existing accounts are unaffected.",
+      "links": [
+        {
+          "labelDe": "Anmeldung",
+          "labelEn": "Sign in",
+          "href": "/auth/signin"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-28-content-info-pages-factcheck",
+      "date": "2026-05-28",
+      "category": "content",
+      "titleDe": "Info-Seiten: Faktencheck und stilistische Bereinigung",
+      "titleEn": "Info pages: fact-check pass and stylistic cleanup",
+      "bodyDe": "Inhaltliche Korrekturen auf den oeffentlichen Info-Seiten nach einem Footer-Faktencheck und eine durchgehende Em-Dash-Bereinigung in den DE- und EN-Texten. Reine Lesbarkeits- und Genauigkeitsarbeit, keine neuen Aussagen.",
+      "bodyEn": "Factual corrections across the public info pages following a footer fact-check, plus a clean-up of em-dashes across the DE and EN copy. Pure readability and accuracy work; no new claims.",
+      "links": []
+    },
+    {
+      "id": "2026-05-25-regulatory-timeline-refresh",
+      "date": "2026-05-25",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste und nationale Registrierungsportale aktualisiert",
+      "titleEn": "Timeline and national registration portals refreshed",
+      "bodyDe": "Aktualisierung der Eintraege fuer die niederlaendische Cyberbeveiligingswet (Eerste Kamer-Phase), das luxemburgische NIS-2-Gesetz vom 5. Mai 2026 und die Verweisung von 7 Mitgliedstaaten an den EuGH wegen fehlender CER-Umsetzung. Portalliste auf den jeweils verifizierten Stand gebracht.",
+      "bodyEn": "Updated entries for the Dutch Cyberbeveiligingswet (Eerste Kamer phase), Luxembourg's NIS 2 Act of 5 May 2026, and the Commission's CJEU referral of 7 member states for failure to transpose the CER Directive. National portal list brought up to verified state.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/zeitleiste"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-25-product-pricing-in-navbar",
+      "date": "2026-05-25",
+      "category": "product",
+      "titleDe": "Preisseite in der oeffentlichen Navigation",
+      "titleEn": "Pricing surfaced in the public navbar",
+      "bodyDe": "Die Preisseite ist jetzt direkt aus der oeffentlichen Navigationsleiste erreichbar, nachdem sie zuvor nur ueber Footer und interne Links verlinkt war.",
+      "bodyEn": "The pricing page is now reachable directly from the public navbar; previously it was only linked from the footer and internal pages.",
+      "links": [
+        {
+          "labelDe": "Preise",
+          "labelEn": "Pricing",
+          "href": "/pricing"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-23-product-pricing-free-sovereign",
+      "date": "2026-05-23",
+      "category": "product",
+      "titleDe": "Preise: Kostenlos + 10k einmalig (Sovereign)",
+      "titleEn": "Pricing: Free + EUR 10k lifetime sovereign tier",
+      "bodyDe": "Die Preisseite ist live. Zwei Optionen: die Plattform bleibt kostenlos und Open Source, und es gibt einen einmaligen Sovereign-Tarif zu 10.000 EUR für Organisationen, die eine lebenslange selbst-gehostete Lizenz mit Source-Übergabe brauchen. Vergleichstabellen und künstliche Stufen wurden bewusst weggelassen.",
+      "bodyEn": "The pricing page is live. Two options: the platform stays free and open source, plus a one-off EUR 10k lifetime sovereign tier for organisations that need a self-hosted licence with source handover. No artificial tier ladders or comparison-table padding.",
+      "links": [
+        {
+          "labelDe": "Preise",
+          "labelEn": "Pricing",
+          "href": "/pricing"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-22-product-portal-ui-polish",
+      "date": "2026-05-22",
+      "category": "product",
+      "titleDe": "Portal-UI: Seitensheets, sticky Header, Politur",
+      "titleEn": "Portal UI: side sheets, sticky header, polish",
+      "bodyDe": "Im eingeloggten Portal sind Routinedialoge (Risiko-Skala, Asset-Verknüpfungen, Lieferantenanforderung) jetzt Seitensheets statt modaler Fenster. Header bleiben beim Scrollen sichtbar, Karten und Tabellen haben dezente Schatten und Bewegung, Formulare wurden geschliffen. Ein Bug, der in Breadcrumbs den literalen [categorySlug] zeigte, ist behoben.",
+      "bodyEn": "Inside the portal, routine dialogs (risk scale, asset linking, supplier requests) are now side sheets instead of modals. Page headers stick on scroll, cards and tables have subtle shadow and motion, and forms have been polished. A bug that exposed the literal [categorySlug] in breadcrumbs is fixed."
+    },
+    {
+      "id": "2026-05-22-compliance-ceo-course-cta",
+      "date": "2026-05-22",
+      "category": "compliance",
+      "titleDe": "CEO-Kurs als CTA auf Management-Schulungspflichten verlinkt",
+      "titleEn": "CEO course linked as CTA on management training requirements",
+      "bodyDe": "Auf Compliance-Anforderungen, die eine Geschäftsleitungs-Schulung verlangen (z. B. §38(3) BSIG, NIS 2 Art 20), erscheint jetzt ein direkter Verweis auf den kostenlosen CEO-Kurs als sofort verfügbare Lösung.",
+      "bodyEn": "Compliance requirements that mandate management training (e.g. §38(3) BSIG, NIS 2 Art 20) now surface a direct CTA to the free CEO course as an immediately available solution.",
+      "links": [
+        {
+          "labelDe": "Zum Kurs",
+          "labelEn": "Open course",
+          "href": "/training/nis2-ceo"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-21-product-trust-hub",
+      "date": "2026-05-21",
+      "category": "product",
+      "titleDe": "Neue Vertrauensseiten: /vertrauen, /sicherheit, /status, /subprozessoren",
+      "titleEn": "New trust pages: /vertrauen, /sicherheit, /status, /subprozessoren",
+      "bodyDe": "Vier neue öffentliche Seiten geben Auskunft über Sicherheitsposture, Systemstatus, eingesetzte Unterauftragsverarbeiter und das Vertrauensmodell der Plattform. Die Status-Seite verzichtet bewusst auf erfundene Uptime-Zahlen und beschreibt stattdessen die tatsächliche Betriebsrealität. Zusätzlich wurde eine security.txt unter /.well-known/security.txt hinterlegt.",
+      "bodyEn": "Four new public pages document security posture, system status, sub-processors, and the platform's trust model. The status page intentionally avoids fabricated uptime numbers and instead describes the actual operating reality. A security.txt is now served under /.well-known/security.txt.",
+      "links": [
+        {
+          "labelDe": "Vertrauen",
+          "labelEn": "Trust",
+          "href": "/vertrauen"
+        },
+        {
+          "labelDe": "Sicherheit",
+          "labelEn": "Security",
+          "href": "/sicherheit"
+        },
+        {
+          "labelDe": "Status",
+          "labelEn": "Status",
+          "href": "/status"
+        },
+        {
+          "labelDe": "Unterauftragsverarbeiter",
+          "labelEn": "Sub-processors",
+          "href": "/subprozessoren"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-21-product-iso27001-grc-data-model",
+      "date": "2026-05-21",
+      "category": "product",
+      "titleDe": "ISO 27001 im Open-Source-Datenmodell @nisd2/grc-data-model",
+      "titleEn": "ISO 27001 added to the open-source @nisd2/grc-data-model",
+      "bodyDe": "Das öffentliche GRC-Datenmodell-Paket enthält jetzt die sechs verpflichtenden ISMS-Klauseln (4-10) und Annex A in Form strukturierter Anforderungen, dazu sieben Erfüllungs-Paare zu NIS 2 und GDPR. Damit kann das Modell als gemeinsame Grundlage für Mehr-Framework-Compliance dienen.",
+      "bodyEn": "The public GRC data-model package now includes the six mandatory ISMS clauses (4-10) and Annex A as structured requirements, plus seven satisfaction pairs against NIS 2 and GDPR. The model can now serve as a shared substrate for multi-framework compliance.",
+      "links": [
+        {
+          "labelDe": "GitHub",
+          "labelEn": "GitHub",
+          "href": "https://github.com/NISD2/grc-data-model"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-20-regulatory-ai-act-bundeslagebild",
+      "date": "2026-05-20",
+      "category": "regulatory",
+      "titleDe": "AI-Act-Art-6-Leitlinien (Entwurf) und BKA-Lagebild Cybercrime 2025 in der Timeline",
+      "titleEn": "AI Act Article 6 draft Guidelines and BKA cybercrime report added to timeline",
+      "bodyDe": "Zwei neue Einträge in der Regulierungs-Timeline. Am 19. Mai 2026 hat die EU-Kommission den Entwurf der Leitlinien zur Hochrisiko-Einstufung nach Art 6 KI-Verordnung veröffentlicht; die Konsultation läuft bis 23. Juni 2026, und die Leitlinien klären u.a., dass die Hochrisiko-Einstufung für Kritische Infrastrukturen über eine CER-Benennung (Richtlinie 2022/2557) ausgelöst wird, nicht über den NIS-2-Status. Ebenfalls aufgenommen wurde das BMI/BKA-Bundeslagebild Cybercrime 2025 vom 12. Mai 2026 mit rund 335.000 Fällen und 202,4 Mrd. Euro Schaden als politische Kulisse für die einsetzende NIS-2-Prüfphase.",
+      "bodyEn": "Two new entries in the regulatory timeline. On 19 May 2026 the European Commission published its draft Guidelines on the classification of high-risk AI systems under Article 6 of the AI Act; consultation runs until 23 June 2026, and the guidelines clarify that critical-infrastructure high-risk classification is triggered by a CER (Directive 2022/2557) designation, not by NIS 2 essential-entity status. The BMI/BKA Bundeslagebild Cybercrime 2025 from 12 May 2026 was also added (about 335,000 cases and EUR 202.4 billion in economic damage), providing the political backdrop for the BSI's emerging NIS 2 audit phase.",
+      "links": [
+        {
+          "labelDe": "Timeline",
+          "labelEn": "Timeline",
+          "href": "/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-19-regulatory-timeline-three-updates",
+      "date": "2026-05-19",
+      "category": "regulatory",
+      "titleDe": "Drei Ergänzungen der Regulierungs-Timeline (Mai 2026)",
+      "titleEn": "Three regulatory timeline additions (May 2026)",
+      "bodyDe": "Drei neue Einträge in der Regulierungs-Timeline. Am 13. Mai 2026 wurde die BSI–Mecklenburg-Vorpommern-Kooperationsvereinbarung aufgenommen — damit kooperiert das BSI mit zwölf Bundesländern. Die BSI-Handreichung v1.0 zur Geschäftsleitungs-Schulung nach §38(3) BSIG (veröffentlicht 17. April 2026) wurde nachgepflegt; sie definiert die Erwartungen der Aufsicht an Schulungsorganisation, Inhalte und Selbst-Check. Am 19. Mai 2026 hat der niederländische Senat (Eerste Kamer) die schriftliche Inbreng-Phase zur Cyberbeveiligingswet eröffnet.",
+      "bodyEn": "Three new entries in the regulatory timeline. On 13 May 2026 the BSI–Mecklenburg-Vorpommern cybersecurity cooperation was added (the BSI now cooperates with twelve federal states). The BSI Geschäftsleitungs-Schulung guidance v1.0 (published 17 April 2026) was backfilled — it sets the supervisor's expectations for §38(3) BSIG management training organisation, content, and self-check. On 19 May 2026 the Dutch Senate (Eerste Kamer) opened the written input phase on the Cyberbeveiligingswet (NIS 2 transposition).",
+      "links": [
+        {
+          "labelDe": "Timeline",
+          "labelEn": "Timeline",
+          "href": "/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-18-course-nis2-tabletop",
+      "date": "2026-05-18",
+      "category": "course",
+      "titleDe": "Neuer kostenloser Kurs: NIS 2 Tabletop-Übung (DE + EN, 8 Lektionen)",
+      "titleEn": "New free course: NIS 2 Tabletop Exercise (DE + EN, 8 lessons)",
+      "bodyDe": "Eine 8-lektionige Tabletop-Übung für Geschäftsleitungen, die im Krisenfall typische NIS-2-Entscheidungen durchspielt: Ransomware-Eintritt, Kundenbenachrichtigung nach §35 BSIG, 24-Stunden-Frühmeldung, Lieferketten-Auswirkungen und Wiederanlauf. Verfügbar in Deutsch und Englisch.",
+      "bodyEn": "An 8-lesson tabletop exercise for management bodies covering the typical NIS 2 decisions during a crisis: ransomware entry, customer notification under §35 BSIG, the 24-hour early warning, supply-chain impact, and recovery. Available in German and English.",
+      "links": [
+        {
+          "labelDe": "Zum Kurs",
+          "labelEn": "Open course",
+          "href": "/training/nis2-tabletop"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-18-course-cra-sbom",
+      "date": "2026-05-18",
+      "category": "course",
+      "titleDe": "Neuer Kurs: Cyber Resilience Act und Software Bill of Materials",
+      "titleEn": "New course: Cyber Resilience Act and Software Bill of Materials",
+      "bodyDe": "Ein neuer kostenloser Kurs zur Cyber Resilience Act (CRA) Verordnung 2024/2847 mit Fokus auf Software Bill of Materials (SBOM) — Anforderungen, Formate (SPDX, CycloneDX) und Pflichten für Hersteller digitaler Produkte. Gleichzeitig wurde die Kurs-Übersicht um einen Kurs-Wechsler erweitert, sodass mehrere Kurse nebeneinander zugänglich sind.",
+      "bodyEn": "A new free course on the Cyber Resilience Act (Regulation 2024/2847) with focus on Software Bill of Materials (SBOM) — requirements, formats (SPDX, CycloneDX), and manufacturer obligations for digital products. The course library now also includes a course switcher so multiple courses are accessible side by side.",
+      "links": [
+        {
+          "labelDe": "Zum Kurs",
+          "labelEn": "Open course",
+          "href": "/training/cra-sbom"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-17-content-grc-vergleich",
+      "date": "2026-05-17",
+      "category": "content",
+      "titleDe": "Öffentlicher GRC-Plattform-Vergleich unter /grc-vergleich",
+      "titleEn": "Public GRC platform comparison at /grc-vergleich",
+      "bodyDe": "Eine neue öffentliche Seite vergleicht 145 GRC/ISMS-Plattformen für den europäischen Markt — Preis, Kategorie (KMU, Mid-Market, Enterprise), regionale Verfügbarkeit, Open-Source-Status und Datenexport-Portabilität. Die Datenbasis ist eine sechswöchige Marktrecherche; jeder Eintrag verlinkt zur Anbieter-Seite, sodass Angaben nachprüfbar bleiben.",
+      "bodyEn": "A new public page compares 145 GRC/ISMS platforms for the European market — pricing, category (SMB, mid-market, enterprise), regional availability, open-source status, and data-export portability. The dataset is the result of six weeks of market research; each entry links to the vendor's own page so claims remain verifiable.",
+      "links": [
+        {
+          "labelDe": "GRC-Vergleich",
+          "labelEn": "GRC comparison",
+          "href": "/grc-vergleich"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-17-product-cir-annex-refs",
+      "date": "2026-05-17",
+      "category": "product",
+      "titleDe": "CIR 2024/2690 Annex-Verweise pro NIS-2-Anforderung sichtbar",
+      "titleEn": "CIR 2024/2690 Annex references now visible per NIS 2 requirement",
+      "bodyDe": "Jede NIS-2-Anforderung im Compliance-Portal trägt jetzt einen strukturierten Verweis auf die einschlägige Annex-Passage der EU-Durchführungsverordnung 2024/2690 (CIR). Auditor:innen und Compliance-Berater:innen können damit direkt zwischen Anforderung und EU-Rechtsquelle navigieren.",
+      "bodyEn": "Every NIS 2 requirement in the compliance portal now carries a structured reference to the relevant Annex passage of EU Implementing Regulation 2024/2690 (CIR). Auditors and compliance advisors can navigate directly from a requirement to its EU legal source."
+    },
+    {
+      "id": "2026-05-15-regulatory-bsi-timeline-may",
+      "date": "2026-05-15",
+      "category": "regulatory",
+      "titleDe": "Drei BSI-Publikationen aus den letzten 7 Tagen in der Timeline ergänzt",
+      "titleEn": "Three BSI publications from the past week added to the timeline",
+      "bodyDe": "Drei neue Einträge in der Regulierungs-Timeline. Am 7. Mai 2026 veröffentlichten BSI und Bundesministerium für Verkehr den ersten gemeinsamen Bericht zur IT-Sicherheit öffentlicher Ladeinfrastruktur, an der Schnittstelle der NIS-2-Sektoren Verkehr und Energie. Am 11. Mai erschien der BSI-Cybersicherheitsmonitor 2026 mit Verbraucher-Umfragedaten. Am 12. Mai veröffentlichten BSI und Italiens ACN gemeinsam die G7-Mindestleitlinie \"SBOM for AI\", direkt einschlägig für die NIS-2-Lieferkettenpflicht nach Art. 21(2)(d) und für den AI-Act-Compliance-Pfad.",
+      "bodyEn": "Three new entries in the regulatory timeline. On 7 May 2026 BSI and the Federal Ministry for Transport published the first joint report on IT security of public EV charging infrastructure, sitting at the intersection of the NIS 2 transport and energy sectors. On 11 May the BSI Cybersecurity Monitor 2026 was released with consumer survey data. On 12 May BSI and Italy's ACN co-published the G7 minimum-elements guideline \"SBOM for AI\", directly relevant to the NIS 2 supply-chain duty under Art 21(2)(d) and to the AI Act compliance pathway.",
+      "links": [
+        {
+          "labelDe": "Timeline",
+          "labelEn": "Timeline",
+          "href": "/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-15-product-course-followup-unsubscribe",
+      "date": "2026-05-15",
+      "category": "product",
+      "titleDe": "Tägliche Erinnerungs-Mails für den CEO-Kurs mit Abmelde-Link in allen Mails",
+      "titleEn": "Daily reminder emails for the CEO course and unsubscribe link in every email",
+      "bodyDe": "Lernende des kostenlosen CEO-Kurses erhalten jetzt eine tägliche, gebündelte Erinnerung an offene Lektionen mit jeweils einer kurzen Verständnisfrage. Die Erinnerungs-Serie lässt sich pro Kurs abbestellen; separate Opt-outs gelten für die täglichen Deadline-Mails und für den wöchentlichen Compliance-Digest. Jede transaktionale Mail enthält ab sofort einen sichtbaren Abmelde-Link.",
+      "bodyEn": "Learners enrolled in the free CEO course now receive a single daily bundled reminder of open lessons, each followed by a short comprehension question. The reminder series can be unsubscribed per course; separate opt-outs cover the daily deadline emails and the weekly compliance digest. Every transactional email now carries a visible unsubscribe link.",
+      "links": [
+        {
+          "labelDe": "CEO-Kurs",
+          "labelEn": "CEO course",
+          "href": "/training/nis2-ceo"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-13-regulatory-luxembourg-cer-referral",
+      "date": "2026-05-13",
+      "category": "regulatory",
+      "titleDe": "Luxemburg setzt NIS 2 um; Kommission verklagt sieben Staaten wegen CER-Versäumnis",
+      "titleEn": "Luxembourg transposes NIS 2; Commission refers seven states to CJEU over CER",
+      "bodyDe": "Zwei Ergänzungen der Regulierungs-Timeline. Luxemburg hat NIS 2 mit dem Gesetz vom 5. Mai 2026 umgesetzt, in Kraft seit 10. Mai 2026; das ILR-Registrierungsportal ist live. Am 29. April 2026 hat die Europäische Kommission Bulgarien, Frankreich, Luxemburg, die Niederlande, Polen, Spanien und Schweden beim EuGH wegen fehlender CER-Umsetzung verklagt und finanzielle Sanktionen beantragt. Erste größere EuGH-Durchsetzung im CER/NIS-2-Paket.",
+      "bodyEn": "Two regulatory timeline additions. Luxembourg transposed NIS 2 via the Act of 5 May 2026, in force since 10 May 2026, with the ILR self-registration portal live. On 29 April 2026 the European Commission referred Bulgaria, France, Luxembourg, the Netherlands, Poland, Spain and Sweden to the CJEU for failing to transpose CER, requesting financial sanctions. First major CJEU enforcement action under the CER/NIS 2 package.",
+      "links": [
+        {
+          "labelDe": "Timeline",
+          "labelEn": "Timeline",
+          "href": "/nis2-timeline"
+        },
+        {
+          "labelDe": "Umsetzung Europa",
+          "labelEn": "Europe implementation",
+          "href": "/nis2-umsetzung-europa"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-13-content-eu-entity-terminology",
+      "date": "2026-05-13",
+      "category": "content",
+      "titleDe": "Einrichtungstypen: konsistent auf EU-Richtlinien-Terminologie umgestellt",
+      "titleEn": "Entity types: standardized on EU directive terminology",
+      "bodyDe": "Die NIS-2-Inhaltsseiten verwenden jetzt durchgängig die EU-Richtlinien-Terminologie (\"wesentliche Einrichtungen\", \"wichtige Einrichtungen\") statt der BSIG-Variante (\"besonders wichtige Einrichtungen\"). Damit sind die deutschen, englischen (\"essential entities\") und niederländischen (\"essentiële entiteiten\") Fassungen konsistent. Der BSIG-Begriff bleibt als Vergleichsangabe im Glossar und in der EU-vs-BSIG-Terminologie-Tabelle erhalten.",
+      "bodyEn": "NIS 2 content pages now consistently use the EU directive terminology (\"wesentliche Einrichtungen\", \"essential entities\", \"essentiële entiteiten\") rather than the BSIG transposition wording (\"besonders wichtige Einrichtungen\"). The BSIG term remains as a cross-reference in the glossary and the EU-vs-BSIG terminology table.",
+      "links": [
+        {
+          "labelDe": "Einrichtungstypen",
+          "labelEn": "Entity types",
+          "href": "/nis2-einrichtungen"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-13-product-transitive-propagation",
+      "date": "2026-05-13",
+      "category": "product",
+      "titleDe": "Sign-Off-Propagierung: transitive Anrechnung über vier EU-Rahmenwerke",
+      "titleEn": "Sign-off propagation: transitive credit across four EU frameworks",
+      "bodyDe": "Wer eine Anforderung abzeichnet, erhält jetzt automatisch Gutschrift für jede verknüpfte Anforderung in NIS 2, DSGVO, EU AI Act und Cyber Resilience Act, deren Nachweis dasselbe zugrunde liegende Artefakt teilt (gleiche Vorfallakte, gleiches Lieferantenregister, gleiche Risikomethodik). 16 Pärchen sind als 'gleichwertig' markiert und ketten sich transitiv; 22 als 'überlappend' geben Gutschrift nur einen Schritt weiter.",
+      "bodyEn": "Signing off a requirement now automatically credits every linked requirement across NIS 2, GDPR, EU AI Act, and Cyber Resilience Act whose evidence shares the same underlying artefact (same incident record, same supplier register, same risk methodology). 16 pairs are tagged 'equivalent' and chain transitively; 22 'overlapping' pairs grant credit one hop only."
+    },
+    {
+      "id": "2026-05-13-product-aiact-cra-coverage",
+      "date": "2026-05-13",
+      "category": "product",
+      "titleDe": "EU AI Act und Cyber Resilience Act jetzt in der Plattform abgedeckt",
+      "titleEn": "EU AI Act and Cyber Resilience Act now covered in the platform",
+      "bodyDe": "Das Compliance-Portal deckt jetzt vier EU-Rahmenwerke ab: NIS 2, DSGVO, EU AI Act (10 Kategorien, 24 Anforderungen verankert in Verordnung 2024/1689) und EU Cyber Resilience Act (10 Kategorien, 21 Anforderungen verankert in Verordnung 2024/2847). 27 Cross-Framework-Satisfaction-Pairs verknüpfen verwandte Pflichten, sodass ein einzelner Sign-Off mehrere Regime gleichzeitig erfüllen kann.",
+      "bodyEn": "The compliance portal now covers four EU frameworks: NIS 2, GDPR, EU AI Act (10 categories, 24 requirements anchored to Regulation 2024/1689), and EU Cyber Resilience Act (10 categories, 21 requirements anchored to Regulation 2024/2847). 27 cross-framework satisfaction pairs link related obligations so a single sign-off can satisfy multiple regimes at once."
+    },
+    {
+      "id": "2026-05-13-regulatory-aiact-omnibus-agreement",
+      "date": "2026-05-13",
+      "category": "regulatory",
+      "titleDe": "AI Act Digital Omnibus: Rat und Parlament erzielen politische Einigung",
+      "titleEn": "AI Act Digital Omnibus: Council and Parliament reach political agreement",
+      "bodyDe": "Am 7. Mai 2026 haben der Rat der EU und das Europäische Parlament eine vorläufige politische Einigung zum AI Act Digital Omnibus erzielt. Annex III-Hochrisiko-Pflichten werden auf den 2. Dezember 2027 verschoben, Annex I-eingebettete Hochrisiko-Pflichten auf den 2. August 2028, Wasserzeichen-Pflicht nach Art 50(2) auf den 2. Dezember 2026. Neues Verbot in Art 5 für KI zur Erzeugung nicht-einvernehmlicher intimer Aufnahmen und Material zum sexuellen Missbrauch von Kindern. Aufgenommen in unsere Regulierungs-Timeline.",
+      "bodyEn": "On 7 May 2026 the Council of the EU and the European Parliament reached provisional political agreement on the AI Act Digital Omnibus. Annex III high-risk obligations delayed to 2 December 2027, Annex I embedded high-risk to 2 August 2028, watermarking under Art 50(2) deferred to 2 December 2026. New Art 5 prohibition on AI generating non-consensual intimate imagery and CSAM. Tracked in the regulatory timeline.",
+      "links": [
+        {
+          "labelDe": "Timeline",
+          "labelEn": "Timeline",
+          "href": "/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-12-content-meldepflicht-cascade",
+      "date": "2026-05-12",
+      "category": "content",
+      "titleDe": "NIS-2-Meldepflicht: vollständige Art 23-Meldekette in fünf Stufen",
+      "titleEn": "NIS 2 incident reporting: full Article 23 cascade in five stages",
+      "bodyDe": "Die öffentliche /nis2-meldepflicht-Seite dokumentiert jetzt die vollständige Art 23-NIS-2-Meldekette in fünf Stufen: 24-Stunden-Frühwarnung, 72-Stunden-Vorfallsmeldung, Zwischenbericht auf Anforderung, Abschlussbericht innerhalb eines Monats und Fortschrittsbericht (falls Vorfall noch andauert). Jede Stufe verweist auf den entsprechenden Richtlinien-Artikel.",
+      "bodyEn": "The public /nis2-meldepflicht page now documents the complete Article 23 NIS 2 reporting cascade as five distinct stages: 24-hour early warning, 72-hour incident notification, intermediate report on request, 1-month final report, and progress report when the incident is still ongoing. Each stage cites its directive article.",
+      "links": [
+        {
+          "labelDe": "NIS 2 Meldepflicht",
+          "labelEn": "NIS 2 incident reporting",
+          "href": "/nis2-meldepflicht"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-11-product-localized-pathnames",
+      "date": "2026-05-11",
+      "category": "product",
+      "titleDe": "Lokalisierte URLs und hreflang für deutsche und englische Inhalte",
+      "titleEn": "Localized URLs and hreflang for German and English content",
+      "bodyDe": "Öffentliche Informationsseiten verwenden jetzt locale-spezifische Pfade über die pathnames-Funktion von next-intl. Sitemap und hreflang-Header werden automatisch ausgegeben, damit Suchmaschinen die korrekte URL pro Sprache indexieren. Keine Aktion seitens bestehender Nutzer erforderlich.",
+      "bodyEn": "Public info pages now use locale-specific path slugs routed through next-intl's pathnames feature. Sitemap and hreflang headers are emitted automatically so search engines index the correct URL per locale. No action required from existing users."
+    },
+    {
+      "id": "2026-05-10-regulatory-bsi-cybergovsecure",
+      "date": "2026-05-10",
+      "category": "regulatory",
+      "titleDe": "BSI startet CyberGovSecure — NIS-2-Umsetzung in der Bundesverwaltung",
+      "titleEn": "BSI launches CyberGovSecure — NIS 2 rollout across the German federal administration",
+      "bodyDe": "Am 4. Mai 2026 haben das BSI, CISO Bund und das Bundesministerium für Digitales und Staatsmodernisierung CyberGovSecure gestartet — der ressortübergreifende Rahmen zur Umsetzung der NIS-2-Cybersicherheitsmaßnahmen in allen Bundesbehörden. Aufgenommen in unsere Regulierungs-Timeline.",
+      "bodyEn": "On 4 May 2026, BSI together with CISO Bund and the Federal Ministry for Digital Affairs and State Modernization launched CyberGovSecure — the cross-departmental framework to implement NIS 2 cybersecurity measures across all German federal authorities. Tracked in the regulatory timeline.",
+      "links": [
+        {
+          "labelDe": "Timeline",
+          "labelEn": "Timeline",
+          "href": "/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-09-product-grc-data-model-040",
+      "date": "2026-05-09",
+      "category": "product",
+      "titleDe": "@nisd2/grc-data-model 0.4.0: bilaterale Asset×Lieferant-Tabelle ins OSS-Paket",
+      "titleEn": "@nisd2/grc-data-model 0.4.0: bilateral asset×supplier table moves into the OSS package",
+      "bodyDe": "Die `asset_supplier_offering`-Tabelle und der `asset_service_type`-Enum (saas / on_prem / pro_services / managed) leben jetzt im OSS-Paket neben `asset` und `supplier` — vorher lagen sie im App-Repo, obwohl sie auf zwei Paket-Tabellen referenzierten. Reine Code-Verlagerung, kein Datenmigrations-Diff.",
+      "bodyEn": "The `asset_supplier_offering` table and `asset_service_type` enum (saas / on_prem / pro_services / managed) now live in the OSS package alongside `asset` and `supplier` — they used to sit in the app repo despite FK-ing into two package tables. Pure code relocation, zero database migration diff.",
+      "version": "grc-data-model-0.4.0",
+      "links": [
+        {
+          "labelDe": "GitHub: grc-data-model",
+          "labelEn": "GitHub: grc-data-model",
+          "href": "https://github.com/NISD2/grc-data-model"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-08-content-nis2-documents",
+      "date": "2026-05-08",
+      "category": "content",
+      "titleDe": "NIS 2 Dokumente: Pflicht-Liste nach Richtlinie + CIR 2024/2690",
+      "titleEn": "NIS 2 documents: required-list under the Directive + CIR 2024/2690",
+      "bodyDe": "Neue Referenzseite unter /nis2-documents listet die Dokumente und Aufzeichnungen, die NIS 2 (Richtlinie 2022/2555) und die Durchführungsverordnung 2024/2690 verlangen — mit Artikel-Verweis, CIR-Annex-Abschnitt und dem konkreten Plattform-Modul, das das Dokument als Live-Daten pflegt. 42 Dokumente in 14 Themenbereichen.",
+      "bodyEn": "New reference page at /nis2-documents lists the documents and records NIS 2 (Directive 2022/2555) and Implementing Regulation 2024/2690 require — with article reference, CIR annex section, and the platform module that maintains the document as live data. 42 documents across 14 topic areas.",
+      "links": [
+        {
+          "labelDe": "NIS 2 Dokumente",
+          "labelEn": "NIS 2 documents",
+          "href": "/nis2-documents"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-07-product-grc-data-model-oss",
+      "date": "2026-05-07",
+      "category": "product",
+      "titleDe": "@nisd2/grc-data-model: NIS 2 + GDPR Datenmodell als Open Source",
+      "titleEn": "@nisd2/grc-data-model: NIS 2 + GDPR data model published as open source",
+      "bodyDe": "Die GRC-Datenbasis (49 NIS 2-Anforderungen, 7 GDPR-Anforderungen, 11 Cross-Framework-Pairs, Drizzle-Schemas für Lieferanten / Assets / Risiken / Vorfälle) ist jetzt als eigenständiges, MIT-lizenziertes Paket auf GitHub und npm verfügbar. REFERENCE.md gibt jeden Eintrag, jede Verknüpfung und jedes Mapping in einem Dokument wieder. Die Plattform selbst nutzt dasselbe Paket.",
+      "bodyEn": "The GRC data layer (49 NIS 2 requirements, 7 GDPR requirements, 11 cross-framework pairs, Drizzle schemas for suppliers / assets / risks / incidents) is now a standalone MIT-licensed package on GitHub and npm. REFERENCE.md surfaces every entry, every pair, every mapping in one document. The platform itself uses the same package.",
+      "links": [
+        {
+          "labelDe": "Open Source",
+          "labelEn": "Open source",
+          "href": "/open-source"
+        },
+        {
+          "labelDe": "GitHub: grc-data-model",
+          "labelEn": "GitHub: grc-data-model",
+          "href": "https://github.com/NISD2/grc-data-model"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-04-product-gdpr-cross-framework",
+      "date": "2026-05-04",
+      "category": "product",
+      "titleDe": "GDPR im Portal: einmal unterschreiben, beide Regime erfüllt",
+      "titleEn": "GDPR in the portal: sign once for overlapping NIS 2 obligations",
+      "bodyDe": "Die Plattform deckt jetzt GDPR neben NIS 2 ab. 11 GDPR↔NIS 2-Satisfaction-Pairs sind verknüpft: ein Sign-Off auf eine NIS 2-Anforderung schließt automatisch die überlappende GDPR-Anforderung ab (oder umgekehrt). GDPR-Sidebar-Gruppen, Art. 28-Felder bei Lieferant / Asset / Vorfall und seed-Daten zum Onboarding sind enthalten.",
+      "bodyEn": "The platform now covers GDPR alongside NIS 2. 11 GDPR↔NIS 2 satisfaction pairs are wired: a sign-off on a NIS 2 requirement automatically closes the overlapping GDPR requirement (or vice versa). GDPR sidebar groups, Art. 28 fields on supplier / asset / incident, and seeded onboarding data are included."
+    },
+    {
+      "id": "2026-05-03-content-seo-retitle-llms",
+      "date": "2026-05-03",
+      "category": "content",
+      "titleDe": "Seitentitel ohne Marken-Suffix; llms.txt für LLM-Crawler",
+      "titleEn": "Page titles without brand suffix; llms.txt for LLM crawlers",
+      "bodyDe": "Fünf häufig gefundene Seiten (Bußgelder, Meldepflicht, Registrierung, Registrierung verpasst, NIS 2 in Deutschland) wurden mit präziseren Titeln versehen — ohne Marken-Suffix. Neu: /llms.txt mit Liste der zentralen Inhalte für LLM-Crawler, ergänzt durch Article-/Breadcrumb-/FAQ-JSON-LD auf Schlüsselseiten.",
+      "bodyEn": "Five high-impression pages (penalties, incident reporting, registration, missed registration, NIS 2 in Germany) were retitled with sharper queries — no more brand suffix. New: /llms.txt listing core content for LLM crawlers, complemented by Article / Breadcrumb / FAQ JSON-LD on key info pages.",
+      "links": [
+        {
+          "labelDe": "/llms.txt",
+          "labelEn": "/llms.txt",
+          "href": "/llms.txt"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-01-product-locale-switcher-fix",
+      "date": "2026-05-01",
+      "category": "product",
+      "titleDe": "Sprachumschalter im Schulungsportal repariert",
+      "titleEn": "Language switcher in the training portal restored",
+      "bodyDe": "Der Sprachumschalter im Schulungsportal hat unter bestimmten Routen die Locale nicht mehr persistiert. Behoben.",
+      "bodyEn": "The language switcher inside the training portal stopped persisting locale on some routes. Fixed."
+    },
+    {
+      "id": "2026-04-29-course-public-outline",
+      "date": "2026-04-29",
+      "category": "course",
+      "titleDe": "Kursübersicht ohne Anmeldung einsehbar",
+      "titleEn": "Course outline now browsable without login",
+      "bodyDe": "Neue öffentliche Seite /training/nis2-ceo/outline zeigt alle 47 Lektionen mit Modulstruktur und Zeitschätzungen - ohne Account oder OAuth. Im Sitemap für beide Sprachen indexiert.",
+      "bodyEn": "New public page at /training/nis2-ceo/outline shows all 47 lessons with module structure and time estimates — no account or OAuth required. Indexed in the sitemap for both locales.",
+      "links": [
+        {
+          "labelDe": "Kursübersicht",
+          "labelEn": "Course outline",
+          "href": "/training/nis2-ceo/outline"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-29-content-5-schritte",
+      "date": "2026-04-29",
+      "category": "content",
+      "titleDe": "NIS2 in 5 Schritten — Roadmap für Geschäftsführer",
+      "titleEn": "NIS2 in 5 steps — roadmap for managing directors",
+      "bodyDe": "Neue Einseiter unter /5-schritte (DE) und /5-steps (EN): die fünf NIS2-Pflichten, die ein Geschäftsführer persönlich nicht delegieren kann, in einer Reihenfolge. Schritt 4 verlinkt direkt die Gap-Analyse.",
+      "bodyEn": "New one-pager at /5-schritte (DE) and /5-steps (EN): the five NIS2 duties a managing director cannot personally delegate, in order. Step 4 links straight to the gap assessment.",
+      "links": [
+        {
+          "labelDe": "5 Schritte",
+          "labelEn": "5 Steps",
+          "href": "/5-schritte"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-29-content-applicability-authorities",
+      "date": "2026-04-29",
+      "category": "content",
+      "titleDe": "Applicability-Check verweist jetzt auf nationale Behörden",
+      "titleEn": "Applicability check now points to national authorities",
+      "bodyDe": "Die Selbsteinschätzung wurde durch direkte Verweise auf die zuständigen nationalen Behörden für DE, AT, BE, FR, IT und NL ersetzt. Wir entscheiden nicht mehr, ob ein Unternehmen unter NIS2 fällt - das beantwortet nur die Behörde verbindlich.",
+      "bodyEn": "The self-attestation was replaced with direct links to the relevant national authority for DE, AT, BE, FR, IT, and NL. We no longer claim whether a company falls under NIS2 — only the authority answers that bindingly.",
+      "links": [
+        {
+          "labelDe": "Anwendbarkeit prüfen",
+          "labelEn": "Applicability check",
+          "href": "/applicability"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-29-product-security-review",
+      "date": "2026-04-29",
+      "category": "product",
+      "titleDe": "Routine-Security-Review: Härtung über mehrere Endpunkte",
+      "titleEn": "Routine security review: hardening across multiple endpoints",
+      "bodyDe": "Interner Security-Review durchlaufen. Härtungen an authentifizierten Endpunkten, am Account-Anlegen-Flow und an Inhalts-Loadern. Kein Handlungsbedarf für Kunden.",
+      "bodyEn": "Internal security review completed. Hardening applied across authenticated endpoints, the account-creation flow, and content loaders. No customer action required.",
+      "links": []
+    },
+    {
+      "id": "2026-04-28-product-status-page",
+      "date": "2026-04-28",
+      "category": "product",
+      "titleDe": "Öffentliche /status-Seite mit Vorfallshistorie",
+      "titleEn": "Public /status page with incident history",
+      "bodyDe": "Neue Seite /status zeigt Plattform-Status und vergangene Vorfälle öffentlich an.",
+      "bodyEn": "New /status page publicly shows platform status and past incidents.",
+      "links": [
+        {
+          "labelDe": "Status",
+          "labelEn": "Status",
+          "href": "/status"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-28-product-security-txt",
+      "date": "2026-04-28",
+      "category": "product",
+      "titleDe": "security.txt veröffentlicht (RFC 9116)",
+      "titleEn": "security.txt published (RFC 9116)",
+      "bodyDe": "Standard-Disclosure-Endpunkt unter /.well-known/security.txt für Sicherheitsforschende: Kontakt, bevorzugte Sprachen, kanonische URL, Ablaufdatum.",
+      "bodyEn": "Standard disclosure endpoint at /.well-known/security.txt for security researchers: contact, preferred languages, canonical URL, expiry.",
+      "links": [
+        {
+          "labelDe": "security.txt",
+          "labelEn": "security.txt",
+          "href": "/.well-known/security.txt"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-28-product-open-source",
+      "date": "2026-04-28",
+      "category": "product",
+      "titleDe": "Open-Source-Repositories veröffentlicht: Gap-Analyse + Lieferantenfragebogen",
+      "titleEn": "Open-source repos published: gap assessment + supplier questionnaire",
+      "bodyDe": "Zwei Repositories unter github.com/NISD2: nis2-gap-assessment-schema (116 Fragen, 15 Domänen, Zod-Schema mit Scoring-Logik) und nis2-supply-chain-questionnaire-schema (56 Felder, 6 Sektionen). Dual-lizenziert (MIT für Code, CC BY 4.0 für Inhalte). Jede Frage und jedes Feld ist an eine konkrete Rechtsquelle verankert.",
+      "bodyEn": "Two repositories under github.com/NISD2: nis2-gap-assessment-schema (116 questions, 15 domains, Zod schema with scoring logic) and nis2-supply-chain-questionnaire-schema (56 fields, 6 sections). Dual-licensed (MIT for code, CC BY 4.0 for content). Every question and field is anchored to a specific legal source.",
+      "links": [
+        {
+          "labelDe": "Open-Source-Übersicht",
+          "labelEn": "Open Source overview",
+          "href": "/open-source"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-28-content-changelog",
+      "date": "2026-04-28",
+      "category": "content",
+      "titleDe": "Öffentliches Changelog veröffentlicht",
+      "titleEn": "Public changelog launched",
+      "bodyDe": "Neue Seite /changelog dokumentiert sichtbare Änderungen an Plattform, Kurs und Compliance-Dokumenten - kuratiert, nicht jeder Commit. Filterbar nach Kategorie (Produkt, Inhalt, Kurs, Compliance, Regulierung) mit monatlichen Überschriften.",
+      "bodyEn": "New /changelog page documents visible changes to the platform, course, and compliance documents - curated, not every commit. Filterable by category (product, content, course, compliance, regulatory) with monthly headers.",
+      "links": [
+        {
+          "labelDe": "Changelog",
+          "labelEn": "Changelog",
+          "href": "/changelog"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-28-content-2pct-turnover",
+      "date": "2026-04-28",
+      "category": "content",
+      "titleDe": "Bußgeld-Hinweis: 2 % vom weltweiten Konzernumsatz als Alternative",
+      "titleEn": "Fine framing: added 2% of global turnover as an alternative ceiling",
+      "bodyDe": "Landingpage zeigt jetzt die vollständige NIS2-Bußgeldobergrenze: bis zu 10 Mio. € oder 2 % des weltweiten Konzernumsatzes - je nachdem, was höher ist. Vorher war nur die 10-Mio.-€-Zahl genannt.",
+      "bodyEn": "Landing page now shows the full NIS2 fine ceiling: up to €10M or 2% of global group turnover, whichever is higher. Previously only the €10M figure was shown.",
+      "links": []
+    },
+    {
+      "id": "2026-04-28-compliance-avv-toms",
+      "date": "2026-04-28",
+      "category": "compliance",
+      "titleDe": "AVV (Art. 28 DSGVO) und TOMs (Art. 32 DSGVO) veröffentlicht",
+      "titleEn": "Published Art. 28 DPA and Art. 32 TOMs",
+      "bodyDe": "Neue öffentliche Dokumente unter /avv und /toms. Audit-Log erfasst jetzt IP-Adresse und User-Agent bei jeder authentifizierten Mutation. AWS S3 setzt AES256-Server-Side-Encryption explizit bei jedem Upload. Dependabot ist aktiviert. Impressum erweitert um EUID, § 18 Abs. 2 MStV-Verantwortlichkeit und EU-Streitschlichtung.",
+      "bodyEn": "New public documents at /avv and /toms. Audit log now captures IP address and user agent on every authenticated mutation. AWS S3 sets AES256 server-side encryption explicitly on every upload. Dependabot is enabled. Impressum extended with EUID, § 18(2) MStV responsibility, and EU online dispute resolution.",
+      "links": [
+        {
+          "labelDe": "AVV anzeigen",
+          "labelEn": "View DPA",
+          "href": "/avv"
+        },
+        {
+          "labelDe": "TOMs anzeigen",
+          "labelEn": "View TOMs",
+          "href": "/toms"
+        }
+      ],
+      "version": "compliance-docs-v1"
+    },
+    {
+      "id": "2026-04-28-content-legal-chain",
+      "date": "2026-04-28",
+      "category": "content",
+      "titleDe": "EU-Rechtskette als Badges + Korrekturseite",
+      "titleEn": "EU legal chain badges + corrections page",
+      "bodyDe": "Landing Page zeigt jetzt die vollständige EU-Rechtskette als Badges: NIS2-Richtlinie → BSIG → CIR 2024/2690 → IT-Grundschutz. Neue /corrections-Seite dokumentiert öffentlich, wenn wir Inhalte korrigieren - Transparenz statt stille Edits.",
+      "bodyEn": "Landing page now shows the full EU legal chain as badges: NIS2 directive → BSIG → CIR 2024/2690 → IT-Grundschutz. New /corrections page publicly documents when we correct content — transparency over silent edits.",
+      "links": [
+        {
+          "labelDe": "Korrekturen",
+          "labelEn": "Corrections",
+          "href": "/corrections"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-28-content-team",
+      "date": "2026-04-28",
+      "category": "content",
+      "titleDe": "Team-Seite mit Fotos, Biografien und Verantwortlichkeiten",
+      "titleEn": "Team page with photos, bios, and responsibilities",
+      "bodyDe": "Eigene /about-Seite mit Geschäftsführer Simon Orzel und COO Cory Sales. Klare Verantwortlichkeiten und Hintergründe - sichtbar in der Top-Navigation.",
+      "bodyEn": "Dedicated /about page with managing director Simon Orzel and COO Cory Sales. Clear responsibilities and backgrounds — visible in the top navigation.",
+      "links": [
+        {
+          "labelDe": "Über uns",
+          "labelEn": "About",
+          "href": "/about"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-27-course-dutch",
+      "date": "2026-04-27",
+      "category": "course",
+      "titleDe": "Niederländische Version des CEO-Kurses",
+      "titleEn": "Dutch version of the CEO course",
+      "bodyDe": "Der NIS2-CEO-Kurs steht jetzt zusätzlich auf Niederländisch zur Verfügung - vollständige Übersetzung aller 47 Lektionen.",
+      "bodyEn": "The NIS2 CEO course is now also available in Dutch — complete translation of all 47 lessons.",
+      "links": [
+        {
+          "labelDe": "Schulungsportal",
+          "labelEn": "Training portal",
+          "href": "/training/nis2-ceo"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-27-course-german-translations",
+      "date": "2026-04-27",
+      "category": "course",
+      "titleDe": "Deutsche Übersetzungen: 329 Begriffe + 47 Lektionstitel + 45 Quizze",
+      "titleEn": "German translations: 329 terms + 47 lesson titles + 45 quizzes",
+      "bodyDe": "Vollständige deutsche Lokalisierung des CEO-Kurses: 329 Wörterbuch-Begriffe, 47 Lektionstitel, 45 Quizze - mit korrekten Umlauten, BSIG-Terminologie und Artikelformat.",
+      "bodyEn": "Full German localisation of the CEO course: 329 dictionary terms, 47 lesson titles, 45 quizzes — with proper umlauts, BSIG terminology, and article format.",
+      "links": []
+    },
+    {
+      "id": "2026-04-26-product-gap-assessment",
+      "date": "2026-04-26",
+      "category": "product",
+      "titleDe": "NIS2 Gap-Analyse: 116 Fragen, 15 Domänen, 5-Tage-Struktur",
+      "titleEn": "NIS2 Gap Assessment: 116 questions, 15 domains, 5-day structure",
+      "bodyDe": "Öffentliche NIS2 Gap-Analyse mit 116 strukturierten Fragen über 15 Domänen, ausgelegt für eine 5-Tage-Bearbeitung. PDF-Export der Ergebnisse verfügbar.",
+      "bodyEn": "Public NIS2 gap assessment with 116 structured questions across 15 domains, designed for a 5-day completion. PDF export of results available.",
+      "links": [
+        {
+          "labelDe": "Gap-Analyse",
+          "labelEn": "Gap assessment",
+          "href": "/nis2-gap-assessment"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-24-regulatory-nl-transposition",
+      "date": "2026-04-24",
+      "category": "regulatory",
+      "titleDe": "Niederlande verabschieden NIS2 + ENISA NCAF 2.0",
+      "titleEn": "Netherlands passes NIS2 + ENISA NCAF 2.0",
+      "bodyDe": "Niederländische NIS2-Umsetzung getrackt im /nis2-timeline. Außerdem: ENISA NCAF 2.0 Update und Status der NL-Registrierungsportals aktualisiert.",
+      "bodyEn": "Dutch NIS2 transposition tracked in /nis2-timeline. Also: ENISA NCAF 2.0 update and NL registration portal status refreshed.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-23-content-registration-portals",
+      "date": "2026-04-23",
+      "category": "content",
+      "titleDe": "Nationale NIS2-Registrierungsportale aller EU-Mitgliedstaaten",
+      "titleEn": "National NIS2 registration portals for all EU member states",
+      "bodyDe": "Konsolidierte Übersicht über alle nationalen NIS2-Registrierungsportale in der EU mit Status, Direktlinks und Anweisungen pro Land.",
+      "bodyEn": "Consolidated overview of all national NIS2 registration portals across the EU with status, direct links, and per-country instructions.",
+      "links": [
+        {
+          "labelDe": "Registrierungsportale",
+          "labelEn": "Registration portals",
+          "href": "/nis2-registration-portals"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-23-product-course-certificate",
+      "date": "2026-04-23",
+      "category": "product",
+      "titleDe": "Kursabschluss-Zertifikat (HTML, druckbar als PDF)",
+      "titleEn": "Course completion certificate (HTML, printable as PDF)",
+      "bodyDe": "Teilnehmer des CEO-Kurses erhalten nach Abschluss ein zitierbares HTML-Zertifikat, das als PDF gedruckt werden kann.",
+      "bodyEn": "CEO course participants receive a citable HTML certificate on completion, printable as PDF.",
+      "links": []
+    },
+    {
+      "id": "2026-04-18-compliance-bsig-grundschutz-badges",
+      "date": "2026-04-18",
+      "category": "compliance",
+      "titleDe": "Landing-Badges: BSIG § 30 + IT-Grundschutz",
+      "titleEn": "Landing badges: BSIG § 30 + IT-Grundschutz",
+      "bodyDe": "CIR-Badge ersetzt durch BSIG § 30 + IT-Grundschutz auf der Landing Page - präzisere Verankerung in der deutschen Umsetzung.",
+      "bodyEn": "CIR badge replaced with BSIG § 30 + IT-Grundschutz on the landing page — more precise anchoring in the German transposition.",
+      "links": []
+    },
+    {
+      "id": "2026-02-13-product-module-backed-requirements",
+      "date": "2026-02-13",
+      "category": "product",
+      "titleDe": "Modulgestützte Anforderungen mit framework-übergreifender Erfüllung",
+      "titleEn": "Module-backed requirements with cross-framework satisfaction",
+      "bodyDe": "Anforderungen können jetzt durch operative Module (Asset-Inventar, Risikoregister, Zulieferer, Vorfälle) erfüllt werden statt durch separate Formulare - die Plattform selbst ist der Nachweis.",
+      "bodyEn": "Requirements can now be satisfied through operational modules (asset inventory, risk register, suppliers, incidents) rather than separate forms — the platform itself is the evidence.",
+      "links": []
+    },
+    {
+      "id": "2026-02-11-compliance-legal-pages",
+      "date": "2026-02-11",
+      "category": "compliance",
+      "titleDe": "Nutzungsbedingungen, Impressum und Datenschutzerklärung veröffentlicht",
+      "titleEn": "Terms of Service, Impressum, and Privacy Policy published",
+      "bodyDe": "Vollständige Rechtsdokumente nach deutschem Standard: AGB orientiert an Anbieter-Support-Modell (kein Compliance-Garantie-Versprechen), Impressum nach § 5 DDG, Datenschutzerklärung nach DSGVO.",
+      "bodyEn": "Full legal documents per German standard: T&Cs aligned with vendor-support model (no compliance-outcome guarantee), Impressum per § 5 DDG, privacy policy per GDPR.",
+      "links": [
+        {
+          "labelDe": "Nutzungsbedingungen",
+          "labelEn": "Terms",
+          "href": "/terms"
+        },
+        {
+          "labelDe": "Impressum",
+          "labelEn": "Impressum",
+          "href": "/impressum"
+        },
+        {
+          "labelDe": "Datenschutz",
+          "labelEn": "Privacy",
+          "href": "/datenschutz"
+        }
+      ]
+    }
+  ]
+}

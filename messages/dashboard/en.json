@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Security compliance overview",
+    "risks": "Risks",
+    "openRisks": "Open Risks",
+    "highRisks": "High Risks",
+    "assets": "Assets",
+    "criticalAssets": "Critical",
+    "otAssets": "OT",
+    "incidents": "Incidents",
+    "suppliers": "Suppliers",
+    "criticalSuppliers": "Critical",
+    "policies": "Policies",
+    "approved": "Approved",
+    "training": "Training",
+    "managementTraining": "Management",
+    "exercises": "Emergency Drills",
+    "completed": "Completed",
+    "kpis": "Security Metrics",
+    "changes": "Changes",
+    "openChanges": "Open",
+    "patches": "Security Updates",
+    "pendingPatches": "Pending",
+    "audits": "Self-Assessments",
+    "plannedAudits": "Planned",
+    "improvements": "Action Items",
+    "openImprovements": "Open",
+    "complianceByCategory": "Compliance by Category",
+    "riskMatrix": "Risk Matrix",
+    "riskTreatmentDistribution": "Risk Treatment Distribution",
+    "noRisksRegistered": "No risks registered",
+    "noData": "No data",
+    "incidentsBySeverity": "Incidents by Severity",
+    "treatmentLabel": {
+      "mitigate": "Mitigate",
+      "accept": "Accept",
+      "transfer": "Transfer",
+      "avoid": "Avoid"
+    },
+    "severity": {
+      "nearMiss": "Near Miss",
+      "incident": "Incident",
+      "significant": "Significant"
+    },
+    "complianceProgress": "Compliance Progress",
+    "requirementsCompleted": "{completed} of {total} requirements",
+    "allModules": "All Modules",
+    "deadlines": {
+      "overdue": "Overdue",
+      "dueThisWeek": "Due this week",
+      "dueThisMonth": "Due this month",
+      "upcoming": "Upcoming Deadlines",
+      "overdueDays": "{days}d overdue",
+      "dueToday": "Due today",
+      "dueDays": "Due in {days}d"
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "grcComparison": {
+    "meta": {
+      "title": "GRC / ISMS / NIS2 pricing audit: 136 commercial vendors verified",
+      "description": "On 17 May 2026 we visited the pricing pages of 136 commercial GRC, ISMS and NIS2 platforms. 103 of them won't tell you what they cost without a demo call. Here's the full list, sortable and filterable. Nine open-source alternatives are excluded by design."
+    },
+    "hero": {
+      "eyebrow": "Market audit · 17 May 2026",
+      "title": "We audited 136 commercial GRC/ISMS platforms. 103 won't tell you what they cost.",
+      "subtitle": "We captured every vendor's pricing page verbatim. Where pricing is hidden behind a demo form we record 'Demo call required'. No estimates, no third-party sources. Nine open-source alternatives (verinice, CISO Assistant, Deming, ISMS Builder, Unicis CE, ourselves and others) are excluded from this list because they don't sell you a subscription.",
+      "ctaPlatform": "Start free",
+      "ctaMethodology": "Methodology"
+    },
+    "stats": {
+      "totalLabel": "Vendors audited",
+      "transparentLabel": "Public pricing",
+      "partialLabel": "Starting price only",
+      "gatedLabel": "Demo call required",
+      "nis2Label": "NIS2 as framework",
+      "ossLabel": "Open source",
+      "countriesLabel": "Countries",
+      "lastUpdatedPrefix": "As of:"
+    },
+    "thesis": {
+      "title": "Why this market is ripe for disruption",
+      "body": "76% of these 136 commercial GRC/ISMS vendors hide their prices. The products are forms, templates and checklists on top of a database. The marginal cost of one more customer is near zero. The price is not. Here are the receipts.",
+      "points": [
+        {
+          "title": "Five-figure annual contracts for a form",
+          "body": "Vanta, Drata, Secureframe, OneTrust, MetricStream, IBM OpenPages, ServiceNow GRC, Archer, Diligent — every enterprise GRC suite hides pricing and charges €30,000+/year for a workflow tool with templates."
+        },
+        {
+          "title": "Eastern EU vendors are 10x cheaper and transparent",
+          "body": "Copla (LT) sells NIS2 for €3,500/year as a dedicated SKU. NIS2 Manager (CZ) at ~€980/month. Conformio (HR) at €145/month. Same product category, different pricing decision."
+        },
+        {
+          "title": "OSS competition is growing from Germany and France",
+          "body": "ISMS Builder (DE, AGPL), CISO Assistant (FR, AGPLv3, 130+ frameworks), Little-ISMS-Helper (DACH), Deming (FR) — all free self-hosted, all NIS2 explicit."
+        },
+        {
+          "title": "Market consolidation is accelerating",
+          "body": "AuditBoard → Optro. CONTECHNET → i-doit. DocSetMinder → Allgeier. 3rdRisk → Diligent. RISMA + Wired Relations + ComplyCloud → Cerivo. StandardFusion → Wolters Kluwer. Galvanize → Diligent. Tugboat → OneTrust. Archer → Cinven."
+        }
+      ]
+    },
+    "filters": {
+      "searchPlaceholder": "Search vendor…",
+      "tierLabel": "Pricing model",
+      "tierAll": "All",
+      "tierTransparent": "Transparent",
+      "tierPartial": "Partial",
+      "tierGated": "Demo call",
+      "tierUnverifiable": "Unverifiable",
+      "countryLabel": "Country",
+      "countryAll": "All countries",
+      "categoryLabel": "Category",
+      "categoryAll": "All categories",
+      "categoryIsms": "ISMS",
+      "categoryGrc": "GRC",
+      "categoryTprm": "Vendor risk",
+      "categoryConsultancy": "Consultancy + SaaS",
+      "categoryAudit": "Audit",
+      "categoryRatings": "Cyber ratings",
+      "categoryTemplate": "Template shop",
+      "categoryAiGrc": "AI GRC",
+      "categoryEndpoint": "Endpoint",
+      "categoryVuln": "Vulnerability",
+      "categoryCspm": "Cloud security",
+      "categoryIam": "IAM/Insider",
+      "categoryTraining": "Awareness",
+      "categoryAsset": "Asset mgmt",
+      "categoryReporting": "Reporting",
+      "categoryComms": "Secure comms",
+      "nis2OnlyLabel": "NIS2 vendors only",
+      "freeTierLabel": "Has free option",
+      "ossLabel": "Open source only",
+      "resetButton": "Reset filters"
+    },
+    "table": {
+      "name": "Vendor",
+      "country": "Country",
+      "category": "Category",
+      "tier": "Pricing",
+      "entryPrice": "Entry",
+      "nis2": "NIS2",
+      "freeTier": "Free",
+      "source": "Source",
+      "noResults": "No vendors found. Reset filters.",
+      "tierBadgeTransparent": "Transparent",
+      "tierBadgePartial": "Partial",
+      "tierBadgeGated": "Demo call",
+      "tierBadgeUnverifiable": "Unverifiable",
+      "nis2Yes": "Yes",
+      "nis2No": "No",
+      "freeTierNone": "—",
+      "freeTierTrial": "Trial",
+      "freeTierFreemium": "Free",
+      "freeTierOss": "OSS",
+      "viewVendorPricing": "Open pricing page",
+      "lastVerified": "Verified",
+      "dataExport": "Data export",
+      "dataExportFullOpen": "Fully open",
+      "dataExportPartial": "Partial",
+      "dataExportReportOnly": "Reports only",
+      "dataExportNone": "Nothing documented",
+      "dataExportUnknown": "—"
+    },
+    "methodology": {
+      "title": "Methodology",
+      "verified": "Verified on",
+      "rules": [
+        "We visited each pricing page manually.",
+        "Prices are quoted verbatim from the vendor's website.",
+        "No extrapolation from G2, Capterra, third-party blogs or LinkedIn.",
+        "Where prices are hidden behind a demo form: 'Demo call required'.",
+        "Where prices are only quoted as 'from €X': 'Partial transparency'.",
+        "Quarterly re-audit. Vendors can submit corrections."
+      ],
+      "correctionsTitle": "Submit a correction",
+      "correctionsBody": "Is our data about your product wrong? Email simon@nisd2.eu with your pricing page URL. We update within 48 hours and keep a change log."
+    },
+    "cta": {
+      "title": "Free + Open Source + no lock-in",
+      "body": "We don't sell NIS2 compliance. We make it accessible. Free, open source, no sales team calling you.",
+      "button": "Launch platform"
+    }
+  }
+}

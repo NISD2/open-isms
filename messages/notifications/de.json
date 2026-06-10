@@ -1,0 +1,19 @@
+{
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "description": "Ihre Benachrichtigungen anzeigen und verwalten",
+    "empty": "Keine Benachrichtigungen",
+    "acknowledge": "Bestätigen",
+    "acknowledged": "Bestätigt",
+    "unread": "{count} ungelesen",
+    "actions": "Aktionen",
+    "markRead": "Als gelesen markieren",
+    "markAllRead": "Alle als gelesen markieren",
+    "fields": {
+      "subject": "Betreff",
+      "entityType": "Typ",
+      "scheduledFor": "Geplant für",
+      "status": "Status"
+    }
+  }
+}

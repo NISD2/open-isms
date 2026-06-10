@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Beleid",
+    "description": "Beveiligingsbeleid, procedures en richtlijnen met goedkeuringsbewaking. Basis van NIS2 Art. 21(1).",
+    "helpText": "Maak en beheer uw informatiebeveiligingsbeleid. Elk beleidsdocument volgt een levenscyclus: concept, beoordeling, goedgekeurd, gearchiveerd. Houd versiehistorie bij en zorg dat al het relevante personeel het huidige beleid erkent. NIS2 vereist gedocumenteerd beleid voor risicobeheer, toegangscontrole, versleuteling en meer.",
+    "add": "Beleid toevoegen",
+    "edit": "Beleid bewerken",
+    "empty": "Nog geen beleid. Maak uw eerste beleidsdocument aan.",
+    "deleteConfirm": "Weet u zeker dat u dit beleidsdocument wilt verwijderen?",
+    "actions": "Acties",
+    "status": {
+      "draft": "Concept",
+      "approved": "Goedgekeurd",
+      "archived": "Gearchiveerd"
+    },
+    "fields": {
+      "title": "Titel",
+      "type": "Type",
+      "version": "Versie",
+      "content": "Inhoud",
+      "status": "Status",
+      "effectiveFrom": "Geldig vanaf",
+      "reviewDue": "Beoordeling verplicht voor"
+    },
+    "fieldDescriptions": {
+      "title": "Naam van het beleidsdocument (bijv. 'Informatiebeveiligingsbeleid', 'Toegangscontrolebeleid').",
+      "type": "Selecteer het type beleidsdocument (bijv. beleid, procedure, richtlijn, standaard).",
+      "version": "Versienummer van deze beleidsrevisie (bijv. 1.0, 2.1). Verhoog bij elke goedkeuringscyclus.",
+      "content": "Volledige tekstinhoud van het beleid. Neem reikwijdte, doelstellingen, verantwoordelijkheden en specifieke vereisten op.",
+      "status": "Huidige levenscyclusstatus: Concept (in voorbereiding), Goedgekeurd (actief en van kracht), of Gearchiveerd (vervangen).",
+      "effectiveFrom": "Datum waarop deze beleidsversie actief en afdwingbaar wordt.",
+      "reviewDue": "Datum waarop dit beleid herzien en bijgewerkt moet worden. NIS2 verwacht regelmatige beleidsreviews."
+    }
+  }
+}

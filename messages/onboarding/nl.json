@@ -1,0 +1,28 @@
+{
+  "onboarding": {
+    "title": "Welcome to NIS2 Compliance",
+    "subtitle": "Set up your organization to get started.",
+    "step": "Step {current} of {total}",
+    "steps": {
+      "company": "Organization Details",
+      "team": "Key Personnel",
+      "ai": "AI Assistant"
+    },
+    "nav": {
+      "back": "Back",
+      "next": "Next",
+      "skip": "Skip for Now",
+      "submit": "Create Organization"
+    },
+    "creating": "Setting up your organization...",
+    "createError": "Failed to create organization. Please try again.",
+    "mode": {
+      "title": "You're all set!",
+      "subtitle": "How would you like to proceed?",
+      "guided": "Guided Setup",
+      "guidedDescription": "Walk through each compliance category step by step. Defaults are already applied - just review and customize.",
+      "manual": "Manual Setup",
+      "manualDescription": "Go straight to your dashboard and work at your own pace."
+    }
+  }
+}

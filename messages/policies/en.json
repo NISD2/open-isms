@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Policies",
+    "description": "Security policies, procedures, and guidelines with approval tracking. Foundation of NIS2 Art. 21(1).",
+    "helpText": "Create and manage your information security policies. Each policy follows a lifecycle: draft, review, approved, archived. Track version history and ensure all relevant staff acknowledge current policies. NIS2 requires documented policies for risk management, access control, encryption, and more.",
+    "add": "Add Policy",
+    "edit": "Edit Policy",
+    "empty": "No policies yet. Create your first policy document.",
+    "deleteConfirm": "Are you sure you want to delete this policy?",
+    "actions": "Actions",
+    "status": {
+      "draft": "Draft",
+      "approved": "Approved",
+      "archived": "Archived"
+    },
+    "fields": {
+      "title": "Title",
+      "type": "Type",
+      "version": "Version",
+      "content": "Content",
+      "status": "Status",
+      "effectiveFrom": "Effective From",
+      "reviewDue": "Review Due"
+    },
+    "fieldDescriptions": {
+      "title": "Name of the policy document (e.g., 'Information Security Policy', 'Access Control Policy').",
+      "type": "Select the policy type (e.g., policy, procedure, guideline, standard).",
+      "version": "Version number for this policy revision (e.g., 1.0, 2.1). Increment on each approval cycle.",
+      "content": "Full text content of the policy. Include scope, objectives, responsibilities, and specific requirements.",
+      "status": "Current lifecycle status: Draft (in preparation), Approved (active and enforced), or Archived (superseded).",
+      "effectiveFrom": "Date when this policy version becomes active and enforceable.",
+      "reviewDue": "Date by which this policy must be reviewed and updated. NIS2 expects regular policy reviews."
+    }
+  }
+}

@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+Disallow: /*/dashboard
+Disallow: /*/compliance
+Disallow: /*/auth/
+Disallow: /*/team
+Disallow: /*/review
+Disallow: /*/audit
+Disallow: /*/export
+Disallow: /*/invite/
+Disallow: /*/settings
+Disallow: /*/onboarding
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://www.nisd2.eu/sitemap.xml

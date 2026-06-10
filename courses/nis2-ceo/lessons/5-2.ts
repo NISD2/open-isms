@@ -1,0 +1,17 @@
+import { lessonSchema } from "@/lib/training/schemas";
+
+const lesson = lessonSchema.parse({
+  id: "5.2",
+  slug: "certificate-of-completion",
+  title: { en: "Certificate of Completion", nl: "Eindexamen en certificaat van voltooiing", de: "Abschlussprüfung und Zertifikat" },
+  moduleId: "final",
+  order: 1,
+  contentFile: "5-2",
+  videoUrl: undefined,
+  hasQuiz: false,
+  estimatedMinutes: 4,
+  nextLessonId: null,
+  prevLessonId: "5.1",
+});
+
+export default lesson;

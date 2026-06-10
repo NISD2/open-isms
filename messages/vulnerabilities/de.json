@@ -1,0 +1,61 @@
+{
+  "vulnerabilities": {
+    "title": "Schwachstellenmanagement",
+    "description": "Erfasste Schwachstellen über ihren Lebenszyklus verfolgen. Erforderlich nach CIR 2024/2690 Art. 6.10.",
+    "helpText": "Schwachstellen aus Scans, Pentests oder Herstellerhinweisen erfassen. Triage, Behandlungsentscheidungen und Behebung nachverfolgen. Die CIR erfordert die Schwachstellenbehandlung als separaten dokumentierten Prozess vom Patch-Management.",
+    "add": "Schwachstelle hinzufügen",
+    "edit": "Schwachstelle bearbeiten",
+    "empty": "Noch keine Schwachstellen erfasst. Fügen Sie Ihre erste Schwachstelle hinzu.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diese Schwachstelle löschen möchten?",
+    "actions": "Aktionen",
+    "severity": {
+      "critical": "Kritisch",
+      "high": "Hoch",
+      "medium": "Mittel",
+      "low": "Niedrig"
+    },
+    "status": {
+      "discovered": "Entdeckt",
+      "assessed": "Bewertet",
+      "treating": "In Behandlung",
+      "resolved": "Behoben",
+      "accepted": "Akzeptiert",
+      "mitigated": "Kompensiert"
+    },
+    "source": {
+      "vulnerability_scan": "Schwachstellenscan",
+      "pentest": "Penetrationstest",
+      "bug_bounty": "Bug Bounty",
+      "vendor_advisory": "Herstellerhinweis",
+      "internal_review": "Interne Überprüfung"
+    },
+    "fields": {
+      "cveId": "CVE-ID",
+      "title": "Titel",
+      "description": "Beschreibung",
+      "severity": "Schweregrad",
+      "cvssScore": "CVSS-Score",
+      "source": "Quelle",
+      "assetId": "Asset",
+      "status": "Status",
+      "discoveredAt": "Entdeckt am",
+      "treatmentNote": "Behandlung",
+      "acceptanceReason": "Akzeptanzgrund",
+      "resolvedAt": "Behoben am"
+    },
+    "fieldDescriptions": {
+      "cveId": "CVE-Kennung, falls vorhanden (z. B. CVE-2024-1234). Bei intern entdeckten Schwachstellen ohne CVE leer lassen.",
+      "title": "Kurzbeschreibung der Schwachstelle (z. B. 'SQL-Injection im Login-Formular', 'Veraltetes TLS 1.0 auf Webserver').",
+      "description": "Detaillierte Beschreibung: betroffene Komponenten, Versionen, potenzielle Auswirkungen und Ausnutzungsbedingungen.",
+      "severity": "CVSS-basierte Schweregradeinschätzung: kritisch, hoch, mittel oder niedrig.",
+      "cvssScore": "Optionaler numerischer CVSS-Score (0,0-10,0) für präzise Priorisierung.",
+      "source": "Wie wurde diese Schwachstelle entdeckt: Scan, Pentest, Bug Bounty, Herstellerhinweis oder interne Überprüfung.",
+      "assetId": "Betroffenes Asset, falls zutreffend. Aus dem Asset-Register auswählen.",
+      "status": "Aktueller Status: entdeckt, bewertet, in Behandlung, behoben, akzeptiert (Risiko) oder kompensiert (Ausgleichsmaßnahme).",
+      "discoveredAt": "Datum, an dem die Schwachstelle erstmals identifiziert wurde.",
+      "treatmentNote": "Was wird unternommen, um diese Schwachstelle zu beheben (Patch, Konfigurationsänderung, Ausgleichsmaßnahme usw.).",
+      "acceptanceReason": "Bei Risikoakzeptanz die Begründung gem. CIR 6.6.2 dokumentieren. Erforderlich bei Status 'Akzeptiert'.",
+      "resolvedAt": "Datum, an dem die Schwachstelle behoben, akzeptiert oder kompensiert wurde."
+    }
+  }
+}

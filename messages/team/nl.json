@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Team",
+    "pageDescription": "Manage team members and invitations",
+    "members": {
+      "title": "Members",
+      "description": "{count, plural, one {# member} other {# members}} in your company",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "you": "you",
+      "assignedCategories": "Assigned Categories",
+      "complianceRole": "Assign Role"
+    },
+    "invites": {
+      "title": "Pending Invites",
+      "description": "{count, plural, one {# pending invitation} other {# pending invitations}}",
+      "email": "Email",
+      "expires": "Expires",
+      "linkCopied": "Link copied"
+    },
+    "invite": {
+      "title": "Invite Member",
+      "description": "Enter an email address to generate an invite link",
+      "email": "Email",
+      "emailPlaceholder": "colleague@company.com",
+      "complianceRole": "Compliance Role",
+      "complianceRolePlaceholder": "Select role (optional)",
+      "submit": "Invite",
+      "submitting": "Inviting..."
+    },
+    "assignRole": {
+      "label": "Assign Role",
+      "placeholder": "Select role...",
+      "success": "Role assigned successfully",
+      "noCategories": "No categories for this role"
+    },
+    "remove": {
+      "success": "Member removed"
+    },
+    "revoke": {
+      "success": "Invite revoked"
+    },
+    "inline": {
+      "sent": "Invite sent to {email}",
+      "linkCopied": "Link copied"
+    },
+    "invalidTitle": "Invalid Invite",
+    "invalidDescription": "This invite link is invalid or has already been used.",
+    "usedTitle": "Invite Already Used",
+    "usedDescription": "This invite has already been accepted or revoked.",
+    "expiredTitle": "Invite Expired",
+    "expiredDescription": "This invite link has expired. Ask your admin for a new one.",
+    "accept": {
+      "joinTitle": "Join {company}",
+      "joinDescription": "You've been invited to join as {role}.",
+      "signInDescription": "Je bent uitgenodigd om als {role} deel te nemen. Meld je aan of registreer je om door te gaan.",
+      "signInToAccept": "Aanmelden en deelnemen",
+      "alreadyMemberTitle": "Already a Member",
+      "alreadyMemberDescription": "You are already a member of a company. You cannot join another one.",
+      "goToDashboard": "Go to Dashboard",
+      "wrongAccountTitle": "Wrong Account",
+      "wrongAccountDescription": "This invite was sent to {inviteEmail}. You're signed in as {userEmail}.",
+      "signOutRetry": "Sign out and try again",
+      "joining": "Joining...",
+      "acceptInvite": "Accept Invite",
+      "joined": "Joined {company}"
+    },
+    "roles": {
+      "ceo": "CEO / Managing Director",
+      "ciso": "CISO / IT Security Officer",
+      "cto": "CTO / Head of Engineering",
+      "coo": "COO / Operations Director",
+      "cpo": "CPO / Procurement Lead",
+      "hr_director": "HR Director",
+      "legal": "Legal / Compliance Officer",
+      "dpo": "Data Protection Officer"
+    }
+  }
+}

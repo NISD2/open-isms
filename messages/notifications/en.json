@@ -1,0 +1,19 @@
+{
+  "notifications": {
+    "title": "Notifications",
+    "description": "View and manage your notifications",
+    "empty": "No notifications",
+    "acknowledge": "Acknowledge",
+    "acknowledged": "Acknowledged",
+    "unread": "{count} unread",
+    "actions": "Actions",
+    "markRead": "Mark as read",
+    "markAllRead": "Mark all as read",
+    "fields": {
+      "subject": "Subject",
+      "entityType": "Type",
+      "scheduledFor": "Scheduled For",
+      "status": "Status"
+    }
+  }
+}

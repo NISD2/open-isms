@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Improvements",
+    "description": "Continuous improvement items from audits, incidents, and reviews. Supports PDCA cycle per NIS2.",
+    "helpText": "Track improvement actions identified from audits, incident post-mortems, management reviews, and KPI trends. Each item has a source, priority, owner, and target date. This register demonstrates your organization's commitment to continuous improvement.",
+    "add": "Add Improvement",
+    "edit": "Edit Improvement",
+    "empty": "No improvement items yet. Add items from audits, incidents, or reviews.",
+    "deleteConfirm": "Are you sure you want to delete this improvement item?",
+    "actions": "Actions",
+    "source": {
+      "audit": "Audit",
+      "incident": "Incident",
+      "pentest": "Pentest",
+      "management_review": "Management Review",
+      "kpi_breach": "KPI Breach",
+      "gap_analysis": "Gap Analysis",
+      "regulatory_change": "Regulatory Change",
+      "suggestion": "Suggestion"
+    },
+    "status": {
+      "open": "Open",
+      "in_progress": "In Progress",
+      "resolved": "Resolved",
+      "verified": "Verified",
+      "deferred": "Deferred"
+    },
+    "priority": {
+      "P0": "P0 - Immediate",
+      "P1": "P1 - 3 months",
+      "P2": "P2 - 6 months",
+      "P3": "P3 - 12 months"
+    },
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "source": "Source",
+      "priority": "Priority",
+      "status": "Status",
+      "targetDate": "Target Date",
+      "deferralReason": "Deferral Reason",
+      "verificationNotes": "Verification Notes"
+    },
+    "fieldDescriptions": {
+      "title": "Short descriptive title for this improvement action (e.g., 'Implement MFA for VPN access').",
+      "description": "Detailed description of the improvement, including current gap and desired outcome.",
+      "source": "Select where this improvement was identified: audit finding, incident post-mortem, management review, KPI breach, etc.",
+      "priority": "Select the priority level which determines the implementation timeframe (P0: immediate, P1: 3 months, P2: 6 months, P3: 12 months).",
+      "status": "Current status of the improvement: open, in progress, resolved, verified (effectiveness confirmed), or deferred.",
+      "targetDate": "Date by which this improvement action should be completed.",
+      "deferralReason": "If status is Deferred, provide the justification and expected resumption timeline.",
+      "verificationNotes": "Document how the effectiveness of this improvement was verified after implementation."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "methodology": {
+    "title": "Risk Assessment Methodology",
+    "loading": "Loading methodology...",
+    "saved": "Methodology saved",
+    "saveFailed": "Failed to save methodology",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "methodologyName": "Methodology Name",
+    "likelihoodScale": "Likelihood Scale",
+    "impactScale": "Impact Scale",
+    "label": "Label",
+    "description": "Description",
+    "addLevel": "Add level",
+    "removeLevel": "Remove last",
+    "riskMatrix": "Risk Matrix",
+    "acceptanceThreshold": "Acceptance Threshold",
+    "thresholdHelp": "Risks with score ≤ {threshold} can be accepted without treatment",
+    "includesOt": "Methodology covers OT/ICS systems (§30(2) BSIG)",
+    "clickToSelect": "Click a cell to select likelihood × impact",
+    "selectedScore": "Selected score"
+  }
+}

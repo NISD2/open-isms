@@ -1,0 +1,117 @@
+{
+  "applicability": {
+    "title": "NIS2-Betroffenheitsprüfung - Bin ich betroffen?",
+    "metaDescription": "Prüfen Sie in unter 2 Minuten, ob Ihr Unternehmen unter NIS2 fällt. Kostenloser Schnellcheck nach Sektor, Größe und Sonderfällen.",
+    "subtitle": "Finden Sie in unter 2 Minuten heraus, ob Ihr Unternehmen unter die NIS2-Richtlinie fällt.",
+    "cta": "Demo buchen",
+    "steps": {
+      "exclusion": "Ausnahmeprüfung",
+      "sector": "Sektorauswahl",
+      "size": "Unternehmensgröße",
+      "specialCases": "Sonderfälle",
+      "result": "Ergebnis"
+    },
+    "step": "Schritt {current} von {total}",
+
+    "exclusion": {
+      "title": "Fällt Ihre Organisation in eine ausgenommene Kategorie?",
+      "description": "Die folgenden Einrichtungen sind gesetzlich von NIS2 ausgenommen. Falls zutreffend, endet die Prüfung hier - NIS2 gilt nicht für Sie.",
+      "noneOfTheAbove": "Nein - nichts davon trifft auf uns zu",
+      "noneHelp": "Auswählen um fortzufahren. Die meisten privatwirtschaftlichen Unternehmen wählen diese Option."
+    },
+
+    "sector": {
+      "title": "In welchem Sektor ist Ihr Unternehmen tätig?",
+      "description": "Wählen Sie alle zutreffenden Sektoren. Ein Unternehmen kann in mehreren NIS2-Sektoren tätig sein.",
+      "annexI": "Sektoren mit hoher Kritikalit\u00e4t",
+      "annexII": "Sonstige kritische Sektoren",
+      "noSector": "Keiner dieser Sektoren trifft auf mein Unternehmen zu",
+      "selectedCount": "{count, plural, =0 {Keine Sektoren ausgewählt} =1 {1 Sektor ausgewählt} other {# Sektoren ausgewählt}}"
+    },
+
+    "size": {
+      "title": "Wie groß ist Ihr Unternehmen?",
+      "description": "Die Größe wird auf Ebene des gesamten Unternehmensverbunds berechnet, einschließlich Mutter- und Tochtergesellschaften.",
+      "employees": "Mitarbeiteranzahl gesamt (VZÄ)",
+      "employeesHelp": "Einschließlich aller Konzernunternehmen, es sei denn, Ihre Einheit hat eine vollständig unabhängige IT-Infrastruktur.",
+      "turnover": "Jahresumsatz (EUR Millionen)",
+      "turnoverHelp": "Weltweiter konsolidierter Umsatz des gesamten Unternehmensverbunds.",
+      "balanceSheet": "Jahresbilanzsumme (EUR Millionen)",
+      "balanceSheetHelp": "Weltweite konsolidierte Bilanzsumme des gesamten Unternehmensverbunds.",
+      "independentIt": "Unsere deutsche Einheit hat vollständig unabhängige IT-Systeme vom Mutterkonzern",
+      "independentItHelp": "Falls aktiviert, gelten nur die Kennzahlen Ihrer deutschen Einheit."
+    },
+
+    "specialCases": {
+      "title": "Trifft einer der folgenden Fälle zu?",
+      "description": "Diese Einrichtungen fallen unabhängig von der Unternehmensgröße unter NIS2.",
+      "noneOfTheAbove": "Keine der genannten",
+      "noneHelp": "Die meisten Organisationen w\u00e4hlen diese Option.",
+      "selectedCount": "{count, plural, =1 {1 ausgew\u00e4hlt} other {# ausgew\u00e4hlt}}"
+    },
+
+    "result": {
+      "notInScope": "Voraussichtlich nicht betroffen",
+      "important": "Wichtige Einrichtung",
+      "importantLabel": "Voraussichtlich wichtige Einrichtung",
+      "essential": "Wesentliche Einrichtung",
+      "essentialLabel": "Voraussichtlich wesentliche Einrichtung",
+      "kritis": "Betreiber kritischer Anlagen",
+      "kritisLabel": "Voraussichtlich KRITIS-Betreiber",
+
+      "reason": {
+        "excluded": "Ihre Organisation scheint vom NIS2-Anwendungsbereich ausgenommen zu sein (hoheitliche Funktion).",
+        "no_sector": "Nach Ihrer Auswahl scheint Ihr Unternehmen in keinem von NIS2 erfassten Sektor tätig zu sein. Im Zweifelsfall prüfen Sie die vollständige NIS2-Sektorenliste oder holen Sie rechtliche Beratung ein.",
+        "below_threshold": "Ihr Unternehmen scheint in einem NIS2-Sektor tätig zu sein, liegt aber möglicherweise unter der Schwelle für mittlere Unternehmen. Allerdings können NIS2-Anforderungen über Lieferkettenverträge mit betroffenen Kunden gelten.",
+        "special_case": "Aufgrund seiner Einstufung fällt Ihre Organisation voraussichtlich unabhängig von der Größe in den Anwendungsbereich.",
+        "size_and_sector": "Nach den vorliegenden Informationen scheint Ihr Unternehmen sowohl die Sektor- als auch die Größenkriterien für NIS2 zu erfüllen."
+      },
+
+      "disclaimer": "Dies ist eine indikative Orientierungshilfe auf Basis öffentlich zugänglicher Quellen (NIS 2, BSIG, BSI-FAQ), keine Rechtsberatung und keine verbindliche Einstufung im Einzelfall. Die NIS2-Betroffenheit hängt von Faktoren ab, die hier nicht vollständig erfasst werden, darunter Konzernstruktur, unabhängige IT-Infrastruktur und behördliche Auslegungen. Für eine verbindliche Einstufung im Einzelfall wenden Sie sich an eine Rechtsanwältin oder einen qualifizierten Berater.",
+
+      "obligations": "Gesetzliche Anforderungen laut NIS 2 / BSIG",
+      "penalty": "Bußgeldrahmen",
+      "penaltyValue": "{amount} oder {percent} des weltweiten Jahresumsatzes",
+      "penaltyInfo": "Gesetzlicher Bußgeldrahmen nach § 65 BSIG bei Verstößen gegen Cybersicherheitsmaßnahmen, Meldepflichten oder BSI-Anordnungen. Die umsatzbasierte Alternative gilt nach Gesetzeswortlaut für Unternehmen mit > 500 Mio. EUR Umsatz. Die konkrete Höhe richtet sich nach Schwere des Verstoßes.",
+      "supervisionLabel": "Aufsicht",
+      "supervisionProactive": "Proaktiv (ex-ante) - BSI kann jederzeit prüfen",
+      "supervisionReactive": "Reaktiv (ex-post) - BSI handelt bei Hinweisen auf Nichteinhaltung",
+      "supervisionInfo": "Proaktiv: Das BSI kann nach Gesetzeslage unangekündigt prüfen, Dokumentation anfordern und spezifische Sicherheitsmaßnahmen anordnen. Reaktiv: Das BSI wird nur nach Vorfällen oder bei begründetem Verdacht auf Nichteinhaltung tätig.",
+      "registration": "BSI-Registrierung",
+      "registrationDeadline": "Selbstregistrierung beim BSI bis 6. März 2026 (für betroffene Einrichtungen)",
+      "registrationInfo": "Das BSIG sieht eine Selbstregistrierung über das BSI-Portal vor (aktiv seit 6. Jan. 2026). Benötigt: Unternehmensname, Adresse, Sektoren, IP-Bereiche und Erklärung zur Einrichtungskategorie. In der Praxis zuerst ein 'Mein Unternehmenskonto' (MUK) über ELSTER erstellen, dann auf dem BSI-Portal registrieren.",
+      "riskManagement": "Risikomanagement",
+      "riskManagementValue": "10 Maßnahmen nach § 30 BSIG",
+      "riskManagementInfo": "Nach § 30 BSIG sieht das Gesetz zehn Maßnahmenbereiche vor: Risikoanalyse, Vorfallbewältigung, Business Continuity, Lieferkettensicherheit, sichere Entwicklung, Wirksamkeitsbewertung, Cyberhygiene-Schulungen, Kryptographie, Zugriffskontrolle/Asset-Management und Multi-Faktor-Authentifizierung.",
+      "incidentReporting": "Meldepflichten",
+      "incidentReportingValue": "24 Std. / 72 Std. / 1 Monat Meldekaskade an das BSI",
+      "incidentReportingInfo": "Art. 23 NIS 2 / § 32 BSIG sehen für erhebliche Sicherheitsvorfälle eine dreistufige Meldekaskade an das BSI vor: (1) Frühwarnung innerhalb von 24 Stunden, (2) aktualisierte Meldung innerhalb von 72 Stunden, (3) Abschlussmeldung innerhalb von 1 Monat. Inhalte und Schwellen sind im Gesetzestext geregelt.",
+      "managementLiability": "Geschäftsführerhaftung",
+      "managementLiabilityValue": "Persönliche Haftung nach § 38 BSIG",
+      "managementLiabilityInfo": "Der Gesetzestext (§ 38 BSIG) regelt eine persönliche Innenhaftung der Geschäftsleitung mit drei Kernpflichten: (1) formelle Billigung der Cybersicherheitsmaßnahmen, (2) aktive Überwachung der Umsetzung, (3) Pflichtschulung. Ein Haftungsverzicht durch Gesellschafter ist nach dem Gesetzeswortlaut ausgeschlossen.",
+      "managementTraining": "Schulungspflicht",
+      "managementTrainingValue": "Pflichtschulung Cybersicherheit nach § 38 BSIG",
+      "managementTrainingInfo": "§ 38 BSIG sieht vor, dass Mitglieder der Geschäftsleitung regelmäßig persönlich an einer Cybersicherheitsschulung teilnehmen. Diese Pflicht ist nach dem Gesetzeswortlaut nicht an einen CISO oder die IT-Abteilung delegierbar.",
+
+      "cta": "Walkthrough buchen",
+      "ctaVoluntary": "Trotzdem Walkthrough buchen",
+      "restart": "Neu starten",
+      "supplyChainNote": "Auch wenn nicht direkt betroffen, können NIS2-Anforderungen über Verträge mit betroffenen Kunden gelten."
+    },
+
+    "nav": {
+      "back": "Zurück",
+      "next": "Weiter",
+      "checkResult": "Ergebnis anzeigen"
+    },
+
+    "leadCapture": {
+      "title": "Kostenlose Compliance-Roadmap erhalten",
+      "description": "Wir senden Ihnen einen personalisierten Maßnahmenplan basierend auf Ihrer Einstufung — kein Spam, nur die nächsten Schritte.",
+      "placeholder": "ihre@firma.de",
+      "cta": "Roadmap senden",
+      "success": "Prüfen Sie Ihren Posteingang — Ihre Compliance-Roadmap ist unterwegs.",
+      "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+    }
+  }
+}

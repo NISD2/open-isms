@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Team",
+    "pageDescription": "Teammitglieder und Einladungen verwalten",
+    "members": {
+      "title": "Mitglieder",
+      "description": "{count, plural, one {# Mitglied} other {# Mitglieder}} in Ihrem Unternehmen",
+      "name": "Name",
+      "email": "E-Mail",
+      "role": "Rolle",
+      "you": "Sie",
+      "assignedCategories": "Zugewiesene Kategorien",
+      "complianceRole": "Rolle zuweisen"
+    },
+    "invites": {
+      "title": "Ausstehende Einladungen",
+      "description": "{count, plural, one {# ausstehende Einladung} other {# ausstehende Einladungen}}",
+      "email": "E-Mail",
+      "expires": "Läuft ab",
+      "linkCopied": "Link kopiert"
+    },
+    "invite": {
+      "title": "Mitglied einladen",
+      "description": "Geben Sie eine E-Mail-Adresse ein, um einen Einladungslink zu erstellen",
+      "email": "E-Mail",
+      "emailPlaceholder": "kollege@firma.de",
+      "complianceRole": "Compliance-Rolle",
+      "complianceRolePlaceholder": "Rolle wählen (optional)",
+      "submit": "Einladen",
+      "submitting": "Wird eingeladen..."
+    },
+    "assignRole": {
+      "label": "Rolle zuweisen",
+      "placeholder": "Rolle wählen...",
+      "success": "Rolle erfolgreich zugewiesen",
+      "noCategories": "Keine Kategorien für diese Rolle"
+    },
+    "remove": {
+      "success": "Mitglied entfernt"
+    },
+    "revoke": {
+      "success": "Einladung widerrufen"
+    },
+    "inline": {
+      "sent": "Einladung gesendet an {email}",
+      "linkCopied": "Link kopiert"
+    },
+    "invalidTitle": "Ungültige Einladung",
+    "invalidDescription": "Dieser Einladungslink ist ungültig oder wurde bereits verwendet.",
+    "usedTitle": "Einladung bereits verwendet",
+    "usedDescription": "Diese Einladung wurde bereits angenommen oder widerrufen.",
+    "expiredTitle": "Einladung abgelaufen",
+    "expiredDescription": "Dieser Einladungslink ist abgelaufen. Bitten Sie Ihren Administrator um einen neuen.",
+    "accept": {
+      "joinTitle": "{company} beitreten",
+      "joinDescription": "Sie wurden eingeladen als {role} beizutreten.",
+      "signInDescription": "Sie wurden eingeladen als {role} beizutreten. Melden Sie sich an oder registrieren Sie sich, um fortzufahren.",
+      "signInToAccept": "Anmelden und beitreten",
+      "alreadyMemberTitle": "Bereits Mitglied",
+      "alreadyMemberDescription": "Sie sind bereits Mitglied eines Unternehmens. Sie können keinem weiteren beitreten.",
+      "goToDashboard": "Zum Dashboard",
+      "wrongAccountTitle": "Falsches Konto",
+      "wrongAccountDescription": "Diese Einladung wurde an {inviteEmail} gesendet. Sie sind als {userEmail} angemeldet.",
+      "signOutRetry": "Abmelden und erneut versuchen",
+      "joining": "Beitritt...",
+      "acceptInvite": "Einladung annehmen",
+      "joined": "{company} beigetreten"
+    },
+    "roles": {
+      "ceo": "CEO / Geschäftsführer",
+      "ciso": "CISO / IT-Sicherheitsbeauftragter",
+      "cto": "CTO / Leiter Technik",
+      "coo": "COO / Betriebsleiter",
+      "cpo": "CPO / Einkaufsleiter",
+      "hr_director": "Personalleiter",
+      "legal": "Rechtsabteilung / Compliance-Beauftragter",
+      "dpo": "Datenschutzbeauftragter"
+    }
+  }
+}

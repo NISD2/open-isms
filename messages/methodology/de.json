@@ -1,0 +1,24 @@
+{
+  "methodology": {
+    "title": "Risikobewertungsmethodik",
+    "loading": "Methodik wird geladen...",
+    "saved": "Methodik gespeichert",
+    "saveFailed": "Speichern der Methodik fehlgeschlagen",
+    "edit": "Bearbeiten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "methodologyName": "Name der Methodik",
+    "likelihoodScale": "Eintrittswahrscheinlichkeit",
+    "impactScale": "Schadenshöhe",
+    "label": "Bezeichnung",
+    "description": "Beschreibung",
+    "addLevel": "Stufe hinzufügen",
+    "removeLevel": "Letzte entfernen",
+    "riskMatrix": "Risikomatrix",
+    "acceptanceThreshold": "Akzeptanzschwelle",
+    "thresholdHelp": "Risiken mit Score ≤ {threshold} können ohne Behandlung akzeptiert werden",
+    "includesOt": "Methodik deckt OT/ICS-Systeme ab (§30(2) BSIG)",
+    "clickToSelect": "Klicken Sie auf eine Zelle, um Wahrscheinlichkeit × Auswirkung zu wählen",
+    "selectedScore": "Ausgewählter Score"
+  }
+}

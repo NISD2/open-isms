@@ -1,0 +1,464 @@
+{
+  "compliance": {
+    "title": "NIS2 Compliance",
+    "subtitle": "BSIG 2025 - {totalReqs} vereisten in {steps} stappen",
+    "startAssessment": "Compliance-beoordeling starten",
+    "startDescription": "Ga systematisch door alle NIS2/BSIG-vereisten. Vereisten worden per domein weergegeven en kunnen direct worden afgehandeld.",
+    "startButton": "Beoordeling starten",
+    "continueButton": "Doorgaan",
+    "completeAssessment": "Beoordeling afronden",
+    "domains": "{count} compliance-domeinen",
+    "loadingCategories": "Categorieën laden...",
+    "loadingRequirements": "Vereisten laden...",
+    "categoryNotFound": "Categorie niet gevonden.",
+    "noFrameworkData": "Geen raamwerkgegevens beschikbaar.",
+    "noRequirements": "Geen vereisten gevonden voor deze categorie.",
+    "frequency": "Frequentie: {value}",
+    "mandatory": "Verplicht",
+    "requiredEvidence": "Vereist bewijs",
+    "progress": "{completed} van {total}",
+    "progressTooltip": "{completed} van {total} vereisten afgerond ({percentage}%)",
+    "assign": "Toewijzen",
+    "categoryOwner": "Verantwoordelijke",
+    "noOwner": "Geen verantwoordelijke toegewezen",
+    "assignedTo": "Toegewezen aan {name}",
+    "assignedCount": "{count} toegewezen",
+    "unassigned": "Niet toegewezen",
+    "readOnlyBanner": "Deze categorie is toegewezen aan {name}. Neem contact op met uw beheerder voor toegang.",
+    "noUsersToAssign": "Geen teamleden beschikbaar",
+    "inviteMember": "Nieuw lid uitnodigen",
+    "invitePlaceholder": "naam@bedrijf.nl",
+    "assignFailed": "Toewijzen mislukt",
+    "unassignFailed": "Ontkoppelen mislukt",
+    "moduleBacked": "Module-gekoppeld – verbonden met operationele gegevens",
+    "signOff": "Aftekenen",
+    "signOffAllCount": "Alles aftekenen ({count})",
+    "bulkSignOffSuccess": "{count} vereisten afgetekend",
+    "signedOffBy": "Afgetekend door {role} op {date}",
+    "notApplicable": "Niet van toepassing",
+    "notApplicablePlaceholder": "Verklaar waarom deze vereiste niet van toepassing is op uw organisatie (§30 BSIG proportionaliteit)...",
+    "confirmNotApplicable": "N.v.t. bevestigen",
+    "exportPolicy": "Beleid exporteren",
+    "completedSectionCount": "Afgetekend ({count})",
+    "implementationGuide": "Implementatiehandleiding",
+    "showMore": "Meer tonen",
+    "showLess": "Minder tonen",
+    "deadline": {
+      "overdue": "{days}d achterstallig",
+      "dueToday": "Vandaag te doen",
+      "dueIn": "Over {days}d"
+    },
+    "guided": {
+      "banner": "Begeleide instelling",
+      "progress": "Categorie {current} van {total}",
+      "skipToDashboard": "Naar dashboard overslaan",
+      "finish": "Instelling afronden"
+    },
+    "overview": {
+      "title": "Compliance-overzicht",
+      "subtitle": "Volg uw voortgang in alle NIS2-vereistecategorieën",
+      "requirements": "{count} vereisten"
+    },
+    "requirement": {
+      "backToCategory": "Terug naar {category}",
+      "whatSection": "Wat is vereist",
+      "whySection": "Waarom dit belangrijk is",
+      "howSection": "Hoe hieraan te voldoen",
+      "specificsSection": "Uw specifieke gegevens",
+      "evidenceSection": "Bewijs",
+      "noFieldsNeeded": "Geen specifieke gegevens nodig – controleer de richtlijnen en teken af wanneer gereed.",
+      "viewDetails": "Details bekijken",
+      "prevRequirement": "Vorige",
+      "nextRequirement": "Volgende",
+      "threatContext": "Dreigingscontext",
+      "legalConsequence": "Juridische consequentie",
+      "businessValue": "Bedrijfswaarde",
+      "signedOff": "Afgetekend",
+      "signedOffByOn": "Afgetekend door {name} op {date}",
+      "rejectionFeedback": "Beoordelingsfeedback",
+      "moduleData": "Operationele gegevens",
+      "goToRegister": "Naar register",
+      "requiredRole": "Voor aftekening van deze vereiste is de volgende rol vereist: {role}",
+      "signOffProgress": "{signed} van {total} aftekeningen voltooid",
+      "details": "Details",
+      "priority": "Prioriteit",
+      "frequency": "Frequentie",
+      "deadline": "Deadline",
+      "importance": "Belang",
+      "implSteps": "Implementatiestappen",
+      "whyItMatters": "Waarom het belangrijk is",
+      "prerequisitesTitle": "Vereisten",
+      "prerequisiteComplete": "Voltooid",
+      "prerequisitePending": "Vereist",
+      "prerequisitesBlocked": "Voltooi eerst de volgende vereisten:",
+      "ceoCourseTitle": "NIS 2 CEO-cursus beschikbaar",
+      "ceoCourseDescription": "Voltooi de ingebouwde managementtrainingscursus om te voldoen aan de trainingsverplichting uit §38(3) BSIG / Art. 20(2) NIS 2.",
+      "takeCourse": "Cursus starten"
+    },
+    "frameworkName": "NIS2 / BSIG 2026",
+    "categories": {
+      "GOV": {
+        "name": "Governance & Aansprakelijkheid",
+        "description": "Managementtoezicht, persoonlijke aansprakelijkheid en organisatiebestuur",
+        "legalBasis": "Art. 20 NIS2 · §38 BSIG",
+        "threatLandscape": "Zonder duidelijke governance missen cyberbeveiligingsmaatregelen richting en verantwoordelijkheid. Management dat zich niet bezighoudt met beveiliging creëert een cultuur van nalatigheid, waardoor de organisatie kwetsbaar blijft voor systematische fouten.",
+        "bsiGuidance": "Het BSI verwacht dat het management cyberbeveiligingsrisicomaatregelen formeel goedkeurt, verantwoordelijke personen aanwijst, een adequaat budget toewijst en regelmatige cyberbeveiligingstraining volgt (§38 BSIG). Persoonlijke aansprakelijkheid geldt voor directeuren."
+      },
+      "RSK": {
+        "name": "Risicobeheer",
+        "description": "Risicoidentificatie, -beoordeling en -behandeling via een all-hazards aanpak (cyber, fysiek, milieu)",
+        "legalBasis": "Art. 21(2)(a) NIS2 · §30(2) Nr. 1 BSIG",
+        "threatLandscape": "Organisaties zonder een gestructureerd risicobeoordelingsproces kunnen beveiligingsinvesteringen niet effectief prioriteren, waardoor kritieke systemen onbeschermd blijven terwijl middelen worden verspild aan laagrisico-gebieden.",
+        "bsiGuidance": "Het BSI verwacht een gedocumenteerde risicobeoordelingsmethodologie, een volledig risicoregister, een behandelplan met door het management goedgekeurde risicoaanvaarding en een regelmatige reviewcyclus (minimaal jaarlijks). Moet alle kritieke informatiesystemen bestrijken via een all-hazards aanpak."
+      },
+      "INC": {
+        "name": "Incidentbeheer",
+        "description": "Detectie, respons en BSI-melding",
+        "legalBasis": "Art. 21(2)(b), Art. 23 NIS2 · §30(2) Nr. 2, §32 BSIG",
+        "threatLandscape": "Cyberincidenten zijn onvermijdelijk. Zonder een ingestudeerd responsplan verliezen organisaties kritieke uren tijdens het 24-uurs BSI-vroegewaarschuwingsvenster en de 72-uurs meldingstermijn, wat het risico op regelgevende boetes boven op operationele schade vergroot.",
+        "bsiGuidance": "Het BSI verwacht een incidentresponsplan met duidelijke rollen en escalatiepaden, 24-uurs vroegewaarschuwingscapaciteit (§32(1)), 72-uurs incidentmelding met impactbeoordeling, classificatieschema, bewijs van oefeningen en een post-incidentreviewproces."
+      },
+      "BCP": {
+        "name": "Bedrijfscontinuïteit",
+        "description": "Back-up, herstel en crisismanagement",
+        "legalBasis": "Art. 21(2)(c) NIS2 · §30(2) Nr. 3 BSIG",
+        "threatLandscape": "Ransomware en infrastructuuruitval kunnen de bedrijfsvoering volledig stilleggen. Zonder geteste back-up/herstelprocedures en een crisismanagementplan lopen hersteltijden op van uren tot weken, wat de bedrijfscontinuïteit bedreigt.",
+        "bsiGuidance": "Het BSI verwacht een bedrijfsimpactanalyse, gedocumenteerd BCP met RPO/RTO-doelstellingen, regelmatige back-up- en hersteltests, crisiscommunicatieprocedures en bewijs van ten minste jaarlijkse BCP-tests."
+      },
+      "SUP": {
+        "name": "Toeleveringsketenbeveiliging",
+        "description": "Risicobeheer van derden",
+        "legalBasis": "Art. 21(2)(d) NIS2 · §30(2) Nr. 4 BSIG",
+        "threatLandscape": "Aanvallen op de toeleveringsketen (SolarWinds, Kaseya) tonen aan dat één gecompromitteerde leverancier kan leiden tot een cascade-effect bij duizenden organisaties. Risico's van derden zijn nu een primaire aanvalsvector.",
+        "bsiGuidance": "Het BSI verwacht een leveranciersregister met beveiligingskritikaliteitsclassificatie, beveiligingsvereisten in contracten (SLA's, auditrechten), doorlopende leveranciersmonitoring, clausules voor incidentmelding en beoordeling van enkelvoudige storingspunten."
+      },
+      "PRO": {
+        "name": "Inkoop & Ontwikkeling",
+        "description": "Veilige inkoop, patchbeheer, wijzigingsbeheer",
+        "legalBasis": "Art. 21(2)(e) NIS2 · §30(2) Nr. 5 BSIG",
+        "threatLandscape": "Niet-gepatchte kwetsbaarheden zijn het meest voorkomende toegangspunt voor aanvallers. Organisaties zonder gestructureerde kwetsbaarheids- en patchbeheerprocessen blijven wekenlang of maandenlang blootgesteld aan bekende exploits.",
+        "bsiGuidance": "Het BSI verwacht beveiligingsvereisten in inkoop, een veilige SDLC bij softwareontwikkeling, kwetsbaarheidsscanning en patching met gedefinieerde SLA's, een beleid voor gecoördineerde disclosure, basislijnen voor configuratieverharding en het bijhouden van componenten van derden."
+      },
+      "EFF": {
+        "name": "Effectiviteitsbeoordeling",
+        "description": "Audits, KPI's en managementreviews",
+        "legalBasis": "Art. 21(2)(f) NIS2 · §30(2) Nr. 6 BSIG",
+        "threatLandscape": "Beveiligingsmaatregelen verslechteren in de loop van de tijd. Zonder regelmatige effectiviteitsbeoordelingen ontwikkelen organisaties een vals gevoel van veiligheid terwijl de daadwerkelijke beschermingsniveaus afnemen door configuratiedrift en evoluerende dreigingen.",
+        "bsiGuidance": "Het BSI verwacht gedefinieerde KPI's/statistieken voor de effectiviteit van cyberbeveiliging, regelmatige interne audits, managementreviews, trendanalyse van incidenten en bevindingen en het bijhouden van corrigerende maatregelen uit beoordelingen."
+      },
+      "TRN": {
+        "name": "Cyberhygiëne & Training",
+        "description": "Bewustzijn, phishingtests, managementtraining",
+        "legalBasis": "Art. 21(2)(g) NIS2 · §30(2) Nr. 7 BSIG",
+        "threatLandscape": "Menselijke fouten zijn verantwoordelijk voor meer dan 80% van de beveiligingsinbreuken. Phishing, social engineering en misbruik van inloggegevens zijn de meest effectieve aanvalstechnieken, allemaal gericht op ongetrainde medewerkers.",
+        "bsiGuidance": "Het BSI verwacht een cyberbeveiligingsbewustzijnstrainingsprogramma voor alle medewerkers, rolspecifieke training voor IT/beveiligingspersoneel, bijhouding van trainingsdeelname, ten minste jaarlijkse opfriscursussen, phishingsimulaties en beveiligingsinwerking voor nieuwe medewerkers."
+      },
+      "CRY": {
+        "name": "Cryptografie & Versleuteling",
+        "description": "Versleutelingsbeleid en sleutelbeheer",
+        "legalBasis": "Art. 21(2)(h) NIS2 · §30(2) Nr. 8 BSIG",
+        "threatLandscape": "Zwakke of verouderde versleuteling stelt gegevens in rust en in transit bloot. Slecht sleutelbeheer kan zelfs sterke versleuteling nutteloos maken, en kwantumcomputing bedreigt huidige cryptografische standaarden.",
+        "bsiGuidance": "Het BSI verwacht een cryptografiebeleid met goedgekeurde algoritmen (per BSI TR-02102), versleuteling van gegevens in rust en in transit, sleutelbeheerprocessen (generatie, rotatie, intrekking), certificaatbeheer en een inventaris van cryptografische middelen."
+      },
+      "ACC": {
+        "name": "Toegangsbeheer & HR-beveiliging",
+        "description": "Identiteitsbeheer, bevoorrecht toegangsbeheer, HR-processen",
+        "legalBasis": "Art. 21(2)(i) NIS2 · §30(2) Nr. 9 BSIG",
+        "threatLandscape": "Overmatige toegangsrechten versterken elk ander type aanval. Een gecompromitteerd account met brede rechten kan veel meer gegevens raadplegen, exfiltreren of vernietigen dan nodig. Insider threats profiteren van slechte toegangscontroles.",
+        "bsiGuidance": "Het BSI verwacht een toegangscontrolebeleid gebaseerd op minimale rechten, een gebruikersprovisionerings/-deprovisioneringsproces, regelmatige toegangsreviews, bevoorrecht toegangsbeheer (PAM), een assetbeheerbeleid en HR-beveiligingsprocessen inclusief indiensttreding-overdracht-uitstroom."
+      },
+      "AUT": {
+        "name": "Authenticatie & Communicatie",
+        "description": "MFA of continue authenticatie, beveiligde communicatie, noodkanalen",
+        "legalBasis": "Art. 21(2)(j) NIS2 · §30(2) Nr. 10 BSIG",
+        "threatLandscape": "Diefstal van inloggegevens en authenticatie met alleen een wachtwoord zijn de primaire vectoren voor accountcompromis. Zonder MFA geeft één gestolen wachtwoord volledige toegang. Onveilige communicatie kan worden onderschept voor spionage.",
+        "bsiGuidance": "Het BSI verwacht multi-factor of continue authenticatie voor kritieke systemen en externe toegang, beveiligde spraak/video/tekstcommunicatieoplossingen, een nood-out-of-band communicatiekanaal, gecentraliseerd identiteitsbeheer en sessiebeheerbeleidsregels."
+      },
+      "REG": {
+        "name": "Registratie & Rapportage",
+        "description": "BSI-registratie, jaarlijkse updates, compliance-bewijs",
+        "legalBasis": "Art. 3, Art. 23 NIS2 · §33, §34, §39 BSIG",
+        "threatLandscape": "Nalaten te registreren bij het BSI en actuele contactgegevens bij te houden betekent dat de organisatie geen dreigingswaarschuwingen kan ontvangen en niet kan voldoen aan verplichte meldingsplichten, wat het regelgevingsrisico vergroot.",
+        "bsiGuidance": "Het BSI verwacht voltooide registratie (§33), een aangewezen contactpunt, actuele registratiegegevens (jaarlijkse update), naleving van informatie-uitwisselingsverplichtingen (§34), onderhoud van het domeinnaamregister (§39 indien van toepassing) en gedocumenteerde regelgevingscorrespondentie."
+      },
+      "ISMS": {
+        "name": "ISMS Verplichte Clausules",
+        "description": "ISO 27001:2022 clausules 4–10: context, leiderschap, planning, ondersteuning, uitvoering, evaluatie, verbetering",
+        "legalBasis": "ISO 27001:2022 Cl. 4–10",
+        "threatLandscape": "Een ongedocumenteerd of niet afgebakend ISMS kan niet worden geaudit. Hiaten in leiderschapsbetrokkenheid, risicoplanning of gedocumenteerde informatie zijn de meest voorkomende redenen waarom organisaties falen bij Stage 1 van een ISO 27001-audit.",
+        "bsiGuidance": "Verplichte clausules gelden zonder uitzondering. De auditor verifieert: toepassingsgebieddocument, risicobeoordelingsmethodologie, IS-beleid ondertekend door het topmanagement, gedocumenteerde rollen, intern auditplan, directiebeoordelingsverslagen en een continu verbeterproces."
+      },
+      "ORG": {
+        "name": "Organisatorische Maatregelen",
+        "description": "Bijlage A.5 — Beleid, rollen, leveranciersbeveiliging, incidentbeheer, bedrijfscontinuïteit en wettelijke naleving",
+        "legalBasis": "ISO 27001:2022 Bijlage A.5",
+        "threatLandscape": "Organisatorische maatregelen vormen de governancelaag. Zonder duidelijk beleid, gedefinieerde rollen en leveranciersbeveiligingseisen hebben technische maatregelen geen mandaat en geen verantwoording — wat hiaten achterlaat die aanvallers uitbuiten.",
+        "bsiGuidance": "Auditors zoeken bewijs dat beleid is goedgekeurd, gecommuniceerd en herzien. Leveranciersovereenkomsten moeten beveiligingsclausules bevatten. Incidentbeheer moet worden gepland vóór een incident plaatsvindt."
+      },
+      "PPL": {
+        "name": "Persoonsgerichte Maatregelen",
+        "description": "Bijlage A.6 — Screening, arbeidsvoorwaarden, bewustwordingstraining, disciplinaire procedure, thuiswerken",
+        "legalBasis": "ISO 27001:2022 Bijlage A.6",
+        "threatLandscape": "Mensen zijn zowel de primaire aanvalsvector (phishing, social engineering) als de laatste verdedigingslinie. Ongetraind personeel en slechte offboarding behoren tot de meest uitgebuite zwakheden.",
+        "bsiGuidance": "Vereist bewijs: achtergrondcontroleprocedure, ondertekende geheimhoudingsovereenkomsten, jaarlijkse IS-bewustwordingstrainingsrapporten, thuiswerkbeleid."
+      },
+      "PHY": {
+        "name": "Fysieke Maatregelen",
+        "description": "Bijlage A.7 — Fysieke perimeters, toegangscontrole, apparatuurbeveiliging, veilige verwijdering",
+        "legalBasis": "ISO 27001:2022 Bijlage A.7",
+        "threatLandscape": "Fysieke toegang tot systemen omzeilt alle logische controles. Onbeveiligde kantoren, ontgrendelde schermen en onjuiste verwijdering van apparatuur worden frequent uitgebuit — vaak door opportunistische, niet geavanceerde aanvallers.",
+        "bsiGuidance": "Voor een remote-first bedrijf met co-workingruimtes richten fysieke maatregelen zich op: clean-deskbeleid, schermblokkering, beveiliging van activa buiten het terrein en veilige verwijdering van laptops en opslagmedia."
+      },
+      "TEC": {
+        "name": "Technologische Maatregelen",
+        "description": "Bijlage A.8 — Eindpuntbeveiliging, toegangsrechten, kwetsbaarheidsbeheer, cryptografie, logging, wijzigingsbeheer",
+        "legalBasis": "ISO 27001:2022 Bijlage A.8",
+        "threatLandscape": "De grootste Bijlage A-sectie (34 maatregelen). Technologische hiaten — niet-gepatchte systemen, verkeerd geconfigureerde cloudresources, ontbrekende MFA, ontoereikende logging — zijn de grondoorzaak van de meerderheid van beveiligingsincidenten.",
+        "bsiGuidance": "Auditors controleren of maatregelen daadwerkelijk zijn geïmplementeerd, niet alleen gedocumenteerd. Verwacht technisch bewijs: configuratieschermafdrukken, patchlogs, SIEM-uitvoer, resultaten van back-uphersteltests en toegangsbeoordelingsverslagen."
+      },
+      "AI-LIT": {
+        "name": "AI Literacy",
+        "description": "Ensure staff and persons operating AI systems on the company's behalf have a sufficient level of AI literacy.",
+        "legalBasis": "Art. 4 EU AI Act",
+        "threatLandscape": "Untrained staff using AI tools cause data leakage, hallucination-driven errors, and deepfake exposure that organisations cannot defend in audit or court.",
+        "bsiGuidance": ""
+      },
+      "AI-PRO": {
+        "name": "Prohibited Practices",
+        "description": "Screen AI use cases against the eight (plus one) banned practices in Art. 5 and document the screening outcome.",
+        "legalBasis": "Art. 5 EU AI Act",
+        "threatLandscape": "Using a prohibited practice triggers the highest penalty tier (EUR 35M or 7% of global turnover) regardless of intent.",
+        "bsiGuidance": ""
+      },
+      "AI-INV": {
+        "name": "AI System Inventory",
+        "description": "Maintain an inventory of every AI system in use, classify each by risk tier, and re-classify on substantial modification.",
+        "legalBasis": "Art. 6, 25, 26 EU AI Act",
+        "threatLandscape": "Without an inventory, shadow-AI deployments evade oversight and create unmitigated compliance and liability exposure.",
+        "bsiGuidance": ""
+      },
+      "AI-RSK": {
+        "name": "AI Risk Management",
+        "description": "Operate a documented risk management system for high-risk AI systems, with annual review and treatment of identified risks.",
+        "legalBasis": "Art. 9 EU AI Act",
+        "threatLandscape": "Unmanaged AI risks (bias, drift, robustness failures) translate directly into incident exposure under Art. 73.",
+        "bsiGuidance": ""
+      },
+      "AI-FRI": {
+        "name": "Fundamental Rights Impact Assessment",
+        "description": "Conduct a Fundamental Rights Impact Assessment before deploying high-risk AI systems in public, financial, or insurance contexts.",
+        "legalBasis": "Art. 27 EU AI Act",
+        "threatLandscape": "Skipping the FRIA exposes the deployer to civil claims from affected persons and to market-surveillance enforcement.",
+        "bsiGuidance": ""
+      },
+      "AI-OVS": {
+        "name": "Human Oversight",
+        "description": "Designate a competent human overseer per high-risk AI system and verify oversight effectiveness annually.",
+        "legalBasis": "Art. 14, Art. 26(2) EU AI Act",
+        "threatLandscape": "Autonomous high-risk AI systems without effective human override breach Art. 14 and create direct provider/deployer liability.",
+        "bsiGuidance": ""
+      },
+      "AI-TRA": {
+        "name": "Transparency",
+        "description": "Disclose AI interactions and AI-generated content to end users; watermark synthetic content; disclose deepfakes.",
+        "legalBasis": "Art. 50 EU AI Act",
+        "threatLandscape": "Lack of disclosure on chatbots and synthetic content breaches Art. 50 and undermines trust with customers and regulators.",
+        "bsiGuidance": ""
+      },
+      "AI-INC": {
+        "name": "AI Incident Reporting",
+        "description": "Document the AI incident response procedure; notify the market surveillance authority of serious incidents within 15 days.",
+        "legalBasis": "Art. 73 EU AI Act",
+        "threatLandscape": "Failure to notify within the 15-day window triggers the second penalty tier (EUR 15M or 3% of turnover).",
+        "bsiGuidance": ""
+      },
+      "AI-DOC": {
+        "name": "Technical Documentation",
+        "description": "Maintain Annex IV technical documentation, automatic logging, and the EU Declaration of Conformity for high-risk AI systems.",
+        "legalBasis": "Art. 11, 12, 18, 19, 47 · Annex IV, V EU AI Act",
+        "threatLandscape": "Incomplete technical documentation prevents conformity assessment and blocks placing on the EU market.",
+        "bsiGuidance": ""
+      },
+      "AI-GPI": {
+        "name": "General-Purpose AI",
+        "description": "GPAI provider obligations: model card, copyright policy, training-content summary, plus systemic-risk evaluation when training compute exceeds 10^25 FLOPs.",
+        "legalBasis": "Art. 51-55 EU AI Act",
+        "threatLandscape": "GPAI providers that miss transparency obligations face EU AI Office enforcement directly, with fines under Art. 101.",
+        "bsiGuidance": ""
+      },
+      "CRA-MFG": {
+        "name": "Manufacturer Obligations",
+        "description": "Per-product cybersecurity risk assessment and management body sign-off before placing the product on the EU market.",
+        "legalBasis": "Art. 13 EU CRA",
+        "threatLandscape": "Manufacturers that ship without a documented risk assessment have no defence when actively exploited vulnerabilities surface.",
+        "bsiGuidance": ""
+      },
+      "CRA-ESS": {
+        "name": "Essential Cybersecurity Requirements",
+        "description": "Compliance with Annex I Part I: no known exploitable vulnerabilities at placing on market, secure by default, protection of data confidentiality, integrity, availability.",
+        "legalBasis": "Annex I Part I EU CRA",
+        "threatLandscape": "Products that fail essential requirements cannot legally remain on the EU market and trigger the highest penalty tier.",
+        "bsiGuidance": ""
+      },
+      "CRA-VLN": {
+        "name": "Vulnerability Handling",
+        "description": "Documented vulnerability handling, coordinated disclosure policy, security updates without delay, and public disclosure of fixed vulnerabilities.",
+        "legalBasis": "Annex I Part II EU CRA",
+        "threatLandscape": "Vendors without a vulnerability handling process cannot meet the 24h / 72h / 14-day reporting cascade and become liable for downstream incidents.",
+        "bsiGuidance": ""
+      },
+      "CRA-INC": {
+        "name": "Active Exploitation Reporting",
+        "description": "24-hour early warning to ENISA and CSIRT, 72-hour notification, 14-day final report for actively exploited vulnerabilities and severe incidents.",
+        "legalBasis": "Art. 14 EU CRA",
+        "threatLandscape": "Missed reporting deadlines (other than the 24h deadline for SMEs) trigger the highest penalty tier and product-recall powers.",
+        "bsiGuidance": ""
+      },
+      "CRA-CONF": {
+        "name": "Conformity Assessment",
+        "description": "Conformity assessment route per product class (self-assessment Module A, Module B+C with notified body, or Module H quality system) followed by CE marking.",
+        "legalBasis": "Art. 24, Art. 27 EU CRA",
+        "threatLandscape": "Products without valid conformity assessment cannot be placed on the EU market from 11 December 2027.",
+        "bsiGuidance": ""
+      },
+      "CRA-DOC": {
+        "name": "Technical Documentation",
+        "description": "Maintain Annex VII technical documentation for each product placed on the EU market.",
+        "legalBasis": "Art. 28 · Annex VII EU CRA",
+        "threatLandscape": "Missing or incomplete technical documentation blocks market surveillance verification and triggers product withdrawal.",
+        "bsiGuidance": ""
+      },
+      "CRA-SUP": {
+        "name": "Support Period",
+        "description": "Publicly commit to a security update support period (default five years or expected product life, whichever is longer).",
+        "legalBasis": "Art. 13(8) EU CRA",
+        "threatLandscape": "Failure to support the full period exposes the manufacturer to claims from customers stranded on insecure products.",
+        "bsiGuidance": ""
+      },
+      "CRA-SBOM": {
+        "name": "Software Bill of Materials",
+        "description": "Generate and maintain a machine-readable Software Bill of Materials for each product placed on the EU market.",
+        "legalBasis": "Annex I Part II §1 EU CRA",
+        "threatLandscape": "Without an SBOM, manufacturers cannot trace which products contain a vulnerable component and miss the Art. 14 reporting window.",
+        "bsiGuidance": ""
+      },
+      "CRA-IMP": {
+        "name": "Importer and Distributor",
+        "description": "Importers verify manufacturer compliance before placing on market; distributors perform due diligence on conformity markings.",
+        "legalBasis": "Art. 18, Art. 19 EU CRA",
+        "threatLandscape": "Importers and distributors that miss verification inherit manufacturer liability under Art. 22.",
+        "bsiGuidance": ""
+      },
+      "CRA-OSS": {
+        "name": "Open-Source Steward",
+        "description": "Open-source software stewards adopt a cybersecurity policy, coordinated vulnerability disclosure, and report actively exploited vulnerabilities.",
+        "legalBasis": "Art. 24 EU CRA",
+        "threatLandscape": "OSS stewards are penalty-exempt under Art. 64(10), but downstream commercial users still depend on their reporting.",
+        "bsiGuidance": ""
+      }
+    }
+  },
+  "intake": {
+    "bsiContext": "Wat het BSI verwacht",
+    "threatLandscape": "Dreigingslandschap",
+    "grundschutzModule": "IT-Grundschutz-module",
+    "companyContext": "Uw bedrijfsprofiel",
+    "completeSection": "Deze sectie voltooien",
+    "operationalData": "Uit uw platformgegevens",
+    "saveDraft": "Concept opslaan",
+    "submitSignOff": "Indienen & aftekenen",
+    "saved": "Concept opgeslagen",
+    "submitted": "Categorie ingediend en afgetekend",
+    "submitFailed": "Indiening mislukt",
+    "incomplete": "Vul alle verplichte velden in voordat u indient.",
+    "alreadySignedOff": "Afgetekend op {date}",
+    "fieldProgress": "{completed} van {total} velden",
+    "statusDraft": "Concept",
+    "statusSubmitted": "Ingediend",
+    "statusSignedOff": "Afgetekend",
+    "validate": "Valideren met BSI-panel",
+    "validating": "BSI-panelevaluatie uitvoeren...",
+    "validateFailed": "Validatie mislukt",
+    "noSchema": "Geen invulformulier beschikbaar voor deze categorie.",
+    "autoSaved": "Automatisch opgeslagen",
+    "categoryOwner": "Categorieverantwoordelijke",
+    "noOwner": "Geen verantwoordelijke toegewezen",
+    "onlyOwnerCanSubmit": "Alleen de toegewezen verantwoordelijke of een beheerder kan deze categorie indienen.",
+    "responsiblePerson": "Verantwoordelijke persoon",
+    "responsiblePersonDescription": "De persoon die hier wordt toegewezen, kan deze categorie aftekenen.",
+    "frequencyOneTime": "Eenmalig",
+    "frequencyMonthly": "Maandelijks",
+    "frequencyQuarterly": "Kwartaals",
+    "frequencySemiAnnual": "Halfjaarlijks",
+    "frequencyAnnual": "Jaarlijks",
+    "frequencyEvery3Years": "Elke 3 jaar",
+    "frequencyOnChange": "Bij wijziging",
+    "frequencyOngoing": "Doorlopend"
+  },
+  "form": {
+    "completeRequirement": "Vereiste voltooien",
+    "noFields": "Geen formuliervelden gedefinieerd.",
+    "requirementCompleted": "{code} voltooid",
+    "requirementSaved": "Vereiste is opgeslagen.",
+    "edit": "Bewerken",
+    "save": "Opslaan",
+    "saving": "Opslaan...",
+    "failedToSave": "Opslaan mislukt"
+  },
+  "evidence": {
+    "dropzone": "Bestand hierheen slepen of klikken om te selecteren",
+    "formats": "PDF, DOCX, XLSX, Afbeeldingen",
+    "description": "Beschrijving (optioneel)",
+    "descriptionPlaceholder": "Wat bewijst dit document?",
+    "uploading": "Uploaden...",
+    "upload": "Bewijs uploaden",
+    "uploaded": "Bewijs geüpload",
+    "fileSaved": "{name} is opgeslagen.",
+    "loading": "Bestanden laden...",
+    "uploadFailed": "Upload mislukt"
+  },
+  "signoff": {
+    "title": "Goedkeuring management vereist",
+    "description": "Het management moet de implementatie van \"{title}\" bevestigen en goedkeuren.",
+    "roleLabel": "Rol / Functie",
+    "rolePlaceholder": "bijv. CEO, CISO, IT-manager",
+    "confirm": "Ik bevestig dat de vereiste is beoordeeld en de implementatie door het management is goedgekeurd.",
+    "saving": "Opslaan...",
+    "submit": "Goedkeuring verlenen",
+    "granted": "Goedkeuring verleend",
+    "grantedDescription": "{code} is goedgekeurd door {role}."
+  },
+  "llm": {
+    "title": "AI-voorinvulling",
+    "extractTitle": "Gegevens extraheren via AI",
+    "extractDescription": "Plak tekst of sleep bestand hierheen (PDF, DOCX, TXT). De AI extraheert de relevante gegevens voor het formulier.",
+    "extractPlaceholder": "Plak tekst hier of sleep bestand hierheen...\n\nVoorbeeld: Müller GmbH gevestigd in Berlijn, energiesector, 120 medewerkers, jaarlijkse omzet EUR 15M, geclassificeerd als belangrijke entiteit onder NIS2...",
+    "extractButton": "Gegevens extraheren",
+    "unsupportedFormat": "Niet-ondersteund formaat: {name}. Ondersteund: {formats}",
+    "noText": "Geen tekst gevonden in document.",
+    "fileError": "Fout bij verwerken van bestand",
+    "dropHere": "Bestand hier neerzetten",
+    "processing": "Document verwerken...",
+    "selectFile": "Bestand selecteren",
+    "fieldsFilled": "{count} velden ingevuld",
+    "extracting": "Extraheren...",
+    "assistButton": "AI-assistent",
+    "assistTitle": "Formulierbegeleiding",
+    "assistDescription": "AI-gegenereerde begeleiding voor het invullen van dit vereistenformulier. Er worden geen werkelijke gegevens verstuurd – alleen veldnamen en typen.",
+    "assistLoading": "Begeleiding genereren...",
+    "assistError": "Genereren van begeleiding mislukt. Probeer het opnieuw.",
+    "assistOverview": "Overzicht",
+    "assistWhatThisIs": "Wat dit is",
+    "assistWhyThisExists": "Waarom dit bestaat",
+    "assistApplicability": "Is dit van toepassing?",
+    "assistQuickStart": "Snel starten",
+    "assistExample": "Voorbeeld van een goede inzending",
+    "assistExampleWhyGood": "Waarom dit goed is",
+    "assistFieldGuidance": "Veld-voor-veld begeleiding",
+    "assistMeaning": "Wat het betekent",
+    "assistExamples": "Goede voorbeelden",
+    "assistWhereToFind": "Waar te vinden",
+    "assistField": "Veld",
+    "assistValue": "Waarde"
+  }
+}

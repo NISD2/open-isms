@@ -1,0 +1,47 @@
+{
+  "pricing": {
+    "meta": {
+      "title": "Prijzen - NIS2-complianceplatform",
+      "description": "Twee manieren om het platform te gebruiken. Gehost op nis2.eu, voor altijd gratis. Self-hosting onder AGPL-3.0, eenmalig € 10.000 voor een levenslange licentie."
+    },
+    "title": "Prijzen",
+    "subtitle": "Twee manieren om het platform te gebruiken. Kies er één.",
+
+    "free": {
+      "name": "Gehost op nis2.eu",
+      "description": "Het volledige platform, door ons beheerd op EU-infrastructuur.",
+      "price": "€ 0",
+      "priceSub": "voor altijd",
+      "cta": "Gratis starten",
+      "features": {
+        "f1": "Alle 49 BSIG-vereisten stap voor stap",
+        "f2": "Bewijsupload en documentatie",
+        "f3": "PDF-export voor auditors en management",
+        "f4": "Volledig audittrail",
+        "f5": "Deadlinetracking en herinneringen",
+        "f6": "Begeleiding bij BSI-registratie",
+        "f7": "Onbeperkt aantal teamleden",
+        "f8": "Risico-, asset- en leveranciersregisters",
+        "f9": "AI-ondersteund formulieren invullen",
+        "f10": "Geen lock-in. Open Source datamodel. Altijd exporteerbaar."
+      }
+    },
+
+    "selfHost": {
+      "name": "Self-hosting",
+      "description": "Volledige broncode. Op uw eigen infrastructuur draaien, voor altijd.",
+      "price": "€ 10.000",
+      "priceSub": "eenmalig, levenslange licentie",
+      "cta": "Neem contact op",
+      "features": {
+        "h1": "Volledige platformbroncode onder AGPL-3.0",
+        "h2": "Alle toekomstige updates inbegrepen",
+        "h3": "Op uw eigen infrastructuur, met uw eigen data",
+        "h4": "Vaste contactpersoon voor e-mail- en Signal-support"
+      }
+    },
+
+    "consultantFootnote": "Heeft u een NIS2-adviseur nodig? Wij verbinden u kosteloos met getoetste specialisten.",
+    "consultantCta": "Adviseur aanvragen"
+  }
+}

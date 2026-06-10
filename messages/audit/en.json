@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Audit Trail",
+    "subtitle": "Tamper-evident log of all compliance-relevant actions",
+    "noEntries": "No audit log entries yet.",
+    "description": "Description",
+    "action": "Action",
+    "user": "User",
+    "time": "Time"
+  }
+}

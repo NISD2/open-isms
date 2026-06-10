@@ -26,7 +26,7 @@ for (const name of readdirSync(packagesDir)) {
   } catch {}
 }
 
-const grepRoots = ["app", "lib", "components", "schema", "apps/open-isms"];
+const grepRoots = ["app", "lib", "components", "schema", "apps/reference"];
 const text = await $`grep -rhoE --include='*.ts' --include='*.tsx' '@nisd2/[A-Za-z0-9_./-]+' ${grepRoots} 2>/dev/null`.cwd(repoRoot).text();
 const imports = [...new Set(text.split("\n").filter(Boolean))].sort();
 

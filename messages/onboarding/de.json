@@ -1,0 +1,28 @@
+{
+  "onboarding": {
+    "title": "Willkommen bei NIS2 Compliance",
+    "subtitle": "Richten Sie Ihre Organisation ein, um loszulegen.",
+    "step": "Schritt {current} von {total}",
+    "steps": {
+      "company": "Organisationsdaten",
+      "team": "Schlüsselpersonal",
+      "ai": "KI-Assistent"
+    },
+    "nav": {
+      "back": "Zurück",
+      "next": "Weiter",
+      "skip": "Vorerst überspringen",
+      "submit": "Organisation erstellen"
+    },
+    "creating": "Organisation wird eingerichtet...",
+    "createError": "Organisation konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+    "mode": {
+      "title": "Alles bereit!",
+      "subtitle": "Wie möchten Sie fortfahren?",
+      "guided": "Geführte Einrichtung",
+      "guidedDescription": "Gehen Sie Schritt für Schritt durch jede Compliance-Kategorie. Voreinstellungen sind bereits gesetzt - prüfen und anpassen.",
+      "manual": "Manuelle Einrichtung",
+      "manualDescription": "Direkt zum Dashboard und in Ihrem eigenen Tempo arbeiten."
+    }
+  }
+}

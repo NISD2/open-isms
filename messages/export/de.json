@@ -1,0 +1,11 @@
+{
+  "export": {
+    "title": "Berichte exportieren",
+    "subtitle": "Compliance-Berichte für Ihre Bewertungen herunterladen",
+    "noAssessments": "Keine Bewertungen gefunden. Schließen Sie zuerst die Einrichtung ab.",
+    "download": "PDF herunterladen",
+    "started": "Gestartet",
+    "progress": "{completed} von {total} Anforderungen",
+    "compliance": "Compliance"
+  }
+}

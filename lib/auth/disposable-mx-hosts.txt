@@ -1,0 +1,49 @@
+# Disposable / throwaway email MX hosts.
+#
+# This file backs the Layer-1 defence in lib/auth/email-quality.ts.
+# At sign-up we resolve the email domain's MX records and compare each
+# returned MX hostname (lowercased, root-domain extracted) against this
+# list. A match silently blocks the sign-up.
+#
+# The list catches the rotation problem: services like nov17.net spin up
+# new front-domains every month, but the MX backend they point at stays
+# stable. One MX-host entry kills every rotating front-domain that uses
+# that backend.
+#
+# Add new hosts manually. One per line. Comments start with `#`.
+# Lines are matched case-insensitively against the MX hostname and any
+# of its parent domains (so "mail-relay.example.com" matches both
+# "mail-relay.example.com" and "example.com" entries).
+#
+# Update workflow: when you see a disposable signup slip through, run
+#   dig +short MX <front-domain>
+# and add the parent domain of any MX target you don't recognise.
+
+1secmail.com
+1secmail.net
+1secmail.org
+33mail.com
+discardmail.com
+dropmail.me
+fakeinbox.com
+getairmail.com
+guerrillamail.com
+guerrillamail.net
+inboxbear.com
+inboxkitten.com
+mail.tm
+mailinator.com
+mohmal.com
+moakt.com
+mytemp.email
+sharklasers.com
+spamgourmet.com
+temp-mail.io
+temp-mail.org
+tempmail.com
+tempmail.dev
+tempmail.plus
+tempr.email
+tmail.gg
+trashmail.com
+yopmail.com

@@ -1,0 +1,58 @@
+{
+  "common": {
+    "save": "Speichern",
+    "saving": "Speichern...",
+    "cancel": "Abbrechen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "open": "Öffnen",
+    "optional": "Optional",
+    "loading": "Laden...",
+    "entries": "{count} Einträge",
+    "select": "Auswählen...",
+    "yes": "Ja",
+    "no": "Nein",
+    "noData": "Keine Daten",
+    "user": "Benutzer",
+    "modules": {
+      "asset": "Assets",
+      "risk": "Risiken",
+      "incident": "Vorfälle",
+      "supplier": "Lieferanten",
+      "policy": "Richtlinien",
+      "training_record": "Schulungsnachweise",
+      "exercise": "Übungen",
+      "management_review": "Management-Reviews",
+      "kpi_measurement": "KPI-Messungen",
+      "change_request": "Änderungsanträge",
+      "patch_record": "Patch-Einträge",
+      "internal_audit": "Interne Audits",
+      "improvement_item": "Verbesserungen",
+      "bsi_registration": "BSI-Registrierung",
+      "bsi_incident_report": "BSI-Vorfallmeldungen"
+    },
+    "moduleRef": {
+      "confirmCompliance": "Compliance bestätigen",
+      "noRecords": "Noch keine Einträge - zuerst Daten im Modul anlegen"
+    }
+  },
+  "status": {
+    "not_started": "Offen",
+    "in_progress": "In Bearbeitung",
+    "completed": "Erledigt",
+    "not_applicable": "N/A",
+    "needs_review": "Review nötig",
+    "approved": "Genehmigt",
+    "rejected": "Abgelehnt"
+  },
+  "priority": {
+    "P0": "Kritisch - sofortiges Handeln erforderlich",
+    "P1": "Hoch - im laufenden Zyklus umsetzen",
+    "P2": "Mittel - für nächsten Zyklus einplanen",
+    "P3": "Niedrig - bei Gelegenheit umsetzen"
+  },
+  "metadata": {
+    "title": "NIS2 Compliance Platform",
+    "description": "NIS2/BSIG 2025 Compliance Management"
+  }
+}

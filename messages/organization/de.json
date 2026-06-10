@@ -1,0 +1,120 @@
+{
+  "organization": {
+    "title": "Organisation einrichten",
+    "description": "Registrieren Sie Ihre Organisation, um die Konformitätsbewertung zu starten.",
+    "editTitle": "Organisationseinstellungen",
+    "editDescription": "Aktualisieren Sie Ihre Organisationsdaten.",
+    "formTitle": "Organisationsdaten",
+    "name": "Organisationsname",
+    "namePlaceholder": "Acme GmbH",
+    "sector": "NIS2-Sektor",
+    "sectorPlaceholder": "Sektor wählen...",
+    "entityType": "Einrichtungstyp",
+    "entityTypeHelp": "Gem. BSIG 2025 §28",
+    "entityTypes": {
+      "essential": "Wesentliche Einrichtung",
+      "important": "Wichtige Einrichtung",
+      "kritis": "KRITIS-Betreiber"
+    },
+    "legalForm": "Rechtsform",
+    "legalFormPlaceholder": "z.B. GmbH, AG, KG",
+    "employees": "Mitarbeiterzahl",
+    "contactEmail": "Compliance-Kontakt E-Mail",
+    "cisoName": "CISO / IT-Sicherheitsbeauftragter",
+    "cisoNamePlaceholder": "Max Mustermann",
+    "cisoReportsTo": "CISO berichtet an",
+    "cisoReportsToPlaceholder": "z.B. Geschäftsführer, Vorstand",
+    "bsiContactName": "BSI Kontaktperson",
+    "bsiContactNamePlaceholder": "Max Mustermann",
+    "bsiContactEmail": "BSI Kontakt E-Mail",
+    "bsiContactPhone": "BSI Kontakttelefon",
+    "bsiRegistrationId": "BSI Registrierungs-ID",
+    "annualSecurityBudget": "Jährliches Sicherheitsbudget (EUR)",
+    "primaryLocations": "Hauptstandorte",
+    "primaryLocationsPlaceholder": "z.B. Berlin, München",
+    "profileSection": "Sicherheitsprofil",
+    "profileSectionDescription": "Diese Felder werden in mehreren NIS2-Anforderungen referenziert und in Freigabe-Snapshots erfasst.",
+    "submit": "Bewertung starten",
+    "creating": "Organisation wird eingerichtet...",
+    "createError": "Organisation konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+    "save": "Änderungen speichern",
+    "saving": "Wird gespeichert...",
+    "saved": "Änderungen erfolgreich gespeichert.",
+    "saveError": "Änderungen konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+    "sectors": {
+      "energy": "Energie",
+      "transport": "Transport & Verkehr",
+      "banking": "Bankwesen",
+      "financial_market": "Finanzmarktinfrastruktur",
+      "health": "Gesundheit",
+      "drinking_water": "Trinkwasser",
+      "waste_water": "Abwasser",
+      "digital_infrastructure": "Digitale Infrastruktur",
+      "ict_service_management": "IKT-Dienstleistungsmanagement (B2B)",
+      "public_administration": "Öffentliche Verwaltung",
+      "space": "Weltraum",
+      "postal_courier": "Post- und Kurierdienste",
+      "waste_management": "Abfallwirtschaft",
+      "chemicals": "Chemikalien",
+      "food": "Lebensmittelproduktion & -vertrieb",
+      "manufacturing": "Verarbeitendes Gewerbe",
+      "digital_providers": "Digitale Anbieter",
+      "research": "Forschung"
+    },
+    "teamRoles": {
+      "title": "Schlüsselpersonal",
+      "description": "Sie können jetzt Teammitglieder einladen oder dies später in den Einstellungen tun. Jede hinzugefügte Person wird eingeladen und kann als Verantwortlicher für Compliance-Kategorien zugewiesen werden.",
+      "name": "Name",
+      "email": "E-Mail",
+      "role": "Rolle",
+      "rolePlaceholder": "Rolle wählen...",
+      "addMember": "Teammitglied hinzufügen",
+      "removeMember": "Entfernen",
+      "back": "Zurück",
+      "skip": "Vorerst überspringen",
+      "submit": "Weiter",
+      "roles": {
+        "ceo": {
+          "label": "CEO / Geschäftsführer",
+          "namePlaceholder": "Max Mustermann",
+          "emailPlaceholder": "ceo@firma.de"
+        },
+        "ciso": {
+          "label": "CISO / IT-Sicherheitsbeauftragter",
+          "namePlaceholder": "Hans Schmidt",
+          "emailPlaceholder": "ciso@firma.de"
+        },
+        "cto": {
+          "label": "CTO / Leiter Technik",
+          "namePlaceholder": "Alex Müller",
+          "emailPlaceholder": "cto@firma.de"
+        },
+        "coo": {
+          "label": "COO / Betriebsleiter",
+          "namePlaceholder": "Sam Weber",
+          "emailPlaceholder": "coo@firma.de"
+        },
+        "cpo": {
+          "label": "CPO / Einkaufsleiter",
+          "namePlaceholder": "Pat Fischer",
+          "emailPlaceholder": "cpo@firma.de"
+        },
+        "hr_director": {
+          "label": "Personalleiter",
+          "namePlaceholder": "Chris Wagner",
+          "emailPlaceholder": "hr@firma.de"
+        },
+        "legal": {
+          "label": "Rechtsabteilung / Compliance-Beauftragter",
+          "namePlaceholder": "Morgan Becker",
+          "emailPlaceholder": "recht@firma.de"
+        },
+        "dpo": {
+          "label": "Datenschutzbeauftragter",
+          "namePlaceholder": "Robin Schäfer",
+          "emailPlaceholder": "dsb@firma.de"
+        }
+      }
+    }
+  }
+}

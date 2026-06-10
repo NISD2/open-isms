@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "title": "KPI-Messungen",
+    "description": "Sicherheitskennzahlen im Zeitverlauf. Belegt die Wirksamkeit gemäß NIS2 Art. 21.",
+    "helpText": "Erfassen Sie regelmäßig Sicherheits-KPI-Messungen (z.B. Patch-Compliance-Rate, Schulungsabschlussquote, mittlere Erkennungszeit). KPIs belegen gegenüber Auditoren, dass Ihre Sicherheitsmaßnahmen wirksam sind und sich verbessern.",
+    "add": "Messung hinzufügen",
+    "empty": "Noch keine KPI-Messungen vorhanden. Erfassen Sie Ihre erste Messung.",
+    "status": {
+      "green": "Im Ziel",
+      "amber": "Gefährdet",
+      "red": "Unter Ziel"
+    },
+    "fields": {
+      "kpiName": "KPI-Name",
+      "measuredAt": "Gemessen am",
+      "value": "Wert",
+      "target": "Zielwert",
+      "unit": "Einheit",
+      "status": "Status",
+      "notes": "Anmerkungen"
+    },
+    "fieldDescriptions": {
+      "kpiName": "Geben Sie den Namen der Sicherheitskennzahl an (z. B. Patch-Compliance-Rate, MTTD, Schulungsabschlussquote).",
+      "measuredAt": "Datum, an dem diese KPI-Messung durchgeführt wurde.",
+      "value": "Geben Sie den gemessenen Wert der Kennzahl zum Messzeitpunkt ein.",
+      "target": "Geben Sie den definierten Zielwert an, den diese Kennzahl erreichen soll.",
+      "unit": "Einheit der Messung (z. B. Prozent, Stunden, Anzahl).",
+      "status": "Wählen Sie den Status: Im Ziel (grün), Gefährdet (gelb) oder Unter Ziel (rot).",
+      "notes": "Optionale Anmerkungen zur Messung, z. B. Begründung für Abweichungen oder geplante Gegenmaßnahmen."
+    }
+  }
+}

@@ -1,0 +1,121 @@
+# Coolify deployment notes
+
+Self-hosting nisd2.eu on Coolify.
+
+## Build
+
+Coolify auto-detects the `Dockerfile` at the repo root. No build configuration changes needed in the Coolify UI beyond pointing it at the Git repo.
+
+Build args:
+- None required. `SKIP_ENV_VALIDATION=1` is set in the Dockerfile so the build does not require runtime secrets.
+
+Build context:
+- Repo root. `.dockerignore` excludes `node_modules`, `.next`, `.git`, and `.env*` so the build context stays small.
+
+## Runtime environment variables
+
+Set these in the Coolify project's Environment Variables section:
+
+### Required
+- `DATABASE_URL` — PostgreSQL connection string (Coolify-provisioned Postgres or external)
+- `AUTH_SECRET` — random secret, generate with `openssl rand -base64 32`
+- `GOOGLE_CLIENT_ID` — Google OAuth client ID
+- `GOOGLE_CLIENT_SECRET` — Google OAuth client secret
+- `NEXT_PUBLIC_APP_URL` — public URL (e.g. `https://nisd2.eu`)
+
+### Required for full functionality
+- `AWS_S3_REGION` — e.g. `eu-north-1`
+- `AWS_S3_BUCKET` — evidence upload bucket
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `RESEND_API_KEY` — transactional email
+- `RESEND_FROM_EMAIL` — sender address
+- `XAI_API_KEY` — Grok (form prefill / AI features)
+- `CRON_SECRET` — Bearer token for `/api/cron/deadlines`
+
+### Optional
+- `DISABLE_EMAIL=1` — set to silence email sending in non-prod
+- `AUTH_TRUST_HOST=true` — already in Dockerfile, override only if proxying differently
+
+Already set by the Dockerfile (do NOT override unless needed):
+- `NODE_ENV=production`
+- `PORT=3000`
+- `HOSTNAME=0.0.0.0`
+
+## Migrations
+
+The Dockerfile does NOT run `drizzle-kit migrate` on container start. Pick one of:
+
+### Option A — Coolify pre-deployment command (recommended)
+
+In Coolify > Project > Configuration > Pre-Deployment Command, set:
+
+```bash
+bun x drizzle-kit migrate
+```
+
+Coolify runs this once before each new deployment, against `DATABASE_URL`. Failed migrations block the deployment.
+
+### Option B — Manual
+
+Run from your dev machine against the prod `DATABASE_URL` before each deploy:
+
+```bash
+DATABASE_URL=<prod-url> bun db:migrate
+```
+
+### Option C — Sidecar / init container
+
+Spin up a separate one-shot container that runs `drizzle-kit migrate` against the same DB, before the main service starts. Cleanest in a docker-compose context but unnecessary on Coolify.
+
+## Healthcheck
+
+The Dockerfile's `HEALTHCHECK` hits `GET /api/health`, which checks DB connectivity. Coolify reads the health status from this. If `DATABASE_URL` is wrong or DB is unreachable, the container reports unhealthy and Coolify will block traffic.
+
+Healthcheck behaviour:
+- Interval: 30s
+- Timeout: 5s
+- Start period: 15s (gives Next.js time to boot)
+- Retries: 3
+
+## Ports
+
+- Container listens on `3000`. Coolify proxies your public domain to this port.
+
+## Storage
+
+- `.next/cache` is created at runtime as the `node` user. If you want this persistent across deployments, mount a Coolify Volume at `/app/.next/cache`. Without a volume, ISR cache is rebuilt fresh each deploy (fine for low-traffic launch).
+
+## Security
+
+- Runs as the non-root `node` user (set in Dockerfile).
+- `output: "standalone"` in `next.config.ts` ships only the minimum runtime — no devDependencies, no source maps in production.
+- HTTP security headers (HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy) are set in `next.config.ts` via the `headers()` hook and apply on every response.
+- Next.js 16.1.6 is past CVE-2025-29927 (middleware auth bypass, fixed in 15.2.3+). No known unpatched CVEs at this version as of 2026-05.
+
+To stay current:
+- Rebuild the image periodically. `oven/bun:1` and `node:22-bookworm-slim` auto-update minor/security patches when rebuilt.
+- Watch the Next.js security advisories: https://github.com/vercel/next.js/security/advisories
+- Run `bun outdated` quarterly; update Next.js minor versions when they include security fixes.
+
+## Local testing
+
+Build and run locally to verify:
+
+```bash
+docker build -t nisd2 .
+docker run --rm -p 3000:3000 \
+  -e DATABASE_URL=postgresql://user:pass@host.docker.internal:5432/nis2 \
+  -e AUTH_SECRET=dev-secret \
+  -e NEXT_PUBLIC_APP_URL=http://localhost:3000 \
+  nisd2
+```
+
+Then open http://localhost:3000 and http://localhost:3000/api/health.
+
+## Things that intentionally do NOT happen in Docker
+
+- `bun run db:migrate` — handled by Coolify pre-deploy hook, not the Dockerfile
+- `bun run db:seed` — manual, only for fresh databases
+- Source-map upload to error tracker — separate CI step if/when added
+- AWS credentials rotation — managed in Coolify, not baked into image

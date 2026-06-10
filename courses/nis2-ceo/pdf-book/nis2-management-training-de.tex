@@ -1,0 +1,1868 @@
+% ============================================================
+%  NIS2 Geschäftsführer-Schulung — PDF-Buch (Deutsch)
+%  Compile: pdflatex nis2-management-training-de.tex (twice)
+% ============================================================
+
+\documentclass[11pt,a4paper,twoside]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[ngerman]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{eurosym}
+
+\usepackage[
+  top=25mm, bottom=25mm,
+  inner=28mm, outer=20mm,
+  headheight=14pt
+]{geometry}
+\usepackage{fancyhdr}
+\usepackage{emptypage}
+
+\usepackage{xcolor}
+\definecolor{nisd2blue}{HTML}{284b63}
+\definecolor{nisd2mid}{HTML}{3a6b8a}
+\definecolor{nisd2light}{HTML}{d0e4f0}
+\definecolor{nisd2accent}{HTML}{e8824a}
+\definecolor{warningred}{HTML}{c0392b}
+\definecolor{successgreen}{HTML}{27ae60}
+\definecolor{quizgray}{HTML}{f4f6f8}
+\definecolor{correctgreen}{HTML}{d5f0dc}
+\definecolor{keybox}{HTML}{fef9ec}
+\definecolor{keyboxborder}{HTML}{f0c040}
+\definecolor{actionbox}{HTML}{eaf4fb}
+\definecolor{actionborder}{HTML}{3a6b8a}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds, calc}
+\usepackage{graphicx}
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*, noitemsep, topsep=2pt}
+\setlist[enumerate]{leftmargin=*, noitemsep, topsep=2pt}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{nisd2blue}}
+  {\chaptertitlename\ \thechapter}{12pt}{\Huge}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{nisd2blue}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{nisd2mid}}
+  {\thesubsection}{1em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\nouppercase{\textcolor{nisd2blue}{\leftmark}}}
+\fancyhead[RO]{\small\nouppercase{\textcolor{nisd2blue}{\rightmark}}}
+\fancyfoot[LE,RO]{\small\thepage}
+\fancyfoot[CE,CO]{\small\textcolor{nisd2mid}{NIS2 Geschäftsführer-Schulung}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{nisd2light}\leaders\hrule height \headrulewidth\hfill}}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=nisd2blue,
+  urlcolor=nisd2mid,
+  citecolor=nisd2mid,
+  pdftitle={NIS2 Geschäftsführer-Schulung},
+  pdfauthor={NISD2},
+  pdfsubject={NIS2-Richtlinie -- Schulung für Leitungsorgane},
+  bookmarksnumbered=true
+}
+
+% ============================================================
+%  Eigene Umgebungen
+% ============================================================
+
+\newtcolorbox{keytakeaways}{
+  enhanced, breakable,
+  colback=keybox,
+  colframe=keyboxborder,
+  fonttitle=\bfseries\color{nisd2blue},
+  title={Wichtige Erkenntnisse},
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  arc=3pt
+}
+
+\newtcolorbox{actionbox}{
+  enhanced, breakable,
+  colback=actionbox,
+  colframe=actionborder,
+  fonttitle=\bfseries\color{nisd2blue},
+  title={Fragen an Ihr Team},
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  arc=3pt
+}
+
+\newtcolorbox{warningbox}{
+  enhanced, breakable,
+  colback=white,
+  colframe=warningred,
+  fonttitle=\bfseries\color{warningred},
+  title={Persönliche Haftung},
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  arc=3pt
+}
+
+\newtcolorbox{quizbox}{
+  enhanced, breakable,
+  colback=quizgray,
+  colframe=nisd2mid,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={yshift=-2mm, xshift=4mm},
+  boxed title style={colback=nisd2mid, arc=2pt},
+  title={Quiz},
+  left=6pt, right=6pt, top=8pt, bottom=4pt,
+  arc=3pt
+}
+
+\newtcolorbox{correctanswer}{
+  enhanced,
+  colback=correctgreen,
+  colframe=successgreen,
+  left=4pt, right=4pt, top=2pt, bottom=2pt,
+  arc=2pt, boxrule=0.5pt
+}
+
+\newtcolorbox{definitionbox}[1]{
+  enhanced,
+  colback=nisd2light!40,
+  colframe=nisd2mid,
+  fonttitle=\bfseries\small\color{nisd2blue},
+  title={#1},
+  left=5pt, right=5pt, top=3pt, bottom=3pt,
+  arc=2pt
+}
+
+\newtcolorbox{casestudy}[1]{
+  enhanced, breakable,
+  colback=white,
+  colframe=nisd2accent,
+  fonttitle=\bfseries\color{nisd2accent},
+  title={Fallstudie: #1},
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  arc=3pt
+}
+
+\newtcolorbox{moduleintro}{
+  enhanced,
+  colback=nisd2blue,
+  colframe=nisd2blue,
+  coltext=white,
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  arc=4pt
+}
+
+\newcommand{\lessontag}[1]{%
+  \texorpdfstring{%
+    \setlength{\fboxsep}{3pt}\colorbox{nisd2blue}{\textcolor{white}{\footnotesize\bfseries #1}}\quad%
+  }{Lektion #1\ }%
+}
+
+\newcounter{quizq}
+\newcommand{\quizquestion}[2]{%
+  \stepcounter{quizq}
+  \vspace{4pt}
+  \noindent\textbf{F\thequizq.} #1
+  \vspace{2pt}
+  \begin{enumerate}[label=\Alph*., leftmargin=16pt, noitemsep]
+    #2
+  \end{enumerate}
+}
+
+\newwrite\answerfile
+\immediate\openout\answerfile=\jobname.ans
+
+\newcommand{\correct}[1]{%
+  #1%
+  \immediate\write\answerfile{\string\ansentry{\thesection}{\thequizq}{\Alph{enumi}}}%
+}
+
+\newcommand{\currentanslesson}{}
+\newcommand{\ansentry}[3]{%
+  \def\thislesson{#1}%
+  \ifx\thislesson\currentanslesson\else%
+    \medskip\noindent\textbf{\small Lektion #1}\nopagebreak\par%
+    \global\def\currentanslesson{#1}%
+  \fi%
+  \noindent\hspace{1.5em}{\small F#2:~\textbf{#3}}\par%
+}
+
+\newcommand{\quizexplain}[1]{%
+  \vspace{2pt}
+  \noindent\small\textit{\textcolor{nisd2mid}{#1}}
+  \vspace{6pt}
+}
+
+\newcommand{\courseversion}{v1.0.0}
+
+% ============================================================
+%  Dokument
+% ============================================================
+
+\begin{document}
+
+% Titelseite
+\begin{titlepage}
+  \pagecolor{nisd2blue}
+  \color{white}
+  \vspace*{2cm}
+  \begin{center}
+    \begin{tikzpicture}
+      \node[circle, fill=white, minimum size=2.8cm] (logo) at (0,0) {
+        \textcolor{nisd2blue}{\Large\bfseries NIS2}
+      };
+    \end{tikzpicture}
+
+    \vspace{1.2cm}
+    {\fontsize{32}{38}\selectfont\bfseries NIS2 Geschäftsführer-Schulung}
+
+    \vspace{0.6cm}
+    {\Large\bfseries Alles, was die Richtlinie von einem Mitglied\\[4pt]
+    des Leitungsorgans verlangt}
+
+    \vspace{1.2cm}
+    \begin{tikzpicture}
+      \draw[white, line width=0.5pt] (0,0) -- (10,0);
+    \end{tikzpicture}
+
+    \vspace{0.8cm}
+    {\large Strukturiert nach den drei Kompetenzfeldern des BSI\\
+    und den zehn Maßnahmen aus Artikel~21}
+
+    \vspace{1.6cm}
+    \begin{tikzpicture}
+      \foreach \i/\label in {
+        0/Das Gesetz,
+        72/{Risiko \&\\10 Maßn.},
+        144/{Entschei-\\dungshilfe},
+        216/Schutz,
+        288/Abschluss}{
+        \node[circle, fill=white!20, text=white, minimum size=1.8cm,
+              font=\small\bfseries, align=center] at (\i:3.2cm) {\label};
+      }
+      \node[circle, fill=white, text=nisd2blue, minimum size=1.6cm,
+            font=\bfseries, align=center] at (0,0) {5\\Module};
+    \end{tikzpicture}
+
+    \vspace{1.6cm}
+    {\small\bfseries 47 Lektionen\ \ $\bullet$\ \ 4 Stunden Inhalt\ \
+    $\bullet$\ \ Quiz nach jeder Lektion}
+
+    \vspace{0.6cm}
+    {\small \courseversion \quad NISD2 --- \texttt{www.nisd2.eu}}
+  \end{center}
+  \pagecolor{white}
+  \color{black}
+\end{titlepage}
+
+% Impressumsseite
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{small}
+\noindent\textbf{Über dieses Buch}
+
+Dieses Buch ist eine druckfertige Version der NIS2-Schulung für Leitungsorgane, verfügbar unter \texttt{www.nisd2.eu}. Es folgt den drei Kompetenzfeldern nach Artikel~20(2): Risiken erkennen, die Maßnahmen bewerten und verstehen, wie sich Risiken auf die Dienste des Unternehmens auswirken.
+
+\vspace{6pt}
+\noindent\textbf{Keine Rechtsberatung.} Dieses Material vermittelt die EU-Richtlinie und die dahinterstehenden Konzepte. Es ist keine Rechtsberatung, und keine Stelle in der EU zertifiziert derzeit NIS2-Trainer oder Schulungsprogramme.
+
+\vspace{6pt}
+\noindent\textbf{Deutscher Standard.} Der Kurs bezieht sich auf die deutsche Umsetzung -- BSIG und BSI -- weil Deutschlands Transposition die strengste in der EU ist.
+
+\vspace{6pt}
+\noindent\textbf{Bestehensschwelle.} Jedes Quiz erfordert 75\,\% zum Bestehen.
+
+\vspace{6pt}
+\noindent $\copyright$ NISD2. Alle Rechte vorbehalten.
+\end{small}
+\vspace*{\fill}
+\newpage
+
+\tableofcontents
+\newpage
+
+% ============================================================
+%  GRUNDLAGEN
+% ============================================================
+
+\chapter*{Über diesen Kurs}
+\addcontentsline{toc}{chapter}{Über diesen Kurs}
+\markboth{Über diesen Kurs}{Über diesen Kurs}
+
+EU-Recht verpflichtet jedes Mitglied des Leitungsorgans eines betroffenen Unternehmens persönlich zur Cybersicherheitsschulung. Nicht Ihren CISO. Nicht Ihren IT-Leiter. \textbf{Sie.} Artikel~20(2) der NIS2-Richtlinie, in nationales Recht jedes EU-Mitgliedstaats umgesetzt, spricht das Leitungsteam direkt an.
+
+\section*{Für wen dieser Kurs ist}
+
+Wenn Sie dem Leitungsteam eines von NIS2 betroffenen Unternehmens als Geschäftsführer, Vorstandsmitglied, COO, CFO oder in einer anderen Rolle angehören, die das Gesetz als ``Mitglied des Leitungsorgans'' bezeichnet, ist dieser Kurs für Sie. Das Gesetz unterscheidet nicht zwischen dem CEO und dem übrigen Leitungsteam. \textbf{Die Schulungspflicht ist nicht delegierbar.} Sie können nicht Ihren CISO, Ihren Anwalt oder Ihre Assistenz an Ihrer Stelle schicken.
+
+\section*{Was dieser Kurs ist}
+
+Siebenundvierzig kurze Lektionen. Etwa vier Stunden Inhalt. Nach jeder Lektion folgt ein kurzes Quiz. Der Kurs folgt den drei Kompetenzfeldern, die das Gesetz vorschreibt:
+\begin{itemize}
+  \item \textbf{Risiken erkennen} -- die Bedrohungen verstehen, denen Ihr Unternehmen ausgesetzt ist
+  \item \textbf{Maßnahmen bewerten} -- beurteilen, ob das, was Ihr Team eingeführt hat, tatsächlich funktioniert
+  \item \textbf{Serviceauswirkungen verstehen} -- Cybersicherheit mit Ihrem Geschäftsbetrieb verknüpfen
+\end{itemize}
+
+\section*{Was dieser Kurs nicht ist}
+
+Dieser Kurs ist keine Rechtsberatung. Keine Qualifikation. Keine Stelle in der EU zertifiziert derzeit NIS2-Schulungsprogramme.
+
+\section*{Wie Sie diesen Kurs nutzen}
+
+Arbeiten Sie jede Lektion der Reihe nach durch. Machen Sie nach jeder Lektion das Quiz. Halten Sie ein Notizbuch bereit. Wenn eine konkrete Anforderung auftaucht, schreiben Sie sie auf. Am Ende haben Sie Ihre eigene Aktionsliste.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Artikel~20(2) verpflichtet persönlich jedes Mitglied des Leitungsorgans zur Cybersicherheitsschulung -- die Pflicht ist nicht delegierbar.
+  \item Keine EU-Stelle zertifiziert NIS2-Schulungen; der Prüfer beurteilt die Angemessenheit anhand der behandelten Inhalte, der Zeit und der Dokumentation.
+  \item Dieser Kurs deckt alle drei gesetzlich geforderten Kompetenzfelder ab.
+\end{enumerate}
+\end{keytakeaways}
+
+\newpage
+
+% ============================================================
+%  KAPITEL 1: DAS GESETZ
+% ============================================================
+
+\chapter{Das Gesetz}
+
+\begin{moduleintro}
+\textbf{Modul 1 -- 12 Lektionen}
+
+Dieses Modul legt das rechtliche Fundament von NIS2 dar: was das Gesetz ist, für wen es gilt, was es von Ihnen persönlich verlangt und was passiert, wenn Sie es nicht einhalten. Am Ende können Sie die fünf Grundlagenfragen beantworten, die das BSI von jedem betroffenen CEO erwartet.
+\end{moduleintro}
+
+\bigskip
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.0cm,
+  box/.style={rectangle, rounded corners=4pt, draw, thick,
+    minimum width=5.5cm, minimum height=1.1cm, align=center,
+    font=\small\bfseries},
+  arrow/.style={-{Stealth[length=7pt]}, thick, color=nisd2blue}
+]
+\node[box, fill=nisd2blue, text=white] (nis2)
+  {NIS2-Richtlinie (EU) 2022/2555\\Legt die Ziele fest};
+\node[box, fill=nisd2mid, text=white, below=of nis2] (cir)
+  {DVO 2024/2690\\Legt detaillierte technische Regeln fest (unmittelbar anwendbar)};
+\node[box, fill=nisd2light, text=nisd2blue, below=of cir] (natlaw)
+  {Nationales Recht (BSIG in Deutschland)\\Setzt die Richtlinie um};
+\node[box, fill=white, draw=nisd2blue, text=nisd2blue, below=of natlaw] (bsi)
+  {Nationale Behörde (BSI in Deutschland)\\Prüft \& verhängt Bußgelder};
+\draw[arrow] (nis2) -- (cir);
+\draw[arrow] (cir) -- (natlaw);
+\draw[arrow] (natlaw) -- (bsi);
+\node[right=0.4cm of nis2, font=\tiny\itshape, text=nisd2mid] {EU-weit};
+\node[right=0.4cm of cir, font=\tiny\itshape, text=nisd2mid] {EU-weit, unmittelbar anwendbar};
+\node[right=0.4cm of natlaw, font=\tiny\itshape, text=nisd2mid] {Je nach Land};
+\node[right=0.4cm of bsi, font=\tiny\itshape, text=nisd2mid] {Je nach Land};
+\end{tikzpicture}
+\par\smallskip\noindent{\small\textit{Die vollständige Rechtskette von der EU-Richtlinie zur nationalen Durchsetzung.}}
+\end{center}
+
+\bigskip
+
+%  LEKTION 1.1
+\section{\lessontag{1.1}Was NIS2 ist und warum es existiert}
+
+Etwa 160.000 Unternehmen in der EU stehen auf einer Liste, die die EU für zu wichtig hält, um auszufallen. Wenn Ihr Unternehmen auf dieser Liste steht, werden die Regeln für Ihre Cybersicherheit nicht mehr von Ihnen festgelegt -- sie werden durch drei Ebenen des EU- und nationalen Rechts bestimmt, die von einem nationalen Aufseher durchgesetzt werden.
+
+\subsection*{Die Richtlinie}
+
+Der offizielle Name lautet Richtlinie (EU) 2022/2555 -- die \textbf{NIS2-Richtlinie}. Verabschiedet am 14.~Dezember 2022, in Kraft getreten am 16.~Januar 2023. Sie ersetzt NIS1, das weithin als inkonsistent und schwach durchgesetzt galt -- kaum jemals wurden unter NIS1 Bußgelder verhängt.
+
+NIS2 ist eine \textbf{Richtlinie}, keine Verordnung. Eine Verordnung (wie die DSGVO) gilt unmittelbar in jedem Land. Eine Richtlinie gibt vor, welches Ergebnis jedes Land erreichen muss, und jedes Land erlässt sein eigenes nationales Recht. Die Richtlinie ist der Mindeststandard, nicht die Obergrenze.
+
+\subsection*{Die Durchführungsverordnung (DVO)}
+
+Die Durchführungsverordnung (EU) 2024/2690 gilt als Verordnung unmittelbar in allen 27 Mitgliedstaaten ohne Umsetzung. Die DVO legt die detaillierten technischen Anforderungen fest: was als erheblicher Vorfall gilt, welche Richtlinien Sie haben müssen, welche Schwellenwerte die Meldepflicht auslösen.
+
+\subsection*{Der Vollzug}
+
+In Deutschland: das BSIG (IT-Sicherheitsgesetz) und das BSI (Bundesamt für Sicherheit in der Informationstechnik). Das BSI kann prüfen, Registrierung fordern, Vorfallsmeldungen verlangen und Bußgelder bis zu \textbf{10~Mio.~\euro{} oder 2\,\% des globalen Umsatzes} verhängen.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item NIS2 ist Richtlinie (EU) 2022/2555 -- ein EU-weites Cybersicherheitsgesetz, das etwa 160.000 Einrichtungen erfasst.
+  \item Drei Rechtsebenen gelten: die NIS2-Richtlinie (Ziele), die DVO 2024/2690 (detaillierte technische Regeln, unmittelbar anwendbar) und das nationale Recht (BSIG in Deutschland), das das BSI durchsetzt.
+  \item Die Richtlinie begründet persönliche Verantwortlichkeit für das Leitungsorgan -- deshalb wird das Führungsteam, nicht nur die IT, direkt angesprochen.
+\end{enumerate}
+\end{keytakeaways}
+
+\begin{quizbox}
+\setcounter{quizq}{0}
+\quizquestion{Was ist der Unterschied zwischen einer EU-Richtlinie und einer EU-Verordnung?}{
+  \item Eine Richtlinie gilt unmittelbar; eine Verordnung muss in nationales Recht umgesetzt werden
+  \item \correct{Eine Verordnung gilt unmittelbar; eine Richtlinie muss in nationales Recht umgesetzt werden}
+  \item Es gibt keinen Unterschied; beide gelten unmittelbar
+  \item Eine Richtlinie gilt nur für wesentliche Einrichtungen; eine Verordnung gilt für alle
+}
+\quizexplain{Eine Verordnung (wie die DSGVO oder die DVO) gilt unmittelbar in jedem Land. Eine Richtlinie gibt vor, welches Ergebnis erreicht werden muss, und jedes Land erlässt sein eigenes nationales Recht.}
+
+\quizquestion{Was bewirkt die DVO (Durchführungsverordnung 2024/2690)?}{
+  \item Sie ersetzt die NIS2-Richtlinie vollständig
+  \item Sie legt die Ziele fest, die jedes Land erreichen muss
+  \item \correct{Sie legt detaillierte technische Anforderungen fest, die unmittelbar in allen 27 Mitgliedstaaten gelten}
+  \item Sie benennt die zuständige Behörde in jedem Land
+}
+\quizexplain{Die DVO ist eine Verordnung, die unmittelbar in allen Mitgliedstaaten gilt und detaillierte technische Anforderungen festlegt.}
+
+\quizquestion{Wie lautet die vollständige Rechtskette?}{
+  \item DVO legt Ziele fest, NIS2 legt Regeln fest, nationales Recht setzt durch
+  \item \correct{NIS2-Richtlinie legt Ziele fest, DVO legt detaillierte technische Regeln fest, nationales Recht setzt um, nationale Behörde prüft}
+  \item Nationales Recht legt Ziele fest, NIS2-Richtlinie legt Regeln fest, DVO setzt durch
+  \item DSGVO legt Ziele fest, NIS2 legt Regeln fest, DVO setzt durch
+}
+
+\quizquestion{Warum wurde NIS1 ersetzt?}{
+  \item NIS1 war zu streng und kostspielig für Unternehmen
+  \item NIS1 galt nur für Anbieter digitaler Infrastrukturen
+  \item \correct{NIS1 wurde weithin als inkonsistent und schwach durchgesetzt angesehen -- kaum jemals wurden Bußgelder verhängt}
+  \item NIS1 war eine Verordnung, die nicht an lokales Recht angepasst werden konnte
+}
+\quizexplain{Unter NIS1 wurden in der gesamten EU kaum jemals Bußgelder verhängt. NIS2 wurde entwickelt, um dies zu ändern.}
+\end{quizbox}
+
+%  LEKTION 1.2
+\section{\lessontag{1.2}Wer betroffen ist -- Wesentliche vs. wichtige Einrichtungen}
+
+Artikel~3 der NIS2-Richtlinie ordnet betroffene Unternehmen in zwei Listen ein.
+
+\begin{center}
+\begin{tikzpicture}
+\node[rectangle, rounded corners=5pt, draw=nisd2blue, fill=nisd2light,
+      minimum width=5.5cm, minimum height=3.2cm, text width=5.2cm,
+      align=flush left, inner sep=8pt] (essential) at (-3.2,0) {
+  \textbf{\textcolor{nisd2blue}{Anhang I -- Wesentliche Einrichtungen}}\\[4pt]
+  Energie, Verkehr, Banken,\\
+  Finanzmarktinfrastrukturen,\\
+  Gesundheit, Trinkwasser, Abwasser,\\
+  Digitale Infrastruktur,\\
+  IKT-Dienstemanagement,\\
+  Öffentliche Verwaltung, Raumfahrt\\[6pt]
+  \textcolor{nisd2mid}{\small Proaktive Aufsicht}
+};
+\node[rectangle, rounded corners=5pt, draw=nisd2mid, fill=white,
+      minimum width=5.5cm, minimum height=3.2cm, text width=5.2cm,
+      align=flush left, inner sep=8pt] (important) at (3.2,0) {
+  \textbf{\textcolor{nisd2blue}{Anhang II -- Wichtige Einrichtungen}}\\[4pt]
+  Post- und Kurierdienste,\\
+  Abfallbewirtschaftung, Chemikalien,\\
+  Lebensmittelproduktion und -vertrieb,\\
+  Fertigung, Digitale Anbieter,\\
+  Forschungseinrichtungen\\[6pt]
+  \textcolor{nisd2mid}{\small Reaktive Aufsicht}
+};
+\node[below=0.3cm of essential, font=\small, text=nisd2blue]
+  {\textbf{Max. Bußgeld:} 10~Mio.~\euro{} oder 2\,\% Umsatz};
+\node[below=0.3cm of important, font=\small, text=nisd2blue]
+  {\textbf{Max. Bußgeld:} 7~Mio.~\euro{} oder 1,4\,\% Umsatz};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Größenschwellenwert:} 50 oder mehr Beschäftigte \emph{oder} mehr als 10~Mio.~\euro{} Jahresumsatz. Wer eines dieser Kriterien erfüllt und in einem gelisteten Sektor tätig ist, ist dabei.
+
+\textbf{Der entscheidende Unterschied:} Wesentliche Einrichtungen unterliegen \emph{proaktiver} Aufsicht (Prüfung jederzeit möglich, ohne Anlass). Wichtige Einrichtungen unterliegen \emph{reaktiver} Aufsicht (Prüfung nur bei einem Auslöser). \textbf{Die zehn Maßnahmen nach Artikel~21 gelten für beide gleichermaßen.}
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item NIS2 erfasst zwei Kategorien -- wesentliche (Anhang I) und wichtige (Anhang II) Einrichtungen -- mit einem Größenschwellenwert von 50 Beschäftigten oder 10~Mio.~\euro{} Umsatz für beide.
+  \item Wesentliche Einrichtungen unterliegen proaktiver Aufsicht. Wichtige Einrichtungen unterliegen reaktiver Aufsicht.
+  \item Die zehn Maßnahmen gelten für beide Kategorien gleichermaßen -- der Unterschied liegt in der Durchsetzungsintensität, nicht im Compliance-Umfang.
+\end{enumerate}
+\end{keytakeaways}
+
+\begin{quizbox}
+\setcounter{quizq}{0}
+\quizquestion{Wie lautet der Größenschwellenwert für den NIS2-Anwendungsbereich?}{
+  \item 250 oder mehr Beschäftigte oder 50~Mio.~\euro{} Umsatz
+  \item \correct{50 oder mehr Beschäftigte oder mehr als 10~Mio.~\euro{} Jahresumsatz}
+  \item 10 oder mehr Beschäftigte oder mehr als 1~Mio.~\euro{} Umsatz
+  \item 100 oder mehr Beschäftigte oder mehr als 25~Mio.~\euro{} Umsatz
+}
+\quizexplain{Der allgemeine Schwellenwert sind 50 Beschäftigte oder mehr als 10~Mio.~\euro{} Umsatz in einem gelisteten Sektor.}
+
+\quizquestion{Was ist der wesentliche Unterschied zwischen wesentlichen und wichtigen Einrichtungen?}{
+  \item Wesentliche Einrichtungen müssen alle zehn Maßnahmen umsetzen; wichtige nur fünf
+  \item \correct{Wesentliche Einrichtungen unterliegen proaktiver Aufsicht; wichtige reaktiver Aufsicht}
+  \item Wichtige Einrichtungen zahlen höhere Bußgelder als wesentliche
+  \item Wesentliche Einrichtungen stehen in Anhang II; wichtige in Anhang I
+}
+
+\quizquestion{Setzen wesentliche und wichtige Einrichtungen unterschiedliche Sicherheitsmaßnahmen um?}{
+  \item Ja, wesentliche Einrichtungen haben strengere technische Anforderungen
+  \item Ja, wichtige Einrichtungen haben zusätzliche Meldepflichten
+  \item \correct{Nein, beide müssen dieselben zehn Maßnahmen nach Artikel~21 umsetzen}
+  \item Für wichtige Einrichtungen gelten keine Maßnahmen
+}
+\end{quizbox}
+
+%  LEKTION 1.3
+\section{\lessontag{1.3}Bußgelder und das Tätigkeitsverbot nach Artikel 34}
+
+\begin{center}
+\begin{tikzpicture}[
+  layer/.style={rectangle, rounded corners=4pt, draw, thick,
+    minimum width=8cm, minimum height=1.0cm, align=center, font=\small\bfseries}
+]
+\node[layer, fill=warningred!10, draw=warningred] (l1) at (0, 0)
+  {\textcolor{warningred}{Ebene 1: Unternehmensbußgeld -- bis zu 10~Mio.~\euro{} oder 2\,\% globaler Umsatz (wesentlich)}};
+\node[layer, fill=warningred!25, draw=warningred, below=0.5cm of l1] (l2)
+  {\textcolor{warningred}{Ebene 2: Tätigkeitsverbot nach Art.~34 -- persönlich, jede Führungsposition}};
+\node[layer, fill=warningred!45, draw=warningred!80, below=0.5cm of l2] (l3)
+  {\textcolor{white}{Ebene 3: Gesellschaftsrecht -- Unternehmen klagt Sie auf Schadensersatz}};
+\draw[-{Stealth}, thick, warningred] (l1.south) -- (l2.north);
+\draw[-{Stealth}, thick, warningred] (l2.south) -- (l3.north);
+\node[right=0.2cm of l1, font=\tiny, text=nisd2mid] {stapeln sich};
+\node[right=0.2cm of l2, font=\tiny, text=nisd2mid] {stapeln sich};
+\end{tikzpicture}
+\end{center}
+
+Drei Haftungsebenen. \textbf{Sie stapeln sich.} Der Aufseher kann das Unternehmen mit einem Bußgeld belegen, Ihnen persönlich ein Tätigkeitsverbot erteilen, und das Unternehmen kann Sie auf Schadensersatz verklagen -- alles für dasselbe Versäumnis.
+
+Artikel~20(1) macht dies explizit: Leitungsorgane ``können für Verstöße haftbar gemacht werden.''
+
+\begin{warningbox}
+Artikel~34 umfasst \textbf{vorläufige Amtsenthebungen}: eine vorübergehende Absetzung \emph{während das Verfahren noch läuft}. Sie können abgesetzt werden, bevor der Fall entschieden ist.
+\end{warningbox}
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Das Unternehmensbußgeld ist auf 10~Mio.~\euro{} oder 2\,\% des globalen Umsatzes begrenzt (wesentliche); 7~Mio.~\euro{} oder 1,4\,\% für wichtige. Mitgliedstaaten können höher gehen.
+  \item Artikel~34 gibt dem Aufseher die Befugnis, Ihnen persönlich jede Führungsposition zu verbieten -- einschließlich vorläufiger Absetzung während des laufenden Verfahrens.
+  \item Ihr nationales Gesellschaftsrecht ermöglicht es dem Unternehmen, Sie persönlich auf Schadensersatz zu verklagen -- zusätzlich zu Bußgeld und Verbot.
+\end{enumerate}
+\end{keytakeaways}
+
+\begin{quizbox}
+\setcounter{quizq}{0}
+\quizquestion{Was ist das maximale Bußgeld für wesentliche Einrichtungen unter NIS2?}{
+  \item 7~Mio.~\euro{} oder 1,4\,\% des weltweiten Umsatzes
+  \item \correct{10~Mio.~\euro{} oder 2\,\% des weltweiten Jahresumsatzes, je nachdem was höher ist}
+  \item 5~Mio.~\euro{} oder 1\,\% des weltweiten Umsatzes
+  \item 20~Mio.~\euro{} oder 4\,\% des weltweiten Umsatzes
+}
+\quizquestion{Was erlaubt Artikel~34 dem Aufseher?}{
+  \item Nur das Unternehmen mit einem Bußgeld zu belegen
+  \item \correct{Einer Person jede Führungsposition zu verbieten, einschließlich vorläufiger Absetzung während des Verfahrens}
+  \item Das Unternehmen dauerhaft zu schließen
+  \item Die Betriebslizenz des Unternehmens zu entziehen
+}
+\quizquestion{Wie viele Haftungsebenen beschreibt die Lektion?}{
+  \item Eine: das Unternehmensbußgeld
+  \item Zwei: das Unternehmensbußgeld und das Tätigkeitsverbot
+  \item \correct{Drei: das Unternehmensbußgeld, das Tätigkeitsverbot nach Art.~34 und persönliche zivilrechtliche Haftung nach Gesellschaftsrecht}
+  \item Vier: Bußgeld, Verbot, zivilrechtliche und strafrechtliche Haftung
+}
+\quizquestion{Wie hoch ist das maximale Bußgeld für wichtige Einrichtungen?}{
+  \item 10~Mio.~\euro{} oder 2\,\% des weltweiten Umsatzes
+  \item \correct{7~Mio.~\euro{} oder 1,4\,\% des weltweiten Umsatzes, je nachdem was höher ist}
+  \item 5~Mio.~\euro{} oder 1\,\% des weltweiten Umsatzes
+  \item Es gibt keine Obergrenze für wichtige Einrichtungen
+}
+\end{quizbox}
+
+%  LEKTION 1.4
+\section{\lessontag{1.4}Die Registrierungspflicht}
+
+Artikel~27 der NIS2-Richtlinie verpflichtet betroffene Unternehmen zur \textbf{Registrierung bei der nationalen zuständigen Behörde innerhalb von drei Monaten}, nachdem sie dem NIS2-Anwendungsbereich unterliegen.
+
+\begin{definitionbox}{Was die Registrierung enthalten muss}
+Unternehmensname, Adresse, Sektor, Kontaktdaten \textbf{einschließlich eines 24/7-Vorfallkontakts}, die vom Unternehmen erbrachten Dienste, die EU-Länder, in denen diese Dienste angeboten werden, sowie (für Anbieter digitaler Infrastrukturen) IP-Adressbereiche.
+\end{definitionbox}
+
+Verspätete oder falsche Registrierung wird nach Artikel~32 gesondert sanktioniert -- ein eigenständiger Verstoß, unabhängig von einem Cybervorfall. In Deutschland hatten bis März 2026 von geschätzten 29.500 betroffenen Unternehmen nur etwa \textbf{11.500} fristgerecht registriert.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Artikel~27 gibt Ihnen drei Monate ab dem Tag, an dem Ihr Unternehmen betroffen wird, um sich zu registrieren; die Registrierung muss einen 24/7-Vorfallkontakt enthalten.
+  \item Fehlende oder falsche Registrierung ist ein eigenständiger Verstoß, unabhängig von einem Cybervorfall -- und der am leichtesten zu erkennende Verstoß für den Aufseher.
+  \item In Deutschland hatte bis März 2026 nur etwa ein Drittel der betroffenen Unternehmen fristgerecht registriert.
+\end{enumerate}
+\end{keytakeaways}
+
+\begin{quizbox}
+\setcounter{quizq}{0}
+\quizquestion{Wie lange hat ein Unternehmen nach Eintritt der Betroffenheit zur Registrierung?}{
+  \item Einen Monat
+  \item \correct{Drei Monate}
+  \item Sechs Monate
+  \item Ein Jahr
+}
+\quizquestion{Ist fehlende Registrierung ein Verstoß, auch ohne Cybervorfall?}{
+  \item Nein, ein Verstoß erfordert einen Cybervorfall
+  \item \correct{Ja, es ist ein eigenständiger Verstoß nach Artikel~32, unabhängig von einem Vorfall}
+  \item Nur wenn der Aufseher das Unternehmen bereits geprüft hat
+  \item Nur für wesentliche Einrichtungen
+}
+\quizquestion{Welcher Kontakt muss zwingend in der NIS2-Registrierung enthalten sein?}{
+  \item Die private Handynummer des CEO
+  \item \correct{Ein 24/7-Vorfallkontakt}
+  \item Die allgemeine E-Mail-Adresse des Unternehmens
+  \item Das LinkedIn-Profil des CISO
+}
+\end{quizbox}
+
+%  LEKTION 1.5
+\section{\lessontag{1.5}Ihre Pflicht zur Genehmigung und Aufsicht}
+
+Artikel~20(1) der NIS2-Richtlinie: \textit{,,Die Leitungsorgane wesentlicher und wichtiger Einrichtungen genehmigen die von diesen Einrichtungen zur Einhaltung des Artikels~21 getroffenen Maßnahmen zum Cybersicherheitsrisikomanagement, überwachen ihre Umsetzung und können für Verstöße haftbar gemacht werden.''}
+
+Drei Pflichten, jede versagt eigenständig:
+\begin{itemize}
+  \item \textbf{Genehmigen} -- ein formaler Rechtsakt, dokumentiert, namentlich, datiert, persönlich unterzeichnet
+  \item \textbf{Überwachen} -- eine fortlaufende Pflicht: regelmäßige Berichte Ihres Sicherheitsteams, mindestens ein formaler jährlicher Review
+  \item \textbf{Haftbar sein} -- wenn die Maßnahmen versagen und das Unternehmen mit einem Bußgeld belegt wird, können Sie persönlich zahlen
+\end{itemize}
+
+\textbf{Was die meisten Leitungsteams übersehen:} Sie werden erwartet, die Kontrollen, die Sie genehmigt haben, persönlich \emph{anzuwenden}. Ein CEO, der sich selbst von den Kontrollen ausnimmt, die er genehmigt hat, verstößt direkt -- ein Prüfer kann dies als Feststellung zitieren.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Artikel~20(1) begründet drei persönliche Pflichten -- genehmigen, überwachen und haftbar sein -- und jede kann eigenständig versagen.
+  \item Die Genehmigung ist ein formaler Rechtsakt: Ihr Name und Ihre persönliche Unterschrift müssen auf dem Dokument erscheinen.
+  \item Sie müssen die von Ihnen genehmigten Kontrollen persönlich einhalten -- sich selbst von MFA oder Schulungen auszunehmen ist ein Prüfbefund.
+\end{enumerate}
+\end{keytakeaways}
+
+%  LEKTION 1.6
+\section{\lessontag{1.6}Ihre Schulungspflicht}
+
+Artikel~20(2): \textit{,,Die Mitglieder der Leitungsorgane wesentlicher und wichtiger Einrichtungen sind verpflichtet, an Schulungen teilzunehmen [...], damit sie ausreichende Kenntnisse und Fähigkeiten erwerben, um Risiken erkennen und Praktiken des Cybersicherheitsrisikomanagements und deren Auswirkungen auf die vom Unternehmen erbrachten Dienste beurteilen zu können.''}
+
+\begin{center}
+\begin{tikzpicture}[
+  comp/.style={rectangle, rounded corners=5pt, draw=nisd2mid, fill=nisd2light,
+    minimum width=4.2cm, minimum height=1.4cm, align=center,
+    font=\small\bfseries, text width=3.8cm}
+]
+\node[comp] (c1) at (-4.5, 0) {\textcolor{nisd2blue}{Risiken erkennen}\\[3pt]\tiny Bedrohungen verstehen, denen das Unternehmen ausgesetzt ist};
+\node[comp] (c2) at (0, 0) {\textcolor{nisd2blue}{Maßnahmen bewerten}\\[3pt]\tiny Beurteilen, ob die Kontrollen tatsächlich funktionieren};
+\node[comp] (c3) at (4.5, 0) {\textcolor{nisd2blue}{Serviceauswirkungen beurteilen}\\[3pt]\tiny Cybersicherheit mit dem Geschäftsbetrieb verknüpfen};
+\end{tikzpicture}
+\par\smallskip\noindent{\small\textit{Drei Kompetenzfelder nach Artikel~20(2). Nur eines oder zwei abzudecken erfüllt den Standard nicht.}}
+\end{center}
+
+\textbf{Häufigkeit:} In Deutschland bedeutet ``regelmäßig'' mindestens alle drei Jahre; das BSI empfiehlt jährlich. Die Schulungspflicht ist \textbf{persönlich und nicht delegierbar}.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Die Schulung muss alle drei Kompetenzfelder abdecken -- nur eines oder zwei abzudecken erfüllt den Standard nicht.
+  \item Mindestens alle drei Jahre in Deutschland; jährlich vom BSI empfohlen. Nicht delegierbar.
+  \item Der Prüfer beurteilt die Angemessenheit anhand der behandelten Inhalte, der aufgewendeten Zeit und der Dokumentation -- nicht anhand der ausstellenden Stelle.
+\end{enumerate}
+\end{keytakeaways}
+
+%  LEKTION 1.7
+\section{\lessontag{1.7}Persönliche Haftung nach nationalem Gesellschaftsrecht}
+
+Ihr Unternehmen wird mit 10~Mio.~\euro{} wegen eines NIS2-Verstoßes bebußt. Ihr Aufsichtsrat tagt am nächsten Morgen. Erster Tagesordnungspunkt: ob Sie persönlich auf diese 10~Mio.~\euro{} verklagt werden -- und nach Ihrem nationalen Gesellschaftsrecht sind sie dazu berechtigt.
+
+\begin{warningbox}
+In vielen EU-Ländern, darunter Deutschland, gilt bei der Direktorenhaftung die \textbf{Beweislastumkehr}. Das Unternehmen muss nicht beweisen, dass Sie nachlässig waren. \textbf{Sie müssen beweisen, dass Sie sorgfältig waren.}
+
+Ihre Verteidigung: der datierte Genehmigungsvermerk, die Schulungsnachweise, die Sitzungsprotokolle, das Risikoregister mit Ihrer Unterschrift. Ohne diese Dokumente argumentieren Sie aus einer leeren Akte heraus.
+\end{warningbox}
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Die EU-Richtlinie begründet die Pflicht; Ihr nationales Gesellschaftsrecht macht daraus einen persönlichen Schadensersatzanspruch, den Ihr eigenes Unternehmen gegen Sie stellen kann.
+  \item In Deutschland liegt die Beweislast beim Direktor: Sie müssen die Sorgfalt nachweisen.
+  \item Dokumentation ist Ihre einzige Verteidigung.
+\end{enumerate}
+\end{keytakeaways}
+
+%  LEKTION 1.8
+\section{\lessontag{1.8}Die Business Judgment Rule schützt Sie nicht}
+
+Die Business Judgment Rule schützt Direktoren vor persönlicher Haftung für \emph{unternehmerische Entscheidungen}, die in gutem Glauben getroffen wurden. Sie gilt \textbf{nicht} für gesetzliche Pflichten.
+
+Das Prinzip heißt \textbf{Legalitätspflicht}: Ein Direktor muss geltendes Recht einhalten. Kein unternehmerisches Ermessen ist erlaubt, ob eine gesetzliche Pflicht zu befolgen ist. ,,Ich habe eine vernünftige unternehmerische Entscheidung getroffen, Artikel~21 nicht vollständig umzusetzen'' ist keine gültige Verteidigung.
+
+\begin{casestudy}{SolarWinds (2023)}
+Die SEC klagte den CISO von SolarWinds persönlich nach einem Supply-Chain-Angriff an. Die Klage stützte sich auf interne Dokumente -- Slack-Nachrichten, Risikoberichte -- die eine Lücke zwischen externen Aussagen und internen Meldungen zeigten. Drei Lektionen, die unmittelbar auf NIS2 zutreffen:
+\begin{enumerate}
+  \item Interne Risikoberichte benannten Kontrollmängel, die die Führung nicht geschlossen hatte.
+  \item Die externe Sicherheitsdarstellung des Unternehmens wich von internen Berichten ab.
+  \item Risikoinformationen erreichten die Führung nicht in umsetzbarer Form.
+\end{enumerate}
+\end{casestudy}
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Die Business Judgment Rule schützt kaufmännische Entscheidungen, nicht die Einhaltung von Gesetzen -- Artikel~20 und Artikel~21 begründen gesetzliche Pflichten unter der Legalitätspflicht.
+  \item ,,Ich habe eine vernünftige Entscheidung getroffen, die Maßnahme nicht umzusetzen'' ist keine gültige Verteidigung.
+  \item Interne Dokumente -- Risikoberichte, Bewertungen, Sitzungsprotokolle -- sind das, was der Aufseher nutzt, um nachzuweisen, dass Sie von der Lücke wussten.
+\end{enumerate}
+\end{keytakeaways}
+
+%  LEKTION 1.9
+\section{\lessontag{1.9}Die zehn Maßnahmen -- Überblick}
+
+Es gibt \textbf{zehn} davon. Nicht acht. Nicht zwölf. Acht von zehn zu haben ist kein Bestehen.
+
+\begin{center}
+\begin{tikzpicture}[
+  measure/.style={rectangle, rounded corners=3pt, draw=nisd2mid,
+    fill=nisd2light, minimum width=3.4cm, minimum height=0.9cm,
+    align=center, font=\small, text width=3.2cm}
+]
+\node[measure] (m1) at (0, 5.5)    {(a) Risikoanalyse \&\\Sicherheitsrichtlinien};
+\node[measure] (m2) at (3.8, 5.5)  {(b) Vorfallbehandlung};
+\node[measure] (m3) at (7.6, 5.5)  {(c) Geschäftskontinuität};
+\node[measure] (m4) at (0, 4.2)    {(d) Lieferkettensicherheit};
+\node[measure] (m5) at (3.8, 4.2)  {(e) Sichere Beschaffung \&\\Entwicklung};
+\node[measure] (m6) at (7.6, 4.2)  {(f) Wirksamkeitstests};
+\node[measure] (m7) at (0, 2.9)    {(g) Cyberhygiene \&\\Schulung};
+\node[measure] (m8) at (3.8, 2.9)  {(h) Kryptografie};
+\node[measure] (m9) at (7.6, 2.9)  {(i) Personalsicherheit,\\Zugang \& Assets};
+\node[measure] (m10) at (3.8, 1.6)  {(j) MFA \&\\gesicherte Kommunikation};
+\node[below=0.2cm of m10, font=\small\itshape, text=nisd2mid, text width=10cm, align=center]
+  {Alle zehn gelten für jede betroffene Einrichtung. ,,Verhältnismäßig'' bedeutet auf Ihre Größe skaliert, nicht auf null reduziert.};
+\end{tikzpicture}
+\end{center}
+
+Jede Kategorie benötigt drei Ebenen: \textbf{technisch}, \textbf{operativ} und \textbf{organisatorisch}. Eine Firewall ohne Richtlinie ist unvollständig. Eine Richtlinie ohne funktionierenden Prozess ist unvollständig.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Es gibt zehn spezifische Kategorien in Artikel~21(2) -- alle zehn gelten für jede betroffene Einrichtung, keine ist optional.
+  \item ,,Verhältnismäßig'' bedeutet auf Ihre Größe und Risikoexposition skaliert, nicht auf null reduziert; auch ein kleines Unternehmen benötigt alle zehn.
+  \item Der häufige Fehler: die meisten Maßnahmen in guter Form, aber eine oder zwei vollständig fehlend. Die fehlenden sind der Verstoß.
+\end{enumerate}
+\end{keytakeaways}
+
+%  LEKTION 1.10
+\section{\lessontag{1.10}Allgefahrenansatz und Stand der Technik}
+
+Artikel~21(1) fordert ein Risikomanagement ,,auf der Grundlage eines Allgefahrenansatzes, der darauf abzielt, Netz- und Informationssysteme und die \textbf{physische Umgebung} dieser Systeme vor Vorfällen zu schützen.''
+
+\textbf{Allgefahren} bedeutet: Cyberangriffe, physische Einbrüche, Brände, Überschwemmungen, Stromausfälle, Lieferantenausfälle, Insider-Bedrohungen und menschliches Versagen -- alles im Anwendungsbereich. Eine Risikobewertung, die nur Cyberangriffe auflistet, erfüllt den Standard nicht.
+
+\textbf{Stand der Technik} bedeutet aktuelle Best Practice gemäß veröffentlichten Standards \emph{zum Zeitpunkt der Prüfung}, nicht zum Zeitpunkt der ersten Umsetzung. Kontrollen brauchen einen Überprüfungszyklus: \textbf{mindestens jährlich.}
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Allgefahren deckt alles ab, was die Systeme treffen kann -- nicht nur Hacker.
+  \item Stand der Technik wird gegen die zum Zeitpunkt der Prüfung aktuellen Standards gemessen, nicht gegen den Zeitpunkt der ersten Umsetzung.
+  \item Ihre Kontrollen brauchen einen Überprüfungszyklus -- die Regel lautet nicht ,,einmal umsetzen'', sondern ,,aktuell halten''.
+\end{enumerate}
+\end{keytakeaways}
+
+\begin{quizbox}
+\setcounter{quizq}{0}
+\quizquestion{Was verlangt der Allgefahrenansatz?}{
+  \item Schutz nur gegen Cyberangriffe
+  \item \correct{Schutz gegen jede Bedrohung -- Cyberangriffe, physische Gefahren, Umweltereignisse, Lieferantenausfälle, Insider-Bedrohungen und menschliches Versagen}
+  \item Schutz nur gegen zuvor aufgetretene Bedrohungen
+  \item Schutz nur gegen im Risikoregister aufgeführte Bedrohungen
+}
+\quizquestion{An welchem Zeitpunkt beurteilt der Prüfer, ob Kontrollen dem ,,Stand der Technik'' entsprechen?}{
+  \item Zum Zeitpunkt der ersten Implementierung
+  \item \correct{Anhand der zum Zeitpunkt der Prüfung aktuellen Standards}
+  \item Zum Datum des Inkrafttretens der NIS2-Richtlinie
+  \item Zum Gründungsdatum des Unternehmens
+}
+\end{quizbox}
+
+%  LEKTION 1.11
+\section{\lessontag{1.11}Die Meldekaskade und erhebliche Vorfälle}
+
+\begin{center}
+\begin{tikzpicture}[
+  reportstep/.style={rectangle, rounded corners=4pt, draw=nisd2blue, thick,
+    minimum width=3.0cm, minimum height=1.4cm, align=center,
+    font=\small\bfseries, text width=2.8cm},
+  arrow/.style={-{Stealth}, thick, color=nisd2blue}
+]
+\node[reportstep, fill=nisd2blue, text=white] (ew) at (0,0)
+  {Frühwarnung\\[2pt]\small Innerhalb von \textbf{24 Stunden}};
+\node[reportstep, fill=nisd2mid, text=white, right=1.2cm of ew] (in)
+  {Vorfallmeldung\\[2pt]\small Innerhalb von \textbf{72 Stunden}};
+\node[reportstep, fill=nisd2light, text=nisd2blue, right=1.2cm of in] (fr)
+  {Abschlussbericht\\[2pt]\small Innerhalb von \textbf{1 Monat}};
+\draw[arrow] (ew) -- (in);
+\draw[arrow] (in) -- (fr);
+\node[below=0.5cm of ew, font=\tiny, text=nisd2mid, text width=3cm, align=center]
+  {Was Sie bisher wissen. Muss nicht vollständig sein. Muss pünktlich sein.};
+\node[below=0.5cm of in, font=\tiny, text=nisd2mid, text width=3cm, align=center]
+  {Aktualisierte Bewertung: Schwere, Auswirkung, Kompromittierungsindikatoren.};
+\node[below=0.5cm of fr, font=\tiny, text=nisd2mid, text width=3cm, align=center]
+  {Ursache, Minderungsmaßnahmen, grenzüberschreitende Auswirkungen.};
+\end{tikzpicture}
+\par\smallskip\noindent{\small\textit{Verspätete Meldung ist ein eigenständig sanktionierbarer Verstoß.}}
+\end{center}
+
+Ein erheblicher Vorfall nach DVO 2024/2690 liegt vor, wenn \emph{eines} der folgenden Kriterien erfüllt ist: finanzieller Verlust von mehr als 500.000~\euro{} oder 5\,\% des Umsatzes (je nachdem was niedriger ist), Exfiltration von Betriebsgeheimnissen, Tod oder schwerwiegender Gesundheitsschaden, oder böswilliger unbefugter Zugang mit schwerwiegender Störung.
+
+\textbf{Artikel~4 Wiederholungsregel:} Zwei oder mehr Vorfälle mit derselben Grundursache innerhalb von sechs Monaten, die zusammen den Schwellenwert überschreiten, gelten als ein erheblicher Vorfall. Grundursachen verfolgen.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Schwellenwert erheblicher Vorfall: 500.000~\euro{} oder 5\,\% Umsatz (je niedriger), Betriebsgeheimnisse, Tod, schwerwiegender Gesundheitsschaden oder böswilliger Zugang mit schwerwiegender Störung.
+  \item Zwei oder mehr Vorfälle mit derselben Grundursache innerhalb von sechs Monaten, die zusammen den Schwellenwert überschreiten, zählen als ein erheblicher Vorfall.
+  \item Die Kaskade: 24~h (Frühwarnung), 72~h (Meldung), 1 Monat (Abschlussbericht) -- verspätete Meldung ist ein eigenständiges Bußgeld.
+\end{enumerate}
+\end{keytakeaways}
+
+%  LEKTION 1.12
+\section{\lessontag{1.12}Die Kundenbenachrichtigungspflicht}
+
+Zwei gesonderte kundenbezogene Pflichten:
+\begin{itemize}
+  \item \textbf{Artikel~23(2) -- selbstausführend:} Wenn ein erheblicher Vorfall voraussichtlich Kunden beeinträchtigt, unverzüglich benachrichtigen und mitteilen, welche Schutzmaßnahmen sie ergreifen können. Kein Aufseherbeschluss erforderlich.
+  \item \textbf{Artikel~36 -- aufseherangeordnet:} Der Aufseher kann im öffentlichen Interesse eine Kundenbenachrichtigung anordnen.
+\end{itemize}
+
+Ein Unternehmen, das auf einen Aufseherbeschluss wartet, wenn seine Kunden einer aktiven Bedrohung ausgesetzt sind, hat Artikel~23(2) bereits verletzt.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Artikel~23(2) ist selbstausführend -- wenn Kunden einer laufenden Bedrohung ausgesetzt sind, unverzüglich benachrichtigen und ihnen mitteilen, was sie tun können. Kein Aufseherbeschluss erforderlich.
+  \item Artikel~36 ist eine gesonderte Befugnis -- auf ihn zu warten, wenn Kunden einer aktiven Bedrohung ausgesetzt sind, verletzt bereits Artikel~23(2).
+  \item Bereiten Sie eine vorgefertigte Kundenbenachrichtigungsvorlage und eine definierte Genehmigungskette vor, bevor ein Vorfall eintritt.
+\end{enumerate}
+\end{keytakeaways}
+
+% ============================================================
+%  KAPITEL 2: RISIKO UND DIE 10 MASSNAHMEN
+% ============================================================
+
+\chapter{Risiko und die 10 Maßnahmen}
+
+\begin{moduleintro}
+\textbf{Modul 2 -- 15 Lektionen}
+
+Dieses Modul behandelt das Risikomanagement-Rahmenwerk hinter Artikel~21 und geht jede der zehn Maßnahmen im Detail durch. Am Ende können Sie die zehn Maßnahmen mit Ihrem CISO durchgehen und die richtigen Fragen zu jeder einzelnen stellen.
+\end{moduleintro}
+
+%  LEKTION 2.1
+\section{\lessontag{2.1}Risiko = Wahrscheinlichkeit $\times$ Auswirkung}
+
+Artikel~21(1) fordert ,,angemessene und verhältnismäßige'' Maßnahmen zur Bewältigung von Cybersicherheitsrisiken. Wie viel Sie für Sicherheit ausgeben, muss zu Ihrer Risikoexposition passen.
+
+\begin{center}
+\begin{tikzpicture}
+\def\sz{1.1}
+\fill[green!20] (0,0) rectangle (\sz,\sz);
+\fill[green!20] (\sz,0) rectangle (2*\sz,\sz);
+\fill[yellow!40] (2*\sz,0) rectangle (3*\sz,\sz);
+\fill[yellow!40] (3*\sz,0) rectangle (4*\sz,\sz);
+\fill[orange!30] (4*\sz,0) rectangle (5*\sz,\sz);
+\fill[green!20] (0,\sz) rectangle (\sz,2*\sz);
+\fill[yellow!40] (\sz,\sz) rectangle (2*\sz,2*\sz);
+\fill[yellow!40] (2*\sz,\sz) rectangle (3*\sz,2*\sz);
+\fill[orange!30] (3*\sz,\sz) rectangle (4*\sz,2*\sz);
+\fill[red!30] (4*\sz,\sz) rectangle (5*\sz,2*\sz);
+\fill[yellow!40] (0,2*\sz) rectangle (\sz,3*\sz);
+\fill[yellow!40] (\sz,2*\sz) rectangle (2*\sz,3*\sz);
+\fill[orange!30] (2*\sz,2*\sz) rectangle (3*\sz,3*\sz);
+\fill[red!30] (3*\sz,2*\sz) rectangle (4*\sz,3*\sz);
+\fill[red!50] (4*\sz,2*\sz) rectangle (5*\sz,3*\sz);
+\fill[yellow!40] (0,3*\sz) rectangle (\sz,4*\sz);
+\fill[orange!30] (\sz,3*\sz) rectangle (2*\sz,4*\sz);
+\fill[red!30] (2*\sz,3*\sz) rectangle (3*\sz,4*\sz);
+\fill[red!50] (3*\sz,3*\sz) rectangle (4*\sz,4*\sz);
+\fill[red!70] (4*\sz,3*\sz) rectangle (5*\sz,4*\sz);
+\fill[orange!30] (0,4*\sz) rectangle (\sz,5*\sz);
+\fill[red!30] (\sz,4*\sz) rectangle (2*\sz,5*\sz);
+\fill[red!50] (2*\sz,4*\sz) rectangle (3*\sz,5*\sz);
+\fill[red!70] (3*\sz,4*\sz) rectangle (4*\sz,5*\sz);
+\fill[red!90] (4*\sz,4*\sz) rectangle (5*\sz,5*\sz);
+\draw[gray!50, thin] (0,0) grid (5*\sz, 5*\sz);
+\node[font=\scriptsize\bfseries, text=nisd2blue] at (4.5*\sz, 4.5*\sz) {Hier zuerst};
+\draw[-{Stealth}, thick, nisd2blue] (4.5*\sz, 4.2*\sz) -- (4.5*\sz, 4.05*\sz);
+\node[rotate=90, font=\small\bfseries, text=nisd2blue] at (-0.5, 2.5*\sz) {Wahrscheinlichkeit →};
+\node[font=\small\bfseries, text=nisd2blue] at (2.5*\sz, -0.5) {Auswirkung →};
+\fill[green!20] (6*\sz, 4.5*\sz) rectangle (6.4*\sz, 4.8*\sz); \node[right, font=\tiny] at (6.4*\sz, 4.65*\sz) {Gering};
+\fill[yellow!40] (6*\sz, 4.0*\sz) rectangle (6.4*\sz, 4.3*\sz); \node[right, font=\tiny] at (6.4*\sz, 4.15*\sz) {Mittel};
+\fill[orange!30] (6*\sz, 3.5*\sz) rectangle (6.4*\sz, 3.8*\sz); \node[right, font=\tiny] at (6.4*\sz, 3.65*\sz) {Hoch};
+\fill[red!70] (6*\sz, 3.0*\sz) rectangle (6.4*\sz, 3.3*\sz); \node[right, font=\tiny] at (6.4*\sz, 3.15*\sz) {Kritisch};
+\end{tikzpicture}
+\par\smallskip\noindent{\small\textit{Die Risikomatrix. Die obere rechte Ecke -- hohe Wahrscheinlichkeit, hohe Auswirkung -- ist der Ausgangspunkt der Arbeit des Leitungsorgans.}}
+\end{center}
+
+Wenn Sie Cybersicherheitsmaßnahmen genehmigen, ohne das dahinterliegende Risikobild zu verstehen, ist Ihre Unterschrift uninformiert -- und eine uninformierte Genehmigung schützt Sie nicht nach Artikel~20(1).
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Jede Risikoentscheidung unter NIS2 lässt sich auf zwei Fragen zurückführen -- wie wahrscheinlich und wie schlimm.
+  \item Die obere rechte Ecke der Matrix ist der Ausgangspunkt der Arbeit des Leitungsorgans.
+  \item Das Risikoregister wandelt das Budgetargument von einer Meinung in Belege um -- fordern Sie es an und prüfen Sie, ob die Daten aktuell sind.
+\end{enumerate}
+\end{keytakeaways}
+
+%  LEKTION 2.2
+\section{\lessontag{2.2}Was ist ein Asset?}
+
+\begin{casestudy}{Equifax (2017)}
+Equifax hatte einen Patch für eine kritische Schwachstelle. Sie spielten ihn auf jeden Server auf -- außer einem. Dieser eine Server stand auf keiner Liste. 147 Millionen Datensätze wurden dadurch gestohlen. Die Ursache war nicht der fehlende Patch -- es war der fehlende Inventareintrag.
+\end{casestudy}
+
+Ein Asset ist \textbf{alles, wovon das Unternehmen für seinen Betrieb abhängt}: Server, Laptops, Kundendatenbanken, Cloud-Abonnements, Gebäude, Lieferanten, Mitarbeiter mit kritischem Wissen und wichtige Geschäftsprozesse. Die vollständige Liste heißt \textbf{Asset-Inventar} und muss aktuell gehalten werden.
+
+Der Prüfer fordert das Inventar \emph{zuerst} an -- vor Richtlinien, Risikomatrix oder allem anderen -- weil jede andere Kontrolle nur so vollständig ist wie die Liste, die sie abdeckt.
+
+\begin{actionbox}
+,,Zeigen Sie mir das Asset-Inventar. Wann wurde es zuletzt aktualisiert, und umfasst es Cloud-Abonnements und Auftragnehmer-Zugänge?'' Wenn die Antwort nur Server und Laptops abdeckt, ist das Inventar unvollständig.
+\end{actionbox}
+
+%  LEKTION 2.3
+\section{\lessontag{2.3}Risikobehandlungsoptionen und Risikobereitschaft}
+
+Vier Optionen für jedes Risiko: \textbf{Vermeiden, Mindern, Übertragen, Akzeptieren.} Für NIS2-Einrichtungen ist Mindern die häufigste Option; Übertragen und Akzeptieren sind für schwerwiegende Risiken selten vertretbar.
+
+\begin{warningbox}
+DVO 2024/2690, Anhang 2.1.1: ,,Ergebnisse der Risikobewertung und Restrisiken sind von den Leitungsorganen zu akzeptieren.'' Ihre Unterschrift, datiert, auf dem Register oder dem Akzeptanzblatt. \textbf{Die DVO verankert die gesamte Risikomanagementkette an dieser Unterschrift: Ohne sie wird der Rest als nicht genehmigt behandelt.}
+\end{warningbox}
+
+Die \textbf{Risikobereitschaft} -- das Maß an Risiko, mit dem das Unternehmen insgesamt leben will -- ist die Grenze des CEO, nicht die des CISO. Ohne sie wird jede Risikobehandlungsentscheidung zum Streit.
+
+%  LEKTION 2.4
+\section{\lessontag{2.4}Warum Risikomanagement kontinuierlich ist}
+
+Artikel~21 sagt nicht ,,führen Sie eine Risikoanalyse durch''. Er sagt, Sie müssen ,,angemessene und verhältnismäßige'' Maßnahmen treffen -- \textbf{Präsens, kontinuierlich}. Risikomanagement ist ein Zyklus, kein Projekt.
+
+Mindestüberprüfungszyklus: \textbf{jährlich} (BSI-Standard 200-1, Abschnitt 7.4). Zusätzlich bei jedem Auslöser: schwerwiegender Vorfall, wesentliche Geschäftsänderung, neue Schwachstellenveröffentlichung, regulatorische Änderung oder Prüfbefund.
+
+%  LEKTION 2.5
+\section{\lessontag{2.5}Die CIA-Triade und Geschäftsauswirkungen}
+
+\begin{center}
+\begin{tikzpicture}[
+  comp/.style={circle, draw=nisd2blue, thick, minimum size=2.0cm,
+    align=center, font=\small\bfseries, text width=1.7cm}
+]
+\node[comp, fill=nisd2light] (C) at (-2.2, 0) {\textcolor{nisd2blue}{Vertrau-\\lichkeit}};
+\node[comp, fill=nisd2light] (I) at (2.2, 0)  {\textcolor{nisd2blue}{Integrität}};
+\node[comp, fill=nisd2light] (A) at (0, 2.5)  {\textcolor{nisd2blue}{Verfüg-\\barkeit}};
+\node[font=\small, text=nisd2mid] at (0, 0.3) {CIA-Triade};
+\draw[nisd2blue, thick] (C) -- (I) -- (A) -- (C);
+\node[below=0.1cm of C, font=\tiny, text=nisd2mid, align=center, text width=2cm] {Daten nur für\\Berechtigte zugänglich};
+\node[below=0.1cm of I, font=\tiny, text=nisd2mid, align=center, text width=2cm] {Daten korrekt\\und unverfälscht};
+\node[above=0.1cm of A, font=\tiny, text=nisd2mid, align=center, text width=2cm] {Systeme verfügbar\\wenn benötigt};
+\end{tikzpicture}
+\end{center}
+
+Die \textbf{Geschäftsauswirkungsanalyse (BIA)} übersetzt CIA-Kategorien in Geschäftszahlen: Wiederherstellungsziele und Geschäftsfolgen. Die Aufgabe des CEO ist nicht, die BIA zu berechnen -- es ist, \emph{die Geschäftsannahmen darin zu validieren}.
+
+%  LEKTION 2.6
+\section{\lessontag{2.6}Maßnahme 1 -- Risikoanalyse und Informationssicherheitsrichtlinien}
+
+Die DVO fordert \textbf{elf separate Richtlinien}:
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{\#} & \textbf{Erforderliche Richtlinie} \\
+\midrule
+1 & Informationssicherheitsrichtlinie (übergeordnet -- \textbf{Ihre Unterschrift, Ihr Name}) \\
+2 & Risikomanagement \\
+3 & Vorfallbehandlung \\
+4 & Lieferkettensicherheit \\
+5 & Sicherheitstests \\
+6 & Wirksamkeitsbewertung \\
+7 & Kryptografie \\
+8 & Zugangskontrolle \\
+9 & Privilegierte Konten \\
+10 & Informations- und Asset-Handling \\
+11 & Wechselmedien \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Drei DVO-Anhang-Richtlinien, die beim Adaptieren eines generischen ISO-Kanons leicht übersehen werden: \textbf{Sicherheitstests, privilegierte Konten, Wechselmedien.}
+
+Die übergeordnete Richtlinie muss Ihre persönliche Unterschrift tragen und in Ihrem Namen veröffentlicht sein. Sie muss \textbf{jährlich} mit einer datierten Genehmigung des Leitungsorgans überprüft werden.
+
+\begin{quizbox}
+\setcounter{quizq}{0}
+\quizquestion{Wie viele separate Richtlinien fordert die DVO für Maßnahme 1?}{
+  \item Eine umfassende Sicherheitsrichtlinie
+  \item Fünf Kernrichtlinien
+  \item \correct{Elf (eine übergeordnete plus zehn themenspezifische)}
+  \item Drei (Risiko, Vorfall, Zugang)
+}
+\quizquestion{Welche drei themenspezifischen Richtlinien vergessen KMU am häufigsten?}{
+  \item Risikomanagement, Vorfallbehandlung, Zugangskontrolle
+  \item \correct{Sicherheitstests, privilegierte Konten, Wechselmedien}
+  \item Kryptografie, Lieferkette, Wirksamkeitsbewertung
+  \item Backup, Notfallwiederherstellung, Krisenmanagement
+}
+\end{quizbox}
+
+%  LEKTION 2.7
+\section{\lessontag{2.7}Maßnahme 2 -- Vorfallbehandlung}
+
+Fünf Teile eines Incident-Response-Plans: \textbf{Erkennung, Klassifizierung, Reaktion, Wiederherstellung, Lessons Learned.}
+
+CEO-spezifische Einträge im Plan (müssen namentlich vorab zugewiesen sein):
+\begin{itemize}
+  \item Krisenausrufung
+  \item Genehmigung von Notfallausgaben
+  \item Genehmigung externer Kommunikation an Kunden und den Aufseher
+  \item Entscheidung, ob ein Lösegeld gezahlt wird
+\end{itemize}
+
+Der Plan muss getestet werden. Eine \textbf{Tischübung} -- eine schriftliche Probe gegen ein Szenario -- durchgeführt vor weniger als 12 Monaten, mit dokumentierten Änderungen als Ergebnis.
+
+%  LEKTION 2.8
+\section{\lessontag{2.8}Maßnahme 3 -- Geschäftskontinuität}
+
+\begin{casestudy}{Maersk (2017)}
+NotPetya-Malware löschte Maersks globale IT in unter zwei Stunden. Wiederherstellungskosten: ca. 300~Mio.~\euro{}. Der einzige Grund, warum es 10 Tage dauerte statt Monate: ein Backup war zufällig wegen eines Stromausfalls in Ghana offline. Glück ist keine Kontrolle.
+\end{casestudy}
+
+Drei Komponenten: \textbf{Backup-Management} (getestet, getrennt aufbewahrt), \textbf{Notfallwiederherstellung} (RTO und RPO definiert und durch tatsächliche Tests verifiziert), \textbf{Krisenmanagement} (benanntes Team, vorab zugewiesene Befugnisse, jährlich geübt).
+
+\begin{definitionbox}{RTO und RPO}
+\textbf{RTO (Recovery Time Objective):} Wie schnell muss dieses System nach einem Vorfall wieder laufen? \\
+\textbf{RPO (Recovery Point Objective):} Wie viel Datenverlust kann das Unternehmen verkraften, gemessen in Zeit?
+\end{definitionbox}
+
+Sie müssen an der jährlichen Krisenübung teilnehmen. BSI DER.4 nennt das Leitungsorgan in neun von sechzehn Anforderungen -- Abwesenheit ist ein Prüfbefund.
+
+%  LEKTION 2.9
+\section{\lessontag{2.9}Maßnahme 4 -- Lieferkettensicherheit}
+
+\begin{casestudy}{SolarWinds (2020)}
+Ein routinemäßiges Software-Update an 18.000 Kunden enthielt eine von Angreifern platzierte Hintertür. Jeder Kunde musste es als seinen eigenen Vorfall behandeln -- nicht als den seines Lieferanten.
+\end{casestudy}
+
+,,Lieferant'' unter NIS2 bedeutet \textbf{jeder mit Zugang zu Ihren Systemen oder Daten} -- vom Cloud-Anbieter bis zum Reinigungsunternehmen mit einem Schlüssel zum Serverraum.
+
+Vier Anforderungen für jeden Lieferanten:
+\begin{enumerate}
+  \item Inventareintrag des Lieferanten
+  \item Risikoklassifizierung
+  \item Vertragsklauseln: Vorfallbenachrichtigung, Prüfrechte, Sicherheitsbasisanforderungen
+  \item Regelmäßige Überprüfung (Fragebogen, Zertifikat oder Prüfung)
+\end{enumerate}
+
+Wenn Ihr Lieferant angegriffen wird und Kundendaten abfließen, liegen die Meldepflicht nach Artikel~23 und die Kundenbenachrichtigungspflicht nach Artikel~36 bei \textbf{Ihnen}, nicht beim Lieferanten.
+
+%  LEKTION 2.10
+\section{\lessontag{2.10}Maßnahme 5 -- Beschaffung, Entwicklung und Wartung}
+
+Drei Pflichten: \textbf{sichere Beschaffung} (Sicherheitsanforderungen bei jedem Kauf), \textbf{sichere Entwicklung} (dokumentierter Standard, wenn Sie Software schreiben), \textbf{Schwachstellenbehandlung} (Patch-SLAs auf Papier, Ergebnisse vierteljährlich verfolgt).
+
+Das wichtigste operative Nachweisdokument: \textbf{ein schriftliches Patch-SLA und ein Quartalsbericht darüber, ob Sie es einhalten.}
+
+\begin{actionbox}
+,,Was ist unser Patch-SLA für kritische Schwachstellen, und auf welchem Prozentsatz der Systeme haben wir es im letzten Quartal eingehalten?''
+\end{actionbox}
+
+%  LEKTION 2.11
+\section{\lessontag{2.11}Maßnahme 6 -- Wirksamkeitsbewertung}
+
+Der \textbf{jährliche Managementreview} ist eine eigenständige Pflicht nach BSI-Standard 200-1, Abschnitt 7.4. Er muss ein \textbf{unterzeichnetes Protokoll} hervorbringen mit:
+\begin{itemize}
+  \item Status des Sicherheitsprogramms seit dem letzten Review
+  \item Ob frühere Entscheidungen umgesetzt wurden
+  \item Neue Bedrohungen, Ressourcenbedarf, akzeptierte Restrisiken
+\end{itemize}
+
+Die erste Frage des Prüfers zu Maßnahme 6: ,,Zeigen Sie mir das Protokoll Ihres letzten jährlichen Managementreviews, und zeigen Sie mir, dass die Folgemaßnahmen abgeschlossen wurden.'' Ohne ein datiertes, unterzeichnetes Protokoll versagt die gesamte Maßnahme bei der Prüfung.
+
+%  LEKTION 2.12
+\section{\lessontag{2.12}Maßnahme 7 -- Cyberhygiene und Schulung}
+
+Zwei Hälften: \textbf{Cyberhygiene} (tägliche Grundlagen: starke Passwörter, MFA, regelmäßige Updates, Backups, vorsichtiger Umgang mit Links) und \textbf{Schulung} (geplantes Programm).
+
+Schulung gilt für:
+\begin{itemize}
+  \item Alle Mitarbeiter: jährliche Sensibilisierungsschulung
+  \item Technische und risikobehaftete Rollen: rollenspezifische Schulung
+  \item Leitungsorgan: eigenes Programm nach Artikel~20(2)
+\end{itemize}
+
+Ein generischer E-Learning-Kurs für das gesamte Unternehmen erfüllt diese Anforderung nicht. \textbf{Phishing-Simulationen} mit Folgenschulung für jeden, der klickt, sind Teil des Programms.
+
+Ein CEO, der die Phishing-Simulation überspringt oder sich selbst vom Sensibilisierungsprogramm ausnimmt, hat einen \textbf{persönlichen Prüfbefund} nach BSI-Standard 200-1 Grundsatz 6 erzeugt.
+
+%  LEKTION 2.13
+\section{\lessontag{2.13}Maßnahme 8 -- Kryptografie}
+
+Die Kryptografierichtlinie muss \textbf{Verschlüsselung im Ruhezustand} und \textbf{Verschlüsselung bei der Übertragung} abdecken und muss benennen, wo jede gilt.
+
+Verweisen Sie auf \textbf{BSI TR-02102} in der Richtlinie, anstatt Algorithmen namentlich festzuschreiben -- die Leitlinie wird aktualisiert, wenn die Forschung sich weiterentwickelt, sodass die Richtlinie automatisch aktuell bleibt.
+
+Schlüsselverwaltung entscheidet, ob die Verschlüsselung tragfähig oder hohl ist. Fragen Sie: Wo werden die Schlüssel gespeichert? Wenn die Antwort lautet ,,auf demselben Server wie die Daten'', ist das eine Lücke. Wer kann darauf zugreifen? Wann wurden sie zuletzt rotiert?
+
+%  LEKTION 2.14
+\section{\lessontag{2.14}Maßnahme 9 -- Personalsicherheit, Zugangskontrolle und Asset-Management}
+
+Der häufigste Prüfbefund: \textbf{der Austrittsschritt} -- ein ehemaliger Mitarbeiter hält noch Wochen nach seinem Ausscheiden einen aktiven VPN-Login oder ein Administrator-Konto.
+
+Der \textbf{Eintritt-Wechsel-Austritt-Prozess}: die drei Übergaben zwischen HR und IT. Wenn eine davon fehlerhaft ist, ist Maßnahme~9 fehlerhaft. Bei kritischen Rollen erfolgt die Zugangssperrung in dem Moment, in dem die Kündigung beschlossen wird -- nicht am Tag, an dem die Person das Gebäude verlässt.
+
+\textbf{Privilegierte Konten} benötigen eine eigene Richtlinie mit stärkeren Kontrollen und einem eigenen Überprüfungszyklus (DVO Anhang 11.3).
+
+%  LEKTION 2.15
+\section{\lessontag{2.15}Maßnahme 10 -- Multi-Faktor-Authentifizierung und gesicherte Kommunikation}
+
+MFA ist für vier Kategorien faktisch verpflichtend:
+
+\begin{center}
+\begin{tikzpicture}[
+  box/.style={rectangle, rounded corners=3pt, draw=nisd2blue, fill=nisd2light,
+    minimum width=3cm, minimum height=0.9cm, align=center, font=\small\bfseries}
+]
+\node[box] at (-4.5, 0) {Fernzugriff};
+\node[box] at (-1.5, 0) {Administratorkonten};
+\node[box] at (1.5, 0)  {Kritische Systeme};
+\node[box] at (4.5, 0)  {E-Mail};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Gesicherte Notfallkommunikation:} Ein Out-of-Band-Kanal, der funktioniert, wenn normale Systeme kompromittiert sind. Wenn der Krisenplan auf E-Mail angewiesen ist und E-Mail ausgefallen ist, scheitert der Plan im schlimmsten Moment.
+
+\textbf{Vorbildfunktion (BSI-Standard 200-1 Grundsatz 6):} Ihr eigenes Konto ist das erste, das der Prüfer überprüft. Ein CEO, der MFA genehmigt, aber seinen eigenen Login ausgenommen hat, hat einen persönlichen Befund erzeugt.
+
+\begin{actionbox}
+Überprüfen Sie Ihr eigenes E-Mail-Konto heute -- ist MFA aktiviert? Falls nicht, aktivieren Sie es. Zehn Minuten.
+\end{actionbox}
+
+\begin{quizbox}
+\setcounter{quizq}{0}
+\quizquestion{Für welche vier Kategorien ist MFA faktisch verpflichtend?}{
+  \item Persönliche E-Mail, soziale Medien, Onlinebanking und persönliche Geräte
+  \item \correct{Fernzugriff, Administratorkonten, kritische Systeme und E-Mail}
+  \item Marketingtools, HR-Systeme, Buchhaltungssoftware und die Unternehmenswebsite
+  \item Vorstandssitzungen, Investorenportale, Pressemitteilungen und interne Chats
+}
+\quizquestion{Warum ist das Konto des CEO das erste, das der Prüfer auf MFA überprüft?}{
+  \item Weil das Konto des CEO die sensibelsten Daten enthält
+  \item \correct{Weil BSI-Standard 200-1 Grundsatz 6 verlangt, dass das Leitungsorgan die von ihm genehmigten Sicherheitskontrollen persönlich befolgt}
+  \item Weil der Prüfer alphabetisch beginnt
+  \item Weil der Aufseher die CEO-Rolle in Artikel~21 namentlich genannt hat
+}
+\end{quizbox}
+
+% ============================================================
+%  KAPITEL 3: ENTSCHEIDUNGSHILFE
+% ============================================================
+
+\chapter{Entscheidungshilfe}
+
+\begin{moduleintro}
+\textbf{Modul 3 -- 11 Lektionen}
+
+Dieses Modul behandelt die Governance-Entscheidungen, die nur Sie treffen können: was zu unterzeichnen ist, wann erneut zu unterzeichnen ist, wie eine Prüfung abläuft und wie mit den schwierigsten Szenarien umzugehen ist -- Ransomware, Lieferanteneinbrüche und Lückenentdeckung vor der Prüfung.
+\end{moduleintro}
+
+%  LEKTION 3.1
+\section{\lessontag{3.1}Die Fragen, die jeder CEO beantworten muss}
+
+Das BSI hat eine Liste strukturierter Fragen veröffentlicht, die jedes Leitungsorgan beantworten können muss. Dies ist der konkreteste praktische Test von Artikel~20(2), den ein EU-Aufseher je veröffentlicht hat.
+
+\begin{center}
+\begin{tabular}{@{}p{0.3cm}p{10.5cm}@{}}
+\toprule
+\multicolumn{2}{l}{\textbf{Grundlagen (5 Fragen)}} \\
+\midrule
+1 & Weiß ich, ob mein Unternehmen unter NIS2 fällt, und verstehe ich den Anwendungsbereich des Gesetzes? \\
+2 & Erfüllen unsere Risikomanagementmaßnahmen die gesetzlichen Anforderungen, und sind sie dokumentiert? \\
+3 & Kann ich einen erheblichen Vorfall korrekt klassifizieren und rechtzeitig melden? \\
+4 & Sind wir korrekt beim Aufseher registriert, und halten wir die Registrierung aktuell? \\
+5 & Verstehe ich meine persönlichen Pflichten, Schulungsanforderungen, Haftung und die Sanktionen? \\
+\midrule
+\multicolumn{2}{l}{\textbf{Die zehn Pflichtmaßnahmen (10 Unterfragen)}} \\
+\midrule
+6.1 & Ist unsere Risikoanalyse aktuell und auf aktuelle Bedrohungen ausgerichtet? \\
+6.2 & Haben wir einen getesteten Notfallplan? \\
+6.3 & Können wir aus einem Backup wiederherstellen, und ist unser Krisenmanagement getestet? \\
+6.4 & Wird die Lieferantensicherheit überprüft und aktiv gemanagt? \\
+6.5 & Ist Sicherheit in unsere Beschaffung, Entwicklung und Wartung von Systemen eingebaut? \\
+6.6 & Messen wir die Wirksamkeit unserer Sicherheitskontrollen? \\
+6.7 & Führen wir Cyberhygiene-Programme und Mitarbeiterschulungen durch? \\
+6.8 & Setzen wir Kryptografie und Verschlüsselung dort ein, wo es erforderlich ist? \\
+6.9 & Managen wir Personalsicherheit, Zugangskontrolle und Asset-Management? \\
+6.10 & Verwenden wir Multi-Faktor-Authentifizierung und gesicherte Kommunikation? \\
+\midrule
+\multicolumn{2}{l}{\textbf{Tiefergehende Prüfungen (4 Fragen)}} \\
+\midrule
+7 & Deckt unsere Risikoanalyse alle Assets, Bedrohungen, Schwachstellen und Schadensarten ab -- einschließlich Reputations- und Regulierungsschäden? \\
+8 & Bewerten wir, wie jedes Risiko Verfügbarkeit, Integrität und Vertraulichkeit sowie die finanzielle Stabilität beeinflusst? \\
+9 & Berücksichtigen wir sektorspezifische Anforderungen und die wichtigsten Geschäftsprozesse? \\
+10 & Führen wir Szenarioübungen durch, und habe ich persönlich an einer teilgenommen? \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{actionbox}
+Drucken Sie diese Liste aus und gehen Sie sie mit Ihrem CISO durch. Bewerten Sie jede: \textbf{sicher / mit Hilfe / kann ich nicht beantworten.} Jede Frage in der dritten Spalte ist eine Lücke, die Ihre Schulung schließen muss.
+\end{actionbox}
+
+%  LEKTION 3.2
+\section{\lessontag{3.2}Unterzeichnung in der Praxis}
+
+Vier Fragen, die Sie stellen müssen, bevor Sie ein Sicherheitsdokument unterzeichnen:
+
+\begin{enumerate}
+  \item \textbf{,,Zeigen Sie mir die Risikoanalyse, auf die sich diese Richtlinie bezieht -- wann wurde sie zuletzt aktualisiert?''}
+  \item \textbf{,,Was hat sich seit der letzten Version, die ich unterzeichnet habe, geändert?''}
+  \item \textbf{,,Wurde das Budget zur Umsetzung dieser Maßnahmen genehmigt?''} Eine Richtlinie, die Kontrollen verspricht, die das Unternehmen nicht finanziert hat, ist eine Richtlinie, die der Aufseher gegen Sie verwenden wird.
+  \item \textbf{,,Wer sind die namentlich Verantwortlichen für jede Maßnahme, und wissen sie, dass sie benannt sind?''} Nicht zugewiesene Maßnahmen sind Absichten, keine Kontrollen.
+\end{enumerate}
+
+Das Leitungsorgan entscheidet \textbf{was und warum}. Der CISO entscheidet \textbf{wie}. Eine uninformierte Unterschrift ist in den meisten EU-Rechtsordnungen rechtlich wirkungslos -- und vor Gericht arbeitet sie gegen Sie.
+
+%  LEKTION 3.3
+\section{\lessontag{3.3}Wann erneut zu unterzeichnen ist}
+
+Jährlich ist die Untergrenze. Sechs Ereignistypen erzwingen eine erneute Unterzeichnung vor dem Jahreszyklus:
+
+\begin{enumerate}
+  \item Führungswechsel
+  \item Wesentliche Änderung des Unternehmens (Akquisition, neues Gebiet, neues Produkt)
+  \item Schwerwiegender Vorfall, der eine Lücke aufgedeckt hat
+  \item Regulatorische Änderung
+  \item Prüfbefund, der Abhilfe erfordert
+  \item Wesentliche Änderung der Lieferantenbasis
+\end{enumerate}
+
+Jede erneute Unterzeichnung dokumentiert drei Dinge: das \textbf{auslösende Ereignis}, die \textbf{Änderungen an den Maßnahmen} und die \textbf{neue Unterschrift}.
+
+%  LEKTION 3.4
+\section{\lessontag{3.4}Warnsignale im Unterzeichnungsprozess Ihres Teams}
+
+Neun Sätze, die Sie dazu bringen sollten, den Stift niederzulegen:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}X X@{}}
+\toprule
+\textbf{Warnsignal} & \textbf{Ihre Antwort} \\
+\midrule
+,,Das haben wir immer so gemacht.'' & ,,Zeigen Sie mir den Versionsverlauf.'' \\
+,,Unterschreiben Sie hier, das ist nur eine Formalität.'' & ,,Wenn es eine Formalität ist, warum braucht es meine Unterschrift?'' \\
+,,Unsere IT-Abteilung kümmert sich darum.'' & ,,Ich bin die Führung. Das macht mich zur Person, die es verstehen muss.'' \\
+,,Das können wir uns nicht leisten.'' & ,,Zeigen Sie mir die Risikobewertung, die besagt, dass das ein akzeptables Restrisiko ist.'' \\
+,,Wir hatten noch nie ein Problem.'' & ,,Das ist keine Antwort. Zeigen Sie mir die aktuellen Testergebnisse.'' \\
+,,Es ist dokumentiert, aber Sie können nicht darauf zugreifen.'' & ,,Dann warte ich, bis ich es lesen kann.'' \\
+,,Vertrauen Sie einfach dem Prüfer.'' & ,,Der Prüfer hat seine Aufgabe und ich habe meine. Das hier ist meine.'' \\
+,,Wir beheben das nach der Prüfung.'' & ,,Wenn es bekannt ist, ist es bereits ein Befund. Jetzt beheben, dann unterzeichne ich die Lösung.'' \\
+,,Der frühere CEO hat etwas Ähnliches unterschrieben.'' & ,,Der frühere CEO unterschreibt das nicht. Ich schon.'' \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Die Regel: \textbf{Wenn die Erklärung schneller geht als das Dokument, ist der Prozess fehlerhaft.} Eine Unterzeichnung zu verweigern kostet Stunden. Blind zu unterzeichnen kostet Jahre.
+
+%  LEKTION 3.5
+\section{\lessontag{3.5}Was Sie nicht delegieren können -- Die Checkliste}
+
+Elf nicht delegierbare Entscheidungen, elf unterzeichnete Dokumente:
+
+\begin{enumerate}
+  \item Genehmigung der Cybersicherheits-Risikomanagementmaßnahmen (übergeordnete Sicherheitsrichtlinie, in Ihrem Namen unterzeichnet)
+  \item \textbf{Formale Akzeptanz der Restrisiken} -- das einzige Dokument, das die meisten CEOs nicht vorlegen können
+  \item Genehmigung des Sicherheitsbudgets
+  \item Krisenausrufung bei einem schwerwiegenden Vorfall
+  \item Die Artikel~23-Meldungsentscheidung (Ihr Team entwirft, Sie genehmigen)
+  \item Kundenbenachrichtigungsentscheidungen nach Artikel~36
+  \item Genehmigung außerordentlicher Zahlungen (Ransomware, Vergleich, Notlieferant)
+  \item Genehmigung aller öffentlichen Erklärungen während einer Krise
+  \item Beauftragung externer Forensik oder Rechtsberatung bei schwerwiegenden Vorfällen
+  \item Lösung von Konflikten zwischen Sicherheit und anderen Geschäftsprioritäten bei Eskalation
+  \item Der jährliche Managementreview -- formal, dokumentiert, unterzeichnet, mindestens einmal im Jahr
+\end{enumerate}
+
+\begin{warningbox}
+Die \textbf{Restrisikoakzeptanz} ist das Dokument, an dem die DVO die gesamte Risikomanagementkette aufhängt -- ohne sie wird der Rest vom Prüfer als nicht genehmigt behandelt. Jedes Risiko, mit dem das Unternehmen beschlossen hat zu leben, muss im unterzeichneten Risikoregister erscheinen -- mit einer Bewertung, einer Beschreibung des Akzeptierten und einem benannten Verantwortlichen mit einem Überprüfungsdatum. Ihre Unterschrift beweist, dass Sie persönlich überprüft haben, was das Unternehmen zu leben beschlossen hat.
+\end{warningbox}
+
+%  LEKTION 3.6
+\section{\lessontag{3.6}CISO- und Aufsichtsrat-Berichtslinien}
+
+\textbf{DVO 2024/2690, Anhang 1.2.3:} ,,Mindestens eine Person berichtet direkt an die Leitungsorgane in Fragen der Netz- und Informationssystemsicherheit.''
+
+Dies ist eine \textbf{harte Anforderung}. Ein CISO, der über IT oder Finanzen berichtet, erfüllt sie nicht -- unabhängig davon, wie kompetent der CISO ist oder wie oft er Sie informell brieft.
+
+\begin{center}
+\begin{tikzpicture}[
+  nd/.style={rectangle, rounded corners=4pt, draw=nisd2blue,
+    minimum width=2.5cm, minimum height=0.9cm, align=center, font=\small}
+]
+\node[nd, fill=warningred!10, draw=warningred] (ceo1) at (-3.5, 2) {\textbf{CEO}};
+\node[nd, fill=warningred!10, draw=warningred] (it1) at (-3.5, 0.8) {IT-Leiter};
+\node[nd, fill=warningred!10, draw=warningred] (ciso1) at (-3.5, -0.3) {CISO};
+\draw[-{Stealth}, warningred] (ceo1.south) -- (it1.north);
+\draw[-{Stealth}, warningred] (it1.south) -- (ciso1.north);
+\node[below=0.1cm of ciso1, font=\tiny\itshape, text=warningred] {Erfüllt die Anforderung nicht};
+\node[nd, fill=correctgreen, draw=successgreen] (ceo2) at (3.5, 2) {\textbf{CEO}};
+\node[nd, fill=correctgreen, draw=successgreen] (ciso2) at (3.5, 0.7) {CISO};
+\draw[-{Stealth}, successgreen, thick] (ceo2.south) -- (ciso2.north);
+\node[below=0.1cm of ciso2, font=\tiny\itshape, text=successgreen] {Erfüllt die Anforderung};
+\node[font=\small\bfseries, text=warningred] at (-3.5, 2.9) {Falsch};
+\node[font=\small\bfseries, text=successgreen] at (3.5, 2.9) {Richtig};
+\end{tikzpicture}
+\end{center}
+
+Budget und Stellenbesetzung müssen sich nicht ändern -- nur die Linie im Organigramm. Dann ein wiederkehrendes monatliches Meeting mit einer schriftlichen festen Tagesordnung einrichten.
+
+%  LEKTION 3.7
+\section{\lessontag{3.7}Was bei einer Aufsichtsbehördenprüfung passiert}
+
+Sieben Dokumente bilden das Rückgrat Ihrer Prüfungsakte:
+
+\begin{enumerate}
+  \item Artikel~21-Richtlinienpaket (alle elf Richtlinien)
+  \item Unterzeichnetes Risikoregister mit Restrisikoakzeptanz
+  \item Vorfallberichte und Lessons Learned
+  \item Schulungsnachweise (Ihre und die Ihrer Mitarbeiter)
+  \item CISO-an-Vorstand-Besprechungsprotokolle
+  \item Asset-Inventar
+  \item Lieferantenverträge mit den drei kritischen Klauseln
+\end{enumerate}
+
+\begin{definitionbox}{Befund vs. Beobachtung}
+\textbf{Befund:} Eine Nichtkonformität -- etwas, das das Gesetz verlangt und das Sie nicht haben. Löst eine Abhilfeanordnung mit einer Frist aus. \\
+\textbf{Beobachtung:} Liegt unter bewährter Praxis, verstößt aber nicht gegen das Gesetz. Löst keine Anordnung aus.
+\end{definitionbox}
+
+Wenn die Abhilfe unvollständig ist, wenn der Prüfer zurückkehrt: Der Aufseher eskaliert zu verbindlichen Anweisungen, öffentlicher Bekanntmachung oder Bußgeldern.
+
+%  LEKTION 3.8
+\section{\lessontag{3.8}Szenario -- Ransomware trifft Freitagabend}
+
+\begin{casestudy}{Norsk Hydro (2019)}
+LockerGoga-Ransomware legte 40 Produktionsstandorte über Nacht lahm. Kosten: ca. 60~Mio.~\euro{}. Gezahltes Lösegeld: null. Die Reaktion funktionierte, weil Ransomware bereits im Risikoregister stand -- als sehr wahrscheinlich / sehr schwerwiegend eingestuft -- mit einem vom Vorstand genehmigten Reaktionsplan.
+\end{casestudy}
+
+\textbf{Fünf Entscheidungen, die in den ersten 48 Stunden allein dem CEO obliegen:}
+
+\begin{enumerate}
+  \item \textbf{Krise ausrufen.} Nur Sie können Krisenprozeduren aktivieren.
+  \item \textbf{Notfallausgaben genehmigen.} Forensikdienstleister, externe Rechtsberatung, Incident-Response-Firma.
+  \item \textbf{Eindämmen vor Wiederherstellen.} Wiederherstellen vor der Forensik zerstört die Beweiskette.
+  \item \textbf{Frühwarnung innerhalb von 24 Stunden einreichen.} Melden Sie, was Sie wissen. Geben Sie an, was unklar ist.
+  \item \textbf{Zahlung vorerst ablehnen.} Nicht jetzt -- und nur nach rechtlicher Prüfung des Sanktionsrechts.
+\end{enumerate}
+
+%  LEKTION 3.9
+\section{\lessontag{3.9}Szenario -- Lieferanteneinbruch betrifft Ihre Kundendaten}
+
+\begin{casestudy}{MOVEit (2023)}
+Die Cl0p-Ransomwaregruppe nutzte eine Zero-Day-Schwachstelle in der MOVEit-Dateiübertragungssoftware aus. Innerhalb von Wochen wurden Daten von über 2.600 Organisationen gestohlen. Einbruch beim Lieferanten. Daten gehörten den Kunden.
+\end{casestudy}
+
+\textbf{Fünf Entscheidungen bei einem Lieferanteneinbruch:}
+
+\begin{enumerate}
+  \item Fakten ermitteln: Welche Systeme waren verbunden, welche Daten waren im Transit, über welchen Zeitraum?
+  \item Vertrag prüfen: Vorfallbenachrichtigungsfristen, Prüfrechte, Entschädigungsregelungen.
+  \item Eigenen Bericht einreichen -- der Bericht des Lieferanten deckt Sie nicht ab.
+  \item Kunden benachrichtigen, bevor die Presse es tut -- nach Artikel~36, Stunden nach Bestätigung der Exposition.
+  \item Vertragliche Ansprüche verfolgen -- \emph{ruhig, nachdem} der Vorfall bewältigt ist.
+\end{enumerate}
+
+Geschwindigkeit der Benachrichtigung entscheidet über das Reputationsergebnis. Kunden beurteilen Sie danach, wie schnell Sie sie informiert haben -- nicht danach, wessen System angegriffen wurde.
+
+%  LEKTION 3.10
+\section{\lessontag{3.10}Szenario -- Phishing-Erfolg: Erheblich oder nicht?}
+
+Vier Fragen entscheiden:
+
+\begin{enumerate}
+  \item Hat der Angreifer die Zugangsdaten \emph{verwendet}?
+  \item Worauf hatten diese Zugangsdaten Zugang? (nur E-Mail vs. Finanzen vs. Kundendatenbanken)
+  \item Wurden Daten exfiltriert?
+  \item Überschreitet die finanzielle Auswirkung die DVO-Schwellenwerte?
+\end{enumerate}
+
+Bei echter Unsicherheit: \textbf{Frühwarnung einreichen}. Der Aufseher bevorzugt ,,Wir sind nicht sicher, hier ist was wir wissen'' gegenüber Schweigen. Eine Frühwarnung, die hätte vor zwei Tagen gesendet werden müssen, kann nicht nachträglich eingereicht werden.
+
+%  LEKTION 3.11
+\section{\lessontag{3.11}Szenario -- Lückenentdeckung vor der Prüfung}
+
+Drei Optionen, wenn Sie zwei Wochen vor einer Prüfung eine Lücke entdecken:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Option} & \textbf{Aktion} & \textbf{Ergebnis} \\
+\midrule
+A & Verbergen & Vertuschung entdeckt; Vertuschung ist ein eigenständiger Verstoß \\
+B & Still beheben & Zeitstempel bleiben; sieht wie Vertuschung aus \\
+C & Beheben \textbf{und} offenlegen & \textcolor{successgreen}{Abhilfeanordnung oder Warnung, kein Bußgeld} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Bei Option C: sofort beheben, Entdeckung und Zeitplan dokumentieren, dann \textbf{schreiben Sie persönlich an den Prüfer} vor der Prüfung -- was gefunden wurde, wann, was getan wurde, wie die neuen Kontrollen aussehen.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Eigene Lücken zu finden ist der erwartete Zustand -- Aufseher unterscheiden zwischen gefunden-und-behoben versus verborgen.
+  \item Eine Lücke zu verbergen oder still zu beheben versagt, wenn die Prüfspur die Geschichte erzählt.
+  \item Gutgläubige Offenlegung, vom CEO unterzeichnet, mit bereits umgesetzter Lösung, ist die einzige Option, die Ihre Position stärkt.
+\end{enumerate}
+\end{keytakeaways}
+
+% ============================================================
+%  KAPITEL 4: SCHUTZ
+% ============================================================
+
+\chapter{Schutz}
+
+\begin{moduleintro}
+\textbf{Modul 4 -- 6 Lektionen}
+
+Dieses Modul behandelt die Schutzebene um Ihre persönliche Haftung herum: warum Versicherungen kein Ersatz für Kontrollen sind, was Ihre D\&O-Police tatsächlich abdeckt und wie mit den ersten 48 Stunden einer Krise umzugehen ist.
+\end{moduleintro}
+
+%  LEKTION 4.1
+\section{\lessontag{4.1}Versicherung ist kein Ersatz für Kontrollen}
+
+\begin{casestudy}{Mondelez vs. Zurich Insurance (2017)}
+Mondelez wurde von NotPetya-Malware getroffen und erlitt ca. 100~Mio.~USD Schaden. Mondelez hielt bei Zurich eine Cyber-Police in dieser Höhe. Zurich lehnte den Anspruch ab mit der Begründung, NotPetya sei ein Kriegsakt gewesen. Es folgten fünf Jahre Rechtsstreit. Vergleich: vertraulich.
+\end{casestudy}
+
+\textbf{Drei Dinge, die Versicherung nicht beseitigt:}
+\begin{itemize}
+  \item Regulatorische Bußgelder nach Artikel~32 -- die meisten Policen schließen sie ausdrücklich aus
+  \item Das Tätigkeitsverbot nach Artikel~34 -- keine Police deckt das ab
+  \item Die Kundenbenachrichtigungspflicht nach Artikel~36 -- die liegt bei Ihnen, unabhängig davon
+\end{itemize}
+
+Der Prüfer akzeptiert kein Versicherungszertifikat als Nachweis, dass Sie die zehn Maßnahmen umgesetzt haben. \textbf{Versicherung zahlt nach dem Vorfall. Der Prüfer überprüft, was Sie vorher getan haben.}
+
+%  LEKTION 4.2
+\section{\lessontag{4.2}D\&O-Versicherung -- Was sie abdeckt und Cyber-Ausschlüsse}
+
+D\&O-Versicherung wurde für \textbf{unternehmerische Entscheidungsansprüche} konzipiert -- die Behauptung, ein Direktor habe eine schlechte Geschäftsentscheidung getroffen. NIS2-Verstöße sind \textbf{Verstöße gegen gesetzliche Pflichten} -- eine andere Rechtskategorie, die auf der falschen Seite der Grenze liegt, die die meisten D\&O-Policen ziehen.
+
+\begin{actionbox}
+Drei Fragen an Ihren Makler vor jeder Verlängerung:
+\begin{enumerate}
+  \item ,,Enthält unsere aktuelle D\&O-Police einen Cyber-Haftungsausschluss?''
+  \item ,,Wenn ich persönlich in einem Anspruch des Aufsehers nach Artikel~32(5) genannt werde, zahlt diese Police meine Rechtsverteidigung?''
+  \item ,,Was sagt die Police zu Verstößen gegen gesetzliche Pflichten?''
+\end{enumerate}
+Alle drei Antworten schriftlich, datiert und der Police beigefügt erhalten.
+\end{actionbox}
+
+%  LEKTION 4.3
+\section{\lessontag{4.3}Cyber-Versicherung vs. D\&O -- Verschiedene Produkte, verschiedener Schutz}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{} & \textbf{Cyber-Versicherung} & \textbf{D\&O-Versicherung} \\
+\midrule
+\textbf{Versicherter} & Das Unternehmen & Der Direktor \\
+\textbf{Deckt} & Forensik, Benachrichtigung, Betriebsunterbrechung & Rechtsverteidigung, Vergleiche \\
+\textbf{Konzipiert für} & Cyber-Vorfallkosten & Ansprüche aus Geschäftsentscheidungen \\
+\textbf{NIS2-Personalbußgeld?} & Nein & Kann Cyber-Ansprüche ausschließen \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Das gefährliche Szenario: Ein Direktor wird persönlich wegen eines Cybervorfalls verklagt. Die D\&O-Police enthält einen ausdrücklichen Cyber-Ausschluss. Die Cyber-Police deckt keine einzelnen Direktoren ab. \textbf{Der Direktor ist unversichert.}
+
+Bitten Sie Ihren Makler, eine einseitige Übersicht zu erstellen, welche Schadensszenarien durch welche Police abgedeckt sind.
+
+%  LEKTION 4.4
+\section{\lessontag{4.4}Häufige Police-Ausschlüsse -- Worauf zu achten ist}
+
+\textbf{D\&O-Ausschlüsse:}
+\begin{itemize}
+  \item Der Cyber-Haftungsausschluss (ausdrücklich oder in allgemeiner Sprache versteckt)
+  \item Ausschluss für Vorerkrankungen
+  \item Sanktionsausschluss
+  \item Kriegshandlungsausschluss (nach Mondelez deutlich erweitert)
+  \item Klausel zur mangelnden Sicherheitswartung
+  \item Klausel zur verspäteten Benachrichtigung
+\end{itemize}
+
+\textbf{Cyber-Versicherungsausschlüsse:}
+\begin{itemize}
+  \item Vorhandene Schwachstellen und ungepatchte Systeme
+  \item Kriegshandlungs-/Nationalstaatsangriff-Ausschluss (Lloyd's verschärft 2023)
+  \item Einhaltung des Sanktionsrechts
+  \item Regulatorische Bußgelder und Strafen -- \textbf{fast universell ausgeschlossen}
+\end{itemize}
+
+%  LEKTION 4.5
+\section{\lessontag{4.5}Die ersten 48 Stunden der Krisenkommunikation}
+
+\textbf{Vier Zielgruppen, in dieser Reihenfolge:} Intern zuerst -- Aufseher zweite -- Kunden dritte -- Öffentlichkeit vierte.
+
+Sechs Entscheidungen aus der Maersk-Fallstudie (NotPetya, 2017):
+\begin{enumerate}
+  \item \textbf{Einen Sprecher} in der ersten Stunde benennen
+  \item \textbf{Innerhalb von zwei Stunden eine Erklärung} herausgeben (bestätigt die Störung, gibt Updatezeit an)
+  \item \textbf{Internes Team briefen} vor jeder externen Erklärung
+  \item \textbf{Frühwarnung einreichen} innerhalb von 24 Stunden
+  \item \textbf{Betroffene Kunden benachrichtigen} nach Artikel~36
+  \item \textbf{Öffentliche Erklärung zuletzt} -- nach internem Briefing, Aufsehersbericht und Kundenbenachrichtigung
+\end{enumerate}
+
+Der CEO ist selten der Sprecher im Fernsehen, aber \textbf{immer der endgültige Genehmiger} jeder externen Erklärung. Rechtliche Überprüfung ist nicht optional.
+
+%  LEKTION 4.6
+\section{\lessontag{4.6}Entscheidungen über Lösegeldzahlungen}
+
+\begin{casestudy}{Colonial Pipeline (2021)}
+Colonial Pipeline zahlte DarkSide ca. 4,5~Mio.~USD in Bitcoin. Das Entschlüsselungswerkzeug war so langsam, dass sie ohnehin aus Backups wiederherstellten. Die Zahlung sparte keine Zeit. Der CEO erklärte, eine vorab vereinbarte Politik hätte die Entscheidung verändert. Das Unternehmen hatte vor dem Angriff keine vom Vorstand genehmigte Position zu Lösegeldzahlungen.
+\end{casestudy}
+
+\textbf{Drei rechtliche Einschränkungen bei der Zahlung:}
+\begin{enumerate}
+  \item \textbf{Sanktionsrecht} -- die Zahlung an eine sanktionierte Gruppe ist ein Verstoß, auch wenn Sie es nicht wussten. Zuschreibungen sind oft in den ersten Stunden unklar.
+  \item \textbf{Gesellschaftsrecht} -- in Deutschland kann eine Lösegeldzahlung, wenn das Entschlüsselungswerkzeug versagt oder Backups verfügbar waren, persönliche Haftung nach Untreue (\S{}266 StGB) auslösen.
+  \item \textbf{Sektorspezifische Regeln} -- Finanzdienstleistungen, kritische Infrastruktur, Verteidigung haben zusätzliche Einschränkungen.
+\end{enumerate}
+
+\textbf{Vier Schritte vor jeder Zahlung:} CEO-Genehmigung (nicht delegierbar), Rechtsprüfung (Sanktions- und Strafrecht), Koordination mit Strafverfolgungsbehörden, Dokumentation im Vorfallprotokoll.
+
+\textbf{Die vorab vereinbarte Politik} ist das Ergebnis: Ihr Incident-Response-Plan braucht eine vom Vorstand genehmigte Position zu Lösegeldzahlungen, vom CEO unterzeichnet. Etwa 60\,\% der Zahlungen liefern ein nutzbares Entschlüsselung -- oft langsamer als eine saubere Wiederherstellung aus Backups.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Zahlen garantiert keine Wiederherstellung -- etwa 60\,\% der Zahlungen liefern ein nutzbares Entschlüsselung.
+  \item Sanktionsrecht greift unabhängig von der Absicht -- Sie können den Empfänger nicht immer identifizieren.
+  \item Die Zahlungsentscheidung vor dem Angriff treffen -- eine vorab vereinbarte, vom CEO unterzeichnete Politik verwandelt eine Krisenimprovisation in eine Richtlinienprüfung.
+\end{enumerate}
+\end{keytakeaways}
+
+\begin{quizbox}
+\setcounter{quizq}{0}
+\quizquestion{Warum lehnte Zurich den Mondelez-Versicherungsanspruch ab?}{
+  \item Die Police war abgelaufen
+  \item \correct{Zurich argumentierte, NotPetya sei ein Kriegsakt gewesen, was den Kriegshandlungsausschluss auslöste}
+  \item Mondelez hatte seine Prämie nicht gezahlt
+  \item Die Schäden überschritten die Deckungssumme
+}
+\quizquestion{Welche drei Konsequenzen beseitigt Versicherung nicht?}{
+  \item Betriebsunterbrechung, Datenverlust und Reputationsschaden
+  \item \correct{Regulatorische Bußgelder, das Tätigkeitsverbot und die Kundenbenachrichtigungspflicht}
+  \item Rechtskosten, forensische Untersuchung und Incident Response
+  \item Personalfluktuation, Lieferkettenstörung und Medienberichterstattung
+}
+\quizquestion{Was sollten Sie vor einer Lösegeldzahlung tun?}{
+  \item Sofort zahlen, um Störungen zu minimieren
+  \item Versicherungsmakler konsultieren und zahlen, wenn gedeckt
+  \item \correct{CEO-Genehmigung, Rechtsprüfung zu Sanktions- und Strafrecht, Koordination mit Strafverfolgung und Dokumentation}
+  \item Auf Empfehlung des Aufsehers warten
+}
+\end{quizbox}
+
+% ============================================================
+%  KAPITEL 5: ABSCHLUSS
+% ============================================================
+
+\chapter{Abschluss}
+
+\begin{moduleintro}
+\textbf{Modul 5 -- 2 Lektionen}
+
+Der 90-Tage-Aktionsplan, der Wissen in eine verteidigbare Grundlage verwandelt, und was Ihr Abschlusszertifikat bedeutet.
+\end{moduleintro}
+
+%  LEKTION 5.1
+\section{\lessontag{5.1}Ihre ersten 90 Tage nach diesem Kurs}
+
+Verstehen ist keine Compliance. Der sequenzierte Plan, der Wissen in eine verteidigbare Grundlage verwandelt:
+
+\begin{center}
+\begin{tikzpicture}[
+  phase/.style={rectangle, rounded corners=4pt, draw=nisd2blue,
+    minimum width=3.2cm, minimum height=1.2cm, align=center,
+    font=\small\bfseries, text width=3.0cm},
+  arrow/.style={-{Stealth}, thick, nisd2blue}
+]
+\node[phase, fill=nisd2blue, text=white] (w12) at (0, 4.5)
+  {Wochen 1--2\\Anwendungsbereich,\\Registrierung,\\CISO-Berichtslinie};
+\node[phase, fill=nisd2mid, text=white, right=1.0cm of w12] (w34)
+  {Wochen 3--4\\Governance-\\Fundament};
+\node[phase, fill=nisd2light, text=nisd2blue, right=1.0cm of w34] (m2)
+  {Monat 2\\Risikobewertung};
+\node[phase, fill=white, draw=nisd2blue, text=nisd2blue, right=1.0cm of m2] (m3)
+  {Monat 3\\Kontrollen \&\\Bereitschaft};
+\draw[arrow] (w12) -- (w34);
+\draw[arrow] (w34) -- (m2);
+\draw[arrow] (m2) -- (m3);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Wochen 1--2:}
+\begin{itemize}
+  \item Scoping-Bewertung bestätigen (wesentlich oder wichtig)
+  \item Beim BSI registrieren, falls noch nicht erfolgt -- verspätete Registrierung ist schlimmer als unvollkommene
+  \item Bestätigen, dass der CISO direkt an Sie berichtet
+\end{itemize}
+
+\textbf{Wochen 3--4:}
+\begin{itemize}
+  \item Übergeordnete Informationssicherheitsrichtlinie unterzeichnen (oder erneut unterzeichnen, wenn älter als 12 Monate)
+  \item Monatliches CISO-Briefing einrichten (30~Min., feste Tagesordnung, dokumentiert)
+  \item Bestätigen, dass alle elf Pflichtrichtlinien existieren; Verantwortliche für Lücken zuweisen
+\end{itemize}
+
+\textbf{Monat 2:}
+\begin{itemize}
+  \item Asset-Inventar beauftragen oder überprüfen
+  \item Risikoregister beauftragen oder überprüfen
+  \item Restrisikoakzeptanz unterzeichnen (das Dokument, das die meisten CEOs nicht vorlegen können)
+\end{itemize}
+
+\textbf{Monat 3:}
+\begin{itemize}
+  \item Die zehn Maßnahmen mit Ihrem CISO durchgehen -- nach den Nachweisen fragen, nicht nach der Beschreibung
+  \item Incident-Response-Plan testen (Tischübung, dokumentiert)
+  \item Top-Lieferantenverträge auf drei Klauseln überprüfen
+  \item Jährlichen Managementreview einplanen
+\end{itemize}
+
+\textbf{Laufender Rhythmus:}
+\begin{itemize}
+  \item Monatlich: CISO-Briefing
+  \item Jährlich: Richtlinien-Neuunterzeichnung, Risikoregisterbewertung mit Restrisikoakzeptanz, Managementreview mit Protokoll
+  \item Alle drei Jahre: Schulungsauffrischung für das Leitungsorgan
+\end{itemize}
+
+Compliance ist kein Projekt. Der 90-Tage-Plan baut die Grundlage. Der Rhythmus erhält sie.
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Die ersten zwei Wochen drehen sich um Anwendungsbereich, Registrierung und die CISO-Berichtslinie.
+  \item Bis Tag neunzig: übergeordnete Richtlinie unterzeichnen, Risikoregister mit Restrisikoakzeptanz, zehn Maßnahmen mit Nachweisen durchgehen.
+  \item Compliance ist kein Projekt -- der 90-Tage-Plan baut die Grundlage; der monatliche und jährliche Rhythmus erhält sie.
+\end{enumerate}
+\end{keytakeaways}
+
+%  LEKTION 5.2
+\section{\lessontag{5.2}Abschlusszertifikat}
+
+Wenn Sie den Kurs abschließen, erhalten Sie ein \textbf{Abschlusszertifikat} mit Ihrem Namen, Ihrer Einrichtung, dem Kurstitel, dem Abschlussdatum, den abgedeckten NIS2-Artikeln und der im Kurs verbrachten Zeit.
+
+Das Zertifikat ist Ihr Schulungsnachweis. Wenn ein Prüfer fragt, wie Sie die Schulungspflicht nach Artikel~20(2) erfüllt haben, ist das Zertifikat das erste Dokument, das Sie vorlegen.
+
+\textbf{Heben Sie es in Ihrer Compliance-Dokumentation auf} -- im selben Ordner wie Ihre unterzeichnete Sicherheitsrichtlinie, das Risikoregister und den Incident-Response-Plan. Diese vier Dokumente zusammen bilden das Rückgrat Ihrer Prüfungsakte.
+
+\textbf{Drei Aufgaben für die nächsten zwei Wochen:}
+\begin{enumerate}
+  \item Treffen Sie Ihren CISO. Bringen Sie die Liste der zehn Maßnahmen aus Modul 2. Stellen Sie zwei Fragen pro Maßnahme: Was haben wir eingerichtet, und können Sie mir den Nachweis zeigen?
+  \item Finden Sie Ihre aktuelle unterzeichnete Sicherheitsrichtlinie. Prüfen Sie das Datum. Prüfen Sie, wessen Name darauf steht. Prüfen Sie, ob die darin referenzierte Risikoanalyse existiert und aktuell ist.
+  \item Verfolgen Sie die CISO-Berichtslinie im Organigramm. Wenn jemand zwischen dem CISO und dem Leitungsorgan steht, beginnen Sie das Umstrukturierungsgespräch.
+\end{enumerate}
+
+\begin{keytakeaways}
+\begin{enumerate}
+  \item Das Abschlusszertifikat ist der Schulungsnachweis für den Prüfer -- es dokumentiert Ihre Teilnahme, den behandelten Inhalt und die aufgewendete Zeit.
+  \item Bewahren Sie das Zertifikat zusammen mit Ihrer unterzeichneten Sicherheitsrichtlinie, dem Risikoregister und dem Incident-Response-Plan auf.
+  \item Drei Aufgaben in den nächsten zwei Wochen: CISO treffen und die zehn Maßnahmen durchgehen, unterzeichnete Sicherheitsrichtlinie lesen und verifizieren, CISO-Berichtslinie nachverfolgen.
+\end{enumerate}
+\end{keytakeaways}
+
+% ============================================================
+%  ANHANG
+% ============================================================
+
+\appendix
+\immediate\closeout\answerfile
+
+\chapter{Antwortschlüssel}
+
+Jeder Eintrag zeigt die Lektionsnummer, die Fragenummer und den korrekten Antwortbuchstaben.
+
+\bigskip
+
+\IfFileExists{\jobname.ans}{\input{\jobname.ans}}{\textit{(Antwortdatei wird beim zweiten Kompilierungsdurchlauf erzeugt)}}
+
+\newpage
+
+\chapter{Die nicht delegierbare Checkliste}
+
+Die elf Dokumente, nach denen ein Prüfer fragen wird. Als Selbstbewertung nutzen.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{@{}cXcl@{}}
+\toprule
+\textbf{\#} & \textbf{Dokument} & \textbf{Erledigt?} & \textbf{Zuletzt aktualisiert} \\
+\midrule
+1 & Übergeordnete Informationssicherheitsrichtlinie, in Ihrem Namen mit Datum unterzeichnet & $\square$ & \\
+2 & Unterzeichnete Restrisikoakzeptanz (die, die die meisten CEOs nicht vorlegen können) & $\square$ & \\
+3 & Genehmigung des Sicherheitsbudgets & $\square$ & \\
+4 & Krisenmanagementplan mit Ihrem Namen als Krisenausrufer & $\square$ & \\
+5 & Vorab vereinbarter Artikel~23-Meldungsentscheidungsprozess & $\square$ & \\
+6 & Kundenbenachrichtigungsvorlage und Genehmigungskette & $\square$ & \\
+7 & Vorab vereinbarte Politik zu außerordentlichen Zahlungen (Ransomware) & $\square$ & \\
+8 & Genehmigungsprotokoll für externe Kommunikation in Krisen & $\square$ & \\
+9 & Beauftragungsbefugnis für Forensik / Rechtsberatung definiert & $\square$ & \\
+10 & Eskalationsprotokoll für Konflikte zwischen Sicherheit und Geschäftsprioritäten & $\square$ & \\
+11 & Jährliches Managementreview-Protokoll mit Ihrer Unterschrift & $\square$ & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\chapter{Die elf Pflichtrichtlinien}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{@{}cXcc@{}}
+\toprule
+\textbf{\#} & \textbf{Richtlinie} & \textbf{Genehmiger} & \textbf{Erledigt?} \\
+\midrule
+1 & Informationssicherheitsrichtlinie (übergeordnet) & \textbf{CEO} & $\square$ \\
+2 & Risikomanagement & Senior & $\square$ \\
+3 & Vorfallbehandlung & Senior & $\square$ \\
+4 & Lieferkettensicherheit & Senior & $\square$ \\
+5 & Sicherheitstests & Senior & $\square$ \\
+6 & Wirksamkeitsbewertung & Senior & $\square$ \\
+7 & Kryptografie & Senior & $\square$ \\
+8 & Zugangskontrolle & Senior & $\square$ \\
+9 & Privilegierte Konten & Senior & $\square$ \\
+10 & Informations- und Asset-Handling & Senior & $\square$ \\
+11 & Wechselmedien & Senior & $\square$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textit{Senior = jemand mit ausreichender Entscheidungsbefugnis; nur \#1 erfordert die CEO-Unterschrift.}
+
+\chapter{Die BSI-Leitfragen für Geschäftsführer}
+
+Ausdrucken. Jede bewerten: \textbf{S} = sicher, \textbf{H} = mit Hilfe, \textbf{N} = kann ich nicht beantworten.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\linewidth}{@{}cXc@{}}
+\toprule
+\textbf{\#} & \textbf{Frage} & \textbf{S / H / N} \\
+\midrule
+1 & Weiß ich, ob mein Unternehmen unter NIS2 fällt, und verstehe ich den Anwendungsbereich? & \\
+2 & Erfüllen unsere Risikomanagementmaßnahmen die gesetzlichen Anforderungen und sind dokumentiert? & \\
+3 & Kann ich einen erheblichen Vorfall korrekt klassifizieren und rechtzeitig melden? & \\
+4 & Sind wir korrekt beim Aufseher registriert und halten wir die Registrierung aktuell? & \\
+5 & Verstehe ich meine persönlichen Pflichten, Schulungsanforderungen, Haftung und Sanktionen? & \\
+6.1 & Ist unsere Risikoanalyse aktuell und auf aktuelle Bedrohungen ausgerichtet? & \\
+6.2 & Haben wir einen getesteten Incident-Response-Plan? & \\
+6.3 & Können wir aus einem Backup wiederherstellen und ist unser Krisenmanagement getestet? & \\
+6.4 & Wird die Lieferantensicherheit überprüft und aktiv gemanagt? & \\
+6.5 & Ist Sicherheit in Beschaffung, Entwicklung und Wartung eingebaut? & \\
+6.6 & Messen wir die Wirksamkeit unserer Sicherheitskontrollen? & \\
+6.7 & Führen wir Cyberhygiene-Programme und Mitarbeiterschulungen durch? & \\
+6.8 & Setzen wir Kryptografie und Verschlüsselung dort ein, wo es erforderlich ist? & \\
+6.9 & Managen wir Personalsicherheit, Zugangskontrolle und Asset-Management? & \\
+6.10 & Verwenden wir MFA und gesicherte Kommunikation? & \\
+7 & Deckt unsere Risikoanalyse alle Assets, Bedrohungen und Schadensarten ab? & \\
+8 & Bewerten wir, wie jedes Risiko CIA und finanzielle Stabilität beeinflusst? & \\
+9 & Berücksichtigen wir sektorspezifische Anforderungen und kritische Geschäftsprozesse? & \\
+10 & Führen wir Szenarioübungen durch und habe ich persönlich an einer teilgenommen? & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\chapter{Glossar der Schlüsselbegriffe}
+
+\begin{description}[style=nextline, leftmargin=0pt, labelindent=0pt, parsep=5pt, itemsep=2pt]
+
+  \item[Allgefahrenansatz] Anforderung aus Artikel~21(1), Systeme vor jeder Bedrohung zu schützen -- nicht nur vor Cyberangriffen, sondern auch vor physischen Bedrohungen, Umweltereignissen, Lieferantenausfällen, Insider-Bedrohungen und menschlichem Versagen.
+
+  \item[Artikel 20(1)] Die persönliche Pflicht des Leitungsorgans, Cybersicherheitsmaßnahmen zu genehmigen, ihre Umsetzung zu überwachen und für Verstöße haftbar zu sein.
+
+  \item[Artikel 20(2)] Die persönliche Schulungspflicht: Jedes Mitglied des Leitungsorgans muss an Cybersicherheitsschulungen teilnehmen. Nicht delegierbar.
+
+  \item[Asset-Inventar] Eine vollständige, aktuelle Liste von allem, wovon das Unternehmen für seinen Betrieb abhängt -- Server, Software, Daten, Mitarbeiter, Lieferanten und Prozesse.
+
+  \item[BSI] Bundesamt für Sicherheit in der Informationstechnik -- Deutschlands nationale Cybersicherheitsbehörde und zuständige NIS2-Behörde.
+
+  \item[BSIG] IT-Sicherheitsgesetz -- Deutschlands nationale Umsetzung der NIS2-Richtlinie.
+
+  \item[CIA-Triade] Vertraulichkeit (Daten nur für Berechtigte zugänglich), Integrität (Daten korrekt und unverfälscht), Verfügbarkeit (Systeme verfügbar wenn benötigt).
+
+  \item[DVO] Durchführungsverordnung (EU) 2024/2690, unmittelbar anwendbar in allen 27 Mitgliedstaaten, legt detaillierte technische Anforderungen fest einschließlich Schwellenwerten für erhebliche Vorfälle und den elf Pflichtrichtlinien.
+
+  \item[Erheblicher Vorfall] Definiert in DVO 2024/2690: finanzieller Verlust von mehr als 500.000~\euro{} oder 5\,\% des Umsatzes (je niedriger), Exfiltration von Betriebsgeheimnissen, Tod, schwerwiegender Gesundheitsschaden oder böswilliger Zugang mit schwerwiegender Störung.
+
+  \item[Geschäftsauswirkungsanalyse (BIA)] Dokument, das technische Risikokategorien in Geschäftszahlen übersetzt -- Wiederherstellungsziele und Geschäftsfolgen -- für jedes kritische Asset.
+
+  \item[Joiner-Mover-Leaver-Prozess] Der HR-IT-Prozess für den gesamten Beschäftigungslebenszyklus -- Zugang bei Eintritt erteilt, bei Rollenwechsel angepasst, bei Austritt gesperrt.
+
+  \item[Leitungsorgan] Der rechtliche Begriff für das Leitungsteam: Geschäftsführer, Vorstandsmitglieder, leitende Direktoren. Jedes Mitglied trägt dieselben Pflichten nach NIS2.
+
+  \item[Legalitätspflicht] Ein Direktor muss geltendes Recht einhalten. Kein unternehmerisches Ermessen ist erlaubt, ob eine gesetzliche Pflicht zu befolgen ist.
+
+  \item[Managementreview] Formaler jährlicher dokumentierter Review des gesamten Sicherheitsprogramms nach BSI-Standard 200-1, Abschnitt 7.4. Muss ein unterzeichnetes Protokoll hervorbringen.
+
+  \item[Nicht delegierbar] Kann nicht an jemand anderen übertragen werden. Die Schulungspflicht, die Genehmigungspflicht und die elf Checklistenpunkte sind alle nicht delegierbar.
+
+  \item[Patch-SLA] Eine schriftliche Frist für die Anwendung von Sicherheitspatches, nach Schwachstellenschwere gruppiert (z.~B. kritisch: 72 Stunden, hoch: 30 Tage).
+
+  \item[Proaktive Aufsicht] Der Aufseher kann wesentliche Einrichtungen jederzeit ohne Anlass prüfen.
+
+  \item[Reaktive Aufsicht] Der Aufseher prüft wichtige Einrichtungen nur bei einem Auslöser -- Vorfall, Beschwerde oder Erkenntnissen.
+
+  \item[Restrisikoakzeptanz] Was nach Anwendung von Kontrollen verbleibt. Muss formal vom Leitungsorgan akzeptiert werden (DVO 2024/2690, Anhang 2.1.1).
+
+  \item[Risikobereitschaft] Das Maß an Risiko, mit dem das Unternehmen insgesamt leben will. Der CEO setzt diese Grenze.
+
+  \item[RPO / RTO] Recovery Point Objective (maximaler akzeptabler Datenverlust, gemessen in Zeit) und Recovery Time Objective (maximale akzeptable Zeit zur Wiederherstellung des Dienstes).
+
+  \item[Stand der Technik] Aktuelle Best Practice gemäß veröffentlichten Standards zum Zeitpunkt der Prüfung. Kontrollen müssen überprüft und aktualisiert werden, nicht nur einmalig umgesetzt.
+
+  \item[Tischübung] Eine schriftliche Probe des Incident-Response-Plans gegen ein realistisches Szenario. Muss mindestens jährlich mit dokumentierten Ergebnissen durchgeführt werden.
+
+  \item[Wesentliche Einrichtung] Unternehmen des Anhang-I-Sektors (Energie, Verkehr, Banken usw.) -- unterliegt proaktiver Aufsicht.
+
+  \item[Wichtige Einrichtung] Unternehmen des Anhang-II-Sektors (Chemikalien, Fertigung, Lebensmittel usw.) -- unterliegt reaktiver Aufsicht.
+
+\end{description}
+
+% ============================================================
+%  SCHLUSSSEITEN
+% ============================================================
+
+\backmatter
+
+\chapter*{Über NISD2}
+\addcontentsline{toc}{chapter}{Über NISD2}
+
+NISD2 (\texttt{www.nisd2.eu}) ist eine kostenlose NIS2-Compliance-Plattform für von der NIS2-Richtlinie betroffene Unternehmen. Sie bietet strukturierte Dokumentation, Prüfprotokolle, Lieferantenregister und das in diesem Buch beschriebene Schulungszertifikat für Leitungsorgane.
+
+Diese PDF ist ein Begleitmaterial zum Online-Kurs. Die Online-Version umfasst:
+\begin{itemize}
+  \item Interaktive Quizze mit sofortigem Feedback
+  \item Bei Bestehen ausgestelltes Abschlusszertifikat
+  \item Prüfprotokoll, das Ihre Schulung für Aufseher dokumentiert
+  \item Deutsche und englische Versionen aller Inhalte
+\end{itemize}
+
+\textbf{www.nisd2.eu}
+
+\vspace{1cm}
+\begin{center}
+\begin{tikzpicture}
+  \node[circle, fill=nisd2blue, minimum size=2.2cm] (logo) at (0,0) {
+    \textcolor{white}{\large\bfseries NIS2}
+  };
+  \node[right=0.4cm of logo, font=\large\bfseries, text=nisd2blue] {NISD2};
+\end{tikzpicture}
+\end{center}
+
+\end{document}

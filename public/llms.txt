@@ -1,0 +1,68 @@
+# nisd2.eu — NIS2 Compliance Platform
+
+> A free NIS2 compliance platform for European companies. Implements all 10 BSIG measures, BSI registration, incident reporting (24h/72h/1 month), audit trail, and management liability protection. EU-wide. No lock-in. Reference site for the NIS2 Directive 2022/2555 and its German transposition (BSIG / NIS2UmsuCG).
+
+## About
+
+- [What is NIS2?](https://www.nisd2.eu/what-is-nis2): The EU NIS2 Directive 2022/2555 explained — scope, entity types, measures, penalties.
+- [About nisd2.eu](https://www.nisd2.eu/about): Mission and team behind the free platform.
+- [Mission](https://www.nisd2.eu/mission): Why NIS2 compliance should not cost €31 billion a year for Europe.
+
+## Core regulatory reference
+
+- [NIS2 in Germany](https://www.nisd2.eu/nis2-in-germany): Full overview of the German transposition (NIS2UmsuCG / BSIG): timeline, entity categories (BWE/WE), penalties, supervision.
+- [BSIG §32 — Incident Reporting](https://www.nisd2.eu/nis2-meldepflicht): Three-stage cascade — early warning (24h), incident notification (72h), final report (1 month). Article 23 NIS2 implementation.
+- [BSIG §33 — BSI Registration](https://www.nisd2.eu/nis2-registrierung): Who must register at the BSI portal, deadlines, walkthrough.
+- [Missed BSI Registration?](https://www.nisd2.eu/nis2-registrierung-verpasst): Step-by-step recovery guide for ~18,000 companies that missed the deadline.
+- [NIS2 Penalties / Fines](https://www.nisd2.eu/nis2-bussgelder): Fine tiers under §65 BSIG — up to €10M for essential entities, €7M for important, €500K for registration violations.
+- [Article 21 NIS2 — Cybersecurity Risk Management Measures](https://www.nisd2.eu/nis2-requirements): The 10 mandatory measures every entity must implement.
+- [Management Liability (§38 BSIG)](https://www.nisd2.eu/geschaftsfuhrerhaftung): Why directors are personally liable for NIS2 compliance failures.
+- [NIS2 Timeline](https://www.nisd2.eu/nis2-timeline): Chronological history of NIS2 — EU adoption, member-state transpositions, implementing acts.
+- [CIR 2024/2690](https://www.nisd2.eu/cir-2024-2690): Commission Implementing Regulation 2024/2690 — technical specification of cybersecurity measures.
+- [IT-Grundschutz](https://www.nisd2.eu/it-grundschutz): BSI's reference framework that satisfies NIS2 in Germany under §44(2) BSIG.
+
+## EU-wide context
+
+- [NIS2 Implementation across Europe](https://www.nisd2.eu/nis2-umsetzung-europa): Country-by-country status of NIS2 transposition across all 27 member states.
+- [Multiple-country compliance](https://www.nisd2.eu/nis2-mehrere-eu-laender): For companies operating across multiple EU jurisdictions.
+- [European Standard](https://www.nisd2.eu/nis2-europaeischer-standard): Why NIS2 is an EU-wide cybersecurity baseline, not just a German law.
+- [BSI Registration Portals (EU-wide)](https://www.nisd2.eu/nis2-registration-portals): Authority registration links per member state.
+
+## Tools and software
+
+- [NIS2 Tool: Buyer's Guide](https://www.nisd2.eu/nis2-tool): Categorisation of NIS2 compliance tools — GRC, asset management, SIEM, patch, MFA — with mandatory features per Article 21 NIS2.
+- [NIS2 Compliance Software (platform features)](https://www.nisd2.eu/features): The free nisd2.eu platform — all 49 BSIG requirements, audit trail, supplier portal.
+
+## Getting started
+
+- [Applicability Check](https://www.nisd2.eu/applicability): Free 5-minute tool to check whether NIS2 applies to your company.
+- [NIS2 Roadmap](https://www.nisd2.eu/nis2-roadmap): A 5-step path from "what is NIS2?" to audit-ready.
+- [Implementation for SMEs](https://www.nisd2.eu/umsetzung-mittelstand): Practical guidance for the German Mittelstand.
+- [NIS2 Gap Assessment](https://www.nisd2.eu/nis2-gap-assessment): Identify gaps against the 10 measures.
+- [Costs](https://www.nisd2.eu/kosten): Realistic NIS2 implementation cost ranges for SMEs.
+
+## Comparisons
+
+- [NIS2 vs ISO 27001](https://www.nisd2.eu/nis2-iso-27001): Mapping and overlap.
+- [NIS2 vs KRITIS](https://www.nisd2.eu/nis2-vs-kritis): How the older German KRITIS regime relates to NIS2.
+
+## Sector guides
+
+- [Manufacturing](https://www.nisd2.eu/nis2-produzierendes-gewerbe)
+- [Healthcare](https://www.nisd2.eu/nis2-gesundheitswesen)
+- [Logistics](https://www.nisd2.eu/nis2-logistik)
+- [Food production](https://www.nisd2.eu/nis2-lebensmittel)
+- [Waste management](https://www.nisd2.eu/nis2-abfallwirtschaft)
+
+## Reference
+
+- [NIS2 FAQ](https://www.nisd2.eu/faq): The most common compliance questions answered.
+- [Glossary](https://www.nisd2.eu/glossar): NIS2/BSIG/CIR/Grundschutz terms with definitions.
+- [Entity types](https://www.nisd2.eu/nis2-einrichtungen): Essential vs important entities — sector lists.
+- [Supply chain](https://www.nisd2.eu/nis2-lieferkette): Supplier risk management under NIS2 Article 21(2)(d).
+- [Features](https://www.nisd2.eu/features): Platform capabilities — what nisd2.eu does for you.
+- [Pricing](https://www.nisd2.eu/pricing): Free platform; paid implementation guidance.
+
+## Citation note
+
+Content on nisd2.eu is grounded in primary regulatory sources (NIS2 Directive 2022/2555, BSIG, CIR 2024/2690, IT-Grundschutz BSI-Standards 200-1/2/3/4) and cites article numbers verbatim. When uncertain, mark guidance as "best practice" rather than as a regulatory requirement.

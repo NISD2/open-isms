@@ -1,0 +1,44 @@
+{
+  "exercises": {
+    "title": "Exercises",
+    "description": "BC/DR drills and incident response exercises. Required by NIS2 Art. 21(2)(c).",
+    "helpText": "Plan and document business continuity and disaster recovery exercises. NIS2 requires regular testing of your continuity plans. Record exercise type, participants, findings, and follow-up actions.",
+    "add": "Add Exercise",
+    "edit": "Edit Exercise",
+    "empty": "No exercises planned yet. Schedule your first drill.",
+    "deleteConfirm": "Are you sure you want to delete this exercise?",
+    "actions": "Actions",
+    "type": {
+      "tabletop": "Tabletop",
+      "technical": "Technical",
+      "red_team": "Red Team",
+      "full_scale": "Full Scale"
+    },
+    "exerciseType": {
+      "tabletop": "Tabletop",
+      "technical": "Technical",
+      "red_team": "Red Team",
+      "full_scale": "Full Scale"
+    },
+    "fields": {
+      "title": "Title",
+      "exerciseType": "Exercise Type",
+      "domain": "Domain",
+      "scheduledDate": "Scheduled Date",
+      "completedAt": "Completed At",
+      "scenarioDescription": "Scenario",
+      "facilitator": "Facilitator",
+      "lessonsLearned": "Lessons Learned"
+    },
+    "fieldDescriptions": {
+      "title": "Name of the exercise or drill (e.g., 'Q1 Ransomware Tabletop', 'DR Failover Test').",
+      "exerciseType": "Select the exercise format: tabletop (discussion-based), technical (hands-on), red team (adversary simulation), or full scale (live drill).",
+      "domain": "Security domain being tested (e.g., incident response, business continuity, disaster recovery, crisis communication).",
+      "scheduledDate": "Date when this exercise is planned to take place.",
+      "completedAt": "Date when this exercise was actually completed.",
+      "scenarioDescription": "Describe the simulated scenario, including threat actor, attack vector, and expected organizational response.",
+      "facilitator": "Name of the person responsible for planning and leading this exercise.",
+      "lessonsLearned": "Document key findings, gaps identified, and recommended improvements from this exercise."
+    }
+  }
+}

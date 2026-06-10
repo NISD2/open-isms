@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "NIS2 Gap Assessment",
+    "subtitle": "Evaluate your NIS2 readiness across 15 domains",
+    "startAssessment": "Start Assessment",
+    "resumeAssessment": "Resume Assessment",
+    "viewResults": "View Results",
+    "day": "Day {number}",
+    "dayOf": "Day {current} of {total}",
+    "questionsAnswered": "{answered} of {total} answered",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "overview": {
+      "heading": "Assessment Overview",
+      "description": "A structured self-assessment covering all NIS2 compliance domains. Answer honestly about your current state. No right or wrong answers.",
+      "day1": "Scoping & Governance",
+      "day1desc": "Are you in scope? Does your management understand their liability?",
+      "day2": "Risk Management",
+      "day2desc": "Do you know your assets, your risks, and your security policies?",
+      "day3": "Incident & Business Continuity",
+      "day3desc": "Can you detect, respond to, and recover from incidents?",
+      "day4": "People, Suppliers & Access",
+      "day4desc": "Are your employees trained, suppliers managed, and access controlled?",
+      "day5": "Technical Controls & Evidence",
+      "day5desc": "Are your technical protections and documentation audit-ready?",
+      "questions": "{count} questions",
+      "estimatedTime": "~{minutes} min",
+      "noActiveSession": "You have not started an assessment yet.",
+      "pastSessions": "Previous Assessments",
+      "score": "Score: {score}%",
+      "completedOn": "Completed {date}",
+      "inProgress": "In progress"
+    },
+    "question": {
+      "yes": "Yes",
+      "partially": "Partially",
+      "no": "No",
+      "notApplicable": "N/A",
+      "showExplanation": "What does this mean?",
+      "hideExplanation": "Hide explanation",
+      "legalBasis": "Legal basis",
+      "criticality": "Importance",
+      "criticalityLevels": {
+        "0": "Informational",
+        "1": "Low",
+        "2": "Medium",
+        "3": "High"
+      },
+      "respondent": {
+        "0": "CEO / Management",
+        "1": "IT / Security",
+        "2": "HR",
+        "3": "Procurement",
+        "4": "Anyone"
+      },
+      "suggestedRespondent": "Best answered by"
+    },
+    "navigation": {
+      "previousDay": "Previous Day",
+      "nextDay": "Next Day",
+      "completeAssessment": "Complete Assessment",
+      "backToOverview": "Back to Overview"
+    },
+    "results": {
+      "heading": "Assessment Results",
+      "overallScore": "Overall Score",
+      "domainScores": "Domain Scores",
+      "maturityLevel": "Maturity Level",
+      "priorityGaps": "Priority Gaps",
+      "exportPdf": "Export PDF",
+      "domain": "Domain",
+      "score": "Score",
+      "maturity": "Maturity",
+      "answered": "Answered",
+      "noGaps": "No gaps identified. Excellent.",
+      "gapRank": "Priority",
+      "gapQuestion": "Finding",
+      "gapDomain": "Domain",
+      "gapConsequence": "Consequence",
+      "gapTimeToFix": "Effort",
+      "fineRisk": "Fine Risk",
+      "viewInPlatform": "View in Platform",
+      "maturityLevels": {
+        "critical": "Critical",
+        "initial": "Initial",
+        "developing": "Developing",
+        "managed": "Managed",
+        "optimized": "Optimized"
+      },
+      "consequenceLevels": {
+        "0": "Audit Finding",
+        "1": "Operational Risk",
+        "2": "Fine",
+        "3": "Personal Liability"
+      },
+      "timeToFixLevels": {
+        "0": "Quick Win",
+        "1": "Days",
+        "2": "Weeks",
+        "3": "Months"
+      },
+      "summary": {
+        "criticalGaps": "{count} critical gaps",
+        "fineExposed": "{count} create fine exposure",
+        "personalLiability": "{count} create personal liability for the CEO",
+        "quickWins": "{count} can be fixed immediately"
+      },
+      "startCompliance": "Start Closing Gaps",
+      "retakeAssessment": "Take Assessment Again"
+    }
+  }
+}

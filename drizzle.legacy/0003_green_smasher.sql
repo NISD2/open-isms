@@ -1,0 +1,1 @@
+ALTER TABLE "training_lesson_progress" ALTER COLUMN "company_id" DROP NOT NULL;

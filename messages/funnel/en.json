@@ -1,0 +1,98 @@
+{
+  "funnel": {
+    "meta": {
+      "title": "NIS2 Compliance Platform \u2013 Book a Demo",
+      "description": "Step-by-step NIS2 compliance for German mid-market companies. 49 BSIG requirements, guided forms, automatic evidence tracking, audit-ready from day one."
+    },
+    "hero": {
+      "headline": "49 BSIG requirements. We guide you through every one.",
+      "subhead": "The fastest path from 'NIS2 applies to us' to 'we're audit-ready.' Structured forms, deadline management, and automatic evidence tracking. Start in 48 hours.",
+      "cta": "Book Your 30-Minute Demo",
+      "trust": "Made in Cologne \u00b7 Hosted in Germany"
+    },
+    "stats": {
+      "heading": "The regulatory reality",
+      "companies": "29,500",
+      "companiesLabel": "companies in scope in Germany alone",
+      "penalty": "\u20ac10M / 2%",
+      "penaltyLabel": "fine or 2% of global annual turnover",
+      "liability": "\u00a738 BSIG",
+      "liabilityLabel": "management personally liable",
+      "description": "The NIS2 directive is transposed into German law via the BSIG. Registration deadlines are approaching, and management boards carry personal liability for non-compliance. Waiting is no longer an option."
+    },
+    "alternatives": {
+      "heading": "Why existing options fall short",
+      "consultants": {
+        "title": "Consultants",
+        "price": "\u20ac150K\u2013500K",
+        "items": ["Spreadsheet-based tracking", "No automation or audit trail", "Months of back-and-forth", "Knowledge leaves when they leave"]
+      },
+      "enterprise": {
+        "title": "Enterprise GRC",
+        "price": "\u20ac100K+/year",
+        "items": ["6\u201312 month implementation", "Built for Fortune 500 complexity", "Overkill for mid-market", "Requires dedicated GRC team"]
+      },
+      "usPlatforms": {
+        "title": "US Platforms",
+        "price": "\u20ac7,500+/year",
+        "items": ["English-first, bolt-on translations", "No BSIG-specific guidance", "US data hosting defaults", "Generic framework mapping"]
+      },
+      "nisd2": {
+        "title": "NISD2.eu",
+        "items": ["Step-by-step through all 49 requirements", "Audit-ready from day one", "German-language, EU-hosted", "Live in 48 hours"]
+      },
+      "callout": "Purpose-built for NIS2 and BSIG. Nothing more, nothing less."
+    },
+    "features": {
+      "heading": "What you get",
+      "obligations": {
+        "title": "49 requirements, guided step-by-step",
+        "description": "Every BSIG requirement broken down into structured forms with clear instructions. No compliance background needed, just answer the questions."
+      },
+      "evidence": {
+        "title": "Automatic evidence & audit trail",
+        "description": "Upload documents, track approvals, and maintain a tamper-evident audit trail. Everything timestamped and ready for BSI review."
+      },
+      "deadlines": {
+        "title": "Deadline tracking & escalation",
+        "description": "BSI registration, incident reporting cascades (24h / 72h / 1m), training renewals. Every deadline tracked with automatic escalation so nothing slips."
+      },
+      "bsiRegistration": {
+        "title": "BSI registration support",
+        "description": "Guided preparation for your BSI registration, including all required documentation and pre-submission checklists."
+      }
+    },
+    "offer": {
+      "heading": "Founding Partner Program",
+      "subtitle": "We're onboarding our first 10 companies with hands-on support.",
+      "items": [
+        "3 months free, full platform access",
+        "White-glove onboarding within 48 hours",
+        "Direct founder access for the lifetime of your account",
+        "Lock in preferential pricing before general availability"
+      ],
+      "exchange": "In return, we ask for honest feedback to shape the product.",
+      "cta": "Book Your Free Demo"
+    },
+    "faq": {
+      "heading": "Common questions",
+      "q1": "Are we affected by NIS2?",
+      "a1": "If your company operates in one of the 18 critical sectors (energy, transport, health, digital infrastructure, etc.) and has 50+ employees or \u20ac10M+ revenue, you are very likely in scope. Our free applicability check takes 2 minutes and gives you a clear answer.",
+      "q2": "We already have ISO 27001. Isn't that enough?",
+      "a2": "ISO 27001 covers roughly 60\u201370% of NIS2 requirements. But NIS2 adds obligations around incident reporting (24h/72h), supply chain security, management liability, and BSI registration that ISO 27001 does not address. Our platform covers all of these.",
+      "q3": "How much does it cost after the free period?",
+      "a3": "We're finalizing pricing for general availability. Founding partners lock in preferential pricing for the lifetime of their account. We'll share details during the demo call.",
+      "q4": "How long does implementation take?",
+      "a4": "Most companies complete their initial compliance baseline within 2\u20134 weeks. We onboard you within 48 hours, and the platform guides you through each step. No 6-month implementation projects.",
+      "q5": "What about data security?",
+      "a5": "All data is hosted in Germany. We use encryption at rest and in transit, role-based access controls, and maintain a complete audit trail. We practice what we preach.",
+      "q6": "What happens after the free months?",
+      "a6": "You transition to a paid plan at the rate discussed during onboarding. No surprise pricing. If you decide it's not for you, we help you export all your data. No lock-in."
+    },
+    "finalCta": {
+      "headline": "The BSI registration deadline is March 2026. We can onboard you within 48 hours.",
+      "cta": "Book Your 30-Minute Demo",
+      "email": "Or email us directly: contact@nisd2.eu"
+    }
+  }
+}

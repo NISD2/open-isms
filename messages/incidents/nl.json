@@ -1,0 +1,70 @@
+{
+  "incidents": {
+    "title": "Incidentregister",
+    "description": "Beveiligingsincidentenlog met ernstclassificatie en tijdlijnbewaking. Vereist door NIS2 Art. 23.",
+    "helpText": "Registreer elk beveiligingsincident wanneer het plaatsvindt. NIS2 vereist een vroegtijdige waarschuwing aan het BSI binnen 24 uur en een volledige melding binnen 72 uur voor significante incidenten. Leg ernst, getroffen systemen, tijdlijn en oplossingstappen vast.",
+    "add": "Incident melden",
+    "edit": "Incident bewerken",
+    "empty": "Geen incidenten geregistreerd. Meld een incident wanneer dit zich voordoet.",
+    "deleteConfirm": "Weet u zeker dat u dit incident wilt verwijderen?",
+    "actions": "Acties",
+    "severity": {
+      "near_miss": "Bijna-incident",
+      "incident": "Incident",
+      "significant": "Significant"
+    },
+    "fields": {
+      "title": "Titel",
+      "description": "Beschrijving",
+      "severity": "Ernst",
+      "situationColor": "Situatiekleur",
+      "discoveredAt": "Ontdekt op",
+      "occurredAt": "Opgetreden op",
+      "resolvedAt": "Opgelost op",
+      "confidentialityImpacted": "Vertrouwelijkheid aangetast",
+      "integrityImpacted": "Integriteit aangetast",
+      "availabilityImpacted": "Beschikbaarheid aangetast",
+      "threatType": "Type dreiging",
+      "rootCause": "Oorzaak",
+      "countermeasures": "Tegenmaatregelen",
+      "preventiveMeasures": "Preventieve maatregelen",
+      "requiresGdprNotification": "GDPR Breach Notification Required",
+      "dataSubjectsAffected": "Data Subjects Affected",
+      "gdprNotifiedAt": "GDPR Authority Notified",
+      "notifiedDataSubjectsAt": "Data Subjects Notified"
+    },
+    "bsiDeadlines": {
+      "title": "BSI-meldingstermijnen",
+      "overdue": "Achterstallig",
+      "dueIn": "Over {days}d",
+      "dueToday": "Vandaag te doen",
+      "reportType": {
+        "early_warning": "24u Vroegtijdige waarschuwing",
+        "notification": "72u Melding",
+        "intermediate": "Tussentijds rapport",
+        "final": "Eindrapport",
+        "progress": "Voortgangsrapport"
+      }
+    },
+    "fieldDescriptions": {
+      "title": "Korte beschrijvende naam voor dit incident (bijv. 'Phishing-aanval op financiële afdeling').",
+      "description": "Gedetailleerde beschrijving van wat er is gebeurd, welke systemen en gegevens zijn getroffen en de reikwijdte van de impact.",
+      "severity": "Selecteer het ernstniveau. 'Significante' incidenten vereisen BSI-melding binnen 24u (vroegtijdige waarschuwing) en 72u (volledig rapport) onder NIS2 Art. 23.",
+      "situationColor": "Verkeerslichtindicator van de huidige incidentstatus: groen (ingedamd), oranje (lopend), rood (kritiek).",
+      "discoveredAt": "Datum en tijd waarop dit incident voor het eerst werd gedetecteerd of gemeld.",
+      "occurredAt": "Datum en tijd waarop dit incident daadwerkelijk begon (kan afwijken van ontdekking).",
+      "resolvedAt": "Datum en tijd waarop dit incident volledig was opgelost en normale activiteiten werden hervat.",
+      "confidentialityImpacted": "Inschakelen als ongeoorloofde openbaarmaking van informatie heeft plaatsgevonden of wordt vermoed.",
+      "integrityImpacted": "Inschakelen als ongeoorloofde wijziging of beschadiging van gegevens heeft plaatsgevonden of wordt vermoed.",
+      "availabilityImpacted": "Inschakelen als diensten of systemen zijn verstoord of onbeschikbaar zijn geworden.",
+      "threatType": "Selecteer het type dreiging (bijv. malware, DDoS, insider, phishing, exploitatie van kwetsbaarheid).",
+      "rootCause": "Beschrijf de onderliggende oorzaak van het incident na voltooiing van het onderzoek.",
+      "countermeasures": "Beschrijf de onmiddellijke acties om het incident in te dammen en te verhelpen.",
+      "preventiveMeasures": "Beschrijf de langetermijnmaatregelen om herhaling van dit type incident te voorkomen.",
+      "requiresGdprNotification": "Enable if this incident involved a personal data breach requiring notification to the supervisory authority under GDPR Art. 33 (within 72 hours of awareness).",
+      "dataSubjectsAffected": "Approximate number of data subjects whose personal data was compromised (Art. 33(3)(a) — required content of notification).",
+      "gdprNotifiedAt": "Date and time the supervisory authority was notified of the breach.",
+      "notifiedDataSubjectsAt": "Date and time affected data subjects were informed (Art. 34 — required when breach poses high risk)."
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Einstellungen",
+    "description": "Verwalten Sie die Plattform-Einstellungen Ihrer Organisation.",
+    "aiDataSharing": {
+      "title": "KI-Datenfreigabe",
+      "description": "Steuern Sie, welche Organisationsdaten beim Erstellen von Compliance-Hinweisen an den KI-Assistenten gesendet werden. Personenbezogene Daten (E-Mails, Telefonnummern, Personennamen) werden nie gesendet.",
+      "none": {
+        "label": "Keine Unternehmensdaten",
+        "description": "Es werden nur Feldnamen, Typen und der Anforderungstitel gesendet. Hinweise sind allgemein.",
+        "preview": "Gesendet: Felddefinitionen, Anforderungstitel, Rechtsgrundlage"
+      },
+      "basic": {
+        "label": "Nur nicht-sensible Daten",
+        "description": "Fügt Sektor, Einrichtungstyp und Rechtsform für relevantere Hinweise hinzu.",
+        "preview": "Gesendet: oben + Sektor, Teilsektor, Einrichtungstyp, Rechtsform"
+      },
+      "full": {
+        "label": "Vollständiger Kontext",
+        "description": "Enthält Firmenname und Größenkennzahlen für die individuellsten Hinweise.",
+        "preview": "Gesendet: oben + Firmenname, Mitarbeiterzahl, Jahresumsatz"
+      }
+    },
+    "saved": "Einstellungen gespeichert",
+    "saveError": "Einstellungen konnten nicht gespeichert werden",
+    "saving": "Speichern...",
+    "adminOnly": "Nur Admins können Einstellungen ändern."
+  }
+}

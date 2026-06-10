@@ -1,0 +1,58 @@
+{
+  "common": {
+    "save": "Opslaan",
+    "saving": "Opslaan...",
+    "cancel": "Annuleren",
+    "back": "Terug",
+    "next": "Volgende",
+    "open": "Openen",
+    "optional": "optioneel",
+    "loading": "Laden...",
+    "entries": "{count} vermeldingen",
+    "select": "Selecteren...",
+    "yes": "Ja",
+    "no": "Nee",
+    "noData": "Geen gegevens",
+    "user": "Gebruiker",
+    "modules": {
+      "asset": "Assets",
+      "risk": "Risico's",
+      "incident": "Incidenten",
+      "supplier": "Leveranciers",
+      "policy": "Beleid",
+      "training_record": "Trainingsregistraties",
+      "exercise": "Oefeningen",
+      "management_review": "Managementreviews",
+      "kpi_measurement": "KPI-metingen",
+      "change_request": "Wijzigingsverzoeken",
+      "patch_record": "Patchregistraties",
+      "internal_audit": "Interne audits",
+      "improvement_item": "Verbeterpunten",
+      "bsi_registration": "BSI-registratie",
+      "bsi_incident_report": "BSI-incidentrapporten"
+    },
+    "moduleRef": {
+      "confirmCompliance": "Naleving bevestigen",
+      "noRecords": "Nog geen registraties — voeg eerst gegevens toe in de module"
+    }
+  },
+  "status": {
+    "not_started": "Open",
+    "in_progress": "In behandeling",
+    "completed": "Voltooid",
+    "not_applicable": "N.v.t.",
+    "needs_review": "Beoordeling vereist",
+    "approved": "Goedgekeurd",
+    "rejected": "Afgekeurd"
+  },
+  "priority": {
+    "P0": "Kritiek – onmiddellijke actie vereist",
+    "P1": "Hoog – aanpakken binnen huidige cyclus",
+    "P2": "Gemiddeld – plannen voor volgende cyclus",
+    "P3": "Laag – aanpakken wanneer mogelijk"
+  },
+  "metadata": {
+    "title": "NIS2 Compliance Platform",
+    "description": "NIS2/BSIG 2025 Compliancebeheer"
+  }
+}

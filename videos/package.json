@@ -1,0 +1,41 @@
+{
+  "name": "videos",
+  "version": "1.0.0",
+  "description": "My Remotion video",
+  "repository": {},
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@remotion/captions": "4.0.422",
+    "@remotion/cli": "4.0.422",
+    "@remotion/install-whisper-cpp": "4.0.422",
+    "@remotion/tailwind-v4": "4.0.422",
+    "@remotion/transitions": "^4.0.422",
+    "playwright": "^1.58.2",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.422",
+    "tailwindcss": "4.0.0"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.422",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.19.0",
+    "prettier": "3.6.0",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "server": "cd server && bun run index.ts",
+    "build": "remotion bundle",
+    "render": "remotion render PromoVideo-60s-16x9 out/promo-60s-16x9.mp4",
+    "render:all": "remotion render PromoVideo-60s-16x9 out/promo-60s-16x9.mp4 && remotion render PromoVideo-60s-1x1 out/promo-60s-1x1.mp4 && remotion render PromoVideo-60s-9x16 out/promo-60s-9x16.mp4 && remotion render PromoVideo-30s-16x9 out/promo-30s-16x9.mp4 && remotion render PromoVideo-30s-1x1 out/promo-30s-1x1.mp4 && remotion render PromoVideo-30s-9x16 out/promo-30s-9x16.mp4 && remotion render PromoVideo-15s-16x9 out/promo-15s-16x9.mp4 && remotion render PromoVideo-15s-1x1 out/promo-15s-1x1.mp4 && remotion render PromoVideo-15s-9x16 out/promo-15s-9x16.mp4",
+    "capture": "bun run capture-screenshots.ts",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}

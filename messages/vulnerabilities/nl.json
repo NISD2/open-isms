@@ -1,0 +1,61 @@
+{
+  "vulnerabilities": {
+    "title": "Vulnerability Management",
+    "description": "Track discovered vulnerabilities through their lifecycle. Required by CIR 2024/2690 Art. 6.10.",
+    "helpText": "Log vulnerabilities found through scans, pentests, or advisories. Track triage, treatment decisions, and resolution. CIR requires vulnerability handling as a separate documented process from patch management.",
+    "add": "Add Vulnerability",
+    "edit": "Edit Vulnerability",
+    "empty": "No vulnerabilities recorded yet. Add your first vulnerability.",
+    "deleteConfirm": "Are you sure you want to delete this vulnerability?",
+    "actions": "Actions",
+    "severity": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "status": {
+      "discovered": "Discovered",
+      "assessed": "Assessed",
+      "treating": "Treating",
+      "resolved": "Resolved",
+      "accepted": "Accepted",
+      "mitigated": "Mitigated"
+    },
+    "source": {
+      "vulnerability_scan": "Vulnerability Scan",
+      "pentest": "Penetration Test",
+      "bug_bounty": "Bug Bounty",
+      "vendor_advisory": "Vendor Advisory",
+      "internal_review": "Internal Review"
+    },
+    "fields": {
+      "cveId": "CVE ID",
+      "title": "Title",
+      "description": "Description",
+      "severity": "Severity",
+      "cvssScore": "CVSS Score",
+      "source": "Source",
+      "assetId": "Asset",
+      "status": "Status",
+      "discoveredAt": "Discovered",
+      "treatmentNote": "Treatment",
+      "acceptanceReason": "Acceptance Reason",
+      "resolvedAt": "Resolved"
+    },
+    "fieldDescriptions": {
+      "cveId": "CVE identifier if available (e.g., CVE-2024-1234). Leave empty for internally discovered vulnerabilities without a CVE.",
+      "title": "Brief description of the vulnerability (e.g., 'SQL injection in login form', 'Outdated TLS 1.0 on web server').",
+      "description": "Detailed description: affected components, versions, potential impact, and exploitation conditions.",
+      "severity": "CVSS-based severity rating: critical, high, medium, or low.",
+      "cvssScore": "Optional numeric CVSS score (0.0-10.0) for precise prioritization.",
+      "source": "How this vulnerability was discovered: scan, pentest, bug bounty, vendor advisory, or internal review.",
+      "assetId": "Asset affected by this vulnerability, if applicable. Select from the asset register.",
+      "status": "Current lifecycle status: discovered, assessed, treating, resolved, accepted (risk), or mitigated (compensating control).",
+      "discoveredAt": "Date when the vulnerability was first identified.",
+      "treatmentNote": "What is being done to address this vulnerability (patch, configuration change, compensating control, etc.).",
+      "acceptanceReason": "If accepting the risk, document the justification per CIR 6.6.2. Required for status 'Accepted'.",
+      "resolvedAt": "Date when the vulnerability was resolved, accepted, or mitigated."
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "companyLookup": {
+    "title": "Is your company affected by NIS2?",
+    "subtitle": "The binding determination is made by your national supervisory authority. Below are the official contact points per country, plus a free self-check for orientation. Not sure? See <link>real-world edge cases</link> for examples.",
+    "authorityCallout": {
+      "heading": "Binding determination: your national supervisory authority",
+      "body": "The final NIS2 classification is made by the competent authority in your country. We link the official sources — the self-check below is only a quick orientation tool.",
+      "seeAll": "See all 27 EU member states",
+      "details": "Details"
+    },
+    "selfCheckHeading": "Quick self-check",
+    "selfCheckSubtitle": "Orientation by sector, size, and special cases — does not replace the official determination by your authority.",
+    "placeholder": "Enter company name (e.g. Stadtwerke München)",
+    "noResults": "No companies found. Check the spelling or try the full legal name.",
+    "error": "Company lookup is currently unavailable. Please try again later.",
+    "sectors": "NIS2 Sectors",
+    "companyData": "Company data",
+    "legalForm": "Legal form",
+    "register": "Trade register",
+    "founded": "Founded",
+    "capital": "Share capital",
+    "companySize": "Company size",
+    "revenue": "Revenue",
+    "industryCodes": "Industry codes (WZ)",
+    "purpose": "Business purpose",
+    "missingData": "Some data could not be retrieved automatically. The classification is based on available information and may change when all data is available.",
+    "ctaInScope": "Let's discuss next steps",
+    "checkNis2": "Check NIS2 status",
+    "loading": "Analyzing company data…",
+    "ctaNotInScope": "Get protected anyway",
+    "disclaimer": "Company data is sourced from public registers and stored to improve our service.",
+    "holdingWarning": "This company appears to be a holding or group parent. NIS2 applicability is assessed per entity — subsidiaries with their own operations, employees, and IT systems may be independently in scope, even if the holding itself is not. Check each subsidiary separately.",
+    "resultDisclaimer": "This is an indicative assessment based on publicly available register data, not a legal determination. Actual NIS2 applicability depends on factors not fully captured here. Consult a qualified advisor to confirm.",
+    "result": {
+      "not_in_scope": "Likely not in scope",
+      "important": "Likely an important entity",
+      "essential": "Likely an essential entity",
+      "kritis": "Likely a KRITIS operator"
+    },
+    "reason": {
+      "excluded": "Your organization appears to be exempt from NIS2 scope.",
+      "no_sector": "None of the registered industry codes appear to fall under a NIS2 sector.",
+      "below_threshold": "Your company appears to operate in a NIS2 sector but may be below the size threshold based on available data.",
+      "special_case": "Based on its classification, your organization likely falls in scope regardless of size.",
+      "size_and_sector": "Based on available data, both sector and size criteria for NIS2 appear to be met."
+    },
+    "orSeparator": "or check manually",
+    "manualFallback": "Can't find your company?",
+    "manualLink": "Start manual check"
+  }
+}

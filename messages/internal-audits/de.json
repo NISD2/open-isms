@@ -1,0 +1,36 @@
+{
+  "internalAudits": {
+    "title": "Interne Audits",
+    "description": "Interner Auditplan, Durchführung und Feststellungen. Erforderlich für die Wirksamkeitsbewertung nach NIS2 Art. 21.",
+    "helpText": "Planen und dokumentieren Sie interne Audits Ihrer Cybersicherheitsmaßnahmen. Erfassen Sie Umfang, Feststellungen und Korrekturmaßnahmen. NIS2 verlangt die regelmäßige Bewertung der Wirksamkeit von Sicherheitsmaßnahmen.",
+    "add": "Audit hinzufügen",
+    "edit": "Audit bearbeiten",
+    "empty": "Noch keine internen Audits geplant. Planen Sie Ihr erstes Audit.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie dieses Audit löschen möchten?",
+    "actions": "Aktionen",
+    "status": {
+      "planned": "Geplant",
+      "in_progress": "In Bearbeitung",
+      "completed": "Abgeschlossen",
+      "cancelled": "Abgesagt"
+    },
+    "fields": {
+      "title": "Titel",
+      "auditArea": "Auditbereich",
+      "scope": "Umfang",
+      "status": "Status",
+      "scheduledDate": "Geplantes Datum",
+      "completedAt": "Abgeschlossen am",
+      "auditorName": "Auditor"
+    },
+    "fieldDescriptions": {
+      "title": "Geben Sie eine Bezeichnung für das Audit an (z. B. 'Internes Audit Zugangsmanagement Q4 2025').",
+      "auditArea": "Wählen Sie den zu prüfenden Bereich (z. B. Zugangsmanagement, Netzwerksicherheit, Incident Response).",
+      "scope": "Beschreiben Sie den Prüfungsumfang: Welche Prozesse, Systeme und Standorte werden geprüft?",
+      "status": "Wählen Sie den aktuellen Status des Audits: Geplant, In Bearbeitung, Abgeschlossen oder Abgesagt.",
+      "scheduledDate": "Geplantes Datum für die Durchführung des Audits.",
+      "completedAt": "Datum, an dem das Audit tatsächlich abgeschlossen wurde.",
+      "auditorName": "Name des internen Auditors oder der externen Prüfungsperson, die das Audit durchführt."
+    }
+  }
+}

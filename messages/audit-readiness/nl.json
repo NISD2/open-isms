@@ -1,0 +1,35 @@
+{
+  "audit-readiness": {
+    "title": "Audit Readiness",
+    "subtitle": "Evaluate your BSIG/NIS2 audit readiness with AI analysis",
+    "startEvaluation": "Start Evaluation",
+    "evaluating": "Evaluating all sections...",
+    "reEvaluate": "Re-evaluate",
+    "reEvaluating": "Re-evaluating...",
+    "overallScore": "Overall Score",
+    "verdict": "Verdict",
+    "pass": "Audit Ready",
+    "partial": "Needs Work",
+    "fail": "Major Gaps",
+    "sectionsPassing": "{count} passing",
+    "sectionsPartial": "{count} partial",
+    "sectionsFailing": "{count} failing",
+    "strengths": "Strengths",
+    "structureGaps": "Structure Gaps",
+    "dataGaps": "Data Gaps",
+    "recommendations": "Recommendations",
+    "showDetails": "Show details",
+    "hideDetails": "Hide details",
+    "severity": {
+      "critical": "Critical",
+      "important": "Important",
+      "nice-to-have": "Nice to have"
+    },
+    "fieldKey": "Field",
+    "requirement": "Requirement",
+    "issue": "Issue",
+    "recommendation": "Recommendation",
+    "noGaps": "No gaps identified",
+    "disclaimer": "AI-generated evaluation - does not replace a formal audit"
+  }
+}

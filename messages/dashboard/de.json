@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Übersicht Sicherheits-Compliance",
+    "risks": "Risiken",
+    "openRisks": "Offene Risiken",
+    "highRisks": "Hohe Risiken",
+    "assets": "Assets",
+    "criticalAssets": "Kritisch",
+    "otAssets": "OT",
+    "incidents": "Vorfälle",
+    "suppliers": "Lieferanten",
+    "criticalSuppliers": "Kritisch",
+    "policies": "Richtlinien",
+    "approved": "Genehmigt",
+    "training": "Schulungen",
+    "managementTraining": "Geschäftsführung",
+    "exercises": "Notfallübungen",
+    "completed": "Abgeschlossen",
+    "kpis": "Sicherheitskennzahlen",
+    "changes": "Änderungen",
+    "openChanges": "Offen",
+    "patches": "Sicherheitsupdates",
+    "pendingPatches": "Ausstehend",
+    "audits": "Selbstbewertungen",
+    "plannedAudits": "Geplant",
+    "improvements": "Maßnahmen",
+    "openImprovements": "Offen",
+    "complianceByCategory": "Compliance nach Kategorie",
+    "riskMatrix": "Risikomatrix",
+    "riskTreatmentDistribution": "Risikobehandlungsverteilung",
+    "noRisksRegistered": "Keine Risiken erfasst",
+    "noData": "Keine Daten",
+    "incidentsBySeverity": "Vorfälle nach Schweregrad",
+    "treatmentLabel": {
+      "mitigate": "Mindern",
+      "accept": "Akzeptieren",
+      "transfer": "Übertragen",
+      "avoid": "Vermeiden"
+    },
+    "severity": {
+      "nearMiss": "Beinahevorfall",
+      "incident": "Vorfall",
+      "significant": "Erheblich"
+    },
+    "complianceProgress": "Compliance-Fortschritt",
+    "requirementsCompleted": "{completed} von {total} Anforderungen",
+    "allModules": "Alle Module",
+    "deadlines": {
+      "overdue": "Überfällig",
+      "dueThisWeek": "Fällig diese Woche",
+      "dueThisMonth": "Fällig diesen Monat",
+      "upcoming": "Anstehende Fristen",
+      "overdueDays": "{days}d überfällig",
+      "dueToday": "Heute fällig",
+      "dueDays": "Fällig in {days}d"
+    }
+  }
+}

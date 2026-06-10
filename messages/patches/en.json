@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Patch Management",
+    "description": "Patch and vulnerability tracking per asset. Required by NIS2 Art. 21(2)(e).",
+    "helpText": "Track patches and known vulnerabilities for your registered assets. Record patch status (pending, applied, deferred), CVE references, and deadlines. NIS2 requires timely vulnerability handling and patch management.",
+    "add": "Add Patch Record",
+    "edit": "Edit Patch Record",
+    "empty": "No patch records yet. Add your first patch record.",
+    "deleteConfirm": "Are you sure you want to delete this patch record?",
+    "actions": "Actions",
+    "severity": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "status": {
+      "pending": "Pending",
+      "applied": "Applied",
+      "exception": "Exception",
+      "not_applicable": "Not Applicable"
+    },
+    "fields": {
+      "patchIdentifier": "Patch ID",
+      "severity": "Severity",
+      "title": "Title",
+      "assetId": "Asset",
+      "status": "Status",
+      "releaseDate": "Release Date",
+      "appliedAt": "Applied At",
+      "exceptionReason": "Exception Reason"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Vendor patch identifier or CVE number (e.g., 'KB5034441', 'CVE-2024-1234').",
+      "severity": "Select the severity rating of the vulnerability this patch addresses: critical, high, medium, or low.",
+      "title": "Brief description of what this patch fixes or the vulnerability it addresses.",
+      "assetId": "Select the asset from the asset register that this patch applies to.",
+      "status": "Current patch status: pending (not yet applied), applied, exception (risk-accepted deferral), or not applicable.",
+      "releaseDate": "Date when the vendor released this patch.",
+      "appliedAt": "Date when this patch was successfully applied to the target asset.",
+      "exceptionReason": "If status is Exception, provide the justification for deferring or not applying this patch."
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "pricing": {
+    "meta": {
+      "title": "Preise - NIS2-Compliance-Plattform",
+      "description": "Zwei Wege, die Plattform zu nutzen. Gehostet auf nis2.eu, kostenlos für immer. Self-Hosting unter AGPL-3.0, einmalig 10.000 € als lebenslange Lizenz."
+    },
+    "title": "Preise",
+    "subtitle": "Zwei Wege, die Plattform zu nutzen. Wählen Sie einen.",
+
+    "free": {
+      "name": "Gehostet auf nis2.eu",
+      "description": "Die vollständige Plattform, von uns auf EU-Infrastruktur betrieben.",
+      "price": "0 €",
+      "priceSub": "für immer",
+      "cta": "Kostenlos starten",
+      "features": {
+        "f1": "Alle 49 BSIG-Anforderungen Schritt für Schritt",
+        "f2": "Nachweisupload und Dokumentation",
+        "f3": "PDF-Export für Prüfer und Geschäftsführung",
+        "f4": "Vollständiger Audit-Trail",
+        "f5": "Fristenüberwachung und Erinnerungen",
+        "f6": "BSI-Registrierungshilfe",
+        "f7": "Unbegrenzte Teammitglieder",
+        "f8": "Risiko-, Asset- und Lieferantenregister",
+        "f9": "KI-gestützte Formularausfüllung",
+        "f10": "Kein Lock-in. Open Source Datenmodell. Jederzeit exportierbar."
+      }
+    },
+
+    "selfHost": {
+      "name": "Self-Hosting",
+      "description": "Vollständiger Quellcode. Auf eigener Infrastruktur betreiben, dauerhaft.",
+      "price": "10.000 €",
+      "priceSub": "einmalig, lebenslange Lizenz",
+      "cta": "Kontakt aufnehmen",
+      "features": {
+        "h1": "Vollständiger Plattform-Quellcode unter AGPL-3.0",
+        "h2": "Alle künftigen Updates inklusive",
+        "h3": "Auf eigener Infrastruktur, mit eigenen Daten",
+        "h4": "Persönlicher Ansprechpartner per E-Mail und Signal"
+      }
+    },
+
+    "consultantFootnote": "Brauchen Sie einen NIS2-Berater? Wir vermitteln geprüfte Fachleute, kostenlos für Sie.",
+    "consultantCta": "Berater anfragen"
+  }
+}

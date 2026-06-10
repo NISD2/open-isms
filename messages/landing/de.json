@@ -1,0 +1,28 @@
+{
+  "landing": {
+    "title": "Halbiert Europas NIS2-Rechnung.",
+    "subtitle": "<link>31 Milliarden Euro jedes Jahr</link>. Wir halbieren das.",
+    "productLine": "Kostenlose NIS2-Compliance für regulierte Unternehmen und ihre Lieferanten.",
+    "badge": "NIS2 / BSIG - Frist: März 2026",
+    "badgeTooltip": "Das novellierte BSI-Gesetz (BSIG) zur Umsetzung der EU-Richtlinie NIS2 verpflichtet betroffene Einrichtungen, alle Cybersicherheitsmaßnahmen bis März 2026 umzusetzen. Bei Nichteinhaltung drohen Bußgelder bis zu 10 Mio. € oder 2% des weltweiten Jahresumsatzes sowie persönliche Haftung der Geschäftsführung.",
+    "nis2Badge": "NIS2-Richtlinie (EU) 2022/2555",
+    "nis2BadgeTooltip": "Basiert auf der vollständigen NIS2-Richtlinie für alle 27 EU-Mitgliedstaaten. Alle 10 Maßnahmen nach Artikel 21 abgebildet und umgesetzt. Gültig in jedem EU-Land, nicht nur in Deutschland.",
+    "cirBadge": "CIR 2024/2690",
+    "cirBadgeTooltip": "Die Durchführungsverordnung (EU) 2024/2690 definiert die strengsten technischen Anforderungen für NIS2-Compliance. Sie legt den gemeinsamen Mindeststandard für alle EU-Mitgliedstaaten fest - für DNS-Anbieter, TLD-Registrare, Cloud-Anbieter, Rechenzentren, CDNs, Managed Services, Managed Security Services, Online-Marktplätze, Suchmaschinen, soziale Netzwerke und Vertrauensdiensteanbieter.",
+    "bsigBadge": "BSIG §30 | IT-Grundschutz-Standards",
+    "bsigBadgeTooltip": "Aufgebaut auf dem deutschen BSIG §30 -- der strengsten NIS2-Umsetzung in der EU -- mit IT-Grundschutz-Methodik als Standard. Einmal konform, gueltig in 27 EU-Mitgliedstaaten. §44(2) BSIG erkennt Grundschutz-Umsetzung als NIS2-Compliance an.",
+    "checkApplicability": "NIS2-Betroffenheit prüfen",
+    "scheduleDemo": "Demo vereinbaren",
+    "startTraining": "Kostenlose NIS2 CEO-Schulung",
+    "signIn": "Anmelden und loslegen",
+    "stats": {
+      "urgency": "160.000+ EU-Einrichtungen betroffen · Bußgelder bis 10 Mio. € oder 2% des weltweiten Jahresumsatzes (Art. 34 NIS2) · Geschäftsführung persönlich haftbar (Art. 20 NIS2)"
+    },
+    "nav": {
+      "wiki": "Wiki",
+      "pricing": "Preise",
+      "about": "Über uns",
+      "cta": "Jetzt loslegen"
+    }
+  }
+}

@@ -1,33 +1,47 @@
-node_modules
-dist
-.next
-.turbo
-.DS_Store
+/node_modules
+.next/
+.dist
+.vercel
 
-# Bun
-bun.lockb
-
-# Env
-.env
-.env.*
+# Match all .env variants (.env, .env.local, .env.production, .env.staging, etc.)
+# except the committed .env.example template
+.env*
 !.env.example
 
-# IDE
-.vscode
-.idea
+# Build cache
+tsconfig.tsbuildinfo
+next-env.d.ts
 
-# TS build cache
-*.tsbuildinfo
+# Local Claude state
+.claude/
 
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Local secret material (gitignored defensively; never committed)
+google-service-account.json
+*.pem
+*.key
+*.p12
+*.pfx
+**/credentials.json
+**/service-account*.json
 
-# Coverage
-coverage
-.nyc_output
+# Local eval / generation outputs
+eval-bsig-results.json
+eval-panel-results.json
+generated-guides.json
+
+# LaTeX build artifacts for PDF generation
+courses/**/pdf-book/*.aux
+courses/**/pdf-book/*.log
+courses/**/pdf-book/*.toc
+courses/**/pdf-book/*.out
+courses/**/pdf-book/*.ans
+
+# Workspace package per-package node_modules (Bun creates these for some scoped deps)
+packages/*/node_modules
+apps/*/node_modules
+packages/*/tsconfig.tsbuildinfo
+apps/*/tsconfig.tsbuildinfo
 
 # OS
+.DS_Store
 Thumbs.db

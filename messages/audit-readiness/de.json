@@ -1,0 +1,35 @@
+{
+  "audit-readiness": {
+    "title": "Audit-Bereitschaft",
+    "subtitle": "Bewerten Sie Ihre BSIG/NIS2 Audit-Bereitschaft mit KI-Analyse",
+    "startEvaluation": "Bewertung starten",
+    "evaluating": "Alle Abschnitte werden bewertet...",
+    "reEvaluate": "Neu bewerten",
+    "reEvaluating": "Wird neu bewertet...",
+    "overallScore": "Gesamtbewertung",
+    "verdict": "Ergebnis",
+    "pass": "Audit-bereit",
+    "partial": "Nacharbeit nötig",
+    "fail": "Wesentliche Lücken",
+    "sectionsPassing": "{count} bestanden",
+    "sectionsPartial": "{count} teilweise",
+    "sectionsFailing": "{count} nicht bestanden",
+    "strengths": "Stärken",
+    "structureGaps": "Strukturelle Lücken",
+    "dataGaps": "Datenlücken",
+    "recommendations": "Empfehlungen",
+    "showDetails": "Details anzeigen",
+    "hideDetails": "Details ausblenden",
+    "severity": {
+      "critical": "Kritisch",
+      "important": "Wichtig",
+      "nice-to-have": "Optional"
+    },
+    "fieldKey": "Feld",
+    "requirement": "Anforderung",
+    "issue": "Problem",
+    "recommendation": "Empfehlung",
+    "noGaps": "Keine Lücken identifiziert",
+    "disclaimer": "KI-generierte Bewertung - ersetzt keine formelle Prüfung"
+  }
+}

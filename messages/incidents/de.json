@@ -1,0 +1,70 @@
+{
+  "incidents": {
+    "title": "Vorfallregister",
+    "description": "Sicherheitsvorfallprotokoll mit Schweregradklassifizierung und Zeiterfassung. Erforderlich nach NIS2 Art. 23.",
+    "helpText": "Protokollieren Sie jeden Sicherheitsvorfall bei Auftreten. NIS2 verlangt eine Frühwarnung an das BSI innerhalb von 24 Stunden und eine vollständige Meldung innerhalb von 72 Stunden bei erheblichen Vorfällen. Erfassen Sie Schweregrad, betroffene Systeme, Zeitverlauf und Behebungsschritte.",
+    "add": "Vorfall melden",
+    "edit": "Vorfall bearbeiten",
+    "empty": "Keine Vorfälle erfasst. Melden Sie einen Vorfall, wenn einer auftritt.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diesen Vorfall löschen möchten?",
+    "actions": "Aktionen",
+    "severity": {
+      "near_miss": "Beinahevorfall",
+      "incident": "Vorfall",
+      "significant": "Erheblich"
+    },
+    "fields": {
+      "title": "Titel",
+      "description": "Beschreibung",
+      "severity": "Schweregrad",
+      "situationColor": "Situationsfarbe",
+      "discoveredAt": "Entdeckt am",
+      "occurredAt": "Aufgetreten am",
+      "resolvedAt": "Gelöst am",
+      "confidentialityImpacted": "Vertraulichkeit betroffen",
+      "integrityImpacted": "Integrität betroffen",
+      "availabilityImpacted": "Verfügbarkeit betroffen",
+      "threatType": "Bedrohungstyp",
+      "rootCause": "Ursache",
+      "countermeasures": "Gegenmaßnahmen",
+      "preventiveMeasures": "Präventivmaßnahmen",
+      "requiresGdprNotification": "DSGVO-Meldung erforderlich",
+      "dataSubjectsAffected": "Betroffene Personen",
+      "gdprNotifiedAt": "Aufsichtsbehörde benachrichtigt am",
+      "notifiedDataSubjectsAt": "Betroffene Personen informiert am"
+    },
+    "bsiDeadlines": {
+      "title": "BSI-Meldefristen",
+      "overdue": "Überfällig",
+      "dueIn": "Fällig in {days}d",
+      "dueToday": "Heute fällig",
+      "reportType": {
+        "early_warning": "24h Frühwarnung",
+        "notification": "72h Meldung",
+        "intermediate": "Zwischenmeldung",
+        "final": "Abschlussbericht",
+        "progress": "Fortschrittsbericht"
+      }
+    },
+    "fieldDescriptions": {
+      "title": "Geben Sie eine kurze, aussagekräftige Bezeichnung für den Vorfall an (z. B. 'Phishing-Angriff auf Buchhaltung').",
+      "description": "Beschreiben Sie den Vorfall im Detail: Was ist passiert, welche Systeme und Daten sind betroffen?",
+      "severity": "Wählen Sie den Schweregrad: Beinahevorfall, Vorfall oder Erheblich. Erhebliche Vorfälle unterliegen der NIS2-Meldepflicht.",
+      "situationColor": "Wählen Sie die aktuelle Eskalationsstufe zur schnellen visuellen Einordnung des Vorfalls.",
+      "discoveredAt": "Datum und Uhrzeit, zu der der Vorfall entdeckt wurde. Relevant für die 24-Stunden-Frühwarnfrist nach NIS2.",
+      "occurredAt": "Geschätzter Zeitpunkt, zu dem der Vorfall tatsächlich eingetreten ist (kann vor der Entdeckung liegen).",
+      "resolvedAt": "Datum und Uhrzeit, zu der der Vorfall vollständig behoben wurde.",
+      "confidentialityImpacted": "Geben Sie an, ob vertrauliche Daten offengelegt oder unbefugt eingesehen wurden.",
+      "integrityImpacted": "Geben Sie an, ob Daten oder Systeme unbefugt verändert oder manipuliert wurden.",
+      "availabilityImpacted": "Geben Sie an, ob die Verfügbarkeit von Systemen oder Diensten beeinträchtigt war.",
+      "threatType": "Wählen Sie den Bedrohungstyp (z. B. Ransomware, Phishing, DDoS, Insider-Bedrohung).",
+      "rootCause": "Beschreiben Sie die ermittelte Ursache des Vorfalls nach abgeschlossener Analyse.",
+      "countermeasures": "Beschreiben Sie die ergriffenen Sofortmaßnahmen zur Eindämmung und Behebung des Vorfalls.",
+      "preventiveMeasures": "Beschreiben Sie Maßnahmen, die zur Verhinderung eines erneuten Auftretens umgesetzt werden sollen.",
+      "requiresGdprNotification": "Aktivieren, wenn dieser Vorfall eine Verletzung des Schutzes personenbezogener Daten umfasst, die der Aufsichtsbehörde nach Art. 33 DSGVO innerhalb von 72 Stunden nach Kenntniserlangung gemeldet werden muss.",
+      "dataSubjectsAffected": "Ungefähre Anzahl der betroffenen Personen, deren personenbezogene Daten kompromittiert wurden (Art. 33 Abs. 3 lit. a — Pflichtinhalt der Meldung).",
+      "gdprNotifiedAt": "Datum und Uhrzeit der Meldung an die Aufsichtsbehörde.",
+      "notifiedDataSubjectsAt": "Datum und Uhrzeit der Information der betroffenen Personen (Art. 34 — Pflicht bei hohem Risiko)."
+    }
+  }
+}

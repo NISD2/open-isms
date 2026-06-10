@@ -1,0 +1,8 @@
+{
+  "evidence": {
+    "loading": "Loading files…",
+    "uploading": "Uploading…",
+    "uploadFailed": "Upload failed. Please try again.",
+    "deleteFailed": "Delete failed. Please try again."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "export": {
+    "title": "Export Reports",
+    "subtitle": "Download compliance reports for your assessments",
+    "noAssessments": "No assessments found. Complete the setup first.",
+    "download": "Download PDF",
+    "started": "Started",
+    "progress": "{completed} of {total} requirements",
+    "compliance": "Compliance"
+  }
+}

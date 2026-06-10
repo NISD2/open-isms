@@ -1,0 +1,51 @@
+{
+  "companyLookup": {
+    "title": "Ist Ihr Unternehmen von NIS2 betroffen?",
+    "subtitle": "Verbindlich entscheidet Ihre nationale Aufsichtsbehörde. Hier finden Sie offizielle Anlaufstellen pro Land und einen kostenlosen Selbst-Check als Orientierung. Unsicher? Sehen Sie sich <link>praxisnahe Grenzfälle</link> an.",
+    "authorityCallout": {
+      "heading": "Verbindliche Einstufung: Ihre nationale Aufsichtsbehörde",
+      "body": "Die endgültige NIS2-Einstufung trifft die zuständige Behörde Ihres Landes. Wir verlinken die offiziellen Stellen — der Selbst-Check unten ist nur eine schnelle Orientierungshilfe.",
+      "seeAll": "Alle 27 EU-Mitgliedstaaten ansehen",
+      "details": "Details"
+    },
+    "selfCheckHeading": "Schneller Selbst-Check",
+    "selfCheckSubtitle": "Eine Orientierungshilfe nach Sektor, Größe und Sonderfällen — ersetzt nicht die offizielle Einstufung Ihrer Behörde.",
+    "placeholder": "Firmenname eingeben (z.B. Stadtwerke München)",
+    "noResults": "Kein Unternehmen gefunden. Prüfen Sie die Schreibweise oder verwenden Sie den vollständigen Firmennamen.",
+    "error": "Die Unternehmenssuche ist derzeit nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "sectors": "NIS2-Sektoren",
+    "companyData": "Unternehmensdaten",
+    "legalForm": "Rechtsform",
+    "register": "Handelsregister",
+    "founded": "Gegründet",
+    "capital": "Stammkapital",
+    "companySize": "Unternehmensgröße",
+    "revenue": "Umsatz",
+    "industryCodes": "Wirtschaftszweige (WZ)",
+    "purpose": "Unternehmensgegenstand",
+    "missingData": "Einige Daten konnten nicht automatisch ermittelt werden. Die Einstufung basiert auf den verfügbaren Informationen und kann sich ändern, wenn alle Daten vorliegen.",
+    "ctaInScope": "Nächste Schritte besprechen",
+    "checkNis2": "NIS2-Status prüfen",
+    "loading": "Unternehmensdaten werden analysiert…",
+    "ctaNotInScope": "Trotzdem absichern",
+    "disclaimer": "Unternehmensdaten stammen aus öffentlichen Registern und werden zur Verbesserung unseres Dienstes gespeichert.",
+    "holdingWarning": "Dieses Unternehmen scheint eine Holding oder Konzernmutter zu sein. Die NIS2-Betroffenheit wird pro Einrichtung bewertet — Tochtergesellschaften mit eigenem Betrieb, Mitarbeitern und IT-Systemen können unabhängig betroffen sein, auch wenn die Holding selbst es nicht ist. Prüfen Sie jede Tochtergesellschaft einzeln.",
+    "resultDisclaimer": "Dies ist eine indikative Einschätzung auf Basis öffentlich verfügbarer Registerdaten, keine Rechtsberatung. Die tatsächliche NIS2-Betroffenheit hängt von hier nicht vollständig erfassten Faktoren ab. Lassen Sie Ihren Status von einem qualifizierten Berater bestätigen.",
+    "result": {
+      "not_in_scope": "Voraussichtlich nicht betroffen",
+      "important": "Voraussichtlich wichtige Einrichtung",
+      "essential": "Voraussichtlich wesentliche Einrichtung",
+      "kritis": "Voraussichtlich Betreiber kritischer Anlagen (KRITIS)"
+    },
+    "reason": {
+      "excluded": "Ihre Organisation scheint vom NIS2-Anwendungsbereich ausgenommen zu sein.",
+      "no_sector": "Keiner der registrierten Wirtschaftszweige scheint unter einen NIS2-Sektor zu fallen.",
+      "below_threshold": "Ihr Unternehmen scheint in einem NIS2-Sektor tätig zu sein, liegt aber nach verfügbaren Daten möglicherweise unter der Größenschwelle.",
+      "special_case": "Aufgrund seiner Einstufung fällt Ihre Organisation voraussichtlich unabhängig von der Größe in den Anwendungsbereich.",
+      "size_and_sector": "Nach verfügbaren Daten scheinen sowohl Sektor- als auch Größenkriterien für NIS2 erfüllt zu sein."
+    },
+    "orSeparator": "oder manuell prüfen",
+    "manualFallback": "Sie finden Ihr Unternehmen nicht?",
+    "manualLink": "Manuelle Prüfung starten"
+  }
+}

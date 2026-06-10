@@ -1,0 +1,38 @@
+node_modules
+dist
+.DS_Store
+.env
+
+# Ignore the output video from Git but not videos you import into src/.
+out
+public/what-is-nis2.mp4
+public/what-is-nis2-2.mp4
+public/what-is-nis2.mov
+public/Incident-reporting.mp4
+public/incident-reporting-2.mp4
+public/personally-liable.mp4
+public/NISD2-Episode-1.mp4
+public/what-is-nis2-3.mp4
+public/standup-06-03.mp4
+
+# Raw video source files — large, never commit
+public/shorts/
+
+# Whisper.cpp — compiled binaries + 1.5GB model, never commit
+whisper.cpp/
+
+# Pipeline server — uploads, temp files, secrets
+uploads/
+tmp/
+server/node_modules/
+server/.env
+server/migrations/
+
+# Uploaded videos copied to public/ for Remotion staticFile()
+public/*.mp4
+
+# Generated captions — created by pipeline processing, not needed in repo
+public/captions-*-remapped.json
+public/captions-*.json
+public/gap-edited-*.mp4
+public

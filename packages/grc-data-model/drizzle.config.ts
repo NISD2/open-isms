@@ -4,7 +4,7 @@ import { defineConfig } from "drizzle-kit";
  * Drizzle Kit configuration for @nisd2/grc-data-model.
  *
  * Owns the GRC entity model (framework, requirement, supplier, asset,
- * risk, incident) and its migration history. Consumers (apps/open-isms,
+ * risk, incident) and its migration history. Consumers (apps/reference,
  * NIS2 monorepo) run `drizzle-kit migrate --config=...` against this
  * config BEFORE running any consumer-specific migrations.
  *

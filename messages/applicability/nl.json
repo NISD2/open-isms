@@ -1,0 +1,117 @@
+{
+  "applicability": {
+    "title": "NIS2 Applicability Check - Am I Affected?",
+    "metaDescription": "Check in under 2 minutes if your company falls under NIS2. Free quick check by sector, size, and special cases.",
+    "subtitle": "Find out if your company falls under the NIS2 directive in under 2 minutes.",
+    "cta": "Book a Demo",
+    "steps": {
+      "exclusion": "Exclusion check",
+      "sector": "Sector selection",
+      "size": "Company size",
+      "specialCases": "Special cases",
+      "result": "Result"
+    },
+    "step": "Step {current} of {total}",
+
+    "exclusion": {
+      "title": "Does your organization fall into an excluded category?",
+      "description": "The following entity types are exempt from NIS2 by law. If any apply to you, NIS2 does not cover your organization and the check ends here.",
+      "noneOfTheAbove": "No - none of these apply to us",
+      "noneHelp": "Select this to continue. Most private-sector companies will choose this option."
+    },
+
+    "sector": {
+      "title": "What sector does your company operate in?",
+      "description": "Select all applicable sectors. A company can operate in multiple NIS2 sectors.",
+      "annexI": "Sectors of high criticality",
+      "annexII": "Other critical sectors",
+      "noSector": "None of these sectors apply to my company",
+      "selectedCount": "{count, plural, =0 {No sectors selected} =1 {1 sector selected} other {# sectors selected}}"
+    },
+
+    "size": {
+      "title": "What is the size of your organization?",
+      "description": "Size is calculated at the entire enterprise group level, including parent companies and subsidiaries.",
+      "employees": "Total employees (FTE)",
+      "employeesHelp": "Include all group companies unless your entity has fully independent IT infrastructure.",
+      "turnover": "Annual turnover (EUR millions)",
+      "turnoverHelp": "Worldwide consolidated turnover of the entire enterprise group.",
+      "balanceSheet": "Annual balance sheet total (EUR millions)",
+      "balanceSheetHelp": "Worldwide consolidated balance sheet of the entire enterprise group.",
+      "independentIt": "Our German entity has fully independent IT systems from the parent group",
+      "independentItHelp": "If checked, only your German entity's own figures apply."
+    },
+
+    "specialCases": {
+      "title": "Does any of the following apply?",
+      "description": "These entities fall under NIS2 regardless of company size.",
+      "noneOfTheAbove": "None of the above",
+      "noneHelp": "Most organizations will select this option.",
+      "selectedCount": "{count, plural, =1 {1 selected} other {# selected}}"
+    },
+
+    "result": {
+      "notInScope": "Likely not in scope",
+      "important": "Important entity",
+      "importantLabel": "Likely an important entity",
+      "essential": "Essential entity",
+      "essentialLabel": "Likely an essential entity",
+      "kritis": "Betreiber kritischer Anlagen",
+      "kritisLabel": "Likely a KRITIS operator",
+
+      "reason": {
+        "excluded": "Your organization appears to be excluded from NIS2 scope (sovereign function exemption).",
+        "no_sector": "Based on your selection, your company does not appear to operate in any sector covered by NIS2. If you are unsure, consult the full NIS2 sector list or seek legal advice.",
+        "below_threshold": "Your company appears to operate in a NIS2 sector but may fall below the medium enterprise threshold. However, you may still face NIS2 requirements through supply chain contracts with in-scope customers.",
+        "special_case": "Based on its classification, your organization likely falls in scope regardless of size.",
+        "size_and_sector": "Based on the information provided, your company appears to meet both the sector and size criteria for NIS2."
+      },
+
+      "disclaimer": "This is an indicative assessment, not a legal determination. NIS2 applicability depends on factors that may not be fully captured here, including corporate group structure, independent IT infrastructure, and regulatory interpretations. Consult a qualified advisor to confirm your status.",
+
+      "obligations": "Key obligations",
+      "penalty": "Penalty ceiling",
+      "penaltyValue": "{amount} or {percent} of global turnover",
+      "penaltyInfo": "Maximum fine for violations of cybersecurity measures, incident reporting, or BSI directives. The turnover-based alternative applies to companies with > EUR 500M revenue. Fines are set per the severity of the violation by the BSI.",
+      "supervisionLabel": "Supervision",
+      "supervisionProactive": "Proactive (ex-ante) - BSI can audit at any time",
+      "supervisionReactive": "Reactive (ex-post) - BSI acts on evidence of non-compliance",
+      "supervisionInfo": "Proactive: BSI can conduct unannounced audits, request documentation, and order specific security measures at any time. Reactive: BSI only investigates after an incident or upon justified suspicion of non-compliance.",
+      "registration": "BSI Registration",
+      "registrationDeadline": "By March 6, 2026 via BSI portal",
+      "registrationInfo": "You must self-register via the BSI portal (live since Jan 6, 2026). Requires: entity name, address, sectors, IP ranges, and entity category declaration. First create a \"Mein Unternehmenskonto\" (MUK) via ELSTER, then register on the BSI portal.",
+      "riskManagement": "Risk Management",
+      "riskManagementValue": "10 mandatory measures (Section 30 BSIG)",
+      "riskManagementInfo": "You must implement all 10 measures from Section 30 BSIG: risk analysis, incident handling, business continuity, supply chain security, secure development, effectiveness assessment, cyber hygiene training, cryptography, access control/asset management, and multi-factor authentication.",
+      "incidentReporting": "Incident Reporting",
+      "incidentReportingValue": "24h / 72h / 1 month cascade to BSI",
+      "incidentReportingInfo": "Significant security incidents must be reported to BSI in three stages: (1) Early warning within 24 hours - suspected cause and cross-border impact, (2) Updated notification within 72 hours - severity, impact, indicators of compromise, (3) Final report within 1 month - root cause, mitigation, preventive steps.",
+      "managementLiability": "Management Liability",
+      "managementLiabilityValue": "Personal liability for board members (Section 38 BSIG)",
+      "managementLiabilityInfo": "Board members (Vorstand/Geschäftsführer) are personally liable for NIS2 compliance. Three duties: (1) formally approve cybersecurity measures, (2) actively monitor implementation, (3) complete mandatory cybersecurity training. Liability cannot be waived by shareholders. D&O insurance does not remove the statutory obligations.",
+      "managementTraining": "Management Training",
+      "managementTrainingValue": "Mandatory cybersecurity training every 3 years",
+      "managementTrainingInfo": "All members of the management body must personally participate in cybersecurity training at least every 3 years. This duty cannot be delegated to a CISO or IT department. Failure to comply contributes to personal liability under Section 38 BSIG.",
+
+      "cta": "Book a walkthrough",
+      "ctaVoluntary": "Book a walkthrough anyway",
+      "restart": "Start over",
+      "supplyChainNote": "Even if not directly in scope, you may face NIS2 requirements through contracts with in-scope customers."
+    },
+
+    "nav": {
+      "back": "Back",
+      "next": "Continue",
+      "checkResult": "See result"
+    },
+
+    "leadCapture": {
+      "title": "Get your free compliance roadmap",
+      "description": "We'll send you a personalized action plan based on your classification — no spam, just the steps you need to take.",
+      "placeholder": "your@company.de",
+      "cta": "Send roadmap",
+      "success": "Check your inbox — your compliance roadmap is on the way.",
+      "error": "Something went wrong. Please try again."
+    }
+  }
+}

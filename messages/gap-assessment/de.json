@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "NIS2 Gap-Analyse",
+    "subtitle": "Bewerten Sie Ihre NIS2-Bereitschaft über 15 Bereiche",
+    "startAssessment": "Analyse starten",
+    "resumeAssessment": "Analyse fortsetzen",
+    "viewResults": "Ergebnisse ansehen",
+    "day": "Tag {number}",
+    "dayOf": "Tag {current} von {total}",
+    "questionsAnswered": "{answered} von {total} beantwortet",
+    "saving": "Wird gespeichert...",
+    "saved": "Gespeichert",
+    "overview": {
+      "heading": "Übersicht",
+      "description": "Eine strukturierte Selbstbewertung über alle NIS2-Compliance-Bereiche. Beantworten Sie ehrlich, wie Ihr aktueller Stand ist. Es gibt keine richtigen oder falschen Antworten.",
+      "day1": "Anwendungsbereich & Governance",
+      "day1desc": "Sind Sie betroffen? Versteht Ihre Geschäftsführung ihre Haftung?",
+      "day2": "Risikomanagement",
+      "day2desc": "Kennen Sie Ihre Assets, Ihre Risiken und Ihre Sicherheitsrichtlinien?",
+      "day3": "Vorfallmanagement & Geschäftskontinuität",
+      "day3desc": "Können Sie Vorfälle erkennen, darauf reagieren und sich erholen?",
+      "day4": "Mitarbeiter, Lieferanten & Zugang",
+      "day4desc": "Sind Ihre Mitarbeiter geschult, Lieferanten gesteuert und Zugänge kontrolliert?",
+      "day5": "Technische Kontrollen & Nachweise",
+      "day5desc": "Sind Ihre technischen Schutzmaßnahmen und Dokumentation audit-bereit?",
+      "questions": "{count} Fragen",
+      "estimatedTime": "~{minutes} Min.",
+      "noActiveSession": "Sie haben noch keine Analyse gestartet.",
+      "pastSessions": "Frühere Analysen",
+      "score": "Ergebnis: {score}%",
+      "completedOn": "Abgeschlossen am {date}",
+      "inProgress": "In Bearbeitung"
+    },
+    "question": {
+      "yes": "Ja",
+      "partially": "Teilweise",
+      "no": "Nein",
+      "notApplicable": "Nicht zutreffend",
+      "showExplanation": "Was bedeutet das?",
+      "hideExplanation": "Erklärung ausblenden",
+      "legalBasis": "Rechtsgrundlage",
+      "criticality": "Wichtigkeit",
+      "criticalityLevels": {
+        "0": "Information",
+        "1": "Niedrig",
+        "2": "Mittel",
+        "3": "Hoch"
+      },
+      "respondent": {
+        "0": "Geschäftsführung",
+        "1": "IT / Sicherheit",
+        "2": "Personal",
+        "3": "Einkauf",
+        "4": "Alle"
+      },
+      "suggestedRespondent": "Am besten beantwortet von"
+    },
+    "navigation": {
+      "previousDay": "Vorheriger Tag",
+      "nextDay": "Nächster Tag",
+      "completeAssessment": "Analyse abschließen",
+      "backToOverview": "Zurück zur Übersicht"
+    },
+    "results": {
+      "heading": "Ergebnisse der Analyse",
+      "overallScore": "Gesamtergebnis",
+      "domainScores": "Ergebnisse pro Bereich",
+      "maturityLevel": "Reifegrad",
+      "priorityGaps": "Prioritäre Lücken",
+      "exportPdf": "PDF exportieren",
+      "domain": "Bereich",
+      "score": "Ergebnis",
+      "maturity": "Reifegrad",
+      "answered": "Beantwortet",
+      "noGaps": "Keine Lücken identifiziert. Ausgezeichnet.",
+      "gapRank": "Priorität",
+      "gapQuestion": "Feststellung",
+      "gapDomain": "Bereich",
+      "gapConsequence": "Konsequenz",
+      "gapTimeToFix": "Aufwand",
+      "fineRisk": "Bußgeldrisiko",
+      "viewInPlatform": "In Plattform ansehen",
+      "maturityLevels": {
+        "critical": "Kritisch",
+        "initial": "Initial",
+        "developing": "In Entwicklung",
+        "managed": "Gesteuert",
+        "optimized": "Optimiert"
+      },
+      "consequenceLevels": {
+        "0": "Audit-Feststellung",
+        "1": "Operatives Risiko",
+        "2": "Bußgeld",
+        "3": "Persönliche Haftung"
+      },
+      "timeToFixLevels": {
+        "0": "Sofort umsetzbar",
+        "1": "Tage",
+        "2": "Wochen",
+        "3": "Monate"
+      },
+      "summary": {
+        "criticalGaps": "{count} kritische Lücken",
+        "fineExposed": "{count} mit Bußgeldrisiko",
+        "personalLiability": "{count} mit persönlicher Haftung für die Geschäftsführung",
+        "quickWins": "{count} sofort behebbar"
+      },
+      "startCompliance": "Lücken schließen",
+      "retakeAssessment": "Analyse wiederholen"
+    }
+  }
+}

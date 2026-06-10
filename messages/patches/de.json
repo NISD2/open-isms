@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Patch-Management",
+    "description": "Patch- und Schwachstellenverfolgung pro Asset. Erforderlich nach NIS2 Art. 21(2)(e).",
+    "helpText": "Verfolgen Sie Patches und bekannte Schwachstellen für Ihre registrierten Assets. Erfassen Sie Patch-Status (ausstehend, angewendet, zurückgestellt), CVE-Referenzen und Fristen. NIS2 erfordert zeitnahes Schwachstellenmanagement und Patch-Management.",
+    "add": "Patch-Eintrag hinzufügen",
+    "edit": "Patch-Eintrag bearbeiten",
+    "empty": "Noch keine Patch-Einträge. Fügen Sie Ihren ersten Eintrag hinzu.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diesen Patch-Eintrag löschen möchten?",
+    "actions": "Aktionen",
+    "severity": {
+      "critical": "Kritisch",
+      "high": "Hoch",
+      "medium": "Mittel",
+      "low": "Niedrig"
+    },
+    "status": {
+      "pending": "Ausstehend",
+      "applied": "Angewendet",
+      "exception": "Ausnahme",
+      "not_applicable": "Nicht zutreffend"
+    },
+    "fields": {
+      "patchIdentifier": "Patch-ID",
+      "severity": "Schweregrad",
+      "title": "Titel",
+      "assetId": "Asset",
+      "status": "Status",
+      "releaseDate": "Veröffentlichungsdatum",
+      "appliedAt": "Angewandt am",
+      "exceptionReason": "Ausnahmegrund"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Geben Sie die eindeutige Kennung des Patches an (z. B. CVE-Nummer, KB-Nummer oder Herstellerreferenz).",
+      "severity": "Wählen Sie den Schweregrad der Schwachstelle: Kritisch, Hoch, Mittel oder Niedrig.",
+      "title": "Geben Sie eine kurze Beschreibung des Patches oder der behobenen Schwachstelle an.",
+      "assetId": "Wählen Sie das betroffene Asset aus dem Asset-Register, auf das dieser Patch angewendet werden soll.",
+      "status": "Wählen Sie den aktuellen Patch-Status: Ausstehend, Angewendet, Ausnahme oder Nicht zutreffend.",
+      "releaseDate": "Datum, an dem der Patch vom Hersteller veröffentlicht wurde.",
+      "appliedAt": "Datum, an dem der Patch tatsächlich auf dem betroffenen Asset eingespielt wurde.",
+      "exceptionReason": "Falls der Patch zurückgestellt wird, dokumentieren Sie hier die Begründung und die geplanten Kompensationsmaßnahmen."
+    }
+  }
+}

@@ -1,0 +1,40 @@
+node_modules
+.next
+.git
+.gitignore
+.github
+
+# Secrets — never let any of these enter the build context, even
+# transitively into the builder stage layer cache.
+.env*
+!.env.example
+google-service-account.json
+*.pem
+*.key
+*.p12
+*.pfx
+**/credentials.json
+**/service-account*.json
+
+# Dev/IDE
+.vscode
+.idea
+.DS_Store
+*.swp
+.cache
+
+# Local Claude state
+.claude/
+
+# Test / coverage artifacts
+coverage
+.nyc_output
+*.lcov
+
+# Build outputs from workspace packages (force fresh install in container)
+packages/*/dist
+packages/*/.turbo
+packages/*/node_modules
+
+# TS build cache (regenerated)
+*.tsbuildinfo

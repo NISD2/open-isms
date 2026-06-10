@@ -1,0 +1,28 @@
+{
+  "landing": {
+    "title": "Halve Europe's NIS2 bill.",
+    "subtitle": "<link>€31 billion every year</link>. We're cutting it in half.",
+    "productLine": "Free NIS2 compliance for regulated companies and their suppliers.",
+    "badge": "NIS2 / BSIG - Deadline: March 2026",
+    "badgeTooltip": "The German BSIG (BSI-Gesetz) transposing the EU NIS2 Directive requires affected entities to implement all cybersecurity measures by March 2026. Non-compliance carries fines up to €10M or 2% of global turnover, and personal liability for managing directors.",
+    "nis2Badge": "NIS2 Directive (EU) 2022/2555",
+    "nis2BadgeTooltip": "Built on the full NIS2 Directive covering all 27 EU member states. All 10 Article 21 cybersecurity measures mapped and implemented. Valid across every EU country, not just Germany.",
+    "cirBadge": "CIR 2024/2690",
+    "cirBadgeTooltip": "Commission Implementing Regulation (EU) 2024/2690 defines the strictest technical requirements for NIS2 compliance. It establishes the common baseline across all EU member states for DNS providers, TLD registries, cloud providers, data centres, CDNs, managed services, managed security services, online marketplaces, search engines, social networks, and trust service providers.",
+    "bsigBadge": "BSIG §30 | IT-Grundschutz defaults",
+    "bsigBadgeTooltip": "Built on the German BSIG §30 -- the strictest NIS2 transposition in the EU -- with IT-Grundschutz methodology defaults. Comply once, valid across 27 EU member states. §44(2) BSIG recognises Grundschutz implementation as NIS2 compliance.",
+    "checkApplicability": "Check if NIS2 applies to you",
+    "scheduleDemo": "Schedule a Demo",
+    "startTraining": "Free NIS2 Managing Director Training",
+    "signIn": "Sign in to start the process",
+    "stats": {
+      "urgency": "160,000+ EU entities in scope · Fines up to €10M or 2% of global annual turnover (Art. 34 NIS2) · Management personally liable (Art. 20 NIS2)"
+    },
+    "nav": {
+      "wiki": "Wiki",
+      "pricing": "Pricing",
+      "about": "About",
+      "cta": "Get started"
+    }
+  }
+}

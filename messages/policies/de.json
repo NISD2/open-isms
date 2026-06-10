@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Richtlinien",
+    "description": "Sicherheitsrichtlinien, Verfahren und Leitfäden mit Genehmigungsverfolgung. Grundlage von NIS2 Art. 21(1).",
+    "helpText": "Erstellen und verwalten Sie Ihre Informationssicherheitsrichtlinien. Jede Richtlinie durchläuft einen Lebenszyklus: Entwurf, Prüfung, Genehmigung, Archivierung. Verfolgen Sie die Versionshistorie und stellen Sie sicher, dass alle relevanten Mitarbeiter aktuelle Richtlinien zur Kenntnis nehmen.",
+    "add": "Richtlinie hinzufügen",
+    "edit": "Richtlinie bearbeiten",
+    "empty": "Noch keine Richtlinien vorhanden. Erstellen Sie Ihr erstes Richtliniendokument.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diese Richtlinie löschen möchten?",
+    "actions": "Aktionen",
+    "status": {
+      "draft": "Entwurf",
+      "approved": "Genehmigt",
+      "archived": "Archiviert"
+    },
+    "fields": {
+      "title": "Titel",
+      "type": "Typ",
+      "version": "Version",
+      "content": "Inhalt",
+      "status": "Status",
+      "effectiveFrom": "Gültig ab",
+      "reviewDue": "Überprüfung fällig"
+    },
+    "fieldDescriptions": {
+      "title": "Geben Sie den vollständigen Titel der Richtlinie an (z. B. 'Informationssicherheitsrichtlinie').",
+      "type": "Wählen Sie den Dokumententyp: Richtlinie, Verfahrensanweisung oder Leitfaden.",
+      "version": "Geben Sie die aktuelle Versionsnummer an (z. B. 1.0, 2.1). Erhöhen Sie die Version bei jeder Überarbeitung.",
+      "content": "Geben Sie den vollständigen Inhalt der Richtlinie ein oder fügen Sie ihn ein.",
+      "status": "Wählen Sie den aktuellen Freigabestatus: Entwurf, Genehmigt oder Archiviert.",
+      "effectiveFrom": "Datum, ab dem diese Richtlinie in Kraft tritt und für alle Mitarbeiter verbindlich ist.",
+      "reviewDue": "Datum, bis zu dem diese Richtlinie spätestens überprüft und bei Bedarf aktualisiert werden muss."
+    }
+  }
+}

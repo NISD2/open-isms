@@ -1,0 +1,915 @@
+{
+  "lastUpdated": "2026-05-17",
+  "methodology": {
+    "de": "Wir haben am 17. Mai 2026 die Preisseiten von ~150 GRC/ISMS/NIS2-Anbietern besucht. Preise wurden wörtlich von der eigenen Website jedes Anbieters übernommen. Wo Preise hinter einem Demo-Formular versteckt sind, steht 'Demo-Termin erforderlich'. Keine Extrapolation aus G2, Capterra oder Drittquellen.",
+    "en": "On 17 May 2026 we visited the pricing pages of ~150 GRC/ISMS/NIS2 vendors. Prices are quoted verbatim from each vendor's own website. Where pricing is hidden behind a demo form we record 'Demo call required'. No extrapolation from G2, Capterra or third-party sources."
+  },
+  "vendors": [
+    {
+      "id": "nisd2",
+      "name": "nisd2.eu",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 0,
+      "priceModel": {
+        "de": "€0 — kostenlos und Open Source. Kein Lock-in. Keine Demo-Calls. Keine versteckten Gebühren.",
+        "en": "€0 — free and open source. No lock-in. No demo calls. No hidden fees."
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "BSIG", "IT-Grundschutz", "GDPR"],
+      "freeTier": "oss",
+      "formLikeness": "low",
+      "sourceUrl": "https://nisd2.eu/pricing",
+      "notes": {
+        "de": "Halbierung der NIS-2-Compliance-Rechnung Europas. Mission-driven, keine VC-Finanzierung.",
+        "en": "Halving Europe's NIS 2 compliance bill. Mission-driven, no VC."
+      },
+      "lastVerified": "2026-05-17",
+      "dataExport": "full-open",
+      "dataExportEvidence": {
+        "de": "Open-Source-Datenmodell auf GitHub (github.com/NISD2/grc-data-model). Vollständig dokumentiert, kopierbar, selbst hostbar. Vollständiger Export inklusive Änderungs-Historie: Assets, Risikoregister, Lieferanten, Sign-Off-Ketten, Vorfall-Timelines, mit Beziehungen und Versionsverlauf. Der Kunde besitzt das Schema UND die Verknüpfungen, nicht nur Listen-Snapshots.",
+        "en": "Open-source data model on GitHub (github.com/NISD2/grc-data-model). Fully documented, copyable, self-hostable. Full export including change history: assets, risk register, suppliers, sign-off chains, incident timelines, with relationships and version trail intact. The customer owns the schema AND the relationships, not just list snapshots."
+      }
+    },
+    {
+      "id": "verinice",
+      "name": "verinice",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 240,
+      "priceModel": {
+        "de": "€240/Jahr NIS-2-Bundle (1 Hauptnutzer, 2 Units); Open-Source-Variante (EPL) kostenlos",
+        "en": "€240/year NIS-2 bundle (1 main user, 2 units); free OSS (EPL) option"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "IT-Grundschutz", "GDPR"],
+      "freeTier": "oss",
+      "formLikeness": "medium",
+      "sourceUrl": "https://account.verinice.com/en/verinice-NIS-2/VSN10012",
+      "notes": {
+        "de": "Einziger Anbieter mit OSS-Lizenz UND transparenter SaaS-Preisgestaltung",
+        "en": "Only vendor with OSS license AND transparent SaaS pricing"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "nis2compass",
+      "name": "NIS2Compass",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 29,
+      "priceModel": {
+        "de": "Ab €29/Monat (NIS2-only, 'ohne Berater')",
+        "en": "From €29/month (NIS2-only, 'no consultants')"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2"],
+      "freeTier": "none",
+      "formLikeness": "high",
+      "sourceUrl": "https://nis2compass.de/",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "edira",
+      "name": "EDIRA (ETES)",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 49,
+      "priceModel": {
+        "de": "€49/Monat + €150 Setup (NIS-2-Add-on auf bestehendes Framework)",
+        "en": "€49/month + €150 setup (NIS-2 add-on on existing framework)"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "TISAX", "IT-Grundschutz"],
+      "freeTier": "none",
+      "formLikeness": "medium",
+      "sourceUrl": "https://www.etes.de",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "grasp",
+      "name": "GRASP German GRC",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 159,
+      "priceModel": {
+        "de": "€159–€179/Monat NIS2-Modul (3-Jahres-Bindung 159; 1 Jahr 179); 1 Nutzer inkl.",
+        "en": "€159–€179/month NIS2 module (3-yr lock 159; 1-yr 179); 1 user incl."
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "IT-Grundschutz", "Datenschutz"],
+      "freeTier": "trial",
+      "formLikeness": "medium",
+      "sourceUrl": "https://grasp-grc.com/produkte/isms/nis2/preise/",
+      "notes": null,
+      "lastVerified": "2026-05-17",
+      "dataExport": "report-only",
+      "dataExportEvidence": {
+        "de": "Berichte exportierbar als PDF, Excel, Word; Audit-Dossier-Export verfügbar. Das sind BERICHT-Exporte, kein Datenmodell-Export. Vollständige Audit-Historie kann in keiner anderen Plattform rekonstruiert werden.",
+        "en": "Reports exportable as PDF, Excel, Word; audit dossier export available. These are REPORT exports, not data-model export. Full audit history cannot be reconstructed in another platform."
+      }
+    },
+    {
+      "id": "conformio",
+      "name": "Conformio (Advisera)",
+      "country": "HR",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 145,
+      "priceModel": {
+        "de": "Starter €145/Mo, Pro €245/Mo, Advanced €299/Mo (jährliche Abrechnung)",
+        "en": "Starter €145/mo, Pro €245/mo, Advanced €299/mo (annual)"
+      },
+      "nis2Listed": false,
+      "frameworks": ["ISO 27001"],
+      "freeTier": "trial",
+      "formLikeness": "high",
+      "sourceUrl": "https://advisera.com/conformio/",
+      "notes": {
+        "de": "Deckt KEIN NIS2 ab — nur ISO 27001. Advisera verkauft NIS2 als separates Dokumenten-Kit, nicht in Conformio.",
+        "en": "Does NOT cover NIS2 — ISO 27001 only. Advisera sells NIS2 as a separate doc toolkit, not in Conformio."
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "nis2vision",
+      "name": "NIS2Vision",
+      "country": "EU",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 4999,
+      "priceModel": {
+        "de": "Basic €4.999/Jahr 1 (Setup €2.599 + €200/Mo, 5 Nutzer); Important €8.800/Jahr 1; Essential €17.600/Jahr 1",
+        "en": "Basic €4,999 yr 1 (setup €2,599 + €200/mo, 5 users); Important €8,800 yr 1; Essential €17,600 yr 1"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2"],
+      "freeTier": "none",
+      "formLikeness": "medium",
+      "sourceUrl": "https://nis2vision.eu/pricing",
+      "notes": null,
+      "lastVerified": "2026-05-17",
+      "dataExport": "none-documented",
+      "dataExportEvidence": {
+        "de": "Keine öffentliche Dokumentation gefunden. Vor jeder Mehrjahres-Bindung direkt beim Anbieter prüfen.",
+        "en": "No public documentation found. Verify directly with the vendor before any multi-year commitment."
+      }
+    },
+    {
+      "id": "copla",
+      "name": "Copla (ex-CyberUpgrade)",
+      "country": "LT",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 3500,
+      "priceModel": {
+        "de": "NIS2 €3.500/Jahr + €499 Onboarding (eigene SKU); ISO 27001 €2.999/Jahr; DORA €4.500/Jahr; 20 % Rabatt pro Folge-Framework",
+        "en": "NIS2 €3,500/year + €499 onboarding (own SKU); ISO 27001 €2,999/yr; DORA €4,500/yr; 20% off each additional framework"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "DORA", "PCI DSS", "SOC 2"],
+      "freeTier": "none",
+      "formLikeness": "medium",
+      "sourceUrl": "https://copla.com/pricing",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "activemind-cloud",
+      "name": "activeMind.cloud",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 290,
+      "priceModel": {
+        "de": "€290/Monat pro Modul + €49 pro zusätzlicher Norm; Whistleblowing €99-€390/Mo; zusätzliche Nutzer €20/Mo",
+        "en": "€290/month per module + €49 per additional norm; Whistleblowing €99-€390/mo; extra users €20/mo"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "TISAX", "DSGVO"],
+      "freeTier": "none",
+      "formLikeness": "medium",
+      "sourceUrl": "https://www.activemind.cloud/preise",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "matproof",
+      "name": "Matproof",
+      "country": "NL",
+      "tier": "transparent",
+      "category": "grc",
+      "entryPriceEur": 480,
+      "priceModel": {
+        "de": "Starter €480/Mo (1 Framework, 10 Mitglieder); Professional €1.200/Mo (3 Frameworks); 20 % Jahresrabatt",
+        "en": "Starter €480/mo (1 framework, 10 members); Professional €1,200/mo (3 frameworks); 20% annual discount"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "DORA", "ISO 27001", "SOC 2", "GDPR", "EU AI Act", "CRA", "CSRD"],
+      "freeTier": "trial",
+      "formLikeness": "medium",
+      "sourceUrl": "https://matproof.com/pricing",
+      "notes": {
+        "de": "Einziger EU-nativer Anbieter mit transparenter EUR-Preisgestaltung und KI-Policy-Generator",
+        "en": "Only EUR-native EU/US challenger with transparent pricing + AI policy generator"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "cyberday",
+      "name": "Cyberday",
+      "country": "FI",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 2500,
+      "priceModel": {
+        "de": "Mitarbeiter-Staffel: <20 €2.500/Jahr; 20-49 €3.200; 50-99 €4.500; 100-199 €6.800; 200-499 €9.900; bis 2.999 €19.900",
+        "en": "Employee band: <20 €2,500/yr; 20-49 €3,200; 50-99 €4,500; 100-199 €6,800; 200-499 €9,900; up to 2,999 €19,900"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "GDPR", "30+ frameworks"],
+      "freeTier": "trial",
+      "formLikeness": "medium",
+      "sourceUrl": "https://www.cyberday.ai/pricing",
+      "notes": {
+        "de": "Sauberste banded SME-Preisstruktur der NIS2-Anbieter",
+        "en": "Cleanest SME-banded pricing of any NIS2-explicit vendor"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "wired-relations",
+      "name": "Wired Relations",
+      "country": "DK",
+      "tier": "partial",
+      "category": "grc",
+      "entryPriceEur": 670,
+      "priceModel": {
+        "de": "Free (150 Elemente); Pro €670/Mo (nur Jahresabrechnung); Enterprise auf Anfrage",
+        "en": "Free (150 elements); Pro €670/mo (annual billing only); Enterprise quote"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "GDPR"],
+      "freeTier": "freemium",
+      "formLikeness": "high",
+      "sourceUrl": "https://www.wiredrelations.com/pricing",
+      "notes": {
+        "de": "Teil der Cerivo-Gruppe (RISMA + Wired Relations + ComplyCloud Fusion 2025/2026)",
+        "en": "Part of Cerivo group (RISMA + Wired Relations + ComplyCloud merger 2025/2026)"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "ratisbona",
+      "name": "Ratisbona Compliance",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "consultancy",
+      "entryPriceEur": 799,
+      "priceModel": {
+        "de": "RC_NIS2 €799/Monat (Workshops + ISMS-Software); GF-Schulung €999 einmalig",
+        "en": "RC_NIS2 €799/month (workshops + ISMS); GF-Schulung €999 one-off"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2"],
+      "freeTier": "none",
+      "formLikeness": "low",
+      "sourceUrl": "https://ratisbona-compliance.de/preis/",
+      "notes": {
+        "de": "Co-Geschäftsführer Volkmer ist Präsident der IHK Regensburg — strukturelle Vertriebsstärke in der Oberpfalz",
+        "en": "Co-GF Volkmer is President of IHK Regensburg — structural distribution moat in Oberpfalz"
+      },
+      "lastVerified": "2026-05-17",
+      "dataExport": "none-documented",
+      "dataExportEvidence": {
+        "de": "Beworbene 'ISMS-Software ist bereits enthalten' — das genaue gebündelte Tool wird nicht öffentlich genannt. Audit-Daten leben dort, Portabilität hängt am gewählten Tool. Vor Verpflichtung prüfen. Dual-Lock-in (Daten + Workshop-Kadenz).",
+        "en": "Advertised 'ISMS software bundled' but the specific bundled tool is not named publicly. Audit data lives there; portability depends on which tool. Verify before commitment. Dual lock-in (data + workshop cadence)."
+      }
+    },
+    {
+      "id": "ciso-assistant",
+      "name": "CISO Assistant (intuitem)",
+      "country": "FR",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 0,
+      "priceModel": {
+        "de": "OSS Community Edition (AGPLv3) kostenlos; Pro + Enterprise Demo-Call erforderlich",
+        "en": "OSS Community Edition (AGPLv3) free; Pro + Enterprise demo-gated"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "DORA", "GDPR", "ISO 27001", "NIST CSF", "SOC 2", "CIS", "PCI DSS", "HIPAA", "CMMC", "130+ frameworks"],
+      "freeTier": "oss",
+      "formLikeness": "medium",
+      "sourceUrl": "https://github.com/intuitem/ciso-assistant-community",
+      "notes": {
+        "de": "Direkter OSS-Konkurrent zu nisd2.eu mit 130+ Frameworks; AGPLv3 = starkes Copyleft",
+        "en": "Direct OSS competitor to nisd2.eu with 130+ frameworks; AGPLv3 = strong copyleft"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "isms-builder",
+      "name": "ISMS Builder",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 0,
+      "priceModel": {
+        "de": "Self-hosted, kostenlos (AGPL-3.0). 'No cloud. No SaaS fees. Your data stays on your server.'",
+        "en": "Self-hosted, free (AGPL-3.0). 'No cloud. No SaaS fees. Your data stays on your server.'"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001:2022", "GDPR", "BSI IT-Grundschutz", "EU CRA", "EUCS", "EU AI Act"],
+      "freeTier": "oss",
+      "formLikeness": "medium",
+      "sourceUrl": "https://www.isms-builder.com/",
+      "notes": {
+        "de": "Strukturell engster Konkurrent zu nisd2.eu (DE + AGPL + BSI Grundschutz + NIS2 + Anti-Vanta-Positionierung)",
+        "en": "Closest structural competitor to nisd2.eu (DE + AGPL + BSI Grundschutz + NIS2 + anti-Vanta positioning)"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "deming",
+      "name": "Deming",
+      "country": "FR",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 0,
+      "priceModel": {
+        "de": "Self-hosted via Docker, kostenlos (GPL-3.0)",
+        "en": "Self-hosted via Docker, free (GPL-3.0)"
+      },
+      "nis2Listed": true,
+      "frameworks": ["ISO 27001", "ISO 22301", "NIS2", "PCI DSS 4.0", "NIST 800-53", "DORA", "HDS"],
+      "freeTier": "oss",
+      "formLikeness": "medium",
+      "sourceUrl": "https://github.com/dbarzin/deming",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "unicis",
+      "name": "Unicis Platform CE",
+      "country": "EU",
+      "tier": "transparent",
+      "category": "grc",
+      "entryPriceEur": 0,
+      "priceModel": {
+        "de": "Self-hosted kostenlos (Apache-2.0); Cloud-Trial verfügbar, Preise auf Anfrage",
+        "en": "Self-hosted free (Apache-2.0); cloud trial available, cloud pricing not disclosed"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "GDPR", "ISO 27001", "SOC 2 Type II", "NIST CSF 2.0", "CIS v8.1", "PCI DSS 4.0.1", "ISO 42001"],
+      "freeTier": "oss",
+      "formLikeness": "high",
+      "sourceUrl": "https://github.com/UnicisTech/unicis-platform-ce",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "little-isms-helper",
+      "name": "Little-ISMS-Helper",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 0,
+      "priceModel": {
+        "de": "Self-hosted, kostenlos (AGPL-3.0)",
+        "en": "Self-hosted, free (AGPL-3.0)"
+      },
+      "nis2Listed": true,
+      "frameworks": ["ISO 27001:2022", "BSI IT-Grundschutz", "NIS-2", "DORA", "GDPR", "TISAX", "EU AI Act", "PCI-DSS 4.0.1", "25+ standards"],
+      "freeTier": "oss",
+      "formLikeness": "medium",
+      "sourceUrl": "https://github.com/moag1000/Little-ISMS-Helper",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "nis2-public",
+      "name": "NIS2 Public Platform",
+      "country": "IT",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 0,
+      "priceModel": {
+        "de": "Self-hosted, kostenlos (AGPL-3.0) oder kommerzielle Lizenz; NIS2-spezifisch (Art. 21 + Art. 23 + Italien D.Lgs 138/2024)",
+        "en": "Self-hosted, free (AGPL-3.0) or commercial license; NIS2-native (Art. 21 + Art. 23 + Italy D.Lgs 138/2024)"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2"],
+      "freeTier": "oss",
+      "formLikeness": "medium",
+      "sourceUrl": "https://github.com/fabriziosalmi/nis2-public",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "eramba",
+      "name": "Eramba",
+      "country": "CH",
+      "tier": "transparent",
+      "category": "grc",
+      "entryPriceEur": 2500,
+      "priceModel": {
+        "de": "Community Edition kostenlos (non-OSI-Lizenz); Self-host Enterprise €2.500/Jahr; SaaS Enterprise €5.000/Jahr",
+        "en": "Community free (non-OSI license); self-host Enterprise €2,500/yr; SaaS Enterprise €5,000/yr"
+      },
+      "nis2Listed": false,
+      "frameworks": ["ISO 27001", "NIST", "PCI DSS", "GDPR", "COBIT"],
+      "freeTier": "freemium",
+      "formLikeness": "high",
+      "sourceUrl": "https://www.eramba.org/get-started-grc",
+      "notes": {
+        "de": "Transparentestes Enterprise-GRC der Branche — Flatrate, unbegrenzte Nutzer, keine Per-Framework-Aufpreise",
+        "en": "Most pricing-transparent enterprise GRC in the market — flat fee, unlimited users, no per-framework upcharges"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "venvera",
+      "name": "Venvera",
+      "country": "NL",
+      "tier": "transparent",
+      "category": "grc",
+      "entryPriceEur": 399,
+      "priceModel": {
+        "de": "Basic €399/Mo (4 Frameworks: DORA, NIS2, GDPR, Cyber Essentials); Pro €899/Mo (6 incl. ISO 27001, EU AI Act); 11 % Jahresrabatt",
+        "en": "Basic €399/mo (4 frameworks: DORA, NIS2, GDPR, Cyber Essentials); Pro €899/mo (6 incl. ISO 27001, EU AI Act); 11% annual discount"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "DORA", "GDPR", "Cyber Essentials", "ISO 27001", "EU AI Act"],
+      "freeTier": "trial",
+      "formLikeness": "medium",
+      "sourceUrl": "https://venvera.com/pricing",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "defendsphere",
+      "name": "Defendsphere",
+      "country": "EU",
+      "tier": "transparent",
+      "category": "grc",
+      "entryPriceEur": 299,
+      "priceModel": {
+        "de": "Basic €299/Mo (5 Infrastruktur-Lizenzen); Standard €499/Mo; Premium auf Anfrage",
+        "en": "Basic €299/mo (5 infra licenses); Standard €499/mo; Premium custom"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "DORA", "GDPR", "ISO 27001", "SOC 2", "PCI-DSS"],
+      "freeTier": "none",
+      "formLikeness": "medium",
+      "sourceUrl": "https://www.defendsphere.io/",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "compleye",
+      "name": "Compleye",
+      "country": "NL",
+      "tier": "transparent",
+      "category": "grc",
+      "entryPriceEur": 275,
+      "priceModel": {
+        "de": "Platform €275/Mo; NIS2-Verification (2 Tage) €1.600; Training (4 Tage) auf Anfrage",
+        "en": "Platform €275/mo; NIS2 Verification (2-day) €1,600; Training (4-day) per request"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "GDPR", "AI Compliance"],
+      "freeTier": "none",
+      "formLikeness": "medium",
+      "sourceUrl": "https://compleye.io/",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "orbiq",
+      "name": "Orbiq",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "grc",
+      "entryPriceEur": 0,
+      "priceModel": {
+        "de": "Free €0; Team €85/Mo (€850/Jahr); Business €190/Mo (€1.900/Jahr); Enterprise auf Anfrage; 17 % Jahresrabatt",
+        "en": "Free €0; Team €85/mo (€850/yr); Business €190/mo (€1,900/yr); Enterprise custom; 17% annual discount"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "DORA", "ISO 27001", "TISAX"],
+      "freeTier": "freemium",
+      "formLikeness": "high",
+      "sourceUrl": "https://www.orbiqhq.com/pricing",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "isoplanner",
+      "name": "ISOPlanner",
+      "country": "NL",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 39,
+      "priceModel": {
+        "de": "NIS2 €39/Mo standalone; ISO €59-€118/User/Mo (jährlich)",
+        "en": "NIS2 €39/mo standalone; ISO €59-€118 per management user/mo (yearly)"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "GDPR", "supply chain", "AI"],
+      "freeTier": "trial",
+      "formLikeness": "low",
+      "sourceUrl": "https://isoplanner.app/pricing",
+      "notes": {
+        "de": "Eine der wenigen mit dedizierter NIS2-SKU; integriert in Microsoft 365 / Teams",
+        "en": "One of few with dedicated NIS2 SKU; M365/Teams integrated"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "outlex",
+      "name": "Outlex",
+      "country": "PT",
+      "tier": "transparent",
+      "category": "ai-grc",
+      "entryPriceEur": 249,
+      "priceModel": {
+        "de": "Core ab €249/Mo, Growth ab €549/Mo + Credits für Anwaltsberatung",
+        "en": "Core from €249/mo, Growth from €549/mo + per-credit lawyer consultations"
+      },
+      "nis2Listed": false,
+      "frameworks": ["EU AI Act", "Compliance Hub"],
+      "freeTier": "none",
+      "formLikeness": "low",
+      "sourceUrl": "https://outlex.ai/",
+      "notes": {
+        "de": "Einziger EU-AI-nativer Anbieter mit transparenter Preisgestaltung",
+        "en": "Only EU AI-native vendor with truly transparent pricing"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "nis2-manager",
+      "name": "NIS2 Manager / CYBER Manager",
+      "country": "CZ",
+      "tier": "transparent",
+      "category": "isms",
+      "entryPriceEur": 980,
+      "priceModel": {
+        "de": "24.900 CZK/Monat (~€980) zzgl. MwSt., Single-Tier, 12-Monats-Bindung, 30+ Module",
+        "en": "24,900 CZK/month (~€980) excl. VAT, single tier, 12-mo commitment, 30+ modules"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ZKB (Czech)", "DORA", "ISO 27001", "GDPR"],
+      "freeTier": "trial",
+      "formLikeness": "medium",
+      "sourceUrl": "https://nis2-manager.cz/",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "comp-ai",
+      "name": "Comp AI",
+      "country": "US",
+      "tier": "transparent",
+      "category": "ai-grc",
+      "entryPriceEur": 199,
+      "priceModel": {
+        "de": "$199/Mo Starter, $997/Mo Pro, $3.000 DFY einmalig; AGPLv3 Self-host kostenlos",
+        "en": "$199/mo Starter, $997/mo Pro, $3,000 DFY one-time; AGPLv3 self-host free"
+      },
+      "nis2Listed": false,
+      "frameworks": ["SOC 2", "ISO 27001", "HIPAA", "GDPR", "FedRAMP", "ISO 42001"],
+      "freeTier": "oss",
+      "formLikeness": "low",
+      "sourceUrl": "https://trycomp.ai",
+      "notes": {
+        "de": "Open-Source Vanta-Alternative",
+        "en": "Open-source Vanta alternative"
+      },
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "strike-graph",
+      "name": "Strike Graph",
+      "country": "US",
+      "tier": "partial",
+      "category": "grc",
+      "entryPriceEur": 9000,
+      "priceModel": {
+        "de": "Launch kostenlos; Certify ab $10.000/Jahr; Scale ab $21.500/Jahr; Enterprise ab $35.000/Jahr; Framework-Add-ons $2K-$8K",
+        "en": "Launch free; Certify from $10,000/yr; Scale from $21,500/yr; Enterprise from $35,000/yr; framework add-ons $2K-$8K"
+      },
+      "nis2Listed": true,
+      "frameworks": ["SOC 2", "ISO 27001", "NIS2 (add-on)", "HIPAA"],
+      "freeTier": "freemium",
+      "formLikeness": "medium",
+      "sourceUrl": "https://www.strikegraph.com/pricing",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "upguard",
+      "name": "UpGuard",
+      "country": "US",
+      "tier": "partial",
+      "category": "tprm",
+      "entryPriceEur": 1600,
+      "priceModel": {
+        "de": "Standard $1.750/Mo (jährlich, 50 Vendors); höhere Tiers auf Anfrage; zusätzliche Vendors $79/Mo",
+        "en": "Standard $1,750/mo (annual, 50 vendors); higher tiers gated; extra vendors $79/mo"
+      },
+      "nis2Listed": false,
+      "frameworks": ["TPRM", "attack surface"],
+      "freeTier": "none",
+      "formLikeness": "low",
+      "sourceUrl": "https://www.upguard.com/pricing",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "connectsecure",
+      "name": "ConnectSecure",
+      "country": "US",
+      "tier": "partial",
+      "category": "grc",
+      "entryPriceEur": 275,
+      "priceModel": {
+        "de": "Ab $300/Mo (MSP-only, nutzungsbasiert); Tier-Preise auf Anfrage",
+        "en": "From $300/mo (MSP only, usage-based); tier prices gated"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "MSP compliance"],
+      "freeTier": "trial",
+      "formLikeness": "medium",
+      "sourceUrl": "https://connectsecure.com/pricing",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "vcomply",
+      "name": "VComply",
+      "country": "US",
+      "tier": "partial",
+      "category": "grc",
+      "entryPriceEur": 920,
+      "priceModel": {
+        "de": "Pro GRC Suite ab $1.000/Mo pro Modul; nur jährlich, 12-Mo-Bindung; 20 % Non-Profit-Rabatt",
+        "en": "Pro GRC Suite from $1,000/mo per module; annual only, 12-mo minimum; 20% nonprofit discount"
+      },
+      "nis2Listed": false,
+      "frameworks": ["multi-framework GRC"],
+      "freeTier": "none",
+      "formLikeness": "high",
+      "sourceUrl": "https://www.v-comply.com/pricing",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "boc-adogrc",
+      "name": "BOC Group ADOGRC",
+      "country": "AT",
+      "tier": "partial",
+      "category": "grc",
+      "entryPriceEur": 520,
+      "priceModel": {
+        "de": "Focus Editions ab €520/Mo (5 Sitze); Core ab €1.195/Mo (3 Szenarien); Extended ab €2.100/Mo (7 Szenarien); detaillierte Quotes passwortgeschützt",
+        "en": "Focus Editions from €520/mo (5 seats); Core from €1,195/mo (3 scenarios); Extended from €2,100/mo (7 scenarios); detailed quotes password-protected"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "DORA", "Information & Cybersecurity"],
+      "freeTier": "none",
+      "formLikeness": "low",
+      "sourceUrl": "https://www.boc-group.com/en/adogrc/",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "heydata",
+      "name": "heyData",
+      "country": "DE",
+      "tier": "partial",
+      "category": "grc",
+      "entryPriceEur": 59,
+      "priceModel": {
+        "de": "Starter ab €59/Mo, Pro ab €99/Mo, Enterprise ab €169/Mo; 2-Jahres-Mindestbindung",
+        "en": "Starter from €59/mo, Pro from €99/mo, Enterprise from €169/mo; 2-year minimum contract"
+      },
+      "nis2Listed": true,
+      "frameworks": ["GDPR", "NIS2", "AI Act"],
+      "freeTier": "none",
+      "formLikeness": "medium",
+      "sourceUrl": "https://heydata.eu/preise",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "docusnap",
+      "name": "Docusnap",
+      "country": "DE",
+      "tier": "partial",
+      "category": "isms",
+      "entryPriceEur": 465,
+      "priceModel": {
+        "de": "Ab €465/Jahr (on-prem oder SaaS); skaliert mit Inventar-Größe",
+        "en": "From €465/year (on-prem or SaaS); scales by inventory size"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "IT-Dokumentation", "Asset-Inventar"],
+      "freeTier": "trial",
+      "formLikeness": "low",
+      "sourceUrl": "https://www.docusnap.com/preise/",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "kronsoft",
+      "name": "kronsoft (opus i)",
+      "country": "DE",
+      "tier": "partial",
+      "category": "isms",
+      "entryPriceEur": 259,
+      "priceModel": {
+        "de": "Ab €259/Jahr (Einstieg, 2 Module + Support + Updates); volle Preisliste als PDF-Download",
+        "en": "From €259/year (entry: 2 modules + support + updates); full price list as downloadable PDF"
+      },
+      "nis2Listed": false,
+      "frameworks": ["IT-Grundschutz", "ISO 27001", "Datenschutz"],
+      "freeTier": "freemium",
+      "formLikeness": "medium",
+      "sourceUrl": "https://www.kronsoft.de/249euroanno/249euroanno.html",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "proliance",
+      "name": "Proliance",
+      "country": "DE",
+      "tier": "partial",
+      "category": "consultancy",
+      "entryPriceEur": 125,
+      "priceModel": {
+        "de": "Datenschutz ab €125-€233/Mo; ISMS Light ab €500/Mo; ISMS Core ab €1.000/Mo; NIS2 Executive Training €600",
+        "en": "Data Protection from €125-€233/mo; ISMS Light from €500/mo; ISMS Core from €1,000/mo; NIS2 Executive Training €600"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "GDPR", "ISO 27001"],
+      "freeTier": "none",
+      "formLikeness": "medium",
+      "sourceUrl": "https://www.proliance.ai/preise",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "cybervize",
+      "name": "Cybervize",
+      "country": "DE",
+      "tier": "partial",
+      "category": "consultancy",
+      "entryPriceEur": 3600,
+      "priceModel": {
+        "de": "vCISO Basic €3.600/Mo (≤20h); Standard €4.900/Mo (≤40h); Interim CISO €8.000-€15.000/Mo; Plattform-Lizenz modular, nicht öffentlich",
+        "en": "vCISO Basic €3,600/mo (≤20h); Standard €4,900/mo (≤40h); Interim CISO €8,000-€15,000/mo; platform license modular, undisclosed"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2"],
+      "freeTier": "trial",
+      "formLikeness": "low",
+      "sourceUrl": "https://www.cybervize.de",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "mitratech-alyne",
+      "name": "Mitratech Alyne",
+      "country": "DE",
+      "tier": "partial",
+      "category": "grc",
+      "entryPriceEur": 25000,
+      "priceModel": {
+        "de": "Enterprise-Plan ab €25.000/Jahr (öffentlich angegeben); 1.500+ Kontroll-Bibliothek",
+        "en": "Enterprise plan from €25,000/year (publicly stated); 1,500+ control library"
+      },
+      "nis2Listed": false,
+      "frameworks": ["ERM", "IT risk", "TPRM", "GDPR", "BCM"],
+      "freeTier": "none",
+      "formLikeness": "low",
+      "sourceUrl": "https://mitratech.com/products/alyne/",
+      "notes": null,
+      "lastVerified": "2026-05-17"
+    },
+    { "id": "vanta", "name": "Vanta", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich (4 Tiers: Essentials, Plus, Professional, Enterprise — keine €-Werte)", "en": "Demo call required (4 tiers: Essentials, Plus, Professional, Enterprise — no prices shown)" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "GDPR", "HIPAA"], "freeTier": "trial", "formLikeness": "medium", "sourceUrl": "https://www.vanta.com/pricing", "notes": null, "lastVerified": "2026-05-17", "dataExport": "report-only", "dataExportEvidence": { "de": "Starke Dokumentation für eingehende Migration (INTO Vanta). Ausgehende Migration nicht öffentlich dokumentiert. Audit-Belege werden in der Plattform als 'Ready/Not Ready for Audit' geführt, ohne Portabilitäts-Paket.", "en": "Strong inbound migration support (INTO Vanta) documented. Outbound migration NOT specifically published. Audit evidence marked 'Ready/Not Ready for Audit' within the platform, no portability package." } },
+    { "id": "drata", "name": "Drata", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; NIS2 nicht auf Preisseite gelistet", "en": "Demo call required; NIS2 not listed on pricing page" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "GDPR", "HIPAA", "DORA"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://drata.com/pricing", "notes": null, "lastVerified": "2026-05-17", "dataExport": "documented-partial", "dataExportEvidence": { "de": "Beste Dokumentation in der untersuchten Gruppe. Hilfeseiten beschreiben Evidence-Library-Export, Control-to-Requirement-Mapping als CSV, manuellen Evidence-Daten-Export als JSON. Keine vollständige Audit-Historien-Migrationsdokumentation, aber mehr als die meisten Konkurrenten zeigen.", "en": "Best-documented export in the surveyed batch. Help-center articles cover evidence library export, control-to-requirement mapping as CSV, manual evidence data export to JSON. No documented full audit-history migration, but more than competitors publish." } },
+    { "id": "secureframe", "name": "Secureframe", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'Get a quote' auf jeder Stufe", "en": "Demo call required; 'Get a quote' on every tier" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "HIPAA", "PCI DSS", "GDPR"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://secureframe.com/pricing", "notes": null, "lastVerified": "2026-05-17", "dataExport": "documented-partial", "dataExportEvidence": { "de": "Gefilterter CSV-Export auf lokale Festplatte oder Data Room. CSV-only limitiert die Portabilität — kein vollständiges Datenmodell. Hilft beim Audit, schwach bei Tool-Wechsel.", "en": "Filtered CSV export to local drive or data room. CSV-only limits portability — no full data model. Useful at audit time, weak for tool migration." } },
+    { "id": "sprinto", "name": "Sprinto", "country": "IN", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Seite ist JS-SPA, keine Preise sichtbar", "en": "Demo call required; pricing page is JS SPA, no prices visible" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "70+ frameworks"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://sprinto.com/pricing/", "notes": null, "lastVerified": "2026-05-17", "dataExport": "documented-partial", "dataExportEvidence": { "de": "Dokumentierter Export von Evidence, Policies und Control-Implementations. Drittquellen beschreiben FROM-Sprinto-Migrationspfade. Unter den portabilitätsfreundlicheren der Gruppe.", "en": "Documented export of evidence, policies, and control implementations. Third-party sources describe FROM-Sprinto migration paths. Among the more portability-friendly in this batch." } },
+    { "id": "onetrust", "name": "OneTrust", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 6 separate Lösungssuites, alle modular bepreist", "en": "Demo call required; 6 separate solution suites, all modular" }, "nis2Listed": false, "frameworks": ["GDPR", "AI Governance", "TPRM", "Privacy"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.onetrust.com/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "scytale", "name": "Scytale", "country": "IL", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 5 Tier-Namen ohne Preise", "en": "Demo call required; 5 tier names without prices" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "GDPR", "HIPAA"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://scytale.ai/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "hyperproof", "name": "Hyperproof", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'AI-powered GRC' Marketing-Positionierung", "en": "Demo call required; 'AI-powered GRC' marketing" }, "nis2Listed": true, "frameworks": ["NIS2", "140+ frameworks"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://hyperproof.io/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "optro", "name": "AuditBoard (now Optro)", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; März 2026 von AuditBoard zu Optro umbenannt", "en": "Demo call required; rebranded March 2026 AuditBoard → Optro" }, "nis2Listed": false, "frameworks": ["audit", "TPRM", "ESG"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://optro.ai/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "wiz", "name": "Wiz", "country": "US", "tier": "gated", "category": "cspm", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Cloud-Security CNAPP, nicht reines GRC", "en": "Demo call required; cloud-security CNAPP, not pure GRC" }, "nis2Listed": false, "frameworks": ["cloud security", "5 product lines"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.wiz.io/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "hybridity", "name": "Hybridity (Hy5)", "country": "SE", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; €2M Seed Feb 2026", "en": "Demo call required; €2M raise Feb 2026" }, "nis2Listed": true, "frameworks": ["NIS2", "DORA", "GDPR"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.hybridity.ai/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "securityscorecard", "name": "SecurityScorecard", "country": "US", "tier": "gated", "category": "ratings", "entryPriceEur": null, "priceModel": { "de": "Free Forever Tier (begrenzt); Core/Premium/Elite/TITAN MAX alle Demo-Termin", "en": "Free Forever tier (limited); Core/Premium/Elite/TITAN MAX all demo-gated" }, "nis2Listed": false, "frameworks": ["cyber ratings"], "freeTier": "freemium", "formLikeness": "low", "sourceUrl": "https://securityscorecard.com/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "compliance-aspekte", "name": "Compliance Aspekte", "country": "DE", "tier": "unverifiable", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Website war unerreichbar (HTTP 522) bei der Prüfung", "en": "Website was unreachable (HTTP 522) at audit time" }, "nis2Listed": false, "frameworks": ["GRC"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://compliance-aspekte.de/preise/", "notes": null, "lastVerified": "2026-05-17", "dataExport": "report-only", "dataExportEvidence": { "de": "Einheitliches Daten-Repository mit Integrationen zu Azure/SAP/i-doit (eingehend). Keine veröffentlichte Kunden-Export-Dokumentation für ausgehende Migration. Audit-Historie bleibt im proprietären Format der Plattform.", "en": "Unified data repository with Azure/SAP/i-doit integrations (inbound). No published customer-led data export documentation for outbound migration. Audit history stays in the platform's proprietary format." } },
+    { "id": "dataguard", "name": "DataGuard", "country": "DE", "tier": "gated", "category": "consultancy", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Base/Pro/Enterprise — alle 'Get a quote'", "en": "Demo call required; Base/Pro/Enterprise — all 'Get a quote'" }, "nis2Listed": true, "frameworks": ["NIS2", "ISO 27001", "TISAX", "GDPR"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.dataguard.com/pricing/", "notes": null, "lastVerified": "2026-05-17", "dataExport": "none-documented", "dataExportEvidence": { "de": "GDPR-Datensubjekt-Portabilität dokumentiert (Betroffenenrechte). Plattform-Ebene Kunden-Migration AUS DataGuard NICHT öffentlich dokumentiert. Die beworbene 'Seamless Migration' meint Migration IN DataGuard, nicht heraus.", "en": "GDPR data-subject portability documented (data subject rights). Platform-level customer-led migration OUTbound NOT publicly documented. The 'seamless migration' they advertise refers to migration INTO DataGuard, not out." } },
+    { "id": "hiscout", "name": "HiScout", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; keine öffentliche Preisseite", "en": "Demo call required; no public pricing page" }, "nis2Listed": true, "frameworks": ["NIS2", "BCM", "IT-Grundschutz"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.hiscout.com/", "notes": null, "lastVerified": "2026-05-17", "dataExport": "report-only", "dataExportEvidence": { "de": "Client Backup für operative Kontinuität. Revisionssichere Dokumentenverwaltung mit Historisierung und Versionierung. Keine dokumentierte Kunden-Datenexportfunktion für Migration zu einer anderen Plattform.", "en": "Client Backup for operational continuity. Audit-proof document management with historization and versioning. No documented customer-led data export for migration to another platform." } },
+    { "id": "omnitracker", "name": "OMNITRACKER", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'KOSTENFREI TESTEN' ist Demo-Anfrage", "en": "Demo call required; 'KOSTENFREI TESTEN' is demo request" }, "nis2Listed": true, "frameworks": ["NIS2", "multi-standard"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.omnitracker.com/", "notes": null, "lastVerified": "2026-05-17", "dataExport": "report-only", "dataExportEvidence": { "de": "Unterstützt eingehenden Datenimport über Standard-Schnittstellen von Drittsystemen ('bestehende Daten weiterverwenden'). Ausgehende Kunden-Migration NICHT öffentlich dokumentiert.", "en": "Supports inbound data import via standard interfaces from third-party systems ('continue using your existing data'). Outbound customer-led migration NOT publicly documented." } },
+    { "id": "complydo", "name": "ComplyDo", "country": "DE", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; YC F25, Berlin", "en": "Demo call required; YC F25, Berlin" }, "nis2Listed": true, "frameworks": ["NIS2", "DORA", "ISO 27001", "C5", "CRA"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.complydo.io/", "notes": null, "lastVerified": "2026-05-17", "dataExport": "none-documented", "dataExportEvidence": { "de": "Keine öffentliche Dokumentation gefunden. Brandneuer Anbieter (2025 gegründet, 10 Personen, YC F25, Telekom hubraum). Eingehende Integrationen (SharePoint, EQS, Confluence, PDF, Excel) sind dokumentiert. Ausgehende Migration des Compliance-Stands unverifiziert.", "en": "No public documentation found. Brand-new vendor (founded 2025, 10 people, YC F25, Telekom hubraum). Inbound integrations (SharePoint, EQS, Confluence, PDF, Excel) are documented. Outbound migration of compliance state unverified." } },
+    { "id": "secjur", "name": "SECJUR", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; keine /preise-Seite", "en": "Demo call required; no /pricing page" }, "nis2Listed": true, "frameworks": ["NIS2", "ISO 27001", "TISAX", "GDPR"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.secjur.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "kertos", "name": "Kertos", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich", "en": "Demo call required" }, "nis2Listed": true, "frameworks": ["NIS2", "ISO 27001", "SOC 2", "GDPR"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.kertos.io", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "secfix", "name": "Secfix", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; keine /pricing-Seite", "en": "Demo call required; no /pricing page" }, "nis2Listed": true, "frameworks": ["NIS2", "ISO 27001", "SOC 2", "TISAX", "GDPR", "DORA"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.secfix.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "contechnet", "name": "CONTECHNET (i-doit)", "country": "DE", "tier": "gated", "category": "isms", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; CONTECHNET 301-Redirect zu i-doit", "en": "Demo call required; CONTECHNET 301-redirects to i-doit" }, "nis2Listed": true, "frameworks": ["NIS2", "ITSM"], "freeTier": "trial", "formLikeness": "medium", "sourceUrl": "https://www.i-doit.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "docsetminder", "name": "DocSetMinder", "country": "DE", "tier": "gated", "category": "isms", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; akquiriert von Allgeier CyRis", "en": "Demo call required; acquired by Allgeier CyRis" }, "nis2Listed": false, "frameworks": ["BSI IT-Grundschutz", "ISO 27001"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.allgeier-cyris.de/produkt/docsetminder-one/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "gbtec", "name": "GBTEC (BIC GRC)", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Produktseite 404", "en": "Demo call required; product page 404" }, "nis2Listed": true, "frameworks": ["NIS2", "Info Sec"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.gbtec.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "sosafe", "name": "SoSafe", "country": "DE", "tier": "gated", "category": "training", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; nur Tier-Namen, keine €-Werte", "en": "Demo call required; tier names only, no prices" }, "nis2Listed": true, "frameworks": ["NIS2 Art. 21 awareness"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://sosafe-awareness.com/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "gdata", "name": "G DATA Business", "country": "DE", "tier": "gated", "category": "endpoint", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin für Business-Produkte; Consumer transparent", "en": "Demo call for business products; consumer line public" }, "nis2Listed": true, "frameworks": ["endpoint security"], "freeTier": "trial", "formLikeness": "low", "sourceUrl": "https://www.gdata.de/business", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "fuentis", "name": "fuentis", "country": "DE", "tier": "transparent", "category": "grc", "entryPriceEur": 379, "priceModel": { "de": "Suite 4 (ISMS): drei Tiers oeffentlich, Free 12 Monate, Standard 379 €/Monat, Professional 979 €/Monat. Enterprise und separate GRC Suite auf Anfrage.", "en": "Suite 4 (ISMS): three public tiers, Free for 12 months, Standard €379/mo, Professional €979/mo. Enterprise and the separate GRC Suite on request." }, "nis2Listed": true, "frameworks": ["NIS2", "GRC", "ISO 27001", "BSI IT-Grundschutz", "TISAX", "SOC2"], "freeTier": "trial", "formLikeness": "low", "sourceUrl": "https://fuentis.com/pricing/", "notes": null, "lastVerified": "2026-06-02" },
+    { "id": "otris", "name": "otris", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; telefon-erst", "en": "Demo call required; phone-first sales" }, "nis2Listed": false, "frameworks": ["privacy", "compliance", "legal"], "freeTier": "trial", "formLikeness": "medium", "sourceUrl": "https://www.otris.de", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "athereon", "name": "Athereon GRC", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 4 Größenklassen S/M/L/XL", "en": "Demo call required; 4 size classes S/M/L/XL" }, "nis2Listed": true, "frameworks": ["NIS2"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.athereon.de", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "infodas", "name": "INFODAS (SAVe)", "country": "DE", "tier": "gated", "category": "consultancy", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; explizit mit Consulting gebündelt", "en": "Demo call required; explicitly bundled with consulting" }, "nis2Listed": false, "frameworks": ["BSI"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.infodas.com/en/solutions/save/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "schleupen", "name": "Schleupen GRC", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Concurrent User Lizenz / Enterprise", "en": "Demo call required; concurrent user / enterprise license" }, "nis2Listed": true, "frameworks": ["NIS2", "R2C_GRC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://grc.schleupen.de", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "qsec", "name": "QSEC (Nexis)", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; behauptet 'transparent', zeigt aber keine €", "en": "Demo call required; claims 'transparent', shows no €" }, "nis2Listed": true, "frameworks": ["ISO 27001", "NIS2", "DORA", "IT-Grundschutz", "TISAX", "DSGVO"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://nexis-qsec.com/qsec/lizenzierung", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "robin-data", "name": "Robin Data", "country": "DE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; /preise-Seite 404", "en": "Demo call required; /preise page returns 404" }, "nis2Listed": true, "frameworks": ["NIS2", "ComplianceOS"], "freeTier": "trial", "formLikeness": "high", "sourceUrl": "https://www.robin-data.io", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "secunet", "name": "secunet", "country": "DE", "tier": "gated", "category": "consultancy", "entryPriceEur": null, "priceModel": { "de": "Projekt-basiertes Custom Quote; Government/Defense Anbieter", "en": "Project-based custom quote; government/defense vendor" }, "nis2Listed": true, "frameworks": ["cybersecurity"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.secunet.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "governx", "name": "GovernX", "country": "RO", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich (Preise hinter Login); 'Made in Romania, for Europe'", "en": "Demo call required (prices behind login); 'Made in Romania, for Europe'" }, "nis2Listed": true, "frameworks": ["NIS2", "GDPR", "ISO 27001", "DORA", "CRA"], "freeTier": "trial", "formLikeness": "medium", "sourceUrl": "https://governx.cloud/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "formalize", "name": "Formalize", "country": "DK", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 14-Tage-Trial begrenzt", "en": "Demo call required; 14-day limited trial" }, "nis2Listed": true, "frameworks": ["NIS2", "DORA", "ISO 27001", "GDPR"], "freeTier": "trial", "formLikeness": "high", "sourceUrl": "https://formalize.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "complycloud", "name": "ComplyCloud (Cerivo)", "country": "DK", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Teil der Cerivo-Fusion 2025/2026", "en": "Demo call required; part of Cerivo merger 2025/2026" }, "nis2Listed": true, "frameworks": ["NIS2", "GDPR", "ISO 27001"], "freeTier": "trial", "formLikeness": "high", "sourceUrl": "https://www.complycloud.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "risma", "name": "RISMA Systems (Cerivo)", "country": "DK", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; nur /price-request, kein /pricing", "en": "Demo call required; only /price-request, no /pricing" }, "nis2Listed": true, "frameworks": ["NIS2", "GRC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.rismasystems.com/en/price-request", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "heimdal", "name": "Heimdal", "country": "DK", "tier": "gated", "category": "endpoint", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; /pricing 404", "en": "Demo call required; /pricing 404" }, "nis2Listed": true, "frameworks": ["NIS2", "ISO 27001", "DORA", "NIST"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://heimdalsecurity.com/enterprise/request-pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "holm-security", "name": "Holm Security", "country": "SE", "tier": "gated", "category": "vuln", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 1-3 Jahre Mindestvertrag", "en": "Demo call required; 1-3 year minimum contract" }, "nis2Listed": true, "frameworks": ["NIS2 package", "vulnerability"], "freeTier": "trial", "formLikeness": "low", "sourceUrl": "https://www.holmsecurity.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "northgrc", "name": "NorthGRC", "country": "NO", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; keine /pricing-Seite", "en": "Demo call required; no /pricing page" }, "nis2Listed": true, "frameworks": ["ISO 27001", "NIS2", "GDPR", "DORA"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.northgrc.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "3rdrisk", "name": "3rdRisk (Diligent)", "country": "NL", "tier": "gated", "category": "tprm", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Januar 2026 von Diligent akquiriert", "en": "Demo call required; acquired by Diligent Jan 2026" }, "nis2Listed": true, "frameworks": ["NIS2 supply chain"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.3rdrisk.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "cerrix", "name": "Cerrix", "country": "NL", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Enterprise GRC", "en": "Demo call required; enterprise GRC" }, "nis2Listed": true, "frameworks": ["NIS2", "risk management"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.cerrix.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "perium", "name": "Perium", "country": "NL", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 30-Min-Setup", "en": "Demo call required; 30-min setup claim" }, "nis2Listed": true, "frameworks": ["NIS2", "ISO 27001"], "freeTier": "trial", "formLikeness": "high", "sourceUrl": "https://perium.nl", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "globalsuite", "name": "GlobalSuite Solutions", "country": "ES", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; keine /pricing-Seite", "en": "Demo call required; no /pricing page" }, "nis2Listed": true, "frameworks": ["NIS2", "ENS", "ISO 27001"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.globalsuitesolutions.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "syteca", "name": "Syteca (ex-Ekran)", "country": "US", "tier": "gated", "category": "iam", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; SaaS / On-prem / AWS / Azure SKUs alle gated", "en": "Demo call required; SaaS / On-prem / AWS / Azure SKUs all gated" }, "nis2Listed": true, "frameworks": ["NIS2", "insider threat"], "freeTier": "trial", "formLikeness": "low", "sourceUrl": "https://www.syteca.com/en/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "surecloud", "name": "SureCloud", "country": "UK", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'Talk to us about pricing'", "en": "Demo call required; 'Talk to us about pricing'" }, "nis2Listed": true, "frameworks": ["NIS2", "SOC 2", "ISO 27001"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.surecloud.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "isms-online", "name": "ISMS.online", "country": "UK", "tier": "gated", "category": "isms", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'Bespoke, customized pricing'; NIS2 als 'optional extra'", "en": "Demo call required; 'Bespoke, customized pricing'; NIS2 as 'optional extra'" }, "nis2Listed": true, "frameworks": ["NIS2 (add-on)", "ISO 27001", "DORA", "GDPR"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.isms.online/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "kymatio", "name": "Kymatio", "country": "ES", "tier": "gated", "category": "training", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; keine /pricing-Seite", "en": "Demo call required; no /pricing page" }, "nis2Listed": true, "frameworks": ["NIS2 human factors"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://kymatio.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "swissgrc", "name": "SwissGRC", "country": "CH", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; keine /pricing-Seite", "en": "Demo call required; no /pricing page" }, "nis2Listed": true, "frameworks": ["NIS2", "ISO 27001", "NIST", "GDPR", "BSI", "PCI-DSS"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://swissgrc.com", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "secrato", "name": "Secrato", "country": "BE", "tier": "gated", "category": "isms", "entryPriceEur": null, "priceModel": { "de": "Plan-Namen öffentlich, Preise nicht; März 2026 gestartet", "en": "Plan names public, prices not; launched March 2026" }, "nis2Listed": true, "frameworks": ["NIS2"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://secrato.io/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "aptien", "name": "Aptien", "country": "CZ", "tier": "gated", "category": "asset", "entryPriceEur": null, "priceModel": { "de": "Vendor zeigt '$-' Platzhalter; per-User-Modell aber kein Wert", "en": "Vendor displays '$-' placeholder; per-user model but no number" }, "nis2Listed": false, "frameworks": ["asset management"], "freeTier": "freemium", "formLikeness": "medium", "sourceUrl": "https://aptien.com/en/product-pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "cyberarrow", "name": "CyberArrow", "country": "AE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; /pricing gibt 403 zurück", "en": "Demo call required; /pricing returns 403" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "GDPR", "PCI DSS", "HIPAA", "NESA", "ADHICS"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.cyberarrow.io/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "apptega", "name": "Apptega", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 14-Tage-Trial auf Essentials", "en": "Demo call required; 14-day trial on Essentials" }, "nis2Listed": false, "frameworks": ["CMMC", "ISO 27001", "PCI DSS", "NIST 800-171"], "freeTier": "trial", "formLikeness": "high", "sourceUrl": "https://www.apptega.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "zengrc", "name": "ZenGRC/RiskOptics", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; ECONNREFUSED bei direktem Fetch", "en": "Demo call required; ECONNREFUSED on direct fetch" }, "nis2Listed": false, "frameworks": ["GRC", "IRM"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.riskoptics.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "logicgate", "name": "LogicGate Risk Cloud", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; no-code Workflow-Builder für GRC", "en": "Demo call required; no-code workflow builder for GRC" }, "nis2Listed": false, "frameworks": ["multi-framework GRC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.logicgate.com/risk-cloud/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "standardfusion", "name": "StandardFusion (Wolters Kluwer TeamMate)", "country": "NL", "tier": "gated", "category": "audit", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 308-Redirect zu Wolters Kluwer TeamMate", "en": "Demo call required; 308-redirects to Wolters Kluwer TeamMate" }, "nis2Listed": false, "frameworks": ["audit", "GRC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.standardfusion.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "resolver", "name": "Resolver (Kroll)", "country": "CA", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 3-Faktor-Quote (Module + Anpassung + User)", "en": "Demo call required; 3-factor quote (modules + customization + active users)" }, "nis2Listed": false, "frameworks": ["risk", "audit", "investigations"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.resolver.com/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "onspring", "name": "Onspring", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Bronze/Silver/Gold/Platinum ohne €-Werte", "en": "Demo call required; Bronze/Silver/Gold/Platinum without prices" }, "nis2Listed": false, "frameworks": ["CMMC", "US-gov"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://onspring.com/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "processunity", "name": "ProcessUnity", "country": "US", "tier": "gated", "category": "tprm", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; reine Fragebogen-Plattform", "en": "Demo call required; pure questionnaire platform" }, "nis2Listed": false, "frameworks": ["TPRM", "cyber risk"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.processunity.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "metricstream", "name": "MetricStream", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; IRM Mega-Suite, AppStudio = Form-Builder", "en": "Demo call required; IRM mega-suite, AppStudio = form builder" }, "nis2Listed": false, "frameworks": ["IRM"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.metricstream.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "archer", "name": "Archer (Cinven PE)", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; kategoriedefinierende Form/Workflow-IRM", "en": "Demo call required; category-defining form/workflow IRM" }, "nis2Listed": false, "frameworks": ["IRM"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.archerirm.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "ibm-openpages", "name": "IBM OpenPages", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Enterprise GRC + AI", "en": "Demo call required; enterprise GRC + AI" }, "nis2Listed": false, "frameworks": ["regulatory mapping"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.ibm.com/products/openpages", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "servicenow-grc", "name": "ServiceNow GRC", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; GRC auf Now Platform = Forms + Workflows", "en": "Demo call required; GRC on Now Platform = forms + workflows" }, "nis2Listed": false, "frameworks": ["GRC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.servicenow.com/products/governance-risk-and-compliance.html", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "sai360", "name": "SAI360", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Compliance + Risk Bundles, alle 'Request Quote'", "en": "Demo call required; Compliance + Risk bundles, all 'Request Quote'" }, "nis2Listed": false, "frameworks": ["GRC", "EHS", "Learning"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.sai360.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "riskonnect", "name": "Riskonnect", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; IRM auf Salesforce", "en": "Demo call required; IRM on Salesforce" }, "nis2Listed": false, "frameworks": ["IRM"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://riskonnect.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "workiva", "name": "Workiva", "country": "US", "tier": "gated", "category": "reporting", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; ESG/CSRD-Schwerpunkt", "en": "Demo call required; ESG/CSRD focus" }, "nis2Listed": false, "frameworks": ["ESG", "CSRD", "SOX"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.workiva.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "logicmanager", "name": "LogicManager", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'Job-to-be-Done pricing'", "en": "Demo call required; 'Job-to-be-Done pricing'" }, "nis2Listed": false, "frameworks": ["ERM", "GRC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.logicmanager.com/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "cybersaint", "name": "CyberSaint CyberStrong", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; annual oder multi-year", "en": "Demo call required; annual or multi-year only" }, "nis2Listed": false, "frameworks": ["NIST 800-30", "FAIR CRQ"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.cybersaint.io/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "centraleyes", "name": "Centraleyes", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 180+ Frameworks", "en": "Demo call required; 180+ frameworks" }, "nis2Listed": false, "frameworks": ["NIST CSF", "ISO 27001", "PCI DSS"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.centraleyes.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "whistic", "name": "Whistic", "country": "US", "tier": "gated", "category": "tprm", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Free Profile, Paid alle gated", "en": "Demo call required; free profile, paid all gated" }, "nis2Listed": false, "frameworks": ["TPRM", "Trust Center"], "freeTier": "freemium", "formLikeness": "high", "sourceUrl": "https://www.whistic.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "hypercomply", "name": "HyperComply", "country": "CA", "tier": "gated", "category": "tprm", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; TPRM-Fragebogen-Automatisierung", "en": "Demo call required; TPRM/questionnaire automation" }, "nis2Listed": false, "frameworks": ["TPRM"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.hypercomply.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "bitsight", "name": "BitSight", "country": "US", "tier": "gated", "category": "ratings", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Cyber Ratings + TPRM + ASM", "en": "Demo call required; cyber ratings + TPRM + ASM" }, "nis2Listed": false, "frameworks": ["NIS2-adjacent"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.bitsight.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "black-kite", "name": "Black Kite", "country": "US", "tier": "gated", "category": "ratings", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Cyber Ratings/TPRM", "en": "Demo call required; cyber ratings/TPRM" }, "nis2Listed": false, "frameworks": ["cyber ratings"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://blackkite.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "diligent", "name": "Diligent (incl. Galvanize, 3rdRisk)", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; ~23.000 Kunden nach Fusionen", "en": "Demo call required; ~23,000 clients post-mergers" }, "nis2Listed": false, "frameworks": ["governance", "risk", "audit"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.diligent.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "anitian", "name": "Anitian", "country": "US", "tier": "gated", "category": "consultancy", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; FedRAMP-Schwerpunkt", "en": "Demo call required; FedRAMP focus" }, "nis2Listed": false, "frameworks": ["FedRAMP"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.anitian.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "trustcloud", "name": "TrustCloud", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'Every GRC journey is different'", "en": "Demo call required; 'Every GRC journey is different'" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "CMMC", "HIPAA"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.trustcloud.ai/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "anecdotes", "name": "Anecdotes", "country": "IL", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'One Platform, Simple Pricing' aber keine €", "en": "Demo call required; 'One Platform, Simple Pricing' but no €" }, "nis2Listed": true, "frameworks": ["SOC", "ISO 27001", "GDPR", "NIS2 Starter Pack"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.anecdotes.ai/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "thoropass", "name": "Thoropass (was Laika)", "country": "US", "tier": "gated", "category": "audit", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Audit + Platform Bundle", "en": "Demo call required; audit + platform bundle" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "HIPAA", "HITRUST", "PCI DSS", "GDPR", "30+"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.thoropass.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "cypago", "name": "Cypago", "country": "IL", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; AWS Marketplace ab $60k/Jahr", "en": "Demo call required; AWS Marketplace from $60k/yr" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "HIPAA", "30+"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.cypago.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "oneleet", "name": "Oneleet", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; $33M Series A, GRC + Pentest", "en": "Demo call required; $33M Series A, GRC + pentest" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "DORA"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://oneleet.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "6clicks", "name": "6clicks", "country": "AU", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Hub-and-Spoke MSP-GRC, 1.000+ Frameworks", "en": "Demo call required; Hub-and-Spoke MSP GRC, 1,000+ frameworks" }, "nis2Listed": false, "frameworks": ["ISO 27001", "SOC 2", "DORA", "CMMC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.6clicks.com/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "compyl", "name": "Compyl", "country": "US", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 20+ Frameworks", "en": "Demo call required; 20+ frameworks" }, "nis2Listed": false, "frameworks": ["GRC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.compyl.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "akitra", "name": "Akitra", "country": "US", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; agentische KI-Compliance", "en": "Demo call required; agentic-AI compliance" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "HIPAA", "PCI DSS", "GDPR"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.akitra.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "trustero", "name": "Trustero", "country": "US", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; KI-GRC", "en": "Demo call required; AI GRC" }, "nis2Listed": false, "frameworks": ["GRC"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://trustero.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "delve", "name": "Delve (collapsed)", "country": "US", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "April 2026: von YC entfernt wegen gefälschter SOC-2-Audits + Codeklau", "en": "April 2026: YC dropped them for fake SOC 2 audits + code theft" }, "nis2Listed": false, "frameworks": ["SOC 2", "ISO 27001", "HIPAA", "GDPR"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.delve.co/", "notes": { "de": "Skandal: YC entfernt April 2026", "en": "Scandal: dropped by YC April 2026" }, "lastVerified": "2026-05-17" },
+    { "id": "legiscope", "name": "Legiscope", "country": "FR", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; /pricing 404", "en": "Demo call required; /pricing 404" }, "nis2Listed": true, "frameworks": ["GDPR", "DORA", "NIS2", "AI Act"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.legiscope.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "enactia", "name": "Enactia", "country": "CY", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 14-Tage-Trial", "en": "Demo call required; 14-day free trial" }, "nis2Listed": false, "frameworks": ["GDPR", "DORA", "ISO 27001"], "freeTier": "trial", "formLikeness": "high", "sourceUrl": "https://enactia.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "kiteworks", "name": "Kiteworks", "country": "US", "tier": "gated", "category": "comms", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'CALL FOR PRICING' Enterprise", "en": "Demo call required; 'CALL FOR PRICING' Enterprise" }, "nis2Listed": true, "frameworks": ["secure data exchange"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.kiteworks.com/pricing/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "norm-ai", "name": "Norm Ai", "country": "US", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; $87M Total Funding (Coatue, Bain, Blackstone)", "en": "Demo call required; $87M total funding (Coatue, Bain, Blackstone)" }, "nis2Listed": false, "frameworks": ["regulations as decision trees"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.norm.ai/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "complyance", "name": "Complyance", "country": "US", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; $20M Series A Feb 2026 (GV, EU VCs Creandum/HV/Speedinvest)", "en": "Demo call required; $20M Series A Feb 2026 (GV, EU VCs Creandum/HV/Speedinvest)" }, "nis2Listed": true, "frameworks": ["NIS2", "100+ frameworks"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.complyance.com/", "notes": { "de": "EU-VC-Konsortium signalisiert EU-GTM-Absicht", "en": "EU VC syndicate signals EU GTM intent" }, "lastVerified": "2026-05-17" },
+    { "id": "steryon", "name": "Steryon", "country": "ES", "tier": "gated", "category": "ai-grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; €1M Seed, OT/industriell, NIS2-explizit", "en": "Demo call required; €1M seed, OT/industrial, NIS2 explicit" }, "nis2Listed": true, "frameworks": ["NIS2", "IEC 62443", "ISO 27001"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://steryon.com/", "notes": { "de": "Wichtigster neuer NIS2-fokussierter EU-Wettbewerber", "en": "Most NIS2-relevant new EU entrant" }, "lastVerified": "2026-05-17" },
+    { "id": "privado", "name": "Privado.ai", "country": "US", "tier": "transparent", "category": "ai-grc", "entryPriceEur": 600, "priceModel": { "de": "Web Auditor ab $600/Website/Mo; App Auditor ab $800/App/Mo; Wren AI Privacy Agent ab $4.200/Mo (jährlich)", "en": "Web Auditor from $600/website/mo; App Auditor from $800/app/mo; Wren AI Privacy Agent from $4,200/mo (annual)" }, "nis2Listed": false, "frameworks": ["RoPA", "PIA", "DPIA"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.privado.ai/pricing", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "tenacy", "name": "Tenacy", "country": "FR", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'souverän' in Frankreich gehostet", "en": "Demo call required; 'sovereign' France-hosted" }, "nis2Listed": true, "frameworks": ["ISO 27001", "NIS 2", "DORA", "SOC 2", "HIPAA", "50+ referentials"], "freeTier": "none", "formLikeness": "low", "sourceUrl": "https://www.tenacy.io/en", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "auditool", "name": "Auditool (June Factory)", "country": "FR", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin für Vollversion; 7-Tage-Sandbox kostenlos mit 50+ NIS2 Aktionen", "en": "Demo call for full version; 7-day sandbox free with 50+ NIS2 actions" }, "nis2Listed": true, "frameworks": ["NIS2", "DORA", "ISO 27001", "ANSSI"], "freeTier": "trial", "formLikeness": "high", "sourceUrl": "https://june-factory.com/logiciel-conformite-nis2-auditool/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "shieldiq", "name": "ShieldIQ", "country": "IE", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Freemium, 'no card no setup calls'; Tier-Preise gated", "en": "Freemium, 'no card no setup calls'; tier prices demo-gated" }, "nis2Listed": true, "frameworks": ["NIS2", "GDPR", "ISO 27001", "DORA", "NIST CSF 2.0", "SOC 2"], "freeTier": "freemium", "formLikeness": "high", "sourceUrl": "https://www.shieldiqcyber.com/nis2", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "cibgest", "name": "Cibgest", "country": "PT", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 14-Tage-Trial ohne CC", "en": "Demo call required; 14-day trial, no CC" }, "nis2Listed": true, "frameworks": ["NIS2", "RGPD", "ISO 27001"], "freeTier": "trial", "formLikeness": "medium", "sourceUrl": "https://cibgest.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "teseo", "name": "Teseo NIS2 GRC", "country": "IT", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 'demo di 20 minuti'", "en": "Demo call required; 'demo di 20 minuti'" }, "nis2Listed": true, "frameworks": ["NIS2"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.teseo.it/la-compliance-nis2-diventa-facile-con-il-grc-teseo-toolkit/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "atena-governance", "name": "Atena Governance", "country": "IT", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; 30-Tage-Trial ohne CC", "en": "Demo call required; 30-day trial, no CC" }, "nis2Listed": true, "frameworks": ["GDPR", "ISO 27001", "NIS2"], "freeTier": "trial", "formLikeness": "high", "sourceUrl": "https://www.atenagovernance.it/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "complidoo", "name": "Complidoo (Asystel-BDF)", "country": "IT", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; low-code GRC", "en": "Demo call required; low-code GRC" }, "nis2Listed": true, "frameworks": ["NIS2", "GDPR", "DORA", "ISO 27001"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.complidoo.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "datalog", "name": "Datalog (Zucchetti)", "country": "IT", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; Zucchetti-Gruppe", "en": "Demo call required; Zucchetti group" }, "nis2Listed": true, "frameworks": ["GDPR", "ISO 27001", "NIS2"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.datalog.it/gdpr-nis2/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "adaptivegrc", "name": "AdaptiveGRC (C&F)", "country": "PL", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich", "en": "Demo call required" }, "nis2Listed": true, "frameworks": ["ISO 27001", "NIS2", "DORA", "GDPR"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://adaptivegrc.com/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "rig-nis", "name": "RIG NIS (Wolters Kluwer PL)", "country": "PL", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich", "en": "Demo call required" }, "nis2Listed": true, "frameworks": ["NIS2"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://www.wolterskluwer.com/pl-pl/news/rig-nis-narzedzie-zgodnosc-nis2", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "lexcyberai", "name": "LexCyberAI", "country": "PL", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; kostenloses NIS 2 Bootcamp", "en": "Demo call required; free NIS 2 bootcamp" }, "nis2Listed": true, "frameworks": ["NIS 2", "DORA", "RODO", "ISO 27001:2022", "ISO 22301", "NIST CSF 2.0", "MAGERIT v3.0", "FAIR", "EBIOS"], "freeTier": "freemium", "formLikeness": "high", "sourceUrl": "https://lexcyberai.pl/nis-2-compliance/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "nis2-control", "name": "NIS2 Control (Virtual IT)", "country": "SI", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; ZInfV-1 Slowenien", "en": "Demo call required; ZInfV-1 Slovenia" }, "nis2Listed": true, "frameworks": ["NIS 2", "ZInfV-1", "GDPR"], "freeTier": "none", "formLikeness": "high", "sourceUrl": "https://nis2.si/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "grctools-esg", "name": "GRCTools (ESG Innova)", "country": "ES", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich", "en": "Demo call required" }, "nis2Listed": true, "frameworks": ["NIS2", "ISO/IEC 27001", "DORA", "ENS", "RGPD"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://grctools.software/nis2/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "make-it-safe", "name": "Make IT Safe", "country": "FR", "tier": "gated", "category": "grc", "entryPriceEur": null, "priceModel": { "de": "Demo-Termin erforderlich; via ReCyF Referential", "en": "Demo call required; via ReCyF referential" }, "nis2Listed": true, "frameworks": ["RGPD", "DORA", "NIS2"], "freeTier": "none", "formLikeness": "medium", "sourceUrl": "https://www.makeitsafe.fr/", "notes": null, "lastVerified": "2026-05-17" },
+    { "id": "nis2-portugal", "name": "NIS2 Portugal (Isofficer)", "country": "PT", "tier": "transparent", "category": "consultancy", "entryPriceEur": 750, "priceModel": { "de": "Service-Katalog: Gap-Analyse ab €1.500; Training €990/Teilnehmer; Doc-Kit ab €2.500/Jahr; External CISO ab €750/Mo", "en": "Service catalog: gap analysis from €1,500; training €990/participant; doc kit from €2,500/yr; external CISO from €750/mo" }, "nis2Listed": true, "frameworks": ["NIS 2", "ISO 27001"], "freeTier": "freemium", "formLikeness": "low", "sourceUrl": "https://nis2portugal.pt/", "notes": null, "lastVerified": "2026-05-17" }
+  ]
+}

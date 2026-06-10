@@ -1,0 +1,8 @@
+{
+  "evidence": {
+    "loading": "Dateien werden geladen…",
+    "uploading": "Wird hochgeladen…",
+    "uploadFailed": "Upload fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "deleteFailed": "Löschen fehlgeschlagen. Bitte versuchen Sie es erneut."
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Overzicht beveiligingscompliance",
+    "risks": "Risico's",
+    "openRisks": "Open risico's",
+    "highRisks": "Hoge risico's",
+    "assets": "Assets",
+    "criticalAssets": "Kritiek",
+    "otAssets": "OT",
+    "incidents": "Incidenten",
+    "suppliers": "Leveranciers",
+    "criticalSuppliers": "Kritiek",
+    "policies": "Beleid",
+    "approved": "Goedgekeurd",
+    "training": "Training",
+    "managementTraining": "Management",
+    "exercises": "Nooddriloefeningen",
+    "completed": "Voltooid",
+    "kpis": "Beveiligingsmetrieken",
+    "changes": "Wijzigingen",
+    "openChanges": "Open",
+    "patches": "Beveiligingsupdates",
+    "pendingPatches": "In behandeling",
+    "audits": "Zelfevaluaties",
+    "plannedAudits": "Gepland",
+    "improvements": "Actiepunten",
+    "openImprovements": "Open",
+    "complianceByCategory": "Compliance per categorie",
+    "riskMatrix": "Risicomatrix",
+    "riskTreatmentDistribution": "Verdeling risicobehandeling",
+    "noRisksRegistered": "Geen risico's geregistreerd",
+    "noData": "Geen gegevens",
+    "incidentsBySeverity": "Incidenten per ernst",
+    "treatmentLabel": {
+      "mitigate": "Mitigeren",
+      "accept": "Accepteren",
+      "transfer": "Overdragen",
+      "avoid": "Vermijden"
+    },
+    "severity": {
+      "nearMiss": "Bijna-incident",
+      "incident": "Incident",
+      "significant": "Significant"
+    },
+    "complianceProgress": "Compliancevoortgang",
+    "requirementsCompleted": "{completed} van {total} vereisten",
+    "allModules": "Alle modules",
+    "deadlines": {
+      "overdue": "Achterstallig",
+      "dueThisWeek": "Deze week te doen",
+      "dueThisMonth": "Deze maand te doen",
+      "upcoming": "Aankomende deadlines",
+      "overdueDays": "{days}d achterstallig",
+      "dueToday": "Vandaag te doen",
+      "dueDays": "Over {days}d"
+    }
+  }
+}

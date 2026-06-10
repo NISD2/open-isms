@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "is_disposable_email" boolean DEFAULT false NOT NULL;

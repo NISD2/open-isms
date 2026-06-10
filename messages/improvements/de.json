@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Verbesserungen",
+    "description": "Kontinuierliche Verbesserungsmaßnahmen aus Audits, Vorfällen und Reviews. Unterstützt den PDCA-Zyklus gemäß NIS2.",
+    "helpText": "Verfolgen Sie Verbesserungsmaßnahmen aus Audits, Nachbetrachtungen von Vorfällen, Management-Reviews und KPI-Trends. Jeder Eintrag hat Quelle, Priorität, Verantwortlichen und Zieldatum. Dieses Register belegt das Engagement Ihrer Organisation für kontinuierliche Verbesserung.",
+    "add": "Verbesserung hinzufügen",
+    "edit": "Verbesserung bearbeiten",
+    "empty": "Noch keine Verbesserungsmaßnahmen. Fügen Sie Elemente aus Audits, Vorfällen oder Reviews hinzu.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diese Verbesserungsmaßnahme löschen möchten?",
+    "actions": "Aktionen",
+    "source": {
+      "audit": "Audit",
+      "incident": "Vorfall",
+      "pentest": "Pentest",
+      "management_review": "Management-Review",
+      "kpi_breach": "KPI-Verletzung",
+      "gap_analysis": "Gap-Analyse",
+      "regulatory_change": "Regulatorische Änderung",
+      "suggestion": "Vorschlag"
+    },
+    "status": {
+      "open": "Offen",
+      "in_progress": "In Bearbeitung",
+      "resolved": "Gelöst",
+      "verified": "Verifiziert",
+      "deferred": "Zurückgestellt"
+    },
+    "priority": {
+      "P0": "P0 - Sofort",
+      "P1": "P1 - 3 Monate",
+      "P2": "P2 - 6 Monate",
+      "P3": "P3 - 12 Monate"
+    },
+    "fields": {
+      "title": "Titel",
+      "description": "Beschreibung",
+      "source": "Quelle",
+      "priority": "Priorität",
+      "status": "Status",
+      "targetDate": "Zieldatum",
+      "deferralReason": "Zurückstellungsgrund",
+      "verificationNotes": "Verifizierungshinweise"
+    },
+    "fieldDescriptions": {
+      "title": "Geben Sie eine prägnante Bezeichnung für die Verbesserungsmaßnahme an.",
+      "description": "Beschreiben Sie die Verbesserungsmaßnahme im Detail: Was soll verbessert werden und welches Ziel wird verfolgt?",
+      "source": "Wählen Sie die Quelle, aus der diese Verbesserungsmaßnahme abgeleitet wurde (z. B. Audit, Vorfall, Management-Review).",
+      "priority": "Wählen Sie die Dringlichkeit: P0 (sofort), P1 (3 Monate), P2 (6 Monate) oder P3 (12 Monate).",
+      "status": "Wählen Sie den aktuellen Bearbeitungsstatus der Maßnahme.",
+      "targetDate": "Datum, bis zu dem die Verbesserungsmaßnahme abgeschlossen sein soll.",
+      "deferralReason": "Falls die Maßnahme zurückgestellt wird, dokumentieren Sie hier die Begründung und die geplante Wiederaufnahme.",
+      "verificationNotes": "Dokumentieren Sie, wie die erfolgreiche Umsetzung der Maßnahme überprüft und bestätigt wurde."
+    }
+  }
+}

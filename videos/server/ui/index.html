@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Shorts Pipeline</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0f0f0f; color: #e0e0e0; height: 100vh; display: flex; flex-direction: column; }
+
+    header { background: #1a1a1a; border-bottom: 1px solid #2a2a2a; padding: 12px 20px; display: flex; align-items: center; gap: 12px; }
+    header h1 { font-size: 16px; font-weight: 600; color: #fff; }
+    header .version { font-size: 11px; color: #666; }
+
+    .main { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar */
+    .sidebar { width: 240px; min-width: 240px; background: #141414; border-right: 1px solid #2a2a2a; display: flex; flex-direction: column; overflow: hidden; }
+    .sidebar-header { padding: 12px 16px; font-size: 11px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #2a2a2a; }
+    .job-list { flex: 1; overflow-y: auto; }
+    .job-item { padding: 12px 16px; border-bottom: 1px solid #1e1e1e; cursor: pointer; transition: background 0.1s; }
+    .job-item:hover { background: #1e1e1e; }
+    .job-item.active { background: #1e3a5f; border-left: 2px solid #3b82f6; }
+    .job-item .job-name { font-size: 13px; color: #d0d0d0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .job-item .job-meta { font-size: 11px; color: #555; margin-top: 2px; display: flex; gap: 8px; }
+
+    .badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+    .badge-uploading, .badge-analyzing { background: #1a3a5c; color: #60a5fa; }
+    .badge-stage1_review { background: #3a2a00; color: #fbbf24; }
+    .badge-rendering { background: #1a3a1a; color: #4ade80; }
+    .badge-done { background: #1a3a1a; color: #22c55e; }
+    .badge-error { background: #3a1a1a; color: #f87171; }
+    .badge-suggested { background: #2a2a2a; color: #9ca3af; }
+    .badge-stage1_approved { background: #1e3a1e; color: #86efac; }
+    .badge-rejected { background: #2a2a2a; color: #555; }
+
+    .btn-delete-job { background: none; border: none; color: #3a3a3a; cursor: pointer; font-size: 11px; padding: 0 2px; line-height: 1; margin-left: auto; }
+    .btn-delete-job:hover { color: #f87171; }
+
+    /* Upload zone */
+    .upload-zone { padding: 12px; border-top: 1px solid #2a2a2a; }
+    #drop-zone { border: 2px dashed #333; border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.15s; }
+    #drop-zone:hover, #drop-zone.drag-over { border-color: #3b82f6; background: #1a2a3a; }
+    #drop-zone .drop-text { font-size: 11px; color: #555; }
+    #drop-zone .drop-text strong { color: #9ca3af; }
+    .transcript-row { margin-top: 8px; display: flex; align-items: center; gap: 6px; }
+    .transcript-row label { font-size: 11px; color: #666; white-space: nowrap; }
+    #transcript-name { font-size: 11px; color: #9ca3af; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+    #transcript-input, #file-input { display: none; }
+    .btn-pick-transcript { font-size: 11px; padding: 3px 8px; background: #1e1e1e; color: #9ca3af; border: 1px solid #333; border-radius: 4px; cursor: pointer; white-space: nowrap; }
+    .btn-pick-transcript:hover { border-color: #555; }
+    #upload-progress { display: none; margin-top: 8px; font-size: 12px; color: #60a5fa; text-align: center; }
+
+    /* Re-analyze section */
+    .reanalyze-section { margin-bottom: 20px; background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 12px; }
+    .reanalyze-section label { font-size: 11px; color: #666; display: block; margin-bottom: 6px; }
+    .reanalyze-section textarea { width: 100%; background: #0f0f0f; border: 1px solid #2a2a2a; border-radius: 4px; color: #9ca3af; font-size: 12px; padding: 8px; resize: vertical; font-family: inherit; line-height: 1.4; }
+    .reanalyze-section textarea:focus { outline: none; border-color: #3b82f6; }
+    .reanalyze-section textarea::placeholder { color: #333; }
+    .reanalyze-row { display: flex; gap: 8px; align-items: flex-start; margin-top: 8px; }
+    .btn-analyze { background: #1e3a5f; color: #60a5fa; padding: 6px 14px; font-size: 12px; border: 1px solid #1d4ed8; border-radius: 5px; cursor: pointer; font-weight: 600; white-space: nowrap; }
+    .btn-analyze:hover { background: #1d4ed8; }
+    .btn-analyze:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Detail panel */
+    .detail { flex: 1; overflow-y: auto; padding: 20px; }
+    .empty-state { display: flex; align-items: center; justify-content: center; height: 100%; color: #444; font-size: 14px; }
+
+    /* Status bar */
+    .status-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; padding: 12px 16px; background: #1a1a1a; border-radius: 8px; border: 1px solid #2a2a2a; }
+    .status-steps { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
+    .step { padding: 4px 10px; border-radius: 4px; font-size: 11px; color: #444; background: #1e1e1e; }
+    .step.active { background: #1e3a5f; color: #60a5fa; font-weight: 600; }
+    .step.done { background: #1a2a1a; color: #4ade80; }
+    .step.error { background: #2a1a1a; color: #f87171; }
+    .job-title { font-size: 13px; color: #888; margin-left: auto; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* Section label */
+    .section-label { font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
+
+    /* Clips */
+    .clips-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+
+    /* Clip card */
+    .clip-card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px; transition: border-color 0.15s; }
+    .clip-card.stage1_approved { border-color: #166534; }
+    .clip-card.rejected { opacity: 0.4; }
+    .clip-card.done { border-color: #166534; background: #0f1f0f; }
+    .clip-card.rendering { border-color: #1d4ed8; }
+    .clip-card.error { border-color: #7f1d1d; }
+
+    .clip-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .clip-title-input { flex: 1; background: transparent; border: none; color: #e0e0e0; font-size: 14px; font-weight: 500; padding: 0; }
+    .clip-title-input:focus { outline: none; border-bottom: 1px solid #3b82f6; }
+    .clip-actions { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
+
+    .btn { padding: 4px 10px; border-radius: 4px; border: none; cursor: pointer; font-size: 11px; font-weight: 600; transition: all 0.1s; }
+    .btn-approve { background: #166534; color: #4ade80; }
+    .btn-approve:hover { background: #15803d; }
+    .btn-reject { background: #2a2a2a; color: #9ca3af; }
+    .btn-reject:hover { background: #333; }
+    .btn-render { background: #166534; color: #4ade80; padding: 8px 16px; font-size: 13px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    .btn-render:hover { background: #15803d; }
+    .btn-render:disabled { background: #1a2a1a; color: #555; cursor: not-allowed; }
+    .btn-sm { padding: 3px 8px; font-size: 11px; }
+    .btn-add-seg { background: #1e1e1e; color: #9ca3af; border: 1px dashed #333; padding: 5px 12px; font-size: 11px; border-radius: 4px; cursor: pointer; margin-top: 6px; }
+    .btn-add-seg:hover { border-color: #3b82f6; color: #60a5fa; }
+    .btn-reedit { background: #1e1e1e; color: #9ca3af; border: 1px solid #333; padding: 3px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; }
+    .btn-reedit:hover { border-color: #3b82f6; color: #60a5fa; }
+
+    /* Segments editor */
+    .segments-label { font-size: 11px; color: #555; margin-bottom: 6px; }
+    .segment-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .seg-num { font-size: 11px; color: #444; width: 20px; text-align: right; flex-shrink: 0; }
+    .timing-input { background: #111; border: 1px solid #333; color: #9ca3af; border-radius: 3px; padding: 2px 6px; font-size: 12px; width: 72px; text-align: center; }
+    .timing-input:focus { outline: none; border-color: #3b82f6; }
+    .seg-sep { color: #444; font-size: 11px; }
+    .seg-dur { color: #555; font-size: 11px; min-width: 32px; }
+    .btn-remove-seg { font-size: 10px; padding: 2px 6px; background: #1e1e1e; color: #555; border: 1px solid #2a2a2a; border-radius: 3px; cursor: pointer; }
+    .btn-remove-seg:hover { color: #f87171; border-color: #7f1d1d; }
+
+    .clip-rationale { font-size: 12px; color: #555; margin-top: 8px; line-height: 1.4; }
+    .output-link { font-size: 11px; color: #4ade80; margin-top: 6px; word-break: break-all; }
+    .clip-error { font-size: 11px; color: #f87171; margin-top: 6px; }
+    .clip-rendering { font-size: 12px; color: #60a5fa; margin-top: 4px; }
+
+    /* Mode badge */
+    .badge-longform { background: #2a1a3a; color: #c084fc; }
+    .badge-daily { background: #1a2a3a; color: #67e8f9; }
+
+    /* Sections panel */
+    .sections-panel { margin-bottom: 20px; }
+    .longform-render-bar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; }
+    .btn-render-longform { background: #3b0764; color: #c084fc; padding: 8px 16px; font-size: 13px; border: 1px solid #6b21a8; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    .btn-render-longform:hover { background: #4c1d95; }
+    .btn-render-longform:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Section card */
+    .section-card { background: #1a1a2a; border: 1px solid #2a2a3a; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .section-card.excluded { opacity: 0.4; }
+    .section-num { font-size: 11px; color: #444; width: 18px; flex-shrink: 0; text-align: right; }
+    .section-body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .section-title-row { display: flex; gap: 8px; align-items: center; }
+    .section-title-input { flex: 1; background: transparent; border: none; color: #e0e0e0; font-size: 13px; font-weight: 600; padding: 0; }
+    .section-title-input:focus { outline: none; border-bottom: 1px solid #6b21a8; }
+    .section-subtitle-input { width: 140px; background: #111; border: 1px solid #2a2a3a; color: #9ca3af; border-radius: 3px; padding: 2px 6px; font-size: 11px; }
+    .section-subtitle-input:focus { outline: none; border-color: #6b21a8; }
+    .section-time-row { display: flex; align-items: center; gap: 6px; }
+    .section-dur { font-size: 11px; color: #555; }
+    .btn-toggle-section { background: none; border: none; cursor: pointer; font-size: 14px; padding: 2px; color: #555; flex-shrink: 0; }
+    .btn-toggle-section:hover { color: #c084fc; }
+    .btn-toggle-section.included { color: #c084fc; }
+
+    /* Action bar */
+    .action-bar { display: flex; gap: 10px; align-items: center; margin-top: 4px; margin-bottom: 20px; }
+    .action-count { font-size: 12px; color: #666; }
+
+    /* Log */
+    .log-section { margin-top: 20px; }
+    .log-section summary { font-size: 12px; color: #555; cursor: pointer; padding: 6px 0; }
+    .log-section summary:hover { color: #888; }
+    .log-box { background: #0a0a0a; border: 1px solid #1e1e1e; border-radius: 6px; padding: 10px; margin-top: 8px; max-height: 200px; overflow-y: auto; font-family: monospace; font-size: 11px; line-height: 1.6; }
+    .log-line { color: #555; }
+    .log-line.status { color: #60a5fa; }
+    .log-line.error { color: #f87171; }
+    .log-line.done { color: #4ade80; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Video Shorts Pipeline</h1>
+    <span class="version">NIS2 · Internal Tool</span>
+  </header>
+
+  <div class="main">
+    <!-- Sidebar: job list + upload -->
+    <div class="sidebar">
+      <div class="sidebar-header">Jobs</div>
+      <div class="job-list" id="job-list">
+        <div style="padding:16px;font-size:12px;color:#444;">No jobs yet</div>
+      </div>
+      <div class="upload-zone">
+        <div id="drop-zone" onclick="document.getElementById('file-input').click()">
+          <div class="drop-text"><strong>Drop video</strong><br>or click to select</div>
+        </div>
+        <div class="transcript-row">
+          <label>Transcript:</label>
+          <span id="transcript-name">No .txt selected</span>
+          <button class="btn-pick-transcript" onclick="document.getElementById('transcript-input').click()">Pick .txt</button>
+        </div>
+        <input type="file" id="file-input" accept="video/*" />
+        <input type="file" id="transcript-input" accept=".txt,text/plain" />
+        <div id="upload-progress">Uploading...</div>
+      </div>
+    </div>
+
+    <!-- Detail panel -->
+    <div class="detail" id="detail">
+      <div class="empty-state">Select a job or upload a video to get started</div>
+    </div>
+  </div>
+
+  <script>
+    let currentJobId = null;
+    let sseSource = null;
+    let jobs = [];
+    let selectedTranscriptFile = null;
+
+    // ── Utilities ──────────────────────────────────────────────────────────
+
+    function msToDisplay(ms) {
+      if (ms == null) return "--:--";
+      const total = Math.round(ms / 1000);
+      const m = Math.floor(total / 60);
+      const s = total % 60;
+      return `${m}:${s.toString().padStart(2, "0")}`;
+    }
+
+    function displayToMs(str) {
+      const parts = str.trim().split(":");
+      if (parts.length !== 2) return null;
+      const m = parseInt(parts[0], 10);
+      const s = parseFloat(parts[1]);
+      if (isNaN(m) || isNaN(s)) return null;
+      return Math.round((m * 60 + s) * 1000);
+    }
+
+    function segDur(startMs, endMs) {
+      if (startMs == null || endMs == null) return "";
+      const sec = Math.round((endMs - startMs) / 1000);
+      return `${sec}s`;
+    }
+
+    function totalSegDur(segments) {
+      if (!segments || segments.length === 0) return "";
+      const ms = segments.reduce((a, s) => a + (s.endMs - s.startMs), 0);
+      return `${Math.round(ms / 1000)}s total`;
+    }
+
+    function statusSteps(status) {
+      const steps = [
+        ["uploading", "Upload"],
+        ["analyzing", "Analyze"],
+        ["stage1_review", "Review"],
+        ["rendering", "Render"],
+        ["done", "Done"],
+      ];
+      const order = steps.map(s => s[0]);
+      const cur = order.indexOf(status);
+      return steps.map(([key, label], idx) => {
+        let cls = "step";
+        if (status === "error") cls += idx < cur ? " done" : " error";
+        else if (key === status) cls += " active";
+        else if (idx < cur) cls += " done";
+        return `<span class="${cls}">${label}</span>`;
+      }).join("");
+    }
+
+    function escHtml(str) {
+      return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    }
+
+    // ── API ─────────────────────────────────────────────────────────────────
+
+    async function api(method, path, body) {
+      const opts = { method, headers: {} };
+      if (body) { opts.headers["Content-Type"] = "application/json"; opts.body = JSON.stringify(body); }
+      const res = await fetch(`/api${path}`, opts);
+      if (!res.ok) throw new Error(await res.text());
+      return res.json();
+    }
+
+    async function loadJobs() {
+      jobs = await api("GET", "/jobs");
+      renderSidebar();
+    }
+
+    async function loadJob(jobId) {
+      const job = await api("GET", `/jobs/${jobId}`);
+      renderDetail(job);
+    }
+
+    // ── Upload ───────────────────────────────────────────────────────────────
+
+    const dropZone = document.getElementById("drop-zone");
+    const fileInput = document.getElementById("file-input");
+    const transcriptInput = document.getElementById("transcript-input");
+    const uploadProgress = document.getElementById("upload-progress");
+
+    dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("drag-over"); });
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag-over"));
+    dropZone.addEventListener("drop", e => {
+      e.preventDefault();
+      dropZone.classList.remove("drag-over");
+      const file = e.dataTransfer.files[0];
+      if (file) startUpload(file);
+    });
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files[0]) startUpload(fileInput.files[0]);
+    });
+    transcriptInput.addEventListener("change", () => {
+      if (transcriptInput.files[0]) {
+        selectedTranscriptFile = transcriptInput.files[0];
+        document.getElementById("transcript-name").textContent = selectedTranscriptFile.name;
+      }
+    });
+
+    async function startUpload(videoFile) {
+      uploadProgress.style.display = "block";
+      uploadProgress.style.color = "#60a5fa";
+      uploadProgress.textContent = `Uploading ${videoFile.name} (0%)...`;
+      dropZone.style.display = "none";
+
+      const formData = new FormData();
+      formData.append("video", videoFile);
+      if (selectedTranscriptFile) formData.append("transcript", selectedTranscriptFile);
+
+      let jobId;
+      try {
+        jobId = await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", "/api/upload");
+          xhr.upload.onprogress = (e) => {
+            if (e.lengthComputable) {
+              const pct = Math.round((e.loaded / e.total) * 100);
+              uploadProgress.textContent = `Uploading ${videoFile.name} (${pct}%)...`;
+            }
+          };
+          xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) resolve(JSON.parse(xhr.responseText).jobId);
+            else reject(new Error(`Upload failed: ${xhr.status} ${xhr.responseText}`));
+          };
+          xhr.onerror = () => reject(new Error("Network error — is the server running?"));
+          xhr.ontimeout = () => reject(new Error("Upload timed out"));
+          xhr.timeout = 0;
+          xhr.send(formData);
+        });
+      } catch (err) {
+        uploadProgress.style.color = "#f87171";
+        uploadProgress.textContent = `Upload failed: ${err.message}`;
+        dropZone.style.display = "block";
+        fileInput.value = "";
+        setTimeout(() => { uploadProgress.style.display = "none"; uploadProgress.style.color = "#60a5fa"; }, 6000);
+        return;
+      }
+
+      uploadProgress.textContent = "Upload complete. Analyzing...";
+      setTimeout(() => {
+        uploadProgress.style.display = "none";
+        dropZone.style.display = "block";
+        fileInput.value = "";
+        transcriptInput.value = "";
+        selectedTranscriptFile = null;
+        document.getElementById("transcript-name").textContent = "No .txt selected";
+      }, 2000);
+
+      await loadJobs();
+      selectJob(jobId);
+    }
+
+    // ── Sidebar ───────────────────────────────────────────────────────────────
+
+    function renderSidebar() {
+      const list = document.getElementById("job-list");
+      if (jobs.length === 0) {
+        list.innerHTML = `<div style="padding:16px;font-size:12px;color:#444;">No jobs yet</div>`;
+        return;
+      }
+      list.innerHTML = jobs.map(j => `
+        <div class="job-item ${j.id === currentJobId ? "active" : ""}" onclick="selectJob('${j.id}')">
+          <div class="job-name">${escHtml(j.originalFilename)}</div>
+          <div class="job-meta">
+            <span class="badge badge-${j.status}">${j.status.replace(/_/g," ")}</span>
+            <span class="badge badge-${j.mode || 'daily'}">${j.mode === 'longform' ? '16:9' : 'daily'}</span>
+            <span>${new Date(j.createdAt).toLocaleDateString()}</span>
+            <button class="btn-delete-job" onclick="deleteJob(event, '${j.id}')" title="Delete job and files">✕</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    async function selectJob(jobId) {
+      currentJobId = jobId;
+      renderSidebar();
+      if (sseSource) { sseSource.close(); sseSource = null; }
+      await loadJob(jobId);
+      const job = jobs.find(j => j.id === jobId);
+      const terminal = ["done", "error", "stage1_review"];
+      if (job && !terminal.includes(job.status)) connectSSE(jobId);
+    }
+
+    // ── SSE ───────────────────────────────────────────────────────────────────
+
+    function connectSSE(jobId) {
+      if (sseSource) sseSource.close();
+      sseSource = new EventSource(`/api/jobs/${jobId}/events`);
+      sseSource.onmessage = async (e) => {
+        const event = JSON.parse(e.data);
+        appendLog(event);
+        if (event.type === "status" || event.type === "done") {
+          await loadJobs();
+          if (currentJobId === jobId) await loadJob(jobId);
+        }
+        if (event.type === "done" || event.type === "error") { sseSource.close(); sseSource = null; }
+      };
+      sseSource.onerror = () => { if (sseSource) { sseSource.close(); } sseSource = null; };
+    }
+
+    function appendLog(event) {
+      const logBox = document.getElementById("log-box");
+      if (!logBox) return;
+      const line = document.createElement("div");
+      line.className = `log-line ${event.type}`;
+      line.textContent = event.message || event.type;
+      logBox.appendChild(line);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // ── Detail ────────────────────────────────────────────────────────────────
+
+    function renderDetail(job) {
+      const detail = document.getElementById("detail");
+      if (job.mode === "longform") {
+        renderDetailLongform(job, detail);
+      } else {
+        renderDetailDaily(job, detail);
+      }
+    }
+
+    function renderDetailDaily(job, detail) {
+      const allClips = (job.clips || []).filter(c => c.status !== "rejected");
+      const approvedCount = allClips.filter(c => c.status === "stage1_approved").length;
+
+      const clipsHtml = allClips.length === 0
+        ? `<div style="color:#444;font-size:13px;padding:8px 0;">${
+            ["analyzing", "uploading"].includes(job.status)
+              ? "Waiting for AI analysis..."
+              : "No clips yet."
+          }</div>`
+        : allClips.map(c => renderClipCard(c)).join("");
+
+      detail.innerHTML = `
+        <div class="status-bar">
+          <div class="status-steps">${statusSteps(job.status)}</div>
+          <div class="job-title" title="${escHtml(job.originalFilename)}">${escHtml(job.originalFilename)}</div>
+        </div>
+
+        <div class="reanalyze-section">
+          <label>Context for Grok analysis</label>
+          <textarea id="job-context" rows="2" placeholder="Optional: guide Grok to specific sections, change the video type context, or ask for different clip styles...">${escHtml(job.customContext || "")}</textarea>
+          <div class="reanalyze-row">
+            <button class="btn-analyze" id="btn-reanalyze" onclick="reanalyze('${job.id}', event)">
+              ${job.clips && job.clips.length > 0 ? "Re-analyze (add suggestions)" : "Analyze"}
+            </button>
+            <span style="font-size:11px;color:#555;padding-top:5px;">Saves context + runs Grok. New suggestions added alongside existing clips.</span>
+          </div>
+        </div>
+
+        <div class="section-label">Clips</div>
+        <div class="clips-list" id="clips-list">${clipsHtml}</div>
+
+        ${approvedCount > 0 ? `
+          <div class="action-bar">
+            <button class="btn-render" onclick="startRender('${job.id}', event)">
+              Render ${approvedCount} Clip${approvedCount !== 1 ? "s" : ""} →
+            </button>
+            <span class="action-count">Whisper · gap-edit · captions · render</span>
+          </div>
+        ` : ""}
+
+        <details class="log-section">
+          <summary>Log output</summary>
+          <div class="log-box" id="log-box"></div>
+        </details>
+      `;
+    }
+
+    function renderDetailLongform(job, detail) {
+      const allSections = (job.sections || []);
+      const allClips = (job.clips || []).filter(c => c.status !== "rejected");
+      const approvedShorts = allClips.filter(c => c.status === "stage1_approved").length;
+
+      const sectionsHtml = allSections.length === 0
+        ? `<div style="color:#444;font-size:13px;padding:8px 0;">${
+            ["analyzing", "uploading"].includes(job.status) ? "Analyzing..." : "No sections yet."
+          }</div>`
+        : allSections.map((s, i) => renderSectionCard(s, i)).join("");
+
+      const shortsHtml = allClips.length === 0
+        ? `<div style="color:#444;font-size:13px;padding:8px 0;">${
+            ["analyzing", "uploading"].includes(job.status) ? "Analyzing..." : "No shorts yet."
+          }</div>`
+        : allClips.map(c => renderClipCard(c)).join("");
+
+      const isRenderable = job.status === "stage1_review" || job.status === "done";
+
+      detail.innerHTML = `
+        <div class="status-bar">
+          <div class="status-steps">${statusSteps(job.status)}</div>
+          <div class="job-title" title="${escHtml(job.originalFilename)}">${escHtml(job.originalFilename)}</div>
+        </div>
+
+        <div class="reanalyze-section">
+          <label>Context for re-analysis</label>
+          <textarea id="job-context" rows="2" placeholder="Optional: guide Grok — e.g. 'focus on the incident reporting section', 'more punchy short titles'...">${escHtml(job.customContext || "")}</textarea>
+          <div class="reanalyze-row">
+            <button class="btn-analyze" id="btn-reanalyze" onclick="reanalyze('${job.id}', event)">Re-analyze</button>
+            <span style="font-size:11px;color:#555;padding-top:5px;">Adds new section/short suggestions alongside existing ones.</span>
+          </div>
+        </div>
+
+        <div class="sections-panel">
+          <div class="section-label" style="margin-bottom:10px;">16:9 Sections</div>
+          ${sectionsHtml}
+          ${isRenderable ? `
+            <div class="longform-render-bar">
+              <button class="btn-render-longform" onclick="startRenderLongform('${job.id}', event)">
+                Render 16:9 YouTube →
+              </button>
+              <span style="font-size:11px;color:#555;">Remotion · ${allSections.filter(s => s.included).length} section overlay${allSections.filter(s => s.included).length !== 1 ? "s" : ""} · captions</span>
+            </div>
+          ` : ""}
+        </div>
+
+        <div class="section-label" style="margin-bottom:10px;">Shorts (9:16)</div>
+        <div class="clips-list" id="clips-list">${shortsHtml}</div>
+
+        ${approvedShorts > 0 ? `
+          <div class="action-bar">
+            <button class="btn-render" onclick="startRenderShorts('${job.id}', event)">
+              Render ${approvedShorts} Short${approvedShorts !== 1 ? "s" : ""} →
+            </button>
+            <span class="action-count">9:16 · captions · Remotion</span>
+          </div>
+        ` : ""}
+
+        <details class="log-section">
+          <summary>Log output</summary>
+          <div class="log-box" id="log-box"></div>
+        </details>
+      `;
+    }
+
+    function renderClipCard(clip) {
+      const isEditable = ["suggested", "stage1_approved"].includes(clip.status);
+      const isRendering = clip.status === "rendering";
+
+      let bodyHtml = "";
+
+      if (isRendering) {
+        bodyHtml = `<div class="clip-rendering">Processing... Whisper + gap-edit + rendering</div>`;
+      } else {
+        // Segment editor (shown for suggested, approved, error)
+        const segs = clip.segments || [];
+        const segRows = segs.map((seg, i) => `
+          <div class="segment-row" id="seg-row-${clip.id}-${i}">
+            <span class="seg-num">${i + 1}.</span>
+            <input class="timing-input" value="${msToDisplay(seg.startMs)}"
+              id="seg-start-${clip.id}-${i}"
+              onblur="updateSegment('${clip.id}', ${i}, 'start', this.value)"
+              onkeydown="if(event.key==='Enter')this.blur()"
+              ${!isEditable ? "disabled" : ""}
+            />
+            <span class="seg-sep">→</span>
+            <input class="timing-input" value="${msToDisplay(seg.endMs)}"
+              id="seg-end-${clip.id}-${i}"
+              onblur="updateSegment('${clip.id}', ${i}, 'end', this.value)"
+              onkeydown="if(event.key==='Enter')this.blur()"
+              ${!isEditable ? "disabled" : ""}
+            />
+            <span class="seg-dur">${segDur(seg.startMs, seg.endMs)}</span>
+            ${isEditable ? `<button class="btn-remove-seg" onclick="removeSegment('${clip.id}', ${i})" title="Remove">✕</button>` : ""}
+          </div>
+        `).join("");
+
+        bodyHtml = `
+          <div style="margin-bottom:4px;">
+            ${segs.length > 0
+              ? `<div class="segments-label">${segs.length} segment${segs.length !== 1 ? "s" : ""} · ${totalSegDur(segs)}</div>${segRows}`
+              : `<div class="segments-label" style="color:#555;">No segments</div>`
+            }
+            ${isEditable ? `<button class="btn-add-seg" onclick="addSegment('${clip.id}')">+ Add segment</button>` : ""}
+          </div>
+        `;
+      }
+
+      let actionBtns = "";
+      if (clip.status === "suggested") {
+        actionBtns = `
+          <button class="btn btn-approve btn-sm" onclick="approveClip('${clip.id}')">Approve</button>
+          <button class="btn btn-reject btn-sm" onclick="rejectClip('${clip.id}')">✗</button>
+        `;
+      } else if (clip.status === "stage1_approved") {
+        actionBtns = `
+          <button class="btn btn-reject btn-sm" onclick="rejectClip('${clip.id}')">Undo</button>
+        `;
+      } else if (clip.status === "done") {
+        actionBtns = `
+          <button class="btn-reedit" onclick="reeditClip('${clip.id}')">Re-edit</button>
+          <button class="btn btn-reject btn-sm" onclick="rejectClip('${clip.id}')" title="Dismiss from UI (file kept)">✕</button>
+        `;
+      }
+
+      return `
+        <div class="clip-card ${clip.status}" id="clip-${clip.id}">
+          <div class="clip-header">
+            <input class="clip-title-input" value="${escHtml(clip.title)}"
+              onblur="updateClipTitle('${clip.id}', this.value)"
+              onkeydown="if(event.key==='Enter')this.blur()"
+              ${!isEditable ? "disabled" : ""}
+            />
+            <div class="clip-actions">
+              ${actionBtns}
+              <span class="badge badge-${clip.status}">${clip.status.replace(/_/g," ")}</span>
+            </div>
+          </div>
+          ${bodyHtml}
+          ${clip.rationale ? `<div class="clip-rationale">${escHtml(clip.rationale)}</div>` : ""}
+          ${clip.outputPath ? `<div class="output-link">→ ${escHtml(clip.outputPath)}</div>` : ""}
+          ${clip.errorMessage ? `<div class="clip-error">Error: ${escHtml(clip.errorMessage)}</div>` : ""}
+        </div>
+      `;
+    }
+
+    // ── Clip actions ──────────────────────────────────────────────────────────
+
+    async function approveClip(clipId) {
+      await api("PATCH", `/clips/${clipId}`, { status: "stage1_approved" });
+      await loadJob(currentJobId);
+    }
+
+    async function rejectClip(clipId) {
+      await api("PATCH", `/clips/${clipId}`, { status: "rejected" });
+      await loadJob(currentJobId);
+    }
+
+    async function updateClipTitle(clipId, title) {
+      await api("PATCH", `/clips/${clipId}`, { title });
+    }
+
+    function getSegmentsFromDom(clipId) {
+      const segs = [];
+      let i = 0;
+      while (true) {
+        const start = document.getElementById(`seg-start-${clipId}-${i}`);
+        const end = document.getElementById(`seg-end-${clipId}-${i}`);
+        if (!start || !end) break;
+        const startMs = displayToMs(start.value);
+        const endMs = displayToMs(end.value);
+        if (startMs !== null && endMs !== null) segs.push({ startMs, endMs });
+        i++;
+      }
+      return segs;
+    }
+
+    async function updateSegment(clipId, idx, field, displayValue) {
+      const ms = displayToMs(displayValue);
+      if (ms === null) return;
+      const inputEl = document.getElementById(`seg-${field}-${clipId}-${idx}`);
+      if (inputEl) inputEl.value = msToDisplay(ms);
+      const segs = getSegmentsFromDom(clipId);
+      await api("PATCH", `/clips/${clipId}`, { segments: segs });
+    }
+
+    async function removeSegment(clipId, idx) {
+      const segs = getSegmentsFromDom(clipId);
+      segs.splice(idx, 1);
+      await api("PATCH", `/clips/${clipId}`, { segments: segs });
+      await loadJob(currentJobId);
+    }
+
+    async function addSegment(clipId) {
+      const segs = getSegmentsFromDom(clipId);
+      const last = segs[segs.length - 1];
+      const startMs = last ? last.endMs + 5000 : 0;
+      segs.push({ startMs, endMs: startMs + 30000 });
+      await api("PATCH", `/clips/${clipId}`, { segments: segs });
+      await loadJob(currentJobId);
+    }
+
+    async function deleteJob(e, jobId) {
+      e.stopPropagation();
+      if (!confirm("Delete this job and all its files from disk?")) return;
+      try {
+        await api("DELETE", `/jobs/${jobId}`);
+      } catch (err) {
+        alert(err.message.includes("rendering") ? "Cannot delete — a clip is currently rendering. Wait for it to finish first." : `Delete failed: ${err.message}`);
+        return;
+      }
+      if (currentJobId === jobId) {
+        currentJobId = null;
+        document.getElementById("detail").innerHTML = `<div class="empty-state">Select a job or upload a video to get started</div>`;
+      }
+      await loadJobs();
+    }
+
+    async function reeditClip(clipId) {
+      await api("POST", `/clips/${clipId}/reset`);
+      await loadJob(currentJobId);
+    }
+
+    async function reanalyze(jobId, e) {
+      const btn = e.target;
+      btn.disabled = true;
+      btn.textContent = "Starting...";
+      const context = document.getElementById("job-context").value.trim();
+      await api("POST", `/jobs/${jobId}/analyze`, { context });
+      connectSSE(jobId);
+      await loadJobs();
+      await loadJob(jobId);
+    }
+
+    async function startRender(jobId, e) {
+      const btn = e.target;
+      btn.disabled = true;
+      btn.textContent = "Starting...";
+      await api("POST", `/jobs/${jobId}/render`);
+      connectSSE(jobId);
+      await loadJobs();
+      await loadJob(jobId);
+    }
+
+    // ── Section card ─────────────────────────────────────────────────────────
+
+    function renderSectionCard(section, idx) {
+      const dur = section.endMs != null && section.startMs != null
+        ? Math.round((section.endMs - section.startMs) / 1000) + "s"
+        : "";
+      return `
+        <div class="section-card ${section.included ? "" : "excluded"}" id="section-${section.id}">
+          <span class="section-num">${idx + 1}.</span>
+          <div class="section-body">
+            <div class="section-title-row">
+              <input class="section-title-input" value="${escHtml(section.title)}"
+                onblur="updateSection('${section.id}', {title: this.value})"
+                onkeydown="if(event.key==='Enter')this.blur()" />
+              <input class="section-subtitle-input" placeholder="subtitle" value="${escHtml(section.subtitle || "")}"
+                onblur="updateSection('${section.id}', {subtitle: this.value || null})"
+                onkeydown="if(event.key==='Enter')this.blur()" />
+            </div>
+            <div class="section-time-row">
+              <input class="timing-input" value="${msToDisplay(section.startMs)}"
+                onblur="updateSectionTime('${section.id}', 'startMs', this.value)"
+                onkeydown="if(event.key==='Enter')this.blur()" />
+              <span class="seg-sep">→</span>
+              <input class="timing-input" value="${msToDisplay(section.endMs)}"
+                onblur="updateSectionTime('${section.id}', 'endMs', this.value)"
+                onkeydown="if(event.key==='Enter')this.blur()" />
+              <span class="section-dur">${dur}</span>
+            </div>
+          </div>
+          <button class="btn-toggle-section ${section.included ? "included" : ""}"
+            onclick="toggleSection('${section.id}', ${!section.included})"
+            title="${section.included ? "Exclude from 16:9" : "Include in 16:9"}">
+            ${section.included ? "◉" : "◯"}
+          </button>
+        </div>
+      `;
+    }
+
+    async function updateSection(sectionId, patch) {
+      await api("PATCH", `/sections/${sectionId}`, patch);
+    }
+
+    async function updateSectionTime(sectionId, field, displayValue) {
+      const ms = displayToMs(displayValue);
+      if (ms === null) return;
+      await api("PATCH", `/sections/${sectionId}`, { [field]: ms });
+    }
+
+    async function toggleSection(sectionId, included) {
+      await api("PATCH", `/sections/${sectionId}`, { included });
+      await loadJob(currentJobId);
+    }
+
+    // ── Longform render actions ───────────────────────────────────────────────
+
+    async function startRenderLongform(jobId, e) {
+      const btn = e.target;
+      btn.disabled = true;
+      btn.textContent = "Starting...";
+      await api("POST", `/jobs/${jobId}/render`);
+      connectSSE(jobId);
+      await loadJobs();
+      await loadJob(jobId);
+    }
+
+    async function startRenderShorts(jobId, e) {
+      // Reuse same render endpoint — server routes longform shorts via renderApprovedClips
+      const btn = e.target;
+      btn.disabled = true;
+      btn.textContent = "Starting...";
+      await api("POST", `/jobs/${jobId}/render-shorts`);
+      connectSSE(jobId);
+      await loadJobs();
+      await loadJob(jobId);
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+
+    loadJobs();
+    setInterval(loadJobs, 5000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "changes": {
+    "title": "Änderungsmanagement",
+    "description": "IT/OT-Änderungsanträge mit Risikobewertung und Genehmigungsworkflow. Unterstützt NIS2 Art. 21(2)(e).",
+    "helpText": "Verfolgen Sie alle Änderungen an IT- und OT-Systemen durch einen formalen Genehmigungsprozess. Jeder Änderungsantrag umfasst Risikobewertung, Implementierungsplan und Rollback-Verfahren. NIS2 erfordert kontrolliertes Änderungsmanagement zur Vermeidung von Sicherheitsrückschritten.",
+    "add": "Neuer Änderungsantrag",
+    "edit": "Änderungsantrag bearbeiten",
+    "empty": "Noch keine Änderungsanträge. Erstellen Sie Ihren ersten Antrag.",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diesen Änderungsantrag löschen möchten?",
+    "actions": "Aktionen",
+    "type": {
+      "standard": "Standard",
+      "normal": "Normal",
+      "emergency": "Notfall"
+    },
+    "changeType": {
+      "standard": "Standard",
+      "normal": "Normal",
+      "emergency": "Notfall"
+    },
+    "status": {
+      "draft": "Entwurf",
+      "submitted": "Eingereicht",
+      "approved": "Genehmigt",
+      "implementing": "In Umsetzung",
+      "implemented": "Umgesetzt",
+      "rolled_back": "Zurückgesetzt",
+      "closed": "Geschlossen"
+    },
+    "fields": {
+      "title": "Titel",
+      "description": "Beschreibung",
+      "changeType": "Änderungstyp",
+      "status": "Status",
+      "createdAt": "Erstellt am",
+      "businessJustification": "Geschäftliche Begründung",
+      "securityImpactAssessment": "Sicherheitsfolgenabschätzung",
+      "rollbackPlan": "Rückfallplan"
+    },
+    "fieldDescriptions": {
+      "title": "Geben Sie eine prägnante Bezeichnung für die geplante Änderung an (z. B. 'Firewall-Regelwerk-Update Standort Berlin').",
+      "description": "Beschreiben Sie die geplante Änderung im Detail: Was wird geändert und welche Systeme sind betroffen?",
+      "changeType": "Wählen Sie den Änderungstyp: Standard (vorab genehmigt), Normal (CAB-Genehmigung erforderlich) oder Notfall.",
+      "status": "Wählen Sie den aktuellen Bearbeitungsstatus des Änderungsantrags.",
+      "createdAt": "Datum, an dem dieser Änderungsantrag erstellt wurde.",
+      "businessJustification": "Erläutern Sie die geschäftliche Notwendigkeit und den erwarteten Nutzen dieser Änderung.",
+      "securityImpactAssessment": "Bewerten Sie die Auswirkungen dieser Änderung auf die Informationssicherheit Ihrer Organisation.",
+      "rollbackPlan": "Beschreiben Sie das Verfahren zur Rücknahme der Änderung, falls die Implementierung fehlschlägt oder Sicherheitsprobleme auftreten."
+    }
+  }
+}

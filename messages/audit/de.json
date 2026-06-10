@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Audit-Protokoll",
+    "subtitle": "Manipulationssicheres Protokoll aller compliance-relevanten Aktionen",
+    "noEntries": "Noch keine Audit-Einträge vorhanden.",
+    "description": "Beschreibung",
+    "action": "Aktion",
+    "user": "Benutzer",
+    "time": "Zeit"
+  }
+}

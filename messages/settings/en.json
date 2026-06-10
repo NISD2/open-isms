@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your organization's platform settings.",
+    "aiDataSharing": {
+      "title": "AI Data Sharing",
+      "description": "Control what organization data is shared with the AI assistant when generating compliance guidance. Personal data (emails, phone numbers, individual names) is never sent.",
+      "none": {
+        "label": "No company data",
+        "description": "Only field names, types, and requirement title are sent. Guidance is generic.",
+        "preview": "Sent: field definitions, requirement title, legal reference"
+      },
+      "basic": {
+        "label": "Non-sensitive only",
+        "description": "Adds sector, entity type, and legal form for more relevant guidance.",
+        "preview": "Sent: above + sector, sub-sector, entity type, legal form"
+      },
+      "full": {
+        "label": "Full context",
+        "description": "Includes company name and size metrics for the most tailored guidance.",
+        "preview": "Sent: above + company name, employee count, annual revenue"
+      }
+    },
+    "saved": "Settings saved",
+    "saveError": "Failed to save settings",
+    "saving": "Saving...",
+    "adminOnly": "Only admins can change settings."
+  }
+}

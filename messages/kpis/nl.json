@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "title": "KPI Measurements",
+    "description": "Security performance metrics tracked over time. Demonstrates effectiveness per NIS2 Art. 21.",
+    "helpText": "Record security KPI measurements regularly (e.g., patch compliance rate, training completion %, mean time to detect). KPIs demonstrate to auditors that your security measures are effective and improving over time.",
+    "add": "Add Measurement",
+    "empty": "No KPI measurements yet. Record your first measurement.",
+    "status": {
+      "green": "On Target",
+      "amber": "At Risk",
+      "red": "Below Target"
+    },
+    "fields": {
+      "kpiName": "KPI Name",
+      "measuredAt": "Measured At",
+      "value": "Value",
+      "target": "Target",
+      "unit": "Unit",
+      "status": "Status",
+      "notes": "Notes"
+    },
+    "fieldDescriptions": {
+      "kpiName": "Name of the security metric being measured (e.g., 'Patch compliance rate', 'Mean time to detect', 'Training completion %').",
+      "measuredAt": "Date when this measurement was taken.",
+      "value": "Enter the measured numeric value for this KPI.",
+      "target": "Enter the target value this KPI should meet or exceed.",
+      "unit": "Unit of measurement (e.g., %, hours, days, count).",
+      "status": "Select the status: green (on target), amber (at risk of missing target), or red (below target).",
+      "notes": "Additional context or explanation for this measurement, especially if status is amber or red."
+    }
+  }
+}

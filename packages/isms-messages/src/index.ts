@@ -5,7 +5,7 @@ export type Locale = (typeof SUPPORTED_LOCALES)[number];
  * Namespaces tracked by this package. Today the package is a *registry*
  * only — it does not ship JSON catalogs. Each consumer holds its own
  * messages directory (NIS2 root: `messages/<ns>/<locale>.json`; OSS:
- * `apps/open-isms/messages/<ns>/<locale>.json`) and uses this list to
+ * `apps/reference/messages/<ns>/<locale>.json`) and uses this list to
  * stay aligned on which namespaces the ISMS-core surface expects.
  *
  * Why not ship JSON here: maintaining a third copy alongside two consumers'

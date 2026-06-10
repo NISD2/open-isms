@@ -1,0 +1,47 @@
+{
+  "pricing": {
+    "meta": {
+      "title": "Pricing - NIS2 Compliance Platform",
+      "description": "Two ways to run the platform. Hosted at nis2.eu, free forever. Self-host under AGPL-3.0, one-time €10,000 lifetime licence."
+    },
+    "title": "Pricing",
+    "subtitle": "Two ways to run the platform. Pick one.",
+
+    "free": {
+      "name": "Hosted at nis2.eu",
+      "description": "The full platform, operated by us on EU infrastructure.",
+      "price": "€0",
+      "priceSub": "forever",
+      "cta": "Get started",
+      "features": {
+        "f1": "All 49 BSIG requirements step by step",
+        "f2": "Evidence upload and documentation",
+        "f3": "PDF export for auditors and management",
+        "f4": "Complete audit trail",
+        "f5": "Deadline tracking and reminders",
+        "f6": "BSI registration guidance",
+        "f7": "Unlimited team members",
+        "f8": "Risk, asset, and supplier registers",
+        "f9": "AI-powered form assistance",
+        "f10": "Kein Lock-in. Open Source data model. Export anytime."
+      }
+    },
+
+    "selfHost": {
+      "name": "Self-host",
+      "description": "Full source code. Run it on your own infrastructure, forever.",
+      "price": "€10,000",
+      "priceSub": "one-time, lifetime licence",
+      "cta": "Talk to us",
+      "features": {
+        "h1": "Full platform source under AGPL-3.0",
+        "h2": "All future updates included",
+        "h3": "Run on your own infrastructure, your own data",
+        "h4": "Named contact for email and Signal support"
+      }
+    },
+
+    "consultantFootnote": "Need a NIS2 consultant? We connect you with vetted specialists at no cost to you.",
+    "consultantCta": "Request a consultant"
+  }
+}
