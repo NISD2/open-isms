@@ -21,7 +21,6 @@
     "db:migrate": "bun run --env-file=$PWD/.env --cwd packages/grc-data-model db:migrate && bun run --env-file=$PWD/.env --cwd packages/isms-schema db:migrate && drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "db:seed": "bun run drizzle/seed.ts",
-    "db:seed-nisd2": "bun run drizzle/seed-nisd2.ts",
     "index-urls": "bun run scripts/index-urls.ts",
     "generate:guidance": "bun run scripts/generate-guidance.ts",
     "email:dev": "email dev --dir lib/mail/templates --port 3027",

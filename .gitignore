@@ -26,6 +26,12 @@ courses/**/pdf-book/*.ans
 # platform. Audit P-2 (2026-06-10).
 docs/iso27001/
 
+# The operating-company dogfood seed lives in the private notebook
+# (NIS2/business/dogfood-seed-nisd2.ts) — it names the real DPO, pentest
+# vendor, training provider, planned auditor, security budget, and a
+# real incident timeline. Audit P-3 (2026-06-10).
+drizzle/seed-nisd2.ts
+
 # Local Claude state
 .claude/scheduled_tasks.lock
 
