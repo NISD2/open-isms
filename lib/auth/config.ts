@@ -18,6 +18,7 @@ import {
 } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
+import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 
 // Dummy hash for timing-safe comparison when user doesn't exist
 const DUMMY_HASH = "$2a$12$000000000000000000000uGBYRMjo5lsWIKE/k.HdGZfR5YmKKKu";
@@ -217,7 +218,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           // Awaited so serverless doesn't terminate before send.
           await Promise.all([
             sendMail({
-              to: ["simon@nisd2.eu", "cory@nisd2.eu"],
+              to: [...getPlatformAdminEmails()],
               ...newUserSignupEmail({ userEmail: authUser.email, userName: newName, provider: account.provider }),
             }).catch((err) => console.error("[auth] Failed to send admin signup alert:", err)),
             sendWelcomeEmail({ name: newName, email: authUser.email })

@@ -32,6 +32,7 @@ interface UserNavProps {
     name?: string | null;
     email?: string | null;
     image?: string | null;
+    isPlatformAdmin?: boolean;
   };
 }
 
@@ -125,7 +126,7 @@ export function UserNav({ user }: UserNavProps) {
                 {locale === opt.code && <Check className="ml-auto h-4 w-4" />}
               </DropdownMenuItem>
             ))}
-            {["simon@nisd2.eu", "cory@nisd2.eu"].includes(user.email ?? "") && (
+            {user.isPlatformAdmin && (
               <>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push("/platform-admin")}>

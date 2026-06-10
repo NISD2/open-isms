@@ -6,6 +6,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
 import { OnboardingBanner } from "@/components/dashboard/OnboardingBanner";
 import { getSession } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { api } from "@/lib/trpc/server";
 import {
   getAllActiveCategories,
@@ -110,6 +111,7 @@ export default async function PortalLayout({
           name: session.user.name,
           email: session.user.email,
           image: session.user.image,
+          isPlatformAdmin: isPlatformAdmin(session.user.email),
         }}
         frameworks={frameworks}
       />

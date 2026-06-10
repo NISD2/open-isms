@@ -88,6 +88,7 @@ interface AppSidebarProps {
     name?: string | null;
     email?: string | null;
     image?: string | null;
+    isPlatformAdmin?: boolean;
   };
   frameworks: FrameworkGroup[];
 }

@@ -1,13 +1,15 @@
 /**
  * Platform Admin — Cross-company overview for platform operators.
  *
- * Hardcoded to simon@nisd2.eu and cory@nisd2.eu. NOT the same as
- * adminProcedure (which is company-scoped). This is a platform-level
- * view across ALL companies and users.
+ * Allowlist sourced from PLATFORM_ADMIN_EMAILS env var
+ * (see lib/auth/platform-admin). NOT the same as adminProcedure
+ * (which is company-scoped). This is a platform-level view across
+ * ALL companies and users.
  */
 import { desc, count, eq, sql, and, isNotNull, gte } from "drizzle-orm";
 import { router, protectedProcedure } from "../init";
 import { TRPCError } from "@trpc/server";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import {
   user,
   company,
@@ -18,11 +20,8 @@ import {
   notification,
 } from "@/schema";
 
-const PLATFORM_ADMIN_EMAILS = ["simon@nisd2.eu", "cory@nisd2.eu"];
-
 const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  const email = ctx.session?.user.email;
-  if (!email || !PLATFORM_ADMIN_EMAILS.includes(email)) {
+  if (!isPlatformAdmin(ctx.session?.user.email)) {
     throw new TRPCError({ code: "FORBIDDEN", message: "Platform admin access required" });
   }
   return next({ ctx });

@@ -35,7 +35,7 @@ export const dynamic = "force-dynamic";
 const STALL_DAYS = 7;
 const ENTITY_TYPE = "course_followup";
 const TRIGGER_PREFIX = "stalled_7d:";
-const REPLY_TO = "simon@nisd2.eu";
+const REPLY_TO = process.env.SUPPORT_EMAIL ?? "support@example.com";
 
 type StalledRow = {
   user_id: string;

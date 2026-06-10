@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { SupplierAppSidebar } from "@/components/supplier-portal/SupplierAppSidebar";
 import { PortalHeader } from "@/components/portal/PortalHeader";
@@ -50,6 +51,7 @@ export default async function SupplierPortalLayout({
           name: session.user.name,
           email: session.user.email,
           image: session.user.image,
+          isPlatformAdmin: isPlatformAdmin(session.user.email),
         }}
         customers={sidebarCustomers}
       />

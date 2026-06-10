@@ -19,6 +19,7 @@ interface WelcomeEmailProps {
 }
 
 export function WelcomeEmail(_props: WelcomeEmailProps) {
+  const supportEmail = process.env.SUPPORT_EMAIL ?? "support@example.com";
   return (
     <Html>
       <Head />
@@ -77,8 +78,8 @@ export function WelcomeEmail(_props: WelcomeEmailProps) {
 
             <Text style={paragraph}>
               If you have any questions, write to me at{" "}
-              <a href="mailto:cory@nisd2.eu" style={link}>
-                cory@nisd2.eu
+              <a href={`mailto:${supportEmail}`} style={link}>
+                {supportEmail}
               </a>
             </Text>
 

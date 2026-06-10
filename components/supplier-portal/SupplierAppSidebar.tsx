@@ -80,7 +80,7 @@ interface CustomerEntry {
 }
 
 interface SupplierAppSidebarProps {
-  user: { name?: string | null; email?: string | null; image?: string | null };
+  user: { name?: string | null; email?: string | null; image?: string | null; isPlatformAdmin?: boolean };
   customers: CustomerEntry[];
 }
 

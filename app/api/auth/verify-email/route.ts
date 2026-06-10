@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { user } from "@/schema";
 import { verifyOtp } from "@/lib/auth/otp";
 import { sendMail, sendWelcomeEmail, newUserSignupEmail } from "@/lib/mail";
+import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 
 // In-memory rate limit: max 10 verification attempts per IP per 15 min.
 // Per-OTP attempts are already capped server-side at 5 in `verifyOtp`,
@@ -94,7 +95,7 @@ export async function POST(request: Request) {
     const userRow = updated[0]!;
     await Promise.all([
       sendMail({
-        to: ["simon@nisd2.eu", "cory@nisd2.eu"],
+        to: [...getPlatformAdminEmails()],
         ...newUserSignupEmail({
           userEmail: email,
           userName: userRow.name,

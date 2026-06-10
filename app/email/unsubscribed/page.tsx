@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function UnsubscribedPage() {
+  const supportEmail = process.env.SUPPORT_EMAIL ?? "support@example.com";
   return (
     <main className="min-h-screen flex items-center justify-center px-6 bg-background">
       <div className="max-w-md w-full text-center space-y-4">
@@ -22,10 +23,10 @@ export default function UnsubscribedPage() {
         </p>
         <p className="text-sm text-muted-foreground">
           Changed your mind? Reply to any email or write to{" "}
-          <a className="underline" href="mailto:simon@nisd2.eu">
-            simon@nisd2.eu
+          <a className="underline" href={`mailto:${supportEmail}`}>
+            {supportEmail}
           </a>{" "}
-          and I&rsquo;ll flip it back.
+          and we&rsquo;ll flip it back.
         </p>
         <div className="pt-4">
           <Link href="/" className="text-sm underline">

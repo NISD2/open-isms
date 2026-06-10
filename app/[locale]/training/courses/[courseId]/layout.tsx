@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { getLocale } from "next-intl/server";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { TrainingAppSidebar } from "@/components/training-portal/TrainingAppSidebar";
@@ -39,6 +40,7 @@ export default async function CourseLayout({
           name: session?.user.name,
           email: session?.user.email,
           image: session?.user.image,
+          isPlatformAdmin: isPlatformAdmin(session?.user.email),
         }}
         courseId={course.id}
         courseTitle={course.title[locale] ?? course.title.en}

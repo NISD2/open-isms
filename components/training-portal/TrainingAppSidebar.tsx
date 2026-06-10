@@ -45,7 +45,7 @@ interface LessonMeta {
 }
 
 interface TrainingAppSidebarProps {
-  user: { name?: string | null; email?: string | null; image?: string | null };
+  user: { name?: string | null; email?: string | null; image?: string | null; isPlatformAdmin?: boolean };
   courseId: string;
   courseTitle?: string;
   modules: CourseModule[];
