@@ -27,7 +27,7 @@ const envSchema = z.object({
   // /portal/journey route. Default keeps the feature internal (nisd2.eu
   // only) so the existing /portal/dashboard flow stays canonical in prod.
   // Override per environment, e.g.
-[redacted for public release]
+  //   JOURNEY_ALLOWED_DOMAINS=nisd2.eu,partnerexample.de,acmecorp.de
   JOURNEY_ALLOWED_DOMAINS: z.string().default("nisd2.eu"),
 
   // AI — optional (LLM features degrade)

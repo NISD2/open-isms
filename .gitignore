@@ -20,6 +20,12 @@ courses/**/pdf-book/*.toc
 courses/**/pdf-book/*.out
 courses/**/pdf-book/*.ans
 
+# ISO 27001 policies live in the private notebook (NIS2/business/iso27001/)
+# — they describe the operating company's real ISMS posture (DPO, vault
+# item names, S3 bucket, hardware tokens) and are not part of the public
+# platform. Audit P-2 (2026-06-10).
+docs/iso27001/
+
 # Local Claude state
 .claude/scheduled_tasks.lock
 

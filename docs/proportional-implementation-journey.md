@@ -33,7 +33,7 @@
 
 | Source | Used for |
 |---|---|
-[redacted for public release]
+| Practitioner proposal (received 2026-05) | Proportionality calibration, PT estimates, NIS2UmsVO Anhang |
 | ENISA TIG v1.0 (June 2025) | Operational guidance per measure; proportionality logic; ECSF role mapping (CISO, Cyber Incident Responder, Cybersecurity Implementer, Cyber Legal/Policy/Compliance Officer, Cybersecurity Auditor, Cybersecurity Risk Manager, Digital Forensics Investigator) |
 | BSI 200-1, 200-2, 200-3, 200-4 | ISMS, methodology, risk, BCM standards; §2.4 ISB direct-report-to-top-management; §2.6 IS-Management-Team composition |
 | CIR 2024/2690 Annex 1.2 | "Rollen, Verantwortlichkeiten und Weisungsbefugnisse" — Annex 1.2.2 mandates "at least one person directly accountable to the management body" — **the closest the law gets to a CISO** (the title is convention, not statute) |
@@ -244,7 +244,7 @@ Each enriched Phase 0/1 step now uses this anatomy:
 | **Workshop?** | yes/no + length + attendees + choreography |
 | **Effort** | Person-hours / PT |
 | **❓ Exec questions (from CEO course)** | "What to ask your team" — lifted from the relevant course lesson |
-[redacted for public release]
+| **⚠️ Commonly missed** | From web research and practitioner notes |
 
 ---
 

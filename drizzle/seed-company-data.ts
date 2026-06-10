@@ -95,8 +95,8 @@ export const SEED_COMPANY_DATA: Record<string, Record<string, unknown>> = {
   "3.3": {
     // Merges old 3.3 + 3.4 + 3.5 + 3.6
     primaryContact: "Dr. Thomas Weber",
-[redacted for public release]
-[redacted for public release]
+    primaryEmail: "t.weber@dev-gmbh.example.com",
+    primaryPhone: "+49 30 00000000",
     deputyContact: "Anna Becker",
     portalAccess: true,
     earlyWarningProcess: "soc-automated",
