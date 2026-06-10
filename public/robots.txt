@@ -2,6 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /auth/
+Disallow: /pitch/
+Disallow: /pitch-preview
 Disallow: /*/dashboard
 Disallow: /*/compliance
 Disallow: /*/auth/
@@ -12,6 +14,7 @@ Disallow: /*/export
 Disallow: /*/invite/
 Disallow: /*/settings
 Disallow: /*/onboarding
+Disallow: /*/platform-admin
 
 User-agent: GPTBot
 Allow: /
