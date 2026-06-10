@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { user } from "@/schema";
 import { verifyOtp } from "@/lib/auth/otp";
+import { getClientIp } from "@/lib/client-ip";
 
 // In-memory IP rate limit. Per-OTP attempts are capped server-side at 5
 // inside verifyOtp; this exists to slow enumeration across emails.
@@ -37,10 +38,7 @@ function isRateLimited(ip: string): boolean {
  *   429:  { error: "..." }
  */
 export async function POST(request: Request) {
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    request.headers.get("x-real-ip") ??
-    "unknown";
+  const ip = getClientIp(request.headers);
 
   if (isRateLimited(ip)) {
     return NextResponse.json(

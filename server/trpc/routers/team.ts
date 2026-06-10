@@ -17,6 +17,7 @@ import { logAudit } from "@/lib/audit";
 import { getAppUrl } from "@/lib/utils";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
+import { verifyAssessmentOwnership } from "../guards";
 
 const INVITE_EXPIRY_DAYS = 7;
 
@@ -121,6 +122,22 @@ export const teamRouter = router({
           code: "FORBIDDEN",
           message: "This email is already associated with another organization.",
         });
+      }
+
+      // Audit H-1 (2026-06-10): the single-format assignmentContext flows
+      // into a `(assessmentId, categoryId)` upsert at accept time. Without
+      // an ownership check, an admin in tenant A could supply tenant B's
+      // (assessmentId, categoryId) pair and overwrite tenant B's
+      // category_assignment row, locking the legitimate owner out of
+      // enforceAssignment + sign-off. Verify ownership at the issue site
+      // so the bad input never reaches the DB. applyAssignmentContext
+      // re-checks at accept time as defense in depth.
+      if (input.assignmentContext) {
+        await verifyAssessmentOwnership(
+          ctx.db,
+          input.assignmentContext.assessmentId,
+          ctx.companyId,
+        );
       }
 
       // Resolve compliance role → assignment context
@@ -526,6 +543,32 @@ async function applyAssignmentContext(
   // Try single format: { assessmentId, categoryId }
   const single = singleAssignmentSchema.safeParse(raw);
   if (single.success) {
+    // Audit H-1 (2026-06-10) defense in depth: re-verify the assessment
+    // still belongs to the inviting company. If the invite was poisoned
+    // (or the assessment was deleted/reassigned between issue and
+    // accept), skip silently rather than rewrite another tenant's row.
+    // The `(assessmentId, categoryId)` unique index is global, so an
+    // unchecked upsert here is a cross-tenant write primitive.
+    const owningAssessment = await db.query.companyAssessment.findFirst({
+      where: eq(companyAssessment.id, single.data.assessmentId),
+      columns: { id: true, companyId: true, frameworkId: true },
+    });
+    if (!owningAssessment || owningAssessment.companyId !== companyId) {
+      return;
+    }
+    // The category must belong to the same framework as the assessment,
+    // otherwise the pair is internally inconsistent (audit LOW).
+    const owningCategory = await db.query.requirementCategory.findFirst({
+      where: and(
+        eq(requirementCategory.id, single.data.categoryId),
+        eq(requirementCategory.frameworkId, owningAssessment.frameworkId),
+      ),
+      columns: { id: true },
+    });
+    if (!owningCategory) {
+      return;
+    }
+
     await db
       .insert(categoryAssignment)
       .values({

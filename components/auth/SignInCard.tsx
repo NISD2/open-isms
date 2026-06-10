@@ -24,7 +24,16 @@ export function SignInCard() {
   const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard";
+  // Audit H-3 (2026-06-10): only accept absolute-path local URLs. An
+  // attacker-controlled absolute URL ("https://evil.tld") or protocol-
+  // relative URL ("//evil.tld") would let router.push escape origin via
+  // window.location.assign on the next nav and host a credible
+  // re-login-phish on the genuine nisd2.eu chrome.
+  const rawCallback = searchParams.get("callbackUrl");
+  const callbackUrl =
+    rawCallback && rawCallback.startsWith("/") && !rawCallback.startsWith("//")
+      ? rawCallback
+      : "/dashboard";
   const [step, setStep] = useState<Step>("auth");
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");

@@ -5,6 +5,7 @@ import { user } from "@/schema";
 import { verifyOtp } from "@/lib/auth/otp";
 import { sendMail, sendWelcomeEmail, newUserSignupEmail } from "@/lib/mail";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
+import { getClientIp } from "@/lib/client-ip";
 
 // In-memory rate limit: max 10 verification attempts per IP per 15 min.
 // Per-OTP attempts are already capped server-side at 5 in `verifyOtp`,
@@ -42,9 +43,7 @@ function isRateLimited(ip: string): boolean {
  *   429:  { error: "Too many attempts" }
  */
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
-    ?? request.headers.get("x-real-ip")
-    ?? "unknown";
+  const ip = getClientIp(request.headers);
 
   if (isRateLimited(ip)) {
     return NextResponse.json(

@@ -5,6 +5,7 @@ import { user } from "@/schema";
 import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
 import { sendMail, passwordResetCodeEmail } from "@/lib/mail";
 import { isDisposableEmail } from "@/lib/auth/disposable";
+import { getClientIp } from "@/lib/client-ip";
 
 // In-memory IP rate limit. Matches the pattern used by /api/auth/register.
 // Per-email rate limiting lives in requestOtp itself.
@@ -37,10 +38,7 @@ function isRateLimited(ip: string): boolean {
  *   429:  { error: "..." }     // Per-IP only; per-email handled silently
  */
 export async function POST(request: Request) {
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    request.headers.get("x-real-ip") ??
-    "unknown";
+  const ip = getClientIp(request.headers);
 
   if (isRateLimited(ip)) {
     return NextResponse.json(

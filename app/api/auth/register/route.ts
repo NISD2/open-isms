@@ -6,6 +6,7 @@ import { user } from "@/schema";
 import { sendMail, emailVerificationCodeEmail } from "@/lib/mail";
 import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
+import { getClientIp } from "@/lib/client-ip";
 
 // Simple in-memory rate limiter: max 5 attempts per IP per 15 minutes
 const attempts = new Map<string, { count: number; resetAt: number }>();
@@ -44,9 +45,7 @@ function isRateLimited(ip: string): boolean {
  * language. Defaults to "de" for the German market.
  */
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
-    ?? request.headers.get("x-real-ip")
-    ?? "unknown";
+  const ip = getClientIp(request.headers);
 
   if (isRateLimited(ip)) {
     return NextResponse.json(
@@ -97,31 +96,33 @@ export async function POST(request: Request) {
     where: eq(user.email, email),
   });
 
-  // Treat existing unverified accounts as "still in signup" — allow re-sending
-  // the OTP rather than blocking with "already exists". This is the common case
-  // when a user closes the tab between register and verify-email.
-  const userExistsAndVerified = existing && existing.emailVerifiedAt;
-  if (userExistsAndVerified) {
-    // Generic message to prevent email enumeration
-    return NextResponse.json(
-      { error: "Unable to create account. Please try signing in instead." },
-      { status: 409 },
-    );
+  // Verified account: return the same generic success shape as every other
+  // branch. Anything that distinguishes "this email is taken" from the
+  // happy path leaks an enumeration oracle (audit H-4). Forgotten password
+  // belongs in /api/auth/forgot-password, which proves mailbox ownership
+  // before mutating anything.
+  if (existing && existing.emailVerifiedAt) {
+    return NextResponse.json({ success: true, verificationRequired: true });
   }
 
-  const passwordHash = await bcrypt.hash(password, 12);
-  const name = email.split("@")[0];
   const quality = await checkEmailQuality(email);
   const disposable = quality.block;
 
   if (existing) {
-    // Pending-verify account exists. Refresh the password (user may have
-    // retyped a different one) but do not announce admin signup again.
+    // Pending-verify account exists. Re-issue the OTP so the user can
+    // finish signing up if they lost the original mail. CRITICAL (audit
+    // C-1): never overwrite passwordHash here. Without an ownership
+    // proof the overwrite lets an attacker hijack any not-yet-verified
+    // address by simply re-POSTing /register with their own password.
+    // Forgotten-password recovery belongs in /api/auth/forgot-password,
+    // which proves mailbox control via OTP before mutating the password.
     await db
       .update(user)
-      .set({ passwordHash, isDisposableEmail: disposable, updatedAt: new Date() })
+      .set({ isDisposableEmail: disposable, updatedAt: new Date() })
       .where(eq(user.id, existing.id));
   } else {
+    const passwordHash = await bcrypt.hash(password, 12);
+    const name = email.split("@")[0];
     // onConflictDoNothing guards against two concurrent registrations for the
     // same new email racing past the findFirst check and both attempting the
     // insert — without this the loser hits a unique-constraint 500.
