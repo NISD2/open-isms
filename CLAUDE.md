@@ -213,3 +213,35 @@ messages/              # i18n JSON files per namespace per locale
 3. Fetch data in server page via `api`, pass as props to client component
 4. Register localized pathname in `i18n/routing.ts` (lower SEO priority but still required for consistency)
 5. Add sidebar link in `components/portal/AppSidebar.tsx`
+
+
+## Public-repo hygiene
+
+This is the public OSS platform (AGPL-3.0). Some kinds of content do not belong in this repo regardless of how convenient it would be to write them here:
+
+### Never commit
+
+- **Lead lists, named prospects, outreach drafts** referencing real people or companies
+- **Sales material, persona research, social-post drafts** for specific recipients
+- **Financial plans, revenue projections, payroll info, IHK or grant correspondence**
+- **Internal strategy docs** with specific competitive analysis, customer references, or positioning calls
+- **Meeting transcripts** with named participants
+- **Personal info** beyond what's necessary for the platform (CV, personal signature HTML, etc.)
+- **Hardcoded admin/recipient emails** — use the `PLATFORM_ADMIN_EMAILS` env var
+- **Hardcoded support emails** — use the `SUPPORT_EMAIL` env var
+- **`.env*` files** (already gitignored — confirm before commits)
+- **Secrets of any shape** (`*.pem`, `*.key`, `**/credentials.json`, `**/service-account*.json`)
+
+If you find yourself wanting to write any of the above: it belongs in a **separate, private repo**. Maintainers of nisd2.eu keep one for their business / sales / strategy notes. External contributors don't need to touch that side — your work happens entirely in this repo.
+
+### Public history is forever
+
+Any sensitive content committed and pushed lives in git history globally, even after a follow-up delete commit. There is no recovery. Treat every commit as if it will be on Hacker News tomorrow.
+
+### Layer rules
+
+- App code goes in `app/`, `lib/`, `components/`, `schema/`, `server/`, `drizzle/`.
+- Reusable schema / framework data goes in `packages/grc-data-model/`, `packages/incident-notification-schema/`.
+- Internal-shared workspace packages go in `packages/isms-*/`.
+- Reference app (Docker-composed demo) lives in `apps/reference/`.
+- The above categories are the only places code should live. Don't add a top-level `business/`, `sales/`, `strategy/`, or `internal/` directory.
