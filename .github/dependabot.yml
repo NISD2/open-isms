@@ -1,35 +1,54 @@
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels: ["dependencies", "github-actions"]
+
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
+    open-pull-requests-limit: 10
+    labels: ["dependencies", "npm"]
     groups:
-      minor-and-patch:
-        update-types:
-          - "minor"
-          - "patch"
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 3
-    labels:
-      - "dependencies"
-      - "ci"
-
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 2
-    labels:
-      - "dependencies"
-      - "docker"
+      next-ecosystem:
+        patterns:
+          - "next"
+          - "@next/*"
+          - "next-*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react*"
+      drizzle:
+        patterns:
+          - "drizzle-orm"
+          - "drizzle-kit"
+          - "drizzle-zod"
+          - "drizzle-seed"
+      trpc:
+        patterns:
+          - "@trpc/*"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "tw-animate-css"
+      types:
+        patterns:
+          - "@types/*"
+      ai-sdk:
+        patterns:
+          - "ai"
+          - "@ai-sdk/*"
+      aws-sdk:
+        patterns:
+          - "@aws-sdk/*"
+    ignore:
+      # Bun runtime — only bump when explicitly intended
+      - dependency-name: "bun"
