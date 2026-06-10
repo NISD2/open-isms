@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { user } from "@/schema";
 import { verifyOtp } from "@/lib/auth/otp";
@@ -109,6 +109,12 @@ export async function POST(request: Request) {
       // Reset proves the user controls the inbox, so mark verified if not
       // already. Pending-verify accounts can recover this way too.
       emailVerifiedAt: dbUser.emailVerifiedAt ?? now,
+      // Audit M-1 (2026-06-10): bump sessionVersion so every JWT
+      // stamped before this rotation stops validating on the next
+      // getSession() call. The increment runs inside the same update
+      // statement so a partial write cannot rotate the password
+      // without revoking the old sessions.
+      sessionVersion: sql`${user.sessionVersion} + 1`,
       updatedAt: now,
     })
     .where(eq(user.id, dbUser.id));

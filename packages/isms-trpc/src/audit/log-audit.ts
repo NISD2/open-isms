@@ -20,19 +20,37 @@ export type AuditDb = NodePgDatabase<Record<string, never>>;
 export function createLogAudit(db: AuditDb) {
   return async function logAudit(entry: AuditEntry): Promise<void> {
     const checksum = computeChecksum(entry);
-    await db.insert(auditLog).values({
-      companyId: entry.companyId,
-      userId: entry.userId,
-      action: entry.action,
-      entityType: entry.entityType,
-      entityId: entry.entityId,
-      description: entry.description,
-      previousValue: entry.previousValue ?? null,
-      newValue: entry.newValue ?? null,
-      ipAddress: entry.ipAddress ?? null,
-      userAgent: entry.userAgent ?? null,
-      checksum,
-    });
+    try {
+      await db.insert(auditLog).values({
+        companyId: entry.companyId,
+        userId: entry.userId,
+        action: entry.action,
+        entityType: entry.entityType,
+        entityId: entry.entityId,
+        description: entry.description,
+        previousValue: entry.previousValue ?? null,
+        newValue: entry.newValue ?? null,
+        ipAddress: entry.ipAddress ?? null,
+        userAgent: entry.userAgent ?? null,
+        checksum,
+      });
+    } catch (err) {
+      // Audit B-3 (2026-06-10): catch + log at the source instead of
+      // letting fire-and-forget callers swallow rejections silently.
+      // Cron / middleware / router callers all funnel through here, so
+      // wrapping once eliminates the "no audit row, no error" failure
+      // mode for every caller in one change. Sign-off integrity does
+      // NOT rely on this log call — that's the chained sign_off_history
+      // table (`recordSignOffChainEntry`), written inside the mutation's
+      // own transaction. The audit_log row is the "user did action X"
+      // trail; losing it surfaces here rather than disappearing.
+      console.error("[audit] failed to write audit_log row", {
+        action: entry.action,
+        entityType: entry.entityType,
+        entityId: entry.entityId,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
   };
 }
 
