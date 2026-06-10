@@ -6,6 +6,7 @@ import {
 } from "@/schema";
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import type { Database } from "@/lib/db";
+import { recordSignOffChainEntry } from "./sign-off-chain";
 
 /** Build a sign-off snapshot capturing company profile + operational counts at sign-off time */
 export async function buildSignOffSnapshot(
@@ -81,21 +82,29 @@ export async function recalculateProgress(
  * satisfaction). When the user signs requirement X, BFS through the
  * satisfaction graph and credit every reachable requirement Y.
  *
- * Two edge kinds are treated differently:
+ * Edge kinds:
  *   - `equivalent` pairs share the same underlying artefact (same supplier
- *     register, same incident row, same methodology). The BFS continues
- *     through these edges, so a chain X-eq-Y-eq-Z credits all three.
- *   - `overlapping` pairs only justify direct credit. BFS does NOT
- *     continue past them, so partial conceptual overlap cannot smuggle
- *     unrelated requirements into the credited set.
+ *     register, same incident row, same methodology). BFS continues through
+ *     these edges so a chain X-eq-Y-eq-Z credits all three.
+ *   - `overlapping` pairs only justify direct credit. BFS does NOT continue
+ *     past them, so partial conceptual overlap cannot smuggle unrelated
+ *     requirements into the credited set.
  *
- * Permissive on the target side: does NOT re-check the target's
- * role/assignment/prerequisites. The user already attested via the
- * source, and the audit trail records the propagation path.
+ * Role gate (audit B-4, 2026-06-10): a credit is only applied when the
+ * target's `requiredSignOffRole` matches the source signer's role (or the
+ * source signer was admin). Without the gate, signing a CISO-required
+ * requirement (e.g. SUP-5.1) was crediting linked CEO-required requirements
+ * with `signedOffRole=ciso`, which a §38 BSIG auditor reads as a CISO
+ * signing for the board.
+ *
+ * Chain (audit B-2): every credited target gets a `sign_off_history`
+ * entry with `source: "module"` inside the same tx as its status update.
+ * Without these, verifySignOffChain short-circuits to valid=true on every
+ * propagated row and the integrity story collapses.
  *
  * Idempotent: skips status rows already in 'completed' or 'approved'.
  *
- * Returns the requirement IDs that received credit (for logging).
+ * Returns the requirement IDs that received credit.
  */
 export async function propagateSatisfaction(
   db: Database,
@@ -161,35 +170,58 @@ export async function propagateSatisfaction(
       inArray(companyRequirementStatus.assessmentId, tenantAssessmentIds),
     ),
     with: {
-      requirement: { columns: { templateVersion: true } },
+      requirement: { columns: { templateVersion: true, requiredSignOffRole: true } },
     },
   });
 
   const propagated: string[] = [];
   const assessmentsToRecalculate = new Set<string>();
   const now = new Date();
+  const signerIsAdmin = signedOffRole === "admin";
 
-  for (const target of targetStatuses) {
-    if (target.status === "completed" || target.status === "approved") continue;
+  await db.transaction(async (tx) => {
+    for (const target of targetStatuses) {
+      if (target.status === "completed" || target.status === "approved") continue;
 
-    await db
-      .update(companyRequirementStatus)
-      .set({
-        status: "completed",
+      const required = target.requirement.requiredSignOffRole;
+      // Skip if the target requires a specific role that the source signer
+      // did not satisfy. Admin sign-off bypasses for parity with signOff,
+      // which lets admins close requirements without a role match.
+      if (required && required !== signedOffRole && !signerIsAdmin) {
+        continue;
+      }
+
+      await tx
+        .update(companyRequirementStatus)
+        .set({
+          status: "completed",
+          signedOffBy: userId,
+          signedOffAt: now,
+          signedOffRole,
+          signedOffTemplateVersion: target.requirement.templateVersion,
+          signOffSnapshot: snapshot,
+          completedAt: now,
+          completedBy: userId,
+          updatedAt: now,
+        })
+        .where(eq(companyRequirementStatus.id, target.id));
+
+      await recordSignOffChainEntry(tx as unknown as Database, {
+        companyId,
+        statusId: target.id,
+        requirementId: target.requirementId,
         signedOffBy: userId,
-        signedOffAt: now,
         signedOffRole,
-        signedOffTemplateVersion: target.requirement.templateVersion,
-        signOffSnapshot: snapshot,
-        completedAt: now,
-        completedBy: userId,
-        updatedAt: now,
-      })
-      .where(eq(companyRequirementStatus.id, target.id));
+        source: "module",
+        templateVersion: target.requirement.templateVersion,
+        companyProfile: snapshot.companyProfile ?? {},
+        data: { sourceRequirementId, propagation: "cross-framework" },
+      });
 
-    propagated.push(target.requirementId);
-    assessmentsToRecalculate.add(target.assessmentId);
-  }
+      propagated.push(target.requirementId);
+      assessmentsToRecalculate.add(target.assessmentId);
+    }
+  });
 
   for (const assessmentId of assessmentsToRecalculate) {
     await recalculateProgress(db, assessmentId);
