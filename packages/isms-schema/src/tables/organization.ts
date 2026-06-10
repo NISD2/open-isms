@@ -213,6 +213,15 @@ export const user = pgTable("user", {
    * Flipped via /api/email/unsubscribe?u=...&t=... HMAC-signed URL.
    */
   emailFollowupsDisabled: boolean("email_followups_disabled").default(false).notNull(),
+  /**
+   * Session revocation counter (audit M-1, 2026-06-10). Stamped into the
+   * JWT at sign-in; compared on every getSession. Bumped on password
+   * reset (and on any future "sign out of all devices" action) so a
+   * leaked JWT stops working the moment the legitimate user rotates
+   * credentials. Defaults to 1 so existing tokens at migration time
+   * stay valid until first rotation.
+   */
+  sessionVersion: integer("session_version").default(1).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 }, (table) => [

@@ -233,18 +233,41 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return true;
     },
 
-    async session({ session }) {
+    /**
+     * Audit M-1 (2026-06-10): stamp the user's current sessionVersion
+     * into the JWT at issue time so getSession() can detect revocation.
+     * `user` is only supplied on first sign-in (Credentials authorize
+     * or OAuth sign-in); on subsequent token refreshes the stamped
+     * version is what was canonical at issue time, which is exactly
+     * what we want — a stale token whose version is below the live
+     * user.sessionVersion gets rejected.
+     */
+    async jwt({ token, user: authUser }) {
+      if (authUser?.email) {
+        const dbUser = await db.query.user.findFirst({
+          where: eq(user.email, authUser.email),
+          columns: { sessionVersion: true },
+        });
+        token.sessionVersion = dbUser?.sessionVersion ?? 1;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
       session.companyId = null;
       session.role = "member";
       session.jobTitle = null;
+      session.sessionVersion = token.sessionVersion ?? null;
       return session;
     },
   },
 });
 
 /**
- * Get the current session with fresh id/companyId/role from DB.
- * React cache() ensures a single DB query per request.
+ * Get the current session with fresh id/companyId/role from DB, and
+ * verify the JWT's sessionVersion against the live user row (audit
+ * M-1, 2026-06-10) so revoked tokens stop working. React cache()
+ * ensures a single DB query per request.
  */
 export const getSession = cache(async (): Promise<Session | null> => {
   const session = await auth();
@@ -252,9 +275,19 @@ export const getSession = cache(async (): Promise<Session | null> => {
 
   const dbUser = await db.query.user.findFirst({
     where: eq(user.email, session.user.email),
-    columns: { id: true, companyId: true, role: true, jobTitle: true },
+    columns: {
+      id: true,
+      companyId: true,
+      role: true,
+      jobTitle: true,
+      sessionVersion: true,
+    },
   });
   if (!dbUser) return null;
+
+  if (session.sessionVersion != null && session.sessionVersion < dbUser.sessionVersion) {
+    return null;
+  }
 
   session.user.id = dbUser.id;
   session.companyId = dbUser.companyId;
