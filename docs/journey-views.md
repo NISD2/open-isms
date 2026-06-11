@@ -120,7 +120,7 @@ Solve the gap surfaced by the validation report: *"the spec answers what to buil
 
 ### 5.4 MSP view
 - **Who.** External IT services provider invited to the company portal (typical for 50–250-person Mittelstand using Bechtle/Cancom).
-[redacted for public release]
+- **Filter.** Categories where IT scope dominates: `["RSK", "PRO", "CRY", "ACC", "AUT", "INC", "BCP"]` (the `MSP_CATS` constant — fact-check F4 added BCP because MSPs operate backups under §30(2) Nr. 3 BSIG). TRN + EFF are **conditional** — enabled per-customer if MSP delivers training (via awareness-platform vendors) or operates KPI dashboards.
 - **Grouping.** By `categoryCode`.
 - **Empty state.** "No IT-domain requirements yet."
 - **1-line pitch.** "IT-domain requirements scoped to what your MSP can act on."

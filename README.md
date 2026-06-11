@@ -25,7 +25,6 @@ app/                              # the production SaaS — marketing + portal +
 components/  lib/  schema/  server/  drizzle/  messages/  i18n/   # SaaS app code
 courses/                          # NIS 2 CEO course content + tabletop exercises + CRA SBOM
 data/  docs/  research/           # public reference data + ENISA TIG + deployment docs
-[redacted for public release]
 public/                           # static assets
 
 scripts/                          # operational + release tooling

@@ -373,7 +373,7 @@ For each category, persona-level verdict + items needing action.
 
 ### Cat 8 TRN (Training) — 4 reqs (8.1 Policy + AUP · 8.2 Awareness · 8.3 Role · 8.4 Phishing)
 
-[redacted for public release]
+- 👤 **CISO:** ✅ — "Quarterly cadence works. Awareness platform vendors cover the DE market."
 - 👤 **NIS2 Auditor:** ✅ — "Completion rate + phishing click rate are exactly what we ask for."
 - 👤 **CIR Implementor:** ✅ — "CIR 8.1–8.4 covered."
 - 👤 **50-person co:** ⚠️ — "Annual training is realistic; quarterly phishing might be too aggressive. Need flexibility."

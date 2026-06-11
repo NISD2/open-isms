@@ -1,1 +1,0 @@
-ALTER TABLE "user" ADD COLUMN "email_followups_disabled" boolean DEFAULT false NOT NULL;
