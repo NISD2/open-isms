@@ -5,10 +5,8 @@
  * pure function that takes the user + the company's 49 requirement statuses
  * and returns a Map of named queues. The page renders queues; cards link to
  * the existing /portal/compliance/[categorySlug] detail page where all the
- * v4.1 hand-holding (intake fields, sign-off mechanic, wiki link, workshop,
+ * hand-holding (intake fields, sign-off mechanic, wiki link, workshop,
  * exec questions) already lives.
- *
- * See docs/journey-views.md for the full plan + per-view fact-check notes.
  */
 
 export type View = "ceo" | "ciso" | "auditor" | "msp" | "advanced";
@@ -157,7 +155,7 @@ export const PROJECTIONS: Record<View, ProjectionFn> = {
         .sort(compareForQueue),
       // "Blocked on me" = items awaiting my signature that would unblock
       // downstream work. Uses blocksCount computed from requirement_prerequisite
-      // joined in journey.getItems (docs/journey-views.md §7.5).
+      // joined in journey.getItems.
       "Blocked on me": mine
         .filter((i) => awaitingSignoff(i) && i.blocksCount > 0)
         .sort(compareForQueue),
