@@ -1,7 +1,10 @@
 import { redirect } from "next/navigation";
 import { api } from "@/lib/trpc/server";
 import { SecurityProfileForm } from "@/components/supplier-portal/SecurityProfileForm";
-import { PROFILE_PAGE_FIELDS } from "@/lib/forms/supplier-portal-sections";
+import {
+  PROFILE_PAGE_FIELDS,
+  SERVICE_TYPE_PAGE_FIELDS,
+} from "@/lib/forms/supplier-portal-sections";
 
 /**
  * Security Practices sub-page — universal company-wide ISMS / NIS2 baseline
@@ -40,7 +43,7 @@ export default async function SupplierPracticesPage() {
         initialValues={profile}
         lastSavedAt={profile.practicesLastSavedAt ?? null}
         mode="edit"
-        omit={[...PROFILE_PAGE_FIELDS]}
+        omit={[...PROFILE_PAGE_FIELDS, ...SERVICE_TYPE_PAGE_FIELDS]}
       />
     </div>
   );

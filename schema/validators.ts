@@ -157,6 +157,46 @@ export const securityProfileUpdateSchema = companyInsertSchema
     // ENISA TIG §5.1.2 — supplier's own NIS2-regulated status (reuses the
     // existing bsiRegistrationId column from the entity-side profile)
     bsiRegistrationId: true,
+    // ENISA TIG §5.2(b) / §5.1.4 TIPS — profile extensions
+    serviceDescription: true,
+    dataProcessingLocations: true,
+    incidentSlaHours: true,
+    isSaas: true,
+    isOnPrem: true,
+    isProfessionalServices: true,
+    isManagedService: true,
+    usesAiSystems: true,
+    // CIR §5.1.4 / GDPR Art. 28 / ENISA TIG §5.1.4 TIPS — security practice extensions
+    acceptRightToAudit: true,
+    hasSubprocessors: true,
+    subprocessorList: true,
+    dataReturnOnTermination: true,
+    dpaAvailable: true,
+    incidentAssistanceCommitment: true,
+    notifyMaterialChanges: true,
+    notifyOnLocationChange: true,
+    hasExitPlan: true,
+    providesSbomForAi: true,
+    aiSbomUrl: true,
+    // SaaS technical (rendered when isSaas)
+    saasHostingRegion: true,
+    saasEncryptionAtRest: true,
+    saasEncryptionInTransit: true,
+    saasMfaEnforced: true,
+    saasRtoHours: true,
+    // On-prem technical (rendered when isOnPrem)
+    onPremSbomProvided: true,
+    onPremSignedReleases: true,
+    onPremVulnerabilityDisclosurePolicy: true,
+    onPremPatchSlaCriticalHours: true,
+    // Professional services (rendered when isProfessionalServices)
+    proServicesBackgroundCheckScope: true,
+    proServicesNdaInPlace: true,
+    proServicesCustomerPremisesPolicy: true,
+    // Managed services (rendered when isManagedService)
+    managedPrivilegedAccessMgmt: true,
+    managedSessionRecording: true,
+    managedOnCall24x7: true,
   });
 
 export const userInsertSchema = createInsertSchema(user, {

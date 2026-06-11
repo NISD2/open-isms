@@ -22,51 +22,25 @@
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import type { z } from "zod";
+import type { InferSelectModel } from "drizzle-orm";
 import { trpc } from "@/lib/trpc/client";
 import { SchemaForm } from "@/lib/forms/schema-form";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
+import { company } from "@/schema";
 import { securityProfileUpdateSchema } from "@/schema/validators";
 import { toast } from "sonner";
 
 type ProfileValues = z.infer<typeof securityProfileUpdateSchema>;
 
 /**
- * Loose superset of the company row's supplier-portal subset. The page passes
- * the DB row directly; null-coalescing below converts DB nulls into the
- * defaults that React Hook Form / shadcn inputs expect.
+ * Initial values — a partial company row from the DB. Derived from the
+ * Drizzle table type so we never restate column names. Null-coalescing below
+ * converts DB nulls into the defaults that React Hook Form / shadcn inputs
+ * expect (text → "", boolean → false, number → undefined).
  */
-export interface SecurityProfileInitialValues {
-  // Profile metadata
-  primaryDomain?: string | null;
-  tagline?: string | null;
-  description?: string | null;
-  incidentContactEmail?: string | null;
-  incidentContactPhone?: string | null;
-  // Identity
-  legalName?: string | null;
-  registeredAddress?: string | null;
-  country?: string | null;
-  securityContactName?: string | null;
-  bsiRegistrationId?: string | null;
-  // CIR §5.1.4 universal facts
-  hasIsms?: boolean | null;
-  hasIso27001OrEquivalent?: boolean | null;
-  staffSecurityTraining?: boolean | null;
-  backgroundChecks?: boolean | null;
-  vulnerabilityHandling?: boolean | null;
-  // NIS2 Art 21(2) / CIR §5.1 baseline practices
-  securityPolicyReviewedAnnually?: boolean | null;
-  hasIncidentResponsePlan?: boolean | null;
-  hasBusinessContinuityPlan?: boolean | null;
-  hasCryptographyPolicy?: boolean | null;
-  hasPrivilegedAccessMgmt?: boolean | null;
-  mfaEnforcedInternal?: boolean | null;
-  hasAssetInventory?: boolean | null;
-  hasPenetrationTestingProgram?: boolean | null;
-  // ENISA TIG §5 — universal company-wide
-  cooperateWithAuthorities?: boolean | null;
-  pastBreachesDisclosed?: boolean | null;
-}
+export type SecurityProfileInitialValues = Partial<
+  InferSelectModel<typeof company>
+>;
 
 interface SecurityProfileFormProps {
   initialValues: SecurityProfileInitialValues;
@@ -143,6 +117,56 @@ export function SecurityProfileForm({
     // ── ENISA TIG §5 — universal company-wide declarations ──
     cooperateWithAuthorities: { group: t("sectionContractTips") },
     pastBreachesDisclosed: { group: t("sectionContractTips") },
+
+    // ── Profile extensions (ENISA TIG §5.2(b), §5.1.4 TIPS) ──
+    serviceDescription: { group: t("sectionIdentity"), colSpan: 2 },
+    dataProcessingLocations: { group: t("sectionIdentity"), colSpan: 2 },
+    incidentSlaHours: { group: t("sectionIncidentContact") },
+    isSaas: { group: t("sectionType") },
+    isOnPrem: { group: t("sectionType") },
+    isProfessionalServices: { group: t("sectionType") },
+    isManagedService: { group: t("sectionType") },
+    usesAiSystems: { group: t("sectionType") },
+
+    // ── Contract clauses (CIR §5.1.4 / GDPR Art. 28) ──
+    acceptRightToAudit: { group: t("sectionContract") },
+    hasSubprocessors: { group: t("sectionContract") },
+    subprocessorList: { group: t("sectionContract"), colSpan: 2 },
+    dataReturnOnTermination: { group: t("sectionContract") },
+    dpaAvailable: { group: t("sectionContract") },
+
+    // ── Additional supplier commitments (ENISA TIG §5.1.4 TIPS) ──
+    incidentAssistanceCommitment: { group: t("sectionContractTips") },
+    notifyMaterialChanges: { group: t("sectionContractTips") },
+    notifyOnLocationChange: { group: t("sectionContractTips") },
+    hasExitPlan: { group: t("sectionContractTips") },
+
+    // ── AI declarations (NIS 2 Art. 21(2)(d)) ──
+    providesSbomForAi: { group: t("sectionContractTips") },
+    aiSbomUrl: { group: t("sectionContractTips"), colSpan: 2 },
+
+    // ── SaaS technical (rendered when isSaas) ──
+    saasHostingRegion: { group: t("sectionSaas") },
+    saasEncryptionAtRest: { group: t("sectionSaas") },
+    saasEncryptionInTransit: { group: t("sectionSaas") },
+    saasMfaEnforced: { group: t("sectionSaas") },
+    saasRtoHours: { group: t("sectionSaas") },
+
+    // ── On-prem technical (rendered when isOnPrem) ──
+    onPremSbomProvided: { group: t("sectionOnPrem") },
+    onPremSignedReleases: { group: t("sectionOnPrem") },
+    onPremVulnerabilityDisclosurePolicy: { group: t("sectionOnPrem") },
+    onPremPatchSlaCriticalHours: { group: t("sectionOnPrem") },
+
+    // ── Professional services (rendered when isProfessionalServices) ──
+    proServicesBackgroundCheckScope: { group: t("sectionProServices"), colSpan: 2 },
+    proServicesNdaInPlace: { group: t("sectionProServices") },
+    proServicesCustomerPremisesPolicy: { group: t("sectionProServices") },
+
+    // ── Managed services (rendered when isManagedService) ──
+    managedPrivilegedAccessMgmt: { group: t("sectionManaged") },
+    managedSessionRecording: { group: t("sectionManaged") },
+    managedOnCall24x7: { group: t("sectionManaged") },
   };
 
   async function handleSubmit(data: Record<string, unknown>) {
@@ -185,6 +209,52 @@ export function SecurityProfileForm({
     // ENISA TIG §5 — universal company-wide
     cooperateWithAuthorities: initialValues.cooperateWithAuthorities ?? false,
     pastBreachesDisclosed: initialValues.pastBreachesDisclosed ?? false,
+    // Profile extensions
+    serviceDescription: initialValues.serviceDescription ?? "",
+    dataProcessingLocations: initialValues.dataProcessingLocations ?? "",
+    incidentSlaHours: initialValues.incidentSlaHours ?? undefined,
+    isSaas: initialValues.isSaas ?? false,
+    isOnPrem: initialValues.isOnPrem ?? false,
+    isProfessionalServices: initialValues.isProfessionalServices ?? false,
+    isManagedService: initialValues.isManagedService ?? false,
+    usesAiSystems: initialValues.usesAiSystems ?? false,
+    // Contract clauses + supplier commitments
+    acceptRightToAudit: initialValues.acceptRightToAudit ?? false,
+    hasSubprocessors: initialValues.hasSubprocessors ?? false,
+    subprocessorList: initialValues.subprocessorList ?? "",
+    dataReturnOnTermination: initialValues.dataReturnOnTermination ?? false,
+    dpaAvailable: initialValues.dpaAvailable ?? false,
+    incidentAssistanceCommitment:
+      initialValues.incidentAssistanceCommitment ?? false,
+    notifyMaterialChanges: initialValues.notifyMaterialChanges ?? false,
+    notifyOnLocationChange: initialValues.notifyOnLocationChange ?? false,
+    hasExitPlan: initialValues.hasExitPlan ?? false,
+    providesSbomForAi: initialValues.providesSbomForAi ?? false,
+    aiSbomUrl: initialValues.aiSbomUrl ?? "",
+    // SaaS technical
+    saasHostingRegion: initialValues.saasHostingRegion ?? "",
+    saasEncryptionAtRest: initialValues.saasEncryptionAtRest ?? false,
+    saasEncryptionInTransit: initialValues.saasEncryptionInTransit ?? false,
+    saasMfaEnforced: initialValues.saasMfaEnforced ?? false,
+    saasRtoHours: initialValues.saasRtoHours ?? undefined,
+    // On-prem technical
+    onPremSbomProvided: initialValues.onPremSbomProvided ?? false,
+    onPremSignedReleases: initialValues.onPremSignedReleases ?? false,
+    onPremVulnerabilityDisclosurePolicy:
+      initialValues.onPremVulnerabilityDisclosurePolicy ?? false,
+    onPremPatchSlaCriticalHours:
+      initialValues.onPremPatchSlaCriticalHours ?? undefined,
+    // Professional services
+    proServicesBackgroundCheckScope:
+      initialValues.proServicesBackgroundCheckScope ?? "",
+    proServicesNdaInPlace: initialValues.proServicesNdaInPlace ?? false,
+    proServicesCustomerPremisesPolicy:
+      initialValues.proServicesCustomerPremisesPolicy ?? false,
+    // Managed services
+    managedPrivilegedAccessMgmt:
+      initialValues.managedPrivilegedAccessMgmt ?? false,
+    managedSessionRecording: initialValues.managedSessionRecording ?? false,
+    managedOnCall24x7: initialValues.managedOnCall24x7 ?? false,
   };
 
   return (

@@ -31,6 +31,7 @@ import {
   Server,
   AlertCircle,
   KeyRound,
+  Layers,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -64,6 +65,11 @@ const GENERAL_NAV: NavItem[] = [
     href: "/portal/supplier/practices",
     label: "Security practices",
     icon: ListChecks,
+  },
+  {
+    href: "/portal/supplier/service-type",
+    label: "Service type",
+    icon: Layers,
   },
   {
     href: "/portal/supplier/certifications",

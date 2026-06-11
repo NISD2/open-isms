@@ -2,7 +2,10 @@ import { redirect } from "next/navigation";
 import { ShieldCheck } from "lucide-react";
 import { api } from "@/lib/trpc/server";
 import { SecurityProfileForm } from "@/components/supplier-portal/SecurityProfileForm";
-import { SECURITY_PRACTICES_PAGE_FIELDS } from "@/lib/forms/supplier-portal-sections";
+import {
+  SECURITY_PRACTICES_PAGE_FIELDS,
+  SERVICE_TYPE_PAGE_FIELDS,
+} from "@/lib/forms/supplier-portal-sections";
 
 /**
  * Profile sub-page — identity, marketing metadata, incident contact.
@@ -47,7 +50,7 @@ export default async function SupplierProfileSectionPage() {
         initialValues={profile}
         lastSavedAt={profile.practicesLastSavedAt ?? null}
         mode="edit"
-        omit={[...SECURITY_PRACTICES_PAGE_FIELDS]}
+        omit={[...SECURITY_PRACTICES_PAGE_FIELDS, ...SERVICE_TYPE_PAGE_FIELDS]}
       />
     </div>
   );

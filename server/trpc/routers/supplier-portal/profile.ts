@@ -42,42 +42,27 @@ function sanitizeFilename(name: string): string {
  * contract clauses (right-to-audit, exit plan, etc.) live on the `supplier`
  * table. Both have their own routers — this query is purely company-level.
  */
+/**
+ * Single source of truth for "which company columns belong to the supplier
+ * portal": the Zod `securityProfileUpdateSchema` shape, which is itself a
+ * `.pick({...})` of the drizzle-zod-derived `companyInsertSchema`.
+ *
+ * Anything outside that pick (NIS 2 entity-side fields, billing, FKs) cannot
+ * leak through this query, and any supplier-portal column added to the pick
+ * is automatically projected here — no second list to keep in sync.
+ *
+ * Plus a small set of columns the UI needs that are intentionally NOT in the
+ * update schema (cannot be mass-assigned via the save endpoint): row id,
+ * actsAsSupplier role flag, logoStorageKey (set via dedicated mutation),
+ * practicesLastSavedAt timestamp.
+ */
 const SUPPLIER_PORTAL_COLUMNS = {
+  ...(Object.fromEntries(
+    Object.keys(securityProfileUpdateSchema.shape).map((k) => [k, true]),
+  ) as { [K in keyof typeof securityProfileUpdateSchema.shape]: true }),
   id: true,
   actsAsSupplier: true,
-  // Public identity
-  legalName: true,
-  registeredAddress: true,
-  country: true,
-  primaryDomain: true,
-  tagline: true,
-  description: true,
   logoStorageKey: true,
-  // Customer-facing incident contact (default — per-customer SLA on supplier row)
-  securityContactName: true,
-  incidentContactEmail: true,
-  incidentContactPhone: true,
-  // CIR §5.1.4 universal facts about how the company runs
-  hasIsms: true,
-  hasIso27001OrEquivalent: true,
-  staffSecurityTraining: true,
-  backgroundChecks: true,
-  vulnerabilityHandling: true,
-  // NIS2 Art 21(2) / CIR §5.1 universal baseline practices
-  securityPolicyReviewedAnnually: true,
-  hasIncidentResponsePlan: true,
-  hasBusinessContinuityPlan: true,
-  hasCryptographyPolicy: true,
-  hasPrivilegedAccessMgmt: true,
-  mfaEnforcedInternal: true,
-  hasAssetInventory: true,
-  hasPenetrationTestingProgram: true,
-  // ENISA TIG §5 — universal company-wide declarations
-  cooperateWithAuthorities: true,
-  pastBreachesDisclosed: true,
-  // ENISA TIG §5.1.2 — supplier's own NIS2-regulated status
-  bsiRegistrationId: true,
-  // Denormalized "saved at" hint
   practicesLastSavedAt: true,
 } as const;
 

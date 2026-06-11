@@ -169,6 +169,85 @@ export const company = pgTable("company", {
   /** ENISA TIG §5.1.2 selection criteria — supplier discloses past notifiable cybersecurity events / breaches when asked. */
   pastBreachesDisclosed: boolean("past_breaches_disclosed"),
 
+  // ─────────────────────────────────────────────────────────────────────────
+  // Profile-section extensions — ENISA TIG §5.2(b), §5.1.4 TIPS, NIS 2 Art. 23
+  // Service-type toggles (isSaas, isOnPrem, isProfessionalServices,
+  // isManagedService) drive the conditional technical sections below.
+  // Architectural note: schema's ENISA TIG §5 model is flat per-supplier.
+  // The asset table is the long-term home for per-service technical
+  // declarations; for MVP everything lives here as a single profile.
+  // ─────────────────────────────────────────────────────────────────────────
+  /** ENISA TIG §5.2(b) + §5.1.4 TIPS — clear description of ICT products/services. */
+  serviceDescription: text("service_description"),
+  /** ENISA TIG §5.1.4 TIPS — comma-separated countries where customer data is processed. */
+  dataProcessingLocations: varchar("data_processing_locations", { length: 1000 }),
+  /** NIS 2 Art. 23 — max hours from detection to customer notification. */
+  incidentSlaHours: integer("incident_sla_hours"),
+  /** Service-type toggles — ENISA TIG §5.2(b). */
+  isSaas: boolean("is_saas"),
+  isOnPrem: boolean("is_on_prem"),
+  isProfessionalServices: boolean("is_professional_services"),
+  isManagedService: boolean("is_managed_service"),
+  /** NIS 2 Art. 21(2)(d) — supplier uses/integrates/provides AI systems. */
+  usesAiSystems: boolean("uses_ai_systems"),
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Security-practices-section extensions — CIR §5.1.4, GDPR Art. 28, ENISA TIG §5.1.4 TIPS
+  // ─────────────────────────────────────────────────────────────────────────
+  /** CIR 2024/2690 §5.1.4(e) — accepts customer right to audit or provides substitute reports. */
+  acceptRightToAudit: boolean("accept_right_to_audit"),
+  /** CIR 2024/2690 §5.1.4(g) — uses subprocessors / sub-suppliers. */
+  hasSubprocessors: boolean("has_subprocessors"),
+  /** CIR 2024/2690 §5.1.4(g) — list of subprocessors (rendered when hasSubprocessors). */
+  subprocessorList: text("subprocessor_list"),
+  /** CIR 2024/2690 §5.1.4(h) — return / destroy customer data on termination. */
+  dataReturnOnTermination: boolean("data_return_on_termination"),
+  /** GDPR Art. 28 — standard data processing agreement available. */
+  dpaAvailable: boolean("dpa_available"),
+  /** ENISA TIG §5.1.4 TIPS — assists customers during incidents at no / ex-ante cost. */
+  incidentAssistanceCommitment: boolean("incident_assistance_commitment"),
+  /** ENISA TIG §5.1.4 TIPS — notifies customers of material changes affecting service. */
+  notifyMaterialChanges: boolean("notify_material_changes"),
+  /** ENISA TIG §5.1.4 TIPS — notifies customers in advance of data-processing location changes. */
+  notifyOnLocationChange: boolean("notify_on_location_change"),
+  /** ENISA TIG §5.1.4 TIPS — documented exit strategy with transition period. */
+  hasExitPlan: boolean("has_exit_plan"),
+  /** NIS 2 Art. 21(2)(d) — provides SBOM-for-AI per G7 minimum elements. */
+  providesSbomForAi: boolean("provides_sbom_for_ai"),
+  /** URL to the SBOM-for-AI document. */
+  aiSbomUrl: varchar("ai_sbom_url", { length: 500 }),
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SaaS technical (rendered when isSaas) — BSI IT-Grundschutz OPS.2.2, NIS 2 Art. 21(2)(h)/(j)
+  // ─────────────────────────────────────────────────────────────────────────
+  saasHostingRegion: varchar("saas_hosting_region", { length: 255 }),
+  saasEncryptionAtRest: boolean("saas_encryption_at_rest"),
+  saasEncryptionInTransit: boolean("saas_encryption_in_transit"),
+  saasMfaEnforced: boolean("saas_mfa_enforced"),
+  saasRtoHours: integer("saas_rto_hours"),
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // On-prem technical (rendered when isOnPrem) — CRA / NIS 2 Art. 21(2)(d)/(e)
+  // ─────────────────────────────────────────────────────────────────────────
+  onPremSbomProvided: boolean("on_prem_sbom_provided"),
+  onPremSignedReleases: boolean("on_prem_signed_releases"),
+  onPremVulnerabilityDisclosurePolicy: boolean("on_prem_vulnerability_disclosure_policy"),
+  onPremPatchSlaCriticalHours: integer("on_prem_patch_sla_critical_hours"),
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Professional services (rendered when isProfessionalServices) — BSI ORP.2/ORP.3
+  // ─────────────────────────────────────────────────────────────────────────
+  proServicesBackgroundCheckScope: varchar("pro_services_background_check_scope", { length: 500 }),
+  proServicesNdaInPlace: boolean("pro_services_nda_in_place"),
+  proServicesCustomerPremisesPolicy: boolean("pro_services_customer_premises_policy"),
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Managed services (rendered when isManagedService) — BSI ORP.4 / DER.2.1, NIS 2 Art. 21(2)(f)
+  // ─────────────────────────────────────────────────────────────────────────
+  managedPrivilegedAccessMgmt: boolean("managed_privileged_access_mgmt"),
+  managedSessionRecording: boolean("managed_session_recording"),
+  managedOnCall24x7: boolean("managed_on_call_24x7"),
+
   /** Denormalized timestamp of last supplier-portal Security Practices save — surfaced as a "saved at" hint in the UI. */
   practicesLastSavedAt: timestamp("questionnaire_last_saved_at"),
 
