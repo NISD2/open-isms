@@ -1,9 +1,17 @@
 name: Gitleaks
 
-# Scans the diff on every push and PR for secret patterns (API keys,
-# tokens, private keys, connection strings). Audit EW-16 (2026-06-11).
-# The local pre-commit hook half of EW-16 is deferred until husky is
-# adopted; the Action half catches anything that reaches the remote.
+# Scans the working tree for secret patterns (API keys, tokens, private
+# keys, connection strings) on every push and PR. Audit EW-16
+# (2026-06-11). The local pre-commit hook half of EW-16 is deferred
+# until husky is adopted; the Action half catches anything that reaches
+# the remote.
+#
+# Runs the official gitleaks Docker image directly rather than the
+# gitleaks/gitleaks-action wrapper. The action wrapper requires
+# GITLEAKS_LICENSE for any org-owned repo (gitleaks.io is the licensor),
+# but gitleaks itself is MIT-licensed and runs unrestricted in the
+# Docker image. Inline `gitleaks:allow` comments suppress known
+# false positives at the code site.
 
 on:
   push:
@@ -17,10 +25,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # gitleaks needs full history to scan the whole tree on push
-          # to main; PRs only scan the diff and don't need this depth.
           fetch-depth: 0
 
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run gitleaks (Docker)
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/path" \
+            zricethezav/gitleaks:latest \
+            detect \
+            --source=/path \
+            --redact \
+            --verbose \
+            --exit-code=1
