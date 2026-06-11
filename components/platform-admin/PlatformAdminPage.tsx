@@ -16,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FileText } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
 
 // ---------------------------------------------------------------------------
@@ -197,16 +196,6 @@ export function PlatformAdminPage({
         title="Platform Admin"
         description="Cross-company overview — only visible to platform operators"
       />
-
-      <div className="flex flex-wrap gap-2">
-        <a
-          href="/platform-admin/business-plan"
-          className="inline-flex items-center gap-2 rounded-md border border-zinc-200 bg-card px-3 py-1.5 text-sm font-medium text-foreground hover:bg-muted"
-        >
-          <FileText className="h-4 w-4" />
-          Business Plan Dashboard (REF-01..REF-08)
-        </a>
-      </div>
 
       {/* KPI cards */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
