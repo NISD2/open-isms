@@ -31,12 +31,14 @@ export function GapAssessmentResults({
   domains,
   questions,
   locale: pageLocale,
+  shared = false,
 }: {
   sessionId: string;
   scores: AssessmentScores;
   domains: GapDomain[];
   questions: GapQuestion[];
   locale: string;
+  shared?: boolean;
 }) {
   const t = useTranslations("gap-assessment");
   const locale = useLocale();
@@ -67,14 +69,16 @@ export function GapAssessmentResults({
             {scores.totalAnswered} / {scores.totalQuestions} {t("results.answered")}
           </p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" asChild>
-            <a href={`/api/export/gap-assessment?sessionId=${sessionId}&locale=${pageLocale}`}>
-              <Download className="mr-2 h-4 w-4" />
-              {t("results.exportPdf")}
-            </a>
-          </Button>
-        </div>
+        {shared ? null : (
+          <div className="flex gap-2">
+            <Button variant="outline" asChild>
+              <a href={`/api/export/gap-assessment?sessionId=${sessionId}&locale=${pageLocale}`}>
+                <Download className="mr-2 h-4 w-4" />
+                {t("results.exportPdf")}
+              </a>
+            </Button>
+          </div>
+        )}
       </header>
 
       {/* Overall score */}
@@ -184,21 +188,22 @@ export function GapAssessmentResults({
         </CardContent>
       </Card>
 
-      {/* Actions */}
-      <div className="flex gap-3">
-        <Button asChild>
-          <Link href="/dashboard">
-            {t("results.startCompliance")}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
-        <Button variant="outline" asChild>
-          <Link href="/gap-assessment">
-            <RotateCcw className="mr-2 h-4 w-4" />
-            {t("results.retakeAssessment")}
-          </Link>
-        </Button>
-      </div>
+      {shared ? null : (
+        <div className="flex gap-3">
+          <Button asChild>
+            <Link href="/dashboard">
+              {t("results.startCompliance")}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/gap-assessment">
+              <RotateCcw className="mr-2 h-4 w-4" />
+              {t("results.retakeAssessment")}
+            </Link>
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

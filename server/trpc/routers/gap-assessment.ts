@@ -1,9 +1,12 @@
 import { z } from "zod";
 import { eq, desc, isNull, and } from "drizzle-orm";
-import { router, protectedProcedure } from "../init";
+import { TRPCError } from "@trpc/server";
+import bcrypt from "bcryptjs";
+import { router, protectedProcedure, publicProcedure } from "../init";
 import { gapAssessment } from "@/schema";
 import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
 import { computeScores } from "@/lib/gap-assessment/scoring";
+import { rateLimit } from "@/lib/rate-limit";
 
 export const gapAssessmentRouter = router({
   /** Return all questions + domains from static JSON */
@@ -192,4 +195,40 @@ export const gapAssessmentRouter = router({
       },
     });
   }),
+
+  getSharedByToken: publicProcedure
+    .input(
+      z.object({
+        token: z.string().uuid(),
+        password: z.string().min(1).max(64),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      if (!rateLimit(`gap-share:${input.token}`, 5, 15 * 60_000)) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "Too many attempts. Please wait 15 minutes and try again.",
+        });
+      }
+
+      const row = await ctx.db.query.gapAssessment.findFirst({
+        where: eq(gapAssessment.shareToken, input.token),
+        columns: {
+          scores: true,
+          completedAt: true,
+          sharePasswordHash: true,
+          sharedAt: true,
+        },
+      });
+      if (!row || !row.sharePasswordHash || !row.sharedAt) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      const valid = await bcrypt.compare(input.password, row.sharePasswordHash);
+      if (!valid) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+
+      return { scores: row.scores, completedAt: row.completedAt };
+    }),
 });

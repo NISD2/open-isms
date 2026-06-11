@@ -7,6 +7,9 @@
  * ALL companies and users.
  */
 import { desc, count, eq, sql, and, isNotNull, gte } from "drizzle-orm";
+import { z } from "zod";
+import { randomUUID, randomBytes } from "node:crypto";
+import bcrypt from "bcryptjs";
 import { router, protectedProcedure } from "../init";
 import { TRPCError } from "@trpc/server";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
@@ -18,7 +21,23 @@ import {
   trainingLessonProgress,
   supplier,
   notification,
+  gapAssessment,
 } from "@/schema";
+import { computeScores } from "@/lib/gap-assessment/scoring";
+import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
+import { logAudit } from "@/lib/audit";
+
+const SHARE_PASSWORD_ALPHABET =
+  "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+
+function generateSharePassword(): string {
+  const bytes = randomBytes(12);
+  let out = "";
+  for (const byte of bytes) {
+    out += SHARE_PASSWORD_ALPHABET[byte % SHARE_PASSWORD_ALPHABET.length];
+  }
+  return out;
+}
 
 const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
   if (!isPlatformAdmin(ctx.session?.user.email)) {
@@ -293,4 +312,119 @@ export const platformAdminRouter = router({
 
     return rows;
   }),
+
+  gapAssessmentCreateForCompany: platformAdminProcedure
+    .input(
+      z.object({
+        companyName: z.string().min(1).max(255),
+        sector: z.string().min(1).max(255),
+        entityType: z.enum(["essential", "important", "kritis"]),
+        employeeCount: z.number().int().positive().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const [newCompany] = await ctx.db
+        .insert(company)
+        .values({
+          name: input.companyName,
+          sector: input.sector,
+          entityType: input.entityType,
+          employeeCount: input.employeeCount,
+          actsAsNis2Entity: true,
+        })
+        .returning({ id: company.id });
+      if (!newCompany) {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Company insert returned no rows" });
+      }
+
+      const [assessment] = await ctx.db
+        .insert(gapAssessment)
+        .values({
+          userId: ctx.userId,
+          companyId: newCompany.id,
+        })
+        .returning({ id: gapAssessment.id });
+      if (!assessment) {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Assessment insert returned no rows" });
+      }
+
+      return { assessmentId: assessment.id, companyId: newCompany.id };
+    }),
+
+  gapAssessmentList: platformAdminProcedure.query(async ({ ctx }) => {
+    const rows = await ctx.db
+      .select({
+        id: gapAssessment.id,
+        companyId: gapAssessment.companyId,
+        companyName: company.name,
+        sector: company.sector,
+        completedAt: gapAssessment.completedAt,
+        sharedAt: gapAssessment.sharedAt,
+        shareToken: gapAssessment.shareToken,
+        createdAt: gapAssessment.createdAt,
+      })
+      .from(gapAssessment)
+      .leftJoin(company, eq(gapAssessment.companyId, company.id))
+      .where(eq(gapAssessment.userId, ctx.userId))
+      .orderBy(desc(gapAssessment.createdAt))
+      .limit(100);
+
+    return rows;
+  }),
+
+  gapAssessmentPublish: platformAdminProcedure
+    .input(z.object({ assessmentId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const existing = await ctx.db.query.gapAssessment.findFirst({
+        where: eq(gapAssessment.id, input.assessmentId),
+      });
+      if (!existing || existing.userId !== ctx.userId) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      const answers = answerMapSchema.parse(existing.answers);
+      if (Object.keys(answers).length === 0) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cannot publish an assessment with no answers. Fill in at least one question first.",
+        });
+      }
+
+      const data = getGapAssessmentData();
+      const scores = computeScores(data.questions, answers);
+
+      const shareToken = randomUUID();
+      const sharePassword = generateSharePassword();
+      const sharePasswordHash = await bcrypt.hash(sharePassword, 10);
+      const now = new Date();
+
+      await ctx.db
+        .update(gapAssessment)
+        .set({
+          completedAt: existing.completedAt ?? now,
+          scores,
+          shareToken,
+          sharePasswordHash,
+          sharedAt: now,
+          updatedAt: now,
+        })
+        .where(eq(gapAssessment.id, input.assessmentId));
+
+      await logAudit({
+        companyId: existing.companyId,
+        userId: ctx.userId,
+        action: "gap_assessment.publish",
+        entityType: "gap_assessment",
+        entityId: input.assessmentId,
+        description: `Admin published gap assessment ${input.assessmentId}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+
+      return {
+        shareToken,
+        sharePassword,
+        shareUrl: `/gap-assessment/share/${shareToken}`,
+      };
+    }),
 });

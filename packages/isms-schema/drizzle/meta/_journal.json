@@ -15,6 +15,13 @@
       "when": 1781122107984,
       "tag": "0001_concerned_electro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781156252500,
+      "tag": "0002_medical_mandarin",
+      "breakpoints": true
     }
   ]
 }
