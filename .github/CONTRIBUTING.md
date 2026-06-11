@@ -10,7 +10,7 @@ Particularly valuable:
 - **Schema improvements** — `packages/isms-schema/src/tables/`. Especially around process tracking edge cases (sign-off chains, evidence types, audit-log retention).
 - **Translation** — DE/EN/NL catalogs in `messages/` and `packages/isms-messages/`.
 - **Documentation** — `docs/` for deployment, legal references, requirement walkthroughs.
-- **Bug reports** — see issue templates in `.github/ISSUE_TEMPLATE/`.
+- **Bug reports** — open a GitHub issue with a minimal reproduction, the affected file paths, and the relevant version (commit SHA or release tag).
 
 ## Dev setup
 
@@ -52,4 +52,4 @@ See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md). Be kind. We assume good faith.
 
 ## License
 
-By contributing, you agree your contributions are licensed under [AGPL-3.0-or-later](./LICENSE) for the app and workspace-only packages, and under each package's individual license (MIT for `grc-data-model`, dual-AGPL for `incident-notification-schema`).
+By contributing, you agree your contributions are licensed under [AGPL-3.0-or-later](../LICENSE) for the app and workspace-only packages, and under each package's individual license (MIT for `grc-data-model`, dual-AGPL for `incident-notification-schema`).

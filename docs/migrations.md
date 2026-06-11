@@ -6,7 +6,7 @@ Three layered drizzle directories, each owned by the package whose tables it cov
 |---|---|---|---|
 | `packages/grc-data-model/drizzle/` | `@nisd2/grc-data-model` | GRC entity model — framework, requirement, supplier, asset, risk, incident, … | `drizzle.__drizzle_migrations_grc` |
 | `packages/isms-schema/drizzle/` | `@nisd2/isms-schema` | ISMS process — audit_log, evidence, sign_off_history, organization, policies, training, … | `drizzle.__drizzle_migrations_isms` |
-| `drizzle/` (this repo) | NIS2 private app | SaaS-only — lead, email_otp, company_invite, supplier_invite, BSIG modules | `drizzle.__drizzle_migrations_saas` |
+| `drizzle/` (this repo) | SaaS app (root) | SaaS-only — lead, email_otp, company_invite, supplier_invite, BSIG modules | `drizzle.__drizzle_migrations_saas` |
 
 Each has its own `drizzle.config.ts` pointing at its own schema sources, and each sets `migrations: { table: "...", schema: "drizzle" }` so it tracks applied migrations in its own dedicated table. The legacy `drizzle.__drizzle_migrations` (without a suffix) stays in place on existing prod as a historical record of the 16 consolidated migrations applied before the cutover.
 
@@ -41,6 +41,7 @@ Each command writes into the corresponding package's `drizzle/` directory. Migra
 ## Applying migrations
 
 ```bash
+# DATABASE_URL must be set in the environment (or supply --env-file=.env)
 bun db:migrate
 ```
 

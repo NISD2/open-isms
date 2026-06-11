@@ -112,13 +112,13 @@ bun add zod drizzle-zod
 
 # Frontend (when you add Next.js / React)
 bun add react-hook-form @hookform/resolvers
-pnpm dlx shadcn@latest add form input textarea select checkbox button dialog
+bunx shadcn@latest add form input textarea select checkbox button dialog
 
 # File parsing (client-side)
 bun add unpdf mammoth
 
 # LLM extraction (server-side)
-bun add ai @ai-sdk/anthropic   # or @ai-sdk/openai
+bun add ai @ai-sdk/xai           # this project uses xAI Grok; swap for another @ai-sdk/* provider if you prefer
 ```
 
 ## Usage

@@ -39,9 +39,9 @@ for (const locale of locales) {
     const path = join(OUT, locale, `slide-${n}.png`);
     await page.screenshot({ path, clip: { x: 0, y: 0, width: WIDTH, height: HEIGHT } });
     await page.close();
-    console.log(`  ✓  ${locale}/slide-${n}.png`);
+    console.log(`  ok  ${locale}/slide-${n}.png`);
   }
 }
 
 await browser.close();
-console.log("✅  Done. Commit public/pitch/slides/ to update mobile screenshots.");
+console.log("Done. Commit public/pitch/slides/ to update mobile screenshots.");

@@ -6,7 +6,7 @@
 
 set -e
 
-CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 OUT="public/pitch/slides"
 URL="https://nisd2.eu/pitch-preview"
 LOCALES=("en" "de")
@@ -21,7 +21,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-echo "📸  Shooting pitch slides from $URL ..."
+echo "Shooting pitch slides from $URL ..."
 
 for locale in "${LOCALES[@]}"; do
   mkdir -p "$OUT/$locale"
@@ -40,8 +40,8 @@ for locale in "${LOCALES[@]}"; do
       --window-size=896,504 \
       --hide-scrollbars \
       "$URL?s=$i&l=$locale" 2>/dev/null
-    echo "  ✓  $locale/slide-$n.png"
+    echo "  ok  $locale/slide-$n.png"
   done
 done
 
-echo "✅  Done. Commit public/pitch/slides/ to update mobile screenshots."
+echo "Done. Commit public/pitch/slides/ to update mobile screenshots."

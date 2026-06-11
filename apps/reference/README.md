@@ -2,7 +2,7 @@
 
 Self-hostable Next.js app skeleton for an NIS 2 ISMS, wired up to the workspace packages (`@nisd2/grc-data-model`, `@nisd2/isms-schema`, etc.).
 
-> **Status**: hello-world landing page today. The portal pages (compliance, assets, risks, suppliers, incidents) are being ported in from the upstream nisd2.eu monorepo. Until they land, this app demonstrates the workspace + Docker setup but does not yet expose the full ISMS.
+> **Status**: hello-world landing page today. The portal pages (compliance, assets, risks, suppliers, incidents) are still being added; until they land, this app demonstrates the workspace + Docker setup but does not yet expose the full ISMS. See the main README for the roadmap.
 
 ## Quick start (Docker)
 
@@ -15,6 +15,8 @@ docker compose up --build
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+(Docker runs on port 3000 here; the no-Docker local-dev path below uses 3027 so both can run side by side.)
 
 The stack: Postgres 17 + the Next.js app. On first boot the migrator creates the `grc` and `isms` chains' tables in the empty database and records baselines in `drizzle.__drizzle_migrations_{grc,isms}`. On subsequent restarts it's a no-op.
 
@@ -57,8 +59,8 @@ apps/reference/
 ## What's NOT here yet
 
 - Auth (Auth.js / NextAuth with email magic links, planned)
-- The ISMS portal pages (compliance, assets, risks, suppliers, incidents, training, reviews) — these live in the upstream monorepo and are being ported in
-- Translation strings (the i18n registry exists, the catalog needs to be brought over)
+- The ISMS portal pages (compliance, assets, risks, suppliers, incidents, training, reviews) — still being added
+- Translation strings (the i18n registry exists, the catalog needs to be added)
 
 These are tracked roadmap items, not bugs. See the upstream README for the full project picture.
 

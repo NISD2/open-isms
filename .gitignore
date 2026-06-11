@@ -20,35 +20,14 @@ courses/**/pdf-book/*.toc
 courses/**/pdf-book/*.out
 courses/**/pdf-book/*.ans
 
-# ISO 27001 policies live in the private notebook (NIS2/business/iso27001/)
-# — they describe the operating company's real ISMS posture (DPO, vault
-# item names, S3 bucket, hardware tokens) and are not part of the public
-# platform. Audit P-2 (2026-06-10).
+# Operator-specific ISMS material — kept out of OSS
 docs/iso27001/
-
-# The operating-company dogfood seed lives in the private notebook
-# (NIS2/business/dogfood-seed-nisd2.ts) — it names the real DPO, pentest
-# vendor, training provider, planned auditor, security budget, and a
-# real incident timeline. Audit P-3 (2026-06-10).
 drizzle/seed-nisd2.ts
 
 # Local Claude state
 .claude/scheduled_tasks.lock
 
 .vercel
-
-# Business plan PDF build artifacts (regenerated via scripts/generate-business-plan-pdf.ts)
-business/plan/rendered/
-
-
-# Personal submission PDFs (BA GZ 04 contains AfA-Kundennummer)
-business/correspondence/ihk-submission/
-
-# Personal PDFs in correspondence (Eröffnungsbilanz, BA GZ forms with Kundennummer, etc.)
-business/correspondence/**/*.pdf
-
-# Meeting transcripts — private, not for version control
-meeting-transcripts/
 
 # Workspace package symlinks — bun creates per-package node_modules
 packages/*/node_modules

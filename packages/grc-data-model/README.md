@@ -2,7 +2,7 @@
 
 **The canonical EU cybersecurity + AI compliance data model.** 217 requirements across NIS 2, GDPR, EU AI Act, CRA, and ISO 27001:2022. 111 cross-framework satisfaction pairs. Drizzle schemas, framework metadata, article-level mappings. MIT-licensed. Used in production by [nisd2.eu](https://www.nisd2.eu).
 
-📖 **[Browse the full reference (REFERENCE.md)](./REFERENCE.md)** — every requirement, every pair, every article-level mapping in one document.
+**[Browse the full reference (REFERENCE.md)](./REFERENCE.md)** — every requirement, every pair, every article-level mapping in one document.
 
 ## Install
 
