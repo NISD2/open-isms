@@ -52,6 +52,11 @@
         ],
         "footnote": "Het volledige schema staat openbaar op GitHub en is als JSON exporteerbaar."
       },
+      "preview": {
+        "heading": "Voorbeeldvragen.",
+        "lead": "Drie vragen uit de vragenlijst, inclusief de uitleg die leveranciers zien bij het invullen.",
+        "footnote": "Uit 59 vragen in totaal."
+      },
       "bsi": {
         "quote": "We verwelkomen huidige initiatieven uit het bedrijfsleven om een uniforme vragencatalogus voor leveranciers te ontwikkelen.",
         "attribution": "BSI NIS-2 FAQ (toeleveringsketen en beveiliging).",

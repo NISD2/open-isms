@@ -7,7 +7,9 @@ import {
   ClipboardList,
   Mail,
   Check,
+  HelpCircle,
 } from "lucide-react";
+import { supplierQuestionnaire } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -63,6 +65,15 @@ export default async function SicherheitsfragebogenLanding({
   const steps = t.raw("landing.steps.items") as Step[];
   const sections = t.raw("landing.sections.items") as string[];
   const related = t.raw("landing.related.items") as RelatedItem[];
+
+  // Three representative sample questions pulled directly from the schema
+  // package so the landing always shows current help text — no copy
+  // duplication, no risk of drift. Schema ships DE+EN; NL renders EN.
+  const previewIds = ["legalName", "hasIsms", "usesAiSystems"] as const;
+  const previewLocale: "de" | "en" = locale === "de" ? "de" : "en";
+  const previewFields = previewIds
+    .map((id) => supplierQuestionnaire.fields.find((f) => f.id === id))
+    .filter((f): f is NonNullable<typeof f> => f !== undefined);
 
   return (
     <div className="space-y-24">
@@ -169,6 +180,40 @@ export default async function SicherheitsfragebogenLanding({
         </ul>
         <p className="mt-6 text-sm text-muted-foreground">
           {t("landing.sections.footnote")}
+        </p>
+      </section>
+
+      {/* Sample questions — pulled live from the schema */}
+      <section className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            {t("landing.preview.heading")}
+          </h2>
+          <p className="mt-3 max-w-3xl text-muted-foreground">
+            {t("landing.preview.lead")}
+          </p>
+        </div>
+        <div className="space-y-4">
+          {previewFields.map((field) => (
+            <div
+              key={field.id}
+              className="rounded-lg border bg-card p-5"
+            >
+              <h3 className="text-base font-semibold text-foreground">
+                {field.label[previewLocale]}
+              </h3>
+              <div className="mt-2 flex gap-2 text-sm text-muted-foreground">
+                <HelpCircle className="mt-0.5 h-4 w-4 flex-none text-primary" />
+                <p>{field.description[previewLocale]}</p>
+              </div>
+              <p className="mt-3 text-xs text-muted-foreground">
+                {field.legalBasis}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className="text-sm text-muted-foreground">
+          {t("landing.preview.footnote")}
         </p>
       </section>
 

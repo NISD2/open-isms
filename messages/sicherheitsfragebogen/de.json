@@ -52,6 +52,11 @@
         ],
         "footnote": "Das vollständige Schema liegt offen auf GitHub und ist als JSON exportierbar."
       },
+      "preview": {
+        "heading": "Beispielfragen.",
+        "lead": "Drei Fragen aus dem Fragebogen, samt der Hilfestellung, die Sie beim Ausfüllen sehen.",
+        "footnote": "Aus 59 Fragen insgesamt."
+      },
       "bsi": {
         "quote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
         "attribution": "BSI NIS-2 FAQ (Lieferketten und Sicherheit).",

@@ -52,6 +52,11 @@
         ],
         "footnote": "The full schema is public on GitHub and exportable as JSON."
       },
+      "preview": {
+        "heading": "Sample questions.",
+        "lead": "Three questions from the questionnaire, with the help text suppliers see while filling them in.",
+        "footnote": "Out of 59 questions total."
+      },
       "bsi": {
         "quote": "We welcome current industry initiatives to develop a unified questionnaire catalogue for suppliers.",
         "attribution": "BSI NIS-2 FAQ (supply chain and security).",
