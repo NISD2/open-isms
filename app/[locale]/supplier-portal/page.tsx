@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight, ShieldCheck, FileCheck2, Bell, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("supplierPortal.marketing");
@@ -18,41 +19,37 @@ export default async function SupplierPortalLandingPage() {
   return (
     <>
       {/* Hero */}
-      <section className="text-center mb-16">
-        <p className="text-sm font-medium text-muted-foreground mb-3">
-          {t("eyebrow")}
-        </p>
-        <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight">
-          {t("headline1")}{" "}
-          <span className="text-primary">{t("headline2")}</span>
-        </h1>
-        <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-          {t.rich("intro", {
+      <div className="mb-16">
+        <MarketingHero
+          centered
+          eyebrow={t("eyebrow")}
+          headline={t("headline1")}
+          accent={t("headline2")}
+          subhead={t.rich("intro", {
             strong: (chunks) => (
               <strong className="text-foreground">{chunks}</strong>
             ),
           })}
-        </p>
-
-        <div className="mt-6 flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium text-primary">
-            <ShieldCheck className="h-3 w-3" />
-            {t("anchorBadge")}
-          </span>
-        </div>
-
-        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <Button asChild size="lg" className="h-12 gap-2">
-            <Link href="/auth/signin">
-              {t("ctaCreate")}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="h-12">
-            <Link href="/applicability">{t("ctaEntity")}</Link>
-          </Button>
-        </div>
-      </section>
+        >
+          <div className="mt-6 flex justify-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium text-primary">
+              <ShieldCheck className="h-3 w-3" />
+              {t("anchorBadge")}
+            </span>
+          </div>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild size="lg" className="h-12 gap-2">
+              <Link href="/auth/signin">
+                {t("ctaCreate")}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-12">
+              <Link href="/applicability">{t("ctaEntity")}</Link>
+            </Button>
+          </div>
+        </MarketingHero>
+      </div>
 
       {/* BSI quote */}
       <section className="rounded-lg border bg-muted/40 p-6 sm:p-8 mb-16">

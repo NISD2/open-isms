@@ -15,6 +15,7 @@ import {
   type WikiCategoryCard,
   type WikiFlatPage,
 } from "@/components/wiki/WikiHubSearch";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
 
 export async function generateMetadata({
   params,
@@ -155,21 +156,25 @@ export default async function DocsHubPage({
 
       {/* Hero */}
       <section>
-        <div className="mx-auto max-w-3xl text-center">
-          <Badge variant="secondary" className="mb-5">
-            {isEn ? "Documentation" : "Dokumentation"}
-          </Badge>
-          <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            {isEn
-              ? "NIS 2, written for people who have to do it."
-              : "NIS 2, geschrieben für Menschen, die es umsetzen müssen."}
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            {isEn
+        <MarketingHero
+          centered
+          eyebrow={
+            <Badge variant="secondary">
+              {isEn ? "Documentation" : "Dokumentation"}
+            </Badge>
+          }
+          headline={isEn ? "NIS 2," : "NIS 2,"}
+          accent={
+            isEn
+              ? "written for people who have to do it."
+              : "geschrieben für Menschen, die es umsetzen müssen."
+          }
+          subhead={
+            isEn
               ? "The EU directive, the German BSIG, the CIR 2024/2690 and the practitioner moves. Primary sources only. No consultant prose."
-              : "Die EU-Richtlinie, das BSIG, die CIR 2024/2690 und die Praxis. Nur Primärquellen. Keine Beraterprosa."}
-          </p>
-        </div>
+              : "Die EU-Richtlinie, das BSIG, die CIR 2024/2690 und die Praxis. Nur Primärquellen. Keine Beraterprosa."
+          }
+        />
 
         {/* Intent paths */}
         <div className="mx-auto mt-12 grid max-w-5xl gap-3 sm:grid-cols-3">

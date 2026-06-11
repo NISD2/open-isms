@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ApplicabilitySection } from "@/components/applicability/ApplicabilitySection";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -67,18 +68,18 @@ export default async function ApplicabilityPage({
     <>
       <JsonLd />
 
-      <header className="mb-8">
-        <h1 className="text-2xl font-semibold tracking-tight">{tLookup("title")}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {tLookup.rich("subtitle", {
+      <div className="mb-8">
+        <MarketingHero
+          headline={tLookup("title")}
+          subhead={tLookup.rich("subtitle", {
             link: (chunks) => (
               <Link href={"/wiki/anwendungsbereich/nis2-einrichtungen" as never} className="underline hover:text-foreground">
                 {chunks}
               </Link>
             ),
           })}
-        </p>
-      </header>
+        />
+      </div>
 
       <ApplicabilitySection locale={locale} highlightCountry={highlightCountry} />
     </>

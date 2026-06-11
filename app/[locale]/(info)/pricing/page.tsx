@@ -8,6 +8,7 @@ import {
 } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { PricingCards } from "@/components/pricing/PricingCards";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -41,13 +42,12 @@ export default async function PricingPage({
           description: t("meta.description"),
         })}
       />
-      <header className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          {t("title")}
-        </h1>
-        <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
-          {t("subtitle")}
-        </p>
+      <header>
+        <MarketingHero
+          centered
+          headline={t("title")}
+          subhead={t("subtitle")}
+        />
       </header>
 
       <PricingCards />

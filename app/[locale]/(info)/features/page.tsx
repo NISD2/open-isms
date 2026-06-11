@@ -16,6 +16,7 @@ import {
   type Locale,
 } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -68,15 +69,12 @@ export default async function FeaturesPage({
         })}
       />
       {/* Header */}
-      <header>
-        <Badge variant="secondary" className="mb-3">Platform</Badge>
-        <h1 className="text-3xl font-bold tracking-tight">
-          {t("features.title")}
-        </h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          {t("features.subtitle")}
-        </p>
-      </header>
+      <MarketingHero
+        eyebrow={<Badge variant="secondary">Platform</Badge>}
+        headline={t("features.title")}
+        subhead={t("features.subtitle")}
+      />
+
 
       <Separator />
 

@@ -24,6 +24,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { JsonLd } from "@/components/JsonLd";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
 import {
   pageAlternates,
   pageOg,
@@ -104,19 +105,13 @@ export default async function SicherheitsfragebogenLanding({
       />
 
       {/* Hero */}
-      <section className="text-center">
-        <p className="mb-3 text-sm font-medium text-muted-foreground">
-          {t("landing.hero.eyebrow")}
-        </p>
-        <h1 className="mx-auto max-w-3xl text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
-          {t("landing.hero.headline")}{" "}
-          <span className="text-primary">
-            {t("landing.hero.headlineAccent")}
-          </span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
-          {t("landing.hero.subhead")}
-        </p>
+      <MarketingHero
+        centered
+        eyebrow={t("landing.hero.eyebrow")}
+        headline={t("landing.hero.headline")}
+        accent={t("landing.hero.headlineAccent")}
+        subhead={t("landing.hero.subhead")}
+      >
         <div className="mt-6 flex justify-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium text-primary">
             <ShieldCheck className="h-3 w-3" />
@@ -139,7 +134,7 @@ export default async function SicherheitsfragebogenLanding({
             <a href="#fragebogen">{t("landing.hero.ctaSecondary")}</a>
           </Button>
         </div>
-      </section>
+      </MarketingHero>
 
       {/* How it works */}
       <section>
