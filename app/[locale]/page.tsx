@@ -14,13 +14,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const isNL = locale === "nl";
   return {
     title: isDE
-      ? "NIS2 Compliance Plattform. Kostenlos, EU-weit, ohne Lock-in"
+      ? "Kostenlose NIS 2 Plattform: Gap-Analyse, Vorlagen, Training"
       : isNL
-        ? "NIS2 Compliance Platform. Free, EU-wide, no lock-in"
-        : "NIS2 Compliance Platform. Free, EU-wide, no lock-in",
+        ? "Gratis NIS 2 platform: gap assessment, sjablonen, training"
+        : "Free NIS 2 platform: gap assessment, templates, training",
     description: isDE
-      ? "Kostenlose NIS2-Compliance-Plattform für europäische Unternehmen. Alle 10 BSIG-Maßnahmen, Audit-Trail, Geschäftsführerhaftung, BSI-Registrierung. Ohne Lock-in."
-      : "Free NIS2 compliance platform for European companies. All 10 BSIG measures, audit trail, management liability protection, BSI registration guide. No lock-in.",
+      ? "Selbsteinschätzung mit 116 Fragen, Vorlagen für § 30 BSIG und Artikel 21 NIS 2, BSI-Registrierung und Schulung der Geschäftsführung. Open Source, kein Lock-in."
+      : isNL
+        ? "Zelfbeoordeling met 116 vragen, sjablonen voor Artikel 21 NIS 2, registratiehulp en bestuurstraining. Open source, geen lock-in."
+        : "Self-assessment with 116 questions, templates for Article 21 NIS 2, BSI registration guide, and management training. Open Source, no lock-in.",
     alternates: pageAlternates("", locale),
   };
 }

@@ -603,8 +603,8 @@
     },
     "nis2InGermany": {
       "meta": {
-        "title": "NIS2 Deutschland: BSIG, Fristen & Bußgeld",
-        "description": "NIS2 in Deutschland 2026: NIS2UmsuCG-Stand, BSI-Registrierungsfrist, Einrichtungskategorien (BWE/WE), Bußgelder bis 10 Mio. EUR, Geschäftsführerhaftung."
+        "title": "NIS 2 Deutschland: BSIG, Fristen, Bußgeld bis 10 Mio. EUR",
+        "description": "Stand der NIS-2-Umsetzung in Deutschland: NIS2UmsuCG, BSIG-Registrierungsfrist, BWE- und WE-Einrichtungen, Bußgelder bis 10 Mio. EUR, Haftung der Geschäftsleitung. Alles auf einer Seite."
       },
       "title": "NIS2 in Deutschland",
       "subtitle": "Deutschland hat die NIS2-Richtlinie durch das NIS2UmsuCG in nationales Recht umgesetzt und dabei das BSI-Gesetz (BSIG) grundlegend überarbeitet. Alle Pflichten gelten seit dem 6. Dezember 2025.",
@@ -2210,8 +2210,8 @@
     },
     "nis2RiskManagement": {
       "meta": {
-        "title": "NIS 2 Risikomanagement: Was Artikel 21(2)(a) und CIR §2 verlangen",
-        "description": "Artikel 21(2)(a) der NIS-2-Richtlinie sagt: Sie müssen Risikomanagement betreiben. Die EU-Verordnung 2024/2690 sagt in §2, wie das aussieht. Diese Seite führt Sie durch beides plus die deutsche Umsetzung."
+        "title": "NIS 2 Risikomanagement: Artikel 21(2)(a), CIR § 2, § 30 BSIG",
+        "description": "Was NIS 2 Risikomanagement konkret verlangt: Artikel 21 Abs. 2 Buchst. a der Richtlinie, CIR (EU) 2024/2690 § 2, § 30 BSIG. Drei Teile: Rahmen aufsetzen, Nutzung prüfen, unabhängig kontrollieren. Mit kostenloser Vorlage."
       },
       "title": "NIS 2 Risikomanagement nach Artikel 21(2)(a)",
       "subtitle": "NIS 2 sagt: Sie müssen Cyberrisiken strukturiert managen. Artikel 21(2)(a) ist die Pflicht. CIR (EU) 2024/2690 §2 sagt, wie. Und Ihre nationale Behörde (in Deutschland: das BSI) prüft Sie darauf.",
@@ -3404,7 +3404,7 @@
         "description": "NIS2-Registrierung verpasst: 18.000 Unternehmen sind betroffen. Portal weiterhin offen. Schritt-für-Schritt-Anleitung, Risiken, Bußgelder, FAQ."
       },
       "title": "Sie haben die BSI-Registrierungsfrist verpasst. Was nun?",
-      "subtitle": "Rund 18.000 deutsche Unternehmen haben die §33 BSIG-Registrierungsfrist verpasst. Das BSI-Portal ist weiterhin offen. Hier erfahren Sie, was jetzt wichtig ist - und was tatsächlich passiert, wenn Sie schnell handeln.",
+      "subtitle": "Kurzantwort: Betroffenheit nach §28 BSIG prüfen, sofort über das BSI-Portal nach §33 BSIG registrieren, den Beginn schriftlich dokumentieren, mit der Umsetzung nach § 30 BSIG anfangen. Das Portal ist weiterhin offen. Eine verspätete Anmeldung mit dokumentiertem Fortschritt bewertet die Aufsichtsbehörde grundlegend anders als gar keine Anmeldung.",
       "shortAnswer": {
         "heading": "Die kurze Antwort",
         "p1": "Keine Panik. Sie sind nicht allein - und es ist nicht zu spät, das zu korrigieren. Das BSI schätzt, dass rund 30.000 Unternehmen in Deutschland unter NIS2 fallen. Die Registrierungsfrist lief am 6. März 2026 ab, aber eine erhebliche Anzahl von Unternehmen hat sich noch nicht registriert. Sie sind bei weitem nicht der einzige in dieser Situation.",
@@ -3919,8 +3919,8 @@
     },
     "penalties": {
       "meta": {
-        "title": "NIS2 Bußgeld 2026: Bis 10 Mio. € + Haftung",
-        "description": "NIS2-Bußgelder unter BSIG: bis 10 Mio. EUR für wesentliche, 7 Mio. EUR für wichtige Einrichtungen plus persönliche Haftung der Geschäftsführung."
+        "title": "NIS 2 Bußgeld: bis 10 Mio. EUR oder 2 % Umsatz (§ 65 BSIG)",
+        "description": "10 Mio. EUR oder 2 % Jahresumsatz, je nachdem was höher ist. So sind NIS 2-Bußgelder nach § 65 BSIG strukturiert. Plus persönliche Haftung der Geschäftsführung nach § 38 BSIG. Vier Stufen, mit Rechenbeispielen."
       },
       "title": "NIS2-Bußgelder: Was Sie tatsächlich riskieren",
       "subtitle": "Das BSIG sieht Bußgelder von bis zu 10 Millionen Euro oder 2% des weltweiten Jahresumsatzes vor. Dazu kommt die persönliche Haftung der Geschäftsführung nach §38 BSIG. Hier erfahren Sie, was das konkret für Ihr Unternehmen bedeutet.",
@@ -4150,6 +4150,85 @@
         "description": "In 5 Minuten erfahren Sie, ob Ihr Unternehmen unter die IT-Sicherheitspflicht fällt - und welche konkreten Pflichten für Sie gelten."
       },
       "cta": "Betroffenheitsprüfung starten"
+    },
+    "bsigParagraph30": {
+      "meta": {
+        "title": "§ 30 BSIG: Die zehn Maßnahmen für Cybersicherheit nach NIS 2",
+        "description": "§ 30 BSIG verpflichtet besonders wichtige und wichtige Einrichtungen zu zehn Risikomanagementmaßnahmen. Wortlaut, Verhältnismäßigkeit, Verhältnis zu Artikel 21 NIS 2, Bußgelder. Mit kostenloser Vorlage."
+      },
+      "title": "§ 30 BSIG: Die zehn Maßnahmen für Cybersicherheit",
+      "subtitle": "Kurzantwort: § 30 BSIG ist die deutsche Umsetzung von Artikel 21 NIS 2. Besonders wichtige und wichtige Einrichtungen müssen zehn Risikomanagementmaßnahmen umsetzen, von Risikoanalyse über Lieferkettensicherheit bis Multi-Faktor-Authentifizierung. Die Umsetzung muss verhältnismäßig sein, also an Größe, Risikolage und Stand der Technik ausgerichtet.",
+      "overview": {
+        "heading": "Was § 30 BSIG verlangt",
+        "p1": "§ 30 BSIG steht im Mittelpunkt der deutschen NIS 2 Umsetzung. Die Vorschrift verpflichtet besonders wichtige Einrichtungen und wichtige Einrichtungen zu geeigneten, verhältnismäßigen und wirksamen technischen und organisatorischen Maßnahmen, um Risiken für die Sicherheit ihrer informationstechnischen Systeme, Komponenten und Prozesse zu beherrschen.",
+        "p2": "Die Vorschrift setzt Artikel 21 Abs. 2 der NIS 2 Richtlinie (Richtlinie (EU) 2022/2555) in deutsches Recht um. Der Inhalt ist EU-rechtlich vorgegeben und in allen Mitgliedstaaten identisch. Der Wortlaut wurde an die deutsche Gesetzessystematik angepasst, die zehn Maßnahmen in § 30 Abs. 2 Nr. 1 bis 10 BSIG entsprechen Artikel 21 Abs. 2 Buchst. a bis j NIS 2 eins zu eins.",
+        "p3": "Die Pflichten gelten seit Inkrafttreten des NIS2UmsuCG. Eine Schonfrist für die Umsetzung sieht das Gesetz nicht vor. Wer betroffen ist, schuldet die Maßnahmen ab dem Tag, an dem er in den Anwendungsbereich fällt."
+      },
+      "measures": {
+        "heading": "Die zehn Maßnahmen aus § 30 Abs. 2 BSIG",
+        "description": "Die zehn Pflichtmaßnahmen im Wortlaut, mit Verweis auf den entsprechenden Buchstaben in Artikel 21 Abs. 2 NIS 2.",
+        "items": {
+          "m1": { "title": "Nr. 1: Risikoanalyse und Sicherheit für Informationssysteme", "text": "Konzepte in Bezug auf die Risikoanalyse und Sicherheit für Informationssysteme. Entspricht Artikel 21 Abs. 2 Buchst. a NIS 2. Konkretisiert durch CIR (EU) 2024/2690 § 2 für die digitalen Sektoren des Anhangs." },
+          "m2": { "title": "Nr. 2: Bewältigung von Sicherheitsvorfällen", "text": "Erkennung, Reaktion, Eindämmung, Wiederherstellung und Auswertung von Sicherheitsvorfällen. Entspricht Artikel 21 Abs. 2 Buchst. b NIS 2. Greift mit der Meldepflicht nach § 32 BSIG ineinander." },
+          "m3": { "title": "Nr. 3: Aufrechterhaltung des Betriebs", "text": "Backupmanagement, Wiederherstellung nach einem Notfall und Krisenmanagement. Entspricht Artikel 21 Abs. 2 Buchst. c NIS 2. Auch ein Cloudausfall beim Anbieter ist hier abgedeckt." },
+          "m4": { "title": "Nr. 4: Sicherheit der Lieferkette", "text": "Sicherheit der Lieferkette einschließlich sicherheitsbezogener Aspekte der Beziehungen zu unmittelbaren Anbietern und Diensteanbietern. Entspricht Artikel 21 Abs. 2 Buchst. d NIS 2. Diese Pflicht fließt vertraglich auf jeden Zulieferer in der Kette herunter." },
+          "m5": { "title": "Nr. 5: Sicherheit bei Erwerb, Entwicklung und Wartung", "text": "Sicherheitsmaßnahmen bei Erwerb, Entwicklung und Wartung von informationstechnischen Systemen, Komponenten und Prozessen, einschließlich Management und Offenlegung von Schwachstellen. Entspricht Artikel 21 Abs. 2 Buchst. e NIS 2. Überschneidet sich mit den Pflichten aus dem Cyber Resilience Act für Produkte mit digitalen Elementen." },
+          "m6": { "title": "Nr. 6: Wirksamkeitsbewertung", "text": "Konzepte und Verfahren zur Bewertung der Wirksamkeit der Risikomanagementmaßnahmen. Entspricht Artikel 21 Abs. 2 Buchst. f NIS 2. Das ist der Rückkopplungsmechanismus: nicht nur Maßnahmen einführen, sondern auch prüfen, ob sie wirken." },
+          "m7": { "title": "Nr. 7: Cyberhygiene und Schulungen", "text": "Grundlegende Verfahren im Bereich der Cyberhygiene und Schulungen im Bereich der Cybersicherheit. Entspricht Artikel 21 Abs. 2 Buchst. g NIS 2. Trifft alle Mitarbeitenden, IT-Rollen erhalten zusätzlich rollenspezifische Schulung. Die Schulung der Leitungsorgane ist gesondert in § 38 Abs. 3 BSIG geregelt." },
+          "m8": { "title": "Nr. 8: Kryptografie und Verschlüsselung", "text": "Konzepte und Verfahren für den Einsatz von Kryptografie und gegebenenfalls Verschlüsselung. Entspricht Artikel 21 Abs. 2 Buchst. h NIS 2. Das Wort gegebenenfalls erlaubt risikobasierte Differenzierung, schließt aber den pauschalen Verzicht aus." },
+          "m9": { "title": "Nr. 9: Personalsicherheit, Zugriffskontrolle, Anlagenmanagement", "text": "Personalsicherheit, Konzepte für die Zugriffskontrolle und Management von Anlagen. Entspricht Artikel 21 Abs. 2 Buchst. i NIS 2. Deckt klassische Themen wie Onboarding und Offboarding, Berechtigungsvergabe nach Need to know und ein Asset-Inventar ab." },
+          "m10": { "title": "Nr. 10: Multi-Faktor-Authentifizierung und gesicherte Kommunikation", "text": "Verwendung von Lösungen zur Multi-Faktor-Authentifizierung oder kontinuierlichen Authentifizierung, gesicherte Sprach-, Video- und Textkommunikation sowie gegebenenfalls gesicherte Notfallkommunikationssysteme innerhalb der Einrichtung. Entspricht Artikel 21 Abs. 2 Buchst. j NIS 2." }
+        }
+      },
+      "proportionality": {
+        "heading": "Verhältnismäßigkeit nach § 30 Abs. 1 Satz 2 BSIG",
+        "p1": "§ 30 Abs. 1 Satz 2 BSIG sagt, dass die Maßnahmen unter Berücksichtigung des Stands der Technik, einschlägiger europäischer und internationaler Normen sowie der Kosten der Umsetzung gewählt werden müssen. Größe, Risikoexposition und Wahrscheinlichkeit von Vorfällen werden berücksichtigt.",
+        "p2": "Verhältnismäßigkeit ist kein Freibrief, eine Maßnahme wegzulassen. Das BSI hat in der Handreichung zu § 38 Abs. 3 BSIG ausdrücklich klargestellt, dass ein pauschaler Risikotransfer auf Cyberversicherungen oder Dienstleister ausgeschlossen ist. Verhältnismäßig bedeutet: nicht jede Maßnahme in maximaler Tiefe, sondern an die konkrete Lage angepasst und schriftlich begründet."
+      },
+      "relation": {
+        "heading": "Verhältnis zu Artikel 21 NIS 2 und CIR (EU) 2024/2690",
+        "description": "EU-Recht, deutsches Umsetzungsgesetz und technische Durchführungsverordnung in einer Reihe.",
+        "p1": "Artikel 21 Abs. 2 NIS 2 ist die EU-rechtliche Grundlage. Die zehn Buchstaben a bis j sind verbindlich, der Wortlaut wurde bewusst offen gehalten, damit die Mitgliedstaaten an nationale Aufsichtsstrukturen anschließen können. § 30 BSIG übernimmt die zehn Maßnahmen in der Nummerierung Nr. 1 bis 10 ohne inhaltliche Abweichung.",
+        "p2": "Für DNS-Anbieter, TLD-Registries, Cloudanbieter, Rechenzentren, Inhaltsbereitstellungsnetze, Managed Service Provider, Managed Security Service Provider, Anbieter von Online-Marktplätzen, Online-Suchmaschinen, Plattformen für soziale Netzwerke und Vertrauensdiensteanbieter konkretisiert die Durchführungsverordnung (EU) 2024/2690 die zehn Maßnahmen in ihrem Anhang. Die Verordnung gilt unmittelbar, also ohne nationale Umsetzung. Für diese Sektoren steht neben § 30 BSIG immer auch die CIR im Schrank."
+      },
+      "scope": {
+        "heading": "Wer ist von § 30 BSIG betroffen",
+        "p1": "§ 30 BSIG gilt für besonders wichtige Einrichtungen nach § 28 Abs. 6 BSIG und wichtige Einrichtungen nach § 28 Abs. 7 BSIG. Die Sektoren stehen in Anhang 1 und Anhang 2 der NIS 2 Richtlinie. Die Größenschwelle liegt bei mindestens 50 Beschäftigten oder 10 Mio. EUR Jahresumsatz, mit einigen Sonderregelungen für KRITIS und für Sektoren unabhängig von der Größe.",
+        "p2": "Wer im Zweifel ist, beginnt mit der Betroffenheitsprüfung nach Artikel 2 NIS 2. Auch Zulieferer eines regulierten Unternehmens kommen mit § 30 in Kontakt: über Nr. 4 (Lieferkette) reichen die Pflichten vertraglich an direkte Anbieter weiter."
+      },
+      "penalties": {
+        "heading": "Was passiert bei Verstoß",
+        "p1": "Verstöße gegen die Maßnahmenpflicht aus § 30 BSIG sind in § 65 BSIG bußgeldbewehrt. Für besonders wichtige Einrichtungen liegt der Rahmen bei bis zu 10 Mio. EUR oder 2 Prozent des weltweiten Vorjahresumsatzes, je nachdem was höher ist. Für wichtige Einrichtungen liegt der Rahmen bei bis zu 7 Mio. EUR oder 1,4 Prozent.",
+        "p2": "Zusätzlich greift § 38 BSIG: Mitglieder des Leitungsorgans haften persönlich für die Verletzung der Pflicht, die Umsetzung der Maßnahmen aus § 30 zu billigen und ihre Umsetzung zu überwachen. Die Haftung tritt unabhängig davon ein, ob ein konkreter Schaden eingetreten ist."
+      },
+      "faq": {
+        "heading": "Häufige Fragen zu § 30 BSIG",
+        "q1": {
+          "q": "Ist § 30 BSIG dasselbe wie Artikel 21 NIS 2?",
+          "a": "Inhaltlich ja. § 30 BSIG ist die deutsche Umsetzung von Artikel 21 NIS 2. Die zehn Maßnahmen in § 30 Abs. 2 Nr. 1 bis 10 BSIG entsprechen Artikel 21 Abs. 2 Buchst. a bis j NIS 2 eins zu eins. Wer EU-weit arbeitet, sollte Artikel 21 NIS 2 als Primärquelle zitieren und § 30 BSIG als deutsche Transposition nennen."
+        },
+        "q2": {
+          "q": "Muss ich alle zehn Maßnahmen umsetzen?",
+          "a": "Ja. Die zehn Maßnahmen sind nicht optional, die Auswahl entsteht innerhalb jeder Maßnahme durch Verhältnismäßigkeit. Eine Maßnahme komplett wegzulassen ist nicht zulässig. Die Tiefe der Umsetzung darf an Größe, Risikoexposition und Stand der Technik angepasst werden, das Wegfallen-Lassen einer ganzen Nummer nicht."
+        },
+        "q3": {
+          "q": "Was bedeutet Verhältnismäßigkeit konkret?",
+          "a": "Verhältnismäßigkeit nach § 30 Abs. 1 Satz 2 BSIG bedeutet: Maßnahmen werden an Größe, Risikoexposition, Wahrscheinlichkeit und Schwere von Vorfällen sowie Kosten der Umsetzung ausgerichtet. Die Entscheidung muss schriftlich begründet sein. Eine pauschale Verlagerung des Risikos auf eine Cyberversicherung oder einen Dienstleister erkennt das BSI nicht als verhältnismäßige Umsetzung an."
+        },
+        "q4": {
+          "q": "Wie weise ich die Umsetzung gegenüber dem BSI nach?",
+          "a": "Durch Dokumentation. Für jede der zehn Maßnahmen wird die gewählte Umsetzung, die Begründung der Tiefe und die Wirksamkeitsbewertung schriftlich festgehalten. Im Audit gegenüber dem BSI nach § 61 oder § 62 BSIG geht es um diese Nachweise, nicht um die mündliche Erläuterung. Eine strukturierte Selbsteinschätzung über alle zehn Maßnahmen ist der schnellste Einstieg."
+        },
+        "q5": {
+          "q": "Was ist der Unterschied zwischen § 30 BSIG und IT-Grundschutz?",
+          "a": "§ 30 BSIG ist die Pflicht. IT-Grundschutz ist eine konkrete Methodik, mit der die Pflicht erfüllt werden kann. § 44 Abs. 2 BSIG benennt IT-Grundschutz als ausreichende Umsetzung. Andere Standards wie ISO 27001 sind ebenfalls möglich, der Nachweis bleibt aber an die zehn Maßnahmen aus § 30 BSIG gebunden, nicht an die Struktur des gewählten Standards."
+        }
+      },
+      "ctaCard": {
+        "heading": "Selbsteinschätzung über alle zehn Maßnahmen",
+        "description": "Die kostenlose Gap-Analyse geht durch alle zehn Maßnahmen aus § 30 Abs. 2 BSIG. 116 Fragen, 15 Bereiche, mit Bericht für die Geschäftsleitung. Open Source, kein Lock-in."
+      },
+      "cta": "Zur Gap-Analyse"
     },
     "bsiRegistration": {
       "meta": {
@@ -5789,7 +5868,7 @@
         "ogDescription": "116 Fragen. 15 Bereiche. Finden Sie Ihre NIS2-Lücken. Kostenlos."
       },
       "badge": "Kostenlose Gap-Analyse",
-      "title": "Wie bereit sind Sie für NIS2?",
+      "title": "NIS 2 Gap-Analyse: kostenloses Tool (116 Fragen, 15 Bereiche)",
       "subtitle": "116 Fragen über 15 Compliance-Bereiche. Finden Sie heraus, wo genau Ihre Lücken sind, welche persönliche Haftung erzeugen und was Sie zuerst beheben sollten. Etwa 30 Minuten pro Tag über 5 Tage.",
       "cta": "Gap-Analyse starten",
       "highlights": {
@@ -6085,12 +6164,12 @@
     },
     "supplyChain": {
       "meta": {
-        "title": "NIS2 für Zulieferer: Lieferkette",
-        "description": "Zu klein für NIS2? Wer an NIS2-regulierte Unternehmen liefert, muss Cybersicherheit nachweisen. Was § 30 BSIG für Zulieferer bedeutet."
+        "title": "NIS 2 Lieferkette: Grundlagen für Zulieferer und Einkäufer",
+        "description": "Was Artikel 21 Abs. 2 Buchst. d NIS 2 (in Deutschland § 30 Abs. 2 Nr. 4 BSIG) für die Lieferkette verlangt: Grundlagen, wer betroffen ist, was Kunden fragen werden, wie Zulieferer Cybersicherheit nachweisen."
       },
       "badge": "Lieferkette",
-      "title": "NIS2-Compliance für Zulieferer",
-      "subtitle": "Ihr Unternehmen fällt nicht direkt unter NIS2: aber Ihre Kunden schon. Und die werden von Ihnen Nachweise über Cybersicherheit verlangen.",
+      "title": "NIS 2 Lieferkette: Grundlagen",
+      "subtitle": "Artikel 21 Abs. 2 Buchst. d NIS 2 (in Deutschland § 30 Abs. 2 Nr. 4 BSIG) verpflichtet regulierte Unternehmen, ihre gesamte Lieferkette abzusichern. Diese Seite erklärt die Grundlagen: was die Regel verlangt, wen sie erreicht, was Ihre Kunden fragen werden und wie Zulieferer Cybersicherheit nachweisen, ohne selbst reguliert zu werden.",
       "why": {
         "heading": "Warum auch kleine Zulieferer von NIS2 betroffen sind",
         "p1": "NIS2 (Art. 21 Abs. 2 Buchst. d NIS-2-Richtlinie, in Deutschland § 30 Abs. 2 Nr. 4 BSIG) verpflichtet regulierte Unternehmen ausdrücklich, ihre gesamte Lieferkette abzusichern. Das bedeutet: Die in Deutschland betroffenen Einrichtungen (BSI-Schätzungen liegen im Bereich von rund 29.500) müssen Cybersicherheitsstandards vertraglich von ihren Zulieferern einfordern.",
@@ -9016,11 +9095,11 @@
     },
     "whoIsInScopeFullTest": {
       "meta": {
-        "title": "Wer fällt unter NIS 2: der vollständige Anwendbarkeitstest",
-        "description": "Die meisten NIS-2-Erklärungen hören bei Sektor und Mitarbeiterzahl auf. Der echte Test hat drei Teile. Artikel 2 plus Anhang I und II, die EU-Definition des mittleren Unternehmens, und die Übersteuerungen unabhängig von der Größe. Alle drei der Reihe nach durchgehen, das Ergebnis schriftlich festhalten."
+        "title": "NIS 2 Betroffenheitsprüfung: der vollständige Artikel-2-Test",
+        "description": "Die Betroffenheitsprüfung nach Artikel 2 NIS 2 hat drei Teile: Sektor (Anhang I oder II), Größe (mindestens mittleres Unternehmen nach Empfehlung 2003/361/EG) und die Übersteuerungen unabhängig von der Größe. Die meisten Erklärungen hören nach Schritt zwei auf. Alle drei der Reihe nach durchgehen, Ergebnis schriftlich festhalten."
       },
-      "title": "Wer fällt unter NIS 2: der vollständige Artikel-2-Test",
-      "subtitle": "Artikel 2 NIS 2 enthält einen EU-weiten Anwendbarkeitstest. Drei Teile: Sektor (Anhang I oder II), Größe (mindestens mittleres Unternehmen nach Empfehlung 2003/361/EG) und die Übersteuerungen unabhängig von der Größe. Diese Seite geht alles der Reihe nach durch, so wie eine Anwendbarkeitsprüfung gelesen werden muss.",
+      "title": "NIS 2 Betroffenheitsprüfung: der vollständige Artikel-2-Test",
+      "subtitle": "Die NIS 2 Betroffenheitsprüfung steht in Artikel 2 der Richtlinie und ist EU-weit identisch. Drei Teile: Sektor (Anhang I oder II), Größe (mindestens mittleres Unternehmen nach Empfehlung 2003/361/EG) und die Übersteuerungen unabhängig von der Größe. Diese Seite geht alles der Reihe nach durch, so wie eine Anwendbarkeitsprüfung dokumentiert werden muss.",
       "overview": {
         "heading": "Die Kurzfassung",
         "p1": "Es gibt einen EU-weiten Test, ob NIS 2 für Sie gilt. Er steht in Artikel 2 der Richtlinie. Er hat drei Bestandteile. Sektor. Größe. Übersteuerung. Die meisten Erklärungen behandeln die ersten beiden und hören dann auf. Der dritte Teil ist der Ort, an dem kleine Einrichtungen hineingezogen werden und an dem die meisten Überraschungen passieren.",

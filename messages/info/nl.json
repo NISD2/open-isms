@@ -4154,6 +4154,85 @@
       },
       "cta": "Check If NIS2 Applies to You"
     },
+    "bsigParagraph30": {
+      "meta": {
+        "title": "Section 30 BSIG: the Ten Cybersecurity Measures (German NIS 2)",
+        "description": "Section 30 BSIG is Germany's transposition of Article 21 NIS 2. The ten risk management measures, proportionality, relationship to EU law, penalties. With free template."
+      },
+      "title": "Section 30 BSIG: the Ten Cybersecurity Measures",
+      "subtitle": "Short answer: Section 30 of the German BSIG is the national transposition of Article 21 NIS 2. Essential and important entities must implement ten risk management measures, from risk analysis to supply chain security to multi-factor authentication. Implementation must be proportionate to size, risk exposure, and state of the art.",
+      "overview": {
+        "heading": "What Section 30 BSIG requires",
+        "p1": "Section 30 BSIG sits at the centre of Germany's NIS 2 implementation. It obliges essential and important entities to take appropriate, proportionate, and effective technical and organisational measures to manage risks to the security of their information systems, components, and processes.",
+        "p2": "The provision transposes Article 21(2) of the NIS 2 Directive (Directive (EU) 2022/2555) into German law. The substance is EU-wide and identical in every Member State. The wording was adjusted to the German legislative style, but the ten measures in Section 30(2) Nos. 1 to 10 BSIG map one to one onto Article 21(2)(a) to (j) NIS 2.",
+        "p3": "The duties apply from the date the NIS2UmsuCG took effect. The Act provides no transition period. Whoever falls within scope owes the measures from the day they enter scope."
+      },
+      "measures": {
+        "heading": "The ten measures under Section 30(2) BSIG",
+        "description": "The ten mandatory measures, each cross-referenced to the corresponding letter in Article 21(2) NIS 2.",
+        "items": {
+          "m1": { "title": "No. 1: Policies on risk analysis and information system security", "text": "Policies on risk analysis and information system security. Maps to Article 21(2)(a) NIS 2. Operationalised by CIR (EU) 2024/2690 Section 2 for digital sectors in its annex." },
+          "m2": { "title": "No. 2: Incident handling", "text": "Detection, response, containment, recovery, and post-incident review. Maps to Article 21(2)(b) NIS 2. Interlocks with the reporting duty under Section 32 BSIG." },
+          "m3": { "title": "No. 3: Business continuity", "text": "Backup management, disaster recovery, and crisis management. Maps to Article 21(2)(c) NIS 2. A cloud outage at your provider is covered here." },
+          "m4": { "title": "No. 4: Supply chain security", "text": "Supply chain security including security-related aspects of relationships with direct suppliers and service providers. Maps to Article 21(2)(d) NIS 2. This obligation cascades contractually to every direct supplier." },
+          "m5": { "title": "No. 5: Security in acquisition, development, and maintenance", "text": "Security measures in the acquisition, development, and maintenance of information systems, components, and processes, including vulnerability handling and disclosure. Maps to Article 21(2)(e) NIS 2. Overlaps with Cyber Resilience Act obligations for products with digital elements." },
+          "m6": { "title": "No. 6: Effectiveness assessment", "text": "Policies and procedures to assess the effectiveness of risk management measures. Maps to Article 21(2)(f) NIS 2. This is the feedback loop: not just introduce measures, but check whether they work." },
+          "m7": { "title": "No. 7: Cyber hygiene and training", "text": "Basic cyber hygiene practices and cybersecurity training. Maps to Article 21(2)(g) NIS 2. Applies to all staff, with role-specific training for IT roles. Management body training is regulated separately under Section 38(3) BSIG." },
+          "m8": { "title": "No. 8: Cryptography and encryption", "text": "Policies and procedures for the use of cryptography and, where appropriate, encryption. Maps to Article 21(2)(h) NIS 2. 'Where appropriate' permits risk-based differentiation but rules out a blanket exemption." },
+          "m9": { "title": "No. 9: Human resources security, access control, asset management", "text": "Human resources security, access control policies, and asset management. Maps to Article 21(2)(i) NIS 2. Covers onboarding and offboarding, need-to-know access provisioning, and an asset inventory." },
+          "m10": { "title": "No. 10: Multi-factor authentication and secured communications", "text": "Multi-factor or continuous authentication solutions, secured voice, video, and text communications, and, where appropriate, secured emergency communication systems within the entity. Maps to Article 21(2)(j) NIS 2." }
+        }
+      },
+      "proportionality": {
+        "heading": "Proportionality under Section 30(1) sentence 2 BSIG",
+        "p1": "Section 30(1) sentence 2 BSIG requires that measures be chosen taking into account the state of the art, relevant European and international standards, and the cost of implementation. Size, risk exposure, and the probability of incidents are factored in.",
+        "p2": "Proportionality is not a licence to skip a measure. The BSI made clear in its guidance on Section 38(3) BSIG that a blanket transfer of risk to cyber insurance or service providers is ruled out. Proportionate means: not every measure at maximum depth, but adapted to the specific situation and documented in writing."
+      },
+      "relation": {
+        "heading": "Relationship to Article 21 NIS 2 and CIR (EU) 2024/2690",
+        "description": "EU law, German transposition, and technical implementing regulation in one line.",
+        "p1": "Article 21(2) NIS 2 is the EU-level basis. The ten letters (a) to (j) are binding. The wording was kept open so Member States could fit it into national supervisory structures. Section 30 BSIG adopts the ten measures as Nos. 1 to 10 without substantive deviation.",
+        "p2": "For DNS providers, TLD registries, cloud providers, data centres, content delivery networks, managed service providers, managed security service providers, online marketplaces, online search engines, social networking platforms, and trust service providers, the EU Commission Implementing Regulation 2024/2690 operationalises the ten measures in its annex. The Regulation applies directly, without national transposition. For these sectors, both Section 30 BSIG and the CIR sit on the shelf."
+      },
+      "scope": {
+        "heading": "Who falls under Section 30 BSIG",
+        "p1": "Section 30 BSIG applies to essential entities under Section 28(6) BSIG and important entities under Section 28(7) BSIG. The sectors are listed in Annex 1 and Annex 2 of the NIS 2 Directive. The size threshold is at least 50 employees or 10 million euros annual turnover, with special rules for KRITIS and for sectors that apply regardless of size.",
+        "p2": "If you are unsure, start with the applicability test under Article 2 NIS 2. Suppliers to regulated entities also come into contact with Section 30 via No. 4 (supply chain): the obligations cascade contractually to direct suppliers."
+      },
+      "penalties": {
+        "heading": "What happens if you breach Section 30",
+        "p1": "Breaches of the measures duty under Section 30 BSIG carry administrative fines under Section 65 BSIG. For essential entities, the maximum is 10 million euros or 2 percent of global prior-year turnover, whichever is higher. For important entities, the maximum is 7 million euros or 1.4 percent.",
+        "p2": "Section 38 BSIG adds personal liability of the management body for breach of the duty to approve the Section 30 measures and monitor their implementation. The liability does not depend on actual harm having occurred."
+      },
+      "faq": {
+        "heading": "Frequently asked questions on Section 30 BSIG",
+        "q1": {
+          "q": "Is Section 30 BSIG the same as Article 21 NIS 2?",
+          "a": "In substance, yes. Section 30 BSIG is the German transposition of Article 21 NIS 2. The ten measures in Section 30(2) Nos. 1 to 10 BSIG map one to one onto Article 21(2)(a) to (j) NIS 2. For EU-wide work, cite Article 21 NIS 2 as the primary source and reference Section 30 BSIG as the German transposition."
+        },
+        "q2": {
+          "q": "Do I have to implement all ten measures?",
+          "a": "Yes. The ten measures are not optional. Choice happens within each measure through proportionality. Skipping an entire measure is not permitted. Depth of implementation may be adapted to size, risk exposure, and state of the art, but dropping a whole number is not."
+        },
+        "q3": {
+          "q": "What does proportionality mean in practice?",
+          "a": "Proportionality under Section 30(1) sentence 2 BSIG means: measures align with size, risk exposure, the probability and severity of incidents, and the cost of implementation. The decision must be documented in writing. A blanket transfer of risk to cyber insurance or a service provider is not accepted by the BSI as proportionate implementation."
+        },
+        "q4": {
+          "q": "How do I evidence implementation to the BSI?",
+          "a": "Through documentation. For each of the ten measures, record the chosen implementation, the rationale for the depth, and the effectiveness assessment in writing. A BSI audit under Section 61 or Section 62 BSIG examines these records, not oral explanation. A structured self-assessment across all ten measures is the fastest starting point."
+        },
+        "q5": {
+          "q": "What is the difference between Section 30 BSIG and IT-Grundschutz?",
+          "a": "Section 30 BSIG is the duty. IT-Grundschutz is one concrete methodology that satisfies the duty. Section 44(2) BSIG names IT-Grundschutz as sufficient implementation. Other standards such as ISO 27001 are equally possible, but evidence remains tied to the ten measures under Section 30 BSIG, not to the structure of the chosen standard."
+        }
+      },
+      "ctaCard": {
+        "heading": "Self-assessment across all ten measures",
+        "description": "The free gap assessment walks through all ten measures in Section 30(2) BSIG. 116 questions, 15 domains, with a board-ready report. Open Source, no lock-in."
+      },
+      "cta": "Start the Gap Assessment"
+    },
     "bsiRegistration": {
       "meta": {
         "title": "BSI Registration Guide - Step-by-Step NIS2 Portal Walkthrough",
@@ -5424,7 +5503,7 @@
         "ogDescription": "116 questions. 15 domains. Find your NIS2 gaps. Free."
       },
       "badge": "Free Gap Assessment",
-      "title": "How Ready Are You for NIS2?",
+      "title": "NIS 2 Gap Assessment: gratis tool (116 vragen, 15 domeinen)",
       "subtitle": "116 questions across 15 compliance domains. Find out exactly where your gaps are, which ones create personal liability, and what to fix first. Takes about 30 minutes per day over 5 days.",
       "cta": "Start Your Gap Assessment",
       "highlights": {

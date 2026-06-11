@@ -224,6 +224,7 @@ export const pageTitleKeys: Record<string, string> = {
   "umsetzung-mittelstand": "smeGuide",
   kosten: "costs",
   "it-sicherheitspflicht": "securityObligation",
+  "bsig-30": "bsigParagraph30",
   "nis2-europaeischer-standard": "europeanStandard",
   "nis2-iso-27001": "isoMapping",
   "nis2-vs-kritis": "kritisComparison",

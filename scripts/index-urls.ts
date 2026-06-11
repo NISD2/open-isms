@@ -42,6 +42,7 @@ const routes = [
   "nis2-bussgelder",
   "glossar",
   "it-sicherheitspflicht",
+  "bsig-30",
   "bsi-registrierung-anleitung",
   "nis2-was-tun",
   "nis2-europaeischer-standard",
