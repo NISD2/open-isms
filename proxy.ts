@@ -186,41 +186,29 @@ function isPublic(pathname: string): boolean {
   return false;
 }
 
-// EMD host routing: sicherheitsfragebogen.de is a separate brand surface
-// for the supplier portal wedge, served from the same Next.js app. Only
-// root paths get rewritten — everything else (auth, portal, api, static)
-// shares the nisd2.eu route table so the supplier-onboarding flow works
-// natively after Google sign-in.
+// EMD redirect: sicherheitsfragebogen.de is a brand-billboard domain.
+// All traffic 301s to nisd2.eu/sicherheitsfragebogen/* so ranking signals
+// and auth cookies stay single-host. Coolify still terminates TLS for the
+// EMD; the redirect happens here before the app renders anything.
 const FRAGEBOGEN_HOSTS = new Set([
   "sicherheitsfragebogen.de",
   "www.sicherheitsfragebogen.de",
 ]);
 
-const FRAGEBOGEN_ROOT_PATHS = new Set([
-  "/",
-  "/de",
-  "/de/",
-  "/en",
-  "/en/",
-  "/nl",
-  "/nl/",
-]);
-
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // EMD host rewrite — must run before bypass list so a request to
-  // sicherheitsfragebogen.de/ doesn't fall through as the nisd2.eu root.
   const requestHost = request.headers.get("host")?.toLowerCase() ?? "";
-  if (FRAGEBOGEN_HOSTS.has(requestHost) && FRAGEBOGEN_ROOT_PATHS.has(pathname)) {
-    // Internal rewrite needs the [locale] segment for the app route to
-    // match — default locale "as-needed" hides /de from the URL bar but
-    // the route still expects it. Bypassing handleI18n means we set the
-    // internal prefix ourselves.
-    const localePrefix = pathname.match(/^\/(de|en|nl)/i)?.[0] ?? "/de";
-    const url = request.nextUrl.clone();
-    url.pathname = `${localePrefix}/sicherheitsfragebogen`;
-    return NextResponse.rewrite(url);
+  if (FRAGEBOGEN_HOSTS.has(requestHost)) {
+    // Preserve locale prefix (EN, NL), drop /de since DE is the default
+    // locale and has no URL prefix on nisd2.eu. Subpaths are dropped —
+    // the EMD has no canonical content beyond root; redirecting deep
+    // links to the wedge landing is the safe default.
+    const localeMatch = pathname.match(/^\/(en|nl)(?:\/|$)/i);
+    const localePrefix = localeMatch ? `/${localeMatch[1].toLowerCase()}` : "";
+    const target = new URL(`https://www.nisd2.eu${localePrefix}/sicherheitsfragebogen`);
+    target.search = request.nextUrl.search;
+    return NextResponse.redirect(target, 301);
   }
 
   // EW-5: strip any inbound x-pathname header before downstream

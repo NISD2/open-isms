@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import {
   ShieldCheck,
@@ -9,6 +8,7 @@ import {
   Mail,
   Check,
 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,19 +25,6 @@ import {
   type Locale,
 } from "@/lib/seo";
 
-// Two surfaces serve this page: nisd2.eu/sicherheitsfragebogen (sibling
-// lander, noindex to avoid duplicate-content drag) and the EMD
-// sicherheitsfragebogen.de/ (canonical home, index + follow). Host detection
-// picks the right metadata per request.
-const ROBOTS_NOINDEX = { index: false, follow: true } as const;
-const ROBOTS_INDEX = { index: true, follow: true } as const;
-const EMD_BASE = "https://www.sicherheitsfragebogen.de";
-const EMD_HOST_SUFFIX = "sicherheitsfragebogen.de";
-
-function emdUrl(locale: string): string {
-  return locale === "de" ? EMD_BASE : `${EMD_BASE}/${locale}`;
-}
-
 export async function generateMetadata({
   params,
 }: {
@@ -47,40 +34,9 @@ export async function generateMetadata({
   const t = await getTranslations("sicherheitsfragebogen");
   const title = t("meta.title");
   const description = t("meta.description");
-
-  const host = (await headers()).get("host")?.toLowerCase() ?? "";
-  const isEmd = host === EMD_HOST_SUFFIX || host === `www.${EMD_HOST_SUFFIX}`;
-
-  if (isEmd) {
-    const canonical = emdUrl(locale);
-    return {
-      title,
-      description,
-      robots: ROBOTS_INDEX,
-      alternates: {
-        canonical,
-        languages: {
-          de: emdUrl("de"),
-          en: emdUrl("en"),
-          nl: emdUrl("nl"),
-          "x-default": emdUrl("de"),
-        },
-      },
-      openGraph: {
-        type: "website",
-        url: canonical,
-        title,
-        description,
-        siteName: "sicherheitsfragebogen.de",
-      },
-      twitter: { card: "summary_large_image", title, description },
-    };
-  }
-
   return {
     title,
     description,
-    robots: ROBOTS_NOINDEX,
     alternates: pageAlternates("sicherheitsfragebogen", locale),
     ...pageOg({
       slug: "sicherheitsfragebogen",
@@ -107,15 +63,6 @@ export default async function SicherheitsfragebogenLanding({
   const steps = t.raw("landing.steps.items") as Step[];
   const sections = t.raw("landing.sections.items") as string[];
   const related = t.raw("landing.related.items") as RelatedItem[];
-
-  // Auth + portal flow lives on nisd2.eu (not the EMD) so cookies stay
-  // single-host and OAuth callback URIs don't need a separate whitelist.
-  // EMD visitors visibly switch domains when clicking the CTA, matching
-  // the marketing-site -> product-app pattern used by most SaaS.
-  const localePrefix = locale === "de" ? "" : `/${locale}`;
-  const callbackPath = `${localePrefix}/portal/supplier-onboarding`;
-  const signinHref = `https://www.nisd2.eu${localePrefix}/auth/signin?callbackUrl=${encodeURIComponent(callbackPath)}`;
-  const NISD2 = "https://www.nisd2.eu";
 
   return (
     <div className="space-y-24">
@@ -151,10 +98,15 @@ export default async function SicherheitsfragebogenLanding({
         </div>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild size="lg" className="h-12 gap-2">
-            <a href={signinHref}>
+            <Link
+              href={{
+                pathname: "/auth/signin",
+                query: { callbackUrl: "/portal/supplier-onboarding" },
+              }}
+            >
               {t("landing.hero.ctaPrimary")}
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="h-12">
             <a href="#fragebogen">{t("landing.hero.ctaSecondary")}</a>
@@ -253,10 +205,15 @@ export default async function SicherheitsfragebogenLanding({
         </p>
         <div className="mt-6">
           <Button asChild size="lg" className="h-12 gap-2">
-            <a href={signinHref}>
+            <Link
+              href={{
+                pathname: "/auth/signin",
+                query: { callbackUrl: "/portal/supplier-onboarding" },
+              }}
+            >
               {t("landing.cta.button")}
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </div>
       </section>
@@ -275,7 +232,7 @@ export default async function SicherheitsfragebogenLanding({
           {related.map((item) => (
             <a
               key={item.href}
-              href={`${NISD2}${item.href}`}
+              href={item.href}
               className="group rounded-lg border bg-card p-5 transition hover:border-primary/40 hover:bg-primary/5"
             >
               <div className="flex items-start justify-between gap-3">
