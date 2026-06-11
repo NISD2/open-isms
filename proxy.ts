@@ -186,8 +186,42 @@ function isPublic(pathname: string): boolean {
   return false;
 }
 
+// EMD host routing: sicherheitsfragebogen.de is a separate brand surface
+// for the supplier portal wedge, served from the same Next.js app. Only
+// root paths get rewritten — everything else (auth, portal, api, static)
+// shares the nisd2.eu route table so the supplier-onboarding flow works
+// natively after Google sign-in.
+const FRAGEBOGEN_HOSTS = new Set([
+  "sicherheitsfragebogen.de",
+  "www.sicherheitsfragebogen.de",
+]);
+
+const FRAGEBOGEN_ROOT_PATHS = new Set([
+  "/",
+  "/de",
+  "/de/",
+  "/en",
+  "/en/",
+  "/nl",
+  "/nl/",
+]);
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // EMD host rewrite — must run before bypass list so a request to
+  // sicherheitsfragebogen.de/ doesn't fall through as the nisd2.eu root.
+  const requestHost = request.headers.get("host")?.toLowerCase() ?? "";
+  if (FRAGEBOGEN_HOSTS.has(requestHost) && FRAGEBOGEN_ROOT_PATHS.has(pathname)) {
+    // Internal rewrite needs the [locale] segment for the app route to
+    // match — default locale "as-needed" hides /de from the URL bar but
+    // the route still expects it. Bypassing handleI18n means we set the
+    // internal prefix ourselves.
+    const localePrefix = pathname.match(/^\/(de|en|nl)/i)?.[0] ?? "/de";
+    const url = request.nextUrl.clone();
+    url.pathname = `${localePrefix}/sicherheitsfragebogen`;
+    return NextResponse.rewrite(url);
+  }
 
   // EW-5: strip any inbound x-pathname header before downstream
   // handlers see it. Only the proxy is allowed to set this for server

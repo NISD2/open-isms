@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import {
   ShieldCheck,
@@ -25,10 +26,18 @@ import {
   type Locale,
 } from "@/lib/seo";
 
-// noindex on nisd2.eu until the sicherheitsfragebogen.de host attach +
-// middleware rewrite ship. Same content will be canonical on the EMD then;
-// flip both lines in one follow-up commit.
+// Two surfaces serve this page: nisd2.eu/sicherheitsfragebogen (sibling
+// lander, noindex to avoid duplicate-content drag) and the EMD
+// sicherheitsfragebogen.de/ (canonical home, index + follow). Host detection
+// picks the right metadata per request.
 const ROBOTS_NOINDEX = { index: false, follow: true } as const;
+const ROBOTS_INDEX = { index: true, follow: true } as const;
+const EMD_BASE = "https://www.sicherheitsfragebogen.de";
+const EMD_HOST_SUFFIX = "sicherheitsfragebogen.de";
+
+function emdUrl(locale: string): string {
+  return locale === "de" ? EMD_BASE : `${EMD_BASE}/${locale}`;
+}
 
 export async function generateMetadata({
   params,
@@ -39,6 +48,36 @@ export async function generateMetadata({
   const t = await getTranslations("sicherheitsfragebogen");
   const title = t("meta.title");
   const description = t("meta.description");
+
+  const host = (await headers()).get("host")?.toLowerCase() ?? "";
+  const isEmd = host === EMD_HOST_SUFFIX || host === `www.${EMD_HOST_SUFFIX}`;
+
+  if (isEmd) {
+    const canonical = emdUrl(locale);
+    return {
+      title,
+      description,
+      robots: ROBOTS_INDEX,
+      alternates: {
+        canonical,
+        languages: {
+          de: emdUrl("de"),
+          en: emdUrl("en"),
+          nl: emdUrl("nl"),
+          "x-default": emdUrl("de"),
+        },
+      },
+      openGraph: {
+        type: "website",
+        url: canonical,
+        title,
+        description,
+        siteName: "sicherheitsfragebogen.de",
+      },
+      twitter: { card: "summary_large_image", title, description },
+    };
+  }
+
   return {
     title,
     description,
