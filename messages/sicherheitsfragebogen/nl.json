@@ -10,8 +10,8 @@
     "landing": {
       "hero": {
         "eyebrow": "Leveranciersportaal van nisd2.eu",
-        "headline": "Beantwoord de beveiligingsvragenlijst één keer.",
-        "headlineAccent": "Deel met elke klant.",
+        "headline": "Beantwoord <u>één</u> beveiligingsvragenlijst.",
+        "headlineAccent": "Deel met <u>elke</u> klant.",
         "subhead": "Eén canonieke leveranciersvragenlijst, gestructureerd volgens ENISA NIS 2 Technical Implementation Guidance v1.0. Elke vraag citeert CIR 2024/2690, BSIG §30 of BSI IT-Grundschutz. Gratis. Open source. Uw data blijft portabel.",
         "anchorBadge": "Gestructureerd volgens ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Leveranciersprofiel aanmaken",

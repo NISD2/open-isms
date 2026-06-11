@@ -10,8 +10,8 @@
     "landing": {
       "hero": {
         "eyebrow": "Supplier portal by nisd2.eu",
-        "headline": "Answer the security questionnaire once.",
-        "headlineAccent": "Share with every customer.",
+        "headline": "Answer <u>one</u> security questionnaire.",
+        "headlineAccent": "Share with <u>every</u> customer.",
         "subhead": "One canonical supplier questionnaire, structured by ENISA NIS 2 Technical Implementation Guidance v1.0. Every question cites CIR 2024/2690, BSIG §30 or BSI IT-Grundschutz. Free. Open source. Your data stays portable.",
         "anchorBadge": "Structured by ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Create supplier profile",

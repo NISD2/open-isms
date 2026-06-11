@@ -24,7 +24,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { JsonLd } from "@/components/JsonLd";
-import { MarketingHero } from "@/components/marketing/MarketingHero";
+import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
 import {
   pageAlternates,
   pageOg,
@@ -108,8 +108,12 @@ export default async function SicherheitsfragebogenLanding({
       <MarketingHero
         centered
         eyebrow={t("landing.hero.eyebrow")}
-        headline={t("landing.hero.headline")}
-        accent={t("landing.hero.headlineAccent")}
+        headline={t.rich("landing.hero.headline", {
+          u: (chunks) => <Underline>{chunks}</Underline>,
+        })}
+        accent={t.rich("landing.hero.headlineAccent", {
+          u: (chunks) => <Underline>{chunks}</Underline>,
+        })}
         subhead={t("landing.hero.subhead")}
       >
         <div className="mt-6 flex justify-center">

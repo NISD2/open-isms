@@ -10,8 +10,8 @@
     "landing": {
       "hero": {
         "eyebrow": "Lieferantenportal nisd2.eu",
-        "headline": "Den Sicherheitsfragebogen einmal beantworten.",
-        "headlineAccent": "Mit jedem Kunden teilen.",
+        "headline": "<u>Einen</u> Sicherheitsfragebogen beantworten.",
+        "headlineAccent": "Mit <u>jedem</u> Kunden teilen.",
         "subhead": "Ein einheitlicher Fragebogen, strukturiert nach ENISA NIS 2 Technical Implementation Guidance v1.0. Jede Frage zitiert CIR 2024/2690, BSIG §30 oder BSI IT-Grundschutz. Kostenlos. Open Source. Ihre Daten bleiben portabel.",
         "anchorBadge": "Strukturiert nach ENISA NIS 2 TIG v1.0 §5",
         "ctaPrimary": "Lieferantenprofil erstellen",
