@@ -9,7 +9,6 @@ import {
   Mail,
   Check,
 } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -109,6 +108,15 @@ export default async function SicherheitsfragebogenLanding({
   const sections = t.raw("landing.sections.items") as string[];
   const related = t.raw("landing.related.items") as RelatedItem[];
 
+  // Auth + portal flow lives on nisd2.eu (not the EMD) so cookies stay
+  // single-host and OAuth callback URIs don't need a separate whitelist.
+  // EMD visitors visibly switch domains when clicking the CTA, matching
+  // the marketing-site -> product-app pattern used by most SaaS.
+  const localePrefix = locale === "de" ? "" : `/${locale}`;
+  const callbackPath = `${localePrefix}/portal/supplier-onboarding`;
+  const signinHref = `https://www.nisd2.eu${localePrefix}/auth/signin?callbackUrl=${encodeURIComponent(callbackPath)}`;
+  const NISD2 = "https://www.nisd2.eu";
+
   return (
     <div className="space-y-24">
       <JsonLd
@@ -143,10 +151,10 @@ export default async function SicherheitsfragebogenLanding({
         </div>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild size="lg" className="h-12 gap-2">
-            <Link href={{ pathname: "/auth/signin", query: { callbackUrl: "/portal/supplier-onboarding" } }}>
+            <a href={signinHref}>
               {t("landing.hero.ctaPrimary")}
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </a>
           </Button>
           <Button asChild size="lg" variant="outline" className="h-12">
             <a href="#fragebogen">{t("landing.hero.ctaSecondary")}</a>
@@ -245,10 +253,10 @@ export default async function SicherheitsfragebogenLanding({
         </p>
         <div className="mt-6">
           <Button asChild size="lg" className="h-12 gap-2">
-            <Link href={{ pathname: "/auth/signin", query: { callbackUrl: "/portal/supplier-onboarding" } }}>
+            <a href={signinHref}>
               {t("landing.cta.button")}
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </a>
           </Button>
         </div>
       </section>
@@ -267,7 +275,7 @@ export default async function SicherheitsfragebogenLanding({
           {related.map((item) => (
             <a
               key={item.href}
-              href={item.href}
+              href={`${NISD2}${item.href}`}
               className="group rounded-lg border bg-card p-5 transition hover:border-primary/40 hover:bg-primary/5"
             >
               <div className="flex items-start justify-between gap-3">
