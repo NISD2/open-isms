@@ -8,8 +8,8 @@ export const managedServicesFields = [
         type: "boolean",
         label: { en: "Privileged access management (PAM) in place", de: "Privileged Access Management (PAM) im Einsatz" },
         description: {
-            en: "BSI IT-Grundschutz ORP.4.A26 — PAM for administrative remote access.",
-            de: "BSI IT-Grundschutz ORP.4.A26 — PAM für administrativen Fernzugriff.",
+            en: "Tick yes if you use a privileged access management tool for administrative remote sessions on customer systems. Examples: CyberArk, BeyondTrust, Teleport. A logged jump-host setup counts.",
+            de: "Ja, wenn Sie für administrative Fernzugriffe auf Kundensysteme ein Privileged-Access-Management einsetzen. Beispiele: CyberArk, BeyondTrust, Teleport. Ein protokolliertes Jumphost-Setup zählt.",
         },
         legalBasis: "NIS2 Art. 21(2)(i) / ENISA TIG §11.3",
         required: true,
@@ -21,8 +21,8 @@ export const managedServicesFields = [
         type: "boolean",
         label: { en: "Admin sessions are recorded", de: "Admin-Sitzungen werden aufgezeichnet" },
         description: {
-            en: "BSI IT-Grundschutz OPS.1.2.5.A11 — recorded remote maintenance sessions.",
-            de: "BSI IT-Grundschutz OPS.1.2.5.A11 — aufgezeichnete Fernwartungssitzungen.",
+            en: "Tick yes if admin sessions on customer systems are recorded and retained for review. Common retention: 90 days to 1 year. Needed for forensic reconstruction after incidents.",
+            de: "Ja, wenn Admin-Sitzungen auf Kundensystemen aufgezeichnet und für die Nachprüfung aufbewahrt werden. Übliche Aufbewahrung: 90 Tage bis 1 Jahr. Notwendig für forensische Rekonstruktion nach Vorfällen.",
         },
         legalBasis: "NIS2 Art. 21(2)(f) / ENISA TIG §10",
         required: true,
@@ -34,8 +34,8 @@ export const managedServicesFields = [
         type: "boolean",
         label: { en: "24/7 on-call coverage", de: "24/7-Bereitschaft" },
         description: {
-            en: "BSI IT-Grundschutz DER.2.1 — incident detection and response coverage.",
-            de: "BSI IT-Grundschutz DER.2.1 — Erkennungs- und Reaktionsabdeckung für Vorfälle.",
+            en: "Tick yes if you operate a 24/7 on-call rotation that responds to security incidents on customer systems. Business-hours-only support does not qualify.",
+            de: "Ja, wenn Sie eine 24/7-Bereitschaft betreiben, die auf Sicherheitsvorfälle auf Kundensystemen reagiert. Reine Unterstützung zu Geschäftszeiten qualifiziert sich nicht.",
         },
         legalBasis: "NIS2 Art. 21(2)(b) / ENISA TIG §3",
         required: true,
