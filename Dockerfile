@@ -37,7 +37,11 @@ RUN --mount=type=cache,target=/root/.bun/install/cache \
 # Copy source + build. Reuses deps from stage 1; only rebuilds when
 # source files change.
 # -----------------------------------------------------------------------------
-FROM oven/bun:1.3.8 AS builder
+# Builder stage uses Node.js directly. Bun 1.3.8 segfaults during
+# next build's page-data collection (panic: SIGSEGV in Bun's runtime,
+# not in our code). The build script is plain `next build` so Node
+# runs it natively. Deps still come from the Bun-based deps stage.
+FROM node:22-bookworm-slim AS builder
 
 WORKDIR /app
 
@@ -65,7 +69,7 @@ ENV NODE_OPTIONS=--max-old-space-size=4096
 # --add-host. They run at container startup instead, via
 # scripts/runtime-migrate.mjs, which the runner stage's ENTRYPOINT
 # chains before exec'ing node server.js.
-RUN bun run build
+RUN node node_modules/next/dist/bin/next build
 
 # -----------------------------------------------------------------------------
 # Stage 3: runner
