@@ -67,6 +67,13 @@ export const routing = defineRouting({
       nl: "/auteur/cory-hisey",
     },
 
+    // ── sicherheitsfragebogen.de wedge — second brand surface for the
+    // supplier portal product. Single landing page funnels into the
+    // existing /supplier-portal sign-up flow. When host-routing for
+    // sicherheitsfragebogen.de goes live, the middleware rewrites the
+    // root path there into this subtree.
+    "/sicherheitsfragebogen": "/sicherheitsfragebogen",
+
     // ── Other public pages (legal, operational, functional) ──────────
     "/nis2-lieferanten-fragebogen": {
       de: "/nis2-lieferanten-fragebogen",

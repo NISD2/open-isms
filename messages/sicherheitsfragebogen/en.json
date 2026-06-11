@@ -1,0 +1,94 @@
+{
+  "sicherheitsfragebogen": {
+    "meta": {
+      "title": "Answer the security questionnaire once | nisd2.eu",
+      "description": "Fill the single supplier security questionnaire once, share with every customer. Structured by ENISA NIS 2 TIG v1.0. Free. Open source."
+    },
+    "landing": {
+      "hero": {
+        "eyebrow": "Supplier portal by nisd2.eu",
+        "headline": "Answer the security questionnaire once.",
+        "headlineAccent": "Share with every customer.",
+        "subhead": "One canonical supplier questionnaire, structured by ENISA NIS 2 Technical Implementation Guidance v1.0. Every question cites CIR 2024/2690, BSIG §30 or BSI IT-Grundschutz. Free. Open source. Your data stays portable.",
+        "anchorBadge": "Structured by ENISA NIS 2 TIG v1.0 §5",
+        "ctaPrimary": "Create supplier profile",
+        "ctaSecondary": "What is in the questionnaire?"
+      },
+      "steps": {
+        "heading": "How it works.",
+        "lead": "Three steps, from first sign-in to first customer invite.",
+        "items": [
+          {
+            "title": "Create a profile",
+            "body": "Sign in with Google. Enter company name and primary domain. Two minutes."
+          },
+          {
+            "title": "Answer the questionnaire",
+            "body": "Identity, contract clauses, cybersecurity measures, technical details. At your own pace. Draft auto-saves."
+          },
+          {
+            "title": "Invite customers",
+            "body": "Each invited customer gets a private magic link. No public profile, no search-engine indexing."
+          }
+        ]
+      },
+      "sections": {
+        "heading": "What is in the questionnaire.",
+        "lead": "Ten sections, each citing the underlying paragraph of ENISA TIG, CIR 2024/2690 or BSI IT-Grundschutz.",
+        "items": [
+          "Identity (CIR §5.2 / ENISA TIG §5.2 supplier register)",
+          "Incident contact (customer-facing)",
+          "Service type",
+          "Mandatory contract clauses (CIR / ENISA TIG §5.1.4)",
+          "Cybersecurity measures (NIS 2 Art. 21(2) / ENISA TIG §5.1.2)",
+          "Additional contract clauses (ENISA TIG §5.1.4 TIPS)",
+          "SaaS technical",
+          "On-prem software technical",
+          "Professional services, details",
+          "Managed services, details"
+        ],
+        "footnote": "The full schema is public on GitHub and exportable as JSON."
+      },
+      "bsi": {
+        "quote": "We welcome current industry initiatives to develop a unified questionnaire catalogue for suppliers.",
+        "attribution": "BSI NIS-2 FAQ (supply chain and security).",
+        "context": "This supplier portal IS that industry initiative. A privately built, unified questionnaire catalogue, structured by the canonical EU taxonomy (ENISA TIG §5) so every NIS 2 regulated entity can satisfy CIR §5.1.4 from a single source."
+      },
+      "privacy": {
+        "heading": "Bilateral and private.",
+        "body": "Built in Germany, hosted in the EU, aligned with BSI Grundschutz. Your data is shared only with customers you explicitly invite. No public URL, no search-engine indexing."
+      },
+      "cta": {
+        "heading": "Start in two minutes.",
+        "body": "Sign in with Google. Enter company name and primary domain. Fill the questionnaire at your own pace. When you are ready, invite your customers.",
+        "button": "Create supplier profile"
+      },
+      "related": {
+        "heading": "Continue on nisd2.eu.",
+        "lead": "This tool is part of the nisd2.eu ecosystem. The rest lives here.",
+        "items": [
+          {
+            "title": "NIS 2 supplier portal",
+            "body": "Same function, positioned from the NIS 2 perspective: for managing bodies implementing §30 BSIG.",
+            "href": "/supplier-portal"
+          },
+          {
+            "title": "Open questionnaire schema",
+            "body": "The full JSON schema with source citations, free to reuse.",
+            "href": "/nis2-lieferanten-fragebogen"
+          },
+          {
+            "title": "Guided NIS 2 implementation",
+            "body": "If you want help on full implementation: 500 euro per month, no lock-in.",
+            "href": "/pricing"
+          },
+          {
+            "title": "Open source",
+            "body": "Full source on GitHub under AGPL-3.0.",
+            "href": "/open-source"
+          }
+        ]
+      }
+    }
+  }
+}

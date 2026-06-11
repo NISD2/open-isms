@@ -1,0 +1,94 @@
+{
+  "sicherheitsfragebogen": {
+    "meta": {
+      "title": "Sicherheitsfragebogen einmal beantworten | nisd2.eu",
+      "description": "Den einheitlichen Lieferantenfragebogen einmal ausfüllen, mit jedem Kunden teilen. Strukturiert nach ENISA NIS 2 TIG v1.0. Kostenlos. Open Source."
+    },
+    "landing": {
+      "hero": {
+        "eyebrow": "Lieferantenportal nisd2.eu",
+        "headline": "Den Sicherheitsfragebogen einmal beantworten.",
+        "headlineAccent": "Mit jedem Kunden teilen.",
+        "subhead": "Ein einheitlicher Fragebogen, strukturiert nach ENISA NIS 2 Technical Implementation Guidance v1.0. Jede Frage zitiert CIR 2024/2690, BSIG §30 oder BSI IT-Grundschutz. Kostenlos. Open Source. Ihre Daten bleiben portabel.",
+        "anchorBadge": "Strukturiert nach ENISA NIS 2 TIG v1.0 §5",
+        "ctaPrimary": "Lieferantenprofil erstellen",
+        "ctaSecondary": "Was steht im Fragebogen?"
+      },
+      "steps": {
+        "heading": "So funktioniert es.",
+        "lead": "Drei Schritte, vom ersten Login bis zur ersten Kundeneinladung.",
+        "items": [
+          {
+            "title": "Profil anlegen",
+            "body": "Mit Google anmelden. Firmenname und primäre Domain eintragen. Zwei Minuten."
+          },
+          {
+            "title": "Fragebogen beantworten",
+            "body": "Identität, Vertragsklauseln, Cybersicherheitsmaßnahmen, technische Details. Im eigenen Tempo. Entwurf jederzeit speichern."
+          },
+          {
+            "title": "Kunden einladen",
+            "body": "Jeder eingeladene Kunde bekommt einen privaten Magic-Link. Kein öffentliches Profil, keine Suchmaschinen-Indexierung."
+          }
+        ]
+      },
+      "sections": {
+        "heading": "Was steht im Fragebogen.",
+        "lead": "Zehn Abschnitte, jeder mit Verweis auf den zugrunde liegenden Absatz von ENISA TIG, CIR 2024/2690 oder BSI IT-Grundschutz.",
+        "items": [
+          "Identität (CIR §5.2 / ENISA TIG §5.2 Lieferantenregister)",
+          "Vorfall-Kontakt (kundenseitig)",
+          "Leistungsart",
+          "Verpflichtende Vertragsklauseln (CIR / ENISA TIG §5.1.4)",
+          "Cybersicherheitsmaßnahmen (NIS 2 Art. 21(2) / ENISA TIG §5.1.2)",
+          "Zusätzliche Vertragsklauseln (ENISA TIG §5.1.4 TIPS)",
+          "SaaS-Technik",
+          "On-Prem-Software-Technik",
+          "Dienstleistungen, Details",
+          "Managed Services, Details"
+        ],
+        "footnote": "Das vollständige Schema liegt offen auf GitHub und ist als JSON exportierbar."
+      },
+      "bsi": {
+        "quote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
+        "attribution": "BSI NIS-2 FAQ (Lieferketten und Sicherheit).",
+        "context": "Das Lieferantenportal IST dieser Vorstoß der Wirtschaft. Ein privatwirtschaftlich gebauter, einheitlicher Fragenkatalog, strukturiert nach der kanonischen EU-Taxonomie (ENISA TIG §5), damit jede NIS 2 regulierte Einrichtung CIR §5.1.4 aus einer einzigen Quelle erfüllen kann."
+      },
+      "privacy": {
+        "heading": "Bilateral und privat.",
+        "body": "In Deutschland gebaut, in der EU gehostet, an BSI-Grundschutz-Vorgaben ausgerichtet. Ihre Daten werden nur mit Kunden geteilt, die Sie ausdrücklich einladen. Keine öffentliche URL, keine Suchmaschinen-Indexierung."
+      },
+      "cta": {
+        "heading": "Starten Sie in zwei Minuten.",
+        "body": "Mit Google anmelden. Firmenname und primäre Domain eintragen. Den Fragebogen in Ihrem eigenen Tempo beantworten. Wenn Sie bereit sind, laden Sie Ihre Kunden ein.",
+        "button": "Lieferantenprofil erstellen"
+      },
+      "related": {
+        "heading": "Weiter auf nisd2.eu.",
+        "lead": "Das Werkzeug ist Teil des nisd2.eu Ökosystems. Hier liegt der Rest.",
+        "items": [
+          {
+            "title": "NIS 2 Lieferantenportal",
+            "body": "Dieselbe Funktion, aus der NIS 2 Perspektive positioniert: für Geschäftsführungen, die §30 BSIG umsetzen.",
+            "href": "/supplier-portal"
+          },
+          {
+            "title": "Offenes Fragebogen-Schema",
+            "body": "Das vollständige JSON-Schema mit Quellverweisen, frei nachnutzbar.",
+            "href": "/nis2-lieferanten-fragebogen"
+          },
+          {
+            "title": "Geführte NIS 2 Umsetzung",
+            "body": "Wenn Sie Hilfe bei der vollen Umsetzung wollen: 500 Euro im Monat, kein Lock-in.",
+            "href": "/pricing"
+          },
+          {
+            "title": "Open Source",
+            "body": "Vollständiger Quellcode unter AGPL-3.0 auf GitHub.",
+            "href": "/open-source"
+          }
+        ]
+      }
+    }
+  }
+}

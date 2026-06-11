@@ -103,6 +103,10 @@ const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [
   // segment is locale-stable; only the category and article slugs
   // change between locales, so the prefix match alone covers all three.
   "/wiki",
+  // sicherheitsfragebogen.de wedge — single landing page + future
+  // programmatic SEO subtrees. Same slug across all three locales so a
+  // prefix entry suffices.
+  "/sicherheitsfragebogen",
   // Auth flow pages — /auth/signin, /auth/forgot-password, /auth/signout
   "/auth",
   // Author bios — /autor/[slug] (DE), /author/[slug] (EN), /auteur/[slug] (NL)

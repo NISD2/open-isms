@@ -39,6 +39,7 @@ const namespaces = [
   "review",
   "risks",
   "settings",
+  "sicherheitsfragebogen",
   "suppliers",
   "supplierPortal",
   "team",
