@@ -29,11 +29,19 @@ jobs:
 
       - name: Run gitleaks (Docker)
         run: |
+          # --no-git scans the working tree only, not git history.
+          # Historical commits may contain pre-suppression versions of
+          # known-safe constants (e.g. the share-password alphabet),
+          # which are still fine — what we want to block is NEW secrets
+          # in the proposed code. The push event sees what landed; the
+          # PR event sees what's about to land. Either way, working-tree
+          # scan is sufficient.
           docker run --rm \
             -v "${{ github.workspace }}:/path" \
             zricethezav/gitleaks:latest \
             detect \
             --source=/path \
+            --no-git \
             --redact \
             --verbose \
             --exit-code=1
