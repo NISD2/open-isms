@@ -26,6 +26,7 @@ import {
 } from "@/schema";
 import { logAudit } from "@/lib/audit";
 import { env } from "@/lib/env";
+import { verifyCronBearer } from "@/lib/cron/auth";
 import requirementsEn from "@/messages/requirements/en.json";
 import {
   computeInitialDeadline,
@@ -55,12 +56,13 @@ import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  // Verify authorization
-  const authHeader = req.headers.get("authorization");
   if (!env.CRON_SECRET) {
     return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 500 });
   }
-  if (authHeader !== `Bearer ${env.CRON_SECRET}`) {
+  // Audit EW-3 (2026-06-11): constant-time bearer comparison via
+  // verifyCronBearer. Removes the per-byte timing side channel on the
+  // previous string compare.
+  if (!verifyCronBearer(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
