@@ -88,4 +88,9 @@ Wired in `apps/reference/package.json`. On a fresh DB this creates the 12 GRC ta
 
 ## Where the legacy migrations went
 
-The 16 pre-cutover migrations live in `drizzle.legacy/` for historical reference. They are NOT shipped (not in any `drizzle.config.ts`'s `out`, not COPY'd by the Dockerfile, not in the mirror script's allowlist) and no migrator reads them. The prod `drizzle.__drizzle_migrations` table is also untouched by convergence — it still lists the 16 legacy migrations as applied, just for the historical record. Delete `drizzle.legacy/` from disk when comfortable that the convergence worked everywhere.
+The 16 pre-cutover migrations were deleted on 2026-06-11 after the
+convergence chain proved stable in prod. Recoverable from git history at
+the commit prior to the deletion if ever needed. The prod
+`drizzle.__drizzle_migrations` table still lists the 16 legacy
+migrations as applied (untouched by convergence) — that's the historical
+record.
