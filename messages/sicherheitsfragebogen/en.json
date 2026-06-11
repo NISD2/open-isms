@@ -27,7 +27,7 @@
           },
           {
             "title": "Answer the questionnaire",
-            "body": "Identity, contract clauses, cybersecurity measures, technical details. At your own pace. Draft auto-saves."
+            "body": "Three sub-pages in the portal: profile and service description, universal cybersecurity measures per NIS 2 Art. 21(2), technical sections per service type. 59 questions, at your own pace, draft auto-saves."
           },
           {
             "title": "Invite customers",
@@ -52,10 +52,32 @@
         ],
         "footnote": "The full schema is public on GitHub and exportable as JSON."
       },
+      "serviceTypes": {
+        "heading": "Four technical sections per service type.",
+        "lead": "The Service type page in the portal surfaces four additional sections. Fill in only the ones that match what you offer.",
+        "items": [
+          {
+            "title": "SaaS",
+            "fields": "Hosting region, encryption at rest and in transit, MFA for admin accounts, recovery time objective."
+          },
+          {
+            "title": "On-prem software",
+            "fields": "Software Bill of Materials (SBOM), cryptographically signed releases, published vulnerability disclosure policy, patch SLA for critical CVEs."
+          },
+          {
+            "title": "Professional services",
+            "fields": "Background check scope, NDA with all consultants, documented customer-premises behaviour policy."
+          },
+          {
+            "title": "Managed services",
+            "fields": "Privileged access management, admin session recording, 24/7 on-call for security incidents."
+          }
+        ]
+      },
       "preview": {
         "heading": "Sample questions.",
-        "lead": "Three questions from the questionnaire, with the help text suppliers see while filling them in.",
-        "footnote": "Out of 59 questions total."
+        "lead": "Six questions from different sections, with the help text suppliers see while filling them in. Identity, security practices, contract clauses, AI declarations, technical details.",
+        "footnote": "Six of 59 questions. Full set in the portal."
       },
       "bsi": {
         "quote": "We welcome current industry initiatives to develop a unified questionnaire catalogue for suppliers.",

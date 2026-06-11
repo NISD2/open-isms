@@ -27,7 +27,7 @@
           },
           {
             "title": "Vragenlijst beantwoorden",
-            "body": "Identiteit, contractclausules, cyberbeveiligingsmaatregelen, technische details. In uw eigen tempo. Concept wordt automatisch opgeslagen."
+            "body": "Drie subpagina's in het portaal: profiel en dienstbeschrijving, universele cyberbeveiligingsmaatregelen volgens NIS 2 Art. 21(2), technische secties per dienstsoort. 59 vragen, in uw eigen tempo, concept wordt automatisch opgeslagen."
           },
           {
             "title": "Klanten uitnodigen",
@@ -52,10 +52,32 @@
         ],
         "footnote": "Het volledige schema staat openbaar op GitHub en is als JSON exporteerbaar."
       },
+      "serviceTypes": {
+        "heading": "Vier technische secties per dienstsoort.",
+        "lead": "De pagina Dienstsoort in het portaal toont vier extra secties. U vult alleen die in die passen bij wat u aanbiedt.",
+        "items": [
+          {
+            "title": "SaaS",
+            "fields": "Hostingregio, versleuteling in rust en in transit, MFA voor beheeraccounts, hersteltijddoelstelling."
+          },
+          {
+            "title": "On-prem software",
+            "fields": "Software Bill of Materials (SBOM), cryptografisch ondertekende releases, gepubliceerd beleid voor kwetsbaarheidsopenbaarmaking, patch-SLA voor kritieke CVE's."
+          },
+          {
+            "title": "Dienstverlening",
+            "fields": "Reikwijdte achtergrondcontrole, NDA met alle consultants, gedocumenteerd gedragsbeleid op klantlocatie."
+          },
+          {
+            "title": "Managed services",
+            "fields": "Bevoorrecht toegangsbeheer, opname van beheersessies, 24/7 wachtdienst voor beveiligingsincidenten."
+          }
+        ]
+      },
       "preview": {
         "heading": "Voorbeeldvragen.",
-        "lead": "Drie vragen uit de vragenlijst, inclusief de uitleg die leveranciers zien bij het invullen.",
-        "footnote": "Uit 59 vragen in totaal."
+        "lead": "Zes vragen uit verschillende secties, inclusief de uitleg die leveranciers zien bij het invullen. Identiteit, beveiligingsmaatregelen, contractclausules, AI-verklaring, technische details.",
+        "footnote": "Zes van 59 vragen. Volledig in het portaal."
       },
       "bsi": {
         "quote": "We verwelkomen huidige initiatieven uit het bedrijfsleven om een uniforme vragencatalogus voor leveranciers te ontwikkelen.",

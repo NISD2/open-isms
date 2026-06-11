@@ -8,6 +8,10 @@ import {
   Mail,
   Check,
   HelpCircle,
+  Cloud,
+  HardDrive,
+  Users,
+  Wrench,
 } from "lucide-react";
 import { supplierQuestionnaire } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import { Link } from "@/i18n/navigation";
@@ -51,9 +55,11 @@ export async function generateMetadata({
 }
 
 const stepIcons = [UserPlus, ClipboardList, Mail] as const;
+const serviceTypeIcons = [Cloud, HardDrive, Users, Wrench] as const;
 
 type Step = { title: string; body: string };
 type RelatedItem = { title: string; body: string; href: string };
+type ServiceTypeBlock = { title: string; fields: string };
 
 export default async function SicherheitsfragebogenLanding({
   params,
@@ -64,12 +70,22 @@ export default async function SicherheitsfragebogenLanding({
   const t = await getTranslations("sicherheitsfragebogen");
   const steps = t.raw("landing.steps.items") as Step[];
   const sections = t.raw("landing.sections.items") as string[];
+  const serviceTypes = t.raw("landing.serviceTypes.items") as ServiceTypeBlock[];
   const related = t.raw("landing.related.items") as RelatedItem[];
 
-  // Three representative sample questions pulled directly from the schema
+  // Six representative sample questions pulled directly from the schema
   // package so the landing always shows current help text — no copy
-  // duplication, no risk of drift. Schema ships DE+EN; NL renders EN.
-  const previewIds = ["legalName", "hasIsms", "usesAiSystems"] as const;
+  // duplication, no risk of drift. Covers identity, ISMS baseline, contract
+  // clauses, TIPS commitments, AI declarations, and a service-type-conditional
+  // section. Schema ships DE+EN; NL renders EN.
+  const previewIds = [
+    "legalName",
+    "hasIsms",
+    "acceptRightToAudit",
+    "incidentAssistanceCommitment",
+    "usesAiSystems",
+    "saasHostingRegion",
+  ] as const;
   const previewLocale: "de" | "en" = locale === "de" ? "de" : "en";
   const previewFields = previewIds
     .map((id) => supplierQuestionnaire.fields.find((f) => f.id === id))
@@ -181,6 +197,41 @@ export default async function SicherheitsfragebogenLanding({
         <p className="mt-6 text-sm text-muted-foreground">
           {t("landing.sections.footnote")}
         </p>
+      </section>
+
+      {/* Service-type conditional sections */}
+      <section>
+        <div>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            {t("landing.serviceTypes.heading")}
+          </h2>
+          <p className="mt-3 max-w-3xl text-muted-foreground">
+            {t("landing.serviceTypes.lead")}
+          </p>
+        </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {serviceTypes.map((block, i) => {
+            const Icon = serviceTypeIcons[i];
+            return (
+              <div
+                key={i}
+                className="rounded-lg border bg-card p-5"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
+                    <Icon className="h-4 w-4 text-primary" />
+                  </div>
+                  <h3 className="font-semibold text-foreground">
+                    {block.title}
+                  </h3>
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  {block.fields}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       {/* Sample questions — pulled live from the schema */}

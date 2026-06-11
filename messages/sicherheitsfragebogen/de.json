@@ -27,7 +27,7 @@
           },
           {
             "title": "Fragebogen beantworten",
-            "body": "Identität, Vertragsklauseln, Cybersicherheitsmaßnahmen, technische Details. Im eigenen Tempo. Entwurf jederzeit speichern."
+            "body": "Drei Seiten im Portal: Profil und Leistungsbeschreibung, universelle Sicherheitspraktiken nach NIS 2 Art. 21(2), technische Sektionen je Leistungsart. 59 Fragen, im eigenen Tempo, Entwurf jederzeit speichern."
           },
           {
             "title": "Kunden einladen",
@@ -52,10 +52,32 @@
         ],
         "footnote": "Das vollständige Schema liegt offen auf GitHub und ist als JSON exportierbar."
       },
+      "serviceTypes": {
+        "heading": "Vier technische Sektionen je Leistungsart.",
+        "lead": "Auf der Seite „Leistungsart\" im Portal erscheinen vier zusätzliche Sektionen. Sie füllen nur die aus, die zu Ihrem Angebot passen.",
+        "items": [
+          {
+            "title": "SaaS",
+            "fields": "Hosting-Region, Verschlüsselung im Ruhezustand und bei Übertragung, MFA für Admin-Konten, Recovery Time Objective."
+          },
+          {
+            "title": "On-Prem-Software",
+            "fields": "Software Bill of Materials (SBOM), kryptografisch signierte Releases, veröffentlichte Vulnerability-Disclosure-Policy, Patch-SLA für kritische CVEs."
+          },
+          {
+            "title": "Dienstleistungen",
+            "fields": "Umfang der Zuverlässigkeitsprüfung, NDA mit allen Beratern, dokumentierte Verhaltensrichtlinie auf Kundenstandort."
+          },
+          {
+            "title": "Managed Services",
+            "fields": "Privileged Access Management, Aufzeichnung der Admin-Sitzungen, 24/7-Bereitschaft für sicherheitsrelevante Vorfälle."
+          }
+        ]
+      },
       "preview": {
         "heading": "Beispielfragen.",
-        "lead": "Drei Fragen aus dem Fragebogen, samt der Hilfestellung, die Sie beim Ausfüllen sehen.",
-        "footnote": "Aus 59 Fragen insgesamt."
+        "lead": "Sechs Fragen aus verschiedenen Sektionen, samt der Hilfestellung, die Sie beim Ausfüllen sehen. Identität, Sicherheitspraktiken, Vertragsklauseln, KI-Erklärung, technische Details.",
+        "footnote": "Sechs von 59 Fragen. Vollständig im Portal."
       },
       "bsi": {
         "quote": "Wir begrüßen aktuelle Vorstöße der Wirtschaft, einen einheitlichen Fragenkatalog für Lieferanten zu erarbeiten.",
