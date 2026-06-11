@@ -89,6 +89,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     ...multilingualEntries("/nis2-lieferanten-fragebogen", { priority: 0.8 }),
     ...multilingualEntries("/nis2-meldepflicht-schema", { priority: 0.8 }),
+    // Sicherheitsfragebogen wedge — canonical home for the EMD
+    // sicherheitsfragebogen.de, which 301s here. High priority because it's
+    // the primary entry point for the supplier-portal funnel.
+    ...multilingualEntries("/sicherheitsfragebogen", { priority: 0.9 }),
 
     // Pricing + Training
     ...multilingualEntries("/pricing", { priority: 0.9 }),
