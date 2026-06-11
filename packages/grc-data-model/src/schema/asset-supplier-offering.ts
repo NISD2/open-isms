@@ -13,6 +13,17 @@ import { asset } from "./asset";
 import { supplier } from "./supplier";
 import { assetServiceTypeEnum } from "../enums";
 
+/**
+ * Per-asset-per-customer technical declarations. The architecturally-correct
+ * home for service-type-conditional fields (saasHostingRegion, on-prem SBOM,
+ * managed PAM, etc.).
+ *
+ * Note: the `company` table currently stores company-level defaults for the
+ * same fields (supplier-portal MVP) — see organization.ts. The duplication is
+ * intentional for the MVP and resolves when the per-asset UI lets suppliers
+ * vary answers per customer. Until then, both tables can hold values; the
+ * supplier-portal save endpoint writes only to `company`.
+ */
 export const assetSupplierOffering = pgTable(
   "asset_supplier_offering",
   {

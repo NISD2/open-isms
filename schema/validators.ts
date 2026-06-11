@@ -19,7 +19,7 @@ import { z } from "zod";
 // --- Table imports (alphabetical by file) ---
 import { policyAcknowledgment } from "@nisd2/isms-schema/tables/acknowledgment";
 import { companyAssessment, companyRequirementStatus } from "@nisd2/isms-schema/tables/assessments";
-import { asset } from "@nisd2/grc-data-model/schema";
+import { asset, assetSupplierOffering } from "@nisd2/grc-data-model/schema";
 import { internalAudit, auditFinding } from "@nisd2/isms-schema/tables/audit";
 import { auditLog } from "@nisd2/isms-schema/tables/audit-log";
 import { changeRequest } from "@nisd2/isms-schema/tables/change-management";
@@ -293,37 +293,74 @@ export const assetSelectSchema = createSelectSchema(asset);
 export const assetUpdateSchema = assetInsertSchema.partial().omit(omitTenantMeta);
 
 /**
- * Per-asset service declaration (supplier portal). Mass-assignment-safe shape
- * the supplier-portal forms send up. companyId / customerRelationshipId are
- * bound by the tRPC handler, not the client.
+ * Per-asset-per-customer service-type-conditional declarations (SaaS hosting,
+ * on-prem SBOM, managed PAM, etc). Enum + range constraints tightened beyond
+ * the raw `varchar` / `integer` columns — drizzle-zod can't infer enums from
+ * length-limited varchars.
  */
-export const assetServiceUpdateSchema = z.object({
-  name: z.string().min(1).max(255).optional(),
-  description: z.string().nullish(),
-  hasMfa: z.boolean().nullish(),
-  encryptionAtRest: z.string().nullish(),
-  encryptionInTransit: z.string().nullish(),
-  rto: z.number().int().positive().nullish(),
+export const assetSupplierOfferingInsertSchema = createInsertSchema(
+  assetSupplierOffering,
+  {
+    // .nullable() preserves the DB column nullability — drizzle-zod can't
+    // infer enums / max constraints from `varchar(20)`, so we tighten here,
+    // but we must restate `.nullable()` because the override loses the
+    // column's nullable flag otherwise.
+    serviceDescription: z.string().max(2000).nullable(),
+    dataProcessingLocations: z.string().max(1000).nullable(),
+    saasHostingRegion: z.enum(["eu", "de_only", "global"]).nullable(),
+    proServicesBackgroundCheckScope: z
+      .enum(["criminal", "employment", "both"])
+      .nullable(),
+    onPremPatchSlaCriticalHours: z
+      .number()
+      .int()
+      .positive()
+      .max(720)
+      .nullable(),
+  },
+);
 
-  serviceType: z.enum(["saas", "on_prem", "pro_services", "managed"]).optional(),
-  serviceDescription: z.string().max(2000).nullish(),
-  dataProcessingLocations: z.string().max(1000).nullish(),
-
-  saasHostingRegion: z.enum(["eu", "de_only", "global"]).nullish(),
-
-  onPremSbomProvided: z.boolean().nullish(),
-  onPremSignedReleases: z.boolean().nullish(),
-  onPremVulnerabilityDisclosurePolicy: z.boolean().nullish(),
-  onPremPatchSlaCriticalHours: z.number().int().positive().max(720).nullish(),
-
-  proServicesBackgroundCheckScope: z.enum(["criminal", "employment", "both"]).nullish(),
-  proServicesNdaInPlace: z.boolean().nullish(),
-  proServicesCustomerPremisesPolicy: z.boolean().nullish(),
-
-  managedPrivilegedAccessMgmt: z.boolean().nullish(),
-  managedSessionRecording: z.boolean().nullish(),
-  managedOnCall24x7: z.boolean().nullish(),
-});
+/**
+ * Per-asset service declaration (supplier portal) — what the supplier-portal
+ * inline asset-create form sends up. Spans both `asset` (generic IT-asset
+ * shape: name, hasMfa, encryption, RTO) and `asset_supplier_offering`
+ * (per-customer service-type-conditional fields). The tRPC handler in
+ * `managed-asset.ts` writes the matching columns to each table.
+ *
+ * companyId / customerRelationshipId / assetId / id are stripped — the
+ * handler binds them from session / route params, the client never sets them.
+ *
+ * Derived from the two table schemas so renames or column drops are caught at
+ * typecheck instead of silently breaking the form.
+ */
+export const assetServiceUpdateSchema = assetInsertSchema
+  .partial()
+  .pick({
+    name: true,
+    description: true,
+    hasMfa: true,
+    encryptionAtRest: true,
+    encryptionInTransit: true,
+    rto: true,
+  })
+  .merge(
+    assetSupplierOfferingInsertSchema.partial().pick({
+      serviceType: true,
+      serviceDescription: true,
+      dataProcessingLocations: true,
+      saasHostingRegion: true,
+      onPremSbomProvided: true,
+      onPremSignedReleases: true,
+      onPremVulnerabilityDisclosurePolicy: true,
+      onPremPatchSlaCriticalHours: true,
+      proServicesBackgroundCheckScope: true,
+      proServicesNdaInPlace: true,
+      proServicesCustomerPremisesPolicy: true,
+      managedPrivilegedAccessMgmt: true,
+      managedSessionRecording: true,
+      managedOnCall24x7: true,
+    }),
+  );
 
 // ============================================================================
 // Risks
