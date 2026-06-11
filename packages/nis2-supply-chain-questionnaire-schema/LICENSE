@@ -1,0 +1,57 @@
+This repository carries a dual licence:
+
+------------------------------------------------------------------------------
+1. CONTENT — questionnaire fields, descriptions, legal citations
+------------------------------------------------------------------------------
+
+The compliance content (everything in `data/`, all bilingual labels and
+descriptions, and the substantive content of the README) is licensed under
+
+    Creative Commons Attribution 4.0 International (CC BY 4.0)
+    https://creativecommons.org/licenses/by/4.0/legalcode
+
+You are free to share, adapt, and use the content commercially, provided you
+give appropriate credit. Suggested attribution:
+
+    "Based on the NIS2 Supplier Questionnaire by Kardashev Catalyst UG /
+     nisd2.eu, licensed under CC BY 4.0.
+     https://github.com/NISD2/nis2-supplier-questionnaire"
+
+------------------------------------------------------------------------------
+2. CODE — Zod schema, TypeScript types, helpers, examples
+------------------------------------------------------------------------------
+
+All source code (everything in `src/` and `examples/`, plus build configuration
+files such as `tsconfig.json` and `package.json`) is licensed under
+
+    MIT License
+
+    Copyright (c) 2026 Kardashev Catalyst UG (haftungsbeschränkt)
+
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE SOFTWARE.
+
+------------------------------------------------------------------------------
+3. NO WARRANTY ON COMPLIANCE OUTCOMES
+------------------------------------------------------------------------------
+
+This is structured guidance based on our reading of the NIS2 Directive, CIR
+2024/2690, ENISA TIG, and BSI IT-Grundschutz. It is not legal advice and
+confers no guarantee that any user of this material will pass an audit, secure
+a procurement contract, or avoid regulatory penalties. Consult qualified
+counsel for your situation.

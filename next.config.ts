@@ -61,6 +61,7 @@ const nextConfig: NextConfig = {
     "@nisd2/isms-trpc",
     "@nisd2/isms-ui",
     "@nisd2/isms-lib",
+    "@nisd2/nis2-supply-chain-questionnaire-schema",
   ],
   // Skip TypeScript checking during the production build. `bun run typecheck`
   // runs separately in dev / pre-commit; tsc inside `next build` doubled

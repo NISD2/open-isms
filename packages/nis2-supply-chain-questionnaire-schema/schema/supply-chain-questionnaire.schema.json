@@ -1,0 +1,172 @@
+{
+  "$ref": "#/definitions/SupplyChainQuestionnaire",
+  "definitions": {
+    "SupplyChainQuestionnaire": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "lastUpdated": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z][a-zA-Z0-9]*$"
+              },
+              "section": {
+                "type": "string",
+                "enum": [
+                  "profile",
+                  "security_practices",
+                  "saas_technical",
+                  "on_prem_technical",
+                  "pro_services",
+                  "managed_services"
+                ]
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "string",
+                  "text",
+                  "email",
+                  "phone",
+                  "url",
+                  "country",
+                  "boolean",
+                  "enum",
+                  "integer"
+                ]
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "label": {
+                      "type": "object",
+                      "properties": {
+                        "en": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "de": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "en",
+                        "de"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "label"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "label": {
+                "type": "object",
+                "properties": {
+                  "en": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "de": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "en",
+                  "de"
+                ],
+                "additionalProperties": false
+              },
+              "description": {
+                "type": "object",
+                "properties": {
+                  "en": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "de": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "en",
+                  "de"
+                ],
+                "additionalProperties": false
+              },
+              "legalBasis": {
+                "type": "string",
+                "minLength": 1
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "visibleWhen": {
+                "type": "object",
+                "properties": {
+                  "field": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "equals": {
+                    "type": [
+                      "boolean",
+                      "string",
+                      "number"
+                    ]
+                  }
+                },
+                "required": [
+                  "field",
+                  "equals"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "section",
+              "type",
+              "label",
+              "description",
+              "legalBasis",
+              "required"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "version",
+        "lastUpdated",
+        "fields"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

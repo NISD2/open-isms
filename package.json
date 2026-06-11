@@ -42,7 +42,7 @@
     "@nisd2/isms-messages": "workspace:*",
     "@nisd2/isms-ui": "workspace:*",
     "@nisd2/nis2-gap-assessment-schema": "github:NISD2/nis2-gap-assessment-schema#v2.0.2",
-    "@nisd2/nis2-supply-chain-questionnaire-schema": "github:NISD2/nis2-supply-chain-questionnaire-schema#v3.1.0",
+    "@nisd2/nis2-supply-chain-questionnaire-schema": "workspace:*",
     "@radix-ui/react-slot": "^1.1.2",
     "@react-email/components": "^1.0.12",
     "@react-email/render": "^2.0.6",
