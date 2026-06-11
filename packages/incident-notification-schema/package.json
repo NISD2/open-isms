@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "tsup": "^8.0.0",
-    "typescript": "^5.7.0",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.8"
   },
   "publishConfig": {
