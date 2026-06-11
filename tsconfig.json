@@ -61,14 +61,12 @@
   ],
   "exclude": [
     "node_modules",
-    "videos",
     "apps",
     "scripts/release.ts",
     "scripts/publish-all.ts",
     "scripts/check-versions.ts",
     "scripts/audit-dep-graph.ts",
     "**/*.test.ts",
-    "**/*.test.tsx",
-    "oss/packages/*/tsup.config.ts"
+    "**/*.test.tsx"
   ]
 }

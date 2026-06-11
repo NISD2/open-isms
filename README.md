@@ -24,7 +24,7 @@ packages/
 app/                              # the production SaaS — marketing + portal + supplier + training
 components/  lib/  schema/  server/  drizzle/  messages/  i18n/   # SaaS app code
 courses/                          # NIS 2 CEO course content + tabletop exercises + CRA SBOM
-data/  docs/  research/           # public reference data + ENISA TIG + deployment docs
+data/  docs/                      # public reference data + deployment docs
 public/                           # static assets
 
 scripts/                          # operational + release tooling
@@ -89,14 +89,14 @@ import { complianceFramework, requirement } from "@nisd2/grc-data-model/schema";
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). External PRs welcome — particularly:
+See [CONTRIBUTING.md](./.github/CONTRIBUTING.md). External PRs welcome — particularly:
 
 - New framework articles / mappings (`packages/grc-data-model/src/frameworks/`)
 - Translation work (`messages/`, `packages/isms-messages/`)
 - Schema improvements (`packages/isms-schema/src/tables/`)
 - Documentation and examples
 
-For security disclosures, see [SECURITY.md](./SECURITY.md).
+For security disclosures, see [SECURITY.md](./.github/SECURITY.md).
 
 ## License
 
