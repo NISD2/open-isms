@@ -64,6 +64,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     }),
+    ...multilingualEntries("/risikobewertung", {
+      changeFrequency: "monthly",
+      priority: 0.9,
+    }),
 
     // /docs hub + 8 category indexes + all migrated pages — auto-generated from docs-toc
     ...wikiSitemapPaths().flatMap(({ path, priority }) =>
