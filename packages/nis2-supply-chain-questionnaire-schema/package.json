@@ -24,29 +24,19 @@
     "zod"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./schema": {
-      "types": "./dist/schema.d.ts",
-      "import": "./dist/schema.js"
-    },
-    "./data": {
-      "types": "./dist/data.d.ts",
-      "import": "./dist/data.js"
-    },
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts",
+    "./data": "./src/data.ts",
     "./data/supply-chain-questionnaire.json": "./data/supply-chain-questionnaire.json",
     "./schema/supply-chain-questionnaire.schema.json": "./schema/supply-chain-questionnaire.schema.json"
   },
   "files": [
-    "dist",
+    "src",
     "data",
     "schema",
-    "src",
     "examples",
     "README.md",
     "LICENSE",

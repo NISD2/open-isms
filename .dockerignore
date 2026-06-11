@@ -36,11 +36,5 @@ packages/*/dist
 packages/*/.turbo
 packages/*/node_modules
 
-# Exception: this package's dist/ IS the consumed artifact. Its package.json
-# main points at ./dist/index.js, so the build needs dist present. The other
-# workspace packages consume from src/ via transpilePackages so dist there
-# is genuinely throw-away.
-!packages/nis2-supply-chain-questionnaire-schema/dist
-
 # TS build cache (regenerated)
 *.tsbuildinfo
