@@ -285,7 +285,12 @@ export const getSession = cache(async (): Promise<Session | null> => {
   });
   if (!dbUser) return null;
 
-  if (session.sessionVersion != null && session.sessionVersion < dbUser.sessionVersion) {
+  // Treat absent sessionVersion as stale (audit L-2, 2026-06-11). Tokens
+  // issued before M-1 deployed carry no sessionVersion claim, so a
+  // `!= null && <` check short-circuited and they remained valid past
+  // password reset. Forcing a re-sign-in on those tokens — once per
+  // mid-session user — is the cost of M-1 actually working for everyone.
+  if (session.sessionVersion == null || session.sessionVersion < dbUser.sessionVersion) {
     return null;
   }
 
