@@ -152,8 +152,6 @@ drizzle/
   seed.ts              # Database seeding
   *.sql                # Generated migrations
 messages/              # i18n JSON files per namespace per locale
-[redacted for public release]
-[redacted for public release]
 ```
 
 ## Code Principles

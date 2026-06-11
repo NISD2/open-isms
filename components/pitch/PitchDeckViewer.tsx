@@ -228,12 +228,12 @@ function BusinessModelSlide({ en, locale }: { en: boolean; locale: Locale }) {
   const bullets = en
     ? [
         "Consulting-referral commissions (~73% of Year-2 revenue, avg €1,000–1,500 per referral)",
-[redacted for public release]
+        "Partner-training referrals from awareness + ISO training vendors (~11% of Year-2 revenue)",
         "Licenses + hosted cloud, €49–299/month by company size (~16% of Year-2 revenue)",
       ]
     : [
         "Beratungs-Vermittlungsprovisionen (~73% des Jahr-2-Umsatzes, Ø 1.000–1.500 Euro je Vermittlung)",
-[redacted for public release]
+        "Partner-Training-Vermittlung mit Awareness- und ISO-Trainingsanbietern (~11% des Jahr-2-Umsatzes)",
         "Lizenzen + gehostete Cloud, 49–299 Euro/Monat je Unternehmensgröße (~16% des Jahr-2-Umsatzes)",
       ];
   return (
@@ -398,13 +398,13 @@ function RoadmapSlide({ en, locale }: { en: boolean; locale: Locale }) {
   const milestones = en
     ? [
         { t: "Q1 2026", b: "Platform live. 173 users, 77 CEO courses. BSI registration deadline." },
-[redacted for public release]
+        { t: "Q3 2026", b: "First referral commissions. Awareness + ISO training partner affiliate contracts." },
         { t: "Q1 2027", b: "Netherlands + Austria market entry. Hosted cloud tier launched." },
         { t: "Q1 2028", b: "400 paying customers. First employee. €300k+ annual revenue." },
       ]
     : [
         { t: "Q1 2026", b: "Plattform live. 173 Nutzer, 77 CEO-Kurse. BSI-Registrierungsfrist." },
-[redacted for public release]
+        { t: "Q3 2026", b: "Erste Vermittlungsprovisionen. Affiliate-Verträge mit Awareness- und ISO-Trainingspartnern." },
         { t: "Q1 2027", b: "Markteintritt Niederlande + Österreich. Hosted-Cloud-Tier gestartet." },
         { t: "Q1 2028", b: "400 zahlende Kunden. Erster Mitarbeiter. 300.000+ Euro Jahresumsatz." },
       ];
