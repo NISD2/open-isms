@@ -142,7 +142,13 @@ if (
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
 
-  session: { strategy: "jwt", maxAge: 24 * 60 * 60 }, // 24 hours
+  // Audit EW-12 (2026-06-11): 8h dropped from 24h. Auth.js refreshes
+  // the JWT silently during active use, so engaged users see no UX hit;
+  // idle users sign back in once a workday instead of once every three.
+  // Cuts the exposure window for a leaked JWT by 3x. M-1 already lets
+  // password reset revoke immediately, so the maxAge is mostly the
+  // "user wandered off, didn't reset" window.
+  session: { strategy: "jwt", maxAge: 8 * 60 * 60 }, // 8 hours
 
   pages: {
     signIn: "/auth/signin",
