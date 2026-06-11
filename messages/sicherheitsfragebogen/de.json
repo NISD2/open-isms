@@ -4,6 +4,9 @@
       "title": "Sicherheitsfragebogen einmal beantworten | nisd2.eu",
       "description": "Den einheitlichen Lieferantenfragebogen einmal ausfüllen, mit jedem Kunden teilen. Strukturiert nach ENISA NIS 2 TIG v1.0. Kostenlos. Open Source."
     },
+    "branding": {
+      "label": "Ein Werkzeug von nisd2.eu"
+    },
     "landing": {
       "hero": {
         "eyebrow": "Lieferantenportal nisd2.eu",

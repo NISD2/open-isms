@@ -4,6 +4,9 @@
       "title": "Beveiligingsvragenlijst één keer beantwoorden | nisd2.eu",
       "description": "De ene leveranciersvragenlijst één keer invullen, met elke klant delen. Gestructureerd volgens ENISA NIS 2 TIG v1.0. Gratis. Open source."
     },
+    "branding": {
+      "label": "Een tool van nisd2.eu"
+    },
     "landing": {
       "hero": {
         "eyebrow": "Leveranciersportaal van nisd2.eu",

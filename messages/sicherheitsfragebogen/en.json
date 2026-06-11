@@ -4,6 +4,9 @@
       "title": "Answer the security questionnaire once | nisd2.eu",
       "description": "Fill the single supplier security questionnaire once, share with every customer. Structured by ENISA NIS 2 TIG v1.0. Free. Open source."
     },
+    "branding": {
+      "label": "A tool by nisd2.eu"
+    },
     "landing": {
       "hero": {
         "eyebrow": "Supplier portal by nisd2.eu",

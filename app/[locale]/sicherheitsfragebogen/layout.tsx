@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ArrowUpRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicFooter } from "@/components/PublicFooter";
 
@@ -17,13 +19,29 @@ export async function generateMetadata({
   return {};
 }
 
-export default function SicherheitsfragebogenLayout({
+export default async function SicherheitsfragebogenLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Always-on brand attribution. Visible on both nisd2.eu/sicherheitsfragebogen
+  // and the EMD sicherheitsfragebogen.de so visitors always see the link to
+  // the parent platform. Links absolute to https://www.nisd2.eu so it crosses
+  // domains cleanly from the EMD.
+  const t = await getTranslations("sicherheitsfragebogen");
   return (
     <>
+      <div className="border-b bg-muted/40">
+        <div className="mx-auto flex max-w-6xl items-center justify-end px-6 py-1.5 lg:px-0">
+          <a
+            href="https://www.nisd2.eu"
+            className="inline-flex items-center gap-1 text-xs text-muted-foreground transition hover:text-foreground"
+          >
+            {t("branding.label")}
+            <ArrowUpRight className="h-3 w-3" />
+          </a>
+        </div>
+      </div>
       <PublicNav />
       <main className="mx-auto max-w-6xl px-6 pt-24 pb-16 sm:pt-28 lg:px-0">
         {children}
