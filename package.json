@@ -11,7 +11,6 @@
     "schedule:pages:dry": "bun run scripts/schedule-pages.ts --dry",
     "build": "next build",
     "build:webpack": "next build --webpack",
-    "vercel-build": "bun run db:migrate && bun run build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
