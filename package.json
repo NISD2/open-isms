@@ -107,7 +107,7 @@
     "@types/bcryptjs": "^3.0.0",
     "@types/hast": "^3.0.4",
     "@types/lodash.throttle": "^4.1.9",
-    "@types/node": "^22.19.10",
+    "@types/node": "^25.9.3",
     "@types/pdfkit": "^0.17.6",
     "@types/pg": "^8.11.11",
     "@types/react": "^19.1.0",
