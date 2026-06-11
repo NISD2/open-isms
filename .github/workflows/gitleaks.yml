@@ -1,0 +1,47 @@
+name: Gitleaks
+
+# Scans the working tree for secret patterns (API keys, tokens, private
+# keys, connection strings) on every push and PR. Audit EW-16
+# (2026-06-11). The local pre-commit hook half of EW-16 is deferred
+# until husky is adopted; the Action half catches anything that reaches
+# the remote.
+#
+# Runs the official gitleaks Docker image directly rather than the
+# gitleaks/gitleaks-action wrapper. The action wrapper requires
+# GITLEAKS_LICENSE for any org-owned repo (gitleaks.io is the licensor),
+# but gitleaks itself is MIT-licensed and runs unrestricted in the
+# Docker image. Inline `gitleaks:allow` comments suppress known
+# false positives at the code site.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run gitleaks (Docker)
+        run: |
+          # --no-git scans the working tree only, not git history.
+          # Historical commits may contain pre-suppression versions of
+          # known-safe constants (e.g. the share-password alphabet),
+          # which are still fine — what we want to block is NEW secrets
+          # in the proposed code. The push event sees what landed; the
+          # PR event sees what's about to land. Either way, working-tree
+          # scan is sufficient.
+          docker run --rm \
+            -v "${{ github.workspace }}:/path" \
+            zricethezav/gitleaks:latest \
+            detect \
+            --source=/path \
+            --no-git \
+            --redact \
+            --verbose \
+            --exit-code=1

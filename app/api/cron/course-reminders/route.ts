@@ -25,6 +25,7 @@ import { db } from "@/lib/db";
 import { notification, user } from "@/schema";
 import { logAudit } from "@/lib/audit";
 import { env } from "@/lib/env";
+import { verifyCronBearer } from "@/lib/cron/auth";
 import { getAppUrl } from "@/lib/utils";
 import { sendMail, courseFollowupEmail } from "@/lib/mail";
 import { loadCourse } from "@/lib/training/course-loader";
@@ -44,11 +45,13 @@ type StalledRow = {
 } & Record<string, unknown>;
 
 export async function GET(req: NextRequest) {
-  const authHeader = req.headers.get("authorization");
   if (!env.CRON_SECRET) {
     return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 500 });
   }
-  if (authHeader !== `Bearer ${env.CRON_SECRET}`) {
+  // Audit EW-3 (2026-06-11): constant-time bearer comparison via
+  // verifyCronBearer. Removes the per-byte timing side channel on the
+  // previous string compare.
+  if (!verifyCronBearer(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

@@ -22,6 +22,13 @@
       "when": 1781156252500,
       "tag": "0002_medical_mandarin",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1781163175241,
+      "tag": "0003_elite_fixer",
+      "breakpoints": true
     }
   ]
 }

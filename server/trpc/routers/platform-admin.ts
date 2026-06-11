@@ -27,8 +27,11 @@ import { computeScores } from "@/lib/gap-assessment/scoring";
 import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
 import { logAudit } from "@/lib/audit";
 
-const SHARE_PASSWORD_ALPHABET =
-  "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+// Character set (not a secret) for human-friendly share passwords —
+// confusable chars (0, O, I, l, 1) intentionally excluded so the password
+// can be typed without ambiguity. `gitleaks:allow` flags it as a known
+// safe constant so EW-16's scan doesn't trip on the high-entropy alphabet.
+const SHARE_PASSWORD_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789"; // gitleaks:allow
 
 function generateSharePassword(): string {
   const bytes = randomBytes(12);

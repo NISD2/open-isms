@@ -1,0 +1,10 @@
+# Allowlist for known false positives in the gitleaks scan.
+# Format: one fingerprint per line, plus comments.
+# Generate fingerprints by running `gitleaks detect -v` locally and
+# copying the `Fingerprint:` line of the false positive.
+#
+# Audit EW-16 (2026-06-11).
+
+# (No allowlisted findings yet. Add fingerprints as needed when real
+# secrets and known-safe lookalikes get confused — for example, dummy
+# JWT-shaped strings in fixtures or AWS-style example-key documentation.)

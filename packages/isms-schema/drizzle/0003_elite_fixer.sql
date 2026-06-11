@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "uq_sign_off_history_status_version" ON "sign_off_history" USING btree ("status_id","version");

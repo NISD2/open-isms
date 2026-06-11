@@ -15,6 +15,7 @@ import {
   timestamp,
   jsonb,
   index,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { company, user } from "./organization";
 import { companyRequirementStatus } from "./assessments";
@@ -62,5 +63,17 @@ export const signOffHistory = pgTable(
     index("idx_sign_off_history_company").on(table.companyId),
     index("idx_sign_off_history_requirement").on(table.requirementId),
     index("idx_sign_off_history_created").on(table.createdAt),
+    // Audit L-1 / EW-2 (2026-06-11): version assignment is
+    // read-then-write (SELECT max(version) WHERE statusId, INSERT
+    // version=max+1). Today's chain writers serialize through the
+    // row lock on companyRequirementStatus by side effect, so the
+    // invariant holds. Any future writer that inserts a chain row
+    // without acquiring the status-row lock first would silently
+    // produce two rows with the same (statusId, version) — the
+    // unique constraint makes that fail loudly instead.
+    uniqueIndex("uq_sign_off_history_status_version").on(
+      table.statusId,
+      table.version,
+    ),
   ]
 );

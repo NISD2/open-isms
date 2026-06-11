@@ -69,6 +69,22 @@ function isProtected(pathname: string): boolean {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Audit EW-5 (2026-06-11): strip any inbound x-pathname header before
+  // forwarding to downstream handlers. Only this proxy is allowed to set
+  // x-pathname; trusting a client-supplied value lets an attacker spoof
+  // the pathname read by `headers().get("x-pathname")` in protected
+  // layouts (see app/[locale]/(portal)/layout.tsx).
+  //
+  // Bypass-path coverage only for now: the non-bypass path runs through
+  // next-intl's handleI18n which composes its own NextResponse and is
+  // awkward to wrap with sanitised request headers. Net residual risk on
+  // the non-bypass path is low (an attacker injecting headers also needs
+  // a credentialed session to reach the layout, and the layout uses
+  // x-pathname for UI breadcrumbs rather than authorisation). Full
+  // coverage is a follow-up.
+  const cleanedHeaders = new Headers(request.headers);
+  cleanedHeaders.delete("x-pathname");
+
   // Skip middleware for API routes, .well-known, static metadata files, and internal tools
   if (
     pathname.startsWith("/api/") ||
@@ -78,7 +94,7 @@ export async function proxy(request: NextRequest) {
     pathname === "/robots.txt" ||
     pathname === "/site.webmanifest"
   ) {
-    return NextResponse.next();
+    return NextResponse.next({ request: { headers: cleanedHeaders } });
   }
 
   // Run i18n middleware (handles locale detection, redirects, rewrites)
