@@ -47,10 +47,10 @@ function resolveDescription(code: string, locale: Locale): string | null {
  * requirement × company for the NIS2 framework specifically, joined with
  * requirement + category metadata, with the i18n title resolved server-side.
  *
- * Sparse-assignment note (docs/journey-views.md §7.5): we don't read
- * requirement_assignment for accountability because it's currently
- * populated only at sign-off time. Accountability is computed dynamically
- * in views.ts using requiredSignOffRole + isManagement + cisoUserId.
+ * Sparse-assignment note: we don't read requirement_assignment for
+ * accountability because it's currently populated only at sign-off time.
+ * Accountability is computed dynamically in views.ts using
+ * requiredSignOffRole + isManagement + cisoUserId.
  *
  * blocksCount: number of downstream requirements that have THIS requirement
  * as a prerequisite AND are not yet at signed_current status. Used by the
