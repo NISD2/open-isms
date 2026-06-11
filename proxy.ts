@@ -8,110 +8,210 @@ import { env } from "@/lib/env";
 const handleI18n = createIntlMiddleware(routing);
 
 /**
- * Auth.js v5 cookie name + salt. The cookie name carries the `__Secure-`
- * prefix on HTTPS (production) and is bare on HTTP (local dev). Auth.js
- * derives the JWE encryption salt from the cookie name via HKDF, so
- * `getToken` MUST be passed the same string for both, otherwise
- * decryption fails silently and the proxy thinks the user is logged out.
- *
- * The previous version of this file used the v4 cookie names
- * (`next-auth.session-token`) and let `getToken` pick its own salt, which
- * is what broke login on 2026-06-10 (commit 05f2aa4 → e31d39b revert).
- * Audit M-3 (2026-06-10).
+ * Auth.js v5 cookie name + salt. Both must be the same string (Auth.js
+ * derives the JWE encryption salt from the cookie name via HKDF) or
+ * `getToken` returns null on every request. See audit M-3 take 2
+ * (commit e351163) for the history. `__Secure-` prefix on HTTPS,
+ * bare cookie name on HTTP dev.
  */
 function getAuthCookieName(isSecure: boolean): string {
   return isSecure ? "__Secure-authjs.session-token" : "authjs.session-token";
 }
 
-/** Protected route prefixes — everything else is public by default */
-const protectedPrefixes = [
-  "/dashboard",
-  "/compliance",
-  "/audit",
-  "/audit-readiness",
-  "/assets",
-  "/risks",
-  "/suppliers",
-  "/policies",
-  "/incidents",
-  "/exercises",
-  "/kpis",
-  "/changes",
-  "/patches",
-  "/vulnerabilities",
-  "/internal-audits",
-  "/improvements",
-  "/management-reviews",
-  "/training/courses",
-  "/team",
-  "/review",
-  "/export",
-  "/notifications",
-  "/organization",
-  "/settings",
-  "/onboarding",
-  "/portal/supplier",
-  "/platform-admin",
+/**
+ * Public route allowlist — default-deny inversion (audit followup,
+ * 2026-06-11). Every route in the app falls into one of three buckets:
+ *
+ *   1. BYPASS — early return at the top of proxy(). Route handlers do
+ *      their own auth (API routes, the trpc dispatcher), or no auth is
+ *      meaningful (static metadata, internal screenshot route).
+ *
+ *   2. PUBLIC — the canonical (DE-keyed) path appears below in
+ *      CANONICAL_PUBLIC_EXACT or CANONICAL_PUBLIC_PREFIXES. The
+ *      expansion walks routing.pathnames at module init and adds every
+ *      localized variant, so `/privacy` (EN/NL) gets the same
+ *      classification as `/datenschutz` (DE). The next-intl pathname
+ *      map is the single source of truth — the two structures cannot
+ *      drift apart, and adding a new public page in routing.ts
+ *      automatically opens it across all three locales.
+ *
+ *   3. PROTECTED — everything else. Default behavior. Proxy requires a
+ *      validly-signed JWT; missing or expired tokens redirect to
+ *      /auth/signin with callbackUrl preserved.
+ *
+ * The previous shape was an explicit *protected* allowlist. That had
+ * the failure mode "forgot to add a new protected route to the list".
+ * Inverting to a public allowlist makes the failure mode "forgot to add
+ * a new public route to the list" — same shape but now functional
+ * (users see a redirect on a public page) instead of structural (a
+ * protected page silently leaks data without ever asking for auth).
+ *
+ * Pages that the inversion newly proxy-enforces (each ALREADY had a
+ * page-level `getSession()` + redirect, so behavior is unchanged — the
+ * inversion is defense in depth):
+ *   - /applicability-admin
+ *   - /journey
+ *   - /supplier-invite/[token]
+ *   - /portal/supplier-onboarding (the old `/portal/supplier` prefix
+ *     match missed this because `supplier-onboarding` has no slash
+ *     after `supplier`)
+ *
+ * /invite/[token] is also newly enforced. The invite page itself
+ * renders a public "invalid/expired" card for missing tokens, so the
+ * inversion changes UX slightly (signin redirect with callbackUrl
+ * instead of the invalid-card page for unauthenticated visitors with a
+ * good token), but the underlying acceptance flow stays gated.
+ */
+const CANONICAL_PUBLIC_EXACT: readonly string[] = [
+  "/",
+  // Marketing / info pages — every page under app/[locale]/(info)/
+  "/about",
+  "/avv",
+  "/changelog",
+  "/corrections",
+  "/datenschutz",
+  "/ethik",
+  "/features",
+  "/finanzierung",
+  "/impressum",
+  "/mission",
+  "/nis2-lieferanten-fragebogen",
+  "/nis2-meldepflicht-schema",
+  "/nis2-tool",
+  "/open-source",
+  "/pricing",
+  "/redaktion",
+  "/sicherheit",
+  "/status",
+  "/subprozessoren",
+  "/terms",
+  "/toms",
+  "/vertrauen",
+  // Public course landing pages — under (info)/training/
+  "/training/cra-sbom",
+  "/training/nis2-ceo",
+  "/training/nis2-tabletop",
+  // Standalone public pages
+  "/applicability",
+  "/start",
+  "/pitch",
+  "/supplier-portal",
 ];
 
-// Audit M-3 (2026-06-10): case-insensitive locale strip — the old
-// `/(de|en|nl)/` regex passed `/DE/dashboard` through unchanged and
-// relied on next-intl to redirect before the prefix check fired.
+const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [
+  // Wiki — /wiki itself + every nested category and article. The /wiki
+  // segment is locale-stable; only the category and article slugs
+  // change between locales, so the prefix match alone covers all three.
+  "/wiki",
+  // Auth flow pages — /auth/signin, /auth/forgot-password, /auth/signout
+  "/auth",
+  // Author bios — /autor/[slug] (DE), /author/[slug] (EN), /auteur/[slug] (NL)
+  "/autor",
+  // Shared gap assessment — token IS the authentication mechanism
+  "/gap-assessment/share",
+  // Supplier-relationship access — token-gated landing for external suppliers
+  "/supplier-access",
+];
+
+type PathnameMapping = string | Partial<Record<string, string>>;
+
+/**
+ * Expand each canonical (DE-keyed) public path/prefix to all locale
+ * variants via routing.pathnames lookup. Resolves the localized-slug
+ * blocker found during PR #14 review: `/datenschutz` is canonical, but
+ * EN/NL users hit `/privacy` and the proxy never saw it; same for
+ * `/toepasselijkheid`, `/leveranciersportaal`, `/author/[slug]`, etc.
+ */
+function expandPublicPaths(): {
+  exact: ReadonlySet<string>;
+  prefixes: readonly string[];
+} {
+  const pathnames = routing.pathnames as Record<string, PathnameMapping>;
+  const exact = new Set<string>();
+  const prefixes = new Set<string>();
+
+  for (const canonical of CANONICAL_PUBLIC_EXACT) {
+    exact.add(canonical);
+    const mapping = pathnames[canonical];
+    if (mapping && typeof mapping === "object") {
+      for (const localized of Object.values(mapping)) {
+        if (localized) exact.add(localized);
+      }
+    }
+  }
+
+  for (const canonical of CANONICAL_PUBLIC_PREFIXES) {
+    prefixes.add(canonical);
+    // Walk all routing entries: when a canonical key sits under this
+    // prefix and the entry is localized, derive the localized prefix
+    // root by stripping the trailing suffix shared with the canonical
+    // key. e.g. canonical="/autor", key="/autor/simon-orzel",
+    // mapping.en="/author/simon-orzel" → localized prefix "/author".
+    for (const [key, mapping] of Object.entries(pathnames)) {
+      const isUnderPrefix =
+        key === canonical || key.startsWith(canonical + "/");
+      if (!isUnderPrefix) continue;
+      if (!mapping || typeof mapping !== "object") continue;
+      const suffix = key.slice(canonical.length);
+      for (const localized of Object.values(mapping)) {
+        if (!localized) continue;
+        if (suffix && !localized.endsWith(suffix)) continue;
+        const localizedRoot = suffix
+          ? localized.slice(0, -suffix.length)
+          : localized;
+        if (localizedRoot) prefixes.add(localizedRoot);
+      }
+    }
+  }
+
+  return { exact, prefixes: [...prefixes] };
+}
+
+const { exact: PUBLIC_EXACT, prefixes: PUBLIC_PREFIXES } = expandPublicPaths();
+
 const LOCALE_STRIP = /^\/(de|en|nl)(?=\/|$)/i;
 
-function isProtected(pathname: string): boolean {
+function isPublic(pathname: string): boolean {
   const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
-  return protectedPrefixes.some(
-    (p) => stripped === p || stripped.startsWith(p + "/")
-  );
+  if (PUBLIC_EXACT.has(stripped)) return true;
+  for (const prefix of PUBLIC_PREFIXES) {
+    if (stripped === prefix || stripped.startsWith(prefix + "/")) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Audit EW-5 (2026-06-11): strip any inbound x-pathname header before
-  // forwarding to downstream handlers. Only this proxy is allowed to set
-  // x-pathname; trusting a client-supplied value lets an attacker spoof
-  // the pathname read by `headers().get("x-pathname")` in protected
-  // layouts (see app/[locale]/(portal)/layout.tsx).
-  //
-  // Bypass-path coverage only for now: the non-bypass path runs through
-  // next-intl's handleI18n which composes its own NextResponse and is
-  // awkward to wrap with sanitised request headers. Net residual risk on
-  // the non-bypass path is low (an attacker injecting headers also needs
-  // a credentialed session to reach the layout, and the layout uses
-  // x-pathname for UI breadcrumbs rather than authorisation). Full
-  // coverage is a follow-up.
-  const cleanedHeaders = new Headers(request.headers);
-  cleanedHeaders.delete("x-pathname");
+  // EW-5: strip any inbound x-pathname header before downstream
+  // handlers see it. Only the proxy is allowed to set this for server
+  // components.
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.delete("x-pathname");
 
-  // Skip middleware for API routes, .well-known, static metadata files, and internal tools
+  // Bypass paths — handled by route handlers or no auth meaningful.
   if (
     pathname.startsWith("/api/") ||
     pathname.startsWith("/.well-known/") ||
     pathname.startsWith("/pitch-preview") ||
+    pathname.startsWith("/email/unsubscribed") ||
     pathname === "/sitemap.xml" ||
     pathname === "/robots.txt" ||
     pathname === "/site.webmanifest"
   ) {
-    return NextResponse.next({ request: { headers: cleanedHeaders } });
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
   // Run i18n middleware (handles locale detection, redirects, rewrites)
   const response = handleI18n(request);
 
-  // Audit M-3 (2026-06-10): cryptographic JWT verification, not cookie
-  // presence. The previous cookie-check accepted any value at the proxy
-  // gate and relied on every protected page to re-check via getSession().
-  // `getToken` validates the JWE signature against AUTH_SECRET and
-  // returns null for missing, tampered, or expired tokens.
-  //
-  // Auth.js v5 derives the encryption salt from the cookie name, so
-  // `cookieName` and `salt` must be passed the SAME string. Defaults
-  // diverge between getToken's heuristics and the runtime's actual
-  // cookie convention, which is what broke login on the first attempt
-  // (commit 05f2aa4 → reverted in e31d39b). Always pass both explicitly.
-  if (isProtected(pathname)) {
+  // Default-deny: unless the path is in the public allowlist, require
+  // a validly-signed JWT. Walks through the same getToken contract as
+  // M-3 (commit e351163) — explicit cookieName + salt + secureCookie
+  // because Auth.js v5 derives the encryption salt from the cookie name.
+  if (!isPublic(pathname)) {
     const isSecure =
       request.nextUrl.protocol === "https:" ||
       process.env.NODE_ENV === "production";
@@ -131,7 +231,10 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Pass locale-stripped pathname to server components
+  // Pass locale-stripped pathname to server components via response
+  // header. (Note: this writes the response header, not the request
+  // header that headers() reads; full EW-5 coverage on the non-bypass
+  // path is a follow-up.)
   const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
   response.headers.set("x-pathname", stripped);
 
