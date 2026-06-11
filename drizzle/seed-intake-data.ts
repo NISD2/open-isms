@@ -87,7 +87,7 @@ export const SEED_INTAKE_ANSWERS: Record<string, Record<string, unknown>> = {
   },
   TRN: {
     itSecurityPolicyPublished: "it-security-policy-v2.1.pdf",
-[redacted for public release]
+    trainingPlatform: "[awareness-platform] + internal LMS (Moodle)",
     trainingFrequency: "annual",
     trainingCompletionRate: 94,
     lastTrainingDate: "2025-10-30",
