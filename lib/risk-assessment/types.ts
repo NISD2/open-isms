@@ -25,6 +25,18 @@ export type Schutzbedarf = "normal" | "hoch" | "sehrHoch";
 
 export type Absicherungsvariante = "basis" | "standard" | "kern";
 
+// BSI-200-2 §8.2.1 — the six canonical Schadensszenarien used to justify
+// each per-Grundwert Schutzbedarf classification. We infer the candidate
+// set from the user's axis answer; the audit panel shows them as the
+// documented rationale.
+export type Schadensszenario =
+  | "gesetzeVorschriftenVertraege"
+  | "informationellesSelbstbestimmungsrecht"
+  | "persoenlicheUnversehrtheit"
+  | "aufgabenerfuellung"
+  | "innenAussenwirkung"
+  | "finanziell";
+
 // Each axis serves one of three purposes:
 // - "schutzbedarf": directly drives V/I/A Schutzbedarf class (200-2 §8.2)
 // - "kumulation": Kumulationseffekt modifier per BSI-200-2 §8.2.4
@@ -53,6 +65,10 @@ export interface GrundwertResult {
   class: Schutzbedarf;
   /** Axis answer strings that drove this classification ("axisId:optionId"). */
   drivers: string[];
+  /** BSI-200-2 §8.2.1 Schadensszenarien that justify this Schutzbedarf class,
+   *  inferred from the user's answer. Empty array for class=normal with no
+   *  meaningful damage scenarios. */
+  scenarios: Schadensszenario[];
 }
 
 export interface SchutzbedarfBreakdown {

@@ -75,6 +75,15 @@
         "hoch": { "label": "hoch" },
         "sehrHoch": { "label": "sehr hoch" }
       },
+      "scenariosLabel": "Schadescenario's (§8.2.1)",
+      "scenarios": {
+        "gesetzeVorschriftenVertraege": { "label": "Schending van wetten, voorschriften, contracten" },
+        "informationellesSelbstbestimmungsrecht": { "label": "Aantasting van het recht op informationele zelfbeschikking" },
+        "persoenlicheUnversehrtheit": { "label": "Aantasting van de persoonlijke veiligheid" },
+        "aufgabenerfuellung": { "label": "Aantasting van de taakuitvoering" },
+        "innenAussenwirkung": { "label": "Negatieve interne of externe uitwerking (reputatie)" },
+        "finanziell": { "label": "Financiële gevolgen" }
+      },
       "gesamtLabel": "Gesamt-Schutzbedarf",
       "gesamtBody": "Maximum-Prinzip: de hoogste van de drie Grundwerte bepaalt de overall Schutzbedarf. Bepalende Grundwert: <grundwert></grundwert>."
     },
@@ -295,7 +304,7 @@
     "disclaimer": {
       "heading": "Juridische notitie",
       "body": "Deze beoordeling is een informatieve classificatie op basis van uw input. Het is geen juridisch advies onder de Duitse RDG. De beoordeling wordt pas bindend met goedkeuring van de directie volgens §38 BSIG en Art 20 NIS2.",
-      "methodologyDisclosure": "Dit tool is geen certificeerbare BSI-200-2-Schutzbedarfsfeststellung, maar een 8-vragen-heuristiek in de geest van §8.2. Het stelt een eerste Schutzbedarf-classificatie (V/I/A) en een aanbevolen Absicherungsvariante (Basis/Standaard/Kern) voor. Voor assets met hoch of sehr hoch Schutzbedarf is een aanvullende BSI-200-3 risicoanalyse verplicht."
+      "methodologyDisclosure": "Per-asset Schutzbedarfsfeststellung volgens BSI-200-2 §8.2 (gaat ervan uit dat uw Sicherheitsleitlinie §4 en Strukturanalyse §8.1 al klaar zijn). Classificatie per Grundwert (V/I/A) op de BSI-schaal normal/hoch/sehr hoch, Maximum-Prinzip volgens §8.2.3, Kumulationseffekt volgens §8.2.4 en gedocumenteerde Schadensszenarien volgens §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) en BSI-200-3 aanvullende risicoanalyse blijven vervolgwerk. Geen certificering: die vereist een derde audit door een DAkkS-geaccrediteerde instantie."
     },
     "art21Measures": {
       "a": {

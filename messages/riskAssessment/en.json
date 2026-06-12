@@ -75,6 +75,15 @@
         "hoch": { "label": "Hoch" },
         "sehrHoch": { "label": "Sehr hoch" }
       },
+      "scenariosLabel": "Damage scenarios (§8.2.1)",
+      "scenarios": {
+        "gesetzeVorschriftenVertraege": { "label": "Violation of laws, regulations, contracts" },
+        "informationellesSelbstbestimmungsrecht": { "label": "Impairment of informational self-determination (personal data)" },
+        "persoenlicheUnversehrtheit": { "label": "Impairment of personal safety" },
+        "aufgabenerfuellung": { "label": "Impairment of task fulfilment" },
+        "innenAussenwirkung": { "label": "Negative internal or external impact (reputation)" },
+        "finanziell": { "label": "Financial impact" }
+      },
       "gesamtLabel": "Gesamt-Schutzbedarf",
       "gesamtBody": "Maximum-Prinzip: the highest of the three Grundwerte sets the overall Schutzbedarf. Driving Grundwert here: <grundwert></grundwert>."
     },
@@ -295,7 +304,7 @@
     "disclaimer": {
       "heading": "Legal note",
       "body": "This tool is an informational classification based on your inputs. It is not legal advice under the German RDG. The assessment becomes binding only with management body sign-off per §38 BSIG and Art 20 NIS2.",
-      "methodologyDisclosure": "This is not a certifiable BSI-200-2 Schutzbedarfsfeststellung. It is an 8-question heuristic in the spirit of §8.2 that suggests an initial Schutzbedarf classification (V/I/A) and a recommended Absicherungsvariante (Basis/Standard/Kern). For assets that reach hoch or sehr hoch Schutzbedarf, a BSI-200-3 Risikoanalyse is mandatory."
+      "methodologyDisclosure": "Per-asset Schutzbedarfsfeststellung aligned with BSI-200-2 §8.2 (assumes your Sicherheitsleitlinie §4 and Strukturanalyse §8.1 are already in place). Per-Grundwert classification (V/I/A) on the BSI normal/hoch/sehr-hoch scale, Maximum-Prinzip per §8.2.3, Kumulationseffekt per §8.2.4, and documented Schadensszenarien per §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4), and BSI-200-3 ergänzende Risikoanalyse remain follow-on work. Not a certification: that requires a third-party DAkkS-accredited audit."
     },
     "art21Measures": {
       "a": {
