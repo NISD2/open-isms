@@ -108,11 +108,16 @@ export function ResultPanel({ result }: ResultPanelProps) {
       <Card>
         <CardHeader>
           <CardTitle className="text-base">
-            {t("result.heading")} - Visualisierung
+            {t("result.visualizationHeading")}
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <RadarChart result={result} axisShortLabels={axisShortLabels} />
+          <RadarChart
+            result={result}
+            axisShortLabels={axisShortLabels}
+            ariaLabel={t("chart.ariaLabel")}
+            title={t("chart.title")}
+          />
           <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground justify-center">
             <span className="flex items-center gap-1">
               <span className="inline-block w-3 h-3 rounded-full bg-red-500" />

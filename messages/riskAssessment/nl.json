@@ -228,7 +228,12 @@
     "measuresHeading": "Measures per Art 21(2) NIS2",
     "measuresSubtitle": "Art 21(2) NIS2 lists ten measures every entity in scope must implement ('shall include at least the following'). Implementation depth follows your protection tier: Basis requires minimal evidence, Standard the full Grundschutz depth, Kern an additional risk-specific deepening per BSI-200-3.",
     "signoffHeading": "Management body sign-off",
-    "signoffBody": "This risk assessment is binding only with management body sign-off (§38 BSIG, Art 20 NIS2). Enter name, date and signature on the printed document."
+    "signoffBody": "This risk assessment is binding only with management body sign-off (§38 BSIG, Art 20 NIS2). Enter name, date and signature on the printed document.",
+    "visualizationHeading": "Visualization"
+  },
+  "chart": {
+    "ariaLabel": "Risk assessment radar chart",
+    "title": "Risk assessment as a radar chart, grouped by domain"
   },
   "disclaimer": {
     "heading": "Legal note",

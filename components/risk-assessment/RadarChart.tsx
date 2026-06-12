@@ -54,9 +54,17 @@ function ringPath(scoreLevel: number, geometry: AxisGeometry[]): string {
 interface RadarChartProps {
   result: MatrixResult;
   axisShortLabels: Record<string, string>;
+  /** Screen-reader label and SVG tooltip — both i18n strings from the caller. */
+  ariaLabel: string;
+  title: string;
 }
 
-export function RadarChart({ result, axisShortLabels }: RadarChartProps) {
+export function RadarChart({
+  result,
+  axisShortLabels,
+  ariaLabel,
+  title,
+}: RadarChartProps) {
   const geometry = buildAxisGeometry();
 
   // Group user points by domain so each domain renders as its own polygon.
@@ -80,9 +88,9 @@ export function RadarChart({ result, axisShortLabels }: RadarChartProps) {
         viewBox={`0 0 ${SIZE} ${SIZE}`}
         className="w-full max-w-md"
         role="img"
-        aria-label="Risk assessment radar chart"
+        aria-label={ariaLabel}
       >
-        <title>Risikobewertung visualisiert nach Domäne</title>
+        <title>{title}</title>
 
         {/* Grid rings at score levels 1, 2, 3 */}
         {[1, 2, 3].map((level) => (

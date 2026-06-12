@@ -228,7 +228,12 @@
     "measuresHeading": "Maßnahmen nach Art. 21(2) NIS2",
     "measuresSubtitle": "Art. 21(2) NIS2 nennt zehn Maßnahmen, die alle Einrichtungen mindestens umsetzen müssen ('shall include at least the following'). Die Umsetzungstiefe richtet sich nach Ihrer Schutzbedarfsklasse: Basis verlangt minimalen Nachweis, Standard die volle Grundschutz-Tiefe, Kern zusätzlich risikospezifische Vertiefung nach BSI-200-3.",
     "signoffHeading": "Freigabe durch die Geschäftsleitung",
-    "signoffBody": "Diese Risikobewertung ist erst durch die Freigabe der Geschäftsleitung verbindlich (§38 BSIG, Art. 20 NIS2). Tragen Sie Name, Datum und Unterschrift in das ausgedruckte Dokument ein."
+    "signoffBody": "Diese Risikobewertung ist erst durch die Freigabe der Geschäftsleitung verbindlich (§38 BSIG, Art. 20 NIS2). Tragen Sie Name, Datum und Unterschrift in das ausgedruckte Dokument ein.",
+    "visualizationHeading": "Visualisierung"
+  },
+  "chart": {
+    "ariaLabel": "Radardiagramm der Risikobewertung",
+    "title": "Risikobewertung als Radardiagramm, gruppiert nach Domäne"
   },
   "disclaimer": {
     "heading": "Rechtlicher Hinweis",
