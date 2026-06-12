@@ -43,7 +43,7 @@ export default async function LandingPage() {
         {/* Headline */}
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           <Link
-            href="/mission"
+            href="/about"
             className="underline decoration-2 decoration-foreground/30 underline-offset-[10px] transition-colors hover:decoration-foreground"
           >
             {t("title")}

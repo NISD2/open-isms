@@ -28,9 +28,6 @@ export function PublicNav() {
           <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block">
             {t("nav.about")}
           </Link>
-          <Link href="/pitch" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block">
-            Pitch
-          </Link>
           <div className="flex items-center gap-2">
             <LocaleSwitcher />
             <Button size="sm" asChild>
