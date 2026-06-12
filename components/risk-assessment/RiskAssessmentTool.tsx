@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,11 +17,9 @@ import {
   RadioGroupItem,
 } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 
 import { AXES } from "@/lib/risk-assessment/axes";
 import { hasAllAnswers, scoreMatrix } from "@/lib/risk-assessment/scoring";
-import { domainStyle } from "@/lib/risk-assessment/styles";
 import type { Answers, MatrixResult } from "@/lib/risk-assessment/types";
 import { cn } from "@/lib/utils";
 
@@ -84,9 +81,6 @@ export function RiskAssessmentTool({ onComplete }: RiskAssessmentToolProps) {
               total: totalQuestions,
             })}
           </span>
-          <Badge variant="outline" className={cn(domainStyle(currentAxis.domain, "pill"))}>
-            {t(`domains.${currentAxis.domain}.shortLabel`)}
-          </Badge>
         </div>
         <Progress value={progress} />
       </div>
@@ -96,9 +90,6 @@ export function RiskAssessmentTool({ onComplete }: RiskAssessmentToolProps) {
           <CardTitle className="text-xl leading-tight">
             {t(`axes.${currentAxis.id}.question`)}
           </CardTitle>
-          <CardDescription>
-            {t(`domains.${currentAxis.domain}.description`)}
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <RadioGroup

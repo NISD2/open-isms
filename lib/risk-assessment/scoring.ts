@@ -1,50 +1,44 @@
+import { AXES, AXIS_BY_ID, AXES_BY_PURPOSE } from "./axes";
 import type {
+  Absicherungsvariante,
+  AbsicherungsvarianteRecommendation,
   Answers,
   Axis,
-  Domain,
-  DomainResult,
+  GrundwertResult,
   MatrixResult,
+  SchutzbedarfBreakdown,
+  Schutzbedarf,
   Score,
-  Tier,
 } from "./types";
-import { AXES, AXES_BY_DOMAIN, AXIS_BY_ID } from "./axes";
 
-// scoring.ts is the pure scoring engine (algorithm only).
-// Content lookups (Bausteine per tier, NIS2 Art 21(2) measures) live in
-// recommendations.ts so the algorithm stays free of policy decisions.
+// scoring.ts is the pure scoring engine.
+// Content lookups (Bausteine, Art 21(2) measures) live in recommendations.ts.
 
-// Domain sum thresholds derived from the four worked examples in the design doc
-// (DOS workshop machine, Wix marketing site, internet-exposed coffee machine,
-// Production ERP). Thresholds chosen so each example lands on the tier the
-// design doc validates as correct intuition.
-//
-// security (4 axes, max sum 12): 0-3 basis, 4-7 standard, 8+ kern
-// operational (2 axes, max sum 6): 0-1 basis, 2-4 standard, 5+ kern
-// compliance (1 axis, max sum 3): 0-1 basis, 2 standard, 3 kern
-const DOMAIN_TIER_THRESHOLDS: Record<
-  Domain,
-  { standard: number; kern: number }
-> = {
-  security: { standard: 4, kern: 8 },
-  operational: { standard: 2, kern: 5 },
-  compliance: { standard: 2, kern: 3 },
+// Ordering for max-of comparisons.
+const SCHUTZBEDARF_RANK: Record<Schutzbedarf, number> = {
+  normal: 0,
+  hoch: 1,
+  sehrHoch: 2,
 };
 
-const TIER_RANK: Record<Tier, number> = {
+const VARIANTE_RANK: Record<Absicherungsvariante, number> = {
   basis: 0,
   standard: 1,
   kern: 2,
 };
 
-export function maxTier(a: Tier, b: Tier): Tier {
-  return TIER_RANK[a] >= TIER_RANK[b] ? a : b;
+// Axis score → Schutzbedarf class for the per-Grundwert direct inputs.
+// Threshold mapping: 0-1 → normal, 2 → hoch, 3 → sehr hoch.
+// Each option label in the i18n bundle is written to read as one of
+// these bands plus a finer middle tone (0 vs. 1 within "normal").
+function scoreToSchutzbedarf(score: Score): Schutzbedarf {
+  if (score >= 3) return "sehrHoch";
+  if (score >= 2) return "hoch";
+  return "normal";
 }
 
-function tierFromSum(domain: Domain, sum: number): Tier {
-  const t = DOMAIN_TIER_THRESHOLDS[domain];
-  if (sum >= t.kern) return "kern";
-  if (sum >= t.standard) return "standard";
-  return "basis";
+function maxSchutzbedarf(a: Schutzbedarf, b: Schutzbedarf): Schutzbedarf {
+  return SCHUTZBEDARF_RANK[a] >= SCHUTZBEDARF_RANK[b] ? a : b;
 }
 
 function scoreFor(axis: Axis, answers: Answers): Score | null {
@@ -58,42 +52,132 @@ export function hasAllAnswers(answers: Answers): boolean {
   return AXES.every((axis) => scoreFor(axis, answers) !== null);
 }
 
-function evaluateDomain(domain: Domain, answers: Answers): DomainResult {
-  const axes = AXES_BY_DOMAIN[domain] ?? [];
-  let sum = 0;
-  let hardStopMinTier: Tier = "basis";
-  let hardStopTriggered = false;
+// Kumulationseffekt (BSI-200-2 §8.2.4): when many users / accesses
+// aggregate on one asset, the Schutzbedarf can be lifted. We apply
+// it conservatively to V only and only when V-base is already hoch —
+// i.e., already-protection-worthy data accessed by many or external
+// users elevates to sehr hoch. Pure normal-V data is not elevated by
+// user count alone.
+function applyKumulationToV(baseV: Schutzbedarf, userCountScore: Score): Schutzbedarf {
+  if (baseV !== "hoch") return baseV;
+  if (userCountScore >= 2) return "sehrHoch";
+  return baseV;
+}
 
-  for (const axis of axes) {
-    const score = scoreFor(axis, answers) ?? 0;
-    sum += score;
-    if (axis.hardStop && score === axis.hardStop.triggerScore) {
-      hardStopMinTier = maxTier(hardStopMinTier, axis.hardStop.minTier);
-      hardStopTriggered = true;
-    }
+function getAxisByPurposeAndGrundwert(grundwert: "v" | "i" | "a"): Axis {
+  const axis = AXES_BY_PURPOSE["schutzbedarf"]?.find(
+    (a) => a.grundwert === grundwert,
+  );
+  if (!axis) {
+    throw new Error(`No schutzbedarf axis configured for Grundwert "${grundwert}"`);
+  }
+  return axis;
+}
+
+function getKumulationAxis(): Axis {
+  const axis = AXES_BY_PURPOSE["kumulation"]?.[0];
+  if (!axis) throw new Error("No kumulation axis configured");
+  return axis;
+}
+
+// Compute V/I/A Schutzbedarf per Grundwert, then Maximum-Prinzip
+// (BSI-200-2 §8.2.3) → Gesamt-Schutzbedarf.
+function computeSchutzbedarf(answers: Answers): SchutzbedarfBreakdown {
+  const vAxis = getAxisByPurposeAndGrundwert("v");
+  const iAxis = getAxisByPurposeAndGrundwert("i");
+  const aAxis = getAxisByPurposeAndGrundwert("a");
+  const userCountAxis = getKumulationAxis();
+
+  const vScore = (scoreFor(vAxis, answers) ?? 0) as Score;
+  const iScore = (scoreFor(iAxis, answers) ?? 0) as Score;
+  const aScore = (scoreFor(aAxis, answers) ?? 0) as Score;
+  const userCountScore = (scoreFor(userCountAxis, answers) ?? 0) as Score;
+
+  const baseV = scoreToSchutzbedarf(vScore);
+  const finalV = applyKumulationToV(baseV, userCountScore);
+  const finalI = scoreToSchutzbedarf(iScore);
+  const finalA = scoreToSchutzbedarf(aScore);
+
+  const vDrivers: string[] = [`${vAxis.id}:${answers[vAxis.id]}`];
+  if (finalV !== baseV) {
+    vDrivers.push(`${userCountAxis.id}:${answers[userCountAxis.id]}`);
+  }
+  const iDrivers = [`${iAxis.id}:${answers[iAxis.id]}`];
+  const aDrivers = [`${aAxis.id}:${answers[aAxis.id]}`];
+
+  const v: GrundwertResult = { class: finalV, drivers: vDrivers };
+  const i: GrundwertResult = { class: finalI, drivers: iDrivers };
+  const a: GrundwertResult = { class: finalA, drivers: aDrivers };
+
+  // Maximum-Prinzip
+  let gesamt: Schutzbedarf = finalV;
+  let drivingGrundwert: "v" | "i" | "a" = "v";
+  if (SCHUTZBEDARF_RANK[finalI] > SCHUTZBEDARF_RANK[gesamt]) {
+    gesamt = finalI;
+    drivingGrundwert = "i";
+  }
+  if (SCHUTZBEDARF_RANK[finalA] > SCHUTZBEDARF_RANK[gesamt]) {
+    gesamt = finalA;
+    drivingGrundwert = "a";
   }
 
-  const sumTier = tierFromSum(domain, sum);
-  const tier = maxTier(sumTier, hardStopMinTier);
+  return { v, i, a, gesamt, drivingGrundwert };
+}
 
-  return { domain, sum, tier, hardStopTriggered };
+// Map Gesamt-Schutzbedarf → recommended Absicherungsvariante.
+//   normal   → Basis-Absicherung    (broad, shallow entry; no 200-3 needed)
+//   hoch     → Standard-Absicherung (full Bausteine; 200-3 REQUIRED)
+//   sehrHoch → Kern-Absicherung     (this asset is a Kronjuwel; 200-3 REQUIRED)
+//
+// This mapping is a practitioner heuristic, not BSI-prescribed verbatim.
+// BSI allows organisations to choose Vorgehensweise freely; the heuristic
+// follows the Lerneinheit 2.9 guidance for first-time orgs.
+function varianteFromSchutzbedarf(s: Schutzbedarf): Absicherungsvariante {
+  if (s === "sehrHoch") return "kern";
+  if (s === "hoch") return "standard";
+  return "basis";
+}
+
+// Hints can bump Basis → Standard ONLY. Hints don't bump beyond Standard:
+// Kern is a scoping decision (which assets are Kronjuwelen), not an
+// implementation-depth choice — and Schutzbedarf already determined
+// whether this asset qualifies as a Kronjuwel.
+function computeAbsicherungsvariante(
+  schutzbedarf: SchutzbedarfBreakdown,
+  answers: Answers,
+): AbsicherungsvarianteRecommendation {
+  const fromSchutzbedarf = varianteFromSchutzbedarf(schutzbedarf.gesamt);
+
+  const hintAxes = AXES_BY_PURPOSE["hint"] ?? [];
+  const bumpingHints = hintAxes
+    .filter((axis) => (scoreFor(axis, answers) ?? 0) === 3)
+    .map((axis) => axis.id);
+
+  let final: Absicherungsvariante = fromSchutzbedarf;
+  let bumpedByHints = false;
+  if (fromSchutzbedarf === "basis" && bumpingHints.length > 0) {
+    final = "standard";
+    bumpedByHints = true;
+  }
+
+  // BSI-200-3 ergänzende Risikoanalyse: required when at least one
+  // Grundwert reaches hoch or sehr hoch (BSI-200-3 §3 + BSI-200-2 §8.5).
+  // Trigger on Gesamt because Gesamt = max of V/I/A.
+  const risikoanalyseRequired =
+    SCHUTZBEDARF_RANK[schutzbedarf.gesamt] >= SCHUTZBEDARF_RANK["hoch"];
+
+  return {
+    fromSchutzbedarf,
+    bumpedByHints,
+    bumpingHintAxisIds: bumpingHints,
+    final,
+    risikoanalyseRequired,
+  };
 }
 
 export function scoreMatrix(answers: Answers): MatrixResult {
-  const domainResults: DomainResult[] = [
-    evaluateDomain("security", answers),
-    evaluateDomain("operational", answers),
-    evaluateDomain("compliance", answers),
-  ];
-
-  let finalTier: Tier = "basis";
-  let drivingDomain: Domain = "security";
-  for (const result of domainResults) {
-    if (TIER_RANK[result.tier] > TIER_RANK[finalTier]) {
-      finalTier = result.tier;
-      drivingDomain = result.domain;
-    }
-  }
+  const schutzbedarf = computeSchutzbedarf(answers);
+  const absicherungsvariante = computeAbsicherungsvariante(schutzbedarf, answers);
 
   const axisScores = AXES.map((axis) => ({
     axisId: axis.id,
@@ -102,9 +186,9 @@ export function scoreMatrix(answers: Answers): MatrixResult {
   }));
 
   return {
-    finalTier,
-    drivingDomain,
-    domains: domainResults,
+    schutzbedarf,
+    absicherungsvariante,
+    friendlyTier: absicherungsvariante.final,
     axisScores,
   };
 }
@@ -112,3 +196,5 @@ export function scoreMatrix(answers: Answers): MatrixResult {
 export function getAxisById(id: string): Axis | undefined {
   return AXIS_BY_ID.get(id);
 }
+
+export { SCHUTZBEDARF_RANK, VARIANTE_RANK, maxSchutzbedarf };

@@ -13,13 +13,14 @@ import { pageAlternates } from "@/lib/seo";
 // — so first-time visitors see a friendly green result rather than a
 // red/amber alarm before they've even started.
 const EXAMPLE_ANSWERS = {
-  internetExposure: "offline",
+  personalData: "employeeOnly",
+  integrity: "moderate",
+  downtimeTolerance: "days",
   userCount: "tiny",
+  internetExposure: "offline",
   vendorSupport: "active",
   incidentHistory: "minor",
-  downtimeTolerance: "days",
   replaceability: "oneDay",
-  personalData: "employeeOnly",
 } as const;
 
 export async function generateMetadata({
@@ -53,9 +54,9 @@ function JsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "NIS2 Risk Assessment Matrix",
+    name: "NIS2 Risk Assessment",
     description:
-      "Free self-assessment tool for NIS2 Art 21(2)(a) risk analysis. Maps to BSI Grundschutz 200-2 Schutzbedarfsfeststellung with three-domain max-of aggregation.",
+      "Free self-assessment heuristic in the spirit of BSI Grundschutz 200-2 §8.2 Schutzbedarfsfeststellung. Classifies V/I/A protection-need per asset (normal/hoch/sehr hoch) and recommends an Absicherungsvariante.",
     url: "https://www.nisd2.eu/risikobewertung",
     applicationCategory: "BusinessApplication",
     offers: {
@@ -119,6 +120,10 @@ export default async function RiskAssessmentPage() {
       </Link>
 
       <RiskAssessmentShell exampleResult={exampleResult} />
+
+      <p className="text-xs text-muted-foreground max-w-2xl pt-4 border-t border-border">
+        {t("disclaimer.methodologyDisclosure")}
+      </p>
     </div>
   );
 }

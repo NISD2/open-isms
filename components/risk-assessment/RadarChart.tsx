@@ -2,9 +2,12 @@
 
 import * as Recharts from "recharts";
 import { AXES } from "@/lib/risk-assessment/axes";
-import type { MatrixResult, Tier } from "@/lib/risk-assessment/types";
+import type {
+  Absicherungsvariante,
+  MatrixResult,
+} from "@/lib/risk-assessment/types";
 
-const TIER_COLOR: Record<Tier, string> = {
+const VARIANTE_COLOR: Record<Absicherungsvariante, string> = {
   basis: "#10b981",
   standard: "#f59e0b",
   kern: "#ef4444",
@@ -62,7 +65,7 @@ export function RadarChart({
     };
   });
 
-  const color = TIER_COLOR[result.finalTier];
+  const color = VARIANTE_COLOR[result.friendlyTier];
 
   return (
     <div className="w-full" role="img" aria-label={ariaLabel} title={title}>
