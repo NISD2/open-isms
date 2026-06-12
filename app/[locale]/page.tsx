@@ -24,6 +24,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         ? "Zelfbeoordeling met 116 vragen, sjablonen voor Artikel 21 NIS 2, registratiehulp en bestuurstraining. Open source, geen lock-in."
         : "Self-assessment with 116 questions, templates for Article 21 NIS 2, BSI registration guide, and management training. Open Source, no lock-in.",
     alternates: pageAlternates("", locale),
+    openGraph: {
+      type: "website",
+      images: [
+        {
+          url: `/og/home-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: "nisd2.eu — kostenlose NIS 2 Plattform",
+        },
+      ],
+    },
   };
 }
 

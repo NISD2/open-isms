@@ -16,6 +16,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       title: t("title"),
       description: t("metaDescription"),
       type: "website",
+      images: [
+        {
+          url: `/og/applicability-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: t("title"),
+        },
+      ],
     },
   };
 }

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title,
     description,
     alternates: pageAlternates("features", locale),
-    ...pageOg({ slug: "features", locale, title, description, type: "website" }),
+    ...pageOg({ slug: "features", locale, title, description, type: "website", image: `/og/features-${locale}.png` }),
   };
 }
 
