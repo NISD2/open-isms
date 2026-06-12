@@ -34,7 +34,7 @@ export async function PublicNav() {
           <div className="flex items-center gap-2">
             <LocaleSwitcher />
             {user ? (
-              <Button size="sm" asChild>
+              <Button size="sm" variant="outline" asChild>
                 <Link href={"/dashboard" as never}>
                   <Avatar className="size-5">
                     {user.image ? (
