@@ -9,6 +9,10 @@ import type {
 } from "./types";
 import { AXES, AXES_BY_DOMAIN, AXIS_BY_ID } from "./axes";
 
+// scoring.ts is the pure scoring engine (algorithm only).
+// Content lookups (Bausteine per tier, NIS2 Art 21(2) measures) live in
+// recommendations.ts so the algorithm stays free of policy decisions.
+
 // Domain sum thresholds derived from the four worked examples in the design doc
 // (DOS workshop machine, Wix marketing site, internet-exposed coffee machine,
 // Production ERP). Thresholds chosen so each example lands on the tier the
@@ -103,49 +107,6 @@ export function scoreMatrix(answers: Answers): MatrixResult {
     domains: domainResults,
     axisScores,
   };
-}
-
-export function bauspeineForTier(tier: Tier): string[] {
-  // Indicative Grundschutz Bausteine per tier. Bauspeine catalog mapping
-  // is the next deepening step (Layer 1.5). For MVP we surface a starter
-  // list per tier so the operator sees concrete next steps.
-  if (tier === "kern") {
-    return [
-      "NET.1.1",
-      "NET.3.2",
-      "NET.3.3",
-      "ORP.4",
-      "CON.1",
-      "CON.3",
-      "OPS.1.1.3",
-      "OPS.1.1.5",
-      "OPS.1.2.5",
-      "DER.2.1",
-      "DER.4",
-    ];
-  }
-  if (tier === "standard") {
-    return [
-      "NET.1.1",
-      "ORP.4",
-      "CON.3",
-      "OPS.1.1.3",
-      "OPS.1.1.5",
-      "DER.2.1",
-    ];
-  }
-  return ["NET.1.1", "ORP.4", "CON.3"];
-}
-
-export function art21MeasuresForTier(tier: Tier): string[] {
-  // NIS2 Art 21(2) measure references that are proportionate per tier.
-  if (tier === "kern") {
-    return ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
-  }
-  if (tier === "standard") {
-    return ["a", "b", "c", "e", "f", "g", "i"];
-  }
-  return ["a", "b", "g"];
 }
 
 export function getAxisById(id: string): Axis | undefined {

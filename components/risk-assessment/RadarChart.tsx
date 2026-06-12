@@ -1,6 +1,7 @@
 "use client";
 
 import { AXES } from "@/lib/risk-assessment/axes";
+import { domainStyle } from "@/lib/risk-assessment/styles";
 import type { Domain, MatrixResult, Score } from "@/lib/risk-assessment/types";
 import { cn } from "@/lib/utils";
 
@@ -10,18 +11,6 @@ const CY = SIZE / 2;
 const MAX_RADIUS = SIZE / 2 - 50;
 const MAX_SCORE = 3;
 const LABEL_RADIUS = MAX_RADIUS + 24;
-
-const DOMAIN_FILL: Record<Domain, string> = {
-  security: "fill-red-500/15 stroke-red-500",
-  operational: "fill-amber-500/15 stroke-amber-500",
-  compliance: "fill-blue-500/15 stroke-blue-500",
-};
-
-const DOMAIN_DOT: Record<Domain, string> = {
-  security: "fill-red-500",
-  operational: "fill-amber-500",
-  compliance: "fill-blue-500",
-};
 
 interface AxisGeometry {
   angle: number;
@@ -114,7 +103,7 @@ export function RadarChart({ result, axisShortLabels }: RadarChartProps) {
             y1={CY}
             x2={g.tipX}
             y2={g.tipY}
-            className={cn("stroke-muted-foreground/30", DOMAIN_DOT[g.domain])}
+            className={cn("stroke-muted-foreground/30", domainStyle(g.domain, "radarDot"))}
             strokeWidth={0.5}
           />
         ))}
@@ -132,7 +121,7 @@ export function RadarChart({ result, axisShortLabels }: RadarChartProps) {
             <path
               key={`shape-${domain}`}
               d={path}
-              className={DOMAIN_FILL[domain]}
+              className={domainStyle(domain, "radarFill")}
               strokeWidth={1.5}
               fillRule="evenodd"
             />
@@ -150,7 +139,7 @@ export function RadarChart({ result, axisShortLabels }: RadarChartProps) {
               cx={pt.x}
               cy={pt.y}
               r={4}
-              className={DOMAIN_DOT[g.domain]}
+              className={domainStyle(g.domain, "radarDot")}
             />
           );
         })}

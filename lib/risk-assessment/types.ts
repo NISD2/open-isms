@@ -12,6 +12,9 @@ export interface AxisOption {
 export interface HardStop {
   triggerScore: Score;
   minTier: Tier;
+  // i18n key under riskAssessment.hardStops.* that names this rule in the
+  // result panel. Lives on the axis so adding a new hard-stop is a single edit.
+  noteKey: string;
 }
 
 export interface Axis {

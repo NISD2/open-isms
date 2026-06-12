@@ -21,19 +21,11 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 
 import { AXES } from "@/lib/risk-assessment/axes";
-import {
-  hasAllAnswers,
-  scoreMatrix,
-} from "@/lib/risk-assessment/scoring";
+import { hasAllAnswers, scoreMatrix } from "@/lib/risk-assessment/scoring";
+import { domainStyle } from "@/lib/risk-assessment/styles";
 import type { Answers, MatrixResult } from "@/lib/risk-assessment/types";
 import { cn } from "@/lib/utils";
 import { ResultPanel } from "./ResultPanel";
-
-const DOMAIN_PILL: Record<string, string> = {
-  security: "bg-red-500/10 text-red-700 dark:text-red-300 border-red-500/30",
-  operational: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30",
-  compliance: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30",
-};
 
 export function RiskAssessmentTool() {
   const t = useTranslations("riskAssessment");
@@ -110,7 +102,7 @@ export function RiskAssessmentTool() {
               total: totalQuestions,
             })}
           </span>
-          <Badge variant="outline" className={cn(DOMAIN_PILL[currentAxis.domain])}>
+          <Badge variant="outline" className={cn(domainStyle(currentAxis.domain, "pill"))}>
             {t(`domains.${currentAxis.domain}.shortLabel`)}
           </Badge>
         </div>

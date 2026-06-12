@@ -55,6 +55,7 @@
   "axes": {
     "internetExposure": {
       "question": "How is the system connected to the internet?",
+      "shortLabel": "Internet",
       "options": {
         "offline": {
           "label": "Fully offline, no network connection",
@@ -76,6 +77,7 @@
     },
     "userCount": {
       "question": "How many people actively use the system?",
+      "shortLabel": "Users",
       "options": {
         "tiny": {
           "label": "1 to 10 employees",
@@ -97,6 +99,7 @@
     },
     "vendorSupport": {
       "question": "What is the vendor support status?",
+      "shortLabel": "Vendor",
       "options": {
         "active": {
           "label": "Current, actively maintained version",
@@ -118,6 +121,7 @@
     },
     "incidentHistory": {
       "question": "Any security incidents in the last 3 years with this system?",
+      "shortLabel": "Incidents",
       "options": {
         "none": {
           "label": "No known incidents",
@@ -139,6 +143,7 @@
     },
     "downtimeTolerance": {
       "question": "How long can operations continue without this system?",
+      "shortLabel": "Downtime",
       "options": {
         "weeks": {
           "label": "Weeks, no operational issue",
@@ -160,6 +165,7 @@
     },
     "replaceability": {
       "question": "How quickly could you replace the system if it failed?",
+      "shortLabel": "Replace",
       "options": {
         "oneDay": {
           "label": "Within a day",
@@ -181,6 +187,7 @@
     },
     "personalData": {
       "question": "What personal data does the system process?",
+      "shortLabel": "Data",
       "options": {
         "none": {
           "label": "No personal data",
@@ -203,9 +210,7 @@
   },
   "hardStops": {
     "internetExposed": "Hard-stop triggered: internet exposure forces minimum Standard tier in the Security domain.",
-    "vendorAbandoned": "Hard-stop triggered: abandoned vendor forces minimum Standard tier in the Security domain.",
     "downtimeMinutes": "Hard-stop triggered: minutes-downtime threshold forces minimum Standard tier in the Operational domain.",
-    "irreplaceable": "Hard-stop triggered: non-replaceable system forces minimum Standard tier in the Operational domain.",
     "sensitivePii": "Hard-stop triggered: Art 9 GDPR data forces Kern tier in the Compliance domain."
   },
   "result": {
@@ -220,8 +225,8 @@
     "whySubtitle": "These sentences are the basis of the protection-tier justification. Use them unchanged or adapt them with the management body.",
     "bausteineHeading": "Applicable Grundschutz Bausteine (recommended)",
     "bausteineSubtitle": "Indicative list of fitting Bausteine from the IT-Grundschutz catalogue. Final selection happens during modelling per BSI-200-2 §8.3.",
-    "measuresHeading": "Proportionate measures per Art 21(2) NIS2",
-    "measuresSubtitle": "Measures from the Art 21(2) NIS2 catalogue proportionate for this protection tier. Measures outside this list may not be proportionate at this tier and can be omitted with documented justification.",
+    "measuresHeading": "Measures per Art 21(2) NIS2",
+    "measuresSubtitle": "Art 21(2) NIS2 lists ten measures every entity in scope must implement ('shall include at least the following'). Implementation depth follows your protection tier: Basis requires minimal evidence, Standard the full Grundschutz depth, Kern an additional risk-specific deepening per BSI-200-3.",
     "signoffHeading": "Management body sign-off",
     "signoffBody": "This risk assessment is binding only with management body sign-off (§38 BSIG, Art 20 NIS2). Enter name, date and signature on the printed document."
   },

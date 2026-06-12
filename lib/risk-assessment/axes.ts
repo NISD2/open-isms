@@ -19,7 +19,7 @@ export const AXES: Axis[] = [
       { id: "vpn", score: 2 },
       { id: "internetExposed", score: 3 },
     ],
-    hardStop: { triggerScore: 3, minTier: "standard" },
+    hardStop: { triggerScore: 3, minTier: "standard", noteKey: "internetExposed" },
   },
   {
     id: "userCount",
@@ -40,9 +40,6 @@ export const AXES: Axis[] = [
       { id: "eolAnnounced", score: 2 },
       { id: "abandoned", score: 3 },
     ],
-    // No hard-stop: an abandoned vendor on an air-gapped system stays low risk.
-    // The design doc Part 5 lists three hard-stops only (internet, downtime, PII);
-    // vendorAbandoned shows up only via the security-domain sum.
   },
   {
     id: "incidentHistory",
@@ -63,7 +60,7 @@ export const AXES: Axis[] = [
       { id: "hours", score: 2 },
       { id: "minutes", score: 3 },
     ],
-    hardStop: { triggerScore: 3, minTier: "standard" },
+    hardStop: { triggerScore: 3, minTier: "standard", noteKey: "downtimeMinutes" },
   },
   {
     id: "replaceability",
@@ -74,9 +71,6 @@ export const AXES: Axis[] = [
       { id: "oneMonth", score: 2 },
       { id: "irreplaceable", score: 3 },
     ],
-    // No hard-stop: irreplaceability shows up via the operational-domain sum
-    // alongside downtime tolerance. Design doc Part 5 keeps the hard-stop list
-    // to internet, downtime, sensitive PII only.
   },
   {
     id: "personalData",
@@ -87,7 +81,7 @@ export const AXES: Axis[] = [
       { id: "customer", score: 2 },
       { id: "sensitivePii", score: 3 },
     ],
-    hardStop: { triggerScore: 3, minTier: "kern" },
+    hardStop: { triggerScore: 3, minTier: "kern", noteKey: "sensitivePii" },
   },
 ];
 
