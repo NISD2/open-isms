@@ -2,7 +2,7 @@
   "riskAssessment": {
     "page": {
       "title": "NIS2 Risk Assessment",
-      "subtitle": "Seven questions per system. Protection tier and audit-defensible justification per BSI Grundschutz 200-2.",
+      "subtitle": "Zeven vragen per systeem. Risiconiveau en audit-vaste onderbouwing volgens BSI Grundschutz 200-2.",
       "metaTitle": "NIS2 Risk Assessment - free, no signup",
       "metaDescription": "Score your IT systems per BSI Grundschutz 200-2 in under 5 minutes. Three domains (Security, Operational, Compliance) with the maximum principle. Audit-defensible justification per axis."
     },
@@ -12,7 +12,7 @@
     "example": {
       "label": "Example result",
       "assetName": "Marketing site with customer data",
-      "tierLabel": "Protection tier",
+      "tierLabel": "Risiconiveau",
       "tierExplanation": "Standard, driven by internet exposure and customer data. The platform writes the per-axis justification ready for management sign-off.",
       "docsLabel": "Answers (condensed)"
     },
@@ -43,19 +43,19 @@
     },
     "tiers": {
       "basis": {
-        "label": "Basisbeveiliging",
+        "label": "Basis",
         "shortLabel": "Basis",
         "description": "Risk acceptance with management sign-off allowed. Basic measures sufficient."
       },
       "standard": {
-        "label": "Standaardbeveiliging",
+        "label": "Standaard",
         "shortLabel": "Standaard",
         "description": "Standard Grundschutz Bausteine apply. Full implementation required."
       },
       "kern": {
-        "label": "Kernbeveiliging",
+        "label": "Kern",
         "shortLabel": "Kern",
-        "description": "Elevated protection class. BSI-200-3 risk analysis required, external support recommended."
+        "description": "Verhoogd risiconiveau. BSI-200-3 risk analysis required, external support recommended."
       }
     },
     "axes": {
@@ -215,24 +215,24 @@
       }
     },
     "hardStops": {
-      "internetExposed": "Hard-stop triggered: internet exposure forces minimum Standard tier in the Security domain.",
-      "downtimeMinutes": "Hard-stop triggered: minutes-downtime threshold forces minimum Standard tier in the Operational domain.",
-      "sensitivePii": "Hard-stop triggered: sensitive data (Art 9 GDPR or regulated operational data) forces Kern tier in the Compliance domain."
+      "internetExposed": "Hard-stop geactiveerd: internetbereikbaarheid dwingt minimaal risiconiveau Standaard in het Security-domein.",
+      "downtimeMinutes": "Hard-stop geactiveerd: minuten-uitval drempel dwingt minimaal risiconiveau Standaard in het Operational-domein.",
+      "sensitivePii": "Hard-stop geactiveerd: gevoelige gegevens (art. 9 AVG of gereguleerde operationele gegevens) dwingen risiconiveau Kern in het Compliance-domein."
     },
     "result": {
-      "heading": "Risk assessment result",
-      "finalTierLabel": "Protection tier",
-      "drivingDomainLabel": "Driving domain",
-      "drivingDomainBody": "The protection tier is determined by the {domain} domain. Maximum principle per BSI-200-2 §8.2.",
+      "heading": "Resultaat risicobeoordeling",
+      "finalTierLabel": "Risiconiveau",
+      "drivingDomainLabel": "Bepalend domein",
+      "drivingDomainBody": "Het risiconiveau wordt bepaald door het {domain}-domein. Maximum-principe volgens BSI-200-2 §8.2.",
       "domainBreakdownHeading": "Per-domain breakdown",
       "domainScoreLabel": "Score",
-      "domainTierLabel": "Tier",
+      "domainTierLabel": "Niveau",
       "whyHeading": "Per-axis justification",
-      "whySubtitle": "These sentences are the basis of the protection-tier justification. Use them unchanged or adapt them with the management body.",
+      "whySubtitle": "Deze zinnen vormen de basis voor de onderbouwing van het risiconiveau. Gebruik ze ongewijzigd of pas ze aan met de directie.",
       "bausteineHeading": "Applicable Grundschutz Bausteine (recommended)",
       "bausteineSubtitle": "Indicative list of fitting Bausteine from the IT-Grundschutz catalogue. Final selection happens during modelling per BSI-200-2 §8.3.",
       "measuresHeading": "Measures per Art 21(2) NIS2",
-      "measuresSubtitle": "Art 21(2) NIS2 lists ten measures every entity in scope must implement ('shall include at least the following'). Implementation depth follows your protection tier: Basis requires minimal evidence, Standard the full Grundschutz depth, Kern an additional risk-specific deepening per BSI-200-3.",
+      "measuresSubtitle": "Art 21(2) NIS2 lists ten measures every entity in scope must implement ('shall include at least the following'). Implementation depth follows your risiconiveau: Basis requires minimal evidence, Standaard the full Grundschutz depth, Kern an additional risk-specific deepening per BSI-200-3.",
       "signoffHeading": "Management body sign-off",
       "signoffBody": "This risk assessment is binding only with management body sign-off (§38 BSIG, Art 20 NIS2). Enter name, date and signature on the printed document.",
       "visualizationHeading": "Visualization"

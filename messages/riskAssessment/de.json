@@ -2,7 +2,7 @@
   "riskAssessment": {
     "page": {
       "title": "NIS2 Risikobewertung",
-      "subtitle": "Sieben Fragen pro System. Schutzbedarfsklasse und auditfeste Begründung nach BSI Grundschutz 200-2.",
+      "subtitle": "Sieben Fragen pro System. Risikoniveau und auditfeste Begründung nach BSI Grundschutz 200-2.",
       "metaTitle": "NIS2 Risikobewertung - kostenlos, ohne Anmeldung",
       "metaDescription": "Bewerten Sie Ihre IT-Systeme nach BSI Grundschutz 200-2 in unter 5 Minuten. Drei Domänen (Security, Operational, Compliance) mit Maximum-Prinzip. Auditfeste Begründung pro Achse."
     },
@@ -12,7 +12,7 @@
     "example": {
       "label": "Beispielergebnis",
       "assetName": "Marketingseite mit Kundendaten",
-      "tierLabel": "Schutzbedarfsklasse",
+      "tierLabel": "Risikoniveau",
       "tierExplanation": "Standard, getrieben durch Internet-Erreichbarkeit und Kundendaten. Die Plattform schreibt die Begründung pro Achse fertig zum Unterzeichnen.",
       "docsLabel": "Antworten (verkürzt)"
     },
@@ -43,19 +43,19 @@
     },
     "tiers": {
       "basis": {
-        "label": "Basis-Absicherung",
+        "label": "Basis",
         "shortLabel": "Basis",
         "description": "Risikoakzeptanz mit Freigabe durch die Geschäftsleitung zulässig. Grundlegende Maßnahmen ausreichend."
       },
       "standard": {
-        "label": "Standard-Absicherung",
+        "label": "Standard",
         "shortLabel": "Standard",
         "description": "Standard-Bausteine der Grundschutz-Methodik sind anzuwenden. Vollständige Umsetzung erforderlich."
       },
       "kern": {
-        "label": "Kern-Absicherung",
+        "label": "Kern",
         "shortLabel": "Kern",
-        "description": "Erhöhte Schutzbedarfsklasse. Risikoanalyse nach BSI-200-3 erforderlich, externe Unterstützung empfehlenswert."
+        "description": "Erhöhtes Risikoniveau. Risikoanalyse nach BSI-200-3 erforderlich, externe Unterstützung empfehlenswert."
       }
     },
     "axes": {
@@ -215,24 +215,24 @@
       }
     },
     "hardStops": {
-      "internetExposed": "Hard-Stop ausgelöst: Internet-Erreichbarkeit zwingt mindestens Standard-Absicherung in der Domäne Security.",
-      "downtimeMinutes": "Hard-Stop ausgelöst: Minuten-Ausfallgrenze zwingt mindestens Standard-Absicherung in der Domäne Operational.",
-      "sensitivePii": "Hard-Stop ausgelöst: sensible Daten (Art. 9 DSGVO oder regulierte Betriebsdaten) zwingen Kern-Absicherung in der Domäne Compliance."
+      "internetExposed": "Hard-Stop ausgelöst: Internet-Erreichbarkeit zwingt mindestens Risikoniveau Standard in der Domäne Security.",
+      "downtimeMinutes": "Hard-Stop ausgelöst: Minuten-Ausfallgrenze zwingt mindestens Risikoniveau Standard in der Domäne Operational.",
+      "sensitivePii": "Hard-Stop ausgelöst: sensible Daten (Art. 9 DSGVO oder regulierte Betriebsdaten) zwingen Risikoniveau Kern in der Domäne Compliance."
     },
     "result": {
       "heading": "Ergebnis der Risikobewertung",
-      "finalTierLabel": "Schutzbedarfsklasse",
+      "finalTierLabel": "Risikoniveau",
       "drivingDomainLabel": "Treibende Domäne",
-      "drivingDomainBody": "Die Schutzbedarfsklasse wird durch die Domäne {domain} bestimmt. Maximum-Prinzip nach BSI-200-2 §8.2.",
+      "drivingDomainBody": "Das Risikoniveau wird durch die Domäne {domain} bestimmt. Maximum-Prinzip nach BSI-200-2 §8.2.",
       "domainBreakdownHeading": "Aufschlüsselung nach Domäne",
       "domainScoreLabel": "Punkte",
-      "domainTierLabel": "Klasse",
+      "domainTierLabel": "Niveau",
       "whyHeading": "Begründung pro Achse",
-      "whySubtitle": "Diese Sätze sind die Grundlage für die Schutzbedarfsbegründung. Sie können sie unverändert übernehmen oder in der Geschäftsleitung anpassen.",
+      "whySubtitle": "Diese Sätze sind die Grundlage für die Risikobegründung. Sie können sie unverändert übernehmen oder in der Geschäftsleitung anpassen.",
       "bausteineHeading": "Anwendbare Grundschutz-Bausteine (Empfehlung)",
       "bausteineSubtitle": "Indikative Liste passender Bausteine aus dem IT-Grundschutz-Kompendium. Die konkrete Auswahl erfolgt im Rahmen der Modellierung nach BSI-200-2 §8.3.",
       "measuresHeading": "Maßnahmen nach Art. 21(2) NIS2",
-      "measuresSubtitle": "Art. 21(2) NIS2 nennt zehn Maßnahmen, die alle Einrichtungen mindestens umsetzen müssen ('shall include at least the following'). Die Umsetzungstiefe richtet sich nach Ihrer Schutzbedarfsklasse: Basis verlangt minimalen Nachweis, Standard die volle Grundschutz-Tiefe, Kern zusätzlich risikospezifische Vertiefung nach BSI-200-3.",
+      "measuresSubtitle": "Art. 21(2) NIS2 nennt zehn Maßnahmen, die alle Einrichtungen mindestens umsetzen müssen ('shall include at least the following'). Die Umsetzungstiefe richtet sich nach Ihrem Risikoniveau: Basis verlangt minimalen Nachweis, Standard die volle Grundschutz-Tiefe, Kern zusätzlich risikospezifische Vertiefung nach BSI-200-3.",
       "signoffHeading": "Freigabe durch die Geschäftsleitung",
       "signoffBody": "Diese Risikobewertung ist erst durch die Freigabe der Geschäftsleitung verbindlich (§38 BSIG, Art. 20 NIS2). Tragen Sie Name, Datum und Unterschrift in das ausgedruckte Dokument ein.",
       "visualizationHeading": "Visualisierung"
