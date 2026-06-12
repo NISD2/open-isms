@@ -2,7 +2,6 @@
   "landing": {
     "title": "Halbiert Europas <blue>NIS2</blue>-Rechnung.",
     "subtitle": "<link>31 Milliarden Euro jedes Jahr</link>. Wir halbieren das.",
-    "productLine": "Kostenlose NIS2-Compliance für regulierte Unternehmen und ihre Lieferanten.",
     "badge": "NIS2 / BSIG - Frist: März 2026",
     "badgeTooltip": "Das novellierte BSI-Gesetz (BSIG) zur Umsetzung der EU-Richtlinie NIS2 verpflichtet betroffene Einrichtungen, alle Cybersicherheitsmaßnahmen bis März 2026 umzusetzen. Bei Nichteinhaltung drohen Bußgelder bis zu 10 Mio. € oder 2% des weltweiten Jahresumsatzes sowie persönliche Haftung der Geschäftsführung.",
     "nis2Badge": "NIS2-Richtlinie (EU) 2022/2555",
@@ -15,9 +14,6 @@
     "scheduleDemo": "Demo vereinbaren",
     "startTraining": "Kostenlose NIS2 CEO-Schulung",
     "signIn": "Anmelden und loslegen",
-    "stats": {
-      "urgency": "160.000+ EU-Einrichtungen betroffen · Bußgelder bis 10 Mio. € oder 2% des weltweiten Jahresumsatzes (Art. 34 NIS2) · Geschäftsführung persönlich haftbar (Art. 20 NIS2)"
-    },
     "nav": {
       "wiki": "Wiki",
       "pricing": "Preise",
