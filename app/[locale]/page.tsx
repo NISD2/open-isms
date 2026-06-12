@@ -46,7 +46,9 @@ export default async function LandingPage() {
             href="/about"
             className="underline decoration-2 decoration-foreground/30 underline-offset-[10px] transition-colors hover:decoration-foreground"
           >
-            {t("title")}
+            {t.rich("title", {
+              blue: (chunks) => <span className="text-primary">{chunks}</span>,
+            })}
           </Link>
         </h1>
         <p className="mt-3 max-w-lg text-muted-foreground">
