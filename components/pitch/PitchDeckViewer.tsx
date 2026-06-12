@@ -157,11 +157,11 @@ function SolutionSlide({ en, locale }: { en: boolean; locale: Locale }) {
 function TractionSlide({ en, locale, liveStats }: { en: boolean; locale: Locale; liveStats?: PitchStats }) {
   const stats = [
     {
-      value: liveStats ? String(liveStats.users) : "173",
+      value: liveStats ? String(liveStats.users) : "152",
       label: en ? "Registered users" : "Registrierte Nutzer",
     },
     {
-      value: liveStats ? String(liveStats.courseStarts) : "77",
+      value: liveStats ? String(liveStats.courseStarts) : "73",
       label: en ? "CEO courses started" : "Gestartete CEO-Kurse",
     },
     {
@@ -227,14 +227,16 @@ function MarketSlide({ en, locale }: { en: boolean; locale: Locale }) {
 function BusinessModelSlide({ en, locale }: { en: boolean; locale: Locale }) {
   const bullets = en
     ? [
-        "Consulting-referral commissions (~73% of Year-2 revenue, avg €1,000–1,500 per referral)",
-        "Partner-training referrals from awareness + ISO training vendors (~11% of Year-2 revenue)",
-        "Licenses + hosted cloud, €49–299/month by company size (~16% of Year-2 revenue)",
+        "Consulting-referral commissions (~65% of Year-2 revenue, avg €1,000–2,000 per referral)",
+        "Own NIS2 implementation work (~18% of Year-2 revenue, €75/h, 5h/week from Oct 2026)",
+        "Licenses + hosted cloud, €49–299/month by company size (~9% of Year-2 revenue)",
+        "Partner-training referrals from awareness + ISO training vendors (~8% of Year-2 revenue)",
       ]
     : [
-        "Beratungs-Vermittlungsprovisionen (~73% des Jahr-2-Umsatzes, Ø 1.000–1.500 Euro je Vermittlung)",
-        "Partner-Training-Vermittlung mit Awareness- und ISO-Trainingsanbietern (~11% des Jahr-2-Umsatzes)",
-        "Lizenzen + gehostete Cloud, 49–299 Euro/Monat je Unternehmensgröße (~16% des Jahr-2-Umsatzes)",
+        "Beratungs-Vermittlungsprovisionen (~65% des Jahr-2-Umsatzes, Ø 1.000–2.000 Euro je Vermittlung)",
+        "Eigenleistungen NIS2-Implementierung (~18% des Jahr-2-Umsatzes, 75 Euro/Std, 5 Std/Woche ab Okt 2026)",
+        "Lizenzen + gehostete Cloud, 49–299 Euro/Monat je Unternehmensgröße (~9% des Jahr-2-Umsatzes)",
+        "Partner-Training-Vermittlung mit Awareness- und ISO-Trainingsanbietern (~8% des Jahr-2-Umsatzes)",
       ];
   return (
     <SlideShell>
@@ -248,10 +250,10 @@ function BusinessModelSlide({ en, locale }: { en: boolean; locale: Locale }) {
           className="object-contain p-2"
         />
       </div>
-      <div className="grid grid-cols-3 gap-3 shrink-0 max-md:grid-cols-1 max-md:gap-2">
+      <div className="grid grid-cols-4 gap-2 shrink-0 max-md:grid-cols-1 max-md:gap-2">
         {bullets.map((b, i) => (
-          <div key={i} className="bg-slate-50 rounded-lg p-2.5 border border-slate-200">
-            <p className="text-[11px] text-slate-700 leading-snug">{b}</p>
+          <div key={i} className="bg-slate-50 rounded-lg p-2 border border-slate-200">
+            <p className="text-[10px] text-slate-700 leading-snug">{b}</p>
           </div>
         ))}
       </div>
@@ -349,12 +351,20 @@ function WhyNowSlide({ en }: { en: boolean }) {
 // ── Slide 9: Financials ───────────────────────────────────────────────────────
 function FinancialsSlide({ en, locale }: { en: boolean; locale: Locale }) {
   const rows = en
-    ? [["2026 (Mar–Dec, partial)", "€3,800", "−€9,430"], ["2027 (full year)", "€62,200", "+€19,698"], ["2028 (conservative)", "€110,000", "+€17,077"]]
-    : [["2026 (März–Dez, anteilig)", "3.800 Euro", "−9.430 Euro"], ["2027 (Gesamtjahr)", "62.200 Euro", "+19.698 Euro"], ["2028 (konservativ)", "110.000 Euro", "+17.077 Euro"]];
+    ? [
+        ["2026 (Jul–Dec, Y1)", "€8,800", "+€4,667"],
+        ["2027 (full year)", "€99,300", "+€44,420"],
+        ["2028 (full year)", "€304,100", "+€174,090"],
+      ]
+    : [
+        ["2026 (Jul–Dez, Y1)", "8.800 Euro", "+4.667 Euro"],
+        ["2027 (Gesamtjahr)", "99.300 Euro", "+44.420 Euro"],
+        ["2028 (Gesamtjahr)", "304.100 Euro", "+174.090 Euro"],
+      ];
   return (
     <SlideShell>
       <Kicker text="09 / Financials" />
-      <Headline text={en ? "Break-even May 2027. First Managing Director salary June 2027." : "Break-even Mai 2027. Erstes Geschäftsführergehalt Juni 2027."} />
+      <Headline text={en ? "Profitable from Year 1. First Managing Director salary January 2027." : "Profitabel ab Jahr 1. Erstes Geschäftsführergehalt Januar 2027."} />
       <div className="flex flex-1 gap-6 min-h-0 max-md:flex-col max-md:flex-none max-md:gap-4">
         <ChartPane
           src={`/pitch/${locale}/REF-06_break-even.png`}
@@ -383,8 +393,8 @@ function FinancialsSlide({ en, locale }: { en: boolean; locale: Locale }) {
             <p className="text-xs text-slate-700 font-medium">{en ? "Model assumptions" : "Modellannahmen"}</p>
             <p className="text-[11px] text-slate-500 leading-snug">
               {en
-                ? "Conservative path. 50% revenue shortfall scenario: no insolvency. Grants excluded from base case."
-                : "Konservativer Pfad. 50%-Umsatzausfall-Szenario: keine Insolvenz. Fördermittel nicht in der Basisplanung."}
+                ? "IHK Köln business plan v1.4 (Stand 10.06.2026). Conservative path. No grants in base case. Phase 1 Gründungszuschuss covers Jul–Dec 2026 living costs, so no Managing Director salary in Y1."
+                : "IHK Köln Businessplan v1.4 (Stand 10.06.2026). Konservativer Pfad. Fördermittel nicht in der Basisplanung. Phase 1 Gründungszuschuss deckt den Lebensbedarf Juli–Dezember 2026, daher kein Geschäftsführergehalt in Y1."}
             </p>
           </div>
         </div>
@@ -397,16 +407,16 @@ function FinancialsSlide({ en, locale }: { en: boolean; locale: Locale }) {
 function RoadmapSlide({ en, locale }: { en: boolean; locale: Locale }) {
   const milestones = en
     ? [
-        { t: "Q1 2026", b: "Platform live. 173 users, 77 CEO courses. BSI registration deadline." },
-        { t: "Q3 2026", b: "First referral commissions. Awareness + ISO training partner affiliate contracts." },
-        { t: "Q1 2027", b: "Netherlands + Austria market entry. Hosted cloud tier launched." },
-        { t: "Q1 2028", b: "400 paying customers. First employee. €300k+ annual revenue." },
+        { t: "Q1 2026", b: "Platform live. BSI registration deadline 6 March. Plan v1.4 cleared by IHK Köln 10 June." },
+        { t: "Q3 2026", b: "Gründungszuschuss Phase 1 (Jul–Dec). Own NIS2 implementation line starts Oct. First referral commissions." },
+        { t: "Q1 2027", b: "First Managing Director salary. Gründungszuschuss Phase 2 (Jan–Sep). Affiliate contracts close." },
+        { t: "Q1 2028", b: "~400 paying SMEs via partners. €304k revenue. Stammkapital + reserve reach €25k GmbH threshold." },
       ]
     : [
-        { t: "Q1 2026", b: "Plattform live. 173 Nutzer, 77 CEO-Kurse. BSI-Registrierungsfrist." },
-        { t: "Q3 2026", b: "Erste Vermittlungsprovisionen. Affiliate-Verträge mit Awareness- und ISO-Trainingspartnern." },
-        { t: "Q1 2027", b: "Markteintritt Niederlande + Österreich. Hosted-Cloud-Tier gestartet." },
-        { t: "Q1 2028", b: "400 zahlende Kunden. Erster Mitarbeiter. 300.000+ Euro Jahresumsatz." },
+        { t: "Q1 2026", b: "Plattform live. BSI-Registrierungsfrist 6. März. Plan v1.4 von IHK Köln freigegeben 10. Juni." },
+        { t: "Q3 2026", b: "Gründungszuschuss Phase 1 (Jul–Dez). Eigenleistungslinie NIS2 startet im Oktober. Erste Vermittlungsprovisionen." },
+        { t: "Q1 2027", b: "Erstes Geschäftsführergehalt. Gründungszuschuss Phase 2 (Jan–Sep). Affiliate-Verträge unterzeichnet." },
+        { t: "Q1 2028", b: "~400 zahlende KMU über Partner. 304.000 Euro Umsatz. Stammkapital + Rücklage erreichen 25.000 Euro GmbH-Schwelle." },
       ];
   return (
     <SlideShell>
