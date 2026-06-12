@@ -66,6 +66,11 @@ export default async function LandingPage() {
           })}
         </p>
 
+        {/* Product line */}
+        <p className="mt-4 max-w-lg text-sm font-medium text-foreground">
+          {t("productLine")}
+        </p>
+
         {/* Frameworks */}
         <FrameworkBadges />
 
