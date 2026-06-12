@@ -1,13 +1,16 @@
-"use client";
-
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { auth } from "@/lib/auth/config";
+import { getInitials } from "@/lib/utils";
 
-export function PublicNav() {
-  const t = useTranslations("landing");
+export async function PublicNav() {
+  const t = await getTranslations("landing");
+  const session = await auth();
+  const user = session?.user;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-sm">
@@ -30,9 +33,29 @@ export function PublicNav() {
           </Link>
           <div className="flex items-center gap-2">
             <LocaleSwitcher />
-            <Button size="sm" asChild>
-              <Link href="/auth/signin">{t("nav.cta")}</Link>
-            </Button>
+            {user ? (
+              <Button size="sm" asChild>
+                <Link href={"/dashboard" as never}>
+                  <Avatar className="size-5">
+                    {user.image ? (
+                      <AvatarImage
+                        src={user.image}
+                        alt={user.name ?? user.email ?? "User"}
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : null}
+                    <AvatarFallback className="text-[10px]">
+                      {getInitials(user.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                  {t("nav.dashboard")}
+                </Link>
+              </Button>
+            ) : (
+              <Button size="sm" asChild>
+                <Link href="/auth/signin">{t("nav.cta")}</Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>
