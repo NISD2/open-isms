@@ -32,6 +32,19 @@ export async function generateMetadata({
       ? "The complete documentation for NIS 2, the German BSIG and CIR 2024/2690 — scope, measures, fines, comparisons, and how to actually implement it."
       : "Die vollständige Dokumentation zu NIS 2, BSIG und CIR 2024/2690 — Anwendungsbereich, Maßnahmen, Bußgelder, Vergleiche und wie man es konkret umsetzt.",
     alternates: pageAlternates("wiki", locale),
+    openGraph: {
+      type: "website",
+      images: [
+        {
+          url: `/og/wiki-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: isEn
+            ? "Wiki — NIS 2, BSIG, CIR explained"
+            : "Wiki — NIS 2, BSIG, CIR erklärt",
+        },
+      ],
+    },
   };
 }
 

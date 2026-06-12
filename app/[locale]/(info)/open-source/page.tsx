@@ -17,6 +17,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: t("openSource.meta.title"),
     description: t("openSource.meta.description"),
     alternates: pageAlternates("open-source", locale),
+    openGraph: {
+      type: "website",
+      images: [
+        {
+          url: `/og/open-source-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: t("openSource.meta.title"),
+        },
+      ],
+    },
   };
 }
 

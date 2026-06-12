@@ -51,6 +51,7 @@ export async function generateMetadata({
       title,
       description,
       type: "website",
+      image: `/og/sicherheitsfragebogen-${locale}.png`,
     }),
   };
 }

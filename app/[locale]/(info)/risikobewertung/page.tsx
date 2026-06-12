@@ -34,6 +34,14 @@ export async function generateMetadata({
       title: t("page.metaTitle"),
       description: t("page.metaDescription"),
       type: "website",
+      images: [
+        {
+          url: `/og/risikobewertung-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: t("page.metaTitle"),
+        },
+      ],
     },
   };
 }

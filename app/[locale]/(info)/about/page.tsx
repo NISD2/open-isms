@@ -108,7 +108,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: pageAlternates("about", locale),
-    ...pageOg({ slug: "about", locale, title, description, type: "website" }),
+    ...pageOg({ slug: "about", locale, title, description, type: "website", image: `/og/about-${locale}.png` }),
   };
 }
 
