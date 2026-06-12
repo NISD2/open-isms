@@ -93,6 +93,7 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/training/nis2-tabletop",
   // Standalone public pages
   "/applicability",
+  "/risikobewertung",
   "/start",
   "/pitch",
   "/supplier-portal",
