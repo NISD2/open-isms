@@ -1,19 +1,19 @@
 {
   "riskAssessment": {
     "page": {
-      "title": "NIS2 Risk Assessment",
-      "subtitle": "Zeven vragen per systeem. Risiconiveau en audit-vaste onderbouwing volgens BSI Grundschutz 200-2.",
-      "metaTitle": "NIS2 Risk Assessment - free, no signup",
-      "metaDescription": "Score your IT systems per BSI Grundschutz 200-2 in under 5 minutes. Three domains (Security, Operational, Compliance) with the maximum principle. Audit-defensible justification per axis."
+      "title": "NIS2 Risicobeoordeling",
+      "subtitle": "Acht vragen per asset. Schutzbedarf per Grundwert en een aanbevolen Absicherungsvariante in de geest van BSI Grundschutz 200-2 §8.2.",
+      "metaTitle": "NIS2 Risicobeoordeling — gratis, geen aanmelding",
+      "metaDescription": "Gratis 8-vragen-heuristiek in de geest van BSI Grundschutz 200-2 §8.2 Schutzbedarfsfeststellung. Classificatie per Grundwert (V/I/A → normal/hoch/sehr hoch) met Maximum-Prinzip en een aanbeveling voor de Absicherungsvariante."
     },
     "hero": {
       "eyebrow": "Gratis, open source, geen aanmelding",
       "headline": "NIS2 Risicobeoordeling",
       "headlineAccent": "in minder dan 5 minuten",
-      "subhead": "Zeven vragen per systeem. Risiconiveau en audit-vaste onderbouwing volgens BSI Grundschutz 200-2."
+      "subhead": "Acht vragen per asset. Schutzbedarf per Grundwert en een aanbeveling voor de Absicherungsvariante in de geest van BSI Grundschutz 200-2 §8.2."
     },
     "intro": {
-      "trustLine": "BSI-200-2 maximum principle. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. No signup, the result stays with you.",
+      "trustLine": "Classificatie per Grundwert (V/I/A) met Maximum-Prinzip. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. Geen aanmelding, het resultaat blijft bij u.",
       "inventoryHint": "Zodra uw inventaris uit Les 2.2 van onze CEO-cursus klaar is, kost elk asset minder dan een minuut.",
       "courseLinkLabel": "Naar de CEO-cursus"
     },
@@ -22,140 +22,124 @@
       "exportPdfDisabled": "Voltooi de beoordeling om de PDF-export in te schakelen"
     },
     "example": {
-      "label": "Example result",
+      "label": "Voorbeeldresultaat",
       "assetName": "Lokaal HR-systeem",
-      "tierLabel": "Risiconiveau",
-      "tierExplanation": "Standard, driven by internet exposure and customer data. The platform writes the per-axis justification ready for management sign-off.",
-      "docsLabel": "Answers (condensed)"
+      "tierLabel": "Aanbeveling",
+      "tierExplanation": "Basis-Absicherung aanbevolen; Schutzbedarf normal op alle drie Grundwerte.",
+      "docsLabel": "Antwoorden (verkort)"
     },
     "steps": {
-      "questionLabel": "Question {current} of {total}",
-      "next": "Next",
-      "back": "Back",
-      "showResult": "Show result",
-      "restart": "Restart",
-      "downloadPdf": "Download as PDF"
-    },
-    "domains": {
-      "security": {
-        "label": "Cyber attack surface",
-        "shortLabel": "Security",
-        "description": "How exposed is the system to attack?"
-      },
-      "operational": {
-        "label": "Operational dependency",
-        "shortLabel": "Operational",
-        "description": "How critical is the system to ongoing operations?"
-      },
-      "compliance": {
-        "label": "Data protection and regulation",
-        "shortLabel": "Compliance",
-        "description": "What sensitive data is involved?"
-      }
+      "questionLabel": "Vraag {current} van {total}",
+      "next": "Volgende",
+      "back": "Terug",
+      "showResult": "Resultaat tonen",
+      "restart": "Opnieuw",
+      "downloadPdf": "Downloaden als PDF"
     },
     "tiers": {
       "basis": {
         "label": "Basis",
         "shortLabel": "Basis",
-        "description": "Risk acceptance with management sign-off allowed. Basic measures sufficient."
+        "description": "Basis-Absicherung: brede ondiepe instap, minimum-effort Bausteine. Aanvaardbaar voor assets met Schutzbedarf normal op alle Grundwerte en geen zware implementatie-hints."
       },
       "standard": {
         "label": "Standaard",
         "shortLabel": "Standaard",
-        "description": "Standard Grundschutz Bausteine apply. Full implementation required."
+        "description": "Standard-Absicherung: volledige Grundschutz-Bausteine op volle implementatiediepte. Certificeerbaar volgens ISO 27001 op basis van IT-Grundschutz. Vereist zodra één Grundwert hoch bereikt of implementatie-hints zwaar uitvallen."
       },
       "kern": {
         "label": "Kern",
         "shortLabel": "Kern",
-        "description": "Verhoogd risiconiveau. BSI-200-3 risk analysis required, external support recommended."
+        "description": "Kern-Absicherung: volle Standaard-diepte geconcentreerd op dit asset als Kronjuwel. De Kern-Vorgehensweise focust ISMS-inspanning eerst op assets met sehr hoch Schutzbedarf."
       }
     },
+    "schutzbedarf": {
+      "heading": "BSI-200-2 §8.2 Schutzbedarfsfeststellung",
+      "subtitle": "Classificatie per Grundwert (Vertraulichkeit, Integrität, Verfügbarkeit) op de schaal normal / hoch / sehr hoch. De hoogste van de drie bepaalt de Gesamt-Schutzbedarf (Maximum-Prinzip).",
+      "grundwerte": {
+        "v": {
+          "shortLabel": "Vertraulichkeit",
+          "description": "Hoe gevoelig zijn de gegevens — zou ongeautoriseerde toegang schade veroorzaken?"
+        },
+        "i": {
+          "shortLabel": "Integrität",
+          "description": "Hoe kritisch is de datajuistheid — zou manipulatie, fraude of vervorming schade veroorzaken?"
+        },
+        "a": {
+          "shortLabel": "Verfügbarkeit",
+          "description": "Hoe beschikbaar moet het zijn — wat is het gevolg bij uitval?"
+        }
+      },
+      "classes": {
+        "normal": { "label": "normal" },
+        "hoch": { "label": "hoch" },
+        "sehrHoch": { "label": "sehr hoch" }
+      },
+      "gesamtLabel": "Gesamt-Schutzbedarf",
+      "gesamtBody": "Maximum-Prinzip: de hoogste van de drie Grundwerte bepaalt de overall Schutzbedarf. Bepalende Grundwert: <grundwert></grundwert>."
+    },
+    "variante": {
+      "heading": "Aanbevolen Absicherungsvariante",
+      "subtitle": "De implementatie-aanpak (BSI-200-2 §3.4) die uw Gesamt-Schutzbedarf suggereert. Basis/Standard/Kern zijn BSI's drie Vorgehensweisen — expliciet onderscheiden van de Schutzbedarfsklassen hierboven.",
+      "recommendedLabel": "Aanbeveling",
+      "byVariante": {
+        "basis": {
+          "description": "Basis-Absicherung is een snelle instap met een gereduceerd Bausteine-subset. Aanvaardbaar wanneer Schutzbedarf normal is op alle Grundwerte en implementatie-hints mild blijven."
+        },
+        "standard": {
+          "description": "Standard-Absicherung implementeert alle Bausteine op volle diepte. BSI's aanbevolen keuze voor de meeste Mittelstand-assets — en de enige Vorgehensweise die ISO-27001-certificering op basis van IT-Grundschutz ondersteunt."
+        },
+        "kern": {
+          "description": "Kern-Absicherung concentreert volle Standaard-diepte op dit asset als Kronjuwel. De Kern-Vorgehensweise prioriteert ISMS-inspanning op de meest kritische assets eerst — typisch voor assets met sehr hoch Schutzbedarf."
+        }
+      },
+      "bumpedTitle": "Verhoging van Basis naar Standaard door implementatie-hints",
+      "bumpedBody": "Uw Gesamt-Schutzbedarf is normal. Maar één of meer implementatie-hints (Schwachstellen / Eintrittswahrscheinlichkeit, BSI-200-3-gebied) zijn zo zwaar dat de gereduceerde Bausteine-subset van Basis-Absicherung naar verwachting niet volstaat. De volgende hints triggerden de verhoging:",
+      "risikoanalyseTitle": "BSI-200-3 risicoanalyse vereist",
+      "risikoanalyseBody": "Zodra ten minste één Grundwert hoch of sehr hoch bereikt, is een aanvullende risicoanalyse volgens BSI-200-3 verplicht voor dit asset (BSI-200-2 §8.5). Dit tool voert die analyse niet uit — het toont alleen aan dat deze vereist is. Standard-Absicherung plus scenario-gebaseerde risicoanalyse is het gedocumenteerde pad."
+    },
     "axes": {
-      "internetExposure": {
-        "question": "Hoe is het systeem bereikbaar vanaf het internet?",
-        "shortLabel": "Bereik",
-        "options": {
-          "offline": {
-            "label": "Volledig offline, geen netwerkverbinding",
-            "why": "Het systeem heeft geen netwerkverbinding. Externe aanvalsvectoren zijn uitgesloten. Interne en fysieke dreigingen blijven relevant."
-          },
-          "internalOnly": {
-            "label": "Alleen op het interne netwerk, geen internettoegang",
-            "why": "Het systeem is alleen bereikbaar op het interne netwerk. Extern aanvalsoppervlak minimaal, interne dreigingen (gecompromitteerde endpoints, insiders) blijven relevant. Grundschutz NET.1.1 van toepassing."
-          },
-          "vpn": {
-            "label": "Alleen bereikbaar via VPN",
-            "why": "Het systeem is alleen bereikbaar via VPN. Authenticatiebeveiliging van remote toegang is kritiek. Grundschutz NET.3.3 (VPN) en ORP.4 (identiteitsbeheer) van toepassing. NIS2 Art 21(2)(j) (multi-factor authenticatie) proportioneel vereist."
-          },
-          "internetExposed": {
-            "label": "Direct bereikbaar vanaf het internet",
-            "why": "Het systeem is direct bereikbaar vanaf het internet. Groot aanvalsoppervlak voor massa- en gerichte aanvallen. Grundschutz NET.1.1, NET.3.2 (firewall) en OPS.1.1.5 (logging) van toepassing. NIS2 Art 21(2)(e) (kwetsbaarhedenbeheer) en Art 21(2)(h) (cryptografie) proportioneel vereist."
-          }
-        }
-      },
-      "userCount": {
-        "question": "Wie heeft toegang tot dit systeem?",
-        "shortLabel": "Toegang",
-        "options": {
-          "tiny": {
-            "label": "Een paar standaardgebruikers (klein team, geen speciale rechten)",
-            "why": "Kleine groep standaardgebruikers zonder speciale rechten. Toegangscontroles operationeel beheersbaar. Grundschutz ORP.4 van toepassing."
-          },
-          "small": {
-            "label": "Veel standaardgebruikers (hele afdelingen, allemaal zonder speciale rechten)",
-            "why": "Veel gebruikers met standaardrechten. Gestructureerd rolbeheer en periodieke toegangscontroles vereist. Grundschutz ORP.4 van toepassing. NIS2 Art 21(2)(i) (toegangscontrolebeleid) proportioneel vereist."
-          },
-          "large": {
-            "label": "Ook bevoorrechte gebruikers (admins, financiën, directie)",
-            "why": "Bevoorrechte gebruikers hebben toegang. Aanvalswaarde concentreert zich op weinig accounts. Strikte rolscheiding, multi-factor authenticatie op bevoorrechte accounts en periodieke toegangscontroles vereist. Grundschutz ORP.4 en NIS2 Art 21(2)(j) (multi-factor authenticatie) proportioneel vereist."
-          },
-          "externalToo": {
-            "label": "Ook externe personen (klanten, leveranciers, partners)",
-            "why": "Externe personen hebben toegang. Identiteitsverificatie en scheiding van interne en externe rechten is kritiek. NIS2 Art 21(2)(d) (toeleveringsketenbeveiliging) en Art 21(2)(j) (multi-factor authenticatie) proportioneel vereist."
-          }
-        }
-      },
-      "vendorSupport": {
-        "question": "Blijven er beveiligingsupdates komen voor dit systeem?",
-        "shortLabel": "Updates",
-        "options": {
-          "active": {
-            "label": "Ja, de leverancier onderhoudt het actief en levert patches",
-            "why": "Leverancier actief in de markt, patches verschijnen snel. Standaard patchmanagement voldoende. Grundschutz OPS.1.1.3 van toepassing."
-          },
-          "mature": {
-            "label": "Ja, maar patches verschijnen slechts onregelmatig",
-            "why": "Leverancier gevestigd, patches verschijnen minder vaak. Hogere eigen verantwoordelijkheid voor monitoring. Grundschutz OPS.1.1.3 van toepassing."
-          },
-          "eolAnnounced": {
-            "label": "Nee, einde ondersteuning is aangekondigd",
-            "why": "Leverancier heeft einde ondersteuning aangekondigd. Migratie of compenserende maatregelen vereist. NIS2 Art 21(2)(e) (kwetsbaarhedenbeheer) proportioneel vereist."
-          },
-          "abandoned": {
-            "label": "Nee, geen leverancier meer of zelfbouw zonder onderhoud",
-            "why": "Systeem zonder actieve ondersteuning. Hoge restrisico's door ongepatchte kwetsbaarheden. Migratie of vervangende maatregelen urgent."
-          }
-        }
-      },
-      "incidentHistory": {
-        "question": "Zijn er in de afgelopen drie jaar beveiligingsincidenten geweest met dit systeem?",
-        "shortLabel": "Historie",
+      "personalData": {
+        "question": "Welk soort gegevens verwerkt dit systeem?",
+        "shortLabel": "Gevoeligheid",
         "options": {
           "none": {
-            "label": "Geen incidenten en we hebben logging of monitoring die ze zou opmerken",
-            "why": "Geen incidenten gedocumenteerd en monitoring aanwezig. Sterkste positie: de afwezigheid van incidenten is onderbouwd door logs. NIS2 Art 21(2)(f) (effectiviteitsbeoordeling) periodiek toepassen."
+            "label": "Geen persoons- of bijzonder gereguleerde gegevens",
+            "why": "Vertraulichkeit-Schutzbedarf normal. Geen AVG- of sectorspecifieke verhoogde beschermingsplicht."
           },
+          "employeeOnly": {
+            "label": "Werknemersgegevens (HR-dossiers, contracten, salarissen)",
+            "why": "Vertraulichkeit-Schutzbedarf normal. AVG van toepassing; standaard TOMs volgens art. 32 AVG voldoende."
+          },
+          "customer": {
+            "label": "Klantgegevens of operationele bedrijfsgegevens (in volume)",
+            "why": "Vertraulichkeit-Schutzbedarf hoch. Massale klantgegevens of bedrijfsgeheim zetten de beschermings-ondergrens op hoch. Standaard TOMs plus verwerkersovereenkomsten met externe leveranciers vereist. BSI-200-3 risicoanalyse vereist."
+          },
+          "sensitivePii": {
+            "label": "Gevoelige gegevens: art. 9 AVG (gezondheid, religie) of gereguleerde operationele gegevens (OT, KRITIS)",
+            "why": "Vertraulichkeit-Schutzbedarf hoch als ondergrens. Art.-9-gegevens activeren DPIA volgens art. 35 AVG. Met veel of externe gebruikers kan het Kumulationseffekt §8.2.4 verhogen tot sehr hoch. BSI-200-3 risicoanalyse vereist."
+          }
+        }
+      },
+      "integrity": {
+        "question": "Hoe erg zou het zijn als gegevens in dit systeem vervalst werden — verkeerde facturen, gemanipuleerde records, gewijzigde transacties?",
+        "shortLabel": "Integriteit",
+        "options": {
           "minor": {
-            "label": "Geen bekende incidenten, maar we monitoren het systeem niet actief",
-            "why": "Geen bekende incidenten, maar geen monitoring aanwezig. De afwezigheid kan niet worden onderbouwd. Basislogging opzetten is de eerste stap. NIS2 Art 21(2)(f) (effectiviteitsbeoordeling) aanbevolen."
+            "label": "Eigenlijk niet erg — kleine fouten zouden opvallen en eenvoudig te herstellen zijn",
+            "why": "Integrität-Schutzbedarf normal. Standaard backups en eenvoudige audit-logs voldoende."
           },
-          "major": {
-            "label": "Eén incident in het verleden (klein of groot)",
-            "why": "Eén incident in de afgelopen drie jaar. Lessons learned zijn schriftelijk te documenteren. NIS2 Art 21(2)(b) (incidentbehandeling) van toepassing. Grundschutz DER.2.1."
+          "moderate": {
+            "label": "Wat werk — verkeerde gegevens zouden operationele verwarring veroorzaken of correctietijd kosten",
+            "why": "Integrität-Schutzbedarf normal. Standaard backups, audit-logs en regelmatige afstemming voldoende."
           },
-          "repeated": {
-            "label": "Meerdere of terugkerende incidenten",
-            "why": "Meerdere of terugkerende incidenten. Structurele zwakheden waarschijnlijk. Volledige herziening risicoanalyse en compenserende maatregelen vereist."
+          "high": {
+            "label": "Aanzienlijk — verkeerde gegevens zouden financieel verlies, regulatoire problemen of klantschade kunnen veroorzaken",
+            "why": "Integrität-Schutzbedarf hoch. Manipulatiebescherming, uitgebreide wijzigingslogs en review-workflows vereist. BSI-200-3 risicoanalyse vereist."
+          },
+          "critical": {
+            "label": "Kritisch — verkeerde gegevens zouden grote financiële schade, juridische aansprakelijkheid of veiligheidsrisico's veroorzaken",
+            "why": "Integrität-Schutzbedarf sehr hoch. Sterke manipulatiebescherming (signaturen, hashes), vier-ogen-principe, onweerlegbaarheid. BSI-200-3 risicoanalyse vereist. Kern-Absicherung-kandidaat."
           }
         }
       },
@@ -165,19 +149,107 @@
         "options": {
           "weeks": {
             "label": "Weken. Niemand zou het echt merken.",
-            "why": "Bedrijfsvoering kan weken zonder systeem draaien voordat klanten of workflows het merken. Lage beschikbaarheidseis. Standaard backups voldoende."
+            "why": "Verfügbarkeit-Schutzbedarf normal. Standaard backups voldoende."
           },
           "days": {
             "label": "Dagen. Met workarounds is het te overbruggen.",
-            "why": "Bedrijfsvoering verdraagt dagen uitval met workarounds. Gemiddelde beschikbaarheidseis. Grundschutz CON.3 (gegevensbeveiliging) van toepassing."
+            "why": "Verfügbarkeit-Schutzbedarf normal. Standaard backups; Grundschutz CON.3 van toepassing."
           },
           "hours": {
             "label": "Uren. Klanten of de bedrijfsvoering zouden het merken.",
-            "why": "Uren uitval veroorzaakt merkbare beperkingen voor klanten of bedrijfsvoering. Hogere beschikbaarheidseis. Grundschutz CON.3, OPS.1.2.5 (remote onderhoud) en noodplanning van toepassing."
+            "why": "Verfügbarkeit-Schutzbedarf hoch. Grundschutz CON.3 en noodplanning vereist. BSI-200-3 risicoanalyse vereist."
           },
           "minutes": {
             "label": "Minuten. De bedrijfsvoering valt direct stil.",
-            "why": "Minuten uitval doen de bedrijfsvoering stilstaan. Zeer hoge beschikbaarheidseis. Redundantie, automatische failover en geteste noodplanning vereist. NIS2 Art 21(2)(c) (bedrijfscontinuïteit) is dragend."
+            "why": "Verfügbarkeit-Schutzbedarf sehr hoch. Redundantie, automatisch failover, geteste noodplannen vereist. NIS2 Art 21(2)(c) dragend. BSI-200-3 risicoanalyse vereist."
+          }
+        }
+      },
+      "userCount": {
+        "question": "Wie heeft toegang tot dit systeem?",
+        "shortLabel": "Toegang",
+        "options": {
+          "tiny": {
+            "label": "Een paar standaardgebruikers (klein team, geen speciale rechten)",
+            "why": "Geen Kumulationseffekt. Standaard toegangscontroles voldoende (Grundschutz ORP.4)."
+          },
+          "small": {
+            "label": "Veel standaardgebruikers (hele afdelingen, allemaal zonder speciale rechten)",
+            "why": "Bij deze schaal geen effectieve Kumulationseffekt. Gestructureerd rolbeheer en periodieke toegangscontroles. NIS2 Art 21(2)(i)."
+          },
+          "large": {
+            "label": "Ook bevoorrechte gebruikers (admins, financiën, directie)",
+            "why": "Kumulationseffekt §8.2.4: bij hoogwaardige V-gegevens (klant- of gevoelige gegevens) kan V-Schutzbedarf één stap stijgen. Strikte rolscheiding, MFA op bevoorrechte accounts."
+          },
+          "externalToo": {
+            "label": "Ook externe personen (klanten, leveranciers, partners)",
+            "why": "Kumulationseffekt §8.2.4 het sterkst. Bij hoogwaardige V-gegevens stijgt V-Schutzbedarf doorgaans naar sehr hoch. Identiteitsverificatie, scheiding interne/externe rechten, MFA. NIS2 Art 21(2)(d) en (j)."
+          }
+        }
+      },
+      "internetExposure": {
+        "question": "Hoe is het systeem bereikbaar vanaf het internet?",
+        "shortLabel": "Bereik",
+        "options": {
+          "offline": {
+            "label": "Volledig offline, geen netwerkverbinding",
+            "why": "Implementatie-hint: geen internetbereikbaarheid. Externe aanvalsvectoren uitgesloten; interne en fysieke dreigingen blijven."
+          },
+          "internalOnly": {
+            "label": "Alleen op het interne netwerk, geen internettoegang",
+            "why": "Implementatie-hint: alleen interne expositie. Grundschutz NET.1.1 van toepassing."
+          },
+          "vpn": {
+            "label": "Alleen bereikbaar via VPN",
+            "why": "Implementatie-hint: remote toegang via VPN. Grundschutz NET.3.3 en ORP.4 van toepassing. NIS2 Art 21(2)(j) MFA proportioneel."
+          },
+          "internetExposed": {
+            "label": "Direct bereikbaar vanaf het internet",
+            "why": "Implementatie-hint: zwaar. Publiek aanvalsoppervlak verhoogt de dreigingsexpositie (BSI-200-3 Gefährdungslage), zodat de gereduceerde Bausteine-subset van Basis-Absicherung waarschijnlijk niet volstaat — zelfs bij normal Schutzbedarf. Verhoogt de aanbeveling van Basis naar Standard."
+          }
+        }
+      },
+      "vendorSupport": {
+        "question": "Blijven er beveiligingsupdates komen voor dit systeem?",
+        "shortLabel": "Updates",
+        "options": {
+          "active": {
+            "label": "Ja, de leverancier onderhoudt het actief en levert patches",
+            "why": "Implementatie-hint: laag Schwachstellen-risico. Standaard patchmanagement voldoende (Grundschutz OPS.1.1.3)."
+          },
+          "mature": {
+            "label": "Ja, maar patches verschijnen slechts onregelmatig",
+            "why": "Implementatie-hint: gemiddeld Schwachstellen-risico. Verhoogde eigen verantwoordelijkheid voor monitoring."
+          },
+          "eolAnnounced": {
+            "label": "Nee, einde ondersteuning is aangekondigd",
+            "why": "Implementatie-hint: bekende toekomstige Schwachstellen-expositie. Migratie of compenserende maatregelen vereist."
+          },
+          "abandoned": {
+            "label": "Nee, geen leverancier meer of zelfbouw zonder onderhoud",
+            "why": "Implementatie-hint: zwaar. Ongepatcht Schwachstellen-risico rechtvaardigt Standaard-Bausteine ook bij normal Schutzbedarf. Verhoogt de aanbeveling van Basis naar Standard."
+          }
+        }
+      },
+      "incidentHistory": {
+        "question": "Zijn er in de afgelopen drie jaar beveiligingsincidenten geweest met dit systeem?",
+        "shortLabel": "Historie",
+        "options": {
+          "none": {
+            "label": "Geen incidenten en we hebben logging of monitoring die ze zou opmerken",
+            "why": "Implementatie-hint: onderbouwde afwezigheid. NIS2 Art 21(2)(f) effectiviteitsbeoordeling periodiek toepassen."
+          },
+          "minor": {
+            "label": "Geen bekende incidenten, maar we monitoren het systeem niet actief",
+            "why": "Implementatie-hint: onderbouwde afwezigheid ontbreekt. Basislogging opzetten is de eerste stap. NIS2 Art 21(2)(f) aanbevolen."
+          },
+          "major": {
+            "label": "Eén incident in het verleden (klein of groot)",
+            "why": "Implementatie-hint: bekende Eintrittswahrscheinlichkeit. Lessons learned moeten gedocumenteerd zijn. Grundschutz DER.2.1."
+          },
+          "repeated": {
+            "label": "Meerdere of terugkerende incidenten",
+            "why": "Implementatie-hint: zwaar. Hoge Eintrittswahrscheinlichkeit wijst op structurele zwakheden — gereduceerde Bausteine van Basis-Absicherung ontoereikend. Verhoogt de aanbeveling van Basis naar Standard."
           }
         }
       },
@@ -187,98 +259,43 @@
         "options": {
           "oneDay": {
             "label": "Binnen een dag",
-            "why": "Systeem snel te vervangen. Laag restrisico bij uitval."
+            "why": "Implementatie-hint: laag BCP-risico. Herstel goed haalbaar."
           },
           "oneWeek": {
             "label": "Binnen een week",
-            "why": "Vervanging binnen een week mogelijk. Workarounds voor de overgangsperiode beschikbaar houden."
+            "why": "Implementatie-hint: gemiddeld BCP-risico. Workarounds voor de overgang nodig."
           },
           "oneMonth": {
             "label": "Binnen een maand",
-            "why": "Vervanging duurt tot een maand. Noodplanning voor de overgangsperiode vereist. Grundschutz DER.4 (noodbeheer) van toepassing."
+            "why": "Implementatie-hint: aanzienlijk BCP-risico. Noodplanning vereist (Grundschutz DER.4)."
           },
           "irreplaceable": {
             "label": "Helemaal niet, of alleen als langdurig maatwerk",
-            "why": "Systeem niet of alleen als maatwerk te vervangen. Dragend operationeel risico. Noodplanning en beschermende maatregelen staan centraal. NIS2 Art 21(2)(c) (bedrijfscontinuïteit) is dragend."
+            "why": "Implementatie-hint: zwaar. Feitelijk geen BCP-hersteloptie betekent dat ook normal-Schutzbedarf-assets Standaard-diepte nodig hebben. Verhoogt de aanbeveling van Basis naar Standard."
           }
-        }
-      },
-      "personalData": {
-        "question": "Welk soort gevoelige gegevens verwerkt dit systeem?",
-        "shortLabel": "Gevoeligheid",
-        "options": {
-          "none": {
-            "label": "Geen gevoelige gegevens (alleen openbare of algemene bedrijfsinformatie)",
-            "why": "Geen persoonsgegevens of bijzonder gereguleerde gegevens. AVG en sectorspecifieke regels zijn beperkt van toepassing."
-          },
-          "employeeOnly": {
-            "label": "Werknemersgegevens (HR-dossiers, contracten, salarissen)",
-            "why": "Werknemersgegevens. AVG van toepassing. Standaard TOMs volgens art. 32 AVG van toepassing."
-          },
-          "customer": {
-            "label": "Klantgegevens of operationele bedrijfsgegevens",
-            "why": "Klant- of bedrijfsgegevens. AVG van toepassing plus bedrijfsgeheim. Standaard TOMs en verwerkersovereenkomsten met externe verwerkers vereist."
-          },
-          "sensitivePii": {
-            "label": "Gevoelige gegevens: art. 9 AVG (gezondheid, religie) of gereguleerde operationele gegevens (OT, KRITIS)",
-            "why": "Bijzondere persoonsgegevens volgens art. 9 AVG of gereguleerde operationele gegevens (bv. OT-systemen, KRITIS-gerelateerde gegevens). Verhoogde beschermingsplicht. DPIA verplicht voor art. 9 AVG-gegevens. Uitgebreide technische en organisatorische maatregelen vereist."
-          }
-        }
-      }
-    },
-    "hardStops": {
-      "heading": "Hard-stops geactiveerd",
-      "intro": "Sommige antwoorden zijn zo impactvol dat één alleen het risiconiveau verhoogt — onafhankelijk van de andere zes assen. Dit is BSI's Maximum-Prinzip: het voorkomt onderclassificatie. Klik een item open voor de juridische basis en de volgende stappen.",
-      "whatLabel": "Wat dit betekent",
-      "legalLabel": "Juridische basis",
-      "todoLabel": "Wat te doen",
-      "items": {
-        "internetExposed": {
-          "note": "Internetbereikbaarheid dwingt minimaal risiconiveau Standaard in het Security-domein.",
-          "what": "Een vanaf het internet bereikbaar systeem kan niet als Basis worden geclassificeerd. Dreigingsmodel: geautomatiseerd scannen, massa-uitbuiting van kwetsbaarheden en gerichte aanvallen op het publieke aanvalsoppervlak — ook kleine systemen worden dagelijks duizendmaal gescand.",
-          "legal": "NIS2 Art 21(2)(e) (kwetsbaarhedenbeheer) en Art 21(2)(h) (cryptografie) maken patching en TLS niet-onderhandelbaar. BSIG §30(2) Nr. 5 en Nr. 8 zetten dit om. BSI Grundschutz NET.1.1 (netwerkarchitectuur), NET.3.2 (firewall) en OPS.1.1.5 (logging) zijn dragend en gelden op Standaard-niveau.",
-          "todo": "Standaard-beveiliging implementeren: firewall (hardware of cloud), netwerksegmentatie, gecentraliseerde logging, maandelijkse patchcyclus, TLS 1.2+ voor extern verkeer. Firewallregels, patch-SLA en monitoringaanpak documenteren. De directie moet goedkeuren; §38 BSIG maakt hen aansprakelijk."
-        },
-        "downtimeMinutes": {
-          "note": "Minuten-uitval drempel dwingt minimaal risiconiveau Standaard in het Operational-domein.",
-          "what": "Een systeem waarvan het verlies de bedrijfsvoering binnen minuten stopzet, kan niet als Basis worden geclassificeerd. Dreigingsmodel: operationele verstoring — ransomware, stroomuitval, netwerkuitval — die de continuïteitsverplichtingen onder Art 21(2)(c) schendt.",
-          "legal": "NIS2 Art 21(2)(c) noemt expliciet 'bedrijfscontinuïteit, zoals back-upbeheer en disaster recovery, en crisisbeheer' — back-up en DR zijn expliciete plichten, niet optioneel. BSIG §30(2) Nr. 3 zet om. BSI Grundschutz CON.3 (back-upconcept) en DER.4 (noodmanagement) gelden op Standaard-niveau. Ongetest failover is de meest voorkomende auditbevinding.",
-          "todo": "Redundantie of automatisch failover implementeren. RTO (Recovery Time Objective) en RPO (Recovery Point Objective) definiëren, ten minste jaarlijks testen, resultaten documenteren. Noodplan en testrapport opnemen in de directiegoedkeuring."
-        },
-        "sensitivePii": {
-          "note": "Gevoelige gegevens (art. 9 AVG of gereguleerde operationele gegevens) dwingen risiconiveau Kern in het Compliance-domein.",
-          "what": "Bijzondere persoonsgegevens (art. 9 AVG) of gereguleerde operationele gegevens (OT, KRITIS) dwingen Kern-niveau af. De gegevensklasse alleen drijft de verhoogde beschermingsplicht, onafhankelijk van de andere zes assen.",
-          "legal": "AVG art. 9 stelt de verhoogde beschermingsplicht voor gezondheids-, religie-, biometrische en vergelijkbare gegevens. AVG art. 35 maakt een DPIA verplicht bij hoog risico — art.-9-gegevens triggeren dit bijna altijd. NIS2 Art 21(2)(h) (cryptografie) wordt dragend. BSIG §30(2) Nr. 8 zet om. Cruciaal: Kern-niveau onder BSI-200-2 §8.2 vereist BSI-200-3 risicoanalyse — een aparte, scenario-gebaseerde risicoanalyse bovenop deze beoordeling.",
-          "todo": "BSI-200-3 risicoanalyse voor dit systeem uitvoeren. AVG art. 35 DPIA uitvoeren bij art.-9-gegevens. Versleuteling at-rest en in-transit implementeren. Uitgebreide TOMs (art. 32 AVG) documenteren. FG (functionaris gegevensbescherming) betrekken, directie laten goedkeuren."
         }
       }
     },
     "result": {
       "heading": "Resultaat risicobeoordeling",
-      "finalTierLabel": "Risiconiveau",
-      "drivingDomainLabel": "Bepalend domein",
-      "drivingDomainBody": "Het risiconiveau wordt bepaald door het {domain}-domein. Maximum-principe volgens BSI-200-2 §8.2.",
-      "domainBreakdownHeading": "Per-domain breakdown",
-      "domainScoreLabel": "Score",
-      "domainTierLabel": "Niveau",
-      "whyHeading": "Per-axis justification",
-      "whySubtitle": "Deze zinnen vormen de basis voor de onderbouwing van het risiconiveau. Gebruik ze ongewijzigd of pas ze aan met de directie.",
-      "bausteineHeading": "Applicable Grundschutz Bausteine (recommended)",
-      "bausteineSubtitle": "Indicative list of fitting Bausteine from the IT-Grundschutz catalogue. Final selection happens during modelling per BSI-200-2 §8.3.",
-      "measuresHeading": "Measures per Art 21(2) NIS2",
-      "measuresSubtitle": "Art 21(2) NIS2 lists ten measures every entity in scope must implement ('shall include at least the following'). Implementation depth follows your risiconiveau: Basis requires minimal evidence, Standaard the full Grundschutz depth, Kern an additional risk-specific deepening per BSI-200-3.",
+      "whyHeading": "Onderbouwing per as",
+      "whySubtitle": "Deze zinnen vormen de basis voor de Schutzbedarfs- en Absicherungsvariante-onderbouwing. Gebruik ze ongewijzigd of pas ze aan met de directie.",
+      "bausteineHeading": "Toepasselijke Grundschutz Bausteine (aanbeveling)",
+      "bausteineSubtitle": "Indicatieve lijst uit het IT-Grundschutz-Kompendium op basis van de aanbevolen Absicherungsvariante. De canonieke Modellierung-stap volgens BSI-200-2 §8.3 gebeurt nog steeds in het ISMS-werk van de operator.",
+      "measuresHeading": "Maatregelen volgens Art 21(2) NIS2",
+      "measuresSubtitle": "Art 21(2) NIS2 noemt tien maatregelen die elke entiteit binnen scope ten minste moet implementeren ('shall include at least the following'). De implementatiediepte volgt uw Absicherungsvariante: Basis vraagt minimaal bewijs; Standard volledige Grundschutz-diepte; Kern bovendien risico-specifieke verdieping volgens BSI-200-3 op het Kronjuwel-asset.",
       "cirNote": "Voor de 11 entiteitstypen onder CIR 2024/2690 (cloudcomputingdiensten, datacenters, MSPs/MSSPs, DNS-aanbieders, TLD-registers, content delivery networks, online marktplaatsen, zoekmachines, sociale netwerken, vertrouwensdiensten) werkt de bijlage de uitvoering nader uit. Overige entiteiten volgen BSI Grundschutz als erkende methodologie.",
-      "signoffHeading": "Management body sign-off",
-      "signoffBody": "This risk assessment is binding only with management body sign-off (§38 BSIG, Art 20 NIS2). Enter name, date and signature on the printed document.",
-      "visualizationHeading": "Visualization"
+      "signoffHeading": "Goedkeuring directie",
+      "signoffBody": "Deze beoordeling is alleen bindend met goedkeuring van de directie (§38 BSIG, Art 20 NIS2). Voer naam, datum en handtekening in op het afgedrukte document."
     },
     "chart": {
-      "ariaLabel": "Risk assessment radar chart",
-      "title": "Risk assessment as a radar chart, grouped by domain"
+      "ariaLabel": "Radardiagram risicobeoordeling",
+      "title": "Risicobeoordeling als radardiagram, acht assen"
     },
     "disclaimer": {
-      "heading": "Legal note",
-      "body": "This risk assessment is an informational classification based on your inputs. It is not legal advice under the German RDG. The assessment becomes binding only with management body sign-off per §38 BSIG and Art 20 NIS2. The methodology follows BSI Grundschutz 200-2 §8.2 (Schutzbedarfsfeststellung) and the maximum principle; the provider does not warrant regulatory acceptance in any specific case."
+      "heading": "Juridische notitie",
+      "body": "Deze beoordeling is een informatieve classificatie op basis van uw input. Het is geen juridisch advies onder de Duitse RDG. De beoordeling wordt pas bindend met goedkeuring van de directie volgens §38 BSIG en Art 20 NIS2.",
+      "methodologyDisclosure": "Dit tool is geen certificeerbare BSI-200-2-Schutzbedarfsfeststellung, maar een 8-vragen-heuristiek in de geest van §8.2. Het stelt een eerste Schutzbedarf-classificatie (V/I/A) en een aanbevolen Absicherungsvariante (Basis/Standaard/Kern) voor. Voor assets met hoch of sehr hoch Schutzbedarf is een aanvullende BSI-200-3 risicoanalyse verplicht."
     },
     "art21Measures": {
       "a": {

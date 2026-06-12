@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { AXES } from "@/lib/risk-assessment/axes";
-import { tierBadgeStyle } from "@/lib/risk-assessment/styles";
+import { varianteBadgeStyle } from "@/lib/risk-assessment/styles";
 import type { MatrixResult } from "@/lib/risk-assessment/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -62,10 +62,10 @@ export function ResultCard({ result, isExample }: ResultCardProps) {
                 variant="outline"
                 className={cn(
                   "text-sm px-3 py-1",
-                  tierBadgeStyle(result.finalTier),
+                  varianteBadgeStyle(result.friendlyTier),
                 )}
               >
-                {t(`tiers.${result.finalTier}.label`)}
+                {t(`tiers.${result.friendlyTier}.label`)}
               </Badge>
             </div>
             <div>
