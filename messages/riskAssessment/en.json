@@ -21,7 +21,7 @@
     },
     "example": {
       "label": "Example result",
-      "assetName": "Marketing site with customer data",
+      "assetName": "Local HR workstation",
       "tierLabel": "Risk level",
       "tierExplanation": "Standard, driven by internet exposure and customer data. The platform writes the per-axis justification ready for management sign-off.",
       "docsLabel": "Answers (condensed)"
