@@ -3,7 +3,7 @@
     "page": {
       "title": "NIS2 Risicobeoordeling",
       "subtitle": "Acht vragen per asset. Schutzbedarf per Grundwert en een aanbevolen Absicherungsvariante in de geest van BSI Grundschutz 200-2 §8.2.",
-      "metaTitle": "NIS2 Risicobeoordeling — gratis, geen aanmelding",
+      "metaTitle": "NIS2 Risicobeoordeling. Gratis, geen aanmelding",
       "metaDescription": "Gratis 8-vragen-heuristiek in de geest van BSI Grundschutz 200-2 §8.2 Schutzbedarfsfeststellung. Classificatie per Grundwert (V/I/A → normal/hoch/sehr hoch) met Maximum-Prinzip en een aanbeveling voor de Absicherungsvariante."
     },
     "hero": {
@@ -59,15 +59,15 @@
       "grundwerte": {
         "v": {
           "shortLabel": "Vertraulichkeit",
-          "description": "Hoe gevoelig zijn de gegevens — zou ongeautoriseerde toegang schade veroorzaken?"
+          "description": "Hoe gevoelig zijn de gegevens? Zou ongeautoriseerde toegang schade veroorzaken?"
         },
         "i": {
           "shortLabel": "Integrität",
-          "description": "Hoe kritisch is de datajuistheid — zou manipulatie, fraude of vervorming schade veroorzaken?"
+          "description": "Hoe kritisch is de datajuistheid? Zou manipulatie, fraude of vervorming schade veroorzaken?"
         },
         "a": {
           "shortLabel": "Verfügbarkeit",
-          "description": "Hoe beschikbaar moet het zijn — wat is het gevolg bij uitval?"
+          "description": "Hoe beschikbaar moet het zijn? Wat is het gevolg bij uitval?"
         }
       },
       "classes": {
@@ -80,23 +80,23 @@
     },
     "variante": {
       "heading": "Aanbevolen Absicherungsvariante",
-      "subtitle": "De implementatie-aanpak (BSI-200-2 §3.4) die uw Gesamt-Schutzbedarf suggereert. Basis/Standard/Kern zijn BSI's drie Vorgehensweisen — expliciet onderscheiden van de Schutzbedarfsklassen hierboven.",
+      "subtitle": "De implementatie-aanpak (BSI-200-2 §3.4) die uw Gesamt-Schutzbedarf suggereert. Basis/Standard/Kern zijn BSI's drie Vorgehensweisen. Expliciet onderscheiden van de Schutzbedarfsklassen hierboven.",
       "recommendedLabel": "Aanbeveling",
       "byVariante": {
         "basis": {
           "description": "Basis-Absicherung is een snelle instap met een gereduceerd Bausteine-subset. Aanvaardbaar wanneer Schutzbedarf normal is op alle Grundwerte en implementatie-hints mild blijven."
         },
         "standard": {
-          "description": "Standard-Absicherung implementeert alle Bausteine op volle diepte. BSI's aanbevolen keuze voor de meeste Mittelstand-assets — en de enige Vorgehensweise die ISO-27001-certificering op basis van IT-Grundschutz ondersteunt."
+          "description": "Standard-Absicherung implementeert alle Bausteine op volle diepte. BSI's aanbevolen keuze voor de meeste Mittelstand-assets. En de enige Vorgehensweise die ISO-27001-certificering op basis van IT-Grundschutz ondersteunt."
         },
         "kern": {
-          "description": "Kern-Absicherung concentreert volle Standaard-diepte op dit asset als Kronjuwel. De Kern-Vorgehensweise prioriteert ISMS-inspanning op de meest kritische assets eerst — typisch voor assets met sehr hoch Schutzbedarf."
+          "description": "Kern-Absicherung concentreert volle Standaard-diepte op dit asset als Kronjuwel. De Kern-Vorgehensweise prioriteert ISMS-inspanning op de meest kritische assets eerst. Typisch voor assets met sehr hoch Schutzbedarf."
         }
       },
       "bumpedTitle": "Verhoging van Basis naar Standaard door implementatie-hints",
       "bumpedBody": "Uw Gesamt-Schutzbedarf is normal. Maar één of meer implementatie-hints (Schwachstellen / Eintrittswahrscheinlichkeit, BSI-200-3-gebied) zijn zo zwaar dat de gereduceerde Bausteine-subset van Basis-Absicherung naar verwachting niet volstaat. De volgende hints triggerden de verhoging:",
       "risikoanalyseTitle": "BSI-200-3 risicoanalyse vereist",
-      "risikoanalyseBody": "Zodra ten minste één Grundwert hoch of sehr hoch bereikt, is een aanvullende risicoanalyse volgens BSI-200-3 verplicht voor dit asset (BSI-200-2 §8.5). Dit tool voert die analyse niet uit — het toont alleen aan dat deze vereist is. Standard-Absicherung plus scenario-gebaseerde risicoanalyse is het gedocumenteerde pad."
+      "risikoanalyseBody": "Zodra ten minste één Grundwert hoch of sehr hoch bereikt, is een aanvullende risicoanalyse volgens BSI-200-3 verplicht voor dit asset (BSI-200-2 §8.5). Dit tool voert die analyse niet uit. Het toont alleen aan dat deze vereist is. Standard-Absicherung plus scenario-gebaseerde risicoanalyse is het gedocumenteerde pad."
     },
     "axes": {
       "personalData": {
@@ -122,23 +122,23 @@
         }
       },
       "integrity": {
-        "question": "Hoe erg zou het zijn als gegevens in dit systeem vervalst werden — verkeerde facturen, gemanipuleerde records, gewijzigde transacties?",
+        "question": "Als gegevens in dit systeem vervalst werden (verkeerde facturen, gemanipuleerde records, gewijzigde transacties), hoe erg zou dat zijn?",
         "shortLabel": "Integriteit",
         "options": {
           "minor": {
-            "label": "Eigenlijk niet erg — kleine fouten zouden opvallen en eenvoudig te herstellen zijn",
+            "label": "Eigenlijk niet erg. Kleine fouten zouden opvallen en eenvoudig te herstellen zijn",
             "why": "Integrität-Schutzbedarf normal. Standaard backups en eenvoudige audit-logs voldoende."
           },
           "moderate": {
-            "label": "Wat werk — verkeerde gegevens zouden operationele verwarring veroorzaken of correctietijd kosten",
+            "label": "Wat werk. Verkeerde gegevens zouden operationele verwarring veroorzaken of correctietijd kosten",
             "why": "Integrität-Schutzbedarf normal. Standaard backups, audit-logs en regelmatige afstemming voldoende."
           },
           "high": {
-            "label": "Aanzienlijk — verkeerde gegevens zouden financieel verlies, regulatoire problemen of klantschade kunnen veroorzaken",
+            "label": "Aanzienlijk. Verkeerde gegevens zouden financieel verlies, regulatoire problemen of klantschade kunnen veroorzaken",
             "why": "Integrität-Schutzbedarf hoch. Manipulatiebescherming, uitgebreide wijzigingslogs en review-workflows vereist. BSI-200-3 risicoanalyse vereist."
           },
           "critical": {
-            "label": "Kritisch — verkeerde gegevens zouden grote financiële schade, juridische aansprakelijkheid of veiligheidsrisico's veroorzaken",
+            "label": "Kritisch. Verkeerde gegevens zouden grote financiële schade, juridische aansprakelijkheid of veiligheidsrisico's veroorzaken",
             "why": "Integrität-Schutzbedarf sehr hoch. Sterke manipulatiebescherming (signaturen, hashes), vier-ogen-principe, onweerlegbaarheid. BSI-200-3 risicoanalyse vereist. Kern-Absicherung-kandidaat."
           }
         }
@@ -205,7 +205,7 @@
           },
           "internetExposed": {
             "label": "Direct bereikbaar vanaf het internet",
-            "why": "Implementatie-hint: zwaar. Publiek aanvalsoppervlak verhoogt de dreigingsexpositie (BSI-200-3 Gefährdungslage), zodat de gereduceerde Bausteine-subset van Basis-Absicherung waarschijnlijk niet volstaat — zelfs bij normal Schutzbedarf. Verhoogt de aanbeveling van Basis naar Standard."
+            "why": "Implementatie-hint: zwaar. Publiek aanvalsoppervlak verhoogt de dreigingsexpositie (BSI-200-3 Gefährdungslage), zodat de gereduceerde Bausteine-subset van Basis-Absicherung waarschijnlijk niet volstaat. Zelfs bij normal Schutzbedarf. Verhoogt de aanbeveling van Basis naar Standard."
           }
         }
       },
@@ -249,7 +249,7 @@
           },
           "repeated": {
             "label": "Meerdere of terugkerende incidenten",
-            "why": "Implementatie-hint: zwaar. Hoge Eintrittswahrscheinlichkeit wijst op structurele zwakheden — gereduceerde Bausteine van Basis-Absicherung ontoereikend. Verhoogt de aanbeveling van Basis naar Standard."
+            "why": "Implementatie-hint: zwaar. Hoge Eintrittswahrscheinlichkeit wijst op structurele zwakheden. Gereduceerde Bausteine van Basis-Absicherung ontoereikend. Verhoogt de aanbeveling van Basis naar Standard."
           }
         }
       },
