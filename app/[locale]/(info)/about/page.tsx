@@ -14,6 +14,47 @@ import {
 } from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
 import { Globe } from "lucide-react";
+import { PitchDeckViewer } from "@/components/pitch/PitchDeckViewer";
+import { db } from "@/lib/db";
+import { trainingLessonProgress } from "@nisd2/isms-schema/tables/training-progress";
+import { user } from "@nisd2/isms-schema/tables/organization";
+import { eq, countDistinct, count, and, sql } from "drizzle-orm";
+
+/**
+ * Live platform stats for the pitch deck. Falls back to a sane baseline if
+ * the DB is unreachable (e.g. local dev without postgres). Same query shape
+ * the dedicated /pitch page used before the consolidation; the route now
+ * redirects here.
+ */
+async function getPitchStats() {
+  try {
+    const [usersResult, startsResult, completionsResult] = await Promise.all([
+      db.select({ count: count(user.id) }).from(user),
+      db
+        .select({ count: countDistinct(trainingLessonProgress.userId) })
+        .from(trainingLessonProgress)
+        .where(eq(trainingLessonProgress.courseId, "nis2-ceo")),
+      db
+        .select({ userId: trainingLessonProgress.userId })
+        .from(trainingLessonProgress)
+        .where(
+          and(
+            eq(trainingLessonProgress.courseId, "nis2-ceo"),
+            eq(trainingLessonProgress.completed, true),
+          ),
+        )
+        .groupBy(trainingLessonProgress.userId)
+        .having(sql`count(*) >= 47`),
+    ]);
+    return {
+      users: usersResult[0]?.count ?? 0,
+      courseStarts: startsResult[0]?.count ?? 0,
+      courseCompletions: completionsResult.length,
+    };
+  } catch {
+    return { users: 158, courseStarts: 76, courseCompletions: 0 };
+  }
+}
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -78,7 +119,9 @@ export default async function TeamPage({
 }) {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  const pitchLocale: "en" | "de" = locale === "en" ? "en" : "de";
   const t = await getTranslations("info");
+  const stats = await getPitchStats();
 
   return (
     <div className="space-y-10">
@@ -101,6 +144,13 @@ export default async function TeamPage({
           {t("teamPage.subtitle")}
         </p>
       </header>
+
+      <Separator />
+
+      {/* Pitch deck — full business overview. Migrated here from /pitch. */}
+      <section className="space-y-3">
+        <PitchDeckViewer locale={pitchLocale} stats={stats} />
+      </section>
 
       <Separator />
 
@@ -210,14 +260,38 @@ export default async function TeamPage({
         </p>
       </section>
 
+      <Separator />
+
+      {/* Mission — slim version of the old /mission page. Three paragraphs:
+          the problem, the cut, the model. The full breakdown / savings /
+          tactics cards were dropped: they belong in the business plan, not
+          a public about page. */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">
+          {t("mission.badge")}
+        </h2>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {t("mission.subtitle")}
+        </p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {t("mission.problem.p1")}
+        </p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {t("mission.plan.p1")}
+        </p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          <span className="font-medium text-foreground">
+            {t("mission.paid.heading")}.
+          </span>{" "}
+          {t("mission.paid.p1")}
+        </p>
+      </section>
+
       {/* CTA */}
       <Card>
         <CardContent className="pt-6 flex flex-col gap-3 sm:flex-row">
           <Button asChild>
-            <Link href="/mission">{t("teamPage.ctaMission")}</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/auth/signin">{t("teamPage.ctaPlatform")}</Link>
+            <Link href="/applicability">{t("teamPage.ctaPlatform")}</Link>
           </Button>
         </CardContent>
       </Card>

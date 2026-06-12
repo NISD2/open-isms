@@ -102,11 +102,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...multilingualEntries("/pricing", { priority: 0.9 }),
     ...multilingualEntries("/training/nis2-ceo", { priority: 0.9 }),
 
-    // Mission + about + open-source
-    ...multilingualEntries("/mission", { priority: 0.5 }),
+    // About + open-source. /pitch and /mission are 308-redirects to /about,
+    // so excluded from the sitemap to avoid Google indexing chains.
     ...multilingualEntries("/about", { priority: 0.5 }),
     ...multilingualEntries("/open-source", { priority: 0.5 }),
-    ...multilingualEntries("/pitch", { priority: 0.5 }),
 
     // Trust Center
     ...multilingualEntries("/vertrauen", { priority: 0.6 }),
