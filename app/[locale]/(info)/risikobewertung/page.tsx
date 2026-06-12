@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { BookOpen } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
 import { RiskAssessmentShell } from "@/components/risk-assessment/RiskAssessmentShell";
 import { scoreMatrix } from "@/lib/risk-assessment/scoring";
@@ -81,23 +83,40 @@ export default async function RiskAssessmentPage() {
   const exampleResult = scoreMatrix({ ...EXAMPLE_ANSWERS });
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       <JsonLd />
 
-      <MarketingHero
-        eyebrow={t("hero.eyebrow")}
-        headline={t.rich("hero.headline", {
-          u: (chunks) => <Underline>{chunks}</Underline>,
-        })}
-        accent={t.rich("hero.headlineAccent", {
-          u: (chunks) => <Underline>{chunks}</Underline>,
-        })}
-        subhead={t("hero.subhead")}
-      />
+      <div className="space-y-3">
+        <MarketingHero
+          eyebrow={t("hero.eyebrow")}
+          headline={t.rich("hero.headline", {
+            u: (chunks) => <Underline>{chunks}</Underline>,
+          })}
+          accent={t.rich("hero.headlineAccent", {
+            u: (chunks) => <Underline>{chunks}</Underline>,
+          })}
+          subhead={t("hero.subhead")}
+        />
 
-      <p className="text-xs text-muted-foreground italic max-w-2xl">
-        {t("intro.trustLine")}
-      </p>
+        <p className="text-xs text-muted-foreground italic max-w-2xl">
+          {t("intro.trustLine")}
+        </p>
+      </div>
+
+      <Link
+        href="/training/nis2-ceo"
+        className="group block rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 transition-colors hover:bg-primary/10 max-w-2xl"
+      >
+        <div className="flex items-center gap-3 text-sm">
+          <BookOpen className="h-4 w-4 flex-none text-primary" />
+          <p className="text-foreground">
+            {t("intro.inventoryHint")}{" "}
+            <span className="font-medium text-primary underline-offset-4 group-hover:underline">
+              {t("intro.courseLinkLabel")} →
+            </span>
+          </p>
+        </div>
+      </Link>
 
       <RiskAssessmentShell exampleResult={exampleResult} />
     </div>

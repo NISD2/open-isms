@@ -9,6 +9,12 @@ import {
 import type { MatrixResult } from "@/lib/risk-assessment/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface ResultPanelProps {
   result: MatrixResult;
@@ -24,22 +30,58 @@ export function ResultPanel({ result }: ResultPanelProps) {
   const finalTier = result.finalTier;
   const bausteine = bausteineForTier(finalTier);
 
-  const hardStopNotes: string[] = [];
+  const firedHardStops: string[] = [];
   result.axisScores.forEach((axisScore) => {
     const axis = AXES.find((a) => a.id === axisScore.axisId);
     if (axis?.hardStop && axisScore.score === axis.hardStop.triggerScore) {
-      hardStopNotes.push(t(`hardStops.${axis.hardStop.noteKey}`));
+      firedHardStops.push(axis.hardStop.noteKey);
     }
   });
 
   return (
     <div className="space-y-8">
-      {hardStopNotes.length > 0 && (
+      {firedHardStops.length > 0 && (
         <Card className="border-amber-500/30 bg-amber-500/5">
-          <CardContent className="pt-6 space-y-2 text-sm text-amber-700 dark:text-amber-300">
-            {hardStopNotes.map((note) => (
-              <p key={note}>{note}</p>
-            ))}
+          <CardHeader>
+            <CardTitle className="text-base text-amber-800 dark:text-amber-200">
+              {t("hardStops.heading")}
+            </CardTitle>
+            <p className="text-sm text-amber-700/90 dark:text-amber-300/90">
+              {t("hardStops.intro")}
+            </p>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="multiple" className="w-full">
+              {firedHardStops.map((key) => (
+                <AccordionItem key={key} value={key} className="border-amber-500/20">
+                  <AccordionTrigger className="text-sm text-left text-amber-800 dark:text-amber-200 hover:no-underline">
+                    {t(`hardStops.items.${key}.note`)}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-4 text-sm pt-2">
+                      <section>
+                        <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                          {t("hardStops.whatLabel")}
+                        </div>
+                        <p>{t(`hardStops.items.${key}.what`)}</p>
+                      </section>
+                      <section>
+                        <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                          {t("hardStops.legalLabel")}
+                        </div>
+                        <p>{t(`hardStops.items.${key}.legal`)}</p>
+                      </section>
+                      <section>
+                        <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                          {t("hardStops.todoLabel")}
+                        </div>
+                        <p>{t(`hardStops.items.${key}.todo`)}</p>
+                      </section>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </CardContent>
         </Card>
       )}

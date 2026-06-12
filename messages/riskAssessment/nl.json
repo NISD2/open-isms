@@ -13,7 +13,9 @@
       "subhead": "Zeven vragen per systeem. Risiconiveau en audit-vaste onderbouwing volgens BSI Grundschutz 200-2."
     },
     "intro": {
-      "trustLine": "BSI-200-2 maximum principle. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. No signup, the result stays with you."
+      "trustLine": "BSI-200-2 maximum principle. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. No signup, the result stays with you.",
+      "inventoryHint": "Zodra uw inventaris uit Les 2.2 van onze CEO-cursus klaar is, kost elk asset minder dan een minuut.",
+      "courseLinkLabel": "Naar de CEO-cursus"
     },
     "actions": {
       "exportPdf": "Opslaan als PDF",
@@ -225,9 +227,31 @@
       }
     },
     "hardStops": {
-      "internetExposed": "Hard-stop geactiveerd: internetbereikbaarheid dwingt minimaal risiconiveau Standaard in het Security-domein.",
-      "downtimeMinutes": "Hard-stop geactiveerd: minuten-uitval drempel dwingt minimaal risiconiveau Standaard in het Operational-domein.",
-      "sensitivePii": "Hard-stop geactiveerd: gevoelige gegevens (art. 9 AVG of gereguleerde operationele gegevens) dwingen risiconiveau Kern in het Compliance-domein."
+      "heading": "Hard-stops geactiveerd",
+      "intro": "Sommige antwoorden zijn zo impactvol dat één alleen het risiconiveau verhoogt — onafhankelijk van de andere zes assen. Dit is BSI's Maximum-Prinzip: het voorkomt onderclassificatie. Klik een item open voor de juridische basis en de volgende stappen.",
+      "whatLabel": "Wat dit betekent",
+      "legalLabel": "Juridische basis",
+      "todoLabel": "Wat te doen",
+      "items": {
+        "internetExposed": {
+          "note": "Internetbereikbaarheid dwingt minimaal risiconiveau Standaard in het Security-domein.",
+          "what": "Een vanaf het internet bereikbaar systeem kan niet als Basis worden geclassificeerd. Dreigingsmodel: geautomatiseerd scannen, massa-uitbuiting van kwetsbaarheden en gerichte aanvallen op het publieke aanvalsoppervlak — ook kleine systemen worden dagelijks duizendmaal gescand.",
+          "legal": "NIS2 Art 21(2)(e) (kwetsbaarhedenbeheer) en Art 21(2)(h) (cryptografie) maken patching en TLS niet-onderhandelbaar. BSIG §30(2) Nr. 5 en Nr. 8 zetten dit om. BSI Grundschutz NET.1.1 (netwerkarchitectuur), NET.3.2 (firewall) en OPS.1.1.5 (logging) zijn dragend en gelden op Standaard-niveau.",
+          "todo": "Standaard-beveiliging implementeren: firewall (hardware of cloud), netwerksegmentatie, gecentraliseerde logging, maandelijkse patchcyclus, TLS 1.2+ voor extern verkeer. Firewallregels, patch-SLA en monitoringaanpak documenteren. De directie moet goedkeuren; §38 BSIG maakt hen aansprakelijk."
+        },
+        "downtimeMinutes": {
+          "note": "Minuten-uitval drempel dwingt minimaal risiconiveau Standaard in het Operational-domein.",
+          "what": "Een systeem waarvan het verlies de bedrijfsvoering binnen minuten stopzet, kan niet als Basis worden geclassificeerd. Dreigingsmodel: operationele verstoring — ransomware, stroomuitval, netwerkuitval — die de continuïteitsverplichtingen onder Art 21(2)(c) schendt.",
+          "legal": "NIS2 Art 21(2)(c) noemt expliciet 'bedrijfscontinuïteit, zoals back-upbeheer en disaster recovery, en crisisbeheer' — back-up en DR zijn expliciete plichten, niet optioneel. BSIG §30(2) Nr. 3 zet om. BSI Grundschutz CON.3 (back-upconcept) en DER.4 (noodmanagement) gelden op Standaard-niveau. Ongetest failover is de meest voorkomende auditbevinding.",
+          "todo": "Redundantie of automatisch failover implementeren. RTO (Recovery Time Objective) en RPO (Recovery Point Objective) definiëren, ten minste jaarlijks testen, resultaten documenteren. Noodplan en testrapport opnemen in de directiegoedkeuring."
+        },
+        "sensitivePii": {
+          "note": "Gevoelige gegevens (art. 9 AVG of gereguleerde operationele gegevens) dwingen risiconiveau Kern in het Compliance-domein.",
+          "what": "Bijzondere persoonsgegevens (art. 9 AVG) of gereguleerde operationele gegevens (OT, KRITIS) dwingen Kern-niveau af. De gegevensklasse alleen drijft de verhoogde beschermingsplicht, onafhankelijk van de andere zes assen.",
+          "legal": "AVG art. 9 stelt de verhoogde beschermingsplicht voor gezondheids-, religie-, biometrische en vergelijkbare gegevens. AVG art. 35 maakt een DPIA verplicht bij hoog risico — art.-9-gegevens triggeren dit bijna altijd. NIS2 Art 21(2)(h) (cryptografie) wordt dragend. BSIG §30(2) Nr. 8 zet om. Cruciaal: Kern-niveau onder BSI-200-2 §8.2 vereist BSI-200-3 risicoanalyse — een aparte, scenario-gebaseerde risicoanalyse bovenop deze beoordeling.",
+          "todo": "BSI-200-3 risicoanalyse voor dit systeem uitvoeren. AVG art. 35 DPIA uitvoeren bij art.-9-gegevens. Versleuteling at-rest en in-transit implementeren. Uitgebreide TOMs (art. 32 AVG) documenteren. FG (functionaris gegevensbescherming) betrekken, directie laten goedkeuren."
+        }
+      }
     },
     "result": {
       "heading": "Resultaat risicobeoordeling",
