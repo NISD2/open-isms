@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { ExamplePreview } from "@/components/risk-assessment/ExamplePreview";
-import { RiskAssessmentTool } from "@/components/risk-assessment/RiskAssessmentTool";
+import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
+import { RiskAssessmentShell } from "@/components/risk-assessment/RiskAssessmentShell";
 import { scoreMatrix } from "@/lib/risk-assessment/scoring";
 import { pageAlternates } from "@/lib/seo";
 
-// Example answers shown above the form so visitors see the output shape
-// before they start. Picked to land on Standard with visible spread on the
-// radar (internet exposure + customer data trigger the security-domain
-// hard-stop and the compliance lift; everything else stays moderate).
+// Canned example used both for SEO crawlers (the radar card renders something
+// useful before any JS runs) and as the "before you start" preview. Picked
+// to land on Standard with visible spread on the radar.
 const EXAMPLE_ANSWERS = {
   internetExposure: "internetExposed",
   userCount: "large",
@@ -80,22 +79,25 @@ export default async function RiskAssessmentPage() {
   const exampleResult = scoreMatrix({ ...EXAMPLE_ANSWERS });
 
   return (
-    <>
+    <div className="space-y-10">
       <JsonLd />
 
-      <header className="mb-6 space-y-2 max-w-2xl">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          {t("page.title")}
-        </h1>
-        <p className="text-sm text-muted-foreground">{t("page.subtitle")}</p>
-        <p className="text-xs text-muted-foreground italic">
-          {t("intro.trustLine")}
-        </p>
-      </header>
+      <MarketingHero
+        eyebrow={t("hero.eyebrow")}
+        headline={t.rich("hero.headline", {
+          u: (chunks) => <Underline>{chunks}</Underline>,
+        })}
+        accent={t.rich("hero.headlineAccent", {
+          u: (chunks) => <Underline>{chunks}</Underline>,
+        })}
+        subhead={t("hero.subhead")}
+      />
 
-      <ExamplePreview result={exampleResult} />
+      <p className="text-xs text-muted-foreground italic max-w-2xl">
+        {t("intro.trustLine")}
+      </p>
 
-      <RiskAssessmentTool />
-    </>
+      <RiskAssessmentShell exampleResult={exampleResult} />
+    </div>
   );
 }

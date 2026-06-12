@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,13 +25,18 @@ import { hasAllAnswers, scoreMatrix } from "@/lib/risk-assessment/scoring";
 import { domainStyle } from "@/lib/risk-assessment/styles";
 import type { Answers, MatrixResult } from "@/lib/risk-assessment/types";
 import { cn } from "@/lib/utils";
-import { ResultPanel } from "./ResultPanel";
 
-export function RiskAssessmentTool() {
+interface RiskAssessmentToolProps {
+  /** Fired when the user has answered all axes and clicked "show result".
+   *  The parent shell owns the result state so the top ResultCard can
+   *  update in place — this component only collects answers. */
+  onComplete: (result: MatrixResult) => void;
+}
+
+export function RiskAssessmentTool({ onComplete }: RiskAssessmentToolProps) {
   const t = useTranslations("riskAssessment");
   const [answers, setAnswers] = useState<Answers>({});
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [result, setResult] = useState<MatrixResult | null>(null);
 
   const totalQuestions = AXES.length;
   const currentAxis = AXES[currentIndex];
@@ -63,31 +68,8 @@ export function RiskAssessmentTool() {
 
   function showResult() {
     if (allAnswered) {
-      setResult(scoreMatrix(answers));
+      onComplete(scoreMatrix(answers));
     }
-  }
-
-  function restart() {
-    setAnswers({});
-    setCurrentIndex(0);
-    setResult(null);
-  }
-
-  if (result) {
-    return (
-      <div className="space-y-6">
-        <div className="flex flex-wrap gap-2 justify-between items-center">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            {t("result.heading")}
-          </h2>
-          <Button variant="outline" size="sm" onClick={restart}>
-            <RotateCcw className="w-4 h-4 mr-2" />
-            {t("steps.restart")}
-          </Button>
-        </div>
-        <ResultPanel result={result} />
-      </div>
-    );
   }
 
   if (!currentAxis) return null;

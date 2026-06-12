@@ -6,8 +6,18 @@
       "metaTitle": "NIS2 Risk Assessment - free, no signup",
       "metaDescription": "Score your IT systems per BSI Grundschutz 200-2 in under 5 minutes. Three domains (Security, Operational, Compliance) with the maximum principle. Audit-defensible justification per axis."
     },
+    "hero": {
+      "eyebrow": "Free, open source, no signup",
+      "headline": "NIS2 Risk Assessment",
+      "headlineAccent": "in under 5 minutes",
+      "subhead": "Seven questions per system. Risk level and audit-defensible justification per BSI Grundschutz 200-2."
+    },
     "intro": {
       "trustLine": "BSI-200-2 maximum principle. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. No signup, the result stays with you."
+    },
+    "actions": {
+      "exportPdf": "Save as PDF",
+      "exportPdfDisabled": "Complete the assessment to enable PDF export"
     },
     "example": {
       "label": "Example result",
@@ -233,6 +243,7 @@
       "bausteineSubtitle": "Indicative list of fitting Bausteine from the IT-Grundschutz catalogue. Final selection happens during modelling per BSI-200-2 §8.3.",
       "measuresHeading": "Measures per Art 21(2) NIS2",
       "measuresSubtitle": "Art 21(2) NIS2 lists ten measures every entity in scope must implement ('shall include at least the following'). Implementation depth follows your risk level: Basic requires minimal evidence, Standard the full Grundschutz depth, Core an additional risk-specific deepening per BSI-200-3.",
+      "cirNote": "For the 11 entity types in scope of CIR 2024/2690 (cloud computing services, data centres, MSPs and MSSPs, DNS providers, TLD registries, content delivery networks, online marketplaces, search engines, social networks, trust service providers), the Annex sets out detailed implementing rules. Other entities apply BSI Grundschutz as the recognised methodology.",
       "signoffHeading": "Management body sign-off",
       "signoffBody": "This risk assessment is binding only with management body sign-off (§38 BSIG, Art 20 NIS2). Enter name, date and signature on the printed document.",
       "visualizationHeading": "Visualization"
@@ -246,16 +257,46 @@
       "body": "This risk assessment is an informational classification based on your inputs. It is not legal advice under the German RDG. The assessment becomes binding only with management body sign-off per §38 BSIG and Art 20 NIS2. The methodology follows BSI Grundschutz 200-2 §8.2 (Schutzbedarfsfeststellung) and the maximum principle; the provider does not warrant regulatory acceptance in any specific case."
     },
     "art21Measures": {
-      "a": "Art 21(2)(a) Risk analysis policy",
-      "b": "Art 21(2)(b) Incident handling",
-      "c": "Art 21(2)(c) Business continuity and crisis management",
-      "d": "Art 21(2)(d) Supply chain security",
-      "e": "Art 21(2)(e) Security in acquisition, development and maintenance",
-      "f": "Art 21(2)(f) Effectiveness assessment",
-      "g": "Art 21(2)(g) Cyber hygiene and training",
-      "h": "Art 21(2)(h) Cryptography and encryption",
-      "i": "Art 21(2)(i) HR security, access control and asset management",
-      "j": "Art 21(2)(j) Multi-factor authentication and secured communication"
+      "a": {
+        "label": "Risk analysis and information system security policies",
+        "refs": "Art 21(2)(a) NIS2 · BSIG §30(2) Nr. 1"
+      },
+      "b": {
+        "label": "Incident handling",
+        "refs": "Art 21(2)(b) NIS2 · BSIG §30(2) Nr. 2"
+      },
+      "c": {
+        "label": "Business continuity (backup, disaster recovery) and crisis management",
+        "refs": "Art 21(2)(c) NIS2 · BSIG §30(2) Nr. 3"
+      },
+      "d": {
+        "label": "Supply chain security (supplier and service-provider relationships)",
+        "refs": "Art 21(2)(d) NIS2 · BSIG §30(2) Nr. 4"
+      },
+      "e": {
+        "label": "Security in acquisition, development and maintenance including vulnerability handling and disclosure",
+        "refs": "Art 21(2)(e) NIS2 · BSIG §30(2) Nr. 5"
+      },
+      "f": {
+        "label": "Policies and procedures to assess the effectiveness of risk-management measures",
+        "refs": "Art 21(2)(f) NIS2 · BSIG §30(2) Nr. 6"
+      },
+      "g": {
+        "label": "Basic cyber hygiene practices and cybersecurity training",
+        "refs": "Art 21(2)(g) NIS2 · BSIG §30(2) Nr. 7"
+      },
+      "h": {
+        "label": "Policies and procedures on the use of cryptography and, where appropriate, encryption",
+        "refs": "Art 21(2)(h) NIS2 · BSIG §30(2) Nr. 8"
+      },
+      "i": {
+        "label": "Human resources security, access control policies and asset management",
+        "refs": "Art 21(2)(i) NIS2 · BSIG §30(2) Nr. 9"
+      },
+      "j": {
+        "label": "Multi-factor or continuous authentication, secured voice/video/text and secured emergency communications",
+        "refs": "Art 21(2)(j) NIS2 · BSIG §30(2) Nr. 10"
+      }
     }
   }
 }
