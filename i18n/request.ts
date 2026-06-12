@@ -37,6 +37,7 @@ const namespaces = [
   "portal",
   "requirements",
   "review",
+  "riskAssessment",
   "risks",
   "settings",
   "sicherheitsfragebogen",

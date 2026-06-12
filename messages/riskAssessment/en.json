@@ -1,0 +1,249 @@
+{
+  "page": {
+    "title": "NIS2 Risk Assessment",
+    "subtitle": "Assess a system in seven questions. The result is a protection-level tier per BSI Grundschutz 200-2 and a defensible risk justification for Art 21(2)(a) NIS2.",
+    "metaTitle": "NIS2 Risk Assessment - free, no signup",
+    "metaDescription": "Score your IT systems per BSI Grundschutz 200-2 in under 5 minutes. Three domains (Security, Operational, Compliance) with the maximum principle. Audit-defensible justification per axis."
+  },
+  "intro": {
+    "heading": "What happens here",
+    "body": "You answer seven questions about a system in your company. The platform computes the protection tier (Basis, Standard or Kern) per BSI-200-2 §8.2 and produces a justification that holds up in a BSI audit. No signup, no consultancy upsell, the result stays with you.",
+    "trustLine": "Method: BSI-200-2 maximum principle. Legal basis: NIS2 Art 21(1) + Art 21(2)(a), BSIG §30."
+  },
+  "steps": {
+    "questionLabel": "Question {current} of {total}",
+    "next": "Next",
+    "back": "Back",
+    "showResult": "Show result",
+    "restart": "Restart",
+    "downloadPdf": "Download as PDF"
+  },
+  "domains": {
+    "security": {
+      "label": "Cyber attack surface",
+      "shortLabel": "Security",
+      "description": "How exposed is the system to attack?"
+    },
+    "operational": {
+      "label": "Operational dependency",
+      "shortLabel": "Operational",
+      "description": "How critical is the system to ongoing operations?"
+    },
+    "compliance": {
+      "label": "Data protection and regulation",
+      "shortLabel": "Compliance",
+      "description": "What personal data is involved?"
+    }
+  },
+  "tiers": {
+    "basis": {
+      "label": "Basis-Absicherung",
+      "shortLabel": "Basis",
+      "description": "Risk acceptance with management sign-off allowed. Basic measures sufficient."
+    },
+    "standard": {
+      "label": "Standard-Absicherung",
+      "shortLabel": "Standard",
+      "description": "Standard Grundschutz Bausteine apply. Full implementation required."
+    },
+    "kern": {
+      "label": "Kern-Absicherung",
+      "shortLabel": "Kern",
+      "description": "Elevated protection class. BSI-200-3 risk analysis required, external support recommended."
+    }
+  },
+  "axes": {
+    "internetExposure": {
+      "question": "How is the system connected to the internet?",
+      "shortLabel": "Internet",
+      "options": {
+        "offline": {
+          "label": "Fully offline, no network connection",
+          "why": "The system has no network connection. External attack vectors are eliminated. Internal and physical threats remain relevant."
+        },
+        "internalOnly": {
+          "label": "Internal network only, no internet access",
+          "why": "The system is reachable only on the internal network. External attack surface minimal, internal threats (compromised endpoints, insiders) remain relevant. Grundschutz NET.1.1 applies."
+        },
+        "vpn": {
+          "label": "Reachable only via VPN",
+          "why": "The system is reachable only via VPN. Authentication security of remote access is critical. Grundschutz NET.3.3 (VPN) and ORP.4 (identity management) apply. NIS2 Art 21(2)(j) (multi-factor authentication) proportionate."
+        },
+        "internetExposed": {
+          "label": "Directly reachable from the internet",
+          "why": "The system is directly reachable from the internet. High attack surface from mass and targeted attacks. Grundschutz NET.1.1, NET.3.2 (firewall) and OPS.1.1.5 (logging) apply. NIS2 Art 21(2)(e) (vulnerability handling) and Art 21(2)(h) (cryptography) proportionate."
+        }
+      }
+    },
+    "userCount": {
+      "question": "How many people actively use the system?",
+      "shortLabel": "Users",
+      "options": {
+        "tiny": {
+          "label": "1 to 10 employees",
+          "why": "The system has a small user base. Access controls are operationally manageable. Grundschutz ORP.4 applies."
+        },
+        "small": {
+          "label": "10 to 100 employees",
+          "why": "The system has a mid-sized user base. Structured role management becomes necessary. Grundschutz ORP.4 applies."
+        },
+        "large": {
+          "label": "More than 100 employees",
+          "why": "The system has a large user base. Role models and regular access reviews become necessary. Grundschutz ORP.4 applies. NIS2 Art 21(2)(i) (access control policies) proportionate."
+        },
+        "externalToo": {
+          "label": "External people too (customers, suppliers, partners)",
+          "why": "The system is also used by external people. Identity verification and separation of internal/external permissions critical. NIS2 Art 21(2)(d) (supply chain security) and Art 21(2)(j) (multi-factor authentication) proportionate."
+        }
+      }
+    },
+    "vendorSupport": {
+      "question": "What is the vendor support status?",
+      "shortLabel": "Vendor",
+      "options": {
+        "active": {
+          "label": "Current, actively maintained version",
+          "why": "Vendor active in the market, patches released promptly. Standard patch management sufficient. Grundschutz OPS.1.1.3 applies."
+        },
+        "mature": {
+          "label": "Current but infrequently updated version",
+          "why": "Vendor established, patches less frequent. Higher self-responsibility for monitoring. Grundschutz OPS.1.1.3 applies."
+        },
+        "eolAnnounced": {
+          "label": "Vendor has announced end of support",
+          "why": "Vendor has announced end of support. Migration or compensating controls required. NIS2 Art 21(2)(e) (vulnerability handling) proportionate."
+        },
+        "abandoned": {
+          "label": "Vendor gone or in-house build without maintenance",
+          "why": "System without active support. High residual risks from unpatched vulnerabilities. Migration or replacement controls urgent."
+        }
+      }
+    },
+    "incidentHistory": {
+      "question": "Any security incidents in the last 3 years with this system?",
+      "shortLabel": "Incidents",
+      "options": {
+        "none": {
+          "label": "No known incidents",
+          "why": "No known incidents. Note: absence of incidents may also mean lack of detection. NIS2 Art 21(2)(f) (effectiveness assessment) recommended to substantiate the claim."
+        },
+        "minor": {
+          "label": "One minor incident (e.g. spam, brief outage)",
+          "why": "One minor incident in the last 3 years. Lessons learned to be documented. NIS2 Art 21(2)(b) (incident handling) applies."
+        },
+        "major": {
+          "label": "One major incident (data loss, extended outage, regulatory notification)",
+          "why": "One major incident with notification obligation or data loss. Heightened attention to recurrence risks. Grundschutz DER.2.1 applies."
+        },
+        "repeated": {
+          "label": "Multiple or recurring incidents",
+          "why": "Multiple or recurring incidents. Structural weaknesses likely. Full risk reassessment and compensating controls required."
+        }
+      }
+    },
+    "downtimeTolerance": {
+      "question": "How long can operations continue without this system?",
+      "shortLabel": "Downtime",
+      "options": {
+        "weeks": {
+          "label": "Weeks, no operational issue",
+          "why": "Operations can continue without the system for weeks. Low availability need. Standard backups sufficient."
+        },
+        "days": {
+          "label": "Days, with workarounds",
+          "why": "Operations tolerate days of outage. Medium availability need. Grundschutz CON.3 (data backup) applies."
+        },
+        "hours": {
+          "label": "Hours, with noticeable restrictions",
+          "why": "Hours of outage cause noticeable restrictions. Higher availability need. Grundschutz CON.3, OPS.1.2.5 (backup-restore) and emergency planning apply."
+        },
+        "minutes": {
+          "label": "Minutes, operations stop immediately",
+          "why": "Minutes of outage halt operations. Very high availability need. Redundancy, automatic failover and tested emergency plans required. NIS2 Art 21(2)(c) (business continuity) is load-bearing."
+        }
+      }
+    },
+    "replaceability": {
+      "question": "How quickly could you replace the system if it failed?",
+      "shortLabel": "Replace",
+      "options": {
+        "oneDay": {
+          "label": "Within a day",
+          "why": "System quickly replaceable. Low residual risk on failure."
+        },
+        "oneWeek": {
+          "label": "Within a week",
+          "why": "Replacement possible within a week. Have workarounds ready for the transition."
+        },
+        "oneMonth": {
+          "label": "Within a month",
+          "why": "Replacement takes up to a month. Emergency planning for the transition period required. Grundschutz DER.4 (emergency management) applies."
+        },
+        "irreplaceable": {
+          "label": "Not at all, or only as custom build",
+          "why": "System not or only custom-replaceable. Load-bearing operational risk. Emergency planning and protective measures central. NIS2 Art 21(2)(c) (business continuity) is load-bearing."
+        }
+      }
+    },
+    "personalData": {
+      "question": "What personal data does the system process?",
+      "shortLabel": "Data",
+      "options": {
+        "none": {
+          "label": "No personal data",
+          "why": "No personal data. GDPR does not apply to this system."
+        },
+        "employeeOnly": {
+          "label": "Employee data only",
+          "why": "Employee data only. GDPR applies. Standard TOMs per Art 32 GDPR applicable."
+        },
+        "customer": {
+          "label": "General customer data (name, address, contract data)",
+          "why": "General customer data. GDPR applies. Standard TOMs and data processing agreements with external processors required."
+        },
+        "sensitivePii": {
+          "label": "Special personal data per Art 9 GDPR (health, finance, religion)",
+          "why": "Special personal data per Art 9 GDPR. Elevated protection duty. Data protection impact assessment mandatory. Extended technical and organisational measures required."
+        }
+      }
+    }
+  },
+  "hardStops": {
+    "internetExposed": "Hard-stop triggered: internet exposure forces minimum Standard tier in the Security domain.",
+    "downtimeMinutes": "Hard-stop triggered: minutes-downtime threshold forces minimum Standard tier in the Operational domain.",
+    "sensitivePii": "Hard-stop triggered: Art 9 GDPR data forces Kern tier in the Compliance domain."
+  },
+  "result": {
+    "heading": "Risk assessment result",
+    "finalTierLabel": "Protection tier",
+    "drivingDomainLabel": "Driving domain",
+    "drivingDomainBody": "The protection tier is determined by the {domain} domain. Maximum principle per BSI-200-2 §8.2.",
+    "domainBreakdownHeading": "Per-domain breakdown",
+    "domainScoreLabel": "Score",
+    "domainTierLabel": "Tier",
+    "whyHeading": "Per-axis justification",
+    "whySubtitle": "These sentences are the basis of the protection-tier justification. Use them unchanged or adapt them with the management body.",
+    "bausteineHeading": "Applicable Grundschutz Bausteine (recommended)",
+    "bausteineSubtitle": "Indicative list of fitting Bausteine from the IT-Grundschutz catalogue. Final selection happens during modelling per BSI-200-2 §8.3.",
+    "measuresHeading": "Measures per Art 21(2) NIS2",
+    "measuresSubtitle": "Art 21(2) NIS2 lists ten measures every entity in scope must implement ('shall include at least the following'). Implementation depth follows your protection tier: Basis requires minimal evidence, Standard the full Grundschutz depth, Kern an additional risk-specific deepening per BSI-200-3.",
+    "signoffHeading": "Management body sign-off",
+    "signoffBody": "This risk assessment is binding only with management body sign-off (§38 BSIG, Art 20 NIS2). Enter name, date and signature on the printed document."
+  },
+  "disclaimer": {
+    "heading": "Legal note",
+    "body": "This risk assessment is an informational classification based on your inputs. It is not legal advice under the German RDG. The assessment becomes binding only with management body sign-off per §38 BSIG and Art 20 NIS2. The methodology follows BSI Grundschutz 200-2 §8.2 (Schutzbedarfsfeststellung) and the maximum principle; the provider does not warrant regulatory acceptance in any specific case."
+  },
+  "art21Measures": {
+    "a": "Art 21(2)(a) Risk analysis policy",
+    "b": "Art 21(2)(b) Incident handling",
+    "c": "Art 21(2)(c) Business continuity and crisis management",
+    "d": "Art 21(2)(d) Supply chain security",
+    "e": "Art 21(2)(e) Security in acquisition, development and maintenance",
+    "f": "Art 21(2)(f) Effectiveness assessment",
+    "g": "Art 21(2)(g) Cyber hygiene and training",
+    "h": "Art 21(2)(h) Cryptography and encryption",
+    "i": "Art 21(2)(i) HR security, access control and asset management",
+    "j": "Art 21(2)(j) Multi-factor authentication and secured communication"
+  }
+}
