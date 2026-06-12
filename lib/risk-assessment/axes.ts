@@ -22,6 +22,10 @@ export const AXES: Axis[] = [
     hardStop: { triggerScore: 3, minTier: "standard", noteKey: "internetExposed" },
   },
   {
+    // Stable axis id is "userCount" for backwards compatibility, but the
+    // axis now measures access/privilege scope, not headcount. Score order:
+    // few standard users → many standard users → privileged users → external.
+    // Privilege concentration drives V/I more directly than raw user count.
     id: "userCount",
     domain: "security",
     options: [

@@ -38,7 +38,7 @@
       "compliance": {
         "label": "Datenschutz und Regulatorik",
         "shortLabel": "Compliance",
-        "description": "Welche personenbezogenen Daten sind betroffen?"
+        "description": "Welche sensiblen Daten sind betroffen?"
       }
     },
     "tiers": {
@@ -60,8 +60,8 @@
     },
     "axes": {
       "internetExposure": {
-        "question": "Wie ist das System ans Internet angebunden?",
-        "shortLabel": "Internet",
+        "question": "Wie ist das System aus dem Internet erreichbar?",
+        "shortLabel": "Reichweite",
         "options": {
           "offline": {
             "label": "Komplett offline, keine Netzwerkverbindung",
@@ -82,64 +82,64 @@
         }
       },
       "userCount": {
-        "question": "Wie viele Menschen nutzen das System aktiv?",
-        "shortLabel": "Nutzer",
+        "question": "Wer hat Zugriff auf das System?",
+        "shortLabel": "Zugriff",
         "options": {
           "tiny": {
-            "label": "1 bis 10 Mitarbeitende",
-            "why": "Das System hat einen kleinen Nutzerkreis. Zugriffskontrollen sind operativ überschaubar. Grundschutz ORP.4 anwendbar."
+            "label": "Wenige Standardnutzer (kleines Team, keine besonderen Rechte)",
+            "why": "Kleiner Kreis an Standardnutzern ohne besondere Rechte. Zugriffskontrollen operativ überschaubar. Grundschutz ORP.4 anwendbar."
           },
           "small": {
-            "label": "10 bis 100 Mitarbeitende",
-            "why": "Das System hat einen mittleren Nutzerkreis. Strukturierte Rollenverwaltung wird erforderlich. Grundschutz ORP.4 anwendbar."
+            "label": "Viele Standardnutzer (ganze Abteilungen, alle ohne besondere Rechte)",
+            "why": "Viele Nutzer mit Standardberechtigungen. Strukturierte Rollenverwaltung und regelmäßige Zugriffsreviews erforderlich. Grundschutz ORP.4 anwendbar. NIS2 Art. 21(2)(i) (Zugriffskontrollrichtlinien) proportional erforderlich."
           },
           "large": {
-            "label": "Mehr als 100 Mitarbeitende",
-            "why": "Das System hat einen großen Nutzerkreis. Rollenmodelle und regelmäßige Zugriffsreviews werden erforderlich. Grundschutz ORP.4 anwendbar. NIS2 Art. 21(2)(i) (Zugriffskontrollrichtlinien) proportional erforderlich."
+            "label": "Auch privilegierte Nutzer (Admins, Finanzen, Geschäftsleitung)",
+            "why": "Privilegierte Nutzer haben Zugriff. Konzentration des Angriffswerts auf wenige Konten. Strikte Rollentrennung, Mehrfaktorauthentifizierung für privilegierte Konten und regelmäßige Zugriffsreviews erforderlich. Grundschutz ORP.4 und NIS2 Art. 21(2)(j) (Mehrfaktorauthentifizierung) proportional erforderlich."
           },
           "externalToo": {
             "label": "Auch externe Personen (Kunden, Lieferanten, Partner)",
-            "why": "Das System wird auch von externen Personen genutzt. Identitätsverifikation und Trennung interner und externer Berechtigungen sind kritisch. NIS2 Art. 21(2)(d) (Lieferkettensicherheit) und Art. 21(2)(j) (Mehrfaktorauthentifizierung) proportional erforderlich."
+            "why": "Externe Personen haben Zugriff. Identitätsverifikation und Trennung interner und externer Berechtigungen sind kritisch. NIS2 Art. 21(2)(d) (Lieferkettensicherheit) und Art. 21(2)(j) (Mehrfaktorauthentifizierung) proportional erforderlich."
           }
         }
       },
       "vendorSupport": {
-        "question": "Wie ist der Support-Status des Anbieters?",
-        "shortLabel": "Anbieter",
+        "question": "Werden weiterhin Sicherheitsupdates für das System bereitgestellt?",
+        "shortLabel": "Updates",
         "options": {
           "active": {
-            "label": "Aktuelle, aktiv gepflegte Version",
+            "label": "Ja, der Anbieter pflegt das System aktiv und liefert Patches",
             "why": "Anbieter aktiv im Markt, Patches werden zeitnah veröffentlicht. Standard-Patch-Management ausreichend. Grundschutz OPS.1.1.3 anwendbar."
           },
           "mature": {
-            "label": "Aktuelle, aber selten aktualisierte Version",
+            "label": "Ja, aber Patches kommen nur unregelmäßig",
             "why": "Anbieter etabliert, Patches erscheinen seltener. Erhöhte Eigenverantwortung für Monitoring. Grundschutz OPS.1.1.3 anwendbar."
           },
           "eolAnnounced": {
-            "label": "Anbieter hat das Ende des Supports angekündigt",
+            "label": "Nein, das Ende des Supports ist angekündigt",
             "why": "Anbieter hat das Ende des Supports angekündigt. Migration oder kompensierende Kontrollen sind erforderlich. NIS2 Art. 21(2)(e) (Schwachstellenhandhabung) proportional erforderlich."
           },
           "abandoned": {
-            "label": "Anbieter gibt es nicht mehr oder Eigenentwicklung ohne Wartung",
+            "label": "Nein, kein Anbieter mehr oder Eigenentwicklung ohne Wartung",
             "why": "System ohne aktiven Support. Hohe Restrisiken durch ungepatchte Schwachstellen. Migration oder ersetzende Kontrollen sind dringend zu planen."
           }
         }
       },
       "incidentHistory": {
         "question": "Gab es in den letzten drei Jahren Sicherheitsvorfälle mit diesem System?",
-        "shortLabel": "Vorfälle",
+        "shortLabel": "Historie",
         "options": {
           "none": {
-            "label": "Keine bekannten Vorfälle",
-            "why": "Keine bekannten Vorfälle. Hinweis: Abwesenheit von Vorfällen kann auch fehlende Detektion bedeuten. NIS2 Art. 21(2)(f) (Effektivitätsprüfung) empfohlen, um die Aussage zu belegen."
+            "label": "Keine Vorfälle und es gibt Logging oder Monitoring, das welche entdecken würde",
+            "why": "Keine Vorfälle dokumentiert und Protokollierung vorhanden. Stärkste Position: die Abwesenheit von Vorfällen ist durch Logs belegt. NIS2 Art. 21(2)(f) (Effektivitätsprüfung) regelmäßig anwenden."
           },
           "minor": {
-            "label": "Ein kleinerer Vorfall (zum Beispiel Spam, kurzer Ausfall)",
-            "why": "Ein kleinerer Vorfall in den letzten drei Jahren. Lessons learned sind zu dokumentieren. NIS2 Art. 21(2)(b) (Vorfallsbehandlung) anwendbar."
+            "label": "Keine bekannten Vorfälle, aber wir überwachen das System nicht systematisch",
+            "why": "Keine bekannten Vorfälle, aber kein Monitoring vorhanden. Die Abwesenheit lässt sich nicht belegen. Grundlegendes Logging einrichten ist der erste Schritt. NIS2 Art. 21(2)(f) (Effektivitätsprüfung) empfohlen."
           },
           "major": {
-            "label": "Ein größerer Vorfall (Datenverlust, längerer Ausfall, Behördenmeldung)",
-            "why": "Ein größerer Vorfall mit Meldepflicht oder Datenverlust. Erhöhte Aufmerksamkeit für Wiederholungsrisiken. Grundschutz DER.2.1 anwendbar."
+            "label": "Ein vergangener Vorfall (egal ob klein oder groß)",
+            "why": "Ein Vorfall in den letzten drei Jahren. Lessons learned sollten schriftlich dokumentiert sein. NIS2 Art. 21(2)(b) (Vorfallsbehandlung) anwendbar. Grundschutz DER.2.1."
           },
           "repeated": {
             "label": "Mehrere oder wiederkehrende Vorfälle",
@@ -148,33 +148,33 @@
         }
       },
       "downtimeTolerance": {
-        "question": "Wie lange kann der Betrieb ohne dieses System weitergehen?",
-        "shortLabel": "Ausfallzeit",
+        "question": "Wie lange dauert es, bis Kunden oder der Betrieb merken, dass das System ausgefallen ist?",
+        "shortLabel": "Ausfall",
         "options": {
           "weeks": {
-            "label": "Wochen, kein operatives Problem",
-            "why": "Betrieb kann Wochen ohne System weiterlaufen. Geringer Verfügbarkeitsbedarf. Standard-Backups ausreichend."
+            "label": "Wochen. Niemand würde es wirklich merken.",
+            "why": "Betrieb kann Wochen ohne System weiterlaufen, ohne dass Kunden oder Abläufe es bemerken. Geringer Verfügbarkeitsbedarf. Standard-Backups ausreichend."
           },
           "days": {
-            "label": "Tage, mit Behelfslösungen",
-            "why": "Betrieb verträgt Tage Ausfall. Mittlerer Verfügbarkeitsbedarf. Grundschutz CON.3 (Datensicherung) anwendbar."
+            "label": "Tage. Mit Behelfslösungen wäre es machbar.",
+            "why": "Betrieb verträgt Tage Ausfall mit Behelfslösungen. Mittlerer Verfügbarkeitsbedarf. Grundschutz CON.3 (Datensicherung) anwendbar."
           },
           "hours": {
-            "label": "Stunden, mit deutlichen Einschränkungen",
-            "why": "Stunden Ausfall führen zu spürbaren Einschränkungen. Höherer Verfügbarkeitsbedarf. Grundschutz CON.3, OPS.1.2.5 (Backup-Restore) und Notfallplanung anwendbar."
+            "label": "Stunden. Kunden oder Abläufe würden es bemerken.",
+            "why": "Stunden Ausfall führen zu spürbaren Einschränkungen für Kunden oder Abläufe. Höherer Verfügbarkeitsbedarf. Grundschutz CON.3, OPS.1.2.5 (Fernwartung) und Notfallplanung anwendbar."
           },
           "minutes": {
-            "label": "Minuten, der Betrieb steht sofort",
+            "label": "Minuten. Der Betrieb steht sofort.",
             "why": "Minuten Ausfall stoppen den Betrieb. Sehr hoher Verfügbarkeitsbedarf. Redundanz, automatisches Failover und getestete Notfallplanung erforderlich. NIS2 Art. 21(2)(c) (Betriebskontinuität) ist tragend."
           }
         }
       },
       "replaceability": {
-        "question": "Wie schnell könnten Sie das System ersetzen, wenn es ausfällt?",
-        "shortLabel": "Ersatz",
+        "question": "Wenn das System heute Abend verschwindet: wie lange dauert es, bis Sie mit einem gleichwertigen Ersatz arbeiten? Neukauf, Wiederherstellung aus Backup oder Neuaufbau zählen alle.",
+        "shortLabel": "Wiederherstellung",
         "options": {
           "oneDay": {
-            "label": "Innerhalb von einem Tag",
+            "label": "Innerhalb eines Tages",
             "why": "System schnell ersetzbar. Geringes Restrisiko bei Ausfall."
           },
           "oneWeek": {
@@ -182,34 +182,34 @@
             "why": "Ersatz in einer Woche möglich. Behelfslösungen für den Übergang vorhalten."
           },
           "oneMonth": {
-            "label": "Innerhalb von einem Monat",
+            "label": "Innerhalb eines Monats",
             "why": "Ersatz dauert bis zu einem Monat. Notfallplanung für die Übergangszeit erforderlich. Grundschutz DER.4 (Notfallmanagement) anwendbar."
           },
           "irreplaceable": {
-            "label": "Gar nicht oder als Spezialanfertigung",
+            "label": "Gar nicht oder nur als langwierige Spezialanfertigung",
             "why": "System nicht oder nur als Spezialanfertigung ersetzbar. Tragendes operatives Risiko. Notfallplanung und Schutzmaßnahmen sind zentral. NIS2 Art. 21(2)(c) (Betriebskontinuität) ist tragend."
           }
         }
       },
       "personalData": {
-        "question": "Welche personenbezogenen Daten verarbeitet das System?",
-        "shortLabel": "Daten",
+        "question": "Welche Art von sensiblen Daten verarbeitet das System?",
+        "shortLabel": "Sensibilität",
         "options": {
           "none": {
-            "label": "Keine personenbezogenen Daten",
-            "why": "Keine personenbezogenen Daten. DSGVO greift für dieses System nicht."
+            "label": "Keine sensiblen Daten (nur öffentliche oder allgemeine Geschäftsinformationen)",
+            "why": "Keine personenbezogenen oder besonders regulierten Daten. DSGVO und branchenspezifische Regeln greifen kaum."
           },
           "employeeOnly": {
-            "label": "Nur Mitarbeiterdaten",
-            "why": "Nur Mitarbeiterdaten. DSGVO greift. Standard-TOMs nach Art. 32 DSGVO anwendbar."
+            "label": "Mitarbeiterdaten (Personalakten, Verträge, Gehälter)",
+            "why": "Mitarbeiterdaten. DSGVO greift. Standard-TOMs nach Art. 32 DSGVO anwendbar."
           },
           "customer": {
-            "label": "Kundendaten allgemein (Name, Adresse, Vertragsdaten)",
-            "why": "Kundendaten allgemein. DSGVO greift. Standard-TOMs und Auftragsverarbeitungsverträge bei externen Verarbeitern erforderlich."
+            "label": "Kundendaten oder operative Geschäftsdaten",
+            "why": "Kunden- oder Geschäftsdaten. DSGVO greift, dazu Geschäftsgeheimnisschutz. Standard-TOMs und Auftragsverarbeitungsverträge bei externen Verarbeitern erforderlich."
           },
           "sensitivePii": {
-            "label": "Besondere personenbezogene Daten nach Art. 9 DSGVO (Gesundheit, Finanzen, Glauben)",
-            "why": "Besondere personenbezogene Daten nach Art. 9 DSGVO. Erhöhte Schutzpflicht. Datenschutzfolgenabschätzung verpflichtend. Erweiterte technische und organisatorische Maßnahmen erforderlich."
+            "label": "Sensible Daten: Art. 9 DSGVO (Gesundheit, Religion) oder regulierte Betriebsdaten (OT, KRITIS)",
+            "why": "Besondere personenbezogene Daten nach Art. 9 DSGVO oder regulierte operative Daten (z. B. OT-Systeme, KRITIS-bezogene Daten). Erhöhte Schutzpflicht. Datenschutzfolgenabschätzung verpflichtend für Art. 9 DSGVO. Erweiterte technische und organisatorische Maßnahmen erforderlich."
           }
         }
       }
@@ -217,7 +217,7 @@
     "hardStops": {
       "internetExposed": "Hard-Stop ausgelöst: Internet-Erreichbarkeit zwingt mindestens Standard-Absicherung in der Domäne Security.",
       "downtimeMinutes": "Hard-Stop ausgelöst: Minuten-Ausfallgrenze zwingt mindestens Standard-Absicherung in der Domäne Operational.",
-      "sensitivePii": "Hard-Stop ausgelöst: Daten nach Art. 9 DSGVO zwingen Kern-Absicherung in der Domäne Compliance."
+      "sensitivePii": "Hard-Stop ausgelöst: sensible Daten (Art. 9 DSGVO oder regulierte Betriebsdaten) zwingen Kern-Absicherung in der Domäne Compliance."
     },
     "result": {
       "heading": "Ergebnis der Risikobewertung",

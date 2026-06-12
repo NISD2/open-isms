@@ -38,7 +38,7 @@
       "compliance": {
         "label": "Data protection and regulation",
         "shortLabel": "Compliance",
-        "description": "What personal data is involved?"
+        "description": "What sensitive data is involved?"
       }
     },
     "tiers": {
@@ -60,8 +60,8 @@
     },
     "axes": {
       "internetExposure": {
-        "question": "How is the system connected to the internet?",
-        "shortLabel": "Internet",
+        "question": "How is the system reachable from the internet?",
+        "shortLabel": "Reach",
         "options": {
           "offline": {
             "label": "Fully offline, no network connection",
@@ -82,64 +82,64 @@
         }
       },
       "userCount": {
-        "question": "How many people actively use the system?",
-        "shortLabel": "Users",
+        "question": "Who has access to this system?",
+        "shortLabel": "Access",
         "options": {
           "tiny": {
-            "label": "1 to 10 employees",
-            "why": "The system has a small user base. Access controls are operationally manageable. Grundschutz ORP.4 applies."
+            "label": "A few standard users (small team, no special privileges)",
+            "why": "Small set of standard users without special privileges. Access controls operationally manageable. Grundschutz ORP.4 applies."
           },
           "small": {
-            "label": "10 to 100 employees",
-            "why": "The system has a mid-sized user base. Structured role management becomes necessary. Grundschutz ORP.4 applies."
+            "label": "Many standard users (whole departments, all without special privileges)",
+            "why": "Many users with standard permissions. Structured role management and regular access reviews required. Grundschutz ORP.4 applies. NIS2 Art 21(2)(i) (access control policies) proportionate."
           },
           "large": {
-            "label": "More than 100 employees",
-            "why": "The system has a large user base. Role models and regular access reviews become necessary. Grundschutz ORP.4 applies. NIS2 Art 21(2)(i) (access control policies) proportionate."
+            "label": "Includes privileged users (admins, finance, executives)",
+            "why": "Privileged users have access. Attack value concentrates on few accounts. Strict role separation, multi-factor authentication on privileged accounts and regular access reviews required. Grundschutz ORP.4 and NIS2 Art 21(2)(j) (multi-factor authentication) proportionate."
           },
           "externalToo": {
-            "label": "External people too (customers, suppliers, partners)",
-            "why": "The system is also used by external people. Identity verification and separation of internal/external permissions critical. NIS2 Art 21(2)(d) (supply chain security) and Art 21(2)(j) (multi-factor authentication) proportionate."
+            "label": "Includes external people (customers, suppliers, partners)",
+            "why": "External people have access. Identity verification and separation of internal/external permissions critical. NIS2 Art 21(2)(d) (supply chain security) and Art 21(2)(j) (multi-factor authentication) proportionate."
           }
         }
       },
       "vendorSupport": {
-        "question": "What is the vendor support status?",
-        "shortLabel": "Vendor",
+        "question": "Will security updates keep coming for this system?",
+        "shortLabel": "Updates",
         "options": {
           "active": {
-            "label": "Current, actively maintained version",
+            "label": "Yes, the vendor actively maintains it and ships patches",
             "why": "Vendor active in the market, patches released promptly. Standard patch management sufficient. Grundschutz OPS.1.1.3 applies."
           },
           "mature": {
-            "label": "Current but infrequently updated version",
+            "label": "Yes, but patches arrive only occasionally",
             "why": "Vendor established, patches less frequent. Higher self-responsibility for monitoring. Grundschutz OPS.1.1.3 applies."
           },
           "eolAnnounced": {
-            "label": "Vendor has announced end of support",
+            "label": "No, end of support has been announced",
             "why": "Vendor has announced end of support. Migration or compensating controls required. NIS2 Art 21(2)(e) (vulnerability handling) proportionate."
           },
           "abandoned": {
-            "label": "Vendor gone or in-house build without maintenance",
+            "label": "No, vendor is gone or in-house build with no maintenance",
             "why": "System without active support. High residual risks from unpatched vulnerabilities. Migration or replacement controls urgent."
           }
         }
       },
       "incidentHistory": {
-        "question": "Any security incidents in the last 3 years with this system?",
-        "shortLabel": "Incidents",
+        "question": "Any security incidents with this system in the last 3 years?",
+        "shortLabel": "History",
         "options": {
           "none": {
-            "label": "No known incidents",
-            "why": "No known incidents. Note: absence of incidents may also mean lack of detection. NIS2 Art 21(2)(f) (effectiveness assessment) recommended to substantiate the claim."
+            "label": "No incidents, and we have logging or monitoring that would catch them",
+            "why": "No incidents documented and monitoring in place. Strongest position: the absence of incidents is substantiated by logs. NIS2 Art 21(2)(f) (effectiveness assessment) applied periodically."
           },
           "minor": {
-            "label": "One minor incident (e.g. spam, brief outage)",
-            "why": "One minor incident in the last 3 years. Lessons learned to be documented. NIS2 Art 21(2)(b) (incident handling) applies."
+            "label": "No known incidents, but we don't actively monitor the system",
+            "why": "No known incidents but no monitoring in place. The absence cannot be substantiated. Setting up basic logging is the first step. NIS2 Art 21(2)(f) (effectiveness assessment) recommended."
           },
           "major": {
-            "label": "One major incident (data loss, extended outage, regulatory notification)",
-            "why": "One major incident with notification obligation or data loss. Heightened attention to recurrence risks. Grundschutz DER.2.1 applies."
+            "label": "One past incident (minor or major)",
+            "why": "One incident in the last 3 years. Lessons learned should be documented in writing. NIS2 Art 21(2)(b) (incident handling) applies. Grundschutz DER.2.1."
           },
           "repeated": {
             "label": "Multiple or recurring incidents",
@@ -148,30 +148,30 @@
         }
       },
       "downtimeTolerance": {
-        "question": "How long can operations continue without this system?",
-        "shortLabel": "Downtime",
+        "question": "How long until customers or operations notice this system is down?",
+        "shortLabel": "Outage",
         "options": {
           "weeks": {
-            "label": "Weeks, no operational issue",
-            "why": "Operations can continue without the system for weeks. Low availability need. Standard backups sufficient."
+            "label": "Weeks. Nobody would really notice.",
+            "why": "Operations can run for weeks without the system before customers or workflows notice. Low availability need. Standard backups sufficient."
           },
           "days": {
-            "label": "Days, with workarounds",
-            "why": "Operations tolerate days of outage. Medium availability need. Grundschutz CON.3 (data backup) applies."
+            "label": "Days. We'd manage with workarounds.",
+            "why": "Operations tolerate days of outage with workarounds. Medium availability need. Grundschutz CON.3 (data backup) applies."
           },
           "hours": {
-            "label": "Hours, with noticeable restrictions",
-            "why": "Hours of outage cause noticeable restrictions. Higher availability need. Grundschutz CON.3, OPS.1.2.5 (backup-restore) and emergency planning apply."
+            "label": "Hours. Customers or operations would notice.",
+            "why": "Hours of outage cause noticeable restrictions for customers or operations. Higher availability need. Grundschutz CON.3, OPS.1.2.5 (remote maintenance) and emergency planning apply."
           },
           "minutes": {
-            "label": "Minutes, operations stop immediately",
+            "label": "Minutes. Operations stop immediately.",
             "why": "Minutes of outage halt operations. Very high availability need. Redundancy, automatic failover and tested emergency plans required. NIS2 Art 21(2)(c) (business continuity) is load-bearing."
           }
         }
       },
       "replaceability": {
-        "question": "How quickly could you replace the system if it failed?",
-        "shortLabel": "Replace",
+        "question": "If this system disappeared tonight, when would you be running with an equivalent? (Buying, restoring from backup, or rebuilding all count.)",
+        "shortLabel": "Recovery",
         "options": {
           "oneDay": {
             "label": "Within a day",
@@ -186,30 +186,30 @@
             "why": "Replacement takes up to a month. Emergency planning for the transition period required. Grundschutz DER.4 (emergency management) applies."
           },
           "irreplaceable": {
-            "label": "Not at all, or only as custom build",
+            "label": "Not at all, or only as a long custom build",
             "why": "System not or only custom-replaceable. Load-bearing operational risk. Emergency planning and protective measures central. NIS2 Art 21(2)(c) (business continuity) is load-bearing."
           }
         }
       },
       "personalData": {
-        "question": "What personal data does the system process?",
-        "shortLabel": "Data",
+        "question": "What kind of sensitive data does this system process?",
+        "shortLabel": "Sensitivity",
         "options": {
           "none": {
-            "label": "No personal data",
-            "why": "No personal data. GDPR does not apply to this system."
+            "label": "No sensitive data (public or general business information only)",
+            "why": "No personal or specially regulated data. GDPR and sector-specific rules don't apply heavily."
           },
           "employeeOnly": {
-            "label": "Employee data only",
-            "why": "Employee data only. GDPR applies. Standard TOMs per Art 32 GDPR applicable."
+            "label": "Employee data (HR files, contracts, salaries)",
+            "why": "Employee data. GDPR applies. Standard TOMs per Art 32 GDPR applicable."
           },
           "customer": {
-            "label": "General customer data (name, address, contract data)",
-            "why": "General customer data. GDPR applies. Standard TOMs and data processing agreements with external processors required."
+            "label": "Customer data or operational business data",
+            "why": "Customer or business data. GDPR applies plus commercial confidentiality. Standard TOMs and data processing agreements with external processors required."
           },
           "sensitivePii": {
-            "label": "Special personal data per Art 9 GDPR (health, finance, religion)",
-            "why": "Special personal data per Art 9 GDPR. Elevated protection duty. Data protection impact assessment mandatory. Extended technical and organisational measures required."
+            "label": "Sensitive data: Art 9 GDPR (health, religion) or regulated operational data (OT, KRITIS)",
+            "why": "Special personal data per Art 9 GDPR or regulated operational data (e.g. OT systems, KRITIS-related data). Elevated protection duty. Data protection impact assessment mandatory for Art 9 GDPR data. Extended technical and organisational measures required."
           }
         }
       }
@@ -217,7 +217,7 @@
     "hardStops": {
       "internetExposed": "Hard-stop triggered: internet exposure forces minimum Standard tier in the Security domain.",
       "downtimeMinutes": "Hard-stop triggered: minutes-downtime threshold forces minimum Standard tier in the Operational domain.",
-      "sensitivePii": "Hard-stop triggered: Art 9 GDPR data forces Kern tier in the Compliance domain."
+      "sensitivePii": "Hard-stop triggered: sensitive data (Art 9 GDPR or regulated operational data) forces Kern tier in the Compliance domain."
     },
     "result": {
       "heading": "Risk assessment result",
