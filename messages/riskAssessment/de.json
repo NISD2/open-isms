@@ -13,7 +13,9 @@
       "subhead": "Sieben Fragen pro System. Risikoniveau und auditfeste Begründung nach BSI Grundschutz 200-2."
     },
     "intro": {
-      "trustLine": "BSI-200-2 Maximum-Prinzip. NIS2 Art. 21(1) + Art. 21(2)(a), BSIG §30. Keine Anmeldung, das Ergebnis bleibt bei Ihnen."
+      "trustLine": "BSI-200-2 Maximum-Prinzip. NIS2 Art. 21(1) + Art. 21(2)(a), BSIG §30. Keine Anmeldung, das Ergebnis bleibt bei Ihnen.",
+      "inventoryHint": "Sobald Ihr Inventar aus Lektion 2.2 unseres CEO-Kurses steht, dauert jedes Asset unter einer Minute.",
+      "courseLinkLabel": "Zum CEO-Kurs"
     },
     "actions": {
       "exportPdf": "Als PDF speichern",
@@ -225,9 +227,31 @@
       }
     },
     "hardStops": {
-      "internetExposed": "Hard-Stop ausgelöst: Internet-Erreichbarkeit zwingt mindestens Risikoniveau Standard in der Domäne Security.",
-      "downtimeMinutes": "Hard-Stop ausgelöst: Minuten-Ausfallgrenze zwingt mindestens Risikoniveau Standard in der Domäne Operational.",
-      "sensitivePii": "Hard-Stop ausgelöst: sensible Daten (Art. 9 DSGVO oder regulierte Betriebsdaten) zwingen Risikoniveau Kern in der Domäne Compliance."
+      "heading": "Hard-Stops ausgelöst",
+      "intro": "Einzelne Antworten sind so wirkmächtig, dass sie das Risikoniveau allein anheben — unabhängig von den übrigen sechs Achsen. Das ist BSIs Maximum-Prinzip: es verhindert Unterklassifizierung. Klicken Sie auf einen Eintrag für Rechtsgrundlage und nächste Schritte.",
+      "whatLabel": "Was das bedeutet",
+      "legalLabel": "Rechtsgrundlage",
+      "todoLabel": "Was zu tun ist",
+      "items": {
+        "internetExposed": {
+          "note": "Internet-Erreichbarkeit zwingt mindestens Risikoniveau Standard in der Domäne Security.",
+          "what": "Ein aus dem Internet erreichbares System kann nicht in Basis eingestuft werden. Bedrohungsmodell: automatisiertes Scannen, Massenausnutzung von Schwachstellen und gezielte Angriffe auf die öffentliche Angriffsfläche — auch kleine Systeme werden täglich tausendfach gescannt.",
+          "legal": "NIS2 Art. 21(2)(e) (Schwachstellenhandhabung) und Art. 21(2)(h) (Kryptografie) machen Patching und TLS nicht verhandelbar. BSIG §30(2) Nr. 5 und Nr. 8 setzen dies um. BSI Grundschutz NET.1.1 (Netzarchitektur), NET.3.2 (Firewall) und OPS.1.1.5 (Protokollierung) sind tragend und gelten in Standard-Tiefe.",
+          "todo": "Standard-Sicherheit umsetzen: Firewall (Hardware oder Cloud), Netzsegmentierung, zentrales Logging, monatlicher Patchzyklus, TLS 1.2+ für externen Verkehr. Firewallregeln, Patch-SLA und Monitoring-Ansatz dokumentieren. Die Geschäftsleitung muss freigeben; §38 BSIG macht sie verantwortlich."
+        },
+        "downtimeMinutes": {
+          "note": "Minuten-Ausfallgrenze zwingt mindestens Risikoniveau Standard in der Domäne Operational.",
+          "what": "Ein System, dessen Ausfall den Betrieb in Minuten stoppt, kann nicht in Basis eingestuft werden. Bedrohungsmodell: betriebliche Störung — Ransomware, Stromausfall, Netzausfall — die gegen die Kontinuitätspflichten nach Art. 21(2)(c) verstößt.",
+          "legal": "NIS2 Art. 21(2)(c) nennt ausdrücklich 'Aufrechterhaltung des Betriebs, einschließlich Backup-Management und Disaster Recovery, sowie Krisenmanagement' — Backup und DR sind explizite Pflichten. BSIG §30(2) Nr. 3 setzt um. BSI Grundschutz CON.3 (Datensicherungskonzept) und DER.4 (Notfallmanagement) gelten in Standard-Tiefe. Ungetestetes Failover ist die häufigste Audit-Feststellung.",
+          "todo": "Redundanz oder automatisches Failover einrichten. RTO (Recovery Time Objective) und RPO (Recovery Point Objective) definieren, mindestens jährlich testen, Ergebnisse dokumentieren. Notfallplan und Testbericht in die Freigabe der Geschäftsleitung aufnehmen."
+        },
+        "sensitivePii": {
+          "note": "Sensible Daten (Art. 9 DSGVO oder regulierte Betriebsdaten) zwingen Risikoniveau Kern in der Domäne Compliance.",
+          "what": "Besondere personenbezogene Daten (Art. 9 DSGVO) oder regulierte operative Daten (OT, KRITIS) erzwingen Kern-Niveau. Die Datenklasse allein treibt die erhöhte Schutzpflicht, unabhängig von den anderen sechs Achsen.",
+          "legal": "DSGVO Art. 9 setzt die erhöhte Schutzpflicht für Gesundheits-, Religions-, biometrische und ähnliche Daten. DSGVO Art. 35 macht eine Datenschutzfolgenabschätzung (DSFA) bei hohem Risiko verpflichtend — Art.-9-Daten lösen dies fast immer aus. NIS2 Art. 21(2)(h) (Kryptografie) wird tragend. BSIG §30(2) Nr. 8 setzt um. Entscheidend: Kern-Niveau nach BSI-200-2 §8.2 erfordert BSI-200-3 Risikoanalyse — eine separate, szenariobasierte Risikoanalyse zusätzlich zu dieser Bewertung.",
+          "todo": "BSI-200-3 Risikoanalyse für dieses System durchführen. DSGVO Art. 35 DSFA durchführen, sobald Art.-9-Daten beteiligt sind. Verschlüsselung at-rest und in-transit umsetzen. Erweiterte TOMs (Art. 32 DSGVO) dokumentieren. DSB (Datenschutzbeauftragter) einbinden, Geschäftsleitung freigeben lassen."
+        }
+      }
     },
     "result": {
       "heading": "Ergebnis der Risikobewertung",

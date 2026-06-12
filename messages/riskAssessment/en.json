@@ -13,7 +13,9 @@
       "subhead": "Seven questions per system. Risk level and audit-defensible justification per BSI Grundschutz 200-2."
     },
     "intro": {
-      "trustLine": "BSI-200-2 maximum principle. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. No signup, the result stays with you."
+      "trustLine": "BSI-200-2 maximum principle. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. No signup, the result stays with you.",
+      "inventoryHint": "Once you have your inventory from Lesson 2.2 of our CEO course, every asset takes under a minute.",
+      "courseLinkLabel": "Open the CEO course"
     },
     "actions": {
       "exportPdf": "Save as PDF",
@@ -225,9 +227,31 @@
       }
     },
     "hardStops": {
-      "internetExposed": "Hard-stop triggered: internet exposure forces a minimum risk level of Standard in the Security domain.",
-      "downtimeMinutes": "Hard-stop triggered: minutes-downtime threshold forces a minimum risk level of Standard in the Operational domain.",
-      "sensitivePii": "Hard-stop triggered: sensitive data (Art 9 GDPR or regulated operational data) forces risk level Core in the Compliance domain."
+      "heading": "Hard-stops triggered",
+      "intro": "Some answers are so impactful that one alone elevates your risk level, regardless of the other six. This protects against under-classification under BSI's Maximum-Prinzip. Click each one for legal basis and what to do.",
+      "whatLabel": "What this means",
+      "legalLabel": "Legal basis",
+      "todoLabel": "What to do",
+      "items": {
+        "internetExposed": {
+          "note": "Internet exposure forces a minimum risk level of Standard in the Security domain.",
+          "what": "An internet-reachable system cannot be classified as Basic. The threat model is automated scanning, mass exploitation campaigns, and targeted attacks against the public attack surface — even small assets get probed thousands of times per day.",
+          "legal": "NIS2 Art 21(2)(e) (vulnerability handling) and Art 21(2)(h) (cryptography) make patching and TLS non-negotiable. BSIG §30(2) Nr. 5 and Nr. 8 transpose this. BSI Grundschutz NET.1.1 (network architecture), NET.3.2 (firewall), and OPS.1.1.5 (logging) are foundational for any internet-reachable asset and apply at Standard depth.",
+          "todo": "Implement Standard-tier Security: hardware or cloud firewall, network segmentation, centralised logging, monthly patch cycle, TLS 1.2+ for external traffic. Document the firewall ruleset, the patch SLA, and the monitoring approach. The management body must sign off; §38 BSIG makes them accountable."
+        },
+        "downtimeMinutes": {
+          "note": "Minutes-downtime threshold forces a minimum risk level of Standard in the Operational domain.",
+          "what": "A system whose loss halts operations within minutes cannot be classified as Basic. The threat model is operational disruption — ransomware, power outage, network failure — that breaches the continuity duties under Art 21(2)(c).",
+          "legal": "NIS2 Art 21(2)(c) explicitly names 'business continuity, such as backup management and disaster recovery, and crisis management' — backup and DR are named duties, not optional. BSIG §30(2) Nr. 3 transposes. BSI Grundschutz CON.3 (data backup) and DER.4 (emergency management) apply at Standard depth. Untested failover is the most common audit finding here.",
+          "todo": "Implement redundancy or automatic failover. Define RTO (recovery time objective) and RPO (recovery point objective), test them at least annually, and document the results. The BCP and the test report belong in the management body sign-off binder."
+        },
+        "sensitivePii": {
+          "note": "Sensitive data (Art 9 GDPR or regulated operational data) forces risk level Core in the Compliance domain.",
+          "what": "Special-category personal data (Art 9 GDPR) or regulated operational data (OT, KRITIS) forces the Core tier. The data class itself drives the elevated protection duty, independent of the other six axes.",
+          "legal": "GDPR Art 9 sets the elevated protection duty for health, religion, biometric, and similar data. GDPR Art 35 makes a Data Protection Impact Assessment (DPIA) mandatory for high-risk processing — Art 9 data triggers this almost always. NIS2 Art 21(2)(h) (cryptography) becomes load-bearing. BSIG §30(2) Nr. 8 transposes. Critically, Core tier under BSI-200-2 §8.2 requires BSI-200-3 Risikoanalyse: a separate, scenario-based risk analysis on top of this assessment.",
+          "todo": "Run a BSI-200-3 Risikoanalyse for this asset. Run a GDPR Art 35 DPIA if Art 9 data is involved. Implement encryption at rest and in transit. Document extended TOMs (Art 32 GDPR). Involve your Data Protection Officer (DPO/DSB) and have the management body sign off."
+        }
+      }
     },
     "result": {
       "heading": "Risk assessment result",
