@@ -1,7 +1,23 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { ExamplePreview } from "@/components/risk-assessment/ExamplePreview";
 import { RiskAssessmentTool } from "@/components/risk-assessment/RiskAssessmentTool";
+import { scoreMatrix } from "@/lib/risk-assessment/scoring";
 import { pageAlternates } from "@/lib/seo";
+
+// Example answers shown above the form so visitors see the output shape
+// before they start. Picked to land on Standard with visible spread on the
+// radar (internet exposure + customer data trigger the security-domain
+// hard-stop and the compliance lift; everything else stays moderate).
+const EXAMPLE_ANSWERS = {
+  internetExposure: "internetExposed",
+  userCount: "large",
+  vendorSupport: "active",
+  incidentHistory: "none",
+  downtimeTolerance: "weeks",
+  replaceability: "oneWeek",
+  personalData: "customer",
+} as const;
 
 export async function generateMetadata({
   params,
@@ -53,27 +69,23 @@ function JsonLd() {
 
 export default async function RiskAssessmentPage() {
   const t = await getTranslations("riskAssessment");
+  const exampleResult = scoreMatrix({ ...EXAMPLE_ANSWERS });
 
   return (
     <>
       <JsonLd />
 
-      <header className="mb-8 space-y-2">
+      <header className="mb-6 space-y-2 max-w-2xl">
         <h1 className="text-2xl font-semibold tracking-tight">
           {t("page.title")}
         </h1>
-        <p className="text-sm text-muted-foreground max-w-2xl">
-          {t("page.subtitle")}
-        </p>
-      </header>
-
-      <section className="mb-8 space-y-2 max-w-2xl">
-        <h2 className="text-base font-semibold">{t("intro.heading")}</h2>
-        <p className="text-sm text-muted-foreground">{t("intro.body")}</p>
+        <p className="text-sm text-muted-foreground">{t("page.subtitle")}</p>
         <p className="text-xs text-muted-foreground italic">
           {t("intro.trustLine")}
         </p>
-      </section>
+      </header>
+
+      <ExamplePreview result={exampleResult} />
 
       <RiskAssessmentTool />
     </>

@@ -2,14 +2,19 @@
   "riskAssessment": {
     "page": {
       "title": "NIS2 Risk Assessment",
-      "subtitle": "Assess a system in seven questions. The result is a protection-level tier per BSI Grundschutz 200-2 and a defensible risk justification for Art 21(2)(a) NIS2.",
+      "subtitle": "Seven questions per system. Protection tier and audit-defensible justification per BSI Grundschutz 200-2.",
       "metaTitle": "NIS2 Risk Assessment - free, no signup",
       "metaDescription": "Score your IT systems per BSI Grundschutz 200-2 in under 5 minutes. Three domains (Security, Operational, Compliance) with the maximum principle. Audit-defensible justification per axis."
     },
     "intro": {
-      "heading": "What happens here",
-      "body": "You answer seven questions about a system in your company. The platform computes the protection tier (Basis, Standard or Kern) per BSI-200-2 §8.2 and produces a justification that holds up in a BSI audit. No signup, no consultancy upsell, the result stays with you.",
-      "trustLine": "Method: BSI-200-2 maximum principle. Legal basis: NIS2 Art 21(1) + Art 21(2)(a), BSIG §30."
+      "trustLine": "BSI-200-2 maximum principle. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. No signup, the result stays with you."
+    },
+    "example": {
+      "label": "Example result",
+      "assetName": "Marketing site with customer data",
+      "tierLabel": "Protection tier",
+      "tierExplanation": "Standard, driven by internet exposure and customer data. The platform writes the per-axis justification ready for management sign-off.",
+      "docsLabel": "Answers (condensed)"
     },
     "steps": {
       "questionLabel": "Question {current} of {total}",

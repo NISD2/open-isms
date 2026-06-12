@@ -2,14 +2,19 @@
   "riskAssessment": {
     "page": {
       "title": "NIS2 Risikobewertung",
-      "subtitle": "Bewerten Sie ein System anhand von sieben Fragen. Das Ergebnis ist eine Schutzbedarfsklasse nach BSI Grundschutz 200-2 und eine begründete Risikobewertung für Art. 21(2)(a) NIS2.",
+      "subtitle": "Sieben Fragen pro System. Schutzbedarfsklasse und auditfeste Begründung nach BSI Grundschutz 200-2.",
       "metaTitle": "NIS2 Risikobewertung - kostenlos, ohne Anmeldung",
       "metaDescription": "Bewerten Sie Ihre IT-Systeme nach BSI Grundschutz 200-2 in unter 5 Minuten. Drei Domänen (Security, Operational, Compliance) mit Maximum-Prinzip. Auditfeste Begründung pro Achse."
     },
     "intro": {
-      "heading": "Was passiert hier?",
-      "body": "Sie beantworten sieben Fragen zu einem System in Ihrem Unternehmen. Die Plattform berechnet daraus die Schutzbedarfsklasse (Basis, Standard oder Kern) nach BSI-200-2 §8.2 und erzeugt eine Begründung, die einem BSI-Audit standhält. Keine Anmeldung, kein Beratungsverkauf, das Ergebnis bleibt bei Ihnen.",
-      "trustLine": "Verfahren: BSI-200-2 Maximum-Prinzip. Rechtsgrundlage: NIS2 Art. 21(1) + Art. 21(2)(a), BSIG §30."
+      "trustLine": "BSI-200-2 Maximum-Prinzip. NIS2 Art. 21(1) + Art. 21(2)(a), BSIG §30. Keine Anmeldung, das Ergebnis bleibt bei Ihnen."
+    },
+    "example": {
+      "label": "Beispielergebnis",
+      "assetName": "Marketingseite mit Kundendaten",
+      "tierLabel": "Schutzbedarfsklasse",
+      "tierExplanation": "Standard, getrieben durch Internet-Erreichbarkeit und Kundendaten. Die Plattform schreibt die Begründung pro Achse fertig zum Unterzeichnen.",
+      "docsLabel": "Antworten (verkürzt)"
     },
     "steps": {
       "questionLabel": "Frage {current} von {total}",
