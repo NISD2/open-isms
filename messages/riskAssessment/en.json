@@ -43,18 +43,18 @@
     },
     "tiers": {
       "basis": {
-        "label": "Basis-Absicherung",
-        "shortLabel": "Basis",
+        "label": "Basic Protection",
+        "shortLabel": "Basic",
         "description": "Risk acceptance with management sign-off allowed. Basic measures sufficient."
       },
       "standard": {
-        "label": "Standard-Absicherung",
+        "label": "Standard Protection",
         "shortLabel": "Standard",
         "description": "Standard Grundschutz Bausteine apply. Full implementation required."
       },
       "kern": {
-        "label": "Kern-Absicherung",
-        "shortLabel": "Kern",
+        "label": "Core Protection",
+        "shortLabel": "Core",
         "description": "Elevated protection class. BSI-200-3 risk analysis required, external support recommended."
       }
     },
