@@ -120,16 +120,16 @@ export function ResultPanel({ result }: ResultPanelProps) {
           />
           <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground justify-center">
             <span className="flex items-center gap-1">
-              <span className="inline-block w-3 h-3 rounded-full bg-red-500" />
-              {t("domains.security.shortLabel")}
+              <span className="inline-block w-3 h-3 rounded-full bg-emerald-500" />
+              {t("tiers.basis.shortLabel")}
             </span>
             <span className="flex items-center gap-1">
               <span className="inline-block w-3 h-3 rounded-full bg-amber-500" />
-              {t("domains.operational.shortLabel")}
+              {t("tiers.standard.shortLabel")}
             </span>
             <span className="flex items-center gap-1">
-              <span className="inline-block w-3 h-3 rounded-full bg-blue-500" />
-              {t("domains.compliance.shortLabel")}
+              <span className="inline-block w-3 h-3 rounded-full bg-red-500" />
+              {t("tiers.kern.shortLabel")}
             </span>
           </div>
         </CardContent>
