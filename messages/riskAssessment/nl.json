@@ -38,7 +38,7 @@
       "compliance": {
         "label": "Data protection and regulation",
         "shortLabel": "Compliance",
-        "description": "What personal data is involved?"
+        "description": "What sensitive data is involved?"
       }
     },
     "tiers": {
@@ -60,156 +60,156 @@
     },
     "axes": {
       "internetExposure": {
-        "question": "How is the system connected to the internet?",
-        "shortLabel": "Internet",
+        "question": "Hoe is het systeem bereikbaar vanaf het internet?",
+        "shortLabel": "Bereik",
         "options": {
           "offline": {
-            "label": "Fully offline, no network connection",
-            "why": "The system has no network connection. External attack vectors are eliminated. Internal and physical threats remain relevant."
+            "label": "Volledig offline, geen netwerkverbinding",
+            "why": "Het systeem heeft geen netwerkverbinding. Externe aanvalsvectoren zijn uitgesloten. Interne en fysieke dreigingen blijven relevant."
           },
           "internalOnly": {
-            "label": "Internal network only, no internet access",
-            "why": "The system is reachable only on the internal network. External attack surface minimal, internal threats (compromised endpoints, insiders) remain relevant. Grundschutz NET.1.1 applies."
+            "label": "Alleen op het interne netwerk, geen internettoegang",
+            "why": "Het systeem is alleen bereikbaar op het interne netwerk. Extern aanvalsoppervlak minimaal, interne dreigingen (gecompromitteerde endpoints, insiders) blijven relevant. Grundschutz NET.1.1 van toepassing."
           },
           "vpn": {
-            "label": "Reachable only via VPN",
-            "why": "The system is reachable only via VPN. Authentication security of remote access is critical. Grundschutz NET.3.3 (VPN) and ORP.4 (identity management) apply. NIS2 Art 21(2)(j) (multi-factor authentication) proportionate."
+            "label": "Alleen bereikbaar via VPN",
+            "why": "Het systeem is alleen bereikbaar via VPN. Authenticatiebeveiliging van remote toegang is kritiek. Grundschutz NET.3.3 (VPN) en ORP.4 (identiteitsbeheer) van toepassing. NIS2 Art 21(2)(j) (multi-factor authenticatie) proportioneel vereist."
           },
           "internetExposed": {
-            "label": "Directly reachable from the internet",
-            "why": "The system is directly reachable from the internet. High attack surface from mass and targeted attacks. Grundschutz NET.1.1, NET.3.2 (firewall) and OPS.1.1.5 (logging) apply. NIS2 Art 21(2)(e) (vulnerability handling) and Art 21(2)(h) (cryptography) proportionate."
+            "label": "Direct bereikbaar vanaf het internet",
+            "why": "Het systeem is direct bereikbaar vanaf het internet. Groot aanvalsoppervlak voor massa- en gerichte aanvallen. Grundschutz NET.1.1, NET.3.2 (firewall) en OPS.1.1.5 (logging) van toepassing. NIS2 Art 21(2)(e) (kwetsbaarhedenbeheer) en Art 21(2)(h) (cryptografie) proportioneel vereist."
           }
         }
       },
       "userCount": {
-        "question": "How many people actively use the system?",
-        "shortLabel": "Users",
+        "question": "Wie heeft toegang tot dit systeem?",
+        "shortLabel": "Toegang",
         "options": {
           "tiny": {
-            "label": "1 to 10 employees",
-            "why": "The system has a small user base. Access controls are operationally manageable. Grundschutz ORP.4 applies."
+            "label": "Een paar standaardgebruikers (klein team, geen speciale rechten)",
+            "why": "Kleine groep standaardgebruikers zonder speciale rechten. Toegangscontroles operationeel beheersbaar. Grundschutz ORP.4 van toepassing."
           },
           "small": {
-            "label": "10 to 100 employees",
-            "why": "The system has a mid-sized user base. Structured role management becomes necessary. Grundschutz ORP.4 applies."
+            "label": "Veel standaardgebruikers (hele afdelingen, allemaal zonder speciale rechten)",
+            "why": "Veel gebruikers met standaardrechten. Gestructureerd rolbeheer en periodieke toegangscontroles vereist. Grundschutz ORP.4 van toepassing. NIS2 Art 21(2)(i) (toegangscontrolebeleid) proportioneel vereist."
           },
           "large": {
-            "label": "More than 100 employees",
-            "why": "The system has a large user base. Role models and regular access reviews become necessary. Grundschutz ORP.4 applies. NIS2 Art 21(2)(i) (access control policies) proportionate."
+            "label": "Ook bevoorrechte gebruikers (admins, financiën, directie)",
+            "why": "Bevoorrechte gebruikers hebben toegang. Aanvalswaarde concentreert zich op weinig accounts. Strikte rolscheiding, multi-factor authenticatie op bevoorrechte accounts en periodieke toegangscontroles vereist. Grundschutz ORP.4 en NIS2 Art 21(2)(j) (multi-factor authenticatie) proportioneel vereist."
           },
           "externalToo": {
-            "label": "External people too (customers, suppliers, partners)",
-            "why": "The system is also used by external people. Identity verification and separation of internal/external permissions critical. NIS2 Art 21(2)(d) (supply chain security) and Art 21(2)(j) (multi-factor authentication) proportionate."
+            "label": "Ook externe personen (klanten, leveranciers, partners)",
+            "why": "Externe personen hebben toegang. Identiteitsverificatie en scheiding van interne en externe rechten is kritiek. NIS2 Art 21(2)(d) (toeleveringsketenbeveiliging) en Art 21(2)(j) (multi-factor authenticatie) proportioneel vereist."
           }
         }
       },
       "vendorSupport": {
-        "question": "What is the vendor support status?",
-        "shortLabel": "Vendor",
+        "question": "Blijven er beveiligingsupdates komen voor dit systeem?",
+        "shortLabel": "Updates",
         "options": {
           "active": {
-            "label": "Current, actively maintained version",
-            "why": "Vendor active in the market, patches released promptly. Standard patch management sufficient. Grundschutz OPS.1.1.3 applies."
+            "label": "Ja, de leverancier onderhoudt het actief en levert patches",
+            "why": "Leverancier actief in de markt, patches verschijnen snel. Standaard patchmanagement voldoende. Grundschutz OPS.1.1.3 van toepassing."
           },
           "mature": {
-            "label": "Current but infrequently updated version",
-            "why": "Vendor established, patches less frequent. Higher self-responsibility for monitoring. Grundschutz OPS.1.1.3 applies."
+            "label": "Ja, maar patches verschijnen slechts onregelmatig",
+            "why": "Leverancier gevestigd, patches verschijnen minder vaak. Hogere eigen verantwoordelijkheid voor monitoring. Grundschutz OPS.1.1.3 van toepassing."
           },
           "eolAnnounced": {
-            "label": "Vendor has announced end of support",
-            "why": "Vendor has announced end of support. Migration or compensating controls required. NIS2 Art 21(2)(e) (vulnerability handling) proportionate."
+            "label": "Nee, einde ondersteuning is aangekondigd",
+            "why": "Leverancier heeft einde ondersteuning aangekondigd. Migratie of compenserende maatregelen vereist. NIS2 Art 21(2)(e) (kwetsbaarhedenbeheer) proportioneel vereist."
           },
           "abandoned": {
-            "label": "Vendor gone or in-house build without maintenance",
-            "why": "System without active support. High residual risks from unpatched vulnerabilities. Migration or replacement controls urgent."
+            "label": "Nee, geen leverancier meer of zelfbouw zonder onderhoud",
+            "why": "Systeem zonder actieve ondersteuning. Hoge restrisico's door ongepatchte kwetsbaarheden. Migratie of vervangende maatregelen urgent."
           }
         }
       },
       "incidentHistory": {
-        "question": "Any security incidents in the last 3 years with this system?",
-        "shortLabel": "Incidents",
+        "question": "Zijn er in de afgelopen drie jaar beveiligingsincidenten geweest met dit systeem?",
+        "shortLabel": "Historie",
         "options": {
           "none": {
-            "label": "No known incidents",
-            "why": "No known incidents. Note: absence of incidents may also mean lack of detection. NIS2 Art 21(2)(f) (effectiveness assessment) recommended to substantiate the claim."
+            "label": "Geen incidenten en we hebben logging of monitoring die ze zou opmerken",
+            "why": "Geen incidenten gedocumenteerd en monitoring aanwezig. Sterkste positie: de afwezigheid van incidenten is onderbouwd door logs. NIS2 Art 21(2)(f) (effectiviteitsbeoordeling) periodiek toepassen."
           },
           "minor": {
-            "label": "One minor incident (e.g. spam, brief outage)",
-            "why": "One minor incident in the last 3 years. Lessons learned to be documented. NIS2 Art 21(2)(b) (incident handling) applies."
+            "label": "Geen bekende incidenten, maar we monitoren het systeem niet actief",
+            "why": "Geen bekende incidenten, maar geen monitoring aanwezig. De afwezigheid kan niet worden onderbouwd. Basislogging opzetten is de eerste stap. NIS2 Art 21(2)(f) (effectiviteitsbeoordeling) aanbevolen."
           },
           "major": {
-            "label": "One major incident (data loss, extended outage, regulatory notification)",
-            "why": "One major incident with notification obligation or data loss. Heightened attention to recurrence risks. Grundschutz DER.2.1 applies."
+            "label": "Eén incident in het verleden (klein of groot)",
+            "why": "Eén incident in de afgelopen drie jaar. Lessons learned zijn schriftelijk te documenteren. NIS2 Art 21(2)(b) (incidentbehandeling) van toepassing. Grundschutz DER.2.1."
           },
           "repeated": {
-            "label": "Multiple or recurring incidents",
-            "why": "Multiple or recurring incidents. Structural weaknesses likely. Full risk reassessment and compensating controls required."
+            "label": "Meerdere of terugkerende incidenten",
+            "why": "Meerdere of terugkerende incidenten. Structurele zwakheden waarschijnlijk. Volledige herziening risicoanalyse en compenserende maatregelen vereist."
           }
         }
       },
       "downtimeTolerance": {
-        "question": "How long can operations continue without this system?",
-        "shortLabel": "Downtime",
+        "question": "Hoe lang duurt het voordat klanten of de bedrijfsvoering merken dat het systeem is uitgevallen?",
+        "shortLabel": "Uitval",
         "options": {
           "weeks": {
-            "label": "Weeks, no operational issue",
-            "why": "Operations can continue without the system for weeks. Low availability need. Standard backups sufficient."
+            "label": "Weken. Niemand zou het echt merken.",
+            "why": "Bedrijfsvoering kan weken zonder systeem draaien voordat klanten of workflows het merken. Lage beschikbaarheidseis. Standaard backups voldoende."
           },
           "days": {
-            "label": "Days, with workarounds",
-            "why": "Operations tolerate days of outage. Medium availability need. Grundschutz CON.3 (data backup) applies."
+            "label": "Dagen. Met workarounds is het te overbruggen.",
+            "why": "Bedrijfsvoering verdraagt dagen uitval met workarounds. Gemiddelde beschikbaarheidseis. Grundschutz CON.3 (gegevensbeveiliging) van toepassing."
           },
           "hours": {
-            "label": "Hours, with noticeable restrictions",
-            "why": "Hours of outage cause noticeable restrictions. Higher availability need. Grundschutz CON.3, OPS.1.2.5 (backup-restore) and emergency planning apply."
+            "label": "Uren. Klanten of de bedrijfsvoering zouden het merken.",
+            "why": "Uren uitval veroorzaakt merkbare beperkingen voor klanten of bedrijfsvoering. Hogere beschikbaarheidseis. Grundschutz CON.3, OPS.1.2.5 (remote onderhoud) en noodplanning van toepassing."
           },
           "minutes": {
-            "label": "Minutes, operations stop immediately",
-            "why": "Minutes of outage halt operations. Very high availability need. Redundancy, automatic failover and tested emergency plans required. NIS2 Art 21(2)(c) (business continuity) is load-bearing."
+            "label": "Minuten. De bedrijfsvoering valt direct stil.",
+            "why": "Minuten uitval doen de bedrijfsvoering stilstaan. Zeer hoge beschikbaarheidseis. Redundantie, automatische failover en geteste noodplanning vereist. NIS2 Art 21(2)(c) (bedrijfscontinuïteit) is dragend."
           }
         }
       },
       "replaceability": {
-        "question": "How quickly could you replace the system if it failed?",
-        "shortLabel": "Replace",
+        "question": "Als dit systeem vanavond verdwijnt, hoe lang duurt het voordat u met een gelijkwaardige vervanging werkt? (Aanschaf, herstel uit backup of opnieuw bouwen tellen allemaal mee.)",
+        "shortLabel": "Herstel",
         "options": {
           "oneDay": {
-            "label": "Within a day",
-            "why": "System quickly replaceable. Low residual risk on failure."
+            "label": "Binnen een dag",
+            "why": "Systeem snel te vervangen. Laag restrisico bij uitval."
           },
           "oneWeek": {
-            "label": "Within a week",
-            "why": "Replacement possible within a week. Have workarounds ready for the transition."
+            "label": "Binnen een week",
+            "why": "Vervanging binnen een week mogelijk. Workarounds voor de overgangsperiode beschikbaar houden."
           },
           "oneMonth": {
-            "label": "Within a month",
-            "why": "Replacement takes up to a month. Emergency planning for the transition period required. Grundschutz DER.4 (emergency management) applies."
+            "label": "Binnen een maand",
+            "why": "Vervanging duurt tot een maand. Noodplanning voor de overgangsperiode vereist. Grundschutz DER.4 (noodbeheer) van toepassing."
           },
           "irreplaceable": {
-            "label": "Not at all, or only as custom build",
-            "why": "System not or only custom-replaceable. Load-bearing operational risk. Emergency planning and protective measures central. NIS2 Art 21(2)(c) (business continuity) is load-bearing."
+            "label": "Helemaal niet, of alleen als langdurig maatwerk",
+            "why": "Systeem niet of alleen als maatwerk te vervangen. Dragend operationeel risico. Noodplanning en beschermende maatregelen staan centraal. NIS2 Art 21(2)(c) (bedrijfscontinuïteit) is dragend."
           }
         }
       },
       "personalData": {
-        "question": "What personal data does the system process?",
-        "shortLabel": "Data",
+        "question": "Welk soort gevoelige gegevens verwerkt dit systeem?",
+        "shortLabel": "Gevoeligheid",
         "options": {
           "none": {
-            "label": "No personal data",
-            "why": "No personal data. GDPR does not apply to this system."
+            "label": "Geen gevoelige gegevens (alleen openbare of algemene bedrijfsinformatie)",
+            "why": "Geen persoonsgegevens of bijzonder gereguleerde gegevens. AVG en sectorspecifieke regels zijn beperkt van toepassing."
           },
           "employeeOnly": {
-            "label": "Employee data only",
-            "why": "Employee data only. GDPR applies. Standard TOMs per Art 32 GDPR applicable."
+            "label": "Werknemersgegevens (HR-dossiers, contracten, salarissen)",
+            "why": "Werknemersgegevens. AVG van toepassing. Standaard TOMs volgens art. 32 AVG van toepassing."
           },
           "customer": {
-            "label": "General customer data (name, address, contract data)",
-            "why": "General customer data. GDPR applies. Standard TOMs and data processing agreements with external processors required."
+            "label": "Klantgegevens of operationele bedrijfsgegevens",
+            "why": "Klant- of bedrijfsgegevens. AVG van toepassing plus bedrijfsgeheim. Standaard TOMs en verwerkersovereenkomsten met externe verwerkers vereist."
           },
           "sensitivePii": {
-            "label": "Special personal data per Art 9 GDPR (health, finance, religion)",
-            "why": "Special personal data per Art 9 GDPR. Elevated protection duty. Data protection impact assessment mandatory. Extended technical and organisational measures required."
+            "label": "Gevoelige gegevens: art. 9 AVG (gezondheid, religie) of gereguleerde operationele gegevens (OT, KRITIS)",
+            "why": "Bijzondere persoonsgegevens volgens art. 9 AVG of gereguleerde operationele gegevens (bv. OT-systemen, KRITIS-gerelateerde gegevens). Verhoogde beschermingsplicht. DPIA verplicht voor art. 9 AVG-gegevens. Uitgebreide technische en organisatorische maatregelen vereist."
           }
         }
       }
@@ -217,7 +217,7 @@
     "hardStops": {
       "internetExposed": "Hard-stop triggered: internet exposure forces minimum Standard tier in the Security domain.",
       "downtimeMinutes": "Hard-stop triggered: minutes-downtime threshold forces minimum Standard tier in the Operational domain.",
-      "sensitivePii": "Hard-stop triggered: Art 9 GDPR data forces Kern tier in the Compliance domain."
+      "sensitivePii": "Hard-stop triggered: sensitive data (Art 9 GDPR or regulated operational data) forces Kern tier in the Compliance domain."
     },
     "result": {
       "heading": "Risk assessment result",
