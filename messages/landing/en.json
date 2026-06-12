@@ -2,7 +2,6 @@
   "landing": {
     "title": "Halve Europe's <blue>NIS2</blue> bill.",
     "subtitle": "<link>€31 billion every year</link>. We're cutting it in half.",
-    "productLine": "Free NIS2 compliance for regulated companies and their suppliers.",
     "badge": "NIS2 / BSIG - Deadline: March 2026",
     "badgeTooltip": "The German BSIG (BSI-Gesetz) transposing the EU NIS2 Directive requires affected entities to implement all cybersecurity measures by March 2026. Non-compliance carries fines up to €10M or 2% of global turnover, and personal liability for managing directors.",
     "nis2Badge": "NIS2 Directive (EU) 2022/2555",
@@ -15,9 +14,6 @@
     "scheduleDemo": "Schedule a Demo",
     "startTraining": "Free NIS2 Managing Director Training",
     "signIn": "Sign in to start the process",
-    "stats": {
-      "urgency": "160,000+ EU entities in scope · Fines up to €10M or 2% of global annual turnover (Art. 34 NIS2) · Management personally liable (Art. 20 NIS2)"
-    },
     "nav": {
       "wiki": "Wiki",
       "pricing": "Pricing",

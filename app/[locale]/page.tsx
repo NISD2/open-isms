@@ -66,18 +66,8 @@ export default async function LandingPage() {
           })}
         </p>
 
-        {/* Product line */}
-        <p className="mt-4 max-w-lg text-sm font-medium text-foreground">
-          {t("productLine")}
-        </p>
-
         {/* Frameworks */}
         <FrameworkBadges />
-
-        {/* Urgency */}
-        <p className="mt-8 text-xs text-muted-foreground">
-          {t("stats.urgency")}
-        </p>
 
         {/* CTAs */}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
