@@ -90,6 +90,11 @@ export const routing = defineRouting({
       en: "/applicability",
       nl: "/toepasselijkheid",
     },
+    "/risikobewertung": {
+      de: "/risikobewertung",
+      en: "/risk-assessment",
+      nl: "/risicobeoordeling",
+    },
     "/features": {
       de: "/features",
       en: "/features",
