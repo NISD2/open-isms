@@ -66,15 +66,15 @@ export function RadarChart({
 
   return (
     <div className="w-full" role="img" aria-label={ariaLabel} title={title}>
-      <Recharts.ResponsiveContainer width="100%" height={320}>
-        <Recharts.RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
+      <Recharts.ResponsiveContainer width="100%" height={460}>
+        <Recharts.RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
           <Recharts.PolarGrid
             stroke="currentColor"
             className="text-muted-foreground/30"
           />
           <Recharts.PolarAngleAxis
             dataKey="subject"
-            tick={{ fontSize: 11, fill: "currentColor" }}
+            tick={{ fontSize: 13, fill: "currentColor" }}
             className="text-foreground"
           />
           <Recharts.PolarRadiusAxis
@@ -90,8 +90,8 @@ export function RadarChart({
             fill={color}
             fillOpacity={0.4}
             strokeWidth={2}
-            dot={{ r: 4, fill: color, strokeWidth: 0 }}
-            activeDot={{ r: 6, fill: color, strokeWidth: 2, stroke: "#fff" }}
+            dot={{ r: 5, fill: color, strokeWidth: 0 }}
+            activeDot={{ r: 7, fill: color, strokeWidth: 2, stroke: "#fff" }}
           />
           <Recharts.Tooltip
             content={<CustomTooltip />}

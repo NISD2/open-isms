@@ -7,15 +7,17 @@ import { pageAlternates } from "@/lib/seo";
 
 // Canned example used both for SEO crawlers (the radar card renders something
 // useful before any JS runs) and as the "before you start" preview. Picked
-// to land on Standard with visible spread on the radar.
+// to land on Basic — a low-risk Mittelstand-typical offline HR workstation
+// — so first-time visitors see a friendly green result rather than a
+// red/amber alarm before they've even started.
 const EXAMPLE_ANSWERS = {
-  internetExposure: "internetExposed",
-  userCount: "large",
+  internetExposure: "offline",
+  userCount: "tiny",
   vendorSupport: "active",
-  incidentHistory: "none",
-  downtimeTolerance: "weeks",
-  replaceability: "oneWeek",
-  personalData: "customer",
+  incidentHistory: "minor",
+  downtimeTolerance: "days",
+  replaceability: "oneDay",
+  personalData: "employeeOnly",
 } as const;
 
 export async function generateMetadata({
