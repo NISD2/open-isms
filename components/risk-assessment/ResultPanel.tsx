@@ -80,6 +80,24 @@ export function ResultPanel({ result }: ResultPanelProps) {
                   <p className="text-xs text-muted-foreground">
                     {t(`schutzbedarf.grundwerte.${g}.description`)}
                   </p>
+                  {result.scenarios.length > 0 && (
+                    <div className="pt-2 border-t border-border space-y-1">
+                      <div className="text-[10px] uppercase tracking-wide font-medium text-muted-foreground">
+                        {t("schutzbedarf.scenariosLabel")}
+                      </div>
+                      <ul className="space-y-0.5">
+                        {result.scenarios.map((s) => (
+                          <li
+                            key={s}
+                            className="text-[11px] leading-snug text-foreground/90"
+                          >
+                            <span className="text-muted-foreground">• </span>
+                            {t(`schutzbedarf.scenarios.${s}.label`)}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               );
             })}

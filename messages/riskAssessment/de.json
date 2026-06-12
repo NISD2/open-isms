@@ -75,6 +75,15 @@
         "hoch": { "label": "hoch" },
         "sehrHoch": { "label": "sehr hoch" }
       },
+      "scenariosLabel": "Schadensszenarien (§8.2.1)",
+      "scenarios": {
+        "gesetzeVorschriftenVertraege": { "label": "Verstoß gegen Gesetze, Vorschriften, Verträge" },
+        "informationellesSelbstbestimmungsrecht": { "label": "Beeinträchtigung des informationellen Selbstbestimmungsrechts" },
+        "persoenlicheUnversehrtheit": { "label": "Beeinträchtigung der persönlichen Unversehrtheit" },
+        "aufgabenerfuellung": { "label": "Beeinträchtigung der Aufgabenerfüllung" },
+        "innenAussenwirkung": { "label": "Negative Innen- oder Außenwirkung" },
+        "finanziell": { "label": "Finanzielle Auswirkungen" }
+      },
       "gesamtLabel": "Gesamt-Schutzbedarf",
       "gesamtBody": "Maximum-Prinzip: der höchste der drei Grundwerte bestimmt den Gesamt-Schutzbedarf. Treibender Grundwert: <grundwert></grundwert>."
     },
@@ -295,7 +304,7 @@
     "disclaimer": {
       "heading": "Rechtlicher Hinweis",
       "body": "Dieses Tool ist eine informelle Klassifikation auf Basis Ihrer Angaben. Sie ist keine Rechtsberatung im Sinne des RDG. Verbindlich wird die Bewertung erst durch Freigabe der Geschäftsleitung nach §38 BSIG und Art. 20 NIS2.",
-      "methodologyDisclosure": "Dieses Tool ist keine zertifizierungsfähige BSI-200-2-Schutzbedarfsfeststellung, sondern eine 8-Fragen-Heuristik im Geist von §8.2. Es schlägt eine erste Schutzbedarfseinschätzung (V/I/A) und eine empfohlene Absicherungsvariante (Basis/Standard/Kern) vor. Für Assets mit hohem oder sehr hohem Schutzbedarf ist eine ergänzende Risikoanalyse nach BSI-200-3 verpflichtend."
+      "methodologyDisclosure": "Asset-bezogene Schutzbedarfsfeststellung nach BSI-200-2 §8.2 (setzt voraus, dass Ihre Sicherheitsleitlinie §4 und Strukturanalyse §8.1 bereits stehen). Klassifikation je Grundwert (V/I/A) auf der BSI-Skala normal/hoch/sehr hoch, Maximum-Prinzip nach §8.2.3, Kumulationseffekt nach §8.2.4 und dokumentierte Schadensszenarien nach §8.2.1. Vererbung, Modellierung (§8.3), IT-Grundschutz-Check (§8.4) und BSI-200-3 ergänzende Risikoanalyse bleiben Folgearbeit. Keine Zertifizierung: die erfordert ein drittes Audit durch eine DAkkS-akkreditierte Stelle."
     },
     "art21Measures": {
       "a": {

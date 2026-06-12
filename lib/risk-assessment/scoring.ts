@@ -6,6 +6,7 @@ import type {
   Axis,
   GrundwertResult,
   MatrixResult,
+  Schadensszenario,
   SchutzbedarfBreakdown,
   Schutzbedarf,
   Score,
@@ -80,6 +81,81 @@ function getKumulationAxis(): Axis {
   return axis;
 }
 
+// BSI-200-2 §8.2.1 Schadensszenarien inference per Grundwert answer.
+// We default to the scenarios most likely to apply given the user's
+// answer — the user can refine in their own ISMS documentation later.
+// This is the rationale that an auditor expects to see attached to
+// each V/I/A classification.
+function inferScenariosForV(optionId: string): Schadensszenario[] {
+  switch (optionId) {
+    case "employeeOnly":
+      return [
+        "gesetzeVorschriftenVertraege",
+        "informationellesSelbstbestimmungsrecht",
+      ];
+    case "customer":
+      return [
+        "gesetzeVorschriftenVertraege",
+        "informationellesSelbstbestimmungsrecht",
+        "innenAussenwirkung",
+        "finanziell",
+      ];
+    case "sensitivePii":
+      return [
+        "gesetzeVorschriftenVertraege",
+        "informationellesSelbstbestimmungsrecht",
+        "persoenlicheUnversehrtheit",
+        "innenAussenwirkung",
+        "finanziell",
+      ];
+    default:
+      return [];
+  }
+}
+
+function inferScenariosForI(optionId: string): Schadensszenario[] {
+  switch (optionId) {
+    case "minor":
+    case "moderate":
+      return ["aufgabenerfuellung"];
+    case "high":
+      return [
+        "aufgabenerfuellung",
+        "finanziell",
+        "gesetzeVorschriftenVertraege",
+        "innenAussenwirkung",
+      ];
+    case "critical":
+      return [
+        "aufgabenerfuellung",
+        "finanziell",
+        "gesetzeVorschriftenVertraege",
+        "innenAussenwirkung",
+        "persoenlicheUnversehrtheit",
+      ];
+    default:
+      return ["aufgabenerfuellung"];
+  }
+}
+
+function inferScenariosForA(optionId: string): Schadensszenario[] {
+  switch (optionId) {
+    case "weeks":
+    case "days":
+      return ["aufgabenerfuellung"];
+    case "hours":
+      return ["aufgabenerfuellung", "finanziell"];
+    case "minutes":
+      return [
+        "aufgabenerfuellung",
+        "finanziell",
+        "persoenlicheUnversehrtheit",
+      ];
+    default:
+      return ["aufgabenerfuellung"];
+  }
+}
+
 // Compute V/I/A Schutzbedarf per Grundwert, then Maximum-Prinzip
 // (BSI-200-2 §8.2.3) → Gesamt-Schutzbedarf.
 function computeSchutzbedarf(answers: Answers): SchutzbedarfBreakdown {
@@ -105,9 +181,21 @@ function computeSchutzbedarf(answers: Answers): SchutzbedarfBreakdown {
   const iDrivers = [`${iAxis.id}:${answers[iAxis.id]}`];
   const aDrivers = [`${aAxis.id}:${answers[aAxis.id]}`];
 
-  const v: GrundwertResult = { class: finalV, drivers: vDrivers };
-  const i: GrundwertResult = { class: finalI, drivers: iDrivers };
-  const a: GrundwertResult = { class: finalA, drivers: aDrivers };
+  const v: GrundwertResult = {
+    class: finalV,
+    drivers: vDrivers,
+    scenarios: inferScenariosForV(answers[vAxis.id] ?? ""),
+  };
+  const i: GrundwertResult = {
+    class: finalI,
+    drivers: iDrivers,
+    scenarios: inferScenariosForI(answers[iAxis.id] ?? ""),
+  };
+  const a: GrundwertResult = {
+    class: finalA,
+    drivers: aDrivers,
+    scenarios: inferScenariosForA(answers[aAxis.id] ?? ""),
+  };
 
   // Maximum-Prinzip
   let gesamt: Schutzbedarf = finalV;
