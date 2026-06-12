@@ -140,6 +140,11 @@ const nextConfig: NextConfig = {
       { source: "/en/5-schritte", destination: "/en/nis2-roadmap", permanent: true },
       { source: "/5-steps", destination: "/nis2-roadmap", permanent: true },
       { source: "/en/5-steps", destination: "/en/nis2-roadmap", permanent: true },
+      // Risk-assessment landing localized June 2026 — old un-localized
+      // EN/NL slugs redirect to the canonical localized paths so any
+      // accidental backlinks to /en/risikobewertung land correctly.
+      { source: "/en/risikobewertung", destination: "/en/risk-assessment", permanent: true },
+      { source: "/nl/risikobewertung", destination: "/nl/risicobeoordeling", permanent: true },
       // Keyword variants → canonical pages (May 2026)
       { source: "/nis2-compliance-software", destination: "/features", permanent: true },
       { source: "/en/nis2-compliance-software", destination: "/en/features", permanent: true },
