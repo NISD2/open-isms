@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
           url: `/og/home-${locale}.png`,
           width: 1200,
           height: 630,
-          alt: "nisd2.eu — kostenlose NIS 2 Plattform",
+          alt: "nisd2.eu: kostenlose NIS 2 Plattform",
         },
       ],
     },
