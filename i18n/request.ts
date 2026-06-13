@@ -38,6 +38,7 @@ const namespaces = [
   "requirements",
   "review",
   "riskAssessment",
+  "assetInventory",
   "risks",
   "settings",
   "sicherheitsfragebogen",

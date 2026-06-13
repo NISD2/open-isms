@@ -95,6 +95,11 @@ export const routing = defineRouting({
       en: "/risk-assessment",
       nl: "/risicobeoordeling",
     },
+    "/strukturanalyse": {
+      de: "/strukturanalyse",
+      en: "/asset-inventory",
+      nl: "/asset-inventarisatie",
+    },
     "/features": {
       de: "/features",
       en: "/features",
