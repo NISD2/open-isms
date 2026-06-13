@@ -1,0 +1,136 @@
+{
+  "assetInventory": {
+    "page": {
+      "metaTitle": "NIS2 Asset Inventory (Strukturanalyse) — free, no signup",
+      "metaDescription": "Free guided tool to build your first BSI Grundschutz 200-2 §8.1 Strukturanalyse. Captures business processes, applications, IT systems, rooms and communication links in the BSI 5-layer Informationsverbund."
+    },
+    "hero": {
+      "eyebrow": "Free, open source, no signup",
+      "headline": "NIS2 Asset Inventory",
+      "headlineAccent": "in under 15 minutes",
+      "subhead": "Walk through everyday categories in plain language. Output: a structured Informationsverbund per BSI Grundschutz 200-2 §8.1, ready to feed into your risk assessment."
+    },
+    "intro": {
+      "trustLine": "BSI-200-2 §8.1 Strukturanalyse five-layer model. NIS2 Art 21(2)(i), BSIG §30(2) Nr. 9. No signup, the result stays with you.",
+      "riskAssessmentHint": "Already have your inventory? Run the risk assessment per asset.",
+      "riskAssessmentLinkLabel": "Open the risk assessment →"
+    },
+    "steps": {
+      "label": "Step {current} of {total}",
+      "back": "Back",
+      "next": "Next",
+      "restart": "Restart"
+    },
+    "sectorPicker": {
+      "question": "Which NIS2 sectors apply to your company?",
+      "helpText": "Pick all that apply. You can be in more than one sector. Sector-specific questions appear later in the wizard.",
+      "annexI": "Annex I (essential entities)",
+      "annexIDescription": "High-criticality sectors. Proactive BSI supervision, fines up to €10M.",
+      "annexII": "Annex II (important entities)",
+      "annexIIDescription": "Other critical sectors. Reactive supervision, fines up to €7M."
+    },
+    "sectors": {
+      "energy": { "name": "Energy (electricity, district heating, oil, gas, hydrogen)" },
+      "transport": { "name": "Transport (air, rail, water, road)" },
+      "banking": { "name": "Banking" },
+      "financial-market-infrastructure": { "name": "Financial market infrastructures" },
+      "health": { "name": "Health" },
+      "drinking-water": { "name": "Drinking water" },
+      "waste-water": { "name": "Waste water" },
+      "digital-infrastructure": { "name": "Digital infrastructure (DNS, TLD, cloud, data centre, CDN, trust services)" },
+      "ict-service-management": { "name": "ICT service management (MSP, MSSP)" },
+      "space": { "name": "Space" },
+      "postal-courier": { "name": "Postal and courier services" },
+      "waste-management": { "name": "Waste management" },
+      "chemicals": { "name": "Chemicals (manufacture, production, distribution)" },
+      "food": { "name": "Food (production, processing, distribution)" },
+      "manufacturing": { "name": "Manufacturing (medical devices, machinery, vehicles, electronics)" },
+      "digital-providers": { "name": "Digital providers (marketplaces, search engines, social networks)" },
+      "research": { "name": "Research" }
+    },
+    "questions": {
+      "gruppenbildungHint": "Grouping is fine. BSI-200-2 §8.1 allows you to count 45 identical laptops as one entry. Tick what you have; we will create one asset per tick.",
+      "business-processes": {
+        "question": "What does your company actually do day to day?",
+        "helpText": "Pick the business processes that describe your operations. These become the Geschäftsprozesse layer of the Informationsverbund (BSI §8.1.3).",
+        "options": {
+          "sales-customer-service": "Sales and customer service",
+          "production-service-delivery": "Production or service delivery",
+          "procurement": "Procurement (buying materials or services)",
+          "hr-payroll": "HR and payroll",
+          "finance-accounting": "Finance and accounting",
+          "marketing-comms": "Marketing and external communications"
+        }
+      },
+      "internal-apps": {
+        "question": "Which software does the company use day to day?",
+        "helpText": "Tick everything you use. Each tick becomes an Anwendung in your Informationsverbund (BSI §8.1.4).",
+        "options": {
+          "email": "Email (Microsoft 365, Google Workspace, on-prem Exchange, other)",
+          "accounting-software": "Accounting software (DATEV, Lexware, SAP, other)",
+          "file-storage": "Shared file storage (network drive, SharePoint, Google Drive, Dropbox)",
+          "crm": "CRM (Salesforce, HubSpot, internal system)",
+          "erp": "ERP (SAP, Microsoft Dynamics, internal system)",
+          "hr-software": "HR or payroll software",
+          "video-conferencing": "Video conferencing (Teams, Zoom, other)"
+        }
+      },
+      "it-infrastructure": {
+        "question": "What IT infrastructure does the company run?",
+        "helpText": "Hardware and infrastructure. Each tick becomes an IT-System entry (BSI §8.1.6).",
+        "options": {
+          "onprem-servers": "On-premise servers (in your own server room)",
+          "cloud-services": "Cloud services (AWS, Azure, Google Cloud, Hetzner, other)",
+          "endpoint-fleet": "Laptops or desktops for employees",
+          "mobile-devices": "Mobile devices (phones, tablets) issued to employees",
+          "network-equipment": "Network equipment (firewall, switches, WiFi access points)",
+          "backup-system": "Backup system (NAS, tape, cloud backup service)"
+        }
+      }
+    },
+    "layers": {
+      "geschaeftsprozess": {
+        "label": "Geschäftsprozesse",
+        "description": "BSI-200-2 §8.1.3. The business processes your IT supports. Sets the protection-need floor for everything downstream."
+      },
+      "anwendung": {
+        "label": "Anwendungen",
+        "description": "BSI-200-2 §8.1.4. Software the processes depend on (email, accounting, CRM, ERP, file storage, cloud services)."
+      },
+      "it-system": {
+        "label": "IT-Systeme",
+        "description": "BSI-200-2 §8.1.6. Hardware and infrastructure (servers, clients, mobile devices, network equipment, ICS, IoT)."
+      },
+      "raum": {
+        "label": "Räume",
+        "description": "BSI-200-2 §8.1.7. Physical locations (offices, server rooms, data centres, warehouses, plant sites)."
+      },
+      "kommunikation": {
+        "label": "Kommunikationsverbindungen",
+        "description": "BSI-200-2 §8.1.5. Internal and external network connections, VPN, third-party links, internet exposure."
+      }
+    },
+    "categories": {
+      "process": "Business process",
+      "application": "Application",
+      "server": "Server",
+      "endpoint": "Endpoint",
+      "network": "Network device",
+      "cloud_service": "Cloud service",
+      "data_store": "Data store",
+      "ot_ics": "OT / ICS",
+      "iot": "IoT device",
+      "physical": "Physical asset",
+      "room": "Room or location",
+      "database": "Database"
+    },
+    "output": {
+      "heading": "Your Informationsverbund (BSI-200-2 §8.1)",
+      "subtitle": "Five-layer structure ready for the §8.2 Schutzbedarfsfeststellung. Each entry has an auto-generated id (P/A/S/R/N + number) following the BSI §8.1 attribute convention.",
+      "empty": "Nothing captured in this layer yet."
+    },
+    "disclaimer": {
+      "methodologyDisclosure": "Asset inventory aligned with BSI-200-2 §8.1 Strukturanalyse (five-layer Informationsverbund + Gruppenbildung per Lektion 3). Output is a first-pass inventory you can hand to a consultant or feed into the risk assessment. Full §8.1 conformance also requires a current Netzplan (network diagram), dependency edges between layers, and management body sign-off (§38 BSIG, Art 20 NIS2)."
+    }
+  }
+}

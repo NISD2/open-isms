@@ -94,6 +94,7 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   // Standalone public pages
   "/applicability",
   "/risikobewertung",
+  "/strukturanalyse",
   "/start",
   "/pitch",
   "/supplier-portal",

@@ -1,0 +1,136 @@
+{
+  "assetInventory": {
+    "page": {
+      "metaTitle": "NIS2 Asset-inventarisatie (Strukturanalyse) — gratis, geen aanmelding",
+      "metaDescription": "Gratis begeleidende tool voor uw eerste BSI Grundschutz 200-2 §8.1 Strukturanalyse. Legt bedrijfsprocessen, applicaties, IT-systemen, ruimtes en communicatieverbindingen vast in het 5-lagen-Informationsverbund."
+    },
+    "hero": {
+      "eyebrow": "Gratis, open source, geen aanmelding",
+      "headline": "NIS2 Asset-inventarisatie",
+      "headlineAccent": "in minder dan 15 minuten",
+      "subhead": "Loop in eenvoudige taal door alledaagse categorieën. Resultaat: een gestructureerde Informationsverbund volgens BSI Grundschutz 200-2 §8.1, klaar voor uw risicobeoordeling."
+    },
+    "intro": {
+      "trustLine": "BSI-200-2 §8.1 Strukturanalyse 5-lagen-model. NIS2 Art 21(2)(i), BSIG §30(2) Nr. 9. Geen aanmelding, het resultaat blijft bij u.",
+      "riskAssessmentHint": "Inventaris al klaar? Voer de risicobeoordeling per asset uit.",
+      "riskAssessmentLinkLabel": "Naar de risicobeoordeling →"
+    },
+    "steps": {
+      "label": "Stap {current} van {total}",
+      "back": "Terug",
+      "next": "Volgende",
+      "restart": "Opnieuw"
+    },
+    "sectorPicker": {
+      "question": "Welke NIS2-sectoren zijn van toepassing op uw bedrijf?",
+      "helpText": "Vink alle van toepassing zijnde aan. U kunt in meer dan één sector vallen. Sector-specifieke vragen komen later in de wizard.",
+      "annexI": "Bijlage I (essentiële entiteiten)",
+      "annexIDescription": "Sectoren met hoge kritikaliteit. Proactief BSI-toezicht, boetes tot €10M.",
+      "annexII": "Bijlage II (belangrijke entiteiten)",
+      "annexIIDescription": "Overige kritische sectoren. Reactief toezicht, boetes tot €7M."
+    },
+    "sectors": {
+      "energy": { "name": "Energie (elektriciteit, stadsverwarming, olie, gas, waterstof)" },
+      "transport": { "name": "Vervoer (lucht, spoor, water, weg)" },
+      "banking": { "name": "Bankwezen" },
+      "financial-market-infrastructure": { "name": "Infrastructuur voor de financiële markt" },
+      "health": { "name": "Gezondheidszorg" },
+      "drinking-water": { "name": "Drinkwater" },
+      "waste-water": { "name": "Afvalwater" },
+      "digital-infrastructure": { "name": "Digitale infrastructuur (DNS, TLD, cloud, datacenter, CDN, vertrouwensdiensten)" },
+      "ict-service-management": { "name": "Beheer van ICT-diensten (MSP, MSSP)" },
+      "space": { "name": "Ruimtevaart" },
+      "postal-courier": { "name": "Post- en koeriersdiensten" },
+      "waste-management": { "name": "Afvalstoffenbeheer" },
+      "chemicals": { "name": "Chemische stoffen (productie, vervaardiging, distributie)" },
+      "food": { "name": "Levensmiddelen (productie, verwerking, distributie)" },
+      "manufacturing": { "name": "Vervaardiging (medische apparaten, machines, voertuigen, elektronica)" },
+      "digital-providers": { "name": "Digitale aanbieders (marktplaatsen, zoekmachines, sociale netwerken)" },
+      "research": { "name": "Onderzoek" }
+    },
+    "questions": {
+      "gruppenbildungHint": "Groeperen is toegestaan. BSI-200-2 §8.1 staat toe dat u 45 identieke laptops als één invoer telt. Vink aan wat u heeft; wij maken één asset per aangevinkt item.",
+      "business-processes": {
+        "question": "Wat doet uw bedrijf dagelijks?",
+        "helpText": "Selecteer de bedrijfsprocessen die uw activiteiten beschrijven. Deze vormen de laag Geschäftsprozesse in de Informationsverbund (BSI §8.1.3).",
+        "options": {
+          "sales-customer-service": "Verkoop en klantenservice",
+          "production-service-delivery": "Productie of dienstverlening",
+          "procurement": "Inkoop (materialen of diensten)",
+          "hr-payroll": "HR en loonadministratie",
+          "finance-accounting": "Financiën en boekhouding",
+          "marketing-comms": "Marketing en externe communicatie"
+        }
+      },
+      "internal-apps": {
+        "question": "Welke software gebruikt het bedrijf dagelijks?",
+        "helpText": "Vink alles aan wat u gebruikt. Elk aangevinkt item wordt een Anwendung in uw Informationsverbund (BSI §8.1.4).",
+        "options": {
+          "email": "E-mail (Microsoft 365, Google Workspace, eigen Exchange, anders)",
+          "accounting-software": "Boekhoudsoftware (DATEV, Lexware, SAP, anders)",
+          "file-storage": "Gedeelde bestandsopslag (netwerkschijf, SharePoint, Google Drive, Dropbox)",
+          "crm": "CRM (Salesforce, HubSpot, intern systeem)",
+          "erp": "ERP (SAP, Microsoft Dynamics, intern systeem)",
+          "hr-software": "HR- of loonsoftware",
+          "video-conferencing": "Videoconferentie (Teams, Zoom, anders)"
+        }
+      },
+      "it-infrastructure": {
+        "question": "Welke IT-infrastructuur draait het bedrijf?",
+        "helpText": "Hardware en infrastructuur. Elk aangevinkt item wordt een IT-System-invoer (BSI §8.1.6).",
+        "options": {
+          "onprem-servers": "On-premise servers (in eigen serverruimte)",
+          "cloud-services": "Clouddiensten (AWS, Azure, Google Cloud, Hetzner, anders)",
+          "endpoint-fleet": "Laptops of desktops voor medewerkers",
+          "mobile-devices": "Mobiele apparaten (telefoons, tablets) voor medewerkers",
+          "network-equipment": "Netwerkapparatuur (firewall, switches, wifi-accesspoints)",
+          "backup-system": "Backup-systeem (NAS, tape, cloud-backup)"
+        }
+      }
+    },
+    "layers": {
+      "geschaeftsprozess": {
+        "label": "Geschäftsprozesse",
+        "description": "BSI-200-2 §8.1.3. De bedrijfsprocessen die uw IT ondersteunt. Bepalen de schutzbedarf-ondergrens voor alles wat erop volgt."
+      },
+      "anwendung": {
+        "label": "Anwendungen",
+        "description": "BSI-200-2 §8.1.4. Software waarvan de processen afhankelijk zijn (e-mail, boekhouding, CRM, ERP, opslag, cloud)."
+      },
+      "it-system": {
+        "label": "IT-Systeme",
+        "description": "BSI-200-2 §8.1.6. Hardware en infrastructuur (servers, clients, mobiele apparaten, netwerk, ICS, IoT)."
+      },
+      "raum": {
+        "label": "Räume",
+        "description": "BSI-200-2 §8.1.7. Fysieke locaties (kantoren, serverruimtes, datacenters, magazijnen, productiesites)."
+      },
+      "kommunikation": {
+        "label": "Kommunikationsverbindungen",
+        "description": "BSI-200-2 §8.1.5. Interne en externe netwerkverbindingen, VPN, externe koppelingen, internetexpositie."
+      }
+    },
+    "categories": {
+      "process": "Bedrijfsproces",
+      "application": "Applicatie",
+      "server": "Server",
+      "endpoint": "Endpoint",
+      "network": "Netwerkapparaat",
+      "cloud_service": "Clouddienst",
+      "data_store": "Gegevensopslag",
+      "ot_ics": "OT / ICS",
+      "iot": "IoT-apparaat",
+      "physical": "Fysiek asset",
+      "room": "Ruimte of locatie",
+      "database": "Database"
+    },
+    "output": {
+      "heading": "Uw Informationsverbund (BSI-200-2 §8.1)",
+      "subtitle": "Vijflagenstructuur, klaar voor §8.2 Schutzbedarfsfeststellung. Elke invoer krijgt automatisch een ID (P/A/S/R/N + nummer) volgens BSI §8.1.",
+      "empty": "Nog niets vastgelegd in deze laag."
+    },
+    "disclaimer": {
+      "methodologyDisclosure": "Asset-inventarisatie volgens BSI-200-2 §8.1 Strukturanalyse (5-lagen-Informationsverbund + Gruppenbildung volgens Lektion 3). Het resultaat is een eerste inventarisatie die u aan een consultant kunt overhandigen of in de risicobeoordeling kunt invoeren. Volledige §8.1-conformiteit vereist ook een actueel netwerkdiagram, afhankelijkheidsrelaties tussen lagen en goedkeuring van de directie (§38 BSIG, Art 20 NIS2)."
+    }
+  }
+}
