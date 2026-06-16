@@ -1,101 +1,127 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 
-import {
-  classifyInventory,
-  defaultQuestionsFor,
-  emptyInventory,
-} from "@/lib/asset-inventory/classify";
+import { defaultSelectionFor } from "@/lib/asset-inventory/catalog";
+import { classifyChecklist, countAssets } from "@/lib/asset-inventory/classify";
 import type { AssetLayer, Inventory } from "@/lib/asset-inventory/types";
+import {
+  readStateFromHash,
+  writeStateToHash,
+} from "@/lib/asset-inventory/url-state";
 
+import { BigChecklist } from "./BigChecklist";
 import { OutputCard } from "./OutputCard";
-import { QuestionStep } from "./QuestionStep";
 import { SectorPicker } from "./SectorPicker";
+import { ShareToolbar } from "./ShareToolbar";
+
+type Phase = "sectors" | "checklist" | "output";
+
+const EMPTY: Inventory = { sectors: [], checked: [], custom: [] };
 
 /**
- * Top-level client shell for the asset-inventory wizard.
+ * Top-level shell — three phases:
+ *   1. sectors    — pick NIS2 sector(s)
+ *   2. checklist  — review pre-checked typical assets, uncheck what doesn't
+ *                   apply, add custom ones per layer
+ *   3. output     — Informationsverbund result
  *
- * State shape mirrors what a server-persistent version would store, so the
- * same shell can later wrap with TRPC mutations in the portal. Step state
- * lives here; the wizard advances linearly: Sector picker → universal
- * questions → output.
+ * State is fully encoded in the URL hash so each unique state is one
+ * shareable link. Share toolbar copies the URL or opens the user's mail
+ * client. No backend, no signup.
  */
 export function InventoryShell() {
   const t = useTranslations("assetInventory");
-  const [inventory, setInventory] = useState<Inventory>(emptyInventory());
-  const [stepIndex, setStepIndex] = useState(0);
+  const [inventory, setInventory] = useState<Inventory>(EMPTY);
+  const [phase, setPhase] = useState<Phase>("sectors");
+  const [hydrated, setHydrated] = useState(false);
 
-  const questions = useMemo(() => defaultQuestionsFor(inventory), [inventory]);
-  // Steps: [sector picker, ...question steps, output]
-  const totalSteps = 1 + questions.length + 1;
-  const isSectorStep = stepIndex === 0;
-  const isOutputStep = stepIndex === totalSteps - 1;
-  const currentQuestion = isSectorStep || isOutputStep
-    ? null
-    : questions[stepIndex - 1];
+  // Hydrate from URL hash on mount.
+  useEffect(() => {
+    const url = readStateFromHash();
+    if (url) {
+      setInventory({
+        sectors: url.sectors,
+        checked: url.checked,
+        custom: url.custom,
+      });
+      if (url.sectors.length > 0 || url.checked.length > 0) {
+        setPhase("checklist");
+      }
+    }
+    setHydrated(true);
+  }, []);
 
-  const progress = Math.round((stepIndex / (totalSteps - 1)) * 100);
+  // Write state to URL on every change once hydrated.
+  useEffect(() => {
+    if (!hydrated) return;
+    writeStateToHash({
+      sectors: inventory.sectors,
+      checked: inventory.checked,
+      custom: inventory.custom,
+    });
+  }, [inventory, hydrated]);
 
   const output = useMemo(() => {
-    return classifyInventory(inventory, questions, {
-      resolveAssetName: (questionId, optionId, _layer: AssetLayer) =>
-        t(`questions.${questionId}.options.${optionId}`),
+    return classifyChecklist(inventory.checked, inventory.custom, {
+      resolveCatalogName: (id) => t(`catalog.${id}.label`),
     });
-  }, [inventory, questions, t]);
+  }, [inventory.checked, inventory.custom, t]);
+
+  const assetCount = countAssets(output);
 
   function setSectors(next: string[]) {
     setInventory({ ...inventory, sectors: next });
   }
 
-  function setAnswers(questionId: string, optionIds: string[]) {
-    setInventory({
-      ...inventory,
-      answers: { ...inventory.answers, [questionId]: optionIds },
-    });
+  function setChecked(next: string[]) {
+    setInventory({ ...inventory, checked: next });
   }
 
-  function goNext() {
-    if (stepIndex < totalSteps - 1) setStepIndex(stepIndex + 1);
-  }
-
-  function goBack() {
-    if (stepIndex > 0) setStepIndex(stepIndex - 1);
+  function setCustom(next: Array<{ name: string; layer: AssetLayer }>) {
+    setInventory({ ...inventory, custom: next });
   }
 
   function restart() {
-    setInventory(emptyInventory());
-    setStepIndex(0);
+    setInventory(EMPTY);
+    setPhase("sectors");
   }
 
-  // Sector step requires at least one selection to advance.
-  // Question steps don't require selections (user might not have any).
-  const canAdvance = isSectorStep ? inventory.sectors.length > 0 : true;
+  function startChecklist() {
+    if (inventory.checked.length === 0) {
+      setInventory({
+        ...inventory,
+        checked: defaultSelectionFor(inventory.sectors),
+      });
+    }
+    setPhase("checklist");
+  }
+
+  const canAdvance =
+    phase === "sectors" ? inventory.sectors.length > 0 : true;
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>
-          {t("steps.label", {
-            current: stepIndex + 1,
-            total: totalSteps,
-          })}
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <span className="text-sm text-muted-foreground">
+          {t(`phases.${phase}.label`, { count: assetCount })}
         </span>
-        {!isSectorStep && (
-          <Button variant="ghost" size="sm" onClick={restart}>
-            <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
-            {t("steps.restart")}
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          {phase === "checklist" && <ShareToolbar />}
+          {phase !== "sectors" && (
+            <Button variant="ghost" size="sm" onClick={restart}>
+              <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
+              {t("steps.restart")}
+            </Button>
+          )}
+        </div>
       </div>
-      <Progress value={progress} />
 
-      {isSectorStep && (
+      {phase === "sectors" && (
         <div className="space-y-3">
           <div className="space-y-1">
             <h2 className="text-xl font-semibold leading-tight">
@@ -109,24 +135,49 @@ export function InventoryShell() {
         </div>
       )}
 
-      {currentQuestion && (
-        <QuestionStep
-          step={currentQuestion}
-          selected={inventory.answers[currentQuestion.id] ?? []}
-          onChange={(next) => setAnswers(currentQuestion.id, next)}
-        />
+      {phase === "checklist" && (
+        <div className="space-y-4">
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold leading-tight">
+              {t("checklist.heading")}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {t("checklist.subtitle")}
+            </p>
+          </div>
+          <BigChecklist
+            sectors={inventory.sectors}
+            checked={inventory.checked}
+            custom={inventory.custom}
+            onCheckedChange={setChecked}
+            onCustomChange={setCustom}
+          />
+        </div>
       )}
 
-      {isOutputStep && <OutputCard output={output} />}
+      {phase === "output" && <OutputCard output={output} />}
 
       <div className="flex items-center justify-between gap-2 print:hidden">
-        <Button variant="outline" onClick={goBack} disabled={stepIndex === 0}>
+        <Button
+          variant="outline"
+          onClick={() => {
+            if (phase === "checklist") setPhase("sectors");
+            else if (phase === "output") setPhase("checklist");
+          }}
+          disabled={phase === "sectors"}
+        >
           <ArrowLeft className="w-4 h-4 mr-2" />
           {t("steps.back")}
         </Button>
-        {!isOutputStep && (
-          <Button onClick={goNext} disabled={!canAdvance}>
-            {t("steps.next")}
+        {phase === "sectors" && (
+          <Button onClick={startChecklist} disabled={!canAdvance}>
+            {t("steps.startChecklist")}
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        )}
+        {phase === "checklist" && (
+          <Button onClick={() => setPhase("output")}>
+            {t("steps.showOutput")}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         )}

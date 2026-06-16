@@ -47,41 +47,17 @@ export interface NIS2Sector {
   regime: NIS2Regime;
 }
 
-// ─── Wizard question shape ────────────────────────────────────────
+// ─── Inventory state + output ────────────────────────────────────
 
-export interface QuestionStep {
-  /** Stable id used in i18n keys and answer storage. */
-  id: string;
-  /** Which BSI layer this step's captured assets belong to. */
-  layer: AssetLayer;
-  /** Undefined = universal (shown to everyone). Otherwise sector-gated. */
-  appliesToSectors?: string[];
-  options: QuestionOption[];
-}
-
-export interface QuestionOption {
-  /** Stable id used in i18n keys and the inferred-asset name. */
-  id: string;
-  /** Asset(s) created when the user ticks this option. */
-  implies: AssetImplication[];
-}
-
-export interface AssetImplication {
-  layer: AssetLayer;
-  /** Category code from lib/compliance/asset-types.ts NIS2_ASSET_TYPES, or
-   *  "process" / "room" (added by this tool — BSI §8.1 layers that the
-   *  existing platform taxonomy doesn't currently cover). */
-  category: string;
-  defaultExposure: Exposure;
-}
-
-// ─── Wizard state + output ────────────────────────────────────────
-
-/** User's in-progress inventory state. */
+/** User's in-progress inventory state. Lives entirely in the URL hash
+ *  (lib/asset-inventory/url-state.ts) so it's fully shareable, no PII,
+ *  no backend. */
 export interface Inventory {
   sectors: string[];
-  /** questionId → selected option ids (multi-select). */
-  answers: Record<string, string[]>;
+  /** Catalog ids the user has checked. */
+  checked: string[];
+  /** User-added free-text assets per layer. */
+  custom: Array<{ name: string; layer: AssetLayer }>;
 }
 
 /** A single asset captured for the final Informationsverbund. */
