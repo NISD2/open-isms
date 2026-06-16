@@ -1,6 +1,149 @@
 {
   "entries": [
     {
+      "id": "2026-06-16-regulatory-timeline-cyber-europe-bsi-magazin",
+      "date": "2026-06-16",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: Cyber Europe 2026, BSI-Magazin 2026/01, LU-Registrierungsfrist",
+      "titleEn": "Timeline: Cyber Europe 2026, BSI-Magazin 2026/01, LU registration deadline",
+      "bodyDe": "Zwei neue Eintraege in der NIS-2-Zeitleiste: Cyber Europe 2026 (ENISA, 10.-11. Juni, erster EU-weiter Test des EU Cyber Blueprint mit Schiene und Seeverkehr als Szenario) und das BSI-Magazin 2026/01 vom 11. Juni mit Titelthema NIS-2 und BSIG. Bei den Registrierungsportalen ergaenzt: Luxemburg hat ueber das Gesetz vom 5. Mai 2026 eine zweimonatige Selbstregistrierungsfrist, die am 10. Juli 2026 endet.",
+      "bodyEn": "Two new entries on the NIS 2 timeline: Cyber Europe 2026 (ENISA, 10-11 June, first EU-wide test of the EU Cyber Blueprint with rail and maritime as the scenario) and the BSI-Magazin 2026/01 of 11 June with NIS-2 and BSIG as the cover feature. On the registration portals: Luxembourg's Act of 5 May 2026 sets a two-month self-registration window that closes 10 July 2026.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/zeitleiste"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-13-product-strukturanalyse-layer-1",
+      "date": "2026-06-13",
+      "category": "product",
+      "titleDe": "Strukturanalyse Schritt 1: Sektorauswahl und Informationsverbund",
+      "titleEn": "Asset inventory step 1: sector picker and Informationsverbund output",
+      "bodyDe": "Neues oeffentliches Werkzeug unter /strukturanalyse: drei universelle Schritte fuehren von Sektorauswahl zur ersten Beschreibung des Informationsverbunds nach BSI-200-2. Ergaenzt die Risikobewertung und liefert die Grundlage fuer spaetere Asset- und Schutzbedarfslagen.",
+      "bodyEn": "New public tool at /strukturanalyse: three universal steps walk from sector selection to a first description of the Informationsverbund per BSI-200-2. Complements the risk assessment and sets the foundation for later asset and Schutzbedarf layers.",
+      "links": [
+        {
+          "labelDe": "Strukturanalyse",
+          "labelEn": "Asset inventory",
+          "href": "/strukturanalyse"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-12-product-schutzbedarfsfeststellung",
+      "date": "2026-06-12",
+      "category": "product",
+      "titleDe": "Schutzbedarfsfeststellung als Self-Service-Werkzeug",
+      "titleEn": "Self-service Schutzbedarfsfeststellung tool",
+      "bodyDe": "Neues Werkzeug unter /risikobewertung: Schutzbedarfsfeststellung nach BSI-200-2 mit Trennung von Schutzbedarf und Absicherungsvariante (Basis, Standard, Kern), Schadensszenarien pro Grundwert, Radar-Visualisierung und PDF-Export. Eingaben sind faktisch (Branche, Datenarten, Abhaengigkeiten); die Einstufung in eine Absicherungsvariante erfolgt serverseitig.",
+      "bodyEn": "New tool at /risikobewertung: a Schutzbedarfsfeststellung per BSI-200-2 that separates Schutzbedarf from Absicherungsvariante (Basis, Standard, Kern), documents damage scenarios per Grundwert, renders a radar view, and exports a PDF. Inputs are factual (sector, data categories, dependencies); mapping into a protection tier happens server-side.",
+      "links": [
+        {
+          "labelDe": "Risikobewertung",
+          "labelEn": "Risk assessment",
+          "href": "/risikobewertung"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-12-content-landing-about-og-refresh",
+      "date": "2026-06-12",
+      "category": "content",
+      "titleDe": "Startseite gestrafft, /pitch und /mission in /about gebuendelt, eigene Vorschaubilder pro Landingpage",
+      "titleEn": "Homepage tightened, /pitch and /mission consolidated into /about, per-page OG images",
+      "bodyDe": "Aufraeumarbeiten an den oeffentlichen Marketing-Seiten: Hero-Bereich der Startseite gestrafft (Furcht-Zeile entfernt, NIS2 farblich akzentuiert), /pitch und /mission auf /about gebuendelt mit Weiterleitungen, gemeinsamer MarketingHero auf sechs Landingseiten und 41 eigene Open-Graph-Vorschaubilder fuer die wichtigsten Routen.",
+      "bodyEn": "Cleanup on the public marketing surfaces: tightened the homepage hero (dropped the fear line, accented NIS2 in colour), folded /pitch and /mission into /about with redirects, shared MarketingHero across six landing pages, and shipped 41 per-page Open Graph images for the highest-traffic routes.",
+      "links": [
+        {
+          "labelDe": "Ueber uns",
+          "labelEn": "About",
+          "href": "/about"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-11-product-sicherheitsfragebogen-domain",
+      "date": "2026-06-11",
+      "category": "product",
+      "titleDe": "sicherheitsfragebogen.de als eigene Landingpage fuer den Lieferanten-Fragebogen",
+      "titleEn": "sicherheitsfragebogen.de as standalone landing for the supplier questionnaire",
+      "bodyDe": "Neue Landingpage unter /sicherheitsfragebogen mit eigener Domain (sicherheitsfragebogen.de). Spiegelt vier Sektionen und 59 Fragen aus dem Schema, zeigt drei Beispielfragen live aus dem Datenformat und fuehrt zur Anmeldung und zum eingeloggten Lieferantenportal auf nisd2.eu.",
+      "bodyEn": "New landing at /sicherheitsfragebogen with its own domain (sicherheitsfragebogen.de). Mirrors four sections and 59 questions from the schema, previews three sample questions live from the data format, and routes sign-in and the authenticated supplier portal back to nisd2.eu.",
+      "links": [
+        {
+          "labelDe": "Sicherheitsfragebogen",
+          "labelEn": "Security questionnaire",
+          "href": "/sicherheitsfragebogen"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-11-content-bsig-30-eu-tracker-supplier-portal",
+      "date": "2026-06-11",
+      "category": "content",
+      "titleDe": "Wiki: §30 BSIG live, EU-Tracker veroeffentlicht, Lieferantenportal-Felder ergaenzt",
+      "titleEn": "Wiki: §30 BSIG page live, EU tracker published, supplier portal fields completed",
+      "bodyDe": "Neue Wiki-Seite zu §30 BSIG (Risikomanagementmassnahmen) mit Bezug zur EU-Implementierungsverordnung 2024/2690. Der 27-Laender-EU-Umsetzungstracker ist jetzt sichtbar. Im Lieferantenportal wurden 34 fehlende Felder ergaenzt sowie eine separate Service-Type-Unterseite hinzugefuegt.",
+      "bodyEn": "New wiki page on §30 BSIG (cybersecurity risk-management measures), linked to EU Implementing Regulation 2024/2690. The 27-country EU implementation tracker is now visible. In the supplier portal, 34 previously missing fields were filled in and a service-type sub-page added.",
+      "links": [
+        {
+          "labelDe": "§30 BSIG",
+          "labelEn": "§30 BSIG",
+          "href": "/wiki/grundlagen/bsig-30"
+        },
+        {
+          "labelDe": "EU-Tracker",
+          "labelEn": "EU tracker",
+          "href": "/wiki/zeit-und-status/nis2-tracker-eu"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-11-product-admin-managed-gap-assessments",
+      "date": "2026-06-11",
+      "category": "product",
+      "titleDe": "Admin-gefuehrte Gap-Assessments mit passwortgeschuetzten Share-Links",
+      "titleEn": "Admin-managed gap assessments with password-protected share links",
+      "bodyDe": "Die Plattform-Administration kann jetzt Gap-Assessments fuer Kunden anlegen und ueber einen passwortgeschuetzten Share-Link teilen. Ergaenzt das Self-Service-Gap-Tool um einen begleiteten Pfad fuer Workshops und Erstgespraeche.",
+      "bodyEn": "Platform admins can now create gap assessments on behalf of customers and share them via a password-protected URL. Adds a guided workflow for workshops and first calls alongside the self-service gap tool.",
+      "links": [
+        {
+          "labelDe": "Gap-Assessment",
+          "labelEn": "Gap assessment",
+          "href": "/gap-assessment"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-11-compliance-open-isms-agpl",
+      "date": "2026-06-11",
+      "category": "compliance",
+      "titleDe": "open-isms unter AGPL-3.0 oeffentlich auf GitHub",
+      "titleEn": "open-isms made public on GitHub under AGPL-3.0",
+      "bodyDe": "Die komplette Plattform liegt jetzt als Open Source auf github.com/NISD2/open-isms (AGPL-3.0). Acht Pakete sind in eine Workspace-Struktur extrahiert (Schemata, UI, tRPC, Trainings- und Inhaltspakete) inklusive Referenz-App mit docker-compose. Die Lizenzwahl entkoppelt Compliance-Workloads von der Hostingseite und macht jede Aenderung am Standard nachpruefbar.",
+      "bodyEn": "The full platform is now open source at github.com/NISD2/open-isms (AGPL-3.0). Eight packages are extracted into a workspace structure (schemas, UI, tRPC, training and content packages) including a reference app with docker-compose. The licence choice decouples compliance workloads from the hosting side and makes every change to the standard auditable.",
+      "links": [
+        {
+          "labelDe": "Open Source",
+          "labelEn": "Open source",
+          "href": "/open-source"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-11-compliance-security-hardening-pass",
+      "date": "2026-06-11",
+      "category": "compliance",
+      "titleDe": "Sicherheits- und Audit-Haertungspass am Repository",
+      "titleEn": "Security and audit hardening pass on the repository",
+      "bodyDe": "Begleitend zum OSS-Flip ein konzentrierter Haertungspass: Authentifizierung, Session-Revocation, Audit-Logging, Cron-Authentifizierung und Sekret-Scanning in der CI verbessert. Im Juni wurden zudem sieben Sicherheitsupdates fuer Abhaengigkeiten via Dependabot eingespielt.",
+      "bodyEn": "Alongside the OSS public flip, a focused hardening pass: improvements to authentication, session revocation, audit logging, cron authentication, and secret scanning in CI. June also brought seven dependency security updates via Dependabot.",
+      "links": []
+    },
+    {
       "id": "2026-06-01-content-eu-tracker-and-fact-check",
       "date": "2026-06-01",
       "category": "content",
