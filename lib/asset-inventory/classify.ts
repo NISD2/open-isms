@@ -1,18 +1,18 @@
+import { CATALOG_BY_ID } from "./catalog";
 import type {
   AssetLayer,
   InformationsverbundOutput,
-  Inventory,
   InventoryAsset,
-  QuestionStep,
 } from "./types";
-import { UNIVERSAL_QUESTIONS } from "./universal-questions";
 
-// BSI-200-2 §8.1 — turn the wizard answers into the structured
+// BSI-200-2 §8.1 — turn the catalog selection into the structured
 // Informationsverbund (the five-layer output an auditor expects).
 //
-// One question option = one asset entry (Gruppenbildung principle applies:
-// "all employee notebooks" = 1 asset, not N). The user can edit names and
-// counts in the review step.
+// One checked catalog item = one asset entry. One custom asset (free-text
+// added by the user) = one entry in its declared layer.
+//
+// Gruppenbildung principle applies: "all employee notebooks" is meant to be
+// counted as 1 asset (the catalog already collapses to that level).
 
 const ID_PREFIX: Record<AssetLayer, string> = {
   geschaeftsprozess: "P",
@@ -23,28 +23,21 @@ const ID_PREFIX: Record<AssetLayer, string> = {
 };
 
 interface ResolveOpts {
-  /** Resolve the user-visible name for an asset implied by a question option.
-   *  Caller passes a translator (next-intl) so locale + i18n live in the
-   *  components, not in this pure scoring code. */
-  resolveAssetName: (
-    questionId: string,
-    optionId: string,
-    layer: AssetLayer,
-  ) => string;
+  /** i18n-aware name resolver for catalog items (catalog.<id>.label). */
+  resolveCatalogName: (catalogId: string) => string;
 }
 
-function nextId(layer: AssetLayer, counters: Record<AssetLayer, number>): string {
+function nextId(
+  layer: AssetLayer,
+  counters: Record<AssetLayer, number>,
+): string {
   counters[layer]++;
   return `${ID_PREFIX[layer]}${String(counters[layer]).padStart(3, "0")}`;
 }
 
-/**
- * Classify the wizard answers into a structured Informationsverbund.
- * Pure function: caller provides i18n through `opts.resolveAssetName`.
- */
-export function classifyInventory(
-  inventory: Inventory,
-  questions: QuestionStep[],
+export function classifyChecklist(
+  checked: string[],
+  custom: Array<{ name: string; layer: AssetLayer }>,
   opts: ResolveOpts,
 ): InformationsverbundOutput {
   const counters: Record<AssetLayer, number> = {
@@ -56,22 +49,34 @@ export function classifyInventory(
   };
 
   const all: InventoryAsset[] = [];
-  for (const question of questions) {
-    const selected = inventory.answers[question.id] ?? [];
-    for (const optionId of selected) {
-      const option = question.options.find((o) => o.id === optionId);
-      if (!option) continue;
-      for (const implies of option.implies) {
-        all.push({
-          id: nextId(implies.layer, counters),
-          layer: implies.layer,
-          name: opts.resolveAssetName(question.id, optionId, implies.layer),
-          category: implies.category,
-          defaultExposure: implies.defaultExposure,
-          source: { questionId: question.id, optionId },
-        });
-      }
-    }
+
+  for (const catalogId of checked) {
+    const item = CATALOG_BY_ID.get(catalogId);
+    if (!item) continue;
+    all.push({
+      id: nextId(item.layer, counters),
+      layer: item.layer,
+      name: opts.resolveCatalogName(catalogId),
+      category: item.category,
+      defaultExposure: item.defaultExposure,
+      source: { questionId: "catalog", optionId: catalogId },
+    });
+  }
+
+  for (const c of custom) {
+    all.push({
+      id: nextId(c.layer, counters),
+      layer: c.layer,
+      name: c.name,
+      category:
+        c.layer === "geschaeftsprozess"
+          ? "process"
+          : c.layer === "raum"
+            ? "room"
+            : "application",
+      defaultExposure: "internal",
+      source: null,
+    });
   }
 
   return {
@@ -83,11 +88,6 @@ export function classifyInventory(
   };
 }
 
-export function emptyInventory(): Inventory {
-  return { sectors: [], answers: {} };
-}
-
-/** Total assets captured across all layers, for the progress badge. */
 export function countAssets(output: InformationsverbundOutput): number {
   return (
     output.geschaeftsprozesse.length +
@@ -96,10 +96,4 @@ export function countAssets(output: InformationsverbundOutput): number {
     output.raeume.length +
     output.kommunikationsverbindungen.length
   );
-}
-
-/** Default question set used by the public /strukturanalyse page. */
-export function defaultQuestionsFor(_inventory: Inventory): QuestionStep[] {
-  // PR 1: universal only. PR 3 will add sector-specific filtering here.
-  return UNIVERSAL_QUESTIONS;
 }
