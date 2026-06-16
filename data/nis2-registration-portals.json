@@ -426,12 +426,12 @@
       "portalName": "ILR Guichet (NISS_EE231)",
       "portalUrl": "https://guichet.ilr.lu/portal/rest/start/NISS_EE231?lang=en",
       "status": "operational",
-      "registrationDeadline": null,
+      "registrationDeadline": "2026-07-10",
       "nationalLaw": "Loi du 5 mai 2026 relative à des mesures visant à assurer un niveau élevé de cybersécurité",
       "entryIntoForce": "2026-05-10",
-      "notes": "Transposed via Act of 5 May 2026, entered into force 10 May 2026, repealing the previous NIS 1 Act. ILR operates a live self-registration portal for in-scope entities. No specific registration deadline announced; obligation to self-register applies from entry into force.",
-      "notesDe": "Umgesetzt durch Gesetz vom 5. Mai 2026, in Kraft seit 10. Mai 2026, das frueher gueltige NIS-1-Gesetz wird aufgehoben. ILR betreibt ein Selbstregistrierungsportal fuer betroffene Einrichtungen. Keine spezifische Registrierungsfrist veroeffentlicht. Selbstregistrierungspflicht gilt seit Inkrafttreten.",
-      "lastVerified": "2026-05-13",
+      "notes": "Transposed via Act of 5 May 2026 (Mémorial A no. 225, published 10 May 2026), entered into force 10 May 2026, repealing the previous NIS 1 Act. ILR operates a live self-registration portal for in-scope entities. Self-registration is a legal obligation with a two-month window expiring 10 July 2026; non-registration is itself a sanctionable breach. CSSF supervises banking and financial market infrastructure; ILR covers all other sectors.",
+      "notesDe": "Umgesetzt durch Gesetz vom 5. Mai 2026 (Mémorial A Nr. 225, veroeffentlicht am 10. Mai 2026), in Kraft seit 10. Mai 2026, das fruehere NIS-1-Gesetz wird aufgehoben. ILR betreibt ein Selbstregistrierungsportal fuer betroffene Einrichtungen. Selbstregistrierung ist gesetzliche Pflicht mit Zwei-Monats-Frist bis 10. Juli 2026; bereits die Nichtregistrierung ist bussgeldbewehrt. CSSF beaufsichtigt Banken und Finanzmarktinfrastruktur, ILR alle uebrigen Sektoren.",
+      "lastVerified": "2026-06-16",
       "csirt": "CIRCL (Computer Incident Response Center Luxembourg)",
       "wikiSlug": "nis2-status-luxemburg"
     },
@@ -468,5 +468,5 @@
       "wikiSlug": "nis2-status-slowenien"
     }
   ],
-  "lastUpdated": "2026-06-09"
+  "lastUpdated": "2026-06-16"
 }

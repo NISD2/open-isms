@@ -1620,7 +1620,41 @@
       "sourceId": "consilium",
       "sourceUrl": "https://www.consilium.europa.eu/en/meetings/tte/2026/06/09/",
       "addedAt": "2026-06-09T12:00:00Z"
+    },
+    {
+      "id": "2026-06-11-enisa-cyber-europe-2026",
+      "date": "2026-06-11",
+      "category": "enisa",
+      "tags": [
+        "organisational",
+        "publication"
+      ],
+      "type": "update",
+      "title": "ENISA-organised Cyber Europe 2026 exercise tests EU response to rail and maritime cyberattacks",
+      "titleDe": "ENISA-Uebung Cyber Europe 2026 testet EU-Reaktion auf Cyberangriffe auf Schienen- und Seenetze",
+      "summary": "On 10 and 11 June 2026 ENISA ran the 8th edition of Cyber Europe with around 5,000 participants from EU Member States, industry and partner countries (UK, Norway, Switzerland, Ukraine). The scenario simulated coordinated cyberattacks on European rail and maritime transport networks escalating into a wider crisis. This was the first EU-wide test of the 2025 EU Cyber Blueprint (Council Recommendation on coordinated response to large-scale cyber incidents) and the first activation drill of the new EU Cybersecurity Reserve under the Cyber Solidarity Act. ENISA notes that rail and maritime subsectors score below average on the NIS360 maturity index relative to their criticality. The exercise stress-tests the cross-border incident response chain that NIS2 Article 23 and the CSIRT network depend on.",
+      "summaryDe": "Am 10. und 11. Juni 2026 hat ENISA die 8. Auflage von Cyber Europe mit rund 5.000 Teilnehmenden aus EU-Mitgliedstaaten, Industrie und Partnerlaendern (Vereinigtes Koenigreich, Norwegen, Schweiz, Ukraine) durchgefuehrt. Das Szenario simulierte koordinierte Cyberangriffe auf europaeische Schienen- und Seetransportnetze, die zu einer breiteren Krise eskalierten. Es war der erste EU-weite Test des EU Cyber Blueprint 2025 (Ratsempfehlung fuer koordinierte Reaktion auf gross angelegte Cybervorfaelle) und die erste Aktivierungsuebung der neuen EU-Cybersicherheitsreserve aus dem Cyber Solidarity Act. ENISA stellt fest, dass Schiene und Seeverkehr im NIS360-Reifegradindex unterdurchschnittlich abschneiden, gemessen an ihrer Kritikalitaet. Die Uebung prueft die grenzueberschreitende Incident-Response-Kette, auf der Artikel 23 NIS-2 und das CSIRT-Netzwerk aufsetzen.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/news/cyber-europe-2026-all-eyes-on-the-eus-collective-response-and-resilience",
+      "addedAt": "2026-06-16T12:00:00Z"
+    },
+    {
+      "id": "2026-06-11-de-bsi-magazin-2026-01",
+      "date": "2026-06-11",
+      "category": "de",
+      "tags": [
+        "publication",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "BSI publishes BSI-Magazin 2026/01 with cover feature on NIS-2 and BSI-Gesetz",
+      "titleDe": "BSI veroeffentlicht BSI-Magazin 2026/01 mit Titelthema NIS-2 und BSI-Gesetz",
+      "summary": "On 11 June 2026 the BSI published the first 2026 issue of its biannual BSI-Magazin under the cover feature 'Mehr Cybersicherheit fuer Unternehmen mit NIS-2 und BSIG'. The issue marks six months of NIS2UmsuCG being in force (since 6 December 2025) and restates the BSI line that NIS-2 transposition is 'ein Meilenstein auf dem Weg zu einer resilienten Cybernation' (a milestone toward a resilient cyber nation). Other content covers AI in cybersecurity, modernised BSI certification procedures for IT security service providers, biometrics, and ePayment. The magazine is the BSI's main communication channel into government, business and society and signals a narrative shift toward the enforcement phase after the 6 March 2026 registration deadline.",
+      "summaryDe": "Am 11. Juni 2026 hat das BSI die erste Ausgabe 2026 seines halbjaehrlichen BSI-Magazins unter dem Titelthema 'Mehr Cybersicherheit fuer Unternehmen mit NIS-2 und BSIG' veroeffentlicht. Die Ausgabe markiert sechs Monate Inkrafttreten des NIS2UmsuCG (seit 6. Dezember 2025) und bekraeftigt die BSI-Linie, dass die NIS-2-Umsetzung 'ein Meilenstein auf dem Weg zu einer resilienten Cybernation' sei. Weitere Themen: KI in der Cybersicherheit, modernisierte BSI-Zertifizierungsverfahren fuer IT-Sicherheitsdienstleister, Biometrie und ePayment. Das Magazin ist der Hauptkommunikationskanal des BSI an Verwaltung, Wirtschaft und Gesellschaft und signalisiert eine Akzentverschiebung Richtung Vollzugsphase nach Ablauf der Registrierungsfrist am 6. Maerz 2026.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/BSI-Magazin_NIS-2_BSIG_260611.html",
+      "addedAt": "2026-06-16T12:00:00Z"
     }
   ],
-  "lastUpdated": "2026-06-09T12:00:00Z"
+  "lastUpdated": "2026-06-16T12:00:00Z"
 }
