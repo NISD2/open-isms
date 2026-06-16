@@ -6,6 +6,7 @@ type Locale = "de" | "en" | "nl";
 interface TrainingCertificateData {
   courseTitle: string;
   userName: string;
+  userEmail: string;
   completionDate: string;
   totalHours: number;
   lessonLines: string[];
@@ -124,6 +125,12 @@ const styles = StyleSheet.create({
     color: "#0f172a",
     textAlign: "center",
   },
+  email: {
+    marginTop: 6,
+    fontSize: 10,
+    color: "#64748b",
+    textAlign: "center",
+  },
   completed: {
     marginTop: 24,
     fontSize: 12,
@@ -234,6 +241,7 @@ export function TrainingCertificateDocument({
 
         <Text style={styles.certifies}>{labels.certifies}</Text>
         <Text style={styles.name}>{data.userName}</Text>
+        <Text style={styles.email}>{data.userEmail}</Text>
 
         <Text style={styles.completed}>{labels.completed}</Text>
         <Text style={styles.courseTitle}>{data.courseTitle}</Text>

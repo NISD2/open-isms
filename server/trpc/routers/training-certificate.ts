@@ -50,7 +50,7 @@ export const trainingCertificateRouter = router({
       }
 
       const [userData] = await ctx.db
-        .select({ name: user.name })
+        .select({ name: user.name, email: user.email })
         .from(user)
         .where(eq(user.id, ctx.userId));
 
@@ -61,6 +61,7 @@ export const trainingCertificateRouter = router({
         totalCount: allLessonIds.length,
         completionDate: completionDate?.toISOString() ?? null,
         userName: userData?.name ?? null,
+        userEmail: userData?.email ?? null,
         lessonTitles,
       };
     }),
