@@ -6,7 +6,6 @@ type Locale = "de" | "en" | "nl";
 interface TrainingCertificateData {
   courseTitle: string;
   userName: string;
-  companyName: string | null;
   completionDate: string;
   totalHours: number;
   lessonLines: string[];
@@ -15,7 +14,6 @@ interface TrainingCertificateData {
 interface CertificateLabels {
   title: string;
   certifies: string;
-  from: string;
   completed: string;
   dateLabel: string;
   durationLabel: string;
@@ -30,7 +28,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
   de: {
     title: "Teilnahmebescheinigung",
     certifies: "Hiermit wird bestätigt, dass",
-    from: "von",
     completed: "den folgenden Kurs erfolgreich abgeschlossen hat:",
     dateLabel: "Abschlussdatum",
     durationLabel: "Dauer",
@@ -44,7 +41,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
   en: {
     title: "Certificate of Completion",
     certifies: "This certifies that",
-    from: "from",
     completed: "has successfully completed the following course:",
     dateLabel: "Completion date",
     durationLabel: "Duration",
@@ -58,7 +54,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
   nl: {
     title: "Certificaat van Afronding",
     certifies: "Hierbij wordt bevestigd dat",
-    from: "van",
     completed: "de volgende cursus met succes heeft afgerond:",
     dateLabel: "Datum van afronding",
     durationLabel: "Duur",
@@ -127,12 +122,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontFamily: "Helvetica-Bold",
     color: "#0f172a",
-    textAlign: "center",
-  },
-  company: {
-    marginTop: 6,
-    fontSize: 12,
-    color: "#475569",
     textAlign: "center",
   },
   completed: {
@@ -245,11 +234,6 @@ export function TrainingCertificateDocument({
 
         <Text style={styles.certifies}>{labels.certifies}</Text>
         <Text style={styles.name}>{data.userName}</Text>
-        {data.companyName && (
-          <Text style={styles.company}>
-            {labels.from} {data.companyName}
-          </Text>
-        )}
 
         <Text style={styles.completed}>{labels.completed}</Text>
         <Text style={styles.courseTitle}>{data.courseTitle}</Text>

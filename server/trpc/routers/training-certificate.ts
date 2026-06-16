@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import { router, protectedProcedure } from "../init";
-import { trainingLessonProgress, user, company } from "@/schema";
+import { trainingLessonProgress, user } from "@/schema";
 import { loadCourse, loadLesson } from "@/lib/training/course-loader";
 
 export const trainingCertificateRouter = router({
@@ -54,13 +54,6 @@ export const trainingCertificateRouter = router({
         .from(user)
         .where(eq(user.id, ctx.userId));
 
-      const [companyData] = ctx.companyId
-        ? await ctx.db
-            .select({ name: company.name })
-            .from(company)
-            .where(eq(company.id, ctx.companyId))
-        : [null];
-
       return {
         courseTitle: course.title,
         allCompleted,
@@ -68,7 +61,6 @@ export const trainingCertificateRouter = router({
         totalCount: allLessonIds.length,
         completionDate: completionDate?.toISOString() ?? null,
         userName: userData?.name ?? null,
-        companyName: companyData?.name ?? null,
         lessonTitles,
       };
     }),

@@ -52,7 +52,6 @@ export async function GET(request: NextRequest) {
           completion.courseTitle.en ??
           "NIS2 Management Training",
         userName: completion.userName ?? "Participant",
-        companyName: completion.companyName ?? null,
         completionDate,
         totalHours,
         lessonLines,
