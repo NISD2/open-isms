@@ -37,16 +37,17 @@ export const trainingCertificateRouter = router({
             )
         : null;
 
-      const lessonTitles: { id: string; title: Record<string, string>; module: string }[] = [];
+      const courseModules: {
+        title: Record<string, string>;
+        lessons: { id: string; title: Record<string, string> }[];
+      }[] = [];
       for (const mod of course.modules) {
+        const lessons: { id: string; title: Record<string, string> }[] = [];
         for (const lessonId of mod.lessonIds) {
           const lesson = await loadLesson(input.courseId, lessonId);
-          lessonTitles.push({
-            id: lessonId,
-            title: lesson.title,
-            module: mod.title.en ?? mod.id,
-          });
+          lessons.push({ id: lessonId, title: lesson.title });
         }
+        courseModules.push({ title: mod.title, lessons });
       }
 
       const [userData] = await ctx.db
@@ -62,7 +63,7 @@ export const trainingCertificateRouter = router({
         completionDate: completionDate?.toISOString() ?? null,
         userName: userData?.name ?? null,
         userEmail: userData?.email ?? null,
-        lessonTitles,
+        courseModules,
       };
     }),
 });

@@ -37,10 +37,13 @@ export async function GET(request: NextRequest) {
         day: "numeric",
       });
 
-  const lessonLines = completion.lessonTitles.map((l) => {
-    const title = l.title[locale] ?? l.title.en ?? l.id;
-    return `${l.id} ${title}`;
-  });
+  const modules = completion.courseModules.map((m) => ({
+    title: m.title[locale] ?? m.title.en ?? "",
+    lessons: m.lessons.map((l) => ({
+      id: l.id,
+      title: l.title[locale] ?? l.title.en ?? l.id,
+    })),
+  }));
 
   const totalHours = Math.max(1, Math.round((completion.totalCount * 5) / 60));
 
@@ -55,7 +58,8 @@ export async function GET(request: NextRequest) {
         userEmail: completion.userEmail ?? "",
         completionDate,
         totalHours,
-        lessonLines,
+        totalLessons: completion.totalCount,
+        modules,
       },
       locale,
     }),
