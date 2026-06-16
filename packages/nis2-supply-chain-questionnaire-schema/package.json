@@ -52,7 +52,7 @@
     "check:json-in-sync": "bun scripts/build-json.ts && git diff --exit-code data/supply-chain-questionnaire.json schema/supply-chain-questionnaire.schema.json"
   },
   "dependencies": {
-    "zod": "^3.23.0"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "drizzle-orm": "^0.45.2",
