@@ -19,6 +19,16 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   const messages = await getMessages();
+  // The `info` namespace holds ~1.8 MB of long-form wiki body content per
+  // locale. Server components render it via getTranslations('info'); only
+  // RelatedArticles (client) reads from it, and only its footer.* +
+  // relatedArticles.* sub-trees. Keep those; drop the rest from the RSC
+  // payload so every page stops shipping the wiki bundle.
+  const info = messages.info as { footer?: unknown; relatedArticles?: unknown } | undefined;
+  const clientMessages = {
+    ...messages,
+    info: { footer: info?.footer, relatedArticles: info?.relatedArticles },
+  };
 
   return (
     <html lang={locale}>
@@ -37,7 +47,7 @@ export default async function LocaleLayout({
         <JsonLd data={buildSiteNavGraphJsonLd(locale as Locale)} />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        <NextIntlClientProvider messages={messages} locale={locale}>
+        <NextIntlClientProvider messages={clientMessages} locale={locale}>
           <TRPCProvider>
             {children}
           </TRPCProvider>
