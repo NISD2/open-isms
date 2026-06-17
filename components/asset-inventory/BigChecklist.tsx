@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Check, Plus, X } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Plus, X } from "lucide-react";
 
 import {
   CATALOG,
@@ -36,6 +36,10 @@ const GROUP_TO_DEFAULT_LAYER: Record<FunctionalGroup, AssetLayer> = {
   "sector-specific": "anwendung",
 };
 
+// Groups collapsed by default for users who want to scan headers first.
+// Empty set = all expanded.
+const DEFAULT_COLLAPSED = new Set<FunctionalGroup>(["sector-specific"]);
+
 export function BigChecklist({
   sectors,
   checked,
@@ -54,6 +58,17 @@ export function BigChecklist({
     }
     return map;
   }, [visible]);
+
+  const [collapsed, setCollapsed] = useState<Set<FunctionalGroup>>(
+    () => new Set(DEFAULT_COLLAPSED),
+  );
+
+  function toggleGroup(group: FunctionalGroup) {
+    const next = new Set(collapsed);
+    if (next.has(group)) next.delete(group);
+    else next.add(group);
+    setCollapsed(next);
+  }
 
   function toggle(id: string) {
     if (checked.includes(id)) {
@@ -84,23 +99,38 @@ export function BigChecklist({
           .map((c, i) => ({ ...c, originalIndex: i }))
           .filter((c) => c.layer === groupLayer);
 
+        const isCollapsed = collapsed.has(group);
         return (
           <section key={group} className="space-y-3">
-            <div className="flex items-baseline justify-between gap-2 sticky top-0 bg-background/95 backdrop-blur-sm py-2 border-b border-border z-10">
-              <div>
-                <h3 className="text-base font-semibold text-foreground">
-                  {t(`groups.${group}.label`)}
-                </h3>
-                <p className="text-xs text-muted-foreground">
-                  {t(`groups.${group}.description`)}
-                </p>
+            <button
+              type="button"
+              onClick={() => toggleGroup(group)}
+              className="w-full flex items-baseline justify-between gap-2 sticky top-0 bg-background/95 backdrop-blur-sm py-2 border-b border-border z-10 text-left hover:bg-muted/30 px-1 -mx-1 rounded transition-colors"
+              aria-expanded={!isCollapsed}
+            >
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                {isCollapsed ? (
+                  <ChevronDown className="h-4 w-4 flex-none text-muted-foreground" />
+                ) : (
+                  <ChevronUp className="h-4 w-4 flex-none text-muted-foreground" />
+                )}
+                <div className="min-w-0">
+                  <h3 className="text-base font-semibold text-foreground">
+                    {t(`groups.${group}.label`)}
+                  </h3>
+                  {!isCollapsed && (
+                    <p className="text-xs text-muted-foreground">
+                      {t(`groups.${group}.description`)}
+                    </p>
+                  )}
+                </div>
               </div>
               <span className="text-xs font-mono text-muted-foreground shrink-0">
                 {groupChecked}/{items.length}
               </span>
-            </div>
+            </button>
 
-            <div className="grid gap-1.5 sm:grid-cols-2">
+            {isCollapsed ? null : <div className="grid gap-1.5 sm:grid-cols-2">
               {items.map((item) => {
                 const isChecked = checked.includes(item.id);
                 return (
@@ -131,9 +161,9 @@ export function BigChecklist({
                   </button>
                 );
               })}
-            </div>
+            </div>}
 
-            {groupCustoms.length > 0 && (
+            {!isCollapsed && groupCustoms.length > 0 && (
               <ul className="space-y-1.5 mt-2">
                 {groupCustoms.map((c) => (
                   <li
@@ -155,10 +185,12 @@ export function BigChecklist({
               </ul>
             )}
 
-            <AddCustomRow
-              layer={groupLayer}
-              onAdd={(name) => addCustom(groupLayer, name)}
-            />
+            {!isCollapsed && (
+              <AddCustomRow
+                layer={groupLayer}
+                onAdd={(name) => addCustom(groupLayer, name)}
+              />
+            )}
           </section>
         );
       })}

@@ -162,7 +162,9 @@
     "output": {
       "heading": "Uw Informationsverbund (BSI-200-2 §8.1)",
       "subtitle": "Vijflagenstructuur, klaar voor §8.2 Schutzbedarfsfeststellung. Elke invoer krijgt automatisch een ID (P/A/S/R/N + nummer) volgens BSI §8.1.",
-      "empty": "Nog niets vastgelegd in deze laag."
+      "empty": "Nog niets vastgelegd in deze laag.",
+      "printPdf": "Printen of opslaan als PDF",
+      "downloadCsv": "CSV downloaden"
     },
     "catalog": {
       "bp-sales-cs": { "label": "Verkoop en klantenservice" },
