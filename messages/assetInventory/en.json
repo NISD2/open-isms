@@ -162,7 +162,9 @@
     "output": {
       "heading": "Your Informationsverbund (BSI-200-2 §8.1)",
       "subtitle": "Five-layer structure ready for the §8.2 Schutzbedarfsfeststellung. Each entry has an auto-generated id (P/A/S/R/N + number) following the BSI §8.1 attribute convention.",
-      "empty": "Nothing captured in this layer yet."
+      "empty": "Nothing captured in this layer yet.",
+      "printPdf": "Print or save as PDF",
+      "downloadCsv": "Download CSV"
     },
     "catalog": {
       "bp-sales-cs": { "label": "Sales and customer service" },

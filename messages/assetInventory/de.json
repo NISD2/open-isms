@@ -162,7 +162,9 @@
     "output": {
       "heading": "Ihr Informationsverbund (BSI-200-2 §8.1)",
       "subtitle": "Fünf-Schichten-Struktur, bereit für die §8.2 Schutzbedarfsfeststellung. Jeder Eintrag erhält automatisch eine ID (P/A/S/R/N + Nummer) nach BSI §8.1 Attributkonvention.",
-      "empty": "In dieser Schicht noch nichts erfasst."
+      "empty": "In dieser Schicht noch nichts erfasst.",
+      "printPdf": "Drucken oder als PDF speichern",
+      "downloadCsv": "CSV herunterladen"
     },
     "catalog": {
       "bp-sales-cs": { "label": "Vertrieb und Kundenservice" },
