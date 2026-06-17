@@ -1,6 +1,54 @@
 {
   "entries": [
     {
+      "id": "2026-06-17-regulatory-timeline-cooperation-templates-enisa",
+      "date": "2026-06-17",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: Kooperationsgruppe-Meldevorlagen, ENISA-Publikationen, Portugal-Portal",
+      "titleEn": "Timeline: NIS Cooperation Group reporting templates, ENISA publications, Portugal portal",
+      "bodyDe": "Sechs neue Eintraege in der NIS-2-Zeitleiste: die NIS-Kooperationsgruppe hat einheitliche Meldevorlagen nach Artikel 23 vereinbart, dazu drei ENISA-Veroeffentlichungen (EUCC-Kryptoverfahren v3, Kompetenzanforderungen fuer CRA-Pruefstellen, SBOM Adoption 2026), die Stellungnahme der AG KRITIS zur Kritisverordnung und Ungarns nationale Pruefungsfrist zum 30. Juni 2026 (keine EU-weite Frist). Bei den Registrierungsportalen ist Portugals MyCiber jetzt aktiv.",
+      "bodyEn": "Six new entries on the NIS 2 timeline: the NIS Cooperation Group agreed common Article 23 incident-reporting templates, plus three ENISA publications (EUCC cryptographic mechanisms v3, competence requirements for CRA notified bodies, SBOM Adoption 2026), the AG KRITIS statement on the draft KRITIS-Verordnung, and Hungary's national first-audit deadline of 30 June 2026 (not an EU-wide deadline). On the registration portals, Portugal's MyCiber platform is now operational.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/zeitleiste"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-16-course-certificate-redesign",
+      "date": "2026-06-16",
+      "category": "course",
+      "titleDe": "Kurszertifikat neu gestaltet: Deckblatt, Curriculum-Anhang, verifizierte E-Mail",
+      "titleEn": "Course certificate redesigned: cover page, curriculum appendix, verified email",
+      "bodyDe": "Das Abschlusszertifikat des NIS-2-Geschaeftsfuehrerkurses wurde ueberarbeitet: ein Deckblatt mit nach Modulen gruppiertem Curriculum-Anhang. Als Identifikator erscheint jetzt die verifizierte E-Mail-Adresse statt eines Firmennamens.",
+      "bodyEn": "The completion certificate for the NIS 2 management course was reworked into a cover page with a module-grouped curriculum appendix. The identifier shown is now the learner's verified email address rather than a company name.",
+      "links": [
+        {
+          "labelDe": "NIS-2-Kurs",
+          "labelEn": "NIS 2 course",
+          "href": "/training/nis2-ceo"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-16-product-strukturanalyse-shareable",
+      "date": "2026-06-16",
+      "category": "product",
+      "titleDe": "Strukturanalyse: eine Checkliste, Zustand in der URL, teilbarer Link",
+      "titleEn": "Asset inventory: single checklist, state in the URL, shareable link",
+      "bodyDe": "Das Strukturanalyse-Tool wurde zu einer einzigen grossen Checkliste umgebaut. Der gesamte Zustand liegt im URL-Hash, sodass sich eine Aufstellung per Link teilen laesst. Es werden keine Daten gespeichert.",
+      "bodyEn": "The asset inventory tool was rebuilt as one large checklist. The full state lives in the URL hash, so an inventory can be shared by link. No data is stored.",
+      "links": [
+        {
+          "labelDe": "Strukturanalyse",
+          "labelEn": "Asset inventory",
+          "href": "/strukturanalyse"
+        }
+      ]
+    },
+    {
       "id": "2026-06-16-regulatory-timeline-cyber-europe-bsi-magazin",
       "date": "2026-06-16",
       "category": "regulatory",
