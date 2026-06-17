@@ -155,7 +155,7 @@
       "entryIntoForce": "2026-04-03",
       "notes": "Law entered force April 3, 2026. Entity registry launched April 13 via S46 platform. Ex officio registration of existing operators April 13 - May 6. Self-registration for new entities May 7 - October 3, 2026. Full compliance deadline April 3, 2027. ~42,000 entities in scope (up from ~400). Requires qualified electronic signature for registration.",
       "notesDe": "Gesetz am 3. April 2026 in Kraft getreten. Einrichtungsregister am 13. April ueber S46-Plattform gestartet. Registrierung bestehender Betreiber von Amts wegen 13. April - 6. Mai. Selbstregistrierung neuer Einrichtungen 7. Mai - 3. Oktober 2026. Volle Compliance-Frist 3. April 2027. ~42.000 Einrichtungen betroffen (zuvor ~400). Qualifizierte elektronische Signatur fuer Registrierung erforderlich.",
-      "lastVerified": "2026-04-28",
+      "lastVerified": "2026-06-17",
       "wikiSlug": "nis2-status-polen",
       "csirt": "CSIRT NASK, CSIRT GOV, CSIRT MON",
       "trackerNoteEn": "Amendment to the Act on the National Cybersecurity System (Ustawa o KSC) in legislative process.",
@@ -321,15 +321,15 @@
       "countryCode": "PT",
       "authority": "CNCS (Centro Nacional de Cibersegurança) + CERT.PT",
       "authorityUrl": "https://www.cncs.gov.pt",
-      "portalName": null,
-      "portalUrl": null,
-      "status": "planned",
+      "portalName": "MyCiber",
+      "portalUrl": "https://myciber.gov.pt/",
+      "status": "operational",
       "registrationDeadline": null,
       "nationalLaw": "Decreto-Lei n.º 125/2025",
       "entryIntoForce": "2026-04-03",
-      "notes": "Decreto-Lei n.º 125/2025 published in Diário da República on 4 December 2025, in force since 3 April 2026 (120 days after publication). Cybersecurity officer notification due within 20 working days of entry into force. CNCS operates the electronic registration platform; CERT.PT is integrated into CNCS as the national CSIRT.",
-      "notesDe": "Decreto-Lei n.º 125/2025 am 4. Dezember 2025 im Diário da República veroeffentlicht, seit 3. April 2026 in Kraft (120 Tage nach Veroeffentlichung). Benennung des Cybersicherheits-verantwortlichen innerhalb von 20 Arbeitstagen nach Inkrafttreten. CNCS betreibt die elektronische Registrierungs-plattform; CERT.PT ist als nationales CSIRT in CNCS integriert.",
-      "lastVerified": "2026-06-01",
+      "notes": "Decreto-Lei n.º 125/2025 published in Diário da República on 4 December 2025, in force since 3 April 2026 (120 days after publication). CNCS operates the MyCiber platform (myciber.gov.pt) for registration of essential, important and relevant public entities; it also offers a self-classification simulator. Cybersecurity officer and permanent point of contact must be communicated via MyCiber within 20 working days of the entity's qualification. The CNCS operating regulation for the platform went through public consultation that closed on 22 April 2026. CERT.PT is integrated into CNCS as the national CSIRT.",
+      "notesDe": "Decreto-Lei n.º 125/2025 am 4. Dezember 2025 im Diário da República veroeffentlicht, seit 3. April 2026 in Kraft (120 Tage nach Veroeffentlichung). CNCS betreibt die Plattform MyCiber (myciber.gov.pt) fuer die Registrierung wesentlicher, wichtiger und relevanter oeffentlicher Einrichtungen; sie bietet zudem einen Simulator zur Selbsteinstufung. Cybersicherheitsbeauftragter und staendiger Ansprechpartner sind innerhalb von 20 Arbeitstagen nach Qualifizierung der Einrichtung ueber MyCiber zu melden. Die CNCS-Betriebsverordnung fuer die Plattform durchlief eine oeffentliche Konsultation, die am 22. April 2026 endete. CERT.PT ist als nationales CSIRT in CNCS integriert.",
+      "lastVerified": "2026-06-17",
       "wikiSlug": "nis2-status-portugal",
       "csirt": "CERT.PT (within CNCS)"
     },
@@ -381,7 +381,7 @@
       "entryIntoForce": "2026-02-17",
       "notes": "Promulgated February 13, 2026, in force February 17, 2026. Competent authorities have 5 months to designate entities. National register being established.",
       "notesDe": "Verkündet am 13. Februar 2026, in Kraft seit 17. Februar 2026. Zuständige Behörden haben 5 Monate zur Identifizierung der Einrichtungen. Nationales Register wird aufgebaut.",
-      "lastVerified": "2026-04-24",
+      "lastVerified": "2026-06-17",
       "csirt": "CERT Bulgaria",
       "wikiSlug": "nis2-status-bulgarien"
     },
@@ -443,11 +443,11 @@
       "portalUrl": null,
       "status": "planned",
       "registrationDeadline": null,
-      "nationalLaw": "Legal Notice 71/2025 (SL 460.41)",
+      "nationalLaw": "Legal Notice 71/2025, amended by Legal Notice 89/2026 (S.L. 460.41)",
       "entryIntoForce": "2025-04-08",
-      "notes": "Transposed via Legal Notice 71/2025. In force April 8, 2025 (fully effective January 23, 2026). CIPD establishing national self-registration mechanism. Portal URL not yet public.",
-      "notesDe": "Umgesetzt per Legal Notice 71/2025. In Kraft seit 8. April 2025 (voll wirksam ab 23. Januar 2026). CIPD richtet nationales Selbstregistrierungssystem ein. Portal-URL noch nicht öffentlich.",
-      "lastVerified": "2026-04-24",
+      "notes": "Transposed via Legal Notice 71/2025 (S.L. 460.41), in force 8 April 2025 and fully effective 23 January 2026. Amended by Legal Notice 89/2026, which adds an Enforcement Committee empowered to impose administrative fines on referral by the CIPD. Entities self-determine whether they are essential or important and notify the CIPD; the CIPD operates the national self-registration mechanism. Portal URL not yet public.",
+      "notesDe": "Umgesetzt per Legal Notice 71/2025 (S.L. 460.41), in Kraft seit 8. April 2025 und voll wirksam ab 23. Januar 2026. Geaendert durch Legal Notice 89/2026, das einen Enforcement Committee mit Befugnis zu Geldbussen auf Vorlage der CIPD einfuehrt. Einrichtungen stufen sich selbst als wesentlich oder wichtig ein und melden sich bei der CIPD; die CIPD betreibt das nationale Selbstregistrierungssystem. Portal-URL noch nicht oeffentlich.",
+      "lastVerified": "2026-06-17",
       "csirt": "CSIRTMalta",
       "wikiSlug": "nis2-status-malta"
     },
@@ -468,5 +468,5 @@
       "wikiSlug": "nis2-status-slowenien"
     }
   ],
-  "lastUpdated": "2026-06-16"
+  "lastUpdated": "2026-06-17"
 }
