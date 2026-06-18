@@ -23,7 +23,8 @@
     "index-urls": "bun run scripts/index-urls.ts",
     "generate:guidance": "bun run scripts/generate-guidance.ts",
     "email:dev": "email dev --dir lib/mail/templates --port 3027",
-    "screenshots": "bun scripts/screenshot-pitch.ts"
+    "screenshots": "bun scripts/screenshot-pitch.ts",
+    "og": "og-shot"
   },
   "dependencies": {
     "@ai-sdk/xai": "^3.0.49",
@@ -114,6 +115,7 @@
     "@types/react-dom": "^19.1.0",
     "drizzle-kit": "^0.31.9",
     "google-auth-library": "^10.5.0",
+    "og-shot": "^0.3.0",
     "playwright": "^1.60.0",
     "react-email": "6.6.0",
     "tailwindcss": "^4.1.0",
