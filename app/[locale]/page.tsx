@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
-import { Shield } from "lucide-react";
+import { Shield, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicFooter } from "@/components/PublicFooter";
-import { FrameworkBadges } from "@/components/landing/FrameworkBadges";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -43,60 +42,70 @@ export default async function LandingPage() {
 
   return (
     <>
-    <PublicNav />
-    <main className="min-h-screen px-6 pt-24 pb-24 sm:pt-[20vh]">
-      <div className="mx-auto w-full max-w-6xl">
-        {/* Logo */}
-        <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary">
-          <Shield className="h-7 w-7 text-primary-foreground" />
+      <PublicNav />
+      <main className="min-h-screen px-6 pt-24 pb-24 sm:pt-[18vh]">
+        <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.35fr_1fr] lg:items-center">
+          {/* Left: the pitch */}
+          <div>
+            <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary">
+              <Shield className="h-7 w-7 text-primary-foreground" />
+            </div>
+
+            <p className="mb-3 text-sm font-medium text-muted-foreground">{t("eyebrow")}</p>
+
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+              {t.rich("title", {
+                blue: (chunks) => <span className="text-primary">{chunks}</span>,
+              })}
+            </h1>
+
+            <p className="mt-4 max-w-xl text-muted-foreground">{t("subtitle")}</p>
+
+            {/* CTAs */}
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <Link href="/training/courses">{t("startTraining")}</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
+                <Link href="/start">{t("ctaStart")}</Link>
+              </Button>
+            </div>
+
+            {/* Supplier door */}
+            <p className="mt-4 text-sm text-muted-foreground">
+              <Link href="/portal/supplier" className="underline underline-offset-4 hover:text-foreground">
+                {t("supplierDoor")}
+              </Link>
+            </p>
+
+            {/* Quiet authority strip (replaces the framework badges) */}
+            <p className="mt-8 text-xs text-muted-foreground/70">{t("regLine")}</p>
+          </div>
+
+          {/* Right: credibility card. A 20-30s founder voice/video clip drops in at the top of this card later. */}
+          <div className="rounded-2xl border border-border bg-muted/30 p-6">
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2.5">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{t("trust1")}</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{t("trust2")}</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{t("trust3")}</span>
+              </li>
+            </ul>
+            <div className="mt-5 border-t border-border/60 pt-5">
+              <p className="text-sm font-semibold">{t("cardWhyFreeTitle")}</p>
+              <p className="mt-1.5 text-sm text-muted-foreground">{t("cardWhyFree")}</p>
+            </div>
+          </div>
         </div>
-
-        {/* Headline */}
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          <Link
-            href="/about"
-            className="underline decoration-2 decoration-foreground/30 underline-offset-[10px] transition-colors hover:decoration-foreground"
-          >
-            {t.rich("title", {
-              blue: (chunks) => <span className="text-primary">{chunks}</span>,
-            })}
-          </Link>
-        </h1>
-        <p className="mt-3 max-w-lg text-muted-foreground">
-          {t.rich("subtitle", {
-            link: (chunks) => (
-              <a
-                href="https://www.frontier-economics.com/media/izyk5rgz/assessing-the-economic-cost-of-eu-initiatives-on-cybersecurity.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-foreground"
-              >
-                {chunks}
-              </a>
-            ),
-          })}
-        </p>
-
-        {/* Product line */}
-        <p className="mt-4 max-w-lg text-sm font-medium text-foreground">
-          {t("productLine")}
-        </p>
-
-        {/* Frameworks */}
-        <FrameworkBadges />
-
-        {/* CTAs */}
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Button asChild size="lg" className="w-full sm:w-auto">
-            <Link href="/training/nis2-ceo">{t("startTraining")}</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-            <Link href="/applicability">{t("checkApplicability")}</Link>
-          </Button>
-        </div>
-      </div>
-    </main>
-    <PublicFooter />
+      </main>
+      <PublicFooter />
     </>
   );
 }

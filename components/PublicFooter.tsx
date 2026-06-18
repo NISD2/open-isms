@@ -33,7 +33,7 @@ export async function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/training/nis2-ceo" className="text-sm text-muted-foreground hover:text-foreground">
+                <Link href="/training/courses" className="text-sm text-muted-foreground hover:text-foreground">
                   {t("footer.trainingPortal")}
                 </Link>
               </li>

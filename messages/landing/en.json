@@ -1,8 +1,16 @@
 {
   "landing": {
     "title": "Halve Europe's <blue>NIS2</blue> bill.",
-    "subtitle": "<link>€31 billion every year</link>. We're cutting it in half.",
+    "eyebrow": "Open source · Free · No lock-in",
+    "subtitle": "The free platform for regulated companies and their suppliers to implement NIS2 under BSIG §30: self-assessment, templates, and management training. Open source, no lock-in.",
     "productLine": "Free NIS2 compliance and information for regulated companies and their suppliers.",
+    "regLine": "NIS2 Directive (EU) 2022/2555 · BSIG §30 · CIR 2024/2690",
+    "supplierDoor": "Received a NIS2 questionnaire from a customer? Go to the supplier portal.",
+    "trust1": "Open source, no lock-in",
+    "trust2": "Hosted in Germany, GDPR-compliant",
+    "trust3": "Built on NIS2, BSIG §30, and CIR 2024/2690",
+    "cardWhyFreeTitle": "Why free?",
+    "cardWhyFree": "The platform stays free and open source. We earn from training and guidance, not from your data.",
     "badge": "NIS2 / BSIG - Deadline: March 2026",
     "badgeTooltip": "The German BSIG (BSI-Gesetz) transposing the EU NIS2 Directive requires affected entities to implement all cybersecurity measures by March 2026. Non-compliance carries fines up to €10M or 2% of global turnover, and personal liability for managing directors.",
     "nis2Badge": "NIS2 Directive (EU) 2022/2555",
@@ -13,7 +21,8 @@
     "bsigBadgeTooltip": "Built on the German BSIG §30 -- the strictest NIS2 transposition in the EU -- with IT-Grundschutz methodology defaults. Comply once, valid across 27 EU member states. §44(2) BSIG recognises Grundschutz implementation as NIS2 compliance.",
     "checkApplicability": "Check if NIS2 applies to you",
     "scheduleDemo": "Schedule a Demo",
-    "startTraining": "Free NIS2 Managing Director Training",
+    "startTraining": "Free Managing Director Training",
+    "ctaStart": "Start implementing for free",
     "signIn": "Sign in to start the process",
     "nav": {
       "wiki": "Wiki",

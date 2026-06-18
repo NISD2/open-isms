@@ -1,8 +1,16 @@
 {
   "landing": {
     "title": "Halbiert Europas <blue>NIS2</blue>-Rechnung.",
-    "subtitle": "<link>31 Milliarden Euro jedes Jahr</link>. Wir halbieren das.",
+    "eyebrow": "Open Source · Kostenlos · Kein Lock-in",
+    "subtitle": "Die kostenlose Plattform, mit der regulierte Unternehmen und ihre Lieferanten NIS2 nach BSIG §30 umsetzen: mit Selbsteinschätzung, Vorlagen und Schulung für die Geschäftsführung. Open Source, kein Lock-in.",
     "productLine": "Kostenlose NIS2-Compliance und Informationen für regulierte Unternehmen und ihre Lieferanten.",
+    "regLine": "NIS2-Richtlinie (EU) 2022/2555 · BSIG §30 · CIR 2024/2690",
+    "supplierDoor": "Haben Sie einen NIS2-Fragebogen von einem Kunden erhalten? Zum Lieferantenportal.",
+    "trust1": "Open Source, kein Lock-in",
+    "trust2": "Gehostet in Deutschland, DSGVO-konform",
+    "trust3": "Basiert auf NIS2, BSIG §30 und CIR 2024/2690",
+    "cardWhyFreeTitle": "Warum kostenlos?",
+    "cardWhyFree": "Die Plattform bleibt kostenlos und Open Source. Wir verdienen an Schulung und Begleitung, nicht an Ihren Daten.",
     "badge": "NIS2 / BSIG - Frist: März 2026",
     "badgeTooltip": "Das novellierte BSI-Gesetz (BSIG) zur Umsetzung der EU-Richtlinie NIS2 verpflichtet betroffene Einrichtungen, alle Cybersicherheitsmaßnahmen bis März 2026 umzusetzen. Bei Nichteinhaltung drohen Bußgelder bis zu 10 Mio. € oder 2% des weltweiten Jahresumsatzes sowie persönliche Haftung der Geschäftsführung.",
     "nis2Badge": "NIS2-Richtlinie (EU) 2022/2555",
@@ -13,7 +21,8 @@
     "bsigBadgeTooltip": "Aufgebaut auf dem deutschen BSIG §30 -- der strengsten NIS2-Umsetzung in der EU -- mit IT-Grundschutz-Methodik als Standard. Einmal konform, gueltig in 27 EU-Mitgliedstaaten. §44(2) BSIG erkennt Grundschutz-Umsetzung als NIS2-Compliance an.",
     "checkApplicability": "NIS2-Betroffenheit prüfen",
     "scheduleDemo": "Demo vereinbaren",
-    "startTraining": "Kostenlose NIS2 CEO-Schulung",
+    "startTraining": "Kostenlose Geschäftsführerschulung",
+    "ctaStart": "Kostenlos mit der Umsetzung starten",
     "signIn": "Anmelden und loslegen",
     "nav": {
       "wiki": "Wiki",
