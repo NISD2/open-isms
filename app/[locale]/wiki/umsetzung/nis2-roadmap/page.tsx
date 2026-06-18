@@ -233,6 +233,25 @@ export default async function Nis2RoadmapPage({ params }: { params: Promise<{ lo
         </CardContent>
       </Card>
 
+      {/* Guided-help fork (DE/EN only; NL roadmap copy is not authored yet) */}
+      {locale !== "nl" && (
+        <Card className="border-primary/20 print:hidden">
+          <CardContent className="py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <div className="font-semibold mb-1">{t("guided.heading")}</div>
+              <p className="text-sm text-muted-foreground">{t("guided.body")}</p>
+            </div>
+            <Link
+              href={"/start" as never}
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow shrink-0 hover:bg-primary/90 transition-colors"
+            >
+              {t("guided.cta")}
+              <ArrowRight className="size-4" />
+            </Link>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Disclaimer */}
       <p className="text-xs text-muted-foreground leading-relaxed border-t pt-4">
         {t("disclaimer")}

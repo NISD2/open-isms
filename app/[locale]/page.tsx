@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Shield, Check, Code2, Server, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PublicNav } from "@/components/PublicNav";
@@ -39,6 +39,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function LandingPage() {
   const t = await getTranslations("landing");
+  const locale = await getLocale();
+  // NL roadmap copy is not authored yet; send the NL "start" CTA to sign-in
+  // rather than the not-yet-localised roadmap.
+  const ctaStartHref =
+    locale === "nl" ? "/auth/signin" : "/wiki/umsetzung/nis2-roadmap";
 
   return (
     <>
@@ -65,7 +70,7 @@ export default async function LandingPage() {
                 <Link href="/training/nis2-ceo">{t("startTraining")}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <Link href={"/wiki/umsetzung/nis2-roadmap" as never}>{t("ctaStart")}</Link>
+                <Link href={ctaStartHref as never}>{t("ctaStart")}</Link>
               </Button>
             </div>
 

@@ -5819,6 +5819,11 @@
         "footer": "Alles andere übernimmt Ihre IT-Leitung oder Ihr CISO."
       },
       "disclaimer": "Diese Seite ist eine strukturierte Hilfestellung auf Basis von NIS2, BSIG, CIR 2024/2690 und ENISA TIG. Sie ersetzt keine Rechtsberatung. Die operative Umsetzung übernimmt Ihre IT-Leitung oder Ihr CISO.",
+      "guided": {
+        "heading": "Lieber mit einem Menschen?",
+        "body": "Sie kennen jetzt die Schritte. Wenn Sie die Umsetzung nicht allein durchziehen wollen, gehen wir sie mit Ihnen durch. Ein 30-Minuten-Termin pro Woche, wir nehmen uns Punkt für Punkt vor, Sie behalten alles in der Hand. Kein Lock-in.",
+        "cta": "Begleitete Umsetzung ansehen"
+      },
       "actions": {
         "print": "Seite drucken",
         "share": "Per E-Mail teilen",

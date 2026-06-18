@@ -5826,6 +5826,11 @@
         "footer": "Everything else is handled by your IT lead or CISO."
       },
       "disclaimer": "This page is structured guidance based on NIS2, BSIG, CIR 2024/2690, and ENISA TIG. It does not constitute legal advice. Your IT lead or CISO handles the operational work.",
+      "guided": {
+        "heading": "Prefer a human to guide you?",
+        "body": "You now know the steps. If you would rather not run the implementation alone, we go through it with you. A 30-minute call once a week, point by point, you stay in control. No lock-in.",
+        "cta": "See guided implementation"
+      },
       "actions": {
         "print": "Print page",
         "share": "Share via email",
