@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { isPublished } from "@/lib/content/wiki-publish-schedule";
 import { JsonLd } from "@/components/JsonLd";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
@@ -47,16 +48,26 @@ const questionsByCategory = {
   sectors: ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12", "q13", "q14", "q15", "q16", "q17", "q18", "q19", "q20", "q21", "q22", "q23", "q24", "q25"],
 } as const;
 
-// Answers may contain inline markdown links to sibling wiki pages. Render internal
-// links via the localized next-intl Link (so EN/NL routes resolve correctly) and keep
-// the JSON-LD answer text as plain prose.
+// Answers may contain inline markdown links to sibling wiki pages. Render an internal
+// link via the localized next-intl Link only when its target slug is already published
+// (so the publish queue can never introduce a FAQ 404) and the href is site-relative (so
+// an unexpected scheme cannot reach an href attribute). External http(s) links open in a
+// new tab; anything else falls back to plain text. The JSON-LD answer text stays plain prose.
+const MD_LINK = /\[([^\]]+)\]\(([^)]+)\)/g;
+
 function stripLinks(text: string): string {
-  return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1");
+  return text.replace(MD_LINK, "$1");
+}
+
+// Last path segment of a site-relative wiki href, used to check publish status.
+function internalSlug(href: string): string {
+  const segments = href.split(/[#?]/)[0].split("/").filter(Boolean);
+  return segments[segments.length - 1] ?? "";
 }
 
 function renderAnswer(text: string): ReactNode {
   const nodes: ReactNode[] = [];
-  const re = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const re = new RegExp(MD_LINK.source, "g");
   let last = 0;
   let key = 0;
   let m: RegExpExecArray | null;
@@ -70,12 +81,16 @@ function renderAnswer(text: string): ReactNode {
           {label}
         </a>,
       );
-    } else {
+    } else if (href.startsWith("/") && isPublished(internalSlug(href))) {
       nodes.push(
         <Link key={key} href={href as ComponentProps<typeof Link>["href"]} className="font-medium underline underline-offset-2">
           {label}
         </Link>,
       );
+    } else {
+      // Unpublished internal target or an unsupported scheme: render the label as
+      // plain text rather than a dead link or an unsafe href.
+      nodes.push(label);
     }
     last = m.index + m[0].length;
     key += 1;
