@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { Shield, Check, Code2, Server, ArrowRight } from "lucide-react";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicFooter } from "@/components/PublicFooter";
@@ -81,23 +80,9 @@ export default async function LandingPage() {
             <p className="mt-8 text-xs text-muted-foreground/70">{t("regLine")}</p>
           </div>
 
-          {/* Right: founder-led credibility card. The 20-30s founder voice/video clip replaces the photo at the top later. */}
+          {/* Right: credibility card. Proof, what you get, why free, linking to the Trust Center. */}
           <div className="rounded-2xl border border-border bg-muted/30 p-6">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/simon-bg-rem.png"
-                alt={t("founderName")}
-                width={56}
-                height={56}
-                className="size-14 rounded-full border border-border bg-background object-cover object-top"
-              />
-              <div>
-                <p className="text-sm font-semibold">{t("founderName")}</p>
-                <p className="text-xs text-muted-foreground">{t("founderEntity")}</p>
-              </div>
-            </div>
-
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2">
               <a
                 href="https://github.com/NISD2"
                 target="_blank"
