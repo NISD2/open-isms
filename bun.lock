@@ -93,7 +93,7 @@
         "@types/react-dom": "^19.1.0",
         "drizzle-kit": "^0.31.9",
         "google-auth-library": "^10.5.0",
-        "og-shot": "^0.3.0",
+        "og-shot": "0.4.0",
         "playwright": "^1.60.0",
         "react-email": "6.6.0",
         "tailwindcss": "^4.1.0",
@@ -1761,7 +1761,7 @@
 
     "obug": ["obug@2.1.2", "", {}, "sha512-AWGB9WFcRXOQs48Z/udjI5ZcZMHXwX8XPByNpOydgcGsDLIzjGizhoMWJyKAWze7AVW/2W1i+/gPX4YtKe5cyg=="],
 
-    "og-shot": ["og-shot@0.3.0", "", { "dependencies": { "jiti": "^2.4.2", "sharp": "^0.34.2" }, "peerDependencies": { "playwright": ">=1.40.0" }, "bin": { "og-shot": "dist/cli.js" } }, "sha512-Be2p64VtHH2veub7SxeoshBi77gQ5zgrL6M7U0y1s3LkhdLQNZ2QGkcuRQLkFu/+ubzVAJAOR+yGxGLVQVQrsg=="],
+    "og-shot": ["og-shot@0.4.0", "", { "dependencies": { "jiti": "^2.4.2", "playwright": "^1.49.0", "sharp": "^0.34.2" }, "bin": { "og-shot": "dist/cli.js" } }, "sha512-K2QOS4n4JNgzT+0qdPZy6Wae9C/rYfMOHvwCovZvtwGNxXWlSMZfbCuie+mTippHPgB9dospDvBxGQIbKrYXMQ=="],
 
     "option": ["option@0.2.4", "", {}, "sha512-pkEqbDyl8ou5cpq+VsnQbe/WlEy5qS7xPzMS1U55OCG9KPvwFD46zDbxQIj3egJSFc3D+XhYOPUzz49zQAVy7A=="],
 
