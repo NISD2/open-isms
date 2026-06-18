@@ -5325,198 +5325,439 @@
     },
     "faq": {
       "meta": {
-        "title": "NIS2 FAQ - Frequently Asked Questions About NIS2 Compliance in Germany",
-        "description": "Answers to the most common NIS2 questions: essential vs important entities, penalties, management liability, BSI registration, incident reporting, costs, and what German companies need to do now."
+        "title": "NIS2 FAQ: naleving in Duitsland en de EU",
+        "description": "De vragen uit de officiële BSI NIS2-FAQ, helder en in eenvoudige taal beantwoord: toepassingsgebied, verplichtingen, registratie, meldplicht, aansprakelijkheid van de leiding en sectorspecifieke vragen."
       },
-      "title": "NIS2 Frequently Asked Questions",
-      "subtitle": "Clear answers to the questions German companies ask most about NIS2, the BSIG, and what compliance actually requires.",
+      "title": "NIS2: veelgestelde vragen",
+      "subtitle": "Heldere antwoorden op de vragen die bedrijven het vaakst stellen over NIS2, de NIS2-richtlijn, het BSIG en wat naleving concreet vereist. Opgebouwd zoals de officiële BSI NIS2-FAQ.",
+      "cta": "Start nu met NIS2-naleving",
       "categories": {
-        "basics": "NIS2 Basics",
-        "scope": "Scope & Applicability",
-        "frameworks": "NIS2 vs Other Frameworks",
-        "liability": "Management Liability",
-        "registration": "BSI Registration",
-        "incidents": "Incident Reporting",
-        "penalties": "Penalties & Fines",
-        "implementation": "Implementation"
+        "basics": "Basis en de wet",
+        "scope": "Toepassingsgebied en betrokkenheid",
+        "duties": "Verplichtingen en maatregelen",
+        "frameworks": "Bewijs en standaarden",
+        "supplychain": "Toeleveringsketen",
+        "registration": "Registratie",
+        "incidents": "Meldplicht",
+        "penalties": "Boetes en toezicht",
+        "liability": "Aansprakelijkheid van de leiding",
+        "implementation": "Implementatie en BSI-ondersteuning",
+        "sectors": "Sectorspecifieke vragen"
       },
       "basics": {
         "q1": {
-          "q": "What is the difference between NIS2 essential and important entities?",
-          "a": "Essential entities (essential entities) are companies in high-criticality sectors like energy, transport, banking, health, water, and digital infrastructure (NIS2 Annex I). Important entities (wichtige Einrichtungen) are in other critical sectors like waste management, food, manufacturing, postal, and chemicals (Annex II). The key differences: essential entities face higher maximum fines (€10M / 2% turnover vs €7M / 1.4%), proactive BSI audits (the BSI can inspect at any time without a trigger), and stricter supervision. Important entities are only audited reactively - after an incident or on evidence of non-compliance. Both must implement the same 10 cybersecurity measures under §30 BSIG."
+          "q": "Zal de Europese Unie de NIS2-richtlijn nog wijzigen of aanpassen?",
+          "a": "De NIS2-richtlijn (EU) 2022/2555 is sinds januari 2023 geldend EU-recht en geeft het bindende kader. Een wijziging zou alleen mogelijk zijn via een nieuwe EU-wetgevingsprocedure en is op dit moment niet gepland. Concretiseringen komen eerder via uitvoeringshandelingen zoals de CIR (EU) 2024/2690, die de technische minimummaatregelen op grond van artikel 21 voor bepaalde entiteiten uitwerkt, niet via een herziening van de richtlijn zelf. Voor bedrijven betekent dit: de inhoud staat vast, wacht niet op wijzigingen, maar zet de verplichtingen om volgens het geldende recht."
         },
         "q2": {
-          "q": "How many companies are affected by NIS2 in Germany?",
-          "a": "The BSI estimates approximately 29,500 companies in Germany fall under NIS2 scope. This is a massive expansion from the previous KRITIS regime, which covered only about 2,000 operators. The increase comes from lower size thresholds (50+ employees instead of hundreds of thousands of people served) and seven newly added sectors including waste management, food production, manufacturing, postal services, chemicals, research, and expanded digital services."
+          "q": "Komt er financiële steun van de overheid voor de NIS2-implementatie in bedrijven?",
+          "a": "Een eigen overheidssubsidie specifiek voor de NIS2-implementatie is op dit moment niet voorzien. De verplichtingen op grond van artikel 21 van de NIS2-richtlijn zijn risicogebaseerd en evenredig: de inspanning richt zich naar grootte, risicoblootstelling en kans op optreden, zodat een middelgroot bedrijf geen concernoplossing nodig heeft. Algemene digitaliserings- en adviessubsidies van overheid en deelstaten kunnen, afhankelijk van het programma, afzonderlijke maatregelen mede financieren; dat controleert u het best bij uw bevoegde subsidie-instantie of Kamer van Koophandel (IHK). Plan de implementatie dus op eigen kracht, gesubsidieerd wordt zij niet gegarandeerd."
         },
         "q3": {
-          "q": "When did NIS2 become law in Germany?",
-          "a": "The German NIS2 transposition law (NIS2UmsuCG) was passed by the Bundestag on 13 November 2025, approved by the Bundesrat on 21 November 2025, published in the Bundesgesetzblatt on 5 December 2025, and entered into force on 6 December 2025. The BSI registration portal went live on 6 January 2026, with the registration deadline on 6 March 2026. Germany missed the original EU transposition deadline of 17 October 2024 by over a year."
+          "q": "Wat is de actuele stand van zaken bij het BSIG en wanneer treedt de NIS2-omzettingswet in werking?",
+          "a": "De NIS2-omzettingswet is al in werking: de Bondsdag heeft deze op 13 november 2025 aangenomen, de Bondsraad heeft deze op 21 november 2025 goedgekeurd, de bekendmaking in het Bundesgesetzblatt vond plaats op 5 december 2025, en de wet geldt sinds 6 december 2025. Daarmee geldt de grondig herziene BSI-wet (BSIG nieuwe versie), die de NIS2-richtlijn in het Duitse recht omzet. De registratietermijn van drie maanden na de inwerkingtreding is op 6 maart 2026 verstreken. Wie betrokken is en zich nog niet heeft geregistreerd, moet dit onverwijld alsnog doen (zie ../anwendungsbereich/nis2-registrierung)."
         },
         "q4": {
-          "q": "Is there a transition period for NIS2 in Germany?",
-          "a": "No. There is no transition period. All obligations - risk management measures, incident reporting, management liability, and BSI registration - applied from the day the law entered into force on 6 December 2025. The BSI registration deadline was 6 March 2026 (3 months after entry into force). Companies that have not yet started compliance work are already technically non-compliant."
+          "q": "Waar vind ik het BSIG / de NIS2-omzettingswet?",
+          "a": "De NIS2-richtlijn (EU) 2022/2555 vindt u in de volledige tekst bij EUR-Lex (Publicatieblad L 333 van 27 december 2022), de bijbehorende uitvoeringsverordening als CIR (EU) 2024/2690 eveneens daar. De Duitse omzetting, dus de geldende BSI-wet in de nieuwe versie, leest u op dit moment op gesetze-im-internet.de (BSIG). De bekendmakingstekst van de NIS2-omzettingswet (verzamelwet) staat in het Bundesgesetzblatt van 5 december 2025. Voor de lopende praktijk is de geconsolideerde BSIG-versie op gesetze-im-internet.de de eenvoudigste bron."
         },
         "q5": {
-          "q": "Does NIS2 apply to small companies with fewer than 50 employees?",
-          "a": "Generally no. NIS2 uses the EU SME definition (Recommendation 2003/361/EC): companies need at least 50 employees OR more than €10M annual turnover AND €10M balance sheet to be in scope. Both financial thresholds must be met - high revenue alone is not enough if the balance sheet is below €10M. However, certain entity types are in scope regardless of size: DNS providers, TLD registries, qualified trust service providers, KRITIS operators, and sole providers of essential services in a region. If you are close to the 50-employee threshold, check whether linked group companies push you over the limit. See our entity types article for 10 real-world edge case examples."
+          "q": "Hoe verschilt de NIS2-omzettingswet van het BSIG?",
+          "a": "Het BSIG is de basiswet: een zelfstandige afzonderlijke wet die de taken van het BSI alsook de verplichtingen van bijzonder belangrijke en belangrijke entiteiten duurzaam regelt. De NIS2-omzettingswet is daarentegen een verzamelwet, dus de wetgevende mantel die het BSIG opnieuw vaststelt en tegelijk verdere vakwetten (bijvoorbeeld in het telecommunicatie-, energie- en socialeverzekeringsrecht) aanpast om de NIS2-richtlijn volledig in het Duitse recht over te brengen. Kortom: de NIS2-omzettingswet heeft haar werk met de inwerkingtreding gedaan en haar wijzigingen in de lopende wetten ingebracht. Bepalend voor uw verplichtingen in de dagelijkse praktijk is daarom het BSIG in zijn nieuwe versie, niet de mantel."
         }
       },
       "scope": {
         "q1": {
-          "q": "Which sectors are covered by NIS2?",
-          "a": "NIS2 covers 18 sectors in total. Annex I (high-criticality, essential entities): energy, transport, banking, financial market infrastructure, health, drinking water, wastewater, digital infrastructure, ICT service management (B2B), public administration, and space. Annex II (other critical, important entities): postal and courier services, waste management, chemicals, food production and distribution, manufacturing (medical devices, electronics, machinery, vehicles), digital providers (marketplaces, search engines, social networks), and research organizations."
+          "q": "Kan een onderneming ook gereguleerd worden als de betreffende diensten niet in Duitsland worden geleverd?",
+          "a": "Ja. Bepalend is niet waar een dienst wordt geleverd, maar waar de entiteit gevestigd is (artikel 26 van de NIS 2-richtlijn, in Duitsland omgezet via de paragrafen 59 en 60 BSIG). Wie in Duitsland gevestigd is of hier een vertegenwoordiger heeft aangewezen, kan onder het Duitse toezicht vallen, ook als de klanten in het buitenland zitten. Een bijzondere regel geldt voor DNS-, cloud-, datacenter- en soortgelijke aanbieders alsook voor aanbieders van openbare elektronischecommunicatienetwerken en -diensten: voor hen telt de hoofdvestiging in de EU, dus de lidstaat waarin de beslissingen over de risicobeheersmaatregelen overwegend worden genomen. Welke vestiging telkens telt, wordt toegelicht op de wikipagina over de [hoofdzetel buiten de EU](/wiki/anwendungsbereich/nis2-hauptsitz-ausserhalb-eu)."
         },
         "q2": {
-          "q": "What is the difference between NIS2 Annex I and Annex II sectors?",
-          "a": "Annex I lists 11 'sectors of high criticality' - companies here are classified as essential entities if they are large, or as important entities if medium-sized. Annex II lists 7 'other critical sectors' - companies here are classified as important entities regardless of whether they are medium or large. This means a chemical distributor with 180 employees, €70M revenue, and €50M balance sheet is still classified as important - not essential - because chemicals are Annex II. The practical difference: Annex I essential entities face proactive BSI audits, higher fines (€10M vs €7M), and stricter supervision. Annex II important entities face reactive supervision only."
+          "q": "Wat wordt in de context van paragraaf 28 lid 3 BSIG precies bedoeld met het begrip \"verwaarloosbaar\", en aan de hand van welke criteria wordt deze indeling gemaakt?",
+          "a": "Verwaarloosbaar betekent een activiteit die in het totaalbeeld van de onderneming zo'n geringe omvang heeft dat zij voor de indeling als belangrijke of bijzonder belangrijke entiteit niet meeweegt. Aanwijzingen zijn het aantal daar werkzame personen, de met deze activiteit behaalde omzet en het bijbehorende balansaandeel, telkens in verhouding tot de gehele onderneming. Geen enkele afzonderlijke waarde beslist op zichzelf: bepalend is het totaalbeeld. Komt de activiteit bovendien voor in het ondernemingsdoel (statuten, vennootschapsovereenkomst), dan pleit dat tegen verwaarloosbaarheid. In geval van twijfel moet de activiteit gedocumenteerd en conservatief als niet verwaarloosbaar worden behandeld."
         },
         "q3": {
-          "q": "Does NIS2 apply to manufacturing companies?",
-          "a": "Yes, if you manufacture medical devices, computers, electronics, optical products, electrical equipment, machinery, motor vehicles, or other transport equipment and have 50+ employees or €10M+ revenue. Manufacturing is listed in NIS2 Annex II, making affected companies 'important entities' (wichtige Einrichtungen). A significant number of German Mittelstand companies fall into this category. All 10 cybersecurity measures under §30 BSIG apply."
+          "q": "Vallen gemeentelijke eigen bedrijven (Eigenbetriebe) onder NIS 2?",
+          "a": "Niet automatisch. Zuiver bestuurlijke activiteit op gemeentelijk niveau valt in beginsel onder het deelstaatrecht (Landesrecht) en niet onder de BSIG; de IT-Planungsrat heeft het gemeentelijke niveau hier uitdrukkelijk buiten beschouwing gelaten. Een eigen bedrijf wordt pas dan betroffen wanneer het zelf aan een van de bestreken sectoren is toe te rekenen (zoals energie, water, afvalwater, afval) en ofwel een kritieke installatie exploiteert ofwel de omvangsdrempels voor belangrijke respectievelijk bijzonder belangrijke entiteiten haalt. Bepalend is dus de concrete activiteit van het afzonderlijke bedrijf, niet de rechtsvorm eigen bedrijf (Eigenbetrieb). Voor nutsbedrijven en afvalverwerkers helpen de wikitests, bijvoorbeeld [stadswerk](/wiki/anwendungsbereich/bin-ich-stadtwerk-nis2) of [afvalwaterverwerker](/wiki/anwendungsbereich/bin-ich-abwasserentsorger-nis2)."
         },
         "q4": {
-          "q": "We outsource all IT to a managed service provider. Does NIS2 still apply?",
-          "a": "Yes, fully. NIS2 applies to the entity providing the regulated service, regardless of who manages the IT. You can outsource operations but not accountability (§30 BSIG). Your IT provider becomes your most critical supplier: document the relationship, include cybersecurity requirements in the contract, and verify their security measures. If they get breached, your reporting obligation triggers - not theirs. Management remains personally liable under §38 BSIG."
+          "q": "Valt mijn onderneming binnen het toepassingsgebied van de BSIG / NIS 2-omzettingswet?",
+          "a": "Dat hangt af van drie vragen: sector, omvang en bijzondere gevallen. Ten eerste moet uw activiteit onder een van de in bijlage I of II van de NIS 2-richtlijn genoemde sectoren vallen (in Duitsland bijlage 1 en 2 bij de BSIG). Ten tweede moet u in de regel ten minste 50 medewerkers hebben of meer dan 10 miljoen euro jaaromzet en jaarbalanstotaal (middelgrote onderneming volgens Aanbeveling 2003/361/EG); kleinere ondernemingen vallen er alleen in aangewezen uitzonderingsgevallen onder. Ten derde zijn er constellaties die ongeacht de omvang van toepassing zijn, bijvoorbeeld exploitanten van kritieke installaties of bepaalde aanbieders in de sector digitale infrastructuur. De indeling is een zelfindeling; het BSI verstuurt geen beschikkingen. De volledige test biedt de wikipagina [Wie is betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q5": {
-          "q": "Our company operates in multiple EU countries. Do we need to comply with each country's NIS2 law?",
-          "a": "Yes. An incident at a company with operations in multiple member states may trigger reporting obligations in each country where affected services are provided. By early 2026, only about 6-8 of 27 EU member states had fully transposed NIS2. Each country has its own registration portal and procedures. Germany's BSIG is among the most detailed implementations. For cross-border operations, comply with each national law where you provide services."
+          "q": "Hoe moeten de begrippen wezenlijke, belangrijke en bijzonder belangrijke entiteit worden ingedeeld?",
+          "a": "De NIS 2-richtlijn kent twee klassen: wezenlijke entiteiten (essential, bijlage I) en belangrijke entiteiten (important, bijlage II), artikel 3 van de NIS 2-richtlijn. De Duitse BSIG neemt dit over, maar noemt de bovenste klasse bijzonder belangrijke entiteit (paragraaf 28 lid 1 BSIG) en de andere belangrijke entiteit (paragraaf 28 lid 2 BSIG); wezenlijk en bijzonder belangrijk duiden dus op dezelfde trap. Het verschil ligt niet bij de beveiligingsverplichtingen, die zijn in de kern gelijk, maar bij het toezicht: bijzonder belangrijke entiteiten zijn onderworpen aan een proactief toezicht, belangrijke entiteiten alleen aan een aanleidingsgebonden, achteraf uitgeoefend toezicht. Of u in de bovenste of onderste klasse valt, volgt uit sector, omvang en de hoedanigheid van exploitant van een kritieke installatie."
+        },
+        "q6": {
+          "q": "Hoe wordt de betroffenheid van entiteiten op grond van paragraaf 28 lid 1 nr. 4 BSIG getoetst?",
+          "a": "Paragraaf 28 lid 1 nr. 4 BSIG bestrijkt entiteiten van de bijlage-1-typen die aan een andere persoon goederen of diensten tegen vergoeding aanbieden en een jaaromzet van meer dan 50 miljoen euro en tegelijk een jaarbalanstotaal van meer dan 43 miljoen euro hebben (omzetting van artikel 3 lid 1 van de NIS 2-richtlijn). Er wordt dus in twee stappen getoetst: behoort uw activiteit tot een bijlage-1-sector, en overschrijdt u beide financiële drempels cumulatief? Bij de berekening moeten verbonden en partnerondernemingen volgens Aanbeveling 2003/361/EG worden meegerekend. Worden beide drempels overschreden, dan behoort u tot de bijzonder belangrijke entiteiten, zonder dat het op het aantal medewerkers aankomt."
+        },
+        "q7": {
+          "q": "Waarop berusten de drempelwaarden voor het aantal medewerkers, de jaaromzet en het jaarbalanstotaal die worden gebruikt voor de indeling van ondernemingscategorieën in artikel 2 lid 1 van de NIS 2-richtlijn, in het bijzonder met het oog op de verwijzing naar artikel 2 van de bijlage bij Aanbeveling 2003/361/EG?",
+          "a": "De NIS 2-richtlijn definieert de omvangsklassen niet zelf, maar verwijst naar de EU-definitie voor kleine en middelgrote ondernemingen in artikel 2 van de bijlage bij Aanbeveling 2003/361/EG. Daarvolgens geldt: een middelgrote onderneming heeft minder dan 250 medewerkers en hetzij ten hoogste 50 miljoen euro jaaromzet hetzij ten hoogste 43 miljoen euro jaarbalanstotaal; een kleine onderneming ligt onder 50 medewerkers en ten hoogste 10 miljoen euro bij beide waarden. NIS 2 bestrijkt in beginsel ondernemingen vanaf de middelgrote omvang, dus vanaf 50 medewerkers of meer dan 10 miljoen euro bij omzet en balanstotaal. Bij de berekening gelden de verbonden- en partnerregels van de Aanbeveling, met uitzondering van artikel 3 lid 4 van haar bijlage."
+        },
+        "q8": {
+          "q": "Hebben het aantal medewerkers en de hoogte van de omzet betrekking op één afzonderlijk (filiaal)bedrijf of in voorkomend geval op de gehele onderneming?",
+          "a": "Bepalend is de gehele onderneming, niet het afzonderlijke filiaal of de bedrijfsvestiging. Aantal medewerkers, omzet en balanstotaal worden op het niveau van de juridische eenheid vastgesteld, inclusief de op grond van Aanbeveling 2003/361/EG in aanmerking te nemen partner- en verbonden ondernemingen (paragraaf 28 lid 4 BSIG). Een filiaal moet dus niet op zichzelf worden bezien, maar als deel van het geheel. Iets anders kan alleen gelden wanneer een bedrijfsonderdeel bij IT-systemen, componenten en processen aantoonbaar volledig zelfstandig werkt."
+        },
+        "q9": {
+          "q": "Moeten verbonden ondernemingen die niet in Duitsland respectievelijk niet in de EU actief zijn, bij de berekening van de size-cap-kengetallen worden meegerekend?",
+          "a": "Ja. Bij de berekening van de drempelwaarden moeten partner- en verbonden ondernemingen volgens Aanbeveling 2003/361/EG volledig worden meegerekend, ongeacht of zij in Duitsland, in een andere EU-lidstaat of buiten de EU gevestigd zijn (paragraaf 28 lid 4 BSIG in samenhang met de Aanbeveling). Medewerkers, omzet en balanstotaal van de verbonden vennootschappen worden dus wereldwijd naar rato of volledig bijgeteld. De geografische ligging van een moeder- of zusteronderneming verandert niets aan de meerekening ervan. Of uw onderneming dan daadwerkelijk onder het Duitse toezicht valt, wordt daarvan los bepaald door de vestigingsvraag (artikel 26 van de NIS 2-richtlijn)."
+        },
+        "q10": {
+          "q": "Als een moeder- en dochteronderneming met gemeenschappelijke IT elk aan een van de bestreken entiteitstypen zijn toe te rekenen en (gezamenlijk) aan de size-cap-rule voldoen, worden dan beide ondernemingen bestreken, of volstaat het wanneer de vereisten door het moederconcern worden vervuld?",
+          "a": "Beide worden bestreken. NIS 2 knoopt aan bij de afzonderlijke juridische eenheid: zijn moeder en dochter elk aan een bestreken sector toe te rekenen en halen zij de drempelwaarden, dan is elk op zichzelf een entiteit met eigen verplichtingen op grond van de paragrafen 30 e.v. BSIG. Gemeenschappelijk gebruikte IT verandert daar niets aan en ontslaat de dochter niet. In de praktijk mogen risicobeheer, meldwezen en bewijsstukken centraal worden georganiseerd en gedeeld, maar de juridische verantwoordelijkheid blijft voor elke entiteit afzonderlijk bestaan. Registratie en naleving moeten dus voor elke betroffen vennootschap zelfstandig worden gewaarborgd."
+        },
+        "q11": {
+          "q": "Tot wie kan men zich wenden als er ondanks de betroffenheidstoets van het BSI nog steeds vragen over de betroffenheid in het concrete individuele geval bestaan?",
+          "a": "Het BSI geeft voor de principiële indeling een online zelftest (betroffenheidstoets) uit, maar verricht geen juridisch bindend advies in het individuele geval en geeft geen vaststellingsbeschikkingen af. Blijven er na de zelftest twijfels, dan is een juridische toetsing van het concrete individuele geval de zuivere weg, bijvoorbeeld door op NIS 2 gespecialiseerde advocaten of adviseurs. Documenteer uw indeling en de daaraan ten grondslag gelegde cijfers navolgbaar, want de zelfindeling moet u in geval van twijfel zelf kunnen onderbouwen. Hoe u deze indeling zuiver vastlegt, toont de wikipagina over de [zelfindeling](/wiki/anwendungsbereich/nis2-selbsteinstufung)."
+        },
+        "q12": {
+          "q": "Ik wil een uitzondering op NIS 2 aanvragen. Kan dat?",
+          "a": "Nee. Er bestaat geen aanvraaggebonden procedure waarmee een entiteit zich van NIS 2 kan laten vrijstellen. De weinige uitzonderingen zijn in de wet zelf opgenomen (paragraaf 37 BSIG, gebaseerd op artikel 2 van de NIS 2-richtlijn) en liggen uitsluitend bij het initiatief van de daar genoemde federale autoriteiten, bijvoorbeeld voor bepaalde activiteiten op het gebied van nationale veiligheid, defensie of strafvervolging. Het BSI kan zulke uitzonderingen noch aanvragen noch verlenen. Meent u niet betroffen te zijn, dan is de juiste weg dus geen aanvraag, maar een zuivere, gedocumenteerde zelfindeling die aantoont dat de sector- of omvangsdrempels niet zijn vervuld."
+        },
+        "q13": {
+          "q": "Essentiele en belangrijke entiteiten moeten op grond van de NIS 2-uitvoeringswet onder meer hun openbare IP-adresbereiken doorgeven. Welke gegevens moeten hier worden verstrekt?",
+          "a": "Bij de registratie vereist artikel 27 van de NIS 2-richtlijn (in Duitsland omgezet in Paragraaf 33 BSIG) naam en rechtsvorm, adres, actuele contactgegevens, de betrokken sector, een lijst van de lidstaten waarin diensten worden verleend en inderdaad de openbare IP-adresbereiken. Bedoeld zijn alleen de statische, openbaar gerouteerde adresbereiken waaronder uw entiteit van buitenaf bereikbaar is of kritieke systemen exploiteert. Dynamische adressen en IP-bereiken die u aan uw eindklanten toewijst, horen daar niet bij. In de praktijk noemt u dus uw eigen geregistreerde netwerken (vaak in CIDR-notatie), niet elk afzonderlijk adres. Het verloop en de termijnen worden uitgelegd op /wiki/anwendungsbereich/nis2-registrierung."
+        },
+        "q14": {
+          "q": "Hoe worden digitale diensten gedefinieerd?",
+          "a": "De NIS 2-richtlijn introduceert geen eigen verzamelterm \"digitale dienst\", maar benoemt in artikel 6 drie concrete types: online marktplaats, online zoekmachine en platform voor socialenetwerkdiensten. Elk daarvan is een dienst in de zin van Richtlijn (EU) 2015/1535, dus een prestatie die gewoonlijk tegen vergoeding, op afstand, langs elektronische weg en op individueel verzoek wordt verricht. Deze drie aanbieders behoren tot de sector digitale diensten in bijlage I van de richtlijn. Cloud computing, datacenters, CDN en vergelijkbare diensten zijn eigen categorieen van de digitale infrastructuur, geen onderdeel van deze definitie. Toets uw concrete geval via /wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test."
+        },
+        "q15": {
+          "q": "Welke strategieen zijn nodig om mogelijk uiteenlopende wettelijke eisen voor de uitvoering van NIS 2, zoals die bijvoorbeeld in Duitsland en elders in Europa bestaan, rechtsconform in een eenduidig informatiebeveiligingsmanagementsysteem (ISMS) te integreren en continu te waarborgen?",
+          "a": "Bouw uw ISMS op de gemeenschappelijke EU-grondslag: de verplichtingen uit artikel 21 van de NIS 2-richtlijn en de technische minimumeisen van de uitvoeringsverordening CIR 2024/2690 gelden in alle lidstaten gelijk en vormen de kern. Op deze kern legt u als laag de nationale bijzonderheden van de landen waarin u actief bent, bijvoorbeeld afwijkende meldregels of aanvullende verplichtingen. In de praktijk betekent dat: een set maatregelen en bewijsstukken, plus een register dat per land de afwijking en de bevoegde autoriteit documenteert. Waar landen verschillend streng zijn, voldoet u concernbreed aan het hoogste niveau, dan bent u overal conform. Erkende standaarden zoals ISO 27001 of de BSI IT-Grundschutz leveren daarvoor het gemeenschappelijke raamwerk."
+        },
+        "q16": {
+          "q": "Wat wordt bedoeld met \"stand van de techniek\"? Bestaat daar een definitie voor?",
+          "a": "Een vaste wettelijke definitie bestaat niet, en dat is bewust zo: de stand van de techniek beschrijft wat aan effectieve beveiligingsmaatregelen op dit moment gevestigd en in de praktijk beproefd is, en die ontwikkelt mee. Artikel 21 lid 1 van de NIS 2-richtlijn (in Duitsland Paragraaf 30 BSIG) vereist dat u die in aanmerking neemt en daarbij de relevante Europese en internationale normen hanteert. Maatstaf zijn dus erkende werken zoals ISO/IEC 27001, de BSI IT-Grundschutz of ENISA-richtsnoeren, niet het nieuwste op de markt. De maatregelen moeten bovendien evenredig zijn: risicosituatie, omvang van de entiteit en uitvoeringskosten spelen mee. U richt zich op actuele standaarden en documenteert waarom uw keuze bij het risico past."
+        },
+        "q17": {
+          "q": "Vragen over de indeling van concernondernemingen en de door hen geleverde IT-diensten in verband met de classificatie als managed service provider (MSP)",
+          "a": "Een beheerde dienst (managed service) is er volgens artikel 6, punt 39 van de NIS 2-richtlijn wanneer een aanbieder IT-systemen of applicaties voor een ander installeert, exploiteert, beheert of onderhoudt en daarbij de operationele verantwoordelijkheid draagt. Doorslaggevend is die operationele verantwoordelijkheid, niet de concernverbondenheid. Een centrale IT-onderneming die voor zusterbedrijven systemen actief beheert, kan daarom zelf als MSP gelden en zelfstandig binnen het toepassingsgebied vallen. Een zuivere holding die alleen de zakelijke aansturing op zich neemt, zonder andermans systemen operationeel te exploiteren, is daarentegen geen MSP. Toets per concernvennootschap afzonderlijk wie welke diensten daadwerkelijk exploiteert: /wiki/anwendungsbereich/bin-ich-msp-managed-service-provider."
+        },
+        "q18": {
+          "q": "Zijn ondernemingen die volgens de oude rechtssituatie (BSIG van voor 6.12.2025 in combinatie met de BSI-KritisV) kritieke installaties exploiteren en hun hoofdvestiging in het buitenland hebben, ook na de inwerkingtreding van het BSIG (nieuwe versie) nog steeds KRITIS-exploitanten?",
+          "a": "Ja. Voor KRITIS-exploitanten telt waar de kritieke installatie staat en in Duitsland voorzieningsdiensten levert, niet waar de hoofdvestiging van het concern ligt. Wie een installatie exploiteert die in Duitsland de drempelwaarden van de KRITIS-verordening haalt, blijft daarom ook onder het nieuwe BSIG KRITIS-exploitant, ongeacht een vestiging in het buitenland. Anders ligt het alleen bij bepaalde grensoverschrijdende diensten (zoals delen van de digitale infrastructuur), waarvoor artikel 26 van de NIS 2-richtlijn een eigen bevoegdheidsregel kent. Meer over de vestigingsvraag op /wiki/anwendungsbereich/nis2-hauptsitz-ausserhalb-eu."
+        },
+        "q19": {
+          "q": "Ik exploiteer prive een DNS-server. Moet ik mij in het BSI-portaal registreren en meldingen indienen?",
+          "a": "Nee. De NIS 2-richtlijn richt zich op entiteiten die een onder de richtlijn vallende dienst commercieel aanbieden, niet op prive-hobbyexploitanten. Gereguleerd zijn in de sector digitale infrastructuur DNS-dienstverleners en registers voor topleveldomeinnamen die deze diensten als organisatie voor derden verlenen (artikel 3 en bijlage I van de richtlijn). Een prive geexploiteerde DNS-server zonder zakelijke dienstverlening valt daar niet onder, dus geen registratie en geen meldplichten. Zodra hieruit een aan derden aangeboden dienst ontstaat, verandert de indeling."
+        },
+        "q20": {
+          "q": "Moet een onderneming die in beginsel onder NIS 2 valt, maar op korte termijn wordt geliquideerd en geen noemenswaardige bedrijfsactiviteit meer uitoefent, nog steeds als belangrijke respectievelijk essentiele entiteit worden ingedeeld?",
+          "a": "Zolang de onderneming juridisch bestaat en de onder de richtlijn vallende dienst nog verleent, blijft zij een belangrijke of essentiele entiteit, ook tijdens de liquidatie. De indeling volgens artikel 3 van de NIS 2-richtlijn knoopt aan bij de feitelijke activiteit, niet bij het voornemen om te stoppen. Staakt de entiteit de onder de richtlijn vallende bedrijfsactiviteit duurzaam, dan vervalt de voorwaarde en daarmee het vallen onder de richtlijn; tot dan blijven de verplichtingen gelden. Een louter aangekondigd, maar nog niet voltrokken wegvallen van de bedrijfsvoering volstaat niet. Zolang de te beschermen systemen draaien, blijven registratie en risicobeheer verschuldigd."
+        },
+        "q21": {
+          "q": "Moeten zelfstandig aangeboden SaaS-diensten worden ingedeeld als cloudcomputingdiensten in de zin van het BSIG wanneer zij op de infrastructuur van externe cloudaanbieders draaien en de SaaS-aanbieder de rekenmiddelen niet zelf exploiteert?",
+          "a": "Maatgevend is de definitie van de cloudcomputingdienst in artikel 6, punt 30 van de NIS 2-richtlijn: een dienst die behoeftegestuurd beheer en brede toegang op afstand mogelijk maakt tot een schaalbare en elastische pool van deelbare rekenmiddelen. Doorslaggevend is wat u naar buiten toe aanbiedt, niet of de onderliggende hardware van u is. Een SaaS-aanbod kan deze kenmerken vervullen, ook als het op infrastructuur van derden draait. Biedt uw SaaS daarentegen een duidelijk afgebakende vaktoepassing zonder deze cloudkenmerken, dan is het geen cloudcomputingdienst in de zin van de richtlijn. Toets de concrete kenmerken op /wiki/anwendungsbereich/bin-ich-cloud-anbieter-nis2."
+        },
+        "q22": {
+          "q": "Is de voor MSP's maatgevende afbakening tussen zakelijke en operationele verantwoordelijkheid ook overdraagbaar op andere diensten van de sector digitale infrastructuur (of verdere BSIG-sectoren)?",
+          "a": "Het onderscheid tussen zakelijke en operationele verantwoordelijkheid is een nuttige toetsgedachte, maar vervangt niet de telkens eigen wettelijke definitie. Voor elk diensttype geldt eerst de tekst van artikel 6 van de NIS 2-richtlijn, bijvoorbeeld voor cloudcomputingdienst, datacenterdienst of DNS-dienstverlener. Bij veel van deze diensten valt de indeling toe aan wie de dienst daadwerkelijk verleent en exploiteert, dus de operationele verantwoordelijkheid draagt. De louter zakelijke of contractuele verantwoordelijkheid zonder eigen exploitatie vestigt doorgaans niet de rol van entiteit. Pas het criterium daarom per diensttype toe aan de hand van de daar geldende definitie, niet als algemene regel."
+        },
+        "q23": {
+          "q": "Val ik onder de definitie van een verlener van vertrouwensdiensten?",
+          "a": "Verleners van vertrouwensdiensten zijn gedefinieerd in artikel 3 van de eIDAS-verordening (EU) nr. 910/2014: aanbieders van elektronische vertrouwensdiensten zoals elektronische handtekeningen en zegels, tijdstempels, diensten voor elektronisch aangetekende bezorging of certificaten voor websiteauthenticatie. Biedt u een dergelijke dienst zakelijk aan, dan valt u onder deze definitie en daarmee binnen het toepassingsgebied van NIS 2. Gekwalificeerde verleners van vertrouwensdiensten gelden daarbij als essentiele entiteiten, ongeacht hun omvang. Wie handtekeningen of certificaten alleen intern gebruikt, zonder ze als dienst aan te bieden, is geen verlener van vertrouwensdiensten. Een detailtoets vindt u op /wiki/anwendungsbereich/bin-ich-vertrauensdiensteanbieter-nis2."
+        },
+        "q24": {
+          "q": "Valt in de sector \"productie, vervaardiging en handel in chemische stoffen\" met betrekking tot de \"handel in chemische stoffen\" elke handel in eindproducten die uit chemische stoffen bestaan binnen het toepassingsgebied?",
+          "a": "Nee, niet elke handel in chemiehoudende producten. Bijlage II van de NIS 2-richtlijn omvat de vervaardiging en handel in chemische stoffen en mengsels alsook de productie van voorwerpen uit deze stoffen, telkens in de zin van de REACH-verordening (EG) nr. 1907/2006. Bedoeld zijn dus stoffen en mengsels als zodanig, niet elk eindproduct dat ooit eens uit chemicalien is vervaardigd. Wie met afgewerkte voorwerpen handelt (zoals meubels of elektronica), drijft geen handel in chemische stoffen in deze zin. Daarnaast moeten de omvangscriteria vervuld zijn, opdat het vallen onder de richtlijn ontstaat."
+        },
+        "q25": {
+          "q": "Hoe bepaal ik de NACE-code van mijn onderneming?",
+          "a": "De NACE-code (in Duitsland weergegeven als WZ-code, momenteel WZ 2025) bepaalt u aan de hand van uw economische hoofdactiviteit, dus de activiteit waarmee u het grootste aandeel toegevoegde waarde of omzet behaalt. Aanknopingspunten zijn uw inschrijving in het bedrijven- of handelsregister en de code die het Federale Bureau voor de Statistiek of uw IHK aanhoudt. Oefent uw onderneming meerdere activiteiten uit, deel dan elke in bij de passende klasse en toets elke afzonderlijk op het vallen onder de richtlijn. De code vindt u ook via de classificatiedatabank van het Federale Bureau voor de Statistiek. Maatgevend voor NIS 2 is wat u daadwerkelijk doet, niet alleen de ingeschreven code."
+        },
+        "q26": {
+          "q": "Welke rol spelen NACE-codes bij het vaststellen of een entiteit onder de richtlijn valt?",
+          "a": "NACE-codes zijn een orientatiehulp, maar niet het juridische criterium. Of u onder de richtlijn valt, richt zich naar de sectoren en soorten entiteiten in de bijlagen I en II van de NIS 2-richtlijn samen met de omvangsdrempels, niet naar de loutere code-indeling. De NACE- of WZ-code helpt u uw activiteit aan een van deze sectoren toe te wijzen, maar vervangt de inhoudelijke toetsing niet. Het kan voorkomen dat een code grofweg past, maar de activiteit niet onder de wettelijke definitie valt, en omgekeerd. Maatgevend blijft uw feitelijke activiteit gemeten aan de definitie: de volledige test vindt u op /wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test."
+        }
+      },
+      "duties": {
+        "q1": {
+          "q": "Moeten bedrijven een crisisteam opzetten om incidenten af te handelen?",
+          "a": "Nee, een formeel crisisteam is wettelijk niet voorgeschreven. Artikel 21(2)(c) van de NIS2-richtlijn (omgezet in Section 30 BSIG) vereist maatregelen voor bedrijfscontinuiteit en crisismanagement, maar laat open hoe u dit organiseert. Doorslaggevend is dat verantwoordelijkheden, bereikbaarheid en procedures voor noodgevallen zijn vastgelegd en geoefend. Bij een tweepersoonsbedrijf kan dat een korte handelingsinstructie zijn, bij grotere organisaties een aangewezen team. Maatstaf is de evenredigheid op grond van Artikel 21(1)."
+        },
+        "q2": {
+          "q": "Heeft de risicoanalyse die op grond van de NIS2-omzettingswet wordt vereist betrekking op het hele bedrijf of specifiek op cyberdreigingen en hun gevolgen voor de IT-systemen?",
+          "a": "Zij heeft betrekking op de risico's voor uw netwerk- en informatiesystemen, niet op een algemene bedrijfsrisicoanalyse. Artikel 21(2)(a) van de NIS2-richtlijn (Section 30 BSIG) noemt uitdrukkelijk beleid voor risicoanalyse en de beveiliging van informatiesystemen. Bedoeld zijn dus de systemen waarmee u informatie verwerkt, opslaat of overdraagt, en de dreigingen die de beschikbaarheid, integriteit en vertrouwelijkheid daarvan in gevaar brengen. De omvang is niet star: zij richt zich naar het werkelijke risico en het belang van de systemen voor uw bedrijfsvoering (Artikel 21(1))."
+        },
+        "q3": {
+          "q": "Mijn bedrijf voldoet aan de criteria om als bijzonder belangrijke entiteit (essential entities) of KRITIS-exploitant of belangrijke entiteit (important entities) te gelden. Welke verplichtingen moeten worden nageleefd?",
+          "a": "Drie blokken verplichtingen gelden voor beide categorieen gelijk. Ten eerste registratie bij het BSI met contactgegevens (Artikel 27, Section 33 BSIG). Ten tweede risicobeheersmaatregelen uit de catalogus van Artikel 21(2) (Section 30 BSIG), van risicoanalyse over incidentafhandeling en toeleveringsketen tot cryptografie en toegangscontrole. Ten derde de gefaseerde melding van significante beveiligingsincidenten op grond van Artikel 23 (Section 32 BSIG): eerste melding binnen 24 uur, bevestiging binnen 72 uur, eindverslag na een maand. Het verschil ligt in het toezicht: bijzonder belangrijke entiteiten worden proactief gecontroleerd, belangrijke entiteiten op basis van aanleiding. De volledige classificatietest vindt u onder [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+        },
+        "q4": {
+          "q": "Vanaf wanneer gelden de verplichtingen van het BSIG / de NIS2-omzettingswet?",
+          "a": "De verplichtingen gelden onmiddellijk met de inwerkingtreding van de Duitse omzetting. De NIS2-omzettingswet werd op 5 december 2025 afgekondigd en is op 6 december 2025 in werking getreden. Risicobeheer en meldplichten gelden daarmee vanaf dat moment; een afzonderlijke respijtperiode voor de inhoudelijke maatregelen is niet voorzien. Alleen voor de registratie loopt een eigen termijn (Section 33 BSIG), zie [Registrierung](/wiki/anwendungsbereich/nis2-registrierung)."
+        },
+        "q5": {
+          "q": "Komt er een overgangsperiode?",
+          "a": "Voor de inhoudelijke beveiligingsverplichtingen is er geen algemene overgangsperiode. Wie binnen het toepassingsgebied valt, moet de maatregelen op grond van Artikel 21 (Section 30 BSIG) vanaf de ingangsdatum naleven. Alleen de registratie is in de tijd gefaseerd: zij moet worden uitgevoerd binnen drie maanden vanaf het moment waarop u als entiteit geldt (Section 33 BSIG). KRITIS-exploitanten van wie de bestaande bewijstermijn binnen de eerste twaalf maanden na inwerkingtreding viel, kunnen naar keuze hun oorspronkelijke datum gebruiken."
+        },
+        "q6": {
+          "q": "Welke eisen worden gesteld aan de bereikbaarheid van belangrijke en bijzonder belangrijke entiteiten?",
+          "a": "U moet het BSI een bereikbaar contactpunt opgeven, in de regel een telefoonnummer en e-mailadres, en deze gegevens actueel houden (Artikel 27, Section 33 BSIG). Via dit kanaal bezorgt het BSI incidentmeldingen, waarschuwingen en vervolgvragen. De wet schrijft geen bepaalde kwalificatie voor de personen daarachter voor. Belangrijk is alleen dat het contactpunt daadwerkelijk bereikbaar is en meldingen tijdig kunnen worden verwerkt, zodat de eerste melding binnen 24 uur op grond van Artikel 23 functioneert. Voor KRITIS-exploitanten gelden aanvullend strengere eisen aan de beschikbaarheid."
+        },
+        "q7": {
+          "q": "Wij hebben onze IT volledig uitbesteed aan externe dienstverleners. Welke verplichtingen moeten wij als belangrijke entiteit dan überhaupt nog vervullen?",
+          "a": "U kunt de bedrijfsvoering uitbesteden, maar niet de verantwoordelijkheid. Geadresseerde van de verplichtingen uit Section 30 BSIG blijft uw entiteit, niet de dienstverlener. Concreet betekent dit: u moet de beveiliging van de toeleveringsketen sturen (Artikel 21(2)(d)), dus contractueel waarborgen dat uw dienstverlener passende maatregelen treft en incidenten aan u meldt. De registratie, de melding van significante incidenten op grond van Artikel 23 en de goedkeuring en het toezicht op de maatregelen door de bedrijfsleiding (Artikel 20, Section 38 BSIG) blijven bij u. Meer hierover onder [Bin ich MSP-Kunde](/wiki/anwendungsbereich/bin-ich-msp-managed-service-provider)."
+        },
+        "q8": {
+          "q": "Vanaf wanneer telt de fotovoltaische installatie op het dak van het bedrijf als kritieke infrastructuur?",
+          "a": "Een dakinstallatie voor eigen voorziening is in de regel geen kritieke infrastructuur. KRITIS-status ontstaat pas wanneer een installatie voor elektriciteitsopwekking de drempelwaarde van de BSI-KritisV bereikt, momenteel 104 megawatt geinstalleerd netto nominaal vermogen (Bijlage 1, sector Energie). Bepalend is de invoeding in de algemene voorziening, niet het eigen verbruik. De indeling als kritieke installatie geldt bovendien pas vanaf 1 april van het jaar dat volgt op het voor het eerst bereiken van de drempelwaarde. Een typische dakinstallatie ligt daar ordes van grootte onder."
+        },
+        "q9": {
+          "q": "Moeten bedrijven de naleving van de voorschriften aantonen?",
+          "a": "Ja, u moet de uitvoering kunnen aantonen, maar de bewijsvorm verschilt per categorie. Bijzonder belangrijke en belangrijke entiteiten staan onder toezicht van het BSI (Artikel 32 en 33, Section 61 e.v. BSIG): het BSI kan inlichtingen, documenten en controles verlangen, een regelmatige verplichte certificering is voor hen echter niet voorgeschreven. U zou beleid, maatregelen en incidentafhandeling dus zo moeten documenteren dat u ze op verzoek kunt overleggen. Een periodieke bewijsplicht in engere zin geldt alleen voor KRITIS-exploitanten."
+        },
+        "q10": {
+          "q": "Ik ben KRITIS-exploitant. Wanneer moet ik mijn bewijsstukken op grond van het BSIG / de NIS2-omzettingswet indienen?",
+          "a": "KRITIS-exploitanten tonen de naleving van de eisen elke drie jaar aan tegenover het BSI (Section 39 BSIG); de controlecyclus is van twee naar drie jaar verlengd. Het BSI heeft de geregistreerde exploitanten hun nieuwe indieningsdata individueel meegedeeld. Viel uw tot dusver geldende datum binnen de eerste twaalf maanden na inwerkingtreding, dan mag u naar keuze de oorspronkelijke datum gebruiken. Bepalend is altijd de aan u concreet meegedeelde datum, niet een algemene peildatum."
         }
       },
       "frameworks": {
         "q1": {
-          "q": "What is the difference between NIS2 and KRITIS?",
-          "a": "NIS2 does not replace KRITIS - it extends it dramatically. KRITIS covered roughly 2,000 operators with high thresholds (e.g., 500,000 people served). NIS2 covers approximately 30,000 entities with much lower thresholds (50+ employees). NIS2 adds seven new sectors, personal management liability (§38 BSIG), mandatory BSI registration, structured incident reporting (24h/72h/1 month), and significantly higher penalties (up to €10M vs €100K). KRITIS operators are automatically classified as essential entities under NIS2."
+          "q": "Hoe kan ik aantonen dat mijn onderneming de vereiste maatregelen uitvoert?",
+          "a": "Het bewijs levert u via uw eigen documentatie: het risicomanagement, de getroffen technische en organisatorische maatregelen en de stukken die aantonen dat deze doeltreffend zijn (richtlijnen, configuraties, auditrapporten, opleidingsbewijzen). Bepalend is artikel 21 van de NIS2-richtlijn (EU) 2022/2555, in Duitsland omgezet in § 30 BSIG; de CIR (EU) 2024/2690 concretiseert de maatregelen voor bepaalde typen entiteiten. Een door een externe instantie afgegeven certificaat kan deze documentatie ondersteunen, maar vervangt haar niet: doorslaggevend is dat uw stukken de concrete wettelijke eisen afdekken. Een verplichting om bewijs voor te leggen aan het BSI ontstaat pas wanneer het BSI een controle gelast (§ 61 BSIG) of wanneer u als exploitant van kritieke installaties onder de periodieke bewijsplicht valt (§ 39 BSIG)."
         },
         "q2": {
-          "q": "Does an ISO 27001 certification mean I'm NIS2 compliant?",
-          "a": "No. ISO 27001 covers approximately 70% of NIS2 technical requirements, but it misses the areas with the highest enforcement risk: BSI registration (§33), incident reporting timelines (24h/72h/1 month under §32), management personal liability (§38), enhanced supply chain due diligence, and the statutory penalty framework. ISO 27001 is a voluntary management standard; NIS2 is a legal obligation with government reporting and personal liability. Your ISO certification is a strong foundation, but you need gap-filling for the NIS2-specific regulatory requirements."
+          "q": "Is de BSI IT-Grundschutz verplicht voor alle entiteiten die onder NIS2 vallen?",
+          "a": "Nee. Artikel 21 van de NIS2-richtlijn en § 30 BSIG schrijven geen bepaalde methode voor, maar vereisen passende, evenredige en doeltreffende maatregelen volgens de stand van de techniek. IT-Grundschutz is de door het BSI gepubliceerde methodiek waarmee deze eisen netjes kunnen worden vervuld, en toetsende instanties accepteren haar. U kunt de verplichtingen evengoed vervullen via ISO 27001 of een ander erkend ISMS, zolang de maatregelen uw concrete risico's afdekken. Het gaat niet om de naam van de standaard, maar erom dat de in § 30 genoemde punten daadwerkelijk worden uitgevoerd en aangetoond."
         },
         "q3": {
-          "q": "What is IT-Grundschutz and why does it matter for NIS2?",
-          "a": "IT-Grundschutz is the BSI's own cybersecurity methodology - a comprehensive framework with step-by-step implementation guidance. §44(2) BSIG explicitly recognizes Grundschutz implementation as proof of NIS2 compliance. This is a legal shortcut: the BSI both publishes Grundschutz and enforces NIS2, so using their methodology means you are audited against a standard the auditor knows inside out. Grundschutz covers 100% of CIR 2024/2690 requirements and is more detailed than ISO 27001 for NIS2 purposes."
+          "q": "Is naast ISO 27001 en BSI-Grundschutz ook een bedrijfscertificering volgens VdS 10000 voldoende om aan de eisen van de NIS2-omzettingswet te voldoen?",
+          "a": "VdS 10000 kan een zinvol vertrekpunt zijn, maar dekt op zichzelf niet automatisch alle eisen uit § 30 BSIG en artikel 21 van de NIS2-richtlijn af. Geen enkel certificaat, ook ISO 27001 of IT-Grundschutz niet, is een algemeen conformiteitsbewijs: bepalend blijft of uw maatregelen de wettelijk vereiste gebieden volledig en risicogericht afdekken. Gebruik VdS 10000 dus als een bouwsteen van uw risicomanagement en toets concreet tegen de eisen van § 30 om eventuele leemtes (bijvoorbeeld bij de toeleveringsketen of het meldwezen) te dichten."
         },
         "q4": {
-          "q": "What is CIR 2024/2690 and how does it relate to NIS2?",
-          "a": "CIR 2024/2690 is the EU Implementing Regulation published on 17 October 2024 that specifies the exact technical and methodological requirements for NIS2 compliance. Unlike the NIS2 Directive, it applies directly in all EU member states without national transposition. It answers the question 'what exactly do we have to implement?' by breaking the 10 measure areas into specific, auditable requirements. In Germany, the BSIG extends these technical requirements to all NIS2-covered sectors, making the CIR the de facto technical standard for everyone."
-        }
-      },
-      "liability": {
-        "q1": {
-          "q": "What are the three management duties under §38 BSIG?",
-          "a": "§38 BSIG defines three personal duties for management (Geschäftsleitung) that cannot be delegated: (1) Approval (Billigung) - formally approve cybersecurity risk management measures with documented, traceable sign-off. (2) Oversight (Überwachung) - actively monitor implementation through regular status reviews, not passive awareness. (3) Training (Schulung) - personally complete cybersecurity training to develop sufficient knowledge to evaluate risks. Failing any one of these creates personal liability exposure - even if the company has implemented reasonable measures."
-        },
-        "q2": {
-          "q": "Can I delegate NIS2 responsibility to my IT department?",
-          "a": "You can delegate execution, but not responsibility. §38 BSIG explicitly names Geschäftsleiter - not IT managers, CISOs, or external consultants. You must personally approve measures, oversee their implementation, and complete cybersecurity training. Your IT team implements; you approve and monitor. Claiming you delegated everything to IT is not a defense - it is proof of an oversight violation."
-        },
-        "q3": {
-          "q": "Does D&O insurance cover NIS2 liability?",
-          "a": "Most D&O policies exclude regulatory fines and penalties - these are typically uninsurable under German law. The civil liability under §38 BSIG (damages claims from your own company) may be covered, depending on your policy terms. Insurers can also deny claims if management knowingly failed to comply with statutory duties. Check your specific policy's exclusion clauses - 'failure to comply with mandatory regulations' is a standard exclusion in German D&O policies. Do not assume coverage exists - ask for written confirmation."
-        },
-        "q4": {
-          "q": "Can shareholders waive management liability for NIS2?",
-          "a": "No. §38(2) BSIG explicitly states that claims for damages arising from violations of §30 BSIG duties cannot be waived by shareholders, nor can they be settled in a manner that is disproportionate to the company's financial situation. This overrides the normal GmbHG §43 rules. Even in an owner-managed GmbH where the Geschäftsführer is the sole shareholder, the liability exists. If the company goes bankrupt due to a cyber incident, the insolvency administrator can come after your personal assets."
+          "q": "Als een ISO 27001-certificering niet voldoende is om aan de eisen volgens het BSIG te voldoen, hoe kunnen klanten ervan worden verzekerd dat mijn onderneming NIS2-conform is? Moet daarvoor het volledige ISMS openbaar worden gemaakt?",
+          "a": "Nee, uw volledige ISMS hoeft u niet openbaar te maken. Tegenover klanten toont u de naleving van artikel 21 van de NIS2-richtlijn en § 30 BSIG gewoonlijk aan via gerichte stukken: een ISO 27001-certificaat met bijbehorende Statement of Applicability, een NIS2-conformiteitsverklaring, ingevulde leveranciersvragenlijsten of afzonderlijke auditsamenvattingen. Belangrijk is dat deze stukken de voor de zakelijke relatie relevante maatregelen weergeven, niet het volledige interne regelwerk. Een formele bewijsplicht tegenover het BSI bestaat alleen bij exploitanten van kritieke installaties (§ 39 BSIG) of op last (§ 61 BSIG); tegenover klanten geldt wat u contractueel overeenkomt."
         },
         "q5": {
-          "q": "I'm not technical - can I really be held liable for cybersecurity?",
-          "a": "Yes. §38(3) BSIG imposes the training obligation precisely to eliminate this defense. The law assumes that after completing adequate cybersecurity training, management has sufficient knowledge to fulfill their duties. 'I don't understand technology' is not a defense - it is proof of a training violation. The training does not require you to become an IT expert, but you must understand your company's risk profile and the measures in place."
+          "q": "Bestaan er voor het adviseren van ondernemingen en entiteiten in het kader van NIS2 verplichte voorschriften voor een certificering, en hoe zit het bij het uitvoeren van toetsingen ter opstelling van bewijsstukken?",
+          "a": "Voor het adviseren zelf noemen noch de NIS2-richtlijn noch het BSIG een verplichte certificering: iedereen mag adviseren, een accreditatie van de adviseurs is wettelijk niet vereist. Anders is het bij formele bewijstoetsingen voor exploitanten van kritieke installaties volgens § 39 BSIG: deze vinden om de drie jaar plaats via beveiligingsaudits, toetsingen of certificeringen, en het BSI legt hiervoor de eisen aan toetsende instanties vast. Gelast het BSI bij andere bijzonder belangrijke entiteiten een toetsing (§ 61 BSIG), dan gelden de voorschriften daarvan overeenkomstig. Let dus op de kwalificatie van de toetsende instantie daar waar de wet een formele toetsing verlangt, en niet reeds bij het loutere adviseren."
+        }
+      },
+      "supplychain": {
+        "q1": {
+          "q": "Kan aan de eis op grond van artikel 30, lid 2, nr. 4 BSIG inzake de beveiliging van de toeleveringsketen worden voldaan door certificaten (ISO 27001, TISAX, enz.) van directe leveranciers of dienstverleners te eisen?",
+          "a": "Nee, een certificaat alleen voldoet niet aan de eis. Artikel 21, lid 2, onder d, van de NIS2-richtlijn, in Duitsland omgezet in artikel 30, lid 2, nr. 4 BSIG, vereist een eigen concept voor de beveiliging van de toeleveringsketen: u moet de risico's van elke directe leverancier beoordelen, selectiecriteria vaststellen en het geheel gedurende de looptijd van het contract bewaken. Een ISO 27001- of TISAX-certificaat is daarbij een nuttige bouwsteen en kan de beoordeling vergemakkelijken, maar vervangt niet uw eigen risicogerichte inschatting, want het toepassingsgebied (scope) van een certificaat dekt vaak slechts delen van de leverancier af. Controleer dus precies wat er gecertificeerd is, en documenteer waarom het certificaat volstaat voor de dienst die u afneemt."
+        },
+        "q2": {
+          "q": "Wat adviseert u bedrijven die onder de BSIG vallen te eisen van softwarefabrikanten en dienstverleners?",
+          "a": "Stel concrete, controleerbare beveiligingseisen vast en leg deze vast in de contracten, in plaats van te vertrouwen op algemene toezeggingen. Zinvol zijn: controleerbaar bewijs van de fabrikant over de productbeveiliging (zoals patchstrategie, omgang met kwetsbaarheden, ondersteuningsperiode), een meldplicht voor de leverancier bij beveiligingsincidenten die uw eigen termijn van 24 uur op grond van artikel 23 NIS2 (artikel 32 BSIG) waarborgt, evenals een ingevulde, uniforme leveranciersvragenlijst. Voor sectorbreed afgestemde vragenlijsten en minimumeisen verwijst het BSI naar het werk binnen het UP KRITIS. Voor sterk verbonden dienstverleners zoals managed service providers gelden aanvullende verwachtingen (zie ./bin-ich-msp-managed-service-provider)."
         }
       },
       "registration": {
         "q1": {
-          "q": "How do I register with the BSI for NIS2?",
-          "a": "Registration uses a two-step process: (1) Create an account via Mein Unternehmenskonto (MUK) using your ELSTER business certificate at muk.bsi.bund.de. (2) Log in and complete the NIS2 registration form, providing your company details, sector classification, contact person for cybersecurity matters, and IP address ranges. The process takes 30-60 minutes if you have everything prepared. You will need your ELSTER certificate, commercial register number, and a designated cybersecurity contact person."
+          "q": "Wanneer is een registratie op grond van artikel 33, lid 1 BSIG in het BSI-portaal mogelijk, hoe verloopt de registratie en hoe verloopt het meldproces volgens artikel 32 BSIG?",
+          "a": "De registratie is mogelijk zodra u als betrokken entiteit geldt, en moet plaatsvinden binnen drie maanden nadat u voor het eerst of opnieuw binnen het toepassingsgebied valt (NIS 2 artikel 27, in Duitsland artikel 33, lid 1 BSIG). Het verloop is tweeledig: eerst maakt u een account aan bij Mein Unternehmenskonto (MUK) via het ELSTER-organisatiecertificaat, daarna registreert u de entiteit in het BSI-portaal. Beveiligingsincidenten meldt u vervolgens eveneens via het BSI-portaal volgens de driestapsprocedure van vroegtijdige waarschuwing, vervolgmelding en eindmelding (NIS 2 artikel 23, in Duitsland artikel 32 BSIG). Een stapsgewijze handleiding vindt u onder [Registratie](/wiki/anwendungsbereich/nis2-registrierung)."
         },
         "q2": {
-          "q": "I missed the BSI registration deadline. Is it too late?",
-          "a": "No. The portal is still open - register immediately. The March 6, 2026 deadline has passed, but a significant number of the estimated 30,000 in-scope companies have still not registered. The BSI has signaled that it will prioritize enforcement against companies that ignore obligations entirely - not those who registered late but are acting in good faith. The fine for non-registration is up to €500,000, but the BSI considers circumstances. Late registration with visible compliance progress is fundamentally different from no registration at all."
+          "q": "Wat onderneemt het BSI om bedrijven te ondersteunen bij nog openstaande NIS 2-registraties?",
+          "a": "Het BSI stelt een betrokkenheidstoets, een FAQ-gedeelte, informatiepakketten en webinars beschikbaar, zodat entiteiten hun registratieplicht zelf kunnen inschatten en uitvoeren (grondslag: NIS 2 artikel 27, artikel 33 BSIG). Of u überhaupt betrokken bent, bepaalt u eerst aan de hand van sector en omvang. De volledige zelftest vindt u onder [Wie is betrokken](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q3": {
-          "q": "What is the fine for not registering with the BSI?",
-          "a": "§65 BSIG provides for fines of up to €500,000 specifically for registration violations. This is a standalone violation - separate from any penalties for failing to implement security measures. You can be fined for non-registration even if your actual cybersecurity measures are adequate. However, fines are assessed on a case-by-case basis considering severity, duration, and good faith."
+          "q": "Hoe kan een bedrijf kritieke componenten registreren?",
+          "a": "Kritieke componenten betreffen alleen exploitanten van kritieke installaties (de vroegere KRITIS-logica), niet elke NIS 2-entiteit, en worden sectorspecifiek gemeld. De energiesector gebruikt hiervoor versleutelde Excel-sjablonen, de telecommunicatiesector eigen sjablonen met PGP-versleuteling. Als u geen exploitant van een kritieke installatie bent, is deze stap voor u niet relevant; bepalend is dan uitsluitend de registratie van de entiteit op grond van artikel 33 BSIG."
         },
         "q4": {
-          "q": "Can I register if I'm not sure my company is in scope?",
-          "a": "Yes, and the BSI recommends erring on the side of registration if you are uncertain. Registering when you turn out to be out of scope has no negative consequences - the registration can be corrected. Not registering when you are in scope carries real legal risk. When in doubt, register."
+          "q": "Kan een registratie in het BSI-portaal plaatsvinden voor een entiteit die niet over een Duits belastingnummer beschikt?",
+          "a": "Ja. Mein Unternehmenskonto vereist weliswaar een Duits belastingnummer, maar buitenlandse entiteiten kunnen dit aanvragen bij het belastingkantoor Neubrandenburg (Referat RAB). U stuurt het aanvraagformulier naar het daar vermelde adres en ontvangt het belastingnummer per post; bij het aanmaken van het account kiest u als deelstaat Mecklenburg-Vorpommern. Als uw hoofdvestiging buiten de EU ligt, controleer dan aanvullend de plicht tot aanwijzing van een vertegenwoordiger in de EU onder [Hoofdvestiging buiten de EU](/wiki/anwendungsbereich/nis2-hauptsitz-ausserhalb-eu)."
         },
         "q5": {
-          "q": "Does BSI registration mean I'm NIS2 compliant?",
-          "a": "No. Registration fulfills one obligation (§33 BSIG) but does not satisfy the substantive requirements: cybersecurity measures (§30), incident reporting (§32), or management liability duties (§38). Think of registration like filing a tax return - you still have to pay the tax. After registering, you need to implement all 10 mandatory security measures, set up incident reporting processes, and ensure management fulfills their personal duties."
+          "q": "Bij de registratie in het BSI-portaal moet men EU-lidstaten opgeven waarin men een \"dienst\" verleent. Wat wordt daarmee bedoeld?",
+          "a": "Bedoeld wordt de activiteit die uw entiteit überhaupt binnen het toepassingsgebied brengt, dus uw kerndienst in de betreffende sector, niet elke nevenactiviteit en niet elke plaats waar enkel uw producten worden gebruikt. Op te geven zijn de lidstaten waarin u deze dienst daadwerkelijk verleent (aansluitend op NIS 2 artikel 26 over de bevoegdheid). Bent u in meerdere landen actief, dan helpt de indeling onder [Zelfindeling](/wiki/anwendungsbereich/nis2-selbsteinstufung)."
+        },
+        "q6": {
+          "q": "Kunnen internationaal actieve bedrijven hun registratie en de melding van beveiligingsincidenten centraal bij het BSI verrichten en daarmee tegelijk hun verplichtingen op grond van de NIS 2-uitvoeringswet voor alle EU-lidstaten vervullen?",
+          "a": "Alleen voor een eng begrensde groep digitale diensten geldt het beginsel van één bevoegdheid bij de hoofdvestiging: DNS-diensten, TLD-registries, cloud- en datacenteraanbieders, managed serviceproviders, content delivery networks en onlineplatforms registreren zich centraal bij de autoriteit van hun hoofdvestiging (NIS 2 artikel 26 en 27, in Duitsland artikel 60 BSIG). Alle overige entiteiten staan onder toezicht van elke lidstaat waarin zij actief zijn en moeten zich daar telkens afzonderlijk registreren en melden. Eén enkele registratie bij het BSI dekt dus in de regel niet uw verplichtingen in de andere landen."
+        },
+        "q7": {
+          "q": "Ik heb vragen over het BSI-portaal en de registratie. Stelt het BSI hierover ook informatie beschikbaar?",
+          "a": "Ja. Het BSI onderhoudt een eigen FAQ-gedeelte specifiek over het BSI-portaal en de registratieprocedure en stelt daar handleidingen en hulpmiddelen beschikbaar. Voor technische vragen over Mein Unternehmenskonto richt u zich tot de support daarvan, voor inhoudelijke vragen over de NIS 2-registratie tot de contactkanalen van het BSI. Het verloop van de aanmelding vatten wij samen onder [Registratie](/wiki/anwendungsbereich/nis2-registrierung)."
+        },
+        "q8": {
+          "q": "Moet ik mij als door DORA gereguleerde entiteit bij het BSI registreren?",
+          "a": "Ja, de registratieplicht op grond van artikel 33 BSIG blijft bestaan, ook als u als financiële onderneming onder DORA valt. DORA is voor de inhoudelijke beveiligings- en meldplichten lex specialis: als door DORA gereguleerde onderneming bent u vrijgesteld van de artikelen 30, 31, 32, 35, 36, 38 en 39 BSIG en meldt u incidenten die uitsluitend DORA-entiteiten betreffen volgens de DORA-regels in plaats van volgens artikel 32 BSIG (grondslag: NIS 2 artikel 4). De inschrijving in het BSI-portaal moet u desondanks verrichten."
         }
       },
       "incidents": {
         "q1": {
-          "q": "What is the NIS2 incident reporting timeline?",
-          "a": "NIS2 requires a three-stage reporting cascade to the BSI: (1) Early warning within 24 hours - confirm a significant incident has occurred, whether it is malicious, and whether it could have cross-border impact. (2) Incident notification within 72 hours - severity assessment, indicators of compromise, initial root cause analysis, and measures taken. (3) Final report within 1 month - detailed description, confirmed root cause, mitigation measures, and lessons learned. If the incident is still ongoing at the one-month mark, an interim report is required."
+          "q": "Welk doel streeft het BSI na met de meldplicht? Een zo snel mogelijke melding met het risico dat een opgetreden incident niet tot een gevaar heeft geleid, of werkelijk alleen relevante incidenten met opgetreden gevaren melden? Hoe zijn de begrippen kennisname (Kenntniserlangung) en beveiligingsincident bij de meldplicht concreet gedefinieerd?",
+          "a": "Het doel is snelheid boven volledigheid: Art. 23 van de NIS2-richtlijn (omgezet in Section 32 BSIG) vereist een vroegtijdige waarschuwing binnen 24 uur, een melding binnen 72 uur en een eindrapport na uiterlijk een maand. De korte termijn van 24 uur moet de autoriteit een vroeg situatiebeeld geven, zodat andere entiteiten gewaarschuwd kunnen worden. Liever te vroeg en met onzekerheid melden dan te laat. Kennisname betekent het tijdstip vanaf wanneer uw entiteit het incident met voldoende zekerheid als aanzienlijk kan inschatten (niet pas na een afgeronde oorzaakanalyse), en de termijn van 24 uur loopt vanaf dat tijdstip. Een beveiligingsincident is aanzienlijk volgens Art. 23 lid 3 van de NIS2-richtlijn als het ernstige operationele verstoringen of financiële verliezen veroorzaakt of kan veroorzaken, of als het andere personen door aanzienlijke materiële of immateriële schade benadeelt of kan benadelen."
         },
         "q2": {
-          "q": "What counts as a 'significant' incident under NIS2?",
-          "a": "An incident is significant if it: causes severe operational disruption to services, causes financial loss exceeding €500,000 or 5% of annual turnover, affects other natural or legal persons with considerable damage, involves unauthorized access or alteration of data, or causes an extended service outage. CIR 2024/2690 adds that recurring minor incidents can be aggregated and treated as significant if they collectively meet the criteria within a six-month period. Not every phishing email triggers reporting - only events crossing these severity thresholds."
+          "q": "Zal het mogelijk zijn om vrijwillige meldingen over beveiligingsincidenten te doen?",
+          "a": "Ja. Art. 30 van de NIS2-richtlijn (omgezet in Section 35 BSIG) voorziet uitdrukkelijk in vrijwillige meldingen, ook voor entiteiten die helemaal niet onder NIS2 vallen, en voor incidenten onder de aanzienlijkheidsdrempel. Vrijwillige meldingen worden op dezelfde manier behandeld als verplichte meldingen, maar met lagere prioriteit: verplichte meldingen hebben voorrang. Uit een vrijwillige melding ontstaan geen aanvullende verplichtingen, en ze mag niet ten nadele van de meldende entiteit worden uitgelegd."
         },
         "q3": {
-          "q": "Where do I report NIS2 incidents?",
-          "a": "All incident reports must be submitted via the BSI's official reporting portal under the NIS2 section. The BSI does not accept reports by email, telephone, or letter as a substitute for portal submission. Access requires prior registration under §33 BSIG - which means unregistered entities face a compounded problem: they cannot file incident reports through the proper channel. Telephone contact with CERT-Bund is appropriate for coordinating response in parallel."
+          "q": "Mogen incidentmeldingen in het Engels worden ingediend?",
+          "a": "De proceduretaal van de autoriteit is Duits, dus meldingen moeten in het Duits gebeuren. Vanwege de korte termijn van 24 uur volgens Art. 23 van de NIS2-richtlijn geldt echter: een snelle vroegtijdige waarschuwing in het Engels is beter dan een te late in het Duits. Dien dus zo nodig eerst in het Engels in en vul de Duitstalige gegevens in de vervolgmeldingen aan."
         },
         "q4": {
-          "q": "What happens if I don't report an incident to the BSI?",
-          "a": "Failure to report is penalized independently of the incident itself. Each missing stage (24h, 72h, 1 month) is a separate violation with fines up to €500,000. For essential entities, the broader penalty framework (up to €10M) can also apply. If management was aware of an incident and failed to ensure reporting, this constitutes a personal oversight violation under §38 BSIG. Non-reporting also raises questions about your entire compliance posture, potentially triggering a broader BSI audit."
+          "q": "Hoe moet men bij een NIS2-relevant beveiligingsincident met mogelijke gevolgen voor vestigingen in meerdere EU-lidstaten te werk gaan, wanneer de hoofdvestiging van het betrokken bedrijf in Duitsland ligt? Moeten naast het BSI ook de bevoegde autoriteiten in de andere betrokken staten worden geïnformeerd?",
+          "a": "Het oorsprongslandbeginsel volgens Art. 26 van de NIS2-richtlijn geldt: ligt uw hoofdvestiging in Duitsland, dan staat u in beginsel uitsluitend in Duitsland onder bevoegdheidstoezicht en meldt u het incident slechts één keer aan het BSI. U hoeft de autoriteiten van de andere betrokken lidstaten niet zelf te informeren. De grensoverschrijdende doorgifte verzorgen de autoriteiten onderling via het CSIRT-netwerk en de Samenwerkingsgroep. Een meervoudige melding in elk betrokken land is dus niet vereist. Een uitzondering vormen DNS-, cloud-, datacenter- en soortgelijke aanbieders van digitale diensten, wier bevoegdheid zich richt naar de plaats van de hoofdvestiging in de EU."
         },
         "q5": {
-          "q": "Does NIS2 incident reporting replace GDPR breach notification?",
-          "a": "No. NIS2 incident reporting under §32 BSIG is separate from and additional to GDPR breach notification under Articles 33/34 GDPR. Both obligations may apply simultaneously to the same incident. If a cyberattack exposes personal data and disrupts services, you must report to the BSI under NIS2 AND to the data protection authority under GDPR. Different timelines, different authorities, different forms."
+          "q": "Als delen van mijn bedrijf onder DORA en andere delen onder NIS2 vallen, moet mijn IT-dienstverlener dan bij beveiligingsincidenten dubbel melden?",
+          "a": "Nee, dubbel melden is niet nodig. DORA is ten opzichte van NIS2 de meer specifieke regeling (Art. 4 DORA, Art. 1 lid 2 van de NIS2-richtlijn en Section 1 lid 6 BSIG): voor zover een incident het DORA-bereik betreft, gaan de meldwegen en termijnen van DORA voor en verdringen ze in zoverre de NIS2-meldplicht. Bepalend is welke regeling de betrokken dienst dekt, niet het bedrijf als geheel. Verduidelijk vooraf contractueel met uw IT-dienstverlener volgens welke regeling hij welk incident bij welke autoriteit meldt."
+        },
+        "q6": {
+          "q": "Is er voor de toekomst een Europese oplossing voor registratie en melding voorzien?",
+          "a": "Bepaalde aanbieders van digitale diensten (bijvoorbeeld DNS-dienstverleners, cloudaanbieders, datacenters, onlinemarktplaatsen) worden nu al volgens Art. 27 van de NIS2-richtlijn via ENISA in een EU-breed register opgenomen. Voor alle overige entiteiten blijft de registratie en melding nationaal, dus in Duitsland via het BSI-portaal. Een verdergaand, volledig geüniformeerd Europees platform voor alle entiteiten is momenteel niet besloten. Bepalend blijft voorlopig de nationale meldweg."
+        },
+        "q7": {
+          "q": "Hoe wordt gewaarborgd dat registratie- en bedrijfsgegevens die in het kader van de NIS2-/KRITIS-regelingen worden verzameld, vertrouwelijk worden behandeld en tegen onbevoegde toegang worden beschermd?",
+          "a": "De vertrouwelijkheid is wettelijk geborgd: Art. 23 lid 9 van de NIS2-richtlijn verplicht de autoriteiten om de belangen van de meldende entiteit bij vertrouwelijkheid te beschermen, en het BSIG bevat daartoe eigen geheimhoudings- en doelbindingsregels. De gegevens worden alleen voor de wettelijk voorziene doeleinden gebruikt, bijvoorbeeld voor situatiebeoordeling en gevarenafweer, en worden niet gepubliceerd. De toegang is beperkt tot de bevoegde instanties; doorgifte aan andere autoriteiten vindt alleen binnen het wettelijk toegestane kader en met behoud van de vertrouwelijkheid plaats."
         }
       },
       "penalties": {
         "q1": {
-          "q": "What is the maximum NIS2 fine for my company?",
-          "a": "It depends on your entity classification. Essential entities (Annex I sectors): the higher of €10M or 2% of global annual turnover. Important entities (Annex II sectors): the higher of €7M or 1.4% of global annual turnover. For most mid-market companies under €500M turnover, the fixed amount applies because the percentage is lower. Separate penalties of up to €500,000 apply for registration and reporting violations. Multiple violations can compound."
+          "q": "Wat gebeurt er als een verplichte onderneming een incident te laat of helemaal niet meldt aan de bevoegde autoriteit? Wie controleert of meldingsplichtige incidenten correct zijn gemeld?",
+          "a": "De meldingsplicht volgt uit artikel 23 van de NIS2-richtlijn: een vroegtijdige waarschuwing binnen 24 uur, een melding binnen 72 uur en een eindverslag binnen een maand na het significante incident (in Duitsland omgezet in §32 BSIG). Wordt er te laat of helemaal niet gemeld, dan is dat een plichtsverzuim dat de bevoegde autoriteit (voor de meeste entiteiten het BSI) volgens de toezichts- en handhavingsregels van de artikelen 31 tot en met 34 kan bestraffen (§§61 e.v. en §65 BSIG). Mogelijk zijn aanwijzingen, bindende voorschriften en boetes waarvan de hoogte afhangt van het soort entiteit: voor essentiële entiteiten voorziet artikel 34 als bovengrens in minstens 10 miljoen euro of 2 procent van de wereldwijde jaaromzet (afhankelijk van wat hoger is), voor belangrijke entiteiten minstens 7 miljoen euro of 1,4 procent. Of een melding correct is gedaan, beoordeelt de autoriteit aan de hand van het ingediende verslag en kan zij verifiëren via haar toezichtsbevoegdheden uit de artikelen 32 en 33 (zoals verzoeken om informatie, controles, inspecties ter plaatse). Een tijdige, volledige melding in het voorgeschreven formaat is daarom de veiligste weg. Een stapsgewijze handleiding voor de plicht en de autoriteit vindt u onder [Registratie en meldingsplicht](/wiki/anwendungsbereich/nis2-registrierung)."
+        }
+      },
+      "liability": {
+        "q1": {
+          "q": "Welke verplichtingen heeft de directie onder NIS 2?",
+          "a": "De directie moet de risicobeheersmaatregelen goedkeuren, toezicht houden op de uitvoering ervan en deelnemen aan cyberbeveiligingstrainingen (Art. 20 NIS 2-richtlijn, omgezet in Paragraaf 38 BSIG). Goedkeuring betekent actief toetsen en schriftelijk instemmen, niet alleen aftekenen. Toezicht betekent regelmatig controleren of de maatregelen zijn uitgevoerd en werken. De operationele uitvoering kunt u delegeren, de verantwoordelijkheid van de directie blijft bij haar. Of u überhaupt onder de regeling valt, klaart u eerst uit met de [volledige test](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q2": {
-          "q": "Can I be personally fined as a managing director (Geschäftsführer)?",
-          "a": "The administrative fines under §65 BSIG are levied against the company, not the individual. However, §38 BSIG creates personal civil liability for damages resulting from failure to approve and oversee cybersecurity measures. This means you face personal liability for the company's losses - not a government fine, but potentially a damages claim from your own company. In an insolvency scenario, the insolvency administrator can pursue this claim against you personally."
+          "q": "Wat betekent de goedkeurings- en toezichtsplicht van de directie?",
+          "a": "Goedkeuring betekent: de directie bekijkt de geplande risicobeheersmaatregelen, begrijpt ze inhoudelijk en geeft ze gedocumenteerd vrij (Art. 20 lid 1 NIS 2-richtlijn, in Duitsland Paragraaf 38 lid 1 BSIG). Toezicht betekent: een eenmaal vrijgegeven maatregel die nooit meer wordt getoetst, voldoet niet aan de plicht. Zinvol zijn vaste statusrapportages, kengetallen en een duidelijke escalatieweg, zodat de directie de stand op elk moment kan aantonen. Deze plicht treft de directie zelf, zij kan haar aan niemand overdragen."
         },
         "q3": {
-          "q": "Are NIS2 penalties proportional to company size?",
-          "a": "Yes, by design. The percentage-of-turnover calculation ensures penalties scale with company size. For a €15M-turnover company, the maximum essential entity fine is €10M (the fixed cap, since 2% is only €300K). For a €600M company, the maximum is €12M (2% exceeds the €10M floor). The BSI is also required to consider proportionality: company size, severity, duration, and good faith efforts all factor into the actual penalty amount."
+          "q": "Moet de directie deelnemen aan trainingen?",
+          "a": "Ja. De directie van essentiële en belangrijke entiteiten moet regelmatig deelnemen aan cyberbeveiligingstrainingen (Art. 20 lid 2 NIS 2-richtlijn, in Duitsland Paragraaf 38 lid 3 BSIG). Het doel is dat de directie risico's kan herkennen, risicobeheersmaatregelen kan beoordelen en de gevolgen ervan voor de diensten kan inschatten. De richtlijn noemt geen minimumaantal uren of vaste intervallen; het BSI beveelt in zijn handreiking een jaarlijkse opfrissing aan en noemt als richtsnoer een omvang van ongeveer vier uur. Deze plicht geldt voor iedere persoon die krachtens wet, statuten of vennootschapsovereenkomst tot de leiding is benoemd, en is niet delegeerbaar."
         },
         "q4": {
-          "q": "What triggers BSI enforcement action?",
-          "a": "For essential entities: the BSI can conduct proactive audits and inspections without a specific trigger - risk-based spot checks. For important entities: enforcement is reactive - triggered by a reported incident, third-party complaint, media coverage of a breach, or failure to register. The BSI also cross-references commercial registers and sector databases to identify entities that should be registered but are not. The BSI has indicated it will prioritize companies that have not registered at all."
+          "q": "Kan de directie haar trainingsplicht delegeren?",
+          "a": "Nee. De trainingsplicht treft de leidinggevende organen persoonlijk en kan niet worden overgedragen aan medewerkers of externe dienstverleners (Art. 20 lid 2 NIS 2-richtlijn, in Duitsland Paragraaf 38 lid 3 BSIG). U kunt een functionaris voor gegevensbescherming of beveiliging benoemen en de operationele uitvoering verdelen, maar de eigen deelname aan de training blijft uw taak. Documenteer wie heeft deelgenomen, hoe lang en met welke inhoud, zodat u het op verzoek aan de autoriteit kunt overleggen."
         },
         "q5": {
-          "q": "How do NIS2 penalties compare to GDPR fines?",
-          "a": "NIS2 penalties are modeled on the GDPR structure. Maximum NIS2 fines (€10M / 2% turnover for essential entities) are comparable to GDPR Tier 1 fines (€10M / 2% turnover). GDPR Tier 2 fines go higher (€20M / 4%). The key difference: NIS2 adds personal management liability (§38 BSIG) which GDPR does not have. Also, NIS2 fines can compound - non-registration, non-reporting, and non-compliance with measures are separate violations with separate penalties."
+          "q": "Is de directie persoonlijk aansprakelijk voor overtredingen?",
+          "a": "Schendt een directielid zijn goedkeurings-, toezichts- of trainingsplicht, dan is het tegenover de eigen entiteit aansprakelijk voor verwijtbaar veroorzaakte schade volgens de vennootschapsrechtelijke regels van de betreffende rechtsvorm (Art. 20 NIS 2-richtlijn, in Duitsland Paragraaf 38 BSIG). Deze aanspraak komt toe aan de vennootschap, niet aan derden, en een volledige uitsluiting van aansprakelijkheid via de vennootschapsovereenkomst of statuten is uitgesloten. In de praktijk verkleint u het risico door vrijgaven, controles en trainingsbewijzen netjes te documenteren. De beste bescherming is niet de uitsluiting, maar de aantoonbaar nagekomen plichtencatalogus."
         }
       },
       "implementation": {
         "q1": {
-          "q": "How long does NIS2 compliance take for a mid-market company?",
-          "a": "For a company with 50-250 employees starting from scratch, expect 3-6 months to reach a solid baseline: BSI registration (week 1), asset inventory and risk assessment (weeks 2-6), incident reporting process (weeks 4-8), access control improvements (weeks 6-12), and policy documentation (ongoing). Most of the 49 BSIG requirements are write-once documentation - policies, risk assessments, procedures. Only a handful require ongoing operational processes. The BSI evaluates trajectory and good faith, not perfection on day one."
+          "q": "Komt er een opname van de webinars?",
+          "a": "Nee. De BSI-webinars over NIS 2 worden niet opgenomen, u neemt dus live deel of helemaal niet. Belangrijk: de webinars zijn een vrijwillig informatieaanbod, geen verplicht onderdeel van uw implementatie. Bepalend voor uw verplichtingen zijn de risicobeheersmaatregelen volgens Artikel 21 van de NIS 2-richtlijn (in Duitsland omgezet in §30 BSIG), niet de deelname aan een webinar."
         },
         "q2": {
-          "q": "How much does NIS2 compliance cost?",
-          "a": "For a 50-250 employee company: management consultants cost €150K-500K, enterprise GRC platforms €100K+/year, US compliance tools (Vanta, Drata) from €7,500/year but lack BSIG specifics, and DIY approaches €20K-80K in staff time. Realistic first-year costs for a 100-person company: gap assessment (€5K-15K), policy documentation (€10K-30K), technical measures (€15K-50K), training (€3K-8K), totaling €33K-103K one-time plus €20K-53K annually. Companies with existing security measures are at the lower end."
+          "q": "Hoe ontvang ik de materialen van de afzonderlijke webinars?",
+          "a": "De diaset ontvangen alle aangemelde deelnemers achteraf per e-mail. Voorwaarde is dus de aanmelding voor het betreffende webinar: wie niet is aangemeld, krijgt de materialen niet automatisch. Controleer na de bijeenkomst ook uw spammap als de mail met de bijlage uitblijft."
         },
         "q3": {
-          "q": "What are the 10 mandatory NIS2 cybersecurity measures?",
-          "a": "§30(2) BSIG defines 10 mandatory measures: (1) Risk analysis and information security policies, (2) Incident handling, (3) Business continuity and crisis management, (4) Supply chain security, (5) Security in acquisition, development, and maintenance, (6) Effectiveness assessment, (7) Cybersecurity training and awareness, (8) Cryptography and encryption, (9) Personnel security, access control, and asset management, (10) Multi-factor authentication and secured communications. All essential and important entities must implement all 10 measures, proportionate to their risk profile."
+          "q": "Kan het BSI entiteiten ondersteunen bij de implementatie van NIS 2?",
+          "a": "Ja, maar alleen algemeen, niet voor uw individuele geval. Het BSI stelt FAQ's, informatiepakketten, een starterspakket en kickoff-seminars beschikbaar, maar verleent op grond van zijn wettelijke opdracht (§3 BSIG, die de taken uit de NIS 2-richtlijn omzet) uitdrukkelijk noch advies in individuele gevallen, noch juridisch advies. Voor de concrete implementatie in uw onderneming heeft u dus ofwel eigen knowhow nodig ofwel een gekwalificeerde dienstverlener respectievelijk juridisch advies. Waar u zelf kunt beginnen, laat de volledige toepasselijkheidstest zien onder [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q4": {
-          "q": "What does an asset inventory look like for a mid-market company?",
-          "a": "Simpler than you think. A typical 100-person company has about 10-15 grouped asset entries. IT-Grundschutz explicitly allows grouping identical assets: '45 Windows laptops' is one entry, not 45. Typical categories: ERP/billing system, email and collaboration (Microsoft 365), network infrastructure per site, standard endpoints (grouped), servers and databases, cloud services, and any operational technology. For waste companies add fleet management and weighbridge systems, for manufacturers add production line controls."
-        },
-        "q5": {
-          "q": "Do I need to hire a CISO or security team for NIS2?",
-          "a": "No. For mid-market companies (50-250 employees), NIS2 compliance is manageable with existing staff in part-time roles: a compliance lead (4-8 hours/week, usually the IT manager or quality manager), an IT contact (2-4 hours/week), and a management sponsor (1-2 hours/week, required by §38 BSIG). The law requires 'appropriate and proportionate' measures - a 100-person waste company does not need a SOC or a SIEM. Match controls to your actual risk profile, not Fortune 500 infrastructure."
-        },
-        "q6": {
-          "q": "What is the recommended priority order for implementing NIS2 measures?",
-          "a": "Start immediately with measures 1 (risk analysis), 2 (incident handling), and 9 (access control and assets) - these are foundational and everything else builds on them. Weeks 3-6: measures 3 (business continuity), 4 (supply chain), and 7 (training), which require the asset inventory from measure 1. Weeks 7-12: measures 5 (procurement security), 6 (effectiveness assessment), 8 (cryptography), and 10 (MFA). The sequence matters because later measures depend on earlier ones."
+          "q": "Bestaat er van de zijde van het BSI al informatie of handreikingen over de door essentiële en belangrijke entiteiten in het kader van NIS 2 te implementeren maatregelen?",
+          "a": "Ja. Op zijn centrale NIS 2-webpagina publiceert het BSI concrete aanwijzingen over de afzonderlijke verplichtingen en maatregelen. Inhoudelijk komen deze overeen met de risicobeheersmaatregelen uit Artikel 21 van de NIS 2-richtlijn en de Uitvoeringsverordening (EU) 2024/2690 (in Duitsland omgezet in §30 BSIG). Als methodisch hoe noemt het BSI de IT-Grundschutz: als u deze toepast, gelden de maatregelen uit §30 BSIG in de regel als vervuld, dat is de meest praktische handreiking die er momenteel is."
         }
       },
-      "cta": "Start Your NIS2 Compliance Process"
+      "sectors": {
+        "q1": {
+          "q": "Omvat de sector gezondheidsdienstverlening ook instellingen voor langdurige zorg?",
+          "a": "Nee. Het entiteitstype \"aanbieder van gezondheidsdiensten\" sluit aan bij de definitie uit Artikel 3 onder g van Richtlijn 2011/24/EU, waarnaar NIS 2 (Bijlage I, sector gezondheidszorg van Richtlijn (EU) 2022/2555) verwijst. Zuivere langdurige zorg valt niet onder deze definitie en is daarom als zodanig niet omvat. Belangrijk: levert een zorginstelling daarnaast gezondheidsdiensten in de zin van de definitie (zoals medische of verpleegkundige behandeling), dan kan dit deel betrokken zijn, mits de omvangdrempels volgens §28 BSIG worden bereikt. Stap voor stap controleren: [Wie is betrokken](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+        },
+        "q2": {
+          "q": "Omvat het entiteitstype \"aanbieder van gezondheidsdiensten\" ook de distributie of levering van medische hulpmiddelen?",
+          "a": "Nee. De enkele distributie of levering van medische hulpmiddelen voldoet niet aan de definitie van gezondheidsdienst volgens Artikel 3 onder g van Richtlijn 2011/24/EU, waarnaar NIS 2 voor de sector gezondheidszorg (Bijlage I) verwijst. Via dit entiteitstype bent u daardoor dus niet betrokken. Andere aanknopingspunten kunnen echter wel gelden: fabrikanten van kritieke medische hulpmiddelen vallen onder de sector gezondheidszorg, fabrikanten van medische hulpmiddelen en in-vitrodiagnostiek onder de sector verwerkende industrie (Bijlage II). Controleer daarnaast of u via de KritisV als kritieke installatie omvat bent."
+        },
+        "q3": {
+          "q": "Hoe wordt ermee omgegaan wanneer een bedrijf tot de kritieke installaties behoort (afgiftepunt van medische hulpmiddelen), dus kritieke infrastructuur is volgens BSI-KritisV, maar de aangegeven omzetdrempel voor bijzonder belangrijke entiteiten niet wordt bereikt?",
+          "a": "Exploitanten van een kritieke installatie zijn volgens §28 lid 1 BSIG onafhankelijk van omvang en omzet een bijzonder belangrijke entiteit. De omvang- en omzetdrempels uit het algemene omvangcriterium spelen hier dus geen rol: wie de KritisV-drempel voor de installatie overschrijdt, is omvat, ook als het bedrijf daaronder een kleine onderneming is. Doorslaggevend is alleen de kwantitatieve drempelwaarde van de betreffende installatiecategorie in de KritisV (§2 nummer 22 BSIG). U kunt de KritisV-drempel bereiken zonder de werknemers- of omzetdrempel van het algemene omvangcriterium te bereiken, en bent dan toch volledig betrokken."
+        },
+        "q4": {
+          "q": "Zijn instellingen voor integratiehulp (Eingliederungshilfe) betrokken bij NIS 2?",
+          "a": "Integratiehulp als zodanig is geen eigen entiteitstype onder NIS 2 en valt niet onder de definitie van gezondheidsdienst volgens Artikel 3 onder g van Richtlijn 2011/24/EU. Alleen vanwege de integratiehulp bent u dus niet betrokken. Het komt aan op de concreet verrichte activiteiten: levert de instelling daarnaast gezondheidsdiensten in de zin van de definitie en bereikt zij de drempels volgens §28 BSIG, dan kan dit deel betrokken zijn. Voor de zekerheid moet u daarnaast controleren of een andere NIS 2-sector of een kritieke installatie volgens KritisV van toepassing is."
+        },
+        "q5": {
+          "q": "Zijn hulpdiensten betrokken bij NIS 2?",
+          "a": "Het komt aan op de uitgeoefende activiteit, niet op de benaming \"hulpdienst\". Voor zover een hulpdienst gezondheidsdiensten in de zin van Artikel 3 onder g van Richtlijn 2011/24/EU levert (zoals spoedeisende medische zorg), kan deze via de sector gezondheidszorg (Bijlage I) omvat zijn, wanneer de drempels volgens §28 BSIG worden bereikt. Zuiver ziekenvervoer zonder medische behandeling valt hier in de regel niet onder. Valt de hulpdienst onder een publieke instantie, controleer dan daarnaast de regels voor de openbare administratie."
+        },
+        "q6": {
+          "q": "Vallen advieswerkzaamheden over IT-beveiliging onder de sector digitale infrastructuur, bijvoorbeeld onder het entiteitstype Managed Security Service Provider (MSSP)?",
+          "a": "Nee. Zuiver advies over IT-beveiliging is geen beheerde beveiligingsdienst. Een MSSP is volgens NIS 2 (Artikel 6 nummer 40 van Richtlijn (EU) 2022/2555) een MSP die ondersteuning bij risicobeheeractiviteiten op het gebied van cyberbeveiliging operationeel levert of beheert, dus de lopende exploitatie van beveiligingsfuncties voor klanten overneemt. Wie uitsluitend adviseert, auditeert of opleidt, zonder de systemen van klanten lopend te exploiteren of te beheren, valt niet onder MSP of MSSP (de sector beheer van ICT-diensten behoort tot Bijlage I, niet tot digitale infrastructuur). Zodra u echter de beveiligingsdiensten van klanten daadwerkelijk beheert (zoals SOC-exploitatie, monitoring, patchbeheer), kan de indeling als MSSP gelden."
+        },
+        "q7": {
+          "q": "Moeten dochterondernemingen waarin de centrale IT-exploitatie van een ondernemingengroep is georganiseerd, worden aangemerkt als Managed Services Provider (MSP) of Managed Security Service Provider (MSSP)?",
+          "a": "Doorslaggevend is of de IT-dienst extern op de markt wordt geleverd. MSP en MSSP volgens NIS 2 (Artikel 6 nummer 39 en 40 van Richtlijn (EU) 2022/2555) leveren diensten voor andere ondernemingen, niet voor zichzelf. Een concerninterne IT-dochter die uitsluitend de eigen groep bedient, is daarom in de regel geen MSP of MSSP via dit entiteitstype. Dat betekent niet noodzakelijk \"niet betrokken\": bedient de dochter ook derden buiten de groep, dan kan de MSP- of MSSP-indeling gelden, en onafhankelijk daarvan worden werknemers en omzet van verbonden ondernemingen voor de omvangdrempel bij elkaar opgeteld (verbonden ondernemingen volgens de mkb-definitie 2003/361/EG)."
+        },
+        "q8": {
+          "q": "Valt webhosting onder een van de entiteitstypen? (Zoals cloudaanbieder of MSP)",
+          "a": "Klassieke webhosting op zichzelf is noch een cloudcomputingdienst noch een MSP. Een cloudcomputingdienst volgens NIS 2 (Artikel 6 nummer 30 van Richtlijn (EU) 2022/2555) vereist schaalbare, elastisch ter beschikking gestelde en deelbare rekenmiddelen met on-demandbeheer, wat zuivere hosting op vaste middelen doorgaans niet vervult. Een MSP vereist het lopende beheer van de IT-systemen van de klant, niet alleen het ter beschikking stellen van opslag- en webruimte. Doorslaggevend is altijd de concrete vormgeving: biedt de aanbieder daarnaast elastische cloudmiddelen aan of beheert hij actief klantsystemen, dan kan een indeling gelden. Meer hierover: [Ben ik cloudaanbieder](/wiki/anwendungsbereich/bin-ich-cloud-anbieter-nis2)."
+        },
+        "q9": {
+          "q": "Zijn ook eenmanszaken die autoritatieve DNS voor webhostingklanten beheren, betrokken bij implementatieverplichtingen voor cyberbeveiliging?",
+          "a": "Ja, dat kan van toepassing zijn. DNS-dienstaanbieders zijn volgens NIS 2 (Bijlage I, digitale infrastructuur, begrip in Artikel 6 nummer 20 van Richtlijn (EU) 2022/2555) onafhankelijk van hun omvang een bijzonder belangrijke entiteit. De gebruikelijke werknemers- of omzetdrempel geldt hier dus niet, zodat ook eenmanszaken omvat kunnen zijn (§28 lid 1 BSIG). Doorslaggevend is of u autoritatieve DNS-resolutie daadwerkelijk als eigen dienst beheert (niet het enkele houden van een eigen domein). Is dat het geval, dan gelden de verplichtingen inzake risicobeheer, melding en registratie in volle omvang."
+        },
+        "q10": {
+          "q": "Vallen alle ondernemingen binnen het toepassingsgebied van de nationale omzetting van de NIS 2-richtlijn als zij \"aanbieder van openbare elektronischecommunicatienetwerken of van openbaar beschikbare elektronischecommunicatiediensten\" zijn?",
+          "a": "Niet automatisch elke onderneming, maar de drempel is laag. Aanbieders van openbare elektronischecommunicatienetwerken of openbaar beschikbare elektronischecommunicatiediensten behoren tot de digitale infrastructuur (Bijlage I van Richtlijn (EU) 2022/2555) en zijn volgens §28 BSIG al omvat zodra de drempel voor middelgrote ondernemingen wordt bereikt (vanaf 50 werknemers of meer dan 10 miljoen euro omzet met meer dan 10 miljoen euro balanstotaal). De begrippen richten zich naar Richtlijn (EU) 2018/1972 (Europees wetboek voor elektronische communicatie), niet naar een bedrijfseigen opvatting van \"communicatiedienst\". Let op: voor zover het TKG voor deze diensten relevante sectorspecifieke voorschriften bevat, gelden de betreffende BSIG-verplichtingen alleen voor zover het TKG niet bij voorrang van toepassing is (§28 BSIG)."
+        },
+        "q11": {
+          "q": "Valt een cloudcomputingdienst die niet automatisch schaalbaar is, wat een cloudcriterium volgens NIST [U.S. cyberbeveiligingsstandaard NIST SP 800] is, onder de regelingen van de NIS 2-omzettingswet?",
+          "a": "Doorslaggevend is niet de NIST-standaard, maar de definitie van de cloudcomputingdienst in NIS 2 (Artikel 6 nummer 30 van Richtlijn (EU) 2022/2555). Daarvolgens moet de dienst schaalbare en elastische, dus naar behoefte op- en afschaalbare, deelbare rekenmiddelen via een netwerk ter beschikking stellen. Ontbreekt deze schaalbaarheid en elasticiteit volledig, dan is er volgens de NIS 2-definitie in de regel geen cloudcomputingdienst, en geldt het entiteitstype cloudaanbieder niet. Dat betekent echter niet noodzakelijk \"helemaal niet betrokken\": controleer of een ander entiteitstype van toepassing is (zoals datacenterdienst of MSP) of dat u via een andere sector omvat bent. Details: [Ben ik cloudaanbieder](/wiki/anwendungsbereich/bin-ich-cloud-anbieter-nis2)."
+        },
+        "q12": {
+          "q": "Brengen het NIS 2-uitvoeringswet en DORA voor financiele entiteiten die onder DORA vallen verplichtingen mee tot dubbele registratie, dubbele melding van beveiligingsincidenten, dubbel toezicht, dubbel bewijs enzovoort?",
+          "a": "Nee, echte dubbele regulering is niet voorzien. DORA (Verordening (EU) 2022/2554) is voor financiele entiteiten de meer specifieke regeling. Volgens artikel 4 van de NIS 2-richtlijn gelden daarom de DORA-eisen aan risicobeheer, incidentmelding en toezicht met voorrang, en treden de overeenkomstige NIS 2-verplichtingen terug. Wat overblijft is enkel de registratie: artikel 27 van de NIS 2-richtlijn (in het Duitse recht weergegeven via de betreffende BSIG-registratieplicht) omvat ook DORA-ondernemingen, zodat de autoriteiten een volledig overzicht kunnen bijhouden. U meldt incidenten verder onder DORA en registreert zich daarnaast, zonder dat daarbij een tweede meldketen of een tweede toezichtslaag ontstaat."
+        },
+        "q13": {
+          "q": "Hoe verschillen de eisen van NIS 2 van de specifieke beveiligingseisen voor de smart-metergateway?",
+          "a": "De twee regelgevingen werken op verschillende niveaus en sluiten elkaar niet uit. NIS 2 (artikel 21 van de richtlijn, in het Duitse recht Section 30 BSIG) verplicht de organisatie als geheel tot risicobeheer: processen, verantwoordelijkheden, toeleveringsketen, noodvoorziening. De eisen aan de smart-metergateway komen daarentegen uit de Messstellenbetriebsgesetz en de Technische Richtlijnen van het BSI (bijvoorbeeld TR-03109) en betreffen de technische beveiliging van een concreet apparaat, inclusief certificering. Kort gezegd: NIS 2 regelt hoe u uw onderneming beveiligt, de smart-metereisen regelen hoe een afzonderlijk apparaat moet zijn opgebouwd. Beide gelden parallel."
+        },
+        "q14": {
+          "q": "Hoe is de naamswijziging naar \"Digitale Energiediensten\" tot stand gekomen?",
+          "a": "De vroegere installatiecategorie van het bundelpunt (Buendelstelle) is omgedoopt tot \"Digitale Energiediensten\" omdat de term de groeiende rol van IT-systemen en digitale processen in de energiesector beter weergeeft dan de oude naam, die nauw verbonden was met het bundelen van meetwaarden. Inhoudelijk belangrijker dan de naam is het gevolg: voor deze categorie ligt de regulering van informatiebeveiliging niet meer bij het BSIG, maar bij Sections 5c e.v. EnWG, en de Bundesnetzagentur is bevoegd."
+        },
+        "q15": {
+          "q": "Wat betekent de wettelijke wijziging voor mijn bundelpunt (BueStel)?",
+          "a": "Uw bundelpunt wordt als \"Digitale Energiedienst\" uit de BSIG-regulering gehaald. De eisen aan de informatiebeveiliging richten zich voortaan naar Sections 5c e.v. EnWG, en de bevoegde toezichthoudende autoriteit is de Bundesnetzagentur, niet langer het BSI. Voor de betrokken installatie van categorie 1.1.2 hoeft u tegenover het BSI geen bewijzen meer te leveren volgens Section 8a BSIG. Uw contactpersoon en uw vakinhoudelijke eisen wisselen dus; controleer tijdig de eisen van de Bundesnetzagentur."
+        },
+        "q16": {
+          "q": "Welke verplichtingen bestaan na de wettelijke wijziging nog tegenover het BSI?",
+          "a": "Tegenover het BSI blijft in wezen de registratie respectievelijk het actueel houden van uw stamgegevens in het BSI-portaal, zolang de indeling daar nog wordt bijgehouden. Het inhoudelijke toezicht en het bewijs voor de als \"Digitale Energiediensten\" ingedeelde installaties gaan over naar de Bundesnetzagentur volgens Sections 5c e.v. EnWG. Heeft u daarnaast nog andere bij het BSI geregistreerde installaties, dan gelden voor die de BSIG-verplichtingen onveranderd voort; alleen de digitale energiediensten zijn eruit gehaald."
+        },
+        "q17": {
+          "q": "Welke toetsingsgrondslag kan ik voor een bewijs gebruiken?",
+          "a": "Voor bewijzen tegenover het BSI blijft de gevestigde grondslag maatgevend: een erkende toetsingsstandaard zoals een branchespecifieke beveiligingsstandaard (B3S) volgens Section 8a lid 2 BSIG of een gelijkwaardige standaard die de eisen aan uw installatie afdekt. Voor de als \"Digitale Energiediensten\" eruit gehaalde installaties richt de toetsingsgrondslag zich daarentegen naar de eisen van de Bundesnetzagentur op basis van Sections 5c e.v. EnWG. Maatgevend is dus onder welk regime uw installatie na de wijziging wordt gevoerd; verhelder dit eerst voordat u een toetsingsstandaard kiest."
+        },
+        "q18": {
+          "q": "Hoe verneem ik tegen wanneer ik een bewijs moet leveren?",
+          "a": "De termijn volgt uit uw installatiecategorie en de voor u geldende bewijscyclus, niet uit een uniforme peildatum. Voor installaties die in de BSIG-wereld blijven, geldt de bekende reguliere bewijscyclus volgens Section 8a BSIG; het BSI deelt de concrete datum mee in het kader van uw registratie respectievelijk per beschikking. Voor installaties die als \"Digitale Energiediensten\" naar de Bundesnetzagentur zijn overgegaan, stelt deze de bewijsdata vast volgens Sections 5c e.v. EnWG. In geval van twijfel is de schriftelijke mededeling van de telkens bevoegde autoriteit maatgevend; vertrouw niet op een algemeen jaartal."
+        },
+        "q19": {
+          "q": "Welke gevolgen heeft het NIS 2-uitvoeringswet voor de overige bij het BSI geregistreerde installaties van mijn onderneming?",
+          "a": "Het eruit halen betreft alleen de als \"Digitale Energiediensten\" ingedeelde installaties (vroegere categorie 1.1.2). Alle overige bij het BSI geregistreerde installaties van uw onderneming blijven in het BSIG-regime: registratie, risicobeheer en bewijsverplichtingen lopen daar onveranderd door. Er ontstaat geen leemte en geen automatisch wegvallen; u voert de niet-betrokken installaties precies zoals voorheen en behoudt het BSI als bevoegde autoriteit."
+        },
+        "q20": {
+          "q": "Moet het lopende audit voor de bewijslevering volgens Section 8a BSIG voor een installatie van installatiecategorie 1.1.2 worden afgerond?",
+          "a": "Nee. Voor installaties van categorie 1.1.2 die als \"Digitale Energiediensten\" uit het BSIG vallen, hoeft tegenover het BSI geen bewijs meer te worden geleverd volgens Section 8a BSIG, zodat een daarvoor lopend audit niet meer voor het BSI hoeft te worden afgerond. Houd echter rekening met de toekomstige eisen van de Bundesnetzagentur volgens Sections 5c e.v. EnWG; reeds verricht toetsingswerk kan daar verder bruikbaar zijn. Verhelder de precieze overgang rechtstreeks met de bevoegde autoriteit voordat u een audit afbreekt."
+        },
+        "q21": {
+          "q": "Moeten exploitanten van een energievoorzieningsnet volgens Section 5d lid 4 EnWG zich in het BSI-portaal registreren?",
+          "a": "Ja. Exploitanten van een energievoorzieningsnet volgens Section 5d lid 4 EnWG zijn verplicht zich in het BSI-portaal te registreren, ook als zij niet tegelijk als bijzonder belangrijke of belangrijke entiteit volgens Section 28 BSIG zijn ingedeeld. De registratieplicht knoopt hier aan bij het netbeheer en bestaat onafhankelijk van de algemene NIS 2-omvangsdrempel. Leg uw stamgegevens tijdig vast in het BSI-portaal. Meer over het verloop: [nis2-registrierung](/wiki/anwendungsbereich/nis2-registrierung)."
+        },
+        "q22": {
+          "q": "Gelden hotelrestaurants, restaurants of horecabedrijven als \"belangrijke entiteiten\"?",
+          "a": "In de regel niet. De sector levensmiddelen van bijlage 2 omvat alleen ondernemingen uit de groothandel alsook uit de industriele productie en verwerking van levensmiddelen, niet de klassieke horeca. Een hotelrestaurant, een restaurant of een horecabedrijf valt daarmee niet alleen vanwege de bereiding van gerechten onder NIS 2. Maatgevend blijft daarnaast of de omvangsdrempels zijn bereikt; controleer uw indeling systematisch: [wer-ist-betroffen-vollstaendiger-test](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+        },
+        "q23": {
+          "q": "Is \"sowie\" (alsook) gelijk te stellen met \"of\"?",
+          "a": "Ja. In de levensmiddelenformulering van bijlage 2 verbindt \"sowie\" de genoemde activiteiten opsommend, niet cumulatief. Een onderneming is dus al omvat wanneer zij in de groothandel of in de industriele productie of in de verwerking actief is; zij hoeft niet alle drie de activiteiten tegelijk uit te oefenen. Doorslaggevend voor het betrokken zijn is dan daarnaast of de relevante omvangsdrempels worden bereikt."
+        },
+        "q24": {
+          "q": "Vallen alle deelnemers aan een veilige toeleveringsketen op het gebied van luchtvaartbeveiliging onder KRITIS, ook als zij kleine ondernemingen zijn onder de drempelwaarden voor NIS 2-toepasselijkheid?",
+          "a": "Nee. Deelname aan de veilige toeleveringsketen op grond van §9a LuftSiG maakt een onderneming niet automatisch tot een Kritieke Infrastructuur en niet automatisch tot een NIS 2-entiteit. Twee afzonderlijke drempels zijn bepalend: u wordt alleen KRITIS-exploitant als u de volumedrempels van de BSI-KritisV bij een kritieke dienst overschrijdt (doorgaans in de sectoren luchtvaart of logistiek). NIS 2-toepasselijkheid op grond van bijlage I respectievelijk II van de NIS 2-richtlijn (EU) 2022/2555 vereist op haar beurt dat u actief bent in een gedekte sector en de omvangscriteria haalt (in de regel vanaf 50 werknemers of meer dan 10 miljoen euro jaaromzet; het BSIG zet dit om in §28). Wie onder beide drempels blijft, valt door de loutere deelname aan de toeleveringsketen noch onder KRITIS noch onder NIS 2. De volledige test vindt u onder [Wie is betrokken](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+        },
+        "q25": {
+          "q": "Welke rechtsvormen vallen volgens NIS 2 onder de sector financiële markten en de subsector bankwezen?",
+          "a": "De indeling hangt niet af van de rechtsvorm (GmbH, AG, eG of andere), maar van de activiteit. In het bankwezen omvat bijlage I van de NIS 2-richtlijn (EU) 2022/2555 kredietinstellingen in de zin van artikel 4, lid 1, punt 1, van Verordening (EU) nr. 575/2013, dat wil zeggen instellingen waarvan de werkzaamheden bestaan in het bij het publiek aantrekken van deposito's of andere terugbetaalbare gelden en het verlenen van kredieten voor eigen rekening. Een bepaalde rechtsvorm is hiervoor niet voorgeschreven; doorslaggevend is alleen dat u als kredietinstelling vergund bent en deze activiteiten uitoefent. Belangrijk: Voor kredietinstellingen geldt sinds 17 januari 2025 bij voorrang DORA (Verordening (EU) 2022/2554) als lex specialis, zodat de operationele risicobeheer- en meldingsverplichtingen uit DORA in plaats van uit NIS 2 moeten worden vervuld. Of u als bank betrokken bent, controleert u onder [Ben ik een bank in de zin van NIS 2](/wiki/anwendungsbereich/bin-ich-bank-nis2)."
+        }
+      }
     },
     "nis2Timeline": {
       "meta": {

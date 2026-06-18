@@ -4170,16 +4170,46 @@
         "heading": "Die zehn Maßnahmen aus § 30 Abs. 2 BSIG",
         "description": "Die zehn Pflichtmaßnahmen im Wortlaut, mit Verweis auf den entsprechenden Buchstaben in Artikel 21 Abs. 2 NIS 2.",
         "items": {
-          "m1": { "title": "Nr. 1: Risikoanalyse und Sicherheit für Informationssysteme", "text": "Konzepte in Bezug auf die Risikoanalyse und Sicherheit für Informationssysteme. Entspricht Artikel 21 Abs. 2 Buchst. a NIS 2. Konkretisiert durch CIR (EU) 2024/2690 § 2 für die digitalen Sektoren des Anhangs." },
-          "m2": { "title": "Nr. 2: Bewältigung von Sicherheitsvorfällen", "text": "Erkennung, Reaktion, Eindämmung, Wiederherstellung und Auswertung von Sicherheitsvorfällen. Entspricht Artikel 21 Abs. 2 Buchst. b NIS 2. Greift mit der Meldepflicht nach § 32 BSIG ineinander." },
-          "m3": { "title": "Nr. 3: Aufrechterhaltung des Betriebs", "text": "Backupmanagement, Wiederherstellung nach einem Notfall und Krisenmanagement. Entspricht Artikel 21 Abs. 2 Buchst. c NIS 2. Auch ein Cloudausfall beim Anbieter ist hier abgedeckt." },
-          "m4": { "title": "Nr. 4: Sicherheit der Lieferkette", "text": "Sicherheit der Lieferkette einschließlich sicherheitsbezogener Aspekte der Beziehungen zu unmittelbaren Anbietern und Diensteanbietern. Entspricht Artikel 21 Abs. 2 Buchst. d NIS 2. Diese Pflicht fließt vertraglich auf jeden Zulieferer in der Kette herunter." },
-          "m5": { "title": "Nr. 5: Sicherheit bei Erwerb, Entwicklung und Wartung", "text": "Sicherheitsmaßnahmen bei Erwerb, Entwicklung und Wartung von informationstechnischen Systemen, Komponenten und Prozessen, einschließlich Management und Offenlegung von Schwachstellen. Entspricht Artikel 21 Abs. 2 Buchst. e NIS 2. Überschneidet sich mit den Pflichten aus dem Cyber Resilience Act für Produkte mit digitalen Elementen." },
-          "m6": { "title": "Nr. 6: Wirksamkeitsbewertung", "text": "Konzepte und Verfahren zur Bewertung der Wirksamkeit der Risikomanagementmaßnahmen. Entspricht Artikel 21 Abs. 2 Buchst. f NIS 2. Das ist der Rückkopplungsmechanismus: nicht nur Maßnahmen einführen, sondern auch prüfen, ob sie wirken." },
-          "m7": { "title": "Nr. 7: Cyberhygiene und Schulungen", "text": "Grundlegende Verfahren im Bereich der Cyberhygiene und Schulungen im Bereich der Cybersicherheit. Entspricht Artikel 21 Abs. 2 Buchst. g NIS 2. Trifft alle Mitarbeitenden, IT-Rollen erhalten zusätzlich rollenspezifische Schulung. Die Schulung der Leitungsorgane ist gesondert in § 38 Abs. 3 BSIG geregelt." },
-          "m8": { "title": "Nr. 8: Kryptografie und Verschlüsselung", "text": "Konzepte und Verfahren für den Einsatz von Kryptografie und gegebenenfalls Verschlüsselung. Entspricht Artikel 21 Abs. 2 Buchst. h NIS 2. Das Wort gegebenenfalls erlaubt risikobasierte Differenzierung, schließt aber den pauschalen Verzicht aus." },
-          "m9": { "title": "Nr. 9: Personalsicherheit, Zugriffskontrolle, Anlagenmanagement", "text": "Personalsicherheit, Konzepte für die Zugriffskontrolle und Management von Anlagen. Entspricht Artikel 21 Abs. 2 Buchst. i NIS 2. Deckt klassische Themen wie Onboarding und Offboarding, Berechtigungsvergabe nach Need to know und ein Asset-Inventar ab." },
-          "m10": { "title": "Nr. 10: Multi-Faktor-Authentifizierung und gesicherte Kommunikation", "text": "Verwendung von Lösungen zur Multi-Faktor-Authentifizierung oder kontinuierlichen Authentifizierung, gesicherte Sprach-, Video- und Textkommunikation sowie gegebenenfalls gesicherte Notfallkommunikationssysteme innerhalb der Einrichtung. Entspricht Artikel 21 Abs. 2 Buchst. j NIS 2." }
+          "m1": {
+            "title": "Nr. 1: Risikoanalyse und Sicherheit für Informationssysteme",
+            "text": "Konzepte in Bezug auf die Risikoanalyse und Sicherheit für Informationssysteme. Entspricht Artikel 21 Abs. 2 Buchst. a NIS 2. Konkretisiert durch CIR (EU) 2024/2690 § 2 für die digitalen Sektoren des Anhangs."
+          },
+          "m2": {
+            "title": "Nr. 2: Bewältigung von Sicherheitsvorfällen",
+            "text": "Erkennung, Reaktion, Eindämmung, Wiederherstellung und Auswertung von Sicherheitsvorfällen. Entspricht Artikel 21 Abs. 2 Buchst. b NIS 2. Greift mit der Meldepflicht nach § 32 BSIG ineinander."
+          },
+          "m3": {
+            "title": "Nr. 3: Aufrechterhaltung des Betriebs",
+            "text": "Backupmanagement, Wiederherstellung nach einem Notfall und Krisenmanagement. Entspricht Artikel 21 Abs. 2 Buchst. c NIS 2. Auch ein Cloudausfall beim Anbieter ist hier abgedeckt."
+          },
+          "m4": {
+            "title": "Nr. 4: Sicherheit der Lieferkette",
+            "text": "Sicherheit der Lieferkette einschließlich sicherheitsbezogener Aspekte der Beziehungen zu unmittelbaren Anbietern und Diensteanbietern. Entspricht Artikel 21 Abs. 2 Buchst. d NIS 2. Diese Pflicht fließt vertraglich auf jeden Zulieferer in der Kette herunter."
+          },
+          "m5": {
+            "title": "Nr. 5: Sicherheit bei Erwerb, Entwicklung und Wartung",
+            "text": "Sicherheitsmaßnahmen bei Erwerb, Entwicklung und Wartung von informationstechnischen Systemen, Komponenten und Prozessen, einschließlich Management und Offenlegung von Schwachstellen. Entspricht Artikel 21 Abs. 2 Buchst. e NIS 2. Überschneidet sich mit den Pflichten aus dem Cyber Resilience Act für Produkte mit digitalen Elementen."
+          },
+          "m6": {
+            "title": "Nr. 6: Wirksamkeitsbewertung",
+            "text": "Konzepte und Verfahren zur Bewertung der Wirksamkeit der Risikomanagementmaßnahmen. Entspricht Artikel 21 Abs. 2 Buchst. f NIS 2. Das ist der Rückkopplungsmechanismus: nicht nur Maßnahmen einführen, sondern auch prüfen, ob sie wirken."
+          },
+          "m7": {
+            "title": "Nr. 7: Cyberhygiene und Schulungen",
+            "text": "Grundlegende Verfahren im Bereich der Cyberhygiene und Schulungen im Bereich der Cybersicherheit. Entspricht Artikel 21 Abs. 2 Buchst. g NIS 2. Trifft alle Mitarbeitenden, IT-Rollen erhalten zusätzlich rollenspezifische Schulung. Die Schulung der Leitungsorgane ist gesondert in § 38 Abs. 3 BSIG geregelt."
+          },
+          "m8": {
+            "title": "Nr. 8: Kryptografie und Verschlüsselung",
+            "text": "Konzepte und Verfahren für den Einsatz von Kryptografie und gegebenenfalls Verschlüsselung. Entspricht Artikel 21 Abs. 2 Buchst. h NIS 2. Das Wort gegebenenfalls erlaubt risikobasierte Differenzierung, schließt aber den pauschalen Verzicht aus."
+          },
+          "m9": {
+            "title": "Nr. 9: Personalsicherheit, Zugriffskontrolle, Anlagenmanagement",
+            "text": "Personalsicherheit, Konzepte für die Zugriffskontrolle und Management von Anlagen. Entspricht Artikel 21 Abs. 2 Buchst. i NIS 2. Deckt klassische Themen wie Onboarding und Offboarding, Berechtigungsvergabe nach Need to know und ein Asset-Inventar ab."
+          },
+          "m10": {
+            "title": "Nr. 10: Multi-Faktor-Authentifizierung und gesicherte Kommunikation",
+            "text": "Verwendung von Lösungen zur Multi-Faktor-Authentifizierung oder kontinuierlichen Authentifizierung, gesicherte Sprach-, Video- und Textkommunikation sowie gegebenenfalls gesicherte Notfallkommunikationssysteme innerhalb der Einrichtung. Entspricht Artikel 21 Abs. 2 Buchst. j NIS 2."
+          }
         }
       },
       "proportionality": {
@@ -5293,197 +5323,438 @@
     "faq": {
       "meta": {
         "title": "NIS2 FAQ: Häufige Fragen zur Compliance",
-        "description": "Antworten auf die häufigsten NIS2-Fragen: Einrichtungsarten, Bußgelder, Geschäftsführerhaftung, BSI-Registrierung und Meldepflichten."
+        "description": "Die Fragen der offiziellen BSI NIS-2-FAQ, klar und in einfacher Sprache beantwortet: Anwendungsbereich, Pflichten, Registrierung, Meldepflicht, Geschäftsleitung und sektorspezifische Fragen."
       },
       "title": "NIS2: Häufig gestellte Fragen",
-      "subtitle": "Klare Antworten auf die Fragen, die deutsche Unternehmen am häufigsten zu NIS2, dem BSIG und den Compliance-Anforderungen stellen.",
+      "subtitle": "Klare Antworten auf die Fragen, die deutsche Unternehmen am häufigsten zu NIS2, dem BSIG und den Compliance-Anforderungen stellen. Strukturiert wie die offizielle BSI NIS-2-FAQ.",
+      "cta": "Jetzt NIS2-Compliance starten",
       "categories": {
-        "basics": "NIS2 Grundlagen",
-        "scope": "Geltungsbereich & Anwendbarkeit",
-        "frameworks": "NIS2 vs. andere Frameworks",
-        "liability": "Geschäftsführerhaftung",
-        "registration": "BSI-Registrierung",
-        "incidents": "Meldepflichten",
-        "penalties": "Bußgelder & Strafen",
-        "implementation": "Umsetzung"
+        "basics": "Grundlagen und Gesetz",
+        "scope": "Anwendungsbereich und Betroffenheit",
+        "duties": "Pflichten und Maßnahmen",
+        "frameworks": "Nachweise und Standards",
+        "supplychain": "Lieferkette",
+        "registration": "Registrierung",
+        "incidents": "Meldepflicht",
+        "penalties": "Bußgelder und Aufsicht",
+        "liability": "Geschäftsleitung und Haftung",
+        "implementation": "Umsetzung und BSI-Unterstützung",
+        "sectors": "Sektorspezifische Fragen"
       },
       "basics": {
         "q1": {
-          "q": "Was ist der Unterschied zwischen wesentlichen und wichtigen Einrichtungen bei NIS2?",
-          "a": "Wesentliche Einrichtungen (Essential Entities) sind Unternehmen in hochkritischen Sektoren wie Energie, Verkehr, Banken, Gesundheit, Wasser und digitale Infrastruktur (NIS2 Anhang I). Wichtige Einrichtungen (Important Entities) befinden sich in anderen kritischen Sektoren wie Abfallwirtschaft, Lebensmittel, Fertigung, Post und Chemie (Anhang II). Die wesentlichen Unterschiede: Wesentliche Einrichtungen haben höhere Bußgelder (10 Mio. € / 2 % Umsatz vs. 7 Mio. € / 1,4 %), proaktive BSI-Prüfungen (das BSI kann jederzeit ohne Anlass prüfen) und strengere Aufsicht. Wichtige Einrichtungen werden nur reaktiv geprüft, nach einem Vorfall oder bei Hinweisen auf Nichtkonformität. Beide müssen dieselben 10 Cybersicherheitsmaßnahmen nach §30 BSIG umsetzen."
+          "q": "Wird die Europäische Union die NIS-2-Richtlinie noch verändern bzw. anpassen?",
+          "a": "Die NIS-2-Richtlinie (EU) 2022/2555 ist seit Januar 2023 geltendes EU-Recht und gibt den verbindlichen Rahmen vor. Eine Änderung wäre nur über ein neues EU-Gesetzgebungsverfahren möglich und ist derzeit nicht geplant. Konkretisierungen kommen eher über Durchführungsrechtsakte wie die CIR (EU) 2024/2690, die die technischen Mindestmaßnahmen nach Artikel 21 für bestimmte Einrichtungen ausformuliert, nicht über eine Neufassung der Richtlinie selbst. Für Unternehmen heißt das: Der Inhalt steht fest, warten Sie nicht auf Änderungen, sondern setzen Sie die Pflichten nach geltendem Recht um."
         },
         "q2": {
-          "q": "Wie viele Unternehmen sind in Deutschland von NIS2 betroffen?",
-          "a": "Das BSI schätzt, dass rund 29.500 Unternehmen in Deutschland unter den NIS2-Geltungsbereich fallen. Das ist eine massive Ausweitung gegenüber dem bisherigen KRITIS-Regime, das nur etwa 2.000 Betreiber umfasste. Der Anstieg kommt durch niedrigere Schwellenwerte (ab 50 Mitarbeiter statt Hunderttausende versorgte Personen) und sieben neu hinzugekommene Sektoren: Abfallwirtschaft, Lebensmittelproduktion, Fertigung, Postdienste, Chemie, Forschung und erweiterte digitale Dienste."
+          "q": "Wird es eine finanzielle Förderung seitens des Bundes zur NIS-2 Umsetzung in Unternehmen geben?",
+          "a": "Eine eigene Bundesförderung speziell für die NIS-2-Umsetzung ist derzeit nicht vorgesehen. Die Pflichten nach Artikel 21 der NIS-2-Richtlinie sind risikobasiert und verhältnismäßig: Der Aufwand richtet sich nach Größe, Risikoexposition und Eintrittswahrscheinlichkeit, sodass ein mittelständischer Betrieb keine Konzernlösung braucht. Allgemeine Digitalisierungs- und Beratungsförderungen von Bund und Ländern können je nach Programm einzelne Maßnahmen mitfinanzieren, das prüfen Sie am besten bei Ihrer zuständigen Förderstelle oder IHK. Planen Sie die Umsetzung also aus eigener Kraft, gefördert wird sie nicht garantiert."
         },
         "q3": {
-          "q": "Seit wann gilt NIS2 in Deutschland?",
-          "a": "Das NIS2-Umsetzungsgesetz (NIS2UmsuCG) wurde am 13. November 2025 vom Bundestag beschlossen, am 21. November 2025 vom Bundesrat gebilligt, am 5. Dezember 2025 im Bundesgesetzblatt veröffentlicht und trat am 6. Dezember 2025 in Kraft. Das BSI-Registrierungsportal ging am 6. Januar 2026 online, mit Registrierungsfrist am 6. März 2026. Deutschland hat die ursprüngliche EU-Umsetzungsfrist vom 17. Oktober 2024 um über ein Jahr verfehlt."
+          "q": "Wie ist der aktuelle Stand beim BSIG und wann tritt das NIS-2-Umsetzungsgesetz in Kraft?",
+          "a": "Das NIS-2-Umsetzungsgesetz ist bereits in Kraft: Der Bundestag hat es am 13. November 2025 beschlossen, der Bundesrat am 21. November 2025 gebilligt, die Verkündung im Bundesgesetzblatt erfolgte am 5. Dezember 2025, und das Gesetz gilt seit dem 6. Dezember 2025. Damit gilt das grundlegend überarbeitete BSI-Gesetz (BSIG neue Fassung), das die NIS-2-Richtlinie in deutsches Recht überträgt. Die dreimonatige Registrierungsfrist nach dem Inkrafttreten ist am 6. März 2026 abgelaufen. Wer betroffen ist und sich noch nicht registriert hat, sollte das umgehend nachholen (siehe ../anwendungsbereich/nis2-registrierung)."
         },
         "q4": {
-          "q": "Gibt es eine Übergangsfrist für NIS2 in Deutschland?",
-          "a": "Nein. Es gibt keine Übergangsfrist. Alle Pflichten (Risikomanagementmaßnahmen, Meldepflichten, Geschäftsführerhaftung und BSI-Registrierung) gelten ab dem Tag des Inkrafttretens am 6. Dezember 2025. Die BSI-Registrierungsfrist war der 6. März 2026 (3 Monate nach Inkrafttreten). Unternehmen, die noch nicht mit der Compliance begonnen haben, sind technisch bereits nicht konform."
+          "q": "Wo finde ich das BSIG/NIS-2-Umsetzungsgesetz?",
+          "a": "Die NIS-2-Richtlinie (EU) 2022/2555 finden Sie im Volltext bei EUR-Lex (Amtsblatt L 333 vom 27. Dezember 2022), die zugehörige Durchführungsverordnung als CIR (EU) 2024/2690 ebenfalls dort. Die deutsche Umsetzung, also das geltende BSI-Gesetz in der neuen Fassung, lesen Sie aktuell unter gesetze-im-internet.de (BSIG). Der Verkündungstext des NIS-2-Umsetzungsgesetzes (Artikelgesetz) steht im Bundesgesetzblatt vom 5. Dezember 2025. Für die laufende Praxis ist die konsolidierte BSIG-Fassung bei gesetze-im-internet.de die einfachste Quelle."
         },
         "q5": {
-          "q": "Gilt NIS2 für kleine Unternehmen mit weniger als 50 Mitarbeitern?",
-          "a": "Grundsätzlich nein. NIS2 nutzt die EU-KMU-Definition (Empfehlung 2003/361/EG): Unternehmen benötigen mindestens 50 Mitarbeiter ODER mehr als 10 Mio. € Jahresumsatz UND 10 Mio. € Bilanzsumme. Beide Finanzschwellen müssen erfüllt sein, hoher Umsatz allein reicht nicht, wenn die Bilanzsumme unter 10 Mio. € liegt. Jedoch sind bestimmte Einrichtungsarten unabhängig von der Größe betroffen: DNS-Anbieter, TLD-Registrierungsstellen, qualifizierte Vertrauensdiensteanbieter, KRITIS-Betreiber und Alleinversorger für wesentliche Dienste in einer Region. Bei Nähe zur 50-Mitarbeiter-Schwelle prüfen Sie, ob verbundene Konzernunternehmen den Schwellenwert überschreiten. Siehe unseren Einrichtungsarten-Artikel für 10 praxisnahe Grenzfallbeispiele."
+          "q": "Wie unterscheidet sich das NIS-2-Umsetzungsgesetz vom BSIG?",
+          "a": "Das BSIG ist das Stammgesetz: ein eigenständiges Einzelgesetz, das Aufgaben des BSI sowie die Pflichten besonders wichtiger und wichtiger Einrichtungen dauerhaft regelt. Das NIS-2-Umsetzungsgesetz ist dagegen ein Artikelgesetz, also der gesetzgeberische Mantel, der das BSIG neu fasst und zugleich weitere Fachgesetze (etwa im Telekommunikations-, Energie- und Sozialversicherungsrecht) anpasst, um die NIS-2-Richtlinie vollständig in deutsches Recht zu überführen. Kurz: Das NIS-2-Umsetzungsgesetz hat seine Arbeit mit dem Inkrafttreten getan und seine Änderungen in die laufenden Gesetze eingespeist. Maßgeblich für Ihre Pflichten im Alltag ist deshalb das BSIG in seiner neuen Fassung, nicht der Mantel."
         }
       },
       "scope": {
         "q1": {
-          "q": "Welche Sektoren fallen unter NIS2?",
-          "a": "NIS2 umfasst insgesamt 18 Sektoren. Anhang I (hohe Kritikalität, wesentliche Einrichtungen): Energie, Verkehr, Banken, Finanzmarktinfrastruktur, Gesundheit, Trinkwasser, Abwasser, digitale Infrastruktur, IKT-Dienstleistungsmanagement (B2B), öffentliche Verwaltung und Weltraum. Anhang II (andere kritische Sektoren, wichtige Einrichtungen): Post- und Kurierdienste, Abfallwirtschaft, Chemie, Lebensmittelproduktion und -vertrieb, Fertigung (Medizinprodukte, Elektronik, Maschinen, Fahrzeuge), digitale Anbieter (Marktplätze, Suchmaschinen, soziale Netzwerke) und Forschungseinrichtungen."
+          "q": "Kann ein Unternehmen auch reguliert werden, wenn die einschlägigen Dienstleistungen nicht in DE erbracht werden?",
+          "a": "Ja. Maßgeblich ist nicht, wo eine Leistung erbracht wird, sondern wo die Einrichtung niedergelassen ist (Artikel 26 NIS-2-Richtlinie, in Deutschland umgesetzt über die §§ 59, 60 BSIG). Wer in Deutschland niedergelassen ist oder hier einen Vertreter benannt hat, kann der deutschen Aufsicht unterliegen, auch wenn die Kunden im Ausland sitzen. Eine Sonderregel gilt für DNS-, Cloud-, Rechenzentrums- und ähnliche Anbieter sowie für Anbieter öffentlicher Kommunikationsnetze und -dienste: für sie zählt die Hauptniederlassung in der EU, also der Mitgliedstaat, in dem die Entscheidungen über die Risikomanagementmaßnahmen überwiegend getroffen werden. Welche Niederlassung jeweils zählt, ordnet die Wiki-Seite zum [Hauptsitz außerhalb der EU](/wiki/anwendungsbereich/nis2-hauptsitz-ausserhalb-eu) ein."
         },
         "q2": {
-          "q": "Was ist der Unterschied zwischen NIS2 Anhang I und Anhang II?",
-          "a": "Anhang I listet 11 Sektoren mit hoher Kritikalität: Unternehmen darin werden als wesentliche Einrichtungen eingestuft, wenn sie groß sind, oder als wichtige Einrichtungen, wenn sie mittelgroß sind. Anhang II listet 7 andere kritische Sektoren: Unternehmen darin werden unabhängig von ihrer Größe als wichtige Einrichtungen eingestuft. Das bedeutet: Ein Chemiedistributor mit 180 Mitarbeitern, 70 Mio. € Umsatz und 50 Mio. € Bilanzsumme wird trotzdem als wichtig eingestuft (nicht als wesentlich), weil Chemie ein Anhang-II-Sektor ist. Der praktische Unterschied: Wesentliche Einrichtungen aus Anhang I unterliegen proaktiven BSI-Prüfungen, höheren Bußgeldern (10 Mio. € vs. 7 Mio. €) und strengerer Aufsicht. Wichtige Einrichtungen aus Anhang II unterliegen nur reaktiver Aufsicht."
+          "q": "Was genau ist im Kontext von § 28 Abs. 3 des BSIG unter dem Begriff „vernachlässigbar“ zu verstehen und nach welchen Kriterien wird diese Einstufung vorgenommen?",
+          "a": "Vernachlässigbar meint eine Tätigkeit, die im Gesamtbild des Unternehmens so geringen Umfang hat, dass sie für die Einordnung als wichtige oder besonders wichtige Einrichtung nicht ins Gewicht fällt. Anhaltspunkte sind die Zahl der dort Beschäftigten, der mit dieser Tätigkeit erzielte Umsatz und der zugehörige Bilanzanteil, jeweils im Verhältnis zum gesamten Geschäft. Kein Einzelwert entscheidet allein: maßgeblich ist die Gesamtschau. Taucht die Tätigkeit zudem im Gesellschaftszweck (Satzung, Gesellschaftsvertrag) auf, spricht das gegen Vernachlässigbarkeit. Im Zweifel sollte die Tätigkeit dokumentiert und konservativ als nicht vernachlässigbar behandelt werden."
         },
         "q3": {
-          "q": "Gilt NIS2 für produzierende Unternehmen?",
-          "a": "Ja, wenn Sie Medizinprodukte, Computer, Elektronik, optische Produkte, elektrische Ausrüstung, Maschinen, Kraftfahrzeuge oder andere Transportmittel herstellen und 50+ Mitarbeiter oder 10 Mio. €+ Umsatz haben. Die Fertigung ist in NIS2 Anhang II aufgeführt und macht betroffene Unternehmen zu wichtigen Einrichtungen. Eine erhebliche Anzahl deutscher Mittelstandsunternehmen fällt in diese Kategorie. Alle 10 Cybersicherheitsmaßnahmen nach §30 BSIG gelten."
+          "q": "Sind kommunale Eigenbetriebe von NIS-2 betroffen?",
+          "a": "Nicht automatisch. Reine Verwaltungstätigkeit der kommunalen Ebene fällt grundsätzlich unter Landesrecht und nicht unter das BSIG; der IT-Planungsrat hat die kommunale Ebene hier ausdrücklich ausgeklammert. Betroffen wird ein Eigenbetrieb erst dann, wenn er selbst einem der erfassten Sektoren zuzuordnen ist (etwa Energie, Wasser, Abwasser, Abfall) und entweder eine kritische Anlage betreibt oder die Größenschwellen für wichtige beziehungsweise besonders wichtige Einrichtungen erreicht. Maßgeblich ist also die konkrete Tätigkeit des einzelnen Betriebs, nicht die Rechtsform Eigenbetrieb. Für Versorger und Entsorger helfen die Wiki-Tests, etwa [Stadtwerk](/wiki/anwendungsbereich/bin-ich-stadtwerk-nis2) oder [Abwasserentsorger](/wiki/anwendungsbereich/bin-ich-abwasserentsorger-nis2)."
         },
         "q4": {
-          "q": "Wir lagern unsere gesamte IT an einen Dienstleister aus. Gilt NIS2 trotzdem?",
-          "a": "Ja, vollständig. NIS2 gilt für die Einrichtung, die den regulierten Dienst erbringt, unabhängig davon, wer die IT betreibt. Sie können den Betrieb auslagern, aber nicht die Verantwortung (§ 30 BSIG). Ihr IT-Dienstleister wird zu Ihrem kritischsten Lieferanten: Dokumentieren Sie die Beziehung, nehmen Sie Cybersicherheitsanforderungen in den Vertrag auf und überprüfen Sie deren Sicherheitsmaßnahmen. Bei einer Sicherheitsverletzung beim Dienstleister greift Ihre Meldepflicht unabhängig von seiner. Viele IT-Dienstleister (MSP, MSSP, Cloud, Rechenzentren) sind selbst NIS2-Einrichtungen nach Annex I Nr. 8 und haben parallele Meldepflichten, diese ersetzen Ihre nicht. Die Geschäftsleitung haftet persönlich nach § 38 BSIG."
+          "q": "Fällt mein Unternehmen in den Anwendungsbereich des BSIG/NIS-2-Umsetzungsgesetz?",
+          "a": "Das hängt von drei Fragen ab: Sektor, Größe und Sonderfälle. Erstens muss Ihre Tätigkeit unter einen der in Anhang I oder II der NIS-2-Richtlinie genannten Sektoren fallen (in Deutschland Anlage 1 und 2 zum BSIG). Zweitens müssen Sie in der Regel mindestens 50 Beschäftigte haben oder über 10 Millionen Euro Jahresumsatz und Jahresbilanzsumme (mittleres Unternehmen nach Empfehlung 2003/361/EG); kleinere Unternehmen sind nur in benannten Ausnahmefällen erfasst. Drittens gibt es Konstellationen, die unabhängig von der Größe erfassen, etwa Betreiber kritischer Anlagen oder bestimmte Anbieter im Sektor digitale Infrastruktur. Die Einstufung ist eine Selbsteinstufung, das BSI verschickt keine Bescheide. Den vollständigen Test bietet die Wiki-Seite [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q5": {
-          "q": "Unser Unternehmen ist in mehreren EU-Ländern tätig. Müssen wir jedes nationale NIS2-Gesetz einhalten?",
-          "a": "Ja. Ein Vorfall bei einem Unternehmen mit Niederlassungen in mehreren Mitgliedstaaten kann Meldepflichten in jedem Land auslösen, in dem betroffene Dienste erbracht werden. Bis Anfang 2026 hatte die Mehrheit der 27 EU-Mitgliedstaaten NIS2 noch nicht vollständig umgesetzt (siehe Umsetzungstracker der Europäischen Kommission für den aktuellen Stand). Jedes Land hat sein eigenes Registrierungsportal und eigene Verfahren. Das deutsche BSIG gehört zu den detailliertesten Umsetzungen. Bei grenzüberschreitenden Aktivitäten gilt: Einhaltung jedes nationalen Gesetzes dort, wo Sie Dienste erbringen."
+          "q": "Wie sind die Begriffe wesentliche, wichtige und besonders wichtige Einrichtung einzuordnen?",
+          "a": "Die NIS-2-Richtlinie kennt zwei Klassen: wesentliche Einrichtungen (essential, Anhang I) und wichtige Einrichtungen (important, Anhang II), Artikel 3 NIS-2-Richtlinie. Das deutsche BSIG übernimmt das, nennt die obere Klasse aber besonders wichtige Einrichtung (§ 28 Abs. 1 BSIG) und die andere wichtige Einrichtung (§ 28 Abs. 2 BSIG); wesentlich und besonders wichtig meinen also dieselbe Stufe. Der Unterschied liegt nicht bei den Sicherheitspflichten, die sind im Kern gleich, sondern bei der Aufsicht: besonders wichtige Einrichtungen unterliegen einer proaktiven Aufsicht, wichtige Einrichtungen nur einer anlassbezogenen, nachträglichen. Ob Sie in die obere oder untere Klasse fallen, ergibt sich aus Sektor, Größe und der Eigenschaft als Betreiber einer kritischen Anlage."
+        },
+        "q6": {
+          "q": "Wie erfolgt eine Prüfung der Betroffenheit von Einrichtungen gemäß § 28 Absatz 1 Nummer 4 BSIG?",
+          "a": "§ 28 Abs. 1 Nr. 4 BSIG erfasst Einrichtungen der Anlage-1-Typen, die einer anderen Person Waren oder Dienste gegen Entgelt anbieten und einen Jahresumsatz von über 50 Millionen Euro und zugleich eine Jahresbilanzsumme von über 43 Millionen Euro haben (Umsetzung von Artikel 3 Abs. 1 NIS-2-Richtlinie). Geprüft wird also in zwei Schritten: Gehört Ihre Tätigkeit zu einem Anlage-1-Sektor, und überschreiten Sie beide Finanzschwellen kumulativ? Bei der Berechnung sind verbundene und Partnerunternehmen nach Empfehlung 2003/361/EG einzubeziehen. Sind beide Schwellen überschritten, zählen Sie zu den besonders wichtigen Einrichtungen, ohne dass es auf die Beschäftigtenzahl ankommt."
+        },
+        "q7": {
+          "q": "Auf welcher Grundlage basieren die Schwellenwerte für Mitarbeiterzahl, Jahresumsatz und Jahresbilanzsumme, die zur Einstufung von Unternehmensklassen in Artikel 2 Absatz 1 der NIS-2-Richtlinie herangezogen werden, insbesondere im Hinblick auf den Verweis auf Artikel 2 des Anhangs der Empfehlung 2003/361/EG?",
+          "a": "Die NIS-2-Richtlinie definiert die Größenklassen nicht selbst, sondern verweist auf die EU-Definition für kleine und mittlere Unternehmen in Artikel 2 des Anhangs der Empfehlung 2003/361/EG. Danach gilt: ein mittleres Unternehmen hat weniger als 250 Beschäftigte und entweder höchstens 50 Millionen Euro Jahresumsatz oder höchstens 43 Millionen Euro Jahresbilanzsumme; ein kleines Unternehmen liegt unter 50 Beschäftigten und höchstens 10 Millionen Euro bei beiden Werten. NIS 2 erfasst grundsätzlich Unternehmen ab der mittleren Größe, also ab 50 Beschäftigten oder über 10 Millionen Euro bei Umsatz und Bilanzsumme. Bei der Berechnung gelten die Verbund- und Partnerregeln der Empfehlung, mit Ausnahme von Artikel 3 Abs. 4 ihres Anhangs."
+        },
+        "q8": {
+          "q": "Bezieht sich die Anzahl der Beschäftigten sowie die Höhe des Umsatzvolumens auf einen einzelnen (Filial-) Betrieb oder unter Umständen auf das gesamte Unternehmen?",
+          "a": "Maßgeblich ist das gesamte Unternehmen, nicht die einzelne Filiale oder Betriebsstätte. Beschäftigtenzahl, Umsatz und Bilanzsumme werden auf Ebene der rechtlichen Einheit ermittelt, einschließlich der nach Empfehlung 2003/361/EG zu berücksichtigenden Partner- und verbundenen Unternehmen (§ 28 Abs. 4 BSIG). Eine Filiale ist also nicht für sich allein zu betrachten, sondern als Teil des Ganzen. Etwas anderes kann nur gelten, wenn ein Betriebsteil bei IT-Systemen, Komponenten und Prozessen nachweislich vollständig eigenständig arbeitet."
+        },
+        "q9": {
+          "q": "Sind Verbundene Unternehmen, die nicht in Deutschland beziehungsweise nicht in der EU tätig sind, bei der Berechnung der Size-Cap-Kennzahlen einzubeziehen?",
+          "a": "Ja. Bei der Berechnung der Schwellenwerte sind Partner- und verbundene Unternehmen nach Empfehlung 2003/361/EG vollständig einzubeziehen, unabhängig davon, ob sie in Deutschland, in einem anderen EU-Mitgliedstaat oder außerhalb der EU sitzen (§ 28 Abs. 4 BSIG in Verbindung mit der Empfehlung). Beschäftigte, Umsatz und Bilanzsumme der verbundenen Gesellschaften werden also weltweit anteilig oder vollständig hinzugerechnet. Die geografische Lage eines Mutter- oder Schwesterunternehmens ändert nichts an seiner Einbeziehung. Ob Ihr Unternehmen dann tatsächlich der deutschen Aufsicht unterliegt, richtet sich getrennt davon nach der Niederlassungsfrage (Artikel 26 NIS-2-Richtlinie)."
+        },
+        "q10": {
+          "q": "Wenn ein Mutter- und Tochterunternehmen mit gemeinsamer IT jeweils einer der erfassten Einrichtungsarten zuzuordnen sind und (gemeinsam) die Size-Cap-Rule erfüllen, werden dann beide Unternehmen erfasst, oder reicht es, wenn die Anforderungen durch den Mutterkonzern erfüllt werden?",
+          "a": "Beide werden erfasst. NIS 2 knüpft an die einzelne rechtliche Einheit an: Sind Mutter und Tochter jeweils einem erfassten Sektor zuzuordnen und erreichen die Schwellenwerte, ist jede für sich eine Einrichtung mit eigenen Pflichten nach den §§ 30 ff. BSIG. Eine gemeinsam genutzte IT ändert daran nichts und befreit die Tochter nicht. In der Praxis dürfen Risikomanagement, Meldewesen und Nachweise zentral organisiert und geteilt werden, die rechtliche Verantwortung bleibt aber bei jeder Einrichtung getrennt bestehen. Registrierung und Erfüllung sind also für jede betroffene Gesellschaft eigenständig sicherzustellen."
+        },
+        "q11": {
+          "q": "An wen kann man sich wenden, wenn trotz der Betroffenheitsprüfung des BSI weiterhin Fragen zur Betroffenheit im konkreten Einzelfall bestehen?",
+          "a": "Das BSI gibt für die grundsätzliche Einordnung einen Online-Selbsttest (Betroffenheitsprüfung) heraus, führt aber keine rechtsverbindliche Einzelfallberatung durch und erlässt keine Feststellungsbescheide. Bleiben nach dem Selbsttest Zweifel, ist eine rechtliche Prüfung des konkreten Einzelfalls der saubere Weg, etwa durch auf NIS 2 spezialisierte Anwälte oder Berater. Dokumentieren Sie Ihre Einstufung und die zugrunde gelegten Zahlen nachvollziehbar, denn die Selbsteinstufung müssen Sie im Zweifel selbst begründen können. Wie Sie diese Einstufung sauber festhalten, zeigt die Wiki-Seite zur [Selbsteinstufung](/wiki/anwendungsbereich/nis2-selbsteinstufung)."
+        },
+        "q12": {
+          "q": "Ich möchte eine Ausnahme von NIS-2 beantragen. Geht das?",
+          "a": "Nein. Es gibt kein antragsgebundenes Verfahren, mit dem eine Einrichtung sich von NIS 2 befreien lassen kann. Die wenigen Ausnahmen sind im Gesetz selbst angelegt (§ 37 BSIG, gestützt auf Artikel 2 NIS-2-Richtlinie) und liegen ausschließlich in der Initiative der dort genannten Bundesbehörden, etwa für bestimmte Tätigkeiten im Bereich der nationalen Sicherheit, Verteidigung oder Strafverfolgung. Das BSI kann solche Ausnahmen weder beantragen noch gewähren. Wenn Sie meinen, nicht betroffen zu sein, ist der richtige Weg daher nicht ein Antrag, sondern eine saubere, dokumentierte Selbsteinstufung, die belegt, dass Sektor oder Größenschwellen nicht erfüllt sind."
+        },
+        "q13": {
+          "q": "Besonders wichtige und wichtige Einrichtungen haben gemäß des NIS-2-Umsetzungsgesetzes u.a. ihre öffentlichen IP-Adressbereiche zu übermitteln. Welche Angaben müssen hier getätigt werden?",
+          "a": "Bei der Registrierung verlangt Artikel 27 der NIS-2-Richtlinie (in Deutschland umgesetzt in § 33 BSIG) Name und Rechtsform, Anschrift, aktuelle Kontaktdaten, betroffener Sektor, Liste der Mitgliedstaaten mit Diensterbringung und eben die öffentlichen IP-Adressbereiche. Gemeint sind nur die statischen, öffentlich gerouteten Adressbereiche, unter denen Ihre Einrichtung von außen erreichbar ist oder kritische Systeme betreibt. Dynamische Adressen und IP-Bereiche, die Sie Ihren Endkunden zuweisen, gehören nicht dazu. Praktisch nennen Sie also Ihre eigenen registrierten Netze (oft als CIDR-Notation), nicht jede Einzeladresse. Ablauf und Fristen erklärt /wiki/anwendungsbereich/nis2-registrierung."
+        },
+        "q14": {
+          "q": "Wie werden digitale Dienste definiert?",
+          "a": "Die NIS-2-Richtlinie führt keinen eigenen Sammelbegriff \"digitaler Dienst\", sondern benennt in Artikel 6 drei konkrete Typen: Online-Marktplatz, Online-Suchmaschine und Plattform für Dienste sozialer Netzwerke. Jeder davon ist ein Dienst im Sinne der Richtlinie (EU) 2015/1535, also eine Leistung, die in der Regel gegen Entgelt, aus der Ferne, elektronisch und auf individuellen Abruf erbracht wird. Diese drei Anbieter zählen zum Sektor der digitalen Dienste in Anhang I der Richtlinie. Cloud-Computing, Rechenzentren, CDN und vergleichbare Leistungen sind eigene Kategorien der Digitalen Infrastruktur, nicht Teil dieser Definition. Prüfen Sie Ihren konkreten Fall über /wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test."
+        },
+        "q15": {
+          "q": "Welche Strategien sind notwendig, um evtl. divergente gesetzliche Anforderungen zur Umsetzung von NIS-2, wie sie beispielsweise in Deutschland und dem europäischen Ausland bestehen, in einem einheitlichen Informationssicherheits-Managementsystem (ISMS) rechtskonform zu integrieren und kontinuierlich zu gewährleisten?",
+          "a": "Bauen Sie Ihr ISMS auf der gemeinsamen EU-Grundlage auf: Die Pflichten aus Artikel 21 der NIS-2-Richtlinie und die technischen Mindestvorgaben der Durchführungsverordnung CIR 2024/2690 gelten in allen Mitgliedstaaten gleich und bilden den Kern. Auf diesen Kern legen Sie als Ebene die nationalen Besonderheiten der Länder, in denen Sie tätig sind, etwa abweichende Melderegeln oder zusätzliche Pflichten. Praktisch heißt das: ein Satz Maßnahmen und Nachweise, dazu ein Register, das je Land die Abweichung und die zuständige Behörde dokumentiert. Wo Länder unterschiedlich streng sind, erfüllen Sie konzernweit das jeweils höchste Niveau, dann sind Sie überall konform. Anerkannte Standards wie ISO 27001 oder der BSI IT-Grundschutz liefern das gemeinsame Gerüst dafür."
+        },
+        "q16": {
+          "q": "Was ist mit „Stand der Technik\" gemeint? Gibt es dazu eine Definition?",
+          "a": "Eine feste Legaldefinition gibt es nicht, und das ist beabsichtigt: Der Stand der Technik beschreibt das, was an wirksamen Sicherheitsmaßnahmen aktuell etabliert und praxisbewährt ist, und entwickelt sich mit. Artikel 21 Absatz 1 der NIS-2-Richtlinie (in Deutschland § 30 BSIG) verlangt, dass Sie ihn berücksichtigen und dabei die einschlägigen europäischen und internationalen Normen heranziehen. Maßstab sind also anerkannte Werke wie ISO/IEC 27001, der BSI IT-Grundschutz oder ENISA-Leitfäden, nicht das jeweils Neueste am Markt. Die Maßnahmen müssen zudem verhältnismäßig sein: Risikolage, Größe der Einrichtung und Umsetzungskosten fließen ein. Sie orientieren sich an aktuellen Standards und dokumentieren, warum Ihre Wahl zum Risiko passt."
+        },
+        "q17": {
+          "q": "Fragen zur Einordnung von Konzernunternehmen und deren erbrachten IT-Diensten im Zusammenhang mit der Klassifizierung als Managed Service Provider (MSP)",
+          "a": "Ein verwalteter Dienst (Managed Service) liegt nach Artikel 6 Nummer 39 der NIS-2-Richtlinie vor, wenn ein Anbieter IT-Systeme oder Anwendungen für einen anderen installiert, betreibt, verwaltet oder wartet und dabei die operative Verantwortung trägt. Entscheidend ist diese operative Verantwortung, nicht die Konzernzugehörigkeit. Eine zentrale IT-Gesellschaft, die für Schwesterfirmen Systeme aktiv administriert, kann daher selbst als MSP gelten und eigenständig in den Anwendungsbereich fallen. Eine reine Holding, die nur die geschäftliche Steuerung übernimmt, ohne fremde Systeme operativ zu betreiben, ist dagegen kein MSP. Prüfen Sie pro Konzerngesellschaft getrennt, wer welche Dienste tatsächlich betreibt: /wiki/anwendungsbereich/bin-ich-msp-managed-service-provider."
+        },
+        "q18": {
+          "q": "Sind Unternehmen, die gemäß alter Rechtslage (BSIG vor dem 6.12.2025 in Kombination mit der BSI-KritisV) kritische Anlagen betreiben und Ihren Hauptsitz im Ausland haben, auch nach dem Inkrafttreten des BSIG (neue Fassung) weiterhin KRITIS-Betreiber?",
+          "a": "Ja. Für KRITIS-Betreiber zählt, wo die kritische Anlage steht und in Deutschland Versorgungsdienstleistungen erbringt, nicht wo der Konzernhauptsitz liegt. Wer eine Anlage betreibt, die in Deutschland die Schwellenwerte der KRITIS-Verordnung erreicht, bleibt daher auch unter dem neuen BSIG KRITIS-Betreiber, ungeachtet eines Sitzes im Ausland. Anders ist die Lage nur bei bestimmten grenzüberschreitenden Diensten (etwa Teilen der Digitalen Infrastruktur), für die Artikel 26 der NIS-2-Richtlinie eine eigene Zuständigkeitsregel kennt. Mehr zur Sitzfrage unter /wiki/anwendungsbereich/nis2-hauptsitz-ausserhalb-eu."
+        },
+        "q19": {
+          "q": "Ich betreibe privat einen DNS-Server. Muss ich mich im BSI-Portal registrieren und Meldungen abgeben?",
+          "a": "Nein. Die NIS-2-Richtlinie adressiert Einrichtungen, die einen erfassten Dienst wirtschaftlich anbieten, nicht private Hobbybetreiber. Reguliert sind im Sektor Digitale Infrastruktur DNS-Diensteanbieter und TLD-Namensregister, die diese Dienste als Organisation für Dritte erbringen (Artikel 3 und Anhang I der Richtlinie). Ein privat betriebener DNS-Server ohne geschäftliche Diensterbringung fällt nicht darunter, also keine Registrierung und keine Meldepflichten. Sobald daraus ein angebotener Dienst für Dritte wird, ändert sich die Einordnung."
+        },
+        "q20": {
+          "q": "Ist ein Unternehmen, das zwar grundsätzlich von NIS-2 betroffen ist, aber kurzfristig liquidiert wird und keinen nennenswerten Geschäftsbetrieb mehr ausübt, weiterhin als wichtige bzw. besonders wichtige Einrichtung einzuordnen?",
+          "a": "Solange das Unternehmen rechtlich besteht und den erfassten Dienst noch erbringt, bleibt es eine wichtige oder besonders wichtige Einrichtung, auch in der Liquidation. Die Einstufung nach Artikel 3 der NIS-2-Richtlinie knüpft an die tatsächliche Tätigkeit an, nicht an die Absicht aufzuhören. Stellt die Einrichtung den erfassten Geschäftsbetrieb dauerhaft ein, entfällt die Voraussetzung und damit die Betroffenheit, bis dahin gelten die Pflichten weiter. Ein bloß angekündigter, aber noch nicht vollzogener Wegfall des Betriebs reicht nicht. Solange die schützenswerten Systeme laufen, bleiben Registrierung und Risikomanagement fällig."
+        },
+        "q21": {
+          "q": "Sind eigenständig angebotene SaaS-Dienste als Cloud-Computing-Dienste im Sinne des BSIG einzuordnen, wenn sie auf der Infrastruktur externer Cloud-Anbieter betrieben werden und der SaaS-Anbieter die Rechenressourcen nicht selbst betreibt?",
+          "a": "Maßgeblich ist die Definition des Cloud-Computing-Dienstes in Artikel 6 Nummer 30 der NIS-2-Richtlinie: ein Dienst, der bedarfsgesteuerte Verwaltung und breiten Fernzugriff auf einen skalierbaren, elastischen Pool gemeinsam nutzbarer Rechenressourcen ermöglicht. Entscheidend ist, was Sie nach außen anbieten, nicht ob die darunterliegende Hardware Ihnen gehört. Ein SaaS-Angebot kann diese Merkmale erfüllen, auch wenn es auf fremder Infrastruktur läuft. Bietet Ihr SaaS dagegen eine fest umrissene Fachanwendung ohne diese Cloud-Charakteristik, ist es kein Cloud-Computing-Dienst im Sinne der Richtlinie. Prüfen Sie die konkreten Merkmale unter /wiki/anwendungsbereich/bin-ich-cloud-anbieter-nis2."
+        },
+        "q22": {
+          "q": "Ist die für MSP maßgebliche Abgrenzung zwischen geschäftlicher und operativer Verantwortung auch auf andere Dienste des Sektors Digitale Infrastruktur (oder weiterer BSIG-Sektoren) übertragbar?",
+          "a": "Die Unterscheidung zwischen geschäftlicher und operativer Verantwortung ist ein nützlicher Prüfgedanke, ersetzt aber nicht die jeweils eigene Legaldefinition. Für jeden Diensttyp gilt zunächst der Wortlaut von Artikel 6 der NIS-2-Richtlinie, etwa für Cloud-Computing-Dienst, Rechenzentrumsdienst oder DNS-Diensteanbieter. Bei vielen dieser Dienste fällt die Einordnung dem zu, der den Dienst tatsächlich erbringt und betreibt, also die operative Verantwortung trägt. Die reine geschäftliche oder vertragliche Verantwortung ohne eigenen Betrieb begründet die Einrichtungsrolle in der Regel nicht. Wenden Sie das Kriterium daher pro Diensttyp anhand der dortigen Definition an, nicht als pauschale Regel."
+        },
+        "q23": {
+          "q": "Falle ich unter die Definition eines Vertrauensdiensteanbieters?",
+          "a": "Vertrauensdiensteanbieter sind in Artikel 3 der eIDAS-Verordnung (EU) Nr. 910/2014 definiert: Anbieter elektronischer Vertrauensdienste wie elektronische Signaturen und Siegel, Zeitstempel, Einschreibe-Zustelldienste oder Zertifikate für die Website-Authentifizierung. Bieten Sie einen solchen Dienst geschäftlich an, fallen Sie unter diese Definition und damit in den NIS-2-Anwendungsbereich. Qualifizierte Vertrauensdiensteanbieter gelten dabei als besonders wichtige Einrichtungen, unabhängig von ihrer Größe. Wer Signaturen oder Zertifikate nur intern nutzt, ohne sie als Dienst anzubieten, ist kein Vertrauensdiensteanbieter. Eine Detailprüfung finden Sie unter /wiki/anwendungsbereich/bin-ich-vertrauensdiensteanbieter-nis2."
+        },
+        "q24": {
+          "q": "Fällt im Sektor „Produktion, Herstellung und Handel mit chemischen Stoffen\" bezüglich des „Handels mit chemischen Stoffen\" jeglicher Handel mit Endprodukten, die aus chemischen Stoffen bestehen, in den Anwendungsbereich?",
+          "a": "Nein, nicht jeder Handel mit chemiehaltigen Produkten. Anhang II der NIS-2-Richtlinie erfasst Herstellung und Handel mit chemischen Stoffen und Gemischen sowie die Erzeugung von Erzeugnissen aus diesen Stoffen, jeweils im Sinne der REACH-Verordnung (EG) Nr. 1907/2006. Gemeint sind also Stoffe und Gemische als solche, nicht jedes Endprodukt, das irgendwann einmal aus Chemikalien gefertigt wurde. Wer mit fertigen Erzeugnissen handelt (etwa Möbeln oder Elektronik), betreibt keinen Handel mit chemischen Stoffen in diesem Sinne. Zusätzlich müssen die Größenkriterien erfüllt sein, damit Betroffenheit entsteht."
+        },
+        "q25": {
+          "q": "Wie bestimme ich den NACE-Code meines Unternehmens?",
+          "a": "Den NACE-Code (in Deutschland als WZ-Code, derzeit WZ 2025, abgebildet) bestimmen Sie nach Ihrer wirtschaftlichen Haupttätigkeit, also der Tätigkeit, mit der Sie den größten Wertschöpfungs- oder Umsatzanteil erzielen. Anhaltspunkte sind Ihr Gewerberegister- oder Handelsregistereintrag und der Code, den das Statistische Bundesamt oder Ihre IHK führt. Übt Ihr Unternehmen mehrere Tätigkeiten aus, ordnen Sie jede der passenden Klasse zu und prüfen jede einzeln auf Betroffenheit. Den Code finden Sie auch über die Klassifikationsdatenbank des Statistischen Bundesamts. Maßgeblich für NIS 2 ist, was Sie tatsächlich tun, nicht allein der eingetragene Code."
+        },
+        "q26": {
+          "q": "Welche Rolle spielen NACE-Codes bei der Feststellung der Betroffenheit?",
+          "a": "NACE-Codes sind eine Orientierungshilfe, aber nicht das rechtliche Kriterium. Ob Sie betroffen sind, richtet sich nach den Sektoren und Einrichtungsarten in den Anhängen I und II der NIS-2-Richtlinie zusammen mit den Größenschwellen, nicht nach der bloßen Code-Zuordnung. Der NACE- oder WZ-Code hilft Ihnen, Ihre Tätigkeit einem dieser Sektoren zuzuordnen, ersetzt aber die inhaltliche Prüfung nicht. Es kann vorkommen, dass ein Code grob passt, die Tätigkeit aber nicht unter die gesetzliche Definition fällt, und umgekehrt. Maßgeblich bleibt Ihre tatsächliche Tätigkeit gemessen an der Definition: Den vollständigen Test finden Sie unter /wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test."
+        }
+      },
+      "duties": {
+        "q1": {
+          "q": "Müssen die Unternehmen einen Krisenstab zur Bewältigung von Vorfällen einrichten?",
+          "a": "Nein, ein formaler Krisenstab ist gesetzlich nicht vorgeschrieben. Artikel 21(2)(c) der NIS-2-Richtlinie (umgesetzt in § 30 BSIG) verlangt Maßnahmen zur Aufrechterhaltung des Betriebs und zum Krisenmanagement, lässt aber offen, wie Sie das organisieren. Entscheidend ist, dass Verantwortlichkeiten, Erreichbarkeit und Abläufe für den Ernstfall festgelegt und geprobt sind. Bei einem Zweipersonenbetrieb kann das eine kurze Handlungsanweisung sein, in größeren Häusern ein benannter Stab. Maßstab ist die Verhältnismäßigkeit nach Artikel 21(1)."
+        },
+        "q2": {
+          "q": "Bezieht sich die nach dem NIS-2-Umsetzungsgesetz geforderte Risikoanalyse auf das gesamte Unternehmen oder speziell auf Cyberbedrohungen und deren Auswirkungen auf die IT-Systeme?",
+          "a": "Sie bezieht sich auf die Risiken für Ihre Netz- und Informationssysteme, nicht auf eine allgemeine Unternehmensrisikoanalyse. Artikel 21(2)(a) der NIS-2-Richtlinie (§ 30 BSIG) nennt ausdrücklich Konzepte für die Risikoanalyse und die Sicherheit der Informationssysteme. Gemeint sind also die Systeme, mit denen Sie Informationen verarbeiten, speichern oder übertragen, und die Bedrohungen, die deren Verfügbarkeit, Integrität und Vertraulichkeit gefährden. Der Umfang ist nicht starr: Er richtet sich nach dem tatsächlichen Risiko und der Bedeutung der Systeme für Ihren Betrieb (Artikel 21(1))."
+        },
+        "q3": {
+          "q": "Mein Unternehmen erfüllt die Kriterien, um als besonders wichtige Einrichtung (essential entities) oder KRITIS-Betreiber oder wichtige Einrichtung (important entities) zu gelten. Welche Pflichten sind zu erfüllen?",
+          "a": "Drei Pflichtenblöcke gelten für beide Kategorien gleich. Erstens Registrierung beim BSI mit Kontaktdaten (Artikel 27, § 33 BSIG). Zweitens Risikomanagementmaßnahmen aus dem Katalog des Artikels 21(2) (§ 30 BSIG), von Risikoanalyse über Vorfallsbehandlung und Lieferkette bis Kryptografie und Zugriffskontrolle. Drittens die gestufte Meldung erheblicher Sicherheitsvorfälle nach Artikel 23 (§ 32 BSIG): Erstmeldung binnen 24 Stunden, Bestätigung binnen 72 Stunden, Abschlussbericht nach einem Monat. Der Unterschied liegt in der Aufsicht: Besonders wichtige Einrichtungen werden proaktiv beaufsichtigt, wichtige Einrichtungen anlassbezogen. Den vollständigen Einstufungstest finden Sie unter [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+        },
+        "q4": {
+          "q": "Ab wann gelten die Verpflichtungen des BSIG / NIS-2-Umsetzungsgesetzes?",
+          "a": "Die Pflichten gelten unmittelbar mit Inkrafttreten der deutschen Umsetzung. Das NIS-2-Umsetzungsgesetz wurde am 5. Dezember 2025 verkündet und ist am 6. Dezember 2025 in Kraft getreten. Risikomanagement und Meldepflichten greifen damit ab diesem Zeitpunkt; eine separate Schonfrist für die inhaltlichen Maßnahmen ist nicht vorgesehen. Lediglich für die Registrierung läuft eine eigene Frist (§ 33 BSIG), siehe [Registrierung](/wiki/anwendungsbereich/nis2-registrierung)."
+        },
+        "q5": {
+          "q": "Wird es eine Übergangsfrist geben?",
+          "a": "Für die inhaltlichen Sicherheitspflichten gibt es keine allgemeine Übergangsfrist. Wer in den Anwendungsbereich fällt, muss die Maßnahmen nach Artikel 21 (§ 30 BSIG) ab Geltung erfüllen. Zeitlich gestaffelt ist nur die Registrierung: Sie ist innerhalb von drei Monaten ab dem Zeitpunkt vorzunehmen, ab dem Sie als Einrichtung gelten (§ 33 BSIG). KRITIS-Betreiber, deren bestehende Nachweisfrist innerhalb der ersten zwölf Monate nach Inkrafttreten lag, können wahlweise ihren ursprünglichen Termin nutzen."
+        },
+        "q6": {
+          "q": "Welche Anforderungen werden an die Erreichbarkeit von wichtigen und besonders wichtigen Einrichtungen gestellt?",
+          "a": "Sie müssen dem BSI eine erreichbare Kontaktstelle benennen, in der Regel Telefonnummer und E-Mail-Adresse, und diese Angaben aktuell halten (Artikel 27, § 33 BSIG). Über diesen Kanal stellt das BSI Vorfallsmeldungen, Warnungen und Rückfragen zu. Das Gesetz schreibt keine bestimmte Qualifikation der dahinterstehenden Personen vor. Wichtig ist nur, dass die Stelle tatsächlich erreichbar ist und Meldungen zeitnah bearbeitet werden können, damit die 24-Stunden-Erstmeldung nach Artikel 23 funktioniert. Für KRITIS-Betreiber gelten zusätzlich strengere Vorgaben zur Verfügbarkeit."
+        },
+        "q7": {
+          "q": "Wir haben unsere IT vollständig an externe Dienstleister vergeben. Welche Pflichten müssen wir als wichtige Einrichtung dann überhaupt noch wahrnehmen?",
+          "a": "Sie können den Betrieb auslagern, nicht aber die Verantwortung. Adressat der Pflichten aus § 30 BSIG bleibt Ihre Einrichtung, nicht der Dienstleister. Konkret heißt das: Sie müssen die Sicherheit der Lieferkette steuern (Artikel 21(2)(d)), also vertraglich sicherstellen, dass Ihr Dienstleister angemessene Maßnahmen umsetzt und Vorfälle an Sie meldet. Die Registrierung, die Meldung erheblicher Vorfälle nach Artikel 23 und die Billigung und Überwachung der Maßnahmen durch die Geschäftsleitung (Artikel 20, § 38 BSIG) bleiben bei Ihnen. Mehr dazu unter [Bin ich MSP-Kunde](/wiki/anwendungsbereich/bin-ich-msp-managed-service-provider)."
+        },
+        "q8": {
+          "q": "Ab wann zählt die Photovoltaik-Anlage auf dem Dach des Unternehmens als kritische Infrastruktur?",
+          "a": "Eine Aufdachanlage zur Eigenversorgung ist in aller Regel keine kritische Infrastruktur. KRITIS-Status entsteht erst, wenn eine Stromerzeugungsanlage den Schwellenwert der BSI-KritisV erreicht, derzeit 104 Megawatt installierte Netto-Nennleistung (Anhang 1, Sektor Energie). Maßgeblich ist die Einspeisung in die allgemeine Versorgung, nicht der Eigenverbrauch. Die Einstufung als kritische Anlage greift zudem erst zum 1. April des Jahres, das auf das erstmalige Erreichen des Schwellenwerts folgt. Eine typische Dachanlage liegt um Größenordnungen darunter."
+        },
+        "q9": {
+          "q": "Müssen Unternehmen das Einhalten der Vorgaben nachweisen?",
+          "a": "Ja, Sie müssen die Umsetzung belegen können, aber die Nachweisform unterscheidet sich nach Kategorie. Besonders wichtige und wichtige Einrichtungen unterliegen der Aufsicht des BSI (Artikel 32 und 33, §§ 61 ff. BSIG): Das BSI kann Auskünfte, Unterlagen und Prüfungen verlangen, eine regelmäßige Pflichtzertifizierung ist für sie aber nicht vorgeschrieben. Sie sollten Konzepte, Maßnahmen und Vorfallsbearbeitung also so dokumentieren, dass Sie sie auf Anforderung vorlegen können. Eine turnusmäßige Nachweispflicht im engeren Sinn trifft nur KRITIS-Betreiber."
+        },
+        "q10": {
+          "q": "Ich bin KRITIS-Betreiber. Wann muss ich meine Nachweisunterlagen gemäß BSIG / NIS-2-Umsetzungsgesetz einreichen?",
+          "a": "KRITIS-Betreiber weisen die Erfüllung der Anforderungen alle drei Jahre gegenüber dem BSI nach (§ 39 BSIG); der Prüfzyklus wurde von zwei auf drei Jahre verlängert. Das BSI hat den registrierten Betreibern ihre neuen Einreichungstermine individuell mitgeteilt. Lag Ihr bisheriger Termin innerhalb der ersten zwölf Monate nach Inkrafttreten, dürfen Sie wahlweise den ursprünglichen Termin nutzen. Maßgeblich ist immer das Ihnen konkret genannte Datum, nicht ein pauschaler Stichtag."
         }
       },
       "frameworks": {
         "q1": {
-          "q": "Was ist der Unterschied zwischen NIS2 und KRITIS?",
-          "a": "NIS2 ersetzt KRITIS nicht, sondern erweitert es dramatisch. KRITIS umfasste rund 2.000 Betreiber mit hohen Schwellenwerten (z. B. 500.000 versorgte Personen). NIS2 umfasst etwa 30.000 Einrichtungen mit deutlich niedrigeren Schwellenwerten (ab 50 Mitarbeiter). NIS2 fügt sieben neue Sektoren hinzu, persönliche Geschäftsführerhaftung (§38 BSIG), verpflichtende BSI-Registrierung, strukturierte Meldepflichten (24h/72h/1 Monat) und deutlich höhere Bußgelder (bis 10 Mio. € vs. 100.000 €). KRITIS-Betreiber werden automatisch als wesentliche Einrichtungen unter NIS2 eingestuft."
+          "q": "Wie kann ich nachweisen, dass mein Unternehmen die geforderten Maßnahmen umsetzt?",
+          "a": "Den Nachweis führen Sie über Ihre eigene Dokumentation: das Risikomanagement, die getroffenen technischen und organisatorischen Maßnahmen sowie die Belege, dass diese wirksam sind (Richtlinien, Konfigurationen, Auditberichte, Schulungsnachweise). Maßgeblich ist Artikel 21 der NIS-2-Richtlinie (EU) 2022/2555, in Deutschland umgesetzt in § 30 BSIG; die CIR (EU) 2024/2690 konkretisiert die Maßnahmen für bestimmte Einrichtungstypen. Ein extern ausgestelltes Zertifikat kann diese Dokumentation stützen, ersetzt sie aber nicht: entscheidend ist, dass Ihre Unterlagen die konkreten gesetzlichen Anforderungen abdecken. Eine Vorlagepflicht gegenüber dem BSI entsteht erst, wenn das BSI eine Prüfung anordnet (§ 61 BSIG) oder Sie als Betreiber kritischer Anlagen unter die regelmäßige Nachweispflicht fallen (§ 39 BSIG)."
         },
         "q2": {
-          "q": "Bedeutet eine ISO-27001-Zertifizierung, dass ich NIS2-konform bin?",
-          "a": "Nein. ISO 27001 deckt einen Großteil der technischen Maßnahmenbereiche von NIS2 ab (vgl. ENISA TIG-Mapping, August 2025), verfehlt aber die regulatorisch-prozeduralen Pflichten: BSI-Registrierung (§ 33 BSIG), Meldefristen (24h/72h/1 Monat nach § 32 BSIG), persönliche Geschäftsführerhaftung (§ 38 BSIG), die Lieferkettensorgfalt nach Art. 21 Abs. 2 Buchst. d NIS-2 und den gesetzlichen Bußgeldrahmen (§ 65 BSIG). ISO 27001 ist ein freiwilliger Managementstandard; NIS2 ist eine gesetzliche Verpflichtung mit behördlicher Berichterstattung und persönlicher Haftung. Ihre ISO-Zertifizierung ist eine starke Grundlage, aber Sie benötigen Lückenschließung für die NIS2-spezifischen regulatorischen Anforderungen."
+          "q": "Ist der BSI-IT-Grundschutz verpflichtend für alle von NIS-2 betroffenen Einrichtungen?",
+          "a": "Nein. Artikel 21 der NIS-2-Richtlinie und § 30 BSIG schreiben kein bestimmtes Verfahren vor, sondern verlangen geeignete, verhältnismäßige und wirksame Maßnahmen nach dem Stand der Technik. IT-Grundschutz ist die vom BSI veröffentlichte Methodik, mit der sich diese Anforderungen sauber erfüllen lassen, und Prüfstellen akzeptieren sie. Sie können die Pflichten ebenso über ISO 27001 oder ein anderes anerkanntes ISMS erfüllen, solange die Maßnahmen Ihre konkreten Risiken abdecken. Wichtig ist nicht der Name des Standards, sondern dass die in § 30 genannten Punkte tatsächlich umgesetzt und belegt sind."
         },
         "q3": {
-          "q": "Was ist IT-Grundschutz und warum ist er für NIS2 wichtig?",
-          "a": "IT-Grundschutz ist die Cybersicherheitsmethodik des BSI, ein umfassendes Framework mit schrittweiser Umsetzungsanleitung. § 44 Abs. 2 BSIG erkennt die Grundschutz-Implementierung ausdrücklich als Nachweis der NIS2-Compliance an. Das ist ein legaler Vorteil: Das BSI veröffentlicht sowohl den Grundschutz als auch die NIS2-Durchsetzung, sodass Sie gegen einen Standard geprüft werden, den der Auditor genau kennt. Grundschutz deckt alle Maßnahmenbereiche der CIR 2024/2690 ab und geht durch seine Bausteine prescriptiv darüber hinaus, womit er für NIS2-Zwecke detaillierter ist als ISO 27001."
+          "q": "Ist neben der ISO 27001 und BSI-Grundschutz auch eine Unternehmenszertifizierung nach VDS 10000 ausreichend um die Anforderungen des NIS-2-Umsetzungsgesetzes zu erfüllen?",
+          "a": "VdS 10000 kann ein sinnvoller Einstieg sein, deckt aber für sich genommen nicht automatisch alle Anforderungen aus § 30 BSIG und Artikel 21 der NIS-2-Richtlinie ab. Kein Zertifikat, auch nicht ISO 27001 oder IT-Grundschutz, ist ein pauschaler Konformitätsnachweis: maßgeblich bleibt, ob Ihre Maßnahmen die gesetzlich geforderten Bereiche vollständig und risikogerecht abdecken. Nutzen Sie VdS 10000 also als einen Baustein Ihres Risikomanagements und gleichen Sie konkret gegen die Anforderungen des § 30 ab, um etwaige Lücken (etwa bei Lieferkette oder Meldewesen) zu schließen."
         },
         "q4": {
-          "q": "Was ist die CIR 2024/2690 und wie hängt sie mit NIS2 zusammen?",
-          "a": "Die CIR 2024/2690 ist die EU-Durchführungsverordnung vom 17. Oktober 2024, die die genauen technischen und methodischen Anforderungen für die NIS2-Compliance festlegt. Anders als die NIS2-Richtlinie gilt sie direkt in allen EU-Mitgliedstaaten, jedoch nur für 11 spezifische digitale Einrichtungstypen (DNS-Anbieter, TLD-Registries, Cloud, Rechenzentren, CDN, MSP, MSSP, Online-Marktplätze, Suchmaschinen, Social-Media-Plattformen, qualifizierte Vertrauensdiensteanbieter). Für alle anderen NIS2-Sektoren ist die CIR nicht unmittelbar bindend, dient aber als detailliertester Referenzstandard. In Deutschland verpflichtet § 30 BSIG unabhängig davon alle NIS2-erfassten Sektoren zu denselben 10 Maßnahmen (Art. 21 Abs. 2 NIS-2-Richtlinie), sodass die CIR-Inhalte de facto Maßstab werden."
-        }
-      },
-      "liability": {
-        "q1": {
-          "q": "Welche drei Pflichten hat die Geschäftsführung nach §38 BSIG?",
-          "a": "§38 BSIG definiert drei persönliche Pflichten für die Geschäftsleitung, die nicht delegiert werden können: (1) Billigung, formelle Genehmigung der Cybersicherheits-Risikomanagementmaßnahmen mit dokumentierter, nachverfolgbarer Freigabe. (2) Überwachung, aktive Kontrolle der Umsetzung durch regelmäßige Statusüberprüfungen, nicht passive Kenntnisnahme. (3) Schulung, persönliche Teilnahme an Cybersicherheitsschulungen, um ausreichende Kenntnisse zur Risikobewertung zu entwickeln. Das Versäumnis einer einzelnen dieser Pflichten begründet persönliche Haftung, selbst wenn das Unternehmen angemessene Maßnahmen umgesetzt hat."
-        },
-        "q2": {
-          "q": "Kann ich die NIS2-Verantwortung an meine IT-Abteilung delegieren?",
-          "a": "Sie können die Ausführung delegieren, aber nicht die Verantwortung. §38 BSIG benennt ausdrücklich Geschäftsleiter, nicht IT-Manager, CISOs oder externe Berater. Sie müssen persönlich Maßnahmen genehmigen, deren Umsetzung überwachen und Cybersicherheitsschulungen absolvieren. Ihr IT-Team setzt um; Sie genehmigen und überwachen. Die Behauptung, alles an die IT delegiert zu haben, ist keine Verteidigung, sondern der Beweis einer Überwachungspflichtverletzung."
-        },
-        "q3": {
-          "q": "Deckt eine D&O-Versicherung die NIS2-Haftung ab?",
-          "a": "Die meisten D&O-Policen schließen Bußgelder und Verwaltungsstrafen aus. Ob solche Bußgelder nach deutschem Recht überhaupt versicherbar sind, ist umstritten: Der BGH hat für vorsätzliche Verwaltungsbußgelder die Versicherbarkeit verneint, für fahrlässig verwirkte Bußgelder und für Verteidigungskosten hängt die Deckung von der konkreten Police ab. Die zivilrechtliche Haftung nach § 38 BSIG (Schadensersatzansprüche des eigenen Unternehmens) ist häufiger gedeckt, abhängig von Policenbedingungen und Ausschlüssen. Versicherer können Leistungen ablehnen, wenn die Geschäftsleitung wissentlich gegen gesetzliche Pflichten verstoßen hat. Prüfen Sie Ihre Ausschlussklauseln, „Nichteinhaltung gesetzlicher Pflichten“ ist ein Standardausschluss in deutschen D&O-Policen. Gehen Sie nicht von Deckung aus, fordern Sie schriftliche Bestätigung an."
-        },
-        "q4": {
-          "q": "Können Gesellschafter die Geschäftsführerhaftung für NIS2 erlassen?",
-          "a": "Nein. §38(2) BSIG stellt ausdrücklich fest, dass Schadensersatzansprüche aus Verletzungen der §30 BSIG-Pflichten nicht von Gesellschaftern erlassen oder in einer zur finanziellen Lage des Unternehmens unverhältnismäßigen Weise verglichen werden können. Dies überlagert die normalen GmbHG §43-Regeln. Selbst in einer inhabergeführten GmbH, in der der Geschäftsführer gleichzeitig alleiniger Gesellschafter ist, besteht die Haftung. Im Insolvenzfall kann der Insolvenzverwalter auf Ihr Privatvermögen zugreifen."
+          "q": "Wenn eine ISO-27001-Zertifizierung nicht ausreichend ist, um die Anforderungen gemäß BSIG zu erfüllen, wie kann Kunden versichert werden, dass mein Unternehmen NIS-2-compliant ist? Muss dafür das gesamte ISMS offengelegt werden?",
+          "a": "Nein, Ihr vollständiges ISMS müssen Sie nicht offenlegen. Gegenüber Kunden weisen Sie die Erfüllung von Artikel 21 der NIS-2-Richtlinie und § 30 BSIG üblicherweise über gezielte Belege nach: ein ISO-27001-Zertifikat samt passendem Statement of Applicability, eine NIS-2-Konformitätserklärung, ausgefüllte Lieferantenfragebögen oder einzelne Auditzusammenfassungen. Wichtig ist, dass diese Belege die für die Geschäftsbeziehung relevanten Maßnahmen abbilden, nicht das gesamte interne Regelwerk. Eine förmliche Nachweispflicht gegenüber dem BSI besteht nur bei Betreibern kritischer Anlagen (§ 39 BSIG) oder auf Anordnung (§ 61 BSIG); gegenüber Kunden gilt, was Sie vertraglich vereinbaren."
         },
         "q5": {
-          "q": "Ich bin nicht technisch versiert. Kann ich wirklich für Cybersicherheit haftbar gemacht werden?",
-          "a": "Ja. §38(3) BSIG normiert die Schulungspflicht gerade, um diese Verteidigung auszuschließen. Das Gesetz unterstellt, dass die Geschäftsführung nach Absolvierung einer angemessenen Cybersicherheitsschulung über ausreichende Kenntnisse verfügt, um ihre Pflichten zu erfüllen. 'Ich verstehe nichts von Technik' ist keine Verteidigung, sondern der Beweis einer Schulungspflichtverletzung. Die Schulung verlangt nicht, dass Sie IT-Experte werden, aber Sie müssen das Risikoprofil Ihres Unternehmens und die getroffenen Maßnahmen verstehen."
+          "q": "Bestehen für die Beratung von Unternehmen und Einrichtungen im Rahmen von NIS-2 verpflichtende Vorgaben für eine Zertifizierung und wie verhält es sich bei der Durchführung von Prüfungen zur Erstellung von Nachweisen?",
+          "a": "Für die Beratung selbst nennen weder die NIS-2-Richtlinie noch das BSIG eine verpflichtende Zertifizierung: jeder darf beraten, eine Akkreditierung der Beratenden ist gesetzlich nicht gefordert. Anders bei förmlichen Nachweisprüfungen für Betreiber kritischer Anlagen nach § 39 BSIG: diese erfolgen über Sicherheitsaudits, Prüfungen oder Zertifizierungen alle drei Jahre, und das BSI legt hierfür die Anforderungen an prüfende Stellen fest. Ordnet das BSI bei anderen besonders wichtigen Einrichtungen eine Prüfung an (§ 61 BSIG), gelten dessen Vorgaben entsprechend. Achten Sie also auf die Qualifikation der prüfenden Stelle dort, wo das Gesetz eine formale Prüfung verlangt, nicht schon bei der reinen Beratung."
+        }
+      },
+      "supplychain": {
+        "q1": {
+          "q": "Kann die Anforderung gemäß § 30 Absatz 2 Nr. 4 BSIG bzgl. Sicherheit der Lieferkette durch die Forderung von Zertifikaten (ISO 27001, TISAX, etc.) von unmittelbaren Anbietern oder Diensteanbietern erfüllt werden?",
+          "a": "Nein, ein Zertifikat allein erfüllt die Anforderung nicht. Artikel 21 Absatz 2 Buchstabe d der NIS-2-Richtlinie, in Deutschland umgesetzt in § 30 Absatz 2 Nummer 4 BSIG, verlangt ein eigenes Konzept für die Sicherheit der Lieferkette: Sie müssen die Risiken jedes unmittelbaren Anbieters bewerten, Auswahlkriterien festlegen und das Ganze über die Vertragslaufzeit überwachen. Ein ISO-27001- oder TISAX-Nachweis ist dabei ein hilfreicher Baustein und kann die Bewertung erleichtern, ersetzt aber nicht Ihre eigene risikoorientierte Einschätzung, denn der Geltungsbereich (Scope) eines Zertifikats deckt oft nur Teile des Anbieters ab. Prüfen Sie also, was genau zertifiziert ist, und dokumentieren Sie, warum der Nachweis für die von Ihnen bezogene Leistung ausreicht."
+        },
+        "q2": {
+          "q": "Was raten Sie gemäß BSIG betroffenen Unternehmen, was sie von Software-Herstellern und -Dienstleistern einfordern sollen?",
+          "a": "Legen Sie konkrete, überprüfbare Sicherheitsanforderungen fest und schreiben Sie diese in die Verträge, statt sich auf allgemeine Zusagen zu verlassen. Sinnvoll sind: nachweisbare Belege des Herstellers zur Produktsicherheit (etwa Patchstrategie, Umgang mit Schwachstellen, Supportzeitraum), eine Meldepflicht des Anbieters bei Sicherheitsvorfällen, die Ihre eigene 24-Stunden-Frist nach Artikel 23 NIS-2 (§ 32 BSIG) absichert, sowie ein ausgefüllter, einheitlicher Lieferantenfragebogen. Für branchenweit abgestimmte Fragenkataloge und Mindestanforderungen verweist das BSI auf die Arbeit im UP KRITIS. Bei stark vernetzten Dienstleistern wie Managed-Service-Providern gelten zusätzliche Erwartungen (siehe ./bin-ich-msp-managed-service-provider)."
         }
       },
       "registration": {
         "q1": {
-          "q": "Wie registriere ich mein Unternehmen beim BSI für NIS2?",
-          "a": "Die Registrierung erfolgt in zwei Schritten: (1) Erstellen Sie ein Konto bei Mein Unternehmenskonto (MUK) unter mein-unternehmenskonto.de mit Ihrem ELSTER-Organisationszertifikat. (2) Melden Sie sich anschließend im BSI-Portal unter portal.bsi.bund.de an und füllen Sie das NIS2-Registrierungsformular aus, mit Unternehmensdaten, Sektorklassifizierung, Ansprechpartner für Cybersicherheit und IP-Adressbereichen. Der Prozess dauert 30 bis 60 Minuten, wenn Sie alles vorbereitet haben. Sie benötigen Ihr ELSTER-Zertifikat, die Handelsregisternummer und einen benannten Cybersicherheits-Ansprechpartner."
+          "q": "Wann ist eine Registrierung nach § 33 Abs. 1 BSIG im BSI-Portal möglich, wie erfolgt die Registrierung und wie läuft der Meldeprozess gemäß § 32 BSIG ab?",
+          "a": "Die Registrierung ist möglich, sobald Sie als betroffene Einrichtung gelten, und muss innerhalb von drei Monaten erfolgen, nachdem Sie erstmals oder erneut in den Anwendungsbereich fallen (NIS 2 Artikel 27, in Deutschland § 33 Abs. 1 BSIG). Der Ablauf ist zweistufig: zuerst legen Sie ein Konto bei Mein Unternehmenskonto (MUK) über das ELSTER Organisationszertifikat an, danach registrieren Sie die Einrichtung im BSI-Portal. Sicherheitsvorfälle melden Sie anschließend ebenfalls über das BSI-Portal nach dem dreistufigen Verfahren der Erst-, Folge- und Abschlussmeldung (NIS 2 Artikel 23, in Deutschland § 32 BSIG). Eine Schritt-für-Schritt-Anleitung finden Sie unter [Registrierung](/wiki/anwendungsbereich/nis2-registrierung)."
         },
         "q2": {
-          "q": "Ich habe die BSI-Registrierungsfrist verpasst. Ist es zu spät?",
-          "a": "Nein. Das Portal ist weiterhin geöffnet. Registrieren Sie sich sofort. Die Frist vom 6. März 2026 ist abgelaufen, aber ein erheblicher Teil der geschätzten 30.000 betroffenen Unternehmen hat sich noch nicht registriert. Das BSI hat signalisiert, dass es die Durchsetzung gegen Unternehmen priorisiert, die ihre Pflichten vollständig ignorieren, nicht gegen solche, die verspätet registriert sind, aber in gutem Glauben handeln. Das Bußgeld für Nichtregistrierung beträgt bis zu 500.000 €, aber das BSI berücksichtigt die Umstände."
+          "q": "Was unternimmt das BSI, um Unternehmen bzgl. noch ausstehender NIS-2-Registrierungen zu unterstützen?",
+          "a": "Das BSI stellt eine Betroffenheitsprüfung, einen FAQ-Bereich, Informationspakete und Webinare bereit, damit Einrichtungen ihre Pflicht zur Registrierung selbst einschätzen und umsetzen können (Grundlage: NIS 2 Artikel 27, § 33 BSIG). Ob Sie überhaupt betroffen sind, klären Sie zuerst anhand von Sektor und Größe. Den vollständigen Selbsttest finden Sie unter [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q3": {
-          "q": "Wie hoch ist das Bußgeld für die Nichtregistrierung beim BSI?",
-          "a": "§65 BSIG sieht Bußgelder bis zu 500.000 € speziell für Registrierungsverstöße vor. Dies ist ein eigenständiger Verstoß, getrennt von Bußgeldern für die fehlende Umsetzung von Sicherheitsmaßnahmen. Sie können für Nichtregistrierung bestraft werden, selbst wenn Ihre tatsächlichen Cybersicherheitsmaßnahmen angemessen sind. Die Bußgelder werden jedoch im Einzelfall unter Berücksichtigung von Schwere, Dauer und Gutgläubigkeit bemessen."
+          "q": "Wie kann ein Unternehmen kritische Komponenten registrieren?",
+          "a": "Kritische Komponenten betreffen nur Betreiber kritischer Anlagen (frühere KRITIS-Logik), nicht jede NIS-2-Einrichtung, und werden sektorspezifisch gemeldet. Der Energiesektor nutzt dafür verschlüsselte Excel-Vorlagen, der Telekommunikationssektor eigene Vorlagen mit PGP-Verschlüsselung. Wenn Sie kein Betreiber einer kritischen Anlage sind, ist dieser Schritt für Sie nicht relevant; maßgeblich ist dann allein die Registrierung der Einrichtung nach § 33 BSIG."
         },
         "q4": {
-          "q": "Kann ich mich registrieren, wenn ich nicht sicher bin, ob mein Unternehmen betroffen ist?",
-          "a": "Ja, und das BSI empfiehlt im Zweifel die Registrierung. Eine Registrierung, die sich als nicht erforderlich herausstellt, hat keine negativen Konsequenzen. Sie kann korrigiert werden. Eine fehlende Registrierung, wenn Sie betroffen sind, birgt echtes rechtliches Risiko. Im Zweifel: registrieren."
+          "q": "Kann eine Registrierung im BSI-Portal für Einrichtung erfolgen, die über keine deutsche Steuernummer verfügen?",
+          "a": "Ja. Mein Unternehmenskonto setzt zwar eine deutsche Steuernummer voraus, ausländische Einrichtungen können diese jedoch beim Finanzamt Neubrandenburg (Referat RAB) beantragen. Sie senden das Antragsformular an die dort angegebene Adresse und erhalten die Steuernummer per Post; bei der Anlage des Kontos wählen Sie als Bundesland Mecklenburg-Vorpommern. Wenn Ihr Hauptsitz außerhalb der EU liegt, prüfen Sie zusätzlich die Pflicht zur Benennung eines Vertreters in der EU unter [Hauptsitz außerhalb der EU](/wiki/anwendungsbereich/nis2-hauptsitz-ausserhalb-eu)."
         },
         "q5": {
-          "q": "Bedeutet die BSI-Registrierung, dass ich NIS2-konform bin?",
-          "a": "Nein. Die Registrierung erfüllt eine Pflicht (§33 BSIG), aber nicht die inhaltlichen Anforderungen: Cybersicherheitsmaßnahmen (§30), Meldepflichten (§32) oder die Geschäftsführerpflichten (§38). Stellen Sie sich die Registrierung wie eine Steuererklärung vor: Sie müssen trotzdem die Steuern zahlen. Nach der Registrierung müssen Sie alle 10 Pflichtmaßnahmen umsetzen, Meldeprozesse einrichten und sicherstellen, dass die Geschäftsführung ihre persönlichen Pflichten erfüllt."
+          "q": "Bei der Registrierung im BSI-Portal muss man EU-Mitgliedsstaaten angeben, in welchen man einen „Dienst“ erbringt. Was ist damit gemeint?",
+          "a": "Gemeint ist die Tätigkeit, die Ihre Einrichtung überhaupt erst in den Anwendungsbereich bringt, also Ihr Kerndienst im jeweiligen Sektor, nicht jede Nebenleistung und nicht jeder Ort, an dem nur Ihre Produkte genutzt werden. Anzugeben sind die Mitgliedstaaten, in denen Sie diesen Dienst tatsächlich erbringen (Anknüpfung an NIS 2 Artikel 26 zur Zuständigkeit). Sind Sie in mehreren Ländern tätig, hilft die Einordnung unter [Selbsteinstufung](/wiki/anwendungsbereich/nis2-selbsteinstufung)."
+        },
+        "q6": {
+          "q": "Können international tätige Unternehmen ihre Registrierung und die Meldung von Sicherheitsvorfällen zentral beim BSI vornehmen und damit zugleich ihre Pflichten nach dem NIS-2-Umsetzungsgesetz für alle EU-Mitgliedstaaten erfüllen?",
+          "a": "Nur für eine eng begrenzte Gruppe digitaler Dienste gilt das Prinzip der einen Zuständigkeit am Hauptsitz: DNS-Dienste, TLD-Registries, Cloud- und Rechenzentrumsanbieter, Managed Service Provider, Content-Delivery-Netzwerke und Online-Plattformen registrieren sich zentral bei der Behörde ihres Hauptsitzes (NIS 2 Artikel 26 und 27, in Deutschland § 60 BSIG). Alle übrigen Einrichtungen unterstehen der Aufsicht jedes Mitgliedstaats, in dem sie tätig sind, und müssen sich dort jeweils gesondert registrieren und melden. Eine einzige Registrierung beim BSI deckt also in der Regel nicht Ihre Pflichten in den anderen Ländern ab."
+        },
+        "q7": {
+          "q": "Ich habe Fragen zum BSI-Portal und der Registrierung. Stellt das BSI hierzu auch Informationen bereit?",
+          "a": "Ja. Das BSI führt einen eigenen FAQ-Bereich speziell zum BSI-Portal und zum Registrierungsverfahren und stellt dort Anleitungen und Hilfestellungen bereit. Bei technischen Fragen zu Mein Unternehmenskonto wenden Sie sich an dessen Support, bei inhaltlichen Fragen zur NIS-2-Registrierung an die Kontaktwege des BSI. Den Ablauf der Anmeldung fassen wir unter [Registrierung](/wiki/anwendungsbereich/nis2-registrierung) zusammen."
+        },
+        "q8": {
+          "q": "Muss mich als durch DORA regulierte Einrichtung beim BSI registrieren?",
+          "a": "Ja, die Registrierungspflicht nach § 33 BSIG bleibt bestehen, auch wenn Sie als Finanzunternehmen unter DORA fallen. DORA ist für die inhaltlichen Sicherheits- und Meldepflichten lex specialis: Als DORA-reguliertes Unternehmen sind Sie von den §§ 30, 31, 32, 35, 36, 38 und 39 BSIG befreit und melden Vorfälle, die ausschließlich DORA-Einrichtungen betreffen, nach den DORA-Regeln statt nach § 32 BSIG (Grundlage: NIS 2 Artikel 4). Die Eintragung im BSI-Portal müssen Sie dennoch vornehmen."
         }
       },
       "incidents": {
         "q1": {
-          "q": "Wie sieht die NIS2-Meldekaskade bei Sicherheitsvorfällen aus?",
-          "a": "NIS2 erfordert eine dreistufige Meldekaskade an das BSI: (1) Frühwarnung innerhalb von 24 Stunden, Bestätigung eines erheblichen Vorfalls, ob er böswillig ist und ob grenzüberschreitende Auswirkungen möglich sind. (2) Aktualisierte Meldung innerhalb von 72 Stunden, Schwerebewertung, Kompromittierungsindikatoren, erste Ursachenanalyse und ergriffene Maßnahmen. (3) Abschlussbericht innerhalb von 1 Monat, detaillierte Beschreibung, bestätigte Ursache, Gegenmaßnahmen und Lessons Learned. Ist der Vorfall nach einem Monat noch nicht abgeschlossen, ist ein Zwischenbericht erforderlich."
+          "q": "Welches Ziel verfolgt das BSI bei der Meldepflicht? Möglichst schnelle Meldung mit dem Risiko, dass ein eingetretener Vorfall nicht zu einer Gefahr geführt hat, oder wirklich nur relevante Vorfälle mit eingetretenen Gefahren melden? Wie sind die Begriffe Kenntniserlangung und Sicherheitsvorfall bei der Meldepflicht konkret definiert?",
+          "a": "Das Ziel ist Schnelligkeit vor Vollständigkeit: Art. 23 der NIS-2-Richtlinie (umgesetzt in § 32 BSIG) verlangt eine Erstmeldung binnen 24 Stunden, eine Meldung binnen 72 Stunden und einen Abschlussbericht nach spätestens einem Monat. Die kurze 24-Stunden-Frist soll der Behörde ein frühes Lagebild geben, damit andere Einrichtungen gewarnt werden können. Lieber zu früh und unsicher melden als zu spät. Kenntniserlangung meint den Zeitpunkt, ab dem Ihre Einrichtung den Vorfall hinreichend sicher als erheblich einschätzen kann (nicht erst nach abgeschlossener Ursachenanalyse), und die 24-Stunden-Frist läuft ab diesem Zeitpunkt. Erheblich ist ein Sicherheitsvorfall nach Art. 23 Abs. 3 NIS-2-Richtlinie, wenn er schwerwiegende Betriebsstörungen oder finanzielle Verluste verursacht oder verursachen kann oder andere Personen durch erheblichen materiellen oder immateriellen Schaden beeinträchtigt."
         },
         "q2": {
-          "q": "Was gilt als 'erheblicher' Sicherheitsvorfall unter NIS2?",
-          "a": "Für die meisten NIS2-Einrichtungen (ca. 70 Prozent, also alle außerhalb der Digitalinfrastruktur) gilt der qualitative Maßstab aus Art. 23 Abs. 3 NIS-2-Richtlinie: ein Vorfall ist erheblich, wenn er schwere Betriebsstörungen oder finanzielle Verluste für die Einrichtung verursacht oder andere natürliche oder juristische Personen durch erhebliche materielle oder immaterielle Schäden betrifft. Erwägungsgrund 101 nennt als unverbindliche Indikatoren das Ausmaß der Beeinträchtigung, die Dauer und die Zahl betroffener Dienstnutzer. Für die 11 digitalen Einrichtungstypen unter CIR 2024/2690 (DNS, Cloud, MSP usw.) gelten zusätzlich quantitative Schwellen aus CIR Art. 3 (direkter finanzieller Schaden über 500.000 EUR oder 5 % des Jahresumsatzes, Exfiltration von Geschäftsgeheimnissen, Tod oder schwere Gesundheitsschäden, erfolgreicher böswilliger unbefugter Zugriff) ergänzt um sektorspezifische Kriterien in den Art. 5 bis 14 (zum Beispiel DNS-Ausfall über 30 Minuten in Art. 5, Cloud-Ausfall über 30 Minuten oder mehr als 5 % betroffene Nutzer in Art. 7). Die Aggregationsregel für wiederkehrende kleinere Vorfälle in einem 6-Monats-Zeitraum gilt ebenfalls nur für diese 11 Typen (CIR Art. 4)."
+          "q": "Wird es möglich sein, freiwillige Meldungen zu Sicherheitsvorfällen vorzunehmen?",
+          "a": "Ja. Art. 30 der NIS-2-Richtlinie (umgesetzt in § 35 BSIG) sieht freiwillige Meldungen ausdrücklich vor, auch für Einrichtungen, die gar nicht unter NIS-2 fallen, und für Vorfälle unterhalb der Erheblichkeitsschwelle. Freiwillige Meldungen werden gleich bearbeitet wie Pflichtmeldungen, allerdings nachrangig: Pflichtmeldungen haben Vorrang. Aus einer freiwilligen Meldung entstehen keine zusätzlichen Pflichten, und sie darf der meldenden Einrichtung nicht zum Nachteil ausgelegt werden."
         },
         "q3": {
-          "q": "Wo melde ich NIS2-Sicherheitsvorfälle?",
-          "a": "Alle Vorfallsmeldungen müssen über das offizielle BSI-Meldeportal im NIS2-Bereich eingereicht werden. Das BSI akzeptiert keine Meldungen per E-Mail, Telefon oder Brief als Ersatz für die Portalmeldung. Der Zugang erfordert eine vorherige Registrierung nach §33 BSIG. Nicht registrierte Einrichtungen haben ein doppeltes Problem: Sie können keine Vorfallsmeldungen über den ordnungsgemäßen Kanal einreichen. Telefonischer Kontakt mit dem CERT-Bund ist für die parallele Koordination der Reaktion angemessen."
+          "q": "Dürfen Vorfallsmeldungen auf Englisch abgegeben werden?",
+          "a": "Verfahrenssprache der Behörde ist Deutsch, daher sollten Meldungen auf Deutsch erfolgen. Wegen der kurzen 24-Stunden-Frist nach Art. 23 NIS-2-Richtlinie gilt jedoch: Eine schnelle Erstmeldung in englischer Sprache ist besser als eine verspätete deutsche. Reichen Sie also bei Bedarf zunächst auf Englisch ein und ergänzen Sie deutschsprachige Angaben in den Folgemeldungen nach."
         },
         "q4": {
-          "q": "Was passiert, wenn ich einen Vorfall nicht dem BSI melde?",
-          "a": "Die Nichtmeldung wird unabhängig vom Vorfall selbst bestraft. Jede fehlende Stufe (24h, 72h, 1 Monat) ist ein separater Verstoß mit Bußgeldern bis 500.000 €. Für wesentliche Einrichtungen kann auch der erweiterte Bußgeldrahmen (bis 10 Mio. €) greifen. Wusste die Geschäftsführung von einem Vorfall und stellte die Meldung nicht sicher, stellt dies einen persönlichen Überwachungsverstoß nach §38 BSIG dar. Die Nichtmeldung wirft zudem Fragen zur gesamten Compliance-Haltung auf und kann eine umfassende BSI-Prüfung auslösen."
+          "q": "Wie ist im Falle eines NIS‑2-relevanten Sicherheitsvorfalls mit potenziellen Auswirkungen auf Betriebsstätten in mehreren EU-Mitgliedstaaten zu verfahren, wenn die Hauptniederlassung des betroffenen Unternehmens in Deutschland liegt? Müssen neben dem BSI auch die zuständigen Behörden in den anderen betroffenen Staaten informiert werden?",
+          "a": "Es gilt das Herkunftslandprinzip nach Art. 26 der NIS-2-Richtlinie: Liegt Ihre Hauptniederlassung in Deutschland, sind Sie grundsätzlich allein in Deutschland zuständigkeitshalber beaufsichtigt und melden den Vorfall nur einmal an das BSI. Sie müssen die Behörden der anderen betroffenen Mitgliedstaaten nicht selbst informieren. Die grenzüberschreitende Weitergabe übernehmen die Behörden untereinander über das CSIRT-Netzwerk und die Kooperationsgruppe. Eine Mehrfachmeldung in jedem betroffenen Land ist also nicht erforderlich. Eine Ausnahme bilden DNS-, Cloud-, Rechenzentrums- und ähnliche digitale Diensteanbieter, deren Zuständigkeit sich nach dem Ort der Hauptniederlassung in der EU richtet."
         },
         "q5": {
-          "q": "Ersetzt die NIS2-Vorfallsmeldung die DSGVO-Meldepflicht?",
-          "a": "Nein. Die NIS2-Vorfallsmeldung nach §32 BSIG ist getrennt von und zusätzlich zur DSGVO-Datenschutzverletzungsmeldung nach Art. 33/34 DSGVO. Beide Pflichten können gleichzeitig für denselben Vorfall gelten. Wenn ein Cyberangriff personenbezogene Daten offenlegt und Dienste stört, müssen Sie sowohl beim BSI nach NIS2 als auch bei der Datenschutzbehörde nach DSGVO melden. Unterschiedliche Fristen, unterschiedliche Behörden, unterschiedliche Formulare."
+          "q": "Muss mein IT-Dienstleister, wenn Teile meines Unternehmens von DORA und andere Teile von NIS-2 betroffen sind, bei Sicherheitsvorfällen doppelt melden?",
+          "a": "Nein, doppelt gemeldet werden muss nicht. DORA ist gegenüber NIS-2 die speziellere Regelung (Art. 4 DORA, Art. 1 Abs. 2 NIS-2-Richtlinie und § 1 Abs. 6 BSIG): Soweit ein Vorfall den DORA-Bereich betrifft, gehen die Meldewege und Fristen der DORA vor und verdrängen insoweit die NIS-2-Meldepflicht. Maßgeblich ist, welche Regelung den betroffenen Dienst erfasst, nicht das Unternehmen als Ganzes. Klären Sie vertraglich mit Ihrem IT-Dienstleister vorab, nach welcher Regelung er welchen Vorfall an welche Behörde meldet."
+        },
+        "q6": {
+          "q": "Ist zukünftig eine europäische Lösung für die Registrierung und Meldung vorgesehen?",
+          "a": "Bestimmte Anbieter digitaler Dienste (etwa DNS-Diensteanbieter, Cloud-Anbieter, Rechenzentren, Online-Marktplätze) werden bereits jetzt nach Art. 27 der NIS-2-Richtlinie über ENISA in einem EU-weiten Register erfasst. Für alle übrigen Einrichtungen bleibt die Registrierung und Meldung national, also in Deutschland über das BSI-Portal. Eine darüber hinausgehende, voll vereinheitlichte europäische Plattform für alle Einrichtungen ist derzeit nicht beschlossen. Maßgeblich bleibt zunächst der nationale Meldeweg."
+        },
+        "q7": {
+          "q": "Wie wird sichergestellt, dass im Rahmen der NIS-2-/KRITIS-Regelungen erhobene Registrierungs- und Unternehmensdaten vertraulich behandelt und vor unbefugtem Zugriff geschützt werden?",
+          "a": "Die Vertraulichkeit ist gesetzlich abgesichert: Art. 23 Abs. 9 der NIS-2-Richtlinie verpflichtet die Behörden, die Interessen der meldenden Einrichtung an Vertraulichkeit zu wahren, und das BSIG enthält dazu eigene Verschwiegenheits- und Zweckbindungsregeln. Die Daten werden nur für die gesetzlich vorgesehenen Zwecke verwendet, etwa zur Lagebewertung und Gefahrenabwehr, und nicht veröffentlicht. Der Zugriff ist auf die zuständigen Stellen beschränkt; eine Weitergabe an andere Behörden erfolgt nur im gesetzlich erlaubten Rahmen und unter Wahrung der Vertraulichkeit."
         }
       },
       "penalties": {
         "q1": {
-          "q": "Wie hoch ist das maximale NIS2-Bußgeld für mein Unternehmen?",
-          "a": "Es hängt von Ihrer Einrichtungskategorie ab. Wesentliche Einrichtungen (Anhang-I-Sektoren): der höhere Betrag aus 10 Mio. € oder 2 % des weltweiten Jahresumsatzes. Wichtige Einrichtungen (Anhang-II-Sektoren): der höhere Betrag aus 7 Mio. € oder 1,4 % des weltweiten Jahresumsatzes. Für die meisten mittelständischen Unternehmen unter 500 Mio. € Umsatz gilt der Festbetrag, da der Prozentsatz niedriger ist. Separate Bußgelder bis 500.000 € gelten für Registrierungs- und Meldeverstöße. Mehrere Verstöße können sich kumulieren."
+          "q": "Was passiert, wenn ein verpflichtetes Unternehmen einen Vorfall nicht rechtzeitig oder gar nicht an die zuständige Behörde meldet? Wer überprüft, ob meldepflichtige Vorfälle ordnungsgemäß gemeldet wurden?",
+          "a": "Die Meldepflicht ergibt sich aus Artikel 23 der NIS-2-Richtlinie: eine Frühwarnung binnen 24 Stunden, eine Meldung binnen 72 Stunden und ein Abschlussbericht binnen eines Monats nach dem erheblichen Sicherheitsvorfall (in Deutschland umgesetzt in §32 BSIG). Wird verspätet oder gar nicht gemeldet, ist das eine Pflichtverletzung, die die zuständige Behörde (für die meisten Einrichtungen das BSI) nach den Aufsichts- und Durchsetzungsregeln der Artikel 31 bis 34 ahnden kann (§§61 ff. und §65 BSIG). Möglich sind Anweisungen, verbindliche Auflagen und Bußgelder, deren Höhe sich nach der Einrichtungsart richtet: für wesentliche Einrichtungen sieht Artikel 34 als Obergrenze mindestens 10 Millionen Euro oder 2 Prozent des weltweiten Jahresumsatzes vor (je nachdem, was höher ist), für wichtige Einrichtungen mindestens 7 Millionen Euro oder 1,4 Prozent. Eine ordnungsgemäße Meldung prüft die Behörde anhand des eingereichten Berichts und kann sie über ihre Aufsichtsbefugnisse aus Artikel 32 und 33 (etwa Auskunftsverlangen, Prüfungen, Vor-Ort-Kontrollen) verifizieren; eine zeitnahe, vollständige Meldung im vorgeschriebenen Format ist daher der sicherste Weg. Eine Schritt-für-Schritt-Anleitung zur Pflicht und zur Behörde finden Sie unter [Registrierung und Meldepflicht](/wiki/anwendungsbereich/nis2-registrierung)."
+        }
+      },
+      "liability": {
+        "q1": {
+          "q": "Welche Pflichten hat die Geschäftsleitung nach NIS-2?",
+          "a": "Die Geschäftsleitung muss die Risikomanagementmaßnahmen billigen, ihre Umsetzung überwachen und an Cybersicherheitsschulungen teilnehmen (Art. 20 NIS-2-Richtlinie, transponiert in Paragraf 38 BSIG). Billigung heißt aktiv prüfen und schriftlich zustimmen, nicht nur abzeichnen. Überwachung heißt regelmäßig kontrollieren, ob die Maßnahmen umgesetzt sind und wirken. Die operative Umsetzung lässt sich delegieren, die Verantwortung der Leitung bleibt bei ihr. Ob Sie überhaupt betroffen sind, klären Sie zuerst mit dem [vollständigen Test](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q2": {
-          "q": "Kann ich als Geschäftsführer persönlich bestraft werden?",
-          "a": "Die Bußgelder nach §65 BSIG werden gegen das Unternehmen verhängt, nicht gegen die Einzelperson. Jedoch begründet §38 BSIG eine persönliche zivilrechtliche Haftung für Schäden aus dem Versäumnis, Cybersicherheitsmaßnahmen zu genehmigen und zu überwachen. Sie haften also persönlich für Verluste des Unternehmens (kein Bußgeld, aber potenziell ein Schadensersatzanspruch Ihres eigenen Unternehmens). Im Insolvenzfall kann der Insolvenzverwalter diesen Anspruch persönlich gegen Sie geltend machen."
+          "q": "Was bedeutet die Billigungs- und Überwachungspflicht der Geschäftsleitung?",
+          "a": "Billigung bedeutet: Die Leitung sieht sich die geplanten Risikomanagementmaßnahmen an, versteht sie inhaltlich und gibt sie dokumentiert frei (Art. 20 Abs. 1 NIS-2-Richtlinie, in Deutschland Paragraf 38 Abs. 1 BSIG). Überwachung bedeutet: Eine einmal freigegebene Maßnahme, die nie wieder geprüft wird, erfüllt die Pflicht nicht. Sinnvoll sind feste Statusberichte, Kennzahlen und ein klarer Eskalationsweg, damit die Leitung den Stand jederzeit belegen kann. Diese Pflicht trifft die Leitung selbst, sie kann sie an niemanden abgeben."
         },
         "q3": {
-          "q": "Sind NIS2-Bußgelder verhältnismäßig zur Unternehmensgröße?",
-          "a": "Ja, das ist beabsichtigt. Die umsatzbezogene Berechnung stellt sicher, dass Bußgelder mit der Unternehmensgröße skalieren. Für ein Unternehmen mit 15 Mio. € Umsatz beträgt das maximale Bußgeld für wesentliche Einrichtungen 10 Mio. € (der Festbetrag, da 2 % nur 300.000 € wären). Für ein 600-Mio.-€-Unternehmen beträgt das Maximum 12 Mio. € (2 % übersteigt die 10-Mio.-€-Untergrenze). Das BSI muss zudem die Verhältnismäßigkeit berücksichtigen: Unternehmensgröße, Schwere, Dauer und Gutgläubigkeit fließen in die tatsächliche Bußgeldhöhe ein."
+          "q": "Muss die Geschäftsleitung an Schulungen teilnehmen?",
+          "a": "Ja. Die Leitung besonders wichtiger und wichtiger Einrichtungen muss regelmäßig an Cybersicherheitsschulungen teilnehmen (Art. 20 Abs. 2 NIS-2-Richtlinie, in Deutschland Paragraf 38 Abs. 3 BSIG). Ziel ist, dass die Leitung Risiken erkennen, Risikomanagementmaßnahmen bewerten und deren Auswirkungen auf die Dienste einschätzen kann. Die Richtlinie nennt keine Mindeststunden oder festen Intervalle, das BSI empfiehlt in seiner Handreichung eine jährliche Auffrischung und nennt als Orientierung etwa vier Stunden Umfang. Diese Pflicht gilt für jede Person, die kraft Gesetzes, Satzung oder Gesellschaftsvertrag zur Leitung berufen ist, und ist nicht delegierbar."
         },
         "q4": {
-          "q": "Was löst BSI-Durchsetzungsmaßnahmen aus?",
-          "a": "Bei wesentlichen Einrichtungen: Das BSI kann proaktive Prüfungen und Inspektionen ohne konkreten Anlass durchführen, also risikobasierte Stichproben. Bei wichtigen Einrichtungen: Die Durchsetzung ist reaktiv, ausgelöst durch einen gemeldeten Vorfall, Beschwerden Dritter, Medienberichte über eine Sicherheitsverletzung oder fehlende Registrierung. Das BSI gleicht auch Handelsregister- und Sektordatenbanken ab, um Einrichtungen zu identifizieren, die registriert sein sollten, es aber nicht sind."
+          "q": "Kann die Geschäftsleitung ihre Schulungspflicht delegieren?",
+          "a": "Nein. Die Schulungspflicht trifft die Leitungsorgane persönlich und kann nicht an Mitarbeitende oder externe Dienstleister abgegeben werden (Art. 20 Abs. 2 NIS-2-Richtlinie, in Deutschland Paragraf 38 Abs. 3 BSIG). Sie können einen Datenschutz- oder Sicherheitsbeauftragten benennen und die operative Umsetzung verteilen, aber die eigene Teilnahme an der Schulung bleibt Ihre Aufgabe. Dokumentieren Sie, wer teilgenommen hat, wie lange und mit welchen Inhalten, damit Sie es der Behörde auf Anfrage vorlegen können."
         },
         "q5": {
-          "q": "Wie vergleichen sich NIS2-Bußgelder mit DSGVO-Bußgeldern?",
-          "a": "NIS2-Bußgelder orientieren sich an der DSGVO-Struktur. Maximale NIS2-Bußgelder (10 Mio. € / 2 % Umsatz für wesentliche Einrichtungen) sind vergleichbar mit DSGVO-Stufe-1-Bußgeldern (10 Mio. € / 2 % Umsatz). DSGVO-Stufe-2-Bußgelder gehen höher (20 Mio. € / 4 %). Der zentrale Unterschied: NIS2 fügt persönliche Geschäftsführerhaftung (§38 BSIG) hinzu, die die DSGVO nicht kennt. Zudem können sich NIS2-Bußgelder kumulieren: Nichtregistrierung, Nichtmeldung und Nichtkonformität mit Maßnahmen sind separate Verstöße mit separaten Bußgeldern."
+          "q": "Haftet die Geschäftsleitung persönlich für Verstöße?",
+          "a": "Verletzt ein Leitungsmitglied seine Billigungs-, Überwachungs- oder Schulungspflicht, haftet es der eigenen Einrichtung für schuldhaft verursachte Schäden nach den gesellschaftsrechtlichen Regeln der jeweiligen Rechtsform (Art. 20 NIS-2-Richtlinie, in Deutschland Paragraf 38 BSIG). Dieser Anspruch steht der Gesellschaft zu, nicht Dritten, und ein vollständiger Haftungsverzicht durch Gesellschaftsvertrag oder Satzung ist ausgeschlossen. Praktisch reduzieren Sie das Risiko, indem Sie Freigaben, Kontrollen und Schulungsnachweise sauber dokumentieren. Der beste Schutz ist nicht der Verzicht, sondern der nachweisbar erfüllte Pflichtenkatalog."
         }
       },
       "implementation": {
         "q1": {
-          "q": "Wie lange dauert die NIS2-Compliance für ein mittelständisches Unternehmen?",
-          "a": "Für ein Unternehmen mit 50-250 Mitarbeitern, das bei Null anfängt, rechnen Sie mit 3-6 Monaten für eine solide Grundlage: BSI-Registrierung (Woche 1), Asset-Inventar und Risikoanalyse (Wochen 2-6), Meldeprozess (Wochen 4-8), Zugangskontrollen (Wochen 6-12) und Richtliniendokumentation (fortlaufend). Die meisten der 49 BSIG-Anforderungen sind einmalige Dokumentation: Richtlinien, Risikobewertungen, Verfahren. Nur wenige erfordern laufende operative Prozesse. Das BSI bewertet Entwicklung und Gutgläubigkeit, nicht Perfektion am ersten Tag."
+          "q": "Wird es eine Aufzeichnung der Webinare geben?",
+          "a": "Nein. Die BSI-Webinare zu NIS 2 werden nicht aufgezeichnet, Sie nehmen also live teil oder gar nicht. Wichtig: Die Webinare sind ein freiwilliges Informationsangebot, kein Pflichtbestandteil Ihrer Umsetzung. Maßgeblich für Ihre Pflichten sind die Risikomanagementmaßnahmen nach Artikel 21 der NIS-2-Richtlinie (in Deutschland umgesetzt in §30 BSIG), nicht die Teilnahme an einem Webinar."
         },
         "q2": {
-          "q": "Wie viel kostet die NIS2-Compliance?",
-          "a": "Für ein Unternehmen mit 50 bis 250 Mitarbeitenden gibt es keine öffentliche BSI-Kostenbenchmark. Praktikerschätzungen variieren stark und sollten nicht als verbindlich behandelt werden: große Strategieberatungen rufen typischerweise sechsstellige Beträge auf, Enterprise-GRC-Plattformen liegen jährlich im sechsstelligen Bereich, US-Compliance-Tools wie Vanta oder Drata starten niedriger, decken aber kaum BSIG-Spezifika ab, und reine Eigenleistung kostet vor allem Personalzeit. Sinnvoller als pauschale Zahlen ist eine eigene Gap-Analyse, gefolgt von der Frage, welche Maßnahmen Sie intern abbilden können und wo externe Unterstützung Mehrwert bringt. Open-Source-Plattformen wie nisd2.eu senken die Tooling-Kosten auf null und lassen Sie nur für gezielte Beratung zahlen."
+          "q": "Wie erhalte ich die Unterlagen der jeweiligen Webinare?",
+          "a": "Den Foliensatz erhalten alle angemeldeten Teilnehmenden im Nachgang per E-Mail. Voraussetzung ist also die Anmeldung zum jeweiligen Webinar: Wer nicht angemeldet ist, bekommt die Unterlagen nicht automatisch. Prüfen Sie nach dem Termin auch Ihren Spamordner, falls die Mail mit dem Anhang ausbleibt."
         },
         "q3": {
-          "q": "Was sind die 10 verpflichtenden NIS2-Cybersicherheitsmaßnahmen?",
-          "a": "§30(2) BSIG definiert 10 Pflichtmaßnahmen: (1) Risikoanalyse und Informationssicherheitsrichtlinien, (2) Bewältigung von Sicherheitsvorfällen, (3) Aufrechterhaltung des Betriebs und Krisenmanagement, (4) Sicherheit der Lieferkette, (5) Sicherheit bei Beschaffung, Entwicklung und Wartung, (6) Bewertung der Wirksamkeit, (7) Cybersicherheitsschulung und -hygiene, (8) Kryptografie und Verschlüsselung, (9) Personalsicherheit, Zugangskontrolle und Asset-Management, (10) Multi-Faktor-Authentifizierung und gesicherte Kommunikation. Alle wesentlichen und wichtigen Einrichtungen müssen alle 10 Maßnahmen umsetzen."
+          "q": "Kann das BSI Einrichtungen bei der Umsetzung von NIS-2 unterstützen?",
+          "a": "Ja, aber nur allgemein, nicht für Ihren Einzelfall. Das BSI stellt FAQ, Infopakete, ein Starterpaket und Kickoff-Seminare bereit, leistet nach seinem gesetzlichen Auftrag (§3 BSIG, der die Aufgaben aus der NIS-2-Richtlinie umsetzt) aber ausdrücklich weder Einzelfallberatung noch Rechtsberatung. Für die konkrete Umsetzung in Ihrem Unternehmen brauchen Sie also entweder eigenes Knowhow oder einen qualifizierten Dienstleister beziehungsweise eine Rechtsberatung. Wo Sie selbst anfangen können, zeigt der vollständige Anwendbarkeitstest unter [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q4": {
-          "q": "Wie sieht ein Asset-Inventar für ein mittelständisches Unternehmen aus?",
-          "a": "Einfacher als gedacht. Ein typisches 100-Personen-Unternehmen hat etwa 10-15 gruppierte Asset-Einträge. IT-Grundschutz erlaubt ausdrücklich die Gruppierung identischer Assets: '45 Windows-Laptops' ist ein Eintrag, nicht 45. Typische Kategorien: ERP-/Abrechnungssystem, E-Mail und Zusammenarbeit (Microsoft 365), Netzwerkinfrastruktur pro Standort, Standard-Endgeräte (gruppiert), Server und Datenbanken, Cloud-Dienste und eventuell Betriebstechnik. Für Entsorgungsunternehmen kommen Flottenmanagement und Wiegesysteme hinzu, für Hersteller Produktionsanlagensteuerungen."
-        },
-        "q5": {
-          "q": "Muss ich einen CISO oder ein Sicherheitsteam für NIS2 einstellen?",
-          "a": "Nein. Für mittelständische Unternehmen (50-250 Mitarbeiter) ist die NIS2-Compliance mit vorhandenem Personal in Teilzeitrollen machbar: ein Compliance-Verantwortlicher (4-8 Stunden/Woche, meist IT-Leiter oder Qualitätsmanager), ein IT-Ansprechpartner (2-4 Stunden/Woche) und ein Management-Sponsor (1-2 Stunden/Woche, erforderlich nach §38 BSIG). Das Gesetz verlangt 'angemessene und verhältnismäßige' Maßnahmen. Ein 100-Personen-Entsorgungsunternehmen braucht kein SOC oder SIEM."
-        },
-        "q6": {
-          "q": "In welcher Reihenfolge sollten die NIS2-Maßnahmen umgesetzt werden?",
-          "a": "Sofort starten mit Maßnahme 1 (Risikoanalyse), 2 (Vorfallsbewältigung) und 9 (Zugangskontrolle und Assets). Diese sind grundlegend und alles andere baut darauf auf. Wochen 3-6: Maßnahmen 3 (Betriebskontinuität), 4 (Lieferkette) und 7 (Schulung), die das Asset-Inventar aus Maßnahme 1 benötigen. Wochen 7-12: Maßnahmen 5 (Beschaffungssicherheit), 6 (Wirksamkeitsbewertung), 8 (Kryptografie) und 10 (MFA). Die Reihenfolge ist wichtig, da spätere Maßnahmen auf früheren aufbauen."
+          "q": "Gibt es zu den von besonders wichtigen und wichtigen Einrichtungen im Rahmen von NIS-2 umzusetzenden Maßnahmen bereits Informationen bzw. Handreichungen von Seiten des BSI?",
+          "a": "Ja. Das BSI veröffentlicht auf seiner zentralen NIS-2-Webseite konkrete Hinweise zu den einzelnen Pflichten und Maßnahmen. Inhaltlich entsprechen diese den Risikomanagementmaßnahmen aus Artikel 21 der NIS-2-Richtlinie und der Durchführungsverordnung (EU) 2024/2690 (in Deutschland umgesetzt in §30 BSIG). Als methodisches Wie nennt das BSI den IT-Grundschutz: Wenn Sie diesen anwenden, gelten die Maßnahmen aus §30 BSIG in der Regel als erfüllt, das ist die praktischste Handreichung, die es derzeit gibt."
         }
       },
-      "cta": "Jetzt NIS2-Compliance starten"
+      "sectors": {
+        "q1": {
+          "q": "Umfasst der Sektor Gesundheitsdienstleistung auch Einrichtungen der Langzeitpflege?",
+          "a": "Nein. Die Einrichtungsart \"Erbringer von Gesundheitsdienstleistungen\" knüpft an die Definition aus Artikel 3 lit. g der Richtlinie 2011/24/EU an, auf die NIS 2 (Anhang I, Sektor Gesundheit der Richtlinie (EU) 2022/2555) verweist. Reine Langzeitpflege fällt nicht unter diese Definition und ist daher als solche nicht erfasst. Wichtig: Erbringt eine Pflegeeinrichtung daneben Gesundheitsdienstleistungen im Sinne der Definition (etwa ärztliche oder pflegerische Heilbehandlung), kann dieser Teil betroffen sein, sofern die Größenschwellen nach §28 BSIG erreicht werden. Prüfung Schritt für Schritt: [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+        },
+        "q2": {
+          "q": "Umfasst die Einrichtungsart \"Erbringer von Gesundheitsdienstleistungen\" auch den Vertrieb oder die Versorgung mit Medizinprodukten?",
+          "a": "Nein. Der reine Vertrieb von oder die Versorgung mit Medizinprodukten erfüllt nicht die Definition der Gesundheitsdienstleistung nach Artikel 3 lit. g der Richtlinie 2011/24/EU, auf die NIS 2 für den Sektor Gesundheit (Anhang I) verweist. Über diese Einrichtungsart werden Sie dadurch also nicht betroffen. Andere Anknüpfungspunkte können aber greifen: Hersteller kritischer Medizinprodukte zählen zum Sektor Gesundheit, Hersteller von Medizinprodukten und In-vitro-Diagnostika zum Sektor Verarbeitendes Gewerbe (Anhang II). Prüfen Sie zusätzlich, ob Sie über die KritisV als kritische Anlage erfasst sind."
+        },
+        "q3": {
+          "q": "Wie wird damit umgegangen, wenn ein Betrieb zu den kritischen Anlagen (Abgabestelle von Medizinprodukten) zählt, also Kritische Infrastruktur nach BSI-KritisV ist, aber der angegebene Schwellenwert des Umsatzes für besonders wichtige Einrichtungen nicht erreicht wird?",
+          "a": "Betreiber einer kritischen Anlage sind nach §28 Absatz 1 BSIG unabhängig von Größe und Umsatz besonders wichtige Einrichtung. Die Größen- und Umsatzschwellen aus dem allgemeinen Größenkriterium spielen hier also keine Rolle: Wer die KritisV-Schwelle für die Anlage überschreitet, ist erfasst, auch wenn das Unternehmen darunter ein kleiner Betrieb ist. Maßgeblich ist allein der quantitative Schwellenwert der jeweiligen Anlagenkategorie in der KritisV (§2 Nummer 22 BSIG). Sie können die KritisV-Schwelle erreichen, ohne die Mitarbeiter- oder Umsatzschwelle des allgemeinen Größenkriteriums zu erreichen, und sind dann trotzdem voll betroffen."
+        },
+        "q4": {
+          "q": "Sind Einrichtungen der Eingliederungshilfe von NIS-2 betroffen?",
+          "a": "Die Eingliederungshilfe als solche ist keine eigene Einrichtungsart unter NIS 2 und fällt nicht unter die Definition der Gesundheitsdienstleistung nach Artikel 3 lit. g der Richtlinie 2011/24/EU. Allein wegen der Eingliederungshilfe sind Sie also nicht betroffen. Es kommt auf die konkret erbrachten Tätigkeiten an: Erbringt die Einrichtung daneben Gesundheitsdienstleistungen im Sinne der Definition und erreicht die Schwellen nach §28 BSIG, kann dieser Teil betroffen sein. Sicherheitshalber sollten Sie zusätzlich prüfen, ob ein anderer NIS-2-Sektor oder eine kritische Anlage nach KritisV vorliegt."
+        },
+        "q5": {
+          "q": "Sind Rettungsdienste von NIS-2 betroffen?",
+          "a": "Es kommt auf die ausgeübte Tätigkeit an, nicht auf die Bezeichnung \"Rettungsdienst\". Soweit ein Rettungsdienst Gesundheitsdienstleistungen im Sinne von Artikel 3 lit. g der Richtlinie 2011/24/EU erbringt (etwa notfallmedizinische Versorgung), kann er über den Sektor Gesundheit (Anhang I) erfasst sein, wenn die Schwellen nach §28 BSIG erreicht werden. Reine Krankentransporte ohne medizinische Behandlung fallen in der Regel nicht darunter. Liegt der Rettungsdienst in öffentlicher Trägerschaft, prüfen Sie zusätzlich die Regeln für die öffentliche Verwaltung."
+        },
+        "q6": {
+          "q": "Fallen Beratungsleistungen zur IT-Sicherheit unter den Sektor Digitale Infrastruktur, beispielsweise unter der Einrichtungsart Managed Security Service Provider (MSSP)?",
+          "a": "Nein. Reine Beratung zur IT-Sicherheit ist kein verwalteter Sicherheitsdienst. Ein MSSP ist nach NIS 2 (Artikel 6 Nummer 40 der Richtlinie (EU) 2022/2555) ein MSP, der Unterstützung bei Risikomanagementtätigkeiten der Cybersicherheit operativ erbringt oder verwaltet, also den laufenden Betrieb von Sicherheitsfunktionen für Kunden übernimmt. Wer ausschließlich berät, auditiert oder schult, ohne Systeme der Kunden laufend zu betreiben oder zu verwalten, fällt nicht unter MSP oder MSSP (der Sektor ICT-Dienstleistungsmanagement gehört zu Anhang I, nicht zu Digitale Infrastruktur). Sobald Sie aber Sicherheitsdienste der Kunden tatsächlich verwalten (etwa SOC-Betrieb, Monitoring, Patchmanagement), kann die Einordnung als MSSP greifen."
+        },
+        "q7": {
+          "q": "Sind Tochterunternehmen, in denen der zentrale IT-Betrieb eines Unternehmensverbundes organisiert ist, als Managed Services Provider (MSP) oder Managed Security Service Provider (MSSP) anzusehen?",
+          "a": "Entscheidend ist, ob die IT-Dienstleistung extern am Markt erbracht wird. MSP und MSSP nach NIS 2 (Artikel 6 Nummer 39 und 40 der Richtlinie (EU) 2022/2555) erbringen Dienste für andere Unternehmen, nicht für sich selbst. Eine konzerninterne IT-Tochter, die ausschließlich den eigenen Verbund versorgt, ist deshalb in der Regel kein MSP oder MSSP über diese Einrichtungsart. Das bedeutet nicht zwingend \"nicht betroffen\": Versorgt die Tochter auch Dritte außerhalb des Verbundes, kann die MSP- oder MSSP-Einordnung greifen, und unabhängig davon werden Mitarbeiter und Umsatz verbundener Unternehmen für die Größenschwelle zusammengerechnet (verbundene Unternehmen nach der KMU-Definition 2003/361/EG)."
+        },
+        "q8": {
+          "q": "Fällt Webhosting unter eine der Einrichtungsarten? (Etwa Cloudanbieter oder MSP)",
+          "a": "Klassisches Webhosting ist für sich genommen weder ein Cloud-Computing-Dienst noch ein MSP. Ein Cloud-Computing-Dienst nach NIS 2 (Artikel 6 Nummer 30 der Richtlinie (EU) 2022/2555) setzt skalierbare, elastisch bereitgestellte und teilbare Rechenressourcen mit On-Demand-Verwaltung voraus, was reines Hosting auf festen Ressourcen typischerweise nicht erfüllt. Ein MSP setzt die laufende Verwaltung der IT-Systeme des Kunden voraus, nicht nur die Bereitstellung von Speicher- und Webfläche. Maßgeblich ist immer die konkrete Ausgestaltung: Bietet der Anbieter zusätzlich elastische Cloud-Ressourcen oder verwaltet er aktiv Kundensysteme, kann eine Einordnung greifen. Mehr dazu: [Bin ich Cloud-Anbieter](/wiki/anwendungsbereich/bin-ich-cloud-anbieter-nis2)."
+        },
+        "q9": {
+          "q": "Sind auch Einzelunternehmer, die autoritative DNS für Webhosting-Kunden betreiben, von Umsetzungspflichten zur Cybersicherheit betroffen?",
+          "a": "Ja, das kann zutreffen. DNS-Diensteanbieter sind nach NIS 2 (Anhang I, Digitale Infrastruktur, Begriff in Artikel 6 Nummer 20 der Richtlinie (EU) 2022/2555) unabhängig von ihrer Größe besonders wichtige Einrichtung. Die übliche Mitarbeiter- oder Umsatzschwelle gilt hier also nicht, sodass auch Einzelunternehmer erfasst sein können (§28 Absatz 1 BSIG). Maßgeblich ist, ob Sie autoritative DNS-Auflösung tatsächlich als eigenen Dienst betreiben (nicht das bloße Halten einer eigenen Domain). Trifft das zu, gelten die Pflichten zu Risikomanagement, Meldung und Registrierung in vollem Umfang."
+        },
+        "q10": {
+          "q": "Fallen alle Unternehmen in den Anwendungsbereich der nationalen Umsetzung der NIS-2-Richtlinie, wenn Sie „Anbieter von öffentlichen elektronischen Kommunikationsnetzen oder von öffentlich zugänglichen elektronischen Kommunikationsdiensten\" sind?",
+          "a": "Nicht automatisch jedes Unternehmen, aber die Schwelle ist niedrig. Anbieter öffentlicher elektronischer Kommunikationsnetze oder öffentlich zugänglicher elektronischer Kommunikationsdienste gehören zur Digitalen Infrastruktur (Anhang I der Richtlinie (EU) 2022/2555) und sind nach §28 BSIG bereits ab Erreichen der Schwelle für mittlere Unternehmen erfasst (ab 50 Beschäftigten oder über 10 Mio. Euro Umsatz mit über 10 Mio. Euro Bilanzsumme). Die Begriffe richten sich nach der Richtlinie (EU) 2018/1972 (Europäischer Kodex für die elektronische Kommunikation), nicht nach einem firmeneigenen Verständnis von \"Kommunikationsdienst\". Zu beachten: Soweit für diese Dienste das TKG einschlägige sektorspezifische Vorgaben enthält, greifen die entsprechenden BSIG-Pflichten nur, soweit das TKG nicht vorrangig anwendbar ist (§28 BSIG)."
+        },
+        "q11": {
+          "q": "Fällt ein Cloud-Computing-Dienst, der nicht auto-skalierbar ist, welches ein Cloud-Kriterium nach NIST [U.S. Cybersicherheitsstandard NIST SP 800] ist, unter die Regelungen des NIS-2-Umsetzungsgesetzes?",
+          "a": "Maßgeblich ist nicht der NIST-Standard, sondern die Definition des Cloud-Computing-Dienstes in NIS 2 (Artikel 6 Nummer 30 der Richtlinie (EU) 2022/2555). Danach muss der Dienst skalierbare und elastische, also bedarfsgesteuert auf- und abregelbare, teilbare Rechenressourcen über ein Netzwerk bereitstellen. Fehlt diese Skalierbarkeit und Elastizität vollständig, liegt nach der NIS-2-Definition in der Regel kein Cloud-Computing-Dienst vor, und die Einrichtungsart Cloudanbieter greift nicht. Das heißt aber nicht zwingend \"gar nicht betroffen\": Prüfen Sie, ob eine andere Einrichtungsart einschlägig ist (etwa Rechenzentrumsdienst oder MSP) oder ob Sie über einen anderen Sektor erfasst werden. Details: [Bin ich Cloud-Anbieter](/wiki/anwendungsbereich/bin-ich-cloud-anbieter-nis2)."
+        },
+        "q12": {
+          "q": "Ergeben sich für Finanzunternehmen, die unter DORA fallen, durch das NIS-2-Umsetzungsgesetz und DORA Pflichten zur doppelten Registrierung, doppelten Meldung von Sicherheitsvorfällen, doppelte Aufsicht, doppelte Nachweise etc.?",
+          "a": "Nein, eine echte Doppelregulierung ist nicht vorgesehen. DORA (Verordnung (EU) 2022/2554) ist für Finanzunternehmen die speziellere Regelung. Nach Artikel 4 der NIS-2-Richtlinie gelten daher die DORA-Anforderungen an Risikomanagement, Vorfallmeldung und Aufsicht vorrangig, und die entsprechenden NIS-2-Pflichten treten zurück. Was bleibt, ist allein die Registrierung: Artikel 27 der NIS-2-Richtlinie (im deutschen Recht über die einschlägige BSIG-Registrierungspflicht abgebildet) erfasst auch DORA-Unternehmen, damit die Behörden einen vollständigen Bestand führen können. Sie melden Vorfälle weiterhin nach DORA und registrieren sich zusätzlich, ohne dass dabei eine zweite Meldekette oder eine zweite Aufsicht entsteht."
+        },
+        "q13": {
+          "q": "Wie unterscheiden sich die Vorgaben der NIS-2 von den speziellen Sicherheitsanforderungen für das Smart-Meter-Gateway?",
+          "a": "Die beiden Regelwerke wirken auf unterschiedlichen Ebenen und schließen sich nicht aus. NIS 2 (Artikel 21 der Richtlinie, im deutschen Recht §30 BSIG) verpflichtet die Organisation als Ganzes zu einem Risikomanagement: Prozesse, Verantwortlichkeiten, Lieferkette, Notfallvorsorge. Die Anforderungen an das Smart-Meter-Gateway stammen dagegen aus dem Messstellenbetriebsgesetz und den BSI-Technischen Richtlinien (etwa TR-03109) und betreffen die technische Sicherheit eines konkreten Geräts samt Zertifizierung. Kurz: NIS 2 regelt, wie Sie Ihr Unternehmen absichern, die Smart-Meter-Vorgaben regeln, wie ein einzelnes Gerät beschaffen sein muss. Beide gelten parallel."
+        },
+        "q14": {
+          "q": "Wie kam die Namensänderung zu „Digitale Energiedienste“ zustande?",
+          "a": "Die frühere Anlagenkategorie der Bündelstelle wurde in „Digitale Energiedienste“ umbenannt, weil der Begriff die wachsende Rolle von IT-Systemen und digitalen Prozessen in der Energiewirtschaft besser abbildet als der alte, eng an die Bündelung von Messwerten geknüpfte Name. Inhaltlich wichtiger als der Name ist die Folge: Für diese Kategorie liegt die Regulierung der Informationssicherheit nicht mehr beim BSIG, sondern bei den §§5c ff. EnWG, und zuständig ist die Bundesnetzagentur."
+        },
+        "q15": {
+          "q": "Was bedeutet die gesetzliche Änderung für meine BüStel?",
+          "a": "Ihre Bündelstelle wird als „Digitaler Energiedienst“ aus der BSIG-Regulierung herausgelöst. Die Anforderungen an die Informationssicherheit richten sich künftig nach den §§5c ff. EnWG, und zuständige Aufsichtsbehörde ist die Bundesnetzagentur, nicht mehr das BSI. Für die betroffene Anlage der Kategorie 1.1.2 müssen Sie gegenüber dem BSI keine Nachweise nach §8a BSIG mehr erbringen. Ihr Ansprechpartner und Ihre fachlichen Vorgaben wechseln also; prüfen Sie zeitnah die Vorgaben der Bundesnetzagentur."
+        },
+        "q16": {
+          "q": "Welche Pflichten bestehen nach der gesetzlichen Änderung noch gegenüber dem BSI?",
+          "a": "Gegenüber dem BSI bleibt im Wesentlichen die Registrierung beziehungsweise die aktuelle Pflege Ihrer Stammdaten im BSI-Portal, solange die Zuordnung noch dort geführt wird. Die inhaltliche Aufsicht und die Nachweisführung für die als „Digitale Energiedienste“ eingestuften Anlagen wandern zur Bundesnetzagentur nach §§5c ff. EnWG. Haben Sie daneben weitere beim BSI registrierte Anlagen, gelten für diese die BSIG-Pflichten unverändert fort; nur die digitalen Energiedienste sind herausgelöst."
+        },
+        "q17": {
+          "q": "Welche Prüfgrundlage kann ich für einen Nachweis nutzen?",
+          "a": "Für Nachweise gegenüber dem BSI bleibt die etablierte Grundlage maßgeblich: ein anerkannter Prüfstandard wie ein branchenspezifischer Sicherheitsstandard (B3S) nach §8a Absatz 2 BSIG oder ein gleichwertiger Standard, der die Anforderungen an Ihre Anlage abdeckt. Für die als „Digitale Energiedienste“ herausgelösten Anlagen richtet sich die Prüfgrundlage dagegen nach den Vorgaben der Bundesnetzagentur auf Basis der §§5c ff. EnWG. Maßgeblich ist also, in welchem Regime Ihre Anlage nach der Änderung geführt wird; klären Sie das zuerst, bevor Sie einen Prüfstandard auswählen."
+        },
+        "q18": {
+          "q": "Wie erfahre ich bis wann ich einen Nachweis erbringen muss?",
+          "a": "Die Frist ergibt sich aus Ihrer Anlagenkategorie und dem für Sie geltenden Nachweisturnus, nicht aus einem einheitlichen Stichtag. Für Anlagen, die in der BSIG-Welt verbleiben, gilt der bekannte regelmäßige Nachweisturnus nach §8a BSIG; das BSI teilt den konkreten Termin im Rahmen Ihrer Registrierung beziehungsweise per Bescheid mit. Für Anlagen, die als „Digitale Energiedienste“ zur Bundesnetzagentur gewechselt sind, legt diese die Nachweistermine nach den §§5c ff. EnWG fest. Im Zweifel maßgeblich ist die schriftliche Mitteilung der jeweils zuständigen Behörde; verlassen Sie sich nicht auf eine pauschale Jahreszahl."
+        },
+        "q19": {
+          "q": "Welche Auswirkungen hat das NIS-2-Umsetzungsgesetz auf die weiteren beim BSI registrierten Anlagen meines Unternehmens?",
+          "a": "Die Herauslösung betrifft nur die als „Digitale Energiedienste“ eingestuften Anlagen (frühere Kategorie 1.1.2). Alle übrigen beim BSI registrierten Anlagen Ihres Unternehmens bleiben im BSIG-Regime: Registrierung, Risikomanagement und Nachweispflichten laufen dort unverändert weiter. Es entsteht keine Lücke und kein automatischer Wegfall; Sie führen die nicht betroffenen Anlagen genau wie bisher und behalten das BSI als zuständige Behörde."
+        },
+        "q20": {
+          "q": "Muss das laufende Audit zur Nachweiserbringung gemäß § 8a BSIG für eine Anlage der Anlagenkategorie 1.1.2 abgeschlossen werden?",
+          "a": "Nein. Für Anlagen der Kategorie 1.1.2, die als „Digitale Energiedienste“ aus dem BSIG herausfallen, ist gegenüber dem BSI kein Nachweis nach §8a BSIG mehr zu erbringen, sodass ein dafür laufendes Audit nicht mehr für das BSI abgeschlossen werden muss. Beachten Sie jedoch die künftigen Anforderungen der Bundesnetzagentur nach den §§5c ff. EnWG; bereits geleistete Prüfarbeit kann dort weiter verwertbar sein. Klären Sie den genauen Übergang direkt mit der zuständigen Behörde, bevor Sie ein Audit abbrechen."
+        },
+        "q21": {
+          "q": "Müssen sich Betreiber eines Energieversorgungsnetzes gem. § 5d Absatz 4 EnWG im BSI-Portal registrieren?",
+          "a": "Ja. Betreiber eines Energieversorgungsnetzes nach §5d Absatz 4 EnWG sind zur Registrierung im BSI-Portal verpflichtet, auch wenn sie nicht zugleich als besonders wichtige oder wichtige Einrichtung nach §28 BSIG eingestuft sind. Die Registrierungspflicht knüpft hier an den Netzbetrieb an und besteht unabhängig von der allgemeinen NIS-2-Größenschwelle. Hinterlegen Sie Ihre Stammdaten fristgerecht im BSI-Portal. Mehr zum Ablauf: [nis2-registrierung](/wiki/anwendungsbereich/nis2-registrierung)."
+        },
+        "q22": {
+          "q": "Gelten Hotel-Restaurants, Restaurants oder Gastronomiebetriebe als „wichtige Einrichtungen“?",
+          "a": "In aller Regel nein. Der Sektor Lebensmittel der Anlage 2 erfasst nur Unternehmen aus dem Großhandel sowie der industriellen Produktion und Verarbeitung von Lebensmitteln, nicht die klassische Gastronomie. Ein Hotel-Restaurant, ein Restaurant oder ein Gastronomiebetrieb fällt damit nicht allein wegen der Speisenzubereitung unter NIS 2. Maßgeblich bleibt zusätzlich, ob die Größenschwellen erreicht sind; prüfen Sie Ihre Einstufung systematisch: [wer-ist-betroffen-vollstaendiger-test](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+        },
+        "q23": {
+          "q": "Ist „sowie“ gleichbedeutend mit „oder“?",
+          "a": "Ja. In der Lebensmittel-Formulierung der Anlage 2 verbindet „sowie“ die genannten Tätigkeiten aufzählend, nicht kumulativ. Ein Unternehmen ist also bereits dann erfasst, wenn es im Großhandel oder in der industriellen Produktion oder in der Verarbeitung tätig ist; es muss nicht alle drei Tätigkeiten zugleich ausüben. Entscheidend für die Betroffenheit ist dann zusätzlich, ob die maßgeblichen Größenschwellen erreicht werden."
+        },
+        "q24": {
+          "q": "Fallen alle Beteiligten einer sicheren Lieferkette im Bereich Luftsicherheit unter KRITIS, auch wenn sie Kleinunternehmen unterhalb der Schwellenwerten zur NIS-2-Betroffenheit sind?",
+          "a": "Nein. Die Beteiligung an der sicheren Lieferkette nach §9a LuftSiG macht ein Unternehmen nicht automatisch zu einer Kritischen Infrastruktur und nicht automatisch zu einer NIS-2-Einrichtung. Zwei getrennte Schwellen entscheiden: KRITIS-Betreiber wird nur, wer die Mengenschwellen der BSI-KritisV bei einer kritischen Dienstleistung überschreitet (typischerweise in den Branchen Luftfahrt oder Logistik). NIS-2-Betroffenheit nach Anhang I bzw. II der NIS-2-Richtlinie (EU) 2022/2555 wiederum setzt voraus, dass Sie in einem erfassten Sektor tätig sind und die Größenkriterien erreichen (in der Regel ab 50 Beschäftigten oder mehr als 10 Mio. Euro Jahresumsatz; das BSIG transponiert dies in §28). Wer beide Schwellen unterschreitet, fällt durch die bloße Lieferkettenbeteiligung weder unter KRITIS noch unter NIS 2. Den vollständigen Test finden Sie unter [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+        },
+        "q25": {
+          "q": "Welche Gesellschaftsformen fallen gemäß NIS-2 unter den Sektor Finanzwesen und die Branche Bankwesen?",
+          "a": "Die Zuordnung richtet sich nicht nach der Rechtsform (GmbH, AG, eG oder andere), sondern nach der Tätigkeit. Anhang I der NIS-2-Richtlinie (EU) 2022/2555 erfasst im Bankwesen Kreditinstitute im Sinne von Artikel 4 Absatz 1 Nummer 1 der Verordnung (EU) Nr. 575/2013, also Einrichtungen, deren Tätigkeit darin besteht, Einlagen oder andere rückzahlbare Gelder des Publikums entgegenzunehmen und Kredite für eigene Rechnung zu gewähren. Eine eigene Rechtsform ist dafür nicht vorgeschrieben; entscheidend ist allein, dass Sie als Kreditinstitut zugelassen sind und diese Geschäfte betreiben. Wichtig: Für Kreditinstitute gilt seit dem 17. Januar 2025 vorrangig DORA (Verordnung (EU) 2022/2554) als Lex specialis, sodass die operativen Risikomanagement- und Meldepflichten aus DORA statt aus NIS 2 zu erfüllen sind. Ob Sie als Bank betroffen sind, prüfen Sie unter [Bin ich eine Bank im Sinne von NIS 2](/wiki/anwendungsbereich/bin-ich-bank-nis2)."
+        }
+      }
     },
     "nis2Timeline": {
       "meta": {

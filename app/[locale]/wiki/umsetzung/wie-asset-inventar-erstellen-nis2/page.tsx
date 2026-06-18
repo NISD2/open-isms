@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
@@ -62,6 +63,11 @@ export default async function HowToBuildAssetInventoryPage({
     rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("info");
 
+  const steps = elementKeys.map((key) => ({
+    title: t(`howToBuildAssetInventory.elements.items.${key}.title`),
+    body: t(`howToBuildAssetInventory.elements.items.${key}.body`),
+  }));
+
   return (
     <GlossedProse locale={locale}>
       <div className="space-y-10">
@@ -75,6 +81,20 @@ export default async function HowToBuildAssetInventoryPage({
           citationKeys={["nis2", "cir-2024-2690", "bsig"]}
           aboutKeys={["nis2", "cir-2024-2690"]}
           mentionsKeys={["bsig"]}
+        />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: t("howToBuildAssetInventory.title"),
+            description: t("howToBuildAssetInventory.subtitle"),
+            step: steps.map((step, i) => ({
+              "@type": "HowToStep",
+              position: i + 1,
+              name: step.title,
+              text: step.body,
+            })),
+          }}
         />
 
         <header>

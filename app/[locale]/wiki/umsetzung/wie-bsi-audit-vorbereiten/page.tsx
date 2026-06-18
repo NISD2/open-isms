@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
@@ -72,6 +73,20 @@ export default async function HowToPrepareBsiAuditPage({
           citationKeys={["nis2", "bsig"]}
           aboutKeys={["nis2", "bsig"]}
           mentionsKeys={["bsig"]}
+        />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: t("howToPrepareBsiAudit.title"),
+            description: t("howToPrepareBsiAudit.subtitle"),
+            step: elementKeys.map((key, i) => ({
+              "@type": "HowToStep",
+              position: i + 1,
+              name: t(`howToPrepareBsiAudit.elements.items.${key}.title`),
+              text: t(`howToPrepareBsiAudit.elements.items.${key}.body`),
+            })),
+          }}
         />
 
         <header>
