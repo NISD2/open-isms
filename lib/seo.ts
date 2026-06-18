@@ -1,4 +1,5 @@
 import { routing } from "@/i18n/routing";
+import { ogCard } from "./og-card";
 
 export const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
 
@@ -105,10 +106,11 @@ export function pageOg(args: {
   const alternates: string[] = (["de", "en", "nl"] as Locale[])
     .filter((l) => l !== safeLocale)
     .map((l) => OG_LOCALE[l]);
-  const image = args.image
-    ? args.image.startsWith("http")
-      ? args.image
-      : `${baseUrl}${args.image}`
+  const card = args.image ?? ogCard(args.slug, safeLocale);
+  const image = card
+    ? card.startsWith("http")
+      ? card
+      : `${baseUrl}${card}`
     : `${baseUrl}/og-default.png`;
 
   return {

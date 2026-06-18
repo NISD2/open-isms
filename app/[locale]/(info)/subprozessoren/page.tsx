@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 import { Separator } from "@/components/ui/separator";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -10,6 +11,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: t("subprozessoren.meta.title"),
     description: t("subprozessoren.meta.description"),
     alternates: pageAlternates("subprozessoren", locale),
+    openGraph: {
+      images: ogImages("subprozessoren", locale, t("subprozessoren.meta.title")),
+    },
   };
 }
 

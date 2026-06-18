@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { ApplicabilitySection } from "@/components/applicability/ApplicabilitySection";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -16,14 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       title: t("title"),
       description: t("metaDescription"),
       type: "website",
-      images: [
-        {
-          url: `/og/applicability-${locale}.png`,
-          width: 1200,
-          height: 630,
-          alt: t("title"),
-        },
-      ],
+      images: ogImages("applicability", locale, t("title")),
     },
   };
 }

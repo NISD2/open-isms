@@ -14,6 +14,7 @@ import {
 import { loadCourse } from "@/lib/training/course-loader";
 import { CourseOutlineList } from "@/components/training/CourseOutlineList";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 import { JsonLd } from "@/components/JsonLd";
 import { db } from "@/lib/db";
 import { trainingLessonProgress } from "@/schema";
@@ -52,14 +53,7 @@ export async function generateMetadata({
       title: t("trainingCeo.meta.ogTitle"),
       description: t("trainingCeo.meta.ogDescription"),
       type: "website",
-      images: [
-        {
-          url: `/og/training-ceo-${locale}.png`,
-          width: 1200,
-          height: 630,
-          alt: t("trainingCeo.meta.ogTitle"),
-        },
-      ],
+      images: ogImages("training-ceo", locale, t("trainingCeo.meta.ogTitle")),
     },
   };
 }

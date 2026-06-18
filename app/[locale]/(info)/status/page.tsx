@@ -10,6 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { CopyProtected } from "@/components/CopyProtected";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 import { db } from "@/lib/db";
 import incidentsData from "@/data/incidents.json";
 
@@ -22,6 +23,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: t("status.meta.title"),
     description: t("status.meta.description"),
     alternates: pageAlternates("status", locale),
+    openGraph: {
+      type: "website",
+      images: ogImages("status", locale, t("status.meta.title")),
+    },
   };
 }
 

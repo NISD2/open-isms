@@ -14,6 +14,7 @@ import {
 import { loadCourse } from "@/lib/training/course-loader";
 import { CourseOutlineList } from "@/components/training/CourseOutlineList";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 import { JsonLd } from "@/components/JsonLd";
 import { db } from "@/lib/db";
 import { trainingLessonProgress } from "@/schema";
@@ -52,6 +53,7 @@ export async function generateMetadata({
       title: t("trainingTabletop.meta.ogTitle"),
       description: t("trainingTabletop.meta.ogDescription"),
       type: "website",
+      images: ogImages("training-tabletop", locale, t("trainingTabletop.meta.ogTitle")),
     },
   };
 }

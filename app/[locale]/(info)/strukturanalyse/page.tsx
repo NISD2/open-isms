@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
 import { InventoryShell } from "@/components/asset-inventory/InventoryShell";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 
 export async function generateMetadata({
   params,
@@ -22,6 +23,7 @@ export async function generateMetadata({
       title: t("page.metaTitle"),
       description: t("page.metaDescription"),
       type: "website",
+      images: ogImages("strukturanalyse", locale, t("page.metaTitle")),
     },
   };
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink, ArrowRight, Server, Scale, Shield, Eye } from "lucide-react";
@@ -13,6 +14,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: t("vertrauen.meta.title"),
     description: t("vertrauen.meta.description"),
     alternates: pageAlternates("vertrauen", locale),
+    openGraph: {
+      images: ogImages("vertrauen", locale, t("vertrauen.meta.title")),
+    },
   };
 }
 

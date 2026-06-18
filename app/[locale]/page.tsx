@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicFooter } from "@/components/PublicFooter";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -25,14 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     alternates: pageAlternates("", locale),
     openGraph: {
       type: "website",
-      images: [
-        {
-          url: `/og/home-${locale}.png`,
-          width: 1200,
-          height: 630,
-          alt: "nisd2.eu: kostenlose NIS 2 Plattform",
-        },
-      ],
+      images: ogImages("home", locale, "nisd2.eu: kostenlose NIS 2 Plattform"),
     },
   };
 }

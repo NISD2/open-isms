@@ -1,0 +1,261 @@
+{
+  "baseUrl": {
+    "production": "https://nisd2.eu"
+  },
+  "outDir": "public/og",
+  "publicPath": "/og",
+  "manifest": "lib/og-cards.json",
+  "locales": [
+    "de",
+    "en",
+    "nl"
+  ],
+  "resolution": {
+    "width": 1200,
+    "height": 630,
+    "captureWidth": 1440,
+    "captureHeight": 756
+  },
+  "routes": [
+    {
+      "slug": "home",
+      "paths": {
+        "de": "/",
+        "en": "/en",
+        "nl": "/nl"
+      }
+    },
+    {
+      "slug": "about",
+      "paths": {
+        "de": "/about",
+        "en": "/en/about",
+        "nl": "/nl/over-ons"
+      }
+    },
+    {
+      "slug": "wiki",
+      "paths": {
+        "de": "/wiki",
+        "en": "/en/wiki",
+        "nl": "/nl/wiki"
+      }
+    },
+    {
+      "slug": "pricing",
+      "paths": {
+        "de": "/pricing",
+        "en": "/en/pricing",
+        "nl": "/nl/prijzen"
+      }
+    },
+    {
+      "slug": "sicherheitsfragebogen",
+      "paths": {
+        "de": "/sicherheitsfragebogen",
+        "en": "/en/sicherheitsfragebogen",
+        "nl": "/nl/sicherheitsfragebogen"
+      }
+    },
+    {
+      "slug": "risikobewertung",
+      "paths": {
+        "de": "/risikobewertung",
+        "en": "/en/risikobewertung",
+        "nl": "/nl/risikobewertung"
+      }
+    },
+    {
+      "slug": "training-ceo",
+      "paths": {
+        "de": "/training/nis2-ceo",
+        "en": "/en/training/nis2-ceo",
+        "nl": "/nl/training/nis2-ceo"
+      }
+    },
+    {
+      "slug": "applicability",
+      "paths": {
+        "de": "/applicability",
+        "en": "/en/applicability",
+        "nl": "/nl/toepasselijkheid"
+      }
+    },
+    {
+      "slug": "features",
+      "paths": {
+        "de": "/features",
+        "en": "/en/features",
+        "nl": "/nl/functies"
+      }
+    },
+    {
+      "slug": "open-source",
+      "paths": {
+        "de": "/open-source",
+        "en": "/en/open-source",
+        "nl": "/nl/open-source"
+      }
+    },
+    {
+      "slug": "nis2-documents",
+      "paths": {
+        "de": "/nis2-documents",
+        "en": "/en/nis2-documents",
+        "nl": null
+      }
+    },
+    {
+      "slug": "nis2-roadmap",
+      "paths": {
+        "de": "/nis2-roadmap",
+        "en": "/en/nis2-roadmap",
+        "nl": null
+      }
+    },
+    {
+      "slug": "nis2-requirements",
+      "paths": {
+        "de": "/nis2-requirements",
+        "en": "/en/nis2-requirements",
+        "nl": null
+      }
+    },
+    {
+      "slug": "what-is-nis2",
+      "paths": {
+        "de": "/what-is-nis2",
+        "en": "/en/what-is-nis2",
+        "nl": "/nl/wat-is-nis2"
+      }
+    },
+    {
+      "slug": "nis2-in-germany",
+      "paths": {
+        "de": "/nis2-in-germany",
+        "en": "/en/nis2-in-germany",
+        "nl": null
+      }
+    },
+    {
+      "slug": "strukturanalyse",
+      "paths": {
+        "de": "/strukturanalyse",
+        "en": "/en/asset-inventory",
+        "nl": "/nl/asset-inventarisatie"
+      }
+    },
+    {
+      "slug": "grc-vergleich",
+      "paths": {
+        "de": "/wiki/vergleich/grc-vergleich",
+        "en": "/en/wiki/comparison/grc-pricing-comparison",
+        "nl": "/nl/wiki/vergelijking/grc-prijsvergelijking"
+      }
+    },
+    {
+      "slug": "nis2-meldepflicht",
+      "paths": {
+        "de": "/wiki/umsetzung/nis2-meldepflicht",
+        "en": "/en/wiki/implementation/nis2-reporting-obligation",
+        "nl": "/nl/wiki/implementatie/nis2-meldplicht"
+      }
+    },
+    {
+      "slug": "nis2-lieferanten-fragebogen",
+      "paths": {
+        "de": "/nis2-lieferanten-fragebogen",
+        "en": "/en/nis2-supplier-questionnaire",
+        "nl": "/nl/nis2-leveranciersvragenlijst"
+      }
+    },
+    {
+      "slug": "nis2-einrichtungen",
+      "paths": {
+        "de": "/wiki/anwendungsbereich/nis2-einrichtungen",
+        "en": "/en/wiki/scope/nis2-entities",
+        "nl": "/nl/wiki/toepassingsgebied/nis2-entiteiten"
+      }
+    },
+    {
+      "slug": "nis2-umsetzung-europa",
+      "paths": {
+        "de": "/wiki/zeit-und-status/nis2-umsetzung-europa",
+        "en": "/en/wiki/timelines-and-status/nis2-eu-implementation",
+        "nl": "/nl/wiki/tijdlijnen-en-status/nis2-eu-implementatie"
+      }
+    },
+    {
+      "slug": "nis2-timeline",
+      "paths": {
+        "de": "/wiki/zeit-und-status/nis2-timeline",
+        "en": "/en/wiki/timelines-and-status/nis2-timeline",
+        "nl": null
+      }
+    },
+    {
+      "slug": "training-cra-sbom",
+      "paths": {
+        "de": "/training/cra-sbom",
+        "en": "/en/training/cra-sbom",
+        "nl": "/nl/training/cra-sbom"
+      }
+    },
+    {
+      "slug": "training-tabletop",
+      "paths": {
+        "de": "/training/nis2-tabletop",
+        "en": "/en/training/nis2-tabletop",
+        "nl": "/nl/training/nis2-tabletop"
+      }
+    },
+    {
+      "slug": "vertrauen",
+      "paths": {
+        "de": "/vertrauen",
+        "en": "/en/trust",
+        "nl": "/nl/vertrouwen"
+      }
+    },
+    {
+      "slug": "sicherheit",
+      "paths": {
+        "de": "/sicherheit",
+        "en": "/en/security",
+        "nl": "/nl/beveiliging"
+      }
+    },
+    {
+      "slug": "status",
+      "paths": {
+        "de": "/status",
+        "en": "/en/status",
+        "nl": "/nl/status"
+      }
+    },
+    {
+      "slug": "subprozessoren",
+      "paths": {
+        "de": "/subprozessoren",
+        "en": "/en/subprocessors",
+        "nl": "/nl/subverwerkers"
+      }
+    },
+    {
+      "slug": "bsig-30",
+      "paths": {
+        "de": "/wiki/grundlagen/bsig-30",
+        "en": "/en/wiki/fundamentals/bsig-30",
+        "nl": "/nl/wiki/grondbeginselen/bsig-30"
+      }
+    },
+    {
+      "slug": "nis2-tracker-eu",
+      "paths": {
+        "de": "/wiki/zeit-und-status/nis2-tracker-eu",
+        "en": "/en/wiki/timelines-and-status/nis2-eu-tracker",
+        "nl": null
+      }
+    }
+  ]
+}

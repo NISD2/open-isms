@@ -9,6 +9,7 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 import { topLevelSummary } from "@/lib/content/wiki-toc";
 import {
   WikiHubSearch,
@@ -34,16 +35,13 @@ export async function generateMetadata({
     alternates: pageAlternates("wiki", locale),
     openGraph: {
       type: "website",
-      images: [
-        {
-          url: `/og/wiki-${locale}.png`,
-          width: 1200,
-          height: 630,
-          alt: isEn
-            ? "Wiki — NIS 2, BSIG, CIR explained"
-            : "Wiki — NIS 2, BSIG, CIR erklärt",
-        },
-      ],
+      images: ogImages(
+        "wiki",
+        locale,
+        isEn
+          ? "Wiki — NIS 2, BSIG, CIR explained"
+          : "Wiki — NIS 2, BSIG, CIR erklärt",
+      ),
     },
   };
 }

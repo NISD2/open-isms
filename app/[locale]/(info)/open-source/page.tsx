@@ -9,6 +9,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { CopyProtected } from "@/components/CopyProtected";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -19,14 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     alternates: pageAlternates("open-source", locale),
     openGraph: {
       type: "website",
-      images: [
-        {
-          url: `/og/open-source-${locale}.png`,
-          width: 1200,
-          height: 630,
-          alt: t("openSource.meta.title"),
-        },
-      ],
+      images: ogImages("open-source", locale, t("openSource.meta.title")),
     },
   };
 }

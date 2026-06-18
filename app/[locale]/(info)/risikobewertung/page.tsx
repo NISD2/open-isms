@@ -6,6 +6,7 @@ import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
 import { RiskAssessmentShell } from "@/components/risk-assessment/RiskAssessmentShell";
 import { scoreMatrix } from "@/lib/risk-assessment/scoring";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 
 // Canned example used both for SEO crawlers (the radar card renders something
 // useful before any JS runs) and as the "before you start" preview. Picked
@@ -38,14 +39,7 @@ export async function generateMetadata({
       title: t("page.metaTitle"),
       description: t("page.metaDescription"),
       type: "website",
-      images: [
-        {
-          url: `/og/risikobewertung-${locale}.png`,
-          width: 1200,
-          height: 630,
-          alt: t("page.metaTitle"),
-        },
-      ],
+      images: ogImages("risikobewertung", locale, t("page.metaTitle")),
     },
   };
 }

@@ -1,0 +1,146 @@
+{
+  "about": {
+    "de": "/og/about-de.png",
+    "en": "/og/about-en.png",
+    "nl": "/og/about-nl.png"
+  },
+  "applicability": {
+    "de": "/og/applicability-de.png",
+    "en": "/og/applicability-en.png",
+    "nl": "/og/applicability-nl.png"
+  },
+  "bsig-30": {
+    "de": "/og/bsig-30-de.png",
+    "en": "/og/bsig-30-en.png",
+    "nl": "/og/bsig-30-nl.png"
+  },
+  "features": {
+    "de": "/og/features-de.png",
+    "en": "/og/features-en.png",
+    "nl": "/og/features-nl.png"
+  },
+  "grc-vergleich": {
+    "de": "/og/grc-vergleich-de.png",
+    "en": "/og/grc-vergleich-en.png",
+    "nl": "/og/grc-vergleich-nl.png"
+  },
+  "home": {
+    "de": "/og/home-de.png",
+    "en": "/og/home-en.png",
+    "nl": "/og/home-nl.png"
+  },
+  "nis2-documents": {
+    "de": "/og/nis2-documents-de.png",
+    "en": "/og/nis2-documents-en.png"
+  },
+  "nis2-einrichtungen": {
+    "de": "/og/nis2-einrichtungen-de.png",
+    "en": "/og/nis2-einrichtungen-en.png",
+    "nl": "/og/nis2-einrichtungen-nl.png"
+  },
+  "nis2-in-germany": {
+    "de": "/og/nis2-in-germany-de.png",
+    "en": "/og/nis2-in-germany-en.png"
+  },
+  "nis2-lieferanten-fragebogen": {
+    "de": "/og/nis2-lieferanten-fragebogen-de.png",
+    "en": "/og/nis2-lieferanten-fragebogen-en.png",
+    "nl": "/og/nis2-lieferanten-fragebogen-nl.png"
+  },
+  "nis2-meldepflicht": {
+    "de": "/og/nis2-meldepflicht-de.png",
+    "en": "/og/nis2-meldepflicht-en.png",
+    "nl": "/og/nis2-meldepflicht-nl.png"
+  },
+  "nis2-requirements": {
+    "de": "/og/nis2-requirements-de.png",
+    "en": "/og/nis2-requirements-en.png"
+  },
+  "nis2-roadmap": {
+    "de": "/og/nis2-roadmap-de.png",
+    "en": "/og/nis2-roadmap-en.png"
+  },
+  "nis2-timeline": {
+    "de": "/og/nis2-timeline-de.png",
+    "en": "/og/nis2-timeline-en.png"
+  },
+  "nis2-tracker-eu": {
+    "de": "/og/nis2-tracker-eu-de.png",
+    "en": "/og/nis2-tracker-eu-en.png"
+  },
+  "nis2-umsetzung-europa": {
+    "de": "/og/nis2-umsetzung-europa-de.png",
+    "en": "/og/nis2-umsetzung-europa-en.png",
+    "nl": "/og/nis2-umsetzung-europa-nl.png"
+  },
+  "open-source": {
+    "de": "/og/open-source-de.png",
+    "en": "/og/open-source-en.png",
+    "nl": "/og/open-source-nl.png"
+  },
+  "pricing": {
+    "de": "/og/pricing-de.png",
+    "en": "/og/pricing-en.png",
+    "nl": "/og/pricing-nl.png"
+  },
+  "risikobewertung": {
+    "de": "/og/risikobewertung-de.png",
+    "en": "/og/risikobewertung-en.png",
+    "nl": "/og/risikobewertung-nl.png"
+  },
+  "sicherheit": {
+    "de": "/og/sicherheit-de.png",
+    "en": "/og/sicherheit-en.png",
+    "nl": "/og/sicherheit-nl.png"
+  },
+  "sicherheitsfragebogen": {
+    "de": "/og/sicherheitsfragebogen-de.png",
+    "en": "/og/sicherheitsfragebogen-en.png",
+    "nl": "/og/sicherheitsfragebogen-nl.png"
+  },
+  "status": {
+    "de": "/og/status-de.png",
+    "en": "/og/status-en.png",
+    "nl": "/og/status-nl.png"
+  },
+  "strukturanalyse": {
+    "de": "/og/strukturanalyse-de.png",
+    "en": "/og/strukturanalyse-en.png",
+    "nl": "/og/strukturanalyse-nl.png"
+  },
+  "subprozessoren": {
+    "de": "/og/subprozessoren-de.png",
+    "en": "/og/subprozessoren-en.png",
+    "nl": "/og/subprozessoren-nl.png"
+  },
+  "training-ceo": {
+    "de": "/og/training-ceo-de.png",
+    "en": "/og/training-ceo-en.png",
+    "nl": "/og/training-ceo-nl.png"
+  },
+  "training-cra-sbom": {
+    "de": "/og/training-cra-sbom-de.png",
+    "en": "/og/training-cra-sbom-en.png",
+    "nl": "/og/training-cra-sbom-nl.png"
+  },
+  "training-tabletop": {
+    "de": "/og/training-tabletop-de.png",
+    "en": "/og/training-tabletop-en.png",
+    "nl": "/og/training-tabletop-nl.png"
+  },
+  "vertrauen": {
+    "de": "/og/vertrauen-de.png",
+    "en": "/og/vertrauen-en.png",
+    "nl": "/og/vertrauen-nl.png"
+  },
+  "what-is-nis2": {
+    "de": "/og/what-is-nis2-de.png",
+    "en": "/og/what-is-nis2-en.png",
+    "nl": "/og/what-is-nis2-nl.png"
+  },
+  "wiki": {
+    "de": "/og/wiki-de.png",
+    "en": "/og/wiki-en.png",
+    "nl": "/og/wiki-nl.png"
+  }
+}

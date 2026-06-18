@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { pageAlternates } from "@/lib/seo";
+import { ogImages } from "@/lib/og-card";
 import { JsonLd } from "@/components/JsonLd";
 import {
   supplierQuestionnaire,
@@ -39,6 +40,9 @@ export async function generateMetadata({
     title: t("supplierQuestionnaire.meta.title"),
     description: t("supplierQuestionnaire.meta.description"),
     alternates: pageAlternates("/nis2-lieferanten-fragebogen", locale),
+    openGraph: {
+      images: ogImages("nis2-lieferanten-fragebogen", locale, t("supplierQuestionnaire.meta.title")),
+    },
   };
 }
 
