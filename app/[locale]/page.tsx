@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
-import { Shield, Check } from "lucide-react";
+import { Shield, Check, Code2, Server, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicFooter } from "@/components/PublicFooter";
@@ -51,8 +52,6 @@ export default async function LandingPage() {
               <Shield className="h-7 w-7 text-primary-foreground" />
             </div>
 
-            <p className="mb-3 text-sm font-medium text-muted-foreground">{t("eyebrow")}</p>
-
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               {t.rich("title", {
                 blue: (chunks) => <span className="text-primary">{chunks}</span>,
@@ -67,7 +66,7 @@ export default async function LandingPage() {
                 <Link href="/training/nis2-ceo">{t("startTraining")}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <Link href="/auth/signin">{t("ctaStart")}</Link>
+                <Link href={"/wiki/umsetzung/nis2-roadmap" as never}>{t("ctaStart")}</Link>
               </Button>
             </div>
 
@@ -82,26 +81,68 @@ export default async function LandingPage() {
             <p className="mt-8 text-xs text-muted-foreground/70">{t("regLine")}</p>
           </div>
 
-          {/* Right: credibility card. A 20-30s founder voice/video clip drops in at the top of this card later. */}
+          {/* Right: founder-led credibility card. The 20-30s founder voice/video clip replaces the photo at the top later. */}
           <div className="rounded-2xl border border-border bg-muted/30 p-6">
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2.5">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <span>{t("trust1")}</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <span>{t("trust2")}</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <span>{t("trust3")}</span>
-              </li>
-            </ul>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/simon-bg-rem.png"
+                alt={t("founderName")}
+                width={56}
+                height={56}
+                className="size-14 rounded-full border border-border bg-background object-cover object-top"
+              />
+              <div>
+                <p className="text-sm font-semibold">{t("founderName")}</p>
+                <p className="text-xs text-muted-foreground">{t("founderEntity")}</p>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href="https://github.com/NISD2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs hover:bg-muted"
+              >
+                <Code2 className="h-3.5 w-3.5" />
+                {t("proofOpenSource")}
+              </a>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs">
+                <Server className="h-3.5 w-3.5" />
+                {t("proofEuHosted")}
+              </span>
+            </div>
+
+            <div className="mt-5">
+              <p className="text-sm font-semibold">{t("cardGetTitle")}</p>
+              <ul className="mt-2 space-y-2 text-sm">
+                <li className="flex items-start gap-2.5">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>{t("cardGet1")}</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>{t("cardGet2")}</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>{t("cardGet3")}</span>
+                </li>
+              </ul>
+            </div>
+
             <div className="mt-5 border-t border-border/60 pt-5">
               <p className="text-sm font-semibold">{t("cardWhyFreeTitle")}</p>
               <p className="mt-1.5 text-sm text-muted-foreground">{t("cardWhyFree")}</p>
             </div>
+
+            <Link
+              href="/vertrauen"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+            >
+              {t("cardTrustLink")}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
       </main>

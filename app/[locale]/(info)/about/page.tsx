@@ -169,7 +169,7 @@ export default async function TeamPage({
               <div>
                 <p className="text-lg font-semibold">Simon Orzel</p>
                 <p className="text-sm text-muted-foreground">
-                  CEO / Technical Co-Founder
+                  Geschäftsführer / Technical Co-Founder
                 </p>
               </div>
             </div>
