@@ -22,9 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const hostingKeys = ["appServers", "fileStorage", "noUSTransfer"] as const;
 const pseudoKeys = ["transit", "rest", "secrets"] as const;
-const confidentialityKeys = ["physical", "auth", "rbac", "separation", "secrets"] as const;
+const confidentialityKeys = ["physical", "personnel", "auth", "rbac", "separation", "secrets"] as const;
 const integrityKeys = ["input", "checksum", "transfer", "evidenceHash", "signoff"] as const;
-const availabilityKeys = ["backup", "redundancy", "rateLimit", "uploadLimit"] as const;
+const availabilityKeys = ["backup", "redundancy", "rateLimit", "uploadLimit", "status"] as const;
 const evaluationKeys = ["review", "patch", "incident", "code"] as const;
 
 export default async function TomsPage() {

@@ -275,7 +275,7 @@
       },
       "title": "Technische und organisatorische Maßnahmen (TOMs)",
       "subtitle": "Maßnahmen gemäß Art. 32 DSGVO zur Sicherheit der Verarbeitung personenbezogener Daten auf der NISD2.eu-Plattform.",
-      "lastUpdated": "Stand: April 2026.",
+      "lastUpdated": "Stand: Juni 2026.",
       "intro": {
         "heading": "Überblick",
         "p1": "Dieses Dokument beschreibt die technischen und organisatorischen Maßnahmen, die die Kardashev Catalyst UG (haftungsbeschränkt) als Betreiber der NISD2.eu-Plattform tatsächlich umsetzt. Es ist eine ehrliche Bestandsaufnahme, keine Wunschliste - wir nennen nur, was bereits implementiert ist.",
@@ -306,7 +306,8 @@
           "auth": "Authentifizierung: ausschließlich über Google OAuth 2.0; keine Speicherung von Passwörtern auf der Plattform. MFA für Nutzer wird über deren Google-Konto bereitgestellt",
           "rbac": "Rollenbasierte Berechtigungen: Admin, Reviewer, Member; Trennung in der Anwendungsschicht über tRPC-Middleware",
           "separation": "Mandantentrennung: jede datentragende Abfrage filtert auf der Datenbankebene über die Company-ID des angemeldeten Nutzers; keine gemeinsamen Datenpools zwischen Kunden",
-          "secrets": "Keine Klartext-Passwörter auf der Plattform - Authentifizierung erfolgt ausschließlich über OAuth"
+          "secrets": "Keine Klartext-Passwörter auf der Plattform - Authentifizierung erfolgt ausschließlich über OAuth",
+          "personnel": "Personelle Maßnahmen: Zugriff auf Produktivsysteme und personenbezogene Daten ist auf einen kleinen, namentlich benannten Personenkreis beschränkt, der zur Vertraulichkeit verpflichtet ist. Zugänge folgen dem Prinzip der minimalen Rechte und werden bei Beendigung der Tätigkeit entzogen."
         }
       },
       "integrity": {
@@ -325,7 +326,8 @@
           "backup": "Datenbank-Backups gemäß den Voreinstellungen des Hetzner-Cloud-Dienstes; auf Anfrage stellen wir Details zur aktuellen Backup-Konfiguration bereit",
           "redundancy": "Speicherung von Nachweisdokumenten in AWS S3 mit der von AWS bereitgestellten Objekt-Haltbarkeit",
           "rateLimit": "Rate-Limiting auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie ressourcenintensiven authentifizierten Endpunkten (PDF-Exports, Zertifikat-Generierung)",
-          "uploadLimit": "Hochgeladene Dateien sind auf 50 MB pro Datei begrenzt"
+          "uploadLimit": "Hochgeladene Dateien sind auf 50 MB pro Datei begrenzt",
+          "status": "Verfügbarkeitsüberwachung: der Betriebsstatus der Plattform wird laufend überwacht und ist öffentlich unter nisd2.eu/status einsehbar."
         }
       },
       "evaluation": {

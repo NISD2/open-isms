@@ -275,7 +275,7 @@
       },
       "title": "Technical and Organisational Measures (TOMs)",
       "subtitle": "Measures under Art. 32 GDPR ensuring the security of personal data processing on the NISD2.eu platform.",
-      "lastUpdated": "Last updated: April 2026.",
+      "lastUpdated": "Last updated: June 2026.",
       "intro": {
         "heading": "Overview",
         "p1": "This document describes the technical and organisational measures actually implemented by Kardashev Catalyst UG (haftungsbeschränkt) as operator of the NISD2.eu platform. It is an honest inventory, not a wish list - we list only what is already in place.",
@@ -306,7 +306,8 @@
           "auth": "Authentication: exclusively via Google OAuth 2.0; no passwords stored on the platform. MFA for users is provided through their Google account",
           "rbac": "Role-based permissions: admin, reviewer, member; enforced in the application layer via tRPC middleware",
           "separation": "Multi-tenant isolation: every data-bearing query filters at the database layer on the company ID of the authenticated user; no shared data pools between customers",
-          "secrets": "No plaintext passwords on the platform - authentication is exclusively OAuth-based"
+          "secrets": "No plaintext passwords on the platform - authentication is exclusively OAuth-based",
+          "personnel": "Personnel measures: access to production systems and personal data is limited to a small, named group bound by confidentiality. Access follows the principle of least privilege and is revoked when a role ends."
         }
       },
       "integrity": {
@@ -325,7 +326,8 @@
           "backup": "Database backups according to the Hetzner Cloud service defaults; details on the current backup configuration are available on request",
           "redundancy": "Storage of evidence documents in AWS S3 with the object durability guarantees provided by AWS",
           "rateLimit": "Rate limiting on login attempts, public endpoints (applicability check, supplier portal), and resource-heavy authenticated endpoints (PDF exports, certificate generation)",
-          "uploadLimit": "Uploaded files are limited to 50 MB per file"
+          "uploadLimit": "Uploaded files are limited to 50 MB per file",
+          "status": "Availability monitoring: the platform's operational status is continuously monitored and publicly visible at nisd2.eu/status."
         }
       },
       "evaluation": {
