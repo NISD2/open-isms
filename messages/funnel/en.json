@@ -1,98 +1,77 @@
 {
   "funnel": {
     "meta": {
-      "title": "NIS2 Compliance Platform \u2013 Book a Demo",
-      "description": "Step-by-step NIS2 compliance for German mid-market companies. 49 BSIG requirements, guided forms, automatic evidence tracking, audit-ready from day one."
+      "title": "Implement NIS2 with guidance: weekly, 30 minutes",
+      "description": "You know the NIS2 steps and would rather not run them alone. We work through the requirements with you once a week. Platform free and open source, guidance optional and cancellable monthly."
     },
     "hero": {
-      "headline": "49 BSIG requirements. We guide you through every one.",
-      "subhead": "The fastest path from 'NIS2 applies to us' to 'we're audit-ready.' Structured forms, deadline management, and automatic evidence tracking. Start in 48 hours.",
-      "cta": "Book Your 30-Minute Demo",
-      "trust": "Made in Cologne \u00b7 Hosted in Germany"
+      "headline": "We walk you through NIS2. Point by point.",
+      "subhead": "You know NIS2 applies to you and you would rather not carry the implementation alone. We sit down with you for 30 minutes once a week and work through the requirements in order. The platform stays free and open source, the guidance is optional.",
+      "roadmapLink": "Already know the steps and want to start on your own? Here is the roadmap.",
+      "cta": "Book a free intro call",
+      "trust": "Made in Cologne. Hosted in Germany."
     },
-    "stats": {
-      "heading": "The regulatory reality",
-      "companies": "29,500",
-      "companiesLabel": "companies in scope in Germany alone",
-      "penalty": "\u20ac10M / 2%",
-      "penaltyLabel": "fine or 2% of global annual turnover",
-      "liability": "\u00a738 BSIG",
-      "liabilityLabel": "management personally liable",
-      "description": "The NIS2 directive is transposed into German law via the BSIG. Registration deadlines are approaching, and management boards carry personal liability for non-compliance. Waiting is no longer an option."
+    "process": {
+      "heading": "How the guidance works",
+      "step1Title": "Weekly call, 30 minutes",
+      "step1Body": "One fixed slot a week. No project month, no endless alignment loops. We take the next item on your roadmap and get it done together.",
+      "step2Title": "We lead, your IT lead implements",
+      "step2Body": "Your personal effort as managing director is about three hours a year, then approval and oversight under Article 20 NIS 2 (in Germany § 38 BSIG) is done. Four obligations under Article 21 are fixed, the rest scales with your risk and is proportional. The operational part, the asset inventory, risk register, suppliers and the ten measures, is handled by your team.",
+      "step3Title": "You keep everything. No lock-in.",
+      "step3Body": "Your data, the audit trail and the evidence are yours. The platform is open source. If you want to continue without us, export everything and take it with you."
     },
-    "alternatives": {
-      "heading": "Why existing options fall short",
-      "consultants": {
-        "title": "Consultants",
-        "price": "\u20ac150K\u2013500K",
-        "items": ["Spreadsheet-based tracking", "No automation or audit trail", "Months of back-and-forth", "Knowledge leaves when they leave"]
-      },
-      "enterprise": {
-        "title": "Enterprise GRC",
-        "price": "\u20ac100K+/year",
-        "items": ["6\u201312 month implementation", "Built for Fortune 500 complexity", "Overkill for mid-market", "Requires dedicated GRC team"]
-      },
-      "usPlatforms": {
-        "title": "US Platforms",
-        "price": "\u20ac7,500+/year",
-        "items": ["English-first, bolt-on translations", "No BSIG-specific guidance", "US data hosting defaults", "Generic framework mapping"]
-      },
-      "nisd2": {
-        "title": "NISD2.eu",
-        "items": ["Step-by-step through all 49 requirements", "Audit-ready from day one", "German-language, EU-hosted", "Live in 48 hours"]
-      },
-      "callout": "Purpose-built for NIS2 and BSIG. Nothing more, nothing less."
+    "comparison": {
+      "heading": "What each is for",
+      "intro": "We do not run anyone else down. Each option has its place. Here is the honest read so you know whether we fit you.",
+      "consultantsTitle": "Consultants",
+      "consultants": "A consultant does the work for you and takes real accountability. Worth it if you have the budget and no one in-house to own NIS2 long term. The knowledge does leave with the consultant, though.",
+      "fullServiceTitle": "Full-service GRC platform",
+      "fullService": "Full-service GRC platforms cover many frameworks at once and are built for large organizations with their own GRC team. Strong if that is exactly what you need and the budget is there.",
+      "intlPlatformsTitle": "International platform",
+      "intlPlatforms": "International platforms are polished and fast for common certifications. Strong if you certify internationally and English as the primary language fits.",
+      "nisd2Title": "nisd2.eu",
+      "nisd2": "nisd2.eu is free and open source, EU-hosted. One standard, done to depth. Everything exportable, no lock-in. What we do not do: no full-service hand-holding, no phone support walking you through it step by step. You need someone in-house who owns NIS2. That is exactly who this is built for."
     },
     "features": {
-      "heading": "What you get",
+      "heading": "What we work through with you",
       "obligations": {
-        "title": "49 requirements, guided step-by-step",
-        "description": "Every BSIG requirement broken down into structured forms with clear instructions. No compliance background needed, just answer the questions."
+        "title": "The obligations from Article 21 NIS2",
+        "description": "Every duty broken into structured forms with clear instructions. No compliance background needed: you answer the questions, we do the mapping."
       },
       "evidence": {
-        "title": "Automatic evidence & audit trail",
-        "description": "Upload documents, track approvals, and maintain a tamper-evident audit trail. Everything timestamped and ready for BSI review."
+        "title": "Evidence and audit trail",
+        "description": "Documents, sign-offs and a tamper-evident audit trail build themselves from your work. Everything timestamped, ready for the audit."
       },
       "deadlines": {
-        "title": "Deadline tracking & escalation",
-        "description": "BSI registration, incident reporting cascades (24h / 72h / 1m), training renewals. Every deadline tracked with automatic escalation so nothing slips."
+        "title": "Deadlines and reporting",
+        "description": "Registration, the incident reporting cascade under Article 23 (24 hours, 72 hours, one month) and training renewals. Every deadline tracked, nothing slips."
       },
       "bsiRegistration": {
-        "title": "BSI registration support",
-        "description": "Guided preparation for your BSI registration, including all required documentation and pre-submission checklists."
+        "title": "Registration with the authority",
+        "description": "Guided preparation for registration under Article 27, with all required documents and a pre-flight checklist."
       }
-    },
-    "offer": {
-      "heading": "Founding Partner Program",
-      "subtitle": "We're onboarding our first 10 companies with hands-on support.",
-      "items": [
-        "3 months free, full platform access",
-        "White-glove onboarding within 48 hours",
-        "Direct founder access for the lifetime of your account",
-        "Lock in preferential pricing before general availability"
-      ],
-      "exchange": "In return, we ask for honest feedback to shape the product.",
-      "cta": "Book Your Free Demo"
     },
     "faq": {
       "heading": "Common questions",
-      "q1": "Are we affected by NIS2?",
-      "a1": "If your company operates in one of the 18 critical sectors (energy, transport, health, digital infrastructure, etc.) and has 50+ employees or \u20ac10M+ revenue, you are very likely in scope. Our free applicability check takes 2 minutes and gives you a clear answer.",
-      "q2": "We already have ISO 27001. Isn't that enough?",
-      "a2": "ISO 27001 covers roughly 60\u201370% of NIS2 requirements. But NIS2 adds obligations around incident reporting (24h/72h), supply chain security, management liability, and BSI registration that ISO 27001 does not address. Our platform covers all of these.",
-      "q3": "How much does it cost after the free period?",
-      "a3": "We're finalizing pricing for general availability. Founding partners lock in preferential pricing for the lifetime of their account. We'll share details during the demo call.",
+      "q1": "Is the platform really free?",
+      "a1": "Yes. The platform is free and open source. We earn from guided implementation and training, not from the software and not from your data. You can inspect the code at github.com/NISD2.",
+      "q2": "What does the guidance cost?",
+      "a2": "We work out the scope in the intro call, cancellable monthly, no lock-in. We first look together at whether you need guidance at all, or whether the free platform and the roadmap are enough on their own.",
+      "q3": "We already have ISO 27001. Do we still need this?",
+      "a3": "ISO 27001 covers many of the technical and organisational measures NIS2 also asks for. NIS2 adds obligations an ISMS alone does not cover: registration with the national authority under Article 27, the incident reporting cascade under Article 23, and demonstrable management training under Article 20 NIS 2 (in Germany § 38 BSIG). Those are exactly the gaps we work through with you.",
       "q4": "How long does implementation take?",
-      "a4": "Most companies complete their initial compliance baseline within 2\u20134 weeks. We onboard you within 48 hours, and the platform guides you through each step. No 6-month implementation projects.",
-      "q5": "What about data security?",
-      "a5": "All data is hosted in Germany. We use encryption at rest and in transit, role-based access controls, and maintain a complete audit trail. We practice what we preach.",
-      "q6": "What happens after the free months?",
-      "a6": "You transition to a paid plan at the rate discussed during onboarding. No surprise pricing. If you decide it's not for you, we help you export all your data. No lock-in."
+      "a4": "Your personal effort as managing director is about three hours a year: one training, a few signatures. The operational part is handled by your IT lead on an ongoing basis. How fast the baseline is in place depends on how well your asset inventory is already maintained. The roadmap shows the realistic effort per step.",
+      "q5": "Where is our data stored?",
+      "a5": "In Germany. Encrypted in transit and at rest, with role-based access and a full audit trail. Details are in the Trust Center.",
+      "q6": "What happens if we stop the guidance?",
+      "a6": "You keep using the platform for free, or you export your data and leave. The guidance is cancellable monthly, the software is open source. No lock-in."
+    },
+    "sources": {
+      "body": "Sources and transparency: NIS2 Directive (EU) 2022/2555, BSIG, CIR 2024/2690, ENISA Technical Implementation Guidance. Open source, hosted in Germany, GDPR-compliant. This page is structured guidance and is not legal advice. Operational implementation is handled by your IT lead or CISO."
     },
     "finalCta": {
-      "headline": "The BSI registration deadline is March 2026. We can onboard you within 48 hours.",
-      "cta": "Book Your 30-Minute Demo",
-      "email": "Or email us directly: contact@nisd2.eu"
+      "headline": "Book a free intro call",
+      "email": "Prefer to write directly? contact@nisd2.eu"
     }
   }
 }

@@ -1,98 +1,77 @@
 {
   "funnel": {
     "meta": {
-      "title": "NIS2-Compliance-Plattform \u2013 Demo buchen",
-      "description": "NIS2-Compliance f\u00fcr den Mittelstand: 49 BSIG-Anforderungen, gef\u00fchrte Formulare, automatische Nachweisf\u00fchrung \u2013 audit-bereit ab Tag eins."
+      "title": "NIS2 begleitet umsetzen: wöchentlich, 30 Minuten",
+      "description": "Sie kennen die NIS2-Schritte und wollen sie nicht allein durchziehen. Wir gehen die Anforderungen einmal pro Woche mit Ihnen durch. Plattform kostenlos und Open Source, Begleitung optional und monatlich kündbar."
     },
     "hero": {
-      "headline": "49 BSIG-Anforderungen. Wir f\u00fchren Sie durch jede einzelne.",
-      "subhead": "Der schnellste Weg von \u201eNIS2 betrifft uns\u201c zu \u201ewir sind audit-bereit.\u201c Strukturierte Formulare, Fristenmanagement und automatische Nachweisf\u00fchrung. Start in 48 Stunden.",
-      "cta": "30-Minuten-Demo buchen",
-      "trust": "Made in K\u00f6ln \u00b7 Gehostet in Deutschland"
+      "headline": "Wir gehen NIS2 mit Ihnen durch. Punkt für Punkt.",
+      "subhead": "Sie wissen, dass NIS2 Sie betrifft, und wollen die Umsetzung nicht allein stemmen. Wir setzen uns einmal pro Woche 30 Minuten mit Ihnen zusammen und arbeiten die Anforderungen der Reihe nach ab. Die Plattform bleibt kostenlos und Open Source, die Begleitung ist optional.",
+      "roadmapLink": "Sie kennen die Schritte schon und wollen selbst loslegen? Hier entlang zur Roadmap.",
+      "cta": "Kostenloses Erstgespräch buchen",
+      "trust": "Made in Köln. Gehostet in Deutschland."
     },
-    "stats": {
-      "heading": "Die regulatorische Realit\u00e4t",
-      "companies": "29.500",
-      "companiesLabel": "betroffene Unternehmen allein in Deutschland",
-      "penalty": "10 Mio. \u20ac / 2%",
-      "penaltyLabel": "Bu\u00dfgeld oder 2% des weltweiten Jahresumsatzes",
-      "liability": "\u00a738 BSIG",
-      "liabilityLabel": "Gesch\u00e4ftsf\u00fchrung pers\u00f6nlich haftbar",
-      "description": "Die NIS2-Richtlinie ist durch das BSIG in deutsches Recht umgesetzt. Registrierungsfristen laufen, und die Gesch\u00e4ftsleitung haftet pers\u00f6nlich bei Nichteinhaltung. Abwarten ist keine Option mehr."
+    "process": {
+      "heading": "So läuft die Begleitung ab",
+      "step1Title": "Wöchentlicher Termin, 30 Minuten",
+      "step1Body": "Ein fester Slot pro Woche. Kein Projektmonat, keine Abstimmungsschleifen. Wir nehmen uns den nächsten Punkt auf Ihrer Roadmap vor und erledigen ihn gemeinsam.",
+      "step2Title": "Wir führen, Ihre IT-Leitung setzt um",
+      "step2Body": "Ihr persönlicher Aufwand als Geschäftsführer liegt bei rund drei Stunden im Jahr, dann ist die Genehmigung und Aufsicht nach Artikel 20 NIS2 (in Deutschland § 38 BSIG) erledigt. Vier Pflichten aus Artikel 21 sind gesetzt, der Rest richtet sich nach Ihrem Risiko und ist proportional. Den operativen Teil, also Asset-Inventar, Risikoregister, Lieferanten und die zehn Maßnahmenbereiche, übernimmt Ihr Team.",
+      "step3Title": "Sie behalten alles. Kein Lock-in.",
+      "step3Body": "Ihre Daten, der Audit-Trail und die Nachweise gehören Ihnen. Die Plattform ist Open Source. Wenn Sie ohne uns weitermachen wollen, exportieren Sie alles und nehmen es mit."
     },
-    "alternatives": {
-      "heading": "Warum bestehende L\u00f6sungen nicht ausreichen",
-      "consultants": {
-        "title": "Berater",
-        "price": "150.000\u2013500.000 \u20ac",
-        "items": ["Excel-basiertes Tracking", "Keine Automatisierung oder Audit-Trail", "Monate von Abstimmungsschleifen", "Know-how geht mit dem Berater"]
-      },
-      "enterprise": {
-        "title": "Enterprise-GRC",
-        "price": "100.000+ \u20ac/Jahr",
-        "items": ["6\u201312 Monate Implementierung", "Gebaut f\u00fcr DAX-Komplexit\u00e4t", "\u00dcberdimensioniert f\u00fcr den Mittelstand", "Erfordert dediziertes GRC-Team"]
-      },
-      "usPlatforms": {
-        "title": "US-Plattformen",
-        "price": "7.500+ \u20ac/Jahr",
-        "items": ["Englisch-first, angeflickte \u00dcbersetzungen", "Keine BSIG-spezifische Anleitung", "US-Datenhosting als Standard", "Generisches Framework-Mapping"]
-      },
-      "nisd2": {
-        "title": "NISD2.eu",
-        "items": ["Schritt f\u00fcr Schritt durch alle 49 Anforderungen", "Audit-bereit ab Tag eins", "Deutschsprachig, EU-gehostet", "Live in 48 Stunden"]
-      },
-      "callout": "Speziell f\u00fcr NIS2 und BSIG gebaut. Nicht mehr, nicht weniger."
+    "comparison": {
+      "heading": "Wofür ist was gemacht",
+      "intro": "Wir reden keine andere Lösung schlecht. Jede hat ihren Platz. Hier ist die ehrliche Einordnung, damit Sie wissen, ob wir zu Ihnen passen.",
+      "consultantsTitle": "Beratung",
+      "consultants": "Eine Beraterin macht die Arbeit für Sie und übernimmt echte Verantwortung. Sinnvoll, wenn Sie Budget haben und niemanden im Haus, der NIS2 dauerhaft besitzt. Das Wissen geht allerdings mit der Beraterin wieder aus dem Haus.",
+      "fullServiceTitle": "Voll betreute GRC-Plattform",
+      "fullService": "Voll betreute GRC-Plattformen bilden viele Frameworks auf einmal ab und sind für große Organisationen mit eigenem GRC-Team gebaut. Stark, wenn Sie genau das brauchen und das Budget dafür haben.",
+      "intlPlatformsTitle": "Internationale Plattform",
+      "intlPlatforms": "Internationale Plattformen sind poliert und schnell für gängige Zertifizierungen. Stark, wenn Sie international zertifizieren und Englisch als Hauptsprache passt.",
+      "nisd2Title": "nisd2.eu",
+      "nisd2": "nisd2.eu ist kostenlos und Open Source, in der EU gehostet. Ein Standard, dafür in die Tiefe. Alles exportierbar, kein Lock-in. Was wir nicht machen: keine Rundumbetreuung, wir nehmen Sie nicht am Telefon Schritt für Schritt an die Hand. Sie brauchen jemanden im Haus, der NIS2 besitzt. Genau dafür ist das gebaut."
     },
     "features": {
-      "heading": "Was Sie bekommen",
+      "heading": "Das nehmen wir mit Ihnen durch",
       "obligations": {
-        "title": "49 Anforderungen, Schritt f\u00fcr Schritt gef\u00fchrt",
-        "description": "Jede BSIG-Anforderung in strukturierte Formulare mit klaren Anweisungen zerlegt. Kein Compliance-Vorwissen n\u00f6tig, einfach die Fragen beantworten."
+        "title": "Die Anforderungen aus Artikel 21 NIS2",
+        "description": "Jede Pflicht in strukturierte Formulare mit klaren Anweisungen zerlegt. Kein Vorwissen nötig: Sie beantworten die Fragen, wir ordnen ein."
       },
       "evidence": {
-        "title": "Automatische Nachweise & Audit-Trail",
-        "description": "Dokumente hochladen, Freigaben tracken und einen manipulationssicheren Audit-Trail f\u00fchren. Alles mit Zeitstempel und bereit f\u00fcr die BSI-Pr\u00fcfung."
+        "title": "Nachweise und Audit-Trail",
+        "description": "Dokumente, Freigaben und ein manipulationssicherer Audit-Trail entstehen automatisch aus Ihrer Arbeit. Alles mit Zeitstempel, bereit für die Prüfung."
       },
       "deadlines": {
-        "title": "Fristen\u00fcberwachung & Eskalation",
-        "description": "BSI-Registrierung, Meldekaskaden (24 h / 72 h / 1 Monat), Schulungserneuerungen. Jede Frist \u00fcberwacht mit automatischer Eskalation, damit nichts untergeht."
+        "title": "Fristen und Meldewege",
+        "description": "Registrierung, die Meldekaskade nach Artikel 23 (24 Stunden, 72 Stunden, ein Monat) und Schulungserneuerungen. Jede Frist überwacht, nichts geht unter."
       },
       "bsiRegistration": {
-        "title": "BSI-Registrierungsunterst\u00fctzung",
-        "description": "Gef\u00fchrte Vorbereitung auf Ihre BSI-Registrierung, inklusive aller erforderlichen Dokumente und Vorab-Checklisten."
+        "title": "Registrierung bei der Behörde",
+        "description": "Geführte Vorbereitung auf die Registrierung nach Artikel 27, mit allen erforderlichen Dokumenten und einer Vorab-Checkliste."
       }
     },
-    "offer": {
-      "heading": "Gr\u00fcndungspartner-Programm",
-      "subtitle": "Wir onboarden unsere ersten 10 Unternehmen mit pers\u00f6nlicher Betreuung.",
-      "items": [
-        "3 Monate kostenlos, voller Plattformzugang",
-        "White-Glove-Onboarding innerhalb von 48 Stunden",
-        "Direkter Zugang zum Gr\u00fcnder f\u00fcr die gesamte Laufzeit",
-        "Bevorzugte Konditionen vor allgemeiner Verf\u00fcgbarkeit sichern"
-      ],
-      "exchange": "Im Gegenzug bitten wir um ehrliches Feedback zur Produktgestaltung.",
-      "cta": "Kostenlose Demo buchen"
-    },
     "faq": {
-      "heading": "H\u00e4ufige Fragen",
-      "q1": "Sind wir von NIS2 betroffen?",
-      "a1": "Wenn Ihr Unternehmen in einem der 18 kritischen Sektoren t\u00e4tig ist (Energie, Transport, Gesundheit, digitale Infrastruktur etc.) und 50+ Mitarbeiter oder 10 Mio. \u20ac+ Umsatz hat, sind Sie sehr wahrscheinlich betroffen. Unser kostenloser Betroffenheitscheck dauert 2 Minuten und gibt Ihnen eine klare Antwort.",
-      "q2": "Wir haben bereits ISO 27001. Reicht das nicht?",
-      "a2": "ISO 27001 deckt ca. 60\u201370% der NIS2-Anforderungen ab. NIS2 erg\u00e4nzt jedoch Pflichten zur Meldung von Vorf\u00e4llen (24h/72h), Lieferkettensicherheit, Gesch\u00e4ftsf\u00fchrerhaftung und BSI-Registrierung, die ISO 27001 nicht adressiert. Unsere Plattform deckt all das ab.",
-      "q3": "Was kostet es nach der kostenlosen Phase?",
-      "a3": "Wir finalisieren derzeit die Preise f\u00fcr die allgemeine Verf\u00fcgbarkeit. Gr\u00fcndungspartner sichern sich bevorzugte Konditionen f\u00fcr die gesamte Laufzeit. Details besprechen wir gerne im Demo-Gespr\u00e4ch.",
-      "q4": "Wie lange dauert die Implementierung?",
-      "a4": "Die meisten Unternehmen schlie\u00dfen ihre initiale Compliance-Baseline innerhalb von 2\u20134 Wochen ab. Wir onboarden Sie innerhalb von 48 Stunden, und die Plattform f\u00fchrt Sie durch jeden Schritt. Keine 6-monatigen Implementierungsprojekte.",
-      "q5": "Wie steht es um die Datensicherheit?",
-      "a5": "Alle Daten werden in Deutschland gehostet. Wir nutzen Verschl\u00fcsselung im Ruhezustand und bei der \u00dcbertragung, rollenbasierte Zugriffskontrollen und f\u00fchren einen l\u00fcckenlosen Audit-Trail. Wir leben, was wir predigen.",
-      "q6": "Was passiert nach den kostenlosen Monaten?",
-      "a6": "Sie wechseln zu einem bezahlten Plan zum w\u00e4hrend des Onboardings besprochenen Preis. Keine \u00dcberraschungen. Wenn Sie sich dagegen entscheiden, helfen wir Ihnen beim Datenexport. Kein Lock-in."
+      "heading": "Häufige Fragen",
+      "q1": "Ist die Plattform wirklich kostenlos?",
+      "a1": "Ja. Die Plattform ist kostenlos und Open Source. Wir verdienen an begleiteter Umsetzung und an Schulungen, nicht an der Software und nicht an Ihren Daten. Den Code können Sie auf github.com/NISD2 einsehen.",
+      "q2": "Was kostet die Begleitung?",
+      "a2": "Den Rahmen klären wir im Erstgespräch, monatlich kündbar, kein Lock-in. Wir schauen zuerst gemeinsam, ob Sie Begleitung überhaupt brauchen oder mit der kostenlosen Plattform und der Roadmap allein zurechtkommen.",
+      "q3": "Wir haben schon ISO 27001. Brauchen wir das noch?",
+      "a3": "ISO 27001 deckt viele technische und organisatorische Maßnahmen ab, die NIS2 ebenfalls verlangt. NIS2 ergänzt Pflichten, die ein ISMS allein nicht abbildet: die Registrierung bei der nationalen Behörde nach Artikel 27, die Meldekaskade für Vorfälle nach Artikel 23 und die nachweisbare Schulung der Geschäftsführung nach Artikel 20 NIS2 (in Deutschland § 38 BSIG). Genau diese Lücken arbeiten wir mit Ihnen ab.",
+      "q4": "Wie lange dauert die Umsetzung?",
+      "a4": "Ihr persönlicher Aufwand als Geschäftsführer liegt bei rund drei Stunden pro Jahr: einmal Schulung, ein paar Unterschriften. Den operativen Teil erledigt Ihre IT-Leitung laufend. Wie schnell die Baseline steht, hängt davon ab, wie gut Ihr Asset-Inventar schon gepflegt ist. Die Roadmap zeigt den realistischen Aufwand pro Schritt.",
+      "q5": "Wo liegen unsere Daten?",
+      "a5": "In Deutschland. Verschlüsselt bei der Übertragung und im Ruhezustand, mit rollenbasierten Zugriffsrechten und einem lückenlosen Audit-Trail. Details stehen im Trust Center.",
+      "q6": "Was passiert, wenn wir die Begleitung beenden?",
+      "a6": "Sie nutzen die Plattform kostenlos weiter oder exportieren Ihre Daten und gehen. Die Begleitung ist monatlich kündbar, die Software ist Open Source. Kein Lock-in."
+    },
+    "sources": {
+      "body": "Quellen und Transparenz: NIS2-Richtlinie (EU) 2022/2555, BSIG, CIR 2024/2690, ENISA Technical Implementation Guidance. Open Source, Hosting in Deutschland, DSGVO-konform. Diese Seite ist eine strukturierte Hilfestellung und ersetzt keine Rechtsberatung. Die operative Umsetzung übernimmt Ihre IT-Leitung oder Ihr CISO."
     },
     "finalCta": {
-      "headline": "Die BSI-Registrierungsfrist ist M\u00e4rz 2026. Wir k\u00f6nnen Sie innerhalb von 48 Stunden onboarden.",
-      "cta": "30-Minuten-Demo buchen",
-      "email": "Oder schreiben Sie uns direkt: contact@nisd2.eu"
+      "headline": "Buchen Sie ein kostenloses Erstgespräch",
+      "email": "Lieber direkt schreiben? contact@nisd2.eu"
     }
   }
 }
