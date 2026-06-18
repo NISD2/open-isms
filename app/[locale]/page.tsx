@@ -64,10 +64,10 @@ export default async function LandingPage() {
             {/* CTAs */}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link href="/training/courses">{t("startTraining")}</Link>
+                <Link href="/training/nis2-ceo">{t("startTraining")}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <Link href="/start">{t("ctaStart")}</Link>
+                <Link href="/auth/signin">{t("ctaStart")}</Link>
               </Button>
             </div>
 
