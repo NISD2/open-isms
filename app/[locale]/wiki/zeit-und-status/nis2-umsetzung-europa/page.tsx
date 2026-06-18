@@ -195,7 +195,7 @@ export default async function NIS2EuropaPage({
         </p>
       </header>
 
-      <WikiPageMeta authorSlug="simon-orzel" locale={locale === "nl" ? "de" : (locale as "de" | "en")} />
+      <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
 
       <Separator />
 

@@ -3050,358 +3050,358 @@
     },
     "incidentReporting": {
       "meta": {
-        "title": "NIS2 Incident Reporting: 24h / 72h / 1 Month Playbook",
-        "description": "NIS2 incident reporting under §32 BSIG implements Article 23 NIS2: early warning in 24 hours, incident notification in 72 hours, final report in 1 month."
+        "title": "NIS2-meldplicht: 24u / 72u / 1 maand playbook",
+        "description": "NIS2-meldplicht onder §32 BSIG: vroege waarschuwing binnen 24 uur, incidentmelding binnen 72 uur, eindrapport binnen 1 maand. Criteria, BSI-portaal, boetes."
       },
-      "title": "NIS2 Incident Reporting Playbook",
-      "subtitle": "§32 BSIG transposes Art 23(4) NIS 2: three mandatory reports with fixed deadlines (24h, 72h, 1 month) plus two conditional reports (on request, if the incident is still ongoing). Missing a deadline is a separate violation, independent of the incident itself.",
+      "title": "NIS2-meldplicht playbook",
+      "subtitle": "§32 BSIG zet Art 23(4) NIS 2 om: drie verplichte meldingen met vaste termijnen (24u, 72u, 1 maand) plus twee voorwaardelijke meldingen (op verzoek, als het incident nog gaande is). Een termijn missen is een aparte overtreding, los van het incident zelf.",
       "overview": {
-        "heading": "Incident Reporting Under NIS2",
-        "p1": "§32 BSIG implements Article 23 of the NIS2 Directive. It establishes a mandatory reporting regime for significant security incidents. Every entity classified as a essential entity or important entity must report to the BSI when an incident meets the significance criteria. The cascade has three mandatory reports with fixed deadlines and two conditional reports, triggered on request or by an ongoing incident. The obligation cannot be delegated to a managed security service provider; the entity itself is responsible for timely reporting.",
-        "p2": "The reporting timelines are strict and begin when the entity becomes aware of the incident, not when the investigation is complete. This is a critical distinction: the 24-hour early warning must be submitted based on initial awareness, even if the full scope and impact are unknown. Waiting for complete information before reporting is itself a violation."
+        "heading": "Incidentmelding onder NIS2",
+        "p1": "§32 BSIG voert artikel 23 van de NIS2-richtlijn uit. Het stelt een verplicht meldingsregime in voor significante beveiligingsincidenten. Elke entiteit die als essentiële entiteit of belangrijke entiteit is aangemerkt, moet bij het BSI melden zodra een incident aan de significantiecriteria voldoet. De cascade bestaat uit drie verplichte meldingen met vaste termijnen en twee voorwaardelijke meldingen, die worden geactiveerd op verzoek of door een lopend incident. De verplichting kan niet worden overgedragen aan een managed security service provider; de entiteit zelf is verantwoordelijk voor tijdige melding.",
+        "p2": "De meldtermijnen zijn strikt en beginnen op het moment dat de entiteit kennis krijgt van het incident, niet wanneer het onderzoek is afgerond. Dat is een cruciaal onderscheid: de vroege waarschuwing binnen 24 uur moet worden ingediend op basis van de eerste kennisname, ook als de volledige omvang en impact nog onbekend zijn. Wachten met melden tot er volledige informatie is, vormt op zichzelf al een overtreding."
       },
       "timeline": {
-        "heading": "Reporting Cascade per Art 23(4) NIS 2",
-        "description": "Three mandatory stages with fixed deadlines from the moment of awareness, plus up to two conditional reports (intermediate on the authority's request, progress report if the incident is still ongoing on the day the final report is due).",
+        "heading": "Meldcascade volgens Art 23(4) NIS 2",
+        "description": "Drie verplichte fasen met vaste termijnen vanaf het moment van kennisname, plus maximaal twee voorwaardelijke meldingen (tussentijds op verzoek van de autoriteit, voortgangsrapport als het incident op de dag waarop het eindrapport verschuldigd is nog gaande is).",
         "items": {
           "early": {
-            "title": "Early Warning (Frühwarnung)",
-            "deadline": "Within 24 hours",
-            "description": "The initial notification to the BSI that a potentially significant incident has been detected. Must be submitted within 24 hours of becoming aware of the incident. The purpose is to enable the BSI to assess cross-sector impact and issue warnings to other entities if necessary.",
+            "title": "Vroege waarschuwing (Frühwarnung)",
+            "deadline": "Binnen 24 uur",
+            "description": "De eerste melding aan het BSI dat een mogelijk significant incident is gedetecteerd. Moet worden ingediend binnen 24 uur na kennisname van het incident. Het doel is het BSI in staat te stellen de sectoroverschrijdende impact te beoordelen en zo nodig waarschuwingen aan andere entiteiten te geven.",
             "contents": [
-              "Confirmation that a significant incident has occurred or is suspected",
-              "Whether the incident is suspected to be caused by unlawful or malicious acts",
-              "Whether the incident could have cross-border impact",
-              "Entity name, sector, and contact details for follow-up"
+              "Bevestiging dat een significant incident heeft plaatsgevonden of wordt vermoed",
+              "Of het incident vermoedelijk wordt veroorzaakt door onrechtmatige of kwaadwillige handelingen",
+              "Of het incident grensoverschrijdende impact zou kunnen hebben",
+              "Naam van de entiteit, sector en contactgegevens voor opvolging"
             ]
           },
           "update": {
-            "title": "Incident Notification (Meldung)",
-            "deadline": "Within 72 hours",
-            "description": "A more detailed notification updating the early warning with additional information gathered during the initial response. Must be submitted within 72 hours of awareness. Updates the BSI on the incident's nature, severity, and initial impact assessment.",
+            "title": "Incidentmelding (Meldung)",
+            "deadline": "Binnen 72 uur",
+            "description": "Een meer gedetailleerde melding die de vroege waarschuwing aanvult met aanvullende informatie die tijdens de eerste respons is verzameld. Moet worden ingediend binnen 72 uur na kennisname. Werkt het BSI bij over de aard, ernst en eerste impactbeoordeling van het incident.",
             "contents": [
-              "Updated assessment of the incident's severity and impact",
-              "Indicators of compromise (IoCs) where available",
-              "Initial assessment of the nature and cause of the incident",
-              "Measures taken or planned to mitigate the incident",
-              "Cross-border impact assessment if applicable"
+              "Bijgewerkte beoordeling van de ernst en impact van het incident",
+              "Indicatoren van compromittering (IoCs), voor zover beschikbaar",
+              "Eerste beoordeling van de aard en oorzaak van het incident",
+              "Genomen of geplande maatregelen om het incident te beperken",
+              "Beoordeling van grensoverschrijdende impact, indien van toepassing"
             ]
           },
           "intermediate": {
-            "title": "Intermediate Report (Zwischenbericht)",
-            "deadline": "On request",
-            "description": "Submitted on request from the BSI between the 72-hour notification and the final report. Status update on the current state of incident handling. Not automatic; triggered by the authority.",
+            "title": "Tussenrapport (Zwischenbericht)",
+            "deadline": "Op verzoek",
+            "description": "Ingediend op verzoek van het BSI tussen de melding na 72 uur en het eindrapport. Statusupdate over de actuele stand van de incidentafhandeling. Niet automatisch; wordt door de autoriteit geactiveerd.",
             "contents": [
-              "Current status of containment and remediation",
-              "New findings on cause, scope or impact",
-              "Adjustments to countermeasures",
-              "Updated damage assessment"
+              "Actuele status van indamming en herstel",
+              "Nieuwe bevindingen over oorzaak, omvang of impact",
+              "Aanpassingen aan de tegenmaatregelen",
+              "Bijgewerkte schadebeoordeling"
             ]
           },
           "final": {
-            "title": "Final Report (Abschlussbericht)",
-            "deadline": "1 month after the 72h notification",
-            "description": "A comprehensive final report submitted within one month of the 72-hour incident notification. Full documentation of the incident and the response.",
+            "title": "Eindrapport (Abschlussbericht)",
+            "deadline": "1 maand na de melding van 72u",
+            "description": "Een uitgebreid eindrapport, ingediend binnen één maand na de incidentmelding van 72 uur. Volledige documentatie van het incident en de respons.",
             "contents": [
-              "Detailed description of the incident, including severity and impact",
-              "Root cause analysis - the type of threat or vulnerability that caused the incident",
-              "Measures applied and ongoing to mitigate the incident and its effects",
-              "Cross-border impact if applicable",
-              "Lessons learned and corrective actions planned or implemented"
+              "Gedetailleerde beschrijving van het incident, inclusief ernst en impact",
+              "Analyse van de grondoorzaak: het type dreiging of kwetsbaarheid dat het incident veroorzaakte",
+              "Toegepaste en lopende maatregelen om het incident en de gevolgen ervan te beperken",
+              "Grensoverschrijdende impact, indien van toepassing",
+              "Geleerde lessen en geplande of doorgevoerde corrigerende maatregelen"
             ]
           },
           "progress": {
-            "title": "Progress Report (Verlaufsbericht)",
-            "deadline": "If incident still ongoing",
-            "description": "If the incident is not yet resolved by the time the final report is due, the progress report replaces it. The subsequent final report is then due within one month of incident resolution.",
+            "title": "Voortgangsrapport (Verlaufsbericht)",
+            "deadline": "Als het incident nog gaande is",
+            "description": "Als het incident nog niet is opgelost tegen de tijd dat het eindrapport verschuldigd is, vervangt het voortgangsrapport het eindrapport. Het daaropvolgende eindrapport is dan verschuldigd binnen één maand na oplossing van het incident.",
             "contents": [
-              "Current status, since the incident is still ongoing",
-              "Containment measures implemented so far",
-              "Expected duration until incident resolution, where foreseeable",
-              "Plan for the eventual final report after incident resolution"
+              "Actuele status, aangezien het incident nog gaande is",
+              "Tot nu toe doorgevoerde indammingsmaatregelen",
+              "Verwachte duur tot oplossing van het incident, voor zover voorzienbaar",
+              "Plan voor het uiteindelijke eindrapport na oplossing van het incident"
             ]
           }
         }
       },
       "criteria": {
-        "heading": "What Makes an Incident 'Significant'",
-        "description": "Not every security event triggers the §32 BSIG reporting obligation. An incident is significant if it meets one or more of the following criteria, as defined in Article 23(3) NIS2 Directive and specified further in CIR 2024/2690 Article 3.",
+        "heading": "Wat een incident 'significant' maakt",
+        "description": "Niet elk beveiligingsincident activeert de meldplicht onder §32 BSIG. Een incident is significant als het aan een of meer van de volgende criteria voldoet, zoals omschreven in artikel 23(3) NIS2-richtlijn en nader gespecificeerd in CIR 2024/2690 artikel 3.",
         "items": {
           "disruption": {
-            "title": "Service disruption",
-            "description": "The incident has caused or is capable of causing severe operational disruption to the services provided by the entity. For DNS providers and TLD registries, the CIR specifies thresholds including availability below 99.9% or incorrect DNS response delivery."
+            "title": "Verstoring van de dienst",
+            "description": "Het incident heeft een ernstige operationele verstoring van de door de entiteit geleverde diensten veroorzaakt of kan deze veroorzaken. Voor DNS-aanbieders en TLD-registers specificeert de CIR drempelwaarden, waaronder een beschikbaarheid onder 99,9% of de levering van onjuiste DNS-antwoorden."
           },
           "financial": {
-            "title": "Financial loss",
-            "description": "The incident has caused or is capable of causing financial loss to the entity. CIR 2024/2690 Article 3 specifies a threshold of EUR 500,000 or 5% of annual turnover - whichever is lower. This includes direct costs (remediation, forensics) and indirect costs (revenue loss, contractual penalties)."
+            "title": "Financieel verlies",
+            "description": "Het incident heeft financieel verlies voor de entiteit veroorzaakt of kan dit veroorzaken. CIR 2024/2690 artikel 3 specificeert een drempel van EUR 500.000 of 5% van de jaaromzet, afhankelijk van welk bedrag lager is. Dit omvat directe kosten (herstel, forensisch onderzoek) en indirecte kosten (omzetverlies, contractuele boetes)."
           },
           "spread": {
-            "title": "Impact on other entities",
-            "description": "The incident has caused or could cause considerable damage to other natural or legal persons. This includes incidents that propagate through supply chains, affect shared infrastructure, or expose data belonging to third parties."
+            "title": "Impact op andere entiteiten",
+            "description": "Het incident heeft aanzienlijke schade aan andere natuurlijke of rechtspersonen veroorzaakt of kan deze veroorzaken. Dit omvat incidenten die zich via toeleveringsketens verspreiden, gedeelde infrastructuur treffen of gegevens van derden blootstellen."
           },
           "data": {
-            "title": "Data breach",
-            "description": "The incident involves unauthorised access to, destruction of, or alteration of data. Note that NIS2 incident reporting under §32 BSIG is separate from and additional to GDPR breach notification under Art. 33/34 GDPR - both obligations may apply simultaneously."
+            "title": "Datalek",
+            "description": "Het incident betreft onbevoegde toegang tot, vernietiging van of wijziging van gegevens. Let op: NIS2-incidentmelding onder §32 BSIG staat los van en komt bovenop de meldplicht bij datalekken onder Art. 33/34 AVG: beide verplichtingen kunnen tegelijk gelden."
           },
           "duration": {
-            "title": "Extended outage",
-            "description": "The incident has caused or is expected to cause a prolonged disruption to the entity's services. The duration threshold is not fixed in the Directive but CIR 2024/2690 provides entity-specific criteria. Extended outages affecting critical services are presumed significant."
+            "title": "Langdurige uitval",
+            "description": "Het incident heeft een langdurige verstoring van de diensten van de entiteit veroorzaakt of zal die naar verwachting veroorzaken. De drempel voor de duur is niet vastgelegd in de richtlijn, maar CIR 2024/2690 biedt entiteitspecifieke criteria. Langdurige uitval die kritieke diensten treft, wordt verondersteld significant te zijn."
           }
         }
       },
       "fields": {
-        "heading": "Required Reporting Fields",
-        "description": "The BSI reporting portal requires structured information. Having these fields prepared in advance significantly reduces the risk of missing the 24-hour deadline.",
+        "heading": "Verplichte meldvelden",
+        "description": "Het BSI-meldportaal vereist gestructureerde informatie. Door deze velden vooraf gereed te hebben, verkleint u het risico op het missen van de termijn van 24 uur aanzienlijk.",
         "items": {
           "entity": {
-            "title": "Entity identification",
-            "description": "Company name, BSI registration number, sector classification, NACE code, and designated contact point for incident coordination. This information should be pre-configured in your incident response plan - not looked up during a crisis."
+            "title": "Identificatie van de entiteit",
+            "description": "Bedrijfsnaam, BSI-registratienummer, sectorclassificatie, NACE-code en het aangewezen contactpunt voor incidentcoördinatie. Deze informatie hoort vooraf in uw incidentresponsplan te staan, niet tijdens een crisis te worden opgezocht."
           },
           "nature": {
-            "title": "Incident nature and classification",
-            "description": "Type of incident (ransomware, DDoS, data breach, insider threat, supply chain compromise, etc.), affected systems and services, timeline of events from detection to current state, and initial severity classification."
+            "title": "Aard en classificatie van het incident",
+            "description": "Type incident (ransomware, DDoS, datalek, insiderdreiging, compromittering van de toeleveringsketen, enz.), getroffen systemen en diensten, tijdlijn van gebeurtenissen van detectie tot de huidige stand, en eerste ernstclassificatie."
           },
           "impact": {
-            "title": "Impact assessment",
-            "description": "Number of affected users or customers, services disrupted, estimated financial impact, data categories affected (if any), and duration of disruption. For the early warning, estimates are acceptable - precision comes in the 72-hour notification and final report."
+            "title": "Impactbeoordeling",
+            "description": "Aantal getroffen gebruikers of klanten, verstoorde diensten, geschatte financiële impact, betrokken gegevenscategorieën (indien van toepassing) en duur van de verstoring. Voor de vroege waarschuwing zijn schattingen aanvaardbaar: precisie komt in de melding na 72 uur en in het eindrapport."
           },
           "crossBorder": {
-            "title": "Cross-border impact",
-            "description": "Whether the incident affects or could affect entities or citizens in other EU member states. This triggers information sharing between national CSIRTs and may involve ENISA coordination. Must be assessed in both the early warning and subsequent notifications."
+            "title": "Grensoverschrijdende impact",
+            "description": "Of het incident entiteiten of burgers in andere EU-lidstaten treft of zou kunnen treffen. Dit activeert informatie-uitwisseling tussen nationale CSIRT's en kan coördinatie door ENISA met zich meebrengen. Moet worden beoordeeld in zowel de vroege waarschuwing als de daaropvolgende meldingen."
           },
           "measures": {
-            "title": "Response measures",
-            "description": "Actions taken to contain, eradicate, and recover from the incident. Includes technical measures (isolation, patching, credential rotation), communication measures (customer notification, stakeholder briefing), and organisational measures (crisis team activation, external support engagement)."
+            "title": "Responsmaatregelen",
+            "description": "Acties die zijn ondernomen om het incident in te dammen, uit te roeien en ervan te herstellen. Omvat technische maatregelen (isolatie, patchen, vervanging van inloggegevens), communicatiemaatregelen (klantmelding, stakeholderbriefing) en organisatorische maatregelen (activering van het crisisteam, inschakeling van externe ondersteuning)."
           }
         }
       },
       "where": {
-        "heading": "Where and How to Report",
-        "description": "Reporting is exclusively through the BSI's digital reporting portal.",
-        "p1": "All incident reports under §32 BSIG must be submitted via the BSI's official reporting portal. The BSI does not accept reports by email, telephone, or letter as a substitute for portal submission - though telephone contact with the BSI's incident response team (CERT-Bund) is appropriate for coordinating response to critical incidents in parallel with the formal report.",
-        "p2": "The reporting portal is available at the BSI's website under the NIS2 section. Access requires prior registration under §33 BSIG - which means unregistered entities face a compounded problem: they cannot file incident reports through the proper channel because they have not completed the prerequisite registration. This is another reason why BSI registration must not be delayed."
+        "heading": "Waar en hoe te melden",
+        "description": "Melden gebeurt uitsluitend via het digitale meldportaal van het BSI.",
+        "p1": "Alle incidentmeldingen onder §32 BSIG moeten worden ingediend via het officiële meldportaal van het BSI. Het BSI accepteert geen meldingen per e-mail, telefoon of brief als vervanging van een melding via het portaal. Telefonisch contact met het incidentresponsteam van het BSI (CERT-Bund) is wel passend om de respons op kritieke incidenten te coördineren, parallel aan de formele melding.",
+        "p2": "Het meldportaal is beschikbaar op de website van het BSI onder de NIS2-rubriek. Toegang vereist voorafgaande registratie onder §33 BSIG. Dat betekent dat niet-geregistreerde entiteiten met een dubbel probleem zitten: zij kunnen geen incidentmeldingen indienen via het juiste kanaal omdat zij de vereiste registratie niet hebben afgerond. Dit is nog een reden waarom de registratie bij het BSI niet mag worden uitgesteld."
       },
       "penalties": {
-        "heading": "Penalties for Reporting Failures",
-        "description": "Non-reporting is penalised independently of the incident itself. A company that suffers an incident and handles it well technically but fails to report faces separate enforcement action.",
+        "heading": "Sancties bij meldverzuim",
+        "description": "Niet melden wordt los van het incident zelf bestraft. Een bedrijf dat een incident overkomt en dit technisch goed afhandelt maar nalaat te melden, krijgt te maken met een aparte handhavingsmaatregel.",
         "items": {
           "essential": {
-            "amount": "Up to EUR 10,000,000 or 2% of turnover",
-            "label": "Essential entities",
-            "detail": "The higher of EUR 10 million or 2% of worldwide annual turnover of the preceding business year. This applies to essential entities in sectors listed in BSIG Annex 1 (energy, transport, banking, health, water, digital infrastructure, space, public administration)."
+            "amount": "Tot EUR 10.000.000 of 2% van de omzet",
+            "label": "Essentiële entiteiten",
+            "detail": "Het hoogste van EUR 10 miljoen of 2% van de wereldwijde jaaromzet van het voorgaande boekjaar. Dit geldt voor essentiële entiteiten in sectoren genoemd in BSIG Bijlage 1 (energie, transport, bankwezen, gezondheid, water, digitale infrastructuur, ruimtevaart, openbaar bestuur)."
           },
           "important": {
-            "amount": "Up to EUR 7,000,000 or 1.4% of turnover",
-            "label": "Important entities",
-            "detail": "The higher of EUR 7 million or 1.4% of worldwide annual turnover. This applies to important entities in sectors listed in BSIG Annex 2 (postal services, waste management, chemicals, food, manufacturing, digital providers, research)."
+            "amount": "Tot EUR 7.000.000 of 1,4% van de omzet",
+            "label": "Belangrijke entiteiten",
+            "detail": "Het hoogste van EUR 7 miljoen of 1,4% van de wereldwijde jaaromzet. Dit geldt voor belangrijke entiteiten in sectoren genoemd in BSIG Bijlage 2 (postdiensten, afvalbeheer, chemie, levensmiddelen, productie, digitale aanbieders, onderzoek)."
           },
           "management": {
-            "amount": "Personal liability - §38 BSIG",
-            "label": "Management (Geschäftsleitung)",
-            "detail": "If management was aware of an incident and failed to ensure timely reporting, this constitutes a violation of the oversight duty under §38(1) BSIG. Management can be held personally liable to the company for damages arising from the reporting failure - separate from penalties imposed on the company itself."
+            "amount": "Persoonlijke aansprakelijkheid volgens §38 BSIG",
+            "label": "Leiding (Geschäftsleitung)",
+            "detail": "Als de leiding op de hoogte was van een incident en niet heeft gezorgd voor tijdige melding, vormt dit een schending van de toezichtsplicht onder §38(1) BSIG. De leiding kan persoonlijk aansprakelijk worden gesteld jegens het bedrijf voor schade die voortvloeit uit het meldverzuim, los van de boetes die aan het bedrijf zelf worden opgelegd."
           }
         }
       },
       "sources": {
-        "heading": "Sources",
+        "heading": "Bronnen",
         "items": [
-          "NIS2 Directive (EU) 2022/2555 - Article 23 (Reporting obligations)",
+          "NIS2-richtlijn (EU) 2022/2555 - Artikel 23 (Rapportageverplichtingen)",
           "BSIG - §32 (Meldepflichten bei erheblichen Sicherheitsvorfällen)",
           "BSIG - §38 (Billigung, Überwachung, Schulung - Geschäftsleitung)",
           "BSIG - §65 (Bußgeldvorschriften)",
-          "CIR (EU) 2024/2690 - Article 3 (Significance of incidents), Article 4 (Recurring incidents)",
-          "ENISA - Guidance on NIS2 incident reporting obligations and templates (2024)",
-          "BSI - NIS2 reporting portal documentation and FAQ"
+          "CIR (EU) 2024/2690 - Artikel 3 (Significantie van incidenten), Artikel 4 (Terugkerende incidenten)",
+          "ENISA - Richtsnoeren voor NIS2-meldverplichtingen en sjablonen (2024)",
+          "BSI - Documentatie en FAQ van het NIS2-meldportaal"
         ]
       },
       "ctaCard": {
-        "heading": "Be Reporting-Ready Before the Incident Hits",
-        "description": "The platform pre-configures your BSI reporting fields, maintains an incident register with classification workflows, and tracks the 24h/72h/1-month deadlines - so you meet every obligation under pressure."
+        "heading": "Klaar om te melden voordat het incident toeslaat",
+        "description": "Het platform configureert uw BSI-meldvelden vooraf, houdt een incidentregister bij met classificatie-workflows en bewaakt de termijnen van 24u/72u/1 maand, zodat u onder druk aan elke verplichting voldoet."
       },
-      "cta": "Start Your NIS2 Compliance Process"
+      "cta": "Start uw NIS2-complianceproces"
     },
     "euImplementation": {
       "meta": {
-        "title": "NIS2 Implementation Status Across Europe - Transposition Tracker 2026",
-        "description": "The NIS2 Directive deadline was 17 October 2024. By early 2026, only 6-8 of 27 EU member states had fully transposed. Country-by-country status of implementing legislation, infringement proceedings, and what fragmented transposition means for cross-border companies."
+        "title": "NIS2 in heel Europa: Statustracker",
+        "description": "De omzettingsdeadline voor NIS2 was oktober 2024. Tegen 2026 hadden minder dan 8 van de 27 EU-lidstaten de richtlijn volledig omgezet. Overzicht per land."
       },
-      "title": "NIS2 Implementation Across Europe",
-      "subtitle": "The transposition deadline was 17 October 2024. By early 2026, the majority of EU member states had missed it - triggering infringement proceedings and creating a fragmented compliance landscape across Europe.",
+      "title": "NIS2-implementatie in heel Europa",
+      "subtitle": "De omzettingsdeadline was 17 oktober 2024. Begin 2026 had de meerderheid van de EU-lidstaten deze gemist. Dat leidde tot inbreukprocedures en zorgde voor een gefragmenteerd nalevingslandschap in heel Europa.",
       "overview": {
-        "heading": "A Directive Deadline Missed by Most",
-        "p1": "Directive (EU) 2022/2555 - the NIS2 Directive - required all 27 EU member states to transpose its provisions into national law by 17 October 2024. This deadline was explicit, non-negotiable, and established more than two years in advance when the Directive was published on 27 December 2022. Despite this, the vast majority of member states failed to meet it.",
-        "p2": "As of March 2026, roughly half of the 27 member states have fully transposed the Directive into national law. Belgium was notably first, enacting its Loi NIS2 in April 2024 - six months before the deadline. Croatia, Hungary, Latvia, and Lithuania were among the early adopters. Italy enacted its national transposition (D.Lgs. 138/2024) in October 2024. Germany followed in late 2025 with the NIS2UmsuCG.",
-        "p3": "The European Commission launched infringement proceedings against member states that had not communicated full transposition measures by the deadline. By November 2024, the Commission had sent letters of formal notice to 23 member states. This is not unusual for EU directives - but the scale of non-transposition for a cybersecurity regulation affecting critical infrastructure raised concerns about the EU's collective cyber resilience posture."
+        "heading": "Een richtlijndeadline die de meesten misten",
+        "p1": "Richtlijn (EU) 2022/2555 (de NIS2-richtlijn) verplichtte alle 27 EU-lidstaten om de bepalingen ervan vóór 17 oktober 2024 om te zetten in nationaal recht. Deze deadline was expliciet, niet onderhandelbaar en al meer dan twee jaar van tevoren vastgelegd, toen de richtlijn op 27 december 2022 werd gepubliceerd. Toch slaagde de overgrote meerderheid van de lidstaten er niet in deze te halen.",
+        "p2": "Per maart 2026 heeft ongeveer de helft van de 27 lidstaten de richtlijn volledig in nationaal recht omgezet. België was opvallend de eerste en voerde zijn Loi NIS2 al in april 2024 in, zes maanden vóór de deadline. Kroatië, Hongarije, Letland en Litouwen behoorden tot de vroege omzetters. Italië voerde zijn nationale omzetting (D.Lgs. 138/2024) in oktober 2024 door. Duitsland volgde eind 2025 met het NIS2UmsuCG.",
+        "p3": "De Europese Commissie startte inbreukprocedures tegen lidstaten die vóór de deadline geen volledige omzettingsmaatregelen hadden gemeld. In november 2024 had de Commissie aanmaningsbrieven verstuurd aan 23 lidstaten. Dit is niet ongebruikelijk voor EU-richtlijnen, maar de omvang van de niet-omzetting voor een cyberbeveiligingsregeling die kritieke infrastructuur raakt, riep zorgen op over de collectieve cyberweerbaarheid van de EU."
       },
       "keyStats": {
         "transposed": {
           "value": "~6-8",
-          "label": "Member states fully transposed by early 2026"
+          "label": "Lidstaten die begin 2026 volledig hadden omgezet"
         },
         "late": {
           "value": "23",
-          "label": "Member states receiving infringement letters (Nov 2024)"
+          "label": "Lidstaten die een inbreukbrief ontvingen (nov 2024)"
         },
         "deadline": {
-          "value": "17 Oct 2024",
-          "label": "Directive transposition deadline"
+          "value": "17 okt 2024",
+          "label": "Omzettingsdeadline van de richtlijn"
         }
       },
       "countries": {
-        "heading": "Country-by-Country Implementation Status",
-        "description": "Status as of early 2026 based on European Commission transposition tracker, national legislative databases, and Wavestone NIS2 radar analysis.",
+        "heading": "Implementatiestatus per land",
+        "description": "Status per begin 2026, gebaseerd op de omzettingstracker van de Europese Commissie, nationale wetgevingsdatabases en de Wavestone NIS2-radaranalyse.",
         "headers": {
-          "country": "Country",
+          "country": "Land",
           "status": "Status",
-          "law": "Implementing Law",
-          "notes": "Notes"
+          "law": "Uitvoeringswet",
+          "notes": "Opmerkingen"
         },
         "rows": {
           "de": {
-            "country": "Germany",
-            "status": "Transposed",
+            "country": "Duitsland",
+            "status": "Omgezet",
             "statusKey": "done",
-            "law": "NIS2UmsuCG (amending BSIG)",
-            "notes": "Passed after significant delays (November 2025, over a year late). Amends the BSI-Gesetz (BSIG) with new §§28-65 covering scope, measures, reporting, and penalties. BSI registration portal operational since January 6, 2026."
+            "law": "NIS2UmsuCG (wijziging van BSIG)",
+            "notes": "Aangenomen na aanzienlijke vertragingen (november 2025, ruim een jaar te laat). Wijzigt het BSI-Gesetz (BSIG) met nieuwe §§28-65 die reikwijdte, maatregelen, melding en sancties dekken. Het BSI-registratieportaal is operationeel sinds 6 januari 2026."
           },
           "at": {
-            "country": "Austria",
-            "status": "Transposed",
+            "country": "Oostenrijk",
+            "status": "Omgezet",
             "statusKey": "done",
             "law": "NISG 2024 (Netz- und Informationssystemsicherheitsgesetz)",
-            "notes": "Austria adopted its NIS2 transposition law in 2024. Closely aligned with the German approach due to shared legal traditions and DACH coordination."
+            "notes": "Oostenrijk nam zijn NIS2-omzettingswet aan in 2024. Sterk afgestemd op de Duitse aanpak vanwege gedeelde juridische tradities en DACH-coördinatie."
           },
           "be": {
-            "country": "Belgium",
-            "status": "Transposed",
+            "country": "België",
+            "status": "Omgezet",
             "statusKey": "done",
-            "law": "Loi NIS2 (April 2024)",
-            "notes": "First EU member state to transpose NIS2 - six months before the deadline. CCB (Centre for Cybersecurity Belgium) designated as national authority."
+            "law": "Loi NIS2 (april 2024)",
+            "notes": "Eerste EU-lidstaat die NIS2 omzette, zes maanden vóór de deadline. Het CCB (Centre for Cybersecurity Belgium) is aangewezen als nationale autoriteit."
           },
           "hr": {
-            "country": "Croatia",
-            "status": "Transposed",
+            "country": "Kroatië",
+            "status": "Omgezet",
             "statusKey": "done",
             "law": "Zakon o kibernetičkoj sigurnosti",
-            "notes": "Among the early adopters. National CERT (CERT.hr) and competent sectoral authorities designated."
+            "notes": "Behoort tot de vroege omzetters. Het nationale CERT (CERT.hr) en de bevoegde sectorale autoriteiten zijn aangewezen."
           },
           "hu": {
-            "country": "Hungary",
-            "status": "Transposed",
+            "country": "Hongarije",
+            "status": "Omgezet",
             "statusKey": "done",
             "law": "Government Decree 418/2024",
-            "notes": "Transposed through government decree rather than parliamentary legislation. NDGDM designated as national cybersecurity authority."
+            "notes": "Omgezet via een regeringsbesluit in plaats van parlementaire wetgeving. NDGDM is aangewezen als nationale cyberbeveiligingsautoriteit."
           },
           "it": {
-            "country": "Italy",
-            "status": "Transposed",
+            "country": "Italië",
+            "status": "Omgezet",
             "statusKey": "done",
             "law": "D.Lgs. 138/2024",
-            "notes": "Decreto Legislativo adopted in October 2024. ACN (Agenzia per la Cybersicurezza Nazionale) is the competent authority. Registration portal launched."
+            "notes": "Decreto Legislativo aangenomen in oktober 2024. De ACN (Agenzia per la Cybersicurezza Nazionale) is de bevoegde autoriteit. Registratieportaal gelanceerd."
           },
           "lv": {
-            "country": "Latvia",
-            "status": "Transposed",
+            "country": "Letland",
+            "status": "Omgezet",
             "statusKey": "done",
             "law": "Amendments to the National Cyber Security Law",
-            "notes": "Transposed by amending existing cybersecurity legislation. CERT.LV continues as national CSIRT."
+            "notes": "Omgezet door wijziging van bestaande cyberbeveiligingswetgeving. CERT.LV blijft het nationale CSIRT."
           },
           "lt": {
-            "country": "Lithuania",
-            "status": "Transposed",
+            "country": "Litouwen",
+            "status": "Omgezet",
             "statusKey": "done",
             "law": "Kibernetinio saugumo įstatymas (amended)",
-            "notes": "Early adopter. Amendments to existing Cyber Security Law came into force in late 2024."
+            "notes": "Vroege omzetter. Wijzigingen van de bestaande cyberbeveiligingswet traden eind 2024 in werking."
           },
           "fr": {
-            "country": "France",
-            "status": "In progress",
+            "country": "Frankrijk",
+            "status": "In behandeling",
             "statusKey": "partial",
-            "law": "Projet de loi NIS2 (pending)",
-            "notes": "ANSSI published draft transposition text. Parliamentary process delayed by political instability in late 2024. Expected completion in 2026. ANSSI acting as de facto authority in the interim."
+            "law": "Projet de loi NIS2 (in behandeling)",
+            "notes": "ANSSI publiceerde een conceptomzettingstekst. Het parlementaire proces liep vertraging op door politieke instabiliteit eind 2024. Afronding verwacht in 2026. ANSSI fungeert in de tussentijd als feitelijke autoriteit."
           },
           "nl": {
-            "country": "Netherlands",
-            "status": "In progress",
+            "country": "Nederland",
+            "status": "In behandeling",
             "statusKey": "partial",
-            "law": "Cyberbeveiligingswet (Cbw) - in legislative process",
-            "notes": "Draft Cybersecurity Act (Cbw) published. Senate review ongoing as of early 2026. NCSC-NL designated as CSIRT, with sectoral authorities for specific sectors."
+            "law": "Cyberbeveiligingswet (Cbw), in het wetgevingsproces",
+            "notes": "Het conceptwetsvoorstel Cyberbeveiligingswet (Cbw) is gepubliceerd. Behandeling in de Eerste Kamer loopt per begin 2026. NCSC-NL is aangewezen als CSIRT, met sectorale autoriteiten voor specifieke sectoren."
           },
           "pl": {
-            "country": "Poland",
-            "status": "In progress",
+            "country": "Polen",
+            "status": "In behandeling",
             "statusKey": "partial",
             "law": "Amendment to KSC (Krajowy System Cyberbezpieczeństwa)",
-            "notes": "Draft amendments to the National Cybersecurity System Act published. Multiple rounds of public consultation. Delayed by scope discussions around public administration entities."
+            "notes": "Conceptwijzigingen van de nationale cyberbeveiligingssysteemwet zijn gepubliceerd. Meerdere rondes van openbare consultatie. Vertraagd door discussies over de reikwijdte rond entiteiten van de overheidsadministratie."
           },
           "es": {
-            "country": "Spain",
-            "status": "In progress",
+            "country": "Spanje",
+            "status": "In behandeling",
             "statusKey": "partial",
             "law": "Anteproyecto de Ley NIS2",
-            "notes": "Preliminary draft published. CCN-CERT and INCIBE share cybersecurity authority responsibilities. Legislative timeline uncertain as of early 2026."
+            "notes": "Voorontwerp gepubliceerd. CCN-CERT en INCIBE delen de verantwoordelijkheden als cyberbeveiligingsautoriteit. Wetgevingstijdlijn onzeker per begin 2026."
           },
           "se": {
-            "country": "Sweden",
-            "status": "In progress",
+            "country": "Zweden",
+            "status": "In behandeling",
             "statusKey": "partial",
-            "law": "Cybersäkerhetslagen (proposed)",
-            "notes": "Government inquiry (SOU) completed. Draft legislation under review. MSB (Myndigheten för samhällsskydd och beredskap) designated as coordinating authority."
+            "law": "Cybersäkerhetslagen (voorgesteld)",
+            "notes": "Regeringsonderzoek (SOU) afgerond. Conceptwetgeving in behandeling. MSB (Myndigheten för samhällsskydd och beredskap) aangewezen als coördinerende autoriteit."
           }
         }
       },
       "germany": {
-        "heading": "Germany's Transposition - The BSIG Amendments",
-        "description": "Germany's NIS2 transposition went through a protracted legislative process before final passage.",
-        "p1": "Germany transposed NIS2 through the NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetz (NIS2UmsuCG), which amends the existing BSI-Gesetz (BSIG). The legislative process was delayed multiple times - the initial drafts circulated in mid-2023, but the law did not pass through the Bundestag (13 November 2025) and Bundesrat (21 November 2025) until over a year after the original October 2024 deadline.",
-        "p2": "The amended BSIG introduces a comprehensive NIS2 regime: §28 defines scope (essential and important entities), §30 establishes the 10 cybersecurity measure areas, §32 implements incident reporting with the three-stage timeline, §33 creates the BSI registration obligation, §38 introduces management personal liability, and §65 defines the penalty framework. The BSI serves as the national competent authority and CSIRT.",
-        "p3": "The BSI registration portal went live on January 6, 2026, enabling entities to fulfill their §33 registration obligation. The registration deadline passed on March 6, 2026. The BSI has published sector-specific guidance documents and FAQs, and has begun outreach to entities that may be in scope but have not registered. Enforcement - including periodic audits and on-site inspections for essential entities - is now active."
+        "heading": "De omzetting in Duitsland: de BSIG-wijzigingen",
+        "description": "De Duitse NIS2-omzetting doorliep een langdurig wetgevingsproces voordat ze definitief werd aangenomen.",
+        "p1": "Duitsland zette NIS2 om via het NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetz (NIS2UmsuCG), dat het bestaande BSI-Gesetz (BSIG) wijzigt. Het wetgevingsproces liep meermaals vertraging op. De eerste concepten circuleerden medio 2023, maar de wet passeerde de Bundestag (13 november 2025) en de Bundesrat (21 november 2025) pas ruim een jaar na de oorspronkelijke deadline van oktober 2024.",
+        "p2": "Het gewijzigde BSIG voert een uitgebreid NIS2-regime in: §28 definieert de reikwijdte (essentiële en belangrijke entiteiten), §30 stelt de 10 gebieden voor cyberbeveiligingsmaatregelen vast, §32 implementeert de meldplicht met de driefasige tijdlijn, §33 creëert de BSI-registratieverplichting, §38 introduceert de persoonlijke aansprakelijkheid van het bestuur en §65 legt het sanctiekader vast. Het BSI fungeert als de nationale bevoegde autoriteit en het CSIRT.",
+        "p3": "Het BSI-registratieportaal ging op 6 januari 2026 live, waardoor entiteiten aan hun registratieverplichting uit §33 kunnen voldoen. De registratiedeadline verliep op 6 maart 2026. Het BSI heeft sectorspecifieke leidraden en FAQ's gepubliceerd en is begonnen entiteiten te benaderen die mogelijk binnen de reikwijdte vallen maar zich niet hebben geregistreerd. Handhaving (waaronder periodieke audits en inspecties ter plaatse voor essentiële entiteiten) is nu actief."
       },
       "challenges": {
-        "heading": "Cross-Border Compliance Challenges",
-        "description": "The fragmented transposition creates practical challenges for companies operating across multiple EU member states.",
+        "heading": "Uitdagingen bij grensoverschrijdende naleving",
+        "description": "De gefragmenteerde omzetting zorgt voor praktische uitdagingen voor bedrijven die in meerdere EU-lidstaten actief zijn.",
         "items": {
           "fragmentation": {
-            "title": "Regulatory fragmentation",
-            "description": "Companies operating in multiple member states face different national implementations of the same Directive. While the core obligations are harmonised, member states have exercised discretion on scope (which sub-sectors to include), penalty levels (within the Directive's minimum thresholds), and supervisory approaches. A company present in Germany, France, and the Netherlands may face three different regulatory timelines and registration procedures."
+            "title": "Regelgevende fragmentatie",
+            "description": "Bedrijven die in meerdere lidstaten actief zijn, krijgen te maken met verschillende nationale implementaties van dezelfde richtlijn. Hoewel de kernverplichtingen zijn geharmoniseerd, hebben lidstaten beoordelingsruimte benut bij de reikwijdte (welke subsectoren worden opgenomen), de hoogte van sancties (binnen de minimumdrempels van de richtlijn) en de toezichtaanpak. Een bedrijf dat aanwezig is in Duitsland, Frankrijk en Nederland kan te maken krijgen met drie verschillende regelgevingstijdlijnen en registratieprocedures."
           },
           "definitions": {
-            "title": "Divergent scope definitions",
-            "description": "The NIS2 Directive allows member states to extend scope beyond the minimum. Some countries (notably Belgium) have applied NIS2 to additional sectors. Others have applied different size thresholds or included public administration entities at varying levels. This makes pan-European scope assessment challenging - a company in scope in one country may not be in another."
+            "title": "Uiteenlopende definities van de reikwijdte",
+            "description": "De NIS2-richtlijn staat lidstaten toe de reikwijdte verder uit te breiden dan het minimum. Sommige landen (met name België) hebben NIS2 op aanvullende sectoren toegepast. Andere hanteren afwijkende omvangsdrempels of hebben entiteiten van de overheidsadministratie op uiteenlopende niveaus opgenomen. Dit maakt een pan-Europese beoordeling van de reikwijdte uitdagend: een bedrijf dat in het ene land binnen de reikwijdte valt, valt er in een ander mogelijk buiten."
           },
           "reporting": {
-            "title": "Multiple reporting channels",
-            "description": "An incident at a company with operations in multiple member states may trigger reporting obligations in each country where the affected services are provided. Each national CSIRT has its own portal and procedures. While ENISA coordinates cross-border incident sharing, the entity must file with each relevant national authority independently."
+            "title": "Meerdere meldkanalen",
+            "description": "Een incident bij een bedrijf met activiteiten in meerdere lidstaten kan meldplichten in werking stellen in elk land waar de getroffen diensten worden geleverd. Elk nationaal CSIRT heeft zijn eigen portaal en procedures. Hoewel ENISA de grensoverschrijdende incidentdeling coördineert, moet de entiteit bij elke betrokken nationale autoriteit afzonderlijk melden."
           },
           "enforcement": {
-            "title": "Uneven enforcement maturity",
-            "description": "Countries that transposed early (Belgium, Croatia, Hungary) have a head start in building supervisory capacity. Countries still in the legislative process have no functioning enforcement regime. This creates an uneven playing field - and a risk that enforcement will be concentrated in the most mature jurisdictions, creating compliance pressure based on geography rather than risk."
+            "title": "Ongelijke handhavingsvolwassenheid",
+            "description": "Landen die vroeg omzetten (België, Kroatië, Hongarije) hebben een voorsprong bij het opbouwen van toezichtcapaciteit. Landen die nog in het wetgevingsproces zitten, hebben geen functionerend handhavingsregime. Dit creëert een ongelijk speelveld, en een risico dat handhaving zich concentreert in de meest volwassen rechtsgebieden, waardoor nalevingsdruk eerder op geografie dan op risico wordt gebaseerd."
           }
         }
       },
       "sources": {
-        "heading": "Sources",
+        "heading": "Bronnen",
         "items": [
-          "Directive (EU) 2022/2555 - NIS2 Directive, Official Journal of the European Union (27 December 2022)",
-          "European Commission - NIS2 transposition tracker and infringement proceedings updates (2024-2025)",
-          "Wavestone - NIS2 Transposition Radar: country-by-country implementation status (2025)",
-          "NIS2UmsuCG - Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit (Germany)",
-          "Loi NIS2 - Belgian NIS2 transposition law (April 2024)",
-          "D.Lgs. 138/2024 - Italian NIS2 transposition decree",
-          "ENISA - NIS2 implementation overview and cross-border coordination guidance (2025)",
-          "BMI/BSI - Parliamentary documentation and guidance on NIS2UmsuCG implementation"
+          "Richtlijn (EU) 2022/2555: NIS2-richtlijn, Publicatieblad van de Europese Unie (27 december 2022)",
+          "Europese Commissie: NIS2-omzettingstracker en updates over inbreukprocedures (2024-2025)",
+          "Wavestone: NIS2 Transposition Radar, implementatiestatus per land (2025)",
+          "NIS2UmsuCG: Gesetz zur Umsetzung der NIS-2-Richtlinie und zur Stärkung der Cybersicherheit (Duitsland)",
+          "Loi NIS2: Belgische NIS2-omzettingswet (april 2024)",
+          "D.Lgs. 138/2024: Italiaans NIS2-omzettingsdecreet",
+          "ENISA: NIS2-implementatieoverzicht en leidraad voor grensoverschrijdende coördinatie (2025)",
+          "BMI/BSI: parlementaire documentatie en leidraad over de implementatie van het NIS2UmsuCG"
         ]
       },
       "relatedArticle": {
-        "heading": "Operating in multiple EU countries?",
-        "description": "If your company has legal entities in more than one EU member state, you must register with each country's national authority separately. Read our guide covering all 28 authorities.",
-        "cta": "Read: NIS2 registration across multiple EU countries"
+        "heading": "Actief in meerdere EU-landen?",
+        "description": "Als uw bedrijf juridische entiteiten in meer dan één EU-lidstaat heeft, moet u zich bij de nationale autoriteit van elk land afzonderlijk registreren. Lees onze gids over de bevoegde autoriteiten in alle 27 lidstaten.",
+        "cta": "Lees: NIS2-registratie in meerdere EU-landen"
       },
       "ctaCard": {
-        "heading": "Comply Where It Matters - Starting with Germany",
-        "description": "The platform implements the full BSIG requirement set - Germany's NIS2 transposition - with structured requirements, evidence management, and audit readiness. Built for German law, applicable across the EU."
+        "heading": "Voldoe waar het telt: te beginnen met Duitsland",
+        "description": "Het platform implementeert de volledige set BSIG-vereisten (de Duitse NIS2-omzetting) met gestructureerde vereisten, bewijsbeheer en auditgereedheid. Gebouwd voor Duits recht, toepasbaar in de hele EU."
       },
-      "cta": "Start Your NIS2 Compliance Process"
+      "cta": "Start uw NIS2-nalevingsproces"
     },
     "missedRegistration": {
       "meta": {
@@ -4158,82 +4158,112 @@
     },
     "bsigParagraph30": {
       "meta": {
-        "title": "Section 30 BSIG: the Ten Cybersecurity Measures (German NIS 2)",
-        "description": "Section 30 BSIG is Germany's transposition of Article 21 NIS 2. The ten risk management measures, proportionality, relationship to EU law, penalties. With free template."
+        "title": "§ 30 BSIG: de tien cybersecuritymaatregelen (Duitse NIS2)",
+        "description": "§ 30 BSIG is de Duitse omzetting van artikel 21 NIS2. De tien risicobeheermaatregelen, evenredigheid, verhouding tot het EU-recht, boetes. Met gratis sjabloon."
       },
-      "title": "Section 30 BSIG: the Ten Cybersecurity Measures",
-      "subtitle": "Short answer: Section 30 of the German BSIG is the national transposition of Article 21 NIS 2. Essential and important entities must implement ten risk management measures, from risk analysis to supply chain security to multi-factor authentication. Implementation must be proportionate to size, risk exposure, and state of the art.",
+      "title": "§ 30 BSIG: de tien cybersecuritymaatregelen",
+      "subtitle": "Kort antwoord: § 30 van de Duitse BSIG is de nationale omzetting van artikel 21 NIS2. Essentiële en belangrijke entiteiten moeten tien risicobeheermaatregelen treffen, van risicoanalyse over toeleveringsketenbeveiliging tot multifactorauthenticatie. De uitvoering moet evenredig zijn aan omvang, risicoblootstelling en stand van de techniek.",
       "overview": {
-        "heading": "What Section 30 BSIG requires",
-        "p1": "Section 30 BSIG sits at the centre of Germany's NIS 2 implementation. It obliges essential and important entities to take appropriate, proportionate, and effective technical and organisational measures to manage risks to the security of their information systems, components, and processes.",
-        "p2": "The provision transposes Article 21(2) of the NIS 2 Directive (Directive (EU) 2022/2555) into German law. The substance is EU-wide and identical in every Member State. The wording was adjusted to the German legislative style, but the ten measures in Section 30(2) Nos. 1 to 10 BSIG map one to one onto Article 21(2)(a) to (j) NIS 2.",
-        "p3": "The duties apply from the date the NIS2UmsuCG took effect. The Act provides no transition period. Whoever falls within scope owes the measures from the day they enter scope."
+        "heading": "Wat § 30 BSIG vereist",
+        "p1": "§ 30 BSIG staat centraal in de Duitse uitvoering van NIS2. De bepaling verplicht essentiële en belangrijke entiteiten om passende, evenredige en doeltreffende technische en organisatorische maatregelen te treffen om risico's voor de beveiliging van hun informatiesystemen, componenten en processen te beheersen.",
+        "p2": "De bepaling zet artikel 21, lid 2, van de NIS2-richtlijn (Richtlijn (EU) 2022/2555) om in Duits recht. De inhoud is op EU-niveau vastgelegd en in elke lidstaat identiek. De formulering is aangepast aan de Duitse wetssystematiek, maar de tien maatregelen in § 30, lid 2, nrs. 1 tot en met 10 BSIG komen één op één overeen met artikel 21, lid 2, onder a) tot en met j) NIS2.",
+        "p3": "De verplichtingen gelden vanaf de datum waarop het NIS2UmsuCG in werking is getreden. De wet voorziet niet in een overgangsperiode. Wie binnen het toepassingsgebied valt, is de maatregelen verschuldigd vanaf de dag dat hij eronder valt."
       },
       "measures": {
-        "heading": "The ten measures under Section 30(2) BSIG",
-        "description": "The ten mandatory measures, each cross-referenced to the corresponding letter in Article 21(2) NIS 2.",
+        "heading": "De tien maatregelen onder § 30, lid 2 BSIG",
+        "description": "De tien verplichte maatregelen, elk met een verwijzing naar de bijbehorende letter in artikel 21, lid 2 NIS2.",
         "items": {
-          "m1": { "title": "No. 1: Policies on risk analysis and information system security", "text": "Policies on risk analysis and information system security. Maps to Article 21(2)(a) NIS 2. Operationalised by CIR (EU) 2024/2690 Section 2 for digital sectors in its annex." },
-          "m2": { "title": "No. 2: Incident handling", "text": "Detection, response, containment, recovery, and post-incident review. Maps to Article 21(2)(b) NIS 2. Interlocks with the reporting duty under Section 32 BSIG." },
-          "m3": { "title": "No. 3: Business continuity", "text": "Backup management, disaster recovery, and crisis management. Maps to Article 21(2)(c) NIS 2. A cloud outage at your provider is covered here." },
-          "m4": { "title": "No. 4: Supply chain security", "text": "Supply chain security including security-related aspects of relationships with direct suppliers and service providers. Maps to Article 21(2)(d) NIS 2. This obligation cascades contractually to every direct supplier." },
-          "m5": { "title": "No. 5: Security in acquisition, development, and maintenance", "text": "Security measures in the acquisition, development, and maintenance of information systems, components, and processes, including vulnerability handling and disclosure. Maps to Article 21(2)(e) NIS 2. Overlaps with Cyber Resilience Act obligations for products with digital elements." },
-          "m6": { "title": "No. 6: Effectiveness assessment", "text": "Policies and procedures to assess the effectiveness of risk management measures. Maps to Article 21(2)(f) NIS 2. This is the feedback loop: not just introduce measures, but check whether they work." },
-          "m7": { "title": "No. 7: Cyber hygiene and training", "text": "Basic cyber hygiene practices and cybersecurity training. Maps to Article 21(2)(g) NIS 2. Applies to all staff, with role-specific training for IT roles. Management body training is regulated separately under Section 38(3) BSIG." },
-          "m8": { "title": "No. 8: Cryptography and encryption", "text": "Policies and procedures for the use of cryptography and, where appropriate, encryption. Maps to Article 21(2)(h) NIS 2. 'Where appropriate' permits risk-based differentiation but rules out a blanket exemption." },
-          "m9": { "title": "No. 9: Human resources security, access control, asset management", "text": "Human resources security, access control policies, and asset management. Maps to Article 21(2)(i) NIS 2. Covers onboarding and offboarding, need-to-know access provisioning, and an asset inventory." },
-          "m10": { "title": "No. 10: Multi-factor authentication and secured communications", "text": "Multi-factor or continuous authentication solutions, secured voice, video, and text communications, and, where appropriate, secured emergency communication systems within the entity. Maps to Article 21(2)(j) NIS 2." }
+          "m1": {
+            "title": "Nr. 1: beleid voor risicoanalyse en beveiliging van informatiesystemen",
+            "text": "Beleid voor risicoanalyse en beveiliging van informatiesystemen. Komt overeen met artikel 21, lid 2, onder a) NIS2. Geconcretiseerd door CIR (EU) 2024/2690, afdeling 2, voor de digitale sectoren in de bijlage."
+          },
+          "m2": {
+            "title": "Nr. 2: behandeling van incidenten",
+            "text": "Detectie, respons, indamming, herstel en evaluatie na een incident. Komt overeen met artikel 21, lid 2, onder b) NIS2. Grijpt in elkaar met de meldplicht onder § 32 BSIG."
+          },
+          "m3": {
+            "title": "Nr. 3: bedrijfscontinuïteit",
+            "text": "Back-upbeheer, herstel na een noodsituatie en crisisbeheer. Komt overeen met artikel 21, lid 2, onder c) NIS2. Ook een clouduitval bij uw aanbieder valt hieronder."
+          },
+          "m4": {
+            "title": "Nr. 4: beveiliging van de toeleveringsketen",
+            "text": "Beveiliging van de toeleveringsketen, inclusief beveiligingsgerelateerde aspecten van de relaties met directe leveranciers en dienstverleners. Komt overeen met artikel 21, lid 2, onder d) NIS2. Deze verplichting werkt contractueel door naar elke directe leverancier."
+          },
+          "m5": {
+            "title": "Nr. 5: beveiliging bij verwerving, ontwikkeling en onderhoud",
+            "text": "Beveiligingsmaatregelen bij de verwerving, ontwikkeling en het onderhoud van informatiesystemen, componenten en processen, inclusief het omgaan met en het bekendmaken van kwetsbaarheden. Komt overeen met artikel 21, lid 2, onder e) NIS2. Overlapt met de verplichtingen uit de Cyber Resilience Act voor producten met digitale elementen."
+          },
+          "m6": {
+            "title": "Nr. 6: beoordeling van de doeltreffendheid",
+            "text": "Beleid en procedures om de doeltreffendheid van de risicobeheermaatregelen te beoordelen. Komt overeen met artikel 21, lid 2, onder f) NIS2. Dit is de terugkoppeling: niet alleen maatregelen invoeren, maar ook controleren of ze werken."
+          },
+          "m7": {
+            "title": "Nr. 7: cyberhygiëne en training",
+            "text": "Basismaatregelen op het gebied van cyberhygiëne en training op het gebied van cybersecurity. Komt overeen met artikel 21, lid 2, onder g) NIS2. Geldt voor alle medewerkers, met rolspecifieke training voor IT-functies. De training van het leidinggevend orgaan is apart geregeld onder § 38, lid 3 BSIG."
+          },
+          "m8": {
+            "title": "Nr. 8: cryptografie en versleuteling",
+            "text": "Beleid en procedures voor het gebruik van cryptografie en, waar passend, versleuteling. Komt overeen met artikel 21, lid 2, onder h) NIS2. 'Waar passend' staat een risicogebaseerde differentiatie toe, maar sluit een algehele vrijstelling uit."
+          },
+          "m9": {
+            "title": "Nr. 9: personeelsbeveiliging, toegangsbeheer, assetbeheer",
+            "text": "Personeelsbeveiliging, beleid voor toegangsbeheer en assetbeheer. Komt overeen met artikel 21, lid 2, onder i) NIS2. Dekt onboarding en offboarding, toegangsverlening volgens het need-to-know-beginsel en een assetinventaris."
+          },
+          "m10": {
+            "title": "Nr. 10: multifactorauthenticatie en beveiligde communicatie",
+            "text": "Oplossingen voor multifactorauthenticatie of continue authenticatie, beveiligde spraak-, video- en tekstcommunicatie en, waar passend, beveiligde noodcommunicatiesystemen binnen de entiteit. Komt overeen met artikel 21, lid 2, onder j) NIS2."
+          }
         }
       },
       "proportionality": {
-        "heading": "Proportionality under Section 30(1) sentence 2 BSIG",
-        "p1": "Section 30(1) sentence 2 BSIG requires that measures be chosen taking into account the state of the art, relevant European and international standards, and the cost of implementation. Size, risk exposure, and the probability of incidents are factored in.",
-        "p2": "Proportionality is not a licence to skip a measure. The BSI made clear in its guidance on Section 38(3) BSIG that a blanket transfer of risk to cyber insurance or service providers is ruled out. Proportionate means: not every measure at maximum depth, but adapted to the specific situation and documented in writing."
+        "heading": "Evenredigheid onder § 30, lid 1, tweede volzin BSIG",
+        "p1": "§ 30, lid 1, tweede volzin BSIG vereist dat de maatregelen worden gekozen rekening houdend met de stand van de techniek, relevante Europese en internationale normen en de kosten van de uitvoering. Omvang, risicoblootstelling en de waarschijnlijkheid van incidenten worden meegewogen.",
+        "p2": "Evenredigheid is geen vrijbrief om een maatregel weg te laten. Het BSI heeft in zijn handreiking bij § 38, lid 3 BSIG duidelijk gemaakt dat een algehele overdracht van risico's naar een cyberverzekering of dienstverleners uitgesloten is. Evenredig betekent: niet elke maatregel tot maximale diepte, maar aangepast aan de concrete situatie en schriftelijk onderbouwd."
       },
       "relation": {
-        "heading": "Relationship to Article 21 NIS 2 and CIR (EU) 2024/2690",
-        "description": "EU law, German transposition, and technical implementing regulation in one line.",
-        "p1": "Article 21(2) NIS 2 is the EU-level basis. The ten letters (a) to (j) are binding. The wording was kept open so Member States could fit it into national supervisory structures. Section 30 BSIG adopts the ten measures as Nos. 1 to 10 without substantive deviation.",
-        "p2": "For DNS providers, TLD registries, cloud providers, data centres, content delivery networks, managed service providers, managed security service providers, online marketplaces, online search engines, social networking platforms, and trust service providers, the EU Commission Implementing Regulation 2024/2690 operationalises the ten measures in its annex. The Regulation applies directly, without national transposition. For these sectors, both Section 30 BSIG and the CIR sit on the shelf."
+        "heading": "Verhouding tot artikel 21 NIS2 en CIR (EU) 2024/2690",
+        "description": "EU-recht, Duitse omzettingswet en technische uitvoeringsverordening op één lijn.",
+        "p1": "Artikel 21, lid 2 NIS2 is de basis op EU-niveau. De tien letters a) tot en met j) zijn bindend. De formulering is bewust open gehouden, zodat de lidstaten konden aansluiten bij nationale toezichtstructuren. § 30 BSIG neemt de tien maatregelen over als nrs. 1 tot en met 10, zonder inhoudelijke afwijking.",
+        "p2": "Voor DNS-aanbieders, TLD-registries, cloudaanbieders, datacenters, content delivery networks, managed service providers, managed security service providers, onlinemarktplaatsen, onlinezoekmachines, platforms voor sociale netwerken en verleners van vertrouwensdiensten concretiseert Uitvoeringsverordening (EU) 2024/2690 van de Commissie de tien maatregelen in haar bijlage. De verordening is rechtstreeks van toepassing, dus zonder nationale omzetting. Voor deze sectoren staan zowel § 30 BSIG als de CIR op de plank."
       },
       "scope": {
-        "heading": "Who falls under Section 30 BSIG",
-        "p1": "Section 30 BSIG applies to essential entities under Section 28(6) BSIG and important entities under Section 28(7) BSIG. The sectors are listed in Annex 1 and Annex 2 of the NIS 2 Directive. The size threshold is at least 50 employees or 10 million euros annual turnover, with special rules for KRITIS and for sectors that apply regardless of size.",
-        "p2": "If you are unsure, start with the applicability test under Article 2 NIS 2. Suppliers to regulated entities also come into contact with Section 30 via No. 4 (supply chain): the obligations cascade contractually to direct suppliers."
+        "heading": "Wie valt onder § 30 BSIG",
+        "p1": "§ 30 BSIG geldt voor essentiële entiteiten onder § 28, lid 6 BSIG en belangrijke entiteiten onder § 28, lid 7 BSIG. De sectoren staan vermeld in bijlage 1 en bijlage 2 van de NIS2-richtlijn. De omvangsdrempel ligt bij ten minste 50 werknemers of 10 miljoen euro jaaromzet, met bijzondere regels voor KRITIS en voor sectoren die ongeacht de omvang van toepassing zijn.",
+        "p2": "Bij twijfel begint u met de toepasselijkheidstoets onder artikel 2 NIS2. Ook leveranciers van gereguleerde entiteiten komen via nr. 4 (toeleveringsketen) in aanraking met § 30: de verplichtingen werken contractueel door naar directe leveranciers."
       },
       "penalties": {
-        "heading": "What happens if you breach Section 30",
-        "p1": "Breaches of the measures duty under Section 30 BSIG carry administrative fines under Section 65 BSIG. For essential entities, the maximum is 10 million euros or 2 percent of global prior-year turnover, whichever is higher. For important entities, the maximum is 7 million euros or 1.4 percent.",
-        "p2": "Section 38 BSIG adds personal liability of the management body for breach of the duty to approve the Section 30 measures and monitor their implementation. The liability does not depend on actual harm having occurred."
+        "heading": "Wat gebeurt er bij een overtreding van § 30",
+        "p1": "Overtredingen van de maatregelenplicht onder § 30 BSIG worden onder § 65 BSIG bestraft met administratieve boetes. Voor essentiële entiteiten ligt het maximum bij 10 miljoen euro of 2 procent van de wereldwijde omzet van het voorgaande jaar, naargelang welk bedrag hoger is. Voor belangrijke entiteiten ligt het maximum bij 7 miljoen euro of 1,4 procent.",
+        "p2": "§ 38 BSIG voegt een persoonlijke aansprakelijkheid van het leidinggevend orgaan toe voor het verzaken van de plicht om de maatregelen onder § 30 goed te keuren en op de uitvoering ervan toe te zien. De aansprakelijkheid hangt niet af van het feit of er daadwerkelijk schade is ontstaan."
       },
       "faq": {
-        "heading": "Frequently asked questions on Section 30 BSIG",
+        "heading": "Veelgestelde vragen over § 30 BSIG",
         "q1": {
-          "q": "Is Section 30 BSIG the same as Article 21 NIS 2?",
-          "a": "In substance, yes. Section 30 BSIG is the German transposition of Article 21 NIS 2. The ten measures in Section 30(2) Nos. 1 to 10 BSIG map one to one onto Article 21(2)(a) to (j) NIS 2. For EU-wide work, cite Article 21 NIS 2 as the primary source and reference Section 30 BSIG as the German transposition."
+          "q": "Is § 30 BSIG hetzelfde als artikel 21 NIS2?",
+          "a": "Inhoudelijk wel. § 30 BSIG is de Duitse omzetting van artikel 21 NIS2. De tien maatregelen in § 30, lid 2, nrs. 1 tot en met 10 BSIG komen één op één overeen met artikel 21, lid 2, onder a) tot en met j) NIS2. Wie EU-breed werkt, citeert artikel 21 NIS2 als primaire bron en noemt § 30 BSIG als de Duitse omzetting."
         },
         "q2": {
-          "q": "Do I have to implement all ten measures?",
-          "a": "Yes. The ten measures are not optional. Choice happens within each measure through proportionality. Skipping an entire measure is not permitted. Depth of implementation may be adapted to size, risk exposure, and state of the art, but dropping a whole number is not."
+          "q": "Moet ik alle tien de maatregelen uitvoeren?",
+          "a": "Ja. De tien maatregelen zijn niet optioneel. De keuze ontstaat binnen elke maatregel via evenredigheid. Een hele maatregel weglaten is niet toegestaan. De diepte van de uitvoering mag worden aangepast aan omvang, risicoblootstelling en stand van de techniek, maar een heel nummer laten vervallen niet."
         },
         "q3": {
-          "q": "What does proportionality mean in practice?",
-          "a": "Proportionality under Section 30(1) sentence 2 BSIG means: measures align with size, risk exposure, the probability and severity of incidents, and the cost of implementation. The decision must be documented in writing. A blanket transfer of risk to cyber insurance or a service provider is not accepted by the BSI as proportionate implementation."
+          "q": "Wat betekent evenredigheid in de praktijk?",
+          "a": "Evenredigheid onder § 30, lid 1, tweede volzin BSIG betekent: maatregelen worden afgestemd op omvang, risicoblootstelling, de waarschijnlijkheid en ernst van incidenten en de kosten van de uitvoering. De beslissing moet schriftelijk worden onderbouwd. Een algehele overdracht van het risico naar een cyberverzekering of een dienstverlener erkent het BSI niet als evenredige uitvoering."
         },
         "q4": {
-          "q": "How do I evidence implementation to the BSI?",
-          "a": "Through documentation. For each of the ten measures, record the chosen implementation, the rationale for the depth, and the effectiveness assessment in writing. A BSI audit under Section 61 or Section 62 BSIG examines these records, not oral explanation. A structured self-assessment across all ten measures is the fastest starting point."
+          "q": "Hoe toon ik de uitvoering aan het BSI aan?",
+          "a": "Met documentatie. Voor elk van de tien maatregelen legt u de gekozen uitvoering, de onderbouwing van de diepte en de beoordeling van de doeltreffendheid schriftelijk vast. Een audit door het BSI onder § 61 of § 62 BSIG onderzoekt deze stukken, niet de mondelinge toelichting. Een gestructureerde zelfevaluatie over alle tien de maatregelen is het snelste startpunt."
         },
         "q5": {
-          "q": "What is the difference between Section 30 BSIG and IT-Grundschutz?",
-          "a": "Section 30 BSIG is the duty. IT-Grundschutz is one concrete methodology that satisfies the duty. Section 44(2) BSIG names IT-Grundschutz as sufficient implementation. Other standards such as ISO 27001 are equally possible, but evidence remains tied to the ten measures under Section 30 BSIG, not to the structure of the chosen standard."
+          "q": "Wat is het verschil tussen § 30 BSIG en IT-Grundschutz?",
+          "a": "§ 30 BSIG is de verplichting. IT-Grundschutz is één concrete methodiek waarmee aan de verplichting wordt voldaan. § 44, lid 2 BSIG noemt IT-Grundschutz als toereikende uitvoering. Andere normen zoals ISO 27001 zijn evengoed mogelijk, maar het bewijs blijft gebonden aan de tien maatregelen onder § 30 BSIG, niet aan de structuur van de gekozen norm."
         }
       },
       "ctaCard": {
-        "heading": "Self-assessment across all ten measures",
-        "description": "The free gap assessment walks through all ten measures in Section 30(2) BSIG. 116 questions, 15 domains, with a board-ready report. Open Source, no lock-in."
+        "heading": "Zelfevaluatie over alle tien de maatregelen",
+        "description": "De gratis gap-analyse loopt door alle tien de maatregelen in § 30, lid 2 BSIG. 116 vragen, 15 domeinen, met een rapport voor de directie. Open Source, geen lock-in."
       },
-      "cta": "Start the Gap Assessment"
+      "cta": "Start de gap-analyse"
     },
     "bsiRegistration": {
       "meta": {
@@ -5002,296 +5032,296 @@
     },
     "entityTypes": {
       "meta": {
-        "title": "NIS2 Entity Types: Important vs Essential vs KRITIS - What's the Difference?",
-        "description": "The compliance work is identical for all NIS2 entity types. The difference is supervision intensity and penalties. Learn what important, essential, and KRITIS mean for your company."
+        "title": "NIS2-entiteitstypen: belangrijk vs essentieel vs KRITIS - wat is het verschil?",
+        "description": "Het complianceswerk is identiek voor alle NIS2-entiteitstypen. Het verschil zit in de intensiteit van het toezicht en de boetes. Lees wat belangrijk, essentieel en KRITIS voor uw onderneming betekenen."
       },
-      "title": "Important vs Essential vs KRITIS: The Same Work, Different Consequences",
-      "subtitle": "NIS2 defines three tiers of regulated entities. The security measures are identical across all three. What changes is how closely BSI watches you and how hard they hit if you fail.",
+      "title": "Belangrijk vs essentieel vs KRITIS: hetzelfde werk, andere gevolgen",
+      "subtitle": "NIS2 onderscheidt drie categorieën gereguleerde entiteiten. De beveiligingsmaatregelen zijn voor alle drie identiek. Wat verandert, is hoe nauwlettend het BSI u in de gaten houdt en hoe hard de sancties uitvallen als u in gebreke blijft.",
       "overview": {
-        "heading": "Three Tiers, One Set of Rules",
-        "p1": "The German NIS2 transposition (BSIG) classifies regulated entities into three categories: wichtige Einrichtungen (important entities), essential entities (essential entities), and Betreiber kritischer Anlagen (KRITIS operators). Many companies spend weeks trying to figure out which category they fall into before starting their compliance work.",
-        "p2": "Here is the key insight: it does not matter for the work itself. All three categories must implement the same 10 security measure categories defined in §30(2) BSIG. The same risk management. The same incident reporting. The same supply chain security. The same access controls. The same encryption policies. The same business continuity planning.",
-        "p3": "The differences are in supervision (how BSI monitors you), penalties (how much you pay if caught non-compliant), and three extra obligations that only apply to KRITIS operators. The compliance process you go through on NISD2 covers all three categories identically."
+        "heading": "Drie categorieën, één set regels",
+        "p1": "De Duitse NIS2-omzetting (BSIG) deelt gereguleerde entiteiten in drie categorieën in: wichtige Einrichtungen (belangrijke entiteiten), essentiële entiteiten (essential entities) en Betreiber kritischer Anlagen (KRITIS-exploitanten). Veel ondernemingen besteden weken aan het uitzoeken in welke categorie ze vallen voordat ze met hun complianceswerk beginnen.",
+        "p2": "Hier is het belangrijkste inzicht: voor het werk zelf maakt het niet uit. Alle drie de categorieën moeten dezelfde 10 categorieën beveiligingsmaatregelen uit §30(2) BSIG implementeren. Hetzelfde risicobeheer. Dezelfde meldplicht. Dezelfde beveiliging van de toeleveringsketen. Dezelfde toegangscontroles. Hetzelfde versleutelingsbeleid. Dezelfde bedrijfscontinuïteitsplanning.",
+        "p3": "De verschillen zitten in het toezicht (hoe het BSI u monitort), de boetes (hoeveel u betaalt als non-compliance wordt vastgesteld) en drie extra verplichtingen die alleen voor KRITIS-exploitanten gelden. Het complianceproces dat u op NISD2 doorloopt, dekt alle drie de categorieën op identieke wijze af."
       },
       "classification": {
-        "heading": "How Entities Are Classified",
-        "description": "Classification is based on company size, sector, and whether you operate critical infrastructure. Defined in §28 BSIG.",
+        "heading": "Hoe entiteiten worden geclassificeerd",
+        "description": "De classificatie is gebaseerd op de bedrijfsgrootte, de sector en of u kritieke infrastructuur exploiteert. Vastgelegd in §28 BSIG.",
         "headers": {
-          "criterion": "Criterion",
-          "important": "Important (Wichtig)",
-          "essential": "Essential (Besonders Wichtig)",
+          "criterion": "Criterium",
+          "important": "Belangrijk (Wichtig)",
+          "essential": "Essentieel (Besonders Wichtig)",
           "kritis": "KRITIS"
         },
         "rows": {
           "size": {
-            "criterion": "Company Size",
-            "important": "50+ employees OR >10M EUR revenue and >10M EUR balance sheet",
-            "essential": "250+ employees OR >50M EUR revenue and >43M EUR balance sheet",
-            "kritis": "Any size - determined by infrastructure thresholds (e.g. 500,000 people served)"
+            "criterion": "Bedrijfsgrootte",
+            "important": "50+ medewerkers OF >10M EUR omzet en >10M EUR balanstotaal",
+            "essential": "250+ medewerkers OF >50M EUR omzet en >43M EUR balanstotaal",
+            "kritis": "Elke omvang - bepaald door infrastructuurdrempels (bijv. 500.000 bediende personen)"
           },
           "sectors": {
-            "criterion": "Sectors",
-            "important": "Annex I (energy, transport, finance, health, water, digital infra, space) + Annex II (postal, waste, chemicals, food, manufacturing, digital services, research)",
-            "essential": "Annex I sectors only (medium-sized entities in Annex I are classified as important, not essential)",
-            "kritis": "Subset of essential - only entities operating infrastructure whose failure would disrupt public supply"
+            "criterion": "Sectoren",
+            "important": "Bijlage I (energie, vervoer, financiën, gezondheid, water, digitale infrastructuur, ruimtevaart) + Bijlage II (post, afval, chemicaliën, levensmiddelen, productie, digitale diensten, onderzoek)",
+            "essential": "Alleen Bijlage I-sectoren (middelgrote entiteiten in Bijlage I worden als belangrijk geclassificeerd, niet als essentieel)",
+            "kritis": "Deelverzameling van essentieel - alleen entiteiten die infrastructuur exploiteren waarvan de uitval de openbare voorziening zou verstoren"
           },
           "sizeIndependent": {
-            "criterion": "Size-Independent Inclusions",
-            "important": "Non-qualified trust service providers, small telecom providers",
-            "essential": "Qualified trust services, TLD registries, DNS providers, large telecom providers",
-            "kritis": "Operators of critical installations as defined in BSI-KritisV (power grids, water treatment, hospitals, etc.)"
+            "criterion": "Omvangsonafhankelijke insluitingen",
+            "important": "Niet-gekwalificeerde verleners van vertrouwensdiensten, kleine telecomaanbieders",
+            "essential": "Gekwalificeerde vertrouwensdiensten, TLD-registers, DNS-aanbieders, grote telecomaanbieders",
+            "kritis": "Exploitanten van kritieke installaties zoals gedefinieerd in BSI-KritisV (elektriciteitsnetten, waterzuivering, ziekenhuizen, enz.)"
           }
         }
       },
       "edgeCases": {
-        "heading": "Edge Cases: When Size Classification Is Not Obvious",
-        "description": "NIS2 uses the EU SME definition (Recommendation 2003/361/EC). The thresholds combine employees with financials in ways that catch many companies off guard.",
-        "intro": "The EU medium enterprise threshold is: 50+ employees OR (>€10M turnover AND >€10M balance sheet). Both financial criteria must be met simultaneously - high revenue alone is not enough. For essential entities, the large enterprise threshold is: 250+ employees OR (>€50M turnover AND >€43M balance sheet). These examples show how the rules apply in practice.",
+        "heading": "Grensgevallen: wanneer de omvangsclassificatie niet voor de hand ligt",
+        "description": "NIS2 hanteert de EU-definitie van het mkb (Aanbeveling 2003/361/EG). De drempels combineren medewerkersaantallen met financiële cijfers op manieren die veel ondernemingen verrassen.",
+        "intro": "De EU-drempel voor middelgrote ondernemingen luidt: 50+ medewerkers OF (>€10M omzet EN >€10M balanstotaal). Aan beide financiële criteria moet tegelijkertijd worden voldaan - alleen een hoge omzet is niet genoeg. Voor essentiële entiteiten geldt de drempel voor grote ondernemingen: 250+ medewerkers OF (>€50M omzet EN >€43M balanstotaal). Deze voorbeelden laten zien hoe de regels in de praktijk uitpakken.",
         "headers": {
           "scenario": "Scenario",
-          "employees": "Employees",
-          "turnover": "Turnover",
-          "balanceSheet": "Balance Sheet",
+          "employees": "Medewerkers",
+          "turnover": "Omzet",
+          "balanceSheet": "Balanstotaal",
           "sector": "Sector",
-          "result": "Classification"
+          "result": "Classificatie"
         },
         "rows": {
           "e1": {
-            "scenario": "High-revenue trading firm, small team",
+            "scenario": "Handelsbedrijf met hoge omzet, klein team",
             "employees": "12",
             "turnover": "€25M",
             "balanceSheet": "€18M",
-            "sector": "Annex I - Banking",
-            "result": "Important - both financial thresholds exceeded (>€10M), employee count irrelevant"
+            "sector": "Bijlage I - Bankwezen",
+            "result": "Belangrijk - beide financiële drempels overschreden (>€10M), aantal medewerkers irrelevant"
           },
           "e2": {
-            "scenario": "Large manufacturer, low margin",
+            "scenario": "Grote fabrikant, lage marge",
             "employees": "200",
             "turnover": "€5M",
             "balanceSheet": "€3M",
-            "sector": "Annex II - Manufacturing",
-            "result": "Important - employee count ≥50 is sufficient, revenue does not matter"
+            "sector": "Bijlage II - Productie",
+            "result": "Belangrijk - aantal medewerkers ≥50 volstaat, omzet doet er niet toe"
           },
           "e3": {
-            "scenario": "SaaS startup, high revenue, tiny team",
+            "scenario": "SaaS-startup, hoge omzet, piepklein team",
             "employees": "8",
             "turnover": "€15M",
             "balanceSheet": "€4M",
-            "sector": "Annex I - Digital infrastructure",
-            "result": "Not in scope - revenue exceeds €10M but balance sheet is below €10M. Need BOTH"
+            "sector": "Bijlage I - Digitale infrastructuur",
+            "result": "Niet binnen toepassingsgebied - omzet boven €10M, maar balanstotaal onder €10M. Aan BEIDE moet worden voldaan"
           },
           "e4": {
-            "scenario": "Regional hospital",
+            "scenario": "Regionaal ziekenhuis",
             "employees": "400",
             "turnover": "€60M",
             "balanceSheet": "€45M",
-            "sector": "Annex I - Health",
-            "result": "Essential - 250+ employees in Annex I sector. If >30,000 inpatient cases/year: KRITIS"
+            "sector": "Bijlage I - Gezondheid",
+            "result": "Essentieel - 250+ medewerkers in een Bijlage I-sector. Bij >30.000 klinische opnames/jaar: KRITIS"
           },
           "e5": {
-            "scenario": "Energy trader, asset-light",
+            "scenario": "Energiehandelaar, asset-light",
             "employees": "15",
             "turnover": "€120M",
             "balanceSheet": "€55M",
-            "sector": "Annex I - Energy",
-            "result": "Essential - both large financial thresholds exceeded (>€50M turnover AND >€43M balance sheet)"
+            "sector": "Bijlage I - Energie",
+            "result": "Essentieel - beide grote financiële drempels overschreden (>€50M omzet EN >€43M balanstotaal)"
           },
           "e6": {
-            "scenario": "Waste management company",
+            "scenario": "Afvalbeheerbedrijf",
             "employees": "80",
             "turnover": "€8M",
             "balanceSheet": "€6M",
-            "sector": "Annex II - Waste",
-            "result": "Important - 80 employees ≥50 threshold, despite low revenue. NACE E.38 only (not remediation E.39)"
+            "sector": "Bijlage II - Afval",
+            "result": "Belangrijk - 80 medewerkers ≥50-drempel, ondanks lage omzet. Alleen NACE E.38 (niet sanering E.39)"
           },
           "e7": {
             "scenario": "Managed service provider (MSP)",
             "employees": "45",
             "turnover": "€12M",
             "balanceSheet": "€11M",
-            "sector": "Annex I - ICT service management",
-            "result": "Important - below 50 employees but both financial thresholds exceeded. Also subject to CIR 2024/2690"
+            "sector": "Bijlage I - ICT-dienstenbeheer",
+            "result": "Belangrijk - minder dan 50 medewerkers, maar beide financiële drempels overschreden. Valt ook onder CIR 2024/2690"
           },
           "e8": {
-            "scenario": "Food processor, seasonal workforce",
-            "employees": "55 (annual average)",
+            "scenario": "Levensmiddelenverwerker, seizoenspersoneel",
+            "employees": "55 (jaargemiddelde)",
             "turnover": "€9M",
             "balanceSheet": "€7M",
-            "sector": "Annex II - Food",
-            "result": "Important - headcount uses annual work units (Rec. 2003/361/EC Art. 5). Seasonal peaks count proportionally"
+            "sector": "Bijlage II - Levensmiddelen",
+            "result": "Belangrijk - personeelsaantal gebruikt jaararbeidseenheden (Aanb. 2003/361/EG art. 5). Seizoenspieken tellen naar rato mee"
           },
           "e9": {
-            "scenario": "Qualified trust service provider (qTSP)",
+            "scenario": "Gekwalificeerde verlener van vertrouwensdiensten (qTSP)",
             "employees": "3",
             "turnover": "€500K",
             "balanceSheet": "€200K",
-            "sector": "Annex I - Digital infrastructure",
-            "result": "Essential - size-independent under §28(1) BSIG. qTSPs are always essential regardless of size"
+            "sector": "Bijlage I - Digitale infrastructuur",
+            "result": "Essentieel - omvangsonafhankelijk volgens §28(1) BSIG. qTSP's zijn altijd essentieel, ongeacht omvang"
           },
           "e10": {
-            "scenario": "Chemical distributor, large subsidiary",
+            "scenario": "Chemiedistributeur, grote dochteronderneming",
             "employees": "180",
             "turnover": "€70M",
             "balanceSheet": "€50M",
-            "sector": "Annex II - Chemicals",
-            "result": "Important - despite large financials, Annex II sectors max out at important. Only Annex I + large = essential"
+            "sector": "Bijlage II - Chemicaliën",
+            "result": "Belangrijk - ondanks grote financiële cijfers reiken Bijlage II-sectoren maximaal tot belangrijk. Alleen Bijlage I + groot = essentieel"
           }
         },
-        "legalBasis": "Size thresholds per EU Recommendation 2003/361/EC Art. 2, referenced by NIS2 Directive Art. 2(1). Employee count uses annual work units (Art. 5). Linked/partner enterprise rules (Annex Art. 3) may aggregate parent company headcount and financials. Sector classification per NIS2 Directive Annex I/II, transposed in BSIG §28 Anlage 1/2. Size-independent cases per §28(1) BSIG."
+        "legalBasis": "Omvangsdrempels volgens EU-Aanbeveling 2003/361/EG art. 2, waarnaar wordt verwezen in NIS2-richtlijn art. 2(1). Het aantal medewerkers gebruikt jaararbeidseenheden (art. 5). Regels voor verbonden/partnerondernemingen (Bijlage art. 3) kunnen het personeelsaantal en de financiële cijfers van de moedermaatschappij optellen. Sectorclassificatie volgens NIS2-richtlijn Bijlage I/II, omgezet in BSIG §28 Anlage 1/2. Omvangsonafhankelijke gevallen volgens §28(1) BSIG."
       },
       "sameWork": {
-        "heading": "What Is Identical Across All Three Categories",
-        "p1": "The compliance obligations defined in §30(2) BSIG are the same for important, essential, and KRITIS. There is no lighter version for important entities and no heavier version for essential entities. The 10 security measure categories apply equally:",
+        "heading": "Wat identiek is voor alle drie de categorieën",
+        "p1": "De in §30(2) BSIG vastgelegde complianceverplichtingen zijn voor belangrijke, essentiële en KRITIS-entiteiten gelijk. Er is geen lichtere versie voor belangrijke entiteiten en geen zwaardere versie voor essentiële entiteiten. De 10 categorieën beveiligingsmaatregelen gelden in gelijke mate:",
         "items": [
-          "Risk management policies and procedures (§30(2) Nr. 1)",
-          "Incident handling and reporting - 24h initial, 72h detailed, 1 month final report (§32)",
-          "Business continuity and disaster recovery (§30(2) Nr. 3)",
-          "Supply chain security (§30(2) Nr. 4)",
-          "Security in procurement, development, and maintenance (§30(2) Nr. 5)",
-          "Policies for evaluating the effectiveness of security measures (§30(2) Nr. 6)",
-          "Cybersecurity hygiene and training (§30(2) Nr. 7)",
-          "Cryptography and encryption policies (§30(2) Nr. 8)",
-          "Human resources security and access control (§30(2) Nr. 9)",
-          "Multi-factor authentication and secure communications (§30(2) Nr. 10)",
-          "Registration with BSI within 3 months (§33)",
-          "Management liability - personal responsibility for approving and monitoring security measures (§38)"
+          "Beleid en procedures voor risicobeheer (§30(2) Nr. 1)",
+          "Incidentafhandeling en melding - 24h eerste melding, 72h gedetailleerde melding, 1 maand eindrapport (§32)",
+          "Bedrijfscontinuïteit en uitwijk na rampen (§30(2) Nr. 3)",
+          "Beveiliging van de toeleveringsketen (§30(2) Nr. 4)",
+          "Beveiliging bij inkoop, ontwikkeling en onderhoud (§30(2) Nr. 5)",
+          "Beleid voor het beoordelen van de doeltreffendheid van beveiligingsmaatregelen (§30(2) Nr. 6)",
+          "Cyberhygiëne en training (§30(2) Nr. 7)",
+          "Cryptografie- en versleutelingsbeleid (§30(2) Nr. 8)",
+          "Personeelsbeveiliging en toegangscontrole (§30(2) Nr. 9)",
+          "Multifactorauthenticatie en beveiligde communicatie (§30(2) Nr. 10)",
+          "Registratie bij het BSI binnen 3 maanden (§33)",
+          "Bestuurdersaansprakelijkheid - persoonlijke verantwoordelijkheid voor het goedkeuren en toezien op beveiligingsmaatregelen (§38)"
         ],
-        "p2": "This means the NISD2 platform covers all entity types with the same set of requirements. Whether you are an important food company or an essential energy provider, the compliance process is identical. You complete the same requirements, produce the same evidence, and meet the same standards."
+        "p2": "Dit betekent dat het NISD2-platform alle entiteitstypen met dezelfde set vereisten afdekt. Of u nu een belangrijk levensmiddelenbedrijf of een essentiële energieleverancier bent: het complianceproces is identiek. U voltooit dezelfde vereisten, levert dezelfde bewijsstukken en voldoet aan dezelfde normen."
       },
       "comparison": {
-        "heading": "What Actually Differs",
-        "description": "The differences between entity types are about enforcement, not about what you need to do.",
+        "heading": "Wat daadwerkelijk verschilt",
+        "description": "De verschillen tussen entiteitstypen gaan over handhaving, niet over wat u moet doen.",
         "headers": {
-          "obligation": "Obligation",
-          "important": "Important",
-          "essential": "Essential",
+          "obligation": "Verplichting",
+          "important": "Belangrijk",
+          "essential": "Essentieel",
           "kritis": "KRITIS"
         },
         "rows": {
           "measures": {
-            "obligation": "10 Security Measures (§30)",
-            "important": "Required",
-            "essential": "Required",
-            "kritis": "Required"
+            "obligation": "10 beveiligingsmaatregelen (§30)",
+            "important": "Vereist",
+            "essential": "Vereist",
+            "kritis": "Vereist"
           },
           "reporting": {
-            "obligation": "Incident Reporting (§32)",
-            "important": "24h / 72h / 1 month",
-            "essential": "24h / 72h / 1 month",
-            "kritis": "24h / 72h / 1 month"
+            "obligation": "Meldplicht (§32)",
+            "important": "24h / 72h / 1 maand",
+            "essential": "24h / 72h / 1 maand",
+            "kritis": "24h / 72h / 1 maand"
           },
           "registration": {
-            "obligation": "BSI Registration (§33)",
-            "important": "Basic",
-            "essential": "Basic",
-            "kritis": "Enhanced - critical service, supply metrics, facility location, 24/7 contact"
+            "obligation": "BSI-registratie (§33)",
+            "important": "Basis",
+            "essential": "Basis",
+            "kritis": "Uitgebreid - kritieke dienst, voorzieningscijfers, locatie van de installatie, 24/7-contact"
           },
           "management": {
-            "obligation": "Management Liability (§38)",
-            "important": "Personal liability",
-            "essential": "Personal liability",
-            "kritis": "Personal liability"
+            "obligation": "Bestuurdersaansprakelijkheid (§38)",
+            "important": "Persoonlijke aansprakelijkheid",
+            "essential": "Persoonlijke aansprakelijkheid",
+            "kritis": "Persoonlijke aansprakelijkheid"
           },
           "supervision": {
-            "obligation": "BSI Supervision",
-            "important": "Reactive only (§62) - BSI acts only when evidence of non-compliance exists",
-            "essential": "Proactive (§61) - BSI can audit at any time without cause",
-            "kritis": "Proactive + mandatory 3-year proof cycle (§39)"
+            "obligation": "BSI-toezicht",
+            "important": "Alleen reactief (§62) - het BSI treedt alleen op bij aanwijzingen voor non-compliance",
+            "essential": "Proactief (§61) - het BSI kan op elk moment zonder aanleiding controleren",
+            "kritis": "Proactief + verplichte 3-jaarlijkse bewijscyclus (§39)"
           },
           "fineBase": {
-            "obligation": "Maximum Fine (Base)",
-            "important": "7,000,000 EUR",
-            "essential": "10,000,000 EUR",
-            "kritis": "10,000,000 EUR"
+            "obligation": "Maximale boete (basis)",
+            "important": "7.000.000 EUR",
+            "essential": "10.000.000 EUR",
+            "kritis": "10.000.000 EUR"
           },
           "fineRevenue": {
-            "obligation": "Maximum Fine (Revenue)",
-            "important": "1.4% of global turnover",
-            "essential": "2% of global turnover",
-            "kritis": "2% of global turnover"
+            "obligation": "Maximale boete (omzet)",
+            "important": "1,4% van de wereldwijde omzet",
+            "essential": "2% van de wereldwijde omzet",
+            "kritis": "2% van de wereldwijde omzet"
           },
           "attackDetection": {
-            "obligation": "Attack Detection Systems (§31)",
-            "important": "Not required",
-            "essential": "Not required",
-            "kritis": "Required - continuous SIEM/SOC capability"
+            "obligation": "Aanvalsdetectiesystemen (§31)",
+            "important": "Niet vereist",
+            "essential": "Niet vereist",
+            "kritis": "Vereist - continue SIEM/SOC-capaciteit"
           },
           "complianceProof": {
-            "obligation": "Mandatory Compliance Proof (§39)",
-            "important": "Not required",
-            "essential": "Not required",
-            "kritis": "Required - every 3 years, submitted to BSI"
+            "obligation": "Verplicht compliancebewijs (§39)",
+            "important": "Niet vereist",
+            "essential": "Niet vereist",
+            "kritis": "Vereist - elke 3 jaar, in te dienen bij het BSI"
           }
         }
       },
       "kritisExtras": {
-        "heading": "KRITIS: Three Additional Obligations",
-        "intro": "KRITIS operators - entities running infrastructure whose failure would disrupt public supply (power grids, water treatment, hospitals) - must meet three additional requirements beyond what important and essential entities must do.",
+        "heading": "KRITIS: drie aanvullende verplichtingen",
+        "intro": "KRITIS-exploitanten - entiteiten die infrastructuur exploiteren waarvan de uitval de openbare voorziening zou verstoren (elektriciteitsnetten, waterzuivering, ziekenhuizen) - moeten drie aanvullende vereisten naleven bovenop wat belangrijke en essentiële entiteiten moeten doen.",
         "items": {
           "attackDetection": {
-            "title": "§31 - Attack Detection Systems (Angriffserkennungssysteme)",
-            "detail": "You need a system watching your network around the clock that can spot attacks in progress or detect that someone has already broken in. In practice, this means deploying a SIEM (Security Information and Event Management) - software that collects logs from every server, firewall, and endpoint, correlates them, and alerts on anomalies. It must use pattern matching AND anomaly detection, not just signatures. Most companies outsource this to a managed SOC (Security Operations Center) provider, which typically costs 5,000-15,000 EUR per month. Normal NIS2 entities can get by with basic monitoring - KRITIS operators explicitly cannot."
+            "title": "§31 - Aanvalsdetectiesystemen (Angriffserkennungssysteme)",
+            "detail": "U hebt een systeem nodig dat uw netwerk de klok rond bewaakt en lopende aanvallen kan opmerken of kan vaststellen dat iemand al is binnengedrongen. In de praktijk betekent dit het inzetten van een SIEM (Security Information and Event Management): software die logs van elke server, firewall en endpoint verzamelt, correleert en alarm slaat bij anomalieën. Het moet zowel patroonherkenning ALS anomaliedetectie gebruiken, niet alleen signatures. De meeste ondernemingen besteden dit uit aan een managed SOC (Security Operations Center), wat doorgaans 5.000-15.000 EUR per maand kost. Gewone NIS2-entiteiten kunnen toe met basismonitoring - KRITIS-exploitanten uitdrukkelijk niet."
           },
           "enhancedRegistration": {
-            "title": "§33(2) - Enhanced Registration with BSI",
-            "detail": "On top of the standard registration (name, sector, contact), KRITIS operators must tell BSI exactly what critical service they provide (e.g. 'drinking water supply for 200,000 people'), what critical components they use, the physical facility location, and a 24/7 contact person reachable at any hour. Supply metrics must be reported annually - BSI uses these to verify you still exceed the KRITIS threshold (defined in BSI-KritisV, e.g. 500,000 people served for water, 104 MW for power)."
+            "title": "§33(2) - Uitgebreide registratie bij het BSI",
+            "detail": "Bovenop de standaardregistratie (naam, sector, contact) moeten KRITIS-exploitanten het BSI precies meedelen welke kritieke dienst ze leveren (bijv. 'drinkwatervoorziening voor 200.000 personen'), welke kritieke componenten ze gebruiken, de fysieke locatie van de installatie en een 24/7-contactpersoon die op elk uur bereikbaar is. Voorzieningscijfers moeten jaarlijks worden gemeld - het BSI gebruikt deze om te controleren of u nog steeds boven de KRITIS-drempel zit (vastgelegd in BSI-KritisV, bijv. 500.000 bediende personen voor water, 104 MW voor elektriciteit)."
           },
           "complianceProof": {
-            "title": "§39 - Mandatory Compliance Proof Every 3 Years (Nachweispflicht)",
-            "detail": "Every 3 years, you must proactively submit audit results, security reports, or certifications to BSI proving compliance with all §30 measures and §31 attack detection. BSI does not have to come find you - you come to them. If BSI finds deficiencies, they issue binding remediation orders with deadlines and demand proof that you fixed the issues. Think of it as a mandatory ISO certification cycle, except the auditor is the government. First deadline: December 2028 (5 years for hospitals: December 2030)."
+            "title": "§39 - Verplicht compliancebewijs elke 3 jaar (Nachweispflicht)",
+            "detail": "Elke 3 jaar moet u proactief auditresultaten, beveiligingsrapporten of certificeringen bij het BSI indienen die aantonen dat u alle §30-maatregelen en de §31-aanvalsdetectie naleeft. Het BSI hoeft u niet op te zoeken - u komt naar hen toe. Stelt het BSI tekortkomingen vast, dan vaardigt het bindende herstelbevelen met termijnen uit en verlangt het bewijs dat u de problemen hebt verholpen. Zie het als een verplichte ISO-certificeringscyclus, alleen is de auditor hier de overheid. Eerste termijn: december 2028 (5 jaar voor ziekenhuizen: december 2030)."
           }
         }
       },
       "takeaway": {
-        "heading": "What This Means for Your Company",
-        "p1": "If you are a 50-250 employee company in Germany - the typical NISD2 user - you are almost certainly classified as a wichtige Einrichtung (important entity). Your manufacturing company, food processing business, or IT service provider falls into this category. The compliance work you need to do is exactly the same as what a large essential entity or even a KRITIS operator does. The only practical difference: BSI will not proactively audit you unless they have a reason to (an incident, a complaint, or a tip-off).",
-        "p2": "That is not a reason to do less. If BSI does audit you - reactively, after an incident - and finds you non-compliant, fines up to 7 million EUR or 1.4% of global turnover apply. And your management is personally liable under §38. The safest position is full compliance regardless of category. NISD2 gives you the same compliance process used by essential and KRITIS entities, because the requirements are identical."
+        "heading": "Wat dit voor uw onderneming betekent",
+        "p1": "Bent u een onderneming met 50-250 medewerkers in Duitsland - de typische NISD2-gebruiker - dan bent u vrijwel zeker geclassificeerd als wichtige Einrichtung (belangrijke entiteit). Uw productiebedrijf, levensmiddelenverwerkende onderneming of IT-dienstverlener valt in deze categorie. Het complianceswerk dat u moet verrichten, is precies hetzelfde als dat van een grote essentiële entiteit of zelfs een KRITIS-exploitant. Het enige praktische verschil: het BSI zal u niet proactief controleren, tenzij het daar een reden voor heeft (een incident, een klacht of een tip).",
+        "p2": "Dat is geen reden om minder te doen. Als het BSI u wél controleert - reactief, na een incident - en non-compliance vaststelt, gelden boetes tot 7 miljoen EUR of 1,4% van de wereldwijde omzet. En uw bestuur is persoonlijk aansprakelijk op grond van §38. De veiligste positie is volledige compliance, ongeacht de categorie. NISD2 biedt u hetzelfde complianceproces dat ook essentiële en KRITIS-entiteiten gebruiken, omdat de vereisten identiek zijn."
       },
       "faq": {
-        "heading": "Frequently Asked Questions",
+        "heading": "Veelgestelde vragen",
         "q1": {
-          "q": "Can my company be both important and essential?",
-          "a": "No. The categories are mutually exclusive under §28 BSIG. If you meet the essential threshold (250+ employees or >50M revenue in an Annex I sector), you are essential. If you meet the important threshold but not the essential one, you are important. KRITIS is a subset of essential - KRITIS operators are automatically classified as essential with additional obligations on top."
+          "q": "Kan mijn onderneming zowel belangrijk als essentieel zijn?",
+          "a": "Nee. De categorieën sluiten elkaar uit op grond van §28 BSIG. Voldoet u aan de drempel voor essentieel (250+ medewerkers of >50M omzet in een Bijlage I-sector), dan bent u essentieel. Voldoet u aan de drempel voor belangrijk maar niet aan die voor essentieel, dan bent u belangrijk. KRITIS is een deelverzameling van essentieel - KRITIS-exploitanten worden automatisch als essentieel geclassificeerd, met daarbovenop aanvullende verplichtingen."
         },
         "q2": {
-          "q": "I am an important entity. Do I need to do less compliance work?",
-          "a": "No. The 10 security measure categories in §30(2) BSIG apply identically to both important and essential entities. The only difference is enforcement: BSI supervises essential entities proactively (random audits) and important entities reactively (only after evidence of non-compliance). But the measures themselves, the incident reporting timelines, and management liability are all the same."
+          "q": "Ik ben een belangrijke entiteit. Hoef ik minder complianceswerk te doen?",
+          "a": "Nee. De 10 categorieën beveiligingsmaatregelen in §30(2) BSIG gelden identiek voor zowel belangrijke als essentiële entiteiten. Het enige verschil is de handhaving: het BSI houdt proactief toezicht op essentiële entiteiten (steekproefsgewijze controles) en reactief op belangrijke entiteiten (alleen na aanwijzingen voor non-compliance). Maar de maatregelen zelf, de termijnen van de meldplicht en de bestuurdersaansprakelijkheid zijn allemaal gelijk."
         },
         "q3": {
-          "q": "How do I know if I am KRITIS?",
-          "a": "KRITIS classification is defined in the BSI-KritisV regulation, based on specific supply thresholds: 500,000 people served for water, 104 MW installed capacity for power, 30,000 inpatient cases per year for hospitals, etc. If your infrastructure failure would not directly disrupt public supply at these scales, you are not KRITIS. Most mid-market companies are not KRITIS - they are important or essential entities."
+          "q": "Hoe weet ik of ik KRITIS ben?",
+          "a": "De KRITIS-classificatie is vastgelegd in de BSI-KritisV-verordening, op basis van specifieke voorzieningsdrempels: 500.000 bediende personen voor water, 104 MW geïnstalleerd vermogen voor elektriciteit, 30.000 klinische opnames per jaar voor ziekenhuizen, enz. Als de uitval van uw infrastructuur de openbare voorziening op die schaal niet rechtstreeks zou verstoren, bent u geen KRITIS. De meeste middelgrote ondernemingen zijn geen KRITIS - zij zijn belangrijke of essentiële entiteiten."
         },
         "q4": {
-          "q": "What happens if I get my entity classification wrong?",
-          "a": "Classification determines supervision intensity and penalty caps, not what you need to implement. If you implement all 10 measure categories (which NISD2 guides you through), you are compliant regardless of classification. The risk of misclassification is underestimating your supervision exposure - thinking BSI will not audit you when they actually can."
+          "q": "Wat gebeurt er als ik mijn entiteitsclassificatie verkeerd inschat?",
+          "a": "De classificatie bepaalt de intensiteit van het toezicht en de maximale boetes, niet wat u moet implementeren. Als u alle 10 categorieën maatregelen implementeert (waar NISD2 u doorheen leidt), bent u compliant, ongeacht de classificatie. Het risico van een verkeerde classificatie is dat u uw blootstelling aan toezicht onderschat - denken dat het BSI u niet zal controleren, terwijl het dat wel kan."
         },
         "q5": {
-          "q": "Does the CIR 2024/2690 distinguish between important and essential entities?",
-          "a": "No. The CIR applies to specific entity types (cloud providers, DNS providers, managed service providers, etc.) regardless of whether they are classified as important or essential. The technical requirements in the CIR are identical for both categories."
+          "q": "Maakt CIR 2024/2690 onderscheid tussen belangrijke en essentiële entiteiten?",
+          "a": "Nee. De CIR geldt voor specifieke entiteitstypen (cloudaanbieders, DNS-aanbieders, managed service providers, enz.), ongeacht of ze als belangrijk of essentieel zijn geclassificeerd. De technische vereisten in de CIR zijn voor beide categorieën identiek."
         }
       },
       "sources": {
-        "heading": "Legal Sources",
+        "heading": "Juridische bronnen",
         "items": [
-          "§28 BSIG - Entity classification (essential and important entities)",
-          "§30 BSIG - Risk management measures (10 categories, identical for all entity types)",
-          "§31 BSIG - Attack detection systems (KRITIS only)",
-          "§32 BSIG - Incident reporting obligations (identical timelines for all entity types)",
-          "§33 BSIG - Registration obligations (enhanced for KRITIS)",
-          "§38 BSIG - Management liability (identical for all entity types)",
-          "§39 BSIG - Compliance proof (KRITIS only, every 3 years)",
-          "§61 BSIG - Supervision of essential entities (proactive)",
-          "§62 BSIG - Supervision of important entities (reactive)",
-          "§65 BSIG - Penalties and fines",
-          "CIR 2024/2690 - EU implementing regulation (no entity type distinction)",
-          "BSI-KritisV - KRITIS threshold regulation"
+          "§28 BSIG - Entiteitsclassificatie (essentiële en belangrijke entiteiten)",
+          "§30 BSIG - Risicobeheermaatregelen (10 categorieën, identiek voor alle entiteitstypen)",
+          "§31 BSIG - Aanvalsdetectiesystemen (alleen KRITIS)",
+          "§32 BSIG - Meldplicht (identieke termijnen voor alle entiteitstypen)",
+          "§33 BSIG - Registratieverplichtingen (uitgebreid voor KRITIS)",
+          "§38 BSIG - Bestuurdersaansprakelijkheid (identiek voor alle entiteitstypen)",
+          "§39 BSIG - Compliancebewijs (alleen KRITIS, elke 3 jaar)",
+          "§61 BSIG - Toezicht op essentiële entiteiten (proactief)",
+          "§62 BSIG - Toezicht op belangrijke entiteiten (reactief)",
+          "§65 BSIG - Sancties en boetes",
+          "CIR 2024/2690 - EU-uitvoeringsverordening (geen onderscheid naar entiteitstype)",
+          "BSI-KritisV - KRITIS-drempelverordening"
         ]
       },
       "ctaCard": {
-        "heading": "One Platform, All Entity Types",
-        "description": "NISD2 implements the full set of NIS2/BSIG requirements - the same ones that apply to important, essential, and KRITIS entities. Complete your compliance once. The requirements are identical regardless of your classification."
+        "heading": "Eén platform, alle entiteitstypen",
+        "description": "NISD2 implementeert de volledige set NIS2/BSIG-vereisten - dezelfde die gelden voor belangrijke, essentiële en KRITIS-entiteiten. Voltooi uw compliance in één keer. De vereisten zijn identiek, ongeacht uw classificatie."
       },
-      "cta": "Start your compliance process"
+      "cta": "Start uw complianceproces"
     },
     "faq": {
       "meta": {
@@ -5490,12 +5520,12 @@
     },
     "nis2Timeline": {
       "meta": {
-        "title": "NIS2 Regulatory Timeline - NISD2.eu",
-        "description": "Live-updating timeline of NIS2 Directive, BSIG, CIR 2024/2690, and IT-Grundschutz developments across the EU and Germany."
+        "title": "NIS2 Regelgevingstijdlijn: NISD2.eu",
+        "description": "Doorlopend bijgewerkte tijdlijn van de NIS2-richtlijn, BSIG, CIR 2024/2690 en IT-Grundschutz-ontwikkelingen in de EU en Duitsland."
       },
-      "badge": "Live Timeline",
-      "title": "NIS2 Regulatory Timeline",
-      "subtitle": "Key milestones and latest developments across the NIS2 Directive, BSIG, CIR 2024/2690, IT-Grundschutz, and ENISA - automatically updated."
+      "badge": "Live tijdlijn",
+      "title": "NIS2 Regelgevingstijdlijn",
+      "subtitle": "Belangrijke mijlpalen en actuele ontwikkelingen rond de NIS2-richtlijn, BSIG, CIR 2024/2690, IT-Grundschutz en ENISA, automatisch bijgewerkt."
     },
     "gapAssessmentLanding": {
       "meta": {
@@ -5617,86 +5647,86 @@
     },
     "registrationPortals": {
       "meta": {
-        "title": "NIS2 National Registration Portals - All EU Member States - NISD2.eu",
-        "description": "Complete list of NIS2 national registration platforms across the EU. Find your country's competent authority, registration portal, deadlines, and national law."
+        "title": "NIS2 nationale registratieportalen - Alle EU-lidstaten - NISD2.eu",
+        "description": "Volledige lijst van NIS2 nationale registratieplatforms in de hele EU. Vind de bevoegde autoriteit, het registratieportaal, de termijnen en de nationale wetgeving van uw land."
       },
-      "badge": "EU-27 Registration",
-      "title": "NIS2 National Registration Portals",
-      "subtitle": "Each EU member state has its own NIS2 registration process, competent authority, and deadlines. Find the right portal for your country.",
-      "lastUpdated": "Last updated",
+      "badge": "EU-27 registratie",
+      "title": "NIS2 nationale registratieportalen",
+      "subtitle": "Elke EU-lidstaat heeft een eigen NIS2-registratieproces, een eigen bevoegde autoriteit en eigen termijnen. Vind het juiste portaal voor uw land.",
+      "lastUpdated": "Laatst bijgewerkt",
       "headers": {
-        "country": "Country",
-        "authority": "Competent Authority",
-        "portal": "Registration Portal",
+        "country": "Land",
+        "authority": "Bevoegde autoriteit",
+        "portal": "Registratieportaal",
         "status": "Status",
-        "deadline": "Registration Deadline",
-        "law": "National Law",
-        "entryIntoForce": "Entry into Force"
+        "deadline": "Registratietermijn",
+        "law": "Nationale wetgeving",
+        "entryIntoForce": "Inwerkingtreding"
       },
       "status": {
-        "operational": "Operational",
-        "pre-registration": "Pre-Registration",
-        "planned": "Planned",
-        "not-yet-available": "Not Yet Available"
+        "operational": "In bedrijf",
+        "pre-registration": "Voorregistratie",
+        "planned": "Gepland",
+        "not-yet-available": "Nog niet beschikbaar"
       },
       "countries": {
-        "DE": "Germany",
-        "BE": "Belgium",
-        "IT": "Italy",
-        "FR": "France",
-        "AT": "Austria",
-        "CZ": "Czech Republic",
-        "DK": "Denmark",
-        "NL": "Netherlands",
-        "PL": "Poland",
-        "SE": "Sweden",
-        "HR": "Croatia",
-        "LT": "Lithuania",
-        "LV": "Latvia",
-        "GR": "Greece",
-        "SK": "Slovakia",
-        "RO": "Romania",
+        "DE": "Duitsland",
+        "BE": "België",
+        "IT": "Italië",
+        "FR": "Frankrijk",
+        "AT": "Oostenrijk",
+        "CZ": "Tsjechië",
+        "DK": "Denemarken",
+        "NL": "Nederland",
+        "PL": "Polen",
+        "SE": "Zweden",
+        "HR": "Kroatië",
+        "LT": "Litouwen",
+        "LV": "Letland",
+        "GR": "Griekenland",
+        "SK": "Slowakije",
+        "RO": "Roemenië",
         "FI": "Finland",
-        "EE": "Estonia",
+        "EE": "Estland",
         "PT": "Portugal",
-        "ES": "Spain",
-        "HU": "Hungary",
-        "BG": "Bulgaria",
+        "ES": "Spanje",
+        "HU": "Hongarije",
+        "BG": "Bulgarije",
         "CY": "Cyprus",
-        "IE": "Ireland",
-        "LU": "Luxembourg",
+        "IE": "Ierland",
+        "LU": "Luxemburg",
         "MT": "Malta",
-        "SI": "Slovenia"
+        "SI": "Slovenië"
       },
-      "noPortal": "Not yet available",
-      "noDeadline": "TBD",
-      "noLaw": "Not yet enacted",
-      "visitPortal": "Open Portal",
-      "visitAuthority": "Authority Website",
-      "operationalSection": "Operational Registration Portals",
-      "operationalDescription": "These countries have active registration platforms where entities can register now.",
-      "preRegSection": "Pre-Registration Available",
-      "preRegDescription": "These countries offer pre-registration or early notification. Full registration will follow.",
-      "plannedSection": "Registration Planned",
-      "plannedDescription": "National law enacted but registration portal not yet launched.",
-      "notAvailableSection": "Not Yet Available",
-      "notAvailableDescription": "National transposition still in progress. Registration details will follow.",
-      "directIdentification": "Entities are identified directly by the competent authority: no self-registration required.",
+      "noPortal": "Nog niet beschikbaar",
+      "noDeadline": "Nog te bepalen",
+      "noLaw": "Nog niet aangenomen",
+      "visitPortal": "Portaal openen",
+      "visitAuthority": "Website van de autoriteit",
+      "operationalSection": "Actieve registratieportalen",
+      "operationalDescription": "Deze landen hebben actieve registratieplatforms waar entiteiten zich nu kunnen registreren.",
+      "preRegSection": "Voorregistratie beschikbaar",
+      "preRegDescription": "Deze landen bieden voorregistratie of vroegtijdige melding aan. De volledige registratie volgt.",
+      "plannedSection": "Registratie gepland",
+      "plannedDescription": "Nationale wetgeving aangenomen, maar registratieportaal nog niet gelanceerd.",
+      "notAvailableSection": "Nog niet beschikbaar",
+      "notAvailableDescription": "Nationale omzetting is nog in uitvoering. Registratiegegevens volgen.",
+      "directIdentification": "Entiteiten worden rechtstreeks door de bevoegde autoriteit geïdentificeerd: zelfregistratie is niet vereist.",
       "sources": {
-        "heading": "Sources",
+        "heading": "Bronnen",
         "items": [
-          "ECSO NIS2 Directive Transposition Tracker (ecs-org.eu)",
-          "European Commission NIS2 Status (digital-strategy.ec.europa.eu)",
-          "Wavestone NIS2 Transposition Analysis",
-          "OpenKRITIS: NIS2 EU Member States (openkritis.de)",
-          "National competent authority websites (BSI, CCB, ACN, ANSSI, NUKIB, etc.)"
+          "ECSO NIS2-richtlijn omzettingstracker (ecs-org.eu)",
+          "Europese Commissie NIS2-status (digital-strategy.ec.europa.eu)",
+          "Wavestone NIS2-omzettingsanalyse",
+          "OpenKRITIS: NIS2 EU-lidstaten (openkritis.de)",
+          "Websites van nationale bevoegde autoriteiten (BSI, CCB, ACN, ANSSI, NUKIB enz.)"
         ]
       },
       "ctaCard": {
-        "heading": "Start Your NIS2 Compliance in Germany",
-        "description": "The BSI registration deadline has passed. Start your BSIG compliance process now with our free platform."
+        "heading": "Start uw NIS2-compliance in Duitsland",
+        "description": "De BSI-registratietermijn is verstreken. Start nu uw BSIG-complianceproces met ons gratis platform."
       },
-      "cta": "Start Free NIS2 Compliance"
+      "cta": "Gratis NIS2-compliance starten"
     },
     "supplyChain": {
       "meta": {
@@ -5826,93 +5856,93 @@
     },
     "multiCountryReg": {
       "meta": {
-        "title": "NIS2 Registration in Multiple EU Countries | Which Authority Do You Register With?",
-        "description": "If your company operates in more than one EU country, you must register with each country's NIS2 authority. Learn the rules and find every national authority in one place."
+        "title": "NIS2-registratie in meerdere landen",
+        "description": "Actief in meerdere EU-landen? Dan moet u zich registreren bij de NIS2-autoriteit van elk land. Regels en alle nationale registratieautoriteiten op een rij."
       },
-      "badge": "Multi-Country NIS2",
-      "title": "NIS2 Registration Across Multiple EU Countries",
-      "subtitle": "Operating in more than one EU member state? You must register with each country's national authority, not just where your headquarters are located.",
+      "badge": "NIS2 meerdere landen",
+      "title": "NIS2-registratie in meerdere EU-landen",
+      "subtitle": "Actief in meer dan één EU-lidstaat? Dan moet u zich registreren bij de nationale autoriteit van elk land, niet alleen daar waar uw hoofdkantoor is gevestigd.",
       "hannover": {
-        "heading": "A question from Hannover Messe",
-        "p1": "During our visit to Hannover Messe, one of Europe's largest industrial trade fairs, we were asked a question that many cross-border businesses are grappling with: if your company operates in more than one EU country, where do you register for NIS2?",
-        "p2": "It's a genuinely complex question, and the answer catches many companies off guard. The rule is not tied to where you sell, it is tied to where you are genuinely operational as a legal entity."
+        "heading": "Een vraag van de Hannover Messe",
+        "p1": "Tijdens ons bezoek aan de Hannover Messe, een van de grootste industriebeurzen van Europa, kregen we een vraag voorgelegd waar veel grensoverschrijdend opererende bedrijven mee worstelen: als uw bedrijf in meer dan één EU-land actief is, waar registreert u zich dan voor NIS2?",
+        "p2": "Het is een werkelijk complexe vraag en het antwoord overvalt veel bedrijven. De regel hangt niet af van waar u verkoopt, maar van waar u als juridische entiteit daadwerkelijk operationeel bent."
       },
       "rule": {
-        "heading": "Selling in a country is not the same as operating in a country",
-        "p1": "Many companies sell their products or services across the EU through a single legal entity registered in one country. In that case, registration with your home country's authority is sufficient, you are not \"established\" in every country you sell into.",
-        "p2": "However, if your company is fully operational in a country, meaning you have a registered legal presence, employees on the ground, and pay corporate tax there, then that country's NIS2 law applies to you as an entity established in that jurisdiction.",
-        "p3": "The NIS2 Directive requires each EU member state to transpose the directive into their own national law. That national law applies to entities established in that country. If you have subsidiaries or branches registered as legal entities in France, Germany, and the Netherlands, each of those legal entities is subject to that country's NIS2 legislation: and must register with that country's national authority."
+        "heading": "Verkopen in een land is niet hetzelfde als actief zijn in een land",
+        "p1": "Veel bedrijven verkopen hun producten of diensten in de hele EU via één juridische entiteit die in één land is ingeschreven. In dat geval volstaat registratie bij de autoriteit van uw thuisland: u bent niet \"gevestigd\" in elk land waar u aan verkoopt.",
+        "p2": "Als uw bedrijf echter volledig operationeel is in een land, dat wil zeggen dat u er een ingeschreven juridische vestiging heeft, medewerkers ter plaatse en er vennootschapsbelasting betaalt, dan is het NIS2-recht van dat land op u van toepassing als entiteit die in dat rechtsgebied is gevestigd.",
+        "p3": "De NIS2-richtlijn verplicht elke EU-lidstaat de richtlijn om te zetten in eigen nationaal recht. Dat nationale recht geldt voor entiteiten die in dat land zijn gevestigd. Als u dochterondernemingen of bijkantoren heeft die als juridische entiteiten zijn ingeschreven in Frankrijk, Duitsland en Nederland, valt elk van die juridische entiteiten onder de NIS2-wetgeving van het betreffende land: en moet zich registreren bij de nationale autoriteit van dat land."
       },
       "onestop": {
-        "heading": "Exception: digital service providers use a one-stop-shop",
-        "description": "NIS2 Article 26 creates an important exception for specific digital service types: cloud computing providers, managed service providers, managed security service providers, data centre providers, content delivery networks, DNS service providers, online marketplaces, online search engines, and social networking platforms. These entities register in a single EU member state, the one where cybersecurity risk-management decisions are predominantly taken. If you operate one of these services, you do not need to register in every country where you are established. All other types of entities (manufacturers, food companies, energy suppliers, transport operators, hospitals, etc.) fall under the standard rule and must register in each country where they have a legal establishment."
+        "heading": "Uitzondering: digitaledienstverleners gebruiken één-loket",
+        "description": "NIS2 Artikel 26 voorziet in een belangrijke uitzondering voor specifieke soorten digitale diensten: aanbieders van cloudcomputing, managed service providers, managed security service providers, aanbieders van datacenters, content delivery networks, DNS-dienstverleners, onlinemarktplaatsen, onlinezoekmachines en platforms voor sociale netwerken. Deze entiteiten registreren zich in één EU-lidstaat, namelijk die waar de beslissingen over het beheer van cyberbeveiligingsrisico's overwegend worden genomen. Als u een van deze diensten exploiteert, hoeft u zich niet te registreren in elk land waar u bent gevestigd. Alle andere soorten entiteiten (fabrikanten, levensmiddelenbedrijven, energieleveranciers, vervoersexploitanten, ziekenhuizen enzovoort) vallen onder de standaardregel en moeten zich registreren in elk land waar zij een juridische vestiging hebben."
       },
       "tax": {
-        "heading": "The tax test",
-        "description": "A practical rule of thumb: if you pay corporate income tax in a country as a locally registered entity, you almost certainly need to register with that country's NIS2 authority. This covers subsidiaries, branches, and locally incorporated companies, not agents, distributors, or customers based in that country."
+        "heading": "De belastingtoets",
+        "description": "Een praktische vuistregel: als u in een land vennootschapsbelasting betaalt als lokaal ingeschreven entiteit, moet u zich vrijwel zeker registreren bij de NIS2-autoriteit van dat land. Dit geldt voor dochterondernemingen, bijkantoren en lokaal opgerichte vennootschappen, niet voor agenten, distributeurs of klanten die in dat land zijn gevestigd."
       },
       "authorities": {
-        "heading": "NIS2 National Authorities: Complete List",
-        "description": "Every EU member state, plus EEA countries Norway and Iceland, has designated a national authority responsible for NIS2 registration and enforcement. Find yours below.",
+        "heading": "NIS2 nationale autoriteiten: volledige lijst",
+        "description": "Elke EU-lidstaat, plus de EER-landen Noorwegen en IJsland, heeft een nationale autoriteit aangewezen die verantwoordelijk is voor NIS2-registratie en -handhaving. Vind de uwe hieronder.",
         "headers": {
-          "country": "Country",
-          "authority": "National Authority"
+          "country": "Land",
+          "authority": "Nationale autoriteit"
         }
       },
       "practical": {
-        "heading": "What this means in practice",
-        "p1": "For a company with operations in three EU countries, this means three separate registration processes, each with different timelines, forms, and technical requirements. Some countries have operational portals (Germany's BSI, France's ANSSI, Romania's DNSC launched registration in August 2025), while others are still in the process of establishing registration infrastructure.",
-        "p2": "The good news: registration is typically straightforward once you know which authority to contact and what information they require. The challenge is tracking multiple obligations across jurisdictions with different implementation timelines, as of mid-2025, only around 8 of 27 EU member states had fully completed NIS2 transposition.",
-        "p3": "Companies with operations across five or more EU countries should consider designating a compliance lead for each jurisdiction. Deadlines, annual reporting requirements, and incident notification windows vary by country and can diverge significantly from the baseline NIS2 directive."
+        "heading": "Wat dit in de praktijk betekent",
+        "p1": "Voor een bedrijf met activiteiten in drie EU-landen betekent dit drie afzonderlijke registratieprocessen, elk met andere termijnen, formulieren en technische vereisten. Sommige landen hebben operationele portalen (het BSI in Duitsland, de ANSSI in Frankrijk, het Roemeense DNSC opende de registratie in augustus 2025), terwijl andere de registratie-infrastructuur nog aan het opbouwen zijn.",
+        "p2": "Het goede nieuws: registratie is doorgaans eenvoudig zodra u weet welke autoriteit u moet benaderen en welke informatie zij nodig hebben. De uitdaging zit in het bijhouden van meerdere verplichtingen in rechtsgebieden met verschillende implementatietermijnen: medio 2025 hadden slechts ongeveer 8 van de 27 EU-lidstaten de NIS2-omzetting volledig afgerond.",
+        "p3": "Bedrijven met activiteiten in vijf of meer EU-landen doen er goed aan om voor elk rechtsgebied een verantwoordelijke voor compliance aan te wijzen. Termijnen, jaarlijkse rapportageverplichtingen en termijnen voor het melden van incidenten verschillen per land en kunnen aanzienlijk afwijken van de basis-NIS2-richtlijn."
       },
       "steps": {
-        "heading": "How to approach multi-country NIS2 compliance",
+        "heading": "Hoe pakt u NIS2-compliance in meerdere landen aan",
         "items": {
           "map": {
-            "title": "Map your legal entities",
-            "description": "List every country where your company has a registered legal entity: subsidiary, branch, or local company. This is your compliance footprint, not your sales footprint."
+            "title": "Breng uw juridische entiteiten in kaart",
+            "description": "Maak een lijst van elk land waar uw bedrijf een ingeschreven juridische entiteit heeft: dochteronderneming, bijkantoor of lokale vennootschap. Dit is uw compliance-voetafdruk, niet uw verkoopvoetafdruk."
           },
           "check": {
-            "title": "Check each country's threshold",
-            "description": "NIS2 applies to medium and large entities (50+ employees or €10M+ turnover). Apply the threshold test per legal entity, not group-wide, a small subsidiary may fall below the threshold."
+            "title": "Controleer de drempel per land",
+            "description": "NIS2 geldt voor middelgrote en grote entiteiten (50+ werknemers of €10M+ omzet). Pas de drempeltoets toe per juridische entiteit, niet concernbreed: een kleine dochteronderneming kan onder de drempel vallen."
           },
           "register": {
-            "title": "Register with each national authority",
-            "description": "Use the authority table above to find the correct registration contact in each country where you meet the threshold. Some countries require additional sector-specific registration."
+            "title": "Registreer u bij elke nationale autoriteit",
+            "description": "Gebruik de bovenstaande tabel met autoriteiten om het juiste registratiecontact te vinden in elk land waar u aan de drempel voldoet. Sommige landen vereisen aanvullende sectorspecifieke registratie."
           },
           "track": {
-            "title": "Track country-specific deadlines",
-            "description": "Each country has its own implementation timeline and reporting deadlines. Set reminders per jurisdiction, do not assume all countries are aligned on timing."
+            "title": "Houd landspecifieke termijnen bij",
+            "description": "Elk land heeft zijn eigen implementatietijdlijn en rapportagetermijnen. Stel per rechtsgebied herinneringen in: ga er niet van uit dat alle landen qua timing op één lijn zitten."
           }
         }
       },
       "faq": {
-        "heading": "Frequently asked questions",
+        "heading": "Veelgestelde vragen",
         "q1": {
-          "q": "I have a sales office in Germany but my headquarters are in France, do I register with the BSI?",
-          "a": "It depends on how the German sales office is structured. If it is a registered GmbH or Zweigniederlassung (branch) that files its own tax return in Germany, you likely need to register with the BSI in addition to ANSSI in France. If it is simply a cost centre of the French parent with no separate legal status in Germany, French registration alone may suffice. Consult a lawyer familiar with NIS2 in both jurisdictions."
+          "q": "Ik heb een verkoopkantoor in Duitsland maar mijn hoofdkantoor staat in Frankrijk: moet ik mij bij het BSI registreren?",
+          "a": "Dat hangt af van hoe het Duitse verkoopkantoor juridisch is gestructureerd. Als het een ingeschreven GmbH of Zweigniederlassung (bijkantoor) is die in Duitsland een eigen belastingaangifte indient, moet u zich waarschijnlijk registreren bij het BSI naast de ANSSI in Frankrijk. Is het slechts een kostenplaats van de Franse moedermaatschappij zonder eigen rechtspersoonlijkheid in Duitsland, dan kan registratie in Frankrijk alleen volstaan. Raadpleeg een jurist die bekend is met NIS2 in beide rechtsgebieden."
         },
         "q2": {
-          "q": "Do I need to comply with different security requirements in each country?",
-          "a": "NIS2 sets a harmonized baseline, but each country's transposition can add stricter sector-specific requirements. In practice, implementing the NIS2 baseline, risk management, incident reporting, access control, supply chain security, will meet requirements in most EU countries. Check each country's national law for any additional obligations."
+          "q": "Moet ik in elk land aan andere beveiligingsvereisten voldoen?",
+          "a": "NIS2 stelt een geharmoniseerde basislijn vast, maar de omzetting van elk land kan strengere sectorspecifieke vereisten toevoegen. In de praktijk voldoet u met het implementeren van de NIS2-basislijn (risicobeheer, incidentmelding, toegangscontrole, beveiliging van de toeleveringsketen) aan de vereisten in de meeste EU-landen. Controleer het nationale recht van elk land op eventuele aanvullende verplichtingen."
         },
         "q3": {
-          "q": "What if a country hasn't finished transposing NIS2 yet?",
-          "a": "Some EU countries were late transposing the directive (the deadline was October 2024). Until national law is in force, registration may not yet be possible. Monitor the relevant national authority's website and register as soon as the process opens. Late transposition by the government does not reduce your eventual legal obligation."
+          "q": "Wat als een land NIS2 nog niet volledig heeft omgezet?",
+          "a": "Sommige EU-landen waren te laat met het omzetten van de richtlijn (de termijn was oktober 2024). Tot het nationale recht van kracht is, is registratie wellicht nog niet mogelijk. Houd de website van de betreffende nationale autoriteit in de gaten en registreer u zodra het proces opengaat. Late omzetting door de overheid vermindert uw uiteindelijke wettelijke verplichting niet."
         },
         "q4": {
-          "q": "Can I register once at EU level and cover all countries?",
-          "a": "No. There is no single EU-level NIS2 registry. Each country operates its own registration system. This is one of the known complexities of the directive's decentralised implementation and creates significant compliance overhead for pan-European companies."
+          "q": "Kan ik mij één keer op EU-niveau registreren en zo alle landen afdekken?",
+          "a": "Nee. Er bestaat geen enkel NIS2-register op EU-niveau. Elk land heeft zijn eigen registratiesysteem. Dit is een van de bekende complexiteiten van de gedecentraliseerde uitvoering van de richtlijn en zorgt voor aanzienlijke compliance-lasten voor pan-Europese bedrijven."
         }
       },
       "sources": {
-        "heading": "Sources & References"
+        "heading": "Bronnen en referenties"
       },
       "ctaCard": {
-        "heading": "Manage your NIS2 compliance across all jurisdictions",
-        "description": "The nisd2.eu platform helps you track obligations, manage evidence, and stay compliant, whether you operate in one country or ten."
+        "heading": "Beheer uw NIS2-compliance in alle rechtsgebieden",
+        "description": "Het nisd2.eu-platform helpt u verplichtingen bij te houden, bewijs te beheren en compliant te blijven, of u nu in één land of in tien landen actief bent."
       },
-      "cta": "Start free compliance"
+      "cta": "Begin gratis met compliance"
     },
     "changelog": {
       "meta": {

@@ -27,25 +27,17 @@ export function WikiPageMeta({
   locale: "de" | "en" | "nl";
 }) {
   const author = AUTHORS[authorSlug];
-  const isEn = locale === "en";
-  const formatLocale = isEn ? "en" : "de";
 
   const reviewedDate = lastReviewedAt ?? datePublished;
   const dateLine = reviewedDate
     ? lastReviewedAt
-      ? isEn
-        ? `Last reviewed ${formatDate(reviewedDate, "en")}`
-        : `Zuletzt geprüft ${formatDate(reviewedDate, "de")}`
-      : isEn
-        ? `Published ${formatDate(reviewedDate, "en")}`
-        : `Veröffentlicht ${formatDate(reviewedDate, "de")}`
-    : isEn
-      ? "Continuously reviewed"
-      : "Laufend geprüft";
+      ? `${REVIEWED_LABEL[locale]} ${formatDate(reviewedDate, locale)}`
+      : `${PUBLISHED_LABEL[locale]} ${formatDate(reviewedDate, locale)}`
+    : CONTINUOUS_LABEL[locale];
 
   const translationNotice =
     locale !== sourceLocale
-      ? TRANSLATION_NOTICE[formatLocale][sourceLocale]
+      ? TRANSLATION_NOTICE[locale][sourceLocale]
       : null;
 
   return (
@@ -74,30 +66,49 @@ export function WikiPageMeta({
   );
 }
 
-const TRANSLATION_NOTICE: Record<"de" | "en", Record<"de" | "en" | "nl", string>> =
-  {
-    en: {
-      de: "Originally written in German, automatically translated.",
-      en: "Originally written in English, automatically translated.",
-      nl: "Originally written in Dutch, automatically translated.",
-    },
-    de: {
-      de: "Original auf Deutsch verfasst, automatisch übersetzt.",
-      en: "Original auf Englisch verfasst, automatisch übersetzt.",
-      nl: "Original auf Niederländisch verfasst, automatisch übersetzt.",
-    },
-  };
+const REVIEWED_LABEL: Record<"de" | "en" | "nl", string> = {
+  de: "Zuletzt geprüft",
+  en: "Last reviewed",
+  nl: "Laatst gecontroleerd",
+};
 
-function formatDate(iso: string, locale: "de" | "en"): string {
+const PUBLISHED_LABEL: Record<"de" | "en" | "nl", string> = {
+  de: "Veröffentlicht",
+  en: "Published",
+  nl: "Gepubliceerd",
+};
+
+const CONTINUOUS_LABEL: Record<"de" | "en" | "nl", string> = {
+  de: "Laufend geprüft",
+  en: "Continuously reviewed",
+  nl: "Doorlopend gecontroleerd",
+};
+
+const TRANSLATION_NOTICE: Record<
+  "de" | "en" | "nl",
+  Record<"de" | "en" | "nl", string>
+> = {
+  en: {
+    de: "Originally written in German, automatically translated.",
+    en: "Originally written in English, automatically translated.",
+    nl: "Originally written in Dutch, automatically translated.",
+  },
+  de: {
+    de: "Original auf Deutsch verfasst, automatisch übersetzt.",
+    en: "Original auf Englisch verfasst, automatisch übersetzt.",
+    nl: "Original auf Niederländisch verfasst, automatisch übersetzt.",
+  },
+  nl: {
+    de: "Origineel in het Duits geschreven, automatisch vertaald.",
+    en: "Origineel in het Engels geschreven, automatisch vertaald.",
+    nl: "Origineel in het Nederlands geschreven, automatisch vertaald.",
+  },
+};
+
+function formatDate(iso: string, locale: "de" | "en" | "nl"): string {
   const d = new Date(iso);
-  if (locale === "en") {
-    return d.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  }
-  return d.toLocaleDateString("de-DE", {
+  const tag = locale === "en" ? "en-GB" : locale === "nl" ? "nl-NL" : "de-DE";
+  return d.toLocaleDateString(tag, {
     day: "numeric",
     month: "long",
     year: "numeric",

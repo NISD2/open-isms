@@ -56,7 +56,7 @@ export default async function GrcVergleichRoute({
         citationKeys={["nis2", "bsig"]}
         aboutKeys={["nis2"]}
       />
-      <WikiPageMeta authorSlug="simon-orzel" locale={locale === "nl" ? "de" : (locale as "de" | "en")} />
+      <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
       <GlossedProse locale={locale}>
         <GrcComparisonPage dataset={dataset} stats={stats} locale={locale} />
       </GlossedProse>

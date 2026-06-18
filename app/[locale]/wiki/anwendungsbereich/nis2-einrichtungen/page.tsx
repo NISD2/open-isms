@@ -85,7 +85,7 @@ export default async function EntityTypesPage({ params }: { params: Promise<{ lo
         <p className="mt-2 text-lg text-muted-foreground">{t("entityTypes.subtitle")}</p>
       </header>
 
-      <WikiPageMeta authorSlug="simon-orzel" locale={locale === "nl" ? "de" : (locale as "de" | "en")} />
+      <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
 
       <Separator />
 

@@ -58,7 +58,7 @@ export default async function IncidentReportingPage({ params }: { params: Promis
         <p className="mt-2 text-lg text-muted-foreground">{t("incidentReporting.subtitle")}</p>
       </header>
 
-      <WikiPageMeta authorSlug="simon-orzel" locale={locale === "nl" ? "de" : (locale as "de" | "en")} />
+      <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
 
       <Separator />
 

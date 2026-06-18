@@ -69,7 +69,7 @@ export default async function BsigParagraph30Page({ params }: { params: Promise<
         <p className="mt-2 text-lg text-muted-foreground">{t("bsigParagraph30.subtitle")}</p>
       </header>
 
-      <WikiPageMeta authorSlug="simon-orzel" locale={locale === "nl" ? "de" : (locale as "de" | "en")} />
+      <WikiPageMeta authorSlug="simon-orzel" locale={locale} />
 
       <Separator />
 
