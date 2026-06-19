@@ -26,6 +26,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { getInitials } from "@/lib/utils";
+import { LOCALES, type LocaleCode } from "@/lib/locale";
 
 interface UserNavProps {
   user: {
@@ -43,15 +44,9 @@ export function UserNav({ user }: UserNavProps) {
   const pathname = usePathname();
   const { isMobile } = useSidebar();
 
-  const localeOptions = [
-    { code: "en", label: t("english") },
-    { code: "de", label: t("german") },
-    { code: "nl", label: t("dutch") },
-  ] as const;
-
   function switchLocale(next: string) {
     if (next === locale) return;
-    router.replace(pathname as never, { locale: next as "de" | "en" | "nl" });
+    router.replace(pathname as never, { locale: next as LocaleCode });
   }
 
   return (
@@ -119,7 +114,7 @@ export function UserNav({ user }: UserNavProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {localeOptions.map((opt) => (
+            {LOCALES.map((opt) => (
               <DropdownMenuItem key={opt.code} onClick={() => switchLocale(opt.code)}>
                 <Globe className="mr-2 h-4 w-4" />
                 {opt.label}

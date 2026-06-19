@@ -10,16 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Globe } from "lucide-react";
-
-const locales = [
-  { code: "en", label: "English" },
-  { code: "de", label: "Deutsch" },
-  { code: "nl", label: "Nederlands" },
-  { code: "fr", label: "Français" },
-  { code: "it", label: "Italiano" },
-  { code: "es", label: "Español" },
-  { code: "pl", label: "Polski" },
-] as const;
+import { LOCALES, type LocaleCode } from "@/lib/locale";
 
 export function LocaleSwitcher() {
   const locale = useLocale();
@@ -29,7 +20,7 @@ export function LocaleSwitcher() {
   function switchTo(next: string) {
     if (next === locale) return;
     router.replace(pathname as never, {
-      locale: next as (typeof locales)[number]["code"],
+      locale: next as LocaleCode,
     });
   }
 
@@ -42,7 +33,7 @@ export function LocaleSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {locales.map((l) => (
+        {LOCALES.map((l) => (
           <DropdownMenuItem
             key={l.code}
             onClick={() => switchTo(l.code)}

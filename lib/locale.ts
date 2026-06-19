@@ -15,3 +15,20 @@ export function pickLocalized<T>(
   }
   throw new Error("pickLocalized: bundle has no values");
 }
+
+/**
+ * Locales offered in the UI language switchers (public navbar + portal
+ * sidebar), with their native endonym labels. Single source of truth so the
+ * two switchers stay in sync; every `code` must exist in i18n/routing.ts.
+ */
+export const LOCALES = [
+  { code: "en", label: "English" },
+  { code: "de", label: "Deutsch" },
+  { code: "nl", label: "Nederlands" },
+  { code: "fr", label: "Français" },
+  { code: "it", label: "Italiano" },
+  { code: "es", label: "Español" },
+  { code: "pl", label: "Polski" },
+] as const;
+
+export type LocaleCode = (typeof LOCALES)[number]["code"];
