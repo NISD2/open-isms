@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Améliorations",
+    "description": "Éléments d'amélioration continue issus des audits, des incidents et des revues. Soutient le cycle PDCA selon NIS2.",
+    "helpText": "Suivez les actions d'amélioration identifiées à partir des audits, des analyses post-incident, des revues de direction et des tendances des KPI. Chaque élément possède une source, une priorité, un responsable et une date cible. Ce registre démontre l'engagement de votre organisation envers l'amélioration continue.",
+    "add": "Ajouter une amélioration",
+    "edit": "Modifier l'amélioration",
+    "empty": "Aucun élément d'amélioration pour l'instant. Ajoutez des éléments issus des audits, des incidents ou des revues.",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet élément d'amélioration ?",
+    "actions": "Actions",
+    "source": {
+      "audit": "Audit",
+      "incident": "Incident",
+      "pentest": "Test d'intrusion",
+      "management_review": "Revue de direction",
+      "kpi_breach": "Dépassement de KPI",
+      "gap_analysis": "Analyse des écarts",
+      "regulatory_change": "Changement réglementaire",
+      "suggestion": "Suggestion"
+    },
+    "status": {
+      "open": "Ouvert",
+      "in_progress": "En cours",
+      "resolved": "Résolu",
+      "verified": "Vérifié",
+      "deferred": "Reporté"
+    },
+    "priority": {
+      "P0": "P0 - Immédiate",
+      "P1": "P1 - 3 mois",
+      "P2": "P2 - 6 mois",
+      "P3": "P3 - 12 mois"
+    },
+    "fields": {
+      "title": "Titre",
+      "description": "Description",
+      "source": "Source",
+      "priority": "Priorité",
+      "status": "Statut",
+      "targetDate": "Date cible",
+      "deferralReason": "Motif du report",
+      "verificationNotes": "Notes de vérification"
+    },
+    "fieldDescriptions": {
+      "title": "Titre court et descriptif pour cette action d'amélioration (par ex. « Mettre en place la MFA pour l'accès VPN »).",
+      "description": "Description détaillée de l'amélioration, incluant l'écart actuel et le résultat souhaité.",
+      "source": "Sélectionnez où cette amélioration a été identifiée : constatation d'audit, analyse post-incident, revue de direction, dépassement de KPI, etc.",
+      "priority": "Sélectionnez le niveau de priorité qui détermine le délai de mise en œuvre (P0 : immédiate, P1 : 3 mois, P2 : 6 mois, P3 : 12 mois).",
+      "status": "Statut actuel de l'amélioration : ouvert, en cours, résolu, vérifié (efficacité confirmée) ou reporté.",
+      "targetDate": "Date à laquelle cette action d'amélioration doit être achevée.",
+      "deferralReason": "Si le statut est « Reporté », fournissez la justification et le calendrier de reprise prévu.",
+      "verificationNotes": "Documentez la manière dont l'efficacité de cette amélioration a été vérifiée après sa mise en œuvre."
+    }
+  }
+}

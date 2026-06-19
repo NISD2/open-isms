@@ -22,6 +22,8 @@
     "db:seed": "bun run drizzle/seed.ts",
     "index-urls": "bun run scripts/index-urls.ts",
     "generate:guidance": "bun run scripts/generate-guidance.ts",
+    "i18n:translate": "bun --env-file=.env run scripts/i18n/translate.ts",
+    "i18n:translate:dry": "bun run scripts/i18n/translate.ts --dry-run",
     "email:dev": "email dev --dir lib/mail/templates --port 3027",
     "screenshots": "bun scripts/screenshot-pitch.ts",
     "og": "og-shot"

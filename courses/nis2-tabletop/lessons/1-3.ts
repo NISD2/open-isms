@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "1.3",
   slug: "facilitator-separation",
-  title: { en: "The Facilitator-vs-Participant Separation", de: "Wer moderiert, spielt nicht mit" },
+  title: { en: "The Facilitator-vs-Participant Separation", de: "Wer moderiert, spielt nicht mit", fr: "La séparation entre animateur et participant", it: "La separazione tra facilitatore e partecipante", es: "La separación entre facilitador y participante", pl: "Rozdzielenie roli prowadzącego i uczestnika" },
   moduleId: "module-1",
   order: 2,
   contentFile: "1-3",

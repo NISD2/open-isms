@@ -1,0 +1,51 @@
+{
+  "changes": {
+    "title": "Gestión de cambios",
+    "description": "Solicitudes de cambio de IT/OT con evaluación de riesgos y flujo de aprobación. Apoya el Art. 21(2)(e) de NIS2.",
+    "helpText": "Realice el seguimiento de todos los cambios en los sistemas IT y OT mediante un proceso formal de aprobación. Cada solicitud de cambio incluye evaluación de riesgos, plan de implementación y procedimiento de reversión. NIS2 exige una gestión controlada de los cambios para evitar regresiones de seguridad.",
+    "add": "Nueva solicitud de cambio",
+    "edit": "Editar solicitud de cambio",
+    "empty": "Aún no hay solicitudes de cambio. Cree su primera solicitud de cambio.",
+    "deleteConfirm": "¿Está seguro de que desea eliminar esta solicitud de cambio?",
+    "actions": "Acciones",
+    "type": {
+      "standard": "Estándar",
+      "normal": "Normal",
+      "emergency": "Emergencia"
+    },
+    "changeType": {
+      "standard": "Estándar",
+      "normal": "Normal",
+      "emergency": "Emergencia"
+    },
+    "status": {
+      "draft": "Borrador",
+      "submitted": "Enviada",
+      "approved": "Aprobada",
+      "implementing": "En implementación",
+      "implemented": "Implementada",
+      "rolled_back": "Revertida",
+      "closed": "Cerrada"
+    },
+    "fields": {
+      "title": "Título",
+      "description": "Descripción",
+      "changeType": "Tipo de cambio",
+      "status": "Estado",
+      "createdAt": "Creada el",
+      "businessJustification": "Justificación de negocio",
+      "securityImpactAssessment": "Evaluación del impacto en la seguridad",
+      "rollbackPlan": "Plan de reversión"
+    },
+    "fieldDescriptions": {
+      "title": "Título breve y descriptivo de esta solicitud de cambio (p. ej., «Actualizar el firmware del cortafuegos a la v4.2»).",
+      "description": "Descripción detallada del cambio propuesto, incluidos los sistemas afectados y el resultado esperado.",
+      "changeType": "Seleccione el tipo: estándar (preaprobado, bajo riesgo), normal (requiere revisión) o emergencia (urgente, aprobación posterior).",
+      "status": "Estado actual de la solicitud de cambio en el flujo de aprobación e implementación.",
+      "createdAt": "Fecha en la que se envió esta solicitud de cambio.",
+      "businessJustification": "Explique por qué es necesario este cambio, incluidos los motivos de negocio y los beneficios para la seguridad.",
+      "securityImpactAssessment": "Describa el posible impacto en la seguridad de este cambio, incluidos los riesgos introducidos o mitigados.",
+      "rollbackPlan": "Describa los pasos para revertir este cambio si la implementación falla o causa problemas inesperados."
+    }
+  }
+}

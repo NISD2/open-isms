@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "title": "Mediciones de KPI",
+    "description": "Métricas de rendimiento de seguridad supervisadas a lo largo del tiempo. Demuestra la eficacia conforme al art. 21 de NIS2.",
+    "helpText": "Registre las mediciones de KPI de seguridad con regularidad (p. ej., tasa de cumplimiento de parches, % de finalización de formación, tiempo medio de detección). Los KPI demuestran a los auditores que sus medidas de seguridad son eficaces y mejoran con el tiempo.",
+    "add": "Añadir medición",
+    "empty": "Todavía no hay mediciones de KPI. Registre su primera medición.",
+    "status": {
+      "green": "En objetivo",
+      "amber": "En riesgo",
+      "red": "Por debajo del objetivo"
+    },
+    "fields": {
+      "kpiName": "Nombre del KPI",
+      "measuredAt": "Medido el",
+      "value": "Valor",
+      "target": "Objetivo",
+      "unit": "Unidad",
+      "status": "Estado",
+      "notes": "Notas"
+    },
+    "fieldDescriptions": {
+      "kpiName": "Nombre de la métrica de seguridad que se mide (p. ej., 'Tasa de cumplimiento de parches', 'Tiempo medio de detección', '% de finalización de formación').",
+      "measuredAt": "Fecha en la que se tomó esta medición.",
+      "value": "Introduzca el valor numérico medido para este KPI.",
+      "target": "Introduzca el valor objetivo que este KPI debe alcanzar o superar.",
+      "unit": "Unidad de medida (p. ej., %, horas, días, recuento).",
+      "status": "Seleccione el estado: verde (en objetivo), ámbar (en riesgo de no alcanzar el objetivo) o rojo (por debajo del objetivo).",
+      "notes": "Contexto adicional o explicación de esta medición, especialmente si el estado es ámbar o rojo."
+    }
+  }
+}

@@ -53,13 +53,14 @@ function isLocale(value: string): value is Locale {
 export function pageAlternates(slug: string, locale: string) {
   const canonical = slug ? `/${slug}` : "/";
   const safeLocale: Locale = isLocale(locale) ? locale : routing.defaultLocale;
-  const de = localizedAbsoluteUrl(canonical, "de");
-  const en = localizedAbsoluteUrl(canonical, "en");
-  const nl = localizedAbsoluteUrl(canonical, "nl");
-  const current = localizedAbsoluteUrl(canonical, safeLocale);
+  const languages: Record<string, string> = {};
+  for (const l of routing.locales) {
+    languages[l] = localizedAbsoluteUrl(canonical, l);
+  }
+  languages["x-default"] = localizedAbsoluteUrl(canonical, routing.defaultLocale);
   return {
-    canonical: current,
-    languages: { de, en, nl, "x-default": de },
+    canonical: localizedAbsoluteUrl(canonical, safeLocale),
+    languages,
   };
 }
 
@@ -74,6 +75,10 @@ const OG_LOCALE: Record<Locale, string> = {
   de: "de_DE",
   en: "en_US",
   nl: "nl_NL",
+  fr: "fr_FR",
+  it: "it_IT",
+  es: "es_ES",
+  pl: "pl_PL",
 };
 
 /**
@@ -103,7 +108,7 @@ export function pageOg(args: {
 }) {
   const safeLocale: Locale = isLocale(args.locale) ? args.locale : routing.defaultLocale;
   const url = pageUrl(args.slug, safeLocale);
-  const alternates: string[] = (["de", "en", "nl"] as Locale[])
+  const alternates: string[] = routing.locales
     .filter((l) => l !== safeLocale)
     .map((l) => OG_LOCALE[l]);
   const card = args.image ?? ogCard(args.slug, safeLocale);
@@ -308,6 +313,10 @@ const LOCALE_BCP47: Record<Locale, string> = {
   de: "de-DE",
   en: "en-GB",
   nl: "nl-NL",
+  fr: "fr-FR",
+  it: "it-IT",
+  es: "es-ES",
+  pl: "pl-PL",
 };
 
 function docsPublisher() {
@@ -513,7 +522,7 @@ export function buildSiteGraphJsonLd(_locale: Locale): Record<string, unknown> {
         url: `${baseUrl}/`,
         name: "NISD2",
         alternateName: ["NIS 2 Wiki", "nisd2.eu"],
-        inLanguage: ["de-DE", "en-GB", "nl-NL"],
+        inLanguage: routing.locales.map((l) => LOCALE_BCP47[l]),
         publisher: { "@id": `${baseUrl}/#organization` },
       },
       {
@@ -540,7 +549,7 @@ export function buildSiteGraphJsonLd(_locale: Locale): Record<string, unknown> {
           "ENISA Technical Implementation Guidance",
           "Cyber Resilience Act",
         ],
-        knowsLanguage: ["de", "en", "nl"],
+        knowsLanguage: [...routing.locales],
         areaServed: { "@type": "Place" as const, name: "European Union" },
         sameAs: [
           "https://www.linkedin.com/company/nisd2",

@@ -8,6 +8,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "Software Bill of Materials. A machine-readable inventory of every software component in a product: names, versions, suppliers, and identifiers. Required for products with digital elements under Article 13(5) CRA.",
       de: "Software-Stückliste (Software Bill of Materials). Eine maschinenlesbare Inventarliste aller Software-Komponenten eines Produkts: Namen, Versionen, Anbieter und Bezeichner. Für Produkte mit digitalen Elementen nach Artikel 13(5) CRA vorgeschrieben.",
+      fr: "SBOM (Software Bill of Materials). Un inventaire lisible par machine de chaque composant logiciel d'un produit : noms, versions, fournisseurs et identifiants. Obligatoire pour les produits comportant des éléments numériques au titre de l'article 13(5) CRA.",
+      it: "SBOM (Software Bill of Materials). Un inventario leggibile dalla macchina di ogni componente software di un prodotto: nomi, versioni, fornitori e identificatori. Obbligatorio per i prodotti con elementi digitali ai sensi dell'articolo 13(5) CRA.",
+      es: "SBOM (Software Bill of Materials). Un inventario legible por máquina de cada componente de software de un producto: nombres, versiones, proveedores e identificadores. Obligatorio para los productos con elementos digitales conforme al artículo 13(5) CRA.",
+      pl: "SBOM (Software Bill of Materials). Czytelny dla maszyny wykaz każdego komponentu oprogramowania w produkcie: nazwy, wersje, dostawcy i identyfikatory. Wymagany dla produktów z elementami cyfrowymi zgodnie z artykułem 13(5) CRA.",
     },
   },
   {
@@ -16,6 +20,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "Any hardware or software product that can connect, directly or indirectly, to another device or network. The core scope concept in Article 3(1) CRA. Covers physical devices with firmware, standalone software, apps, and operating systems.",
       de: "Jedes Hardware- oder Software-Produkt, das direkt oder indirekt mit einem anderen Gerät oder Netzwerk verbunden werden kann. Der zentrale Geltungsbereich-Begriff in Artikel 3(1) CRA. Erfasst physische Geräte mit Firmware, eigenständige Software, Apps und Betriebssysteme.",
+      fr: "Tout produit matériel ou logiciel pouvant se connecter, directement ou indirectement, à un autre appareil ou réseau. Le concept central de champ d'application à l'article 3(1) CRA. Couvre les appareils physiques avec micrologiciel, les logiciels autonomes, les applications et les systèmes d'exploitation.",
+      it: "Qualsiasi prodotto hardware o software che possa connettersi, direttamente o indirettamente, a un altro dispositivo o a una rete. Il concetto centrale dell'ambito di applicazione all'articolo 3(1) CRA. Comprende dispositivi fisici con firmware, software autonomo, applicazioni e sistemi operativi.",
+      es: "Cualquier producto de hardware o software que pueda conectarse, directa o indirectamente, a otro dispositivo o red. El concepto central del ámbito de aplicación en el artículo 3(1) CRA. Abarca dispositivos físicos con firmware, software independiente, aplicaciones y sistemas operativos.",
+      pl: "Każdy produkt sprzętowy lub programowy, który może łączyć się, bezpośrednio lub pośrednio, z innym urządzeniem lub siecią. Kluczowe pojęcie zakresu w artykule 3(1) CRA. Obejmuje urządzenia fizyczne z oprogramowaniem układowym, samodzielne oprogramowanie, aplikacje i systemy operacyjne.",
     },
   },
   {
@@ -24,6 +32,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "A component that your product directly imports or links against. The CRA minimum in Article 13(5) requires the SBOM to cover at least these. If your code has `import requests` or `<dependency>spring-boot</dependency>`, those are top-level dependencies.",
       de: "Eine Komponente, die Ihr Produkt direkt importiert oder gegen die es verlinkt. Das CRA-Minimum in Artikel 13(5) verlangt, dass die SBOM mindestens diese abdeckt. Wenn Ihr Code `import requests` oder `<dependency>spring-boot</dependency>` enthält, sind das direkte Abhängigkeiten.",
+      fr: "Un composant que votre produit importe ou lie directement. Le minimum CRA à l'article 13(5) exige que la SBOM couvre au moins ceux-ci. Si votre code contient `import requests` ou `<dependency>spring-boot</dependency>`, ce sont des dépendances de premier niveau.",
+      it: "Un componente che il vostro prodotto importa o collega direttamente. Il minimo CRA all'articolo 13(5) richiede che la SBOM copra almeno questi. Se il vostro codice contiene `import requests` o `<dependency>spring-boot</dependency>`, queste sono dipendenze di primo livello.",
+      es: "Un componente que su producto importa o enlaza directamente. El mínimo del CRA en el artículo 13(5) exige que la SBOM cubra al menos estos. Si su código contiene `import requests` o `<dependency>spring-boot</dependency>`, esas son dependencias de primer nivel.",
+      pl: "Komponent, który Twój produkt bezpośrednio importuje lub do którego się dowiązuje. Minimum CRA w artykule 13(5) wymaga, aby SBOM obejmowała co najmniej te. Jeśli Twój kod zawiera `import requests` lub `<dependency>spring-boot</dependency>`, są to zależności najwyższego poziomu.",
     },
   },
   {
@@ -32,6 +44,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "A component pulled in by one of your top-level dependencies, not by your code directly. Log4Shell (CVE-2021-44228) was a transitive dependency in thousands of applications whose teams had no idea it was there. The CRA minimum does not require listing these, but best practice does.",
       de: "Eine Komponente, die durch eine Ihrer direkten Abhängigkeiten hereingezogen wird, nicht direkt durch Ihren Code. Log4Shell (CVE-2021-44228) war eine transitive Abhängigkeit in Tausenden von Anwendungen, deren Teams keine Ahnung hatten, dass sie vorhanden war. Das CRA-Minimum verlangt keine Auflistung dieser, Best Practice empfiehlt sie jedoch.",
+      fr: "Un composant introduit par l'une de vos dépendances de premier niveau, et non directement par votre code. Log4Shell (CVE-2021-44228) était une dépendance transitive dans des milliers d'applications dont les équipes ignoraient sa présence. Le minimum CRA n'exige pas de les lister, mais les bonnes pratiques le font.",
+      it: "Un componente introdotto da una delle vostre dipendenze di primo livello, non direttamente dal vostro codice. Log4Shell (CVE-2021-44228) era una dipendenza transitiva in migliaia di applicazioni i cui team non sapevano che fosse presente. Il minimo CRA non richiede di elencarle, ma le buone pratiche sì.",
+      es: "Un componente introducido por una de sus dependencias de primer nivel, y no directamente por su código. Log4Shell (CVE-2021-44228) era una dependencia transitiva en miles de aplicaciones cuyos equipos no sabían que estaba ahí. El mínimo del CRA no exige enumerarlas, pero las buenas prácticas sí.",
+      pl: "Komponent wciągnięty przez jedną z Twoich zależności najwyższego poziomu, a nie bezpośrednio przez Twój kod. Log4Shell (CVE-2021-44228) była zależnością przechodnią w tysiącach aplikacji, których zespoły nie miały pojęcia o jej obecności. Minimum CRA nie wymaga ich wymieniania, ale najlepsze praktyki tak.",
     },
   },
   {
@@ -40,6 +56,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "An OWASP SBOM standard in JSON or XML format. Security-focused: built around vulnerability tracking, VEX statements, and CVE integration. Version 1.6 is current. The preferred format for CRA Article 14 compliance because it maps directly to vulnerability management workflows.",
       de: "Ein OWASP-SBOM-Standard im JSON- oder XML-Format. Sicherheitsorientiert: aufgebaut um Schwachstellenverfolgung, VEX-Aussagen und CVE-Integration. Version 1.6 ist aktuell. Das bevorzugte Format für die CRA-Artikel-14-Konformität, da es direkt auf Schwachstellenmanagement-Workflows ausgerichtet ist.",
+      fr: "Un standard SBOM de l'OWASP au format JSON ou XML. Axé sur la sécurité : construit autour du suivi des vulnérabilités, des déclarations VEX et de l'intégration CVE. La version 1.6 est la version actuelle. Le format privilégié pour la conformité à l'article 14 CRA, car il s'aligne directement sur les flux de gestion des vulnérabilités.",
+      it: "Uno standard SBOM dell'OWASP in formato JSON o XML. Orientato alla sicurezza: costruito attorno al tracciamento delle vulnerabilità, alle dichiarazioni VEX e all'integrazione CVE. La versione 1.6 è quella attuale. Il formato preferito per la conformità all'articolo 14 CRA, perché si allinea direttamente ai flussi di gestione delle vulnerabilità.",
+      es: "Un estándar SBOM de OWASP en formato JSON o XML. Orientado a la seguridad: construido en torno al seguimiento de vulnerabilidades, las declaraciones VEX y la integración con CVE. La versión 1.6 es la actual. El formato preferido para el cumplimiento del artículo 14 CRA, porque se alinea directamente con los flujos de gestión de vulnerabilidades.",
+      pl: "Standard SBOM organizacji OWASP w formacie JSON lub XML. Zorientowany na bezpieczeństwo: zbudowany wokół śledzenia podatności, oświadczeń VEX i integracji z CVE. Wersja 1.6 jest aktualna. Preferowany format dla zgodności z artykułem 14 CRA, ponieważ bezpośrednio odpowiada procesom zarządzania podatnościami.",
     },
   },
   {
@@ -48,6 +68,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "Software Package Data Exchange. ISO/IEC 5962:2021 standard for SBOMs, originated at the Linux Foundation. License-focused: built around open-source license compliance and attribution. Available in JSON, YAML, RDF, and tag-value formats. Both CycloneDX and SPDX qualify as 'commonly used, machine-readable' formats under CRA Article 13(5).",
       de: "Software Package Data Exchange. ISO/IEC 5962:2021-Standard für SBOMs, entstanden bei der Linux Foundation. Lizenzorientiert: aufgebaut um Open-Source-Lizenz-Compliance und Namensnennung. Verfügbar in JSON-, YAML-, RDF- und Tag-Value-Formaten. Sowohl CycloneDX als auch SPDX gelten als 'allgemein verwendete, maschinenlesbare' Formate gemäß CRA Artikel 13(5).",
+      fr: "Software Package Data Exchange. Norme ISO/IEC 5962:2021 pour les SBOM, issue de la Linux Foundation. Axée sur les licences : construite autour de la conformité aux licences open source et de l'attribution. Disponible aux formats JSON, YAML, RDF et tag-value. CycloneDX et SPDX sont tous deux considérés comme des formats 'couramment utilisés et lisibles par machine' au titre de l'article 13(5) CRA.",
+      it: "Software Package Data Exchange. Standard ISO/IEC 5962:2021 per le SBOM, nato presso la Linux Foundation. Orientato alle licenze: costruito attorno alla conformità delle licenze open source e all'attribuzione. Disponibile nei formati JSON, YAML, RDF e tag-value. Sia CycloneDX sia SPDX si qualificano come formati 'comunemente usati e leggibili dalla macchina' ai sensi dell'articolo 13(5) CRA.",
+      es: "Software Package Data Exchange. Norma ISO/IEC 5962:2021 para SBOM, originada en la Linux Foundation. Orientada a las licencias: construida en torno al cumplimiento de licencias de código abierto y la atribución. Disponible en formatos JSON, YAML, RDF y tag-value. Tanto CycloneDX como SPDX se consideran formatos 'de uso común y legibles por máquina' conforme al artículo 13(5) CRA.",
+      pl: "Software Package Data Exchange. Standard ISO/IEC 5962:2021 dla SBOM, powstały w Linux Foundation. Zorientowany na licencje: zbudowany wokół zgodności z licencjami open source i atrybucji. Dostępny w formatach JSON, YAML, RDF i tag-value. Zarówno CycloneDX, jak i SPDX kwalifikują się jako formaty 'powszechnie używane, czytelne dla maszyny' zgodnie z artykułem 13(5) CRA.",
     },
   },
   {
@@ -56,6 +80,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "Package URL. A standard identifier for software components: `pkg:type/namespace/name@version`. For example, `pkg:npm/%40angular/core@17.0.0`. PURLs are the recommended unique identifier in both CycloneDX and SPDX, and the practical anchor for linking an SBOM component to a CVE database entry.",
       de: "Package URL. Ein Standard-Bezeichner für Software-Komponenten: `pkg:type/namespace/name@version`. Zum Beispiel: `pkg:npm/%40angular/core@17.0.0`. PURLs sind der empfohlene eindeutige Bezeichner in CycloneDX und SPDX und der praktische Anker, um eine SBOM-Komponente mit einem CVE-Datenbankeintrag zu verknüpfen.",
+      fr: "Package URL. Un identifiant standard pour les composants logiciels : `pkg:type/namespace/name@version`. Par exemple, `pkg:npm/%40angular/core@17.0.0`. Les PURL sont l'identifiant unique recommandé dans CycloneDX comme dans SPDX, et l'ancre pratique pour relier un composant SBOM à une entrée de base de données CVE.",
+      it: "Package URL. Un identificatore standard per i componenti software: `pkg:type/namespace/name@version`. Per esempio, `pkg:npm/%40angular/core@17.0.0`. I PURL sono l'identificatore univoco raccomandato sia in CycloneDX sia in SPDX e l'ancoraggio pratico per collegare un componente SBOM a una voce del database CVE.",
+      es: "Package URL. Un identificador estándar para componentes de software: `pkg:type/namespace/name@version`. Por ejemplo, `pkg:npm/%40angular/core@17.0.0`. Las PURL son el identificador único recomendado tanto en CycloneDX como en SPDX, y el anclaje práctico para vincular un componente SBOM con una entrada de la base de datos CVE.",
+      pl: "Package URL. Standardowy identyfikator komponentów oprogramowania: `pkg:type/namespace/name@version`. Na przykład `pkg:npm/%40angular/core@17.0.0`. PURL to zalecany unikalny identyfikator zarówno w CycloneDX, jak i SPDX oraz praktyczne zakotwiczenie do powiązania komponentu SBOM z wpisem w bazie danych CVE.",
     },
   },
   {
@@ -64,6 +92,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "Common Vulnerabilities and Exposures. The standardised identifier for publicly known cybersecurity vulnerabilities. Format: CVE-YEAR-NUMBER (e.g. CVE-2021-44228 for Log4Shell). An SBOM linked to a CVE database tells you which known vulnerabilities affect your product.",
       de: "Common Vulnerabilities and Exposures. Der standardisierte Bezeichner für öffentlich bekannte Cybersicherheitsschwachstellen. Format: CVE-YEAR-NUMBER (z.B. CVE-2021-44228 für Log4Shell). Eine SBOM, die mit einer CVE-Datenbank verknüpft ist, zeigt Ihnen, welche bekannten Schwachstellen Ihr Produkt betreffen.",
+      fr: "Common Vulnerabilities and Exposures. L'identifiant normalisé des vulnérabilités de cybersécurité publiquement connues. Format : CVE-ANNÉE-NUMÉRO (par exemple CVE-2021-44228 pour Log4Shell). Une SBOM reliée à une base de données CVE vous indique quelles vulnérabilités connues affectent votre produit.",
+      it: "Common Vulnerabilities and Exposures. L'identificatore standardizzato per le vulnerabilità di cybersicurezza note pubblicamente. Formato: CVE-ANNO-NUMERO (ad esempio CVE-2021-44228 per Log4Shell). Una SBOM collegata a un database CVE vi indica quali vulnerabilità note interessano il vostro prodotto.",
+      es: "Common Vulnerabilities and Exposures. El identificador normalizado de las vulnerabilidades de ciberseguridad de conocimiento público. Formato: CVE-AÑO-NÚMERO (por ejemplo, CVE-2021-44228 para Log4Shell). Una SBOM vinculada a una base de datos CVE le indica qué vulnerabilidades conocidas afectan a su producto.",
+      pl: "Common Vulnerabilities and Exposures. Znormalizowany identyfikator publicznie znanych podatności w cyberbezpieczeństwie. Format: CVE-ROK-NUMER (np. CVE-2021-44228 dla Log4Shell). SBOM powiązana z bazą danych CVE wskazuje, które znane podatności dotyczą Twojego produktu.",
     },
   },
   {
@@ -72,6 +104,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "Vulnerability Exploitability eXchange. A statement attached to an SBOM that documents whether a known CVE actually affects your product and why. Supported natively in CycloneDX. A VEX statement of 'not affected' with a justification is strong evidence in an Article 14 audit.",
       de: "Vulnerability Exploitability eXchange. Eine an eine SBOM angehängte Aussage, die dokumentiert, ob eine bekannte CVE Ihr Produkt tatsächlich betrifft und warum. Nativ in CycloneDX unterstützt. Eine VEX-Aussage 'not affected' mit Begründung ist ein starker Nachweis bei einem Artikel-14-Audit.",
+      fr: "Vulnerability Exploitability eXchange. Une déclaration jointe à une SBOM qui documente si une CVE connue affecte réellement votre produit et pourquoi. Prise en charge nativement dans CycloneDX. Une déclaration VEX 'not affected' assortie d'une justification constitue une preuve solide lors d'un audit au titre de l'article 14.",
+      it: "Vulnerability Exploitability eXchange. Una dichiarazione allegata a una SBOM che documenta se una CVE nota interessa davvero il vostro prodotto e perché. Supportata nativamente in CycloneDX. Una dichiarazione VEX 'not affected' con una motivazione è una prova solida in un audit ai sensi dell'articolo 14.",
+      es: "Vulnerability Exploitability eXchange. Una declaración adjunta a una SBOM que documenta si una CVE conocida afecta realmente a su producto y por qué. Compatible de forma nativa con CycloneDX. Una declaración VEX 'not affected' con una justificación es una prueba sólida en una auditoría conforme al artículo 14.",
+      pl: "Vulnerability Exploitability eXchange. Oświadczenie dołączone do SBOM, które dokumentuje, czy znana CVE rzeczywiście dotyczy Twojego produktu i dlaczego. Natywnie obsługiwane w CycloneDX. Oświadczenie VEX 'not affected' wraz z uzasadnieniem stanowi mocny dowód podczas audytu zgodnie z artykułem 14.",
     },
   },
   {
@@ -80,6 +116,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "A vulnerability in your product that a malicious actor is currently using against real systems, without the permission of the system owner. The trigger for the Article 14(1) CRA 24-hour reporting obligation. Distinguished from a publicly disclosed but not yet exploited vulnerability.",
       de: "Eine Schwachstelle in Ihrem Produkt, die ein böswilliger Akteur derzeit gegen echte Systeme einsetzt, ohne Erlaubnis des Systeminhabers. Der Auslöser für die 24-Stunden-Meldepflicht in Artikel 14(1) CRA. Zu unterscheiden von einer öffentlich bekannten, aber noch nicht ausgenutzten Schwachstelle.",
+      fr: "Une vulnérabilité de votre produit qu'un acteur malveillant utilise actuellement contre des systèmes réels, sans l'autorisation du propriétaire du système. L'élément déclencheur de l'obligation de signalement sous 24 heures de l'article 14(1) CRA. À distinguer d'une vulnérabilité divulguée publiquement mais pas encore exploitée.",
+      it: "Una vulnerabilità del vostro prodotto che un attore malevolo sta attualmente utilizzando contro sistemi reali, senza il permesso del proprietario del sistema. L'elemento che fa scattare l'obbligo di segnalazione entro 24 ore di cui all'articolo 14(1) CRA. Da distinguere da una vulnerabilità divulgata pubblicamente ma non ancora sfruttata.",
+      es: "Una vulnerabilidad de su producto que un actor malicioso está utilizando actualmente contra sistemas reales, sin el permiso del propietario del sistema. El desencadenante de la obligación de notificación en 24 horas del artículo 14(1) CRA. Se distingue de una vulnerabilidad divulgada públicamente pero aún no explotada.",
+      pl: "Podatność w Twoim produkcie, którą złośliwy aktor obecnie wykorzystuje przeciwko rzeczywistym systemom, bez zgody właściciela systemu. Czynnik wyzwalający obowiązek zgłoszenia w ciągu 24 godzin z artykułu 14(1) CRA. Odróżniana od podatności ujawnionej publicznie, ale jeszcze niewykorzystanej.",
     },
   },
   {
@@ -88,6 +128,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "The national authority that checks CRA compliance in each EU member state. In Germany this function sits with the BSI. Market surveillance authorities can request your technical documentation, including the SBOM, at any time. You must provide it within a reasonable timeframe — not make it publicly available.",
       de: "Die nationale Behörde, die die CRA-Konformität in jedem EU-Mitgliedstaat prüft. In Deutschland liegt diese Funktion beim BSI. Marktüberwachungsbehörden können jederzeit Ihre technische Dokumentation, einschließlich der SBOM, anfordern. Sie müssen sie innerhalb einer angemessenen Frist bereitstellen — nicht öffentlich zugänglich machen.",
+      fr: "L'autorité nationale qui vérifie la conformité au CRA dans chaque État membre de l'UE. En Allemagne, cette fonction relève du BSI. Les autorités de surveillance du marché peuvent demander à tout moment votre documentation technique, y compris la SBOM. Vous devez la fournir dans un délai raisonnable, et non la rendre publique.",
+      it: "L'autorità nazionale che verifica la conformità al CRA in ciascuno Stato membro dell'UE. In Germania questa funzione spetta al BSI. Le autorità di vigilanza del mercato possono richiedere in qualsiasi momento la vostra documentazione tecnica, compresa la SBOM. Dovete fornirla entro un termine ragionevole, non renderla pubblicamente disponibile.",
+      es: "La autoridad nacional que verifica el cumplimiento del CRA en cada Estado miembro de la UE. En Alemania, esta función recae en el BSI. Las autoridades de vigilancia del mercado pueden solicitar su documentación técnica, incluida la SBOM, en cualquier momento. Debe facilitarla en un plazo razonable, no ponerla a disposición del público.",
+      pl: "Krajowy organ, który sprawdza zgodność z CRA w każdym państwie członkowskim UE. W Niemczech funkcję tę pełni BSI. Organy nadzoru rynku mogą w każdej chwili zażądać Twojej dokumentacji technicznej, w tym SBOM. Musisz ją udostępnić w rozsądnym terminie, a nie podawać do wiadomości publicznej.",
     },
   },
   {
@@ -96,6 +140,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "The set of documents a manufacturer must compile and keep under CRA Article 31 and Annex VII. Includes the SBOM, risk assessment, secure design decisions, test results, and the EU declaration of conformity. Must be retained for 10 years after the product is placed on the market, or for the support period, whichever is longer.",
       de: "Die Dokumentensammlung, die ein Hersteller gemäß CRA Artikel 31 und Anhang VII zusammenstellen und aufbewahren muss. Umfasst SBOM, Risikobeurteilung, sichere Designentscheidungen, Testergebnisse und die EU-Konformitätserklärung. Muss 10 Jahre nach Inverkehrbringen oder für die Unterstützungsdauer aufbewahrt werden, je nachdem, was länger ist.",
+      fr: "L'ensemble des documents qu'un fabricant doit constituer et conserver au titre de l'article 31 et de l'annexe VII du CRA. Comprend la SBOM, l'évaluation des risques, les décisions de conception sécurisée, les résultats des tests et la déclaration UE de conformité. Doit être conservé pendant 10 ans après la mise sur le marché du produit, ou pendant la période de support, la durée la plus longue étant retenue.",
+      it: "L'insieme dei documenti che un fabbricante deve redigere e conservare ai sensi dell'articolo 31 e dell'allegato VII del CRA. Comprende la SBOM, la valutazione dei rischi, le decisioni di progettazione sicura, i risultati dei test e la dichiarazione di conformità UE. Deve essere conservato per 10 anni dopo l'immissione sul mercato del prodotto, o per il periodo di supporto, se più lungo.",
+      es: "El conjunto de documentos que un fabricante debe elaborar y conservar conforme al artículo 31 y al anexo VII del CRA. Incluye la SBOM, la evaluación de riesgos, las decisiones de diseño seguro, los resultados de las pruebas y la declaración UE de conformidad. Debe conservarse durante 10 años tras la introducción del producto en el mercado, o durante el período de soporte, lo que sea más largo.",
+      pl: "Zestaw dokumentów, które producent musi sporządzić i przechowywać zgodnie z artykułem 31 i załącznikiem VII CRA. Obejmuje SBOM, ocenę ryzyka, decyzje dotyczące bezpiecznego projektowania, wyniki testów oraz deklarację zgodności UE. Musi być przechowywany przez 10 lat po wprowadzeniu produktu do obrotu lub przez okres wsparcia, w zależności od tego, który okres jest dłuższy.",
     },
   },
   {
@@ -104,6 +152,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "The time during which a manufacturer provides security updates for a product. CRA Annex I Part I requires manufacturers to provide security patches for at least five years, or the expected product lifetime if shorter. The SBOM retention period runs for 10 years or until the end of this support period, whichever is longer.",
       de: "Der Zeitraum, in dem ein Hersteller Sicherheitsupdates für ein Produkt bereitstellt. CRA Anhang I Teil I verlangt, dass Hersteller Sicherheits-Patches für mindestens fünf Jahre bereitstellen, oder die erwartete Produktlebensdauer, wenn diese kürzer ist. Die SBOM-Aufbewahrungspflicht gilt für 10 Jahre oder bis zum Ende dieser Unterstützungsdauer, je nachdem, was länger ist.",
+      fr: "La durée pendant laquelle un fabricant fournit des mises à jour de sécurité pour un produit. L'annexe I, partie I du CRA exige des fabricants qu'ils fournissent des correctifs de sécurité pendant au moins cinq ans, ou pendant la durée de vie prévue du produit si elle est plus courte. La période de conservation de la SBOM est de 10 ans ou jusqu'à la fin de cette période de support, la durée la plus longue étant retenue.",
+      it: "Il periodo durante il quale un fabbricante fornisce aggiornamenti di sicurezza per un prodotto. L'allegato I, parte I del CRA richiede ai fabbricanti di fornire patch di sicurezza per almeno cinque anni, o per la durata di vita prevista del prodotto se inferiore. Il periodo di conservazione della SBOM è di 10 anni o fino al termine di questo periodo di supporto, se più lungo.",
+      es: "El período durante el cual un fabricante proporciona actualizaciones de seguridad para un producto. El anexo I, parte I del CRA exige a los fabricantes proporcionar parches de seguridad durante al menos cinco años, o durante la vida útil prevista del producto si es más corta. El período de conservación de la SBOM es de 10 años o hasta el final de este período de soporte, lo que sea más largo.",
+      pl: "Okres, w którym producent dostarcza aktualizacje zabezpieczeń dla produktu. Załącznik I część I CRA wymaga od producentów dostarczania poprawek bezpieczeństwa przez co najmniej pięć lat lub przez przewidywany okres użytkowania produktu, jeśli jest krótszy. Okres przechowywania SBOM wynosi 10 lat lub do końca tego okresu wsparcia, w zależności od tego, który jest dłuższy.",
     },
   },
   {
@@ -112,6 +164,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "European Union Agency for Cybersecurity. Receives Article 14 CRA vulnerability and incident reports via the Single Reporting Platform (operational September 11, 2026). Also receives NIS 2 Article 23 early warnings for certain entity types.",
       de: "Agentur der Europäischen Union für Cybersicherheit. Erhält CRA-Artikel-14-Schwachstellen- und Vorfallsmeldungen über die Single Reporting Platform (betriebsbereit ab 11. September 2026). Empfängt auch NIS-2-Artikel-23-Frühwarnungen für bestimmte Einrichtungstypen.",
+      fr: "Agence de l'Union européenne pour la cybersécurité. Reçoit les rapports de vulnérabilité et d'incident au titre de l'article 14 CRA via la Single Reporting Platform (opérationnelle le 11 septembre 2026). Reçoit également les alertes précoces au titre de l'article 23 NIS 2 pour certains types d'entités.",
+      it: "Agenzia dell'Unione europea per la cibersicurezza. Riceve le segnalazioni di vulnerabilità e incidenti ai sensi dell'articolo 14 CRA tramite la Single Reporting Platform (operativa dall'11 settembre 2026). Riceve inoltre le allerte precoci ai sensi dell'articolo 23 NIS 2 per determinati tipi di entità.",
+      es: "Agencia de la Unión Europea para la Ciberseguridad. Recibe los informes de vulnerabilidades e incidentes conforme al artículo 14 CRA a través de la Single Reporting Platform (operativa el 11 de septiembre de 2026). También recibe las alertas tempranas conforme al artículo 23 NIS 2 para determinados tipos de entidades.",
+      pl: "Agencja Unii Europejskiej ds. Cyberbezpieczeństwa. Otrzymuje zgłoszenia podatności i incydentów zgodnie z artykułem 14 CRA za pośrednictwem Single Reporting Platform (działającej od 11 września 2026 r.). Otrzymuje również wczesne ostrzeżenia zgodnie z artykułem 23 NIS 2 dla określonych typów podmiotów.",
     },
   },
   {
@@ -120,6 +176,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "A process where a security researcher privately reports a vulnerability to the manufacturer before publishing details publicly. CRA Article 13(6) requires manufacturers to have a policy for accepting and processing such disclosures. Typically implemented via a security.txt file and a dedicated security contact.",
       de: "Ein Prozess, bei dem ein Sicherheitsforscher eine Schwachstelle privat an den Hersteller meldet, bevor Details öffentlich veröffentlicht werden. CRA Artikel 13(6) verlangt, dass Hersteller eine Richtlinie für die Entgegennahme und Bearbeitung solcher Meldungen haben. Typischerweise über eine security.txt-Datei und einen dedizierten Sicherheitskontakt umgesetzt.",
+      fr: "Un processus par lequel un chercheur en sécurité signale en privé une vulnérabilité au fabricant avant d'en publier les détails. L'article 13(6) CRA exige des fabricants qu'ils disposent d'une politique pour accepter et traiter de tels signalements. Généralement mis en œuvre via un fichier security.txt et un contact de sécurité dédié.",
+      it: "Un processo in cui un ricercatore di sicurezza segnala privatamente una vulnerabilità al fabbricante prima di pubblicarne i dettagli. L'articolo 13(6) CRA richiede ai fabbricanti di disporre di una politica per accettare ed elaborare tali segnalazioni. Tipicamente attuato tramite un file security.txt e un contatto di sicurezza dedicato.",
+      es: "Un proceso en el que un investigador de seguridad informa de forma privada de una vulnerabilidad al fabricante antes de publicar los detalles. El artículo 13(6) CRA exige a los fabricantes contar con una política para aceptar y tramitar dichas comunicaciones. Suele implementarse mediante un archivo security.txt y un contacto de seguridad específico.",
+      pl: "Proces, w którym badacz bezpieczeństwa prywatnie zgłasza podatność producentowi przed publicznym ujawnieniem szczegółów. Artykuł 13(6) CRA wymaga, aby producenci posiadali politykę przyjmowania i przetwarzania takich zgłoszeń. Zazwyczaj realizowany za pomocą pliku security.txt i dedykowanego kontaktu do spraw bezpieczeństwa.",
     },
   },
   {
@@ -128,6 +188,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "An attack that targets a manufacturer through a compromised dependency or supplier, rather than attacking the manufacturer's own systems directly. SolarWinds and XZ Utils are examples. The SBOM is your map for identifying which supply chain components are present and therefore which supply chain attacks can reach your product.",
       de: "Ein Angriff, der einen Hersteller über eine kompromittierte Abhängigkeit oder einen Lieferanten angreift, anstatt die eigenen Systeme des Herstellers direkt anzugreifen. SolarWinds und XZ Utils sind Beispiele. Die SBOM ist Ihre Karte, um zu identifizieren, welche Lieferketten-Komponenten vorhanden sind und welche Lieferkettenangriffe Ihr Produkt daher erreichen können.",
+      fr: "Une attaque qui vise un fabricant par le biais d'une dépendance ou d'un fournisseur compromis, plutôt qu'en attaquant directement les systèmes propres du fabricant. SolarWinds et XZ Utils en sont des exemples. La SBOM est votre carte pour identifier quels composants de la chaîne d'approvisionnement sont présents et donc quelles attaques de la chaîne d'approvisionnement peuvent atteindre votre produit.",
+      it: "Un attacco che colpisce un fabbricante attraverso una dipendenza o un fornitore compromessi, anziché attaccare direttamente i sistemi propri del fabbricante. SolarWinds e XZ Utils ne sono esempi. La SBOM è la vostra mappa per individuare quali componenti della catena di approvvigionamento sono presenti e quindi quali attacchi alla catena di approvvigionamento possono raggiungere il vostro prodotto.",
+      es: "Un ataque dirigido contra un fabricante a través de una dependencia o un proveedor comprometidos, en lugar de atacar directamente los sistemas propios del fabricante. SolarWinds y XZ Utils son ejemplos. La SBOM es su mapa para identificar qué componentes de la cadena de suministro están presentes y, por tanto, qué ataques a la cadena de suministro pueden alcanzar su producto.",
+      pl: "Atak wymierzony w producenta poprzez naruszoną zależność lub dostawcę, zamiast bezpośredniego atakowania własnych systemów producenta. SolarWinds i XZ Utils to przykłady. SBOM jest Twoją mapą do ustalenia, które komponenty łańcucha dostaw są obecne, a tym samym które ataki na łańcuch dostaw mogą dosięgnąć Twojego produktu.",
     },
   },
   {
@@ -136,6 +200,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "A fixed-length fingerprint of a file computed by an algorithm such as SHA-256. Including a hash for each SBOM component lets you verify that the component has not been tampered with since the SBOM was generated. CycloneDX and SPDX both support hashes per component.",
       de: "Ein fester Fingerabdruck einer Datei, berechnet durch einen Algorithmus wie SHA-256. Die Aufnahme eines Hash-Werts für jede SBOM-Komponente ermöglicht es Ihnen zu überprüfen, ob die Komponente seit der SBOM-Erstellung nicht verändert wurde. CycloneDX und SPDX unterstützen beide Hashes pro Komponente.",
+      fr: "Une empreinte de longueur fixe d'un fichier calculée par un algorithme tel que SHA-256. Inclure un hachage pour chaque composant de la SBOM vous permet de vérifier que le composant n'a pas été altéré depuis la génération de la SBOM. CycloneDX et SPDX prennent tous deux en charge les hachages par composant.",
+      it: "Un'impronta a lunghezza fissa di un file calcolata da un algoritmo come SHA-256. Includere un hash per ogni componente della SBOM vi consente di verificare che il componente non sia stato manomesso dalla generazione della SBOM. CycloneDX e SPDX supportano entrambi gli hash per componente.",
+      es: "Una huella de longitud fija de un archivo calculada por un algoritmo como SHA-256. Incluir un hash para cada componente de la SBOM le permite verificar que el componente no ha sido manipulado desde que se generó la SBOM. Tanto CycloneDX como SPDX admiten hashes por componente.",
+      pl: "Odcisk pliku o stałej długości obliczany przez algorytm taki jak SHA-256. Dołączenie wartości hash dla każdego komponentu SBOM pozwala zweryfikować, że komponent nie został zmodyfikowany od czasu wygenerowania SBOM. CycloneDX i SPDX obsługują wartości hash dla poszczególnych komponentów.",
     },
   },
   {
@@ -144,6 +212,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "The process a manufacturer uses to demonstrate that its product meets CRA requirements. Default-class products can self-assess. Important Class I products can self-assess using harmonised standards. Important Class II products require a third-party conformity assessment body (CAB). The SBOM is part of the technical documentation reviewed during conformity assessment.",
       de: "Das Verfahren, mit dem ein Hersteller nachweist, dass sein Produkt die CRA-Anforderungen erfüllt. Standard-Produkte können sich selbst bewerten. Wichtige Klasse-I-Produkte können sich unter Verwendung harmonisierter Normen selbst bewerten. Wichtige Klasse-II-Produkte benötigen eine Konformitätsbewertungsstelle (KBS). Die SBOM ist Teil der technischen Dokumentation, die bei der Konformitätsbewertung geprüft wird.",
+      fr: "Le processus qu'un fabricant utilise pour démontrer que son produit satisfait aux exigences du CRA. Les produits de la classe par défaut peuvent faire l'objet d'une auto-évaluation. Les produits importants de classe I peuvent être auto-évalués à l'aide de normes harmonisées. Les produits importants de classe II requièrent un organisme tiers d'évaluation de la conformité (CAB). La SBOM fait partie de la documentation technique examinée lors de l'évaluation de la conformité.",
+      it: "Il processo con cui un fabbricante dimostra che il suo prodotto soddisfa i requisiti del CRA. I prodotti della classe predefinita possono autovalutarsi. I prodotti importanti di classe I possono autovalutarsi utilizzando norme armonizzate. I prodotti importanti di classe II richiedono un organismo terzo di valutazione della conformità (CAB). La SBOM fa parte della documentazione tecnica esaminata durante la valutazione della conformità.",
+      es: "El proceso que utiliza un fabricante para demostrar que su producto cumple los requisitos del CRA. Los productos de clase por defecto pueden autoevaluarse. Los productos importantes de clase I pueden autoevaluarse utilizando normas armonizadas. Los productos importantes de clase II requieren un organismo tercero de evaluación de la conformidad (CAB). La SBOM forma parte de la documentación técnica que se revisa durante la evaluación de la conformidad.",
+      pl: "Proces, którego producent używa, aby wykazać, że jego produkt spełnia wymagania CRA. Produkty klasy domyślnej mogą podlegać samoocenie. Ważne produkty klasy I mogą być oceniane samodzielnie przy użyciu norm zharmonizowanych. Ważne produkty klasy II wymagają zewnętrznej jednostki oceniającej zgodność (CAB). SBOM stanowi część dokumentacji technicznej weryfikowanej podczas oceny zgodności.",
     },
   },
   {
@@ -152,6 +224,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "An open-source SBOM generator by Anchore. Scans container images, filesystems, and language-specific package manifests. Outputs CycloneDX or SPDX. The fastest way to generate an initial SBOM for an existing product.",
       de: "Ein Open-Source-SBOM-Generator von Anchore. Scannt Container-Images, Dateisysteme und sprachspezifische Paket-Manifeste. Gibt CycloneDX oder SPDX aus. Der schnellste Weg, eine erste SBOM für ein bestehendes Produkt zu erstellen.",
+      fr: "Un générateur de SBOM open source d'Anchore. Analyse les images de conteneurs, les systèmes de fichiers et les manifestes de paquets propres à chaque langage. Produit du CycloneDX ou du SPDX. Le moyen le plus rapide de générer une SBOM initiale pour un produit existant.",
+      it: "Un generatore di SBOM open source di Anchore. Analizza immagini di container, file system e manifest di pacchetti specifici per linguaggio. Produce CycloneDX o SPDX. Il modo più rapido per generare una SBOM iniziale per un prodotto esistente.",
+      es: "Un generador de SBOM de código abierto de Anchore. Analiza imágenes de contenedor, sistemas de archivos y manifiestos de paquetes específicos de cada lenguaje. Genera CycloneDX o SPDX. La forma más rápida de generar una SBOM inicial para un producto existente.",
+      pl: "Otwartoźródłowy generator SBOM firmy Anchore. Skanuje obrazy kontenerów, systemy plików i manifesty pakietów właściwe dla danego języka. Generuje CycloneDX lub SPDX. Najszybszy sposób na wygenerowanie początkowej SBOM dla istniejącego produktu.",
     },
   },
   {
@@ -160,6 +236,10 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     definition: {
       en: "An open-source vulnerability scanner by Anchore. Takes an SBOM as input and matches components against the NVD, GitHub Advisory Database, and other vulnerability feeds. The tool that converts an SBOM into an Article 14 monitoring capability.",
       de: "Ein Open-Source-Schwachstellenscanner von Anchore. Nimmt eine SBOM als Eingabe und gleicht Komponenten mit der NVD, der GitHub Advisory Database und anderen Schwachstellen-Feeds ab. Das Werkzeug, das eine SBOM in eine Artikel-14-Überwachungsfähigkeit umwandelt.",
+      fr: "Un scanner de vulnérabilités open source d'Anchore. Prend une SBOM en entrée et compare les composants à la NVD, à la GitHub Advisory Database et à d'autres flux de vulnérabilités. L'outil qui transforme une SBOM en capacité de surveillance au titre de l'article 14.",
+      it: "Uno scanner di vulnerabilità open source di Anchore. Prende in ingresso una SBOM e confronta i componenti con la NVD, il GitHub Advisory Database e altri feed di vulnerabilità. Lo strumento che trasforma una SBOM in una capacità di monitoraggio ai sensi dell'articolo 14.",
+      es: "Un escáner de vulnerabilidades de código abierto de Anchore. Toma una SBOM como entrada y compara los componentes con la NVD, la GitHub Advisory Database y otras fuentes de vulnerabilidades. La herramienta que convierte una SBOM en una capacidad de supervisión conforme al artículo 14.",
+      pl: "Otwartoźródłowy skaner podatności firmy Anchore. Przyjmuje SBOM jako dane wejściowe i dopasowuje komponenty do NVD, GitHub Advisory Database oraz innych źródeł podatności. Narzędzie, które przekształca SBOM w zdolność monitorowania zgodnie z artykułem 14.",
     },
   },
 ]);

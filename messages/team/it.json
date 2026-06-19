@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Team",
+    "pageDescription": "Gestisci i membri del team e gli inviti",
+    "members": {
+      "title": "Membri",
+      "description": "{count, plural, one {# membro} other {# membri}} nella tua azienda",
+      "name": "Nome",
+      "email": "Email",
+      "role": "Ruolo",
+      "you": "tu",
+      "assignedCategories": "Categorie assegnate",
+      "complianceRole": "Assegna ruolo"
+    },
+    "invites": {
+      "title": "Inviti in sospeso",
+      "description": "{count, plural, one {# invito in sospeso} other {# inviti in sospeso}}",
+      "email": "Email",
+      "expires": "Scade",
+      "linkCopied": "Link copiato"
+    },
+    "invite": {
+      "title": "Invita un membro",
+      "description": "Inserisci un indirizzo email per generare un link di invito",
+      "email": "Email",
+      "emailPlaceholder": "collega@azienda.com",
+      "complianceRole": "Ruolo di conformità",
+      "complianceRolePlaceholder": "Seleziona un ruolo (facoltativo)",
+      "submit": "Invita",
+      "submitting": "Invito in corso..."
+    },
+    "assignRole": {
+      "label": "Assegna ruolo",
+      "placeholder": "Seleziona un ruolo...",
+      "success": "Ruolo assegnato correttamente",
+      "noCategories": "Nessuna categoria per questo ruolo"
+    },
+    "remove": {
+      "success": "Membro rimosso"
+    },
+    "revoke": {
+      "success": "Invito revocato"
+    },
+    "inline": {
+      "sent": "Invito inviato a {email}",
+      "linkCopied": "Link copiato"
+    },
+    "invalidTitle": "Invito non valido",
+    "invalidDescription": "Questo link di invito non è valido o è già stato utilizzato.",
+    "usedTitle": "Invito già utilizzato",
+    "usedDescription": "Questo invito è già stato accettato o revocato.",
+    "expiredTitle": "Invito scaduto",
+    "expiredDescription": "Questo link di invito è scaduto. Chiedi al tuo amministratore un nuovo invito.",
+    "accept": {
+      "joinTitle": "Unisciti a {company}",
+      "joinDescription": "Sei stato invitato a unirti come {role}.",
+      "signInDescription": "Sei stato invitato a unirti come {role}. Accedi o registrati per continuare.",
+      "signInToAccept": "Accedi per accettare",
+      "alreadyMemberTitle": "Già membro",
+      "alreadyMemberDescription": "Sei già membro di un'azienda. Non puoi unirti a un'altra.",
+      "goToDashboard": "Vai alla dashboard",
+      "wrongAccountTitle": "Account errato",
+      "wrongAccountDescription": "Questo invito è stato inviato a {inviteEmail}. Hai effettuato l'accesso come {userEmail}.",
+      "signOutRetry": "Esci e riprova",
+      "joining": "Adesione in corso...",
+      "acceptInvite": "Accetta l'invito",
+      "joined": "Ti sei unito a {company}"
+    },
+    "roles": {
+      "ceo": "CEO / Amministratore delegato",
+      "ciso": "CISO / Responsabile della sicurezza IT",
+      "cto": "CTO / Responsabile dell'ingegneria",
+      "coo": "COO / Direttore operativo",
+      "cpo": "CPO / Responsabile degli approvvigionamenti",
+      "hr_director": "Direttore delle risorse umane",
+      "legal": "Responsabile legale / della conformità",
+      "dpo": "Responsabile della protezione dei dati"
+    }
+  }
+}

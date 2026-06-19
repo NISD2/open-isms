@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Registro de auditoría",
+    "subtitle": "Registro a prueba de manipulaciones de todas las acciones relevantes para el cumplimiento",
+    "noEntries": "Todavía no hay entradas en el registro de auditoría.",
+    "description": "Descripción",
+    "action": "Acción",
+    "user": "Usuario",
+    "time": "Hora"
+  }
+}

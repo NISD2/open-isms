@@ -1,0 +1,47 @@
+{
+  "pricing": {
+    "meta": {
+      "title": "Cennik - Platforma zgodności z NIS2",
+      "description": "Dwa sposoby uruchomienia platformy. Hostowana na nis2.eu, darmowa na zawsze. Hosting własny na licencji AGPL-3.0, jednorazowa licencja dożywotnia za 10 000 €."
+    },
+    "title": "Cennik",
+    "subtitle": "Dwa sposoby uruchomienia platformy. Wybierz jeden.",
+
+    "free": {
+      "name": "Hostowana na nis2.eu",
+      "description": "Pełna platforma, obsługiwana przez nas na infrastrukturze w UE.",
+      "price": "0 €",
+      "priceSub": "na zawsze",
+      "cta": "Rozpocznij",
+      "features": {
+        "f1": "Wszystkie 49 wymagań BSIG krok po kroku",
+        "f2": "Przesyłanie dowodów i dokumentacja",
+        "f3": "Eksport do PDF dla audytorów i kierownictwa",
+        "f4": "Pełna ścieżka audytu",
+        "f5": "Śledzenie terminów i przypomnienia",
+        "f6": "Wskazówki dotyczące rejestracji w BSI",
+        "f7": "Nieograniczona liczba członków zespołu",
+        "f8": "Rejestry ryzyk, aktywów i dostawców",
+        "f9": "Wsparcie formularzy oparte na AI",
+        "f10": "Kein Lock-in. Model danych Open Source. Eksport w dowolnym momencie."
+      }
+    },
+
+    "selfHost": {
+      "name": "Hosting własny",
+      "description": "Pełny kod źródłowy. Uruchom go na własnej infrastrukturze, na zawsze.",
+      "price": "10 000 €",
+      "priceSub": "jednorazowo, licencja dożywotnia",
+      "cta": "Skontaktuj się z nami",
+      "features": {
+        "h1": "Pełny kod źródłowy platformy na licencji AGPL-3.0",
+        "h2": "Wszystkie przyszłe aktualizacje w cenie",
+        "h3": "Uruchom na własnej infrastrukturze, z własnymi danymi",
+        "h4": "Wyznaczona osoba kontaktowa do wsparcia przez e-mail i Signal"
+      }
+    },
+
+    "consultantFootnote": "Potrzebujesz konsultanta NIS2? Łączymy Cię ze zweryfikowanymi specjalistami bez żadnych kosztów dla Ciebie.",
+    "consultantCta": "Poproś o konsultanta"
+  }
+}

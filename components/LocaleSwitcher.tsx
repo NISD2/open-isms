@@ -15,6 +15,10 @@ const locales = [
   { code: "en", label: "English" },
   { code: "de", label: "Deutsch" },
   { code: "nl", label: "Nederlands" },
+  { code: "fr", label: "Français" },
+  { code: "it", label: "Italiano" },
+  { code: "es", label: "Español" },
+  { code: "pl", label: "Polski" },
 ] as const;
 
 export function LocaleSwitcher() {
@@ -24,7 +28,9 @@ export function LocaleSwitcher() {
 
   function switchTo(next: string) {
     if (next === locale) return;
-    router.replace(pathname as never, { locale: next as "de" | "en" | "nl" });
+    router.replace(pathname as never, {
+      locale: next as (typeof locales)[number]["code"],
+    });
   }
 
   return (

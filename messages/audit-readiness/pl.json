@@ -1,0 +1,35 @@
+{
+  "audit-readiness": {
+    "title": "Gotowość do audytu",
+    "subtitle": "Oceń swoją gotowość do audytu BSIG/NIS2 z analizą AI",
+    "startEvaluation": "Rozpocznij ocenę",
+    "evaluating": "Ocenianie wszystkich sekcji...",
+    "reEvaluate": "Oceń ponownie",
+    "reEvaluating": "Ponowne ocenianie...",
+    "overallScore": "Ogólny wynik",
+    "verdict": "Werdykt",
+    "pass": "Gotowość do audytu",
+    "partial": "Wymaga dopracowania",
+    "fail": "Poważne luki",
+    "sectionsPassing": "{count} zaliczonych",
+    "sectionsPartial": "{count} częściowych",
+    "sectionsFailing": "{count} niezaliczonych",
+    "strengths": "Mocne strony",
+    "structureGaps": "Luki strukturalne",
+    "dataGaps": "Luki w danych",
+    "recommendations": "Zalecenia",
+    "showDetails": "Pokaż szczegóły",
+    "hideDetails": "Ukryj szczegóły",
+    "severity": {
+      "critical": "Krytyczny",
+      "important": "Ważny",
+      "nice-to-have": "Przydatny"
+    },
+    "fieldKey": "Pole",
+    "requirement": "Wymaganie",
+    "issue": "Problem",
+    "recommendation": "Zalecenie",
+    "noGaps": "Nie zidentyfikowano luk",
+    "disclaimer": "Ocena wygenerowana przez AI - nie zastępuje formalnego audytu"
+  }
+}

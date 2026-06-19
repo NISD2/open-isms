@@ -92,6 +92,10 @@ export const fieldTypeSchema = z.nativeEnum(FIELD_TYPE);
 const localisedString = z.object({
   en: z.string().min(1),
   de: z.string().min(1),
+  fr: z.string().min(1).optional(),
+  it: z.string().min(1).optional(),
+  es: z.string().min(1).optional(),
+  pl: z.string().min(1).optional(),
 });
 
 export type LocalisedString = z.infer<typeof localisedString>;

@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "3.11",
   slug: "pre-audit-gap-scenario",
-  title: { en: "Scenario - Pre-Audit Gap Discovery", nl: "Scenario – Pre-audit ontdekking van een lacune", de: "Szenario – Lücke vor der Prüfung entdeckt" },
+  title: { en: "Scenario - Pre-Audit Gap Discovery", nl: "Scenario – Pre-audit ontdekking van een lacune", de: "Szenario – Lücke vor der Prüfung entdeckt", fr: "Scénario - Découverte d'une lacune avant l'audit", it: "Scenario - Scoperta di una lacuna prima dell'audit", es: "Escenario - Descubrimiento de una brecha antes de la auditoría", pl: "Scenariusz - Wykrycie luki przed kontrolą" },
   moduleId: "module-3",
   order: 10,
   contentFile: "3-11",

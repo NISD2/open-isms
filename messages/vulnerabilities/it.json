@@ -1,0 +1,61 @@
+{
+  "vulnerabilities": {
+    "title": "Gestione delle vulnerabilità",
+    "description": "Traccia le vulnerabilità rilevate lungo il loro ciclo di vita. Richiesto da CIR 2024/2690 Art. 6.10.",
+    "helpText": "Registra le vulnerabilità individuate tramite scansioni, pentest o advisory. Tieni traccia di triage, decisioni di trattamento e risoluzione. CIR richiede che la gestione delle vulnerabilità sia un processo documentato distinto dalla gestione delle patch.",
+    "add": "Aggiungi vulnerabilità",
+    "edit": "Modifica vulnerabilità",
+    "empty": "Nessuna vulnerabilità ancora registrata. Aggiungi la tua prima vulnerabilità.",
+    "deleteConfirm": "Sei sicuro di voler eliminare questa vulnerabilità?",
+    "actions": "Azioni",
+    "severity": {
+      "critical": "Critica",
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Bassa"
+    },
+    "status": {
+      "discovered": "Rilevata",
+      "assessed": "Valutata",
+      "treating": "In trattamento",
+      "resolved": "Risolta",
+      "accepted": "Accettata",
+      "mitigated": "Mitigata"
+    },
+    "source": {
+      "vulnerability_scan": "Scansione delle vulnerabilità",
+      "pentest": "Penetration test",
+      "bug_bounty": "Bug bounty",
+      "vendor_advisory": "Advisory del fornitore",
+      "internal_review": "Revisione interna"
+    },
+    "fields": {
+      "cveId": "ID CVE",
+      "title": "Titolo",
+      "description": "Descrizione",
+      "severity": "Gravità",
+      "cvssScore": "Punteggio CVSS",
+      "source": "Fonte",
+      "assetId": "Asset",
+      "status": "Stato",
+      "discoveredAt": "Rilevata il",
+      "treatmentNote": "Trattamento",
+      "acceptanceReason": "Motivo dell'accettazione",
+      "resolvedAt": "Risolta il"
+    },
+    "fieldDescriptions": {
+      "cveId": "Identificatore CVE se disponibile (ad es. CVE-2024-1234). Lascia vuoto per le vulnerabilità rilevate internamente senza un CVE.",
+      "title": "Breve descrizione della vulnerabilità (ad es. 'SQL injection nel modulo di login', 'TLS 1.0 obsoleto sul server web').",
+      "description": "Descrizione dettagliata: componenti interessati, versioni, impatto potenziale e condizioni di sfruttamento.",
+      "severity": "Valutazione della gravità basata su CVSS: critica, alta, media o bassa.",
+      "cvssScore": "Punteggio CVSS numerico facoltativo (0.0-10.0) per una prioritizzazione precisa.",
+      "source": "Come è stata rilevata questa vulnerabilità: scansione, pentest, bug bounty, advisory del fornitore o revisione interna.",
+      "assetId": "Asset interessato da questa vulnerabilità, se applicabile. Seleziona dal registro degli asset.",
+      "status": "Stato attuale del ciclo di vita: rilevata, valutata, in trattamento, risolta, accettata (rischio) o mitigata (controllo compensativo).",
+      "discoveredAt": "Data in cui la vulnerabilità è stata identificata per la prima volta.",
+      "treatmentNote": "Cosa si sta facendo per affrontare questa vulnerabilità (patch, modifica di configurazione, controllo compensativo, ecc.).",
+      "acceptanceReason": "Se accetti il rischio, documenta la giustificazione ai sensi di CIR 6.6.2. Obbligatorio per lo stato 'Accettata'.",
+      "resolvedAt": "Data in cui la vulnerabilità è stata risolta, accettata o mitigata."
+    }
+  }
+}

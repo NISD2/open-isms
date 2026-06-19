@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "title": "Pomiary KPI",
+    "description": "Wskaźniki skuteczności bezpieczeństwa śledzone w czasie. Wykazują skuteczność zgodnie z NIS2 Art. 21.",
+    "helpText": "Regularnie rejestruj pomiary KPI bezpieczeństwa (np. wskaźnik zgodności aktualizacji, % ukończenia szkoleń, średni czas wykrycia). KPI wykazują audytorom, że Twoje środki bezpieczeństwa są skuteczne i poprawiają się w czasie.",
+    "add": "Dodaj pomiar",
+    "empty": "Brak pomiarów KPI. Zarejestruj pierwszy pomiar.",
+    "status": {
+      "green": "Zgodny z celem",
+      "amber": "Zagrożony",
+      "red": "Poniżej celu"
+    },
+    "fields": {
+      "kpiName": "Nazwa KPI",
+      "measuredAt": "Data pomiaru",
+      "value": "Wartość",
+      "target": "Cel",
+      "unit": "Jednostka",
+      "status": "Status",
+      "notes": "Uwagi"
+    },
+    "fieldDescriptions": {
+      "kpiName": "Nazwa mierzonego wskaźnika bezpieczeństwa (np. „Wskaźnik zgodności aktualizacji”, „Średni czas wykrycia”, „% ukończenia szkoleń”).",
+      "measuredAt": "Data, w której wykonano ten pomiar.",
+      "value": "Wprowadź zmierzoną wartość liczbową dla tego KPI.",
+      "target": "Wprowadź wartość docelową, którą ten KPI powinien osiągnąć lub przekroczyć.",
+      "unit": "Jednostka miary (np. %, godziny, dni, liczba).",
+      "status": "Wybierz status: zielony (zgodny z celem), bursztynowy (zagrożony niespełnieniem celu) lub czerwony (poniżej celu).",
+      "notes": "Dodatkowy kontekst lub wyjaśnienie tego pomiaru, zwłaszcza gdy status jest bursztynowy lub czerwony."
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "Análisis de brechas de NIS2",
+    "subtitle": "Evalúe su preparación para NIS2 en 15 dominios",
+    "startAssessment": "Iniciar evaluación",
+    "resumeAssessment": "Reanudar evaluación",
+    "viewResults": "Ver resultados",
+    "day": "Día {number}",
+    "dayOf": "Día {current} de {total}",
+    "questionsAnswered": "{answered} de {total} respondidas",
+    "saving": "Guardando...",
+    "saved": "Guardado",
+    "overview": {
+      "heading": "Resumen de la evaluación",
+      "description": "Una autoevaluación estructurada que abarca todos los dominios de cumplimiento de NIS2. Responda con sinceridad sobre su estado actual. No hay respuestas correctas o incorrectas.",
+      "day1": "Ámbito de aplicación y gobernanza",
+      "day1desc": "¿Está dentro del ámbito de aplicación? ¿Comprende su dirección su responsabilidad?",
+      "day2": "Gestión de riesgos",
+      "day2desc": "¿Conoce sus activos, sus riesgos y sus políticas de seguridad?",
+      "day3": "Incidentes y continuidad del negocio",
+      "day3desc": "¿Puede detectar incidentes, responder a ellos y recuperarse?",
+      "day4": "Personas, proveedores y acceso",
+      "day4desc": "¿Está su personal formado, sus proveedores gestionados y el acceso controlado?",
+      "day5": "Controles técnicos y evidencias",
+      "day5desc": "¿Están sus protecciones técnicas y su documentación preparadas para una auditoría?",
+      "questions": "{count} preguntas",
+      "estimatedTime": "~{minutes} min",
+      "noActiveSession": "Aún no ha iniciado ninguna evaluación.",
+      "pastSessions": "Evaluaciones anteriores",
+      "score": "Puntuación: {score} %",
+      "completedOn": "Completada el {date}",
+      "inProgress": "En curso"
+    },
+    "question": {
+      "yes": "Sí",
+      "partially": "Parcialmente",
+      "no": "No",
+      "notApplicable": "N/D",
+      "showExplanation": "¿Qué significa esto?",
+      "hideExplanation": "Ocultar explicación",
+      "legalBasis": "Base jurídica",
+      "criticality": "Importancia",
+      "criticalityLevels": {
+        "0": "Informativo",
+        "1": "Baja",
+        "2": "Media",
+        "3": "Alta"
+      },
+      "respondent": {
+        "0": "Director general / Dirección",
+        "1": "IT / Seguridad",
+        "2": "RR. HH.",
+        "3": "Compras",
+        "4": "Cualquiera"
+      },
+      "suggestedRespondent": "Respondido mejor por"
+    },
+    "navigation": {
+      "previousDay": "Día anterior",
+      "nextDay": "Día siguiente",
+      "completeAssessment": "Completar evaluación",
+      "backToOverview": "Volver al resumen"
+    },
+    "results": {
+      "heading": "Resultados de la evaluación",
+      "overallScore": "Puntuación global",
+      "domainScores": "Puntuaciones por dominio",
+      "maturityLevel": "Nivel de madurez",
+      "priorityGaps": "Brechas prioritarias",
+      "exportPdf": "Exportar PDF",
+      "domain": "Dominio",
+      "score": "Puntuación",
+      "maturity": "Madurez",
+      "answered": "Respondidas",
+      "noGaps": "No se han identificado brechas. Excelente.",
+      "gapRank": "Prioridad",
+      "gapQuestion": "Hallazgo",
+      "gapDomain": "Dominio",
+      "gapConsequence": "Consecuencia",
+      "gapTimeToFix": "Esfuerzo",
+      "fineRisk": "Riesgo de multa",
+      "viewInPlatform": "Ver en la plataforma",
+      "maturityLevels": {
+        "critical": "Crítico",
+        "initial": "Inicial",
+        "developing": "En desarrollo",
+        "managed": "Gestionado",
+        "optimized": "Optimizado"
+      },
+      "consequenceLevels": {
+        "0": "Hallazgo de auditoría",
+        "1": "Riesgo operativo",
+        "2": "Multa",
+        "3": "Responsabilidad personal"
+      },
+      "timeToFixLevels": {
+        "0": "Victoria rápida",
+        "1": "Días",
+        "2": "Semanas",
+        "3": "Meses"
+      },
+      "summary": {
+        "criticalGaps": "{count} brechas críticas",
+        "fineExposed": "{count} generan exposición a multas",
+        "personalLiability": "{count} generan responsabilidad personal para el director general",
+        "quickWins": "{count} pueden resolverse de inmediato"
+      },
+      "startCompliance": "Comenzar a cerrar brechas",
+      "retakeAssessment": "Repetir la evaluación"
+    }
+  }
+}

@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { pageAlternates } from "@/lib/seo";
+import { pickLocalized } from "@/lib/locale";
 import { JsonLd } from "@/components/JsonLd";
 import {
   incidentNotificationSchema,
@@ -60,9 +61,8 @@ export async function generateMetadata({
   };
 }
 
-function pickLocaleString(value: LocalisedString, locale: Locale): string {
-  if (locale === "de") return value.de;
-  return value.en;
+function pickLocaleString(value: LocalisedString, locale: string): string {
+  return pickLocalized(value as Record<string, string | undefined>, locale);
 }
 
 export default async function MeldepflichtSchemaPage({
@@ -71,8 +71,7 @@ export default async function MeldepflichtSchemaPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "de" || rawLocale === "nl" ? rawLocale : "en";
+  const locale = rawLocale;
   const t = await getTranslations("info");
 
   const grouped = groupBySection();
@@ -317,7 +316,7 @@ function FieldCard({
   conditionalLabel,
 }: {
   field: IncidentField;
-  locale: Locale;
+  locale: string;
   legalBasisLabel: string;
   nationalLabel: string;
   overlapLabel: string;

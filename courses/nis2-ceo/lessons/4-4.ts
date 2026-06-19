@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "4.4",
   slug: "policy-exclusions",
-  title: { en: "Common Policy Exclusions to Read For", nl: "Veelvoorkomende polisuitsluitingen om op te letten", de: "Häufige Ausschlussklauseln, auf die Sie achten sollten" },
+  title: { en: "Common Policy Exclusions to Read For", nl: "Veelvoorkomende polisuitsluitingen om op te letten", de: "Häufige Ausschlussklauseln, auf die Sie achten sollten", fr: "Exclusions de police courantes à surveiller", it: "Esclusioni di polizza comuni a cui prestare attenzione", es: "Exclusiones de póliza comunes a las que prestar atención", pl: "Typowe wyłączenia w polisie, na które należy zwrócić uwagę" },
   moduleId: "module-4",
   order: 3,
   contentFile: "4-4",

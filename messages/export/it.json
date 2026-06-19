@@ -1,0 +1,11 @@
+{
+  "export": {
+    "title": "Esporta report",
+    "subtitle": "Scarica i report di conformità per le tue valutazioni",
+    "noAssessments": "Nessuna valutazione trovata. Completa prima la configurazione.",
+    "download": "Scarica PDF",
+    "started": "Avviata",
+    "progress": "{completed} di {total} requisiti",
+    "compliance": "Conformità"
+  }
+}

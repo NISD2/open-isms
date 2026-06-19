@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { pageAlternates } from "@/lib/seo";
+import { pickLocalized } from "@/lib/locale";
 import { ogImages } from "@/lib/og-card";
 import { JsonLd } from "@/components/JsonLd";
 import {
@@ -46,9 +47,11 @@ export async function generateMetadata({
   };
 }
 
-function pickLocaleString(value: { en: string; de: string }, locale: Locale): string {
-  if (locale === "de") return value.de;
-  return value.en;
+function pickLocaleString(
+  value: { en: string; de: string } & Record<string, string | undefined>,
+  locale: string,
+): string {
+  return pickLocalized(value, locale);
 }
 
 export default async function SupplierQuestionnairePage({
@@ -57,7 +60,7 @@ export default async function SupplierQuestionnairePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = rawLocale === "de" || rawLocale === "nl" ? rawLocale : "en";
+  const locale = rawLocale;
   const t = await getTranslations("info");
   const grouped = groupBySection(supplierQuestionnaire);
   const totalFields = supplierQuestionnaire.fields.length;

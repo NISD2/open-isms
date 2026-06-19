@@ -1,0 +1,61 @@
+{
+  "vulnerabilities": {
+    "title": "Zarządzanie podatnościami",
+    "description": "Śledź wykryte podatności przez cały ich cykl życia. Wymagane przez CIR 2024/2690 Art. 6.10.",
+    "helpText": "Rejestruj podatności wykryte podczas skanowań, testów penetracyjnych lub w ostrzeżeniach. Śledź triage, decyzje o postępowaniu i rozwiązanie. CIR wymaga obsługi podatności jako odrębnego, udokumentowanego procesu względem zarządzania aktualizacjami.",
+    "add": "Dodaj podatność",
+    "edit": "Edytuj podatność",
+    "empty": "Nie zarejestrowano jeszcze żadnych podatności. Dodaj pierwszą podatność.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć tę podatność?",
+    "actions": "Działania",
+    "severity": {
+      "critical": "Krytyczna",
+      "high": "Wysoka",
+      "medium": "Średnia",
+      "low": "Niska"
+    },
+    "status": {
+      "discovered": "Wykryta",
+      "assessed": "Oceniona",
+      "treating": "W trakcie postępowania",
+      "resolved": "Rozwiązana",
+      "accepted": "Zaakceptowana",
+      "mitigated": "Złagodzona"
+    },
+    "source": {
+      "vulnerability_scan": "Skanowanie podatności",
+      "pentest": "Test penetracyjny",
+      "bug_bounty": "Bug Bounty",
+      "vendor_advisory": "Ostrzeżenie dostawcy",
+      "internal_review": "Przegląd wewnętrzny"
+    },
+    "fields": {
+      "cveId": "Identyfikator CVE",
+      "title": "Tytuł",
+      "description": "Opis",
+      "severity": "Poziom krytyczności",
+      "cvssScore": "Wynik CVSS",
+      "source": "Źródło",
+      "assetId": "Aktywo",
+      "status": "Status",
+      "discoveredAt": "Wykryto",
+      "treatmentNote": "Postępowanie",
+      "acceptanceReason": "Powód akceptacji",
+      "resolvedAt": "Rozwiązano"
+    },
+    "fieldDescriptions": {
+      "cveId": "Identyfikator CVE, jeśli dostępny (np. CVE-2024-1234). Pozostaw puste w przypadku podatności wykrytych wewnętrznie bez CVE.",
+      "title": "Krótki opis podatności (np. „Wstrzyknięcie SQL w formularzu logowania”, „Przestarzały TLS 1.0 na serwerze WWW”).",
+      "description": "Szczegółowy opis: dotknięte komponenty, wersje, potencjalny wpływ oraz warunki wykorzystania.",
+      "severity": "Ocena krytyczności oparta na CVSS: krytyczna, wysoka, średnia lub niska.",
+      "cvssScore": "Opcjonalny liczbowy wynik CVSS (0,0-10,0) dla precyzyjnego ustalania priorytetów.",
+      "source": "Jak wykryto tę podatność: skanowanie, test penetracyjny, bug bounty, ostrzeżenie dostawcy lub przegląd wewnętrzny.",
+      "assetId": "Aktywo, którego dotyczy ta podatność, jeśli ma to zastosowanie. Wybierz z rejestru aktywów.",
+      "status": "Bieżący status w cyklu życia: wykryta, oceniona, w trakcie postępowania, rozwiązana, zaakceptowana (ryzyko) lub złagodzona (środek kompensujący).",
+      "discoveredAt": "Data pierwszego zidentyfikowania podatności.",
+      "treatmentNote": "Co jest robione, aby zaadresować tę podatność (aktualizacja, zmiana konfiguracji, środek kompensujący itp.).",
+      "acceptanceReason": "W przypadku akceptacji ryzyka udokumentuj uzasadnienie zgodnie z CIR 6.6.2. Wymagane dla statusu „Zaakceptowana”.",
+      "resolvedAt": "Data rozwiązania, zaakceptowania lub złagodzenia podatności."
+    }
+  }
+}

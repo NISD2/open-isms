@@ -17,15 +17,41 @@ import { wikiPathnames } from "@/lib/content/wiki-toc";
  * /supplier-invite/[token]) are intentionally NOT registered —
  * auto-generated, single-use, never indexed.
  */
+const locales = ["de", "en", "nl", "fr", "it", "es", "pl"] as const;
+type Loc = (typeof locales)[number];
+
+/**
+ * Localized pathnames are authored for de/en/nl. New locales (fr/it/es/pl)
+ * inherit the English slug until per-locale URL slugs are written, so the
+ * slug map stays in one place instead of editing ~57 route entries.
+ */
+function fill<T extends Record<string, string | Partial<Record<Loc, string>>>>(
+  obj: T,
+): { [K in keyof T]: T[K] extends string ? string : Record<Loc, string> } {
+  const out: Record<string, string | Record<Loc, string>> = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === "string") {
+      out[key] = value;
+      continue;
+    }
+    const fallback = value.en ?? value.de ?? Object.values(value)[0] ?? key;
+    const record = {} as Record<Loc, string>;
+    for (const loc of locales) record[loc] = value[loc] ?? fallback;
+    out[key] = record;
+  }
+  // The imperative build above produces exactly this shape; TS can't follow it.
+  return out as { [K in keyof T]: T[K] extends string ? string : Record<Loc, string> };
+}
+
 export const routing = defineRouting({
-  locales: ["de", "en", "nl"],
+  locales,
   defaultLocale: "de",
   localePrefix: "as-needed",
   localeCookie: {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
   },
-  pathnames: {
+  pathnames: fill({
     "/": "/",
 
     // ── /docs hub, 8 categories, 33 pages — derived from docs-toc ─────
@@ -240,5 +266,5 @@ export const routing = defineRouting({
 
     // Admin
     "/platform-admin": "/platform-admin",
-  },
+  }),
 });

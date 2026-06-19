@@ -1,0 +1,259 @@
+{
+  "assetInventory": {
+    "page": {
+      "metaTitle": "Inventaire des actifs NIS2 — gratuit, sans inscription, lien partageable",
+      "metaDescription": "Construisez votre Strukturanalyse BSI Grundschutz 200-2 §8.1 en 5 minutes. Une grande liste précochée. Décochez ce qui ne s'applique pas, ajoutez ce qui manque. Enregistrez et partagez par lien. Gratuit, sans inscription, sans données personnelles."
+    },
+    "hero": {
+      "eyebrow": "Gratuit, open source, sans inscription",
+      "headline": "Inventaire des actifs NIS2",
+      "headlineAccent": "en 5 minutes, avec un lien partageable",
+      "subhead": "Nous précochons les actifs qu'une entreprise de taille intermédiaire possède généralement. Décochez ce qui ne s'applique pas, ajoutez ce qui manque. Chaque état correspond à un lien que vous pouvez enregistrer ou envoyer à un collègue."
+    },
+    "intro": {
+      "trustLine": "Strukturanalyse BSI-200-2 §8.1, Informationsverbund à cinq couches. NIS2 Art 21(2)(i), BSIG §30(2) Nr. 9. Vos données ne vivent que dans le fragment de l'URL ; le serveur ne les voit jamais.",
+      "riskAssessmentHint": "Inventaire prêt ? Lancez l'analyse des risques sur chaque actif.",
+      "riskAssessmentLinkLabel": "Ouvrir l'analyse des risques →"
+    },
+    "steps": {
+      "back": "Retour",
+      "restart": "Recommencer",
+      "startChecklist": "Démarrer la liste de contrôle",
+      "showOutput": "Afficher l'Informationsverbund"
+    },
+    "phases": {
+      "sectors": { "label": "Étape 1 sur 3 : secteur(s)" },
+      "checklist": { "label": "Étape 2 sur 3 : vérifier et décocher ({count} actifs)" },
+      "output": { "label": "Terminé. {count} actifs dans votre Informationsverbund." }
+    },
+    "sectorPicker": {
+      "question": "Quels secteurs NIS2 s'appliquent à votre entreprise ?",
+      "helpText": "Sélectionnez tous ceux qui s'appliquent. Les actifs propres au secteur apparaîtront dans la liste de contrôle (automates, véhicules, dispositifs médicaux, etc.).",
+      "annexI": "Annexe I (entités essentielles)",
+      "annexIDescription": "Forte criticité. Supervision proactive du BSI, amendes jusqu'à 10 M€.",
+      "annexII": "Annexe II (entités importantes)",
+      "annexIIDescription": "Autres secteurs critiques. Supervision réactive, amendes jusqu'à 7 M€."
+    },
+    "sectors": {
+      "energy": { "name": "Énergie (électricité, chauffage urbain, pétrole, gaz, hydrogène)" },
+      "transport": { "name": "Transport (aérien, ferroviaire, maritime, routier)" },
+      "banking": { "name": "Banque" },
+      "financial-market-infrastructure": { "name": "Infrastructures des marchés financiers" },
+      "health": { "name": "Santé" },
+      "drinking-water": { "name": "Eau potable" },
+      "waste-water": { "name": "Eaux usées" },
+      "digital-infrastructure": { "name": "Infrastructure numérique (DNS, TLD, cloud, centre de données, CDN, services de confiance)" },
+      "ict-service-management": { "name": "Gestion de services TIC (MSP, MSSP)" },
+      "space": { "name": "Espace" },
+      "postal-courier": { "name": "Services postaux et de messagerie" },
+      "waste-management": { "name": "Gestion des déchets" },
+      "chemicals": { "name": "Produits chimiques (fabrication, production, distribution)" },
+      "food": { "name": "Alimentation (production, transformation, distribution)" },
+      "manufacturing": { "name": "Fabrication (dispositifs médicaux, machines, véhicules, électronique)" },
+      "digital-providers": { "name": "Fournisseurs numériques (places de marché, moteurs de recherche, réseaux sociaux)" },
+      "research": { "name": "Recherche" }
+    },
+    "checklist": {
+      "heading": "Votre inventaire des actifs",
+      "subtitle": "Les éléments en surbrillance sont précochés car la plupart des entreprises de taille intermédiaire les possèdent. Décochez ce qui ne s'applique pas, ajoutez tout élément particulier au bas de chaque groupe.",
+      "addButton": "Ajouter",
+      "removeCustom": "Supprimer",
+      "addPlaceholder": {
+        "geschaeftsprozess": "Ajouter un processus métier personnalisé…",
+        "anwendung": "Ajouter une application personnalisée…",
+        "it-system": "Ajouter un système informatique personnalisé…",
+        "raum": "Ajouter un emplacement personnalisé…",
+        "kommunikation": "Ajouter une connexion réseau personnalisée…"
+      }
+    },
+    "share": {
+      "copyLink": "Copier le lien",
+      "sendEmail": "Envoyer par e-mail",
+      "copied": "Copié",
+      "mailSubject": "Aidez-moi à compléter notre inventaire des actifs NIS2",
+      "mailBody": "Bonjour,\n\nJ'ai commencé notre inventaire des actifs NIS2 pour le §30 BSIG / Art 21(2)(i) NIS2. Pouvez-vous vérifier ce que votre service utilise et cocher / décocher selon les besoins ? Renvoyez-moi ensuite le nouveau lien.\n\nLien : {url}\n\nSans inscription, vos modifications mettent le lien à jour automatiquement.\n\nMerci."
+    },
+    "groups": {
+      "business-processes": {
+        "label": "Processus métier",
+        "description": "BSI-200-2 §8.1.3 Geschäftsprozesse. Ce que l'entreprise fait réellement au quotidien."
+      },
+      "customer-facing": {
+        "label": "Outils orientés client",
+        "description": "Éléments visibles par les clients sur Internet. Surface d'attaque publique."
+      },
+      "sales": {
+        "label": "Outils commerciaux",
+        "description": "Ce que les ventes utilisent pour gérer le pipeline, conclure des affaires et établir des rapports."
+      },
+      "customer-service": {
+        "label": "Outils du service client",
+        "description": "Comment vous gérez les tickets de support, les appels et les questions des clients."
+      },
+      "hr-payroll": {
+        "label": "RH et paie",
+        "description": "Données du personnel et paie. Les considérations de l'art. 9 GDPR se trouvent ici."
+      },
+      "finance": {
+        "label": "Finance et comptabilité",
+        "description": "Comptabilité, opérations bancaires, paiements, achats. Souvent la cible de plus grande valeur."
+      },
+      "it-applications": {
+        "label": "Applications informatiques (utilisées par tous)",
+        "description": "Messagerie, stockage de fichiers, collaboration, identité. La couche transversale."
+      },
+      "it-infrastructure": {
+        "label": "Infrastructure informatique",
+        "description": "BSI-200-2 §8.1.6 IT-Systeme. Serveurs, plateformes cloud, équipements réseau, sauvegarde."
+      },
+      "endpoints": {
+        "label": "Postes de travail et terminaux",
+        "description": "Ordinateurs portables, postes fixes, appareils mobiles. Regroupés selon la Gruppenbildung."
+      },
+      "locations": {
+        "label": "Emplacements",
+        "description": "BSI-200-2 §8.1.7 Räume. Où les éléments se trouvent physiquement."
+      },
+      "network": {
+        "label": "Connexions réseau",
+        "description": "BSI-200-2 §8.1.5 Kommunikationsverbindungen. Comment les systèmes se connectent."
+      },
+      "sector-specific": {
+        "label": "Spécifique au secteur",
+        "description": "Actifs liés à votre secteur. Seuls ceux pertinents pour le ou les secteurs NIS2 que vous avez choisis sont affichés."
+      }
+    },
+    "categories": {
+      "process": "Processus métier",
+      "application": "Application",
+      "server": "Serveur",
+      "endpoint": "Poste de travail ou terminal",
+      "network": "Équipement réseau",
+      "cloud_service": "Service cloud",
+      "data_store": "Magasin de données",
+      "ot_ics": "OT / ICS",
+      "iot": "Appareil IoT",
+      "physical": "Actif physique",
+      "room": "Salle ou emplacement",
+      "database": "Base de données"
+    },
+    "layers": {
+      "geschaeftsprozess": {
+        "label": "Geschäftsprozesse",
+        "description": "BSI-200-2 §8.1.3. Les processus métier que votre informatique prend en charge."
+      },
+      "anwendung": {
+        "label": "Anwendungen",
+        "description": "BSI-200-2 §8.1.4. Les logiciels dont dépendent les processus."
+      },
+      "it-system": {
+        "label": "IT-Systeme",
+        "description": "BSI-200-2 §8.1.6. Matériel, systèmes virtuels, ICS, IoT."
+      },
+      "raum": {
+        "label": "Räume",
+        "description": "BSI-200-2 §8.1.7. Emplacements physiques."
+      },
+      "kommunikation": {
+        "label": "Kommunikationsverbindungen",
+        "description": "BSI-200-2 §8.1.5. Liaisons réseau internes et externes."
+      }
+    },
+    "output": {
+      "heading": "Votre Informationsverbund (BSI-200-2 §8.1)",
+      "subtitle": "Structure à cinq couches prête pour la Schutzbedarfsfeststellung du §8.2. Chaque entrée possède un identifiant généré automatiquement (P/A/S/R/N + numéro) suivant la convention d'attributs BSI §8.1.",
+      "empty": "Rien n'a encore été saisi dans cette couche.",
+      "printPdf": "Imprimer ou enregistrer au format PDF",
+      "downloadCsv": "Télécharger le CSV"
+    },
+    "catalog": {
+      "bp-sales-cs": { "label": "Ventes et service client" },
+      "bp-production-service": { "label": "Production ou prestation de service" },
+      "bp-procurement": { "label": "Achats" },
+      "bp-hr-payroll": { "label": "Administration RH et paie" },
+      "bp-finance-accounting": { "label": "Finance et comptabilité" },
+      "bp-marketing": { "label": "Marketing et communication externe" },
+      "bp-it-operations": { "label": "Exploitation informatique" },
+      "bp-legal-compliance": { "label": "Juridique et conformité" },
+      "cf-website": { "label": "Site web de l'entreprise" },
+      "cf-webshop": { "label": "Boutique en ligne ou commande en ligne" },
+      "cf-customer-portal": { "label": "Portail client (connexion)" },
+      "cf-mobile-app": { "label": "Application mobile" },
+      "cf-newsletter": { "label": "Système de newsletter (Mailchimp, Brevo)" },
+      "cf-contact-form": { "label": "Formulaire de contact sur le site web" },
+      "sales-crm": { "label": "CRM (Salesforce, HubSpot, Pipedrive)" },
+      "sales-lead-gen": { "label": "Outil de génération de leads / prospection (Apollo, ZoomInfo)" },
+      "sales-quote-proposal": { "label": "Générateur de devis / propositions (PandaDoc)" },
+      "sales-e-signature": { "label": "Signature électronique (DocuSign, Adobe Sign)" },
+      "sales-demo-meeting": { "label": "Outil de visioconférence / démonstration (Teams, Zoom, Meet)" },
+      "sales-analytics": { "label": "Analytique commerciale ou tableau de bord BI" },
+      "cs-helpdesk": { "label": "Helpdesk / billetterie (Zendesk, Intercom)" },
+      "cs-voip": { "label": "Système téléphonique / VoIP" },
+      "cs-live-chat": { "label": "Chat en direct sur le site web" },
+      "cs-knowledge-base": { "label": "Base de connaissances ou système de FAQ" },
+      "cs-feedback": { "label": "Outil d'enquête ou de retour d'information" },
+      "hr-hris": { "label": "SIRH (Personio, BambooHR, Workday)" },
+      "hr-payroll": { "label": "Paie (DATEV Lohn, Lexware, sage)" },
+      "hr-recruiting": { "label": "Recrutement / suivi des candidatures" },
+      "hr-time-tracking": { "label": "Suivi du temps" },
+      "hr-personnel-files": { "label": "Dossiers du personnel numériques" },
+      "hr-lms": { "label": "Système de gestion de l'apprentissage (LMS)" },
+      "hr-performance": { "label": "Outil d'évaluation de la performance" },
+      "fin-accounting": { "label": "Logiciel de comptabilité (DATEV, Lexware, sevDesk, lexoffice)" },
+      "fin-erp": { "label": "ERP (SAP, Microsoft Dynamics, ProAlpha)" },
+      "fin-online-banking": { "label": "Portails de banque en ligne" },
+      "fin-payment-processing": { "label": "Traitement des paiements (Stripe, PayPal, Klarna)" },
+      "fin-expense": { "label": "Gestion des notes de frais (Pleo, Spendesk, Moss)" },
+      "fin-procurement-system": { "label": "Système d'achats / de bons de commande" },
+      "fin-invoicing": { "label": "Système de facturation" },
+      "it-email": { "label": "Messagerie (Microsoft 365, Google Workspace, Exchange)" },
+      "it-file-storage": { "label": "Stockage de fichiers partagé (SharePoint, Google Drive, NAS)" },
+      "it-video-conferencing": { "label": "Visioconférence (Teams, Zoom, Meet)" },
+      "it-internal-chat": { "label": "Messagerie interne (Slack, Teams)" },
+      "it-document-mgmt": { "label": "Gestion documentaire (GED)" },
+      "it-wiki-kb": { "label": "Wiki ou base de connaissances interne (Confluence, Notion)" },
+      "it-identity-provider": { "label": "Fournisseur d'identité (Azure AD/Entra, Google Workspace, Okta)" },
+      "it-endpoint-protection": { "label": "Protection des postes (Defender, CrowdStrike, SentinelOne)" },
+      "it-monitoring": { "label": "Supervision (Datadog, Grafana)" },
+      "it-password-manager": { "label": "Gestionnaire de mots de passe (1Password, LastPass, Bitwarden)" },
+      "it-code-repos": { "label": "Dépôts de code (GitHub, GitLab, Bitbucket)" },
+      "it-project-management": { "label": "Gestion de projet (Jira, Asana, Linear)" },
+      "it-patch-rmm": { "label": "Gestion des correctifs / RMM" },
+      "infra-onprem-servers": { "label": "Serveurs sur site" },
+      "infra-cloud-platform": { "label": "Plateforme cloud (AWS, Azure, GCP, Hetzner)" },
+      "infra-network-equipment": { "label": "Équipement réseau (pare-feu, commutateurs, WiFi)" },
+      "infra-backup-system": { "label": "Système de sauvegarde (Veeam, NAS, sauvegarde cloud)" },
+      "infra-printer-fleet": { "label": "Imprimantes / scanners de bureau" },
+      "ep-laptops": { "label": "Ordinateurs portables et postes fixes" },
+      "ep-mobile": { "label": "Appareils mobiles de l'entreprise (téléphones, tablettes)" },
+      "ep-byod": { "label": "BYOD (appareils personnels des employés accédant aux données de l'entreprise)" },
+      "loc-main-office": { "label": "Bureau principal" },
+      "loc-branch-offices": { "label": "Bureaux / succursales supplémentaires" },
+      "loc-server-room": { "label": "Salle des serveurs (sur site)" },
+      "loc-datacenter": { "label": "Centre de données (propre ou baie louée)" },
+      "loc-employee-homes": { "label": "Télétravail des employés" },
+      "loc-warehouse": { "label": "Entrepôt ou installation de stockage" },
+      "net-internet": { "label": "Connexion Internet (FAI)" },
+      "net-vpn": { "label": "Accès distant VPN ou Zero Trust" },
+      "net-third-party-api": { "label": "Intégrations d'API tierces" },
+      "net-site-to-site": { "label": "Liaisons site à site (fournisseur, client)" },
+      "sec-plc-scada": { "label": "Automates / contrôleurs SCADA" },
+      "sec-mes": { "label": "MES (système d'exécution de la fabrication)" },
+      "sec-cad-plm": { "label": "CAO / PLM (données d'ingénierie)" },
+      "sec-warehouse-mgmt": { "label": "Système de gestion d'entrepôt (WMS)" },
+      "sec-fleet-vehicles": { "label": "Véhicules avec télématique / GPS" },
+      "sec-medical-devices": { "label": "Dispositifs médicaux en réseau" },
+      "sec-ehr-his": { "label": "Système d'information hospitalier (SIH / HIS / DSE)" },
+      "sec-lab-instruments": { "label": "Instruments de laboratoire en réseau / LIMS" },
+      "sec-energy-scada": { "label": "SCADA / système de contrôle énergétique" },
+      "sec-water-scada": { "label": "SCADA eau / eaux usées" },
+      "sec-trading-platform": { "label": "Connexion à une plateforme de négociation (SWIFT, SEPA, bourse)" },
+      "sec-atm-fleet": { "label": "Parc de distributeurs automatiques / terminaux libre-service" },
+      "sec-dns-tld": { "label": "Infrastructure DNS / TLD" },
+      "sec-citizen-portal": { "label": "Portail citoyen (eGov, OZG)" }
+    },
+    "disclaimer": {
+      "methodologyDisclosure": "Inventaire des actifs aligné sur la Strukturanalyse BSI-200-2 §8.1 (Informationsverbund à cinq couches + Gruppenbildung selon la Lektion 3). Le résultat est un inventaire de première passe que vous pouvez remettre à un consultant ou alimenter dans l'analyse des risques. La pleine conformité au §8.1 exige également un Netzplan (diagramme réseau) à jour, les arêtes de dépendance entre les couches et la validation de l'organe de direction (§38 BSIG, Art 20 NIS2). L'état de l'inventaire ne vit que dans le fragment de l'URL ; le serveur ne le reçoit jamais."
+    }
+  }
+}

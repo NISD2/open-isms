@@ -18,9 +18,10 @@ import { cn } from "@/lib/utils";
 export interface WikiCategoryCard {
   slug: string;
   titleDe: string;
-  titleEn: string;
+  /** de renders titleDe; every other locale renders this pre-resolved value. */
+  titleLocalized: string;
   questionDe: string;
-  questionEn: string;
+  questionLocalized: string;
   count: number;
 }
 
@@ -29,11 +30,11 @@ export interface WikiFlatPage {
   categorySlug: string;
   pageSlug: string;
   titleDe: string;
-  titleEn: string;
+  titleLocalized: string;
   summaryDe: string;
-  summaryEn: string;
+  summaryLocalized: string;
   categoryTitleDe: string;
-  categoryTitleEn: string;
+  categoryTitleLocalized: string;
 }
 
 interface Props {
@@ -58,11 +59,11 @@ function tokenMatch(haystack: string, query: string): boolean {
   return tokens.every((t) => hay.includes(t));
 }
 
-function scorePage(p: WikiFlatPage, query: string, isEn: boolean): number {
+function scorePage(p: WikiFlatPage, query: string, isDe: boolean): number {
   if (!query.trim()) return 0;
-  const title = isEn ? p.titleEn : p.titleDe;
-  const summary = isEn ? p.summaryEn : p.summaryDe;
-  const cat = isEn ? p.categoryTitleEn : p.categoryTitleDe;
+  const title = isDe ? p.titleDe : p.titleLocalized;
+  const summary = isDe ? p.summaryDe : p.summaryLocalized;
+  const cat = isDe ? p.categoryTitleDe : p.categoryTitleLocalized;
   const tokens = normalize(query).split(/\s+/).filter(Boolean);
   let score = 0;
   for (const t of tokens) {
@@ -86,7 +87,12 @@ function useIsMac(): boolean | null {
 }
 
 export function WikiHubSearch({ categories, allPages, locale }: Props) {
+  // Chrome strings (search placeholder, "page"/"pages", hints) stay on the
+  // original de/en split. Content strings (titles, questions, summaries,
+  // category labels) are pre-resolved per locale by the page into the
+  // *Localized fields, so they select on de-vs-everything-else.
   const isEn = locale === "en";
+  const isDe = locale === "de";
   const isMac = useIsMac();
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -120,15 +126,15 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
     const q = query.trim();
     if (!q) return [];
     const matches = allPages.filter((p) => {
-      const title = isEn ? p.titleEn : p.titleDe;
-      const summary = isEn ? p.summaryEn : p.summaryDe;
-      const cat = isEn ? p.categoryTitleEn : p.categoryTitleDe;
+      const title = isDe ? p.titleDe : p.titleLocalized;
+      const summary = isDe ? p.summaryDe : p.summaryLocalized;
+      const cat = isDe ? p.categoryTitleDe : p.categoryTitleLocalized;
       return tokenMatch(`${title} ${summary} ${cat}`, q);
     });
     return matches
       .slice()
-      .sort((a, b) => scorePage(b, q, isEn) - scorePage(a, q, isEn));
-  }, [query, allPages, isEn]);
+      .sort((a, b) => scorePage(b, q, isDe) - scorePage(a, q, isDe));
+  }, [query, allPages, isDe]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -222,10 +228,10 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
                 <Card className="h-full rounded-xl transition-all duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-foreground/30 group-hover:shadow-md group-hover:bg-accent/30">
                   <CardHeader>
                     <CardTitle className="text-lg group-hover:text-foreground">
-                      {isEn ? cat.titleEn : cat.titleDe}
+                      {isDe ? cat.titleDe : cat.titleLocalized}
                     </CardTitle>
                     <CardDescription>
-                      {isEn ? cat.questionEn : cat.questionDe}
+                      {isDe ? cat.questionDe : cat.questionLocalized}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -293,14 +299,14 @@ export function WikiHubSearch({ categories, allPages, locale }: Props) {
                       <div className="flex-1 min-w-0">
                         <div className="mb-1 flex items-center gap-2">
                           <Badge variant="outline" className="rounded-full text-[10px] font-normal">
-                            {isEn ? p.categoryTitleEn : p.categoryTitleDe}
+                            {isDe ? p.categoryTitleDe : p.categoryTitleLocalized}
                           </Badge>
                         </div>
                         <h3 className="font-medium leading-snug group-hover:text-foreground">
-                          {isEn ? p.titleEn : p.titleDe}
+                          {isDe ? p.titleDe : p.titleLocalized}
                         </h3>
                         <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                          {isEn ? p.summaryEn : p.summaryDe}
+                          {isDe ? p.summaryDe : p.summaryLocalized}
                         </p>
                       </div>
                       <ArrowRight

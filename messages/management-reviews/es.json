@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Revisiones por la dirección",
+    "description": "Reuniones de supervisión por la dirección y decisiones estratégicas. Exigido por el Art. 20(1) NIS2.",
+    "helpText": "Documente las reuniones de revisión por la dirección en las que el órgano de dirección evalúa la postura de ciberseguridad. El Art. 20 NIS2 hace a la dirección personalmente responsable de aprobar y supervisar las medidas de ciberseguridad. Registre los asistentes, los temas tratados y las decisiones adoptadas.",
+    "add": "Añadir revisión",
+    "edit": "Editar revisión",
+    "empty": "Aún no se ha registrado ninguna revisión por la dirección. Programe su primera revisión.",
+    "deleteConfirm": "¿Está seguro de que desea eliminar esta revisión?",
+    "actions": "Acciones",
+    "fields": {
+      "title": "Título",
+      "reviewDate": "Fecha de la revisión",
+      "decisions": "Decisiones",
+      "actionItems": "Acciones a realizar",
+      "nextReviewDate": "Fecha de la próxima revisión"
+    },
+    "fieldDescriptions": {
+      "title": "Título de la reunión de revisión por la dirección (p. ej., 'Revisión de ciberseguridad del 1.er trimestre de 2025').",
+      "reviewDate": "Fecha en que tuvo lugar la reunión de revisión por la dirección.",
+      "decisions": "Documente las decisiones clave adoptadas por la dirección en relación con la postura de ciberseguridad, la asignación de recursos y la aceptación de riesgos.",
+      "actionItems": "Enumere las acciones de seguimiento concretas asignadas durante la revisión, incluidos los responsables y los plazos.",
+      "nextReviewDate": "Fecha en que está programada la próxima revisión por la dirección. El Art. 20 NIS2 exige una supervisión continua por parte de la dirección."
+    }
+  }
+}

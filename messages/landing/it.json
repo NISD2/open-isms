@@ -1,0 +1,42 @@
+{
+  "landing": {
+    "title": "Dimezza il conto <blue>NIS2</blue> dell'Europa.",
+    "eyebrow": "Open source · Gratuita · Nessun lock-in",
+    "subtitle": "La piattaforma gratuita con cui le aziende regolamentate e i loro fornitori implementano NIS2: autovalutazione, modelli e formazione per la direzione. Open source, nessun lock-in.",
+    "productLine": "Conformità NIS2 e informazioni gratuite per le aziende regolamentate e i loro fornitori.",
+    "regLine": "Direttiva NIS2 (UE) 2022/2555 · CIR 2024/2690",
+    "supplierDoor": "Hai ricevuto un questionario NIS2 da un cliente? Vai al portale fornitori.",
+    "trust1": "Open source, nessun lock-in",
+    "trust2": "In hosting in Germania, conforme al GDPR",
+    "trust3": "Sviluppata secondo lo standard più rigoroso (BSIG §30, IT-Grundschutz), valida in tutta l'UE",
+    "proofOpenSource": "Open source, consultabile su GitHub",
+    "proofEuHosted": "In hosting nell'UE",
+    "cardGetTitle": "Cosa ottieni",
+    "cardGet1": "Gli obblighi NIS2 dell'articolo 21 NIS2 (in Germania § 30 BSIG) come checklist guidata, non una piattaforma vuota.",
+    "cardGet2": "Le evidenze e l'audit trail si costruiscono da soli a partire dal tuo lavoro: assegnazioni, scadenze, firme di approvazione.",
+    "cardGet3": "Tutto esportabile, nessun lock-in. I tuoi dati restano i tuoi dati.",
+    "cardWhyFreeTitle": "Perché gratuita?",
+    "cardWhyFree": "La piattaforma è gratuita e open source. Guadagniamo dalla formazione e dall'implementazione guidata, non dai tuoi dati. Il codice e gli schemi sono aperti su GitHub, così puoi verificare di persona.",
+    "cardTrustLink": "Scopri di più nel Trust Center",
+    "badge": "NIS2 / BSIG - Scadenza: marzo 2026",
+    "badgeTooltip": "Il BSIG tedesco (BSI-Gesetz) che recepisce la direttiva NIS2 dell'UE impone agli enti interessati di implementare tutte le misure di cibersicurezza entro marzo 2026. La non conformità comporta sanzioni fino a €10 milioni o al 2% del fatturato globale e la responsabilità personale degli amministratori.",
+    "nis2Badge": "Direttiva NIS2 (UE) 2022/2555",
+    "nis2BadgeTooltip": "Sviluppata sull'intera direttiva NIS2 che copre tutti i 27 Stati membri dell'UE. Tutte le 10 misure di cibersicurezza dell'articolo 21 mappate e implementate. Valida in ogni Paese dell'UE, non solo in Germania.",
+    "cirBadge": "CIR 2024/2690",
+    "cirBadgeTooltip": "Il regolamento di esecuzione (UE) 2024/2690 della Commissione definisce i requisiti tecnici più rigorosi per la conformità NIS2. Stabilisce il livello di base comune in tutti gli Stati membri dell'UE per fornitori DNS, registri TLD, fornitori di servizi cloud, data center, CDN, servizi gestiti, servizi di sicurezza gestiti, mercati online, motori di ricerca, social network e prestatori di servizi fiduciari.",
+    "bsigBadge": "BSIG §30 | impostazioni predefinite IT-Grundschutz",
+    "bsigBadgeTooltip": "Sviluppata sul § 30 BSIG tedesco -- il recepimento NIS2 più rigoroso dell'UE -- con le impostazioni predefinite della metodologia IT-Grundschutz. Adèguati una volta, valida in 27 Stati membri dell'UE. Il § 44(2) BSIG riconosce l'implementazione del Grundschutz come conformità NIS2.",
+    "checkApplicability": "Verifica se NIS2 si applica a te",
+    "scheduleDemo": "Prenota una demo",
+    "startTraining": "Formazione gratuita per amministratori",
+    "ctaStart": "Inizia subito il tuo percorso NIS2",
+    "signIn": "Accedi per avviare il processo",
+    "nav": {
+      "wiki": "Wiki",
+      "pricing": "Prezzi",
+      "about": "Chi siamo",
+      "cta": "Inizia ora",
+      "dashboard": "Dashboard"
+    }
+  }
+}

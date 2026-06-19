@@ -1,0 +1,128 @@
+{
+  "grcComparison": {
+    "meta": {
+      "title": "Audit tarifaire GRC / ISMS / NIS2 : 136 éditeurs commerciaux vérifiés",
+      "description": "Le 17 mai 2026, nous avons consulté les pages tarifaires de 136 plateformes commerciales GRC, ISMS et NIS2. 103 d'entre elles ne vous indiquent pas leur prix sans un rendez-vous de démonstration. Voici la liste complète, triable et filtrable. Neuf alternatives open source sont exclues à dessein."
+    },
+    "hero": {
+      "eyebrow": "Audit de marché · 17 mai 2026",
+      "title": "Nous avons audité 136 plateformes GRC/ISMS commerciales. 103 ne vous indiquent pas leur prix.",
+      "subtitle": "Nous avons relevé la page tarifaire de chaque éditeur mot pour mot. Lorsque le prix est masqué derrière un formulaire de démonstration, nous indiquons « Rendez-vous de démonstration requis ». Aucune estimation, aucune source tierce. Neuf alternatives open source (verinice, CISO Assistant, Deming, ISMS Builder, Unicis CE, nous-mêmes et d'autres) sont exclues de cette liste car elles ne vous vendent pas d'abonnement.",
+      "ctaPlatform": "Démarrer gratuitement",
+      "ctaMethodology": "Méthodologie"
+    },
+    "stats": {
+      "totalLabel": "Éditeurs audités",
+      "transparentLabel": "Tarification publique",
+      "partialLabel": "Prix de départ uniquement",
+      "gatedLabel": "Rendez-vous de démonstration requis",
+      "nis2Label": "NIS2 comme référentiel",
+      "ossLabel": "Open source",
+      "countriesLabel": "Pays",
+      "lastUpdatedPrefix": "Au :"
+    },
+    "thesis": {
+      "title": "Pourquoi ce marché est mûr pour une disruption",
+      "body": "76 % de ces 136 éditeurs commerciaux GRC/ISMS masquent leurs prix. Les produits sont des formulaires, des modèles et des listes de contrôle au-dessus d'une base de données. Le coût marginal d'un client supplémentaire est proche de zéro. Le prix, lui, ne l'est pas. Voici les preuves.",
+      "points": [
+        {
+          "title": "Des contrats annuels à cinq chiffres pour un formulaire",
+          "body": "Vanta, Drata, Secureframe, OneTrust, MetricStream, IBM OpenPages, ServiceNow GRC, Archer, Diligent — chaque suite GRC d'entreprise masque sa tarification et facture plus de 30 000 €/an pour un outil de workflow avec modèles."
+        },
+        {
+          "title": "Les éditeurs d'Europe de l'Est sont 10 fois moins chers et transparents",
+          "body": "Copla (LT) vend NIS2 à 3 500 €/an en référence dédiée. NIS2 Manager (CZ) à environ 980 €/mois. Conformio (HR) à 145 €/mois. Même catégorie de produit, décision tarifaire différente."
+        },
+        {
+          "title": "La concurrence OSS progresse depuis l'Allemagne et la France",
+          "body": "ISMS Builder (DE, AGPL), CISO Assistant (FR, AGPLv3, plus de 130 référentiels), Little-ISMS-Helper (DACH), Deming (FR) — tous auto-hébergés et gratuits, tous explicitement NIS2."
+        },
+        {
+          "title": "La consolidation du marché s'accélère",
+          "body": "AuditBoard → Optro. CONTECHNET → i-doit. DocSetMinder → Allgeier. 3rdRisk → Diligent. RISMA + Wired Relations + ComplyCloud → Cerivo. StandardFusion → Wolters Kluwer. Galvanize → Diligent. Tugboat → OneTrust. Archer → Cinven."
+        }
+      ]
+    },
+    "filters": {
+      "searchPlaceholder": "Rechercher un éditeur…",
+      "tierLabel": "Modèle de tarification",
+      "tierAll": "Tous",
+      "tierTransparent": "Transparent",
+      "tierPartial": "Partiel",
+      "tierGated": "Démonstration",
+      "tierUnverifiable": "Invérifiable",
+      "countryLabel": "Pays",
+      "countryAll": "Tous les pays",
+      "categoryLabel": "Catégorie",
+      "categoryAll": "Toutes les catégories",
+      "categoryIsms": "ISMS",
+      "categoryGrc": "GRC",
+      "categoryTprm": "Risque fournisseur",
+      "categoryConsultancy": "Conseil + SaaS",
+      "categoryAudit": "Audit",
+      "categoryRatings": "Notations cyber",
+      "categoryTemplate": "Boutique de modèles",
+      "categoryAiGrc": "GRC IA",
+      "categoryEndpoint": "Postes de travail",
+      "categoryVuln": "Vulnérabilités",
+      "categoryCspm": "Sécurité cloud",
+      "categoryIam": "IAM/Menace interne",
+      "categoryTraining": "Sensibilisation",
+      "categoryAsset": "Gestion des actifs",
+      "categoryReporting": "Reporting",
+      "categoryComms": "Communications sécurisées",
+      "nis2OnlyLabel": "Éditeurs NIS2 uniquement",
+      "freeTierLabel": "Dispose d'une option gratuite",
+      "ossLabel": "Open source uniquement",
+      "resetButton": "Réinitialiser les filtres"
+    },
+    "table": {
+      "name": "Éditeur",
+      "country": "Pays",
+      "category": "Catégorie",
+      "tier": "Tarification",
+      "entryPrice": "Entrée de gamme",
+      "nis2": "NIS2",
+      "freeTier": "Gratuit",
+      "source": "Source",
+      "noResults": "Aucun éditeur trouvé. Réinitialisez les filtres.",
+      "tierBadgeTransparent": "Transparent",
+      "tierBadgePartial": "Partiel",
+      "tierBadgeGated": "Démonstration",
+      "tierBadgeUnverifiable": "Invérifiable",
+      "nis2Yes": "Oui",
+      "nis2No": "Non",
+      "freeTierNone": "—",
+      "freeTierTrial": "Essai",
+      "freeTierFreemium": "Gratuit",
+      "freeTierOss": "OSS",
+      "viewVendorPricing": "Ouvrir la page tarifaire",
+      "lastVerified": "Vérifié",
+      "dataExport": "Export des données",
+      "dataExportFullOpen": "Entièrement ouvert",
+      "dataExportPartial": "Partiel",
+      "dataExportReportOnly": "Rapports uniquement",
+      "dataExportNone": "Rien de documenté",
+      "dataExportUnknown": "—"
+    },
+    "methodology": {
+      "title": "Méthodologie",
+      "verified": "Vérifié le",
+      "rules": [
+        "Nous avons consulté manuellement chaque page tarifaire.",
+        "Les prix sont cités mot pour mot depuis le site de l'éditeur.",
+        "Aucune extrapolation à partir de G2, Capterra, de blogs tiers ou de LinkedIn.",
+        "Lorsque les prix sont masqués derrière un formulaire de démonstration : « Rendez-vous de démonstration requis ».",
+        "Lorsque les prix ne sont indiqués que sous la forme « à partir de X € » : « Transparence partielle ».",
+        "Réaudit trimestriel. Les éditeurs peuvent soumettre des corrections."
+      ],
+      "correctionsTitle": "Soumettre une correction",
+      "correctionsBody": "Nos données sur votre produit sont-elles erronées ? Écrivez à simon@nisd2.eu en indiquant l'URL de votre page tarifaire. Nous mettons à jour sous 48 heures et tenons un journal des modifications."
+    },
+    "cta": {
+      "title": "Gratuit + Open Source + sans lock-in",
+      "body": "Nous ne vendons pas la conformité NIS2. Nous la rendons accessible. Gratuit, open source, sans équipe commerciale qui vous appelle.",
+      "button": "Lancer la plateforme"
+    }
+  }
+}

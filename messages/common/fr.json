@@ -1,0 +1,58 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "next": "Suivant",
+    "open": "Ouvrir",
+    "optional": "facultatif",
+    "loading": "Chargement...",
+    "entries": "{count} entrées",
+    "select": "Sélectionner...",
+    "yes": "Oui",
+    "no": "Non",
+    "noData": "Aucune donnée",
+    "user": "Utilisateur",
+    "modules": {
+      "asset": "Actifs",
+      "risk": "Risques",
+      "incident": "Incidents",
+      "supplier": "Fournisseurs",
+      "policy": "Politiques",
+      "training_record": "Registres de formation",
+      "exercise": "Exercices",
+      "management_review": "Revues de direction",
+      "kpi_measurement": "Mesures des KPI",
+      "change_request": "Demandes de changement",
+      "patch_record": "Registres de correctifs",
+      "internal_audit": "Audits internes",
+      "improvement_item": "Améliorations",
+      "bsi_registration": "Enregistrement BSI",
+      "bsi_incident_report": "Notifications d'incident BSI"
+    },
+    "moduleRef": {
+      "confirmCompliance": "Confirmer la conformité",
+      "noRecords": "Aucun enregistrement pour le moment - ajoutez d'abord des données dans le module"
+    }
+  },
+  "status": {
+    "not_started": "Ouvert",
+    "in_progress": "En cours",
+    "completed": "Terminé",
+    "not_applicable": "S.O.",
+    "needs_review": "Revue requise",
+    "approved": "Approuvé",
+    "rejected": "Rejeté"
+  },
+  "priority": {
+    "P0": "Critique - action immédiate requise",
+    "P1": "Élevée - à traiter au cours du cycle actuel",
+    "P2": "Moyenne - à planifier pour le prochain cycle",
+    "P3": "Faible - à traiter dès que possible"
+  },
+  "metadata": {
+    "title": "Plateforme de conformité NIS2",
+    "description": "Gestion de la conformité NIS2/BSIG 2025"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Gestione delle patch",
+    "description": "Tracciamento di patch e vulnerabilità per asset. Richiesto dall'Art. 21(2)(e) NIS2.",
+    "helpText": "Tieni traccia delle patch e delle vulnerabilità note per i tuoi asset registrati. Registra lo stato della patch (in sospeso, applicata, differita), i riferimenti CVE e le scadenze. La NIS2 richiede una gestione tempestiva delle vulnerabilità e delle patch.",
+    "add": "Aggiungi registrazione di patch",
+    "edit": "Modifica registrazione di patch",
+    "empty": "Ancora nessuna registrazione di patch. Aggiungi la tua prima registrazione di patch.",
+    "deleteConfirm": "Sei sicuro di voler eliminare questa registrazione di patch?",
+    "actions": "Azioni",
+    "severity": {
+      "critical": "Critica",
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Bassa"
+    },
+    "status": {
+      "pending": "In sospeso",
+      "applied": "Applicata",
+      "exception": "Eccezione",
+      "not_applicable": "Non applicabile"
+    },
+    "fields": {
+      "patchIdentifier": "ID patch",
+      "severity": "Gravità",
+      "title": "Titolo",
+      "assetId": "Asset",
+      "status": "Stato",
+      "releaseDate": "Data di rilascio",
+      "appliedAt": "Applicata il",
+      "exceptionReason": "Motivo dell'eccezione"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Identificatore della patch del fornitore o numero CVE (ad es. 'KB5034441', 'CVE-2024-1234').",
+      "severity": "Seleziona il livello di gravità della vulnerabilità a cui questa patch si rivolge: critica, alta, media o bassa.",
+      "title": "Breve descrizione di ciò che questa patch corregge o della vulnerabilità a cui si rivolge.",
+      "assetId": "Seleziona dal registro degli asset quello a cui si applica questa patch.",
+      "status": "Stato attuale della patch: in sospeso (non ancora applicata), applicata, eccezione (differimento con rischio accettato) o non applicabile.",
+      "releaseDate": "Data in cui il fornitore ha rilasciato questa patch.",
+      "appliedAt": "Data in cui questa patch è stata applicata con successo all'asset di destinazione.",
+      "exceptionReason": "Se lo stato è Eccezione, fornisci la giustificazione per il differimento o la mancata applicazione di questa patch."
+    }
+  }
+}

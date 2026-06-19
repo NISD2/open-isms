@@ -1,0 +1,352 @@
+{
+  "riskAssessment": {
+    "page": {
+      "title": "Evaluación de riesgos de NIS2",
+      "subtitle": "Ocho preguntas por activo. Schutzbedarf por Grundwert y una Absicherungsvariante recomendada según el espíritu del BSI Grundschutz 200-2 §8.2.",
+      "metaTitle": "Evaluación de riesgos de NIS2. Gratis, sin registro",
+      "metaDescription": "Heurística gratuita de 8 preguntas según el espíritu de la Schutzbedarfsfeststellung del BSI Grundschutz 200-2 §8.2. Clasificación por Grundwert (V/I/A → normal/hoch/sehr hoch) con agregación según el Maximum-Prinzip y una Absicherungsvariante recomendada."
+    },
+    "hero": {
+      "eyebrow": "Gratis, código abierto, sin registro",
+      "headline": "Evaluación de riesgos de NIS2",
+      "headlineAccent": "en menos de 5 minutos",
+      "subhead": "Ocho preguntas por activo. Necesidad de protección por Grundwert y una ruta de implementación recomendada según el espíritu del BSI Grundschutz 200-2 §8.2."
+    },
+    "intro": {
+      "trustLine": "Clasificación por Grundwert (V/I/A) con Maximum-Prinzip. NIS2 Art 21(1) + Art 21(2)(a), BSIG §30. Sin registro, el resultado se queda con usted.",
+      "inventoryHint": "Una vez que tenga su inventario de la Lección 2.2 de nuestro curso para directivos, cada activo lleva menos de un minuto.",
+      "courseLinkLabel": "Abrir el curso para directivos"
+    },
+    "actions": {
+      "exportPdf": "Guardar como PDF",
+      "exportPdfDisabled": "Complete la evaluación para habilitar la exportación a PDF"
+    },
+    "example": {
+      "label": "Resultado de ejemplo",
+      "assetName": "Puesto de trabajo local de RR. HH.",
+      "tierLabel": "Recomendación",
+      "tierExplanation": "Se recomienda Basis-Absicherung; Schutzbedarf normal en los tres Grundwerte.",
+      "docsLabel": "Respuestas (resumidas)"
+    },
+    "steps": {
+      "questionLabel": "Pregunta {current} de {total}",
+      "next": "Siguiente",
+      "back": "Atrás",
+      "showResult": "Mostrar resultado",
+      "restart": "Reiniciar",
+      "downloadPdf": "Descargar como PDF"
+    },
+    "tiers": {
+      "basis": {
+        "label": "Basis",
+        "shortLabel": "Basis",
+        "description": "Basis-Absicherung: entrada amplia y poco profunda, Bausteine de esfuerzo mínimo. Aceptable para activos con Schutzbedarf normal en todos los Grundwerte y sin indicios graves de implementación."
+      },
+      "standard": {
+        "label": "Standard",
+        "shortLabel": "Standard",
+        "description": "Standard-Absicherung: Bausteine completos de Grundschutz con plena profundidad de implementación. Certificable según ISO 27001 sobre la base de IT-Grundschutz. Obligatorio cuando cualquier Grundwert alcanza hoch o cuando los indicios de implementación son graves."
+      },
+      "kern": {
+        "label": "Kern",
+        "shortLabel": "Kern",
+        "description": "Kern-Absicherung: concentre la implementación de plena profundidad Standard en este activo como Kronjuwel. La Vorgehensweise Kern centra el esfuerzo del SGSI primero en los activos con Schutzbedarf sehr hoch."
+      }
+    },
+    "schutzbedarf": {
+      "heading": "Schutzbedarfsfeststellung según BSI-200-2 §8.2",
+      "subtitle": "Clasificación por Grundwert (Vertraulichkeit, Integrität, Verfügbarkeit) en la escala normal / hoch / sehr hoch. El más alto de los tres determina el Gesamt-Schutzbedarf (Maximum-Prinzip).",
+      "grundwerte": {
+        "v": {
+          "shortLabel": "Vertraulichkeit",
+          "description": "¿Qué grado de sensibilidad tienen los datos? ¿Causaría daños un acceso no autorizado?"
+        },
+        "i": {
+          "shortLabel": "Integrität",
+          "description": "¿Qué grado de criticidad tiene la exactitud de los datos? ¿Causarían daños la manipulación, el fraude o la corrupción?"
+        },
+        "a": {
+          "shortLabel": "Verfügbarkeit",
+          "description": "¿Qué grado de disponibilidad debe tener? ¿Cuál es la consecuencia de una interrupción?"
+        }
+      },
+      "classes": {
+        "normal": { "label": "Normal" },
+        "hoch": { "label": "Hoch" },
+        "sehrHoch": { "label": "Sehr hoch" }
+      },
+      "scenariosLabel": "Escenarios de daño (§8.2.1)",
+      "scenarios": {
+        "gesetzeVorschriftenVertraege": { "label": "Infracción de leyes, normativas y contratos" },
+        "informationellesSelbstbestimmungsrecht": { "label": "Menoscabo de la autodeterminación informativa (datos personales)" },
+        "persoenlicheUnversehrtheit": { "label": "Menoscabo de la integridad física de las personas" },
+        "aufgabenerfuellung": { "label": "Menoscabo del cumplimiento de las funciones" },
+        "innenAussenwirkung": { "label": "Impacto interno o externo negativo (reputación)" },
+        "finanziell": { "label": "Impacto financiero" }
+      },
+      "gesamtLabel": "Gesamt-Schutzbedarf",
+      "gesamtBody": "Maximum-Prinzip: el más alto de los tres Grundwerte determina el Schutzbedarf global. Grundwert determinante aquí: <grundwert></grundwert>."
+    },
+    "variante": {
+      "heading": "Absicherungsvariante recomendada",
+      "subtitle": "La ruta de implementación (BSI-200-2 §3.4) que sugiere su Gesamt-Schutzbedarf. Basis/Standard/Kern son las tres Vorgehensweisen del BSI. Distintas de las Schutzbedarfsklassen anteriores.",
+      "recommendedLabel": "Recomendación",
+      "byVariante": {
+        "basis": {
+          "description": "La Basis-Absicherung es una ruta de entrada de inicio rápido con un subconjunto reducido de Bausteine. Aceptable cuando el Schutzbedarf es normal en todos los Grundwerte y los indicios de implementación son leves."
+        },
+        "standard": {
+          "description": "La Standard-Absicherung implementa todos los Bausteine de Grundschutz con plena profundidad. Es la opción recomendada por el BSI para la mayoría de los activos de la Mittelstand y la única Vorgehensweise que admite la certificación ISO 27001 sobre la base de IT-Grundschutz."
+        },
+        "kern": {
+          "description": "La Kern-Absicherung concentra la implementación de plena profundidad Standard en este activo como Kronjuwel. La Vorgehensweise Kern prioriza el esfuerzo del SGSI primero en los activos más críticos. Habitual para activos con Schutzbedarf sehr hoch."
+        }
+      },
+      "bumpedTitle": "Elevado de Basis a Standard por indicios de implementación",
+      "bumpedBody": "Su Gesamt-Schutzbedarf es normal, pero uno o varios indicios de implementación (Schwachstellen / Eintrittswahrscheinlichkeit, ámbito de BSI-200-3) son lo bastante graves como para que el subconjunto reducido de Bausteine de la Basis-Absicherung probablemente no sea suficiente. Los siguientes indicios provocaron la elevación:",
+      "risikoanalyseTitle": "Se requiere Risikoanalyse según BSI-200-3",
+      "risikoanalyseBody": "Cuando al menos un Grundwert alcanza hoch o sehr hoch, la ergänzende Risikoanalyse de BSI-200-3 es obligatoria para este activo (BSI-200-2 §8.5). Esta herramienta no realiza dicho análisis. Identifica que es obligatorio. La Standard-Absicherung más un análisis de riesgos basado en escenarios es la ruta documentada."
+    },
+    "axes": {
+      "personalData": {
+        "question": "¿Qué tipo de datos procesa este sistema?",
+        "shortLabel": "Sensibilidad",
+        "options": {
+          "none": {
+            "label": "Sin datos personales ni especialmente regulados",
+            "why": "Schutzbedarf de Vertraulichkeit normal. Sin DSGVO ni deber elevado de protección sectorial."
+          },
+          "employeeOnly": {
+            "label": "Datos de empleados (expedientes de RR. HH., contratos, salarios)",
+            "why": "Schutzbedarf de Vertraulichkeit normal. Se aplica la DSGVO; bastan las TOMs estándar según el Art 32 DSGVO."
+          },
+          "customer": {
+            "label": "Datos de clientes o datos operativos de negocio (en volumen)",
+            "why": "Schutzbedarf de Vertraulichkeit hoch. Los datos de clientes en volumen o los datos de negocio comercialmente sensibles fijan el suelo de la necesidad de protección en hoch. Se requieren las TOMs estándar más contratos de encargado del tratamiento. Se requiere Risikoanalyse según BSI-200-3."
+          },
+          "sensitivePii": {
+            "label": "Datos sensibles: Art 9 DSGVO (salud, religión) o datos operativos regulados (OT, KRITIS)",
+            "why": "Schutzbedarf de Vertraulichkeit hoch como suelo. Los datos del Art 9 DSGVO activan la evaluación de impacto relativa a la protección de datos del Art 35. Con un alto volumen de usuarios o acceso externo, el Kumulationseffekt §8.2.4 puede elevarlo a sehr hoch. Se requiere Risikoanalyse según BSI-200-3."
+          }
+        }
+      },
+      "integrity": {
+        "question": "Si los datos de este sistema se manipularan (facturas erróneas, registros falsos, transacciones modificadas), ¿qué gravedad tendría?",
+        "shortLabel": "Integridad",
+        "options": {
+          "minor": {
+            "label": "No tiene mucha importancia. Los errores pequeños se detectarían y corregirían fácilmente",
+            "why": "Schutzbedarf de Integrität normal. Bastan las copias de seguridad estándar y los registros de auditoría básicos."
+          },
+          "moderate": {
+            "label": "Cierto impacto. Los datos erróneos causarían confusión operativa o llevaría tiempo corregirlos",
+            "why": "Schutzbedarf de Integrität normal. Bastan las copias de seguridad estándar, los registros de auditoría y la conciliación rutinaria."
+          },
+          "high": {
+            "label": "Significativo. Los datos erróneos podrían causar pérdidas financieras, problemas regulatorios o daños a clientes",
+            "why": "Schutzbedarf de Integrität hoch. Se requieren controles antimanipulación, registro exhaustivo de cambios y flujos de revisión. Se requiere Risikoanalyse según BSI-200-3."
+          },
+          "critical": {
+            "label": "Crítico. Los datos erróneos podrían causar grandes pérdidas financieras, responsabilidad legal o riesgos para la seguridad",
+            "why": "Schutzbedarf de Integrität sehr hoch. Se requieren fuertes medidas antimanipulación (firma, hash), revisión con principio de cuatro ojos y no repudio. Se requiere Risikoanalyse según BSI-200-3. Candidato a Kern-Absicherung."
+          }
+        }
+      },
+      "downtimeTolerance": {
+        "question": "¿Cuánto tarda en notarse que este sistema está caído para los clientes o las operaciones?",
+        "shortLabel": "Interrupción",
+        "options": {
+          "weeks": {
+            "label": "Semanas. Nadie lo notaría realmente.",
+            "why": "Schutzbedarf de Verfügbarkeit normal. Bastan las copias de seguridad estándar."
+          },
+          "days": {
+            "label": "Días. Nos las arreglaríamos con soluciones alternativas.",
+            "why": "Schutzbedarf de Verfügbarkeit normal. Copias de seguridad estándar; se aplica Grundschutz CON.3."
+          },
+          "hours": {
+            "label": "Horas. Los clientes o las operaciones lo notarían.",
+            "why": "Schutzbedarf de Verfügbarkeit hoch. Se requieren Grundschutz CON.3 y planificación de emergencias. Se requiere Risikoanalyse según BSI-200-3."
+          },
+          "minutes": {
+            "label": "Minutos. Las operaciones se detienen de inmediato.",
+            "why": "Schutzbedarf de Verfügbarkeit sehr hoch. Se requieren redundancia, conmutación por error automática y planes de emergencia probados. NIS2 Art 21(2)(c) determinante. Se requiere Risikoanalyse según BSI-200-3."
+          }
+        }
+      },
+      "userCount": {
+        "question": "¿Quién tiene acceso a este sistema?",
+        "shortLabel": "Acceso",
+        "options": {
+          "tiny": {
+            "label": "Unos pocos usuarios estándar (equipo pequeño, sin privilegios especiales)",
+            "why": "Sin Kumulationseffekt. Bastan los controles de acceso estándar (Grundschutz ORP.4)."
+          },
+          "small": {
+            "label": "Muchos usuarios estándar (departamentos enteros, todos sin privilegios especiales)",
+            "why": "Sin Kumulationseffekt a esta escala. Gestión estructurada de roles y revisiones de acceso periódicas. NIS2 Art 21(2)(i)."
+          },
+          "large": {
+            "label": "Incluye usuarios privilegiados (administradores, finanzas, directivos)",
+            "why": "Kumulationseffekt §8.2.4: con datos de alta V (clientes o sensibles), el Schutzbedarf de V puede elevarse un nivel. Separación estricta de roles, MFA en las cuentas privilegiadas."
+          },
+          "externalToo": {
+            "label": "Incluye personas externas (clientes, proveedores, socios)",
+            "why": "El Kumulationseffekt §8.2.4 es más fuerte aquí. Con datos de alta V, el Schutzbedarf de V suele elevarse a sehr hoch. Verificación de identidad, separación de permisos internos/externos, MFA. NIS2 Art 21(2)(d) y (j)."
+          }
+        }
+      },
+      "internetExposure": {
+        "question": "¿Cómo se puede acceder al sistema desde internet?",
+        "shortLabel": "Alcance",
+        "options": {
+          "offline": {
+            "label": "Totalmente desconectado, sin conexión de red",
+            "why": "Indicio de implementación: sin exposición a internet. Se eliminan los vectores de ataque externos; persisten las amenazas internas y físicas."
+          },
+          "internalOnly": {
+            "label": "Solo red interna, sin acceso a internet",
+            "why": "Indicio de implementación: solo exposición interna. Se aplica Grundschutz NET.1.1."
+          },
+          "vpn": {
+            "label": "Accesible solo a través de VPN",
+            "why": "Indicio de implementación: acceso remoto a través de VPN. Se aplican Grundschutz NET.3.3 y ORP.4. NIS2 Art 21(2)(j) MFA proporcionada."
+          },
+          "internetExposed": {
+            "label": "Directamente accesible desde internet",
+            "why": "Indicio de implementación: grave. La superficie de ataque pública eleva la exposición a amenazas (Gefährdungslage de BSI-200-3), por lo que el subconjunto reducido de Bausteine de la Basis-Absicherung probablemente no sea suficiente ni siquiera con Schutzbedarf normal. Eleva la recomendación de Basis a Standard."
+          }
+        }
+      },
+      "vendorSupport": {
+        "question": "¿Seguirán llegando actualizaciones de seguridad para este sistema?",
+        "shortLabel": "Actualizaciones",
+        "options": {
+          "active": {
+            "label": "Sí, el proveedor lo mantiene activamente y publica parches",
+            "why": "Indicio de implementación: bajo riesgo de Schwachstellen. Basta la gestión de parches estándar (Grundschutz OPS.1.1.3)."
+          },
+          "mature": {
+            "label": "Sí, pero los parches llegan solo de vez en cuando",
+            "why": "Indicio de implementación: riesgo moderado de Schwachstellen. Mayor responsabilidad propia en la supervisión."
+          },
+          "eolAnnounced": {
+            "label": "No, se ha anunciado el fin del soporte",
+            "why": "Indicio de implementación: exposición futura conocida a Schwachstellen. Se requiere migración o controles compensatorios."
+          },
+          "abandoned": {
+            "label": "No, el proveedor ha desaparecido o es un desarrollo interno sin mantenimiento",
+            "why": "Indicio de implementación: grave. El riesgo de Schwachstellen sin parchear justifica Bausteine de nivel Standard incluso cuando el Schutzbedarf es normal. Eleva la recomendación de Basis a Standard."
+          }
+        }
+      },
+      "incidentHistory": {
+        "question": "¿Algún incidente de seguridad con este sistema en los últimos 3 años?",
+        "shortLabel": "Historial",
+        "options": {
+          "none": {
+            "label": "Sin incidentes, y disponemos de registro o supervisión que los detectaría",
+            "why": "Indicio de implementación: ausencia fundamentada. Revisión periódica de eficacia según NIS2 Art 21(2)(f)."
+          },
+          "minor": {
+            "label": "Sin incidentes conocidos, pero no supervisamos activamente el sistema",
+            "why": "Indicio de implementación: ausencia no fundamentada. Configurar un registro básico es el primer paso. NIS2 Art 21(2)(f) recomendado."
+          },
+          "major": {
+            "label": "Un incidente pasado (menor o mayor)",
+            "why": "Indicio de implementación: Eintrittswahrscheinlichkeit conocida. Deben documentarse las lecciones aprendidas. Grundschutz DER.2.1."
+          },
+          "repeated": {
+            "label": "Incidentes múltiples o recurrentes",
+            "why": "Indicio de implementación: grave. Una alta Eintrittswahrscheinlichkeit indica una debilidad estructural; los Bausteine reducidos de la Basis-Absicherung son insuficientes. Eleva la recomendación de Basis a Standard."
+          }
+        }
+      },
+      "replaceability": {
+        "question": "Si este sistema desapareciera esta noche, ¿cuándo estaría operativo con uno equivalente? (Comprar, restaurar desde copia de seguridad o reconstruir cuentan todos.)",
+        "shortLabel": "Recuperación",
+        "options": {
+          "oneDay": {
+            "label": "En un día",
+            "why": "Indicio de implementación: bajo riesgo de BCP. Buena viabilidad de recuperación."
+          },
+          "oneWeek": {
+            "label": "En una semana",
+            "why": "Indicio de implementación: riesgo moderado de BCP. Se necesitan soluciones alternativas para la transición."
+          },
+          "oneMonth": {
+            "label": "En un mes",
+            "why": "Indicio de implementación: riesgo significativo de BCP. Se requiere planificación de emergencias (Grundschutz DER.4)."
+          },
+          "irreplaceable": {
+            "label": "En absoluto, o solo como un largo desarrollo a medida",
+            "why": "Indicio de implementación: grave. La inexistencia efectiva de una opción de recuperación de BCP significa que incluso los activos con Schutzbedarf normal necesitan medidas de protección de profundidad Standard. Eleva la recomendación de Basis a Standard."
+          }
+        }
+      }
+    },
+    "result": {
+      "heading": "Resultado de la evaluación de riesgos",
+      "whyHeading": "Justificación por eje",
+      "whySubtitle": "Estas frases constituyen la base de la justificación del Schutzbedarf y de la Absicherungsvariante. Úselas sin cambios o adáptelas con el órgano de dirección.",
+      "bausteineHeading": "Bausteine de Grundschutz aplicables (recomendados)",
+      "bausteineSubtitle": "Lista orientativa del catálogo IT-Grundschutz basada en la Absicherungsvariante recomendada. El paso canónico de Modellierung según BSI-200-2 §8.3 sigue produciéndose en el trabajo de SGSI del operador.",
+      "measuresHeading": "Medidas según el Art 21(2) NIS2",
+      "measuresSubtitle": "El Art 21(2) NIS2 enumera diez medidas que toda entidad dentro del ámbito de aplicación debe implementar («incluirán al menos lo siguiente»). La profundidad de implementación sigue su Absicherungsvariante: Basis requiere evidencias mínimas; Standard la plena profundidad de Grundschutz; Kern una profundización adicional específica del riesgo según BSI-200-3 sobre el activo Kronjuwel.",
+      "cirNote": "Para los 11 tipos de entidades dentro del ámbito de aplicación del CIR 2024/2690 (servicios de computación en nube, centros de datos, MSP y MSSP, proveedores de DNS, registros de TLD, redes de distribución de contenidos, mercados en línea, motores de búsqueda, redes sociales, prestadores de servicios de confianza), el Anexo establece normas de aplicación detalladas. Las demás entidades aplican BSI Grundschutz como la metodología reconocida.",
+      "signoffHeading": "Aprobación del órgano de dirección",
+      "signoffBody": "Esta evaluación solo es vinculante con la aprobación del órgano de dirección (§38 BSIG, Art 20 NIS2). Introduzca el nombre, la fecha y la firma en el documento impreso."
+    },
+    "chart": {
+      "ariaLabel": "Gráfico de radar de la evaluación de riesgos",
+      "title": "Evaluación de riesgos como gráfico de radar, ocho ejes"
+    },
+    "disclaimer": {
+      "heading": "Nota legal",
+      "body": "Esta herramienta es una clasificación informativa basada en sus respuestas. No constituye asesoramiento jurídico conforme a la RDG alemana. La evaluación solo es vinculante con la aprobación del órgano de dirección según el §38 BSIG y el Art 20 NIS2.",
+      "methodologyDisclosure": "Schutzbedarfsfeststellung por activo alineada con BSI-200-2 §8.2 (presupone que su Sicherheitsleitlinie §4 y su Strukturanalyse §8.1 ya están establecidas). Clasificación por Grundwert (V/I/A) en la escala normal/hoch/sehr-hoch del BSI, Maximum-Prinzip según §8.2.3, Kumulationseffekt según §8.2.4 y Schadensszenarien documentados según §8.2.1. La Vererbung, la Modellierung (§8.3), el IT-Grundschutz-Check (§8.4) y la ergänzende Risikoanalyse de BSI-200-3 siguen siendo trabajo posterior. No es una certificación: eso requiere una auditoría externa acreditada por la DAkkS."
+    },
+    "art21Measures": {
+      "a": {
+        "label": "Análisis de riesgos y políticas de seguridad de los sistemas de información",
+        "refs": "Art 21(2)(a) NIS2 · BSIG §30(2) Nr. 1"
+      },
+      "b": {
+        "label": "Gestión de incidentes",
+        "refs": "Art 21(2)(b) NIS2 · BSIG §30(2) Nr. 2"
+      },
+      "c": {
+        "label": "Continuidad del negocio (copias de seguridad, recuperación ante desastres) y gestión de crisis",
+        "refs": "Art 21(2)(c) NIS2 · BSIG §30(2) Nr. 3"
+      },
+      "d": {
+        "label": "Seguridad de la cadena de suministro (relaciones con proveedores y prestadores de servicios)",
+        "refs": "Art 21(2)(d) NIS2 · BSIG §30(2) Nr. 4"
+      },
+      "e": {
+        "label": "Seguridad en la adquisición, el desarrollo y el mantenimiento, incluidas la gestión y la divulgación de vulnerabilidades",
+        "refs": "Art 21(2)(e) NIS2 · BSIG §30(2) Nr. 5"
+      },
+      "f": {
+        "label": "Políticas y procedimientos para evaluar la eficacia de las medidas de gestión de riesgos",
+        "refs": "Art 21(2)(f) NIS2 · BSIG §30(2) Nr. 6"
+      },
+      "g": {
+        "label": "Prácticas básicas de ciberhigiene y formación en ciberseguridad",
+        "refs": "Art 21(2)(g) NIS2 · BSIG §30(2) Nr. 7"
+      },
+      "h": {
+        "label": "Políticas y procedimientos sobre el uso de criptografía y, cuando proceda, cifrado",
+        "refs": "Art 21(2)(h) NIS2 · BSIG §30(2) Nr. 8"
+      },
+      "i": {
+        "label": "Seguridad de los recursos humanos, políticas de control de acceso y gestión de activos",
+        "refs": "Art 21(2)(i) NIS2 · BSIG §30(2) Nr. 9"
+      },
+      "j": {
+        "label": "Autenticación multifactor o continua, comunicaciones de voz/vídeo/texto seguras y comunicaciones de emergencia seguras",
+        "refs": "Art 21(2)(j) NIS2 · BSIG §30(2) Nr. 10"
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "3.1",
   slug: "building-your-sbom",
-  title: { en: "Building Your SBOM: Tools and Pipeline Integration", de: "SBOM erstellen: Werkzeuge und Pipeline-Integration" },
+  title: { en: "Building Your SBOM: Tools and Pipeline Integration", de: "SBOM erstellen: Werkzeuge und Pipeline-Integration", fr: "Créer votre SBOM : outils et intégration dans le pipeline", it: "Creare il vostro SBOM: strumenti e integrazione nella pipeline", es: "Crear su SBOM: herramientas e integración en el pipeline", pl: "Tworzenie SBOM: narzędzia i integracja z pipeline" },
   moduleId: "module-3",
   order: 0,
   contentFile: "3-1",

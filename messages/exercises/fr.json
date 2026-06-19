@@ -1,0 +1,44 @@
+{
+  "exercises": {
+    "title": "Exercices",
+    "description": "Exercices de continuité d'activité / reprise après sinistre et de réponse aux incidents. Exigé par l'art. 21(2)(c) NIS2.",
+    "helpText": "Planifiez et documentez les exercices de continuité d'activité et de reprise après sinistre. NIS2 exige des tests réguliers de vos plans de continuité. Consignez le type d'exercice, les participants, les constatations et les actions de suivi.",
+    "add": "Ajouter un exercice",
+    "edit": "Modifier l'exercice",
+    "empty": "Aucun exercice planifié pour l'instant. Programmez votre premier exercice.",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet exercice ?",
+    "actions": "Actions",
+    "type": {
+      "tabletop": "Sur table",
+      "technical": "Technique",
+      "red_team": "Red team",
+      "full_scale": "Grandeur nature"
+    },
+    "exerciseType": {
+      "tabletop": "Sur table",
+      "technical": "Technique",
+      "red_team": "Red team",
+      "full_scale": "Grandeur nature"
+    },
+    "fields": {
+      "title": "Titre",
+      "exerciseType": "Type d'exercice",
+      "domain": "Domaine",
+      "scheduledDate": "Date prévue",
+      "completedAt": "Réalisé le",
+      "scenarioDescription": "Scénario",
+      "facilitator": "Animateur",
+      "lessonsLearned": "Enseignements tirés"
+    },
+    "fieldDescriptions": {
+      "title": "Nom de l'exercice (par ex. « Exercice sur table rançongiciel T1 », « Test de bascule de reprise après sinistre »).",
+      "exerciseType": "Sélectionnez le format de l'exercice : sur table (basé sur la discussion), technique (pratique), red team (simulation d'adversaire) ou grandeur nature (exercice réel).",
+      "domain": "Domaine de sécurité testé (par ex. réponse aux incidents, continuité d'activité, reprise après sinistre, communication de crise).",
+      "scheduledDate": "Date à laquelle cet exercice est prévu.",
+      "completedAt": "Date à laquelle cet exercice a effectivement été réalisé.",
+      "scenarioDescription": "Décrivez le scénario simulé, y compris l'acteur de la menace, le vecteur d'attaque et la réponse organisationnelle attendue.",
+      "facilitator": "Nom de la personne responsable de la planification et de la conduite de cet exercice.",
+      "lessonsLearned": "Documentez les constatations clés, les écarts identifiés et les améliorations recommandées issus de cet exercice."
+    }
+  }
+}

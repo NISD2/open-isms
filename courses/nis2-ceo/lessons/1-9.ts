@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "1.9",
   slug: "ten-measures-overview",
-  title: { en: "The Ten Measures \u2014 Overview", nl: "De tien maatregelen – overzicht", de: "Die zehn Maßnahmen \u2014 Überblick" },
+  title: { en: "The Ten Measures — Overview", nl: "De tien maatregelen – overzicht", de: "Die zehn Maßnahmen — Überblick", fr: "Les dix mesures : vue d'ensemble", it: "Le dieci misure: panoramica", es: "Las diez medidas: visión general", pl: "Dziesięć środków: przegląd" },
   moduleId: "module-1",
   order: 8,
   contentFile: "1-9",

@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Panoramica della conformità alla sicurezza",
+    "risks": "Rischi",
+    "openRisks": "Rischi aperti",
+    "highRisks": "Rischi elevati",
+    "assets": "Asset",
+    "criticalAssets": "Critici",
+    "otAssets": "OT",
+    "incidents": "Incidenti",
+    "suppliers": "Fornitori",
+    "criticalSuppliers": "Critici",
+    "policies": "Policy",
+    "approved": "Approvate",
+    "training": "Formazione",
+    "managementTraining": "Direzione",
+    "exercises": "Esercitazioni di emergenza",
+    "completed": "Completate",
+    "kpis": "Metriche di sicurezza",
+    "changes": "Modifiche",
+    "openChanges": "Aperte",
+    "patches": "Aggiornamenti di sicurezza",
+    "pendingPatches": "In sospeso",
+    "audits": "Autovalutazioni",
+    "plannedAudits": "Pianificate",
+    "improvements": "Azioni da intraprendere",
+    "openImprovements": "Aperte",
+    "complianceByCategory": "Conformità per categoria",
+    "riskMatrix": "Matrice dei rischi",
+    "riskTreatmentDistribution": "Distribuzione del trattamento dei rischi",
+    "noRisksRegistered": "Nessun rischio registrato",
+    "noData": "Nessun dato",
+    "incidentsBySeverity": "Incidenti per gravità",
+    "treatmentLabel": {
+      "mitigate": "Mitigare",
+      "accept": "Accettare",
+      "transfer": "Trasferire",
+      "avoid": "Evitare"
+    },
+    "severity": {
+      "nearMiss": "Quasi incidente",
+      "incident": "Incidente",
+      "significant": "Significativo"
+    },
+    "complianceProgress": "Avanzamento della conformità",
+    "requirementsCompleted": "{completed} di {total} requisiti",
+    "allModules": "Tutti i moduli",
+    "deadlines": {
+      "overdue": "In ritardo",
+      "dueThisWeek": "In scadenza questa settimana",
+      "dueThisMonth": "In scadenza questo mese",
+      "upcoming": "Scadenze imminenti",
+      "overdueDays": "{days}g di ritardo",
+      "dueToday": "In scadenza oggi",
+      "dueDays": "In scadenza tra {days}g"
+    }
+  }
+}

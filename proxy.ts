@@ -175,7 +175,15 @@ function expandPublicPaths(): {
 
 const { exact: PUBLIC_EXACT, prefixes: PUBLIC_PREFIXES } = expandPublicPaths();
 
-const LOCALE_STRIP = /^\/(de|en|nl)(?=\/|$)/i;
+// Derived from routing.locales so newly added locales are stripped too,
+// instead of a hardcoded de|en|nl list that silently 404s/redirects new ones.
+const LOCALE_STRIP = new RegExp(`^/(${routing.locales.join("|")})(?=/|$)`, "i");
+
+// Non-default locale prefixes (the default locale has no URL prefix).
+const NON_DEFAULT_LOCALE_PREFIX = new RegExp(
+  `^/(${routing.locales.filter((l) => l !== routing.defaultLocale).join("|")})(?:/|$)`,
+  "i",
+);
 
 function isPublic(pathname: string): boolean {
   const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
@@ -206,7 +214,7 @@ export async function proxy(request: NextRequest) {
     // locale and has no URL prefix on nisd2.eu. Subpaths are dropped —
     // the EMD has no canonical content beyond root; redirecting deep
     // links to the wedge landing is the safe default.
-    const localeMatch = pathname.match(/^\/(en|nl)(?:\/|$)/i);
+    const localeMatch = pathname.match(NON_DEFAULT_LOCALE_PREFIX);
     const localePrefix = localeMatch ? `/${localeMatch[1].toLowerCase()}` : "";
     const target = new URL(`https://www.nisd2.eu${localePrefix}/sicherheitsfragebogen`);
     target.search = request.nextUrl.search;

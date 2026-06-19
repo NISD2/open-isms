@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Equipo",
+    "pageDescription": "Gestione los miembros del equipo y las invitaciones",
+    "members": {
+      "title": "Miembros",
+      "description": "{count, plural, one {# miembro} other {# miembros}} en su empresa",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "role": "Función",
+      "you": "usted",
+      "assignedCategories": "Categorías asignadas",
+      "complianceRole": "Asignar función"
+    },
+    "invites": {
+      "title": "Invitaciones pendientes",
+      "description": "{count, plural, one {# invitación pendiente} other {# invitaciones pendientes}}",
+      "email": "Correo electrónico",
+      "expires": "Caduca",
+      "linkCopied": "Enlace copiado"
+    },
+    "invite": {
+      "title": "Invitar a un miembro",
+      "description": "Introduzca una dirección de correo electrónico para generar un enlace de invitación",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "colega@empresa.com",
+      "complianceRole": "Función de cumplimiento",
+      "complianceRolePlaceholder": "Seleccione una función (opcional)",
+      "submit": "Invitar",
+      "submitting": "Invitando..."
+    },
+    "assignRole": {
+      "label": "Asignar función",
+      "placeholder": "Seleccione una función...",
+      "success": "Función asignada correctamente",
+      "noCategories": "No hay categorías para esta función"
+    },
+    "remove": {
+      "success": "Miembro eliminado"
+    },
+    "revoke": {
+      "success": "Invitación revocada"
+    },
+    "inline": {
+      "sent": "Invitación enviada a {email}",
+      "linkCopied": "Enlace copiado"
+    },
+    "invalidTitle": "Invitación no válida",
+    "invalidDescription": "Este enlace de invitación no es válido o ya se ha utilizado.",
+    "usedTitle": "Invitación ya utilizada",
+    "usedDescription": "Esta invitación ya se ha aceptado o revocado.",
+    "expiredTitle": "Invitación caducada",
+    "expiredDescription": "Este enlace de invitación ha caducado. Solicite uno nuevo a su administrador.",
+    "accept": {
+      "joinTitle": "Unirse a {company}",
+      "joinDescription": "Le han invitado a unirse como {role}.",
+      "signInDescription": "Le han invitado a unirse como {role}. Inicie sesión o regístrese para continuar.",
+      "signInToAccept": "Inicie sesión para aceptar",
+      "alreadyMemberTitle": "Ya es miembro",
+      "alreadyMemberDescription": "Ya es miembro de una empresa. No puede unirse a otra.",
+      "goToDashboard": "Ir al panel",
+      "wrongAccountTitle": "Cuenta incorrecta",
+      "wrongAccountDescription": "Esta invitación se envió a {inviteEmail}. Ha iniciado sesión como {userEmail}.",
+      "signOutRetry": "Cerrar sesión y volver a intentarlo",
+      "joining": "Uniéndose...",
+      "acceptInvite": "Aceptar invitación",
+      "joined": "Se ha unido a {company}"
+    },
+    "roles": {
+      "ceo": "Director general / Administrador",
+      "ciso": "CISO / Responsable de seguridad de TI",
+      "cto": "CTO / Director de ingeniería",
+      "coo": "COO / Director de operaciones",
+      "cpo": "CPO / Responsable de compras",
+      "hr_director": "Director de RR. HH.",
+      "legal": "Responsable jurídico / de cumplimiento",
+      "dpo": "Delegado de protección de datos"
+    }
+  }
+}

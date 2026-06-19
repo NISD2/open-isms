@@ -1,0 +1,28 @@
+{
+  "onboarding": {
+    "title": "Witamy w zgodności z NIS2",
+    "subtitle": "Skonfiguruj swoją organizację, aby rozpocząć.",
+    "step": "Krok {current} z {total}",
+    "steps": {
+      "company": "Dane organizacji",
+      "team": "Kluczowy personel",
+      "ai": "Asystent AI"
+    },
+    "nav": {
+      "back": "Wstecz",
+      "next": "Dalej",
+      "skip": "Pomiń na razie",
+      "submit": "Utwórz organizację"
+    },
+    "creating": "Konfigurowanie Twojej organizacji...",
+    "createError": "Nie udało się utworzyć organizacji. Spróbuj ponownie.",
+    "mode": {
+      "title": "Wszystko gotowe!",
+      "subtitle": "Jak chcesz kontynuować?",
+      "guided": "Konfiguracja prowadzona",
+      "guidedDescription": "Przejdź przez każdą kategorię zgodności krok po kroku. Ustawienia domyślne są już zastosowane - wystarczy je przejrzeć i dostosować.",
+      "manual": "Konfiguracja ręczna",
+      "manualDescription": "Przejdź bezpośrednio do panelu i pracuj we własnym tempie."
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "organization": {
+    "title": "Configurazione dell'organizzazione",
+    "description": "Registra la tua organizzazione per avviare la valutazione di conformità.",
+    "editTitle": "Impostazioni dell'organizzazione",
+    "editDescription": "Aggiorna i dettagli della tua organizzazione.",
+    "formTitle": "Dettagli dell'organizzazione",
+    "name": "Nome dell'organizzazione",
+    "namePlaceholder": "Acme GmbH",
+    "sector": "Settore NIS2",
+    "sectorPlaceholder": "Seleziona il settore...",
+    "entityType": "Classificazione del soggetto",
+    "entityTypeHelp": "Come definito nel § 28 BSIG 2025",
+    "entityTypes": {
+      "essential": "Soggetto essenziale",
+      "important": "Soggetto importante",
+      "kritis": "Operatore KRITIS"
+    },
+    "legalForm": "Forma giuridica",
+    "legalFormPlaceholder": "ad es. GmbH, AG, KG",
+    "employees": "Numero di dipendenti",
+    "contactEmail": "Email del contatto per la conformità",
+    "cisoName": "CISO / Responsabile della sicurezza IT",
+    "cisoNamePlaceholder": "Jane Smith",
+    "cisoReportsTo": "Il CISO riferisce a",
+    "cisoReportsToPlaceholder": "ad es. CEO, Consiglio di amministrazione",
+    "bsiContactName": "Persona di contatto BSI",
+    "bsiContactNamePlaceholder": "Max Mustermann",
+    "bsiContactEmail": "Email di contatto BSI",
+    "bsiContactPhone": "Telefono di contatto BSI",
+    "bsiRegistrationId": "ID di registrazione BSI",
+    "annualSecurityBudget": "Budget annuale per la sicurezza (EUR)",
+    "primaryLocations": "Sedi principali",
+    "primaryLocationsPlaceholder": "ad es. Berlino, Monaco",
+    "profileSection": "Profilo di sicurezza",
+    "profileSectionDescription": "Questi campi sono richiamati in più requisiti NIS2 e acquisiti nelle istantanee delle firme di approvazione.",
+    "submit": "Avvia la valutazione",
+    "creating": "Configurazione della tua organizzazione in corso...",
+    "createError": "Creazione dell'organizzazione non riuscita. Riprova.",
+    "save": "Salva le modifiche",
+    "saving": "Salvataggio in corso...",
+    "saved": "Modifiche salvate con successo.",
+    "saveError": "Salvataggio delle modifiche non riuscito. Riprova.",
+    "sectors": {
+      "energy": "Energia",
+      "transport": "Trasporti",
+      "banking": "Settore bancario",
+      "financial_market": "Infrastrutture dei mercati finanziari",
+      "health": "Sanità",
+      "drinking_water": "Acqua potabile",
+      "waste_water": "Acque reflue",
+      "digital_infrastructure": "Infrastrutture digitali",
+      "ict_service_management": "Gestione dei servizi TIC (B2B)",
+      "public_administration": "Pubblica amministrazione",
+      "space": "Spazio",
+      "postal_courier": "Servizi postali e di corriere",
+      "waste_management": "Gestione dei rifiuti",
+      "chemicals": "Sostanze chimiche",
+      "food": "Produzione e distribuzione alimentare",
+      "manufacturing": "Fabbricazione",
+      "digital_providers": "Fornitori digitali",
+      "research": "Ricerca"
+    },
+    "teamRoles": {
+      "title": "Personale chiave",
+      "description": "Puoi invitare i membri del team ora o farlo più tardi dalle Impostazioni. Ogni persona che aggiungi verrà invitata e potrà essere assegnata come responsabile per le categorie di conformità.",
+      "name": "Nome",
+      "email": "Email",
+      "role": "Ruolo",
+      "rolePlaceholder": "Seleziona il ruolo...",
+      "addMember": "Aggiungi membro del team",
+      "removeMember": "Rimuovi",
+      "back": "Indietro",
+      "skip": "Salta per ora",
+      "submit": "Continua",
+      "roles": {
+        "ceo": {
+          "label": "CEO / Amministratore delegato",
+          "namePlaceholder": "Jane Doe",
+          "emailPlaceholder": "ceo@company.com"
+        },
+        "ciso": {
+          "label": "CISO / Responsabile della sicurezza IT",
+          "namePlaceholder": "John Smith",
+          "emailPlaceholder": "ciso@company.com"
+        },
+        "cto": {
+          "label": "CTO / Responsabile dell'ingegneria",
+          "namePlaceholder": "Alex Johnson",
+          "emailPlaceholder": "cto@company.com"
+        },
+        "coo": {
+          "label": "COO / Direttore operativo",
+          "namePlaceholder": "Sam Williams",
+          "emailPlaceholder": "coo@company.com"
+        },
+        "cpo": {
+          "label": "CPO / Responsabile degli acquisti",
+          "namePlaceholder": "Pat Taylor",
+          "emailPlaceholder": "cpo@company.com"
+        },
+        "hr_director": {
+          "label": "Direttore delle risorse umane",
+          "namePlaceholder": "Chris Miller",
+          "emailPlaceholder": "hr@company.com"
+        },
+        "legal": {
+          "label": "Responsabile legale / della conformità",
+          "namePlaceholder": "Morgan Davis",
+          "emailPlaceholder": "legal@company.com"
+        },
+        "dpo": {
+          "label": "Responsabile della protezione dei dati",
+          "namePlaceholder": "Robin Garcia",
+          "emailPlaceholder": "dpo@company.com"
+        }
+      }
+    }
+  }
+}

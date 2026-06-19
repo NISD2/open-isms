@@ -1,0 +1,124 @@
+{
+  "sicherheitsfragebogen": {
+    "meta": {
+      "title": "Rispondi una sola volta al questionario di sicurezza | nisd2.eu",
+      "description": "Compila una sola volta l'unico questionario di sicurezza per fornitori e condividilo con ogni cliente. Strutturato secondo l'ENISA NIS 2 TIG v1.0. Gratuito. Open source."
+    },
+    "branding": {
+      "label": "Uno strumento di nisd2.eu"
+    },
+    "landing": {
+      "hero": {
+        "eyebrow": "Portale fornitori di nisd2.eu",
+        "headline": "Rispondi a <u>un solo</u> questionario di sicurezza.",
+        "headlineAccent": "Condividilo con <u>ogni</u> cliente.",
+        "subhead": "Un unico questionario canonico per fornitori, strutturato secondo l'ENISA NIS 2 Technical Implementation Guidance v1.0. Ogni domanda cita il CIR 2024/2690, il § 30 BSIG o il BSI IT-Grundschutz. Gratuito. Open source. I tuoi dati restano portabili.",
+        "anchorBadge": "Strutturato secondo l'ENISA NIS 2 TIG v1.0 §5",
+        "ctaPrimary": "Crea il profilo fornitore",
+        "ctaSecondary": "Cosa contiene il questionario?"
+      },
+      "steps": {
+        "heading": "Come funziona.",
+        "lead": "Tre passaggi, dal primo accesso al primo invito a un cliente.",
+        "items": [
+          {
+            "title": "Crea un profilo",
+            "body": "Accedi con Google. Inserisci il nome dell'azienda e il dominio principale. Due minuti."
+          },
+          {
+            "title": "Rispondi al questionario",
+            "body": "Tre sottopagine nel portale: profilo e descrizione del servizio, misure universali di cibersicurezza ai sensi dell'art. 21(2) NIS 2, sezioni tecniche per tipo di servizio. 59 domande, al tuo ritmo, la bozza si salva automaticamente."
+          },
+          {
+            "title": "Invita i clienti",
+            "body": "Ogni cliente invitato riceve un link magico privato. Nessun profilo pubblico, nessuna indicizzazione da parte dei motori di ricerca."
+          }
+        ]
+      },
+      "sections": {
+        "heading": "Cosa contiene il questionario.",
+        "lead": "Dieci sezioni, ciascuna delle quali cita il paragrafo di riferimento dell'ENISA TIG, del CIR 2024/2690 o del BSI IT-Grundschutz.",
+        "items": [
+          "Identità (CIR §5.2 / registro dei fornitori ENISA TIG §5.2)",
+          "Contatto per gli incidenti (rivolto al cliente)",
+          "Tipo di servizio",
+          "Clausole contrattuali obbligatorie (CIR / ENISA TIG §5.1.4)",
+          "Misure di cibersicurezza (NIS 2 art. 21(2) / ENISA TIG §5.1.2)",
+          "Clausole contrattuali aggiuntive (ENISA TIG §5.1.4 TIPS)",
+          "SaaS, aspetti tecnici",
+          "Software on-prem, aspetti tecnici",
+          "Servizi professionali, dettagli",
+          "Servizi gestiti, dettagli"
+        ],
+        "footnote": "Lo schema completo è pubblico su GitHub ed esportabile in formato JSON."
+      },
+      "serviceTypes": {
+        "heading": "Quattro sezioni tecniche per tipo di servizio.",
+        "lead": "La pagina Tipo di servizio nel portale mostra quattro sezioni aggiuntive. Compila solo quelle corrispondenti a ciò che offri.",
+        "items": [
+          {
+            "title": "SaaS",
+            "fields": "Regione di hosting, cifratura dei dati a riposo e in transito, MFA per gli account amministratore, obiettivo del tempo di ripristino."
+          },
+          {
+            "title": "Software on-prem",
+            "fields": "Distinta base del software (SBOM), rilasci firmati crittograficamente, policy pubblicata di divulgazione delle vulnerabilità, SLA di patching per le CVE critiche."
+          },
+          {
+            "title": "Servizi professionali",
+            "fields": "Ambito dei controlli sui precedenti, NDA con tutti i consulenti, policy documentata sul comportamento presso le sedi del cliente."
+          },
+          {
+            "title": "Servizi gestiti",
+            "fields": "Gestione degli accessi privilegiati, registrazione delle sessioni amministrative, reperibilità 24/7 per gli incidenti di sicurezza."
+          }
+        ]
+      },
+      "preview": {
+        "heading": "Domande di esempio.",
+        "lead": "Sei domande tratte da sezioni diverse, con il testo di aiuto che i fornitori vedono mentre le compilano. Identità, prassi di sicurezza, clausole contrattuali, dichiarazioni sull'IA, dettagli tecnici.",
+        "footnote": "Sei delle 59 domande. Set completo nel portale."
+      },
+      "bsi": {
+        "quote": "Accogliamo con favore le attuali iniziative del settore volte a sviluppare un catalogo unificato di questionari per i fornitori.",
+        "attribution": "BSI NIS-2 FAQ (catena di approvvigionamento e sicurezza).",
+        "context": "Questo portale fornitori È quell'iniziativa del settore. Un catalogo di questionari unificato, costruito privatamente, strutturato secondo la tassonomia canonica dell'UE (ENISA TIG §5) affinché ogni soggetto regolamentato da NIS 2 possa soddisfare il CIR §5.1.4 da un'unica fonte."
+      },
+      "privacy": {
+        "heading": "Bilaterale e privato.",
+        "body": "Sviluppato in Germania, in hosting nell'UE, allineato al BSI Grundschutz. I tuoi dati sono condivisi solo con i clienti che inviti esplicitamente. Nessun URL pubblico, nessuna indicizzazione da parte dei motori di ricerca."
+      },
+      "cta": {
+        "heading": "Inizia in due minuti.",
+        "body": "Accedi con Google. Inserisci il nome dell'azienda e il dominio principale. Compila il questionario al tuo ritmo. Quando sei pronto, invita i tuoi clienti.",
+        "button": "Crea il profilo fornitore"
+      },
+      "related": {
+        "heading": "Continua su nisd2.eu.",
+        "lead": "Questo strumento fa parte dell'ecosistema nisd2.eu. Il resto si trova qui.",
+        "items": [
+          {
+            "title": "Portale fornitori NIS 2",
+            "body": "Stessa funzione, vista dalla prospettiva NIS 2: per gli organi di gestione che implementano il § 30 BSIG.",
+            "href": "/supplier-portal"
+          },
+          {
+            "title": "Schema aperto del questionario",
+            "body": "Lo schema JSON completo con le citazioni delle fonti, riutilizzabile gratuitamente.",
+            "href": "/nis2-lieferanten-fragebogen"
+          },
+          {
+            "title": "Implementazione NIS 2 guidata",
+            "body": "Se desideri assistenza per l'implementazione completa: 500 euro al mese, nessun lock-in.",
+            "href": "/pricing"
+          },
+          {
+            "title": "Open source",
+            "body": "Codice sorgente completo su GitHub con licenza AGPL-3.0.",
+            "href": "/open-source"
+          }
+        ]
+      }
+    }
+  }
+}

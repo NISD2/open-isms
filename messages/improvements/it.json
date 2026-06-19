@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Miglioramenti",
+    "description": "Azioni di miglioramento continuo derivanti da audit, incidenti e revisioni. Supporta il ciclo PDCA ai sensi di NIS2.",
+    "helpText": "Tieni traccia delle azioni di miglioramento individuate da audit, post-mortem degli incidenti, revisioni della direzione e andamento dei KPI. Ogni elemento ha una fonte, una priorità, un responsabile e una data obiettivo. Questo registro dimostra l'impegno della tua organizzazione verso il miglioramento continuo.",
+    "add": "Aggiungi miglioramento",
+    "edit": "Modifica miglioramento",
+    "empty": "Nessuna azione di miglioramento ancora presente. Aggiungi elementi da audit, incidenti o revisioni.",
+    "deleteConfirm": "Sei sicuro di voler eliminare questa azione di miglioramento?",
+    "actions": "Azioni",
+    "source": {
+      "audit": "Audit",
+      "incident": "Incidente",
+      "pentest": "Pentest",
+      "management_review": "Revisione della direzione",
+      "kpi_breach": "Mancato raggiungimento di KPI",
+      "gap_analysis": "Gap analysis",
+      "regulatory_change": "Modifica normativa",
+      "suggestion": "Suggerimento"
+    },
+    "status": {
+      "open": "Aperto",
+      "in_progress": "In corso",
+      "resolved": "Risolto",
+      "verified": "Verificato",
+      "deferred": "Rinviato"
+    },
+    "priority": {
+      "P0": "P0 - Immediato",
+      "P1": "P1 - 3 mesi",
+      "P2": "P2 - 6 mesi",
+      "P3": "P3 - 12 mesi"
+    },
+    "fields": {
+      "title": "Titolo",
+      "description": "Descrizione",
+      "source": "Fonte",
+      "priority": "Priorità",
+      "status": "Stato",
+      "targetDate": "Data obiettivo",
+      "deferralReason": "Motivo del rinvio",
+      "verificationNotes": "Note di verifica"
+    },
+    "fieldDescriptions": {
+      "title": "Breve titolo descrittivo per questa azione di miglioramento (ad es. 'Implementare la MFA per l'accesso VPN').",
+      "description": "Descrizione dettagliata del miglioramento, comprese la lacuna attuale e il risultato desiderato.",
+      "source": "Seleziona dove è stato individuato questo miglioramento: risultanza di audit, post-mortem di un incidente, revisione della direzione, mancato raggiungimento di KPI, ecc.",
+      "priority": "Seleziona il livello di priorità che determina i tempi di attuazione (P0: immediato, P1: 3 mesi, P2: 6 mesi, P3: 12 mesi).",
+      "status": "Stato attuale del miglioramento: aperto, in corso, risolto, verificato (efficacia confermata) o rinviato.",
+      "targetDate": "Data entro la quale questa azione di miglioramento dovrebbe essere completata.",
+      "deferralReason": "Se lo stato è Rinviato, fornisci la giustificazione e la tempistica di ripresa prevista.",
+      "verificationNotes": "Documenta come è stata verificata l'efficacia di questo miglioramento dopo l'attuazione."
+    }
+  }
+}

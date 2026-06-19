@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Configuración",
+    "description": "Gestione la configuración de la plataforma de su organización.",
+    "aiDataSharing": {
+      "title": "Compartir datos con la IA",
+      "description": "Controle qué datos de la organización se comparten con el asistente de IA al generar orientación de cumplimiento. Los datos personales (correos electrónicos, números de teléfono, nombres de personas) nunca se envían.",
+      "none": {
+        "label": "Sin datos de la empresa",
+        "description": "Solo se envían los nombres de los campos, los tipos y el título del requisito. La orientación es genérica.",
+        "preview": "Enviado: definiciones de campos, título del requisito, referencia legal"
+      },
+      "basic": {
+        "label": "Solo datos no sensibles",
+        "description": "Añade el sector, el tipo de entidad y la forma jurídica para una orientación más pertinente.",
+        "preview": "Enviado: lo anterior + sector, subsector, tipo de entidad, forma jurídica"
+      },
+      "full": {
+        "label": "Contexto completo",
+        "description": "Incluye el nombre de la empresa y las métricas de tamaño para la orientación más adaptada.",
+        "preview": "Enviado: lo anterior + nombre de la empresa, número de empleados, facturación anual"
+      }
+    },
+    "saved": "Configuración guardada",
+    "saveError": "No se pudo guardar la configuración",
+    "saving": "Guardando...",
+    "adminOnly": "Solo los administradores pueden cambiar la configuración."
+  }
+}

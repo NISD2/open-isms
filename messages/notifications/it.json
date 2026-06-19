@@ -1,0 +1,19 @@
+{
+  "notifications": {
+    "title": "Notifiche",
+    "description": "Visualizza e gestisci le tue notifiche",
+    "empty": "Nessuna notifica",
+    "acknowledge": "Conferma presa visione",
+    "acknowledged": "Presa visione confermata",
+    "unread": "{count} non lette",
+    "actions": "Azioni",
+    "markRead": "Segna come letta",
+    "markAllRead": "Segna tutte come lette",
+    "fields": {
+      "subject": "Oggetto",
+      "entityType": "Tipo",
+      "scheduledFor": "Programmata per",
+      "status": "Stato"
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "1.2",
   slug: "role-assignments",
-  title: { en: "Role Assignments: Who Must Be in the Room", de: "Rollen: Wer bei der Übung anwesend sein muss" },
+  title: { en: "Role Assignments: Who Must Be in the Room", de: "Rollen: Wer bei der Übung anwesend sein muss", fr: "Attribution des rôles : qui doit être présent", it: "Assegnazione dei ruoli: chi deve essere presente", es: "Asignación de funciones: quién debe estar presente", pl: "Przydział ról: kto musi być obecny" },
   moduleId: "module-1",
   order: 1,
   contentFile: "1-2",

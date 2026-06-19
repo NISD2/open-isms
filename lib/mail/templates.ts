@@ -6,6 +6,8 @@
  *   await sendMail({ to: "user@co.com", ...email });
  */
 
+import type { Locale } from "@/lib/seo";
+
 interface EmailContent {
   subject: string;
   html: string;
@@ -1040,7 +1042,7 @@ export function courseFollowupEmail(opts: {
 // ---------------------------------------------------------------------------
 
 const VERIFICATION_COPY: Record<
-  "de" | "en" | "nl",
+  Locale,
   {
     subjectPrefix: string;
     heading: string;
@@ -1070,11 +1072,39 @@ const VERIFICATION_COPY: Record<
     expiryNote: "De code is 10 minuten geldig.",
     ignoreNote: "Heb je dit niet aangevraagd? Negeer deze e-mail.",
   },
+  fr: {
+    subjectPrefix: "Code de vérification NISD2",
+    heading: "Vérifiez votre e-mail",
+    intro: "Saisissez ce code sur l'écran de connexion pour vérifier votre adresse e-mail.",
+    expiryNote: "Le code est valable 10 minutes.",
+    ignoreNote: "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.",
+  },
+  it: {
+    subjectPrefix: "Codice di verifica NISD2",
+    heading: "Verifica la tua e-mail",
+    intro: "Inserisci questo codice nella schermata di accesso per verificare il tuo indirizzo e-mail.",
+    expiryNote: "Il codice è valido per 10 minuti.",
+    ignoreNote: "Se non hai richiesto questa operazione, ignora questa e-mail.",
+  },
+  es: {
+    subjectPrefix: "Código de verificación de NISD2",
+    heading: "Verifica tu correo electrónico",
+    intro: "Introduce este código en la pantalla de inicio de sesión para verificar tu dirección de correo electrónico.",
+    expiryNote: "El código es válido durante 10 minutos.",
+    ignoreNote: "Si no has solicitado esto, ignora este correo electrónico.",
+  },
+  pl: {
+    subjectPrefix: "Kod weryfikacyjny NISD2",
+    heading: "Zweryfikuj swój adres e-mail",
+    intro: "Wprowadź ten kod na ekranie logowania, aby zweryfikować swój adres e-mail.",
+    expiryNote: "Kod jest ważny przez 10 minut.",
+    ignoreNote: "Jeśli to nie Ty wysłałeś tę prośbę, zignoruj tę wiadomość.",
+  },
 };
 
 export function emailVerificationCodeEmail(opts: {
   code: string;
-  locale?: "de" | "en" | "nl";
+  locale?: Locale;
 }): EmailContent {
   // 6-digit code from OTP service. Defense-in-depth: still escape it.
   const safeCode = escapeHtml(opts.code);
@@ -1110,7 +1140,7 @@ export function emailVerificationCodeEmail(opts: {
 }
 
 const PASSWORD_RESET_COPY: Record<
-  "de" | "en" | "nl",
+  Locale,
   {
     subjectPrefix: string;
     heading: string;
@@ -1140,11 +1170,39 @@ const PASSWORD_RESET_COPY: Record<
     expiryNote: "De code is 10 minuten geldig.",
     ignoreNote: "Heb je dit niet aangevraagd? Negeer deze e-mail. Je wachtwoord blijft ongewijzigd.",
   },
+  fr: {
+    subjectPrefix: "Code de réinitialisation du mot de passe NISD2",
+    heading: "Réinitialisez votre mot de passe",
+    intro: "Saisissez ce code avec votre nouveau mot de passe pour terminer la réinitialisation.",
+    expiryNote: "Le code est valable 10 minutes.",
+    ignoreNote: "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail. Votre mot de passe reste inchangé.",
+  },
+  it: {
+    subjectPrefix: "Codice di reimpostazione della password NISD2",
+    heading: "Reimposta la tua password",
+    intro: "Inserisci questo codice insieme alla tua nuova password per completare la reimpostazione.",
+    expiryNote: "Il codice è valido per 10 minuti.",
+    ignoreNote: "Se non hai richiesto questa operazione, ignora questa e-mail. La tua password rimane invariata.",
+  },
+  es: {
+    subjectPrefix: "Código de restablecimiento de contraseña de NISD2",
+    heading: "Restablece tu contraseña",
+    intro: "Introduce este código junto con tu nueva contraseña para completar el restablecimiento.",
+    expiryNote: "El código es válido durante 10 minutos.",
+    ignoreNote: "Si no has solicitado esto, ignora este correo electrónico. Tu contraseña no se ha modificado.",
+  },
+  pl: {
+    subjectPrefix: "Kod resetowania hasła NISD2",
+    heading: "Zresetuj swoje hasło",
+    intro: "Wprowadź ten kod razem z nowym hasłem, aby zakończyć resetowanie.",
+    expiryNote: "Kod jest ważny przez 10 minut.",
+    ignoreNote: "Jeśli to nie Ty wysłałeś tę prośbę, zignoruj tę wiadomość. Twoje hasło pozostaje bez zmian.",
+  },
 };
 
 export function passwordResetCodeEmail(opts: {
   code: string;
-  locale?: "de" | "en" | "nl";
+  locale?: Locale;
 }): EmailContent {
   const safeCode = escapeHtml(opts.code);
   const copy = PASSWORD_RESET_COPY[opts.locale ?? "de"];

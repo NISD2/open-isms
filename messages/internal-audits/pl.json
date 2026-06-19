@@ -1,0 +1,36 @@
+{
+  "internalAudits": {
+    "title": "Audyty wewnętrzne",
+    "description": "Harmonogram audytów wewnętrznych, ich przeprowadzanie i ustalenia. Wymagane na podstawie oceny skuteczności wg art. 21 NIS2.",
+    "helpText": "Zaplanuj i udokumentuj audyty wewnętrzne swoich środków cyberbezpieczeństwa. Zapisz zakres, ustalenia i działania naprawcze. NIS2 wymaga regularnej oceny, czy środki bezpieczeństwa są skuteczne.",
+    "add": "Dodaj audyt",
+    "edit": "Edytuj audyt",
+    "empty": "Nie zaplanowano jeszcze żadnych audytów wewnętrznych. Zaplanuj swój pierwszy audyt.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć ten audyt?",
+    "actions": "Działania",
+    "status": {
+      "planned": "Zaplanowany",
+      "in_progress": "W toku",
+      "completed": "Zakończony",
+      "cancelled": "Anulowany"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "auditArea": "Obszar audytu",
+      "scope": "Zakres",
+      "status": "Status",
+      "scheduledDate": "Zaplanowana data",
+      "completedAt": "Data zakończenia",
+      "auditorName": "Audytor"
+    },
+    "fieldDescriptions": {
+      "title": "Nazwa tego audytu wewnętrznego (np. „Audyt kontroli dostępu Q2”, „Roczny przegląd zgodności z NIS2”).",
+      "auditArea": "Domena bezpieczeństwa lub obszar zabezpieczeń poddawany audytowi (np. kontrola dostępu, reagowanie na incydenty, łańcuch dostaw).",
+      "scope": "Określ granice tego audytu: które systemy, procesy, działy lub zabezpieczenia są nim objęte.",
+      "status": "Bieżący status audytu: zaplanowany, w toku, zakończony lub anulowany.",
+      "scheduledDate": "Data planowanego rozpoczęcia tego audytu.",
+      "completedAt": "Data zakończenia wszystkich działań audytowych i raportu końcowego.",
+      "auditorName": "Imię i nazwisko audytora wewnętrznego lub kierownika zespołu audytowego przeprowadzającego tę ocenę."
+    }
+  }
+}

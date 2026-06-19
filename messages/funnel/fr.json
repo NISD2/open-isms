@@ -1,0 +1,77 @@
+{
+  "funnel": {
+    "meta": {
+      "title": "Mettez en œuvre NIS2 accompagné : chaque semaine, 30 minutes",
+      "description": "Vous connaissez les étapes NIS2 et préférez ne pas les mener seul. Nous parcourons les exigences avec vous une fois par semaine. Plateforme gratuite et open source, accompagnement facultatif et résiliable chaque mois."
+    },
+    "hero": {
+      "headline": "Nous vous guidons à travers NIS2. Point par point.",
+      "subhead": "Vous savez que NIS2 s'applique à vous et vous préférez ne pas porter seul la mise en œuvre. Nous nous installons avec vous pendant 30 minutes une fois par semaine et parcourons les exigences dans l'ordre. La plateforme reste gratuite et open source, l'accompagnement est facultatif.",
+      "roadmapLink": "Vous connaissez déjà les étapes et souhaitez démarrer par vous-même ? Voici la feuille de route.",
+      "cta": "Réserver un appel d'introduction gratuit",
+      "trust": "Conçu à Cologne. Hébergé en Allemagne."
+    },
+    "process": {
+      "heading": "Comment fonctionne l'accompagnement",
+      "step1Title": "Appel hebdomadaire, 30 minutes",
+      "step1Body": "Un créneau fixe par semaine. Pas de mois de projet, pas de boucles d'alignement interminables. Nous prenons l'élément suivant de votre feuille de route et le réalisons ensemble.",
+      "step2Title": "Nous dirigeons, votre responsable informatique met en œuvre",
+      "step2Body": "Votre effort personnel en tant que directeur général est d'environ trois heures par an, après quoi l'approbation et la supervision au titre de l'article 20 NIS 2 (en Allemagne § 38 BSIG) sont accomplies. Quatre obligations au titre de l'article 21 sont fixes, le reste évolue selon votre risque et reste proportionné. La partie opérationnelle, l'inventaire des actifs, le registre des risques, les fournisseurs et les dix mesures, est prise en charge par votre équipe.",
+      "step3Title": "Vous gardez tout. Aucun verrouillage.",
+      "step3Body": "Vos données, la piste d'audit et les preuves vous appartiennent. La plateforme est open source. Si vous souhaitez continuer sans nous, exportez tout et emportez-le avec vous."
+    },
+    "comparison": {
+      "heading": "À quoi sert chaque option",
+      "intro": "Nous ne dénigrons personne. Chaque option a sa place. Voici l'analyse honnête pour que vous sachiez si nous vous convenons.",
+      "consultantsTitle": "Consultants",
+      "consultants": "Un consultant fait le travail à votre place et assume une véritable responsabilité. Cela en vaut la peine si vous avez le budget et personne en interne pour porter NIS2 sur le long terme. Le savoir part toutefois avec le consultant.",
+      "fullServiceTitle": "Plateforme GRC tout-en-un",
+      "fullService": "Les plateformes GRC tout-en-un couvrent de nombreux référentiels à la fois et sont conçues pour les grandes organisations dotées de leur propre équipe GRC. Pertinentes si c'est exactement ce dont vous avez besoin et que le budget est là.",
+      "intlPlatformsTitle": "Plateforme internationale",
+      "intlPlatforms": "Les plateformes internationales sont abouties et rapides pour les certifications courantes. Pertinentes si vous vous certifiez à l'international et que l'anglais comme langue principale vous convient.",
+      "nisd2Title": "nisd2.eu",
+      "nisd2": "nisd2.eu est gratuit et open source, hébergé dans l'UE. Une norme, menée en profondeur. Tout est exportable, aucun verrouillage. Ce que nous ne faisons pas : pas d'accompagnement clé en main intégral, pas de support téléphonique vous guidant pas à pas. Vous avez besoin de quelqu'un en interne qui porte NIS2. C'est exactement pour cette personne que ceci est conçu."
+    },
+    "features": {
+      "heading": "Ce que nous parcourons avec vous",
+      "obligations": {
+        "title": "Les obligations de l'article 21 NIS2",
+        "description": "Chaque obligation décomposée en formulaires structurés avec des instructions claires. Aucune connaissance en conformité requise : vous répondez aux questions, nous faisons la correspondance."
+      },
+      "evidence": {
+        "title": "Preuves et piste d'audit",
+        "description": "Les documents, les validations et une piste d'audit infalsifiable se constituent à partir de votre travail. Tout est horodaté, prêt pour l'audit."
+      },
+      "deadlines": {
+        "title": "Échéances et notification",
+        "description": "L'enregistrement, la cascade de notification d'incident au titre de l'article 23 (24 heures, 72 heures, un mois) et les renouvellements de formation. Chaque échéance est suivie, rien ne passe à travers les mailles."
+      },
+      "bsiRegistration": {
+        "title": "Enregistrement auprès de l'autorité",
+        "description": "Préparation guidée de l'enregistrement au titre de l'article 27, avec tous les documents requis et une liste de contrôle préalable."
+      }
+    },
+    "faq": {
+      "heading": "Questions fréquentes",
+      "q1": "La plateforme est-elle vraiment gratuite ?",
+      "a1": "Oui. La plateforme est gratuite et open source. Nous nous rémunérons sur la mise en œuvre accompagnée et la formation, pas sur le logiciel ni sur vos données. Vous pouvez inspecter le code sur github.com/NISD2.",
+      "q2": "Combien coûte l'accompagnement ?",
+      "a2": "Nous définissons le périmètre lors de l'appel d'introduction, résiliable chaque mois, aucun verrouillage. Nous regardons d'abord ensemble si vous avez besoin d'un accompagnement, ou si la plateforme gratuite et la feuille de route suffisent à elles seules.",
+      "q3": "Nous avons déjà ISO 27001. En avons-nous encore besoin ?",
+      "a3": "ISO 27001 couvre une grande partie des mesures techniques et organisationnelles que NIS2 demande également. NIS2 ajoute des obligations qu'un SMSI seul ne couvre pas : l'enregistrement auprès de l'autorité nationale au titre de l'article 27, la cascade de notification d'incident au titre de l'article 23, et une formation démontrable de la direction au titre de l'article 20 NIS 2 (en Allemagne § 38 BSIG). Ce sont exactement les lacunes que nous parcourons avec vous.",
+      "q4": "Combien de temps prend la mise en œuvre ?",
+      "a4": "Votre effort personnel en tant que directeur général est d'environ trois heures par an : une formation, quelques signatures. La partie opérationnelle est prise en charge par votre responsable informatique de manière continue. La rapidité de mise en place du socle dépend de la qualité de tenue de votre inventaire des actifs. La feuille de route indique l'effort réaliste par étape.",
+      "q5": "Où sont stockées nos données ?",
+      "a5": "En Allemagne. Chiffrées en transit et au repos, avec un accès basé sur les rôles et une piste d'audit complète. Les détails figurent dans le Trust Center.",
+      "q6": "Que se passe-t-il si nous arrêtons l'accompagnement ?",
+      "a6": "Vous continuez à utiliser la plateforme gratuitement, ou vous exportez vos données et partez. L'accompagnement est résiliable chaque mois, le logiciel est open source. Aucun verrouillage."
+    },
+    "sources": {
+      "body": "Sources et transparence : directive NIS2 (UE) 2022/2555, BSIG, CIR 2024/2690, ENISA Technical Implementation Guidance. Open source, hébergé en Allemagne, conforme au GDPR. Cette page est un guide structuré et ne constitue pas un avis juridique. La mise en œuvre opérationnelle est prise en charge par votre responsable informatique ou votre CISO."
+    },
+    "finalCta": {
+      "headline": "Réserver un appel d'introduction gratuit",
+      "email": "Vous préférez écrire directement ? contact@nisd2.eu"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Zarządzanie poprawkami",
+    "description": "Śledzenie poprawek i podatności w podziale na zasoby. Wymagane na podstawie art. 21 ust. 2 lit. e) NIS2.",
+    "helpText": "Śledź poprawki i znane podatności dla swoich zarejestrowanych zasobów. Zapisz status poprawki (oczekująca, zastosowana, odroczona), odniesienia CVE oraz terminy. NIS2 wymaga terminowej obsługi podatności i zarządzania poprawkami.",
+    "add": "Dodaj rekord poprawki",
+    "edit": "Edytuj rekord poprawki",
+    "empty": "Brak rekordów poprawek. Dodaj swój pierwszy rekord poprawki.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć ten rekord poprawki?",
+    "actions": "Działania",
+    "severity": {
+      "critical": "Krytyczna",
+      "high": "Wysoka",
+      "medium": "Średnia",
+      "low": "Niska"
+    },
+    "status": {
+      "pending": "Oczekująca",
+      "applied": "Zastosowana",
+      "exception": "Wyjątek",
+      "not_applicable": "Nie dotyczy"
+    },
+    "fields": {
+      "patchIdentifier": "ID poprawki",
+      "severity": "Istotność",
+      "title": "Tytuł",
+      "assetId": "Zasób",
+      "status": "Status",
+      "releaseDate": "Data wydania",
+      "appliedAt": "Data zastosowania",
+      "exceptionReason": "Powód wyjątku"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Identyfikator poprawki producenta lub numer CVE (np. „KB5034441”, „CVE-2024-1234”).",
+      "severity": "Wybierz ocenę istotności podatności, której dotyczy ta poprawka: krytyczna, wysoka, średnia lub niska.",
+      "title": "Krótki opis tego, co naprawia ta poprawka, lub podatności, której dotyczy.",
+      "assetId": "Wybierz z rejestru zasobów ten zasób, którego dotyczy poprawka.",
+      "status": "Bieżący status poprawki: oczekująca (jeszcze niezastosowana), zastosowana, wyjątek (odroczenie z zaakceptowanym ryzykiem) lub nie dotyczy.",
+      "releaseDate": "Data wydania tej poprawki przez producenta.",
+      "appliedAt": "Data pomyślnego zastosowania tej poprawki na docelowym zasobie.",
+      "exceptionReason": "Jeśli status to Wyjątek, podaj uzasadnienie odroczenia lub niezastosowania tej poprawki."
+    }
+  }
+}

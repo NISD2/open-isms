@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Politiques",
+    "description": "Politiques, procédures et lignes directrices de sécurité avec suivi des approbations. Fondement de l'art. 21(1) NIS2.",
+    "helpText": "Créez et gérez vos politiques de sécurité de l'information. Chaque politique suit un cycle de vie : brouillon, revue, approuvée, archivée. Suivez l'historique des versions et veillez à ce que tout le personnel concerné prenne connaissance des politiques en vigueur. NIS2 exige des politiques documentées pour la gestion des risques, le contrôle d'accès, le chiffrement et davantage.",
+    "add": "Ajouter une politique",
+    "edit": "Modifier la politique",
+    "empty": "Aucune politique pour le moment. Créez votre premier document de politique.",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette politique ?",
+    "actions": "Actions",
+    "status": {
+      "draft": "Brouillon",
+      "approved": "Approuvée",
+      "archived": "Archivée"
+    },
+    "fields": {
+      "title": "Titre",
+      "type": "Type",
+      "version": "Version",
+      "content": "Contenu",
+      "status": "Statut",
+      "effectiveFrom": "En vigueur à compter du",
+      "reviewDue": "Revue à effectuer avant le"
+    },
+    "fieldDescriptions": {
+      "title": "Nom du document de politique (par exemple « Politique de sécurité de l'information », « Politique de contrôle d'accès »).",
+      "type": "Sélectionnez le type de politique (par exemple politique, procédure, ligne directrice, norme).",
+      "version": "Numéro de version de cette révision de la politique (par exemple 1.0, 2.1). Incrémentez à chaque cycle d'approbation.",
+      "content": "Texte intégral de la politique. Précisez le périmètre, les objectifs, les responsabilités et les exigences spécifiques.",
+      "status": "Statut actuel du cycle de vie : Brouillon (en préparation), Approuvée (active et appliquée) ou Archivée (remplacée).",
+      "effectiveFrom": "Date à laquelle cette version de la politique devient active et applicable.",
+      "reviewDue": "Date à laquelle cette politique doit être revue et mise à jour. NIS2 attend des revues régulières des politiques."
+    }
+  }
+}

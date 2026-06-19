@@ -1,0 +1,51 @@
+{
+  "changes": {
+    "title": "Gestione delle modifiche",
+    "description": "Richieste di modifica IT/OT con valutazione del rischio e flusso di approvazione. Supporta l'Art. 21(2)(e) NIS2.",
+    "helpText": "Tieni traccia di tutte le modifiche ai sistemi IT e OT attraverso un processo di approvazione formale. Ogni richiesta di modifica include la valutazione del rischio, il piano di attuazione e la procedura di rollback. La NIS2 richiede una gestione controllata delle modifiche per prevenire regressioni di sicurezza.",
+    "add": "Nuova richiesta di modifica",
+    "edit": "Modifica richiesta di modifica",
+    "empty": "Ancora nessuna richiesta di modifica. Crea la tua prima richiesta di modifica.",
+    "deleteConfirm": "Sei sicuro di voler eliminare questa richiesta di modifica?",
+    "actions": "Azioni",
+    "type": {
+      "standard": "Standard",
+      "normal": "Normale",
+      "emergency": "Emergenza"
+    },
+    "changeType": {
+      "standard": "Standard",
+      "normal": "Normale",
+      "emergency": "Emergenza"
+    },
+    "status": {
+      "draft": "Bozza",
+      "submitted": "Inviata",
+      "approved": "Approvata",
+      "implementing": "In attuazione",
+      "implemented": "Attuata",
+      "rolled_back": "Annullata (rollback)",
+      "closed": "Chiusa"
+    },
+    "fields": {
+      "title": "Titolo",
+      "description": "Descrizione",
+      "changeType": "Tipo di modifica",
+      "status": "Stato",
+      "createdAt": "Creata il",
+      "businessJustification": "Giustificazione aziendale",
+      "securityImpactAssessment": "Valutazione dell'impatto sulla sicurezza",
+      "rollbackPlan": "Piano di rollback"
+    },
+    "fieldDescriptions": {
+      "title": "Titolo breve e descrittivo per questa richiesta di modifica (ad es. 'Aggiornamento del firmware del firewall alla v4.2').",
+      "description": "Descrizione dettagliata della modifica proposta, inclusi i sistemi interessati e il risultato atteso.",
+      "changeType": "Seleziona il tipo: standard (preapprovata, a basso rischio), normale (richiede revisione) o emergenza (urgente, approvazione successiva).",
+      "status": "Stato attuale della richiesta di modifica nel flusso di approvazione e attuazione.",
+      "createdAt": "Data in cui questa richiesta di modifica è stata inviata.",
+      "businessJustification": "Spiega perché questa modifica è necessaria, inclusi i driver aziendali e i benefici per la sicurezza.",
+      "securityImpactAssessment": "Descrivi il potenziale impatto sulla sicurezza di questa modifica, inclusi i rischi introdotti o mitigati.",
+      "rollbackPlan": "Descrivi le fasi per annullare questa modifica se l'attuazione fallisce o causa problemi imprevisti."
+    }
+  }
+}

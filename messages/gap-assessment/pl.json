@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "Analiza luk NIS2",
+    "subtitle": "Oceń swoją gotowość do NIS2 w 15 domenach",
+    "startAssessment": "Rozpocznij ocenę",
+    "resumeAssessment": "Wznów ocenę",
+    "viewResults": "Zobacz wyniki",
+    "day": "Dzień {number}",
+    "dayOf": "Dzień {current} z {total}",
+    "questionsAnswered": "Udzielono odpowiedzi na {answered} z {total}",
+    "saving": "Zapisywanie...",
+    "saved": "Zapisano",
+    "overview": {
+      "heading": "Przegląd oceny",
+      "description": "Ustrukturyzowana samoocena obejmująca wszystkie domeny zgodności z NIS2. Odpowiadaj szczerze na temat swojego obecnego stanu. Nie ma odpowiedzi dobrych ani złych.",
+      "day1": "Zakres i zarządzanie",
+      "day1desc": "Czy jesteś w zakresie? Czy Twój zarząd rozumie swoją odpowiedzialność?",
+      "day2": "Zarządzanie ryzykiem",
+      "day2desc": "Czy znasz swoje zasoby, swoje ryzyka i swoje polityki bezpieczeństwa?",
+      "day3": "Incydenty i ciągłość działania",
+      "day3desc": "Czy potrafisz wykrywać incydenty, reagować na nie i odtwarzać działanie po nich?",
+      "day4": "Ludzie, dostawcy i dostęp",
+      "day4desc": "Czy Twoi pracownicy są przeszkoleni, dostawcy zarządzani, a dostęp kontrolowany?",
+      "day5": "Zabezpieczenia techniczne i dowody",
+      "day5desc": "Czy Twoje zabezpieczenia techniczne i dokumentacja są gotowe do audytu?",
+      "questions": "{count} pytań",
+      "estimatedTime": "~{minutes} min",
+      "noActiveSession": "Nie rozpocząłeś jeszcze żadnej oceny.",
+      "pastSessions": "Poprzednie oceny",
+      "score": "Wynik: {score}%",
+      "completedOn": "Ukończono {date}",
+      "inProgress": "W toku"
+    },
+    "question": {
+      "yes": "Tak",
+      "partially": "Częściowo",
+      "no": "Nie",
+      "notApplicable": "Nie dotyczy",
+      "showExplanation": "Co to oznacza?",
+      "hideExplanation": "Ukryj wyjaśnienie",
+      "legalBasis": "Podstawa prawna",
+      "criticality": "Ważność",
+      "criticalityLevels": {
+        "0": "Informacyjne",
+        "1": "Niska",
+        "2": "Średnia",
+        "3": "Wysoka"
+      },
+      "respondent": {
+        "0": "Dyrektor generalny / zarząd",
+        "1": "IT / bezpieczeństwo",
+        "2": "HR",
+        "3": "Zakupy",
+        "4": "Każdy"
+      },
+      "suggestedRespondent": "Najlepiej odpowie"
+    },
+    "navigation": {
+      "previousDay": "Poprzedni dzień",
+      "nextDay": "Następny dzień",
+      "completeAssessment": "Zakończ ocenę",
+      "backToOverview": "Powrót do przeglądu"
+    },
+    "results": {
+      "heading": "Wyniki oceny",
+      "overallScore": "Wynik ogólny",
+      "domainScores": "Wyniki w domenach",
+      "maturityLevel": "Poziom dojrzałości",
+      "priorityGaps": "Luki priorytetowe",
+      "exportPdf": "Eksportuj PDF",
+      "domain": "Domena",
+      "score": "Wynik",
+      "maturity": "Dojrzałość",
+      "answered": "Odpowiedziano",
+      "noGaps": "Nie zidentyfikowano żadnych luk. Doskonale.",
+      "gapRank": "Priorytet",
+      "gapQuestion": "Ustalenie",
+      "gapDomain": "Domena",
+      "gapConsequence": "Konsekwencja",
+      "gapTimeToFix": "Nakład pracy",
+      "fineRisk": "Ryzyko kary",
+      "viewInPlatform": "Zobacz na platformie",
+      "maturityLevels": {
+        "critical": "Krytyczny",
+        "initial": "Początkowy",
+        "developing": "Rozwijający się",
+        "managed": "Zarządzany",
+        "optimized": "Zoptymalizowany"
+      },
+      "consequenceLevels": {
+        "0": "Ustalenie audytowe",
+        "1": "Ryzyko operacyjne",
+        "2": "Kara",
+        "3": "Odpowiedzialność osobista"
+      },
+      "timeToFixLevels": {
+        "0": "Szybkie zwycięstwo",
+        "1": "Dni",
+        "2": "Tygodnie",
+        "3": "Miesiące"
+      },
+      "summary": {
+        "criticalGaps": "{count} luk krytycznych",
+        "fineExposed": "{count} powoduje ryzyko kary",
+        "personalLiability": "{count} powoduje osobistą odpowiedzialność dyrektora generalnego",
+        "quickWins": "{count} można naprawić natychmiast"
+      },
+      "startCompliance": "Rozpocznij zamykanie luk",
+      "retakeAssessment": "Wykonaj ocenę ponownie"
+    }
+  }
+}

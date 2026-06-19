@@ -1,0 +1,44 @@
+{
+  "exercises": {
+    "title": "Esercitazioni",
+    "description": "Esercitazioni di continuità operativa/disaster recovery e di risposta agli incidenti. Richieste dall'Art. 21(2)(c) NIS2.",
+    "helpText": "Pianifica e documenta le esercitazioni di continuità operativa e disaster recovery. NIS2 richiede di testare regolarmente i piani di continuità. Registra il tipo di esercitazione, i partecipanti, le risultanze e le azioni di follow-up.",
+    "add": "Aggiungi esercitazione",
+    "edit": "Modifica esercitazione",
+    "empty": "Nessuna esercitazione ancora pianificata. Programma la tua prima esercitazione.",
+    "deleteConfirm": "Sei sicuro di voler eliminare questa esercitazione?",
+    "actions": "Azioni",
+    "type": {
+      "tabletop": "Tabletop",
+      "technical": "Tecnica",
+      "red_team": "Red team",
+      "full_scale": "Su scala reale"
+    },
+    "exerciseType": {
+      "tabletop": "Tabletop",
+      "technical": "Tecnica",
+      "red_team": "Red team",
+      "full_scale": "Su scala reale"
+    },
+    "fields": {
+      "title": "Titolo",
+      "exerciseType": "Tipo di esercitazione",
+      "domain": "Dominio",
+      "scheduledDate": "Data programmata",
+      "completedAt": "Completata il",
+      "scenarioDescription": "Scenario",
+      "facilitator": "Facilitatore",
+      "lessonsLearned": "Lezioni apprese"
+    },
+    "fieldDescriptions": {
+      "title": "Nome dell'esercitazione (ad es. 'Tabletop ransomware Q1', 'Test di failover DR').",
+      "exerciseType": "Seleziona il formato dell'esercitazione: tabletop (basata sulla discussione), tecnica (pratica), red team (simulazione dell'avversario) o su scala reale (esercitazione dal vivo).",
+      "domain": "Dominio di sicurezza testato (ad es. risposta agli incidenti, continuità operativa, disaster recovery, comunicazione di crisi).",
+      "scheduledDate": "Data in cui è prevista questa esercitazione.",
+      "completedAt": "Data in cui questa esercitazione è stata effettivamente completata.",
+      "scenarioDescription": "Descrivi lo scenario simulato, compresi l'attore della minaccia, il vettore di attacco e la risposta organizzativa attesa.",
+      "facilitator": "Nome della persona responsabile della pianificazione e della conduzione di questa esercitazione.",
+      "lessonsLearned": "Documenta le risultanze principali, le lacune individuate e i miglioramenti raccomandati a seguito di questa esercitazione."
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "changes": {
+    "title": "Gestion des changements",
+    "description": "Demandes de changement IT/OT avec évaluation des risques et flux d'approbation. Soutient l'art. 21(2)(e) NIS2.",
+    "helpText": "Suivez tous les changements apportés aux systèmes IT et OT au moyen d'un processus d'approbation formel. Chaque demande de changement comprend une évaluation des risques, un plan de mise en œuvre et une procédure de retour arrière. NIS2 exige une gestion contrôlée des changements afin de prévenir les régressions de sécurité.",
+    "add": "Nouvelle demande de changement",
+    "edit": "Modifier la demande de changement",
+    "empty": "Aucune demande de changement pour le moment. Créez votre première demande de changement.",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette demande de changement ?",
+    "actions": "Actions",
+    "type": {
+      "standard": "Standard",
+      "normal": "Normal",
+      "emergency": "Urgence"
+    },
+    "changeType": {
+      "standard": "Standard",
+      "normal": "Normal",
+      "emergency": "Urgence"
+    },
+    "status": {
+      "draft": "Brouillon",
+      "submitted": "Soumis",
+      "approved": "Approuvé",
+      "implementing": "En cours de mise en œuvre",
+      "implemented": "Mis en œuvre",
+      "rolled_back": "Retour arrière effectué",
+      "closed": "Clôturé"
+    },
+    "fields": {
+      "title": "Titre",
+      "description": "Description",
+      "changeType": "Type de changement",
+      "status": "Statut",
+      "createdAt": "Créé le",
+      "businessJustification": "Justification métier",
+      "securityImpactAssessment": "Évaluation de l'impact sur la sécurité",
+      "rollbackPlan": "Plan de retour arrière"
+    },
+    "fieldDescriptions": {
+      "title": "Titre court et descriptif pour cette demande de changement (par ex. « Mettre à niveau le firmware du pare-feu vers la v4.2 »).",
+      "description": "Description détaillée du changement proposé, y compris les systèmes affectés et le résultat attendu.",
+      "changeType": "Sélectionnez le type : standard (préapprouvé, faible risque), normal (nécessite une revue) ou urgence (urgent, approbation a posteriori).",
+      "status": "Statut actuel de la demande de changement dans le flux d'approbation et de mise en œuvre.",
+      "createdAt": "Date à laquelle cette demande de changement a été soumise.",
+      "businessJustification": "Expliquez pourquoi ce changement est nécessaire, en précisant les motivations métier et les bénéfices pour la sécurité.",
+      "securityImpactAssessment": "Décrivez l'impact potentiel de ce changement sur la sécurité, y compris les risques introduits ou atténués.",
+      "rollbackPlan": "Décrivez les étapes permettant d'annuler ce changement en cas d'échec de la mise en œuvre ou de problèmes inattendus."
+    }
+  }
+}

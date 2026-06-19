@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Mejoras",
+    "description": "Elementos de mejora continua procedentes de auditorías, incidentes y revisiones. Respalda el ciclo PDCA conforme a NIS2.",
+    "helpText": "Realice el seguimiento de las acciones de mejora identificadas a partir de auditorías, análisis posteriores a incidentes, revisiones por la dirección y tendencias de KPI. Cada elemento tiene un origen, una prioridad, un responsable y una fecha objetivo. Este registro demuestra el compromiso de su organización con la mejora continua.",
+    "add": "Añadir mejora",
+    "edit": "Editar mejora",
+    "empty": "Todavía no hay elementos de mejora. Añada elementos a partir de auditorías, incidentes o revisiones.",
+    "deleteConfirm": "¿Está seguro de que desea eliminar este elemento de mejora?",
+    "actions": "Acciones",
+    "source": {
+      "audit": "Auditoría",
+      "incident": "Incidente",
+      "pentest": "Pentest",
+      "management_review": "Revisión por la dirección",
+      "kpi_breach": "Incumplimiento de KPI",
+      "gap_analysis": "Análisis de carencias",
+      "regulatory_change": "Cambio normativo",
+      "suggestion": "Sugerencia"
+    },
+    "status": {
+      "open": "Abierto",
+      "in_progress": "En curso",
+      "resolved": "Resuelto",
+      "verified": "Verificado",
+      "deferred": "Aplazado"
+    },
+    "priority": {
+      "P0": "P0 - Inmediato",
+      "P1": "P1 - 3 meses",
+      "P2": "P2 - 6 meses",
+      "P3": "P3 - 12 meses"
+    },
+    "fields": {
+      "title": "Título",
+      "description": "Descripción",
+      "source": "Origen",
+      "priority": "Prioridad",
+      "status": "Estado",
+      "targetDate": "Fecha objetivo",
+      "deferralReason": "Motivo del aplazamiento",
+      "verificationNotes": "Notas de verificación"
+    },
+    "fieldDescriptions": {
+      "title": "Título breve y descriptivo de esta acción de mejora (p. ej., 'Implantar MFA para el acceso por VPN').",
+      "description": "Descripción detallada de la mejora, incluida la carencia actual y el resultado deseado.",
+      "source": "Seleccione dónde se identificó esta mejora: hallazgo de auditoría, análisis posterior a un incidente, revisión por la dirección, incumplimiento de KPI, etc.",
+      "priority": "Seleccione el nivel de prioridad, que determina el plazo de implantación (P0: inmediato, P1: 3 meses, P2: 6 meses, P3: 12 meses).",
+      "status": "Estado actual de la mejora: abierto, en curso, resuelto, verificado (eficacia confirmada) o aplazado.",
+      "targetDate": "Fecha en la que debe completarse esta acción de mejora.",
+      "deferralReason": "Si el estado es Aplazado, indique la justificación y el plazo previsto de reanudación.",
+      "verificationNotes": "Documente cómo se verificó la eficacia de esta mejora tras su implantación."
+    }
+  }
+}

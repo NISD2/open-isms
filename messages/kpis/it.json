@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "title": "Misurazioni dei KPI",
+    "description": "Metriche di performance della sicurezza monitorate nel tempo. Dimostrano l'efficacia ai sensi dell'Art. 21 NIS2.",
+    "helpText": "Registra regolarmente le misurazioni dei KPI di sicurezza (ad es. tasso di conformità delle patch, % di completamento della formazione, tempo medio di rilevamento). I KPI dimostrano agli auditor che le tue misure di sicurezza sono efficaci e migliorano nel tempo.",
+    "add": "Aggiungi misurazione",
+    "empty": "Nessuna misurazione dei KPI ancora presente. Registra la tua prima misurazione.",
+    "status": {
+      "green": "In linea con l'obiettivo",
+      "amber": "A rischio",
+      "red": "Sotto l'obiettivo"
+    },
+    "fields": {
+      "kpiName": "Nome del KPI",
+      "measuredAt": "Misurato il",
+      "value": "Valore",
+      "target": "Obiettivo",
+      "unit": "Unità",
+      "status": "Stato",
+      "notes": "Note"
+    },
+    "fieldDescriptions": {
+      "kpiName": "Nome della metrica di sicurezza misurata (ad es. 'Tasso di conformità delle patch', 'Tempo medio di rilevamento', '% di completamento della formazione').",
+      "measuredAt": "Data in cui è stata effettuata questa misurazione.",
+      "value": "Inserisci il valore numerico misurato per questo KPI.",
+      "target": "Inserisci il valore obiettivo che questo KPI dovrebbe raggiungere o superare.",
+      "unit": "Unità di misura (ad es. %, ore, giorni, conteggio).",
+      "status": "Seleziona lo stato: verde (in linea con l'obiettivo), ambra (a rischio di mancare l'obiettivo) o rosso (sotto l'obiettivo).",
+      "notes": "Contesto o spiegazione aggiuntiva per questa misurazione, in particolare se lo stato è ambra o rosso."
+    }
+  }
+}

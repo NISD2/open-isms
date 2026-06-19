@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Políticas",
+    "description": "Políticas, procedimientos y directrices de seguridad con seguimiento de aprobaciones. Base del Art. 21(1) NIS2.",
+    "helpText": "Cree y gestione sus políticas de seguridad de la información. Cada política sigue un ciclo de vida: borrador, revisión, aprobada, archivada. Lleve un control del historial de versiones y asegúrese de que todo el personal pertinente confirme la recepción de las políticas vigentes. NIS2 exige políticas documentadas para la gestión de riesgos, el control de acceso, el cifrado y otros aspectos.",
+    "add": "Añadir política",
+    "edit": "Editar política",
+    "empty": "Aún no hay políticas. Cree su primer documento de política.",
+    "deleteConfirm": "¿Está seguro de que desea eliminar esta política?",
+    "actions": "Acciones",
+    "status": {
+      "draft": "Borrador",
+      "approved": "Aprobada",
+      "archived": "Archivada"
+    },
+    "fields": {
+      "title": "Título",
+      "type": "Tipo",
+      "version": "Versión",
+      "content": "Contenido",
+      "status": "Estado",
+      "effectiveFrom": "En vigor desde",
+      "reviewDue": "Revisión prevista"
+    },
+    "fieldDescriptions": {
+      "title": "Nombre del documento de política (p. ej., 'Política de seguridad de la información', 'Política de control de acceso').",
+      "type": "Seleccione el tipo de política (p. ej., política, procedimiento, directriz, norma).",
+      "version": "Número de versión de esta revisión de la política (p. ej., 1.0, 2.1). Increméntelo en cada ciclo de aprobación.",
+      "content": "Texto completo de la política. Incluya el alcance, los objetivos, las responsabilidades y los requisitos específicos.",
+      "status": "Estado actual del ciclo de vida: Borrador (en preparación), Aprobada (vigente y aplicada) o Archivada (sustituida).",
+      "effectiveFrom": "Fecha en que esta versión de la política entra en vigor y resulta aplicable.",
+      "reviewDue": "Fecha límite en la que esta política debe revisarse y actualizarse. NIS2 espera revisiones periódicas de las políticas."
+    }
+  }
+}

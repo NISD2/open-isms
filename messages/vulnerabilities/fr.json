@@ -1,0 +1,61 @@
+{
+  "vulnerabilities": {
+    "title": "Gestion des vulnérabilités",
+    "description": "Suivez les vulnérabilités découvertes tout au long de leur cycle de vie. Exigé par l'art. 6.10 du CIR 2024/2690.",
+    "helpText": "Consignez les vulnérabilités détectées par analyses, tests d'intrusion ou avis de sécurité. Suivez le tri, les décisions de traitement et la résolution. Le CIR exige le traitement des vulnérabilités comme un processus documenté distinct de la gestion des correctifs.",
+    "add": "Ajouter une vulnérabilité",
+    "edit": "Modifier la vulnérabilité",
+    "empty": "Aucune vulnérabilité enregistrée pour l'instant. Ajoutez votre première vulnérabilité.",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette vulnérabilité ?",
+    "actions": "Actions",
+    "severity": {
+      "critical": "Critique",
+      "high": "Élevée",
+      "medium": "Moyenne",
+      "low": "Faible"
+    },
+    "status": {
+      "discovered": "Découverte",
+      "assessed": "Évaluée",
+      "treating": "En traitement",
+      "resolved": "Résolue",
+      "accepted": "Acceptée",
+      "mitigated": "Atténuée"
+    },
+    "source": {
+      "vulnerability_scan": "Analyse de vulnérabilités",
+      "pentest": "Test d'intrusion",
+      "bug_bounty": "Bug bounty",
+      "vendor_advisory": "Avis du fournisseur",
+      "internal_review": "Revue interne"
+    },
+    "fields": {
+      "cveId": "Identifiant CVE",
+      "title": "Titre",
+      "description": "Description",
+      "severity": "Gravité",
+      "cvssScore": "Score CVSS",
+      "source": "Source",
+      "assetId": "Actif",
+      "status": "Statut",
+      "discoveredAt": "Découverte le",
+      "treatmentNote": "Traitement",
+      "acceptanceReason": "Motif d'acceptation",
+      "resolvedAt": "Résolue le"
+    },
+    "fieldDescriptions": {
+      "cveId": "Identifiant CVE s'il est disponible (par ex. CVE-2024-1234). Laissez vide pour les vulnérabilités découvertes en interne sans CVE.",
+      "title": "Brève description de la vulnérabilité (par ex. « injection SQL dans le formulaire de connexion », « TLS 1.0 obsolète sur le serveur web »).",
+      "description": "Description détaillée : composants affectés, versions, impact potentiel et conditions d'exploitation.",
+      "severity": "Niveau de gravité basé sur le CVSS : critique, élevée, moyenne ou faible.",
+      "cvssScore": "Score CVSS numérique facultatif (0,0-10,0) pour une priorisation précise.",
+      "source": "Comment cette vulnérabilité a été découverte : analyse, test d'intrusion, bug bounty, avis du fournisseur ou revue interne.",
+      "assetId": "Actif affecté par cette vulnérabilité, le cas échéant. Sélectionnez dans le registre des actifs.",
+      "status": "Statut actuel du cycle de vie : découverte, évaluée, en traitement, résolue, acceptée (risque) ou atténuée (mesure compensatoire).",
+      "discoveredAt": "Date à laquelle la vulnérabilité a été identifiée pour la première fois.",
+      "treatmentNote": "Ce qui est mis en œuvre pour traiter cette vulnérabilité (correctif, modification de configuration, mesure compensatoire, etc.).",
+      "acceptanceReason": "En cas d'acceptation du risque, documentez la justification conformément au CIR 6.6.2. Obligatoire pour le statut « Acceptée ».",
+      "resolvedAt": "Date à laquelle la vulnérabilité a été résolue, acceptée ou atténuée."
+    }
+  }
+}

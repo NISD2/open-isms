@@ -1,0 +1,8 @@
+{
+  "evidence": {
+    "loading": "Cargando archivos…",
+    "uploading": "Subiendo…",
+    "uploadFailed": "Error al subir. Inténtelo de nuevo.",
+    "deleteFailed": "Error al eliminar. Inténtelo de nuevo."
+  }
+}

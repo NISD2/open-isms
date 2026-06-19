@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Impostazioni",
+    "description": "Gestisci le impostazioni della piattaforma della tua organizzazione.",
+    "aiDataSharing": {
+      "title": "Condivisione dei dati con l'IA",
+      "description": "Controlla quali dati dell'organizzazione vengono condivisi con l'assistente IA durante la generazione delle indicazioni di conformità. I dati personali (email, numeri di telefono, nomi di persone) non vengono mai inviati.",
+      "none": {
+        "label": "Nessun dato aziendale",
+        "description": "Vengono inviati solo i nomi e i tipi dei campi e il titolo del requisito. Le indicazioni sono generiche.",
+        "preview": "Inviati: definizioni dei campi, titolo del requisito, riferimento giuridico"
+      },
+      "basic": {
+        "label": "Solo dati non sensibili",
+        "description": "Aggiunge settore, tipo di soggetto e forma giuridica per indicazioni più pertinenti.",
+        "preview": "Inviati: i precedenti + settore, sotto-settore, tipo di soggetto, forma giuridica"
+      },
+      "full": {
+        "label": "Contesto completo",
+        "description": "Include il nome dell'azienda e le metriche dimensionali per le indicazioni più su misura.",
+        "preview": "Inviati: i precedenti + nome dell'azienda, numero di dipendenti, fatturato annuo"
+      }
+    },
+    "saved": "Impostazioni salvate",
+    "saveError": "Salvataggio delle impostazioni non riuscito",
+    "saving": "Salvataggio...",
+    "adminOnly": "Solo gli amministratori possono modificare le impostazioni."
+  }
+}

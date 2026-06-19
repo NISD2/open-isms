@@ -1,0 +1,58 @@
+{
+  "common": {
+    "save": "Zapisz",
+    "saving": "Zapisywanie...",
+    "cancel": "Anuluj",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "open": "Otwórz",
+    "optional": "opcjonalne",
+    "loading": "Ładowanie...",
+    "entries": "{count} wpisów",
+    "select": "Wybierz...",
+    "yes": "Tak",
+    "no": "Nie",
+    "noData": "Brak danych",
+    "user": "Użytkownik",
+    "modules": {
+      "asset": "Zasoby",
+      "risk": "Ryzyka",
+      "incident": "Incydenty",
+      "supplier": "Dostawcy",
+      "policy": "Polityki",
+      "training_record": "Rekordy szkoleń",
+      "exercise": "Ćwiczenia",
+      "management_review": "Przeglądy zarządzania",
+      "kpi_measurement": "Pomiary KPI",
+      "change_request": "Wnioski o zmianę",
+      "patch_record": "Rekordy poprawek",
+      "internal_audit": "Audyty wewnętrzne",
+      "improvement_item": "Usprawnienia",
+      "bsi_registration": "Rejestracja w BSI",
+      "bsi_incident_report": "Zgłoszenia incydentów do BSI"
+    },
+    "moduleRef": {
+      "confirmCompliance": "Potwierdź zgodność",
+      "noRecords": "Brak rekordów — najpierw dodaj dane w module"
+    }
+  },
+  "status": {
+    "not_started": "Otwarte",
+    "in_progress": "W toku",
+    "completed": "Zakończone",
+    "not_applicable": "Nie dotyczy",
+    "needs_review": "Wymaga przeglądu",
+    "approved": "Zatwierdzone",
+    "rejected": "Odrzucone"
+  },
+  "priority": {
+    "P0": "Krytyczny — wymagane natychmiastowe działanie",
+    "P1": "Wysoki — zająć się w bieżącym cyklu",
+    "P2": "Średni — zaplanować na następny cykl",
+    "P3": "Niski — zająć się przy okazji"
+  },
+  "metadata": {
+    "title": "Platforma zgodności z NIS2",
+    "description": "Zarządzanie zgodnością z NIS2/BSIG 2025"
+  }
+}

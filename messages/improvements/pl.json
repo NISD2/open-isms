@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Działania doskonalące",
+    "description": "Pozycje ciągłego doskonalenia pochodzące z audytów, incydentów i przeglądów. Wspiera cykl PDCA zgodnie z NIS2.",
+    "helpText": "Śledź działania doskonalące zidentyfikowane w audytach, analizach powypadkowych incydentów, przeglądach zarządzania i trendach KPI. Każda pozycja ma źródło, priorytet, właściciela i termin docelowy. Ten rejestr wykazuje zaangażowanie Twojej organizacji w ciągłe doskonalenie.",
+    "add": "Dodaj działanie doskonalące",
+    "edit": "Edytuj działanie doskonalące",
+    "empty": "Brak pozycji doskonalenia. Dodaj pozycje z audytów, incydentów lub przeglądów.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć tę pozycję doskonalenia?",
+    "actions": "Działania",
+    "source": {
+      "audit": "Audyt",
+      "incident": "Incydent",
+      "pentest": "Test penetracyjny",
+      "management_review": "Przegląd zarządzania",
+      "kpi_breach": "Przekroczenie KPI",
+      "gap_analysis": "Analiza luk",
+      "regulatory_change": "Zmiana regulacyjna",
+      "suggestion": "Sugestia"
+    },
+    "status": {
+      "open": "Otwarte",
+      "in_progress": "W toku",
+      "resolved": "Rozwiązane",
+      "verified": "Zweryfikowane",
+      "deferred": "Odroczone"
+    },
+    "priority": {
+      "P0": "P0 - Natychmiast",
+      "P1": "P1 - 3 miesiące",
+      "P2": "P2 - 6 miesięcy",
+      "P3": "P3 - 12 miesięcy"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "description": "Opis",
+      "source": "Źródło",
+      "priority": "Priorytet",
+      "status": "Status",
+      "targetDate": "Termin docelowy",
+      "deferralReason": "Powód odroczenia",
+      "verificationNotes": "Uwagi z weryfikacji"
+    },
+    "fieldDescriptions": {
+      "title": "Krótki, opisowy tytuł tego działania doskonalącego (np. „Wdrożenie MFA dla dostępu VPN”).",
+      "description": "Szczegółowy opis usprawnienia, w tym bieżąca luka i pożądany rezultat.",
+      "source": "Wybierz, gdzie zidentyfikowano to usprawnienie: ustalenie audytu, analiza powypadkowa incydentu, przegląd zarządzania, przekroczenie KPI itp.",
+      "priority": "Wybierz poziom priorytetu, który określa ramy czasowe wdrożenia (P0: natychmiast, P1: 3 miesiące, P2: 6 miesięcy, P3: 12 miesięcy).",
+      "status": "Bieżący status usprawnienia: otwarte, w toku, rozwiązane, zweryfikowane (potwierdzona skuteczność) lub odroczone.",
+      "targetDate": "Data, do której to działanie doskonalące powinno zostać ukończone.",
+      "deferralReason": "Jeśli status to Odroczone, podaj uzasadnienie i przewidywany termin wznowienia.",
+      "verificationNotes": "Udokumentuj, jak zweryfikowano skuteczność tego usprawnienia po wdrożeniu."
+    }
+  }
+}

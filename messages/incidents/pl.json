@@ -1,0 +1,70 @@
+{
+  "incidents": {
+    "title": "Rejestr incydentów",
+    "description": "Dziennik incydentów bezpieczeństwa z klasyfikacją istotności i śledzeniem osi czasu. Wymagane na podstawie art. 23 NIS2.",
+    "helpText": "Rejestruj każdy incydent bezpieczeństwa w chwili jego wystąpienia. NIS2 wymaga wczesnego ostrzeżenia do BSI w ciągu 24 godzin oraz pełnego zgłoszenia w ciągu 72 godzin w przypadku poważnych incydentów. Zapisz istotność, systemy, których dotyczy, oś czasu oraz kroki rozwiązania.",
+    "add": "Zgłoś incydent",
+    "edit": "Edytuj incydent",
+    "empty": "Nie zarejestrowano żadnych incydentów. Zgłoś incydent, gdy wystąpi.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć ten incydent?",
+    "actions": "Działania",
+    "severity": {
+      "near_miss": "Zdarzenie potencjalnie wypadkowe",
+      "incident": "Incydent",
+      "significant": "Poważny"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "description": "Opis",
+      "severity": "Istotność",
+      "situationColor": "Kolor sytuacji",
+      "discoveredAt": "Wykryto",
+      "occurredAt": "Wystąpiło",
+      "resolvedAt": "Rozwiązano",
+      "confidentialityImpacted": "Naruszono poufność",
+      "integrityImpacted": "Naruszono integralność",
+      "availabilityImpacted": "Naruszono dostępność",
+      "threatType": "Typ zagrożenia",
+      "rootCause": "Przyczyna źródłowa",
+      "countermeasures": "Środki zaradcze",
+      "preventiveMeasures": "Środki zapobiegawcze",
+      "requiresGdprNotification": "Wymagane zgłoszenie naruszenia wg GDPR",
+      "dataSubjectsAffected": "Liczba osób, których dane dotyczą",
+      "gdprNotifiedAt": "Powiadomiono organ ds. GDPR",
+      "notifiedDataSubjectsAt": "Powiadomiono osoby, których dane dotyczą"
+    },
+    "bsiDeadlines": {
+      "title": "Terminy zgłaszania do BSI",
+      "overdue": "Po terminie",
+      "dueIn": "Termin za {days} dni",
+      "dueToday": "Termin dzisiaj",
+      "reportType": {
+        "early_warning": "Wczesne ostrzeżenie 24h",
+        "notification": "Zgłoszenie 72h",
+        "intermediate": "Raport pośredni",
+        "final": "Raport końcowy",
+        "progress": "Raport o postępach"
+      }
+    },
+    "fieldDescriptions": {
+      "title": "Krótka, opisowa nazwa tego incydentu (np. „Atak phishingowy na dział finansów”).",
+      "description": "Szczegółowy opis tego, co się wydarzyło, których systemów i danych dotyczył incydent oraz zakresu skutków.",
+      "severity": "Wybierz poziom istotności. Incydenty „poważne” wymagają zgłoszenia do BSI w ciągu 24h (wczesne ostrzeżenie) i 72h (pełny raport) zgodnie z art. 23 NIS2.",
+      "situationColor": "Wskaźnik bieżącego statusu incydentu w formie świateł drogowych: zielony (opanowany), bursztynowy (trwający), czerwony (krytyczny).",
+      "discoveredAt": "Data i godzina pierwszego wykrycia lub zgłoszenia tego incydentu.",
+      "occurredAt": "Data i godzina faktycznego rozpoczęcia tego incydentu (może różnić się od momentu wykrycia).",
+      "resolvedAt": "Data i godzina pełnego rozwiązania tego incydentu i przywrócenia normalnego działania.",
+      "confidentialityImpacted": "Włącz, jeśli doszło lub podejrzewa się nieuprawnione ujawnienie informacji.",
+      "integrityImpacted": "Włącz, jeśli doszło lub podejrzewa się nieuprawnioną modyfikację lub uszkodzenie danych.",
+      "availabilityImpacted": "Włącz, jeśli usługi lub systemy zostały zakłócone lub stały się niedostępne.",
+      "threatType": "Wybierz typ zagrożenia (np. złośliwe oprogramowanie, DDoS, zagrożenie wewnętrzne, phishing, wykorzystanie podatności).",
+      "rootCause": "Opisz źródłową przyczynę incydentu po zakończeniu dochodzenia.",
+      "countermeasures": "Opisz natychmiastowe działania podjęte w celu opanowania i usunięcia skutków incydentu.",
+      "preventiveMeasures": "Opisz długoterminowe środki wdrożone w celu zapobieżenia powtórzeniu się tego rodzaju incydentu.",
+      "requiresGdprNotification": "Włącz, jeśli ten incydent obejmował naruszenie ochrony danych osobowych wymagające zgłoszenia organowi nadzorczemu zgodnie z art. 33 GDPR (w ciągu 72 godzin od stwierdzenia).",
+      "dataSubjectsAffected": "Przybliżona liczba osób, których dane osobowe zostały naruszone (art. 33 ust. 3 lit. a) — wymagana treść zgłoszenia).",
+      "gdprNotifiedAt": "Data i godzina powiadomienia organu nadzorczego o naruszeniu.",
+      "notifiedDataSubjectsAt": "Data i godzina poinformowania osób, których dane dotyczą (art. 34 — wymagane, gdy naruszenie powoduje wysokie ryzyko)."
+    }
+  }
+}

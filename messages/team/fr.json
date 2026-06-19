@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Équipe",
+    "pageDescription": "Gérer les membres de l'équipe et les invitations",
+    "members": {
+      "title": "Membres",
+      "description": "{count, plural, one {# membre} other {# membres}} dans votre entreprise",
+      "name": "Nom",
+      "email": "E-mail",
+      "role": "Rôle",
+      "you": "vous",
+      "assignedCategories": "Catégories attribuées",
+      "complianceRole": "Attribuer un rôle"
+    },
+    "invites": {
+      "title": "Invitations en attente",
+      "description": "{count, plural, one {# invitation en attente} other {# invitations en attente}}",
+      "email": "E-mail",
+      "expires": "Expire le",
+      "linkCopied": "Lien copié"
+    },
+    "invite": {
+      "title": "Inviter un membre",
+      "description": "Saisissez une adresse e-mail pour générer un lien d'invitation",
+      "email": "E-mail",
+      "emailPlaceholder": "collegue@entreprise.com",
+      "complianceRole": "Rôle de conformité",
+      "complianceRolePlaceholder": "Sélectionner un rôle (facultatif)",
+      "submit": "Inviter",
+      "submitting": "Invitation en cours..."
+    },
+    "assignRole": {
+      "label": "Attribuer un rôle",
+      "placeholder": "Sélectionner un rôle...",
+      "success": "Rôle attribué avec succès",
+      "noCategories": "Aucune catégorie pour ce rôle"
+    },
+    "remove": {
+      "success": "Membre supprimé"
+    },
+    "revoke": {
+      "success": "Invitation révoquée"
+    },
+    "inline": {
+      "sent": "Invitation envoyée à {email}",
+      "linkCopied": "Lien copié"
+    },
+    "invalidTitle": "Invitation invalide",
+    "invalidDescription": "Ce lien d'invitation est invalide ou a déjà été utilisé.",
+    "usedTitle": "Invitation déjà utilisée",
+    "usedDescription": "Cette invitation a déjà été acceptée ou révoquée.",
+    "expiredTitle": "Invitation expirée",
+    "expiredDescription": "Ce lien d'invitation a expiré. Demandez-en un nouveau à votre administrateur.",
+    "accept": {
+      "joinTitle": "Rejoindre {company}",
+      "joinDescription": "Vous avez été invité à rejoindre en tant que {role}.",
+      "signInDescription": "Vous avez été invité à rejoindre en tant que {role}. Connectez-vous ou inscrivez-vous pour continuer.",
+      "signInToAccept": "Se connecter pour accepter",
+      "alreadyMemberTitle": "Déjà membre",
+      "alreadyMemberDescription": "Vous êtes déjà membre d'une entreprise. Vous ne pouvez pas en rejoindre une autre.",
+      "goToDashboard": "Accéder au tableau de bord",
+      "wrongAccountTitle": "Mauvais compte",
+      "wrongAccountDescription": "Cette invitation a été envoyée à {inviteEmail}. Vous êtes connecté en tant que {userEmail}.",
+      "signOutRetry": "Se déconnecter et réessayer",
+      "joining": "Adhésion en cours...",
+      "acceptInvite": "Accepter l'invitation",
+      "joined": "Vous avez rejoint {company}"
+    },
+    "roles": {
+      "ceo": "PDG / Directeur général",
+      "ciso": "CISO / Responsable de la sécurité informatique",
+      "cto": "CTO / Directeur de l'ingénierie",
+      "coo": "COO / Directeur des opérations",
+      "cpo": "CPO / Responsable des achats",
+      "hr_director": "Directeur des ressources humaines",
+      "legal": "Responsable juridique / conformité",
+      "dpo": "Délégué à la protection des données"
+    }
+  }
+}

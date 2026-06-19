@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Revues de direction",
+    "description": "Réunions de supervision par la direction et décisions stratégiques. Exigées par l'art. 20(1) NIS2.",
+    "helpText": "Documentez les réunions de revue de direction au cours desquelles la direction évalue la posture de cybersécurité. L'art. 20 NIS2 rend la direction personnellement responsable de l'approbation et de la supervision des mesures de cybersécurité. Consignez les participants, les sujets abordés et les décisions prises.",
+    "add": "Ajouter une revue",
+    "edit": "Modifier la revue",
+    "empty": "Aucune revue de direction enregistrée pour le moment. Planifiez votre première revue.",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette revue ?",
+    "actions": "Actions",
+    "fields": {
+      "title": "Titre",
+      "reviewDate": "Date de la revue",
+      "decisions": "Décisions",
+      "actionItems": "Actions à mener",
+      "nextReviewDate": "Date de la prochaine revue"
+    },
+    "fieldDescriptions": {
+      "title": "Titre de la réunion de revue de direction (par exemple « Revue de cybersécurité T1 2025 »).",
+      "reviewDate": "Date à laquelle la réunion de revue de direction a eu lieu.",
+      "decisions": "Documentez les décisions clés prises par la direction concernant la posture de cybersécurité, l'allocation des ressources et l'acceptation des risques.",
+      "actionItems": "Énumérez les actions de suivi spécifiques attribuées lors de la revue, en précisant les responsables et les échéances.",
+      "nextReviewDate": "Date à laquelle la prochaine revue de direction est planifiée. L'art. 20 NIS2 exige une supervision continue par la direction."
+    }
+  }
+}

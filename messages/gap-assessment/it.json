@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "Gap assessment NIS2",
+    "subtitle": "Valuta la tua preparazione alla NIS2 in 15 domini",
+    "startAssessment": "Avvia la valutazione",
+    "resumeAssessment": "Riprendi la valutazione",
+    "viewResults": "Visualizza i risultati",
+    "day": "Giorno {number}",
+    "dayOf": "Giorno {current} di {total}",
+    "questionsAnswered": "{answered} di {total} con risposta",
+    "saving": "Salvataggio...",
+    "saved": "Salvato",
+    "overview": {
+      "heading": "Panoramica della valutazione",
+      "description": "Un'autovalutazione strutturata che copre tutti i domini di conformità NIS2. Rispondi onestamente sul tuo stato attuale. Non ci sono risposte giuste o sbagliate.",
+      "day1": "Ambito e governance",
+      "day1desc": "Rientri nel campo di applicazione? Il tuo management comprende la propria responsabilità?",
+      "day2": "Gestione del rischio",
+      "day2desc": "Conosci i tuoi asset, i tuoi rischi e le tue policy di sicurezza?",
+      "day3": "Incidenti e continuità operativa",
+      "day3desc": "Sei in grado di rilevare gli incidenti, rispondervi e ripristinarti?",
+      "day4": "Persone, fornitori e accessi",
+      "day4desc": "I tuoi dipendenti sono formati, i fornitori gestiti e gli accessi controllati?",
+      "day5": "Controlli tecnici ed evidenze",
+      "day5desc": "Le tue protezioni tecniche e la documentazione sono pronte per l'audit?",
+      "questions": "{count} domande",
+      "estimatedTime": "~{minutes} min",
+      "noActiveSession": "Non hai ancora avviato una valutazione.",
+      "pastSessions": "Valutazioni precedenti",
+      "score": "Punteggio: {score}%",
+      "completedOn": "Completata il {date}",
+      "inProgress": "In corso"
+    },
+    "question": {
+      "yes": "Sì",
+      "partially": "Parzialmente",
+      "no": "No",
+      "notApplicable": "N/A",
+      "showExplanation": "Cosa significa?",
+      "hideExplanation": "Nascondi la spiegazione",
+      "legalBasis": "Base giuridica",
+      "criticality": "Importanza",
+      "criticalityLevels": {
+        "0": "Informativo",
+        "1": "Bassa",
+        "2": "Media",
+        "3": "Alta"
+      },
+      "respondent": {
+        "0": "CEO / management",
+        "1": "IT / sicurezza",
+        "2": "HR",
+        "3": "Approvvigionamento",
+        "4": "Chiunque"
+      },
+      "suggestedRespondent": "Risponde al meglio"
+    },
+    "navigation": {
+      "previousDay": "Giorno precedente",
+      "nextDay": "Giorno successivo",
+      "completeAssessment": "Completa la valutazione",
+      "backToOverview": "Torna alla panoramica"
+    },
+    "results": {
+      "heading": "Risultati della valutazione",
+      "overallScore": "Punteggio complessivo",
+      "domainScores": "Punteggi per dominio",
+      "maturityLevel": "Livello di maturità",
+      "priorityGaps": "Lacune prioritarie",
+      "exportPdf": "Esporta PDF",
+      "domain": "Dominio",
+      "score": "Punteggio",
+      "maturity": "Maturità",
+      "answered": "Con risposta",
+      "noGaps": "Nessuna lacuna individuata. Eccellente.",
+      "gapRank": "Priorità",
+      "gapQuestion": "Rilievo",
+      "gapDomain": "Dominio",
+      "gapConsequence": "Conseguenza",
+      "gapTimeToFix": "Sforzo",
+      "fineRisk": "Rischio di sanzione",
+      "viewInPlatform": "Visualizza nella piattaforma",
+      "maturityLevels": {
+        "critical": "Critico",
+        "initial": "Iniziale",
+        "developing": "In sviluppo",
+        "managed": "Gestito",
+        "optimized": "Ottimizzato"
+      },
+      "consequenceLevels": {
+        "0": "Rilievo di audit",
+        "1": "Rischio operativo",
+        "2": "Sanzione",
+        "3": "Responsabilità personale"
+      },
+      "timeToFixLevels": {
+        "0": "Risultato rapido",
+        "1": "Giorni",
+        "2": "Settimane",
+        "3": "Mesi"
+      },
+      "summary": {
+        "criticalGaps": "{count} lacune critiche",
+        "fineExposed": "{count} comportano un'esposizione a sanzioni",
+        "personalLiability": "{count} comportano una responsabilità personale per il CEO",
+        "quickWins": "{count} possono essere risolte immediatamente"
+      },
+      "startCompliance": "Inizia a colmare le lacune",
+      "retakeAssessment": "Ripeti la valutazione"
+    }
+  }
+}

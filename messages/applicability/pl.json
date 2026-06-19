@@ -1,0 +1,117 @@
+{
+  "applicability": {
+    "title": "Sprawdzenie zakresu NIS2 - Czy mnie to dotyczy?",
+    "metaDescription": "Sprawdź w mniej niż 2 minuty, czy Twoja firma podlega NIS2. Bezpłatne szybkie sprawdzenie według sektora, wielkości i przypadków szczególnych.",
+    "subtitle": "Dowiedz się w mniej niż 2 minuty, czy Twoja firma podlega dyrektywie NIS2.",
+    "cta": "Umów demo",
+    "steps": {
+      "exclusion": "Sprawdzenie wyłączeń",
+      "sector": "Wybór sektora",
+      "size": "Wielkość firmy",
+      "specialCases": "Przypadki szczególne",
+      "result": "Wynik"
+    },
+    "step": "Krok {current} z {total}",
+
+    "exclusion": {
+      "title": "Czy Twoja organizacja należy do kategorii wyłączonej?",
+      "description": "Następujące rodzaje podmiotów są z mocy prawa zwolnione z NIS2. Jeśli którykolwiek dotyczy Ciebie, NIS2 nie obejmuje Twojej organizacji i sprawdzenie kończy się w tym miejscu.",
+      "noneOfTheAbove": "Nie - żadne z powyższych nas nie dotyczy",
+      "noneHelp": "Wybierz tę opcję, aby kontynuować. Większość firm z sektora prywatnego wybierze tę opcję."
+    },
+
+    "sector": {
+      "title": "W jakim sektorze działa Twoja firma?",
+      "description": "Wybierz wszystkie odpowiednie sektory. Firma może działać w wielu sektorach NIS2.",
+      "annexI": "Sektory o wysokiej krytyczności",
+      "annexII": "Pozostałe sektory krytyczne",
+      "noSector": "Żaden z tych sektorów nie dotyczy mojej firmy",
+      "selectedCount": "{count, plural, =0 {Nie wybrano sektorów} =1 {Wybrano 1 sektor} few {Wybrano # sektory} many {Wybrano # sektorów} other {Wybrano # sektora}}"
+    },
+
+    "size": {
+      "title": "Jaka jest wielkość Twojej organizacji?",
+      "description": "Wielkość jest obliczana na poziomie całej grupy przedsiębiorstw, w tym spółek dominujących i zależnych.",
+      "employees": "Łączna liczba pracowników (EPC)",
+      "employeesHelp": "Uwzględnij wszystkie spółki grupy, chyba że Twój podmiot ma w pełni niezależną infrastrukturę informatyczną.",
+      "turnover": "Roczny obrót (mln EUR)",
+      "turnoverHelp": "Skonsolidowany obrót całej grupy przedsiębiorstw w skali światowej.",
+      "balanceSheet": "Roczna suma bilansowa (mln EUR)",
+      "balanceSheetHelp": "Skonsolidowany bilans całej grupy przedsiębiorstw w skali światowej.",
+      "independentIt": "Nasz niemiecki podmiot ma systemy informatyczne w pełni niezależne od grupy macierzystej",
+      "independentItHelp": "Jeśli zaznaczono, zastosowanie mają wyłącznie dane Twojego niemieckiego podmiotu."
+    },
+
+    "specialCases": {
+      "title": "Czy którekolwiek z poniższych ma zastosowanie?",
+      "description": "Te podmioty podlegają NIS2 niezależnie od wielkości firmy.",
+      "noneOfTheAbove": "Żadne z powyższych",
+      "noneHelp": "Większość organizacji wybierze tę opcję.",
+      "selectedCount": "{count, plural, =1 {Wybrano 1} few {Wybrano #} many {Wybrano #} other {Wybrano #}}"
+    },
+
+    "result": {
+      "notInScope": "Prawdopodobnie poza zakresem",
+      "important": "Podmiot ważny",
+      "importantLabel": "Prawdopodobnie podmiot ważny",
+      "essential": "Podmiot kluczowy",
+      "essentialLabel": "Prawdopodobnie podmiot kluczowy",
+      "kritis": "Betreiber kritischer Anlagen",
+      "kritisLabel": "Prawdopodobnie operator KRITIS",
+
+      "reason": {
+        "excluded": "Twoja organizacja wydaje się być wyłączona z zakresu NIS2 (zwolnienie dla funkcji suwerennych).",
+        "no_sector": "Na podstawie Twojego wyboru Twoja firma nie wydaje się działać w żadnym sektorze objętym NIS2. Jeśli masz wątpliwości, zapoznaj się z pełną listą sektorów NIS2 lub zasięgnij porady prawnej.",
+        "below_threshold": "Twoja firma wydaje się działać w sektorze NIS2, ale może nie osiągać progu średniego przedsiębiorstwa. Mimo to wymogi NIS2 mogą Cię dotyczyć poprzez umowy w łańcuchu dostaw z klientami objętymi zakresem.",
+        "special_case": "Na podstawie klasyfikacji Twoja organizacja prawdopodobnie podlega zakresowi niezależnie od wielkości.",
+        "size_and_sector": "Na podstawie podanych informacji Twoja firma wydaje się spełniać zarówno kryterium sektora, jak i wielkości dla NIS2."
+      },
+
+      "disclaimer": "To jest ocena orientacyjna, a nie rozstrzygnięcie prawne. Zakres stosowania NIS2 zależy od czynników, które mogą nie być tu w pełni uwzględnione, w tym od struktury grupy kapitałowej, niezależnej infrastruktury informatycznej i interpretacji regulacyjnych. Skonsultuj się z wykwalifikowanym doradcą, aby potwierdzić swój status.",
+
+      "obligations": "Kluczowe obowiązki",
+      "penalty": "Górna granica kary",
+      "penaltyValue": "{amount} lub {percent} światowego obrotu",
+      "penaltyInfo": "Maksymalna kara za naruszenia środków cyberbezpieczeństwa, zgłaszania incydentów lub dyrektyw BSI. Alternatywa oparta na obrocie ma zastosowanie do firm o przychodach > 500 mln EUR. Kary ustala BSI w zależności od wagi naruszenia.",
+      "supervisionLabel": "Nadzór",
+      "supervisionProactive": "Proaktywny (ex ante) - BSI może przeprowadzić audyt w dowolnym momencie",
+      "supervisionReactive": "Reaktywny (ex post) - BSI działa na podstawie dowodów niezgodności",
+      "supervisionInfo": "Proaktywny: BSI może przeprowadzać niezapowiedziane audyty, żądać dokumentacji i nakazać określone środki bezpieczeństwa w dowolnym momencie. Reaktywny: BSI prowadzi postępowanie wyłącznie po incydencie lub przy uzasadnionym podejrzeniu niezgodności.",
+      "registration": "Rejestracja w BSI",
+      "registrationDeadline": "Do 6 marca 2026 r. przez portal BSI",
+      "registrationInfo": "Musisz samodzielnie zarejestrować się przez portal BSI (działający od 6 stycznia 2026 r.). Wymagane: nazwa podmiotu, adres, sektory, zakresy adresów IP oraz deklaracja kategorii podmiotu. Najpierw utwórz „Mein Unternehmenskonto” (MUK) przez ELSTER, a następnie zarejestruj się na portalu BSI.",
+      "riskManagement": "Zarządzanie ryzykiem",
+      "riskManagementValue": "10 obowiązkowych środków (§ 30 BSIG)",
+      "riskManagementInfo": "Musisz wdrożyć wszystkie 10 środków z § 30 BSIG: analiza ryzyka, obsługa incydentów, ciągłość działania, bezpieczeństwo łańcucha dostaw, bezpieczne tworzenie, ocena skuteczności, szkolenie z higieny cybernetycznej, kryptografia, kontrola dostępu/zarządzanie aktywami oraz uwierzytelnianie wieloskładnikowe.",
+      "incidentReporting": "Zgłaszanie incydentów",
+      "incidentReportingValue": "Kaskada 24 godz. / 72 godz. / 1 miesiąc do BSI",
+      "incidentReportingInfo": "Poważne incydenty bezpieczeństwa muszą być zgłaszane do BSI w trzech etapach: (1) Wczesne ostrzeżenie w ciągu 24 godzin - podejrzewana przyczyna i wpływ transgraniczny, (2) Zaktualizowane zgłoszenie w ciągu 72 godzin - waga, wpływ, wskaźniki naruszenia, (3) Raport końcowy w ciągu 1 miesiąca - przyczyna źródłowa, działania naprawcze, kroki zapobiegawcze.",
+      "managementLiability": "Odpowiedzialność kierownictwa",
+      "managementLiabilityValue": "Osobista odpowiedzialność członków zarządu (§ 38 BSIG)",
+      "managementLiabilityInfo": "Członkowie zarządu (Vorstand/Geschäftsführer) ponoszą osobistą odpowiedzialność za zgodność z NIS2. Trzy obowiązki: (1) formalne zatwierdzenie środków cyberbezpieczeństwa, (2) aktywne monitorowanie wdrożenia, (3) ukończenie obowiązkowego szkolenia z cyberbezpieczeństwa. Odpowiedzialności nie można uchylić uchwałą wspólników. Ubezpieczenie D&O nie znosi ustawowych obowiązków.",
+      "managementTraining": "Szkolenie kierownictwa",
+      "managementTrainingValue": "Obowiązkowe szkolenie z cyberbezpieczeństwa co 3 lata",
+      "managementTrainingInfo": "Wszyscy członkowie organu zarządzającego muszą osobiście uczestniczyć w szkoleniu z cyberbezpieczeństwa co najmniej co 3 lata. Obowiązku tego nie można delegować na CISO ani dział IT. Niedopełnienie przyczynia się do osobistej odpowiedzialności na podstawie § 38 BSIG.",
+
+      "cta": "Umów się na przegląd",
+      "ctaVoluntary": "Mimo to umów się na przegląd",
+      "restart": "Zacznij od nowa",
+      "supplyChainNote": "Nawet jeśli nie podlegasz bezpośrednio zakresowi, wymogi NIS2 mogą Cię dotyczyć poprzez umowy z klientami objętymi zakresem."
+    },
+
+    "nav": {
+      "back": "Wstecz",
+      "next": "Dalej",
+      "checkResult": "Zobacz wynik"
+    },
+
+    "leadCapture": {
+      "title": "Otrzymaj bezpłatny plan działań na rzecz zgodności",
+      "description": "Wyślemy Ci spersonalizowany plan działań na podstawie Twojej klasyfikacji — bez spamu, tylko kroki, które musisz podjąć.",
+      "placeholder": "twoj@firma.pl",
+      "cta": "Wyślij plan działań",
+      "success": "Sprawdź skrzynkę odbiorczą — Twój plan działań na rzecz zgodności jest w drodze.",
+      "error": "Coś poszło nie tak. Spróbuj ponownie."
+    }
+  }
+}

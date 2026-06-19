@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Piste d'audit",
+    "subtitle": "Journal infalsifiable de toutes les actions pertinentes pour la conformité",
+    "noEntries": "Aucune entrée dans le journal d'audit pour l'instant.",
+    "description": "Description",
+    "action": "Action",
+    "user": "Utilisateur",
+    "time": "Heure"
+  }
+}

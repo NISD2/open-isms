@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Riesami della direzione",
+    "description": "Riunioni di supervisione della direzione e decisioni strategiche. Richiesto dall'art. 20(1) NIS2.",
+    "helpText": "Documenta le riunioni di riesame della direzione in cui i vertici valutano la postura di cibersicurezza. L'art. 20 NIS2 rende la direzione personalmente responsabile dell'approvazione e della supervisione delle misure di cibersicurezza. Registra i partecipanti, i temi discussi e le decisioni assunte.",
+    "add": "Aggiungi riesame",
+    "edit": "Modifica riesame",
+    "empty": "Nessun riesame della direzione registrato finora. Pianifica il tuo primo riesame.",
+    "deleteConfirm": "Sei sicuro di voler eliminare questo riesame?",
+    "actions": "Azioni",
+    "fields": {
+      "title": "Titolo",
+      "reviewDate": "Data del riesame",
+      "decisions": "Decisioni",
+      "actionItems": "Azioni da intraprendere",
+      "nextReviewDate": "Data del prossimo riesame"
+    },
+    "fieldDescriptions": {
+      "title": "Titolo della riunione di riesame della direzione (ad es. 'Riesame della cibersicurezza Q1 2025').",
+      "reviewDate": "Data in cui si è svolta la riunione di riesame della direzione.",
+      "decisions": "Documenta le decisioni chiave assunte dalla direzione in merito alla postura di cibersicurezza, all'allocazione delle risorse e all'accettazione del rischio.",
+      "actionItems": "Elenca le azioni di follow-up specifiche assegnate durante il riesame, comprese le parti responsabili e le scadenze.",
+      "nextReviewDate": "Data in cui è pianificato il prossimo riesame della direzione. L'art. 20 NIS2 richiede una supervisione continua della direzione."
+    }
+  }
+}

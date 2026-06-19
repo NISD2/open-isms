@@ -1,0 +1,8 @@
+{
+  "evidence": {
+    "loading": "Ładowanie plików…",
+    "uploading": "Przesyłanie…",
+    "uploadFailed": "Przesyłanie nie powiodło się. Spróbuj ponownie.",
+    "deleteFailed": "Usuwanie nie powiodło się. Spróbuj ponownie."
+  }
+}

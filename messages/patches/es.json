@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Gestión de parches",
+    "description": "Seguimiento de parches y vulnerabilidades por activo. Exigido por el Art. 21(2)(e) de NIS2.",
+    "helpText": "Realice el seguimiento de los parches y las vulnerabilidades conocidas de sus activos registrados. Registre el estado del parche (pendiente, aplicado, aplazado), las referencias CVE y los plazos. NIS2 exige el tratamiento oportuno de las vulnerabilidades y la gestión de parches.",
+    "add": "Añadir registro de parche",
+    "edit": "Editar registro de parche",
+    "empty": "Aún no hay registros de parches. Añada su primer registro de parche.",
+    "deleteConfirm": "¿Está seguro de que desea eliminar este registro de parche?",
+    "actions": "Acciones",
+    "severity": {
+      "critical": "Crítica",
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "applied": "Aplicado",
+      "exception": "Excepción",
+      "not_applicable": "No aplicable"
+    },
+    "fields": {
+      "patchIdentifier": "ID del parche",
+      "severity": "Gravedad",
+      "title": "Título",
+      "assetId": "Activo",
+      "status": "Estado",
+      "releaseDate": "Fecha de publicación",
+      "appliedAt": "Aplicado el",
+      "exceptionReason": "Motivo de la excepción"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Identificador del parche del proveedor o número CVE (p. ej., «KB5034441», «CVE-2024-1234»).",
+      "severity": "Seleccione la calificación de gravedad de la vulnerabilidad que aborda este parche: crítica, alta, media o baja.",
+      "title": "Breve descripción de lo que corrige este parche o de la vulnerabilidad que aborda.",
+      "assetId": "Seleccione el activo del registro de activos al que se aplica este parche.",
+      "status": "Estado actual del parche: pendiente (aún no aplicado), aplicado, excepción (aplazamiento con riesgo aceptado) o no aplicable.",
+      "releaseDate": "Fecha en la que el proveedor publicó este parche.",
+      "appliedAt": "Fecha en la que este parche se aplicó correctamente al activo de destino.",
+      "exceptionReason": "Si el estado es Excepción, indique la justificación para aplazar o no aplicar este parche."
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "exercises": {
+    "title": "Ćwiczenia",
+    "description": "Ćwiczenia BC/DR oraz reagowania na incydenty. Wymagane przez NIS2 Art. 21(2)(c).",
+    "helpText": "Planuj i dokumentuj ćwiczenia ciągłości działania i odtwarzania po awarii. NIS2 wymaga regularnego testowania planów ciągłości. Rejestruj rodzaj ćwiczenia, uczestników, ustalenia i działania następcze.",
+    "add": "Dodaj ćwiczenie",
+    "edit": "Edytuj ćwiczenie",
+    "empty": "Nie zaplanowano jeszcze żadnych ćwiczeń. Zaplanuj pierwsze ćwiczenie.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć to ćwiczenie?",
+    "actions": "Działania",
+    "type": {
+      "tabletop": "Sztabowe",
+      "technical": "Techniczne",
+      "red_team": "Red Team",
+      "full_scale": "Pełnoskalowe"
+    },
+    "exerciseType": {
+      "tabletop": "Sztabowe",
+      "technical": "Techniczne",
+      "red_team": "Red Team",
+      "full_scale": "Pełnoskalowe"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "exerciseType": "Rodzaj ćwiczenia",
+      "domain": "Domena",
+      "scheduledDate": "Planowana data",
+      "completedAt": "Ukończono",
+      "scenarioDescription": "Scenariusz",
+      "facilitator": "Prowadzący",
+      "lessonsLearned": "Wyciągnięte wnioski"
+    },
+    "fieldDescriptions": {
+      "title": "Nazwa ćwiczenia (np. „Sztabowe ćwiczenie ransomware Q1”, „Test przełączenia DR”).",
+      "exerciseType": "Wybierz format ćwiczenia: sztabowe (oparte na dyskusji), techniczne (praktyczne), red team (symulacja przeciwnika) lub pełnoskalowe (ćwiczenie na żywo).",
+      "domain": "Testowana domena bezpieczeństwa (np. reagowanie na incydenty, ciągłość działania, odtwarzanie po awarii, komunikacja kryzysowa).",
+      "scheduledDate": "Data, na którą zaplanowano przeprowadzenie tego ćwiczenia.",
+      "completedAt": "Data faktycznego ukończenia tego ćwiczenia.",
+      "scenarioDescription": "Opisz symulowany scenariusz, w tym aktora zagrożenia, wektor ataku i oczekiwaną reakcję organizacji.",
+      "facilitator": "Imię i nazwisko osoby odpowiedzialnej za planowanie i prowadzenie tego ćwiczenia.",
+      "lessonsLearned": "Udokumentuj kluczowe ustalenia, zidentyfikowane luki oraz zalecane usprawnienia wynikające z tego ćwiczenia."
+    }
+  }
+}

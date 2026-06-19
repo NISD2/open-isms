@@ -1,0 +1,77 @@
+{
+  "funnel": {
+    "meta": {
+      "title": "Wdroż NIS2 z prowadzeniem: co tydzień, 30 minut",
+      "description": "Znasz kroki NIS2 i wolisz nie realizować ich samodzielnie. Raz w tygodniu przepracowujemy z Tobą wymagania. Platforma bezpłatna i open source, prowadzenie opcjonalne i wypowiadalne co miesiąc."
+    },
+    "hero": {
+      "headline": "Przeprowadzamy Cię przez NIS2. Punkt po punkcie.",
+      "subhead": "Wiesz, że NIS2 Cię dotyczy, i wolisz nie dźwigać wdrożenia samodzielnie. Raz w tygodniu siadamy z Tobą na 30 minut i przepracowujemy wymagania po kolei. Platforma pozostaje bezpłatna i open source, prowadzenie jest opcjonalne.",
+      "roadmapLink": "Znasz już kroki i chcesz zacząć samodzielnie? Oto plan działania.",
+      "cta": "Umów bezpłatną rozmowę wstępną",
+      "trust": "Stworzone w Kolonii. Hostowane w Niemczech."
+    },
+    "process": {
+      "heading": "Jak działa prowadzenie",
+      "step1Title": "Cotygodniowa rozmowa, 30 minut",
+      "step1Body": "Jeden stały termin w tygodniu. Bez miesięcy projektowych, bez niekończących się pętli uzgodnień. Bierzemy kolejną pozycję z Twojego planu działania i wykonujemy ją razem.",
+      "step2Title": "My prowadzimy, Twój kierownik IT wdraża",
+      "step2Body": "Twój osobisty nakład jako prezesa zarządu to około trzech godzin rocznie, po czym zatwierdzenie i nadzór na podstawie Artykułu 20 NIS 2 (w Niemczech § 38 BSIG) są dopełnione. Cztery obowiązki na podstawie Artykułu 21 są stałe, reszta skaluje się wraz z Twoim ryzykiem i jest proporcjonalna. Część operacyjną, inwentaryzację aktywów, rejestr ryzyk, dostawców oraz dziesięć środków, obsługuje Twój zespół.",
+      "step3Title": "Wszystko zostaje przy Tobie. Bez lock-inu.",
+      "step3Body": "Twoje dane, ścieżka audytu i dowody należą do Ciebie. Platforma jest open source. Jeśli chcesz kontynuować bez nas, wyeksportuj wszystko i zabierz ze sobą."
+    },
+    "comparison": {
+      "heading": "Do czego służy każde rozwiązanie",
+      "intro": "Nie deprecjonujemy nikogo. Każda opcja ma swoje miejsce. Oto uczciwy obraz, abyś wiedział, czy do Ciebie pasujemy.",
+      "consultantsTitle": "Konsultanci",
+      "consultants": "Konsultant wykonuje pracę za Ciebie i bierze realną odpowiedzialność. Warto, jeśli masz budżet i nikogo wewnątrz firmy, kto mógłby długoterminowo odpowiadać za NIS2. Wiedza odchodzi jednak wraz z konsultantem.",
+      "fullServiceTitle": "Platforma GRC z pełną obsługą",
+      "fullService": "Platformy GRC z pełną obsługą pokrywają wiele ram naraz i są budowane dla dużych organizacji z własnym zespołem GRC. Silne, jeśli właśnie tego potrzebujesz i budżet jest dostępny.",
+      "intlPlatformsTitle": "Platforma międzynarodowa",
+      "intlPlatforms": "Platformy międzynarodowe są dopracowane i szybkie w przypadku popularnych certyfikacji. Silne, jeśli certyfikujesz się międzynarodowo i pasuje Ci angielski jako język podstawowy.",
+      "nisd2Title": "nisd2.eu",
+      "nisd2": "nisd2.eu jest bezpłatne i open source, hostowane w UE. Jeden standard, zrobiony dogłębnie. Wszystko eksportowalne, bez lock-inu. Czego nie robimy: brak pełnej obsługi „za rączkę”, brak wsparcia telefonicznego prowadzącego Cię krok po kroku. Potrzebujesz kogoś wewnątrz firmy, kto odpowiada za NIS2. Właśnie dla takiej osoby to zbudowano."
+    },
+    "features": {
+      "heading": "Co przepracowujemy z Tobą",
+      "obligations": {
+        "title": "Obowiązki z Artykułu 21 NIS2",
+        "description": "Każdy obowiązek rozłożony na ustrukturyzowane formularze z jasnymi instrukcjami. Nie jest potrzebne doświadczenie w obszarze zgodności: Ty odpowiadasz na pytania, my wykonujemy mapowanie."
+      },
+      "evidence": {
+        "title": "Dowody i ścieżka audytu",
+        "description": "Dokumenty, zatwierdzenia i odporna na manipulacje ścieżka audytu powstają same z Twojej pracy. Wszystko z sygnaturą czasową, gotowe do audytu."
+      },
+      "deadlines": {
+        "title": "Terminy i raportowanie",
+        "description": "Rejestracja, kaskada zgłaszania incydentów na podstawie Artykułu 23 (24 godziny, 72 godziny, jeden miesiąc) oraz odnawianie szkoleń. Każdy termin śledzony, nic nie umyka."
+      },
+      "bsiRegistration": {
+        "title": "Rejestracja u organu",
+        "description": "Prowadzone przygotowanie do rejestracji na podstawie Artykułu 27, ze wszystkimi wymaganymi dokumentami i listą kontrolną przed wysłaniem."
+      }
+    },
+    "faq": {
+      "heading": "Częste pytania",
+      "q1": "Czy platforma jest naprawdę bezpłatna?",
+      "a1": "Tak. Platforma jest bezpłatna i open source. Zarabiamy na prowadzonym wdrożeniu i szkoleniach, nie na oprogramowaniu i nie na Twoich danych. Kod możesz sprawdzić na github.com/NISD2.",
+      "q2": "Ile kosztuje prowadzenie?",
+      "a2": "Zakres ustalamy w rozmowie wstępnej, wypowiadalne co miesiąc, bez lock-inu. Najpierw wspólnie sprawdzamy, czy w ogóle potrzebujesz prowadzenia, czy też bezpłatna platforma i plan działania wystarczą same w sobie.",
+      "q3": "Mamy już ISO 27001. Czy nadal tego potrzebujemy?",
+      "a3": "ISO 27001 pokrywa wiele środków technicznych i organizacyjnych, których wymaga także NIS2. NIS2 dodaje obowiązki, których sam ISMS nie pokrywa: rejestrację u krajowego organu na podstawie Artykułu 27, kaskadę zgłaszania incydentów na podstawie Artykułu 23 oraz wykazywalne szkolenie kierownictwa na podstawie Artykułu 20 NIS 2 (w Niemczech § 38 BSIG). To właśnie te luki przepracowujemy z Tobą.",
+      "q4": "Ile trwa wdrożenie?",
+      "a4": "Twój osobisty nakład jako prezesa zarządu to około trzech godzin rocznie: jedno szkolenie, kilka podpisów. Część operacyjną na bieżąco obsługuje Twój kierownik IT. To, jak szybko powstanie podstawowy poziom, zależy od tego, jak dobrze utrzymana jest już Twoja inwentaryzacja aktywów. Plan działania pokazuje realistyczny nakład na każdy krok.",
+      "q5": "Gdzie przechowywane są nasze dane?",
+      "a5": "W Niemczech. Szyfrowane w tranzycie i w spoczynku, z dostępem opartym na rolach i pełną ścieżką audytu. Szczegóły znajdują się w Trust Center.",
+      "q6": "Co się stanie, jeśli zrezygnujemy z prowadzenia?",
+      "a6": "Nadal korzystasz z platformy bezpłatnie albo eksportujesz swoje dane i odchodzisz. Prowadzenie jest wypowiadalne co miesiąc, oprogramowanie jest open source. Bez lock-inu."
+    },
+    "sources": {
+      "body": "Źródła i transparentność: dyrektywa NIS2 (UE) 2022/2555, BSIG, CIR 2024/2690, ENISA Technical Implementation Guidance. Open source, hostowane w Niemczech, zgodne z GDPR. Ta strona stanowi ustrukturyzowane prowadzenie i nie jest poradą prawną. Wdrożenie operacyjne obsługuje Twój kierownik IT lub CISO."
+    },
+    "finalCta": {
+      "headline": "Umów bezpłatną rozmowę wstępną",
+      "email": "Wolisz napisać bezpośrednio? contact@nisd2.eu"
+    }
+  }
+}

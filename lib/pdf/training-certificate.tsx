@@ -1,7 +1,7 @@
 import React from "react";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-
-type Locale = "de" | "en" | "nl";
+import type { Locale } from "@/lib/seo";
+import { pickLocalized } from "@/lib/locale";
 
 interface CertModule {
   title: string;
@@ -78,6 +78,66 @@ const LABELS: Record<Locale, CertificateLabels> = {
       "Dit certificaat bevestigt deelname aan de cursus. Het vormt geen wettelijke certificering van vakbekwaamheid.",
     issuer: "Uitgegeven door NISD2.eu",
     pageLabel: (n, total) => `Pagina ${n} van ${total}`,
+  },
+  fr: {
+    title: "Certificat de Réussite",
+    certifies: "Le présent document atteste que",
+    completed: "a suivi avec succès le cours suivant :",
+    dateLabel: "Date de réussite",
+    durationLabel: "Durée",
+    lessonsLabel: "Leçons",
+    durationValue: (h) => `env. ${h} h`,
+    legal: "Formation des dirigeants au titre du §38(3) BSIG / article 20(2) de la directive NIS2",
+    topics: "Sujets abordés",
+    disclaimer:
+      "Ce certificat confirme la participation au cours. Il ne constitue pas une certification légale de compétence.",
+    issuer: "Délivré par NISD2.eu",
+    pageLabel: (n, total) => `Page ${n} sur ${total}`,
+  },
+  it: {
+    title: "Certificato di Completamento",
+    certifies: "Con il presente documento si attesta che",
+    completed: "ha completato con successo il seguente corso:",
+    dateLabel: "Data di completamento",
+    durationLabel: "Durata",
+    lessonsLabel: "Lezioni",
+    durationValue: (h) => `circa ${h} h`,
+    legal: "Formazione per il management ai sensi del §38(3) BSIG / articolo 20(2) della direttiva NIS2",
+    topics: "Argomenti trattati",
+    disclaimer:
+      "Questo certificato conferma la partecipazione al corso. Non costituisce una certificazione legale di competenza.",
+    issuer: "Rilasciato da NISD2.eu",
+    pageLabel: (n, total) => `Pagina ${n} di ${total}`,
+  },
+  es: {
+    title: "Certificado de Finalización",
+    certifies: "Por la presente se certifica que",
+    completed: "ha completado con éxito el siguiente curso:",
+    dateLabel: "Fecha de finalización",
+    durationLabel: "Duración",
+    lessonsLabel: "Lecciones",
+    durationValue: (h) => `aprox. ${h} h`,
+    legal: "Formación de la dirección conforme al §38(3) BSIG / artículo 20(2) de la directiva NIS2",
+    topics: "Temas tratados",
+    disclaimer:
+      "Este certificado confirma la participación en el curso. No constituye una certificación legal de competencia.",
+    issuer: "Emitido por NISD2.eu",
+    pageLabel: (n, total) => `Página ${n} de ${total}`,
+  },
+  pl: {
+    title: "Certyfikat Ukończenia",
+    certifies: "Niniejszym zaświadcza się, że",
+    completed: "pomyślnie ukończył następujący kurs:",
+    dateLabel: "Data ukończenia",
+    durationLabel: "Czas trwania",
+    lessonsLabel: "Lekcje",
+    durationValue: (h) => `ok. ${h} godz.`,
+    legal: "Szkolenie kierownictwa zgodnie z §38(3) BSIG / artykułem 20(2) dyrektywy NIS2",
+    topics: "Omawiane tematy",
+    disclaimer:
+      "Niniejszy certyfikat potwierdza udział w kursie. Nie stanowi prawnej certyfikacji kompetencji.",
+    issuer: "Wydane przez NISD2.eu",
+    pageLabel: (n, total) => `Strona ${n} z ${total}`,
   },
 };
 
@@ -269,11 +329,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function pickLocale(locale: string): Locale {
-  if (locale === "de" || locale === "nl") return locale;
-  return "en";
-}
-
 export function TrainingCertificateDocument({
   data,
   locale,
@@ -281,7 +336,7 @@ export function TrainingCertificateDocument({
   data: TrainingCertificateData;
   locale: string;
 }) {
-  const labels = LABELS[pickLocale(locale)];
+  const labels = pickLocalized(LABELS, locale);
 
   return (
     <Document

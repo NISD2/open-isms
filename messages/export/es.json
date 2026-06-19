@@ -1,0 +1,11 @@
+{
+  "export": {
+    "title": "Exportar informes",
+    "subtitle": "Descargue los informes de cumplimiento de sus evaluaciones",
+    "noAssessments": "No se han encontrado evaluaciones. Complete primero la configuración.",
+    "download": "Descargar PDF",
+    "started": "Iniciado",
+    "progress": "{completed} de {total} requisitos",
+    "compliance": "Cumplimiento"
+  }
+}

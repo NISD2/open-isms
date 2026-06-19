@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Ścieżka audytu",
+    "subtitle": "Odporny na manipulacje rejestr wszystkich działań istotnych dla zgodności",
+    "noEntries": "Brak wpisów w rejestrze audytu.",
+    "description": "Opis",
+    "action": "Działanie",
+    "user": "Użytkownik",
+    "time": "Czas"
+  }
+}

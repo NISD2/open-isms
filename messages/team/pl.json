@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Zespół",
+    "pageDescription": "Zarządzaj członkami zespołu i zaproszeniami",
+    "members": {
+      "title": "Członkowie",
+      "description": "{count, plural, one {# członek} few {# członków} many {# członków} other {# członka}} w Twojej firmie",
+      "name": "Imię i nazwisko",
+      "email": "E-mail",
+      "role": "Rola",
+      "you": "Ty",
+      "assignedCategories": "Przypisane kategorie",
+      "complianceRole": "Przypisz rolę"
+    },
+    "invites": {
+      "title": "Oczekujące zaproszenia",
+      "description": "{count, plural, one {# oczekujące zaproszenie} few {# oczekujące zaproszenia} many {# oczekujących zaproszeń} other {# oczekującego zaproszenia}}",
+      "email": "E-mail",
+      "expires": "Wygasa",
+      "linkCopied": "Skopiowano link"
+    },
+    "invite": {
+      "title": "Zaproś członka",
+      "description": "Wprowadź adres e-mail, aby wygenerować link zaproszenia",
+      "email": "E-mail",
+      "emailPlaceholder": "wspolpracownik@firma.com",
+      "complianceRole": "Rola w obszarze zgodności",
+      "complianceRolePlaceholder": "Wybierz rolę (opcjonalnie)",
+      "submit": "Zaproś",
+      "submitting": "Zapraszanie..."
+    },
+    "assignRole": {
+      "label": "Przypisz rolę",
+      "placeholder": "Wybierz rolę...",
+      "success": "Rola przypisana pomyślnie",
+      "noCategories": "Brak kategorii dla tej roli"
+    },
+    "remove": {
+      "success": "Członek usunięty"
+    },
+    "revoke": {
+      "success": "Zaproszenie cofnięte"
+    },
+    "inline": {
+      "sent": "Zaproszenie wysłane do {email}",
+      "linkCopied": "Skopiowano link"
+    },
+    "invalidTitle": "Nieprawidłowe zaproszenie",
+    "invalidDescription": "Ten link zaproszenia jest nieprawidłowy lub został już wykorzystany.",
+    "usedTitle": "Zaproszenie już wykorzystane",
+    "usedDescription": "To zaproszenie zostało już zaakceptowane lub cofnięte.",
+    "expiredTitle": "Zaproszenie wygasło",
+    "expiredDescription": "Ten link zaproszenia wygasł. Poproś administratora o nowy.",
+    "accept": {
+      "joinTitle": "Dołącz do {company}",
+      "joinDescription": "Otrzymałeś zaproszenie do dołączenia jako {role}.",
+      "signInDescription": "Otrzymałeś zaproszenie do dołączenia jako {role}. Zaloguj się lub zarejestruj, aby kontynuować.",
+      "signInToAccept": "Zaloguj się, aby zaakceptować",
+      "alreadyMemberTitle": "Już jesteś członkiem",
+      "alreadyMemberDescription": "Jesteś już członkiem firmy. Nie możesz dołączyć do innej.",
+      "goToDashboard": "Przejdź do panelu",
+      "wrongAccountTitle": "Nieprawidłowe konto",
+      "wrongAccountDescription": "To zaproszenie zostało wysłane do {inviteEmail}. Jesteś zalogowany jako {userEmail}.",
+      "signOutRetry": "Wyloguj się i spróbuj ponownie",
+      "joining": "Dołączanie...",
+      "acceptInvite": "Zaakceptuj zaproszenie",
+      "joined": "Dołączono do {company}"
+    },
+    "roles": {
+      "ceo": "Dyrektor generalny / Prezes zarządu",
+      "ciso": "CISO / Pełnomocnik ds. bezpieczeństwa IT",
+      "cto": "CTO / Dyrektor ds. inżynierii",
+      "coo": "COO / Dyrektor operacyjny",
+      "cpo": "CPO / Kierownik ds. zakupów",
+      "hr_director": "Dyrektor HR",
+      "legal": "Pełnomocnik ds. prawnych / zgodności",
+      "dpo": "Inspektor ochrony danych"
+    }
+  }
+}

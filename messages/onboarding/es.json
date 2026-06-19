@@ -1,0 +1,28 @@
+{
+  "onboarding": {
+    "title": "Bienvenido al cumplimiento de NIS2",
+    "subtitle": "Configure su organización para empezar.",
+    "step": "Paso {current} de {total}",
+    "steps": {
+      "company": "Datos de la organización",
+      "team": "Personal clave",
+      "ai": "Asistente de IA"
+    },
+    "nav": {
+      "back": "Atrás",
+      "next": "Siguiente",
+      "skip": "Omitir por ahora",
+      "submit": "Crear organización"
+    },
+    "creating": "Configurando su organización...",
+    "createError": "No se pudo crear la organización. Inténtelo de nuevo.",
+    "mode": {
+      "title": "¡Todo listo!",
+      "subtitle": "¿Cómo desea continuar?",
+      "guided": "Configuración guiada",
+      "guidedDescription": "Recorra cada categoría de cumplimiento paso a paso. Los valores predeterminados ya están aplicados: solo revíselos y personalícelos.",
+      "manual": "Configuración manual",
+      "manualDescription": "Vaya directamente a su panel y trabaje a su propio ritmo."
+    }
+  }
+}

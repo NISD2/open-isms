@@ -1,0 +1,24 @@
+{
+  "methodology": {
+    "title": "Metodyka oceny ryzyka",
+    "loading": "Ładowanie metodyki...",
+    "saved": "Metodyka zapisana",
+    "saveFailed": "Nie udało się zapisać metodyki",
+    "edit": "Edytuj",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "methodologyName": "Nazwa metodyki",
+    "likelihoodScale": "Skala prawdopodobieństwa",
+    "impactScale": "Skala skutków",
+    "label": "Etykieta",
+    "description": "Opis",
+    "addLevel": "Dodaj poziom",
+    "removeLevel": "Usuń ostatni",
+    "riskMatrix": "Macierz ryzyka",
+    "acceptanceThreshold": "Próg akceptacji",
+    "thresholdHelp": "Ryzyka o wyniku ≤ {threshold} mogą zostać zaakceptowane bez postępowania z ryzykiem",
+    "includesOt": "Metodyka obejmuje systemy OT/ICS (§30(2) BSIG)",
+    "clickToSelect": "Kliknij komórkę, aby wybrać prawdopodobieństwo × skutek",
+    "selectedScore": "Wybrany wynik"
+  }
+}

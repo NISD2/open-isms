@@ -1,0 +1,35 @@
+{
+  "audit-readiness": {
+    "title": "Prontezza all'audit",
+    "subtitle": "Valuta la tua prontezza all'audit BSIG/NIS2 con l'analisi AI",
+    "startEvaluation": "Avvia la valutazione",
+    "evaluating": "Valutazione di tutte le sezioni...",
+    "reEvaluate": "Rivaluta",
+    "reEvaluating": "Rivalutazione in corso...",
+    "overallScore": "Punteggio complessivo",
+    "verdict": "Verdetto",
+    "pass": "Pronto per l'audit",
+    "partial": "Richiede lavoro",
+    "fail": "Lacune rilevanti",
+    "sectionsPassing": "{count} superate",
+    "sectionsPartial": "{count} parziali",
+    "sectionsFailing": "{count} non superate",
+    "strengths": "Punti di forza",
+    "structureGaps": "Lacune strutturali",
+    "dataGaps": "Lacune nei dati",
+    "recommendations": "Raccomandazioni",
+    "showDetails": "Mostra i dettagli",
+    "hideDetails": "Nascondi i dettagli",
+    "severity": {
+      "critical": "Critica",
+      "important": "Importante",
+      "nice-to-have": "Auspicabile"
+    },
+    "fieldKey": "Campo",
+    "requirement": "Requisito",
+    "issue": "Problema",
+    "recommendation": "Raccomandazione",
+    "noGaps": "Nessuna lacuna individuata",
+    "disclaimer": "Valutazione generata dall'AI - non sostituisce un audit formale"
+  }
+}

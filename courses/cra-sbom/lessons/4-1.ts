@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "4.1",
   slug: "final-assessment",
-  title: { en: "Final Assessment", de: "Abschlussprüfung" },
+  title: { en: "Final Assessment", de: "Abschlussprüfung", fr: "Évaluation finale", it: "Valutazione finale", es: "Evaluación final", pl: "Ocena końcowa" },
   moduleId: "final",
   order: 0,
   contentFile: "4-1",

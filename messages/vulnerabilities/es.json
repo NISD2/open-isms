@@ -1,0 +1,61 @@
+{
+  "vulnerabilities": {
+    "title": "Gestión de vulnerabilidades",
+    "description": "Realice el seguimiento de las vulnerabilidades descubiertas a lo largo de su ciclo de vida. Exigido por el art. 6.10 de CIR 2024/2690.",
+    "helpText": "Registre las vulnerabilidades detectadas mediante escaneos, pentests o avisos. Realice el seguimiento del triaje, las decisiones de tratamiento y la resolución. CIR exige el tratamiento de vulnerabilidades como un proceso documentado independiente de la gestión de parches.",
+    "add": "Añadir vulnerabilidad",
+    "edit": "Editar vulnerabilidad",
+    "empty": "Todavía no hay vulnerabilidades registradas. Añada su primera vulnerabilidad.",
+    "deleteConfirm": "¿Está seguro de que desea eliminar esta vulnerabilidad?",
+    "actions": "Acciones",
+    "severity": {
+      "critical": "Crítica",
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja"
+    },
+    "status": {
+      "discovered": "Descubierta",
+      "assessed": "Evaluada",
+      "treating": "En tratamiento",
+      "resolved": "Resuelta",
+      "accepted": "Aceptada",
+      "mitigated": "Mitigada"
+    },
+    "source": {
+      "vulnerability_scan": "Escaneo de vulnerabilidades",
+      "pentest": "Prueba de penetración",
+      "bug_bounty": "Bug Bounty",
+      "vendor_advisory": "Aviso del proveedor",
+      "internal_review": "Revisión interna"
+    },
+    "fields": {
+      "cveId": "ID de CVE",
+      "title": "Título",
+      "description": "Descripción",
+      "severity": "Gravedad",
+      "cvssScore": "Puntuación CVSS",
+      "source": "Origen",
+      "assetId": "Activo",
+      "status": "Estado",
+      "discoveredAt": "Descubierta",
+      "treatmentNote": "Tratamiento",
+      "acceptanceReason": "Motivo de aceptación",
+      "resolvedAt": "Resuelta"
+    },
+    "fieldDescriptions": {
+      "cveId": "Identificador CVE si está disponible (p. ej., CVE-2024-1234). Déjelo vacío para vulnerabilidades descubiertas internamente sin CVE.",
+      "title": "Descripción breve de la vulnerabilidad (p. ej., 'Inyección SQL en el formulario de inicio de sesión', 'TLS 1.0 obsoleto en el servidor web').",
+      "description": "Descripción detallada: componentes afectados, versiones, impacto potencial y condiciones de explotación.",
+      "severity": "Calificación de gravedad basada en CVSS: crítica, alta, media o baja.",
+      "cvssScore": "Puntuación CVSS numérica opcional (0.0-10.0) para una priorización precisa.",
+      "source": "Cómo se descubrió esta vulnerabilidad: escaneo, pentest, bug bounty, aviso del proveedor o revisión interna.",
+      "assetId": "Activo afectado por esta vulnerabilidad, si procede. Selecciónelo del registro de activos.",
+      "status": "Estado actual del ciclo de vida: descubierta, evaluada, en tratamiento, resuelta, aceptada (riesgo) o mitigada (control compensatorio).",
+      "discoveredAt": "Fecha en la que se identificó por primera vez la vulnerabilidad.",
+      "treatmentNote": "Qué se está haciendo para abordar esta vulnerabilidad (parche, cambio de configuración, control compensatorio, etc.).",
+      "acceptanceReason": "Si se acepta el riesgo, documente la justificación conforme a CIR 6.6.2. Obligatorio para el estado 'Aceptada'.",
+      "resolvedAt": "Fecha en la que la vulnerabilidad se resolvió, aceptó o mitigó."
+    }
+  }
+}

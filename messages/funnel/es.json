@@ -1,0 +1,77 @@
+{
+  "funnel": {
+    "meta": {
+      "title": "Implante NIS2 con acompañamiento: cada semana, 30 minutos",
+      "description": "Conoce los pasos de NIS2 y preferiría no afrontarlos en solitario. Recorremos los requisitos con usted una vez por semana. Plataforma gratuita y de código abierto, acompañamiento opcional y cancelable mensualmente."
+    },
+    "hero": {
+      "headline": "Le guiamos a través de NIS2. Punto por punto.",
+      "subhead": "Sabe que NIS2 le es aplicable y preferiría no cargar solo con la implementación. Nos reunimos con usted durante 30 minutos una vez por semana y recorremos los requisitos en orden. La plataforma sigue siendo gratuita y de código abierto, el acompañamiento es opcional.",
+      "roadmapLink": "¿Ya conoce los pasos y quiere empezar por su cuenta? Aquí tiene la hoja de ruta.",
+      "cta": "Reservar una llamada introductoria gratuita",
+      "trust": "Hecho en Colonia. Alojado en Alemania."
+    },
+    "process": {
+      "heading": "Cómo funciona el acompañamiento",
+      "step1Title": "Llamada semanal, 30 minutos",
+      "step1Body": "Una franja fija a la semana. Sin mes de proyecto, sin interminables ciclos de coordinación. Tomamos el siguiente elemento de su hoja de ruta y lo completamos juntos.",
+      "step2Title": "Nosotros dirigimos, su responsable de TI implementa",
+      "step2Body": "Su dedicación personal como administrador es de unas tres horas al año; con ello quedan cubiertas la aprobación y la supervisión conforme al artículo 20 de NIS 2 (en Alemania, el § 38 BSIG). Cuatro obligaciones del artículo 21 son fijas, el resto se ajusta a su riesgo y es proporcional. La parte operativa, el inventario de activos, el registro de riesgos, los proveedores y las diez medidas, la gestiona su equipo.",
+      "step3Title": "Usted lo conserva todo. Sin lock-in.",
+      "step3Body": "Sus datos, el registro de auditoría y las evidencias son suyos. La plataforma es de código abierto. Si desea continuar sin nosotros, expórtelo todo y lléveselo."
+    },
+    "comparison": {
+      "heading": "Para qué sirve cada opción",
+      "intro": "No desacreditamos a nadie. Cada opción tiene su lugar. Aquí tiene una lectura honesta para que sepa si encajamos con usted.",
+      "consultantsTitle": "Consultores",
+      "consultants": "Un consultor hace el trabajo por usted y asume una responsabilidad real. Merece la pena si dispone de presupuesto y no tiene a nadie internamente que se haga cargo de NIS2 a largo plazo. Eso sí, el conocimiento se va con el consultor.",
+      "fullServiceTitle": "Plataforma GRC integral",
+      "fullService": "Las plataformas GRC integrales cubren muchos marcos a la vez y están pensadas para grandes organizaciones con su propio equipo de GRC. Una buena opción si es exactamente lo que necesita y dispone del presupuesto.",
+      "intlPlatformsTitle": "Plataforma internacional",
+      "intlPlatforms": "Las plataformas internacionales son pulidas y rápidas para las certificaciones habituales. Una buena opción si certifica a escala internacional y le encaja el inglés como idioma principal.",
+      "nisd2Title": "nisd2.eu",
+      "nisd2": "nisd2.eu es gratuita y de código abierto, alojada en la UE. Un solo estándar, hecho en profundidad. Todo exportable, sin lock-in. Lo que no hacemos: ningún acompañamiento integral de la mano, ningún soporte telefónico que le guíe paso a paso. Necesita a alguien internamente que se haga cargo de NIS2. Para esa persona, precisamente, está pensado."
+    },
+    "features": {
+      "heading": "Lo que recorremos con usted",
+      "obligations": {
+        "title": "Las obligaciones del artículo 21 de NIS2",
+        "description": "Cada deber desglosado en formularios estructurados con instrucciones claras. No se necesitan conocimientos previos de cumplimiento: usted responde a las preguntas, nosotros hacemos la correspondencia."
+      },
+      "evidence": {
+        "title": "Evidencias y registro de auditoría",
+        "description": "Los documentos, las aprobaciones y un registro de auditoría a prueba de manipulaciones se generan a partir de su trabajo. Todo con marca de tiempo, listo para la auditoría."
+      },
+      "deadlines": {
+        "title": "Plazos y notificación",
+        "description": "El registro, la cascada de notificación de incidentes conforme al artículo 23 (24 horas, 72 horas, un mes) y las renovaciones de formación. Cada plazo controlado, nada se escapa."
+      },
+      "bsiRegistration": {
+        "title": "Registro ante la autoridad",
+        "description": "Preparación guiada para el registro conforme al artículo 27, con todos los documentos exigidos y una lista de verificación previa."
+      }
+    },
+    "faq": {
+      "heading": "Preguntas frecuentes",
+      "q1": "¿La plataforma es realmente gratuita?",
+      "a1": "Sí. La plataforma es gratuita y de código abierto. Obtenemos ingresos del acompañamiento en la implementación y de la formación, no del software ni de sus datos. Puede inspeccionar el código en github.com/NISD2.",
+      "q2": "¿Cuánto cuesta el acompañamiento?",
+      "a2": "Definimos el alcance en la llamada introductoria, cancelable mensualmente, sin lock-in. Primero analizamos juntos si necesita acompañamiento o si la plataforma gratuita y la hoja de ruta le bastan por sí solas.",
+      "q3": "Ya tenemos ISO 27001. ¿Seguimos necesitando esto?",
+      "a3": "ISO 27001 cubre muchas de las medidas técnicas y organizativas que NIS2 también exige. NIS2 añade obligaciones que un SGSI por sí solo no cubre: el registro ante la autoridad nacional conforme al artículo 27, la cascada de notificación de incidentes conforme al artículo 23 y la formación demostrable de la dirección conforme al artículo 20 de NIS 2 (en Alemania, el § 38 BSIG). Esas son precisamente las carencias que recorremos con usted.",
+      "q4": "¿Cuánto tiempo lleva la implementación?",
+      "a4": "Su dedicación personal como administrador es de unas tres horas al año: una formación, unas pocas firmas. La parte operativa la gestiona su responsable de TI de forma continua. La rapidez con la que se establezca la línea base depende de lo bien que ya tenga mantenido su inventario de activos. La hoja de ruta muestra la dedicación realista por paso.",
+      "q5": "¿Dónde se almacenan nuestros datos?",
+      "a5": "En Alemania. Cifrados en tránsito y en reposo, con acceso basado en funciones y un registro de auditoría completo. Encontrará los detalles en el Trust Center.",
+      "q6": "¿Qué ocurre si interrumpimos el acompañamiento?",
+      "a6": "Sigue usando la plataforma de forma gratuita, o exporta sus datos y se marcha. El acompañamiento es cancelable mensualmente, el software es de código abierto. Sin lock-in."
+    },
+    "sources": {
+      "body": "Fuentes y transparencia: Directiva NIS2 (UE) 2022/2555, BSIG, CIR 2024/2690, ENISA Technical Implementation Guidance. Código abierto, alojado en Alemania, conforme con el GDPR. Esta página es una guía estructurada y no constituye asesoramiento jurídico. La implementación operativa la gestiona su responsable de TI o su CISO."
+    },
+    "finalCta": {
+      "headline": "Reservar una llamada introductoria gratuita",
+      "email": "¿Prefiere escribir directamente? contact@nisd2.eu"
+    }
+  }
+}

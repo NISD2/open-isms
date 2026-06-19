@@ -4,28 +4,74 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
 import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
+import { pickLocalized } from "@/lib/locale";
+import { routing } from "@/i18n/routing";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
 import { GlossedProse } from "@/components/wiki/GlossedProse";
 import {
   getRegistrationPortals,
   getTranspositionStatus,
+  type RegistrationPortal,
   type TranspositionStatus,
 } from "@/lib/registration-portals";
+
+/**
+ * A locale-keyed string bundle. de/en are always authored; fr/it/es/pl are
+ * authored here but any missing locale falls back to `en` via `pick`.
+ */
+type Localized = {
+  de: string;
+  en: string;
+  fr?: string;
+  it?: string;
+  es?: string;
+  pl?: string;
+};
+
+/** Select the bundle entry for `locale`, falling back to English. */
+function pick(bundle: Localized, locale: Locale): string {
+  return pickLocalized(bundle, locale);
+}
+
+function resolveLocale(rawLocale: string): Locale {
+  // The tracker bundles carry de/en/fr/it/es/pl; nl has no strings here and
+  // rendered German before the new locales existed, so keep that behaviour.
+  if (rawLocale === "nl") return "de";
+  return (routing.locales as readonly string[]).includes(rawLocale)
+    ? (rawLocale as Locale)
+    : "de";
+}
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const isEn = locale === "en";
-  const title = isEn
-    ? "NIS 2 EU implementation tracker: all 27 Member States"
-    : "NIS 2 EU-Umsetzungstracker: alle 27 Mitgliedstaaten";
-  const description = isEn
-    ? "Where every EU Member State stands on NIS 2 transposition: national act, competent authority, national CSIRT, status. Reviewed June 2026."
-    : "Wo jeder EU-Mitgliedstaat bei der NIS 2 Umsetzung steht: nationales Gesetz, zuständige Behörde, nationales CSIRT, Stand. Stand Juni 2026.";
+  const { locale: rawLocale } = await params;
+  const locale = resolveLocale(rawLocale);
+  const title = pick(
+    {
+      de: "NIS 2 EU-Umsetzungstracker: alle 27 Mitgliedstaaten",
+      en: "NIS 2 EU implementation tracker: all 27 Member States",
+      fr: "Suivi de la transposition NIS 2 dans l'UE : les 27 États membres",
+      it: "Tracker di recepimento NIS 2 nell'UE: tutti i 27 Stati membri",
+      es: "Rastreador de transposición NIS 2 en la UE: los 27 Estados miembros",
+      pl: "Tracker wdrożenia NIS 2 w UE: wszystkie 27 państw członkowskich",
+    },
+    locale,
+  );
+  const description = pick(
+    {
+      de: "Wo jeder EU-Mitgliedstaat bei der NIS 2 Umsetzung steht: nationales Gesetz, zuständige Behörde, nationales CSIRT, Stand. Stand Juni 2026.",
+      en: "Where every EU Member State stands on NIS 2 transposition: national act, competent authority, national CSIRT, status. Reviewed June 2026.",
+      fr: "Où en est chaque État membre de l'UE dans la transposition de NIS 2 : loi nationale, autorité compétente, CSIRT national, état d'avancement. Revu en juin 2026.",
+      it: "A che punto è ogni Stato membro dell'UE nel recepimento di NIS 2: legge nazionale, autorità competente, CSIRT nazionale, stato. Verificato a giugno 2026.",
+      es: "Dónde se encuentra cada Estado miembro de la UE en la transposición de NIS 2: ley nacional, autoridad competente, CSIRT nacional, estado. Revisado en junio de 2026.",
+      pl: "Na jakim etapie wdrożenia NIS 2 jest każde państwo członkowskie UE: ustawa krajowa, organ właściwy, krajowy CSIRT, status. Zweryfikowano w czerwcu 2026.",
+    },
+    locale,
+  );
   return {
     title,
     description,
@@ -56,12 +102,57 @@ function statusBadgeClasses(status: TranspositionStatus): string {
   }
 }
 
-const STATUS_LABELS: Record<TranspositionStatus, { en: string; de: string }> = {
-  "in-force": { en: "In force", de: "In Kraft" },
-  "bill-pending": { en: "Bill pending", de: "Gesetzentwurf" },
-  "drafting": { en: "Drafting", de: "Im Entwurf" },
-  "unknown": { en: "Unknown", de: "Unbekannt" },
+const STATUS_LABELS: Record<TranspositionStatus, Localized> = {
+  "in-force": {
+    de: "In Kraft",
+    en: "In force",
+    fr: "En vigueur",
+    it: "In vigore",
+    es: "En vigor",
+    pl: "Obowiązuje",
+  },
+  "bill-pending": {
+    de: "Gesetzentwurf",
+    en: "Bill pending",
+    fr: "Projet de loi en cours",
+    it: "Disegno di legge in corso",
+    es: "Proyecto de ley en curso",
+    pl: "Projekt ustawy w toku",
+  },
+  "drafting": {
+    de: "Im Entwurf",
+    en: "Drafting",
+    fr: "En préparation",
+    it: "In elaborazione",
+    es: "En elaboración",
+    pl: "W przygotowaniu",
+  },
+  "unknown": {
+    de: "Unbekannt",
+    en: "Unknown",
+    fr: "Inconnu",
+    it: "Sconosciuto",
+    es: "Desconocido",
+    pl: "Nieznany",
+  },
 };
+
+/**
+ * Select the per-country tracker note for `locale`, falling back to the
+ * English note when the localized variant is absent in the data file.
+ */
+function trackerNote(portal: RegistrationPortal, locale: Locale): string | undefined {
+  const byLocale: Record<Locale, string | undefined> = {
+    de: portal.trackerNoteDe,
+    en: portal.trackerNoteEn,
+    fr: portal.trackerNoteFr,
+    it: portal.trackerNoteIt,
+    es: portal.trackerNoteEs,
+    pl: portal.trackerNotePl,
+    nl: undefined,
+  };
+  return byLocale[locale] ?? portal.trackerNoteEn;
+}
 
 export default async function Nis2TrackerEuPage({
   params,
@@ -69,15 +160,11 @@ export default async function Nis2TrackerEuPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: rawLocale } = await params;
-  const locale: Locale =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
-  const isEn = locale === "en";
+  const locale = resolveLocale(rawLocale);
 
   const { portals } = getRegistrationPortals();
 
-  const display = new Intl.DisplayNames([isEn ? "en" : "de"], {
-    type: "region",
-  });
+  const display = new Intl.DisplayNames([locale], { type: "region" });
   const countryName = (code: string): string => display.of(code) ?? code;
 
   const today = new Date();
@@ -87,7 +174,7 @@ export default async function Nis2TrackerEuPage({
       transpositionStatus: getTranspositionStatus(p, today),
       name: countryName(p.countryCode),
     }))
-    .sort((a, b) => a.name.localeCompare(b.name, isEn ? "en" : "de"));
+    .sort((a, b) => a.name.localeCompare(b.name, locale));
 
   const counts = {
     inForce: rows.filter((r) => r.transpositionStatus === "in-force").length,
@@ -108,11 +195,17 @@ export default async function Nis2TrackerEuPage({
           locale={locale}
           authorSlug="simon-orzel"
           proficiencyLevel="Beginner"
-          audienceType={
-            isEn
-              ? "EU-wide operators and compliance leads"
-              : "EU-weit tätige Unternehmen und Compliance-Verantwortliche"
-          }
+          audienceType={pick(
+            {
+              de: "EU-weit tätige Unternehmen und Compliance-Verantwortliche",
+              en: "EU-wide operators and compliance leads",
+              fr: "Opérateurs actifs dans toute l'UE et responsables de la conformité",
+              it: "Operatori attivi in tutta l'UE e responsabili della conformità",
+              es: "Operadores activos en toda la UE y responsables de cumplimiento",
+              pl: "Podmioty działające w całej UE i osoby odpowiedzialne za zgodność",
+            },
+            locale,
+          )}
           citationKeys={["nis2"]}
           aboutKeys={["nis2"]}
           mentionsKeys={["bsig"]}
@@ -120,23 +213,53 @@ export default async function Nis2TrackerEuPage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            {isEn ? "Live status" : "Aktueller Stand"}
+            {pick(
+              {
+                de: "Aktueller Stand",
+                en: "Live status",
+                fr: "État actuel",
+                it: "Stato attuale",
+                es: "Estado actual",
+                pl: "Aktualny status",
+              },
+              locale,
+            )}
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
-            {isEn
-              ? "NIS 2 EU implementation tracker"
-              : "NIS 2 EU-Umsetzungstracker"}
+            {pick(
+              {
+                de: "NIS 2 EU-Umsetzungstracker",
+                en: "NIS 2 EU implementation tracker",
+                fr: "Suivi de la transposition NIS 2 dans l'UE",
+                it: "Tracker di recepimento NIS 2 nell'UE",
+                es: "Rastreador de transposición NIS 2 en la UE",
+                pl: "Tracker wdrożenia NIS 2 w UE",
+              },
+              locale,
+            )}
           </h1>
           <p className="mt-2 text-lg text-muted-foreground">
-            {isEn
-              ? "Where every EU Member State stands on the NIS 2 transposition. National act, competent authority, national CSIRT, status. Reviewed June 2026."
-              : "Wo jeder EU-Mitgliedstaat bei der NIS 2 Umsetzung steht. Nationales Gesetz, zuständige Behörde, nationales CSIRT, Stand. Stand Juni 2026."}
+            {pick(
+              {
+                de: "Wo jeder EU-Mitgliedstaat bei der NIS 2 Umsetzung steht. Nationales Gesetz, zuständige Behörde, nationales CSIRT, Stand. Stand Juni 2026.",
+                en: "Where every EU Member State stands on the NIS 2 transposition. National act, competent authority, national CSIRT, status. Reviewed June 2026.",
+                fr: "Où en est chaque État membre de l'UE dans la transposition de NIS 2. Loi nationale, autorité compétente, CSIRT national, état d'avancement. Revu en juin 2026.",
+                it: "A che punto è ogni Stato membro dell'UE nel recepimento di NIS 2. Legge nazionale, autorità competente, CSIRT nazionale, stato. Verificato a giugno 2026.",
+                es: "Dónde se encuentra cada Estado miembro de la UE en la transposición de NIS 2. Ley nacional, autoridad competente, CSIRT nacional, estado. Revisado en junio de 2026.",
+                pl: "Na jakim etapie wdrożenia NIS 2 jest każde państwo członkowskie UE. Ustawa krajowa, organ właściwy, krajowy CSIRT, status. Zweryfikowano w czerwcu 2026.",
+              },
+              locale,
+            )}
           </p>
         </header>
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={locale === "nl" ? "de" : (locale as "de" | "en")}
+          locale={
+            locale === "de" || locale === "en" || locale === "nl"
+              ? locale
+              : "en"
+          }
           lastReviewedAt="2026-06-01"
           sourceLocale="en"
         />
@@ -150,9 +273,17 @@ export default async function Nis2TrackerEuPage({
               {counts.inForce}
             </div>
             <div className="text-sm text-muted-foreground">
-              {isEn
-                ? "Member States with the national act in force"
-                : "Mitgliedstaaten mit nationalem Gesetz in Kraft"}
+              {pick(
+                {
+                  de: "Mitgliedstaaten mit nationalem Gesetz in Kraft",
+                  en: "Member States with the national act in force",
+                  fr: "États membres dont la loi nationale est en vigueur",
+                  it: "Stati membri con la legge nazionale in vigore",
+                  es: "Estados miembros con la ley nacional en vigor",
+                  pl: "Państwa członkowskie, w których ustawa krajowa obowiązuje",
+                },
+                locale,
+              )}
             </div>
           </div>
           <div className="rounded-lg border bg-amber-50/50 p-4 dark:bg-amber-950/20">
@@ -160,9 +291,17 @@ export default async function Nis2TrackerEuPage({
               {counts.pending}
             </div>
             <div className="text-sm text-muted-foreground">
-              {isEn
-                ? "Member States with the bill in legislative process"
-                : "Mitgliedstaaten mit Gesetzentwurf im Verfahren"}
+              {pick(
+                {
+                  de: "Mitgliedstaaten mit Gesetzentwurf im Verfahren",
+                  en: "Member States with the bill in legislative process",
+                  fr: "États membres dont le projet de loi est en procédure législative",
+                  it: "Stati membri con il disegno di legge in iter legislativo",
+                  es: "Estados miembros con el proyecto de ley en proceso legislativo",
+                  pl: "Państwa członkowskie, w których projekt ustawy jest w procesie legislacyjnym",
+                },
+                locale,
+              )}
             </div>
           </div>
           <div className="rounded-lg border bg-slate-50/50 p-4 dark:bg-slate-900/20">
@@ -170,9 +309,17 @@ export default async function Nis2TrackerEuPage({
               {counts.drafting}
             </div>
             <div className="text-sm text-muted-foreground">
-              {isEn
-                ? "Member States still drafting or status unclear"
-                : "Mitgliedstaaten in der Entwurfsphase oder unklar"}
+              {pick(
+                {
+                  de: "Mitgliedstaaten in der Entwurfsphase oder unklar",
+                  en: "Member States still drafting or status unclear",
+                  fr: "États membres encore en préparation ou au statut incertain",
+                  it: "Stati membri ancora in fase di elaborazione o con stato incerto",
+                  es: "Estados miembros aún en elaboración o con estado incierto",
+                  pl: "Państwa członkowskie wciąż w przygotowaniu lub o niejasnym statusie",
+                },
+                locale,
+              )}
             </div>
           </div>
         </section>
@@ -180,17 +327,43 @@ export default async function Nis2TrackerEuPage({
         {/* Overview */}
         <section className="space-y-3">
           <h2 className="text-xl font-semibold tracking-tight">
-            {isEn ? "What this is" : "Worum es geht"}
+            {pick(
+              {
+                de: "Worum es geht",
+                en: "What this is",
+                fr: "De quoi il s'agit",
+                it: "Di cosa si tratta",
+                es: "De qué se trata",
+                pl: "Czego to dotyczy",
+              },
+              locale,
+            )}
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            {isEn
-              ? "The 17 October 2024 transposition deadline set in Article 41 NIS 2 has come and gone. A few Member States moved fast (Italy, Belgium, Hungary, Croatia, Romania). Most are still in legislative process, including the four biggest economies (Germany, France, Spain, Netherlands). The European Commission opened infringement procedures in May 2025 against the late ones."
-              : "Die Umsetzungsfrist vom 17. Oktober 2024 aus Artikel 41 NIS 2 ist verstrichen. Wenige Mitgliedstaaten waren rechtzeitig (Italien, Belgien, Ungarn, Kroatien, Rumänien). Die meisten sind noch im Gesetzgebungsverfahren, einschließlich der vier größten Volkswirtschaften (Deutschland, Frankreich, Spanien, Niederlande). Die Europäische Kommission hat im Mai 2025 Vertragsverletzungsverfahren gegen die säumigen Mitgliedstaaten eröffnet."}
+            {pick(
+              {
+                de: "Die Umsetzungsfrist vom 17. Oktober 2024 aus Artikel 41 NIS 2 ist verstrichen. Wenige Mitgliedstaaten waren rechtzeitig (Italien, Belgien, Ungarn, Kroatien, Rumänien). Die meisten sind noch im Gesetzgebungsverfahren, einschließlich der vier größten Volkswirtschaften (Deutschland, Frankreich, Spanien, Niederlande). Die Europäische Kommission hat im Mai 2025 Vertragsverletzungsverfahren gegen die säumigen Mitgliedstaaten eröffnet.",
+                en: "The 17 October 2024 transposition deadline set in Article 41 NIS 2 has come and gone. A few Member States moved fast (Italy, Belgium, Hungary, Croatia, Romania). Most are still in legislative process, including the four biggest economies (Germany, France, Spain, Netherlands). The European Commission opened infringement procedures in May 2025 against the late ones.",
+                fr: "Le délai de transposition du 17 octobre 2024 fixé à l'article 41 NIS 2 est dépassé. Quelques États membres ont agi rapidement (Italie, Belgique, Hongrie, Croatie, Roumanie). La plupart sont encore en procédure législative, y compris les quatre plus grandes économies (Allemagne, France, Espagne, Pays-Bas). La Commission européenne a ouvert des procédures d'infraction en mai 2025 contre les États en retard.",
+                it: "Il termine di recepimento del 17 ottobre 2024 fissato dall'articolo 41 NIS 2 è scaduto. Pochi Stati membri si sono mossi rapidamente (Italia, Belgio, Ungheria, Croazia, Romania). La maggior parte è ancora in iter legislativo, comprese le quattro maggiori economie (Germania, Francia, Spagna, Paesi Bassi). La Commissione europea ha aperto procedure di infrazione a maggio 2025 contro gli Stati in ritardo.",
+                es: "El plazo de transposición del 17 de octubre de 2024 fijado en el artículo 41 NIS 2 ha vencido. Unos pocos Estados miembros actuaron con rapidez (Italia, Bélgica, Hungría, Croacia, Rumanía). La mayoría siguen en proceso legislativo, incluidas las cuatro mayores economías (Alemania, Francia, España, Países Bajos). La Comisión Europea abrió procedimientos de infracción en mayo de 2025 contra los Estados rezagados.",
+                pl: "Termin transpozycji wyznaczony na 17 października 2024 r. w artykule 41 NIS 2 upłynął. Kilka państw członkowskich zadziałało szybko (Włochy, Belgia, Węgry, Chorwacja, Rumunia). Większość jest wciąż w procesie legislacyjnym, w tym cztery największe gospodarki (Niemcy, Francja, Hiszpania, Holandia). Komisja Europejska wszczęła w maju 2025 r. postępowania w sprawie uchybienia zobowiązaniom wobec spóźnionych państw.",
+              },
+              locale,
+            )}
           </p>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            {isEn
-              ? "The table below summarises the canonical national act, the lead competent authority and the national CSIRT for each Member State. Where we have a per-country deep dive, the country name links to it. Status as of the review date; check the ENISA NIS 2 transposition tracker for the latest verifiable picture."
-              : "Die Tabelle unten fasst je Mitgliedstaat das wesentliche nationale Gesetz, die federführende zuständige Behörde und das nationale CSIRT zusammen. Wo eine Vertiefung pro Land existiert, ist der Landesname verlinkt. Stand zum Prüfdatum; für das aktuellste belastbare Bild bleibt die ENISA NIS 2 Umsetzungsübersicht maßgeblich."}
+            {pick(
+              {
+                de: "Die Tabelle unten fasst je Mitgliedstaat das wesentliche nationale Gesetz, die federführende zuständige Behörde und das nationale CSIRT zusammen. Wo eine Vertiefung pro Land existiert, ist der Landesname verlinkt. Stand zum Prüfdatum; für das aktuellste belastbare Bild bleibt die ENISA NIS 2 Umsetzungsübersicht maßgeblich.",
+                en: "The table below summarises the canonical national act, the lead competent authority and the national CSIRT for each Member State. Where we have a per-country deep dive, the country name links to it. Status as of the review date; check the ENISA NIS 2 transposition tracker for the latest verifiable picture.",
+                fr: "Le tableau ci-dessous résume, pour chaque État membre, la loi nationale de référence, l'autorité compétente chef de file et le CSIRT national. Lorsqu'une analyse approfondie par pays existe, le nom du pays renvoie vers elle. État à la date de révision ; pour l'image vérifiable la plus récente, consultez le suivi de transposition NIS 2 de l'ENISA.",
+                it: "La tabella seguente riassume, per ciascuno Stato membro, la legge nazionale di riferimento, l'autorità competente capofila e il CSIRT nazionale. Dove esiste un approfondimento per paese, il nome del paese rimanda a esso. Stato alla data di verifica; per il quadro verificabile più recente consultare il tracker di recepimento NIS 2 dell'ENISA.",
+                es: "La tabla siguiente resume, para cada Estado miembro, la ley nacional de referencia, la autoridad competente principal y el CSIRT nacional. Cuando existe un análisis detallado por país, el nombre del país enlaza con él. Estado a la fecha de revisión; para la imagen verificable más reciente, consulte el rastreador de transposición NIS 2 de ENISA.",
+                pl: "Poniższa tabela podsumowuje dla każdego państwa członkowskiego kluczową ustawę krajową, wiodący organ właściwy oraz krajowy CSIRT. Tam, gdzie istnieje pogłębiona analiza danego kraju, nazwa kraju jest do niej odnośnikiem. Status na dzień weryfikacji; najbardziej aktualny, wiarygodny obraz zapewnia tracker transpozycji NIS 2 prowadzony przez ENISA.",
+              },
+              locale,
+            )}
           </p>
         </section>
 
@@ -200,28 +373,80 @@ export default async function Nis2TrackerEuPage({
             <thead className="bg-muted/40">
               <tr>
                 <th className="px-4 py-3 text-left font-medium text-xs uppercase tracking-wide text-muted-foreground">
-                  {isEn ? "Member State" : "Mitgliedstaat"}
+                  {pick(
+                    {
+                      de: "Mitgliedstaat",
+                      en: "Member State",
+                      fr: "État membre",
+                      it: "Stato membro",
+                      es: "Estado miembro",
+                      pl: "Państwo członkowskie",
+                    },
+                    locale,
+                  )}
                 </th>
                 <th className="px-4 py-3 text-left font-medium text-xs uppercase tracking-wide text-muted-foreground">
-                  {isEn ? "National act" : "Nationales Gesetz"}
+                  {pick(
+                    {
+                      de: "Nationales Gesetz",
+                      en: "National act",
+                      fr: "Loi nationale",
+                      it: "Legge nazionale",
+                      es: "Ley nacional",
+                      pl: "Ustawa krajowa",
+                    },
+                    locale,
+                  )}
                 </th>
                 <th className="px-4 py-3 text-left font-medium text-xs uppercase tracking-wide text-muted-foreground">
-                  {isEn ? "Competent authority" : "Zuständige Behörde"}
+                  {pick(
+                    {
+                      de: "Zuständige Behörde",
+                      en: "Competent authority",
+                      fr: "Autorité compétente",
+                      it: "Autorità competente",
+                      es: "Autoridad competente",
+                      pl: "Organ właściwy",
+                    },
+                    locale,
+                  )}
                 </th>
                 <th className="px-4 py-3 text-left font-medium text-xs uppercase tracking-wide text-muted-foreground">
-                  {isEn ? "National CSIRT" : "Nationales CSIRT"}
+                  {pick(
+                    {
+                      de: "Nationales CSIRT",
+                      en: "National CSIRT",
+                      fr: "CSIRT national",
+                      it: "CSIRT nazionale",
+                      es: "CSIRT nacional",
+                      pl: "Krajowy CSIRT",
+                    },
+                    locale,
+                  )}
                 </th>
                 <th className="px-4 py-3 text-left font-medium text-xs uppercase tracking-wide text-muted-foreground">
-                  {isEn ? "Status" : "Stand"}
+                  {pick(
+                    {
+                      de: "Stand",
+                      en: "Status",
+                      fr: "État",
+                      it: "Stato",
+                      es: "Estado",
+                      pl: "Status",
+                    },
+                    locale,
+                  )}
                 </th>
               </tr>
             </thead>
             <tbody>
               {rows.map((r) => {
                 const act = r.nationalLaw ?? "—";
-                const note = isEn ? r.trackerNoteEn : r.trackerNoteDe;
-                const statusLabel =
-                  STATUS_LABELS[r.transpositionStatus][isEn ? "en" : "de"];
+                const note = trackerNote(r, locale);
+                const statusLabel = pick(
+                  STATUS_LABELS[r.transpositionStatus],
+                  locale,
+                );
                 return (
                   <tr key={r.countryCode} className="border-t">
                     <td className="px-4 py-3 align-top">
@@ -275,7 +500,17 @@ export default async function Nis2TrackerEuPage({
         <Card>
           <CardHeader>
             <CardTitle>
-              {isEn ? "Per-country deep dives" : "Vertiefungen pro Land"}
+              {pick(
+                {
+                  de: "Vertiefungen pro Land",
+                  en: "Per-country deep dives",
+                  fr: "Analyses approfondies par pays",
+                  it: "Approfondimenti per paese",
+                  es: "Análisis detallados por país",
+                  pl: "Pogłębione analizy poszczególnych krajów",
+                },
+                locale,
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -306,15 +541,35 @@ export default async function Nis2TrackerEuPage({
         {/* Sources */}
         <Card>
           <CardHeader>
-            <CardTitle>{isEn ? "Sources" : "Quellen"}</CardTitle>
+            <CardTitle>
+              {pick(
+                {
+                  de: "Quellen",
+                  en: "Sources",
+                  fr: "Sources",
+                  it: "Fonti",
+                  es: "Fuentes",
+                  pl: "Źródła",
+                },
+                locale,
+              )}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2 text-xs text-muted-foreground">
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                {isEn
-                  ? "Directive (EU) 2022/2555 (NIS 2), Article 41 — transposition deadline. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj"
-                  : "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 41 — Umsetzungsfrist. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj"}
+                {pick(
+                  {
+                    de: "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 41 — Umsetzungsfrist. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    en: "Directive (EU) 2022/2555 (NIS 2), Article 41 — transposition deadline. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    fr: "Directive (UE) 2022/2555 (NIS 2), article 41 — délai de transposition. EUR-Lex : eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    it: "Direttiva (UE) 2022/2555 (NIS 2), articolo 41 — termine di recepimento. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    es: "Directiva (UE) 2022/2555 (NIS 2), artículo 41 — plazo de transposición. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    pl: "Dyrektywa (UE) 2022/2555 (NIS 2), artykuł 41 — termin transpozycji. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                  },
+                  locale,
+                )}
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
@@ -322,15 +577,31 @@ export default async function Nis2TrackerEuPage({
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                {isEn
-                  ? "European Commission, infringement procedures opened against Member States that did not communicate full transposition of NIS 2 (November 2024, reasoned opinions May 2025)."
-                  : "Europäische Kommission, Vertragsverletzungsverfahren gegen Mitgliedstaaten ohne vollständige Mitteilung der NIS 2 Umsetzung (November 2024, mit Gründen versehene Stellungnahmen Mai 2025)."}
+                {pick(
+                  {
+                    de: "Europäische Kommission, Vertragsverletzungsverfahren gegen Mitgliedstaaten ohne vollständige Mitteilung der NIS 2 Umsetzung (November 2024, mit Gründen versehene Stellungnahmen Mai 2025).",
+                    en: "European Commission, infringement procedures opened against Member States that did not communicate full transposition of NIS 2 (November 2024, reasoned opinions May 2025).",
+                    fr: "Commission européenne, procédures d'infraction ouvertes contre les États membres n'ayant pas communiqué la transposition complète de NIS 2 (novembre 2024, avis motivés en mai 2025).",
+                    it: "Commissione europea, procedure di infrazione avviate contro gli Stati membri che non hanno comunicato il recepimento completo di NIS 2 (novembre 2024, pareri motivati maggio 2025).",
+                    es: "Comisión Europea, procedimientos de infracción abiertos contra los Estados miembros que no comunicaron la transposición completa de NIS 2 (noviembre de 2024, dictámenes motivados en mayo de 2025).",
+                    pl: "Komisja Europejska, postępowania w sprawie uchybienia zobowiązaniom wszczęte wobec państw członkowskich, które nie zgłosiły pełnej transpozycji NIS 2 (listopad 2024, uzasadnione opinie maj 2025).",
+                  },
+                  locale,
+                )}
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                {isEn
-                  ? "National official journals: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ), etc."
-                  : "Nationale Amtsblätter: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ) usw."}
+                {pick(
+                  {
+                    de: "Nationale Amtsblätter: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ) usw.",
+                    en: "National official journals: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ), etc.",
+                    fr: "Journaux officiels nationaux : BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ), etc.",
+                    it: "Gazzette ufficiali nazionali: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ), ecc.",
+                    es: "Boletines oficiales nacionales: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ), etc.",
+                    pl: "Krajowe dzienniki urzędowe: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ) itd.",
+                  },
+                  locale,
+                )}
               </li>
             </ul>
           </CardContent>
@@ -340,25 +611,49 @@ export default async function Nis2TrackerEuPage({
         <Card>
           <CardHeader>
             <CardTitle>
-              {isEn
-                ? "Run the applicability check for your entity"
-                : "Anwendbarkeitsprüfung starten"}
+              {pick(
+                {
+                  de: "Anwendbarkeitsprüfung starten",
+                  en: "Run the applicability check for your entity",
+                  fr: "Lancez le test d'applicabilité pour votre entité",
+                  it: "Esegui il test di applicabilità per la tua entità",
+                  es: "Ejecute la comprobación de aplicabilidad para su entidad",
+                  pl: "Uruchom test stosowalności dla swojego podmiotu",
+                },
+                locale,
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {isEn
-                ? "The applicability check works against the EU directive, so the answer holds regardless of which national transposition is in force in your country yet."
-                : "Die Anwendbarkeitsprüfung läuft gegen die EU-Richtlinie. Das Ergebnis gilt unabhängig davon, welche nationale Umsetzung in Ihrem Land bereits in Kraft ist."}
+              {pick(
+                {
+                  de: "Die Anwendbarkeitsprüfung läuft gegen die EU-Richtlinie. Das Ergebnis gilt unabhängig davon, welche nationale Umsetzung in Ihrem Land bereits in Kraft ist.",
+                  en: "The applicability check works against the EU directive, so the answer holds regardless of which national transposition is in force in your country yet.",
+                  fr: "Le test d'applicabilité s'appuie sur la directive européenne. Le résultat reste valable quelle que soit la transposition nationale déjà en vigueur dans votre pays.",
+                  it: "Il test di applicabilità si basa sulla direttiva dell'UE. Il risultato resta valido indipendentemente da quale recepimento nazionale sia già in vigore nel tuo paese.",
+                  es: "La comprobación de aplicabilidad se basa en la directiva de la UE. El resultado es válido independientemente de la transposición nacional que ya esté en vigor en su país.",
+                  pl: "Test stosowalności opiera się na dyrektywie UE. Wynik obowiązuje niezależnie od tego, która transpozycja krajowa już obowiązuje w Twoim kraju.",
+                },
+                locale,
+              )}
             </p>
             <div className="mt-4">
               <Link
                 href="/applicability"
                 className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
               >
-                {isEn
-                  ? "Open the applicability check"
-                  : "Anwendbarkeitsprüfung öffnen"}
+                {pick(
+                  {
+                    de: "Anwendbarkeitsprüfung öffnen",
+                    en: "Open the applicability check",
+                    fr: "Ouvrir le test d'applicabilité",
+                    it: "Apri il test di applicabilità",
+                    es: "Abrir la comprobación de aplicabilidad",
+                    pl: "Otwórz test stosowalności",
+                  },
+                  locale,
+                )}
               </Link>
             </div>
           </CardContent>

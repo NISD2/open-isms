@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Polityki",
+    "description": "Polityki, procedury i wytyczne bezpieczeństwa wraz ze śledzeniem zatwierdzeń. Podstawa NIS2 Art. 21(1).",
+    "helpText": "Twórz polityki bezpieczeństwa informacji i zarządzaj nimi. Każda polityka przechodzi przez cykl życia: projekt, przegląd, zatwierdzenie, archiwizacja. Śledź historię wersji i zapewnij, aby cały odpowiedni personel potwierdził obowiązujące polityki. NIS2 wymaga udokumentowanych polityk w zakresie zarządzania ryzykiem, kontroli dostępu, szyfrowania i innych obszarów.",
+    "add": "Dodaj politykę",
+    "edit": "Edytuj politykę",
+    "empty": "Brak polityk. Utwórz swój pierwszy dokument polityki.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć tę politykę?",
+    "actions": "Działania",
+    "status": {
+      "draft": "Projekt",
+      "approved": "Zatwierdzono",
+      "archived": "Zarchiwizowano"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "type": "Typ",
+      "version": "Wersja",
+      "content": "Treść",
+      "status": "Status",
+      "effectiveFrom": "Obowiązuje od",
+      "reviewDue": "Termin przeglądu"
+    },
+    "fieldDescriptions": {
+      "title": "Nazwa dokumentu polityki (np. „Polityka bezpieczeństwa informacji”, „Polityka kontroli dostępu”).",
+      "type": "Wybierz typ polityki (np. polityka, procedura, wytyczna, standard).",
+      "version": "Numer wersji dla tej rewizji polityki (np. 1.0, 2.1). Zwiększaj przy każdym cyklu zatwierdzania.",
+      "content": "Pełna treść polityki. Uwzględnij zakres, cele, odpowiedzialności i konkretne wymagania.",
+      "status": "Bieżący status cyklu życia: Projekt (w przygotowaniu), Zatwierdzono (aktywna i egzekwowana) lub Zarchiwizowano (zastąpiona).",
+      "effectiveFrom": "Data, od której ta wersja polityki staje się aktywna i egzekwowalna.",
+      "reviewDue": "Data, do której ta polityka musi zostać poddana przeglądowi i zaktualizowana. NIS2 oczekuje regularnych przeglądów polityk."
+    }
+  }
+}

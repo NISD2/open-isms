@@ -1,0 +1,35 @@
+{
+  "audit-readiness": {
+    "title": "Préparation à l'audit",
+    "subtitle": "Évaluez votre préparation à l'audit BSIG/NIS2 grâce à une analyse par IA",
+    "startEvaluation": "Démarrer l'évaluation",
+    "evaluating": "Évaluation de toutes les sections...",
+    "reEvaluate": "Réévaluer",
+    "reEvaluating": "Réévaluation...",
+    "overallScore": "Score global",
+    "verdict": "Verdict",
+    "pass": "Prêt pour l'audit",
+    "partial": "Nécessite des améliorations",
+    "fail": "Écarts majeurs",
+    "sectionsPassing": "{count} conformes",
+    "sectionsPartial": "{count} partielles",
+    "sectionsFailing": "{count} non conformes",
+    "strengths": "Points forts",
+    "structureGaps": "Écarts de structure",
+    "dataGaps": "Écarts de données",
+    "recommendations": "Recommandations",
+    "showDetails": "Afficher les détails",
+    "hideDetails": "Masquer les détails",
+    "severity": {
+      "critical": "Critique",
+      "important": "Important",
+      "nice-to-have": "Souhaitable"
+    },
+    "fieldKey": "Champ",
+    "requirement": "Exigence",
+    "issue": "Problème",
+    "recommendation": "Recommandation",
+    "noGaps": "Aucun écart identifié",
+    "disclaimer": "Évaluation générée par IA - ne remplace pas un audit formel"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "notifications": {
+    "title": "Notificaciones",
+    "description": "Consulte y gestione sus notificaciones",
+    "empty": "Sin notificaciones",
+    "acknowledge": "Confirmar recepción",
+    "acknowledged": "Recepción confirmada",
+    "unread": "{count} sin leer",
+    "actions": "Acciones",
+    "markRead": "Marcar como leída",
+    "markAllRead": "Marcar todas como leídas",
+    "fields": {
+      "subject": "Asunto",
+      "entityType": "Tipo",
+      "scheduledFor": "Programada para",
+      "status": "Estado"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "common": {
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "cancel": "Cancelar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "open": "Abrir",
+    "optional": "opcional",
+    "loading": "Cargando...",
+    "entries": "{count} entradas",
+    "select": "Seleccionar...",
+    "yes": "Sí",
+    "no": "No",
+    "noData": "Sin datos",
+    "user": "Usuario",
+    "modules": {
+      "asset": "Activos",
+      "risk": "Riesgos",
+      "incident": "Incidentes",
+      "supplier": "Proveedores",
+      "policy": "Políticas",
+      "training_record": "Registros de formación",
+      "exercise": "Ejercicios",
+      "management_review": "Revisiones por la dirección",
+      "kpi_measurement": "Mediciones de KPI",
+      "change_request": "Solicitudes de cambio",
+      "patch_record": "Registros de parches",
+      "internal_audit": "Auditorías internas",
+      "improvement_item": "Mejoras",
+      "bsi_registration": "Registro ante el BSI",
+      "bsi_incident_report": "Informes de incidentes al BSI"
+    },
+    "moduleRef": {
+      "confirmCompliance": "Confirmar el cumplimiento",
+      "noRecords": "Aún no hay registros: añada primero datos en el módulo"
+    }
+  },
+  "status": {
+    "not_started": "Abierto",
+    "in_progress": "En curso",
+    "completed": "Completado",
+    "not_applicable": "N/D",
+    "needs_review": "Requiere revisión",
+    "approved": "Aprobado",
+    "rejected": "Rechazado"
+  },
+  "priority": {
+    "P0": "Crítica - se requiere acción inmediata",
+    "P1": "Alta - resolver dentro del ciclo actual",
+    "P2": "Media - planificar para el próximo ciclo",
+    "P3": "Baja - resolver cuando sea conveniente"
+  },
+  "metadata": {
+    "title": "Plataforma de cumplimiento NIS2",
+    "description": "Gestión del cumplimiento de NIS2/BSIG 2025"
+  }
+}

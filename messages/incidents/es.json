@@ -1,0 +1,70 @@
+{
+  "incidents": {
+    "title": "Registro de incidentes",
+    "description": "Registro de incidentes de seguridad con clasificación de gravedad y seguimiento de la cronología. Exigido por el Art. 23 de NIS2.",
+    "helpText": "Registre cada incidente de seguridad cuando se produzca. NIS2 exige una alerta temprana al BSI en un plazo de 24 horas y una notificación completa en un plazo de 72 horas para los incidentes significativos. Registre la gravedad, los sistemas afectados, la cronología y los pasos de resolución.",
+    "add": "Notificar incidente",
+    "edit": "Editar incidente",
+    "empty": "No hay incidentes registrados. Notifique un incidente cuando se produzca.",
+    "deleteConfirm": "¿Está seguro de que desea eliminar este incidente?",
+    "actions": "Acciones",
+    "severity": {
+      "near_miss": "Cuasi incidente",
+      "incident": "Incidente",
+      "significant": "Significativo"
+    },
+    "fields": {
+      "title": "Título",
+      "description": "Descripción",
+      "severity": "Gravedad",
+      "situationColor": "Color de la situación",
+      "discoveredAt": "Descubierto el",
+      "occurredAt": "Producido el",
+      "resolvedAt": "Resuelto el",
+      "confidentialityImpacted": "Confidencialidad afectada",
+      "integrityImpacted": "Integridad afectada",
+      "availabilityImpacted": "Disponibilidad afectada",
+      "threatType": "Tipo de amenaza",
+      "rootCause": "Causa raíz",
+      "countermeasures": "Contramedidas",
+      "preventiveMeasures": "Medidas preventivas",
+      "requiresGdprNotification": "Se requiere notificación de violación según GDPR",
+      "dataSubjectsAffected": "Interesados afectados",
+      "gdprNotifiedAt": "Autoridad de GDPR notificada",
+      "notifiedDataSubjectsAt": "Interesados notificados"
+    },
+    "bsiDeadlines": {
+      "title": "Plazos de notificación al BSI",
+      "overdue": "Vencido",
+      "dueIn": "Vence en {days} d",
+      "dueToday": "Vence hoy",
+      "reportType": {
+        "early_warning": "Alerta temprana de 24 h",
+        "notification": "Notificación de 72 h",
+        "intermediate": "Informe intermedio",
+        "final": "Informe final",
+        "progress": "Informe de progreso"
+      }
+    },
+    "fieldDescriptions": {
+      "title": "Nombre breve y descriptivo de este incidente (p. ej., «Ataque de phishing al departamento financiero»).",
+      "description": "Descripción detallada de lo ocurrido, qué sistemas y datos se vieron afectados y el alcance del impacto.",
+      "severity": "Seleccione el nivel de gravedad. Los incidentes «significativos» requieren notificación al BSI en un plazo de 24 h (alerta temprana) y de 72 h (informe completo) conforme al Art. 23 de NIS2.",
+      "situationColor": "Indicador tipo semáforo del estado actual del incidente: verde (contenido), ámbar (en curso), rojo (crítico).",
+      "discoveredAt": "Fecha y hora en que este incidente se detectó o se notificó por primera vez.",
+      "occurredAt": "Fecha y hora en que este incidente comenzó realmente (puede diferir del descubrimiento).",
+      "resolvedAt": "Fecha y hora en que este incidente se resolvió por completo y se reanudaron las operaciones normales.",
+      "confidentialityImpacted": "Active esta opción si se produjo o se sospecha una divulgación no autorizada de información.",
+      "integrityImpacted": "Active esta opción si se produjo o se sospecha una modificación o corrupción no autorizada de datos.",
+      "availabilityImpacted": "Active esta opción si se interrumpieron servicios o sistemas o quedaron no disponibles.",
+      "threatType": "Seleccione el tipo de amenaza (p. ej., malware, DDoS, interna, phishing, explotación de vulnerabilidades).",
+      "rootCause": "Describa la causa subyacente del incidente una vez finalizada la investigación.",
+      "countermeasures": "Describa las acciones inmediatas adoptadas para contener y remediar el incidente.",
+      "preventiveMeasures": "Describa las medidas a largo plazo implementadas para evitar que se repita este tipo de incidente.",
+      "requiresGdprNotification": "Active esta opción si este incidente implicó una violación de datos personales que requiere notificación a la autoridad de control conforme al Art. 33 de GDPR (en un plazo de 72 horas desde su conocimiento).",
+      "dataSubjectsAffected": "Número aproximado de interesados cuyos datos personales se vieron comprometidos (Art. 33(3)(a): contenido obligatorio de la notificación).",
+      "gdprNotifiedAt": "Fecha y hora en que se notificó la violación a la autoridad de control.",
+      "notifiedDataSubjectsAt": "Fecha y hora en que se informó a los interesados afectados (Art. 34: obligatorio cuando la violación entraña un alto riesgo)."
+    }
+  }
+}

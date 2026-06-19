@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "Analyse des écarts NIS2",
+    "subtitle": "Évaluez votre préparation NIS2 sur 15 domaines",
+    "startAssessment": "Démarrer l'évaluation",
+    "resumeAssessment": "Reprendre l'évaluation",
+    "viewResults": "Voir les résultats",
+    "day": "Jour {number}",
+    "dayOf": "Jour {current} sur {total}",
+    "questionsAnswered": "{answered} sur {total} répondues",
+    "saving": "Enregistrement...",
+    "saved": "Enregistré",
+    "overview": {
+      "heading": "Aperçu de l'évaluation",
+      "description": "Une auto-évaluation structurée couvrant tous les domaines de conformité NIS2. Répondez honnêtement sur votre état actuel. Il n'y a pas de bonnes ou de mauvaises réponses.",
+      "day1": "Périmètre et gouvernance",
+      "day1desc": "Êtes-vous dans le champ d'application ? Votre direction comprend-elle sa responsabilité ?",
+      "day2": "Gestion des risques",
+      "day2desc": "Connaissez-vous vos actifs, vos risques et vos politiques de sécurité ?",
+      "day3": "Incidents et continuité d'activité",
+      "day3desc": "Pouvez-vous détecter les incidents, y répondre et vous en rétablir ?",
+      "day4": "Personnes, fournisseurs et accès",
+      "day4desc": "Vos employés sont-ils formés, vos fournisseurs gérés et les accès contrôlés ?",
+      "day5": "Contrôles techniques et preuves",
+      "day5desc": "Vos protections techniques et votre documentation sont-elles prêtes pour un audit ?",
+      "questions": "{count} questions",
+      "estimatedTime": "~{minutes} min",
+      "noActiveSession": "Vous n'avez pas encore démarré d'évaluation.",
+      "pastSessions": "Évaluations précédentes",
+      "score": "Score : {score}%",
+      "completedOn": "Terminé le {date}",
+      "inProgress": "En cours"
+    },
+    "question": {
+      "yes": "Oui",
+      "partially": "Partiellement",
+      "no": "Non",
+      "notApplicable": "S.O.",
+      "showExplanation": "Qu'est-ce que cela signifie ?",
+      "hideExplanation": "Masquer l'explication",
+      "legalBasis": "Base juridique",
+      "criticality": "Importance",
+      "criticalityLevels": {
+        "0": "Informatif",
+        "1": "Faible",
+        "2": "Moyenne",
+        "3": "Élevée"
+      },
+      "respondent": {
+        "0": "PDG / Direction",
+        "1": "IT / Sécurité",
+        "2": "RH",
+        "3": "Achats",
+        "4": "Tout le monde"
+      },
+      "suggestedRespondent": "Idéalement répondu par"
+    },
+    "navigation": {
+      "previousDay": "Jour précédent",
+      "nextDay": "Jour suivant",
+      "completeAssessment": "Terminer l'évaluation",
+      "backToOverview": "Retour à l'aperçu"
+    },
+    "results": {
+      "heading": "Résultats de l'évaluation",
+      "overallScore": "Score global",
+      "domainScores": "Scores par domaine",
+      "maturityLevel": "Niveau de maturité",
+      "priorityGaps": "Écarts prioritaires",
+      "exportPdf": "Exporter en PDF",
+      "domain": "Domaine",
+      "score": "Score",
+      "maturity": "Maturité",
+      "answered": "Répondues",
+      "noGaps": "Aucun écart identifié. Excellent.",
+      "gapRank": "Priorité",
+      "gapQuestion": "Constatation",
+      "gapDomain": "Domaine",
+      "gapConsequence": "Conséquence",
+      "gapTimeToFix": "Effort",
+      "fineRisk": "Risque d'amende",
+      "viewInPlatform": "Voir dans la plateforme",
+      "maturityLevels": {
+        "critical": "Critique",
+        "initial": "Initial",
+        "developing": "En développement",
+        "managed": "Maîtrisé",
+        "optimized": "Optimisé"
+      },
+      "consequenceLevels": {
+        "0": "Constatation d'audit",
+        "1": "Risque opérationnel",
+        "2": "Amende",
+        "3": "Responsabilité personnelle"
+      },
+      "timeToFixLevels": {
+        "0": "Gain rapide",
+        "1": "Jours",
+        "2": "Semaines",
+        "3": "Mois"
+      },
+      "summary": {
+        "criticalGaps": "{count} écarts critiques",
+        "fineExposed": "{count} entraînent un risque d'amende",
+        "personalLiability": "{count} engagent la responsabilité personnelle du dirigeant",
+        "quickWins": "{count} peuvent être corrigés immédiatement"
+      },
+      "startCompliance": "Commencer à combler les écarts",
+      "retakeAssessment": "Repasser l'évaluation"
+    }
+  }
+}

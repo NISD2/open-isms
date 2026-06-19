@@ -1,0 +1,51 @@
+{
+  "changes": {
+    "title": "Zarządzanie zmianami",
+    "description": "Wnioski o zmianę IT/OT z oceną ryzyka i procesem zatwierdzania. Wspiera art. 21 ust. 2 lit. e) NIS2.",
+    "helpText": "Śledź wszystkie zmiany w systemach IT i OT poprzez formalny proces zatwierdzania. Każdy wniosek o zmianę obejmuje ocenę ryzyka, plan wdrożenia oraz procedurę wycofania. NIS2 wymaga kontrolowanego zarządzania zmianami, aby zapobiegać regresjom bezpieczeństwa.",
+    "add": "Nowy wniosek o zmianę",
+    "edit": "Edytuj wniosek o zmianę",
+    "empty": "Brak wniosków o zmianę. Utwórz swój pierwszy wniosek o zmianę.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć ten wniosek o zmianę?",
+    "actions": "Działania",
+    "type": {
+      "standard": "Standardowa",
+      "normal": "Normalna",
+      "emergency": "Awaryjna"
+    },
+    "changeType": {
+      "standard": "Standardowa",
+      "normal": "Normalna",
+      "emergency": "Awaryjna"
+    },
+    "status": {
+      "draft": "Wersja robocza",
+      "submitted": "Złożony",
+      "approved": "Zatwierdzony",
+      "implementing": "W trakcie wdrażania",
+      "implemented": "Wdrożony",
+      "rolled_back": "Wycofany",
+      "closed": "Zamknięty"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "description": "Opis",
+      "changeType": "Typ zmiany",
+      "status": "Status",
+      "createdAt": "Data utworzenia",
+      "businessJustification": "Uzasadnienie biznesowe",
+      "securityImpactAssessment": "Ocena wpływu na bezpieczeństwo",
+      "rollbackPlan": "Plan wycofania"
+    },
+    "fieldDescriptions": {
+      "title": "Krótki, opisowy tytuł tego wniosku o zmianę (np. „Aktualizacja oprogramowania układowego zapory do wersji v4.2”).",
+      "description": "Szczegółowy opis proponowanej zmiany, w tym systemów, których dotyczy, oraz oczekiwanego rezultatu.",
+      "changeType": "Wybierz typ: standardowa (wstępnie zatwierdzona, niskie ryzyko), normalna (wymaga przeglądu) lub awaryjna (pilna, zatwierdzana po wdrożeniu).",
+      "status": "Bieżący status wniosku o zmianę w procesie zatwierdzania i wdrażania.",
+      "createdAt": "Data złożenia tego wniosku o zmianę.",
+      "businessJustification": "Wyjaśnij, dlaczego ta zmiana jest konieczna, w tym czynniki biznesowe i korzyści dla bezpieczeństwa.",
+      "securityImpactAssessment": "Opisz potencjalny wpływ tej zmiany na bezpieczeństwo, w tym wprowadzone lub ograniczone ryzyka.",
+      "rollbackPlan": "Opisz kroki wycofania tej zmiany, jeśli wdrożenie się nie powiedzie lub spowoduje nieoczekiwane problemy."
+    }
+  }
+}

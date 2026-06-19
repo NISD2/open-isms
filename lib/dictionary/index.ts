@@ -40,7 +40,14 @@ export function getMergedDictionary(locale: Locale): ReadonlyMap<string, WikiTer
         definition: def,
       };
 
-      const surfaces = [entry.term, ...(entry.aliases?.[locale] ?? [])];
+      // Course dictionaries carry aliases for de/en/nl only; newer locales
+      // simply have none. Widen the alias map (not the locale) so an unknown
+      // locale yields undefined rather than falsely narrowing the locale type.
+      const aliasMap = entry.aliases as
+        | Partial<Record<string, string[]>>
+        | undefined;
+      const aliases = aliasMap?.[locale];
+      const surfaces = [entry.term, ...(aliases ?? [])];
       for (const surface of surfaces) {
         const key = surface.toLowerCase();
         if (merged.has(key)) continue;

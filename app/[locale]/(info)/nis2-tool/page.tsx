@@ -19,10 +19,14 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { CheckCircle2, XCircle } from "lucide-react";
-import { pageAlternates, articleJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import {
+  pageAlternates,
+  articleJsonLd,
+  breadcrumbJsonLd,
+  type Locale,
+} from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
-
-type Locale = "de" | "en" | "nl";
+import { pickLocalized } from "@/lib/locale";
 
 const content: Record<Locale, {
   title: string;
@@ -359,13 +363,499 @@ const content: Record<Locale, {
     },
     breadcrumb: "NIS2 Tool",
   },
+  fr: {
+    title: "Outil NIS2 : guide d'achat pour les logiciels de conformité",
+    subtitle:
+      "Quels outils NIS2 vous sont réellement nécessaires, ce qu'ils coûtent, à quoi faire attention, et quelles fonctionnalités sont obligatoires au titre de la directive.",
+    meta: {
+      title: "Outil NIS2 : guide d'achat et logiciel de conformité gratuit",
+      description:
+        "Comparatif des outils de conformité NIS2 : quelles fonctionnalités sont obligatoires, lesquelles sont optionnelles, ce qu'elles coûtent. Inclut une plateforme NIS2 gratuite à l'échelle de l'UE, sans verrouillage.",
+    },
+    intro:
+      "Un outil NIS2 est un logiciel qui aide les entreprises à mettre en œuvre la directive NIS2 de l'UE (2022/2555) et sa transposition nationale (en Allemagne : BSIG / NIS2UmsuCG). Il doit prendre en charge les 10 mesures de cybersécurité de l'article 21 NIS2, ainsi que la notification des incidents et l'enregistrement auprès de l'autorité.",
+    why: {
+      heading: "Pourquoi utiliser un outil NIS2 ?",
+      bullets: [
+        "NIS2 exige des preuves d'audit durables. Les documents Word ne suffisent pas.",
+        "Le BSI contrôle les délais de réaction (24h / 72h / 1 mois), difficiles à démontrer manuellement.",
+        "Responsabilité personnelle de la direction au titre du §38 BSIG : vous devez prouver que les mesures ont été mises en œuvre.",
+        "Les 10 mesures de l'article 21 concernent plusieurs services. Des outils coordonnés font gagner du temps.",
+      ],
+    },
+    categories: {
+      heading: "Quels types d'outils NIS2 existent ?",
+      description:
+        "Le paysage des outils pour NIS2 est fragmenté. Une répartition utile :",
+      rows: [
+        {
+          name: "Plateforme GRC",
+          purpose:
+            "Gouvernance, risque et conformité. Représente toutes les mesures, risques et audits.",
+          needed: "Obligatoire pour la documentation",
+        },
+        {
+          name: "Gestion des actifs",
+          purpose: "Inventaire des actifs informatiques comme base de l'analyse des risques.",
+          needed: "Obligatoire (RSK 2.2)",
+        },
+        {
+          name: "SIEM / journalisation",
+          purpose: "Détection des événements de sécurité, criminalistique.",
+          needed: "Fortement recommandé : détecter les incidents à notifier",
+        },
+        {
+          name: "Gestion des correctifs",
+          purpose: "Suivi des mises à jour des systèmes d'exploitation et des applications.",
+          needed: "Obligatoire (article 21(2)(e) NIS2)",
+        },
+        {
+          name: "MFA / IAM",
+          purpose: "Authentification multifacteur, gestion des identités et des accès.",
+          needed: "Obligatoire (article 21(2)(j) NIS2)",
+        },
+        {
+          name: "Sauvegarde / reprise après sinistre",
+          purpose: "Sauvegarde des données et capacité de restauration.",
+          needed: "Obligatoire (article 21(2)(c) NIS2)",
+        },
+        {
+          name: "Gestion des fournisseurs",
+          purpose: "Évaluation de la cybersécurité de vos fournisseurs et partenaires.",
+          needed: "Obligatoire (article 21(2)(d) NIS2)",
+        },
+        {
+          name: "Plateforme de formation",
+          purpose:
+            "Sensibilisation pour l'ensemble du personnel et la direction (§38 BSIG).",
+          needed: "Obligatoire (article 21(2)(g) NIS2)",
+        },
+      ],
+    },
+    checklist: {
+      heading: "À quoi faire attention dans un outil NIS2",
+      description:
+        "Ces fonctionnalités sont incontournables dans tout outil de conformité NIS2 :",
+      items: [
+        { yes: true, text: "Les 10 mesures de l'article 21 NIS2 / §30 BSIG" },
+        { yes: true, text: "Cascade de notification d'incident à trois étapes (24h / 72h / 1 mois) au titre du §32 BSIG" },
+        { yes: true, text: "Données d'enregistrement BSI (§33 BSIG) gérées en versions" },
+        { yes: true, text: "Piste d'audit : chaque modification avec horodatage et responsable" },
+        { yes: true, text: "Validation de la direction par signature conforme à eIDAS" },
+        { yes: true, text: "Inventaire des fournisseurs avec leur propre statut de conformité" },
+        { yes: true, text: "Prise en charge de plusieurs pays en cas d'activité transfrontalière dans l'UE" },
+        { yes: false, text: "Verrouillage fournisseur : l'export complet des données doit être possible" },
+        { yes: false, text: "« Gratuit à vie » comme argument marketing : souvent un appât, lisez les petits caractères" },
+      ],
+    },
+    ourTool: {
+      heading: "Notre réponse : nisd2.eu",
+      description:
+        "Nous exploitons une plateforme de conformité NIS2 gratuite pour les entreprises européennes. Orientée open source, sans verrouillage, axée sur le Mittelstand allemand et les exigences à l'échelle de l'UE.",
+      features: [
+        "Les 49 exigences du BSIG couvertes",
+        "Cascade de notification d'incident à trois étapes intégrée",
+        "Piste d'audit indélébile",
+        "Protection de la responsabilité de la direction : validation, formations, preuves",
+        "Portail fournisseurs : questionnaires en libre-service",
+        "Plateforme gratuite, accompagnement à la mise en œuvre en option et payant",
+      ],
+      cta: "Découvrir la plateforme",
+      ctaSecondary: "Vérification d'applicabilité gratuite",
+    },
+    faq: {
+      heading: "Questions fréquentes",
+      items: [
+        {
+          q: "Combien coûte un outil NIS2 ?",
+          a: "Les outils GRC commerciaux (Vanta, Drata, OneTrust) se situent généralement entre 10 000 et 60 000 EUR par an pour une entreprise de taille moyenne. nisd2.eu est gratuit. Notre accompagnement à la mise en œuvre démarre à 500 EUR par mois.",
+        },
+        {
+          q: "Ai-je besoin d'un outil, ou Excel suffit-il ?",
+          a: "Excel ne suffit pas. Le BSI exige une piste d'audit infalsifiable. En cas d'incident, vous devez pouvoir prouver qui a modifié quoi et quand. Les fichiers Excel sont écrasés. Un auditeur du BSI le contestera.",
+        },
+        {
+          q: "Un seul outil suffit-il, ou en faut-il plusieurs ?",
+          a: "Un outil GRC couvre la documentation et les preuves. Pour le SIEM, la gestion des correctifs, la MFA et les sauvegardes, vous avez toujours besoin d'outils techniques distincts. Un bon outil NIS2 intègre les preuves issues de ces systèmes.",
+        },
+        {
+          q: "Une plateforme gratuite peut-elle être conforme à NIS2 ?",
+          a: "Oui. NIS2 n'impose aucun fournisseur particulier. Ce qui compte, c'est que les exigences soient satisfaites et documentées de manière résistante à l'audit. Les outils open source et gratuits y parviennent aussi bien que les solutions SaaS coûteuses.",
+        },
+      ],
+    },
+    breadcrumb: "Outil NIS2",
+  },
+  it: {
+    title: "Strumento NIS2: guida all'acquisto per il software di conformità",
+    subtitle:
+      "Quali strumenti NIS2 vi servono davvero, quanto costano, a cosa prestare attenzione e quali funzionalità sono obbligatorie ai sensi della direttiva.",
+    meta: {
+      title: "Strumento NIS2: guida all'acquisto e software di conformità gratuito",
+      description:
+        "Confronto degli strumenti di conformità NIS2: quali funzionalità sono obbligatorie, quali facoltative, quanto costano. Include una piattaforma NIS2 gratuita a livello UE, senza vincoli.",
+    },
+    intro:
+      "Uno strumento NIS2 è un software che aiuta le aziende ad attuare la direttiva NIS2 dell'UE (2022/2555) e la sua trasposizione nazionale (in Germania: BSIG / NIS2UmsuCG). Deve supportare le 10 misure di cybersicurezza dell'articolo 21 NIS2, oltre alla notifica degli incidenti e alla registrazione presso l'autorità.",
+    why: {
+      heading: "Perché usare uno strumento NIS2?",
+      bullets: [
+        "NIS2 richiede prove di audit durature. I documenti Word non bastano.",
+        "Il BSI verifica i tempi di risposta (24h / 72h / 1 mese), difficili da dimostrare manualmente.",
+        "Responsabilità personale della direzione ai sensi del §38 BSIG: serve la prova che le misure siano state attuate.",
+        "Le 10 misure dell'articolo 21 coinvolgono più reparti. Strumenti coordinati fanno risparmiare tempo.",
+      ],
+    },
+    categories: {
+      heading: "Quali tipi di strumenti NIS2 esistono?",
+      description:
+        "Il panorama degli strumenti per NIS2 è frammentato. Una suddivisione utile:",
+      rows: [
+        {
+          name: "Piattaforma GRC",
+          purpose:
+            "Governance, rischio e conformità. Rappresenta tutte le misure, i rischi e gli audit.",
+          needed: "Obbligatoria per la documentazione",
+        },
+        {
+          name: "Gestione degli asset",
+          purpose: "Inventario degli asset IT come base per l'analisi dei rischi.",
+          needed: "Obbligatoria (RSK 2.2)",
+        },
+        {
+          name: "SIEM / logging",
+          purpose: "Rilevamento degli eventi di sicurezza, analisi forense.",
+          needed: "Fortemente consigliato: rilevare gli incidenti soggetti a notifica",
+        },
+        {
+          name: "Gestione delle patch",
+          purpose: "Monitoraggio degli aggiornamenti per sistemi operativi e applicazioni.",
+          needed: "Obbligatoria (articolo 21(2)(e) NIS2)",
+        },
+        {
+          name: "MFA / IAM",
+          purpose: "Autenticazione a più fattori, gestione delle identità e degli accessi.",
+          needed: "Obbligatoria (articolo 21(2)(j) NIS2)",
+        },
+        {
+          name: "Backup / disaster recovery",
+          purpose: "Backup dei dati e capacità di ripristino.",
+          needed: "Obbligatoria (articolo 21(2)(c) NIS2)",
+        },
+        {
+          name: "Gestione dei fornitori",
+          purpose: "Valutazione della cybersicurezza dei vostri fornitori e partner.",
+          needed: "Obbligatoria (articolo 21(2)(d) NIS2)",
+        },
+        {
+          name: "Piattaforma di formazione",
+          purpose:
+            "Formazione di sensibilizzazione per tutto il personale e la direzione (§38 BSIG).",
+          needed: "Obbligatoria (articolo 21(2)(g) NIS2)",
+        },
+      ],
+    },
+    checklist: {
+      heading: "A cosa prestare attenzione in uno strumento NIS2",
+      description:
+        "Queste funzionalità sono irrinunciabili in qualsiasi strumento di conformità NIS2:",
+      items: [
+        { yes: true, text: "Tutte le 10 misure dell'articolo 21 NIS2 / §30 BSIG" },
+        { yes: true, text: "Cascata di notifica degli incidenti a tre fasi (24h / 72h / 1 mese) ai sensi del §32 BSIG" },
+        { yes: true, text: "Dati di registrazione BSI (§33 BSIG) con controllo delle versioni" },
+        { yes: true, text: "Pista di audit: ogni modifica con marca temporale e responsabile" },
+        { yes: true, text: "Approvazione della direzione tramite firma conforme a eIDAS" },
+        { yes: true, text: "Inventario dei fornitori con il loro stato di conformità" },
+        { yes: true, text: "Supporto multipaese in caso di attività transfrontaliera nell'UE" },
+        { yes: false, text: "Vincolo del fornitore: l'esportazione completa dei dati deve essere possibile" },
+        { yes: false, text: "« Gratis per sempre » come argomento di marketing: spesso un'esca, leggete le clausole in piccolo" },
+      ],
+    },
+    ourTool: {
+      heading: "La nostra risposta: nisd2.eu",
+      description:
+        "Gestiamo una piattaforma di conformità NIS2 gratuita per le aziende europee. Orientata all'open source, senza vincoli, focalizzata sul Mittelstand tedesco e sui requisiti a livello UE.",
+      features: [
+        "Tutti i 49 requisiti del BSIG coperti",
+        "Cascata di notifica degli incidenti a tre fasi integrata",
+        "Pista di audit non cancellabile",
+        "Protezione della responsabilità della direzione: approvazione, formazione, prove",
+        "Portale fornitori: questionari self-service",
+        "Piattaforma gratuita, accompagnamento all'attuazione opzionale e a pagamento",
+      ],
+      cta: "Esplora la piattaforma",
+      ctaSecondary: "Verifica di applicabilità gratuita",
+    },
+    faq: {
+      heading: "Domande frequenti",
+      items: [
+        {
+          q: "Quanto costa uno strumento NIS2?",
+          a: "Gli strumenti GRC commerciali (Vanta, Drata, OneTrust) si attestano in genere tra 10.000 e 60.000 EUR all'anno per un'azienda di medie dimensioni. nisd2.eu è gratuito. Il nostro accompagnamento all'attuazione parte da 500 EUR al mese.",
+        },
+        {
+          q: "Mi serve uno strumento o basta Excel?",
+          a: "Excel non basta. Il BSI richiede una pista di audit a prova di manomissione. Dopo un incidente dovete poter dimostrare chi ha modificato cosa e quando. I file Excel vengono sovrascritti. Un auditor del BSI lo contesterà.",
+        },
+        {
+          q: "Basta un solo strumento o ne servono diversi?",
+          a: "Uno strumento GRC copre la documentazione e le prove. Per SIEM, gestione delle patch, MFA e backup servono comunque strumenti tecnici separati. Un buon strumento NIS2 integra le prove provenienti da quei sistemi.",
+        },
+        {
+          q: "Una piattaforma gratuita può essere conforme a NIS2?",
+          a: "Sì. NIS2 non impone un fornitore specifico. Ciò che conta è che i requisiti siano soddisfatti e documentati in modo resistente all'audit. Gli strumenti open source e gratuiti possono farlo bene quanto le costose soluzioni SaaS.",
+        },
+      ],
+    },
+    breadcrumb: "Strumento NIS2",
+  },
+  es: {
+    title: "Herramienta NIS2: guía de compra para software de cumplimiento",
+    subtitle:
+      "Qué herramientas NIS2 necesita realmente, cuánto cuestan, en qué fijarse y qué funciones son obligatorias en virtud de la directiva.",
+    meta: {
+      title: "Herramienta NIS2: guía de compra y software de cumplimiento gratuito",
+      description:
+        "Comparativa de herramientas de cumplimiento NIS2: qué funciones son obligatorias, cuáles opcionales y cuánto cuestan. Incluye una plataforma NIS2 gratuita a escala de la UE, sin dependencia del proveedor.",
+    },
+    intro:
+      "Una herramienta NIS2 es un software que ayuda a las empresas a aplicar la Directiva NIS2 de la UE (2022/2555) y su transposición nacional (en Alemania: BSIG / NIS2UmsuCG). Debe cubrir las 10 medidas de ciberseguridad del artículo 21 NIS2, además de la notificación de incidentes y el registro ante la autoridad.",
+    why: {
+      heading: "¿Por qué usar una herramienta NIS2?",
+      bullets: [
+        "NIS2 exige pruebas de auditoría duraderas. Los documentos de Word no bastan.",
+        "El BSI comprueba los plazos de respuesta (24h / 72h / 1 mes), difíciles de demostrar manualmente.",
+        "Responsabilidad personal de la dirección en virtud del §38 BSIG: necesita la prueba de que se aplicaron las medidas.",
+        "Las 10 medidas del artículo 21 afectan a varios departamentos. Unas herramientas coordinadas ahorran tiempo.",
+      ],
+    },
+    categories: {
+      heading: "¿Qué tipos de herramientas NIS2 existen?",
+      description:
+        "El panorama de herramientas para NIS2 está fragmentado. Una clasificación útil:",
+      rows: [
+        {
+          name: "Plataforma GRC",
+          purpose:
+            "Gobernanza, riesgo y cumplimiento. Representa todas las medidas, riesgos y auditorías.",
+          needed: "Obligatoria para la documentación",
+        },
+        {
+          name: "Gestión de activos",
+          purpose: "Inventario de activos de TI como base del análisis de riesgos.",
+          needed: "Obligatoria (RSK 2.2)",
+        },
+        {
+          name: "SIEM / registro",
+          purpose: "Detección de eventos de seguridad, análisis forense.",
+          needed: "Muy recomendable: detectar los incidentes notificables",
+        },
+        {
+          name: "Gestión de parches",
+          purpose: "Seguimiento de actualizaciones de sistemas operativos y aplicaciones.",
+          needed: "Obligatoria (artículo 21(2)(e) NIS2)",
+        },
+        {
+          name: "MFA / IAM",
+          purpose: "Autenticación multifactor, gestión de identidades y accesos.",
+          needed: "Obligatoria (artículo 21(2)(j) NIS2)",
+        },
+        {
+          name: "Copia de seguridad / recuperación ante desastres",
+          purpose: "Copia de seguridad de datos y capacidad de recuperación.",
+          needed: "Obligatoria (artículo 21(2)(c) NIS2)",
+        },
+        {
+          name: "Gestión de proveedores",
+          purpose: "Evaluación de la ciberseguridad de sus proveedores y socios.",
+          needed: "Obligatoria (artículo 21(2)(d) NIS2)",
+        },
+        {
+          name: "Plataforma de formación",
+          purpose:
+            "Formación de concienciación para toda la plantilla y la dirección (§38 BSIG).",
+          needed: "Obligatoria (artículo 21(2)(g) NIS2)",
+        },
+      ],
+    },
+    checklist: {
+      heading: "En qué fijarse en una herramienta NIS2",
+      description:
+        "Estas funciones son innegociables en cualquier herramienta de cumplimiento NIS2:",
+      items: [
+        { yes: true, text: "Las 10 medidas del artículo 21 NIS2 / §30 BSIG" },
+        { yes: true, text: "Cascada de notificación de incidentes en tres fases (24h / 72h / 1 mes) en virtud del §32 BSIG" },
+        { yes: true, text: "Datos de registro del BSI (§33 BSIG) con control de versiones" },
+        { yes: true, text: "Pista de auditoría: cada cambio con marca de tiempo y responsable" },
+        { yes: true, text: "Validación de la dirección mediante firma conforme a eIDAS" },
+        { yes: true, text: "Inventario de proveedores con su propio estado de cumplimiento" },
+        { yes: true, text: "Compatibilidad multipaís en caso de actividad transfronteriza en la UE" },
+        { yes: false, text: "Dependencia del proveedor: la exportación completa de datos debe ser posible" },
+        { yes: false, text: "« Gratis para siempre » como reclamo de marketing: a menudo un cebo, lea la letra pequeña" },
+      ],
+    },
+    ourTool: {
+      heading: "Nuestra respuesta: nisd2.eu",
+      description:
+        "Operamos una plataforma de cumplimiento NIS2 gratuita para empresas europeas. Orientada al open source, sin dependencia del proveedor, centrada en el Mittelstand alemán y en los requisitos a escala de la UE.",
+      features: [
+        "Los 49 requisitos del BSIG cubiertos",
+        "Cascada de notificación de incidentes en tres fases integrada",
+        "Pista de auditoría imposible de borrar",
+        "Protección de la responsabilidad de la dirección: validación, formación, pruebas",
+        "Portal de proveedores: cuestionarios de autoservicio",
+        "Plataforma gratuita, acompañamiento a la implementación opcional y de pago",
+      ],
+      cta: "Explorar la plataforma",
+      ctaSecondary: "Verificación de aplicabilidad gratuita",
+    },
+    faq: {
+      heading: "Preguntas frecuentes",
+      items: [
+        {
+          q: "¿Cuánto cuesta una herramienta NIS2?",
+          a: "Las herramientas GRC comerciales (Vanta, Drata, OneTrust) suelen costar entre 10.000 y 60.000 EUR al año para una empresa mediana. nisd2.eu es gratuito. Nuestro acompañamiento a la implementación arranca en 500 EUR al mes.",
+        },
+        {
+          q: "¿Necesito una herramienta o basta con Excel?",
+          a: "Excel no basta. El BSI exige una pista de auditoría a prueba de manipulaciones. Tras un incidente, debe poder demostrar quién cambió qué y cuándo. Los archivos de Excel se sobrescriben. Un auditor del BSI lo objetará.",
+        },
+        {
+          q: "¿Basta con una sola herramienta o necesito varias?",
+          a: "Una herramienta GRC cubre la documentación y las pruebas. Para SIEM, gestión de parches, MFA y copias de seguridad sigue necesitando herramientas técnicas separadas. Una buena herramienta NIS2 integra las pruebas procedentes de esos sistemas.",
+        },
+        {
+          q: "¿Puede una plataforma gratuita cumplir con NIS2?",
+          a: "Sí. NIS2 no impone un proveedor concreto. Lo que importa es que los requisitos se cumplan y se documenten de forma resistente a la auditoría. Las herramientas open source y gratuitas pueden hacerlo igual de bien que las costosas soluciones SaaS.",
+        },
+      ],
+    },
+    breadcrumb: "Herramienta NIS2",
+  },
+  pl: {
+    title: "Narzędzie NIS2: przewodnik zakupowy po oprogramowaniu do zgodności",
+    subtitle:
+      "Jakich narzędzi NIS2 naprawdę potrzebujesz, ile kosztują, na co zwrócić uwagę i które funkcje są obowiązkowe na mocy dyrektywy.",
+    meta: {
+      title: "Narzędzie NIS2: przewodnik zakupowy i bezpłatne oprogramowanie do zgodności",
+      description:
+        "Porównanie narzędzi do zgodności z NIS2: które funkcje są obowiązkowe, które opcjonalne, ile kosztują. Obejmuje bezpłatną platformę NIS2 w skali UE, bez uzależnienia od dostawcy.",
+    },
+    intro:
+      "Narzędzie NIS2 to oprogramowanie, które pomaga firmom wdrożyć unijną dyrektywę NIS2 (2022/2555) oraz jej krajową transpozycję (w Niemczech: BSIG / NIS2UmsuCG). Musi obsługiwać 10 środków cyberbezpieczeństwa z artykułu 21 NIS2, a także zgłaszanie incydentów i rejestrację u organu.",
+    why: {
+      heading: "Po co używać narzędzia NIS2?",
+      bullets: [
+        "NIS2 wymaga trwałych dowodów audytowych. Dokumenty Word nie wystarczą.",
+        "BSI sprawdza czasy reakcji (24h / 72h / 1 miesiąc), które trudno wykazać ręcznie.",
+        "Osobista odpowiedzialność kierownictwa na mocy §38 BSIG: potrzebujesz dowodu, że środki zostały wdrożone.",
+        "10 środków z artykułu 21 dotyczy wielu działów. Skoordynowane narzędzia oszczędzają czas.",
+      ],
+    },
+    categories: {
+      heading: "Jakie rodzaje narzędzi NIS2 istnieją?",
+      description:
+        "Krajobraz narzędzi do NIS2 jest rozdrobniony. Przydatny podział:",
+      rows: [
+        {
+          name: "Platforma GRC",
+          purpose:
+            "Ład, ryzyko i zgodność. Odwzorowuje wszystkie środki, ryzyka i audyty.",
+          needed: "Obowiązkowa dla dokumentacji",
+        },
+        {
+          name: "Zarządzanie zasobami",
+          purpose: "Inwentaryzacja zasobów IT jako podstawa analizy ryzyka.",
+          needed: "Obowiązkowe (RSK 2.2)",
+        },
+        {
+          name: "SIEM / rejestrowanie zdarzeń",
+          purpose: "Wykrywanie zdarzeń bezpieczeństwa, informatyka śledcza.",
+          needed: "Zdecydowanie zalecane: wykrywanie incydentów podlegających zgłoszeniu",
+        },
+        {
+          name: "Zarządzanie poprawkami",
+          purpose: "Śledzenie aktualizacji systemów operacyjnych i aplikacji.",
+          needed: "Obowiązkowe (artykuł 21(2)(e) NIS2)",
+        },
+        {
+          name: "MFA / IAM",
+          purpose: "Uwierzytelnianie wieloskładnikowe, zarządzanie tożsamością i dostępem.",
+          needed: "Obowiązkowe (artykuł 21(2)(j) NIS2)",
+        },
+        {
+          name: "Kopie zapasowe / odtwarzanie po awarii",
+          purpose: "Tworzenie kopii zapasowych danych i zdolność odtwarzania.",
+          needed: "Obowiązkowe (artykuł 21(2)(c) NIS2)",
+        },
+        {
+          name: "Zarządzanie dostawcami",
+          purpose: "Ocena cyberbezpieczeństwa dostawców i partnerów.",
+          needed: "Obowiązkowe (artykuł 21(2)(d) NIS2)",
+        },
+        {
+          name: "Platforma szkoleniowa",
+          purpose:
+            "Szkolenia uświadamiające dla wszystkich pracowników i kierownictwa (§38 BSIG).",
+          needed: "Obowiązkowe (artykuł 21(2)(g) NIS2)",
+        },
+      ],
+    },
+    checklist: {
+      heading: "Na co zwrócić uwagę w narzędziu NIS2",
+      description:
+        "Te funkcje są nieodzowne w każdym narzędziu do zgodności z NIS2:",
+      items: [
+        { yes: true, text: "Wszystkie 10 środków z artykułu 21 NIS2 / §30 BSIG" },
+        { yes: true, text: "Trzyetapowa kaskada zgłaszania incydentów (24h / 72h / 1 miesiąc) na mocy §32 BSIG" },
+        { yes: true, text: "Dane rejestracyjne BSI (§33 BSIG) z kontrolą wersji" },
+        { yes: true, text: "Ścieżka audytu: każda zmiana ze znacznikiem czasu i osobą odpowiedzialną" },
+        { yes: true, text: "Zatwierdzenie przez kierownictwo podpisem zgodnym z eIDAS" },
+        { yes: true, text: "Inwentaryzacja dostawców z ich własnym statusem zgodności" },
+        { yes: true, text: "Obsługa wielu krajów w przypadku działalności transgranicznej w UE" },
+        { yes: false, text: "Uzależnienie od dostawcy: pełny eksport danych musi być możliwy" },
+        { yes: false, text: "„Darmowe na zawsze” jako hasło marketingowe: często przynęta, czytaj drobny druk" },
+      ],
+    },
+    ourTool: {
+      heading: "Nasza odpowiedź: nisd2.eu",
+      description:
+        "Prowadzimy bezpłatną platformę do zgodności z NIS2 dla firm europejskich. Zorientowaną na open source, bez uzależnienia od dostawcy, skupioną na niemieckim Mittelstandzie i wymaganiach w skali UE.",
+      features: [
+        "Wszystkie 49 wymagań BSIG ujęte",
+        "Wbudowana trzyetapowa kaskada zgłaszania incydentów",
+        "Ścieżka audytu, której nie można usunąć",
+        "Ochrona odpowiedzialności kierownictwa: zatwierdzenia, szkolenia, dowody",
+        "Portal dostawców: kwestionariusze samoobsługowe",
+        "Bezpłatna platforma, opcjonalne płatne wsparcie przy wdrożeniu",
+      ],
+      cta: "Zobacz platformę",
+      ctaSecondary: "Bezpłatne sprawdzenie zastosowania",
+    },
+    faq: {
+      heading: "Często zadawane pytania",
+      items: [
+        {
+          q: "Ile kosztuje narzędzie NIS2?",
+          a: "Komercyjne narzędzia GRC (Vanta, Drata, OneTrust) kosztują zwykle od 10 000 do 60 000 EUR rocznie dla średniej firmy. nisd2.eu jest bezpłatne. Nasze wsparcie przy wdrożeniu zaczyna się od 500 EUR miesięcznie.",
+        },
+        {
+          q: "Czy potrzebuję narzędzia, czy wystarczy Excel?",
+          a: "Excel nie wystarczy. BSI wymaga ścieżki audytu odpornej na manipulacje. Po incydencie musisz móc udowodnić, kto, co i kiedy zmienił. Pliki Excela są nadpisywane. Audytor BSI to zakwestionuje.",
+        },
+        {
+          q: "Czy wystarczy jedno narzędzie, czy potrzebuję kilku?",
+          a: "Narzędzie GRC obejmuje dokumentację i dowody. Do SIEM, zarządzania poprawkami, MFA i kopii zapasowych nadal potrzebujesz osobnych narzędzi technicznych. Dobre narzędzie NIS2 integruje dowody z tych systemów.",
+        },
+        {
+          q: "Czy bezpłatna platforma może być zgodna z NIS2?",
+          a: "Tak. NIS2 nie narzuca konkretnego dostawcy. Liczy się to, czy wymagania są spełnione i udokumentowane w sposób odporny na audyt. Narzędzia open source i bezpłatne radzą sobie z tym równie dobrze jak kosztowne rozwiązania SaaS.",
+        },
+      ],
+    },
+    breadcrumb: "Narzędzie NIS2",
+  },
 };
-
-function pickLocale(locale: string): Locale {
-  if (locale === "de") return "de";
-  if (locale === "nl") return "nl";
-  return "en";
-}
 
 export async function generateMetadata({
   params,
@@ -373,7 +863,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const c = content[pickLocale(locale)];
+  const c = pickLocalized(content, locale);
   return {
     title: c.meta.title,
     description: c.meta.description,
@@ -387,7 +877,7 @@ export default async function Nis2ToolPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const c = content[pickLocale(locale)];
+  const c = pickLocalized(content, locale);
 
   const faqJsonLd = {
     "@context": "https://schema.org",

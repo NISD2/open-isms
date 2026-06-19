@@ -1,0 +1,19 @@
+{
+  "notifications": {
+    "title": "Notifications",
+    "description": "Consultez et gérez vos notifications",
+    "empty": "Aucune notification",
+    "acknowledge": "Accuser réception",
+    "acknowledged": "Réception accusée",
+    "unread": "{count} non lues",
+    "actions": "Actions",
+    "markRead": "Marquer comme lue",
+    "markAllRead": "Tout marquer comme lu",
+    "fields": {
+      "subject": "Objet",
+      "entityType": "Type",
+      "scheduledFor": "Planifiée pour",
+      "status": "Statut"
+    }
+  }
+}

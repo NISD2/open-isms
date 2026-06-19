@@ -1,0 +1,47 @@
+{
+  "pricing": {
+    "meta": {
+      "title": "Precios - Plataforma de cumplimiento NIS2",
+      "description": "Dos formas de utilizar la plataforma. Alojada en nis2.eu, gratis para siempre. Autoalojamiento bajo AGPL-3.0, licencia perpetua de pago único de 10.000 €."
+    },
+    "title": "Precios",
+    "subtitle": "Dos formas de utilizar la plataforma. Elija una.",
+
+    "free": {
+      "name": "Alojada en nis2.eu",
+      "description": "La plataforma completa, operada por nosotros en infraestructura de la UE.",
+      "price": "0 €",
+      "priceSub": "para siempre",
+      "cta": "Empezar",
+      "features": {
+        "f1": "Los 49 requisitos del BSIG paso a paso",
+        "f2": "Carga de evidencias y documentación",
+        "f3": "Exportación a PDF para auditores y dirección",
+        "f4": "Registro de auditoría completo",
+        "f5": "Seguimiento de plazos y recordatorios",
+        "f6": "Guía para el registro ante el BSI",
+        "f7": "Miembros del equipo ilimitados",
+        "f8": "Registros de riesgos, activos y proveedores",
+        "f9": "Asistencia de formularios con IA",
+        "f10": "Kein Lock-in. Modelo de datos Open Source. Exporte cuando quiera."
+      }
+    },
+
+    "selfHost": {
+      "name": "Autoalojamiento",
+      "description": "Código fuente completo. Ejecútelo en su propia infraestructura, para siempre.",
+      "price": "10.000 €",
+      "priceSub": "pago único, licencia perpetua",
+      "cta": "Hable con nosotros",
+      "features": {
+        "h1": "Código fuente completo de la plataforma bajo AGPL-3.0",
+        "h2": "Todas las actualizaciones futuras incluidas",
+        "h3": "Ejecútela en su propia infraestructura, con sus propios datos",
+        "h4": "Contacto designado para soporte por correo electrónico y Signal"
+      }
+    },
+
+    "consultantFootnote": "¿Necesita un consultor de NIS2? Le ponemos en contacto con especialistas verificados sin coste alguno para usted.",
+    "consultantCta": "Solicitar un consultor"
+  }
+}

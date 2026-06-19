@@ -1,0 +1,8 @@
+{
+  "evidence": {
+    "loading": "Chargement des fichiers…",
+    "uploading": "Téléversement…",
+    "uploadFailed": "Échec du téléversement. Veuillez réessayer.",
+    "deleteFailed": "Échec de la suppression. Veuillez réessayer."
+  }
+}

@@ -1,0 +1,499 @@
+{
+  "compliance": {
+    "title": "Conformità NIS2",
+    "subtitle": "BSIG 2025 - {totalReqs} requisiti in {steps} fasi",
+    "startAssessment": "Avvia la valutazione di conformità",
+    "startDescription": "Esamina sistematicamente tutti i requisiti NIS2/BSIG. I requisiti sono visualizzati per dominio e possono essere affrontati direttamente.",
+    "startButton": "Avvia valutazione",
+    "continueButton": "Continua",
+    "completeAssessment": "Completa la valutazione",
+    "domains": "{count} domini di conformità",
+    "loadingCategories": "Caricamento delle categorie...",
+    "loadingRequirements": "Caricamento dei requisiti...",
+    "categoryNotFound": "Categoria non trovata.",
+    "noFrameworkData": "Nessun dato del framework disponibile.",
+    "noRequirements": "Nessun requisito trovato per questa categoria.",
+    "frequency": "Frequenza: {value}",
+    "mandatory": "Obbligatorio",
+    "requiredEvidence": "Evidenze richieste",
+    "progress": "{completed} di {total}",
+    "progressTooltip": "{completed} di {total} requisiti completati ({percentage}%)",
+    "assign": "Assegna",
+    "categoryOwner": "Responsabile",
+    "noOwner": "Nessun responsabile assegnato",
+    "assignedTo": "Assegnato a {name}",
+    "assignedCount": "{count} assegnati",
+    "unassigned": "Non assegnato",
+    "readOnlyBanner": "Questa categoria è assegnata a {name}. Contatta il tuo amministratore per l'accesso.",
+    "noUsersToAssign": "Nessun membro del team disponibile",
+    "inviteMember": "Invita un nuovo membro",
+    "invitePlaceholder": "nome@azienda.com",
+    "assignFailed": "Assegnazione non riuscita",
+    "unassignFailed": "Annullamento dell'assegnazione non riuscito",
+    "moduleBacked": "Basato su modulo - collegato ai dati operativi",
+    "signOff": "Approva",
+    "signOffAllCount": "Approva tutto ({count})",
+    "bulkSignOffSuccess": "{count} requisiti approvati",
+    "signedOffBy": "Approvato da {role} il {date}",
+    "notApplicable": "Non applicabile",
+    "notApplicablePlaceholder": "Spiega perché questo requisito non si applica alla tua organizzazione (proporzionalità ai sensi del §30 BSIG)...",
+    "confirmNotApplicable": "Conferma N/A",
+    "exportPolicy": "Esporta policy",
+    "completedSectionCount": "Approvati ({count})",
+    "implementationGuide": "Guida all'attuazione",
+    "showMore": "Mostra di più",
+    "showLess": "Mostra di meno",
+    "deadline": {
+      "overdue": "In ritardo di {days}g",
+      "dueToday": "Scade oggi",
+      "dueIn": "Scade tra {days}g"
+    },
+    "guided": {
+      "banner": "Configurazione guidata",
+      "progress": "Categoria {current} di {total}",
+      "skipToDashboard": "Salta alla dashboard",
+      "finish": "Termina la configurazione"
+    },
+    "overview": {
+      "title": "Panoramica della conformità",
+      "subtitle": "Monitora i tuoi progressi in tutte le categorie di requisiti NIS2",
+      "requirements": "{count} requisiti"
+    },
+    "requirement": {
+      "backToCategory": "Torna a {category}",
+      "whatSection": "Che cosa è richiesto",
+      "whySection": "Perché è importante",
+      "howSection": "Come adempiere",
+      "specificsSection": "I tuoi dettagli",
+      "evidenceSection": "Evidenze",
+      "noFieldsNeeded": "Non sono necessari dati specifici - esamina le indicazioni e approva quando sei pronto.",
+      "viewDetails": "Visualizza dettagli",
+      "prevRequirement": "Precedente",
+      "nextRequirement": "Successivo",
+      "threatContext": "Contesto della minaccia",
+      "legalConsequence": "Conseguenza giuridica",
+      "businessValue": "Valore per l'azienda",
+      "signedOff": "Approvato",
+      "signedOffByOn": "Approvato da {name} il {date}",
+      "rejectionFeedback": "Riscontro della revisione",
+      "moduleData": "Dati operativi",
+      "goToRegister": "Vai al registro",
+      "requiredRole": "Questo requisito richiede l'approvazione da parte di: {role}",
+      "signOffProgress": "{signed} di {total} approvazioni completate",
+      "details": "Dettagli",
+      "priority": "Priorità",
+      "frequency": "Frequenza",
+      "deadline": "Scadenza",
+      "importance": "Importanza",
+      "implSteps": "Fasi di attuazione",
+      "whyItMatters": "Perché è importante",
+      "prerequisitesTitle": "Prerequisiti",
+      "prerequisiteComplete": "Completato",
+      "prerequisitePending": "Richiesto",
+      "prerequisitesBlocked": "Completa prima i seguenti requisiti:",
+      "ceoCourseTitle": "Corso per dirigenti NIS 2 disponibile",
+      "ceoCourseDescription": "Completa il corso di formazione manageriale integrato per soddisfare l'obbligo di formazione previsto dal §38(3) BSIG / Art. 20(2) NIS 2.",
+      "takeCourse": "Inizia il corso"
+    },
+    "frameworkName": "NIS2 / BSIG 2026",
+    "categories": {
+      "GOV": {
+        "name": "Governance e responsabilità",
+        "description": "Supervisione del management, responsabilità personale e governance organizzativa",
+        "legalBasis": "Art. 20 NIS2 · §38 BSIG",
+        "threatLandscape": "Senza una governance chiara, le misure di cybersicurezza mancano di direzione e responsabilità. Un management che non si impegna sulla sicurezza crea una cultura di negligenza, lasciando l'organizzazione vulnerabile a fallimenti sistematici.",
+        "bsiGuidance": "Il BSI si attende che il management approvi formalmente le misure di gestione del rischio di cybersicurezza, nomini i responsabili, stanzi un budget adeguato e completi una formazione periodica sulla cybersicurezza (§38 BSIG). La responsabilità personale si applica agli amministratori delegati."
+      },
+      "RSK": {
+        "name": "Gestione del rischio",
+        "description": "Identificazione, valutazione e trattamento del rischio con un approccio all-hazards (cibernetico, fisico, ambientale)",
+        "legalBasis": "Art. 21(2)(a) NIS2 · §30(2) Nr. 1 BSIG",
+        "threatLandscape": "Le organizzazioni che non dispongono di un processo strutturato di valutazione del rischio non possono dare priorità in modo efficace agli investimenti in sicurezza, con la conseguenza che sistemi critici restano privi di protezione mentre le risorse vengono sprecate su aree a basso rischio.",
+        "bsiGuidance": "Il BSI si attende una metodologia documentata di valutazione del rischio, un registro dei rischi completo, un piano di trattamento con accettazione del rischio approvata dal management e un ciclo di revisione periodico (almeno annuale). Deve coprire tutti i sistemi informativi critici con un approccio all-hazards."
+      },
+      "INC": {
+        "name": "Gestione degli incidenti",
+        "description": "Rilevamento, risposta e notifica al BSI",
+        "legalBasis": "Art. 21(2)(b), Art. 23 NIS2 · §30(2) Nr. 2, §32 BSIG",
+        "threatLandscape": "Gli incidenti informatici sono inevitabili. Senza un piano di risposta collaudato, le organizzazioni perdono ore critiche durante la finestra di preallarme di 24h al BSI e il termine di notifica di 72h, rischiando sanzioni regolamentari oltre al danno operativo.",
+        "bsiGuidance": "Il BSI si attende un piano di risposta agli incidenti con ruoli chiari e percorsi di escalation, una capacità di preallarme entro 24h (§32(1)), una notifica dell'incidente entro 72h con valutazione dell'impatto, uno schema di classificazione, evidenze delle esercitazioni e un processo di revisione post-incidente."
+      },
+      "BCP": {
+        "name": "Continuità operativa",
+        "description": "Backup, ripristino e gestione delle crisi",
+        "legalBasis": "Art. 21(2)(c) NIS2 · §30(2) Nr. 3 BSIG",
+        "threatLandscape": "Il ransomware e i guasti delle infrastrutture possono arrestare completamente le operazioni. Senza procedure collaudate di backup/ripristino e un piano di gestione delle crisi, i tempi di ripristino passano da ore a settimane, minacciando la sopravvivenza dell'azienda.",
+        "bsiGuidance": "Il BSI si attende un'analisi di impatto sul business, un BCP documentato con obiettivi RPO/RTO, test periodici di backup e ripristino, procedure di comunicazione di crisi ed evidenze di test del BCP almeno annuali."
+      },
+      "SUP": {
+        "name": "Sicurezza della catena di fornitura",
+        "description": "Gestione del rischio di terze parti",
+        "legalBasis": "Art. 21(2)(d) NIS2 · §30(2) Nr. 4 BSIG",
+        "threatLandscape": "Gli attacchi alla catena di fornitura (SolarWinds, Kaseya) dimostrano che un singolo fornitore compromesso può propagarsi a migliaia di organizzazioni. Il rischio di terze parti è ormai un vettore di attacco primario.",
+        "bsiGuidance": "Il BSI si attende un registro dei fornitori con classificazione della criticità per la sicurezza, requisiti di sicurezza nei contratti (SLA, diritti di audit), monitoraggio continuo dei fornitori, clausole di notifica degli incidenti e valutazione dei single point of failure."
+      },
+      "PRO": {
+        "name": "Approvvigionamento e sviluppo",
+        "description": "Approvvigionamento sicuro, gestione delle patch, controllo delle modifiche",
+        "legalBasis": "Art. 21(2)(e) NIS2 · §30(2) Nr. 5 BSIG",
+        "threatLandscape": "Le vulnerabilità non corrette sono il punto di ingresso più comune per gli attaccanti. Le organizzazioni che non dispongono di processi strutturati di gestione delle vulnerabilità e delle patch restano esposte a exploit noti per settimane o mesi.",
+        "bsiGuidance": "Il BSI si attende requisiti di sicurezza nell'approvvigionamento, un SDLC sicuro in caso di sviluppo software, scansione delle vulnerabilità e applicazione delle patch con SLA definiti, una policy di divulgazione coordinata, baseline di hardening della configurazione e tracciamento dei componenti di terze parti."
+      },
+      "EFF": {
+        "name": "Valutazione dell'efficacia",
+        "description": "Audit, KPI e riesami della direzione",
+        "legalBasis": "Art. 21(2)(f) NIS2 · §30(2) Nr. 6 BSIG",
+        "threatLandscape": "Le misure di sicurezza si degradano nel tempo. Senza valutazioni periodiche dell'efficacia, le organizzazioni sviluppano un falso senso di sicurezza mentre i livelli di protezione effettivi calano a causa della deriva delle configurazioni e dell'evoluzione delle minacce.",
+        "bsiGuidance": "Il BSI si attende KPI/metriche definiti per l'efficacia della cybersicurezza, audit interni periodici, riesami della direzione, analisi dei trend di incidenti e rilievi e tracciamento delle azioni correttive derivanti dalle valutazioni."
+      },
+      "TRN": {
+        "name": "Igiene informatica e formazione",
+        "description": "Sensibilizzazione, test di phishing, formazione del management",
+        "legalBasis": "Art. 21(2)(g) NIS2 · §30(2) Nr. 7 BSIG",
+        "threatLandscape": "L'errore umano è all'origine di oltre l'80% delle violazioni di sicurezza. Phishing, social engineering e uso improprio delle credenziali sono le tecniche di attacco più efficaci, tutte rivolte a dipendenti non formati.",
+        "bsiGuidance": "Il BSI si attende un programma di formazione sulla consapevolezza in materia di cybersicurezza per tutti i dipendenti, formazione specifica per ruolo per il personale IT/sicurezza, tracciamento del completamento della formazione, corsi di aggiornamento almeno annuali, simulazioni di phishing e onboarding sulla sicurezza per i nuovi dipendenti."
+      },
+      "CRY": {
+        "name": "Crittografia e cifratura",
+        "description": "Policy di cifratura e gestione delle chiavi",
+        "legalBasis": "Art. 21(2)(h) NIS2 · §30(2) Nr. 8 BSIG",
+        "threatLandscape": "Una cifratura debole o obsoleta espone i dati in transito e a riposo. Una cattiva gestione delle chiavi può rendere inutile anche una cifratura robusta, e il calcolo quantistico minaccia gli attuali standard crittografici.",
+        "bsiGuidance": "Il BSI si attende una policy di crittografia con algoritmi approvati (secondo BSI TR-02102), cifratura dei dati a riposo e in transito, procedure di gestione delle chiavi (generazione, rotazione, revoca), gestione dei certificati e un inventario degli asset crittografici."
+      },
+      "ACC": {
+        "name": "Controllo degli accessi e sicurezza HR",
+        "description": "Gestione delle identità, accessi privilegiati, processi HR",
+        "legalBasis": "Art. 21(2)(i) NIS2 · §30(2) Nr. 9 BSIG",
+        "threatLandscape": "Diritti di accesso eccessivi sono un moltiplicatore per ogni altro attacco. Un account compromesso con ampi privilegi può accedere, esfiltrare o distruggere molti più dati del necessario. Le minacce interne sfruttano i controlli di accesso carenti.",
+        "bsiGuidance": "Il BSI si attende una policy di controllo degli accessi basata sul privilegio minimo, un processo di provisioning/de-provisioning degli utenti, revisioni periodiche degli accessi, una gestione degli accessi privilegiati (PAM), una policy di gestione degli asset e processi di sicurezza HR che includono ingressi, trasferimenti e uscite."
+      },
+      "AUT": {
+        "name": "Autenticazione e comunicazioni",
+        "description": "MFA o autenticazione continua, comunicazioni sicure, canali di emergenza",
+        "legalBasis": "Art. 21(2)(j) NIS2 · §30(2) Nr. 10 BSIG",
+        "threatLandscape": "Il furto di credenziali e l'autenticazione basata solo sulla password sono i vettori primari per la compromissione degli account. Senza MFA, una singola password sottratta tramite phishing concede pieno accesso. Le comunicazioni non sicure possono essere intercettate per spionaggio.",
+        "bsiGuidance": "Il BSI si attende un'autenticazione a più fattori o continua per i sistemi critici e l'accesso remoto, soluzioni sicure di comunicazione vocale/video/testuale, un canale di comunicazione di emergenza out-of-band, una gestione centralizzata delle identità e policy di gestione delle sessioni."
+      },
+      "REG": {
+        "name": "Registrazione e rendicontazione",
+        "description": "Registrazione presso il BSI, aggiornamenti annuali, evidenze di conformità",
+        "legalBasis": "Art. 3, Art. 23 NIS2 · §33, §34, §39 BSIG",
+        "threatLandscape": "La mancata registrazione presso il BSI e il mancato aggiornamento dei dati di contatto fanno sì che l'organizzazione non possa ricevere avvisi sulle minacce e non possa adempiere agli obblighi di notifica obbligatori, aggravando il rischio regolamentare.",
+        "bsiGuidance": "Il BSI si attende una registrazione completata (§33), un punto di contatto designato, dati di registrazione aggiornati (aggiornamento annuale), il rispetto degli obblighi di condivisione delle informazioni (§34), il mantenimento del registro dei nomi a dominio (§39 ove applicabile) e una corrispondenza regolamentare documentata."
+      },
+      "DPA": {
+        "name": "Accordi sui responsabili del trattamento",
+        "description": "Accordi sul trattamento dei dati ai sensi dell'Art. 28 GDPR con tutti i responsabili che trattano dati personali",
+        "legalBasis": "GDPR Art. 28",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "ROP": {
+        "name": "Registri delle attività di trattamento",
+        "description": "Documentazione di ogni attività di trattamento ai sensi dell'Art. 30 GDPR — finalità, base giuridica, destinatari, conservazione",
+        "legalBasis": "GDPR Art. 30",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "TOM": {
+        "name": "Misure tecniche e organizzative",
+        "description": "Misure di sicurezza a protezione dei dati personali ai sensi dell'Art. 32 GDPR",
+        "legalBasis": "GDPR Art. 32",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "BRC": {
+        "name": "Risposta alle violazioni",
+        "description": "Processo di notifica entro 72 ore e documentazione delle violazioni ai sensi degli Art. 33/34 GDPR",
+        "legalBasis": "GDPR Art. 33, Art. 34",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "DSR": {
+        "name": "Diritti degli interessati",
+        "description": "Flusso di lavoro per la gestione delle richieste di accesso, cancellazione, portabilità e opposizione entro un mese",
+        "legalBasis": "GDPR Art. 12-22",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "ISMS": {
+        "name": "Clausole obbligatorie dell'ISMS",
+        "description": "Clausole 4–10 della ISO 27001:2022: contesto, leadership, pianificazione, supporto, attività operative, valutazione, miglioramento",
+        "legalBasis": "ISO 27001:2022 Cl. 4–10",
+        "threatLandscape": "Un ISMS non documentato o privo di ambito non può essere sottoposto ad audit. Le lacune nell'impegno della leadership, nella pianificazione del rischio o nelle informazioni documentate sono le cause più comuni per cui le organizzazioni non superano la Fase 1 di un audit ISO 27001.",
+        "bsiGuidance": "Le clausole obbligatorie si applicano senza eccezioni. L'auditor verificherà: documento di ambito, metodologia di valutazione del rischio, policy di sicurezza delle informazioni firmata dall'alta direzione, ruoli documentati, piano di audit interno, registrazioni del riesame della direzione e un processo di miglioramento continuo."
+      },
+      "ORG": {
+        "name": "Controlli organizzativi",
+        "description": "Allegato A.5 — Policy, ruoli, sicurezza dei fornitori, gestione degli incidenti, continuità operativa e conformità legale",
+        "legalBasis": "ISO 27001:2022 Allegato A.5",
+        "threatLandscape": "I controlli organizzativi sono lo strato di governance. Senza policy chiare, ruoli definiti e requisiti di sicurezza per i fornitori, i controlli tecnici non hanno né mandato né responsabilità, lasciando lacune che gli attaccanti sfruttano.",
+        "bsiGuidance": "Gli auditor cercano evidenze che le policy siano approvate, comunicate e riesaminate. Gli accordi con i fornitori devono includere clausole di sicurezza. La gestione degli incidenti deve essere pianificata prima che un incidente si verifichi."
+      },
+      "PPL": {
+        "name": "Controlli sulle persone",
+        "description": "Allegato A.6 — Verifica preliminare, condizioni di impiego, formazione di sensibilizzazione, processo disciplinare, lavoro da remoto",
+        "legalBasis": "ISO 27001:2022 Allegato A.6",
+        "threatLandscape": "Le persone sono al tempo stesso il vettore di attacco primario (phishing, social engineering) e l'ultima linea di difesa. Personale non formato e un offboarding carente sono tra le debolezze più comunemente sfruttate.",
+        "bsiGuidance": "Evidenze richieste: processo di verifica dei precedenti, accordi di riservatezza firmati, registrazioni del completamento della formazione annuale di sensibilizzazione sulla sicurezza, policy sul lavoro da remoto."
+      },
+      "PHY": {
+        "name": "Controlli fisici",
+        "description": "Allegato A.7 — Perimetri fisici, controlli degli ingressi, protezione delle apparecchiature, smaltimento sicuro",
+        "legalBasis": "ISO 27001:2022 Allegato A.7",
+        "threatLandscape": "L'accesso fisico ai sistemi elude tutti i controlli logici. Uffici non protetti, schermi sbloccati e smaltimento improprio delle apparecchiature vengono frequentemente sfruttati, spesso da minacce opportunistiche e non da attaccanti sofisticati.",
+        "bsiGuidance": "Per un'azienda remote-first che utilizza spazi di co-working, i controlli fisici si concentrano su: policy della scrivania pulita, blocco dello schermo, sicurezza degli asset fuori sede e smaltimento sicuro di laptop e supporti di memorizzazione."
+      },
+      "TEC": {
+        "name": "Controlli tecnologici",
+        "description": "Allegato A.8 — Sicurezza degli endpoint, diritti di accesso, gestione delle vulnerabilità, crittografia, logging, gestione delle modifiche",
+        "legalBasis": "ISO 27001:2022 Allegato A.8",
+        "threatLandscape": "La sezione più ampia dell'Allegato A (34 controlli). Le lacune tecnologiche — sistemi non corretti, risorse cloud mal configurate, MFA assente, logging inadeguato — sono la causa principale della maggior parte degli incidenti di sicurezza.",
+        "bsiGuidance": "Gli auditor verificano che i controlli siano effettivamente attuati, non solo documentati. Sono attese evidenze tecniche: screenshot delle configurazioni, log delle patch, output del SIEM, risultati dei test di ripristino dei backup e registrazioni delle revisioni degli accessi."
+      },
+      "AI-LIT": {
+        "name": "Alfabetizzazione in materia di IA",
+        "description": "Garantire che il personale e le persone che utilizzano sistemi di IA per conto dell'azienda dispongano di un livello sufficiente di alfabetizzazione in materia di IA.",
+        "legalBasis": "Art. 4 EU AI Act",
+        "threatLandscape": "Personale non formato che utilizza strumenti di IA causa fughe di dati, errori dovuti ad allucinazioni ed esposizione ai deepfake che le organizzazioni non possono difendere in sede di audit o giudizio.",
+        "bsiGuidance": ""
+      },
+      "AI-PRO": {
+        "name": "Pratiche vietate",
+        "description": "Esaminare i casi d'uso dell'IA rispetto alle otto (più una) pratiche vietate dell'Art. 5 e documentare l'esito dell'esame.",
+        "legalBasis": "Art. 5 EU AI Act",
+        "threatLandscape": "L'utilizzo di una pratica vietata fa scattare il livello sanzionatorio più elevato (35 milioni di EUR o il 7% del fatturato mondiale) a prescindere dall'intenzione.",
+        "bsiGuidance": ""
+      },
+      "AI-INV": {
+        "name": "Inventario dei sistemi di IA",
+        "description": "Mantenere un inventario di ogni sistema di IA in uso, classificare ciascuno per livello di rischio e riclassificarlo in caso di modifica sostanziale.",
+        "legalBasis": "Art. 6, 25, 26 EU AI Act",
+        "threatLandscape": "Senza un inventario, le installazioni di shadow-AI sfuggono alla supervisione e creano un'esposizione non mitigata in termini di conformità e responsabilità.",
+        "bsiGuidance": ""
+      },
+      "AI-RSK": {
+        "name": "Gestione del rischio dell'IA",
+        "description": "Gestire un sistema documentato di gestione del rischio per i sistemi di IA ad alto rischio, con revisione annuale e trattamento dei rischi individuati.",
+        "legalBasis": "Art. 9 EU AI Act",
+        "threatLandscape": "I rischi dell'IA non gestiti (bias, deriva, carenze di robustezza) si traducono direttamente in esposizione agli incidenti ai sensi dell'Art. 73.",
+        "bsiGuidance": ""
+      },
+      "AI-FRI": {
+        "name": "Valutazione d'impatto sui diritti fondamentali",
+        "description": "Condurre una valutazione d'impatto sui diritti fondamentali prima di mettere in servizio sistemi di IA ad alto rischio in contesti pubblici, finanziari o assicurativi.",
+        "legalBasis": "Art. 27 EU AI Act",
+        "threatLandscape": "Omettere la FRIA espone il deployer a richieste di risarcimento civili da parte delle persone interessate e all'attività di vigilanza del mercato.",
+        "bsiGuidance": ""
+      },
+      "AI-OVS": {
+        "name": "Sorveglianza umana",
+        "description": "Designare un supervisore umano competente per ciascun sistema di IA ad alto rischio e verificare annualmente l'efficacia della sorveglianza.",
+        "legalBasis": "Art. 14, Art. 26(2) EU AI Act",
+        "threatLandscape": "I sistemi di IA ad alto rischio autonomi privi di un'efficace possibilità di intervento umano violano l'Art. 14 e creano una responsabilità diretta per fornitore/deployer.",
+        "bsiGuidance": ""
+      },
+      "AI-TRA": {
+        "name": "Trasparenza",
+        "description": "Comunicare agli utenti finali le interazioni con l'IA e i contenuti generati dall'IA; apporre un watermark ai contenuti sintetici; comunicare i deepfake.",
+        "legalBasis": "Art. 50 EU AI Act",
+        "threatLandscape": "La mancata comunicazione su chatbot e contenuti sintetici viola l'Art. 50 e mina la fiducia di clienti e autorità di regolamentazione.",
+        "bsiGuidance": ""
+      },
+      "AI-INC": {
+        "name": "Notifica degli incidenti dell'IA",
+        "description": "Documentare la procedura di risposta agli incidenti dell'IA; notificare all'autorità di vigilanza del mercato gli incidenti gravi entro 15 giorni.",
+        "legalBasis": "Art. 73 EU AI Act",
+        "threatLandscape": "La mancata notifica entro la finestra di 15 giorni fa scattare il secondo livello sanzionatorio (15 milioni di EUR o il 3% del fatturato).",
+        "bsiGuidance": ""
+      },
+      "AI-DOC": {
+        "name": "Documentazione tecnica",
+        "description": "Mantenere la documentazione tecnica dell'Allegato IV, il logging automatico e la dichiarazione di conformità UE per i sistemi di IA ad alto rischio.",
+        "legalBasis": "Art. 11, 12, 18, 19, 47 · Allegato IV, V EU AI Act",
+        "threatLandscape": "Una documentazione tecnica incompleta impedisce la valutazione della conformità e blocca l'immissione sul mercato dell'UE.",
+        "bsiGuidance": ""
+      },
+      "AI-GPI": {
+        "name": "IA per finalità generali",
+        "description": "Obblighi dei fornitori di GPAI: scheda del modello, policy sul diritto d'autore, sintesi dei contenuti di addestramento, oltre alla valutazione del rischio sistemico quando la potenza di calcolo di addestramento supera 10^25 FLOPs.",
+        "legalBasis": "Art. 51-55 EU AI Act",
+        "threatLandscape": "I fornitori di GPAI che non rispettano gli obblighi di trasparenza sono soggetti all'attività di vigilanza diretta dell'EU AI Office, con sanzioni ai sensi dell'Art. 101.",
+        "bsiGuidance": ""
+      },
+      "CRA-MFG": {
+        "name": "Obblighi del fabbricante",
+        "description": "Valutazione e gestione del rischio di cybersicurezza per prodotto e approvazione dell'organo di gestione prima dell'immissione del prodotto sul mercato dell'UE.",
+        "legalBasis": "Art. 13 EU CRA",
+        "threatLandscape": "I fabbricanti che immettono prodotti senza una valutazione del rischio documentata non hanno alcuna difesa quando emergono vulnerabilità attivamente sfruttate.",
+        "bsiGuidance": ""
+      },
+      "CRA-ESS": {
+        "name": "Requisiti essenziali di cybersicurezza",
+        "description": "Conformità all'Allegato I Parte I: assenza di vulnerabilità sfruttabili note al momento dell'immissione sul mercato, sicurezza per impostazione predefinita, protezione di riservatezza, integrità e disponibilità dei dati.",
+        "legalBasis": "Allegato I Parte I EU CRA",
+        "threatLandscape": "I prodotti che non soddisfano i requisiti essenziali non possono legalmente restare sul mercato dell'UE e fanno scattare il livello sanzionatorio più elevato.",
+        "bsiGuidance": ""
+      },
+      "CRA-VLN": {
+        "name": "Gestione delle vulnerabilità",
+        "description": "Gestione documentata delle vulnerabilità, policy di divulgazione coordinata, aggiornamenti di sicurezza senza indugio e divulgazione pubblica delle vulnerabilità corrette.",
+        "legalBasis": "Allegato I Parte II EU CRA",
+        "threatLandscape": "I fornitori privi di un processo di gestione delle vulnerabilità non possono rispettare la cascata di notifica 24h / 72h / 14 giorni e diventano responsabili degli incidenti a valle.",
+        "bsiGuidance": ""
+      },
+      "CRA-INC": {
+        "name": "Notifica dello sfruttamento attivo",
+        "description": "Preallarme entro 24 ore a ENISA e CSIRT, notifica entro 72 ore, relazione finale entro 14 giorni per le vulnerabilità attivamente sfruttate e gli incidenti gravi.",
+        "legalBasis": "Art. 14 EU CRA",
+        "threatLandscape": "Il mancato rispetto dei termini di notifica (diversi dal termine di 24h per le PMI) fa scattare il livello sanzionatorio più elevato e i poteri di richiamo del prodotto.",
+        "bsiGuidance": ""
+      },
+      "CRA-CONF": {
+        "name": "Valutazione della conformità",
+        "description": "Procedura di valutazione della conformità in base alla classe del prodotto (autovalutazione Modulo A, Modulo B+C con organismo notificato, o Modulo H sistema di qualità) seguita dalla marcatura CE.",
+        "legalBasis": "Art. 24, Art. 27 EU CRA",
+        "threatLandscape": "I prodotti privi di una valutazione della conformità valida non possono essere immessi sul mercato dell'UE a partire dall'11 dicembre 2027.",
+        "bsiGuidance": ""
+      },
+      "CRA-DOC": {
+        "name": "Documentazione tecnica",
+        "description": "Mantenere la documentazione tecnica dell'Allegato VII per ciascun prodotto immesso sul mercato dell'UE.",
+        "legalBasis": "Art. 28 · Allegato VII EU CRA",
+        "threatLandscape": "Una documentazione tecnica mancante o incompleta blocca la verifica di vigilanza del mercato e fa scattare il ritiro del prodotto.",
+        "bsiGuidance": ""
+      },
+      "CRA-SUP": {
+        "name": "Periodo di supporto",
+        "description": "Impegnarsi pubblicamente a un periodo di supporto per gli aggiornamenti di sicurezza (per impostazione predefinita cinque anni o la vita utile prevista del prodotto, se più lunga).",
+        "legalBasis": "Art. 13(8) EU CRA",
+        "threatLandscape": "Il mancato supporto per l'intero periodo espone il fabbricante a richieste di risarcimento da parte dei clienti rimasti con prodotti non sicuri.",
+        "bsiGuidance": ""
+      },
+      "CRA-SBOM": {
+        "name": "Distinta base del software",
+        "description": "Generare e mantenere una distinta base del software (Software Bill of Materials) leggibile da una macchina per ciascun prodotto immesso sul mercato dell'UE.",
+        "legalBasis": "Allegato I Parte II §1 EU CRA",
+        "threatLandscape": "Senza un SBOM, i fabbricanti non possono rintracciare quali prodotti contengono un componente vulnerabile e non rispettano la finestra di notifica dell'Art. 14.",
+        "bsiGuidance": ""
+      },
+      "CRA-IMP": {
+        "name": "Importatore e distributore",
+        "description": "Gli importatori verificano la conformità del fabbricante prima dell'immissione sul mercato; i distributori esercitano la dovuta diligenza sulle marcature di conformità.",
+        "legalBasis": "Art. 18, Art. 19 EU CRA",
+        "threatLandscape": "Gli importatori e i distributori che omettono la verifica ereditano la responsabilità del fabbricante ai sensi dell'Art. 22.",
+        "bsiGuidance": ""
+      },
+      "CRA-OSS": {
+        "name": "Steward open-source",
+        "description": "Gli steward di software open-source adottano una policy di cybersicurezza, una divulgazione coordinata delle vulnerabilità e segnalano le vulnerabilità attivamente sfruttate.",
+        "legalBasis": "Art. 24 EU CRA",
+        "threatLandscape": "Gli steward OSS sono esenti da sanzioni ai sensi dell'Art. 64(10), ma gli utilizzatori commerciali a valle dipendono comunque dalle loro segnalazioni.",
+        "bsiGuidance": ""
+      }
+    }
+  },
+  "intake": {
+    "bsiContext": "Cosa si attende il BSI",
+    "threatLandscape": "Panorama delle minacce",
+    "grundschutzModule": "Modulo IT-Grundschutz",
+    "companyContext": "Il profilo della tua azienda",
+    "completeSection": "Completa questa sezione",
+    "operationalData": "Dai dati della tua piattaforma",
+    "saveDraft": "Salva bozza",
+    "submitSignOff": "Invia e approva",
+    "saved": "Bozza salvata",
+    "submitted": "Categoria inviata e approvata",
+    "submitFailed": "Invio non riuscito",
+    "incomplete": "Compila tutti i campi obbligatori prima di inviare.",
+    "alreadySignedOff": "Approvato il {date}",
+    "fieldProgress": "{completed} di {total} campi",
+    "statusDraft": "Bozza",
+    "statusSubmitted": "Inviato",
+    "statusSignedOff": "Approvato",
+    "validate": "Valida con il panel BSI",
+    "validating": "Esecuzione della valutazione del panel BSI...",
+    "validateFailed": "Validazione non riuscita",
+    "noSchema": "Nessun modulo di acquisizione disponibile per questa categoria.",
+    "autoSaved": "Salvato automaticamente",
+    "categoryOwner": "Responsabile della categoria",
+    "noOwner": "Nessun responsabile assegnato",
+    "onlyOwnerCanSubmit": "Solo il responsabile assegnato o un amministratore può inviare questa categoria.",
+    "responsiblePerson": "Persona responsabile",
+    "responsiblePersonDescription": "La persona qui assegnata potrà approvare questa categoria.",
+    "frequencyOneTime": "Una tantum",
+    "frequencyMonthly": "Mensile",
+    "frequencyQuarterly": "Trimestrale",
+    "frequencySemiAnnual": "Semestrale",
+    "frequencyAnnual": "Annuale",
+    "frequencyEvery3Years": "Ogni 3 anni",
+    "frequencyOnChange": "In caso di modifica",
+    "frequencyOngoing": "Continuativo"
+  },
+  "form": {
+    "completeRequirement": "Completa il requisito",
+    "noFields": "Nessun campo del modulo definito.",
+    "requirementCompleted": "{code} completato",
+    "requirementSaved": "Il requisito è stato salvato.",
+    "edit": "Modifica",
+    "save": "Salva",
+    "saving": "Salvataggio...",
+    "failedToSave": "Salvataggio non riuscito"
+  },
+  "evidence": {
+    "dropzone": "Trascina il file qui o fai clic per selezionarlo",
+    "formats": "PDF, DOCX, XLSX, immagini",
+    "description": "Descrizione (facoltativa)",
+    "descriptionPlaceholder": "Cosa dimostra questo documento?",
+    "uploading": "Caricamento...",
+    "upload": "Carica evidenza",
+    "uploaded": "Evidenza caricata",
+    "fileSaved": "{name} è stato salvato.",
+    "loading": "Caricamento dei file...",
+    "uploadFailed": "Caricamento non riuscito"
+  },
+  "signoff": {
+    "title": "Approvazione del management richiesta",
+    "description": "Il management deve confermare e approvare l'attuazione di \"{title}\".",
+    "roleLabel": "Ruolo / funzione",
+    "rolePlaceholder": "ad es. CEO, CISO, responsabile IT",
+    "confirm": "Confermo che il requisito è stato esaminato e che l'attuazione è stata approvata dal management.",
+    "saving": "Salvataggio...",
+    "submit": "Concedi l'approvazione",
+    "granted": "Approvazione concessa",
+    "grantedDescription": "{code} è stato approvato da {role}."
+  },
+  "llm": {
+    "title": "Precompilazione con IA",
+    "extractTitle": "Estrai dati tramite IA",
+    "extractDescription": "Incolla il testo o trascina il file qui (PDF, DOCX, TXT). L'IA estrae i dati pertinenti per il modulo.",
+    "extractPlaceholder": "Incolla il testo qui o trascina il file qui...\n\nEsempio: Muller GmbH con sede a Berlino, settore energia, 120 dipendenti, fatturato annuo 15 milioni di EUR, classificata come soggetto importante ai sensi della NIS2...",
+    "extractButton": "Estrai dati",
+    "unsupportedFormat": "Formato non supportato: {name}. Supportati: {formats}",
+    "noText": "Nessun testo trovato nel documento.",
+    "fileError": "Errore durante l'elaborazione del file",
+    "dropHere": "Trascina il file qui",
+    "processing": "Elaborazione del documento...",
+    "selectFile": "Seleziona file",
+    "fieldsFilled": "{count} campi compilati",
+    "extracting": "Estrazione...",
+    "assistButton": "Assistenza IA",
+    "assistTitle": "Indicazioni sul modulo",
+    "assistDescription": "Indicazioni generate dall'IA per aiutarti a compilare questo modulo di requisito. Non viene inviato alcun dato effettivo, solo i nomi e i tipi dei campi.",
+    "assistLoading": "Generazione delle indicazioni...",
+    "assistError": "Generazione delle indicazioni non riuscita. Riprova.",
+    "assistOverview": "Panoramica",
+    "assistWhatThisIs": "Di cosa si tratta",
+    "assistWhyThisExists": "Perché esiste",
+    "assistApplicability": "Si applica?",
+    "assistQuickStart": "Avvio rapido",
+    "assistExample": "Esempio di una buona presentazione",
+    "assistExampleWhyGood": "Perché è valido",
+    "assistFieldGuidance": "Indicazioni campo per campo",
+    "assistMeaning": "Cosa significa",
+    "assistExamples": "Buoni esempi",
+    "assistWhereToFind": "Dove trovarlo",
+    "assistField": "Campo",
+    "assistValue": "Valore"
+  }
+}

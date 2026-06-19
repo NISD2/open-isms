@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Gestion des correctifs",
+    "description": "Suivi des correctifs et des vulnérabilités par actif. Exigé par l'art. 21(2)(e) NIS2.",
+    "helpText": "Suivez les correctifs et les vulnérabilités connues de vos actifs enregistrés. Consignez le statut des correctifs (en attente, appliqué, reporté), les références CVE et les échéances. NIS2 exige un traitement des vulnérabilités et une gestion des correctifs en temps utile.",
+    "add": "Ajouter un correctif",
+    "edit": "Modifier le correctif",
+    "empty": "Aucun correctif enregistré pour le moment. Ajoutez votre premier correctif.",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce correctif ?",
+    "actions": "Actions",
+    "severity": {
+      "critical": "Critique",
+      "high": "Élevée",
+      "medium": "Moyenne",
+      "low": "Faible"
+    },
+    "status": {
+      "pending": "En attente",
+      "applied": "Appliqué",
+      "exception": "Exception",
+      "not_applicable": "Non applicable"
+    },
+    "fields": {
+      "patchIdentifier": "ID du correctif",
+      "severity": "Gravité",
+      "title": "Titre",
+      "assetId": "Actif",
+      "status": "Statut",
+      "releaseDate": "Date de publication",
+      "appliedAt": "Appliqué le",
+      "exceptionReason": "Motif de l'exception"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Identifiant de correctif de l'éditeur ou numéro CVE (par ex. « KB5034441 », « CVE-2024-1234 »).",
+      "severity": "Sélectionnez le niveau de gravité de la vulnérabilité corrigée par ce correctif : critique, élevée, moyenne ou faible.",
+      "title": "Brève description de ce que corrige ce correctif ou de la vulnérabilité qu'il traite.",
+      "assetId": "Sélectionnez dans le registre des actifs l'actif auquel ce correctif s'applique.",
+      "status": "Statut actuel du correctif : en attente (pas encore appliqué), appliqué, exception (report avec risque accepté) ou non applicable.",
+      "releaseDate": "Date à laquelle l'éditeur a publié ce correctif.",
+      "appliedAt": "Date à laquelle ce correctif a été appliqué avec succès sur l'actif cible.",
+      "exceptionReason": "Si le statut est Exception, indiquez la justification du report ou de la non-application de ce correctif."
+    }
+  }
+}

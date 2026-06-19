@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "title": "Mesures de KPI",
+    "description": "Indicateurs de performance de sécurité suivis dans le temps. Démontre l'efficacité au titre de l'art. 21 NIS2.",
+    "helpText": "Consignez régulièrement les mesures de KPI de sécurité (par ex. taux de conformité des correctifs, % d'achèvement des formations, délai moyen de détection). Les KPI démontrent aux auditeurs que vos mesures de sécurité sont efficaces et s'améliorent dans le temps.",
+    "add": "Ajouter une mesure",
+    "empty": "Aucune mesure de KPI pour l'instant. Enregistrez votre première mesure.",
+    "status": {
+      "green": "Objectif atteint",
+      "amber": "À risque",
+      "red": "En deçà de l'objectif"
+    },
+    "fields": {
+      "kpiName": "Nom du KPI",
+      "measuredAt": "Mesuré le",
+      "value": "Valeur",
+      "target": "Objectif",
+      "unit": "Unité",
+      "status": "Statut",
+      "notes": "Notes"
+    },
+    "fieldDescriptions": {
+      "kpiName": "Nom de l'indicateur de sécurité mesuré (par ex. « Taux de conformité des correctifs », « Délai moyen de détection », « % d'achèvement des formations »).",
+      "measuredAt": "Date à laquelle cette mesure a été effectuée.",
+      "value": "Saisissez la valeur numérique mesurée pour ce KPI.",
+      "target": "Saisissez la valeur cible que ce KPI doit atteindre ou dépasser.",
+      "unit": "Unité de mesure (par ex. %, heures, jours, nombre).",
+      "status": "Sélectionnez le statut : vert (objectif atteint), orange (risque de ne pas atteindre l'objectif) ou rouge (en deçà de l'objectif).",
+      "notes": "Contexte ou explication supplémentaire pour cette mesure, en particulier si le statut est orange ou rouge."
+    }
+  }
+}

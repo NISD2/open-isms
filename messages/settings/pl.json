@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Ustawienia",
+    "description": "Zarządzaj ustawieniami platformy swojej organizacji.",
+    "aiDataSharing": {
+      "title": "Udostępnianie danych dla AI",
+      "description": "Kontroluj, jakie dane organizacji są udostępniane asystentowi AI podczas generowania wytycznych dotyczących zgodności. Dane osobowe (adresy e-mail, numery telefonów, imiona i nazwiska osób) nigdy nie są przesyłane.",
+      "none": {
+        "label": "Brak danych firmy",
+        "description": "Przesyłane są tylko nazwy pól, typy i tytuł wymagania. Wytyczne są ogólne.",
+        "preview": "Przesyłane: definicje pól, tytuł wymagania, odniesienie prawne"
+      },
+      "basic": {
+        "label": "Tylko dane niewrażliwe",
+        "description": "Dodaje sektor, typ podmiotu i formę prawną w celu uzyskania bardziej trafnych wytycznych.",
+        "preview": "Przesyłane: powyższe + sektor, podsektor, typ podmiotu, forma prawna"
+      },
+      "full": {
+        "label": "Pełny kontekst",
+        "description": "Obejmuje nazwę firmy i wskaźniki wielkości w celu uzyskania najbardziej dopasowanych wytycznych.",
+        "preview": "Przesyłane: powyższe + nazwa firmy, liczba pracowników, roczny przychód"
+      }
+    },
+    "saved": "Ustawienia zapisane",
+    "saveError": "Nie udało się zapisać ustawień",
+    "saving": "Zapisywanie...",
+    "adminOnly": "Tylko administratorzy mogą zmieniać ustawienia."
+  }
+}

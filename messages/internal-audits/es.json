@@ -1,0 +1,36 @@
+{
+  "internalAudits": {
+    "title": "Auditorías internas",
+    "description": "Calendario, ejecución y hallazgos de las auditorías internas. Exigido por la evaluación de eficacia del Art. 21 de NIS2.",
+    "helpText": "Planifique y documente las auditorías internas de sus medidas de ciberseguridad. Registre el alcance, los hallazgos y las acciones correctivas. NIS2 exige una evaluación periódica de si las medidas de seguridad son eficaces.",
+    "add": "Añadir auditoría",
+    "edit": "Editar auditoría",
+    "empty": "Aún no hay auditorías internas planificadas. Planifique su primera auditoría.",
+    "deleteConfirm": "¿Está seguro de que desea eliminar esta auditoría?",
+    "actions": "Acciones",
+    "status": {
+      "planned": "Planificada",
+      "in_progress": "En curso",
+      "completed": "Completada",
+      "cancelled": "Cancelada"
+    },
+    "fields": {
+      "title": "Título",
+      "auditArea": "Área de auditoría",
+      "scope": "Alcance",
+      "status": "Estado",
+      "scheduledDate": "Fecha prevista",
+      "completedAt": "Completada el",
+      "auditorName": "Auditor"
+    },
+    "fieldDescriptions": {
+      "title": "Nombre de esta auditoría interna (p. ej., «Auditoría de control de acceso del 2.º trimestre», «Revisión anual de cumplimiento de NIS2»).",
+      "auditArea": "Dominio de seguridad o área de control que se audita (p. ej., control de acceso, respuesta a incidentes, cadena de suministro).",
+      "scope": "Defina los límites de esta auditoría: qué sistemas, procesos, departamentos o controles se incluyen.",
+      "status": "Estado actual de la auditoría: planificada, en curso, completada o cancelada.",
+      "scheduledDate": "Fecha en la que está previsto que comience esta auditoría.",
+      "completedAt": "Fecha en la que se completaron todas las actividades de auditoría y el informe final.",
+      "auditorName": "Nombre del auditor interno o del responsable del equipo de auditoría que realiza esta evaluación."
+    }
+  }
+}

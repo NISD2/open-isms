@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Przeglądy zarządcze",
+    "description": "Spotkania nadzorcze kierownictwa i decyzje strategiczne. Wymagane przez NIS2 Art. 20(1).",
+    "helpText": "Dokumentuj spotkania przeglądowe kierownictwa, podczas których kierownictwo ocenia stan bezpieczeństwa cybernetycznego. NIS2 Art. 20 nakłada na kierownictwo osobistą odpowiedzialność za zatwierdzanie i nadzorowanie środków bezpieczeństwa cybernetycznego. Zapisz uczestników, omawiane tematy oraz podjęte decyzje.",
+    "add": "Dodaj przegląd",
+    "edit": "Edytuj przegląd",
+    "empty": "Nie zarejestrowano jeszcze żadnych przeglądów zarządczych. Zaplanuj swój pierwszy przegląd.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć ten przegląd?",
+    "actions": "Działania",
+    "fields": {
+      "title": "Tytuł",
+      "reviewDate": "Data przeglądu",
+      "decisions": "Decyzje",
+      "actionItems": "Działania do podjęcia",
+      "nextReviewDate": "Data następnego przeglądu"
+    },
+    "fieldDescriptions": {
+      "title": "Tytuł spotkania przeglądu zarządczego (np. „Przegląd bezpieczeństwa cybernetycznego za I kw. 2025”).",
+      "reviewDate": "Data, w której odbyło się spotkanie przeglądu zarządczego.",
+      "decisions": "Udokumentuj kluczowe decyzje podjęte przez kierownictwo w zakresie stanu bezpieczeństwa cybernetycznego, alokacji zasobów i akceptacji ryzyka.",
+      "actionItems": "Wymień konkretne działania następcze przydzielone podczas przeglądu, w tym osoby odpowiedzialne i terminy.",
+      "nextReviewDate": "Data, na którą zaplanowano następny przegląd zarządczy. NIS2 Art. 20 wymaga stałego nadzoru kierownictwa."
+    }
+  }
+}

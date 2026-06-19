@@ -1,0 +1,8 @@
+{
+  "evidence": {
+    "loading": "Caricamento dei file…",
+    "uploading": "Caricamento in corso…",
+    "uploadFailed": "Caricamento non riuscito. Riprova.",
+    "deleteFailed": "Eliminazione non riuscita. Riprova."
+  }
+}

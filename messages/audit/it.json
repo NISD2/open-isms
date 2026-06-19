@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Audit trail",
+    "subtitle": "Registro a prova di manomissione di tutte le azioni rilevanti per la conformità",
+    "noEntries": "Nessuna voce nel registro di audit.",
+    "description": "Descrizione",
+    "action": "Azione",
+    "user": "Utente",
+    "time": "Ora"
+  }
+}

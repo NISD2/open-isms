@@ -1,0 +1,11 @@
+{
+  "export": {
+    "title": "Eksport raportów",
+    "subtitle": "Pobierz raporty zgodności dla swoich ocen",
+    "noAssessments": "Nie znaleziono żadnych ocen. Najpierw ukończ konfigurację.",
+    "download": "Pobierz PDF",
+    "started": "Rozpoczęto",
+    "progress": "{completed} z {total} wymagań",
+    "compliance": "Zgodność"
+  }
+}

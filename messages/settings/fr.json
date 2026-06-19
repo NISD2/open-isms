@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Paramètres",
+    "description": "Gérez les paramètres de plateforme de votre organisation.",
+    "aiDataSharing": {
+      "title": "Partage de données avec l'IA",
+      "description": "Contrôlez quelles données de l'organisation sont partagées avec l'assistant IA lors de la génération de recommandations de conformité. Les données personnelles (adresses e-mail, numéros de téléphone, noms de personnes) ne sont jamais transmises.",
+      "none": {
+        "label": "Aucune donnée d'entreprise",
+        "description": "Seuls les noms de champs, les types et l'intitulé de l'exigence sont transmis. Les recommandations sont génériques.",
+        "preview": "Transmis : définitions des champs, intitulé de l'exigence, référence juridique"
+      },
+      "basic": {
+        "label": "Données non sensibles uniquement",
+        "description": "Ajoute le secteur, le type d'entité et la forme juridique pour des recommandations plus pertinentes.",
+        "preview": "Transmis : ce qui précède + secteur, sous-secteur, type d'entité, forme juridique"
+      },
+      "full": {
+        "label": "Contexte complet",
+        "description": "Inclut le nom de l'entreprise et les indicateurs de taille pour les recommandations les plus adaptées.",
+        "preview": "Transmis : ce qui précède + nom de l'entreprise, effectif, chiffre d'affaires annuel"
+      }
+    },
+    "saved": "Paramètres enregistrés",
+    "saveError": "Échec de l'enregistrement des paramètres",
+    "saving": "Enregistrement...",
+    "adminOnly": "Seuls les administrateurs peuvent modifier les paramètres."
+  }
+}

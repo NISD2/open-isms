@@ -39,6 +39,19 @@ export const registrationPortalSchema = z.object({
    */
   trackerNoteEn: z.string().optional(),
   trackerNoteDe: z.string().optional(),
+  trackerNoteFr: z.string().optional(),
+  trackerNoteIt: z.string().optional(),
+  trackerNoteEs: z.string().optional(),
+  trackerNotePl: z.string().optional(),
+  /**
+   * Longer per-country notes, localized. `notes` (En) and `notesDe` are the
+   * required base; fr/it/es/pl are optional and fall back to the En `notes`
+   * field at the call site.
+   */
+  notesFr: z.string().optional(),
+  notesIt: z.string().optional(),
+  notesEs: z.string().optional(),
+  notesPl: z.string().optional(),
 });
 
 export const registrationPortalsDataSchema = z.object({

@@ -1,0 +1,24 @@
+{
+  "methodology": {
+    "title": "Méthodologie d'évaluation des risques",
+    "loading": "Chargement de la méthodologie...",
+    "saved": "Méthodologie enregistrée",
+    "saveFailed": "Échec de l'enregistrement de la méthodologie",
+    "edit": "Modifier",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "methodologyName": "Nom de la méthodologie",
+    "likelihoodScale": "Échelle de vraisemblance",
+    "impactScale": "Échelle d'impact",
+    "label": "Libellé",
+    "description": "Description",
+    "addLevel": "Ajouter un niveau",
+    "removeLevel": "Supprimer le dernier",
+    "riskMatrix": "Matrice des risques",
+    "acceptanceThreshold": "Seuil d'acceptation",
+    "thresholdHelp": "Les risques dont le score est ≤ {threshold} peuvent être acceptés sans traitement",
+    "includesOt": "La méthodologie couvre les systèmes OT/ICS (§30(2) BSIG)",
+    "clickToSelect": "Cliquez sur une cellule pour sélectionner vraisemblance × impact",
+    "selectedScore": "Score sélectionné"
+  }
+}

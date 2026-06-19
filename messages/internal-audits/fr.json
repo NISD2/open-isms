@@ -1,0 +1,36 @@
+{
+  "internalAudits": {
+    "title": "Audits internes",
+    "description": "Planification, exécution et constatations des audits internes. Exigé par l'évaluation de l'efficacité au titre de l'art. 21 NIS2.",
+    "helpText": "Planifiez et documentez les audits internes de vos mesures de cybersécurité. Consignez le périmètre, les constatations et les actions correctives. NIS2 exige une évaluation régulière de l'efficacité des mesures de sécurité.",
+    "add": "Ajouter un audit",
+    "edit": "Modifier l'audit",
+    "empty": "Aucun audit interne planifié pour le moment. Planifiez votre premier audit.",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet audit ?",
+    "actions": "Actions",
+    "status": {
+      "planned": "Planifié",
+      "in_progress": "En cours",
+      "completed": "Terminé",
+      "cancelled": "Annulé"
+    },
+    "fields": {
+      "title": "Titre",
+      "auditArea": "Domaine d'audit",
+      "scope": "Périmètre",
+      "status": "Statut",
+      "scheduledDate": "Date planifiée",
+      "completedAt": "Terminé le",
+      "auditorName": "Auditeur"
+    },
+    "fieldDescriptions": {
+      "title": "Nom de cet audit interne (par ex. « Audit du contrôle d'accès T2 », « Revue annuelle de conformité NIS2 »).",
+      "auditArea": "Domaine de sécurité ou domaine de contrôle audité (par ex. contrôle d'accès, réponse aux incidents, chaîne d'approvisionnement).",
+      "scope": "Définissez les limites de cet audit : quels systèmes, processus, services ou contrôles sont inclus.",
+      "status": "Statut actuel de l'audit : planifié, en cours, terminé ou annulé.",
+      "scheduledDate": "Date à laquelle cet audit doit débuter.",
+      "completedAt": "Date à laquelle toutes les activités d'audit et le rapport final ont été achevés.",
+      "auditorName": "Nom de l'auditeur interne ou du responsable de l'équipe d'audit menant cette évaluation."
+    }
+  }
+}

@@ -29,10 +29,16 @@ writeFileSync(dataPath, dataOut);
 const schemaDir = join(root, "schema");
 mkdirSync(schemaDir, { recursive: true });
 const schemaPath = join(schemaDir, "supply-chain-questionnaire.schema.json");
-const jsonSchema = zodToJsonSchema(supplierQuestionnaireSchema, {
-  name: "SupplyChainQuestionnaire",
-  $refStrategy: "none",
-});
+// The widened localisedString tips a latent zod / zod-to-json-schema version
+// skew into a structural-type mismatch; narrow the arg to the lib's own param
+// type (runtime is unaffected — it's a valid ZodObject).
+const jsonSchema = zodToJsonSchema(
+  supplierQuestionnaireSchema as unknown as Parameters<typeof zodToJsonSchema>[0],
+  {
+    name: "SupplyChainQuestionnaire",
+    $refStrategy: "none",
+  },
+);
 const schemaOut = JSON.stringify(jsonSchema, null, 2) + "\n";
 writeFileSync(schemaPath, schemaOut);
 

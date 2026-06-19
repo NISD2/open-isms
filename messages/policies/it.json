@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Policy",
+    "description": "Policy, procedure e linee guida di sicurezza con tracciamento delle approvazioni. Fondamento dell'art. 21(1) NIS2.",
+    "helpText": "Crea e gestisci le tue policy di sicurezza delle informazioni. Ogni policy segue un ciclo di vita: bozza, riesame, approvata, archiviata. Tieni traccia della cronologia delle versioni e assicurati che tutto il personale interessato confermi la presa visione delle policy in vigore. NIS2 richiede policy documentate per la gestione del rischio, il controllo degli accessi, la cifratura e altro ancora.",
+    "add": "Aggiungi policy",
+    "edit": "Modifica policy",
+    "empty": "Nessuna policy finora. Crea il tuo primo documento di policy.",
+    "deleteConfirm": "Sei sicuro di voler eliminare questa policy?",
+    "actions": "Azioni",
+    "status": {
+      "draft": "Bozza",
+      "approved": "Approvata",
+      "archived": "Archiviata"
+    },
+    "fields": {
+      "title": "Titolo",
+      "type": "Tipo",
+      "version": "Versione",
+      "content": "Contenuto",
+      "status": "Stato",
+      "effectiveFrom": "In vigore dal",
+      "reviewDue": "Riesame previsto entro"
+    },
+    "fieldDescriptions": {
+      "title": "Nome del documento di policy (ad es. 'Policy di sicurezza delle informazioni', 'Policy di controllo degli accessi').",
+      "type": "Seleziona il tipo di policy (ad es. policy, procedura, linea guida, standard).",
+      "version": "Numero di versione per questa revisione della policy (ad es. 1.0, 2.1). Incrementalo a ogni ciclo di approvazione.",
+      "content": "Testo completo della policy. Includi ambito, obiettivi, responsabilità e requisiti specifici.",
+      "status": "Stato attuale del ciclo di vita: Bozza (in preparazione), Approvata (attiva e applicata) o Archiviata (sostituita).",
+      "effectiveFrom": "Data in cui questa versione della policy diventa attiva e applicabile.",
+      "reviewDue": "Data entro la quale questa policy deve essere riesaminata e aggiornata. NIS2 prevede riesami periodici delle policy."
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Panel",
+    "description": "Przegląd zgodności w zakresie bezpieczeństwa",
+    "risks": "Ryzyka",
+    "openRisks": "Otwarte ryzyka",
+    "highRisks": "Wysokie ryzyka",
+    "assets": "Aktywa",
+    "criticalAssets": "Krytyczne",
+    "otAssets": "OT",
+    "incidents": "Incydenty",
+    "suppliers": "Dostawcy",
+    "criticalSuppliers": "Krytyczni",
+    "policies": "Polityki",
+    "approved": "Zatwierdzone",
+    "training": "Szkolenia",
+    "managementTraining": "Kierownictwo",
+    "exercises": "Ćwiczenia awaryjne",
+    "completed": "Ukończone",
+    "kpis": "Metryki bezpieczeństwa",
+    "changes": "Zmiany",
+    "openChanges": "Otwarte",
+    "patches": "Aktualizacje bezpieczeństwa",
+    "pendingPatches": "Oczekujące",
+    "audits": "Samooceny",
+    "plannedAudits": "Zaplanowane",
+    "improvements": "Działania do podjęcia",
+    "openImprovements": "Otwarte",
+    "complianceByCategory": "Zgodność według kategorii",
+    "riskMatrix": "Macierz ryzyka",
+    "riskTreatmentDistribution": "Rozkład postępowania z ryzykiem",
+    "noRisksRegistered": "Brak zarejestrowanych ryzyk",
+    "noData": "Brak danych",
+    "incidentsBySeverity": "Incydenty według dotkliwości",
+    "treatmentLabel": {
+      "mitigate": "Ograniczenie",
+      "accept": "Akceptacja",
+      "transfer": "Przeniesienie",
+      "avoid": "Unikanie"
+    },
+    "severity": {
+      "nearMiss": "Zdarzenie potencjalnie wypadkowe",
+      "incident": "Incydent",
+      "significant": "Poważny"
+    },
+    "complianceProgress": "Postęp zgodności",
+    "requirementsCompleted": "{completed} z {total} wymagań",
+    "allModules": "Wszystkie moduły",
+    "deadlines": {
+      "overdue": "Po terminie",
+      "dueThisWeek": "Termin w tym tygodniu",
+      "dueThisMonth": "Termin w tym miesiącu",
+      "upcoming": "Nadchodzące terminy",
+      "overdueDays": "{days} dni po terminie",
+      "dueToday": "Termin dzisiaj",
+      "dueDays": "Termin za {days} dni"
+    }
+  }
+}

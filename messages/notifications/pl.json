@@ -1,0 +1,19 @@
+{
+  "notifications": {
+    "title": "Powiadomienia",
+    "description": "Przeglądaj i zarządzaj swoimi powiadomieniami",
+    "empty": "Brak powiadomień",
+    "acknowledge": "Potwierdź",
+    "acknowledged": "Potwierdzono",
+    "unread": "{count} nieprzeczytane",
+    "actions": "Działania",
+    "markRead": "Oznacz jako przeczytane",
+    "markAllRead": "Oznacz wszystkie jako przeczytane",
+    "fields": {
+      "subject": "Temat",
+      "entityType": "Typ",
+      "scheduledFor": "Zaplanowane na",
+      "status": "Status"
+    }
+  }
+}

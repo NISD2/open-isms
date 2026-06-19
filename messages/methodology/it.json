@@ -1,0 +1,24 @@
+{
+  "methodology": {
+    "title": "Metodologia di valutazione del rischio",
+    "loading": "Caricamento della metodologia...",
+    "saved": "Metodologia salvata",
+    "saveFailed": "Salvataggio della metodologia non riuscito",
+    "edit": "Modifica",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "methodologyName": "Nome della metodologia",
+    "likelihoodScale": "Scala di probabilità",
+    "impactScale": "Scala di impatto",
+    "label": "Etichetta",
+    "description": "Descrizione",
+    "addLevel": "Aggiungi livello",
+    "removeLevel": "Rimuovi l'ultimo",
+    "riskMatrix": "Matrice dei rischi",
+    "acceptanceThreshold": "Soglia di accettazione",
+    "thresholdHelp": "I rischi con punteggio ≤ {threshold} possono essere accettati senza trattamento",
+    "includesOt": "La metodologia copre i sistemi OT/ICS (§30(2) BSIG)",
+    "clickToSelect": "Fai clic su una cella per selezionare probabilità × impatto",
+    "selectedScore": "Punteggio selezionato"
+  }
+}
