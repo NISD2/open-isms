@@ -1,0 +1,44 @@
+{
+  "exercises": {
+    "title": "Exercícios",
+    "description": "Simulações de continuidade de negócio e recuperação de desastres e exercícios de resposta a incidentes. Exigidos pelo Art. 21(2)(c) da NIS2.",
+    "helpText": "Planeie e documente exercícios de continuidade de negócio e de recuperação de desastres. A NIS2 exige testes regulares dos seus planos de continuidade. Registe o tipo de exercício, os participantes, as conclusões e as ações de seguimento.",
+    "add": "Adicionar exercício",
+    "edit": "Editar exercício",
+    "empty": "Ainda não há exercícios planeados. Agende a sua primeira simulação.",
+    "deleteConfirm": "Tem a certeza de que pretende eliminar este exercício?",
+    "actions": "Ações",
+    "type": {
+      "tabletop": "Mesa redonda",
+      "technical": "Técnico",
+      "red_team": "Red Team",
+      "full_scale": "Escala real"
+    },
+    "exerciseType": {
+      "tabletop": "Mesa redonda",
+      "technical": "Técnico",
+      "red_team": "Red Team",
+      "full_scale": "Escala real"
+    },
+    "fields": {
+      "title": "Título",
+      "exerciseType": "Tipo de exercício",
+      "domain": "Domínio",
+      "scheduledDate": "Data agendada",
+      "completedAt": "Concluído em",
+      "scenarioDescription": "Cenário",
+      "facilitator": "Facilitador",
+      "lessonsLearned": "Lições aprendidas"
+    },
+    "fieldDescriptions": {
+      "title": "Nome do exercício ou simulação (por exemplo, 'Mesa redonda de ransomware do 1.o trimestre', 'Teste de failover de recuperação de desastres').",
+      "exerciseType": "Selecione o formato do exercício: mesa redonda (baseado em discussão), técnico (prático), red team (simulação de adversário) ou escala real (simulação ao vivo).",
+      "domain": "Domínio de segurança a ser testado (por exemplo, resposta a incidentes, continuidade de negócio, recuperação de desastres, comunicação de crise).",
+      "scheduledDate": "Data em que este exercício está planeado para ter lugar.",
+      "completedAt": "Data em que este exercício foi efetivamente concluído.",
+      "scenarioDescription": "Descreva o cenário simulado, incluindo o agente de ameaça, o vetor de ataque e a resposta organizacional esperada.",
+      "facilitator": "Nome da pessoa responsável por planear e conduzir este exercício.",
+      "lessonsLearned": "Documente as principais conclusões, as lacunas identificadas e as melhorias recomendadas a partir deste exercício."
+    }
+  }
+}

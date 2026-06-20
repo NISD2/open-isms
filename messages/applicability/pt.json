@@ -1,0 +1,117 @@
+{
+  "applicability": {
+    "title": "Verificação de Aplicabilidade NIS2. Estou abrangido?",
+    "metaDescription": "Verifique em menos de 2 minutos se a sua empresa está abrangida pela NIS2. Verificação rápida e gratuita por setor, dimensão e casos especiais.",
+    "subtitle": "Saiba em menos de 2 minutos se a sua empresa está abrangida pela diretiva NIS2.",
+    "cta": "Marcar uma demonstração",
+    "steps": {
+      "exclusion": "Verificação de exclusão",
+      "sector": "Seleção de setor",
+      "size": "Dimensão da empresa",
+      "specialCases": "Casos especiais",
+      "result": "Resultado"
+    },
+    "step": "Passo {current} de {total}",
+
+    "exclusion": {
+      "title": "A sua organização enquadra-se numa categoria excluída?",
+      "description": "Os seguintes tipos de entidade estão isentos da NIS2 por lei. Se algum se aplicar à sua organização, a NIS2 não a abrange e a verificação termina aqui.",
+      "noneOfTheAbove": "Não. Nenhum destes se aplica a nós.",
+      "noneHelp": "Selecione esta opção para continuar. A maioria das empresas do setor privado escolherá esta opção."
+    },
+
+    "sector": {
+      "title": "Em que setor opera a sua empresa?",
+      "description": "Selecione todos os setores aplicáveis. Uma empresa pode operar em vários setores NIS2.",
+      "annexI": "Setores de elevada criticidade",
+      "annexII": "Outros setores críticos",
+      "noSector": "Nenhum destes setores se aplica à minha empresa",
+      "selectedCount": "{count, plural, =0 {Nenhum setor selecionado} =1 {1 setor selecionado} other {# setores selecionados}}"
+    },
+
+    "size": {
+      "title": "Qual é a dimensão da sua organização?",
+      "description": "A dimensão é calculada ao nível de todo o grupo empresarial, incluindo empresas-mãe e filiais.",
+      "employees": "Total de trabalhadores (ETC)",
+      "employeesHelp": "Inclua todas as empresas do grupo, exceto se a sua entidade tiver infraestrutura informática totalmente independente.",
+      "turnover": "Volume de negócios anual (milhões de EUR)",
+      "turnoverHelp": "Volume de negócios consolidado a nível mundial de todo o grupo empresarial.",
+      "balanceSheet": "Total do balanço anual (milhões de EUR)",
+      "balanceSheetHelp": "Balanço consolidado a nível mundial de todo o grupo empresarial.",
+      "independentIt": "A nossa entidade alemã tem sistemas informáticos totalmente independentes do grupo-mãe",
+      "independentItHelp": "Se assinalado, aplicam-se apenas os valores próprios da sua entidade alemã."
+    },
+
+    "specialCases": {
+      "title": "Aplica-se algum dos seguintes casos?",
+      "description": "Estas entidades estão abrangidas pela NIS2 independentemente da dimensão da empresa.",
+      "noneOfTheAbove": "Nenhum dos anteriores",
+      "noneHelp": "A maioria das organizações selecionará esta opção.",
+      "selectedCount": "{count, plural, =1 {1 selecionado} other {# selecionados}}"
+    },
+
+    "result": {
+      "notInScope": "Provavelmente fora do âmbito",
+      "important": "Entidade importante",
+      "importantLabel": "Provavelmente uma entidade importante",
+      "essential": "Entidade essencial",
+      "essentialLabel": "Provavelmente uma entidade essencial",
+      "kritis": "Betreiber kritischer Anlagen",
+      "kritisLabel": "Provavelmente um operador KRITIS",
+
+      "reason": {
+        "excluded": "A sua organização parece estar excluída do âmbito da NIS2 (isenção por função soberana).",
+        "no_sector": "Com base na sua seleção, a sua empresa não parece operar em nenhum setor abrangido pela NIS2. Se tiver dúvidas, consulte a lista completa de setores NIS2 ou procure aconselhamento jurídico.",
+        "below_threshold": "A sua empresa parece operar num setor NIS2, mas pode ficar abaixo do limiar de média empresa. Ainda assim, pode estar sujeita a requisitos NIS2 através de contratos da cadeia de fornecimento com clientes abrangidos.",
+        "special_case": "Com base na sua classificação, a sua organização fica provavelmente no âmbito independentemente da dimensão.",
+        "size_and_sector": "Com base nas informações fornecidas, a sua empresa parece cumprir tanto os critérios de setor como os de dimensão da NIS2."
+      },
+
+      "disclaimer": "Esta é uma avaliação indicativa, não uma determinação jurídica. A aplicabilidade da NIS2 depende de fatores que podem não estar totalmente refletidos aqui, incluindo a estrutura do grupo empresarial, a infraestrutura informática independente e interpretações regulamentares. Consulte um consultor qualificado para confirmar a sua situação.",
+
+      "obligations": "Obrigações principais",
+      "penalty": "Limite máximo da coima",
+      "penaltyValue": "{amount} ou {percent} do volume de negócios global",
+      "penaltyInfo": "Coima máxima por violações das medidas de cibersegurança, da comunicação de incidentes ou de diretrizes do BSI. A alternativa baseada no volume de negócios aplica-se a empresas com receitas superiores a 500 milhões de EUR. As coimas são fixadas pelo BSI consoante a gravidade da violação.",
+      "supervisionLabel": "Supervisão",
+      "supervisionProactive": "Proativa (ex ante). O BSI pode auditar a qualquer momento.",
+      "supervisionReactive": "Reativa (ex post). O BSI atua perante indícios de incumprimento.",
+      "supervisionInfo": "Proativa: o BSI pode realizar auditorias sem aviso prévio, solicitar documentação e ordenar medidas de segurança específicas a qualquer momento. Reativa: o BSI só investiga após um incidente ou mediante suspeita fundamentada de incumprimento.",
+      "registration": "Registo no BSI",
+      "registrationDeadline": "Até 6 de março de 2026, através do portal do BSI",
+      "registrationInfo": "Tem de se registar por iniciativa própria através do portal do BSI (ativo desde 6 de janeiro de 2026). Exige: nome da entidade, morada, setores, gamas de IP e declaração da categoria de entidade. Crie primeiro uma \"Mein Unternehmenskonto\" (MUK) através do ELSTER e depois registe-se no portal do BSI.",
+      "riskManagement": "Gestão de risco",
+      "riskManagementValue": "10 medidas obrigatórias (Secção 30 BSIG)",
+      "riskManagementInfo": "Tem de implementar todas as 10 medidas da Secção 30 BSIG: análise de risco, tratamento de incidentes, continuidade do negócio, segurança da cadeia de fornecimento, desenvolvimento seguro, avaliação de eficácia, formação em higiene cibernética, criptografia, controlo de acessos e gestão de ativos, e autenticação multifator.",
+      "incidentReporting": "Comunicação de incidentes",
+      "incidentReportingValue": "Cascata de 24h / 72h / 1 mês ao BSI",
+      "incidentReportingInfo": "Os incidentes de segurança significativos têm de ser comunicados ao BSI em três fases: (1) alerta precoce no prazo de 24 horas, com a causa suspeita e o impacto transfronteiriço, (2) notificação atualizada no prazo de 72 horas, com a gravidade, o impacto e os indicadores de comprometimento, (3) relatório final no prazo de 1 mês, com a causa raiz, a mitigação e as medidas preventivas.",
+      "managementLiability": "Responsabilidade da gestão",
+      "managementLiabilityValue": "Responsabilidade pessoal dos membros do órgão de gestão (Secção 38 BSIG)",
+      "managementLiabilityInfo": "Os membros do órgão de gestão (Vorstand/Geschäftsführer) são pessoalmente responsáveis pela conformidade com a NIS2. Três deveres: (1) aprovar formalmente as medidas de cibersegurança, (2) monitorizar ativamente a implementação, (3) concluir a formação obrigatória em cibersegurança. A responsabilidade não pode ser dispensada pelos sócios. Um seguro D&O não elimina as obrigações legais.",
+      "managementTraining": "Formação da gestão",
+      "managementTrainingValue": "Formação obrigatória em cibersegurança de 3 em 3 anos",
+      "managementTrainingInfo": "Todos os membros do órgão de gestão têm de participar pessoalmente em formação em cibersegurança, pelo menos de 3 em 3 anos. Este dever não pode ser delegado num CISO ou no departamento informático. O incumprimento contribui para a responsabilidade pessoal nos termos da Secção 38 BSIG.",
+
+      "cta": "Marcar uma apresentação guiada",
+      "ctaVoluntary": "Marcar uma apresentação guiada mesmo assim",
+      "restart": "Recomeçar",
+      "supplyChainNote": "Mesmo sem estar diretamente no âmbito, pode estar sujeita a requisitos NIS2 através de contratos com clientes abrangidos."
+    },
+
+    "nav": {
+      "back": "Voltar",
+      "next": "Continuar",
+      "checkResult": "Ver resultado"
+    },
+
+    "leadCapture": {
+      "title": "Receba o seu roteiro de conformidade gratuito",
+      "description": "Enviamos-lhe um plano de ação personalizado com base na sua classificação. Sem spam, apenas os passos que precisa de dar.",
+      "placeholder": "seu@empresa.pt",
+      "cta": "Enviar roteiro",
+      "success": "Verifique a sua caixa de entrada. O seu roteiro de conformidade está a caminho.",
+      "error": "Algo correu mal. Por favor, tente novamente."
+    }
+  }
+}

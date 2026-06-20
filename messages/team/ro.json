@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Echipă",
+    "pageDescription": "Gestionați membrii echipei și invitațiile",
+    "members": {
+      "title": "Membri",
+      "description": "{count, plural, one {# membru} few {# membri} other {# de membri}} în compania dvs.",
+      "name": "Nume",
+      "email": "E-mail",
+      "role": "Rol",
+      "you": "dvs.",
+      "assignedCategories": "Categorii atribuite",
+      "complianceRole": "Atribuie rol"
+    },
+    "invites": {
+      "title": "Invitații în așteptare",
+      "description": "{count, plural, one {# invitație în așteptare} few {# invitații în așteptare} other {# de invitații în așteptare}}",
+      "email": "E-mail",
+      "expires": "Expiră",
+      "linkCopied": "Link copiat"
+    },
+    "invite": {
+      "title": "Invită un membru",
+      "description": "Introduceți o adresă de e-mail pentru a genera un link de invitație",
+      "email": "E-mail",
+      "emailPlaceholder": "coleg@companie.com",
+      "complianceRole": "Rol de conformitate",
+      "complianceRolePlaceholder": "Selectați rolul (opțional)",
+      "submit": "Invită",
+      "submitting": "Se trimite invitația..."
+    },
+    "assignRole": {
+      "label": "Atribuie rol",
+      "placeholder": "Selectați rolul...",
+      "success": "Rol atribuit cu succes",
+      "noCategories": "Nicio categorie pentru acest rol"
+    },
+    "remove": {
+      "success": "Membru eliminat"
+    },
+    "revoke": {
+      "success": "Invitație revocată"
+    },
+    "inline": {
+      "sent": "Invitație trimisă către {email}",
+      "linkCopied": "Link copiat"
+    },
+    "invalidTitle": "Invitație invalidă",
+    "invalidDescription": "Acest link de invitație este invalid sau a fost deja folosit.",
+    "usedTitle": "Invitație deja folosită",
+    "usedDescription": "Această invitație a fost deja acceptată sau revocată.",
+    "expiredTitle": "Invitație expirată",
+    "expiredDescription": "Acest link de invitație a expirat. Solicitați unul nou de la administratorul dvs.",
+    "accept": {
+      "joinTitle": "Alăturați-vă {company}",
+      "joinDescription": "Ați fost invitat să vă alăturați ca {role}.",
+      "signInDescription": "Ați fost invitat să vă alăturați ca {role}. Conectați-vă sau înregistrați-vă pentru a continua.",
+      "signInToAccept": "Conectați-vă pentru a accepta",
+      "alreadyMemberTitle": "Deja membru",
+      "alreadyMemberDescription": "Sunteți deja membru al unei companii. Nu vă puteți alătura alteia.",
+      "goToDashboard": "Mergeți la tabloul de bord",
+      "wrongAccountTitle": "Cont greșit",
+      "wrongAccountDescription": "Această invitație a fost trimisă către {inviteEmail}. Sunteți conectat ca {userEmail}.",
+      "signOutRetry": "Deconectați-vă și încercați din nou",
+      "joining": "Se procesează alăturarea...",
+      "acceptInvite": "Acceptă invitația",
+      "joined": "V-ați alăturat {company}"
+    },
+    "roles": {
+      "ceo": "CEO / Director general",
+      "ciso": "CISO / Responsabil cu securitatea IT",
+      "cto": "CTO / Director de inginerie",
+      "coo": "COO / Director de operațiuni",
+      "cpo": "CPO / Responsabil cu achizițiile",
+      "hr_director": "Director de resurse umane",
+      "legal": "Responsabil juridic / de conformitate",
+      "dpo": "Responsabil cu protecția datelor"
+    }
+  }
+}

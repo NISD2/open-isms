@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "NIS2 Gap Assessment",
+    "subtitle": "Vyhodnoťte svou připravenost na NIS2 napříč 15 oblastmi",
+    "startAssessment": "Spustit hodnocení",
+    "resumeAssessment": "Pokračovat v hodnocení",
+    "viewResults": "Zobrazit výsledky",
+    "day": "Den {number}",
+    "dayOf": "Den {current} z {total}",
+    "questionsAnswered": "Zodpovězeno {answered} z {total}",
+    "saving": "Ukládání...",
+    "saved": "Uloženo",
+    "overview": {
+      "heading": "Přehled hodnocení",
+      "description": "Strukturované sebehodnocení pokrývající všechny oblasti souladu s NIS2. Odpovídejte upřímně o svém aktuálním stavu. Neexistují správné ani špatné odpovědi.",
+      "day1": "Působnost a řízení",
+      "day1desc": "Spadáte do působnosti? Chápe vaše vedení svou odpovědnost?",
+      "day2": "Řízení rizik",
+      "day2desc": "Znáte svá aktiva, svá rizika a své bezpečnostní politiky?",
+      "day3": "Incidenty a kontinuita provozu",
+      "day3desc": "Dokážete incidenty detekovat, reagovat na ně a zotavit se z nich?",
+      "day4": "Lidé, dodavatelé a přístup",
+      "day4desc": "Jsou vaši zaměstnanci proškoleni, dodavatelé řízeni a přístup kontrolován?",
+      "day5": "Technická opatření a důkazy",
+      "day5desc": "Jsou vaše technická ochrana a dokumentace připraveny na audit?",
+      "questions": "{count} otázek",
+      "estimatedTime": "~{minutes} min",
+      "noActiveSession": "Hodnocení jste zatím nezahájili.",
+      "pastSessions": "Předchozí hodnocení",
+      "score": "Skóre: {score} %",
+      "completedOn": "Dokončeno {date}",
+      "inProgress": "Probíhá"
+    },
+    "question": {
+      "yes": "Ano",
+      "partially": "Částečně",
+      "no": "Ne",
+      "notApplicable": "Nerelevantní",
+      "showExplanation": "Co to znamená?",
+      "hideExplanation": "Skrýt vysvětlení",
+      "legalBasis": "Právní základ",
+      "criticality": "Význam",
+      "criticalityLevels": {
+        "0": "Informativní",
+        "1": "Nízký",
+        "2": "Střední",
+        "3": "Vysoký"
+      },
+      "respondent": {
+        "0": "Generální ředitel / vedení",
+        "1": "IT / bezpečnost",
+        "2": "Personální oddělení",
+        "3": "Nákup",
+        "4": "Kdokoli"
+      },
+      "suggestedRespondent": "Nejlépe zodpoví"
+    },
+    "navigation": {
+      "previousDay": "Předchozí den",
+      "nextDay": "Další den",
+      "completeAssessment": "Dokončit hodnocení",
+      "backToOverview": "Zpět na přehled"
+    },
+    "results": {
+      "heading": "Výsledky hodnocení",
+      "overallScore": "Celkové skóre",
+      "domainScores": "Skóre podle oblastí",
+      "maturityLevel": "Úroveň vyspělosti",
+      "priorityGaps": "Prioritní nedostatky",
+      "exportPdf": "Exportovat PDF",
+      "domain": "Oblast",
+      "score": "Skóre",
+      "maturity": "Vyspělost",
+      "answered": "Zodpovězeno",
+      "noGaps": "Nebyly zjištěny žádné nedostatky. Výborně.",
+      "gapRank": "Priorita",
+      "gapQuestion": "Zjištění",
+      "gapDomain": "Oblast",
+      "gapConsequence": "Důsledek",
+      "gapTimeToFix": "Náročnost",
+      "fineRisk": "Riziko pokuty",
+      "viewInPlatform": "Zobrazit v platformě",
+      "maturityLevels": {
+        "critical": "Kritická",
+        "initial": "Počáteční",
+        "developing": "Rozvíjející se",
+        "managed": "Řízená",
+        "optimized": "Optimalizovaná"
+      },
+      "consequenceLevels": {
+        "0": "Zjištění z auditu",
+        "1": "Provozní riziko",
+        "2": "Pokuta",
+        "3": "Osobní odpovědnost"
+      },
+      "timeToFixLevels": {
+        "0": "Rychlá výhra",
+        "1": "Dny",
+        "2": "Týdny",
+        "3": "Měsíce"
+      },
+      "summary": {
+        "criticalGaps": "{count} kritických nedostatků",
+        "fineExposed": "{count} představuje riziko pokuty",
+        "personalLiability": "{count} zakládá osobní odpovědnost generálního ředitele",
+        "quickWins": "{count} lze napravit okamžitě"
+      },
+      "startCompliance": "Začít odstraňovat nedostatky",
+      "retakeAssessment": "Provést hodnocení znovu"
+    }
+  }
+}

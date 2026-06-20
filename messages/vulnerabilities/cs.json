@@ -1,0 +1,61 @@
+{
+  "vulnerabilities": {
+    "title": "Správa zranitelností",
+    "description": "Sledujte zjištěné zranitelnosti po celou dobu jejich životního cyklu. Vyžaduje CIR 2024/2690 čl. 6.10.",
+    "helpText": "Zaznamenávejte zranitelnosti nalezené při skenování, penetračních testech nebo z bezpečnostních upozornění. Sledujte třídění, rozhodnutí o řešení a vyřešení. CIR vyžaduje zacházení se zranitelnostmi jako samostatný zdokumentovaný proces oddělený od správy oprav.",
+    "add": "Přidat zranitelnost",
+    "edit": "Upravit zranitelnost",
+    "empty": "Zatím nejsou zaznamenány žádné zranitelnosti. Přidejte svou první zranitelnost.",
+    "deleteConfirm": "Opravdu chcete tuto zranitelnost smazat?",
+    "actions": "Akce",
+    "severity": {
+      "critical": "Kritická",
+      "high": "Vysoká",
+      "medium": "Střední",
+      "low": "Nízká"
+    },
+    "status": {
+      "discovered": "Zjištěná",
+      "assessed": "Posouzená",
+      "treating": "V řešení",
+      "resolved": "Vyřešená",
+      "accepted": "Přijatá",
+      "mitigated": "Zmírněná"
+    },
+    "source": {
+      "vulnerability_scan": "Sken zranitelností",
+      "pentest": "Penetrační test",
+      "bug_bounty": "Bug bounty",
+      "vendor_advisory": "Upozornění dodavatele",
+      "internal_review": "Interní přezkum"
+    },
+    "fields": {
+      "cveId": "ID CVE",
+      "title": "Název",
+      "description": "Popis",
+      "severity": "Závažnost",
+      "cvssScore": "Skóre CVSS",
+      "source": "Zdroj",
+      "assetId": "Aktivum",
+      "status": "Stav",
+      "discoveredAt": "Zjištěno",
+      "treatmentNote": "Řešení",
+      "acceptanceReason": "Důvod přijetí",
+      "resolvedAt": "Vyřešeno"
+    },
+    "fieldDescriptions": {
+      "cveId": "Identifikátor CVE, pokud je k dispozici (např. CVE-2024-1234). U interně zjištěných zranitelností bez CVE ponechte prázdné.",
+      "title": "Stručný popis zranitelnosti (např. „SQL injection v přihlašovacím formuláři“, „Zastaralé TLS 1.0 na webovém serveru“).",
+      "description": "Podrobný popis: dotčené komponenty, verze, možný dopad a podmínky zneužití.",
+      "severity": "Hodnocení závažnosti podle CVSS: kritická, vysoká, střední nebo nízká.",
+      "cvssScore": "Volitelné číselné skóre CVSS (0.0 až 10.0) pro přesnou prioritizaci.",
+      "source": "Jak byla tato zranitelnost zjištěna: sken, penetrační test, bug bounty, upozornění dodavatele nebo interní přezkum.",
+      "assetId": "Aktivum dotčené touto zranitelností, pokud je relevantní. Vyberte z registru aktiv.",
+      "status": "Aktuální stav životního cyklu: zjištěná, posouzená, v řešení, vyřešená, přijatá (riziko) nebo zmírněná (kompenzační opatření).",
+      "discoveredAt": "Datum, kdy byla zranitelnost poprvé identifikována.",
+      "treatmentNote": "Co se dělá pro řešení této zranitelnosti (oprava, změna konfigurace, kompenzační opatření atd.).",
+      "acceptanceReason": "Pokud riziko přijímáte, zdokumentujte odůvodnění podle CIR 6.6.2. Povinné pro stav „Přijatá“.",
+      "resolvedAt": "Datum, kdy byla zranitelnost vyřešena, přijata nebo zmírněna."
+    }
+  }
+}

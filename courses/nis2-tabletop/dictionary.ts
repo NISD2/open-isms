@@ -17,6 +17,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Una riunione in cui il team affronta uno scenario di crisi fittizio, prende le decisioni che una crisi reale richiederebbe e annota ogni decisione. Nessun sistema reale viene toccato e nessuna notifica reale viene inviata.",
     es: "Una reunión en la que el equipo recorre un escenario de crisis ficticio, toma las decisiones que exigiría una crisis real y anota cada decisión. No se toca ningún sistema real y no se envía ninguna notificación real.",
     pl: "Spotkanie, podczas którego zespół omawia fikcyjny scenariusz kryzysowy, podejmuje decyzje wymagane w prawdziwym kryzysie i zapisuje każdą decyzję. Żadne rzeczywiste systemy nie są naruszane i nie są wysyłane żadne rzeczywiste powiadomienia.",
+    cs: "Schůzka, na které tým projde smyšlený krizový scénář, učiní rozhodnutí, jaká by skutečná krize vyžadovala, a každé rozhodnutí zapíše. Žádné skutečné systémy se nedotýkají a žádná skutečná hlášení neodcházejí.",
+    pt: "Uma reunião onde a equipa percorre um cenário de crise fictício, toma as decisões que uma crise real exigiria e regista cada decisão. Nenhum sistema real é tocado e nenhuma notificação real é enviada.",
+    ro: "O ședință în care echipa parcurge un scenariu de criză fictiv, ia deciziile pe care le-ar impune o criză reală și consemnează fiecare decizie. Niciun sistem real nu este atins și nicio notificare reală nu este trimisă.",
   } },
   { term: "Facilitator", type: "defined", definition: {
     en: "The person who runs the exercise. They narrate events, capture decisions, keep time, and stay neutral. They do not play a role in the scenario.",
@@ -25,6 +28,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "La persona che conduce l'esercitazione. Narra gli eventi, registra le decisioni, gestisce il tempo e resta neutrale. Non interpreta alcun ruolo nello scenario.",
     es: "La persona que dirige el ejercicio. Narra los acontecimientos, registra las decisiones, controla el tiempo y se mantiene neutral. No desempeña ningún papel en el escenario.",
     pl: "Osoba prowadząca ćwiczenie. Opowiada o wydarzeniach, zapisuje decyzje, pilnuje czasu i pozostaje neutralna. Nie odgrywa żadnej roli w scenariuszu.",
+    cs: "Osoba, která cvičení vede. Líčí události, zaznamenává rozhodnutí, hlídá čas a zůstává neutrální. Ve scénáři nehraje žádnou roli.",
+    pt: "A pessoa que conduz o exercício. Narra os acontecimentos, regista as decisões, gere o tempo e mantém-se neutra. Não desempenha qualquer papel no cenário.",
+    ro: "Persoana care conduce exercițiul. Relatează evenimentele, consemnează deciziile, gestionează timpul și rămâne neutră. Nu joacă niciun rol în scenariu.",
   } },
   { term: "Protocol", type: "defined", definition: {
     en: "The dated document that comes out of the exercise. Contains the decisions, reasons, lessons learned, improvement items, and a management body signature. The auditor reads this, not the room.",
@@ -33,6 +39,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Il documento datato che scaturisce dall'esercitazione. Contiene le decisioni, le motivazioni, gli insegnamenti tratti, i punti di miglioramento e la firma dell'organo di gestione. L'auditor legge questo, non la sala.",
     es: "El documento fechado que resulta del ejercicio. Contiene las decisiones, los motivos, las lecciones aprendidas, los puntos de mejora y la firma del órgano de dirección. El auditor lee esto, no la sala.",
     pl: "Opatrzony datą dokument powstały w wyniku ćwiczenia. Zawiera decyzje, uzasadnienia, wnioski, punkty do poprawy oraz podpis organu zarządzającego. Audytor czyta ten dokument, a nie salę.",
+    cs: "Datovaný dokument, který z cvičení vzejde. Obsahuje rozhodnutí, důvody, získané poznatky, body ke zlepšení a podpis vedoucího orgánu. Auditor čte tento dokument, nikoli místnost.",
+    pt: "O documento datado que resulta do exercício. Contém as decisões, os motivos, as lições aprendidas, os pontos de melhoria e a assinatura do órgão de direção. O auditor lê isto, não a sala.",
+    ro: "Documentul datat care rezultă din exercițiu. Conține deciziile, motivele, lecțiile învățate, punctele de îmbunătățire și semnătura organului de conducere. Auditorul citește acest document, nu sala.",
   } },
   { term: "Hot wash", type: "defined", definition: {
     en: "The debrief meeting right after the exercise. Same room, same day, around twenty minutes. Four rounds: what went well, what went badly, what surprised us, what needs to change.",
@@ -41,6 +50,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "La riunione di debriefing subito dopo l'esercitazione. Stessa sala, stesso giorno, circa venti minuti. Quattro giri: cosa è andato bene, cosa è andato male, cosa ci ha sorpreso, cosa deve cambiare.",
     es: "La reunión de balance justo después del ejercicio. Misma sala, mismo día, alrededor de veinte minutos. Cuatro rondas: qué salió bien, qué salió mal, qué nos sorprendió, qué debe cambiar.",
     pl: "Spotkanie podsumowujące zaraz po ćwiczeniu. Ta sama sala, ten sam dzień, około dwudziestu minut. Cztery rundy: co poszło dobrze, co poszło źle, co nas zaskoczyło, co musi się zmienić.",
+    cs: "Vyhodnocovací schůzka hned po cvičení. Stejná místnost, stejný den, asi dvacet minut. Čtyři kola: co šlo dobře, co šlo špatně, co nás překvapilo, co se musí změnit.",
+    pt: "A reunião de balanço logo após o exercício. Mesma sala, mesmo dia, cerca de vinte minutos. Quatro rondas: o que correu bem, o que correu mal, o que nos surpreendeu, o que precisa de mudar.",
+    ro: "Ședința de analiză imediat după exercițiu. Aceeași sală, aceeași zi, aproximativ douăzeci de minute. Patru runde: ce a mers bine, ce a mers prost, ce ne-a surprins, ce trebuie să se schimbe.",
   } },
   { term: "Improvement item", type: "defined", definition: {
     en: "An action item that comes out of the hot wash. Has a description, an owner, a deadline, a link to the Article 21(2) measure it closes a gap in, and a clear done criterion.",
@@ -49,6 +61,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Un punto d'azione che scaturisce dal debriefing. Ha una descrizione, un responsabile, una scadenza, un collegamento alla misura dell'articolo 21(2) di cui colma una lacuna e un chiaro criterio di completamento.",
     es: "Un punto de acción que surge del balance. Tiene una descripción, un responsable, un plazo, un enlace a la medida del artículo 21(2) en la que cierra una brecha y un criterio claro de finalización.",
     pl: "Punkt działania wynikający z podsumowania. Zawiera opis, osobę odpowiedzialną, termin, odniesienie do środka z artykułu 21(2), w którym wypełnia lukę, oraz jasne kryterium zakończenia.",
+    cs: "Akční bod, který vzejde z vyhodnocení. Má popis, odpovědnou osobu, termín, vazbu na opatření podle článku 21(2), v němž uzavírá mezeru, a jasné kritérium dokončení.",
+    pt: "Um ponto de ação que resulta do balanço. Tem uma descrição, um responsável, um prazo, uma ligação à medida do artigo 21(2) na qual colmata uma lacuna, e um critério de conclusão claro.",
+    ro: "Un punct de acțiune care rezultă din analiză. Are o descriere, un responsabil, un termen, o legătură către măsura din articolul 21(2) în care acoperă o lacună și un criteriu clar de finalizare.",
   } },
   { term: "Attestation", type: "defined", definition: {
     en: "The dated PDF this course gives you when you finish. Proof of role-specific cybersecurity training under Article 21(2)(g) NIS 2 for the facilitator role. Not the same as management body training under Article 20(2).",
@@ -57,6 +72,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Il PDF datato che questo corso ti rilascia al termine. Prova di una formazione in cybersicurezza specifica per il ruolo ai sensi dell'articolo 21(2)(g) NIS 2 per il ruolo di facilitatore. Da non confondere con la formazione dell'organo di gestione ai sensi dell'articolo 20(2).",
     es: "El PDF fechado que este curso te entrega al finalizar. Prueba de la formación en ciberseguridad específica del rol conforme al artículo 21(2)(g) NIS 2 para el rol de facilitador. No es lo mismo que la formación del órgano de dirección conforme al artículo 20(2).",
     pl: "Opatrzony datą plik PDF, który ten kurs wydaje po ukończeniu. Dowód odbycia szkolenia z cyberbezpieczeństwa właściwego dla roli zgodnie z artykułem 21(2)(g) NIS 2 dla roli prowadzącego. To nie to samo co szkolenie organu zarządzającego zgodnie z artykułem 20(2).",
+    cs: "Datovaný PDF dokument, který vám tento kurz vystaví po dokončení. Doklad o roli specifickém školení v oblasti kybernetické bezpečnosti podle článku 21(2)(g) NIS 2 pro roli moderátora. Není to totéž co školení vedoucího orgánu podle článku 20(2).",
+    pt: "O PDF datado que este curso lhe entrega no final. Prova de formação em cibersegurança específica da função ao abrigo do artigo 21(2)(g) NIS 2 para a função de facilitador. Não é o mesmo que a formação do órgão de direção ao abrigo do artigo 20(2).",
+    ro: "Documentul PDF datat pe care acest curs vi-l eliberează la finalizare. Dovadă a formării în securitate cibernetică specifice rolului în temeiul articolului 21(2)(g) NIS 2 pentru rolul de facilitator. Nu este același lucru cu formarea organului de conducere în temeiul articolului 20(2).",
   } },
   { term: "Attestation quiz", type: "defined", definition: {
     en: "The eight-question final quiz in Lesson 3.1. Pass with 75 percent to unlock the attestation PDF.",
@@ -65,6 +83,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Il quiz finale di otto domande nella lezione 3.1. Superalo con il 75 percento per sbloccare il PDF di attestazione.",
     es: "El cuestionario final de ocho preguntas de la lección 3.1. Apruébalo con el 75 por ciento para desbloquear el PDF de atestación.",
     pl: "Ośmiopytaniowy quiz końcowy w lekcji 3.1. Zalicz go z wynikiem 75 procent, aby odblokować plik PDF z zaświadczeniem.",
+    cs: "Závěrečný kvíz o osmi otázkách v lekci 3.1. Splňte ho na 75 procent, abyste odemkli PDF s osvědčením.",
+    pt: "O questionário final de oito perguntas na lição 3.1. Aprove com 75 por cento para desbloquear o PDF de atestação.",
+    ro: "Testul final de opt întrebări din lecția 3.1. Promovați-l cu 75 la sută pentru a debloca PDF-ul de atestare.",
   } },
   { term: "Sim-time", type: "defined", definition: {
     en: "Simulated time used during the exercise. Compresses real-world hours into minutes of meeting time. For example, '1 hour real-time = 8 hours sim-time' lets the team walk through a 30-day incident in a few hours.",
@@ -73,6 +94,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Il tempo simulato usato durante l'esercitazione. Comprime ore reali in minuti di riunione. Per esempio, \"1 ora di tempo reale = 8 ore di tempo simulato\" consente al team di percorrere un incidente di 30 giorni in poche ore.",
     es: "El tiempo simulado que se usa durante el ejercicio. Comprime horas reales en minutos de reunión. Por ejemplo, \"1 hora en tiempo real = 8 horas en tiempo simulado\" permite al equipo recorrer un incidente de 30 días en unas pocas horas.",
     pl: "Czas symulowany używany podczas ćwiczenia. Sprowadza rzeczywiste godziny do minut spotkania. Na przykład \"1 godzina czasu rzeczywistego = 8 godzin czasu symulowanego\" pozwala zespołowi przejść przez 30-dniowy incydent w kilka godzin.",
+    cs: "Simulovaný čas používaný během cvičení. Stlačuje reálné hodiny do minut schůzky. Například \"1 hodina reálného času = 8 hodin simulovaného času\" umožní týmu projít 30denní incident za několik hodin.",
+    pt: "O tempo simulado utilizado durante o exercício. Comprime horas reais em minutos de reunião. Por exemplo, \"1 hora de tempo real = 8 horas de tempo simulado\" permite à equipa percorrer um incidente de 30 dias em poucas horas.",
+    ro: "Timpul simulat folosit în timpul exercițiului. Comprimă ore reale în minute de ședință. De exemplu, \"1 oră de timp real = 8 ore de timp simulat\" permite echipei să parcurgă un incident de 30 de zile în câteva ore.",
   } },
   { term: "Exercise flag", type: "defined", definition: {
     en: "A field on the incident record that marks it as a fake one. The platform produces the same protocol shape for fake and real incidents; this flag is the only thing that tells them apart.",
@@ -81,6 +105,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Un campo nel record dell'incidente che lo contrassegna come fittizio. La piattaforma produce lo stesso formato di protocollo per gli incidenti fittizi e reali; questo contrassegno è l'unica cosa che li distingue.",
     es: "Un campo en el registro del incidente que lo marca como ficticio. La plataforma genera el mismo formato de protocolo para los incidentes ficticios y reales; este indicador es lo único que los distingue.",
     pl: "Pole w rekordzie incydentu, które oznacza go jako fikcyjny. Platforma tworzy ten sam format protokołu dla incydentów fikcyjnych i rzeczywistych; tylko ten znacznik je odróżnia.",
+    cs: "Pole v záznamu o incidentu, které jej označuje jako smyšlený. Platforma vytváří stejný formát protokolu pro smyšlené i skutečné incidenty; jedině tento příznak je od sebe odlišuje.",
+    pt: "Um campo no registo de incidente que o marca como fictício. A plataforma produz o mesmo formato de protocolo para incidentes fictícios e reais; este indicador é a única coisa que os distingue.",
+    ro: "Un câmp din înregistrarea incidentului care îl marchează ca fiind fictiv. Platforma produce același format de protocol pentru incidentele fictive și cele reale; acest indicator este singurul lucru care le deosebește.",
   } },
 
   // Article 23 cascade
@@ -91,6 +118,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Un incidente che ha un impatto significativo sui servizi forniti dalla vostra azienda. L'articolo 23(1) NIS 2 stabilisce l'obbligo; gli articoli 3 e 4 del CIR 2024/2690 definiscono le soglie.",
     es: "Un incidente que tiene un impacto significativo en los servicios que presta su empresa. El artículo 23(1) NIS 2 establece el deber; los artículos 3 y 4 del CIR 2024/2690 definen los umbrales.",
     pl: "Incydent, który ma istotny wpływ na usługi świadczone przez Twoją firmę. Artykuł 23(1) NIS 2 ustanawia obowiązek; artykuły 3 i 4 CIR 2024/2690 określają progi.",
+    cs: "Incident, který má významný dopad na služby poskytované vaší společností. Článek 23(1) NIS 2 zakládá povinnost; články 3 a 4 CIR 2024/2690 definují prahové hodnoty.",
+    pt: "Um incidente que tem um impacto significativo nos serviços prestados pela sua empresa. O artigo 23(1) NIS 2 estabelece o dever; os artigos 3 e 4 do CIR 2024/2690 definem os limiares.",
+    ro: "Un incident care are un impact semnificativ asupra serviciilor furnizate de compania dumneavoastră. Articolul 23(1) NIS 2 stabilește obligația; articolele 3 și 4 din CIR 2024/2690 definesc pragurile.",
   } },
   { term: "Early warning", type: "defined", definition: {
     en: "The first report under Article 23(4)(a) NIS 2. Due within 24 hours of becoming aware. Short. States whether the incident looks malicious, whether it might cross borders, and what is known so far.",
@@ -99,6 +129,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "La prima segnalazione ai sensi dell'articolo 23(4)(a) NIS 2. Dovuta entro 24 ore dalla presa di conoscenza. Breve. Indica se l'incidente appare doloso, se potrebbe avere effetti transfrontalieri e ciò che è noto finora.",
     es: "El primer informe conforme al artículo 23(4)(a) NIS 2. Debe presentarse en un plazo de 24 horas tras tener conocimiento. Breve. Indica si el incidente parece malicioso, si podría cruzar fronteras y qué se sabe hasta el momento.",
     pl: "Pierwsze zgłoszenie zgodnie z artykułem 23(4)(a) NIS 2. Należy je złożyć w ciągu 24 godzin od powzięcia wiadomości. Krótkie. Wskazuje, czy incydent wydaje się złośliwy, czy może mieć charakter transgraniczny i co jest dotychczas wiadome.",
+    cs: "První hlášení podle článku 23(4)(a) NIS 2. Splatné do 24 hodin od okamžiku, kdy se o incidentu dozvíte. Krátké. Uvádí, zda se incident jeví jako zákeřný, zda by mohl působit přeshraničně a co je dosud známo.",
+    pt: "O primeiro relatório ao abrigo do artigo 23(4)(a) NIS 2. A apresentar no prazo de 24 horas após tomar conhecimento. Curto. Indica se o incidente parece malicioso, se pode atravessar fronteiras e o que se sabe até ao momento.",
+    ro: "Primul raport în temeiul articolului 23(4)(a) NIS 2. Se prezintă în termen de 24 de ore de la momentul luării la cunoștință. Scurt. Indică dacă incidentul pare a fi rău intenționat, dacă ar putea avea efecte transfrontaliere și ce se cunoaște până în acel moment.",
   } },
   { term: "Incident notification", type: "defined", definition: {
     en: "The fuller report under Article 23(4)(b) NIS 2. Due within 72 hours of becoming aware. Includes an initial severity assessment, indicators of compromise, and impact on services.",
@@ -107,6 +140,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "La segnalazione più completa ai sensi dell'articolo 23(4)(b) NIS 2. Dovuta entro 72 ore dalla presa di conoscenza. Comprende una valutazione iniziale della gravità, gli indicatori di compromissione e l'impatto sui servizi.",
     es: "El informe más completo conforme al artículo 23(4)(b) NIS 2. Debe presentarse en un plazo de 72 horas tras tener conocimiento. Incluye una evaluación inicial de la gravedad, los indicadores de compromiso y el impacto en los servicios.",
     pl: "Pełniejsze zgłoszenie zgodnie z artykułem 23(4)(b) NIS 2. Należy je złożyć w ciągu 72 godzin od powzięcia wiadomości. Obejmuje wstępną ocenę powagi, wskaźniki naruszenia oraz wpływ na usługi.",
+    cs: "Podrobnější hlášení podle článku 23(4)(b) NIS 2. Splatné do 72 hodin od okamžiku, kdy se o incidentu dozvíte. Obsahuje úvodní posouzení závažnosti, indikátory kompromitace a dopad na služby.",
+    pt: "O relatório mais completo ao abrigo do artigo 23(4)(b) NIS 2. A apresentar no prazo de 72 horas após tomar conhecimento. Inclui uma avaliação inicial da gravidade, indicadores de comprometimento e o impacto nos serviços.",
+    ro: "Raportul mai complet în temeiul articolului 23(4)(b) NIS 2. Se prezintă în termen de 72 de ore de la momentul luării la cunoștință. Include o evaluare inițială a gravității, indicatori de compromitere și impactul asupra serviciilor.",
   } },
   { term: "Intermediate report", type: "defined", definition: {
     en: "A status update under Article 23(4)(c) NIS 2 sent on request from the CSIRT. No fixed deadline. You answer when asked.",
@@ -115,6 +151,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Un aggiornamento sullo stato ai sensi dell'articolo 23(4)(c) NIS 2 inviato su richiesta del CSIRT. Nessuna scadenza fissa. Rispondete quando vi viene chiesto.",
     es: "Una actualización de estado conforme al artículo 23(4)(c) NIS 2 enviada a petición del CSIRT. Sin plazo fijo. Usted responde cuando se lo solicitan.",
     pl: "Aktualizacja statusu zgodnie z artykułem 23(4)(c) NIS 2 wysyłana na żądanie CSIRT. Brak ustalonego terminu. Odpowiadasz, gdy zostaniesz o to poproszony.",
+    cs: "Aktualizace stavu podle článku 23(4)(c) NIS 2 zaslaná na žádost CSIRT. Žádný pevný termín. Odpovídáte, když jste o to požádáni.",
+    pt: "Uma atualização de estado ao abrigo do artigo 23(4)(c) NIS 2 enviada a pedido do CSIRT. Sem prazo fixo. Responde quando lhe for solicitado.",
+    ro: "O actualizare de stare în temeiul articolului 23(4)(c) NIS 2 trimisă la cererea CSIRT. Fără termen fix. Răspundeți atunci când vi se cere.",
   } },
   { term: "Final report", type: "defined", definition: {
     en: "The detailed report under Article 23(4)(d) NIS 2. Due one month after the incident notification. Covers description, root cause, mitigation, and cross-border impact.",
@@ -123,6 +162,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "La relazione dettagliata ai sensi dell'articolo 23(4)(d) NIS 2. Dovuta un mese dopo la notifica dell'incidente. Copre la descrizione, la causa principale, le misure di mitigazione e l'impatto transfrontaliero.",
     es: "El informe detallado conforme al artículo 23(4)(d) NIS 2. Debe presentarse un mes después de la notificación del incidente. Cubre la descripción, la causa raíz, la mitigación y el impacto transfronterizo.",
     pl: "Szczegółowy raport zgodnie z artykułem 23(4)(d) NIS 2. Należy go złożyć miesiąc po zgłoszeniu incydentu. Obejmuje opis, przyczynę źródłową, działania łagodzące oraz wpływ transgraniczny.",
+    cs: "Podrobná zpráva podle článku 23(4)(d) NIS 2. Splatná jeden měsíc po hlášení incidentu. Zahrnuje popis, hlavní příčinu, zmírňující opatření a přeshraniční dopad.",
+    pt: "O relatório detalhado ao abrigo do artigo 23(4)(d) NIS 2. A apresentar um mês após a notificação do incidente. Abrange a descrição, a causa raiz, a mitigação e o impacto transfronteiriço.",
+    ro: "Raportul detaliat în temeiul articolului 23(4)(d) NIS 2. Se prezintă la o lună după notificarea incidentului. Acoperă descrierea, cauza principală, măsurile de atenuare și impactul transfrontalier.",
   } },
   { term: "Progress report", type: "defined", definition: {
     en: "Used under Article 23(4)(e) NIS 2 when the incident is not yet resolved at the one-month deadline. The final report follows once the incident is closed.",
@@ -131,6 +173,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Utilizzato ai sensi dell'articolo 23(4)(e) NIS 2 quando l'incidente non è ancora risolto alla scadenza di un mese. La relazione finale segue una volta chiuso l'incidente.",
     es: "Se utiliza conforme al artículo 23(4)(e) NIS 2 cuando el incidente aún no está resuelto en el plazo de un mes. El informe final se presenta una vez cerrado el incidente.",
     pl: "Stosowany zgodnie z artykułem 23(4)(e) NIS 2, gdy incydent nie został jeszcze rozwiązany w terminie jednego miesiąca. Raport końcowy następuje po zamknięciu incydentu.",
+    cs: "Použije se podle článku 23(4)(e) NIS 2, pokud incident není ve lhůtě jednoho měsíce dosud vyřešen. Závěrečná zpráva následuje, jakmile je incident uzavřen.",
+    pt: "Utilizado ao abrigo do artigo 23(4)(e) NIS 2 quando o incidente ainda não está resolvido no prazo de um mês. O relatório final segue-se assim que o incidente for encerrado.",
+    ro: "Utilizat în temeiul articolului 23(4)(e) NIS 2 atunci când incidentul nu este încă rezolvat la termenul de o lună. Raportul final urmează după închiderea incidentului.",
   } },
   { term: "CSIRT", type: "vocabulary", definition: {
     en: "Computer Security Incident Response Team. The national body that receives Article 23 reports. In Germany, the CSIRT function sits at the BSI.",
@@ -139,6 +184,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Computer Security Incident Response Team. L'organo nazionale che riceve le segnalazioni ai sensi dell'articolo 23. In Germania, la funzione CSIRT è svolta dal BSI.",
     es: "Computer Security Incident Response Team. El organismo nacional que recibe los informes conforme al artículo 23. En Alemania, la función CSIRT reside en el BSI.",
     pl: "Computer Security Incident Response Team. Krajowy organ, który przyjmuje zgłoszenia zgodnie z artykułem 23. W Niemczech funkcję CSIRT pełni BSI.",
+    cs: "Computer Security Incident Response Team. Vnitrostátní orgán, který přijímá hlášení podle článku 23. V Německu plní funkci CSIRT BSI.",
+    pt: "Computer Security Incident Response Team. O organismo nacional que recebe os relatórios ao abrigo do artigo 23. Na Alemanha, a função CSIRT reside no BSI.",
+    ro: "Computer Security Incident Response Team. Organismul național care primește rapoartele în temeiul articolului 23. În Germania, funcția CSIRT se află la BSI.",
   } },
   { term: "Competent authority", type: "vocabulary", definition: {
     en: "The national authority that supervises and enforces NIS 2 in each EU country. In Germany this is the BSI.",
@@ -147,6 +195,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "L'autorità nazionale che vigila e fa rispettare NIS 2 in ciascun paese dell'UE. In Germania è il BSI.",
     es: "La autoridad nacional que supervisa y hace cumplir NIS 2 en cada país de la UE. En Alemania es el BSI.",
     pl: "Krajowy organ, który nadzoruje i egzekwuje NIS 2 w każdym kraju UE. W Niemczech jest to BSI.",
+    cs: "Vnitrostátní orgán, který dohlíží na NIS 2 a vymáhá jej v každé zemi EU. V Německu je to BSI.",
+    pt: "A autoridade nacional que supervisiona e faz cumprir a NIS 2 em cada país da UE. Na Alemanha, é o BSI.",
+    ro: "Autoritatea națională care supraveghează și aplică NIS 2 în fiecare țară a UE. În Germania, aceasta este BSI.",
   } },
 
   // Standards and regulations
@@ -157,6 +208,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Regolamento di esecuzione (UE) 2024/2690 della Commissione. Specifica i requisiti tecnici e metodologici per le misure di cybersicurezza per determinate entità di infrastruttura digitale.",
     es: "Reglamento de Ejecución (UE) 2024/2690 de la Comisión. Especifica los requisitos técnicos y metodológicos para las medidas de ciberseguridad de determinadas entidades de infraestructura digital.",
     pl: "Rozporządzenie wykonawcze Komisji (UE) 2024/2690. Określa wymagania techniczne i metodologiczne dotyczące środków cyberbezpieczeństwa dla określonych podmiotów infrastruktury cyfrowej.",
+    cs: "Prováděcí nařízení Komise (EU) 2024/2690. Stanoví technické a metodické požadavky na opatření kybernetické bezpečnosti pro určité subjekty digitální infrastruktury.",
+    pt: "Regulamento de Execução (UE) 2024/2690 da Comissão. Especifica os requisitos técnicos e metodológicos para as medidas de cibersegurança de determinadas entidades de infraestrutura digital.",
+    ro: "Regulamentul de punere în aplicare (UE) 2024/2690 al Comisiei. Precizează cerințele tehnice și metodologice pentru măsurile de securitate cibernetică pentru anumite entități de infrastructură digitală.",
   } },
   { term: "Digital infrastructure entities", type: "vocabulary", definition: {
     en: "The entity types CIR 2024/2690 applies to directly: DNS providers, TLD registries, cloud providers, data centres, CDNs, MSPs, MSSPs, marketplaces, search engines, social networks, trust service providers.",
@@ -165,6 +219,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "I tipi di entità a cui il CIR 2024/2690 si applica direttamente: fornitori DNS, registri TLD, fornitori cloud, centri dati, CDN, MSP, MSSP, marketplace, motori di ricerca, social network, prestatori di servizi fiduciari.",
     es: "Los tipos de entidades a las que el CIR 2024/2690 se aplica directamente: proveedores de DNS, registros de TLD, proveedores de nube, centros de datos, CDN, MSP, MSSP, mercados, motores de búsqueda, redes sociales, prestadores de servicios de confianza.",
     pl: "Typy podmiotów, do których CIR 2024/2690 ma zastosowanie bezpośrednio: dostawcy DNS, rejestry TLD, dostawcy chmury, centra danych, CDN, MSP, MSSP, platformy handlowe, wyszukiwarki, sieci społecznościowe, dostawcy usług zaufania.",
+    cs: "Typy subjektů, na něž se CIR 2024/2690 vztahuje přímo: poskytovatelé DNS, registry TLD, poskytovatelé cloudu, datová centra, CDN, MSP, MSSP, tržiště, vyhledávače, sociální sítě, poskytovatelé služeb vytvářejících důvěru.",
+    pt: "Os tipos de entidades a que o CIR 2024/2690 se aplica diretamente: fornecedores de DNS, registos de TLD, fornecedores de nuvem, centros de dados, CDN, MSP, MSSP, mercados, motores de pesquisa, redes sociais, prestadores de serviços de confiança.",
+    ro: "Tipurile de entități cărora li se aplică direct CIR 2024/2690: furnizori de DNS, registre TLD, furnizori de cloud, centre de date, CDN, MSP, MSSP, piețe online, motoare de căutare, rețele sociale, furnizori de servicii de încredere.",
   } },
   { term: "BSI Standard 200-4", type: "vocabulary", definition: {
     en: "The German BSI's standard on business continuity management. Defines four exercise types (awareness, tabletop, functional, full-scale) and recommends at least annual cadence.",
@@ -173,6 +230,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "La norma del BSI tedesco sulla gestione della continuità operativa. Definisce quattro tipi di esercitazione (sensibilizzazione, tabletop, funzionale, su vasta scala) e raccomanda una cadenza almeno annuale.",
     es: "La norma del BSI alemán sobre gestión de la continuidad del negocio. Define cuatro tipos de ejercicio (concienciación, tabletop, funcional, a gran escala) y recomienda una cadencia al menos anual.",
     pl: "Norma niemieckiego BSI dotycząca zarządzania ciągłością działania. Definiuje cztery typy ćwiczeń (uświadamiające, tabletop, funkcjonalne, pełnoskalowe) i zaleca przeprowadzanie ich co najmniej raz w roku.",
+    cs: "Norma německého BSI o řízení kontinuity činností. Definuje čtyři typy cvičení (awareness, tabletop, funkční, plnorozsahové) a doporučuje nejméně roční četnost.",
+    pt: "A norma do BSI alemão sobre gestão da continuidade do negócio. Define quatro tipos de exercício (sensibilização, tabletop, funcional, à escala real) e recomenda uma cadência pelo menos anual.",
+    ro: "Norma BSI german privind gestionarea continuității activității. Definește patru tipuri de exercițiu (de conștientizare, tabletop, funcțional, la scară completă) și recomandă o frecvență cel puțin anuală.",
   } },
   { term: "Appropriate and proportionate", type: "vocabulary", definition: {
     en: "The standard in Article 21(1) NIS 2 for cybersecurity measures. They must fit the risk and be sized for the entity. A plan you have never tested cannot meet this standard.",
@@ -181,6 +241,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Il criterio dell'articolo 21(1) NIS 2 per le misure di cybersicurezza. Devono essere adeguate al rischio e dimensionate per l'entità. Un piano che non avete mai testato non può soddisfare questo criterio.",
     es: "El criterio del artículo 21(1) NIS 2 para las medidas de ciberseguridad. Deben adecuarse al riesgo y dimensionarse para la entidad. Un plan que nunca ha probado no puede cumplir este criterio.",
     pl: "Kryterium z artykułu 21(1) NIS 2 dotyczące środków cyberbezpieczeństwa. Muszą być dopasowane do ryzyka i dostosowane do skali podmiotu. Plan, którego nigdy nie przetestowano, nie może spełnić tego kryterium.",
+    cs: "Měřítko v článku 21(1) NIS 2 pro opatření kybernetické bezpečnosti. Musí odpovídat riziku a být přiměřená velikosti subjektu. Plán, který jste nikdy neotestovali, toto měřítko splnit nemůže.",
+    pt: "O critério do artigo 21(1) NIS 2 para as medidas de cibersegurança. Devem adequar-se ao risco e ser dimensionadas para a entidade. Um plano que nunca testou não pode cumprir este critério.",
+    ro: "Criteriul din articolul 21(1) NIS 2 pentru măsurile de securitate cibernetică. Trebuie să corespundă riscului și să fie dimensionate pentru entitate. Un plan pe care nu l-ați testat niciodată nu poate îndeplini acest criteriu.",
   } },
   { term: "Article 21(2)(g) NIS 2", type: "vocabulary", definition: {
     en: "The directive paragraph that requires basic cyber hygiene practices and cybersecurity training. The legal basis for the role-specific training this course's attestation covers.",
@@ -189,6 +252,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Il paragrafo della direttiva che richiede pratiche di base di igiene informatica e formazione in cybersicurezza. La base giuridica della formazione specifica per il ruolo coperta dall'attestazione di questo corso.",
     es: "El apartado de la directiva que exige prácticas básicas de ciberhigiene y formación en ciberseguridad. La base jurídica de la formación específica del rol que cubre la atestación de este curso.",
     pl: "Ustęp dyrektywy, który wymaga podstawowych praktyk cyberhigieny i szkolenia z cyberbezpieczeństwa. Podstawa prawna szkolenia właściwego dla roli, które obejmuje zaświadczenie z tego kursu.",
+    cs: "Odstavec směrnice, který vyžaduje základní postupy kybernetické hygieny a školení v oblasti kybernetické bezpečnosti. Právní základ pro roli specifické školení, na něž se vztahuje osvědčení tohoto kurzu.",
+    pt: "O parágrafo da diretiva que exige práticas básicas de ciber-higiene e formação em cibersegurança. A base jurídica da formação específica da função que a atestação deste curso abrange.",
+    ro: "Paragraful directivei care impune practici de bază de igienă cibernetică și formare în securitate cibernetică. Temeiul juridic al formării specifice rolului pe care o acoperă atestarea acestui curs.",
   } },
 
   // People and roles
@@ -199,6 +265,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Il vertice dirigenziale dell'azienda: amministratore delegato, direttori generali, membri del consiglio, chiunque abbia responsabilità esecutiva ai sensi del diritto societario. L'articolo 20(1) NIS 2 li rende personalmente responsabili.",
     es: "El equipo directivo de la empresa: director ejecutivo, directores generales, miembros del consejo, cualquier persona con responsabilidad ejecutiva conforme al derecho de sociedades. El artículo 20(1) NIS 2 los hace personalmente responsables.",
     pl: "Kierownictwo firmy: prezes, dyrektorzy zarządzający, członkowie zarządu, każda osoba ponosząca odpowiedzialność wykonawczą zgodnie z prawem spółek. Artykuł 20(1) NIS 2 czyni ich osobiście odpowiedzialnymi.",
+    cs: "Vedení společnosti: generální ředitel, jednatelé, členové představenstva, kdokoli s výkonnou odpovědností podle práva obchodních společností. Článek 20(1) NIS 2 je činí osobně odpovědnými.",
+    pt: "A equipa de liderança da empresa: diretor executivo, administradores, membros do conselho, qualquer pessoa com responsabilidade executiva ao abrigo do direito das sociedades. O artigo 20(1) NIS 2 torna-os pessoalmente responsáveis.",
+    ro: "Echipa de conducere a companiei: directorul general, administratorii, membrii consiliului, orice persoană cu responsabilitate executivă în temeiul dreptului societăților. Articolul 20(1) NIS 2 îi face personal răspunzători.",
   } },
   { term: "DPO", type: "vocabulary", definition: {
     en: "Data Protection Officer. The role defined in Article 37 GDPR. Strongly recommended at any tabletop where personal data is involved.",
@@ -207,6 +276,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Data Protection Officer. Il ruolo definito all'articolo 37 GDPR. Fortemente raccomandato in qualsiasi esercitazione tabletop che coinvolga dati personali.",
     es: "Data Protection Officer. El rol definido en el artículo 37 GDPR. Muy recomendable en cualquier ejercicio tabletop en el que intervengan datos personales.",
     pl: "Data Protection Officer. Rola zdefiniowana w artykule 37 GDPR. Zdecydowanie zalecana podczas każdego ćwiczenia tabletop, w którym uczestniczą dane osobowe.",
+    cs: "Data Protection Officer. Role definovaná v článku 37 GDPR. Důrazně doporučená u každého tabletop cvičení, do něhož vstupují osobní údaje.",
+    pt: "Data Protection Officer. A função definida no artigo 37 GDPR. Fortemente recomendada em qualquer exercício tabletop que envolva dados pessoais.",
+    ro: "Data Protection Officer. Rolul definit la articolul 37 GDPR. Recomandat cu insistență la orice exercițiu tabletop care implică date cu caracter personal.",
   } },
   { term: "Personal data", type: "vocabulary", definition: {
     en: "Any information about an identified or identifiable natural person. Defined in Article 4(1) GDPR.",
@@ -215,6 +287,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Qualsiasi informazione relativa a una persona fisica identificata o identificabile. Definita all'articolo 4(1) GDPR.",
     es: "Cualquier información sobre una persona física identificada o identificable. Definida en el artículo 4(1) GDPR.",
     pl: "Wszelkie informacje dotyczące zidentyfikowanej lub możliwej do zidentyfikowania osoby fizycznej. Zdefiniowane w artykule 4(1) GDPR.",
+    cs: "Veškeré informace o identifikované nebo identifikovatelné fyzické osobě. Definováno v článku 4(1) GDPR.",
+    pt: "Qualquer informação sobre uma pessoa singular identificada ou identificável. Definida no artigo 4(1) GDPR.",
+    ro: "Orice informație despre o persoană fizică identificată sau identificabilă. Definită la articolul 4(1) GDPR.",
   } },
 
   // Concepts referenced in scenario walkthrough
@@ -225,6 +300,9 @@ const dictionary: DictionaryTerm[] = z.array(dictionaryTermSchema).parse([
     it: "Il primo momento in cui un attaccante è entrato nel vostro ambiente. Gli operatori di ransomware spesso restano nascosti per settimane prima di cifrare qualsiasi cosa. Il punto di ripristino corretto è anteriore a questo momento, non solo alla cifratura.",
     es: "El primer momento en que un atacante entró en su entorno. Los operadores de ransomware a menudo permanecen ocultos durante semanas antes de cifrar nada. El punto de restauración correcto es anterior a este momento, no solo al cifrado.",
     pl: "Najwcześniejszy moment, w którym atakujący przedostał się do Twojego środowiska. Operatorzy ransomware często pozostają w ukryciu przez tygodnie, zanim cokolwiek zaszyfrują. Właściwy punkt przywracania jest wcześniejszy niż ten moment, a nie tylko niż szyfrowanie.",
+    cs: "Nejranější okamžik, kdy se útočník dostal do vašeho prostředí. Provozovatelé ransomwaru často vyčkávají týdny, než cokoli zašifrují. Správný bod obnovení předchází tomuto okamžiku, nikoli pouze šifrování.",
+    pt: "O momento mais precoce em que um atacante entrou no seu ambiente. Os operadores de ransomware permanecem muitas vezes ocultos durante semanas antes de cifrar fosse o que fosse. O ponto de restauro correto é anterior a este momento, e não apenas à cifragem.",
+    ro: "Cel mai timpuriu moment în care un atacator a pătruns în mediul dumneavoastră. Operatorii de ransomware rămân adesea ascunși săptămâni întregi înainte de a cripta ceva. Punctul de restaurare corect este anterior acestui moment, nu doar criptării.",
   } },
 ]);
 

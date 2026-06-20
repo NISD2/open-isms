@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Gestionarea actualizărilor",
+    "description": "Urmărirea actualizărilor și a vulnerabilităților per activ. Cerută de NIS2 Art. 21(2)(e).",
+    "helpText": "Urmăriți actualizările și vulnerabilitățile cunoscute pentru activele înregistrate. Înregistrați starea actualizării (în așteptare, aplicată, amânată), referințele CVE și termenele. NIS2 cere tratarea promptă a vulnerabilităților și gestionarea actualizărilor.",
+    "add": "Adăugați o înregistrare de actualizare",
+    "edit": "Editați înregistrarea de actualizare",
+    "empty": "Nicio înregistrare de actualizare încă. Adăugați prima înregistrare de actualizare.",
+    "deleteConfirm": "Sigur doriți să ștergeți această înregistrare de actualizare?",
+    "actions": "Acțiuni",
+    "severity": {
+      "critical": "Critică",
+      "high": "Ridicată",
+      "medium": "Medie",
+      "low": "Scăzută"
+    },
+    "status": {
+      "pending": "În așteptare",
+      "applied": "Aplicată",
+      "exception": "Excepție",
+      "not_applicable": "Neaplicabilă"
+    },
+    "fields": {
+      "patchIdentifier": "ID actualizare",
+      "severity": "Gravitate",
+      "title": "Titlu",
+      "assetId": "Activ",
+      "status": "Stare",
+      "releaseDate": "Data lansării",
+      "appliedAt": "Aplicată la",
+      "exceptionReason": "Motivul excepției"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Identificatorul actualizării furnizorului sau numărul CVE (de exemplu, 'KB5034441', 'CVE-2024-1234').",
+      "severity": "Selectați nivelul de gravitate al vulnerabilității pe care o remediază această actualizare: critică, ridicată, medie sau scăzută.",
+      "title": "Descriere scurtă a ceea ce remediază această actualizare sau a vulnerabilității pe care o adresează.",
+      "assetId": "Selectați din registrul de active activul căruia i se aplică această actualizare.",
+      "status": "Starea curentă a actualizării: în așteptare (neaplicată încă), aplicată, excepție (amânare cu risc acceptat) sau neaplicabilă.",
+      "releaseDate": "Data la care furnizorul a lansat această actualizare.",
+      "appliedAt": "Data la care această actualizare a fost aplicată cu succes pe activul vizat.",
+      "exceptionReason": "Dacă starea este Excepție, furnizați justificarea pentru amânarea sau neaplicarea acestei actualizări."
+    }
+  }
+}

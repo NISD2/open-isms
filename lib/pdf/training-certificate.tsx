@@ -139,6 +139,51 @@ const LABELS: Record<Locale, CertificateLabels> = {
     issuer: "Wydane przez NISD2.eu",
     pageLabel: (n, total) => `Strona ${n} z ${total}`,
   },
+  cs: {
+    title: "Osvědčení o absolvování",
+    certifies: "Tímto se potvrzuje, že",
+    completed: "úspěšně absolvoval následující kurz:",
+    dateLabel: "Datum absolvování",
+    durationLabel: "Délka",
+    lessonsLabel: "Lekce",
+    durationValue: (h) => `přibl. ${h} h`,
+    legal: "Školení vedení podle §38(3) BSIG / článku 20(2) směrnice NIS2",
+    topics: "Probíraná témata",
+    disclaimer:
+      "Toto osvědčení potvrzuje účast v kurzu. Nepředstavuje právní certifikaci odborné způsobilosti.",
+    issuer: "Vydáno společností NISD2.eu",
+    pageLabel: (n, total) => `Strana ${n} z ${total}`,
+  },
+  pt: {
+    title: "Certificado de Conclusão",
+    certifies: "Pelo presente certifica-se que",
+    completed: "concluiu com êxito o seguinte curso:",
+    dateLabel: "Data de conclusão",
+    durationLabel: "Duração",
+    lessonsLabel: "Lições",
+    durationValue: (h) => `aprox. ${h} h`,
+    legal: "Formação da direção nos termos do §38(3) BSIG / artigo 20(2) da Diretiva NIS2",
+    topics: "Temas abordados",
+    disclaimer:
+      "Este certificado confirma a participação no curso. Não constitui uma certificação legal de competência.",
+    issuer: "Emitido por NISD2.eu",
+    pageLabel: (n, total) => `Página ${n} de ${total}`,
+  },
+  ro: {
+    title: "Certificat de Absolvire",
+    certifies: "Prin prezenta se certifică faptul că",
+    completed: "a finalizat cu succes următorul curs:",
+    dateLabel: "Data absolvirii",
+    durationLabel: "Durată",
+    lessonsLabel: "Lecții",
+    durationValue: (h) => `aprox. ${h} h`,
+    legal: "Instruirea conducerii conform §38(3) BSIG / articolului 20(2) din Directiva NIS2",
+    topics: "Subiecte abordate",
+    disclaimer:
+      "Acest certificat confirmă participarea la curs. Nu constituie o certificare legală a competenței.",
+    issuer: "Emis de NISD2.eu",
+    pageLabel: (n, total) => `Pagina ${n} din ${total}`,
+  },
 };
 
 const styles = StyleSheet.create({

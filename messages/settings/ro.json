@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Setări",
+    "description": "Gestionați setările platformei pentru organizația dvs.",
+    "aiDataSharing": {
+      "title": "Partajarea datelor cu AI",
+      "description": "Controlați ce date ale organizației sunt partajate cu asistentul AI la generarea îndrumărilor de conformitate. Datele personale (adrese de e-mail, numere de telefon, nume de persoane) nu sunt trimise niciodată.",
+      "none": {
+        "label": "Fără date despre companie",
+        "description": "Se trimit doar numele câmpurilor, tipurile și titlul cerinței. Îndrumarea este generică.",
+        "preview": "Trimise: definiții de câmpuri, titlul cerinței, referința legală"
+      },
+      "basic": {
+        "label": "Doar date nesensibile",
+        "description": "Adaugă sectorul, tipul de entitate și forma juridică pentru o îndrumare mai relevantă.",
+        "preview": "Trimise: cele de mai sus + sector, subsector, tip de entitate, formă juridică"
+      },
+      "full": {
+        "label": "Context complet",
+        "description": "Include numele companiei și indicatorii de mărime pentru cea mai personalizată îndrumare.",
+        "preview": "Trimise: cele de mai sus + numele companiei, numărul de angajați, cifra de afaceri anuală"
+      }
+    },
+    "saved": "Setări salvate",
+    "saveError": "Salvarea setărilor a eșuat",
+    "saving": "Se salvează...",
+    "adminOnly": "Doar administratorii pot modifica setările."
+  }
+}

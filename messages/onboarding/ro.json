@@ -1,0 +1,28 @@
+{
+  "onboarding": {
+    "title": "Bun venit la conformitatea NIS2",
+    "subtitle": "Configurați-vă organizația pentru a începe.",
+    "step": "Pasul {current} din {total}",
+    "steps": {
+      "company": "Detalii despre organizație",
+      "team": "Personal-cheie",
+      "ai": "Asistent AI"
+    },
+    "nav": {
+      "back": "Înapoi",
+      "next": "Înainte",
+      "skip": "Sari peste deocamdată",
+      "submit": "Creează organizația"
+    },
+    "creating": "Se configurează organizația dvs....",
+    "createError": "Crearea organizației a eșuat. Vă rugăm să încercați din nou.",
+    "mode": {
+      "title": "Totul este gata!",
+      "subtitle": "Cum doriți să continuați?",
+      "guided": "Configurare ghidată",
+      "guidedDescription": "Parcurgeți fiecare categorie de conformitate pas cu pas. Valorile implicite sunt deja aplicate. Trebuie doar să le revizuiți și să le personalizați.",
+      "manual": "Configurare manuală",
+      "manualDescription": "Mergeți direct la tabloul de bord și lucrați în ritmul dvs."
+    }
+  }
+}

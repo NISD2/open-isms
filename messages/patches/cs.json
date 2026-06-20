@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Správa aktualizací",
+    "description": "Sledování aktualizací a zranitelností pro jednotlivá aktiva. Vyžaduje NIS2 čl. 21 odst. 2 písm. e).",
+    "helpText": "Sledujte aktualizace a známé zranitelnosti pro vaše evidovaná aktiva. Zaznamenávejte stav aktualizace (čeká, nasazeno, odloženo), odkazy na CVE a termíny. NIS2 vyžaduje včasné řešení zranitelností a správu aktualizací.",
+    "add": "Přidat záznam aktualizace",
+    "edit": "Upravit záznam aktualizace",
+    "empty": "Zatím žádné záznamy aktualizací. Přidejte svůj první záznam aktualizace.",
+    "deleteConfirm": "Opravdu chcete tento záznam aktualizace smazat?",
+    "actions": "Akce",
+    "severity": {
+      "critical": "Kritická",
+      "high": "Vysoká",
+      "medium": "Střední",
+      "low": "Nízká"
+    },
+    "status": {
+      "pending": "Čeká",
+      "applied": "Nasazeno",
+      "exception": "Výjimka",
+      "not_applicable": "Nerelevantní"
+    },
+    "fields": {
+      "patchIdentifier": "ID aktualizace",
+      "severity": "Závažnost",
+      "title": "Název",
+      "assetId": "Aktivum",
+      "status": "Stav",
+      "releaseDate": "Datum vydání",
+      "appliedAt": "Nasazeno dne",
+      "exceptionReason": "Důvod výjimky"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Identifikátor aktualizace od dodavatele nebo číslo CVE (např. 'KB5034441', 'CVE-2024-1234').",
+      "severity": "Vyberte stupeň závažnosti zranitelnosti, kterou tato aktualizace řeší: kritická, vysoká, střední nebo nízká.",
+      "title": "Stručný popis toho, co tato aktualizace opravuje, nebo zranitelnosti, kterou řeší.",
+      "assetId": "Vyberte z registru aktiv to aktivum, kterého se tato aktualizace týká.",
+      "status": "Aktuální stav aktualizace: čeká (zatím nenasazeno), nasazeno, výjimka (odložení s přijetím rizika) nebo nerelevantní.",
+      "releaseDate": "Datum, kdy dodavatel tuto aktualizaci vydal.",
+      "appliedAt": "Datum, kdy byla tato aktualizace úspěšně nasazena na cílové aktivum.",
+      "exceptionReason": "Pokud je stav Výjimka, uveďte zdůvodnění odložení nebo nenasazení této aktualizace."
+    }
+  }
+}

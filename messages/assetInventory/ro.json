@@ -1,0 +1,259 @@
+{
+  "assetInventory": {
+    "page": {
+      "metaTitle": "Inventar de active NIS2. Gratuit, fără înregistrare, link partajabil",
+      "metaDescription": "Construiește analiza ta de structură (Strukturanalyse) conform BSI Grundschutz 200-2 §8.1 în 5 minute. O singură listă mare prebifată. Debifează ce nu se aplică, adaugă ce lipsește. Salvează și partajează printr-un link. Gratuit, fără înregistrare, fără date cu caracter personal."
+    },
+    "hero": {
+      "eyebrow": "Gratuit, open source, fără înregistrare",
+      "headline": "Inventar de active NIS2",
+      "headlineAccent": "în 5 minute, cu un link partajabil",
+      "subhead": "Prebifăm activele pe care le are de obicei o companie din Mittelstand. Debifează ce nu se aplică, adaugă ce lipsește. Fiecare stare este un link pe care îl poți salva sau trimite unui coleg."
+    },
+    "intro": {
+      "trustLine": "Analiză de structură conform BSI-200-2 §8.1 (Strukturanalyse), Informationsverbund pe cinci niveluri. NIS2 Art 21(2)(i), BSIG §30(2) Nr. 9. Datele tale rămân doar în fragmentul URL; serverul nu le vede niciodată.",
+      "riskAssessmentHint": "Inventarul este gata? Rulează evaluarea de risc pentru fiecare activ.",
+      "riskAssessmentLinkLabel": "Deschide evaluarea de risc →"
+    },
+    "steps": {
+      "back": "Înapoi",
+      "restart": "Reîncepe",
+      "startChecklist": "Începe lista de verificare",
+      "showOutput": "Arată Informationsverbund"
+    },
+    "phases": {
+      "sectors": { "label": "Pasul 1 din 3: Sector(e)" },
+      "checklist": { "label": "Pasul 2 din 3: Verifică și debifează ({count} active)" },
+      "output": { "label": "Gata. {count} active în Informationsverbund." }
+    },
+    "sectorPicker": {
+      "question": "Ce sectoare NIS2 se aplică firmei tale?",
+      "helpText": "Selectează toate cele care se aplică. Activele specifice sectorului vor apărea în lista de verificare (PLC-uri, vehicule, dispozitive medicale etc.).",
+      "annexI": "Anexa I (entități esențiale)",
+      "annexIDescription": "Criticitate ridicată. Supraveghere proactivă a BSI, amenzi de până la 10 mil. EUR.",
+      "annexII": "Anexa II (entități importante)",
+      "annexIIDescription": "Alte sectoare critice. Supraveghere reactivă, amenzi de până la 7 mil. EUR."
+    },
+    "sectors": {
+      "energy": { "name": "Energie (electricitate, termoficare, petrol, gaze, hidrogen)" },
+      "transport": { "name": "Transport (aerian, feroviar, naval, rutier)" },
+      "banking": { "name": "Sector bancar" },
+      "financial-market-infrastructure": { "name": "Infrastructuri ale pieței financiare" },
+      "health": { "name": "Sănătate" },
+      "drinking-water": { "name": "Apă potabilă" },
+      "waste-water": { "name": "Ape uzate" },
+      "digital-infrastructure": { "name": "Infrastructură digitală (DNS, TLD, cloud, centru de date, CDN, servicii de încredere)" },
+      "ict-service-management": { "name": "Gestionarea serviciilor TIC (MSP, MSSP)" },
+      "space": { "name": "Spațiu cosmic" },
+      "postal-courier": { "name": "Servicii poștale și de curierat" },
+      "waste-management": { "name": "Gestionarea deșeurilor" },
+      "chemicals": { "name": "Produse chimice (fabricare, producție, distribuție)" },
+      "food": { "name": "Alimente (producție, prelucrare, distribuție)" },
+      "manufacturing": { "name": "Fabricație (dispozitive medicale, utilaje, vehicule, electronice)" },
+      "digital-providers": { "name": "Furnizori digitali (piețe online, motoare de căutare, rețele sociale)" },
+      "research": { "name": "Cercetare" }
+    },
+    "checklist": {
+      "heading": "Inventarul tău de active",
+      "subtitle": "Elementele evidențiate sunt prebifate pentru că majoritatea companiilor din Mittelstand le au. Debifează ce nu se aplică, adaugă orice element special la finalul fiecărui grup.",
+      "addButton": "Adaugă",
+      "removeCustom": "Elimină",
+      "addPlaceholder": {
+        "geschaeftsprozess": "Adaugă un proces de business personalizat…",
+        "anwendung": "Adaugă o aplicație personalizată…",
+        "it-system": "Adaugă un sistem IT personalizat…",
+        "raum": "Adaugă o locație personalizată…",
+        "kommunikation": "Adaugă o conexiune de rețea personalizată…"
+      }
+    },
+    "share": {
+      "copyLink": "Copiază linkul",
+      "sendEmail": "Trimite prin e-mail",
+      "copied": "Copiat",
+      "mailSubject": "Ajută-mă să completez inventarul nostru de active NIS2",
+      "mailBody": "Bună,\n\nAm început inventarul nostru de active NIS2 pentru §30 BSIG / Art 21(2)(i) NIS2. Poți verifica ce folosește departamentul tău și bifează / debifează după caz? Apoi trimite-mi linkul nou înapoi.\n\nLink: {url}\n\nFără înregistrare, modificările tale actualizează linkul automat.\n\nMulțumesc."
+    },
+    "groups": {
+      "business-processes": {
+        "label": "Procese de business",
+        "description": "BSI-200-2 §8.1.3 Geschäftsprozesse. Ceea ce face efectiv compania zi de zi."
+      },
+      "customer-facing": {
+        "label": "Instrumente orientate spre clienți",
+        "description": "Lucruri vizibile pentru clienți pe internet. Suprafață publică de atac."
+      },
+      "sales": {
+        "label": "Instrumente de vânzări",
+        "description": "Ce folosește echipa de vânzări pentru a gestiona pipeline-ul, a încheia contracte și a raporta."
+      },
+      "customer-service": {
+        "label": "Instrumente de relații cu clienții",
+        "description": "Cum gestionezi tichetele de suport, apelurile și întrebările clienților."
+      },
+      "hr-payroll": {
+        "label": "Resurse umane și salarizare",
+        "description": "Date despre personal și salarizare. Considerentele de la Art 9 GDPR sunt aici."
+      },
+      "finance": {
+        "label": "Finanțe și contabilitate",
+        "description": "Evidențe contabile, operațiuni bancare, plăți, achiziții. Adesea ținta cu cea mai mare valoare."
+      },
+      "it-applications": {
+        "label": "Aplicații IT (folosite de toți)",
+        "description": "E-mail, stocare de fișiere, colaborare, identitate. Nivelul transversal."
+      },
+      "it-infrastructure": {
+        "label": "Infrastructură IT",
+        "description": "BSI-200-2 §8.1.6 IT-Systeme. Servere, platforme cloud, echipamente de rețea, backup."
+      },
+      "endpoints": {
+        "label": "Dispozitive de capăt",
+        "description": "Laptopuri, desktopuri, dispozitive mobile. Grupate conform Gruppenbildung."
+      },
+      "locations": {
+        "label": "Locații",
+        "description": "BSI-200-2 §8.1.7 Räume. Unde se află fizic lucrurile."
+      },
+      "network": {
+        "label": "Conexiuni de rețea",
+        "description": "BSI-200-2 §8.1.5 Kommunikationsverbindungen. Cum se conectează sistemele."
+      },
+      "sector-specific": {
+        "label": "Specific sectorului",
+        "description": "Active legate de sectorul tău. Se afișează doar cele relevante pentru sectoarele NIS2 pe care le-ai ales."
+      }
+    },
+    "categories": {
+      "process": "Proces de business",
+      "application": "Aplicație",
+      "server": "Server",
+      "endpoint": "Dispozitiv de capăt",
+      "network": "Dispozitiv de rețea",
+      "cloud_service": "Serviciu cloud",
+      "data_store": "Depozit de date",
+      "ot_ics": "OT / ICS",
+      "iot": "Dispozitiv IoT",
+      "physical": "Activ fizic",
+      "room": "Încăpere sau locație",
+      "database": "Bază de date"
+    },
+    "layers": {
+      "geschaeftsprozess": {
+        "label": "Geschäftsprozesse",
+        "description": "BSI-200-2 §8.1.3. Procesele de business pe care le susține IT-ul tău."
+      },
+      "anwendung": {
+        "label": "Anwendungen",
+        "description": "BSI-200-2 §8.1.4. Software-ul de care depind procesele."
+      },
+      "it-system": {
+        "label": "IT-Systeme",
+        "description": "BSI-200-2 §8.1.6. Hardware, sisteme virtuale, ICS, IoT."
+      },
+      "raum": {
+        "label": "Räume",
+        "description": "BSI-200-2 §8.1.7. Locații fizice."
+      },
+      "kommunikation": {
+        "label": "Kommunikationsverbindungen",
+        "description": "BSI-200-2 §8.1.5. Legături de rețea interne și externe."
+      }
+    },
+    "output": {
+      "heading": "Informationsverbund-ul tău (BSI-200-2 §8.1)",
+      "subtitle": "Structură pe cinci niveluri, pregătită pentru §8.2 Schutzbedarfsfeststellung. Fiecare intrare are un id generat automat (P/A/S/R/N + număr) conform convenției de atribute BSI §8.1.",
+      "empty": "Nimic înregistrat încă la acest nivel.",
+      "printPdf": "Tipărește sau salvează ca PDF",
+      "downloadCsv": "Descarcă CSV"
+    },
+    "catalog": {
+      "bp-sales-cs": { "label": "Vânzări și relații cu clienții" },
+      "bp-production-service": { "label": "Producție sau prestare de servicii" },
+      "bp-procurement": { "label": "Achiziții" },
+      "bp-hr-payroll": { "label": "Administrarea resurselor umane și a salarizării" },
+      "bp-finance-accounting": { "label": "Finanțe și contabilitate" },
+      "bp-marketing": { "label": "Marketing și comunicare externă" },
+      "bp-it-operations": { "label": "Operațiuni IT" },
+      "bp-legal-compliance": { "label": "Juridic și conformitate" },
+      "cf-website": { "label": "Site-ul companiei" },
+      "cf-webshop": { "label": "Magazin online sau comenzi online" },
+      "cf-customer-portal": { "label": "Portal pentru clienți (cu autentificare)" },
+      "cf-mobile-app": { "label": "Aplicație mobilă" },
+      "cf-newsletter": { "label": "Sistem de newsletter (Mailchimp, Brevo)" },
+      "cf-contact-form": { "label": "Formular de contact pe site" },
+      "sales-crm": { "label": "CRM (Salesforce, HubSpot, Pipedrive)" },
+      "sales-lead-gen": { "label": "Instrument de generare de lead-uri / prospectare (Apollo, ZoomInfo)" },
+      "sales-quote-proposal": { "label": "Generator de oferte / propuneri (PandaDoc)" },
+      "sales-e-signature": { "label": "Semnătură electronică (DocuSign, Adobe Sign)" },
+      "sales-demo-meeting": { "label": "Instrument pentru întâlniri video / demo (Teams, Zoom, Meet)" },
+      "sales-analytics": { "label": "Analize de vânzări sau dashboard BI" },
+      "cs-helpdesk": { "label": "Helpdesk / sistem de tichete (Zendesk, Intercom)" },
+      "cs-voip": { "label": "Sistem de telefonie / VoIP" },
+      "cs-live-chat": { "label": "Chat live pe site" },
+      "cs-knowledge-base": { "label": "Bază de cunoștințe sau sistem de întrebări frecvente" },
+      "cs-feedback": { "label": "Instrument de sondaj sau de feedback" },
+      "hr-hris": { "label": "HRIS (Personio, BambooHR, Workday)" },
+      "hr-payroll": { "label": "Salarizare (DATEV Lohn, Lexware, sage)" },
+      "hr-recruiting": { "label": "Recrutare / urmărire candidați" },
+      "hr-time-tracking": { "label": "Pontaj" },
+      "hr-personnel-files": { "label": "Dosare de personal digitale" },
+      "hr-lms": { "label": "Sistem de management al învățării (LMS)" },
+      "hr-performance": { "label": "Instrument de evaluare a performanței" },
+      "fin-accounting": { "label": "Software de contabilitate (DATEV, Lexware, sevDesk, lexoffice)" },
+      "fin-erp": { "label": "ERP (SAP, Microsoft Dynamics, ProAlpha)" },
+      "fin-online-banking": { "label": "Portaluri de online banking" },
+      "fin-payment-processing": { "label": "Procesare de plăți (Stripe, PayPal, Klarna)" },
+      "fin-expense": { "label": "Gestionarea cheltuielilor (Pleo, Spendesk, Moss)" },
+      "fin-procurement-system": { "label": "Sistem de achiziții / comenzi de cumpărare" },
+      "fin-invoicing": { "label": "Sistem de facturare" },
+      "it-email": { "label": "E-mail (Microsoft 365, Google Workspace, Exchange)" },
+      "it-file-storage": { "label": "Stocare partajată de fișiere (SharePoint, Google Drive, NAS)" },
+      "it-video-conferencing": { "label": "Conferințe video (Teams, Zoom, Meet)" },
+      "it-internal-chat": { "label": "Chat intern (Slack, Teams)" },
+      "it-document-mgmt": { "label": "Gestionarea documentelor (DMS)" },
+      "it-wiki-kb": { "label": "Wiki sau bază de cunoștințe internă (Confluence, Notion)" },
+      "it-identity-provider": { "label": "Furnizor de identitate (Azure AD/Entra, Google Workspace, Okta)" },
+      "it-endpoint-protection": { "label": "Protecția dispozitivelor de capăt (Defender, CrowdStrike, SentinelOne)" },
+      "it-monitoring": { "label": "Monitorizare (Datadog, Grafana)" },
+      "it-password-manager": { "label": "Manager de parole (1Password, LastPass, Bitwarden)" },
+      "it-code-repos": { "label": "Depozite de cod (GitHub, GitLab, Bitbucket)" },
+      "it-project-management": { "label": "Management de proiect (Jira, Asana, Linear)" },
+      "it-patch-rmm": { "label": "Gestionarea actualizărilor / RMM" },
+      "infra-onprem-servers": { "label": "Servere on-premise" },
+      "infra-cloud-platform": { "label": "Platformă cloud (AWS, Azure, GCP, Hetzner)" },
+      "infra-network-equipment": { "label": "Echipamente de rețea (firewall, switch-uri, WiFi)" },
+      "infra-backup-system": { "label": "Sistem de backup (Veeam, NAS, backup în cloud)" },
+      "infra-printer-fleet": { "label": "Imprimante / scanere de birou" },
+      "ep-laptops": { "label": "Laptopuri și desktopuri" },
+      "ep-mobile": { "label": "Dispozitive mobile ale companiei (telefoane, tablete)" },
+      "ep-byod": { "label": "BYOD (dispozitive personale ale angajaților care accesează datele companiei)" },
+      "loc-main-office": { "label": "Sediu principal" },
+      "loc-branch-offices": { "label": "Birouri / filiale suplimentare" },
+      "loc-server-room": { "label": "Sală de servere (on-premise)" },
+      "loc-datacenter": { "label": "Centru de date (rack propriu sau închiriat)" },
+      "loc-employee-homes": { "label": "Birouri la domiciliul angajaților" },
+      "loc-warehouse": { "label": "Depozit sau spațiu de stocare" },
+      "net-internet": { "label": "Conexiune la internet (ISP)" },
+      "net-vpn": { "label": "VPN sau acces la distanță Zero Trust" },
+      "net-third-party-api": { "label": "Integrări API cu terți" },
+      "net-site-to-site": { "label": "Legături site-to-site (furnizor, client)" },
+      "sec-plc-scada": { "label": "Controlere PLC / SCADA" },
+      "sec-mes": { "label": "MES (sistem de execuție a producției)" },
+      "sec-cad-plm": { "label": "CAD / PLM (date de inginerie)" },
+      "sec-warehouse-mgmt": { "label": "Sistem de gestionare a depozitului (WMS)" },
+      "sec-fleet-vehicles": { "label": "Vehicule cu telematică / GPS" },
+      "sec-medical-devices": { "label": "Dispozitive medicale conectate în rețea" },
+      "sec-ehr-his": { "label": "Sistem informatic spitalicesc (KIS / HIS / EHR)" },
+      "sec-lab-instruments": { "label": "Instrumente de laborator conectate în rețea / LIMS" },
+      "sec-energy-scada": { "label": "SCADA energetic / sistem de control" },
+      "sec-water-scada": { "label": "SCADA pentru apă / ape uzate" },
+      "sec-trading-platform": { "label": "Conexiune la platformă de tranzacționare (SWIFT, SEPA, bursă)" },
+      "sec-atm-fleet": { "label": "Parc de bancomate / terminale de autoservire" },
+      "sec-dns-tld": { "label": "Infrastructură DNS / TLD" },
+      "sec-citizen-portal": { "label": "Portal pentru cetățeni (eGov, OZG)" }
+    },
+    "disclaimer": {
+      "methodologyDisclosure": "Inventar de active aliniat cu BSI-200-2 §8.1 Strukturanalyse (Informationsverbund pe cinci niveluri plus Gruppenbildung conform Lektion 3). Rezultatul este un inventar inițial pe care îl poți preda unui consultant sau introduce în evaluarea de risc. Conformitatea deplină cu §8.1 necesită, în plus, un Netzplan actual (diagramă de rețea), legături de dependență între niveluri și aprobarea organului de conducere (§38 BSIG, Art 20 NIS2). Starea inventarului rămâne doar în fragmentul URL; serverul nu o primește niciodată."
+    }
+  }
+}

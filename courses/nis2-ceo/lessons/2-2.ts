@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "2.2",
   slug: "assets",
-  title: { en: "What Is an Asset?", nl: "Wat is een bedrijfsmiddel?", de: "Was ist ein Asset?", fr: "Qu'est-ce qu'un actif ?", it: "Che cos'è un asset?", es: "¿Qué es un activo?", pl: "Czym jest aktywo?" },
+  title: { en: "What Is an Asset?", nl: "Wat is een bedrijfsmiddel?", de: "Was ist ein Asset?", fr: "Qu'est-ce qu'un actif ?", it: "Che cos'è un asset?", es: "¿Qué es un activo?", pl: "Czym jest aktywo?", cs: "Co je aktivum?", pt: "O que é um ativo?", ro: "Ce este un activ?" },
   moduleId: "module-2",
   order: 1,
   contentFile: "2-2",

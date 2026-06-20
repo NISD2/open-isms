@@ -1,0 +1,120 @@
+{
+  "organization": {
+    "title": "Configuração da organização",
+    "description": "Registe a sua organização para iniciar a avaliação de conformidade.",
+    "editTitle": "Definições da organização",
+    "editDescription": "Atualize os dados da sua organização.",
+    "formTitle": "Dados da organização",
+    "name": "Nome da organização",
+    "namePlaceholder": "Acme GmbH",
+    "sector": "Setor NIS2",
+    "sectorPlaceholder": "Selecionar setor...",
+    "entityType": "Classificação da entidade",
+    "entityTypeHelp": "Conforme definido no § 28 BSIG 2025",
+    "entityTypes": {
+      "essential": "Entidade essencial",
+      "important": "Entidade importante",
+      "kritis": "Operador KRITIS"
+    },
+    "legalForm": "Forma jurídica",
+    "legalFormPlaceholder": "ex.: GmbH, AG, KG",
+    "employees": "Número de colaboradores",
+    "contactEmail": "Email de contacto de conformidade",
+    "cisoName": "CISO / Responsável de Segurança de TI",
+    "cisoNamePlaceholder": "Joana Silva",
+    "cisoReportsTo": "O CISO reporta a",
+    "cisoReportsToPlaceholder": "ex.: CEO, Conselho de Administração",
+    "bsiContactName": "Pessoa de contacto BSI",
+    "bsiContactNamePlaceholder": "Max Mustermann",
+    "bsiContactEmail": "Email de contacto BSI",
+    "bsiContactPhone": "Telefone de contacto BSI",
+    "bsiRegistrationId": "ID de registo BSI",
+    "annualSecurityBudget": "Orçamento anual de segurança (EUR)",
+    "primaryLocations": "Localizações principais",
+    "primaryLocationsPlaceholder": "ex.: Berlim, Munique",
+    "profileSection": "Perfil de segurança",
+    "profileSectionDescription": "Estes campos são referenciados em vários requisitos NIS2 e registados nos instantâneos de aprovação.",
+    "submit": "Iniciar avaliação",
+    "creating": "A configurar a sua organização...",
+    "createError": "Não foi possível criar a organização. Tente novamente.",
+    "save": "Guardar alterações",
+    "saving": "A guardar...",
+    "saved": "Alterações guardadas com sucesso.",
+    "saveError": "Não foi possível guardar as alterações. Tente novamente.",
+    "sectors": {
+      "energy": "Energia",
+      "transport": "Transportes",
+      "banking": "Banca",
+      "financial_market": "Infraestrutura do mercado financeiro",
+      "health": "Saúde",
+      "drinking_water": "Água potável",
+      "waste_water": "Águas residuais",
+      "digital_infrastructure": "Infraestrutura digital",
+      "ict_service_management": "Gestão de serviços TIC (B2B)",
+      "public_administration": "Administração pública",
+      "space": "Espaço",
+      "postal_courier": "Serviços postais e de correio expresso",
+      "waste_management": "Gestão de resíduos",
+      "chemicals": "Produtos químicos",
+      "food": "Produção e distribuição de alimentos",
+      "manufacturing": "Indústria transformadora",
+      "digital_providers": "Fornecedores digitais",
+      "research": "Investigação"
+    },
+    "teamRoles": {
+      "title": "Pessoal-chave",
+      "description": "Pode convidar membros da equipa agora ou fazê-lo mais tarde nas Definições. Cada pessoa que adicionar será convidada e pode ser atribuída como responsável por categorias de conformidade.",
+      "name": "Nome",
+      "email": "Email",
+      "role": "Função",
+      "rolePlaceholder": "Selecionar função...",
+      "addMember": "Adicionar membro da equipa",
+      "removeMember": "Remover",
+      "back": "Voltar",
+      "skip": "Ignorar por agora",
+      "submit": "Continuar",
+      "roles": {
+        "ceo": {
+          "label": "CEO / Administrador",
+          "namePlaceholder": "Joana Pereira",
+          "emailPlaceholder": "ceo@empresa.com"
+        },
+        "ciso": {
+          "label": "CISO / Responsável de Segurança de TI",
+          "namePlaceholder": "João Santos",
+          "emailPlaceholder": "ciso@empresa.com"
+        },
+        "cto": {
+          "label": "CTO / Diretor de Engenharia",
+          "namePlaceholder": "Alexandre Costa",
+          "emailPlaceholder": "cto@empresa.com"
+        },
+        "coo": {
+          "label": "COO / Diretor de Operações",
+          "namePlaceholder": "Sofia Martins",
+          "emailPlaceholder": "coo@empresa.com"
+        },
+        "cpo": {
+          "label": "CPO / Responsável de Compras",
+          "namePlaceholder": "Patrícia Lopes",
+          "emailPlaceholder": "cpo@empresa.com"
+        },
+        "hr_director": {
+          "label": "Diretor de Recursos Humanos",
+          "namePlaceholder": "Carlos Ferreira",
+          "emailPlaceholder": "rh@empresa.com"
+        },
+        "legal": {
+          "label": "Responsável Jurídico / de Conformidade",
+          "namePlaceholder": "Margarida Sousa",
+          "emailPlaceholder": "juridico@empresa.com"
+        },
+        "dpo": {
+          "label": "Encarregado da Proteção de Dados",
+          "namePlaceholder": "Rita Gomes",
+          "emailPlaceholder": "dpo@empresa.com"
+        }
+      }
+    }
+  }
+}

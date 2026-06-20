@@ -1,0 +1,8 @@
+{
+  "evidence": {
+    "loading": "Se încarcă fișierele…",
+    "uploading": "Se încarcă…",
+    "uploadFailed": "Încărcarea a eșuat. Vă rugăm să încercați din nou.",
+    "deleteFailed": "Ștergerea a eșuat. Vă rugăm să încercați din nou."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "internalAudits": {
+    "title": "Audituri interne",
+    "description": "Planificarea, execuția și constatările auditurilor interne. Cerute de evaluarea eficacității conform NIS2, art. 21.",
+    "helpText": "Planificați și documentați auditurile interne ale măsurilor dumneavoastră de securitate cibernetică. Înregistrați domeniul de aplicare, constatările și acțiunile corective. NIS2 impune evaluarea periodică a faptului că măsurile de securitate sunt eficace.",
+    "add": "Adaugă audit",
+    "edit": "Editează audit",
+    "empty": "Niciun audit intern planificat încă. Planificați primul audit.",
+    "deleteConfirm": "Sigur doriți să ștergeți acest audit?",
+    "actions": "Acțiuni",
+    "status": {
+      "planned": "Planificat",
+      "in_progress": "În desfășurare",
+      "completed": "Finalizat",
+      "cancelled": "Anulat"
+    },
+    "fields": {
+      "title": "Titlu",
+      "auditArea": "Domeniul auditului",
+      "scope": "Domeniu de aplicare",
+      "status": "Stare",
+      "scheduledDate": "Data planificată",
+      "completedAt": "Finalizat la",
+      "auditorName": "Auditor"
+    },
+    "fieldDescriptions": {
+      "title": "Denumirea acestui audit intern (de exemplu, „Audit control acces T2”, „Revizuire anuală a conformității NIS2”).",
+      "auditArea": "Domeniul de securitate sau zona de control care este auditată (de exemplu, controlul accesului, răspunsul la incidente, lanțul de aprovizionare).",
+      "scope": "Definiți limitele acestui audit: ce sisteme, procese, departamente sau controale sunt incluse.",
+      "status": "Starea curentă a auditului: planificat, în desfășurare, finalizat sau anulat.",
+      "scheduledDate": "Data la care este planificat să înceapă acest audit.",
+      "completedAt": "Data la care au fost finalizate toate activitățile de audit și raportul final.",
+      "auditorName": "Numele auditorului intern sau al responsabilului echipei de audit care efectuează această evaluare."
+    }
+  }
+}

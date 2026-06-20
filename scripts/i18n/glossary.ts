@@ -63,11 +63,27 @@ export const STRUCTURE_RULES = [
   "- Return exactly one translation per input id, reusing the same id.",
 ].join("\n");
 
+/**
+ * Voice rules — humanise the output. Em-dashes and dash-heavy phrasing read as
+ * machine-generated; our register (CISOs, lawyers, Geschäftsführer) wants plain
+ * sentences. This applies to translations too: do NOT mirror the English
+ * source's punctuation when it is dash-heavy.
+ */
+export const VOICE_RULES = [
+  "Voice rules (humanise the translation):",
+  "- No em-dashes (—) and no en-dashes (–) as sentence punctuation. The English source uses them heavily; do NOT carry them over. Recast with a period, comma, colon, or parentheses so the sentence reads naturally in the target language.",
+  "- Use hyphens (-) sparingly: only inside genuine compound words the target language actually hyphenates. Prefer a single word or a short phrase over a hyphen chain.",
+  "- Exception: keep hyphens that are part of a locked term or proper noun (NIS-2, IT-Grundschutz, ISO/IEC).",
+  "- Plain register over ornate punctuation. Short sentences beat one long clause held together by dashes. No emojis.",
+].join("\n");
+
 export function glossaryPromptBlock(): string {
   return [
     LEGAL_FIDELITY_POLICY,
     "",
     STRUCTURE_RULES,
+    "",
+    VOICE_RULES,
     "",
     "Locked terms (verbatim):",
     DO_NOT_TRANSLATE.map((t) => `  - ${t}`).join("\n"),

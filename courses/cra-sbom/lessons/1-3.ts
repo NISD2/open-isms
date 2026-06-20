@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "1.3",
   slug: "retention-and-access",
-  title: { en: "The 10-Year Retention Rule and Who Gets Access", de: "Die 10-Jahres-Aufbewahrungspflicht und wer Zugang erhält", fr: "La règle de conservation de 10 ans et qui obtient l'accès", it: "La regola di conservazione di 10 anni e chi ottiene l'accesso", es: "La regla de conservación de 10 años y quién obtiene acceso", pl: "Zasada przechowywania przez 10 lat i kto uzyskuje dostęp" },
+  title: { en: "The 10-Year Retention Rule and Who Gets Access", de: "Die 10-Jahres-Aufbewahrungspflicht und wer Zugang erhält", fr: "La règle de conservation de 10 ans et qui obtient l'accès", it: "La regola di conservazione di 10 anni e chi ottiene l'accesso", es: "La regla de conservación de 10 años y quién obtiene acceso", pl: "Zasada przechowywania przez 10 lat i kto uzyskuje dostęp", cs: "Pravidlo uchovávání po dobu 10 let a kdo získá přístup", pt: "A regra de conservação de 10 anos e quem obtém acesso", ro: "Regula de păstrare timp de 10 ani și cine obține acces" },
   moduleId: "module-1",
   order: 2,
   contentFile: "1-3",

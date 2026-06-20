@@ -1,0 +1,44 @@
+{
+  "exercises": {
+    "title": "Cvičení",
+    "description": "Cvičení kontinuity provozu, obnovy po havárii a reakce na incidenty. Vyžaduje NIS2 čl. 21(2)(c).",
+    "helpText": "Plánujte a dokumentujte cvičení zaměřená na kontinuitu provozu a obnovu po havárii. NIS2 vyžaduje pravidelné testování plánů kontinuity. Zaznamenejte typ cvičení, účastníky, zjištění a navazující opatření.",
+    "add": "Přidat cvičení",
+    "edit": "Upravit cvičení",
+    "empty": "Zatím nejsou naplánována žádná cvičení. Naplánujte své první cvičení.",
+    "deleteConfirm": "Opravdu chcete toto cvičení smazat?",
+    "actions": "Akce",
+    "type": {
+      "tabletop": "Stolní cvičení",
+      "technical": "Technické",
+      "red_team": "Red Team",
+      "full_scale": "Plnohodnotné cvičení"
+    },
+    "exerciseType": {
+      "tabletop": "Stolní cvičení",
+      "technical": "Technické",
+      "red_team": "Red Team",
+      "full_scale": "Plnohodnotné cvičení"
+    },
+    "fields": {
+      "title": "Název",
+      "exerciseType": "Typ cvičení",
+      "domain": "Oblast",
+      "scheduledDate": "Plánované datum",
+      "completedAt": "Dokončeno dne",
+      "scenarioDescription": "Scénář",
+      "facilitator": "Vedoucí cvičení",
+      "lessonsLearned": "Poučení"
+    },
+    "fieldDescriptions": {
+      "title": "Název cvičení nebo nácviku (např. „Stolní cvičení ransomware Q1“, „Test přepnutí při obnově po havárii“).",
+      "exerciseType": "Vyberte formát cvičení: stolní cvičení (založené na diskusi), technické (praktické), red team (simulace protivníka) nebo plnohodnotné cvičení (živý nácvik).",
+      "domain": "Bezpečnostní oblast, která je testována (např. reakce na incidenty, kontinuita provozu, obnova po havárii, krizová komunikace).",
+      "scheduledDate": "Datum, na které je toto cvičení naplánováno.",
+      "completedAt": "Datum, kdy bylo toto cvičení skutečně dokončeno.",
+      "scenarioDescription": "Popište simulovaný scénář včetně hrozby, vektoru útoku a očekávané reakce organizace.",
+      "facilitator": "Jméno osoby odpovědné za plánování a vedení tohoto cvičení.",
+      "lessonsLearned": "Zdokumentujte klíčová zjištění, identifikované mezery a doporučená zlepšení vyplývající z tohoto cvičení."
+    }
+  }
+}

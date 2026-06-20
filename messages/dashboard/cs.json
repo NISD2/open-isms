@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Přehled bezpečnostní shody",
+    "risks": "Rizika",
+    "openRisks": "Otevřená rizika",
+    "highRisks": "Vysoká rizika",
+    "assets": "Aktiva",
+    "criticalAssets": "Kritická",
+    "otAssets": "OT",
+    "incidents": "Incidenty",
+    "suppliers": "Dodavatelé",
+    "criticalSuppliers": "Kritičtí",
+    "policies": "Směrnice",
+    "approved": "Schváleno",
+    "training": "Školení",
+    "managementTraining": "Vedení",
+    "exercises": "Krizová cvičení",
+    "completed": "Dokončeno",
+    "kpis": "Bezpečnostní metriky",
+    "changes": "Změny",
+    "openChanges": "Otevřené",
+    "patches": "Bezpečnostní aktualizace",
+    "pendingPatches": "Čekající",
+    "audits": "Sebehodnocení",
+    "plannedAudits": "Plánováno",
+    "improvements": "Úkoly",
+    "openImprovements": "Otevřené",
+    "complianceByCategory": "Shoda podle kategorií",
+    "riskMatrix": "Matice rizik",
+    "riskTreatmentDistribution": "Rozložení zacházení s riziky",
+    "noRisksRegistered": "Žádná rizika nejsou evidována",
+    "noData": "Žádná data",
+    "incidentsBySeverity": "Incidenty podle závažnosti",
+    "treatmentLabel": {
+      "mitigate": "Zmírnit",
+      "accept": "Přijmout",
+      "transfer": "Přenést",
+      "avoid": "Vyhnout se"
+    },
+    "severity": {
+      "nearMiss": "Téměř incident",
+      "incident": "Incident",
+      "significant": "Významný"
+    },
+    "complianceProgress": "Pokrok ve shodě",
+    "requirementsCompleted": "{completed} z {total} požadavků",
+    "allModules": "Všechny moduly",
+    "deadlines": {
+      "overdue": "Po termínu",
+      "dueThisWeek": "Splatné tento týden",
+      "dueThisMonth": "Splatné tento měsíc",
+      "upcoming": "Nadcházející termíny",
+      "overdueDays": "{days} d po termínu",
+      "dueToday": "Splatné dnes",
+      "dueDays": "Splatné za {days} d"
+    }
+  }
+}

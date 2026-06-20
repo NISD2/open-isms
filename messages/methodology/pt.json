@@ -1,0 +1,24 @@
+{
+  "methodology": {
+    "title": "Metodologia de Avaliação de Risco",
+    "loading": "A carregar metodologia...",
+    "saved": "Metodologia guardada",
+    "saveFailed": "Falha ao guardar a metodologia",
+    "edit": "Editar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "methodologyName": "Nome da Metodologia",
+    "likelihoodScale": "Escala de Probabilidade",
+    "impactScale": "Escala de Impacto",
+    "label": "Etiqueta",
+    "description": "Descrição",
+    "addLevel": "Adicionar nível",
+    "removeLevel": "Remover o último",
+    "riskMatrix": "Matriz de Risco",
+    "acceptanceThreshold": "Limiar de Aceitação",
+    "thresholdHelp": "Os riscos com pontuação ≤ {threshold} podem ser aceites sem tratamento",
+    "includesOt": "A metodologia abrange sistemas OT/ICS (§30(2) BSIG)",
+    "clickToSelect": "Clique numa célula para selecionar probabilidade × impacto",
+    "selectedScore": "Pontuação selecionada"
+  }
+}

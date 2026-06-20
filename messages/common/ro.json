@@ -1,0 +1,58 @@
+{
+  "common": {
+    "save": "Salvează",
+    "saving": "Se salvează...",
+    "cancel": "Anulează",
+    "back": "Înapoi",
+    "next": "Înainte",
+    "open": "Deschide",
+    "optional": "opțional",
+    "loading": "Se încarcă...",
+    "entries": "{count} intrări",
+    "select": "Selectează...",
+    "yes": "Da",
+    "no": "Nu",
+    "noData": "Fără date",
+    "user": "Utilizator",
+    "modules": {
+      "asset": "Active",
+      "risk": "Riscuri",
+      "incident": "Incidente",
+      "supplier": "Furnizori",
+      "policy": "Politici",
+      "training_record": "Înregistrări de instruire",
+      "exercise": "Exerciții",
+      "management_review": "Analize de management",
+      "kpi_measurement": "Măsurători KPI",
+      "change_request": "Cereri de modificare",
+      "patch_record": "Înregistrări de actualizări",
+      "internal_audit": "Audituri interne",
+      "improvement_item": "Îmbunătățiri",
+      "bsi_registration": "Înregistrare BSI",
+      "bsi_incident_report": "Rapoarte de incidente BSI"
+    },
+    "moduleRef": {
+      "confirmCompliance": "Confirmă conformitatea",
+      "noRecords": "Încă nu există înregistrări. Adăugați date mai întâi în modul."
+    }
+  },
+  "status": {
+    "not_started": "Deschis",
+    "in_progress": "În curs",
+    "completed": "Finalizat",
+    "not_applicable": "N/A",
+    "needs_review": "Necesită revizuire",
+    "approved": "Aprobat",
+    "rejected": "Respins"
+  },
+  "priority": {
+    "P0": "Critic. Necesită acțiune imediată",
+    "P1": "Ridicat. De tratat în ciclul curent",
+    "P2": "Mediu. De planificat pentru ciclul următor",
+    "P3": "Scăzut. De tratat când este convenabil"
+  },
+  "metadata": {
+    "title": "Platformă de conformitate NIS2",
+    "description": "Management al conformității NIS2/BSIG 2025"
+  }
+}

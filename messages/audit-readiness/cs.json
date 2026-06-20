@@ -1,0 +1,35 @@
+{
+  "audit-readiness": {
+    "title": "Připravenost na audit",
+    "subtitle": "Vyhodnoťte svou připravenost na audit podle BSIG/NIS2 pomocí analýzy s umělou inteligencí",
+    "startEvaluation": "Spustit vyhodnocení",
+    "evaluating": "Probíhá vyhodnocení všech oddílů...",
+    "reEvaluate": "Vyhodnotit znovu",
+    "reEvaluating": "Probíhá opětovné vyhodnocení...",
+    "overallScore": "Celkové skóre",
+    "verdict": "Závěr",
+    "pass": "Připraveno na audit",
+    "partial": "Vyžaduje úpravy",
+    "fail": "Závažné nedostatky",
+    "sectionsPassing": "{count} v pořádku",
+    "sectionsPartial": "{count} částečně splněno",
+    "sectionsFailing": "{count} nesplněno",
+    "strengths": "Silné stránky",
+    "structureGaps": "Nedostatky ve struktuře",
+    "dataGaps": "Nedostatky v datech",
+    "recommendations": "Doporučení",
+    "showDetails": "Zobrazit podrobnosti",
+    "hideDetails": "Skrýt podrobnosti",
+    "severity": {
+      "critical": "Kritické",
+      "important": "Důležité",
+      "nice-to-have": "Vhodné mít"
+    },
+    "fieldKey": "Pole",
+    "requirement": "Požadavek",
+    "issue": "Problém",
+    "recommendation": "Doporučení",
+    "noGaps": "Nebyly zjištěny žádné nedostatky",
+    "disclaimer": "Vyhodnocení vytvořené umělou inteligencí. Nenahrazuje formální audit"
+  }
+}

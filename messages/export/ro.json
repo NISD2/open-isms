@@ -1,0 +1,11 @@
+{
+  "export": {
+    "title": "Exportă rapoarte",
+    "subtitle": "Descarcă rapoarte de conformitate pentru evaluările tale",
+    "noAssessments": "Nu s-au găsit evaluări. Finalizează mai întâi configurarea.",
+    "download": "Descarcă PDF",
+    "started": "Început",
+    "progress": "{completed} din {total} cerințe",
+    "compliance": "Conformitate"
+  }
+}

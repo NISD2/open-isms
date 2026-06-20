@@ -1,0 +1,128 @@
+{
+  "grcComparison": {
+    "meta": {
+      "title": "Audit de prețuri GRC / ISMS / NIS2: 136 de furnizori comerciali verificați",
+      "description": "Pe 17 mai 2026 am vizitat paginile de prețuri ale 136 de platforme comerciale GRC, ISMS și NIS2. 103 dintre ele nu vă spun cât costă fără o sesiune demo. Aici găsiți lista completă, care poate fi sortată și filtrată. Nouă alternative open-source sunt excluse intenționat."
+    },
+    "hero": {
+      "eyebrow": "Audit de piață, 17 mai 2026",
+      "title": "Am auditat 136 de platforme comerciale GRC/ISMS. 103 nu vă spun cât costă.",
+      "subtitle": "Am preluat verbatim pagina de prețuri a fiecărui furnizor. Acolo unde prețul este ascuns în spatele unui formular demo, notăm „Necesită sesiune demo”. Fără estimări, fără surse terțe. Nouă alternative open-source (verinice, CISO Assistant, Deming, ISMS Builder, Unicis CE, noi înșine și altele) sunt excluse din această listă deoarece nu vă vând un abonament.",
+      "ctaPlatform": "Începeți gratuit",
+      "ctaMethodology": "Metodologie"
+    },
+    "stats": {
+      "totalLabel": "Furnizori auditați",
+      "transparentLabel": "Prețuri publice",
+      "partialLabel": "Doar preț de pornire",
+      "gatedLabel": "Necesită sesiune demo",
+      "nis2Label": "NIS2 ca cadru",
+      "ossLabel": "Open source",
+      "countriesLabel": "Țări",
+      "lastUpdatedPrefix": "La data de:"
+    },
+    "thesis": {
+      "title": "De ce această piață este pregătită pentru disrupție",
+      "body": "76% dintre acești 136 de furnizori comerciali GRC/ISMS își ascund prețurile. Produsele sunt formulare, șabloane și liste de verificare deasupra unei baze de date. Costul marginal al unui client în plus este aproape de zero. Prețul nu este. Iată dovezile.",
+      "points": [
+        {
+          "title": "Contracte anuale cu cinci cifre pentru un formular",
+          "body": "Vanta, Drata, Secureframe, OneTrust, MetricStream, IBM OpenPages, ServiceNow GRC, Archer, Diligent. Fiecare suită GRC pentru întreprinderi ascunde prețul și percepe peste 30.000 €/an pentru un instrument de flux de lucru cu șabloane."
+        },
+        {
+          "title": "Furnizorii din estul UE sunt de 10 ori mai ieftini și transparenți",
+          "body": "Copla (LT) vinde NIS2 cu 3.500 €/an, ca un SKU dedicat. NIS2 Manager (CZ) la aproximativ 980 €/lună. Conformio (HR) la 145 €/lună. Aceeași categorie de produs, o decizie de preț diferită."
+        },
+        {
+          "title": "Concurența OSS crește din Germania și Franța",
+          "body": "ISMS Builder (DE, AGPL), CISO Assistant (FR, AGPLv3, peste 130 de cadre), Little-ISMS-Helper (DACH), Deming (FR). Toate gratuite și self-hosted, toate cu NIS2 explicit."
+        },
+        {
+          "title": "Consolidarea pieței se accelerează",
+          "body": "AuditBoard → Optro. CONTECHNET → i-doit. DocSetMinder → Allgeier. 3rdRisk → Diligent. RISMA + Wired Relations + ComplyCloud → Cerivo. StandardFusion → Wolters Kluwer. Galvanize → Diligent. Tugboat → OneTrust. Archer → Cinven."
+        }
+      ]
+    },
+    "filters": {
+      "searchPlaceholder": "Căutați furnizor…",
+      "tierLabel": "Model de preț",
+      "tierAll": "Toate",
+      "tierTransparent": "Transparent",
+      "tierPartial": "Parțial",
+      "tierGated": "Sesiune demo",
+      "tierUnverifiable": "Neverificabil",
+      "countryLabel": "Țară",
+      "countryAll": "Toate țările",
+      "categoryLabel": "Categorie",
+      "categoryAll": "Toate categoriile",
+      "categoryIsms": "ISMS",
+      "categoryGrc": "GRC",
+      "categoryTprm": "Risc furnizori",
+      "categoryConsultancy": "Consultanță + SaaS",
+      "categoryAudit": "Audit",
+      "categoryRatings": "Ratinguri cyber",
+      "categoryTemplate": "Magazin de șabloane",
+      "categoryAiGrc": "GRC cu AI",
+      "categoryEndpoint": "Endpoint",
+      "categoryVuln": "Vulnerabilități",
+      "categoryCspm": "Securitate cloud",
+      "categoryIam": "IAM/Insider",
+      "categoryTraining": "Conștientizare",
+      "categoryAsset": "Gestionare active",
+      "categoryReporting": "Raportare",
+      "categoryComms": "Comunicare securizată",
+      "nis2OnlyLabel": "Doar furnizori NIS2",
+      "freeTierLabel": "Are opțiune gratuită",
+      "ossLabel": "Doar open source",
+      "resetButton": "Resetați filtrele"
+    },
+    "table": {
+      "name": "Furnizor",
+      "country": "Țară",
+      "category": "Categorie",
+      "tier": "Preț",
+      "entryPrice": "Intrare",
+      "nis2": "NIS2",
+      "freeTier": "Gratuit",
+      "source": "Sursă",
+      "noResults": "Niciun furnizor găsit. Resetați filtrele.",
+      "tierBadgeTransparent": "Transparent",
+      "tierBadgePartial": "Parțial",
+      "tierBadgeGated": "Sesiune demo",
+      "tierBadgeUnverifiable": "Neverificabil",
+      "nis2Yes": "Da",
+      "nis2No": "Nu",
+      "freeTierNone": "·",
+      "freeTierTrial": "Perioadă de probă",
+      "freeTierFreemium": "Gratuit",
+      "freeTierOss": "OSS",
+      "viewVendorPricing": "Deschideți pagina de prețuri",
+      "lastVerified": "Verificat",
+      "dataExport": "Export de date",
+      "dataExportFullOpen": "Complet deschis",
+      "dataExportPartial": "Parțial",
+      "dataExportReportOnly": "Doar rapoarte",
+      "dataExportNone": "Nimic documentat",
+      "dataExportUnknown": "·"
+    },
+    "methodology": {
+      "title": "Metodologie",
+      "verified": "Verificat la",
+      "rules": [
+        "Am vizitat manual fiecare pagină de prețuri.",
+        "Prețurile sunt citate verbatim de pe site-ul furnizorului.",
+        "Fără extrapolare din G2, Capterra, bloguri terțe sau LinkedIn.",
+        "Acolo unde prețurile sunt ascunse în spatele unui formular demo: „Necesită sesiune demo”.",
+        "Acolo unde prețurile sunt citate doar ca „de la X €”: „Transparență parțială”.",
+        "Reauditare trimestrială. Furnizorii pot trimite corecturi."
+      ],
+      "correctionsTitle": "Trimiteți o corectură",
+      "correctionsBody": "Datele noastre despre produsul dumneavoastră sunt greșite? Scrieți la simon@nisd2.eu cu adresa URL a paginii de prețuri. Actualizăm în 48 de ore și păstrăm un registru al modificărilor."
+    },
+    "cta": {
+      "title": "Gratuit + Open Source + fără lock-in",
+      "body": "Nu vindem conformitate NIS2. O facem accesibilă. Gratuit, open source, fără echipă de vânzări care să vă sune.",
+      "button": "Lansați platforma"
+    }
+  }
+}

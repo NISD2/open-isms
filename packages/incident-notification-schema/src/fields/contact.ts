@@ -12,6 +12,9 @@ export const contactFields: ReadonlyArray<IncidentField> = [
       it: "Nome del segnalante",
       es: "Nombre del notificante",
       pl: "Imię i nazwisko zgłaszającego",
+      cs: "Jméno ohlašovatele",
+      pt: "Nome do declarante",
+      ro: "Numele declarantului",
     },
     description: {
       en: "Name of the natural person submitting the notification on behalf of the entity. Required by all national portals so the CSIRT can follow up.",
@@ -20,6 +23,9 @@ export const contactFields: ReadonlyArray<IncidentField> = [
       it: "Nome della persona fisica che presenta la notifica per conto del soggetto. Richiesto da tutti i portali nazionali affinché il CSIRT possa effettuare il seguito.",
       es: "Nombre de la persona física que presenta la notificación en nombre de la entidad. Exigido por todos los portales nacionales para que el CSIRT pueda dar seguimiento.",
       pl: "Imię i nazwisko osoby fizycznej składającej zgłoszenie w imieniu podmiotu. Wymagane przez wszystkie portale krajowe, aby CSIRT mógł podjąć dalsze działania.",
+      cs: "Jméno fyzické osoby, která podává oznámení jménem subjektu. Vyžadováno všemi vnitrostátními portály, aby CSIRT mohl provést návazná šetření.",
+      pt: "Nome da pessoa singular que apresenta a notificação em nome da entidade. Exigido por todos os portais nacionais para que o CSIRT possa efetuar o acompanhamento.",
+      ro: "Numele persoanei fizice care transmite notificarea în numele entității. Solicitat de toate portalurile naționale pentru ca CSIRT să poată asigura monitorizarea ulterioară.",
     },
     requiredIn: [
       REPORT_TYPE.EARLY_WARNING,
@@ -58,6 +64,9 @@ export const contactFields: ReadonlyArray<IncidentField> = [
       it: "E-mail del segnalante",
       es: "Correo electrónico del notificante",
       pl: "Adres e-mail zgłaszającego",
+      cs: "E-mail ohlašovatele",
+      pt: "E-mail do declarante",
+      ro: "E-mailul declarantului",
     },
     description: {
       en: "Email address the CSIRT can use to reach the reporter for follow-up questions, intermediate-report requests, and feedback delivery under NIS 2 Art. 23(5).",
@@ -66,6 +75,9 @@ export const contactFields: ReadonlyArray<IncidentField> = [
       it: "Indirizzo e-mail che il CSIRT può utilizzare per contattare il segnalante per domande di seguito, richieste di relazione intermedia e trasmissione del riscontro ai sensi dell'art. 23(5) NIS2.",
       es: "Dirección de correo electrónico que el CSIRT puede utilizar para contactar al notificante para preguntas de seguimiento, solicitudes de informe intermedio y entrega de comentarios conforme al art. 23(5) NIS2.",
       pl: "Adres e-mail, którego CSIRT może użyć do skontaktowania się ze zgłaszającym w sprawie pytań uzupełniających, wniosków o sprawozdanie okresowe oraz przekazania informacji zwrotnej na podstawie art. 23(5) NIS2.",
+      cs: "E-mailová adresa, kterou může CSIRT použít ke kontaktování ohlašovatele kvůli návazným dotazům, žádostem o průběžnou zprávu a doručení zpětné vazby podle čl. 23 odst. 5 NIS 2.",
+      pt: "Endereço de correio eletrónico que o CSIRT pode utilizar para contactar o declarante para questões de acompanhamento, pedidos de relatório intercalar e transmissão do retorno de informação nos termos do art. 23.º, n.º 5, da NIS 2.",
+      ro: "Adresa de e-mail pe care CSIRT o poate utiliza pentru a contacta declarantul în vederea întrebărilor de monitorizare, a solicitărilor de raport intermediar și a transmiterii feedbackului în temeiul art. 23 alin. (5) din NIS 2.",
     },
     requiredIn: [
       REPORT_TYPE.EARLY_WARNING,
@@ -104,6 +116,9 @@ export const contactFields: ReadonlyArray<IncidentField> = [
       it: "Telefono del segnalante",
       es: "Teléfono del notificante",
       pl: "Telefon zgłaszającego",
+      cs: "Telefon ohlašovatele",
+      pt: "Telefone do declarante",
+      ro: "Telefonul declarantului",
     },
     description: {
       en: "Phone number for urgent CSIRT contact, especially during the early-warning window when email may be slow.",
@@ -112,6 +127,9 @@ export const contactFields: ReadonlyArray<IncidentField> = [
       it: "Numero di telefono per un contatto urgente con il CSIRT, in particolare durante la finestra di preallerta in cui l'e-mail potrebbe essere lenta.",
       es: "Número de teléfono para el contacto urgente con el CSIRT, especialmente durante la ventana de alerta temprana, cuando el correo electrónico puede ser lento.",
       pl: "Numer telefonu do pilnego kontaktu z CSIRT, w szczególności w oknie wczesnego ostrzegania, gdy poczta e-mail może działać wolno.",
+      cs: "Telefonní číslo pro naléhavý kontakt s CSIRT, zejména během okna včasného varování, kdy může být e-mail pomalý.",
+      pt: "Número de telefone para contacto urgente com o CSIRT, em especial durante a janela de alerta precoce, quando o correio eletrónico pode ser lento.",
+      ro: "Numărul de telefon pentru contactul urgent cu CSIRT, în special în fereastra de avertizare timpurie, când e-mailul poate fi lent.",
     },
     requiredIn: [],
     optionalIn: [
@@ -147,6 +165,9 @@ export const contactFields: ReadonlyArray<IncidentField> = [
       it: "Riferimento interno del caso",
       es: "Referencia interna del caso",
       pl: "Wewnętrzny numer referencyjny sprawy",
+      cs: "Interní spisová značka případu",
+      pt: "Referência interna do caso",
+      ro: "Referința internă a cazului",
     },
     description: {
       en: "The entity's own internal incident reference number. Lets the CSIRT correlate multiple submissions about the same incident.",
@@ -155,6 +176,9 @@ export const contactFields: ReadonlyArray<IncidentField> = [
       it: "Numero di riferimento interno dell'incidente proprio del soggetto. Consente al CSIRT di correlare più invii relativi al medesimo incidente.",
       es: "Número de referencia interno del incidente propio de la entidad. Permite al CSIRT correlacionar varias presentaciones sobre el mismo incidente.",
       pl: "Wewnętrzny numer referencyjny incydentu należący do podmiotu. Umożliwia CSIRT skorelowanie wielu zgłoszeń dotyczących tego samego incydentu.",
+      cs: "Vlastní interní referenční číslo incidentu subjektu. Umožňuje CSIRT propojit více podání týkajících se téhož incidentu.",
+      pt: "Número de referência interno do incidente próprio da entidade. Permite ao CSIRT correlacionar várias submissões relativas ao mesmo incidente.",
+      ro: "Numărul de referință intern al incidentului propriu entității. Permite CSIRT să coreleze mai multe transmiteri referitoare la același incident.",
     },
     requiredIn: [],
     optionalIn: [

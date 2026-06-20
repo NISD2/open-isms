@@ -1,0 +1,77 @@
+{
+  "funnel": {
+    "meta": {
+      "title": "Zaveďte NIS2 s vedením: týdně, 30 minut",
+      "description": "Znáte kroky NIS2 a raději byste je neabsolvovali sami. Požadavky s vámi procházíme jednou týdně. Platforma je zdarma a open source, vedení je volitelné a měsíčně vypovězitelné."
+    },
+    "hero": {
+      "headline": "Provedeme vás NIS2. Bod po bodu.",
+      "subhead": "Víte, že se na vás NIS2 vztahuje, a raději byste zavedení nezvládali sami. Sedneme si s vámi na 30 minut jednou týdně a procházíme požadavky po pořádku. Platforma zůstává zdarma a open source, vedení je volitelné.",
+      "roadmapLink": "Znáte už kroky a chcete začít sami? Tady je plán postupu.",
+      "cta": "Rezervujte si bezplatný úvodní hovor",
+      "trust": "Vyrobeno v Kolíně nad Rýnem. Hostováno v Německu."
+    },
+    "process": {
+      "heading": "Jak vedení probíhá",
+      "step1Title": "Týdenní hovor, 30 minut",
+      "step1Body": "Jeden pevný termín týdně. Žádný projektový měsíc, žádné nekonečné slaďovací smyčky. Vezmeme další položku z vašeho plánu postupu a společně ji dotáhneme do konce.",
+      "step2Title": "Vedeme my, váš vedoucí IT zavádí",
+      "step2Body": "Vaše osobní časová náročnost jako jednatele činí přibližně tři hodiny ročně, poté je schválení a dohled podle článku 20 NIS 2 (v Německu § 38 BSIG) hotov. Čtyři povinnosti podle článku 21 jsou pevně dané, zbytek se škáluje podle vašeho rizika a je přiměřený. Provozní část, inventář aktiv, registr rizik, dodavatelé a deset opatření, řeší váš tým.",
+      "step3Title": "Vše zůstává vám. Žádný lock-in.",
+      "step3Body": "Vaše data, auditní stopa a důkazy patří vám. Platforma je open source. Pokud chcete pokračovat bez nás, vše vyexportujte a odneste si to s sebou."
+    },
+    "comparison": {
+      "heading": "K čemu která možnost slouží",
+      "intro": "Nikoho neshazujeme. Každá možnost má své místo. Tady je upřímné zhodnocení, abyste věděli, zda se k vám hodíme.",
+      "consultantsTitle": "Poradci",
+      "consultants": "Poradce udělá práci za vás a přebírá skutečnou odpovědnost. Vyplatí se, pokud máte rozpočet a nikoho ve firmě, kdo by NIS2 dlouhodobě převzal. Znalosti ovšem odcházejí spolu s poradcem.",
+      "fullServiceTitle": "Plně servisní GRC platforma",
+      "fullService": "Plně servisní GRC platformy pokrývají mnoho rámců najednou a jsou stavěné pro velké organizace s vlastním GRC týmem. Silné, pokud je to přesně to, co potřebujete, a rozpočet na to máte.",
+      "intlPlatformsTitle": "Mezinárodní platforma",
+      "intlPlatforms": "Mezinárodní platformy jsou vyladěné a rychlé pro běžné certifikace. Silné, pokud certifikujete mezinárodně a vyhovuje vám angličtina jako primární jazyk.",
+      "nisd2Title": "nisd2.eu",
+      "nisd2": "nisd2.eu je zdarma a open source, hostováno v EU. Jeden standard, zpracovaný do hloubky. Vše exportovatelné, žádný lock-in. Co neděláme: žádné plně servisní vodění za ruku, žádná telefonická podpora, která vás krok za krokem provede. Potřebujete někoho ve firmě, kdo NIS2 převezme. Přesně pro toho je tohle stavěné."
+    },
+    "features": {
+      "heading": "Co s vámi procházíme",
+      "obligations": {
+        "title": "Povinnosti z článku 21 NIS2",
+        "description": "Každá povinnost rozdělená do strukturovaných formulářů se srozumitelnými pokyny. Žádné znalosti compliance nejsou potřeba: vy odpovídáte na otázky, my zajistíme mapování."
+      },
+      "evidence": {
+        "title": "Důkazy a auditní stopa",
+        "description": "Dokumenty, schválení a auditní stopa odolná proti manipulaci vznikají samy z vaší práce. Vše opatřené časovým razítkem, připravené na audit."
+      },
+      "deadlines": {
+        "title": "Lhůty a hlášení",
+        "description": "Registrace, kaskáda hlášení incidentů podle článku 23 (24 hodin, 72 hodin, jeden měsíc) a obnovování školení. Každá lhůta hlídaná, nic neuteče."
+      },
+      "bsiRegistration": {
+        "title": "Registrace u úřadu",
+        "description": "Vedená příprava registrace podle článku 27, se všemi požadovanými dokumenty a kontrolním seznamem před odesláním."
+      }
+    },
+    "faq": {
+      "heading": "Časté otázky",
+      "q1": "Je platforma opravdu zdarma?",
+      "a1": "Ano. Platforma je zdarma a open source. Vyděláváme na vedeném zavedení a na školeních, ne na softwaru a ne na vašich datech. Kód si můžete prohlédnout na github.com/NISD2.",
+      "q2": "Kolik vedení stojí?",
+      "a2": "Rozsah si stanovíme v úvodním hovoru, měsíčně vypovězitelné, žádný lock-in. Nejprve se společně podíváme, zda vedení vůbec potřebujete, nebo zda vám samy o sobě stačí bezplatná platforma a plán postupu.",
+      "q3": "Už máme ISO 27001. Potřebujeme tohle ještě?",
+      "a3": "ISO 27001 pokrývá mnoho technických a organizačních opatření, která vyžaduje i NIS2. NIS2 přidává povinnosti, které samotný ISMS nepokrývá: registraci u národního úřadu podle článku 27, kaskádu hlášení incidentů podle článku 23 a prokazatelné školení managementu podle článku 20 NIS 2 (v Německu § 38 BSIG). Přesně tyto mezery s vámi procházíme.",
+      "q4": "Jak dlouho zavedení trvá?",
+      "a4": "Vaše osobní časová náročnost jako jednatele činí přibližně tři hodiny ročně: jedno školení, několik podpisů. Provozní část průběžně řeší váš vedoucí IT. Jak rychle bude základní úroveň zavedena, závisí na tom, jak dobře už máte udržovaný inventář aktiv. Plán postupu ukazuje reálnou náročnost u každého kroku.",
+      "q5": "Kde jsou naše data uložena?",
+      "a5": "V Německu. Šifrovaná při přenosu i v klidu, s přístupem podle rolí a úplnou auditní stopou. Podrobnosti najdete v Trust Center.",
+      "q6": "Co se stane, když vedení ukončíme?",
+      "a6": "Platformu používáte dál zdarma, nebo svá data vyexportujete a odejdete. Vedení je měsíčně vypovězitelné, software je open source. Žádný lock-in."
+    },
+    "sources": {
+      "body": "Zdroje a transparentnost: směrnice NIS2 (EU) 2022/2555, BSIG, CIR 2024/2690, ENISA Technical Implementation Guidance. Open source, hostováno v Německu, v souladu s GDPR. Tato stránka je strukturované vedení a není právní radou. Provozní zavedení zajišťuje váš vedoucí IT nebo CISO."
+    },
+    "finalCta": {
+      "headline": "Rezervujte si bezplatný úvodní hovor",
+      "email": "Raději napíšete přímo? contact@nisd2.eu"
+    }
+  }
+}

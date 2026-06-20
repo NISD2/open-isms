@@ -1,0 +1,35 @@
+{
+  "audit-readiness": {
+    "title": "Pregătire pentru audit",
+    "subtitle": "Evaluați-vă pregătirea pentru auditul BSIG/NIS2 cu analiză AI",
+    "startEvaluation": "Începeți evaluarea",
+    "evaluating": "Se evaluează toate secțiunile...",
+    "reEvaluate": "Reevaluați",
+    "reEvaluating": "Se reevaluează...",
+    "overallScore": "Scor general",
+    "verdict": "Verdict",
+    "pass": "Pregătit pentru audit",
+    "partial": "Necesită îmbunătățiri",
+    "fail": "Lacune majore",
+    "sectionsPassing": "{count} conforme",
+    "sectionsPartial": "{count} parțiale",
+    "sectionsFailing": "{count} neconforme",
+    "strengths": "Puncte forte",
+    "structureGaps": "Lacune de structură",
+    "dataGaps": "Lacune de date",
+    "recommendations": "Recomandări",
+    "showDetails": "Afișați detaliile",
+    "hideDetails": "Ascundeți detaliile",
+    "severity": {
+      "critical": "Critic",
+      "important": "Important",
+      "nice-to-have": "Util de avut"
+    },
+    "fieldKey": "Câmp",
+    "requirement": "Cerință",
+    "issue": "Problemă",
+    "recommendation": "Recomandare",
+    "noGaps": "Nu au fost identificate lacune",
+    "disclaimer": "Evaluare generată de AI. Nu înlocuiește un audit formal."
+  }
+}

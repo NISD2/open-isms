@@ -15,6 +15,18 @@
     "pl": {
       "title": "Zakres stosowania",
       "question": "Czy w ogóle jestem objęty zakresem ?"
+    },
+    "cs": {
+      "title": "Oblast působnosti",
+      "question": "Vztahuje se to vůbec na mě?"
+    },
+    "pt": {
+      "title": "Âmbito de aplicação",
+      "question": "Estou simplesmente abrangido?"
+    },
+    "ro": {
+      "title": "Domeniul de aplicare",
+      "question": "Intru pur și simplu sub incidență?"
     }
   },
   "entry:nis2-einrichtungen": {
@@ -33,6 +45,18 @@
     "pl": {
       "title": "Podmioty kluczowe i ważne",
       "summary": "Kto należy do której kategorii ? Załącznik I a Załącznik II, progi wielkości, przypadki graniczne."
+    },
+    "cs": {
+      "title": "Klíčové a důležité subjekty",
+      "summary": "Kdo spadá do které kategorie? Příloha I versus příloha II, velikostní prahy, hraniční případy."
+    },
+    "pt": {
+      "title": "Entidades essenciais e importantes",
+      "summary": "Quem se enquadra em cada categoria? Anexo I versus Anexo II, limiares de dimensão, casos-limite."
+    },
+    "ro": {
+      "title": "Entități esențiale și importante",
+      "summary": "Cine intră în fiecare categorie? Anexa I față de Anexa II, praguri de mărime, cazuri-limită."
     }
   },
   "entry:nis2-registrierung": {
@@ -51,6 +75,18 @@
     "pl": {
       "title": "Rejestracja w BSI",
       "summary": "Co jest potrzebne do samodzielnej rejestracji w BSI i jak działa portal."
+    },
+    "cs": {
+      "title": "Registrace u BSI",
+      "summary": "Co potřebujete k vlastní registraci u BSI a jak funguje portál."
+    },
+    "pt": {
+      "title": "Registo junto do BSI",
+      "summary": "O que precisa para o autorregisto junto do BSI e como funciona o portal."
+    },
+    "ro": {
+      "title": "Înregistrarea la BSI",
+      "summary": "Ce vă trebuie pentru autoînregistrarea la BSI și cum funcționează portalul."
     }
   },
   "entry:nis2-mehrere-eu-laender": {
@@ -69,6 +105,18 @@
     "pl": {
       "title": "NIS 2 w wielu krajach UE",
       "summary": "Grupa z oddziałami w wielu państwach członkowskich : gdzie się zarejestrować, kto sprawuje nadzór ?"
+    },
+    "cs": {
+      "title": "NIS 2 ve více zemích EU",
+      "summary": "Skupina s dceřinými společnostmi ve více členských státech: kde se registrovat, kdo vykonává dohled?"
+    },
+    "pt": {
+      "title": "NIS 2 em vários países da UE",
+      "summary": "Grupo com filiais em vários Estados-Membros: onde registar-se, quem exerce a supervisão?"
+    },
+    "ro": {
+      "title": "NIS 2 în mai multe țări din UE",
+      "summary": "Grup cu filiale în mai multe state membre: unde se înregistrează, cine exercită supravegherea?"
     }
   },
   "entry:konzern-it-msp": {
@@ -87,6 +135,18 @@
     "pl": {
       "title": "IT grupy jako wewnętrzny MSP w rozumieniu NIS 2",
       "summary": "Gdy centralny dział IT obsługuje spółki zależne grupy, czy staje się on managed service provider w rozumieniu załącznika I do NIS 2 ?"
+    },
+    "cs": {
+      "title": "IT skupiny jako interní MSP ve smyslu NIS 2",
+      "summary": "Když centrální IT oddělení obsluhuje dceřiné společnosti skupiny, stává se tím managed service provider ve smyslu přílohy I NIS 2?"
+    },
+    "pt": {
+      "title": "A TI do grupo como MSP interno na aceção da NIS 2",
+      "summary": "Quando o departamento de TI central presta serviço às filiais do grupo, isso torna-o um managed service provider na aceção do anexo I da NIS 2?"
+    },
+    "ro": {
+      "title": "IT-ul grupului ca MSP intern în sensul NIS 2",
+      "summary": "Când departamentul IT central deservește filialele grupului, devine acesta un managed service provider în sensul anexei I la NIS 2?"
     }
   },
   "entry:zulieferer-keine-einrichtung": {
@@ -105,6 +165,18 @@
     "pl": {
       "title": "Dostawcy nie stają się podmiotami NIS 2 wyłącznie z tytułu zaopatrywania takiego podmiotu",
       "summary": "Częsty błąd interpretacyjny : « zaopatrujemy podmiot NIS 2, więc jesteśmy objęci zakresem. » To, co faktycznie stanowi artykuł 2 NIS 2."
+    },
+    "cs": {
+      "title": "Dodavatelé se nestávají subjekty NIS 2 jen proto, že zásobují subjekt NIS 2",
+      "summary": "Častá chyba ve výkladu: «zásobujeme subjekt NIS 2, tedy spadáme do oblasti působnosti.» Co ve skutečnosti stanoví článek 2 NIS 2."
+    },
+    "pt": {
+      "title": "Os fornecedores não se tornam entidades NIS 2 pelo simples facto de abastecerem uma entidade NIS 2",
+      "summary": "Erro de interpretação frequente: «abastecemos uma entidade NIS 2, logo estamos abrangidos.» O que o artigo 2.º da NIS 2 efetivamente diz."
+    },
+    "ro": {
+      "title": "Furnizorii nu devin entități NIS 2 doar pentru că aprovizionează o entitate NIS 2",
+      "summary": "Eroare frecventă de interpretare: «aprovizionăm o entitate NIS 2, deci intrăm sub incidență.» Ce prevede în realitate articolul 2 din NIS 2."
     }
   },
   "entry:tochtergesellschaft-holding-nis2": {
@@ -123,6 +195,18 @@
     "pl": {
       "title": "Spółki zależne i holdingi w rozumieniu NIS 2",
       "summary": "Jeśli spółka dominująca jest objęta zakresem, czy spółka zależna jest objęta nim automatycznie ? Nie. Oto jednak przypadki, w których zakres rzeczywiście się przenosi."
+    },
+    "cs": {
+      "title": "Dceřiné společnosti a holdingy z hlediska NIS 2",
+      "summary": "Pokud spadá do oblasti působnosti mateřská společnost, spadá automaticky i dceřiná? Ne. Zde jsou však případy, kdy se oblast působnosti skutečně přenáší."
+    },
+    "pt": {
+      "title": "Filiais e sociedades holding à luz da NIS 2",
+      "summary": "Se a sociedade-mãe está abrangida, a filial está automaticamente também? Não. Mas eis os casos em que o âmbito de aplicação se transmite de facto."
+    },
+    "ro": {
+      "title": "Filiale și societăți holding în raport cu NIS 2",
+      "summary": "Dacă societatea-mamă intră sub incidență, intră automat și filiala? Nu. Iată însă cazurile în care domeniul de aplicare chiar se transmite."
     }
   },
   "entry:bin-ich-krankenhaus-nis2": {
@@ -141,6 +225,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako szpital ?",
       "summary": "Załącznik I, sektor 5 : kiedy szpital, klinika lub ośrodek opieki podlega NIS 2. Progi, przepisy szczególne, nakładanie się z KRITIS."
+    },
+    "cs": {
+      "title": "Spadám jako nemocnice do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 5: kdy nemocnice, klinika nebo pečovatelské zařízení podléhá NIS 2. Prahy, zvláštní pravidla, překryv s KRITIS."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto hospital?",
+      "summary": "Anexo I, setor 5: quando um hospital, clínica ou centro de cuidados fica sujeito à NIS 2. Limiares, regras especiais, sobreposição com KRITIS."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca spital?",
+      "summary": "Anexa I, sectorul 5: când un spital, o clinică sau un centru de îngrijire intră sub incidența NIS 2. Praguri, reguli speciale, suprapunere cu KRITIS."
     }
   },
   "entry:bin-ich-stadtwerk-nis2": {
@@ -159,6 +255,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako Stadtwerk ?",
       "summary": "Energia, woda pitna, ścieki, telekomunikacja, często skupione w jednym Stadtwerk. Które sektory załącznika I mają zastosowanie i kiedy wkracza KRITIS."
+    },
+    "cs": {
+      "title": "Spadám jako Stadtwerk do oblasti působnosti NIS 2?",
+      "summary": "Energie, pitná voda, odpadní vody, telekomunikace, často sloučené v jednom Stadtwerk. Které sektory přílohy I se uplatní a kdy vstupuje do hry KRITIS."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto Stadtwerk?",
+      "summary": "Energia, água potável, águas residuais, telecomunicações, muitas vezes reunidas num mesmo Stadtwerk. Que setores do anexo I se aplicam e quando entra em jogo o KRITIS."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca Stadtwerk?",
+      "summary": "Energie, apă potabilă, ape uzate, telecomunicații, adesea reunite într-un singur Stadtwerk. Care sectoare din anexa I se aplică și când intervine KRITIS."
     }
   },
   "entry:bin-ich-bank-nis2": {
@@ -177,6 +285,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako bank ?",
       "summary": "Załącznik I, sektor 3 wymienia instytucje kredytowe. Jednak DORA ma pierwszeństwo przed artykułami 21 i 23 w odniesieniu do podmiotów finansowych. To, co pozostaje pod NIS 2."
+    },
+    "cs": {
+      "title": "Spadám jako banka do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 3 uvádí úvěrové instituce. DORA má však přednost před články 21 a 23 pro finanční subjekty. Co zůstává pod NIS 2."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto banco?",
+      "summary": "O anexo I, setor 3 menciona as instituições de crédito. Mas a DORA prevalece sobre os artigos 21.º e 23.º para as entidades financeiras. O que permanece sob a NIS 2."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca bancă?",
+      "summary": "Anexa I, sectorul 3 menționează instituțiile de credit. Însă DORA prevalează asupra articolelor 21 și 23 pentru entitățile financiare. Ce rămâne sub NIS 2."
     }
   },
   "entry:bin-ich-telekom-anbieter-nis2": {
@@ -195,6 +315,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako dostawca usług telekomunikacyjnych ?",
       "summary": "Załącznik I, sektor 8 (infrastruktura cyfrowa) obejmuje publiczne sieci i usługi łączności elektronicznej. Niektórzy dostawcy są objęci zakresem niezależnie od wielkości."
+    },
+    "cs": {
+      "title": "Spadám jako poskytovatel telekomunikací do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 8 (digitální infrastruktura) zahrnuje veřejně dostupné sítě a služby elektronických komunikací. Někteří poskytovatelé spadají do oblasti působnosti bez ohledu na velikost."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto fornecedor de telecomunicações?",
+      "summary": "O anexo I, setor 8 (infraestrutura digital) abrange as redes e os serviços de comunicações eletrónicas acessíveis ao público. Alguns fornecedores estão abrangidos independentemente da sua dimensão."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca furnizor de telecomunicații?",
+      "summary": "Anexa I, sectorul 8 (infrastructură digitală) cuprinde rețelele și serviciile de comunicații electronice accesibile publicului. Unii furnizori intră sub incidență indiferent de mărime."
     }
   },
   "entry:wer-ist-betroffen-vollstaendiger-test": {
@@ -213,6 +345,18 @@
     "pl": {
       "title": "Kto jest objęty NIS 2 ? Pełny test",
       "summary": "Artykuł 2 NIS 2 : sektor (załącznik I lub II) plus wielkość (próg MŚP) plus wyłączenia niezależne od wielkości plus przypadki szczególne. Pełny test zakresu stosowania."
+    },
+    "cs": {
+      "title": "Koho se NIS 2 týká? Úplný test",
+      "summary": "Článek 2 NIS 2: sektor (příloha I nebo II) plus velikost (práh MSP) plus výjimky nezávislé na velikosti plus zvláštní případy. Úplný test oblasti působnosti."
+    },
+    "pt": {
+      "title": "Quem está abrangido pela NIS 2? O teste completo",
+      "summary": "Artigo 2.º da NIS 2: setor (anexo I ou II) mais dimensão (limiar de PME) mais exceções independentes da dimensão mais casos especiais. O teste completo do âmbito de aplicação."
+    },
+    "ro": {
+      "title": "Cine intră sub incidența NIS 2? Testul complet",
+      "summary": "Articolul 2 din NIS 2: sector (anexa I sau II) plus mărime (pragul IMM) plus derogări independente de mărime plus cazuri speciale. Testul complet al domeniului de aplicare."
     }
   },
   "entry:bin-ich-energieversorger-nis2": {
@@ -231,6 +375,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako dostawca energii ?",
       "summary": "Załącznik I, sektor 1 : energia elektryczna, gaz, ciepło, ropa, wodór. Kiedy wytwórca, dostawca lub operator sieci podlega NIS 2. Test wielkości plus wyłączenie związane z EnWG."
+    },
+    "cs": {
+      "title": "Spadám jako dodavatel energie do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 1: elektřina, plyn, teplo, ropa, vodík. Kdy výrobce, dodavatel nebo provozovatel sítě podléhá NIS 2. Velikostní test plus vyloučení spojené s EnWG."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto fornecedor de energia?",
+      "summary": "Anexo I, setor 1: eletricidade, gás, calor, petróleo, hidrogénio. Quando um produtor, fornecedor ou operador de rede fica sujeito à NIS 2. Teste de dimensão mais exclusão ligada à EnWG."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca furnizor de energie?",
+      "summary": "Anexa I, sectorul 1: electricitate, gaz, căldură, petrol, hidrogen. Când un producător, furnizor sau operator de rețea intră sub incidența NIS 2. Test de mărime plus excludere legată de EnWG."
     }
   },
   "entry:bin-ich-trinkwasserversorger-nis2": {
@@ -249,6 +405,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako dostawca wody pitnej ?",
       "summary": "Załącznik I, sektor 6 : kto dostarcza lub dystrybuuje wodę pitną. Test wielkości, próg KRITIS (22 miliony m³/rok), konstelacja Stadtwerk."
+    },
+    "cs": {
+      "title": "Spadám jako dodavatel pitné vody do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 6: kdo dodává nebo distribuuje pitnou vodu. Velikostní test, práh KRITIS (22 milionů m³/rok), konstelace Stadtwerk."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto fornecedor de água potável?",
+      "summary": "Anexo I, setor 6: quem fornece ou distribui água potável. Teste de dimensão, limiar KRITIS (22 milhões de m³/ano), constelação Stadtwerk."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca furnizor de apă potabilă?",
+      "summary": "Anexa I, sectorul 6: cine furnizează sau distribuie apă potabilă. Test de mărime, prag KRITIS (22 de milioane de m³/an), configurație Stadtwerk."
     }
   },
   "entry:bin-ich-abwasserentsorger-nis2": {
@@ -267,6 +435,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako podmiot zajmujący się ściekami ?",
       "summary": "Załącznik I, sektor 7 : przedsiębiorstwa zbierające, usuwające lub oczyszczające ścieki komunalne, bytowe lub przemysłowe. Test wielkości, próg KRITIS (500 000 równoważnych mieszkańców)."
+    },
+    "cs": {
+      "title": "Spadám jako provozovatel odpadních vod do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 7: podniky, které shromažďují, odstraňují nebo čistí městské, domovní nebo průmyslové odpadní vody. Velikostní test, práh KRITIS (500 000 ekvivalentních obyvatel)."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto operador de águas residuais?",
+      "summary": "Anexo I, setor 7: empresas que recolhem, eliminam ou tratam águas residuais urbanas, domésticas ou industriais. Teste de dimensão, limiar KRITIS (500 000 habitantes equivalentes)."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca operator de ape uzate?",
+      "summary": "Anexa I, sectorul 7: întreprinderi care colectează, elimină sau tratează ape uzate urbane, menajere sau industriale. Test de mărime, prag KRITIS (500 000 de locuitori echivalenți)."
     }
   },
   "entry:bin-ich-msp-managed-service-provider": {
@@ -285,6 +465,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako Managed Service Provider ?",
       "summary": "Załącznik I, sektor 9 (zarządzanie usługami ICT B2B) : kiedy MSP podlega NIS 2, definicja z artykułu 6(40), test wielkości."
+    },
+    "cs": {
+      "title": "Spadám jako Managed Service Provider do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 9 (správa služeb ICT B2B): kdy MSP podléhá NIS 2, definice podle čl. 6 odst. 40, velikostní test."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto Managed Service Provider?",
+      "summary": "Anexo I, setor 9 (gestão de serviços TIC B2B): quando um MSP fica sujeito à NIS 2, definição do artigo 6.º, ponto 40, teste de dimensão."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca Managed Service Provider?",
+      "summary": "Anexa I, sectorul 9 (gestionarea serviciilor TIC B2B): când un MSP intră sub incidența NIS 2, definiția de la articolul 6 punctul 40, test de mărime."
     }
   },
   "entry:bin-ich-cloud-anbieter-nis2": {
@@ -303,6 +495,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako dostawca usług chmurowych ?",
       "summary": "Załącznik I, sektor 8 (infrastruktura cyfrowa) : dostawcy usług przetwarzania w chmurze. Definicja z art. 6(30), test wielkości, stosowanie CIR."
+    },
+    "cs": {
+      "title": "Spadám jako poskytovatel cloudu do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 8 (digitální infrastruktura): poskytovatelé služeb cloud computingu. Definice podle čl. 6 odst. 30, velikostní test, použitelnost CIR."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto fornecedor de nuvem?",
+      "summary": "Anexo I, setor 8 (infraestrutura digital): fornecedores de serviços de computação em nuvem. Definição do artigo 6.º, ponto 30, teste de dimensão, aplicabilidade do CIR."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca furnizor de cloud?",
+      "summary": "Anexa I, sectorul 8 (infrastructură digitală): furnizori de servicii de cloud computing. Definiția de la articolul 6 punctul 30, test de mărime, aplicabilitatea CIR."
     }
   },
   "entry:bin-ich-rechenzentrum-nis2": {
@@ -321,6 +525,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako centrum danych ?",
       "summary": "Załącznik I, sektor 8 : dostawcy usług centrum danych. Definicja z art. 6(31), test wielkości, próg KRITIS (3,5 MW)."
+    },
+    "cs": {
+      "title": "Spadám jako datové centrum do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 8: poskytovatelé služeb datových center. Definice podle čl. 6 odst. 31, velikostní test, práh KRITIS (3,5 MW)."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto centro de dados?",
+      "summary": "Anexo I, setor 8: fornecedores de serviços de centro de dados. Definição do artigo 6.º, ponto 31, teste de dimensão, limiar KRITIS (3,5 MW)."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca centru de date?",
+      "summary": "Anexa I, sectorul 8: furnizori de servicii de centre de date. Definiția de la articolul 6 punctul 31, test de mărime, prag KRITIS (3,5 MW)."
     }
   },
   "entry:bin-ich-medizinprodukte-hersteller-nis2": {
@@ -339,6 +555,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako producent wyrobów medycznych ?",
       "summary": "Załącznik I, sektor 5 (krytyczne wyroby medyczne) lub załącznik II, sektor 5 (wyroby medyczne ogółem). Nakładanie się z MDR/IVDR, test wielkości."
+    },
+    "cs": {
+      "title": "Spadám jako výrobce zdravotnických prostředků do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 5 (kritické zdravotnické prostředky) nebo příloha II, sektor 5 (zdravotnické prostředky obecně). Překryv s MDR/IVDR, velikostní test."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto fabricante de dispositivos médicos?",
+      "summary": "Anexo I, setor 5 (dispositivos médicos críticos) ou anexo II, setor 5 (dispositivos médicos em geral). Sobreposição com MDR/IVDR, teste de dimensão."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca producător de dispozitive medicale?",
+      "summary": "Anexa I, sectorul 5 (dispozitive medicale critice) sau anexa II, sectorul 5 (dispozitive medicale în general). Suprapunere cu MDR/IVDR, test de mărime."
     }
   },
   "entry:bin-ich-maschinenbauer-nis2": {
@@ -357,6 +585,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako producent maszyn ?",
       "summary": "Załącznik II, sektor 5 (produkcja) : maszyny według NACE C28. Test wielkości, konwergencja OT/IT, obowiązki dostawców."
+    },
+    "cs": {
+      "title": "Spadám jako výrobce strojů do oblasti působnosti NIS 2?",
+      "summary": "Příloha II, sektor 5 (výroba): stroje podle NACE C28. Velikostní test, konvergence OT/IT, povinnosti dodavatelů."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto fabricante de máquinas?",
+      "summary": "Anexo II, setor 5 (fabrico): máquinas segundo a NACE C28. Teste de dimensão, convergência OT/IT, obrigações dos fornecedores."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca producător de mașini?",
+      "summary": "Anexa II, sectorul 5 (fabricație): mașini conform NACE C28. Test de mărime, convergență OT/IT, obligațiile furnizorilor."
     }
   },
   "entry:nis2-hauptsitz-ausserhalb-eu": {
@@ -375,6 +615,18 @@
     "pl": {
       "title": "Czy NIS 2 ma do mnie zastosowanie, mimo że moja siedziba znajduje się poza UE ?",
       "summary": "Artykuł 26 NIS 2 : główna jednostka organizacyjna w UE, obowiązek wyznaczenia przedstawiciela dla dostawców z państw trzecich, rejestr ENISA. Kiedy firma z USA i tak podlega NIS 2."
+    },
+    "cs": {
+      "title": "Vztahuje se na mě NIS 2, i když mám sídlo mimo EU?",
+      "summary": "Článek 26 NIS 2: hlavní provozovna v EU, povinnost zástupce pro poskytovatele ze třetích zemí, registr ENISA. Kdy americká společnost přesto podléhá NIS 2."
+    },
+    "pt": {
+      "title": "A NIS 2 aplica-se-me mesmo tendo a sede fora da UE?",
+      "summary": "Artigo 26.º da NIS 2: estabelecimento principal na UE, obrigação de representante para fornecedores de países terceiros, registo da ENISA. Quando uma empresa norte-americana fica ainda assim sujeita à NIS 2."
+    },
+    "ro": {
+      "title": "Mi se aplică NIS 2 deși am sediul în afara UE?",
+      "summary": "Articolul 26 din NIS 2: sediul principal în UE, obligația de reprezentant pentru furnizorii din țări terțe, registrul ENISA. Când o societate din SUA intră totuși sub incidența NIS 2."
     }
   },
   "entry:nis2-kleinstunternehmen-ausnahme": {
@@ -393,6 +645,18 @@
     "pl": {
       "title": "Czy jako mikroprzedsiębiorstwo jestem zwolniony z NIS 2 ?",
       "summary": "Artykuł 2(1) NIS 2 oraz zalecenie 2003/361/WE : mikroprzedsiębiorstwa są domyślnie zwolnione, lecz klauzule niezależne od wielkości z artykułu 2(2) ponownie obejmują wiele z nich."
+    },
+    "cs": {
+      "title": "Jsem jako mikropodnik z NIS 2 vyňat?",
+      "summary": "Čl. 2 odst. 1 NIS 2 a doporučení 2003/361/ES: mikropodniky jsou ve výchozím stavu vyňaty, ale doložky nezávislé na velikosti podle čl. 2 odst. 2 jich mnoho znovu zahrnují."
+    },
+    "pt": {
+      "title": "Estou isento da NIS 2 enquanto microempresa?",
+      "summary": "Artigo 2.º, n.º 1 da NIS 2 e Recomendação 2003/361/CE: as microempresas estão isentas por defeito, mas as cláusulas independentes da dimensão do artigo 2.º, n.º 2 voltam a incluir muitas."
+    },
+    "ro": {
+      "title": "Sunt scutit de NIS 2 ca microîntreprindere?",
+      "summary": "Articolul 2 alineatul (1) din NIS 2 și Recomandarea 2003/361/CE: microîntreprinderile sunt scutite în mod implicit, dar clauzele independente de mărime de la articolul 2 alineatul (2) le reintroduc pe multe dintre ele."
     }
   },
   "entry:bin-ich-oeffentliche-verwaltung-nis2": {
@@ -411,6 +675,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako administracja publiczna ?",
       "summary": "Załącznik I, sektor 10 plus artykuł 2(2)(i) plus wyłączenia z artykułu 2(4)-(11) : administracja federalna, krajowa i gminna, bezpieczeństwo narodowe, sądownictwo, parlamenty, banki centralne."
+    },
+    "cs": {
+      "title": "Spadám jako veřejná správa do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 10 plus čl. 2 odst. 2 písm. i) plus vyloučení podle čl. 2 odst. 4 až 11: federální, krajská a obecní správa, národní bezpečnost, justice, parlamenty, centrální banky."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto administração pública?",
+      "summary": "Anexo I, setor 10 mais artigo 2.º, n.º 2, alínea i) mais exclusões do artigo 2.º, n.os 4 a 11: administração federal, regional e municipal, segurança nacional, justiça, parlamentos, bancos centrais."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca administrație publică?",
+      "summary": "Anexa I, sectorul 10 plus articolul 2 alineatul (2) litera (i) plus excluderile de la articolul 2 alineatele (4)-(11): administrație federală, regională și municipală, securitate națională, justiție, parlamente, bănci centrale."
     }
   },
   "entry:bin-ich-vertrauensdiensteanbieter-nis2": {
@@ -429,6 +705,18 @@
     "pl": {
       "title": "Czy jestem objęty zakresem NIS 2 jako dostawca usług zaufania ?",
       "summary": "Załącznik I, sektor 8 plus artykuł 2(2)(b) : dostawcy usług zaufania (eIDAS) są objęci zakresem niezależnie od wielkości. Nawet pięcioosobowy dostawca jest objęty."
+    },
+    "cs": {
+      "title": "Spadám jako poskytovatel služeb vytvářejících důvěru do oblasti působnosti NIS 2?",
+      "summary": "Příloha I, sektor 8 plus čl. 2 odst. 2 písm. b): poskytovatelé služeb vytvářejících důvěru (eIDAS) spadají do oblasti působnosti bez ohledu na velikost. I pětičlenný poskytovatel je zahrnut."
+    },
+    "pt": {
+      "title": "Estou abrangido pela NIS 2 enquanto prestador de serviços de confiança?",
+      "summary": "Anexo I, setor 8 mais artigo 2.º, n.º 2, alínea b): os prestadores de serviços de confiança (eIDAS) estão abrangidos independentemente da sua dimensão. Até um prestador de 5 pessoas está incluído."
+    },
+    "ro": {
+      "title": "Intru sub incidența NIS 2 ca prestator de servicii de încredere?",
+      "summary": "Anexa I, sectorul 8 plus articolul 2 alineatul (2) litera (b): prestatorii de servicii de încredere (eIDAS) intră sub incidență indiferent de mărime. Chiar și un prestator de 5 persoane este inclus."
     }
   },
   "entry:nis2-selbsteinstufung": {
@@ -447,6 +735,18 @@
     "pl": {
       "title": "Samokwalifikacja w ramach NIS 2 : milczenie BSI nie jest linią obrony",
       "summary": "Obowiązek oceny spoczywa na podmiocie. Art. 27 NIS 2 + §33 BSIG. Trzymiesięczny termin biegnie od chwili spełnienia warunków, a nie od otrzymania pisma."
+    },
+    "cs": {
+      "title": "Sebezařazení podle NIS 2: mlčení BSI není obranou",
+      "summary": "Povinnost posouzení nese subjekt. Čl. 27 NIS 2 + §33 BSIG. Tříměsíční lhůta běží od okamžiku, kdy jsou podmínky splněny, nikoli od doručení dopisu."
+    },
+    "pt": {
+      "title": "Autoclassificação ao abrigo da NIS 2: o silêncio do BSI não é uma defesa",
+      "summary": "O dever de avaliação recai sobre a entidade. Art. 27.º NIS 2 + §33 BSIG. O prazo de três meses começa quando as condições são preenchidas, não quando chega uma carta."
+    },
+    "ro": {
+      "title": "Autoclasificarea în temeiul NIS 2: tăcerea BSI nu este o apărare",
+      "summary": "Obligația de evaluare revine entității. Art. 27 NIS 2 + §33 BSIG. Termenul de trei luni curge din momentul în care condițiile sunt îndeplinite, nu de la primirea unei scrisori."
     }
   },
   "cat:sektoren": {
@@ -465,6 +765,18 @@
     "pl": {
       "title": "Sektory",
       "question": "Co oznacza NIS 2 dla mojego sektora ?"
+    },
+    "cs": {
+      "title": "Sektory",
+      "question": "Co znamená NIS 2 pro můj sektor?"
+    },
+    "pt": {
+      "title": "Setores",
+      "question": "O que significa a NIS 2 para o meu setor?"
+    },
+    "ro": {
+      "title": "Sectoare",
+      "question": "Ce înseamnă NIS 2 pentru sectorul meu?"
     }
   },
   "entry:nis2-abfallwirtschaft": {
@@ -483,6 +795,18 @@
     "pl": {
       "title": "NIS 2 dla gospodarki odpadami",
       "summary": "Sektor załącznika II : którzy operatorzy odpadów są objęci zakresem i co należy zrobić."
+    },
+    "cs": {
+      "title": "NIS 2 pro odpadové hospodářství",
+      "summary": "Sektor přílohy II: kteří provozovatelé odpadů spadají do oblasti působnosti a co je třeba udělat."
+    },
+    "pt": {
+      "title": "NIS 2 para a gestão de resíduos",
+      "summary": "Setor do anexo II: que operadores de resíduos estão abrangidos e o que é preciso fazer."
+    },
+    "ro": {
+      "title": "NIS 2 pentru gestionarea deșeurilor",
+      "summary": "Sectorul anexei II: care operatori de deșeuri intră sub incidență și ce trebuie făcut."
     }
   },
   "entry:nis2-gesundheitswesen": {
@@ -501,6 +825,18 @@
     "pl": {
       "title": "NIS 2 dla ochrony zdrowia",
       "summary": "Szpitale, domy opieki, apteki : progi i wymagania."
+    },
+    "cs": {
+      "title": "NIS 2 pro zdravotnictví",
+      "summary": "Nemocnice, pečovatelská zařízení, lékárny: prahy a požadavky."
+    },
+    "pt": {
+      "title": "NIS 2 para a saúde",
+      "summary": "Hospitais, lares de cuidados, farmácias: limiares e requisitos."
+    },
+    "ro": {
+      "title": "NIS 2 pentru sănătate",
+      "summary": "Spitale, centre de îngrijire, farmacii: praguri și cerințe."
     }
   },
   "entry:nis2-lebensmittel": {
@@ -519,6 +855,18 @@
     "pl": {
       "title": "NIS 2 dla żywności i napojów",
       "summary": "Producenci i hurtownicy z branży spożywczej : kiedy mają zastosowanie obowiązki."
+    },
+    "cs": {
+      "title": "NIS 2 pro potraviny a nápoje",
+      "summary": "Výrobci a velkoobchodníci v potravinářském sektoru: kdy se povinnosti uplatní."
+    },
+    "pt": {
+      "title": "NIS 2 para a alimentação e bebidas",
+      "summary": "Fabricantes e grossistas do setor alimentar: quando se aplicam as obrigações."
+    },
+    "ro": {
+      "title": "NIS 2 pentru alimente și băuturi",
+      "summary": "Producători și angrosiști din sectorul alimentar: când se aplică obligațiile."
     }
   },
   "entry:nis2-logistik": {
@@ -537,6 +885,18 @@
     "pl": {
       "title": "NIS 2 dla logistyki",
       "summary": "Spedytorzy, kurierzy, dostawcy usług logistycznych w rozumieniu NIS 2."
+    },
+    "cs": {
+      "title": "NIS 2 pro logistiku",
+      "summary": "Zasílatelé, kurýři, poskytovatelé logistických služeb z hlediska NIS 2."
+    },
+    "pt": {
+      "title": "NIS 2 para a logística",
+      "summary": "Transitários, estafetas, prestadores de serviços logísticos à luz da NIS 2."
+    },
+    "ro": {
+      "title": "NIS 2 pentru logistică",
+      "summary": "Expeditori, curieri, prestatori de servicii logistice în raport cu NIS 2."
     }
   },
   "entry:nis2-produzierendes-gewerbe": {
@@ -555,6 +915,18 @@
     "pl": {
       "title": "NIS 2 dla przemysłu wytwórczego",
       "summary": "Budowa maszyn, elektrotechnika, wyroby medyczne, motoryzacja."
+    },
+    "cs": {
+      "title": "NIS 2 pro zpracovatelský průmysl",
+      "summary": "Strojírenství, elektrotechnika, zdravotnické prostředky, automobilový průmysl."
+    },
+    "pt": {
+      "title": "NIS 2 para a indústria transformadora",
+      "summary": "Engenharia mecânica, engenharia elétrica, dispositivos médicos, automóvel."
+    },
+    "ro": {
+      "title": "NIS 2 pentru industria prelucrătoare",
+      "summary": "Construcția de mașini, electrotehnică, dispozitive medicale, automotive."
     }
   },
   "entry:nis2-bankwesen": {
@@ -573,6 +945,18 @@
     "pl": {
       "title": "NIS 2 w bankowości",
       "summary": "Załącznik I, sektor 4 : banki, instytucje płatnicze, zależność od DORA oraz rejestracja NIS 2 mimo lex specialis."
+    },
+    "cs": {
+      "title": "NIS 2 v bankovnictví",
+      "summary": "Příloha I, sektor 4: banky, platební instituce, souhra s DORA a registrace NIS 2 navzdory lex specialis."
+    },
+    "pt": {
+      "title": "NIS 2 no setor bancário",
+      "summary": "Anexo I, setor 4: bancos, instituições de pagamento, a articulação com a DORA e o registo NIS 2 apesar da lex specialis."
+    },
+    "ro": {
+      "title": "NIS 2 în sectorul bancar",
+      "summary": "Anexa I, sectorul 4: bănci, instituții de plată, interacțiunea cu DORA și înregistrarea NIS 2 în pofida lex specialis."
     }
   },
   "entry:nis2-verkehr": {
@@ -591,6 +975,18 @@
     "pl": {
       "title": "NIS 2 w transporcie",
       "summary": "Załącznik I, sektor 2 : transport lotniczy, kolejowy, wodny i drogowy w rozumieniu NIS 2 oraz nakładanie się z KRITIS."
+    },
+    "cs": {
+      "title": "NIS 2 v dopravě",
+      "summary": "Příloha I, sektor 2: letecká, železniční, vodní a silniční doprava z hlediska NIS 2 a překryv s KRITIS."
+    },
+    "pt": {
+      "title": "NIS 2 nos transportes",
+      "summary": "Anexo I, setor 2: transporte aéreo, ferroviário, por vias navegáveis e rodoviário à luz da NIS 2 e sobreposição com KRITIS."
+    },
+    "ro": {
+      "title": "NIS 2 în transporturi",
+      "summary": "Anexa I, sectorul 2: transport aerian, feroviar, pe căi navigabile și rutier în raport cu NIS 2 și suprapunere cu KRITIS."
     }
   },
   "entry:nis2-raumfahrt": {
@@ -609,6 +1005,18 @@
     "pl": {
       "title": "NIS 2 w sektorze kosmicznym",
       "summary": "Załącznik I, sektor 11 : operatorzy kosmiczni, usługi naziemne oraz granica wobec producentów i badań."
+    },
+    "cs": {
+      "title": "NIS 2 v kosmonautice",
+      "summary": "Příloha I, sektor 11: provozovatelé kosmické infrastruktury, pozemní služby a hranice vůči výrobcům a výzkumu."
+    },
+    "pt": {
+      "title": "NIS 2 no setor espacial",
+      "summary": "Anexo I, setor 11: operadores espaciais, serviços em terra e a fronteira face a fabricantes e investigação."
+    },
+    "ro": {
+      "title": "NIS 2 în domeniul spațial",
+      "summary": "Anexa I, sectorul 11: operatori spațiali, servicii la sol și linia de demarcație față de fabricanți și cercetare."
     }
   },
   "entry:nis2-forschungseinrichtungen": {
@@ -627,6 +1035,18 @@
     "pl": {
       "title": "NIS 2 dla jednostek badawczych",
       "summary": "Załącznik II, sektor 10 : które jednostki badawcze są objęte zakresem i jakie wyłączenia mają zastosowanie."
+    },
+    "cs": {
+      "title": "NIS 2 pro výzkumné instituce",
+      "summary": "Příloha II, sektor 10: které výzkumné instituce spadají do oblasti působnosti a jaké výjimky se uplatní."
+    },
+    "pt": {
+      "title": "NIS 2 para os organismos de investigação",
+      "summary": "Anexo II, setor 10: que organismos de investigação estão abrangidos e que isenções se aplicam."
+    },
+    "ro": {
+      "title": "NIS 2 pentru organismele de cercetare",
+      "summary": "Anexa II, sectorul 10: care organisme de cercetare intră sub incidență și ce scutiri se aplică."
     }
   },
   "cat:grundlagen": {
@@ -645,6 +1065,18 @@
     "pl": {
       "title": "Podstawy",
       "question": "Co to wszystko właściwie oznacza ?"
+    },
+    "cs": {
+      "title": "Základy",
+      "question": "Co to všechno vlastně znamená?"
+    },
+    "pt": {
+      "title": "Fundamentos",
+      "question": "O que significa tudo isto, afinal?"
+    },
+    "ro": {
+      "title": "Noțiuni fundamentale",
+      "question": "Ce înseamnă, de fapt, toate acestea?"
     }
   },
   "entry:what-is-nis2": {
@@ -663,6 +1095,18 @@
     "pl": {
       "title": "Czym jest NIS 2 ?",
       "summary": "Dyrektywa (UE) 2022/2555 wyjaśniona w pięć minut."
+    },
+    "cs": {
+      "title": "Co je NIS 2?",
+      "summary": "Směrnice (EU) 2022/2555 vysvětlená za pět minut."
+    },
+    "pt": {
+      "title": "O que é a NIS 2?",
+      "summary": "A Diretiva (UE) 2022/2555 explicada em cinco minutos."
+    },
+    "ro": {
+      "title": "Ce este NIS 2?",
+      "summary": "Directiva (UE) 2022/2555 explicată în cinci minute."
     }
   },
   "entry:bsig-30": {
@@ -681,6 +1125,18 @@
     "pl": {
       "title": "§30 BSIG : dziesięć środków cyberbezpieczeństwa",
       "summary": "Dziesięć środków zarządzania ryzykiem zgodnie z §30(2) BSIG, ich związek z artykułem 21 NIS 2 i CIR (UE) 2024/2690, proporcjonalność oraz sankcje."
+    },
+    "cs": {
+      "title": "§30 BSIG: deset opatření kybernetické bezpečnosti",
+      "summary": "Deset opatření řízení rizik podle §30 odst. 2 BSIG, jejich vztah k článku 21 NIS 2 a CIR (EU) 2024/2690, proporcionalita a sankce."
+    },
+    "pt": {
+      "title": "§30 BSIG: as dez medidas de cibersegurança",
+      "summary": "As dez medidas de gestão de riscos ao abrigo do §30(2) BSIG, a sua relação com o artigo 21.º da NIS 2 e o CIR (UE) 2024/2690, a proporcionalidade e as sanções."
+    },
+    "ro": {
+      "title": "§30 BSIG: cele zece măsuri de securitate cibernetică",
+      "summary": "Cele zece măsuri de gestionare a riscurilor în temeiul §30(2) BSIG, relația lor cu articolul 21 din NIS 2 și CIR (UE) 2024/2690, proporționalitatea și sancțiunile."
     }
   },
   "entry:cir-2024-2690": {
@@ -699,6 +1155,18 @@
     "pl": {
       "title": "CIR 2024/2690 : rozporządzenie techniczne",
       "summary": "Unijne rozporządzenie wykonawcze, które operacjonalizuje NIS 2 w odniesieniu do infrastruktury cyfrowej."
+    },
+    "cs": {
+      "title": "CIR 2024/2690: technické nařízení",
+      "summary": "Prováděcí nařízení EU, které zprovozňuje NIS 2 pro digitální infrastrukturu."
+    },
+    "pt": {
+      "title": "CIR 2024/2690: o regulamento técnico",
+      "summary": "O regulamento de execução da UE que torna a NIS 2 operacional para a infraestrutura digital."
+    },
+    "ro": {
+      "title": "CIR 2024/2690: regulamentul tehnic",
+      "summary": "Regulamentul de punere în aplicare al UE care operaționalizează NIS 2 pentru infrastructura digitală."
     }
   },
   "entry:it-grundschutz": {
@@ -717,6 +1185,18 @@
     "pl": {
       "title": "IT-Grundschutz a NIS 2",
       "summary": "Jak standard BSI odnosi się do niemieckiej transpozycji NIS 2."
+    },
+    "cs": {
+      "title": "IT-Grundschutz a NIS 2",
+      "summary": "Jak standard BSI souvisí s německou transpozicí NIS 2."
+    },
+    "pt": {
+      "title": "IT-Grundschutz e NIS 2",
+      "summary": "Como a norma do BSI se articula com a transposição alemã da NIS 2."
+    },
+    "ro": {
+      "title": "IT-Grundschutz și NIS 2",
+      "summary": "Cum se raportează standardul BSI la transpunerea germană a NIS 2."
     }
   },
   "entry:it-sicherheitspflicht": {
@@ -735,6 +1215,18 @@
     "pl": {
       "title": "Obowiązek bezpieczeństwa IT w pigułce",
       "summary": "Za co prawnie odpowiada kierownictwo, poza NIS 2 także w prawie spółek."
+    },
+    "cs": {
+      "title": "Povinnost zajištění bezpečnosti IT vysvětlená",
+      "summary": "Co musí vedení právně zajistit, vedle NIS 2 také v právu obchodních společností."
+    },
+    "pt": {
+      "title": "O dever de segurança informática explicado",
+      "summary": "O que os administradores têm de assegurar juridicamente, para além da NIS 2, também no direito das sociedades."
+    },
+    "ro": {
+      "title": "Obligația de securitate IT pe scurt",
+      "summary": "Ce trebuie să asigure conducerea din punct de vedere juridic, dincolo de NIS 2, și în dreptul societăților."
     }
   },
   "entry:glossar": {
@@ -753,6 +1245,18 @@
     "pl": {
       "title": "Słownik",
       "summary": "Pojęcia związane z NIS 2, BSIG, CIR i cyberbezpieczeństwem."
+    },
+    "cs": {
+      "title": "Glosář",
+      "summary": "Pojmy kolem NIS 2, BSIG, CIR a kybernetické bezpečnosti."
+    },
+    "pt": {
+      "title": "Glossário",
+      "summary": "Os termos em torno da NIS 2, BSIG, CIR e cibersegurança."
+    },
+    "ro": {
+      "title": "Glosar",
+      "summary": "Termenii din jurul NIS 2, BSIG, CIR și securității cibernetice."
     }
   },
   "entry:faq": {
@@ -771,6 +1275,18 @@
     "pl": {
       "title": "Najczęściej zadawane pytania",
       "summary": "Pytania, które słyszymy najczęściej w sprawie NIS 2."
+    },
+    "cs": {
+      "title": "Časté dotazy",
+      "summary": "Otázky, které nám ohledně NIS 2 kladou nejčastěji."
+    },
+    "pt": {
+      "title": "Perguntas frequentes",
+      "summary": "As perguntas que nos fazem com mais frequência sobre a NIS 2."
+    },
+    "ro": {
+      "title": "Întrebări frecvente",
+      "summary": "Întrebările care ni se pun cel mai des despre NIS 2."
     }
   },
   "entry:enisa-tig-nis2": {
@@ -789,6 +1305,18 @@
     "pl": {
       "title": "Techniczne wytyczne wdrożeniowe ENISA a NIS 2",
       "summary": "Czym zajmuje się Agencja Unii Europejskiej ds. Cyberbezpieczeństwa ENISA w ramach NIS 2, czym są techniczne wytyczne wdrożeniowe (TIG) i jak odnoszą się do rozporządzenia wykonawczego Komisji 2024/2690."
+    },
+    "cs": {
+      "title": "Technický prováděcí návod ENISA a NIS 2",
+      "summary": "Co dělá Agentura Evropské unie pro kybernetickou bezpečnost ENISA v rámci NIS 2, co je technický prováděcí návod (TIG) a jak souvisí s prováděcím nařízením Komise 2024/2690."
+    },
+    "pt": {
+      "title": "O guia técnico de implementação da ENISA e a NIS 2",
+      "summary": "O que faz a Agência da União Europeia para a Cibersegurança ENISA no âmbito da NIS 2, o que é o guia técnico de implementação (TIG) e como se articula com o Regulamento de Execução 2024/2690 da Comissão."
+    },
+    "ro": {
+      "title": "Ghidul tehnic de punere în aplicare al ENISA și NIS 2",
+      "summary": "Ce face Agenția Uniunii Europene pentru Securitate Cibernetică ENISA în cadrul NIS 2, ce este ghidul tehnic de punere în aplicare (TIG) și cum se raportează la Regulamentul de punere în aplicare 2024/2690 al Comisiei."
     }
   },
   "entry:erheblicher-sicherheitsvorfall": {
@@ -807,6 +1335,18 @@
     "pl": {
       "title": "Poważny incydent w rozumieniu NIS 2 i CIR 2024/2690",
       "summary": "Artykuł 23(3) NIS 2 wskazuje dwa czynniki wyzwalające. CIR 2024/2690 kwantyfikuje progi dla infrastruktury cyfrowej. Dla pozostałych sektorów próg pozostaje nieskwantyfikowany."
+    },
+    "cs": {
+      "title": "Významný incident ve smyslu NIS 2 a CIR 2024/2690",
+      "summary": "Čl. 23 odst. 3 NIS 2 určuje dva spouštěcí prvky. CIR 2024/2690 kvantifikuje prahy pro digitální infrastrukturu. Pro ostatní sektory zůstává práh nekvantifikovaný."
+    },
+    "pt": {
+      "title": "Incidente significativo na aceção da NIS 2 e do CIR 2024/2690",
+      "summary": "O artigo 23.º, n.º 3 da NIS 2 designa dois fatores desencadeadores. O CIR 2024/2690 quantifica limiares para a infraestrutura digital. Para os restantes setores, o limiar permanece não quantificado."
+    },
+    "ro": {
+      "title": "Incident semnificativ în sensul NIS 2 și al CIR 2024/2690",
+      "summary": "Articolul 23 alineatul (3) din NIS 2 desemnează doi factori declanșatori. CIR 2024/2690 cuantifică praguri pentru infrastructura digitală. Pentru celelalte sectoare, pragul rămâne necuantificat."
     }
   },
   "entry:nis-2-kooperationsgruppe": {
@@ -825,6 +1365,18 @@
     "pl": {
       "title": "Grupa Współpracy na podstawie artykułu 14 NIS 2",
       "summary": "Czym zajmuje się Grupa Współpracy NIS 2 : państwa członkowskie, Komisja, ENISA. Współpraca strategiczna, wytyczne, wzajemne oceny."
+    },
+    "cs": {
+      "title": "Skupina pro spolupráci podle článku 14 NIS 2",
+      "summary": "Co dělá skupina pro spolupráci NIS 2: členské státy, Komise, ENISA. Strategická spolupráce, pokyny, vzájemná hodnocení."
+    },
+    "pt": {
+      "title": "O Grupo de Cooperação ao abrigo do artigo 14.º da NIS 2",
+      "summary": "O que faz o Grupo de Cooperação NIS 2: Estados-Membros, Comissão, ENISA. Cooperação estratégica, orientações, revisões pelos pares."
+    },
+    "ro": {
+      "title": "Grupul de cooperare în temeiul articolului 14 din NIS 2",
+      "summary": "Ce face Grupul de cooperare NIS 2: state membre, Comisie, ENISA. Cooperare strategică, orientări, evaluări inter pares."
     }
   },
   "entry:nis-2-csirt-netzwerk-cyclone": {
@@ -843,6 +1395,18 @@
     "pl": {
       "title": "Sieć CSIRT i EU-CyCLONe na podstawie artykułów 15 i 16 NIS 2",
       "summary": "Jak krajowe zespoły CSIRT współpracują operacyjnie i jak EU-CyCLONe koordynuje cyberkryzysy na dużą skalę."
+    },
+    "cs": {
+      "title": "Síť CSIRT a EU-CyCLONe podle článků 15 a 16 NIS 2",
+      "summary": "Jak národní CSIRT spolupracují na operativní úrovni a jak EU-CyCLONe koordinuje rozsáhlé kybernetické krize."
+    },
+    "pt": {
+      "title": "A rede de CSIRT e a EU-CyCLONe ao abrigo dos artigos 15.º e 16.º da NIS 2",
+      "summary": "Como os CSIRT nacionais cooperam ao nível operacional e como a EU-CyCLONe coordena as crises cibernéticas de grande escala."
+    },
+    "ro": {
+      "title": "Rețeaua de CSIRT și EU-CyCLONe în temeiul articolelor 15 și 16 din NIS 2",
+      "summary": "Cum cooperează CSIRT-urile naționale la nivel operațional și cum coordonează EU-CyCLONe crizele cibernetice de mare amploare."
     }
   },
   "entry:nis-2-koordinierte-risikobewertungen": {
@@ -861,6 +1425,18 @@
     "pl": {
       "title": "Skoordynowane oceny ryzyka krytycznych łańcuchów dostaw na podstawie artykułu 22 NIS 2",
       "summary": "Czego wymaga artykuł 22 : wspólna ocena na poziomie UE ryzyk cyberbezpieczeństwa dla określonych krytycznych łańcuchów dostaw ICT, prowadzona przez Grupę Współpracy, Komisję i ENISA."
+    },
+    "cs": {
+      "title": "Koordinovaná posouzení rizik kritických dodavatelských řetězců podle článku 22 NIS 2",
+      "summary": "Co vyžaduje článek 22: společné posouzení rizik kybernetické bezpečnosti konkrétních kritických dodavatelských řetězců ICT na úrovni EU, prováděné skupinou pro spolupráci, Komisí a ENISA."
+    },
+    "pt": {
+      "title": "Avaliações coordenadas dos riscos das cadeias de abastecimento críticas ao abrigo do artigo 22.º da NIS 2",
+      "summary": "O que o artigo 22.º exige: avaliação conjunta à escala da UE dos riscos de cibersegurança de cadeias de abastecimento TIC críticas específicas, pelo Grupo de Cooperação, pela Comissão e pela ENISA."
+    },
+    "ro": {
+      "title": "Evaluări coordonate ale riscurilor lanțurilor de aprovizionare critice în temeiul articolului 22 din NIS 2",
+      "summary": "Ce impune articolul 22: evaluarea comună la nivelul UE a riscurilor de securitate cibernetică ale unor lanțuri de aprovizionare TIC critice specifice, de către Grupul de cooperare, Comisie și ENISA."
     }
   },
   "entry:nis2-fuer-management": {
@@ -879,6 +1455,18 @@
     "pl": {
       "title": "NIS 2 dla organu zarządzającego w pięć minut",
       "summary": "Najkrótsze, możliwe do obrony streszczenie NIS 2 dla organu zarządzającego. Czego wymaga artykuł 20, czego szukają audytorzy, czego nie można delegować."
+    },
+    "cs": {
+      "title": "NIS 2 pro vedoucí orgán za pět minut",
+      "summary": "Nejkratší obhajitelné shrnutí NIS 2 pro vedoucí orgán. Co vyžaduje článek 20, co hledají auditoři, co nelze delegovat."
+    },
+    "pt": {
+      "title": "NIS 2 para o órgão de direção em cinco minutos",
+      "summary": "O resumo mais breve e defensável da NIS 2 para o órgão de direção. O que o artigo 20.º exige, o que os auditores procuram, o que não pode ser delegado."
+    },
+    "ro": {
+      "title": "NIS 2 pentru organul de conducere în cinci minute",
+      "summary": "Cel mai scurt rezumat apărabil al NIS 2 pentru organul de conducere. Ce impune articolul 20, ce caută auditorii, ce nu poate fi delegat."
     }
   },
   "entry:nis2-vs-nis1": {
@@ -897,6 +1485,18 @@
     "pl": {
       "title": "Co zmieniło się między NIS 1 a NIS 2",
       "summary": "Szerszy zakres, nowe obowiązki w zakresie ładu korporacyjnego, surowsze zgłaszanie, wyższe kary. Najważniejsze zmiany między dyrektywą 2016/1148 a 2022/2555."
+    },
+    "cs": {
+      "title": "Co se změnilo mezi NIS 1 a NIS 2",
+      "summary": "Širší oblast působnosti, nové povinnosti v oblasti správy a řízení, přísnější ohlašování, vyšší pokuty. Hlavní změny mezi směrnicí 2016/1148 a směrnicí 2022/2555."
+    },
+    "pt": {
+      "title": "O que mudou da NIS 1 para a NIS 2",
+      "summary": "Âmbito de aplicação alargado, novos deveres de governação, comunicação mais rigorosa, coimas mais elevadas. As principais mudanças entre a Diretiva 2016/1148 e a Diretiva 2022/2555."
+    },
+    "ro": {
+      "title": "Ce s-a schimbat de la NIS 1 la NIS 2",
+      "summary": "Domeniu de aplicare extins, noi obligații de guvernanță, raportare mai strictă, amenzi mai mari. Principalele schimbări dintre Directiva 2016/1148 și Directiva 2022/2555."
     }
   },
   "entry:was-ist-bsi": {
@@ -915,6 +1515,18 @@
     "pl": {
       "title": "Czym jest BSI ?",
       "summary": "Federalny Urząd ds. Bezpieczeństwa Informacji, ustanowiony na podstawie §1 BSIG. W ramach NIS 2 właściwy organ, pojedynczy punkt zgłoszeniowy oraz operator krajowego CSIRT."
+    },
+    "cs": {
+      "title": "Co je BSI?",
+      "summary": "Spolkový úřad pro bezpečnost informačních technologií, zřízený podle §1 BSIG. V rámci NIS 2 příslušný orgán, jednotné kontaktní místo pro ohlašování a provozovatel národního CSIRT."
+    },
+    "pt": {
+      "title": "O que é o BSI?",
+      "summary": "Serviço Federal de Segurança da Informação, instituído ao abrigo do §1 BSIG. No âmbito da NIS 2, a autoridade competente, o ponto único de notificação e o operador do CSIRT nacional."
+    },
+    "ro": {
+      "title": "Ce este BSI?",
+      "summary": "Oficiul Federal pentru Securitatea Informației, instituit în temeiul §1 BSIG. În cadrul NIS 2, autoritatea competentă, punctul unic de notificare și operatorul CSIRT-ului național."
     }
   },
   "entry:bsi-meldeportal": {
@@ -933,6 +1545,18 @@
     "pl": {
       "title": "Portal zgłoszeniowy BSI",
       "summary": "Jedna platforma, dwa obowiązki NIS 2 : pierwsza rejestracja na podstawie §33 BSIG oraz zgłaszanie incydentów na podstawie §32 BSIG. Dostęp przez certyfikat organizacji ELSTER."
+    },
+    "cs": {
+      "title": "Ohlašovací portál BSI",
+      "summary": "Jedna platforma, dvě povinnosti NIS 2: první registrace podle §33 BSIG a ohlášení incidentu podle §32 BSIG. Přístup přes organizační certifikát ELSTER."
+    },
+    "pt": {
+      "title": "O portal de notificação do BSI",
+      "summary": "Uma só plataforma, duas obrigações NIS 2: o registo inicial ao abrigo do §33 BSIG e a notificação de incidentes ao abrigo do §32 BSIG. Acesso através do certificado de organização ELSTER."
+    },
+    "ro": {
+      "title": "Portalul de notificare al BSI",
+      "summary": "O singură platformă, două obligații NIS 2: prima înregistrare în temeiul §33 BSIG și notificarea incidentelor în temeiul §32 BSIG. Acces prin certificatul de organizație ELSTER."
     }
   },
   "entry:nis2-verhaeltnismaessigkeit": {
@@ -951,6 +1575,18 @@
     "pl": {
       "title": "Co naprawdę oznacza « proporcjonalny » w artykule 21(1) NIS 2",
       "summary": "Sześć czynników decyduje, co « proporcjonalny » oznacza w danym przypadku : narażenie na ryzyko, wielkość, prawdopodobieństwo i dotkliwość incydentów, wpływ społeczny, stan wiedzy technicznej, koszt wdrożenia."
+    },
+    "cs": {
+      "title": "Co skutečně znamená «přiměřený» v čl. 21 odst. 1 NIS 2",
+      "summary": "Šest faktorů určuje, co «přiměřený» znamená ve vašem případě: vystavení riziku, velikost, pravděpodobnost a závažnost incidentů, společenský dopad, stav techniky, náklady na provedení."
+    },
+    "pt": {
+      "title": "O que «proporcionado» significa realmente no artigo 21.º, n.º 1 da NIS 2",
+      "summary": "Seis fatores determinam o que «proporcionado» significa no seu caso: exposição ao risco, dimensão, probabilidade e gravidade dos incidentes, impacto social, estado da técnica, custo de implementação."
+    },
+    "ro": {
+      "title": "Ce înseamnă cu adevărat «proporțional» în articolul 21 alineatul (1) din NIS 2",
+      "summary": "Șase factori determină ce înseamnă «proporțional» în cazul dumneavoastră: expunerea la risc, mărimea, probabilitatea și gravitatea incidentelor, impactul societal, stadiul actual al tehnicii, costul implementării."
     }
   },
   "entry:ohne-schuldhaftes-zoegern-nis2": {
@@ -969,6 +1605,18 @@
     "pl": {
       "title": "Co naprawdę oznacza « bez zbędnej zwłoki » w 24-godzinnym terminie NIS 2",
       "summary": "Art. 23(4)(a) NIS 2 zawiera dwa terminy, a nie jeden. Bez zbędnej zwłoki ORAZ w ciągu 24 godzin, oba biegnące od momentu powzięcia wiedzy. §121(1) BGB definiuje « unverzüglich » jako « ohne schuldhaftes Zögern »."
+    },
+    "cs": {
+      "title": "Co skutečně znamená «bez zbytečného odkladu» pro 24hodinovou lhůtu NIS 2",
+      "summary": "Čl. 23 odst. 4 písm. a) NIS 2 obsahuje dvě lhůty, nikoli jednu. Bez zbytečného odkladu A do 24 hodin, obě běžící od okamžiku, kdy se subjekt o incidentu dozvěděl. §121 odst. 1 BGB definuje «unverzüglich» jako «ohne schuldhaftes Zögern»."
+    },
+    "pt": {
+      "title": "O que «sem demora indevida» significa realmente para o prazo de 24 horas da NIS 2",
+      "summary": "O art. 23.º, n.º 4, alínea a) da NIS 2 tem dois prazos, não um. Sem demora indevida E no prazo de 24 horas, ambos contados a partir do conhecimento. O §121(1) BGB define «unverzüglich» como «ohne schuldhaftes Zögern»."
+    },
+    "ro": {
+      "title": "Ce înseamnă cu adevărat «fără întârzieri nejustificate» pentru termenul de 24 de ore din NIS 2",
+      "summary": "Art. 23 alineatul (4) litera (a) din NIS 2 prevede două termene, nu unul. Fără întârzieri nejustificate ȘI în termen de 24 de ore, ambele curgând de la luarea la cunoștință. §121(1) BGB definește «unverzüglich» drept «ohne schuldhaftes Zögern»."
     }
   },
   "entry:was-ist-ein-asset-nis2": {
@@ -987,6 +1635,18 @@
     "pl": {
       "title": "Czym jest aktyw w rozumieniu NIS 2 ?",
       "summary": "Aktyw w rozumieniu NIS 2 to wszystko, co przetwarza, przechowuje lub przesyła informacje, od których zależy działalność. Art. 21(2) i CIR 2024/2690 wymagają inwentaryzacji ; BSI 200-2 §8.1 pozwala grupować identyczne obiekty."
+    },
+    "cs": {
+      "title": "Co je aktivum ve smyslu NIS 2?",
+      "summary": "Aktivum ve smyslu NIS 2 je vše, co zpracovává, ukládá nebo přenáší informace, na nichž závisí vaše činnost. Čl. 21 odst. 2 a CIR 2024/2690 vyžadují inventář; BSI 200-2 §8.1 umožňuje seskupovat shodné objekty."
+    },
+    "pt": {
+      "title": "O que é um ativo na aceção da NIS 2?",
+      "summary": "Um ativo na aceção da NIS 2 é tudo aquilo que processa, armazena ou transmite informação da qual a sua atividade depende. O art. 21.º, n.º 2 e o CIR 2024/2690 exigem um inventário; o BSI 200-2 §8.1 permite agrupar objetos idênticos."
+    },
+    "ro": {
+      "title": "Ce este un activ în sensul NIS 2?",
+      "summary": "Un activ în sensul NIS 2 este tot ceea ce prelucrează, stochează sau transmite informații de care depinde activitatea dumneavoastră. Art. 21 alineatul (2) și CIR 2024/2690 impun un inventar; BSI 200-2 §8.1 permite gruparea obiectelor identice."
     }
   },
   "entry:was-ist-ein-isms-nis2": {
@@ -1005,6 +1665,18 @@
     "pl": {
       "title": "Czym jest ISMS i czy potrzebuję go do NIS 2 ?",
       "summary": "ISMS to sposób, w jaki organizacja zarządza bezpieczeństwem informacji. NIS 2 nigdy nie używa tego terminu, lecz art. 21(2) wymaga dokładnie tego, co robi ISMS. Certyfikacja ISO 27001 nie jest obowiązkowa."
+    },
+    "cs": {
+      "title": "Co je ISMS a potřebuji jej pro NIS 2?",
+      "summary": "ISMS je způsob, jakým organizace řídí bezpečnost informací. NIS 2 tento pojem nikdy nepoužívá, ale čl. 21 odst. 2 vyžaduje přesně to, co ISMS dělá. Certifikace ISO 27001 není povinná."
+    },
+    "pt": {
+      "title": "O que é um ISMS e preciso dele para a NIS 2?",
+      "summary": "Um ISMS é a forma como uma organização gere a segurança da informação. A NIS 2 nunca usa o termo, mas o art. 21.º, n.º 2 exige exatamente o que um ISMS faz. A certificação ISO 27001 não é obrigatória."
+    },
+    "ro": {
+      "title": "Ce este un ISMS și am nevoie de el pentru NIS 2?",
+      "summary": "Un ISMS este modul în care o organizație gestionează securitatea informațiilor. NIS 2 nu folosește niciodată termenul, dar art. 21 alineatul (2) impune exact ceea ce face un ISMS. Certificarea ISO 27001 nu este obligatorie."
     }
   },
   "cat:umsetzung": {
@@ -1023,6 +1695,18 @@
     "pl": {
       "title": "Wdrożenie",
       "question": "Co właściwie muszę zrobić ?"
+    },
+    "cs": {
+      "title": "Implementace",
+      "question": "Co vlastně musím udělat?"
+    },
+    "pt": {
+      "title": "Implementação",
+      "question": "O que tenho de fazer, em concreto?"
+    },
+    "ro": {
+      "title": "Implementare",
+      "question": "Ce trebuie, concret, să fac?"
     }
   },
   "entry:nis2-roadmap": {
@@ -1041,6 +1725,18 @@
     "pl": {
       "title": "NIS 2 w pięciu krokach",
       "summary": "Praktyczna mapa drogowa dla zarządu i kierownictwa IT."
+    },
+    "cs": {
+      "title": "NIS 2 v pěti krocích",
+      "summary": "Praktická cestovní mapa pro vedení a vedení IT."
+    },
+    "pt": {
+      "title": "NIS 2 em cinco passos",
+      "summary": "O roteiro prático para a direção e a direção de TI."
+    },
+    "ro": {
+      "title": "NIS 2 în cinci pași",
+      "summary": "Foaia de parcurs practică pentru conducere și conducerea IT."
     }
   },
   "entry:nis2-requirements": {
@@ -1059,6 +1755,18 @@
     "pl": {
       "title": "Wymagania NIS 2",
       "summary": "§30 BSIG i art. 21(2) NIS 2 : dziesięć środków w szczegółach."
+    },
+    "cs": {
+      "title": "Požadavky NIS 2",
+      "summary": "§30 BSIG a čl. 21 odst. 2 NIS 2: deset opatření podrobně."
+    },
+    "pt": {
+      "title": "Requisitos da NIS 2",
+      "summary": "§30 BSIG e art. 21.º, n.º 2 da NIS 2: as dez medidas em detalhe."
+    },
+    "ro": {
+      "title": "Cerințele NIS 2",
+      "summary": "§30 BSIG și art. 21 alineatul (2) din NIS 2: cele zece măsuri în detaliu."
     }
   },
   "entry:nis2-meldepflicht": {
@@ -1077,6 +1785,18 @@
     "pl": {
       "title": "Obowiązek zgłaszania na podstawie §32 BSIG / art. 23 NIS 2",
       "summary": "Kaskada zgłoszeń 24h / 72h / 1 miesiąc do BSI."
+    },
+    "cs": {
+      "title": "Ohlašovací povinnost podle §32 BSIG / čl. 23 NIS 2",
+      "summary": "Kaskáda ohlašování 24h / 72h / 1 měsíc BSI."
+    },
+    "pt": {
+      "title": "Obrigação de notificação ao abrigo do §32 BSIG / art. 23.º da NIS 2",
+      "summary": "A cascata de notificação 24h / 72h / 1 mês ao BSI."
+    },
+    "ro": {
+      "title": "Obligația de notificare în temeiul §32 BSIG / art. 23 din NIS 2",
+      "summary": "Cascada de notificare 24h / 72h / 1 lună către BSI."
     }
   },
   "entry:umsetzung-mittelstand": {
@@ -1095,6 +1815,18 @@
     "pl": {
       "title": "Wdrożenie NIS 2 w Mittelstandzie",
       "summary": "Pragmatyczny przewodnik wdrożeniowy bez 50 000 € na doradztwo."
+    },
+    "cs": {
+      "title": "Zavést NIS 2 v Mittelstandu",
+      "summary": "Pragmatický návod k zavedení bez poradenství za 50 000 €."
+    },
+    "pt": {
+      "title": "Implementar a NIS 2 no Mittelstand",
+      "summary": "Guia de implementação pragmático sem 50 000 € de consultoria."
+    },
+    "ro": {
+      "title": "Implementarea NIS 2 în Mittelstand",
+      "summary": "Ghid de implementare pragmatic, fără 50 000 € de consultanță."
     }
   },
   "entry:nis2-gap-assessment": {
@@ -1113,6 +1845,18 @@
     "pl": {
       "title": "Analiza luk NIS 2",
       "summary": "Jak znaleźć luki między stanem obecnym a stanem wymaganym."
+    },
+    "cs": {
+      "title": "Analýza nedostatků NIS 2",
+      "summary": "Jak najít své nedostatky mezi současným stavem a požadovaným stavem."
+    },
+    "pt": {
+      "title": "Análise de lacunas NIS 2",
+      "summary": "Como encontrar as suas lacunas entre o estado atual e o estado exigido."
+    },
+    "ro": {
+      "title": "Analiza lacunelor NIS 2",
+      "summary": "Cum să identificați lacunele dintre starea actuală și starea cerută."
     }
   },
   "entry:nis2-documents": {
@@ -1131,6 +1875,18 @@
     "pl": {
       "title": "Dokumenty i szablony NIS 2",
       "summary": "Jakich dowodów i polityk naprawdę potrzebujesz."
+    },
+    "cs": {
+      "title": "Dokumenty a šablony NIS 2",
+      "summary": "Jaké doklady a jaké politiky skutečně potřebujete."
+    },
+    "pt": {
+      "title": "Documentos e modelos NIS 2",
+      "summary": "Que evidências e que políticas precisa realmente."
+    },
+    "ro": {
+      "title": "Documente și modele NIS 2",
+      "summary": "De ce dovezi și ce politici aveți cu adevărat nevoie."
     }
   },
   "entry:nis2-registration-portals": {
@@ -1149,6 +1905,18 @@
     "pl": {
       "title": "Portale rejestracyjne NIS 2 w UE",
       "summary": "Krajowe organy rejestracyjne we wszystkich państwach członkowskich."
+    },
+    "cs": {
+      "title": "Registrační portály NIS 2 v EU",
+      "summary": "Národní registrační orgány ve všech členských státech."
+    },
+    "pt": {
+      "title": "Portais de registo NIS 2 na UE",
+      "summary": "As autoridades nacionais de registo em todos os Estados-Membros."
+    },
+    "ro": {
+      "title": "Portaluri de înregistrare NIS 2 în UE",
+      "summary": "Autoritățile naționale de înregistrare din toate statele membre."
     }
   },
   "entry:kosten": {
@@ -1167,6 +1935,18 @@
     "pl": {
       "title": "Koszt wdrożenia NIS 2",
       "summary": "Ile naprawdę kosztuje NIS 2 : doradztwo a wdrożenie własnymi siłami."
+    },
+    "cs": {
+      "title": "Náklady na zavedení NIS 2",
+      "summary": "Kolik NIS 2 skutečně stojí: poradenství versus interní zavedení."
+    },
+    "pt": {
+      "title": "Custo da implementação da NIS 2",
+      "summary": "Quanto custa realmente a NIS 2: consultoria versus implementação interna."
+    },
+    "ro": {
+      "title": "Costul implementării NIS 2",
+      "summary": "Cât costă cu adevărat NIS 2: consultanță față de implementare internă."
     }
   },
   "entry:nis2-lieferkette": {
@@ -1185,6 +1965,18 @@
     "pl": {
       "title": "Bezpieczeństwo łańcucha dostaw NIS 2",
       "summary": "Art. 21(2)(d) NIS 2 / CIR §5 : ocena dostawców w praktyce."
+    },
+    "cs": {
+      "title": "Bezpečnost dodavatelského řetězce NIS 2",
+      "summary": "Čl. 21 odst. 2 písm. d) NIS 2 / CIR §5: hodnocení dodavatelů v praxi."
+    },
+    "pt": {
+      "title": "Segurança da cadeia de abastecimento NIS 2",
+      "summary": "Art. 21.º, n.º 2, alínea d) da NIS 2 / CIR §5: a avaliação de fornecedores na prática."
+    },
+    "ro": {
+      "title": "Securitatea lanțului de aprovizionare NIS 2",
+      "summary": "Art. 21 alineatul (2) litera (d) din NIS 2 / CIR §5: evaluarea furnizorilor în practică."
     }
   },
   "entry:nis2-risikomanagement": {
@@ -1203,6 +1995,18 @@
     "pl": {
       "title": "Zarządzanie ryzykiem NIS 2 na podstawie art. 21(2)(a)",
       "summary": "Czego wymaga artykuł 21(2)(a) NIS 2, co operacjonalizuje CIR §2 i co to oznacza w codziennej praktyce."
+    },
+    "cs": {
+      "title": "Řízení rizik NIS 2 podle čl. 21 odst. 2 písm. a)",
+      "summary": "Co vyžaduje čl. 21 odst. 2 písm. a) NIS 2, co zprovozňuje CIR §2 a co to znamená v každodenní praxi."
+    },
+    "pt": {
+      "title": "Gestão de riscos NIS 2 ao abrigo do art. 21.º, n.º 2, alínea a)",
+      "summary": "O que o artigo 21.º, n.º 2, alínea a) da NIS 2 exige, o que o CIR §2 torna operacional e o que isso significa no dia a dia."
+    },
+    "ro": {
+      "title": "Gestionarea riscurilor NIS 2 în temeiul art. 21 alineatul (2) litera (a)",
+      "summary": "Ce impune articolul 21 alineatul (2) litera (a) din NIS 2, ce operaționalizează CIR §2 și ce înseamnă în practica de zi cu zi."
     }
   },
   "entry:geschaeftsleitungs-schulung-nis2": {
@@ -1221,6 +2025,18 @@
     "pl": {
       "title": "Szkolenie organu zarządzającego na podstawie art. 20(2) NIS 2",
       "summary": "Art. 20(2) NIS 2 wymaga, aby każdy członek organu zarządzającego ukończył szkolenie z cyberbezpieczeństwa. Co to oznacza, co musisz umieć udowodnić i jak wdraża to w Niemczech §38(3) BSIG."
+    },
+    "cs": {
+      "title": "Školení vedoucího orgánu podle čl. 20 odst. 2 NIS 2",
+      "summary": "Čl. 20 odst. 2 NIS 2 vyžaduje, aby každý člen vedoucího orgánu absolvoval školení v oblasti kybernetické bezpečnosti. Co to znamená, co musíte umět doložit a jak to v Německu provádí §38 odst. 3 BSIG."
+    },
+    "pt": {
+      "title": "Formação do órgão de direção ao abrigo do art. 20.º, n.º 2 da NIS 2",
+      "summary": "O art. 20.º, n.º 2 da NIS 2 exige que cada membro do órgão de direção conclua uma formação em cibersegurança. O que significa, o que tem de conseguir demonstrar e como o §38(3) BSIG o aplica na Alemanha."
+    },
+    "ro": {
+      "title": "Formarea organului de conducere în temeiul art. 20 alineatul (2) din NIS 2",
+      "summary": "Art. 20 alineatul (2) din NIS 2 impune ca fiecare membru al organului de conducere să urmeze o formare în domeniul securității cibernetice. Ce înseamnă, ce trebuie să puteți demonstra și cum aplică acest lucru în Germania §38(3) BSIG."
     }
   },
   "entry:mfa-pflicht-nis2": {
@@ -1239,6 +2055,18 @@
     "pl": {
       "title": "Obowiązek MFA na podstawie art. 21(2)(j) NIS 2 i CIR §11.7",
       "summary": "Uwierzytelnianie wieloskładnikowe jest odrębnym obowiązkiem na podstawie art. 21(2)(j). CIR §11.7 wskazuje, gdzie i jak. Co to oznacza dla kont uprzywilejowanych i dla wszystkich użytkowników."
+    },
+    "cs": {
+      "title": "Povinnost MFA podle čl. 21 odst. 2 písm. j) NIS 2 a CIR §11.7",
+      "summary": "Vícefaktorové ověřování je samostatná povinnost podle čl. 21 odst. 2 písm. j). CIR §11.7 uvádí kde a jak. Co to znamená pro privilegované účty a pro všechny uživatele."
+    },
+    "pt": {
+      "title": "Obrigação de MFA ao abrigo do art. 21.º, n.º 2, alínea j) da NIS 2 e do CIR §11.7",
+      "summary": "A autenticação multifator é uma obrigação autónoma ao abrigo do art. 21.º, n.º 2, alínea j). O CIR §11.7 indica onde e como. O que significa para as contas privilegiadas e para todos os utilizadores."
+    },
+    "ro": {
+      "title": "Obligația de MFA în temeiul art. 21 alineatul (2) litera (j) din NIS 2 și al CIR §11.7",
+      "summary": "Autentificarea multifactor este o obligație de sine stătătoare în temeiul art. 21 alineatul (2) litera (j). CIR §11.7 indică unde și cum. Ce înseamnă pentru conturile privilegiate și pentru toți utilizatorii."
     }
   },
   "entry:kryptographie-nis2": {
@@ -1257,6 +2085,18 @@
     "pl": {
       "title": "Polityka kryptografii na podstawie art. 21(2)(h) NIS 2 i CIR §9",
       "summary": "Art. 21(2)(h) wymaga polityki kryptografii. CIR §9 określa, co musi ona zawierać : algorytmy, zarządzanie kluczami, dwanaście punktów dotyczących cyklu życia kluczy."
+    },
+    "cs": {
+      "title": "Politika kryptografie podle čl. 21 odst. 2 písm. h) NIS 2 a CIR §9",
+      "summary": "Čl. 21 odst. 2 písm. h) vyžaduje politiku kryptografie. CIR §9 stanoví, co musí obsahovat: algoritmy, správu klíčů, dvanáct bodů týkajících se životního cyklu klíčů."
+    },
+    "pt": {
+      "title": "Política de criptografia ao abrigo do art. 21.º, n.º 2, alínea h) da NIS 2 e do CIR §9",
+      "summary": "O art. 21.º, n.º 2, alínea h) exige uma política de criptografia. O CIR §9 estabelece o que deve conter: algoritmos, gestão de chaves, doze pontos sobre o ciclo de vida das chaves."
+    },
+    "ro": {
+      "title": "Politica de criptografie în temeiul art. 21 alineatul (2) litera (h) din NIS 2 și al CIR §9",
+      "summary": "Art. 21 alineatul (2) litera (h) impune o politică de criptografie. CIR §9 stabilește ce trebuie să conțină: algoritmi, gestionarea cheilor, douăsprezece puncte privind ciclul de viață al cheilor."
     }
   },
   "entry:nis2-vorfallbehandlung": {
@@ -1275,6 +2115,18 @@
     "pl": {
       "title": "Obsługa incydentów NIS 2 na podstawie art. 21(2)(b) i CIR §3",
       "summary": "Co oznacza wewnętrzna obsługa incydentów (wykrywanie, ograniczanie, przywracanie) i czym różni się od obowiązku zgłaszania do BSI."
+    },
+    "cs": {
+      "title": "Řešení incidentů NIS 2 podle čl. 21 odst. 2 písm. b) a CIR §3",
+      "summary": "Co znamená interní řešení incidentů (detekovat, zadržet, obnovit) a čím se liší od povinnosti ohlásit incident BSI."
+    },
+    "pt": {
+      "title": "Tratamento de incidentes NIS 2 ao abrigo do art. 21.º, n.º 2, alínea b) e do CIR §3",
+      "summary": "O que significa o tratamento interno de incidentes (detetar, conter, recuperar) e em que difere do dever de notificar o BSI."
+    },
+    "ro": {
+      "title": "Gestionarea incidentelor NIS 2 în temeiul art. 21 alineatul (2) litera (b) și al CIR §3",
+      "summary": "Ce înseamnă gestionarea internă a incidentelor (detectare, limitare, restabilire) și prin ce se deosebește de obligația de a notifica BSI."
     }
   },
   "entry:nis2-business-continuity": {
@@ -1293,6 +2145,18 @@
     "pl": {
       "title": "Ciągłość działania NIS 2 na podstawie art. 21(2)(c) i CIR §4",
       "summary": "Plan ciągłości działania, zarządzanie kopiami zapasowymi, zarządzanie kryzysowe : czego wymaga dyrektywa, aby utrzymać działalność w ruchu."
+    },
+    "cs": {
+      "title": "Kontinuita činnosti NIS 2 podle čl. 21 odst. 2 písm. c) a CIR §4",
+      "summary": "Plán kontinuity činnosti, správa záloh, krizové řízení: co směrnice požaduje k udržení činnosti v chodu."
+    },
+    "pt": {
+      "title": "Continuidade de negócio NIS 2 ao abrigo do art. 21.º, n.º 2, alínea c) e do CIR §4",
+      "summary": "Plano de continuidade de negócio, gestão de cópias de segurança, gestão de crises: o que a diretiva pede para manter as operações a funcionar."
+    },
+    "ro": {
+      "title": "Continuitatea activității NIS 2 în temeiul art. 21 alineatul (2) litera (c) și al CIR §4",
+      "summary": "Plan de continuitate a activității, gestionarea copiilor de rezervă, gestionarea crizelor: ce cere directiva pentru menținerea activității în funcțiune."
     }
   },
   "entry:nis2-sichere-entwicklung": {
@@ -1311,6 +2175,18 @@
     "pl": {
       "title": "Bezpieczne tworzenie oprogramowania NIS 2 na podstawie art. 21(2)(e) i CIR §6",
       "summary": "Bezpieczeństwo w pozyskiwaniu, tworzeniu i utrzymaniu sieci i systemów informatycznych. Osiem podsekcji CIR."
+    },
+    "cs": {
+      "title": "Bezpečný vývoj NIS 2 podle čl. 21 odst. 2 písm. e) a CIR §6",
+      "summary": "Bezpečnost při pořizování, vývoji a údržbě sítí a informačních systémů. Osm pododdílů CIR."
+    },
+    "pt": {
+      "title": "Desenvolvimento seguro NIS 2 ao abrigo do art. 21.º, n.º 2, alínea e) e do CIR §6",
+      "summary": "Segurança na aquisição, no desenvolvimento e na manutenção das redes e dos sistemas de informação. Oito subsecções do CIR."
+    },
+    "ro": {
+      "title": "Dezvoltare sigură NIS 2 în temeiul art. 21 alineatul (2) litera (e) și al CIR §6",
+      "summary": "Securitate la achiziția, dezvoltarea și întreținerea rețelelor și a sistemelor informatice. Opt subsecțiuni ale CIR."
     }
   },
   "entry:nis2-schwachstellenmanagement": {
@@ -1329,6 +2205,18 @@
     "pl": {
       "title": "Zarządzanie podatnościami NIS 2 na podstawie art. 21(2)(e) i CIR §6.10",
       "summary": "Identyfikowanie, ocena, postępowanie z podatnościami i koordynacja ich ujawniania. Czego faktycznie wymaga CIR §6.10."
+    },
+    "cs": {
+      "title": "Řízení zranitelností NIS 2 podle čl. 21 odst. 2 písm. e) a CIR §6.10",
+      "summary": "Identifikovat, vyhodnotit, řešit a koordinovat zveřejňování zranitelností. Co CIR §6.10 skutečně vyžaduje."
+    },
+    "pt": {
+      "title": "Gestão de vulnerabilidades NIS 2 ao abrigo do art. 21.º, n.º 2, alínea e) e do CIR §6.10",
+      "summary": "Identificar, avaliar, tratar e coordenar a divulgação das vulnerabilidades. O que o CIR §6.10 realmente exige."
+    },
+    "ro": {
+      "title": "Gestionarea vulnerabilităților NIS 2 în temeiul art. 21 alineatul (2) litera (e) și al CIR §6.10",
+      "summary": "Identificarea, evaluarea, tratarea și coordonarea divulgării vulnerabilităților. Ce impune cu adevărat CIR §6.10."
     }
   },
   "entry:nis2-wirksamkeitsbewertung": {
@@ -1347,6 +2235,18 @@
     "pl": {
       "title": "Ocena skuteczności NIS 2 zgodnie z art. 21(2)(f) i CIR §7",
       "summary": "Jak zmierzyć, czy środki zarządzania ryzykiem działają. KPI, metodyka, raportowanie do organu zarządzającego."
+    },
+    "cs": {
+      "title": "Posouzení účinnosti NIS 2 podle čl. 21 odst. 2 písm. f) a CIR §7",
+      "summary": "Jak měřit, zda opatření řízení rizik fungují. KPI, metodika, podávání zpráv vedoucímu orgánu."
+    },
+    "pt": {
+      "title": "Avaliação da eficácia NIS 2 ao abrigo do art. 21.º, n.º 2, alínea f) e do CIR §7",
+      "summary": "Como medir se as medidas de gestão de riscos funcionam. KPI, metodologia, prestação de contas ao órgão de direção."
+    },
+    "ro": {
+      "title": "Evaluarea eficacității NIS 2 în temeiul art. 21 alineatul (2) litera (f) și al CIR §7",
+      "summary": "Cum se măsoară dacă măsurile de gestionare a riscurilor funcționează. KPI, metodologie, raportare către organul de conducere."
     }
   },
   "entry:nis2-cyberhygiene-schulungen": {
@@ -1365,6 +2265,18 @@
     "pl": {
       "title": "Cyberhigiena i szkolenia NIS 2 zgodnie z art. 21(2)(g) i CIR §8",
       "summary": "Podstawowe praktyki cyberhigieny oraz świadomość i szkolenia dostosowane do roli. Co CIR §8 oznacza w praktyce."
+    },
+    "cs": {
+      "title": "Kybernetická hygiena a školení NIS 2 podle čl. 21 odst. 2 písm. g) a CIR §8",
+      "summary": "Základní postupy kybernetické hygieny a osvěta a školení podle role. Co CIR §8 znamená v praxi."
+    },
+    "pt": {
+      "title": "Ciber-higiene e formação NIS 2 ao abrigo do art. 21.º, n.º 2, alínea g) e do CIR §8",
+      "summary": "Práticas básicas de ciber-higiene mais sensibilização e formação por função. O que o CIR §8 significa na prática."
+    },
+    "ro": {
+      "title": "Igienă cibernetică și formare NIS 2 în temeiul art. 21 alineatul (2) litera (g) și al CIR §8",
+      "summary": "Practici de bază de igienă cibernetică plus conștientizare și formare în funcție de rol. Ce înseamnă CIR §8 în practică."
     }
   },
   "entry:nis2-personalsicherheit": {
@@ -1383,6 +2295,18 @@
     "pl": {
       "title": "Bezpieczeństwo personelu NIS 2 zgodnie z art. 21(2)(i) i CIR §10",
       "summary": "Weryfikacja przeszłości, zakresy odpowiedzialności, zakończenie zatrudnienia, postępowania dyscyplinarne."
+    },
+    "cs": {
+      "title": "Bezpečnost personálu NIS 2 podle čl. 21 odst. 2 písm. i) a CIR §10",
+      "summary": "Prověřování minulosti, odpovědnosti, ukončení pracovního poměru, disciplinární řízení."
+    },
+    "pt": {
+      "title": "Segurança do pessoal NIS 2 ao abrigo do art. 21.º, n.º 2, alínea i) e do CIR §10",
+      "summary": "Verificação de antecedentes, responsabilidades, cessação da relação laboral, procedimentos disciplinares."
+    },
+    "ro": {
+      "title": "Securitatea personalului NIS 2 în temeiul art. 21 alineatul (2) litera (i) și al CIR §10",
+      "summary": "Verificarea antecedentelor, responsabilități, încetarea raportului de muncă, proceduri disciplinare."
     }
   },
   "entry:nis2-anlagenmanagement": {
@@ -1401,6 +2325,18 @@
     "pl": {
       "title": "Zarządzanie aktywami NIS 2 zgodnie z art. 21(2)(i) i CIR §12",
       "summary": "Klasyfikacja, postępowanie, nośniki wymienne oraz kompletny inwentarz aktywów i wartości."
+    },
+    "cs": {
+      "title": "Správa aktiv NIS 2 podle čl. 21 odst. 2 písm. i) a CIR §12",
+      "summary": "Klasifikace, manipulace, vyměnitelná média a úplný inventář aktiv a hodnot."
+    },
+    "pt": {
+      "title": "Gestão de ativos NIS 2 ao abrigo do art. 21.º, n.º 2, alínea i) e do CIR §12",
+      "summary": "Classificação, manuseamento, suportes amovíveis e o inventário completo de ativos e valores."
+    },
+    "ro": {
+      "title": "Gestionarea activelor NIS 2 în temeiul art. 21 alineatul (2) litera (i) și al CIR §12",
+      "summary": "Clasificare, manipulare, suporturi amovibile și inventarul complet al activelor și valorilor."
     }
   },
   "entry:nis2-zugriffskontrolle": {
@@ -1419,6 +2355,18 @@
     "pl": {
       "title": "Kontrola dostępu NIS 2 zgodnie z art. 21(2)(i)+(j) i CIR §11",
       "summary": "Polityka kontroli dostępu, zarządzanie uprawnieniami, konta uprzywilejowane, identyfikacja, uwierzytelnianie. MFA jako odrębny obowiązek."
+    },
+    "cs": {
+      "title": "Řízení přístupu NIS 2 podle čl. 21 odst. 2 písm. i)+j) a CIR §11",
+      "summary": "Politika řízení přístupu, správa oprávnění, privilegované účty, identifikace, ověřování. MFA jako samostatná povinnost."
+    },
+    "pt": {
+      "title": "Controlo de acesso NIS 2 ao abrigo do art. 21.º, n.º 2, alíneas i)+j) e do CIR §11",
+      "summary": "Política de controlo de acesso, gestão de direitos, contas privilegiadas, identificação, autenticação. MFA como obrigação autónoma."
+    },
+    "ro": {
+      "title": "Controlul accesului NIS 2 în temeiul art. 21 alineatul (2) literele (i)+(j) și al CIR §11",
+      "summary": "Politică de control al accesului, gestionarea drepturilor, conturi privilegiate, identificare, autentificare. MFA ca obligație de sine stătătoare."
     }
   },
   "entry:nis2-backup-strategie": {
@@ -1437,6 +2385,18 @@
     "pl": {
       "title": "Strategia kopii zapasowych NIS 2 zgodnie z CIR §4.2",
       "summary": "Zarządzanie kopiami zapasowymi i redundancją: czasy odtwarzania, miejsca przechowywania, testy, okresy retencji."
+    },
+    "cs": {
+      "title": "Strategie zálohování NIS 2 podle CIR §4.2",
+      "summary": "Správa záloh a redundance: doby obnovy, místa uložení, testy, doby uchovávání."
+    },
+    "pt": {
+      "title": "Estratégia de cópias de segurança NIS 2 ao abrigo do CIR §4.2",
+      "summary": "Gestão de cópias de segurança e redundância: tempos de recuperação, locais de armazenamento, testes, períodos de retenção."
+    },
+    "ro": {
+      "title": "Strategia de copii de rezervă NIS 2 în temeiul CIR §4.2",
+      "summary": "Gestionarea copiilor de rezervă și a redundanței: timpi de restabilire, locuri de stocare, teste, perioade de păstrare."
     }
   },
   "entry:nis2-netzsicherheit": {
@@ -1455,6 +2415,18 @@
     "pl": {
       "title": "Bezpieczeństwo sieci NIS 2 zgodnie z CIR §6.7 i §6.8",
       "summary": "Dokumentacja sieci, domeny wewnętrzne, bezpieczna komunikacja, segmentacja sieci i koncepcje DMZ."
+    },
+    "cs": {
+      "title": "Bezpečnost sítě NIS 2 podle CIR §6.7 a §6.8",
+      "summary": "Dokumentace sítě, interní domény, zabezpečená komunikace, segmentace sítě a koncepce DMZ."
+    },
+    "pt": {
+      "title": "Segurança de rede NIS 2 ao abrigo do CIR §6.7 e §6.8",
+      "summary": "Documentação da rede, domínios internos, comunicações seguras, segmentação da rede e conceitos de DMZ."
+    },
+    "ro": {
+      "title": "Securitatea rețelei NIS 2 în temeiul CIR §6.7 și §6.8",
+      "summary": "Documentarea rețelei, domenii interne, comunicații securizate, segmentarea rețelei și concepte de DMZ."
     }
   },
   "entry:nis2-logging-protokollierung": {
@@ -1473,6 +2445,18 @@
     "pl": {
       "title": "Rejestrowanie i monitorowanie NIS 2 zgodnie z CIR §3.2",
       "summary": "Które dwanaście typów zdarzeń CIR wymaga rejestrować, od ruchu sieciowego po dostęp uprzywilejowany."
+    },
+    "cs": {
+      "title": "Protokolování a monitorování NIS 2 podle CIR §3.2",
+      "summary": "Kterých dvanáct typů událostí chce CIR protokolovat, od síťového provozu po privilegované přístupy."
+    },
+    "pt": {
+      "title": "Registo e monitorização NIS 2 ao abrigo do CIR §3.2",
+      "summary": "Que doze tipos de eventos o CIR exige registar, do tráfego de rede aos acessos privilegiados."
+    },
+    "ro": {
+      "title": "Jurnalizare și monitorizare NIS 2 în temeiul CIR §3.2",
+      "summary": "Care douăsprezece tipuri de evenimente impune CIR să fie jurnalizate, de la traficul de rețea la accesele privilegiate."
     }
   },
   "entry:wie-nis2-risikoanalyse-durchfuehren": {
@@ -1491,6 +2475,18 @@
     "pl": {
       "title": "Jak przeprowadzić ocenę ryzyka NIS 2?",
       "summary": "Krok po kroku: zakres aktywów, model zagrożeń, prawdopodobieństwo-skutek, plan postępowania, zatwierdzenie. Czego CIR §2 wymaga w praktyce."
+    },
+    "cs": {
+      "title": "Jak provést posouzení rizik NIS 2?",
+      "summary": "Krok za krokem: rozsah aktiv, model hrozeb, pravděpodobnost a dopad, plán řešení, schválení. Co CIR §2 vyžaduje v praxi."
+    },
+    "pt": {
+      "title": "Como realizo uma avaliação de riscos NIS 2?",
+      "summary": "Passo a passo: âmbito de ativos, modelo de ameaças, probabilidade-impacto, plano de tratamento, aprovação. O que o CIR §2 exige na prática."
+    },
+    "ro": {
+      "title": "Cum efectuez o evaluare a riscurilor NIS 2?",
+      "summary": "Pas cu pas: domeniul activelor, model de amenințări, probabilitate-impact, plan de tratare, aprobare. Ce impune CIR §2 în practică."
     }
   },
   "entry:wie-asset-inventar-erstellen-nis2": {
@@ -1509,6 +2505,18 @@
     "pl": {
       "title": "Jak zbudować inwentarz aktywów NIS 2?",
       "summary": "CIR §12.4 w praktyce: procesy oraz systemy, grupowanie Grundschutz, klasyfikacja CIA. Jak Mittelstand buduje inwentarz w jeden tydzień."
+    },
+    "cs": {
+      "title": "Jak vytvořit inventář aktiv NIS 2?",
+      "summary": "CIR §12.4 v praxi: procesy a systémy, seskupování Grundschutz, klasifikace CIA. Jak Mittelstand vytvoří inventář za jeden týden."
+    },
+    "pt": {
+      "title": "Como elaboro um inventário de ativos NIS 2?",
+      "summary": "O CIR §12.4 na prática: processos e sistemas, agrupamento Grundschutz, classificação CIA. Como um Mittelstand elabora o inventário numa semana."
+    },
+    "ro": {
+      "title": "Cum elaborez un inventar de active NIS 2?",
+      "summary": "CIR §12.4 în practică: procese și sisteme, grupare Grundschutz, clasificare CIA. Cum elaborează un Mittelstand inventarul într-o săptămână."
     }
   },
   "entry:wie-bsi-audit-vorbereiten": {
@@ -1527,6 +2535,18 @@
     "pl": {
       "title": "Jak przygotować się do audytu BSI?",
       "summary": "Jakich dowodów żąda BSI, w jakiej kolejności, z jaką szczegółowością dokumentacji. Co musi być gotowe przed audytem."
+    },
+    "cs": {
+      "title": "Jak se připravit na audit BSI?",
+      "summary": "Jaké doklady BSI požaduje, v jakém pořadí, s jakou hloubkou dokumentace. Co musí být připraveno před auditem."
+    },
+    "pt": {
+      "title": "Como me preparo para uma auditoria do BSI?",
+      "summary": "Que evidências o BSI pede, por que ordem, com que profundidade de documentação. O que tem de estar pronto antes da auditoria."
+    },
+    "ro": {
+      "title": "Cum mă pregătesc pentru un audit BSI?",
+      "summary": "Ce dovezi cere BSI, în ce ordine, cu ce nivel de detaliu al documentației. Ce trebuie să fie pregătit înainte de audit."
     }
   },
   "entry:wie-bsi-vorfall-melden-24h": {
@@ -1545,6 +2565,18 @@
     "pl": {
       "title": "Jak zgłosić incydent do BSI w ciągu 24 godzin?",
       "summary": "Artykuł 23 NIS 2 i §32 BSIG: wczesne ostrzeżenie 24h, zgłoszenie 72h, raport końcowy 1 miesiąc. Co wchodzi, co zostaje pominięte, kto decyduje."
+    },
+    "cs": {
+      "title": "Jak ohlásit incident BSI do 24 hodin?",
+      "summary": "Článek 23 NIS 2 a §32 BSIG: včasné varování 24h, ohlášení 72h, závěrečná zpráva 1 měsíc. Co spadá dovnitř, co zůstává venku, kdo rozhoduje."
+    },
+    "pt": {
+      "title": "Como notifico um incidente ao BSI em 24 horas?",
+      "summary": "Artigo 23.º da NIS 2 e §32 BSIG: alerta precoce 24h, notificação 72h, relatório final 1 mês. O que entra, o que fica de fora, quem decide."
+    },
+    "ro": {
+      "title": "Cum notific un incident la BSI în 24 de ore?",
+      "summary": "Articolul 23 din NIS 2 și §32 BSIG: avertizare timpurie 24h, notificare 72h, raport final 1 lună. Ce intră, ce rămâne în afară, cine decide."
     }
   },
   "entry:nis2-raci-60-personen": {
@@ -1563,6 +2595,18 @@
     "pl": {
       "title": "RACI dla NIS 2 w organizacji liczącej 60 osób",
       "summary": "Pięć kluczowych ról, dziesięć obowiązków NIS 2. Art. 20 NIS 2 z mocy prawa przypisuje rolę Accountable organowi zarządzającemu. Macierz wskazuje, kto faktycznie wykonuje pracę i kto podpisuje które zatwierdzenie."
+    },
+    "cs": {
+      "title": "RACI pro NIS 2 v organizaci o 60 lidech",
+      "summary": "Pět klíčových rolí, deset povinností NIS 2. Čl. 20 NIS 2 ze zákona přiřazuje roli Accountable vedoucímu orgánu. Matice uvádí, kdo skutečně vykonává práci a kdo podepisuje které schválení."
+    },
+    "pt": {
+      "title": "RACI para a NIS 2 numa organização de 60 pessoas",
+      "summary": "Cinco funções-chave, dez obrigações NIS 2. O art. 20.º da NIS 2 atribui por lei o papel Accountable ao órgão de direção. A matriz indica quem faz efetivamente o trabalho e quem assina cada aprovação."
+    },
+    "ro": {
+      "title": "RACI pentru NIS 2 într-o organizație de 60 de persoane",
+      "summary": "Cinci roluri-cheie, zece obligații NIS 2. Art. 20 din NIS 2 atribuie prin lege rolul Accountable organului de conducere. Matricea indică cine efectuează efectiv munca și cine semnează fiecare aprobare."
     }
   },
   "cat:recht-und-folgen": {
@@ -1581,6 +2625,18 @@
     "pl": {
       "title": "Prawo i konsekwencje",
       "question": "Co się stanie, jeśli nie zapewnię zgodności?"
+    },
+    "cs": {
+      "title": "Právo a důsledky",
+      "question": "Co se stane, když nezajistím soulad?"
+    },
+    "pt": {
+      "title": "Direito e consequências",
+      "question": "O que acontece se não cumprir?"
+    },
+    "ro": {
+      "title": "Drept și consecințe",
+      "question": "Ce se întâmplă dacă nu mă conformez?"
     }
   },
   "entry:geschaftsfuhrerhaftung": {
@@ -1599,6 +2655,18 @@
     "pl": {
       "title": "Odpowiedzialność kierownictwa zgodnie z §38 BSIG",
       "summary": "Osobista odpowiedzialność kierownictwa: co faktycznie na was spoczywa."
+    },
+    "cs": {
+      "title": "Odpovědnost vedení podle §38 BSIG",
+      "summary": "Osobní odpovědnost vedení: co skutečně musíte."
+    },
+    "pt": {
+      "title": "Responsabilidade dos administradores ao abrigo do §38 BSIG",
+      "summary": "Responsabilidade pessoal da direção: o que realmente lhe cabe."
+    },
+    "ro": {
+      "title": "Răspunderea conducerii în temeiul §38 BSIG",
+      "summary": "Răspunderea personală a conducerii: ce vă revine cu adevărat."
     }
   },
   "entry:nis2-bussgelder": {
@@ -1617,6 +2685,18 @@
     "pl": {
       "title": "Kary pieniężne NIS 2",
       "summary": "§65 BSIG i art. 32 NIS 2: wysokość, obliczanie, procedura."
+    },
+    "cs": {
+      "title": "Pokuty NIS 2",
+      "summary": "§65 BSIG a čl. 32 NIS 2: výše, výpočet, řízení."
+    },
+    "pt": {
+      "title": "Coimas NIS 2",
+      "summary": "§65 BSIG e art. 32.º da NIS 2: montante, cálculo, procedimento."
+    },
+    "ro": {
+      "title": "Amenzi NIS 2",
+      "summary": "§65 BSIG și art. 32 din NIS 2: cuantum, calcul, procedură."
     }
   },
   "entry:nis2-cyber-versicherung": {
@@ -1635,6 +2715,18 @@
     "pl": {
       "title": "Cyberubezpieczenie a NIS 2",
       "summary": "Co polisa cyberubezpieczenia faktycznie pokrywa w odniesieniu do artykułu 21(1) NIS 2, a czego nie."
+    },
+    "cs": {
+      "title": "Kybernetické pojištění a NIS 2",
+      "summary": "Co pojistka kybernetického pojištění skutečně pokrývá ve vztahu k čl. 21 odst. 1 NIS 2 a co nepokrývá."
+    },
+    "pt": {
+      "title": "Ciberseguro e NIS 2",
+      "summary": "O que uma apólice de ciberseguro realmente cobre face ao artigo 21.º, n.º 1 da NIS 2, e o que não cobre."
+    },
+    "ro": {
+      "title": "Asigurare cibernetică și NIS 2",
+      "summary": "Ce acoperă cu adevărat o poliță de asigurare cibernetică în raport cu articolul 21 alineatul (1) din NIS 2 și ce nu acoperă."
     }
   },
   "entry:nis2-haftung-vorstand": {
@@ -1653,6 +2745,18 @@
     "pl": {
       "title": "Osobista odpowiedzialność organu zarządzającego zgodnie z NIS 2",
       "summary": "§38 BSIG oraz §43 GmbHG i §93 AktG: krajobraz odpowiedzialności w szczegółach."
+    },
+    "cs": {
+      "title": "Osobní odpovědnost vedoucího orgánu podle NIS 2",
+      "summary": "§38 BSIG, jakož i §43 GmbHG a §93 AktG: krajina odpovědnosti podrobně."
+    },
+    "pt": {
+      "title": "Responsabilidade pessoal do órgão de direção ao abrigo da NIS 2",
+      "summary": "§38 BSIG bem como §43 GmbHG e §93 AktG: o panorama da responsabilidade em detalhe."
+    },
+    "ro": {
+      "title": "Răspunderea personală a organului de conducere în temeiul NIS 2",
+      "summary": "§38 BSIG, precum și §43 GmbHG și §93 AktG: peisajul răspunderii în detaliu."
     }
   },
   "entry:nis2-lieferantenvertraege-klauseln": {
@@ -1671,6 +2775,18 @@
     "pl": {
       "title": "Umowy z dostawcami: klauzule dla art. 21(2)(d) NIS 2",
       "summary": "Jakich klauzul umownych oczekuje artykuł 21(2)(d) NIS 2 i które nie są wystarczające."
+    },
+    "cs": {
+      "title": "Smlouvy s dodavateli: doložky pro čl. 21 odst. 2 písm. d) NIS 2",
+      "summary": "Jaké smluvní doložky čl. 21 odst. 2 písm. d) NIS 2 očekává a které nestačí."
+    },
+    "pt": {
+      "title": "Contratos com fornecedores: cláusulas para o art. 21.º, n.º 2, alínea d) da NIS 2",
+      "summary": "Que cláusulas contratuais o artigo 21.º, n.º 2, alínea d) da NIS 2 espera, e quais não bastam."
+    },
+    "ro": {
+      "title": "Contracte cu furnizorii: clauze pentru art. 21 alineatul (2) litera (d) din NIS 2",
+      "summary": "Ce clauze contractuale așteaptă articolul 21 alineatul (2) litera (d) din NIS 2 și care nu sunt suficiente."
     }
   },
   "entry:nis2-bsi-bescheid-widerspruch": {
@@ -1689,6 +2805,18 @@
     "pl": {
       "title": "Decyzja BSI: sprzeciw i kontrola sądowa",
       "summary": "Gdy BSI wydaje decyzję na podstawie §61 lub §64 BSIG: terminy, ścieżki, konsekwencje."
+    },
+    "cs": {
+      "title": "Rozhodnutí BSI: odpor a soudní přezkum",
+      "summary": "Když BSI vydá rozhodnutí podle §61 nebo §64 BSIG: lhůty, cesty, důsledky."
+    },
+    "pt": {
+      "title": "Decisão do BSI: reclamação e controlo jurisdicional",
+      "summary": "Quando o BSI emite uma decisão ao abrigo do §61 ou do §64 BSIG: prazos, vias, consequências."
+    },
+    "ro": {
+      "title": "Decizia BSI: contestație și control jurisdicțional",
+      "summary": "Când BSI emite o decizie în temeiul §61 sau §64 BSIG: termene, căi, consecințe."
     }
   },
   "entry:nis2-bussgeld-verfahren-ablauf": {
@@ -1707,6 +2835,18 @@
     "pl": {
       "title": "Postępowanie w sprawie kary pieniężnej zgodnie z §65 BSIG: jak przebiega",
       "summary": "Od pisma o wysłuchaniu do decyzji: jak BSI oblicza karę pieniężną."
+    },
+    "cs": {
+      "title": "Řízení o pokutě podle §65 BSIG: jak probíhá",
+      "summary": "Od výzvy k vyjádření po rozhodnutí: jak BSI vypočítá pokutu."
+    },
+    "pt": {
+      "title": "Procedimento de coima ao abrigo do §65 BSIG: como decorre",
+      "summary": "Da carta de audiência à decisão: como o BSI calcula uma coima."
+    },
+    "ro": {
+      "title": "Procedura de aplicare a amenzii în temeiul §65 BSIG: cum se desfășoară",
+      "summary": "De la scrisoarea de audiere până la decizie: cum calculează BSI o amendă."
     }
   },
   "entry:nis2-whistleblower-hinweise": {
@@ -1725,6 +2865,18 @@
     "pl": {
       "title": "Zgłoszenia sygnalistów dotyczące kwestii NIS 2",
       "summary": "Niemiecka ustawa Hinweisgeberschutzgesetz a NIS 2: jak przebiegają wewnętrzne zgłoszenia o uchybieniach w zgodności."
+    },
+    "cs": {
+      "title": "Oznámení whistleblowerů týkající se problémů NIS 2",
+      "summary": "Německý zákon Hinweisgeberschutzgesetz a NIS 2: jak probíhají interní oznámení o nedostatcích v souladu."
+    },
+    "pt": {
+      "title": "Denúncias de whistleblowers sobre questões NIS 2",
+      "summary": "A lei alemã Hinweisgeberschutzgesetz e a NIS 2: como decorrem as denúncias internas sobre falhas de conformidade."
+    },
+    "ro": {
+      "title": "Sesizările avertizorilor de integritate privind chestiuni NIS 2",
+      "summary": "Legea germană Hinweisgeberschutzgesetz și NIS 2: cum se desfășoară sesizările interne privind deficiențele de conformitate."
     }
   },
   "entry:geschaeftsfuehrerwechsel-nis2": {
@@ -1743,6 +2895,18 @@
     "pl": {
       "title": "Zmiana organu zarządzającego: bezpieczne przekazanie odpowiedzialności za NIS 2",
       "summary": "Trzy obowiązki aktywujące się w dniu powołania: aktualizacja rejestru zgodnie z §33(5) BSIG w ciągu 2 tygodni, szkolenie zgodnie z §38 BSIG dla nowego członka, ciągłość zatwierdzenia zgodnie z art. 20 NIS 2 dla istniejących akceptacji ryzyka."
+    },
+    "cs": {
+      "title": "Změna vedoucího orgánu: bezpečně předat odpovědnost za NIS 2",
+      "summary": "Tři povinnosti, které se aktivují v den jmenování: aktualizace registru podle §33 odst. 5 BSIG do 2 týdnů, školení podle §38 BSIG pro nového člena, kontinuita schvalování podle čl. 20 NIS 2 u stávajících akceptací rizik."
+    },
+    "pt": {
+      "title": "Mudança do órgão de direção: transferir com segurança a responsabilidade NIS 2",
+      "summary": "Três obrigações que se ativam no dia da nomeação: atualização do registo ao abrigo do §33(5) BSIG no prazo de 2 semanas, formação ao abrigo do §38 BSIG para o novo membro, continuidade da aprovação ao abrigo do art. 20.º da NIS 2 para as aceitações de risco existentes."
+    },
+    "ro": {
+      "title": "Schimbarea organului de conducere: transferul în siguranță al responsabilității NIS 2",
+      "summary": "Trei obligații care se activează în ziua numirii: actualizarea registrului în temeiul §33(5) BSIG în termen de 2 săptămâni, formare în temeiul §38 BSIG pentru noul membru, continuitatea aprobării în temeiul art. 20 din NIS 2 pentru acceptările de risc existente."
     }
   },
   "cat:vergleich": {
@@ -1761,6 +2925,18 @@
     "pl": {
       "title": "Porównania",
       "question": "Jak to się ma do tego, co już mam?"
+    },
+    "cs": {
+      "title": "Srovnání",
+      "question": "Jak to zapadá do toho, co už mám?"
+    },
+    "pt": {
+      "title": "Comparações",
+      "question": "Como é que isto se articula com o que já tenho?"
+    },
+    "ro": {
+      "title": "Comparații",
+      "question": "Cum se integrează aceasta cu ceea ce am deja?"
     }
   },
   "entry:nis2-vs-kritis": {
@@ -1779,6 +2955,18 @@
     "pl": {
       "title": "NIS 2 vs KRITIS",
       "summary": "Różnica między podmiotem NIS 2 a operatorem KRITIS."
+    },
+    "cs": {
+      "title": "NIS 2 vs KRITIS",
+      "summary": "Rozdíl mezi subjektem NIS 2 a provozovatelem KRITIS."
+    },
+    "pt": {
+      "title": "NIS 2 vs KRITIS",
+      "summary": "A diferença entre uma entidade NIS 2 e um operador KRITIS."
+    },
+    "ro": {
+      "title": "NIS 2 vs KRITIS",
+      "summary": "Diferența dintre o entitate NIS 2 și un operator KRITIS."
     }
   },
   "entry:nis2-iso-27001": {
@@ -1797,6 +2985,18 @@
     "pl": {
       "title": "NIS 2 a ISO 27001",
       "summary": "Jak duże jest naprawdę pokrycie? Czego ISO 27001 nie obejmuje."
+    },
+    "cs": {
+      "title": "NIS 2 a ISO 27001",
+      "summary": "Jak velký je ve skutečnosti překryv? Co ISO 27001 nepokrývá."
+    },
+    "pt": {
+      "title": "NIS 2 e ISO 27001",
+      "summary": "Qual é, na realidade, a sobreposição? O que a ISO 27001 não cobre."
+    },
+    "ro": {
+      "title": "NIS 2 și ISO 27001",
+      "summary": "Cât de mare este, de fapt, suprapunerea? Ce nu acoperă ISO 27001."
     }
   },
   "entry:grc-vergleich": {
@@ -1815,6 +3015,18 @@
     "pl": {
       "title": "Porównanie narzędzi GRC",
       "summary": "Ponad 150 narzędzi GRC i ISMS z cenami, funkcjami i dopasowaniem do UE."
+    },
+    "cs": {
+      "title": "Srovnání nástrojů GRC",
+      "summary": "Více než 150 nástrojů GRC a ISMS s cenami, funkcemi a vhodností pro EU."
+    },
+    "pt": {
+      "title": "Comparação de ferramentas GRC",
+      "summary": "Mais de 150 ferramentas GRC e ISMS com preços, funcionalidades e adequação à UE."
+    },
+    "ro": {
+      "title": "Comparație a instrumentelor GRC",
+      "summary": "Peste 150 de instrumente GRC și ISMS cu prețuri, funcționalități și adecvare la UE."
     }
   },
   "entry:nis2-europaeischer-standard": {
@@ -1833,6 +3045,18 @@
     "pl": {
       "title": "NIS 2 jako standard europejski",
       "summary": "Dlaczego NIS 2 jest jednolitym standardem UE i jak rozchodzą się transpozycje krajowe."
+    },
+    "cs": {
+      "title": "NIS 2 jako evropský standard",
+      "summary": "Proč je NIS 2 jednotným standardem EU a jak se národní transpozice rozcházejí."
+    },
+    "pt": {
+      "title": "NIS 2 como norma europeia",
+      "summary": "Por que a NIS 2 é uma norma unificada da UE e como divergem as transposições nacionais."
+    },
+    "ro": {
+      "title": "NIS 2 ca standard european",
+      "summary": "De ce NIS 2 este un standard unitar al UE și cum diferă transpunerile naționale."
     }
   },
   "entry:nis2-vs-dora-finanzsektor": {
@@ -1851,6 +3075,18 @@
     "pl": {
       "title": "NIS 2 czy DORA: co obowiązuje podmioty finansowe?",
       "summary": "Artykuł 4 NIS 2 (lex specialis) przekazuje zarządzanie ryzykiem i zgłaszanie incydentów do DORA. Co pozostaje pod NIS 2: rejestracja zgodnie z artykułem 27."
+    },
+    "cs": {
+      "title": "NIS 2 nebo DORA: co se vztahuje na finanční subjekty?",
+      "summary": "Článek 4 NIS 2 (lex specialis) svěřuje řízení rizik a ohlašování incidentů DORA. Co zůstává pod NIS 2: registrace podle článku 27."
+    },
+    "pt": {
+      "title": "NIS 2 ou DORA: o que se aplica às entidades financeiras?",
+      "summary": "O artigo 4.º da NIS 2 (lex specialis) transfere a gestão de riscos e a notificação de incidentes para a DORA. O que permanece sob a NIS 2: o registo ao abrigo do artigo 27.º."
+    },
+    "ro": {
+      "title": "NIS 2 sau DORA: ce se aplică entităților financiare?",
+      "summary": "Articolul 4 din NIS 2 (lex specialis) transferă gestionarea riscurilor și notificarea incidentelor către DORA. Ce rămâne sub NIS 2: înregistrarea în temeiul articolului 27."
     }
   },
   "entry:nis2-und-dsgvo-schnittmenge": {
@@ -1869,6 +3105,18 @@
     "pl": {
       "title": "NIS 2 a GDPR: część wspólna",
       "summary": "Artykuł 32 GDPR (bezpieczeństwo przetwarzania) obejmuje części artykułu 21 NIS 2. Podwójne zgłoszenia przy incydentach, odrębne organy nadzorcze, wspólne dowody."
+    },
+    "cs": {
+      "title": "NIS 2 a GDPR: překryv",
+      "summary": "Článek 32 GDPR (zabezpečení zpracování) pokrývá části článku 21 NIS 2. Dvojí ohlašování u incidentů, oddělené dozorové orgány, sdílené doklady."
+    },
+    "pt": {
+      "title": "NIS 2 e GDPR: a sobreposição",
+      "summary": "O artigo 32.º do GDPR (segurança do tratamento) cobre partes do artigo 21.º da NIS 2. Dupla notificação nos incidentes, autoridades de controlo distintas, provas partilhadas."
+    },
+    "ro": {
+      "title": "NIS 2 și GDPR: partea comună",
+      "summary": "Articolul 32 din GDPR (securitatea prelucrării) acoperă părți din articolul 21 din NIS 2. Notificări duble la incidente, autorități de supraveghere distincte, dovezi comune."
     }
   },
   "entry:nis2-und-kritis-gleichzeitig-pflichten": {
@@ -1887,6 +3135,18 @@
     "pl": {
       "title": "NIS 2 i KRITIS jednocześnie: które obowiązki obowiązują?",
       "summary": "Kto podlega obu reżimom: środki BSIG oraz audyt KRITIS co trzy lata (§65 BSIG), dodatkowe zgłoszenia, surowsze cykle nadzoru."
+    },
+    "cs": {
+      "title": "NIS 2 a KRITIS současně: jaké povinnosti se uplatní?",
+      "summary": "Kdo spadá pod oba režimy: opatření BSIG plus audit KRITIS každé tři roky (§65 BSIG), dodatečná ohlášení, přísnější cykly dohledu."
+    },
+    "pt": {
+      "title": "NIS 2 e KRITIS ao mesmo tempo: que obrigações se aplicam?",
+      "summary": "Quem cai em ambos os regimes: medidas BSIG mais auditoria KRITIS de três em três anos (§65 BSIG), notificações adicionais, ciclos de supervisão mais rigorosos."
+    },
+    "ro": {
+      "title": "NIS 2 și KRITIS în același timp: ce obligații se aplică?",
+      "summary": "Cine intră sub ambele regimuri: măsuri BSIG plus audit KRITIS o dată la trei ani (§65 BSIG), notificări suplimentare, cicluri de supraveghere mai stricte."
     }
   },
   "entry:nis2-vs-cer-richtlinie": {
@@ -1905,6 +3165,18 @@
     "pl": {
       "title": "NIS 2 i dyrektywa CER w porównaniu",
       "summary": "Cyberodporność (NIS 2) i odporność fizyczna (CER 2022/2557) dla tych samych podmiotów krytycznych: dwie dyrektywy, jeden zbiór operatorów."
+    },
+    "cs": {
+      "title": "NIS 2 a směrnice CER ve srovnání",
+      "summary": "Kybernetická odolnost (NIS 2) a fyzická odolnost (CER 2022/2557) pro tytéž kritické subjekty: dvě směrnice, jeden soubor provozovatelů."
+    },
+    "pt": {
+      "title": "NIS 2 e a Diretiva CER em comparação",
+      "summary": "Ciber-resiliência (NIS 2) e resiliência física (CER 2022/2557) para as mesmas entidades críticas: duas diretivas, um único conjunto de operadores."
+    },
+    "ro": {
+      "title": "NIS 2 și Directiva CER în comparație",
+      "summary": "Reziliență cibernetică (NIS 2) și reziliență fizică (CER 2022/2557) pentru aceleași entități critice: două directive, un singur set de operatori."
     }
   },
   "cat:zeit-und-status": {
@@ -1923,6 +3195,18 @@
     "pl": {
       "title": "Terminy i status",
       "question": "Jakie są terminy?"
+    },
+    "cs": {
+      "title": "Termíny a stav",
+      "question": "Jaké jsou lhůty?"
+    },
+    "pt": {
+      "title": "Prazos e estado",
+      "question": "Quais são os prazos?"
+    },
+    "ro": {
+      "title": "Termene și stadiu",
+      "question": "Care sunt termenele?"
     }
   },
   "entry:nis2-timeline": {
@@ -1941,6 +3225,18 @@
     "pl": {
       "title": "Oś czasu NIS 2",
       "summary": "Wszystkie kamienie milowe UE i krajowe od 2022 roku do dziś."
+    },
+    "cs": {
+      "title": "Časová osa NIS 2",
+      "summary": "Všechny evropské a národní milníky od roku 2022 dodnes."
+    },
+    "pt": {
+      "title": "Cronologia NIS 2",
+      "summary": "Todos os marcos europeus e nacionais de 2022 até hoje."
+    },
+    "ro": {
+      "title": "Cronologia NIS 2",
+      "summary": "Toate etapele europene și naționale din 2022 până astăzi."
     }
   },
   "entry:nis2-in-germany": {
@@ -1959,6 +3255,18 @@
     "pl": {
       "title": "NIS 2 w Niemczech",
       "summary": "BSIG, BSI, stan wdrożenia w Niemczech i kolejne kroki."
+    },
+    "cs": {
+      "title": "NIS 2 v Německu",
+      "summary": "BSIG, BSI, stav německé implementace a další kroky."
+    },
+    "pt": {
+      "title": "NIS 2 na Alemanha",
+      "summary": "BSIG, BSI, estado da implementação alemã e próximos passos."
+    },
+    "ro": {
+      "title": "NIS 2 în Germania",
+      "summary": "BSIG, BSI, stadiul implementării germane și pașii următori."
     }
   },
   "entry:nis2-umsetzung-europa": {
@@ -1977,6 +3285,18 @@
     "pl": {
       "title": "Transpozycja NIS 2 w całej Europie",
       "summary": "Które państwa członkowskie ukończyły, a które są opóźnione."
+    },
+    "cs": {
+      "title": "Transpozice NIS 2 napříč Evropou",
+      "summary": "Které členské státy dokončily a které mají zpoždění."
+    },
+    "pt": {
+      "title": "Transposição da NIS 2 em toda a Europa",
+      "summary": "Que Estados-Membros concluíram, quais estão atrasados."
+    },
+    "ro": {
+      "title": "Transpunerea NIS 2 în întreaga Europă",
+      "summary": "Care state membre au finalizat și care sunt în întârziere."
     }
   },
   "entry:nis2umsucg": {
@@ -1995,6 +3315,18 @@
     "pl": {
       "title": "NIS2UmsuCG: niemiecka ustawa transponująca",
       "summary": "Ustawa o wdrożeniu NIS2 i wzmocnieniu cyberbezpieczeństwa transponuje dyrektywę NIS 2 do prawa niemieckiego. Co zmienia, na jakim jest etapie (stan na 2026) i dlaczego Niemcy przekroczyły termin UE."
+    },
+    "cs": {
+      "title": "NIS2UmsuCG: německý transpoziční zákon",
+      "summary": "Zákon o provedení NIS2 a posílení kybernetické bezpečnosti transponuje směrnici NIS 2 do německého práva. Co mění, v jakém je stavu (k roku 2026) a proč Německo zmeškalo lhůtu EU."
+    },
+    "pt": {
+      "title": "NIS2UmsuCG: a lei de transposição alemã",
+      "summary": "A lei de implementação da NIS2 e de reforço da cibersegurança transpõe a Diretiva NIS 2 para o direito alemão. O que muda, em que ponto está (à data de 2026) e por que a Alemanha falhou o prazo da UE."
+    },
+    "ro": {
+      "title": "NIS2UmsuCG: legea de transpunere germană",
+      "summary": "Legea de punere în aplicare a NIS2 și de consolidare a securității cibernetice transpune Directiva NIS 2 în dreptul german. Ce schimbă, în ce stadiu se află (la 2026) și de ce Germania a depășit termenul UE."
     }
   },
   "entry:nis2-status-niederlande": {
@@ -2013,6 +3345,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Holandia",
       "summary": "Cyberbeveiligingswet, RDI i NCSC-NL: jak Holandia wdraża NIS 2."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Nizozemsko",
+      "summary": "Cyberbeveiligingswet, RDI a NCSC-NL: jak Nizozemsko implementuje NIS 2."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Países Baixos",
+      "summary": "Cyberbeveiligingswet, RDI e NCSC-NL: como os Países Baixos implementam a NIS 2."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Țările de Jos",
+      "summary": "Cyberbeveiligingswet, RDI și NCSC-NL: cum implementează Țările de Jos NIS 2."
     }
   },
   "entry:nis2-status-oesterreich": {
@@ -2031,6 +3375,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Austria",
       "summary": "NISG, BMI i GovCERT.AT: jak Austria transponuje NIS 2 do prawa krajowego."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Rakousko",
+      "summary": "NISG, BMI a GovCERT.AT: jak Rakousko transponuje NIS 2 do vnitrostátního práva."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Áustria",
+      "summary": "NISG, BMI e GovCERT.AT: como a Áustria transpõe a NIS 2 para o direito nacional."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Austria",
+      "summary": "NISG, BMI și GovCERT.AT: cum transpune Austria NIS 2 în dreptul național."
     }
   },
   "entry:nis2-status-frankreich": {
@@ -2049,6 +3405,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Francja",
       "summary": "Ordonnance 2024-1093, ANSSI i nadzór francuski: jak Francja wdraża NIS 2."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Francie",
+      "summary": "Ordonnance 2024-1093, ANSSI a francouzský dohled: jak Francie implementuje NIS 2."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: França",
+      "summary": "Ordonnance 2024-1093, ANSSI e a supervisão francesa: como a França implementa a NIS 2."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Franța",
+      "summary": "Ordonnance 2024-1093, ANSSI și supravegherea franceză: cum implementează Franța NIS 2."
     }
   },
   "entry:nis2-status-spanien": {
@@ -2067,6 +3435,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Hiszpania",
       "summary": "Real Decreto-ley oraz hiszpańska sieć CSIRT INCIBE-CERT i CCN-CERT: jak Hiszpania wdraża NIS 2."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Španělsko",
+      "summary": "Real Decreto-ley a španělská síť CSIRT INCIBE-CERT spolu s CCN-CERT: jak Španělsko implementuje NIS 2."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Espanha",
+      "summary": "Real Decreto-ley e a rede espanhola de CSIRT INCIBE-CERT mais CCN-CERT: como a Espanha implementa a NIS 2."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Spania",
+      "summary": "Real Decreto-ley și rețeaua spaniolă de CSIRT INCIBE-CERT plus CCN-CERT: cum implementează Spania NIS 2."
     }
   },
   "entry:nis2-status-italien": {
@@ -2085,6 +3465,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Włochy",
       "summary": "Decreto Legislativo n. 138/2024 i Agenzia per la Cybersicurezza Nazionale (ACN): jak Włochy wdrażają NIS 2."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Itálie",
+      "summary": "Decreto Legislativo n. 138/2024 a Agenzia per la Cybersicurezza Nazionale (ACN): jak Itálie implementuje NIS 2."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Itália",
+      "summary": "Decreto Legislativo n. 138/2024 e a Agenzia per la Cybersicurezza Nazionale (ACN): como a Itália implementa a NIS 2."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Italia",
+      "summary": "Decreto Legislativo n. 138/2024 și Agenzia per la Cybersicurezza Nazionale (ACN): cum implementează Italia NIS 2."
     }
   },
   "entry:nis2-status-belgien": {
@@ -2103,6 +3495,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Belgia",
       "summary": "Belgijska ustawa NIS 2 z 26 kwietnia 2024 r. i Centre for Cybersecurity Belgium (CCB): jak Belgia wdraża NIS 2."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Belgie",
+      "summary": "Belgický zákon NIS 2 ze dne 26. dubna 2024 a Centre for Cybersecurity Belgium (CCB): jak Belgie implementuje NIS 2."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Bélgica",
+      "summary": "A lei belga NIS 2 de 26 de abril de 2024 e o Centre for Cybersecurity Belgium (CCB): como a Bélgica implementa a NIS 2."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Belgia",
+      "summary": "Legea belgiană NIS 2 din 26 aprilie 2024 și Centre for Cybersecurity Belgium (CCB): cum implementează Belgia NIS 2."
     }
   },
   "entry:nis2-status-polen": {
@@ -2121,6 +3525,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Polska",
       "summary": "Nowelizacja ustawy o krajowym systemie cyberbezpieczeństwa (KSC) oraz CSIRT NASK i CSIRT GOV: jak Polska wdraża NIS 2."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Polsko",
+      "summary": "Novela polského zákona o národní kybernetické bezpečnosti (KSC) a CSIRT NASK spolu s CSIRT GOV: jak Polsko implementuje NIS 2."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Polónia",
+      "summary": "Alteração da Lei polaca da Cibersegurança Nacional (KSC) e CSIRT NASK mais CSIRT GOV: como a Polónia implementa a NIS 2."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Polonia",
+      "summary": "Modificarea Legii poloneze privind securitatea cibernetică națională (KSC) și CSIRT NASK plus CSIRT GOV: cum implementează Polonia NIS 2."
     }
   },
   "entry:nis2-status-schweden": {
@@ -2139,6 +3555,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Szwecja",
       "summary": "Szwedzka transpozycja NIS 2, MSB (Swedish Civil Contingencies Agency) i CERT-SE."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Švédsko",
+      "summary": "Švédská transpozice NIS 2, MSB (Swedish Civil Contingencies Agency) a CERT-SE."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Suécia",
+      "summary": "Transposição sueca da NIS 2, MSB (Swedish Civil Contingencies Agency) e CERT-SE."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Suedia",
+      "summary": "Transpunerea suedeză a NIS 2, MSB (Swedish Civil Contingencies Agency) și CERT-SE."
     }
   },
   "entry:nis2-status-daenemark": {
@@ -2157,6 +3585,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Dania",
       "summary": "Duńska transpozycja NIS 2, CFCS (Centre for Cyber Security) i sektorowy model nadzoru."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Dánsko",
+      "summary": "Dánská transpozice NIS 2, CFCS (Centre for Cyber Security) a model sektorového dohledu."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Dinamarca",
+      "summary": "Transposição dinamarquesa da NIS 2, CFCS (Centre for Cyber Security) e o modelo de supervisão setorial."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Danemarca",
+      "summary": "Transpunerea daneză a NIS 2, CFCS (Centre for Cyber Security) și modelul de supraveghere sectorială."
     }
   },
   "entry:nis2-status-portugal": {
@@ -2175,6 +3615,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Portugalia",
       "summary": "Portugalska transpozycja NIS 2 i CNCS (National Cybersecurity Centre)."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Portugalsko",
+      "summary": "Portugalská transpozice NIS 2 a CNCS (National Cybersecurity Centre)."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Portugal",
+      "summary": "Transposição portuguesa da NIS 2 e CNCS (Centro Nacional de Cibersegurança)."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Portugalia",
+      "summary": "Transpunerea portugheză a NIS 2 și CNCS (National Cybersecurity Centre)."
     }
   },
   "entry:nis2-status-irland": {
@@ -2193,6 +3645,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Irlandia",
       "summary": "Irlandzka transpozycja NIS 2, NCSC-IE i Department of the Environment, Climate and Communications (DECC)."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Irsko",
+      "summary": "Irská transpozice NIS 2, NCSC-IE a Department of the Environment, Climate and Communications (DECC)."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Irlanda",
+      "summary": "Transposição irlandesa da NIS 2, NCSC-IE e o Department of the Environment, Climate and Communications (DECC)."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Irlanda",
+      "summary": "Transpunerea irlandeză a NIS 2, NCSC-IE și Department of the Environment, Climate and Communications (DECC)."
     }
   },
   "entry:nis2-status-tschechien": {
@@ -2211,6 +3675,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Czechy",
       "summary": "Czeska ustawa o cyberbezpieczeństwie (Zákon o kybernetické bezpečnosti) i NÚKIB jako organ nadzorczy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Česká republika",
+      "summary": "Český zákon o kybernetické bezpečnosti (Zákon o kybernetické bezpečnosti) a NÚKIB jako dozorový orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: República Checa",
+      "summary": "Lei checa da cibersegurança (Zákon o kybernetické bezpečnosti) e NÚKIB como autoridade de supervisão."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Republica Cehă",
+      "summary": "Legea cehă privind securitatea cibernetică (Zákon o kybernetické bezpečnosti) și NÚKIB ca autoritate de supraveghere."
     }
   },
   "entry:nis2-status-ungarn": {
@@ -2229,6 +3705,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Węgry",
       "summary": "Węgierska ustawa o cyberbezpieczeństwie (Act XXIII of 2023) i SZTFH jako organ nadzorczy: Węgry były jednym z pierwszych państw członkowskich, które transponowały NIS 2."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Maďarsko",
+      "summary": "Maďarský zákon o kybernetické bezpečnosti (Act XXIII of 2023) a SZTFH jako dozorový orgán: Maďarsko bylo jedním z prvních členských států, které NIS 2 transponovaly."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Hungria",
+      "summary": "Lei húngara da cibersegurança (Act XXIII of 2023) e SZTFH como autoridade de supervisão: a Hungria foi um dos primeiros Estados-Membros a transpor a NIS 2."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Ungaria",
+      "summary": "Legea maghiară privind securitatea cibernetică (Act XXIII of 2023) și SZTFH ca autoritate de supraveghere: Ungaria a fost unul dintre primele state membre care au transpus NIS 2."
     }
   },
   "entry:nis2-status-rumaenien": {
@@ -2247,6 +3735,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Rumunia",
       "summary": "Rumuńska ustawa transponująca NIS 2 (Law 58/2024) i DNSC jako organ właściwy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Rumunsko",
+      "summary": "Rumunský transpoziční zákon NIS 2 (Law 58/2024) a DNSC jako příslušný orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Roménia",
+      "summary": "Lei romena de transposição da NIS 2 (Law 58/2024) e DNSC como autoridade competente."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: România",
+      "summary": "Legea română de transpunere a NIS 2 (Legea 58/2024) și DNSC ca autoritate competentă."
     }
   },
   "entry:nis2-status-griechenland": {
@@ -2265,6 +3765,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Grecja",
       "summary": "Grecka ustawa transponująca NIS 2 i krajowy organ ds. cyberbezpieczeństwa jako organ właściwy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Řecko",
+      "summary": "Řecký transpoziční zákon NIS 2 a Národní úřad pro kybernetickou bezpečnost jako příslušný orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Grécia",
+      "summary": "Lei grega de transposição da NIS 2 e a Autoridade Nacional de Cibersegurança como autoridade competente."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Grecia",
+      "summary": "Legea greacă de transpunere a NIS 2 și Autoritatea Națională pentru Securitate Cibernetică ca autoritate competentă."
     }
   },
   "entry:nis2-status-slowakei": {
@@ -2283,6 +3795,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Słowacja",
       "summary": "Słowacka ustawa transponująca NIS 2 (Act 366/2024) i NBÚ jako organ właściwy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Slovensko",
+      "summary": "Slovenský transpoziční zákon NIS 2 (Act 366/2024) a NBÚ jako příslušný orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Eslováquia",
+      "summary": "Lei eslovaca de transposição da NIS 2 (Act 366/2024) e NBÚ como autoridade competente."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Slovacia",
+      "summary": "Legea slovacă de transpunere a NIS 2 (Act 366/2024) și NBÚ ca autoritate competentă."
     }
   },
   "entry:nis2-status-bulgarien": {
@@ -2301,6 +3825,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Bułgaria",
       "summary": "Bułgarska ustawa transponująca NIS 2 i Agencja e-Administracji jako organ właściwy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Bulharsko",
+      "summary": "Bulharský transpoziční zákon NIS 2 a Agentura pro elektronickou veřejnou správu jako příslušný orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Bulgária",
+      "summary": "Lei búlgara de transposição da NIS 2 e a Agência de Administração Eletrónica como autoridade competente."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Bulgaria",
+      "summary": "Legea bulgară de transpunere a NIS 2 și Agenția pentru Guvernare Electronică ca autoritate competentă."
     }
   },
   "entry:nis2-status-kroatien": {
@@ -2319,6 +3855,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Chorwacja",
       "summary": "Chorwacka ustawa transponująca NIS 2 (Zakon o kibernetičkoj sigurnosti) i CERT.hr / SOA jako organy właściwe."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Chorvatsko",
+      "summary": "Chorvatský transpoziční zákon NIS 2 (Zakon o kibernetičkoj sigurnosti) a CERT.hr / SOA jako příslušné orgány."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Croácia",
+      "summary": "Lei croata de transposição da NIS 2 (Zakon o kibernetičkoj sigurnosti) e CERT.hr / SOA como autoridades competentes."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Croația",
+      "summary": "Legea croată de transpunere a NIS 2 (Zakon o kibernetičkoj sigurnosti) și CERT.hr / SOA ca autorități competente."
     }
   },
   "entry:nis2-status-luxemburg": {
@@ -2337,6 +3885,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Luksemburg",
       "summary": "Luksemburska ustawa transponująca NIS 2 (ustawa z 1 sierpnia 2024 r.) i HCPN / ILR jako organy właściwe."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Lucembursko",
+      "summary": "Lucemburský transpoziční zákon NIS 2 (zákon ze dne 1. srpna 2024) a HCPN / ILR jako příslušné orgány."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Luxemburgo",
+      "summary": "Lei luxemburguesa de transposição da NIS 2 (lei de 1 de agosto de 2024) e HCPN / ILR como autoridades competentes."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Luxemburg",
+      "summary": "Legea luxemburgheză de transpunere a NIS 2 (legea din 1 august 2024) și HCPN / ILR ca autorități competente."
     }
   },
   "entry:nis2-status-slowenien": {
@@ -2355,6 +3915,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Słowenia",
       "summary": "Słoweńska ustawa transponująca NIS 2 i URSIV / SI-CERT jako organy właściwe."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Slovinsko",
+      "summary": "Slovinský transpoziční zákon NIS 2 a URSIV / SI-CERT jako příslušné orgány."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Eslovénia",
+      "summary": "Lei eslovena de transposição da NIS 2 e URSIV / SI-CERT como autoridades competentes."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Slovenia",
+      "summary": "Legea slovenă de transpunere a NIS 2 și URSIV / SI-CERT ca autorități competente."
     }
   },
   "entry:nis2-status-zypern": {
@@ -2373,6 +3945,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Cypr",
       "summary": "Cypryjska ustawa transponująca NIS 2 i DSA (Digital Security Authority) jako organ właściwy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Kypr",
+      "summary": "Kyperský transpoziční zákon NIS 2 a DSA (Digital Security Authority) jako příslušný orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Chipre",
+      "summary": "Lei cipriota de transposição da NIS 2 e DSA (Digital Security Authority) como autoridade competente."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Cipru",
+      "summary": "Legea cipriotă de transpunere a NIS 2 și DSA (Digital Security Authority) ca autoritate competentă."
     }
   },
   "entry:nis2-status-estland": {
@@ -2391,6 +3975,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Estonia",
       "summary": "Estońska ustawa o cyberbezpieczeństwie (Küberturvalisuse seadus) i RIA (Information System Authority) jako organ właściwy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Estonsko",
+      "summary": "Estonský zákon o kybernetické bezpečnosti (Küberturvalisuse seadus) a RIA (Information System Authority) jako příslušný orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Estónia",
+      "summary": "Lei estónia da cibersegurança (Küberturvalisuse seadus) e RIA (Information System Authority) como autoridade competente."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Estonia",
+      "summary": "Legea estonă privind securitatea cibernetică (Küberturvalisuse seadus) și RIA (Information System Authority) ca autoritate competentă."
     }
   },
   "entry:nis2-status-litauen": {
@@ -2409,6 +4005,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Litwa",
       "summary": "Litewska ustawa o cyberbezpieczeństwie (Kibernetinio saugumo įstatymas) i NKSC jako organ właściwy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Litva",
+      "summary": "Litevský zákon o kybernetické bezpečnosti (Kibernetinio saugumo įstatymas) a NKSC jako příslušný orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Lituânia",
+      "summary": "Lei lituana da cibersegurança (Kibernetinio saugumo įstatymas) e NKSC como autoridade competente."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Lituania",
+      "summary": "Legea lituaniană privind securitatea cibernetică (Kibernetinio saugumo įstatymas) și NKSC ca autoritate competentă."
     }
   },
   "entry:nis2-status-lettland": {
@@ -2427,6 +4035,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Łotwa",
       "summary": "Łotewska ustawa o cyberbezpieczeństwie (Kiberdrošības likums) i CERT.LV jako organ właściwy."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Lotyšsko",
+      "summary": "Lotyšský zákon o kybernetické bezpečnosti (Kiberdrošības likums) a CERT.LV jako příslušný orgán."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Letónia",
+      "summary": "Lei letã da cibersegurança (Kiberdrošības likums) e CERT.LV como autoridade competente."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Letonia",
+      "summary": "Legea letonă privind securitatea cibernetică (Kiberdrošības likums) și CERT.LV ca autoritate competentă."
     }
   },
   "entry:nis2-status-malta": {
@@ -2445,6 +4065,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Malta",
       "summary": "Maltańska ustawa transponująca NIS 2 (Legal Notice 71/2025) i CIPD / CSIRTMalta jako organy właściwe."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Malta",
+      "summary": "Maltský transpoziční zákon NIS 2 (Legal Notice 71/2025) a CIPD / CSIRTMalta jako příslušné orgány."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Malta",
+      "summary": "Lei maltesa de transposição da NIS 2 (Legal Notice 71/2025) e CIPD / CSIRTMalta como autoridades competentes."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Malta",
+      "summary": "Legea malteză de transpunere a NIS 2 (Legal Notice 71/2025) și CIPD / CSIRTMalta ca autorități competente."
     }
   },
   "entry:nis2-status-finnland": {
@@ -2463,6 +4095,18 @@
     "pl": {
       "title": "Stan wdrożenia NIS 2: Finlandia",
       "summary": "Fińska transpozycja NIS 2, Traficom i NCSC-FI."
+    },
+    "cs": {
+      "title": "Stav implementace NIS 2: Finsko",
+      "summary": "Finská transpozice NIS 2, Traficom a NCSC-FI."
+    },
+    "pt": {
+      "title": "Estado de implementação da NIS 2: Finlândia",
+      "summary": "Transposição finlandesa da NIS 2, Traficom e NCSC-FI."
+    },
+    "ro": {
+      "title": "Stadiul implementării NIS 2: Finlanda",
+      "summary": "Transpunerea finlandeză a NIS 2, Traficom și NCSC-FI."
     }
   },
   "entry:nis2-tracker-eu": {
@@ -2481,6 +4125,18 @@
     "pl": {
       "title": "Tracker wdrożenia NIS 2 w UE: wszystkie 27 państw członkowskich",
       "summary": "Stan transpozycji NIS 2 we wszystkich 27 państwach członkowskich UE w jednej tabeli: ustawa krajowa, organ właściwy, status procedury."
+    },
+    "cs": {
+      "title": "Sledování implementace NIS 2 v EU: všech 27 členských států",
+      "summary": "Stav transpozice NIS 2 ve všech 27 členských státech EU v jediné tabulce: vnitrostátní zákon, příslušný orgán, stav řízení."
+    },
+    "pt": {
+      "title": "Rastreador de implementação da NIS 2 na UE: os 27 Estados-Membros",
+      "summary": "Estado da transposição da NIS 2 em todos os 27 Estados-Membros da UE numa única tabela: lei nacional, autoridade competente, estado do procedimento."
+    },
+    "ro": {
+      "title": "Tracker de implementare a NIS 2 în UE: toate cele 27 de state membre",
+      "summary": "Stadiul transpunerii NIS 2 în toate cele 27 de state membre ale UE într-un singur tabel: lege națională, autoritate competentă, stadiul procedurii."
     }
   },
   "cat:troubleshooting": {
@@ -2499,6 +4155,18 @@
     "pl": {
       "title": "Rozwiązywanie problemów",
       "question": "Co robić, gdy coś idzie nie tak?"
+    },
+    "cs": {
+      "title": "Řešení problémů",
+      "question": "Co dělat, když se něco pokazí?"
+    },
+    "pt": {
+      "title": "Resolução de problemas",
+      "question": "O que fazer quando algo corre mal?"
+    },
+    "ro": {
+      "title": "Depanare",
+      "question": "Ce să faci când ceva merge prost?"
     }
   },
   "entry:nis2-registrierung-verpasst": {
@@ -2517,6 +4185,18 @@
     "pl": {
       "title": "Przekroczony termin rejestracji w BSI: co teraz?",
       "summary": "Przekroczony termin, ryzyko kary, spóźniona rejestracja i komunikacja z BSI."
+    },
+    "cs": {
+      "title": "Zmeškaná lhůta pro registraci u BSI: co teď?",
+      "summary": "Zmeškaná lhůta, riziko pokuty, dodatečná registrace a komunikace s BSI."
+    },
+    "pt": {
+      "title": "Prazo de registo junto do BSI ultrapassado: e agora?",
+      "summary": "Prazo ultrapassado, risco de coima, registo tardio e comunicação com o BSI."
+    },
+    "ro": {
+      "title": "Termen de înregistrare la BSI ratat: ce urmează?",
+      "summary": "Termen ratat, risc de amendă, înregistrare tardivă și comunicarea cu BSI."
     }
   },
   "entry:ransomware-was-tun-nis2": {
@@ -2535,6 +4215,18 @@
     "pl": {
       "title": "Atak ransomware: co zrobić natychmiast zgodnie z NIS 2",
       "summary": "Pierwsze 24 godziny: powstrzymanie, wczesne ostrzeżenie do BSI (artykuł 23), komunikacja kryzysowa, decyzja o zapłacie, zabezpieczenie dowodów. Co jest prawnie wymagane, a co nie."
+    },
+    "cs": {
+      "title": "Útok ransomwarem: co udělat okamžitě podle NIS 2",
+      "summary": "Prvních 24 hodin: zadržení, včasné varování BSI (článek 23), krizová komunikace, rozhodnutí o platbě, zajištění důkazů. Co je právně vyžadováno, co nikoli."
+    },
+    "pt": {
+      "title": "Ataque de ransomware: o que fazer de imediato segundo a NIS 2",
+      "summary": "As primeiras 24 horas: contenção, alerta precoce ao BSI (artigo 23.º), comunicação de crise, decisão de pagamento, preservação de provas. O que é legalmente obrigatório, o que não é."
+    },
+    "ro": {
+      "title": "Atac ransomware: ce să faci imediat conform NIS 2",
+      "summary": "Primele 24 de ore: limitare, avertizare timpurie către BSI (articolul 23), comunicare de criză, decizia de plată, conservarea probelor. Ce este obligatoriu prin lege, ce nu este."
     }
   },
   "entry:phishing-vorfall-nis2": {
@@ -2553,6 +4245,18 @@
     "pl": {
       "title": "Incydent phishingowy: czy to incydent poważny w rozumieniu NIS 2?",
       "summary": "Kiedy fala phishingu przekracza próg CIR §11.6 i jak wygląda wczesne ostrzeżenie do BSI."
+    },
+    "cs": {
+      "title": "Phishingový incident: je to významný incident podle NIS 2?",
+      "summary": "Kdy phishingová vlna překročí práh CIR §11.6 a jak vypadá včasné varování BSI."
+    },
+    "pt": {
+      "title": "Incidente de phishing: é um incidente significativo segundo a NIS 2?",
+      "summary": "Quando uma onda de phishing ultrapassa o limiar do CIR §11.6 e como é o alerta precoce ao BSI."
+    },
+    "ro": {
+      "title": "Incident de phishing: este un incident semnificativ conform NIS 2?",
+      "summary": "Când un val de phishing depășește pragul CIR §11.6 și cum arată avertizarea timpurie către BSI."
     }
   },
   "entry:ddos-angriff-nis2": {
@@ -2571,6 +4275,18 @@
     "pl": {
       "title": "Atak DDoS: ograniczanie skutków i zgłaszanie zgodnie z NIS 2",
       "summary": "Wykrywanie, ograniczanie skutków u ISP, zgłoszenie §32 BSIG i analiza poincydentalna."
+    },
+    "cs": {
+      "title": "Útok DDoS: zmírnění a ohlášení podle NIS 2",
+      "summary": "Detekce, zmírnění u poskytovatele internetových služeb, ohlášení podle §32 BSIG a analýza po incidentu."
+    },
+    "pt": {
+      "title": "Ataque DDoS: mitigação e notificação segundo a NIS 2",
+      "summary": "Deteção, mitigação junto do ISP, notificação §32 BSIG e análise pós-incidente."
+    },
+    "ro": {
+      "title": "Atac DDoS: atenuare și notificare conform NIS 2",
+      "summary": "Detectare, atenuare la nivelul ISP-ului, notificare §32 BSIG și analiză post-incident."
     }
   },
   "entry:lieferant-gehackt-nis2": {
@@ -2589,6 +4305,18 @@
     "pl": {
       "title": "Dostawca zhakowany: twoje własne obowiązki NIS 2",
       "summary": "Kiedy naruszenie u dostawcy wymusza twoje własne wczesne ostrzeżenie, czego wymaga artykuł 21(2)(d)."
+    },
+    "cs": {
+      "title": "Dodavatel napaden: vaše vlastní povinnosti NIS 2",
+      "summary": "Kdy kompromitace dodavatele spustí vaše vlastní včasné varování, co vyžaduje článek 21 odst. 2 písm. d)."
+    },
+    "pt": {
+      "title": "Fornecedor pirateado: as suas próprias obrigações NIS 2",
+      "summary": "Quando a violação de um fornecedor desencadeia o seu próprio alerta precoce, o que o artigo 21.º, n.º 2, alínea d) exige."
+    },
+    "ro": {
+      "title": "Furnizor compromis: propriile tale obligații NIS 2",
+      "summary": "Când compromiterea unui furnizor declanșează propria ta avertizare timpurie, ce impune articolul 21 alineatul (2) litera (d)."
     }
   },
   "entry:cloud-anbieter-ausgefallen-nis2": {
@@ -2607,6 +4335,18 @@
     "pl": {
       "title": "Awaria dostawcy chmury: czy podlega zgłoszeniu zgodnie z NIS 2?",
       "summary": "Kiedy awaria chmury liczy się jako incydent poważny i jakich kroków artykuł 21(2)(c) wymaga od zarządzania ryzykiem."
+    },
+    "cs": {
+      "title": "Výpadek poskytovatele cloudu: ohlašuje se podle NIS 2?",
+      "summary": "Kdy se výpadek cloudu počítá jako významný incident a jaké kroky vyžaduje od řízení rizik článek 21 odst. 2 písm. c)."
+    },
+    "pt": {
+      "title": "Falha do fornecedor de nuvem: é notificável segundo a NIS 2?",
+      "summary": "Quando uma falha da nuvem conta como incidente significativo e que passos o artigo 21.º, n.º 2, alínea c) exige da gestão de riscos."
+    },
+    "ro": {
+      "title": "Avarie a furnizorului de cloud: este notificabilă conform NIS 2?",
+      "summary": "Când o avarie a cloudului contează drept incident semnificativ și ce pași impune articolul 21 alineatul (2) litera (c) gestionării riscurilor."
     }
   },
   "entry:bsi-anfrage-erhalten": {
@@ -2625,6 +4365,18 @@
     "pl": {
       "title": "Otrzymano zapytanie z BSI: jak odpowiedzieć",
       "summary": "Pierwsze pismo §64 BSIG: terminy, obowiązek współpracy, rozsądne doradztwo, czego nie robić."
+    },
+    "cs": {
+      "title": "Dotaz od BSI obdržen: jak odpovědět",
+      "summary": "První dopis podle §64 BSIG: lhůty, povinnost spolupráce, rozumné poradenství, čeho se vyvarovat."
+    },
+    "pt": {
+      "title": "Pedido do BSI recebido: como responder",
+      "summary": "A primeira carta §64 BSIG: prazos, dever de cooperação, aconselhamento sensato, o que não fazer."
+    },
+    "ro": {
+      "title": "Solicitare primită de la BSI: cum să răspunzi",
+      "summary": "Prima scrisoare §64 BSIG: termene, obligația de cooperare, consiliere rezonabilă, ce să nu faci."
     }
   },
   "entry:datenleck-nis2-dsgvo-parallel": {
@@ -2643,6 +4395,18 @@
     "pl": {
       "title": "Naruszenie danych: NIS 2 i GDPR równolegle",
       "summary": "Dwa organy nadzorcze, dwa zegary, jedno postępowanie wyjaśniające: jak artykuł 23 NIS 2 i artykuł 33 GDPR biegną równolegle."
+    },
+    "cs": {
+      "title": "Únik dat: NIS 2 a GDPR souběžně",
+      "summary": "Dva dozorové orgány, dvoje hodiny, jedno šetření: jak článek 23 NIS 2 a článek 33 GDPR probíhají souběžně."
+    },
+    "pt": {
+      "title": "Fuga de dados: NIS 2 e GDPR em paralelo",
+      "summary": "Duas autoridades de controlo, dois relógios, uma única investigação: como o artigo 23.º da NIS 2 e o artigo 33.º do GDPR decorrem em paralelo."
+    },
+    "ro": {
+      "title": "Scurgere de date: NIS 2 și GDPR în paralel",
+      "summary": "Două autorități de supraveghere, două ceasuri, o singură investigație: cum se desfășoară în paralel articolul 23 din NIS 2 și articolul 33 din GDPR."
     }
   }
 }

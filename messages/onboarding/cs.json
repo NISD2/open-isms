@@ -1,0 +1,28 @@
+{
+  "onboarding": {
+    "title": "Vítejte ve shodě s NIS2",
+    "subtitle": "Nastavte si svou organizaci a můžete začít.",
+    "step": "Krok {current} z {total}",
+    "steps": {
+      "company": "Údaje o organizaci",
+      "team": "Klíčové osoby",
+      "ai": "Asistent AI"
+    },
+    "nav": {
+      "back": "Zpět",
+      "next": "Další",
+      "skip": "Zatím přeskočit",
+      "submit": "Vytvořit organizaci"
+    },
+    "creating": "Nastavujeme vaši organizaci...",
+    "createError": "Organizaci se nepodařilo vytvořit. Zkuste to prosím znovu.",
+    "mode": {
+      "title": "Vše je připraveno!",
+      "subtitle": "Jak chcete pokračovat?",
+      "guided": "Průvodce nastavením",
+      "guidedDescription": "Projděte si každou kategorii shody krok za krokem. Výchozí hodnoty jsou již použity, stačí je zkontrolovat a upravit.",
+      "manual": "Ruční nastavení",
+      "manualDescription": "Přejděte rovnou na svůj přehled a pracujte vlastním tempem."
+    }
+  }
+}

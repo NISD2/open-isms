@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Politici",
+    "description": "Politici, proceduri și ghiduri de securitate cu urmărirea aprobărilor. Fundamentul NIS2 Art. 21(1).",
+    "helpText": "Creați și gestionați politicile de securitate a informației. Fiecare politică urmează un ciclu de viață: ciornă, revizuire, aprobată, arhivată. Urmăriți istoricul versiunilor și asigurați-vă că tot personalul relevant confirmă politicile curente. NIS2 impune politici documentate pentru gestionarea riscurilor, controlul accesului, criptare și altele.",
+    "add": "Adaugă politică",
+    "edit": "Editează politica",
+    "empty": "Nicio politică încă. Creați primul dvs. document de politică.",
+    "deleteConfirm": "Sigur doriți să ștergeți această politică?",
+    "actions": "Acțiuni",
+    "status": {
+      "draft": "Ciornă",
+      "approved": "Aprobată",
+      "archived": "Arhivată"
+    },
+    "fields": {
+      "title": "Titlu",
+      "type": "Tip",
+      "version": "Versiune",
+      "content": "Conținut",
+      "status": "Stare",
+      "effectiveFrom": "În vigoare de la",
+      "reviewDue": "Revizuire scadentă la"
+    },
+    "fieldDescriptions": {
+      "title": "Numele documentului de politică (de exemplu, „Politică de securitate a informației”, „Politică de control al accesului”).",
+      "type": "Selectați tipul politicii (de exemplu, politică, procedură, ghid, standard).",
+      "version": "Numărul de versiune pentru această revizie a politicii (de exemplu, 1.0, 2.1). Se incrementează la fiecare ciclu de aprobare.",
+      "content": "Textul integral al politicii. Includeți domeniul de aplicare, obiectivele, responsabilitățile și cerințele specifice.",
+      "status": "Starea curentă din ciclul de viață: Ciornă (în pregătire), Aprobată (activă și aplicată) sau Arhivată (înlocuită).",
+      "effectiveFrom": "Data de la care această versiune a politicii devine activă și aplicabilă.",
+      "reviewDue": "Data până la care această politică trebuie revizuită și actualizată. NIS2 impune revizuiri periodice ale politicilor."
+    }
+  }
+}

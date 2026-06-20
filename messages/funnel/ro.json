@@ -1,0 +1,77 @@
+{
+  "funnel": {
+    "meta": {
+      "title": "Implementați NIS2 cu îndrumare: săptămânal, 30 de minute",
+      "description": "Cunoașteți pașii NIS2 și ați prefera să nu îi parcurgeți singuri. Lucrăm împreună cu dumneavoastră la cerințe o dată pe săptămână. Platforma este gratuită și open source, îndrumarea este opțională și poate fi anulată lunar."
+    },
+    "hero": {
+      "headline": "Vă ghidăm prin NIS2. Punct cu punct.",
+      "subhead": "Știți că NIS2 vi se aplică și ați prefera să nu duceți singuri povara implementării. Ne așezăm împreună cu dumneavoastră 30 de minute o dată pe săptămână și parcurgem cerințele în ordine. Platforma rămâne gratuită și open source, iar îndrumarea este opțională.",
+      "roadmapLink": "Cunoașteți deja pașii și vreți să începeți pe cont propriu? Iată foaia de parcurs.",
+      "cta": "Programați un apel de prezentare gratuit",
+      "trust": "Creat la Köln. Găzduit în Germania."
+    },
+    "process": {
+      "heading": "Cum funcționează îndrumarea",
+      "step1Title": "Apel săptămânal, 30 de minute",
+      "step1Body": "Un interval fix pe săptămână. Fără lună de proiect, fără bucle nesfârșite de aliniere. Luăm următorul element din foaia dumneavoastră de parcurs și îl rezolvăm împreună.",
+      "step2Title": "Noi conducem, responsabilul dumneavoastră IT implementează",
+      "step2Body": "Efortul dumneavoastră personal ca administrator este de aproximativ trei ore pe an, după care aprobarea și supravegherea conform articolului 20 NIS 2 (în Germania § 38 BSIG) sunt încheiate. Patru obligații conform articolului 21 sunt fixe, restul se ajustează în funcție de riscul dumneavoastră și este proporțional. Partea operațională, inventarul de active, registrul de riscuri, furnizorii și cele zece măsuri, este gestionată de echipa dumneavoastră.",
+      "step3Title": "Păstrați totul. Fără lock-in.",
+      "step3Body": "Datele dumneavoastră, pista de audit și dovezile vă aparțin. Platforma este open source. Dacă vreți să continuați fără noi, exportați totul și luați cu dumneavoastră."
+    },
+    "comparison": {
+      "heading": "La ce folosește fiecare opțiune",
+      "intro": "Nu denigrăm pe nimeni. Fiecare opțiune are locul ei. Iată evaluarea sinceră, ca să știți dacă vi se potrivim.",
+      "consultantsTitle": "Consultanți",
+      "consultants": "Un consultant face munca în locul dumneavoastră și își asumă o răspundere reală. Merită dacă aveți bugetul și nu aveți pe nimeni intern care să gestioneze NIS2 pe termen lung. Cunoștințele pleacă însă odată cu consultantul.",
+      "fullServiceTitle": "Platformă GRC full-service",
+      "fullService": "Platformele GRC full-service acoperă multe cadre simultan și sunt construite pentru organizații mari cu propria echipă GRC. Puternice dacă exact asta vă trebuie și bugetul există.",
+      "intlPlatformsTitle": "Platformă internațională",
+      "intlPlatforms": "Platformele internaționale sunt rafinate și rapide pentru certificările uzuale. Puternice dacă vă certificați la nivel internațional și engleza ca limbă principală vi se potrivește.",
+      "nisd2Title": "nisd2.eu",
+      "nisd2": "nisd2.eu este gratuit și open source, găzduit în UE. Un singur standard, dus în profunzime. Totul exportabil, fără lock-in. Ce nu facem: niciun însoțire full-service, niciun suport telefonic care să vă ghideze pas cu pas. Aveți nevoie de cineva intern care să gestioneze NIS2. Exact pentru această persoană a fost construit."
+    },
+    "features": {
+      "heading": "Ce parcurgem împreună cu dumneavoastră",
+      "obligations": {
+        "title": "Obligațiile din articolul 21 NIS2",
+        "description": "Fiecare obligație este descompusă în formulare structurate cu instrucțiuni clare. Nu este nevoie de cunoștințe de conformitate: dumneavoastră răspundeți la întrebări, noi facem corelarea."
+      },
+      "evidence": {
+        "title": "Dovezi și pistă de audit",
+        "description": "Documentele, aprobările și o pistă de audit care evidențiază orice modificare se construiesc singure din munca dumneavoastră. Totul cu marcaj temporal, pregatit pentru audit."
+      },
+      "deadlines": {
+        "title": "Termene și raportare",
+        "description": "Înregistrarea, cascada de raportare a incidentelor conform articolului 23 (24 de ore, 72 de ore, o lună) și reînnoirile instruirilor. Fiecare termen este urmărit, nimic nu scapă."
+      },
+      "bsiRegistration": {
+        "title": "Înregistrarea la autoritate",
+        "description": "Pregătire ghidată pentru înregistrarea conform articolului 27, cu toate documentele necesare și o listă de verificare prealabilă."
+      }
+    },
+    "faq": {
+      "heading": "Întrebări frecvente",
+      "q1": "Este platforma cu adevărat gratuită?",
+      "a1": "Da. Platforma este gratuită și open source. Câștigăm din implementarea ghidată și din instruire, nu din software și nu din datele dumneavoastră. Puteți inspecta codul la github.com/NISD2.",
+      "q2": "Cât costă îndrumarea?",
+      "a2": "Stabilim domeniul de aplicare în apelul de prezentare, anulabil lunar, fără lock-in. Mai întâi analizăm împreună dacă aveți nevoie de îndrumare în general sau dacă platforma gratuită și foaia de parcurs sunt suficiente pe cont propriu.",
+      "q3": "Avem deja ISO 27001. Mai avem nevoie de asta?",
+      "a3": "ISO 27001 acoperă multe dintre măsurile tehnice și organizatorice pe care NIS2 le solicită la rândul său. NIS2 adaugă obligații pe care un ISMS singur nu le acoperă: înregistrarea la autoritatea națională conform articolului 27, cascada de raportare a incidentelor conform articolului 23 și instruirea demonstrabilă a conducerii conform articolului 20 NIS 2 (în Germania § 38 BSIG). Acestea sunt exact lacunele pe care le parcurgem împreună cu dumneavoastră.",
+      "q4": "Cât durează implementarea?",
+      "a4": "Efortul dumneavoastră personal ca administrator este de aproximativ trei ore pe an: o instruire, câteva semnături. Partea operațională este gestionată continuu de responsabilul dumneavoastră IT. Cât de repede este pus la punct nivelul de bază depinde de cât de bine este deja întreținut inventarul dumneavoastră de active. Foaia de parcurs arată efortul realist pentru fiecare pas.",
+      "q5": "Unde sunt stocate datele noastre?",
+      "a5": "În Germania. Criptate în tranzit și în repaus, cu acces bazat pe roluri și o pistă de audit completă. Detaliile se găsesc în Trust Center.",
+      "q6": "Ce se întâmplă dacă oprim îndrumarea?",
+      "a6": "Continuați să folosiți platforma gratuit sau exportați datele și plecați. Îndrumarea este anulabilă lunar, software-ul este open source. Fără lock-in."
+    },
+    "sources": {
+      "body": "Surse și transparență: Directiva NIS2 (UE) 2022/2555, BSIG, CIR 2024/2690, ENISA Technical Implementation Guidance. Open source, găzduit în Germania, conform GDPR. Această pagină reprezintă o îndrumare structurată și nu constituie consultanță juridică. Implementarea operațională este gestionată de responsabilul dumneavoastră IT sau de CISO."
+    },
+    "finalCta": {
+      "headline": "Programați un apel de prezentare gratuit",
+      "email": "Preferați să scrieți direct? contact@nisd2.eu"
+    }
+  }
+}

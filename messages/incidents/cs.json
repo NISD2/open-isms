@@ -1,0 +1,70 @@
+{
+  "incidents": {
+    "title": "Registr incidentů",
+    "description": "Záznam bezpečnostních incidentů s klasifikací závažnosti a sledováním časové osy. Vyžaduje NIS2 čl. 23.",
+    "helpText": "Zaznamenejte každý bezpečnostní incident, jakmile nastane. NIS2 vyžaduje včasné varování pro BSI do 24 hodin a úplné oznámení do 72 hodin u významných incidentů. Zaznamenejte závažnost, dotčené systémy, časovou osu a kroky k vyřešení.",
+    "add": "Nahlásit incident",
+    "edit": "Upravit incident",
+    "empty": "Nejsou zaznamenány žádné incidenty. Nahlaste incident, jakmile nastane.",
+    "deleteConfirm": "Opravdu chcete tento incident smazat?",
+    "actions": "Akce",
+    "severity": {
+      "near_miss": "Téměř incident",
+      "incident": "Incident",
+      "significant": "Významný"
+    },
+    "fields": {
+      "title": "Název",
+      "description": "Popis",
+      "severity": "Závažnost",
+      "situationColor": "Barva situace",
+      "discoveredAt": "Zjištěno dne",
+      "occurredAt": "Nastalo dne",
+      "resolvedAt": "Vyřešeno dne",
+      "confidentialityImpacted": "Dotčena důvěrnost",
+      "integrityImpacted": "Dotčena integrita",
+      "availabilityImpacted": "Dotčena dostupnost",
+      "threatType": "Typ hrozby",
+      "rootCause": "Hlavní příčina",
+      "countermeasures": "Protiopatření",
+      "preventiveMeasures": "Preventivní opatření",
+      "requiresGdprNotification": "Vyžadováno oznámení porušení podle GDPR",
+      "dataSubjectsAffected": "Dotčené subjekty údajů",
+      "gdprNotifiedAt": "Úřad pro GDPR vyrozuměn",
+      "notifiedDataSubjectsAt": "Subjekty údajů vyrozuměny"
+    },
+    "bsiDeadlines": {
+      "title": "Lhůty pro hlášení BSI",
+      "overdue": "Po lhůtě",
+      "dueIn": "Lhůta za {days} d",
+      "dueToday": "Lhůta dnes",
+      "reportType": {
+        "early_warning": "Včasné varování do 24 h",
+        "notification": "Oznámení do 72 h",
+        "intermediate": "Průběžná zpráva",
+        "final": "Závěrečná zpráva",
+        "progress": "Zpráva o postupu"
+      }
+    },
+    "fieldDescriptions": {
+      "title": "Krátký výstižný název tohoto incidentu (např. „Phishingový útok na finanční oddělení“).",
+      "description": "Podrobný popis toho, co se stalo, které systémy a data byly dotčeny a jaký byl rozsah dopadu.",
+      "severity": "Vyberte úroveň závažnosti. „Významné“ incidenty vyžadují oznámení BSI do 24 h (včasné varování) a do 72 h (úplná zpráva) podle NIS2 čl. 23.",
+      "situationColor": "Semaforový ukazatel aktuálního stavu incidentu: zelená (zvládnuto), oranžová (probíhá), červená (kritické).",
+      "discoveredAt": "Datum a čas, kdy byl tento incident poprvé zjištěn nebo nahlášen.",
+      "occurredAt": "Datum a čas, kdy tento incident skutečně začal (může se lišit od zjištění).",
+      "resolvedAt": "Datum a čas, kdy byl tento incident plně vyřešen a obnoven běžný provoz.",
+      "confidentialityImpacted": "Zapněte, pokud došlo k neoprávněnému zpřístupnění informací nebo je takové zpřístupnění podezřelé.",
+      "integrityImpacted": "Zapněte, pokud došlo k neoprávněné úpravě nebo poškození dat nebo je takový stav podezřelý.",
+      "availabilityImpacted": "Zapněte, pokud byly služby nebo systémy narušeny nebo se staly nedostupnými.",
+      "threatType": "Vyberte typ hrozby (např. malware, DDoS, vnitřní pachatel, phishing, zneužití zranitelnosti).",
+      "rootCause": "Po dokončení vyšetřování popište základní příčinu incidentu.",
+      "countermeasures": "Popište okamžité kroky přijaté k zvládnutí a nápravě incidentu.",
+      "preventiveMeasures": "Popište dlouhodobá opatření zavedená k zabránění opakování tohoto typu incidentu.",
+      "requiresGdprNotification": "Zapněte, pokud tento incident zahrnoval porušení zabezpečení osobních údajů vyžadující oznámení dozorovému úřadu podle GDPR čl. 33 (do 72 hodin od okamžiku, kdy se o něm dozvíte).",
+      "dataSubjectsAffected": "Přibližný počet subjektů údajů, jejichž osobní údaje byly kompromitovány (čl. 33 odst. 3 písm. a), povinný obsah oznámení).",
+      "gdprNotifiedAt": "Datum a čas, kdy byl dozorový úřad vyrozuměn o porušení.",
+      "notifiedDataSubjectsAt": "Datum a čas, kdy byly dotčené subjekty údajů informovány (čl. 34, vyžaduje se, pokud porušení představuje vysoké riziko)."
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "applicability": {
+    "title": "Kontrola působnosti NIS2. Vztahuje se na mě?",
+    "metaDescription": "Za méně než 2 minuty zjistěte, zda vaše společnost spadá pod NIS2. Bezplatná rychlá kontrola podle odvětví, velikosti a zvláštních případů.",
+    "subtitle": "Za méně než 2 minuty zjistěte, zda vaše společnost spadá pod směrnici NIS2.",
+    "cta": "Objednat demo",
+    "steps": {
+      "exclusion": "Kontrola výjimek",
+      "sector": "Výběr odvětví",
+      "size": "Velikost společnosti",
+      "specialCases": "Zvláštní případy",
+      "result": "Výsledek"
+    },
+    "step": "Krok {current} z {total}",
+
+    "exclusion": {
+      "title": "Spadá vaše organizace do některé z vyňatých kategorií?",
+      "description": "Následující typy subjektů jsou ze zákona z působnosti NIS2 vyňaty. Pokud se na vás některý vztahuje, NIS2 se na vaši organizaci nevztahuje a kontrola zde končí.",
+      "noneOfTheAbove": "Ne. Žádný z těchto případů se na nás nevztahuje.",
+      "noneHelp": "Tuto možnost zvolte, chcete-li pokračovat. Většina společností ze soukromého sektoru zvolí tuto možnost."
+    },
+
+    "sector": {
+      "title": "V jakém odvětví vaše společnost působí?",
+      "description": "Vyberte všechna odvětví, která se na vás vztahují. Společnost může působit ve více odvětvích spadajících pod NIS2.",
+      "annexI": "Odvětví s vysokou kritičností",
+      "annexII": "Další kritická odvětví",
+      "noSector": "Žádné z těchto odvětví se na mou společnost nevztahuje",
+      "selectedCount": "{count, plural, =0 {Není vybráno žádné odvětví} =1 {Vybráno 1 odvětví} other {Vybráno # odvětví}}"
+    },
+
+    "size": {
+      "title": "Jaká je velikost vaší organizace?",
+      "description": "Velikost se počítá na úrovni celé skupiny podniků, včetně mateřských a dceřiných společností.",
+      "employees": "Celkový počet zaměstnanců (FTE)",
+      "employeesHelp": "Zahrňte všechny společnosti skupiny, pokud váš subjekt nemá zcela nezávislou IT infrastrukturu.",
+      "turnover": "Roční obrat (v milionech EUR)",
+      "turnoverHelp": "Celosvětový konsolidovaný obrat celé skupiny podniků.",
+      "balanceSheet": "Roční bilanční suma (v milionech EUR)",
+      "balanceSheetHelp": "Celosvětová konsolidovaná bilanční suma celé skupiny podniků.",
+      "independentIt": "Náš německý subjekt má IT systémy zcela nezávislé na mateřské skupině",
+      "independentItHelp": "Je-li zaškrtnuto, použijí se pouze vlastní údaje vašeho německého subjektu."
+    },
+
+    "specialCases": {
+      "title": "Vztahuje se na vás některý z následujících případů?",
+      "description": "Tyto subjekty spadají pod NIS2 bez ohledu na velikost společnosti.",
+      "noneOfTheAbove": "Žádný z výše uvedených",
+      "noneHelp": "Většina organizací zvolí tuto možnost.",
+      "selectedCount": "{count, plural, =1 {Vybrán 1} other {Vybráno #}}"
+    },
+
+    "result": {
+      "notInScope": "Pravděpodobně mimo působnost",
+      "important": "Důležitý subjekt",
+      "importantLabel": "Pravděpodobně důležitý subjekt",
+      "essential": "Základní subjekt",
+      "essentialLabel": "Pravděpodobně základní subjekt",
+      "kritis": "Betreiber kritischer Anlagen",
+      "kritisLabel": "Pravděpodobně provozovatel KRITIS",
+
+      "reason": {
+        "excluded": "Vaše organizace je zřejmě vyňata z působnosti NIS2 (výjimka pro výkon státní moci).",
+        "no_sector": "Na základě vašeho výběru se zdá, že vaše společnost nepůsobí v žádném odvětví, na které se vztahuje NIS2. Pokud si nejste jisti, prostudujte úplný seznam odvětví NIS2 nebo vyhledejte právní poradenství.",
+        "below_threshold": "Vaše společnost zřejmě působí v odvětví spadajícím pod NIS2, může však ležet pod prahem středního podniku. Přesto se na vás požadavky NIS2 mohou vztahovat prostřednictvím smluv v dodavatelském řetězci se zákazníky, kteří do působnosti spadají.",
+        "special_case": "Na základě své klasifikace vaše organizace pravděpodobně spadá do působnosti bez ohledu na velikost.",
+        "size_and_sector": "Na základě poskytnutých informací vaše společnost zřejmě splňuje kritérium odvětví i kritérium velikosti pro NIS2."
+      },
+
+      "disclaimer": "Jde o orientační posouzení, nikoli o právní určení. Působnost NIS2 závisí na faktorech, které zde nemusí být plně zachyceny, včetně struktury skupiny podniků, nezávislé IT infrastruktury a regulatorních výkladů. Pro potvrzení svého statusu se obraťte na kvalifikovaného poradce.",
+
+      "obligations": "Klíčové povinnosti",
+      "penalty": "Horní hranice pokuty",
+      "penaltyValue": "{amount} nebo {percent} celosvětového obratu",
+      "penaltyInfo": "Maximální pokuta za porušení opatření kybernetické bezpečnosti, hlášení incidentů nebo směrnic BSI. Alternativa odvozená od obratu se vztahuje na společnosti s obratem > 500 mil. EUR. Pokuty stanovuje BSI podle závažnosti porušení.",
+      "supervisionLabel": "Dohled",
+      "supervisionProactive": "Proaktivní (ex ante). BSI může provést audit kdykoli.",
+      "supervisionReactive": "Reaktivní (ex post). BSI jedná na základě důkazů o nesouladu.",
+      "supervisionInfo": "Proaktivní: BSI může kdykoli provádět neohlášené audity, vyžadovat dokumentaci a nařídit konkrétní bezpečnostní opatření. Reaktivní: BSI vyšetřuje pouze po incidentu nebo při odůvodněném podezření na nesoulad.",
+      "registration": "Registrace u BSI",
+      "registrationDeadline": "Do 6. března 2026 prostřednictvím portálu BSI",
+      "registrationInfo": "Musíte se sami registrovat prostřednictvím portálu BSI (v provozu od 6. ledna 2026). Vyžaduje: název subjektu, adresu, odvětví, rozsahy IP adres a prohlášení o kategorii subjektu. Nejprve si přes ELSTER zřiďte „Mein Unternehmenskonto“ (MUK), poté se zaregistrujte na portálu BSI.",
+      "riskManagement": "Řízení rizik",
+      "riskManagementValue": "10 povinných opatření (§ 30 BSIG)",
+      "riskManagementInfo": "Musíte zavést všech 10 opatření podle § 30 BSIG: analýzu rizik, řešení incidentů, kontinuitu provozu, bezpečnost dodavatelského řetězce, bezpečný vývoj, hodnocení účinnosti, školení kybernetické hygieny, kryptografii, řízení přístupu a správu aktiv a vícefaktorové ověřování.",
+      "incidentReporting": "Hlášení incidentů",
+      "incidentReportingValue": "Kaskáda 24 h / 72 h / 1 měsíc vůči BSI",
+      "incidentReportingInfo": "Významné bezpečnostní incidenty se musí hlásit BSI ve třech fázích: (1) Včasné varování do 24 hodin: předpokládaná příčina a přeshraniční dopad, (2) Aktualizované hlášení do 72 hodin: závažnost, dopad, indikátory kompromitace, (3) Závěrečná zpráva do 1 měsíce: hlavní příčina, zmírnění, preventivní kroky.",
+      "managementLiability": "Odpovědnost vedení",
+      "managementLiabilityValue": "Osobní odpovědnost členů vedení (§ 38 BSIG)",
+      "managementLiabilityInfo": "Členové vedení (Vorstand/Geschäftsführer) nesou osobní odpovědnost za soulad s NIS2. Tři povinnosti: (1) formálně schválit opatření kybernetické bezpečnosti, (2) aktivně dohlížet na jejich zavedení, (3) absolvovat povinné školení kybernetické bezpečnosti. Odpovědnosti se nelze zprostit rozhodnutím společníků. Pojištění D&O zákonné povinnosti neruší.",
+      "managementTraining": "Školení vedení",
+      "managementTrainingValue": "Povinné školení kybernetické bezpečnosti každé 3 roky",
+      "managementTrainingInfo": "Všichni členové vedoucího orgánu se musí osobně účastnit školení kybernetické bezpečnosti nejméně každé 3 roky. Tuto povinnost nelze delegovat na CISO ani na IT oddělení. Její nesplnění přispívá k osobní odpovědnosti podle § 38 BSIG.",
+
+      "cta": "Objednat průchod platformou",
+      "ctaVoluntary": "Přesto si objednat průchod platformou",
+      "restart": "Začít znovu",
+      "supplyChainNote": "I když do působnosti nespadáte přímo, požadavky NIS2 se na vás mohou vztahovat prostřednictvím smluv se zákazníky, kteří do působnosti spadají."
+    },
+
+    "nav": {
+      "back": "Zpět",
+      "next": "Pokračovat",
+      "checkResult": "Zobrazit výsledek"
+    },
+
+    "leadCapture": {
+      "title": "Získejte bezplatný plán cesty k souladu",
+      "description": "Zašleme vám personalizovaný akční plán podle vaší klasifikace. Žádný spam, jen kroky, které musíte podniknout.",
+      "placeholder": "vas@firma.cz",
+      "cta": "Odeslat plán cesty",
+      "success": "Zkontrolujte schránku. Váš plán cesty k souladu je na cestě.",
+      "error": "Něco se pokazilo. Zkuste to prosím znovu."
+    }
+  }
+}

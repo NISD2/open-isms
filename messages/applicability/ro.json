@@ -1,0 +1,117 @@
+{
+  "applicability": {
+    "title": "Verificare aplicabilitate NIS2. Sunt vizat?",
+    "metaDescription": "Verificați în mai puțin de 2 minute dacă firma dumneavoastră intră sub incidența NIS2. Verificare rapidă gratuită, în funcție de sector, dimensiune și cazuri speciale.",
+    "subtitle": "Aflați în mai puțin de 2 minute dacă firma dumneavoastră intră sub incidența directivei NIS2.",
+    "cta": "Rezervați o demonstrație",
+    "steps": {
+      "exclusion": "Verificare excludere",
+      "sector": "Selectare sector",
+      "size": "Dimensiunea firmei",
+      "specialCases": "Cazuri speciale",
+      "result": "Rezultat"
+    },
+    "step": "Pasul {current} din {total}",
+
+    "exclusion": {
+      "title": "Organizația dumneavoastră se încadrează într-o categorie exclusă?",
+      "description": "Următoarele tipuri de entități sunt exceptate de la NIS2 prin lege. Dacă vreuna se aplică în cazul dumneavoastră, NIS2 nu acoperă organizația dumneavoastră, iar verificarea se încheie aici.",
+      "noneOfTheAbove": "Nu. Niciuna dintre acestea nu se aplică în cazul nostru",
+      "noneHelp": "Selectați această opțiune pentru a continua. Majoritatea firmelor din sectorul privat vor alege această opțiune."
+    },
+
+    "sector": {
+      "title": "În ce sector activează firma dumneavoastră?",
+      "description": "Selectați toate sectoarele aplicabile. O firmă poate activa în mai multe sectoare NIS2.",
+      "annexI": "Sectoare de importanță critică ridicată",
+      "annexII": "Alte sectoare critice",
+      "noSector": "Niciunul dintre aceste sectoare nu se aplică în cazul firmei mele",
+      "selectedCount": "{count, plural, =0 {Niciun sector selectat} =1 {1 sector selectat} other {# sectoare selectate}}"
+    },
+
+    "size": {
+      "title": "Care este dimensiunea organizației dumneavoastră?",
+      "description": "Dimensiunea se calculează la nivelul întregului grup de întreprinderi, incluzând societățile-mamă și filialele.",
+      "employees": "Total angajați (ENF)",
+      "employeesHelp": "Includeți toate societățile din grup, cu excepția cazului în care entitatea dumneavoastră are o infrastructură IT complet independentă.",
+      "turnover": "Cifra de afaceri anuală (milioane EUR)",
+      "turnoverHelp": "Cifra de afaceri consolidată la nivel mondial a întregului grup de întreprinderi.",
+      "balanceSheet": "Total bilanț anual (milioane EUR)",
+      "balanceSheetHelp": "Bilanțul consolidat la nivel mondial al întregului grup de întreprinderi.",
+      "independentIt": "Entitatea noastră din Germania are sisteme IT complet independente față de grupul-mamă",
+      "independentItHelp": "Dacă este bifat, se aplică numai cifrele proprii ale entității dumneavoastră din Germania."
+    },
+
+    "specialCases": {
+      "title": "Se aplică vreuna dintre situațiile următoare?",
+      "description": "Aceste entități intră sub incidența NIS2 indiferent de dimensiunea firmei.",
+      "noneOfTheAbove": "Niciuna dintre cele de mai sus",
+      "noneHelp": "Majoritatea organizațiilor vor selecta această opțiune.",
+      "selectedCount": "{count, plural, =1 {1 selectat} other {# selectate}}"
+    },
+
+    "result": {
+      "notInScope": "Probabil în afara domeniului de aplicare",
+      "important": "Entitate importantă",
+      "importantLabel": "Probabil o entitate importantă",
+      "essential": "Entitate esențială",
+      "essentialLabel": "Probabil o entitate esențială",
+      "kritis": "Betreiber kritischer Anlagen",
+      "kritisLabel": "Probabil un operator KRITIS",
+
+      "reason": {
+        "excluded": "Organizația dumneavoastră pare a fi exclusă din domeniul de aplicare al NIS2 (exceptarea pentru funcții suverane).",
+        "no_sector": "Pe baza selecției dumneavoastră, firma nu pare să activeze în niciun sector acoperit de NIS2. Dacă nu sunteți sigur, consultați lista completă a sectoarelor NIS2 sau solicitați consultanță juridică.",
+        "below_threshold": "Firma dumneavoastră pare să activeze într-un sector NIS2, dar este posibil să se situeze sub pragul de întreprindere mijlocie. Cu toate acestea, ați putea avea în continuare obligații NIS2 prin contracte din lanțul de aprovizionare cu clienți care intră sub incidența directivei.",
+        "special_case": "Pe baza clasificării sale, organizația dumneavoastră intră probabil sub incidența directivei indiferent de dimensiune.",
+        "size_and_sector": "Pe baza informațiilor furnizate, firma dumneavoastră pare să îndeplinească atât criteriul de sector, cât și criteriul de dimensiune pentru NIS2."
+      },
+
+      "disclaimer": "Aceasta este o evaluare orientativă, nu o determinare juridică. Aplicabilitatea NIS2 depinde de factori care este posibil să nu fie reflectați integral aici, inclusiv structura grupului de societăți, infrastructura IT independentă și interpretările de reglementare. Consultați un consilier calificat pentru a vă confirma statutul.",
+
+      "obligations": "Obligații principale",
+      "penalty": "Plafonul sancțiunii",
+      "penaltyValue": "{amount} sau {percent} din cifra de afaceri globală",
+      "penaltyInfo": "Amenda maximă pentru încălcări ale măsurilor de securitate cibernetică, ale raportării incidentelor sau ale directivelor BSI. Alternativa bazată pe cifra de afaceri se aplică firmelor cu venituri de peste 500 mil. EUR. Amenzile sunt stabilite în funcție de gravitatea încălcării de către BSI.",
+      "supervisionLabel": "Supraveghere",
+      "supervisionProactive": "Proactivă (ex-ante). BSI poate efectua audituri în orice moment",
+      "supervisionReactive": "Reactivă (ex-post). BSI acționează pe baza dovezilor de neconformitate",
+      "supervisionInfo": "Proactivă: BSI poate efectua audituri neanunțate, poate solicita documentație și poate dispune măsuri de securitate specifice în orice moment. Reactivă: BSI investighează numai după un incident sau în baza unei suspiciuni întemeiate de neconformitate.",
+      "registration": "Înregistrare la BSI",
+      "registrationDeadline": "Până la 6 martie 2026, prin portalul BSI",
+      "registrationInfo": "Trebuie să vă autoînregistrați prin portalul BSI (activ din 6 ianuarie 2026). Necesită: denumirea entității, adresa, sectoarele, intervalele IP și declararea categoriei entității. Creați mai întâi un cont \"Mein Unternehmenskonto\" (MUK) prin ELSTER, apoi înregistrați-vă pe portalul BSI.",
+      "riskManagement": "Managementul riscului",
+      "riskManagementValue": "10 măsuri obligatorii (articolul 30 BSIG)",
+      "riskManagementInfo": "Trebuie să implementați toate cele 10 măsuri din articolul 30 BSIG: analiza riscurilor, gestionarea incidentelor, continuitatea activității, securitatea lanțului de aprovizionare, dezvoltarea securizată, evaluarea eficacității, instruirea privind igiena cibernetică, criptografia, controlul accesului și gestionarea activelor, precum și autentificarea cu mai mulți factori.",
+      "incidentReporting": "Raportarea incidentelor",
+      "incidentReportingValue": "Cascadă 24h / 72h / 1 lună către BSI",
+      "incidentReportingInfo": "Incidentele de securitate semnificative trebuie raportate la BSI în trei etape: (1) Avertizare timpurie în termen de 24 de ore, cu cauza suspectată și impactul transfrontalier, (2) Notificare actualizată în termen de 72 de ore, cu gravitatea, impactul și indicatorii de compromitere, (3) Raport final în termen de 1 lună, cu cauza-rădăcină, măsurile de atenuare și pașii preventivi.",
+      "managementLiability": "Răspunderea conducerii",
+      "managementLiabilityValue": "Răspundere personală pentru membrii organului de conducere (articolul 38 BSIG)",
+      "managementLiabilityInfo": "Membrii organului de conducere (Vorstand/Geschäftsführer) răspund personal pentru conformitatea cu NIS2. Trei obligații: (1) aprobarea formală a măsurilor de securitate cibernetică, (2) monitorizarea activă a implementării, (3) absolvirea instruirii obligatorii în securitate cibernetică. Răspunderea nu poate fi exclusă de către acționari. Asigurarea D&O nu înlătură obligațiile legale.",
+      "managementTraining": "Instruirea conducerii",
+      "managementTrainingValue": "Instruire obligatorie în securitate cibernetică la fiecare 3 ani",
+      "managementTrainingInfo": "Toți membrii organului de conducere trebuie să participe personal la instruire în securitate cibernetică cel puțin la fiecare 3 ani. Această obligație nu poate fi delegată unui CISO sau departamentului IT. Nerespectarea contribuie la răspunderea personală prevăzută la articolul 38 BSIG.",
+
+      "cta": "Rezervați o prezentare ghidată",
+      "ctaVoluntary": "Rezervați oricum o prezentare ghidată",
+      "restart": "Începeți din nou",
+      "supplyChainNote": "Chiar dacă nu intrați direct sub incidența directivei, ați putea avea obligații NIS2 prin contracte cu clienți care intră sub incidența acesteia."
+    },
+
+    "nav": {
+      "back": "Înapoi",
+      "next": "Continuați",
+      "checkResult": "Vedeți rezultatul"
+    },
+
+    "leadCapture": {
+      "title": "Primiți foaia de parcurs gratuită pentru conformitate",
+      "description": "Vă vom trimite un plan de acțiune personalizat, în funcție de clasificarea dumneavoastră. Fără spam, doar pașii pe care trebuie să îi parcurgeți.",
+      "placeholder": "tu@firma.ro",
+      "cta": "Trimiteți foaia de parcurs",
+      "success": "Verificați-vă căsuța de e-mail. Foaia de parcurs pentru conformitate este pe drum.",
+      "error": "A apărut o eroare. Vă rugăm să încercați din nou."
+    }
+  }
+}

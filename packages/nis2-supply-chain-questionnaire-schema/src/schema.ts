@@ -36,6 +36,9 @@ const localisedString = z.object({
   it: z.string().min(1).optional(),
   es: z.string().min(1).optional(),
   pl: z.string().min(1).optional(),
+  cs: z.string().min(1).optional(),
+  pt: z.string().min(1).optional(),
+  ro: z.string().min(1).optional(),
 });
 
 const fieldOptionSchema = z.object({

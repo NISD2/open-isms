@@ -1,0 +1,58 @@
+{
+  "common": {
+    "save": "Uložit",
+    "saving": "Ukládání...",
+    "cancel": "Zrušit",
+    "back": "Zpět",
+    "next": "Další",
+    "open": "Otevřít",
+    "optional": "nepovinné",
+    "loading": "Načítání...",
+    "entries": "{count} záznamů",
+    "select": "Vyberte...",
+    "yes": "Ano",
+    "no": "Ne",
+    "noData": "Žádná data",
+    "user": "Uživatel",
+    "modules": {
+      "asset": "Aktiva",
+      "risk": "Rizika",
+      "incident": "Incidenty",
+      "supplier": "Dodavatelé",
+      "policy": "Směrnice",
+      "training_record": "Záznamy o školení",
+      "exercise": "Cvičení",
+      "management_review": "Přezkoumání vedením",
+      "kpi_measurement": "Měření KPI",
+      "change_request": "Žádosti o změnu",
+      "patch_record": "Záznamy o opravách",
+      "internal_audit": "Interní audity",
+      "improvement_item": "Zlepšení",
+      "bsi_registration": "Registrace u BSI",
+      "bsi_incident_report": "Hlášení incidentů BSI"
+    },
+    "moduleRef": {
+      "confirmCompliance": "Potvrdit shodu",
+      "noRecords": "Zatím žádné záznamy. Nejprve přidejte data v daném modulu."
+    }
+  },
+  "status": {
+    "not_started": "Otevřené",
+    "in_progress": "Probíhá",
+    "completed": "Dokončeno",
+    "not_applicable": "Nerelevantní",
+    "needs_review": "Vyžaduje kontrolu",
+    "approved": "Schváleno",
+    "rejected": "Zamítnuto"
+  },
+  "priority": {
+    "P0": "Kritická. Vyžaduje okamžitý zásah.",
+    "P1": "Vysoká. Řešte v rámci aktuálního cyklu.",
+    "P2": "Střední. Naplánujte na příští cyklus.",
+    "P3": "Nízká. Řešte, až bude vhodná chvíle."
+  },
+  "metadata": {
+    "title": "Platforma pro shodu s NIS2",
+    "description": "Řízení shody s NIS2/BSIG 2025"
+  }
+}

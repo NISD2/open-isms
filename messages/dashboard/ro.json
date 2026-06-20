@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Tablou de bord",
+    "description": "Prezentare generală a conformității de securitate",
+    "risks": "Riscuri",
+    "openRisks": "Riscuri deschise",
+    "highRisks": "Riscuri ridicate",
+    "assets": "Active",
+    "criticalAssets": "Critice",
+    "otAssets": "OT",
+    "incidents": "Incidente",
+    "suppliers": "Furnizori",
+    "criticalSuppliers": "Critici",
+    "policies": "Politici",
+    "approved": "Aprobate",
+    "training": "Instruire",
+    "managementTraining": "Conducere",
+    "exercises": "Exerciții de urgență",
+    "completed": "Finalizate",
+    "kpis": "Indicatori de securitate",
+    "changes": "Modificări",
+    "openChanges": "Deschise",
+    "patches": "Actualizări de securitate",
+    "pendingPatches": "În așteptare",
+    "audits": "Autoevaluări",
+    "plannedAudits": "Planificate",
+    "improvements": "Acțiuni de întreprins",
+    "openImprovements": "Deschise",
+    "complianceByCategory": "Conformitate pe categorii",
+    "riskMatrix": "Matricea riscurilor",
+    "riskTreatmentDistribution": "Distribuția tratării riscurilor",
+    "noRisksRegistered": "Niciun risc înregistrat",
+    "noData": "Fără date",
+    "incidentsBySeverity": "Incidente după gravitate",
+    "treatmentLabel": {
+      "mitigate": "Atenuare",
+      "accept": "Acceptare",
+      "transfer": "Transfer",
+      "avoid": "Evitare"
+    },
+    "severity": {
+      "nearMiss": "Aproape de incident",
+      "incident": "Incident",
+      "significant": "Semnificativ"
+    },
+    "complianceProgress": "Progresul conformității",
+    "requirementsCompleted": "{completed} din {total} cerințe",
+    "allModules": "Toate modulele",
+    "deadlines": {
+      "overdue": "Întârziate",
+      "dueThisWeek": "Scadente săptămâna aceasta",
+      "dueThisMonth": "Scadente luna aceasta",
+      "upcoming": "Termene apropiate",
+      "overdueDays": "întârziere de {days} z",
+      "dueToday": "Scadent astăzi",
+      "dueDays": "Scadent în {days} z"
+    }
+  }
+}

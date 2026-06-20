@@ -1,0 +1,47 @@
+{
+  "pricing": {
+    "meta": {
+      "title": "Ceník - Platforma pro shodu s NIS2",
+      "description": "Dva způsoby provozu platformy. Hostováno na nis2.eu, navždy zdarma. Vlastní hosting pod licencí AGPL-3.0, jednorázová doživotní licence za 10 000 €."
+    },
+    "title": "Ceník",
+    "subtitle": "Dva způsoby provozu platformy. Vyberte si jeden.",
+
+    "free": {
+      "name": "Hostováno na nis2.eu",
+      "description": "Celá platforma, kterou provozujeme my na infrastruktuře v EU.",
+      "price": "0 €",
+      "priceSub": "navždy",
+      "cta": "Začít",
+      "features": {
+        "f1": "Všech 49 požadavků BSIG krok za krokem",
+        "f2": "Nahrávání důkazů a dokumentace",
+        "f3": "Export do PDF pro auditory a vedení",
+        "f4": "Kompletní auditní stopa",
+        "f5": "Sledování termínů a upozornění",
+        "f6": "Pokyny k registraci u BSI",
+        "f7": "Neomezený počet členů týmu",
+        "f8": "Registry rizik, aktiv a dodavatelů",
+        "f9": "Pomoc s formuláři využívající AI",
+        "f10": "Kein Lock-in. Datový model je Open Source. Export kdykoli."
+      }
+    },
+
+    "selfHost": {
+      "name": "Vlastní hosting",
+      "description": "Celý zdrojový kód. Provozujte ji na vlastní infrastruktuře, navždy.",
+      "price": "10 000 €",
+      "priceSub": "jednorázově, doživotní licence",
+      "cta": "Spojte se s námi",
+      "features": {
+        "h1": "Celý zdrojový kód platformy pod licencí AGPL-3.0",
+        "h2": "Všechny budoucí aktualizace v ceně",
+        "h3": "Provoz na vlastní infrastruktuře, s vlastními daty",
+        "h4": "Jmenovaný kontakt pro podporu přes e-mail a Signal"
+      }
+    },
+
+    "consultantFootnote": "Potřebujete konzultanta pro NIS2? Spojíme vás s prověřenými specialisty, a to pro vás zdarma.",
+    "consultantCta": "Vyžádat konzultanta"
+  }
+}

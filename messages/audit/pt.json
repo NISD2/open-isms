@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Registo de Auditoria",
+    "subtitle": "Registo inviolável de todas as ações relevantes para a conformidade",
+    "noEntries": "Ainda não existem entradas no registo de auditoria.",
+    "description": "Descrição",
+    "action": "Ação",
+    "user": "Utilizador",
+    "time": "Hora"
+  }
+}

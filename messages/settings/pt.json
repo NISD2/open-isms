@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Definições",
+    "description": "Faça a gestão das definições da plataforma da sua organização.",
+    "aiDataSharing": {
+      "title": "Partilha de Dados com a IA",
+      "description": "Controle que dados da organização são partilhados com o assistente de IA ao gerar orientação de conformidade. Os dados pessoais (emails, números de telefone, nomes de pessoas) nunca são enviados.",
+      "none": {
+        "label": "Sem dados da empresa",
+        "description": "São enviados apenas os nomes dos campos, os tipos e o título do requisito. A orientação é genérica.",
+        "preview": "Enviado: definições dos campos, título do requisito, referência legal"
+      },
+      "basic": {
+        "label": "Apenas dados não sensíveis",
+        "description": "Acrescenta o setor, o tipo de entidade e a forma jurídica para uma orientação mais relevante.",
+        "preview": "Enviado: o anterior + setor, subsetor, tipo de entidade, forma jurídica"
+      },
+      "full": {
+        "label": "Contexto completo",
+        "description": "Inclui o nome da empresa e métricas de dimensão para a orientação mais adaptada.",
+        "preview": "Enviado: o anterior + nome da empresa, número de colaboradores, volume de negócios anual"
+      }
+    },
+    "saved": "Definições guardadas",
+    "saveError": "Não foi possível guardar as definições",
+    "saving": "A guardar...",
+    "adminOnly": "Apenas os administradores podem alterar as definições."
+  }
+}

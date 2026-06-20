@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Îmbunătățiri",
+    "description": "Acțiuni de îmbunătățire continuă rezultate din audituri, incidente și evaluări. Susține ciclul PDCA conform NIS2.",
+    "helpText": "Urmăriți acțiunile de îmbunătățire identificate din audituri, analize post-incident, evaluări ale conducerii și tendințe ale indicatorilor de performanță. Fiecare element are o sursă, o prioritate, un responsabil și o dată țintă. Acest registru demonstrează angajamentul organizației dumneavoastră față de îmbunătățirea continuă.",
+    "add": "Adaugă îmbunătățire",
+    "edit": "Editează îmbunătățirea",
+    "empty": "Nu există încă acțiuni de îmbunătățire. Adăugați elemente din audituri, incidente sau evaluări.",
+    "deleteConfirm": "Sigur doriți să ștergeți această acțiune de îmbunătățire?",
+    "actions": "Acțiuni",
+    "source": {
+      "audit": "Audit",
+      "incident": "Incident",
+      "pentest": "Test de penetrare",
+      "management_review": "Evaluarea conducerii",
+      "kpi_breach": "Depășire KPI",
+      "gap_analysis": "Analiză a lacunelor",
+      "regulatory_change": "Modificare de reglementare",
+      "suggestion": "Sugestie"
+    },
+    "status": {
+      "open": "Deschis",
+      "in_progress": "În curs",
+      "resolved": "Rezolvat",
+      "verified": "Verificat",
+      "deferred": "Amânat"
+    },
+    "priority": {
+      "P0": "P0 - imediat",
+      "P1": "P1 - 3 luni",
+      "P2": "P2 - 6 luni",
+      "P3": "P3 - 12 luni"
+    },
+    "fields": {
+      "title": "Titlu",
+      "description": "Descriere",
+      "source": "Sursă",
+      "priority": "Prioritate",
+      "status": "Stare",
+      "targetDate": "Dată țintă",
+      "deferralReason": "Motivul amânării",
+      "verificationNotes": "Note de verificare"
+    },
+    "fieldDescriptions": {
+      "title": "Titlu scurt și descriptiv pentru această acțiune de îmbunătățire (de exemplu, „Implementarea MFA pentru accesul VPN”).",
+      "description": "Descriere detaliată a îmbunătățirii, inclusiv lacuna actuală și rezultatul dorit.",
+      "source": "Selectați unde a fost identificată această îmbunătățire: constatare de audit, analiză post-incident, evaluare a conducerii, depășire KPI etc.",
+      "priority": "Selectați nivelul de prioritate care determină intervalul de implementare (P0: imediat, P1: 3 luni, P2: 6 luni, P3: 12 luni).",
+      "status": "Starea curentă a îmbunătățirii: deschis, în curs, rezolvat, verificat (eficacitate confirmată) sau amânat.",
+      "targetDate": "Data până la care această acțiune de îmbunătățire trebuie finalizată.",
+      "deferralReason": "Dacă starea este Amânat, furnizați justificarea și termenul preconizat de reluare.",
+      "verificationNotes": "Documentați modul în care a fost verificată eficacitatea acestei îmbunătățiri după implementare."
+    }
+  }
+}

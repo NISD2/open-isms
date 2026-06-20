@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Painel",
+    "description": "Visão geral da conformidade de segurança",
+    "risks": "Riscos",
+    "openRisks": "Riscos em aberto",
+    "highRisks": "Riscos elevados",
+    "assets": "Ativos",
+    "criticalAssets": "Críticos",
+    "otAssets": "OT",
+    "incidents": "Incidentes",
+    "suppliers": "Fornecedores",
+    "criticalSuppliers": "Críticos",
+    "policies": "Políticas",
+    "approved": "Aprovadas",
+    "training": "Formação",
+    "managementTraining": "Direção",
+    "exercises": "Simulacros de emergência",
+    "completed": "Concluídos",
+    "kpis": "Métricas de segurança",
+    "changes": "Alterações",
+    "openChanges": "Em aberto",
+    "patches": "Atualizações de segurança",
+    "pendingPatches": "Pendentes",
+    "audits": "Autoavaliações",
+    "plannedAudits": "Planeadas",
+    "improvements": "Ações a tomar",
+    "openImprovements": "Em aberto",
+    "complianceByCategory": "Conformidade por categoria",
+    "riskMatrix": "Matriz de risco",
+    "riskTreatmentDistribution": "Distribuição do tratamento de riscos",
+    "noRisksRegistered": "Nenhum risco registado",
+    "noData": "Sem dados",
+    "incidentsBySeverity": "Incidentes por gravidade",
+    "treatmentLabel": {
+      "mitigate": "Mitigar",
+      "accept": "Aceitar",
+      "transfer": "Transferir",
+      "avoid": "Evitar"
+    },
+    "severity": {
+      "nearMiss": "Quase incidente",
+      "incident": "Incidente",
+      "significant": "Significativo"
+    },
+    "complianceProgress": "Progresso da conformidade",
+    "requirementsCompleted": "{completed} de {total} requisitos",
+    "allModules": "Todos os módulos",
+    "deadlines": {
+      "overdue": "Em atraso",
+      "dueThisWeek": "A vencer esta semana",
+      "dueThisMonth": "A vencer este mês",
+      "upcoming": "Próximos prazos",
+      "overdueDays": "{days}d em atraso",
+      "dueToday": "A vencer hoje",
+      "dueDays": "A vencer em {days}d"
+    }
+  }
+}

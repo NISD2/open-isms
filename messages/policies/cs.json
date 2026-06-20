@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Směrnice",
+    "description": "Bezpečnostní směrnice, postupy a pokyny se sledováním schvalování. Základ pro NIS2 čl. 21 odst. 1.",
+    "helpText": "Vytvářejte a spravujte své směrnice pro bezpečnost informací. Každá směrnice prochází životním cyklem: koncept, přezkum, schváleno, archivováno. Sledujte historii verzí a zajistěte, aby všichni příslušní zaměstnanci potvrdili aktuální směrnice. NIS2 vyžaduje zdokumentované směrnice pro řízení rizik, řízení přístupu, šifrování a další oblasti.",
+    "add": "Přidat směrnici",
+    "edit": "Upravit směrnici",
+    "empty": "Zatím žádné směrnice. Vytvořte svůj první dokument směrnice.",
+    "deleteConfirm": "Opravdu chcete tuto směrnici smazat?",
+    "actions": "Akce",
+    "status": {
+      "draft": "Koncept",
+      "approved": "Schváleno",
+      "archived": "Archivováno"
+    },
+    "fields": {
+      "title": "Název",
+      "type": "Typ",
+      "version": "Verze",
+      "content": "Obsah",
+      "status": "Stav",
+      "effectiveFrom": "Účinné od",
+      "reviewDue": "Termín přezkumu"
+    },
+    "fieldDescriptions": {
+      "title": "Název dokumentu směrnice (např. „Směrnice pro bezpečnost informací“, „Směrnice pro řízení přístupu“).",
+      "type": "Vyberte typ směrnice (např. směrnice, postup, pokyn, standard).",
+      "version": "Číslo verze pro tuto revizi směrnice (např. 1.0, 2.1). Při každém schvalovacím cyklu zvyšte.",
+      "content": "Úplný text směrnice. Uveďte rozsah, cíle, odpovědnosti a konkrétní požadavky.",
+      "status": "Aktuální stav v životním cyklu: Koncept (v přípravě), Schváleno (platné a vymáhané) nebo Archivováno (nahrazeno).",
+      "effectiveFrom": "Datum, kdy tato verze směrnice nabývá platnosti a stává se vymahatelnou.",
+      "reviewDue": "Datum, do kterého musí být tato směrnice přezkoumána a aktualizována. NIS2 očekává pravidelné přezkumy směrnic."
+    }
+  }
+}

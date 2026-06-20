@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "title": "Măsurători KPI",
+    "description": "Indicatori de performanță a securității urmăriți în timp. Demonstrează eficacitatea conform NIS2 art. 21.",
+    "helpText": "Înregistrați periodic măsurătorile KPI de securitate (de exemplu, rata de conformitate a patch-urilor, procentul de finalizare a instruirilor, timpul mediu până la detectare). KPI-urile arată auditorilor că măsurile dvs. de securitate sunt eficace și se îmbunătățesc în timp.",
+    "add": "Adaugă măsurătoare",
+    "empty": "Încă nu există măsurători KPI. Înregistrați prima dvs. măsurătoare.",
+    "status": {
+      "green": "În ținta stabilită",
+      "amber": "În risc",
+      "red": "Sub ținta stabilită"
+    },
+    "fields": {
+      "kpiName": "Denumire KPI",
+      "measuredAt": "Măsurat la",
+      "value": "Valoare",
+      "target": "Țintă",
+      "unit": "Unitate",
+      "status": "Stare",
+      "notes": "Note"
+    },
+    "fieldDescriptions": {
+      "kpiName": "Denumirea indicatorului de securitate măsurat (de exemplu, „Rata de conformitate a patch-urilor”, „Timpul mediu până la detectare”, „Procentul de finalizare a instruirilor”).",
+      "measuredAt": "Data la care a fost efectuată această măsurătoare.",
+      "value": "Introduceți valoarea numerică măsurată pentru acest KPI.",
+      "target": "Introduceți valoarea-țintă pe care acest KPI trebuie să o atingă sau să o depășească.",
+      "unit": "Unitate de măsură (de exemplu, %, ore, zile, număr).",
+      "status": "Selectați starea: verde (în ținta stabilită), portocaliu (în risc de a nu atinge ținta) sau roșu (sub ținta stabilită).",
+      "notes": "Context suplimentar sau o explicație pentru această măsurătoare, mai ales dacă starea este portocaliu sau roșu."
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "evidence": {
+    "loading": "Načítání souborů…",
+    "uploading": "Nahrávání…",
+    "uploadFailed": "Nahrávání se nezdařilo. Zkuste to prosím znovu.",
+    "deleteFailed": "Smazání se nezdařilo. Zkuste to prosím znovu."
+  }
+}

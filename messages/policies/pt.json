@@ -1,0 +1,35 @@
+{
+  "policies": {
+    "title": "Políticas",
+    "description": "Políticas, procedimentos e diretrizes de segurança com acompanhamento de aprovação. Base do Art. 21(1) da NIS2.",
+    "helpText": "Crie e faça a gestão das suas políticas de segurança da informação. Cada política segue um ciclo de vida: rascunho, revisão, aprovada, arquivada. Acompanhe o histórico de versões e garanta que todos os colaboradores relevantes tomam conhecimento das políticas em vigor. A NIS2 exige políticas documentadas para a gestão de risco, o controlo de acessos, a cifragem e outros domínios.",
+    "add": "Adicionar política",
+    "edit": "Editar política",
+    "empty": "Ainda não existem políticas. Crie o seu primeiro documento de política.",
+    "deleteConfirm": "Tem a certeza de que pretende eliminar esta política?",
+    "actions": "Ações",
+    "status": {
+      "draft": "Rascunho",
+      "approved": "Aprovada",
+      "archived": "Arquivada"
+    },
+    "fields": {
+      "title": "Título",
+      "type": "Tipo",
+      "version": "Versão",
+      "content": "Conteúdo",
+      "status": "Estado",
+      "effectiveFrom": "Em vigor a partir de",
+      "reviewDue": "Revisão prevista para"
+    },
+    "fieldDescriptions": {
+      "title": "Nome do documento de política (por exemplo, 'Política de Segurança da Informação', 'Política de Controlo de Acessos').",
+      "type": "Selecione o tipo de política (por exemplo, política, procedimento, diretriz, norma).",
+      "version": "Número de versão desta revisão da política (por exemplo, 1.0, 2.1). Incremente a cada ciclo de aprovação.",
+      "content": "Texto integral da política. Inclua o âmbito, os objetivos, as responsabilidades e os requisitos específicos.",
+      "status": "Estado atual no ciclo de vida: Rascunho (em preparação), Aprovada (ativa e aplicada) ou Arquivada (substituída).",
+      "effectiveFrom": "Data em que esta versão da política passa a estar ativa e a ser exigível.",
+      "reviewDue": "Data até à qual esta política tem de ser revista e atualizada. A NIS2 prevê revisões periódicas das políticas."
+    }
+  }
+}

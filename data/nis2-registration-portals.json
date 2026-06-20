@@ -16,6 +16,9 @@
       "notesIt": "Processo in due fasi: prima registrarsi tramite Mein Unternehmenskonto (MUK), poi completare la registrazione NIS-2 sul portale del BSI. Il termine di registrazione era il 6 marzo 2026 (3 mesi dopo l'apertura del portale il 6 gennaio 2026).",
       "notesEs": "Proceso en dos etapas: primero registrarse a través de Mein Unternehmenskonto (MUK) y luego completar el registro NIS-2 en el portal del BSI. El plazo de registro fue el 6 de marzo de 2026 (3 meses después de la apertura del portal el 6 de enero de 2026).",
       "notesPl": "Proces dwuetapowy: najpierw rejestracja przez Mein Unternehmenskonto (MUK), następnie dokończenie rejestracji NIS-2 na portalu BSI. Termin rejestracji upłynął 6 marca 2026 r. (3 miesiące po otwarciu portalu 6 stycznia 2026 r.).",
+      "notesCs": "Dvoufázový proces: nejprve registrace přes Mein Unternehmenskonto (MUK), poté dokončení registrace NIS-2 na portálu BSI. Lhůta pro registraci uplynula 6. března 2026 (3 měsíce po otevření portálu 6. ledna 2026).",
+      "notesPt": "Processo em duas fases: primeiro o registo através do Mein Unternehmenskonto (MUK), depois a conclusão do registo NIS-2 no portal do BSI. O prazo de registo terminou em 6 de março de 2026 (3 meses após a abertura do portal em 6 de janeiro de 2026).",
+      "notesRo": "Proces în două etape: mai întâi înregistrarea prin Mein Unternehmenskonto (MUK), apoi finalizarea înregistrării NIS-2 pe portalul BSI. Termenul de înregistrare a expirat la 6 martie 2026 (3 luni după deschiderea portalului la 6 ianuarie 2026).",
       "lastVerified": "2026-05-03",
       "csirt": "CERT-Bund (BSI)",
       "trackerNoteEn": "Germany missed the 17 October 2024 EU deadline. Commission opened infringement proceedings May 2025.",
@@ -23,7 +26,10 @@
       "trackerNoteFr": "L'Allemagne a manqué la date limite de l'UE du 17 octobre 2024. La Commission a ouvert une procédure d'infraction en mai 2025.",
       "trackerNoteIt": "La Germania ha mancato il termine UE del 17 ottobre 2024. La Commissione ha avviato una procedura di infrazione a maggio 2025.",
       "trackerNoteEs": "Alemania incumplió el plazo de la UE del 17 de octubre de 2024. La Comisión abrió un procedimiento de infracción en mayo de 2025.",
-      "trackerNotePl": "Niemcy nie dotrzymały unijnego terminu 17 października 2024 r. Komisja wszczęła postępowanie w sprawie uchybienia zobowiązaniom w maju 2025 r."
+      "trackerNotePl": "Niemcy nie dotrzymały unijnego terminu 17 października 2024 r. Komisja wszczęła postępowanie w sprawie uchybienia zobowiązaniom w maju 2025 r.",
+      "trackerNoteCs": "Německo zmeškalo lhůtu EU 17. října 2024. Komise zahájila řízení o nesplnění povinnosti v květnu 2025.",
+      "trackerNotePt": "A Alemanha falhou o prazo da UE de 17 de outubro de 2024. A Comissão abriu um processo por infração em maio de 2025.",
+      "trackerNoteRo": "Germania a ratat termenul UE din 17 octombrie 2024. Comisia a deschis o procedură de constatare a neîndeplinirii obligațiilor în mai 2025."
     },
     {
       "countryCode": "BE",
@@ -41,6 +47,9 @@
       "notesIt": "Il termine di registrazione è scaduto il 18 marzo 2025. Il termine per la valutazione di conformità CyberFundamentals è scaduto il 18 aprile 2026: le entità essenziali dovevano aver presentato documentazione di cibersicurezza verificata (verifica CyFun, ISO 27001 o richiesta di ispezione del CCB). Il Belgio è ora il primo Paese dell'UE ad applicare attivamente una vigilanza NIS2 ex ante. La certificazione completa delle entità essenziali è dovuta entro il 18 aprile 2027. Sanzioni fino a 10 M EUR o al 2 % del fatturato in caso di non conformità.",
       "notesEs": "El plazo de registro expiró el 18 de marzo de 2025. El plazo de evaluación de conformidad CyberFundamentals expiró el 18 de abril de 2026: las entidades esenciales debían haber presentado documentación de ciberseguridad verificada (verificación CyFun, ISO 27001 o solicitud de inspección del CCB). Bélgica es ahora el primer país de la UE que aplica activamente una supervisión NIS2 ex ante. La certificación completa de las entidades esenciales se exige para el 18 de abril de 2027. Multas de hasta 10 M EUR o el 2 % de la facturación en caso de incumplimiento.",
       "notesPl": "Termin rejestracji upłynął 18 marca 2025 r. Termin oceny zgodności CyberFundamentals upłynął 18 kwietnia 2026 r.: podmioty kluczowe musiały złożyć zweryfikowaną dokumentację cyberbezpieczeństwa (weryfikacja CyFun, ISO 27001 lub wniosek o inspekcję CCB). Belgia jest obecnie pierwszym krajem UE aktywnie egzekwującym nadzór NIS2 ex ante. Pełna certyfikacja podmiotów kluczowych jest wymagana do 18 kwietnia 2027 r. Kary do 10 mln EUR lub 2 % obrotu za brak zgodności.",
+      "notesCs": "Lhůta pro registraci uplynula 18. března 2025. Lhůta pro posouzení shody CyberFundamentals uplynula 18. dubna 2026: zásadní subjekty musely předložit ověřenou dokumentaci kybernetické bezpečnosti (ověření CyFun, ISO 27001 nebo žádost o inspekci CCB). Belgie je nyní první zemí EU, která aktivně vynucuje dohled NIS2 ex ante. Plná certifikace zásadních subjektů je požadována do 18. dubna 2027. Pokuty až 10 mil. EUR nebo 2 % obratu při nesplnění povinností.",
+      "notesPt": "O prazo de registo terminou em 18 de março de 2025. O prazo da avaliação de conformidade CyberFundamentals terminou em 18 de abril de 2026: as entidades essenciais tinham de ter apresentado documentação de cibersegurança verificada (verificação CyFun, ISO 27001 ou pedido de inspeção do CCB). A Bélgica é agora o primeiro país da UE a aplicar ativamente uma supervisão NIS2 ex ante. A certificação completa das entidades essenciais é exigida até 18 de abril de 2027. Coimas até 10 M EUR ou 2 % do volume de negócios em caso de incumprimento.",
+      "notesRo": "Termenul de înregistrare a expirat la 18 martie 2025. Termenul pentru evaluarea de conformitate CyberFundamentals a expirat la 18 aprilie 2026: entitățile esențiale trebuiau să fi depus documentație de securitate cibernetică verificată (verificare CyFun, ISO 27001 sau cerere de inspecție a CCB). Belgia este acum prima țară din UE care aplică activ o supraveghere NIS2 ex ante. Certificarea completă a entităților esențiale este cerută până la 18 aprilie 2027. Amenzi de până la 10 mil. EUR sau 2 % din cifra de afaceri în caz de neconformitate.",
       "lastVerified": "2026-05-03",
       "wikiSlug": "nis2-status-belgien",
       "csirt": "CERT.be (under CCB)",
@@ -49,7 +58,10 @@
       "trackerNoteFr": "L'un des premiers États membres à transposer. Entrée en vigueur le 18 octobre 2024.",
       "trackerNoteIt": "Uno dei primi Stati membri a recepire. Entrata in vigore il 18 ottobre 2024.",
       "trackerNoteEs": "Uno de los primeros Estados miembros en transponer. Entrada en vigor el 18 de octubre de 2024.",
-      "trackerNotePl": "Jedno z pierwszych państw członkowskich, które dokonało transpozycji. Wejście w życie 18 października 2024 r."
+      "trackerNotePl": "Jedno z pierwszych państw członkowskich, które dokonało transpozycji. Wejście w życie 18 października 2024 r.",
+      "trackerNoteCs": "Jeden z prvních členských států, který provedl transpozici. Vstoupila v platnost 18. října 2024.",
+      "trackerNotePt": "Um dos primeiros Estados-Membros a transpor. Entrou em vigor em 18 de outubro de 2024.",
+      "trackerNoteRo": "Unul dintre primele state membre care a transpus. A intrat în vigoare la 18 octombrie 2024."
     },
     {
       "countryCode": "IT",
@@ -67,6 +79,9 @@
       "notesIt": "Finestra di registrazione annuale: dal 1° gennaio al 28 febbraio di ogni anno. Il portale richiede lo SPID italiano o credenziali digitali alternative. L'Italia è stata uno dei primi recepimenti.",
       "notesEs": "Ventana de registro anual: del 1 de enero al 28 de febrero de cada año. El portal requiere el SPID italiano o credenciales digitales alternativas. Italia fue una de las primeras transposiciones.",
       "notesPl": "Roczne okno rejestracji: od 1 stycznia do 28 lutego każdego roku. Portal wymaga włoskiego SPID lub alternatywnych poświadczeń cyfrowych. Włochy były jedną z najwcześniejszych transpozycji.",
+      "notesCs": "Roční registrační okno: od 1. ledna do 28. února každého roku. Portál vyžaduje italské SPID nebo alternativní digitální přihlašovací údaje. Itálie byla jednou z nejranějších transpozic.",
+      "notesPt": "Janela de registo anual: de 1 de janeiro a 28 de fevereiro de cada ano. O portal exige o SPID italiano ou credenciais digitais alternativas. A Itália foi uma das transposições mais precoces.",
+      "notesRo": "Fereastră de înregistrare anuală: de la 1 ianuarie la 28 februarie în fiecare an. Portalul necesită SPID italian sau credențiale digitale alternative. Italia a fost una dintre cele mai timpurii transpuneri.",
       "lastVerified": "2026-04-23",
       "wikiSlug": "nis2-status-italien",
       "csirt": "CSIRT Italia (within ACN)",
@@ -75,7 +90,10 @@
       "trackerNoteFr": "Entrée en vigueur le 16 octobre 2024. L'un des rares États membres à avoir respecté la date limite de l'UE.",
       "trackerNoteIt": "Entrata in vigore il 16 ottobre 2024. Uno dei pochi Stati membri ad aver rispettato il termine UE.",
       "trackerNoteEs": "Entrada en vigor el 16 de octubre de 2024. Uno de los pocos Estados miembros que cumplió el plazo de la UE.",
-      "trackerNotePl": "Wejście w życie 16 października 2024 r. Jedno z nielicznych państw członkowskich, które dotrzymało unijnego terminu."
+      "trackerNotePl": "Wejście w życie 16 października 2024 r. Jedno z nielicznych państw członkowskich, które dotrzymało unijnego terminu.",
+      "trackerNoteCs": "Vstoupila v platnost 16. října 2024. Jeden z mála členských států, který dodržel lhůtu EU.",
+      "trackerNotePt": "Entrou em vigor em 16 de outubro de 2024. Um dos poucos Estados-Membros que cumpriu o prazo da UE.",
+      "trackerNoteRo": "A intrat în vigoare la 16 octombrie 2024. Unul dintre puținele state membre care a respectat termenul UE."
     },
     {
       "countryCode": "FR",
@@ -93,6 +111,9 @@
       "notesIt": "Piattaforma di pre-registrazione attiva su messervices.cyber.gouv.fr/nis2 (reindirizzata da monespacenis2.cyber.gouv.fr). Registrazione completa prevista per il terzo trimestre 2026 una volta promulgata la Loi Résilience. Include un simulatore di applicabilità tramite club.ssi.gouv.fr. Il Senato ha adottato il progetto il 12 marzo 2025; la commissione speciale dell'Assemblea nazionale lo ha adottato all'unanimità il 10 settembre 2025. Il voto in seduta plenaria è stato rinviato a una sessione straordinaria nel luglio 2026. Accesso riservato alle entità classificate come pubbliche o regolamentate da NIS2.",
       "notesEs": "Plataforma de prerregistro activa en messervices.cyber.gouv.fr/nis2 (redirigida desde monespacenis2.cyber.gouv.fr). El registro completo se espera para el tercer trimestre de 2026, una vez promulgada la Loi Résilience. Incluye un simulador de aplicabilidad a través de club.ssi.gouv.fr. El Senado adoptó el proyecto el 12 de marzo de 2025; la comisión especial de la Asamblea Nacional lo adoptó por unanimidad el 10 de septiembre de 2025. La votación en sesión plenaria se aplazó a una sesión extraordinaria en julio de 2026. Acceso restringido a las entidades clasificadas como públicas o reguladas por NIS2.",
       "notesPl": "Platforma rejestracji wstępnej aktywna pod adresem messervices.cyber.gouv.fr/nis2 (przekierowanie z monespacenis2.cyber.gouv.fr). Pełna rejestracja spodziewana w III kwartale 2026 r. po uchwaleniu Loi Résilience. Obejmuje symulator stosowalności dostępny przez club.ssi.gouv.fr. Senat przyjął projekt 12 marca 2025 r.; komisja specjalna Zgromadzenia Narodowego przyjęła go jednomyślnie 10 września 2025 r. Głosowanie plenarne przełożono na sesję nadzwyczajną w lipcu 2026 r. Dostęp ograniczony do podmiotów zaklasyfikowanych jako publiczne lub regulowane przez NIS2.",
+      "notesCs": "Platforma předregistrace je aktivní na messervices.cyber.gouv.fr/nis2 (přesměrováno z monespacenis2.cyber.gouv.fr). Plná registrace se očekává ve 3. čtvrtletí 2026 po přijetí Loi Resilience. Zahrnuje simulátor použitelnosti přes club.ssi.gouv.fr. Senát přijal návrh 12. března 2025; zvláštní komise Národního shromáždění jej jednomyslně přijala 10. září 2025. Hlasování v plénu bylo odloženo na mimořádné zasedání v červenci 2026. Přístup je omezen na subjekty klasifikované jako veřejné nebo regulované NIS2.",
+      "notesPt": "Plataforma de pré-registo ativa em messervices.cyber.gouv.fr/nis2 (redirecionada de monespacenis2.cyber.gouv.fr). O registo completo é esperado para o terceiro trimestre de 2026, após a promulgação da Loi Resilience. Inclui um simulador de aplicabilidade através de club.ssi.gouv.fr. O Senado adotou o projeto em 12 de março de 2025; a comissão especial da Assembleia Nacional adotou-o por unanimidade em 10 de setembro de 2025. A votação em plenário foi adiada para uma sessão extraordinária em julho de 2026. Acesso restrito às entidades classificadas como públicas ou reguladas pela NIS2.",
+      "notesRo": "Platforma de preînregistrare este activă la messervices.cyber.gouv.fr/nis2 (redirecționată de la monespacenis2.cyber.gouv.fr). Înregistrarea completă este așteptată în al treilea trimestru al anului 2026, după promulgarea Loi Resilience. Include un simulator de aplicabilitate prin club.ssi.gouv.fr. Senatul a adoptat proiectul la 12 martie 2025; comisia specială a Adunării Naționale l-a adoptat în unanimitate la 10 septembrie 2025. Votul în plen a fost amânat pentru o sesiune extraordinară în iulie 2026. Accesul este restricționat la entitățile clasificate ca publice sau reglementate de NIS2.",
       "lastVerified": "2026-04-28",
       "wikiSlug": "nis2-status-frankreich",
       "csirt": "CERT-FR (ANSSI)",
@@ -101,7 +122,10 @@
       "trackerNoteFr": "Superposé au régime OIV / OSE existant prévu par le Code de la défense. Enregistrement via MonEspaceNIS2.",
       "trackerNoteIt": "Sovrapposto al regime OIV / OSE esistente previsto dal Code de la défense. Registrazione tramite MonEspaceNIS2.",
       "trackerNoteEs": "Superpuesto al régimen OIV / OSE existente previsto en el Code de la défense. Registro a través de MonEspaceNIS2.",
-      "trackerNotePl": "Nałożony na istniejący reżim OIV / OSE przewidziany w Code de la défense. Rejestracja przez MonEspaceNIS2."
+      "trackerNotePl": "Nałożony na istniejący reżim OIV / OSE przewidziany w Code de la défense. Rejestracja przez MonEspaceNIS2.",
+      "trackerNoteCs": "Nadstavba nad stávajícím režimem OIV / OSE podle Code de la defense. Registrace přes MonEspaceNIS2.",
+      "trackerNotePt": "Sobreposta ao regime OIV / OSE existente previsto no Code de la defense. Registo através do MonEspaceNIS2.",
+      "trackerNoteRo": "Suprapusă peste regimul OIV / OSE existent prevăzut de Code de la defense. Înregistrare prin MonEspaceNIS2."
     },
     {
       "countryCode": "AT",
@@ -119,6 +143,9 @@
       "notesIt": "Legge BGBl. I Nr. 94/2025 (NISG 2026, Netz- und Informationssystemsicherheitsgesetz 2026), pubblicata il 23 dicembre 2025. Entrata in vigore il 1° ottobre 2026, nove mesi dopo la pubblicazione. Registrazione tramite l'USP (Unternehmensserviceportal) entro tre mesi dall'entrata in vigore (termine: 31 dicembre 2026). Il nuovo Bundesamt für Cybersicherheit (BACS), presso il Bundesministerium für Inneres (BMI), è l'autorità di vigilanza principale.",
       "notesEs": "Ley BGBl. I Nr. 94/2025 (NISG 2026, Netz- und Informationssystemsicherheitsgesetz 2026), publicada el 23 de diciembre de 2025. Entrada en vigor el 1 de octubre de 2026, nueve meses después de la publicación. Registro a través del USP (Unternehmensserviceportal) en un plazo de tres meses tras la entrada en vigor (fecha límite: 31 de diciembre de 2026). El nuevo Bundesamt für Cybersicherheit (BACS), dependiente del Bundesministerium für Inneres (BMI), es la autoridad de supervisión principal.",
       "notesPl": "Ustawa BGBl. I Nr. 94/2025 (NISG 2026, Netz- und Informationssystemsicherheitsgesetz 2026), opublikowana 23 grudnia 2025 r. Wejście w życie 1 października 2026 r., dziewięć miesięcy po publikacji. Rejestracja przez USP (Unternehmensserviceportal) w ciągu trzech miesięcy od wejścia w życie (termin: 31 grudnia 2026 r.). Nowy Bundesamt für Cybersicherheit (BACS), przy Bundesministerium für Inneres (BMI), jest wiodącym organem nadzoru.",
+      "notesCs": "Zákon BGBl. I Nr. 94/2025 (NISG 2026, Netz- und Informationssystemsicherheitsgesetz 2026), zveřejněný 23. prosince 2025. Vstup v platnost 1. října 2026, devět měsíců po zveřejnění. Registrace přes USP (Unternehmensserviceportal) do tří měsíců po vstupu v platnost (lhůta 31. prosince 2026). Novým vedoucím dozorovým orgánem je Bundesamt für Cybersicherheit (BACS) při Bundesministerium für Inneres (BMI).",
+      "notesPt": "Lei BGBl. I Nr. 94/2025 (NISG 2026, Netz- und Informationssystemsicherheitsgesetz 2026), publicada em 23 de dezembro de 2025. Entrada em vigor em 1 de outubro de 2026, nove meses após a publicação. Registo através do USP (Unternehmensserviceportal) no prazo de três meses após a entrada em vigor (prazo: 31 de dezembro de 2026). O novo Bundesamt für Cybersicherheit (BACS), junto do Bundesministerium für Inneres (BMI), é a autoridade de supervisão principal.",
+      "notesRo": "Legea BGBl. I Nr. 94/2025 (NISG 2026, Netz- und Informationssystemsicherheitsgesetz 2026), publicată la 23 decembrie 2025. Intrarea în vigoare la 1 octombrie 2026, la nouă luni după publicare. Înregistrare prin USP (Unternehmensserviceportal) în termen de trei luni de la intrarea în vigoare (termen: 31 decembrie 2026). Noua autoritate principală de supraveghere este Bundesamt für Cybersicherheit (BACS), din cadrul Bundesministerium für Inneres (BMI).",
       "lastVerified": "2026-06-02",
       "csirt": "GovCERT.AT (interim national CSIRT), CERT.at (incident reporting platform nis2.cert.at)",
       "trackerNoteEn": "Original NISG (BGBl. I Nr. 111/2018) transposed NIS 1; replaced by NISG 2026 (BGBl. I Nr. 94/2025), in force 1 October 2026.",
@@ -127,6 +154,9 @@
       "trackerNoteIt": "Il NISG originario (BGBl. I Nr. 111/2018) recepiva NIS 1; sostituito dal NISG 2026 (BGBl. I Nr. 94/2025), in vigore dal 1° ottobre 2026.",
       "trackerNoteEs": "El NISG original (BGBl. I Nr. 111/2018) transponía NIS 1; sustituido por el NISG 2026 (BGBl. I Nr. 94/2025), en vigor el 1 de octubre de 2026.",
       "trackerNotePl": "Pierwotny NISG (BGBl. I Nr. 111/2018) transponował NIS 1; zastąpiony przez NISG 2026 (BGBl. I Nr. 94/2025), obowiązujący od 1 października 2026 r.",
+      "trackerNoteCs": "Původní NISG (BGBl. I Nr. 111/2018) provedl transpozici NIS 1; nahrazen NISG 2026 (BGBl. I Nr. 94/2025), účinný od 1. října 2026.",
+      "trackerNotePt": "O NISG original (BGBl. I Nr. 111/2018) transpôs a NIS 1; substituído pelo NISG 2026 (BGBl. I Nr. 94/2025), em vigor a partir de 1 de outubro de 2026.",
+      "trackerNoteRo": "NISG-ul original (BGBl. I Nr. 111/2018) a transpus NIS 1; înlocuit de NISG 2026 (BGBl. I Nr. 94/2025), în vigoare de la 1 octombrie 2026.",
       "wikiSlug": "nis2-status-oesterreich"
     },
     {
@@ -145,6 +175,9 @@
       "notesIt": "Zákon č. 264/2025 Sb. pubblicato nella Sbírka zákonů il 4 agosto 2025, in vigore dal 1° novembre 2025. La prima ondata (entità nell'ambito di applicazione al 1° novembre 2025) deve registrarsi autonomamente tramite portal.nukib.gov.cz entro il 31 dicembre 2025; le entità che entrano successivamente nell'ambito di applicazione hanno 60 giorni. Massimale sanzionatorio di 250 milioni di CZK o 2 % del fatturato mondiale (regime superiore). Il NÚKIB gestisce GovCERT.CZ come CSIRT governativo; CSIRT.CZ è gestito separatamente da CZ.NIC.",
       "notesEs": "Zákon č. 264/2025 Sb. publicado en el Sbírka zákonů el 4 de agosto de 2025, en vigor desde el 1 de noviembre de 2025. La primera oleada (entidades dentro del ámbito de aplicación a 1 de noviembre de 2025) debe registrarse por sí misma a través de portal.nukib.gov.cz antes del 31 de diciembre de 2025; las entidades que entran después en el ámbito de aplicación disponen de 60 días. Límite de sanción de 250 millones de CZK o el 2 % de la facturación mundial (régimen superior). El NÚKIB opera GovCERT.CZ como CSIRT gubernamental; CSIRT.CZ es operado por separado por CZ.NIC.",
       "notesPl": "Zákon č. 264/2025 Sb. opublikowany w Sbírka zákonů 4 sierpnia 2025 r., obowiązujący od 1 listopada 2025 r. Pierwsza fala (podmioty objęte zakresem na dzień 1 listopada 2025 r.) musi zarejestrować się samodzielnie przez portal.nukib.gov.cz do 31 grudnia 2025 r.; podmioty wchodzące w zakres później mają 60 dni. Górny limit kary wynosi 250 mln CZK lub 2 % światowego obrotu (reżim wyższy). NÚKIB prowadzi GovCERT.CZ jako rządowy CSIRT; CSIRT.CZ jest prowadzony odrębnie przez CZ.NIC.",
+      "notesCs": "Zákon č. 264/2025 Sb. zveřejněný ve Sbírce zákonů 4. srpna 2025, účinný od 1. listopadu 2025. První vlna (subjekty v působnosti k 1. listopadu 2025) se musí sama registrovat přes portal.nukib.gov.cz do 31. prosince 2025; subjekty, které se do působnosti dostanou později, mají 60 dní. Horní hranice sankce 250 milionů CZK nebo 2 % celosvětového obratu (vyšší režim). NÚKIB provozuje GovCERT.CZ jako vládní CSIRT; CSIRT.CZ provozuje samostatně CZ.NIC.",
+      "notesPt": "Zákon č. 264/2025 Sb. publicado na Sbírka zákonů em 4 de agosto de 2025, em vigor desde 1 de novembro de 2025. A primeira vaga (entidades no âmbito de aplicação em 1 de novembro de 2025) deve registar-se a si própria através de portal.nukib.gov.cz até 31 de dezembro de 2025; as entidades que entram posteriormente no âmbito de aplicação dispõem de 60 dias. Limite máximo da sanção de 250 milhões de CZK ou 2 % do volume de negócios mundial (regime superior). O NÚKIB opera o GovCERT.CZ como CSIRT governamental; o CSIRT.CZ é operado separadamente pela CZ.NIC.",
+      "notesRo": "Zákon č. 264/2025 Sb. publicat în Sbírka zákonů la 4 august 2025, în vigoare de la 1 noiembrie 2025. Primul val (entitățile aflate în domeniul de aplicare la 1 noiembrie 2025) trebuie să se înregistreze singur prin portal.nukib.gov.cz până la 31 decembrie 2025; entitățile care intră ulterior în domeniul de aplicare dispun de 60 de zile. Plafonul sancțiunii este de 250 de milioane CZK sau 2 % din cifra de afaceri mondială (regim superior). NÚKIB operează GovCERT.CZ ca CSIRT guvernamental; CSIRT.CZ este operat separat de CZ.NIC.",
       "lastVerified": "2026-06-01",
       "wikiSlug": "nis2-status-tschechien",
       "csirt": "GovCERT.CZ (NÃKIB), CSIRT.CZ",
@@ -153,7 +186,10 @@
       "trackerNoteFr": "La loi existante sur la cybersécurité (Zákon č. 181/2014 Sb.) transposait NIS 1. La refonte NIS 2 est en cours de procédure législative.",
       "trackerNoteIt": "La vigente legge sulla cibersicurezza (Zákon č. 181/2014 Sb.) recepiva NIS 1. La riscrittura NIS 2 è in iter legislativo.",
       "trackerNoteEs": "La Ley de Ciberseguridad existente (Zákon č. 181/2014 Sb.) transponía NIS 1. La refundición de NIS 2 está en trámite legislativo.",
-      "trackerNotePl": "Obowiązująca ustawa o cyberbezpieczeństwie (Zákon č. 181/2014 Sb.) transponowała NIS 1. Nowelizacja NIS 2 jest w toku procesu legislacyjnego."
+      "trackerNotePl": "Obowiązująca ustawa o cyberbezpieczeństwie (Zákon č. 181/2014 Sb.) transponowała NIS 1. Nowelizacja NIS 2 jest w toku procesu legislacyjnego.",
+      "trackerNoteCs": "Stávající zákon o kybernetické bezpečnosti (Zákon č. 181/2014 Sb.) provedl transpozici NIS 1. Přepracování pro NIS 2 je v legislativním procesu.",
+      "trackerNotePt": "A Lei de Cibersegurança existente (Zákon č. 181/2014 Sb.) transpôs a NIS 1. A reformulação para a NIS 2 está em processo legislativo.",
+      "trackerNoteRo": "Legea existentă privind securitatea cibernetică (Zákon č. 181/2014 Sb.) a transpus NIS 1. Rescrierea pentru NIS 2 se află în proces legislativ."
     },
     {
       "countryCode": "DK",
@@ -171,6 +207,9 @@
       "notesIt": "La NIS 2-loven (LOV nr 434 af 06/05/2025) è stata adottata dal Folketing il 29 aprile 2025, in vigore dal 1° luglio 2025. Auto-registrazione tramite virk.dk con MitID entro il 1° ottobre 2025; le entità che entrano successivamente nell'ambito di applicazione devono registrarsi entro due settimane. Il settore dell'energia segue la legge distinta LOV nr 258 af 06/03/2025. Il CFCS fa parte di SAMSIK dal 1° gennaio 2025; il CFCS gestisce ancora il CSIRT nazionale.",
       "notesEs": "La NIS 2-loven (LOV nr 434 af 06/05/2025) fue adoptada por el Folketing el 29 de abril de 2025, en vigor desde el 1 de julio de 2025. Autorregistro a través de virk.dk con MitID antes del 1 de octubre de 2025; las entidades que entran después en el ámbito de aplicación deben registrarse en un plazo de dos semanas. El sector de la energía se rige por la ley distinta LOV nr 258 af 06/03/2025. El CFCS forma parte de SAMSIK desde el 1 de enero de 2025; el CFCS sigue operando el CSIRT nacional.",
       "notesPl": "NIS 2-loven (LOV nr 434 af 06/05/2025) została przyjęta przez Folketing 29 kwietnia 2025 r., obowiązuje od 1 lipca 2025 r. Samorejestracja przez virk.dk z MitID do 1 października 2025 r.; podmioty wchodzące w zakres później muszą zarejestrować się w ciągu dwóch tygodni. Sektor energetyczny podlega odrębnej ustawie LOV nr 258 af 06/03/2025. CFCS jest częścią SAMSIK od 1 stycznia 2025 r.; CFCS nadal prowadzi krajowy CSIRT.",
+      "notesCs": "NIS 2-loven (LOV nr 434 af 06/05/2025) přijatý Folketingem 29. dubna 2025, účinný od 1. července 2025. Samoregistrace přes virk.dk pomocí MitID do 1. října 2025; subjekty, které se do působnosti dostanou později, se musí registrovat do dvou týdnů. Energetický sektor se řídí samostatným LOV nr 258 af 06/03/2025. CFCS je od 1. ledna 2025 součástí SAMSIK; CFCS nadále provozuje národní CSIRT.",
+      "notesPt": "A NIS 2-loven (LOV nr 434 af 06/05/2025) foi adotada pelo Folketing em 29 de abril de 2025, em vigor desde 1 de julho de 2025. Auto-registo através de virk.dk com MitID até 1 de outubro de 2025; as entidades que entram posteriormente no âmbito de aplicação devem registar-se no prazo de duas semanas. O setor da energia rege-se pela lei distinta LOV nr 258 af 06/03/2025. O CFCS faz parte da SAMSIK desde 1 de janeiro de 2025; o CFCS continua a operar o CSIRT nacional.",
+      "notesRo": "NIS 2-loven (LOV nr 434 af 06/05/2025) a fost adoptată de Folketing la 29 aprilie 2025, în vigoare de la 1 iulie 2025. Autoînregistrare prin virk.dk cu MitID până la 1 octombrie 2025; entitățile care intră ulterior în domeniul de aplicare trebuie să se înregistreze în termen de două săptămâni. Sectorul energetic intră sub incidența legii distincte LOV nr 258 af 06/03/2025. CFCS face parte din SAMSIK de la 1 ianuarie 2025; CFCS operează în continuare CSIRT-ul național.",
       "lastVerified": "2026-06-01",
       "wikiSlug": "nis2-status-daenemark",
       "csirt": "CFCS (Centre for Cyber Security)",
@@ -179,7 +218,10 @@
       "trackerNoteFr": "Le Danemark utilise un modèle de supervision sectorielle. Le CFCS relève du service de renseignement de la défense.",
       "trackerNoteIt": "La Danimarca utilizza un modello di vigilanza settoriale. Il CFCS rientra nel servizio di intelligence della difesa.",
       "trackerNoteEs": "Dinamarca utiliza un modelo de supervisión sectorial. El CFCS depende del servicio de inteligencia de defensa.",
-      "trackerNotePl": "Dania stosuje sektorowy model nadzoru. CFCS należy do wywiadu wojskowego."
+      "trackerNotePl": "Dania stosuje sektorowy model nadzoru. CFCS należy do wywiadu wojskowego.",
+      "trackerNoteCs": "Dánsko používá sektorový model dohledu. CFCS spadá pod vojenskou zpravodajskou službu.",
+      "trackerNotePt": "A Dinamarca utiliza um modelo de supervisão setorial. O CFCS está integrado no serviço de informações militares.",
+      "trackerNoteRo": "Danemarca utilizează un model de supraveghere sectorială. CFCS face parte din serviciul de informații militare."
     },
     {
       "countryCode": "NL",
@@ -197,6 +239,9 @@
       "notesIt": "La Cyberbeveiligingswet (Cbw, progetto di legge 36.764) è stata adottata dalla Tweede Kamer il 15 aprile 2026; in attesa dinanzi all'Eerste Kamer a giugno 2026. Le commissioni congiunte del Senato DIGI + J&V hanno emesso il verslag il 2 giugno 2026 e attendono ora la nota naar aanleiding van het verslag del governo prima di un dibattito in seduta plenaria e del voto finale. L'entrata in vigore resta fissata al 1° luglio 2026 mediante koninklijk besluit, contestualmente alla Wet weerbaarheid kritieke entiteiten: il calendario dipende ora dalla rapidità della risposta del governo. La registrazione volontaria tramite MijnNCSC su mijn.ncsc.nl è aperta dal 17 ottobre 2024; la registrazione obbligatoria scatta con l'entrata in vigore. Il NCSC-NL si è fuso con il DTC e il CSIRT-DSP il 1° gennaio 2026 nel \"versterkt NCSC\", ora SPOC e CSIRT nazionale. La RDI vigila sui settori orizzontali (energia, aerospazio, ricerca, infrastruttura digitale, pubblica amministrazione); i ministri settoriali vigilano sui restanti settori.",
       "notesEs": "La Cyberbeveiligingswet (Cbw, proyecto de ley 36.764) fue adoptada por la Tweede Kamer el 15 de abril de 2026; pendiente ante la Eerste Kamer a fecha de junio de 2026. Las comisiones conjuntas del Senado DIGI + J&V emitieron el verslag el 2 de junio de 2026 y ahora esperan la nota naar aanleiding van het verslag del gobierno antes de un debate en sesión plenaria y la votación final. La entrada en vigor sigue prevista para el 1 de julio de 2026 mediante koninklijk besluit, simultáneamente con la Wet weerbaarheid kritieke entiteiten: el calendario depende ahora de la rapidez de la respuesta del gobierno. El registro voluntario a través de MijnNCSC en mijn.ncsc.nl está abierto desde el 17 de octubre de 2024; el registro obligatorio se activa con la entrada en vigor. El NCSC-NL se fusionó con el DTC y el CSIRT-DSP el 1 de enero de 2026 en el \"versterkt NCSC\", ahora SPOC y CSIRT nacional. La RDI supervisa los sectores horizontales (energía, aeroespacial, investigación, infraestructura digital, administración); los ministros sectoriales supervisan los demás sectores.",
       "notesPl": "Cyberbeveiligingswet (Cbw, projekt ustawy 36.764) został przyjęty przez Tweede Kamer 15 kwietnia 2026 r.; oczekuje na rozpatrzenie przez Eerste Kamer według stanu na czerwiec 2026 r. Połączone komisje senackie DIGI + J&V wydały verslag 2 czerwca 2026 r. i oczekują obecnie na nota naar aanleiding van het verslag rządu przed debatą plenarną i głosowaniem końcowym. Wejście w życie nadal planowane jest na 1 lipca 2026 r. w drodze koninklijk besluit, równocześnie z Wet weerbaarheid kritieke entiteiten: harmonogram zależy teraz od szybkości odpowiedzi rządu. Dobrowolna rejestracja przez MijnNCSC pod adresem mijn.ncsc.nl jest otwarta od 17 października 2024 r.; rejestracja obowiązkowa zostaje uruchomiona z chwilą wejścia w życie. NCSC-NL połączył się z DTC i CSIRT-DSP 1 stycznia 2026 r. w \"versterkt NCSC\", obecnie krajowy SPOC i CSIRT. RDI nadzoruje sektory horyzontalne (energetyka, przestrzeń kosmiczna, badania, infrastruktura cyfrowa, administracja); ministrowie sektorowi nadzorują pozostałe sektory.",
+      "notesCs": "Cyberbeveiligingswet (Cbw, návrh zákona 36.764) přijatý Tweede Kamer 15. dubna 2026; k červnu 2026 čeká na projednání v Eerste Kamer. Společné senátní výbory DIGI + J&V vydaly verslag 2. června 2026 a nyní čekají na nota naar aanleiding van het verslag vlády před plenární rozpravou a závěrečným hlasováním. Vstup v platnost je nadále plánován na 1. července 2026 prostřednictvím koninklijk besluit, současně se zákonem Wet weerbaarheid kritieke entiteiten: harmonogram nyní závisí na rychlosti odpovědi vlády. Dobrovolná registrace přes MijnNCSC na mijn.ncsc.nl je otevřená od 17. října 2024; povinná registrace nastává vstupem v platnost. NCSC-NL se 1. ledna 2026 sloučil s DTC a CSIRT-DSP do \"versterkt NCSC\", nyní národní SPOC a CSIRT. RDI dohlíží na horizontální sektory (energetika, kosmický prostor, výzkum, digitální infrastruktura, veřejná správa); sektoroví ministři dohlížejí na zbývající sektory.",
+      "notesPt": "Cyberbeveiligingswet (Cbw, projeto de lei 36.764) adotado pela Tweede Kamer em 15 de abril de 2026; a aguardar a Eerste Kamer em junho de 2026. As comissões conjuntas do Senado DIGI + J&V emitiram o verslag em 2 de junho de 2026 e aguardam agora a nota naar aanleiding van het verslag do governo antes de um debate em plenário e de uma votação final. A entrada em vigor continua prevista para 1 de julho de 2026 mediante koninklijk besluit, em simultâneo com a Wet weerbaarheid kritieke entiteiten: o calendário depende agora da rapidez da resposta do governo. O registo voluntário através do MijnNCSC em mijn.ncsc.nl está aberto desde 17 de outubro de 2024; o registo obrigatório é acionado pela entrada em vigor. O NCSC-NL fundiu-se com o DTC e o CSIRT-DSP em 1 de janeiro de 2026 no \"versterkt NCSC\", agora SPOC e CSIRT nacional. A RDI supervisiona os setores horizontais (energia, espaço, investigação, infraestrutura digital, administração); os ministros setoriais supervisionam os restantes setores.",
+      "notesRo": "Cyberbeveiligingswet (Cbw, proiectul de lege 36.764) adoptat de Tweede Kamer la 15 aprilie 2026; în așteptarea Eerste Kamer la data de iunie 2026. Comisiile reunite ale Senatului DIGI + J&V au emis verslag-ul la 2 iunie 2026 și așteaptă acum nota naar aanleiding van het verslag a guvernului înainte de o dezbatere în plen și de votul final. Intrarea în vigoare rămâne vizată pentru 1 iulie 2026 prin koninklijk besluit, concomitent cu Wet weerbaarheid kritieke entiteiten: calendarul depinde acum de rapiditatea răspunsului guvernului. Înregistrarea voluntară prin MijnNCSC la mijn.ncsc.nl este deschisă de la 17 octombrie 2024; înregistrarea obligatorie se declanșează la intrarea în vigoare. NCSC-NL a fuzionat cu DTC și CSIRT-DSP la 1 ianuarie 2026 în \"versterkt NCSC\", acum SPOC și CSIRT național. RDI supraveghează sectoarele orizontale (energie, spațiu, cercetare, infrastructură digitală, administrație); miniștrii sectoriali supraveghează celelalte sectoare.",
       "lastVerified": "2026-06-09",
       "csirt": "NCSC-NL",
       "trackerNoteEn": "Cbw bill before the Tweede Kamer. Replaces Wbni (NIS 1 transposition).",
@@ -205,6 +250,9 @@
       "trackerNoteIt": "Progetto di legge Cbw dinanzi alla Tweede Kamer. Sostituisce la Wbni (recepimento di NIS 1).",
       "trackerNoteEs": "Proyecto de ley Cbw ante la Tweede Kamer. Sustituye a la Wbni (transposición de NIS 1).",
       "trackerNotePl": "Projekt ustawy Cbw przed Tweede Kamer. Zastępuje Wbni (transpozycja NIS 1).",
+      "trackerNoteCs": "Návrh zákona Cbw je projednáván v Tweede Kamer. Nahrazuje Wbni (transpozici NIS 1).",
+      "trackerNotePt": "Projeto de lei Cbw perante a Tweede Kamer. Substitui a Wbni (transposição da NIS 1).",
+      "trackerNoteRo": "Proiectul de lege Cbw se află în fața Tweede Kamer. Înlocuiește Wbni (transpunerea NIS 1).",
       "wikiSlug": "nis2-status-niederlande"
     },
     {
@@ -223,6 +271,9 @@
       "notesIt": "La legge è entrata in vigore il 3 aprile 2026. Il registro delle entità è stato avviato il 13 aprile tramite la piattaforma S46. Registrazione d'ufficio degli operatori esistenti dal 13 aprile al 6 maggio. Auto-registrazione delle nuove entità dal 7 maggio al 3 ottobre 2026. Termine per la piena conformità: 3 aprile 2027. Circa 42.000 entità nell'ambito di applicazione (rispetto alle circa 400 precedenti). Per la registrazione è richiesta una firma elettronica qualificata.",
       "notesEs": "La ley entró en vigor el 3 de abril de 2026. El registro de entidades se puso en marcha el 13 de abril a través de la plataforma S46. Registro de oficio de los operadores existentes del 13 de abril al 6 de mayo. Autorregistro de las nuevas entidades del 7 de mayo al 3 de octubre de 2026. Fecha límite de plena conformidad: 3 de abril de 2027. Alrededor de 42.000 entidades dentro del ámbito de aplicación (frente a unas 400 anteriores). Se requiere una firma electrónica cualificada para el registro.",
       "notesPl": "Ustawa weszła w życie 3 kwietnia 2026 r. Rejestr podmiotów uruchomiono 13 kwietnia za pośrednictwem platformy S46. Rejestracja z urzędu istniejących operatorów od 13 kwietnia do 6 maja. Samorejestracja nowych podmiotów od 7 maja do 3 października 2026 r. Termin pełnej zgodności: 3 kwietnia 2027 r. Około 42 000 podmiotów objętych zakresem (wcześniej około 400). Do rejestracji wymagany jest kwalifikowany podpis elektroniczny.",
+      "notesCs": "Zákon vstoupil v platnost 3. dubna 2026. Registr subjektů byl spuštěn 13. dubna prostřednictvím platformy S46. Registrace stávajících provozovatelů z úřední povinnosti probíhala od 13. dubna do 6. května. Samoregistrace nových subjektů od 7. května do 3. října 2026. Lhůta pro plný soulad 3. dubna 2027. V působnosti je přibližně 42 000 subjektů (oproti přibližně 400). Pro registraci je vyžadován kvalifikovaný elektronický podpis.",
+      "notesPt": "A lei entrou em vigor em 3 de abril de 2026. O registo de entidades foi lançado em 13 de abril através da plataforma S46. Registo oficioso dos operadores existentes de 13 de abril a 6 de maio. Auto-registo das novas entidades de 7 de maio a 3 de outubro de 2026. Prazo de conformidade total: 3 de abril de 2027. Cerca de 42 000 entidades no âmbito de aplicação (face às cerca de 400 anteriores). É exigida uma assinatura eletrónica qualificada para o registo.",
+      "notesRo": "Legea a intrat în vigoare la 3 aprilie 2026. Registrul entităților a fost lansat la 13 aprilie prin platforma S46. Înregistrarea din oficiu a operatorilor existenți între 13 aprilie și 6 mai. Autoînregistrarea entităților noi între 7 mai și 3 octombrie 2026. Termenul pentru conformitatea deplină: 3 aprilie 2027. Aproximativ 42 000 de entități în domeniul de aplicare (față de aproximativ 400 anterior). Pentru înregistrare este necesară o semnătură electronică calificată.",
       "lastVerified": "2026-06-17",
       "wikiSlug": "nis2-status-polen",
       "csirt": "CSIRT NASK, CSIRT GOV, CSIRT MON",
@@ -231,7 +282,10 @@
       "trackerNoteFr": "Modification de la loi sur le système national de cybersécurité (Ustawa o KSC) en cours de procédure législative.",
       "trackerNoteIt": "Modifica della legge sul sistema nazionale di cibersicurezza (Ustawa o KSC) in iter legislativo.",
       "trackerNoteEs": "Modificación de la Ley sobre el Sistema Nacional de Ciberseguridad (Ustawa o KSC) en trámite legislativo.",
-      "trackerNotePl": "Nowelizacja ustawy o krajowym systemie cyberbezpieczeństwa (Ustawa o KSC) w toku procesu legislacyjnego."
+      "trackerNotePl": "Nowelizacja ustawy o krajowym systemie cyberbezpieczeństwa (Ustawa o KSC) w toku procesu legislacyjnego.",
+      "trackerNoteCs": "Novela zákona o národním systému kybernetické bezpečnosti (Ustawa o KSC) je v legislativním procesu.",
+      "trackerNotePt": "Alteração à lei sobre o sistema nacional de cibersegurança (Ustawa o KSC) em processo legislativo.",
+      "trackerNoteRo": "Modificarea legii privind sistemul național de securitate cibernetică (Ustawa o KSC) în proces legislativ."
     },
     {
       "countryCode": "SE",
@@ -249,6 +303,9 @@
       "notesIt": "La Cybersäkerhetslagen (SFS 2025:1506) è stata emanata l'11 dicembre 2025, in vigore dal 15 gennaio 2026. La MCF (Myndigheten för civilt försvar) è il punto di contatto unico nazionale e ospita il CERT-SE come CSIRT nazionale: rinominata dalla MSB il 1° gennaio 2026. Vigilanza decentralizzata: i regolatori settoriali (PTS, Energimyndigheten, Transportstyrelsen, Finansinspektionen, IVO, Livsmedelsverket) vigilano sui propri settori.",
       "notesEs": "La Cybersäkerhetslagen (SFS 2025:1506) se promulgó el 11 de diciembre de 2025, en vigor desde el 15 de enero de 2026. La MCF (Myndigheten för civilt försvar) es el punto de contacto único nacional y alberga el CERT-SE como CSIRT nacional: renombrada desde la MSB el 1 de enero de 2026. Supervisión descentralizada: los reguladores sectoriales (PTS, Energimyndigheten, Transportstyrelsen, Finansinspektionen, IVO, Livsmedelsverket) supervisan sus propios sectores.",
       "notesPl": "Cybersäkerhetslagen (SFS 2025:1506) została ogłoszona 11 grudnia 2025 r., obowiązuje od 15 stycznia 2026 r. MCF (Myndigheten för civilt försvar) jest krajowym pojedynczym punktem kontaktowym i prowadzi CERT-SE jako krajowy CSIRT: przemianowana z MSB 1 stycznia 2026 r. Nadzór zdecentralizowany: organy sektorowe (PTS, Energimyndigheten, Transportstyrelsen, Finansinspektionen, IVO, Livsmedelsverket) sprawują nadzór nad własnymi sektorami.",
+      "notesCs": "Cybersaekerhetslagen (SFS 2025:1506) vydaný 11. prosince 2025, účinný od 15. ledna 2026. MCF (Myndigheten foer civilt foersvar) je národní SPOC a hostuje CERT-SE jako národní CSIRT: přejmenováno z MSB 1. ledna 2026. Decentralizovaný dohled: sektoroví regulátoři (PTS, Energimyndigheten, Transportstyrelsen, Finansinspektionen, IVO, Livsmedelsverket) dohlížejí na vlastní sektory.",
+      "notesPt": "Cybersaekerhetslagen (SFS 2025:1506) emitida em 11 de dezembro de 2025, em vigor desde 15 de janeiro de 2026. A MCF (Myndigheten foer civilt foersvar) é o ponto de contacto único nacional e acolhe o CERT-SE como CSIRT nacional: renomeada a partir da MSB em 1 de janeiro de 2026. Supervisão descentralizada: os reguladores setoriais (PTS, Energimyndigheten, Transportstyrelsen, Finansinspektionen, IVO, Livsmedelsverket) supervisionam os seus próprios setores.",
+      "notesRo": "Cybersaekerhetslagen (SFS 2025:1506) emisă la 11 decembrie 2025, în vigoare de la 15 ianuarie 2026. MCF (Myndigheten foer civilt foersvar) este punctul unic de contact național și găzduiește CERT-SE ca CSIRT național: redenumită din MSB la 1 ianuarie 2026. Supraveghere descentralizată: autoritățile de reglementare sectoriale (PTS, Energimyndigheten, Transportstyrelsen, Finansinspektionen, IVO, Livsmedelsverket) supraveghează propriile sectoare.",
       "lastVerified": "2026-06-01",
       "wikiSlug": "nis2-status-schweden",
       "csirt": "CERT-SE (within MCF)"
@@ -269,6 +326,9 @@
       "notesIt": "La Croazia ha recepito presto (febbraio 2024). Le entità sono state notificate direttamente dalle autorità settoriali competenti. Nessun portale di auto-registrazione: identificazione su iniziativa dell'autorità.",
       "notesEs": "Croacia transpuso pronto (febrero de 2024). Las entidades fueron notificadas directamente por las autoridades sectoriales competentes. Sin portal de autorregistro: identificación a iniciativa de la autoridad.",
       "notesPl": "Chorwacja dokonała transpozycji wcześnie (luty 2024 r.). Podmioty zostały bezpośrednio powiadomione przez właściwe organy sektorowe. Brak portalu samorejestracji: identyfikacja z inicjatywy organu.",
+      "notesCs": "Chorvatsko provedlo transpozici brzy (únor 2024). Subjekty byly přímo informovány příslušnými sektorovými orgány. Žádný portál pro samoregistraci: identifikace z iniciativy orgánu.",
+      "notesPt": "A Croácia transpôs cedo (fevereiro de 2024). As entidades foram notificadas diretamente pelas autoridades setoriais competentes. Sem portal de auto-registo: identificação por iniciativa da autoridade.",
+      "notesRo": "Croația a transpus devreme (februarie 2024). Entitățile au fost notificate direct de autoritățile sectoriale competente. Niciun portal de autoînregistrare: identificare la inițiativa autorității.",
       "lastVerified": "2026-04-23",
       "csirt": "CERT.hr (CARNet)",
       "trackerNoteEn": "Adopted in 2024. Sectoral supervision model.",
@@ -277,6 +337,9 @@
       "trackerNoteIt": "Adottato nel 2024. Modello di vigilanza settoriale.",
       "trackerNoteEs": "Adoptado en 2024. Modelo de supervisión sectorial.",
       "trackerNotePl": "Przyjęte w 2024 r. Sektorowy model nadzoru.",
+      "trackerNoteCs": "Přijato v roce 2024. Sektorový model dohledu.",
+      "trackerNotePt": "Adotado em 2024. Modelo de supervisão setorial.",
+      "trackerNoteRo": "Adoptat în 2024. Model de supraveghere sectorială.",
       "wikiSlug": "nis2-status-kroatien"
     },
     {
@@ -295,6 +358,9 @@
       "notesIt": "Le entità sono state identificate direttamente dal Centro nazionale per la cibersicurezza (NKSC). Nessuna auto-registrazione richiesta: l'autorità identifica e notifica le entità interessate.",
       "notesEs": "Las entidades fueron identificadas directamente por el Centro Nacional de Ciberseguridad (NKSC). No se requiere autorregistro: la autoridad identifica y notifica a las entidades afectadas.",
       "notesPl": "Podmioty zostały bezpośrednio zidentyfikowane przez Krajowe Centrum Cyberbezpieczeństwa (NKSC). Samorejestracja nie jest wymagana: organ identyfikuje i powiadamia podmioty, których to dotyczy.",
+      "notesCs": "Subjekty byly přímo identifikovány Národním centrem kybernetické bezpečnosti (NKSC). Samoregistrace není vyžadována: orgán identifikuje a informuje dotčené subjekty.",
+      "notesPt": "As entidades foram identificadas diretamente pelo Centro Nacional de Cibersegurança (NKSC). Não é exigido auto-registo: a autoridade identifica e notifica as entidades afetadas.",
+      "notesRo": "Entitățile au fost identificate direct de Centrul Național de Securitate Cibernetică (NKSC). Nu este necesară autoînregistrarea: autoritatea identifică și notifică entitățile vizate.",
       "lastVerified": "2026-04-23",
       "csirt": "CERT-LT (within NKSC)",
       "trackerNoteEn": "Lithuania adopted the transposition act in late 2024.",
@@ -303,6 +369,9 @@
       "trackerNoteIt": "La Lituania ha adottato l'atto di recepimento alla fine del 2024.",
       "trackerNoteEs": "Lituania adoptó el acto de transposición a finales de 2024.",
       "trackerNotePl": "Litwa przyjęła akt transponujący pod koniec 2024 r.",
+      "trackerNoteCs": "Litva přijala transpoziční zákon na konci roku 2024.",
+      "trackerNotePt": "A Lituânia adotou o ato de transposição no final de 2024.",
+      "trackerNoteRo": "Lituania a adoptat actul de transpunere la sfârșitul anului 2024.",
       "wikiSlug": "nis2-status-litauen"
     },
     {
@@ -321,6 +390,9 @@
       "notesIt": "Il termine di registrazione era il 1° aprile 2025. Le entità si registrano presso il NCSC.",
       "notesEs": "El plazo de registro fue el 1 de abril de 2025. Las entidades se registran ante el NCSC.",
       "notesPl": "Termin rejestracji upłynął 1 kwietnia 2025 r. Podmioty rejestrują się w NCSC.",
+      "notesCs": "Lhůta pro registraci uplynula 1. dubna 2025. Subjekty se registrují u NCSC.",
+      "notesPt": "O prazo de registo terminou em 1 de abril de 2025. As entidades registam-se junto do NCSC.",
+      "notesRo": "Termenul de înregistrare a expirat la 1 aprilie 2025. Entitățile se înregistrează la NCSC.",
       "lastVerified": "2026-04-23",
       "csirt": "CERT.LV",
       "trackerNoteEn": "Latvia adopted the National Cyber Security Law in 2024, transposing NIS 2.",
@@ -329,6 +401,9 @@
       "trackerNoteIt": "La Lettonia ha adottato nel 2024 la legge nazionale sulla cibersicurezza, recependo NIS 2.",
       "trackerNoteEs": "Letonia adoptó en 2024 la Ley Nacional de Ciberseguridad, transponiendo NIS 2.",
       "trackerNotePl": "Łotwa przyjęła w 2024 r. krajową ustawę o cyberbezpieczeństwie, transponując NIS 2.",
+      "trackerNoteCs": "Lotyšsko přijalo v roce 2024 národní zákon o kybernetické bezpečnosti, kterým provedlo transpozici NIS 2.",
+      "trackerNotePt": "A Letónia adotou em 2024 a Lei Nacional de Cibersegurança, transpondo a NIS 2.",
+      "trackerNoteRo": "Letonia a adoptat în 2024 Legea națională privind securitatea cibernetică, transpunând NIS 2.",
       "wikiSlug": "nis2-status-lettland"
     },
     {
@@ -347,6 +422,9 @@
       "notesIt": "Registrazione prorogata fino al 30 settembre 2025 tramite la piattaforma digitale della NCSA.",
       "notesEs": "Registro ampliado hasta el 30 de septiembre de 2025 a través de la plataforma digital de la NCSA.",
       "notesPl": "Rejestracja przedłużona do 30 września 2025 r. za pośrednictwem platformy cyfrowej NCSA.",
+      "notesCs": "Registrace prodloužena do 30. září 2025 prostřednictvím digitální platformy NCSA.",
+      "notesPt": "Registo prorrogado até 30 de setembro de 2025 através da plataforma digital da NCSA.",
+      "notesRo": "Înregistrare prelungită până la 30 septembrie 2025 prin platforma digitală a NCSA.",
       "lastVerified": "2026-04-23",
       "csirt": "GR-CERT (within NCA)",
       "wikiSlug": "nis2-status-griechenland"
@@ -367,6 +445,9 @@
       "notesIt": "Le entità devono dichiararsi all'Autorità nazionale per la sicurezza (NBÚ) tramite un portale digitale.",
       "notesEs": "Las entidades deben declararse ante la Autoridad Nacional de Seguridad (NBÚ) a través de un portal digital.",
       "notesPl": "Podmioty muszą zgłosić się do Krajowego Urzędu Bezpieczeństwa (NBÚ) za pośrednictwem portalu cyfrowego.",
+      "notesCs": "Subjekty se musí ohlásit Národnímu bezpečnostnímu úřadu (NBÚ) prostřednictvím digitálního portálu.",
+      "notesPt": "As entidades devem declarar-se à Autoridade Nacional de Segurança (NBÚ) através de um portal digital.",
+      "notesRo": "Entitățile trebuie să se declare la Autoritatea Națională de Securitate (NBÚ) prin intermediul unui portal digital.",
       "lastVerified": "2026-04-23",
       "csirt": "SK-CERT (within NBÃ)",
       "wikiSlug": "nis2-status-slowakei"
@@ -387,6 +468,9 @@
       "notesIt": "Recepimento iniziale tramite ordinanza d'urgenza (gennaio 2025), modificato dalle leggi 52 e 124 (2025). Le notifiche di registrazione erano dovute al DNSC entro il 19 settembre 2025.",
       "notesEs": "Transposición inicial mediante decreto de urgencia (enero de 2025), modificada por las Leyes 52 y 124 (2025). Las notificaciones de registro debían presentarse al DNSC antes del 19 de septiembre de 2025.",
       "notesPl": "Wstępna transpozycja w drodze rozporządzenia nadzwyczajnego (styczeń 2025 r.), zmieniona ustawami 52 i 124 (2025 r.). Zgłoszenia rejestracyjne należało złożyć do DNSC do 19 września 2025 r.",
+      "notesCs": "První transpozice nouzovým nařízením (leden 2025), pozměněná zákony 52 a 124 (2025). Registrační oznámení měla být podána DNSC do 19. září 2025.",
+      "notesPt": "Transposição inicial por decreto de emergência (janeiro de 2025), alterada pelas Leis 52 e 124 (2025). As notificações de registo deviam ser apresentadas ao DNSC até 19 de setembro de 2025.",
+      "notesRo": "Transpunere inițială prin ordonanță de urgență (ianuarie 2025), modificată prin Legile 52 și 124 (2025). Notificările de înregistrare trebuiau depuse la DNSC până la 19 septembrie 2025.",
       "lastVerified": "2026-04-23",
       "csirt": "DNSC CSIRT",
       "trackerNoteEn": "Romania transposed via OUG 155/2024 in December 2024.",
@@ -395,6 +479,9 @@
       "trackerNoteIt": "La Romania ha recepito tramite l'OUG 155/2024 nel dicembre 2024.",
       "trackerNoteEs": "Rumanía transpuso mediante la OUG 155/2024 en diciembre de 2024.",
       "trackerNotePl": "Rumunia dokonała transpozycji w drodze OUG 155/2024 w grudniu 2024 r.",
+      "trackerNoteCs": "Rumunsko provedlo transpozici prostřednictvím OUG 155/2024 v prosinci 2024.",
+      "trackerNotePt": "A Roménia transpôs através da OUG 155/2024 em dezembro de 2024.",
+      "trackerNoteRo": "România a transpus prin OUG 155/2024 în decembrie 2024.",
       "wikiSlug": "nis2-status-rumaenien"
     },
     {
@@ -413,6 +500,9 @@
       "notesIt": "La Kyberturvallisuuslaki (124/2025) è stata approvata dal Parlamento finlandese il 13 marzo 2025, in vigore dall'8 aprile 2025. Termine di registrazione iniziale: 8 maggio 2025; gli aggiornamenti successivi devono avvenire entro due settimane da qualsiasi modifica, ai sensi dell'art. 27(2) NIS 2. Vigilanza decentralizzata: Traficom coordina e gestisce il NCSC-FI come CSIRT nazionale e punto di contatto unico dell'UE; le autorità settoriali (Energiavirasto, Finanssivalvonta, Tukes) vigilano sui propri settori.",
       "notesEs": "La Kyberturvallisuuslaki (124/2025) fue aprobada por el Parlamento finlandés el 13 de marzo de 2025, en vigor desde el 8 de abril de 2025. Plazo de registro inicial: 8 de mayo de 2025; las actualizaciones posteriores deben realizarse en un plazo de dos semanas tras cualquier cambio, conforme al art. 27(2) NIS 2. Supervisión descentralizada: Traficom coordina y opera el NCSC-FI como CSIRT nacional y punto de contacto único de la UE; las autoridades sectoriales (Energiavirasto, Finanssivalvonta, Tukes) supervisan sus propios sectores.",
       "notesPl": "Kyberturvallisuuslaki (124/2025) została zatwierdzona przez fiński parlament 13 marca 2025 r., obowiązuje od 8 kwietnia 2025 r. Pierwszy termin rejestracji: 8 maja 2025 r.; późniejsze aktualizacje należy wprowadzić w ciągu dwóch tygodni od każdej zmiany, zgodnie z art. 27(2) NIS 2. Nadzór zdecentralizowany: Traficom koordynuje i prowadzi NCSC-FI jako krajowy CSIRT i pojedynczy punkt kontaktowy UE; organy sektorowe (Energiavirasto, Finanssivalvonta, Tukes) sprawują nadzór nad własnymi sektorami.",
+      "notesCs": "Kyberturvallisuuslaki (124/2025) schválený finským parlamentem 13. března 2025, účinný od 8. dubna 2025. První lhůta pro registraci 8. května 2025; následné aktualizace do dvou týdnů od jakékoli změny podle čl. 27(2) NIS 2. Decentralizovaný dohled: Traficom koordinuje a provozuje NCSC-FI jako národní CSIRT a jednotné kontaktní místo EU; sektorové orgány (Energiavirasto, Finanssivalvonta, Tukes) dohlížejí na vlastní sektory.",
+      "notesPt": "Kyberturvallisuuslaki (124/2025) aprovada pelo Parlamento finlandês em 13 de março de 2025, em vigor desde 8 de abril de 2025. Prazo de registo inicial: 8 de maio de 2025; as atualizações posteriores devem ocorrer no prazo de duas semanas após qualquer alteração, nos termos do art. 27(2) NIS 2. Supervisão descentralizada: a Traficom coordena e opera o NCSC-FI como CSIRT nacional e ponto de contacto único da UE; as autoridades setoriais (Energiavirasto, Finanssivalvonta, Tukes) supervisionam os seus próprios setores.",
+      "notesRo": "Kyberturvallisuuslaki (124/2025) aprobată de Parlamentul finlandez la 13 martie 2025, în vigoare de la 8 aprilie 2025. Termen de înregistrare inițial: 8 mai 2025; actualizările ulterioare trebuie efectuate în termen de două săptămâni de la orice modificare, conform art. 27(2) NIS 2. Supraveghere descentralizată: Traficom coordonează și operează NCSC-FI ca CSIRT național și punct unic de contact al UE; autoritățile sectoriale (Energiavirasto, Finanssivalvonta, Tukes) supraveghează propriile sectoare.",
       "lastVerified": "2026-06-01",
       "wikiSlug": "nis2-status-finnland",
       "csirt": "NCSC-FI (Kyberturvallisuuskeskus, within Traficom)",
@@ -421,7 +511,10 @@
       "trackerNoteFr": "La Finlande a adopté l'acte de transposition en 2024. Entrée en vigueur en avril 2025.",
       "trackerNoteIt": "La Finlandia ha adottato l'atto di recepimento nel 2024. Entrata in vigore ad aprile 2025.",
       "trackerNoteEs": "Finlandia adoptó el acto de transposición en 2024. Entrada en vigor en abril de 2025.",
-      "trackerNotePl": "Finlandia przyjęła akt transponujący w 2024 r. Wejście w życie w kwietniu 2025 r."
+      "trackerNotePl": "Finlandia przyjęła akt transponujący w 2024 r. Wejście w życie w kwietniu 2025 r.",
+      "trackerNoteCs": "Finsko přijalo transpoziční zákon v roce 2024. Vstoupil v platnost v dubnu 2025.",
+      "trackerNotePt": "A Finlândia adotou o ato de transposição em 2024. Entrou em vigor em abril de 2025.",
+      "trackerNoteRo": "Finlanda a adoptat actul de transpunere în 2024. A intrat în vigoare în aprilie 2025."
     },
     {
       "countryCode": "EE",
@@ -439,6 +532,9 @@
       "notesIt": "Legge approvata il 18 dicembre 2025 ed entrata in vigore il 1° gennaio 2026.",
       "notesEs": "Ley aprobada el 18 de diciembre de 2025 y en vigor desde el 1 de enero de 2026.",
       "notesPl": "Ustawa przyjęta 18 grudnia 2025 r. i obowiązująca od 1 stycznia 2026 r.",
+      "notesCs": "Zákon schválen 18. prosince 2025 a vstoupil v platnost 1. ledna 2026.",
+      "notesPt": "Lei aprovada em 18 de dezembro de 2025 e em vigor desde 1 de janeiro de 2026.",
+      "notesRo": "Lege aprobată la 18 decembrie 2025 și intrată în vigoare la 1 ianuarie 2026.",
       "lastVerified": "2026-04-23",
       "csirt": "CERT-EE (within RIA)",
       "trackerNoteEn": "Estonia transposed quickly via amendment to its existing 2018 Cybersecurity Act.",
@@ -447,6 +543,9 @@
       "trackerNoteIt": "L'Estonia ha recepito rapidamente tramite una modifica della sua legge sulla cibersicurezza del 2018.",
       "trackerNoteEs": "Estonia transpuso rápidamente mediante una modificación de su Ley de Ciberseguridad de 2018.",
       "trackerNotePl": "Estonia dokonała szybkiej transpozycji poprzez nowelizację swojej ustawy o cyberbezpieczeństwie z 2018 r.",
+      "trackerNoteCs": "Estonsko provedlo transpozici rychle prostřednictvím novely svého stávajícího zákona o kybernetické bezpečnosti z roku 2018.",
+      "trackerNotePt": "A Estónia transpôs rapidamente através de uma alteração à sua Lei de Cibersegurança de 2018 já existente.",
+      "trackerNoteRo": "Estonia a transpus rapid printr-o modificare a Legii sale privind securitatea cibernetică din 2018 deja existente.",
       "wikiSlug": "nis2-status-estland"
     },
     {
@@ -465,6 +564,9 @@
       "notesIt": "Il Decreto-Lei n.º 125/2025 è stato pubblicato nel Diário da República il 4 dicembre 2025, in vigore dal 3 aprile 2026 (120 giorni dopo la pubblicazione). Il CNCS gestisce la piattaforma MyCiber (myciber.gov.pt) per la registrazione delle entità essenziali, importanti e pubbliche rilevanti; offre inoltre un simulatore di auto-classificazione. Il responsabile della cibersicurezza e il punto di contatto permanente devono essere comunicati tramite MyCiber entro 20 giorni lavorativi dalla qualificazione dell'entità. Il regolamento di funzionamento del CNCS per la piattaforma è stato sottoposto a una consultazione pubblica conclusasi il 22 aprile 2026. CERT.PT è integrato nel CNCS come CSIRT nazionale.",
       "notesEs": "El Decreto-Lei n.º 125/2025 se publicó en el Diário da República el 4 de diciembre de 2025, en vigor desde el 3 de abril de 2026 (120 días después de la publicación). El CNCS opera la plataforma MyCiber (myciber.gov.pt) para el registro de entidades esenciales, importantes y públicas relevantes; también ofrece un simulador de autoclasificación. El responsable de ciberseguridad y el punto de contacto permanente deben comunicarse a través de MyCiber en un plazo de 20 días hábiles tras la calificación de la entidad. El reglamento de funcionamiento del CNCS para la plataforma se sometió a una consulta pública que finalizó el 22 de abril de 2026. CERT.PT está integrado en el CNCS como CSIRT nacional.",
       "notesPl": "Decreto-Lei n.º 125/2025 został opublikowany w Diário da República 4 grudnia 2025 r., obowiązuje od 3 kwietnia 2026 r. (120 dni po publikacji). CNCS prowadzi platformę MyCiber (myciber.gov.pt) do rejestracji podmiotów kluczowych, ważnych i istotnych podmiotów publicznych; oferuje również symulator samoklasyfikacji. Pełnomocnik ds. cyberbezpieczeństwa i stały punkt kontaktowy muszą zostać zgłoszeni przez MyCiber w ciągu 20 dni roboczych od zakwalifikowania podmiotu. Regulamin funkcjonowania CNCS dla platformy przeszedł konsultacje publiczne zakończone 22 kwietnia 2026 r. CERT.PT jest zintegrowany z CNCS jako krajowy CSIRT.",
+      "notesCs": "Decreto-Lei n.º 125/2025 zveřejněný v Diário da República 4. prosince 2025, účinný od 3. dubna 2026 (120 dní po zveřejnění). CNCS provozuje platformu MyCiber (myciber.gov.pt) pro registraci zásadních, důležitých a relevantních veřejných subjektů; nabízí také simulátor pro sebeklasifikaci. Pověřenec pro kybernetickou bezpečnost a stálé kontaktní místo musí být oznámeny přes MyCiber do 20 pracovních dnů od kvalifikace subjektu. Provozní nařízení CNCS pro platformu prošlo veřejnou konzultací, která skončila 22. dubna 2026. CERT.PT je začleněn do CNCS jako národní CSIRT.",
+      "notesPt": "Decreto-Lei n.º 125/2025 publicado no Diário da República em 4 de dezembro de 2025, em vigor desde 3 de abril de 2026 (120 dias após a publicação). O CNCS opera a plataforma MyCiber (myciber.gov.pt) para o registo de entidades essenciais, importantes e entidades públicas relevantes; disponibiliza também um simulador de autoclassificação. O responsável pela cibersegurança e o ponto de contacto permanente devem ser comunicados através do MyCiber no prazo de 20 dias úteis após a qualificação da entidade. O regulamento de funcionamento do CNCS para a plataforma foi objeto de consulta pública que terminou em 22 de abril de 2026. O CERT.PT está integrado no CNCS como CSIRT nacional.",
+      "notesRo": "Decreto-Lei n.º 125/2025 publicat în Diário da República la 4 decembrie 2025, în vigoare de la 3 aprilie 2026 (120 de zile după publicare). CNCS operează platforma MyCiber (myciber.gov.pt) pentru înregistrarea entităților esențiale, importante și a entităților publice relevante; oferă, de asemenea, un simulator de autoclasificare. Responsabilul cu securitatea cibernetică și punctul de contact permanent trebuie comunicate prin MyCiber în termen de 20 de zile lucrătoare de la calificarea entității. Regulamentul de funcționare al CNCS pentru platformă a fost supus unei consultări publice încheiate la 22 aprilie 2026. CERT.PT este integrat în CNCS ca CSIRT național.",
       "lastVerified": "2026-06-17",
       "wikiSlug": "nis2-status-portugal",
       "csirt": "CERT.PT (within CNCS)"
@@ -485,6 +587,9 @@
       "notesIt": "Progetto di legge in esame parlamentare. Il portale di registrazione e i termini non sono ancora stati stabiliti.",
       "notesEs": "Proyecto de ley en revisión parlamentaria. El portal de registro y los plazos aún no están establecidos.",
       "notesPl": "Projekt ustawy w trakcie prac parlamentarnych. Portal rejestracji i terminy nie zostały jeszcze ustalone.",
+      "notesCs": "Návrh zákona v parlamentním projednávání. Registrační portál a lhůty dosud nestanoveny.",
+      "notesPt": "Projeto de lei em apreciação parlamentar. O portal de registo e os prazos ainda não foram estabelecidos.",
+      "notesRo": "Proiect de lege în examinare parlamentară. Portalul de înregistrare și termenele nu au fost încă stabilite.",
       "lastVerified": "2026-04-23",
       "wikiSlug": "nis2-status-spanien",
       "csirt": "CCN-CERT (public sector), INCIBE-CERT (private sector)",
@@ -493,7 +598,10 @@
       "trackerNoteFr": "L'Espagne applique un modèle à deux CSIRT. Supervision sectorielle via le Real Decreto 43/2021 existant (NIS 1).",
       "trackerNoteIt": "La Spagna applica un modello a due CSIRT. Vigilanza settoriale tramite il vigente Real Decreto 43/2021 (NIS 1).",
       "trackerNoteEs": "España opera un modelo de dos CSIRT. Supervisión sectorial a través del vigente Real Decreto 43/2021 (NIS 1).",
-      "trackerNotePl": "Hiszpania stosuje model dwóch CSIRT. Nadzór sektorowy na podstawie obowiązującego Real Decreto 43/2021 (NIS 1)."
+      "trackerNotePl": "Hiszpania stosuje model dwóch CSIRT. Nadzór sektorowy na podstawie obowiązującego Real Decreto 43/2021 (NIS 1).",
+      "trackerNoteCs": "Španělsko provozuje model se dvěma CSIRT. Sektorový dohled prostřednictvím stávajícího Real Decreto 43/2021 (NIS 1).",
+      "trackerNotePt": "A Espanha opera um modelo de dois CSIRT. Supervisão setorial através do Real Decreto 43/2021 existente (NIS 1).",
+      "trackerNoteRo": "Spania aplică un model cu două CSIRT-uri. Supraveghere sectorială prin Real Decreto 43/2021 existent (NIS 1)."
     },
     {
       "countryCode": "HU",
@@ -511,6 +619,9 @@
       "notesIt": "L'Ungheria ha recepito presto. Autorità di vigilanza SZTFH istituita.",
       "notesEs": "Hungría transpuso pronto. Autoridad de supervisión SZTFH establecida.",
       "notesPl": "Węgry dokonały transpozycji wcześnie. Ustanowiono organ nadzoru SZTFH.",
+      "notesCs": "Maďarsko provedlo transpozici brzy. Zřízen dozorový orgán SZTFH.",
+      "notesPt": "A Hungria transpôs cedo. Foi estabelecida a autoridade de supervisão SZTFH.",
+      "notesRo": "Ungaria a transpus devreme. A fost înființată autoritatea de supraveghere SZTFH.",
       "lastVerified": "2026-04-24",
       "csirt": "National Cyber Defence Institute (NBSZ)",
       "trackerNoteEn": "Hungary transposed early via Act XXIII of 2023. Layered with SZTFH as cybersecurity supervisor.",
@@ -519,6 +630,9 @@
       "trackerNoteIt": "L'Ungheria ha recepito presto tramite la legge XXIII del 2023. Sovrapposto con la SZTFH come autorità di vigilanza sulla cibersicurezza.",
       "trackerNoteEs": "Hungría transpuso pronto mediante la Ley XXIII de 2023. Superpuesto con la SZTFH como autoridad de supervisión de la ciberseguridad.",
       "trackerNotePl": "Węgry dokonały transpozycji wcześnie w drodze ustawy XXIII z 2023 r. Nałożone z SZTFH jako organem nadzoru nad cyberbezpieczeństwem.",
+      "trackerNoteCs": "Maďarsko provedlo transpozici brzy prostřednictvím zákona XXIII z roku 2023. SZTFH zajišťuje dohled nad kybernetickou bezpečností.",
+      "trackerNotePt": "A Hungria transpôs cedo através da Lei XXIII de 2023. Sobreposta com a SZTFH como autoridade de supervisão da cibersegurança.",
+      "trackerNoteRo": "Ungaria a transpus devreme prin Legea XXIII din 2023. Suprapusă cu SZTFH ca autoritate de supraveghere a securității cibernetice.",
       "wikiSlug": "nis2-status-ungarn"
     },
     {
@@ -537,6 +651,9 @@
       "notesIt": "Promulgata il 13 febbraio 2026, in vigore il 17 febbraio 2026. Le autorità competenti dispongono di 5 mesi per designare le entità. È in corso di istituzione un registro nazionale.",
       "notesEs": "Promulgada el 13 de febrero de 2026, en vigor el 17 de febrero de 2026. Las autoridades competentes disponen de 5 meses para designar a las entidades. Se está estableciendo un registro nacional.",
       "notesPl": "Ogłoszona 13 lutego 2026 r., obowiązuje od 17 lutego 2026 r. Właściwe organy mają 5 miesięcy na wyznaczenie podmiotów. Tworzony jest rejestr krajowy.",
+      "notesCs": "Vyhlášeno 13. února 2026, účinné od 17. února 2026. Příslušné orgány mají 5 měsíců na určení subjektů. Buduje se národní registr.",
+      "notesPt": "Promulgada em 13 de fevereiro de 2026, em vigor em 17 de fevereiro de 2026. As autoridades competentes dispõem de 5 meses para designar as entidades. Está a ser estabelecido um registo nacional.",
+      "notesRo": "Promulgată la 13 februarie 2026, în vigoare la 17 februarie 2026. Autoritățile competente dispun de 5 luni pentru a desemna entitățile. Se înființează un registru național.",
       "lastVerified": "2026-06-17",
       "csirt": "CERT Bulgaria",
       "wikiSlug": "nis2-status-bulgarien"
@@ -557,6 +674,9 @@
       "notesIt": "Nessun portale di auto-registrazione. La DSA effettua una valutazione nazionale per identificare le entità nell'ambito di applicazione. Uno strumento di auto-valutazione è disponibile su nis2.dsa.cy. Recepimento anticipato (aprile 2025).",
       "notesEs": "Sin portal de autorregistro. La DSA realiza una evaluación nacional para identificar las entidades dentro del ámbito de aplicación. Una herramienta de autoevaluación está disponible en nis2.dsa.cy. Transposición temprana (abril de 2025).",
       "notesPl": "Brak portalu samorejestracji. DSA przeprowadza ocenę krajową w celu zidentyfikowania podmiotów objętych zakresem. Narzędzie do samooceny jest dostępne pod adresem nis2.dsa.cy. Wczesna transpozycja (kwiecień 2025 r.).",
+      "notesCs": "Žádný portál pro samoregistraci. DSA provádí národní posouzení k identifikaci subjektů v působnosti. Nástroj pro sebehodnocení je dostupný na nis2.dsa.cy. Raná transpozice (duben 2025).",
+      "notesPt": "Sem portal de auto-registo. A DSA realiza uma avaliação nacional para identificar as entidades no âmbito de aplicação. Está disponível uma ferramenta de autoavaliação em nis2.dsa.cy. Transposição precoce (abril de 2025).",
+      "notesRo": "Niciun portal de autoînregistrare. DSA efectuează o evaluare națională pentru a identifica entitățile din domeniul de aplicare. Un instrument de autoevaluare este disponibil la nis2.dsa.cy. Transpunere timpurie (aprilie 2025).",
       "lastVerified": "2026-04-24",
       "csirt": "CSIRT-CY",
       "wikiSlug": "nis2-status-zypern"
@@ -577,6 +697,9 @@
       "notesIt": "Non ancora recepito. Il National Cyber Security Bill è in esame parlamentare. Un portale di registrazione è atteso una volta approvata la legge; auto-registrazione entro 3 mesi dall'avvio.",
       "notesEs": "Aún no transpuesto. El National Cyber Security Bill está en revisión parlamentaria. Se espera un portal de registro una vez se apruebe la ley; autorregistro en un plazo de 3 meses tras su puesta en marcha.",
       "notesPl": "Jeszcze nietransponowane. National Cyber Security Bill jest w trakcie prac parlamentarnych. Portal rejestracji oczekiwany po uchwaleniu ustawy; samorejestracja w ciągu 3 miesięcy od uruchomienia.",
+      "notesCs": "Dosud neprovedena transpozice. National Cyber Security Bill je v parlamentním projednávání. Registrační portál se očekává po přijetí zákona; samoregistrace do 3 měsíců od spuštění.",
+      "notesPt": "Ainda não transposto. O National Cyber Security Bill está em apreciação parlamentar. Espera-se um portal de registo assim que a lei for aprovada; auto-registo no prazo de 3 meses após o lançamento.",
+      "notesRo": "Încă netranspus. National Cyber Security Bill se află în examinare parlamentară. Se așteaptă un portal de înregistrare odată ce legea este adoptată; autoînregistrare în termen de 3 luni de la lansare.",
       "lastVerified": "2026-04-24",
       "wikiSlug": "nis2-status-irland",
       "csirt": "NCSC-IE",
@@ -585,7 +708,10 @@
       "trackerNoteFr": "Projet de loi en cours de procédure législative aux Houses of the Oireachtas.",
       "trackerNoteIt": "Progetto di legge in iter legislativo presso le Houses of the Oireachtas.",
       "trackerNoteEs": "Proyecto de ley en trámite legislativo en las Houses of the Oireachtas.",
-      "trackerNotePl": "Projekt ustawy w toku procesu legislacyjnego w Houses of the Oireachtas."
+      "trackerNotePl": "Projekt ustawy w toku procesu legislacyjnego w Houses of the Oireachtas.",
+      "trackerNoteCs": "Návrh zákona je v legislativním procesu v Houses of the Oireachtas.",
+      "trackerNotePt": "Projeto de lei em processo legislativo nas Houses of the Oireachtas.",
+      "trackerNoteRo": "Proiect de lege în proces legislativ la Houses of the Oireachtas."
     },
     {
       "countryCode": "LU",
@@ -603,6 +729,9 @@
       "notesIt": "Recepita tramite la legge del 5 maggio 2026 (Mémorial A no. 225, pubblicata il 10 maggio 2026), entrata in vigore il 10 maggio 2026, abrogando la precedente legge NIS 1. L'ILR gestisce un portale di auto-registrazione attivo per le entità nell'ambito di applicazione. L'auto-registrazione è un obbligo di legge con un termine di due mesi che scade il 10 luglio 2026; la mancata registrazione costituisce di per sé una violazione sanzionabile. La CSSF vigila su banche e infrastrutture dei mercati finanziari; l'ILR copre tutti gli altri settori.",
       "notesEs": "Transpuesta mediante la Ley de 5 de mayo de 2026 (Mémorial A no. 225, publicada el 10 de mayo de 2026), en vigor desde el 10 de mayo de 2026, derogando la anterior Ley NIS 1. El ILR opera un portal de autorregistro activo para las entidades dentro del ámbito de aplicación. El autorregistro es una obligación legal con un plazo de dos meses que expira el 10 de julio de 2026; la falta de registro constituye en sí misma una infracción sancionable. La CSSF supervisa la banca y la infraestructura de los mercados financieros; el ILR cubre todos los demás sectores.",
       "notesPl": "Transponowana ustawą z 5 maja 2026 r. (Mémorial A no. 225, opublikowana 10 maja 2026 r.), obowiązuje od 10 maja 2026 r., uchylając poprzednią ustawę NIS 1. ILR prowadzi działający portal samorejestracji dla podmiotów objętych zakresem. Samorejestracja jest obowiązkiem prawnym z dwumiesięcznym terminem upływającym 10 lipca 2026 r.; brak rejestracji sam w sobie stanowi naruszenie podlegające sankcjom. CSSF nadzoruje banki i infrastrukturę rynków finansowych; ILR obejmuje wszystkie pozostałe sektory.",
+      "notesCs": "Transpozice prostřednictvím zákona z 5. května 2026 (Mémorial A no. 225, zveřejněno 10. května 2026), účinného od 10. května 2026, kterým se ruší předchozí zákon NIS 1. ILR provozuje funkční portál pro samoregistraci subjektů v působnosti. Samoregistrace je zákonnou povinností s dvouměsíční lhůtou končící 10. července 2026; samotná neregistrace je sankcionovatelným porušením. CSSF dohlíží na bankovnictví a infrastrukturu finančního trhu; ILR pokrývá všechny ostatní sektory.",
+      "notesPt": "Transposta pela Lei de 5 de maio de 2026 (Mémorial A no. 225, publicada em 10 de maio de 2026), em vigor desde 10 de maio de 2026, revogando a anterior Lei NIS 1. O ILR opera um portal de auto-registo ativo para as entidades no âmbito de aplicação. O auto-registo é uma obrigação legal com um prazo de dois meses que expira em 10 de julho de 2026; a falta de registo constitui, por si só, uma infração sancionável. A CSSF supervisiona a banca e a infraestrutura dos mercados financeiros; o ILR abrange todos os restantes setores.",
+      "notesRo": "Transpusă prin Legea din 5 mai 2026 (Mémorial A no. 225, publicată la 10 mai 2026), în vigoare de la 10 mai 2026, abrogând precedenta Lege NIS 1. ILR operează un portal de autoînregistrare activ pentru entitățile din domeniul de aplicare. Autoînregistrarea este o obligație legală cu un termen de două luni care expiră la 10 iulie 2026; lipsa înregistrării constituie în sine o încălcare sancționabilă. CSSF supraveghează băncile și infrastructura piețelor financiare; ILR acoperă toate celelalte sectoare.",
       "lastVerified": "2026-06-16",
       "csirt": "CIRCL (Computer Incident Response Center Luxembourg)",
       "wikiSlug": "nis2-status-luxemburg"
@@ -623,6 +752,9 @@
       "notesIt": "Recepita tramite il Legal Notice 71/2025 (S.L. 460.41), in vigore dall'8 aprile 2025 e pienamente efficace dal 23 gennaio 2026. Modificata dal Legal Notice 89/2026, che aggiunge un Enforcement Committee abilitato a imporre sanzioni amministrative su segnalazione della CIPD. Le entità determinano autonomamente se sono essenziali o importanti e lo notificano alla CIPD; la CIPD gestisce il meccanismo nazionale di auto-registrazione. L'URL del portale non è ancora pubblico.",
       "notesEs": "Transpuesta mediante el Legal Notice 71/2025 (S.L. 460.41), en vigor desde el 8 de abril de 2025 y plenamente efectiva el 23 de enero de 2026. Modificada por el Legal Notice 89/2026, que añade un Enforcement Committee facultado para imponer multas administrativas a instancia de la CIPD. Las entidades determinan por sí mismas si son esenciales o importantes y lo notifican a la CIPD; la CIPD opera el mecanismo nacional de autorregistro. La URL del portal aún no es pública.",
       "notesPl": "Transponowana w drodze Legal Notice 71/2025 (S.L. 460.41), obowiązuje od 8 kwietnia 2025 r. i w pełni skuteczna od 23 stycznia 2026 r. Zmieniona przez Legal Notice 89/2026, który dodaje Enforcement Committee uprawniony do nakładania kar administracyjnych na wniosek CIPD. Podmioty samodzielnie ustalają, czy są kluczowe czy ważne, i powiadamiają o tym CIPD; CIPD prowadzi krajowy mechanizm samorejestracji. Adres URL portalu nie jest jeszcze publiczny.",
+      "notesCs": "Transpozice prostřednictvím Legal Notice 71/2025 (S.L. 460.41), účinné od 8. dubna 2025 a plně účinné od 23. ledna 2026. Pozměněno Legal Notice 89/2026, který zavádí Enforcement Committee s pravomocí ukládat správní pokuty na základě podnětu CIPD. Subjekty samy určují, zda jsou zásadní nebo důležité, a oznamují to CIPD; CIPD provozuje národní mechanismus samoregistrace. Adresa URL portálu zatím není veřejná.",
+      "notesPt": "Transposta através do Legal Notice 71/2025 (S.L. 460.41), em vigor desde 8 de abril de 2025 e plenamente eficaz desde 23 de janeiro de 2026. Alterada pelo Legal Notice 89/2026, que acrescenta um Enforcement Committee habilitado a impor coimas administrativas mediante remessa do CIPD. As entidades determinam por si próprias se são essenciais ou importantes e notificam-no ao CIPD; o CIPD opera o mecanismo nacional de auto-registo. O URL do portal ainda não é público.",
+      "notesRo": "Transpusă prin Legal Notice 71/2025 (S.L. 460.41), în vigoare de la 8 aprilie 2025 și pe deplin aplicabilă de la 23 ianuarie 2026. Modificată prin Legal Notice 89/2026, care adaugă un Enforcement Committee împuternicit să impună amenzi administrative la sesizarea CIPD. Entitățile stabilesc singure dacă sunt esențiale sau importante și notifică acest lucru CIPD; CIPD operează mecanismul național de autoînregistrare. Adresa URL a portalului nu este încă publică.",
       "lastVerified": "2026-06-17",
       "csirt": "CSIRTMalta",
       "wikiSlug": "nis2-status-malta"
@@ -643,6 +775,9 @@
       "notesIt": "Recepita tramite la ZInfV-1. In vigore dal 19 giugno 2025. Il termine di registrazione era il 19 dicembre 2025. Nessun portale formale ancora; le entità si registrano via e-mail presso l'URSIV.",
       "notesEs": "Transpuesta mediante la ZInfV-1. En vigor desde el 19 de junio de 2025. El plazo de registro fue el 19 de diciembre de 2025. Aún no hay portal formal; las entidades se registran por correo electrónico ante la URSIV.",
       "notesPl": "Transponowana w drodze ZInfV-1. Obowiązuje od 19 czerwca 2025 r. Termin rejestracji upłynął 19 grudnia 2025 r. Brak jeszcze formalnego portalu; podmioty rejestrują się e-mailem w URSIV.",
+      "notesCs": "Transpozice prostřednictvím ZInfV-1. Účinné od 19. června 2025. Lhůta pro registraci uplynula 19. prosince 2025. Zatím žádný formální portál; subjekty se registrují e-mailem u URSIV.",
+      "notesPt": "Transposta através da ZInfV-1. Em vigor desde 19 de junho de 2025. O prazo de registo terminou em 19 de dezembro de 2025. Ainda sem portal formal; as entidades registam-se por e-mail junto da URSIV.",
+      "notesRo": "Transpusă prin ZInfV-1. În vigoare de la 19 iunie 2025. Termenul de înregistrare a expirat la 19 decembrie 2025. Încă fără un portal formal; entitățile se înregistrează prin e-mail la URSIV.",
       "lastVerified": "2026-04-24",
       "csirt": "SI-CERT",
       "wikiSlug": "nis2-status-slowenien"

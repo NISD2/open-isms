@@ -1,0 +1,61 @@
+{
+  "vulnerabilities": {
+    "title": "Gestionarea vulnerabilităților",
+    "description": "Urmărește vulnerabilitățile descoperite pe parcursul ciclului lor de viață. Cerută de CIR 2024/2690 art. 6.10.",
+    "helpText": "Înregistrează vulnerabilitățile găsite prin scanări, teste de penetrare sau avize. Urmărește trierea, deciziile de tratare și rezolvarea. CIR cere ca tratarea vulnerabilităților să fie un proces documentat separat de gestionarea actualizărilor.",
+    "add": "Adaugă vulnerabilitate",
+    "edit": "Editează vulnerabilitatea",
+    "empty": "Nicio vulnerabilitate înregistrată încă. Adaugă prima vulnerabilitate.",
+    "deleteConfirm": "Sigur vrei să ștergi această vulnerabilitate?",
+    "actions": "Acțiuni",
+    "severity": {
+      "critical": "Critică",
+      "high": "Ridicată",
+      "medium": "Medie",
+      "low": "Scăzută"
+    },
+    "status": {
+      "discovered": "Descoperită",
+      "assessed": "Evaluată",
+      "treating": "În tratare",
+      "resolved": "Rezolvată",
+      "accepted": "Acceptată",
+      "mitigated": "Atenuată"
+    },
+    "source": {
+      "vulnerability_scan": "Scanare de vulnerabilități",
+      "pentest": "Test de penetrare",
+      "bug_bounty": "Bug Bounty",
+      "vendor_advisory": "Aviz al furnizorului",
+      "internal_review": "Verificare internă"
+    },
+    "fields": {
+      "cveId": "ID CVE",
+      "title": "Titlu",
+      "description": "Descriere",
+      "severity": "Severitate",
+      "cvssScore": "Scor CVSS",
+      "source": "Sursă",
+      "assetId": "Activ",
+      "status": "Stare",
+      "discoveredAt": "Descoperită la",
+      "treatmentNote": "Tratare",
+      "acceptanceReason": "Motivul acceptării",
+      "resolvedAt": "Rezolvată la"
+    },
+    "fieldDescriptions": {
+      "cveId": "Identificatorul CVE, dacă există (de exemplu, CVE-2024-1234). Lasă gol pentru vulnerabilitățile descoperite intern, fără CVE.",
+      "title": "Descriere scurtă a vulnerabilității (de exemplu, „injecție SQL în formularul de autentificare”, „TLS 1.0 învechit pe serverul web”).",
+      "description": "Descriere detaliată: componentele afectate, versiunile, impactul potențial și condițiile de exploatare.",
+      "severity": "Nivel de severitate bazat pe CVSS: critică, ridicată, medie sau scăzută.",
+      "cvssScore": "Scor CVSS numeric opțional (0.0-10.0) pentru prioritizare precisă.",
+      "source": "Modul în care a fost descoperită această vulnerabilitate: scanare, test de penetrare, bug bounty, aviz al furnizorului sau verificare internă.",
+      "assetId": "Activul afectat de această vulnerabilitate, dacă este cazul. Selectează din registrul de active.",
+      "status": "Starea actuală din ciclul de viață: descoperită, evaluată, în tratare, rezolvată, acceptată (risc) sau atenuată (control compensatoriu).",
+      "discoveredAt": "Data la care vulnerabilitatea a fost identificată prima dată.",
+      "treatmentNote": "Ce se face pentru a remedia această vulnerabilitate (actualizare, modificare de configurație, control compensatoriu etc.).",
+      "acceptanceReason": "Dacă accepți riscul, documentează justificarea conform CIR 6.6.2. Obligatoriu pentru starea „Acceptată”.",
+      "resolvedAt": "Data la care vulnerabilitatea a fost rezolvată, acceptată sau atenuată."
+    }
+  }
+}

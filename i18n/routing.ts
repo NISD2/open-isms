@@ -17,7 +17,7 @@ import { wikiPathnames } from "@/lib/content/wiki-toc";
  * /supplier-invite/[token]) are intentionally NOT registered —
  * auto-generated, single-use, never indexed.
  */
-const locales = ["de", "en", "nl", "fr", "it", "es", "pl"] as const;
+const locales = ["de", "en", "nl", "fr", "it", "es", "pl", "cs", "pt", "ro"] as const;
 type Loc = (typeof locales)[number];
 
 /**

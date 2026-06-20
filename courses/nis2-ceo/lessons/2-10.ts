@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "2.10",
   slug: "measure-5-acquisition",
-  title: { en: "Measure 5 - Acquisition, Development, and Maintenance", nl: "Maatregel 5 – Aanschaf, ontwikkeling en onderhoud", de: "Maßnahme 5 – Beschaffung, Entwicklung und Wartung", fr: "Mesure 5 - Acquisition, développement et maintenance", it: "Misura 5 - Acquisizione, sviluppo e manutenzione", es: "Medida 5 - Adquisición, desarrollo y mantenimiento", pl: "Środek 5 - Nabywanie, rozwój i utrzymanie" },
+  title: { en: "Measure 5 - Acquisition, Development, and Maintenance", nl: "Maatregel 5 – Aanschaf, ontwikkeling en onderhoud", de: "Maßnahme 5 – Beschaffung, Entwicklung und Wartung", fr: "Mesure 5 - Acquisition, développement et maintenance", it: "Misura 5 - Acquisizione, sviluppo e manutenzione", es: "Medida 5 - Adquisición, desarrollo y mantenimiento", pl: "Środek 5 - Nabywanie, rozwój i utrzymanie", cs: "Opatření 5 - Pořizování, vývoj a údržba", pt: "Medida 5 - Aquisição, desenvolvimento e manutenção", ro: "Măsura 5 - Achiziție, dezvoltare și mentenanță" },
   moduleId: "module-2",
   order: 9,
   contentFile: "2-10",

@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Melhorias",
+    "description": "Itens de melhoria contínua resultantes de auditorias, incidentes e revisões. Suporta o ciclo PDCA segundo a NIS2.",
+    "helpText": "Acompanhe as ações de melhoria identificadas em auditorias, análises pós-incidente, revisões pela gestão e tendências de KPI. Cada item tem uma origem, prioridade, responsável e data-alvo. Este registo demonstra o compromisso da sua organização com a melhoria contínua.",
+    "add": "Adicionar melhoria",
+    "edit": "Editar melhoria",
+    "empty": "Ainda não existem itens de melhoria. Adicione itens a partir de auditorias, incidentes ou revisões.",
+    "deleteConfirm": "Tem a certeza de que pretende eliminar este item de melhoria?",
+    "actions": "Ações",
+    "source": {
+      "audit": "Auditoria",
+      "incident": "Incidente",
+      "pentest": "Teste de intrusão",
+      "management_review": "Revisão pela gestão",
+      "kpi_breach": "Incumprimento de KPI",
+      "gap_analysis": "Análise de lacunas",
+      "regulatory_change": "Alteração regulamentar",
+      "suggestion": "Sugestão"
+    },
+    "status": {
+      "open": "Aberto",
+      "in_progress": "Em curso",
+      "resolved": "Resolvido",
+      "verified": "Verificado",
+      "deferred": "Adiado"
+    },
+    "priority": {
+      "P0": "P0 - Imediato",
+      "P1": "P1 - 3 meses",
+      "P2": "P2 - 6 meses",
+      "P3": "P3 - 12 meses"
+    },
+    "fields": {
+      "title": "Título",
+      "description": "Descrição",
+      "source": "Origem",
+      "priority": "Prioridade",
+      "status": "Estado",
+      "targetDate": "Data-alvo",
+      "deferralReason": "Motivo do adiamento",
+      "verificationNotes": "Notas de verificação"
+    },
+    "fieldDescriptions": {
+      "title": "Título descritivo curto para esta ação de melhoria (por exemplo, ''Implementar MFA para o acesso VPN'').",
+      "description": "Descrição detalhada da melhoria, incluindo a lacuna atual e o resultado pretendido.",
+      "source": "Selecione onde esta melhoria foi identificada: constatação de auditoria, análise pós-incidente, revisão pela gestão, incumprimento de KPI, etc.",
+      "priority": "Selecione o nível de prioridade que determina o prazo de implementação (P0: imediato, P1: 3 meses, P2: 6 meses, P3: 12 meses).",
+      "status": "Estado atual da melhoria: aberto, em curso, resolvido, verificado (eficácia confirmada) ou adiado.",
+      "targetDate": "Data até à qual esta ação de melhoria deve estar concluída.",
+      "deferralReason": "Se o estado for Adiado, indique a justificação e o prazo previsto de retoma.",
+      "verificationNotes": "Documente como a eficácia desta melhoria foi verificada após a implementação."
+    }
+  }
+}

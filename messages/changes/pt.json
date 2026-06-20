@@ -1,0 +1,51 @@
+{
+  "changes": {
+    "title": "Gestão de Alterações",
+    "description": "Pedidos de alteração de TI/OT com avaliação de risco e fluxo de trabalho de aprovação. Apoia o Art. 21(2)(e) da NIS2.",
+    "helpText": "Acompanhe todas as alterações aos sistemas de TI e OT através de um processo formal de aprovação. Cada pedido de alteração inclui avaliação de risco, plano de implementação e procedimento de reversão. A NIS2 exige uma gestão de alterações controlada para prevenir regressões de segurança.",
+    "add": "Novo Pedido de Alteração",
+    "edit": "Editar Pedido de Alteração",
+    "empty": "Ainda não existem pedidos de alteração. Crie o seu primeiro pedido de alteração.",
+    "deleteConfirm": "Tem a certeza de que pretende eliminar este pedido de alteração?",
+    "actions": "Ações",
+    "type": {
+      "standard": "Padrão",
+      "normal": "Normal",
+      "emergency": "Emergência"
+    },
+    "changeType": {
+      "standard": "Padrão",
+      "normal": "Normal",
+      "emergency": "Emergência"
+    },
+    "status": {
+      "draft": "Rascunho",
+      "submitted": "Submetido",
+      "approved": "Aprovado",
+      "implementing": "Em Implementação",
+      "implemented": "Implementado",
+      "rolled_back": "Revertido",
+      "closed": "Fechado"
+    },
+    "fields": {
+      "title": "Título",
+      "description": "Descrição",
+      "changeType": "Tipo de Alteração",
+      "status": "Estado",
+      "createdAt": "Criado Em",
+      "businessJustification": "Justificação de Negócio",
+      "securityImpactAssessment": "Avaliação do Impacto na Segurança",
+      "rollbackPlan": "Plano de Reversão"
+    },
+    "fieldDescriptions": {
+      "title": "Título curto e descritivo para este pedido de alteração (por exemplo, 'Atualizar o firmware da firewall para a v4.2').",
+      "description": "Descrição detalhada da alteração proposta, incluindo os sistemas afetados e o resultado esperado.",
+      "changeType": "Selecione o tipo: padrão (pré-aprovado, baixo risco), normal (exige análise) ou emergência (urgente, aprovação posterior).",
+      "status": "Estado atual do pedido de alteração no fluxo de trabalho de aprovação e implementação.",
+      "createdAt": "Data em que este pedido de alteração foi submetido.",
+      "businessJustification": "Explique por que razão esta alteração é necessária, incluindo os fatores de negócio e os benefícios para a segurança.",
+      "securityImpactAssessment": "Descreva o potencial impacto na segurança desta alteração, incluindo os riscos introduzidos ou mitigados.",
+      "rollbackPlan": "Descreva os passos para reverter esta alteração caso a implementação falhe ou cause problemas inesperados."
+    }
+  }
+}

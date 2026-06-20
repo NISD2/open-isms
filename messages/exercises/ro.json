@@ -1,0 +1,44 @@
+{
+  "exercises": {
+    "title": "Exerciții",
+    "description": "Exerciții de continuitate a activității, de recuperare în caz de dezastru și de răspuns la incidente. Cerute de NIS2 Art. 21(2)(c).",
+    "helpText": "Planificați și documentați exercițiile de continuitate a activității și de recuperare în caz de dezastru. NIS2 cere testarea periodică a planurilor de continuitate. Înregistrați tipul exercițiului, participanții, constatările și acțiunile ulterioare.",
+    "add": "Adaugă exercițiu",
+    "edit": "Editează exercițiul",
+    "empty": "Niciun exercițiu planificat încă. Programați primul exercițiu.",
+    "deleteConfirm": "Sigur doriți să ștergeți acest exercițiu?",
+    "actions": "Acțiuni",
+    "type": {
+      "tabletop": "Pe hârtie",
+      "technical": "Tehnic",
+      "red_team": "Red Team",
+      "full_scale": "La scară reală"
+    },
+    "exerciseType": {
+      "tabletop": "Pe hârtie",
+      "technical": "Tehnic",
+      "red_team": "Red Team",
+      "full_scale": "La scară reală"
+    },
+    "fields": {
+      "title": "Titlu",
+      "exerciseType": "Tip de exercițiu",
+      "domain": "Domeniu",
+      "scheduledDate": "Dată programată",
+      "completedAt": "Finalizat la",
+      "scenarioDescription": "Scenariu",
+      "facilitator": "Facilitator",
+      "lessonsLearned": "Lecții învățate"
+    },
+    "fieldDescriptions": {
+      "title": "Numele exercițiului (de exemplu, „Exercițiu pe hârtie ransomware T1”, „Test de comutare DR”).",
+      "exerciseType": "Selectați formatul exercițiului: pe hârtie (bazat pe discuții), tehnic (practic), red team (simulare a unui adversar) sau la scară reală (exercițiu în condiții reale).",
+      "domain": "Domeniul de securitate testat (de exemplu, răspuns la incidente, continuitatea activității, recuperare în caz de dezastru, comunicare în situații de criză).",
+      "scheduledDate": "Data la care este planificat să aibă loc acest exercițiu.",
+      "completedAt": "Data la care a fost finalizat efectiv acest exercițiu.",
+      "scenarioDescription": "Descrieți scenariul simulat, inclusiv actorul amenințării, vectorul de atac și răspunsul organizațional așteptat.",
+      "facilitator": "Numele persoanei responsabile de planificarea și conducerea acestui exercițiu.",
+      "lessonsLearned": "Documentați principalele constatări, lacunele identificate și îmbunătățirile recomandate în urma acestui exercițiu."
+    }
+  }
+}

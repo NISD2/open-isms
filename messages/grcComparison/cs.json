@@ -1,0 +1,128 @@
+{
+  "grcComparison": {
+    "meta": {
+      "title": "Audit cen GRC / ISMS / NIS2: ověřeno 136 komerčních dodavatelů",
+      "description": "Dne 17. května 2026 jsme prošli cenové stránky 136 komerčních platforem pro GRC, ISMS a NIS2. 103 z nich vám neřekne, kolik stojí, bez hovoru s demem. Tady je celý seznam, řaditelný a filtrovatelný. Devět open source alternativ je z principu vynecháno."
+    },
+    "hero": {
+      "eyebrow": "Tržní audit, 17. května 2026",
+      "title": "Provedli jsme audit 136 komerčních platforem GRC/ISMS. 103 vám neřekne, kolik stojí.",
+      "subtitle": "U každého dodavatele jsme cenovou stránku zachytili doslovně. Tam, kde je cena schovaná za formulářem pro demo, uvádíme „Nutný hovor s demem“. Žádné odhady, žádné zdroje třetích stran. Devět open source alternativ (verinice, CISO Assistant, Deming, ISMS Builder, Unicis CE, my sami a další) je z tohoto seznamu vynecháno, protože vám neprodávají předplatné.",
+      "ctaPlatform": "Začít zdarma",
+      "ctaMethodology": "Metodika"
+    },
+    "stats": {
+      "totalLabel": "Auditovaní dodavatelé",
+      "transparentLabel": "Veřejné ceny",
+      "partialLabel": "Pouze počáteční cena",
+      "gatedLabel": "Nutný hovor s demem",
+      "nis2Label": "NIS2 jako rámec",
+      "ossLabel": "Open source",
+      "countriesLabel": "Země",
+      "lastUpdatedPrefix": "Stav k:"
+    },
+    "thesis": {
+      "title": "Proč je tento trh zralý na převrat",
+      "body": "76 % z těchto 136 komerčních dodavatelů GRC/ISMS svoje ceny skrývá. Produkty jsou formuláře, šablony a kontrolní seznamy nad databází. Mezní náklady na jednoho dalšího zákazníka jsou téměř nulové. Cena nikoli. Tady jsou důkazy.",
+      "points": [
+        {
+          "title": "Pětimístné roční smlouvy za formulář",
+          "body": "Vanta, Drata, Secureframe, OneTrust, MetricStream, IBM OpenPages, ServiceNow GRC, Archer, Diligent. Každá podniková sada GRC skrývá ceny a účtuje si více než 30 000 EUR ročně za nástroj na pracovní postupy se šablonami."
+        },
+        {
+          "title": "Dodavatelé z východní EU jsou 10krát levnější a transparentní",
+          "body": "Copla (LT) prodává NIS2 za 3 500 EUR ročně jako samostatnou položku. NIS2 Manager (CZ) za zhruba 980 EUR měsíčně. Conformio (HR) za 145 EUR měsíčně. Stejná kategorie produktu, jiné rozhodnutí o ceně."
+        },
+        {
+          "title": "Konkurence v open source roste z Německa a Francie",
+          "body": "ISMS Builder (DE, AGPL), CISO Assistant (FR, AGPLv3, více než 130 rámců), Little-ISMS-Helper (DACH), Deming (FR). Všechny zdarma pro vlastní hosting, všechny výslovně pro NIS2."
+        },
+        {
+          "title": "Konsolidace trhu zrychluje",
+          "body": "AuditBoard → Optro. CONTECHNET → i-doit. DocSetMinder → Allgeier. 3rdRisk → Diligent. RISMA + Wired Relations + ComplyCloud → Cerivo. StandardFusion → Wolters Kluwer. Galvanize → Diligent. Tugboat → OneTrust. Archer → Cinven."
+        }
+      ]
+    },
+    "filters": {
+      "searchPlaceholder": "Hledat dodavatele…",
+      "tierLabel": "Cenový model",
+      "tierAll": "Vše",
+      "tierTransparent": "Transparentní",
+      "tierPartial": "Částečná",
+      "tierGated": "Hovor s demem",
+      "tierUnverifiable": "Neověřitelné",
+      "countryLabel": "Země",
+      "countryAll": "Všechny země",
+      "categoryLabel": "Kategorie",
+      "categoryAll": "Všechny kategorie",
+      "categoryIsms": "ISMS",
+      "categoryGrc": "GRC",
+      "categoryTprm": "Rizika dodavatelů",
+      "categoryConsultancy": "Poradenství + SaaS",
+      "categoryAudit": "Audit",
+      "categoryRatings": "Kybernetické ratingy",
+      "categoryTemplate": "Obchod se šablonami",
+      "categoryAiGrc": "AI GRC",
+      "categoryEndpoint": "Koncové body",
+      "categoryVuln": "Zranitelnosti",
+      "categoryCspm": "Cloudová bezpečnost",
+      "categoryIam": "IAM/Insider",
+      "categoryTraining": "Povědomí",
+      "categoryAsset": "Správa aktiv",
+      "categoryReporting": "Reporting",
+      "categoryComms": "Bezpečná komunikace",
+      "nis2OnlyLabel": "Pouze dodavatelé NIS2",
+      "freeTierLabel": "Má bezplatnou variantu",
+      "ossLabel": "Pouze open source",
+      "resetButton": "Vymazat filtry"
+    },
+    "table": {
+      "name": "Dodavatel",
+      "country": "Země",
+      "category": "Kategorie",
+      "tier": "Ceny",
+      "entryPrice": "Vstupní",
+      "nis2": "NIS2",
+      "freeTier": "Zdarma",
+      "source": "Zdroj",
+      "noResults": "Žádní dodavatelé nenalezeni. Vymažte filtry.",
+      "tierBadgeTransparent": "Transparentní",
+      "tierBadgePartial": "Částečná",
+      "tierBadgeGated": "Hovor s demem",
+      "tierBadgeUnverifiable": "Neověřitelné",
+      "nis2Yes": "Ano",
+      "nis2No": "Ne",
+      "freeTierNone": "-",
+      "freeTierTrial": "Zkušební",
+      "freeTierFreemium": "Zdarma",
+      "freeTierOss": "OSS",
+      "viewVendorPricing": "Otevřít cenovou stránku",
+      "lastVerified": "Ověřeno",
+      "dataExport": "Export dat",
+      "dataExportFullOpen": "Plně otevřený",
+      "dataExportPartial": "Částečný",
+      "dataExportReportOnly": "Pouze reporty",
+      "dataExportNone": "Nic zdokumentováno",
+      "dataExportUnknown": "-"
+    },
+    "methodology": {
+      "title": "Metodika",
+      "verified": "Ověřeno",
+      "rules": [
+        "Každou cenovou stránku jsme prošli ručně.",
+        "Ceny jsou citovány doslovně z webu dodavatele.",
+        "Žádná extrapolace z G2, Capterra, blogů třetích stran ani LinkedInu.",
+        "Tam, kde jsou ceny schované za formulářem pro demo: „Nutný hovor s demem“.",
+        "Tam, kde jsou ceny uvedeny pouze jako „od X EUR“: „Částečná transparentnost“.",
+        "Čtvrtletní opakovaný audit. Dodavatelé mohou zaslat opravy."
+      ],
+      "correctionsTitle": "Zaslat opravu",
+      "correctionsBody": "Jsou naše údaje o vašem produktu chybné? Napište na simon@nisd2.eu s URL své cenové stránky. Aktualizujeme do 48 hodin a vedeme změnový záznam."
+    },
+    "cta": {
+      "title": "Zdarma + open source + bez vázanosti",
+      "body": "Neprodáváme soulad s NIS2. Zpřístupňujeme ho. Zdarma, open source, žádný obchodní tým, který vám volá.",
+      "button": "Spustit platformu"
+    }
+  }
+}

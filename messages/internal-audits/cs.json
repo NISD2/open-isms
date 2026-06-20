@@ -1,0 +1,36 @@
+{
+  "internalAudits": {
+    "title": "Interní audity",
+    "description": "Plán, provedení a zjištění interních auditů. Vyžaduje to posouzení účinnosti podle čl. 21 NIS2.",
+    "helpText": "Naplánujte a zdokumentujte interní audity svých kybernetických bezpečnostních opatření. Zaznamenejte rozsah, zjištění a nápravná opatření. NIS2 vyžaduje pravidelné posouzení toho, zda jsou bezpečnostní opatření účinná.",
+    "add": "Přidat audit",
+    "edit": "Upravit audit",
+    "empty": "Zatím nejsou naplánovány žádné interní audity. Naplánujte svůj první audit.",
+    "deleteConfirm": "Opravdu chcete tento audit smazat?",
+    "actions": "Akce",
+    "status": {
+      "planned": "Naplánováno",
+      "in_progress": "Probíhá",
+      "completed": "Dokončeno",
+      "cancelled": "Zrušeno"
+    },
+    "fields": {
+      "title": "Název",
+      "auditArea": "Oblast auditu",
+      "scope": "Rozsah",
+      "status": "Stav",
+      "scheduledDate": "Plánované datum",
+      "completedAt": "Dokončeno dne",
+      "auditorName": "Auditor"
+    },
+    "fieldDescriptions": {
+      "title": "Název tohoto interního auditu (např. „Audit řízení přístupu za 2. čtvrtletí“, „Roční přezkum souladu s NIS2“).",
+      "auditArea": "Bezpečnostní doména nebo oblast opatření, která je předmětem auditu (např. řízení přístupu, reakce na incidenty, dodavatelský řetězec).",
+      "scope": "Vymezte hranice tohoto auditu: které systémy, procesy, oddělení nebo opatření jsou zahrnuty.",
+      "status": "Aktuální stav auditu: naplánováno, probíhá, dokončeno nebo zrušeno.",
+      "scheduledDate": "Datum, kdy má tento audit začít.",
+      "completedAt": "Datum, kdy byly dokončeny všechny auditní činnosti a závěrečná zpráva.",
+      "auditorName": "Jméno interního auditora nebo vedoucího auditního týmu, který toto posouzení provádí."
+    }
+  }
+}

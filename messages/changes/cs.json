@@ -1,0 +1,51 @@
+{
+  "changes": {
+    "title": "Řízení změn",
+    "description": "Žádosti o změny IT/OT s posouzením rizik a schvalovacím procesem. Podporuje NIS2 čl. 21 odst. 2 písm. e).",
+    "helpText": "Sledujte všechny změny v systémech IT a OT prostřednictvím formálního schvalovacího procesu. Každá žádost o změnu zahrnuje posouzení rizik, plán implementace a postup vrácení změny. NIS2 vyžaduje řízené řízení změn, aby se předešlo bezpečnostním regresím.",
+    "add": "Nová žádost o změnu",
+    "edit": "Upravit žádost o změnu",
+    "empty": "Zatím žádné žádosti o změnu. Vytvořte svou první žádost o změnu.",
+    "deleteConfirm": "Opravdu chcete tuto žádost o změnu odstranit?",
+    "actions": "Akce",
+    "type": {
+      "standard": "Standardní",
+      "normal": "Normální",
+      "emergency": "Nouzová"
+    },
+    "changeType": {
+      "standard": "Standardní",
+      "normal": "Normální",
+      "emergency": "Nouzová"
+    },
+    "status": {
+      "draft": "Koncept",
+      "submitted": "Podáno",
+      "approved": "Schváleno",
+      "implementing": "Probíhá implementace",
+      "implemented": "Implementováno",
+      "rolled_back": "Vráceno zpět",
+      "closed": "Uzavřeno"
+    },
+    "fields": {
+      "title": "Název",
+      "description": "Popis",
+      "changeType": "Typ změny",
+      "status": "Stav",
+      "createdAt": "Vytvořeno dne",
+      "businessJustification": "Obchodní odůvodnění",
+      "securityImpactAssessment": "Posouzení dopadu na bezpečnost",
+      "rollbackPlan": "Plán vrácení změny"
+    },
+    "fieldDescriptions": {
+      "title": "Krátký výstižný název této žádosti o změnu (např. „Upgrade firmwaru firewallu na verzi v4.2“).",
+      "description": "Podrobný popis navrhované změny včetně dotčených systémů a očekávaného výsledku.",
+      "changeType": "Vyberte typ: standardní (předem schválená, nízké riziko), normální (vyžaduje přezkoumání) nebo nouzová (urgentní, schválení dodatečně).",
+      "status": "Aktuální stav žádosti o změnu ve schvalovacím a implementačním procesu.",
+      "createdAt": "Datum podání této žádosti o změnu.",
+      "businessJustification": "Vysvětlete, proč je tato změna nezbytná, včetně obchodních důvodů a bezpečnostních přínosů.",
+      "securityImpactAssessment": "Popište potenciální dopad této změny na bezpečnost včetně zaváděných nebo zmírňovaných rizik.",
+      "rollbackPlan": "Popište kroky pro vrácení této změny, pokud implementace selže nebo způsobí neočekávané problémy."
+    }
+  }
+}

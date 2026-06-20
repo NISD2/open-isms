@@ -1,0 +1,51 @@
+{
+  "companyLookup": {
+    "title": "Týká se vaší společnosti NIS2?",
+    "subtitle": "Závazné určení provádí váš národní dohledový orgán. Níže najdete oficiální kontaktní místa pro jednotlivé země a navíc bezplatnou orientační samokontrolu. Nejste si jistí? Příklady najdete v sekci <link>hraniční případy z praxe</link>.",
+    "authorityCallout": {
+      "heading": "Závazné určení: váš národní dohledový orgán",
+      "body": "Konečné zařazení podle NIS2 provádí příslušný orgán ve vaší zemi. My odkazujeme na oficiální zdroje. Samokontrola níže slouží jen jako rychlý orientační nástroj.",
+      "seeAll": "Zobrazit všech 27 členských států EU",
+      "details": "Podrobnosti"
+    },
+    "selfCheckHeading": "Rychlá samokontrola",
+    "selfCheckSubtitle": "Orientace podle odvětví, velikosti a zvláštních případů. Nenahrazuje oficiální určení vaším orgánem.",
+    "placeholder": "Zadejte název společnosti (např. Stadtwerke München)",
+    "noResults": "Žádné společnosti nenalezeny. Zkontrolujte pravopis nebo zkuste úplný název podle obchodního rejstříku.",
+    "error": "Vyhledávání společností je momentálně nedostupné. Zkuste to prosím později.",
+    "sectors": "Odvětví NIS2",
+    "companyData": "Údaje o společnosti",
+    "legalForm": "Právní forma",
+    "register": "Obchodní rejstřík",
+    "founded": "Založeno",
+    "capital": "Základní kapitál",
+    "companySize": "Velikost společnosti",
+    "revenue": "Obrat",
+    "industryCodes": "Kódy odvětví (WZ)",
+    "purpose": "Předmět podnikání",
+    "missingData": "Některé údaje se nepodařilo automaticky načíst. Zařazení vychází z dostupných informací a může se změnit, jakmile budou k dispozici všechny údaje.",
+    "ctaInScope": "Proberme další kroky",
+    "checkNis2": "Zkontrolovat status NIS2",
+    "loading": "Analyzuji údaje o společnosti…",
+    "ctaNotInScope": "Chraňte se i tak",
+    "disclaimer": "Údaje o společnosti pocházejí z veřejných rejstříků a ukládáme je pro zlepšení naší služby.",
+    "holdingWarning": "Tato společnost se zřejmě jedná o holding nebo mateřskou společnost skupiny. Použitelnost NIS2 se posuzuje za každý subjekt zvlášť. Dceřiné společnosti s vlastním provozem, zaměstnanci a IT systémy mohou spadat do působnosti samostatně, i když samotný holding nikoli. Posuzujte každou dceřinou společnost zvlášť.",
+    "resultDisclaimer": "Jedná se o orientační posouzení založené na veřejně dostupných údajích z rejstříku, nikoli o právní určení. Skutečná použitelnost NIS2 závisí na faktorech, které zde nejsou plně zachyceny. Pro potvrzení se obraťte na kvalifikovaného poradce.",
+    "result": {
+      "not_in_scope": "Pravděpodobně mimo působnost",
+      "important": "Pravděpodobně důležitý subjekt",
+      "essential": "Pravděpodobně základní subjekt",
+      "kritis": "Pravděpodobně provozovatel KRITIS"
+    },
+    "reason": {
+      "excluded": "Vaše organizace je zřejmě z působnosti NIS2 vyňata.",
+      "no_sector": "Zdá se, že žádný z registrovaných kódů odvětví nespadá pod některé z odvětví NIS2.",
+      "below_threshold": "Vaše společnost zřejmě působí v odvětví NIS2, ale podle dostupných údajů může být pod prahem velikosti.",
+      "special_case": "Na základě svého zařazení vaše organizace pravděpodobně spadá do působnosti bez ohledu na velikost.",
+      "size_and_sector": "Podle dostupných údajů jsou zřejmě splněna kritéria odvětví i velikosti pro NIS2."
+    },
+    "orSeparator": "nebo zkontrolujte ručně",
+    "manualFallback": "Nemůžete svou společnost najít?",
+    "manualLink": "Spustit ruční kontrolu"
+  }
+}

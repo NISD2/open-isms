@@ -1,0 +1,19 @@
+{
+  "notifications": {
+    "title": "Notificări",
+    "description": "Vizualizați și gestionați notificările",
+    "empty": "Nicio notificare",
+    "acknowledge": "Confirmați",
+    "acknowledged": "Confirmat",
+    "unread": "{count} necitite",
+    "actions": "Acțiuni",
+    "markRead": "Marcați ca citit",
+    "markAllRead": "Marcați toate ca citite",
+    "fields": {
+      "subject": "Subiect",
+      "entityType": "Tip",
+      "scheduledFor": "Programat pentru",
+      "status": "Stare"
+    }
+  }
+}

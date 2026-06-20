@@ -1,0 +1,44 @@
+{
+  "patches": {
+    "title": "Gestão de Patches",
+    "description": "Acompanhamento de patches e vulnerabilidades por ativo. Exigido pelo Art. 21(2)(e) da NIS2.",
+    "helpText": "Acompanhe os patches e as vulnerabilidades conhecidas dos ativos registados. Registe o estado do patch (pendente, aplicado, adiado), as referências CVE e os prazos. A NIS2 exige o tratamento atempado de vulnerabilidades e a gestão de patches.",
+    "add": "Adicionar Registo de Patch",
+    "edit": "Editar Registo de Patch",
+    "empty": "Ainda não existem registos de patches. Adicione o seu primeiro registo de patch.",
+    "deleteConfirm": "Tem a certeza de que pretende eliminar este registo de patch?",
+    "actions": "Ações",
+    "severity": {
+      "critical": "Crítica",
+      "high": "Alta",
+      "medium": "Média",
+      "low": "Baixa"
+    },
+    "status": {
+      "pending": "Pendente",
+      "applied": "Aplicado",
+      "exception": "Exceção",
+      "not_applicable": "Não Aplicável"
+    },
+    "fields": {
+      "patchIdentifier": "ID do Patch",
+      "severity": "Gravidade",
+      "title": "Título",
+      "assetId": "Ativo",
+      "status": "Estado",
+      "releaseDate": "Data de Lançamento",
+      "appliedAt": "Aplicado Em",
+      "exceptionReason": "Motivo da Exceção"
+    },
+    "fieldDescriptions": {
+      "patchIdentifier": "Identificador de patch do fornecedor ou número CVE (por exemplo, 'KB5034441', 'CVE-2024-1234').",
+      "severity": "Selecione a classificação de gravidade da vulnerabilidade que este patch corrige: crítica, alta, média ou baixa.",
+      "title": "Breve descrição do que este patch corrige ou da vulnerabilidade que resolve.",
+      "assetId": "Selecione o ativo do registo de ativos a que este patch se aplica.",
+      "status": "Estado atual do patch: pendente (ainda não aplicado), aplicado, exceção (adiamento com risco aceite) ou não aplicável.",
+      "releaseDate": "Data em que o fornecedor lançou este patch.",
+      "appliedAt": "Data em que este patch foi aplicado com sucesso ao ativo de destino.",
+      "exceptionReason": "Se o estado for Exceção, indique a justificação para adiar ou não aplicar este patch."
+    }
+  }
+}

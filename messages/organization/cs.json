@@ -1,0 +1,120 @@
+{
+  "organization": {
+    "title": "Nastavení organizace",
+    "description": "Zaregistrujte svou organizaci a spusťte hodnocení shody.",
+    "editTitle": "Nastavení organizace",
+    "editDescription": "Aktualizujte údaje o své organizaci.",
+    "formTitle": "Údaje o organizaci",
+    "name": "Název organizace",
+    "namePlaceholder": "Acme GmbH",
+    "sector": "Sektor NIS2",
+    "sectorPlaceholder": "Vyberte sektor...",
+    "entityType": "Klasifikace subjektu",
+    "entityTypeHelp": "Podle definice v BSIG 2025 §28",
+    "entityTypes": {
+      "essential": "Základní subjekt",
+      "important": "Důležitý subjekt",
+      "kritis": "Provozovatel KRITIS"
+    },
+    "legalForm": "Právní forma",
+    "legalFormPlaceholder": "např. GmbH, AG, KG",
+    "employees": "Počet zaměstnanců",
+    "contactEmail": "Kontaktní e-mail pro shodu",
+    "cisoName": "CISO / Pověřenec pro bezpečnost IT",
+    "cisoNamePlaceholder": "Jana Nováková",
+    "cisoReportsTo": "CISO se zodpovídá",
+    "cisoReportsToPlaceholder": "např. generální ředitel, představenstvo",
+    "bsiContactName": "Kontaktní osoba pro BSI",
+    "bsiContactNamePlaceholder": "Max Mustermann",
+    "bsiContactEmail": "Kontaktní e-mail pro BSI",
+    "bsiContactPhone": "Kontaktní telefon pro BSI",
+    "bsiRegistrationId": "Registrační ID u BSI",
+    "annualSecurityBudget": "Roční rozpočet na bezpečnost (EUR)",
+    "primaryLocations": "Hlavní lokality",
+    "primaryLocationsPlaceholder": "např. Berlín, Mnichov",
+    "profileSection": "Bezpečnostní profil",
+    "profileSectionDescription": "Tato pole se používají napříč více požadavky NIS2 a zaznamenávají se do snímků při schválení.",
+    "submit": "Spustit hodnocení",
+    "creating": "Nastavuji vaši organizaci...",
+    "createError": "Vytvoření organizace se nezdařilo. Zkuste to prosím znovu.",
+    "save": "Uložit změny",
+    "saving": "Ukládám...",
+    "saved": "Změny úspěšně uloženy.",
+    "saveError": "Uložení změn se nezdařilo. Zkuste to prosím znovu.",
+    "sectors": {
+      "energy": "Energetika",
+      "transport": "Doprava",
+      "banking": "Bankovnictví",
+      "financial_market": "Infrastruktura finančního trhu",
+      "health": "Zdravotnictví",
+      "drinking_water": "Pitná voda",
+      "waste_water": "Odpadní voda",
+      "digital_infrastructure": "Digitální infrastruktura",
+      "ict_service_management": "Správa služeb IKT (B2B)",
+      "public_administration": "Veřejná správa",
+      "space": "Vesmír",
+      "postal_courier": "Poštovní a kurýrní služby",
+      "waste_management": "Odpadové hospodářství",
+      "chemicals": "Chemický průmysl",
+      "food": "Výroba a distribuce potravin",
+      "manufacturing": "Výroba",
+      "digital_providers": "Poskytovatelé digitálních služeb",
+      "research": "Výzkum"
+    },
+    "teamRoles": {
+      "title": "Klíčový personál",
+      "description": "Členy týmu můžete pozvat hned, nebo později z nastavení. Každá přidaná osoba dostane pozvánku a může být přiřazena jako vlastník kategorií shody.",
+      "name": "Jméno",
+      "email": "E-mail",
+      "role": "Role",
+      "rolePlaceholder": "Vyberte roli...",
+      "addMember": "Přidat člena týmu",
+      "removeMember": "Odebrat",
+      "back": "Zpět",
+      "skip": "Zatím přeskočit",
+      "submit": "Pokračovat",
+      "roles": {
+        "ceo": {
+          "label": "Generální ředitel / Jednatel",
+          "namePlaceholder": "Jana Nováková",
+          "emailPlaceholder": "reditel@firma.cz"
+        },
+        "ciso": {
+          "label": "CISO / Pověřenec pro bezpečnost IT",
+          "namePlaceholder": "Jan Novák",
+          "emailPlaceholder": "ciso@firma.cz"
+        },
+        "cto": {
+          "label": "CTO / Vedoucí vývoje",
+          "namePlaceholder": "Alex Johnson",
+          "emailPlaceholder": "cto@firma.cz"
+        },
+        "coo": {
+          "label": "COO / Provozní ředitel",
+          "namePlaceholder": "Sam Williams",
+          "emailPlaceholder": "coo@firma.cz"
+        },
+        "cpo": {
+          "label": "CPO / Vedoucí nákupu",
+          "namePlaceholder": "Pat Taylor",
+          "emailPlaceholder": "cpo@firma.cz"
+        },
+        "hr_director": {
+          "label": "Personální ředitel",
+          "namePlaceholder": "Chris Miller",
+          "emailPlaceholder": "hr@firma.cz"
+        },
+        "legal": {
+          "label": "Právní / Compliance referent",
+          "namePlaceholder": "Morgan Davis",
+          "emailPlaceholder": "pravni@firma.cz"
+        },
+        "dpo": {
+          "label": "Pověřenec pro ochranu osobních údajů",
+          "namePlaceholder": "Robin Garcia",
+          "emailPlaceholder": "dpo@firma.cz"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Přezkumy vedením",
+    "description": "Dohledové schůzky vedení a strategická rozhodnutí. Vyžaduje NIS2 čl. 20 odst. 1.",
+    "helpText": "Zdokumentujte schůzky přezkumu vedením, na kterých vedení hodnotí stav kybernetické bezpečnosti. NIS2 čl. 20 činí vedení osobně odpovědným za schvalování a dohled nad opatřeními kybernetické bezpečnosti. Zaznamenejte účastníky, projednaná témata a přijatá rozhodnutí.",
+    "add": "Přidat přezkum",
+    "edit": "Upravit přezkum",
+    "empty": "Zatím nebyly zaznamenány žádné přezkumy vedením. Naplánujte svůj první přezkum.",
+    "deleteConfirm": "Opravdu chcete tento přezkum smazat?",
+    "actions": "Akce",
+    "fields": {
+      "title": "Název",
+      "reviewDate": "Datum přezkumu",
+      "decisions": "Rozhodnutí",
+      "actionItems": "Úkoly",
+      "nextReviewDate": "Datum dalšího přezkumu"
+    },
+    "fieldDescriptions": {
+      "title": "Název schůzky přezkumu vedením (např. „Přezkum kybernetické bezpečnosti za 1. čtvrtletí 2025“).",
+      "reviewDate": "Datum, kdy se schůzka přezkumu vedením konala.",
+      "decisions": "Zdokumentujte klíčová rozhodnutí přijatá vedením ohledně stavu kybernetické bezpečnosti, přidělování zdrojů a přijetí rizika.",
+      "actionItems": "Uveďte konkrétní následné úkoly přidělené během přezkumu, včetně odpovědných osob a termínů.",
+      "nextReviewDate": "Datum, na které je naplánován další přezkum vedením. NIS2 čl. 20 vyžaduje průběžný dohled ze strany vedení."
+    }
+  }
+}

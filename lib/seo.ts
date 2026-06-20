@@ -79,6 +79,9 @@ const OG_LOCALE: Record<Locale, string> = {
   it: "it_IT",
   es: "es_ES",
   pl: "pl_PL",
+  cs: "cs_CZ",
+  pt: "pt_PT",
+  ro: "ro_RO",
 };
 
 /**
@@ -317,6 +320,9 @@ const LOCALE_BCP47: Record<Locale, string> = {
   it: "it-IT",
   es: "es-ES",
   pl: "pl-PL",
+  cs: "cs-CZ",
+  pt: "pt-PT",
+  ro: "ro-RO",
 };
 
 function docsPublisher() {

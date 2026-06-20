@@ -1,0 +1,70 @@
+{
+  "incidents": {
+    "title": "Registru de incidente",
+    "description": "Jurnal al incidentelor de securitate cu clasificarea gravității și urmărirea cronologiei. Cerut de NIS2 art. 23.",
+    "helpText": "Înregistrați fiecare incident de securitate în momentul în care apare. NIS2 cere o avertizare timpurie către BSI în termen de 24 de ore și o notificare completă în termen de 72 de ore pentru incidentele semnificative. Consemnați gravitatea, sistemele afectate, cronologia și pașii de remediere.",
+    "add": "Raportează incident",
+    "edit": "Editează incident",
+    "empty": "Niciun incident înregistrat. Raportați un incident atunci când apare.",
+    "deleteConfirm": "Sigur doriți să ștergeți acest incident?",
+    "actions": "Acțiuni",
+    "severity": {
+      "near_miss": "Aproape de incident",
+      "incident": "Incident",
+      "significant": "Semnificativ"
+    },
+    "fields": {
+      "title": "Titlu",
+      "description": "Descriere",
+      "severity": "Gravitate",
+      "situationColor": "Culoarea situației",
+      "discoveredAt": "Descoperit la",
+      "occurredAt": "Produs la",
+      "resolvedAt": "Rezolvat la",
+      "confidentialityImpacted": "Confidențialitate afectată",
+      "integrityImpacted": "Integritate afectată",
+      "availabilityImpacted": "Disponibilitate afectată",
+      "threatType": "Tipul amenințării",
+      "rootCause": "Cauza principală",
+      "countermeasures": "Contramăsuri",
+      "preventiveMeasures": "Măsuri preventive",
+      "requiresGdprNotification": "Necesită notificarea încălcării conform GDPR",
+      "dataSubjectsAffected": "Persoane vizate afectate",
+      "gdprNotifiedAt": "Autoritate GDPR notificată",
+      "notifiedDataSubjectsAt": "Persoane vizate notificate"
+    },
+    "bsiDeadlines": {
+      "title": "Termene de raportare către BSI",
+      "overdue": "Întârziat",
+      "dueIn": "Scadent în {days} z.",
+      "dueToday": "Scadent astăzi",
+      "reportType": {
+        "early_warning": "Avertizare timpurie în 24 h",
+        "notification": "Notificare în 72 h",
+        "intermediate": "Raport intermediar",
+        "final": "Raport final",
+        "progress": "Raport de progres"
+      }
+    },
+    "fieldDescriptions": {
+      "title": "Denumire scurtă și descriptivă pentru acest incident (de exemplu, „Atac de phishing asupra departamentului financiar”).",
+      "description": "Descriere detaliată a ceea ce s-a întâmplat, ce sisteme și date au fost afectate și amploarea impactului.",
+      "severity": "Selectați nivelul de gravitate. Incidentele „Semnificative” necesită notificarea BSI în termen de 24 h (avertizare timpurie) și 72 h (raport complet) conform NIS2 art. 23.",
+      "situationColor": "Indicator de tip semafor al stării curente a incidentului: verde (limitat), galben (în curs), roșu (critic).",
+      "discoveredAt": "Data și ora la care acest incident a fost detectat sau raportat pentru prima dată.",
+      "occurredAt": "Data și ora la care acest incident a început efectiv (poate diferi de momentul descoperirii).",
+      "resolvedAt": "Data și ora la care acest incident a fost rezolvat complet și operațiunile normale au fost reluate.",
+      "confidentialityImpacted": "Activați dacă a avut loc sau se suspectează o divulgare neautorizată de informații.",
+      "integrityImpacted": "Activați dacă a avut loc sau se suspectează o modificare ori coruperea neautorizată a datelor.",
+      "availabilityImpacted": "Activați dacă serviciile sau sistemele au fost perturbate ori au devenit indisponibile.",
+      "threatType": "Selectați tipul amenințării (de exemplu, malware, DDoS, amenințare internă, phishing, exploatarea unei vulnerabilități).",
+      "rootCause": "Descrieți cauza de fond a incidentului după finalizarea investigației.",
+      "countermeasures": "Descrieți acțiunile imediate întreprinse pentru a limita și a remedia incidentul.",
+      "preventiveMeasures": "Descrieți măsurile pe termen lung implementate pentru a preveni repetarea acestui tip de incident.",
+      "requiresGdprNotification": "Activați dacă acest incident a implicat o încălcare a securității datelor cu caracter personal care necesită notificarea autorității de supraveghere conform GDPR art. 33 (în termen de 72 de ore de la luarea la cunoștință).",
+      "dataSubjectsAffected": "Numărul aproximativ de persoane vizate ale căror date cu caracter personal au fost compromise (art. 33 alin. (3) lit. (a), conținut obligatoriu al notificării).",
+      "gdprNotifiedAt": "Data și ora la care autoritatea de supraveghere a fost notificată cu privire la încălcare.",
+      "notifiedDataSubjectsAt": "Data și ora la care persoanele vizate afectate au fost informate (art. 34, obligatoriu atunci când încălcarea prezintă un risc ridicat)."
+    }
+  }
+}

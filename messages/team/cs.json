@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Tým",
+    "pageDescription": "Spravujte členy týmu a pozvánky",
+    "members": {
+      "title": "Členové",
+      "description": "{count, plural, one {# člen} few {# členové} many {# členů} other {# členů}} ve vaší firmě",
+      "name": "Jméno",
+      "email": "E-mail",
+      "role": "Role",
+      "you": "vy",
+      "assignedCategories": "Přiřazené kategorie",
+      "complianceRole": "Přiřadit roli"
+    },
+    "invites": {
+      "title": "Čekající pozvánky",
+      "description": "{count, plural, one {# čekající pozvánka} few {# čekající pozvánky} many {# čekajících pozvánek} other {# čekajících pozvánek}}",
+      "email": "E-mail",
+      "expires": "Vyprší",
+      "linkCopied": "Odkaz zkopírován"
+    },
+    "invite": {
+      "title": "Pozvat člena",
+      "description": "Zadejte e-mailovou adresu pro vygenerování odkazu na pozvánku",
+      "email": "E-mail",
+      "emailPlaceholder": "kolega@firma.cz",
+      "complianceRole": "Role pro shodu",
+      "complianceRolePlaceholder": "Vyberte roli (volitelné)",
+      "submit": "Pozvat",
+      "submitting": "Zvu..."
+    },
+    "assignRole": {
+      "label": "Přiřadit roli",
+      "placeholder": "Vyberte roli...",
+      "success": "Role úspěšně přiřazena",
+      "noCategories": "Pro tuto roli nejsou žádné kategorie"
+    },
+    "remove": {
+      "success": "Člen odebrán"
+    },
+    "revoke": {
+      "success": "Pozvánka zrušena"
+    },
+    "inline": {
+      "sent": "Pozvánka odeslána na {email}",
+      "linkCopied": "Odkaz zkopírován"
+    },
+    "invalidTitle": "Neplatná pozvánka",
+    "invalidDescription": "Tento odkaz na pozvánku je neplatný nebo již byl použit.",
+    "usedTitle": "Pozvánka již použita",
+    "usedDescription": "Tato pozvánka již byla přijata nebo zrušena.",
+    "expiredTitle": "Pozvánka vypršela",
+    "expiredDescription": "Platnost tohoto odkazu na pozvánku vypršela. Požádejte svého administrátora o nový.",
+    "accept": {
+      "joinTitle": "Připojit se k {company}",
+      "joinDescription": "Byli jste pozváni připojit se jako {role}.",
+      "signInDescription": "Byli jste pozváni připojit se jako {role}. Pro pokračování se přihlaste nebo zaregistrujte.",
+      "signInToAccept": "Přihlaste se pro přijetí",
+      "alreadyMemberTitle": "Již jste členem",
+      "alreadyMemberDescription": "Již jste členem nějaké firmy. Nemůžete se připojit k další.",
+      "goToDashboard": "Přejít na dashboard",
+      "wrongAccountTitle": "Nesprávný účet",
+      "wrongAccountDescription": "Tato pozvánka byla odeslána na {inviteEmail}. Jste přihlášeni jako {userEmail}.",
+      "signOutRetry": "Odhlaste se a zkuste to znovu",
+      "joining": "Připojuji...",
+      "acceptInvite": "Přijmout pozvánku",
+      "joined": "Připojeno k {company}"
+    },
+    "roles": {
+      "ceo": "Generální ředitel / Jednatel",
+      "ciso": "CISO / Pověřenec pro bezpečnost IT",
+      "cto": "CTO / Vedoucí vývoje",
+      "coo": "COO / Provozní ředitel",
+      "cpo": "CPO / Vedoucí nákupu",
+      "hr_director": "Personální ředitel",
+      "legal": "Právní / Compliance referent",
+      "dpo": "Pověřenec pro ochranu osobních údajů"
+    }
+  }
+}

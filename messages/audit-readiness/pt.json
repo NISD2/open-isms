@@ -1,0 +1,35 @@
+{
+  "audit-readiness": {
+    "title": "Preparação para Auditoria",
+    "subtitle": "Avalie a sua preparação para auditorias BSIG/NIS2 com análise de IA",
+    "startEvaluation": "Iniciar Avaliação",
+    "evaluating": "A avaliar todas as secções...",
+    "reEvaluate": "Reavaliar",
+    "reEvaluating": "A reavaliar...",
+    "overallScore": "Pontuação Global",
+    "verdict": "Veredicto",
+    "pass": "Pronto para Auditoria",
+    "partial": "Requer Trabalho",
+    "fail": "Lacunas Graves",
+    "sectionsPassing": "{count} aprovadas",
+    "sectionsPartial": "{count} parciais",
+    "sectionsFailing": "{count} reprovadas",
+    "strengths": "Pontos Fortes",
+    "structureGaps": "Lacunas de Estrutura",
+    "dataGaps": "Lacunas de Dados",
+    "recommendations": "Recomendações",
+    "showDetails": "Mostrar detalhes",
+    "hideDetails": "Ocultar detalhes",
+    "severity": {
+      "critical": "Crítico",
+      "important": "Importante",
+      "nice-to-have": "Desejável"
+    },
+    "fieldKey": "Campo",
+    "requirement": "Requisito",
+    "issue": "Problema",
+    "recommendation": "Recomendação",
+    "noGaps": "Nenhuma lacuna identificada",
+    "disclaimer": "Avaliação gerada por IA. Não substitui uma auditoria formal"
+  }
+}

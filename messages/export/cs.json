@@ -1,0 +1,11 @@
+{
+  "export": {
+    "title": "Exportovat zprávy",
+    "subtitle": "Stáhněte si zprávy o souladu pro svá hodnocení",
+    "noAssessments": "Nebyla nalezena žádná hodnocení. Nejprve dokončete nastavení.",
+    "download": "Stáhnout PDF",
+    "started": "Zahájeno",
+    "progress": "{completed} z {total} požadavků",
+    "compliance": "Soulad"
+  }
+}

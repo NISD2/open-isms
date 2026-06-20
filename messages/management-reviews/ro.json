@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Analize ale conducerii",
+    "description": "Ședințe de supraveghere și decizii strategice ale conducerii. Cerute de NIS2 Art. 20(1).",
+    "helpText": "Documentați ședințele de analiză ale conducerii în care echipa de conducere evaluează poziția de securitate cibernetică. NIS2 Art. 20 stabilește că responsabilitatea aprobării și supravegherii măsurilor de securitate cibernetică revine personal conducerii. Înregistrați participanții, subiectele discutate și deciziile luate.",
+    "add": "Adăugați o analiză",
+    "edit": "Editați analiza",
+    "empty": "Nu există încă analize ale conducerii înregistrate. Programați prima analiză.",
+    "deleteConfirm": "Sigur doriți să ștergeți această analiză?",
+    "actions": "Acțiuni",
+    "fields": {
+      "title": "Titlu",
+      "reviewDate": "Data analizei",
+      "decisions": "Decizii",
+      "actionItems": "Acțiuni de urmărit",
+      "nextReviewDate": "Data următoarei analize"
+    },
+    "fieldDescriptions": {
+      "title": "Titlul ședinței de analiză a conducerii (de exemplu, „Analiză securitate cibernetică T1 2025”).",
+      "reviewDate": "Data la care a avut loc ședința de analiză a conducerii.",
+      "decisions": "Documentați deciziile esențiale luate de conducere privind poziția de securitate cibernetică, alocarea resurselor și acceptarea riscurilor.",
+      "actionItems": "Enumerați acțiunile de urmărire specifice atribuite în timpul analizei, inclusiv responsabilii și termenele.",
+      "nextReviewDate": "Data la care este programată următoarea analiză a conducerii. NIS2 Art. 20 impune supravegherea continuă din partea conducerii."
+    }
+  }
+}

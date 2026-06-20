@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "title": "Měření KPI",
+    "description": "Metriky bezpečnostní výkonnosti sledované v čase. Prokazují účinnost podle čl. 21 NIS2.",
+    "helpText": "Pravidelně zaznamenávejte měření bezpečnostních KPI (např. míru souladu při instalaci oprav, procento dokončených školení, průměrnou dobu do detekce). KPI auditorům prokazují, že vaše bezpečnostní opatření jsou účinná a v čase se zlepšují.",
+    "add": "Přidat měření",
+    "empty": "Zatím žádná měření KPI. Zaznamenejte své první měření.",
+    "status": {
+      "green": "Plní cíl",
+      "amber": "Ohroženo",
+      "red": "Pod cílem"
+    },
+    "fields": {
+      "kpiName": "Název KPI",
+      "measuredAt": "Měřeno dne",
+      "value": "Hodnota",
+      "target": "Cíl",
+      "unit": "Jednotka",
+      "status": "Stav",
+      "notes": "Poznámky"
+    },
+    "fieldDescriptions": {
+      "kpiName": "Název měřené bezpečnostní metriky (např. „Míra souladu při instalaci oprav“, „Průměrná doba do detekce“, „Procento dokončených školení“).",
+      "measuredAt": "Datum, kdy bylo toto měření provedeno.",
+      "value": "Zadejte naměřenou číselnou hodnotu tohoto KPI.",
+      "target": "Zadejte cílovou hodnotu, které má toto KPI dosáhnout nebo ji překročit.",
+      "unit": "Měrná jednotka (např. %, hodiny, dny, počet).",
+      "status": "Vyberte stav: zelená (plní cíl), oranžová (hrozí nesplnění cíle) nebo červená (pod cílem).",
+      "notes": "Doplňující kontext nebo vysvětlení tohoto měření, zejména pokud je stav oranžový nebo červený."
+    }
+  }
+}

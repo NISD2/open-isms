@@ -1,0 +1,124 @@
+{
+  "sicherheitsfragebogen": {
+    "meta": {
+      "title": "Completați chestionarul de securitate o singură dată | nisd2.eu",
+      "description": "Completați o singură dată chestionarul de securitate pentru furnizori și partajați-l cu fiecare client. Structurat conform ENISA NIS 2 TIG v1.0. Gratuit. Open source."
+    },
+    "branding": {
+      "label": "Un instrument oferit de nisd2.eu"
+    },
+    "landing": {
+      "hero": {
+        "eyebrow": "Portal pentru furnizori de la nisd2.eu",
+        "headline": "Răspundeți la <u>un singur</u> chestionar de securitate.",
+        "headlineAccent": "Partajați-l cu <u>fiecare</u> client.",
+        "subhead": "Un chestionar canonic pentru furnizori, structurat conform ENISA NIS 2 Technical Implementation Guidance v1.0. Fiecare întrebare citează CIR 2024/2690, BSIG §30 sau BSI IT-Grundschutz. Gratuit. Open source. Datele dumneavoastră rămân portabile.",
+        "anchorBadge": "Structurat conform ENISA NIS 2 TIG v1.0 §5",
+        "ctaPrimary": "Creați profil de furnizor",
+        "ctaSecondary": "Ce conține chestionarul?"
+      },
+      "steps": {
+        "heading": "Cum funcționează.",
+        "lead": "Trei pași, de la prima autentificare la prima invitație de client.",
+        "items": [
+          {
+            "title": "Creați un profil",
+            "body": "Autentificați-vă cu Google. Introduceți numele companiei și domeniul principal. Două minute."
+          },
+          {
+            "title": "Răspundeți la chestionar",
+            "body": "Trei subpagini în portal: profil și descrierea serviciului, măsuri universale de securitate cibernetică conform NIS 2 Art. 21(2), secțiuni tehnice pe tip de serviciu. 59 de întrebări, în ritmul dumneavoastră, ciorna se salvează automat."
+          },
+          {
+            "title": "Invitați clienții",
+            "body": "Fiecare client invitat primește un link privat de tip magic link. Fără profil public, fără indexare în motoarele de căutare."
+          }
+        ]
+      },
+      "sections": {
+        "heading": "Ce conține chestionarul.",
+        "lead": "Zece secțiuni, fiecare citând paragraful corespunzător din ENISA TIG, CIR 2024/2690 sau BSI IT-Grundschutz.",
+        "items": [
+          "Identitate (CIR §5.2 / registrul furnizorilor ENISA TIG §5.2)",
+          "Contact pentru incidente (orientat către client)",
+          "Tip de serviciu",
+          "Clauze contractuale obligatorii (CIR / ENISA TIG §5.1.4)",
+          "Măsuri de securitate cibernetică (NIS 2 Art. 21(2) / ENISA TIG §5.1.2)",
+          "Clauze contractuale suplimentare (ENISA TIG §5.1.4 TIPS)",
+          "SaaS tehnic",
+          "Software on-prem tehnic",
+          "Servicii profesionale, detalii",
+          "Servicii gestionate, detalii"
+        ],
+        "footnote": "Schema completă este publică pe GitHub și poate fi exportată în format JSON."
+      },
+      "serviceTypes": {
+        "heading": "Patru secțiuni tehnice pe tip de serviciu.",
+        "lead": "Pagina Tip de serviciu din portal afișează patru secțiuni suplimentare. Completați-le doar pe cele care corespund ofertei dumneavoastră.",
+        "items": [
+          {
+            "title": "SaaS",
+            "fields": "Regiunea de găzduire, criptare în repaus și în tranzit, MFA pentru conturile de administrator, obiectivul de timp pentru recuperare."
+          },
+          {
+            "title": "Software on-prem",
+            "fields": "Software Bill of Materials (SBOM), versiuni semnate criptografic, politică publicată de divulgare a vulnerabilităților, SLA de aplicare a corecțiilor pentru CVE-uri critice."
+          },
+          {
+            "title": "Servicii profesionale",
+            "fields": "Domeniul verificărilor de fond, NDA cu toți consultanții, politică documentată privind comportamentul la sediul clientului."
+          },
+          {
+            "title": "Servicii gestionate",
+            "fields": "Gestionarea accesului privilegiat, înregistrarea sesiunilor de administrator, disponibilitate 24/7 pentru incidente de securitate."
+          }
+        ]
+      },
+      "preview": {
+        "heading": "Întrebări exemplificative.",
+        "lead": "Șase întrebări din secțiuni diferite, cu textul de ajutor pe care furnizorii îl văd în timp ce le completează. Identitate, practici de securitate, clauze contractuale, declarații privind IA, detalii tehnice.",
+        "footnote": "Șase din 59 de întrebări. Setul complet în portal."
+      },
+      "bsi": {
+        "quote": "Salutăm inițiativele actuale din industrie de a dezvolta un catalog unificat de chestionare pentru furnizori.",
+        "attribution": "BSI NIS-2 FAQ (lanțul de aprovizionare și securitatea).",
+        "context": "Acest portal pentru furnizori ESTE acea inițiativă din industrie. Un catalog unificat de chestionare, construit privat, structurat conform taxonomiei canonice a UE (ENISA TIG §5), astfel încât fiecare entitate reglementată de NIS 2 să poată îndeplini cerințele CIR §5.1.4 dintr-o singură sursă."
+      },
+      "privacy": {
+        "heading": "Bilateral și privat.",
+        "body": "Construit în Germania, găzduit în UE, aliniat la BSI Grundschutz. Datele dumneavoastră sunt partajate doar cu clienții pe care îi invitați explicit. Fără URL public, fără indexare în motoarele de căutare."
+      },
+      "cta": {
+        "heading": "Începeți în două minute.",
+        "body": "Autentificați-vă cu Google. Introduceți numele companiei și domeniul principal. Completați chestionarul în ritmul dumneavoastră. Când sunteți gata, invitați clienții.",
+        "button": "Creați profil de furnizor"
+      },
+      "related": {
+        "heading": "Continuați pe nisd2.eu.",
+        "lead": "Acest instrument face parte din ecosistemul nisd2.eu. Restul se află aici.",
+        "items": [
+          {
+            "title": "Portal NIS 2 pentru furnizori",
+            "body": "Aceeași funcție, prezentată din perspectiva NIS 2: pentru organele de conducere care implementează §30 BSIG.",
+            "href": "/supplier-portal"
+          },
+          {
+            "title": "Schema deschisă a chestionarului",
+            "body": "Schema JSON completă cu citări ale surselor, liberă de reutilizat.",
+            "href": "/nis2-lieferanten-fragebogen"
+          },
+          {
+            "title": "Implementare NIS 2 ghidată",
+            "body": "Dacă doriți ajutor pentru implementarea completă: 500 de euro pe lună, fără lock-in.",
+            "href": "/pricing"
+          },
+          {
+            "title": "Open source",
+            "body": "Cod sursă complet pe GitHub sub licență AGPL-3.0.",
+            "href": "/open-source"
+          }
+        ]
+      }
+    }
+  }
+}

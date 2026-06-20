@@ -1,0 +1,26 @@
+{
+  "managementReviews": {
+    "title": "Revisões pela Gestão",
+    "description": "Reuniões de supervisão pela gestão e decisões estratégicas. Exigido pelo Art. 20(1) da NIS2.",
+    "helpText": "Documente as reuniões de revisão pela gestão em que a liderança avalia a postura de cibersegurança. O Art. 20 da NIS2 torna a gestão pessoalmente responsável pela aprovação e supervisão das medidas de cibersegurança. Registe os participantes, os temas debatidos e as decisões tomadas.",
+    "add": "Adicionar Revisão",
+    "edit": "Editar Revisão",
+    "empty": "Ainda não há revisões pela gestão registadas. Agende a sua primeira revisão.",
+    "deleteConfirm": "Tem a certeza de que pretende eliminar esta revisão?",
+    "actions": "Ações",
+    "fields": {
+      "title": "Título",
+      "reviewDate": "Data da Revisão",
+      "decisions": "Decisões",
+      "actionItems": "Ações a Executar",
+      "nextReviewDate": "Data da Próxima Revisão"
+    },
+    "fieldDescriptions": {
+      "title": "Título da reunião de revisão pela gestão (por exemplo, 'Revisão de Cibersegurança do 1.º trimestre de 2025').",
+      "reviewDate": "Data em que decorreu a reunião de revisão pela gestão.",
+      "decisions": "Documente as principais decisões tomadas pela gestão relativamente à postura de cibersegurança, à afetação de recursos e à aceitação de risco.",
+      "actionItems": "Liste as ações de acompanhamento específicas atribuídas durante a revisão, incluindo os responsáveis e os prazos.",
+      "nextReviewDate": "Data em que está agendada a próxima revisão pela gestão. O Art. 20 da NIS2 exige supervisão contínua por parte da gestão."
+    }
+  }
+}

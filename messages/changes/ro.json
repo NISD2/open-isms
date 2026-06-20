@@ -1,0 +1,51 @@
+{
+  "changes": {
+    "title": "Managementul schimbărilor",
+    "description": "Cereri de schimbare IT/OT cu evaluarea riscului și flux de aprobare. Sprijină NIS2 Art. 21(2)(e).",
+    "helpText": "Urmăriți toate schimbările aduse sistemelor IT și OT printr-un proces formal de aprobare. Fiecare cerere de schimbare include evaluarea riscului, planul de implementare și procedura de revenire. NIS2 impune un management controlat al schimbărilor pentru a preveni regresiile de securitate.",
+    "add": "Cerere de schimbare nouă",
+    "edit": "Editați cererea de schimbare",
+    "empty": "Nu există încă cereri de schimbare. Creați prima dumneavoastră cerere de schimbare.",
+    "deleteConfirm": "Sigur doriți să ștergeți această cerere de schimbare?",
+    "actions": "Acțiuni",
+    "type": {
+      "standard": "Standard",
+      "normal": "Normală",
+      "emergency": "De urgență"
+    },
+    "changeType": {
+      "standard": "Standard",
+      "normal": "Normală",
+      "emergency": "De urgență"
+    },
+    "status": {
+      "draft": "Ciornă",
+      "submitted": "Trimisă",
+      "approved": "Aprobată",
+      "implementing": "În implementare",
+      "implemented": "Implementată",
+      "rolled_back": "Revenită",
+      "closed": "Închisă"
+    },
+    "fields": {
+      "title": "Titlu",
+      "description": "Descriere",
+      "changeType": "Tip de schimbare",
+      "status": "Stare",
+      "createdAt": "Data creării",
+      "businessJustification": "Justificare de business",
+      "securityImpactAssessment": "Evaluarea impactului asupra securității",
+      "rollbackPlan": "Plan de revenire"
+    },
+    "fieldDescriptions": {
+      "title": "Titlu scurt și descriptiv pentru această cerere de schimbare (de ex. „Actualizați firmware-ul firewall-ului la v4.2”).",
+      "description": "Descriere detaliată a schimbării propuse, inclusiv sistemele afectate și rezultatul așteptat.",
+      "changeType": "Selectați tipul: standard (preaprobată, risc scăzut), normală (necesită analiză) sau de urgență (urgentă, aprobare ulterioară).",
+      "status": "Starea curentă a cererii de schimbare în fluxul de aprobare și implementare.",
+      "createdAt": "Data la care a fost trimisă această cerere de schimbare.",
+      "businessJustification": "Explicați de ce este necesară această schimbare, inclusiv factorii de business și beneficiile de securitate.",
+      "securityImpactAssessment": "Descrieți impactul potențial asupra securității al acestei schimbări, inclusiv riscurile introduse sau diminuate.",
+      "rollbackPlan": "Descrieți pașii de revenire la starea anterioară dacă implementarea eșuează sau cauzează probleme neașteptate."
+    }
+  }
+}

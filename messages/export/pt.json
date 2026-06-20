@@ -1,0 +1,11 @@
+{
+  "export": {
+    "title": "Exportar relatórios",
+    "subtitle": "Descarregue relatórios de conformidade das suas avaliações",
+    "noAssessments": "Não foram encontradas avaliações. Conclua primeiro a configuração.",
+    "download": "Descarregar PDF",
+    "started": "Iniciada",
+    "progress": "{completed} de {total} requisitos",
+    "compliance": "Conformidade"
+  }
+}

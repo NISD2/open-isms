@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Auditní stopa",
+    "subtitle": "Záznam všech akcí významných pro compliance s ochranou proti neoprávněné změně",
+    "noEntries": "Zatím nejsou žádné záznamy v auditním protokolu.",
+    "description": "Popis",
+    "action": "Akce",
+    "user": "Uživatel",
+    "time": "Čas"
+  }
+}

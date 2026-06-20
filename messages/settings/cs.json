@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "title": "Nastavení",
+    "description": "Spravujte nastavení platformy pro svou organizaci.",
+    "aiDataSharing": {
+      "title": "Sdílení dat s AI",
+      "description": "Určete, jaká data organizace se sdílejí s asistentem AI při generování pokynů ke shodě. Osobní údaje (e-maily, telefonní čísla, jména osob) se nikdy neodesílají.",
+      "none": {
+        "label": "Žádná firemní data",
+        "description": "Odesílají se pouze názvy polí, jejich typy a název požadavku. Pokyny jsou obecné.",
+        "preview": "Odesláno: definice polí, název požadavku, právní reference"
+      },
+      "basic": {
+        "label": "Pouze necitlivá data",
+        "description": "Přidává odvětví, typ subjektu a právní formu pro relevantnější pokyny.",
+        "preview": "Odesláno: výše uvedené + odvětví, pododvětví, typ subjektu, právní forma"
+      },
+      "full": {
+        "label": "Plný kontext",
+        "description": "Zahrnuje název firmy a údaje o velikosti pro maximálně přizpůsobené pokyny.",
+        "preview": "Odesláno: výše uvedené + název firmy, počet zaměstnanců, roční obrat"
+      }
+    },
+    "saved": "Nastavení uloženo",
+    "saveError": "Nastavení se nepodařilo uložit",
+    "saving": "Ukládání...",
+    "adminOnly": "Nastavení mohou měnit pouze správci."
+  }
+}

@@ -27,6 +27,9 @@ type Localized = {
   it?: string;
   es?: string;
   pl?: string;
+  cs?: string;
+  pt?: string;
+  ro?: string;
 };
 
 /** Select the bundle entry for `locale`, falling back to English. */
@@ -58,6 +61,9 @@ export async function generateMetadata({
       it: "Tracker di recepimento NIS 2 nell'UE: tutti i 27 Stati membri",
       es: "Rastreador de transposición NIS 2 en la UE: los 27 Estados miembros",
       pl: "Tracker wdrożenia NIS 2 w UE: wszystkie 27 państw członkowskich",
+      cs: "Tracker zavádění NIS 2 v EU: všech 27 členských států",
+      pt: "Monitorização da transposição da NIS 2 na UE: todos os 27 Estados-Membros",
+      ro: "Monitor al transpunerii NIS 2 în UE: toate cele 27 de state membre",
     },
     locale,
   );
@@ -69,6 +75,9 @@ export async function generateMetadata({
       it: "A che punto è ogni Stato membro dell'UE nel recepimento di NIS 2: legge nazionale, autorità competente, CSIRT nazionale, stato. Verificato a giugno 2026.",
       es: "Dónde se encuentra cada Estado miembro de la UE en la transposición de NIS 2: ley nacional, autoridad competente, CSIRT nacional, estado. Revisado en junio de 2026.",
       pl: "Na jakim etapie wdrożenia NIS 2 jest każde państwo członkowskie UE: ustawa krajowa, organ właściwy, krajowy CSIRT, status. Zweryfikowano w czerwcu 2026.",
+      cs: "Jak je na tom každý členský stát EU s transpozicí NIS 2: vnitrostátní zákon, příslušný orgán, vnitrostátní CSIRT, stav. Ověřeno v červnu 2026.",
+      pt: "Em que ponto está cada Estado-Membro da UE na transposição da NIS 2: lei nacional, autoridade competente, CSIRT nacional, estado. Verificado em junho de 2026.",
+      ro: "În ce stadiu se află fiecare stat membru al UE cu transpunerea NIS 2: lege națională, autoritate competentă, CSIRT național, stare. Verificat în iunie 2026.",
     },
     locale,
   );
@@ -110,6 +119,9 @@ const STATUS_LABELS: Record<TranspositionStatus, Localized> = {
     it: "In vigore",
     es: "En vigor",
     pl: "Obowiązuje",
+    cs: "V platnosti",
+    pt: "Em vigor",
+    ro: "În vigoare",
   },
   "bill-pending": {
     de: "Gesetzentwurf",
@@ -118,6 +130,9 @@ const STATUS_LABELS: Record<TranspositionStatus, Localized> = {
     it: "Disegno di legge in corso",
     es: "Proyecto de ley en curso",
     pl: "Projekt ustawy w toku",
+    cs: "Návrh zákona projednáván",
+    pt: "Projeto de lei pendente",
+    ro: "Proiect de lege în curs",
   },
   "drafting": {
     de: "Im Entwurf",
@@ -126,6 +141,9 @@ const STATUS_LABELS: Record<TranspositionStatus, Localized> = {
     it: "In elaborazione",
     es: "En elaboración",
     pl: "W przygotowaniu",
+    cs: "V přípravě",
+    pt: "Em elaboração",
+    ro: "În pregătire",
   },
   "unknown": {
     de: "Unbekannt",
@@ -134,6 +152,9 @@ const STATUS_LABELS: Record<TranspositionStatus, Localized> = {
     it: "Sconosciuto",
     es: "Desconocido",
     pl: "Nieznany",
+    cs: "Neznámý",
+    pt: "Desconhecido",
+    ro: "Necunoscut",
   },
 };
 
@@ -150,6 +171,9 @@ function trackerNote(portal: RegistrationPortal, locale: Locale): string | undef
     es: portal.trackerNoteEs,
     pl: portal.trackerNotePl,
     nl: undefined,
+    cs: undefined,
+    pt: undefined,
+    ro: undefined,
   };
   return byLocale[locale] ?? portal.trackerNoteEn;
 }
@@ -203,6 +227,9 @@ export default async function Nis2TrackerEuPage({
               it: "Operatori attivi in tutta l'UE e responsabili della conformità",
               es: "Operadores activos en toda la UE y responsables de cumplimiento",
               pl: "Podmioty działające w całej UE i osoby odpowiedzialne za zgodność",
+              cs: "Subjekty působící v celé EU a osoby odpovědné za soulad",
+              pt: "Operadores ativos em toda a UE e responsáveis pela conformidade",
+              ro: "Operatori activi în întreaga UE și responsabili de conformitate",
             },
             locale,
           )}
@@ -221,6 +248,9 @@ export default async function Nis2TrackerEuPage({
                 it: "Stato attuale",
                 es: "Estado actual",
                 pl: "Aktualny status",
+                cs: "Aktuální stav",
+                pt: "Estado atual",
+                ro: "Stare actuală",
               },
               locale,
             )}
@@ -234,6 +264,9 @@ export default async function Nis2TrackerEuPage({
                 it: "Tracker di recepimento NIS 2 nell'UE",
                 es: "Rastreador de transposición NIS 2 en la UE",
                 pl: "Tracker wdrożenia NIS 2 w UE",
+                cs: "Tracker zavádění NIS 2 v EU",
+                pt: "Monitorização da transposição da NIS 2 na UE",
+                ro: "Monitor al transpunerii NIS 2 în UE",
               },
               locale,
             )}
@@ -247,6 +280,9 @@ export default async function Nis2TrackerEuPage({
                 it: "A che punto è ogni Stato membro dell'UE nel recepimento di NIS 2. Legge nazionale, autorità competente, CSIRT nazionale, stato. Verificato a giugno 2026.",
                 es: "Dónde se encuentra cada Estado miembro de la UE en la transposición de NIS 2. Ley nacional, autoridad competente, CSIRT nacional, estado. Revisado en junio de 2026.",
                 pl: "Na jakim etapie wdrożenia NIS 2 jest każde państwo członkowskie UE. Ustawa krajowa, organ właściwy, krajowy CSIRT, status. Zweryfikowano w czerwcu 2026.",
+                cs: "Jak je na tom každý členský stát EU s transpozicí NIS 2. Vnitrostátní zákon, příslušný orgán, vnitrostátní CSIRT, stav. Ověřeno v červnu 2026.",
+                pt: "Em que ponto está cada Estado-Membro da UE na transposição da NIS 2. Lei nacional, autoridade competente, CSIRT nacional, estado. Verificado em junho de 2026.",
+                ro: "În ce stadiu se află fiecare stat membru al UE cu transpunerea NIS 2. Lege națională, autoritate competentă, CSIRT național, stare. Verificat în iunie 2026.",
               },
               locale,
             )}
@@ -281,6 +317,9 @@ export default async function Nis2TrackerEuPage({
                   it: "Stati membri con la legge nazionale in vigore",
                   es: "Estados miembros con la ley nacional en vigor",
                   pl: "Państwa członkowskie, w których ustawa krajowa obowiązuje",
+                  cs: "Členské státy, v nichž vnitrostátní zákon platí",
+                  pt: "Estados-Membros com a lei nacional em vigor",
+                  ro: "State membre cu legea națională în vigoare",
                 },
                 locale,
               )}
@@ -299,6 +338,9 @@ export default async function Nis2TrackerEuPage({
                   it: "Stati membri con il disegno di legge in iter legislativo",
                   es: "Estados miembros con el proyecto de ley en proceso legislativo",
                   pl: "Państwa członkowskie, w których projekt ustawy jest w procesie legislacyjnym",
+                  cs: "Členské státy, v nichž je návrh zákona v legislativním procesu",
+                  pt: "Estados-Membros com o projeto de lei em processo legislativo",
+                  ro: "State membre cu proiectul de lege în proces legislativ",
                 },
                 locale,
               )}
@@ -317,6 +359,9 @@ export default async function Nis2TrackerEuPage({
                   it: "Stati membri ancora in fase di elaborazione o con stato incerto",
                   es: "Estados miembros aún en elaboración o con estado incierto",
                   pl: "Państwa członkowskie wciąż w przygotowaniu lub o niejasnym statusie",
+                  cs: "Členské státy stále v přípravě nebo s nejasným stavem",
+                  pt: "Estados-Membros ainda em elaboração ou com estado incerto",
+                  ro: "State membre încă în pregătire sau cu stare incertă",
                 },
                 locale,
               )}
@@ -335,6 +380,9 @@ export default async function Nis2TrackerEuPage({
                 it: "Di cosa si tratta",
                 es: "De qué se trata",
                 pl: "Czego to dotyczy",
+                cs: "O co jde",
+                pt: "Do que se trata",
+                ro: "Despre ce este vorba",
               },
               locale,
             )}
@@ -348,6 +396,9 @@ export default async function Nis2TrackerEuPage({
                 it: "Il termine di recepimento del 17 ottobre 2024 fissato dall'articolo 41 NIS 2 è scaduto. Pochi Stati membri si sono mossi rapidamente (Italia, Belgio, Ungheria, Croazia, Romania). La maggior parte è ancora in iter legislativo, comprese le quattro maggiori economie (Germania, Francia, Spagna, Paesi Bassi). La Commissione europea ha aperto procedure di infrazione a maggio 2025 contro gli Stati in ritardo.",
                 es: "El plazo de transposición del 17 de octubre de 2024 fijado en el artículo 41 NIS 2 ha vencido. Unos pocos Estados miembros actuaron con rapidez (Italia, Bélgica, Hungría, Croacia, Rumanía). La mayoría siguen en proceso legislativo, incluidas las cuatro mayores economías (Alemania, Francia, España, Países Bajos). La Comisión Europea abrió procedimientos de infracción en mayo de 2025 contra los Estados rezagados.",
                 pl: "Termin transpozycji wyznaczony na 17 października 2024 r. w artykule 41 NIS 2 upłynął. Kilka państw członkowskich zadziałało szybko (Włochy, Belgia, Węgry, Chorwacja, Rumunia). Większość jest wciąż w procesie legislacyjnym, w tym cztery największe gospodarki (Niemcy, Francja, Hiszpania, Holandia). Komisja Europejska wszczęła w maju 2025 r. postępowania w sprawie uchybienia zobowiązaniom wobec spóźnionych państw.",
+                cs: "Lhůta pro transpozici stanovená na 17. října 2024 v článku 41 NIS 2 uplynula. Několik členských států jednalo rychle (Itálie, Belgie, Maďarsko, Chorvatsko, Rumunsko). Většina je stále v legislativním procesu, včetně čtyř největších ekonomik (Německo, Francie, Španělsko, Nizozemsko). Evropská komise zahájila v květnu 2025 řízení o nesplnění povinnosti proti opožděným státům.",
+                pt: "O prazo de transposição de 17 de outubro de 2024 fixado no artigo 41.º da NIS 2 já terminou. Alguns Estados-Membros agiram com rapidez (Itália, Bélgica, Hungria, Croácia, Roménia). A maioria continua em processo legislativo, incluindo as quatro maiores economias (Alemanha, França, Espanha, Países Baixos). A Comissão Europeia abriu, em maio de 2025, processos por infração contra os Estados em atraso.",
+                ro: "Termenul de transpunere de 17 octombrie 2024 stabilit la articolul 41 NIS 2 a expirat. Câteva state membre au acționat rapid (Italia, Belgia, Ungaria, Croația, România). Cele mai multe sunt încă în proces legislativ, inclusiv cele mai mari patru economii (Germania, Franța, Spania, Țările de Jos). Comisia Europeană a deschis în mai 2025 proceduri de constatare a neîndeplinirii obligațiilor împotriva statelor întârziate.",
               },
               locale,
             )}
@@ -361,6 +412,9 @@ export default async function Nis2TrackerEuPage({
                 it: "La tabella seguente riassume, per ciascuno Stato membro, la legge nazionale di riferimento, l'autorità competente capofila e il CSIRT nazionale. Dove esiste un approfondimento per paese, il nome del paese rimanda a esso. Stato alla data di verifica; per il quadro verificabile più recente consultare il tracker di recepimento NIS 2 dell'ENISA.",
                 es: "La tabla siguiente resume, para cada Estado miembro, la ley nacional de referencia, la autoridad competente principal y el CSIRT nacional. Cuando existe un análisis detallado por país, el nombre del país enlaza con él. Estado a la fecha de revisión; para la imagen verificable más reciente, consulte el rastreador de transposición NIS 2 de ENISA.",
                 pl: "Poniższa tabela podsumowuje dla każdego państwa członkowskiego kluczową ustawę krajową, wiodący organ właściwy oraz krajowy CSIRT. Tam, gdzie istnieje pogłębiona analiza danego kraju, nazwa kraju jest do niej odnośnikiem. Status na dzień weryfikacji; najbardziej aktualny, wiarygodny obraz zapewnia tracker transpozycji NIS 2 prowadzony przez ENISA.",
+                cs: "Následující tabulka shrnuje pro každý členský stát klíčový vnitrostátní zákon, vedoucí příslušný orgán a vnitrostátní CSIRT. Tam, kde existuje podrobný rozbor dané země, je název země odkazem na něj. Stav k datu ověření; nejaktuálnější ověřitelný obraz poskytuje tracker transpozice NIS 2 od ENISA.",
+                pt: "A tabela abaixo resume, para cada Estado-Membro, a lei nacional de referência, a autoridade competente principal e o CSIRT nacional. Quando existe uma análise aprofundada por país, o nome do país remete para ela. Estado à data de revisão; para o panorama verificável mais recente, consulte a monitorização da transposição da NIS 2 da ENISA.",
+                ro: "Tabelul de mai jos rezumă, pentru fiecare stat membru, legea națională de referință, autoritatea competentă principală și CSIRT-ul național. Acolo unde există o analiză detaliată pe țară, numele țării face trimitere la aceasta. Stare la data verificării; pentru imaginea verificabilă cea mai recentă, consultați monitorul transpunerii NIS 2 al ENISA.",
               },
               locale,
             )}
@@ -381,6 +435,9 @@ export default async function Nis2TrackerEuPage({
                       it: "Stato membro",
                       es: "Estado miembro",
                       pl: "Państwo członkowskie",
+                      cs: "Členský stát",
+                      pt: "Estado-Membro",
+                      ro: "Stat membru",
                     },
                     locale,
                   )}
@@ -394,6 +451,9 @@ export default async function Nis2TrackerEuPage({
                       it: "Legge nazionale",
                       es: "Ley nacional",
                       pl: "Ustawa krajowa",
+                      cs: "Vnitrostátní zákon",
+                      pt: "Lei nacional",
+                      ro: "Lege națională",
                     },
                     locale,
                   )}
@@ -407,6 +467,9 @@ export default async function Nis2TrackerEuPage({
                       it: "Autorità competente",
                       es: "Autoridad competente",
                       pl: "Organ właściwy",
+                      cs: "Příslušný orgán",
+                      pt: "Autoridade competente",
+                      ro: "Autoritate competentă",
                     },
                     locale,
                   )}
@@ -420,6 +483,9 @@ export default async function Nis2TrackerEuPage({
                       it: "CSIRT nazionale",
                       es: "CSIRT nacional",
                       pl: "Krajowy CSIRT",
+                      cs: "Vnitrostátní CSIRT",
+                      pt: "CSIRT nacional",
+                      ro: "CSIRT național",
                     },
                     locale,
                   )}
@@ -433,6 +499,9 @@ export default async function Nis2TrackerEuPage({
                       it: "Stato",
                       es: "Estado",
                       pl: "Status",
+                      cs: "Stav",
+                      pt: "Estado",
+                      ro: "Stare",
                     },
                     locale,
                   )}
@@ -508,6 +577,9 @@ export default async function Nis2TrackerEuPage({
                   it: "Approfondimenti per paese",
                   es: "Análisis detallados por país",
                   pl: "Pogłębione analizy poszczególnych krajów",
+                  cs: "Podrobné rozbory jednotlivých zemí",
+                  pt: "Análises aprofundadas por país",
+                  ro: "Analize detaliate pe țară",
                 },
                 locale,
               )}
@@ -550,6 +622,9 @@ export default async function Nis2TrackerEuPage({
                   it: "Fonti",
                   es: "Fuentes",
                   pl: "Źródła",
+                  cs: "Zdroje",
+                  pt: "Fontes",
+                  ro: "Surse",
                 },
                 locale,
               )}
@@ -567,6 +642,9 @@ export default async function Nis2TrackerEuPage({
                     it: "Direttiva (UE) 2022/2555 (NIS 2), articolo 41 — termine di recepimento. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
                     es: "Directiva (UE) 2022/2555 (NIS 2), artículo 41 — plazo de transposición. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
                     pl: "Dyrektywa (UE) 2022/2555 (NIS 2), artykuł 41 — termin transpozycji. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    cs: "Směrnice (EU) 2022/2555 (NIS 2), článek 41: lhůta pro transpozici. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    pt: "Diretiva (UE) 2022/2555 (NIS 2), artigo 41.º: prazo de transposição. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    ro: "Directiva (UE) 2022/2555 (NIS 2), articolul 41: termen de transpunere. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
                   },
                   locale,
                 )}
@@ -585,6 +663,9 @@ export default async function Nis2TrackerEuPage({
                     it: "Commissione europea, procedure di infrazione avviate contro gli Stati membri che non hanno comunicato il recepimento completo di NIS 2 (novembre 2024, pareri motivati maggio 2025).",
                     es: "Comisión Europea, procedimientos de infracción abiertos contra los Estados miembros que no comunicaron la transposición completa de NIS 2 (noviembre de 2024, dictámenes motivados en mayo de 2025).",
                     pl: "Komisja Europejska, postępowania w sprawie uchybienia zobowiązaniom wszczęte wobec państw członkowskich, które nie zgłosiły pełnej transpozycji NIS 2 (listopad 2024, uzasadnione opinie maj 2025).",
+                    cs: "Evropská komise, řízení o nesplnění povinnosti zahájená proti členským státům, které neoznámily úplnou transpozici NIS 2 (listopad 2024, odůvodněná stanoviska květen 2025).",
+                    pt: "Comissão Europeia, processos por infração abertos contra os Estados-Membros que não comunicaram a transposição completa da NIS 2 (novembro de 2024, pareceres fundamentados em maio de 2025).",
+                    ro: "Comisia Europeană, proceduri de constatare a neîndeplinirii obligațiilor deschise împotriva statelor membre care nu au comunicat transpunerea completă a NIS 2 (noiembrie 2024, avize motivate mai 2025).",
                   },
                   locale,
                 )}
@@ -599,6 +680,9 @@ export default async function Nis2TrackerEuPage({
                     it: "Gazzette ufficiali nazionali: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ), ecc.",
                     es: "Boletines oficiales nacionales: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ), etc.",
                     pl: "Krajowe dzienniki urzędowe: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ) itd.",
+                    cs: "Vnitrostátní úřední věstníky: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ) atd.",
+                    pt: "Jornais oficiais nacionais: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ), etc.",
+                    ro: "Jurnale oficiale naționale: BGBl (DE), Moniteur belge / Belgisch Staatsblad (BE), Gazzetta Ufficiale (IT), BOE (ES), JORF (FR), Sbírka zákonů (CZ) etc.",
                   },
                   locale,
                 )}
@@ -619,6 +703,9 @@ export default async function Nis2TrackerEuPage({
                   it: "Esegui il test di applicabilità per la tua entità",
                   es: "Ejecute la comprobación de aplicabilidad para su entidad",
                   pl: "Uruchom test stosowalności dla swojego podmiotu",
+                  cs: "Spusťte test použitelnosti pro svůj subjekt",
+                  pt: "Execute o teste de aplicabilidade para a sua entidade",
+                  ro: "Rulați testul de aplicabilitate pentru entitatea dumneavoastră",
                 },
                 locale,
               )}
@@ -634,6 +721,9 @@ export default async function Nis2TrackerEuPage({
                   it: "Il test di applicabilità si basa sulla direttiva dell'UE. Il risultato resta valido indipendentemente da quale recepimento nazionale sia già in vigore nel tuo paese.",
                   es: "La comprobación de aplicabilidad se basa en la directiva de la UE. El resultado es válido independientemente de la transposición nacional que ya esté en vigor en su país.",
                   pl: "Test stosowalności opiera się na dyrektywie UE. Wynik obowiązuje niezależnie od tego, która transpozycja krajowa już obowiązuje w Twoim kraju.",
+                  cs: "Test použitelnosti vychází ze směrnice EU. Výsledek platí bez ohledu na to, která vnitrostátní transpozice již ve vaší zemi platí.",
+                  pt: "O teste de aplicabilidade baseia-se na diretiva da UE. O resultado é válido independentemente de qual transposição nacional já esteja em vigor no seu país.",
+                  ro: "Testul de aplicabilitate se bazează pe directiva UE. Rezultatul rămâne valabil indiferent de transpunerea națională care este deja în vigoare în țara dumneavoastră.",
                 },
                 locale,
               )}
@@ -651,6 +741,9 @@ export default async function Nis2TrackerEuPage({
                     it: "Apri il test di applicabilità",
                     es: "Abrir la comprobación de aplicabilidad",
                     pl: "Otwórz test stosowalności",
+                    cs: "Otevřít test použitelnosti",
+                    pt: "Abrir o teste de aplicabilidade",
+                    ro: "Deschideți testul de aplicabilitate",
                   },
                   locale,
                 )}

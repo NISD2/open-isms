@@ -1,0 +1,55 @@
+{
+  "improvements": {
+    "title": "Zlepšení",
+    "description": "Položky průběžného zlepšování z auditů, incidentů a přezkumů. Podporuje cyklus PDCA podle NIS2.",
+    "helpText": "Sledujte opatření ke zlepšení identifikovaná z auditů, analýz incidentů, přezkumů vedením a vývoje KPI. Každá položka má zdroj, prioritu, vlastníka a cílové datum. Tento registr dokládá závazek vaší organizace k průběžnému zlepšování.",
+    "add": "Přidat zlepšení",
+    "edit": "Upravit zlepšení",
+    "empty": "Zatím žádné položky zlepšení. Přidejte položky z auditů, incidentů nebo přezkumů.",
+    "deleteConfirm": "Opravdu chcete tuto položku zlepšení smazat?",
+    "actions": "Akce",
+    "source": {
+      "audit": "Audit",
+      "incident": "Incident",
+      "pentest": "Penetrační test",
+      "management_review": "Přezkum vedením",
+      "kpi_breach": "Překročení KPI",
+      "gap_analysis": "Analýza nedostatků",
+      "regulatory_change": "Regulační změna",
+      "suggestion": "Návrh"
+    },
+    "status": {
+      "open": "Otevřeno",
+      "in_progress": "Probíhá",
+      "resolved": "Vyřešeno",
+      "verified": "Ověřeno",
+      "deferred": "Odloženo"
+    },
+    "priority": {
+      "P0": "P0 - okamžitě",
+      "P1": "P1 - 3 měsíce",
+      "P2": "P2 - 6 měsíců",
+      "P3": "P3 - 12 měsíců"
+    },
+    "fields": {
+      "title": "Název",
+      "description": "Popis",
+      "source": "Zdroj",
+      "priority": "Priorita",
+      "status": "Stav",
+      "targetDate": "Cílové datum",
+      "deferralReason": "Důvod odložení",
+      "verificationNotes": "Poznámky k ověření"
+    },
+    "fieldDescriptions": {
+      "title": "Stručný výstižný název tohoto opatření ke zlepšení (např. „Zavést MFA pro přístup přes VPN“).",
+      "description": "Podrobný popis zlepšení, včetně současného nedostatku a požadovaného výsledku.",
+      "source": "Vyberte, kde bylo toto zlepšení identifikováno: zjištění z auditu, analýza incidentu, přezkum vedením, překročení KPI atd.",
+      "priority": "Vyberte úroveň priority, která určuje časový rámec realizace (P0: okamžitě, P1: 3 měsíce, P2: 6 měsíců, P3: 12 měsíců).",
+      "status": "Aktuální stav zlepšení: otevřeno, probíhá, vyřešeno, ověřeno (potvrzená účinnost) nebo odloženo.",
+      "targetDate": "Datum, do kterého má být toto opatření ke zlepšení dokončeno.",
+      "deferralReason": "Pokud je stav Odloženo, uveďte odůvodnění a očekávaný termín obnovení.",
+      "verificationNotes": "Zdokumentujte, jak byla po realizaci ověřena účinnost tohoto zlepšení."
+    }
+  }
+}

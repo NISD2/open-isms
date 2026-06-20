@@ -1,0 +1,499 @@
+{
+  "compliance": {
+    "title": "Conformitate NIS2",
+    "subtitle": "BSIG 2025, {totalReqs} cerinte in {steps} pasi",
+    "startAssessment": "Incepe evaluarea de conformitate",
+    "startDescription": "Parcurgeti sistematic toate cerintele NIS2/BSIG. Cerintele sunt afisate pe domeniu si pot fi tratate direct.",
+    "startButton": "Incepe evaluarea",
+    "continueButton": "Continua",
+    "completeAssessment": "Finalizeaza evaluarea",
+    "domains": "{count} domenii de conformitate",
+    "loadingCategories": "Se incarca categoriile...",
+    "loadingRequirements": "Se incarca cerintele...",
+    "categoryNotFound": "Categorie negasita.",
+    "noFrameworkData": "Nu sunt disponibile date despre cadru.",
+    "noRequirements": "Nu s-au gasit cerinte pentru aceasta categorie.",
+    "frequency": "Frecventa: {value}",
+    "mandatory": "Obligatoriu",
+    "requiredEvidence": "Dovezi necesare",
+    "progress": "{completed} din {total}",
+    "progressTooltip": "{completed} din {total} cerinte finalizate ({percentage}%)",
+    "assign": "Atribuie",
+    "categoryOwner": "Responsabil",
+    "noOwner": "Niciun responsabil atribuit",
+    "assignedTo": "Atribuit lui {name}",
+    "assignedCount": "{count} atribuite",
+    "unassigned": "Neatribuit",
+    "readOnlyBanner": "Aceasta categorie este atribuita lui {name}. Contactati administratorul pentru acces.",
+    "noUsersToAssign": "Niciun membru de echipa disponibil",
+    "inviteMember": "Invita un membru nou",
+    "invitePlaceholder": "nume@companie.com",
+    "assignFailed": "Atribuirea a esuat",
+    "unassignFailed": "Anularea atribuirii a esuat",
+    "moduleBacked": "Sustinut de modul, conectat la date operationale",
+    "signOff": "Aproba",
+    "signOffAllCount": "Aproba toate ({count})",
+    "bulkSignOffSuccess": "{count} cerinte aprobate",
+    "signedOffBy": "Aprobat de {role} la {date}",
+    "notApplicable": "Nu se aplica",
+    "notApplicablePlaceholder": "Explicati de ce aceasta cerinta nu se aplica organizatiei dumneavoastra (proportionalitate conform §30 BSIG)...",
+    "confirmNotApplicable": "Confirma N/A",
+    "exportPolicy": "Exporta politica",
+    "completedSectionCount": "Aprobat ({count})",
+    "implementationGuide": "Ghid de implementare",
+    "showMore": "Arata mai mult",
+    "showLess": "Arata mai putin",
+    "deadline": {
+      "overdue": "Intarziat cu {days} zile",
+      "dueToday": "Scadent astazi",
+      "dueIn": "Scadent in {days} zile"
+    },
+    "guided": {
+      "banner": "Configurare ghidata",
+      "progress": "Categoria {current} din {total}",
+      "skipToDashboard": "Sari la panou",
+      "finish": "Finalizeaza configurarea"
+    },
+    "overview": {
+      "title": "Privire de ansamblu asupra conformitatii",
+      "subtitle": "Urmariti progresul pe toate categoriile de cerinte NIS2",
+      "requirements": "{count} cerinte"
+    },
+    "requirement": {
+      "backToCategory": "Inapoi la {category}",
+      "whatSection": "Ce se cere",
+      "whySection": "De ce conteaza",
+      "howSection": "Cum se indeplineste",
+      "specificsSection": "Particularitatile dumneavoastra",
+      "evidenceSection": "Dovezi",
+      "noFieldsNeeded": "Nu sunt necesare date specifice. Parcurgeti indrumarile si aprobati cand sunteti pregatit.",
+      "viewDetails": "Vezi detalii",
+      "prevRequirement": "Anterior",
+      "nextRequirement": "Urmator",
+      "threatContext": "Context al amenintarilor",
+      "legalConsequence": "Consecinta juridica",
+      "businessValue": "Valoare pentru afacere",
+      "signedOff": "Aprobat",
+      "signedOffByOn": "Aprobat de {name} la {date}",
+      "rejectionFeedback": "Feedback la revizuire",
+      "moduleData": "Date operationale",
+      "goToRegister": "Mergi la registru",
+      "requiredRole": "Aceasta cerinta necesita aprobarea din partea: {role}",
+      "signOffProgress": "{signed} din {total} aprobari finalizate",
+      "details": "Detalii",
+      "priority": "Prioritate",
+      "frequency": "Frecventa",
+      "deadline": "Termen limita",
+      "importance": "Importanta",
+      "implSteps": "Pasi de implementare",
+      "whyItMatters": "De ce conteaza",
+      "prerequisitesTitle": "Conditii prealabile",
+      "prerequisiteComplete": "Finalizat",
+      "prerequisitePending": "Necesar",
+      "prerequisitesBlocked": "Finalizati mai intai urmatoarele cerinte:",
+      "ceoCourseTitle": "Curs NIS 2 pentru directori disponibil",
+      "ceoCourseDescription": "Finalizati cursul integrat de formare a conducerii pentru a indeplini obligatia de formare prevazuta la §38(3) BSIG / art. 20(2) NIS 2.",
+      "takeCourse": "Incepe cursul"
+    },
+    "frameworkName": "NIS2 / BSIG 2026",
+    "categories": {
+      "GOV": {
+        "name": "Guvernanta si raspundere",
+        "description": "Supravegherea conducerii, raspunderea personala si guvernanta organizationala",
+        "legalBasis": "Art. 20 NIS2 · §38 BSIG",
+        "threatLandscape": "Fara o guvernanta clara, masurile de securitate cibernetica nu au directie si responsabilitate. O conducere care nu se implica in securitate creeaza o cultura a neglijentei, lasand organizatia vulnerabila la esecuri sistematice.",
+        "bsiGuidance": "BSI asteapta ca conducerea sa aprobe formal masurile de gestionare a riscurilor de securitate cibernetica, sa numeasca persoane responsabile, sa aloce un buget adecvat si sa parcurga periodic formare in securitate cibernetica (§38 BSIG). Raspunderea personala se aplica administratorilor."
+      },
+      "RSK": {
+        "name": "Gestionarea riscurilor",
+        "description": "Identificarea, evaluarea si tratarea riscurilor printr-o abordare bazata pe toate pericolele (cibernetice, fizice, de mediu)",
+        "legalBasis": "Art. 21(2)(a) NIS2 · §30(2) Nr. 1 BSIG",
+        "threatLandscape": "Organizatiile care nu au un proces structurat de evaluare a riscurilor nu pot prioritiza eficient investitiile in securitate, ceea ce duce la sisteme critice lasate neprotejate, in timp ce resursele se irosesc pe domenii cu risc scazut.",
+        "bsiGuidance": "BSI asteapta o metodologie documentata de evaluare a riscurilor, un registru de riscuri complet, un plan de tratare cu acceptarea riscurilor aprobata de conducere si un ciclu de revizuire periodic (cel putin anual). Trebuie sa acopere toate sistemele informatice critice printr-o abordare bazata pe toate pericolele."
+      },
+      "INC": {
+        "name": "Gestionarea incidentelor",
+        "description": "Detectare, raspuns si raportare catre BSI",
+        "legalBasis": "Art. 21(2)(b), Art. 23 NIS2 · §30(2) Nr. 2, §32 BSIG",
+        "threatLandscape": "Incidentele cibernetice sunt inevitabile. Fara un plan de raspuns exersat, organizatiile pierd ore critice in fereastra de avertizare timpurie de 24h catre BSI si in termenul de notificare de 72h, riscand sanctiuni de reglementare pe langa daunele operationale.",
+        "bsiGuidance": "BSI asteapta un plan de raspuns la incidente cu roluri clare si cai de escaladare, capacitate de avertizare timpurie in 24h (§32(1)), notificarea incidentului in 72h cu evaluarea impactului, o schema de clasificare, dovezi ale exercitiilor si un proces de revizuire post-incident."
+      },
+      "BCP": {
+        "name": "Continuitatea activitatii",
+        "description": "Copii de rezerva, recuperare si gestionarea crizelor",
+        "legalBasis": "Art. 21(2)(c) NIS2 · §30(2) Nr. 3 BSIG",
+        "threatLandscape": "Ransomware-ul si defectiunile de infrastructura pot opri complet operatiunile. Fara proceduri testate de copii de rezerva si recuperare si un plan de gestionare a crizelor, timpii de recuperare cresc de la ore la saptamani, amenintand supravietuirea afacerii.",
+        "bsiGuidance": "BSI asteapta o analiza a impactului asupra activitatii, un plan de continuitate documentat cu tinte RPO/RTO, teste periodice de copii de rezerva si restaurare, proceduri de comunicare in situatii de criza si dovezi ale testarii continuitatii cel putin anual."
+      },
+      "SUP": {
+        "name": "Securitatea lantului de aprovizionare",
+        "description": "Gestionarea riscurilor legate de terti",
+        "legalBasis": "Art. 21(2)(d) NIS2 · §30(2) Nr. 4 BSIG",
+        "threatLandscape": "Atacurile asupra lantului de aprovizionare (SolarWinds, Kaseya) demonstreaza ca un singur furnizor compromis se poate propaga in mii de organizatii. Riscul legat de terti este acum un vector principal de atac.",
+        "bsiGuidance": "BSI asteapta un registru al furnizorilor cu clasificarea criticitatii de securitate, cerinte de securitate in contracte (SLA-uri, drepturi de audit), monitorizarea continua a furnizorilor, clauze de notificare a incidentelor si evaluarea punctelor unice de defectare."
+      },
+      "PRO": {
+        "name": "Achizitii si dezvoltare",
+        "description": "Achizitii sigure, gestionarea actualizarilor, controlul modificarilor",
+        "legalBasis": "Art. 21(2)(e) NIS2 · §30(2) Nr. 5 BSIG",
+        "threatLandscape": "Vulnerabilitatile neremediate sunt cel mai frecvent punct de intrare pentru atacatori. Organizatiile care nu au procese structurate de gestionare a vulnerabilitatilor si a actualizarilor raman expuse la exploit-uri cunoscute timp de saptamani sau luni.",
+        "bsiGuidance": "BSI asteapta cerinte de securitate in achizitii, un ciclu de dezvoltare sigur (SDLC) daca se dezvolta software, scanarea si remedierea vulnerabilitatilor cu SLA-uri definite, o politica de divulgare coordonata, profiluri de configurare intarita si urmarirea componentelor de la terti."
+      },
+      "EFF": {
+        "name": "Evaluarea eficacitatii",
+        "description": "Audituri, KPI-uri si revizuiri ale conducerii",
+        "legalBasis": "Art. 21(2)(f) NIS2 · §30(2) Nr. 6 BSIG",
+        "threatLandscape": "Masurile de securitate se degradeaza in timp. Fara evaluari periodice ale eficacitatii, organizatiile dezvolta un fals sentiment de siguranta, in timp ce nivelurile reale de protectie scad prin abaterea configuratiilor si evolutia amenintarilor.",
+        "bsiGuidance": "BSI asteapta KPI-uri/indicatori definiti pentru eficacitatea securitatii cibernetice, audituri interne periodice, revizuiri ale conducerii, analiza tendintelor incidentelor si constatarilor si urmarirea actiunilor corective rezultate din evaluari."
+      },
+      "TRN": {
+        "name": "Igiena cibernetica si formare",
+        "description": "Constientizare, teste de phishing, formarea conducerii",
+        "legalBasis": "Art. 21(2)(g) NIS2 · §30(2) Nr. 7 BSIG",
+        "threatLandscape": "Eroarea umana este responsabila pentru peste 80% din incidentele de securitate. Phishing-ul, ingineria sociala si utilizarea abuziva a acreditarilor sunt cele mai eficiente tehnici de atac, toate vizand angajati neformati.",
+        "bsiGuidance": "BSI asteapta un program de formare pentru constientizarea securitatii cibernetice pentru toti angajatii, formare specifica rolului pentru personalul IT/de securitate, urmarirea finalizarii formarii, cursuri de reimprospatare cel putin anuale, simulari de phishing si integrarea de securitate pentru noii angajati."
+      },
+      "CRY": {
+        "name": "Criptografie si criptare",
+        "description": "Politici de criptare si gestionarea cheilor",
+        "legalBasis": "Art. 21(2)(h) NIS2 · §30(2) Nr. 8 BSIG",
+        "threatLandscape": "Criptarea slaba sau invechita expune datele in tranzit si in repaus. Gestionarea deficitara a cheilor poate face inutila chiar si o criptare puternica, iar calculul cuantic ameninta standardele criptografice actuale.",
+        "bsiGuidance": "BSI asteapta o politica de criptografie cu algoritmi aprobati (conform BSI TR-02102), criptarea datelor in repaus si in tranzit, proceduri de gestionare a cheilor (generare, rotire, revocare), gestionarea certificatelor si un inventar al activelor criptografice."
+      },
+      "ACC": {
+        "name": "Controlul accesului si securitatea resurselor umane",
+        "description": "Gestionarea identitatilor, accesul privilegiat, procesele de resurse umane",
+        "legalBasis": "Art. 21(2)(i) NIS2 · §30(2) Nr. 9 BSIG",
+        "threatLandscape": "Drepturile de acces excesive amplifica orice alt atac. Un cont compromis cu privilegii largi poate accesa, exfiltra sau distruge mult mai multe date decat este necesar. Amenintarile interne exploateaza controale de acces deficitare.",
+        "bsiGuidance": "BSI asteapta o politica de control al accesului bazata pe privilegiul minim, un proces de acordare si revocare a accesului utilizatorilor, revizuiri periodice ale accesului, gestionarea accesului privilegiat (PAM), o politica de gestionare a activelor si procese de securitate a resurselor umane, inclusiv intrarea, mutarea si plecarea angajatilor."
+      },
+      "AUT": {
+        "name": "Autentificare si comunicatii",
+        "description": "MFA sau autentificare continua, comunicatii sigure, canale de urgenta",
+        "legalBasis": "Art. 21(2)(j) NIS2 · §30(2) Nr. 10 BSIG",
+        "threatLandscape": "Furtul de acreditari si autentificarea doar prin parola sunt vectorii principali pentru compromiterea conturilor. Fara MFA, o singura parola obtinuta prin phishing acorda acces complet. Comunicatiile nesigure pot fi interceptate pentru spionaj.",
+        "bsiGuidance": "BSI asteapta autentificare cu factori multipli sau continua pentru sistemele critice si accesul de la distanta, solutii sigure de comunicare vocala/video/text, un canal de comunicare de urgenta in afara benzii, gestionarea centralizata a identitatilor si politici de gestionare a sesiunilor."
+      },
+      "REG": {
+        "name": "Inregistrare si raportare",
+        "description": "Inregistrare la BSI, actualizari anuale, dovezi de conformitate",
+        "legalBasis": "Art. 3, Art. 23 NIS2 · §33, §34, §39 BSIG",
+        "threatLandscape": "Neinregistrarea la BSI si nementinerea datelor de contact actuale inseamna ca organizatia nu poate primi avertizari despre amenintari si nu isi poate indeplini obligatiile de raportare obligatorie, ceea ce amplifica riscul de reglementare.",
+        "bsiGuidance": "BSI asteapta o inregistrare finalizata (§33), un punct de contact desemnat, date de inregistrare actuale (actualizare anuala), respectarea obligatiilor de partajare a informatiilor (§34), mentinerea registrului numelor de domeniu (§39, daca este cazul) si corespondenta de reglementare documentata."
+      },
+      "DPA": {
+        "name": "Acorduri cu persoanele imputernicite",
+        "description": "Acorduri de prelucrare a datelor conform GDPR art. 28 cu toate persoanele imputernicite care prelucreaza date cu caracter personal",
+        "legalBasis": "GDPR Art. 28",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "ROP": {
+        "name": "Evidente ale activitatilor de prelucrare",
+        "description": "Documentarea fiecarei activitati de prelucrare conform GDPR art. 30: scop, temei juridic, destinatari, perioada de pastrare",
+        "legalBasis": "GDPR Art. 30",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "TOM": {
+        "name": "Masuri tehnice si organizatorice",
+        "description": "Masuri de securitate care protejeaza datele cu caracter personal conform GDPR art. 32",
+        "legalBasis": "GDPR Art. 32",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "BRC": {
+        "name": "Raspuns la incalcari",
+        "description": "Procesul de notificare in 72 de ore si documentarea incalcarilor conform GDPR art. 33/34",
+        "legalBasis": "GDPR Art. 33, Art. 34",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "DSR": {
+        "name": "Drepturile persoanelor vizate",
+        "description": "Flux de lucru pentru gestionarea cererilor de acces, stergere, portabilitate si opozitie in termen de o luna",
+        "legalBasis": "GDPR Art. 12-22",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "ISMS": {
+        "name": "Clauze obligatorii ale SMSI",
+        "description": "Clauzele 4-10 din ISO 27001:2022: context, conducere, planificare, sustinere, operare, evaluare, imbunatatire",
+        "legalBasis": "ISO 27001:2022 Cl. 4-10",
+        "threatLandscape": "Un SMSI nedocumentat sau fara domeniu de aplicare definit nu poate fi auditat. Lacunele in angajamentul conducerii, in planificarea riscurilor sau in informatiile documentate sunt cele mai frecvente motive pentru care organizatiile esueaza la etapa 1 a unui audit ISO 27001.",
+        "bsiGuidance": "Clauzele obligatorii se aplica fara exceptie. Auditorul va verifica: documentul privind domeniul de aplicare, metodologia de evaluare a riscurilor, politica de securitate a informatiei semnata de conducerea de varf, rolurile documentate, planul de audit intern, inregistrarile revizuirilor conducerii si un proces de imbunatatire continua."
+      },
+      "ORG": {
+        "name": "Controale organizatorice",
+        "description": "Anexa A.5: politici, roluri, securitatea furnizorilor, gestionarea incidentelor, continuitatea activitatii si conformitatea juridica",
+        "legalBasis": "ISO 27001:2022 Annex A.5",
+        "threatLandscape": "Controalele organizatorice reprezinta nivelul de guvernanta. Fara politici clare, roluri definite si cerinte de securitate pentru furnizori, controalele tehnice nu au mandat si nu au responsabilitate, lasand lacune pe care atacatorii le exploateaza.",
+        "bsiGuidance": "Auditorii cauta dovezi ca politicile sunt aprobate, comunicate si revizuite. Acordurile cu furnizorii trebuie sa includa clauze de securitate. Gestionarea incidentelor trebuie planificata inainte ca un incident sa apara."
+      },
+      "PPL": {
+        "name": "Controale privind personalul",
+        "description": "Anexa A.6: verificare, conditii de angajare, formare pentru constientizare, proces disciplinar, munca de la distanta",
+        "legalBasis": "ISO 27001:2022 Annex A.6",
+        "threatLandscape": "Oamenii sunt atat vectorul principal de atac (phishing, inginerie sociala), cat si ultima linie de aparare. Personalul neformat si procesul deficitar de incheiere a colaborarii se numara printre cele mai frecvent exploatate slabiciuni.",
+        "bsiGuidance": "Dovezi necesare: proces de verificare a antecedentelor, acorduri de confidentialitate semnate, inregistrari ale finalizarii formarii anuale de constientizare a securitatii, politica privind munca de la distanta."
+      },
+      "PHY": {
+        "name": "Controale fizice",
+        "description": "Anexa A.7: perimetre fizice, controale de acces, protectia echipamentelor, eliminare sigura",
+        "legalBasis": "ISO 27001:2022 Annex A.7",
+        "threatLandscape": "Accesul fizic la sisteme ocoleste toate controalele logice. Birourile nesecurizate, ecranele deblocate si eliminarea necorespunzatoare a echipamentelor sunt frecvent exploatate, adesea de amenintari oportuniste, nu de atacatori sofisticati.",
+        "bsiGuidance": "Pentru o companie care lucreaza in primul rand de la distanta si foloseste spatii de co-working, controalele fizice se concentreaza pe: politica biroului ordonat, blocarea ecranului, securitatea activelor in afara sediului si eliminarea sigura a laptopurilor si a suporturilor de stocare."
+      },
+      "TEC": {
+        "name": "Controale tehnologice",
+        "description": "Anexa A.8: securitatea echipamentelor terminale, drepturi de acces, gestionarea vulnerabilitatilor, criptografie, jurnalizare, gestionarea modificarilor",
+        "legalBasis": "ISO 27001:2022 Annex A.8",
+        "threatLandscape": "Cea mai mare sectiune din Anexa A (34 de controale). Lacunele tehnologice (sisteme neremediate, resurse cloud configurate gresit, lipsa MFA, jurnalizare inadecvata) sunt cauza fundamentala a majoritatii incidentelor de securitate.",
+        "bsiGuidance": "Auditorii verifica daca controalele sunt efectiv implementate, nu doar documentate. Asteptati dovezi tehnice: capturi de ecran ale configuratiilor, jurnale de actualizare, rezultate SIEM, rezultate ale testelor de restaurare a copiilor de rezerva si inregistrari ale revizuirilor accesului."
+      },
+      "AI-LIT": {
+        "name": "Alfabetizare in domeniul IA",
+        "description": "Asigurati-va ca personalul si persoanele care opereaza sisteme de IA in numele companiei au un nivel suficient de alfabetizare in domeniul IA.",
+        "legalBasis": "Art. 4 EU AI Act",
+        "threatLandscape": "Personalul neformat care foloseste instrumente de IA provoaca scurgeri de date, erori cauzate de halucinatii si expunere la deepfake-uri pe care organizatiile nu le pot apara in audit sau in instanta.",
+        "bsiGuidance": ""
+      },
+      "AI-PRO": {
+        "name": "Practici interzise",
+        "description": "Verificati cazurile de utilizare a IA in raport cu cele opt (plus una) practici interzise de la art. 5 si documentati rezultatul verificarii.",
+        "legalBasis": "Art. 5 EU AI Act",
+        "threatLandscape": "Utilizarea unei practici interzise declanseaza nivelul cel mai ridicat de sanctiuni (35 milioane EUR sau 7% din cifra de afaceri globala), indiferent de intentie.",
+        "bsiGuidance": ""
+      },
+      "AI-INV": {
+        "name": "Inventarul sistemelor de IA",
+        "description": "Mentineti un inventar al fiecarui sistem de IA utilizat, clasificati fiecare sistem pe niveluri de risc si reclasificati la modificari substantiale.",
+        "legalBasis": "Art. 6, 25, 26 EU AI Act",
+        "threatLandscape": "Fara un inventar, implementarile de IA neoficiala scapa supravegherii si creeaza o expunere de conformitate si raspundere neatenuata.",
+        "bsiGuidance": ""
+      },
+      "AI-RSK": {
+        "name": "Gestionarea riscurilor IA",
+        "description": "Operati un sistem documentat de gestionare a riscurilor pentru sistemele de IA cu grad ridicat de risc, cu revizuire anuala si tratarea riscurilor identificate.",
+        "legalBasis": "Art. 9 EU AI Act",
+        "threatLandscape": "Riscurile IA negestionate (prejudecati, deriva, esecuri de robustete) se traduc direct in expunere la incidente conform art. 73.",
+        "bsiGuidance": ""
+      },
+      "AI-FRI": {
+        "name": "Evaluarea impactului asupra drepturilor fundamentale",
+        "description": "Efectuati o evaluare a impactului asupra drepturilor fundamentale inainte de a implementa sisteme de IA cu grad ridicat de risc in contexte publice, financiare sau de asigurari.",
+        "legalBasis": "Art. 27 EU AI Act",
+        "threatLandscape": "Omiterea FRIA expune utilizatorul la pretentii civile din partea persoanelor afectate si la masuri de supraveghere a pietei.",
+        "bsiGuidance": ""
+      },
+      "AI-OVS": {
+        "name": "Supraveghere umana",
+        "description": "Desemnati un supraveghetor uman competent pentru fiecare sistem de IA cu grad ridicat de risc si verificati anual eficacitatea supravegherii.",
+        "legalBasis": "Art. 14, Art. 26(2) EU AI Act",
+        "threatLandscape": "Sistemele de IA autonome cu grad ridicat de risc fara o capacitate efectiva de interventie umana incalca art. 14 si creeaza raspundere directa pentru furnizor/utilizator.",
+        "bsiGuidance": ""
+      },
+      "AI-TRA": {
+        "name": "Transparenta",
+        "description": "Divulgati interactiunile cu IA si continutul generat de IA catre utilizatorii finali; marcati cu filigran continutul sintetic; divulgati deepfake-urile.",
+        "legalBasis": "Art. 50 EU AI Act",
+        "threatLandscape": "Lipsa divulgarii in cazul chatbotilor si al continutului sintetic incalca art. 50 si submineaza increderea clientilor si a autoritatilor de reglementare.",
+        "bsiGuidance": ""
+      },
+      "AI-INC": {
+        "name": "Raportarea incidentelor IA",
+        "description": "Documentati procedura de raspuns la incidentele IA; notificati autoritatea de supraveghere a pietei cu privire la incidentele grave in termen de 15 zile.",
+        "legalBasis": "Art. 73 EU AI Act",
+        "threatLandscape": "Nenotificarea in fereastra de 15 zile declanseaza al doilea nivel de sanctiuni (15 milioane EUR sau 3% din cifra de afaceri).",
+        "bsiGuidance": ""
+      },
+      "AI-DOC": {
+        "name": "Documentatie tehnica",
+        "description": "Mentineti documentatia tehnica conform Anexei IV, jurnalizarea automata si Declaratia de conformitate UE pentru sistemele de IA cu grad ridicat de risc.",
+        "legalBasis": "Art. 11, 12, 18, 19, 47 · Annex IV, V EU AI Act",
+        "threatLandscape": "Documentatia tehnica incompleta impiedica evaluarea conformitatii si blocheaza introducerea pe piata UE.",
+        "bsiGuidance": ""
+      },
+      "AI-GPI": {
+        "name": "IA de uz general",
+        "description": "Obligatiile furnizorului de GPAI: fisa modelului, politica privind drepturile de autor, rezumatul continutului de antrenare, plus evaluarea riscului sistemic atunci cand puterea de calcul de antrenare depaseste 10^25 FLOP.",
+        "legalBasis": "Art. 51-55 EU AI Act",
+        "threatLandscape": "Furnizorii de GPAI care nu respecta obligatiile de transparenta sunt supusi direct masurilor de aplicare ale Oficiului UE pentru IA, cu amenzi conform art. 101.",
+        "bsiGuidance": ""
+      },
+      "CRA-MFG": {
+        "name": "Obligatiile producatorului",
+        "description": "Evaluarea riscurilor de securitate cibernetica pentru fiecare produs si aprobarea organului de conducere inainte de introducerea produsului pe piata UE.",
+        "legalBasis": "Art. 13 EU CRA",
+        "threatLandscape": "Producatorii care livreaza fara o evaluare documentata a riscurilor nu au nicio aparare atunci cand apar vulnerabilitati exploatate activ.",
+        "bsiGuidance": ""
+      },
+      "CRA-ESS": {
+        "name": "Cerinte esentiale de securitate cibernetica",
+        "description": "Conformitatea cu Anexa I Partea I: nicio vulnerabilitate exploatabila cunoscuta la introducerea pe piata, sigur in mod implicit, protectia confidentialitatii, integritatii si disponibilitatii datelor.",
+        "legalBasis": "Annex I Part I EU CRA",
+        "threatLandscape": "Produsele care nu respecta cerintele esentiale nu pot ramane legal pe piata UE si declanseaza nivelul cel mai ridicat de sanctiuni.",
+        "bsiGuidance": ""
+      },
+      "CRA-VLN": {
+        "name": "Tratarea vulnerabilitatilor",
+        "description": "Tratarea documentata a vulnerabilitatilor, politica de divulgare coordonata, actualizari de securitate fara intarziere si divulgarea publica a vulnerabilitatilor remediate.",
+        "legalBasis": "Annex I Part II EU CRA",
+        "threatLandscape": "Furnizorii fara un proces de tratare a vulnerabilitatilor nu pot respecta cascada de raportare de 24h / 72h / 14 zile si devin raspunzatori pentru incidentele din aval.",
+        "bsiGuidance": ""
+      },
+      "CRA-INC": {
+        "name": "Raportarea exploatarii active",
+        "description": "Avertizare timpurie in 24 de ore catre ENISA si CSIRT, notificare in 72 de ore, raport final in 14 zile pentru vulnerabilitatile exploatate activ si incidentele grave.",
+        "legalBasis": "Art. 14 EU CRA",
+        "threatLandscape": "Termenele de raportare ratate (altele decat termenul de 24h pentru IMM-uri) declanseaza nivelul cel mai ridicat de sanctiuni si competentele de rechemare a produselor.",
+        "bsiGuidance": ""
+      },
+      "CRA-CONF": {
+        "name": "Evaluarea conformitatii",
+        "description": "Calea de evaluare a conformitatii pe clasa de produs (autoevaluare Modulul A, Modulul B+C cu organism notificat sau Modulul H sistem al calitatii), urmata de marcajul CE.",
+        "legalBasis": "Art. 24, Art. 27 EU CRA",
+        "threatLandscape": "Produsele fara o evaluare valida a conformitatii nu pot fi introduse pe piata UE incepand cu 11 decembrie 2027.",
+        "bsiGuidance": ""
+      },
+      "CRA-DOC": {
+        "name": "Documentatie tehnica",
+        "description": "Mentineti documentatia tehnica conform Anexei VII pentru fiecare produs introdus pe piata UE.",
+        "legalBasis": "Art. 28 · Annex VII EU CRA",
+        "threatLandscape": "Documentatia tehnica lipsa sau incompleta blocheaza verificarea de supraveghere a pietei si declanseaza retragerea produsului.",
+        "bsiGuidance": ""
+      },
+      "CRA-SUP": {
+        "name": "Perioada de asistenta",
+        "description": "Angajati-va public la o perioada de asistenta pentru actualizari de securitate (in mod implicit cinci ani sau durata de viata preconizata a produsului, oricare dintre acestea este mai lunga).",
+        "legalBasis": "Art. 13(8) EU CRA",
+        "threatLandscape": "Neacordarea asistentei pe intreaga perioada expune producatorul la pretentii din partea clientilor blocati cu produse nesigure.",
+        "bsiGuidance": ""
+      },
+      "CRA-SBOM": {
+        "name": "Lista materialelor software",
+        "description": "Generati si mentineti o lista a materialelor software care poate fi citita automat pentru fiecare produs introdus pe piata UE.",
+        "legalBasis": "Annex I Part II §1 EU CRA",
+        "threatLandscape": "Fara un SBOM, producatorii nu pot identifica ce produse contin o componenta vulnerabila si rateaza fereastra de raportare de la art. 14.",
+        "bsiGuidance": ""
+      },
+      "CRA-IMP": {
+        "name": "Importator si distribuitor",
+        "description": "Importatorii verifica conformitatea producatorului inainte de introducerea pe piata; distribuitorii efectueaza diligenta necesara privind marcajele de conformitate.",
+        "legalBasis": "Art. 18, Art. 19 EU CRA",
+        "threatLandscape": "Importatorii si distribuitorii care omit verificarea preiau raspunderea producatorului conform art. 22.",
+        "bsiGuidance": ""
+      },
+      "CRA-OSS": {
+        "name": "Administrator de software cu sursa deschisa",
+        "description": "Administratorii de software cu sursa deschisa adopta o politica de securitate cibernetica, o divulgare coordonata a vulnerabilitatilor si raporteaza vulnerabilitatile exploatate activ.",
+        "legalBasis": "Art. 24 EU CRA",
+        "threatLandscape": "Administratorii de software cu sursa deschisa sunt scutiti de sanctiuni conform art. 64(10), dar utilizatorii comerciali din aval depind in continuare de raportarea lor.",
+        "bsiGuidance": ""
+      }
+    }
+  },
+  "intake": {
+    "bsiContext": "Ce asteapta BSI",
+    "threatLandscape": "Peisajul amenintarilor",
+    "grundschutzModule": "Modul IT-Grundschutz",
+    "companyContext": "Profilul companiei dumneavoastra",
+    "completeSection": "Finalizeaza aceasta sectiune",
+    "operationalData": "Din datele platformei dumneavoastra",
+    "saveDraft": "Salveaza ciorna",
+    "submitSignOff": "Trimite si aproba",
+    "saved": "Ciorna salvata",
+    "submitted": "Categorie trimisa si aprobata",
+    "submitFailed": "Trimiterea a esuat",
+    "incomplete": "Va rugam sa completati toate campurile obligatorii inainte de trimitere.",
+    "alreadySignedOff": "Aprobat la {date}",
+    "fieldProgress": "{completed} din {total} campuri",
+    "statusDraft": "Ciorna",
+    "statusSubmitted": "Trimis",
+    "statusSignedOff": "Aprobat",
+    "validate": "Valideaza cu panelul BSI",
+    "validating": "Se ruleaza evaluarea panelului BSI...",
+    "validateFailed": "Validarea a esuat",
+    "noSchema": "Nu exista formular de colectare pentru aceasta categorie.",
+    "autoSaved": "Salvat automat",
+    "categoryOwner": "Responsabilul categoriei",
+    "noOwner": "Niciun responsabil atribuit",
+    "onlyOwnerCanSubmit": "Doar responsabilul atribuit sau un administrator poate trimite aceasta categorie.",
+    "responsiblePerson": "Persoana responsabila",
+    "responsiblePersonDescription": "Persoana atribuita aici va putea aproba aceasta categorie.",
+    "frequencyOneTime": "O singura data",
+    "frequencyMonthly": "Lunar",
+    "frequencyQuarterly": "Trimestrial",
+    "frequencySemiAnnual": "Semestrial",
+    "frequencyAnnual": "Anual",
+    "frequencyEvery3Years": "La fiecare 3 ani",
+    "frequencyOnChange": "La modificare",
+    "frequencyOngoing": "Continuu"
+  },
+  "form": {
+    "completeRequirement": "Finalizeaza cerinta",
+    "noFields": "Niciun camp de formular definit.",
+    "requirementCompleted": "{code} finalizat",
+    "requirementSaved": "Cerinta a fost salvata.",
+    "edit": "Editeaza",
+    "save": "Salveaza",
+    "saving": "Se salveaza...",
+    "failedToSave": "Salvarea a esuat"
+  },
+  "evidence": {
+    "dropzone": "Trageti fisierul aici sau faceti clic pentru a selecta",
+    "formats": "PDF, DOCX, XLSX, imagini",
+    "description": "Descriere (optional)",
+    "descriptionPlaceholder": "Ce dovedeste acest document?",
+    "uploading": "Se incarca...",
+    "upload": "Incarca dovada",
+    "uploaded": "Dovada incarcata",
+    "fileSaved": "{name} a fost salvat.",
+    "loading": "Se incarca fisierele...",
+    "uploadFailed": "Incarcarea a esuat"
+  },
+  "signoff": {
+    "title": "Este necesara aprobarea conducerii",
+    "description": "Conducerea trebuie sa confirme si sa aprobe implementarea \"{title}\".",
+    "roleLabel": "Rol / functie",
+    "rolePlaceholder": "de ex. director general, CISO, manager IT",
+    "confirm": "Confirm ca cerinta a fost revizuita si ca implementarea a fost aprobata de conducere.",
+    "saving": "Se salveaza...",
+    "submit": "Acorda aprobarea",
+    "granted": "Aprobare acordata",
+    "grantedDescription": "{code} a fost aprobat de {role}."
+  },
+  "llm": {
+    "title": "Precompletare cu IA",
+    "extractTitle": "Extrage date cu IA",
+    "extractDescription": "Lipiti text sau trageti fisierul aici (PDF, DOCX, TXT). IA extrage datele relevante pentru formular.",
+    "extractPlaceholder": "Lipiti textul aici sau trageti fisierul aici...\n\nExemplu: Muller GmbH cu sediul in Berlin, sectorul energetic, 120 de angajati, cifra de afaceri anuala 15 milioane EUR, clasificata drept entitate importanta conform NIS2...",
+    "extractButton": "Extrage date",
+    "unsupportedFormat": "Format neacceptat: {name}. Acceptate: {formats}",
+    "noText": "Nu s-a gasit text in document.",
+    "fileError": "Eroare la procesarea fisierului",
+    "dropHere": "Trageti fisierul aici",
+    "processing": "Se proceseaza documentul...",
+    "selectFile": "Selecteaza fisier",
+    "fieldsFilled": "{count} campuri completate",
+    "extracting": "Se extrage...",
+    "assistButton": "Asistenta IA",
+    "assistTitle": "Indrumare pentru formular",
+    "assistDescription": "Indrumare generata de IA pentru a va ajuta sa completati acest formular de cerinta. Nu se trimit date reale, doar numele si tipurile campurilor.",
+    "assistLoading": "Se genereaza indrumarea...",
+    "assistError": "Generarea indrumarii a esuat. Va rugam sa incercati din nou.",
+    "assistOverview": "Privire de ansamblu",
+    "assistWhatThisIs": "Ce este aceasta",
+    "assistWhyThisExists": "De ce exista aceasta",
+    "assistApplicability": "Se aplica aceasta?",
+    "assistQuickStart": "Pornire rapida",
+    "assistExample": "Exemplu de trimitere buna",
+    "assistExampleWhyGood": "De ce este buna",
+    "assistFieldGuidance": "Indrumare camp cu camp",
+    "assistMeaning": "Ce inseamna",
+    "assistExamples": "Exemple bune",
+    "assistWhereToFind": "Unde sa gasiti aceasta",
+    "assistField": "Camp",
+    "assistValue": "Valoare"
+  }
+}

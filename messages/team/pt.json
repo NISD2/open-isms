@@ -1,0 +1,80 @@
+{
+  "team": {
+    "pageTitle": "Equipa",
+    "pageDescription": "Gerir membros da equipa e convites",
+    "members": {
+      "title": "Membros",
+      "description": "{count, plural, one {# membro} other {# membros}} na sua empresa",
+      "name": "Nome",
+      "email": "Email",
+      "role": "Função",
+      "you": "você",
+      "assignedCategories": "Categorias atribuídas",
+      "complianceRole": "Atribuir função"
+    },
+    "invites": {
+      "title": "Convites pendentes",
+      "description": "{count, plural, one {# convite pendente} other {# convites pendentes}}",
+      "email": "Email",
+      "expires": "Expira",
+      "linkCopied": "Ligação copiada"
+    },
+    "invite": {
+      "title": "Convidar membro",
+      "description": "Introduza um endereço de email para gerar uma ligação de convite",
+      "email": "Email",
+      "emailPlaceholder": "colega@empresa.com",
+      "complianceRole": "Função de conformidade",
+      "complianceRolePlaceholder": "Selecionar função (opcional)",
+      "submit": "Convidar",
+      "submitting": "A convidar..."
+    },
+    "assignRole": {
+      "label": "Atribuir função",
+      "placeholder": "Selecionar função...",
+      "success": "Função atribuída com sucesso",
+      "noCategories": "Não há categorias para esta função"
+    },
+    "remove": {
+      "success": "Membro removido"
+    },
+    "revoke": {
+      "success": "Convite revogado"
+    },
+    "inline": {
+      "sent": "Convite enviado para {email}",
+      "linkCopied": "Ligação copiada"
+    },
+    "invalidTitle": "Convite inválido",
+    "invalidDescription": "Esta ligação de convite é inválida ou já foi utilizada.",
+    "usedTitle": "Convite já utilizado",
+    "usedDescription": "Este convite já foi aceite ou revogado.",
+    "expiredTitle": "Convite expirado",
+    "expiredDescription": "Esta ligação de convite expirou. Peça uma nova ao seu administrador.",
+    "accept": {
+      "joinTitle": "Juntar-se a {company}",
+      "joinDescription": "Foi convidado para se juntar como {role}.",
+      "signInDescription": "Foi convidado para se juntar como {role}. Inicie sessão ou registe-se para continuar.",
+      "signInToAccept": "Iniciar sessão para aceitar",
+      "alreadyMemberTitle": "Já é membro",
+      "alreadyMemberDescription": "Já é membro de uma empresa. Não pode juntar-se a outra.",
+      "goToDashboard": "Ir para o painel",
+      "wrongAccountTitle": "Conta errada",
+      "wrongAccountDescription": "Este convite foi enviado para {inviteEmail}. Tem sessão iniciada como {userEmail}.",
+      "signOutRetry": "Terminar sessão e tentar novamente",
+      "joining": "A juntar-se...",
+      "acceptInvite": "Aceitar convite",
+      "joined": "Juntou-se a {company}"
+    },
+    "roles": {
+      "ceo": "CEO / Administrador",
+      "ciso": "CISO / Responsável de Segurança de TI",
+      "cto": "CTO / Diretor de Engenharia",
+      "coo": "COO / Diretor de Operações",
+      "cpo": "CPO / Responsável de Compras",
+      "hr_director": "Diretor de Recursos Humanos",
+      "legal": "Responsável Jurídico / de Conformidade",
+      "dpo": "Encarregado da Proteção de Dados"
+    }
+  }
+}

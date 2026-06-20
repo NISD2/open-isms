@@ -1,0 +1,42 @@
+{
+  "landing": {
+    "title": "Snižte účet Evropy za <blue>NIS2</blue> na polovinu.",
+    "eyebrow": "Open source · Zdarma · Bez vendor lock-inu",
+    "subtitle": "Bezplatná platforma pro regulované firmy a jejich dodavatele k zavedení NIS2: sebehodnocení, šablony a školení vedení. Open source, bez vendor lock-inu.",
+    "productLine": "Bezplatná shoda s NIS2 a informace pro regulované firmy a jejich dodavatele.",
+    "regLine": "Směrnice NIS2 (EU) 2022/2555 · CIR 2024/2690",
+    "supplierDoor": "Dostali jste od zákazníka dotazník k NIS2? Přejděte do portálu pro dodavatele.",
+    "trust1": "Open source, bez vendor lock-inu",
+    "trust2": "Hostováno v Německu, v souladu s GDPR",
+    "trust3": "Postaveno podle nejpřísnějšího standardu (BSIG §30, IT-Grundschutz), platné v celé EU",
+    "proofOpenSource": "Open source, zobrazit na GitHubu",
+    "proofEuHosted": "Hostováno v EU",
+    "cardGetTitle": "Co získáte",
+    "cardGet1": "Povinnosti NIS2 podle článku 21 NIS2 (v Německu § 30 BSIG) jako vedený checklist, ne jako prázdná platforma.",
+    "cardGet2": "Důkazy a auditní stopa vznikají samy z vaší práce: přiřazení, termíny, schválení.",
+    "cardGet3": "Vše lze exportovat, bez vendor lock-inu. Vaše data zůstávají vašimi daty.",
+    "cardWhyFreeTitle": "Proč zdarma?",
+    "cardWhyFree": "Platforma je zdarma a open source. Vyděláváme na školeních a vedeném zavedení, ne na vašich datech. Kód a schémata jsou otevřené na GitHubu, takže si to můžete sami ověřit.",
+    "cardTrustLink": "Více v centru důvěry",
+    "badge": "NIS2 / BSIG - Termín: březen 2026",
+    "badgeTooltip": "Německý zákon BSIG (BSI-Gesetz), který transponuje směrnici EU NIS2, vyžaduje, aby dotčené subjekty zavedly všechna kyberbezpečnostní opatření do března 2026. Nesplnění s sebou nese pokuty až do 10 mil. EUR nebo 2 % celosvětového obratu a osobní odpovědnost jednatelů.",
+    "nis2Badge": "Směrnice NIS2 (EU) 2022/2555",
+    "nis2BadgeTooltip": "Postaveno na celé směrnici NIS2 pokrývající všech 27 členských států EU. Všech 10 kyberbezpečnostních opatření podle článku 21 je namapováno a zavedeno. Platné v každé zemi EU, nejen v Německu.",
+    "cirBadge": "CIR 2024/2690",
+    "cirBadgeTooltip": "Prováděcí nařízení Komise (EU) 2024/2690 vymezuje nejpřísnější technické požadavky pro shodu s NIS2. Stanovuje společný základ napříč všemi členskými státy EU pro poskytovatele DNS, registry TLD, poskytovatele cloudu, datová centra, sítě CDN, řízené služby, řízené bezpečnostní služby, online tržiště, vyhledávače, sociální sítě a poskytovatele služeb vytvářejících důvěru.",
+    "bsigBadge": "BSIG §30 | výchozí nastavení IT-Grundschutz",
+    "bsigBadgeTooltip": "Postaveno na německém BSIG §30, nejpřísnější transpozici NIS2 v EU, s výchozím nastavením podle metodiky IT-Grundschutz. Splňte jednou, platí napříč 27 členskými státy EU. § 44 odst. 2 BSIG uznává zavedení Grundschutz jako shodu s NIS2.",
+    "checkApplicability": "Zjistěte, zda se na vás NIS2 vztahuje",
+    "scheduleDemo": "Naplánovat demo",
+    "startTraining": "Bezplatné školení pro jednatele",
+    "ctaStart": "Začněte se svým NIS2 hned teď",
+    "signIn": "Přihlaste se a spusťte proces",
+    "nav": {
+      "wiki": "Wiki",
+      "pricing": "Ceník",
+      "about": "O nás",
+      "cta": "Začít",
+      "dashboard": "Dashboard"
+    }
+  }
+}

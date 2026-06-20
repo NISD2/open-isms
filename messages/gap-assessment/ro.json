@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "Evaluare lacune NIS2",
+    "subtitle": "Evaluați nivelul dumneavoastră de pregătire NIS2 în 15 domenii",
+    "startAssessment": "Începeți evaluarea",
+    "resumeAssessment": "Reluați evaluarea",
+    "viewResults": "Vedeți rezultatele",
+    "day": "Ziua {number}",
+    "dayOf": "Ziua {current} din {total}",
+    "questionsAnswered": "{answered} din {total} răspunse",
+    "saving": "Se salvează...",
+    "saved": "Salvat",
+    "overview": {
+      "heading": "Prezentare generală a evaluării",
+      "description": "O autoevaluare structurată care acoperă toate domeniile de conformitate NIS2. Răspundeți sincer despre situația dumneavoastră actuală. Nu există răspunsuri corecte sau greșite.",
+      "day1": "Domeniu de aplicare și guvernanță",
+      "day1desc": "Intrați în domeniul de aplicare? Conducerea înțelege răspunderea care îi revine?",
+      "day2": "Managementul riscului",
+      "day2desc": "Vă cunoașteți activele, riscurile și politicile de securitate?",
+      "day3": "Incidente și continuitatea activității",
+      "day3desc": "Puteți detecta, răspunde și reveni după incidente?",
+      "day4": "Personal, furnizori și acces",
+      "day4desc": "Angajații sunt instruiți, furnizorii gestionați, iar accesul controlat?",
+      "day5": "Controale tehnice și dovezi",
+      "day5desc": "Protecțiile tehnice și documentația sunt pregătite pentru audit?",
+      "questions": "{count} întrebări",
+      "estimatedTime": "~{minutes} min",
+      "noActiveSession": "Nu ați început încă o evaluare.",
+      "pastSessions": "Evaluări anterioare",
+      "score": "Scor: {score}%",
+      "completedOn": "Finalizată la {date}",
+      "inProgress": "În curs"
+    },
+    "question": {
+      "yes": "Da",
+      "partially": "Parțial",
+      "no": "Nu",
+      "notApplicable": "N/A",
+      "showExplanation": "Ce înseamnă acest lucru?",
+      "hideExplanation": "Ascundeți explicația",
+      "legalBasis": "Temei legal",
+      "criticality": "Importanță",
+      "criticalityLevels": {
+        "0": "Informativ",
+        "1": "Scăzut",
+        "2": "Mediu",
+        "3": "Ridicat"
+      },
+      "respondent": {
+        "0": "Director general / Conducere",
+        "1": "IT / Securitate",
+        "2": "Resurse umane",
+        "3": "Achiziții",
+        "4": "Oricine"
+      },
+      "suggestedRespondent": "Cel mai bine răspuns de"
+    },
+    "navigation": {
+      "previousDay": "Ziua anterioară",
+      "nextDay": "Ziua următoare",
+      "completeAssessment": "Finalizați evaluarea",
+      "backToOverview": "Înapoi la prezentarea generală"
+    },
+    "results": {
+      "heading": "Rezultatele evaluării",
+      "overallScore": "Scor general",
+      "domainScores": "Scoruri pe domenii",
+      "maturityLevel": "Nivel de maturitate",
+      "priorityGaps": "Lacune prioritare",
+      "exportPdf": "Exportați PDF",
+      "domain": "Domeniu",
+      "score": "Scor",
+      "maturity": "Maturitate",
+      "answered": "Răspunse",
+      "noGaps": "Nu au fost identificate lacune. Excelent.",
+      "gapRank": "Prioritate",
+      "gapQuestion": "Constatare",
+      "gapDomain": "Domeniu",
+      "gapConsequence": "Consecință",
+      "gapTimeToFix": "Efort",
+      "fineRisk": "Risc de amendă",
+      "viewInPlatform": "Vedeți în platformă",
+      "maturityLevels": {
+        "critical": "Critic",
+        "initial": "Inițial",
+        "developing": "În dezvoltare",
+        "managed": "Gestionat",
+        "optimized": "Optimizat"
+      },
+      "consequenceLevels": {
+        "0": "Constatare de audit",
+        "1": "Risc operațional",
+        "2": "Amendă",
+        "3": "Răspundere personală"
+      },
+      "timeToFixLevels": {
+        "0": "Câștig rapid",
+        "1": "Zile",
+        "2": "Săptămâni",
+        "3": "Luni"
+      },
+      "summary": {
+        "criticalGaps": "{count} lacune critice",
+        "fineExposed": "{count} generează expunere la amenzi",
+        "personalLiability": "{count} generează răspundere personală pentru directorul general",
+        "quickWins": "{count} pot fi remediate imediat"
+      },
+      "startCompliance": "Începeți să închideți lacunele",
+      "retakeAssessment": "Reluați evaluarea"
+    }
+  }
+}

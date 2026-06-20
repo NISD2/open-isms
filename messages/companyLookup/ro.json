@@ -1,0 +1,51 @@
+{
+  "companyLookup": {
+    "title": "Compania dumneavoastră intră sub incidența NIS2?",
+    "subtitle": "Determinarea cu caracter obligatoriu este făcută de autoritatea națională de supraveghere. Mai jos găsiți punctele de contact oficiale pentru fiecare țară, plus o autoevaluare gratuită pentru orientare. Aveți dubii? Consultați <link>cazurile reale dificile</link> pentru exemple.",
+    "authorityCallout": {
+      "heading": "Determinare obligatorie: autoritatea națională de supraveghere",
+      "body": "Clasificarea finală NIS2 este făcută de autoritatea competentă din țara dumneavoastră. Noi vă oferim trimiteri către sursele oficiale. Autoevaluarea de mai jos este doar un instrument rapid de orientare.",
+      "seeAll": "Vedeți toate cele 27 de state membre UE",
+      "details": "Detalii"
+    },
+    "selfCheckHeading": "Autoevaluare rapidă",
+    "selfCheckSubtitle": "Orientare după sector, dimensiune și cazuri speciale. Nu înlocuiește determinarea oficială făcută de autoritatea dumneavoastră.",
+    "placeholder": "Introduceți numele companiei (de ex. Stadtwerke München)",
+    "noResults": "Nu s-a găsit nicio companie. Verificați ortografia sau încercați denumirea juridică completă.",
+    "error": "Căutarea companiilor este momentan indisponibilă. Vă rugăm să încercați din nou mai târziu.",
+    "sectors": "Sectoare NIS2",
+    "companyData": "Datele companiei",
+    "legalForm": "Forma juridică",
+    "register": "Registrul comerțului",
+    "founded": "Înființată",
+    "capital": "Capital social",
+    "companySize": "Dimensiunea companiei",
+    "revenue": "Cifra de afaceri",
+    "industryCodes": "Coduri de activitate (WZ)",
+    "purpose": "Obiectul de activitate",
+    "missingData": "Unele date nu au putut fi obținute automat. Clasificarea se bazează pe informațiile disponibile și se poate modifica atunci când toate datele devin disponibile.",
+    "ctaInScope": "Hai să discutăm pașii următori",
+    "checkNis2": "Verificați statutul NIS2",
+    "loading": "Se analizează datele companiei…",
+    "ctaNotInScope": "Protejați-vă oricum",
+    "disclaimer": "Datele companiei provin din registre publice și sunt stocate pentru a ne îmbunătăți serviciul.",
+    "holdingWarning": "Această companie pare să fie un holding sau o societate-mamă de grup. Aplicabilitatea NIS2 se evaluează pentru fiecare entitate în parte. Filialele cu propriile operațiuni, angajați și sisteme IT pot intra în domeniul de aplicare în mod independent, chiar dacă holdingul în sine nu intră. Verificați fiecare filială separat.",
+    "resultDisclaimer": "Aceasta este o evaluare orientativă bazată pe datele de registru disponibile public, nu o determinare juridică. Aplicabilitatea reală a NIS2 depinde de factori care nu sunt surprinși integral aici. Consultați un consilier calificat pentru confirmare.",
+    "result": {
+      "not_in_scope": "Probabil în afara domeniului de aplicare",
+      "important": "Probabil o entitate importantă",
+      "essential": "Probabil o entitate esențială",
+      "kritis": "Probabil un operator KRITIS"
+    },
+    "reason": {
+      "excluded": "Organizația dumneavoastră pare să fie exceptată de la domeniul de aplicare al NIS2.",
+      "no_sector": "Niciunul dintre codurile de activitate înregistrate nu pare să se încadreze într-un sector NIS2.",
+      "below_threshold": "Compania dumneavoastră pare să opereze într-un sector NIS2, dar, pe baza datelor disponibile, ar putea fi sub pragul de dimensiune.",
+      "special_case": "Pe baza clasificării sale, organizația dumneavoastră intră probabil în domeniul de aplicare, indiferent de dimensiune.",
+      "size_and_sector": "Pe baza datelor disponibile, criteriile de sector și de dimensiune pentru NIS2 par să fie ambele îndeplinite."
+    },
+    "orSeparator": "sau verificați manual",
+    "manualFallback": "Nu vă găsiți compania?",
+    "manualLink": "Începeți verificarea manuală"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "notifications": {
+    "title": "Oznámení",
+    "description": "Zobrazte a spravujte svá oznámení",
+    "empty": "Žádná oznámení",
+    "acknowledge": "Potvrdit",
+    "acknowledged": "Potvrzeno",
+    "unread": "{count} nepřečtených",
+    "actions": "Akce",
+    "markRead": "Označit jako přečtené",
+    "markAllRead": "Označit vše jako přečtené",
+    "fields": {
+      "subject": "Předmět",
+      "entityType": "Typ",
+      "scheduledFor": "Naplánováno na",
+      "status": "Stav"
+    }
+  }
+}

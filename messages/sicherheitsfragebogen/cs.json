@@ -1,0 +1,124 @@
+{
+  "sicherheitsfragebogen": {
+    "meta": {
+      "title": "Vyplňte bezpečnostní dotazník jen jednou | nisd2.eu",
+      "description": "Vyplňte jediný bezpečnostní dotazník pro dodavatele jednou a sdílejte ho s každým zákazníkem. Struktura podle ENISA NIS 2 TIG v1.0. Zdarma. Otevřený zdrojový kód."
+    },
+    "branding": {
+      "label": "Nástroj od nisd2.eu"
+    },
+    "landing": {
+      "hero": {
+        "eyebrow": "Portál pro dodavatele od nisd2.eu",
+        "headline": "Vyplňte <u>jeden</u> bezpečnostní dotazník.",
+        "headlineAccent": "Sdílejte ho s <u>každým</u> zákazníkem.",
+        "subhead": "Jeden kanonický dotazník pro dodavatele se strukturou podle ENISA NIS 2 Technical Implementation Guidance v1.0. Každá otázka odkazuje na CIR 2024/2690, BSIG §30 nebo BSI IT-Grundschutz. Zdarma. Otevřený zdrojový kód. Vaše data zůstávají přenositelná.",
+        "anchorBadge": "Struktura podle ENISA NIS 2 TIG v1.0 §5",
+        "ctaPrimary": "Vytvořit profil dodavatele",
+        "ctaSecondary": "Co dotazník obsahuje?"
+      },
+      "steps": {
+        "heading": "Jak to funguje.",
+        "lead": "Tři kroky od prvního přihlášení po první pozvánku pro zákazníka.",
+        "items": [
+          {
+            "title": "Vytvořte profil",
+            "body": "Přihlaste se přes Google. Zadejte název firmy a hlavní doménu. Dvě minuty."
+          },
+          {
+            "title": "Vyplňte dotazník",
+            "body": "Tři podstránky v portálu: profil a popis služby, univerzální kybernetická bezpečnostní opatření podle NIS 2 čl. 21 odst. 2, technické sekce podle typu služby. 59 otázek, vlastním tempem, koncept se ukládá automaticky."
+          },
+          {
+            "title": "Pozvěte zákazníky",
+            "body": "Každý pozvaný zákazník dostane soukromý magic link. Žádný veřejný profil, žádné indexování ve vyhledávačích."
+          }
+        ]
+      },
+      "sections": {
+        "heading": "Co dotazník obsahuje.",
+        "lead": "Deset sekcí, každá odkazuje na příslušný odstavec ENISA TIG, CIR 2024/2690 nebo BSI IT-Grundschutz.",
+        "items": [
+          "Identita (CIR §5.2 / ENISA TIG §5.2 registr dodavatelů)",
+          "Kontakt pro incidenty (směrem k zákazníkovi)",
+          "Typ služby",
+          "Povinné smluvní doložky (CIR / ENISA TIG §5.1.4)",
+          "Kybernetická bezpečnostní opatření (NIS 2 čl. 21 odst. 2 / ENISA TIG §5.1.2)",
+          "Doplňkové smluvní doložky (ENISA TIG §5.1.4 TIPS)",
+          "SaaS, technické",
+          "Software on-prem, technické",
+          "Profesionální služby, podrobnosti",
+          "Spravované služby, podrobnosti"
+        ],
+        "footnote": "Celé schéma je veřejné na GitHubu a lze ho exportovat jako JSON."
+      },
+      "serviceTypes": {
+        "heading": "Čtyři technické sekce podle typu služby.",
+        "lead": "Stránka Typ služby v portálu zobrazí čtyři další sekce. Vyplňte jen ty, které odpovídají tomu, co nabízíte.",
+        "items": [
+          {
+            "title": "SaaS",
+            "fields": "Region hostingu, šifrování v klidu a při přenosu, MFA pro administrátorské účty, cílová doba obnovy."
+          },
+          {
+            "title": "Software on-prem",
+            "fields": "Software Bill of Materials (SBOM), kryptograficky podepsané verze, zveřejněná politika oznamování zranitelností, SLA pro záplaty kritických CVE."
+          },
+          {
+            "title": "Profesionální služby",
+            "fields": "Rozsah prověrek pracovníků, NDA se všemi konzultanty, dokumentovaná politika chování v prostorách zákazníka."
+          },
+          {
+            "title": "Spravované služby",
+            "fields": "Správa privilegovaného přístupu, nahrávání administrátorských relací, pohotovost 24/7 pro bezpečnostní incidenty."
+          }
+        ]
+      },
+      "preview": {
+        "heading": "Ukázkové otázky.",
+        "lead": "Šest otázek z různých sekcí, s nápovědou, kterou dodavatelé vidí při vyplňování. Identita, bezpečnostní praktiky, smluvní doložky, prohlášení o AI, technické podrobnosti.",
+        "footnote": "Šest z 59 otázek. Celá sada je v portálu."
+      },
+      "bsi": {
+        "quote": "Vítáme současné iniciativy z odvětví, jejichž cílem je vytvořit jednotný katalog dotazníků pro dodavatele.",
+        "attribution": "BSI NIS-2 FAQ (dodavatelský řetězec a bezpečnost).",
+        "context": "Tento portál pro dodavatele JE onou iniciativou z odvětví. Soukromě vytvořený, jednotný katalog dotazníků se strukturou podle kanonické taxonomie EU (ENISA TIG §5), aby každý subjekt regulovaný NIS 2 mohl splnit CIR §5.1.4 z jediného zdroje."
+      },
+      "privacy": {
+        "heading": "Bilaterální a soukromé.",
+        "body": "Vytvořeno v Německu, hostováno v EU, v souladu s BSI Grundschutz. Vaše data jsou sdílena pouze se zákazníky, které výslovně pozvete. Žádná veřejná URL, žádné indexování ve vyhledávačích."
+      },
+      "cta": {
+        "heading": "Začněte za dvě minuty.",
+        "body": "Přihlaste se přes Google. Zadejte název firmy a hlavní doménu. Vyplňte dotazník vlastním tempem. Až budete připraveni, pozvěte své zákazníky.",
+        "button": "Vytvořit profil dodavatele"
+      },
+      "related": {
+        "heading": "Pokračujte na nisd2.eu.",
+        "lead": "Tento nástroj je součástí ekosystému nisd2.eu. Zbytek najdete zde.",
+        "items": [
+          {
+            "title": "Portál pro dodavatele NIS 2",
+            "body": "Stejná funkce, pojatá z pohledu NIS 2: pro řídicí orgány, které zavádějí §30 BSIG.",
+            "href": "/supplier-portal"
+          },
+          {
+            "title": "Otevřené schéma dotazníku",
+            "body": "Celé schéma JSON s odkazy na zdroje, volně k opětovnému použití.",
+            "href": "/nis2-lieferanten-fragebogen"
+          },
+          {
+            "title": "Řízené zavedení NIS 2",
+            "body": "Pokud chcete pomoc s úplným zavedením: 500 eur měsíčně, bez lock-inu.",
+            "href": "/pricing"
+          },
+          {
+            "title": "Otevřený zdrojový kód",
+            "body": "Celý zdrojový kód na GitHubu pod licencí AGPL-3.0.",
+            "href": "/open-source"
+          }
+        ]
+      }
+    }
+  }
+}

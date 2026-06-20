@@ -1,0 +1,120 @@
+{
+  "organization": {
+    "title": "Configurarea organizației",
+    "description": "Înregistrați-vă organizația pentru a începe evaluarea conformității.",
+    "editTitle": "Setările organizației",
+    "editDescription": "Actualizați detaliile organizației dvs.",
+    "formTitle": "Detalii despre organizație",
+    "name": "Numele organizației",
+    "namePlaceholder": "Acme GmbH",
+    "sector": "Sector NIS2",
+    "sectorPlaceholder": "Selectați sectorul...",
+    "entityType": "Clasificarea entității",
+    "entityTypeHelp": "Conform definiției din BSIG 2025 §28",
+    "entityTypes": {
+      "essential": "Entitate esențială",
+      "important": "Entitate importantă",
+      "kritis": "Operator KRITIS"
+    },
+    "legalForm": "Formă juridică",
+    "legalFormPlaceholder": "ex. GmbH, AG, KG",
+    "employees": "Număr de angajați",
+    "contactEmail": "E-mail de contact pentru conformitate",
+    "cisoName": "CISO / Responsabil cu securitatea IT",
+    "cisoNamePlaceholder": "Ioana Popescu",
+    "cisoReportsTo": "CISO raportează către",
+    "cisoReportsToPlaceholder": "ex. CEO, Consiliul de administrație",
+    "bsiContactName": "Persoană de contact BSI",
+    "bsiContactNamePlaceholder": "Max Mustermann",
+    "bsiContactEmail": "E-mail de contact BSI",
+    "bsiContactPhone": "Telefon de contact BSI",
+    "bsiRegistrationId": "ID de înregistrare BSI",
+    "annualSecurityBudget": "Buget anual de securitate (EUR)",
+    "primaryLocations": "Locații principale",
+    "primaryLocationsPlaceholder": "ex. Berlin, München",
+    "profileSection": "Profil de securitate",
+    "profileSectionDescription": "Aceste câmpuri sunt referențiate în mai multe cerințe NIS2 și sunt incluse în instantaneele semnăturilor de aprobare.",
+    "submit": "Începe evaluarea",
+    "creating": "Se configurează organizația dvs....",
+    "createError": "Crearea organizației a eșuat. Vă rugăm să încercați din nou.",
+    "save": "Salvează modificările",
+    "saving": "Se salvează...",
+    "saved": "Modificări salvate cu succes.",
+    "saveError": "Salvarea modificărilor a eșuat. Vă rugăm să încercați din nou.",
+    "sectors": {
+      "energy": "Energie",
+      "transport": "Transport",
+      "banking": "Bănci",
+      "financial_market": "Infrastructura piețelor financiare",
+      "health": "Sănătate",
+      "drinking_water": "Apă potabilă",
+      "waste_water": "Ape uzate",
+      "digital_infrastructure": "Infrastructură digitală",
+      "ict_service_management": "Management al serviciilor TIC (B2B)",
+      "public_administration": "Administrație publică",
+      "space": "Spațiu",
+      "postal_courier": "Servicii poștale și de curierat",
+      "waste_management": "Gestionarea deșeurilor",
+      "chemicals": "Substanțe chimice",
+      "food": "Producția și distribuția alimentelor",
+      "manufacturing": "Producție industrială",
+      "digital_providers": "Furnizori digitali",
+      "research": "Cercetare"
+    },
+    "teamRoles": {
+      "title": "Personal-cheie",
+      "description": "Puteți invita membri ai echipei acum sau mai târziu din Setări. Fiecare persoană pe care o adăugați va fi invitată și poate fi desemnată proprietar pentru categorii de conformitate.",
+      "name": "Nume",
+      "email": "E-mail",
+      "role": "Rol",
+      "rolePlaceholder": "Selectați rolul...",
+      "addMember": "Adaugă membru în echipă",
+      "removeMember": "Elimină",
+      "back": "Înapoi",
+      "skip": "Sari peste deocamdată",
+      "submit": "Continuă",
+      "roles": {
+        "ceo": {
+          "label": "CEO / Director general",
+          "namePlaceholder": "Ioana Popescu",
+          "emailPlaceholder": "ceo@companie.com"
+        },
+        "ciso": {
+          "label": "CISO / Responsabil cu securitatea IT",
+          "namePlaceholder": "Andrei Ionescu",
+          "emailPlaceholder": "ciso@companie.com"
+        },
+        "cto": {
+          "label": "CTO / Director de inginerie",
+          "namePlaceholder": "Alex Dumitru",
+          "emailPlaceholder": "cto@companie.com"
+        },
+        "coo": {
+          "label": "COO / Director de operațiuni",
+          "namePlaceholder": "Sorin Marin",
+          "emailPlaceholder": "coo@companie.com"
+        },
+        "cpo": {
+          "label": "CPO / Responsabil cu achizițiile",
+          "namePlaceholder": "Paula Stan",
+          "emailPlaceholder": "cpo@companie.com"
+        },
+        "hr_director": {
+          "label": "Director de resurse umane",
+          "namePlaceholder": "Cristina Munteanu",
+          "emailPlaceholder": "hr@companie.com"
+        },
+        "legal": {
+          "label": "Responsabil juridic / de conformitate",
+          "namePlaceholder": "Mihai Radu",
+          "emailPlaceholder": "legal@companie.com"
+        },
+        "dpo": {
+          "label": "Responsabil cu protecția datelor",
+          "namePlaceholder": "Robert Georgescu",
+          "emailPlaceholder": "dpo@companie.com"
+        }
+      }
+    }
+  }
+}

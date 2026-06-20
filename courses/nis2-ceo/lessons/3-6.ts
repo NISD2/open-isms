@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "3.6",
   slug: "ciso-board-reporting",
-  title: { en: "CISO and Supervisory Board Reporting Lines", nl: "CISO en rapportagelijnen van de raad van commissarissen", de: "CISO und Berichtslinien zum Aufsichtsrat", fr: "CISO et lignes de reporting vers le conseil de surveillance", it: "CISO e linee di reporting verso il consiglio di sorveglianza", es: "CISO y líneas de reporte hacia el consejo de supervisión", pl: "CISO i linie raportowania do rady nadzorczej" },
+  title: { en: "CISO and Supervisory Board Reporting Lines", nl: "CISO en rapportagelijnen van de raad van commissarissen", de: "CISO und Berichtslinien zum Aufsichtsrat", fr: "CISO et lignes de reporting vers le conseil de surveillance", it: "CISO e linee di reporting verso il consiglio di sorveglianza", es: "CISO y líneas de reporte hacia el consejo de supervisión", pl: "CISO i linie raportowania do rady nadzorczej", cs: "CISO a linie hlášení dozorčí radě", pt: "CISO e linhas de reporte ao conselho de supervisão", ro: "CISO și liniile de raportare către consiliul de supraveghere" },
   moduleId: "module-3",
   order: 5,
   contentFile: "3-6",

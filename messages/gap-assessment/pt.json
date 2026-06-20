@@ -1,0 +1,112 @@
+{
+  "gap-assessment": {
+    "title": "Avaliação de Lacunas NIS2",
+    "subtitle": "Avalie a sua preparação para a NIS2 em 15 domínios",
+    "startAssessment": "Iniciar avaliação",
+    "resumeAssessment": "Retomar avaliação",
+    "viewResults": "Ver resultados",
+    "day": "Dia {number}",
+    "dayOf": "Dia {current} de {total}",
+    "questionsAnswered": "{answered} de {total} respondidas",
+    "saving": "A guardar...",
+    "saved": "Guardado",
+    "overview": {
+      "heading": "Visão geral da avaliação",
+      "description": "Uma autoavaliação estruturada que abrange todos os domínios de conformidade da NIS2. Responda com honestidade sobre o seu estado atual. Não há respostas certas nem erradas.",
+      "day1": "Âmbito e governação",
+      "day1desc": "Está abrangido? A sua direção compreende a sua responsabilidade?",
+      "day2": "Gestão de risco",
+      "day2desc": "Conhece os seus ativos, os seus riscos e as suas políticas de segurança?",
+      "day3": "Incidentes e continuidade do negócio",
+      "day3desc": "Consegue detetar, responder e recuperar de incidentes?",
+      "day4": "Pessoas, fornecedores e acessos",
+      "day4desc": "Os seus colaboradores estão formados, os fornecedores geridos e os acessos controlados?",
+      "day5": "Controlos técnicos e evidências",
+      "day5desc": "As suas proteções técnicas e a documentação estão prontas para auditoria?",
+      "questions": "{count} perguntas",
+      "estimatedTime": "~{minutes} min",
+      "noActiveSession": "Ainda não iniciou uma avaliação.",
+      "pastSessions": "Avaliações anteriores",
+      "score": "Pontuação: {score}%",
+      "completedOn": "Concluída a {date}",
+      "inProgress": "Em curso"
+    },
+    "question": {
+      "yes": "Sim",
+      "partially": "Parcialmente",
+      "no": "Não",
+      "notApplicable": "N/A",
+      "showExplanation": "O que significa isto?",
+      "hideExplanation": "Ocultar explicação",
+      "legalBasis": "Base legal",
+      "criticality": "Importância",
+      "criticalityLevels": {
+        "0": "Informativo",
+        "1": "Baixa",
+        "2": "Média",
+        "3": "Alta"
+      },
+      "respondent": {
+        "0": "CEO / Direção",
+        "1": "TI / Segurança",
+        "2": "RH",
+        "3": "Compras",
+        "4": "Qualquer pessoa"
+      },
+      "suggestedRespondent": "Melhor respondida por"
+    },
+    "navigation": {
+      "previousDay": "Dia anterior",
+      "nextDay": "Dia seguinte",
+      "completeAssessment": "Concluir avaliação",
+      "backToOverview": "Voltar à visão geral"
+    },
+    "results": {
+      "heading": "Resultados da avaliação",
+      "overallScore": "Pontuação global",
+      "domainScores": "Pontuações por domínio",
+      "maturityLevel": "Nível de maturidade",
+      "priorityGaps": "Lacunas prioritárias",
+      "exportPdf": "Exportar PDF",
+      "domain": "Domínio",
+      "score": "Pontuação",
+      "maturity": "Maturidade",
+      "answered": "Respondidas",
+      "noGaps": "Não foram identificadas lacunas. Excelente.",
+      "gapRank": "Prioridade",
+      "gapQuestion": "Constatação",
+      "gapDomain": "Domínio",
+      "gapConsequence": "Consequência",
+      "gapTimeToFix": "Esforço",
+      "fineRisk": "Risco de coima",
+      "viewInPlatform": "Ver na plataforma",
+      "maturityLevels": {
+        "critical": "Crítico",
+        "initial": "Inicial",
+        "developing": "Em desenvolvimento",
+        "managed": "Gerido",
+        "optimized": "Otimizado"
+      },
+      "consequenceLevels": {
+        "0": "Constatação de auditoria",
+        "1": "Risco operacional",
+        "2": "Coima",
+        "3": "Responsabilidade pessoal"
+      },
+      "timeToFixLevels": {
+        "0": "Ganho rápido",
+        "1": "Dias",
+        "2": "Semanas",
+        "3": "Meses"
+      },
+      "summary": {
+        "criticalGaps": "{count} lacunas críticas",
+        "fineExposed": "{count} criam exposição a coimas",
+        "personalLiability": "{count} criam responsabilidade pessoal para o CEO",
+        "quickWins": "{count} podem ser resolvidas de imediato"
+      },
+      "startCompliance": "Começar a fechar lacunas",
+      "retakeAssessment": "Refazer avaliação"
+    }
+  }
+}

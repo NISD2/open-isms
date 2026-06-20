@@ -1,0 +1,259 @@
+{
+  "assetInventory": {
+    "page": {
+      "metaTitle": "Inventář aktiv pro NIS2. Zdarma, bez registrace, sdílitelný odkaz",
+      "metaDescription": "Sestavte si analýzu struktury podle BSI Grundschutz 200-2 §8.1 za 5 minut. Jeden velký předzaškrtnutý seznam. Odškrtněte, co se vás netýká, doplňte, co chybí. Uložte a sdílejte odkazem. Zdarma, bez registrace, bez osobních údajů."
+    },
+    "hero": {
+      "eyebrow": "Zdarma, open source, bez registrace",
+      "headline": "Inventář aktiv pro NIS2",
+      "headlineAccent": "za 5 minut a se sdílitelným odkazem",
+      "subhead": "Předem zaškrtneme aktiva, která firma ze středního segmentu obvykle má. Odškrtněte, co se vás netýká, doplňte, co chybí. Každý stav je jeden odkaz, který si můžete uložit nebo poslat kolegovi."
+    },
+    "intro": {
+      "trustLine": "Analýza struktury podle BSI-200-2 §8.1, pětivrstvý informační soubor (Informationsverbund). NIS2 čl. 21(2)(i), BSIG §30(2) bod 9. Vaše data žijí pouze ve fragmentu URL, server je nikdy nevidí.",
+      "riskAssessmentHint": "Inventář hotový? Spusťte posouzení rizik u každého aktiva.",
+      "riskAssessmentLinkLabel": "Otevřít posouzení rizik →"
+    },
+    "steps": {
+      "back": "Zpět",
+      "restart": "Začít znovu",
+      "startChecklist": "Spustit kontrolní seznam",
+      "showOutput": "Zobrazit informační soubor"
+    },
+    "phases": {
+      "sectors": { "label": "Krok 1 ze 3: Sektor(y)" },
+      "checklist": { "label": "Krok 2 ze 3: Zkontrolujte a odškrtněte ({count} aktiv)" },
+      "output": { "label": "Hotovo. {count} aktiv ve vašem informačním souboru." }
+    },
+    "sectorPicker": {
+      "question": "Které sektory NIS2 se týkají vaší firmy?",
+      "helpText": "Vyberte vše, co platí. Aktiva specifická pro sektor se objeví v kontrolním seznamu (PLC, vozidla, zdravotnické prostředky atd.).",
+      "annexI": "Příloha I (zásadní subjekty)",
+      "annexIDescription": "Vysoká kritičnost. Proaktivní dohled BSI, pokuty až 10 mil. EUR.",
+      "annexII": "Příloha II (důležité subjekty)",
+      "annexIIDescription": "Další kritické sektory. Reaktivní dohled, pokuty až 7 mil. EUR."
+    },
+    "sectors": {
+      "energy": { "name": "Energetika (elektřina, dálkové teplo, ropa, plyn, vodík)" },
+      "transport": { "name": "Doprava (letecká, železniční, vodní, silniční)" },
+      "banking": { "name": "Bankovnictví" },
+      "financial-market-infrastructure": { "name": "Infrastruktura finančních trhů" },
+      "health": { "name": "Zdravotnictví" },
+      "drinking-water": { "name": "Pitná voda" },
+      "waste-water": { "name": "Odpadní voda" },
+      "digital-infrastructure": { "name": "Digitální infrastruktura (DNS, TLD, cloud, datové centrum, CDN, služby vytvářející důvěru)" },
+      "ict-service-management": { "name": "Správa služeb IKT (MSP, MSSP)" },
+      "space": { "name": "Vesmír" },
+      "postal-courier": { "name": "Poštovní a kurýrní služby" },
+      "waste-management": { "name": "Nakládání s odpady" },
+      "chemicals": { "name": "Chemické látky (výroba, produkce, distribuce)" },
+      "food": { "name": "Potraviny (produkce, zpracování, distribuce)" },
+      "manufacturing": { "name": "Výroba (zdravotnické prostředky, strojní zařízení, vozidla, elektronika)" },
+      "digital-providers": { "name": "Poskytovatelé digitálních služeb (tržiště, vyhledávače, sociální sítě)" },
+      "research": { "name": "Výzkum" }
+    },
+    "checklist": {
+      "heading": "Váš inventář aktiv",
+      "subtitle": "Zvýrazněné položky jsou předem zaškrtnuté, protože je má většina firem středního segmentu. Odškrtněte, co se vás netýká, na konci každé skupiny přidejte cokoli zvláštního.",
+      "addButton": "Přidat",
+      "removeCustom": "Odebrat",
+      "addPlaceholder": {
+        "geschaeftsprozess": "Přidat vlastní obchodní proces…",
+        "anwendung": "Přidat vlastní aplikaci…",
+        "it-system": "Přidat vlastní IT systém…",
+        "raum": "Přidat vlastní lokalitu…",
+        "kommunikation": "Přidat vlastní síťové spojení…"
+      }
+    },
+    "share": {
+      "copyLink": "Kopírovat odkaz",
+      "sendEmail": "Poslat e-mailem",
+      "copied": "Zkopírováno",
+      "mailSubject": "Pomozte mi dokončit náš inventář aktiv pro NIS2",
+      "mailBody": "Ahoj,\n\nzačal jsem náš inventář aktiv pro NIS2 podle §30 BSIG / čl. 21(2)(i) NIS2. Můžeš zkontrolovat, co vaše oddělení používá, a podle potřeby cokoli zaškrtnout nebo odškrtnout? Pak mi pošli nový odkaz zpět.\n\nOdkaz: {url}\n\nBez registrace, tvé úpravy aktualizují odkaz automaticky.\n\nDíky."
+    },
+    "groups": {
+      "business-processes": {
+        "label": "Obchodní procesy",
+        "description": "BSI-200-2 §8.1.3 obchodní procesy (Geschäftsprozesse). Co firma každý den skutečně dělá."
+      },
+      "customer-facing": {
+        "label": "Nástroje směrem k zákazníkům",
+        "description": "Věci viditelné pro zákazníky na internetu. Veřejná plocha pro útok."
+      },
+      "sales": {
+        "label": "Obchodní nástroje",
+        "description": "Co obchod používá ke správě příležitostí, uzavírání obchodů a reportingu."
+      },
+      "customer-service": {
+        "label": "Nástroje zákaznického servisu",
+        "description": "Jak řešíte tikety podpory, hovory a dotazy zákazníků."
+      },
+      "hr-payroll": {
+        "label": "Personalistika a mzdy",
+        "description": "Osobní údaje a mzdy. Sem patří úvahy podle čl. 9 GDPR."
+      },
+      "finance": {
+        "label": "Finance a účetnictví",
+        "description": "Účetní knihy, bankovnictví, platby, nákup. Často nejcennější cíl."
+      },
+      "it-applications": {
+        "label": "IT aplikace (používá je každý)",
+        "description": "E-mail, ukládání souborů, spolupráce, identita. Mezioborová vrstva."
+      },
+      "it-infrastructure": {
+        "label": "IT infrastruktura",
+        "description": "BSI-200-2 §8.1.6 IT systémy (IT-Systeme). Servery, cloudové platformy, síťové prvky, zálohování."
+      },
+      "endpoints": {
+        "label": "Koncové body",
+        "description": "Notebooky, stolní počítače, mobilní zařízení. Seskupeno podle tvorby skupin (Gruppenbildung)."
+      },
+      "locations": {
+        "label": "Lokality",
+        "description": "BSI-200-2 §8.1.7 prostory (Räume). Kde věci fyzicky žijí."
+      },
+      "network": {
+        "label": "Síťová spojení",
+        "description": "BSI-200-2 §8.1.5 komunikační spojení (Kommunikationsverbindungen). Jak se systémy propojují."
+      },
+      "sector-specific": {
+        "label": "Specifické pro sektor",
+        "description": "Aktiva vázaná na váš sektor. Zobrazují se jen ta, která jsou relevantní pro sektor(y) NIS2, které jste vybrali."
+      }
+    },
+    "categories": {
+      "process": "Obchodní proces",
+      "application": "Aplikace",
+      "server": "Server",
+      "endpoint": "Koncový bod",
+      "network": "Síťové zařízení",
+      "cloud_service": "Cloudová služba",
+      "data_store": "Úložiště dat",
+      "ot_ics": "OT / ICS",
+      "iot": "Zařízení IoT",
+      "physical": "Fyzické aktivum",
+      "room": "Místnost nebo lokalita",
+      "database": "Databáze"
+    },
+    "layers": {
+      "geschaeftsprozess": {
+        "label": "Obchodní procesy (Geschäftsprozesse)",
+        "description": "BSI-200-2 §8.1.3. Obchodní procesy, které vaše IT podporuje."
+      },
+      "anwendung": {
+        "label": "Aplikace (Anwendungen)",
+        "description": "BSI-200-2 §8.1.4. Software, na kterém procesy závisejí."
+      },
+      "it-system": {
+        "label": "IT systémy (IT-Systeme)",
+        "description": "BSI-200-2 §8.1.6. Hardware, virtuální systémy, ICS, IoT."
+      },
+      "raum": {
+        "label": "Prostory (Räume)",
+        "description": "BSI-200-2 §8.1.7. Fyzické lokality."
+      },
+      "kommunikation": {
+        "label": "Komunikační spojení (Kommunikationsverbindungen)",
+        "description": "BSI-200-2 §8.1.5. Vnitřní a vnější síťová spojení."
+      }
+    },
+    "output": {
+      "heading": "Váš informační soubor (BSI-200-2 §8.1)",
+      "subtitle": "Pětivrstvá struktura připravená pro stanovení potřeby ochrany podle §8.2 (Schutzbedarfsfeststellung). Každá položka má automaticky vygenerovaný identifikátor (P/A/S/R/N + číslo) podle konvence atributů BSI §8.1.",
+      "empty": "V této vrstvě zatím není nic zachyceno.",
+      "printPdf": "Vytisknout nebo uložit jako PDF",
+      "downloadCsv": "Stáhnout CSV"
+    },
+    "catalog": {
+      "bp-sales-cs": { "label": "Obchod a zákaznický servis" },
+      "bp-production-service": { "label": "Výroba nebo poskytování služeb" },
+      "bp-procurement": { "label": "Nákup" },
+      "bp-hr-payroll": { "label": "Správa personalistiky a mezd" },
+      "bp-finance-accounting": { "label": "Finance a účetnictví" },
+      "bp-marketing": { "label": "Marketing a vnější komunikace" },
+      "bp-it-operations": { "label": "Provoz IT" },
+      "bp-legal-compliance": { "label": "Právo a compliance" },
+      "cf-website": { "label": "Firemní web" },
+      "cf-webshop": { "label": "Webshop nebo online objednávky" },
+      "cf-customer-portal": { "label": "Zákaznický portál (přihlášení)" },
+      "cf-mobile-app": { "label": "Mobilní aplikace" },
+      "cf-newsletter": { "label": "Systém newsletteru (Mailchimp, Brevo)" },
+      "cf-contact-form": { "label": "Kontaktní formulář na webu" },
+      "sales-crm": { "label": "CRM (Salesforce, HubSpot, Pipedrive)" },
+      "sales-lead-gen": { "label": "Nástroj na generování a vyhledávání kontaktů (Apollo, ZoomInfo)" },
+      "sales-quote-proposal": { "label": "Generátor nabídek a cenových návrhů (PandaDoc)" },
+      "sales-e-signature": { "label": "Elektronický podpis (DocuSign, Adobe Sign)" },
+      "sales-demo-meeting": { "label": "Nástroj pro videoschůzky a dema (Teams, Zoom, Meet)" },
+      "sales-analytics": { "label": "Obchodní analytika nebo BI dashboard" },
+      "cs-helpdesk": { "label": "Helpdesk / ticketing (Zendesk, Intercom)" },
+      "cs-voip": { "label": "Telefonní / VoIP systém" },
+      "cs-live-chat": { "label": "Živý chat na webu" },
+      "cs-knowledge-base": { "label": "Znalostní báze nebo systém FAQ" },
+      "cs-feedback": { "label": "Nástroj na ankety nebo zpětnou vazbu" },
+      "hr-hris": { "label": "HRIS (Personio, BambooHR, Workday)" },
+      "hr-payroll": { "label": "Mzdy (DATEV Lohn, Lexware, sage)" },
+      "hr-recruiting": { "label": "Nábor / sledování uchazečů" },
+      "hr-time-tracking": { "label": "Evidence docházky" },
+      "hr-personnel-files": { "label": "Digitální osobní složky" },
+      "hr-lms": { "label": "Systém pro řízení vzdělávání (LMS)" },
+      "hr-performance": { "label": "Nástroj na hodnocení výkonu" },
+      "fin-accounting": { "label": "Účetní software (DATEV, Lexware, sevDesk, lexoffice)" },
+      "fin-erp": { "label": "ERP (SAP, Microsoft Dynamics, ProAlpha)" },
+      "fin-online-banking": { "label": "Portály internetového bankovnictví" },
+      "fin-payment-processing": { "label": "Zpracování plateb (Stripe, PayPal, Klarna)" },
+      "fin-expense": { "label": "Správa výdajů (Pleo, Spendesk, Moss)" },
+      "fin-procurement-system": { "label": "Systém nákupu / objednávek" },
+      "fin-invoicing": { "label": "Fakturační systém" },
+      "it-email": { "label": "E-mail (Microsoft 365, Google Workspace, Exchange)" },
+      "it-file-storage": { "label": "Sdílené úložiště souborů (SharePoint, Google Drive, NAS)" },
+      "it-video-conferencing": { "label": "Videokonference (Teams, Zoom, Meet)" },
+      "it-internal-chat": { "label": "Interní chat (Slack, Teams)" },
+      "it-document-mgmt": { "label": "Správa dokumentů (DMS)" },
+      "it-wiki-kb": { "label": "Wiki nebo interní znalostní báze (Confluence, Notion)" },
+      "it-identity-provider": { "label": "Poskytovatel identity (Azure AD/Entra, Google Workspace, Okta)" },
+      "it-endpoint-protection": { "label": "Ochrana koncových bodů (Defender, CrowdStrike, SentinelOne)" },
+      "it-monitoring": { "label": "Monitoring (Datadog, Grafana)" },
+      "it-password-manager": { "label": "Správce hesel (1Password, LastPass, Bitwarden)" },
+      "it-code-repos": { "label": "Repozitáře kódu (GitHub, GitLab, Bitbucket)" },
+      "it-project-management": { "label": "Řízení projektů (Jira, Asana, Linear)" },
+      "it-patch-rmm": { "label": "Správa záplat / RMM" },
+      "infra-onprem-servers": { "label": "Servery v místě (on-premise)" },
+      "infra-cloud-platform": { "label": "Cloudová platforma (AWS, Azure, GCP, Hetzner)" },
+      "infra-network-equipment": { "label": "Síťové prvky (firewall, přepínače, WiFi)" },
+      "infra-backup-system": { "label": "Zálohovací systém (Veeam, NAS, cloudové zálohy)" },
+      "infra-printer-fleet": { "label": "Kancelářské tiskárny / skenery" },
+      "ep-laptops": { "label": "Notebooky a stolní počítače" },
+      "ep-mobile": { "label": "Firemní mobilní zařízení (telefony, tablety)" },
+      "ep-byod": { "label": "BYOD (osobní zařízení zaměstnanců s přístupem k firemním datům)" },
+      "loc-main-office": { "label": "Hlavní kancelář" },
+      "loc-branch-offices": { "label": "Další kanceláře / pobočky" },
+      "loc-server-room": { "label": "Serverovna (v místě)" },
+      "loc-datacenter": { "label": "Datové centrum (vlastní nebo pronajatý rack)" },
+      "loc-employee-homes": { "label": "Domácí kanceláře zaměstnanců" },
+      "loc-warehouse": { "label": "Sklad nebo skladovací zařízení" },
+      "net-internet": { "label": "Připojení k internetu (ISP)" },
+      "net-vpn": { "label": "VPN nebo vzdálený přístup Zero Trust" },
+      "net-third-party-api": { "label": "Integrace API třetích stran" },
+      "net-site-to-site": { "label": "Spojení mezi lokalitami (dodavatel, zákazník)" },
+      "sec-plc-scada": { "label": "Řídicí jednotky PLC / SCADA" },
+      "sec-mes": { "label": "MES (systém řízení výroby)" },
+      "sec-cad-plm": { "label": "CAD / PLM (konstrukční data)" },
+      "sec-warehouse-mgmt": { "label": "Systém řízení skladu (WMS)" },
+      "sec-fleet-vehicles": { "label": "Vozidla s telematikou / GPS" },
+      "sec-medical-devices": { "label": "Síťové zdravotnické prostředky" },
+      "sec-ehr-his": { "label": "Nemocniční informační systém (KIS / HIS / EHR)" },
+      "sec-lab-instruments": { "label": "Síťové laboratorní přístroje / LIMS" },
+      "sec-energy-scada": { "label": "Energetický řídicí systém SCADA" },
+      "sec-water-scada": { "label": "SCADA pro vodu / odpadní vodu" },
+      "sec-trading-platform": { "label": "Připojení obchodní platformy (SWIFT, SEPA, burza)" },
+      "sec-atm-fleet": { "label": "Síť bankomatů / samoobslužných terminálů" },
+      "sec-dns-tld": { "label": "Infrastruktura DNS / TLD" },
+      "sec-citizen-portal": { "label": "Občanský portál (eGov, OZG)" }
+    },
+    "disclaimer": {
+      "methodologyDisclosure": "Inventář aktiv v souladu s analýzou struktury podle BSI-200-2 §8.1 (pětivrstvý informační soubor a tvorba skupin podle lekce 3). Výstupem je první verze inventáře, kterou můžete předat konzultantovi nebo načíst do posouzení rizik. Plný soulad s §8.1 navíc vyžaduje aktuální síťový plán (Netzplan), vazby závislostí mezi vrstvami a schválení vedoucím orgánem (§38 BSIG, čl. 20 NIS2). Stav inventáře žije pouze ve fragmentu URL, server jej nikdy nedostane."
+    }
+  }
+}

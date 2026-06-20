@@ -1,0 +1,24 @@
+{
+  "methodology": {
+    "title": "Metodologia de evaluare a riscurilor",
+    "loading": "Se încarcă metodologia...",
+    "saved": "Metodologie salvată",
+    "saveFailed": "Salvarea metodologiei a eșuat",
+    "edit": "Editează",
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "methodologyName": "Numele metodologiei",
+    "likelihoodScale": "Scala de probabilitate",
+    "impactScale": "Scala de impact",
+    "label": "Etichetă",
+    "description": "Descriere",
+    "addLevel": "Adaugă nivel",
+    "removeLevel": "Elimină ultimul",
+    "riskMatrix": "Matricea riscurilor",
+    "acceptanceThreshold": "Pragul de acceptare",
+    "thresholdHelp": "Riscurile cu scor ≤ {threshold} pot fi acceptate fără tratare",
+    "includesOt": "Metodologia acoperă sistemele OT/ICS (§30(2) BSIG)",
+    "clickToSelect": "Apăsați pe o celulă pentru a selecta probabilitate × impact",
+    "selectedScore": "Scor selectat"
+  }
+}

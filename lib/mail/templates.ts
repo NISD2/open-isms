@@ -1100,6 +1100,27 @@ const VERIFICATION_COPY: Record<
     expiryNote: "Kod jest ważny przez 10 minut.",
     ignoreNote: "Jeśli to nie Ty wysłałeś tę prośbę, zignoruj tę wiadomość.",
   },
+  cs: {
+    subjectPrefix: "Ověřovací kód NISD2",
+    heading: "Ověřte svůj e-mail",
+    intro: "Zadejte tento kód na přihlašovací obrazovce a ověřte svou e-mailovou adresu.",
+    expiryNote: "Kód je platný 10 minut.",
+    ignoreNote: "Pokud jste o to nežádali, tento e-mail ignorujte.",
+  },
+  pt: {
+    subjectPrefix: "Código de verificação NISD2",
+    heading: "Verifique o seu e-mail",
+    intro: "Introduza este código no ecrã de início de sessão para verificar o seu endereço de e-mail.",
+    expiryNote: "O código é válido durante 10 minutos.",
+    ignoreNote: "Se não solicitou isto, ignore este e-mail.",
+  },
+  ro: {
+    subjectPrefix: "Cod de verificare NISD2",
+    heading: "Verificați-vă adresa de e-mail",
+    intro: "Introduceți acest cod în ecranul de autentificare pentru a vă verifica adresa de e-mail.",
+    expiryNote: "Codul este valabil timp de 10 minute.",
+    ignoreNote: "Dacă nu ați solicitat acest lucru, ignorați acest e-mail.",
+  },
 };
 
 export function emailVerificationCodeEmail(opts: {
@@ -1197,6 +1218,27 @@ const PASSWORD_RESET_COPY: Record<
     intro: "Wprowadź ten kod razem z nowym hasłem, aby zakończyć resetowanie.",
     expiryNote: "Kod jest ważny przez 10 minut.",
     ignoreNote: "Jeśli to nie Ty wysłałeś tę prośbę, zignoruj tę wiadomość. Twoje hasło pozostaje bez zmian.",
+  },
+  cs: {
+    subjectPrefix: "Kód pro obnovení hesla NISD2",
+    heading: "Obnovte své heslo",
+    intro: "Zadejte tento kód spolu s novým heslem a dokončete obnovení.",
+    expiryNote: "Kód je platný 10 minut.",
+    ignoreNote: "Pokud jste o to nežádali, tento e-mail ignorujte. Vaše heslo zůstává beze změny.",
+  },
+  pt: {
+    subjectPrefix: "Código de redefinição de palavra-passe NISD2",
+    heading: "Redefina a sua palavra-passe",
+    intro: "Introduza este código juntamente com a sua nova palavra-passe para concluir a redefinição.",
+    expiryNote: "O código é válido durante 10 minutos.",
+    ignoreNote: "Se não solicitou isto, ignore este e-mail. A sua palavra-passe permanece inalterada.",
+  },
+  ro: {
+    subjectPrefix: "Cod de resetare a parolei NISD2",
+    heading: "Resetați-vă parola",
+    intro: "Introduceți acest cod împreună cu noua parolă pentru a finaliza resetarea.",
+    expiryNote: "Codul este valabil timp de 10 minute.",
+    ignoreNote: "Dacă nu ați solicitat acest lucru, ignorați acest e-mail. Parola dumneavoastră rămâne neschimbată.",
   },
 };
 

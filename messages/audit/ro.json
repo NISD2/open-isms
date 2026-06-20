@@ -1,0 +1,11 @@
+{
+  "audit": {
+    "title": "Pistă de audit",
+    "subtitle": "Jurnal cu protecție la modificare al tuturor acțiunilor relevante pentru conformitate",
+    "noEntries": "Încă nu există înregistrări în jurnalul de audit.",
+    "description": "Descriere",
+    "action": "Acțiune",
+    "user": "Utilizator",
+    "time": "Oră"
+  }
+}
