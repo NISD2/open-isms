@@ -18,6 +18,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -124,13 +127,20 @@ export function UserNav({ user }: UserNavProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {LOCALES.map((opt) => (
-              <DropdownMenuItem key={opt.code} onClick={() => switchLocale(opt.code)}>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
                 <Globe className="mr-2 h-4 w-4" />
-                {opt.label}
-                {locale === opt.code && <Check className="ml-auto h-4 w-4" />}
-              </DropdownMenuItem>
-            ))}
+                {LOCALES.find((l) => l.code === locale)?.label ?? locale.toUpperCase()}
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent>
+                {LOCALES.map((opt) => (
+                  <DropdownMenuItem key={opt.code} onClick={() => switchLocale(opt.code)}>
+                    {opt.label}
+                    {locale === opt.code && <Check className="ml-auto h-4 w-4" />}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
             {user.isPlatformAdmin && (
               <>
                 <DropdownMenuSeparator />
