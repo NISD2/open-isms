@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter, usePathname } from "@/i18n/navigation";
+import { useParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
 import {
@@ -42,11 +43,20 @@ export function UserNav({ user }: UserNavProps) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
   const { isMobile } = useSidebar();
 
   function switchLocale(next: string) {
     if (next === locale) return;
-    router.replace(pathname as never, { locale: next as LocaleCode });
+    // `usePathname()` returns the route template (e.g.
+    // `/training/courses/[courseId]/[lessonId]`); the dynamic segments are
+    // filled from `params` so they survive the locale switch. Passing the bare
+    // template without params leaves the `[..]` placeholders literal and
+    // breaks every dynamic route (compliance requirements, course lessons).
+    router.replace(
+      { pathname, params } as Parameters<typeof router.replace>[0],
+      { locale: next as LocaleCode },
+    );
   }
 
   return (
