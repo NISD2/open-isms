@@ -22,6 +22,7 @@
  *   list also creates a new relationship row via the existing invite flow.
  */
 import { Link, usePathname } from "@/i18n/navigation";
+import { useParams } from "next/navigation";
 import {
   Building2,
   ListChecks,
@@ -108,6 +109,10 @@ export function SupplierAppSidebar({
   customers,
 }: SupplierAppSidebarProps) {
   const pathname = usePathname();
+  // `usePathname()` returns the route template (e.g.
+  // `/portal/supplier/customers/[relationshipId]/assets`), so per-customer
+  // active-state compares the resolved param, not concrete URL strings.
+  const params = useParams<{ relationshipId?: string }>();
 
   // Active customers only — revoked/bounced rows still exist for audit but
   // shouldn't clutter the sidebar.
@@ -165,8 +170,7 @@ export function SupplierAppSidebar({
               ) : (
                 <>
                   {visibleCustomers.map((c) => {
-                    const base = `/portal/supplier/customers/${c.id}`;
-                    const isActive = pathname.startsWith(base);
+                    const isActive = params.relationshipId === c.id;
                     return (
                       <SidebarMenuItem key={c.id}>
                         <SidebarMenuButton
@@ -190,7 +194,7 @@ export function SupplierAppSidebar({
                             <SidebarMenuSubItem>
                               <SidebarMenuSubButton
                                 asChild
-                                isActive={pathname === `${base}/assets`}
+                                isActive={pathname === "/portal/supplier/customers/[relationshipId]/assets"}
                               >
                                 <Link
                                   href={{
@@ -207,7 +211,7 @@ export function SupplierAppSidebar({
                             <SidebarMenuSubItem>
                               <SidebarMenuSubButton
                                 asChild
-                                isActive={pathname === `${base}/incidents`}
+                                isActive={pathname === "/portal/supplier/customers/[relationshipId]/incidents"}
                               >
                                 <Link
                                   href={{
@@ -224,7 +228,7 @@ export function SupplierAppSidebar({
                             <SidebarMenuSubItem>
                               <SidebarMenuSubButton
                                 asChild
-                                isActive={pathname === `${base}/access`}
+                                isActive={pathname === "/portal/supplier/customers/[relationshipId]/access"}
                               >
                                 <Link
                                   href={{

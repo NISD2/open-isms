@@ -1,6 +1,7 @@
 "use client";
 
 import { Link, usePathname } from "@/i18n/navigation";
+import { useParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import {
   BookOpen,
@@ -65,6 +66,10 @@ export function TrainingAppSidebar({
   const t = useTranslations("trainingPortal");
   const locale = useLocale();
   const pathname = usePathname();
+  // `usePathname()` returns the route template (e.g.
+  // `/training/courses/[courseId]/[lessonId]`), so active-state and the current
+  // lesson must come from the resolved params, not concrete URL strings.
+  const params = useParams<{ courseId?: string; lessonId?: string }>();
 
   return (
     <Sidebar collapsible="icon">
@@ -92,7 +97,7 @@ export function TrainingAppSidebar({
               <SidebarMenuItem>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === `/training/courses/${courseId}`}
+                  isActive={params.courseId === courseId && !params.lessonId}
                   className="h-8"
                 >
                   <Link
@@ -117,7 +122,7 @@ export function TrainingAppSidebar({
             completedLessons.has(id),
           ).length;
 
-          const currentLessonId = pathname.split("/").pop();
+          const currentLessonId = params.lessonId;
           const hasActiveChild = mod.lessonIds.some(
             (id) => id === currentLessonId,
           );
@@ -147,7 +152,7 @@ export function TrainingAppSidebar({
                         const isCompleted = completedLessons.has(lessonId);
                         const isAvailable = availableLessons.has(lessonId);
                         const lessonPath = `/training/courses/${courseId}/${lessonId}`;
-                        const isActive = pathname === lessonPath;
+                        const isActive = params.lessonId === lessonId;
                         const title =
                           lessonMetas[lessonId]?.title?.[locale] ?? lessonMetas[lessonId]?.title?.en ?? lessonId;
 

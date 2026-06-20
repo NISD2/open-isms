@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useOptimistic, useTransition } from "react";
-import { useRouter, usePathname } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { trpc } from "@/lib/trpc/client";
 import { Button } from "@/components/ui/button";
@@ -39,7 +40,13 @@ export function AssignmentPopover({
 }: AssignmentPopoverProps) {
   const t = useTranslations("compliance");
   const router = useRouter();
-  const pathname = usePathname();
+  const params = useParams<{ categorySlug?: string }>();
+  // Send invited assignees back to where they are now. `usePathname()` from
+  // next-intl yields the route *template* (`/compliance/[categorySlug]`),
+  // which 404s after accept, so build the concrete path from the param.
+  const redirectPath = params.categorySlug
+    ? `/compliance/${params.categorySlug}`
+    : "/compliance";
   const [isPending, startTransition] = useTransition();
   const [showInvite, setShowInvite] = useState(false);
 
@@ -146,7 +153,7 @@ export function AssignmentPopover({
             <InlineInvite
               compact
               placeholder={t("invitePlaceholder")}
-              redirectPath={pathname}
+              redirectPath={redirectPath}
               assignmentContext={{ assessmentId, categoryId }}
               onInvited={() => setShowInvite(false)}
             />

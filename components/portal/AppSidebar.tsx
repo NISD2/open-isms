@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import {
@@ -100,6 +101,9 @@ export function AppSidebar({
   const t = useTranslations("portal");
   const tReq = useTranslations("requirements");
   const pathname = usePathname();
+  // `usePathname()` returns the route template (e.g. `/compliance/[categorySlug]`),
+  // so active-state must compare the resolved params, not concrete URL strings.
+  const params = useParams<{ categorySlug?: string; requirementCode?: string }>();
 
   const overviewItems: NavItem[] = [
     { href: "/dashboard", label: t("dashboard"), icon: LayoutDashboard },
@@ -213,7 +217,6 @@ export function AppSidebar({
                           <SidebarMenu>
                             {phase.steps.map((step) => {
                               const categoryPath = `/compliance/${step.slug}`;
-                              const isActive = pathname === categoryPath || pathname.startsWith(`${categoryPath}/`);
                               const isCompleted =
                                 step.completedCount >= step.requirementCount &&
                                 step.requirementCount > 0;
@@ -230,7 +233,7 @@ export function AppSidebar({
                                   <SidebarMenuItem>
                                     <SidebarMenuButton
                                       asChild
-                                      isActive={pathname === categoryPath}
+                                      isActive={params.categorySlug === step.slug && !params.requirementCode}
                                       tooltip={step.name}
                                       size="sm"
                                     >
@@ -286,7 +289,7 @@ export function AppSidebar({
                                           ) : (
                                             <SidebarMenuSubButton
                                               asChild
-                                              isActive={pathname === reqPath}
+                                              isActive={params.categorySlug === step.slug && params.requirementCode === reqCode}
                                             >
                                               <Link href={reqPath as never} prefetch={false}>
                                                 {content}
