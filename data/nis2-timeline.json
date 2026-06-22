@@ -272,6 +272,83 @@
       "url": "https://www.eversheds-sutherland.com/en/global/insights/nis-2-implementation-tracker-eu-member-states-overview",
       "description": "Law-firm tracker of NIS 2 transposition status and obligations per EU Member State.",
       "language": "en"
+    },
+    {
+      "id": "ria-ee",
+      "name": "RIA (Riigi Infosuesteemi Amet)",
+      "url": "https://www.ria.ee",
+      "description": "Estonian Information System Authority, national NIS 2 competent authority and CERT-EE operator.",
+      "language": "both"
+    },
+    {
+      "id": "latvijas-vestnesis",
+      "name": "Latvijas Vestnesis",
+      "url": "https://www.vestnesis.lv",
+      "description": "Official gazette of the Republic of Latvia.",
+      "language": "en"
+    },
+    {
+      "id": "narodne-novine",
+      "name": "Narodne novine",
+      "url": "https://narodne-novine.nn.hr",
+      "description": "Official gazette of the Republic of Croatia.",
+      "language": "en"
+    },
+    {
+      "id": "slov-lex",
+      "name": "Slov-Lex",
+      "url": "https://www.slov-lex.sk",
+      "description": "Official Slovak legal information system (Zbierka zakonov), Ministry of Justice.",
+      "language": "en"
+    },
+    {
+      "id": "uradni-list",
+      "name": "Uradni list RS",
+      "url": "https://www.uradni-list.si",
+      "description": "Official Gazette of the Republic of Slovenia.",
+      "language": "en"
+    },
+    {
+      "id": "njt-hu",
+      "name": "Nemzeti Jogszabalytar",
+      "url": "https://njt.jog.gov.hu",
+      "description": "Hungarian National Legislation Database (official).",
+      "language": "en"
+    },
+    {
+      "id": "legislatie-just-ro",
+      "name": "Portal Legislativ",
+      "url": "https://legislatie.just.ro",
+      "description": "Romanian official legislation portal (Ministry of Justice).",
+      "language": "en"
+    },
+    {
+      "id": "cyber-gov-gr",
+      "name": "Greek National Cyber Security Authority",
+      "url": "https://cyber.gov.gr/en/nis2/",
+      "description": "Official NIS 2 page of Greece's National Cyber Security Authority (Law 5160/2024, FEK A' 195).",
+      "language": "en"
+    },
+    {
+      "id": "cylaw",
+      "name": "CyLaw",
+      "url": "https://www.cylaw.org/",
+      "description": "Cyprus legal information portal with consolidated statute texts, incl. Law 89(I)/2020 as amended by Law 60(I)/2025.",
+      "language": "en"
+    },
+    {
+      "id": "legislation-mt",
+      "name": "Laws of Malta",
+      "url": "https://legislation.mt/",
+      "description": "Official Maltese legislation portal with ELI deep-links, incl. Legal Notice 71 of 2025 (S.L. 460.41).",
+      "language": "en"
+    },
+    {
+      "id": "ris-bka",
+      "name": "RIS (Rechtsinformationssystem des Bundes)",
+      "url": "https://www.ris.bka.gv.at/",
+      "description": "Austrian Federal Legal Information System and authentic Federal Law Gazette, incl. NISG 2026 (BGBl. I Nr. 94/2025).",
+      "language": "de"
     }
   ],
   "events": [
@@ -1837,7 +1914,189 @@
       "sourceId": "eerstekamer",
       "sourceUrl": "https://www.eerstekamer.nl/wetsvoorstel/36764_cyberbeveiligingswet",
       "addedAt": "2026-06-20T09:18:24Z"
+    },
+    {
+      "id": "2024-02-15-national-transposition-hr-zakon-o-kibernetickoj-sigurnosti",
+      "date": "2024-02-15",
+      "category": "national-transposition",
+      "tags": ["hr", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Croatia: Zakon o kibernetickoj sigurnosti (NIS 2 transposition) enters into force",
+      "titleDe": "Kroatien: Zakon o kibernetickoj sigurnosti (NIS-2-Umsetzung) tritt in Kraft",
+      "summary": "Croatia transposes the NIS 2 Directive (EU) 2022/2555. The Cybersecurity Act (Zakon o kibernetickoj sigurnosti), published in Narodne novine 14/2024, enters into force on 15 February 2024, making Croatia one of the earliest Member States to transpose. It defines essential and important entities and assigns supervision under the national cybersecurity framework.",
+      "summaryDe": "Kroatien setzt die NIS-2-Richtlinie (EU) 2022/2555 um. Das Cybersicherheitsgesetz (Zakon o kibernetickoj sigurnosti), veroeffentlicht in Narodne novine 14/2024, tritt am 15. Februar 2024 in Kraft. Kroatien gehoert damit zu den fruehesten Mitgliedstaaten mit Umsetzung. Das Gesetz definiert wesentliche und wichtige Einrichtungen und regelt die Aufsicht im nationalen Cybersicherheitsrahmen.",
+      "sourceId": "narodne-novine",
+      "sourceUrl": "https://narodne-novine.nn.hr/clanci/sluzbeni/2024_02_14_254.html",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2024-09-01-national-transposition-lv-kiberdrosibas-likums",
+      "date": "2024-09-01",
+      "category": "national-transposition",
+      "tags": ["lv", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Latvia: National Cybersecurity Law (NIS 2 transposition) enters into force",
+      "titleDe": "Lettland: Nationales Cybersicherheitsgesetz (NIS-2-Umsetzung) tritt in Kraft",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 is transposed in Latvia by the National Cybersecurity Law (Nacionalas kiberdrosibas likums), adopted by the Saeima on 20 June 2024, published in Latvijas Vestnesis on 4 July 2024, and in force from 1 September 2024.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wird in Lettland durch das Nationale Cybersicherheitsgesetz (Nacionalas kiberdrosibas likums) umgesetzt, das die Saeima am 20. Juni 2024 verabschiedete, das am 4. Juli 2024 in Latvijas Vestnesis veroeffentlicht wurde und seit 1. September 2024 in Kraft ist.",
+      "sourceId": "latvijas-vestnesis",
+      "sourceUrl": "https://www.vestnesis.lv/ta/id/353390",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2024-10-18-national-transposition-lt-kibernetinio-saugumo-istatymas",
+      "date": "2024-10-18",
+      "category": "national-transposition",
+      "tags": ["lt", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Lithuania: amended Cybersecurity Law (NIS 2 transposition) enters into force",
+      "titleDe": "Litauen: geaendertes Cybersicherheitsgesetz (NIS-2-Umsetzung) tritt in Kraft",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 is transposed in Lithuania by the Law on Cyber Security (Kibernetinio saugumo istatymas, No. XII-1428 as amended by Law XIV-2902), adopted on 11 July 2024 and in force from 18 October 2024.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wird in Litauen durch das Cybersicherheitsgesetz (Kibernetinio saugumo istatymas, Nr. XII-1428 in der durch Gesetz XIV-2902 geaenderten Fassung) umgesetzt, das am 11. Juli 2024 verabschiedet wurde und seit 18. Oktober 2024 in Kraft ist.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/nis-transposition",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2024-11-27-national-transposition-gr-law-5160-2024",
+      "date": "2024-11-27",
+      "category": "national-transposition",
+      "tags": ["gr", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Greece transposes NIS 2 with Law 5160/2024",
+      "titleDe": "Griechenland setzt NIS 2 mit Gesetz 5160/2024 um",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 was transposed into Greek law by Law 5160/2024, published in Government Gazette FEK A' 195 of 27 November 2024 and in force from that date. The law reorganises the national cybersecurity framework under the National Cyber Security Authority and expands the population of essential and important entities.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wurde durch das Gesetz 5160/2024 in griechisches Recht umgesetzt, veroeffentlicht im Regierungsanzeiger FEK A' 195 vom 27. November 2024 und seither in Kraft. Das Gesetz ordnet den nationalen Cybersicherheitsrahmen unter der nationalen Cybersicherheitsbehoerde neu und erweitert den Kreis der wesentlichen und wichtigen Einrichtungen.",
+      "sourceId": "cyber-gov-gr",
+      "sourceUrl": "https://cyber.gov.gr/en/nis2/",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2025-01-01-national-transposition-hu-act-lxix-2024-in-force",
+      "date": "2025-01-01",
+      "category": "national-transposition",
+      "tags": ["hu", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Hungary: Act LXIX of 2024 on Cybersecurity enters into force",
+      "titleDe": "Ungarn: Gesetz LXIX von 2024 ueber Cybersicherheit tritt in Kraft",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 is transposed in Hungary by Act LXIX of 2024 on the Cybersecurity of Hungary (2024. evi LXIX. torveny), adopted by Parliament on 20 December 2024 and in force from 1 January 2025. It replaces the earlier partial transposition (Act XXIII of 2023) and consolidates Hungary's cybersecurity regime into one framework supervised by the SZTFH.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wird in Ungarn durch das Gesetz LXIX von 2024 ueber die Cybersicherheit Ungarns (2024. evi LXIX. torveny) umgesetzt, vom Parlament am 20. Dezember 2024 verabschiedet und seit 1. Januar 2025 in Kraft. Es loest die fruehere Teilumsetzung (Gesetz XXIII von 2023) ab und buendelt die ungarische Cybersicherheitsregelung in einem von der SZTFH beaufsichtigten Rahmen.",
+      "sourceId": "njt-hu",
+      "sourceUrl": "https://njt.jog.gov.hu/jogszabaly/2024-69-00-00",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2025-01-01-national-transposition-sk-zakon-366-2024",
+      "date": "2025-01-01",
+      "category": "national-transposition",
+      "tags": ["sk", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Slovakia: Act 366/2024 Z.z. amending the Cybersecurity Act (NIS 2 transposition) enters into force",
+      "titleDe": "Slowakei: Gesetz 366/2024 Z.z. zur Aenderung des Cybersicherheitsgesetzes (NIS-2-Umsetzung) tritt in Kraft",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 is transposed in Slovakia by Act 366/2024 Z.z., amending Act 69/2018 Z.z. on cybersecurity (zakon o kybernetickej bezpecnosti), in force from 1 January 2025. It expands the scope of regulated entities and assigns supervision to the National Security Authority (NBU).",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wird in der Slowakei durch das Gesetz 366/2024 Z.z. zur Aenderung des Gesetzes 69/2018 Z.z. ueber Cybersicherheit (zakon o kybernetickej bezpecnosti) umgesetzt, in Kraft seit 1. Januar 2025. Es erweitert den Kreis der regulierten Einrichtungen und weist die Aufsicht der Nationalen Sicherheitsbehoerde (NBU) zu.",
+      "sourceId": "slov-lex",
+      "sourceUrl": "https://www.slov-lex.sk/ezbierky/pravne-predpisy/SK/ZZ/2024/366/",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2025-04-08-national-transposition-mt-ln-71-2025",
+      "date": "2025-04-08",
+      "category": "national-transposition",
+      "tags": ["mt", "transposition", "legislation"],
+      "type": "update",
+      "title": "Malta enacts NIS 2 transposition via Legal Notice 71 of 2025",
+      "titleDe": "Malta erlaesst NIS-2-Umsetzung durch Legal Notice 71 von 2025",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 was transposed into Maltese law by the Measures for a High Common Level of Cybersecurity across the European Union (Malta) Order, 2025, Legal Notice 71 of 2025 (S.L. 460.41), published in Government Gazette No. 21,418 of 8 April 2025. Its provisions take effect on dates set by the responsible minister, so the order is enacted with phased commencement.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wurde durch die Verordnung ueber Massnahmen fuer ein hohes gemeinsames Cybersicherheitsniveau in der Europaeischen Union (Malta) von 2025, Legal Notice 71 von 2025 (S.L. 460.41), in maltesisches Recht umgesetzt, veroeffentlicht im Regierungsanzeiger Nr. 21.418 vom 8. April 2025. Ihre Bestimmungen treten zu vom zustaendigen Minister festgelegten Zeitpunkten in Kraft (gestufte Inkraftsetzung).",
+      "sourceId": "legislation-mt",
+      "sourceUrl": "https://legislation.mt/eli/ln/2025/71/eng",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2025-04-25-national-transposition-cy-law-60-i-2025",
+      "date": "2025-04-25",
+      "category": "national-transposition",
+      "tags": ["cy", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Cyprus transposes NIS 2 with Law 60(I)/2025",
+      "titleDe": "Zypern setzt NIS 2 mit Gesetz 60(I)/2025 um",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 was transposed into Cypriot law by the Security of Networks and Information Systems (Amendment) Law of 2025, Law 60(I)/2025, which amends Law 89(I)/2020 and came into force on 25 April 2025. The amendment widens the set of essential and important entities and tightens risk management and incident reporting duties.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wurde durch das Gesetz ueber die Sicherheit von Netz- und Informationssystemen (Aenderung) von 2025, Gesetz 60(I)/2025, in zyprisches Recht umgesetzt. Es aendert das Gesetz 89(I)/2020 und trat am 25. April 2025 in Kraft. Die Aenderung erweitert den Kreis der wesentlichen und wichtigen Einrichtungen und verschaerft die Pflichten zu Risikomanagement und Vorfallsmeldung.",
+      "sourceId": "cylaw",
+      "sourceUrl": "https://www.cylaw.org/nomoi/enop/non-ind/2020_1_89/full.html",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2025-06-19-national-transposition-si-zinfv-1",
+      "date": "2025-06-19",
+      "category": "national-transposition",
+      "tags": ["si", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Slovenia: Information Security Act (ZInfV-1) (NIS 2 transposition) enters into force",
+      "titleDe": "Slowenien: Informationssicherheitsgesetz (ZInfV-1) (NIS-2-Umsetzung) tritt in Kraft",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 is transposed in Slovenia by the Information Security Act (Zakon o informacijski varnosti, ZInfV-1), published in Uradni list RS 40/25 on 4 June 2025 and in force from 19 June 2025. It defines essential and important entities and assigns supervision to the national information security authority URSIV.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wird in Slowenien durch das Informationssicherheitsgesetz (Zakon o informacijski varnosti, ZInfV-1) umgesetzt, veroeffentlicht im Uradni list RS 40/25 am 4. Juni 2025 und in Kraft seit 19. Juni 2025. Es definiert wesentliche und wichtige Einrichtungen und weist die Aufsicht der nationalen Informationssicherheitsbehoerde URSIV zu.",
+      "sourceId": "uradni-list",
+      "sourceUrl": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-1571",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2025-07-10-national-transposition-ro-oug-155-2024-in-force",
+      "date": "2025-07-10",
+      "category": "national-transposition",
+      "tags": ["ro", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Romania: NIS 2 transposition (OUG 155/2024, approved by Law 124/2025) enters into force",
+      "titleDe": "Rumaenien: NIS-2-Umsetzung (OUG 155/2024, bestaetigt durch Gesetz 124/2025) tritt in Kraft",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 is transposed in Romania by Government Emergency Ordinance OUG 155/2024 of 30 December 2024 (Monitorul Oficial no. 1332 of 31 December 2024), approved with amendments by Law 124/2025 (Monitorul Oficial no. 638 of 7 July 2025), in force from 10 July 2025. The DNSC is the competent national cybersecurity authority for essential and important entities.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wird in Rumaenien durch die Dringlichkeitsverordnung OUG 155/2024 vom 30. Dezember 2024 (Monitorul Oficial Nr. 1332 vom 31. Dezember 2024) umgesetzt, mit Aenderungen bestaetigt durch Gesetz 124/2025 (Monitorul Oficial Nr. 638 vom 7. Juli 2025), in Kraft seit 10. Juli 2025. Das DNSC ist die zustaendige nationale Cybersicherheitsbehoerde fuer wesentliche und wichtige Einrichtungen.",
+      "sourceId": "legislatie-just-ro",
+      "sourceUrl": "https://legislatie.just.ro/public/DetaliiDocument/293121",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2025-12-23-national-transposition-at-nisg-2026",
+      "date": "2025-12-23",
+      "category": "national-transposition",
+      "tags": ["at", "transposition", "legislation"],
+      "type": "update",
+      "title": "Austria enacts NIS 2 transposition (NISG 2026)",
+      "titleDe": "Oesterreich erlaesst NIS-2-Umsetzung (NISG 2026)",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 was transposed into Austrian law by the Netz- und Informationssystemsicherheitsgesetz 2026 (NISG 2026), BGBl. I Nr. 94/2025, published on 23 December 2025. The law was enacted but enters into force on 1 October 2026, until which the NISG 2018 continues to apply.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wurde durch das Netz- und Informationssystemsicherheitsgesetz 2026 (NISG 2026), BGBl. I Nr. 94/2025, in oesterreichisches Recht umgesetzt, veroeffentlicht am 23. Dezember 2025. Das Gesetz wurde erlassen, tritt aber erst am 1. Oktober 2026 in Kraft. Bis dahin gilt weiterhin das NISG 2018.",
+      "sourceId": "ris-bka",
+      "sourceUrl": "https://www.ris.bka.gv.at/eli/bgbl/I/2025/94",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2026-01-01-national-transposition-ee-kuberts-nis2",
+      "date": "2026-01-01",
+      "category": "national-transposition",
+      "tags": ["ee", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Estonia: amended Cybersecurity Act (NIS 2 transposition) enters into force",
+      "titleDe": "Estland: geaenderte Kuberturvalisuse seadus (NIS-2-Umsetzung) tritt in Kraft",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 is transposed in Estonia by the Act amending the Cybersecurity Act and other Acts (Kueberturvalisuse seaduse ja teiste seaduste muutmise seadus), which entered into force on 1 January 2026 and broadens the set of essential and important entities subject to cybersecurity duties.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wird in Estland durch das Gesetz zur Aenderung der Kuberturvalisuse seadus und weiterer Gesetze (Kueberturvalisuse seaduse ja teiste seaduste muutmise seadus) umgesetzt, das am 1. Januar 2026 in Kraft trat und den Kreis der wesentlichen und wichtigen Einrichtungen mit Cybersicherheitspflichten erweitert.",
+      "sourceId": "ria-ee",
+      "sourceUrl": "https://www.ria.ee/uudised/uuest-aastast-laienes-kuberturvalisuse-seadus",
+      "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2026-02-13-national-transposition-bg-cybersecurity-act-amendment",
+      "date": "2026-02-13",
+      "category": "national-transposition",
+      "tags": ["bg", "transposition", "in-force", "legislation"],
+      "type": "update",
+      "title": "Bulgaria: NIS 2 transposition (Cybersecurity Act amendment) promulgated and in force",
+      "titleDe": "Bulgarien: NIS-2-Umsetzung (Aenderung des Cybersicherheitsgesetzes) verkuendet und in Kraft",
+      "summary": "The NIS 2 Directive (EU) 2022/2555 is transposed in Bulgaria by the Act amending and supplementing the Cybersecurity Act, adopted by the National Assembly on 5 February 2026 and promulgated in the State Gazette (Darzhaven vestnik) issue 17 of 13 February 2026. It splits obliged organisations into essential and important entities and introduces management accountability and risk management duties; reduced penalties apply for initial breaches until 1 July 2026.",
+      "summaryDe": "Die NIS-2-Richtlinie (EU) 2022/2555 wird in Bulgarien durch das Gesetz zur Aenderung und Ergaenzung des Cybersicherheitsgesetzes umgesetzt, am 5. Februar 2026 von der Nationalversammlung verabschiedet und im Staatsanzeiger (Darzhaven vestnik) Ausgabe 17 vom 13. Februar 2026 verkuendet. Es teilt die verpflichteten Organisationen in wesentliche und wichtige Einrichtungen und fuehrt Verantwortlichkeit der Leitung sowie Risikomanagementpflichten ein; fuer erste Verstoesse gelten bis 1. Juli 2026 ermaessigte Bussgelder.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/nis-transposition",
+      "addedAt": "2026-06-22T09:15:41Z"
     }
   ],
-  "lastUpdated": "2026-06-20T09:18:24Z"
+  "lastUpdated": "2026-06-22T09:15:41Z"
 }
