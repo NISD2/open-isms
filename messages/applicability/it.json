@@ -107,10 +107,10 @@
 
     "leadCapture": {
       "title": "Ottieni la tua roadmap di conformità gratuita",
-      "description": "Ti invieremo un piano d'azione personalizzato basato sulla tua classificazione — niente spam, solo i passi che devi compiere.",
+      "description": "Ti invieremo un piano d'azione personalizzato basato sulla tua classificazione. Niente spam, solo i passi che devi compiere.",
       "placeholder": "tuo@azienda.it",
       "cta": "Invia la roadmap",
-      "success": "Controlla la tua casella di posta — la tua roadmap di conformità è in arrivo.",
+      "success": "Controlla la tua casella di posta. La tua roadmap di conformità è in arrivo.",
       "error": "Qualcosa è andato storto. Riprova."
     }
   }

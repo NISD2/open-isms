@@ -96,7 +96,7 @@ const quiz = quizSchema.parse({
       explanation: {
         en: "Each category needs three layers: technical, operational, and organisational - what CISOs call technical and organisational measures (TOMs).",
         de: "Jede Kategorie benötigt drei Ebenen: technisch, operativ und organisatorisch -- was CISOs als technische und organisatorische Maßnahmen (TOMs) bezeichnen.",
-        nl: "Elke categorie heeft drie lagen nodig: technisch, operationeel en organisatorisch — wat CISO's technische en organisatorische maatregelen (TOMs) noemen.",
+        nl: "Elke categorie heeft drie lagen nodig: technisch, operationeel en organisatorisch, wat CISO's technische en organisatorische maatregelen (TOMs) noemen.",
         fr: "Chaque catégorie a besoin de trois couches : technique, opérationnelle et organisationnelle, ce que les CISO appellent les mesures techniques et organisationnelles (TOMs).",
         it: "Ogni categoria necessita di tre livelli: tecnico, operativo e organizzativo, ciò che i CISO chiamano misure tecniche e organizzative (TOMs).",
         es: "Cada categoría necesita tres capas: técnica, operativa y organizativa, lo que los CISO denominan medidas técnicas y organizativas (TOMs).",

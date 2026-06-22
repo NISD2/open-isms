@@ -18,7 +18,7 @@
     "consentLabel": "Akceptuję <terms>Regulamin</terms> i przyjmuję do wiadomości <privacy>Politykę prywatności</privacy>.",
     "backToHome": "Powrót do nisd2.eu",
     "verifyTitle": "Ostatni krok: zweryfikuj swój e-mail",
-    "verifyDescription": "Wysłaliśmy 6-cyfrowy kod na adres {email}. Jednorazowa weryfikacja, że ten adres należy do Ciebie. Po tym kroku logujesz się wyłącznie hasłem — bez kolejnych kodów.",
+    "verifyDescription": "Wysłaliśmy 6-cyfrowy kod na adres {email}. Jednorazowa weryfikacja, że ten adres należy do Ciebie. Po tym kroku logujesz się wyłącznie hasłem. Bez kolejnych kodów.",
     "verifyCodeLabel": "Kod weryfikacyjny",
     "verifyCodePlaceholder": "123456",
     "verifySubmit": "Zweryfikuj i zaloguj się",

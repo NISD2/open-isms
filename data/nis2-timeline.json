@@ -4,28 +4,28 @@
       "id": "bsi",
       "name": "BSI",
       "url": "https://www.bsi.bund.de",
-      "description": "Federal Office for Information Security — official NIS2 authority, IT-Grundschutz owner",
+      "description": "Federal Office for Information Security: official NIS2 authority, IT-Grundschutz owner",
       "language": "de"
     },
     {
       "id": "eur-lex",
       "name": "EUR-Lex",
       "url": "https://eur-lex.europa.eu",
-      "description": "Official EU legislation database — NIS2 Directive and CIR implementing regulation",
+      "description": "Official EU legislation database: NIS2 Directive and CIR implementing regulation",
       "language": "both"
     },
     {
       "id": "enisa",
       "name": "ENISA",
       "url": "https://www.enisa.europa.eu",
-      "description": "EU Agency for Cybersecurity — NIS2 technical guidance and threat landscape",
+      "description": "EU Agency for Cybersecurity: NIS2 technical guidance and threat landscape",
       "language": "en"
     },
     {
       "id": "heise",
       "name": "heise Security",
       "url": "https://www.heise.de/security",
-      "description": "Leading German technology journalism — in-depth NIS2 and cybersecurity reporting",
+      "description": "Leading German technology journalism: in-depth NIS2 and cybersecurity reporting",
       "language": "de"
     },
     {
@@ -53,112 +53,112 @@
       "id": "ecso",
       "name": "ECSO",
       "url": "https://ecs-org.eu",
-      "description": "European Cyber Security Organisation — EU-wide NIS2 transposition tracker",
+      "description": "European Cyber Security Organisation: EU-wide NIS2 transposition tracker",
       "language": "en"
     },
     {
       "id": "freshfields",
       "name": "Freshfields",
       "url": "https://technologyquotient.freshfields.com",
-      "description": "International law firm — NIS2 regulatory analysis and amendment breakdowns",
+      "description": "International law firm: NIS2 regulatory analysis and amendment breakdowns",
       "language": "en"
     },
     {
       "id": "dla-piper",
       "name": "DLA Piper",
       "url": "https://privacymatters.dlapiper.com",
-      "description": "International law firm — privacy and cybersecurity regulatory analysis",
+      "description": "International law firm: privacy and cybersecurity regulatory analysis",
       "language": "en"
     },
     {
       "id": "bird-bird",
       "name": "Bird & Bird",
       "url": "https://www.twobirds.com",
-      "description": "International law firm — technology regulation and NIS2 guidance analysis",
+      "description": "International law firm: technology regulation and NIS2 guidance analysis",
       "language": "en"
     },
     {
       "id": "bundesregierung",
       "name": "Bundesregierung",
       "url": "https://www.bundesregierung.de",
-      "description": "German federal government — official legislative announcements",
+      "description": "German federal government: official legislative announcements",
       "language": "de"
     },
     {
       "id": "ec-digital",
       "name": "European Commission",
       "url": "https://digital-strategy.ec.europa.eu",
-      "description": "EC Digital Strategy — NIS2 proposals, cybersecurity packages, implementing acts",
+      "description": "EC Digital Strategy: NIS2 proposals, cybersecurity packages, implementing acts",
       "language": "en"
     },
     {
       "id": "isms-ratgeber",
       "name": "ISMS-Ratgeber",
       "url": "https://wiki.isms-ratgeber.info",
-      "description": "Community wiki for IT-Grundschutz and ISMS practitioners — Grundschutz++ documentation",
+      "description": "Community wiki for IT-Grundschutz and ISMS practitioners: Grundschutz++ documentation",
       "language": "de"
     },
     {
       "id": "netzpolitik",
       "name": "netzpolitik.org",
       "url": "https://netzpolitik.org",
-      "description": "German digital policy journalism — cybersecurity legislation and civil liberties",
+      "description": "German digital policy journalism: cybersecurity legislation and civil liberties",
       "language": "de"
     },
     {
       "id": "edpb",
       "name": "EDPB",
       "url": "https://www.edpb.europa.eu",
-      "description": "European Data Protection Board — joint opinions on cybersecurity legislation and data protection alignment",
+      "description": "European Data Protection Board: joint opinions on cybersecurity legislation and data protection alignment",
       "language": "en"
     },
     {
       "id": "europarl",
       "name": "European Parliament",
       "url": "https://www.europarl.europa.eu",
-      "description": "European Parliament press room — legislative agreements, trilogue outcomes, plenary votes",
+      "description": "European Parliament press room: legislative agreements, trilogue outcomes, plenary votes",
       "language": "en"
     },
     {
       "id": "consilium",
       "name": "Council of the EU",
       "url": "https://www.consilium.europa.eu",
-      "description": "Council of the European Union — Council positions, COREPER mandates, ministerial conclusions on cybersecurity files",
+      "description": "Council of the European Union: Council positions, COREPER mandates, ministerial conclusions on cybersecurity files",
       "language": "en"
     },
     {
       "id": "eerstekamer",
       "name": "Eerste Kamer",
       "url": "https://www.eerstekamer.nl",
-      "description": "Dutch Senate — official tracking of the Cyberbeveiligingswet (NIS2 transposition) and Wet weerbaarheid kritieke entiteiten",
+      "description": "Dutch Senate: official tracking of the Cyberbeveiligingswet (NIS2 transposition) and Wet weerbaarheid kritieke entiteiten",
       "language": "en"
     },
     {
       "id": "anssi",
       "name": "ANSSI",
       "url": "https://cyber.gouv.fr",
-      "description": "French national cybersecurity authority — NIS2 transposition reference, MesServicesCyber, ReCyF",
+      "description": "French national cybersecurity authority: NIS2 transposition reference, MesServicesCyber, ReCyF",
       "language": "en"
     },
     {
       "id": "ccb",
       "name": "CCB Belgium",
       "url": "https://ccb.belgium.be",
-      "description": "Centre for Cybersecurity Belgium — first EU enforcer of NIS2, CyberFundamentals scheme, NIS2 dashboards",
+      "description": "Centre for Cybersecurity Belgium: first EU enforcer of NIS2, CyberFundamentals scheme, NIS2 dashboards",
       "language": "en"
     },
     {
       "id": "acn",
       "name": "ACN Italy",
       "url": "https://www.acn.gov.it",
-      "description": "Agenzia per la Cybersicurezza Nazionale — Italian competent authority, annual NIS update window, categorization rules",
+      "description": "Agenzia per la Cybersicurezza Nazionale: Italian competent authority, annual NIS update window, categorization rules",
       "language": "en"
     },
     {
       "id": "bmi",
       "name": "BMI",
       "url": "https://www.bmi.bund.de",
-      "description": "Bundesministerium des Innern — owns BSIG legislation, drives amendments, publishes Referentenentwürfe and stakeholder responses",
+      "description": "Bundesministerium des Innern: owns BSIG legislation, drives amendments, publishes Referentenentwürfe and stakeholder responses",
       "language": "de"
     },
     {
@@ -172,77 +172,77 @@
       "id": "retsinformation",
       "name": "Retsinformation",
       "url": "https://www.retsinformation.dk",
-      "description": "Danish official law database — primary source for LOV nr 434 (NIS 2-loven) and LOV nr 258 (energy preparedness)",
+      "description": "Danish official law database: primary source for LOV nr 434 (NIS 2-loven) and LOV nr 258 (energy preparedness)",
       "language": "en"
     },
     {
       "id": "samsik",
       "name": "SAMSIK",
       "url": "https://samsik.dk",
-      "description": "Styrelsen for Samfundssikkerhed — Danish coordinator under the Ministry for Societal Security and Emergency Preparedness; runs virk.dk NIS 2 registration",
+      "description": "Styrelsen for Samfundssikkerhed: Danish coordinator under the Ministry for Societal Security and Emergency Preparedness; runs virk.dk NIS 2 registration",
       "language": "en"
     },
     {
       "id": "cfcs",
       "name": "CFCS Denmark",
       "url": "https://www.cfcs.dk",
-      "description": "Center for Cybersikkerhed — Danish national CSIRT, part of SAMSIK since 1 January 2026; operates under Forsvarets Efterretningstjeneste",
+      "description": "Center for Cybersikkerhed: Danish national CSIRT, part of SAMSIK since 1 January 2026; operates under Forsvarets Efterretningstjeneste",
       "language": "en"
     },
     {
       "id": "finlex",
       "name": "Finlex",
       "url": "https://www.finlex.fi",
-      "description": "Finnish official legislation database — primary source for Kyberturvallisuuslaki 124/2025",
+      "description": "Finnish official legislation database: primary source for Kyberturvallisuuslaki 124/2025",
       "language": "en"
     },
     {
       "id": "traficom",
       "name": "Traficom",
       "url": "https://www.traficom.fi",
-      "description": "Finnish Transport and Communications Agency — NIS 2 coordinator; operates NCSC-FI as national CSIRT and EU Single Point of Contact",
+      "description": "Finnish Transport and Communications Agency: NIS 2 coordinator; operates NCSC-FI as national CSIRT and EU Single Point of Contact",
       "language": "en"
     },
     {
       "id": "riksdagen",
       "name": "Sveriges Riksdag",
       "url": "https://www.riksdagen.se",
-      "description": "Swedish Parliament — official source for Cybersäkerhetslagen (SFS 2025:1506) and Proposition 2025/26:28",
+      "description": "Swedish Parliament: official source for Cybersäkerhetslagen (SFS 2025:1506) and Proposition 2025/26:28",
       "language": "en"
     },
     {
       "id": "isap-sejm",
       "name": "ISAP Sejm",
       "url": "https://isap.sejm.gov.pl",
-      "description": "Polish Internet System of Legal Acts — official source for the UKSC amendment of 23 January 2026 (Dz.U. 2026 poz. 252)",
+      "description": "Polish Internet System of Legal Acts: official source for the UKSC amendment of 23 January 2026 (Dz.U. 2026 poz. 252)",
       "language": "en"
     },
     {
       "id": "diario-republica",
       "name": "Diário da República",
       "url": "https://dre.pt",
-      "description": "Portuguese Official Journal — primary source for Decreto-Lei n.º 125/2025 (NIS 2 transposition)",
+      "description": "Portuguese Official Journal: primary source for Decreto-Lei n.º 125/2025 (NIS 2 transposition)",
       "language": "en"
     },
     {
       "id": "nukib",
       "name": "NÚKIB",
       "url": "https://www.nukib.gov.cz",
-      "description": "Národní úřad pro kybernetickou a informační bezpečnost — Czech NIS 2 supervisor; operates portal.nukib.gov.cz for self-registration",
+      "description": "Národní úřad pro kybernetickou a informační bezpečnost: Czech NIS 2 supervisor; operates portal.nukib.gov.cz for self-registration",
       "language": "en"
     },
     {
       "id": "ncsc-ie",
       "name": "NCSC-IE",
       "url": "https://www.ncsc.gov.ie",
-      "description": "Irish National Cyber Security Centre — designated NIS 2 competent authority; publishes draft Risk Management Measures guidance",
+      "description": "Irish National Cyber Security Centre: designated NIS 2 competent authority; publishes draft Risk Management Measures guidance",
       "language": "en"
     },
     {
       "id": "cms-law-now",
       "name": "CMS Law-Now",
       "url": "https://cms-lawnow.com",
-      "description": "CMS Law-Now — international law firm publication with detailed per-country NIS 2 transposition trackers",
+      "description": "CMS Law-Now: international law firm publication with detailed per-country NIS 2 transposition trackers",
       "language": "en"
     },
     {
@@ -395,8 +395,8 @@
       "type": "milestone",
       "title": "IT-Grundschutz Kompendium Edition 2023 released",
       "titleDe": "IT-Grundschutz-Kompendium Edition 2023 veröffentlicht",
-      "summary": "BSI publishes the IT-Grundschutz Kompendium Edition 2023 — the current production standard for information security management in Germany. Remains the valid audit reference through the Grundschutz++ transition.",
-      "summaryDe": "BSI veröffentlicht das IT-Grundschutz-Kompendium Edition 2023 — der aktuelle Produktionsstandard für Informationssicherheitsmanagement in Deutschland. Bleibt die gültige Audit-Referenz während der Grundschutz++-Übergangsphase.",
+      "summary": "BSI publishes the IT-Grundschutz Kompendium Edition 2023, the current production standard for information security management in Germany. Remains the valid audit reference through the Grundschutz++ transition.",
+      "summaryDe": "BSI veröffentlicht das IT-Grundschutz-Kompendium Edition 2023, der aktuelle Produktionsstandard für Informationssicherheitsmanagement in Deutschland. Bleibt die gültige Audit-Referenz während der Grundschutz++-Übergangsphase.",
       "sourceId": "bsi",
       "sourceUrl": "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/IT-Grundschutz-Kompendium/it-grundschutz-kompendium_node.html",
       "addedAt": "2026-03-20T00:00:00Z"
@@ -428,8 +428,8 @@
         "transposition"
       ],
       "type": "milestone",
-      "title": "NIS2 transposition deadline expires — most member states miss it",
-      "titleDe": "NIS2-Umsetzungsfrist läuft ab — die meisten Mitgliedstaaten verpassen sie",
+      "title": "NIS2 transposition deadline expires: most member states miss it",
+      "titleDe": "NIS2-Umsetzungsfrist läuft ab: die meisten Mitgliedstaaten verpassen sie",
       "summary": "Member states were required to transpose NIS2 into national law by this date. Most, including Germany, miss the deadline. Only Belgium has fully transposed and begun enforcement.",
       "summaryDe": "Mitgliedstaaten mussten NIS2 bis zu diesem Datum in nationales Recht umsetzen. Die meisten, einschließlich Deutschland, verpassen die Frist. Nur Belgien hat vollständig umgesetzt und mit der Durchsetzung begonnen.",
       "sourceId": "ecso",
@@ -445,8 +445,8 @@
         "publication"
       ],
       "type": "milestone",
-      "title": "CIR 2024/2690 published — NIS2 technical requirements regulation",
-      "titleDe": "CIR 2024/2690 veröffentlicht — Durchführungsverordnung zu technischen NIS2-Anforderungen",
+      "title": "CIR 2024/2690 published: NIS2 technical requirements regulation",
+      "titleDe": "CIR 2024/2690 veröffentlicht: Durchführungsverordnung zu technischen NIS2-Anforderungen",
       "summary": "Commission Implementing Regulation (EU) 2024/2690 published, specifying technical and methodological requirements for NIS2 cybersecurity risk management measures for digital infrastructure and service providers.",
       "summaryDe": "Durchführungsverordnung (EU) 2024/2690 veröffentlicht. Sie legt technische und methodische Anforderungen an NIS2-Cybersicherheits-Risikomanagementmaßnahmen für digitale Infrastruktur- und Dienstleister fest.",
       "sourceId": "eur-lex",
@@ -618,8 +618,8 @@
       "type": "milestone",
       "title": "BSI publishes Grundschutz++ preview on GitHub (OSCAL/JSON)",
       "titleDe": "BSI veröffentlicht Grundschutz++ Vorschau auf GitHub (OSCAL/JSON)",
-      "summary": "BSI releases the Stand-der-Technik-Bibliothek on GitHub with preview of abstract requirements in OSCAL/JSON format. Not production-ready — initial draft only, concrete measures still being added.",
-      "summaryDe": "BSI veröffentlicht die Stand-der-Technik-Bibliothek auf GitHub mit Vorschau abstrakter Anforderungen im OSCAL/JSON-Format. Nicht produktionsreif — nur erster Entwurf, konkrete Maßnahmen werden noch ergänzt.",
+      "summary": "BSI releases the Stand-der-Technik-Bibliothek on GitHub with preview of abstract requirements in OSCAL/JSON format. Not production-ready: initial draft only, concrete measures still being added.",
+      "summaryDe": "BSI veröffentlicht die Stand-der-Technik-Bibliothek auf GitHub mit Vorschau abstrakter Anforderungen im OSCAL/JSON-Format. Nicht produktionsreif: nur erster Entwurf, konkrete Maßnahmen werden noch ergänzt.",
       "sourceId": "bsi",
       "sourceUrl": "https://github.com/BSI-Bund/Stand-der-Technik-Bibliothek",
       "addedAt": "2026-03-20T00:00:00Z"
@@ -650,8 +650,8 @@
         "legislation"
       ],
       "type": "milestone",
-      "title": "Coalition agrees on NIS2UmsuCG compromises — ex-post model for critical components",
-      "titleDe": "Koalition einigt sich auf NIS2UmsuCG-Kompromisse — Ex-post-Modell für kritische Komponenten",
+      "title": "Coalition agrees on NIS2UmsuCG compromises: ex-post model for critical components",
+      "titleDe": "Koalition einigt sich auf NIS2UmsuCG-Kompromisse: Ex-post-Modell für kritische Komponenten",
       "summary": "CDU/CSU-SPD coalition reaches agreement: critical component regulation shifts from ex-ante approval to ex-post notification model. Federal CISO role transferred to BSI in Bonn.",
       "summaryDe": "CDU/CSU-SPD-Koalition einigt sich: Regulierung kritischer Komponenten wechselt von Ex-ante-Genehmigung zu Ex-post-Meldung. CISO-Rolle des Bundes an BSI in Bonn übertragen.",
       "sourceId": "heise",
@@ -666,8 +666,8 @@
         "legislation"
       ],
       "type": "milestone",
-      "title": "Bundestag passes NIS2UmsuCG — Germany's NIS2 implementation law",
-      "titleDe": "Bundestag verabschiedet NIS2UmsuCG — Deutschlands NIS2-Umsetzungsgesetz",
+      "title": "Bundestag passes NIS2UmsuCG: Germany's NIS2 implementation law",
+      "titleDe": "Bundestag verabschiedet NIS2UmsuCG: Deutschlands NIS2-Umsetzungsgesetz",
       "summary": "German parliament passes the NIS2UmsuCG in 2nd and 3rd readings. Votes: CDU/CSU + SPD + AfD in favor, Greens against, Die Linke abstained. Approximately 29,500 entities now fall under BSI supervision.",
       "summaryDe": "Der Bundestag verabschiedet das NIS2UmsuCG in 2. und 3. Lesung. Stimmen: CDU/CSU + SPD + AfD dafür, Grüne dagegen, Die Linke enthält sich. Rund 29.500 Einrichtungen fallen nun unter BSI-Aufsicht.",
       "sourceId": "heise",
@@ -717,10 +717,10 @@
         "legislation"
       ],
       "type": "milestone",
-      "title": "BSIG enters into force — NIS2 is law in Germany",
-      "titleDe": "BSIG tritt in Kraft — NIS2 ist Gesetz in Deutschland",
-      "summary": "The amended BSIG enters into force on St. Nicholas Day, over a year after the EU transposition deadline. No transition period — all obligations are immediately effective for ~29,500 affected entities.",
-      "summaryDe": "Das novellierte BSIG tritt am Nikolaustag in Kraft, über ein Jahr nach der EU-Umsetzungsfrist. Keine Übergangszeit — alle Pflichten gelten sofort für ~29.500 betroffene Einrichtungen.",
+      "title": "BSIG enters into force: NIS2 is law in Germany",
+      "titleDe": "BSIG tritt in Kraft: NIS2 ist Gesetz in Deutschland",
+      "summary": "The amended BSIG enters into force on St. Nicholas Day, over a year after the EU transposition deadline. No transition period: all obligations are immediately effective for ~29,500 affected entities.",
+      "summaryDe": "Das novellierte BSIG tritt am Nikolaustag in Kraft, über ein Jahr nach der EU-Umsetzungsfrist. Keine Übergangszeit: alle Pflichten gelten sofort für ~29.500 betroffene Einrichtungen.",
       "sourceId": "openkritis",
       "sourceUrl": "https://www.openkritis.de/it-sicherheitsgesetz/nis2-umsetzung-cybersicherheit-deutschland.html",
       "addedAt": "2026-03-20T00:00:00Z"
@@ -737,8 +737,8 @@
       "type": "update",
       "title": "Sweden: Cybersäkerhetslagen (SFS 2025:1506) issued",
       "titleDe": "Schweden: Cybersäkerhetslagen (SFS 2025:1506) ausgefertigt",
-      "summary": "Cybersäkerhetslagen (SFS 2025:1506) — Sweden's NIS 2 transposition — is issued on 11 December 2025 on the basis of Proposition 2025/26:28 'Ett starkt skydd för nätverks- och informationssystem'. Enters into force 15 January 2026. Decentralised supervision via sector regulators; MCF (Myndigheten för civilt försvar) is national SPOC and hosts CERT-SE.",
-      "summaryDe": "Cybersäkerhetslagen (SFS 2025:1506) — Schwedens NIS 2 Umsetzung — wird am 11. Dezember 2025 auf Basis der Proposition 2025/26:28 'Ett starkt skydd för nätverks- och informationssystem' ausgefertigt. Inkrafttreten am 15. Januar 2026. Dezentrale Aufsicht ueber Sektorregulatoren; MCF (Myndigheten för civilt försvar) ist nationale Anlaufstelle und Traeger von CERT-SE.",
+      "summary": "Cybersäkerhetslagen (SFS 2025:1506) (Sweden's NIS 2 transposition) is issued on 11 December 2025 on the basis of Proposition 2025/26:28 'Ett starkt skydd för nätverks- och informationssystem'. Enters into force 15 January 2026. Decentralised supervision via sector regulators; MCF (Myndigheten för civilt försvar) is national SPOC and hosts CERT-SE.",
+      "summaryDe": "Cybersäkerhetslagen (SFS 2025:1506) (Schwedens NIS 2 Umsetzung) wird am 11. Dezember 2025 auf Basis der Proposition 2025/26:28 'Ett starkt skydd för nätverks- och informationssystem' ausgefertigt. Inkrafttreten am 15. Januar 2026. Dezentrale Aufsicht ueber Sektorregulatoren; MCF (Myndigheten för civilt försvar) ist nationale Anlaufstelle und Traeger von CERT-SE.",
       "sourceId": "riksdagen",
       "sourceUrl": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/cybersakerhetslag-20251506_sfs-2025-1506/",
       "addedAt": "2026-06-01"
@@ -751,8 +751,8 @@
         "publication"
       ],
       "type": "milestone",
-      "title": "Grundschutz++ transition phase begins — parallel operation through 2029",
-      "titleDe": "Grundschutz++ Übergangsphase beginnt — Parallelbetrieb bis 2029",
+      "title": "Grundschutz++ transition phase begins: parallel operation through 2029",
+      "titleDe": "Grundschutz++ Übergangsphase beginnt: Parallelbetrieb bis 2029",
       "summary": "BSI officially launches the Grundschutz++ modernization transition. Machine-readable OSCAL/JSON format replaces PDF/Excel. Edition 2023 remains valid for audits during the transition through 2029.",
       "summaryDe": "BSI startet offiziell die Modernisierungs-Übergangsphase für Grundschutz++. Maschinenlesbares OSCAL/JSON-Format ersetzt PDF/Excel. Edition 2023 bleibt während der Übergangsphase bis 2029 für Audits gültig.",
       "sourceId": "isms-ratgeber",
@@ -852,8 +852,8 @@
         "legislation"
       ],
       "type": "update",
-      "title": "EU proposes NIS2 amendments — new entity types, harmonization ceiling, PQC migration",
-      "titleDe": "EU schlägt NIS2-Änderungen vor — neue Einrichtungstypen, Harmonisierungsgrenze, PQC-Migration",
+      "title": "EU proposes NIS2 amendments: new entity types, harmonization ceiling, PQC migration",
+      "titleDe": "EU schlägt NIS2-Änderungen vor: neue Einrichtungstypen, Harmonisierungsgrenze, PQC-Migration",
       "summary": "European Commission unveils cybersecurity package with targeted NIS2 amendments: submarine infrastructure and digital wallet providers added, new 'small mid-cap' category (~22,500 companies), mandatory ransomware reporting details, and post-quantum cryptography migration deadlines (2030/2035).",
       "summaryDe": "Europäische Kommission stellt Cybersicherheitspaket mit gezielten NIS2-Änderungen vor: Seekabel-Infrastruktur und Digital-Wallet-Anbieter aufgenommen, neue Kategorie 'kleine Midcap' (~22.500 Unternehmen), verpflichtende Ransomware-Meldedetails und Post-Quanten-Kryptografie-Migrationsfristen (2030/2035).",
       "sourceId": "freshfields",
@@ -921,8 +921,8 @@
       "type": "update",
       "title": "ENISA releases Cybersecurity Exercise Methodology framework",
       "titleDe": "ENISA veröffentlicht Methodik-Rahmenwerk für Cybersicherheitsübungen",
-      "summary": "New methodology for planning, running, and evaluating cybersecurity exercises — relevant for NIS2 entities required to test incident response capabilities under Art. 21.",
-      "summaryDe": "Neue Methodik für Planung, Durchführung und Auswertung von Cybersicherheitsübungen — relevant für NIS2-Einrichtungen, die Incident-Response-Fähigkeiten nach Art. 21 testen müssen.",
+      "summary": "New methodology for planning, running, and evaluating cybersecurity exercises, relevant for NIS2 entities required to test incident response capabilities under Art. 21.",
+      "summaryDe": "Neue Methodik für Planung, Durchführung und Auswertung von Cybersicherheitsübungen, relevant für NIS2-Einrichtungen, die Incident-Response-Fähigkeiten nach Art. 21 testen müssen.",
       "sourceId": "enisa",
       "sourceUrl": "https://www.enisa.europa.eu/publications",
       "addedAt": "2026-03-20T00:00:00Z"
@@ -936,8 +936,8 @@
         "legislation"
       ],
       "type": "update",
-      "title": "Poland signs NIS2 transposition into law — enters force April 2, 2026",
-      "titleDe": "Polen unterzeichnet NIS2-Umsetzung — tritt am 2. April 2026 in Kraft",
+      "title": "Poland signs NIS2 transposition into law: enters force April 2, 2026",
+      "titleDe": "Polen unterzeichnet NIS2-Umsetzung: tritt am 2. April 2026 in Kraft",
       "summary": "President Nawrocki signs the amendment to Poland's National Cybersecurity System Act (UKSC), transposing NIS2 into Polish law. Enters force April 2 after one-month vacatio legis. Entity registration deadline: October 3, 2026. Full compliance deadline: April 3, 2027. President simultaneously refers provisions on high-risk providers and penalties to Constitutional Tribunal.",
       "summaryDe": "Präsident Nawrocki unterzeichnet die Novelle des polnischen Gesetzes über das nationale Cybersicherheitssystem (UKSC) zur NIS2-Umsetzung. Inkrafttreten am 2. April nach einmonatiger Vacatio legis. Registrierungsfrist: 3. Oktober 2026. Volle Compliance-Frist: 3. April 2027. Der Präsident verweist gleichzeitig Regelungen zu Hochrisiko-Anbietern und Sanktionen an das Verfassungsgericht.",
       "sourceId": "ecso",
@@ -969,8 +969,8 @@
         "enforcement"
       ],
       "type": "update",
-      "title": "BMI publishes draft Active Cyber Defense Act — new obligations for NIS2-regulated entities",
-      "titleDe": "BMI veröffentlicht Entwurf des Cybersicherheitsstärkungsgesetzes — neue Pflichten für NIS2-regulierte Unternehmen",
+      "title": "BMI publishes draft Active Cyber Defense Act: new obligations for NIS2-regulated entities",
+      "titleDe": "BMI veröffentlicht Entwurf des Cybersicherheitsstärkungsgesetzes: neue Pflichten für NIS2-regulierte Unternehmen",
       "summary": "Federal Interior Ministry presents the Gesetz zur Stärkung der Cybersicherheit, granting BKA, Federal Police, and BSI active cyber defense powers including disrupting attacker infrastructure. Adds obligations for NIS2-regulated entities: mandatory cooperation during state-led cyber operations, attack detection systems connected to BSI, and DNS-based protection for customers. Fines up to €20M or 2% of global turnover. Requires ~375 new government positions by 2030.",
       "summaryDe": "Bundesinnenministerium stellt den Entwurf des Gesetzes zur Stärkung der Cybersicherheit vor. BKA, Bundespolizei und BSI erhalten aktive Cyberabwehr-Befugnisse einschließlich Störung von Angreifer-Infrastruktur. Neue Pflichten für NIS2-regulierte Unternehmen: Kooperationspflicht bei staatlichen Cyberoperationen, BSI-vernetzte Angriffserkennung und DNS-basierter Kundenschutz. Bußgelder bis 20 Mio. € oder 2% des weltweiten Jahresumsatzes. ~375 neue Stellen bis 2030 nötig.",
       "sourceId": "netzpolitik",
@@ -1020,8 +1020,8 @@
         "registration"
       ],
       "type": "milestone",
-      "title": "BSI registration deadline passes — fines now possible for non-registration",
-      "titleDe": "BSI-Registrierungsfrist läuft ab — Bußgelder für Nicht-Registrierung jetzt möglich",
+      "title": "BSI registration deadline passes: fines now possible for non-registration",
+      "titleDe": "BSI-Registrierungsfrist läuft ab: Bußgelder für Nicht-Registrierung jetzt möglich",
       "summary": "Three months after BSIG entry into force, the mandatory registration deadline at the BSI portal expires. Late registration is still accepted but penalties of up to €10M or 2% of annual revenue are now legally enforceable.",
       "summaryDe": "Drei Monate nach Inkrafttreten des BSIG läuft die Pflicht-Registrierungsfrist am BSI-Portal ab. Verspätete Registrierung wird noch angenommen, aber Bußgelder bis 10 Mio. € oder 2% des Jahresumsatzes sind nun rechtlich durchsetzbar.",
       "sourceId": "heise",
@@ -1039,8 +1039,8 @@
       "type": "update",
       "title": "Only ~11,500 of ~29,500 affected entities registered by the deadline",
       "titleDe": "Nur ~11.500 von ~29.500 betroffenen Einrichtungen haben sich bis zur Frist registriert",
-      "summary": "By the March 6 deadline, approximately 11,500 authorities, companies, and other critical facilities registered with the BSI under NIS2 — leaving around 18,000 of the 29,500 obligated entities still missing. The BSI spokesperson said it remains unclear whether the original estimate was too high or whether large numbers of affected parties simply failed to comply.",
-      "summaryDe": "Bis zur Frist am 6. März haben sich rund 11.500 Behörden, Unternehmen und kritische Einrichtungen unter NIS2 beim BSI registriert — etwa 18.000 der 29.500 verpflichteten Einrichtungen fehlen noch. Laut BSI-Sprecher bleibt unklar, ob die ursprüngliche Schätzung zu hoch war oder ob viele Betroffene ihrer Meldepflicht nicht nachgekommen sind.",
+      "summary": "By the March 6 deadline, approximately 11,500 authorities, companies, and other critical facilities registered with the BSI under NIS2, leaving around 18,000 of the 29,500 obligated entities still missing. The BSI spokesperson said it remains unclear whether the original estimate was too high or whether large numbers of affected parties simply failed to comply.",
+      "summaryDe": "Bis zur Frist am 6. März haben sich rund 11.500 Behörden, Unternehmen und kritische Einrichtungen unter NIS2 beim BSI registriert, etwa 18.000 der 29.500 verpflichteten Einrichtungen fehlen noch. Laut BSI-Sprecher bleibt unklar, ob die ursprüngliche Schätzung zu hoch war oder ob viele Betroffene ihrer Meldepflicht nicht nachgekommen sind.",
       "sourceId": "heise",
       "sourceUrl": "https://www.heise.de/en/news/BSI-11-500-critical-facilities-registered-under-NIS2-11202706.html",
       "addedAt": "2026-03-20T00:00:00Z"
@@ -1074,8 +1074,8 @@
       "type": "update",
       "title": "ENISA publishes Technical Advisory for Secure Use of Package Managers",
       "titleDe": "ENISA veröffentlicht technischen Leitfaden zur sicheren Nutzung von Paketmanagern",
-      "summary": "New guidance on secure software development lifecycle focusing on package manager security — directly relevant for NIS2 supply chain security requirements (Art. 21(2)(d)).",
-      "summaryDe": "Neuer Leitfaden zum sicheren Software-Entwicklungszyklus mit Fokus auf Paketmanager-Sicherheit — direkt relevant für NIS2-Lieferkettensicherheitsanforderungen (Art. 21(2)(d)).",
+      "summary": "New guidance on secure software development lifecycle focusing on package manager security, directly relevant for NIS2 supply chain security requirements (Art. 21(2)(d)).",
+      "summaryDe": "Neuer Leitfaden zum sicheren Software-Entwicklungszyklus mit Fokus auf Paketmanager-Sicherheit, direkt relevant für NIS2-Lieferkettensicherheitsanforderungen (Art. 21(2)(d)).",
       "sourceId": "enisa",
       "sourceUrl": "https://www.enisa.europa.eu/sites/default/files/2026-03/ENISA%20Technical%20Advisory%20-%20Package_Managers_Final.pdf",
       "addedAt": "2026-03-20T00:00:00Z"
@@ -1139,8 +1139,8 @@
         "kritis"
       ],
       "type": "update",
-      "title": "KRITIS-Dachgesetz enters into force — physical security on top of NIS2 cyber requirements",
-      "titleDe": "KRITIS-Dachgesetz tritt in Kraft — physische Sicherheit zusätzlich zu NIS2-Cyberanforderungen",
+      "title": "KRITIS-Dachgesetz enters into force: physical security on top of NIS2 cyber requirements",
+      "titleDe": "KRITIS-Dachgesetz tritt in Kraft: physische Sicherheit zusätzlich zu NIS2-Cyberanforderungen",
       "summary": "Germany's CER Directive transposition (KRITIS-Dachgesetz) enters into force, adding physical security and resilience requirements on top of NIS2 cybersecurity. Requires BCMS alongside ISMS, physical security controls, and triennial audits. Penalties up to €1M.",
       "summaryDe": "Deutschlands CER-Richtlinien-Umsetzung (KRITIS-Dachgesetz) tritt in Kraft und ergänzt NIS2-Cybersicherheit um physische Sicherheits- und Resilienzanforderungen. Erfordert BCMS neben ISMS, physische Sicherheitskontrollen und dreijährige Audits. Bußgelder bis 1 Mio. €.",
       "sourceId": "openkritis",
@@ -1155,8 +1155,8 @@
         "enforcement"
       ],
       "type": "update",
-      "title": "BSI and Govdigital announce 'Cyberdome' — automated cyber defense for 10 federal states",
-      "titleDe": "BSI und Govdigital kündigen 'Cyberdome' an — automatisierte Cyberabwehr für 10 Bundesländer",
+      "title": "BSI and Govdigital announce 'Cyberdome': automated cyber defense for 10 federal states",
+      "titleDe": "BSI und Govdigital kündigen 'Cyberdome' an: automatisierte Cyberabwehr für 10 Bundesländer",
       "summary": "BSI and public IT providers association Govdigital announce Cyberdome: sensor-based automated cyber defense infrastructure across 10 federal states and municipalities with real-time BSI-linked monitoring.",
       "summaryDe": "BSI und der öffentliche IT-Dienstleisterverbund Govdigital kündigen Cyberdome an: sensorbasierte automatisierte Cyberabwehr-Infrastruktur in 10 Bundesländern und Kommunen mit BSI-vernetzter Echtzeitüberwachung.",
       "sourceId": "heise",
@@ -1189,10 +1189,10 @@
         "guidance"
       ],
       "type": "update",
-      "title": "BSI publishes Grundschutz++ methodology guide — PDCA-based ISMS framework",
-      "titleDe": "BSI veroeffentlicht Grundschutz++ Methodikleitfaden — PDCA-basiertes ISMS-Rahmenwerk",
-      "summary": "BSI releases the first methodology guide for Grundschutz++, establishing a forward-looking framework for systematically building an ISMS based on the PDCA cycle. The guide integrates strategic planning, requirements analysis, implementation, monitoring, and continuous improvement. Currently designated for pilot projects only — Edition 2023 remains the valid audit reference through 2028.",
-      "summaryDe": "BSI veroeffentlicht den ersten Methodikleitfaden fuer Grundschutz++, der ein zukunftsorientiertes Rahmenwerk fuer den systematischen Aufbau eines ISMS auf Basis des PDCA-Zyklus etabliert. Der Leitfaden integriert strategische Verankerung, Anforderungsanalyse, Umsetzung, Ueberwachung und kontinuierliche Verbesserung. Derzeit nur fuer Pilotprojekte vorgesehen — Edition 2023 bleibt bis 2028 die gueltige Audit-Referenz.",
+      "title": "BSI publishes Grundschutz++ methodology guide: PDCA-based ISMS framework",
+      "titleDe": "BSI veroeffentlicht Grundschutz++ Methodikleitfaden: PDCA-basiertes ISMS-Rahmenwerk",
+      "summary": "BSI releases the first methodology guide for Grundschutz++, establishing a forward-looking framework for systematically building an ISMS based on the PDCA cycle. The guide integrates strategic planning, requirements analysis, implementation, monitoring, and continuous improvement. Currently designated for pilot projects only. Edition 2023 remains the valid audit reference through 2028.",
+      "summaryDe": "BSI veroeffentlicht den ersten Methodikleitfaden fuer Grundschutz++, der ein zukunftsorientiertes Rahmenwerk fuer den systematischen Aufbau eines ISMS auf Basis des PDCA-Zyklus etabliert. Der Leitfaden integriert strategische Verankerung, Anforderungsanalyse, Umsetzung, Ueberwachung und kontinuierliche Verbesserung. Derzeit nur fuer Pilotprojekte vorgesehen. Edition 2023 bleibt bis 2028 die gueltige Audit-Referenz.",
       "sourceId": "bsi",
       "sourceUrl": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/sonstiges/Methodik_Grundschutz_PlusPlus.html",
       "addedAt": "2026-04-22T12:00:00Z"
@@ -1207,8 +1207,8 @@
         "registration"
       ],
       "type": "update",
-      "title": "Poland's amended KSC Act enters force — 42,000 entities now in scope",
-      "titleDe": "Polens novelliertes KSC-Gesetz tritt in Kraft — 42.000 Einrichtungen nun betroffen",
+      "title": "Poland's amended KSC Act enters force: 42,000 entities now in scope",
+      "titleDe": "Polens novelliertes KSC-Gesetz tritt in Kraft: 42.000 Einrichtungen nun betroffen",
       "summary": "Poland's amended National Cybersecurity System (KSC) Act enters force on April 3, 2026, expanding NIS2 scope from ~400 to ~42,000 organizations including ~28,000 public sector bodies. New sectors added: food production, waste management, chemicals, postal services, manufacturing. Entity registry launched April 13 via the S46 platform. Self-registration deadline: October 3, 2026. Full compliance required by April 3, 2027.",
       "summaryDe": "Polens novelliertes Gesetz ueber das nationale Cybersicherheitssystem (KSC) tritt am 3. April 2026 in Kraft und erweitert den NIS2-Anwendungsbereich von ~400 auf ~42.000 Organisationen, darunter ~28.000 oeffentliche Einrichtungen. Neue Sektoren: Lebensmittelproduktion, Abfallwirtschaft, Chemie, Postdienste, Fertigung. Einrichtungsregister am 13. April ueber S46-Plattform gestartet. Selbstregistrierungsfrist: 3. Oktober 2026. Volle Compliance bis 3. April 2027.",
       "sourceId": "isap-sejm",
@@ -1312,8 +1312,8 @@
         "registration"
       ],
       "type": "update",
-      "title": "BSI Congress reveals NIS-2 implementation far behind expectations — companies deliberately avoiding registration",
-      "titleDe": "BSI-Kongress zeigt NIS-2-Umsetzung weit hinter Erwartungen — Unternehmen vermeiden bewusst Registrierung",
+      "title": "BSI Congress reveals NIS-2 implementation far behind expectations: companies deliberately avoiding registration",
+      "titleDe": "BSI-Kongress zeigt NIS-2-Umsetzung weit hinter Erwartungen: Unternehmen vermeiden bewusst Registrierung",
       "summary": "At the 21st IT Security Congress, BSI official Manuel Bach disclosed that NIS-2 registration remains far below expectations. Nearly 50% of German companies had never heard the term 'NIS-2' as of late 2025. Some companies are deliberately choosing not to register after consulting leadership and legal counsel. Bach compared non-compliance to tax liability: 'one cannot decide for oneself whether it applies.'",
       "summaryDe": "Auf dem 21. IT-Sicherheitskongress enthuellte BSI-Beamter Manuel Bach, dass die NIS-2-Registrierung weit hinter den Erwartungen zurueckbleibt. Fast 50% der deutschen Unternehmen hatten den Begriff 'NIS-2' bis Ende 2025 noch nie gehoert. Manche Unternehmen vermeiden bewusst die Registrierung nach Ruecksprache mit Geschaeftsfuehrung und Rechtsberatung. Bach verglich Nichteinhaltung mit Steuerpflicht: 'Man kann nicht selbst entscheiden, ob es gilt.'",
       "sourceId": "heise",
@@ -1329,8 +1329,8 @@
         "publication"
       ],
       "type": "update",
-      "title": "21st German IT Security Congress concludes — 8,000 participants, NIS2 and AI security in focus",
-      "titleDe": "21. Deutscher IT-Sicherheitskongress abgeschlossen — 8.000 Teilnehmer, NIS2 und KI-Sicherheit im Fokus",
+      "title": "21st German IT Security Congress concludes: 8,000 participants, NIS2 and AI security in focus",
+      "titleDe": "21. Deutscher IT-Sicherheitskongress abgeschlossen: 8.000 Teilnehmer, NIS2 und KI-Sicherheit im Fokus",
       "summary": "BSI hosts the 21st IT-Sicherheitskongress in Bonn on April 15-16 under the theme 'Cybernation Deutschland'. Eight sessions cover NIS-2 implementation, AI security, post-quantum cryptography, zero trust, secure supply chains, and digital identity. Hybrid workshops address Grundschutz++ 'state of the art' and EUDI-Wallet topics. Congress content remains accessible through May 15.",
       "summaryDe": "Das BSI veranstaltet den 21. IT-Sicherheitskongress in Bonn am 15.-16. April unter dem Motto 'Cybernation Deutschland'. Acht Sessions behandeln NIS-2-Umsetzung, KI-Sicherheit, Post-Quanten-Kryptografie, Zero Trust, sichere Lieferketten und digitale Identitaet. Hybrid-Workshops befassen sich mit Grundschutz++ 'Stand der Technik' und EUDI-Wallet-Themen. Kongressinhalte bleiben bis 15. Mai abrufbar.",
       "sourceId": "bsi",
@@ -1364,8 +1364,8 @@
         "deadline"
       ],
       "type": "update",
-      "title": "Belgium enforces first NIS2 compliance deadline — essential entities must prove cybersecurity posture",
-      "titleDe": "Belgien setzt erste NIS2-Compliance-Frist durch — wesentliche Einrichtungen muessen Cybersicherheitsstatus nachweisen",
+      "title": "Belgium enforces first NIS2 compliance deadline: essential entities must prove cybersecurity posture",
+      "titleDe": "Belgien setzt erste NIS2-Compliance-Frist durch: wesentliche Einrichtungen muessen Cybersicherheitsstatus nachweisen",
       "summary": "Belgium becomes the first EU country to enforce ex-ante NIS2 supervision. By April 18, essential entities must submit verified cybersecurity documentation via one of three pathways: CyberFundamentals (CyFun) verification, ISO/IEC 27001 certification, or direct CCB inspection request. Non-compliance triggers administrative measures and fines up to 10M EUR or 2% of turnover. Full certification for essential entities due April 18, 2027.",
       "summaryDe": "Belgien wird das erste EU-Land mit Ex-ante-NIS2-Aufsicht. Bis zum 18. April muessen wesentliche Einrichtungen verifizierte Cybersicherheitsdokumentation ueber einen von drei Wegen einreichen: CyberFundamentals (CyFun)-Verifizierung, ISO/IEC 27001-Zertifizierung oder direkten CCB-Inspektionsantrag. Bei Nichteinhaltung drohen Verwaltungsmassnahmen und Bussgelder bis 10 Mio. EUR oder 2% des Umsatzes. Volle Zertifizierung bis 18. April 2027.",
       "sourceId": "ccb",
@@ -1418,8 +1418,8 @@
       "type": "update",
       "title": "BSI publishes C3A criteria framework for cloud sovereignty",
       "titleDe": "BSI veroeffentlicht C3A-Kriterienrahmen fuer Cloud-Souveraenitaet",
-      "summary": "BSI releases the Criteria enabling Cloud Computing Autonomy (C3A) framework establishing transparent sovereignty standards for cloud services. C3A complements the existing C5 catalogue by addressing 'Cyber Dominance' — the ability of cloud manufacturers to maintain permanent access to customer systems and data. Cloud providers must meet C5 prerequisites; the framework offers flexibility on data localisation (Germany or EU). Aligned with the European Cloud Sovereignty Framework (EU CSF). Not regulatory; supplements rather than replaces NIS2 cloud certification pathways.",
-      "summaryDe": "BSI veroeffentlicht das Rahmenwerk Criteria enabling Cloud Computing Autonomy (C3A), das transparente Souveraenitaetsstandards fuer Cloud-Dienste festlegt. C3A ergaenzt den bestehenden C5-Katalog und adressiert 'Cyber Dominance' — die Faehigkeit von Cloud-Herstellern, dauerhaften Zugang zu Kundensystemen und -daten zu behalten. Cloud-Anbieter muessen C5-Voraussetzungen erfuellen; das Rahmenwerk laesst Flexibilitaet bei der Datenlokalisierung (Deutschland oder EU). Ausgerichtet am European Cloud Sovereignty Framework (EU CSF). Nicht regulatorisch verpflichtend; ergaenzt, ersetzt aber NIS2-Cloud-Zertifizierungswege nicht.",
+      "summary": "BSI releases the Criteria enabling Cloud Computing Autonomy (C3A) framework establishing transparent sovereignty standards for cloud services. C3A complements the existing C5 catalogue by addressing 'Cyber Dominance', the ability of cloud manufacturers to maintain permanent access to customer systems and data. Cloud providers must meet C5 prerequisites; the framework offers flexibility on data localisation (Germany or EU). Aligned with the European Cloud Sovereignty Framework (EU CSF). Not regulatory; supplements rather than replaces NIS2 cloud certification pathways.",
+      "summaryDe": "BSI veroeffentlicht das Rahmenwerk Criteria enabling Cloud Computing Autonomy (C3A), das transparente Souveraenitaetsstandards fuer Cloud-Dienste festlegt. C3A ergaenzt den bestehenden C5-Katalog und adressiert 'Cyber Dominance', die Faehigkeit von Cloud-Herstellern, dauerhaften Zugang zu Kundensystemen und -daten zu behalten. Cloud-Anbieter muessen C5-Voraussetzungen erfuellen; das Rahmenwerk laesst Flexibilitaet bei der Datenlokalisierung (Deutschland oder EU). Ausgerichtet am European Cloud Sovereignty Framework (EU CSF). Nicht regulatorisch verpflichtend; ergaenzt, ersetzt aber NIS2-Cloud-Zertifizierungswege nicht.",
       "sourceId": "bsi",
       "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2026/260427_C3A.html",
       "addedAt": "2026-05-03T12:00:00Z"
@@ -1468,8 +1468,8 @@
         "kritis"
       ],
       "type": "update",
-      "title": "BSI launches CyberGovSecure programme — coordinated NIS-2 implementation across German federal administration",
-      "titleDe": "BSI startet CyberGovSecure — koordinierte NIS-2-Umsetzung in der Bundesverwaltung",
+      "title": "BSI launches CyberGovSecure programme: coordinated NIS-2 implementation across German federal administration",
+      "titleDe": "BSI startet CyberGovSecure: koordinierte NIS-2-Umsetzung in der Bundesverwaltung",
       "summary": "BSI, CISO Bund and the Federal Ministry for Digital Affairs and State Modernization launched CyberGovSecure on 4 May 2026, a structured cross-departmental programme to roll out cybersecurity measures across all German federal authorities. BSI President Claudia Plattner described it as a central building block for NIS-2 implementation in the federal administration. Implementation responsibility rests with each authority; BSI provides technical and organisational support.",
       "summaryDe": "BSI, CISO Bund und das Bundesministerium fuer Digitales und Staatsmodernisierung haben am 4. Mai 2026 CyberGovSecure gestartet, ein strukturiertes ressortuebergreifendes Programm zur Umsetzung von Cybersicherheitsmassnahmen in allen Bundesbehoerden. BSI-Praesidentin Claudia Plattner bezeichnet es als zentralen Baustein der NIS-2-Umsetzung in der Bundesverwaltung. Umsetzungsverantwortung liegt bei jeder Behoerde; das BSI begleitet technisch und organisatorisch.",
       "sourceId": "bsi",
@@ -1640,8 +1640,8 @@
         "kritis"
       ],
       "type": "update",
-      "title": "BMI publishes draft of new KRITIS-Verordnung — thresholds and sector list under KRITIS-Dachgesetz",
-      "titleDe": "BMI legt Entwurf der neuen KRITIS-Verordnung vor — Schwellenwerte und Sektorliste unter dem KRITIS-Dachgesetz",
+      "title": "BMI publishes draft of new KRITIS-Verordnung: thresholds and sector list under KRITIS-Dachgesetz",
+      "titleDe": "BMI legt Entwurf der neuen KRITIS-Verordnung vor: Schwellenwerte und Sektorliste unter dem KRITIS-Dachgesetz",
       "summary": "The Federal Interior Ministry releases the referral draft of the new Verordnung zur Bestimmung kritischer Anlagen, replacing the previous BSI-KritisV under the KRITIS-Dachgesetz. The draft adds a new Space sector, keeps IT and telecoms within KRITIS, and adjusts thresholds particularly in energy and transport. Consultation deadline is 16 June 2026. Defines which operators are simultaneously NIS2-essential entities and KRITIS-Dachgesetz operators.",
       "summaryDe": "Das Bundesinnenministerium veroeffentlicht den Referentenentwurf der neuen Verordnung zur Bestimmung kritischer Anlagen, die die bisherige BSI-KritisV unter dem KRITIS-Dachgesetz ersetzt. Der Entwurf nimmt einen neuen Sektor Weltraum auf, behaelt IT und TK in KRITIS und passt Schwellenwerte insbesondere in Energie und Verkehr an. Konsultationsfrist ist der 16. Juni 2026. Bestimmt, welche Betreiber zugleich NIS2-wesentliche Einrichtungen und Betreiber nach KRITIS-Dachgesetz sind.",
       "sourceId": "heise",
@@ -1657,8 +1657,8 @@
         "guidance"
       ],
       "type": "update",
-      "title": "ENISA publishes NIS360 2026 — third annual maturity-and-criticality assessment of NIS2 sectors",
-      "titleDe": "ENISA veroeffentlicht NIS360 2026 — dritte jaehrliche Reife- und Kritikalitaetsbewertung der NIS2-Sektoren",
+      "title": "ENISA publishes NIS360 2026: third annual maturity-and-criticality assessment of NIS2 sectors",
+      "titleDe": "ENISA veroeffentlicht NIS360 2026: dritte jaehrliche Reife- und Kritikalitaetsbewertung der NIS2-Sektoren",
       "summary": "ENISA releases the third edition of NIS360, assessing cybersecurity maturity and criticality of all Annex I high-criticality sectors. Trust services, aviation and financial market infrastructures reach high maturity. Eight sectors sit in the risk zone (maturity lags criticality): health, railway, maritime, ICT service management, space, public administrations, drinking water and waste water. Space and railway show increased criticality. Annual reference document for national authorities and operators planning NIS2 supervisory priorities.",
       "summaryDe": "ENISA veroeffentlicht die dritte Ausgabe von NIS360 zur Bewertung der Cybersicherheitsreife und Kritikalitaet aller Sektoren hoher Kritikalitaet nach Annex I. Vertrauensdienste, Luftverkehr und Finanzmarktinfrastrukturen erreichen hohe Reife. Acht Sektoren liegen in der Risikozone (Reife hinter Kritikalitaet): Gesundheit, Eisenbahn, Schifffahrt, IKT-Service-Management, Weltraum, oeffentliche Verwaltungen, Trinkwasser und Abwasser. Weltraum und Eisenbahn weisen gestiegene Kritikalitaet auf. Jaehrliches Referenzdokument fuer nationale Behoerden und Betreiber zur Priorisierung der NIS2-Aufsicht.",
       "sourceId": "enisa",

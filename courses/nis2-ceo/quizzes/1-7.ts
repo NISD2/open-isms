@@ -28,7 +28,7 @@ const quiz = quizSchema.parse({
       explanation: {
         en: "The claim comes from your own organisation - through the shareholders or the supervisory board - not from the regulator.",
         de: "Die Klage kommt aus Ihrer eigenen Organisation -- von den Gesellschaftern oder dem Aufsichtsrat -- nicht von der Aufsichtsbehörde.",
-        nl: "De vordering komt vanuit uw eigen organisatie — via de aandeelhouders of de raad van commissarissen — niet van de toezichthouder.",
+        nl: "De vordering komt vanuit uw eigen organisatie (via de aandeelhouders of de raad van commissarissen), niet van de toezichthouder.",
         fr: "L'action émane de votre propre organisation, par l'intermédiaire des actionnaires ou du conseil de surveillance, et non de l'autorité de contrôle.",
         it: "L'azione proviene dalla vostra stessa organizzazione, tramite gli azionisti o il consiglio di sorveglianza, e non dall'autorità di vigilanza.",
         es: "La demanda procede de su propia organización, a través de los accionistas o del consejo de supervisión, no de la autoridad reguladora.",
@@ -62,7 +62,7 @@ const quiz = quizSchema.parse({
       explanation: {
         en: "In Germany, the reverse burden of proof means the company does not have to prove you were careless - you have to prove you were careful.",
         de: "In Deutschland bedeutet die Beweislastumkehr, dass das Unternehmen nicht beweisen muss, dass Sie nachlässig waren -- Sie müssen beweisen, dass Sie sorgfältig gehandelt haben.",
-        nl: "In Duitsland betekent de omgekeerde bewijslast dat de vennootschap niet hoeft aan te tonen dat u onzorgvuldig was — u moet bewijzen dat u zorgvuldig heeft gehandeld.",
+        nl: "In Duitsland betekent de omgekeerde bewijslast dat de vennootschap niet hoeft aan te tonen dat u onzorgvuldig was. U moet bewijzen dat u zorgvuldig heeft gehandeld.",
         fr: "En Allemagne, le renversement de la charge de la preuve signifie que l'entreprise n'a pas à prouver que vous avez été négligent : c'est à vous de prouver que vous avez agi avec diligence.",
         it: "In Germania, l'inversione dell'onere della prova significa che l'impresa non deve dimostrare che siete stati negligenti: siete voi a dover dimostrare di aver agito con diligenza.",
         es: "En Alemania, la inversión de la carga de la prueba significa que la empresa no tiene que probar que usted fue negligente: es usted quien debe probar que actuó con diligencia.",
@@ -96,7 +96,7 @@ const quiz = quizSchema.parse({
       explanation: {
         en: "The dated sign-off, the training record, the meeting minutes, the risk register with your signature - those are the evidence you use to prove due care.",
         de: "Die datierte Freigabe, der Schulungsnachweis, die Sitzungsprotokolle, das Risikoregister mit Ihrer Unterschrift -- das sind die Nachweise, mit denen Sie die Einhaltung Ihrer Sorgfaltspflicht belegen.",
-        nl: "De gedateerde goedkeuring, het opleidingsregistratie, de notulen, het risicoregister met uw handtekening — dat is het bewijs waarmee u aantoont dat u zorgvuldig heeft gehandeld.",
+        nl: "De gedateerde goedkeuring, het opleidingsregistratie, de notulen, het risicoregister met uw handtekening: dat is het bewijs waarmee u aantoont dat u zorgvuldig heeft gehandeld.",
         fr: "L'approbation datée, le justificatif de formation, le procès-verbal de réunion, le registre des risques portant votre signature : ce sont les preuves que vous utilisez pour démontrer votre diligence.",
         it: "L'approvazione datata, l'attestato di formazione, il verbale della riunione, il registro dei rischi con la vostra firma: queste sono le prove che utilizzate per dimostrare la dovuta diligenza.",
         es: "La aprobación fechada, el registro de formación, el acta de la reunión, el registro de riesgos con su firma: esas son las pruebas que utiliza para demostrar la diligencia debida.",

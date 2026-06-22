@@ -219,7 +219,7 @@
       "ISMS": {
         "name": "Cláusulas obligatorias del SGSI",
         "description": "Cláusulas 4 a 10 de ISO 27001:2022: contexto, liderazgo, planificación, apoyo, operación, evaluación, mejora",
-        "legalBasis": "ISO 27001:2022 Cl. 4–10",
+        "legalBasis": "ISO 27001:2022 Cl. 4 a 10",
         "threatLandscape": "Un SGSI sin documentar o sin alcance definido no puede auditarse. Las carencias en el compromiso del liderazgo, la planificación de riesgos o la información documentada son los motivos más comunes por los que las organizaciones no superan la Fase 1 de una auditoría ISO 27001.",
         "bsiGuidance": "Las cláusulas obligatorias se aplican sin excepción. El auditor verificará: documento de alcance, metodología de evaluación de riesgos, política de SI firmada por la alta dirección, funciones documentadas, plan de auditoría interna, registros de la revisión por la dirección y un proceso de mejora continua."
       },

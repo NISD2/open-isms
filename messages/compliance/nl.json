@@ -30,7 +30,7 @@
     "invitePlaceholder": "naam@bedrijf.nl",
     "assignFailed": "Toewijzen mislukt",
     "unassignFailed": "Ontkoppelen mislukt",
-    "moduleBacked": "Module-gekoppeld – verbonden met operationele gegevens",
+    "moduleBacked": "Module-gekoppeld, verbonden met operationele gegevens",
     "signOff": "Aftekenen",
     "signOffAllCount": "Alles aftekenen ({count})",
     "bulkSignOffSuccess": "{count} vereisten afgetekend",
@@ -66,7 +66,7 @@
       "howSection": "Hoe hieraan te voldoen",
       "specificsSection": "Uw specifieke gegevens",
       "evidenceSection": "Bewijs",
-      "noFieldsNeeded": "Geen specifieke gegevens nodig – controleer de richtlijnen en teken af wanneer gereed.",
+      "noFieldsNeeded": "Geen specifieke gegevens nodig. Controleer de richtlijnen en teken af wanneer gereed.",
       "viewDetails": "Details bekijken",
       "prevRequirement": "Vorige",
       "nextRequirement": "Volgende",
@@ -183,37 +183,37 @@
       },
       "ISMS": {
         "name": "ISMS Verplichte Clausules",
-        "description": "ISO 27001:2022 clausules 4–10: context, leiderschap, planning, ondersteuning, uitvoering, evaluatie, verbetering",
-        "legalBasis": "ISO 27001:2022 Cl. 4–10",
+        "description": "ISO 27001:2022 clausules 4 tot 10: context, leiderschap, planning, ondersteuning, uitvoering, evaluatie, verbetering",
+        "legalBasis": "ISO 27001:2022 Cl. 4 tot 10",
         "threatLandscape": "Een ongedocumenteerd of niet afgebakend ISMS kan niet worden geaudit. Hiaten in leiderschapsbetrokkenheid, risicoplanning of gedocumenteerde informatie zijn de meest voorkomende redenen waarom organisaties falen bij Stage 1 van een ISO 27001-audit.",
         "bsiGuidance": "Verplichte clausules gelden zonder uitzondering. De auditor verifieert: toepassingsgebieddocument, risicobeoordelingsmethodologie, IS-beleid ondertekend door het topmanagement, gedocumenteerde rollen, intern auditplan, directiebeoordelingsverslagen en een continu verbeterproces."
       },
       "ORG": {
         "name": "Organisatorische Maatregelen",
-        "description": "Bijlage A.5 — Beleid, rollen, leveranciersbeveiliging, incidentbeheer, bedrijfscontinuïteit en wettelijke naleving",
+        "description": "Bijlage A.5: Beleid, rollen, leveranciersbeveiliging, incidentbeheer, bedrijfscontinuïteit en wettelijke naleving",
         "legalBasis": "ISO 27001:2022 Bijlage A.5",
-        "threatLandscape": "Organisatorische maatregelen vormen de governancelaag. Zonder duidelijk beleid, gedefinieerde rollen en leveranciersbeveiligingseisen hebben technische maatregelen geen mandaat en geen verantwoording — wat hiaten achterlaat die aanvallers uitbuiten.",
+        "threatLandscape": "Organisatorische maatregelen vormen de governancelaag. Zonder duidelijk beleid, gedefinieerde rollen en leveranciersbeveiligingseisen hebben technische maatregelen geen mandaat en geen verantwoording, wat hiaten achterlaat die aanvallers uitbuiten.",
         "bsiGuidance": "Auditors zoeken bewijs dat beleid is goedgekeurd, gecommuniceerd en herzien. Leveranciersovereenkomsten moeten beveiligingsclausules bevatten. Incidentbeheer moet worden gepland vóór een incident plaatsvindt."
       },
       "PPL": {
         "name": "Persoonsgerichte Maatregelen",
-        "description": "Bijlage A.6 — Screening, arbeidsvoorwaarden, bewustwordingstraining, disciplinaire procedure, thuiswerken",
+        "description": "Bijlage A.6: Screening, arbeidsvoorwaarden, bewustwordingstraining, disciplinaire procedure, thuiswerken",
         "legalBasis": "ISO 27001:2022 Bijlage A.6",
         "threatLandscape": "Mensen zijn zowel de primaire aanvalsvector (phishing, social engineering) als de laatste verdedigingslinie. Ongetraind personeel en slechte offboarding behoren tot de meest uitgebuite zwakheden.",
         "bsiGuidance": "Vereist bewijs: achtergrondcontroleprocedure, ondertekende geheimhoudingsovereenkomsten, jaarlijkse IS-bewustwordingstrainingsrapporten, thuiswerkbeleid."
       },
       "PHY": {
         "name": "Fysieke Maatregelen",
-        "description": "Bijlage A.7 — Fysieke perimeters, toegangscontrole, apparatuurbeveiliging, veilige verwijdering",
+        "description": "Bijlage A.7: Fysieke perimeters, toegangscontrole, apparatuurbeveiliging, veilige verwijdering",
         "legalBasis": "ISO 27001:2022 Bijlage A.7",
-        "threatLandscape": "Fysieke toegang tot systemen omzeilt alle logische controles. Onbeveiligde kantoren, ontgrendelde schermen en onjuiste verwijdering van apparatuur worden frequent uitgebuit — vaak door opportunistische, niet geavanceerde aanvallers.",
+        "threatLandscape": "Fysieke toegang tot systemen omzeilt alle logische controles. Onbeveiligde kantoren, ontgrendelde schermen en onjuiste verwijdering van apparatuur worden frequent uitgebuit, vaak door opportunistische, niet geavanceerde aanvallers.",
         "bsiGuidance": "Voor een remote-first bedrijf met co-workingruimtes richten fysieke maatregelen zich op: clean-deskbeleid, schermblokkering, beveiliging van activa buiten het terrein en veilige verwijdering van laptops en opslagmedia."
       },
       "TEC": {
         "name": "Technologische Maatregelen",
-        "description": "Bijlage A.8 — Eindpuntbeveiliging, toegangsrechten, kwetsbaarheidsbeheer, cryptografie, logging, wijzigingsbeheer",
+        "description": "Bijlage A.8: Eindpuntbeveiliging, toegangsrechten, kwetsbaarheidsbeheer, cryptografie, logging, wijzigingsbeheer",
         "legalBasis": "ISO 27001:2022 Bijlage A.8",
-        "threatLandscape": "De grootste Bijlage A-sectie (34 maatregelen). Technologische hiaten — niet-gepatchte systemen, verkeerd geconfigureerde cloudresources, ontbrekende MFA, ontoereikende logging — zijn de grondoorzaak van de meerderheid van beveiligingsincidenten.",
+        "threatLandscape": "De grootste Bijlage A-sectie (34 maatregelen). Technologische hiaten (niet-gepatchte systemen, verkeerd geconfigureerde cloudresources, ontbrekende MFA, ontoereikende logging) zijn de grondoorzaak van de meerderheid van beveiligingsincidenten.",
         "bsiGuidance": "Auditors controleren of maatregelen daadwerkelijk zijn geïmplementeerd, niet alleen gedocumenteerd. Verwacht technisch bewijs: configuratieschermafdrukken, patchlogs, SIEM-uitvoer, resultaten van back-uphersteltests en toegangsbeoordelingsverslagen."
       },
       "AI-LIT": {
@@ -444,7 +444,7 @@
     "extracting": "Extraheren...",
     "assistButton": "AI-assistent",
     "assistTitle": "Formulierbegeleiding",
-    "assistDescription": "AI-gegenereerde begeleiding voor het invullen van dit vereistenformulier. Er worden geen werkelijke gegevens verstuurd – alleen veldnamen en typen.",
+    "assistDescription": "AI-gegenereerde begeleiding voor het invullen van dit vereistenformulier. Er worden geen werkelijke gegevens verstuurd: alleen veldnamen en typen.",
     "assistLoading": "Begeleiding genereren...",
     "assistError": "Genereren van begeleiding mislukt. Probeer het opnieuw.",
     "assistOverview": "Overzicht",

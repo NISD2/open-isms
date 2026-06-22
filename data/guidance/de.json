@@ -1,7 +1,7 @@
 {
   "1.1": {
     "summary": "Die Geschäftsführung muss eine Schulung zu Cybersecurity machen, die mindestens 4 Stunden dauert und bestimmte Themen abdeckt. Sie wissen, dass sie fertig sind, wenn alle Vorstände teilgenommen haben und Nachweise mit Teilnehmerliste, Trainer, Inhalten, Dauer und Datum vorliegen.",
-    "applicability": "Das gilt für jedes Mitglied der Geschäftsführung in Ihrem Unternehmen – niemand kann das delegieren oder überspringen.",
+    "applicability": "Das gilt für jedes Mitglied der Geschäftsführung in Ihrem Unternehmen. Niemand kann das delegieren oder überspringen.",
     "quickTip": "Fragen Sie Ihren IT-Leiter oder einen externen Berater nach einem geeigneten Schulungsanbieter für Führungskräfte.",
     "implementationSteps": "Planen Sie einen Termin für die Schulung aller Geschäftsführung-Mitglieder.\nWählen Sie einen qualifizierten Trainer oder Anbieter, der die Pflichtthemen abdeckt.\nLassen Sie die Schulung durchführen (mindestens 4 Stunden) und sammeln Sie Nachweise.\nPlanen Sie die nächste Schulung in spätestens 3 Jahren.\nArchivieren Sie alle Unterlagen zentral, damit Sie sie jederzeit vorzeigen können.",
     "evidenceExample": "Schulungsnachweise, die zeigen: Namen der teilnehmenden Vorstände, Name und Qualifikation des Trainers, behandelte Themen (Bedrohungen, BSIG-Pflichten, Grundlagen, Haftung), Dauer von mindestens 4 Stunden und das Datum.",
@@ -10,21 +10,21 @@
         "label": "Management Training Provider",
         "meaning": "Hier tragen Sie den Namen des Anbieters oder Trainers ein, der die Schulung für die Geschäftsführung durchgeführt hat.",
         "example": "Dr. Müller Cybersecurity GmbH",
-        "whereToFind": "Auf der Rechnung, im Vertrag oder auf dem Schulungszertifikat des Anbieters – fragen Sie Ihren Einkauf oder IT-Leiter."
+        "whereToFind": "Auf der Rechnung, im Vertrag oder auf dem Schulungszertifikat des Anbieters. Fragen Sie Ihren Einkauf oder IT-Leiter."
       },
       "lastManagementTraining": {
         "label": "Last Management Training",
         "meaning": "Geben Sie das Datum der letzten abgeschlossenen Schulung für die Geschäftsführung an.",
         "example": "2024-03-15",
-        "whereToFind": "Auf den Schulungsnachweisen, Teilnehmerlisten oder Zertifikaten – schauen Sie in Ihren Personal- oder Compliance-Ordnern nach."
+        "whereToFind": "Auf den Schulungsnachweisen, Teilnehmerlisten oder Zertifikaten. Schauen Sie in Ihren Personal- oder Compliance-Ordnern nach."
       }
     }
   },
   "1.2": {
     "summary": "Weisen Sie klare Verantwortlichkeiten für Cybersicherheit in Ihrem Team zu. Sie sind fertig, wenn auf der Teamseite jeder wichtige Sicherheitsbereich einen benannten Verantwortlichen und Stellvertreter hat und die Geschäftsführung das bestätigt hat.",
-    "applicability": "Jedes Unternehmen muss das umsetzen – niemand kann das überspringen.",
+    "applicability": "Jedes Unternehmen muss das umsetzen. Niemand kann das überspringen.",
     "quickTip": "Gehen Sie auf die Teamseite der Plattform und schauen Sie, welche Rollen noch offen sind.",
-    "implementationSteps": "Öffnen Sie die Teamseite in der Plattform.\nWeisen Sie für CISO (oder Äquivalent), Incident-Response-Leiter, Risikomanager und Compliance-Koordinator je einen Verantwortlichen zu – mit Stellvertreter.\nStellen Sie sicher, dass alle kritischen Sicherheitsaufgaben abgedeckt sind.\nLassen Sie die Geschäftsführung die Zuweisungen prüfen und bestätigen.",
+    "implementationSteps": "Öffnen Sie die Teamseite in der Plattform.\nWeisen Sie für CISO (oder Äquivalent), Incident-Response-Leiter, Risikomanager und Compliance-Koordinator je einen Verantwortlichen zu, mit Stellvertreter.\nStellen Sie sicher, dass alle kritischen Sicherheitsaufgaben abgedeckt sind.\nLassen Sie die Geschäftsführung die Zuweisungen prüfen und bestätigen.",
     "evidenceExample": "Screenshot oder Export der Teamseite, der zeigt, dass alle genannten Sicherheitsrollen einem Teammitglied zugewiesen sind, inklusive Stellvertreter, und von der Geschäftsführung freigegeben wurde.",
     "fields": {}
   },
@@ -32,7 +32,7 @@
     "summary": "Ihr Unternehmen muss ein separates Budget für Cybersicherheit in der jährlichen Planung festlegen. Sie sind fertig, wenn die Geschäftsleitung das Budget genehmigt hat und Sie die Details dokumentiert haben.",
     "applicability": "Alle Unternehmen mit 50-250 Mitarbeitern müssen das umsetzen; kleinere Firmen ohne IT-Budget können es überspringen, wenn sie nachweisen, dass keine Risiken bestehen.",
     "quickTip": "Schauen Sie sich Ihr aktuelles IT-Budget an und tragen Sie 10 Prozent davon als Cybersicherheitsbudget ein.",
-    "implementationSteps": "Legen Sie ein separates Budget für Cybersicherheit in Ihrer Jahresplanung fest – decken Sie Personal, Tools, Schulungen und Audits ab.\n\nBerechnen Sie den Betrag basierend auf 7-15% Ihres IT-Budgets oder mindestens 25.000 Euro pro Jahr.\n\nLegen Sie den Vorschlag der Geschäftsleitung vor, zusammen mit Ihrer Risikoanalyse.\n\nLassen Sie die Geschäftsleitung das Budget genehmigen und notieren Sie das Datum.\n\nDokumentieren Sie ungeminderte Risiken, falls das Budget nicht reicht.",
+    "implementationSteps": "Legen Sie ein separates Budget für Cybersicherheit in Ihrer Jahresplanung fest. Decken Sie Personal, Tools, Schulungen und Audits ab.\n\nBerechnen Sie den Betrag basierend auf 7-15% Ihres IT-Budgets oder mindestens 25.000 Euro pro Jahr.\n\nLegen Sie den Vorschlag der Geschäftsleitung vor, zusammen mit Ihrer Risikoanalyse.\n\nLassen Sie die Geschäftsleitung das Budget genehmigen und notieren Sie das Datum.\n\nDokumentieren Sie ungeminderte Risiken, falls das Budget nicht reicht.",
     "evidenceExample": "Ein Budgetplan-Dokument, das das dedizierte Cybersicherheitsbudget als eigene Position zeigt, inklusive Genehmigung durch die Geschäftsleitung mit Datum und Unterschriften.",
     "fields": {
       "annualSecurityBudget": {
@@ -50,7 +50,7 @@
     }
   },
   "1.4": {
-    "summary": "Jedes Mitglied Ihrer Geschäftsführung muss eine persönliche Erklärung zur Haftung für Cybersicherheitsmaßnahmen unterschreiben. Sie sind fertig, wenn alle aktuellen Geschäftsführer das individuell bestätigt haben – die Plattform trackt das pro Person.",
+    "summary": "Jedes Mitglied Ihrer Geschäftsführung muss eine persönliche Erklärung zur Haftung für Cybersicherheitsmaßnahmen unterschreiben. Sie sind fertig, wenn alle aktuellen Geschäftsführer das individuell bestätigt haben. Die Plattform trackt das pro Person.",
     "applicability": "Das müssen alle Mitglieder der Geschäftsführung machen; andere Mitarbeiter können das überspringen.",
     "quickTip": "Sammeln Sie zuerst die Namen aller aktuellen Geschäftsführer und schicken Sie ihnen den Link zur Plattform zum Unterschreiben.",
     "implementationSteps": "Listen Sie alle aktuellen Mitglieder der Geschäftsführung auf.\nLassen Sie jedes Mitglied individuell die Haftungserklärung auf der Plattform unterschreiben.\nErklären Sie ihnen klar: Sie haften persönlich für Cybersicherheit, das kann der Arbeitgeber nicht abwälzen, und Verstöße können Bußgelder bis 500.000 € nach sich ziehen.\nÜberprüfen Sie auf der Plattform, ob alle bestätigt haben.\nWiederholen Sie das, wenn sich die Geschäftsführung ändert.",
@@ -67,7 +67,7 @@
   "2.1": {
     "summary": "Ihr Unternehmen muss eine klare Methode festlegen, wie Risiken für die IT-Sicherheit bewertet werden. Sie wissen, dass Sie fertig sind, wenn diese Methode schriftlich dokumentiert ist, von der Geschäftsführung genehmigt wurde und alle Mitarbeiter darüber informiert sind.",
     "applicability": "Jedes Unternehmen mit kritischen IT-Systemen muss das umsetzen; kleinere Firmen ohne sensible Daten können es vereinfachen.",
-    "quickTip": "Schreiben Sie als Erstes auf einem Blatt Papier, wie Sie Wahrscheinlichkeit und Auswirkung von Risiken bewerten wollen – z. B. niedrig, mittel, hoch.",
+    "quickTip": "Schreiben Sie als Erstes auf einem Blatt Papier, wie Sie Wahrscheinlichkeit und Auswirkung von Risiken bewerten wollen, z. B. niedrig, mittel, hoch.",
     "implementationSteps": "Definieren Sie in Ihrer IT-Sicherheitspolicy die Risikobewertungsmethode, inklusive Skalen für Wahrscheinlichkeit und Auswirkung sowie Akzeptanzgrenzen.\nLassen Sie die Policy von allen Geschäftsführern unterschreiben.\nTeilen Sie die Policy firmenweit mit und lassen Sie die Mitarbeiter bestätigen, dass sie sie gelesen haben.\nNennen Sie klare Verantwortliche für die Risikobewertung, z. B. IT-Leiter oder einen Risiko-Beauftragten.\nPlanen Sie fest, wie oft Risiken überprüft werden, z. B. jährlich oder bei Änderungen.",
     "evidenceExample": "Ein unterzeichnetes Dokument, das die Risikobewertungsmethode beschreibt, Skalen für Wahrscheinlichkeit und Auswirkung zeigt, Akzeptanzkriterien definiert und die Zustimmung der Geschäftsführung sowie die Kommunikation an Mitarbeiter nachweist.",
     "fields": {
@@ -93,7 +93,7 @@
         "label": "Risikoakzeptanzgrenze (max. Punktzahl ohne Behandlung)",
         "meaning": "Die höchste Punktzahl (z. B. aus Wahrscheinlichkeit mal Auswirkung), die Sie als akzeptabel ansehen, ohne Maßnahmen zu ergreifen.",
         "example": "8",
-        "whereToFind": "Entscheiden Sie das mit der Geschäftsführung – was kann Ihr Unternehmen verkraften?"
+        "whereToFind": "Entscheiden Sie das mit der Geschäftsführung. Was kann Ihr Unternehmen verkraften?"
       },
       "otIcsCoverage": {
         "label": "Abdeckung von OT/ICS (Methodik umfasst Betriebs-Technologie)",
@@ -190,7 +190,7 @@
   "2.4": {
     "summary": "Ihr Unternehmen muss Risiken, die Sie akzeptieren, klar dokumentieren und die Informationssicherheitsrichtlinie von der gesamten Geschäftsführung unterschreiben lassen. Sie sind fertig, wenn die Akzeptanz der Restrisiken festgehalten und die Richtlinie genehmigt ist.",
     "applicability": "Jedes Unternehmen mit kritischen Diensten nach BSIG muss das umsetzen; kleinere Firmen ohne solche Dienste können es überspringen.",
-    "quickTip": "Lassen Sie die Geschäftsführung die aktuelle Sicherheitsrichtlinie unterschreiben – das ist der einfachste erste Schritt.",
+    "quickTip": "Lassen Sie die Geschäftsführung die aktuelle Sicherheitsrichtlinie unterschreiben. Das ist der einfachste erste Schritt.",
     "implementationSteps": "Erstellen Sie eine Liste aller Restrisiken mit Beschreibung, Bewertung und Begründung für die Akzeptanz.\nLassen Sie die Geschäftsführung diese Risikoakzeptanz und die Informationssicherheitsrichtlinie unterschreiben.\nNotieren Sie die Anzahl der akzeptierten Restrisiken.\nÜberprüfen Sie das vierteljährlich oder nach großen Änderungen.",
     "evidenceExample": "Unterschriebene Erklärung der Geschäftsführung, die die akzeptierten Restrisiken auflistet und die genehmigte Informationssicherheitsrichtlinie bestätigt.",
     "fields": {
@@ -224,7 +224,7 @@
     "summary": "Erstellen Sie einen Plan, wie Ihr Unternehmen auf IT-Vorfälle wie Hackerangriffe reagiert, inklusive eines Teams mit klaren Rollen und Eskalationswegen. Sie sind fertig, wenn der Plan schriftlich festgehalten ist, das Team benannt wurde und es Beweise wie eine Team-Charta und Playbooks gibt.",
     "applicability": "Jedes Unternehmen, das unter das BSIG fällt, muss das umsetzen; kleine Firmen ohne IT-Vorfälle können es vereinfachen, aber ignorieren Sie es nicht.",
     "quickTip": "Rufen Sie Ihr IT-Team und den Chef zusammen und fragen Sie: 'Wer macht was, wenn wir gehackt werden?'",
-    "implementationSteps": "Nennen Sie einen Leiter für Vorfälle und definieren Sie das Incident Response Team mit Kontaktdaten und Stellvertretern.\nSchreiben Sie einen Plan mit Schritten: Erkennung, Analyse, Eindämmung, Beseitigung, Wiederherstellung und Nachbesprechung – inklusive Eskalation zur Geschäftsführung.\nErstellen Sie Playbooks für Ihre größten Risiken wie Ransomware oder DDoS und eine Liste mit BSI-Meldefristen (24h Frühwarnung, 72h Meldung).\nLegen Sie einen sicheren Kommunikationskanal fest und testen Sie den Plan jährlich in einer Übung.",
+    "implementationSteps": "Nennen Sie einen Leiter für Vorfälle und definieren Sie das Incident Response Team mit Kontaktdaten und Stellvertretern.\nSchreiben Sie einen Plan mit Schritten: Erkennung, Analyse, Eindämmung, Beseitigung, Wiederherstellung und Nachbesprechung, inklusive Eskalation zur Geschäftsführung.\nErstellen Sie Playbooks für Ihre größten Risiken wie Ransomware oder DDoS und eine Liste mit BSI-Meldefristen (24h Frühwarnung, 72h Meldung).\nLegen Sie einen sicheren Kommunikationskanal fest und testen Sie den Plan jährlich in einer Übung.",
     "evidenceExample": "Ein Dokument, das den Vorfallbehandlungsplan zeigt, die Team-Charta mit Rollen, Aktivierungskriterien und Befugnissen, Playbooks für typische Vorfälle sowie eine Kontaktliste mit Rufbereitschaftsrotation.",
     "fields": {
       "incidentLead": {
@@ -237,7 +237,7 @@
         "label": "Irt Team Size",
         "meaning": "Die Anzahl der festen Mitglieder im Incident Response Team (IRT), das bei Vorfällen aktiv wird.",
         "example": "7",
-        "whereToFind": "Zählen Sie die Personen in Ihrem IT- und Sicherheitsbereich, die für Vorfälle eingeteilt sind – schauen Sie in Ihre Organisationsstruktur."
+        "whereToFind": "Zählen Sie die Personen in Ihrem IT- und Sicherheitsbereich, die für Vorfälle eingeteilt sind. Schauen Sie in Ihre Organisationsstruktur."
       },
       "secureCommsChannel": {
         "label": "Secure Comms Channel",
@@ -247,7 +247,7 @@
       },
       "incidentEscalationContacts": {
         "label": "Incident Escalation Contacts",
-        "meaning": "Die Kontaktdaten der Personen, an die ein Vorfall eskaliert wird, wenn das Team es nicht allein handhaben kann – z.B. CISO oder Geschäftsführung.",
+        "meaning": "Die Kontaktdaten der Personen, an die ein Vorfall eskaliert wird, wenn das Team es nicht allein handhaben kann, z.B. CISO oder Geschäftsführung.",
         "example": "CISO: Peter Schmidt, Tel: 030-123456, peter@ihre-firma.de | Geschäftsführung: Max Mustermann, Tel: 030-789012, max@ihre-firma.de",
         "whereToFind": "Schauen Sie in Ihr Adressbuch oder Organigramm nach den Hierarchie-Stufen über dem IT-Team."
       }
@@ -256,7 +256,7 @@
   "3.2": {
     "summary": "Ihr Unternehmen muss ein Schema zur Einstufung von Sicherheitsvorfällen definieren und Tools für die Erkennung sowie Kriterien für wichtige Vorfälle festlegen. Sie sind fertig, wenn Sie diese Regeln schriftlich haben und ein Log-System läuft, das Vorfälle automatisch erfasst.",
     "applicability": "Jedes Unternehmen mit kritischen Diensten nach BSIG muss das umsetzen; kleinere Firmen ohne kritische Infrastruktur können es überspringen.",
-    "quickTip": "Schauen Sie sich das BSI-Klassifizierungsschema an – das ist ein guter Startpunkt für Ihr eigenes Schema.",
+    "quickTip": "Schauen Sie sich das BSI-Klassifizierungsschema an. Das ist ein guter Startpunkt für Ihr eigenes Schema.",
     "implementationSteps": "Definieren Sie Kategorien für Vorfälle: normale Ereignisse, kleine, bedeutende (BSI-meldungspflichtig) und kritische.\n\nLegen Sie Schwellenwerte für 'bedeutend' fest, z. B. Anzahl betroffener Nutzer oder Ausfallzeit.\n\nRichten Sie ein Ticketing-System oder SIEM-Tool ein, das alle Vorfälle protokolliert (mindestens 3 Jahre aufbewahren).\n\nErstellen Sie einen Entscheidungsbaum zur schnellen Einstufung.\n\nLassen Sie das vom Vorstand oder der Geschäftsführung genehmigen.",
     "evidenceExample": "Ein Dokument, das Ihr Klassifizierungsschema beschreibt, Screenshots oder Konfigurationsberichte von SIEM oder Ticketing-System zeigt und ein Beispielprotokoll eines Vorfalls enthält.",
     "fields": {
@@ -264,7 +264,7 @@
         "label": "Klassifizierungsschema",
         "meaning": "Hier wählen Sie aus, ob Sie das Schema des BSI, von ENISA oder ein eigenes verwenden.",
         "example": "bsi",
-        "whereToFind": "Entscheiden Sie mit Ihrem IT-Leiter oder Datenschutzbeauftragten – schauen Sie auf bsi.bund.de nach passenden Schemata."
+        "whereToFind": "Entscheiden Sie mit Ihrem IT-Leiter oder Datenschutzbeauftragten. Schauen Sie auf bsi.bund.de nach passenden Schemata."
       },
       "detectionTools": {
         "label": "Erkennungstools",
@@ -282,28 +282,28 @@
   },
   "3.3": {
     "summary": "Ihr Unternehmen muss einen Prozess aufbauen, um schwere IT-Vorfälle innerhalb von 24 Stunden, 72 Stunden und einem Monat an das BSI zu melden. Sie sind fertig, wenn Vorlagen für alle drei Meldungen existieren, der Prozess getestet ist und alle verantwortlichen Personen wissen, was zu tun ist.",
-    "applicability": "Das gilt für jedes Unternehmen mit kritischen IT-Systemen in Deutschland, das unter das BSIG fällt – kleine Firmen ohne wesentliche IT-Infrastruktur können es überspringen.",
+    "applicability": "Das gilt für jedes Unternehmen mit kritischen IT-Systemen in Deutschland, das unter das BSIG fällt. Kleine Firmen ohne wesentliche IT-Infrastruktur können es überspringen.",
     "quickTip": "Rufen Sie Ihren IT-Leiter an und fragen Sie: 'Haben wir schon Vorlagen für BSI-Meldungen?'",
-    "implementationSteps": "Erstellen Sie Vorlagen für die drei Meldungen: 24-Stunden-Frühwarnung, 72-Stunden-Details und Monats-Abschlussbericht.\n\nRichten Sie einen Wachdienst ein, der auch nachts, am Wochenende und Feiertag die 24-Stunden-Meldung starten kann.\n\nSchreiben Sie auf, wer wann was macht – inklusive Eskalationswege.\n\nFühren Sie einmal im Jahr eine Trockenübung durch, um die Fristen zu testen.\n\nDokumentieren Sie den gesamten Prozess und die Übung.",
-    "evidenceExample": "Dokumente, die zeigen, dass Vorlagen für alle drei Meldetypen existieren, der Prozess beschrieben ist und eine Übung erfolgreich durchgeführt wurde – zum Beispiel Übungsprotokolle mit Fristen-Einhaltung.",
+    "implementationSteps": "Erstellen Sie Vorlagen für die drei Meldungen: 24-Stunden-Frühwarnung, 72-Stunden-Details und Monats-Abschlussbericht.\n\nRichten Sie einen Wachdienst ein, der auch nachts, am Wochenende und Feiertag die 24-Stunden-Meldung starten kann.\n\nSchreiben Sie auf, wer wann was macht, inklusive Eskalationswege.\n\nFühren Sie einmal im Jahr eine Trockenübung durch, um die Fristen zu testen.\n\nDokumentieren Sie den gesamten Prozess und die Übung.",
+    "evidenceExample": "Dokumente, die zeigen, dass Vorlagen für alle drei Meldetypen existieren, der Prozess beschrieben ist und eine Übung erfolgreich durchgeführt wurde, zum Beispiel Übungsprotokolle mit Fristen-Einhaltung.",
     "fields": {
       "earlyWarningSlaHours": {
         "label": "Early Warning Sla Hours",
         "meaning": "Hier tragen Sie die maximale Zeit in Stunden ein, innerhalb derer die erste Warnmeldung ans BSI gehen muss.",
         "example": "24",
-        "whereToFind": "Im BSIG-Gesetz (§ 32) oder in Ihrer internen IT-Sicherheitspolicy – es ist gesetzlich 24 Stunden."
+        "whereToFind": "Im BSIG-Gesetz (§ 32) oder in Ihrer internen IT-Sicherheitspolicy. Es ist gesetzlich 24 Stunden."
       },
       "bsiReportingRegistered": {
         "label": "Bsi Reporting Registered",
         "meaning": "Geben Sie an, ob Ihr Unternehmen beim BSI für die Meldepflicht registriert ist.",
         "example": "true",
-        "whereToFind": "Bei Ihrer IT- oder Rechtsabteilung oder auf der BSI-Website unter Meldepflichtige – prüfen Sie, ob Sie unter BSIG fallen."
+        "whereToFind": "Bei Ihrer IT- oder Rechtsabteilung oder auf der BSI-Website unter Meldepflichtige. Prüfen Sie, ob Sie unter BSIG fallen."
       }
     }
   },
   "3.4": {
     "summary": "Ihr Unternehmen muss mindestens einmal im Jahr eine Übung zum Incident-Response durchführen, um zu testen, wie gut das Team auf Sicherheitsvorfälle reagiert. Sie wissen, dass Sie fertig sind, wenn Sie die Übung dokumentiert haben, inklusive Szenario, Teilnehmern und einem Nachbesprechungsbericht mit Verbesserungsvorschlägen.",
-    "applicability": "Jedes Unternehmen, das unter die BSIG-Pflichten fällt, muss das machen – kleine Firmen ohne IT-Risiken können es vereinfacht als Tischübung halten.",
+    "applicability": "Jedes Unternehmen, das unter die BSIG-Pflichten fällt, muss das machen. Kleine Firmen ohne IT-Risiken können es vereinfacht als Tischübung halten.",
     "quickTip": "Rufen Sie Ihr IT-Team und die Geschäftsführung zusammen und besprechen Sie ein einfaches Szenario wie 'Ein Hacker hat Zugriff auf Kundendaten'.",
     "implementationSteps": "Planen Sie eine Übung: Wählen Sie ein realistisches Szenario, z. B. Datenleck oder Ransomware.\n\nRufen Sie die relevanten Personen zusammen: IT, Geschäftsführung und ggf. externe Berater.\n\nFühren Sie die Übung durch: Besprechen Sie als Tischübung oder simulieren Sie technisch.\n\nDokumentieren Sie alles: Szenario, Teilnehmer, Beobachtungen, Lücken und Korrekturmaßnahmen.\n\nTeilen Sie die Ergebnisse mit der Geschäftsführung und planen Sie Verbesserungen.",
     "evidenceExample": "Dokumentation der Übung, die das Szenario beschreibt, die teilnehmenden Personen auflistet, Beobachtungen notiert, identifizierte Schwächen nennt und Korrekturmaßnahmen festlegt.",
@@ -324,7 +324,7 @@
   },
   "3.5": {
     "summary": "Nach jedem großen Vorfall führen Sie innerhalb von zwei Wochen eine strukturierte Nachbesprechung durch und dokumentieren Ursache, Ablauf, was gut lief und was nicht, sowie konkrete Verbesserungen mit Verantwortlichen und Fristen. Sie erstellen zudem genehmigte Vorlagen für die Kommunikation an Kunden und Öffentlichkeit, die erklären, was passiert ist, welche Daten betroffen sind und was zu tun ist.",
-    "applicability": "Jedes Unternehmen, das kritische Vorfälle haben kann, muss das machen – kleine Firmen ohne Vorfälle in der Vergangenheit können es erst bei Bedarf einrichten.",
+    "applicability": "Jedes Unternehmen, das kritische Vorfälle haben kann, muss das machen. Kleine Firmen ohne Vorfälle in der Vergangenheit können es erst bei Bedarf einrichten.",
     "quickTip": "Schauen Sie in Ihrem IT-Team nach, wer schon mal einen Vorfall bearbeitet hat, und fragen Sie die Person, ob sie die Nachbesprechungen leiten kann.",
     "implementationSteps": "Richten Sie einen Prozess ein, dass nach jedem großen Vorfall innerhalb von 2 Wochen eine Nachbesprechung stattfindet.\nDokumentieren Sie in einem Bericht: Ursache, vollständigen Zeitverlauf, was gut und schlecht lief, und Verbesserungsmaßnahmen mit Verantwortlichen und Fristen.\nErstellen Sie Vorlagen für Kunden- und Öffentlichkeitsmitteilungen, die abdecken: Was passiert ist, betroffene Daten, Ihre Maßnahmen und Tipps für Empfänger.\nLassen Sie Vorlagen vom Vorstand oder der Geschäftsleitung genehmigen.\nFüttern Sie alle Verbesserungen in Ihren Plan für kontinuierliche Verbesserungen ein.",
     "evidenceExample": "Ein Bericht über eine Nachbesprechung, der Ursachenanalyse, Zeitlinie, Erfolge und Misserfolge sowie zugewiesene Verbesserungsmaßnahmen mit Fristen zeigt, plus genehmigte Vorlagen für Kundenmitteilungen, die den Vorfall, betroffene Daten und nächsten Schritte beschreiben.",
@@ -333,7 +333,7 @@
         "label": "Verantwortlicher für die Nachbesprechung",
         "meaning": "Hier nennen Sie die Person oder Rolle, die die Nachbesprechung nach einem Vorfall organisiert und leitet.",
         "example": "IT-Sicherheitsbeauftragter, Herr Müller",
-        "whereToFind": "Fragen Sie in Ihrem IT- oder Sicherheits-Team nach der Person, die Vorfälle bearbeitet – oft der CISO oder IT-Leiter."
+        "whereToFind": "Fragen Sie in Ihrem IT- oder Sicherheits-Team nach der Person, die Vorfälle bearbeitet, oft der CISO oder IT-Leiter."
       }
     }
   },
@@ -381,7 +381,7 @@
         "label": "Krisenteam-Leiter",
         "meaning": "Name der Person, die das Krisenteam leitet und finale Entscheidungen trifft, meist aus der Geschäftsführung.",
         "example": "Dr. Anna Müller, Geschäftsführerin",
-        "whereToFind": "In der Geschäftsführung oder im Organigramm – fragen Sie den Vorstand oder die Personalabteilung."
+        "whereToFind": "In der Geschäftsführung oder im Organigramm. Fragen Sie den Vorstand oder die Personalabteilung."
       },
       "bcpActivationCriteria": {
         "label": "BCP-Aktivierungskriterien",
@@ -393,7 +393,7 @@
   },
   "4.3": {
     "summary": "Ihr Unternehmen muss einen Disaster Recovery Plan erstellen, der beschreibt, wie IT-Systeme nach einem Ausfall wiederhergestellt werden. Sie sind fertig, wenn der Plan Schritt-für-Schritt-Anleitungen, eine Reihenfolge der Systeme und Tests enthält.",
-    "applicability": "Jedes Unternehmen, das kritische IT-Systeme betreibt, muss das machen – kleine Firmen ohne IT-Abhängigkeiten können es überspringen.",
+    "applicability": "Jedes Unternehmen, das kritische IT-Systeme betreibt, muss das machen. Kleine Firmen ohne IT-Abhängigkeiten können es überspringen.",
     "quickTip": "Sprechen Sie mit Ihrem IT-Leiter und listen Sie Ihre wichtigsten Systeme auf, z. B. E-Mail-Server und Kundendatenbank.",
     "implementationSteps": "Listen Sie Ihre kritischen IT-Systeme auf und ordnen Sie sie nach Wichtigkeit und Abhängigkeiten.\nSchreiben Sie für jedes System eine Schritt-für-Schritt-Anleitung zur Wiederherstellung, inklusive benötigter Ressourcen wie Backups und geschätzter Zeit.\nDefinieren Sie Szenarien wie Ausfall eines Teils oder des gesamten Rechenzentrums.\nLassen Sie den Plan vom Vorstand genehmigen und planen Sie Tests ein.\nDokumentieren Sie alles in einem klaren Plan.",
     "evidenceExample": "Ein Dokument, das die Reihenfolge der System-Wiederherstellung zeigt, detaillierte Schritt-für-Schritt-Anleitungen für jedes kritische System, benötigte Ressourcen, geschätzte Zeiten und Testverfahren beschreibt.",
@@ -403,7 +403,7 @@
     "summary": "Ihr Unternehmen muss Backups für wichtige Daten einrichten und regelmäßig testen, damit Sie bei Ausfällen schnell wieder arbeiten können. Sie sind fertig, wenn Sie eine klare Regel haben, Tests durchgeführt wurden und die Erfolgsrate hoch ist.",
     "applicability": "Jedes Unternehmen mit kritischen IT-Systemen muss das machen; kleine Firmen ohne sensible Daten können es vereinfachen.",
     "quickTip": "Sprechen Sie zuerst mit Ihrem IT-Team: Welche Daten sind am wichtigsten zu sichern?",
-    "implementationSteps": "Richten Sie Backups für alle wichtigen Daten und Systeme ein – folgen Sie der 3-2-1-Regel: 3 Kopien, 2 Medientypen, 1 außerhalb des Hauses.\nSchreiben Sie eine einfache Richtlinie: Was wird gesichert, wie oft, wo gespeichert und verschlüsselt.\nFühren Sie vierteljährlich einen Test durch, ob Backups wiederhergestellt werden können.\nDokumentieren Sie Testergebnisse und beheben Sie Probleme sofort.\nNutzen Sie sichere Speicher wie Air-Gap oder WORM gegen Ransomware.",
+    "implementationSteps": "Richten Sie Backups für alle wichtigen Daten und Systeme ein. Folgen Sie der 3-2-1-Regel: 3 Kopien, 2 Medientypen, 1 außerhalb des Hauses.\nSchreiben Sie eine einfache Richtlinie: Was wird gesichert, wie oft, wo gespeichert und verschlüsselt.\nFühren Sie vierteljährlich einen Test durch, ob Backups wiederhergestellt werden können.\nDokumentieren Sie Testergebnisse und beheben Sie Probleme sofort.\nNutzen Sie sichere Speicher wie Air-Gap oder WORM gegen Ransomware.",
     "evidenceExample": "Eine Richtlinie, die Backup-Regeln beschreibt, plus Berichte von Wiederherstellungstests, die zeigen, dass alles funktioniert hat, und Nachweis für sichere, unveränderbare Speicher.",
     "fields": {
       "backupFrequency": {
@@ -435,8 +435,8 @@
   "4.5": {
     "summary": "Ihr Unternehmen muss seinen Notfallplan für Geschäftskontinuität mindestens einmal jährlich testen. Sie wissen, dass Sie fertig sind, wenn Sie die Dokumentation der Tests haben, die Szenarien, Ergebnisse und tatsächliche Wiederherstellungszeiten im Vergleich zu Ihren Zielen zeigt.",
     "applicability": "Alle Unternehmen, die kritische IT-Systeme betreiben und unter BSIG fallen, müssen das umsetzen; kleinere Firmen ohne hohe Ausfallrisiken können es vereinfacht handhaben.",
-    "quickTip": "Planen Sie als Erstes einen einfachen Tischübungstermin mit Ihrem Vorstand und IT-Leiter – das ist der Einstieg ohne große Kosten.",
-    "implementationSteps": "Wählen Sie realistische Szenarien wie Ransomware-Angriff oder Serverausfall.\nFühren Sie eine Tischübung durch, bei der alle Beteiligten diskutieren, was zu tun ist – Vorstand muss dabei sein.\nMachen Sie einen echten Test mit System-Wiederherstellung und messen Sie die tatsächliche Zeit.\nSchreiben Sie alles auf: Was lief gut, was nicht, und passen Sie Ihren Plan an.\nLaden Sie die Dokumentation in die Plattform hoch.",
+    "quickTip": "Planen Sie als Erstes einen einfachen Tischübungstermin mit Ihrem Vorstand und IT-Leiter. Das ist der Einstieg ohne große Kosten.",
+    "implementationSteps": "Wählen Sie realistische Szenarien wie Ransomware-Angriff oder Serverausfall.\nFühren Sie eine Tischübung durch, bei der alle Beteiligten diskutieren, was zu tun ist. Vorstand muss dabei sein.\nMachen Sie einen echten Test mit System-Wiederherstellung und messen Sie die tatsächliche Zeit.\nSchreiben Sie alles auf: Was lief gut, was nicht, und passen Sie Ihren Plan an.\nLaden Sie die Dokumentation in die Plattform hoch.",
     "evidenceExample": "Dokumentation einer Testübung, die das Szenario beschreibt, die Ergebnisse auflistet, tatsächliche Wiederherstellungszeiten zeigt und diese mit Ihren definierten Zielen (RTO/RPO) vergleicht.",
     "fields": {
       "lastBcpTest": {
@@ -482,8 +482,8 @@
   },
   "5.2": {
     "summary": "Ihr Unternehmen muss Sicherheitsklauseln in Verträge mit wichtigen Lieferanten aufnehmen, damit diese dieselben Schutzstandards einhalten wie Sie. Sie wissen, dass Sie fertig sind, wenn alle kritischen Verträge diese Klauseln enthalten und Sie einen Prozess haben, um Lieferanten zu prüfen.",
-    "applicability": "Das müssen alle Unternehmen machen, die mit Lieferanten zusammenarbeiten, die sensible Daten oder kritische Systeme betreuen – kleine Firmen ohne externe Lieferanten können das überspringen.",
-    "quickTip": "Schauen Sie sich Ihren aktuellen Lieferantenvertrag an und prüfen Sie, ob Sicherheitsregeln drinstehen – wenn nicht, notieren Sie, was fehlt.",
+    "applicability": "Das müssen alle Unternehmen machen, die mit Lieferanten zusammenarbeiten, die sensible Daten oder kritische Systeme betreuen. Kleine Firmen ohne externe Lieferanten können das überspringen.",
+    "quickTip": "Schauen Sie sich Ihren aktuellen Lieferantenvertrag an und prüfen Sie, ob Sicherheitsregeln drinstehen. Wenn nicht, notieren Sie, was fehlt.",
     "implementationSteps": "Listen Sie Ihre kritischen Lieferanten auf, z. B. IT-Dienstleister oder Cloud-Anbieter.\n\nErstellen Sie Standard-Sicherheitsklauseln für Verträge: Mindestanforderungen an Schutzmaßnahmen, Audit-Rechte, Incident-Meldung innerhalb 24-72 Stunden, Subunternehmer-Pflichten und Kündigungsrechte bei Verstößen.\n\nLassen Sie Ihre Vorstände oder den Vorstand die Klauseln und den Prozess genehmigen.\n\nBauen Sie einen Due-Diligence-Prozess auf: Prüfen Sie neue Lieferanten vor Vertragsabschluss auf Sicherheitsstandards.\n\nÜberprüfen Sie bestehende Verträge und ergänzen Sie fehlende Klauseln bei Verlängerung.",
     "evidenceExample": "Auszüge aus Verträgen, die zeigen, dass Sicherheitsklauseln mit Mindeststandards, Audit-Rechten, Incident-Meldung, Subunternehmer-Pflichten und Kündigungsrechten enthalten sind, plus eine Beschreibung Ihres Prüfprozesses für Lieferanten.",
     "fields": {
@@ -497,7 +497,7 @@
         "label": "Due Diligence Process",
         "meaning": "Erklären Sie Ihren Prozess, wie Sie Lieferanten vor Vertragsabschluss auf Sicherheitsrisiken prüfen.",
         "example": "Vor jedem Vertrag: Fragebogen zu Sicherheitsmaßnahmen ausfüllen lassen, Referenzen prüfen und bei Risiken eine Auditrechte-Klausel verlangen.",
-        "whereToFind": "Bei Ihrem Einkaufsleiter oder der Person, die Lieferanten auswählt – falls keiner da ist, erstellen Sie einen einfachen Prozess."
+        "whereToFind": "Bei Ihrem Einkaufsleiter oder der Person, die Lieferanten auswählt. Falls keiner da ist, erstellen Sie einen einfachen Prozess."
       }
     }
   },
@@ -505,7 +505,7 @@
     "summary": "Ihr Unternehmen muss die Cybersicherheit Ihrer Lieferanten prüfen und laufend überwachen. Sie sind fertig, wenn Sie klare Regeln für Prüfungen haben, Überwachungsmethoden festgelegt sind und Berichte über Bewertungen und Eskalationen vorliegen.",
     "applicability": "Jedes Unternehmen mit kritischen Lieferanten im IT-Bereich muss das umsetzen; kleine Firmen ohne externe IT-Lieferanten können es überspringen.",
     "quickTip": "Listen Sie Ihre drei wichtigsten IT-Lieferanten auf und schicken Sie ihnen eine einfache Sicherheitsfragebogen per E-Mail.",
-    "implementationSteps": "Erstellen Sie einen standardisierten Fragebogen für Lieferanten zu Themen wie Datenschutz und Vorfallmanagement.\nDefinieren Sie Bewertungskriterien und Mindestscores für wichtige Lieferanten.\nLegen Sie fest, wie Sie Lieferanten jährlich oder bei Änderungen prüfen und überwachen – z.B. durch Zertifikatschecks oder Breach-Monitoring.\nSchreiben Sie einen Prozess für problematische Lieferanten: Eskalation, Ersatzmaßnahmen und Austauschplan.\nFühren Sie die erste Prüfung durch und dokumentieren Sie das Ergebnis.",
+    "implementationSteps": "Erstellen Sie einen standardisierten Fragebogen für Lieferanten zu Themen wie Datenschutz und Vorfallmanagement.\nDefinieren Sie Bewertungskriterien und Mindestscores für wichtige Lieferanten.\nLegen Sie fest, wie Sie Lieferanten jährlich oder bei Änderungen prüfen und überwachen, z.B. durch Zertifikatschecks oder Breach-Monitoring.\nSchreiben Sie einen Prozess für problematische Lieferanten: Eskalation, Ersatzmaßnahmen und Austauschplan.\nFühren Sie die erste Prüfung durch und dokumentieren Sie das Ergebnis.",
     "evidenceExample": "Berichte mit Bewertungsergebnissen der Lieferantenprüfungen, laufende Monitoring-Protokolle und ein Eskalationsprotokoll, das zeigt, wie Sie mit schwachen Lieferanten umgegangen sind.",
     "fields": {
       "supplierAuditFrequency": {
@@ -558,7 +558,7 @@
     "fields": {
       "threshold": {
         "label": "Procurement Security Threshold (EUR amount above which security review is required)",
-        "meaning": "Der Betrag in Euro, ab dem für jeden Einkauf eine Sicherheitsprüfung obligatorisch ist – darunter reicht eine kurze Abfrage.",
+        "meaning": "Der Betrag in Euro, ab dem für jeden Einkauf eine Sicherheitsprüfung obligatorisch ist. Darunter reicht eine kurze Abfrage.",
         "example": "50000",
         "whereToFind": "Fragen Sie Ihren Einkaufsleiter nach typischen IT-Einkäufen und wählen Sie einen Betrag, der sinnvolle Prüfungen abdeckt."
       },
@@ -570,7 +570,7 @@
       },
       "evaluationCriteria": {
         "label": "Vendor Evaluation Criteria (weighted scoring criteria for supplier assessment)",
-        "meaning": "Eine Tabelle mit Kriterien und Gewichtungen (z.B. in Prozent), um Lieferanten auf Sicherheit zu bewerten – höhere Punkte für bessere Sicherheit.",
+        "meaning": "Eine Tabelle mit Kriterien und Gewichtungen (z.B. in Prozent), um Lieferanten auf Sicherheit zu bewerten. Höhere Punkte für bessere Sicherheit.",
         "example": "Sicherheitszertifikate (30%), Patch-Verfügbarkeit (20%), EOL-Datum (15%), Referenzen (20%), Preis (15%)",
         "whereToFind": "Sprechen Sie mit IT-Leiter und Einkauf, um die wichtigsten Sicherheitsfaktoren für Ihre Branche zu listen."
       },
@@ -610,7 +610,7 @@
       "environmentSegregation": {
         "label": "Umgebungstrennung (Entwicklung/Test/Produktion)",
         "meaning": "Ob Ihr Unternehmen Entwicklungs-, Test- und Produktionsumgebungen getrennt hält, damit ungetestete Änderungen nicht in Live-Systeme gelangen.",
-        "example": "Ja — separate AWS-Konten für Entwicklung, Staging und Produktion",
+        "example": "Ja: separate AWS-Konten für Entwicklung, Staging und Produktion",
         "whereToFind": "Fragen Sie Ihr Entwicklungs- oder Ops-Team, ob separate Umgebungen für Entwicklung, Test und Produktion existieren."
       }
     }
@@ -618,7 +618,7 @@
   "6.3": {
     "summary": "Ihr Unternehmen muss Schwachstellen in Systemen regelmäßig scannen, priorisieren und beheben, inklusive jährlicher Penetrationstests für kritische Systeme. Sie sind fertig, wenn Scans laufen, Berichte Behebungen zeigen und alles in Ihrem Risikomanagement dokumentiert ist.",
     "applicability": "Jedes Unternehmen mit IT-Systemen, das BSIG-pflichtig ist, muss das umsetzen; kleine Firmen ohne kritische Systeme können es vereinfacht handhaben.",
-    "quickTip": "Fragen Sie Ihren IT-Leiter, welches Scan-Tool Sie schon nutzen oder empfehlen – das ist Ihr erster Schritt.",
+    "quickTip": "Fragen Sie Ihren IT-Leiter, welches Scan-Tool Sie schon nutzen oder empfehlen. Das ist Ihr erster Schritt.",
     "implementationSteps": "Richten Sie einen Prozess ein: Definieren Sie, woher Schwachstellen kommen (Scanner, Hersteller-Meldungen) und wie Sie sie priorisieren (nach Schweregrad und Auswirkung).\nFühren Sie Scans durch: Mindestens monatlich für internetoffene Systeme, vierteljährlich intern.\nLassen Sie jährlich Penetrationstests für kritische Systeme von qualifizierten externen Testern durchführen.\nIntegrieren Sie Funde in Ihr Risikomanagement: Kritische offene Lücken ins Risikoregister aufnehmen.\nDokumentieren Sie alles: Workflow für Behebung und regelmäßige Berichte.",
     "evidenceExample": "Scan-Berichte, die gefundene Schwachstellen, Priorisierung, Behebungsfristen und Nachweise der Behebung zeigen; Penetrationstest-Ergebnisse mit Executive Summary und Behebungsplan.",
     "fields": {
@@ -626,7 +626,7 @@
         "label": "Häufigkeit der Schwachstellen-Scans",
         "meaning": "Wie oft Sie Ihre Systeme auf Schwachstellen scannen, um rechtzeitig Bedrohungen zu finden.",
         "example": "monatlich",
-        "whereToFind": "Bei Ihrem IT-Team oder dem Verantwortlichen für Sicherheit – schauen Sie in bestehende Scan-Pläne oder sprechen Sie mit dem IT-Leiter."
+        "whereToFind": "Bei Ihrem IT-Team oder dem Verantwortlichen für Sicherheit. Schauen Sie in bestehende Scan-Pläne oder sprechen Sie mit dem IT-Leiter."
       },
       "vulnerabilityScanTool": {
         "label": "Schwachstellen-Scan-Tool",
@@ -701,8 +701,8 @@
   "7.2": {
     "summary": "Ihr Unternehmen muss regelmäßige interne Audits durchführen, um zu prüfen, ob die IT-Sicherheitsmaßnahmen funktionieren. Sie sind fertig, wenn Sie einen Plan haben, Audits durchgeführt haben und Berichte mit Verbesserungsvorschlägen vorliegen.",
     "applicability": "Das müssen kritische oder wichtige Einrichtungen nach NIS2 machen; kleine Unternehmen ohne diese Pflicht können es überspringen.",
-    "quickTip": "Sprechen Sie mit Ihrem IT-Leiter und fragen Sie, wann das letzte Audit war – das ist Ihr Einstieg.",
-    "implementationSteps": "Erstellen Sie einen einfachen Audit-Plan: Welche Bereiche werden wann geprüft?\nDefinieren Sie, wer die Audits macht – unabhängige Experten.\nFühren Sie das erste Audit durch und schreiben Sie einen Bericht mit Problemen und Lösungen.\nLassen Sie den Plan von der Geschäftsführung genehmigen.\nÜberwachen Sie, ob die Verbesserungen umgesetzt werden.",
+    "quickTip": "Sprechen Sie mit Ihrem IT-Leiter und fragen Sie, wann das letzte Audit war. Das ist Ihr Einstieg.",
+    "implementationSteps": "Erstellen Sie einen einfachen Audit-Plan: Welche Bereiche werden wann geprüft?\nDefinieren Sie, wer die Audits macht: unabhängige Experten.\nFühren Sie das erste Audit durch und schreiben Sie einen Bericht mit Problemen und Lösungen.\nLassen Sie den Plan von der Geschäftsführung genehmigen.\nÜberwachen Sie, ob die Verbesserungen umgesetzt werden.",
     "evidenceExample": "Ein Audit-Plan, der zeigt, welche Bereiche wann geprüft werden, plus Berichte mit festgestellten Problemen, Abweichungen und geplanten Korrekturen inklusive Fristen.",
     "fields": {
       "auditFrequency": {
@@ -769,16 +769,16 @@
   },
   "8.1": {
     "summary": "Ihr Unternehmen muss eine IT-Sicherheitsrichtlinie und eine Richtlinie für den akzeptablen Gebrauch von IT erstellen und veröffentlichen. Sie wissen, dass Sie fertig sind, wenn alle Mitarbeiter diese Richtlinien unterschrieben haben und Sie Belege dafür haben.",
-    "applicability": "Jedes Unternehmen mit Mitarbeitern, die Computer oder das Internet nutzen, muss das umsetzen – kleine Firmen ohne IT-Abteilung können es ebenfalls einfach machen.",
+    "applicability": "Jedes Unternehmen mit Mitarbeitern, die Computer oder das Internet nutzen, muss das umsetzen. Kleine Firmen ohne IT-Abteilung können es ebenfalls einfach machen.",
     "quickTip": "Setzen Sie sich mit Ihrem IT-Verantwortlichen zusammen und skizzieren Sie auf einem Blatt Papier, was Mitarbeiter dürfen und nicht dürfen.",
-    "implementationSteps": "Schreiben Sie eine IT-Sicherheitsrichtlinie: Decken Sie Regeln für Internet, E-Mail, private Geräte, Cloud-Dienste, Social Media, USB-Sticks und Home-Office ab.\nErstellen Sie eine Clean-Desk-Policy: Fordern Sie saubere Schreibtische, Bildschirm-Sperre nach 5 Minuten und sichere Lagerung sensibler Papiere.\nLassen Sie alle Mitarbeiter die Richtlinien unterschreiben – bei Einstellung und jedes Jahr neu.\nVeröffentlichen Sie die Richtlinien zentral, z. B. im Intranet oder per E-Mail.\nÜberwachen Sie die Einhaltung durch Stichproben und technische Hilfsmittel wie Web-Filter.",
+    "implementationSteps": "Schreiben Sie eine IT-Sicherheitsrichtlinie: Decken Sie Regeln für Internet, E-Mail, private Geräte, Cloud-Dienste, Social Media, USB-Sticks und Home-Office ab.\nErstellen Sie eine Clean-Desk-Policy: Fordern Sie saubere Schreibtische, Bildschirm-Sperre nach 5 Minuten und sichere Lagerung sensibler Papiere.\nLassen Sie alle Mitarbeiter die Richtlinien unterschreiben, bei Einstellung und jedes Jahr neu.\nVeröffentlichen Sie die Richtlinien zentral, z. B. im Intranet oder per E-Mail.\nÜberwachen Sie die Einhaltung durch Stichproben und technische Hilfsmittel wie Web-Filter.",
     "evidenceExample": "Ein Dokument, das die IT-Sicherheitsrichtlinie, die Nutzungsrichtlinie und die Clean-Desk-Regeln zeigt, zusammen mit Unterschriften der Mitarbeiter, die bestätigen, dass sie diese gelesen und akzeptiert haben.",
     "fields": {
       "itSecurityPolicyPublished": {
         "label": "IT Security Policy Published",
         "meaning": "Hier laden Sie die fertige und veröffentlichte IT-Sicherheitsrichtlinie hoch.",
         "example": "IT-Sicherheitsrichtlinie_UnternehmenXYZ_2024.pdf",
-        "whereToFind": "Bei Ihrem IT-Leiter oder der Person, die die Richtlinie erstellt hat – oft im Intranet oder Personalordner."
+        "whereToFind": "Bei Ihrem IT-Leiter oder der Person, die die Richtlinie erstellt hat, oft im Intranet oder Personalordner."
       }
     }
   },
@@ -799,7 +799,7 @@
         "label": "Training Frequency",
         "meaning": "Wie oft im Jahr die Sicherheits-Schulung für Mitarbeiter obligatorisch ist.",
         "example": "annual",
-        "whereToFind": "Entscheiden Sie mit Ihrem Vorstand oder HR, was für Ihr Unternehmen passt – meist jährlich."
+        "whereToFind": "Entscheiden Sie mit Ihrem Vorstand oder HR, was für Ihr Unternehmen passt, meist jährlich."
       },
       "trainingCompletionRate": {
         "label": "Training Completion Rate",
@@ -825,7 +825,7 @@
     "summary": "Ihr Unternehmen muss spezielle Schulungen für Rollen mit hohen Sicherheitsaufgaben anbieten und die Geschäftsleitung regelmäßig schulen. Sie sind fertig, wenn Sie eine Übersicht haben, welche Schulung wem zusteht, und Nachweise für die abgeschlossenen Trainings vorliegen.",
     "applicability": "Alle Unternehmen mit Mitarbeitern in sicherheitskritischen Rollen wie IT-Admins oder Entwicklern müssen das umsetzen; kleine Firmen ohne solche Rollen können es überspringen.",
     "quickTip": "Listen Sie zuerst alle Rollen auf, die mit IT-Sicherheit zu tun haben, wie IT-Admin oder Entwickler.",
-    "implementationSteps": "Identifizieren Sie Rollen mit besonderen Sicherheitsaufgaben, z. B. IT-Admins, Entwickler oder Sicherheits-Team.\nErstellen Sie eine Tabelle, die Rollen mit passenden Schulungen verknüpft, z. B. SIEM-Bedienung für Admins.\nPlanen Sie Schulungen für die Geschäftsleitung zu Risikomanagement, Haftung und Bedrohungen – mindestens 4 Stunden, alle 3 Jahre.\nLassen Sie alle Schulungen durchführen und sammeln Sie Nachweise.\nÜberprüfen Sie jährlich, ob alle up-to-date sind.",
+    "implementationSteps": "Identifizieren Sie Rollen mit besonderen Sicherheitsaufgaben, z. B. IT-Admins, Entwickler oder Sicherheits-Team.\nErstellen Sie eine Tabelle, die Rollen mit passenden Schulungen verknüpft, z. B. SIEM-Bedienung für Admins.\nPlanen Sie Schulungen für die Geschäftsleitung zu Risikomanagement, Haftung und Bedrohungen, mindestens 4 Stunden, alle 3 Jahre.\nLassen Sie alle Schulungen durchführen und sammeln Sie Nachweise.\nÜberprüfen Sie jährlich, ob alle up-to-date sind.",
     "evidenceExample": "Eine Tabelle, die zeigt, welche Rolle welche Schulung braucht und wann sie absolviert wurde, plus Bescheinigungen oder Protokolle über die Geschäftsleiter-Schulung.",
     "fields": {
       "roleSpecificTrainingProvider": {
@@ -839,7 +839,7 @@
   "8.4": {
     "summary": "Ihr Unternehmen muss regelmäßig simulierte Phishing-Attacken durchführen, um die Wirksamkeit der Schulungen zu messen. Sie sind fertig, wenn Berichte zeigen, dass Mitarbeiter Phishing-E-Mails erkennen und melden lernen.",
     "applicability": "Jedes Unternehmen mit kritischen IT-Systemen muss das umsetzen; kleine Firmen ohne sensible Daten können es überspringen.",
-    "quickTip": "Fragen Sie Ihren IT-Leiter, ob schon Phishing-Tests laufen – das ist oft der einfachste Einstieg.",
+    "quickTip": "Fragen Sie Ihren IT-Leiter, ob schon Phishing-Tests laufen. Das ist oft der einfachste Einstieg.",
     "implementationSteps": "Wählen Sie einen Anbieter für Phishing-Simulationen aus und starten Sie die erste Kampagne.\nFühren Sie Tests mindestens vierteljährlich durch und variieren Sie die Angriffsarten.\nMesssen Sie Klickraten und Melderaten, geben Sie Feedback an die Klicker.\nErstellen Sie Berichte mit Trends und speichern Sie Schulungsdaten zentral.\nPassen Sie die Schulungen an, wenn die Raten nicht besser werden.",
     "evidenceExample": "Berichte von Phishing-Kampagnen, die Klickraten unter 5 %, Melderaten über 60 % und Trends über mehrere Tests zeigen, plus eine Übersicht über abgeschlossene Schulungen pro Abteilung.",
     "fields": {
@@ -915,13 +915,13 @@
         "label": "Key Management Tool",
         "meaning": "Der Name des Tools oder Systems, das Sie für die sichere Speicherung und Verwaltung von Verschlüsselungsschlüsseln nutzen.",
         "example": "AWS KMS",
-        "whereToFind": "Bei Ihrem IT-Team oder Cloud-Admin – schauen Sie in die Konfiguration Ihrer Cloud-Konten oder fragen Sie nach installierten HSMs."
+        "whereToFind": "Bei Ihrem IT-Team oder Cloud-Admin. Schauen Sie in die Konfiguration Ihrer Cloud-Konten oder fragen Sie nach installierten HSMs."
       },
       "certificateMonitoringTool": {
         "label": "Certificate Monitoring Tool",
         "meaning": "Das Tool, das alle Ihre SSL-Zertifikate überwacht und vor Ablauf warnt, um Ausfälle zu vermeiden.",
         "example": "Sectigo Certificate Manager",
-        "whereToFind": "Im IT-Ticket-System oder bei der Web-Admin-Abteilung – oft schon in Cloud-Diensten wie AWS Certificate Manager integriert."
+        "whereToFind": "Im IT-Ticket-System oder bei der Web-Admin-Abteilung, oft schon in Cloud-Diensten wie AWS Certificate Manager integriert."
       },
       "certExpiryAlertDays": {
         "label": "Cert Expiry Alert Days",
@@ -932,7 +932,7 @@
     }
   },
   "10.1": {
-    "summary": "Ihr Unternehmen braucht eine klare Richtlinie, wie Zugriffe auf Systeme geregelt werden – wer darf was tun und warum. Sie sind fertig, wenn diese Richtlinie genehmigt ist, Rollen klar definiert sind und alle Mitarbeiter diesen Regeln zugeordnet wurden.",
+    "summary": "Ihr Unternehmen braucht eine klare Richtlinie, wie Zugriffe auf Systeme geregelt werden: wer darf was tun und warum. Sie sind fertig, wenn diese Richtlinie genehmigt ist, Rollen klar definiert sind und alle Mitarbeiter diesen Regeln zugeordnet wurden.",
     "applicability": "Jedes Unternehmen mit IT-Systemen, Cloud-Diensten oder sensiblen Daten muss das umsetzen; Ausnahmen gibt es nur für Firmen ohne Mitarbeiter oder Systeme.",
     "quickTip": "Sprechen Sie zuerst mit Ihrem IT-Leiter: Fragen Sie, welche Rollen (z. B. Buchhalter, Verkäufer) es heute schon gibt und welche Zugriffe sie brauchen.",
     "implementationSteps": "Schreiben Sie eine Richtlinie mit Regeln für Zugriffe: Wer braucht welchen Zugang und wie wird das genehmigt.\nDefinieren Sie Rollen basierend auf Jobs, z. B. 'Vertriebler' mit Kunden-Zugang, und listen Sie pro Rolle die genauen Rechte auf.\nOrdnen Sie jeden Mitarbeiter einer Rolle zu und dokumentieren Sie Ausnahmen mit Genehmigung.\nLegen Sie fest, wie oft Zugriffe geprüft werden und wie schnell Ex-Mitarbeiter deaktiviert werden.\nLassen Sie die Richtlinie vom Vorstand genehmigen und teilen Sie sie im Unternehmen.",
@@ -942,7 +942,7 @@
         "label": "Access Control Model (RBAC, ABAC, or hybrid)",
         "meaning": "Das ist das Modell, nach dem Sie Zugriffe steuern: RBAC basiert auf festen Rollen, ABAC auf dynamischen Regeln wie Ort oder Zeit.",
         "example": "RBAC",
-        "whereToFind": "Fragen Sie Ihren IT-Leiter, welches Modell Sie schon nutzen oder empfehlen – meistens starten Firmen mit RBAC."
+        "whereToFind": "Fragen Sie Ihren IT-Leiter, welches Modell Sie schon nutzen oder empfehlen. Meistens starten Firmen mit RBAC."
       },
       "reviewFrequency": {
         "label": "Access Review Frequency (standard and privileged)",
@@ -959,7 +959,7 @@
       "sharedAccountPolicy": {
         "label": "Richtlinie für gemeinsame / generische Konten",
         "meaning": "Ob gemeinsame oder generische Konten (wie 'admin@' oder 'info@') erlaubt sind. ORP.4.A3 verlangt eindeutige Kennungen.",
-        "example": "Verboten – nur eindeutige Kennungen",
+        "example": "Verboten: nur eindeutige Kennungen",
         "whereToFind": "Prüfen Sie, ob Systeme gemeinsame Logins verwenden; CIR 11.5.3 erlaubt diese nur mit dokumentierter Begründung."
       },
       "authReviewCycle": {
@@ -972,10 +972,10 @@
   },
   "10.2": {
     "summary": "Dokumentieren Sie für jedes Asset, wer verantwortlich ist, wie der Zugriff gesteuert wird und wie viele privilegierte Konten existieren. Hier wenden Sie Ihre 10.1-Zugriffskontrollrichtlinie auf konkrete Systeme an.",
-    "applicability": "Jedes Unternehmen mit IT-Assets braucht dies — es ist die Umsetzung Ihrer Zugriffskontrollrichtlinie aus 10.1 pro Asset.",
+    "applicability": "Jedes Unternehmen mit IT-Assets braucht dies. Es ist die Umsetzung Ihrer Zugriffskontrollrichtlinie aus 10.1 pro Asset.",
     "quickTip": "Öffnen Sie Ihr Asset-Register und gehen Sie Asset für Asset durch: Wer ist verantwortlich, wie wird der Zugriff geregelt, gibt es Admin-Konten?",
     "implementationSteps": "Prüfen Sie Ihre Asset-Liste aus RSK 2.2.\nWeisen Sie jedem Asset einen Verantwortlichen zu.\nDokumentieren Sie die Zugriffsmethode pro Asset (z.B. Entra ID RBAC, SSH-Schlüssel, CyberArk).\nZählen Sie privilegierte Konten pro Asset (Root, Admin, Service-Accounts).\nAktualisieren Sie bei Änderungen an Assets.",
-    "evidenceExample": "Eine Tabelle mit jedem Asset, Verantwortlichem, Zugriffsmethode und Anzahl privilegierter Konten — die Plattform erstellt dies automatisch.",
+    "evidenceExample": "Eine Tabelle mit jedem Asset, Verantwortlichem, Zugriffsmethode und Anzahl privilegierter Konten. Die Plattform erstellt dies automatisch.",
     "fields": {}
   },
   "10.3": {
@@ -1006,8 +1006,8 @@
     }
   },
   "10.4": {
-    "summary": "Weisen Sie nach, dass Sie regelmäßige Zugriffsüberprüfungen durchführen. Die Häufigkeit wird in Ihrer 10.1-Richtlinie festgelegt — hier dokumentieren Sie, dass Sie es tatsächlich tun.",
-    "applicability": "Jedes Unternehmen braucht regelmäßige Zugriffsüberprüfungen — CIR 11.2.3 verlangt dokumentierte Prüfungen, ORP.4.A4 mindestens jährlich.",
+    "summary": "Weisen Sie nach, dass Sie regelmäßige Zugriffsüberprüfungen durchführen. Die Häufigkeit wird in Ihrer 10.1-Richtlinie festgelegt. Hier dokumentieren Sie, dass Sie es tatsächlich tun.",
+    "applicability": "Jedes Unternehmen braucht regelmäßige Zugriffsüberprüfungen. CIR 11.2.3 verlangt dokumentierte Prüfungen, ORP.4.A4 mindestens jährlich.",
     "quickTip": "Fragen Sie Ihren IT-Leiter, wann die letzte Zugriffsprüfung war.",
     "implementationSteps": "Erstellen Sie eine Liste aller Benutzerkonten pro System.\nPrüfen Sie, ob jede Person noch den aktuellen Zugriff benötigt.\nEntfernen Sie überschüssige Berechtigungen und deaktivieren Sie ungenutzte Konten.\nDokumentieren Sie: Wer wurde geprüft, was wurde geändert, wer hat genehmigt.\nLaden Sie den Prüfbericht als Nachweis hoch.",
     "evidenceExample": "Prüfbericht oder Tabelle mit geprüften Konten, vorgenommenen Änderungen und Freigabe durch Systemverantwortliche.",
@@ -1062,7 +1062,7 @@
   "11.2": {
     "summary": "Ihr Unternehmen muss sichere Kommunikationswege für normale und Notfälle festlegen, damit sensible Daten geschützt bleiben. Sie sind fertig, wenn Sie eine Richtlinie haben, Tools eingerichtet und einen Test durchgeführt haben.",
     "applicability": "Jedes Unternehmen mit sensiblen Daten muss das umsetzen; kleine Firmen ohne IT-Infrastruktur können es vereinfachen.",
-    "quickTip": "Schreiben Sie auf, welche Apps Ihr Team für vertrauliche Gespräche nutzen darf – z. B. nur Signal für Geheimnisse.",
+    "quickTip": "Schreiben Sie auf, welche Apps Ihr Team für vertrauliche Gespräche nutzen darf, z. B. nur Signal für Geheimnisse.",
     "implementationSteps": "Legen Sie in einer Richtlinie fest, welche Tools je nach Datenempfindlichkeit erlaubt sind (z. B. E-Mail für normal, Signal für geheim).\nRichten Sie end-to-end-verschlüsselte Tools wie Signal für Krisen ein und erstellen Sie Gruppen für Ihr Krisenteam.\nErstellen Sie einen Notfallplan: Primärkanal, Backup und Offline-Option, inklusive Aktivierungsschritte.\nTesten Sie die Notfallkanäle vierteljährlich und notieren Sie das Datum.\nLassen Sie die Richtlinie vom Vorstand genehmigen und allen mitteilen.",
     "evidenceExample": "Ein Dokument, das Ihre Kommunikationsrichtlinie zeigt, den Einsatz verschlüsselter Tools beweist und den Notfallplan mit Kanälen und Testdaten beschreibt.",
     "fields": {
@@ -1091,7 +1091,7 @@
     "applicability": "Jedes Unternehmen mit kritischen Systemen braucht das; kleine Firmen ohne IT können es mit einem einfachen Dokument abdecken.",
     "quickTip": "Fragen Sie Ihren IT-Leiter: Welche Tools nutzen wir für Passwörter und Logins?",
     "implementationSteps": "Lassen Sie Ihre Authentifizierungsmethoden von IT prüfen (z. B. Passwörter, Logins, Sitzungen).\nErstellen Sie eine Passwortrichtlinie mit Mindestlänge und Lockout-Regeln.\nNotieren Sie SSO-Tools, falls Sie welche haben.\nDefinieren Sie Sitzungs-Zeitlimits und testen Sie sie.\nSchreiben Sie einen Bericht mit Ergebnissen und Korrekturen.",
-    "evidenceExample": "Ein Prüfbericht, der zeigt, welche Authentifizierungsmethoden geprüft wurden, ob sie zu Standards passen, Schwachstellen auflistet und wie Sie sie beheben – plus Ihre Passwortrichtlinie mit Regeln zu Länge, Speicherung und Lockout.",
+    "evidenceExample": "Ein Prüfbericht, der zeigt, welche Authentifizierungsmethoden geprüft wurden, ob sie zu Standards passen, Schwachstellen auflistet und wie Sie sie beheben, plus Ihre Passwortrichtlinie mit Regeln zu Länge, Speicherung und Lockout.",
     "fields": {
       "ssoTool": {
         "label": "Sso Tool",
@@ -1115,7 +1115,7 @@
   },
   "12.1": {
     "summary": "Ihre Firma prüft, ob sie unter NIS2 fällt, und klassifiziert sich als 'wesentlich', 'wichtig' oder verpflichtet. Sie sind fertig, wenn Sie das schriftlich dokumentiert haben mit Sektoren, Größe und Begründung.",
-    "applicability": "Jede Firma mit 50+ Mitarbeitern oder 10 Mio. € Umsatz in kritischen Sektoren muss das machen – kleinere oder nicht betroffene können es überspringen.",
+    "applicability": "Jede Firma mit 50+ Mitarbeitern oder 10 Mio. € Umsatz in kritischen Sektoren muss das machen. Kleinere oder nicht betroffene können es überspringen.",
     "quickTip": "Schauen Sie zuerst Ihre Mitarbeiterzahl und Umsatz der letzten zwei Jahre an, und vergleichen Sie mit den NIS2-Sektoren.",
     "implementationSteps": "1. Listen Sie auf, in welchen Branchen (Sektoren) Ihre Firma arbeitet, z.B. Energie oder Gesundheit.\n2. Prüfen Sie Größe: Mindestens 50 Mitarbeiter oder 10 Mio. € Umsatz?\n3. Bestimmen Sie die Klassifizierung: wesentlich (250+ MA oder 50 Mio. €), wichtig (50+ MA oder 10 Mio. €) oder verpflichtet.\n4. Schreiben Sie alles in ein Dokument mit Begründung und Gesetzesstellen aus §28 BSIG.\n5. Lassen Sie es vom Vorstand oder Rechtsberater prüfen.",
     "evidenceExample": "Ein internes Dokument, das Ihre Sektoren, Firmengröße, Klassifizierung und die rechtliche Begründung mit Verweisen auf §28 BSIG zeigt.",
@@ -1124,20 +1124,20 @@
         "label": "Entity Classification",
         "meaning": "Hier wählen Sie aus, ob Ihre Firma als 'essential' (wesentlich), 'important' (wichtig) oder 'required' (verpflichtet) klassifiziert wird.",
         "example": "essential",
-        "whereToFind": "In Ihrer Selbsteinschätzung nach Mitarbeiterzahl, Umsatz und Sektor – fragen Sie Finanzleitung und Vorstand."
+        "whereToFind": "In Ihrer Selbsteinschätzung nach Mitarbeiterzahl, Umsatz und Sektor. Fragen Sie Finanzleitung und Vorstand."
       },
       "applicableSectors": {
         "label": "Applicable Sectors",
         "meaning": "Listen Sie die relevanten NIS2-Sektoren auf, in denen Ihre Firma tätig ist, wie Energie oder Transport.",
         "example": "Energieversorgung, Gesundheitswesen",
-        "whereToFind": "Aus Ihrem Geschäftsbericht oder der Branchenbeschreibung – fragen Sie Vertrieb oder Geschäftsführung."
+        "whereToFind": "Aus Ihrem Geschäftsbericht oder der Branchenbeschreibung. Fragen Sie Vertrieb oder Geschäftsführung."
       }
     }
   },
   "12.2": {
     "summary": "Ihr Unternehmen muss sich beim Bundesamt für Sicherheit in der Informationstechnik (BSI) registrieren, um gesetzliche Pflichten für IT-Sicherheit zu erfüllen. Sie wissen, dass Sie fertig sind, wenn Sie eine Bestätigung mit Registrierungsnummer haben und alle Pflichtdaten übermittelt wurden.",
     "applicability": "Das müssen kritische Anbieter nach dem BSIG machen; kleine Unternehmen ohne diese Klassifizierung können es überspringen.",
-    "quickTip": "Gehen Sie auf mein-unternehmenskonto.de und richten Sie zuerst ein Konto mit ELSTER-Zertifikat ein – das dauert Wochen.",
+    "quickTip": "Gehen Sie auf mein-unternehmenskonto.de und richten Sie zuerst ein Konto mit ELSTER-Zertifikat ein. Das dauert Wochen.",
     "implementationSteps": "Richten Sie ein Mein Unternehmenskonto (MUK) mit ELSTER-Zertifikat ein und autorisieren Sie mindestens zwei Personen.\nÜbermitteln Sie über das BSI-Portal alle Pflichtdaten wie Firmenname, Kontaktperson, IP-Bereiche und Sektor.\nLaden Sie die Bestätigung mit der BSI-Registrierungsnummer herunter und speichern Sie sie sicher.\nÜberprüfen Sie, ob alle Pflichtfelder wie Unternehmensgröße und EU-Staaten ausgefüllt sind.",
     "evidenceExample": "Bestätigung des BSI mit Registrierungsnummer, die zeigt, dass alle Pflichtdaten vollständig übermittelt wurden.",
     "fields": {
@@ -1163,7 +1163,7 @@
   },
   "12.3": {
     "summary": "Halten Sie Ihre BSI-Registrierung aktuell, indem Sie sie jährlich prüfen und bei Änderungen innerhalb von zwei Wochen melden. Sie sind fertig, wenn Sie ein Protokoll über die Prüfung haben, alle Meldungen dokumentiert sind und Ihre Kontaktstelle rund um die Uhr erreichbar ist.",
-    "applicability": "Das müssen alle Unternehmen machen, die beim BSI registriert sind – niemand kann das überspringen.",
+    "applicability": "Das müssen alle Unternehmen machen, die beim BSI registriert sind. Niemand kann das überspringen.",
     "quickTip": "Schauen Sie zuerst in Ihrem BSI-Konto nach, ob die Kontaktdaten noch stimmen.",
     "implementationSteps": "Überprüfen Sie jährlich alle Registrierungsdaten wie Kontakte, IP-Bereiche und Firmendetails auf Richtigkeit.\nMelden Sie Änderungen innerhalb von 2 Wochen beim BSI und speichern Sie die Bestätigung.\nStellen Sie sicher, dass Ihre BSI-Kontaktperson 24/7 erreichbar ist und einen Stellvertreter hat.\nProtokollieren Sie jede Prüfung und Meldung mit Datum.\nPlanen Sie den nächsten Review-Termin ein.",
     "evidenceExample": "Ein Protokoll der jährlichen Überprüfung, das zeigt, welche Daten geprüft wurden und dass alles aktuell ist, plus Nachweise über gemeldete Änderungen mit BSI-Bestätigung und Beleg für die Erreichbarkeit der Kontaktstelle.",
@@ -1197,8 +1197,8 @@
   "12.4": {
     "summary": "Ihr Unternehmen muss einen Katalog mit Nachweisen für BSI-Anfragen führen und einen Prozess für schnelle Antworten einrichten. Bei KRITIS-Betreibern kommt zusätzlich die Meldung von Anlagen-Daten und Vorbereitung auf Audits hinzu. Sie sind fertig, wenn Sie einen verantwortlichen Menschen haben, der innerhalb fester Fristen antwortet, und die Nachweise geordnet gespeichert sind.",
     "applicability": "Alle Unternehmen müssen einen Nachweis-Katalog und einen BSI-Antwortprozess haben; KRITIS-Betreiber müssen zusätzlich Anlagen-Daten melden und Audits vorbereiten.",
-    "quickTip": "Schauen Sie zuerst in Ihren Unternehmenspapieren nach, ob Sie KRITIS-relevant sind – fragen Sie bei Bedarf Ihr IT-Team oder die Geschäftsführung.",
-    "implementationSteps": "Richten Sie einen Katalog mit allen wichtigen Nachweisen ein: Sicherheitsdokumente, IT-Konfigurationen, Vorfallprotokolle, Prüfberichte, Schulungslisten und Risikoanalysen.\n\nBenennen Sie eine verantwortliche Person für BSI-Anfragen und legen Sie Fristen für Antworten fest, z. B. maximal 48 Stunden.\n\nFür KRITIS: Sammeln Sie Daten zu Ihren Anlagen, Kapazitäten und Schwellenwerten und melden Sie diese ans BSI.\n\nBereiten Sie für Audits alle Nachweise vor – fangen Sie 6 Monate im Voraus an und prüfen Sie alle 3 Jahre.\n\nInstallieren Sie Systeme zur Angriffserkennung mit 24/7-Überwachung und protokollieren Sie Korrespondenz mit dem BSI.",
+    "quickTip": "Schauen Sie zuerst in Ihren Unternehmenspapieren nach, ob Sie KRITIS-relevant sind. Fragen Sie bei Bedarf Ihr IT-Team oder die Geschäftsführung.",
+    "implementationSteps": "Richten Sie einen Katalog mit allen wichtigen Nachweisen ein: Sicherheitsdokumente, IT-Konfigurationen, Vorfallprotokolle, Prüfberichte, Schulungslisten und Risikoanalysen.\n\nBenennen Sie eine verantwortliche Person für BSI-Anfragen und legen Sie Fristen für Antworten fest, z. B. maximal 48 Stunden.\n\nFür KRITIS: Sammeln Sie Daten zu Ihren Anlagen, Kapazitäten und Schwellenwerten und melden Sie diese ans BSI.\n\nBereiten Sie für Audits alle Nachweise vor. Fangen Sie 6 Monate im Voraus an und prüfen Sie alle 3 Jahre.\n\nInstallieren Sie Systeme zur Angriffserkennung mit 24/7-Überwachung und protokollieren Sie Korrespondenz mit dem BSI.",
     "evidenceExample": "Ein Katalog-Dokument, das auflistet, welche Nachweise Sie für BSI-Anfragen bereithalten, inklusive Beispielen wie Sicherheitsrichtlinien oder Schulungsprotokolle; plus ein Prozessbeschreibung, wer antwortet und wie schnell; bei KRITIS ergänzt durch eine Übersicht Ihrer Anlagen-Daten oder einen Nachweis für Angriffserkennungssysteme.",
     "fields": {
       "informationSharingCompliant": {

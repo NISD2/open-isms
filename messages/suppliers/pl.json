@@ -91,8 +91,8 @@
       "dueDiligenceProcess": "Należyta staranność przeprowadzona przy wdrażaniu tego dostawcy (np. kwestionariusz, weryfikacja certyfikatu, rozmowa referencyjna).",
       "relationshipType": "Zgodnie z GDPR: czy ten dostawca jest podmiotem przetwarzającym (Art. 28), współadministratorem (Art. 26), odrębnym administratorem czy podmiotem wewnętrznym? Decyduje o tym, które obowiązki umowne mają zastosowanie.",
       "processesPersonalData": "Włącz, jeśli jakiekolwiek dane osobowe przepływają do tego dostawcy lub przez niego (uruchamia obowiązki umowne specyficzne dla GDPR).",
-      "processesOnlyOnInstructions": "Art. 28(3)(a) — podmiot przetwarzający przetwarza dane osobowe wyłącznie na udokumentowane polecenie administratora.",
-      "assistsWithDataSubjectRights": "Art. 28(3)(e) — podmiot przetwarzający wspiera Cię w odpowiadaniu na żądania osób, których dane dotyczą (dostęp, usunięcie, przenoszenie).",
+      "processesOnlyOnInstructions": "Art. 28(3)(a): podmiot przetwarzający przetwarza dane osobowe wyłącznie na udokumentowane polecenie administratora.",
+      "assistsWithDataSubjectRights": "Art. 28(3)(e): podmiot przetwarzający wspiera Cię w odpowiadaniu na żądania osób, których dane dotyczą (dostęp, usunięcie, przenoszenie).",
       "internationalTransfer": "Włącz, jeśli dane osobowe są przekazywane poza Europejski Obszar Gospodarczy (EOG).",
       "transferMechanism": "Mechanizm prawny dla przekazywania transgranicznego: decyzja stwierdzająca odpowiedni stopień ochrony, standardowe klauzule umowne, wiążące reguły korporacyjne lub wyjątek."
     },

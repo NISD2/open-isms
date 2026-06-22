@@ -62,9 +62,9 @@
       "countermeasures": "Opisz natychmiastowe działania podjęte w celu opanowania i usunięcia skutków incydentu.",
       "preventiveMeasures": "Opisz długoterminowe środki wdrożone w celu zapobieżenia powtórzeniu się tego rodzaju incydentu.",
       "requiresGdprNotification": "Włącz, jeśli ten incydent obejmował naruszenie ochrony danych osobowych wymagające zgłoszenia organowi nadzorczemu zgodnie z art. 33 GDPR (w ciągu 72 godzin od stwierdzenia).",
-      "dataSubjectsAffected": "Przybliżona liczba osób, których dane osobowe zostały naruszone (art. 33 ust. 3 lit. a) — wymagana treść zgłoszenia).",
+      "dataSubjectsAffected": "Przybliżona liczba osób, których dane osobowe zostały naruszone (art. 33 ust. 3 lit. a): wymagana treść zgłoszenia).",
       "gdprNotifiedAt": "Data i godzina powiadomienia organu nadzorczego o naruszeniu.",
-      "notifiedDataSubjectsAt": "Data i godzina poinformowania osób, których dane dotyczą (art. 34 — wymagane, gdy naruszenie powoduje wysokie ryzyko)."
+      "notifiedDataSubjectsAt": "Data i godzina poinformowania osób, których dane dotyczą (art. 34: wymagane, gdy naruszenie powoduje wysokie ryzyko)."
     }
   }
 }

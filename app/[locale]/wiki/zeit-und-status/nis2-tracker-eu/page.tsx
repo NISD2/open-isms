@@ -510,7 +510,7 @@ export default async function Nis2TrackerEuPage({
             </thead>
             <tbody>
               {rows.map((r) => {
-                const act = r.nationalLaw ?? "—";
+                const act = r.nationalLaw ?? "-";
                 const note = trackerNote(r, locale);
                 const statusLabel = pick(
                   STATUS_LABELS[r.transpositionStatus],
@@ -549,7 +549,7 @@ export default async function Nis2TrackerEuPage({
                       {r.authority}
                     </td>
                     <td className="px-4 py-3 align-top text-sm leading-relaxed">
-                      {r.csirt ?? "—"}
+                      {r.csirt ?? "-"}
                     </td>
                     <td className="px-4 py-3 align-top">
                       <span
@@ -636,12 +636,12 @@ export default async function Nis2TrackerEuPage({
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
                 {pick(
                   {
-                    de: "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 41 — Umsetzungsfrist. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
-                    en: "Directive (EU) 2022/2555 (NIS 2), Article 41 — transposition deadline. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
-                    fr: "Directive (UE) 2022/2555 (NIS 2), article 41 — délai de transposition. EUR-Lex : eur-lex.europa.eu/eli/dir/2022/2555/oj",
-                    it: "Direttiva (UE) 2022/2555 (NIS 2), articolo 41 — termine di recepimento. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
-                    es: "Directiva (UE) 2022/2555 (NIS 2), artículo 41 — plazo de transposición. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
-                    pl: "Dyrektywa (UE) 2022/2555 (NIS 2), artykuł 41 — termin transpozycji. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    de: "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 41: Umsetzungsfrist. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    en: "Directive (EU) 2022/2555 (NIS 2), Article 41: transposition deadline. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    fr: "Directive (UE) 2022/2555 (NIS 2), article 41 : délai de transposition. EUR-Lex : eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    it: "Direttiva (UE) 2022/2555 (NIS 2), articolo 41: termine di recepimento. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    es: "Directiva (UE) 2022/2555 (NIS 2), artículo 41: plazo de transposición. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+                    pl: "Dyrektywa (UE) 2022/2555 (NIS 2), artykuł 41: termin transpozycji. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
                     cs: "Směrnice (EU) 2022/2555 (NIS 2), článek 41: lhůta pro transpozici. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
                     pt: "Diretiva (UE) 2022/2555 (NIS 2), artigo 41.º: prazo de transposição. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
                     ro: "Directiva (UE) 2022/2555 (NIS 2), articolul 41: termen de transpunere. EUR-Lex: eur-lex.europa.eu/eli/dir/2022/2555/oj",
@@ -651,7 +651,7 @@ export default async function Nis2TrackerEuPage({
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
-                ENISA NIS 2 transposition tracker — enisa.europa.eu/topics/nis-directive
+                ENISA NIS 2 transposition tracker: enisa.europa.eu/topics/nis-directive
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />

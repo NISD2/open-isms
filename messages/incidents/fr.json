@@ -62,9 +62,9 @@
       "countermeasures": "Décrivez les actions immédiates prises pour contenir et remédier à l'incident.",
       "preventiveMeasures": "Décrivez les mesures à long terme mises en œuvre pour prévenir la récurrence de ce type d'incident.",
       "requiresGdprNotification": "Activez si cet incident a impliqué une violation de données à caractère personnel nécessitant une notification à l'autorité de contrôle au titre de l'art. 33 GDPR (dans les 72 heures après en avoir pris connaissance).",
-      "dataSubjectsAffected": "Nombre approximatif de personnes concernées dont les données à caractère personnel ont été compromises (art. 33(3)(a) — contenu obligatoire de la notification).",
+      "dataSubjectsAffected": "Nombre approximatif de personnes concernées dont les données à caractère personnel ont été compromises (art. 33(3)(a): contenu obligatoire de la notification).",
       "gdprNotifiedAt": "Date et heure auxquelles l'autorité de contrôle a été notifiée de la violation.",
-      "notifiedDataSubjectsAt": "Date et heure auxquelles les personnes concernées affectées ont été informées (art. 34 — obligatoire lorsque la violation présente un risque élevé)."
+      "notifiedDataSubjectsAt": "Date et heure auxquelles les personnes concernées affectées ont été informées (art. 34: obligatoire lorsque la violation présente un risque élevé)."
     }
   }
 }

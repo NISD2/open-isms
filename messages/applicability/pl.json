@@ -107,10 +107,10 @@
 
     "leadCapture": {
       "title": "Otrzymaj bezpłatny plan działań na rzecz zgodności",
-      "description": "Wyślemy Ci spersonalizowany plan działań na podstawie Twojej klasyfikacji — bez spamu, tylko kroki, które musisz podjąć.",
+      "description": "Wyślemy Ci spersonalizowany plan działań na podstawie Twojej klasyfikacji. Bez spamu, tylko kroki, które musisz podjąć.",
       "placeholder": "twoj@firma.pl",
       "cta": "Wyślij plan działań",
-      "success": "Sprawdź skrzynkę odbiorczą — Twój plan działań na rzecz zgodności jest w drodze.",
+      "success": "Sprawdź skrzynkę odbiorczą. Twój plan działań na rzecz zgodności jest w drodze.",
       "error": "Coś poszło nie tak. Spróbuj ponownie."
     }
   }

@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "2.11",
   slug: "measure-6-effectiveness",
-  title: { en: "Measure 6 - Effectiveness Assessment", nl: "Maatregel 6 – Effectiviteitsbeoordeling", de: "Maßnahme 6 – Bewertung der Wirksamkeit", fr: "Mesure 6 - Évaluation de l'efficacité", it: "Misura 6 - Valutazione dell'efficacia", es: "Medida 6 - Evaluación de la eficacia", pl: "Środek 6 - Ocena skuteczności", cs: "Opatření 6 - Posouzení účinnosti", pt: "Medida 6 - Avaliação da eficácia", ro: "Măsura 6 - Evaluarea eficacității" },
+  title: { en: "Measure 6 - Effectiveness Assessment", nl: "Maatregel 6 - Effectiviteitsbeoordeling", de: "Maßnahme 6 - Bewertung der Wirksamkeit", fr: "Mesure 6 - Évaluation de l'efficacité", it: "Misura 6 - Valutazione dell'efficacia", es: "Medida 6 - Evaluación de la eficacia", pl: "Środek 6 - Ocena skuteczności", cs: "Opatření 6 - Posouzení účinnosti", pt: "Medida 6 - Avaliação da eficácia", ro: "Măsura 6 - Evaluarea eficacității" },
   moduleId: "module-2",
   order: 10,
   contentFile: "2-11",

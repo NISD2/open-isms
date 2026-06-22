@@ -389,7 +389,7 @@ export function TrainingCertificateDocument({
       author="NISD2.eu"
       subject={labels.legal}
     >
-      {/* Page 1 — Certificate cover */}
+      {/* Page 1: Certificate cover */}
       <Page size="A4" orientation="landscape" style={styles.page}>
         <View style={styles.border} />
         <View style={styles.innerBorder} />
@@ -427,11 +427,11 @@ export function TrainingCertificateDocument({
         </View>
       </Page>
 
-      {/* Page 2 — Curriculum appendix */}
+      {/* Page 2: Curriculum appendix */}
       <Page size="A4" orientation="landscape" style={styles.pageNoFrame}>
         <Text style={styles.topicsHeading}>{labels.topics}</Text>
         <Text style={styles.topicsSubheading}>
-          {data.courseTitle} — {data.userName}
+          {data.courseTitle}, {data.userName}
         </Text>
 
         {data.modules.map((mod, mi) => (

@@ -190,7 +190,7 @@
       },
       "ROP": {
         "name": "Records of Processing",
-        "description": "Documentation of every processing activity per GDPR Art. 30 — purpose, legal basis, recipients, retention",
+        "description": "Documentation of every processing activity per GDPR Art. 30: purpose, legal basis, recipients, retention",
         "legalBasis": "GDPR Art. 30",
         "threatLandscape": "",
         "bsiGuidance": ""
@@ -218,37 +218,37 @@
       },
       "ISMS": {
         "name": "ISMS Mandatory Clauses",
-        "description": "ISO 27001:2022 clauses 4–10: context, leadership, planning, support, operation, evaluation, improvement",
-        "legalBasis": "ISO 27001:2022 Cl. 4–10",
+        "description": "ISO 27001:2022 clauses 4 to 10: context, leadership, planning, support, operation, evaluation, improvement",
+        "legalBasis": "ISO 27001:2022 Cl. 4 to 10",
         "threatLandscape": "An undocumented or unscoped ISMS cannot be audited. Gaps in leadership commitment, risk planning, or documented information are the most common reasons organisations fail Stage 1 of an ISO 27001 audit.",
         "bsiGuidance": "Mandatory clauses apply without exception. The auditor will verify: scope document, risk assessment methodology, IS policy signed by top management, documented roles, internal audit plan, management review records, and a continual improvement process."
       },
       "ORG": {
         "name": "Organizational Controls",
-        "description": "Annex A.5 — Policies, roles, supplier security, incident management, business continuity, and legal compliance",
+        "description": "Annex A.5: Policies, roles, supplier security, incident management, business continuity, and legal compliance",
         "legalBasis": "ISO 27001:2022 Annex A.5",
-        "threatLandscape": "Organizational controls are the governance layer. Without clear policies, defined roles, and supplier security requirements, technical controls have no mandate and no accountability — leaving gaps that attackers exploit.",
+        "threatLandscape": "Organizational controls are the governance layer. Without clear policies, defined roles, and supplier security requirements, technical controls have no mandate and no accountability, leaving gaps that attackers exploit.",
         "bsiGuidance": "Auditors look for evidence that policies are approved, communicated, and reviewed. Supplier agreements must include security clauses. Incident management must be planned before an incident occurs."
       },
       "PPL": {
         "name": "People Controls",
-        "description": "Annex A.6 — Screening, employment terms, awareness training, disciplinary process, remote working",
+        "description": "Annex A.6: Screening, employment terms, awareness training, disciplinary process, remote working",
         "legalBasis": "ISO 27001:2022 Annex A.6",
         "threatLandscape": "People are both the primary attack vector (phishing, social engineering) and the last line of defense. Untrained staff and poor offboarding are among the most commonly exploited weaknesses.",
         "bsiGuidance": "Evidence required: background check process, signed confidentiality agreements, annual security awareness training completion records, remote working policy."
       },
       "PHY": {
         "name": "Physical Controls",
-        "description": "Annex A.7 — Physical perimeters, entry controls, equipment protection, secure disposal",
+        "description": "Annex A.7: Physical perimeters, entry controls, equipment protection, secure disposal",
         "legalBasis": "ISO 27001:2022 Annex A.7",
-        "threatLandscape": "Physical access to systems bypasses all logical controls. Unsecured offices, unlocked screens, and improper equipment disposal are frequently exploited — often by opportunistic threats, not sophisticated attackers.",
+        "threatLandscape": "Physical access to systems bypasses all logical controls. Unsecured offices, unlocked screens, and improper equipment disposal are frequently exploited, often by opportunistic threats, not sophisticated attackers.",
         "bsiGuidance": "For a remote-first company using co-working spaces, physical controls focus on: clear desk policy, screen lock, off-premises asset security, and secure disposal of laptops and storage media."
       },
       "TEC": {
         "name": "Technological Controls",
-        "description": "Annex A.8 — Endpoint security, access rights, vulnerability management, cryptography, logging, change management",
+        "description": "Annex A.8: Endpoint security, access rights, vulnerability management, cryptography, logging, change management",
         "legalBasis": "ISO 27001:2022 Annex A.8",
-        "threatLandscape": "The largest Annex A section (34 controls). Technological gaps — unpatched systems, misconfigured cloud resources, missing MFA, inadequate logging — are the root cause of the majority of security incidents.",
+        "threatLandscape": "The largest Annex A section (34 controls). Technological gaps (unpatched systems, misconfigured cloud resources, missing MFA, inadequate logging) are the root cause of the majority of security incidents.",
         "bsiGuidance": "Auditors check that controls are actually implemented, not just documented. Expect technical evidence: configuration screenshots, patch logs, SIEM outputs, backup restore test results, and access review records."
       },
       "AI-LIT": {

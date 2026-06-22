@@ -30,7 +30,7 @@
     "invitePlaceholder": "imie@firma.com",
     "assignFailed": "Nie udało się przypisać",
     "unassignFailed": "Nie udało się usunąć przypisania",
-    "moduleBacked": "Oparte na module — powiązane z danymi operacyjnymi",
+    "moduleBacked": "Oparte na module, powiązane z danymi operacyjnymi",
     "signOff": "Zatwierdź",
     "signOffAllCount": "Zatwierdź wszystkie ({count})",
     "bulkSignOffSuccess": "Zatwierdzono {count} wymagań",
@@ -66,7 +66,7 @@
       "howSection": "Jak to spełnić",
       "specificsSection": "Twoje szczegóły",
       "evidenceSection": "Dowody",
-      "noFieldsNeeded": "Nie są potrzebne żadne konkretne dane — zapoznaj się z wytycznymi i zatwierdź, gdy będziesz gotowy.",
+      "noFieldsNeeded": "Nie są potrzebne żadne konkretne dane. Zapoznaj się z wytycznymi i zatwierdź, gdy będziesz gotowy.",
       "viewDetails": "Zobacz szczegóły",
       "prevRequirement": "Poprzednie",
       "nextRequirement": "Następne",
@@ -190,7 +190,7 @@
       },
       "ROP": {
         "name": "Rejestry czynności przetwarzania",
-        "description": "Dokumentacja każdej czynności przetwarzania zgodnie z art. 30 GDPR — cel, podstawa prawna, odbiorcy, okres przechowywania",
+        "description": "Dokumentacja każdej czynności przetwarzania zgodnie z art. 30 GDPR: cel, podstawa prawna, odbiorcy, okres przechowywania",
         "legalBasis": "GDPR Art. 30",
         "threatLandscape": "",
         "bsiGuidance": ""
@@ -218,37 +218,37 @@
       },
       "ISMS": {
         "name": "Obowiązkowe klauzule ISMS",
-        "description": "ISO 27001:2022 klauzule 4–10: kontekst, przywództwo, planowanie, wsparcie, działanie, ocena, doskonalenie",
-        "legalBasis": "ISO 27001:2022 Cl. 4–10",
+        "description": "ISO 27001:2022 klauzule 4 do 10: kontekst, przywództwo, planowanie, wsparcie, działanie, ocena, doskonalenie",
+        "legalBasis": "ISO 27001:2022 Cl. 4 do 10",
         "threatLandscape": "Nieudokumentowany lub pozbawiony zakresu ISMS nie może zostać poddany audytowi. Luki w zaangażowaniu kierownictwa, planowaniu ryzyka lub udokumentowanych informacjach to najczęstsze przyczyny, dla których organizacje nie przechodzą Etapu 1 audytu ISO 27001.",
         "bsiGuidance": "Obowiązkowe klauzule mają zastosowanie bez wyjątku. Audytor zweryfikuje: dokument zakresu, metodykę oceny ryzyka, politykę bezpieczeństwa informacji podpisaną przez najwyższe kierownictwo, udokumentowane role, plan audytu wewnętrznego, zapisy z przeglądu zarządzania oraz proces ciągłego doskonalenia."
       },
       "ORG": {
         "name": "Zabezpieczenia organizacyjne",
-        "description": "Załącznik A.5 — Polityki, role, bezpieczeństwo dostawców, zarządzanie incydentami, ciągłość działania oraz zgodność z prawem",
+        "description": "Załącznik A.5: Polityki, role, bezpieczeństwo dostawców, zarządzanie incydentami, ciągłość działania oraz zgodność z prawem",
         "legalBasis": "ISO 27001:2022 Annex A.5",
-        "threatLandscape": "Zabezpieczenia organizacyjne stanowią warstwę ładu. Bez jasnych polityk, zdefiniowanych ról i wymagań bezpieczeństwa wobec dostawców zabezpieczenia techniczne nie mają mandatu ani rozliczalności — pozostawiając luki, które wykorzystują atakujący.",
+        "threatLandscape": "Zabezpieczenia organizacyjne stanowią warstwę ładu. Bez jasnych polityk, zdefiniowanych ról i wymagań bezpieczeństwa wobec dostawców zabezpieczenia techniczne nie mają mandatu ani rozliczalności, pozostawiając luki, które wykorzystują atakujący.",
         "bsiGuidance": "Audytorzy szukają dowodów na to, że polityki są zatwierdzone, zakomunikowane i poddawane przeglądom. Umowy z dostawcami muszą zawierać klauzule bezpieczeństwa. Zarządzanie incydentami musi zostać zaplanowane przed wystąpieniem incydentu."
       },
       "PPL": {
         "name": "Zabezpieczenia dotyczące osób",
-        "description": "Załącznik A.6 — Weryfikacja, warunki zatrudnienia, szkolenia uświadamiające, postępowanie dyscyplinarne, praca zdalna",
+        "description": "Załącznik A.6: Weryfikacja, warunki zatrudnienia, szkolenia uświadamiające, postępowanie dyscyplinarne, praca zdalna",
         "legalBasis": "ISO 27001:2022 Annex A.6",
         "threatLandscape": "Ludzie są zarówno podstawowym wektorem ataku (phishing, socjotechnika), jak i ostatnią linią obrony. Nieprzeszkolony personel i słaby proces offboardingu należą do najczęściej wykorzystywanych słabości.",
         "bsiGuidance": "Wymagane dowody: proces weryfikacji przeszłości, podpisane umowy o zachowaniu poufności, zapisy ukończenia rocznych szkoleń uświadamiających z zakresu bezpieczeństwa, polityka pracy zdalnej."
       },
       "PHY": {
         "name": "Zabezpieczenia fizyczne",
-        "description": "Załącznik A.7 — Fizyczne perymetry, kontrola wejść, ochrona sprzętu, bezpieczne niszczenie",
+        "description": "Załącznik A.7: Fizyczne perymetry, kontrola wejść, ochrona sprzętu, bezpieczne niszczenie",
         "legalBasis": "ISO 27001:2022 Annex A.7",
-        "threatLandscape": "Fizyczny dostęp do systemów omija wszystkie zabezpieczenia logiczne. Niezabezpieczone biura, niezablokowane ekrany i nieprawidłowe niszczenie sprzętu są często wykorzystywane — zwykle przez zagrożenia oportunistyczne, a nie wyrafinowanych atakujących.",
+        "threatLandscape": "Fizyczny dostęp do systemów omija wszystkie zabezpieczenia logiczne. Niezabezpieczone biura, niezablokowane ekrany i nieprawidłowe niszczenie sprzętu są często wykorzystywane, zwykle przez zagrożenia oportunistyczne, a nie wyrafinowanych atakujących.",
         "bsiGuidance": "W przypadku firmy działającej zdalnie i korzystającej z przestrzeni co-workingowych zabezpieczenia fizyczne koncentrują się na: polityce czystego biurka, blokadzie ekranu, bezpieczeństwie zasobów poza siedzibą oraz bezpiecznym niszczeniu laptopów i nośników danych."
       },
       "TEC": {
         "name": "Zabezpieczenia technologiczne",
-        "description": "Załącznik A.8 — Bezpieczeństwo punktów końcowych, prawa dostępu, zarządzanie podatnościami, kryptografia, rejestrowanie, zarządzanie zmianami",
+        "description": "Załącznik A.8: Bezpieczeństwo punktów końcowych, prawa dostępu, zarządzanie podatnościami, kryptografia, rejestrowanie, zarządzanie zmianami",
         "legalBasis": "ISO 27001:2022 Annex A.8",
-        "threatLandscape": "Największa sekcja Załącznika A (34 zabezpieczenia). Luki technologiczne — niezałatane systemy, błędnie skonfigurowane zasoby chmurowe, brak MFA, niewystarczające rejestrowanie — są źródłową przyczyną większości incydentów bezpieczeństwa.",
+        "threatLandscape": "Największa sekcja Załącznika A (34 zabezpieczenia). Luki technologiczne (niezałatane systemy, błędnie skonfigurowane zasoby chmurowe, brak MFA, niewystarczające rejestrowanie) są źródłową przyczyną większości incydentów bezpieczeństwa.",
         "bsiGuidance": "Audytorzy sprawdzają, czy zabezpieczenia są faktycznie wdrożone, a nie tylko udokumentowane. Spodziewaj się dowodów technicznych: zrzutów ekranu konfiguracji, dzienników poprawek, danych wyjściowych SIEM, wyników testów odtwarzania kopii zapasowych oraz zapisów przeglądów dostępu."
       },
       "AI-LIT": {
@@ -479,7 +479,7 @@
     "extracting": "Wyodrębnianie...",
     "assistButton": "Asystent AI",
     "assistTitle": "Wskazówki do formularza",
-    "assistDescription": "Wygenerowane przez AI wskazówki pomagające wypełnić ten formularz wymagania. Żadne rzeczywiste dane nie są wysyłane — tylko nazwy i typy pól.",
+    "assistDescription": "Wygenerowane przez AI wskazówki pomagające wypełnić ten formularz wymagania. Żadne rzeczywiste dane nie są wysyłane: tylko nazwy i typy pól.",
     "assistLoading": "Generowanie wskazówek...",
     "assistError": "Nie udało się wygenerować wskazówek. Spróbuj ponownie.",
     "assistOverview": "Przegląd",

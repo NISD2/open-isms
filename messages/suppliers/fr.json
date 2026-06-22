@@ -91,8 +91,8 @@
       "dueDiligenceProcess": "Diligence raisonnable effectuée lors de l'intégration de ce fournisseur (par ex. questionnaire, vérification de certification, appel de référence).",
       "relationshipType": "Au titre du GDPR : ce fournisseur est-il un sous-traitant (art. 28), un responsable conjoint (art. 26), un responsable distinct ou interne ? Détermine les obligations contractuelles applicables.",
       "processesPersonalData": "Activez si des données personnelles circulent vers ou via ce fournisseur (déclenche des obligations contractuelles spécifiques au GDPR).",
-      "processesOnlyOnInstructions": "Art. 28(3)(a) — le sous-traitant ne traite les données personnelles que sur instructions documentées du responsable du traitement.",
-      "assistsWithDataSubjectRights": "Art. 28(3)(e) — le sous-traitant vous aide à répondre aux demandes des personnes concernées (accès, suppression, portabilité).",
+      "processesOnlyOnInstructions": "Art. 28(3)(a): le sous-traitant ne traite les données personnelles que sur instructions documentées du responsable du traitement.",
+      "assistsWithDataSubjectRights": "Art. 28(3)(e): le sous-traitant vous aide à répondre aux demandes des personnes concernées (accès, suppression, portabilité).",
       "internationalTransfer": "Activez si des données personnelles sont transférées en dehors de l'Espace économique européen (EEE).",
       "transferMechanism": "Mécanisme juridique du transfert transfrontalier : décision d'adéquation, clauses contractuelles types, règles d'entreprise contraignantes ou dérogation."
     },

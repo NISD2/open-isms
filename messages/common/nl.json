@@ -33,7 +33,7 @@
     },
     "moduleRef": {
       "confirmCompliance": "Naleving bevestigen",
-      "noRecords": "Nog geen registraties — voeg eerst gegevens toe in de module"
+      "noRecords": "Nog geen registraties. Voeg eerst gegevens toe in de module"
     }
   },
   "status": {
@@ -46,10 +46,10 @@
     "rejected": "Afgekeurd"
   },
   "priority": {
-    "P0": "Kritiek – onmiddellijke actie vereist",
-    "P1": "Hoog – aanpakken binnen huidige cyclus",
-    "P2": "Gemiddeld – plannen voor volgende cyclus",
-    "P3": "Laag – aanpakken wanneer mogelijk"
+    "P0": "Kritiek: onmiddellijke actie vereist",
+    "P1": "Hoog: aanpakken binnen huidige cyclus",
+    "P2": "Gemiddeld: plannen voor volgende cyclus",
+    "P3": "Laag: aanpakken wanneer mogelijk"
   },
   "metadata": {
     "title": "NIS2 Compliance Platform",

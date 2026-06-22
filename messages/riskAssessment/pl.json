@@ -263,7 +263,7 @@
         }
       },
       "replaceability": {
-        "question": "Gdyby ten system zniknął dziś w nocy, kiedy działalibyście z odpowiednikiem? (Zakup, odtworzenie z kopii zapasowej lub odbudowa — wszystko się liczy.)",
+        "question": "Gdyby ten system zniknął dziś w nocy, kiedy działalibyście z odpowiednikiem? (Zakup, odtworzenie z kopii zapasowej lub odbudowa. Wszystko się liczy.)",
         "shortLabel": "Odtwarzanie",
         "options": {
           "oneDay": {

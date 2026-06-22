@@ -1,5 +1,5 @@
 /**
- * Email templates — plain functions returning { subject, html, text }
+ * Email templates: plain functions returning { subject, html, text }
  *
  * Usage:
  *   const email = inviteEmail({ ... });
@@ -30,7 +30,7 @@ function escapeHtml(s: string): string {
 
 /**
  * Strip CR/LF/NUL from user content destined for email headers (subject line).
- * Defense-in-depth against header injection — Resend sanitizes headers
+ * Defense-in-depth against header injection. Resend sanitizes headers
  * server-side, but supplier-controlled content is cross-tenant and worth
  * locking down at the source.
  */
@@ -39,7 +39,7 @@ function safeHeader(s: string): string {
 }
 
 // ---------------------------------------------------------------------------
-// Brand tokens (mirror app/globals.css — email clients can't read CSS vars)
+// Brand tokens (mirror app/globals.css, email clients can't read CSS vars)
 // ---------------------------------------------------------------------------
 
 const BRAND = {
@@ -416,7 +416,7 @@ export function deadlineUrgentEmail(opts: {
     subject: `[NIS2] URGENT: ${safeHeader(requirementCode)} is due ${dueLabel}`,
     html: emailLayout(`
         <div style="background: ${SEVERITY.warning}; color: #fff; padding: 12px 16px; border-radius: 6px 6px 0 0; font-weight: 600; font-size: 14px;">
-          URGENT — Immediate Action Required
+          URGENT: Immediate Action Required
         </div>
         <div style="border: 1px solid ${SEVERITY.warningBgBorder}; border-top: none; border-radius: 0 0 6px 6px; padding: 20px 16px;">
           <h2 style="margin: 0 0 16px; color: ${SEVERITY.warning};">Deadline Approaching</h2>
@@ -435,7 +435,7 @@ export function deadlineUrgentEmail(opts: {
         </div>
     `),
     text: [
-      `URGENT — Immediate Action Required`,
+      `URGENT: Immediate Action Required`,
       ``,
       `Hi ${recipientName}, ${requirementCode} (${requirementTitle}) is due ${dueLabel} and requires your immediate attention.`,
       ``,
@@ -470,7 +470,7 @@ export function deadlineOverdueEmail(opts: {
     subject: `[NIS2] OVERDUE: ${safeHeader(requirementCode)} is ${daysOverdue} day(s) past deadline`,
     html: emailLayout(`
         <div style="background: ${SEVERITY.destructive}; color: #fff; padding: 12px 16px; border-radius: 6px 6px 0 0; font-weight: 600; font-size: 14px;">
-          OVERDUE — Compliance at Risk
+          OVERDUE: Compliance at Risk
         </div>
         <div style="border: 1px solid ${SEVERITY.destructiveBgBorder}; border-top: none; border-radius: 0 0 6px 6px; padding: 20px 16px;">
           <h2 style="margin: 0 0 16px; color: ${SEVERITY.destructive};">Requirement Overdue</h2>
@@ -489,7 +489,7 @@ export function deadlineOverdueEmail(opts: {
         </div>
     `),
     text: [
-      `OVERDUE — Compliance at Risk`,
+      `OVERDUE: Compliance at Risk`,
       ``,
       `Hi ${recipientName}, ${requirementCode} (${requirementTitle}) is now ${daysOverdue} day(s) past its deadline.`,
       ``,
@@ -568,7 +568,7 @@ export function dailyDigestEmail(opts: {
   const safePct = escapeHtml(compliancePercentage);
 
   return {
-    subject: `[NIS2] Daily Compliance Digest — ${safeHeader(companyName)}`,
+    subject: `[NIS2] Daily Compliance Digest: ${safeHeader(companyName)}`,
     html: emailLayout(`
         <h2 style="margin: 0 0 8px; color: ${BRAND.foreground};">Daily Compliance Digest</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 4px;">
@@ -592,7 +592,7 @@ export function dailyDigestEmail(opts: {
         </p>
     `),
     text: [
-      `Daily Compliance Digest — ${companyName}`,
+      `Daily Compliance Digest: ${companyName}`,
       ``,
       `Hi ${recipientName}, here is your daily summary for ${companyName}.`,
       `Overall compliance: ${compliancePercentage}%`,
@@ -651,7 +651,7 @@ export function weeklyManagementDigestEmail(opts: {
   const safePct = escapeHtml(compliancePercentage);
 
   return {
-    subject: `[NIS2] Weekly Management Report — ${safeHeader(companyName)}`,
+    subject: `[NIS2] Weekly Management Report: ${safeHeader(companyName)}`,
     html: emailLayout(`
         <h2 style="margin: 0 0 8px; color: ${BRAND.foreground};">Weekly Management Report</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
@@ -691,7 +691,7 @@ export function weeklyManagementDigestEmail(opts: {
         </p>
     `),
     text: [
-      `Weekly Management Report — ${companyName}`,
+      `Weekly Management Report: ${companyName}`,
       ``,
       `Hi ${recipientName}, here is the weekly compliance summary for ${companyName}.`,
       ``,
@@ -783,7 +783,7 @@ export function escalationEmail(opts: {
 }
 
 // ---------------------------------------------------------------------------
-// Supplier Portal — incident broadcast
+// Supplier Portal: incident broadcast
 // ---------------------------------------------------------------------------
 
 export function supplierIncidentBroadcastEmail(opts: {
@@ -839,11 +839,11 @@ export function supplierIncidentBroadcastEmail(opts: {
 }
 
 // ---------------------------------------------------------------------------
-// Supplier Portal — added by supplier (you've been added as a customer)
+// Supplier Portal: added by supplier (you've been added as a customer)
 // ---------------------------------------------------------------------------
 
 /**
- * Direction-B invite email — sent when a NIS2 entity invites a supplier to
+ * Direction-B invite email: sent when a NIS2 entity invites a supplier to
  * fill out their security profile via magic-link.
  */
 export function entityInvitesSupplierEmail(opts: {
@@ -862,7 +862,7 @@ export function entityInvitesSupplierEmail(opts: {
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
           <strong>${safeName}</strong> is a NIS2-regulated entity. Under the EU NIS2 Directive
           (and its German transposition BSIG §30) they are required to assess the cybersecurity
-          practices of their suppliers — including yours.
+          practices of their suppliers, including yours.
         </p>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">
           Instead of sending you a 200-question PDF questionnaire, they are using nisd2.eu, where
@@ -882,7 +882,7 @@ export function entityInvitesSupplierEmail(opts: {
       ``,
       `${entityName} is a NIS2-regulated entity required to assess their suppliers' cybersecurity practices.`,
       ``,
-      `Instead of a 200-question PDF, they are using nisd2.eu — a single unified supplier questionnaire`,
+      `Instead of a 200-question PDF, they are using nisd2.eu: a single unified supplier questionnaire`,
       `anchored to ENISA's NIS2 Technical Implementation Guidance and CIR 2024/2690. Fill it once,`,
       `share it with every customer who asks. Free.`,
       ``,
@@ -895,7 +895,7 @@ export function entityInvitesSupplierEmail(opts: {
 }
 
 // ---------------------------------------------------------------------------
-// Platform Admin — new user signup notification
+// Platform Admin: new user signup notification
 // ---------------------------------------------------------------------------
 
 export function newUserSignupEmail(opts: {
@@ -906,8 +906,8 @@ export function newUserSignupEmail(opts: {
   const { userEmail, userName, provider } = opts;
   const safeEmail = escapeHtml(userEmail);
   const safeName = escapeHtml(userName);
-  const mailtoSubject = encodeURIComponent(`Welcome to NIS2 — quick question`);
-  const mailtoBody = encodeURIComponent(`Hi ${userName},\n\nI saw you just signed up on nisd2.eu. Welcome!\n\nI'd love to learn a bit about what you're looking for — are you exploring NIS2 compliance for your company, or just researching the topic?\n\nHappy to help either way.\n\nBest,\n`);
+  const mailtoSubject = encodeURIComponent(`Welcome to NIS2: quick question`);
+  const mailtoBody = encodeURIComponent(`Hi ${userName},\n\nI saw you just signed up on nisd2.eu. Welcome!\n\nI'd love to learn a bit about what you're looking for. Are you exploring NIS2 compliance for your company, or just researching the topic?\n\nHappy to help either way.\n\nBest,\n`);
   const mailtoUrl = escapeHtml(
     `mailto:${encodeURIComponent(userEmail)}?subject=${mailtoSubject}&body=${mailtoBody}`,
   );
@@ -971,7 +971,7 @@ export function supplierAddedYouEmail(opts: {
 }
 
 // ---------------------------------------------------------------------------
-// Course follow-up — sent by the daily course-reminder cron to users who
+// Course follow-up: sent by the daily course-reminder cron to users who
 // started a course, haven't been back in 7+ days, and haven't been pinged
 // in the last 30 days. Bundles all stalled courses for the user into one
 // email. Personal voice from Simon, Mom-Test question on what got in the way.

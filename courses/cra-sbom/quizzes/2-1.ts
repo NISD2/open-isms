@@ -25,8 +25,8 @@ const quiz = quizSchema.parse({
       ],
       correctIndex: 2,
       explanation: {
-        en: "CycloneDX is an OWASP project — the Open Web Application Security Project. SPDX is the Linux Foundation project. ISO/IEC 5962:2021 is the ISO standard for SBOM, which covers SPDX.",
-        de: "CycloneDX ist ein OWASP-Projekt — das Open Web Application Security Project. SPDX ist das Linux-Foundation-Projekt. ISO/IEC 5962:2021 ist der ISO-Standard für SBOM, der SPDX abdeckt.",
+        en: "CycloneDX is an OWASP project, the Open Web Application Security Project. SPDX is the Linux Foundation project. ISO/IEC 5962:2021 is the ISO standard for SBOM, which covers SPDX.",
+        de: "CycloneDX ist ein OWASP-Projekt, das Open Web Application Security Project. SPDX ist das Linux-Foundation-Projekt. ISO/IEC 5962:2021 ist der ISO-Standard für SBOM, der SPDX abdeckt.",
         fr: "CycloneDX est un projet OWASP, l'Open Web Application Security Project. SPDX est le projet de la Linux Foundation. ISO/IEC 5962:2021 est le standard ISO pour la SBOM, qui couvre SPDX.",
         it: "CycloneDX è un progetto OWASP, l'Open Web Application Security Project. SPDX è il progetto della Linux Foundation. ISO/IEC 5962:2021 è lo standard ISO per la SBOM, che copre SPDX.",
         es: "CycloneDX es un proyecto de OWASP, el Open Web Application Security Project. SPDX es el proyecto de la Linux Foundation. ISO/IEC 5962:2021 es el estándar ISO para la SBOM, que cubre SPDX.",

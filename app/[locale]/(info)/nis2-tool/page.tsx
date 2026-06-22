@@ -47,7 +47,7 @@ const content: Record<Locale, {
   de: {
     title: "NIS2 Tool: Buyer's Guide für Compliance-Software",
     subtitle:
-      "Welche NIS2-Tools brauchen Sie wirklich, was kostet das, worauf achten — und welche Funktionen sind Pflicht.",
+      "Welche NIS2-Tools brauchen Sie wirklich, was kostet das, worauf achten, und welche Funktionen sind Pflicht.",
     meta: {
       title: "NIS2 Tool: Buyer's Guide & kostenlose Compliance-Software",
       description:
@@ -58,10 +58,10 @@ const content: Record<Locale, {
     why: {
       heading: "Warum ein NIS2 Tool?",
       bullets: [
-        "NIS2 erfordert dauerhafte Audit-Belege — Word-Dokumente reichen nicht.",
-        "Das BSI prüft Reaktionszeiten (24h/72h/1 Monat) — manuell kaum nachweisbar.",
+        "NIS2 erfordert dauerhafte Audit-Belege. Word-Dokumente reichen nicht.",
+        "Das BSI prüft Reaktionszeiten (24h/72h/1 Monat), manuell kaum nachweisbar.",
         "Geschäftsführerhaftung nach §38 BSIG: Sie brauchen den Nachweis, dass Maßnahmen getroffen wurden.",
-        "Die 10 Maßnahmen aus Artikel 21 betreffen mehrere Abteilungen — koordinierte Tools sparen Zeit.",
+        "Die 10 Maßnahmen aus Artikel 21 betreffen mehrere Abteilungen. Koordinierte Tools sparen Zeit.",
       ],
     },
     categories: {
@@ -83,7 +83,7 @@ const content: Record<Locale, {
         {
           name: "SIEM / Logging",
           purpose: "Erkennung von Sicherheitsereignissen, Forensik.",
-          needed: "Sehr empfohlen — meldepflichtige Vorfälle erkennen",
+          needed: "Sehr empfohlen: meldepflichtige Vorfälle erkennen",
         },
         {
           name: "Patch-Management",
@@ -125,7 +125,7 @@ const content: Record<Locale, {
         { yes: true, text: "Lieferanten-Erfassung mit eigenem Compliance-Status" },
         { yes: true, text: "Mehrere EU-Länder bei grenzüberschreitender Tätigkeit" },
         { yes: false, text: "Vendor Lock-in: Daten-Export muss vollständig möglich sein" },
-        { yes: false, text: "„Forever Free“ als Marketing — Achtung: oft nur Lockmittel" },
+        { yes: false, text: "„Forever Free“ als Marketing. Achtung: oft nur Lockmittel" },
       ],
     },
     ourTool: {
@@ -148,11 +148,11 @@ const content: Record<Locale, {
       items: [
         {
           q: "Was kostet ein NIS2 Tool?",
-          a: "Kommerzielle GRC-Tools (Vanta, Drata, OneTrust) liegen bei 10.000–60.000 EUR pro Jahr für ein Mittelstand-Unternehmen. nisd2.eu ist kostenlos. Implementierungsbegleitung kostet bei uns ab 500 EUR pro Monat.",
+          a: "Kommerzielle GRC-Tools (Vanta, Drata, OneTrust) liegen bei 10.000 bis 60.000 EUR pro Jahr für ein Mittelstand-Unternehmen. nisd2.eu ist kostenlos. Implementierungsbegleitung kostet bei uns ab 500 EUR pro Monat.",
         },
         {
           q: "Brauche ich ein Tool, oder reicht Excel?",
-          a: "Excel reicht nicht aus. Das BSI verlangt einen versionsfesten Audit-Trail. Bei Vorfällen müssen Sie nachweisen können, wer wann was geändert hat. Excel-Dateien werden überschrieben — ein BSI-Auditor wird das beanstanden.",
+          a: "Excel reicht nicht aus. Das BSI verlangt einen versionsfesten Audit-Trail. Bei Vorfällen müssen Sie nachweisen können, wer wann was geändert hat. Excel-Dateien werden überschrieben. Ein BSI-Auditor wird das beanstanden.",
         },
         {
           q: "Reicht ein einziges Tool oder brauche ich mehrere?",
@@ -180,10 +180,10 @@ const content: Record<Locale, {
     why: {
       heading: "Why use a NIS2 tool?",
       bullets: [
-        "NIS2 requires durable audit evidence — Word documents are not enough.",
-        "The BSI checks response times (24h / 72h / 1 month) — hard to demonstrate manually.",
+        "NIS2 requires durable audit evidence. Word documents are not enough.",
+        "The BSI checks response times (24h / 72h / 1 month), hard to demonstrate manually.",
         "Personal management liability under §38 BSIG: you need proof measures were implemented.",
-        "The 10 measures from Article 21 span multiple departments — coordinated tools save time.",
+        "The 10 measures from Article 21 span multiple departments. Coordinated tools save time.",
       ],
     },
     categories: {
@@ -193,7 +193,7 @@ const content: Record<Locale, {
         {
           name: "GRC platform",
           purpose:
-            "Governance, Risk & Compliance — represents all measures, risks, audits.",
+            "Governance, Risk & Compliance. Represents all measures, risks, audits.",
           needed: "Mandatory for documentation",
         },
         {
@@ -204,7 +204,7 @@ const content: Record<Locale, {
         {
           name: "SIEM / logging",
           purpose: "Detection of security events, forensics.",
-          needed: "Strongly recommended — detect reportable incidents",
+          needed: "Strongly recommended: detect reportable incidents",
         },
         {
           name: "Patch management",
@@ -247,7 +247,7 @@ const content: Record<Locale, {
         { yes: true, text: "Supplier inventory with their own compliance status" },
         { yes: true, text: "Multi-country support if you operate across the EU" },
         { yes: false, text: "Vendor lock-in: full data export must be possible" },
-        { yes: false, text: "\"Forever free\" as a marketing claim — usually a hook, read the fine print" },
+        { yes: false, text: "\"Forever free\" as a marketing claim: usually a hook, read the fine print" },
       ],
     },
     ourTool: {
@@ -270,11 +270,11 @@ const content: Record<Locale, {
       items: [
         {
           q: "What does a NIS2 tool cost?",
-          a: "Commercial GRC tools (Vanta, Drata, OneTrust) typically run €10,000–€60,000 per year for a mid-sized company. nisd2.eu is free. Implementation guidance from us starts at €500 per month.",
+          a: "Commercial GRC tools (Vanta, Drata, OneTrust) typically run €10,000 to €60,000 per year for a mid-sized company. nisd2.eu is free. Implementation guidance from us starts at €500 per month.",
         },
         {
           q: "Do I need a tool, or is Excel enough?",
-          a: "Excel is not enough. The BSI requires a tamper-evident audit trail. After an incident, you must prove who changed what when. Excel files are overwritten — a BSI auditor will reject this.",
+          a: "Excel is not enough. The BSI requires a tamper-evident audit trail. After an incident, you must prove who changed what when. Excel files are overwritten. A BSI auditor will reject this.",
         },
         {
           q: "Is one tool enough, or do I need several?",
@@ -302,17 +302,17 @@ const content: Record<Locale, {
     why: {
       heading: "Why use a NIS2 tool?",
       bullets: [
-        "NIS2 requires durable audit evidence — Word documents are not enough.",
-        "Authorities check response times (24h / 72h / 1 month) — hard to demonstrate manually.",
+        "NIS2 requires durable audit evidence. Word documents are not enough.",
+        "Authorities check response times (24h / 72h / 1 month), hard to demonstrate manually.",
         "Personal management liability: you need proof measures were implemented.",
-        "The 10 measures from Article 21 span multiple departments — coordinated tools save time.",
+        "The 10 measures from Article 21 span multiple departments. Coordinated tools save time.",
       ],
     },
     categories: {
       heading: "What types of NIS2 tools exist?",
       description: "The tooling landscape for NIS2 is fragmented. A useful breakdown:",
       rows: [
-        { name: "GRC platform", purpose: "Governance, Risk & Compliance — represents all measures, risks, audits.", needed: "Mandatory for documentation" },
+        { name: "GRC platform", purpose: "Governance, Risk & Compliance. Represents all measures, risks, audits.", needed: "Mandatory for documentation" },
         { name: "Asset management", purpose: "IT asset inventory as the basis for risk analysis.", needed: "Mandatory" },
         { name: "SIEM / logging", purpose: "Detection of security events, forensics.", needed: "Strongly recommended" },
         { name: "Patch management", purpose: "Tracking updates for OS and applications.", needed: "Mandatory (Article 21(2)(e))" },
@@ -334,7 +334,7 @@ const content: Record<Locale, {
         { yes: true, text: "Supplier inventory with their own compliance status" },
         { yes: true, text: "Multi-country support across the EU" },
         { yes: false, text: "Vendor lock-in: full data export must be possible" },
-        { yes: false, text: "\"Forever free\" as marketing — read the fine print" },
+        { yes: false, text: "\"Forever free\" as marketing: read the fine print" },
       ],
     },
     ourTool: {
@@ -355,7 +355,7 @@ const content: Record<Locale, {
     faq: {
       heading: "Frequently asked questions",
       items: [
-        { q: "What does a NIS2 tool cost?", a: "Commercial GRC tools (Vanta, Drata, OneTrust) run €10,000–€60,000 per year for a mid-sized company. nisd2.eu is free." },
+        { q: "What does a NIS2 tool cost?", a: "Commercial GRC tools (Vanta, Drata, OneTrust) run €10,000 to €60,000 per year for a mid-sized company. nisd2.eu is free." },
         { q: "Do I need a tool, or is Excel enough?", a: "Excel is not enough. Authorities require a tamper-evident audit trail. After an incident, you must prove who changed what when." },
         { q: "Is one tool enough, or do I need several?", a: "A GRC tool covers documentation and proof. For SIEM, patch management, MFA, backups you still need separate technical tools." },
         { q: "Can a free platform be NIS2-compliant?", a: "Yes. NIS2 doesn't mandate a specific vendor. What matters is whether the requirements are met and documented." },

@@ -91,8 +91,8 @@
       "dueDiligenceProcess": "Due diligence performed when onboarding this supplier (e.g., questionnaire, cert check, reference call).",
       "relationshipType": "Under GDPR: is this supplier a processor (Art. 28), joint controller (Art. 26), separate controller, or internal? Drives which contract obligations apply.",
       "processesPersonalData": "Enable if any personal data flows to or through this supplier (triggers GDPR-specific contract obligations).",
-      "processesOnlyOnInstructions": "Art. 28(3)(a) — the processor only processes personal data on documented instructions from the controller.",
-      "assistsWithDataSubjectRights": "Art. 28(3)(e) — the processor assists you in responding to data subject requests (access, deletion, portability).",
+      "processesOnlyOnInstructions": "Art. 28(3)(a): the processor only processes personal data on documented instructions from the controller.",
+      "assistsWithDataSubjectRights": "Art. 28(3)(e): the processor assists you in responding to data subject requests (access, deletion, portability).",
       "internationalTransfer": "Enable if personal data is transferred outside the European Economic Area (EEA).",
       "transferMechanism": "Legal mechanism for the cross-border transfer: adequacy decision, SCCs, binding corporate rules, or derogation."
     },

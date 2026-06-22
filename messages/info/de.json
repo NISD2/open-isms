@@ -2269,7 +2269,7 @@
         "items": {
           "allHazards": {
             "title": "Gefahrenübergreifender Ansatz (Artikel 21(2))",
-            "body": "Cyberangriffe sind nicht alles. Brand, Hochwasser, Stromausfall, der Schlüsselmitarbeiter geht, ein Lieferant geht pleite — alles zählt. Wenn Ihr Risikoregister nur Malware und Phishing enthält, haben Sie den Maßstab nicht erfüllt."
+            "body": "Cyberangriffe sind nicht alles. Brand, Hochwasser, Stromausfall, der Schlüsselmitarbeiter geht, ein Lieferant geht pleite. Alles zählt. Wenn Ihr Risikoregister nur Malware und Phishing enthält, haben Sie den Maßstab nicht erfüllt."
           },
           "proportionality": {
             "title": "Verhältnismäßigkeit (Artikel 21(1), Unterabsatz 2)",
@@ -2329,10 +2329,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §1 und §2 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §1 und §2: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI Infopakete „NIS 2 Pflichten“ — bsi.bund.de/dok/nis-2-infopakete",
+          "BSI Infopakete „NIS 2 Pflichten“: bsi.bund.de/dok/nis-2-infopakete",
           "ENISA Technical Implementation Guidance für CIR (EU) 2024/2690 (Stand: Mai 2026)"
         ]
       },
@@ -2461,10 +2461,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 18 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 der Kommission — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "Verordnung (EU) 2019/881 (Cybersecurity Act, ENISA Mandat) — eur-lex.europa.eu/eli/reg/2019/881/oj",
-          "ENISA Technical Implementation Guidance — enisa.europa.eu/publications/nis2-technical-implementation-guidance",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 18: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 der Kommission: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Verordnung (EU) 2019/881 (Cybersecurity Act, ENISA Mandat): eur-lex.europa.eu/eli/reg/2019/881/oj",
+          "ENISA Technical Implementation Guidance: enisa.europa.eu/publications/nis2-technical-implementation-guidance",
           "ENISA TIG Mapping Table v1.2, CC BY 4.0 (August 2025)"
         ]
       },
@@ -2498,7 +2498,7 @@
         "regulation": {
           "label": "Durchführungsverordnung (EU) 2024/2690, Art. 3",
           "quote": "Ein Sicherheitsvorfall gilt als erheblich, wenn er verursacht hat oder verursachen kann: (a) einen direkten finanziellen Verlust von mehr als 500.000 EUR oder 5 Prozent des Jahresumsatzes im vorangegangenen Geschäftsjahr (je nachdem, welcher Betrag niedriger ist); (b) den Abfluss von Geschäftsgeheimnissen der Einrichtung im Sinne von Artikel 2 Nummer 1 der Richtlinie (EU) 2016/943; (c) den Tod einer natürlichen Person; (d) eine schwere Schädigung der Gesundheit einer natürlichen Person; (e) einen erfolgreichen, mutmaßlich böswilligen und unbefugten Zugriff auf Netz- und Informationssysteme, geeignet schwerwiegende Betriebsstörungen zu verursachen; (f) die in Artikel 4 aufgeführten Kriterien (wiederkehrende Vorfälle); oder (g) eines oder mehrere der in den Artikeln 5 bis 14 aufgeführten Kriterien (entitätsspezifisch). Jedes einzelne Kriterium reicht.",
-          "context": "Sieben Kriterien (Buchstabe a bis g) — fünf inhaltliche plus zwei Querverweise. CIR Art. 1 sagt, dass diese Zahlen nur für bestimmte digitale Anbieter gelten (DNS, TLD, Cloud, Rechenzentrum, CDN, MSP, MSSP, Marktplatz, Suchmaschine, soziale Plattform, Vertrauensdienste). Art. 5 bis 14 ergänzen sektorspezifische Verfügbarkeitsschwellen für dieselbe Gruppe. Steht Ihr Sektor nicht auf dieser Liste, binden Sie diese Zahlen nicht und der qualitative Test aus Art. 23(3) steht allein."
+          "context": "Sieben Kriterien (Buchstabe a bis g): fünf inhaltliche plus zwei Querverweise. CIR Art. 1 sagt, dass diese Zahlen nur für bestimmte digitale Anbieter gelten (DNS, TLD, Cloud, Rechenzentrum, CDN, MSP, MSSP, Marktplatz, Suchmaschine, soziale Plattform, Vertrauensdienste). Art. 5 bis 14 ergänzen sektorspezifische Verfügbarkeitsschwellen für dieselbe Gruppe. Steht Ihr Sektor nicht auf dieser Liste, binden Sie diese Zahlen nicht und der qualitative Test aus Art. 23(3) steht allein."
         },
         "transposition": {
           "label": "§32 BSIG (Deutschland, Beispielumsetzung)",
@@ -2640,11 +2640,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 23 und Erwägungsgrund 101 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690, Art. 1, 3, 4 und 5 bis 14 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "§32 BSIG (Deutschland) — bsi.bund.de Regulierungsportal",
-          "ENISA Technical Implementation Guidance zur NIS-2-Vorfallsmeldung (TIG) — enisa.europa.eu",
-          "BSI MIRP-Meldeformular und Vorfallsleitlinien — bsi.bund.de"
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 23 und Erwägungsgrund 101: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690, Art. 1, 3, 4 und 5 bis 14: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "§32 BSIG (Deutschland): bsi.bund.de Regulierungsportal",
+          "ENISA Technical Implementation Guidance zur NIS-2-Vorfallsmeldung (TIG): enisa.europa.eu",
+          "BSI MIRP-Meldeformular und Vorfallsleitlinien: bsi.bund.de"
         ]
       },
       "ctaCard": {
@@ -2772,11 +2772,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 6 Nummern 40 und 41 sowie Anhang I Sektor 9 (Verwaltung von IKT-Diensten, B2B) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Piltz Legal, 'Konzern-IT-Gesellschaften unter der NIS 2-Richtlinie' — piltz.legal/news/konzern-it-gesellschaften-unter-der-nis-2-richtlinie",
-          "BSIG (Umsetzung NIS 2 in Deutschland), §2 Nr. 26 (MSP-Definition) und §28 (Anwendungsbereich) — gesetze-im-internet.de",
-          "Empfehlung 2003/361/EG der Kommission zur Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen (Verbundenheitsregel) — eur-lex.europa.eu/eli/reco/2003/361/oj",
-          "BSI Sektorspezifische FAQ zu NIS 2 — bsi.bund.de"
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 6 Nummern 40 und 41 sowie Anhang I Sektor 9 (Verwaltung von IKT-Diensten, B2B): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Piltz Legal, 'Konzern-IT-Gesellschaften unter der NIS 2-Richtlinie': piltz.legal/news/konzern-it-gesellschaften-unter-der-nis-2-richtlinie",
+          "BSIG (Umsetzung NIS 2 in Deutschland), §2 Nr. 26 (MSP-Definition) und §28 (Anwendungsbereich): gesetze-im-internet.de",
+          "Empfehlung 2003/361/EG der Kommission zur Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen (Verbundenheitsregel): eur-lex.europa.eu/eli/reco/2003/361/oj",
+          "BSI Sektorspezifische FAQ zu NIS 2: bsi.bund.de"
         ]
       },
       "ctaCard": {
@@ -3036,11 +3036,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "NIS 2 Richtlinie (EU) 2022/2555, Art. 2 (Anwendungsbereich), Art. 6 (Begriffsbestimmungen), Erwägungsgrund 16 (verbundene Unternehmen und Unabhängigkeit) — EUR-Lex, eli/dir/2022/2555/oj",
-          "Empfehlung 2003/361/EG der Kommission vom 6. Mai 2003, Anhang Art. 2 (KMU-Definition) und Anhang Art. 3 (verbundene Unternehmen, 100-Prozent-Aggregation) — EUR-Lex, CELEX 32003H0361",
-          "BSIG (Deutschland), §28 (Einstufung besonders wichtiger und wichtiger Einrichtungen) — gesetze-im-internet.de",
-          "BSI-FAQ zum Anwendungsbereich (sektorspezifisch) — bsi.bund.de, NIS-2-FAQ-sektorspezifisch",
-          "ENISA-Materialien zu NIS 2 Anwendungsbereich und KMU-Empfehlung — enisa.europa.eu"
+          "NIS 2 Richtlinie (EU) 2022/2555, Art. 2 (Anwendungsbereich), Art. 6 (Begriffsbestimmungen), Erwägungsgrund 16 (verbundene Unternehmen und Unabhängigkeit): EUR-Lex, eli/dir/2022/2555/oj",
+          "Empfehlung 2003/361/EG der Kommission vom 6. Mai 2003, Anhang Art. 2 (KMU-Definition) und Anhang Art. 3 (verbundene Unternehmen, 100-Prozent-Aggregation): EUR-Lex, CELEX 32003H0361",
+          "BSIG (Deutschland), §28 (Einstufung besonders wichtiger und wichtiger Einrichtungen): gesetze-im-internet.de",
+          "BSI-FAQ zum Anwendungsbereich (sektorspezifisch): bsi.bund.de, NIS-2-FAQ-sektorspezifisch",
+          "ENISA-Materialien zu NIS 2 Anwendungsbereich und KMU-Empfehlung: enisa.europa.eu"
         ]
       },
       "ctaCard": {
@@ -6034,7 +6034,7 @@
         "title": "Bei der nationalen NIS2-Behörde registrieren",
         "law": "NIS2 Art. 27 · §33 BSIG (DE)",
         "owner": "IT-Leitung füllt aus, Geschäftsführer zeichnet",
-        "time": "~1 Stunde pro Land + nationale Identitätsverfahren (z. B. ELSTER in DE: 5–10 Werktage)",
+        "time": "~1 Stunde pro Land + nationale Identitätsverfahren (z. B. ELSTER in DE: 5 bis 10 Werktage)",
         "deadline": "Nationale Fristen gelten: DE: 06.03.2026 abgelaufen, Pflicht besteht weiter",
         "what": "Sie registrieren sich bei der NIS2-Behörde jedes EU-Mitgliedstaats, in dem Sie tätig sind: nicht nur in Deutschland. Tätig sein heißt hier: physische Niederlassung: eigene Gesellschaft, Zweigstelle, Büro oder eigene Mitarbeiter vor Ort in diesem Land. Reiner grenzüberschreitender Vertrieb zählt nicht. Beispiel: GmbH in Köln plus Standort in Wien → Registrierung beim BSI (DE) und bei der NIS-Stelle (AT).",
         "actionText": "Behörden je Land ansehen",
@@ -6065,14 +6065,14 @@
         "law": "§30 Abs. 2 Nr. 4 BSIG · NIS2 Art. 21(2)(d)",
         "owner": "Einkauf / IT erstellt, Geschäftsführer zeichnet",
         "time": "~½ Tag Erstaufnahme · laufend pflegen",
-        "deadline": "Quartal 1–2",
+        "deadline": "Quartal 1 bis 2",
         "what": "Verzeichnis der direkten Lieferanten, gekoppelt an Ihr Asset-Inventar (welcher Lieferant betreibt welches System). Kontinuierliches Cybersicherheits-Risiko-Management statt einmaliger Fragebogen: Sicherheitsstatus pro Lieferant, Vorfallsmeldungen aus deren Lieferantenportal, Risikobewertung. Die Plattform stellt den auf NIS2 verankerten Standardfragebogen bereit (Open Source, MIT + CC BY 4.0) und führt das Verzeichnis fort.",
         "actionText": "Lieferantenverzeichnis im Portal anlegen",
         "actionHref": "/features"
       },
       "step6": {
         "title": "Restliche NIS2-Pflichten umsetzen",
-        "law": "§30 Abs. 2 Nr. 1–10 BSIG · NIS2 Art. 21",
+        "law": "§30 Abs. 2 Nr. 1 bis 10 BSIG · NIS2 Art. 21",
         "owner": "IT-Leitung / CISO setzt um, Geschäftsführer zeichnet jährlich",
         "time": "laufend, parallel zur IT-Arbeit",
         "deadline": "Quartal 2 ff.",
@@ -6834,10 +6834,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 20 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 20: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "BSI-Gesetz (BSIG), §38 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes (NIS2UmsuCG)",
           "BSI Handreichung zur Geschäftsleitungsschulung nach §38(3) BSIG, v1.0, 17. April 2026 (unverbindlich)",
-          "ENISA NIS 2 Materialien zu Geschäftsleitungspflichten — enisa.europa.eu",
+          "ENISA NIS 2 Materialien zu Geschäftsleitungspflichten: enisa.europa.eu",
           "IT-Grundschutz ORP.3 (Sensibilisierung und Schulung)"
         ]
       },
@@ -6870,7 +6870,7 @@
         },
         "regulation": {
           "label": "CIR (EU) 2024/2690, Anhang §11.7 und §11.3",
-          "quote": "Die betreffenden Einrichtungen stellen sicher, dass die Nutzer – soweit angemessen – durch mehrere Authentifizierungsfaktoren oder kontinuierliche Authentifizierungsmechanismen für den Zugang zu den Netz- und Informationssystemen der betreffenden Einrichtungen im Einklang mit der Klassifizierung der Anlage bzw. des Werts, auf die zugegriffen werden soll, authentifiziert werden.",
+          "quote": "Die betreffenden Einrichtungen stellen sicher, dass die Nutzer (soweit angemessen) durch mehrere Authentifizierungsfaktoren oder kontinuierliche Authentifizierungsmechanismen für den Zugang zu den Netz- und Informationssystemen der betreffenden Einrichtungen im Einklang mit der Klassifizierung der Anlage bzw. des Werts, auf die zugegriffen werden soll, authentifiziert werden.",
           "context": "§11 ist das Zugriffskontroll-Kapitel der CIR und deckt Art. 21(2) Buchstaben (i) und (j) gemeinsam ab. §11.7 ist der MFA-spezifische Unterabschnitt. §11.3.2(a) geht für privilegierte und Verwaltungskonten weiter: starke Identifizierung, Authentifizierung (MFA als Beispiel) und Genehmigung sind verpflichtend. Da die CIR eine Verordnung ist, gilt sie für die im Anhang genannten Sektoren unmittelbar."
         },
         "transposition": {
@@ -6966,8 +6966,8 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 21(2)(j) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §11.3 und §11.7 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 21(2)(j): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §11.3 und §11.7: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30 Abs. 2 Nr. 10 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
           "BSI IT-Grundschutz, Baustein ORP.4 'Identitäts- und Berechtigungsmanagement'",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690 (Stand Mai 2026)"
@@ -7098,11 +7098,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21 Absatz 2 Buchstabe h — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §9 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21 Absatz 2 Buchstabe h: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §9: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30 Absatz 2 Nummer 8 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI TR-02102 (Kryptographische Verfahren: Empfehlungen und Schlüssellängen) — bsi.bund.de/dok/tr-02102",
-          "IT-Grundschutz-Kompendium, Baustein CON.1 (Krypto-Konzept) — bsi.bund.de/grundschutz",
+          "BSI TR-02102 (Kryptographische Verfahren: Empfehlungen und Schlüssellängen): bsi.bund.de/dok/tr-02102",
+          "IT-Grundschutz-Kompendium, Baustein CON.1 (Krypto-Konzept): bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690, Mapping zu ISO/IEC 27001:2022 A.8.24"
         ]
       },
@@ -7231,7 +7231,7 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 41 (Umsetzung) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 41 (Umsetzung): eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "NIS2UmsuCG (NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetz), Bundestagsdrucksache und Bundesgesetzblatt",
           "BSI-Gesetz (BSIG), §§28, 30, 32, 33, 38, 65 in der durch das NIS2UmsuCG geänderten Fassung",
           "Vertragsverletzungspaket der Europäischen Kommission vom November 2024, Aufforderungsschreiben wegen verspäteter NIS-2-Umsetzung",
@@ -7363,10 +7363,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(b) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §3 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(b): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §3: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30(2)(2) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI IT-Grundschutz-Baustein DER.2 'Vorfall-Bewältigung' — bsi.bund.de/grundschutz",
+          "BSI IT-Grundschutz-Baustein DER.2 'Vorfall-Bewältigung': bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690, §3-Mapping auf ISO/IEC 27001:2022 und NIST CSF 2.0"
         ]
       },
@@ -7495,10 +7495,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(c) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §4 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(c): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §4: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30(2)(3) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI IT-Grundschutz Baustein DER.4 'Notfallmanagement' — bsi.bund.de/grundschutz",
+          "BSI IT-Grundschutz Baustein DER.4 'Notfallmanagement': bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690 (Stand Mai 2026)"
         ]
       },
@@ -7627,8 +7627,8 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(e) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Annex §6 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(e): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Annex §6: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30(2)(5) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
           "BSI IT-Grundschutz-Bausteine CON.8 'Software-Entwicklung' und OPS.1.1.3 'Patch- und Änderungsmanagement'",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690 (Stand Mai 2026)"
@@ -7759,10 +7759,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(f) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §7 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(f): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §7: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30(2)(6) i.d.F. des NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI IT-Grundschutz, Baustein DER.1 'Detektion sicherheitsrelevanter Ereignisse' — bsi.bund.de/grundschutz",
+          "BSI IT-Grundschutz, Baustein DER.1 'Detektion sicherheitsrelevanter Ereignisse': bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690 (Stand Mai 2026)"
         ]
       },
@@ -7891,10 +7891,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 12 und Artikel 21(2)(e) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §6.10 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 12 und Artikel 21(2)(e): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §6.10: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30(2)(5) in der Fassung des NIS-2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI / CERT-Bund Programm zur koordinierten Offenlegung von Schwachstellen — bsi.bund.de",
+          "BSI / CERT-Bund Programm zur koordinierten Offenlegung von Schwachstellen: bsi.bund.de",
           "ENISA Europäische Schwachstellendatenbank (Artikel 12 NIS 2)"
         ]
       },
@@ -8023,8 +8023,8 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(g) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §8 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(g): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §8: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30 Abs. 2 Nr. 7 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
           "BSI IT-Grundschutz Baustein ORP.3 'Sensibilisierung und Schulung zur Informationssicherheit'",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690 (Stand Mai 2026)"
@@ -8155,10 +8155,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 21(2)(i) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §10 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 21(2)(i): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §10: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSIG, §30(2)(9) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI IT-Grundschutz, Baustein ORP.2 'Personal' — bsi.bund.de/grundschutz",
+          "BSI IT-Grundschutz, Baustein ORP.2 'Personal': bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zu CIR (EU) 2024/2690 (Stand Mai 2026)"
         ]
       },
@@ -8287,11 +8287,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(i) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §12 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(i): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §12: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30(2)(9) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI IT-Grundschutz CON.6 'Löschen und Vernichten' — bsi.bund.de/Grundschutz",
-          "BSI 200-2 §8.1 (Gruppierungsregel für Anlagen) — bsi.bund.de/200-2",
+          "BSI IT-Grundschutz CON.6 'Löschen und Vernichten': bsi.bund.de/Grundschutz",
+          "BSI 200-2 §8.1 (Gruppierungsregel für Anlagen): bsi.bund.de/200-2",
           "ENISA Technical Implementation Guidance zu CIR (EU) 2024/2690 (Stand Mai 2026)"
         ]
       },
@@ -8420,10 +8420,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(i) und (j) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §11 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(i) und (j): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §11: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30 Abs. 2 Nr. 9 und Nr. 10 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "IT-Grundschutz-Kompendium, Baustein ORP.4 'Identitäts- und Berechtigungsmanagement' — bsi.bund.de/grundschutz",
+          "IT-Grundschutz-Kompendium, Baustein ORP.4 'Identitäts- und Berechtigungsmanagement': bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zu CIR (EU) 2024/2690 (Stand Mai 2026)"
         ]
       },
@@ -8552,11 +8552,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(c) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §4.2 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(c): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §4.2: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30 Absatz 2 Nummer 3 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI IT-Grundschutz Baustein CON.3 'Datensicherungskonzept' — bsi.bund.de/grundschutz",
-          "BSI IT-Grundschutz Baustein DER.2.3 'Notfallwiederherstellung der IT' — bsi.bund.de/grundschutz",
+          "BSI IT-Grundschutz Baustein CON.3 'Datensicherungskonzept': bsi.bund.de/grundschutz",
+          "BSI IT-Grundschutz Baustein DER.2.3 'Notfallwiederherstellung der IT': bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zu Durchführungsverordnung (EU) 2024/2690 (Stand Mai 2026)"
         ]
       },
@@ -8685,10 +8685,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(e) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §6.7 und §6.8 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(e): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §6.7 und §6.8: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30(2) Nr. 5 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI IT-Grundschutz, Bausteine NET.1 (Netze und Kommunikation) und NET.3.2 (Firewall) — bsi.bund.de/grundschutz",
+          "BSI IT-Grundschutz, Bausteine NET.1 (Netze und Kommunikation) und NET.3.2 (Firewall): bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690 (Stand Mai 2026)"
         ]
       },
@@ -8817,10 +8817,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(b) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §3.2 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(b): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §3.2: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30(2)(2) i.d.F. des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "IT-Grundschutz Kompendium, OPS.1.1.5 'Protokollierung' und DER.1 'Detektion' — bsi.bund.de/grundschutz",
+          "IT-Grundschutz Kompendium, OPS.1.1.5 'Protokollierung' und DER.1 'Detektion': bsi.bund.de/grundschutz",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690 (Stand Mai 2026)"
         ]
       },
@@ -8949,12 +8949,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 5 und Artikel 2(1) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie 2011/24/EU, Artikel 3 Buchstabe g (Definition Gesundheitsdienstleister) — eur-lex.europa.eu/eli/dir/2011/24/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 5 und Artikel 2(1): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie 2011/24/EU, Artikel 3 Buchstabe g (Definition Gesundheitsdienstleister): eur-lex.europa.eu/eli/dir/2011/24/oj",
           "Empfehlung 2003/361/EG, Anhang Artikel 2 (Definition mittleres Unternehmen)",
           "BSI-Gesetz (BSIG), §28 in der Fassung des NIS2-Umsetzungsgesetzes",
           "BSI-Kritisverordnung, Sektor Gesundheitswesen, Schwelle 30.000 vollstationäre Krankenhausfälle pro Jahr",
-          "ENISA NIS 2 Transpositionsübersicht — enisa.europa.eu/topics/nis-directive"
+          "ENISA NIS 2 Transpositionsübersicht: enisa.europa.eu/topics/nis-directive"
         ]
       },
       "ctaCard": {
@@ -9087,11 +9087,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektoren 1, 6, 7 und 8 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(1) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektoren 1, 6, 7 und 8: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(1): eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Empfehlung 2003/361/EG der Kommission betreffend die Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen",
           "BSI Gesetz (BSIG), §28 (Anwendungsbereich) und §33 (Registrierung) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "KRITIS-Verordnung (BSI-Kritisverordnung) — sektorspezifische Schwellenwerte für Energie, Wasser und Abwasser",
+          "KRITIS-Verordnung (BSI-Kritisverordnung): sektorspezifische Schwellenwerte für Energie, Wasser und Abwasser",
           "BSI Branchenspezifische Sicherheitsstandards für Energie, Wasser und Abwasser"
         ]
       },
@@ -9220,11 +9220,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 3, Artikel 4, Artikel 27 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Verordnung (EU) 2022/2554 (DORA), Artikel 1 Anwendungsbereich, Kapitel II und III — eur-lex.europa.eu/eli/reg/2022/2554/oj",
-          "Verordnung (EU) Nr. 575/2013 (CRR), Artikel 4 Nummer 1 — eur-lex.europa.eu/eli/reg/2013/575/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 3, Artikel 4, Artikel 27: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Verordnung (EU) 2022/2554 (DORA), Artikel 1 Anwendungsbereich, Kapitel II und III: eur-lex.europa.eu/eli/reg/2022/2554/oj",
+          "Verordnung (EU) Nr. 575/2013 (CRR), Artikel 4 Nummer 1: eur-lex.europa.eu/eli/reg/2013/575/oj",
           "BSI-Gesetz (BSIG), §28 (Lex specialis) und §33 (Register) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BaFin-Hinweise zur DORA-Umsetzung für Kreditinstitute — bafin.de"
+          "BaFin-Hinweise zur DORA-Umsetzung für Kreditinstitute: bafin.de"
         ]
       },
       "ctaCard": {
@@ -9357,12 +9357,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 8 und Artikel 2 Abs. 2 Buchst. a — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2018/1972 (Europäischer Kodex für die elektronische Kommunikation), Artikel 2 Begriffsbestimmungen — eur-lex.europa.eu/eli/dir/2018/1972/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 8 und Artikel 2 Abs. 2 Buchst. a: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2018/1972 (Europäischer Kodex für die elektronische Kommunikation), Artikel 2 Begriffsbestimmungen: eur-lex.europa.eu/eli/dir/2018/1972/oj",
           "BSI-Gesetz (BSIG), §28 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
           "Telekommunikationsgesetz (TKG), §165 ff. (Sicherheit von Netzen und Diensten)",
-          "Bundesnetzagentur, Hinweise zu Sicherheits- und Meldepflichten nach TKG — bundesnetzagentur.de",
-          "Durchführungsverordnung (EU) 2024/2690, Anhang (erfasst DNS, TLD, Cloud, Rechenzentren, MSP und weitere Kategorien aus Sektor 8) — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj"
+          "Bundesnetzagentur, Hinweise zu Sicherheits- und Meldepflichten nach TKG: bundesnetzagentur.de",
+          "Durchführungsverordnung (EU) 2024/2690, Anhang (erfasst DNS, TLD, Cloud, Rechenzentren, MSP und weitere Kategorien aus Sektor 8): eur-lex.europa.eu/eli/reg_impl/2024/2690/oj"
         ]
       },
       "ctaCard": {
@@ -9490,11 +9490,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 und Anhänge I und II — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Empfehlung 2003/361/EG der Kommission, Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen — eur-lex.europa.eu/eli/reco/2003/361/oj",
-          "Richtlinie (EU) 2022/2557 (CER), Resilienz kritischer Einrichtungen — eur-lex.europa.eu/eli/dir/2022/2557/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 und Anhänge I und II: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Empfehlung 2003/361/EG der Kommission, Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen: eur-lex.europa.eu/eli/reco/2003/361/oj",
+          "Richtlinie (EU) 2022/2557 (CER), Resilienz kritischer Einrichtungen: eur-lex.europa.eu/eli/dir/2022/2557/oj",
           "BSI-Gesetz (BSIG), §28 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI Betroffenheitsprüfung — bsi.bund.de/dok/nis-2-betroffenheitspruefung",
+          "BSI Betroffenheitsprüfung: bsi.bund.de/dok/nis-2-betroffenheitspruefung",
           "ENISA NIS-2-Umsetzungstracker (Stand Mai 2026)"
         ]
       },
@@ -9527,7 +9527,7 @@
         },
         "regulation": {
           "label": "Keine Durchführungsverordnung",
-          "quote": "N/A — Die Kooperationsgruppe ist eine Einrichtung auf Richtlinienebene, keine DVO-Bestimmung.",
+          "quote": "N/A: Die Kooperationsgruppe ist eine Einrichtung auf Richtlinienebene, keine DVO-Bestimmung.",
           "context": "Anders als bei den Maßnahmen aus Artikel 21(2), wo die DVO (EU) 2024/2690 die technischen Anforderungen ausformuliert, sitzt die Kooperationsgruppe direkt in der Richtlinie. Es gibt keine Durchführungsverordnung, die Artikel 14 operationalisiert. Die Gruppe legt ihr Arbeitsprogramm alle zwei Jahre selbst fest."
         },
         "transposition": {
@@ -9623,11 +9623,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 14 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 14: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 15 (CSIRTs-Netzwerk) und Artikel 16 (EU-CyCLONe)",
           "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 19 (Peer-Reviews) und Artikel 22 (koordinierte Lieferkettenrisikobewertungen)",
-          "BSI-Infopakete 'NIS-2-Pflichten' — bsi.bund.de/dok/nis-2-infopakete",
-          "ENISA — Rolle und Sekretariatsfunktion nach Verordnung (EU) 2019/881 (Rechtsakt zur Cybersicherheit)"
+          "BSI-Infopakete 'NIS-2-Pflichten': bsi.bund.de/dok/nis-2-infopakete",
+          "ENISA: Rolle und Sekretariatsfunktion nach Verordnung (EU) 2019/881 (Rechtsakt zur Cybersicherheit)"
         ]
       },
       "ctaCard": {
@@ -9658,7 +9658,7 @@
           "context": "Zwei aufeinanderfolgende Artikel. Zwei Netzwerke. Artikel 15 steht auf der operativen Ebene. Artikel 16 steht auf der politischen Ebene. Die Richtlinie schafft beide Gremien direkt. Es ist kein weiteres EU-Recht nötig, damit sie existieren."
         },
         "regulation": {
-          "label": "N/A — Institutionen auf Richtlinienebene",
+          "label": "N/A: Institutionen auf Richtlinienebene",
           "quote": "Es gibt keine Durchführungsverordnung, die das CSIRTs-Netzwerk oder EU-CyCLONe weiter ausgestaltet.",
           "context": "Anders als bei Artikel 21(2) (den die DVO konkretisiert) sind Artikel 15 und 16 selbstvollziehend. Die Netzwerke haben sich eigene Geschäftsordnungen gegeben, aber das sind interne Arbeitsdokumente, keine EU-Rechtsakte. Was für betroffene Einrichtungen zählt, sind die nationalen Ansprechpartner, nicht die interne Arbeitsweise der Netzwerke."
         },
@@ -9755,9 +9755,9 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 15 und 16 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 15 und 16: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 10 (CSIRT-Benennung) und Artikel 23 (Vorfallmeldung)",
-          "ENISA-Website zum CSIRTs-Netzwerk und EU-CyCLONe — enisa.europa.eu",
+          "ENISA-Website zum CSIRTs-Netzwerk und EU-CyCLONe: enisa.europa.eu",
           "BSI-Gesetz (BSIG), CERT-Bund als nationales CSIRT nach §5 BSIG",
           "EU-CyCLONe Standard Operating Procedures (öffentliche Zusammenfassung durch ENISA)"
         ]
@@ -9887,9 +9887,9 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21 und 22 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (DVO), Anhang §5 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "EU-Toolbox für 5G-Cybersicherheit (2020) — digital-strategy.ec.europa.eu",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21 und 22: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (DVO), Anhang §5: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "EU-Toolbox für 5G-Cybersicherheit (2020): digital-strategy.ec.europa.eu",
           "BSI-Gesetz (BSIG), §30(2)(4) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
           "ENISA Technical Implementation Guidance zur DVO (EU) 2024/2690 (Stand Mai 2026)"
         ]
@@ -10019,12 +10019,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 1 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(1) und Artikel 2(2) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 1: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(1) und Artikel 2(2): eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Empfehlung 2003/361/EG der Kommission zur Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen",
-          "BSI-Gesetz (BSIG), §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §65 (Audits) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes — gesetze-im-internet.de",
+          "BSI-Gesetz (BSIG), §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §65 (Audits) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes: gesetze-im-internet.de",
           "Verordnung zur Bestimmung Kritischer Anlagen (BSI-KritisV), sektorspezifische Schwellen für Energie",
-          "Energiewirtschaftsgesetz (EnWG), §11(1a) und §11(1b) — gesetze-im-internet.de",
+          "Energiewirtschaftsgesetz (EnWG), §11(1a) und §11(1b): gesetze-im-internet.de",
           "IT-Sicherheitskatalog der Bundesnetzagentur für Energienetz- und Energieanlagenbetreiber"
         ]
       },
@@ -10158,12 +10158,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 6 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(1) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2020/2184 (Neufassung Trinkwasserrichtlinie), Artikel 2(1) — eur-lex.europa.eu/eli/dir/2020/2184/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 6: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(1): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2020/2184 (Neufassung Trinkwasserrichtlinie), Artikel 2(1): eur-lex.europa.eu/eli/dir/2020/2184/oj",
           "Empfehlung 2003/361/EG der Kommission betreffend die Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen",
           "BSI Gesetz (BSIG), §28 (Anwendungsbereich), §32 (Meldepflichten) und §33 (Registrierung) in der Fassung des NIS2 Umsetzungs und Cybersicherheitsstärkungsgesetzes",
-          "KRITIS Verordnung (BSI Kritisverordnung), Anlage 1 — Schwellenwert 22 Millionen Kubikmeter pro Jahr für den Sektor Trinkwasser",
+          "KRITIS Verordnung (BSI Kritisverordnung), Anlage 1: Schwellenwert 22 Millionen Kubikmeter pro Jahr für den Sektor Trinkwasser",
           "BSI branchenspezifischer Sicherheitsstandard Wasser/Abwasser",
           "Trinkwasserverordnung (deutsche Umsetzung der Richtlinie (EU) 2020/2184)"
         ]
@@ -10298,12 +10298,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 7 Abwasser — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(1) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 7 Abwasser: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(1): eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Richtlinie 91/271/EWG des Rates über die Behandlung von kommunalem Abwasser, Artikel 2 Nummern (1), (2), (3)",
           "Empfehlung 2003/361/EG der Kommission zur Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen",
           "BSIG, §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §65 (Nachweise) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI-Kritisverordnung (KRITIS-Verordnung), Anhang 1 Teil 2 Wasser — Einwohnerwert 500.000 für die Abwasserbehandlung",
+          "BSI-Kritisverordnung (KRITIS-Verordnung), Anhang 1 Teil 2 Wasser: Einwohnerwert 500.000 für die Abwasserbehandlung",
           "Branchenspezifischer Sicherheitsstandard Wasser/Abwasser (B3S), DWA und BDEW"
         ]
       },
@@ -10432,13 +10432,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 9 (IKT-Dienstleistungsmanagement B2B) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 6 Nummer 39 (Definition Managed Service Provider) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 6 Nummer 40 (Definition Managed Security Service Provider) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 Absatz 1 und Absatz 2 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 9 (IKT-Dienstleistungsmanagement B2B): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 6 Nummer 39 (Definition Managed Service Provider): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 6 Nummer 40 (Definition Managed Security Service Provider): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 Absatz 1 und Absatz 2: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Empfehlung 2003/361/EG zur Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen",
           "BSIG, §28 und Anlage 1 Sektor Digitale Infrastruktur, in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "Sektorspezifische FAQ des BSI zu Anlage 1 Nr. 6.1.10 (Managed Services Provider) — bsi.bund.de"
+          "Sektorspezifische FAQ des BSI zu Anlage 1 Nr. 6.1.10 (Managed Services Provider): bsi.bund.de"
         ]
       },
       "ctaCard": {
@@ -10571,12 +10571,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 8 und Art. 6 Nr. 30 Begriffsbestimmung Cloud-Computing-Dienst — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 2 Abs. 1 Größenschwelle und Sektorabgrenzung; Art. 2 Abs. 2 größenunabhängige Sonderfälle — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Empfehlung 2003/361/EG der Kommission betreffend die Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen — eur-lex.europa.eu/eli/reco/2003/361/oj",
-          "Durchführungsverordnung (EU) 2024/2690, Anhang (listet Anbieter von Cloud-Computing-Diensten unter den unmittelbar gebundenen Einrichtungen) — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 8 und Art. 6 Nr. 30 Begriffsbestimmung Cloud-Computing-Dienst: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Art. 2 Abs. 1 Größenschwelle und Sektorabgrenzung; Art. 2 Abs. 2 größenunabhängige Sonderfälle: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Empfehlung 2003/361/EG der Kommission betreffend die Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen: eur-lex.europa.eu/eli/reco/2003/361/oj",
+          "Durchführungsverordnung (EU) 2024/2690, Anhang (listet Anbieter von Cloud-Computing-Diensten unter den unmittelbar gebundenen Einrichtungen): eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §28 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI C5 (Cloud Computing Compliance Criteria Catalogue), aktuelle Fassung — bsi.bund.de"
+          "BSI C5 (Cloud Computing Compliance Criteria Catalogue), aktuelle Fassung: bsi.bund.de"
         ]
       },
       "ctaCard": {
@@ -10709,12 +10709,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 8 und Artikel 6 Nr. 31 Begriffsbestimmung Rechenzentrumsdienst — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 Abs. 1 Größentest mit Verweis auf Empfehlung 2003/361/EG der Kommission — eur-lex.europa.eu/eli/reco/2003/361/oj",
-          "Durchführungsverordnung (EU) 2024/2690, Anhang (Anbieter von Rechenzentrumsdiensten namentlich gelistet) — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 8 und Artikel 6 Nr. 31 Begriffsbestimmung Rechenzentrumsdienst: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 Abs. 1 Größentest mit Verweis auf Empfehlung 2003/361/EG der Kommission: eur-lex.europa.eu/eli/reco/2003/361/oj",
+          "Durchführungsverordnung (EU) 2024/2690, Anhang (Anbieter von Rechenzentrumsdiensten namentlich gelistet): eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §28 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
           "BSI-Kritisverordnung (BSI-KritisV), Sektor Informationstechnik und Telekommunikation, Schwelle 3,5 MW IT-Anschlussleistung für Rechenzentren",
-          "BSI IT-Grundschutz, Bausteine INF.1 (Allgemeines Gebäude) und INF.2 (Rechenzentrum sowie Serverraum); BSI C5 Cloud-Katalog — bsi.bund.de"
+          "BSI IT-Grundschutz, Bausteine INF.1 (Allgemeines Gebäude) und INF.2 (Rechenzentrum sowie Serverraum); BSI C5 Cloud-Katalog: bsi.bund.de"
         ]
       },
       "ctaCard": {
@@ -10842,14 +10842,14 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 5 fünfter Gedankenstrich und Anhang II Sektor 5 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Verordnung (EU) 2022/123 über eine verstärkte Rolle der EMA, Artikel 22 (Liste kritischer Arzneimittel und Medizinprodukte) — eur-lex.europa.eu/eli/reg/2022/123/oj",
-          "Verordnung (EU) 2017/745 (MDR), Artikel 2 Nummer 1 (Definition Hersteller) und Anhang I Nummer 17.2 (Cybersicherheit) — eur-lex.europa.eu/eli/reg/2017/745/oj",
-          "Verordnung (EU) 2017/746 (IVDR), Artikel 2 Nummer 2 (Definition Hersteller) — eur-lex.europa.eu/eli/reg/2017/746/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 5 fünfter Gedankenstrich und Anhang II Sektor 5: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Verordnung (EU) 2022/123 über eine verstärkte Rolle der EMA, Artikel 22 (Liste kritischer Arzneimittel und Medizinprodukte): eur-lex.europa.eu/eli/reg/2022/123/oj",
+          "Verordnung (EU) 2017/745 (MDR), Artikel 2 Nummer 1 (Definition Hersteller) und Anhang I Nummer 17.2 (Cybersicherheit): eur-lex.europa.eu/eli/reg/2017/745/oj",
+          "Verordnung (EU) 2017/746 (IVDR), Artikel 2 Nummer 2 (Definition Hersteller): eur-lex.europa.eu/eli/reg/2017/746/oj",
           "Empfehlung 2003/361/EG, Anhang Artikel 2 (Definition mittleres Unternehmen)",
           "BSI-Gesetz (BSIG), §28 in der Fassung des NIS2-Umsetzungsgesetzes",
-          "Medizinprodukte-Durchführungsgesetz (MPDG) — gesetze-im-internet.de/mpdg",
-          "ENISA NIS 2 Transpositionsübersicht — enisa.europa.eu/topics/nis-directive"
+          "Medizinprodukte-Durchführungsgesetz (MPDG): gesetze-im-internet.de/mpdg",
+          "ENISA NIS 2 Transpositionsübersicht: enisa.europa.eu/topics/nis-directive"
         ]
       },
       "ctaCard": {
@@ -10875,17 +10875,17 @@
         "heading": "Die rechtliche Grundlage",
         "description": "Die Richtlinie benennt den Sektor. Artikel 2 setzt die Größenschwelle. Deutschland setzt beides in §28 BSIG um.",
         "directive": {
-          "label": "Anhang II Nummer 5 NIS 2 Richtlinie (2022/2555) — Verarbeitendes Gewerbe / Herstellung",
+          "label": "Anhang II Nummer 5 NIS 2 Richtlinie (2022/2555): Verarbeitendes Gewerbe / Herstellung",
           "quote": "(a) Herstellung von Medizinprodukten und In-vitro-Diagnostika (NACE C32.5 teilweise, C26.60 teilweise); (b) Herstellung von Datenverarbeitungsgeräten, elektronischen und optischen Erzeugnissen (NACE C26); (c) Herstellung von elektrischen Ausrüstungen (NACE C27); (d) Herstellung von Maschinen anderweitig nicht genannt (NACE C28); (e) Herstellung von Kraftwagen und Kraftwagenteilen (NACE C29); (f) Sonstiger Fahrzeugbau (NACE C30).",
           "context": "Maschinenbauer fallen unter Buchstabe (d). Der NACE-Verweis bezieht sich auf Rev. 2. Wer Maschinen, Anlagen oder Module mahlt, fräst, schweißt, montiert oder integriert, gehört in die Abteilung C28. Anhang II ist die Liste der wichtigen Einrichtungen. Dieselben zehn Pflichten aus Artikel 21 Absatz 2 wie bei Anhang I, niedrigeres Bußgeld, reaktive statt proaktive Aufsicht."
         },
         "regulation": {
-          "label": "Artikel 2 Absatz 1 NIS 2 Richtlinie — Größentest",
+          "label": "Artikel 2 Absatz 1 NIS 2 Richtlinie: Größentest",
           "quote": "Diese Richtlinie gilt für öffentliche oder private Einrichtungen einer in Anhang I oder Anhang II genannten Art, die als mittlere Unternehmen im Sinne des Artikels 2 des Anhangs der Empfehlung 2003/361/EG der Kommission gelten oder die Obergrenzen für mittlere Unternehmen gemäß Absatz 1 jenes Artikels überschreiten.",
           "context": "Der Größentest knüpft an die KMU-Definition der EU an. 50 Beschäftigte oder mehr, oder Jahresumsatz über 10 Millionen Euro und Bilanzsumme über 10 Millionen Euro. Eines reicht. Die Richtlinie kennt einige wenige Fälle, in denen die Größe egal ist. Der reine Maschinenbau steht nicht auf dieser Override-Liste."
         },
         "transposition": {
-          "label": "§28 BSIG (Deutschland) — wichtige Einrichtung, Sektor 'Verarbeitendes Gewerbe / Herstellung'",
+          "label": "§28 BSIG (Deutschland): wichtige Einrichtung, Sektor 'Verarbeitendes Gewerbe / Herstellung'",
           "quote": "Wichtige Einrichtungen sind Einrichtungen, die einer in Anlage 2 genannten Einrichtungsart angehören und mindestens als mittleres Unternehmen im Sinne der Empfehlung 2003/361/EG der Kommission gelten.",
           "context": "Deutschland führt das verarbeitende Gewerbe in Anlage 2 BSIG mit denselben sechs Unterkategorien wie Anhang II Nummer 5 der Richtlinie. Die Bußgeldobergrenze für wichtige Einrichtungen steht in §65 BSIG: bis zu 7 Millionen Euro oder 1,4 Prozent des weltweiten Jahresumsatzes, je nachdem, was höher ist."
         }
@@ -10977,12 +10977,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang II Nummer 5 (Verarbeitendes Gewerbe / Herstellung) und Artikel 2 Absatz 1 (Anwendungsbereich und Größentest) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang II Nummer 5 (Verarbeitendes Gewerbe / Herstellung) und Artikel 2 Absatz 1 (Anwendungsbereich und Größentest): eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Empfehlung 2003/361/EG der Kommission, Anhang Artikel 2 (KMU-Definition)",
           "Eurostat NACE Rev. 2 Klassifikation, Abschnitt C Abteilungen 26, 27, 28, 29, 30 und Gruppe 32.5",
           "BSI-Gesetz (BSIG), §28 (Anwendungsbereich, wichtige Einrichtungen) und §65 (Bußgeldvorschriften)",
-          "BSI IT-Grundschutz Kompendium, Bausteine IND.1, IND.2, IND.3 — bsi.bund.de/grundschutz",
-          "VDMA, Sektorleitfäden zu NIS 2 und OT-Sicherheit — vdma.org",
+          "BSI IT-Grundschutz Kompendium, Bausteine IND.1, IND.2, IND.3: bsi.bund.de/grundschutz",
+          "VDMA, Sektorleitfäden zu NIS 2 und OT-Sicherheit: vdma.org",
           "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690, Mapping-Tabelle v1.2 (Stand August 2025)"
         ]
       },
@@ -11111,11 +11111,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 26 und 27 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 26 und 27: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "BSI-Gesetz (BSIG), §28 und §33 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "Durchführungsverordnung (EU) 2024/2690 der Kommission (CIR) zu sektorspezifischen technischen und methodischen Anforderungen — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "ENISA-Registrierung nach Artikel 27(2) NIS 2 — enisa.europa.eu",
-          "BSI Infopakete zu NIS 2 Anwendungsbereich und Registrierung — bsi.bund.de/dok/nis-2-infopakete"
+          "Durchführungsverordnung (EU) 2024/2690 der Kommission (CIR) zu sektorspezifischen technischen und methodischen Anforderungen: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "ENISA-Registrierung nach Artikel 27(2) NIS 2: enisa.europa.eu",
+          "BSI Infopakete zu NIS 2 Anwendungsbereich und Registrierung: bsi.bund.de/dok/nis-2-infopakete"
         ]
       },
       "ctaCard": {
@@ -11381,9 +11381,9 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(2)(f), Artikel 2(5) bis (7), Erwägungsgründe 7 und 8, Anhang I Sektor 10 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2(2)(f), Artikel 2(5) bis (7), Erwägungsgründe 7 und 8, Anhang I Sektor 10: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "BSI-Gesetz (BSIG), §28 (Bundesverwaltung) und §29 (Länder) in der Fassung des NIS2-Umsetzungsgesetzes",
-          "ENISA NIS 2 Transpositionsübersicht — enisa.europa.eu/topics/nis-directive",
+          "ENISA NIS 2 Transpositionsübersicht: enisa.europa.eu/topics/nis-directive",
           "Landes-Cybersicherheitsgesetze (je Land, Entwürfe und verabschiedete Gesetze)"
         ]
       },
@@ -11517,12 +11517,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 8 und Artikel 2(2)(b) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Verordnung (EU) 910/2014 (eIDAS), Artikel 3(16), Artikel 3(17), Artikel 19, Artikel 24 — eur-lex.europa.eu/eli/reg/2014/910/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 8 und Artikel 2(2)(b): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Verordnung (EU) 910/2014 (eIDAS), Artikel 3(16), Artikel 3(17), Artikel 19, Artikel 24: eur-lex.europa.eu/eli/reg/2014/910/oj",
           "BSI-Gesetz (BSIG), §28 (Anwendungsbereich), §32 (Meldepflichten) und §33 (Registrierung) in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "Vertrauensdienstegesetz (VDG) — gesetze-im-internet.de/vdg",
+          "Vertrauensdienstegesetz (VDG): gesetze-im-internet.de/vdg",
           "Vertrauensliste der Bundesnetzagentur nach Artikel 22 eIDAS",
-          "ENISA Technical Implementation Guidance zu Vertrauensdiensten nach Artikel 19 eIDAS — enisa.europa.eu"
+          "ENISA Technical Implementation Guidance zu Vertrauensdiensten nach Artikel 19 eIDAS: enisa.europa.eu"
         ]
       },
       "ctaCard": {
@@ -11788,11 +11788,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Verordnung (EU) 2016/679 (DSGVO), Artikel 4 Nummer 12, 32, 33, 34, 83 — eur-lex.europa.eu/eli/reg/2016/679/oj",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 20, 21, 23, 27 und Erwägungsgrund 14 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "BSI-Gesetz (BSIG), §30 und §32 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes — gesetze-im-internet.de/bsig_2009",
-          "Europäischer Datenschutzausschuss, Leitlinien 9/2022 zur Meldung von Verletzungen des Schutzes personenbezogener Daten — edpb.europa.eu",
-          "ENISA, Technical Implementation Guidance zu den Maßnahmen nach Artikel 21 NIS 2 — enisa.europa.eu"
+          "Verordnung (EU) 2016/679 (DSGVO), Artikel 4 Nummer 12, 32, 33, 34, 83: eur-lex.europa.eu/eli/reg/2016/679/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 20, 21, 23, 27 und Erwägungsgrund 14: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "BSI-Gesetz (BSIG), §30 und §32 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes: gesetze-im-internet.de/bsig_2009",
+          "Europäischer Datenschutzausschuss, Leitlinien 9/2022 zur Meldung von Verletzungen des Schutzes personenbezogener Daten: edpb.europa.eu",
+          "ENISA, Technical Implementation Guidance zu den Maßnahmen nach Artikel 21 NIS 2: enisa.europa.eu"
         ]
       },
       "ctaCard": {
@@ -11920,12 +11920,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21 Absatz 1 (Verhältnismäßigkeit), Artikel 21 Absatz 2 (zehn Maßnahmen), Artikel 27 (Aktualisierung der Registrierung) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "BSIG (NIS2-Umsetzungsgesetz), §28 (Anwendungsbereich), §29 (dreijähriger Nachweis für Betreiber kritischer Anlagen), §30 (Maßnahmen), §32 (Meldung), §33 (Registrierung), §65 (Bußgelder) — gesetze-im-internet.de/bsig_2009",
-          "BSI-KritisV (Verordnung zur Bestimmung kritischer Anlagen), sektorspezifische Schwellen für Strom, Wasser, Lebensmittel, Gesundheit, Verkehr, Finanzen, IT und Telekommunikation, Entsorgung, Raumfahrt — gesetze-im-internet.de/bsi-kritisv",
-          "BSI, Informationspaket 'Kritische Infrastrukturen' und NIS-2-FAQ — bsi.bund.de/DE/Themen/KRITIS-und-regulierte-Unternehmen",
-          "Bundesnetzagentur, IT-Sicherheitskatalog nach §11 EnWG (Aufsicht im Energiesektor) — bundesnetzagentur.de",
-          "Richtlinie (EU) 2022/2557 (CER) zur Resilienz kritischer Einrichtungen (physische Resilienz, getrennt von NIS 2) — eur-lex.europa.eu/eli/dir/2022/2557/oj"
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21 Absatz 1 (Verhältnismäßigkeit), Artikel 21 Absatz 2 (zehn Maßnahmen), Artikel 27 (Aktualisierung der Registrierung): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "BSIG (NIS2-Umsetzungsgesetz), §28 (Anwendungsbereich), §29 (dreijähriger Nachweis für Betreiber kritischer Anlagen), §30 (Maßnahmen), §32 (Meldung), §33 (Registrierung), §65 (Bußgelder): gesetze-im-internet.de/bsig_2009",
+          "BSI-KritisV (Verordnung zur Bestimmung kritischer Anlagen), sektorspezifische Schwellen für Strom, Wasser, Lebensmittel, Gesundheit, Verkehr, Finanzen, IT und Telekommunikation, Entsorgung, Raumfahrt: gesetze-im-internet.de/bsi-kritisv",
+          "BSI, Informationspaket 'Kritische Infrastrukturen' und NIS-2-FAQ: bsi.bund.de/DE/Themen/KRITIS-und-regulierte-Unternehmen",
+          "Bundesnetzagentur, IT-Sicherheitskatalog nach §11 EnWG (Aufsicht im Energiesektor): bundesnetzagentur.de",
+          "Richtlinie (EU) 2022/2557 (CER) zur Resilienz kritischer Einrichtungen (physische Resilienz, getrennt von NIS 2): eur-lex.europa.eu/eli/dir/2022/2557/oj"
         ]
       },
       "ctaCard": {
@@ -12053,13 +12053,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(a) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §2 und §12 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21(2)(a): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §2 und §12: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §30 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI-Standard 200-2: IT-Grundschutz-Methodik — bsi.bund.de",
-          "BSI-Standard 200-3: Risikoanalyse auf der Basis von IT-Grundschutz — bsi.bund.de",
-          "BSI Infopakete „NIS 2 Pflichten“ — bsi.bund.de/dok/nis-2-infopakete",
-          "ISO/IEC 27005:2022 — Informationssicherheit, Cybersicherheit und Datenschutz: Leitfaden zum Management von Informationssicherheitsrisiken",
+          "BSI-Standard 200-2: IT-Grundschutz-Methodik: bsi.bund.de",
+          "BSI-Standard 200-3: Risikoanalyse auf der Basis von IT-Grundschutz: bsi.bund.de",
+          "BSI Infopakete „NIS 2 Pflichten“: bsi.bund.de/dok/nis-2-infopakete",
+          "ISO/IEC 27005:2022: Informationssicherheit, Cybersicherheit und Datenschutz: Leitfaden zum Management von Informationssicherheitsrisiken",
           "ENISA Technical Implementation Guidance für CIR (EU) 2024/2690 (Stand: Mai 2026)"
         ]
       },
@@ -12320,12 +12320,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 32, 33, 34 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 32, 33, 34: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §29 (KRITIS-Nachweis), §61 (Aufsichtsbefugnisse), §64 (Auskunfts- und Untersuchungsbefugnisse), §65 (Bußgeldvorschriften)",
-          "BSI Infopakete „NIS 2 Pflichten“ — bsi.bund.de/dok/nis-2-infopakete",
+          "BSI Infopakete „NIS 2 Pflichten“: bsi.bund.de/dok/nis-2-infopakete",
           "ENISA Technical Implementation Guidance für CIR (EU) 2024/2690 (Stand: Mai 2026)",
-          "NIS-Kooperationsgruppe, Referenzdokumente zur Aufsichtspraxis — digital-strategy.ec.europa.eu"
+          "NIS-Kooperationsgruppe, Referenzdokumente zur Aufsichtspraxis: digital-strategy.ec.europa.eu"
         ]
       },
       "ctaCard": {
@@ -12412,7 +12412,7 @@
           },
           "dataProtection": {
             "country": "Deutschland / EU",
-            "label": "Artikel 33 DSGVO — läuft parallel",
+            "label": "Artikel 33 DSGVO: läuft parallel",
             "body": "Sind personenbezogene Daten betroffen, schulden Sie zusätzlich eine Meldung nach Artikel 33 DSGVO binnen 72 Stunden ab Kenntnisnahme. Die geht an die Datenschutzaufsicht, nicht ans BSI. Die 72-Stunden-Frist ist dieselbe Zahl, aber eine andere Uhr und ein anderer Adressat. Eine Meldung über das BSI Meldeportal stoppt die DSGVO-Uhr nicht. Beide nachhalten."
           },
           "sector": {
@@ -12453,12 +12453,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 23(3), 23(4), 23(11) — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690, Anhang §11 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 23(3), 23(4), 23(11): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690, Anhang §11: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
           "BSI-Gesetz (BSIG), §32 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
-          "BSI Meldeportal — meldeportal.bsi.bund.de",
-          "BSI Infopakete „NIS 2 Pflichten“ zur Meldepflicht — bsi.bund.de/dok/nis-2-infopakete",
-          "Verordnung (EU) 2016/679 (DSGVO), Artikel 33 — eur-lex.europa.eu/eli/reg/2016/679/oj"
+          "BSI Meldeportal: meldeportal.bsi.bund.de",
+          "BSI Infopakete „NIS 2 Pflichten“ zur Meldepflicht: bsi.bund.de/dok/nis-2-infopakete",
+          "Verordnung (EU) 2016/679 (DSGVO), Artikel 33: eur-lex.europa.eu/eli/reg/2016/679/oj"
         ]
       },
       "ctaCard": {
@@ -12679,7 +12679,7 @@
         "items": {
           "bsi": {
             "country": "DE",
-            "label": "BSI — Bundesamt für Sicherheit in der Informationstechnik",
+            "label": "BSI: Bundesamt für Sicherheit in der Informationstechnik",
             "body": "Das BSI beschreibt im Informationspaket zur NIS-2-Umsetzung, dass die Risikomanagementpflicht nicht durch eine umfassende Verlagerung des Risikos auf einen Versicherer erfüllt werden kann. Die verwendete Formulierung lautet, dass ein pauschaler Risikotransfer ausgeschlossen ist. Diese Position deckt sich mit der Struktur des Artikels 21: die Einrichtung setzt Maßnahmen um, sie zahlt sich nicht daran vorbei."
           },
           "enisa": {
@@ -12689,7 +12689,7 @@
           },
           "gdv": {
             "country": "DE",
-            "label": "GDV — Gesamtverband der Deutschen Versicherungswirtschaft",
+            "label": "GDV: Gesamtverband der Deutschen Versicherungswirtschaft",
             "body": "Der GDV veröffentlicht unverbindliche Musterbedingungen für die Cyberversicherung (AVB Cyber) sowie Marktstudien. Die öffentlich zugänglichen Materialien beschreiben Cyberversicherung als ein Element eines breiteren Risikomanagementansatzes und nennen ein technisches Mindestniveau als übliche Zeichnungsvoraussetzung."
           }
         }
@@ -12725,12 +12725,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21 — https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690, Anhang — https://eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "BSIG (Gesetz über das Bundesamt für Sicherheit in der Informationstechnik), §30 und §65 — https://www.gesetze-im-internet.de/bsig_2009/",
-          "BSI — NIS-2-Informationspakete und Hintergrund — https://www.bsi.bund.de/DE/Das-BSI/Auftrag/Gesetze-und-Verordnungen/NIS-2/nis-2_node.html",
-          "ENISA — NIS 2 Technical Implementation Guidance — https://www.enisa.europa.eu/publications",
-          "GDV — Cyberversicherung und unverbindliche Musterbedingungen (AVB Cyber) — https://www.gdv.de/"
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 21: https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690, Anhang: https://eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "BSIG (Gesetz über das Bundesamt für Sicherheit in der Informationstechnik), §30 und §65: https://www.gesetze-im-internet.de/bsig_2009/",
+          "BSI: NIS-2-Informationspakete und Hintergrund: https://www.bsi.bund.de/DE/Das-BSI/Auftrag/Gesetze-und-Verordnungen/NIS-2/nis-2_node.html",
+          "ENISA: NIS 2 Technical Implementation Guidance: https://www.enisa.europa.eu/publications",
+          "GDV: Cyberversicherung und unverbindliche Musterbedingungen (AVB Cyber): https://www.gdv.de/"
         ]
       },
       "ctaCard": {
@@ -14454,7 +14454,7 @@
       "sources": {
         "heading": "Primärquellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 2 — Verkehr",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I Sektor 2: Verkehr",
           "Richtlinie (EU) 2022/2555, Artikel 2 (Anwendungsbereich und Größentest), Artikel 21 (Risikomaßnahmen), Artikel 23 (Meldepflicht)",
           "BSIG (Gesetz über das Bundesamt für Sicherheit in der Informationstechnik), Anlage 1 Sektor 2; Paragrafen 28, 30, 32",
           "BSI-Kritisverordnung (BSI-KritisV), sektorale Schwellen für Verkehr",
@@ -14588,13 +14588,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I, Sektor 11 — EUR-Lex",
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 (Anwendungsbereich) und Artikel 6 (Begriffsbestimmungen) — EUR-Lex",
-          "Verordnung (EU) 2021/696 (EU Weltraumprogramm) — EUR-Lex",
-          "BSI-Gesetz (BSIG), Anlage 1, Nummer 11 — gesetze-im-internet.de",
-          "ENISA Sektorübersichten zum Weltraum — enisa.europa.eu",
-          "EUSPA (Agentur der Europäischen Union für das Weltraumprogramm) — euspa.europa.eu",
-          "BMWK und DLR Raumfahrtmanagement — bmwk.de, dlr.de"
+          "Richtlinie (EU) 2022/2555 (NIS 2), Anhang I, Sektor 11: EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 (Anwendungsbereich) und Artikel 6 (Begriffsbestimmungen): EUR-Lex",
+          "Verordnung (EU) 2021/696 (EU Weltraumprogramm): EUR-Lex",
+          "BSI-Gesetz (BSIG), Anlage 1, Nummer 11: gesetze-im-internet.de",
+          "ENISA Sektorübersichten zum Weltraum: enisa.europa.eu",
+          "EUSPA (Agentur der Europäischen Union für das Weltraumprogramm): euspa.europa.eu",
+          "BMWK und DLR Raumfahrtmanagement: bmwk.de, dlr.de"
         ]
       },
       "ctaCard": {
@@ -15007,7 +15007,7 @@
     },
     "nis2StatusFrankreich": {
       "meta": {
-        "title": "NIS 2 in Frankreich — Ordonnance n° 2024-1093, ANSSI, MonEspaceNIS2",
+        "title": "NIS 2 in Frankreich: Ordonnance n° 2024-1093, ANSSI, MonEspaceNIS2",
         "description": "Wie Frankreich die NIS 2 Richtlinie umsetzt: Ordonnance n° 2024-1093 vom 2. Dezember 2024, ANSSI als Aufsicht und nationales CSIRT, Registrierung über MonEspaceNIS2, und wie die alten OIV und OSE Regime weiterlaufen."
       },
       "title": "NIS 2 Status in Frankreich",
@@ -15124,13 +15124,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Ordonnance n° 2024-1093 vom 2. Dezember 2024 — Légifrance",
-          "Code de la défense, Artikel L.1332-1 ff. (OIV) — Légifrance",
-          "ANSSI — Agence nationale de la sécurité des systèmes d'information, offizielle Seite",
-          "MonEspaceNIS2 — französisches NIS 2 Registrierungsportal (ANSSI)",
-          "ACPR / Banque de France — zuständige Behörde für DORA im Finanzsektor"
+          "Ordonnance n° 2024-1093 vom 2. Dezember 2024: Légifrance",
+          "Code de la défense, Artikel L.1332-1 ff. (OIV): Légifrance",
+          "ANSSI: Agence nationale de la sécurité des systèmes d'information, offizielle Seite",
+          "MonEspaceNIS2: französisches NIS 2 Registrierungsportal (ANSSI)",
+          "ACPR / Banque de France: zuständige Behörde für DORA im Finanzsektor"
         ]
       },
       "ctaCard": {
@@ -15406,7 +15406,7 @@
     },
     "nis2StatusSchweden": {
       "meta": {
-        "title": "NIS 2 in Schweden — Cybersäkerhetslagen (SFS 2025:1506), MCF, CERT-SE",
+        "title": "NIS 2 in Schweden: Cybersäkerhetslagen (SFS 2025:1506), MCF, CERT-SE",
         "description": "Wie Schweden die NIS 2 Richtlinie umsetzt: Cybersäkerhetslagen (SFS 2025:1506) seit dem 15. Januar 2026 in Kraft, MCF (vormals MSB) als koordinierende Behörde und CSIRT-Träger über CERT-SE, dezentrales Aufsichtsmodell mit Sektorbehörden wie PTS, Energimyndigheten, Finansinspektionen."
       },
       "title": "NIS 2 Status in Schweden",
@@ -15523,14 +15523,14 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Cybersäkerhetslagen (SFS 2025:1506) — Sveriges riksdag",
-          "Proposition 2025/26:28 'Ett starkt skydd för nätverks- och informationssystem' — Sveriges riksdag",
-          "MCF (Myndigheten för civilt försvar, vormals MSB) — offizielle Seite",
-          "CERT-SE — nationales schwedisches CSIRT (bei MCF)",
-          "Europäische Kommission — NIS2 Directive implementation in Sweden (digital-strategy.ec.europa.eu)",
-          "PTS, Energimyndigheten, Transportstyrelsen, Finansinspektionen, IVO, Livsmedelsverket — Sektoraufsichten"
+          "Cybersäkerhetslagen (SFS 2025:1506): Sveriges riksdag",
+          "Proposition 2025/26:28 'Ett starkt skydd för nätverks- och informationssystem': Sveriges riksdag",
+          "MCF (Myndigheten för civilt försvar, vormals MSB): offizielle Seite",
+          "CERT-SE: nationales schwedisches CSIRT (bei MCF)",
+          "Europäische Kommission: NIS2 Directive implementation in Sweden (digital-strategy.ec.europa.eu)",
+          "PTS, Energimyndigheten, Transportstyrelsen, Finansinspektionen, IVO, Livsmedelsverket: Sektoraufsichten"
         ]
       },
       "ctaCard": {
@@ -15541,7 +15541,7 @@
     },
     "nis2StatusPortugal": {
       "meta": {
-        "title": "NIS 2 in Portugal — Decreto-Lei n.º 125/2025, CNCS, CERT.PT",
+        "title": "NIS 2 in Portugal: Decreto-Lei n.º 125/2025, CNCS, CERT.PT",
         "description": "Wie Portugal die NIS 2 Richtlinie umsetzt: Decreto-Lei n.º 125/2025 vom 4. Dezember 2025, CNCS als federführende Aufsicht, CERT.PT als nationales CSIRT, ANACOM und Banco de Portugal als Sektorbehörden, Inkrafttreten am 3. April 2026."
       },
       "title": "NIS 2 Status in Portugal",
@@ -15658,13 +15658,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Decreto-Lei n.º 125/2025 vom 4. Dezember 2025 — Diário da República",
-          "CNCS — Centro Nacional de Cibersegurança, offizielle Seite",
-          "CERT.PT — nationales CSIRT, betrieben durch das CNCS",
-          "ANACOM — Sektorbehörde für elektronische Kommunikation",
-          "Banco de Portugal und CMVM — Sektorbehörden für den Finanzsektor unter DORA"
+          "Decreto-Lei n.º 125/2025 vom 4. Dezember 2025: Diário da República",
+          "CNCS: Centro Nacional de Cibersegurança, offizielle Seite",
+          "CERT.PT: nationales CSIRT, betrieben durch das CNCS",
+          "ANACOM: Sektorbehörde für elektronische Kommunikation",
+          "Banco de Portugal und CMVM: Sektorbehörden für den Finanzsektor unter DORA"
         ]
       },
       "ctaCard": {
@@ -15675,7 +15675,7 @@
     },
     "nis2StatusFinnland": {
       "meta": {
-        "title": "NIS 2 in Finnland — Kyberturvallisuuslaki 124/2025, Traficom, NCSC-FI",
+        "title": "NIS 2 in Finnland: Kyberturvallisuuslaki 124/2025, Traficom, NCSC-FI",
         "description": "Wie Finnland die NIS 2 Richtlinie umsetzt: Kyberturvallisuuslaki 124/2025 in Kraft seit 8. April 2025, Traficom als koordinierende Behörde, NCSC-FI als nationales CSIRT und einheitliche Anlaufstelle, und sektorale Aufsicht durch Energiavirasto und Finanssivalvonta."
       },
       "title": "NIS 2 Status in Finnland",
@@ -15792,13 +15792,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Kyberturvallisuuslaki 124/2025 — Finlex",
-          "Traficom — Liikenne- ja viestintävirasto, offizielle Seite zur NIS 2 Umsetzung",
-          "Kyberturvallisuuskeskus (NCSC-FI) — nationales CSIRT und einheitliche Anlaufstelle",
-          "Energiavirasto — sektorale Aufsicht für Strom, Fernwärme und Gas",
-          "Finanssivalvonta (FIN-FSA) — sektorale Aufsicht für Finanzsektor, DORA als Lex specialis",
+          "Kyberturvallisuuslaki 124/2025: Finlex",
+          "Traficom: Liikenne- ja viestintävirasto, offizielle Seite zur NIS 2 Umsetzung",
+          "Kyberturvallisuuskeskus (NCSC-FI): nationales CSIRT und einheitliche Anlaufstelle",
+          "Energiavirasto: sektorale Aufsicht für Strom, Fernwärme und Gas",
+          "Finanssivalvonta (FIN-FSA): sektorale Aufsicht für Finanzsektor, DORA als Lex specialis",
           "Europäische Kommission, mit Gründen versehene Stellungnahme vom 7. Mai 2025 zur NIS 2 Umsetzung"
         ]
       },
@@ -15810,7 +15810,7 @@
     },
     "nis2StatusPolen": {
       "meta": {
-        "title": "NIS 2 in Polen — UKSC-Novelle vom 23. Januar 2026, Ministerstwo Cyfryzacji, CSIRT NASK",
+        "title": "NIS 2 in Polen: UKSC-Novelle vom 23. Januar 2026, Ministerstwo Cyfryzacji, CSIRT NASK",
         "description": "Wie Polen die NIS 2 Richtlinie umsetzt: Novelle der Ustawa o KSC vom 23. Januar 2026 (Dz.U. 2026 poz. 252), Inkrafttreten am 3. April 2026, Ministerstwo Cyfryzacji als federführende Behörde und Single Point of Contact, drei nationale CSIRT (NASK, GOV, MON), zwölfmonatige Umsetzungsfrist bis 3. April 2027."
       },
       "title": "NIS 2 Status in Polen",
@@ -15927,15 +15927,15 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Ustawa z dnia 5 lipca 2018 r. o krajowym systemie cyberbezpieczeństwa (Dz.U. 2018 poz. 1560) — ISAP Sejm",
-          "Ustawa z dnia 23 stycznia 2026 r. o zmianie ustawy o krajowym systemie cyberbezpieczeństwa oraz niektórych innych ustaw (Dz.U. 2026 poz. 252) — ISAP Sejm",
-          "Ministerstwo Cyfryzacji — offizielle Seite, gov.pl/web/cyfryzacja",
-          "CSIRT NASK — csirt.nask.pl",
-          "CSIRT GOV (Agencja Bezpieczeństwa Wewnętrznego) — csirt.gov.pl",
+          "Ustawa z dnia 5 lipca 2018 r. o krajowym systemie cyberbezpieczeństwa (Dz.U. 2018 poz. 1560): ISAP Sejm",
+          "Ustawa z dnia 23 stycznia 2026 r. o zmianie ustawy o krajowym systemie cyberbezpieczeństwa oraz niektórych innych ustaw (Dz.U. 2026 poz. 252): ISAP Sejm",
+          "Ministerstwo Cyfryzacji: offizielle Seite, gov.pl/web/cyfryzacja",
+          "CSIRT NASK: csirt.nask.pl",
+          "CSIRT GOV (Agencja Bezpieczeństwa Wewnętrznego): csirt.gov.pl",
           "Europäische Kommission, begründete Stellungnahme zur Nichtumsetzung NIS 2, 7. Mai 2025",
-          "KNF / Komisja Nadzoru Finansowego — zuständige Behörde für DORA im Finanzsektor"
+          "KNF / Komisja Nadzoru Finansowego: zuständige Behörde für DORA im Finanzsektor"
         ]
       },
       "ctaCard": {
@@ -15946,7 +15946,7 @@
     },
     "nis2StatusTschechien": {
       "meta": {
-        "title": "NIS 2 in Tschechien — Gesetz Nr. 264/2025 Sb., NÚKIB, Registrierungsportal",
+        "title": "NIS 2 in Tschechien: Gesetz Nr. 264/2025 Sb., NÚKIB, Registrierungsportal",
         "description": "Wie Tschechien die NIS 2 Richtlinie umsetzt: Gesetz Nr. 264/2025 Sb. über Cybersicherheit, in Kraft seit 1. November 2025, NÚKIB als Aufsicht, GovCERT.CZ und CSIRT.CZ für die Vorfallabwicklung, und wie das alte Regime aus dem Gesetz 181/2014 Sb. weiterläuft."
       },
       "title": "NIS 2 Status in Tschechien",
@@ -16063,15 +16063,15 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Gesetz Nr. 264/2025 Sb. über Cybersicherheit — Sbírka zákonů (4. August 2025)",
-          "Gesetz Nr. 181/2014 Sb. über Cybersicherheit — Vorgängerregelung",
-          "NÚKIB — Národní úřad pro kybernetickou a informační bezpečnost (Brno), offizielle Seite nukib.gov.cz",
-          "GovCERT.CZ — Regierungs-CSIRT, betrieben von NÚKIB",
-          "CSIRT.CZ — nationales CSIRT für die .cz Internetgemeinschaft, betrieben von CZ.NIC",
-          "Tschechische Nationalbank (ČNB) — DORA-zuständige Behörde für den Finanzsektor",
-          "Europäische Kommission, NIS 2 Umsetzungstracker — Tschechische Republik"
+          "Gesetz Nr. 264/2025 Sb. über Cybersicherheit: Sbírka zákonů (4. August 2025)",
+          "Gesetz Nr. 181/2014 Sb. über Cybersicherheit: Vorgängerregelung",
+          "NÚKIB: Národní úřad pro kybernetickou a informační bezpečnost (Brno), offizielle Seite nukib.gov.cz",
+          "GovCERT.CZ: Regierungs-CSIRT, betrieben von NÚKIB",
+          "CSIRT.CZ: nationales CSIRT für die .cz Internetgemeinschaft, betrieben von CZ.NIC",
+          "Tschechische Nationalbank (ČNB): DORA-zuständige Behörde für den Finanzsektor",
+          "Europäische Kommission, NIS 2 Umsetzungstracker: Tschechische Republik"
         ]
       },
       "ctaCard": {
@@ -16082,7 +16082,7 @@
     },
     "nis2StatusBelgien": {
       "meta": {
-        "title": "NIS 2 Status Belgien — Gesetz vom 26. April 2024, CCB, Safeonweb@work",
+        "title": "NIS 2 Status Belgien: Gesetz vom 26. April 2024, CCB, Safeonweb@work",
         "description": "Wie Belgien die NIS 2 Richtlinie umsetzt: das Gesetz vom 26. April 2024, in Kraft seit 18. Oktober 2024, CCB als Aufsicht und Heimat von CERT.be, Safeonweb@work als Registrierungsportal und die CyberFundamentals Konformitätsvermutung."
       },
       "title": "NIS 2 Status in Belgien",
@@ -16199,14 +16199,14 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Gesetz vom 26. April 2024 über einen Rahmen für die Cybersicherheit der Netz- und Informationssysteme von allgemeinem Interesse für die öffentliche Sicherheit — Moniteur belge / Belgisch Staatsblad, 17. Mai 2024",
-          "Königlicher Erlass vom Juni 2024 zur Durchführung des NIS 2 Gesetzes — Moniteur belge / Belgisch Staatsblad",
-          "Centre for Cybersecurity Belgium (CCB) — ccb.belgium.be",
-          "Safeonweb@work — atwork.safeonweb.be (NIS 2 Registrierungsportal)",
-          "CERT.be — nationales CSIRT, angesiedelt innerhalb des CCB",
-          "CyberFundamentals (CyFun) Framework — CCB"
+          "Gesetz vom 26. April 2024 über einen Rahmen für die Cybersicherheit der Netz- und Informationssysteme von allgemeinem Interesse für die öffentliche Sicherheit: Moniteur belge / Belgisch Staatsblad, 17. Mai 2024",
+          "Königlicher Erlass vom Juni 2024 zur Durchführung des NIS 2 Gesetzes: Moniteur belge / Belgisch Staatsblad",
+          "Centre for Cybersecurity Belgium (CCB): ccb.belgium.be",
+          "Safeonweb@work: atwork.safeonweb.be (NIS 2 Registrierungsportal)",
+          "CERT.be: nationales CSIRT, angesiedelt innerhalb des CCB",
+          "CyberFundamentals (CyFun) Framework: CCB"
         ]
       },
       "ctaCard": {
@@ -16217,7 +16217,7 @@
     },
     "nis2StatusIrland": {
       "meta": {
-        "title": "NIS 2 in Irland — Stand der Umsetzung, NCSC-IE und National Cyber Security Bill",
+        "title": "NIS 2 in Irland: Stand der Umsetzung, NCSC-IE und National Cyber Security Bill",
         "description": "Wie Irland die NIS 2 Richtlinie umsetzt: Frist am 17. Oktober 2024 verpasst, General Scheme of the National Cyber Security Bill 2024 vom September 2024 in Vorbereitung, NCSC-IE als nationales CSIRT und vorgesehene zuständige Behörde, Department of Climate, Energy and the Environment federführend, NIS 1 (S.I. No. 360/2018) bis dahin weiter in Kraft."
       },
       "title": "NIS 2 Status in Irland",
@@ -16334,14 +16334,14 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "General Scheme of the National Cyber Security Bill 2024 — Department of Climate, Energy and the Environment (gov.ie)",
-          "European Union (Measures for a High Common Level of Security of Network and Information Systems) Regulations 2018 (S.I. No. 360/2018) — Irish Statute Book",
-          "NCSC-IE — National Cyber Security Centre, NIS 2 Status und Leitlinien (ncsc.gov.ie)",
-          "NCSC-IE — Draft Risk Management Measures Guidance (Juni 2025)",
-          "ComReg — sektorale Aufsicht im Bereich elektronische Kommunikation",
-          "Central Bank of Ireland — zuständige Behörde für DORA im Finanzsektor"
+          "General Scheme of the National Cyber Security Bill 2024: Department of Climate, Energy and the Environment (gov.ie)",
+          "European Union (Measures for a High Common Level of Security of Network and Information Systems) Regulations 2018 (S.I. No. 360/2018): Irish Statute Book",
+          "NCSC-IE: National Cyber Security Centre, NIS 2 Status und Leitlinien (ncsc.gov.ie)",
+          "NCSC-IE: Draft Risk Management Measures Guidance (Juni 2025)",
+          "ComReg: sektorale Aufsicht im Bereich elektronische Kommunikation",
+          "Central Bank of Ireland: zuständige Behörde für DORA im Finanzsektor"
         ]
       },
       "ctaCard": {
@@ -16352,7 +16352,7 @@
     },
     "nis2StatusDaenemark": {
       "meta": {
-        "title": "NIS 2 Status in Dänemark — NIS 2-loven, SAMSIK, CFCS, sektorale Aufsicht",
+        "title": "NIS 2 Status in Dänemark: NIS 2-loven, SAMSIK, CFCS, sektorale Aufsicht",
         "description": "Wie Dänemark die NIS 2 Richtlinie umsetzt: Lov nr. 434 vom 6. Mai 2025 (NIS 2-loven), in Kraft seit 1. Juli 2025. Styrelsen for Samfundssikkerhed (SAMSIK) koordiniert, CFCS ist nationales CSIRT, die Aufsicht ist sektoral verteilt auf Energistyrelsen, Finanstilsynet, Trafikstyrelsen, Søfartsstyrelsen, Sundhedsdatastyrelsen."
       },
       "title": "NIS 2 Status in Dänemark",
@@ -16469,13 +16469,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Lov nr. 434 vom 6. Mai 2025 om foranstaltninger til sikring af et højt cybersikkerhedsniveau (NIS 2-loven) — Retsinformation",
-          "Lov nr. 258 vom 6. März 2025 om sikkerhed og beredskab i energisektoren — Retsinformation",
-          "Styrelsen for Samfundssikkerhed (SAMSIK) — offizielle Seite samsik.dk",
-          "Center for Cybersikkerhed (CFCS) — nationales CSIRT, cfcs.dk",
-          "virk.dk — dänisches Unternehmensportal für NIS 2 Registrierung",
+          "Lov nr. 434 vom 6. Mai 2025 om foranstaltninger til sikring af et højt cybersikkerhedsniveau (NIS 2-loven): Retsinformation",
+          "Lov nr. 258 vom 6. März 2025 om sikkerhed og beredskab i energisektoren: Retsinformation",
+          "Styrelsen for Samfundssikkerhed (SAMSIK): offizielle Seite samsik.dk",
+          "Center for Cybersikkerhed (CFCS): nationales CSIRT, cfcs.dk",
+          "virk.dk: dänisches Unternehmensportal für NIS 2 Registrierung",
           "Europäische Kommission, mit Gründen versehene Stellungnahme zur unvollständigen NIS 2 Umsetzung Dänemarks vom 7. Mai 2025"
         ]
       },
@@ -16604,11 +16604,11 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 20, 21 und 41 — eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §1 — eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "BSI-Gesetz (BSIG), §29, §30, §32, §33 und §38 — gesetze-im-internet.de/bsig_2009",
-          "Aktiengesetz (AktG), §111 — gesetze-im-internet.de/aktg",
-          "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690 — enisa.europa.eu"
+          "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 20, 21 und 41: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Durchführungsverordnung (EU) 2024/2690 (CIR), Anhang §1: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
+          "BSI-Gesetz (BSIG), §29, §30, §32, §33 und §38: gesetze-im-internet.de/bsig_2009",
+          "Aktiengesetz (AktG), §111: gesetze-im-internet.de/aktg",
+          "ENISA Technical Implementation Guidance zur CIR (EU) 2024/2690: enisa.europa.eu"
         ]
       },
       "ctaCard": {
@@ -16619,7 +16619,7 @@
     },
     "nis2StatusItalien": {
       "meta": {
-        "title": "NIS 2 in Italien — Decreto Legislativo 138/2024, ACN, CSIRT Italia",
+        "title": "NIS 2 in Italien: Decreto Legislativo 138/2024, ACN, CSIRT Italia",
         "description": "Wie Italien die NIS 2 Richtlinie umsetzt: Decreto Legislativo vom 4. September 2024, Nr. 138, in Kraft seit 16. Oktober 2024, mit ACN als alleiniger zuständiger Behörde und Träger des CSIRT Italia. Das ACN Registrierungsportal ist seit 1. Dezember 2024 offen."
       },
       "title": "NIS 2 Status in Italien",
@@ -16736,13 +16736,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Decreto Legislativo 4 settembre 2024, n. 138 — Gazzetta Ufficiale vom 1. Oktober 2024",
-          "ACN — Agenzia per la Cybersicurezza Nazionale, offizielle Seite (acn.gov.it)",
-          "CSIRT Italia — Nationales Computer Security Incident Response Team (csirt.gov.it)",
-          "Europäische Kommission — NIS 2 Umsetzungsübersicht, Italien",
-          "Banca d'Italia — zuständige Behörde für DORA im Finanzsektor"
+          "Decreto Legislativo 4 settembre 2024, n. 138: Gazzetta Ufficiale vom 1. Oktober 2024",
+          "ACN: Agenzia per la Cybersicurezza Nazionale, offizielle Seite (acn.gov.it)",
+          "CSIRT Italia: Nationales Computer Security Incident Response Team (csirt.gov.it)",
+          "Europäische Kommission: NIS 2 Umsetzungsübersicht, Italien",
+          "Banca d'Italia: zuständige Behörde für DORA im Finanzsektor"
         ]
       },
       "ctaCard": {
@@ -17229,7 +17229,7 @@
     },
     "nis2StatusSlowakei": {
       "meta": {
-        "title": "NIS 2 in der Slowakei — Gesetz Nr. 366/2024 Z.z., NBÚ, JISKB",
+        "title": "NIS 2 in der Slowakei: Gesetz Nr. 366/2024 Z.z., NBÚ, JISKB",
         "description": "Wie die Slowakei die NIS 2 Richtlinie umsetzt: Gesetz Nr. 366/2024 Z.z. zur Änderung des Cybersicherheitsgesetzes 69/2018 mit Wirkung zum 1. Januar 2025, NBÚ als Aufsicht, SK-CERT als nationales CSIRT, und JISKB als zentrales Registrierungssystem."
       },
       "title": "NIS 2 Status in der Slowakei",
@@ -17481,15 +17481,15 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Zakon o kibernetičkoj sigurnosti, NN 14/2024 — Narodne novine",
-          "Uredba o kibernetičkoj sigurnosti, NN 135/2024 — Narodne novine",
-          "SOA — Sigurnosno-obavještajna agencija, offizielle Seite",
-          "NCSC-HR — Nationales Cyber Security Center, angesiedelt bei der SOA",
-          "UVNS — Büro des Nationalen Sicherheitsrats, nationaler Single Point of Contact",
-          "CERT.hr — betrieben innerhalb von CARNet, nationales CSIRT",
-          "PiXi — kroatische NIS 2 Meldeplattform (CARNet)"
+          "Zakon o kibernetičkoj sigurnosti, NN 14/2024: Narodne novine",
+          "Uredba o kibernetičkoj sigurnosti, NN 135/2024: Narodne novine",
+          "SOA: Sigurnosno-obavještajna agencija, offizielle Seite",
+          "NCSC-HR: Nationales Cyber Security Center, angesiedelt bei der SOA",
+          "UVNS: Büro des Nationalen Sicherheitsrats, nationaler Single Point of Contact",
+          "CERT.hr: betrieben innerhalb von CARNet, nationales CSIRT",
+          "PiXi: kroatische NIS 2 Meldeplattform (CARNet)"
         ]
       },
       "ctaCard": {
@@ -17500,7 +17500,7 @@
     },
     "nis2StatusBulgarien": {
       "meta": {
-        "title": "NIS 2 in Bulgarien — Cybersicherheitsgesetz, Staatliche Agentur Elektronische Verwaltung, CERT Bulgaria",
+        "title": "NIS 2 in Bulgarien: Cybersicherheitsgesetz, Staatliche Agentur Elektronische Verwaltung, CERT Bulgaria",
         "description": "Wie Bulgarien die NIS 2 Richtlinie umsetzt: Änderung des Cybersicherheitsgesetzes (Закон за киберсигурност, ZKS), Staatliche Agentur Elektronische Verwaltung als zentrale Anlaufstelle, CERT Bulgaria als nationales CSIRT, und die mit Gründen versehene Stellungnahme der EU Kommission vom 7. Mai 2025 wegen unvollständiger Umsetzung."
       },
       "title": "NIS 2 Status in Bulgarien",
@@ -17617,13 +17617,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
           "Cybersicherheitsgesetz Bulgarien (Закон за киберсигурност, ZKS), in der Fassung zur Umsetzung von NIS 2",
-          "Europäische Kommission, Digital Strategy — NIS 2 Länderseite Bulgarien (digital-strategy.ec.europa.eu/en/policies/nis2-directive-bulgaria)",
+          "Europäische Kommission, Digital Strategy: NIS 2 Länderseite Bulgarien (digital-strategy.ec.europa.eu/en/policies/nis2-directive-bulgaria)",
           "Mit Gründen versehene Stellungnahme der Europäischen Kommission an Bulgarien, 7. Mai 2025 (unvollständige NIS 2 Umsetzung)",
-          "Staatliche Agentur Elektronische Verwaltung (Държавна агенция Електронно управление, ДАЕУ / SEGA) — nationale zentrale Anlaufstelle",
-          "CERT Bulgaria — nationales CSIRT (govcert.bg)"
+          "Staatliche Agentur Elektronische Verwaltung (Държавна агенция Електронно управление, ДАЕУ / SEGA): nationale zentrale Anlaufstelle",
+          "CERT Bulgaria: nationales CSIRT (govcert.bg)"
         ]
       },
       "ctaCard": {
@@ -17634,7 +17634,7 @@
     },
     "nis2StatusGriechenland": {
       "meta": {
-        "title": "NIS 2 in Griechenland — Gesetz 5160/2024, Nationale Cybersicherheitsbehörde, Hellenic CSIRT",
+        "title": "NIS 2 in Griechenland: Gesetz 5160/2024, Nationale Cybersicherheitsbehörde, Hellenic CSIRT",
         "description": "Wie Griechenland die NIS 2 Richtlinie umsetzt: Gesetz 5160/2024 im Staatsanzeiger A' 195 vom 27. November 2024, die Nationale Cybersicherheitsbehörde unter dem Ministerium für Digitale Verwaltung als Aufsicht, das Hellenic CSIRT und was die verspätete Umsetzung in der Praxis bedeutet."
       },
       "title": "NIS 2 Status in Griechenland",
@@ -18169,7 +18169,7 @@
     },
     "nis2StatusEstland": {
       "meta": {
-        "title": "NIS 2 in Estland — Küberturvalisuse seadus, RIA, CERT-EE",
+        "title": "NIS 2 in Estland: Küberturvalisuse seadus, RIA, CERT-EE",
         "description": "Wie Estland die NIS 2 Richtlinie umsetzt: Änderungen am Küberturvalisuse seadus (Cybersicherheitsgesetz) seit 1. Januar 2026 in Kraft, RIA als zuständige Behörde, CERT-EE als nationales CSIRT innerhalb der RIA, und die anschließende Selbstregistrierung."
       },
       "title": "NIS 2 Status in Estland",
@@ -18286,12 +18286,12 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Küberturvalisuse seadus (Cybersicherheitsgesetz) — Riigi Teataja",
-          "Europäische Kommission, NIS 2 Umsetzungstracker — Estland (digital-strategy.ec.europa.eu)",
-          "RIA — Riigi Infosüsteemi Amet, offizielle Seite (ria.ee)",
-          "CERT-EE — estnisches nationales CSIRT, innerhalb der RIA",
+          "Küberturvalisuse seadus (Cybersicherheitsgesetz): Riigi Teataja",
+          "Europäische Kommission, NIS 2 Umsetzungstracker: Estland (digital-strategy.ec.europa.eu)",
+          "RIA: Riigi Infosüsteemi Amet, offizielle Seite (ria.ee)",
+          "CERT-EE: estnisches nationales CSIRT, innerhalb der RIA",
           "Riigikogu Pressemitteilungen zum NIS 2 Umsetzungsgesetz"
         ]
       },
@@ -18303,7 +18303,7 @@
     },
     "nis2StatusLitauen": {
       "meta": {
-        "title": "NIS 2 in Litauen — Gesetz über Cybersicherheit, NKSC und CERT-LT",
+        "title": "NIS 2 in Litauen: Gesetz über Cybersicherheit, NKSC und CERT-LT",
         "description": "Wie Litauen die NIS 2 Richtlinie umsetzt: Das geänderte Lietuvos Respublikos kibernetinio saugumo įstatymas (Gesetz über Cybersicherheit) in Kraft seit 18. Oktober 2024, das Nationale Zentrum für Cybersicherheit (NKSC) unter dem Verteidigungsministerium als Aufsicht und CSIRT, und CERT-LT als nationales Incident Response Team."
       },
       "title": "NIS 2 Status in Litauen",
@@ -18420,13 +18420,13 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Lietuvos Respublikos kibernetinio saugumo įstatymas (Gesetz über Cybersicherheit) in der geänderten Fassung — e-tar.lt (litauisches Rechtsaktenregister)",
-          "Nacionalinis kibernetinio saugumo centras (NKSC) — offizielle Seite",
-          "CERT-LT — nationales CSIRT, im NKSC angesiedelt",
+          "Lietuvos Respublikos kibernetinio saugumo įstatymas (Gesetz über Cybersicherheit) in der geänderten Fassung: e-tar.lt (litauisches Rechtsaktenregister)",
+          "Nacionalinis kibernetinio saugumo centras (NKSC): offizielle Seite",
+          "CERT-LT: nationales CSIRT, im NKSC angesiedelt",
           "Europäische Kommission, Shaping Europe's digital future, NIS 2 Umsetzung in Litauen",
-          "Verteidigungsministerium der Republik Litauen — übergeordnetes Ressort des NKSC"
+          "Verteidigungsministerium der Republik Litauen: übergeordnetes Ressort des NKSC"
         ]
       },
       "ctaCard": {
@@ -18571,7 +18571,7 @@
     },
     "nis2StatusMalta": {
       "meta": {
-        "title": "NIS 2 in Malta — Legal Notice 71 of 2025, CIIP, CSIRTMalta",
+        "title": "NIS 2 in Malta: Legal Notice 71 of 2025, CIIP, CSIRTMalta",
         "description": "Wie Malta die NIS 2 Richtlinie umsetzt: Legal Notice 71 of 2025 (SL 460.41), veröffentlicht am 8. April 2025, die Critical Information Infrastructure Protection Einheit im Ministerium für Inneres und nationale Sicherheit als zuständige Behörde, und CSIRTMalta als nationales CSIRT."
       },
       "title": "NIS 2 Status in Malta",
@@ -18688,10 +18688,10 @@
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 (NIS 2) — EUR-Lex",
+          "Richtlinie (EU) 2022/2555 (NIS 2): EUR-Lex",
           "Durchführungsverordnung (EU) 2024/2690",
-          "Legal Notice 71 of 2025, Measures for a High Common Level of Cybersecurity across the European Union (Malta) Order — legislation.mt (SL 460.41)",
-          "Europäische Kommission, NIS 2 Umsetzungsseite Malta — digital-strategy.ec.europa.eu",
+          "Legal Notice 71 of 2025, Measures for a High Common Level of Cybersecurity across the European Union (Malta) Order: legislation.mt (SL 460.41)",
+          "Europäische Kommission, NIS 2 Umsetzungsseite Malta: digital-strategy.ec.europa.eu",
           "Europäische Kommission, mit Gründen versehene Stellungnahmen zur NIS 2 Umsetzung vom Mai 2025 (Malta nicht gelistet)",
           "CSIRTMalta, nationales CSIRT Maltas",
           "ENISA, Agentur der Europäischen Union für Cybersicherheit"
@@ -18705,7 +18705,7 @@
     },
     "wasIstBsi": {
       "meta": {
-        "title": "Was ist das BSI? — Die deutsche Cybersicherheitsbehörde unter NIS 2",
+        "title": "Was ist das BSI?: Die deutsche Cybersicherheitsbehörde unter NIS 2",
         "description": "Das Bundesamt für Sicherheit in der Informationstechnik ist die deutsche Cybersicherheitsbehörde und der zentrale Akteur für die Umsetzung von NIS 2. Errichtet nach §1 BSIG, Aufgaben in §3 BSIG."
       },
       "title": "Was ist das BSI?",
@@ -18802,7 +18802,7 @@
     },
     "bsiMeldeportal": {
       "meta": {
-        "title": "BSI-Meldeportal — Registrierung und Vorfallsmeldung nach §32 und §33 BSIG",
+        "title": "BSI-Meldeportal: Registrierung und Vorfallsmeldung nach §32 und §33 BSIG",
         "description": "Das BSI-Portal ist die technische Schnittstelle für die NIS 2 Registrierung nach §33 BSIG und für Vorfallsmeldungen nach §32 BSIG (Frühwarnung 24h, Folgemeldung 72h, Abschluss 1 Monat)."
       },
       "title": "Das BSI-Meldeportal",
@@ -18904,7 +18904,7 @@
     },
     "nis2Proportionality": {
       "meta": {
-        "title": "Verhältnismäßig nach Art. 21(1) NIS 2 — was die Richtlinie wirklich verlangt",
+        "title": "Verhältnismäßig nach Art. 21(1) NIS 2: was die Richtlinie wirklich verlangt",
         "description": "Art. 21(1) NIS 2 verlangt 'geeignete und verhältnismäßige' Maßnahmen. Sechs Faktoren bestimmen, was verhältnismäßig in Ihrem Fall heißt: Risikoexposition, Größe, Wahrscheinlichkeit und Schwere von Vorfällen, gesellschaftliche und wirtschaftliche Auswirkungen, Stand der Technik, Kosten."
       },
       "title": "Was 'verhältnismäßig' in Art. 21(1) NIS 2 wirklich heißt",
@@ -19014,10 +19014,10 @@
     },
     "nis2SelfClassification": {
       "meta": {
-        "title": "Selbsteinstufung nach NIS 2 — kein Brief vom BSI ist keine Verteidigung",
+        "title": "Selbsteinstufung nach NIS 2: kein Brief vom BSI ist keine Verteidigung",
         "description": "NIS 2 legt die Pflicht zur Selbstprüfung auf die Einrichtung. Es gibt keinen Brief vom BSI, der etwas auslöst. Die 3-Monats-Frist nach §33 BSIG läuft ab dem Moment, in dem Sie es hätten wissen müssen, nicht ab dem Moment der Mitteilung."
       },
-      "title": "Selbsteinstufung nach NIS 2 — kein Brief vom BSI ist keine Verteidigung",
+      "title": "Selbsteinstufung nach NIS 2: kein Brief vom BSI ist keine Verteidigung",
       "subtitle": "Viele Mittelständler warten auf einen Brief, der nie kommen wird. NIS 2 legt die Prüfung auf Sie, und die Frist läuft, ob Sie prüfen oder nicht.",
       "overview": {
         "heading": "Der teuerste Irrtum",
@@ -19187,15 +19187,15 @@
         "description": "Wann jede Uhr startet und was 'vernünftig' konkret heißt.",
         "items": {
           "discovery": {
-            "title": "14:00 — SOC erkennt Verschlüsselungsaktivität auf Fileserver",
+            "title": "14:00: SOC erkennt Verschlüsselungsaktivität auf Fileserver",
             "body": "Technische Detektion. Noch keine rechtliche Kenntniserlangung, solange das SOC ermittelt. Die Einrichtung steht in Beobachtung, hat aber noch keine Bewertung gebildet, dass ein erheblicher Vorfall vorliegt."
           },
           "confirmation": {
-            "title": "15:30 — Vorfall bestätigt als Ransomware, Scope teilweise klar",
+            "title": "15:30: Vorfall bestätigt als Ransomware, Scope teilweise klar",
             "body": "Spätestens jetzt entsteht Kenntniserlangung. Beide Uhren laufen. Die 24-Stunden-Grenze endet 15:30 am Folgetag. Die Pflicht 'unverzüglich' greift sofort."
           },
           "filing": {
-            "title": "16:45 — Frühwarnung versendet",
+            "title": "16:45: Frühwarnung versendet",
             "body": "75 Minuten nach Bestätigung. Belastbar 'unverzüglich', wenn die Einrichtung die Zeit für Verifikation und interne Eskalation an die benannte Meldestelle genutzt hat. Die Meldung enthält die zwei Pflichtangaben nach Art. 23(4)(a): mutmaßliche Böswilligkeit und Einschätzung zu grenzüberschreitenden Auswirkungen."
           }
         }
@@ -19210,7 +19210,7 @@
         "items": [
           "Richtlinie (EU) 2022/2555 (NIS 2), Art. 23(4)(a), Erwägungsgrund 102, www.eur-lex.europa.eu",
           "Gesetz über das Bundesamt für Sicherheit in der Informationstechnik (BSIG), §32, www.gesetze-im-internet.de",
-          "Bürgerliches Gesetzbuch (BGB), §121(1) — Legaldefinition 'unverzüglich'",
+          "Bürgerliches Gesetzbuch (BGB), §121(1): Legaldefinition 'unverzüglich'",
           "ENISA Technical Implementation Guidance v1.0 (Juni 2025), §5 zur Zeitlinien-Dokumentation"
         ]
       },
@@ -19361,7 +19361,7 @@
         }
       },
       "accountableVsResponsible": {
-        "heading": "Accountable und Responsible — die häufigste Falle",
+        "heading": "Accountable und Responsible: die häufigste Falle",
         "p1": "RACI scheitert, wenn Teams A und R gleichsetzen. Nach Art. 20 NIS 2 trägt die Geschäftsführung A kraft Gesetzes. Sie kann A nicht delegieren. Sie kann und muss R delegieren, oft an die IT-Leitung oder DSB, aber die Endverantwortung bleibt bei der Geschäftsführung.",
         "p2": "Praktische Folge: wenn ein Audit fragt 'wer hat diese Risikoakzeptanz freigegeben?', kann die Antwort nicht 'die IT-Leitung' sein. Es muss ein Mitglied der Geschäftsführung namentlich mit Datum sein. Die IT-Leitung führt aus; die Geschäftsführung zeichnet."
       },
@@ -19388,7 +19388,7 @@
     },
     "nis2Asset": {
       "meta": {
-        "title": "Was ist ein Asset unter NIS 2? — Erstes Inventar in 90 Minuten",
+        "title": "Was ist ein Asset unter NIS 2?: Erstes Inventar in 90 Minuten",
         "description": "Ein Asset unter NIS 2 ist alles, was Informationen verarbeitet, speichert oder überträgt, von denen Ihr Betrieb abhängt. Art. 21(2) NIS 2 und CIR 2024/2690 verlangen ein Inventar. Diese Seite zeigt, was zählt, wie gezählt wird und wie es auf einer Seite für 60 Personen Platz findet."
       },
       "title": "Was ist ein Asset unter NIS 2?",
@@ -19471,19 +19471,19 @@
         "description": "Vier Schritte. Keiner braucht ein Werkzeug. Eine Tabelle, ein Whiteboard und je eine Person aus IT und Betrieb reichen.",
         "items": {
           "services": {
-            "title": "Schritt 1 — Mit erbrachten Diensten starten (15 Min)",
+            "title": "Schritt 1: Mit erbrachten Diensten starten (15 Min)",
             "body": "Was tut Ihre Einrichtung tatsächlich für Kunden? Listen Sie 3 bis 8 Kerndienste. Beim Stadtwerk: Stromverteilung, Wasserverteilung, Kundenabrechnung. Jedes Asset muss auf einen Dienst zurückgeführt werden, sonst ist es Overhead."
           },
           "applications": {
-            "title": "Schritt 2 — Anwendungen und Daten den Diensten zuordnen (25 Min)",
+            "title": "Schritt 2: Anwendungen und Daten den Diensten zuordnen (25 Min)",
             "body": "Je Dienst die Anwendungen und Daten benennen. SAP für die Abrechnung, die Zählerausleseplattform für die Verteilung, das Dokumentenarchiv für die Rechtsabteilung. Eine Zeile je Anwendung."
           },
           "infrastructure": {
-            "title": "Schritt 3 — Infrastruktur darunterlegen (25 Min)",
+            "title": "Schritt 3: Infrastruktur darunterlegen (25 Min)",
             "body": "Server, Netz, Endgeräte, Identity, Cloud-Konten. Konsequent nach BSI 200-2 §8.1 gruppieren. Eine 60-Personen-Einrichtung überschreitet selten 10 gruppierte Infrastrukturzeilen."
           },
           "suppliers": {
-            "title": "Schritt 4 — Lieferantenleistungen ergänzen (25 Min)",
+            "title": "Schritt 4: Lieferantenleistungen ergänzen (25 Min)",
             "body": "Jede ausgelagerte Leistung, die die Assets oben berührt, ist selbst ein Asset plus eine Lieferantenabhängigkeit. SaaS-E-Mail eine Zeile; der MSP, der Ihre Firewall verwaltet, eine Zeile. Das speist die Lieferketten-Pflichten aus Art. 21(2)(d)."
           }
         }
@@ -19541,7 +19541,7 @@
         "directive": {
           "label": "Art. 21(1) und 21(2) NIS 2",
           "quote": "Die Mitgliedstaaten sorgen dafür, dass wesentliche und wichtige Einrichtungen geeignete und verhältnismäßige technische, operative und organisatorische Maßnahmen ergreifen, um die Risiken zu beherrschen. Die Maßnahmen umfassen mindestens: Konzepte zur Risikoanalyse und Sicherheit für Informationssysteme; Bewältigung von Sicherheitsvorfällen; Aufrechterhaltung des Geschäftsbetriebs; Sicherheit der Lieferkette; Sicherheit im Erwerb von Netz- und Informationssystemen; Konzepte und Verfahren zur Bewertung der Wirksamkeit; grundlegende Verfahren der Cyberhygiene und Schulung; Kryptographie; Sicherheit des Personals, Zugriffskontrolle und Anlagenmanagement; Mehr-Faktor-Authentifizierung.",
-          "context": "Zusammengelesen beschreiben die zehn Punkte ein Managementsystem. 'Konzepte', 'Verfahren', 'Wirksamkeit bewerten' — das sind ISMS-Verben. NIS 2 verlangt keine ISO 27001 Zertifizierung, aber die Substanz, die ISO 27001 abdeckt."
+          "context": "Zusammengelesen beschreiben die zehn Punkte ein Managementsystem. 'Konzepte', 'Verfahren', 'Wirksamkeit bewerten'. Das sind ISMS-Verben. NIS 2 verlangt keine ISO 27001 Zertifizierung, aber die Substanz, die ISO 27001 abdeckt."
         },
         "transposition": {
           "label": "§30 BSIG (deutsche Umsetzung von Art. 21)",
@@ -19556,7 +19556,7 @@
       },
       "whatItIs": {
         "heading": "Vier Elemente, die ein ISMS zu einem ISMS machen",
-        "description": "Egal ob Sie es ISMS, ISO 27001, IT-Grundschutz oder 'unser Sicherheitsprogramm' nennen — vier Elemente müssen vorhanden sein.",
+        "description": "Egal ob Sie es ISMS, ISO 27001, IT-Grundschutz oder 'unser Sicherheitsprogramm' nennen. Vier Elemente müssen vorhanden sein.",
         "items": {
           "scope": {
             "title": "Definierter Geltungsbereich",
@@ -19639,10 +19639,10 @@
     },
     "nis2ManagementChange": {
       "meta": {
-        "title": "Geschäftsführerwechsel — NIS 2 Verantwortung sicher übergeben",
+        "title": "Geschäftsführerwechsel: NIS 2 Verantwortung sicher übergeben",
         "description": "Mit dem Ausscheiden eines Geschäftsführers oder CEOs verschwindet die §38 BSIG Schulungspflicht nicht. Drei Dinge müssen bei der Übergabe geschehen: BSI Registrierung binnen 2 Wochen aktualisieren, Schulung planen, Freigaben dokumentieren."
       },
-      "title": "Geschäftsführerwechsel — NIS 2 Verantwortung sicher übergeben",
+      "title": "Geschäftsführerwechsel: NIS 2 Verantwortung sicher übergeben",
       "subtitle": "Wenn der CEO oder die Geschäftsführerin geht, geht die §38 BSIG Schulungspflicht nicht mit. Drei Dinge müssen bei der Übergabe geschehen, sonst überträgt sich persönliche Verantwortung auf die schlechteste denkbare Weise.",
       "overview": {
         "heading": "Warum die Übergabe der am häufigsten übersehene NIS 2 Moment ist",
@@ -19696,15 +19696,15 @@
         "description": "Die 2-Wochen-Frist aus §33(5) BSIG gibt den Takt vor. Tag 1 der neuen Geschäftsführung ist Tag 1 der Uhr.",
         "items": {
           "registryUpdate": {
-            "title": "Schritt 1 — BSI Registrierung aktualisieren",
+            "title": "Schritt 1: BSI Registrierung aktualisieren",
             "body": "Über das BSI Portal nach §33(5) BSIG: neue Kontaktperson, Rolle, Kontaktdaten. Zwei Wochen ab Bestellung. Das bestehende ELSTER Organisationszertifikat bleibt, es ändert sich nicht mit der Geschäftsführung."
           },
           "training": {
-            "title": "Schritt 2 — §38 BSIG Schulung planen",
+            "title": "Schritt 2: §38 BSIG Schulung planen",
             "body": "Das neue Mitglied ist zur Schulung im Cybersicherheitsrisikomanagement verpflichtet. Keine feste Frist im BSIG, aber 'unverzüglich' nach §38(2). Innerhalb des ersten Quartals der neuen Rolle einplanen."
           },
           "approvals": {
-            "title": "Schritt 3 — Bestehende Freigaben bestätigen oder ersetzen",
+            "title": "Schritt 3: Bestehende Freigaben bestätigen oder ersetzen",
             "body": "Risikoregister und Lieferantenplan mit dem neuen Mitglied durchgehen. Eigene Unterschrift unter alles, was bleibt, eigene Entscheidung über alles, was neu betrachtet werden soll. Einweisungsdatum dokumentieren."
           }
         }

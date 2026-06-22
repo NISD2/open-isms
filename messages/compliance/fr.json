@@ -190,7 +190,7 @@
       },
       "ROP": {
         "name": "Registre des traitements",
-        "description": "Documentation de chaque activité de traitement au titre de l'art. 30 GDPR — finalité, base juridique, destinataires, conservation",
+        "description": "Documentation de chaque activité de traitement au titre de l'art. 30 GDPR : finalité, base juridique, destinataires, conservation",
         "legalBasis": "GDPR Art. 30",
         "threatLandscape": "",
         "bsiGuidance": ""
@@ -219,36 +219,36 @@
       "ISMS": {
         "name": "Clauses obligatoires de l'ISMS",
         "description": "Clauses 4 à 10 de l'ISO 27001:2022 : contexte, leadership, planification, support, fonctionnement, évaluation, amélioration",
-        "legalBasis": "ISO 27001:2022 Cl. 4–10",
+        "legalBasis": "ISO 27001:2022 Cl. 4 à 10",
         "threatLandscape": "Un ISMS non documenté ou sans périmètre défini ne peut pas être audité. Les lacunes dans l'engagement de la direction, la planification des risques ou les informations documentées sont les motifs les plus fréquents d'échec à l'étape 1 d'un audit ISO 27001.",
         "bsiGuidance": "Les clauses obligatoires s'appliquent sans exception. L'auditeur vérifiera : le document de périmètre, la méthodologie d'évaluation des risques, la politique de SI signée par la direction générale, les rôles documentés, le plan d'audit interne, les comptes rendus de revue de direction et un processus d'amélioration continue."
       },
       "ORG": {
         "name": "Contrôles organisationnels",
-        "description": "Annexe A.5 — Politiques, rôles, sécurité des fournisseurs, gestion des incidents, continuité d'activité et conformité juridique",
+        "description": "Annexe A.5 : Politiques, rôles, sécurité des fournisseurs, gestion des incidents, continuité d'activité et conformité juridique",
         "legalBasis": "ISO 27001:2022 Annex A.5",
         "threatLandscape": "Les contrôles organisationnels constituent la couche de gouvernance. Sans politiques claires, rôles définis et exigences de sécurité applicables aux fournisseurs, les contrôles techniques n'ont ni mandat ni responsabilisation, laissant des failles que les attaquants exploitent.",
         "bsiGuidance": "Les auditeurs recherchent la preuve que les politiques sont approuvées, communiquées et revues. Les contrats avec les fournisseurs doivent comporter des clauses de sécurité. La gestion des incidents doit être planifiée avant la survenue d'un incident."
       },
       "PPL": {
         "name": "Contrôles relatifs aux personnes",
-        "description": "Annexe A.6 — Vérification des antécédents, conditions d'emploi, sensibilisation, processus disciplinaire, télétravail",
+        "description": "Annexe A.6 : Vérification des antécédents, conditions d'emploi, sensibilisation, processus disciplinaire, télétravail",
         "legalBasis": "ISO 27001:2022 Annex A.6",
         "threatLandscape": "Les personnes sont à la fois le principal vecteur d'attaque (hameçonnage, ingénierie sociale) et la dernière ligne de défense. Un personnel non formé et un départ mal géré comptent parmi les faiblesses les plus couramment exploitées.",
         "bsiGuidance": "Preuves requises : processus de vérification des antécédents, accords de confidentialité signés, relevés d'achèvement de la formation annuelle de sensibilisation à la sécurité, politique de télétravail."
       },
       "PHY": {
         "name": "Contrôles physiques",
-        "description": "Annexe A.7 — Périmètres physiques, contrôles d'accès, protection des équipements, mise au rebut sécurisée",
+        "description": "Annexe A.7 : Périmètres physiques, contrôles d'accès, protection des équipements, mise au rebut sécurisée",
         "legalBasis": "ISO 27001:2022 Annex A.7",
         "threatLandscape": "L'accès physique aux systèmes contourne tous les contrôles logiques. Des bureaux non sécurisés, des écrans non verrouillés et une mise au rebut inappropriée des équipements sont fréquemment exploités, souvent par des menaces opportunistes plutôt que par des attaquants sophistiqués.",
         "bsiGuidance": "Pour une entreprise principalement à distance utilisant des espaces de coworking, les contrôles physiques portent sur : la politique du bureau net, le verrouillage des écrans, la sécurité des actifs hors site et la mise au rebut sécurisée des ordinateurs portables et supports de stockage."
       },
       "TEC": {
         "name": "Contrôles technologiques",
-        "description": "Annexe A.8 — Sécurité des postes, droits d'accès, gestion des vulnérabilités, cryptographie, journalisation, gestion des changements",
+        "description": "Annexe A.8 : Sécurité des postes, droits d'accès, gestion des vulnérabilités, cryptographie, journalisation, gestion des changements",
         "legalBasis": "ISO 27001:2022 Annex A.8",
-        "threatLandscape": "La plus grande section de l'annexe A (34 contrôles). Les lacunes technologiques — systèmes non corrigés, ressources cloud mal configurées, MFA absente, journalisation insuffisante — sont à l'origine de la majorité des incidents de sécurité.",
+        "threatLandscape": "La plus grande section de l'annexe A (34 contrôles). Les lacunes technologiques (systèmes non corrigés, ressources cloud mal configurées, MFA absente, journalisation insuffisante) sont à l'origine de la majorité des incidents de sécurité.",
         "bsiGuidance": "Les auditeurs vérifient que les contrôles sont effectivement mis en œuvre, et pas seulement documentés. Attendez-vous à des preuves techniques : captures d'écran de configuration, journaux de correctifs, sorties SIEM, résultats de tests de restauration de sauvegarde et relevés de revues d'accès."
       },
       "AI-LIT": {
