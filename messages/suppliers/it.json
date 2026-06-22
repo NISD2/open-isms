@@ -91,8 +91,8 @@
       "dueDiligenceProcess": "Due diligence svolta in fase di onboarding di questo fornitore (ad es. questionario, verifica delle certificazioni, chiamata di riferimento).",
       "relationshipType": "Ai sensi del GDPR: questo fornitore è un responsabile del trattamento (Art. 28), un contitolare (Art. 26), un titolare separato o interno? Determina quali obblighi contrattuali si applicano.",
       "processesPersonalData": "Attiva se dati personali fluiscono verso o attraverso questo fornitore (fa scattare obblighi contrattuali specifici del GDPR).",
-      "processesOnlyOnInstructions": "Art. 28(3)(a) — il responsabile del trattamento tratta i dati personali soltanto su istruzioni documentate del titolare del trattamento.",
-      "assistsWithDataSubjectRights": "Art. 28(3)(e) — il responsabile del trattamento ti assiste nel rispondere alle richieste degli interessati (accesso, cancellazione, portabilità).",
+      "processesOnlyOnInstructions": "Art. 28(3)(a): il responsabile del trattamento tratta i dati personali soltanto su istruzioni documentate del titolare del trattamento.",
+      "assistsWithDataSubjectRights": "Art. 28(3)(e): il responsabile del trattamento ti assiste nel rispondere alle richieste degli interessati (accesso, cancellazione, portabilità).",
       "internationalTransfer": "Attiva se i dati personali sono trasferiti al di fuori dello Spazio economico europeo (SEE).",
       "transferMechanism": "Meccanismo giuridico per il trasferimento transfrontaliero: decisione di adeguatezza, clausole contrattuali standard, norme vincolanti d'impresa o deroga."
     },

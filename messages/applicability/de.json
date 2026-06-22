@@ -107,10 +107,10 @@
 
     "leadCapture": {
       "title": "Kostenlose Compliance-Roadmap erhalten",
-      "description": "Wir senden Ihnen einen personalisierten Maßnahmenplan basierend auf Ihrer Einstufung — kein Spam, nur die nächsten Schritte.",
+      "description": "Wir senden Ihnen einen personalisierten Maßnahmenplan basierend auf Ihrer Einstufung. Kein Spam, nur die nächsten Schritte.",
       "placeholder": "ihre@firma.de",
       "cta": "Roadmap senden",
-      "success": "Prüfen Sie Ihren Posteingang — Ihre Compliance-Roadmap ist unterwegs.",
+      "success": "Prüfen Sie Ihren Posteingang. Ihre Compliance-Roadmap ist unterwegs.",
       "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
     }
   }

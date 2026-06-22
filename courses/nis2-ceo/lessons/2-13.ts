@@ -3,7 +3,7 @@ import { lessonSchema } from "@/lib/training/schemas";
 const lesson = lessonSchema.parse({
   id: "2.13",
   slug: "measure-8-cryptography",
-  title: { en: "Measure 8 - Cryptography", nl: "Maatregel 8 – Cryptografie", de: "Maßnahme 8 – Kryptografie", fr: "Mesure 8 - Cryptographie", it: "Misura 8 - Crittografia", es: "Medida 8 - Criptografía", pl: "Środek 8 - Kryptografia", cs: "Opatření 8 - Kryptografie", pt: "Medida 8 - Criptografia", ro: "Măsura 8 - Criptografie" },
+  title: { en: "Measure 8 - Cryptography", nl: "Maatregel 8 - Cryptografie", de: "Maßnahme 8 - Kryptografie", fr: "Mesure 8 - Cryptographie", it: "Misura 8 - Crittografia", es: "Medida 8 - Criptografía", pl: "Środek 8 - Kryptografia", cs: "Opatření 8 - Kryptografie", pt: "Medida 8 - Criptografia", ro: "Măsura 8 - Criptografie" },
   moduleId: "module-2",
   order: 12,
   contentFile: "2-13",

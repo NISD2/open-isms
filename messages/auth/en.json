@@ -18,7 +18,7 @@
     "consentLabel": "I accept the <terms>Terms of Service</terms> and acknowledge the <privacy>Privacy Policy</privacy>.",
     "backToHome": "Back to nisd2.eu",
     "verifyTitle": "One last step: verify your email",
-    "verifyDescription": "We sent a 6-digit code to {email}. One-time check that you own this address. After this, you sign in with your password only — no more codes.",
+    "verifyDescription": "We sent a 6-digit code to {email}. One-time check that you own this address. After this, you sign in with your password only. No more codes.",
     "verifyCodeLabel": "Verification code",
     "verifyCodePlaceholder": "123456",
     "verifySubmit": "Verify and sign in",

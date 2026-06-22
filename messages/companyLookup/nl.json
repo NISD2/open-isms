@@ -4,7 +4,7 @@
     "subtitle": "Start typing your company name - we'll find it automatically and check your NIS2 status in seconds. Not sure if your company qualifies? See <link>real-world edge cases</link> for examples.",
     "authorityCallout": {
       "heading": "Binding determination: your national supervisory authority",
-      "body": "The final NIS2 classification is made by the competent authority in your country. We link the official sources — the self-check below is only a quick orientation tool.",
+      "body": "The final NIS2 classification is made by the competent authority in your country. We link the official sources. The self-check below is only a quick orientation tool.",
       "seeAll": "See all 27 EU member states",
       "details": "Details"
     },
@@ -27,7 +27,7 @@
     "loading": "Analyzing company data…",
     "ctaNotInScope": "Get protected anyway",
     "disclaimer": "Company data is sourced from public registers and stored to improve our service.",
-    "holdingWarning": "This company appears to be a holding or group parent. NIS2 applicability is assessed per entity — subsidiaries with their own operations, employees, and IT systems may be independently in scope, even if the holding itself is not. Check each subsidiary separately.",
+    "holdingWarning": "This company appears to be a holding or group parent. NIS2 applicability is assessed per entity. Subsidiaries with their own operations, employees, and IT systems may be independently in scope, even if the holding itself is not. Check each subsidiary separately.",
     "resultDisclaimer": "This is an indicative assessment based on publicly available register data, not a legal determination. Actual NIS2 applicability depends on factors not fully captured here. Consult a qualified advisor to confirm.",
     "result": {
       "not_in_scope": "Likely not in scope",

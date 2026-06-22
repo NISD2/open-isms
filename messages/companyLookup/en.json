@@ -4,12 +4,12 @@
     "subtitle": "The binding determination is made by your national supervisory authority. Below are the official contact points per country, plus a free self-check for orientation. Not sure? See <link>real-world edge cases</link> for examples.",
     "authorityCallout": {
       "heading": "Binding determination: your national supervisory authority",
-      "body": "The final NIS2 classification is made by the competent authority in your country. We link the official sources — the self-check below is only a quick orientation tool.",
+      "body": "The final NIS2 classification is made by the competent authority in your country. We link the official sources. The self-check below is only a quick orientation tool.",
       "seeAll": "See all 27 EU member states",
       "details": "Details"
     },
     "selfCheckHeading": "Quick self-check",
-    "selfCheckSubtitle": "Orientation by sector, size, and special cases — does not replace the official determination by your authority.",
+    "selfCheckSubtitle": "Orientation by sector, size, and special cases. Does not replace the official determination by your authority.",
     "placeholder": "Enter company name (e.g. Stadtwerke München)",
     "noResults": "No companies found. Check the spelling or try the full legal name.",
     "error": "Company lookup is currently unavailable. Please try again later.",
@@ -29,7 +29,7 @@
     "loading": "Analyzing company data…",
     "ctaNotInScope": "Get protected anyway",
     "disclaimer": "Company data is sourced from public registers and stored to improve our service.",
-    "holdingWarning": "This company appears to be a holding or group parent. NIS2 applicability is assessed per entity — subsidiaries with their own operations, employees, and IT systems may be independently in scope, even if the holding itself is not. Check each subsidiary separately.",
+    "holdingWarning": "This company appears to be a holding or group parent. NIS2 applicability is assessed per entity. Subsidiaries with their own operations, employees, and IT systems may be independently in scope, even if the holding itself is not. Check each subsidiary separately.",
     "resultDisclaimer": "This is an indicative assessment based on publicly available register data, not a legal determination. Actual NIS2 applicability depends on factors not fully captured here. Consult a qualified advisor to confirm.",
     "result": {
       "not_in_scope": "Likely not in scope",

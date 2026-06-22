@@ -190,7 +190,7 @@
       },
       "ROP": {
         "name": "Registri delle attività di trattamento",
-        "description": "Documentazione di ogni attività di trattamento ai sensi dell'Art. 30 GDPR — finalità, base giuridica, destinatari, conservazione",
+        "description": "Documentazione di ogni attività di trattamento ai sensi dell'Art. 30 GDPR: finalità, base giuridica, destinatari, conservazione",
         "legalBasis": "GDPR Art. 30",
         "threatLandscape": "",
         "bsiGuidance": ""
@@ -218,37 +218,37 @@
       },
       "ISMS": {
         "name": "Clausole obbligatorie dell'ISMS",
-        "description": "Clausole 4–10 della ISO 27001:2022: contesto, leadership, pianificazione, supporto, attività operative, valutazione, miglioramento",
-        "legalBasis": "ISO 27001:2022 Cl. 4–10",
+        "description": "Clausole 4 a 10 della ISO 27001:2022: contesto, leadership, pianificazione, supporto, attività operative, valutazione, miglioramento",
+        "legalBasis": "ISO 27001:2022 Cl. 4 a 10",
         "threatLandscape": "Un ISMS non documentato o privo di ambito non può essere sottoposto ad audit. Le lacune nell'impegno della leadership, nella pianificazione del rischio o nelle informazioni documentate sono le cause più comuni per cui le organizzazioni non superano la Fase 1 di un audit ISO 27001.",
         "bsiGuidance": "Le clausole obbligatorie si applicano senza eccezioni. L'auditor verificherà: documento di ambito, metodologia di valutazione del rischio, policy di sicurezza delle informazioni firmata dall'alta direzione, ruoli documentati, piano di audit interno, registrazioni del riesame della direzione e un processo di miglioramento continuo."
       },
       "ORG": {
         "name": "Controlli organizzativi",
-        "description": "Allegato A.5 — Policy, ruoli, sicurezza dei fornitori, gestione degli incidenti, continuità operativa e conformità legale",
+        "description": "Allegato A.5: Policy, ruoli, sicurezza dei fornitori, gestione degli incidenti, continuità operativa e conformità legale",
         "legalBasis": "ISO 27001:2022 Allegato A.5",
         "threatLandscape": "I controlli organizzativi sono lo strato di governance. Senza policy chiare, ruoli definiti e requisiti di sicurezza per i fornitori, i controlli tecnici non hanno né mandato né responsabilità, lasciando lacune che gli attaccanti sfruttano.",
         "bsiGuidance": "Gli auditor cercano evidenze che le policy siano approvate, comunicate e riesaminate. Gli accordi con i fornitori devono includere clausole di sicurezza. La gestione degli incidenti deve essere pianificata prima che un incidente si verifichi."
       },
       "PPL": {
         "name": "Controlli sulle persone",
-        "description": "Allegato A.6 — Verifica preliminare, condizioni di impiego, formazione di sensibilizzazione, processo disciplinare, lavoro da remoto",
+        "description": "Allegato A.6: Verifica preliminare, condizioni di impiego, formazione di sensibilizzazione, processo disciplinare, lavoro da remoto",
         "legalBasis": "ISO 27001:2022 Allegato A.6",
         "threatLandscape": "Le persone sono al tempo stesso il vettore di attacco primario (phishing, social engineering) e l'ultima linea di difesa. Personale non formato e un offboarding carente sono tra le debolezze più comunemente sfruttate.",
         "bsiGuidance": "Evidenze richieste: processo di verifica dei precedenti, accordi di riservatezza firmati, registrazioni del completamento della formazione annuale di sensibilizzazione sulla sicurezza, policy sul lavoro da remoto."
       },
       "PHY": {
         "name": "Controlli fisici",
-        "description": "Allegato A.7 — Perimetri fisici, controlli degli ingressi, protezione delle apparecchiature, smaltimento sicuro",
+        "description": "Allegato A.7: Perimetri fisici, controlli degli ingressi, protezione delle apparecchiature, smaltimento sicuro",
         "legalBasis": "ISO 27001:2022 Allegato A.7",
         "threatLandscape": "L'accesso fisico ai sistemi elude tutti i controlli logici. Uffici non protetti, schermi sbloccati e smaltimento improprio delle apparecchiature vengono frequentemente sfruttati, spesso da minacce opportunistiche e non da attaccanti sofisticati.",
         "bsiGuidance": "Per un'azienda remote-first che utilizza spazi di co-working, i controlli fisici si concentrano su: policy della scrivania pulita, blocco dello schermo, sicurezza degli asset fuori sede e smaltimento sicuro di laptop e supporti di memorizzazione."
       },
       "TEC": {
         "name": "Controlli tecnologici",
-        "description": "Allegato A.8 — Sicurezza degli endpoint, diritti di accesso, gestione delle vulnerabilità, crittografia, logging, gestione delle modifiche",
+        "description": "Allegato A.8: Sicurezza degli endpoint, diritti di accesso, gestione delle vulnerabilità, crittografia, logging, gestione delle modifiche",
         "legalBasis": "ISO 27001:2022 Allegato A.8",
-        "threatLandscape": "La sezione più ampia dell'Allegato A (34 controlli). Le lacune tecnologiche — sistemi non corretti, risorse cloud mal configurate, MFA assente, logging inadeguato — sono la causa principale della maggior parte degli incidenti di sicurezza.",
+        "threatLandscape": "La sezione più ampia dell'Allegato A (34 controlli). Le lacune tecnologiche (sistemi non corretti, risorse cloud mal configurate, MFA assente, logging inadeguato) sono la causa principale della maggior parte degli incidenti di sicurezza.",
         "bsiGuidance": "Gli auditor verificano che i controlli siano effettivamente attuati, non solo documentati. Sono attese evidenze tecniche: screenshot delle configurazioni, log delle patch, output del SIEM, risultati dei test di ripristino dei backup e registrazioni delle revisioni degli accessi."
       },
       "AI-LIT": {

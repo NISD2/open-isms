@@ -2,7 +2,7 @@
   "assets": {
     "title": "Assetregister",
     "description": "Inventaris van alle IT- en OT-systemen die essentiële diensten ondersteunen. Vereist door CIR 2024/2690 §12 en NIS2 Art. 21(2)(i).",
-    "helpText": "Registreer elk IT-systeem, OT-apparaat, clouddienst en fysiek asset waarop uw organisatie vertrouwt. Markeer kritieke assets en OT-systemen apart — deze vallen onder strengere NIS2-vereisten.",
+    "helpText": "Registreer elk IT-systeem, OT-apparaat, clouddienst en fysiek asset waarop uw organisatie vertrouwt. Markeer kritieke assets en OT-systemen apart. Deze vallen onder strengere NIS2-vereisten.",
     "add": "Asset toevoegen",
     "edit": "Asset bewerken",
     "empty": "Nog geen assets. Voeg uw eerste asset toe om te beginnen.",

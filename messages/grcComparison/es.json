@@ -92,7 +92,7 @@
       "tierBadgeUnverifiable": "No verificable",
       "nis2Yes": "Sí",
       "nis2No": "No",
-      "freeTierNone": "—",
+      "freeTierNone": "-",
       "freeTierTrial": "Prueba",
       "freeTierFreemium": "Gratis",
       "freeTierOss": "OSS",
@@ -103,7 +103,7 @@
       "dataExportPartial": "Parcial",
       "dataExportReportOnly": "Solo informes",
       "dataExportNone": "Nada documentado",
-      "dataExportUnknown": "—"
+      "dataExportUnknown": "-"
     },
     "methodology": {
       "title": "Metodología",

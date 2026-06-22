@@ -33,7 +33,7 @@
     },
     "moduleRef": {
       "confirmCompliance": "Potwierdź zgodność",
-      "noRecords": "Brak rekordów — najpierw dodaj dane w module"
+      "noRecords": "Brak rekordów. Najpierw dodaj dane w module"
     }
   },
   "status": {
@@ -46,10 +46,10 @@
     "rejected": "Odrzucone"
   },
   "priority": {
-    "P0": "Krytyczny — wymagane natychmiastowe działanie",
-    "P1": "Wysoki — zająć się w bieżącym cyklu",
-    "P2": "Średni — zaplanować na następny cykl",
-    "P3": "Niski — zająć się przy okazji"
+    "P0": "Krytyczny: wymagane natychmiastowe działanie",
+    "P1": "Wysoki: zająć się w bieżącym cyklu",
+    "P2": "Średni: zaplanować na następny cykl",
+    "P3": "Niski: zająć się przy okazji"
   },
   "metadata": {
     "title": "Platforma zgodności z NIS2",

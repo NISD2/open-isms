@@ -130,7 +130,7 @@ const quiz = quizSchema.parse({
       explanation: {
         en: "The lesson states that NIS1 was widely seen as inconsistent and weakly enforced - almost no fines were ever issued under NIS1 anywhere in the EU.",
         de: "Die Lektion stellt fest, dass NIS1 weithin als uneinheitlich und schwach durchgesetzt galt -- in der gesamten EU wurden unter NIS1 kaum Bußgelder verhängt.",
-        nl: "De les stelt dat NIS1 algemeen werd gezien als inconsistent en zwak gehandhaafd — in de gehele EU werden onder NIS1 vrijwel nooit boetes opgelegd.",
+        nl: "De les stelt dat NIS1 algemeen werd gezien als inconsistent en zwak gehandhaafd. In de gehele EU werden onder NIS1 vrijwel nooit boetes opgelegd.",
         fr: "La leçon indique que NIS1 était largement perçue comme incohérente et faiblement appliquée. Presque aucune amende n'a jamais été infligée au titre de NIS1 dans l'ensemble de l'UE.",
         it: "La lezione afferma che NIS1 era ampiamente considerata incoerente e applicata in modo debole. Quasi nessuna sanzione è mai stata comminata in base a NIS1 in tutta l'UE.",
         es: "La lección señala que NIS1 se consideraba ampliamente incoherente y aplicada con escasa firmeza. Casi nunca se impusieron multas en virtud de NIS1 en toda la UE.",

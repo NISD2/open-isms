@@ -27,7 +27,7 @@
       "points": [
         {
           "title": "Pięciocyfrowe kontrakty roczne za formularz",
-          "body": "Vanta, Drata, Secureframe, OneTrust, MetricStream, IBM OpenPages, ServiceNow GRC, Archer, Diligent — każdy korporacyjny pakiet GRC ukrywa ceny i pobiera ponad 30 000 EUR rocznie za narzędzie do obsługi procesów z szablonami."
+          "body": "Vanta, Drata, Secureframe, OneTrust, MetricStream, IBM OpenPages, ServiceNow GRC, Archer, Diligent. Każdy korporacyjny pakiet GRC ukrywa ceny i pobiera ponad 30 000 EUR rocznie za narzędzie do obsługi procesów z szablonami."
         },
         {
           "title": "Dostawcy z Europy Wschodniej są 10x tańsi i transparentni",
@@ -35,7 +35,7 @@
         },
         {
           "title": "Konkurencja OSS rośnie w Niemczech i we Francji",
-          "body": "ISMS Builder (DE, AGPL), CISO Assistant (FR, AGPLv3, ponad 130 frameworków), Little-ISMS-Helper (DACH), Deming (FR) — wszystkie darmowe i self-hosted, wszystkie wprost dotyczące NIS2."
+          "body": "ISMS Builder (DE, AGPL), CISO Assistant (FR, AGPLv3, ponad 130 frameworków), Little-ISMS-Helper (DACH), Deming (FR). Wszystkie darmowe i self-hosted, wszystkie wprost dotyczące NIS2."
         },
         {
           "title": "Konsolidacja rynku przyspiesza",
@@ -92,7 +92,7 @@
       "tierBadgeUnverifiable": "Niemożliwy do zweryfikowania",
       "nis2Yes": "Tak",
       "nis2No": "Nie",
-      "freeTierNone": "—",
+      "freeTierNone": "-",
       "freeTierTrial": "Wersja próbna",
       "freeTierFreemium": "Darmowy",
       "freeTierOss": "OSS",
@@ -103,7 +103,7 @@
       "dataExportPartial": "Częściowy",
       "dataExportReportOnly": "Tylko raporty",
       "dataExportNone": "Nic nieudokumentowane",
-      "dataExportUnknown": "—"
+      "dataExportUnknown": "-"
     },
     "methodology": {
       "title": "Metodyka",

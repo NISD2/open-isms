@@ -43,7 +43,7 @@
       "privilegedReview": "Bevoorrechte accounts",
       "deprovisioningSla": "SLA deprovisionering (uren)",
       "sharedAccountPolicy": "Beleid gedeelde / generieke accounts",
-      "sharedProhibited": "Verboden – alleen unieke identificatoren (ORP.4.A3)",
+      "sharedProhibited": "Verboden: alleen unieke identificatoren (ORP.4.A3)",
       "sharedDocumentedExceptions": "Gedocumenteerde uitzonderingen toegestaan (CIR 11.5.3)",
       "authReviewCycle": "Authenticatiereviewcyclus (jaren)"
     },

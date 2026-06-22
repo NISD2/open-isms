@@ -183,37 +183,37 @@
       },
       "ISMS": {
         "name": "ISMS-Pflichtklauseln",
-        "description": "ISO 27001:2022 Klauseln 4–10: Kontext, Führung, Planung, Unterstützung, Betrieb, Bewertung, Verbesserung",
-        "legalBasis": "ISO 27001:2022 Kl. 4–10",
+        "description": "ISO 27001:2022 Klauseln 4 bis 10: Kontext, Führung, Planung, Unterstützung, Betrieb, Bewertung, Verbesserung",
+        "legalBasis": "ISO 27001:2022 Kl. 4 bis 10",
         "threatLandscape": "Ein undokumentiertes oder nicht abgegrenztes ISMS kann nicht auditiert werden. Lücken bei Führungsverantwortung, Risikoplanung oder dokumentierten Informationen sind die häufigsten Gründe, warum Organisationen im Stage-1-Audit scheitern.",
         "bsiGuidance": "Die Pflichtklauseln gelten ausnahmslos. Der Auditor prüft: Geltungsbereichsdokument, Risikobeurteilungsmethodik, von der Unternehmensleitung unterzeichnete IS-Leitlinie, dokumentierte Rollen, internen Auditplan, Managementbewertungsprotokoll und einen kontinuierlichen Verbesserungsprozess."
       },
       "ORG": {
         "name": "Organisatorische Maßnahmen",
-        "description": "Anhang A.5 — Leitlinien, Rollen, Lieferantensicherheit, Incident Management, Betriebskontinuität und Rechtskonformität",
+        "description": "Anhang A.5: Leitlinien, Rollen, Lieferantensicherheit, Incident Management, Betriebskontinuität und Rechtskonformität",
         "legalBasis": "ISO 27001:2022 Anhang A.5",
-        "threatLandscape": "Organisatorische Maßnahmen bilden die Governance-Schicht. Ohne klare Leitlinien, definierte Rollen und Lieferantensicherheitsanforderungen haben technische Maßnahmen kein Mandat und keine Rechenschaftspflicht — was Lücken hinterlässt, die Angreifer ausnutzen.",
+        "threatLandscape": "Organisatorische Maßnahmen bilden die Governance-Schicht. Ohne klare Leitlinien, definierte Rollen und Lieferantensicherheitsanforderungen haben technische Maßnahmen kein Mandat und keine Rechenschaftspflicht. Das hinterlässt Lücken, die Angreifer ausnutzen.",
         "bsiGuidance": "Auditoren prüfen Nachweise, dass Leitlinien genehmigt, kommuniziert und überprüft werden. Lieferantenverträge müssen Sicherheitsklauseln enthalten. Incident Management muss vor einem Vorfall geplant sein."
       },
       "PPL": {
         "name": "Personenbezogene Maßnahmen",
-        "description": "Anhang A.6 — Bewerberprüfung, Beschäftigungsbedingungen, Schulungen, Disziplinarverfahren, Telearbeit",
+        "description": "Anhang A.6: Bewerberprüfung, Beschäftigungsbedingungen, Schulungen, Disziplinarverfahren, Telearbeit",
         "legalBasis": "ISO 27001:2022 Anhang A.6",
         "threatLandscape": "Menschen sind sowohl der primäre Angriffsvektor (Phishing, Social Engineering) als auch die letzte Verteidigungslinie. Ungeschulte Mitarbeiter und schlechtes Offboarding gehören zu den am häufigsten ausgenutzten Schwachstellen.",
         "bsiGuidance": "Erforderliche Nachweise: Hintergrundprüfungsprozess, unterzeichnete Vertraulichkeitsvereinbarungen, jährliche IS-Schulungsabschlussberichte, Telearbeitsrichtlinie."
       },
       "PHY": {
         "name": "Physische Maßnahmen",
-        "description": "Anhang A.7 — Sicherheitszonen, Zutrittskontrolle, Geräteschutz, sichere Entsorgung",
+        "description": "Anhang A.7: Sicherheitszonen, Zutrittskontrolle, Geräteschutz, sichere Entsorgung",
         "legalBasis": "ISO 27001:2022 Anhang A.7",
-        "threatLandscape": "Physischer Zugang zu Systemen umgeht alle logischen Kontrollen. Ungesicherte Büros, entsperrte Bildschirme und unsachgemäße Geräteentsorgung werden häufig ausgenutzt — oft durch opportunistische, nicht hochentwickelte Angreifer.",
+        "threatLandscape": "Physischer Zugang zu Systemen umgeht alle logischen Kontrollen. Ungesicherte Büros, entsperrte Bildschirme und unsachgemäße Geräteentsorgung werden häufig ausgenutzt, oft durch opportunistische, nicht hochentwickelte Angreifer.",
         "bsiGuidance": "Für ein Remote-first-Unternehmen mit Co-Working-Spaces konzentrieren sich physische Maßnahmen auf: Clean-Desk-Richtlinie, Bildschirmsperre, Sicherheit von Assets außerhalb des Geländes und sichere Entsorgung von Laptops und Speichermedien."
       },
       "TEC": {
         "name": "Technische Maßnahmen",
-        "description": "Anhang A.8 — Endgerätesicherheit, Zugriffsrechte, Schwachstellenmanagement, Kryptografie, Protokollierung, Änderungsmanagement",
+        "description": "Anhang A.8: Endgerätesicherheit, Zugriffsrechte, Schwachstellenmanagement, Kryptografie, Protokollierung, Änderungsmanagement",
         "legalBasis": "ISO 27001:2022 Anhang A.8",
-        "threatLandscape": "Der größte Anhang-A-Abschnitt (34 Maßnahmen). Technische Lücken — nicht eingespielten Patches, falsch konfigurierte Cloud-Ressourcen, fehlendes MFA, unzureichende Protokollierung — sind die Grundursache der meisten Sicherheitsvorfälle.",
+        "threatLandscape": "Der größte Anhang-A-Abschnitt (34 Maßnahmen). Technische Lücken (nicht eingespielten Patches, falsch konfigurierte Cloud-Ressourcen, fehlendes MFA, unzureichende Protokollierung) sind die Grundursache der meisten Sicherheitsvorfälle.",
         "bsiGuidance": "Auditoren prüfen, dass Maßnahmen tatsächlich umgesetzt und nicht nur dokumentiert sind. Erwarten Sie technische Nachweise: Konfigurationsscreenshots, Patch-Logs, SIEM-Ausgaben, Backup-Restore-Testergebnisse und Zugriffsüberprüfungsunterlagen."
       },
       "AI-LIT": {

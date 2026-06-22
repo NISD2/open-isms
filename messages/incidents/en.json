@@ -62,9 +62,9 @@
       "countermeasures": "Describe the immediate actions taken to contain and remediate the incident.",
       "preventiveMeasures": "Describe the long-term measures implemented to prevent recurrence of this type of incident.",
       "requiresGdprNotification": "Enable if this incident involved a personal data breach requiring notification to the supervisory authority under GDPR Art. 33 (within 72 hours of awareness).",
-      "dataSubjectsAffected": "Approximate number of data subjects whose personal data was compromised (Art. 33(3)(a) — required content of notification).",
+      "dataSubjectsAffected": "Approximate number of data subjects whose personal data was compromised (Art. 33(3)(a): required content of notification).",
       "gdprNotifiedAt": "Date and time the supervisory authority was notified of the breach.",
-      "notifiedDataSubjectsAt": "Date and time affected data subjects were informed (Art. 34 — required when breach poses high risk)."
+      "notifiedDataSubjectsAt": "Date and time affected data subjects were informed (Art. 34: required when breach poses high risk)."
     }
   }
 }

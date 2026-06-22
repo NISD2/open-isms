@@ -107,10 +107,10 @@
 
     "leadCapture": {
       "title": "Obtenez votre feuille de route de conformité gratuite",
-      "description": "Nous vous enverrons un plan d'action personnalisé basé sur votre classification — sans spam, juste les étapes à suivre.",
+      "description": "Nous vous enverrons un plan d'action personnalisé basé sur votre classification. Sans spam, juste les étapes à suivre.",
       "placeholder": "votre@entreprise.de",
       "cta": "Envoyer la feuille de route",
-      "success": "Vérifiez votre boîte de réception — votre feuille de route de conformité est en route.",
+      "success": "Vérifiez votre boîte de réception. Votre feuille de route de conformité est en route.",
       "error": "Une erreur s'est produite. Veuillez réessayer."
     }
   }

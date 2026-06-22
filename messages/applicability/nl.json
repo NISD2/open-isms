@@ -107,10 +107,10 @@
 
     "leadCapture": {
       "title": "Get your free compliance roadmap",
-      "description": "We'll send you a personalized action plan based on your classification — no spam, just the steps you need to take.",
+      "description": "We'll send you a personalized action plan based on your classification. No spam, just the steps you need to take.",
       "placeholder": "your@company.de",
       "cta": "Send roadmap",
-      "success": "Check your inbox — your compliance roadmap is on the way.",
+      "success": "Check your inbox. Your compliance roadmap is on the way.",
       "error": "Something went wrong. Please try again."
     }
   }

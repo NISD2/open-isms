@@ -91,8 +91,8 @@
       "dueDiligenceProcess": "Durchgeführte Sorgfaltsprüfung beim Onboarding dieses Lieferanten (z. B. Fragebogen, Zertifikatsprüfung, Referenzgespräch).",
       "relationshipType": "DSGVO-Einordnung: Auftragsverarbeiter (Art. 28), gemeinsam Verantwortlicher (Art. 26), eigenständiger Verantwortlicher oder konzernintern. Bestimmt die anwendbaren Vertragspflichten.",
       "processesPersonalData": "Aktivieren, wenn personenbezogene Daten an diesen Lieferanten fließen oder von ihm verarbeitet werden (löst DSGVO-spezifische Vertragspflichten aus).",
-      "processesOnlyOnInstructions": "Art. 28 Abs. 3 lit. a — der Auftragsverarbeiter verarbeitet personenbezogene Daten nur auf dokumentierte Weisung des Verantwortlichen.",
-      "assistsWithDataSubjectRights": "Art. 28 Abs. 3 lit. e — der Auftragsverarbeiter unterstützt bei Anfragen betroffener Personen (Auskunft, Löschung, Datenübertragbarkeit).",
+      "processesOnlyOnInstructions": "Art. 28 Abs. 3 lit. a: der Auftragsverarbeiter verarbeitet personenbezogene Daten nur auf dokumentierte Weisung des Verantwortlichen.",
+      "assistsWithDataSubjectRights": "Art. 28 Abs. 3 lit. e: der Auftragsverarbeiter unterstützt bei Anfragen betroffener Personen (Auskunft, Löschung, Datenübertragbarkeit).",
       "internationalTransfer": "Aktivieren, wenn personenbezogene Daten in Drittländer außerhalb des EWR übermittelt werden.",
       "transferMechanism": "Rechtsgrundlage der Drittlandsübermittlung: Angemessenheitsbeschluss, Standardvertragsklauseln, BCR oder Ausnahmetatbestand."
     },

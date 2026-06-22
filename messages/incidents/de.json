@@ -62,9 +62,9 @@
       "countermeasures": "Beschreiben Sie die ergriffenen Sofortmaßnahmen zur Eindämmung und Behebung des Vorfalls.",
       "preventiveMeasures": "Beschreiben Sie Maßnahmen, die zur Verhinderung eines erneuten Auftretens umgesetzt werden sollen.",
       "requiresGdprNotification": "Aktivieren, wenn dieser Vorfall eine Verletzung des Schutzes personenbezogener Daten umfasst, die der Aufsichtsbehörde nach Art. 33 DSGVO innerhalb von 72 Stunden nach Kenntniserlangung gemeldet werden muss.",
-      "dataSubjectsAffected": "Ungefähre Anzahl der betroffenen Personen, deren personenbezogene Daten kompromittiert wurden (Art. 33 Abs. 3 lit. a — Pflichtinhalt der Meldung).",
+      "dataSubjectsAffected": "Ungefähre Anzahl der betroffenen Personen, deren personenbezogene Daten kompromittiert wurden (Art. 33 Abs. 3 lit. a: Pflichtinhalt der Meldung).",
       "gdprNotifiedAt": "Datum und Uhrzeit der Meldung an die Aufsichtsbehörde.",
-      "notifiedDataSubjectsAt": "Datum und Uhrzeit der Information der betroffenen Personen (Art. 34 — Pflicht bei hohem Risiko)."
+      "notifiedDataSubjectsAt": "Datum und Uhrzeit der Information der betroffenen Personen (Art. 34: Pflicht bei hohem Risiko)."
     }
   }
 }

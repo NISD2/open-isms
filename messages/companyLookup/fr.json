@@ -4,12 +4,12 @@
     "subtitle": "La détermination contraignante relève de votre autorité de surveillance nationale. Vous trouverez ci-dessous les points de contact officiels par pays, ainsi qu'une auto-évaluation gratuite à titre d'orientation. Vous avez un doute ? Consultez les <link>cas limites concrets</link> pour des exemples.",
     "authorityCallout": {
       "heading": "Détermination contraignante : votre autorité de surveillance nationale",
-      "body": "La classification NIS2 définitive est établie par l'autorité compétente de votre pays. Nous renvoyons vers les sources officielles — l'auto-évaluation ci-dessous n'est qu'un outil d'orientation rapide.",
+      "body": "La classification NIS2 définitive est établie par l'autorité compétente de votre pays. Nous renvoyons vers les sources officielles. L'auto-évaluation ci-dessous n'est qu'un outil d'orientation rapide.",
       "seeAll": "Voir les 27 États membres de l'UE",
       "details": "Détails"
     },
     "selfCheckHeading": "Auto-évaluation rapide",
-    "selfCheckSubtitle": "Orientation par secteur, taille et cas particuliers — ne remplace pas la détermination officielle par votre autorité.",
+    "selfCheckSubtitle": "Orientation par secteur, taille et cas particuliers. Ne remplace pas la détermination officielle par votre autorité.",
     "placeholder": "Saisissez le nom de l'entreprise (par exemple Stadtwerke München)",
     "noResults": "Aucune entreprise trouvée. Vérifiez l'orthographe ou essayez la raison sociale complète.",
     "error": "La recherche d'entreprise est actuellement indisponible. Veuillez réessayer plus tard.",
@@ -29,7 +29,7 @@
     "loading": "Analyse des données de l'entreprise…",
     "ctaNotInScope": "Protégez-vous quand même",
     "disclaimer": "Les données de l'entreprise proviennent des registres publics et sont conservées pour améliorer notre service.",
-    "holdingWarning": "Cette entreprise semble être une holding ou une société mère de groupe. L'applicabilité de NIS2 s'apprécie entité par entité — les filiales disposant de leurs propres activités, employés et systèmes informatiques peuvent être concernées de manière indépendante, même si la holding elle-même ne l'est pas. Vérifiez chaque filiale séparément.",
+    "holdingWarning": "Cette entreprise semble être une holding ou une société mère de groupe. L'applicabilité de NIS2 s'apprécie entité par entité. Les filiales disposant de leurs propres activités, employés et systèmes informatiques peuvent être concernées de manière indépendante, même si la holding elle-même ne l'est pas. Vérifiez chaque filiale séparément.",
     "resultDisclaimer": "Il s'agit d'une appréciation indicative fondée sur les données de registre accessibles au public, et non d'une détermination juridique. L'applicabilité réelle de NIS2 dépend de facteurs qui ne sont pas pleinement pris en compte ici. Consultez un conseiller qualifié pour confirmation.",
     "result": {
       "not_in_scope": "Probablement hors du champ d'application",

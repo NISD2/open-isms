@@ -4,12 +4,12 @@
     "subtitle": "Wiążące ustalenie dokonywane jest przez krajowy organ nadzoru. Poniżej znajdują się oficjalne punkty kontaktowe dla poszczególnych krajów oraz darmowa samokontrola w celach orientacyjnych. Nie masz pewności? Zobacz <link>rzeczywiste przypadki graniczne</link>, aby zapoznać się z przykładami.",
     "authorityCallout": {
       "heading": "Wiążące ustalenie: krajowy organ nadzoru",
-      "body": "Ostateczna klasyfikacja NIS2 jest dokonywana przez właściwy organ w Twoim kraju. Podajemy odnośniki do oficjalnych źródeł — poniższa samokontrola jest jedynie szybkim narzędziem orientacyjnym.",
+      "body": "Ostateczna klasyfikacja NIS2 jest dokonywana przez właściwy organ w Twoim kraju. Podajemy odnośniki do oficjalnych źródeł. Poniższa samokontrola jest jedynie szybkim narzędziem orientacyjnym.",
       "seeAll": "Zobacz wszystkie 27 państw członkowskich UE",
       "details": "Szczegóły"
     },
     "selfCheckHeading": "Szybka samokontrola",
-    "selfCheckSubtitle": "Orientacja według sektora, wielkości i przypadków szczególnych — nie zastępuje oficjalnego ustalenia dokonanego przez Twój organ.",
+    "selfCheckSubtitle": "Orientacja według sektora, wielkości i przypadków szczególnych. Nie zastępuje oficjalnego ustalenia dokonanego przez Twój organ.",
     "placeholder": "Wprowadź nazwę firmy (np. Stadtwerke München)",
     "noResults": "Nie znaleziono firm. Sprawdź pisownię lub spróbuj podać pełną nazwę prawną.",
     "error": "Wyszukiwanie firm jest obecnie niedostępne. Spróbuj ponownie później.",
@@ -29,7 +29,7 @@
     "loading": "Analizowanie danych firmy…",
     "ctaNotInScope": "Zabezpiecz się mimo to",
     "disclaimer": "Dane firmy pochodzą z rejestrów publicznych i są przechowywane w celu ulepszenia naszej usługi.",
-    "holdingWarning": "Ta firma wydaje się być holdingiem lub jednostką dominującą grupy. Stosowanie NIS2 ocenia się odrębnie dla każdego podmiotu — spółki zależne posiadające własną działalność, pracowników i systemy IT mogą być niezależnie objęte zakresem, nawet jeśli sam holding nie jest. Sprawdź każdą spółkę zależną osobno.",
+    "holdingWarning": "Ta firma wydaje się być holdingiem lub jednostką dominującą grupy. Stosowanie NIS2 ocenia się odrębnie dla każdego podmiotu. Spółki zależne posiadające własną działalność, pracowników i systemy IT mogą być niezależnie objęte zakresem, nawet jeśli sam holding nie jest. Sprawdź każdą spółkę zależną osobno.",
     "resultDisclaimer": "To jest ocena orientacyjna oparta na publicznie dostępnych danych rejestrowych, a nie ustalenie prawne. Faktyczne stosowanie NIS2 zależy od czynników, które nie zostały tu w pełni uwzględnione. Skonsultuj się z wykwalifikowanym doradcą w celu potwierdzenia.",
     "result": {
       "not_in_scope": "Prawdopodobnie poza zakresem",

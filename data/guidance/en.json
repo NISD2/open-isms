@@ -24,13 +24,13 @@
     "summary": "Assign key cybersecurity roles like security lead, incident responder, risk manager, and compliance coordinator to specific people in your team, with backups for each. You're done when the management board reviews and approves these assignments on the platform's team page.",
     "applicability": "Every company covered by BSIG must do this; smaller companies without these exact roles can assign them to existing staff like the IT manager.",
     "quickTip": "Log into the platform and go to the 'Team' page to start assigning people to roles.",
-    "implementationSteps": "List out the key roles: security lead (or CISO), incident response lead, risk manager, and compliance coordinator.\nAssign a primary person and a backup (deputy) for each role from your team.\nUse the platform's Team page to make these assignments — it pulls your org chart automatically.\nHave your management board review the assignments and confirm them.",
+    "implementationSteps": "List out the key roles: security lead (or CISO), incident response lead, risk manager, and compliance coordinator.\nAssign a primary person and a backup (deputy) for each role from your team.\nUse the platform's Team page to make these assignments. It pulls your org chart automatically.\nHave your management board review the assignments and confirm them.",
     "evidenceExample": "Screenshot or export from the team page showing each security role assigned to a named person with their deputy, plus a summary or email from the management board confirming the review.",
     "fields": {}
   },
   "1.3": {
     "summary": "Your company needs to set aside a specific budget just for cybersecurity each year and get your management board to approve it. You'll know you're done when you have the budget amount written down and a record of the board's approval date.",
-    "applicability": "Every company covered by this needs to do it, regardless of size – no skipping.",
+    "applicability": "Every company covered by this needs to do it, regardless of size. No skipping.",
     "quickTip": "Look at last year's IT spending and set aside 10% of that for cybersecurity as a starting point.",
     "implementationSteps": "Estimate your cybersecurity needs: staff time, software tools, training, audits, and emergency response funds.\nWrite it as a clear line item in your annual budget plan.\nPresent the budget and your risk assessment to the management board.\nGet the board to formally approve it and note the date.\nKeep unaddressed risks documented if budget is tight.",
     "evidenceExample": "Budget plan document showing a dedicated cybersecurity budget line item, plus a signed management board summary or meeting minutes proving they reviewed and approved it.",
@@ -53,7 +53,7 @@
     "summary": "Your company's management board members must each personally confirm they understand their personal liability for cybersecurity failures. You're done when every board member has signed off individually on the platform.",
     "applicability": "Every member of the management board must do this; other employees can skip it.",
     "quickTip": "List out all your current management board members and have the first one log in to sign the acknowledgment.",
-    "implementationSteps": "List all current members of your management board.\nHave each one log into the platform and review the liability info.\nGet each to click 'acknowledge' or sign digitally — do it one by one.\nCheck the platform shows all as confirmed.\nSet a reminder to re-do this if your board changes.",
+    "implementationSteps": "List all current members of your management board.\nHave each one log into the platform and review the liability info.\nGet each to click 'acknowledge' or sign digitally, do it one by one.\nCheck the platform shows all as confirmed.\nSet a reminder to re-do this if your board changes.",
     "evidenceExample": "Screenshot or platform record showing each management board member's name, date, and confirmation that they personally acknowledged their liability for cybersecurity.",
     "fields": {
       "liabilityAcknowledged": {
@@ -150,7 +150,7 @@
   },
   "2.3": {
     "summary": "Create a list of all your company's information security risks, rate them by how bad they could be, assign owners to each, and plan how to handle them. You're done when you have a document showing all risks with their ratings, owners, and treatment plans, and you've entered the key numbers into the platform.",
-    "applicability": "Every company needs this, no exceptions—it's required by law to show you know your risks and have plans to manage them.",
+    "applicability": "Every company needs this, no exceptions. It's required by law to show you know your risks and have plans to manage them.",
     "quickTip": "Ask your IT or security lead: 'What risks to our data, systems, or operations have we identified so far?'",
     "implementationSteps": "List all your key information assets like servers, apps, databases, and cloud services.\nFor each asset, brainstorm risks like hacking, data leaks, or hardware failure.\nRate each risk by likelihood and impact, pick an owner, and write a plan to treat it (avoid, fix, accept, or share).\nPut it all in one document with risk IDs, ratings, owners, and plans.\nCount total risks, critical ones, and coverage percentage, then enter into the form.",
     "evidenceExample": "A spreadsheet or document listing each risk with a unique ID, its likelihood/impact rating, assigned owner name, and specific treatment plan including steps and timelines.",
@@ -183,7 +183,7 @@
         "label": "Risk Register Uploaded",
         "meaning": "The file containing your full risk register.",
         "example": "A spreadsheet showing 45 risks with IDs, ratings, owners, and treatment plans.",
-        "whereToFind": "The document you created listing all risks—upload it here if you want."
+        "whereToFind": "The document you created listing all risks. Upload it here if you want."
       }
     }
   },
@@ -224,14 +224,14 @@
     "summary": "Create a plan for handling cybersecurity incidents, including who is on the response team and how to communicate during a crisis. You're done when you have the plan documented, team named with backups, contact lists ready, and simple guides for common incidents.",
     "applicability": "Every company handling personal data or critical IT systems needs this; small firms without IT can skip if they outsource to a provider with their own plan.",
     "quickTip": "Start by listing 5-8 people from IT, legal, and management who can drop everything during a cyber emergency.",
-    "implementationSteps": "Pick your incident lead – usually your top IT or security person – and name their backup.\nBuild a team of 5-10 people total, including roles like IT ops, legal, HR, and a management rep; list names, roles, phone numbers, and deputies.\nSet up a secure way to talk during incidents, like an encrypted chat app or dedicated phone line.\nWrite escalation steps: who calls whom when, up to the board, with BSI reporting times (24 hours warning, 72 hours details, 1 month final).\nDraft simple playbooks for your top risks like ransomware, and schedule a yearly test run.",
-    "evidenceExample": "A single document or folder containing your incident response plan, team charter with roles/authorities/activation rules/contact lists, and basic playbooks for key scenarios – it should show clear steps, who's responsible, and how to escalate.",
+    "implementationSteps": "Pick your incident lead (usually your top IT or security person) and name their backup.\nBuild a team of 5-10 people total, including roles like IT ops, legal, HR, and a management rep; list names, roles, phone numbers, and deputies.\nSet up a secure way to talk during incidents, like an encrypted chat app or dedicated phone line.\nWrite escalation steps: who calls whom when, up to the board, with BSI reporting times (24 hours warning, 72 hours details, 1 month final).\nDraft simple playbooks for your top risks like ransomware, and schedule a yearly test run.",
+    "evidenceExample": "A single document or folder containing your incident response plan, team charter with roles/authorities/activation rules/contact lists, and basic playbooks for key scenarios. It should show clear steps, who's responsible, and how to escalate.",
     "fields": {
       "incidentLead": {
         "label": "Incident Lead",
         "meaning": "The main person in charge of running the incident response when something goes wrong.",
         "example": "Max Mustermann, Head of IT",
-        "whereToFind": "Ask your IT manager or CISO – this is usually the most experienced security or IT person."
+        "whereToFind": "Ask your IT manager or CISO. This is usually the most experienced security or IT person."
       },
       "irtTeamSize": {
         "label": "IRT Team Size",
@@ -450,7 +450,7 @@
   "5.1": {
     "summary": "Create a list of all your suppliers and sort them into groups based on risk level, like critical or low-risk. You're done when you have a policy explaining how you classify them and a full inventory showing the counts per group.",
     "applicability": "Every company dealing with suppliers needs this; skip only if you have zero suppliers.",
-    "quickTip": "Grab a spreadsheet and list every vendor you pay—start with your finance team's invoices from the last year.",
+    "quickTip": "Grab a spreadsheet and list every vendor you pay. Start with your finance team's invoices from the last year.",
     "implementationSteps": "Write a short policy explaining how you decide if a supplier is critical (like if they touch your customer data) or not.\nList all suppliers in one place: name, what they do, contract dates, and risk notes.\nClassify each one as Critical, Important, or Standard based on your policy criteria.\nCount totals and critical ones, then get your management to review and approve.\nPick a tool like Excel or your procurement software to keep the list updated.",
     "evidenceExample": "A document or spreadsheet showing your full supplier list with names, services, classification levels (like Critical or Standard), and counts; plus a policy page explaining your classification method and risk criteria.",
     "fields": {
@@ -464,7 +464,7 @@
         "label": "Critical Supplier Count",
         "meaning": "The number of suppliers in your highest risk group, like those handling sensitive data or key systems.",
         "example": "8",
-        "whereToFind": "From your supplier list after applying your classification rules—count those marked Critical."
+        "whereToFind": "From your supplier list after applying your classification rules. Count those marked Critical."
       },
       "supplierClassification": {
         "label": "Supplier Classification",
@@ -476,7 +476,7 @@
         "label": "Supplier Register Tool",
         "meaning": "The name of the tool, software, or method you use to store and manage your full supplier list.",
         "example": "Excel spreadsheet on shared drive",
-        "whereToFind": "Decide with your procurement or IT team—could be Excel, Google Sheets, or software like SAP or Coupa."
+        "whereToFind": "Decide with your procurement or IT team. Could be Excel, Google Sheets, or software like SAP or Coupa."
       }
     }
   },
@@ -610,7 +610,7 @@
       "environmentSegregation": {
         "label": "Environment Segregation (dev/test/prod)",
         "meaning": "Whether your company keeps development, testing, and production environments separate to prevent untested changes from reaching live systems.",
-        "example": "Yes — separate AWS accounts for dev, staging, and production",
+        "example": "Yes: separate AWS accounts for dev, staging, and production",
         "whereToFind": "Ask your dev or ops team if they have separate environments for development, testing, and production."
       }
     }
@@ -651,7 +651,7 @@
   "6.4": {
     "summary": "Your company needs to set rules for how quickly to apply software security patches based on how serious the problem is. Use the Patch Policy Editor to define SLAs per severity level. Track actual patches in the inline patch register. You're done when SLA timelines are set and patches are tracked against them.",
     "applicability": "Every company handling sensitive data or critical IT systems needs this; small firms without IT vulnerabilities might use a simpler custom approach.",
-    "quickTip": "Ask your IT team what their current patch update speed is for emergencies – that's your starting SLA.",
+    "quickTip": "Ask your IT team what their current patch update speed is for emergencies. That's your starting SLA.",
     "implementationSteps": "Use the Patch Policy Editor to set SLA timelines for each severity level (critical, high, medium, low).\nBSI recommends: critical = 24 hours, high = 7 days, medium = 30 days, low = 90 days.\nTrack actual patches in the patch register below the policy editor.\nThe platform automatically calculates on-time vs overdue per severity.\nReview and adjust SLAs annually.",
     "evidenceExample": "Patch policy showing SLA per severity, plus the patch register showing on-time compliance rates and any exceptions with documented reasons.",
     "fields": {}
@@ -659,7 +659,7 @@
   "6.5": {
     "summary": "Your company must have a formal change management process covering risk assessment before changes, testing before production, and retroactive documentation of emergency changes. These three controls are mandatory under CIR 6(4). You're done when you have a documented process and are tracking changes.",
     "applicability": "Every company with IT or OT systems that could affect critical operations needs this; small firms without complex systems might use a simple spreadsheet version.",
-    "quickTip": "Talk to your IT team about how they currently handle updates or changes to systems – that's your starting point.",
+    "quickTip": "Talk to your IT team about how they currently handle updates or changes to systems. That's your starting point.",
     "implementationSteps": "Name your change tracking tool in the intake field below.\nEnsure your process covers the three CIR 6(4) mandatory controls: risk assessment before changes, testing before production, and retroactive documentation of emergency changes.\nTrack actual changes in the change register with full lifecycle (draft → approved → implemented).\nReview change history quarterly for patterns.",
     "evidenceExample": "Change management process documentation, the change register with full audit trail, and quarterly review summaries.",
     "fields": {
@@ -673,7 +673,7 @@
   },
   "7.1": {
     "summary": "Your company needs to pick a handful of key numbers that show how well your cybersecurity is working, then track them monthly in a dashboard with colors for good/bad and charts showing if things are getting better or worse. You're done when you have those numbers defined, a tool making the dashboard, and proof it's updated regularly for management.",
-    "applicability": "Every company covered by BSIG needs this, no exceptions – even if you're small, just keep it simple with 5-10 key numbers.",
+    "applicability": "Every company covered by BSIG needs this, no exceptions. Even if you're small, just keep it simple with 5-10 key numbers.",
     "quickTip": "List out 5 security numbers you already track, like how fast you patch software or how many staff finished training.",
     "implementationSteps": "Pick 5-10 key measures of your security health, like patch completion rate or phishing test failures, and write down targets and color thresholds (green/yellow/red).\nChoose a simple tool like Excel, Google Sheets, or Power BI to build your monthly dashboard.\nSet it up to show current numbers, trends over time, and colors based on your thresholds.\nAdd a short note explaining any big changes, then email it monthly to your security lead and quarterly to the management board.\nTest it for one month and tweak based on feedback.",
     "evidenceExample": "A document listing your defined KPIs with targets and thresholds, plus screenshots or a link to a recent dashboard showing current values, color statuses, trend charts, and notes on changes.",
@@ -700,7 +700,7 @@
   },
   "7.2": {
     "summary": "Your company needs to regularly check its own cybersecurity setup through internal audits to spot issues and fix them. You'll know you're done when you have an approved audit plan, completed audit reports showing findings and fixes, and records of how problems get resolved.",
-    "applicability": "Every company covered by BSIG or NIS2 rules must do this—no exceptions, even if you're small.",
+    "applicability": "Every company covered by BSIG or NIS2 rules must do this. No exceptions, even if you're small.",
     "quickTip": "Talk to your management board today and ask them to approve a simple audit schedule for the next 2-3 years.",
     "implementationSteps": "Get your management board to approve a written audit schedule that covers all cybersecurity areas over 2-3 years, based on risks.\nPick qualified people to do the audits who aren't involved in the day-to-day work they audit.\nRun the audits as planned, write reports with issues found, evidence, and required fixes with deadlines.\nTrack and check that all fixes are done and working.\nKeep all reports and closure proof in one place.",
     "evidenceExample": "Approved audit schedule document plus recent audit reports listing findings by severity, evidence gathered, corrective actions with deadlines, and proof those actions were completed and effective.",
@@ -769,7 +769,7 @@
   },
   "8.1": {
     "summary": "Your company needs to write a clear IT security policy that sets rules for how employees use company tech, like internet, email, and personal devices. You're done when the policy is written, shared with everyone, and you have proof it's published and acknowledged.",
-    "applicability": "Every company needs this, no exceptions — it's basic rules for keeping your tech safe from everyone who touches it.",
+    "applicability": "Every company needs this, no exceptions. It's basic rules for keeping your tech safe from everyone who touches it.",
     "quickTip": "Start by drafting a simple 2-3 page document listing your rules for email use, personal phones at work, and locking screens when stepping away.",
     "implementationSteps": "Write your IT security policy covering internet/email rules, personal device use, cloud apps, social media, USB sticks, and remote work.\nAdd a clean desk policy: lock screens after 5 minutes idle, store papers safely, and do spot checks.\nShare the policy with all employees and get them to confirm they've read it (signatures or emails).\nPublish it in an easy spot like your intranet or shared drive.\nPlan annual reminders and re-confirmations.",
     "evidenceExample": "A document like your written IT security policy showing the rules on device use, clean desk requirements, screen locks, and a list or form where employees have signed to say they've read and agree to it.",
@@ -778,7 +778,7 @@
         "label": "IT Security Policy Published",
         "meaning": "Proof that your IT security policy document exists and has been made available to employees.",
         "example": "Shared drive link or intranet page dated 2024-10-01 with policy.pdf attached.",
-        "whereToFind": "Check with your IT team or HR — they usually handle policy creation and sharing."
+        "whereToFind": "Check with your IT team or HR. They usually handle policy creation and sharing."
       }
     }
   },
@@ -838,9 +838,9 @@
   },
   "8.4": {
     "summary": "Run fake phishing email tests on your employees at least every quarter to train them and check if they're getting better at spotting scams. You're done when you have reports showing low click rates (under 5%), high reporting rates (over 60%), and proof of tests over time with improving trends.",
-    "applicability": "All companies in scope must do this since employee training is a core cyber hygiene requirement—no one skips it.",
+    "applicability": "All companies in scope must do this since employee training is a core cyber hygiene requirement. No one skips it.",
     "quickTip": "Talk to your IT or security team today and ask if they use a phishing simulation tool like KnowBe4 or Proofpoint.",
-    "implementationSteps": "Choose a phishing simulation tool and set it up for quarterly tests with different scam types like fake login pages or bad attachments.\nRun your first test and track who clicks, who reports it as suspicious, and who gives up fake credentials.\nReview the results: aim for under 5% clicks and over 60% reports—if not, retrain the worst performers.\nRepeat tests quarterly and keep a simple database or spreadsheet of everyone's training completion and test scores by department.\nCheck trends over time and tweak your training if people aren't improving.",
+    "implementationSteps": "Choose a phishing simulation tool and set it up for quarterly tests with different scam types like fake login pages or bad attachments.\nRun your first test and track who clicks, who reports it as suspicious, and who gives up fake credentials.\nReview the results: aim for under 5% clicks and over 60% reports. If not, retrain the worst performers.\nRepeat tests quarterly and keep a simple database or spreadsheet of everyone's training completion and test scores by department.\nCheck trends over time and tweak your training if people aren't improving.",
     "evidenceExample": "Phishing campaign reports showing test dates, click rates under 5%, report rates over 60%, improving trends over multiple tests, and a summary of training completion rates by department.",
     "fields": {
       "phishingSimFrequency": {
@@ -959,7 +959,7 @@
       "sharedAccountPolicy": {
         "label": "Shared / Generic Account Policy",
         "meaning": "Whether shared or generic accounts (like 'admin@' or 'info@') are allowed. ORP.4.A3 requires unique identifiers for every user.",
-        "example": "Prohibited — unique identifiers only",
+        "example": "Prohibited: unique identifiers only",
         "whereToFind": "Check if any systems use shared logins; CIR 11.5.3 only allows them with documented justification."
       },
       "authReviewCycle": {
@@ -972,10 +972,10 @@
   },
   "10.2": {
     "summary": "For each asset in your inventory, document who owns it, how access is controlled, and how many privileged/admin accounts exist. This is where you apply your 10.1 access control policy to concrete systems. You're done when every asset has an owner, access method, and privileged account count documented.",
-    "applicability": "Every company with IT assets needs this — it's the per-asset implementation of your access control policy from 10.1.",
+    "applicability": "Every company with IT assets needs this. It's the per-asset implementation of your access control policy from 10.1.",
     "quickTip": "Open your asset register and go asset by asset: who owns it, how do people log in, does it have admin accounts?",
     "implementationSteps": "Review your asset inventory from RSK 2.2.\nFor each asset, assign an owner (the person accountable for access decisions).\nDocument how access is managed per asset (e.g., Entra ID RBAC, SSH keys, CyberArk, manual).\nCount privileged/admin accounts per asset (root, admin, service accounts with elevated permissions).\nReview and update when assets are added, changed, or retired.",
-    "evidenceExample": "A table showing each asset with its owner, access management method, and count of privileged accounts — the platform generates this automatically from your per-asset assignments.",
+    "evidenceExample": "A table showing each asset with its owner, access management method, and count of privileged accounts. The platform generates this automatically from your per-asset assignments.",
     "fields": {}
   },
   "10.3": {
@@ -983,7 +983,7 @@
     "applicability": "Every company with employees needs JML processes; PAM tooling is needed if you have any admin or service accounts.",
     "quickTip": "Ask HR: 'What happens when someone starts or leaves?' Ask IT: 'What tool manages admin accounts?'",
     "implementationSteps": "Document your joiner-mover-leaver process: onboarding checklist, role change procedure, offboarding steps.\nName the tool(s) used to track JML (HR system, ticketing, spreadsheet).\nDefine background check scope per CIR Art. 10 (all employees, security roles, management).\nName your PAM tool or approach for admin account management.\nGet management approval for the documented processes.",
-    "evidenceExample": "A document describing your JML process with checklists, your PAM tool configuration, and background check policy — uploaded as evidence or maintained in the platform's policy module.",
+    "evidenceExample": "A document describing your JML process with checklists, your PAM tool configuration, and background check policy, uploaded as evidence or maintained in the platform's policy module.",
     "fields": {
       "jmlTool": {
         "label": "JML Tool",
@@ -1006,8 +1006,8 @@
     }
   },
   "10.4": {
-    "summary": "Prove you're doing periodic access reviews by documenting when the last review happened. The review cadence is set in your 10.1 policy — this requirement tracks that you're actually doing it. You're done when you have a date and evidence of your last review.",
-    "applicability": "Every company needs periodic access reviews — CIR 11.2.3 requires documented reviews, ORP.4.A4 specifies at least annual.",
+    "summary": "Prove you're doing periodic access reviews by documenting when the last review happened. The review cadence is set in your 10.1 policy. This requirement tracks that you're actually doing it. You're done when you have a date and evidence of your last review.",
+    "applicability": "Every company needs periodic access reviews. CIR 11.2.3 requires documented reviews, ORP.4.A4 specifies at least annual.",
     "quickTip": "Ask your IT manager when they last checked user access lists and get that date.",
     "implementationSteps": "Pull a list of all user accounts per system.\nCheck if each person still needs their current access level.\nRemove excess permissions and disable unused accounts.\nDocument findings: who was reviewed, what changed, who approved.\nUpload the review report as evidence.",
     "evidenceExample": "A review report or spreadsheet showing accounts checked, changes made, and sign-off from system owners.",
@@ -1089,7 +1089,7 @@
   "11.3": {
     "summary": "Your company needs to check all login methods and password rules against trusted security standards, then document the review and write a clear password policy. You're done when you have a review report confirming compliance and a policy everyone can follow.",
     "applicability": "Every company must do this if they have any digital logins for employees, customers, or systems; tiny companies with only paper processes can skip it.",
-    "quickTip": "Ask your IT team for a list of all tools and apps where people log in – that's your starting point.",
+    "quickTip": "Ask your IT team for a list of all tools and apps where people log in. That's your starting point.",
     "implementationSteps": "Ask your IT lead to review all login methods against BSI TR-03107 and NIST SP 800-63B standards, noting any issues like weak passwords or long sessions.\nWrite a simple password policy: set minimum length, lockouts after failed tries, and checks against leaked passwords.\nTest session timeouts by leaving a login open and confirming it locks after your set time.\nGet management to approve the review report and policy in a meeting.\nUpload the review report and policy as proof.",
     "evidenceExample": "A review report that lists all authentication methods checked against BSI TR-03107 and NIST SP 800-63B, plus your written password policy showing rules like minimum length and lockouts.",
     "fields": {
@@ -1137,7 +1137,7 @@
   "12.2": {
     "summary": "Your company must register with Germany's Federal Office for Information Security (BSI) through their online portal to report critical IT operations. You're done when you get a confirmation with a registration number and upload proof of full registration.",
     "applicability": "Companies in Germany that run critical infrastructure services like energy, water, health, or transport must register; smaller non-critical businesses can skip this.",
-    "quickTip": "Go to the BSI website and start setting up a 'Mein Unternehmenskonto' (MUK) account today—it takes weeks to get the digital certificate needed.",
+    "quickTip": "Go to the BSI website and start setting up a 'Mein Unternehmenskonto' (MUK) account today. It takes weeks to get the digital certificate needed.",
     "implementationSteps": "Set up a MUK account on the BSI portal with an ELSTER certificate; add at least two people who can access it.\nGather your company details like name, legal form, 24/7 contact person, IP address ranges, sector, and services.\nSubmit the full registration form including company size and countries you operate in.\nSave the confirmation email or document with your BSI registration number.\nUpload the proof to your compliance platform.",
     "evidenceExample": "A confirmation document or screenshot from BSI showing your registration number, submission date, and that all required company data was successfully submitted.",
     "fields": {
@@ -1165,7 +1165,7 @@
     "summary": "Keep your company's BSI registration info up to date by reviewing it every year and notifying them of changes within two weeks. You're done when you have records of your latest review, any change notifications with BSI confirmations, and proof your 24/7 contact person works with a backup.",
     "applicability": "Every German critical infrastructure company registered with the BSI must do this; smaller non-critical companies skip it.",
     "quickTip": "Log into your BSI account today and check if the contact person's details are still correct.",
-    "implementationSteps": "Assign a main contact person and a backup who can be reached anytime, day or night.\nReview all registration details once a year—check names, emails, IP ranges, services, and company info.\nUpdate anything outdated right away and notify BSI within two weeks, saving their confirmation.\nDocument each review and change with the date and what you did.\nTest that your contact person and backup respond quickly to ensure 24/7 availability.",
+    "implementationSteps": "Assign a main contact person and a backup who can be reached anytime, day or night.\nReview all registration details once a year. Check names, emails, IP ranges, services, and company info.\nUpdate anything outdated right away and notify BSI within two weeks, saving their confirmation.\nDocument each review and change with the date and what you did.\nTest that your contact person and backup respond quickly to ensure 24/7 availability.",
     "evidenceExample": "A dated note or meeting summary from your annual review showing you checked all fields and made updates if needed, plus emails or confirmations from BSI for any changes sent, and a simple test log proving your contact person and deputy are reachable anytime.",
     "fields": {
       "contactPersonName": {
@@ -1197,7 +1197,7 @@
   "12.4": {
     "summary": "Your company needs to organize key security documents into a ready-to-share catalog and set up a process to quickly respond to government requests from BSI. You're done when you have a document list, a named person to handle replies, a log of any past correspondence, and extra details if you're a critical infrastructure operator.",
     "applicability": "Every German company needs this to meet BSIG laws; critical infrastructure operators (KRITIS) have extra steps like submitting facility data.",
-    "quickTip": "List out all your security docs like risk assessments and training records on a simple spreadsheet – that's your starting catalog.",
+    "quickTip": "List out all your security docs like risk assessments and training records on a simple spreadsheet. That's your starting catalog.",
     "implementationSteps": "Name one person (like your compliance or IT lead) responsible for handling BSI requests, and set a goal like 'reply within 48 hours'.\nMake a catalog listing your key documents: security policies, risk assessments, incident logs, audits, and training proofs.\nWrite a short process: how you'll gather and send docs when BSI asks.\nIf you're KRITIS, add your facility details, capacities, and attack detection setup proofs to the catalog.\nStart a log for any BSI emails or calls, even if none yet.",
     "evidenceExample": "A document or spreadsheet catalog listing your security documents with descriptions and locations, plus a one-page process description naming the responsible person and response times; for KRITIS, include facility data sheets or attack detection confirmations.",
     "fields": {
