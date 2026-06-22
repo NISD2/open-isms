@@ -1819,7 +1819,25 @@
       "sourceId": "eversheds-nis2-tracker",
       "sourceUrl": "https://ezine.eversheds-sutherland.com/eu-nis2-directive/hungary",
       "addedAt": "2026-06-17T17:53:06Z"
+    },
+    {
+      "id": "2026-06-17-national-transposition-nl-cyberbeveiligingswet-senate-response",
+      "date": "2026-06-17",
+      "category": "national-transposition",
+      "tags": [
+        "nl",
+        "transposition",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Netherlands: government files Senate response on Cyberbeveiligingswet, committees set further procedure 23 June",
+      "titleDe": "Niederlande: Regierung legt Senatsantwort zum Cyberbeveiligingswet vor, Ausschuesse legen weiteres Verfahren am 23. Juni fest",
+      "summary": "On 17 June 2026 the Dutch government filed its response (nota naar aanleiding van het verslag) to the 2 June Senate committee report on the Cyberbeveiligingswet (bill 36.764, the NIS 2 transposition). The Eerste Kamer committees for Digitalisation and for Justice and Security decide the further procedure on 23 June 2026, the last gate before a plenary vote. The bill passed the lower house on 15 April 2026; the government still targets entry into force on 1 July 2026, subject to Senate approval.",
+      "summaryDe": "Am 17. Juni 2026 legte die niederlaendische Regierung ihre Antwort (nota naar aanleiding van het verslag) auf den Senatsausschussbericht vom 2. Juni zum Cyberbeveiligingswet (Gesetzentwurf 36.764, die NIS-2-Umsetzung) vor. Die Ausschuesse der Eerste Kamer fuer Digitalisierung und fuer Justiz und Sicherheit entscheiden am 23. Juni 2026 ueber das weitere Verfahren, die letzte Huerde vor einer Plenarabstimmung. Das Gesetz passierte das Unterhaus am 15. April 2026; die Regierung strebt weiterhin das Inkrafttreten zum 1. Juli 2026 an, vorbehaltlich der Zustimmung des Senats.",
+      "sourceId": "eerstekamer",
+      "sourceUrl": "https://www.eerstekamer.nl/wetsvoorstel/36764_cyberbeveiligingswet",
+      "addedAt": "2026-06-20T09:18:24Z"
     }
   ],
-  "lastUpdated": "2026-06-17T17:53:06Z"
+  "lastUpdated": "2026-06-20T09:18:24Z"
 }
