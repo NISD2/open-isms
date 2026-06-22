@@ -20,7 +20,7 @@
         "@nisd2/isms-schema": "workspace:*",
         "@nisd2/isms-trpc": "workspace:*",
         "@nisd2/isms-ui": "workspace:*",
-        "@nisd2/nis2-gap-assessment-schema": "github:NISD2/nis2-gap-assessment-schema#v2.0.2",
+        "@nisd2/nis2-gap-assessment-schema": "github:NISD2/nis2-gap-assessment-schema#v2.0.3",
         "@nisd2/nis2-supply-chain-questionnaire-schema": "workspace:*",
         "@radix-ui/react-slot": "^1.1.2",
         "@react-email/components": "^1.0.12",
@@ -93,7 +93,7 @@
         "@types/react-dom": "^19.1.0",
         "drizzle-kit": "^0.31.9",
         "google-auth-library": "^10.5.0",
-        "og-shot": "0.4.0",
+        "og-shot": "^0.4.0",
         "playwright": "^1.60.0",
         "react-email": "6.6.0",
         "tailwindcss": "^4.1.0",
@@ -597,7 +597,7 @@
 
     "@nisd2/isms-ui": ["@nisd2/isms-ui@workspace:packages/isms-ui"],
 
-    "@nisd2/nis2-gap-assessment-schema": ["@nisd2/nis2-gap-assessment-schema@github:NISD2/nis2-gap-assessment-schema#8dbc6e5", { "dependencies": { "zod": "^3.23.0" } }, "NISD2-nis2-gap-assessment-schema-8dbc6e5"],
+    "@nisd2/nis2-gap-assessment-schema": ["@nisd2/nis2-gap-assessment-schema@github:NISD2/nis2-gap-assessment-schema#08fb733", { "dependencies": { "zod": "^3.23.0" } }, "NISD2-nis2-gap-assessment-schema-08fb733"],
 
     "@nisd2/nis2-supply-chain-questionnaire-schema": ["@nisd2/nis2-supply-chain-questionnaire-schema@workspace:packages/nis2-supply-chain-questionnaire-schema"],
 
