@@ -8,6 +8,13 @@
       "when": 1780667952138,
       "tag": "0000_ambiguous_klaw",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1782224030353,
+      "tag": "0001_relax_mfa_prereq",
+      "breakpoints": true
     }
   ]
 }

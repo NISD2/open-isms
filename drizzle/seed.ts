@@ -335,10 +335,10 @@ async function seed() {
     { prerequisite: "10.1", blocks: "10.3", notes: "User lifecycle needs access policy" },
     { prerequisite: "10.1", blocks: "10.4", notes: "Access reviews need access policy" },
 
-    // === Authentication builds on access control ===
-    { prerequisite: "10.1", blocks: "11.1", notes: "MFA policy builds on access control model" },
-    { prerequisite: "10.1", blocks: "11.2", notes: "Secure comms needs access control model" },
-    { prerequisite: "10.1", blocks: "11.3", notes: "Auth standards need access control model" },
+    // === Authentication (relaxed 2026-06: P0 MFA must not wait on the P1 access policy) ===
+    // MFA stays scoped against the asset inventory; secure-comms and auth-standards are unblocked.
+    // Existing prod data is migrated by grc/0001_relax_mfa_prereq.sql.
+    { prerequisite: "2.2", blocks: "11.1", notes: "MFA is scoped against the asset inventory (§30(1)(9))" },
   ];
 
   for (const p of PREREQUISITES) {
