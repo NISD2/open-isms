@@ -1,6 +1,7 @@
-import { api } from "@/lib/trpc/server";
+import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
-import { DashboardPage } from "@/components/dashboard/DashboardPage";
+import { env } from "@/lib/env";
+import { isJourneyAllowed } from "@/lib/journey-flag";
 import { OnboardingBanner } from "@/components/dashboard/OnboardingBanner";
 
 export const dynamic = "force-dynamic";
@@ -12,11 +13,12 @@ export default async function DashboardRoute() {
     return <OnboardingBanner />;
   }
 
-  const [summary, complianceProgress] = await Promise.all([
-    api.dashboard.summary(),
-    api.dashboard.complianceProgress(),
-  ]);
-  return (
-    <DashboardPage summary={summary} complianceProgress={complianceProgress} />
+  // The journey is the home surface; the expert stats live at /dashboard/stats.
+  // Journey-disallowed users (only if the gate is explicitly narrowed) land on
+  // the stats instead, so there is no /dashboard <-> /journey redirect loop.
+  redirect(
+    isJourneyAllowed(session.user.email, env.JOURNEY_ALLOWED_DOMAINS)
+      ? "/journey"
+      : "/dashboard/stats",
   );
 }

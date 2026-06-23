@@ -212,6 +212,7 @@ export const routing = defineRouting({
 
     // ── Tier 3: Portal pages (logged in; unlocalized) ────────────────────
     "/dashboard": "/dashboard",
+    "/dashboard/stats": "/dashboard/stats",
     "/applicability-admin": "/applicability-admin",
     "/assets": "/assets",
     "/audit": "/audit",

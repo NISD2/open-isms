@@ -106,7 +106,7 @@ export function AppSidebar({
   const params = useParams<{ categorySlug?: string; requirementCode?: string }>();
 
   const overviewItems: NavItem[] = [
-    { href: "/dashboard", label: t("dashboard"), icon: LayoutDashboard },
+    { href: "/journey", label: t("dashboard"), icon: LayoutDashboard },
     { href: "/gap-assessment", label: t("gapAssessment"), icon: ClipboardCheck },
     { href: "/team", label: t("team"), icon: Users },
     { href: "/organization", label: t("organization"), icon: Building2 },

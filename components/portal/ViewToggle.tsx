@@ -5,10 +5,10 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 /**
- * Always-visible switch between the novice journey surface (/journey) and the
- * expert surface (/dashboard plus the role-views). Same underlying data, two
- * projections. Uses native next/navigation usePathname for the resolved URL
- * (next-intl's usePathname returns the route template, not the concrete path).
+ * Always-visible switch between the journey surface (/journey) and the expert
+ * statistics surface (/dashboard/stats). Same underlying data, two views. Uses
+ * native next/navigation usePathname for the resolved URL (next-intl's
+ * usePathname returns the route template, not the concrete path).
  */
 export function ViewToggle() {
   const pathname = usePathname();
@@ -19,7 +19,7 @@ export function ViewToggle() {
 
   const onJourney =
     stripped === "/journey" || stripped.startsWith("/journey/");
-  const onExpert =
+  const onStats =
     stripped === "/dashboard" || stripped.startsWith("/dashboard/");
   const de = params.locale === "de";
 
@@ -34,14 +34,14 @@ export function ViewToggle() {
         className={cn(base, onJourney ? active : idle)}
         aria-current={onJourney ? "page" : undefined}
       >
-        Journey
+        {de ? "Weg" : "Journey"}
       </Link>
       <Link
-        href="/dashboard"
-        className={cn(base, onExpert ? active : idle)}
-        aria-current={onExpert ? "page" : undefined}
+        href="/dashboard/stats"
+        className={cn(base, onStats ? active : idle)}
+        aria-current={onStats ? "page" : undefined}
       >
-        {de ? "Experte" : "Expert"}
+        {de ? "Statistik" : "Statistics"}
       </Link>
     </div>
   );
