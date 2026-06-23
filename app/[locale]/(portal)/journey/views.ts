@@ -24,16 +24,22 @@ export type JourneyItem = {
   dueAt: Date | null;
   signedOffAt: Date | null;
   sortOrder: number;
-  blocksCount: number;
+  /** Assigned sign-offs done vs required, for N-of-M management sign-off. */
+  signOff: { signed: number; total: number };
 };
 
 /**
  * Terminal-success status. Schema `item_status` enum:
  * not_started / in_progress / completed / not_applicable / needs_review /
- * approved / rejected. Both `approved` and `not_applicable` mean done.
+ * approved / rejected. "completed" is the normal user sign-off result,
+ * "approved" adds the legal review; both (plus not_applicable) are done.
  */
 function isDone(item: JourneyItem): boolean {
-  return item.status === "approved" || item.status === "not_applicable";
+  return (
+    item.status === "completed" ||
+    item.status === "approved" ||
+    item.status === "not_applicable"
+  );
 }
 
 const CAT_ORDER: Record<string, number> = Object.fromEntries(

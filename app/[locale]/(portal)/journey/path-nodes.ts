@@ -25,6 +25,8 @@ export type FlowNode = {
   description: string | null;
   legalRef: string | null;
   frequency: string | null;
+  /** Assigned sign-offs done vs required (N-of-M management sign-off). */
+  signOff: { signed: number; total: number };
 };
 
 /** Swimlane columns, in display order. "Management" matches the §38 language. */
@@ -206,7 +208,13 @@ function bandForPriority(priority: string | null): Band {
 }
 
 function isDone(status: string): boolean {
-  return status === "approved" || status === "not_applicable";
+  // "completed" is the normal user sign-off result; "approved" adds the legal
+  // review. Both, plus not_applicable, are terminal.
+  return (
+    status === "completed" ||
+    status === "approved" ||
+    status === "not_applicable"
+  );
 }
 
 /** The single live node: lowest-order requirement not yet done. */
@@ -256,6 +264,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         description: it.description,
         legalRef: it.legalRef,
         frequency: it.frequency,
+        signOff: it.signOff,
       };
     });
 }

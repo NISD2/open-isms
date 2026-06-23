@@ -1,4 +1,4 @@
-import { eq, and, asc } from "drizzle-orm";
+import { eq, and, asc, count } from "drizzle-orm";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, companyProcedure } from "../init";
@@ -7,7 +7,7 @@ import {
   companyAssessment,
   requirement,
   requirementCategory,
-  requirementPrerequisite,
+  requirementAssignment,
   complianceFramework,
   user,
 } from "@/schema";
@@ -42,21 +42,28 @@ function resolveDescription(code: string, locale: Locale): string | null {
 }
 
 /**
+ * Terminal/done statuses. "completed" is the normal user sign-off result,
+ * "approved" adds the legal review on top, "not_applicable" is scoped out.
+ * (This view previously omitted "completed", which wrongly counted
+ * user-signed requirements as still open.) Mirrors DONE_STATUSES in
+ * assessment.ts.
+ */
+function isDoneStatus(s: string): boolean {
+  return s === "completed" || s === "approved" || s === "not_applicable";
+}
+
+/**
  * Journey view data source.
  *
- * Returns the flat list of items the projection functions need. One row per
- * requirement × company for the NIS2 framework specifically, joined with
- * requirement + category metadata, with the i18n title resolved server-side.
+ * Returns the flat list of items the path view needs: one row per requirement
+ * × company for the NIS2 framework, joined with requirement + category
+ * metadata, with the i18n title resolved server-side.
  *
- * Sparse-assignment note: we don't read requirement_assignment for
- * accountability because it's currently populated only at sign-off time.
- * Accountability is computed dynamically in views.ts using
- * requiredSignOffRole + isManagement + cisoUserId.
- *
- * blocksCount: number of downstream requirements that have THIS requirement
- * as a prerequisite AND are not yet at signed_current status. Used by the
- * CEO view's "Blocked on me" queue to show items that — if signed — would
- * unblock other work.
+ * signOff: per requirement, how many of the assigned sign-offs are done
+ * ({ signed, total }) from requirement_assignment. total is 0 for a
+ * requirement nobody has been assigned to / signed yet; for an N-of-M
+ * management sign-off the N signer rows are pre-assigned, so signed/total
+ * reads "2 of 3". Read-only aggregate, tenant-scoped via the assessment.
  */
 export const journeyRouter = router({
   getItems: companyProcedure
@@ -106,7 +113,7 @@ export const journeyRouter = router({
       return { items: [], isManagement: false, aggregate: emptyAggregate };
     }
 
-    const [rows, prereqRows, currentUserRow] = await Promise.all([
+    const [rows, signOffRows, currentUserRow] = await Promise.all([
       ctx.db
         .select({
           statusId: companyRequirementStatus.id,
@@ -135,43 +142,40 @@ export const journeyRouter = router({
         )
         .where(eq(companyRequirementStatus.assessmentId, assessment.id))
         .orderBy(asc(requirement.sortOrder)),
-      // Prereq graph: which requirements block which. Used to compute
-      // blocksCount per item below.
+      // Per-requirement sign-off progress: one row per assigned signer in
+      // requirement_assignment (signedOffAt NULL until they sign). Aggregated
+      // here with GROUP BY so there is no per-requirement N+1; count of the
+      // nullable signedOffAt column counts only the signed rows. Tenant-scoped
+      // by joining through this company's assessment.
       ctx.db
         .select({
-          requirementId: requirementPrerequisite.requirementId,
-          prerequisiteId: requirementPrerequisite.prerequisiteId,
+          statusId: requirementAssignment.statusId,
+          total: count(requirementAssignment.id),
+          signed: count(requirementAssignment.signedOffAt),
         })
-        .from(requirementPrerequisite),
+        .from(requirementAssignment)
+        .innerJoin(
+          companyRequirementStatus,
+          eq(requirementAssignment.statusId, companyRequirementStatus.id),
+        )
+        .where(eq(companyRequirementStatus.assessmentId, assessment.id))
+        .groupBy(requirementAssignment.statusId),
       ctx.db.query.user.findFirst({
         where: eq(user.id, ctx.session.user.id),
         columns: { isManagement: true },
       }),
     ]);
 
-    // Build a map: prereqRequirementId → array of requirementIds that
-    // depend on it. So if A is prereq of B, then prereqsBlockingByReqId[A]
-    // includes B.
-    const downstreamByPrereq = new Map<string, string[]>();
-    for (const row of prereqRows) {
-      const arr = downstreamByPrereq.get(row.prerequisiteId);
-      if (arr) arr.push(row.requirementId);
-      else downstreamByPrereq.set(row.prerequisiteId, [row.requirementId]);
-    }
-
-    // Map requirementId → current status (for computing blocksCount).
-    const statusByReqId = new Map<string, string>();
-    for (const r of rows) statusByReqId.set(r.requirementId, r.status ?? "not_started");
-
-    // For each row, count downstream requirements that are NOT signed.
-    function unsignedDownstreamCount(requirementId: string): number {
-      const downstream = downstreamByPrereq.get(requirementId);
-      if (!downstream) return 0;
-      let n = 0;
-      for (const dId of downstream) {
-        if (statusByReqId.get(dId) !== "signed_current") n += 1;
-      }
-      return n;
+    // statusId → { signed, total } sign-off progress.
+    const signOffByStatusId = new Map<
+      string,
+      { signed: number; total: number }
+    >();
+    for (const r of signOffRows) {
+      signOffByStatusId.set(r.statusId, {
+        signed: Number(r.signed),
+        total: Number(r.total),
+      });
     }
 
     // Resolve requirement titles/descriptions in the caller's locale (NL falls
@@ -193,28 +197,19 @@ export const journeyRouter = router({
       dueAt: r.nextReviewDate ? new Date(r.nextReviewDate) : null,
       signedOffAt: r.signedOffAt,
       sortOrder: r.sortOrder ?? 999,
-      blocksCount: unsignedDownstreamCount(r.requirementId),
+      signOff: signOffByStatusId.get(r.statusId) ?? { signed: 0, total: 0 },
     }));
 
-    // Company-wide aggregates so CEO empty state can show "you have nothing
-    // personally, but the company has X overdue / Y open."
+    // Company-wide aggregates, a reality check shown across the path view.
     const now = Date.now();
     const aggregate = {
       total: items.length,
-      done: items.filter(
-        (i) => i.status === "approved" || i.status === "not_applicable",
-      ).length,
+      done: items.filter((i) => isDoneStatus(i.status)).length,
       awaitingSignoff: items.filter((i) => i.status === "needs_review").length,
       overdue: items.filter(
-        (i) =>
-          i.status !== "approved" &&
-          i.status !== "not_applicable" &&
-          i.dueAt &&
-          i.dueAt.getTime() < now,
+        (i) => !isDoneStatus(i.status) && i.dueAt && i.dueAt.getTime() < now,
       ).length,
-      open: items.filter(
-        (i) => i.status !== "approved" && i.status !== "not_applicable",
-      ).length,
+      open: items.filter((i) => !isDoneStatus(i.status)).length,
     };
 
     return {

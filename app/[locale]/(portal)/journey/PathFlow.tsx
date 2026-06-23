@@ -16,6 +16,7 @@ import {
   Scale,
   Repeat,
   Info,
+  Users,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -71,26 +72,27 @@ const ORDER_OPTS: { key: Order; en: string; de: string; sub_en: string; sub_de: 
 ];
 
 function dotStateOf(rawStatus: string): DotState {
-  if (rawStatus === "approved") return "signed";
+  // "completed" = user sign-off done; "approved" adds legal review. Both done.
+  if (rawStatus === "completed" || rawStatus === "approved") return "signed";
   if (rawStatus === "not_applicable") return "na";
   if (rawStatus === "needs_review") return "awaiting";
   if (rawStatus === "rejected") return "rejected";
-  if (rawStatus === "in_progress" || rawStatus === "completed") return "started";
+  if (rawStatus === "in_progress") return "started";
   return "todo";
 }
 
 function statusLabel(rawStatus: string, de: boolean): string {
   switch (rawStatus) {
-    case "approved":
+    case "completed":
       return de ? "Freigegeben" : "Signed off";
+    case "approved":
+      return de ? "Geprüft" : "Reviewed";
     case "not_applicable":
       return de ? "Nicht zutreffend" : "Not applicable";
     case "needs_review":
       return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
     case "in_progress":
       return de ? "In Arbeit" : "In progress";
-    case "completed":
-      return de ? "Ausgefüllt" : "Filled in";
     case "rejected":
       return de ? "Abgelehnt" : "Rejected";
     default:
@@ -581,6 +583,9 @@ function NodeCard({
   const cornerTone =
     state === "awaiting" ? "bg-amber-500" : state === "rejected" ? "bg-destructive" : null;
   const href = hrefFor(node);
+  const so = node.signOff;
+  // A partial multi-signer sign-off (e.g. 2 of 3 management members signed).
+  const partialSignoff = so.total >= 2 && so.signed < so.total;
 
   const ring =
     node.status === "current"
@@ -629,6 +634,12 @@ function NodeCard({
                   {ownerLabel}
                 </span>
               ) : null}
+              {partialSignoff ? (
+                <span className="inline-flex items-center gap-0.5 rounded bg-amber-50 px-1 py-0 text-[10px] font-medium text-amber-700 dark:bg-amber-950/40 dark:text-amber-400">
+                  <Users className="h-2.5 w-2.5" />
+                  {so.signed}/{so.total}
+                </span>
+              ) : null}
               {node.priority === "P0" ? (
                 <Badge variant="secondary" className="px-1 py-0 text-[10px]">
                   P0
@@ -652,6 +663,16 @@ function NodeCard({
           <Dot state={state} current={node.status === "current"} size="sm" />
           {statusLabel(node.rawStatus, de)}
         </p>
+        {so.total >= 1 &&
+        node.rawStatus !== "rejected" &&
+        node.rawStatus !== "needs_review" ? (
+          <p className="mt-1 inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+            <Users className="h-3 w-3" />
+            {de
+              ? `${so.signed} von ${so.total} Freigaben abgeschlossen`
+              : `${so.signed} of ${so.total} sign-offs completed`}
+          </p>
+        ) : null}
         {node.description ? (
           <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-muted-foreground">
             {node.description}
