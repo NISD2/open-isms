@@ -275,7 +275,9 @@ export function AppSidebar({
                                                 </span>
                                               )}
                                               <span className="truncate">
-                                                {tReq(`${reqKey}.title`)}
+                                                {tReq.has(`${reqKey}.title`)
+                                                  ? tReq(`${reqKey}.title`)
+                                                  : reqCode}
                                               </span>
                                             </>
                                           );

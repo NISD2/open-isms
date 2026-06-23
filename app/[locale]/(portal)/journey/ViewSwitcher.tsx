@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { VIEW_LABELS, type View } from "./views";
 
-const ALL_VIEWS: View[] = ["ceo", "ciso", "auditor", "msp", "advanced"];
+const ALL_VIEWS: View[] = ["path", "ceo", "ciso", "auditor", "msp", "advanced"];
 
 /**
  * Tab-like switcher between views. URL-driven — selecting a view sets

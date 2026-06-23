@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { Building2, Compass, LayoutDashboard, Sparkles, Users } from "lucide-react";
+import { Building2, Sparkles, Users } from "lucide-react";
 
 import { Progress } from "@/components/ui/progress";
 import { SchemaForm } from "@/lib/forms/schema-form";
@@ -15,7 +15,6 @@ import {
 } from "@/components/organization/TeamRolesForm";
 import { AiDataSharingOnboarding } from "@/components/settings/AiDataSharingOnboarding";
 import { toast } from "sonner";
-import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {
   companyFormSchema,
@@ -43,7 +42,6 @@ export function OnboardingFlow({ roleSlugMap }: OnboardingFlowProps) {
   const [companyData, setCompanyData] = useState<CompanyFormData | null>(null);
   const [teamRoles, setTeamRoles] = useState<TeamRoleEntry[] | undefined>();
   const [aiDataSharing, setAiDataSharing] = useState<AiDataSharingLevel>("none");
-  const [showModeChoice, setShowModeChoice] = useState(false);
 
   const createMutation =
     trpc.assessment.createCompanyAndAssessment.useMutation();
@@ -109,50 +107,11 @@ export function OnboardingFlow({ roleSlugMap }: OnboardingFlowProps) {
         aiDataSharing: level,
       });
       toast.dismiss(toastId);
-      setShowModeChoice(true);
+      router.push("/journey");
     } catch {
       toast.dismiss(toastId);
       toast.error(t("createError"));
     }
-  }
-
-  if (showModeChoice) {
-    return (
-      <div className="space-y-8 pb-24">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold tracking-tight">{t("mode.title")}</h1>
-          <p className="mt-1 text-muted-foreground">{t("mode.subtitle")}</p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Card
-            className="cursor-pointer transition-colors hover:border-primary"
-            onClick={() =>
-              router.push({
-                pathname: "/compliance/[categorySlug]",
-                params: { categorySlug: "governance" },
-                query: { guided: "true" },
-              })
-            }
-          >
-            <CardContent className="flex flex-col items-center gap-3 p-6 text-center">
-              <Compass className="h-8 w-8 text-primary" />
-              <h3 className="font-semibold">{t("mode.guided")}</h3>
-              <p className="text-sm text-muted-foreground">{t("mode.guidedDescription")}</p>
-            </CardContent>
-          </Card>
-          <Card
-            className="cursor-pointer transition-colors hover:border-primary"
-            onClick={() => router.push("/dashboard")}
-          >
-            <CardContent className="flex flex-col items-center gap-3 p-6 text-center">
-              <LayoutDashboard className="h-8 w-8 text-muted-foreground" />
-              <h3 className="font-semibold">{t("mode.manual")}</h3>
-              <p className="text-sm text-muted-foreground">{t("mode.manualDescription")}</p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
   }
 
   return (

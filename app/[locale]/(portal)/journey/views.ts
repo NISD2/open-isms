@@ -9,7 +9,7 @@
  * exec questions) already lives.
  */
 
-export type View = "ceo" | "ciso" | "auditor" | "msp" | "advanced";
+export type View = "path" | "ceo" | "ciso" | "auditor" | "msp" | "advanced";
 
 export type JourneyItem = {
   id: string;
@@ -145,7 +145,25 @@ function isAccountable(
   return false;
 }
 
+/**
+ * The single live node for the novice "path" view: the lowest-sortOrder
+ * requirement that is not yet done. Everything before it is done, everything
+ * after is locked-but-visible. Returns null when the path is complete.
+ */
+export function liveNode(items: JourneyItem[]): JourneyItem | null {
+  const open = items
+    .filter((i) => !isDone(i))
+    .sort((a, b) => a.sortOrder - b.sortOrder);
+  return open[0] ?? null;
+}
+
 export const PROJECTIONS: Record<View, ProjectionFn> = {
+  // Novice path: collapse the whole journey to the single live node. The page
+  // renders this view as a prescribed-action hero, not the queue list.
+  path: (input): Queues => {
+    const live = liveNode(input.items);
+    return live ? { "Start here": [live] } : {};
+  },
   ceo: (input) => {
     const mine = input.items.filter((i) => isAccountable(i, input));
     return {
@@ -220,9 +238,10 @@ export const PROJECTIONS: Record<View, ProjectionFn> = {
  * schema without fragile name/title matching. When user.functionalRoles[]
  * lands, we'll switch to: isCiso ? "ciso" : isManagement ? "ceo" : ...
  */
-export function defaultViewFor(opts: { isManagement: boolean }): View {
-  if (opts.isManagement) return "ceo";
-  return "advanced";
+export function defaultViewFor(_opts: { isManagement: boolean }): View {
+  // Stage 0: the novice path is the universal default post-login surface.
+  // The role-views (ceo/ciso/...) remain reachable via the switcher.
+  return "path";
 }
 
 /**
@@ -230,11 +249,12 @@ export function defaultViewFor(opts: { isManagement: boolean }): View {
  */
 export function parseView(raw: string | undefined): View | null {
   if (!raw) return null;
-  const valid: View[] = ["ceo", "ciso", "auditor", "msp", "advanced"];
+  const valid: View[] = ["path", "ceo", "ciso", "auditor", "msp", "advanced"];
   return (valid as string[]).includes(raw) ? (raw as View) : null;
 }
 
 export const VIEW_LABELS: Record<View, { en: string; de: string }> = {
+  path: { en: "Start", de: "Start" },
   ceo: { en: "CEO", de: "Geschäftsleitung" },
   ciso: { en: "CISO", de: "CISO" },
   auditor: { en: "Auditor", de: "Auditor" },

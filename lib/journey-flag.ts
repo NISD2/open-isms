@@ -17,5 +17,7 @@ export function isJourneyAllowed(
     .split(",")
     .map((d) => d.trim().toLowerCase())
     .filter((d) => d.length > 0);
+  // "*" opens the journey to all domains (staging / local demo).
+  if (allowed.includes("*")) return true;
   return allowed.includes(domain);
 }

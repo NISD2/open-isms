@@ -13,6 +13,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { ViewToggle } from "./ViewToggle";
 
 function titleCase(slug: string) {
   return slug
@@ -96,6 +97,9 @@ export function PortalHeader() {
           })}
         </BreadcrumbList>
       </Breadcrumb>
+      <div className="ml-auto">
+        <ViewToggle />
+      </div>
     </header>
   );
 }

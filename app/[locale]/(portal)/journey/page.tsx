@@ -6,7 +6,10 @@ import { env } from "@/lib/env";
 import { isJourneyAllowed } from "@/lib/journey-flag";
 import { QueueList } from "./QueueList";
 import { ViewSwitcher } from "./ViewSwitcher";
-import { PROJECTIONS, defaultViewFor, parseView, type View } from "./views";
+import { PROJECTIONS, defaultViewFor, liveNode, parseView, type View } from "./views";
+import { PathHero } from "./PathHero";
+import { PathFlow } from "./PathFlow";
+import { buildCategoryNodes, buildRequirementNodes } from "./path-nodes";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +44,42 @@ export default async function JourneyPage({
   const { items, isManagement, aggregate } = await api.journey.getItems();
 
   const view: View = parseView(rawView) ?? defaultViewFor({ isManagement });
+
+  // Novice path view: render the single prescribed next action, not queues.
+  if (view === "path") {
+    let assetCount = 0;
+    try {
+      const assets = await api.asset.list();
+      assetCount = Array.isArray(assets) ? assets.length : 0;
+    } catch {
+      assetCount = 0;
+    }
+    const live = liveNode(items);
+    const categoryNodes = buildCategoryNodes(items);
+    const reqNodes = buildRequirementNodes(items);
+    return (
+      <div className="space-y-6">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {locale === "de" ? "Ihr Weg" : "Your path"}
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            {locale === "de"
+              ? "Ein Schritt nach dem anderen. Hier ist Ihr nächster."
+              : "One step at a time. Here is your next one."}
+          </p>
+        </div>
+        <ViewSwitcher current={view} locale={locale} />
+        <AggregateStrip aggregate={aggregate} locale={locale} />
+        <PathHero assetCount={assetCount} liveNode={live} locale={locale} />
+        <PathFlow
+          categoryNodes={categoryNodes}
+          reqNodes={reqNodes}
+          locale={locale}
+        />
+      </div>
+    );
+  }
 
   // Advanced view = the existing dashboard. Single source of truth.
   if (view === "advanced") {
