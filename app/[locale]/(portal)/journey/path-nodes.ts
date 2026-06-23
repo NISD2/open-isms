@@ -28,11 +28,41 @@ export type FlowNode = {
 };
 
 /** Swimlane columns, in display order. "Management" matches the §38 language. */
-export const COLUMNS: { key: ColumnKey; en: string; de: string }[] = [
-  { key: "leadership", en: "Management", de: "Geschäftsführung" },
-  { key: "security", en: "Security", de: "Sicherheit" },
-  { key: "it", en: "IT", de: "IT" },
-  { key: "operations", en: "Operations", de: "Betrieb" },
+export const COLUMNS: {
+  key: ColumnKey;
+  en: string;
+  de: string;
+  infoEn: string;
+  infoDe: string;
+}[] = [
+  {
+    key: "leadership",
+    en: "Management",
+    de: "Geschäftsführung",
+    infoEn: "Approves and is accountable. Signs off governance, budget and the duties under §38.",
+    infoDe: "Genehmigt und verantwortet. Gibt Governance, Budget und die Pflichten nach §38 frei.",
+  },
+  {
+    key: "security",
+    en: "Security",
+    de: "Sicherheit",
+    infoEn: "Drives risk, incidents, access, training and effectiveness (CISO).",
+    infoDe: "Steuert Risiko, Vorfälle, Zugriff, Schulung und Wirksamkeit (CISO).",
+  },
+  {
+    key: "it",
+    en: "IT",
+    de: "IT",
+    infoEn: "Implements technical controls: cryptography, patching, authentication.",
+    infoDe: "Setzt technische Maßnahmen um: Kryptografie, Patches, Authentifizierung.",
+  },
+  {
+    key: "operations",
+    en: "Operations",
+    de: "Betrieb",
+    infoEn: "Owns continuity, backups and supplier management.",
+    infoDe: "Verantwortet Kontinuität, Backups und Lieferantenmanagement.",
+  },
 ];
 
 /**

@@ -3,13 +3,21 @@
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Check, Lock, AlertTriangle, Scale, Repeat } from "lucide-react";
+import {
+  Check,
+  CheckCheck,
+  Minus,
+  AlertTriangle,
+  Scale,
+  Repeat,
+  Info,
+  X,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   BANDS,
@@ -26,6 +34,7 @@ import { journeyDisclaimer, journeyDisclaimerLabel } from "./disclaimer";
 
 type Locale = "en" | "de" | "nl";
 type StatusFilter = "open" | "overdue" | "awaiting";
+type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
 
 type Aggregate = {
   total: number;
@@ -47,23 +56,50 @@ type Section = {
 const ORDER_OPTS: { key: Order; en: string; de: string; sub_en: string; sub_de: string }[] = [
   {
     key: "defensible",
-    en: "Defensible minimum first",
-    de: "Belastbares Minimum zuerst",
-    sub_en: "What an auditor checks first",
-    sub_de: "Was ein Auditor zuerst prüft",
+    en: "Defensible minimum",
+    de: "Belastbares Minimum",
+    sub_en: "Ordered by what an auditor checks first.",
+    sub_de: "Sortiert danach, was ein Auditor zuerst prüft.",
   },
   {
     key: "chrono",
-    en: "Chronological order",
-    de: "Chronologische Reihenfolge",
-    sub_en: "The natural process order",
-    sub_de: "Die natürliche Prozessreihenfolge",
+    en: "Chronological",
+    de: "Chronologisch",
+    sub_en: "Ordered by the natural process, category by category.",
+    sub_de: "Sortiert nach dem natürlichen Prozess, Kategorie für Kategorie.",
   },
 ];
 
+function dotStateOf(rawStatus: string): DotState {
+  if (rawStatus === "approved") return "signed";
+  if (rawStatus === "not_applicable") return "na";
+  if (rawStatus === "needs_review") return "awaiting";
+  if (rawStatus === "rejected") return "rejected";
+  if (rawStatus === "in_progress" || rawStatus === "completed") return "started";
+  return "todo";
+}
+
+function statusLabel(rawStatus: string, de: boolean): string {
+  switch (rawStatus) {
+    case "approved":
+      return de ? "Freigegeben" : "Signed off";
+    case "not_applicable":
+      return de ? "Nicht zutreffend" : "Not applicable";
+    case "needs_review":
+      return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
+    case "in_progress":
+      return de ? "In Arbeit" : "In progress";
+    case "completed":
+      return de ? "Ausgefüllt" : "Filled in";
+    case "rejected":
+      return de ? "Abgelehnt" : "Rejected";
+    default:
+      return de ? "Offen" : "Open";
+  }
+}
+
 function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section[] {
   if (order === "chrono") {
-    // reqNodes already arrive in chronological (process) order.
     const withIdx = reqNodes.map((node, i) => ({ node, index: i + 1 }));
     return ORDERED_CATEGORIES.map((cat) => ({
       key: cat.code,
@@ -74,7 +110,6 @@ function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section
       rows: withIdx.filter((r) => r.node.categoryCode === cat.code),
     })).filter((s) => s.rows.length > 0);
   }
-  // Defensible: stable-sort by band rank (preserves process order within band).
   const ordered = [...reqNodes].sort((a, b) => BAND_RANK[a.band] - BAND_RANK[b.band]);
   const withIdx = ordered.map((node, i) => ({ node, index: i + 1 }));
   return BANDS.map((b) => ({
@@ -90,7 +125,7 @@ function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section
 function matchesFilter(node: FlowNode, filter: StatusFilter): boolean {
   if (filter === "open") return node.status !== "done";
   if (filter === "overdue") return node.isOverdue;
-  return node.rawStatus === "needs_review"; // awaiting
+  return node.rawStatus === "needs_review";
 }
 
 export function PathFlow({
@@ -106,47 +141,42 @@ export function PathFlow({
   const [order, setOrder] = useState<Order>("defensible");
   const [filter, setFilter] = useState<StatusFilter | null>(null);
 
-  // The role swimlane only adds value when a section mixes roles (defensible
-  // bands do). Chronological sections are one-category, hence single-role, so
-  // they render as a single numbered column instead of 3 empty gutters.
   const swimlane = order === "defensible";
   const sections = buildSections(reqNodes, order, de);
   const rowCols = swimlane
     ? "grid-cols-[2.75rem_repeat(4,minmax(0,1fr))]"
     : "grid-cols-[2.75rem_minmax(0,1fr)]";
+  const activeOrder = ORDER_OPTS.find((o) => o.key === order);
 
   return (
-    <div className="space-y-3">
-      <AggregateBar
-        aggregate={aggregate}
-        filter={filter}
-        setFilter={setFilter}
-        de={de}
-      />
-      <OrderToggle order={order} setOrder={setOrder} de={de} />
+    <div className="space-y-2">
+      {/* Control bar: ordering (primary) on the left, filters on the right. */}
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <OrderToggle order={order} setOrder={setOrder} de={de} />
+        <FilterGroup
+          aggregate={aggregate}
+          filter={filter}
+          setFilter={setFilter}
+          de={de}
+        />
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <p className="text-[11px] text-muted-foreground">
+          {de ? activeOrder?.sub_de : activeOrder?.sub_en}
+        </p>
+        <Legend de={de} />
+      </div>
 
       <div className="overflow-x-auto rounded-lg border bg-card">
         <div className={cn(swimlane ? "min-w-[820px]" : "min-w-[460px]")}>
-          {swimlane ? (
-            <>
-              <div className="px-3 pt-2 text-[10px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4">
-                {de ? "Verantwortliche Rolle" : "Responsible role"}
-              </div>
-              <div className={cn("grid gap-2 border-b bg-muted/40 px-3 py-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4", rowCols)}>
-                <span className="text-center">#</span>
-                {COLUMNS.map((c) => (
-                  <span key={c.key} className="truncate">
-                    {de ? c.de : c.en}
-                  </span>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className={cn("grid gap-2 border-b bg-muted/40 px-3 py-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4", rowCols)}>
-              <span className="text-center">#</span>
+          <div className={cn("grid gap-2 border-b bg-muted/40 px-3 py-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4", rowCols)}>
+            <span className="text-center">#</span>
+            {swimlane ? (
+              COLUMNS.map((c) => <ColumnHeader key={c.key} col={c} de={de} />)
+            ) : (
               <span>{de ? "Schritt" : "Step"}</span>
-            </div>
-          )}
+            )}
+          </div>
 
           {sections.map((section) => (
             <section key={section.key}>
@@ -159,7 +189,8 @@ export function PathFlow({
                   >
                     <Rail
                       index={index}
-                      status={node.status}
+                      state={dotStateOf(node.rawStatus)}
+                      current={node.status === "current"}
                       isFirst={i === 0}
                       isLast={i === section.rows.length - 1}
                     />
@@ -194,7 +225,51 @@ export function PathFlow({
   );
 }
 
-function AggregateBar({
+function OrderToggle({
+  order,
+  setOrder,
+  de,
+}: {
+  order: Order;
+  setOrder: (o: Order) => void;
+  de: boolean;
+}) {
+  return (
+    <div
+      role="radiogroup"
+      aria-label={de ? "Reihenfolge" : "Ordering"}
+      className="inline-flex rounded-lg border bg-muted/60 p-0.5"
+    >
+      {ORDER_OPTS.map((opt) => {
+        const on = opt.key === order;
+        return (
+          <button
+            key={opt.key}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            onClick={() => setOrder(opt.key)}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+              on
+                ? "bg-background text-foreground shadow-sm ring-1 ring-border"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            {opt.key === "defensible" ? (
+              <Scale className="h-3.5 w-3.5" />
+            ) : (
+              <Repeat className="h-3.5 w-3.5" />
+            )}
+            {de ? opt.de : opt.en}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function FilterGroup({
   aggregate,
   filter,
   setFilter,
@@ -205,49 +280,41 @@ function AggregateBar({
   setFilter: (f: StatusFilter | null) => void;
   de: boolean;
 }) {
-  const pct =
-    aggregate.total > 0 ? Math.round((aggregate.done / aggregate.total) * 100) : 0;
   const toggle = (f: StatusFilter) => setFilter(filter === f ? null : f);
-
   return (
-    <div className="rounded-lg border bg-card p-3 sm:p-4">
-      <div className="flex items-center gap-3">
-        <Progress value={pct} className="h-2 flex-1" />
-        <span className="shrink-0 text-sm font-semibold tabular-nums">{pct}%</span>
-        <span className="shrink-0 text-xs text-muted-foreground">
-          {aggregate.done}/{aggregate.total} {de ? "erledigt" : "done"}
-        </span>
-      </div>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <FilterChip
-          label={de ? "Offen" : "Open"}
-          value={aggregate.open}
-          active={filter === "open"}
-          onClick={() => toggle("open")}
-        />
-        <FilterChip
-          label={de ? "Überfällig" : "Overdue"}
-          value={aggregate.overdue}
-          active={filter === "overdue"}
-          tone={aggregate.overdue > 0 ? "destructive" : "default"}
-          onClick={() => toggle("overdue")}
-        />
-        <FilterChip
-          label={de ? "Warten auf Freigabe" : "Awaiting sign-off"}
-          value={aggregate.awaitingSignoff}
-          active={filter === "awaiting"}
-          onClick={() => toggle("awaiting")}
-        />
-        {filter !== null ? (
-          <button
-            type="button"
-            onClick={() => setFilter(null)}
-            className="rounded-full px-2.5 py-1 text-xs text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
-          >
-            {de ? "Filter zurücksetzen" : "Clear filter"}
-          </button>
-        ) : null}
-      </div>
+    <div className="flex flex-wrap items-center gap-1.5">
+      <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
+        {de ? "Filter" : "Filter"}
+      </span>
+      <FilterChip
+        label={de ? "Offen" : "Open"}
+        value={aggregate.open}
+        active={filter === "open"}
+        onClick={() => toggle("open")}
+      />
+      <FilterChip
+        label={de ? "Überfällig" : "Overdue"}
+        value={aggregate.overdue}
+        active={filter === "overdue"}
+        tone={aggregate.overdue > 0 ? "destructive" : "default"}
+        onClick={() => toggle("overdue")}
+      />
+      <FilterChip
+        label={de ? "Freigabe offen" : "Awaiting"}
+        value={aggregate.awaitingSignoff}
+        active={filter === "awaiting"}
+        onClick={() => toggle("awaiting")}
+      />
+      {filter !== null ? (
+        <button
+          type="button"
+          onClick={() => setFilter(null)}
+          aria-label={de ? "Filter zurücksetzen" : "Clear filter"}
+          className="inline-flex items-center text-muted-foreground hover:text-foreground"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      ) : null}
     </div>
   );
 }
@@ -271,21 +338,21 @@ function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors",
+        "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs transition-colors",
         active
           ? "border-primary bg-primary text-primary-foreground"
-          : "border-border bg-background text-foreground hover:border-primary/50 hover:bg-accent/40",
+          : "border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground",
       )}
     >
       <span>{label}</span>
       <span
         className={cn(
-          "tabular-nums",
+          "tabular-nums font-medium",
           active
             ? "text-primary-foreground"
             : tone === "destructive" && value > 0
               ? "text-destructive"
-              : "text-muted-foreground",
+              : "text-foreground",
         )}
       >
         {value}
@@ -294,65 +361,57 @@ function FilterChip({
   );
 }
 
-function OrderToggle({
-  order,
-  setOrder,
-  de,
-}: {
-  order: Order;
-  setOrder: (o: Order) => void;
-  de: boolean;
-}) {
+/** Compact key for the rail dot states, including the sign-off distinction. */
+function Legend({ de }: { de: boolean }) {
+  const items: { state: DotState | "current"; label: string }[] = [
+    { state: "current", label: de ? "Jetzt" : "Now" },
+    { state: "started", label: de ? "In Arbeit" : "In progress" },
+    { state: "awaiting", label: de ? "Wartet auf Freigabe" : "Awaiting sign-off" },
+    { state: "signed", label: de ? "Freigegeben" : "Signed off" },
+  ];
   return (
-    <div role="radiogroup" aria-label={de ? "Reihenfolge" : "Ordering"} className="grid grid-cols-2 gap-2">
-      {ORDER_OPTS.map((opt) => {
-        const on = opt.key === order;
-        return (
-          <button
-            key={opt.key}
-            type="button"
-            role="radio"
-            aria-checked={on}
-            onClick={() => setOrder(opt.key)}
-            className={cn(
-              "rounded-lg border px-3 py-2 text-left transition-colors",
-              on
-                ? "border-primary bg-primary/5 ring-1 ring-primary/30"
-                : "border-border bg-card hover:border-primary/40 hover:bg-accent/30",
-            )}
-          >
-            <div className="flex items-center gap-1.5">
-              {opt.key === "defensible" ? (
-                <Scale className="h-3.5 w-3.5 text-primary" />
-              ) : (
-                <Repeat className="h-3.5 w-3.5 text-primary" />
-              )}
-              <span
-                className={cn(
-                  "text-sm font-semibold",
-                  on ? "text-foreground" : "text-foreground/80",
-                )}
-              >
-                {de ? opt.de : opt.en}
-              </span>
-            </div>
-            <p className="mt-0.5 text-[11px] text-muted-foreground">
-              {de ? opt.sub_de : opt.sub_en}
-            </p>
-          </button>
-        );
-      })}
+    <div className="hidden items-center gap-3 sm:flex">
+      {items.map((it) => (
+        <span key={it.state} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+          <Dot
+            state={it.state === "current" ? "todo" : it.state}
+            current={it.state === "current"}
+            size="sm"
+          />
+          {it.label}
+        </span>
+      ))}
     </div>
   );
 }
 
-function SectionHeader({
-  section,
-  locale,
+function ColumnHeader({
+  col,
+  de,
 }: {
-  section: Section;
-  locale: Locale;
+  col: (typeof COLUMNS)[number];
+  de: boolean;
 }) {
+  return (
+    <HoverCard openDelay={120} closeDelay={60}>
+      <HoverCardTrigger asChild>
+        <button
+          type="button"
+          className="inline-flex items-center gap-1 truncate rounded text-left uppercase tracking-wide hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {de ? col.de : col.en}
+          <Info className="h-3 w-3 shrink-0 opacity-50" />
+        </button>
+      </HoverCardTrigger>
+      <HoverCardContent side="top" className="w-64 text-xs leading-relaxed">
+        <p className="font-semibold text-foreground">{de ? col.de : col.en}</p>
+        <p className="mt-1 text-muted-foreground">{de ? col.infoDe : col.infoEn}</p>
+      </HoverCardContent>
+    </HoverCard>
+  );
+}
+
+function SectionHeader({ section, locale }: { section: Section; locale: Locale }) {
   return (
     <div className="flex items-center gap-2 border-b bg-muted/20 px-3 py-1.5 sm:px-4">
       <h3 className="text-xs font-semibold tracking-wide text-foreground">
@@ -378,7 +437,6 @@ function SectionHeader({
   );
 }
 
-/** Yellow info affordance reusing the one canonical disclaimer string. */
 function DisclaimerIcon({ locale }: { locale: Locale }) {
   return (
     <HoverCard openDelay={120} closeDelay={60}>
@@ -403,12 +461,14 @@ function DisclaimerIcon({ locale }: { locale: Locale }) {
 
 function Rail({
   index,
-  status,
+  state,
+  current,
   isFirst,
   isLast,
 }: {
   index: number;
-  status: FlowNode["status"];
+  state: DotState;
+  current: boolean;
   isFirst: boolean;
   isLast: boolean;
 }) {
@@ -418,8 +478,6 @@ function Rail({
         {index}
       </span>
       <div className="relative flex justify-center self-stretch">
-        {/* Continuous timeline spine. Negative offsets bridge the row's
-            vertical padding so consecutive segments touch (no gaps). */}
         <span
           aria-hidden
           className={cn(
@@ -429,28 +487,66 @@ function Rail({
           )}
         />
         <span className="relative z-10 flex items-center">
-          <StepDot status={status} />
+          <Dot state={state} current={current} />
         </span>
       </div>
     </div>
   );
 }
 
-function StepDot({ status }: { status: FlowNode["status"] }) {
+function Dot({
+  state,
+  current,
+  size = "md",
+}: {
+  state: DotState;
+  current: boolean;
+  size?: "sm" | "md";
+}) {
+  const box = size === "sm" ? "h-4 w-4" : "h-5 w-5";
+  const glyph = size === "sm" ? "h-2.5 w-2.5" : "h-3 w-3";
+  const inner = size === "sm" ? "h-1 w-1" : "h-1.5 w-1.5";
+
   const cls =
-    status === "done"
+    state === "signed"
       ? "border-primary bg-primary text-primary-foreground"
-      : status === "current"
-        ? "border-primary bg-background text-primary ring-2 ring-primary/30"
-        : "border-border bg-background text-muted-foreground";
+      : state === "na"
+        ? "border-muted-foreground/30 bg-muted text-muted-foreground"
+        : state === "awaiting"
+          ? "border-amber-500 bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400"
+          : state === "rejected"
+            ? "border-destructive bg-destructive/10 text-destructive"
+            : current
+              ? "border-primary bg-background text-primary"
+              : state === "started"
+                ? "border-primary/60 bg-background"
+                : "border-border bg-background";
+
   return (
-    <div className={cn("flex h-5 w-5 items-center justify-center rounded-full border", cls)}>
-      {status === "done" ? (
-        <Check className="h-3 w-3" />
-      ) : status === "current" ? (
-        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+    <div
+      className={cn(
+        "flex shrink-0 items-center justify-center rounded-full border",
+        box,
+        cls,
+        current && "ring-2 ring-primary/40",
+      )}
+    >
+      {state === "signed" ? (
+        <CheckCheck className={glyph} />
+      ) : state === "awaiting" ? (
+        <Check className={glyph} />
+      ) : state === "na" ? (
+        <Minus className={glyph} />
+      ) : state === "rejected" ? (
+        <span className="text-[10px] font-bold leading-none">!</span>
       ) : (
-        <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40" />
+        <span
+          className={cn(
+            "rounded-full",
+            inner,
+            current || state === "started" ? "bg-primary" : "bg-muted-foreground/40",
+          )}
+        />
       )}
     </div>
   );
@@ -479,6 +575,11 @@ function NodeCard({
   const ownerLabel = de ? owner.de : owner.en;
   const freq = node.frequency ? FREQUENCY_LABEL[node.frequency] : null;
   const freqLabel = freq ? (de ? freq.de : freq.en) : node.frequency;
+  const state = dotStateOf(node.rawStatus);
+  // Only the action-needing states get a card corner pip, so the at-a-glance
+  // signal survives the horizontal distance to the rail dot without re-cluttering.
+  const cornerTone =
+    state === "awaiting" ? "bg-amber-500" : state === "rejected" ? "bg-destructive" : null;
   const href = hrefFor(node);
 
   const ring =
@@ -488,17 +589,35 @@ function NodeCard({
         ? "border-border/60 bg-muted/30"
         : "border-border";
 
+  const statusColor =
+    state === "signed"
+      ? "text-primary"
+      : state === "awaiting"
+        ? "text-amber-600 dark:text-amber-400"
+        : state === "rejected"
+          ? "text-destructive"
+          : "text-muted-foreground";
+
   return (
     <HoverCard openDelay={140} closeDelay={60}>
       <HoverCardTrigger asChild>
         <Link
           href={href}
           className={cn(
-            "block rounded-md border bg-background p-2 transition-all hover:border-primary/60 hover:bg-accent/40",
+            "relative block rounded-md border bg-background p-2 transition-all hover:border-primary/60 hover:bg-accent/40",
             ring,
             dimmed && "opacity-40 hover:opacity-100",
           )}
         >
+          {cornerTone ? (
+            <span
+              aria-hidden
+              className={cn(
+                "absolute -right-1 -top-1 h-2 w-2 rounded-full ring-2 ring-background",
+                cornerTone,
+              )}
+            />
+          ) : null}
           <div className="flex items-center gap-1.5">
             <span className="shrink-0 font-mono text-[11px] text-muted-foreground">
               {node.code}
@@ -515,13 +634,6 @@ function NodeCard({
                   P0
                 </Badge>
               ) : null}
-              {node.status === "current" ? (
-                <Badge className="px-1 py-0 text-[10px]">{de ? "Jetzt" : "Now"}</Badge>
-              ) : node.status === "upcoming" ? (
-                <Lock className="h-3 w-3 text-muted-foreground" />
-              ) : (
-                <Check className="h-3 w-3 text-primary" />
-              )}
             </span>
           </div>
         </Link>
@@ -536,6 +648,10 @@ function NodeCard({
             {ownerLabel}
           </span>
         </div>
+        <p className={cn("mt-1.5 inline-flex items-center gap-1 text-xs font-medium", statusColor)}>
+          <Dot state={state} current={node.status === "current"} size="sm" />
+          {statusLabel(node.rawStatus, de)}
+        </p>
         {node.description ? (
           <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-muted-foreground">
             {node.description}

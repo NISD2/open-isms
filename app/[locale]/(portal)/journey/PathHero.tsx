@@ -9,10 +9,9 @@ type Locale = "en" | "de" | "nl";
 const ASSET_TARGET = 5;
 
 /**
- * Stage 0 novice hero: one prescribed next action, nothing to choose.
- * Until the company has its keystone asset inventory, the single action is
- * "add your first 5 assets" (the activation event). After that, it points at
- * the live requirement node from the path projection.
+ * One prescribed next action. The asset inventory (the activation keystone) is
+ * still a prominent card because it is genuine onboarding; once that is done
+ * the next step is a slim one-line banner so it does not dominate the page.
  */
 export function PathHero({
   assetCount,
@@ -27,100 +26,71 @@ export function PathHero({
 
   if (assetCount < ASSET_TARGET) {
     return (
-      <ActionCard
-        icon={<Boxes className="h-6 w-6 text-primary" />}
-        eyebrow={de ? "Ihr erster Schritt" : "Your first step"}
-        title={de ? "Erfassen Sie Ihre Assets" : "Build your asset inventory"}
-        body={
-          de
-            ? "Ihre Anlagenliste ist das Fundament, auf dem der Rest von NIS 2 aufbaut. Erfassen Sie fünf, um die nächsten Schritte freizuschalten."
-            : "Your asset inventory is the foundation the rest of NIS 2 builds on. Add five to unlock the next steps."
-        }
-        progress={`${assetCount} / ${ASSET_TARGET}`}
-        cta={de ? "Assets hinzufügen" : "Add assets"}
-        href="/assets"
-      />
+      <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
+        <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex gap-3">
+            <Boxes className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+            <div className="space-y-0.5">
+              <p className="text-xs font-medium uppercase tracking-wide text-primary">
+                {de ? "Ihr erster Schritt" : "Your first step"}
+              </p>
+              <h2 className="text-base font-semibold leading-tight">
+                {de ? "Erfassen Sie Ihre Assets" : "Build your asset inventory"}
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                {de
+                  ? "Das Fundament, auf dem der Rest von NIS 2 aufbaut. Erfassen Sie fünf, um die nächsten Schritte freizuschalten."
+                  : "The foundation the rest of NIS 2 builds on. Add five to unlock the next steps."}
+              </p>
+            </div>
+          </div>
+          <div className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end">
+            <span className="text-sm font-medium text-muted-foreground">
+              {assetCount} / {ASSET_TARGET}
+            </span>
+            <Button asChild>
+              <Link href="/assets">{de ? "Assets hinzufügen" : "Add assets"}</Link>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
   if (liveNode) {
     return (
-      <ActionCard
-        icon={<ArrowRight className="h-6 w-6 text-primary" />}
-        eyebrow={de ? "Weiter geht es mit" : "Next up"}
-        title={liveNode.title}
-        body={liveNode.description ?? ""}
-        cta={de ? "Weiter" : "Continue"}
-        href={{
-          pathname: "/compliance/[categorySlug]" as const,
-          params: { categorySlug: liveNode.categorySlug },
-        }}
-      />
+      <div className="flex items-center gap-3 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 sm:px-4">
+        <span className="hidden shrink-0 text-xs font-medium uppercase tracking-wide text-primary sm:inline">
+          {de ? "Als Nächstes" : "Next up"}
+        </span>
+        <span className="shrink-0 font-mono text-xs text-muted-foreground">
+          {liveNode.code}
+        </span>
+        <span className="truncate text-sm font-medium">{liveNode.title}</span>
+        <Button asChild size="sm" className="ml-auto shrink-0">
+          <Link
+            href={{
+              pathname: "/compliance/[categorySlug]" as const,
+              params: { categorySlug: liveNode.categorySlug },
+            }}
+          >
+            {de ? "Weiter" : "Continue"}
+            <ArrowRight className="ml-1 h-3.5 w-3.5" />
+          </Link>
+        </Button>
+      </div>
     );
   }
 
   return (
-    <Card className="border-primary/30 bg-primary/5">
-      <CardContent className="flex items-center gap-3 p-6">
-        <CheckCircle2 className="h-6 w-6 text-primary" />
-        <div>
-          <p className="font-semibold">
-            {de ? "Alles erledigt" : "You are all set"}
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {de
-              ? "Es steht aktuell nichts an. Wiederkehrende Aufgaben tauchen hier auf, sobald sie fällig sind."
-              : "Nothing is due right now. Recurring tasks appear here when they come up."}
-          </p>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function ActionCard({
-  icon,
-  eyebrow,
-  title,
-  body,
-  progress,
-  cta,
-  href,
-}: {
-  icon: React.ReactNode;
-  eyebrow: string;
-  title: string;
-  body: string;
-  progress?: string;
-  cta: string;
-  href: React.ComponentProps<typeof Link>["href"];
-}) {
-  return (
-    <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
-      <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-4">
-          <div className="mt-0.5 shrink-0">{icon}</div>
-          <div className="space-y-1">
-            <p className="text-xs font-medium uppercase tracking-wide text-primary">
-              {eyebrow}
-            </p>
-            <h2 className="text-lg font-semibold leading-tight">{title}</h2>
-            {body ? (
-              <p className="text-sm text-muted-foreground">{body}</p>
-            ) : null}
-          </div>
-        </div>
-        <div className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end">
-          {progress ? (
-            <span className="text-sm font-medium text-muted-foreground">
-              {progress}
-            </span>
-          ) : null}
-          <Button asChild>
-            <Link href={href}>{cta}</Link>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 text-sm sm:px-4">
+      <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" />
+      <span className="font-medium">{de ? "Alles erledigt" : "You are all set"}</span>
+      <span className="truncate text-muted-foreground">
+        {de
+          ? "Wiederkehrende Aufgaben tauchen hier auf, sobald sie fällig sind."
+          : "Recurring tasks appear here when they come up."}
+      </span>
+    </div>
   );
 }

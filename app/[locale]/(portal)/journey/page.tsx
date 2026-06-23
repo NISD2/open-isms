@@ -48,20 +48,44 @@ export default async function JourneyPage({
   const reqNodes = buildRequirementNodes(items);
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          {locale === "de" ? "Ihr Weg" : "Your path"}
-        </h1>
-        <p className="text-sm text-muted-foreground">
-          {locale === "de"
-            ? "Ein Schritt nach dem anderen. Hier ist Ihr nächster."
-            : "One step at a time. Here is your next one."}
-        </p>
+    <div className="space-y-4">
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-0.5">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {locale === "de" ? "Ihr Weg" : "Your path"}
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            {locale === "de"
+              ? "Ein Schritt nach dem anderen. Hier ist Ihr nächster."
+              : "One step at a time. Here is your next one."}
+          </p>
+        </div>
+        <ProgressChip done={aggregate.done} total={aggregate.total} locale={locale} />
       </div>
       <PathHero assetCount={assetCount} liveNode={live} locale={locale} />
       <PathFlow reqNodes={reqNodes} aggregate={aggregate} locale={locale} />
       <PathDisclaimer locale={locale} />
+    </div>
+  );
+}
+
+/** Compact overall-progress indicator for the header (no full-width bar). */
+function ProgressChip({
+  done,
+  total,
+  locale,
+}: {
+  done: number;
+  total: number;
+  locale: Locale;
+}) {
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  return (
+    <div className="shrink-0 text-right">
+      <div className="text-xl font-semibold leading-none tabular-nums">{pct}%</div>
+      <div className="mt-1 text-[11px] text-muted-foreground">
+        {done}/{total} {locale === "de" ? "erledigt" : "done"}
+      </div>
     </div>
   );
 }
