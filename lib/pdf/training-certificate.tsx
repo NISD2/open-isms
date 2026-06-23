@@ -383,9 +383,23 @@ export function TrainingCertificateDocument({
 }) {
   const labels = pickLocalized(LABELS, locale);
 
+  // The verified email is the only identity the platform can stand behind: it
+  // is confirmed at signup (OTP for email/password, email_verified for OAuth).
+  // For email/password signups we never collect a name, so user.name is a
+  // placeholder derived from the email. Only treat it as a real name when it is
+  // something a person or OAuth provider actually supplied, otherwise anchor the
+  // certificate on the verified email.
+  const emailLocalPart = data.userEmail.split("@")[0];
+  const hasRealName =
+    data.userName.length > 0 &&
+    data.userName !== "Participant" &&
+    data.userName !== data.userEmail &&
+    data.userName !== emailLocalPart;
+  const identity = hasRealName ? data.userName : data.userEmail || data.userName;
+
   return (
     <Document
-      title={`${labels.title}: ${data.userName}`}
+      title={`${labels.title}: ${identity}`}
       author="NISD2.eu"
       subject={labels.legal}
     >
@@ -400,8 +414,14 @@ export function TrainingCertificateDocument({
         <Text style={styles.title}>{labels.title}</Text>
 
         <Text style={styles.certifies}>{labels.certifies}</Text>
-        <Text style={styles.name}>{data.userName}</Text>
-        <Text style={styles.email}>{data.userEmail}</Text>
+        {hasRealName ? (
+          <>
+            <Text style={styles.name}>{data.userName}</Text>
+            <Text style={styles.email}>{data.userEmail}</Text>
+          </>
+        ) : (
+          <Text style={styles.name}>{identity}</Text>
+        )}
 
         <Text style={styles.completed}>{labels.completed}</Text>
         <Text style={styles.courseTitle}>{data.courseTitle}</Text>
@@ -431,7 +451,7 @@ export function TrainingCertificateDocument({
       <Page size="A4" orientation="landscape" style={styles.pageNoFrame}>
         <Text style={styles.topicsHeading}>{labels.topics}</Text>
         <Text style={styles.topicsSubheading}>
-          {data.courseTitle}, {data.userName}
+          {data.courseTitle}, {identity}
         </Text>
 
         {data.modules.map((mod, mi) => (
