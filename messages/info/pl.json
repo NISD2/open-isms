@@ -1979,48 +1979,60 @@
         }
       },
       "measures": {
-        "heading": "10 obszarów środków (załącznik do CIR)",
-        "description": "Załącznik porządkuje wymagania techniczne i metodyczne w 10 obszarów odpowiadających §30(2) BSIG. Każdy obszar zawiera szczegółowe podwymagania z konkretnymi kryteriami wdrożenia.",
+        "heading": "13 obszarów środków (załącznik do CIR)",
+        "description": "Załącznik porządkuje wymagania techniczne i metodyczne w 13 obszarów rozwijających środki z §30(2) BSIG. Każdy obszar zawiera szczegółowe podwymagania z konkretnymi kryteriami wdrożenia.",
         "items": {
-          "policies": {
+          "policy": {
             "title": "Polityka bezpieczeństwa sieci i systemów informatycznych",
-            "description": "Wymaga udokumentowanej polityki bezpieczeństwa zatwierdzonej przez kierownictwo, przeglądanej co najmniej raz w roku oraz aktualizowanej po poważnych incydentach lub zmianach. Musi określać role, obowiązki oraz ramy dla wszystkich kolejnych środków. Musi obejmować politykę akceptacji ryzyka oraz dowody zaangażowania kierownictwa."
+            "description": "Wymaga udokumentowanej polityki bezpieczeństwa sieci i systemów informatycznych zatwierdzonej przez kierownictwo, określającej podejście podmiotu do zarządzania bezpieczeństwem, przeglądanej w zaplanowanych odstępach oraz aktualizowanej po poważnych incydentach lub zmianach. Stanowi ramy dla wszystkich kolejnych środków."
           },
           "risk": {
-            "title": "Zarządzanie ryzykiem",
-            "description": "Wymaga udokumentowanej metodyki oceny ryzyka, identyfikacji ryzyka obejmującej wszystkie krytyczne zasoby i procesy, analizy ryzyka z oceną prawdopodobieństwa i skutków, postępowania z ryzykiem z udokumentowanymi decyzjami (akceptacja, ograniczenie, przeniesienie, unikanie) oraz akceptacji ryzyka szczątkowego przez kierownictwo. Musi być przeglądane w zaplanowanych odstępach oraz po poważnych zmianach."
+            "title": "Polityka zarządzania ryzykiem",
+            "description": "Wymaga ram zarządzania ryzykiem z określoną metodyką, identyfikacji ryzyk dla sieci i systemów informatycznych, analizy i oceny ryzyka względem kryteriów akceptacji ryzyka, planu postępowania z ryzykiem oraz zatwierdzenia ryzyka szczątkowego przez kierownictwo, przeglądanych w zaplanowanych odstępach."
           },
           "incidents": {
             "title": "Obsługa incydentów",
-            "description": "Wymaga procedur wykrywania, klasyfikacji, reagowania i odtwarzania po incydentach. Musi określać role i obowiązki w zakresie obsługi incydentów, ustanawiać kanały komunikacji, obejmować analizę poincydentalną (wnioski) oraz prowadzić rejestry incydentów. Wykrywanie musi obejmować monitorowanie anomalii oraz znanych wskaźników kompromitacji."
+            "description": "Wymaga polityki i procedur wykrywania, analizy, ograniczania, reagowania na incydenty oraz odtwarzania po nich, z określonymi rolami, rejestrowaniem, eskalacją i komunikacją, a także ustrukturyzowanej analizy poincydentalnej, która przekłada wyciągnięte wnioski z powrotem na środki."
           },
           "continuity": {
             "title": "Ciągłość działania i zarządzanie kryzysowe",
-            "description": "Wymaga analizy wpływu na działalność, planów ciągłości dla usług krytycznych, procedur tworzenia kopii zapasowych i odtwarzania z przetestowaną zdolnością przywracania oraz procedur zarządzania kryzysowego. Integralność kopii zapasowych musi być regularnie weryfikowana. Docelowe czasy odtwarzania muszą być zdefiniowane i przetestowane. Plany muszą być przeglądane po incydentach lub poważnych zmianach."
+            "description": "Wymaga planu ciągłości działania i odtwarzania po awarii opartego na analizie wpływu na działalność, zarządzania kopiami zapasowymi i redundancją z przetestowanymi procedurami przywracania oraz planu zarządzania kryzysowego z określonymi rolami, przeglądanych i testowanych w zaplanowanych odstępach."
           },
           "supply": {
             "title": "Bezpieczeństwo łańcucha dostaw",
-            "description": "Wymaga polityki bezpieczeństwa łańcucha dostaw, oceny praktyk cyberbezpieczeństwa bezpośrednich dostawców, umownych wymagań bezpieczeństwa dla produktów i usług ICT oraz monitorowania poziomu bezpieczeństwa dostawcy przez cały okres obowiązywania umowy. Musi uwzględniać ryzyka specyficzne dla łańcucha dostaw, w tym wynikające z własnego łańcucha dostaw dostawcy."
+            "description": "Wymaga polityki bezpieczeństwa łańcucha dostaw regulującej relacje z bezpośrednimi dostawcami i usługodawcami, w tym kryteriów bezpieczeństwa dla wyboru, wymagań umownych oraz wykazu dostawców utrzymywanego i monitorowanego przez cały cykl życia relacji."
           },
-          "testing": {
-            "title": "Bezpieczeństwo w nabywaniu, rozwoju i utrzymaniu",
-            "description": "Wymaga bezpiecznego cyklu życia oprogramowania dla rozwoju wewnętrznego, wymagań bezpieczeństwa dla nabywanych produktów i usług ICT, zarządzania konfiguracją, procedur zarządzania zmianą oraz testowania bezpieczeństwa (w tym skanowania podatności i testów penetracyjnych tam, gdzie to właściwe). Musi obejmować pełny cykl życia od nabycia po wycofanie z eksploatacji."
+          "acquisition": {
+            "title": "Bezpieczeństwo w nabywaniu, rozwoju i utrzymaniu sieci i systemów informatycznych",
+            "description": "Wymaga uwzględnienia bezpieczeństwa w nabywaniu, rozwoju i utrzymaniu systemów, obejmując bezpieczne praktyki rozwoju, zarządzanie konfiguracją, zarządzanie zmianą, testowanie bezpieczeństwa, zarządzanie aktualizacjami oraz obsługę podatności przez cały cykl życia."
+          },
+          "effectiveness": {
+            "title": "Polityki i procedury oceny skuteczności środków zarządzania ryzykiem w cyberbezpieczeństwie",
+            "description": "Wymaga, aby podmiot określił polityki i procedury oceny skuteczności swoich środków zarządzania ryzykiem, w tym monitorowanie, przegląd oraz niezależną ocenę, tak aby identyfikować niedociągnięcia i z czasem doskonalić te środki."
+          },
+          "hygiene": {
+            "title": "Podstawowe praktyki cyberhigieny i szkolenia w zakresie bezpieczeństwa",
+            "description": "Wymaga podstawowych praktyk cyberhigieny oraz programu podnoszenia świadomości w zakresie bezpieczeństwa dla całego personelu, ze szkoleniami właściwymi dla roli dla pracowników z zadaniami w zakresie bezpieczeństwa oraz dla kierownictwa, obejmującymi polityki, zagrożenia i obowiązki zgłaszania."
           },
           "crypto": {
             "title": "Kryptografia",
-            "description": "Wymaga polityki stosowania kryptografii, w tym doboru algorytmów kryptograficznych i długości kluczy odpowiednich do klasyfikacji danych, procedur zarządzania kluczami (generowanie, dystrybucja, przechowywanie, rotacja, unieważnianie, niszczenie) oraz okresowego przeglądu implementacji kryptograficznych pod kątem aktualnych najlepszych praktyk i znanych podatności."
+            "description": "Wymaga polityki i procedur stosowania kryptografii, w tym doboru algorytmów i długości kluczy odpowiednich do danych, oraz zarządzania kluczami obejmującego generowanie, przechowywanie, rotację i niszczenie, przeglądanych względem aktualnych najlepszych praktyk."
+          },
+          "hr": {
+            "title": "Bezpieczeństwo zasobów ludzkich",
+            "description": "Wymaga środków bezpieczeństwa zasobów ludzkich w całym cyklu zatrudnienia, w tym weryfikacji przed zatrudnieniem w stosownych przypadkach, określonych obowiązków w zakresie bezpieczeństwa, warunków zatrudnienia oraz procedur dotyczących zmiany roli i zakończenia zatrudnienia, tak aby dostęp wygasał wraz z zatrudnieniem."
           },
           "access": {
-            "title": "Kontrola dostępu i zarządzanie zasobami",
-            "description": "Wymaga polityki kontroli dostępu opartej na wymaganiach biznesowych i bezpieczeństwa, zarządzania tożsamością z unikalną identyfikacją użytkowników, procedur nadawania i odbierania dostępu, zarządzania dostępem uprzywilejowanym oraz inwentaryzacji zasobów obejmującej wszystkie komponenty sieci i systemów informatycznych. Uprawnienia dostępu muszą być przeglądane w zaplanowanych odstępach."
+            "title": "Kontrola dostępu",
+            "description": "Wymaga polityki kontroli dostępu z zarządzaniem uprawnieniami dostępu (11.2) i kontami uprzywilejowanymi (11.3), systemami administrowania (11.4), unikalną identyfikacją (11.5), uwierzytelnianiem (11.6) oraz uwierzytelnianiem wieloskładnikowym lub ciągłym (11.7) dla dostępu do systemów krytycznych i dostępu zdalnego, przeglądanej w zaplanowanych odstępach."
           },
-          "mfa": {
-            "title": "Uwierzytelnianie wieloskładnikowe i bezpieczna komunikacja",
-            "description": "Wymaga uwierzytelniania wieloskładnikowego lub uwierzytelniania ciągłego dla dostępu do systemów krytycznych i dostępu zdalnego. Należy ustanowić bezpieczne kanały komunikacji dla scenariuszy awaryjnych i zapasowych. Komunikacja głosowa, wideo i tekstowa wykorzystywana w reagowaniu na incydenty musi być zabezpieczona przed przechwyceniem."
+          "assets": {
+            "title": "Zarządzanie zasobami",
+            "description": "Wymaga polityki zarządzania zasobami z klasyfikacją zasobów, inwentaryzacji sieci i systemów informatycznych oraz zasobów wspierających, zasad postępowania z zasobami zgodnie z klasyfikacją oraz polityk dotyczących nośników wymiennych i bezpiecznego zwrotu lub usuwania zasobów."
           },
-          "communication": {
-            "title": "Świadomość i szkolenia w zakresie cyberbezpieczeństwa",
-            "description": "Wymaga regularnych programów podnoszenia świadomości w zakresie cyberbezpieczeństwa dla całego personelu, szkoleń właściwych dla roli dla pracowników z obowiązkami w zakresie bezpieczeństwa oraz szkolenia kierownictwa w zakresie zarządzania cyberbezpieczeństwem. Szkolenia muszą obejmować polityki bezpieczeństwa podmiotu, typowe zagrożenia, procedury zgłaszania incydentów oraz konkretne obowiązki personelu."
+          "physical": {
+            "title": "Bezpieczeństwo środowiskowe i fizyczne",
+            "description": "Wymaga ochrony obiektów przed zagrożeniami fizycznymi i środowiskowymi, w tym mediów wspierających, kontrolowanego dostępu fizycznego do systemów oraz ochrony przed awariami takimi jak utrata zasilania, pożar i zalanie, proporcjonalnie do ryzyka dla systemów."
           }
         }
       },

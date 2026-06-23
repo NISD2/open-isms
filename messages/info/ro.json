@@ -1979,48 +1979,60 @@
         }
       },
       "measures": {
-        "heading": "Cele 10 domenii de măsuri (anexa CIR)",
-        "description": "Anexa organizează cerințele tehnice și metodologice în 10 domenii care reflectă §30(2) BSIG. Fiecare domeniu conține subcerințe detaliate, cu criterii specifice de implementare.",
+        "heading": "Cele 13 puncte de măsuri (anexa CIR)",
+        "description": "Anexa organizează cerințele tehnice și metodologice în 13 puncte tematice. Fiecare punct conține subcerințe numerotate, cu criterii specifice de implementare. De exemplu, punctul 11 (controlul accesului) acoperă identificarea (11.5), autentificarea (11.6) și autentificarea multifactorială (11.7).",
         "items": {
-          "policies": {
+          "policy": {
             "title": "Politică privind securitatea rețelelor și a sistemelor informatice",
-            "description": "Impune o politică de securitate documentată, aprobată de conducere, revizuită cel puțin anual și actualizată după incidente sau modificări semnificative. Trebuie să definească rolurile, responsabilitățile și cadrul pentru toate măsurile ulterioare. Trebuie să includă o politică de acceptare a riscurilor și dovezi ale angajamentului conducerii."
+            "description": "Impune o politică documentată de securitate a rețelelor și a sistemelor informatice, aprobată de conducere, care stabilește abordarea entității în gestionarea securității, revizuită la intervale planificate și actualizată după incidente sau modificări semnificative. Aceasta încadrează toate măsurile care urmează."
           },
           "risk": {
-            "title": "Gestionarea riscurilor",
-            "description": "Impune o metodologie documentată de evaluare a riscurilor, identificarea riscurilor care acoperă toate activele și procesele critice, analiza riscurilor cu evaluarea probabilității și a impactului, tratarea riscurilor cu decizii documentate (acceptare, atenuare, transfer, evitare) și acceptarea riscului rezidual de către conducere. Trebuie revizuită la intervale planificate și după modificări semnificative."
+            "title": "Politică de gestionare a riscurilor",
+            "description": "Impune un cadru de gestionare a riscurilor cu o metodologie definită, identificarea riscurilor pentru rețele și sistemele informatice, analiza și evaluarea în raport cu criteriile de acceptare a riscurilor, un plan de tratare și aprobarea riscului rezidual de către conducere, revizuit la intervale planificate."
           },
           "incidents": {
             "title": "Gestionarea incidentelor",
-            "description": "Impune proceduri de detectare, clasificare, răspuns și recuperare în caz de incidente. Trebuie să definească rolurile și responsabilitățile pentru gestionarea incidentelor, să stabilească canale de comunicare, să includă o analiză post-incident (lecții învățate) și să mențină jurnale de incidente. Detectarea trebuie să includă monitorizarea anomaliilor și a indicatorilor de compromitere cunoscuți."
+            "description": "Impune politici și proceduri pentru detectarea, analiza, limitarea, răspunsul și recuperarea în caz de incidente, cu roluri definite, jurnalizare, escaladare și comunicare, precum și o analiză post-incident structurată care reintegrează lecțiile învățate în măsuri."
           },
           "continuity": {
             "title": "Continuitatea activității și gestionarea crizelor",
-            "description": "Impune o analiză a impactului asupra activității, planuri de continuitate pentru serviciile critice, proceduri de backup și recuperare cu capacități de restaurare testate și proceduri de gestionare a crizelor. Integritatea backupului trebuie verificată periodic. Obiectivele privind timpul de recuperare trebuie definite și testate. Planurile trebuie revizuite după incidente sau modificări semnificative."
+            "description": "Impune un plan de continuitate a activității și de recuperare în caz de dezastru bazat pe o analiză a impactului asupra activității, gestionarea backupului și a redundanței cu proceduri de restaurare testate, precum și un plan de gestionare a crizelor cu roluri definite, revizuit și testat la intervale planificate."
           },
           "supply": {
             "title": "Securitatea lanțului de aprovizionare",
-            "description": "Impune o politică de securitate a lanțului de aprovizionare, evaluarea practicilor de securitate cibernetică ale furnizorilor direcți, cerințe contractuale de securitate pentru produsele și serviciile TIC și monitorizarea poziției de securitate a furnizorilor pe durata contractului. Trebuie luate în considerare riscurile specifice lanțului de aprovizionare, inclusiv cele care decurg din propriul lanț de aprovizionare al furnizorului."
+            "description": "Impune o politică de securitate a lanțului de aprovizionare care guvernează relațiile cu furnizorii direcți și prestatorii de servicii, inclusiv criterii de securitate pentru selecție, cerințe contractuale și un registru al furnizorilor menținut și monitorizat pe durata ciclului de viață al relației."
           },
-          "testing": {
-            "title": "Securitate în achiziție, dezvoltare și întreținere",
-            "description": "Impune un ciclu de viață de dezvoltare securizată pentru dezvoltarea internă, cerințe de securitate pentru produsele și serviciile TIC achiziționate, gestionarea configurației, proceduri de gestionare a modificărilor și testarea securității (inclusiv scanarea vulnerabilităților și testarea de penetrare, după caz). Trebuie să acopere întregul ciclu de viață, de la achiziție până la scoaterea din uz."
+          "acquisition": {
+            "title": "Securitate în achiziția, dezvoltarea și întreținerea rețelelor și a sistemelor informatice",
+            "description": "Impune integrarea securității în achiziția, dezvoltarea și întreținerea sistemelor, acoperind practici de dezvoltare securizată, gestionarea configurației, gestionarea modificărilor, testarea securității, gestionarea actualizărilor de securitate și tratarea vulnerabilităților pe parcursul întregului ciclu de viață."
+          },
+          "effectiveness": {
+            "title": "Politici și proceduri pentru evaluarea eficacității măsurilor de gestionare a riscurilor de securitate cibernetică",
+            "description": "Impune ca entitatea să definească politici și proceduri pentru a evalua dacă măsurile sale de gestionare a riscurilor sunt eficace, inclusiv monitorizare, revizuire și evaluare independentă, astfel încât deficiențele să fie identificate, iar măsurile să fie îmbunătățite în timp."
+          },
+          "hygiene": {
+            "title": "Practici de igienă cibernetică de bază și instruire în domeniul securității",
+            "description": "Impune practici de igienă cibernetică de bază și un program de conștientizare în domeniul securității pentru întreg personalul, cu instruire specifică rolului pentru personalul care îndeplinește sarcini de securitate și pentru conducere, acoperind politicile, amenințările și obligațiile de raportare."
           },
           "crypto": {
             "title": "Criptografie",
-            "description": "Impune o politică privind utilizarea criptografiei, inclusiv selectarea algoritmilor criptografici și a lungimilor cheilor adecvate clasificării datelor, proceduri de gestionare a cheilor (generare, distribuție, stocare, rotație, revocare, distrugere) și revizuirea periodică a implementărilor criptografice în raport cu cele mai bune practici actuale și vulnerabilitățile cunoscute."
+            "description": "Impune o politică și proceduri privind utilizarea criptografiei, inclusiv selectarea algoritmilor și a lungimilor cheilor adecvate datelor, precum și gestionarea cheilor care acoperă generarea, stocarea, rotația și distrugerea, revizuite în raport cu cele mai bune practici actuale."
+          },
+          "hr": {
+            "title": "Securitatea resurselor umane",
+            "description": "Impune măsuri de securitate a resurselor umane pe parcursul întregului ciclu de angajare, inclusiv verificarea înainte de angajare, după caz, responsabilități de securitate definite, clauze și condiții, precum și proceduri pentru schimbarea rolului și încetarea contractului, astfel încât accesul să înceteze odată cu angajarea."
           },
           "access": {
-            "title": "Controlul accesului și gestionarea activelor",
-            "description": "Impune o politică de control al accesului bazată pe cerințe de afaceri și de securitate, gestionarea identității cu identificarea unică a utilizatorilor, proceduri de acordare și de retragere a accesului, gestionarea accesului privilegiat și un inventar al activelor care acoperă toate componentele rețelelor și sistemelor informatice. Drepturile de acces trebuie revizuite la intervale planificate."
+            "title": "Controlul accesului",
+            "description": "Impune o politică de control al accesului cu gestionarea drepturilor de acces (11.2) și a conturilor privilegiate (11.3), sisteme de administrare (11.4), identificare unică (11.5), autentificare (11.6) și autentificare multifactorială sau continuă (11.7) pentru accesul la sistemele critice și accesul la distanță, revizuită la intervale planificate."
           },
-          "mfa": {
-            "title": "Autentificare multifactorială și comunicare securizată",
-            "description": "Impune autentificarea multifactorială sau autentificarea continuă pentru accesul la sistemele critice și pentru accesul la distanță. Trebuie stabilite canale de comunicare securizate pentru scenariile de urgență și de rezervă. Comunicările vocale, video și text utilizate pentru răspunsul la incidente trebuie protejate împotriva interceptării."
+          "assets": {
+            "title": "Gestionarea activelor",
+            "description": "Impune o politică de gestionare a activelor cu clasificarea activelor, un inventar al rețelelor și al sistemelor informatice și al activelor conexe, reguli de manipulare în funcție de clasificare, precum și politici pentru suporturile amovibile și pentru returnarea sau eliminarea sigură a activelor."
           },
-          "communication": {
-            "title": "Conștientizare și instruire în domeniul securității cibernetice",
-            "description": "Impune programe periodice de conștientizare în domeniul securității cibernetice pentru întreg personalul, instruire specifică rolului pentru personalul cu responsabilități de securitate și instruirea conducerii privind guvernanța securității cibernetice. Instruirea trebuie să acopere politicile de securitate ale entității, amenințările frecvente, procedurile de raportare a incidentelor și responsabilitățile specifice ale personalului."
+          "physical": {
+            "title": "Securitate de mediu și fizică",
+            "description": "Impune protecția instalațiilor împotriva amenințărilor fizice și de mediu, inclusiv utilitățile auxiliare, accesul fizic controlat la sisteme și protecția împotriva defecțiunilor precum pana de curent, incendiul și inundația, proporțional cu riscul pentru sisteme."
           }
         }
       },

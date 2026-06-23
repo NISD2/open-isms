@@ -1931,7 +1931,7 @@
       "overview": {
         "heading": "Was ist die CIR 2024/2690?",
         "p1": "Die Durchführungsverordnung (EU) 2024/2690 der Kommission vom 17. Oktober 2024 legt die technischen und methodischen Anforderungen für die Cybersicherheitsmaßnahmen nach Artikel 21 Absatz 2 der NIS2-Richtlinie fest. Sie gilt unmittelbar in allen EU-Mitgliedstaaten - eine nationale Umsetzung ist nicht erforderlich.",
-        "p2": "Die CIR richtet sich primär an bestimmte Anbietertypen digitaler Infrastruktur (DNS-Diensteanbieter, Cloud-Computing-Dienste, Managed Services u.a.), bildet aber in Deutschland über das BSIG den technischen Mindeststandard für alle betroffenen Einrichtungen. Der Anhang der Verordnung enthält die konkreten Anforderungen, gegliedert nach 10 Maßnahmenbereichen.",
+        "p2": "Die CIR richtet sich primär an bestimmte Anbietertypen digitaler Infrastruktur (DNS-Diensteanbieter, Cloud-Computing-Dienste, Managed Services u.a.), bildet aber in Deutschland über das BSIG den technischen Mindeststandard für alle betroffenen Einrichtungen. Der Anhang der Verordnung enthält die konkreten Anforderungen, gegliedert nach 13 Maßnahmenbereichen.",
         "p3": "Für deutsche Unternehmen ist die CIR besonders relevant, weil §30 BSIG die 10 Maßnahmen des Artikels 21 NIS2-Richtlinie umsetzt und das BSI die CIR-Anforderungen als Mindeststandard heranzieht. Unternehmen, die IT-Grundschutz nach BSI-200-x implementieren, decken die CIR-Anforderungen vollständig ab (§44 Abs. 2 BSIG)."
       },
       "scope": {
@@ -1978,48 +1978,60 @@
         }
       },
       "measures": {
-        "heading": "10 Maßnahmenbereiche des Anhangs",
-        "description": "Der Anhang der CIR definiert die technischen Mindestmaßnahmen, gegliedert nach den 10 Bereichen des Artikels 21 Abs. 2 NIS2-Richtlinie.",
+        "heading": "Die 13 Maßnahmenbereiche des Anhangs",
+        "description": "Der Anhang der CIR gliedert die technischen und methodischen Anforderungen in 13 thematische Punkte. Jeder Punkt enthält nummerierte Unteranforderungen mit konkreten Umsetzungskriterien. Punkt 11 (Zugriffssteuerung) umfasst beispielsweise Identifikation (11.5), Authentifizierung (11.6) und Multi-Faktor-Authentifizierung (11.7).",
         "items": {
-          "policies": {
-            "title": "Konzept für Risiken und Informationssicherheit",
-            "description": "Risikoanalyse, Informationssicherheitsleitlinie, Rollen und Zuständigkeiten, regelmäßige Überprüfung und Genehmigung durch die Leitungsebene."
+          "policy": {
+            "title": "Konzept für die Sicherheit von Netz- und Informationssystemen",
+            "description": "Erfordert ein dokumentiertes, von der Leitungsebene genehmigtes Konzept für die Sicherheit von Netz- und Informationssystemen, das den Ansatz der Einrichtung zum Sicherheitsmanagement festlegt, in geplanten Abständen überprüft und nach erheblichen Vorfällen oder Änderungen aktualisiert wird. Es bildet den Rahmen für alle nachfolgenden Maßnahmen."
           },
           "risk": {
-            "title": "Risikomanagement",
-            "description": "Systematischer Rahmen zur Identifikation, Analyse und Behandlung von Risiken. Einschließlich Risikobewertungsmethodik, Akzeptanzkriterien und dokumentierter Behandlungspläne."
+            "title": "Konzept für das Risikomanagement",
+            "description": "Erfordert einen Risikomanagementrahmen mit definierter Methodik, die Identifikation von Risiken für Netz- und Informationssysteme, deren Analyse und Bewertung anhand von Risikoakzeptanzkriterien, einen Behandlungsplan sowie die Genehmigung des Restrisikos durch die Leitungsebene, überprüft in geplanten Abständen."
           },
           "incidents": {
             "title": "Bewältigung von Sicherheitsvorfällen",
-            "description": "Verfahren zur Erkennung, Meldung, Bewertung, Reaktion und Nachbereitung von Sicherheitsvorfällen. Einschließlich Klassifizierungsschema und Eskalationsprozesse."
+            "description": "Erfordert ein Konzept und Verfahren zur Erkennung, Analyse, Eindämmung, Reaktion auf und Wiederherstellung nach Sicherheitsvorfällen, mit definierten Rollen, Protokollierung, Eskalation und Kommunikation sowie einer strukturierten Nachbereitung, deren Erkenntnisse in die Maßnahmen zurückfließen."
           },
           "continuity": {
             "title": "Betriebskontinuität und Krisenmanagement",
-            "description": "Business-Continuity-Pläne, Backup-Konzepte, Disaster-Recovery-Verfahren und Krisenmanagementprozesse. Regelmäßige Tests und Übungen."
+            "description": "Erfordert einen Plan für Betriebskontinuität und Notfallwiederherstellung auf Grundlage einer Business-Impact-Analyse, das Management von Backups und Redundanzen mit getesteten Wiederherstellungsverfahren sowie einen Krisenmanagementplan mit definierten Rollen, der in geplanten Abständen überprüft und getestet wird."
           },
           "supply": {
             "title": "Sicherheit der Lieferkette",
-            "description": "Bewertung der Cybersicherheitspraktiken von Lieferanten und Dienstleistern. Vertragliche Sicherheitsanforderungen, Überwachung und Risikobewertung der Lieferkette."
+            "description": "Erfordert ein Konzept für die Sicherheit der Lieferkette, das die Beziehungen zu direkten Lieferanten und Dienstleistern regelt, einschließlich Sicherheitskriterien für die Auswahl, vertraglicher Anforderungen und eines Verzeichnisses der Lieferanten, das über den gesamten Lebenszyklus der Beziehung gepflegt und überwacht wird."
           },
-          "testing": {
-            "title": "Sicherheit bei Erwerb, Entwicklung und Wartung",
-            "description": "Sicherheitsanforderungen bei der Beschaffung, sichere Entwicklungspraktiken, Schwachstellenmanagement und Patch-Management-Verfahren."
+          "acquisition": {
+            "title": "Sicherheit bei Erwerb, Entwicklung und Wartung von Netz- und Informationssystemen",
+            "description": "Erfordert, dass Sicherheit in Erwerb, Entwicklung und Wartung von Systemen integriert wird, einschließlich sicherer Entwicklungspraktiken, Konfigurationsmanagement, Änderungsmanagement, Sicherheitstests, Patch-Management und der Behandlung von Schwachstellen über den gesamten Lebenszyklus."
+          },
+          "effectiveness": {
+            "title": "Konzepte und Verfahren zur Bewertung der Wirksamkeit der Risikomanagementmaßnahmen im Bereich der Cybersicherheit",
+            "description": "Erfordert, dass die Einrichtung Konzepte und Verfahren festlegt, um zu beurteilen, ob ihre Risikomanagementmaßnahmen wirksam sind, einschließlich Überwachung, Überprüfung und unabhängiger Bewertung, damit Mängel erkannt und die Maßnahmen im Laufe der Zeit verbessert werden."
+          },
+          "hygiene": {
+            "title": "Grundlegende Verfahren im Bereich der Cyberhygiene und Schulungen zur Cybersicherheit",
+            "description": "Erfordert grundlegende Verfahren der Cyberhygiene und ein Programm zur Sensibilisierung für die gesamte Belegschaft, mit rollenspezifischen Schulungen für Personal mit Sicherheitsaufgaben und für die Leitungsebene, die Konzepte, Bedrohungen und Meldepflichten umfassen."
           },
           "crypto": {
             "title": "Kryptografie",
-            "description": "Konzepte und Verfahren für den Einsatz von Kryptografie und Verschlüsselung. Schlüsselmanagement, Algorithmenauswahl und Verschlüsselung ruhender und übertragener Daten."
+            "description": "Erfordert ein Konzept und Verfahren für den Einsatz von Kryptografie, einschließlich der Auswahl von Algorithmen und Schlüssellängen, die den Daten angemessen sind, sowie ein Schlüsselmanagement, das Erzeugung, Speicherung, Rotation und Vernichtung umfasst und am aktuellen Stand der Technik überprüft wird."
+          },
+          "hr": {
+            "title": "Sicherheit des Personals",
+            "description": "Erfordert Maßnahmen zur Personalsicherheit über den gesamten Beschäftigungslebenszyklus, einschließlich einer angemessenen Überprüfung vor der Einstellung, definierter Sicherheitsverantwortlichkeiten, von Beschäftigungsbedingungen sowie Verfahren für Rollenwechsel und Beendigung, sodass der Zugang mit dem Ende des Beschäftigungsverhältnisses entfällt."
           },
           "access": {
-            "title": "Personalsicherheit und Zugangssteuerung",
-            "description": "Zugangs- und Zugriffssteuerung, Vermögenswertmanagement, Identitätsmanagement und Privileged-Access-Management. Personalüberprüfung bei sicherheitsrelevanten Rollen."
+            "title": "Zugriffssteuerung",
+            "description": "Erfordert ein Konzept zur Zugriffssteuerung mit der Verwaltung von Zugriffsrechten (11.2) und privilegierten Konten (11.3), Administrationssystemen (11.4), eindeutiger Identifikation (11.5), Authentifizierung (11.6) sowie Multi-Faktor- oder kontinuierlicher Authentifizierung (11.7) für den Zugriff auf kritische Systeme und den Fernzugriff, überprüft in geplanten Abständen."
           },
-          "mfa": {
-            "title": "Multi-Faktor-Authentifizierung",
-            "description": "Einsatz von MFA oder kontinuierlichen Authentifizierungslösungen. Sichere Authentifizierungsprotokolle und -verfahren für alle administrativen Zugänge."
+          "assets": {
+            "title": "Management der Anlagen",
+            "description": "Erfordert ein Konzept für das Management der Anlagen mit Klassifizierung der Anlagen, einem Verzeichnis der Netz- und Informationssysteme und unterstützender Anlagen, Handhabungsregeln entsprechend der Klassifizierung sowie Konzepte für Wechseldatenträger und die sichere Rückgabe oder Entsorgung von Anlagen."
           },
-          "communication": {
-            "title": "Gesicherte Kommunikation",
-            "description": "Gesicherte Sprach-, Video- und Textkommunikation. Notfallkommunikationssysteme, die unabhängig von der primären IT-Infrastruktur funktionieren."
+          "physical": {
+            "title": "Umgebungs- und physische Sicherheit",
+            "description": "Erfordert den Schutz von Einrichtungen vor physischen und umgebungsbedingten Bedrohungen, einschließlich unterstützender Versorgungseinrichtungen, kontrollierten physischen Zugangs zu Systemen sowie Schutz vor Ausfällen wie Stromausfall, Brand und Wasser, verhältnismäßig zum Risiko für die Systeme."
           }
         }
       },

@@ -1979,48 +1979,60 @@
         }
       },
       "measures": {
-        "heading": "The 10 Measure Areas (CIR Annex)",
-        "description": "The Annex organises technical and methodological requirements into 10 areas that mirror §30(2) BSIG. Each area contains detailed sub-requirements with specific implementation criteria.",
+        "heading": "The 13 Measure Points (CIR Annex)",
+        "description": "The Annex organises technical and methodological requirements into 13 thematic points. Each point contains numbered sub-requirements with specific implementation criteria. For example, point 11 (access control) covers identification (11.5), authentication (11.6), and multi-factor authentication (11.7).",
         "items": {
-          "policies": {
+          "policy": {
             "title": "Policy on the security of network and information systems",
-            "description": "Requires a documented security policy approved by management, reviewed at least annually, and updated after significant incidents or changes. Must define roles, responsibilities, and the framework for all subsequent measures. Must include a risk acceptance policy and evidence of management commitment."
+            "description": "Requires a documented network and information systems security policy approved by management, setting the entity's approach to managing security, reviewed at planned intervals and updated after significant incidents or changes. It frames all the measures that follow."
           },
           "risk": {
-            "title": "Risk management",
-            "description": "Requires a documented risk assessment methodology, risk identification covering all critical assets and processes, risk analysis with likelihood and impact assessment, risk treatment with documented decisions (accept, mitigate, transfer, avoid), and residual risk acceptance by management. Must be reviewed at planned intervals and after significant changes."
+            "title": "Risk management policy",
+            "description": "Requires a risk management framework with a defined methodology, identification of risks to network and information systems, analysis and evaluation against risk acceptance criteria, a treatment plan, and approval of residual risk by management, reviewed at planned intervals."
           },
           "incidents": {
             "title": "Incident handling",
-            "description": "Requires incident detection, classification, response, and recovery procedures. Must define roles and responsibilities for incident handling, establish communication channels, include post-incident analysis (lessons learned), and maintain incident logs. Detection must include monitoring for anomalies and known indicators of compromise."
+            "description": "Requires policy and procedures for detecting, analysing, containing, responding to, and recovering from incidents, with defined roles, logging, escalation and communication, and a structured post-incident review that feeds lessons learned back into the measures."
           },
           "continuity": {
             "title": "Business continuity and crisis management",
-            "description": "Requires business impact analysis, continuity plans for critical services, backup and recovery procedures with tested restore capabilities, and crisis management procedures. Backup integrity must be verified regularly. Recovery time objectives must be defined and tested. Plans must be reviewed after incidents or significant changes."
+            "description": "Requires a business continuity and disaster recovery plan based on a business impact analysis, backup and redundancy management with tested restore procedures, and a crisis management plan with defined roles, reviewed and tested at planned intervals."
           },
           "supply": {
             "title": "Supply chain security",
-            "description": "Requires a supply chain security policy, assessment of direct suppliers' cybersecurity practices, contractual security requirements for ICT products and services, and monitoring of supplier security posture over the contract lifecycle. Must consider supply chain-specific risks including those arising from the supplier's own supply chain."
+            "description": "Requires a supply chain security policy governing relationships with direct suppliers and service providers, including security criteria for selection, contractual requirements, and a directory of suppliers maintained and monitored over the relationship lifecycle."
           },
-          "testing": {
-            "title": "Security in acquisition, development, and maintenance",
-            "description": "Requires secure development lifecycle for in-house development, security requirements for acquired ICT products and services, configuration management, change management procedures, and security testing (including vulnerability scanning and penetration testing where appropriate). Must cover the full lifecycle from acquisition through decommissioning."
+          "acquisition": {
+            "title": "Security in network and information systems acquisition, development and maintenance",
+            "description": "Requires security to be built into the acquisition, development, and maintenance of systems, covering secure development practices, configuration management, change management, security testing, patch management, and handling of vulnerabilities throughout the lifecycle."
+          },
+          "effectiveness": {
+            "title": "Policies and procedures to assess the effectiveness of cybersecurity risk-management measures",
+            "description": "Requires the entity to define policies and procedures to assess whether its risk-management measures are effective, including monitoring, review, and independent assessment, so that shortcomings are identified and the measures are improved over time."
+          },
+          "hygiene": {
+            "title": "Basic cyber hygiene practices and security training",
+            "description": "Requires basic cyber hygiene practices and a security awareness programme for all personnel, with role-specific training for staff who have security tasks and for management, covering policies, threats, and reporting duties."
           },
           "crypto": {
             "title": "Cryptography",
-            "description": "Requires a policy on the use of cryptography, including selection of cryptographic algorithms and key lengths appropriate to the classification of data, key management procedures (generation, distribution, storage, rotation, revocation, destruction), and periodic review of cryptographic implementations against current best practices and known vulnerabilities."
+            "description": "Requires a policy and procedures on the use of cryptography, including selection of algorithms and key strengths appropriate to the data, and key management covering generation, storage, rotation, and destruction, reviewed against current best practice."
+          },
+          "hr": {
+            "title": "Human resources security",
+            "description": "Requires human resources security measures across the employment lifecycle, including verification before hiring as appropriate, defined security responsibilities, terms and conditions, and procedures for changes of role and termination so that access ends when employment does."
           },
           "access": {
-            "title": "Access control and asset management",
-            "description": "Requires an access control policy based on business and security requirements, identity management with unique user identification, access provisioning and de-provisioning procedures, privileged access management, and an asset inventory covering all network and information system components. Access rights must be reviewed at planned intervals."
+            "title": "Access control",
+            "description": "Requires an access control policy with management of access rights (11.2) and privileged accounts (11.3), administration systems (11.4), unique identification (11.5), authentication (11.6), and multi-factor or continuous authentication (11.7) for access to critical systems and remote access, reviewed at planned intervals."
           },
-          "mfa": {
-            "title": "Multi-factor authentication and secure communication",
-            "description": "Requires multi-factor authentication or continuous authentication for access to critical systems and remote access. Secure communication channels must be established for emergency and fallback scenarios. Voice, video, and text communications used for incident response must be secured against interception."
+          "assets": {
+            "title": "Asset management",
+            "description": "Requires an asset management policy with classification of assets, an inventory of network and information systems and supporting assets, handling rules according to classification, and policies for removable media and the secure return or disposal of assets."
           },
-          "communication": {
-            "title": "Cybersecurity awareness and training",
-            "description": "Requires regular cybersecurity awareness programmes for all personnel, role-specific training for staff with security responsibilities, and management training on cybersecurity governance. Training must cover the entity's security policies, common threats, incident reporting procedures, and the personnel's specific responsibilities."
+          "physical": {
+            "title": "Environmental and physical security",
+            "description": "Requires protection of facilities against physical and environmental threats, including supporting utilities, controlled physical access to systems, and protection against failures such as power loss, fire, and water, proportionate to the risk to the systems."
           }
         }
       },

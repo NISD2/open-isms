@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const scopeKeys = ["dns", "tld", "cloud", "managed", "marketplaces", "social", "trust"] as const;
 const articleKeys = ["a2", "a3", "a4", "a5", "a6", "a7"] as const;
-const measureKeys = ["policies", "risk", "incidents", "continuity", "supply", "testing", "crypto", "access", "mfa", "communication"] as const;
+const measureKeys = ["policy", "risk", "incidents", "continuity", "supply", "acquisition", "effectiveness", "hygiene", "crypto", "hr", "access", "assets", "physical"] as const;
 
 export default async function CirPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: rawLocale } = await params;
@@ -106,7 +106,7 @@ export default async function CirPage({ params }: { params: Promise<{ locale: st
         </div>
       </section>
 
-      {/* 10 Technical Measures from the Annex */}
+      {/* 13 Thematic Measure Points from the Annex */}
       <Card>
         <CardHeader>
           <CardTitle>{t("cir.measures.heading")}</CardTitle>

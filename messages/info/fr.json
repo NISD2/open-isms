@@ -1979,48 +1979,60 @@
         }
       },
       "measures": {
-        "heading": "Les 10 domaines de mesures (annexe du CIR)",
-        "description": "L'annexe organise les exigences techniques et méthodologiques en 10 domaines qui reflètent le §30(2) BSIG. Chaque domaine contient des sous-exigences détaillées assorties de critères de mise en œuvre spécifiques.",
+        "heading": "Les 13 points de mesures (annexe du CIR)",
+        "description": "L'annexe organise les exigences techniques et méthodologiques en 13 points thématiques. Chaque point contient des sous-exigences numérotées assorties de critères de mise en œuvre spécifiques. Le point 11 (contrôle d'accès) couvre par exemple l'identification (11.5), l'authentification (11.6) et l'authentification multifacteur (11.7).",
         "items": {
-          "policies": {
-            "title": "Politique relative à la sécurité des réseaux et des systèmes d'information",
-            "description": "Exige une politique de sécurité documentée, approuvée par la direction, révisée au moins une fois par an, et mise à jour après des incidents importants ou des changements. Doit définir les rôles, les responsabilités et le cadre de toutes les mesures ultérieures. Doit inclure une politique d'acceptation des risques et des preuves de l'engagement de la direction."
+          "policy": {
+            "title": "Politique de sécurité des réseaux et des systèmes d'information",
+            "description": "Exige une politique documentée de sécurité des réseaux et des systèmes d'information, approuvée par la direction, qui définit l'approche de l'entité en matière de gestion de la sécurité, revue à intervalles planifiés et mise à jour après des incidents ou des changements significatifs. Elle encadre l'ensemble des mesures qui suivent."
           },
           "risk": {
-            "title": "Gestion des risques",
-            "description": "Exige une méthodologie d'évaluation des risques documentée, une identification des risques couvrant tous les actifs et processus critiques, une analyse des risques avec évaluation de la probabilité et de l'impact, un traitement des risques avec des décisions documentées (accepter, atténuer, transférer, éviter), et une acceptation du risque résiduel par la direction. Doit être révisée à intervalles planifiés et après des changements importants."
+            "title": "Politique de gestion des risques",
+            "description": "Exige un cadre de gestion des risques doté d'une méthodologie définie, l'identification des risques pesant sur les réseaux et les systèmes d'information, leur analyse et leur évaluation au regard de critères d'acceptation du risque, un plan de traitement et l'approbation du risque résiduel par la direction, le tout revu à intervalles planifiés."
           },
           "incidents": {
-            "title": "Traitement des incidents",
-            "description": "Exige des procédures de détection, de classification, de réponse et de récupération des incidents. Doit définir les rôles et responsabilités pour le traitement des incidents, établir des canaux de communication, inclure une analyse post-incident (leçons apprises), et tenir des journaux d'incidents. La détection doit inclure la surveillance des anomalies et des indicateurs de compromission connus."
+            "title": "Gestion des incidents",
+            "description": "Exige une politique et des procédures de détection, d'analyse, de confinement, de réponse et de rétablissement face aux incidents, avec des rôles définis, la journalisation, l'escalade et la communication, ainsi qu'un examen structuré après incident qui réinjecte les enseignements tirés dans les mesures."
           },
           "continuity": {
             "title": "Continuité des activités et gestion de crise",
-            "description": "Exige une analyse d'impact sur les activités, des plans de continuité pour les services critiques, des procédures de sauvegarde et de récupération avec des capacités de restauration testées, et des procédures de gestion de crise. L'intégrité des sauvegardes doit être vérifiée régulièrement. Les objectifs de temps de récupération doivent être définis et testés. Les plans doivent être révisés après des incidents ou des changements importants."
+            "description": "Exige un plan de continuité des activités et de reprise après sinistre fondé sur une analyse d'impact sur les activités, la gestion des sauvegardes et de la redondance assortie de procédures de restauration testées, ainsi qu'un plan de gestion de crise aux rôles définis, revu et testé à intervalles planifiés."
           },
           "supply": {
             "title": "Sécurité de la chaîne d'approvisionnement",
-            "description": "Exige une politique de sécurité de la chaîne d'approvisionnement, une évaluation des pratiques de cybersécurité des fournisseurs directs, des exigences de sécurité contractuelles pour les produits et services TIC, et une surveillance de la posture de sécurité des fournisseurs tout au long du cycle de vie du contrat. Doit tenir compte des risques propres à la chaîne d'approvisionnement, y compris ceux découlant de la propre chaîne d'approvisionnement du fournisseur."
+            "description": "Exige une politique de sécurité de la chaîne d'approvisionnement régissant les relations avec les fournisseurs directs et les prestataires de services, comprenant des critères de sécurité pour la sélection, des exigences contractuelles et un répertoire des fournisseurs tenu à jour et surveillé tout au long du cycle de vie de la relation."
           },
-          "testing": {
-            "title": "Sécurité dans l'acquisition, le développement et la maintenance",
-            "description": "Exige un cycle de développement sécurisé pour le développement interne, des exigences de sécurité pour les produits et services TIC acquis, une gestion de la configuration, des procédures de gestion des changements, et des tests de sécurité (y compris l'analyse de vulnérabilités et les tests d'intrusion le cas échéant). Doit couvrir l'ensemble du cycle de vie, de l'acquisition à la mise hors service."
+          "acquisition": {
+            "title": "Sécurité de l'acquisition, du développement et de la maintenance des réseaux et des systèmes d'information",
+            "description": "Exige que la sécurité soit intégrée à l'acquisition, au développement et à la maintenance des systèmes, en couvrant les pratiques de développement sécurisé, la gestion de la configuration, la gestion des changements, les tests de sécurité, la gestion des correctifs et le traitement des vulnérabilités tout au long du cycle de vie."
+          },
+          "effectiveness": {
+            "title": "Politiques et procédures d'évaluation de l'efficacité des mesures de gestion des risques en matière de cybersécurité",
+            "description": "Exige que l'entité définisse des politiques et des procédures pour évaluer si ses mesures de gestion des risques sont efficaces, y compris le suivi, la revue et une évaluation indépendante, afin que les lacunes soient identifiées et que les mesures soient améliorées au fil du temps."
+          },
+          "hygiene": {
+            "title": "Pratiques d'hygiène informatique de base et formation à la sécurité",
+            "description": "Exige des pratiques d'hygiène informatique de base et un programme de sensibilisation à la sécurité destiné à l'ensemble du personnel, assorti d'une formation spécifique aux rôles pour les collaborateurs ayant des tâches de sécurité et pour la direction, portant sur les politiques, les menaces et les obligations de signalement."
           },
           "crypto": {
             "title": "Cryptographie",
-            "description": "Exige une politique relative à l'utilisation de la cryptographie, comprenant la sélection des algorithmes cryptographiques et des longueurs de clés appropriées à la classification des données, des procédures de gestion des clés (génération, distribution, stockage, rotation, révocation, destruction), et une révision périodique des implémentations cryptographiques au regard des meilleures pratiques actuelles et des vulnérabilités connues."
+            "description": "Exige une politique et des procédures relatives à l'utilisation de la cryptographie, y compris la sélection des algorithmes et des longueurs de clé adaptés aux données, ainsi que la gestion des clés couvrant la génération, le stockage, le renouvellement et la destruction, revue au regard des meilleures pratiques actuelles."
+          },
+          "hr": {
+            "title": "Sécurité des ressources humaines",
+            "description": "Exige des mesures de sécurité des ressources humaines sur l'ensemble du cycle de vie de l'emploi, y compris une vérification appropriée avant l'embauche, des responsabilités de sécurité définies, des conditions d'emploi, et des procédures pour les changements de poste et la cessation de fonctions afin que les accès prennent fin avec l'emploi."
           },
           "access": {
-            "title": "Contrôle d'accès et gestion des actifs",
-            "description": "Exige une politique de contrôle d'accès fondée sur les exigences métier et de sécurité, une gestion des identités avec identification unique des utilisateurs, des procédures d'attribution et de retrait des accès, une gestion des accès à privilèges, et un inventaire des actifs couvrant tous les composants des réseaux et des systèmes d'information. Les droits d'accès doivent être révisés à intervalles planifiés."
+            "title": "Contrôle d'accès",
+            "description": "Exige une politique de contrôle d'accès couvrant la gestion des droits d'accès (11.2) et des comptes à privilèges (11.3), les systèmes d'administration (11.4), l'identification unique (11.5), l'authentification (11.6) et l'authentification MFA ou continue (11.7) pour l'accès aux systèmes critiques et l'accès à distance, revue à intervalles planifiés."
           },
-          "mfa": {
-            "title": "Authentification multifactorielle et communication sécurisée",
-            "description": "Exige une authentification multifactorielle ou une authentification continue pour l'accès aux systèmes critiques et l'accès à distance. Des canaux de communication sécurisés doivent être établis pour les scénarios d'urgence et de repli. Les communications vocales, vidéo et textuelles utilisées pour la réponse aux incidents doivent être protégées contre l'interception."
+          "assets": {
+            "title": "Gestion des actifs",
+            "description": "Exige une politique de gestion des actifs comprenant la classification des actifs, un inventaire des réseaux et des systèmes d'information ainsi que des actifs de soutien, des règles de manipulation selon la classification, et des politiques relatives aux supports amovibles et à la restitution ou à l'élimination sécurisée des actifs."
           },
-          "communication": {
-            "title": "Sensibilisation et formation à la cybersécurité",
-            "description": "Exige des programmes réguliers de sensibilisation à la cybersécurité pour l'ensemble du personnel, une formation spécifique aux rôles pour le personnel ayant des responsabilités en matière de sécurité, et une formation de la direction sur la gouvernance de la cybersécurité. La formation doit couvrir les politiques de sécurité de l'entité, les menaces courantes, les procédures de notification des incidents, et les responsabilités spécifiques du personnel."
+          "physical": {
+            "title": "Sécurité physique et environnementale",
+            "description": "Exige la protection des installations contre les menaces physiques et environnementales, y compris les services de soutien essentiels, un accès physique contrôlé aux systèmes et une protection contre les défaillances telles que les coupures de courant, les incendies et les dégâts des eaux, proportionnée au risque pesant sur les systèmes."
           }
         }
       },

@@ -1979,48 +1979,60 @@
         }
       },
       "measures": {
-        "heading": "Los 10 ámbitos de medidas (Anexo del CIR)",
-        "description": "El Anexo organiza los requisitos técnicos y metodológicos en 10 ámbitos que reflejan el §30(2) BSIG. Cada ámbito contiene subrequisitos detallados con criterios de implementación específicos.",
+        "heading": "Los 13 puntos de medidas (Anexo del CIR)",
+        "description": "El Anexo organiza los requisitos técnicos y metodológicos en 13 puntos temáticos. Cada punto contiene subrequisitos numerados con criterios de implementación específicos. Por ejemplo, el punto 11 (control de acceso) abarca la identificación (11.5), la autenticación (11.6) y la autenticación multifactor (11.7).",
         "items": {
-          "policies": {
+          "policy": {
             "title": "Política de seguridad de las redes y sistemas de información",
-            "description": "Exige una política de seguridad documentada, aprobada por la dirección, revisada al menos una vez al año y actualizada tras incidentes significativos o cambios. Debe definir funciones, responsabilidades y el marco para todas las medidas posteriores. Debe incluir una política de aceptación de riesgos y evidencia del compromiso de la dirección."
+            "description": "Exige una política de seguridad de las redes y sistemas de información documentada y aprobada por la dirección, que defina el enfoque de la entidad para la gestión de la seguridad, revisada a intervalos planificados y actualizada tras incidentes o cambios significativos. Enmarca todas las medidas que siguen."
           },
           "risk": {
-            "title": "Gestión de riesgos",
-            "description": "Exige una metodología documentada de evaluación de riesgos, la identificación de riesgos que cubra todos los activos y procesos críticos, el análisis de riesgos con evaluación de probabilidad e impacto, el tratamiento de riesgos con decisiones documentadas (aceptar, mitigar, transferir, evitar) y la aceptación del riesgo residual por parte de la dirección. Debe revisarse a intervalos planificados y tras cambios significativos."
+            "title": "Política de gestión de riesgos",
+            "description": "Exige un marco de gestión de riesgos con una metodología definida, la identificación de los riesgos para las redes y sistemas de información, el análisis y la evaluación frente a criterios de aceptación del riesgo, un plan de tratamiento y la aprobación del riesgo residual por parte de la dirección, revisado a intervalos planificados."
           },
           "incidents": {
             "title": "Gestión de incidentes",
-            "description": "Exige procedimientos de detección, clasificación, respuesta y recuperación de incidentes. Debe definir funciones y responsabilidades para la gestión de incidentes, establecer canales de comunicación, incluir el análisis posterior al incidente (lecciones aprendidas) y mantener registros de incidentes. La detección debe incluir la supervisión de anomalías y de indicadores de compromiso conocidos."
+            "description": "Exige una política y procedimientos para detectar, analizar, contener, responder y recuperarse de los incidentes, con funciones definidas, registro, escalado y comunicación, y una revisión posterior al incidente estructurada que retroalimente las lecciones aprendidas en las medidas."
           },
           "continuity": {
             "title": "Continuidad de negocio y gestión de crisis",
-            "description": "Exige un análisis de impacto en el negocio, planes de continuidad para los servicios críticos, procedimientos de copia de seguridad y recuperación con capacidades de restauración probadas, y procedimientos de gestión de crisis. La integridad de las copias de seguridad debe verificarse periódicamente. Los objetivos de tiempo de recuperación deben definirse y probarse. Los planes deben revisarse tras incidentes o cambios significativos."
+            "description": "Exige un plan de continuidad de negocio y de recuperación ante desastres basado en un análisis de impacto en el negocio, la gestión de copias de seguridad y redundancia con procedimientos de restauración probados, y un plan de gestión de crisis con funciones definidas, revisado y probado a intervalos planificados."
           },
           "supply": {
             "title": "Seguridad de la cadena de suministro",
-            "description": "Exige una política de seguridad de la cadena de suministro, la evaluación de las prácticas de ciberseguridad de los proveedores directos, requisitos de seguridad contractuales para los productos y servicios de TIC, y la supervisión de la postura de seguridad del proveedor durante todo el ciclo de vida del contrato. Debe tener en cuenta los riesgos específicos de la cadena de suministro, incluidos los derivados de la propia cadena de suministro del proveedor."
+            "description": "Exige una política de seguridad de la cadena de suministro que rija las relaciones con los proveedores directos y los prestadores de servicios, incluidos criterios de seguridad para la selección, requisitos contractuales y un directorio de proveedores mantenido y supervisado a lo largo del ciclo de vida de la relación."
           },
-          "testing": {
-            "title": "Seguridad en la adquisición, el desarrollo y el mantenimiento",
-            "description": "Exige un ciclo de vida de desarrollo seguro para el desarrollo interno, requisitos de seguridad para los productos y servicios de TIC adquiridos, gestión de la configuración, procedimientos de gestión de cambios y pruebas de seguridad (incluidos el análisis de vulnerabilidades y las pruebas de penetración cuando proceda). Debe cubrir todo el ciclo de vida, desde la adquisición hasta la retirada de servicio."
+          "acquisition": {
+            "title": "Seguridad en la adquisición, el desarrollo y el mantenimiento de las redes y sistemas de información",
+            "description": "Exige que la seguridad se integre en la adquisición, el desarrollo y el mantenimiento de los sistemas, abarcando prácticas de desarrollo seguro, gestión de la configuración, gestión de cambios, pruebas de seguridad, gestión de parches y tratamiento de las vulnerabilidades durante todo el ciclo de vida."
+          },
+          "effectiveness": {
+            "title": "Políticas y procedimientos para evaluar la eficacia de las medidas de gestión de riesgos de ciberseguridad",
+            "description": "Exige que la entidad defina políticas y procedimientos para evaluar si sus medidas de gestión de riesgos son eficaces, incluidos la supervisión, la revisión y la evaluación independiente, de modo que se identifiquen las deficiencias y las medidas mejoren con el tiempo."
+          },
+          "hygiene": {
+            "title": "Prácticas básicas de ciberhigiene y formación en seguridad",
+            "description": "Exige prácticas básicas de ciberhigiene y un programa de concienciación en seguridad para todo el personal, con formación específica por funciones para el personal con tareas de seguridad y para la dirección, que abarque políticas, amenazas y deberes de notificación."
           },
           "crypto": {
             "title": "Criptografía",
-            "description": "Exige una política sobre el uso de la criptografía, que incluya la selección de algoritmos criptográficos y longitudes de clave adecuadas a la clasificación de los datos, los procedimientos de gestión de claves (generación, distribución, almacenamiento, rotación, revocación, destrucción) y la revisión periódica de las implementaciones criptográficas frente a las mejores prácticas actuales y las vulnerabilidades conocidas."
+            "description": "Exige una política y procedimientos sobre el uso de la criptografía, incluida la selección de algoritmos y longitudes de clave adecuados a los datos, y la gestión de claves que abarque la generación, el almacenamiento, la rotación y la destrucción, revisada frente a las mejores prácticas actuales."
+          },
+          "hr": {
+            "title": "Seguridad de los recursos humanos",
+            "description": "Exige medidas de seguridad de los recursos humanos a lo largo del ciclo de vida laboral, incluidas la verificación previa a la contratación cuando proceda, responsabilidades de seguridad definidas, términos y condiciones, y procedimientos para los cambios de función y la terminación, de modo que el acceso finalice cuando finalice la relación laboral."
           },
           "access": {
-            "title": "Control de acceso y gestión de activos",
-            "description": "Exige una política de control de acceso basada en los requisitos de negocio y de seguridad, la gestión de identidades con identificación única de usuario, procedimientos de provisión y desprovisión de acceso, la gestión del acceso privilegiado y un inventario de activos que cubra todos los componentes de las redes y sistemas de información. Los derechos de acceso deben revisarse a intervalos planificados."
+            "title": "Control de acceso",
+            "description": "Exige una política de control de acceso con la gestión de los derechos de acceso (11.2) y de las cuentas privilegiadas (11.3), los sistemas de administración (11.4), la identificación única (11.5), la autenticación (11.6) y la autenticación multifactor o continua (11.7) para el acceso a los sistemas críticos y el acceso remoto, revisada a intervalos planificados."
           },
-          "mfa": {
-            "title": "Autenticación multifactor y comunicación segura",
-            "description": "Exige autenticación multifactor o autenticación continua para el acceso a los sistemas críticos y el acceso remoto. Deben establecerse canales de comunicación seguros para escenarios de emergencia y de contingencia. Las comunicaciones de voz, vídeo y texto utilizadas para la respuesta a incidentes deben protegerse frente a la interceptación."
+          "assets": {
+            "title": "Gestión de activos",
+            "description": "Exige una política de gestión de activos con la clasificación de los activos, un inventario de las redes y sistemas de información y de los activos de soporte, reglas de manejo según la clasificación, y políticas para los soportes extraíbles y la devolución o eliminación segura de los activos."
           },
-          "communication": {
-            "title": "Concienciación y formación en ciberseguridad",
-            "description": "Exige programas periódicos de concienciación en ciberseguridad para todo el personal, formación específica por funciones para el personal con responsabilidades de seguridad y formación de la dirección sobre la gobernanza de la ciberseguridad. La formación debe cubrir las políticas de seguridad de la entidad, las amenazas habituales, los procedimientos de notificación de incidentes y las responsabilidades específicas del personal."
+          "physical": {
+            "title": "Seguridad ambiental y física",
+            "description": "Exige la protección de las instalaciones frente a amenazas físicas y ambientales, incluidos los servicios de suministro de apoyo, el acceso físico controlado a los sistemas, y la protección frente a fallos como cortes de energía, incendios e inundaciones, de forma proporcionada al riesgo para los sistemas."
           }
         }
       },

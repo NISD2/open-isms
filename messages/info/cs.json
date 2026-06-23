@@ -1979,48 +1979,60 @@
         }
       },
       "measures": {
-        "heading": "10 oblastí opatření (příloha CIR)",
-        "description": "Příloha organizuje technické a metodické požadavky do 10 oblastí, které odpovídají §30 odst. 2 BSIG. Každá oblast obsahuje podrobné dílčí požadavky s konkrétními implementačními kritérii.",
+        "heading": "13 bodů opatření (příloha CIR)",
+        "description": "Příloha člení technické a metodické požadavky do 13 tematických bodů. Každý bod obsahuje číslované dílčí požadavky s konkrétními implementačními kritérii. Například bod 11 (řízení přístupu) zahrnuje identifikaci (11.5), ověřování (11.6) a vícefaktorové ověřování (11.7).",
         "items": {
-          "policies": {
+          "policy": {
             "title": "Politika bezpečnosti sítí a informačních systémů",
-            "description": "Vyžaduje zdokumentovanou bezpečnostní politiku schválenou vedením, přezkoumávanou alespoň jednou ročně a aktualizovanou po významných incidentech nebo změnách. Musí vymezit role, odpovědnosti a rámec pro všechna následná opatření. Musí zahrnovat politiku akceptace rizik a doklad o angažovanosti vedení."
+            "description": "Vyžaduje zdokumentovanou politiku bezpečnosti sítí a informačních systémů schválenou vedením, která stanoví přístup subjektu k řízení bezpečnosti, je přezkoumávána v plánovaných intervalech a aktualizována po významných incidentech nebo změnách. Vytváří rámec pro všechna následná opatření."
           },
           "risk": {
-            "title": "Řízení rizik",
-            "description": "Vyžaduje zdokumentovanou metodiku posuzování rizik, identifikaci rizik pokrývající všechna kritická aktiva a procesy, analýzu rizik s posouzením pravděpodobnosti a dopadu, ošetření rizik se zdokumentovanými rozhodnutími (akceptovat, zmírnit, přenést, vyhnout se) a akceptaci zbytkového rizika vedením. Musí být přezkoumáváno v plánovaných intervalech a po významných změnách."
+            "title": "Politika řízení rizik",
+            "description": "Vyžaduje rámec řízení rizik s definovanou metodikou, identifikaci rizik pro sítě a informační systémy, analýzu a vyhodnocení vůči kritériím akceptace rizik, plán ošetření rizik a schválení zbytkového rizika vedením, přezkoumávané v plánovaných intervalech."
           },
           "incidents": {
             "title": "Zvládání incidentů",
-            "description": "Vyžaduje postupy detekce, klasifikace, reakce a obnovy po incidentech. Musí vymezit role a odpovědnosti pro zvládání incidentů, zřídit komunikační kanály, zahrnout poincidentní analýzu (získané poznatky) a vést záznamy o incidentech. Detekce musí zahrnovat monitorování anomálií a známých indikátorů kompromitace."
+            "description": "Vyžaduje politiku a postupy pro detekci, analýzu, omezení, reakci a obnovu po incidentech, s definovanými rolemi, vedením záznamů, eskalací a komunikací, jakož i strukturované poincidentní přezkoumání, které vrací získané poznatky zpět do opatření."
           },
           "continuity": {
             "title": "Kontinuita provozu a krizové řízení",
-            "description": "Vyžaduje analýzu dopadů na provoz, plány kontinuity pro kritické služby, postupy zálohování a obnovy s ověřenou schopností obnovy a postupy krizového řízení. Integrita záloh musí být pravidelně ověřována. Cíle doby obnovy musejí být vymezeny a otestovány. Plány musejí být přezkoumány po incidentech nebo významných změnách."
+            "description": "Vyžaduje plán kontinuity provozu a obnovy po havárii založený na analýze dopadů na provoz, správu záloh a redundance s otestovanými postupy obnovy a plán krizového řízení s definovanými rolemi, přezkoumávaný a testovaný v plánovaných intervalech."
           },
           "supply": {
             "title": "Bezpečnost dodavatelského řetězce",
-            "description": "Vyžaduje politiku bezpečnosti dodavatelského řetězce, posouzení postupů kybernetické bezpečnosti přímých dodavatelů, smluvní bezpečnostní požadavky na produkty a služby ICT a sledování bezpečnostní situace dodavatelů po celou dobu trvání smlouvy. Musí zohledňovat rizika specifická pro dodavatelský řetězec včetně těch, která vyplývají z vlastního dodavatelského řetězce dodavatele."
+            "description": "Vyžaduje politiku bezpečnosti dodavatelského řetězce upravující vztahy s přímými dodavateli a poskytovateli služeb, včetně bezpečnostních kritérií pro výběr, smluvních požadavků a registru dodavatelů vedeného a monitorovaného po celou dobu životního cyklu vztahu."
           },
-          "testing": {
-            "title": "Bezpečnost při pořizování, vývoji a údržbě",
-            "description": "Vyžaduje bezpečný životní cyklus vývoje u vlastního vývoje, bezpečnostní požadavky na pořizované produkty a služby ICT, řízení konfigurace, postupy řízení změn a bezpečnostní testování (včetně skenování zranitelností a penetračního testování, kde je to vhodné). Musí pokrývat celý životní cyklus od pořízení až po vyřazení z provozu."
+          "acquisition": {
+            "title": "Bezpečnost při pořizování, vývoji a údržbě sítí a informačních systémů",
+            "description": "Vyžaduje, aby byla bezpečnost zabudována do pořizování, vývoje a údržby systémů, a pokrývá postupy bezpečného vývoje, řízení konfigurace, řízení změn, bezpečnostní testování, správu záplat a řešení zranitelností po celý životní cyklus."
+          },
+          "effectiveness": {
+            "title": "Politiky a postupy pro posuzování účinnosti opatření k řízení kybernetických bezpečnostních rizik",
+            "description": "Vyžaduje, aby subjekt definoval politiky a postupy pro posouzení, zda jsou jeho opatření k řízení rizik účinná, včetně monitorování, přezkumu a nezávislého posouzení, tak aby byly identifikovány nedostatky a opatření byla v čase zlepšována."
+          },
+          "hygiene": {
+            "title": "Základní postupy kybernetické hygieny a bezpečnostní školení",
+            "description": "Vyžaduje základní postupy kybernetické hygieny a program zvyšování bezpečnostního povědomí pro všechny pracovníky, se školeními specifickými pro role u pracovníků s bezpečnostními úkoly a pro vedení, pokrývajícími politiky, hrozby a ohlašovací povinnosti."
           },
           "crypto": {
             "title": "Kryptografie",
-            "description": "Vyžaduje politiku používání kryptografie, včetně výběru kryptografických algoritmů a délek klíčů odpovídajících klasifikaci dat, postupy správy klíčů (generování, distribuce, ukládání, obměna, odvolání, zničení) a pravidelné přezkoumávání kryptografických implementací oproti aktuálním osvědčeným postupům a známým zranitelnostem."
+            "description": "Vyžaduje politiku a postupy pro používání kryptografie, včetně výběru algoritmů a délek klíčů odpovídajících daným datům, a správu klíčů pokrývající generování, ukládání, obměnu a zničení, přezkoumávané vůči aktuálním osvědčeným postupům."
+          },
+          "hr": {
+            "title": "Bezpečnost lidských zdrojů",
+            "description": "Vyžaduje opatření bezpečnosti lidských zdrojů v celém životním cyklu zaměstnání, včetně ověřování před přijetím v přiměřeném rozsahu, definovaných bezpečnostních odpovědností, smluvních podmínek a postupů pro změny rolí a ukončení tak, aby přístup skončil současně s pracovním poměrem."
           },
           "access": {
-            "title": "Řízení přístupu a správa aktiv",
-            "description": "Vyžaduje politiku řízení přístupu založenou na obchodních a bezpečnostních požadavcích, správu identit s jedinečnou identifikací uživatelů, postupy přidělování a odebírání přístupu, správu privilegovaného přístupu a inventář aktiv pokrývající všechny komponenty sítí a informačních systémů. Přístupová práva musejí být přezkoumávána v plánovaných intervalech."
+            "title": "Řízení přístupu",
+            "description": "Vyžaduje politiku řízení přístupu se správou přístupových práv (11.2) a privilegovaných účtů (11.3), administrativních systémů (11.4), jedinečnou identifikací (11.5), ověřováním (11.6) a vícefaktorovým nebo průběžným ověřováním (11.7) pro přístup ke kritickým systémům a vzdálený přístup, přezkoumávanou v plánovaných intervalech."
           },
-          "mfa": {
-            "title": "Vícefaktorové ověřování a zabezpečená komunikace",
-            "description": "Vyžaduje vícefaktorové ověřování nebo průběžné ověřování pro přístup ke kritickým systémům a vzdálený přístup. Pro nouzové a záložní scénáře musejí být zřízeny zabezpečené komunikační kanály. Hlasová, video a textová komunikace používaná při reakci na incidenty musí být zabezpečena proti odposlechu."
+          "assets": {
+            "title": "Správa aktiv",
+            "description": "Vyžaduje politiku správy aktiv s klasifikací aktiv, inventář sítí a informačních systémů a podpůrných aktiv, pravidla nakládání podle klasifikace a politiky pro výměnná média a bezpečné vrácení nebo likvidaci aktiv."
           },
-          "communication": {
-            "title": "Povědomí o kybernetické bezpečnosti a školení",
-            "description": "Vyžaduje pravidelné programy zvyšování povědomí o kybernetické bezpečnosti pro všechny zaměstnance, školení specifická pro role u pracovníků s bezpečnostními odpovědnostmi a školení vedení v oblasti řízení kybernetické bezpečnosti. Školení musí pokrývat bezpečnostní politiky subjektu, běžné hrozby, postupy hlášení incidentů a konkrétní odpovědnosti dotčených pracovníků."
+          "physical": {
+            "title": "Bezpečnost prostředí a fyzická bezpečnost",
+            "description": "Vyžaduje ochranu zařízení před fyzickými hrozbami a hrozbami z prostředí, včetně podpůrných inženýrských sítí, řízeného fyzického přístupu k systémům a ochrany před výpadky, jako je ztráta napájení, požár a voda, přiměřeně riziku pro dané systémy."
           }
         }
       },

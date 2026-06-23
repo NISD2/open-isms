@@ -1979,48 +1979,60 @@
         }
       },
       "measures": {
-        "heading": "I 10 ambiti di misure (allegato del CIR)",
-        "description": "L'allegato organizza i requisiti tecnici e metodologici in 10 ambiti che rispecchiano il §30(2) BSIG. Ciascun ambito contiene sotto-requisiti dettagliati con criteri di attuazione specifici.",
+        "heading": "I 13 punti di misure (allegato del CIR)",
+        "description": "L'allegato organizza i requisiti tecnici e metodologici in 13 punti tematici. Ciascun punto contiene sotto-requisiti numerati con criteri di attuazione specifici. Ad esempio, il punto 11 (controllo degli accessi) comprende l'identificazione (11.5), l'autenticazione (11.6) e l'autenticazione a più fattori (11.7).",
         "items": {
-          "policies": {
+          "policy": {
             "title": "Politica sulla sicurezza dei sistemi informatici e di rete",
-            "description": "Richiede una politica di sicurezza documentata approvata dalla direzione, riesaminata almeno annualmente e aggiornata dopo incidenti significativi o cambiamenti. Deve definire ruoli, responsabilità e il quadro per tutte le misure successive. Deve includere una politica di accettazione del rischio e prove dell'impegno della direzione."
+            "description": "Richiede una politica documentata sulla sicurezza dei sistemi informatici e di rete, approvata dalla direzione, che definisca l'approccio del soggetto alla gestione della sicurezza, riesaminata a intervalli pianificati e aggiornata dopo incidenti o cambiamenti significativi. Costituisce il quadro di riferimento per tutte le misure successive."
           },
           "risk": {
-            "title": "Gestione dei rischi",
-            "description": "Richiede una metodologia documentata di valutazione dei rischi, l'identificazione dei rischi che copra tutti gli asset e i processi critici, l'analisi dei rischi con valutazione di probabilità e impatto, il trattamento dei rischi con decisioni documentate (accettare, mitigare, trasferire, evitare) e l'accettazione del rischio residuo da parte della direzione. Deve essere riesaminata a intervalli pianificati e dopo cambiamenti significativi."
+            "title": "Politica di gestione dei rischi",
+            "description": "Richiede un quadro di gestione dei rischi con una metodologia definita, l'identificazione dei rischi per i sistemi informatici e di rete, l'analisi e la valutazione rispetto a criteri di accettazione del rischio, un piano di trattamento e l'approvazione del rischio residuo da parte della direzione, riesaminato a intervalli pianificati."
           },
           "incidents": {
             "title": "Gestione degli incidenti",
-            "description": "Richiede procedure di rilevamento, classificazione, risposta e ripristino degli incidenti. Deve definire ruoli e responsabilità per la gestione degli incidenti, stabilire canali di comunicazione, includere un'analisi post-incidente (lezioni apprese) e mantenere registri degli incidenti. Il rilevamento deve includere il monitoraggio di anomalie e di indicatori di compromissione noti."
+            "description": "Richiede politiche e procedure per il rilevamento, l'analisi, il contenimento, la risposta e il ripristino dagli incidenti, con ruoli definiti, registrazione, escalation e comunicazione, e un riesame strutturato post-incidente che reimmetta le lezioni apprese nelle misure."
           },
           "continuity": {
             "title": "Continuità operativa e gestione delle crisi",
-            "description": "Richiede un'analisi dell'impatto operativo, piani di continuità per i servizi critici, procedure di backup e ripristino con capacità di ripristino testate e procedure di gestione delle crisi. L'integrità dei backup deve essere verificata regolarmente. Gli obiettivi di tempo di ripristino devono essere definiti e testati. I piani devono essere riesaminati dopo incidenti o cambiamenti significativi."
+            "description": "Richiede un piano di continuità operativa e di ripristino in caso di disastro basato su un'analisi dell'impatto operativo, la gestione dei backup e della ridondanza con procedure di ripristino testate e un piano di gestione delle crisi con ruoli definiti, riesaminato e testato a intervalli pianificati."
           },
           "supply": {
             "title": "Sicurezza della catena di approvvigionamento",
-            "description": "Richiede una politica di sicurezza della catena di approvvigionamento, la valutazione delle pratiche di cibersicurezza dei fornitori diretti, requisiti di sicurezza contrattuali per i prodotti e i servizi TIC e il monitoraggio della postura di sicurezza dei fornitori lungo il ciclo di vita del contratto. Deve considerare i rischi specifici della catena di approvvigionamento, compresi quelli derivanti dalla catena di approvvigionamento del fornitore stesso."
+            "description": "Richiede una politica di sicurezza della catena di approvvigionamento che disciplini i rapporti con i fornitori diretti e i prestatori di servizi, compresi criteri di sicurezza per la selezione, requisiti contrattuali e un registro dei fornitori mantenuto e monitorato lungo l'intero ciclo di vita del rapporto."
           },
-          "testing": {
-            "title": "Sicurezza nell'acquisizione, nello sviluppo e nella manutenzione",
-            "description": "Richiede un ciclo di vita di sviluppo sicuro per lo sviluppo interno, requisiti di sicurezza per i prodotti e i servizi TIC acquisiti, gestione della configurazione, procedure di gestione delle modifiche e test di sicurezza (compresi scansione delle vulnerabilità e test di penetrazione ove appropriato). Deve coprire l'intero ciclo di vita dall'acquisizione alla dismissione."
+          "acquisition": {
+            "title": "Sicurezza nell'acquisizione, nello sviluppo e nella manutenzione dei sistemi informatici e di rete",
+            "description": "Richiede che la sicurezza sia integrata nell'acquisizione, nello sviluppo e nella manutenzione dei sistemi, coprendo pratiche di sviluppo sicuro, gestione della configurazione, gestione delle modifiche, test di sicurezza, gestione delle patch e trattamento delle vulnerabilità lungo l'intero ciclo di vita."
+          },
+          "effectiveness": {
+            "title": "Politiche e procedure per valutare l'efficacia delle misure di gestione dei rischi di cibersicurezza",
+            "description": "Richiede che il soggetto definisca politiche e procedure per valutare se le proprie misure di gestione dei rischi sono efficaci, compresi monitoraggio, riesame e valutazione indipendente, in modo che le carenze siano individuate e le misure siano migliorate nel tempo."
+          },
+          "hygiene": {
+            "title": "Pratiche di igiene informatica di base e formazione alla sicurezza",
+            "description": "Richiede pratiche di igiene informatica di base e un programma di sensibilizzazione alla sicurezza per tutto il personale, con formazione specifica per ruolo per il personale con compiti di sicurezza e per la direzione, che copra politiche, minacce e obblighi di segnalazione."
           },
           "crypto": {
             "title": "Crittografia",
-            "description": "Richiede una politica sull'uso della crittografia, compresa la selezione di algoritmi crittografici e lunghezze delle chiavi adeguati alla classificazione dei dati, procedure di gestione delle chiavi (generazione, distribuzione, archiviazione, rotazione, revoca, distruzione) e un riesame periodico delle implementazioni crittografiche rispetto alle migliori pratiche attuali e alle vulnerabilità note."
+            "description": "Richiede una politica e procedure sull'uso della crittografia, compresa la selezione di algoritmi e robustezza delle chiavi adeguati ai dati, e la gestione delle chiavi che copra generazione, archiviazione, rotazione e distruzione, riesaminate rispetto alle migliori pratiche attuali."
+          },
+          "hr": {
+            "title": "Sicurezza delle risorse umane",
+            "description": "Richiede misure di sicurezza delle risorse umane lungo l'intero ciclo di vita del rapporto di lavoro, compresa la verifica prima dell'assunzione ove appropriato, responsabilità di sicurezza definite, termini e condizioni e procedure per i cambiamenti di ruolo e la cessazione, affinché l'accesso termini quando termina il rapporto di lavoro."
           },
           "access": {
-            "title": "Controllo degli accessi e gestione degli asset",
-            "description": "Richiede una politica di controllo degli accessi basata su requisiti aziendali e di sicurezza, gestione delle identità con identificazione univoca degli utenti, procedure di concessione e revoca degli accessi, gestione degli accessi privilegiati e un inventario degli asset che copra tutti i componenti dei sistemi informatici e di rete. I diritti di accesso devono essere riesaminati a intervalli pianificati."
+            "title": "Controllo degli accessi",
+            "description": "Richiede una politica di controllo degli accessi con gestione dei diritti di accesso (11.2) e degli account privilegiati (11.3), sistemi di amministrazione (11.4), identificazione univoca (11.5), autenticazione (11.6) e autenticazione a più fattori o continua (11.7) per l'accesso ai sistemi critici e per l'accesso remoto, riesaminata a intervalli pianificati."
           },
-          "mfa": {
-            "title": "Autenticazione a più fattori e comunicazione sicura",
-            "description": "Richiede l'autenticazione a più fattori o l'autenticazione continua per l'accesso ai sistemi critici e per l'accesso remoto. Devono essere stabiliti canali di comunicazione sicuri per scenari di emergenza e di ripiego. Le comunicazioni vocali, video e di testo utilizzate per la risposta agli incidenti devono essere protette dall'intercettazione."
+          "assets": {
+            "title": "Gestione degli asset",
+            "description": "Richiede una politica di gestione degli asset con la classificazione degli asset, un inventario dei sistemi informatici e di rete e degli asset di supporto, regole di trattamento in base alla classificazione e politiche per i supporti rimovibili e per la restituzione o lo smaltimento sicuro degli asset."
           },
-          "communication": {
-            "title": "Sensibilizzazione e formazione alla cibersicurezza",
-            "description": "Richiede programmi periodici di sensibilizzazione alla cibersicurezza per tutto il personale, formazione specifica per ruolo per il personale con responsabilità di sicurezza e formazione della direzione sulla governance della cibersicurezza. La formazione deve coprire le politiche di sicurezza del soggetto, le minacce comuni, le procedure di segnalazione degli incidenti e le responsabilità specifiche del personale."
+          "physical": {
+            "title": "Sicurezza ambientale e fisica",
+            "description": "Richiede la protezione delle strutture contro le minacce fisiche e ambientali, comprese le utenze di supporto, l'accesso fisico controllato ai sistemi e la protezione contro guasti quali interruzioni di corrente, incendi e allagamenti, in misura proporzionata al rischio per i sistemi."
           }
         }
       },
