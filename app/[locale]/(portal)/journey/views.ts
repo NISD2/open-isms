@@ -9,6 +9,8 @@
  * exec questions) already lives.
  */
 
+import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
+
 export type View = "path" | "ceo" | "ciso" | "auditor" | "msp" | "advanced";
 
 export type JourneyItem = {
@@ -145,15 +147,28 @@ function isAccountable(
   return false;
 }
 
+const CAT_ORDER: Record<string, number> = Object.fromEntries(
+  nis2Categories.map((c) => [c.code, c.sortOrder]),
+);
+
 /**
- * The single live node for the novice "path" view: the lowest-sortOrder
- * requirement that is not yet done. Everything before it is done, everything
+ * True journey position. requirement.sortOrder is the requirement's index
+ * within its category (0, 1, 2, ...), not a global order, so order by the
+ * category sequence first, then that index.
+ */
+function journeyOrder(item: JourneyItem): number {
+  return (CAT_ORDER[item.categoryCode] ?? 99) * 100 + item.sortOrder;
+}
+
+/**
+ * The single live node for the novice "path" view: the first not-done
+ * requirement in journey order. Everything before it is done, everything
  * after is locked-but-visible. Returns null when the path is complete.
  */
 export function liveNode(items: JourneyItem[]): JourneyItem | null {
   const open = items
     .filter((i) => !isDone(i))
-    .sort((a, b) => a.sortOrder - b.sortOrder);
+    .sort((a, b) => journeyOrder(a) - journeyOrder(b));
   return open[0] ?? null;
 }
 

@@ -86,6 +86,20 @@ const CATEGORY_ROLE: Record<string, string> = Object.fromEntries(
   nis2Categories.map((c) => [c.code, c.relevantRoles?.[0] ?? "ciso"]),
 );
 
+const CATEGORY_ORDER: Record<string, number> = Object.fromEntries(
+  nis2Categories.map((c) => [c.code, c.sortOrder]),
+);
+
+/**
+ * True journey position. requirement.sortOrder is the requirement's index
+ * WITHIN its category (0, 1, 2, ...), not a global order, so sorting by it
+ * alone floats every category's first requirement to the top (e.g. MFA 11.1
+ * ahead of assets 2.2). Order by the category sequence first, then the index.
+ */
+function globalOrder(item: JourneyItem): number {
+  return (CATEGORY_ORDER[item.categoryCode] ?? 99) * 100 + item.sortOrder;
+}
+
 function columnFor(role: string): ColumnKey {
   return ROLE_COLUMN[role] ?? "security";
 }
@@ -104,7 +118,7 @@ function isDone(status: string): boolean {
 function liveCode(items: JourneyItem[]): string | null {
   return (
     [...items]
-      .sort((a, b) => a.sortOrder - b.sortOrder)
+      .sort((a, b) => globalOrder(a) - globalOrder(b))
       .find((i) => !isDone(i.status))?.code ?? null
   );
 }
@@ -167,7 +181,7 @@ export function buildCategoryNodes(items: JourneyItem[]): FlowNode[] {
 export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
   const live = liveCode(items);
   return [...items]
-    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .sort((a, b) => globalOrder(a) - globalOrder(b))
     .map((it) => {
       const ownerRole =
         it.requiredSignOffRole === "ceo"
