@@ -12,16 +12,11 @@ export default async function DashboardRoute() {
     return <OnboardingBanner />;
   }
 
-  const [summary, deadlines, complianceProgress] = await Promise.all([
+  const [summary, complianceProgress] = await Promise.all([
     api.dashboard.summary(),
-    api.dashboard.deadlines(),
     api.dashboard.complianceProgress(),
   ]);
   return (
-    <DashboardPage
-      summary={summary}
-      deadlines={deadlines}
-      complianceProgress={complianceProgress}
-    />
+    <DashboardPage summary={summary} complianceProgress={complianceProgress} />
   );
 }

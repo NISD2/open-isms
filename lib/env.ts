@@ -23,12 +23,12 @@ const envSchema = z.object({
   DISABLE_EMAIL: z.string().optional(),
   ENABLE_EMAIL_IN_DEV: z.string().optional(),
 
-  // Feature flags — comma-separated email domains allowed to use the
-  // /portal/journey route. Default keeps the feature internal (nisd2.eu
-  // only) so the existing /portal/dashboard flow stays canonical in prod.
-  // Override per environment, e.g.
-  //   JOURNEY_ALLOWED_DOMAINS=nisd2.eu,partnerexample.de,acmecorp.de
-  JOURNEY_ALLOWED_DOMAINS: z.string().default("nisd2.eu"),
+  // Feature flag: comma-separated email domains allowed to use the journey
+  // path view. It is now the default post-login surface for everyone, so the
+  // default is "*" (open to all domains). Set an explicit allowlist only to
+  // re-narrow it, e.g.
+  //   JOURNEY_ALLOWED_DOMAINS=nisd2.eu,partnerexample.de
+  JOURNEY_ALLOWED_DOMAINS: z.string().default("*"),
 
   // AI — optional (LLM features degrade)
   XAI_API_KEY: z.string().optional(),

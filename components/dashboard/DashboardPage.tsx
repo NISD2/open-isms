@@ -7,7 +7,6 @@ import {
   AlertTriangle,
   BarChart3,
   ChevronDown,
-  Clock,
   Flame,
   FileText,
   GraduationCap,
@@ -34,23 +33,6 @@ import {
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/shared/PageHeader";
-
-interface DeadlineItem {
-  requirementCode: string;
-  requirementTitle: string;
-  priority: string;
-  deadline: string;
-  daysRemaining: number;
-  categorySlug: string;
-  urgency: "info" | "warning" | "urgent" | "critical";
-}
-
-interface DeadlinesData {
-  overdueCount: number;
-  dueThisWeekCount: number;
-  dueThisMonthCount: number;
-  upcoming: DeadlineItem[];
-}
 
 interface DashboardSummary {
   risks: { total: number; high: number; byTreatment: Record<string, number> };
@@ -183,100 +165,6 @@ function SeverityBreakdown({
   );
 }
 
-const URGENCY_COLORS = {
-  info: "text-muted-foreground",
-  warning: "text-amber-600 dark:text-amber-400",
-  urgent: "text-orange-600 dark:text-orange-400",
-  critical: "text-red-600 dark:text-red-400",
-} as const;
-
-function DeadlinesBanner({
-  deadlines,
-  t,
-}: {
-  deadlines: DeadlinesData;
-  t: ReturnType<typeof useTranslations>;
-}) {
-  return (
-    <div className="mb-6 space-y-4">
-      {/* Stat boxes */}
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Card className={deadlines.overdueCount > 0 ? "border-red-500/50 bg-red-50/50 dark:bg-red-950/20" : ""}>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-3">
-              <div className={`text-3xl font-bold ${deadlines.overdueCount > 0 ? "text-red-600 dark:text-red-400" : "text-muted-foreground"}`}>
-                {deadlines.overdueCount}
-              </div>
-              <div className="text-sm text-muted-foreground">{t("deadlines.overdue")}</div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className={deadlines.dueThisWeekCount > 0 ? "border-orange-500/50 bg-orange-50/50 dark:bg-orange-950/20" : ""}>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-3">
-              <div className={`text-3xl font-bold ${deadlines.dueThisWeekCount > 0 ? "text-orange-600 dark:text-orange-400" : "text-muted-foreground"}`}>
-                {deadlines.dueThisWeekCount}
-              </div>
-              <div className="text-sm text-muted-foreground">{t("deadlines.dueThisWeek")}</div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-3">
-              <div className="text-3xl font-bold text-muted-foreground">
-                {deadlines.dueThisMonthCount}
-              </div>
-              <div className="text-sm text-muted-foreground">{t("deadlines.dueThisMonth")}</div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Upcoming deadlines table */}
-      {deadlines.upcoming.length > 0 && (
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Clock className="h-4 w-4" />
-              {t("deadlines.upcoming")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {deadlines.upcoming.map((item) => (
-                <Link
-                  key={`${item.categorySlug}-${item.requirementCode}`}
-                  href={{
-                    pathname: "/compliance/[categorySlug]",
-                    params: { categorySlug: item.categorySlug },
-                    hash: item.requirementCode,
-                  }}
-                  className="flex items-center justify-between py-2 px-3 rounded-md hover:bg-accent/50 transition-colors text-sm"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="font-mono text-xs text-muted-foreground shrink-0">
-                      {item.requirementCode}
-                    </span>
-                    <span className="truncate">{item.requirementTitle}</span>
-                  </div>
-                  <span className={`text-xs font-medium shrink-0 ml-3 ${URGENCY_COLORS[item.urgency]}`}>
-                    {item.daysRemaining < 0
-                      ? t("deadlines.overdueDays", { days: Math.abs(item.daysRemaining) })
-                      : item.daysRemaining === 0
-                        ? t("deadlines.dueToday")
-                        : t("deadlines.dueDays", { days: item.daysRemaining })}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-    </div>
-  );
-}
-
 interface ComplianceProgress {
   completed: number;
   total: number;
@@ -284,11 +172,9 @@ interface ComplianceProgress {
 
 export function DashboardPage({
   summary,
-  deadlines,
   complianceProgress,
 }: {
   summary: DashboardSummary;
-  deadlines: DeadlinesData | null;
   complianceProgress: ComplianceProgress;
 }) {
   const t = useTranslations("dashboard");
@@ -304,9 +190,6 @@ export function DashboardPage({
         title={t("title")}
         description={t("description")}
       />
-
-      {/* Deadlines banner */}
-      {deadlines && <DeadlinesBanner deadlines={deadlines} t={t} />}
 
       {/* Compliance Progress */}
       <Card className="mb-6">

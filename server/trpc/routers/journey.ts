@@ -1,4 +1,5 @@
 import { eq, and, asc } from "drizzle-orm";
+import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, companyProcedure } from "../init";
 import {
@@ -58,7 +59,9 @@ function resolveDescription(code: string, locale: Locale): string | null {
  * unblock other work.
  */
 export const journeyRouter = router({
-  getItems: companyProcedure.query(async ({ ctx }) => {
+  getItems: companyProcedure
+    .input(z.object({ locale: z.enum(["en", "de"]).optional() }).optional())
+    .query(async ({ ctx, input }) => {
     // Defense-in-depth: page.tsx redirects unauthorised users from the
     // /journey route, but the tRPC procedure itself must also gate or
     // someone could call it directly and probe the feature's data shape.
@@ -171,7 +174,9 @@ export const journeyRouter = router({
       return n;
     }
 
-    const locale: Locale = "en"; // i18n at the requirement level is deferred
+    // Resolve requirement titles/descriptions in the caller's locale (NL falls
+    // back to EN: only en/de message bundles exist for requirement strings).
+    const locale: Locale = input?.locale ?? "en";
     const items = rows.map((r) => ({
       id: r.statusId,
       code: r.code,

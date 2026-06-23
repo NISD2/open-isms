@@ -30,10 +30,13 @@ export function SignInCard() {
   // window.location.assign on the next nav and host a credible
   // re-login-phish on the genuine nisd2.eu chrome.
   const rawCallback = searchParams.get("callbackUrl");
+  // Default post-login surface is the journey path view. Company-less users
+  // (fresh registrations) are bounced from /journey to /dashboard, which
+  // renders the onboarding banner, so this is safe for not-yet-onboarded users.
   const callbackUrl =
     rawCallback && rawCallback.startsWith("/") && !rawCallback.startsWith("//")
       ? rawCallback
-      : "/dashboard";
+      : "/journey";
   const [step, setStep] = useState<Step>("auth");
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");

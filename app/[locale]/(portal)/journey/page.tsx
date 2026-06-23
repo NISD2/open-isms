@@ -41,7 +41,9 @@ export default async function JourneyPage({
 
   const { view: rawView } = await searchParams;
 
-  const { items, isManagement, aggregate } = await api.journey.getItems();
+  const { items, isManagement, aggregate } = await api.journey.getItems({
+    locale: locale === "de" ? "de" : "en",
+  });
 
   const view: View = parseView(rawView) ?? defaultViewFor({ isManagement });
 
@@ -77,6 +79,7 @@ export default async function JourneyPage({
           reqNodes={reqNodes}
           locale={locale}
         />
+        <PathDisclaimer locale={locale} />
       </div>
     );
   }
@@ -103,8 +106,8 @@ export default async function JourneyPage({
         <h1 className="text-2xl font-semibold tracking-tight">Journey</h1>
         <p className="text-sm text-muted-foreground">
           {locale === "de"
-            ? "Was als nächstes ansteht — sortiert nach Ihrer Rolle."
-            : "What to do next — sorted by your role."}
+            ? "Was als nächstes ansteht, sortiert nach Ihrer Rolle."
+            : "What to do next, sorted by your role."}
         </p>
       </div>
 
@@ -121,6 +124,27 @@ export default async function JourneyPage({
         emptyLabel={locale === "de" ? "Keine Einträge." : "Nothing here."}
       />
     </div>
+  );
+}
+
+/**
+ * Liability framing for the opinionated journey ordering. The path bands
+ * (defensible minimum → over the year → lower priority) sequence mandatory
+ * controls by recommended order; they do NOT make lower-priority items optional
+ * and the order is not legal advice. Required before the journey is shown
+ * beyond internal staff (it is now the default surface for all users).
+ */
+function PathDisclaimer({ locale }: { locale: Locale }) {
+  const text =
+    locale === "de"
+      ? "Hinweis: Die Reihenfolge ist eine Empfehlung zur Priorisierung, keine Rechtsberatung. Alle Anforderungen bleiben verpflichtend, unabhängig von ihrer Position."
+      : locale === "nl"
+        ? "Let op: deze volgorde is een aanbevolen prioritering, geen juridisch advies. Elke vereiste blijft verplicht, ongeacht de positie."
+        : "Note: this order is a recommended prioritisation, not legal advice. Every requirement stays mandatory regardless of its position.";
+  return (
+    <p className="rounded-md border bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
+      {text}
+    </p>
   );
 }
 
@@ -211,8 +235,8 @@ function EmptyHandoff({
     <div className="rounded-md border border-primary/20 bg-primary/5 px-4 py-3 text-sm">
       <p>
         {t(
-          `Nothing requires your action right now. The company still has ${aggregate.open} open item${aggregate.open === 1 ? "" : "s"}${aggregate.overdue > 0 ? ` (${aggregate.overdue} overdue)` : ""} — see them under`,
-          `Aktuell nichts für Sie zu tun. Im Unternehmen sind noch ${aggregate.open} Aufgabe${aggregate.open === 1 ? "" : "n"} offen${aggregate.overdue > 0 ? ` (davon ${aggregate.overdue} überfällig)` : ""} — siehe`,
+          `Nothing requires your action right now. The company still has ${aggregate.open} open item${aggregate.open === 1 ? "" : "s"}${aggregate.overdue > 0 ? ` (${aggregate.overdue} overdue)` : ""}. See them under`,
+          `Aktuell nichts für Sie zu tun. Im Unternehmen sind noch ${aggregate.open} Aufgabe${aggregate.open === 1 ? "" : "n"} offen${aggregate.overdue > 0 ? ` (davon ${aggregate.overdue} überfällig)` : ""}. Siehe`,
         )}{" "}
         <Link
           href={{ pathname: "/journey" as const, query: { view: targetView } }}
