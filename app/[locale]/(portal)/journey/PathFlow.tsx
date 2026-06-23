@@ -13,6 +13,7 @@ import {
   CheckCheck,
   Minus,
   AlertTriangle,
+  CalendarClock,
   Scale,
   Repeat,
   Info,
@@ -34,7 +35,7 @@ import {
 import { journeyDisclaimer, journeyDisclaimerLabel } from "./disclaimer";
 
 type Locale = "en" | "de" | "nl";
-type StatusFilter = "open" | "overdue" | "awaiting";
+type StatusFilter = "open" | "overdue" | "duesoon" | "awaiting";
 type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
 
 type Aggregate = {
@@ -42,6 +43,7 @@ type Aggregate = {
   done: number;
   awaitingSignoff: number;
   overdue: number;
+  dueSoon: number;
   open: number;
 };
 
@@ -127,6 +129,8 @@ function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section
 function matchesFilter(node: FlowNode, filter: StatusFilter): boolean {
   if (filter === "open") return node.status !== "done";
   if (filter === "overdue") return node.isOverdue;
+  if (filter === "duesoon")
+    return node.dueInDays !== null && node.dueInDays >= 0 && node.dueInDays <= 30;
   return node.rawStatus === "needs_review";
 }
 
@@ -295,11 +299,17 @@ function FilterGroup({
         onClick={() => toggle("open")}
       />
       <FilterChip
-        label={de ? "Überfällig" : "Overdue"}
+        label={de ? "Prüfung überfällig" : "Review overdue"}
         value={aggregate.overdue}
         active={filter === "overdue"}
         tone={aggregate.overdue > 0 ? "destructive" : "default"}
         onClick={() => toggle("overdue")}
+      />
+      <FilterChip
+        label={de ? "Prüfung bald" : "Review due"}
+        value={aggregate.dueSoon}
+        active={filter === "duesoon"}
+        onClick={() => toggle("duesoon")}
       />
       <FilterChip
         label={de ? "Freigabe offen" : "Awaiting"}
@@ -586,6 +596,24 @@ function NodeCard({
   const so = node.signOff;
   // A partial multi-signer sign-off (e.g. 2 of 3 management members signed).
   const partialSignoff = so.total >= 2 && so.signed < so.total;
+  // Recurring-review cycle. dueInDays is set on items with a nextReviewDate.
+  const due = node.dueInDays;
+  const reviewState: "overdue" | "soon" | "later" | null =
+    due === null ? null : due < 0 ? "overdue" : due <= 30 ? "soon" : "later";
+  const reviewText =
+    due === null
+      ? null
+      : due < 0
+        ? de
+          ? `Prüfung ${-due} ${-due === 1 ? "Tag" : "Tage"} überfällig`
+          : `Review ${-due} ${-due === 1 ? "day" : "days"} overdue`
+        : due === 0
+          ? de
+            ? "Prüfung heute fällig"
+            : "Review due today"
+          : de
+            ? `Nächste Prüfung in ${due} ${due === 1 ? "Tag" : "Tagen"}`
+            : `Next review in ${due} ${due === 1 ? "day" : "days"}`;
 
   const ring =
     node.status === "current"
@@ -640,6 +668,17 @@ function NodeCard({
                   {so.signed}/{so.total}
                 </span>
               ) : null}
+              {reviewState === "overdue" ? (
+                <span className="inline-flex items-center gap-0.5 rounded bg-destructive/10 px-1 py-0 text-[10px] font-medium text-destructive">
+                  <CalendarClock className="h-2.5 w-2.5" />
+                  {de ? "überfällig" : "overdue"}
+                </span>
+              ) : reviewState === "soon" ? (
+                <span className="inline-flex items-center gap-0.5 rounded bg-amber-50 px-1 py-0 text-[10px] font-medium text-amber-700 dark:bg-amber-950/40 dark:text-amber-400">
+                  <CalendarClock className="h-2.5 w-2.5" />
+                  {due}d
+                </span>
+              ) : null}
               {node.priority === "P0" ? (
                 <Badge variant="secondary" className="px-1 py-0 text-[10px]">
                   P0
@@ -671,6 +710,21 @@ function NodeCard({
             {de
               ? `${so.signed} von ${so.total} Freigaben abgeschlossen`
               : `${so.signed} of ${so.total} sign-offs completed`}
+          </p>
+        ) : null}
+        {reviewText ? (
+          <p
+            className={cn(
+              "mt-1 inline-flex items-center gap-1 text-[11px]",
+              reviewState === "overdue"
+                ? "text-destructive"
+                : reviewState === "soon"
+                  ? "text-amber-600 dark:text-amber-400"
+                  : "text-muted-foreground",
+            )}
+          >
+            <CalendarClock className="h-3 w-3" />
+            {reviewText}
           </p>
         ) : null}
         {node.description ? (

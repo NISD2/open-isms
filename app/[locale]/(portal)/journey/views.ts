@@ -22,6 +22,10 @@ export type JourneyItem = {
   frameworkRef: string | null;
   requiredSignOffRole: string | null;
   dueAt: Date | null;
+  /** Calendar days until the recurring review (negative = overdue); null when
+   *  the item has no review date (not-done items carry only an initial
+   *  implementation deadline, which is not surfaced as a review). */
+  dueInDays: number | null;
   signedOffAt: Date | null;
   sortOrder: number;
   /** Assigned sign-offs done vs required, for N-of-M management sign-off. */

@@ -12,6 +12,7 @@ import {
   user,
 } from "@/schema";
 import { env } from "@/lib/env";
+import { daysUntilDeadline } from "@/lib/compliance/deadlines";
 import { isJourneyAllowed } from "@/lib/journey-flag";
 import requirementsEn from "@/messages/requirements/en.json";
 import requirementsDe from "@/messages/requirements/de.json";
@@ -50,6 +51,17 @@ function resolveDescription(code: string, locale: Locale): string | null {
  */
 function isDoneStatus(s: string): boolean {
   return s === "completed" || s === "approved" || s === "not_applicable";
+}
+
+/**
+ * Statuses where companyRequirementStatus.nextReviewDate is a recurring REVIEW
+ * date (vs the initial implementation deadline written to not-done rows by
+ * backfillInitialDeadlines / the deadlines cron). completed/approved only: a
+ * needs_review item surfaces via the separate "Awaiting" signal instead, so it
+ * is not double-counted as both awaiting and review-due.
+ */
+function isReviewStatus(s: string): boolean {
+  return s === "completed" || s === "approved";
 }
 
 /**
@@ -95,6 +107,7 @@ export const journeyRouter = router({
       done: 0,
       awaitingSignoff: 0,
       overdue: 0,
+      dueSoon: 0,
       open: 0,
     };
 
@@ -181,33 +194,51 @@ export const journeyRouter = router({
     // Resolve requirement titles/descriptions in the caller's locale (NL falls
     // back to EN: only en/de message bundles exist for requirement strings).
     const locale: Locale = input?.locale ?? "en";
-    const items = rows.map((r) => ({
-      id: r.statusId,
-      code: r.code,
-      title: resolveTitle(r.code, locale),
-      description: resolveDescription(r.code, locale),
-      categoryCode: r.categoryCode,
-      categorySlug: r.categorySlug,
-      status: r.status ?? "not_started",
-      priority: r.priority,
-      frequency: r.frequency,
-      legalRef: r.legalRef,
-      frameworkRef: r.frameworkRef,
-      requiredSignOffRole: r.requiredSignOffRole,
-      dueAt: r.nextReviewDate ? new Date(r.nextReviewDate) : null,
-      signedOffAt: r.signedOffAt,
-      sortOrder: r.sortOrder ?? 999,
-      signOff: signOffByStatusId.get(r.statusId) ?? { signed: 0, total: 0 },
-    }));
+    const nowDate = new Date();
+    const items = rows.map((r) => {
+      const status = r.status ?? "not_started";
+      const dueAt = r.nextReviewDate ? new Date(r.nextReviewDate) : null;
+      // nextReviewDate means a recurring REVIEW date only on review-relevant
+      // statuses (matches dashboard.ts). On not-done items the same column
+      // holds the initial implementation deadline, a different concept, so we
+      // do not surface it as a review here. One canonical calendar-day delta
+      // (daysUntilDeadline) drives every overdue/dueSoon/pill decision.
+      const dueInDays =
+        dueAt && isReviewStatus(status)
+          ? daysUntilDeadline(dueAt, nowDate)
+          : null;
+      return {
+        id: r.statusId,
+        code: r.code,
+        title: resolveTitle(r.code, locale),
+        description: resolveDescription(r.code, locale),
+        categoryCode: r.categoryCode,
+        categorySlug: r.categorySlug,
+        status,
+        priority: r.priority,
+        frequency: r.frequency,
+        legalRef: r.legalRef,
+        frameworkRef: r.frameworkRef,
+        requiredSignOffRole: r.requiredSignOffRole,
+        dueAt,
+        dueInDays,
+        signedOffAt: r.signedOffAt,
+        sortOrder: r.sortOrder ?? 999,
+        signOff: signOffByStatusId.get(r.statusId) ?? { signed: 0, total: 0 },
+      };
+    });
 
     // Company-wide aggregates, a reality check shown across the path view.
-    const now = Date.now();
     const aggregate = {
       total: items.length,
       done: items.filter((i) => isDoneStatus(i.status)).length,
       awaitingSignoff: items.filter((i) => i.status === "needs_review").length,
-      overdue: items.filter(
-        (i) => !isDoneStatus(i.status) && i.dueAt && i.dueAt.getTime() < now,
+      // Recurring-review cycle (only on review-status items, so a never-done
+      // item past its initial deadline is NOT mislabelled "review overdue").
+      overdue: items.filter((i) => i.dueInDays !== null && i.dueInDays < 0)
+        .length,
+      dueSoon: items.filter(
+        (i) => i.dueInDays !== null && i.dueInDays >= 0 && i.dueInDays <= 30,
       ).length,
       open: items.filter((i) => !isDoneStatus(i.status)).length,
     };

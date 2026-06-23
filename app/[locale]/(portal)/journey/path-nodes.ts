@@ -20,7 +20,10 @@ export type FlowNode = {
   status: NodeStatus;
   /** Raw companyRequirementStatus, for the aggregate filter chips. */
   rawStatus: string;
+  /** Recurring-review cycle: the next review (nextReviewDate) is in the past. */
   isOverdue: boolean;
+  /** Days until the next review (negative = overdue). null = no review date. */
+  dueInDays: number | null;
   priority: string | null;
   description: string | null;
   legalRef: string | null;
@@ -233,7 +236,6 @@ function liveCode(items: JourneyItem[]): string | null {
  */
 export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
   const live = liveCode(items);
-  const now = Date.now();
   return [...items]
     .sort((a, b) => globalOrder(a) - globalOrder(b))
     .map((it) => {
@@ -247,7 +249,6 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         : it.code === live
           ? "current"
           : "upcoming";
-      const dueMs = it.dueAt ? it.dueAt.getTime() : null;
       return {
         id: it.id,
         code: it.code,
@@ -259,7 +260,9 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         ownerRole,
         status,
         rawStatus: it.status,
-        isOverdue: !done && dueMs !== null && dueMs < now,
+        // Recurring review (server-computed, calendar days, review-status-gated).
+        isOverdue: it.dueInDays !== null && it.dueInDays < 0,
+        dueInDays: it.dueInDays,
         priority: it.priority,
         description: it.description,
         legalRef: it.legalRef,
