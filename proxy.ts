@@ -79,6 +79,7 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/nis2-meldepflicht-schema",
   "/nis2-tool",
   "/open-source",
+  "/partner",
   "/pricing",
   "/redaktion",
   "/sicherheit",
