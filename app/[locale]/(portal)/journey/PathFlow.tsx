@@ -61,8 +61,8 @@ const ORDER_OPTS: { key: Order; en: string; de: string; sub_en: string; sub_de: 
     key: "defensible",
     en: "Defensible minimum",
     de: "Belastbares Minimum",
-    sub_en: "Ordered by what an auditor checks first.",
-    sub_de: "Sortiert danach, was ein Auditor zuerst prüft.",
+    sub_en: "Biggest risk and legal exposure first.",
+    sub_de: "Groesstes Risiko und Haftung zuerst.",
   },
   {
     key: "chrono",
@@ -81,6 +81,14 @@ function dotStateOf(rawStatus: string): DotState {
   if (rawStatus === "rejected") return "rejected";
   if (rawStatus === "in_progress") return "started";
   return "todo";
+}
+
+function isDoneStatus(rawStatus: string): boolean {
+  return (
+    rawStatus === "completed" ||
+    rawStatus === "approved" ||
+    rawStatus === "not_applicable"
+  );
 }
 
 function statusLabel(rawStatus: string, de: boolean): string {
@@ -156,6 +164,9 @@ export function PathFlow({
 
   return (
     <div className="space-y-2">
+      <h2 className="text-lg font-semibold tracking-tight">
+        {de ? "Die Reise" : "The Journey"}
+      </h2>
       {/* Control bar: ordering (primary) on the left, filters on the right. */}
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <OrderToggle order={order} setOrder={setOrder} de={de} />
@@ -698,14 +709,14 @@ function NodeCard({
             {ownerLabel}
           </span>
         </div>
-        <p className={cn("mt-1.5 inline-flex items-center gap-1 text-xs font-medium", statusColor)}>
+        <p className={cn("mt-1.5 flex items-center gap-1 text-xs font-medium", statusColor)}>
           <Dot state={state} current={node.status === "current"} size="sm" />
           {statusLabel(node.rawStatus, de)}
         </p>
-        {so.total >= 1 &&
+        {(so.total >= 2 || isDoneStatus(node.rawStatus)) &&
         node.rawStatus !== "rejected" &&
         node.rawStatus !== "needs_review" ? (
-          <p className="mt-1 inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+          <p className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
             <Users className="h-3 w-3" />
             {de
               ? `${so.signed} von ${so.total} Freigaben abgeschlossen`
@@ -715,7 +726,7 @@ function NodeCard({
         {reviewText ? (
           <p
             className={cn(
-              "mt-1 inline-flex items-center gap-1 text-[11px]",
+              "mt-1 flex items-center gap-1 text-[11px]",
               reviewState === "overdue"
                 ? "text-destructive"
                 : reviewState === "soon"
