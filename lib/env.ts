@@ -20,6 +20,10 @@ const envSchema = z.object({
   // ENABLE_EMAIL_IN_DEV=true to exercise the real path in dev.
   RESEND_API_KEY: z.string().optional(),
   RESEND_FROM_EMAIL: z.string().default("noreply@nisd2.eu"),
+  // Separate From for the newsletter so lifecycle email can send from a
+  // distinct mailbox (e.g. newsletter@nisd2.eu) while auth/transactional
+  // email stays on RESEND_FROM_EMAIL. Falls back to RESEND_FROM_EMAIL.
+  RESEND_FROM_EMAIL_NEWS: z.string().optional(),
   DISABLE_EMAIL: z.string().optional(),
   ENABLE_EMAIL_IN_DEV: z.string().optional(),
 

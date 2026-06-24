@@ -1242,6 +1242,67 @@ const PASSWORD_RESET_COPY: Record<
   },
 };
 
+// ---------------------------------------------------------------------------
+// Newsletter / lifecycle email
+//
+// Opportunistic bottom-of-funnel email sent to verified, opted-in users.
+// Body is authored inline as markdown in the platform-admin composer and
+// pre-rendered to HTML (renderNewsletterMarkdown) before being passed here.
+// Footer carries the per-user one-click unsubscribe (HMAC-signed via
+// lib/email/unsubscribe.ts) and a forward-to-a-friend mailto link.
+// ---------------------------------------------------------------------------
+
+export function newsletterEmail(opts: {
+  subject: string;
+  preheader?: string | null;
+  /** Body markdown already rendered to HTML by renderNewsletterMarkdown(). */
+  bodyHtml: string;
+  /** Raw markdown body, used to build the plain-text alternative. */
+  bodyText: string;
+  unsubscribeUrl: string;
+  forwardUrl: string;
+}): EmailContent {
+  const { subject, preheader, bodyHtml, bodyText, unsubscribeUrl, forwardUrl } = opts;
+
+  // Hidden preview text: shown by most clients next to the subject line,
+  // not rendered in the body. Kept short so following content does not leak in.
+  const preheaderBlock = preheader
+    ? `<div style="display: none; max-height: 0; overflow: hidden; opacity: 0;">${escapeHtml(preheader)}</div>`
+    : "";
+
+  // "Just reply" beats a mailto link here: the message is sent with
+  // Reply-To set to a real mailbox, so hitting reply pre-fills the address
+  // and keeps the thread, whereas a mailto opens an empty new message.
+  return {
+    subject: safeHeader(subject),
+    html: emailLayout(`
+        ${preheaderBlock}
+        <div style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.65;">
+${bodyHtml}
+        </div>
+        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.6; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
+          Questions or feedback? Just reply to this email, it comes straight to me.
+          <br/><br/>
+          Found this useful? <a href="${forwardUrl}" style="color: ${BRAND.primary};">Forward it to a colleague.</a>
+          <br/><br/>
+          You are receiving this because you have an account at nisd2.eu.
+          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>.
+        </p>
+    `),
+    text: [
+      bodyText,
+      ``,
+      `--`,
+      `Questions or feedback? Just reply to this email, it comes straight to me.`,
+      ``,
+      `Found this useful? Forward it to a colleague.`,
+      ``,
+      `You are receiving this because you have an account at nisd2.eu.`,
+      `Unsubscribe: ${unsubscribeUrl}`,
+    ].join("\n"),
+  };
+}
+
 export function passwordResetCodeEmail(opts: {
   code: string;
   locale?: Locale;

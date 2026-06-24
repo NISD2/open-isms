@@ -17,6 +17,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { Link } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -196,6 +198,14 @@ export function PlatformAdminPage({
         title="Platform Admin"
         description="Cross-company overview — only visible to platform operators"
       />
+
+      <div className="flex flex-wrap gap-2">
+        <Button asChild variant="outline" size="sm">
+          <Link href={"/platform-admin/newsletter" as never}>
+            <Mail className="h-4 w-4" /> Newsletter
+          </Link>
+        </Button>
+      </div>
 
       {/* KPI cards */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">

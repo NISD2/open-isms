@@ -8,6 +8,34 @@
       "when": 1780744860167,
       "tag": "0000_far_mimic",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1782209744247,
+      "tag": "0001_whole_jetstream",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782217110562,
+      "tag": "0002_fresh_sphinx",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1782219123681,
+      "tag": "0003_previous_komodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1782226271965,
+      "tag": "0004_previous_smiling_tiger",
+      "breakpoints": true
     }
   ]
 }

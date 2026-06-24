@@ -1,0 +1,1 @@
+ALTER TABLE "newsletter_issue" ADD COLUMN "sent_html" text;

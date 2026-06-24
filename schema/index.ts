@@ -25,6 +25,8 @@ export * from "./tables/email-otp";
 export * from "./tables/company-invite";
 export * from "./tables/supplier-invite";
 export * from "./tables/supplier-portal";
+export * from "./tables/newsletter-group";
+export * from "./tables/newsletter-issue";
 
 // Modules (framework-specific extensions)
 export * from "./modules/bsig";

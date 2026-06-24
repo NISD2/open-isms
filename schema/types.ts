@@ -33,6 +33,9 @@ import { riskTreatment } from "@nisd2/isms-schema/tables/risk-treatment";
 import { supplier } from "@nisd2/grc-data-model/schema";
 import { trainingRecord } from "@nisd2/isms-schema/tables/training";
 
+import { newsletterIssue } from "./tables/newsletter-issue";
+import { newsletterGroup, newsletterGroupMember } from "./tables/newsletter-group";
+
 // --- Module imports ---
 import { bsiRegistration, bsiIncidentReport } from "./modules/bsig";
 
@@ -203,6 +206,17 @@ export type NewExercise = typeof exercise.$inferInsert;
 
 export type PolicyAcknowledgment = typeof policyAcknowledgment.$inferSelect;
 export type NewPolicyAcknowledgment = typeof policyAcknowledgment.$inferInsert;
+
+// ============================================================================
+// Newsletter
+// ============================================================================
+
+export type NewsletterIssue = typeof newsletterIssue.$inferSelect;
+export type NewNewsletterIssue = typeof newsletterIssue.$inferInsert;
+export type NewsletterGroup = typeof newsletterGroup.$inferSelect;
+export type NewNewsletterGroup = typeof newsletterGroup.$inferInsert;
+export type NewsletterGroupMember = typeof newsletterGroupMember.$inferSelect;
+export type NewNewsletterGroupMember = typeof newsletterGroupMember.$inferInsert;
 
 // ============================================================================
 // BSIG Module

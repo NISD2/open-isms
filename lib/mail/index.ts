@@ -17,6 +17,7 @@ export {
   entityInvitesSupplierEmail,
   newUserSignupEmail,
   courseFollowupEmail,
+  newsletterEmail,
   emailVerificationCodeEmail,
   passwordResetCodeEmail,
   type DigestItem,

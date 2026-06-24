@@ -17,16 +17,28 @@ import { getAppUrl } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
+/**
+ * Friendly HTML page for the unhappy paths (missing params, bad token,
+ * unknown user) instead of a raw JSON error. The link is single-credential
+ * and unauthenticated, so the only states a human ever sees are "done" or
+ * "this link is no longer valid" — both belong on a styled page.
+ */
+function invalidLinkRedirect() {
+  return NextResponse.redirect(`${getAppUrl()}/email/unsubscribed?status=invalid`, {
+    status: 303,
+  });
+}
+
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const userId = url.searchParams.get("u");
   const token = url.searchParams.get("t");
 
   if (!userId || !token) {
-    return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
+    return invalidLinkRedirect();
   }
   if (!verifyUnsubscribeToken(userId, token)) {
-    return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    return invalidLinkRedirect();
   }
 
   // Look up the user to confirm existence and capture their companyId for
@@ -36,7 +48,7 @@ export async function GET(req: NextRequest) {
     columns: { id: true, email: true, companyId: true, emailFollowupsDisabled: true },
   });
   if (!row) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+    return invalidLinkRedirect();
   }
 
   if (!row.emailFollowupsDisabled) {

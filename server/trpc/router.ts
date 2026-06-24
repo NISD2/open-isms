@@ -34,6 +34,7 @@ import { trainingCertificateRouter } from "./routers/training-certificate";
 import { platformAdminRouter } from "./routers/platform-admin";
 import { gapAssessmentRouter } from "./routers/gap-assessment";
 import { journeyRouter } from "./routers/journey";
+import { newsletterRouter } from "./routers/newsletter";
 
 // Build-time gated: dev router is excluded from production bundles
 const isDev = process.env.NODE_ENV === "development";
@@ -74,6 +75,7 @@ export const appRouter = router({
   platformAdmin: platformAdminRouter,
   gapAssessment: gapAssessmentRouter,
   journey: journeyRouter,
+  newsletter: newsletterRouter,
 });
 
 export type AppRouter = typeof appRouter;

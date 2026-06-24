@@ -13,6 +13,12 @@ export interface SendMailOptions {
   text?: string;
   replyTo?: string;
   /**
+   * Override the From address (email only; the "NIS2 Compliance" display name
+   * is kept). Defaults to RESEND_FROM_EMAIL. Used by the newsletter to send
+   * from a distinct mailbox while transactional email stays on the default.
+   */
+  fromEmail?: string;
+  /**
    * If set, adds RFC 8058 one-click List-Unsubscribe headers. The URL is sent
    * via both `List-Unsubscribe` and `List-Unsubscribe-Post`, letting Gmail /
    * Apple Mail render a native "Unsubscribe" link in the message header.
@@ -68,7 +74,7 @@ export async function sendMail(opts: SendMailOptions) {
         : undefined;
 
       const { data, error } = await resend.emails.send({
-        from: `NIS2 Compliance <${FROM_EMAIL}>`,
+        from: `NIS2 Compliance <${opts.fromEmail ?? FROM_EMAIL}>`,
         to: Array.isArray(opts.to) ? opts.to : [opts.to],
         subject: opts.subject,
         html: opts.html,
