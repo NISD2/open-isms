@@ -1,6 +1,106 @@
 {
   "entries": [
     {
+      "id": "2026-06-24-product-guided-path-default",
+      "date": "2026-06-24",
+      "category": "product",
+      "titleDe": "Gefuehrter Pfad ist jetzt die Standardansicht der Umsetzung",
+      "titleEn": "Guided path is now the default implementation view",
+      "bodyDe": "Die Umsetzung laeuft jetzt ueber einen gefuehrten Pfad: Anforderungen in sinnvoller Reihenfolge, Swimlanes je Rolle, Freigabefortschritt (N von M Unterschriften) und der jaehrliche Pruefzyklus mit faelligen und ueberfaelligen Aufgaben. Diese Ansicht ist fuer alle Konten voreingestellt.",
+      "bodyEn": "Implementation now runs through a guided path: requirements in a sensible order, role swimlanes, sign-off progress (N of M signatures) and the annual review cycle with due and overdue items. This view is the default for every account.",
+      "links": [
+        {
+          "labelDe": "Umsetzung starten",
+          "labelEn": "Start implementing",
+          "href": "/start"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-23-regulatory-cir-annex-13-points",
+      "date": "2026-06-23",
+      "category": "regulatory",
+      "titleDe": "Wiki korrigiert: CIR 2024/2690 Anhang auf die offiziellen 13 Punkte",
+      "titleEn": "Wiki corrected: CIR 2024/2690 Annex to the official 13 points",
+      "bodyDe": "Die Darstellung der technischen Massnahmen nach CIR 2024/2690 im Wiki folgt jetzt der offiziellen Anhangsstruktur mit 13 Punkten. Mehrfaktorauthentisierung steht als Punkt 11.7 unter Zugangskontrolle, nicht als eigener Bereich.",
+      "bodyEn": "The wiki presentation of the technical measures under CIR 2024/2690 now follows the official Annex structure of 13 points. Multifactor authentication appears as point 11.7 under access control, not as a standalone area."
+    },
+    {
+      "id": "2026-06-23-course-cra-citations-parity",
+      "date": "2026-06-23",
+      "category": "course",
+      "titleDe": "CRA-Kurs: Rechtszitate korrigiert, alle zehn Sprachfassungen angeglichen",
+      "titleEn": "CRA course: legal citations corrected, all ten locales brought to parity",
+      "bodyDe": "Im Kurs zum Cyber Resilience Act wurden die Rechtszitate korrigiert und alle zehn Sprachfassungen auf denselben inhaltlichen Stand gebracht.",
+      "bodyEn": "In the Cyber Resilience Act course, legal citations were corrected and all ten language versions brought to the same content state."
+    },
+    {
+      "id": "2026-06-22-regulatory-timeline-transposition-13-states",
+      "date": "2026-06-22",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: grundlegende Umsetzungsereignisse fuer 13 weitere Mitgliedstaaten",
+      "titleEn": "Timeline: foundational transposition events for 13 more Member States",
+      "bodyDe": "Die NIS-2-Zeitleiste enthaelt jetzt grundlegende Umsetzungsereignisse, etwa Gesetz in Kraft und Registrierungsfrist, fuer 13 weitere EU-Mitgliedstaaten mit Drilldown pro Land.",
+      "bodyEn": "The NIS 2 timeline now carries foundational transposition events, such as law in force and registration deadline, for 13 more EU Member States with per-country drill-down.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-20-content-ten-languages",
+      "date": "2026-06-20",
+      "category": "content",
+      "titleDe": "Die gesamte Website jetzt in zehn Sprachen",
+      "titleEn": "The entire site now in ten languages",
+      "bodyDe": "Plattform, Wiki und Kursinhalte sind jetzt in zehn Sprachen verfuegbar: Deutsch, Englisch, Niederlaendisch, Franzoesisch, Italienisch, Spanisch, Polnisch, Tschechisch, Portugiesisch und Rumaenisch.",
+      "bodyEn": "The platform, wiki and course content are now available in ten languages: German, English, Dutch, French, Italian, Spanish, Polish, Czech, Portuguese and Romanian."
+    },
+    {
+      "id": "2026-06-18-content-nis2-faq-wiki",
+      "date": "2026-06-18",
+      "category": "content",
+      "titleDe": "NIS-2-FAQ im Wiki: 98 Fragen und Antworten",
+      "titleEn": "NIS 2 FAQ in the wiki: 98 questions and answers",
+      "bodyDe": "Eine neue FAQ-Sammlung im Wiki beantwortet 98 Fragen zu NIS 2, in der Struktur der offiziellen BSI-NIS-2-FAQ. Verfuegbar in Deutsch, Englisch und Niederlaendisch.",
+      "bodyEn": "A new wiki FAQ answers 98 questions on NIS 2, following the structure of the official BSI NIS 2 FAQ. Available in German, English and Dutch."
+    },
+    {
+      "id": "2026-06-18-product-landing-start-refresh",
+      "date": "2026-06-18",
+      "category": "product",
+      "titleDe": "Startseite verschlankt, /start als gefuehrte Umsetzungsseite",
+      "titleEn": "Landing page simplified, /start turned into a guided implementation page",
+      "bodyDe": "Die Startseite wurde verschlankt und EU-zuerst formuliert, mit NIS 2 und CIR 2024/2690 vor den nationalen Umsetzungen. Die Seite /start ist jetzt ein ruhiger, gefuehrter Einstieg in die Umsetzung statt eines Buchungsformulars.",
+      "bodyEn": "The landing page was simplified and reframed EU-first, leading with NIS 2 and CIR 2024/2690 before national transpositions. The /start page is now a calm, guided entry into implementation rather than a booking form.",
+      "links": [
+        {
+          "labelDe": "Zur Startseite",
+          "labelEn": "Open /start",
+          "href": "/start"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-18-compliance-toms-personnel-availability",
+      "date": "2026-06-18",
+      "category": "compliance",
+      "titleDe": "TOMs ergaenzt: personelle Massnahmen und Verfuegbarkeitsueberwachung",
+      "titleEn": "TOMs updated: personnel measures and availability monitoring",
+      "bodyDe": "Das Dokument der technischen und organisatorischen Massnahmen wurde um personelle Massnahmen und die Ueberwachung der Verfuegbarkeit erweitert.",
+      "bodyEn": "The technical and organisational measures document was extended with personnel measures and availability monitoring.",
+      "links": [
+        {
+          "labelDe": "TOMs",
+          "labelEn": "TOMs",
+          "href": "/toms"
+        }
+      ]
+    },
+    {
       "id": "2026-06-17-regulatory-timeline-cooperation-templates-enisa",
       "date": "2026-06-17",
       "category": "regulatory",
