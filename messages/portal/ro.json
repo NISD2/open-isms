@@ -48,6 +48,8 @@
     "phaseOperations": "Operațiuni",
     "phaseVerification": "Verificare",
     "phaseAdmin": "Administrare",
-    "blockedBy": "Finalizați mai întâi: {codes}"
+    "blockedBy": "Finalizați mai întâi: {codes}",
+    "journey": "Parcurs",
+    "administration": "Administrare"
   }
 }

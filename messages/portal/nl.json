@@ -48,6 +48,8 @@
     "phaseOperations": "Operaties",
     "phaseVerification": "Verificatie",
     "phaseAdmin": "Beheer",
-    "blockedBy": "Voltooi eerst: {codes}"
+    "blockedBy": "Voltooi eerst: {codes}",
+    "journey": "Traject",
+    "administration": "Beheer"
   }
 }
