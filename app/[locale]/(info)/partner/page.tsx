@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 const partners = [
   {
     name: "nvidia-inception",
-    logo: "/partners/nvidia-inception.webp",
+    logo: "/partners/nvidia-inception-program-badge.svg",
     href: "https://www.nvidia.com/en-us/startups/",
     titleKey: "nvidia.title",
     descKey: "nvidia.description",
@@ -55,9 +55,9 @@ export default async function PartnerPage() {
               <img
                 src={partner.logo}
                 alt={t(`partners.${partner.titleKey}`)}
-                width={300}
-                height={184}
-                className="h-20 w-auto"
+                width={500}
+                height={216}
+                className="h-24 w-auto"
               />
               <CardTitle className="sr-only">{t(`partners.${partner.titleKey}`)}</CardTitle>
             </CardHeader>
@@ -78,6 +78,12 @@ export default async function PartnerPage() {
           </Card>
         ))}
       </section>
+
+      <Separator className="my-8" />
+
+      <footer>
+        <p className="text-xs text-muted-foreground">{t("partners.legal")}</p>
+      </footer>
     </article></CopyProtected>
   );
 }

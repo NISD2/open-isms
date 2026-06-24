@@ -5847,15 +5847,16 @@
     "partners": {
       "meta": {
         "title": "Partners - NISD2.eu",
-        "description": "Programmes and organisations we work with. NISD2.eu is a member of the NVIDIA Inception Program."
+        "description": "Programmes and organisations we work with. NISD2.eu is a member of the NVIDIA Inception program."
       },
       "title": "Partners",
       "subtitle": "Programmes and organisations we work with to build out the platform.",
       "learnMore": "Learn more",
       "nvidia": {
         "title": "NVIDIA Inception Program",
-        "description": "NISD2.eu is a member of the NVIDIA Inception Program, which supports startups with technical guidance and resources for building AI-driven products."
-      }
+        "description": "NISD2.eu is a member of the NVIDIA Inception program, which supports startups with technical guidance and resources for building AI-driven products."
+      },
+      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries."
     },
     "status": {
       "meta": {

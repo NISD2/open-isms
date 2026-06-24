@@ -6268,7 +6268,8 @@
       "nvidia": {
         "title": "NVIDIA Inception Program",
         "description": "NISD2.eu is lid van het NVIDIA Inception Program, dat startups ondersteunt met technische begeleiding en middelen voor het bouwen van AI-gedreven producten."
-      }
+      },
+      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries."
     },
     "status": {
       "meta": {
