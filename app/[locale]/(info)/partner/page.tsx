@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 const partners = [
   {
     name: "nvidia-inception",
-    logo: "/partners/nvidia-inception.svg",
+    logo: "/partners/nvidia-inception.webp",
     href: "https://www.nvidia.com/en-us/startups/",
     titleKey: "nvidia.title",
     descKey: "nvidia.description",
@@ -56,8 +56,8 @@ export default async function PartnerPage() {
                 src={partner.logo}
                 alt={t(`partners.${partner.titleKey}`)}
                 width={300}
-                height={80}
-                className="h-16 w-auto"
+                height={184}
+                className="h-20 w-auto"
               />
               <CardTitle className="sr-only">{t(`partners.${partner.titleKey}`)}</CardTitle>
             </CardHeader>
