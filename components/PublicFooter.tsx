@@ -69,6 +69,11 @@ export async function PublicFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/partner" className="text-sm text-muted-foreground hover:text-foreground">
+                  {t("footer.partners")}
+                </Link>
+              </li>
+              <li>
                 <Link href="/status" className="text-sm text-muted-foreground hover:text-foreground">
                   {t("footer.status")}
                 </Link>
