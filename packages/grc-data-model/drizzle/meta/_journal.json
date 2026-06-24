@@ -15,6 +15,13 @@
       "when": 1782224030353,
       "tag": "0001_relax_mfa_prereq",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1782285511454,
+      "tag": "0002_signoff_legal_corrections",
+      "breakpoints": true
     }
   ]
 }

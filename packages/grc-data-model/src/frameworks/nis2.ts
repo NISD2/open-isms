@@ -40,7 +40,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   ],
   "business-continuity": () => [
     mkReq("4.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1" }),
-    mkReq("4.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1, 4.3", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1, 4.3" }),
+    mkReq("4.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1, 4.3", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1, 4.3", requiredSignOffRole: "ceo" }),
     mkReq("4.3", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1" }),
     mkReq("4.4", "technical", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.2", frameworkRef: "Art. 21(2)(c)", cirReference: "4.2" }),
     mkReq("4.5", "proof", { priority: "P1", frequency: "annual", legalRef: "§30(2) Nr. 3+6 BSIG, CIR 4.1", frameworkRef: "Art. 21(2)(c), Art. 21(2)(f)", cirReference: "4.1" }),
@@ -61,7 +61,7 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   effectiveness: () => [
     mkReq("7.1", "proof", { priority: "P1", frequency: "monthly", legalRef: "§30(2) Nr. 6 BSIG, CIR 7.1", frameworkRef: "Art. 21(2)(f)", cirReference: "7.1" }),
     mkReq("7.2", "proof", { priority: "P1", legalRef: "§30(2) Nr. 6 BSIG, CIR 7.2", frameworkRef: "Art. 21(2)(f)", cirReference: "7.2" }),
-    mkReq("7.3", "sign-off", { priority: "P1", legalRef: "§30(2) Nr. 6 BSIG, CIR 7.3, §38(1)", frameworkRef: "Art. 21(2)(f), Art. 20(1)", cirReference: "7.3", requiredSignOffRole: "ceo" }),
+    mkReq("7.3", "sign-off", { priority: "P1", legalRef: "§30(2) Nr. 6 BSIG, CIR 2.2.1, §38(1)", frameworkRef: "Art. 21(2)(f), Art. 20(1)", cirReference: "2.2.1", requiredSignOffRole: "ceo" }),
     mkReq("7.4", "document", { priority: "P1", frequency: "ongoing", legalRef: "§30(2) Nr. 6 BSIG, CIR 7.4, Art. 21(4)", frameworkRef: "Art. 21(2)(f), Art. 21(4)", cirReference: "7.4" }),
   ],
   training: () => [
@@ -108,7 +108,7 @@ const NIS2_MODULE_REF: Record<string, string> = {
   "8.1": "policy", "8.2": "training_record",
   "8.3": "training_record", "8.4": "kpi_measurement",
   "10.2": "asset",
-  "12.1": "bsi_registration", "12.4": "asset",
+  "12.4": "asset",
 };
 
 export function getNis2RequirementsForCategory(slug: string): FrameworkRequirement[] {

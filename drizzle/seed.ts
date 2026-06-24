@@ -271,7 +271,8 @@ async function seed() {
 
   const PREREQUISITES: { prerequisite: string; blocks: string; notes: string }[] = [
     // === Registration chain ===
-    { prerequisite: "12.1", blocks: "12.2", notes: "Can't register without classification (§28 → §33 BSIG)" },
+    // 12.1 (classification, §28) and 12.2 (registration, §33) are parallel
+    // filings, not sequenced, so 12.1 is not a prerequisite of 12.2.
     { prerequisite: "12.2", blocks: "12.3", notes: "Registration must exist before maintenance" },
     { prerequisite: "12.1", blocks: "12.4", notes: "Classification needed for compliance evidence scope" },
 
