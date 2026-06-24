@@ -188,6 +188,7 @@ export const routing = defineRouting({
     // Universal slugs (proper nouns, acronyms, brand terms)
     "/mission": "/mission",
     "/open-source": "/open-source",
+    "/partner": "/partner",
     "/changelog": "/changelog",
     "/status": "/status",
     "/nis2-tool": "/nis2-tool",
