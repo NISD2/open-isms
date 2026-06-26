@@ -57,6 +57,12 @@ export const routing = defineRouting({
     // ── /docs hub, 8 categories, 33 pages — derived from docs-toc ─────
     ...wikiPathnames(),
 
+    // Public newsletter archive hub + dynamic issue permalinks. Slugs come
+    // from the DB; the [slug] param route is registered (universal slug, brand
+    // term) so typed <Link>s resolve and the proxy /newsletter prefix admits it.
+    "/newsletter": "/newsletter",
+    "/newsletter/[slug]": "/newsletter/[slug]",
+
     // Wiki citation library — primary-source Legislation references
     "/wiki/zitate": {
       de: "/wiki/zitate",

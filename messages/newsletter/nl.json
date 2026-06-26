@@ -1,0 +1,23 @@
+{
+  "newsletter": {
+    "archive": {
+      "metaTitle": "Nieuwsbriefarchief",
+      "metaDescription": "Elke editie van de NISD2-nieuwsbrief: één ontwikkeling per editie, wat het betekent voor de directie, de volgende stap. In 30 seconden gelezen.",
+      "title": "Nieuwsbrief",
+      "intro": "Eén ontwikkeling per editie. Wat er veranderde, wat het betekent voor de directie, de volgende stap. Elke editie staat hier, blijvend en deelbaar.",
+      "empty": "Nog geen edities gepubliceerd.",
+      "readIssue": "Editie lezen",
+      "publishedOn": "Gepubliceerd op {date}"
+    },
+    "issue": {
+      "backToArchive": "Terug naar het nieuwsbriefarchief",
+      "publishedOn": "Gepubliceerd op {date}",
+      "ctaHeading": "Volgende stap"
+    },
+    "cta": {
+      "tool": "Open de NIS2-tool, gratis",
+      "course": "Naar de gratis cursus",
+      "gap": "Controleer gratis of je onder NIS2 valt"
+    }
+  }
+}

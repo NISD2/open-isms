@@ -15,10 +15,11 @@
  * Gated by platformAdminProcedure (PLATFORM_ADMIN_EMAILS allowlist), same as
  * the rest of the platform-admin surface.
  */
-import { and, count, desc, eq, isNotNull, isNull, sql } from "drizzle-orm";
+import { and, count, desc, eq, isNotNull, isNull, ne, sql } from "drizzle-orm";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { router, protectedProcedure } from "../init";
+import { getTranslations } from "next-intl/server";
+import { router, protectedProcedure, publicProcedure } from "../init";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import {
   newsletterIssue,
@@ -32,6 +33,7 @@ import { sendMail, newsletterEmail } from "@/lib/mail";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { getAppUrl } from "@/lib/utils";
 import { logAudit } from "@/lib/audit";
+import { getNewsletterCta, NEWSLETTER_CTA_KEYS } from "@/lib/newsletter/cta";
 
 const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
   if (!isPlatformAdmin(ctx.session?.user.email)) {
@@ -89,8 +91,11 @@ function dispatchNewsletter(opts: {
   bodyHtml: string;
   bodyText: string;
   forwardUrl: string;
+  cta: { url: string; label: string } | null;
+  viewInBrowserUrl: string | null;
 }): void {
-  const { recipients, subject, preheader, bodyHtml, bodyText, forwardUrl } = opts;
+  const { recipients, subject, preheader, bodyHtml, bodyText, forwardUrl, cta, viewInBrowserUrl } =
+    opts;
   void (async () => {
     for (let i = 0; i < recipients.length; i += BURST_SIZE) {
       const batch = recipients.slice(i, i + BURST_SIZE);
@@ -104,6 +109,8 @@ function dispatchNewsletter(opts: {
           bodyText,
           unsubscribeUrl: unsubUrl,
           forwardUrl,
+          cta,
+          viewInBrowserUrl,
         });
         sendMail({
           to: r.email,
@@ -132,10 +139,37 @@ function buildForwardUrl(subject: string): string {
   return `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
+/** Public permalink for an issue. */
+function issuePermalink(slug: string): string {
+  return `${getAppUrl()}/newsletter/${slug}`;
+}
+
+/** URL-safe slug from a title: lowercase, non-alphanumerics to hyphens. */
+function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 180);
+}
+
+/** Resolve the issue CTA into the absolute URL + English label for the email. */
+async function resolveEmailCta(
+  ctaKey: string | null,
+): Promise<{ url: string; label: string } | null> {
+  const cta = getNewsletterCta(ctaKey);
+  if (!cta) return null;
+  const t = await getTranslations({ locale: "en", namespace: "newsletter" });
+  return { url: `${getAppUrl()}${cta.href}`, label: t(cta.labelKey) };
+}
+
 const issueInput = z.object({
   subject: z.string().trim().min(1).max(500),
   preheader: z.string().trim().max(500).nullish(),
   bodyMarkdown: z.string().max(50_000),
+  slug: z.string().trim().max(200).nullish(),
+  ctaKey: z.enum(NEWSLETTER_CTA_KEYS).nullish(),
 });
 
 export const newsletterRouter = router({
@@ -145,9 +179,11 @@ export const newsletterRouter = router({
       .select({
         id: newsletterIssue.id,
         subject: newsletterIssue.subject,
+        slug: newsletterIssue.slug,
         status: newsletterIssue.status,
         createdAt: newsletterIssue.createdAt,
         sentAt: newsletterIssue.sentAt,
+        publishedAt: newsletterIssue.publishedAt,
         recipientCount: newsletterIssue.recipientCount,
         targetGroupName: newsletterGroup.name,
       })
@@ -170,10 +206,27 @@ export const newsletterRouter = router({
   saveIssue: platformAdminProcedure
     .input(issueInput.extend({ id: z.string().uuid().optional() }))
     .mutation(async ({ ctx, input }) => {
+      // Derive the slug from an explicit override, else the subject. Dedupe
+      // against other issues so the public permalink stays unique.
+      const base = slugify(input.slug?.trim() || input.subject) || "issue";
+      let slug = base;
+      for (let n = 2; ; n++) {
+        const clash = await ctx.db.query.newsletterIssue.findFirst({
+          where: input.id
+            ? and(eq(newsletterIssue.slug, slug), ne(newsletterIssue.id, input.id))
+            : eq(newsletterIssue.slug, slug),
+          columns: { id: true },
+        });
+        if (!clash) break;
+        slug = `${base}-${n}`;
+      }
+
       const values = {
         subject: input.subject,
         preheader: input.preheader ?? null,
         bodyMarkdown: input.bodyMarkdown,
+        slug,
+        ctaKey: input.ctaKey ?? null,
       };
 
       if (input.id) {
@@ -221,6 +274,8 @@ export const newsletterRouter = router({
         bodyText: input.bodyMarkdown,
         unsubscribeUrl: `${getAppUrl()}/api/email/unsubscribe?u=PREVIEW&t=PREVIEW`,
         forwardUrl: buildForwardUrl(input.subject),
+        cta: await resolveEmailCta(input.ctaKey ?? null),
+        viewInBrowserUrl: input.slug ? issuePermalink(slugify(input.slug)) : null,
       });
       return { subject: email.subject, html: email.html };
     }),
@@ -313,6 +368,8 @@ export const newsletterRouter = router({
 
       const bodyHtml = await renderNewsletterMarkdown(issue.bodyMarkdown);
       const forwardUrl = buildForwardUrl(issue.subject);
+      const cta = await resolveEmailCta(issue.ctaKey);
+      const viewInBrowserUrl = issuePermalink(issue.slug);
       const now = new Date();
 
       // Archive a snapshot of exactly what went out (placeholder unsubscribe
@@ -325,6 +382,8 @@ export const newsletterRouter = router({
         bodyText: issue.bodyMarkdown,
         unsubscribeUrl: `${getAppUrl()}/api/email/unsubscribe`,
         forwardUrl,
+        cta,
+        viewInBrowserUrl,
       }).html;
 
       // Mark sent up front so a second click cannot double-send while the
@@ -374,6 +433,8 @@ export const newsletterRouter = router({
         bodyHtml,
         bodyText: issue.bodyMarkdown,
         forwardUrl,
+        cta,
+        viewInBrowserUrl,
       });
 
       await logAudit({
@@ -412,6 +473,8 @@ export const newsletterRouter = router({
         bodyText: input.bodyMarkdown,
         unsubscribeUrl: unsubUrl,
         forwardUrl: buildForwardUrl(input.subject),
+        cta: await resolveEmailCta(input.ctaKey ?? null),
+        viewInBrowserUrl: input.slug ? issuePermalink(slugify(input.slug)) : null,
       });
       const res = await sendMail({
         to,
@@ -427,6 +490,42 @@ export const newsletterRouter = router({
       }
       // res.id === "dev-blocked" when the dev guard suppressed real delivery.
       return { to, devBlocked: res.id === "dev-blocked" };
+    }),
+
+  /**
+   * Publish or unpublish an issue on the public site (/newsletter/<slug>).
+   * Decoupled from sending: allowed on draft and sent issues alike, so the
+   * admin can publish at send time, a day later, or never. Unpublishing
+   * removes it from the public archive immediately. Default is unpublished,
+   * so test/never-published issues never leak publicly.
+   */
+  setPublished: platformAdminProcedure
+    .input(z.object({ id: z.string().uuid(), published: z.boolean() }))
+    .mutation(async ({ ctx, input }) => {
+      const issue = await ctx.db.query.newsletterIssue.findFirst({
+        where: eq(newsletterIssue.id, input.id),
+        columns: { id: true, subject: true, publishedAt: true },
+      });
+      if (!issue) throw new TRPCError({ code: "NOT_FOUND" });
+
+      const publishedAt = input.published ? (issue.publishedAt ?? new Date()) : null;
+      await ctx.db
+        .update(newsletterIssue)
+        .set({ publishedAt })
+        .where(eq(newsletterIssue.id, input.id));
+
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: input.published ? "newsletter.publish" : "newsletter.unpublish",
+        entityType: "newsletter_issue",
+        entityId: input.id,
+        description: `Newsletter "${issue.subject}" ${input.published ? "published to" : "unpublished from"} the public site`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+
+      return { publishedAt };
     }),
 
   /**
@@ -571,5 +670,50 @@ export const newsletterRouter = router({
           ),
         );
       return { ok: true };
+    }),
+});
+
+// ---------------------------------------------------------------------------
+// Public newsletter — the published archive at /newsletter and each permalink.
+// No auth: published issues are public, shareable, SEO-indexed. Only issues
+// with publishedAt set are ever exposed; drafts, test sends, and unpublished
+// issues are invisible here.
+// ---------------------------------------------------------------------------
+
+export const newsletterPublicRouter = router({
+  /** Published issues, newest first, for the public archive index. */
+  listPublished: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db
+      .select({
+        slug: newsletterIssue.slug,
+        title: newsletterIssue.subject,
+        summary: newsletterIssue.preheader,
+        publishedAt: newsletterIssue.publishedAt,
+      })
+      .from(newsletterIssue)
+      .where(isNotNull(newsletterIssue.publishedAt))
+      .orderBy(desc(newsletterIssue.publishedAt));
+  }),
+
+  /** One published issue by slug. NOT_FOUND if it does not exist or is unpublished. */
+  getPublishedBySlug: publicProcedure
+    .input(z.object({ slug: z.string().max(200) }))
+    .query(async ({ ctx, input }) => {
+      const issue = await ctx.db.query.newsletterIssue.findFirst({
+        where: and(
+          eq(newsletterIssue.slug, input.slug),
+          isNotNull(newsletterIssue.publishedAt),
+        ),
+      });
+      if (!issue) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return {
+        slug: issue.slug,
+        title: issue.subject,
+        summary: issue.preheader,
+        bodyHtml: await renderNewsletterMarkdown(issue.bodyMarkdown),
+        ctaKey: issue.ctaKey,
+        publishedAt: issue.publishedAt,
+      };
     }),
 });

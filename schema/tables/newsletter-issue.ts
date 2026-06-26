@@ -7,6 +7,7 @@ import {
   integer,
   timestamp,
   index,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { newsletterGroup } from "./newsletter-group";
 
@@ -37,13 +38,33 @@ export const newsletterIssue = pgTable(
   "newsletter_issue",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    /** Email subject line. */
+    /** Email subject line. Doubles as the canonical (DE) public-page title. */
     subject: varchar("subject", { length: 500 }).notNull(),
     /** Optional preview text shown after the subject in most clients. */
     preheader: varchar("preheader", { length: 500 }),
     /** Inline-authored body, markdown. Rendered to HTML at preview/send time. */
     bodyMarkdown: text("body_markdown").notNull().default(""),
+    /**
+     * URL slug for the public permalink at /newsletter/<slug>. Derived from the
+     * subject on save, deduped for uniqueness. Stable once set so shared links
+     * keep working even if the subject is later edited.
+     */
+    slug: varchar("slug", { length: 200 }).notNull(),
     status: newsletterIssueStatusEnum("status").default("draft").notNull(),
+    /**
+     * Soft, rotating call-to-action shown once per issue (email + public page).
+     * One of the keys in lib/newsletter/cta.ts (tool | course | gap), or NULL
+     * for no CTA. Stored as text, not an enum, so adding a CTA is a code change
+     * rather than a migration.
+     */
+    ctaKey: varchar("cta_key", { length: 30 }),
+    /**
+     * When the issue was published to the public site. NULL = not published.
+     * Publishing is independent of sending: an issue can be sent but unpublished
+     * (or published a day later, or never). Test sends never create a row, so
+     * they can never appear publicly. Per-issue toggle, default off.
+     */
+    publishedAt: timestamp("published_at"),
     /** Audience the issue was sent to. NULL = all eligible users. */
     targetGroupId: uuid("target_group_id").references(() => newsletterGroup.id, {
       onDelete: "set null",
@@ -69,5 +90,7 @@ export const newsletterIssue = pgTable(
   (table) => [
     index("idx_newsletter_issue_status").on(table.status),
     index("idx_newsletter_issue_created").on(table.createdAt),
+    uniqueIndex("uq_newsletter_issue_slug").on(table.slug),
+    index("idx_newsletter_issue_published").on(table.publishedAt),
   ],
 );
