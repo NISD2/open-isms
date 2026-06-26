@@ -4,7 +4,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 import { toast } from "sonner";
-import { Mail, Users, Send, Save, RefreshCw, Plus, Trash2, FlaskConical } from "lucide-react";
+import {
+  Mail,
+  Users,
+  Send,
+  Save,
+  RefreshCw,
+  Plus,
+  Trash2,
+  FlaskConical,
+  ExternalLink,
+} from "lucide-react";
+import { NEWSLETTER_CTAS, type NewsletterCtaKey } from "@/lib/newsletter/cta";
+import { getAppUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -60,12 +72,16 @@ interface Stats {
 interface IssueRow {
   id: string;
   subject: string;
+  slug: string;
   status: "draft" | "sent";
   createdAt: Date;
   sentAt: Date | null;
+  publishedAt: Date | null;
   recipientCount: number | null;
   targetGroupName: string | null;
 }
+
+const CTA_NONE = "none";
 
 interface SubscriberRow {
   id: string;
@@ -112,6 +128,8 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
   const [subject, setSubject] = useState("");
   const [preheader, setPreheader] = useState("");
   const [bodyMarkdown, setBodyMarkdown] = useState("");
+  const [slug, setSlug] = useState("");
+  const [ctaKey, setCtaKey] = useState<string>(CTA_NONE);
   const [previewHtml, setPreviewHtml] = useState("");
 
   // Audience target: "all" or a group id
@@ -133,6 +151,7 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
   const sendMutation = trpc.newsletter.sendIssue.useMutation();
   const testMutation = trpc.newsletter.sendTest.useMutation();
   const optOutMutation = trpc.newsletter.setEmailOptOut.useMutation();
+  const publishMutation = trpc.newsletter.setPublished.useMutation();
   const getIssue = trpc.useUtils().newsletter.getIssue;
 
   const canRender = subject.trim().length > 0;
@@ -144,15 +163,11 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
       return;
     }
     const handle = setTimeout(() => {
-      previewMutation.mutate({
-        subject: subject.trim(),
-        preheader: preheader.trim() || null,
-        bodyMarkdown,
-      });
+      previewMutation.mutate(composerPayload());
     }, 500);
     return () => clearTimeout(handle);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subject, preheader, bodyMarkdown, canRender]);
+  }, [subject, preheader, bodyMarkdown, slug, ctaKey, canRender]);
 
   const selectedGroup = audience === ALL_AUDIENCE ? null : groups.find((g) => g.id === audience);
   const targetCount = selectedGroup ? selectedGroup.eligibleCount : stats.eligible;
@@ -163,6 +178,8 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
     setSubject("");
     setPreheader("");
     setBodyMarkdown("");
+    setSlug("");
+    setCtaKey(CTA_NONE);
     setPreviewHtml("");
   }
 
@@ -173,6 +190,8 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
       setSubject(issue.subject);
       setPreheader(issue.preheader ?? "");
       setBodyMarkdown(issue.bodyMarkdown);
+      setSlug(issue.slug);
+      setCtaKey(issue.ctaKey ?? CTA_NONE);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to load issue");
     }
@@ -199,6 +218,8 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
       subject: subject.trim(),
       preheader: preheader.trim() || null,
       bodyMarkdown,
+      slug: slug.trim() || null,
+      ctaKey: ctaKey === CTA_NONE ? null : (ctaKey as NewsletterCtaKey),
     };
   }
 
@@ -260,6 +281,19 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Send failed");
     }
+  }
+
+  function handleTogglePublished(id: string, nextPublished: boolean) {
+    publishMutation.mutate(
+      { id, published: nextPublished },
+      {
+        onSuccess: () => {
+          toast.success(nextPublished ? "Published to the site" : "Unpublished");
+          router.refresh();
+        },
+        onError: (err) => toast.error(err.message),
+      },
+    );
   }
 
   const busy = saveMutation.isPending || sendMutation.isPending;
@@ -330,6 +364,36 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                 className="font-mono text-sm"
                 placeholder={"## Heading\n\nWrite the value inline. Links are fine, but the content lives in the email, not behind a teaser link.\n\n- point one\n- point two"}
               />
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-1">
+                <Label htmlFor="slug">Slug (public URL)</Label>
+                <Input
+                  id="slug"
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  maxLength={200}
+                  placeholder="auto from subject"
+                />
+                <p className="text-xs text-muted-foreground">/newsletter/{slug || "…"}</p>
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="cta">CTA</Label>
+                <Select value={ctaKey} onValueChange={setCtaKey}>
+                  <SelectTrigger id="cta">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={CTA_NONE}>None</SelectItem>
+                    {Object.values(NEWSLETTER_CTAS).map((c) => (
+                      <SelectItem key={c.key} value={c.key}>
+                        {c.key} ({c.href})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <div className="space-y-1">
@@ -412,13 +476,7 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                 variant="ghost"
                 size="sm"
                 disabled={!canRender || previewMutation.isPending}
-                onClick={() =>
-                  previewMutation.mutate({
-                    subject: subject.trim(),
-                    preheader: preheader.trim() || null,
-                    bodyMarkdown,
-                  })
-                }
+                onClick={() => previewMutation.mutate(composerPayload())}
               >
                 <RefreshCw className="h-4 w-4" /> Refresh
               </Button>
@@ -460,6 +518,7 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                   <TableHead>Status</TableHead>
                   <TableHead>Sent</TableHead>
                   <TableHead className="text-right">Recipients</TableHead>
+                  <TableHead>Site</TableHead>
                   <TableHead />
                 </TableRow>
               </TableHeader>
@@ -475,6 +534,27 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                     </TableCell>
                     <TableCell>{fmtDate(it.sentAt)}</TableCell>
                     <TableCell className="text-right">{it.recipientCount ?? "—"}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Switch
+                          checked={it.publishedAt !== null}
+                          disabled={publishMutation.isPending}
+                          onCheckedChange={(checked) => handleTogglePublished(it.id, checked)}
+                          aria-label="Publish to site"
+                        />
+                        {it.publishedAt !== null && (
+                          <a
+                            href={`${getAppUrl()}/newsletter/${it.slug}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-muted-foreground hover:text-foreground"
+                            title="View public page"
+                          >
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                      </div>
+                    </TableCell>
                     <TableCell className="text-right">
                       {it.status === "draft" ? (
                         <Button variant="ghost" size="sm" onClick={() => loadIssue(it.id)}>

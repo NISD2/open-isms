@@ -1261,13 +1261,28 @@ export function newsletterEmail(opts: {
   bodyText: string;
   unsubscribeUrl: string;
   forwardUrl: string;
+  /** Optional soft CTA button (one per issue). Absolute URL + label. */
+  cta?: { url: string; label: string } | null;
+  /** Public permalink for the "view in browser" link. */
+  viewInBrowserUrl?: string | null;
 }): EmailContent {
-  const { subject, preheader, bodyHtml, bodyText, unsubscribeUrl, forwardUrl } = opts;
+  const { subject, preheader, bodyHtml, bodyText, unsubscribeUrl, forwardUrl, cta, viewInBrowserUrl } =
+    opts;
 
   // Hidden preview text: shown by most clients next to the subject line,
   // not rendered in the body. Kept short so following content does not leak in.
   const preheaderBlock = preheader
     ? `<div style="display: none; max-height: 0; overflow: hidden; opacity: 0;">${escapeHtml(preheader)}</div>`
+    : "";
+
+  const ctaBlock = cta
+    ? `<div style="margin: 28px 0 0; text-align: center;">
+          <a href="${cta.url}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 14px;">${escapeHtml(cta.label)}</a>
+        </div>`
+    : "";
+
+  const viewInBrowserBlock = viewInBrowserUrl
+    ? `<br/><br/><a href="${viewInBrowserUrl}" style="color: ${BRAND.mutedForeground};">View this issue in your browser.</a>`
     : "";
 
   // "Just reply" beats a mailto link here: the message is sent with
@@ -1280,18 +1295,20 @@ export function newsletterEmail(opts: {
         <div style="color: ${BRAND.foreground}; font-size: 15px; line-height: 1.65;">
 ${bodyHtml}
         </div>
+        ${ctaBlock}
         <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.6; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
           Questions or feedback? Just reply to this email, it comes straight to me.
           <br/><br/>
           Found this useful? <a href="${forwardUrl}" style="color: ${BRAND.primary};">Forward it to a colleague.</a>
           <br/><br/>
           You are receiving this because you have an account at nisd2.eu.
-          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>.
+          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe</a>.${viewInBrowserBlock}
         </p>
     `),
     text: [
       bodyText,
       ``,
+      ...(cta ? [`${cta.label}: ${cta.url}`, ``] : []),
       `--`,
       `Questions or feedback? Just reply to this email, it comes straight to me.`,
       ``,
@@ -1299,6 +1316,7 @@ ${bodyHtml}
       ``,
       `You are receiving this because you have an account at nisd2.eu.`,
       `Unsubscribe: ${unsubscribeUrl}`,
+      ...(viewInBrowserUrl ? [`View in browser: ${viewInBrowserUrl}`] : []),
     ].join("\n"),
   };
 }

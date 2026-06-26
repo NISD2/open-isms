@@ -110,6 +110,9 @@ const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [
   // programmatic SEO subtrees. Same slug across all three locales so a
   // prefix entry suffices.
   "/sicherheitsfragebogen",
+  // Public newsletter archive — /newsletter hub + every /newsletter/<slug>
+  // permalink. Slug is locale-stable, so the prefix match covers all three.
+  "/newsletter",
   // Auth flow pages — /auth/signin, /auth/forgot-password, /auth/signout
   "/auth",
   // Author bios — /autor/[slug] (DE), /author/[slug] (EN), /auteur/[slug] (NL)

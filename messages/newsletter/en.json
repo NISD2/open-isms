@@ -1,0 +1,23 @@
+{
+  "newsletter": {
+    "archive": {
+      "metaTitle": "Newsletter archive",
+      "metaDescription": "Every issue of the NISD2 newsletter: one development per issue, what it means for management, the next step. Read in 30 seconds.",
+      "title": "Newsletter",
+      "intro": "One development per issue. What changed, what it means for management, the next step. Every issue lives here, permanent and shareable.",
+      "empty": "No issues published yet.",
+      "readIssue": "Read issue",
+      "publishedOn": "Published {date}"
+    },
+    "issue": {
+      "backToArchive": "Back to the newsletter archive",
+      "publishedOn": "Published {date}",
+      "ctaHeading": "Next step"
+    },
+    "cta": {
+      "tool": "Open the NIS2 tool, free",
+      "course": "Go to the free course",
+      "gap": "Check your applicability, free"
+    }
+  }
+}

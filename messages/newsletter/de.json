@@ -1,0 +1,23 @@
+{
+  "newsletter": {
+    "archive": {
+      "metaTitle": "Newsletter-Archiv",
+      "metaDescription": "Alle Ausgaben des NISD2-Newsletters: eine Entwicklung pro Ausgabe, was sie für die Geschäftsführung bedeutet, der nächste Schritt. In 30 Sekunden gelesen.",
+      "title": "Newsletter",
+      "intro": "Eine Entwicklung pro Ausgabe. Was sich geändert hat, was es für die Geschäftsführung bedeutet, der nächste Schritt. Jede Ausgabe steht hier dauerhaft und teilbar.",
+      "empty": "Noch keine Ausgaben veröffentlicht.",
+      "readIssue": "Ausgabe lesen",
+      "publishedOn": "Veröffentlicht am {date}"
+    },
+    "issue": {
+      "backToArchive": "Zurück zum Newsletter-Archiv",
+      "publishedOn": "Veröffentlicht am {date}",
+      "ctaHeading": "Nächster Schritt"
+    },
+    "cta": {
+      "tool": "NIS2-Tool kostenlos öffnen",
+      "course": "Zum kostenlosen Kurs",
+      "gap": "Betroffenheit kostenlos prüfen"
+    }
+  }
+}

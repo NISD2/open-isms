@@ -1,7 +1,16 @@
 import type { MetadataRoute } from "next";
+import { isNotNull } from "drizzle-orm";
 import { routing } from "@/i18n/routing";
 import { localizedAbsoluteUrl, type Locale } from "@/lib/seo";
 import { wikiSitemapPaths } from "@/lib/content/wiki-toc";
+import { db } from "@/lib/db";
+import { newsletterIssue } from "@/schema";
+
+// Rendered at request time, not at build. The published-issue lookup hits the
+// database, which is not reachable during the CI/production build step; a
+// static prerender would fail with ECONNREFUSED. force-dynamic defers it to
+// request time (DB available) and keeps the sitemap fresh as issues publish.
+export const dynamic = "force-dynamic";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
 
@@ -53,7 +62,20 @@ function singleLocaleEntry(
   };
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Published newsletter issues — only those with publishedAt set are public.
+  // Degrade to an empty list if the DB is unreachable so the rest of the
+  // sitemap (all the static routes) still renders.
+  let publishedIssues: { slug: string; publishedAt: Date | null }[] = [];
+  try {
+    publishedIssues = await db
+      .select({ slug: newsletterIssue.slug, publishedAt: newsletterIssue.publishedAt })
+      .from(newsletterIssue)
+      .where(isNotNull(newsletterIssue.publishedAt));
+  } catch {
+    publishedIssues = [];
+  }
+
   return [
     // Homepage + applicability (highest priority, all locales)
     ...multilingualEntries("/", {
@@ -97,6 +119,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // sicherheitsfragebogen.de, which 301s here. High priority because it's
     // the primary entry point for the supplier-portal funnel.
     ...multilingualEntries("/sicherheitsfragebogen", { priority: 0.9 }),
+
+    // Public newsletter archive + every published issue permalink
+    ...multilingualEntries("/newsletter", { changeFrequency: "weekly", priority: 0.6 }),
+    ...publishedIssues.flatMap((issue) =>
+      multilingualEntries(`/newsletter/${issue.slug}`, {
+        changeFrequency: "yearly",
+        priority: 0.6,
+        lastModified: issue.publishedAt?.toISOString().slice(0, 10),
+      }),
+    ),
 
     // Pricing + Training
     ...multilingualEntries("/pricing", { priority: 0.9 }),

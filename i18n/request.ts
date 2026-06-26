@@ -27,6 +27,7 @@ const namespaces = [
   "kpis",
   "management-reviews",
   "methodology",
+  "newsletter",
   "notifications",
   "onboarding",
   "organization",
