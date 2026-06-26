@@ -2096,7 +2096,35 @@
       "sourceId": "ec-digital",
       "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/nis-transposition",
       "addedAt": "2026-06-22T09:15:41Z"
+    },
+    {
+      "id": "2026-06-17-eu-cooperation-group-security-measures-reference",
+      "date": "2026-06-17",
+      "category": "eu",
+      "tags": ["guidance", "organisational"],
+      "type": "update",
+      "title": "NIS Cooperation Group publishes reference document on NIS2 security measures with mapping table",
+      "titleDe": "NIS-Kooperationsgruppe veroeffentlicht Referenzdokument zu NIS-2-Sicherheitsmassnahmen mit Zuordnungstabelle",
+      "summary": "The NIS Cooperation Group (Member States, the European Commission and ENISA) published a non-binding reference document setting out common cybersecurity objectives for entities in scope of the NIS 2 Directive, deliberately framed in broad terms so they apply across sectors, technologies and operational environments. An annexed mapping table links the objectives to the requirements of the Directive, Commission Implementing Regulation (EU) 2024/2690 and existing international standards and national frameworks, including Belgium's CyberFundamentals (CyFun). It is guidance only and does not replace national transposition law. Belgium's CCB announced it on 17 June 2026; the documents are hosted on the Commission's NIS Cooperation Group page.",
+      "summaryDe": "Die NIS-Kooperationsgruppe (Mitgliedstaaten, Europaeische Kommission und ENISA) hat ein unverbindliches Referenzdokument mit gemeinsamen Cybersicherheitszielen fuer Einrichtungen im Anwendungsbereich der NIS-2-Richtlinie veroeffentlicht, bewusst breit formuliert, damit sie sektor-, technologie- und betriebsuebergreifend gelten. Eine als Anhang beigefuegte Zuordnungstabelle verknuepft die Ziele mit den Anforderungen der Richtlinie, der Durchfuehrungsverordnung (EU) 2024/2690 sowie bestehenden internationalen Standards und nationalen Rahmenwerken, darunter das belgische CyberFundamentals (CyFun). Es ist eine reine Handreichung und ersetzt nationales Umsetzungsrecht nicht. Das belgische CCB hat es am 17. Juni 2026 bekanntgegeben; die Dokumente liegen auf der Seite der NIS-Kooperationsgruppe der Kommission.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/nis-cooperation-group",
+      "addedAt": "2026-06-23T13:29:05Z"
+    },
+    {
+      "id": "2026-06-10-de-bsi-nis2-support-survey",
+      "date": "2026-06-10",
+      "category": "de",
+      "tags": ["guidance"],
+      "type": "update",
+      "title": "BSI launches survey on its NIS-2 support offerings for business",
+      "titleDe": "BSI startet Umfrage zu seinen NIS-2-Unterstuetzungsangeboten fuer die Wirtschaft",
+      "summary": "The BSI opened a questionnaire asking entities in scope of NIS 2 for feedback on its existing support offerings, naming the applicability assessment (Betroffenheitspruefung), the management training (Geschaeftsleitungsschulung) and the #nis2know information packages, and inviting requests for further topics. The survey takes about 20 minutes, is processed anonymously, and ran until 24 June 2026; the stated aim is more practice-oriented assistance for affected companies.",
+      "summaryDe": "Das BSI hat einen Fragebogen freigeschaltet, der Einrichtungen im Anwendungsbereich von NIS 2 um Rueckmeldung zu seinen bestehenden Unterstuetzungsangeboten bittet, namentlich zur Betroffenheitspruefung, zur Geschaeftsleitungsschulung und zu den #nis2know-Infopaketen, und der zur Nennung weiterer Themen einlaedt. Die Umfrage dauert etwa 20 Minuten, wird anonym ausgewertet und lief bis zum 24. Juni 2026; erklaertes Ziel ist eine praxisnaehere Unterstuetzung der betroffenen Unternehmen.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/Umfrage_NIS-2_Produkte_260610.html",
+      "addedAt": "2026-06-26T11:13:16Z"
     }
   ],
-  "lastUpdated": "2026-06-22T09:15:41Z"
+  "lastUpdated": "2026-06-26T11:13:16Z"
 }
