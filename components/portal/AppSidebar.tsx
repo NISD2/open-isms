@@ -6,19 +6,14 @@ import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import {
-  AlertTriangle,
   Building2,
   Check,
   ChevronRight,
-  ClipboardCheck,
+  Compass,
   FileText,
-  GraduationCap,
-  LayoutDashboard,
   Lock,
   ScrollText,
-  Search,
   Server,
-  Truck,
   Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -34,18 +29,8 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarRail,
-  SidebarSeparator,
 } from "@/components/ui/sidebar";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import {
   Collapsible,
   CollapsibleContent,
@@ -94,32 +79,53 @@ interface AppSidebarProps {
   frameworks: FrameworkGroup[];
 }
 
+function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
+  return (
+    <SidebarMenu>
+      {items.map((item) => (
+        <SidebarMenuItem key={item.href}>
+          <SidebarMenuButton
+            asChild
+            isActive={pathname === item.href}
+            tooltip={item.label}
+          >
+            <Link href={item.href as never} prefetch={false}>
+              <item.icon />
+              <span>{item.label}</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      ))}
+    </SidebarMenu>
+  );
+}
+
 export function AppSidebar({
   user,
   frameworks,
 }: AppSidebarProps) {
   const t = useTranslations("portal");
-  const tReq = useTranslations("requirements");
   const pathname = usePathname();
   // `usePathname()` returns the route template (e.g. `/compliance/[categorySlug]`),
   // so active-state must compare the resolved params, not concrete URL strings.
   const params = useParams<{ categorySlug?: string; requirementCode?: string }>();
 
   const overviewItems: NavItem[] = [
-    { href: "/journey", label: t("dashboard"), icon: LayoutDashboard },
-    { href: "/gap-assessment", label: t("gapAssessment"), icon: ClipboardCheck },
+    { href: "/journey", label: t("journey"), icon: Compass },
+  ];
+
+  // Living registers the journey strands: /assets only appears in the journey
+  // until 5 assets exist, and the all-policies overview has no swim-lane equivalent.
+  const registerItems: NavItem[] = [
+    { href: "/assets", label: t("assets"), icon: Server },
+    { href: "/policies", label: t("policies"), icon: FileText },
+  ];
+
+  // Admin surfaces the journey never covers (org master data, roster, audit log).
+  const managementItems: NavItem[] = [
     { href: "/team", label: t("team"), icon: Users },
     { href: "/organization", label: t("organization"), icon: Building2 },
     { href: "/audit", label: t("auditTrail"), icon: ScrollText },
-  ];
-
-  const registerItems: NavItem[] = [
-    { href: "/risks", label: t("riskRegister"), icon: AlertTriangle },
-    { href: "/assets", label: t("assets"), icon: Server },
-    { href: "/suppliers", label: t("suppliers"), icon: Truck },
-    { href: "/policies", label: t("policies"), icon: FileText },
-    { href: "/training", label: t("training"), icon: GraduationCap },
-    { href: "/internal-audits", label: t("internalAudits"), icon: Search },
   ];
 
   return (
@@ -133,22 +139,7 @@ export function AppSidebar({
         <SidebarGroup>
           <SidebarGroupLabel>{t("overview")}</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              {overviewItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={pathname === item.href}
-                    tooltip={item.label}
-                  >
-                    <Link href={item.href as never} prefetch={false}>
-                      <item.icon />
-                      <span>{item.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
+            <NavMenu items={overviewItems} pathname={pathname} />
             {/* Registers — collapsible sub-section within Overview */}
             <Collapsible className="group/registers">
               <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">
@@ -156,22 +147,7 @@ export function AppSidebar({
                 <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/registers:rotate-90" />
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <SidebarMenu>
-                  {registerItems.map((item) => (
-                    <SidebarMenuItem key={item.href}>
-                      <SidebarMenuButton
-                        asChild
-                        isActive={pathname === item.href}
-                        tooltip={item.label}
-                      >
-                        <Link href={item.href as never} prefetch={false}>
-                          <item.icon />
-                          <span>{item.label}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
+                <NavMenu items={registerItems} pathname={pathname} />
               </CollapsibleContent>
             </Collapsible>
           </SidebarGroupContent>
@@ -225,103 +201,32 @@ export function AppSidebar({
                                 step.requirements.every((rc) => fw.blockedRequirements[rc]?.length);
 
                               return (
-                                <Collapsible
-                                  key={step.slug}
-                                  asChild
-                                  defaultOpen
-                                >
-                                  <SidebarMenuItem>
-                                    <SidebarMenuButton
-                                      asChild
-                                      isActive={params.categorySlug === step.slug && !params.requirementCode}
-                                      tooltip={step.name}
-                                      size="sm"
-                                    >
-                                      <Link href={categoryPath as never} prefetch={false}>
-                                        <span className="font-mono text-[10px] text-muted-foreground w-4 text-center shrink-0">
-                                          {step.code.replace(codePrefix, "")}
-                                        </span>
-                                        <span>{step.name}</span>
-                                      </Link>
-                                    </SidebarMenuButton>
-                                    <CollapsibleTrigger asChild>
-                                      <SidebarMenuBadge className="cursor-pointer">
-                                        {isCompleted ? (
-                                          <Check className="size-3 text-green-600" />
-                                        ) : allBlocked ? (
-                                          <Lock className="size-3 text-muted-foreground/50" />
-                                        ) : (
-                                          <span className="text-[10px] text-muted-foreground">
-                                            {step.completedCount}/{step.requirementCount}
-                                          </span>
-                                        )}
-                                      </SidebarMenuBadge>
-                                    </CollapsibleTrigger>
-                                    <CollapsibleContent>
-                                      <SidebarMenuSub>
-                                        {step.requirements.map((reqCode) => {
-                                          const reqKey = reqCode.replace(/\./g, "_");
-                                          const reqPath = `${categoryPath}/${reqCode}`;
-                                          const blockedBy = fw.blockedRequirements[reqCode];
-                                          const isLocked = !!blockedBy?.length;
-
-                                          const content = (
-                                            <>
-                                              {isLocked ? (
-                                                <Lock className="size-3 text-muted-foreground shrink-0" />
-                                              ) : (
-                                                <span className="font-mono text-[10px] text-muted-foreground shrink-0">
-                                                  {reqCode}
-                                                </span>
-                                              )}
-                                              <span className="truncate">
-                                                {tReq.has(`${reqKey}.title`)
-                                                  ? tReq(`${reqKey}.title`)
-                                                  : reqCode}
-                                              </span>
-                                            </>
-                                          );
-
-                                          const item = isLocked ? (
-                                            <SidebarMenuSubButton
-                                              className="opacity-40 cursor-not-allowed"
-                                            >
-                                              {content}
-                                            </SidebarMenuSubButton>
-                                          ) : (
-                                            <SidebarMenuSubButton
-                                              asChild
-                                              isActive={params.categorySlug === step.slug && params.requirementCode === reqCode}
-                                            >
-                                              <Link href={reqPath as never} prefetch={false}>
-                                                {content}
-                                              </Link>
-                                            </SidebarMenuSubButton>
-                                          );
-
-                                          return (
-                                            <SidebarMenuSubItem key={reqCode}>
-                                              {isLocked ? (
-                                                <TooltipProvider delayDuration={200}>
-                                                  <Tooltip>
-                                                    <TooltipTrigger asChild>
-                                                      {item}
-                                                    </TooltipTrigger>
-                                                    <TooltipContent side="right" className="text-xs">
-                                                      {t("blockedBy", { codes: blockedBy.join(", ") })}
-                                                    </TooltipContent>
-                                                  </Tooltip>
-                                                </TooltipProvider>
-                                              ) : (
-                                                item
-                                              )}
-                                            </SidebarMenuSubItem>
-                                          );
-                                        })}
-                                      </SidebarMenuSub>
-                                    </CollapsibleContent>
-                                  </SidebarMenuItem>
-                                </Collapsible>
+                                <SidebarMenuItem key={step.slug}>
+                                  <SidebarMenuButton
+                                    asChild
+                                    isActive={params.categorySlug === step.slug && !params.requirementCode}
+                                    tooltip={step.name}
+                                    size="sm"
+                                  >
+                                    <Link href={categoryPath as never} prefetch={false}>
+                                      <span className="font-mono text-[10px] text-muted-foreground w-4 text-center shrink-0">
+                                        {step.code.replace(codePrefix, "")}
+                                      </span>
+                                      <span>{step.name}</span>
+                                    </Link>
+                                  </SidebarMenuButton>
+                                  <SidebarMenuBadge>
+                                    {isCompleted ? (
+                                      <Check className="size-3 text-green-600" />
+                                    ) : allBlocked ? (
+                                      <Lock className="size-3 text-muted-foreground/50" />
+                                    ) : (
+                                      <span className="text-[10px] text-muted-foreground">
+                                        {step.completedCount}/{step.requirementCount}
+                                      </span>
+                                    )}
+                                  </SidebarMenuBadge>
+                                </SidebarMenuItem>
                               );
                             })}
                           </SidebarMenu>
@@ -334,6 +239,14 @@ export function AppSidebar({
             </div>
           );
         })}
+
+        {/* Administration — admin surfaces the journey never covers */}
+        <SidebarGroup className="mt-2 border-t border-sidebar-border/40">
+          <SidebarGroupLabel>{t("administration")}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <NavMenu items={managementItems} pathname={pathname} />
+          </SidebarGroupContent>
+        </SidebarGroup>
 
       </SidebarContent>
 

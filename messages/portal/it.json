@@ -48,6 +48,8 @@
     "phaseOperations": "Operazioni",
     "phaseVerification": "Verifica",
     "phaseAdmin": "Amministrazione",
-    "blockedBy": "Completa prima: {codes}"
+    "blockedBy": "Completa prima: {codes}",
+    "journey": "Percorso",
+    "administration": "Amministrazione"
   }
 }

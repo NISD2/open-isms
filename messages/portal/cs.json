@@ -48,6 +48,8 @@
     "phaseOperations": "Provoz",
     "phaseVerification": "Ověřování",
     "phaseAdmin": "Administrace",
-    "blockedBy": "Nejprve dokončete: {codes}"
+    "blockedBy": "Nejprve dokončete: {codes}",
+    "journey": "Cesta",
+    "administration": "Správa"
   }
 }

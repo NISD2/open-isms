@@ -41,6 +41,7 @@
       "toms": "TOMs (Art. 32 GDPR)",
       "changelog": "Changelog",
       "openSource": "Open Source",
+      "partners": "Partners",
       "status": "Status",
       "contact": "Contact",
       "hostedInGermany": "Hosted in Germany",
@@ -6255,6 +6256,20 @@
         "heading": "Contributing",
         "p1": "Pull requests welcome: particularly corrections to legal citations (with a primary-source reference), additional language translations, sector-specific extensions (KRITIS, energy, healthcare), and national transposition deltas. For substantial changes please open an issue first."
       }
+    },
+    "partners": {
+      "meta": {
+        "title": "Partners - NISD2.eu",
+        "description": "Programma's en organisaties waarmee we samenwerken. NISD2.eu is lid van het NVIDIA Inception Program."
+      },
+      "title": "Partners",
+      "subtitle": "Programma's en organisaties waarmee we samenwerken om het platform verder te ontwikkelen.",
+      "learnMore": "Meer informatie",
+      "nvidia": {
+        "title": "NVIDIA Inception Program",
+        "description": "NISD2.eu is lid van het NVIDIA Inception Program, dat startups ondersteunt met technische begeleiding en middelen voor het bouwen van AI-gedreven producten."
+      },
+      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries."
     },
     "status": {
       "meta": {

@@ -106,6 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // so excluded from the sitemap to avoid Google indexing chains.
     ...multilingualEntries("/about", { priority: 0.5 }),
     ...multilingualEntries("/open-source", { priority: 0.5 }),
+    ...multilingualEntries("/partner", { priority: 0.4 }),
 
     // Trust Center
     ...multilingualEntries("/vertrauen", { priority: 0.6 }),
