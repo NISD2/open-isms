@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "id": "2026-06-24-product-partner-page",
+      "date": "2026-06-24",
+      "category": "product",
+      "titleDe": "Neue Partnerseite mit NVIDIA-Inception-Mitgliedschaft",
+      "titleEn": "New partner page with NVIDIA Inception membership",
+      "bodyDe": "Es gibt jetzt eine oeffentliche Partnerseite, die unsere Mitgliedschaft im NVIDIA-Inception-Programm zeigt.",
+      "bodyEn": "There is now a public partner page showing our membership in the NVIDIA Inception program.",
+      "links": [
+        {
+          "labelDe": "Partner",
+          "labelEn": "Partners",
+          "href": "/partner"
+        }
+      ]
+    },
+    {
       "id": "2026-06-24-product-guided-path-default",
       "date": "2026-06-24",
       "category": "product",
