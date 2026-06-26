@@ -2,53 +2,53 @@
   "info": {
     "bsigParagraph32": {
       "meta": {
-        "title": "Section 32 BSIG: the NIS 2 incident reporting duty (24h, 72h, one month)",
-        "description": "Section 32 BSIG sets the reporting duty for significant incidents under NIS 2: an early warning within 24 hours, a notification within 72 hours, and a final report after one month. What counts as significant, and who reports to whom."
+        "title": "§ 32 BSIG: o dever de notificação de incidentes NIS 2 (24h, 72h, um mês)",
+        "description": "O § 32 BSIG estabelece o dever de notificação de incidentes significativos ao abrigo da NIS 2: um alerta precoce em 24 horas, uma notificação em 72 horas e um relatório final após um mês. O que conta como significativo e quem notifica a quem."
       },
-      "title": "Section 32 BSIG: the NIS 2 incident reporting duty",
-      "subtitle": "Three stages, a 24-hour clock, and what counts as significant.",
+      "title": "§ 32 BSIG: o dever de notificação de incidentes NIS 2",
+      "subtitle": "Três fases, uma contagem decrescente de 24 horas e o que significa realmente significativo.",
       "overview": {
-        "heading": "What Section 32 BSIG requires",
-        "p1": "Section 32 BSIG transposes the reporting duty of Article 23 NIS 2 into German law. Entities in scope must report significant incidents to the Federal Office for Information Security (BSI) in three stages. The hard question is rarely how to report, but whether an incident is significant in the first place.",
-        "p2": "The 24-hour clock starts when the entity becomes aware of the incident. Whoever first considers, during the emergency itself, whether an incident is reportable has already spent half of that window."
+        "heading": "O que o § 32 BSIG exige",
+        "p1": "O § 32 BSIG transpõe para o direito alemão o dever de notificação do artigo 23 NIS 2. As entidades abrangidas devem notificar os incidentes significativos ao Serviço Federal de Segurança da Informação (BSI) em três fases. A questão difícil raramente é como notificar, mas sim se um incidente é significativo.",
+        "p2": "A contagem decrescente de 24 horas começa quando a entidade toma conhecimento do incidente. Quem só pondera durante a emergência se um incidente é notificável já gastou metade desse prazo."
       },
       "stages": {
-        "heading": "The three reporting stages",
-        "description": "Article 23(4) NIS 2, Section 32(1) BSIG.",
+        "heading": "As três fases de notificação",
+        "description": "Artigo 23(4) NIS 2, § 32 n.º 1 BSIG.",
         "items": {
-          "s1": { "title": "Early warning within 24 hours", "text": "An initial early warning to the BSI within 24 hours of becoming aware of the significant incident, stating whether it is suspected to be caused by unlawful or malicious acts and whether it could have a cross-border impact." },
-          "s2": { "title": "Incident notification within 72 hours", "text": "A fuller notification within 72 hours, updating the early warning with an initial assessment of the incident, its severity and impact, and indicators of compromise where available." },
-          "s3": { "title": "Final report after one month", "text": "A final report no later than one month after the notification: a detailed description, the type of threat or root cause, the mitigation applied, and any cross-border impact." }
+          "s1": { "title": "Alerta precoce em 24 horas", "text": "Um primeiro alerta precoce ao BSI no prazo de 24 horas após o conhecimento do incidente significativo, indicando se se suspeita ter sido causado por atos ilícitos ou maliciosos e se poderá ter um impacto transfronteiriço." },
+          "s2": { "title": "Notificação em 72 horas", "text": "Uma notificação mais completa em 72 horas, que complementa o alerta precoce com uma primeira avaliação do incidente, da sua gravidade e impacto, bem como indicadores de comprometimento, quando disponíveis." },
+          "s3": { "title": "Relatório final após um mês", "text": "Um relatório final o mais tardar um mês após a notificação: uma descrição detalhada, o tipo de ameaça ou a causa, as medidas corretivas aplicadas e qualquer impacto transfronteiriço." }
         }
       },
       "significant": {
-        "heading": "What significant means",
-        "p1": "At EU level, the quantitative thresholds for a significant incident are set out in Commission Implementing Regulation (EU) 2024/2690, but they apply directly only to the digital infrastructure and digital service providers it names. For most entities in scope, such as manufacturing, logistics, health or waste, there are no EU figures.",
-        "p2": "For those entities, significant is governed by the qualitative criteria of Article 23(3) NIS 2, transposed as the legal definition in Section 2 number 11 BSIG. Every company must decide for itself, within 24 hours, whether an incident is reportable, and be able to document that decision. The documented judgement is the evidence."
+        "heading": "O que significa significativo",
+        "p1": "A nível da UE, os limiares quantitativos de um incidente significativo estão fixados no Regulamento de Execução (UE) 2024/2690, mas aplicam-se diretamente apenas aos prestadores de infraestruturas e serviços digitais nele designados. Para a maioria das entidades abrangidas, como produção, logística, saúde ou resíduos, não existem números da UE.",
+        "p2": "Para essas entidades, o caráter significativo rege-se pelos critérios qualitativos do artigo 23(3) NIS 2, transpostos como definição legal no § 2 número 11 BSIG. Cada empresa deve decidir por si própria, em 24 horas, se um incidente é notificável, e ser capaz de documentar essa decisão. A apreciação documentada é a prova."
       },
       "process": {
-        "heading": "Who reports, and to whom",
-        "p1": "Reports go to the BSI, in Germany through its reporting portal. Define internally, in advance, who decides whether to report and who actually files. Settling that during an incident costs time you do not have.",
-        "p2": "Marking the decision path before an incident, even as a one-page decision tree, is itself part of the incident handling measure under Article 21(2)(b) NIS 2."
+        "heading": "Quem notifica e a quem",
+        "p1": "As notificações vão para o BSI, na Alemanha através do seu portal de notificação. Defina internamente, com antecedência, quem decide notificar e quem apresenta efetivamente a notificação. Resolver isto durante um incidente custa tempo que não tem.",
+        "p2": "Definir o caminho de decisão antes de um incidente, ainda que como uma árvore de decisão de uma página, faz parte da própria medida de tratamento de incidentes do artigo 21(2)(b) NIS 2."
       },
       "gdpr": {
-        "heading": "Relationship to the GDPR",
-        "p1": "If an incident affects personal data, a separate notification duty under Article 33 GDPR may apply in parallel. The two regimes have different addressees and different clocks.",
-        "p2": "Do not file one instead of the other. A ransomware incident that encrypts customer data can trigger both the Section 32 BSIG reporting cascade and the 72-hour GDPR breach notification to the data protection authority."
+        "heading": "Relação com o RGPD",
+        "p1": "Se um incidente afetar dados pessoais, pode aplicar-se em paralelo um dever de notificação distinto ao abrigo do artigo 33 RGPD. Os dois regimes têm destinatários e prazos diferentes.",
+        "p2": "Não apresente um em vez do outro. Um incidente de ransomware que cifra dados de clientes pode desencadear tanto a cascata de notificação do § 32 BSIG como a notificação da violação em 72 horas ao abrigo do RGPD à autoridade de proteção de dados."
       },
       "faq": {
-        "heading": "Frequently asked questions",
-        "q1": { "q": "When does the 24-hour clock start?", "a": "When the entity becomes aware of the significant incident, not when it began." },
-        "q2": { "q": "Are there fixed euro thresholds for a significant incident?", "a": "Only for the digital service providers named in CIR (EU) 2024/2690. For all other entities, the qualitative criteria of Article 23(3) NIS 2 apply." },
-        "q3": { "q": "What if I am unsure whether an incident is significant?", "a": "Document your assessment and the reasons. The reasoned judgement is what an auditor expects to see; the absence of any assessment is the real failure." },
-        "q4": { "q": "Do I also have to report under the GDPR?", "a": "If personal data is affected, check Article 33 GDPR separately. It has its own 72-hour clock and a different addressee." },
-        "q5": { "q": "What happens after the notification?", "a": "The BSI may request further information, and the final report follows no later than one month after the notification." }
+        "heading": "Perguntas frequentes",
+        "q1": { "q": "Quando começa o prazo de 24 horas?", "a": "Quando a entidade toma conhecimento do incidente significativo, não quando este começou." },
+        "q2": { "q": "Existem limiares fixos em euros para um incidente significativo?", "a": "Apenas para os prestadores de serviços digitais designados no RE (UE) 2024/2690. Para todas as outras entidades aplicam-se os critérios qualitativos do artigo 23(3) NIS 2." },
+        "q3": { "q": "E se eu não tiver a certeza de que um incidente é significativo?", "a": "Documente a sua apreciação e os motivos. A decisão fundamentada é o que um auditor espera ver; a ausência de qualquer apreciação é a verdadeira falha." },
+        "q4": { "q": "Também tenho de notificar ao abrigo do RGPD?", "a": "Se houver dados pessoais envolvidos, verifique separadamente o artigo 33 RGPD. Tem o seu próprio prazo de 72 horas e um destinatário diferente." },
+        "q5": { "q": "O que acontece após a notificação?", "a": "O BSI pode solicitar mais informações, e o relatório final segue o mais tardar um mês após a notificação." }
       },
       "ctaCard": {
-        "heading": "Structure your reporting process before you need it",
-        "description": "Define the decision tree, the responsible person, and the evidence trail in advance."
+        "heading": "Estruture o seu processo de notificação antes de precisar dele",
+        "description": "Defina com antecedência a árvore de decisão, a pessoa responsável e o rasto de prova."
       },
-      "cta": "Start for free"
+      "cta": "Começar gratuitamente"
     },
     "footer": {
       "nis2Info": "Informação NIS2",
