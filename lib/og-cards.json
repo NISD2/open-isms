@@ -9,15 +9,40 @@
     "en": "/og/applicability-en.png",
     "nl": "/og/applicability-nl.png"
   },
+  "autor-cory-hisey": {
+    "de": "/og/autor-cory-hisey-de.png",
+    "en": "/og/autor-cory-hisey-en.png",
+    "nl": "/og/autor-cory-hisey-nl.png"
+  },
+  "autor-simon-orzel": {
+    "de": "/og/autor-simon-orzel-de.png",
+    "en": "/og/autor-simon-orzel-en.png",
+    "nl": "/og/autor-simon-orzel-nl.png"
+  },
   "bsig-30": {
     "de": "/og/bsig-30-de.png",
     "en": "/og/bsig-30-en.png",
     "nl": "/og/bsig-30-nl.png"
   },
+  "changelog": {
+    "de": "/og/changelog-de.png",
+    "en": "/og/changelog-en.png",
+    "nl": "/og/changelog-nl.png"
+  },
+  "ethik": {
+    "de": "/og/ethik-de.png",
+    "en": "/og/ethik-en.png",
+    "nl": "/og/ethik-nl.png"
+  },
   "features": {
     "de": "/og/features-de.png",
     "en": "/og/features-en.png",
     "nl": "/og/features-nl.png"
+  },
+  "finanzierung": {
+    "de": "/og/finanzierung-de.png",
+    "en": "/og/finanzierung-en.png",
+    "nl": "/og/finanzierung-nl.png"
   },
   "grc-vergleich": {
     "de": "/og/grc-vergleich-de.png",
@@ -52,6 +77,11 @@
     "en": "/og/nis2-meldepflicht-en.png",
     "nl": "/og/nis2-meldepflicht-nl.png"
   },
+  "nis2-meldepflicht-schema": {
+    "de": "/og/nis2-meldepflicht-schema-de.png",
+    "en": "/og/nis2-meldepflicht-schema-en.png",
+    "nl": "/og/nis2-meldepflicht-schema-nl.png"
+  },
   "nis2-requirements": {
     "de": "/og/nis2-requirements-de.png",
     "en": "/og/nis2-requirements-en.png"
@@ -63,6 +93,11 @@
   "nis2-timeline": {
     "de": "/og/nis2-timeline-de.png",
     "en": "/og/nis2-timeline-en.png"
+  },
+  "nis2-tool": {
+    "de": "/og/nis2-tool-de.png",
+    "en": "/og/nis2-tool-en.png",
+    "nl": "/og/nis2-tool-nl.png"
   },
   "nis2-tracker-eu": {
     "de": "/og/nis2-tracker-eu-de.png",
@@ -78,10 +113,25 @@
     "en": "/og/open-source-en.png",
     "nl": "/og/open-source-nl.png"
   },
+  "partner": {
+    "de": "/og/partner-de.png",
+    "en": "/og/partner-en.png",
+    "nl": "/og/partner-nl.png"
+  },
+  "pitch": {
+    "de": "/og/pitch-de.png",
+    "en": "/og/pitch-en.png",
+    "nl": "/og/pitch-nl.png"
+  },
   "pricing": {
     "de": "/og/pricing-de.png",
     "en": "/og/pricing-en.png",
     "nl": "/og/pricing-nl.png"
+  },
+  "redaktion": {
+    "de": "/og/redaktion-de.png",
+    "en": "/og/redaktion-en.png",
+    "nl": "/og/redaktion-nl.png"
   },
   "risikobewertung": {
     "de": "/og/risikobewertung-de.png",
@@ -113,6 +163,11 @@
     "en": "/og/subprozessoren-en.png",
     "nl": "/og/subprozessoren-nl.png"
   },
+  "toms": {
+    "de": "/og/toms-de.png",
+    "en": "/og/toms-en.png",
+    "nl": "/og/toms-nl.png"
+  },
   "training-ceo": {
     "de": "/og/training-ceo-de.png",
     "en": "/og/training-ceo-en.png",
@@ -142,5 +197,10 @@
     "de": "/og/wiki-de.png",
     "en": "/og/wiki-en.png",
     "nl": "/og/wiki-nl.png"
+  },
+  "wiki-zitate": {
+    "de": "/og/wiki-zitate-de.png",
+    "en": "/og/wiki-zitate-en.png",
+    "nl": "/og/wiki-zitate-nl.png"
   }
 }

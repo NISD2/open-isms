@@ -256,6 +256,102 @@
         "en": "/en/wiki/timelines-and-status/nis2-eu-tracker",
         "nl": null
       }
+    },
+    {
+      "slug": "partner",
+      "paths": {
+        "de": "/partner",
+        "en": "/en/partner",
+        "nl": "/nl/partner"
+      }
+    },
+    {
+      "slug": "changelog",
+      "paths": {
+        "de": "/changelog",
+        "en": "/en/changelog",
+        "nl": "/nl/changelog"
+      }
+    },
+    {
+      "slug": "pitch",
+      "paths": {
+        "de": "/pitch",
+        "en": "/en/pitch",
+        "nl": "/nl/pitch"
+      }
+    },
+    {
+      "slug": "redaktion",
+      "paths": {
+        "de": "/redaktion",
+        "en": "/en/editorial-principles",
+        "nl": "/nl/redactie"
+      }
+    },
+    {
+      "slug": "ethik",
+      "paths": {
+        "de": "/ethik",
+        "en": "/en/ethics",
+        "nl": "/nl/ethiek"
+      }
+    },
+    {
+      "slug": "finanzierung",
+      "paths": {
+        "de": "/finanzierung",
+        "en": "/en/how-we-are-funded",
+        "nl": "/nl/financiering"
+      }
+    },
+    {
+      "slug": "nis2-tool",
+      "paths": {
+        "de": "/nis2-tool",
+        "en": "/en/nis2-tool",
+        "nl": "/nl/nis2-tool"
+      }
+    },
+    {
+      "slug": "toms",
+      "paths": {
+        "de": "/toms",
+        "en": "/en/toms",
+        "nl": "/nl/toms"
+      }
+    },
+    {
+      "slug": "nis2-meldepflicht-schema",
+      "paths": {
+        "de": "/nis2-meldepflicht-schema",
+        "en": "/en/nis2-incident-notification-schema",
+        "nl": "/nl/nis2-incidentmelding-schema"
+      }
+    },
+    {
+      "slug": "wiki-zitate",
+      "paths": {
+        "de": "/wiki/zitate",
+        "en": "/en/wiki/citations",
+        "nl": "/nl/wiki/citaten"
+      }
+    },
+    {
+      "slug": "autor-simon-orzel",
+      "paths": {
+        "de": "/autor/simon-orzel",
+        "en": "/en/author/simon-orzel",
+        "nl": "/nl/auteur/simon-orzel"
+      }
+    },
+    {
+      "slug": "autor-cory-hisey",
+      "paths": {
+        "de": "/autor/cory-hisey",
+        "en": "/en/author/cory-hisey",
+        "nl": "/nl/auteur/cory-hisey"
+      }
     }
   ]
 }
