@@ -1,5 +1,55 @@
 {
   "info": {
+    "bsigParagraph32": {
+      "meta": {
+        "title": "§ 32 BSIG: de NIS 2-meldplicht (24u, 72u, één maand)",
+        "description": "§ 32 BSIG regelt de meldplicht bij significante incidenten onder NIS 2: een vroegtijdige waarschuwing binnen 24 uur, een melding binnen 72 uur en een eindrapport na één maand. Wat als significant geldt en wie aan wie meldt."
+      },
+      "title": "§ 32 BSIG: de NIS 2-meldplicht",
+      "subtitle": "Drie fasen, een klok van 24 uur, en wat als significant geldt.",
+      "overview": {
+        "heading": "Wat § 32 BSIG vereist",
+        "p1": "§ 32 BSIG zet de meldplicht uit artikel 23 NIS 2 om in Duits recht. Betrokken entiteiten moeten significante incidenten in drie fasen melden aan het Bundesamt für Sicherheit in der Informationstechnik (BSI). De moeilijke vraag is zelden het hoe, maar of een incident überhaupt significant is.",
+        "p2": "De klok van 24 uur begint zodra de entiteit kennis krijgt van het incident. Wie pas tijdens het noodgeval overweegt of er gemeld moet worden, heeft de termijn al voor de helft verbruikt."
+      },
+      "stages": {
+        "heading": "De drie meldfasen",
+        "description": "Artikel 23 lid 4 NIS 2, § 32 lid 1 BSIG.",
+        "items": {
+          "s1": { "title": "Vroegtijdige waarschuwing binnen 24 uur", "text": "Een eerste vroegtijdige waarschuwing aan het BSI binnen 24 uur na kennisname van het significante incident, met vermelding of een onrechtmatige of kwaadwillige oorzaak wordt vermoed en of grensoverschrijdende gevolgen mogelijk zijn." },
+          "s2": { "title": "Melding binnen 72 uur", "text": "Een uitgebreidere melding binnen 72 uur, die de vroegtijdige waarschuwing aanvult met een eerste beoordeling van het incident, de ernst en de gevolgen, en beschikbare compromittatie-indicatoren." },
+          "s3": { "title": "Eindrapport na één maand", "text": "Een eindrapport uiterlijk één maand na de melding: een gedetailleerde beschrijving, het type dreiging of de oorzaak, de getroffen maatregelen en eventuele grensoverschrijdende gevolgen." }
+        }
+      },
+      "significant": {
+        "heading": "Wat significant betekent",
+        "p1": "Op EU-niveau zijn de kwantitatieve drempels voor een significant incident vastgelegd in Uitvoeringsverordening (EU) 2024/2690, maar die gelden rechtstreeks alleen voor de daarin genoemde aanbieders van digitale infrastructuur en digitale diensten. Voor de meeste betrokken entiteiten, zoals productie, logistiek, gezondheidszorg of afval, zijn er geen EU-cijfers.",
+        "p2": "Voor die entiteiten wordt significant bepaald door de kwalitatieve criteria uit artikel 23 lid 3 NIS 2, omgezet als de wettelijke definitie in § 2 nummer 11 BSIG. Elk bedrijf moet binnen 24 uur zelf beslissen of een incident meldplichtig is, en die beslissing kunnen documenteren. De gedocumenteerde beoordeling is het bewijs."
+      },
+      "process": {
+        "heading": "Wie meldt, en aan wie",
+        "p1": "Meldingen gaan naar het BSI, in Duitsland via zijn meldportaal. Leg intern vooraf vast wie beslist of er gemeld wordt en wie de melding indient. Dit tijdens een incident regelen kost tijd die u niet heeft.",
+        "p2": "Het beslispad vooraf vastleggen, al is het maar als een beslisboom van één pagina, is zelf onderdeel van de maatregel voor incidentafhandeling onder artikel 21 lid 2 onder b NIS 2."
+      },
+      "gdpr": {
+        "heading": "Verhouding tot de AVG",
+        "p1": "Als een incident persoonsgegevens raakt, kan parallel een meldplicht onder artikel 33 AVG gelden. De twee regimes hebben verschillende adressaten en verschillende termijnen.",
+        "p2": "Meld niet het ene in plaats van het andere. Een ransomware-incident dat klantgegevens versleutelt, kan zowel de meldcascade onder § 32 BSIG als de melding van een inbreuk binnen 72 uur onder de AVG aan de toezichthouder in gang zetten."
+      },
+      "faq": {
+        "heading": "Veelgestelde vragen",
+        "q1": { "q": "Wanneer begint de klok van 24 uur?", "a": "Zodra de entiteit kennis krijgt van het significante incident, niet wanneer het begon." },
+        "q2": { "q": "Zijn er vaste eurodrempels voor een significant incident?", "a": "Alleen voor de in CIR (EU) 2024/2690 genoemde aanbieders van digitale diensten. Voor alle andere entiteiten gelden de kwalitatieve criteria uit artikel 23 lid 3 NIS 2." },
+        "q3": { "q": "Wat als ik niet zeker weet of een incident significant is?", "a": "Documenteer uw beoordeling en de redenen. De onderbouwde beslissing is wat een auditor wil zien; het ontbreken van elke beoordeling is de echte tekortkoming." },
+        "q4": { "q": "Moet ik ook onder de AVG melden?", "a": "Als persoonsgegevens betrokken zijn, controleer artikel 33 AVG apart. Het heeft een eigen termijn van 72 uur en een andere adressaat." },
+        "q5": { "q": "Wat gebeurt er na de melding?", "a": "Het BSI kan nadere informatie opvragen, en het eindrapport volgt uiterlijk één maand na de melding." }
+      },
+      "ctaCard": {
+        "heading": "Structureer uw meldproces voordat u het nodig heeft",
+        "description": "Leg vooraf de beslisboom, de verantwoordelijke persoon en het bewijsspoor vast."
+      },
+      "cta": "Gratis beginnen"
+    },
     "footer": {
       "nis2Info": "NIS2 Information",
       "whatIsNis2": "What is NIS2?",

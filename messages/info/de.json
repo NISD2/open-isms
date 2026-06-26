@@ -1,5 +1,55 @@
 {
   "info": {
+    "bsigParagraph32": {
+      "meta": {
+        "title": "§ 32 BSIG: die NIS-2-Meldepflicht (24h, 72h, ein Monat)",
+        "description": "§ 32 BSIG regelt die Meldepflicht bei erheblichen Sicherheitsvorfällen nach NIS 2: Frühwarnung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussbericht nach einem Monat. Was als erheblich gilt und wer an wen meldet."
+      },
+      "title": "§ 32 BSIG: die NIS-2-Meldepflicht",
+      "subtitle": "Drei Stufen, eine 24-Stunden-Uhr, und was als erheblich gilt.",
+      "overview": {
+        "heading": "Was § 32 BSIG verlangt",
+        "p1": "§ 32 BSIG setzt die Meldepflicht aus Artikel 23 NIS 2 in deutsches Recht um. Betroffene Einrichtungen müssen erhebliche Sicherheitsvorfälle in drei Stufen an das Bundesamt für Sicherheit in der Informationstechnik (BSI) melden. Die schwierige Frage ist selten das Wie, sondern ob ein Vorfall überhaupt erheblich ist.",
+        "p2": "Die 24-Stunden-Uhr beginnt mit der Kenntnis des Vorfalls. Wer erst im Ernstfall überlegt, ob gemeldet werden muss, hat die Frist bereits zur Hälfte verbraucht."
+      },
+      "stages": {
+        "heading": "Die drei Meldestufen",
+        "description": "Artikel 23 Absatz 4 NIS 2, § 32 Absatz 1 BSIG.",
+        "items": {
+          "s1": { "title": "Frühwarnung binnen 24 Stunden", "text": "Eine erste Frühwarnung an das BSI binnen 24 Stunden nach Kenntnis des erheblichen Vorfalls, mit der Angabe, ob ein rechtswidriger oder böswilliger Auslöser vermutet wird und ob grenzüberschreitende Auswirkungen möglich sind." },
+          "s2": { "title": "Meldung binnen 72 Stunden", "text": "Eine ausführlichere Meldung binnen 72 Stunden, die die Frühwarnung um eine erste Bewertung des Vorfalls, seine Schwere und Auswirkungen sowie verfügbare Kompromittierungsindikatoren ergänzt." },
+          "s3": { "title": "Abschlussbericht nach einem Monat", "text": "Ein Abschlussbericht spätestens einen Monat nach der Meldung: eine ausführliche Beschreibung, die Art der Bedrohung oder die Ursache, die ergriffenen Abhilfemaßnahmen und etwaige grenzüberschreitende Auswirkungen." }
+        }
+      },
+      "significant": {
+        "heading": "Was erheblich bedeutet",
+        "p1": "Auf EU-Ebene sind die quantitativen Schwellenwerte für einen erheblichen Vorfall in der Durchführungsverordnung (EU) 2024/2690 festgelegt, gelten aber unmittelbar nur für die dort genannten digitalen Infrastrukturen und Diensteanbieter. Für die meisten betroffenen Einrichtungen, etwa Produktion, Logistik, Gesundheit oder Abfall, gibt es keine EU-Zahlen.",
+        "p2": "Für diese Einrichtungen richtet sich erheblich nach den qualitativen Kriterien aus Artikel 23 Absatz 3 NIS 2, in deutsches Recht überführt als Legaldefinition in § 2 Nummer 11 BSIG. Jedes Unternehmen muss binnen 24 Stunden selbst entscheiden, ob ein Vorfall meldepflichtig ist, und diese Entscheidung dokumentieren können. Die dokumentierte Einschätzung ist der Nachweis."
+      },
+      "process": {
+        "heading": "Wer meldet und an wen",
+        "p1": "Die Meldungen gehen an das BSI, in Deutschland über dessen Meldeportal. Legen Sie intern vorab fest, wer über eine Meldung entscheidet und wer sie einreicht. Das im Vorfall zu klären, kostet Zeit, die Sie nicht haben.",
+        "p2": "Den Entscheidungsweg vorab festzulegen, und sei es als einseitiger Entscheidungsbaum, ist selbst Teil der Maßnahme zur Bewältigung von Sicherheitsvorfällen nach Artikel 21 Absatz 2 Buchstabe b NIS 2."
+      },
+      "gdpr": {
+        "heading": "Verhältnis zur DSGVO",
+        "p1": "Sind personenbezogene Daten betroffen, kann parallel eine Meldepflicht nach Artikel 33 DSGVO bestehen. Die beiden Regime haben unterschiedliche Adressaten und unterschiedliche Fristen.",
+        "p2": "Melden Sie nicht das eine statt des anderen. Ein Ransomware-Vorfall, der Kundendaten verschlüsselt, kann sowohl die Meldekaskade nach § 32 BSIG als auch die 72-Stunden-Meldung nach DSGVO an die Datenschutzbehörde auslösen."
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "q1": { "q": "Ab wann läuft die 24-Stunden-Frist?", "a": "Ab Kenntnis des erheblichen Vorfalls, nicht ab seinem Beginn." },
+        "q2": { "q": "Gibt es feste Euro-Schwellen für einen erheblichen Vorfall?", "a": "Nur für die in der CIR (EU) 2024/2690 genannten digitalen Diensteanbieter. Für alle anderen Einrichtungen gelten die qualitativen Kriterien aus Artikel 23 Absatz 3 NIS 2." },
+        "q3": { "q": "Was, wenn ich unsicher bin, ob ein Vorfall erheblich ist?", "a": "Dokumentieren Sie Ihre Einschätzung und die Gründe. Die begründete Entscheidung ist, was ein Prüfer sehen will; das Fehlen jeder Einschätzung ist der eigentliche Fehler." },
+        "q4": { "q": "Muss ich auch nach DSGVO melden?", "a": "Sind personenbezogene Daten betroffen, prüfen Sie Artikel 33 DSGVO gesondert. Er hat eine eigene 72-Stunden-Frist und einen anderen Adressaten." },
+        "q5": { "q": "Was passiert nach der Meldung?", "a": "Das BSI kann weitere Informationen anfordern, und der Abschlussbericht folgt spätestens einen Monat nach der Meldung." }
+      },
+      "ctaCard": {
+        "heading": "Strukturieren Sie Ihren Meldeprozess, bevor Sie ihn brauchen",
+        "description": "Legen Sie den Entscheidungsbaum, die verantwortliche Person und den Nachweispfad vorab fest."
+      },
+      "cta": "Kostenlos starten"
+    },
     "footer": {
       "nis2Info": "NIS2 Informationen",
       "whatIsNis2": "Was ist NIS2?",
