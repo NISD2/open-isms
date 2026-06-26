@@ -1,5 +1,55 @@
 {
   "info": {
+    "bsigParagraph32": {
+      "meta": {
+        "title": "Section 32 BSIG: the NIS 2 incident reporting duty (24h, 72h, one month)",
+        "description": "Section 32 BSIG sets the reporting duty for significant incidents under NIS 2: an early warning within 24 hours, a notification within 72 hours, and a final report after one month. What counts as significant, and who reports to whom."
+      },
+      "title": "Section 32 BSIG: the NIS 2 incident reporting duty",
+      "subtitle": "Three stages, a 24-hour clock, and what counts as significant.",
+      "overview": {
+        "heading": "What Section 32 BSIG requires",
+        "p1": "Section 32 BSIG transposes the reporting duty of Article 23 NIS 2 into German law. Entities in scope must report significant incidents to the Federal Office for Information Security (BSI) in three stages. The hard question is rarely how to report, but whether an incident is significant in the first place.",
+        "p2": "The 24-hour clock starts when the entity becomes aware of the incident. Whoever first considers, during the emergency itself, whether an incident is reportable has already spent half of that window."
+      },
+      "stages": {
+        "heading": "The three reporting stages",
+        "description": "Article 23(4) NIS 2, Section 32(1) BSIG.",
+        "items": {
+          "s1": { "title": "Early warning within 24 hours", "text": "An initial early warning to the BSI within 24 hours of becoming aware of the significant incident, stating whether it is suspected to be caused by unlawful or malicious acts and whether it could have a cross-border impact." },
+          "s2": { "title": "Incident notification within 72 hours", "text": "A fuller notification within 72 hours, updating the early warning with an initial assessment of the incident, its severity and impact, and indicators of compromise where available." },
+          "s3": { "title": "Final report after one month", "text": "A final report no later than one month after the notification: a detailed description, the type of threat or root cause, the mitigation applied, and any cross-border impact." }
+        }
+      },
+      "significant": {
+        "heading": "What significant means",
+        "p1": "At EU level, the quantitative thresholds for a significant incident are set out in Commission Implementing Regulation (EU) 2024/2690, but they apply directly only to the digital infrastructure and digital service providers it names. For most entities in scope, such as manufacturing, logistics, health or waste, there are no EU figures.",
+        "p2": "For those entities, significant is governed by the qualitative criteria of Article 23(3) NIS 2, transposed as the legal definition in Section 2 number 11 BSIG. Every company must decide for itself, within 24 hours, whether an incident is reportable, and be able to document that decision. The documented judgement is the evidence."
+      },
+      "process": {
+        "heading": "Who reports, and to whom",
+        "p1": "Reports go to the BSI, in Germany through its reporting portal. Define internally, in advance, who decides whether to report and who actually files. Settling that during an incident costs time you do not have.",
+        "p2": "Marking the decision path before an incident, even as a one-page decision tree, is itself part of the incident handling measure under Article 21(2)(b) NIS 2."
+      },
+      "gdpr": {
+        "heading": "Relationship to the GDPR",
+        "p1": "If an incident affects personal data, a separate notification duty under Article 33 GDPR may apply in parallel. The two regimes have different addressees and different clocks.",
+        "p2": "Do not file one instead of the other. A ransomware incident that encrypts customer data can trigger both the Section 32 BSIG reporting cascade and the 72-hour GDPR breach notification to the data protection authority."
+      },
+      "faq": {
+        "heading": "Frequently asked questions",
+        "q1": { "q": "When does the 24-hour clock start?", "a": "When the entity becomes aware of the significant incident, not when it began." },
+        "q2": { "q": "Are there fixed euro thresholds for a significant incident?", "a": "Only for the digital service providers named in CIR (EU) 2024/2690. For all other entities, the qualitative criteria of Article 23(3) NIS 2 apply." },
+        "q3": { "q": "What if I am unsure whether an incident is significant?", "a": "Document your assessment and the reasons. The reasoned judgement is what an auditor expects to see; the absence of any assessment is the real failure." },
+        "q4": { "q": "Do I also have to report under the GDPR?", "a": "If personal data is affected, check Article 33 GDPR separately. It has its own 72-hour clock and a different addressee." },
+        "q5": { "q": "What happens after the notification?", "a": "The BSI may request further information, and the final report follows no later than one month after the notification." }
+      },
+      "ctaCard": {
+        "heading": "Structure your reporting process before you need it",
+        "description": "Define the decision tree, the responsible person, and the evidence trail in advance."
+      },
+      "cta": "Start for free"
+    },
     "footer": {
       "nis2Info": "Informații NIS2",
       "whatIsNis2": "Ce este NIS2?",
