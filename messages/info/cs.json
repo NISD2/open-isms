@@ -1,5 +1,257 @@
 {
   "info": {
+    "whatIsNisd2": {
+      "meta": {
+        "title": "Co je nisd2.eu ve skutečnosti: bezplatný, otevřený registr povinností pro NIS 2",
+        "description": "nisd2.eu je bezplatná open source platforma pro implementaci NIS 2 v segmentu Mittelstand: strukturovaný registr povinností s právním základem ke každému požadavku, průběžná auditní stopa a žádný lock-in. Takto funguje."
+      },
+      "title": "Co je nisd2.eu ve skutečnosti",
+      "subtitle": "Bezplatná open source platforma pro NIS 2 pro evropský Mittelstand. Žádný lock-in, žádný prodej založený na strachu.",
+      "overview": {
+        "heading": "Registr povinností, nikoli další vyplňovač formulářů",
+        "p1": "nisd2.eu není dalším GRC nástrojem, který každý požadavek rozkládá na formuláře. Je to strukturovaný registr povinností. Přebírá povinnosti ze směrnice NIS 2 (EU) 2022/2555 a její německé transpozice v BSIG, ke každému požadavku přiřazuje jeho právní základ a provede vás implementací ve smysluplném pořadí.",
+        "p2": "Skutečným problémem v segmentu Mittelstand je jen zřídka nedostatek znalostí. Je to nedostatek struktury. Právě zde platforma začíná."
+      },
+      "sections": {
+        "problem": {
+          "heading": "Problém, který řešíme",
+          "p1": "Většina společností NIS 2 odkládá, protože se jim úsilí jeví jako neohraničené, nebo z obavy utrácejí příliš mnoho. Směrnice nevyžaduje ani jedno. Článek 21(1) NIS 2 vyžaduje vhodná a přiměřená opatření; § 30(1) BSIG doplňuje slovo účinná.",
+          "p2": "To je povinnost zdůvodnit, nikoli maximální katalog. Platforma, která to odráží, nahrazuje složku plnou wordových šablon, která je po třech měsících zastaralá."
+        },
+        "contents": {
+          "heading": "Co je uvnitř",
+          "p1": "Registr aktiv, registr rizik, správa směrnic a správa dodavatelů v jednom systému. Ke každému požadavku: právní základ, odpovědná osoba, lhůta a doklad.",
+          "p2": "Modul školení vedení, který splňuje povinnost podle článku 20(2) NIS 2 (§ 38(3) BSIG), dodavatelský portál pro povinnosti podle článku 21(2)(d) a průběžná auditní stopa, která zaznamenává, kdo co a kdy schválil. Funkce platformy jsou samy o sobě dokladem: přiřazení, lhůty, schválení."
+        },
+        "funding": {
+          "heading": "Jak jsme financováni",
+          "p1": "Platforma je bezplatná a open source. Očekáváme, že budeme vydělávat prostřednictvím školení, hostingu a partnerských nabídek, nikoli prostřednictvím licenčních poplatků za jednotlivé požadavky.",
+          "p2": "Je to záměrná volba. NIS 2 by neměl segment Mittelstand stát desítky tisíc eur."
+        },
+        "notUs": {
+          "heading": "Čím nejsme",
+          "p1": "Nejsme americký SaaS, který vaše data o compliance uzamyká do uzavřeného cloudu. Žádný lock-in: vaše data a váš proces patří vám.",
+          "p2": "Žádné riziko auditu dodavatele. Kód je otevřený, takže auditor může sledovat, jak jsou data zpracovávána, místo aby spoléhal na příslib."
+        }
+      },
+      "faq": {
+        "heading": "Často kladené dotazy",
+        "q1": {
+          "q": "Je platforma opravdu zdarma?",
+          "a": "Ano. Používání je bezplatné a kód je open source. Projekt plánujeme financovat prostřednictvím školení, hostingu a partnerských nabídek."
+        },
+        "q2": {
+          "q": "Potřebuji účet?",
+          "a": "Ano, platforma vyžaduje registraci. Žádný lock-in neexistuje: svá data můžete exportovat a open source kód provozovat ve vlastní režii."
+        },
+        "q3": {
+          "q": "Nahradí to konzultanta?",
+          "a": "Pokud jde o strukturu, ano. U úsudkových otázek, například zda je riziko přijatelné nebo zda je opatření vhodné pro audit BSI, přidává člověk stále hodnotu."
+        },
+        "q4": {
+          "q": "Pro koho je určena?",
+          "a": "Pro společnosti zhruba s 50 až 250 zaměstnanci v evropském segmentu Mittelstand, které vědí, že spadají pod NIS 2, a chtějí strukturu, nikoli prodejní prezentaci."
+        },
+        "q5": {
+          "q": "Pokrývá pouze NIS 2?",
+          "a": "NIS 2 je hlavním zaměřením. ISO 27001 je aktivována souběžně a překrývající se povinnosti podle GDPR se přebírají, místo aby se duplikovaly."
+        }
+      },
+      "ctaCard": {
+        "heading": "Prohlédněte si registr povinností na vlastní oči",
+        "description": "Začněte zdarma a projděte si požadavky NIS 2 spolu s jejich právním základem."
+      },
+      "cta": "Začít zdarma"
+    },
+    "openSourceVsUsSaas": {
+      "meta": {
+        "title": "Software pro NIS 2 ve srovnání: uzavřený americký SaaS versus otevřená, EU-suverénní compliance",
+        "description": "Vanta, Drata a podobné nástroje jsou americké SaaS platformy. Pro zákon o odolnosti EU, jakým je NIS 2, to představuje napětí. Co uzavřené cloudové nástroje při compliance v EU přehlížejí a na co by si měl segment Mittelstand dávat pozor."
+      },
+      "title": "Software pro NIS 2 ve srovnání: uzavřený americký SaaS versus otevřená, EU-suverénní compliance",
+      "subtitle": "Na čem záleží u nástroje, kterým plníte zákon EU.",
+      "overview": {
+        "heading": "Strukturální otázka, nikoli souboj značek",
+        "p1": "Trh se softwarem pro compliance utvářejí americké platformy. Jsou dobře postavené. U NIS 2 přesto existuje strukturální otázka: evropský zákon o odolnosti plníte uzavřeným nástrojem, do jehož dat a kódu nemůžete nahlédnout.",
+        "p2": "Tento článek srovnává modely věcně, aniž by jakéhokoli jednotlivého dodavatele shazoval."
+      },
+      "sections": {
+        "auditability": {
+          "heading": "Auditovatelnost",
+          "p1": "Compliance stojí na dokladech. Auditor se ptá, jak jsou data zpracovávána, kde se nacházejí a kdo k nim má přístup. U open source softwaru si to můžete ověřit přímo, místo abyste spoléhali na ujištění dodavatele.",
+          "p2": "Skutečnost, že právě nástroj pro doklady je černá skříňka, je slabým místem uzavřeného modelu."
+        },
+        "sovereignty": {
+          "heading": "Datová suverenita",
+          "p1": "NIS 2 míří na vysokou společnou úroveň kybernetické bezpečnosti v rámci Unie (článek 1 NIS 2). Uchovávání dat o compliance v americkém cloudu přidává závislost a otázku přenosu, kterou se zákon snaží omezit.",
+          "p2": "Nástroje provozovatelné ve vlastní režii nebo hostované v EU jsou s tímto cílem konzistentnější."
+        },
+        "noLockin": {
+          "heading": "Žádný lock-in",
+          "p1": "Váš registr povinností, vaše doklady a váš proces by měly patřit vám. U otevřených nástrojů můžete exportovat, provozovat ve vlastní režii nebo změnit poskytovatele, aniž byste začínali znovu.",
+          "p2": "Lock-in je náklad, který se ukáže až v den, kdy chcete odejít."
+        },
+        "whenSaas": {
+          "heading": "Kdy se americký SaaS přesto hodí",
+          "p1": "Pokud potřebujete mnoho certifikovaných integrací a vyhrazenou podporu a máte rozpočet, může mít komerční nástroj smysl. NIS 2 předepisuje účinná opatření a doklady, nikoli konkrétní produkt (článek 21(2) NIS 2).",
+          "p2": "Pro společnost segmentu Mittelstand, která potřebuje především strukturu a čistou auditní stopu, jsou integrace jen zřídka úzkým hrdlem."
+        },
+        "openInPractice": {
+          "heading": "Otevřený model v praxi",
+          "p1": "Existuje vyzrálý trh otevřených nástrojů, mezi nimi verinice, CISO Assistant, ISMS Builder a nisd2.eu. Liší se hloubkou a zaměřením.",
+          "p2": "Společná je jim transparentnost, žádný lock-in a nízké vstupní náklady."
+        }
+      },
+      "faq": {
+        "heading": "Často kladené dotazy",
+        "q1": {
+          "q": "Je open source méně bezpečný?",
+          "a": "Ne. Princip mnoha očí často vede k rychlejšímu opravování chyb. Záleží na údržbě a aktualizacích, nikoli na tom, zda je kód otevřený."
+        },
+        "q2": {
+          "q": "Vyžaduje NIS 2 konkrétní nástroj?",
+          "a": "Ne. NIS 2 vyžaduje účinná opatření a doklady (článek 21 NIS 2), nikoli konkrétní produkt."
+        },
+        "q3": {
+          "q": "Smím pro compliance v EU používat americký nástroj?",
+          "a": "Právně často ano. Prověřte však přenos dat a závislost, kterou vytváří, neboť omezení právě těchto věcí je součástí smyslu NIS 2."
+        },
+        "q4": {
+          "q": "Co v této souvislosti znamená suverenita EU?",
+          "a": "Udržet data a kontrolu nad vaším procesem compliance ve vašem dosahu: hosting v EU nebo provoz ve vlastní režii, exportovatelná data, nahlédnutelný kód."
+        },
+        "q5": {
+          "q": "Je komerční nástroj někdy lepší volbou?",
+          "a": "Ano, pokud certifikované integrace a vyhrazená podpora ve vaší situaci převažují nad otevřeností a náklady."
+        }
+      },
+      "ctaCard": {
+        "heading": "Vyzkoušejte otevřený registr povinností",
+        "description": "Zdarma, postaveno v EU, žádný lock-in."
+      },
+      "cta": "Začít zdarma"
+    },
+    "openSourceCompliance": {
+      "meta": {
+        "title": "Open source pro compliance: proč auditoři oceňují otevřený ISMS",
+        "description": "Otevřený ISMS umožňuje auditorovi ověřit, jak jsou doklady zaznamenávány, místo aby důvěřoval dodavateli. Jak open source podporuje povinnosti NIS 2 v oblasti bezpečnosti dodavatelského řetězce, řešení zranitelností a hodnocení účinnosti."
+      },
+      "title": "Open source pro compliance: proč auditoři oceňují otevřený ISMS",
+      "subtitle": "Nástroj pro doklady by neměl být tou jednou černou skříňkou ve vašem auditu.",
+      "overview": {
+        "heading": "Ověřitelnost je víc než ujištění",
+        "p1": "U compliance jde o doklady a ověřitelnost. Auditor se ptá, jak jsou data zpracovávána, kde se nacházejí a kdo k nim má přístup. U open source softwaru můžete odpovědět nahlédnutím, nikoli důvěrou.",
+        "p2": "U nástroje, jehož celým úkolem je uchovávat vaše doklady, není nahlédnutelnost příjemným bonusem navíc."
+      },
+      "sections": {
+        "transparency": {
+          "heading": "Sledovatelný od základu",
+          "p1": "Otevřený kód umožňuje auditorovi nebo vašemu vlastnímu týmu přesně sledovat, jak je zaznamenáno schválení, lhůta nebo záznam v auditní stopě. Článek 21(2)(f) NIS 2 vyžaduje politiky a postupy pro hodnocení účinnosti vašich opatření.",
+          "p2": "Hodnotit účinnost je snazší, když lze do mechanismu, který doklad vytváří, nahlédnout, místo aby se předpokládal."
+        },
+        "supplierRisk": {
+          "heading": "Váš nástroj pro compliance je sám dodavatelem",
+          "p1": "Článek 21(2)(d) NIS 2 vám ukládá řídit riziko dodavatelského řetězce a vaše platforma pro compliance je jedním z vašich dodavatelů. Open source tuto zátěž náležité péče snižuje: kód je přezkoumatelný a neexistuje žádná uzavřená závislost, kterou nemůžete posoudit.",
+          "p2": "Provoz nástroje můžete outsourcovat, ale odpovědnost za danou povinnost zůstává na vás (§ 30 BSIG). Nahlédnutelný nástroj usnadňuje tuto odpovědnost nést."
+        },
+        "manyEyes": {
+          "heading": "Princip mnoha očí",
+          "p1": "Open source není ze své podstaty méně bezpečný. Veřejný kód a veřejné sledování chyb často znamenají, že se zranitelnosti najdou a opraví rychleji. Článek 21(2)(e) NIS 2 pokrývá řešení zranitelností a jejich zveřejňování.",
+          "p2": "O bezpečnosti ve skutečnosti rozhoduje to, zda je software udržován a aktualizován, což platí pro otevřené i uzavřené nástroje stejně."
+        }
+      },
+      "faq": {
+        "heading": "Často kladené dotazy",
+        "q1": {
+          "q": "Může auditor open source nástroj odmítnout?",
+          "a": "Auditor posuzuje vaše opatření a doklady, nikoli značku vašeho softwaru. NIS 2 neuvádí žádný předepsaný produkt. Nahlédnutelný nástroj zpravidla práci auditora spíše usnadňuje než ztěžuje."
+        },
+        "q2": {
+          "q": "Je open source méně bezpečný než komerční produkt?",
+          "a": "Ne kvůli tomu, že je otevřený. O bezpečnosti rozhoduje údržba a včasné aktualizace; princip mnoha očí často spíše pomáhá, než aby škodil."
+        },
+        "q3": {
+          "q": "Musím stále dokumentovat, i když je nástroj otevřený?",
+          "a": "Ano. Nástroj zaznamenává doklady; rozhodnutí stále vlastníte vy. Open source dělá záznam transparentním, nikoli volitelným."
+        },
+        "q4": {
+          "q": "Splňuje open source automaticky požadavek na dodavatelský řetězec?",
+          "a": "Ne, ale snižuje náklady na náležitou péči. Nástroj jako dodavatele stále posuzujete a dokumentujete podle článku 21(2)(d) NIS 2."
+        },
+        "q5": {
+          "q": "Co bych měl prověřit, než otevřenému ISMS důvěřuji?",
+          "a": "Aktivní údržbu, jasnou cestu aktualizací, model hostingu a to, zda můžete svá data exportovat. Otevřenost je základ, údržba je zkouškou."
+        }
+      },
+      "ctaCard": {
+        "heading": "Podívejte se, jak jsou doklady zaznamenávány",
+        "description": "Otevřený registr povinností s nahlédnutelnou auditní stopou."
+      },
+      "cta": "Začít zdarma"
+    },
+    "openSourceIsmsNachteile": {
+      "meta": {
+        "title": "Upřímné nevýhody open source ISMS a naše odpověď",
+        "description": "Vyvíjíme open source software pro compliance. Zde je upřímný protiargument: provozní zátěž, podpora, vyzrálost a odpovědnost, a jak každý z těchto bodů řešíme."
+      },
+      "title": "Upřímné nevýhody open source ISMS",
+      "subtitle": "Důvěra se buduje pojmenováním nevýhod, nikoli jejich skrýváním.",
+      "overview": {
+        "heading": "Protiargument k našemu vlastnímu modelu",
+        "p1": "Vyvíjíme open source software pro compliance, takže máme důvod být upřímní v tom, kde je slabší. Pojmenování nevýhod je cestou, jak si zasloužit důvěru.",
+        "p2": "Zde jsou čtyři, na kterých záleží, a co s každou z nich děláme."
+      },
+      "sections": {
+        "operations": {
+          "heading": "Provozní zátěž",
+          "p1": "Pokud provozujete ve vlastní režii, nesete provozní zátěž: aktualizace, zálohy, dostupnost a bezpečnost serveru. Mnoho společností segmentu Mittelstand na to nemá volné kapacity.",
+          "p2": "Naše odpověď: hostovaná varianta provozní zátěž odebírá, zatímco provoz ve vlastní režii zůstává k dispozici těm, kdo chtějí plnou kontrolu nad daty."
+        },
+        "support": {
+          "heading": "Podpora a záruky",
+          "p1": "Open source jen zřídka přichází s podnikovou dohodou o podpoře. Komunitní podpora se liší rychlostí a bezplatná úroveň je ze své podstaty na bázi maximálního úsilí.",
+          "p2": "Naše odpověď: placené úrovně podpory a hostingu existují pro týmy, které potřebují zaručenou reakci, a otevřeně říkáme, že bezplatná úroveň není SLA."
+        },
+        "maturity": {
+          "heading": "Vyzrálost a integrace",
+          "p1": "Dobře financovaný americký SaaS bude mít často více certifikovaných integrací a více vyladěnosti. Některé funkce, které stojí vývojový čas, patří do prémiové úrovně, nikoli do bezplatné nabídky.",
+          "p2": "Naše odpověď: pro většinu společností segmentu Mittelstand je úzkým hrdlem v rámci NIS 2 struktura a čistá auditní stopa, nikoli počet integrací. Stavíme nejprve pro tuto potřebu."
+        },
+        "accountability": {
+          "heading": "Odpovědnost zůstává na vás",
+          "p1": "Open source je nástroj, nikoli konzultant. Strukturuje práci a zaznamenává doklady, ale úsudkové otázky zůstávají vaše: zda je riziko přijatelné, zda je opatření přiměřené podle článku 21(1) NIS 2.",
+          "p2": "To platí pro každý nástroj, otevřený i uzavřený. Žádný software nezbavuje povinnosti, kterou § 30 BSIG ukládá subjektu."
+        }
+      },
+      "faq": {
+        "heading": "Často kladené dotazy",
+        "q1": {
+          "q": "Je bezplatná verze opravdu zdarma, nebo je to zkušební verze?",
+          "a": "Je bezplatná k užívání, nikoli časově omezená zkušební verze. Projekt plánujeme financovat prostřednictvím školení, hostingu a partnerských nabídek, nikoli licencemi za jednotlivá místa."
+        },
+        "q2": {
+          "q": "Co se stane, pokud bude projekt opuštěn?",
+          "a": "Protože je kód otevřený (AGPL), zůstává vám a můžete jej provozovat ve vlastní režii nebo forknout. Nezůstanete na holičkách tak, jak se to může stát, když uzavřený dodavatel ukončí činnost."
+        },
+        "q3": {
+          "q": "Potřebuji k provozu IT personál?",
+          "a": "Pouze pokud provozujete ve vlastní režii. Hostovaná varianta provozní zátěž odebírá; provoz ve vlastní režii je tu pro týmy, které chtějí plnou kontrolu."
+        },
+        "q4": {
+          "q": "Je připraven k auditu rovnou z krabice?",
+          "a": "Vytváří strukturu a auditní stopu, kterou auditor očekává. Věcná rozhodnutí stále činíte a dokumentujete vy."
+        },
+        "q5": {
+          "q": "Je open source rizikovější pro citlivá data o compliance?",
+          "a": "Otevřený kód neznamená otevřená data. Data se nacházejí tam, kde je hostujete; s hostingem v EU nebo provozem ve vlastní režii mohou zůstat zcela pod vaší kontrolou."
+        }
+      },
+      "ctaCard": {
+        "heading": "Posuďte to ve světle nevýhod",
+        "description": "Vyzkoušejte platformu a zjistěte, zda struktura odpovídá vaší situaci."
+      },
+      "cta": "Začít zdarma"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: oznamovací povinnost incidentů podle NIS 2 (24h, 72h, jeden měsíc)",

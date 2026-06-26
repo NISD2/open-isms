@@ -1,5 +1,257 @@
 {
   "info": {
+    "whatIsNisd2": {
+      "meta": {
+        "title": "Ce este de fapt nisd2.eu: registrul obligațiilor gratuit și deschis pentru NIS 2",
+        "description": "nisd2.eu este o platformă gratuită, open-source, pentru implementarea NIS 2 în Mittelstand: un registru al obligațiilor structurat, cu temei legal pentru fiecare cerință, o pistă de audit completă și fără lock-in. Iată cum funcționează."
+      },
+      "title": "Ce este de fapt nisd2.eu",
+      "subtitle": "O platformă NIS 2 gratuită, open-source, pentru Mittelstand-ul european. Fără lock-in, fără vânzări bazate pe frică.",
+      "overview": {
+        "heading": "Un registru al obligațiilor, nu încă un instrument de completat formulare",
+        "p1": "nisd2.eu nu este încă un instrument GRC care descompune fiecare cerință în formulare. Este un registru al obligațiilor structurat. Preia obligațiile din Directiva NIS 2 (UE) 2022/2555 și din transpunerea ei germană în BSIG, atribuie fiecărei cerințe temeiul ei legal și vă conduce prin implementare într-o ordine logică.",
+        "p2": "Adevărata problemă în Mittelstand este rareori lipsa de cunoștințe. Este lipsa de structură. Exact de acolo pornește platforma."
+      },
+      "sections": {
+        "problem": {
+          "heading": "Problema pe care o rezolvăm",
+          "p1": "Majoritatea companiilor amână NIS 2 pentru că efortul pare nelimitat sau cheltuiesc excesiv din frică. Directiva nu cere niciuna dintre acestea. Articolul 21(1) NIS 2 impune măsuri adecvate și proporționale; § 30(1) BSIG adaugă cuvântul eficace.",
+          "p2": "Aceasta este o obligație de a argumenta, nu un catalog maxim. O platformă care reflectă acest lucru înlocuiește dosarul cu șabloane Word care este depășit trei luni mai târziu."
+        },
+        "contents": {
+          "heading": "Ce conține",
+          "p1": "Registru de active, registru de riscuri, gestiunea politicilor și gestiunea furnizorilor într-un singur sistem. Pentru fiecare cerință: temeiul legal, o persoană responsabilă, un termen și un element de probă.",
+          "p2": "Un modul de instruire a conducerii care îndeplinește obligația din articolul 20(2) NIS 2 (§ 38(3) BSIG), un portal pentru furnizori pentru obligațiile din articolul 21(2)(d) și o pistă de audit completă care înregistrează cine, ce și când a aprobat. Funcționalitățile platformei sunt ele însele proba: atribuirile, termenele, semnăturile de aprobare."
+        },
+        "funding": {
+          "heading": "Cum ne finanțăm",
+          "p1": "Platforma este gratuită și open-source. Ne așteptăm să obținem venituri din instruire, găzduire și oferte de parteneriat, nu din taxe de licență per cerință.",
+          "p2": "Aceasta este o alegere deliberată. NIS 2 nu ar trebui să coste Mittelstand-ul zeci de mii de euro."
+        },
+        "notUs": {
+          "heading": "Ce nu suntem",
+          "p1": "Nu suntem un SaaS american care vă blochează datele de conformitate într-un cloud închis. Fără lock-in: datele și procesul dumneavoastră vă aparțin.",
+          "p2": "Fără riscul auditării furnizorului. Codul este deschis, astfel încât un auditor poate urmări cum sunt prelucrate datele, în loc să se bazeze pe o promisiune."
+        }
+      },
+      "faq": {
+        "heading": "Întrebări frecvente",
+        "q1": {
+          "q": "Platforma este într-adevăr gratuită?",
+          "a": "Da. Utilizarea este gratuită, iar codul este open-source. Intenționăm să finanțăm proiectul prin instruire, găzduire și oferte de parteneriat."
+        },
+        "q2": {
+          "q": "Am nevoie de un cont?",
+          "a": "Da, platforma necesită înregistrare. Nu există lock-in: vă puteți exporta datele și puteți găzdui singur codul open-source."
+        },
+        "q3": {
+          "q": "Înlocuiește un consultant?",
+          "a": "Pentru structură, da. Pentru deciziile de apreciere, precum dacă un risc este acceptabil sau dacă o măsură este potrivită pentru un audit BSI, omul aduce în continuare valoare."
+        },
+        "q4": {
+          "q": "Pentru cine este?",
+          "a": "Companii de aproximativ 50 până la 250 de persoane din Mittelstand-ul european, care știu că intră sub incidența NIS 2 și care vor structură, nu un discurs de vânzare."
+        },
+        "q5": {
+          "q": "Acoperă doar NIS 2?",
+          "a": "NIS 2 este punctul central. ISO 27001 este activat în paralel, iar obligațiile GDPR care se suprapun sunt preluate în loc să fie duplicate."
+        }
+      },
+      "ctaCard": {
+        "heading": "Vedeți singur registrul obligațiilor",
+        "description": "Începeți gratuit și parcurgeți cerințele NIS 2 împreună cu temeiul lor legal."
+      },
+      "cta": "Începeți gratuit"
+    },
+    "openSourceVsUsSaas": {
+      "meta": {
+        "title": "Software NIS 2 în comparație: SaaS american închis versus conformitate deschisă, suverană la nivel UE",
+        "description": "Vanta, Drata și instrumente similare sunt platforme SaaS americane. Pentru o lege europeană privind reziliența, precum NIS 2, acesta este un punct de tensiune. Ce trec cu vederea instrumentele de tip cloud închis în privința conformității UE și la ce ar trebui să fie atent Mittelstand-ul."
+      },
+      "title": "Software NIS 2 în comparație: SaaS american închis versus conformitate deschisă, suverană la nivel UE",
+      "subtitle": "Ce contează la un instrument cu care îndepliniți o lege a UE.",
+      "overview": {
+        "heading": "O întrebare structurală, nu o dispută între branduri",
+        "p1": "Piața software-ului de conformitate este modelată de platforme americane. Sunt bine construite. Pentru NIS 2 există totuși o întrebare structurală: îndepliniți o lege europeană privind reziliența cu un instrument închis ale cărui date și cod nu le puteți inspecta.",
+        "p2": "Acest articol compară modelele după meritele lor, fără a denigra vreun furnizor anume."
+      },
+      "sections": {
+        "auditability": {
+          "heading": "Posibilitatea de auditare",
+          "p1": "Conformitatea trăiește din probe. Un auditor întreabă cum sunt prelucrate datele, unde se află și cine are acces. Cu software open-source puteți verifica acest lucru direct, în loc să vă bazați pe asigurările furnizorului.",
+          "p2": "Faptul că tocmai instrumentul de probă este o cutie neagră reprezintă punctul slab al modelului închis."
+        },
+        "sovereignty": {
+          "heading": "Suveranitatea datelor",
+          "p1": "NIS 2 vizează un nivel comun ridicat de securitate cibernetică la nivelul Uniunii (articolul 1 NIS 2). Păstrarea datelor de conformitate într-un cloud american adaugă o dependență și o problemă de transfer pe care legea încearcă tocmai să le reducă.",
+          "p2": "Instrumentele care pot fi găzduite pe cont propriu sau găzduite în UE sunt mai coerente cu acest obiectiv."
+        },
+        "noLockin": {
+          "heading": "Fără lock-in",
+          "p1": "Registrul obligațiilor, probele și procesul dumneavoastră ar trebui să vă aparțină. Cu instrumente deschise puteți exporta, găzdui pe cont propriu sau schimba furnizorul fără a o lua de la capăt.",
+          "p2": "Lock-in-ul este un cost care apare abia în ziua în care doriți să plecați."
+        },
+        "whenSaas": {
+          "heading": "Când un SaaS american se potrivește totuși",
+          "p1": "Dacă aveți nevoie de multe integrări certificate și de suport dedicat și dispuneți de buget, un instrument comercial poate avea sens. NIS 2 prescrie măsuri eficace și probe, nu un anumit produs (articolul 21(2) NIS 2).",
+          "p2": "Pentru o companie din Mittelstand care are nevoie în principal de structură și de o pistă de audit clară, integrările sunt rareori obstacolul principal."
+        },
+        "openInPractice": {
+          "heading": "Modelul deschis în practică",
+          "p1": "Există o piață matură de instrumente deschise, printre care verinice, CISO Assistant, ISMS Builder și nisd2.eu. Ele diferă ca profunzime și ca accent.",
+          "p2": "Ceea ce au în comun sunt transparența, lipsa lock-in-ului și un cost de intrare redus."
+        }
+      },
+      "faq": {
+        "heading": "Întrebări frecvente",
+        "q1": {
+          "q": "Este open source mai puțin sigur?",
+          "a": "Nu. Principiul multor ochi duce adesea la corectarea mai rapidă a vulnerabilităților. Ceea ce contează sunt întreținerea și actualizările, nu dacă codul este deschis."
+        },
+        "q2": {
+          "q": "Impune NIS 2 un anumit instrument?",
+          "a": "Nu. NIS 2 impune măsuri eficace și probe (articolul 21 NIS 2), nu un anumit produs."
+        },
+        "q3": {
+          "q": "Pot folosi un instrument american pentru conformitatea UE?",
+          "a": "Adesea da, din punct de vedere juridic. Dar verificați transferul de date și dependența pe care o creează, întrucât reducerea exact a acestora face parte din rostul NIS 2."
+        },
+        "q4": {
+          "q": "Ce înseamnă suveranitatea UE în acest context?",
+          "a": "Păstrarea datelor și a controlului asupra procesului dumneavoastră de conformitate la îndemâna dumneavoastră: găzduire în UE sau găzduire pe cont propriu, date exportabile, cod inspectabil."
+        },
+        "q5": {
+          "q": "Este vreodată un instrument comercial alegerea mai bună?",
+          "a": "Da, atunci când integrările certificate și suportul dedicat cântăresc mai greu decât deschiderea și costul în situația dumneavoastră."
+        }
+      },
+      "ctaCard": {
+        "heading": "Încercați un registru al obligațiilor deschis",
+        "description": "Gratuit, construit în UE, fără lock-in."
+      },
+      "cta": "Începeți gratuit"
+    },
+    "openSourceCompliance": {
+      "meta": {
+        "title": "Open source pentru conformitate: de ce apreciază auditorii un ISMS deschis",
+        "description": "Un ISMS deschis permite unui auditor să verifice cum sunt înregistrate probele, în loc să aibă încredere într-un furnizor. Cum sprijină open source obligațiile NIS 2 privind securitatea lanțului de aprovizionare, gestionarea vulnerabilităților și evaluarea eficacității."
+      },
+      "title": "Open source pentru conformitate: de ce apreciază auditorii un ISMS deschis",
+      "subtitle": "Instrumentul de probă nu ar trebui să fie singura cutie neagră din auditul dumneavoastră.",
+      "overview": {
+        "heading": "Verificabilitatea învinge asigurarea",
+        "p1": "Conformitatea înseamnă probe și verificabilitate. Un auditor întreabă cum sunt prelucrate datele, unde se află și cine are acces. Cu software open-source puteți răspunde prin inspecție, nu prin încredere.",
+        "p2": "Pentru un instrument a cărui întreagă menire este să vă păstreze probele, faptul de a putea fi inspectat nu este un simplu avantaj opțional."
+      },
+      "sections": {
+        "transparency": {
+          "heading": "Trasabil prin concepție",
+          "p1": "Codul deschis permite unui auditor sau echipei dumneavoastră să urmărească exact cum sunt înregistrate o semnătură de aprobare, un termen sau o intrare în pista de audit. Articolul 21(2)(f) NIS 2 impune politici și proceduri pentru evaluarea eficacității măsurilor dumneavoastră.",
+          "p2": "Evaluarea eficacității este mai ușoară atunci când mecanismul care produce proba poate fi inspectat, nu presupus."
+        },
+        "supplierRisk": {
+          "heading": "Instrumentul dumneavoastră de conformitate este el însuși un furnizor",
+          "p1": "Articolul 21(2)(d) NIS 2 vă obligă să gestionați riscul lanțului de aprovizionare, iar platforma dumneavoastră de conformitate este unul dintre furnizorii dumneavoastră. Open source reduce această sarcină de verificare: codul poate fi examinat și nu există o dependență închisă pe care să nu o puteți evalua.",
+          "p2": "Puteți externaliza operarea unui instrument, dar răspunderea pentru obligație rămâne la dumneavoastră (§ 30 BSIG). Un instrument inspectabil face această răspundere mai ușor de purtat."
+        },
+        "manyEyes": {
+          "heading": "Principiul multor ochi",
+          "p1": "Open source nu este în mod inerent mai puțin sigur. Codul public și urmărirea publică a problemelor înseamnă adesea că vulnerabilitățile sunt găsite și corectate mai repede. Articolul 21(2)(e) NIS 2 acoperă gestionarea și divulgarea vulnerabilităților.",
+          "p2": "Ceea ce decide de fapt securitatea este dacă software-ul este întreținut și actualizat, ceea ce este valabil deopotrivă pentru instrumentele deschise și pentru cele închise."
+        }
+      },
+      "faq": {
+        "heading": "Întrebări frecvente",
+        "q1": {
+          "q": "Poate un auditor să respingă un instrument open-source?",
+          "a": "Un auditor evaluează măsurile și probele dumneavoastră, nu marca software-ului. NIS 2 nu numește niciun produs obligatoriu. Un instrument inspectabil tinde să ușureze munca auditorului, nu să o îngreuneze."
+        },
+        "q2": {
+          "q": "Este open source mai puțin sigur decât un produs comercial?",
+          "a": "Nu în virtutea faptului că este deschis. Întreținerea și actualizările prompte decid securitatea; principiul multor ochi ajută adesea mai mult decât dăunează."
+        },
+        "q3": {
+          "q": "Mai trebuie să documentez dacă instrumentul este deschis?",
+          "a": "Da. Instrumentul înregistrează proba; deciziile vă aparțin în continuare. Open source face înregistrarea transparentă, nu opțională."
+        },
+        "q4": {
+          "q": "Satisface open source automat cerința privind lanțul de aprovizionare?",
+          "a": "Nu, dar reduce costul verificării. Evaluați și documentați în continuare instrumentul ca furnizor în temeiul articolului 21(2)(d) NIS 2."
+        },
+        "q5": {
+          "q": "Ce ar trebui să verific înainte de a avea încredere într-un ISMS deschis?",
+          "a": "Întreținerea activă, o cale clară de actualizare, modelul de găzduire și dacă vă puteți exporta datele. Deschiderea este nivelul minim, întreținerea este testul."
+        }
+      },
+      "ctaCard": {
+        "heading": "Vedeți cum este înregistrată proba",
+        "description": "Un registru al obligațiilor deschis, cu o pistă de audit inspectabilă."
+      },
+      "cta": "Începeți gratuit"
+    },
+    "openSourceIsmsNachteile": {
+      "meta": {
+        "title": "Dezavantajele oneste ale unui ISMS open-source și răspunsul nostru",
+        "description": "Construim software de conformitate open-source. Iată argumentul onest împotriva lui: sarcina de operare, suportul, maturitatea și răspunderea, precum și cum abordăm fiecare aspect."
+      },
+      "title": "Dezavantajele oneste ale unui ISMS open-source",
+      "subtitle": "Încrederea se construiește numind dezavantajele, nu ascunzându-le.",
+      "overview": {
+        "heading": "Argumentul împotriva propriului nostru model",
+        "p1": "Construim software de conformitate open-source, așa că avem un motiv să fim onești în privința punctelor unde este mai slab. Numirea dezavantajelor este modul în care se câștigă încrederea.",
+        "p2": "Iată cele patru care contează și ce facem în privința fiecăruia."
+      },
+      "sections": {
+        "operations": {
+          "heading": "Sarcina de operare",
+          "p1": "Dacă vă găzduiți pe cont propriu, purtați sarcina operațională: actualizări, copii de rezervă, disponibilitate și securitatea serverului. Multe companii din Mittelstand nu dispun de capacitate liberă pentru aceasta.",
+          "p2": "Răspunsul nostru: o variantă găzduită elimină sarcina operațională, în timp ce găzduirea pe cont propriu rămâne disponibilă pentru cei care doresc control deplin asupra datelor."
+        },
+        "support": {
+          "heading": "Suport și garanții",
+          "p1": "Open source vine rareori cu un acord de suport de tip enterprise. Suportul comunitar variază ca viteză, iar nivelul gratuit este, prin natura sa, după cele mai bune eforturi.",
+          "p2": "Răspunsul nostru: există niveluri plătite de suport și găzduire pentru echipele care au nevoie de un timp de răspuns garantat, iar spunem clar că nivelul gratuit nu este un SLA."
+        },
+        "maturity": {
+          "heading": "Maturitate și integrări",
+          "p1": "Un SaaS american bine finanțat va avea adesea mai multe integrări certificate și mai multă finisare. Unele funcționalități care necesită timp de dezvoltare aparțin nivelului premium, nu celui gratuit.",
+          "p2": "Răspunsul nostru: pentru majoritatea companiilor din Mittelstand, obstacolul sub incidența NIS 2 este structura și o pistă de audit clară, nu numărul de integrări. Pentru această nevoie construim în primul rând."
+        },
+        "accountability": {
+          "heading": "Răspunderea rămâne la dumneavoastră",
+          "p1": "Open source este un instrument, nu un consultant. Structurează munca și înregistrează probele, dar deciziile de apreciere rămân ale dumneavoastră: dacă un risc este acceptabil, dacă o măsură este proporțională în temeiul articolului 21(1) NIS 2.",
+          "p2": "Acest lucru este valabil pentru orice instrument, deschis sau închis. Niciun software nu vă scutește de obligația pe care § 30 BSIG o impune entității."
+        }
+      },
+      "faq": {
+        "heading": "Întrebări frecvente",
+        "q1": {
+          "q": "Este versiunea gratuită într-adevăr gratuită sau este o perioadă de probă?",
+          "a": "Este gratuită pentru utilizare, nu o perioadă de probă limitată în timp. Intenționăm să finanțăm proiectul prin instruire, găzduire și oferte de parteneriat, nu prin licențe per utilizator."
+        },
+        "q2": {
+          "q": "Ce se întâmplă dacă proiectul este abandonat?",
+          "a": "Întrucât codul este deschis (AGPL), îl păstrați și îl puteți găzdui pe cont propriu sau bifurca. Nu rămâneți blocați așa cum se poate întâmpla când un furnizor închis își încetează activitatea."
+        },
+        "q3": {
+          "q": "Am nevoie de personal IT pentru a-l rula?",
+          "a": "Doar dacă vă găzduiți pe cont propriu. Varianta găzduită elimină sarcina operațională; găzduirea pe cont propriu este disponibilă pentru echipele care doresc control deplin."
+        },
+        "q4": {
+          "q": "Este pregătit pentru audit din start?",
+          "a": "Produce structura și pista de audit pe care le așteaptă un auditor. Deciziile de fond le luați și le documentați în continuare dumneavoastră."
+        },
+        "q5": {
+          "q": "Este open source mai riscant pentru datele de conformitate sensibile?",
+          "a": "Codul deschis nu înseamnă date deschise. Datele se află acolo unde le găzduiți; cu găzduire în UE sau găzduire pe cont propriu pot rămâne complet sub controlul dumneavoastră."
+        }
+      },
+      "ctaCard": {
+        "heading": "Evaluați-l în raport cu dezavantajele",
+        "description": "Încercați platforma și vedeți dacă structura se potrivește situației dumneavoastră."
+      },
+      "cta": "Începeți gratuit"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "Articolul 32 BSIG: obligatia de notificare a incidentelor NIS 2 (24h, 72h, o luna)",

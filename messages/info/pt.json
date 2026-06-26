@@ -1,5 +1,257 @@
 {
   "info": {
+    "whatIsNisd2": {
+      "meta": {
+        "title": "O que é realmente o nisd2.eu: o registo de obrigações gratuito e aberto para a NIS 2",
+        "description": "O nisd2.eu é uma plataforma gratuita e de código aberto para a implementação da NIS 2 no Mittelstand: um registo de obrigações estruturado com uma base legal para cada requisito, um registo de auditoria de ponta a ponta e sem lock-in. Eis como funciona."
+      },
+      "title": "O que é realmente o nisd2.eu",
+      "subtitle": "Uma plataforma NIS 2 gratuita e de código aberto para o Mittelstand europeu. Sem lock-in, sem venda pelo medo.",
+      "overview": {
+        "heading": "Um registo de obrigações, não mais um preenchedor de formulários",
+        "p1": "O nisd2.eu não é mais uma ferramenta GRC que decompõe cada requisito em formulários. É um registo de obrigações estruturado. Retira os deveres da Diretiva NIS 2 (UE) 2022/2555 e da sua transposição alemã no BSIG, atribui a cada requisito a sua base legal e conduz o utilizador pela implementação numa ordem sensata.",
+        "p2": "O verdadeiro problema no Mittelstand raramente é a falta de conhecimento. É a falta de estrutura. É aí que a plataforma começa."
+      },
+      "sections": {
+        "problem": {
+          "heading": "O problema que resolvemos",
+          "p1": "A maioria das empresas adia a NIS 2 porque o esforço parece ilimitado, ou gasta demais por medo. A diretiva não exige nenhuma das duas coisas. O artigo 21(1) NIS 2 exige medidas adequadas e proporcionadas; o § 30(1) BSIG acrescenta a palavra eficazes.",
+          "p2": "Trata-se de um dever de fundamentação, não de um catálogo máximo. Uma plataforma que reflete isto substitui a pasta cheia de modelos Word que está desatualizada três meses depois."
+        },
+        "contents": {
+          "heading": "O que está incluído",
+          "p1": "Registo de ativos, registo de riscos, gestão de políticas e gestão de fornecedores num único sistema. Para cada requisito: a base legal, um responsável, um prazo e um elemento de prova.",
+          "p2": "Um módulo de formação para a direção que cumpre a obrigação do artigo 20(2) NIS 2 (§ 38(3) BSIG), um portal de fornecedores para os deveres do artigo 21(2)(d) e um registo de auditoria de ponta a ponta que documenta quem aprovou o quê e quando. As próprias funcionalidades da plataforma são a prova: atribuições, prazos, aprovações."
+        },
+        "funding": {
+          "heading": "Como nos financiamos",
+          "p1": "A plataforma é gratuita e de código aberto. Prevemos gerar receita através de formação, alojamento e ofertas de parceiros, não através de taxas de licença por requisito.",
+          "p2": "É uma escolha deliberada. A NIS 2 não deve custar ao Mittelstand dezenas de milhares de euros."
+        },
+        "notUs": {
+          "heading": "O que não somos",
+          "p1": "Não somos um SaaS americano que prende os seus dados de conformidade numa nuvem fechada. Sem lock-in: os seus dados e o seu processo pertencem-lhe.",
+          "p2": "Sem risco de auditoria ao fornecedor. O código é aberto, pelo que um auditor pode acompanhar como os dados são tratados em vez de confiar numa promessa."
+        }
+      },
+      "faq": {
+        "heading": "Perguntas frequentes",
+        "q1": {
+          "q": "A plataforma é mesmo gratuita?",
+          "a": "Sim. A utilização é gratuita e o código é aberto. Pretendemos financiar o projeto através de formação, alojamento e ofertas de parceiros."
+        },
+        "q2": {
+          "q": "Preciso de uma conta?",
+          "a": "Sim, a plataforma exige um registo. Não existe lock-in: pode exportar os seus dados e alojar você mesmo o código aberto."
+        },
+        "q3": {
+          "q": "Substitui um consultor?",
+          "a": "Para a estrutura, sim. Para questões de juízo, como saber se um risco é aceitável ou se uma medida é adequada a uma auditoria do BSI, uma pessoa continua a acrescentar valor."
+        },
+        "q4": {
+          "q": "Para quem é?",
+          "a": "Empresas de cerca de 50 a 250 pessoas no Mittelstand europeu que sabem que estão abrangidas pela NIS 2 e querem estrutura, não um discurso de venda."
+        },
+        "q5": {
+          "q": "Abrange apenas a NIS 2?",
+          "a": "A NIS 2 é o foco. A ISO 27001 está ativada em paralelo e os deveres sobrepostos do RGPD são reaproveitados em vez de duplicados."
+        }
+      },
+      "ctaCard": {
+        "heading": "Veja o registo de obrigações por si próprio",
+        "description": "Comece gratuitamente e percorra os requisitos da NIS 2 com a respetiva base legal."
+      },
+      "cta": "Comece gratuitamente"
+    },
+    "openSourceVsUsSaas": {
+      "meta": {
+        "title": "Software de NIS 2 em comparação: SaaS americano fechado versus conformidade aberta e soberana na UE",
+        "description": "O Vanta, o Drata e ferramentas semelhantes são plataformas SaaS americanas. Para uma lei de resiliência da UE como a NIS 2, isso é um ponto de tensão. O que as ferramentas de nuvem fechadas ignoram na conformidade da UE e a que deve o Mittelstand prestar atenção."
+      },
+      "title": "Software de NIS 2 em comparação: SaaS americano fechado versus conformidade aberta e soberana na UE",
+      "subtitle": "O que importa numa ferramenta que utiliza para cumprir uma lei da UE.",
+      "overview": {
+        "heading": "Uma questão estrutural, não uma disputa entre marcas",
+        "p1": "O mercado de software de conformidade é moldado por plataformas americanas. Estão bem construídas. Ainda assim, para a NIS 2 há uma questão estrutural: está a cumprir uma lei de resiliência europeia com uma ferramenta fechada cujos dados e código não consegue inspecionar.",
+        "p2": "Este artigo compara os modelos pelos seus méritos, sem denegrir nenhum fornecedor em particular."
+      },
+      "sections": {
+        "auditability": {
+          "heading": "Auditabilidade",
+          "p1": "A conformidade vive da prova. Um auditor pergunta como os dados são tratados, onde se encontram e quem tem acesso. Com software de código aberto, pode verificar isso diretamente em vez de depender das garantias do fornecedor.",
+          "p2": "O facto de a própria ferramenta de prova ser uma caixa negra é o ponto fraco do modelo fechado."
+        },
+        "sovereignty": {
+          "heading": "Soberania dos dados",
+          "p1": "A NIS 2 visa um elevado nível comum de cibersegurança em toda a União (artigo 1 NIS 2). Manter dados de conformidade numa nuvem americana acrescenta uma dependência e uma questão de transferência que a lei procura reduzir.",
+          "p2": "As ferramentas que podem ser alojadas pelo próprio ou alojadas na UE são mais coerentes com esse objetivo."
+        },
+        "noLockin": {
+          "heading": "Sem lock-in",
+          "p1": "O seu registo de obrigações, as suas provas e o seu processo devem pertencer-lhe. Com ferramentas abertas, pode exportar, alojar você mesmo ou mudar de fornecedor sem começar do zero.",
+          "p2": "O lock-in é um custo que só se revela no dia em que quer sair."
+        },
+        "whenSaas": {
+          "heading": "Quando um SaaS americano ainda faz sentido",
+          "p1": "Se precisa de muitas integrações certificadas e de apoio dedicado, e tem orçamento para tal, uma ferramenta comercial pode fazer sentido. A NIS 2 prescreve medidas eficazes e provas, não um produto específico (artigo 21(2) NIS 2).",
+          "p2": "Para uma empresa do Mittelstand que sobretudo precisa de estrutura e de um registo de auditoria limpo, as integrações raramente são o estrangulamento."
+        },
+        "openInPractice": {
+          "heading": "O modelo aberto na prática",
+          "p1": "Existe um mercado maduro de ferramentas abertas, entre elas o verinice, o CISO Assistant, o ISMS Builder e o nisd2.eu. Diferem em profundidade e foco.",
+          "p2": "O que têm em comum é a transparência, a ausência de lock-in e um baixo custo de entrada."
+        }
+      },
+      "faq": {
+        "heading": "Perguntas frequentes",
+        "q1": {
+          "q": "O código aberto é menos seguro?",
+          "a": "Não. O princípio dos muitos olhos conduz muitas vezes a correções mais rápidas. O que importa é a manutenção e as atualizações, não se o código é aberto."
+        },
+        "q2": {
+          "q": "A NIS 2 exige uma ferramenta específica?",
+          "a": "Não. A NIS 2 exige medidas eficazes e provas (artigo 21 NIS 2), não um produto específico."
+        },
+        "q3": {
+          "q": "Posso usar uma ferramenta americana para a conformidade na UE?",
+          "a": "Muitas vezes sim, do ponto de vista legal. Mas verifique a transferência de dados e a dependência que cria, pois reduzir precisamente isso faz parte do propósito da NIS 2."
+        },
+        "q4": {
+          "q": "O que é a soberania da UE neste contexto?",
+          "a": "Manter os dados e o controlo sobre o seu processo de conformidade ao seu alcance: alojamento na UE ou alojamento próprio, dados exportáveis, código inspecionável."
+        },
+        "q5": {
+          "q": "Uma ferramenta comercial é alguma vez a melhor escolha?",
+          "a": "Sim, quando as integrações certificadas e o apoio dedicado pesam mais do que a abertura e o custo na sua situação."
+        }
+      },
+      "ctaCard": {
+        "heading": "Experimente um registo de obrigações aberto",
+        "description": "Gratuito, construído na UE, sem lock-in."
+      },
+      "cta": "Comece gratuitamente"
+    },
+    "openSourceCompliance": {
+      "meta": {
+        "title": "Código aberto para a conformidade: porque os auditores valorizam um ISMS aberto",
+        "description": "Um ISMS aberto permite a um auditor verificar como as provas são registadas em vez de confiar num fornecedor. Como o código aberto apoia os deveres da NIS 2 em matéria de segurança da cadeia de fornecimento, tratamento de vulnerabilidades e avaliação da eficácia."
+      },
+      "title": "Código aberto para a conformidade: porque os auditores valorizam um ISMS aberto",
+      "subtitle": "A ferramenta de prova não deve ser a única caixa negra na sua auditoria.",
+      "overview": {
+        "heading": "A verificabilidade vale mais do que a garantia",
+        "p1": "A conformidade tem que ver com prova e verificabilidade. Um auditor pergunta como os dados são tratados, onde residem e quem tem acesso. Com software de código aberto, pode responder a isso através da inspeção, não da confiança.",
+        "p2": "Para uma ferramenta cuja única função é guardar as suas provas, ser inspecionável não é um extra dispensável."
+      },
+      "sections": {
+        "transparency": {
+          "heading": "Rastreável desde a conceção",
+          "p1": "O código aberto permite a um auditor ou à sua própria equipa acompanhar exatamente como uma aprovação, um prazo ou uma entrada no registo de auditoria é registado. O artigo 21(2)(f) NIS 2 exige políticas e procedimentos para avaliar a eficácia das suas medidas.",
+          "p2": "Avaliar a eficácia é mais fácil quando o mecanismo que produz a prova pode ser inspecionado em vez de presumido."
+        },
+        "supplierRisk": {
+          "heading": "A sua ferramenta de conformidade é, ela própria, um fornecedor",
+          "p1": "O artigo 21(2)(d) NIS 2 obriga-o a gerir o risco da cadeia de fornecimento, e a sua plataforma de conformidade é um dos seus fornecedores. O código aberto reduz esse encargo de diligência: o código é revisível e não existe nenhuma dependência fechada que não consiga avaliar.",
+          "p2": "Pode subcontratar a operação de uma ferramenta, mas a responsabilidade pelo dever permanece consigo (§ 30 BSIG). Uma ferramenta inspecionável torna essa responsabilidade mais fácil de assumir."
+        },
+        "manyEyes": {
+          "heading": "O princípio dos muitos olhos",
+          "p1": "O código aberto não é, por natureza, menos seguro. O código público e o registo público de problemas significam, muitas vezes, que as vulnerabilidades são encontradas e corrigidas mais depressa. O artigo 21(2)(e) NIS 2 abrange o tratamento e a divulgação de vulnerabilidades.",
+          "p2": "O que realmente determina a segurança é se o software é mantido e atualizado, o que é válido tanto para ferramentas abertas como fechadas."
+        }
+      },
+      "faq": {
+        "heading": "Perguntas frequentes",
+        "q1": {
+          "q": "Pode um auditor recusar uma ferramenta de código aberto?",
+          "a": "Um auditor avalia as suas medidas e provas, não a marca do seu software. A NIS 2 não indica nenhum produto obrigatório. Uma ferramenta inspecionável tende a facilitar o trabalho do auditor, não a dificultá-lo."
+        },
+        "q2": {
+          "q": "O código aberto é menos seguro do que um produto comercial?",
+          "a": "Não pelo facto de ser aberto. A manutenção e as atualizações atempadas determinam a segurança; o princípio dos muitos olhos ajuda muitas vezes em vez de prejudicar."
+        },
+        "q3": {
+          "q": "Continuo a precisar de documentar se a ferramenta é aberta?",
+          "a": "Sim. A ferramenta regista a prova; as decisões continuam a ser suas. O código aberto torna o registo transparente, não opcional."
+        },
+        "q4": {
+          "q": "O código aberto cumpre automaticamente o requisito da cadeia de fornecimento?",
+          "a": "Não, mas reduz o custo da diligência. Continua a avaliar e a documentar a ferramenta como fornecedor ao abrigo do artigo 21(2)(d) NIS 2."
+        },
+        "q5": {
+          "q": "O que devo verificar antes de confiar num ISMS aberto?",
+          "a": "Manutenção ativa, um caminho de atualização claro, o modelo de alojamento e se pode exportar os seus dados. A abertura é o mínimo, a manutenção é o verdadeiro teste."
+        }
+      },
+      "ctaCard": {
+        "heading": "Veja como a prova é registada",
+        "description": "Um registo de obrigações aberto com um registo de auditoria inspecionável."
+      },
+      "cta": "Comece gratuitamente"
+    },
+    "openSourceIsmsNachteile": {
+      "meta": {
+        "title": "As desvantagens honestas de um ISMS de código aberto, e a nossa resposta",
+        "description": "Construímos software de conformidade de código aberto. Eis os argumentos honestos contra ele: encargo operacional, apoio, maturidade e responsabilidade, e como abordamos cada um deles."
+      },
+      "title": "As desvantagens honestas de um ISMS de código aberto",
+      "subtitle": "A confiança constrói-se nomeando as desvantagens, não escondendo-as.",
+      "overview": {
+        "heading": "Os argumentos contra o nosso próprio modelo",
+        "p1": "Construímos software de conformidade de código aberto, por isso temos motivo para ser honestos quanto aos seus pontos mais fracos. Nomear as desvantagens é a forma de conquistar confiança.",
+        "p2": "Eis as quatro que importam, e o que fazemos em relação a cada uma."
+      },
+      "sections": {
+        "operations": {
+          "heading": "O encargo operacional",
+          "p1": "Se aloja você mesmo, assume a carga operacional: atualizações, cópias de segurança, disponibilidade e segurança do servidor. Muitas empresas do Mittelstand não dispõem de capacidade livre para isso.",
+          "p2": "A nossa resposta: uma opção alojada elimina o encargo operacional, ao passo que o alojamento próprio permanece disponível para quem quer controlo total dos dados."
+        },
+        "support": {
+          "heading": "Apoio e garantias",
+          "p1": "O código aberto raramente vem com um acordo de apoio empresarial. O apoio da comunidade varia em rapidez, e o nível gratuito é, por natureza, prestado segundo os melhores esforços.",
+          "p2": "A nossa resposta: existem níveis pagos de apoio e de alojamento para equipas que precisam de uma resposta garantida, e dizemos com clareza que o nível gratuito não é um SLA."
+        },
+        "maturity": {
+          "heading": "Maturidade e integrações",
+          "p1": "Um SaaS americano bem financiado terá, muitas vezes, mais integrações certificadas e mais acabamento. Algumas funcionalidades que exigem tempo de engenharia pertencem ao nível premium e não ao gratuito.",
+          "p2": "A nossa resposta: para a maioria das empresas do Mittelstand, o estrangulamento ao abrigo da NIS 2 é a estrutura e um registo de auditoria limpo, não o número de integrações. É para essa necessidade que construímos primeiro."
+        },
+        "accountability": {
+          "heading": "A responsabilidade permanece consigo",
+          "p1": "O código aberto é uma ferramenta, não um consultor. Estrutura o trabalho e regista as provas, mas as questões de juízo continuam a ser suas: se um risco é aceitável, se uma medida é proporcionada ao abrigo do artigo 21(1) NIS 2.",
+          "p2": "Isto é válido para qualquer ferramenta, aberta ou fechada. Nenhum software exonera do dever que o § 30 BSIG impõe à entidade."
+        }
+      },
+      "faq": {
+        "heading": "Perguntas frequentes",
+        "q1": {
+          "q": "A versão gratuita é mesmo gratuita, ou é uma versão de avaliação?",
+          "a": "É de utilização gratuita, não uma versão de avaliação com prazo limitado. Pretendemos financiar o projeto através de formação, alojamento e ofertas de parceiros, e não através de licenças por utilizador."
+        },
+        "q2": {
+          "q": "O que acontece se o projeto for abandonado?",
+          "a": "Como o código é aberto (AGPL), fica com ele e pode alojá-lo você mesmo ou criar uma derivação (fork). Não fica desamparado como pode acontecer quando um fornecedor fechado encerra."
+        },
+        "q3": {
+          "q": "Preciso de pessoal de TI para o operar?",
+          "a": "Apenas se alojar você mesmo. A opção alojada elimina o encargo operacional; o alojamento próprio existe para as equipas que querem controlo total."
+        },
+        "q4": {
+          "q": "Está pronto para auditoria de origem?",
+          "a": "Produz a estrutura e o registo de auditoria que um auditor espera. As decisões substantivas continua a ser você a tomá-las e a documentá-las."
+        },
+        "q5": {
+          "q": "O código aberto é mais arriscado para dados de conformidade sensíveis?",
+          "a": "Código aberto não significa dados abertos. Os dados ficam onde os aloja; com alojamento na UE ou alojamento próprio podem permanecer totalmente sob o seu controlo."
+        }
+      },
+      "ctaCard": {
+        "heading": "Avalie-o face às desvantagens",
+        "description": "Experimente a plataforma e veja se a estrutura se adequa à sua situação."
+      },
+      "cta": "Comece gratuitamente"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: o dever de notificação de incidentes NIS 2 (24h, 72h, um mês)",

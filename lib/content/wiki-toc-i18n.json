@@ -1,4 +1,34 @@
 {
+  "cat:open-source":   {
+    "fr": {
+      "title": "Open source et souveraineté",
+      "question": "Pourquoi l'ouverture, et qu'est-ce que cela change pour mes données ?"
+    },
+    "it": {
+      "title": "Open source e sovranità",
+      "question": "Perché aperto, e cosa significa per i miei dati?"
+    },
+    "es": {
+      "title": "Open source y soberanía",
+      "question": "¿Por qué abierto, y qué significa para mis datos?"
+    },
+    "pl": {
+      "title": "Open source i suwerenność",
+      "question": "Dlaczego otwarte i co to oznacza dla moich danych?"
+    },
+    "cs": {
+      "title": "Open source a suverenita",
+      "question": "Proč otevřené a co to znamená pro má data?"
+    },
+    "pt": {
+      "title": "Open source e soberania",
+      "question": "Porquê aberto, e o que significa para os meus dados?"
+    },
+    "ro": {
+      "title": "Open source și suveranitate",
+      "question": "De ce deschis și ce înseamnă asta pentru datele mele?"
+    }
+  },
   "cat:anwendungsbereich": {
     "fr": {
       "title": "Champ d'application",

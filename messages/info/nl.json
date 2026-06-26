@@ -1,5 +1,257 @@
 {
   "info": {
+    "whatIsNisd2": {
+      "meta": {
+        "title": "Wat nisd2.eu werkelijk is: het gratis, open verplichtingenregister voor NIS 2",
+        "description": "nisd2.eu is een gratis, opensourceplatform voor de implementatie van NIS 2 in de Mittelstand: een gestructureerd verplichtingenregister met een wettelijke grondslag per vereiste, een doorlopend audittrail en geen lock-in. Zo werkt het."
+      },
+      "title": "Wat nisd2.eu werkelijk is",
+      "subtitle": "Een gratis, opensource NIS 2-platform voor de Europese Mittelstand. Geen lock-in, geen verkoop op basis van angst.",
+      "overview": {
+        "heading": "Een verplichtingenregister, geen zoveelste formulierengenerator",
+        "p1": "nisd2.eu is niet zomaar een GRC-tool die elke vereiste opdeelt in formulieren. Het is een gestructureerd verplichtingenregister. Het neemt de plichten uit de NIS 2-richtlijn (Richtlijn (EU) 2022/2555) en de Duitse omzetting daarvan in de BSIG, wijst aan elke vereiste de wettelijke grondslag toe en leidt u in een logische volgorde door de implementatie.",
+        "p2": "Het werkelijke probleem in de Mittelstand is zelden een gebrek aan kennis. Het is een gebrek aan structuur. Precies daar begint het platform."
+      },
+      "sections": {
+        "problem": {
+          "heading": "Het probleem dat wij oplossen",
+          "p1": "De meeste ondernemingen stellen NIS 2 uit omdat de inspanning onbegrensd lijkt, of ze geven uit angst te veel uit. De richtlijn vereist geen van beide. Artikel 21(1) NIS 2 vereist passende en evenredige maatregelen; § 30 lid 1 BSIG voegt het woord doeltreffend toe.",
+          "p2": "Dat is een plicht tot afweging, geen maximumcatalogus. Een platform dat dit weergeeft, vervangt de map met Word-sjablonen die drie maanden later verouderd is."
+        },
+        "contents": {
+          "heading": "Wat erin zit",
+          "p1": "Assetregister, risicoregister, beleidsbeheer en leveranciersbeheer in één systeem. Voor elke vereiste: de wettelijke grondslag, een verantwoordelijke, een termijn en een stuk bewijs.",
+          "p2": "Een trainingsmodule voor het bestuur dat voldoet aan de verplichting in artikel 20(2) NIS 2 (§ 38 lid 3 BSIG), een leveranciersportaal voor de plichten in artikel 21(2)(d), en een doorlopend audittrail dat vastlegt wie wat en wanneer heeft goedgekeurd. De platformfuncties zijn zelf het bewijs: toewijzingen, termijnen, goedkeuringen."
+        },
+        "funding": {
+          "heading": "Hoe wij gefinancierd worden",
+          "p1": "Het platform is gratis en opensource. Wij verwachten inkomsten te genereren via trainingen, hosting en partneraanbod, niet via licentiekosten per vereiste.",
+          "p2": "Dat is een bewuste keuze. NIS 2 zou de Mittelstand geen tienduizenden euro's mogen kosten."
+        },
+        "notUs": {
+          "heading": "Wat wij niet zijn",
+          "p1": "Wij zijn geen Amerikaanse SaaS die uw compliancegegevens opsluit in een gesloten cloud. Geen lock-in: uw gegevens en uw proces zijn van u.",
+          "p2": "Geen leveranciersauditrisico. De code is open, zodat een auditor kan nagaan hoe gegevens worden verwerkt in plaats van op een belofte te vertrouwen."
+        }
+      },
+      "faq": {
+        "heading": "Veelgestelde vragen",
+        "q1": {
+          "q": "Is het platform echt gratis?",
+          "a": "Ja. Het gebruik is gratis en de code is opensource. Wij zijn van plan het project te financieren via trainingen, hosting en partneraanbod."
+        },
+        "q2": {
+          "q": "Heb ik een account nodig?",
+          "a": "Ja, het platform vereist registratie. Er is geen lock-in: u kunt uw gegevens exporteren en de opensourcecode zelf hosten."
+        },
+        "q3": {
+          "q": "Vervangt het een adviseur?",
+          "a": "Voor de structuur wel. Voor afwegingen, zoals de vraag of een risico aanvaardbaar is of een maatregel geschikt is voor een BSI-audit, blijft een mens van toegevoegde waarde."
+        },
+        "q4": {
+          "q": "Voor wie is het bedoeld?",
+          "a": "Ondernemingen van ongeveer 50 tot 250 medewerkers in de Europese Mittelstand die weten dat zij onder NIS 2 vallen en structuur willen, geen verkooppraatje."
+        },
+        "q5": {
+          "q": "Dekt het alleen NIS 2?",
+          "a": "NIS 2 is de focus. ISO 27001 wordt daarnaast geactiveerd, en overlappende AVG-verplichtingen worden overgenomen in plaats van gedupliceerd."
+        }
+      },
+      "ctaCard": {
+        "heading": "Bekijk het verplichtingenregister zelf",
+        "description": "Begin gratis en doorloop de NIS 2-vereisten met hun wettelijke grondslag."
+      },
+      "cta": "Gratis beginnen"
+    },
+    "openSourceVsUsSaas": {
+      "meta": {
+        "title": "NIS 2-software vergeleken: gesloten Amerikaanse SaaS versus open, EU-soevereine compliance",
+        "description": "Vanta, Drata en vergelijkbare tools zijn Amerikaanse SaaS-platforms. Voor een EU-weerbaarheidswet als NIS 2 levert dat spanning op. Wat gesloten cloudtools over het hoofd zien voor EU-compliance, en waar de Mittelstand op moet letten."
+      },
+      "title": "NIS 2-software vergeleken: gesloten Amerikaanse SaaS versus open, EU-soevereine compliance",
+      "subtitle": "Waar het op aankomt bij een tool waarmee u aan een EU-wet voldoet.",
+      "overview": {
+        "heading": "Een structurele vraag, geen merkenstrijd",
+        "p1": "De markt voor compliancesoftware wordt bepaald door Amerikaanse platforms. Ze zijn goed gebouwd. Voor NIS 2 is er desondanks een structurele vraag: u voldoet aan een Europese weerbaarheidswet met een gesloten tool waarvan u de gegevens en de code niet kunt inzien.",
+        "p2": "Dit artikel vergelijkt de modellen op hun merites, zonder een enkele leverancier af te kraken."
+      },
+      "sections": {
+        "auditability": {
+          "heading": "Auditeerbaarheid",
+          "p1": "Compliance leeft van bewijs. Een auditor vraagt hoe gegevens worden verwerkt, waar ze staan en wie er toegang heeft. Met opensourcesoftware kunt u dat rechtstreeks controleren in plaats van te vertrouwen op toezeggingen van de leverancier.",
+          "p2": "Dat juist de bewijstool zelf een black box is, vormt de zwakke plek van het gesloten model."
+        },
+        "sovereignty": {
+          "heading": "Datasoevereiniteit",
+          "p1": "NIS 2 streeft naar een hoog gemeenschappelijk niveau van cyberbeveiliging in de Unie (artikel 1 NIS 2). Compliancegegevens in een Amerikaanse cloud bewaren voegt een afhankelijkheid en een doorgiftevraag toe die de wet juist probeert te verminderen.",
+          "p2": "Zelf te hosten of in de EU gehoste tools sluiten beter aan bij dat doel."
+        },
+        "noLockin": {
+          "heading": "Geen lock-in",
+          "p1": "Uw verplichtingenregister, uw bewijs en uw proces horen van u te zijn. Met open tools kunt u exporteren, zelf hosten of van leverancier wisselen zonder opnieuw te beginnen.",
+          "p2": "Lock-in is een kostenpost die zich pas openbaart op de dag dat u wilt vertrekken."
+        },
+        "whenSaas": {
+          "heading": "Wanneer een Amerikaanse SaaS toch past",
+          "p1": "Als u veel gecertificeerde integraties en toegewijde ondersteuning nodig hebt en u het budget hebt, kan een commerciële tool zinvol zijn. NIS 2 schrijft doeltreffende maatregelen en bewijs voor, geen specifiek product (artikel 21(2) NIS 2).",
+          "p2": "Voor een Mittelstand-onderneming die vooral structuur en een schoon audittrail nodig heeft, vormen integraties zelden het knelpunt."
+        },
+        "openInPractice": {
+          "heading": "Het open model in de praktijk",
+          "p1": "Er is een volwassen markt van open tools, waaronder verinice, CISO Assistant, ISMS Builder en nisd2.eu. Ze verschillen in diepgang en focus.",
+          "p2": "Wat ze gemeen hebben is transparantie, geen lock-in en lage instapkosten."
+        }
+      },
+      "faq": {
+        "heading": "Veelgestelde vragen",
+        "q1": {
+          "q": "Is opensource minder veilig?",
+          "a": "Nee. Het vele-ogenprincipe leidt vaak tot sneller patchen. Wat telt is onderhoud en updates, niet of de code open is."
+        },
+        "q2": {
+          "q": "Vereist NIS 2 een bepaalde tool?",
+          "a": "Nee. NIS 2 vereist doeltreffende maatregelen en bewijs (artikel 21 NIS 2), geen specifiek product."
+        },
+        "q3": {
+          "q": "Mag ik voor EU-compliance een Amerikaanse tool gebruiken?",
+          "a": "Juridisch vaak wel. Beoordeel echter de doorgifte van gegevens en de afhankelijkheid die daardoor ontstaat, want juist het verminderen daarvan hoort bij de bedoeling van NIS 2."
+        },
+        "q4": {
+          "q": "Wat is EU-soevereiniteit in deze context?",
+          "a": "De gegevens en de controle over uw complianceproces binnen uw bereik houden: EU-hosting of zelfhosting, exporteerbare gegevens, inzichtelijke code."
+        },
+        "q5": {
+          "q": "Is een commerciële tool ooit de betere keuze?",
+          "a": "Ja, wanneer gecertificeerde integraties en toegewijde ondersteuning voor uw situatie zwaarder wegen dan openheid en kosten."
+        }
+      },
+      "ctaCard": {
+        "heading": "Probeer een open verplichtingenregister",
+        "description": "Gratis, in de EU gebouwd, geen lock-in."
+      },
+      "cta": "Gratis beginnen"
+    },
+    "openSourceCompliance": {
+      "meta": {
+        "title": "Opensource voor compliance: waarom auditors een open ISMS waarderen",
+        "description": "Een open ISMS laat een auditor verifiëren hoe bewijs wordt vastgelegd in plaats van een leverancier te vertrouwen. Hoe opensource de NIS 2-plichten rond toeleveringsketenbeveiliging, kwetsbaarhedenbehandeling en doeltreffendheidsbeoordeling ondersteunt."
+      },
+      "title": "Opensource voor compliance: waarom auditors een open ISMS waarderen",
+      "subtitle": "De bewijstool zou niet de ene black box in uw audit mogen zijn.",
+      "overview": {
+        "heading": "Verifieerbaarheid wint van toezegging",
+        "p1": "Compliance draait om bewijs en verifieerbaarheid. Een auditor vraagt hoe gegevens worden verwerkt, waar ze staan en wie er toegang heeft. Met opensourcesoftware kunt u dat beantwoorden door inzage, niet door vertrouwen.",
+        "p2": "Voor een tool die als enige taak heeft uw bewijs te bewaren, is inzichtelijkheid geen luxe."
+      },
+      "sections": {
+        "transparency": {
+          "heading": "Traceerbaar van de grond af",
+          "p1": "Open code laat een auditor of uw eigen team precies nagaan hoe een goedkeuring, een termijn of een audittrail-vermelding wordt vastgelegd. Artikel 21(2)(f) NIS 2 vereist beleid en procedures om de doeltreffendheid van uw maatregelen te beoordelen.",
+          "p2": "De doeltreffendheid beoordelen is eenvoudiger wanneer het mechanisme dat het bewijs voortbrengt kan worden ingezien in plaats van aangenomen."
+        },
+        "supplierRisk": {
+          "heading": "Uw compliancetool is zelf een leverancier",
+          "p1": "Artikel 21(2)(d) NIS 2 verplicht u het toeleveringsketenrisico te beheersen, en uw complianceplatform is een van uw leveranciers. Opensource verlaagt die zorgvuldigheidslast: de code is in te zien en er is geen gesloten afhankelijkheid die u niet kunt beoordelen.",
+          "p2": "U kunt het beheer van een tool uitbesteden, maar de verantwoordelijkheid voor de plicht blijft bij u (§ 30 BSIG). Een inzichtelijke tool maakt die verantwoordelijkheid gemakkelijker te dragen."
+        },
+        "manyEyes": {
+          "heading": "Het vele-ogenprincipe",
+          "p1": "Opensource is niet van nature minder veilig. Publieke code en publieke probleemregistratie betekenen vaak dat kwetsbaarheden sneller worden gevonden en verholpen. Artikel 21(2)(e) NIS 2 dekt kwetsbaarhedenbehandeling en bekendmaking.",
+          "p2": "Wat veiligheid werkelijk bepaalt, is of de software wordt onderhouden en bijgewerkt, en dat geldt voor open en gesloten tools evenzeer."
+        }
+      },
+      "faq": {
+        "heading": "Veelgestelde vragen",
+        "q1": {
+          "q": "Kan een auditor een opensourcetool afwijzen?",
+          "a": "Een auditor beoordeelt uw maatregelen en bewijs, niet uw softwaremerk. NIS 2 noemt geen verplicht product. Een inzichtelijke tool maakt het werk van de auditor eerder gemakkelijker dan moeilijker."
+        },
+        "q2": {
+          "q": "Is opensource minder veilig dan een commercieel product?",
+          "a": "Niet vanwege het feit dat het open is. Onderhoud en tijdige updates bepalen de veiligheid; het vele-ogenprincipe helpt vaak eerder dan dat het schaadt."
+        },
+        "q3": {
+          "q": "Moet ik nog documenteren als de tool open is?",
+          "a": "Ja. De tool legt het bewijs vast; u blijft eigenaar van de beslissingen. Opensource maakt de vastlegging transparant, niet optioneel."
+        },
+        "q4": {
+          "q": "Voldoet opensource automatisch aan de toeleveringsketenvereiste?",
+          "a": "Nee, maar het verlaagt de zorgvuldigheidskosten. U beoordeelt en documenteert de tool nog steeds als leverancier op grond van artikel 21(2)(d) NIS 2."
+        },
+        "q5": {
+          "q": "Wat moet ik controleren voordat ik een open ISMS vertrouw?",
+          "a": "Actief onderhoud, een duidelijk updatepad, het hostingmodel en of u uw gegevens kunt exporteren. Openheid is de ondergrens, onderhoud is de toets."
+        }
+      },
+      "ctaCard": {
+        "heading": "Zie hoe het bewijs wordt vastgelegd",
+        "description": "Een open verplichtingenregister met een inzichtelijk audittrail."
+      },
+      "cta": "Gratis beginnen"
+    },
+    "openSourceIsmsNachteile": {
+      "meta": {
+        "title": "De eerlijke nadelen van een opensource ISMS, en ons antwoord",
+        "description": "Wij bouwen opensource compliancesoftware. Hier is het eerlijke verhaal ertegen: beheerslast, ondersteuning, volwassenheid en verantwoordelijkheid, en hoe wij elk punt aanpakken."
+      },
+      "title": "De eerlijke nadelen van een opensource ISMS",
+      "subtitle": "Vertrouwen ontstaat door de nadelen te benoemen, niet door ze te verbergen.",
+      "overview": {
+        "heading": "Het tegenargument tegen ons eigen model",
+        "p1": "Wij bouwen opensource compliancesoftware, dus hebben wij reden om eerlijk te zijn over waar zij zwakker is. De nadelen benoemen is de manier om vertrouwen te verdienen.",
+        "p2": "Hier zijn de vier die ertoe doen, en wat wij aan elk doen."
+      },
+      "sections": {
+        "operations": {
+          "heading": "De beheerslast",
+          "p1": "Als u zelf host, draagt u de operationele last: updates, back-ups, beschikbaarheid en beveiliging van de server. Veel Mittelstand-ondernemingen hebben daarvoor geen vrije capaciteit.",
+          "p2": "Ons antwoord: een gehoste optie neemt de operationele last weg, terwijl zelfhosting beschikbaar blijft voor wie volledige controle over de gegevens wil."
+        },
+        "support": {
+          "heading": "Ondersteuning en garanties",
+          "p1": "Opensource komt zelden met een enterprise-ondersteuningsovereenkomst. Ondersteuning vanuit de community varieert in snelheid, en de gratis variant is van nature naar beste vermogen.",
+          "p2": "Ons antwoord: betaalde ondersteunings- en hostingniveaus bestaan voor teams die een gegarandeerde reactie nodig hebben, en wij zeggen onomwonden dat de gratis variant geen SLA is."
+        },
+        "maturity": {
+          "heading": "Volwassenheid en integraties",
+          "p1": "Een goed gefinancierde Amerikaanse SaaS heeft vaak meer gecertificeerde integraties en meer afwerking. Sommige functies die ontwikkeltijd kosten, vallen onder het premiumniveau in plaats van het gratis aanbod.",
+          "p2": "Ons antwoord: voor de meeste Mittelstand-ondernemingen is het knelpunt onder NIS 2 de structuur en een schoon audittrail, niet het aantal integraties. Daarvoor bouwen wij eerst."
+        },
+        "accountability": {
+          "heading": "De verantwoordelijkheid blijft bij u",
+          "p1": "Opensource is een tool, geen adviseur. Het structureert het werk en legt het bewijs vast, maar de afwegingen blijven de uwe: of een risico aanvaardbaar is, of een maatregel evenredig is op grond van artikel 21(1) NIS 2.",
+          "p2": "Dat geldt voor elke tool, open of gesloten. Geen software ontslaat u van de plicht die § 30 BSIG aan de entiteit oplegt."
+        }
+      },
+      "faq": {
+        "heading": "Veelgestelde vragen",
+        "q1": {
+          "q": "Is de gratis versie echt gratis, of een proefversie?",
+          "a": "Het is gratis in gebruik, geen proefversie met een tijdslimiet. Wij zijn van plan het project te financieren via trainingen, hosting en partneraanbod in plaats van licenties per gebruiker."
+        },
+        "q2": {
+          "q": "Wat gebeurt er als het project wordt stopgezet?",
+          "a": "Omdat de code open is (AGPL), behoudt u die en kunt u zelf hosten of forken. U blijft niet in de kou staan, zoals dat kan gebeuren wanneer een gesloten leverancier ermee stopt."
+        },
+        "q3": {
+          "q": "Heb ik IT-personeel nodig om het te draaien?",
+          "a": "Alleen als u zelf host. De gehoste optie neemt de operationele last weg; zelfhosting is er voor teams die volledige controle willen."
+        },
+        "q4": {
+          "q": "Is het direct auditklaar?",
+          "a": "Het levert de structuur en het audittrail die een auditor verwacht. De inhoudelijke beslissingen neemt en documenteert u nog steeds zelf."
+        },
+        "q5": {
+          "q": "Is opensource riskanter voor gevoelige compliancegegevens?",
+          "a": "Open code betekent geen open gegevens. De gegevens staan waar u ze host; met EU-hosting of zelfhosting kunnen ze volledig onder uw controle blijven."
+        }
+      },
+      "ctaCard": {
+        "heading": "Beoordeel het aan de hand van de nadelen",
+        "description": "Probeer het platform en kijk of de structuur bij uw situatie past."
+      },
+      "cta": "Gratis beginnen"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: de NIS 2-meldplicht (24u, 72u, één maand)",

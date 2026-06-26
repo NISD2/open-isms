@@ -1,5 +1,257 @@
 {
   "info": {
+    "whatIsNisd2": {
+      "meta": {
+        "title": "Ce qu'est réellement nisd2.eu : le registre des obligations NIS 2, libre et gratuit",
+        "description": "nisd2.eu est une plateforme libre et open source dédiée à la mise en conformité NIS 2 dans le Mittelstand : un registre des obligations structuré avec une base juridique pour chaque exigence, une piste d'audit de bout en bout et aucun verrouillage propriétaire. Voici comment elle fonctionne."
+      },
+      "title": "Ce qu'est réellement nisd2.eu",
+      "subtitle": "Une plateforme NIS 2 libre et open source pour le Mittelstand européen. Aucun verrouillage propriétaire, aucune vente par la peur.",
+      "overview": {
+        "heading": "Un registre des obligations, pas un énième générateur de formulaires",
+        "p1": "nisd2.eu n'est pas un énième outil GRC qui décompose chaque exigence en formulaires. C'est un registre des obligations structuré. Il reprend les obligations issues de la directive NIS 2 (UE) 2022/2555 et de sa transposition allemande dans le BSIG, attribue à chaque exigence sa base juridique et vous guide pas à pas dans la mise en œuvre, dans un ordre cohérent.",
+        "p2": "Le véritable problème du Mittelstand est rarement un manque de connaissances. C'est un manque de structure. C'est précisément là que la plateforme intervient."
+      },
+      "sections": {
+        "problem": {
+          "heading": "Le problème que nous résolvons",
+          "p1": "La plupart des entreprises repoussent NIS 2 parce que l'effort paraît sans limite, ou elles dépensent trop par crainte. La directive n'exige ni l'un ni l'autre. L'article 21(1) NIS 2 impose des mesures appropriées et proportionnées ; le § 30(1) BSIG y ajoute le terme efficaces.",
+          "p2": "Il s'agit d'une obligation de justification, et non d'un catalogue maximal. Une plateforme qui traduit ce principe remplace le classeur de modèles Word obsolète au bout de trois mois."
+        },
+        "contents": {
+          "heading": "Ce qu'elle contient",
+          "p1": "Registre des actifs, registre des risques, gestion des politiques et gestion des fournisseurs dans un seul système. Pour chaque exigence : la base juridique, un responsable, une échéance et un élément de preuve.",
+          "p2": "Un module de formation de la direction qui satisfait à l'obligation de l'article 20(2) NIS 2 (§ 38(3) BSIG), un portail fournisseurs pour les obligations de l'article 21(2)(d), et une piste d'audit de bout en bout qui consigne qui a approuvé quoi et quand. Les fonctionnalités de la plateforme constituent elles-mêmes la preuve : attributions, échéances, validations."
+        },
+        "funding": {
+          "heading": "Comment nous nous finançons",
+          "p1": "La plateforme est gratuite et open source. Nous comptons générer des revenus par la formation, l'hébergement et des offres partenaires, et non par des frais de licence facturés à l'exigence.",
+          "p2": "C'est un choix délibéré. NIS 2 ne devrait pas coûter au Mittelstand plusieurs dizaines de milliers d'euros."
+        },
+        "notUs": {
+          "heading": "Ce que nous ne sommes pas",
+          "p1": "Nous ne sommes pas un SaaS américain qui enferme vos données de conformité dans un cloud fermé. Aucun verrouillage propriétaire : vos données et votre processus vous appartiennent.",
+          "p2": "Aucun risque d'audit lié au fournisseur. Le code est ouvert : un auditeur peut retracer la manière dont les données sont traitées, au lieu de se fier à une promesse."
+        }
+      },
+      "faq": {
+        "heading": "Questions fréquentes",
+        "q1": {
+          "q": "La plateforme est-elle vraiment gratuite ?",
+          "a": "Oui. L'utilisation est gratuite et le code est open source. Nous prévoyons de financer le projet par la formation, l'hébergement et des offres partenaires."
+        },
+        "q2": {
+          "q": "Ai-je besoin d'un compte ?",
+          "a": "Oui, la plateforme nécessite une inscription. Il n'y a aucun verrouillage propriétaire : vous pouvez exporter vos données et héberger vous-même le code open source."
+        },
+        "q3": {
+          "q": "Remplace-t-elle un consultant ?",
+          "a": "Pour la structure, oui. Pour les questions d'appréciation, comme déterminer si un risque est acceptable ou si une mesure résiste à un audit du BSI, l'humain apporte toujours une valeur ajoutée."
+        },
+        "q4": {
+          "q": "À qui s'adresse-t-elle ?",
+          "a": "Aux entreprises d'environ 50 à 250 personnes du Mittelstand européen qui savent qu'elles relèvent de NIS 2 et veulent de la structure, pas un argumentaire de vente."
+        },
+        "q5": {
+          "q": "Couvre-t-elle uniquement NIS 2 ?",
+          "a": "NIS 2 est l'axe central. ISO 27001 est activée en parallèle, et les obligations RGPD qui se recoupent sont reprises plutôt que dupliquées."
+        }
+      },
+      "ctaCard": {
+        "heading": "Découvrez le registre des obligations par vous-même",
+        "description": "Commencez gratuitement et parcourez les exigences NIS 2 avec leur base juridique."
+      },
+      "cta": "Commencer gratuitement"
+    },
+    "openSourceVsUsSaas": {
+      "meta": {
+        "title": "Logiciels NIS 2 comparés : SaaS américain fermé contre conformité ouverte et souveraine en Europe",
+        "description": "Vanta, Drata et les outils similaires sont des plateformes SaaS américaines. Pour une loi de résilience européenne comme NIS 2, cela crée une tension. Ce que les outils cloud fermés négligent en matière de conformité européenne, et ce à quoi le Mittelstand devrait prêter attention."
+      },
+      "title": "Logiciels NIS 2 comparés : SaaS américain fermé contre conformité ouverte et souveraine en Europe",
+      "subtitle": "Ce qui compte dans un outil que vous utilisez pour respecter une loi européenne.",
+      "overview": {
+        "heading": "Une question structurelle, pas une querelle de marques",
+        "p1": "Le marché des logiciels de conformité est façonné par des plateformes américaines. Elles sont bien conçues. Pour NIS 2, une question structurelle se pose néanmoins : vous respectez une loi de résilience européenne avec un outil fermé dont vous ne pouvez inspecter ni les données ni le code.",
+        "p2": "Cet article compare les modèles sur le fond, sans dénigrer aucun fournisseur en particulier."
+      },
+      "sections": {
+        "auditability": {
+          "heading": "Auditabilité",
+          "p1": "La conformité repose sur la preuve. Un auditeur demande comment les données sont traitées, où elles se trouvent et qui y a accès. Avec un logiciel open source, vous pouvez le vérifier directement au lieu de vous fier aux assurances du fournisseur.",
+          "p2": "Que l'outil de preuve lui-même soit une boîte noire constitue le point faible du modèle fermé."
+        },
+        "sovereignty": {
+          "heading": "Souveraineté des données",
+          "p1": "NIS 2 vise un niveau commun élevé de cybersécurité dans l'ensemble de l'Union (article 1 NIS 2). Conserver des données de conformité dans un cloud américain ajoute une dépendance et une question de transfert que la loi cherche justement à réduire.",
+          "p2": "Les outils auto-hébergeables ou hébergés dans l'UE sont plus cohérents avec cet objectif."
+        },
+        "noLockin": {
+          "heading": "Aucun verrouillage propriétaire",
+          "p1": "Votre registre des obligations, vos preuves et votre processus doivent vous appartenir. Avec des outils ouverts, vous pouvez exporter, héberger vous-même ou changer de prestataire sans tout recommencer.",
+          "p2": "Le verrouillage propriétaire est un coût qui n'apparaît que le jour où vous souhaitez partir."
+        },
+        "whenSaas": {
+          "heading": "Quand un SaaS américain reste pertinent",
+          "p1": "Si vous avez besoin de nombreuses intégrations certifiées et d'un support dédié, et que vous en avez le budget, un outil commercial peut avoir du sens. NIS 2 prescrit des mesures efficaces et des preuves, pas un produit particulier (article 21(2) NIS 2).",
+          "p2": "Pour une entreprise du Mittelstand qui a surtout besoin de structure et d'une piste d'audit propre, les intégrations sont rarement le goulet d'étranglement."
+        },
+        "openInPractice": {
+          "heading": "Le modèle ouvert en pratique",
+          "p1": "Il existe un marché mûr d'outils ouverts, parmi lesquels verinice, CISO Assistant, ISMS Builder et nisd2.eu. Ils diffèrent par leur profondeur et leur orientation.",
+          "p2": "Ce qu'ils ont en commun : la transparence, l'absence de verrouillage propriétaire et un faible coût d'entrée."
+        }
+      },
+      "faq": {
+        "heading": "Questions fréquentes",
+        "q1": {
+          "q": "L'open source est-il moins sûr ?",
+          "a": "Non. Le principe des nombreux yeux conduit souvent à des correctifs plus rapides. Ce qui compte, ce sont la maintenance et les mises à jour, pas le fait que le code soit ouvert."
+        },
+        "q2": {
+          "q": "NIS 2 impose-t-elle un outil particulier ?",
+          "a": "Non. NIS 2 exige des mesures efficaces et des preuves (article 21 NIS 2), pas un produit spécifique."
+        },
+        "q3": {
+          "q": "Puis-je utiliser un outil américain pour la conformité européenne ?",
+          "a": "Souvent oui, sur le plan juridique. Mais examinez le transfert de données et la dépendance qu'il crée, car réduire précisément cela fait partie de la raison d'être de NIS 2."
+        },
+        "q4": {
+          "q": "Qu'entend-on par souveraineté européenne dans ce contexte ?",
+          "a": "Garder les données et le contrôle de votre processus de conformité à votre portée : hébergement dans l'UE ou auto-hébergement, données exportables, code inspectable."
+        },
+        "q5": {
+          "q": "Un outil commercial est-il parfois le meilleur choix ?",
+          "a": "Oui, lorsque les intégrations certifiées et le support dédié l'emportent, dans votre situation, sur l'ouverture et le coût."
+        }
+      },
+      "ctaCard": {
+        "heading": "Essayez un registre des obligations ouvert",
+        "description": "Gratuit, conçu dans l'UE, aucun verrouillage propriétaire."
+      },
+      "cta": "Commencer gratuitement"
+    },
+    "openSourceCompliance": {
+      "meta": {
+        "title": "L'open source au service de la conformité : pourquoi les auditeurs apprécient un ISMS ouvert",
+        "description": "Un ISMS ouvert permet à un auditeur de vérifier comment les preuves sont consignées, au lieu de se fier à un fournisseur. Comment l'open source soutient les obligations NIS 2 relatives à la sécurité de la chaîne d'approvisionnement, au traitement des vulnérabilités et à l'évaluation de l'efficacité."
+      },
+      "title": "L'open source au service de la conformité : pourquoi les auditeurs apprécient un ISMS ouvert",
+      "subtitle": "L'outil de preuve ne devrait pas être la seule boîte noire de votre audit.",
+      "overview": {
+        "heading": "La vérifiabilité prime sur l'assurance",
+        "p1": "La conformité repose sur la preuve et la vérifiabilité. Un auditeur demande comment les données sont traitées, où elles se trouvent et qui y a accès. Avec un logiciel open source, vous pouvez y répondre par l'inspection, et non par la confiance.",
+        "p2": "Pour un outil dont la seule fonction est de conserver vos preuves, l'inspectabilité n'est pas un simple agrément."
+      },
+      "sections": {
+        "transparency": {
+          "heading": "Traçable dès la conception",
+          "p1": "Un code ouvert permet à un auditeur ou à votre propre équipe de retracer exactement comment une validation, une échéance ou une entrée de piste d'audit est consignée. L'article 21(2)(f) NIS 2 exige des politiques et des procédures pour évaluer l'efficacité de vos mesures.",
+          "p2": "Évaluer l'efficacité est plus simple lorsque le mécanisme produisant la preuve peut être inspecté plutôt que supposé."
+        },
+        "supplierRisk": {
+          "heading": "Votre outil de conformité est lui-même un fournisseur",
+          "p1": "L'article 21(2)(d) NIS 2 vous oblige à gérer le risque lié à la chaîne d'approvisionnement, et votre plateforme de conformité est l'un de vos fournisseurs. L'open source allège cette charge de diligence : le code est examinable et il n'existe aucune dépendance fermée que vous ne pourriez évaluer.",
+          "p2": "Vous pouvez externaliser l'exploitation d'un outil, mais la responsabilité de l'obligation vous reste (§ 30 BSIG). Un outil inspectable rend cette responsabilité plus facile à assumer."
+        },
+        "manyEyes": {
+          "heading": "Le principe des nombreux yeux",
+          "p1": "L'open source n'est pas intrinsèquement moins sûr. Un code public et un suivi public des incidents font souvent que les vulnérabilités sont détectées et corrigées plus vite. L'article 21(2)(e) NIS 2 couvre le traitement et la divulgation des vulnérabilités.",
+          "p2": "Ce qui détermine réellement la sécurité, c'est le fait que le logiciel soit maintenu et mis à jour, ce qui vaut autant pour les outils ouverts que fermés."
+        }
+      },
+      "faq": {
+        "heading": "Questions fréquentes",
+        "q1": {
+          "q": "Un auditeur peut-il refuser un outil open source ?",
+          "a": "Un auditeur évalue vos mesures et vos preuves, pas la marque de votre logiciel. NIS 2 ne désigne aucun produit obligatoire. Un outil inspectable tend à faciliter le travail de l'auditeur, non à le compliquer."
+        },
+        "q2": {
+          "q": "L'open source est-il moins sûr qu'un produit commercial ?",
+          "a": "Pas du fait de son ouverture. La maintenance et des mises à jour rapides déterminent la sécurité ; le principe des nombreux yeux aide souvent plus qu'il ne nuit."
+        },
+        "q3": {
+          "q": "Dois-je tout de même documenter si l'outil est ouvert ?",
+          "a": "Oui. L'outil consigne la preuve ; les décisions restent les vôtres. L'open source rend la consignation transparente, pas facultative."
+        },
+        "q4": {
+          "q": "L'open source satisfait-il automatiquement à l'exigence relative à la chaîne d'approvisionnement ?",
+          "a": "Non, mais il en réduit le coût de diligence. Vous évaluez et documentez toujours l'outil en tant que fournisseur au titre de l'article 21(2)(d) NIS 2."
+        },
+        "q5": {
+          "q": "Que dois-je vérifier avant de faire confiance à un ISMS ouvert ?",
+          "a": "Une maintenance active, une trajectoire de mise à jour claire, le modèle d'hébergement et la possibilité d'exporter vos données. L'ouverture est le socle, l'entretien est l'épreuve décisive."
+        }
+      },
+      "ctaCard": {
+        "heading": "Voyez comment la preuve est consignée",
+        "description": "Un registre des obligations ouvert avec une piste d'audit inspectable."
+      },
+      "cta": "Commencer gratuitement"
+    },
+    "openSourceIsmsNachteile": {
+      "meta": {
+        "title": "Les inconvénients assumés d'un ISMS open source, et notre réponse",
+        "description": "Nous développons des logiciels de conformité open source. Voici, en toute honnêteté, l'argumentaire qui leur est opposé : charge d'exploitation, support, maturité et responsabilité, et la manière dont nous traitons chacun de ces points."
+      },
+      "title": "Les inconvénients assumés d'un ISMS open source",
+      "subtitle": "La confiance se construit en nommant les inconvénients, pas en les dissimulant.",
+      "overview": {
+        "heading": "L'argumentaire contre notre propre modèle",
+        "p1": "Nous développons des logiciels de conformité open source : nous avons donc une raison d'être honnêtes sur leurs points faibles. Nommer les inconvénients, c'est ainsi que la confiance se mérite.",
+        "p2": "Voici les quatre qui comptent, et ce que nous faisons pour chacun."
+      },
+      "sections": {
+        "operations": {
+          "heading": "La charge d'exploitation",
+          "p1": "Si vous hébergez vous-même, vous assumez la charge d'exploitation : mises à jour, sauvegardes, disponibilité et sécurité du serveur. De nombreuses entreprises du Mittelstand n'ont pas la capacité disponible pour cela.",
+          "p2": "Notre réponse : une option hébergée supprime la charge d'exploitation, tandis que l'auto-hébergement reste disponible pour celles qui veulent le contrôle total des données."
+        },
+        "support": {
+          "heading": "Support et garanties",
+          "p1": "L'open source est rarement assorti d'un contrat de support d'entreprise. Le support communautaire varie en rapidité, et l'offre gratuite est par nature au mieux de l'effort.",
+          "p2": "Notre réponse : des paliers de support et d'hébergement payants existent pour les équipes qui ont besoin d'un temps de réponse garanti, et nous disons clairement que l'offre gratuite n'est pas un SLA."
+        },
+        "maturity": {
+          "heading": "Maturité et intégrations",
+          "p1": "Un SaaS américain bien financé disposera souvent de davantage d'intégrations certifiées et de plus de finitions. Certaines fonctionnalités qui demandent du temps de développement relèvent de l'offre premium plutôt que de l'offre gratuite.",
+          "p2": "Notre réponse : pour la plupart des entreprises du Mittelstand, le goulet d'étranglement sous NIS 2 est la structure et une piste d'audit propre, pas le nombre d'intégrations. C'est ce besoin que nous servons en priorité."
+        },
+        "accountability": {
+          "heading": "La responsabilité vous incombe",
+          "p1": "L'open source est un outil, pas un consultant. Il structure le travail et consigne les preuves, mais les questions d'appréciation restent les vôtres : déterminer si un risque est acceptable, si une mesure est proportionnée au titre de l'article 21(1) NIS 2.",
+          "p2": "Cela vaut pour tout outil, ouvert ou fermé. Aucun logiciel ne vous décharge de l'obligation que le § 30 BSIG impose à l'entité."
+        }
+      },
+      "faq": {
+        "heading": "Questions fréquentes",
+        "q1": {
+          "q": "La version gratuite est-elle vraiment gratuite, ou est-ce un essai ?",
+          "a": "Elle est gratuite à l'usage, ce n'est pas un essai limité dans le temps. Nous prévoyons de financer le projet par la formation, l'hébergement et des offres partenaires plutôt que par des licences par utilisateur."
+        },
+        "q2": {
+          "q": "Que se passe-t-il si le projet est abandonné ?",
+          "a": "Comme le code est ouvert (AGPL), vous le conservez et pouvez l'héberger vous-même ou le forker. Vous n'êtes pas laissé sur le carreau comme cela peut arriver lorsqu'un fournisseur fermé cesse son activité."
+        },
+        "q3": {
+          "q": "Ai-je besoin de personnel informatique pour l'exploiter ?",
+          "a": "Uniquement si vous hébergez vous-même. L'option hébergée supprime la charge d'exploitation ; l'auto-hébergement est là pour les équipes qui veulent le contrôle total."
+        },
+        "q4": {
+          "q": "Est-il prêt pour l'audit dès le départ ?",
+          "a": "Il produit la structure et la piste d'audit qu'un auditeur attend. Vous prenez et documentez toujours les décisions de fond."
+        },
+        "q5": {
+          "q": "L'open source présente-t-il davantage de risques pour des données de conformité sensibles ?",
+          "a": "Un code ouvert ne signifie pas des données ouvertes. Les données résident là où vous les hébergez ; avec un hébergement dans l'UE ou un auto-hébergement, elles peuvent rester entièrement sous votre contrôle."
+        }
+      },
+      "ctaCard": {
+        "heading": "Jugez-la à l'aune de ses inconvénients",
+        "description": "Essayez la plateforme et voyez si la structure correspond à votre situation."
+      },
+      "cta": "Commencer gratuitement"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG : l'obligation de notification des incidents NIS 2 (24h, 72h, un mois)",
