@@ -78,8 +78,8 @@ export function CertificateDownload({
         </Button>
         <p className="text-xs text-muted-foreground">
           {locale === "de"
-            ? "Öffnet als druckbare HTML-Seite. Nutzen Sie Strg+P / Cmd+P zum Drucken oder als PDF speichern."
-            : "Opens as a printable page. Use Ctrl+P / Cmd+P to print or save as PDF."}
+            ? "Wird als PDF heruntergeladen. Sie können die Datei speichern oder ausdrucken."
+            : "Downloads as a PDF you can save or print."}
         </p>
       </CardContent>
     </Card>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -146,14 +146,40 @@ export function PathFlow({
   reqNodes,
   aggregate,
   locale,
+  focusCategory = null,
 }: {
   reqNodes: FlowNode[];
   aggregate: Aggregate;
   locale: Locale;
+  /** Category code (e.g. "SUP") to scroll to and highlight, from ?focus=. */
+  focusCategory?: string | null;
 }) {
   const de = locale === "de";
   const [order, setOrder] = useState<Order>("defensible");
   const [filter, setFilter] = useState<StatusFilter | null>(null);
+  const [highlightedCode, setHighlightedCode] = useState<string | null>(null);
+
+  // Arriving from a course lesson via ?focus=<category>: scroll the category's
+  // first step to center and spotlight it briefly, then let it fade.
+  useEffect(() => {
+    if (!focusCategory) return;
+    const target = reqNodes.find((n) => n.categoryCode === focusCategory);
+    if (!target) return;
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const scrollTimer = setTimeout(() => {
+      document
+        .getElementById(`step-${target.code}`)
+        ?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+      setHighlightedCode(target.code);
+    }, 300);
+    const clearTimer = setTimeout(() => setHighlightedCode(null), 2300);
+    return () => {
+      clearTimeout(scrollTimer);
+      clearTimeout(clearTimer);
+    };
+  }, [focusCategory, reqNodes]);
 
   const swimlane = order === "defensible";
   const sections = buildSections(reqNodes, order, de);
@@ -202,6 +228,7 @@ export function PathFlow({
                 {section.rows.map(({ node, index }, i) => (
                   <li
                     key={node.id}
+                    id={`step-${node.code}`}
                     className={cn("grid items-center gap-2 py-1.5", rowCols)}
                   >
                     <Rail
@@ -219,6 +246,7 @@ export function PathFlow({
                               node={node}
                               locale={locale}
                               dimmed={filter !== null && !matchesFilter(node, filter)}
+                              highlighted={highlightedCode === node.code}
                             />
                           ) : null}
                         </div>
@@ -229,6 +257,7 @@ export function PathFlow({
                         locale={locale}
                         showOwner
                         dimmed={filter !== null && !matchesFilter(node, filter)}
+                        highlighted={highlightedCode === node.code}
                       />
                     )}
                   </li>
@@ -587,11 +616,14 @@ function NodeCard({
   locale,
   dimmed,
   showOwner = false,
+  highlighted = false,
 }: {
   node: FlowNode;
   locale: Locale;
   dimmed: boolean;
   showOwner?: boolean;
+  /** Transient spotlight when arrived at via a course ?focus= deep link. */
+  highlighted?: boolean;
 }) {
   const de = locale === "de";
   const owner = ROLE_LABEL[node.ownerRole] ?? { en: node.ownerRole, de: node.ownerRole };
@@ -651,6 +683,8 @@ function NodeCard({
             "relative block rounded-md border bg-background p-2 transition-all hover:border-primary/60 hover:bg-accent/40",
             ring,
             dimmed && "opacity-40 hover:opacity-100",
+            highlighted &&
+              "border-primary bg-primary/5 ring-2 ring-primary ring-offset-2 ring-offset-background",
           )}
         >
           {cornerTone ? (

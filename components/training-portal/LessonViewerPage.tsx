@@ -9,6 +9,7 @@ import { BookOpen, Video, ChevronLeft, ChevronRight, Check } from "lucide-react"
 import { DictionarySidebar } from "./DictionarySidebar";
 import { TermHoverProvider, useTermHover } from "./TermHoverContext";
 import { QuizForm } from "./QuizForm";
+import { JourneyLink } from "./JourneyLink";
 import type { Lesson } from "@/lib/training/schemas";
 
 interface SidebarTerm {
@@ -30,6 +31,8 @@ interface LessonViewerPageProps {
   quiz: QuizData | null;
   progress: { completed: boolean; quizPassed: boolean | null } | null;
   courseId: string;
+  /** NIS2 journey category this lesson maps to, or null (gated server-side). */
+  journeyCategory: string | null;
   onSubmitQuiz: (answers: number[]) => Promise<{
     score: number;
     passed: boolean;
@@ -111,6 +114,7 @@ export function LessonViewerPage({
   quiz,
   progress,
   courseId,
+  journeyCategory,
   onSubmitQuiz,
   onCompleteLesson,
 }: LessonViewerPageProps) {
@@ -176,6 +180,9 @@ export function LessonViewerPage({
                 <LessonArticle html={html} />
               </TabsContent>
             </Tabs>
+            {journeyCategory ? (
+              <JourneyLink category={journeyCategory} locale={locale} />
+            ) : null}
           </div>
 
           {/* Right: Dictionary sidebar (1/3) */}

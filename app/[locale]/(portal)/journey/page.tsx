@@ -15,8 +15,10 @@ type Locale = "en" | "de" | "nl";
 
 export default async function JourneyPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ focus?: string | string[] }>;
 }) {
   const session = await getSession();
   if (!session) redirect("/auth/signin");
@@ -31,6 +33,10 @@ export default async function JourneyPage({
   const locale: Locale = (["en", "de", "nl"].includes(rawLocale)
     ? rawLocale
     : "en") as Locale;
+
+  const { focus } = await searchParams;
+  const focusRaw = Array.isArray(focus) ? focus[0] : focus;
+  const focusCategory = focusRaw ? focusRaw.toUpperCase() : null;
 
   const { items, aggregate } = await api.journey.getItems({
     locale: locale === "de" ? "de" : "en",
@@ -63,7 +69,12 @@ export default async function JourneyPage({
         <ProgressChip done={aggregate.done} total={aggregate.total} locale={locale} />
       </div>
       <PathHero assetCount={assetCount} liveNode={live} locale={locale} />
-      <PathFlow reqNodes={reqNodes} aggregate={aggregate} locale={locale} />
+      <PathFlow
+        reqNodes={reqNodes}
+        aggregate={aggregate}
+        locale={locale}
+        focusCategory={focusCategory}
+      />
       <PathDisclaimer locale={locale} />
     </div>
   );

@@ -1,7 +1,12 @@
 import { api } from "@/lib/trpc/server";
 import { getLocale } from "next-intl/server";
+import { getSession } from "@/lib/auth";
+import { env } from "@/lib/env";
+import { isJourneyAllowed } from "@/lib/journey-flag";
+import { journeyCategoryForLesson } from "@/lib/training/lesson-journey-map";
 import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
+import { StartJourneyCta } from "@/components/training-portal/StartJourneyCta";
 
 export default async function LessonRoute({
   params,
@@ -22,6 +27,20 @@ export default async function LessonRoute({
     ? await api.trainingCertificate.getCourseCompletion({ courseId })
     : null;
 
+  // Per-lesson journey link only where it can actually work: the NIS2 course,
+  // for a user who has a company (so the journey is populated) and passes the
+  // journey flag. Other courses reuse lesson IDs, so the nis2-ceo-only map
+  // must not leak into them.
+  let journeyCategory: string | null = null;
+  const session = await getSession();
+  if (
+    courseId === "nis2-ceo" &&
+    session?.companyId &&
+    isJourneyAllowed(session.user.email, env.JOURNEY_ALLOWED_DOMAINS)
+  ) {
+    journeyCategory = journeyCategoryForLesson(lessonId);
+  }
+
   async function handleSubmitQuiz(answers: number[]) {
     "use server";
     return api.trainingPortal.submitQuiz({ courseId, lessonId, locale, answers });
@@ -41,11 +60,12 @@ export default async function LessonRoute({
         quiz={quizData}
         progress={lessonData.progress}
         courseId={courseId}
+        journeyCategory={journeyCategory}
         onSubmitQuiz={handleSubmitQuiz}
         onCompleteLesson={handleCompleteLesson}
       />
       {completion && (
-        <div className="mt-8">
+        <div className="mt-8 space-y-6">
           <CertificateDownload
             courseId={courseId}
             locale={locale}
@@ -54,6 +74,7 @@ export default async function LessonRoute({
             totalCount={completion.totalCount}
             userName={completion.userName}
           />
+          {completion.allCompleted && <StartJourneyCta locale={locale} />}
         </div>
       )}
     </>
