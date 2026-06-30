@@ -90,10 +90,11 @@
       "prerequisitesTitle": "Conditii prealabile",
       "prerequisiteComplete": "Finalizat",
       "prerequisitePending": "Necesar",
-      "prerequisitesBlocked": "Finalizati mai intai urmatoarele cerinte:",
+      "prerequisitesBlocked": "Recomandat: finalizați mai întâi aceste cerințe:",
       "ceoCourseTitle": "Curs NIS 2 pentru directori disponibil",
       "ceoCourseDescription": "Finalizati cursul integrat de formare a conducerii pentru a indeplini obligatia de formare prevazuta la §38(3) BSIG / art. 20(2) NIS 2.",
-      "takeCourse": "Incepe cursul"
+      "takeCourse": "Incepe cursul",
+      "seeInCourse": "Vezi în curs"
     },
     "frameworkName": "NIS2 / BSIG 2026",
     "categories": {

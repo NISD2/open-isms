@@ -9,7 +9,6 @@ import {
   ChevronRight,
   GraduationCap,
   LayoutGrid,
-  Lock,
 } from "lucide-react";
 import {
   Sidebar,
@@ -52,7 +51,6 @@ interface TrainingAppSidebarProps {
   modules: CourseModule[];
   lessonMetas: Record<string, LessonMeta>;
   completedLessons: Set<string>;
-  availableLessons: Set<string>;
 }
 
 export function TrainingAppSidebar({
@@ -61,7 +59,6 @@ export function TrainingAppSidebar({
   modules,
   lessonMetas,
   completedLessons,
-  availableLessons,
 }: TrainingAppSidebarProps) {
   const t = useTranslations("trainingPortal");
   const locale = useLocale();
@@ -150,7 +147,6 @@ export function TrainingAppSidebar({
                     <SidebarMenu>
                       {mod.lessonIds.map((lessonId) => {
                         const isCompleted = completedLessons.has(lessonId);
-                        const isAvailable = availableLessons.has(lessonId);
                         const lessonPath = `/training/courses/${courseId}/${lessonId}`;
                         const isActive = params.lessonId === lessonId;
                         const title =
@@ -158,30 +154,15 @@ export function TrainingAppSidebar({
 
                         return (
                           <SidebarMenuItem key={lessonId}>
-                            <SidebarMenuButton
-                              asChild={isAvailable}
-                              isActive={isActive}
-                              className={`h-7 ${!isAvailable ? "opacity-40 cursor-default" : ""}`}
-                            >
-                              {isAvailable ? (
-                                <Link href={lessonPath as never} prefetch={false}>
-                                  {isCompleted ? (
-                                    <Check className="size-3 text-green-600 shrink-0" />
-                                  ) : (
-                                    <GraduationCap className="size-3 shrink-0" />
-                                  )}
-                                  <span className="text-xs truncate">
-                                    {title}
-                                  </span>
-                                </Link>
-                              ) : (
-                                <div className="flex items-center gap-2">
-                                  <Lock className="size-3 shrink-0" />
-                                  <span className="text-xs truncate">
-                                    {title}
-                                  </span>
-                                </div>
-                              )}
+                            <SidebarMenuButton asChild isActive={isActive} className="h-7">
+                              <Link href={lessonPath as never} prefetch={false}>
+                                {isCompleted ? (
+                                  <Check className="size-3 text-green-600 shrink-0" />
+                                ) : (
+                                  <GraduationCap className="size-3 shrink-0" />
+                                )}
+                                <span className="text-xs truncate">{title}</span>
+                              </Link>
                             </SidebarMenuButton>
                           </SidebarMenuItem>
                         );

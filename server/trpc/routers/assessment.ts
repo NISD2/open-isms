@@ -35,31 +35,9 @@ import type { Database } from "@/lib/db";
 
 const DONE_STATUSES = new Set(["completed", "approved", "not_applicable"]);
 
-async function checkPrerequisites(db: Database, assessmentId: string, requirementId: string) {
-  const prereqs = await db.query.requirementPrerequisite.findMany({
-    where: eq(requirementPrerequisite.requirementId, requirementId),
-    with: { prerequisite: { columns: { id: true, code: true } } },
-  });
-  if (!prereqs.length) return;
-
-  const statuses = await db.query.companyRequirementStatus.findMany({
-    where: and(
-      eq(companyRequirementStatus.assessmentId, assessmentId),
-      inArray(companyRequirementStatus.requirementId, prereqs.map((p) => p.prerequisite.id)),
-    ),
-    columns: { requirementId: true, status: true },
-  });
-  const statusMap = new Map(statuses.map((s) => [s.requirementId, s.status]));
-
-  for (const p of prereqs) {
-    if (!DONE_STATUSES.has(statusMap.get(p.prerequisite.id) ?? "not_started")) {
-      throw new TRPCError({
-        code: "PRECONDITION_FAILED",
-        message: `Complete ${p.prerequisite.code} first`,
-      });
-    }
-  }
-}
+// Prerequisites are advisory only — the UI surfaces them as a "recommended
+// first" suggestion (see RequirementDetail), but nothing blocks sign-off.
+// getPrerequisiteStatuses below still reads the data to render that hint.
 
 export const assessmentRouter = router({
   // ---------------------------------------------------------------------------
@@ -414,40 +392,6 @@ export const assessmentRouter = router({
     }),
 
   // ---------------------------------------------------------------------------
-  // Bulk prerequisite check — returns all blocked requirement codes for sidebar
-  // ---------------------------------------------------------------------------
-
-  getBlockedRequirements: companyProcedure
-    .input(z.object({ assessmentId: z.string().uuid() }))
-    .query(async ({ ctx, input }) => {
-      // Single query: join prerequisites with statuses, return only unmet pairs
-      const rows = await ctx.db.execute<{
-        blocked_code: string;
-        prereq_code: string;
-      }>(sql`
-        SELECT r_blocked.code AS blocked_code, r_prereq.code AS prereq_code
-        FROM requirement_prerequisite rp
-        JOIN requirement r_blocked ON rp.requirement_id = r_blocked.id
-        JOIN requirement r_prereq ON rp.prerequisite_id = r_prereq.id
-        LEFT JOIN company_requirement_status crs_prereq
-          ON crs_prereq.requirement_id = r_prereq.id
-          AND crs_prereq.assessment_id = ${input.assessmentId}
-        LEFT JOIN company_requirement_status crs_self
-          ON crs_self.requirement_id = r_blocked.id
-          AND crs_self.assessment_id = ${input.assessmentId}
-        WHERE COALESCE(crs_prereq.status, 'not_started') NOT IN ('completed', 'approved', 'not_applicable')
-          AND COALESCE(crs_self.status, 'not_started') NOT IN ('completed', 'approved', 'not_applicable')
-      `);
-
-      const blocked: Record<string, string[]> = {};
-      for (const row of rows.rows) {
-        if (!blocked[row.blocked_code]) blocked[row.blocked_code] = [];
-        blocked[row.blocked_code].push(row.prereq_code);
-      }
-      return blocked;
-    }),
-
-  // ---------------------------------------------------------------------------
   // Prerequisite statuses (for UI — shows which prerequisites are met/unmet)
   // ---------------------------------------------------------------------------
 
@@ -503,7 +447,6 @@ export const assessmentRouter = router({
         assessmentId: statusRow.assessmentId,
         categoryId: statusRow.requirement.categoryId,
       });
-      await checkPrerequisites(ctx.db, statusRow.assessmentId, statusRow.requirement.id);
 
       const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
       const effectiveRole: RoleKey =
@@ -666,7 +609,6 @@ export const assessmentRouter = router({
         assessmentId: statusRow.assessmentId,
         categoryId: statusRow.requirement.categoryId,
       });
-      await checkPrerequisites(ctx.db, statusRow.assessmentId, statusRow.requirement.id);
 
       const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
 

@@ -90,10 +90,11 @@
       "prerequisitesTitle": "Prérequis",
       "prerequisiteComplete": "Terminé",
       "prerequisitePending": "Requis",
-      "prerequisitesBlocked": "Terminez d'abord les exigences suivantes :",
+      "prerequisitesBlocked": "Recommandé : traitez d’abord ces exigences :",
       "ceoCourseTitle": "Cours NIS 2 pour dirigeants disponible",
       "ceoCourseDescription": "Suivez le cours de formation de la direction intégré pour satisfaire à l'obligation de formation au titre du §38(3) BSIG / art. 20(2) NIS 2.",
-      "takeCourse": "Démarrer le cours"
+      "takeCourse": "Démarrer le cours",
+      "seeInCourse": "Voir dans le cours"
     },
     "frameworkName": "NIS2 / BSIG 2026",
     "categories": {

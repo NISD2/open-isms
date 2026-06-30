@@ -11,7 +11,6 @@ import {
   ChevronRight,
   Compass,
   FileText,
-  Lock,
   ScrollText,
   Server,
   Users,
@@ -59,8 +58,6 @@ export interface FrameworkGroup {
   steps: CategoryStep[];
   completed: number;
   total: number;
-  /** Map of requirementCode → [prerequisite codes that are not yet done] */
-  blockedRequirements: Record<string, string[]>;
 }
 
 interface NavItem {
@@ -197,8 +194,6 @@ export function AppSidebar({
                                 step.completedCount >= step.requirementCount &&
                                 step.requirementCount > 0;
                               const codePrefix = fw.codePrefix;
-                              const allBlocked = step.requirements.length > 0 &&
-                                step.requirements.every((rc) => fw.blockedRequirements[rc]?.length);
 
                               return (
                                 <SidebarMenuItem key={step.slug}>
@@ -218,8 +213,6 @@ export function AppSidebar({
                                   <SidebarMenuBadge>
                                     {isCompleted ? (
                                       <Check className="size-3 text-green-600" />
-                                    ) : allBlocked ? (
-                                      <Lock className="size-3 text-muted-foreground/50" />
                                     ) : (
                                       <span className="text-[10px] text-muted-foreground">
                                         {step.completedCount}/{step.requirementCount}

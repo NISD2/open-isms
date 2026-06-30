@@ -50,7 +50,7 @@ import {
   Pencil,
   Save,
   Loader2,
-  AlertCircle,
+  Lightbulb,
   GraduationCap,
 } from "lucide-react";
 
@@ -223,7 +223,7 @@ export function RequirementDetail({
   const [naOpen, setNaOpen] = useState(false);
   const [naReason, setNaReason] = useState("");
   const isNotStarted = status.currentStatus === "not_started";
-  const isBlocked = prerequisites.some((p) => !p.isComplete);
+  const hasOpenPrereqs = prerequisites.some((p) => !p.isComplete);
   // "Learn this in the CEO course" deep link (sidebar). Suppressed on the two
   // training requirements that already show the full course CTA in the body.
   const teachingLesson = CEO_COURSE_REQUIREMENT_CODES.has(requirement.code)
@@ -391,11 +391,11 @@ export function RequirementDetail({
             </div>
           )}
 
-          {/* Prerequisites banner */}
-          {isBlocked && (
-            <div className="border-l-2 border-l-amber-500 pl-4 py-2">
-              <p className="text-sm font-medium text-amber-700 dark:text-amber-400 mb-1.5 flex items-center gap-1.5">
-                <AlertCircle className="h-3.5 w-3.5" />
+          {/* Prerequisites — advisory suggestion only; never blocks sign-off */}
+          {hasOpenPrereqs && (
+            <div className="border-l-2 border-l-muted-foreground/30 pl-4 py-2">
+              <p className="text-sm font-medium text-muted-foreground mb-1.5 flex items-center gap-1.5">
+                <Lightbulb className="h-3.5 w-3.5" />
                 {t("requirement.prerequisitesBlocked")}
               </p>
               <ul className="space-y-1">
@@ -707,7 +707,7 @@ export function RequirementDetail({
                 className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
               >
                 <GraduationCap className="h-3.5 w-3.5 shrink-0 text-primary" />
-                {t("requirement.takeCourse")}
+                {t("requirement.seeInCourse")}
                 <ExternalLink className="h-3 w-3" />
               </Link>
             )}
@@ -756,7 +756,7 @@ export function RequirementDetail({
                 <Ban className="mr-1.5 h-3.5 w-3.5" />
                 {t("notApplicable")}
               </Button>
-              <SignOffButton isSubmitting={isPending} isBlocked={isBlocked} onSignOff={handleSignOff} />
+              <SignOffButton isSubmitting={isPending} onSignOff={handleSignOff} />
             </div>
           )}
 

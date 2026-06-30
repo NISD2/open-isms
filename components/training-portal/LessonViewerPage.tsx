@@ -246,14 +246,6 @@ export function LessonViewerPage({
           {(() => {
             const nextId = lesson.nextLessonId;
             if (!nextId) return null;
-            if (!completed) {
-              return (
-                <Button variant="outline" disabled className="gap-2">
-                  {t("nextLesson")}
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-              );
-            }
             return (
               <Button
                 onClick={() =>

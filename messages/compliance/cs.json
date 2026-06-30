@@ -90,10 +90,11 @@
       "prerequisitesTitle": "Předpoklady",
       "prerequisiteComplete": "Dokončeno",
       "prerequisitePending": "Vyžadováno",
-      "prerequisitesBlocked": "Nejprve splňte následující požadavky:",
+      "prerequisitesBlocked": "Doporučeno: nejprve dokončete tyto požadavky:",
       "ceoCourseTitle": "K dispozici je kurz NIS 2 pro vedení",
       "ceoCourseDescription": "Absolvujte zabudovaný kurz školení vedení, abyste splnili povinnost školení podle §38(3) BSIG / čl. 20(2) NIS 2.",
-      "takeCourse": "Spustit kurz"
+      "takeCourse": "Spustit kurz",
+      "seeInCourse": "Zobrazit v kurzu"
     },
     "frameworkName": "NIS2 / BSIG 2026",
     "categories": {

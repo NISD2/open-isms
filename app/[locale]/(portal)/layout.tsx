@@ -77,10 +77,7 @@ export default async function PortalLayout({
         assessment
           ? api.assessment.getProgressByCategory({ assessmentId: assessment.id })
           : ({} as Record<string, { completed: number; total: number }>),
-        assessment
-          ? api.assessment.getBlockedRequirements({ assessmentId: assessment.id })
-          : ({} as Record<string, string[]>),
-      ]).then(([access, progress, blocked]) => {
+      ]).then(([access, progress]) => {
         const steps = buildSteps(categories, access, progress);
         return {
           code,
@@ -89,7 +86,6 @@ export default async function PortalLayout({
           steps,
           completed: steps.reduce((s, x) => s + x.completedCount, 0),
           total: steps.reduce((s, x) => s + x.requirementCount, 0),
-          blockedRequirements: blocked,
         } satisfies FrameworkGroup;
       });
     }),

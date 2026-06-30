@@ -6,18 +6,17 @@ import { PenTool, Loader2 } from "lucide-react";
 
 interface SignOffButtonProps {
   isSubmitting?: boolean;
-  isBlocked?: boolean;
   onSignOff: () => void;
 }
 
-export function SignOffButton({ isSubmitting, isBlocked, onSignOff }: SignOffButtonProps) {
+export function SignOffButton({ isSubmitting, onSignOff }: SignOffButtonProps) {
   const t = useTranslations("compliance");
 
   return (
     <Button
       variant="default"
       size="sm"
-      disabled={isSubmitting || isBlocked}
+      disabled={isSubmitting}
       onClick={() => onSignOff()}
     >
       {isSubmitting ? (

@@ -25,15 +25,6 @@ export default async function CourseLayout({
     progress.filter((p) => p.completed).map((p) => p.lessonId),
   );
 
-  const allLessonIds = course.modules.flatMap((m) => m.lessonIds);
-  const availableLessons = new Set<string>();
-  for (let i = 0; i < allLessonIds.length; i++) {
-    const id = allLessonIds[i]!;
-    if (completedLessons.has(id) || i === 0 || completedLessons.has(allLessonIds[i - 1]!)) {
-      availableLessons.add(id);
-    }
-  }
-
   return (
     <SidebarProvider defaultOpen>
       <TrainingAppSidebar
@@ -48,7 +39,6 @@ export default async function CourseLayout({
         modules={course.modules}
         lessonMetas={lessonMetas}
         completedLessons={completedLessons}
-        availableLessons={availableLessons}
       />
       <SidebarInset>
         <PortalHeader />

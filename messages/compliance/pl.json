@@ -90,10 +90,11 @@
       "prerequisitesTitle": "Warunki wstępne",
       "prerequisiteComplete": "Ukończone",
       "prerequisitePending": "Wymagane",
-      "prerequisitesBlocked": "Najpierw ukończ następujące wymagania:",
+      "prerequisitesBlocked": "Zalecane: najpierw ukończ te wymagania:",
       "ceoCourseTitle": "Dostępny kurs NIS 2 dla zarządu",
       "ceoCourseDescription": "Ukończ wbudowany kurs szkoleniowy dla zarządu, aby spełnić obowiązek szkoleniowy z §38(3) BSIG / art. 20 ust. 2 NIS 2.",
-      "takeCourse": "Rozpocznij kurs"
+      "takeCourse": "Rozpocznij kurs",
+      "seeInCourse": "Zobacz w kursie"
     },
     "frameworkName": "NIS2 / BSIG 2026",
     "categories": {

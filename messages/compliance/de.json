@@ -90,10 +90,11 @@
       "prerequisitesTitle": "Voraussetzungen",
       "prerequisiteComplete": "Erledigt",
       "prerequisitePending": "Erforderlich",
-      "prerequisitesBlocked": "Schließen Sie zuerst folgende Anforderungen ab:",
+      "prerequisitesBlocked": "Empfohlen: diese Anforderungen zuerst abschließen:",
       "ceoCourseTitle": "NIS 2 CEO-Kurs verfügbar",
       "ceoCourseDescription": "Absolvieren Sie den eingebauten Managementkurs, um die Schulungspflicht aus §38(3) BSIG / Art. 20(2) NIS 2 zu erfüllen.",
-      "takeCourse": "Kurs starten"
+      "takeCourse": "Kurs starten",
+      "seeInCourse": "Im Kurs ansehen"
     },
     "frameworkName": "NIS2 / BSIG 2026",
     "categories": {
