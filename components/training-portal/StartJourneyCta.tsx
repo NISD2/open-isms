@@ -32,7 +32,7 @@ export function StartJourneyCta({ locale }: StartJourneyCtaProps) {
             : "Your next step: set up your organization and begin. About 2 minutes."}
         </p>
         <Button asChild className="gap-2">
-          <Link href="/onboarding">
+          <Link href="/onboarding" target="_blank" rel="noopener noreferrer">
             {de ? "Organisation einrichten" : "Set up your organization"}
             <ArrowRight className="size-4" />
           </Link>

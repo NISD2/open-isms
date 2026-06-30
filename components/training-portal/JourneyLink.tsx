@@ -23,6 +23,8 @@ export function JourneyLink({ category, locale }: JourneyLinkProps) {
   return (
     <Link
       href={{ pathname: "/journey", query: { focus: category } }}
+      target="_blank"
+      rel="noopener noreferrer"
       className="group mt-6 flex items-center gap-3 rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 text-sm transition-colors hover:border-primary/60 hover:bg-primary/10"
     >
       <Compass aria-hidden className="size-4 shrink-0 text-primary" />
