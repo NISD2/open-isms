@@ -57,6 +57,7 @@ import {
 // Requirements where the built-in CEO management training course satisfies
 // the §38(3) BSIG / Art. 20(2) NIS2 training obligation.
 const CEO_COURSE_REQUIREMENT_CODES = new Set(["1.1", "8.3"]);
+import { teachingLessonForCategory } from "@/lib/training/lesson-journey-map";
 import { cn } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
@@ -223,6 +224,11 @@ export function RequirementDetail({
   const [naReason, setNaReason] = useState("");
   const isNotStarted = status.currentStatus === "not_started";
   const isBlocked = prerequisites.some((p) => !p.isComplete);
+  // "Learn this in the CEO course" deep link (sidebar). Suppressed on the two
+  // training requirements that already show the full course CTA in the body.
+  const teachingLesson = CEO_COURSE_REQUIREMENT_CODES.has(requirement.code)
+    ? null
+    : teachingLessonForCategory(categoryCode);
   const [isEditing, setIsEditing] = useState(isNotStarted && !isCompleted && !isNA);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -690,6 +696,21 @@ export function RequirementDetail({
                 </div>
               )}
             </dl>
+            {teachingLesson && (
+              <Link
+                href={{
+                  pathname: "/training/courses/[courseId]/[lessonId]",
+                  params: { courseId: "nis2-ceo", lessonId: teachingLesson },
+                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <GraduationCap className="h-3.5 w-3.5 shrink-0 text-primary" />
+                {t("requirement.takeCourse")}
+                <ExternalLink className="h-3 w-3" />
+              </Link>
+            )}
           </div>
 
         </aside>

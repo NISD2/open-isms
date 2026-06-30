@@ -82,3 +82,30 @@ export const JOURNEY_CATEGORY_LABEL: Record<string, { en: string; de: string }> 
 export function journeyCategoryForLesson(lessonId: string): string | null {
   return LESSON_JOURNEY_CATEGORY[lessonId] ?? null;
 }
+
+/**
+ * Reverse direction: the one canonical CEO-course lesson that teaches each NIS2
+ * category, for the "learn this in the course" link on compliance/journey
+ * surfaces. The ten Article 21 measures map to their measure lesson (2.6-2.15);
+ * GOV and REG use the foundational lesson. Distinct from LESSON_JOURNEY_CATEGORY
+ * (which tags many lessons to a category); the planned cross-link registry will
+ * unify both directions.
+ */
+export const CATEGORY_TEACHING_LESSON: Record<string, string> = {
+  GOV: "1.5", // Your Duty to Approve and Oversee
+  RSK: "2.6", // Measure 1 - Risk Analysis and Information Security Policies
+  INC: "2.7", // Measure 2 - Incident Handling
+  BCP: "2.8", // Measure 3 - Business Continuity
+  SUP: "2.9", // Measure 4 - Supply Chain Security
+  PRO: "2.10", // Measure 5 - Acquisition, Development, and Maintenance
+  EFF: "2.11", // Measure 6 - Effectiveness Assessment
+  TRN: "2.12", // Measure 7 - Cyber Hygiene and Training
+  CRY: "2.13", // Measure 8 - Cryptography
+  ACC: "2.14", // Measure 9 - HR Security, Access Control, and Asset Management
+  AUT: "2.15", // Measure 10 - Multi-Factor Authentication and Secured Communications
+  REG: "1.4", // The Registration Obligation
+};
+
+export function teachingLessonForCategory(categoryCode: string): string | null {
+  return CATEGORY_TEACHING_LESSON[categoryCode] ?? null;
+}
