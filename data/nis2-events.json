@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T09:56:00Z",
+  "lastUpdated": "2026-07-02T10:42:53Z",
   "events": [
     {
       "id": "2026-07-08-de-bsi-cra-ot",
@@ -254,6 +254,96 @@
       "cost": "free",
       "language": "en",
       "notes": "National authority conference, free. CRA session. Info page 403s; verify cost on reopen."
+    },
+    {
+      "id": "2026-09-01-de-blnbdi-starthilfe-dsgvo",
+      "title": "Starthilfe Datenschutz: Rechtsgrundlagen des Datenschutzes - Basisüberblick DSGVO",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-01",
+      "endDate": null,
+      "format": "online",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "Berliner Beauftragte für Datenschutz und Informationsfreiheit (BlnBDI)",
+      "infoUrl": "https://www.datenschutz-berlin.de/service/starthilfe-datenschutz/",
+      "signupUrl": "https://www.datenschutz-berlin.de/service/starthilfe-datenschutz/anmeldung/?event_id=420",
+      "cost": "free",
+      "language": "de",
+      "notes": "State data-protection authority, free. Part of the recurring BlnBDI Starthilfe Datenschutz series (further blocks through Nov 2026)."
+    },
+    {
+      "id": "2026-09-02-de-ihk-erfurt-it-security-day",
+      "title": "6. IT-Security-Day Thüringen",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-02",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Erfurt",
+      "country": "DE",
+      "organizer": "IHK Erfurt (mit LKA Thüringen, ITnet Thüringen e.V., MDZ Ilmenau, ThEx, HWK Erfurt)",
+      "infoUrl": "https://www.ihk.de/erfurt/service/digitalisierung-it/it-security-day-thueringen-2021-5049044",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Chamber and authority co-host, recurring, historically kostenfrei; NIS2 is a recurring agenda topic. Date from Save-the-Date; 2026 agenda pending."
+    },
+    {
+      "id": "2026-09-21-de-bvmw-webimpuls-nis2-vorfall",
+      "title": "WebImpuls NIS2: Sicherheitsvorfall im Mittelstand, was tun wenn es brennt?",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-21",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Der Mittelstand. BVMW (Köln, Bonn)",
+      "infoUrl": "https://www.bvmw.de/de/koeln-bonn/internet-und-digitalisierung/veranstaltungen/webimpuls-nis2-sicherheitsvorfall-im-mittelstand-was-tun-wenn-es-brennt",
+      "signupUrl": "https://doo.net/veranstaltung/219153/buchung",
+      "cost": "free",
+      "language": "de",
+      "notes": "Non-profit Mittelstand association (e.V.). Part 5 of a free 6-part WebImpuls NIS2 series, each session attendable on its own."
+    },
+    {
+      "id": "2026-11-06-de-bvmw-webimpuls-nis2-nachweisbarkeit",
+      "title": "WebImpuls NIS2: Nachweisbarkeit im Mittelstand und kontinuierliche Verbesserung",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-11-06",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Der Mittelstand. BVMW (Köln, Bonn)",
+      "infoUrl": "https://www.bvmw.de/de/koeln-bonn/internet-und-digitalisierung/veranstaltungen/webimpuls-nis2-nachweisbarkeit-im-mittelstand-und-kontinuierliche-verbesserung",
+      "signupUrl": "https://doo.net/veranstaltung/219162/buchung",
+      "cost": "free",
+      "language": "de",
+      "notes": "Non-profit Mittelstand association (e.V.). Part 6 (final) of the free 6-part WebImpuls NIS2 series."
+    },
+    {
+      "id": "2027-04-20-de-hh-datenschutzforum",
+      "title": "6. Hamburger Datenschutzforum",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2027-04-20",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Hamburg",
+      "country": "DE",
+      "organizer": "Hamburgische Datenschutzgesellschaft e.V., HmbBfDI, Handelskammer Hamburg",
+      "infoUrl": "https://hdgev.de/event/270420/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Non-profit plus Hamburg data-protection authority plus Handelskammer, recurring annual forum, free. Agenda pending."
     }
   ]
 }
