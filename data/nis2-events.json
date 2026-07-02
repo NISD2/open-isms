@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T10:42:53Z",
+  "lastUpdated": "2026-07-02T10:58:01Z",
   "events": [
     {
       "id": "2026-07-08-de-bsi-cra-ot",
@@ -344,6 +344,133 @@
       "cost": "free",
       "language": "de",
       "notes": "Non-profit plus Hamburg data-protection authority plus Handelskammer, recurring annual forum, free. Agenda pending."
+    },
+    {
+      "id": "2026-07-14-ie-ics-adpo-dsar",
+      "title": "Revisiting DSARs: from AI-drafted requests to Digital Omnibus nuances",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-07-14",
+      "endDate": null,
+      "format": "online",
+      "city": "Dublin",
+      "country": "IE",
+      "organizer": "Irish Computer Society / ADPO",
+      "infoUrl": "https://ics.ie/ics-events/",
+      "signupUrl": "https://zoom.us/meeting/register/PQS2hT8HTiq2brKBUxNAuA",
+      "cost": "free",
+      "language": "en",
+      "notes": "Non-profit professional body. Free online GDPR session (DSARs), 45 min. Date and Zoom signup confirmed."
+    },
+    {
+      "id": "2026-09-22-it-verona-pid-nis2",
+      "title": "Navigare tra NIS2, AI Act e nuovi obblighi digitali",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-22",
+      "endDate": null,
+      "format": "online",
+      "city": "Verona",
+      "country": "IT",
+      "organizer": "Camera di Commercio di Verona (Punto Impresa Digitale)",
+      "infoUrl": "https://confartigianato.verona.it/categorie-cat/attualita/camera-di-commercio-cybersecurity-e-intelligenza-artificiale-servizio-affiancamento-gratuito-per-50-mpmi-invia-candidatura-e-4-webinar-aperti-a-tutti/",
+      "signupUrl": "https://unioncamere.my.site.com/cciaaVerona",
+      "cost": "free",
+      "language": "it",
+      "notes": "Chamber of commerce (public body), one of 4 free open webinars. NIS2/AI Act session."
+    },
+    {
+      "id": "2026-09-22-be-be-cyber-2026",
+      "title": "BE-CYBER 2026",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-22",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Wavre",
+      "country": "BE",
+      "organizer": "Cyber Security Coalition Belgium (with CCB)",
+      "infoUrl": "https://cybersecuritycoalition.be/programme/",
+      "signupUrl": "https://registration.invitedesk.com/p/en/xfdl86Er2U-QZZehwS50rw/AJM518pJkkmFp4sz7FZ1AQ",
+      "cost": "free",
+      "language": "en",
+      "notes": "Non-profit public-private coalition (with CCB). Free (registration required). NIS2 and DORA tracks."
+    },
+    {
+      "id": "2026-09-22-hu-mkik-nis2-cra",
+      "title": "NIS2 felkészítő workshop: NIS2 vs Cyber Resilience Act + Digital Omnibus",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-09-22",
+      "endDate": null,
+      "format": "online",
+      "city": "Budapest",
+      "country": "HU",
+      "organizer": "Magyar Kereskedelmi és Iparkamara (MKIK) with SZTFH",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/32/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "Chamber and authority co-host. One of a free 9-part NIS2 workshop series (Jul-Nov 2026); all dates at nis2.mkik.hu/workshopok."
+    },
+    {
+      "id": "2026-09-30-hu-mkik-ot-nis2",
+      "title": "NIS2 felkészítő workshop: Ipari kiberbiztonság, az OT rendszerek NIS2 megfelelése",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-30",
+      "endDate": null,
+      "format": "online",
+      "city": "Budapest",
+      "country": "HU",
+      "organizer": "Magyar Kereskedelmi és Iparkamara (MKIK) with SZTFH",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/33/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "Free MKIK/SZTFH series (OT and industrial NIS2). Full series at nis2.mkik.hu/workshopok."
+    },
+    {
+      "id": "2026-11-10-hu-mkik-zaro",
+      "title": "NIS2 Kamarai felkészítés, Záró workshop",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-11-10",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Budapest",
+      "country": "HU",
+      "organizer": "Magyar Kereskedelmi és Iparkamara (MKIK) with SZTFH",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/38/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "Closing in-person session of the free MKIK/SZTFH NIS2 series, Budapest."
+    },
+    {
+      "id": "2026-10-13-lv-certlv-cyberchess",
+      "title": "CyberChess 2026 / KiberŠahs",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-13",
+      "endDate": "2026-10-15",
+      "format": "hybrid",
+      "city": "Riga",
+      "country": "LV",
+      "organizer": "CERT.LV",
+      "infoUrl": "https://cyberchess.lv/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "en",
+      "notes": "National CERT (with Latvian MoD / NCSC). NIS2 and EU policy featured. Free inferred from prior editions; verify once 2026 registration opens."
     }
   ]
 }
