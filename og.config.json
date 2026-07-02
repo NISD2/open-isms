@@ -194,6 +194,14 @@
       }
     },
     {
+      "slug": "nis2-events",
+      "paths": {
+        "de": "/wiki/zeit-und-status/nis2-events",
+        "en": "/en/wiki/timelines-and-status/nis2-events",
+        "nl": null
+      }
+    },
+    {
       "slug": "training-cra-sbom",
       "paths": {
         "de": "/training/cra-sbom",

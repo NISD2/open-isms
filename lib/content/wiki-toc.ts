@@ -911,6 +911,14 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
         summaryEn: "All EU and national milestones from 2022 to today.",
       },
       {
+        slug: "nis2-events",
+        slugs: { de: "nis2-events", en: "nis2-events", nl: "nis2-events" },
+        titleDe: "NIS2-Veranstaltungen in Europa",
+        titleEn: "NIS2 events across Europe",
+        summaryDe: "Kostenlose NIS2-, DSGVO- und CRA-Veranstaltungen von Behörden und gemeinnützigen Trägern.",
+        summaryEn: "Free NIS2, GDPR and CRA events from authorities and non-profit bodies.",
+      },
+      {
         slug: "nis2-in-germany",
         slugs: { de: "nis2-in-germany", en: "nis2-in-germany", nl: "nis2-in-duitsland" },
         titleDe: "NIS 2 in Deutschland",

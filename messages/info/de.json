@@ -6080,6 +6080,15 @@
       "title": "NIS2 Regulatorische Zeitleiste",
       "subtitle": "Wichtige Meilensteine und aktuelle Entwicklungen zu NIS2-Richtlinie, BSIG, CIR 2024/2690, IT-Grundschutz und ENISA, automatisch aktualisiert."
     },
+    "nis2Events": {
+      "meta": {
+        "title": "NIS2-, DSGVO- und CRA-Veranstaltungen in Europa",
+        "description": "Kostenlose Veranstaltungen, Webinare und Konferenzen zu NIS2, DSGVO und CRA von Behörden, ENISA, Kammern und gemeinnützigen Trägern in Europa. Laufend aktualisiert."
+      },
+      "badge": "Kostenlos und offen",
+      "title": "NIS2-, DSGVO- und CRA-Veranstaltungen in Europa",
+      "subtitle": "Kuratierte, kostenlose Veranstaltungen von Behörden, ENISA, Kammern und gemeinnützigen Trägern. Keine bezahlten Kurse, keine kommerziellen Konferenzen."
+    },
     "changelog": {
       "meta": {
         "title": "Aktuelles - was sich auf NISD2.eu geändert hat",

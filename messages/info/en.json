@@ -6087,6 +6087,15 @@
       "title": "NIS2 Regulatory Timeline",
       "subtitle": "Key milestones and latest developments across the NIS2 Directive, BSIG, CIR 2024/2690, IT-Grundschutz, and ENISA, automatically updated."
     },
+    "nis2Events": {
+      "meta": {
+        "title": "NIS2, GDPR and CRA Events Across Europe: NISD2.eu",
+        "description": "Free events, webinars and conferences on NIS2, GDPR and the CRA from authorities, ENISA, chambers and non-profit bodies across Europe. Continuously updated."
+      },
+      "badge": "Free and open",
+      "title": "NIS2, GDPR and CRA Events Across Europe",
+      "subtitle": "A curated list of free events from authorities, ENISA, chambers and non-profit bodies. No paid courses, no commercial conferences."
+    },
     "changelog": {
       "meta": {
         "title": "Changelog - what has changed on NISD2.eu",

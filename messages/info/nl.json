@@ -6083,6 +6083,15 @@
       "title": "NIS2 Regelgevingstijdlijn",
       "subtitle": "Belangrijke mijlpalen en actuele ontwikkelingen rond de NIS2-richtlijn, BSIG, CIR 2024/2690, IT-Grundschutz en ENISA, automatisch bijgewerkt."
     },
+    "nis2Events": {
+      "meta": {
+        "title": "NIS2-, AVG- en CRA-evenementen in Europa: NISD2.eu",
+        "description": "Gratis evenementen, webinars en conferenties over NIS2, AVG en de CRA van overheden, ENISA, kamers en non-profitorganisaties in Europa. Doorlopend bijgewerkt."
+      },
+      "badge": "Gratis en open",
+      "title": "NIS2-, AVG- en CRA-evenementen in Europa",
+      "subtitle": "Een samengestelde lijst met gratis evenementen van overheden, ENISA, kamers en non-profitorganisaties. Geen betaalde cursussen, geen commerciële conferenties."
+    },
     "gapAssessmentLanding": {
       "meta": {
         "title": "Free NIS2 Gap Assessment - How Ready Are You? | nisd2.eu",

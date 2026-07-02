@@ -1,0 +1,259 @@
+{
+  "lastUpdated": "2026-07-02T09:56:00Z",
+  "events": [
+    {
+      "id": "2026-07-08-de-bsi-cra-ot",
+      "title": "CRA & Maschinenrichtlinie in der OT",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-07-08",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "BSI Allianz für Cyber-Sicherheit (Orange Cyberdefense)",
+      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "ACS partner webtalk, free to attend."
+    },
+    {
+      "id": "2026-07-08-de-bsi-nis2-qa",
+      "title": "Cyber-Sicherheits-Webtalk: Q&A zu NIS-2/BSIG",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-07-08",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "BSI Allianz für Cyber-Sicherheit",
+      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Recurring Q&A webtalk (also 16.07)."
+    },
+    {
+      "id": "2026-07-14-de-bsi-nis2know-meldepflichten",
+      "title": "#nis2know: Meldepflichten erheblicher Vorfälle",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-07-14",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "BSI Allianz für Cyber-Sicherheit",
+      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Incident reporting (Art 23). Part of #nis2know series."
+    },
+    {
+      "id": "2026-07-14-de-dsin-fit-fuer-nis2",
+      "title": "Fit für NIS-2 (FitNIS-2-Navigator)",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-07-14",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "DsiN / WFG Kreis Soest",
+      "infoUrl": "https://www.wfg-kreis-soest.de/veranstaltung/fit-fuer-nis-2-eu-netz-und-informationsrichtlinie-verstehen/",
+      "signupUrl": "https://www.wfg-kreis-soest.de/veranstaltung/fit-fuer-nis-2-eu-netz-und-informationsrichtlinie-verstehen/",
+      "cost": "free",
+      "language": "de",
+      "notes": "KMU intro; DsiN fitnis2 regional partner (NRW). Recurring series."
+    },
+    {
+      "id": "2026-07-14-nl-sdv-nis2-inzicht",
+      "title": "NIS2 Inzicht Webinar (supply-chain)",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-07-14",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "NL",
+      "organizer": "Samen Digitaal Veilig",
+      "infoUrl": "https://samendigitaalveilig.nl/webinar/nis2-inzicht-webinars/",
+      "signupUrl": "https://samendigitaalveilig.nl/webinar/nis2-inzicht-webinars/",
+      "cost": "free",
+      "language": "nl",
+      "notes": "Recurring slots (also 13 Aug, 26 Aug). SME supply-chain angle."
+    },
+    {
+      "id": "2026-07-14-eu-digitalsme-occtet",
+      "title": "Tester in the Spotlight: The OCCTET Toolkit in Practice",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-07-14",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "EU",
+      "organizer": "European DIGITAL SME Alliance",
+      "infoUrl": "https://www.digitalsme.eu/events/tester-in-the-spotlight-the-occtet-toolkit-in-practice/",
+      "signupUrl": "https://www.digitalsme.eu/signup/",
+      "cost": "free",
+      "language": "en",
+      "notes": "Non-profit; CRA self-assessment toolkit. Free to attend."
+    },
+    {
+      "id": "2026-07-16-de-bsi-nis2-qa-2",
+      "title": "Cyber-Sicherheits-Webtalk: Q&A zu NIS-2/BSIG (2. Termin)",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-07-16",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "BSI Allianz für Cyber-Sicherheit",
+      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Second date of the recurring Q&A."
+    },
+    {
+      "id": "2026-08-13-de-itsbb-nis2know-doku",
+      "title": "#nis2know: Gesetzliche Dokumentationspflichten",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-08-13",
+      "endDate": null,
+      "format": "online",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "it's.BB e.V.",
+      "infoUrl": "https://www.itsbb.net/veranstaltungen/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Non-profit Verein GoTo-Webinar series; registration via Eventbrite."
+    },
+    {
+      "id": "2026-09-04-de-transferstelle-cra",
+      "title": "Cyber Resilience Act verstehen",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-04",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-verstehen-anforderungen-pflichten-und-umsetzung/",
+      "signupUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-verstehen-anforderungen-pflichten-und-umsetzung/",
+      "cost": "free",
+      "language": "de",
+      "notes": "Gov-funded. Online workshop 10:00-11:30."
+    },
+    {
+      "id": "2026-09-10-de-itsbb-nis2know-umsetzung",
+      "title": "#nis2know: Der Weg zur Umsetzung",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "format": "online",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "it's.BB e.V.",
+      "infoUrl": "https://www.itsbb.net/veranstaltungen/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Non-profit Verein GoTo-Webinar series."
+    },
+    {
+      "id": "2026-09-16-sk-kcckb-kyber-2026",
+      "title": "Konferencia Kyber 2026 jeseň",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-09-16",
+      "endDate": "2026-09-17",
+      "format": "in-person",
+      "city": "Nový Smokovec",
+      "country": "SK",
+      "organizer": "KCCKB / Kyberkomunita",
+      "infoUrl": "https://cybercompetence.sk/konferencia/",
+      "signupUrl": "https://cybercompetence.sk/prihlaska-konferencia-kyber-2026-jesen/",
+      "cost": "free",
+      "language": "sk",
+      "notes": "National competence-center; free. CRA advisory session + NIS2 track."
+    },
+    {
+      "id": "2026-10-06-nl-one-conference",
+      "title": "ONE Conference 2026",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-10-06",
+      "endDate": "2026-10-07",
+      "format": "in-person",
+      "city": "The Hague",
+      "country": "NL",
+      "organizer": "NCSC-NL / Security Delta (HSD)",
+      "infoUrl": "https://one-conference.nl/programme/",
+      "signupUrl": "https://one-conference.nl/",
+      "cost": "free",
+      "language": "en",
+      "notes": "Government conference, free (registration required). Cyber Governance track + NIS2 sidetrack."
+    },
+    {
+      "id": "2026-10-07-eu-enisa-ehealth",
+      "title": "11th eHealth Security Conference",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-07",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Nicosia",
+      "country": "EU",
+      "organizer": "ENISA",
+      "infoUrl": "https://www.enisa.europa.eu/events/11th-ehealth-security-conference",
+      "signupUrl": "https://www.eventora.com/en/Events/11thEnisaeHealthSecurityConference",
+      "cost": "free",
+      "language": "en",
+      "notes": "EU agency event, free. NIS2 implementation for the health sector + EHDS."
+    },
+    {
+      "id": "2026-10-20-ro-dnsc-bcc2026",
+      "title": "Bucharest Cybersecurity Conference 2026 (BCC2026)",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-10-20",
+      "endDate": "2026-10-22",
+      "format": "in-person",
+      "city": "Bucharest",
+      "country": "RO",
+      "organizer": "DNSC",
+      "infoUrl": "https://bcc.dnsc.ro/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "en",
+      "notes": "National authority conference, free. CRA session. Info page 403s; verify cost on reopen."
+    }
+  ]
+}

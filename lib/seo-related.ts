@@ -142,6 +142,12 @@ export const relatedArticles: Record<string, string[]> = {
     "cir-2024-2690",
     "nis2-registrierung",
   ],
+  "nis2-events": [
+    "nis2-timeline",
+    "nis2-umsetzung-europa",
+    "what-is-nis2",
+    "nis2-registrierung",
+  ],
   glossar: [
     "what-is-nis2",
     "faq",
@@ -233,6 +239,7 @@ export const pageTitleKeys: Record<string, string> = {
   "nis2-umsetzung-europa": "euImplementation",
   "nis2-einrichtungen": "entityTypes",
   "nis2-timeline": "nis2Timeline",
+  "nis2-events": "nis2Events",
   glossar: "glossary",
   "nis2-lieferkette": "supplyChainCompliance",
   pricing: "features",

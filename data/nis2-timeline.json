@@ -2124,7 +2124,77 @@
       "sourceId": "bsi",
       "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/Umfrage_NIS-2_Produkte_260610.html",
       "addedAt": "2026-06-26T11:13:16Z"
+    },
+    {
+      "id": "2026-06-26-national-transposition-nl-cyberbeveiligingswet-second-report",
+      "date": "2026-06-26",
+      "category": "national-transposition",
+      "tags": ["nl", "transposition", "legislation"],
+      "type": "update",
+      "title": "Netherlands: Senate committees issue second report on Cyberbeveiligingswet, plenary debate set for 6 or 7 July 2026",
+      "titleDe": "Niederlande: Senatsausschuesse bringen zweiten Bericht zur Cyberbeveiligingswet aus, Plenardebatte fuer den 6. oder 7. Juli 2026 angesetzt",
+      "summary": "On 26 June 2026 the Eerste Kamer joint committees for Digitalisation (DIGI) and Justice and Security (J&V) issued their second report (tweede verslag) on the Cyberbeveiligingswet (bill 36.764, the NIS 2 transposition), reopening a written round after the government's 17 June response. The committees now await a second government response, after which the plenary debate is scheduled for 6 or 7 July 2026 ahead of the final Senate vote. The earlier target of entry into force on 1 July 2026 is therefore no longer achievable; the date will be set by koninklijk besluit once the bill passes. The Netherlands remains one of the last laggard Member States completing NIS 2 transposition.",
+      "summaryDe": "Am 26. Juni 2026 haben die gemeinsamen Eerste-Kamer-Ausschuesse fuer Digitalisierung (DIGI) und Justiz und Sicherheit (J&V) ihren zweiten Bericht (tweede verslag) zur Cyberbeveiligingswet (Gesetzentwurf 36.764, die NIS-2-Umsetzung) ausgebracht und nach der Regierungsantwort vom 17. Juni eine weitere schriftliche Runde eroeffnet. Die Ausschuesse warten nun auf eine zweite Regierungsantwort; danach ist die Plenardebatte fuer den 6. oder 7. Juli 2026 vor der Schlussabstimmung des Senats angesetzt. Das frueher angepeilte Inkrafttreten zum 1. Juli 2026 ist damit nicht mehr erreichbar; der Termin wird per koninklijk besluit festgelegt, sobald das Gesetz verabschiedet ist. Die Niederlande gehoeren zu den letzten Nachzueglern bei der NIS-2-Umsetzung.",
+      "sourceId": "eerstekamer",
+      "sourceUrl": "https://www.eerstekamer.nl/wetsvoorstel/36764_cyberbeveiligingswet",
+      "addedAt": "2026-06-29T06:12:14Z"
+    },
+    {
+      "id": "2026-06-24-enisa-sme-cra-survey-report",
+      "date": "2026-06-24",
+      "category": "enisa",
+      "tags": ["publication", "supply-chain"],
+      "type": "update",
+      "title": "ENISA publishes SME CRA Survey Report on Cyber Resilience Act readiness",
+      "titleDe": "ENISA veroeffentlicht SME CRA Survey Report zur Vorbereitung auf den Cyber Resilience Act",
+      "summary": "ENISA published its SME CRA Survey Report, presenting results of a February to March 2026 survey of small and medium enterprises on awareness of and preparedness for the Cyber Resilience Act (CRA). The report identifies the largest gaps against CRA expectations in threat modelling and software bills of materials, and notes that SMEs ask for practical guidance suited to teams without dedicated security staff. The CRA main obligations apply from December 2027.",
+      "summaryDe": "ENISA hat ihren SME CRA Survey Report veroeffentlicht, der die Ergebnisse einer Umfrage unter kleinen und mittleren Unternehmen von Februar bis Maerz 2026 zur Kenntnis und Vorbereitung auf den Cyber Resilience Act (CRA) darstellt. Der Bericht sieht die groessten Luecken gegenueber den CRA-Erwartungen bei der Bedrohungsmodellierung und bei Softwarestuecklisten und haelt fest, dass KMU praxisnahe Anleitung fuer Teams ohne eigenes Sicherheitspersonal wuenschen. Die wesentlichen CRA-Pflichten gelten ab Dezember 2027.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/publications/sme-cra-survey-report",
+      "addedAt": "2026-06-29T11:58:54Z"
+    },
+    {
+      "id": "2026-06-23-national-transposition-pt-myciber-operating-regulation",
+      "date": "2026-06-23",
+      "category": "national-transposition",
+      "tags": ["pt", "registration", "transposition", "legislation"],
+      "type": "update",
+      "title": "Portugal: CNCS operating regulation for the MyCiber registration platform enters into force",
+      "titleDe": "Portugal: CNCS-Betriebsverordnung fuer die Registrierungsplattform MyCiber tritt in Kraft",
+      "summary": "Regulamento n.º 756/2026, published in the Diário da República (2nd series, no. 118) on 22 June 2026 and in force from 23 June 2026, sets the operating rules for the CNCS-run MyCiber platform (myciber.gov.pt). It operationalises registration and self-identification of entities under the Regime Jurídico da Cibersegurança (Decreto-Lei n.º 125/2025, the Portuguese NIS 2 transposition), turning MyCiber from consultation stage into the live registration channel.",
+      "summaryDe": "Das Regulamento n.º 756/2026, veroeffentlicht im Diário da República (2. Serie, Nr. 118) am 22. Juni 2026 und in Kraft seit dem 23. Juni 2026, legt die Betriebsregeln fuer die vom CNCS betriebene Plattform MyCiber (myciber.gov.pt) fest. Es operationalisiert die Registrierung und Selbsteinstufung von Einrichtungen nach dem Regime Jurídico da Cibersegurança (Decreto-Lei n.º 125/2025, der portugiesischen NIS-2-Umsetzung) und macht MyCiber vom Konsultationsstadium zum aktiven Registrierungskanal.",
+      "sourceId": "diario-republica",
+      "sourceUrl": "https://diariodarepublica.pt/dr/detalhe/regulamento/756-2026-1134399056",
+      "addedAt": "2026-06-29T11:58:54Z"
+    },
+    {
+      "id": "2026-06-25-eu-cra-adco-reporting-september",
+      "date": "2026-06-25",
+      "category": "eu",
+      "tags": ["incident-reporting", "organisational"],
+      "type": "update",
+      "title": "CRA market surveillance authorities (AdCo CRA) meet in Berlin; first reporting obligations from 11 September 2026",
+      "titleDe": "CRA-Marktueberwachungsbehoerden (AdCo CRA) tagen in Berlin; erste Meldepflichten ab 11. September 2026",
+      "summary": "The second meeting of the CRA Administrative Cooperation Group (AdCo CRA), chaired by the BSI, took place in Berlin on 25 June 2026. The first Cyber Resilience Act obligations apply from 11 September 2026, when manufacturers of products with digital elements must report actively exploited vulnerabilities and serious incidents via the EU Single Reporting Platform now being built.",
+      "summaryDe": "Das zweite Treffen der CRA-Verwaltungskooperationsgruppe (AdCo CRA) unter Leitung des BSI fand am 25. Juni 2026 in Berlin statt. Die ersten Pflichten des Cyber Resilience Act gelten ab 11. September 2026: Hersteller von Produkten mit digitalen Elementen muessen aktiv ausgenutzte Schwachstellen und schwerwiegende Vorfaelle ueber die im Aufbau befindliche europaeische Single Reporting Platform melden.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/Treffen_CRA_Markt%C3%BCberwachungsbeh%C3%B6rden_260625.html",
+      "addedAt": "2026-07-02T09:52:54Z"
+    },
+    {
+      "id": "2026-07-01-enisa-nis360-2027-survey",
+      "date": "2026-07-01",
+      "category": "enisa",
+      "tags": ["organisational"],
+      "type": "update",
+      "title": "ENISA opens NIS360 survey for national authorities and high-criticality entities",
+      "titleDe": "ENISA startet NIS360-Umfrage fuer nationale Behoerden und Einrichtungen hoher Kritikalitaet",
+      "summary": "ENISA launched a survey on 1 July 2026 inviting national authorities and NIS2 high-criticality entities to contribute to the next edition of its NIS360 sector maturity-and-criticality assessment. Responses are due by 30 October 2026.",
+      "summaryDe": "ENISA startete am 1. Juli 2026 eine Umfrage und laedt nationale Behoerden und Einrichtungen hoher Kritikalitaet nach NIS2 ein, zur naechsten Ausgabe der NIS360-Bewertung zur Reife und Kritikalitaet der Sektoren beizutragen. Einsendeschluss ist der 30. Oktober 2026.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/news/your-perspective-matters-join-the-nis360-survey",
+      "addedAt": "2026-07-02T09:52:54Z"
     }
   ],
-  "lastUpdated": "2026-06-26T11:13:16Z"
+  "lastUpdated": "2026-07-02T09:52:54Z"
 }
