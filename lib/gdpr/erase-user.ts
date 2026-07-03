@@ -87,6 +87,9 @@ import {
 type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
 const TOMBSTONE_EMAIL = "erased-user@deleted.invalid";
+/** Marker written over an erased subject's address where a row must keep a
+ *  non-null email (e.g. notification.recipientEmail under its XOR constraint). */
+const REDACTED_EMAIL = "redacted@erased.invalid";
 
 /**
  * Pseudonymous suppression fingerprint of an email. Uses HMAC-SHA256 keyed by
@@ -106,18 +109,33 @@ function hashEmail(email: string): string {
   return createHmac("sha256", key).update(email.trim().toLowerCase()).digest("hex");
 }
 
-/** Replace literal occurrences of the subject's email/name inside a JSON blob.
- *  Free-text redaction of PII copies embedded in sign-off snapshots — this is
- *  literal string replacement, not code/structure parsing. */
+/** Recursively replace occurrences of the subject's email/name inside the
+ *  string leaves of a JSON value. Walks the PARSED structure (not the
+ *  serialized text), so values containing quotes, backslashes, or unicode are
+ *  still matched — string-replacing over JSON text would miss their escaped
+ *  encodings. Literal free-text PII redaction, not code/structure parsing. */
 function redactPiiInJson<T>(value: T, needles: string[]): T {
-  let json = JSON.stringify(value);
-  for (const n of needles) {
-    const needle = n?.trim();
-    if (!needle || needle.length < 3) continue;
-    const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    json = json.replace(new RegExp(escaped, "gi"), "[erased]");
-  }
-  return JSON.parse(json) as T;
+  const patterns = needles
+    .map((n) => n?.trim())
+    .filter((n): n is string => !!n && n.length >= 3)
+    .map((n) => new RegExp(n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"));
+  if (patterns.length === 0) return value;
+  const walk = (v: unknown): unknown => {
+    if (typeof v === "string") {
+      let out = v;
+      for (const re of patterns) out = out.replace(re, "[erased]");
+      return out;
+    }
+    if (Array.isArray(v)) return v.map(walk);
+    if (v && typeof v === "object") {
+      const src = v as Record<string, unknown>;
+      const next: Record<string, unknown> = {};
+      for (const k of Object.keys(src)) next[k] = walk(src[k]);
+      return next;
+    }
+    return v;
+  };
+  return walk(value) as T;
 }
 
 export interface ErasureRequestMeta {
@@ -421,12 +439,12 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
   // ── Phase 5: email-keyed rows no FK reaches ──────────────────────────────
   await del("email_otp", () => tx.delete(emailOtp).where(eq(emailOtp.email, subject.email.toLowerCase())).returning());
   await del("lead", () => tx.delete(lead).where(eq(lead.email, subject.email.toLowerCase())).returning());
-  const extNotifs = await tx.select({ id: notification.id }).from(notification).where(eq(notification.recipientEmail, subject.email));
-  if (extNotifs.length) {
-    scope.residualNotes.push(
-      `${extNotifs.length} outbound notification(s) addressed to this email as an external recipient are retained as company operational records and are not linked to the deleted account.`,
-    );
-  }
+  // External-recipient notifications: keep the operational record but pseudonymise
+  // the address. recipientEmail is under a NOT-NULL-XOR check with recipientId,
+  // so it must be replaced with a marker rather than nulled.
+  await anon("notification", () =>
+    tx.update(notification).set({ recipientEmail: REDACTED_EMAIL }).where(eq(notification.recipientEmail, subject.email)).returning(),
+  );
 
   scope.systemsCleared.push(
     "Account record (name, email) in PostgreSQL",
@@ -580,7 +598,7 @@ async function tearDownCompany(
 // ── helpers ──────────────────────────────────────────────────────────────────
 
 async function nextCaseRef(tx: Tx, now: Date): Promise<string> {
-  const year = now.getFullYear();
+  const year = now.getUTCFullYear();
   // Serialise case-ref allocation: concurrent erasures would otherwise read the
   // same count and collide on the UNIQUE case_ref, rolling one erasure back.
   // The advisory lock is released automatically at transaction end.

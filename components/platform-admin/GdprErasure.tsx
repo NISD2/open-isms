@@ -107,6 +107,15 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
           </div>
         )}
 
+        {preview.isError && (
+          <div className="flex items-center justify-between gap-2 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
+            <span>Could not load the preview: {preview.error.message}</span>
+            <Button size="sm" variant="outline" className="h-7" onClick={() => preview.refetch()}>
+              Retry
+            </Button>
+          </div>
+        )}
+
         {p && (
           <div className="space-y-3 text-sm">
             <div className="rounded-md border p-3">

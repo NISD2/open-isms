@@ -29,6 +29,7 @@ import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
 import { logAudit } from "@/lib/audit";
 import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
 import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/certificate";
+import { rateLimit } from "@/lib/rate-limit";
 
 // Character set (not a secret) for human-friendly share passwords —
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
@@ -465,12 +466,27 @@ export const platformAdminRouter = router({
           message: "You cannot erase your own account from here.",
         });
       }
+      // Cheap defence-in-depth cap on an irreversible operation (per operator).
+      if (!rateLimit(`gdpr-erase:${ctx.userId}`, 10, 60 * 60 * 1000)) {
+        throw new TRPCError({
+          code: "TOO_MANY_REQUESTS",
+          message: "Erasure rate limit reached. Wait before erasing more accounts.",
+        });
+      }
       const [target] = await ctx.db
         .select({ id: user.id, email: user.email })
         .from(user)
         .where(eq(user.id, input.userId))
         .limit(1);
       if (!target) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+      // Never erase a peer platform admin from this tool: it is irreversible and
+      // can tear down a company. Deallowlist them and handle it deliberately.
+      if (isPlatformAdmin(target.email)) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Refusing to erase a platform-admin account. Remove them from PLATFORM_ADMIN_EMAILS first.",
+        });
+      }
       if (target.email.trim().toLowerCase() !== input.confirmEmail.trim().toLowerCase()) {
         throw new TRPCError({
           code: "BAD_REQUEST",
