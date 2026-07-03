@@ -1,7 +1,7 @@
 /**
  * Cron Job: Daily Deadline Heartbeat
  *
- * Single daily cron (Vercel Cron or manual trigger), 6 phases:
+ * Single daily cron (Vercel Cron or manual trigger), 7 phases:
  *   1. Status transitions: nextReviewDate <= today → "needs_review"
  *   2. Backfill: NULL nextReviewDate → compute from priority
  *   3. Notification creation: schedule reminders for approaching deadlines
@@ -10,6 +10,8 @@
  *   6. Supplier portal: drain queued supplier_publication_event broadcasts
  *      (incident notifications); cron is the safety net for sync fan-out
  *      that failed in the publish path.
+ *   7. GDPR retention: minimise the raw email on erasure records past their
+ *      three-year window, leaving only the pseudonymous fingerprint.
  *
  * Security: Bearer token from CRON_SECRET env var.
  * Schedule: Vercel Cron at 06:00 UTC (08:00 CET)
@@ -27,6 +29,7 @@ import {
 import { logAudit } from "@/lib/audit";
 import { env } from "@/lib/env";
 import { verifyCronBearer } from "@/lib/cron/auth";
+import { purgeExpiredErasureRecords } from "@/lib/gdpr/erase-user";
 import requirementsEn from "@/messages/requirements/en.json";
 import {
   computeInitialDeadline,
@@ -75,6 +78,7 @@ export async function GET(req: NextRequest) {
     phase5_digests: 0,
     phase6_supplier_events: 0,
     phase6_supplier_emails: 0,
+    phase7_erasure_records_minimised: 0,
   };
 
   try {
@@ -436,6 +440,26 @@ export async function GET(req: NextRequest) {
         entityType: "system",
         entityId: null,
         description: `Phase 6 supplier broadcast drain failed: ${message}`,
+      });
+    }
+
+    // -----------------------------------------------------------------------
+    // Phase 7: GDPR retention — minimise the raw email on erasure records past
+    // their three-year retention window (Art. 5(1)(e)), leaving only the
+    // pseudonymous fingerprint. Isolated: errors do NOT abort the cron.
+    // -----------------------------------------------------------------------
+    try {
+      stats.phase7_erasure_records_minimised = await purgeExpiredErasureRecords(new Date());
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      console.error("[cron] erasure retention purge failed:", err);
+      logAudit({
+        companyId: null,
+        userId: null,
+        action: "cron.deadlines.phase7_error",
+        entityType: "system",
+        entityId: null,
+        description: `Phase 7 erasure retention purge failed: ${message}`,
       });
     }
 
