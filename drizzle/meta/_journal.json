@@ -43,6 +43,13 @@
       "when": 1782308945254,
       "tag": "0005_spicy_stardust",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1783070984735,
+      "tag": "0006_dazzling_thunderbolt",
+      "breakpoints": true
     }
   ]
 }

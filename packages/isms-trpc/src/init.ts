@@ -189,6 +189,10 @@ const AUDIT_REDACT_KEYS = new Set([
   "text",
   "prompt",
   "context",
+  // GDPR erasure: the erase-user mutation echoes the subject's email as a typed
+  // confirmation; it must never be persisted in the (non-retention-managed)
+  // audit log, which would defeat the erasure.
+  "confirmemail",
 ]);
 
 function scrubSensitiveValues(value: unknown): unknown {

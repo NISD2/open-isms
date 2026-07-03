@@ -22,10 +22,13 @@ import {
   supplier,
   notification,
   gapAssessment,
+  dataErasureLog,
 } from "@/schema";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
 import { logAudit } from "@/lib/audit";
+import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
+import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/certificate";
 
 // Character set (not a secret) for human-friendly share passwords —
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
@@ -428,6 +431,111 @@ export const platformAdminRouter = router({
         shareToken,
         sharePassword,
         shareUrl: `/gap-assessment/share/${shareToken}`,
+      };
+    }),
+
+  // ── GDPR Art. 17 erasure ────────────────────────────────────────────────
+
+  /** Blast-radius preview for the confirm dialog. No writes. */
+  previewErasure: platformAdminProcedure
+    .input(z.object({ userId: z.string().uuid() }))
+    .query(async ({ input }) => {
+      const preview = await previewUserErasure(input.userId);
+      if (!preview) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+      return preview;
+    }),
+
+  /** Irreversibly erase a user's account and all their personal data, writing a
+   *  durable erasure record. Guards: cannot erase yourself; the caller must
+   *  re-type the subject's email as a typed confirmation. */
+  eraseUser: platformAdminProcedure
+    .input(
+      z.object({
+        userId: z.string().uuid(),
+        confirmEmail: z.string().email(),
+        requestReceivedAt: z.coerce.date().optional(),
+        rightsInvoked: z.string().max(500).optional(),
+        notes: z.string().max(2000).optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (input.userId === ctx.userId) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "You cannot erase your own account from here.",
+        });
+      }
+      const [target] = await ctx.db
+        .select({ id: user.id, email: user.email })
+        .from(user)
+        .where(eq(user.id, input.userId))
+        .limit(1);
+      if (!target) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+      if (target.email.trim().toLowerCase() !== input.confirmEmail.trim().toLowerCase()) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Confirmation email does not match the account.",
+        });
+      }
+
+      const result = await eraseUser({
+        userId: input.userId,
+        actor: { userId: ctx.userId, email: ctx.session?.user.email ?? "unknown" },
+        request: {
+          requestReceivedAt: input.requestReceivedAt ?? null,
+          requestChannel: "email",
+          rightsInvoked: input.rightsInvoked ?? null,
+          notes: input.notes ?? null,
+        },
+      });
+
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "gdpr.erase_user",
+        entityType: "user",
+        entityId: input.userId,
+        description: `Platform admin erased account ${input.userId} (case ${result.caseRef}, method ${result.method}${result.companyTornDown ? ", company torn down" : ""})`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+
+      return result;
+    }),
+
+  /** Erasure records, newest first, for the accountability log view. */
+  listErasures: platformAdminProcedure.query(async ({ ctx }) => {
+    return ctx.db
+      .select({
+        id: dataErasureLog.id,
+        caseRef: dataErasureLog.caseRef,
+        subjectEmail: dataErasureLog.subjectEmail,
+        subjectName: dataErasureLog.subjectName,
+        companyName: dataErasureLog.companyName,
+        method: dataErasureLog.method,
+        companyTornDown: dataErasureLog.companyTornDown,
+        erasedAt: dataErasureLog.erasedAt,
+        actorEmail: dataErasureLog.actorEmail,
+        retentionUntil: dataErasureLog.retentionUntil,
+      })
+      .from(dataErasureLog)
+      .orderBy(desc(dataErasureLog.erasedAt));
+  }),
+
+  /** Render one erasure record as a downloadable Markdown certificate. */
+  erasureCertificate: platformAdminProcedure
+    .input(z.object({ id: z.string().uuid() }))
+    .query(async ({ ctx, input }) => {
+      const [row] = await ctx.db
+        .select()
+        .from(dataErasureLog)
+        .where(eq(dataErasureLog.id, input.id))
+        .limit(1);
+      if (!row) throw new TRPCError({ code: "NOT_FOUND" });
+      return {
+        caseRef: row.caseRef,
+        filename: erasureCertificateFilename(row),
+        markdown: buildErasureCertificate(row),
       };
     }),
 });
