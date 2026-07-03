@@ -67,6 +67,7 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
   );
   const [requestDate, setRequestDate] = useState("");
   const [notes, setNotes] = useState("");
+  const [confirmOrgName, setConfirmOrgName] = useState("");
 
   const erase = trpc.platformAdmin.eraseUser.useMutation({
     onSuccess: async (res) => {
@@ -84,8 +85,11 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
     onError: (e) => toast.error(e.message),
   });
 
-  const matches = confirmEmail.trim().toLowerCase() === email.trim().toLowerCase();
   const p = preview.data;
+  const emailMatches = confirmEmail.trim().toLowerCase() === email.trim().toLowerCase();
+  const orgName = p?.company?.name ?? "";
+  const orgConfirmed = !p?.isOwner || confirmOrgName.trim().toLowerCase() === orgName.trim().toLowerCase();
+  const canErase = Boolean(p) && emailMatches && orgConfirmed;
 
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
@@ -137,27 +141,29 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
               </li>
             </ul>
 
-            {p.company && !p.isSoleMember && (
+            {p.company && !p.isOwner && (
               <p className="rounded-md bg-amber-50 p-2 text-xs text-amber-800 dark:bg-amber-950 dark:text-amber-200">
-                This user shares company <b>{p.company.name}</b> with {p.otherMemberCount} other member
-                {p.otherMemberCount === 1 ? "" : "s"}. Shared company data is kept; only this person&apos;s
-                identity is removed from it.
+                This person is a member of <b>{p.company.name}</b>
+                {p.memberCount > 1 ? ` (${p.memberCount - 1} other member${p.memberCount - 1 === 1 ? "" : "s"})` : ""}.
+                Only their own account and data are removed. The organization and everyone else&apos;s work stay intact.
               </p>
             )}
 
-            {p.isSoleMember && p.companyData && (
+            {p.isOwner && p.orgData && (
               <div className="rounded-md border border-red-300 bg-red-50 p-3 text-xs text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200">
                 <div className="mb-1 font-semibold">
-                  Sole member of {p.company?.name}. Erasing also deletes the company and:
+                  This person OWNS {p.company?.name}. Erasing deletes the ENTIRE organization, including
+                  everyone else on it:
                 </div>
                 <div className="grid grid-cols-2 gap-x-4">
-                  <span>Assessments: {p.companyData.assessments}</span>
-                  <span>Sign-offs: {p.companyData.signOffs}</span>
-                  <span>Assets: {p.companyData.assets}</span>
-                  <span>Risks: {p.companyData.risks}</span>
-                  <span>Incidents: {p.companyData.incidents}</span>
-                  <span>Suppliers: {p.companyData.suppliers}</span>
-                  <span>Policies: {p.companyData.policies}</span>
+                  <span>Member accounts: {p.orgData.memberAccounts}</span>
+                  <span>Sign-offs: {p.orgData.signOffs}</span>
+                  <span>Assessments: {p.orgData.assessments}</span>
+                  <span>Assets: {p.orgData.assets}</span>
+                  <span>Risks: {p.orgData.risks}</span>
+                  <span>Incidents: {p.orgData.incidents}</span>
+                  <span>Suppliers: {p.orgData.suppliers}</span>
+                  <span>Policies: {p.orgData.policies}</span>
                 </div>
               </div>
             )}
@@ -190,6 +196,19 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
                   autoComplete="off"
                 />
               </label>
+              {p.isOwner && (
+                <label className="block text-xs font-medium text-red-700 dark:text-red-300">
+                  This deletes the whole organization. Type its name to confirm:{" "}
+                  <span className="font-mono">{p.company?.name}</span>
+                  <Input
+                    value={confirmOrgName}
+                    onChange={(e) => setConfirmOrgName(e.target.value)}
+                    placeholder={p.company?.name ?? ""}
+                    className="mt-1"
+                    autoComplete="off"
+                  />
+                </label>
+              )}
             </div>
           </div>
         )}
@@ -200,11 +219,12 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
           </Button>
           <Button
             variant="destructive"
-            disabled={!matches || erase.isPending || !p}
+            disabled={!canErase || erase.isPending}
             onClick={() =>
               erase.mutate({
                 userId,
                 confirmEmail,
+                confirmOrgName: p?.isOwner ? confirmOrgName : undefined,
                 rightsInvoked: rightsInvoked.trim() || undefined,
                 notes: notes.trim() || undefined,
                 requestReceivedAt: requestDate ? new Date(requestDate) : undefined,

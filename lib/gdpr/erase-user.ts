@@ -24,7 +24,7 @@
  * failure rolls the entire erasure back, so a partial deletion is impossible.
  */
 import { createHash, createHmac } from "node:crypto";
-import { and, eq, gte, inArray, isNotNull, lt, ne, or, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, isNotNull, lt, or, sql } from "drizzle-orm";
 import type { InferSelectModel } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
@@ -156,20 +156,22 @@ export interface EraseUserInput {
 export interface ErasurePreview {
   subject: { id: string; email: string; name: string; role: string; createdAt: Date };
   company: { id: string; name: string; sector: string; plan: string } | null;
-  isSoleMember: boolean;
-  otherMemberCount: number;
+  /** The subject owns the org. Deleting them tears the whole org down. */
+  isOwner: boolean;
+  /** Total accounts in the org (all deleted when isOwner). */
+  memberCount: number;
   personalRecordCount: number;
   signOffCount: number;
-  /** What a solo-company teardown would delete. Null unless isSoleMember. */
-  companyData:
+  /** What an owner-teardown would delete. Null unless isOwner. */
+  orgData:
     | {
+        memberAccounts: number;
         assessments: number;
         assets: number;
         risks: number;
         incidents: number;
         suppliers: number;
         policies: number;
-        evidence: number;
         signOffs: number;
       }
     | null;
@@ -198,22 +200,21 @@ export async function previewUserErasure(userId: string): Promise<ErasurePreview
   if (!subject) return null;
 
   let companyInfo: ErasurePreview["company"] = null;
-  let otherMemberCount = 0;
-  if (subject.companyId) {
+  let memberCount = 0;
+  let isOwner = false;
+  const cid = subject.companyId;
+  if (cid) {
     const [c] = await db
-      .select({ id: company.id, name: company.name, sector: company.sector, plan: company.plan })
+      .select({ id: company.id, name: company.name, sector: company.sector, plan: company.plan, ownerId: company.ownerId })
       .from(company)
-      .where(eq(company.id, subject.companyId))
+      .where(eq(company.id, cid))
       .limit(1);
-    companyInfo = c ?? null;
-    const others = await db
-      .select({ id: user.id })
-      .from(user)
-      .where(and(eq(user.companyId, subject.companyId), ne(user.id, userId)));
-    otherMemberCount = others.length;
+    if (c) {
+      companyInfo = { id: c.id, name: c.name, sector: c.sector, plan: c.plan };
+      isOwner = c.ownerId === userId;
+    }
+    memberCount = await len(db.select({ id: user.id }).from(user).where(eq(user.companyId, cid)));
   }
-
-  const isSoleMember = Boolean(subject.companyId) && otherMemberCount === 0;
 
   const personalRecordCount =
     (await len(db.select({ id: gapAssessment.id }).from(gapAssessment).where(eq(gapAssessment.userId, userId)))) +
@@ -225,25 +226,24 @@ export async function previewUserErasure(userId: string): Promise<ErasurePreview
     db.select({ id: signOffHistory.id }).from(signOffHistory).where(eq(signOffHistory.signedOffBy, userId)),
   );
 
-  let companyData: ErasurePreview["companyData"] = null;
-  if (isSoleMember && subject.companyId) {
-    const cid = subject.companyId;
-    companyData = {
+  let orgData: ErasurePreview["orgData"] = null;
+  if (isOwner && cid) {
+    orgData = {
+      memberAccounts: memberCount,
       assessments: await len(db.select({ id: companyAssessment.id }).from(companyAssessment).where(eq(companyAssessment.companyId, cid))),
       assets: await len(db.select({ id: asset.id }).from(asset).where(eq(asset.companyId, cid))),
       risks: await len(db.select({ id: risk.id }).from(risk).where(eq(risk.companyId, cid))),
       incidents: await len(db.select({ id: incident.id }).from(incident).where(eq(incident.companyId, cid))),
       suppliers: await len(db.select({ id: supplier.id }).from(supplier).where(or(eq(supplier.customerCompanyId, cid), eq(supplier.supplierCompanyId, cid)))),
       policies: await len(db.select({ id: policy.id }).from(policy).where(eq(policy.companyId, cid))),
-      evidence: 0,
       signOffs: await len(db.select({ id: signOffHistory.id }).from(signOffHistory).where(eq(signOffHistory.companyId, cid))),
     };
   }
 
-  // Anonymisation is needed whenever any retained tenant keeps the subject's
-  // attribution — i.e. the subject signed things off in a company that survives.
+  // Owner-teardown deletes everything (hard). A retained (non-owner) erasure
+  // that severs the subject's sign-off attribution is an anonymisation.
   const predictedMethod: ErasureMethod =
-    !isSoleMember && signOffCount > 0 ? "anonymized" : "hard_delete";
+    !isOwner && signOffCount > 0 ? "anonymized" : "hard_delete";
 
   return {
     subject: {
@@ -254,11 +254,11 @@ export async function previewUserErasure(userId: string): Promise<ErasurePreview
       createdAt: subject.createdAt,
     },
     company: companyInfo,
-    isSoleMember,
-    otherMemberCount,
+    isOwner,
+    memberCount,
     personalRecordCount,
     signOffCount,
-    companyData,
+    orgData,
     predictedMethod,
   };
 }
@@ -332,119 +332,41 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
   };
 
   const cid = subject.companyId;
-  let otherMemberCount = 0;
-  if (cid) {
-    const others = await tx.select({ id: user.id }).from(user).where(and(eq(user.companyId, cid), ne(user.id, userId)));
-    otherMemberCount = others.length;
-  }
-  const isSoleMember = Boolean(cid) && otherMemberCount === 0;
 
-  // Capture the company name now — a sole-member teardown deletes the row later.
+  // Ownership decides the blast radius: deleting the owner tears the whole org
+  // down (every member + all org data); deleting a non-owner removes only them.
+  let isOwner = false;
   let companyName: string | null = null;
   if (cid) {
-    const [c] = await tx.select({ name: company.name }).from(company).where(eq(company.id, cid)).limit(1);
+    const [c] = await tx
+      .select({ name: company.name, ownerId: company.ownerId })
+      .from(company)
+      .where(eq(company.id, cid))
+      .limit(1);
     companyName = c?.name ?? null;
+    isOwner = c?.ownerId === userId;
   }
 
-  // ── Phase 1: hard-delete the subject's purely-personal rows ──────────────
-  await del("gap_assessment", () => tx.delete(gapAssessment).where(eq(gapAssessment.userId, userId)).returning());
-  await del("training_lesson_progress", () => tx.delete(trainingLessonProgress).where(eq(trainingLessonProgress.userId, userId)).returning());
-  await del("newsletter_group_member", () => tx.delete(newsletterGroupMember).where(eq(newsletterGroupMember.userId, userId)).returning());
-  await del("notification", () => tx.delete(notification).where(eq(notification.recipientId, userId)).returning());
-  // Assignments TO the erased user are meaningless once they are gone.
-  await del("requirement_assignment", () => tx.delete(requirementAssignment).where(eq(requirementAssignment.userId, userId)).returning());
-  await del("category_assignment", () => tx.delete(categoryAssignment).where(eq(categoryAssignment.userId, userId)).returning());
-
-  // ── Phase 2: sign-off hash chain — reassign signer + redact snapshot PII ─
-  const soRows = await tx
-    .select({ id: signOffHistory.id, snapshot: signOffHistory.snapshot })
-    .from(signOffHistory)
-    .where(eq(signOffHistory.signedOffBy, userId));
-  if (soRows.length) {
-    const tid = await tombstone();
-    for (const r of soRows) {
-      const redacted = redactPiiInJson(r.snapshot, [subject.email, subject.name]);
-      await tx.update(signOffHistory).set({ signedOffBy: tid, snapshot: redacted }).where(eq(signOffHistory.id, r.id));
+  if (isOwner && cid) {
+    // Erase every member (including the owner), then the org and all its data.
+    const members = await tx
+      .select({ userId: user.id, email: user.email, name: user.name })
+      .from(user)
+      .where(eq(user.companyId, cid));
+    let membersErased = 0;
+    for (const m of members) {
+      if (m.email === TOMBSTONE_EMAIL) continue;
+      await erasePerson(tx, m, scope, del, anon, tombstone);
+      membersErased += 1;
     }
-    scope.anonymized["sign_off_history"] = soRows.length;
-    scope.residualNotes.push(
-      `${soRows.length} sign-off history entr${soRows.length === 1 ? "y" : "ies"} had the signer reassigned to a tombstone and snapshot PII redacted; their chained checksums are intentionally no longer verifiable as a consequence of lawful erasure.`,
+    await tearDownCompany(tx, cid, del, anon);
+    scope.companyTornDown = true;
+    scope.systemsCleared.push(
+      `Entire organization torn down: ${membersErased} member account(s) and all organization compliance data`,
     );
+  } else {
+    await erasePerson(tx, { userId, email: subject.email, name: subject.name }, scope, del, anon, tombstone);
   }
-
-  // ── Phase 3: reassign remaining NOT-NULL attribution to the tombstone ────
-  const invitedByRows = await tx.select({ id: companyInvite.id }).from(companyInvite).where(eq(companyInvite.invitedBy, userId));
-  if (invitedByRows.length) {
-    const tid = await tombstone();
-    await tx.update(companyInvite).set({ invitedBy: tid }).where(eq(companyInvite.invitedBy, userId));
-    scope.anonymized["company_invite"] = (scope.anonymized["company_invite"] ?? 0) + invitedByRows.length;
-  }
-  const ackRows = await tx.select({ id: policyAcknowledgment.id }).from(policyAcknowledgment).where(eq(policyAcknowledgment.userId, userId));
-  if (ackRows.length) {
-    const tid = await tombstone();
-    await tx.update(policyAcknowledgment).set({ userId: tid }).where(eq(policyAcknowledgment.userId, userId));
-    scope.anonymized["policy_acknowledgment"] = ackRows.length;
-  }
-  const assignedByRows = await tx.select({ id: categoryAssignment.id }).from(categoryAssignment).where(eq(categoryAssignment.assignedBy, userId));
-  if (assignedByRows.length) {
-    const tid = await tombstone();
-    await tx.update(categoryAssignment).set({ assignedBy: tid }).where(eq(categoryAssignment.assignedBy, userId));
-    scope.anonymized["category_assignment"] = (scope.anonymized["category_assignment"] ?? 0) + assignedByRows.length;
-  }
-
-  // ── Phase 4: NULL the nullable attribution columns ───────────────────────
-  await anon("company_invite", () => tx.update(companyInvite).set({ acceptedBy: null }).where(eq(companyInvite.acceptedBy, userId)).returning());
-  await anon("evidence", () => tx.update(evidence).set({ uploadedBy: null }).where(eq(evidence.uploadedBy, userId)).returning());
-  await anon("evidence", () => tx.update(evidence).set({ reviewedBy: null }).where(eq(evidence.reviewedBy, userId)).returning());
-  await anon("policy", () => tx.update(policy).set({ approvedBy: null }).where(eq(policy.approvedBy, userId)).returning());
-  await anon("training_record", () => tx.update(trainingRecord).set({ userId: null }).where(eq(trainingRecord.userId, userId)).returning());
-  await anon("change_request", () => tx.update(changeRequest).set({ requestedBy: null }).where(eq(changeRequest.requestedBy, userId)).returning());
-  await anon("change_request", () => tx.update(changeRequest).set({ approvedBy: null }).where(eq(changeRequest.approvedBy, userId)).returning());
-  await anon("change_request", () => tx.update(changeRequest).set({ implementedBy: null }).where(eq(changeRequest.implementedBy, userId)).returning());
-  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ completedBy: null }).where(eq(companyRequirementStatus.completedBy, userId)).returning());
-  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ signedOffBy: null }).where(eq(companyRequirementStatus.signedOffBy, userId)).returning());
-  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ reviewedBy: null }).where(eq(companyRequirementStatus.reviewedBy, userId)).returning());
-  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ assignedTo: null }).where(eq(companyRequirementStatus.assignedTo, userId)).returning());
-  await anon("company_category_intake", () => tx.update(companyCategoryIntake).set({ lastSavedBy: null }).where(eq(companyCategoryIntake.lastSavedBy, userId)).returning());
-  await anon("company_category_intake", () => tx.update(companyCategoryIntake).set({ signedOffBy: null }).where(eq(companyCategoryIntake.signedOffBy, userId)).returning());
-  await anon("improvement_item", () => tx.update(improvementItem).set({ assignedTo: null }).where(eq(improvementItem.assignedTo, userId)).returning());
-  await anon("patch_record", () => tx.update(patchRecord).set({ exceptionApprovedBy: null }).where(eq(patchRecord.exceptionApprovedBy, userId)).returning());
-  await anon("risk_treatment", () => tx.update(riskTreatment).set({ responsibleUserId: null }).where(eq(riskTreatment.responsibleUserId, userId)).returning());
-  await anon("risk_treatment", () => tx.update(riskTreatment).set({ verifiedBy: null }).where(eq(riskTreatment.verifiedBy, userId)).returning());
-  await anon("audit_finding", () => tx.update(auditFinding).set({ assignedTo: null }).where(eq(auditFinding.assignedTo, userId)).returning());
-  await anon("audit_finding", () => tx.update(auditFinding).set({ verifiedBy: null }).where(eq(auditFinding.verifiedBy, userId)).returning());
-  await anon("bsi_incident_report", () => tx.update(bsiIncidentReport).set({ createdBy: null }).where(eq(bsiIncidentReport.createdBy, userId)).returning());
-  await anon("requirement_assignment", () => tx.update(requirementAssignment).set({ assignedBy: null }).where(eq(requirementAssignment.assignedBy, userId)).returning());
-  await anon("incident", () => tx.update(incident).set({ createdBy: null }).where(eq(incident.createdBy, userId)).returning());
-  await anon("risk", () => tx.update(risk).set({ acceptedBy: null }).where(eq(risk.acceptedBy, userId)).returning());
-
-  // audit_log: sever the userId link AND scrub any of the subject's PII captured
-  // in the before/after JSONB of their own audit entries.
-  const auditRows = await tx
-    .select({ id: auditLog.id, previousValue: auditLog.previousValue, newValue: auditLog.newValue })
-    .from(auditLog)
-    .where(eq(auditLog.userId, userId));
-  for (const r of auditRows) {
-    await tx
-      .update(auditLog)
-      .set({
-        userId: null,
-        previousValue: redactPiiInJson(r.previousValue, [subject.email, subject.name]),
-        newValue: redactPiiInJson(r.newValue, [subject.email, subject.name]),
-      })
-      .where(eq(auditLog.id, r.id));
-  }
-  if (auditRows.length) scope.anonymized["audit_log"] = auditRows.length;
-
-  // ── Phase 5: email-keyed rows no FK reaches ──────────────────────────────
-  await del("email_otp", () => tx.delete(emailOtp).where(eq(emailOtp.email, subject.email.toLowerCase())).returning());
-  await del("lead", () => tx.delete(lead).where(eq(lead.email, subject.email.toLowerCase())).returning());
-  // External-recipient notifications: keep the operational record but pseudonymise
-  // the address. recipientEmail is under a NOT-NULL-XOR check with recipientId,
-  // so it must be replaced with a marker rather than nulled.
-  await anon("notification", () =>
-    tx.update(notification).set({ recipientEmail: REDACTED_EMAIL }).where(eq(notification.recipientEmail, subject.email)).returning(),
-  );
 
   scope.systemsCleared.push(
     "Account record (name, email) in PostgreSQL",
@@ -461,17 +383,7 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     "Resend (transactional email logs)",
   );
 
-  // ── Phase 6: delete the account ──────────────────────────────────────────
-  await del("user", () => tx.delete(user).where(eq(user.id, userId)).returning());
-
-  // ── Phase 7: solo-company teardown ───────────────────────────────────────
-  if (isSoleMember && cid) {
-    await tearDownCompany(tx, cid, del, anon);
-    scope.companyTornDown = true;
-    scope.systemsCleared.push("Company record and all its tenant compliance data (sole-member teardown)");
-  }
-
-  const method: ErasureMethod = Object.keys(scope.anonymized).length > 0 ? "anonymized" : "hard_delete";
+    const method: ErasureMethod = Object.keys(scope.anonymized).length > 0 ? "anonymized" : "hard_delete";
 
   // ── Phase 8: durable, tamper-evident erasure log (same transaction) ──────
   const now = new Date();
@@ -509,6 +421,117 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     .returning({ id: dataErasureLog.id });
 
   return { caseRef, logId: logRow.id, method, scope, companyTornDown: scope.companyTornDown };
+}
+
+/** Erase one person: delete their purely-personal rows, sever or anonymise
+ *  their attribution on retained records, sweep email-keyed rows, and delete
+ *  the account. scope/del/anon/tombstone are shared so counts aggregate across
+ *  a whole-organization teardown. */
+async function erasePerson(
+  tx: Tx,
+  person: { userId: string; email: string; name: string },
+  scope: ErasureScope,
+  del: (label: string, run: () => Promise<unknown[]>) => Promise<void>,
+  anon: (label: string, run: () => Promise<unknown[]>) => Promise<void>,
+  tombstone: () => Promise<string>,
+): Promise<void> {
+  const { userId, email, name } = person;
+
+  // Purely-personal rows.
+  await del("gap_assessment", () => tx.delete(gapAssessment).where(eq(gapAssessment.userId, userId)).returning());
+  await del("training_lesson_progress", () => tx.delete(trainingLessonProgress).where(eq(trainingLessonProgress.userId, userId)).returning());
+  await del("newsletter_group_member", () => tx.delete(newsletterGroupMember).where(eq(newsletterGroupMember.userId, userId)).returning());
+  await del("notification", () => tx.delete(notification).where(eq(notification.recipientId, userId)).returning());
+  await del("requirement_assignment", () => tx.delete(requirementAssignment).where(eq(requirementAssignment.userId, userId)).returning());
+  await del("category_assignment", () => tx.delete(categoryAssignment).where(eq(categoryAssignment.userId, userId)).returning());
+
+  // Sign-off hash chain: reassign signer to the tombstone + redact snapshot PII.
+  const soRows = await tx
+    .select({ id: signOffHistory.id, snapshot: signOffHistory.snapshot })
+    .from(signOffHistory)
+    .where(eq(signOffHistory.signedOffBy, userId));
+  if (soRows.length) {
+    const tid = await tombstone();
+    for (const r of soRows) {
+      const redacted = redactPiiInJson(r.snapshot, [email, name]);
+      await tx.update(signOffHistory).set({ signedOffBy: tid, snapshot: redacted }).where(eq(signOffHistory.id, r.id));
+    }
+    scope.anonymized["sign_off_history"] = (scope.anonymized["sign_off_history"] ?? 0) + soRows.length;
+    scope.residualNotes.push(
+      `${soRows.length} sign-off history entr${soRows.length === 1 ? "y" : "ies"} had the signer reassigned to a tombstone and snapshot PII redacted; their chained checksums are intentionally no longer verifiable as a consequence of lawful erasure.`,
+    );
+  }
+
+  // Remaining NOT-NULL attribution reassigned to the tombstone.
+  const invitedByRows = await tx.select({ id: companyInvite.id }).from(companyInvite).where(eq(companyInvite.invitedBy, userId));
+  if (invitedByRows.length) {
+    const tid = await tombstone();
+    await tx.update(companyInvite).set({ invitedBy: tid }).where(eq(companyInvite.invitedBy, userId));
+    scope.anonymized["company_invite"] = (scope.anonymized["company_invite"] ?? 0) + invitedByRows.length;
+  }
+  const ackRows = await tx.select({ id: policyAcknowledgment.id }).from(policyAcknowledgment).where(eq(policyAcknowledgment.userId, userId));
+  if (ackRows.length) {
+    const tid = await tombstone();
+    await tx.update(policyAcknowledgment).set({ userId: tid }).where(eq(policyAcknowledgment.userId, userId));
+    scope.anonymized["policy_acknowledgment"] = (scope.anonymized["policy_acknowledgment"] ?? 0) + ackRows.length;
+  }
+  const assignedByRows = await tx.select({ id: categoryAssignment.id }).from(categoryAssignment).where(eq(categoryAssignment.assignedBy, userId));
+  if (assignedByRows.length) {
+    const tid = await tombstone();
+    await tx.update(categoryAssignment).set({ assignedBy: tid }).where(eq(categoryAssignment.assignedBy, userId));
+    scope.anonymized["category_assignment"] = (scope.anonymized["category_assignment"] ?? 0) + assignedByRows.length;
+  }
+
+  // Nullable attribution columns set to NULL.
+  await anon("company_invite", () => tx.update(companyInvite).set({ acceptedBy: null }).where(eq(companyInvite.acceptedBy, userId)).returning());
+  await anon("evidence", () => tx.update(evidence).set({ uploadedBy: null }).where(eq(evidence.uploadedBy, userId)).returning());
+  await anon("evidence", () => tx.update(evidence).set({ reviewedBy: null }).where(eq(evidence.reviewedBy, userId)).returning());
+  await anon("policy", () => tx.update(policy).set({ approvedBy: null }).where(eq(policy.approvedBy, userId)).returning());
+  await anon("training_record", () => tx.update(trainingRecord).set({ userId: null }).where(eq(trainingRecord.userId, userId)).returning());
+  await anon("change_request", () => tx.update(changeRequest).set({ requestedBy: null }).where(eq(changeRequest.requestedBy, userId)).returning());
+  await anon("change_request", () => tx.update(changeRequest).set({ approvedBy: null }).where(eq(changeRequest.approvedBy, userId)).returning());
+  await anon("change_request", () => tx.update(changeRequest).set({ implementedBy: null }).where(eq(changeRequest.implementedBy, userId)).returning());
+  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ completedBy: null }).where(eq(companyRequirementStatus.completedBy, userId)).returning());
+  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ signedOffBy: null }).where(eq(companyRequirementStatus.signedOffBy, userId)).returning());
+  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ reviewedBy: null }).where(eq(companyRequirementStatus.reviewedBy, userId)).returning());
+  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ assignedTo: null }).where(eq(companyRequirementStatus.assignedTo, userId)).returning());
+  await anon("company_category_intake", () => tx.update(companyCategoryIntake).set({ lastSavedBy: null }).where(eq(companyCategoryIntake.lastSavedBy, userId)).returning());
+  await anon("company_category_intake", () => tx.update(companyCategoryIntake).set({ signedOffBy: null }).where(eq(companyCategoryIntake.signedOffBy, userId)).returning());
+  await anon("improvement_item", () => tx.update(improvementItem).set({ assignedTo: null }).where(eq(improvementItem.assignedTo, userId)).returning());
+  await anon("patch_record", () => tx.update(patchRecord).set({ exceptionApprovedBy: null }).where(eq(patchRecord.exceptionApprovedBy, userId)).returning());
+  await anon("risk_treatment", () => tx.update(riskTreatment).set({ responsibleUserId: null }).where(eq(riskTreatment.responsibleUserId, userId)).returning());
+  await anon("risk_treatment", () => tx.update(riskTreatment).set({ verifiedBy: null }).where(eq(riskTreatment.verifiedBy, userId)).returning());
+  await anon("audit_finding", () => tx.update(auditFinding).set({ assignedTo: null }).where(eq(auditFinding.assignedTo, userId)).returning());
+  await anon("audit_finding", () => tx.update(auditFinding).set({ verifiedBy: null }).where(eq(auditFinding.verifiedBy, userId)).returning());
+  await anon("bsi_incident_report", () => tx.update(bsiIncidentReport).set({ createdBy: null }).where(eq(bsiIncidentReport.createdBy, userId)).returning());
+  await anon("requirement_assignment", () => tx.update(requirementAssignment).set({ assignedBy: null }).where(eq(requirementAssignment.assignedBy, userId)).returning());
+  await anon("incident", () => tx.update(incident).set({ createdBy: null }).where(eq(incident.createdBy, userId)).returning());
+  await anon("risk", () => tx.update(risk).set({ acceptedBy: null }).where(eq(risk.acceptedBy, userId)).returning());
+
+  // audit_log: sever the userId link AND scrub the subject's PII in the JSONB.
+  const auditRows = await tx
+    .select({ id: auditLog.id, previousValue: auditLog.previousValue, newValue: auditLog.newValue })
+    .from(auditLog)
+    .where(eq(auditLog.userId, userId));
+  for (const r of auditRows) {
+    await tx
+      .update(auditLog)
+      .set({
+        userId: null,
+        previousValue: redactPiiInJson(r.previousValue, [email, name]),
+        newValue: redactPiiInJson(r.newValue, [email, name]),
+      })
+      .where(eq(auditLog.id, r.id));
+  }
+  if (auditRows.length) scope.anonymized["audit_log"] = (scope.anonymized["audit_log"] ?? 0) + auditRows.length;
+
+  // Email-keyed rows no FK reaches.
+  await del("email_otp", () => tx.delete(emailOtp).where(eq(emailOtp.email, email.toLowerCase())).returning());
+  await del("lead", () => tx.delete(lead).where(eq(lead.email, email.toLowerCase())).returning());
+  await anon("notification", () => tx.update(notification).set({ recipientEmail: REDACTED_EMAIL }).where(sql`lower(${notification.recipientEmail}) = ${email.toLowerCase()}`).returning());
+
+  // Delete the account row.
+  await del("user", () => tx.delete(user).where(eq(user.id, userId)).returning());
 }
 
 // ── Solo-company teardown (children → parents) ───────────────────────────────
@@ -566,12 +589,14 @@ async function tearDownCompany(
   await del("incident", () => tx.delete(incident).where(eq(incident.companyId, cid)).returning());
   await del("asset", () => tx.delete(asset).where(eq(asset.companyId, cid)).returning());
   // supplier is the only two-company relationship row (customerCompanyId +
-  // supplierCompanyId). Only delete rows THIS company owns as the customer.
-  // Rows where cid is merely the supplier to another (surviving) company are
-  // that company's records: sever cid's identity instead of deleting them, so
-  // we never destroy or FK-block another tenant. (cid's own risk_supplier /
-  // offering / broadcast children of the deleted rows are already handled at
-  // Level 1 and by cascade.)
+  // supplierCompanyId). Delete only rows cid owns as the CUSTOMER: those are
+  // cid's own records of its suppliers. By ON DELETE CASCADE this also removes
+  // cid's inbound offerings (asset_supplier_offering) and the incident
+  // broadcasts addressed to cid (incident_broadcast) — i.e. cid's own inbound
+  // records. The counterparty's incidents, assets, and company row are never
+  // touched. Rows where cid is merely the SUPPLIER to another surviving company
+  // are that company's records: we sever cid's identity (null supplierCompanyId)
+  // rather than delete, so we never destroy or FK-block another tenant.
   await del("supplier", () => tx.delete(supplier).where(eq(supplier.customerCompanyId, cid)).returning());
   await tx.update(supplier).set({ supplierCompanyId: null }).where(eq(supplier.supplierCompanyId, cid));
 

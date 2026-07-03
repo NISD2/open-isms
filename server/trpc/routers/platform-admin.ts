@@ -454,6 +454,8 @@ export const platformAdminRouter = router({
       z.object({
         userId: z.string().uuid(),
         confirmEmail: z.string().email(),
+        // Required only when the target owns their org (full-teardown case).
+        confirmOrgName: z.string().max(255).optional(),
         requestReceivedAt: z.coerce.date().optional(),
         rightsInvoked: z.string().max(500).optional(),
         notes: z.string().max(2000).optional(),
@@ -474,7 +476,7 @@ export const platformAdminRouter = router({
         });
       }
       const [target] = await ctx.db
-        .select({ id: user.id, email: user.email })
+        .select({ id: user.id, email: user.email, companyId: user.companyId })
         .from(user)
         .where(eq(user.id, input.userId))
         .limit(1);
@@ -492,6 +494,27 @@ export const platformAdminRouter = router({
           code: "BAD_REQUEST",
           message: "Confirmation email does not match the account.",
         });
+      }
+      // If the target owns their org, erasing tears the entire org down (every
+      // member + all data). Require the org name typed as a second confirmation.
+      if (target.companyId) {
+        const [org] = await ctx.db
+          .select({ ownerId: company.ownerId, name: company.name })
+          .from(company)
+          .where(eq(company.id, target.companyId))
+          .limit(1);
+        if (org && org.ownerId === target.id) {
+          if (
+            !input.confirmOrgName ||
+            input.confirmOrgName.trim().toLowerCase() !== org.name.trim().toLowerCase()
+          ) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message:
+                "This account owns its organization; type the organization name to confirm the full teardown.",
+            });
+          }
+        }
       }
 
       const result = await eraseUser({

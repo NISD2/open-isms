@@ -62,6 +62,8 @@ export const supplierOnboardingRouter = router({
             country: input.country ?? null,
             actsAsNis2Entity: false,
             actsAsSupplier: true,
+            // The creator owns the org. Deleting the owner tears the org down.
+            ownerId: ctx.userId,
           })
           .returning();
 
@@ -171,6 +173,8 @@ export const supplierOnboardingRouter = router({
             country: input.country ?? null,
             actsAsNis2Entity: false,
             actsAsSupplier: true,
+            // The creator owns the org. Deleting the owner tears the org down.
+            ownerId: ctx.userId,
           })
           .returning();
 
