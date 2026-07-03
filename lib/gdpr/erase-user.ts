@@ -453,9 +453,11 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     "In-portal notifications addressed to the subject",
     "Email verification (OTP) and lead records keyed to the email",
   );
+  // Art. 28 sub-processors that physically hold copies. Google is deliberately
+  // NOT listed: it is the user's own identity provider (OAuth), not a recipient
+  // we disclosed data to, so it is not an Art. 19 recipient.
   scope.processorsInScope.push(
-    "Hetzner (hosting / database)",
-    "Google (OAuth, if the account used Google sign-in)",
+    "Hetzner (infrastructure and database hosting)",
     "Resend (transactional email logs)",
   );
 

@@ -49,7 +49,18 @@ export function buildErasureCertificate(row: ErasureLogRow): string {
       ? "Complete deletion (no retained-evidence footprint)"
       : "Deletion with anonymisation of tamper-evident and tenant records";
 
-  return `# Data Erasure Certificate
+  return `Hello,
+
+Confirming that your account and all associated personal data have been deleted,
+as you requested. The formal record is below. If anything's unclear, reply here
+or to contact@nisd2.eu quoting the case reference (${esc(row.caseRef)}).
+
+Best regards,
+NISD2
+
+---
+
+# Data Erasure Certificate
 
 **Case reference:** ${esc(row.caseRef)}
 **Controller:** Kardashev Catalyst UG (haftungsbeschränkt), Köln. Contact: contact@nisd2.eu
@@ -95,8 +106,8 @@ ${fmtCounts(scope.deleted)}
 ### Records anonymised (subject identity severed, record retained)
 ${fmtCounts(scope.anonymized)}
 
-### Processors in scope for Art. 19 deletion
-The following processors may hold copies and are to be instructed to delete. This lists recipients; it does not assert that an automated notification was sent.
+### Processors and sub-processors
+Your data was processed only within our own systems and standard operational logs. Beyond the sub-processors listed below, which hold copies under our Article 28 agreements and delete it as part of this erasure and on their standard backup-retention cycle, it was not disclosed to any separate third-party recipient, so no separate Article 19 recipient notification was required.
 ${scope.processorsInScope.length ? scope.processorsInScope.map((p) => `- ${esc(p)}`).join("\n") : "_none_"}
 
 ${scope.residualNotes.length ? `### Notes\n${scope.residualNotes.map((n) => `- ${esc(n)}`).join("\n")}\n` : ""}
