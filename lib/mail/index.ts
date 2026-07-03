@@ -16,6 +16,7 @@ export {
   supplierAddedYouEmail,
   entityInvitesSupplierEmail,
   newUserSignupEmail,
+  dataDeletionRequestEmail,
   courseFollowupEmail,
   newsletterEmail,
   emailVerificationCodeEmail,
