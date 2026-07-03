@@ -528,7 +528,7 @@ async function erasePerson(
   // Email-keyed rows no FK reaches.
   await del("email_otp", () => tx.delete(emailOtp).where(eq(emailOtp.email, email.toLowerCase())).returning());
   await del("lead", () => tx.delete(lead).where(eq(lead.email, email.toLowerCase())).returning());
-  await anon("notification", () => tx.update(notification).set({ recipientEmail: REDACTED_EMAIL }).where(eq(notification.recipientEmail, email)).returning());
+  await anon("notification", () => tx.update(notification).set({ recipientEmail: REDACTED_EMAIL }).where(sql`lower(${notification.recipientEmail}) = ${email.toLowerCase()}`).returning());
 
   // Delete the account row.
   await del("user", () => tx.delete(user).where(eq(user.id, userId)).returning());
@@ -589,12 +589,14 @@ async function tearDownCompany(
   await del("incident", () => tx.delete(incident).where(eq(incident.companyId, cid)).returning());
   await del("asset", () => tx.delete(asset).where(eq(asset.companyId, cid)).returning());
   // supplier is the only two-company relationship row (customerCompanyId +
-  // supplierCompanyId). Only delete rows THIS company owns as the customer.
-  // Rows where cid is merely the supplier to another (surviving) company are
-  // that company's records: sever cid's identity instead of deleting them, so
-  // we never destroy or FK-block another tenant. (cid's own risk_supplier /
-  // offering / broadcast children of the deleted rows are already handled at
-  // Level 1 and by cascade.)
+  // supplierCompanyId). Delete only rows cid owns as the CUSTOMER: those are
+  // cid's own records of its suppliers. By ON DELETE CASCADE this also removes
+  // cid's inbound offerings (asset_supplier_offering) and the incident
+  // broadcasts addressed to cid (incident_broadcast) — i.e. cid's own inbound
+  // records. The counterparty's incidents, assets, and company row are never
+  // touched. Rows where cid is merely the SUPPLIER to another surviving company
+  // are that company's records: we sever cid's identity (null supplierCompanyId)
+  // rather than delete, so we never destroy or FK-block another tenant.
   await del("supplier", () => tx.delete(supplier).where(eq(supplier.customerCompanyId, cid)).returning());
   await tx.update(supplier).set({ supplierCompanyId: null }).where(eq(supplier.supplierCompanyId, cid));
 
