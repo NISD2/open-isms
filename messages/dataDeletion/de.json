@@ -1,0 +1,27 @@
+{
+  "dataDeletion": {
+    "meta": {
+      "title": "Daten löschen lassen",
+      "description": "Fordern Sie die Löschung Ihrer bei nisd2.eu gespeicherten Daten an. Wir bearbeiten Ihre Anfrage nach der DSGVO."
+    },
+    "title": "Löschung Ihrer Daten anfragen",
+    "verifiedIntro": "Möchten Sie die zu {email} gespeicherten Daten löschen lassen?",
+    "publicIntro": "Tragen Sie die E-Mail-Adresse ein, mit der Sie sich registriert haben. Wir prüfen die Anfrage und melden uns.",
+    "emailLabel": "Ihre E-Mail-Adresse",
+    "emailPlaceholder": "name@firma.de",
+    "feedbackLabel": "Wonach haben Sie gesucht? Was hätten wir besser machen können? (optional)",
+    "feedbackPlaceholder": "",
+    "submit": "Löschung anfragen",
+    "submitting": "Wird gesendet...",
+    "confirm": {
+      "title": "Danke. Ihre Anfrage ist erfasst.",
+      "body": "Nach der DSGVO löschen wir Ihre Daten, in der Regel innerhalb weniger Tage, spätestens innerhalb eines Monats. Sie erhalten eine Bestätigung, sobald es erledigt ist.",
+      "feedbackNoted": "Ihr Feedback haben wir notiert."
+    },
+    "alreadyDone": {
+      "title": "Nichts zu löschen",
+      "body": "Dieses Konto wurde bereits entfernt. Es sind keine Daten mehr vorhanden."
+    },
+    "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  }
+}

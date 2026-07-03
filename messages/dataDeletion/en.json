@@ -1,0 +1,27 @@
+{
+  "dataDeletion": {
+    "meta": {
+      "title": "Delete your data",
+      "description": "Request deletion of the data associated with your nisd2.eu account. We handle your request under the GDPR."
+    },
+    "title": "Request deletion of your data",
+    "verifiedIntro": "Request deletion of the data associated with {email}?",
+    "publicIntro": "Enter the email address you registered with. We will check the request and follow up.",
+    "emailLabel": "Your email",
+    "emailPlaceholder": "you@company.com",
+    "feedbackLabel": "What were you looking for? Anything we could have done better? (optional)",
+    "feedbackPlaceholder": "",
+    "submit": "Request deletion",
+    "submitting": "Submitting...",
+    "confirm": {
+      "title": "Thanks. Your request is recorded.",
+      "body": "Under the GDPR we will delete your data, usually within days and at most within one month. You will get a confirmation once it is done.",
+      "feedbackNoted": "We have noted your feedback."
+    },
+    "alreadyDone": {
+      "title": "Nothing to delete",
+      "body": "This account has already been removed. There is no data left to delete."
+    },
+    "error": "Something went wrong. Please try again."
+  }
+}

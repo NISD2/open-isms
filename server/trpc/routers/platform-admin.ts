@@ -23,6 +23,7 @@ import {
   notification,
   gapAssessment,
   dataErasureLog,
+  dataErasureRequest,
 } from "@/schema";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
@@ -576,5 +577,65 @@ export const platformAdminRouter = router({
         filename: erasureCertificateFilename(row),
         markdown: buildErasureCertificate(row),
       };
+    }),
+
+  // ── GDPR data-deletion requests (inbound intake, pre-erasure) ─────────────
+
+  /** Pending deletion requests, newest first, joined to the live account (if
+   *  any) so the row can offer the Erase action inline. */
+  listDeletionRequests: platformAdminProcedure.query(async ({ ctx }) => {
+    return ctx.db
+      .select({
+        id: dataErasureRequest.id,
+        email: dataErasureRequest.email,
+        feedback: dataErasureRequest.feedback,
+        source: dataErasureRequest.source,
+        verified: dataErasureRequest.verified,
+        status: dataErasureRequest.status,
+        createdAt: dataErasureRequest.createdAt,
+        matchedUserId: user.id,
+        matchedUserEmail: user.email,
+      })
+      .from(dataErasureRequest)
+      .leftJoin(user, eq(user.id, dataErasureRequest.subjectUserId))
+      .where(eq(dataErasureRequest.status, "pending"))
+      .orderBy(desc(dataErasureRequest.createdAt));
+  }),
+
+  /** Close a deletion request: 'completed' (erasure actioned) or 'dismissed'
+   *  (not a genuine request / could not verify). Records who and when. */
+  markDeletionRequestHandled: platformAdminProcedure
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        status: z.enum(["completed", "dismissed"]),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const updated = await ctx.db
+        .update(dataErasureRequest)
+        .set({
+          status: input.status,
+          completedAt: new Date(),
+          completedBy: ctx.userId,
+        })
+        .where(eq(dataErasureRequest.id, input.id))
+        .returning({ id: dataErasureRequest.id });
+      if (updated.length === 0) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Request not found" });
+      }
+
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "gdpr.deletion_request_handled",
+        entityType: "data_erasure_request",
+        entityId: input.id,
+        description: `Platform admin marked deletion request ${input.id} as ${input.status}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+
+      return { ok: true } as const;
     }),
 });
