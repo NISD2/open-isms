@@ -7,6 +7,7 @@ import {
   GraduationCap,
   Mail,
   Shield,
+  Trash2,
   Truck,
   Users,
 } from "lucide-react";
@@ -19,6 +20,7 @@ import {
 import { PageHeader } from "@/components/shared/PageHeader";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -163,7 +165,7 @@ function planBadge(plan: string | null) {
   return <span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">{plan}</span>;
 }
 
-type Tab = "users" | "companies" | "compliance" | "training" | "suppliers" | "emails";
+type Tab = "users" | "companies" | "compliance" | "training" | "suppliers" | "emails" | "erasures";
 
 /** Human-readable label for a notification.entityType value. */
 function emailTypeLabel(t: string): string {
@@ -225,6 +227,7 @@ export function PlatformAdminPage({
           { key: "training" as const, label: "Training", icon: GraduationCap, count: trainingActivity.length },
           { key: "suppliers" as const, label: "Suppliers", icon: Truck, count: supplierActivity.length },
           { key: "emails" as const, label: "Emails", icon: Mail, count: emailActivity.totalSent },
+          { key: "erasures" as const, label: "Erasures", icon: Trash2, count: undefined as number | undefined },
         ]).map(({ key, label, icon: Icon, count }) => (
           <button
             key={key}
@@ -237,7 +240,7 @@ export function PlatformAdminPage({
           >
             <Icon className="h-4 w-4" />
             {label}
-            <span className="text-xs text-muted-foreground">({count})</span>
+            {typeof count === "number" && <span className="text-xs text-muted-foreground">({count})</span>}
           </button>
         ))}
       </div>
@@ -249,6 +252,7 @@ export function PlatformAdminPage({
       {tab === "training" && <TrainingTable rows={trainingActivity} />}
       {tab === "suppliers" && <SuppliersTable rows={supplierActivity} />}
       {tab === "emails" && <EmailsPanel data={emailActivity} />}
+      {tab === "erasures" && <ErasuresPanel />}
     </div>
   );
 }
@@ -289,7 +293,8 @@ function UsersTable({ users }: { users: UserRow[] }) {
                 <th className="pb-2 pr-4 font-medium">Company</th>
                 <th className="pb-2 pr-4 font-medium">Plan</th>
                 <th className="pb-2 pr-4 font-medium">Role</th>
-                <th className="pb-2 font-medium">Joined</th>
+                <th className="pb-2 pr-4 font-medium">Joined</th>
+                <th className="pb-2 font-medium">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -300,7 +305,8 @@ function UsersTable({ users }: { users: UserRow[] }) {
                   <td className="py-2 pr-4">{u.companyName ?? <span className="text-muted-foreground italic">none</span>}</td>
                   <td className="py-2 pr-4">{planBadge(u.companyPlan)}</td>
                   <td className="py-2 pr-4">{u.role}</td>
-                  <td className="py-2 text-muted-foreground">{timeAgo(u.createdAt)}</td>
+                  <td className="py-2 pr-4 text-muted-foreground">{timeAgo(u.createdAt)}</td>
+                  <td className="py-2"><EraseUserButton userId={u.id} email={u.email} /></td>
                 </tr>
               ))}
             </tbody>
