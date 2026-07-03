@@ -217,6 +217,8 @@ export const assessmentRouter = router({
             name: input.name,
             sector: input.sector,
             entityType: input.entityType,
+            // The creator owns the org. Deleting the owner tears the org down.
+            ownerId: ctx.userId,
             // This endpoint IS the entity-portal onboarding flow — set the
             // role flag explicitly. The schema default is now `false` so a
             // supplier-only signup never gets auto-flagged as a NIS2 entity.

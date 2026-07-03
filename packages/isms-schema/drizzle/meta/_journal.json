@@ -36,6 +36,13 @@
       "when": 1781187876951,
       "tag": "0004_narrow_smiling_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1783077966494,
+      "tag": "0005_legal_luke_cage",
+      "breakpoints": true
     }
   ]
 }

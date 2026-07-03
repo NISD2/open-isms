@@ -19,6 +19,7 @@ import {
   timestamp,
   decimal,
   index,
+  type AnyPgColumn,
 } from "drizzle-orm/pg-core";
 import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
 import { aiDataSharingEnum, planEnum } from "../enums";
@@ -29,6 +30,14 @@ import { aiDataSharingEnum, planEnum } from "../enums";
 
 export const company = pgTable("company", {
   id: uuid("id").primaryKey().defaultRandom(),
+  /**
+   * The account that owns this organization (its creator). Deleting the owner
+   * tears down the whole org and every member; deleting a non-owner member
+   * removes only that person. onDelete "set null" so an owner-teardown, which
+   * deletes the owner's user row, does not FK-block the subsequent company
+   * delete. Nullable: legacy orgs are backfilled to their earliest admin.
+   */
+  ownerId: uuid("owner_id").references((): AnyPgColumn => user.id, { onDelete: "set null" }),
   name: varchar("name", { length: 255 }).notNull(),
   legalForm: varchar("legal_form", { length: 100 }), // GmbH, AG, KG, etc.
   sector: varchar("sector", { length: 255 }).notNull(),
