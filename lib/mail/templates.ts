@@ -930,66 +930,6 @@ export function newUserSignupEmail(opts: {
   };
 }
 
-// ---------------------------------------------------------------------------
-// Platform Admin: GDPR data-deletion request notification
-// ---------------------------------------------------------------------------
-
-export function dataDeletionRequestEmail(opts: {
-  requesterEmail: string;
-  feedback: string | null;
-  source: string;
-  verified: boolean;
-  adminUrl: string;
-}): EmailContent {
-  const { requesterEmail, feedback, source, verified, adminUrl } = opts;
-  const safeEmail = escapeHtml(requesterEmail);
-  const sourceLabel =
-    source === "followup_link"
-      ? "Signed follow-up link"
-      : source === "self"
-        ? "Logged-in account"
-        : "Public form";
-  const verifiedLabel = verified ? "Yes (identity established)" : "No (confirm ownership first)";
-
-  return {
-    subject: `Data deletion request: ${safeHeader(requesterEmail)}`,
-    html: emailLayout(`
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">New data deletion request</h2>
-        <table style="color: ${BRAND.foreground}; line-height: 1.8; font-size: 14px; margin: 0 0 20px;">
-          <tr><td style="padding-right: 16px; font-weight: 600;">Email</td><td>${safeEmail}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Source</td><td>${escapeHtml(sourceLabel)}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Verified</td><td>${escapeHtml(verifiedLabel)}</td></tr>
-          <tr><td style="padding-right: 16px; font-weight: 600;">Time</td><td>${new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}</td></tr>
-        </table>
-        ${
-          feedback
-            ? `<div style="margin: 0 0 20px;">
-                 <div style="font-weight: 600; color: ${BRAND.foreground}; margin: 0 0 6px;">Feedback</div>
-                 <div style="background: ${BRAND.muted}; border-radius: 6px; padding: 12px 14px; color: ${BRAND.foreground}; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(feedback)}</div>
-               </div>`
-            : `<p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 0 0 20px;">No feedback provided.</p>`
-        }
-        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; line-height: 1.6; margin: 0 0 20px;">
-          Nothing was deleted. Under GDPR the erasure must be completed without undue delay, at the latest within one month. Action it from the platform admin, then send a confirmation.
-        </p>
-        <a href="${escapeHtml(adminUrl)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          Open in platform admin
-        </a>
-    `),
-    text: [
-      `New data deletion request: ${requesterEmail}`,
-      ``,
-      `Source: ${sourceLabel}`,
-      `Verified: ${verifiedLabel}`,
-      ``,
-      feedback ? `Feedback:\n${feedback}` : `No feedback provided.`,
-      ``,
-      `Nothing was deleted. Complete the erasure within one month, then confirm.`,
-      `Open in platform admin: ${adminUrl}`,
-    ].join("\n"),
-  };
-}
-
 export function supplierAddedYouEmail(opts: {
   supplierName: string;
   profileUrl: string | null;

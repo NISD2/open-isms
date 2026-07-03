@@ -5,7 +5,6 @@ import {
   Activity,
   Building2,
   GraduationCap,
-  Inbox,
   Mail,
   Shield,
   Trash2,
@@ -21,7 +20,7 @@ import {
 import { PageHeader } from "@/components/shared/PageHeader";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { DeletionRequestsPanel, EraseUserButton, ErasuresPanel } from "./GdprErasure";
+import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -166,7 +165,7 @@ function planBadge(plan: string | null) {
   return <span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">{plan}</span>;
 }
 
-type Tab = "users" | "companies" | "compliance" | "training" | "suppliers" | "emails" | "requests" | "erasures";
+type Tab = "users" | "companies" | "compliance" | "training" | "suppliers" | "emails" | "erasures";
 
 /** Human-readable label for a notification.entityType value. */
 function emailTypeLabel(t: string): string {
@@ -228,7 +227,6 @@ export function PlatformAdminPage({
           { key: "training" as const, label: "Training", icon: GraduationCap, count: trainingActivity.length },
           { key: "suppliers" as const, label: "Suppliers", icon: Truck, count: supplierActivity.length },
           { key: "emails" as const, label: "Emails", icon: Mail, count: emailActivity.totalSent },
-          { key: "requests" as const, label: "Requests", icon: Inbox, count: undefined as number | undefined },
           { key: "erasures" as const, label: "Erasures", icon: Trash2, count: undefined as number | undefined },
         ]).map(({ key, label, icon: Icon, count }) => (
           <button
@@ -254,7 +252,6 @@ export function PlatformAdminPage({
       {tab === "training" && <TrainingTable rows={trainingActivity} />}
       {tab === "suppliers" && <SuppliersTable rows={supplierActivity} />}
       {tab === "emails" && <EmailsPanel data={emailActivity} />}
-      {tab === "requests" && <DeletionRequestsPanel />}
       {tab === "erasures" && <ErasuresPanel />}
     </div>
   );

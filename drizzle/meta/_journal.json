@@ -57,6 +57,13 @@
       "when": 1783083065334,
       "tag": "0007_skinny_purple_man",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1783085729512,
+      "tag": "0008_secret_stranger",
+      "breakpoints": true
     }
   ]
 }

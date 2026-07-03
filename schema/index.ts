@@ -28,7 +28,6 @@ export * from "./tables/supplier-portal";
 export * from "./tables/newsletter-group";
 export * from "./tables/newsletter-issue";
 export * from "./tables/data-erasure-log";
-export * from "./tables/data-erasure-request";
 
 // Modules (framework-specific extensions)
 export * from "./modules/bsig";

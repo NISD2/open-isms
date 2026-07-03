@@ -7,7 +7,7 @@
  * eraseUser, listErasures, erasureCertificate}.
  */
 import { useState } from "react";
-import { AlertTriangle, Check, Download, Loader2, Trash2, X } from "lucide-react";
+import { AlertTriangle, Download, Loader2, Trash2 } from "lucide-react";
 import { trpc } from "@/lib/trpc/client";
 import { useRouter } from "@/i18n/navigation";
 import { toast } from "sonner";
@@ -242,106 +242,6 @@ function EraseDialog({ userId, email, onClose }: { userId: string; email: string
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
-}
-
-function sourceLabel(source: string): string {
-  if (source === "followup_link") return "Follow-up link";
-  if (source === "self") return "Logged in";
-  return "Public form";
-}
-
-export function DeletionRequestsPanel() {
-  const utils = trpc.useUtils();
-  const list = trpc.platformAdmin.listDeletionRequests.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-  });
-  const mark = trpc.platformAdmin.markDeletionRequestHandled.useMutation({
-    onSuccess: async () => {
-      await utils.platformAdmin.listDeletionRequests.invalidate();
-    },
-    onError: (e) => toast.error(e.message),
-  });
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Deletion requests (pending)</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="mb-4 text-xs text-muted-foreground">
-          People who asked us to delete their data. Nothing is deleted automatically. Action a
-          request with the Erase button when a matching account exists, then mark it done. Under
-          GDPR the erasure must be completed within one month.
-        </p>
-        {list.isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
-        {list.data && list.data.length === 0 && (
-          <p className="text-sm text-muted-foreground">No pending requests.</p>
-        )}
-        {list.data && list.data.length > 0 && (
-          <div className="space-y-3">
-            {list.data.map((r) => (
-              <div key={r.id} className="rounded-md border p-3 text-sm">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-medium">{r.email}</span>
-                  <span className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">
-                    {sourceLabel(r.source)}
-                  </span>
-                  {r.verified ? (
-                    <span className="rounded bg-green-100 px-1.5 py-0.5 text-xs text-green-700 dark:bg-green-900 dark:text-green-300">
-                      verified
-                    </span>
-                  ) : (
-                    <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700 dark:bg-amber-900 dark:text-amber-300">
-                      unverified
-                    </span>
-                  )}
-                  <span className="ml-auto text-xs text-muted-foreground">
-                    {new Date(r.createdAt).toLocaleDateString("de-DE")}
-                  </span>
-                </div>
-
-                {r.feedback && (
-                  <p className="mt-2 whitespace-pre-wrap rounded bg-muted/50 px-3 py-2 text-muted-foreground">
-                    {r.feedback}
-                  </p>
-                )}
-
-                <div className="mt-3 flex flex-wrap items-center gap-2">
-                  {r.matchedUserId && r.matchedUserEmail ? (
-                    <EraseUserButton userId={r.matchedUserId} email={r.matchedUserEmail} />
-                  ) : (
-                    <span className="text-xs text-muted-foreground italic">
-                      No matching account
-                    </span>
-                  )}
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="h-7 gap-1 px-2"
-                    disabled={mark.isPending}
-                    onClick={() => mark.mutate({ id: r.id, status: "completed" })}
-                  >
-                    <Check className="h-3.5 w-3.5" />
-                    Mark done
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="h-7 gap-1 px-2 text-muted-foreground"
-                    disabled={mark.isPending}
-                    onClick={() => mark.mutate({ id: r.id, status: "dismissed" })}
-                  >
-                    <X className="h-3.5 w-3.5" />
-                    Dismiss
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </CardContent>
-    </Card>
   );
 }
 
