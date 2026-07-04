@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { eq, and, asc } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
+import { router, companyProcedure, activatedCompanyProcedure } from "../init";
 import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { asset, riskAsset } from "@/schema";
 import { assetInsertSchema, assetUpdateSchema } from "@/schema/validators";
@@ -14,7 +14,7 @@ export const assetRouter = router({
     });
   }),
 
-  create: companyProcedure
+  create: activatedCompanyProcedure
     .input(assetInsertSchema.omit({ id: true, companyId: true, createdAt: true, updatedAt: true }))
     .mutation(async ({ ctx, input }) => {
       const [row] = await ctx.db
@@ -25,7 +25,7 @@ export const assetRouter = router({
       return row;
     }),
 
-  update: companyProcedure
+  update: activatedCompanyProcedure
     .input(assetUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
@@ -38,7 +38,7 @@ export const assetRouter = router({
       return row;
     }),
 
-  delete: companyProcedure
+  delete: activatedCompanyProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const owned = await ctx.db.query.asset.findFirst({

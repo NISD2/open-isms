@@ -1,6 +1,8 @@
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { randomBytes } from "crypto";
 import {
+  company,
+  user,
   companyAssessment,
   companyRequirementStatus,
   requirementCategory,
@@ -12,9 +14,97 @@ import { getSlugsForRole, ALL_ROLE_KEYS, type RoleKey } from "@/lib/compliance/r
 import { sendMail, inviteEmail } from "@/lib/mail";
 import { logAudit } from "@/lib/audit";
 import { getAppUrl } from "@/lib/utils";
-import type { DbOrTx } from "@/lib/db";
+import type { Database, DbOrTx } from "@/lib/db";
 
 const INVITE_EXPIRY_DAYS = 7;
+
+/**
+ * Placeholder identity for an auto-provisioned draft company. name/sector/
+ * entityType are NOT NULL on the table, so a draft cannot be nameless at the
+ * DB level. entityType "important" is safe because requirement content does not
+ * depend on entity type; activateCompany restamps it to the confirmed value.
+ * "n/a" mirrors the existing supplier-onboarding draft convention.
+ */
+export const DRAFT_COMPANY_NAME = "";
+export const DRAFT_COMPANY_SECTOR = "n/a";
+
+/**
+ * Auto-provision a draft company for a freshly verified user and seed the NIS2
+ * (+ other active framework) assessment so the journey renders at first entry.
+ * A draft has activatedAt NULL, role flags false, placeholder identity, and NO
+ * deadlines/reminders — activateCompany fills the real details and finalizes.
+ *
+ * Idempotent: re-checks user.companyId inside the transaction and no-ops
+ * (returns null) if the user already has any company, so a verify/OAuth race or
+ * a retried request can never mint a second company.
+ */
+export async function createDraftCompany(
+  db: Database,
+  userId: string,
+): Promise<{ companyId: string } | null> {
+  return db.transaction(async (tx) => {
+    const current = await tx.query.user.findFirst({
+      where: eq(user.id, userId),
+      columns: { companyId: true },
+    });
+    if (current?.companyId) return null;
+
+    const [draft] = await tx
+      .insert(company)
+      .values({
+        name: DRAFT_COMPANY_NAME,
+        sector: DRAFT_COMPANY_SECTOR,
+        entityType: "important",
+        ownerId: userId,
+        // activatedAt stays NULL (draft); actsAsNis2Entity stays false until
+        // the user confirms they are a regulated entity in activateCompany.
+      })
+      .returning({ id: company.id });
+
+    await tx
+      .update(user)
+      .set({ companyId: draft.id, role: "admin", updatedAt: new Date() })
+      .where(eq(user.id, userId));
+
+    // Seed the assessment + status rows so journey.getItems is non-empty. No
+    // deadline backfill / reminder scheduling here — those wait for activation.
+    await createAssessmentsForFrameworks(tx, draft.id, "important");
+
+    return { companyId: draft.id };
+  });
+}
+
+/**
+ * Discard an abandoned draft company and its seeded rows, in FK order (status →
+ * assessment → company), in its own transaction. Used when a draft-only user
+ * joins another company (team or supplier invite). The caller must first move
+ * user.companyId off this draft (else the user FK blocks the delete), then call
+ * this BEST-EFFORT (in a try/catch) after that move has committed: a pure draft
+ * is removed cleanly, and a draft that somehow accumulated FK-referenced data
+ * (a user who did requirement work before joining) is left orphaned — harmless
+ * and filtered from admin metrics — rather than rolling back the join.
+ */
+export async function discardDraftCompany(
+  db: Database,
+  companyId: string,
+): Promise<void> {
+  await db.transaction(async (tx) => {
+    const assessments = await tx.query.companyAssessment.findMany({
+      where: eq(companyAssessment.companyId, companyId),
+      columns: { id: true },
+    });
+    const assessmentIds = assessments.map((a) => a.id);
+    if (assessmentIds.length > 0) {
+      await tx
+        .delete(companyRequirementStatus)
+        .where(inArray(companyRequirementStatus.assessmentId, assessmentIds));
+      await tx
+        .delete(companyAssessment)
+        .where(eq(companyAssessment.companyId, companyId));
+    }
+    await tx.delete(company).where(eq(company.id, companyId));
+  });
+}
 
 /** Create an assessment for each active framework and initialize requirement statuses. */
 export async function createAssessmentsForFrameworks(

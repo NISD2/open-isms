@@ -43,10 +43,11 @@ export default async function SupplierInvitePage({ params }: PageProps) {
   const userEmail = session.user.email?.toLowerCase() ?? "";
   const emailMatch = userEmail === invite.toEmail.toLowerCase();
 
-  // If the user already has a company, they can't accept this invite under
-  // their current account. The accept handler also enforces this server-side
-  // — this is the user-friendly preview.
-  const alreadyHasCompany = !!session.companyId;
+  // If the user already has an ACTIVATED company, they can't accept this invite
+  // under their current account. A draft shell (auto-provisioned at
+  // verification) is fine — the accept handler discards it. Server-side accept
+  // enforces the same; this is the user-friendly preview.
+  const alreadyHasCompany = session.companyActivated;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/20 px-4 py-10">

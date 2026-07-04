@@ -39,6 +39,8 @@ export const COMPANY_FORM_OMIT = [
   "id",
   "createdAt",
   "updatedAt",
+  // Onboarding lifecycle — stamped by activateCompany, never edited via the form
+  "activatedAt",
   "subSector",
   "annualRevenue",
   "globalTurnover",

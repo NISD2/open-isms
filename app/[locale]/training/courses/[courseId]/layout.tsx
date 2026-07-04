@@ -46,7 +46,7 @@ export default async function CourseLayout({
           {courseId === "nis2-ceo" ? (
             <div className="mb-4 flex justify-end">
               <CoursePortalCta
-                hasCompany={Boolean(session?.companyId)}
+                hasCompany={session?.companyActivated ?? false}
                 locale={locale}
               />
             </div>

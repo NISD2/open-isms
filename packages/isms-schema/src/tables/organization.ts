@@ -260,6 +260,16 @@ export const company = pgTable("company", {
   /** Denormalized timestamp of last supplier-portal Security Practices save — surfaced as a "saved at" hint in the UI. */
   practicesLastSavedAt: timestamp("questionnaire_last_saved_at"),
 
+  /**
+   * Onboarding lifecycle discriminator. NULL = a draft shell (auto-provisioned
+   * at email verification with placeholder name/sector and entity type
+   * "important"; the NIS2 assessment is seeded so the journey renders, but no
+   * deadlines/reminders yet). Stamped by activateCompany once the user confirms
+   * name/sector/entity type. Single source of truth for "draft vs activated"
+   * across the join guards, admin metrics, and activatedCompanyProcedure.
+   */
+  activatedAt: timestamp("activated_at"),
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

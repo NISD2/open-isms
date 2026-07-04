@@ -42,6 +42,11 @@ export default async function JourneyPage({
     locale: locale === "de" ? "de" : "en",
   });
 
+  // A draft company (auto-provisioned at verification) renders the full seeded
+  // journey, but its first step is to activate: confirm the real name / sector /
+  // entity type. session.companyActivated is the single activation signal.
+  const needsActivation = !session.companyActivated;
+
   let assetCount = 0;
   try {
     const assets = await api.asset.list();
@@ -68,7 +73,12 @@ export default async function JourneyPage({
         </div>
         <ProgressChip done={aggregate.done} total={aggregate.total} locale={locale} />
       </div>
-      <PathHero assetCount={assetCount} liveNode={live} locale={locale} />
+      <PathHero
+        assetCount={assetCount}
+        liveNode={live}
+        locale={locale}
+        needsActivation={needsActivation}
+      />
       <PathFlow
         reqNodes={reqNodes}
         aggregate={aggregate}

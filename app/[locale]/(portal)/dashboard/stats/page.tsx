@@ -9,7 +9,9 @@ export const dynamic = "force-dynamic";
 export default async function DashboardStatsRoute() {
   const session = await getSession();
 
-  if (!session?.companyId) {
+  // Expert stats need a real (activated) company. A draft shell has only seeded
+  // 0% data, so steer it to activation rather than an empty statistics surface.
+  if (!session?.companyActivated) {
     return <OnboardingBanner />;
   }
 

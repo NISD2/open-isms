@@ -17,6 +17,7 @@ import { logAudit } from "@/lib/audit";
 import { getAppUrl } from "@/lib/utils";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
+import { discardDraftCompany } from "../helpers/setup-helpers";
 import { verifyAssessmentOwnership } from "../guards";
 
 const INVITE_EXPIRY_DAYS = 7;
@@ -109,6 +110,12 @@ export const teamRouter = router({
         where: eq(user.email, email),
         columns: { id: true, companyId: true },
       });
+      const existingCompany = existing?.companyId
+        ? await ctx.db.query.company.findFirst({
+            where: eq(company.id, existing.companyId),
+            columns: { activatedAt: true },
+          })
+        : null;
 
       if (existing?.companyId === ctx.companyId) {
         throw new TRPCError({
@@ -117,7 +124,14 @@ export const teamRouter = router({
         });
       }
 
-      if (existing?.companyId && existing.companyId !== ctx.companyId) {
+      // Block only if they already belong to a DIFFERENT, ACTIVATED company. A
+      // draft shell (auto-provisioned, never activated) is discarded when they
+      // accept, so inviting a draft-only user is legitimate.
+      if (
+        existing?.companyId &&
+        existing.companyId !== ctx.companyId &&
+        existingCompany?.activatedAt
+      ) {
         throw new TRPCError({
           code: "FORBIDDEN",
           message: "This email is already associated with another organization.",
@@ -283,33 +297,55 @@ export const teamRouter = router({
         });
       }
 
-      // User must not already belong to a company
-      if (ctx.companyId) {
+      // The user must not already belong to an ACTIVATED company. Every verified
+      // user auto-gets a draft shell, so accepting an invite is legitimate for a
+      // draft-only user: their draft is discarded and they move into the
+      // inviting company. Only a real (activated) membership blocks the accept.
+      const currentCompany = ctx.companyId
+        ? await ctx.db.query.company.findFirst({
+            where: eq(company.id, ctx.companyId),
+            columns: { id: true, activatedAt: true },
+          })
+        : null;
+      if (currentCompany?.activatedAt) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "You are already a member of a company.",
         });
       }
 
-      // Link user to company
-      await ctx.db
-        .update(user)
-        .set({
-          companyId: invite.companyId,
-          role: invite.role,
-          updatedAt: new Date(),
-        })
-        .where(eq(user.id, ctx.userId));
+      await ctx.db.transaction(async (tx) => {
+        // Move the user onto the inviting company first, clearing the draft's
+        // user FK before the draft shell is discarded.
+        await tx
+          .update(user)
+          .set({
+            companyId: invite.companyId,
+            role: invite.role,
+            updatedAt: new Date(),
+          })
+          .where(eq(user.id, ctx.userId));
 
-      // Mark invite as accepted
-      await ctx.db
-        .update(companyInvite)
-        .set({
-          status: "accepted",
-          acceptedBy: ctx.userId,
-          acceptedAt: new Date(),
-        })
-        .where(eq(companyInvite.id, invite.id));
+        await tx
+          .update(companyInvite)
+          .set({
+            status: "accepted",
+            acceptedBy: ctx.userId,
+            acceptedAt: new Date(),
+          })
+          .where(eq(companyInvite.id, invite.id));
+      });
+
+      // Discard the now-abandoned draft shell (best-effort, post-commit, its own
+      // transaction). An impure draft is left orphaned rather than failing the
+      // accept the user already completed above.
+      if (currentCompany) {
+        try {
+          await discardDraftCompany(ctx.db, currentCompany.id);
+        } catch (err) {
+          console.error("[team.acceptInvite] draft discard skipped:", err);
+        }
+      }
 
       // Auto-assign based on the invite's assignment context
       if (invite.assignmentContext) {

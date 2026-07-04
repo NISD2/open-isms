@@ -31,7 +31,10 @@ export default async function SupplierPortalLayout({
 }) {
   const session = await getSession();
   if (!session) redirect("/auth/signin");
-  if (!session.companyId) redirect("/portal/supplier-onboarding");
+  // A draft entity shell (companyId set, not activated) is not a supplier
+  // company — funnel it through supplier onboarding, which creates one and
+  // discards the draft.
+  if (!session.companyActivated) redirect("/portal/supplier-onboarding");
 
   // Fetch the customer list once at layout level so the sidebar always knows
   // which customer entries to render. The query is filtered by the caller's

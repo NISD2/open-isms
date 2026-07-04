@@ -30,7 +30,9 @@ interface Overview {
   totalUsers: number;
   recentUsers: number;
   totalCompanies: number;
-  usersWithCompany: number;
+  activatedCompanies: number;
+  draftCompanies: number;
+  usersWithActivatedCompany: number;
   totalAssessments: number;
 }
 
@@ -55,6 +57,7 @@ interface CompanyRow {
   employeeCount: number | null;
   actsAsNis2Entity: boolean;
   actsAsSupplier: boolean;
+  activatedAt: Date | null;
   createdAt: Date;
   userCount: number;
   compliancePct: string;
@@ -212,10 +215,10 @@ export function PlatformAdminPage({
       {/* KPI cards */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         <StatCard label="Total Users" value={overview.totalUsers} sub={`${overview.recentUsers} this week`} />
-        <StatCard label="With Company" value={overview.usersWithCompany} sub={`of ${overview.totalUsers}`} />
-        <StatCard label="Companies" value={overview.totalCompanies} />
+        <StatCard label="Activated Users" value={overview.usersWithActivatedCompany} sub={`of ${overview.totalUsers}`} />
+        <StatCard label="Activated Orgs" value={overview.activatedCompanies} sub={`${overview.draftCompanies} draft`} />
         <StatCard label="Assessments" value={overview.totalAssessments} />
-        <StatCard label="Orphan Users" value={overview.totalUsers - overview.usersWithCompany} sub="no company yet" />
+        <StatCard label="Not Activated" value={overview.totalUsers - overview.usersWithActivatedCompany} sub="draft shell only" />
       </div>
 
       {/* Tabs */}
@@ -362,6 +365,7 @@ function CompaniesTable({ companies }: { companies: CompanyRow[] }) {
                     </div>
                   </td>
                   <td className="py-2 pr-4 space-x-1">
+                    {!c.activatedAt && <span className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">Draft</span>}
                     {c.actsAsNis2Entity && <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700 dark:bg-amber-900 dark:text-amber-300">NIS2</span>}
                     {c.actsAsSupplier && <span className="rounded bg-cyan-100 px-1.5 py-0.5 text-xs text-cyan-700 dark:bg-cyan-900 dark:text-cyan-300">Supplier</span>}
                   </td>
