@@ -1,6 +1,134 @@
 {
   "entries": [
     {
+      "id": "2026-07-04-product-journey-first-login",
+      "date": "2026-07-04",
+      "category": "product",
+      "titleDe": "Neue Nutzer starten direkt im gefuehrten Pfad",
+      "titleEn": "New users start directly in the guided path",
+      "bodyDe": "Nach der Registrierung landen neue Konten sofort im gefuehrten NIS-2-Pfad statt auf einer Einrichtungsseite. Die Organisation anzulegen ist der erste Schritt im Pfad selbst.",
+      "bodyEn": "After signing up, new accounts land directly in the guided NIS 2 path instead of a setup wall. Creating your organisation is the first step within the path itself.",
+      "links": [
+        {
+          "labelDe": "Umsetzung starten",
+          "labelEn": "Start implementing",
+          "href": "/start"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-04-product-security-txt",
+      "date": "2026-07-04",
+      "category": "product",
+      "titleDe": "Sicherheitskontakt nach RFC 9116 veroeffentlicht",
+      "titleEn": "Security contact published per RFC 9116",
+      "bodyDe": "Unter /.well-known/security.txt steht jetzt ein Kontakt fuer die verantwortungsvolle Meldung von Sicherheitsluecken. Passwortmanager finden ausserdem den Weg zur Passwortzuruecksetzung.",
+      "bodyEn": "A contact for coordinated vulnerability disclosure is now published at /.well-known/security.txt. Password managers can also find the way to password reset.",
+      "links": [
+        {
+          "labelDe": "Sicherheit",
+          "labelEn": "Security",
+          "href": "/sicherheit"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-03-product-account-erasure",
+      "date": "2026-07-03",
+      "category": "product",
+      "titleDe": "Konto- und Organisationsloeschung nach Art. 17 DSGVO",
+      "titleEn": "Account and organisation erasure under GDPR Article 17",
+      "bodyDe": "Sie koennen jetzt Ihr Konto und Ihre Daten loeschen. Inhaber loeschen die gesamte Organisation samt aller Mitglieder, einzelne Mitglieder loeschen ihr eigenes Konto. Jede Loeschung erzeugt ein Loeschprotokoll.",
+      "bodyEn": "You can now erase your account and data. Owners delete the entire organisation including all members, individual members delete their own account. Every erasure produces a deletion record.",
+      "links": [
+        {
+          "labelDe": "Datenschutz",
+          "labelEn": "Privacy",
+          "href": "/datenschutz"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-02-content-europe-events-feed",
+      "date": "2026-07-02",
+      "category": "content",
+      "titleDe": "Neue Uebersicht: kostenlose NIS-2-, DSGVO- und CRA-Veranstaltungen in Europa",
+      "titleEn": "New overview: free NIS 2, GDPR and CRA events across Europe",
+      "bodyDe": "Eine neue oeffentliche Seite sammelt kostenlose Veranstaltungen von Behoerden, Kammern und Non-Profits zu NIS 2, DSGVO und CRA in mehreren Laendern.",
+      "bodyEn": "A new public page collects free events from authorities, chambers and non-profits on NIS 2, GDPR and the CRA across several countries.",
+      "links": [
+        {
+          "labelDe": "Veranstaltungen",
+          "labelEn": "Events",
+          "href": "/wiki/zeit-und-status/nis2-events"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-30-product-course-journey-crosslinks",
+      "date": "2026-06-30",
+      "category": "product",
+      "titleDe": "Kurs und Umsetzungspfad verknuepft, Reihenfolge nur noch Empfehlung",
+      "titleEn": "Course and implementation path linked, ordering now only a suggestion",
+      "bodyDe": "Kurslektionen und Anforderungen sind jetzt gegenseitig verlinkt: Jede Anforderung zeigt die passende Lektion des CEO-Kurses und umgekehrt. Lektionen und Anforderungen sind nicht mehr gesperrt, die empfohlene Reihenfolge ist ein Vorschlag.",
+      "bodyEn": "Course lessons and requirements are now cross-linked: each requirement shows the matching CEO course lesson and vice versa. Lessons and requirements are no longer locked, the recommended order is a suggestion, not a gate.",
+      "links": [
+        {
+          "labelDe": "Zum Kurs",
+          "labelEn": "To the course",
+          "href": "/training/courses/nis2-ceo"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-26-content-open-source-category",
+      "date": "2026-06-26",
+      "category": "content",
+      "titleDe": "Neue Wiki-Kategorie: Open Source und Souveraenitaet",
+      "titleEn": "New wiki category: Open Source and sovereignty",
+      "bodyDe": "Eine neue Wiki-Kategorie mit vier Artikeln in zehn Sprachen erklaert, warum pruefbarer, quelloffener Code fuer Compliance und digitale Souveraenitaet zaehlt.",
+      "bodyEn": "A new wiki category with four articles in ten languages explains why auditable, open-source code matters for compliance and digital sovereignty.",
+      "links": [
+        {
+          "labelDe": "Open Source",
+          "labelEn": "Open Source",
+          "href": "/wiki/open-source"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-26-content-bsig-32-article",
+      "date": "2026-06-26",
+      "category": "content",
+      "titleDe": "Neuer Wiki-Artikel: § 32 BSIG (Meldepflicht nach NIS 2)",
+      "titleEn": "New wiki article: § 32 BSIG (NIS 2 reporting duty)",
+      "bodyDe": "Ein neuer Wiki-Artikel erlaeutert die Meldepflicht bei erheblichen Sicherheitsvorfaellen nach § 32 BSIG, verfuegbar in zehn Sprachen.",
+      "bodyEn": "A new wiki article explains the duty to report significant incidents under § 32 BSIG, available in ten languages.",
+      "links": [
+        {
+          "labelDe": "Zum Artikel",
+          "labelEn": "Read the article",
+          "href": "/wiki/grundlagen/bsig-32"
+        }
+      ]
+    },
+    {
+      "id": "2026-06-26-product-newsletter-archive",
+      "date": "2026-06-26",
+      "category": "product",
+      "titleDe": "Newsletter-Ausgaben jetzt oeffentlich im Archiv",
+      "titleEn": "Newsletter issues now public in an archive",
+      "bodyDe": "Alle Newsletter-Ausgaben erscheinen jetzt in einem oeffentlichen Archiv unter /newsletter.",
+      "bodyEn": "All newsletter issues are now published in a public archive at /newsletter.",
+      "links": [
+        {
+          "labelDe": "Newsletter",
+          "labelEn": "Newsletter",
+          "href": "/newsletter"
+        }
+      ]
+    },
+    {
       "id": "2026-06-24-product-partner-page",
       "date": "2026-06-24",
       "category": "product",
