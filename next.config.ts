@@ -125,6 +125,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // RFC 8615 well-known: password managers (iOS/Safari, Chrome, 1Password)
+      // deep-link here to send a user to the change-password flow. There is no
+      // logged-in change-password page yet, so point at the email reset flow.
+      // permanent:false (307) so it can be repointed once such a page exists.
+      { source: "/.well-known/change-password", destination: "/auth/forgot-password", permanent: false },
       // Merge overlapping pages — consolidate SEO authority
       { source: "/bsi-registrierung-anleitung", destination: "/nis2-registrierung", permanent: true },
       { source: "/en/bsi-registrierung-anleitung", destination: "/en/nis2-registrierung", permanent: true },
