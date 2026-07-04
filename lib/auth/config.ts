@@ -6,7 +6,7 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { user } from "@/schema";
+import { user, company } from "@/schema";
 import type { Session } from "next-auth";
 import type { Provider } from "next-auth/providers";
 
@@ -19,6 +19,8 @@ import {
 import { getAppUrl } from "@/lib/utils";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
+import { isJourneyAllowed } from "@/lib/journey-flag";
+import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
 // Dummy hash for timing-safe comparison when user doesn't exist
 const DUMMY_HASH = "$2a$12$000000000000000000000uGBYRMjo5lsWIKE/k.HdGZfR5YmKKKu";
@@ -204,6 +206,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .onConflictDoNothing({ target: user.email })
           .returning({ id: user.id });
 
+        let userId: string | null = inserted[0]?.id ?? null;
+        // Provision a draft company for genuinely new signups, and for pending-
+        // verify accounts that complete verification via Google (their first
+        // proven-owned moment). Not for returning, already-provisioned logins.
+        let shouldProvision = inserted.length > 0;
+
         if (inserted.length === 0) {
           // Email already existed → clear any password so Google takes
           // precedence, and mark verified (covers pending-verify accounts
@@ -212,9 +220,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             where: eq(user.email, authUser.email),
           });
           if (existing) {
+            userId = existing.id;
             const patch: Partial<typeof user.$inferInsert> = { updatedAt: now };
             if (existing.passwordHash) patch.passwordHash = null;
-            if (!existing.emailVerifiedAt) patch.emailVerifiedAt = now;
+            if (!existing.emailVerifiedAt) {
+              patch.emailVerifiedAt = now;
+              shouldProvision = true;
+            }
             if (Object.keys(patch).length > 1) {
               await db.update(user).set(patch).where(eq(user.id, existing.id));
             }
@@ -233,6 +245,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             sendWelcomeEmail({ name: newName, email: authUser.email })
               .catch((err) => console.error("[auth] Failed to send welcome email:", err)),
           ]);
+        }
+
+        // Google users bypass the verify-email route, so this is their draft-
+        // company provisioning boundary. Idempotent + journey-gated; a failure
+        // logs but never blocks signin.
+        if (
+          shouldProvision &&
+          userId &&
+          isJourneyAllowed(authUser.email, env.JOURNEY_ALLOWED_DOMAINS)
+        ) {
+          try {
+            await createDraftCompany(db, userId);
+          } catch (err) {
+            console.error("[auth] Failed to provision draft company:", err);
+          }
         }
       }
 
@@ -261,6 +288,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     async session({ session, token }) {
       session.companyId = null;
+      session.companyActivated = false;
       session.role = "member";
       session.jobTitle = null;
       session.sessionVersion = token.sessionVersion ?? null;
@@ -304,6 +332,18 @@ export const getSession = cache(async (): Promise<Session | null> => {
   session.companyId = dbUser.companyId;
   session.role = dbUser.role;
   session.jobTitle = dbUser.jobTitle ?? null;
+
+  // Resolve activation once, here, so every gate reads session.companyActivated
+  // instead of re-deriving it (a draft shell has companyId set but activatedAt
+  // null). cache() keeps this to one extra indexed lookup per request.
+  session.companyActivated = false;
+  if (dbUser.companyId) {
+    const companyRow = await db.query.company.findFirst({
+      where: eq(company.id, dbUser.companyId),
+      columns: { activatedAt: true },
+    });
+    session.companyActivated = companyRow?.activatedAt != null;
+  }
 
   return session;
 });

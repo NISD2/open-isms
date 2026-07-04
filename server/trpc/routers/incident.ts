@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { eq, and, desc, isNull } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
+import { router, companyProcedure, activatedCompanyProcedure } from "../init";
 import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { insertRow, updateRow } from "../typed";
 import { incident, bsiIncidentReport } from "@/schema";
@@ -16,7 +16,7 @@ export const incidentRouter = router({
     });
   }),
 
-  create: companyProcedure
+  create: activatedCompanyProcedure
     .input(incidentInsertSchema.omit({ id: true, companyId: true, createdAt: true, updatedAt: true }))
     .mutation(async ({ ctx, input }) => {
       const values = { ...input, companyId: ctx.companyId, createdBy: ctx.userId };
@@ -28,7 +28,7 @@ export const incidentRouter = router({
       return row;
     }),
 
-  update: companyProcedure
+  update: activatedCompanyProcedure
     .input(incidentUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
@@ -42,7 +42,7 @@ export const incidentRouter = router({
       return row;
     }),
 
-  delete: companyProcedure
+  delete: activatedCompanyProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       await ctx.db

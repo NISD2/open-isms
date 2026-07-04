@@ -43,6 +43,13 @@
       "when": 1783077966494,
       "tag": "0005_legal_luke_cage",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1783126249131,
+      "tag": "0006_cuddly_namorita",
+      "breakpoints": true
     }
   ]
 }

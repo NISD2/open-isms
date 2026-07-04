@@ -7,7 +7,10 @@ import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
 export default async function OnboardingPage() {
   const session = await getSession();
   if (!session) redirect("/auth/signin");
-  if (session.companyId) redirect("/dashboard");
+  // A draft company (auto-provisioned at email verification) is expected here —
+  // this wizard fills in the real identity and activates it. Only an already
+  // activated company skips onboarding.
+  if (session.companyActivated) redirect("/dashboard");
 
   // Build roleKey → category slugs map for TeamRolesForm badges
   const entries = await Promise.all(

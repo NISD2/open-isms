@@ -195,61 +195,119 @@ export const assessmentRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      // Reject if the user already belongs to a company. Without this guard,
-      // a member of Company A could call this and silently become admin of a
-      // brand-new Company B, orphaning their previous assignments and skipping
-      // any verification flow. UI gating in /onboarding is not a security control.
+      // Every verified user auto-gets a DRAFT company at email verification, so
+      // "already has a company" no longer means "already onboarded". Only an
+      // ACTIVATED company blocks a fresh onboarding; a draft is reused — filled
+      // in with the real identity and flipped to activated. The guard therefore
+      // checks activatedAt, not merely companyId presence. UI gating in
+      // /onboarding is not a security control, so this is the real boundary.
       const current = await ctx.db.query.user.findFirst({
         where: eq(user.id, ctx.userId),
         columns: { companyId: true },
       });
-      if (current?.companyId) {
+      const existing = current?.companyId
+        ? await ctx.db.query.company.findFirst({
+            where: eq(company.id, current.companyId),
+            columns: { id: true, activatedAt: true, ownerId: true },
+          })
+        : null;
+      // Reject if the caller is already in a real (activated) company, OR is a
+      // non-owner member of a draft shell — a member must not activate and seize
+      // ownership of a draft they do not own. A user's own auto-provisioned draft
+      // always has ownerId === userId, so the normal path is unaffected.
+      if (existing && (existing.activatedAt || existing.ownerId !== ctx.userId)) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "Already a member of a company",
         });
       }
 
+      // The confirmed identity + the activation stamps. Shared by the reuse and
+      // the create paths so activation is identical either way.
+      const activatedValues = {
+        name: input.name,
+        sector: input.sector,
+        entityType: input.entityType,
+        // The creator owns the org. Deleting the owner tears the org down.
+        ownerId: ctx.userId,
+        // This endpoint IS the entity-portal onboarding flow — declare the
+        // entity role and stamp activation now.
+        actsAsNis2Entity: true,
+        activatedAt: new Date(),
+        legalForm: input.legalForm ?? null,
+        employeeCount: input.employeeCount ?? null,
+        contactEmail: input.contactEmail ?? null,
+        aiDataSharing: input.aiDataSharing ?? "none",
+        cisoName: input.cisoName ?? null,
+        cisoReportsTo: input.cisoReportsTo ?? null,
+        bsiContactName: input.bsiContactName ?? null,
+        bsiContactEmail: input.bsiContactEmail ?? null,
+        bsiContactPhone: input.bsiContactPhone ?? null,
+        bsiRegistrationId: input.bsiRegistrationId ?? null,
+        annualSecurityBudget: input.annualSecurityBudget ?? null,
+        primaryLocations: input.primaryLocations ?? null,
+      };
+
       const result = await ctx.db.transaction(async (tx) => {
-        const [newCompany] = await tx
-          .insert(company)
-          .values({
-            name: input.name,
-            sector: input.sector,
-            entityType: input.entityType,
-            // The creator owns the org. Deleting the owner tears the org down.
-            ownerId: ctx.userId,
-            // This endpoint IS the entity-portal onboarding flow — set the
-            // role flag explicitly. The schema default is now `false` so a
-            // supplier-only signup never gets auto-flagged as a NIS2 entity.
-            actsAsNis2Entity: true,
-            legalForm: input.legalForm ?? null,
-            employeeCount: input.employeeCount ?? null,
-            contactEmail: input.contactEmail ?? null,
-            aiDataSharing: input.aiDataSharing ?? "none",
-            cisoName: input.cisoName ?? null,
-            cisoReportsTo: input.cisoReportsTo ?? null,
-            bsiContactName: input.bsiContactName ?? null,
-            bsiContactEmail: input.bsiContactEmail ?? null,
-            bsiContactPhone: input.bsiContactPhone ?? null,
-            bsiRegistrationId: input.bsiRegistrationId ?? null,
-            annualSecurityBudget: input.annualSecurityBudget ?? null,
-            primaryLocations: input.primaryLocations ?? null,
-          })
-          .returning();
+        let companyId: string;
+        let frameworkAssessmentMap: Map<string, string>;
+        let firstAssessmentId: string;
 
-        await tx
-          .update(user)
-          .set({ companyId: newCompany.id, role: "admin", updatedAt: new Date() })
-          .where(eq(user.id, ctx.userId));
+        if (existing) {
+          // Activate the draft: fill identity + flip + stamp. The assessment /
+          // status rows were seeded at draft time, so restamp their entityType
+          // snapshot instead of re-seeding.
+          companyId = existing.id;
+          await tx
+            .update(company)
+            .set({ ...activatedValues, updatedAt: new Date() })
+            .where(eq(company.id, companyId));
 
-        const { firstAssessmentId, frameworkAssessmentMap } =
-          await createAssessmentsForFrameworks(tx, newCompany.id, input.entityType);
+          const seeded = await tx.query.companyAssessment.findMany({
+            where: eq(companyAssessment.companyId, companyId),
+            columns: { id: true, frameworkId: true },
+          });
+          if (seeded.length === 0) {
+            // A draft should always carry seeded assessments; seed defensively.
+            const created = await createAssessmentsForFrameworks(
+              tx,
+              companyId,
+              input.entityType,
+            );
+            frameworkAssessmentMap = created.frameworkAssessmentMap;
+            firstAssessmentId = created.firstAssessmentId;
+          } else {
+            await tx
+              .update(companyAssessment)
+              .set({ entityTypeAtAssessment: input.entityType, updatedAt: new Date() })
+              .where(eq(companyAssessment.companyId, companyId));
+            frameworkAssessmentMap = new Map(seeded.map((a) => [a.frameworkId, a.id]));
+            firstAssessmentId = seeded[0].id;
+          }
+        } else {
+          // No draft (edge / legacy path) — create, own, seed, activate in one.
+          const [newCompany] = await tx
+            .insert(company)
+            .values(activatedValues)
+            .returning();
+          companyId = newCompany.id;
+          await tx
+            .update(user)
+            .set({ companyId, role: "admin", updatedAt: new Date() })
+            .where(eq(user.id, ctx.userId));
+          const created = await createAssessmentsForFrameworks(
+            tx,
+            companyId,
+            input.entityType,
+          );
+          frameworkAssessmentMap = created.frameworkAssessmentMap;
+          firstAssessmentId = created.firstAssessmentId;
+        }
 
         if (input.teamRoles && input.teamRoles.length > 0) {
           await processTeamRoleAssignments(tx, {
             teamRoles: input.teamRoles,
-            companyId: newCompany.id,
+            companyId,
             companyName: input.name,
             userId: ctx.userId,
             userEmail: ctx.session.user.email ?? undefined,
@@ -258,7 +316,7 @@ export const assessmentRouter = router({
           });
         }
 
-        return { firstAssessmentId, companyId: newCompany.id, frameworkAssessmentMap };
+        return { firstAssessmentId, companyId, frameworkAssessmentMap };
       });
 
       for (const [, assessmentId] of result.frameworkAssessmentMap) {

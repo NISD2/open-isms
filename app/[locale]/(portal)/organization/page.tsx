@@ -12,7 +12,9 @@ export default async function OrganizationPage() {
   const t = await getTranslations("organization");
   const companyData = await api.assessment.getCompany();
 
-  if (!companyData) redirect("/onboarding");
+  // No company, or a draft shell not yet activated → send the user through
+  // onboarding to confirm identity + activate before editing.
+  if (!companyData || !companyData.activatedAt) redirect("/onboarding");
 
   const isAdmin = session.role === "admin";
 

@@ -12,6 +12,14 @@ import "next-auth/jwt";
 declare module "next-auth" {
   interface Session {
     companyId: string | null;
+    /**
+     * Whether the company is ACTIVATED (past the draft shell auto-provisioned at
+     * email verification). false when companyId is null or still a draft. Single
+     * source of truth for "has a real organization" across page/layout gates, so
+     * they never regress to a bare `companyId != null` check (which is now true
+     * for every verified user).
+     */
+    companyActivated: boolean;
     role: string;
     jobTitle: string | null;
     /**

@@ -20,6 +20,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure } from "../../init";
 import { company, user, supplierInvite, supplier } from "@/schema";
+import { discardDraftCompany } from "../../helpers/setup-helpers";
 import {
   supplierOnboardingBootstrapSchema,
   supplierAcceptInviteSchema,
@@ -35,11 +36,16 @@ export const supplierOnboardingRouter = router({
   bootstrap: protectedProcedure
     .input(supplierOnboardingBootstrapSchema)
     .mutation(async ({ ctx, input }) => {
-      const current = await ctx.db.query.user.findFirst({
-        where: eq(user.id, ctx.userId),
-        columns: { companyId: true },
-      });
-      if (current?.companyId) {
+      // Only an ACTIVATED company blocks supplier bootstrap. A verified user
+      // holds a draft entity-shell; supplier signup discards that draft and
+      // creates the supplier company instead.
+      const currentCompany = ctx.companyId
+        ? await ctx.db.query.company.findFirst({
+            where: eq(company.id, ctx.companyId),
+            columns: { id: true, activatedAt: true },
+          })
+        : null;
+      if (currentCompany?.activatedAt) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "Already a member of a company",
@@ -62,6 +68,8 @@ export const supplierOnboardingRouter = router({
             country: input.country ?? null,
             actsAsNis2Entity: false,
             actsAsSupplier: true,
+            // A supplier company is a real, activated org (no NIS2 assessment).
+            activatedAt: new Date(),
             // The creator owns the org. Deleting the owner tears the org down.
             ownerId: ctx.userId,
           })
@@ -78,6 +86,16 @@ export const supplierOnboardingRouter = router({
 
         return newCompany;
       });
+
+      // Discard the abandoned entity-draft shell (+ its seeded NIS2 rows),
+      // best-effort after the user points at the supplier company.
+      if (currentCompany) {
+        try {
+          await discardDraftCompany(ctx.db, currentCompany.id);
+        } catch (err) {
+          console.error("[supplier.bootstrap] draft discard skipped:", err);
+        }
+      }
 
       return { companyId: result.id };
     }),
@@ -130,7 +148,16 @@ export const supplierOnboardingRouter = router({
         where: eq(user.id, ctx.userId),
         columns: { companyId: true, email: true },
       });
-      if (current?.companyId) {
+      // Only an ACTIVATED company blocks accepting a supplier invite. A verified
+      // user's draft entity-shell is discarded and replaced by the supplier
+      // company bound to the inviting entity.
+      const currentCompany = current?.companyId
+        ? await ctx.db.query.company.findFirst({
+            where: eq(company.id, current.companyId),
+            columns: { id: true, activatedAt: true },
+          })
+        : null;
+      if (currentCompany?.activatedAt) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "Already a member of a company",
@@ -173,6 +200,8 @@ export const supplierOnboardingRouter = router({
             country: input.country ?? null,
             actsAsNis2Entity: false,
             actsAsSupplier: true,
+            // A supplier company is a real, activated org (no NIS2 assessment).
+            activatedAt: new Date(),
             // The creator owns the org. Deleting the owner tears the org down.
             ownerId: ctx.userId,
           })
@@ -250,6 +279,15 @@ export const supplierOnboardingRouter = router({
 
         return { companyId: newCompany.id, boundEntities: 1 + otherInvites.length };
       });
+
+      // Discard the abandoned entity-draft shell (best-effort, post-commit).
+      if (currentCompany) {
+        try {
+          await discardDraftCompany(ctx.db, currentCompany.id);
+        } catch (err) {
+          console.error("[supplier.acceptInvite] draft discard skipped:", err);
+        }
+      }
 
       return result;
     }),

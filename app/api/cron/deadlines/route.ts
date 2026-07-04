@@ -17,7 +17,7 @@
  * Schedule: Vercel Cron at 06:00 UTC (08:00 CET)
  */
 import { NextRequest, NextResponse } from "next/server";
-import { eq, and, sql, inArray, lte, isNull } from "drizzle-orm";
+import { eq, and, sql, inArray, lte, isNull, isNotNull } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
   companyRequirementStatus,
@@ -310,8 +310,12 @@ export async function GET(req: NextRequest) {
         .where(eq(notification.id, n.id));
     }
 
-    // Compile and send daily digests (one per company)
+    // Compile and send digests (one per company). Exclude draft shells
+    // (activatedAt IS NULL, auto-provisioned at email verification): they carry
+    // seeded assessment rows but no real work, and the weekly management digest
+    // would otherwise mail every drive-by signup a blank-named 0% report.
     const companies = await db.query.company.findMany({
+      where: isNotNull(company.activatedAt),
       columns: { id: true, name: true },
     });
 

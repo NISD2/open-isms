@@ -58,7 +58,7 @@ export default async function InvitePage({ params }: Props) {
       role={invite.role}
       redirectPath={invite.redirectPath}
       userEmail={session?.user.email ?? null}
-      hasCompany={!!session?.companyId}
+      hasCompany={session?.companyActivated ?? false}
       isSignedIn={!!session}
     />
   );

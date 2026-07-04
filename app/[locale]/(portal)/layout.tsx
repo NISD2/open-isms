@@ -91,14 +91,21 @@ export default async function PortalLayout({
     }),
   );
 
-  // Pages that work without a company
+  // Routes a not-yet-activated user (no company, or a draft shell
+  // auto-provisioned at verification) may reach without the activation banner.
+  // /journey is here: it is the draft's home surface, rendering the seeded path
+  // with a "set up your organization" first step. Every other real-work route
+  // steers the draft to activation. /team is intentionally absent — a draft must
+  // not manage a team before activating. Gating on companyActivated (not merely
+  // companyId) is what makes a draft see the banner here instead of an empty,
+  // 403-on-write shell.
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
-  const ALLOWED_WITHOUT_COMPANY = ["/dashboard", "/team", "/organization", "/audit", "/notifications", "/settings", "/gap-assessment"];
+  const ALLOWED_WITHOUT_COMPANY = ["/dashboard", "/journey", "/organization", "/audit", "/notifications", "/settings", "/gap-assessment"];
   const needsCompany = !ALLOWED_WITHOUT_COMPANY.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
-  const showOnboarding = !session.companyId && needsCompany;
+  const showOnboarding = !session.companyActivated && needsCompany;
 
   return (
     <SidebarProvider defaultOpen>

@@ -16,8 +16,10 @@ import { SupplierOnboardingForm } from "@/components/supplier-portal/SupplierOnb
 export default async function SupplierOnboardingPage() {
   const session = await getSession();
   if (!session) redirect("/auth/signin");
-  // If the user already has a company, send them straight to the profile.
-  if (session.companyId) redirect("/portal/supplier");
+  // Only an ACTIVATED company skips supplier onboarding. A draft entity shell
+  // (auto-provisioned at verification) still needs the bootstrap form, which
+  // creates the supplier company and discards that draft.
+  if (session.companyActivated) redirect("/portal/supplier");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/20 px-4">

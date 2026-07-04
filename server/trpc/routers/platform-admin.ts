@@ -64,21 +64,37 @@ export const platformAdminRouter = router({
       totalUsersRow,
       recentUsersRow,
       totalCompaniesRow,
-      usersWithCompanyRow,
+      activatedCompaniesRow,
+      usersWithActivatedCompanyRow,
       totalAssessmentsRow,
     ] = await Promise.all([
       ctx.db.select({ count: count() }).from(user),
       ctx.db.select({ count: count() }).from(user).where(gte(user.createdAt, sevenDaysAgo)),
       ctx.db.select({ count: count() }).from(company),
-      ctx.db.select({ count: count() }).from(user).where(isNotNull(user.companyId)),
+      // Real orgs = activated (non-draft) companies. Every verified user now
+      // auto-gets a draft shell, so a raw company/companyId count no longer
+      // measures real activation — filter on activatedAt.
+      ctx.db.select({ count: count() }).from(company).where(isNotNull(company.activatedAt)),
+      ctx.db
+        .select({ count: count() })
+        .from(user)
+        .innerJoin(company, eq(user.companyId, company.id))
+        .where(isNotNull(company.activatedAt)),
       ctx.db.select({ count: count() }).from(companyAssessment),
     ]);
+
+    const totalCompanies = totalCompaniesRow[0]?.count ?? 0;
+    const activatedCompanies = activatedCompaniesRow[0]?.count ?? 0;
 
     return {
       totalUsers: totalUsersRow[0]?.count ?? 0,
       recentUsers: recentUsersRow[0]?.count ?? 0,
-      totalCompanies: totalCompaniesRow[0]?.count ?? 0,
-      usersWithCompany: usersWithCompanyRow[0]?.count ?? 0,
+      totalCompanies,
+      // Activated (named) orgs — the activation KPI. draftCompanies is the
+      // funnel gap: verified users who provisioned a shell but never activated.
+      activatedCompanies,
+      draftCompanies: Math.max(0, totalCompanies - activatedCompanies),
+      usersWithActivatedCompany: usersWithActivatedCompanyRow[0]?.count ?? 0,
       totalAssessments: totalAssessmentsRow[0]?.count ?? 0,
     };
   }),
@@ -116,6 +132,7 @@ export const platformAdminRouter = router({
         employeeCount: company.employeeCount,
         actsAsNis2Entity: company.actsAsNis2Entity,
         actsAsSupplier: company.actsAsSupplier,
+        activatedAt: company.activatedAt,
         createdAt: company.createdAt,
         userCount: sql<number>`(SELECT count(*)::int FROM "user" WHERE "user"."company_id" = ${company.id})`,
         compliancePct: sql<string>`COALESCE(
@@ -338,6 +355,10 @@ export const platformAdminRouter = router({
           entityType: input.entityType,
           employeeCount: input.employeeCount,
           actsAsNis2Entity: true,
+          // A deliberately admin-created, named prospect company — not an
+          // onboarding draft shell. Stamp activated so it is counted as a real
+          // org, not folded into the draft/funnel-gap metric.
+          activatedAt: new Date(),
         })
         .returning({ id: company.id });
       if (!newCompany) {
