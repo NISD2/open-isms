@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T10:58:01Z",
+  "lastUpdated": "2026-07-04T15:38:18Z",
   "events": [
     {
       "id": "2026-07-08-de-bsi-cra-ot",
@@ -471,6 +471,24 @@
       "cost": "free",
       "language": "en",
       "notes": "National CERT (with Latvian MoD / NCSC). NIS2 and EU policy featured. Free inferred from prior editions; verify once 2026 registration opens."
+    },
+    {
+      "id": "2026-09-10-de-transferstelle-nis2-verstehen",
+      "title": "NIS2 verstehen - Betroffenheit, Pflichten und Umsetzung",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit (CYBERsicher)",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/nis2-verstehen-betroffenheit-pflichten-und-umsetzung/",
+      "signupUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/nis2-verstehen-betroffenheit-pflichten-und-umsetzung/",
+      "cost": "free",
+      "language": "de",
+      "notes": "Gov-funded (CYBERsicher). Online-Workshop 09:00-11:00. KMU intro: Betroffenheit, Pflichten, erste Massnahmen. Distinct organizer from the 10.09 it's.BB nis2know Umsetzung session."
     }
   ]
 }
