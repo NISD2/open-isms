@@ -1,6 +1,19 @@
-# NISD2 — open-source NIS 2 / GRC ISMS platform
+<p align="center">
+  <img src=".github/social-preview.png" alt="open-isms: the free, open-source ISMS for the EU NIS 2 Directive" width="860">
+</p>
 
-The platform behind [nisd2.eu](https://www.nisd2.eu): self-hostable Information Security Management System aligned with the EU NIS 2 Directive, GDPR, EU AI Act, CRA, and ISO 27001:2022.
+<p align="center">
+  <a href="https://www.npmjs.com/package/@nisd2/grc-data-model"><img src="https://img.shields.io/npm/v/@nisd2/grc-data-model.svg?logo=npm&label=grc-data-model" alt="npm"></a>
+  <a href="https://github.com/NISD2/open-isms/actions/workflows/ci.yml"><img src="https://github.com/NISD2/open-isms/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License: AGPL-3.0"></a>
+  <a href="https://www.nisd2.eu"><img src="https://img.shields.io/badge/site-nisd2.eu-284b63.svg" alt="nisd2.eu"></a>
+</p>
+
+---
+
+The platform behind [nisd2.eu](https://www.nisd2.eu): a self-hostable Information Security Management System built for the EU NIS 2 Directive, with GDPR, the EU AI Act, and the CRA alongside it.
+
+Most compliance tooling treats evidence as a folder of PDFs you assemble the week before an audit. open-isms inverts that. Every requirement carries an owner, a deadline, and a sign-off, so assignments, approvals, and an append-only audit trail become your evidence as you operate, not something you reconstruct after the fact.
 
 Free and open source. AGPL-3.0. Mission: halve Europe's NIS 2 compliance bill.
 
@@ -12,7 +25,7 @@ apps/
                                   # boot stack, gates routes behind email magic links
 
 packages/
-  grc-data-model/                 # framework data + entity model (NIS 2, GDPR, EU AI Act, CRA, ISO 27001)
+  grc-data-model/                 # framework data + entity model (NIS 2, GDPR, EU AI Act, CRA)
   incident-notification-schema/   # NIS 2 §23(4) incident notification format
   isms-schema/                    # operational ISMS schema (audit-log, sign-off, evidence, policies, training)
   isms-ui/                        # shadcn-based UI primitives
