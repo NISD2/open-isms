@@ -48,6 +48,13 @@ export default async function MissedRegistrationPage({ params }: { params: Promi
     },
   }));
 
+  const howToSteps = stepKeys.map((key, index) => ({
+    "@type": "HowToStep" as const,
+    position: index + 1,
+    name: t(`missedRegistration.steps.items.${key}.title`),
+    text: t(`missedRegistration.steps.items.${key}.description`),
+  }));
+
   return (
     <GlossedProse locale={locale}>
     <div className="space-y-10">
@@ -67,6 +74,15 @@ export default async function MissedRegistrationPage({ params }: { params: Promi
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: faqs,
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: t("missedRegistration.steps.heading"),
+          description: t("missedRegistration.steps.description"),
+          step: howToSteps,
         }}
       />
 
