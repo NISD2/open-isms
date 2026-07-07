@@ -252,6 +252,80 @@
       },
       "cta": "Start for free"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "Section 38 BSIG: the duties of the management body",
+        "description": "Section 38 BSIG requires the management body of essential and important entities to implement and monitor the measures under Section 30, to attend training, and it governs personal internal liability. What that means for managing directors and board members."
+      },
+      "title": "Section 38 BSIG: the duties of the management body",
+      "subtitle": "Implement, monitor, train: three duties that stay with the management body.",
+      "overview": {
+        "heading": "What Section 38 BSIG requires",
+        "p1": "Section 38 BSIG transposes Article 20 NIS 2 into German law and addresses not the entity but the people at its head. The management bodies of essential and important entities must implement the risk management measures under Section 30 BSIG and monitor their implementation. Cybersecurity is therefore expressly a management responsibility, not solely a matter for the IT department.",
+        "p2": "Article 20 NIS 2 speaks of approving and overseeing; Section 38 BSIG frames the duty as implementing and monitoring. The meaning is the same: management must know the measures, take responsibility for them, and keep their effectiveness in view. Merely rubber-stamping decisions does not satisfy the monitoring duty."
+      },
+      "duties": {
+        "heading": "The three duties of the management body",
+        "description": "Section 38(1) and (3) BSIG, Article 20 NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Implementing the measures under Section 30",
+            "text": "The management body must ensure that the risk management measures under Section 30(2) BSIG are actually implemented. Responsibility for this cannot be handed off to the IT department or a service provider."
+          },
+          "d2": {
+            "title": "Monitoring the implementation",
+            "text": "Implementation alone is not enough. Management must continuously monitor whether the measures are working and be able to evidence it. Regular reports to the management body and its documented acknowledgement of them are the usual proof."
+          },
+          "d3": {
+            "title": "Attending training",
+            "text": "Under Section 38(3) BSIG, members of the management body shall regularly attend training so that they can identify and assess cyber risks themselves. The law names no specific certification; what matters is demonstrable attendance."
+          }
+        }
+      },
+      "liability": {
+        "heading": "Personal liability under Section 38(2)",
+        "p1": "Section 38(2) BSIG establishes an internal liability: if members of the management body breach their duties under subsection (1), they are liable to their own entity for any damage they culpably cause as a result. It is a liability toward one's own company, not toward authorities or third parties.",
+        "p2": "This internal liability sits alongside the general officer liability under Section 43 GmbHG and Section 93 AktG. It is the reason the duty to implement and monitor is not a formality: a documented monitoring process is at the same time what exonerates the individuals involved."
+      },
+      "training": {
+        "heading": "The training duty and how to evidence it",
+        "p1": "The training duty under Section 38(3) BSIG rests personally with the members of management. What is required is enough knowledge to identify cyber risks and judge whether the measures are appropriate, not specialist technical expertise.",
+        "p2": "Because the law prescribes no provider and no certification, the evidence is simple: documented, regular attendance. A certificate of attendance and a recurring appointment are enough as a basis."
+      },
+      "scope": {
+        "heading": "Who counts as the management body, and what can be delegated",
+        "p1": "The management body means the entity's legal representatives, for example the managing directors of a GmbH or the executive board of an AG. The duties under Section 38 BSIG apply to these people directly, regardless of the size of the internal IT function.",
+        "p2": "What can be delegated is the operational execution, not the responsibility. Management can assign implementation to a team or a service provider and tie monitoring to a reporting line; ultimate responsibility for implementation and oversight remains with the management body."
+      },
+      "faq": {
+        "heading": "Frequently asked questions",
+        "q1": {
+          "q": "Does Section 38 BSIG also apply to small companies?",
+          "a": "Yes, as soon as the entity is classified as essential or important. The management body's duties depend on whether the entity is in scope, not on its size once it is within that threshold."
+        },
+        "q2": {
+          "q": "Can the management body hand responsibility to the IT department or a service provider?",
+          "a": "No. The operational implementation can be delegated; the responsibility for implementation and monitoring cannot. Ultimate responsibility remains with the management body."
+        },
+        "q3": {
+          "q": "Which training satisfies Section 38(3) BSIG?",
+          "a": "The law prescribes no specific training or certification. What is required is enough knowledge to identify and assess risks; it is evidenced through regular, documented attendance."
+        },
+        "q4": {
+          "q": "What exactly is the management body liable for?",
+          "a": "Under Section 38(2) BSIG, members of management are liable to their own entity for damage they cause through a culpable breach of their duties to implement and monitor. It is an internal liability toward the company."
+        },
+        "q5": {
+          "q": "How does Section 38 differ from Section 30 BSIG?",
+          "a": "Section 30 BSIG sets out which measures the entity must take. Section 38 BSIG sets out that the management body implements these measures, monitors them, trains for them, and is liable for them."
+        }
+      },
+      "ctaCard": {
+        "heading": "Meet the management body's training duty",
+        "description": "The free NIS 2 course for managing directors teaches the knowledge required under Section 38(3) BSIG, with proof of attendance."
+      },
+      "cta": "Start the free course"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "Section 32 BSIG: the NIS 2 incident reporting duty (24h, 72h, one month)",

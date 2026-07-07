@@ -252,6 +252,80 @@
       },
       "cta": "Gratis beginnen"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG: de plichten van de bedrijfsleiding",
+        "description": "§ 38 BSIG verplicht de bedrijfsleiding van bijzonder belangrijke en belangrijke entiteiten om de maatregelen uit § 30 uit te voeren en te bewaken, aan trainingen deel te nemen, en regelt de persoonlijke interne aansprakelijkheid. Wat dit betekent voor bestuurders en directieleden."
+      },
+      "title": "§ 38 BSIG: de plichten van de bedrijfsleiding",
+      "subtitle": "Uitvoeren, bewaken, bijscholen: drie plichten die bij de leiding blijven.",
+      "overview": {
+        "heading": "Wat § 38 BSIG vereist",
+        "p1": "§ 38 BSIG zet Artikel 20 NIS 2 om in Duits recht en richt zich niet op de entiteit, maar op de personen aan de top. De bedrijfsleiding van bijzonder belangrijke en belangrijke entiteiten moet de risicomanagementmaatregelen uit § 30 BSIG uitvoeren en de uitvoering ervan bewaken. Cyberbeveiliging is daarmee uitdrukkelijk een taak van de leiding, en niet alleen een zaak van de IT.",
+        "p2": "Artikel 20 NIS 2 spreekt van goedkeuren en toezien, § 38 BSIG formuleert de plicht als uitvoeren en bewaken. Bedoeld wordt hetzelfde: de leiding moet de maatregelen kennen, ervoor instaan en de effectiviteit ervan in de gaten houden. Wie enkel klakkeloos goedkeurt, voldoet niet aan de bewakingsplicht."
+      },
+      "duties": {
+        "heading": "De drie plichten van de bedrijfsleiding",
+        "description": "§ 38 lid 1 en 3 BSIG, Artikel 20 NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Uitvoering van de maatregelen uit § 30",
+            "text": "De bedrijfsleiding moet ervoor zorgen dat de risicomanagementmaatregelen uit § 30 lid 2 BSIG daadwerkelijk worden uitgevoerd. De verantwoordelijkheid daarvoor kan niet worden overgedragen aan de IT-afdeling of een dienstverlener."
+          },
+          "d2": {
+            "title": "Bewaking van de uitvoering",
+            "text": "Uitvoeren alleen is niet genoeg. De leiding moet doorlopend bewaken of de maatregelen werken, en dit kunnen aantonen. Regelmatige rapportages aan de bedrijfsleiding en de gedocumenteerde kennisneming daarvan zijn het gebruikelijke bewijs."
+          },
+          "d3": {
+            "title": "Deelname aan trainingen",
+            "text": "Volgens § 38 lid 3 BSIG dienen de leden van de bedrijfsleiding regelmatig aan trainingen deel te nemen, om cyberrisico's zelf te kunnen herkennen en beoordelen. De wet noemt geen specifieke certificering; doorslaggevend is de aantoonbare deelname."
+          }
+        }
+      },
+      "liability": {
+        "heading": "De persoonlijke aansprakelijkheid volgens § 38 lid 2",
+        "p1": "§ 38 lid 2 BSIG regelt een interne aansprakelijkheid: schenden leden van de bedrijfsleiding hun plichten uit lid 1, dan zijn zij tegenover hun eigen entiteit aansprakelijk voor de daardoor verwijtbaar veroorzaakte schade. Het gaat om aansprakelijkheid tegenover de eigen onderneming, niet tegenover autoriteiten of derden.",
+        "p2": "Deze interne aansprakelijkheid komt naast de algemene bestuurdersaansprakelijkheid uit § 43 GmbHG en § 93 AktG. Zij is de reden waarom de uitvoerings- en bewakingsplicht geen formaliteit is: een gedocumenteerd bewakingsproces vormt tegelijk de disculpatie van de handelende personen."
+      },
+      "training": {
+        "heading": "De trainingsplicht en het bewijs daarvan",
+        "p1": "De trainingsplicht uit § 38 lid 3 BSIG rust persoonlijk op de leidinggevenden. Vereist is voldoende kennis om cyberrisico's te herkennen en de passendheid van de maatregelen te beoordelen, geen technische specialistische kennis.",
+        "p2": "Omdat de wet geen aanbieder en geen certificering voorschrijft, is het bewijs eenvoudig: een aantoonbare, regelmatige deelname. Een deelnamebewijs en een terugkerende afspraak volstaan als basis."
+      },
+      "scope": {
+        "heading": "Wie tot de bedrijfsleiding behoort, en wat delegeerbaar is",
+        "p1": "De bedrijfsleiding bestaat uit de wettelijke vertegenwoordigers van de entiteit, zoals de directeuren van een GmbH of het bestuur van een AG. De plichten uit § 38 BSIG raken deze personen rechtstreeks, ongeacht de omvang van de interne IT.",
+        "p2": "Delegeerbaar is de operationele uitvoering, niet de verantwoordelijkheid. U kunt de uitvoering overdragen aan een team of een dienstverlener en de bewaking koppelen aan een rapportagelijn; de eindverantwoordelijkheid voor uitvoering en toezicht blijft bij de leiding."
+      },
+      "faq": {
+        "heading": "Veelgestelde vragen",
+        "q1": {
+          "q": "Geldt § 38 BSIG ook voor kleine ondernemingen?",
+          "a": "Ja, zodra de entiteit als bijzonder belangrijk of belangrijk is ingedeeld. De plichten van de bedrijfsleiding hangen samen met de vraag of de entiteit binnen het toepassingsbereik valt, niet met haar omvang binnen de drempel."
+        },
+        "q2": {
+          "q": "Kan de bedrijfsleiding de verantwoordelijkheid overdragen aan de IT of een dienstverlener?",
+          "a": "Nee. De operationele uitvoering is delegeerbaar, de verantwoordelijkheid voor uitvoering en bewaking niet. De eindverantwoordelijkheid blijft bij de leiding."
+        },
+        "q3": {
+          "q": "Welke training voldoet aan § 38 lid 3 BSIG?",
+          "a": "De wet schrijft geen specifieke training of certificering voor. Vereist is voldoende kennis om risico's te herkennen en te beoordelen; dit wordt aangetoond door regelmatige, aantoonbare deelname."
+        },
+        "q4": {
+          "q": "Waarvoor is de bedrijfsleiding precies aansprakelijk?",
+          "a": "Volgens § 38 lid 2 BSIG zijn leidinggevenden tegenover hun eigen entiteit aansprakelijk voor schade die zij veroorzaken door een verwijtbare schending van hun uitvoerings- en bewakingsplichten. Het gaat om een interne aansprakelijkheid tegenover de onderneming."
+        },
+        "q5": {
+          "q": "Waarin verschilt § 38 van § 30 BSIG?",
+          "a": "§ 30 BSIG bepaalt welke maatregelen de entiteit moet nemen. § 38 BSIG bepaalt dat de bedrijfsleiding deze maatregelen uitvoert, bewaakt, zich laat bijscholen en daarvoor aansprakelijk is."
+        }
+      },
+      "ctaCard": {
+        "heading": "Aan de trainingsplicht van de bedrijfsleiding voldoen",
+        "description": "De gratis NIS-2-cursus voor bestuurders brengt de volgens § 38 lid 3 BSIG vereiste kennis over, met deelnamebewijs."
+      },
+      "cta": "Naar de gratis cursus"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: de NIS 2-meldplicht (24u, 72u, één maand)",

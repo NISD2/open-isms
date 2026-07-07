@@ -252,6 +252,80 @@
       },
       "cta": "Inizi gratuitamente"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG: gli obblighi dell'organo di gestione",
+        "description": "Il § 38 BSIG obbliga l'organo di gestione delle entità particolarmente importanti e importanti ad attuare e sorvegliare le misure previste dal § 30, a partecipare a formazioni e disciplina la responsabilità personale interna. Cosa significa questo per amministratori e membri del consiglio di amministrazione."
+      },
+      "title": "§ 38 BSIG: gli obblighi dell'organo di gestione",
+      "subtitle": "Attuare, sorvegliare, formarsi: tre obblighi che restano in capo alla direzione.",
+      "overview": {
+        "heading": "Cosa richiede il § 38 BSIG",
+        "p1": "Il § 38 BSIG recepisce l'articolo 20 NIS 2 nel diritto tedesco e non si rivolge all'entità, bensì alle persone al suo vertice. Gli organi di gestione delle entità particolarmente importanti e importanti devono attuare le misure di gestione dei rischi previste dal § 30 BSIG e sorvegliarne l'attuazione. La cybersicurezza è quindi espressamente un compito della direzione e non una questione riservata all'IT.",
+        "p2": "L'articolo 20 NIS 2 parla di approvare e sorvegliare, il § 38 BSIG formula l'obbligo come attuare e sorvegliare. Il senso è lo stesso: la direzione deve conoscere le misure, assumersene la responsabilità e tenere sotto controllo la loro efficacia. Chi si limita ad approvare formalmente non adempie all'obbligo di sorveglianza."
+      },
+      "duties": {
+        "heading": "I tre obblighi dell'organo di gestione",
+        "description": "§ 38 commi 1 e 3 BSIG, articolo 20 NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Attuazione delle misure previste dal § 30",
+            "text": "L'organo di gestione deve assicurare che le misure di gestione dei rischi di cui al § 30 comma 2 BSIG siano effettivamente attuate. La relativa responsabilità non può essere trasferita al reparto IT o a un fornitore di servizi."
+          },
+          "d2": {
+            "title": "Sorveglianza dell'attuazione",
+            "text": "La sola attuazione non basta. La direzione deve sorvegliare in modo continuativo se le misure funzionano ed essere in grado di documentarlo. Relazioni periodiche alla direzione e la loro presa d'atto documentata sono la prova consueta."
+          },
+          "d3": {
+            "title": "Partecipazione a formazioni",
+            "text": "Ai sensi del § 38 comma 3 BSIG, i membri dell'organo di gestione devono partecipare regolarmente a formazioni per poter riconoscere e valutare autonomamente i rischi informatici. La legge non prescrive alcuna certificazione specifica; ciò che conta è la partecipazione dimostrabile."
+          }
+        }
+      },
+      "liability": {
+        "heading": "La responsabilità personale ai sensi del § 38 comma 2",
+        "p1": "Il § 38 comma 2 BSIG disciplina una responsabilità interna: se i membri dell'organo di gestione violano gli obblighi di cui al comma 1, rispondono nei confronti della propria entità per il danno colposamente causato in tal modo. Si tratta di una responsabilità verso la propria impresa, non verso le autorità o verso terzi.",
+        "p2": "Questa responsabilità interna si aggiunge alla responsabilità generale degli organi prevista dal § 43 GmbHG e dal § 93 AktG. È la ragione per cui l'obbligo di attuazione e sorveglianza non è una mera formalità: un processo di sorveglianza documentato costituisce al tempo stesso la discolpa delle persone che agiscono."
+      },
+      "training": {
+        "heading": "L'obbligo di formazione e la sua prova",
+        "p1": "L'obbligo di formazione previsto dal § 38 comma 3 BSIG grava personalmente sulle persone che ricoprono cariche direttive. È richiesta una conoscenza sufficiente per riconoscere i rischi informatici e valutare l'adeguatezza delle misure, non una competenza tecnica specialistica.",
+        "p2": "Poiché la legge non prescrive alcun fornitore né alcuna certificazione, la prova è semplice: una partecipazione regolare e dimostrabile. Un attestato di partecipazione e un appuntamento ricorrente sono sufficienti come base."
+      },
+      "scope": {
+        "heading": "Chi fa parte dell'organo di gestione e cosa è delegabile",
+        "p1": "L'organo di gestione è costituito dai rappresentanti legali dell'entità, ad esempio gli amministratori di una GmbH o il consiglio di amministrazione di una AG. Gli obblighi previsti dal § 38 BSIG si applicano direttamente a queste persone, indipendentemente dalle dimensioni dell'IT interna.",
+        "p2": "È delegabile l'esecuzione operativa, non la responsabilità. È possibile affidare l'attuazione a un team o a un fornitore di servizi e ancorare la sorveglianza a una linea di reporting; la responsabilità finale per l'attuazione e la supervisione resta in capo alla direzione."
+      },
+      "faq": {
+        "heading": "Domande frequenti",
+        "q1": {
+          "q": "Il § 38 BSIG si applica anche alle piccole imprese?",
+          "a": "Sì, non appena l'entità è classificata come particolarmente importante o importante. Gli obblighi dell'organo di gestione dipendono dal fatto che l'entità rientri nell'ambito di applicazione, non dalle sue dimensioni all'interno della soglia."
+        },
+        "q2": {
+          "q": "La direzione può trasferire la responsabilità all'IT o a un fornitore di servizi?",
+          "a": "No. L'attuazione operativa è delegabile, la responsabilità per l'attuazione e la sorveglianza no. La responsabilità finale resta in capo alla direzione."
+        },
+        "q3": {
+          "q": "Quale formazione adempie al § 38 comma 3 BSIG?",
+          "a": "La legge non prescrive alcuna formazione o certificazione specifica. È richiesta una conoscenza sufficiente per riconoscere e valutare i rischi; la si dimostra tramite una partecipazione regolare e documentabile."
+        },
+        "q4": {
+          "q": "Di cosa risponde esattamente l'organo di gestione?",
+          "a": "Ai sensi del § 38 comma 2 BSIG, i membri della direzione rispondono nei confronti della propria entità per un danno che causano tramite una violazione colposa dei loro obblighi di attuazione e sorveglianza. Si tratta di una responsabilità interna verso l'impresa."
+        },
+        "q5": {
+          "q": "In cosa si distingue il § 38 dal § 30 BSIG?",
+          "a": "Il § 30 BSIG stabilisce quali misure l'entità deve adottare. Il § 38 BSIG stabilisce che l'organo di gestione attua queste misure, le sorveglia, si forma e ne risponde."
+        }
+      },
+      "ctaCard": {
+        "heading": "Adempiere all'obbligo di formazione dell'organo di gestione",
+        "description": "Il corso NIS 2 gratuito per amministratori trasmette le conoscenze richieste dal § 38 comma 3 BSIG, con attestato di partecipazione."
+      },
+      "cta": "Al corso gratuito"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: l'obbligo di notifica degli incidenti NIS 2 (24h, 72h, un mese)",

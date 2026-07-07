@@ -252,6 +252,80 @@
       },
       "cta": "Empezar gratis"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG: los deberes de la dirección",
+        "description": "El § 38 BSIG obliga a la dirección de las entidades especialmente importantes e importantes a implementar y supervisar las medidas del § 30, a participar en formaciones, y regula la responsabilidad personal interna. Qué significa esto para gerentes y miembros del consejo de administración."
+      },
+      "title": "§ 38 BSIG: los deberes de la dirección",
+      "subtitle": "Implementar, supervisar, formarse: tres deberes que permanecen en manos de la dirección.",
+      "overview": {
+        "heading": "Qué exige el § 38 BSIG",
+        "p1": "El § 38 BSIG transpone el artículo 20 NIS 2 al Derecho alemán y no se dirige a la entidad, sino a las personas que la encabezan. Las direcciones de las entidades especialmente importantes e importantes deben implementar las medidas de gestión de riesgos del § 30 BSIG y supervisar su implementación. La ciberseguridad es, así, expresamente una tarea de la dirección, y no un asunto exclusivo del área de TI.",
+        "p2": "El artículo 20 NIS 2 habla de aprobar y supervisar; el § 38 BSIG formula el deber como implementar y supervisar. El sentido es el mismo: la dirección debe conocer las medidas, responder por ellas y mantener bajo control su eficacia. Quien se limita a dar el visto bueno no cumple el deber de supervisión."
+      },
+      "duties": {
+        "heading": "Los tres deberes de la dirección",
+        "description": "§ 38 apartados 1 y 3 BSIG, artículo 20 NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Implementación de las medidas del § 30",
+            "text": "La dirección debe velar por que las medidas de gestión de riesgos del § 30 apartado 2 BSIG se implementen efectivamente. Esta responsabilidad no puede transferirse al área de TI ni a un proveedor de servicios."
+          },
+          "d2": {
+            "title": "Supervisión de la implementación",
+            "text": "Implementar por sí solo no basta. La dirección debe supervisar de forma continua si las medidas surten efecto, y poder acreditarlo. Los informes periódicos a la gerencia y la constancia documentada de su toma de conocimiento son la prueba habitual."
+          },
+          "d3": {
+            "title": "Participación en formaciones",
+            "text": "Conforme al § 38 apartado 3 BSIG, los miembros de la dirección deben participar periódicamente en formaciones para poder identificar y evaluar por sí mismos los ciberriesgos. La ley no exige ninguna certificación determinada; lo decisivo es la participación acreditable."
+          }
+        }
+      },
+      "liability": {
+        "heading": "La responsabilidad personal según el § 38 apartado 2",
+        "p1": "El § 38 apartado 2 BSIG regula una responsabilidad interna: si los miembros de la dirección incumplen sus deberes del apartado 1, responden ante su propia entidad por el daño causado culpablemente por ello. Es una responsabilidad frente a la propia empresa, no frente a las autoridades ni frente a terceros.",
+        "p2": "Esta responsabilidad interna se suma a la responsabilidad general de los órganos derivada del § 43 GmbHG y del § 93 AktG. Es la razón por la que el deber de implementación y supervisión no es una mera formalidad: un proceso de supervisión documentado es, al mismo tiempo, el descargo de las personas que actúan."
+      },
+      "training": {
+        "heading": "El deber de formación y su acreditación",
+        "p1": "El deber de formación del § 38 apartado 3 BSIG recae personalmente en las personas de la dirección. Se exige conocimiento suficiente para identificar los ciberriesgos y valorar la adecuación de las medidas, no un conocimiento técnico especializado.",
+        "p2": "Como la ley no prescribe ningún proveedor ni ninguna certificación, la acreditación es sencilla: una participación periódica y demostrable. Un certificado de participación y una cita recurrente bastan como base."
+      },
+      "scope": {
+        "heading": "Quién forma parte de la dirección y qué es delegable",
+        "p1": "La dirección la integran los representantes legales de la entidad, por ejemplo los gerentes de una GmbH o el consejo de administración de una AG. Los deberes del § 38 BSIG afectan directamente a estas personas, con independencia del tamaño del área interna de TI.",
+        "p2": "Lo delegable es la ejecución operativa, no la responsabilidad. Puede transferir la implementación a un equipo o a un proveedor de servicios y vincular la supervisión a una línea de reporte; la responsabilidad última por la implementación y la vigilancia permanece en la dirección."
+      },
+      "faq": {
+        "heading": "Preguntas frecuentes",
+        "q1": {
+          "q": "¿Se aplica el § 38 BSIG también a las pequeñas empresas?",
+          "a": "Sí, en cuanto la entidad se clasifica como especialmente importante o importante. Los deberes de la dirección dependen de que la entidad esté sujeta a la norma, no de su tamaño dentro del umbral."
+        },
+        "q2": {
+          "q": "¿Puede la gerencia transferir la responsabilidad al área de TI o a un proveedor de servicios?",
+          "a": "No. La implementación operativa es delegable; la responsabilidad por la implementación y la supervisión, no. La responsabilidad última permanece en la dirección."
+        },
+        "q3": {
+          "q": "¿Qué formación cumple el § 38 apartado 3 BSIG?",
+          "a": "La ley no prescribe ninguna formación ni certificación determinada. Se exige conocimiento suficiente para identificar y evaluar los riesgos; se acredita mediante una participación periódica y demostrable."
+        },
+        "q4": {
+          "q": "¿De qué responde exactamente la dirección?",
+          "a": "Conforme al § 38 apartado 2 BSIG, los miembros de la dirección responden ante su propia entidad por el daño que causen mediante un incumplimiento culpable de sus deberes de implementación y supervisión. Es una responsabilidad interna frente a la empresa."
+        },
+        "q5": {
+          "q": "¿En qué se diferencia el § 38 del § 30 BSIG?",
+          "a": "El § 30 BSIG determina qué medidas debe adoptar la entidad. El § 38 BSIG determina que la dirección implementa esas medidas, las supervisa, se forma y responde por ellas."
+        }
+      },
+      "ctaCard": {
+        "heading": "Cumplir el deber de formación de la dirección",
+        "description": "El curso gratuito de NIS 2 para gerentes transmite el conocimiento exigido por el § 38 apartado 3 BSIG, con certificado de participación."
+      },
+      "cta": "Ir al curso gratuito"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: la obligación de notificación de incidentes NIS 2 (24h, 72h, un mes)",

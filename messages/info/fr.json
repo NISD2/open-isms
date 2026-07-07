@@ -252,6 +252,80 @@
       },
       "cta": "Commencer gratuitement"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG : les obligations de l'organe de direction",
+        "description": "Le § 38 BSIG oblige l'organe de direction des entités essentielles et importantes à mettre en œuvre et à surveiller les mesures prévues au § 30, à suivre des formations, et il régit la responsabilité personnelle interne. Ce que cela signifie pour les gérants et les membres du directoire."
+      },
+      "title": "§ 38 BSIG : les obligations de l'organe de direction",
+      "subtitle": "Mettre en œuvre, surveiller, se former : trois obligations qui restent du ressort de la direction.",
+      "overview": {
+        "heading": "Ce que le § 38 BSIG exige",
+        "p1": "Le § 38 BSIG transpose en droit allemand l'article 20 de la directive NIS 2 et s'adresse non pas à l'entité, mais aux personnes qui la dirigent. Les organes de direction des entités essentielles et importantes doivent mettre en œuvre les mesures de gestion des risques prévues au § 30 BSIG et en surveiller la mise en œuvre. La cybersécurité est ainsi expressément une mission de direction, et non l'affaire de la seule informatique.",
+        "p2": "L'article 20 de la directive NIS 2 parle d'approuver et de superviser, tandis que le § 38 BSIG formule l'obligation comme mettre en œuvre et surveiller. Le sens est le même : la direction doit connaître les mesures, en assumer la responsabilité et rester attentive à leur efficacité. Se contenter d'un accord de principe ne satisfait pas à l'obligation de surveillance."
+      },
+      "duties": {
+        "heading": "Les trois obligations de l'organe de direction",
+        "description": "§ 38 alinéas 1 et 3 BSIG, article 20 de la directive NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Mise en œuvre des mesures prévues au § 30",
+            "text": "L'organe de direction doit veiller à ce que les mesures de gestion des risques prévues au § 30 alinéa 2 BSIG soient effectivement mises en œuvre. Cette responsabilité ne peut être transférée au service informatique ou à un prestataire."
+          },
+          "d2": {
+            "title": "Surveillance de la mise en œuvre",
+            "text": "La mise en œuvre ne suffit pas à elle seule. La direction doit surveiller en continu l'efficacité des mesures et être en mesure de le prouver. Des rapports réguliers à la direction et leur prise de connaissance documentée constituent le mode de preuve habituel."
+          },
+          "d3": {
+            "title": "Participation à des formations",
+            "text": "Selon le § 38 alinéa 3 BSIG, les membres de l'organe de direction doivent participer régulièrement à des formations afin de pouvoir eux-mêmes identifier et évaluer les cyberrisques. La loi ne prescrit aucune certification particulière ; ce qui compte est la participation vérifiable."
+          }
+        }
+      },
+      "liability": {
+        "heading": "La responsabilité personnelle au titre du § 38 alinéa 2",
+        "p1": "Le § 38 alinéa 2 BSIG régit une responsabilité interne : lorsque des membres de l'organe de direction manquent aux obligations prévues à l'alinéa 1, ils répondent envers leur propre entité du dommage qu'ils ont ainsi causé par leur faute. Il s'agit d'une responsabilité envers l'entreprise elle-même, et non envers les autorités ou des tiers.",
+        "p2": "Cette responsabilité interne s'ajoute à la responsabilité générale des organes prévue par le § 43 GmbHG et le § 93 AktG. C'est la raison pour laquelle l'obligation de mise en œuvre et de surveillance n'est pas une simple formalité : un processus de surveillance documenté constitue en même temps la décharge des personnes concernées."
+      },
+      "training": {
+        "heading": "L'obligation de formation et sa preuve",
+        "p1": "L'obligation de formation prévue au § 38 alinéa 3 BSIG incombe personnellement aux membres de la direction. Ce qui est exigé est un niveau de connaissances suffisant pour identifier les cyberrisques et apprécier le caractère approprié des mesures, et non une expertise technique spécialisée.",
+        "p2": "Comme la loi ne prescrit ni prestataire ni certification, la preuve est simple : une participation régulière et vérifiable. Une attestation de participation et un rendez-vous récurrent suffisent comme base."
+      },
+      "scope": {
+        "heading": "Qui relève de l'organe de direction, et ce qui est délégable",
+        "p1": "L'organe de direction désigne les représentants légaux de l'entité, par exemple les gérants d'une GmbH ou le directoire d'une AG. Les obligations prévues au § 38 BSIG s'imposent directement à ces personnes, indépendamment de la taille du service informatique interne.",
+        "p2": "L'exécution opérationnelle est délégable, mais pas la responsabilité. La direction peut confier la mise en œuvre à une équipe ou à un prestataire et rattacher la surveillance à une ligne de reporting ; la responsabilité ultime de la mise en œuvre et du contrôle reste du ressort de la direction."
+      },
+      "faq": {
+        "heading": "Questions fréquentes",
+        "q1": {
+          "q": "Le § 38 BSIG s'applique-t-il aussi aux petites entreprises ?",
+          "a": "Oui, dès lors que l'entité est classée comme essentielle ou importante. Les obligations de l'organe de direction dépendent de l'assujettissement de l'entité, et non de sa taille au sein du seuil."
+        },
+        "q2": {
+          "q": "La direction peut-elle transférer la responsabilité à l'informatique ou à un prestataire ?",
+          "a": "Non. La mise en œuvre opérationnelle est délégable, mais pas la responsabilité de la mise en œuvre et de la surveillance. La responsabilité ultime reste du ressort de la direction."
+        },
+        "q3": {
+          "q": "Quelle formation satisfait au § 38 alinéa 3 BSIG ?",
+          "a": "La loi ne prescrit aucune formation ni certification particulière. Ce qui est exigé est un niveau de connaissances suffisant pour identifier et évaluer les risques ; il se prouve par une participation régulière et vérifiable."
+        },
+        "q4": {
+          "q": "De quoi l'organe de direction répond-il exactement ?",
+          "a": "Selon le § 38 alinéa 2 BSIG, les membres de la direction répondent envers leur propre entité du dommage qu'ils causent par un manquement fautif à leurs obligations de mise en œuvre et de surveillance. Il s'agit d'une responsabilité interne envers l'entreprise."
+        },
+        "q5": {
+          "q": "En quoi le § 38 se distingue-t-il du § 30 BSIG ?",
+          "a": "Le § 30 BSIG fixe les mesures que l'entité doit prendre. Le § 38 BSIG fixe que l'organe de direction met en œuvre ces mesures, les surveille, se forme et en répond."
+        }
+      },
+      "ctaCard": {
+        "heading": "Satisfaire à l'obligation de formation de l'organe de direction",
+        "description": "Le cours NIS 2 gratuit pour dirigeants transmet les connaissances exigées par le § 38 alinéa 3 BSIG, avec attestation de participation."
+      },
+      "cta": "Accéder au cours gratuit"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG : l'obligation de notification des incidents NIS 2 (24h, 72h, un mois)",

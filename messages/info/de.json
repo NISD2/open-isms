@@ -252,6 +252,80 @@
       },
       "cta": "Kostenlos starten"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG: die Pflichten der Geschäftsleitung",
+        "description": "§ 38 BSIG verpflichtet die Geschäftsleitung besonders wichtiger und wichtiger Einrichtungen, die Maßnahmen nach § 30 umzusetzen und zu überwachen, an Schulungen teilzunehmen, und regelt die persönliche Innenhaftung. Was das für Geschäftsführer und Vorstände bedeutet."
+      },
+      "title": "§ 38 BSIG: die Pflichten der Geschäftsleitung",
+      "subtitle": "Umsetzen, überwachen, schulen: drei Pflichten, die bei der Leitung bleiben.",
+      "overview": {
+        "heading": "Was § 38 BSIG verlangt",
+        "p1": "§ 38 BSIG setzt Artikel 20 NIS 2 in deutsches Recht um und adressiert nicht die Einrichtung, sondern die Personen an ihrer Spitze. Die Geschäftsleitungen besonders wichtiger und wichtiger Einrichtungen müssen die Risikomanagementmaßnahmen nach § 30 BSIG umsetzen und ihre Umsetzung überwachen. Cybersicherheit ist damit ausdrücklich Leitungsaufgabe, nicht allein Sache der IT.",
+        "p2": "Artikel 20 NIS 2 spricht von billigen und überwachen, § 38 BSIG formuliert die Pflicht als umsetzen und überwachen. Gemeint ist dasselbe: Die Leitung muss die Maßnahmen kennen, verantworten und ihre Wirksamkeit im Blick behalten. Wer nur abnickt, erfüllt die Überwachungspflicht nicht."
+      },
+      "duties": {
+        "heading": "Die drei Pflichten der Geschäftsleitung",
+        "description": "§ 38 Absatz 1 und 3 BSIG, Artikel 20 NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Umsetzung der Maßnahmen nach § 30",
+            "text": "Die Geschäftsleitung muss dafür sorgen, dass die Risikomanagementmaßnahmen aus § 30 Absatz 2 BSIG tatsächlich umgesetzt werden. Die Verantwortung dafür lässt sich nicht an die IT-Abteilung oder einen Dienstleister abgeben."
+          },
+          "d2": {
+            "title": "Überwachung der Umsetzung",
+            "text": "Umsetzen allein genügt nicht. Die Leitung muss laufend überwachen, ob die Maßnahmen wirken, und dies belegen können. Regelmäßige Berichte an die Geschäftsführung und deren dokumentierte Kenntnisnahme sind der übliche Nachweis."
+          },
+          "d3": {
+            "title": "Teilnahme an Schulungen",
+            "text": "Nach § 38 Absatz 3 BSIG sollen die Mitglieder der Geschäftsleitung regelmäßig an Schulungen teilnehmen, um Cyberrisiken selbst erkennen und bewerten zu können. Das Gesetz nennt keine bestimmte Zertifizierung; entscheidend ist die nachweisbare Teilnahme."
+          }
+        }
+      },
+      "liability": {
+        "heading": "Die persönliche Haftung nach § 38 Absatz 2",
+        "p1": "§ 38 Absatz 2 BSIG regelt eine Innenhaftung: Verletzen Mitglieder der Geschäftsleitung ihre Pflichten aus Absatz 1, haften sie ihrer eigenen Einrichtung für einen dadurch schuldhaft verursachten Schaden. Es ist eine Haftung gegenüber dem eigenen Unternehmen, nicht gegenüber Behörden oder Dritten.",
+        "p2": "Diese Innenhaftung tritt neben die allgemeine Organhaftung aus § 43 GmbHG und § 93 AktG. Sie ist der Grund, warum die Umsetzungs- und Überwachungspflicht keine Formsache ist: Ein dokumentierter Überwachungsprozess ist zugleich die Entlastung der handelnden Personen."
+      },
+      "training": {
+        "heading": "Die Schulungspflicht und ihr Nachweis",
+        "p1": "Die Schulungspflicht aus § 38 Absatz 3 BSIG liegt persönlich bei den Leitungspersonen. Verlangt wird ausreichendes Wissen, um Cyberrisiken zu erkennen und die Angemessenheit der Maßnahmen zu beurteilen, nicht technische Spezialkenntnis.",
+        "p2": "Weil das Gesetz keinen Anbieter und keine Zertifizierung vorschreibt, ist der Nachweis einfach: eine belegbare, regelmäßige Teilnahme. Eine Teilnahmebescheinigung und ein wiederkehrender Termin genügen als Grundlage."
+      },
+      "scope": {
+        "heading": "Wer zur Geschäftsleitung zählt, und was delegierbar ist",
+        "p1": "Geschäftsleitung sind die gesetzlichen Vertreter der Einrichtung, etwa die Geschäftsführer einer GmbH oder der Vorstand einer AG. Die Pflichten aus § 38 BSIG treffen diese Personen unmittelbar, unabhängig von der Größe der internen IT.",
+        "p2": "Delegierbar ist die operative Ausführung, nicht die Verantwortung. Sie können die Umsetzung an ein Team oder einen Dienstleister übertragen und die Überwachung an eine Berichtslinie knüpfen; die Letztverantwortung für Umsetzung und Aufsicht bleibt bei der Leitung."
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "q1": {
+          "q": "Gilt § 38 BSIG auch für kleine Unternehmen?",
+          "a": "Ja, sobald die Einrichtung als besonders wichtig oder wichtig eingestuft ist. Die Pflichten der Geschäftsleitung hängen an der Betroffenheit der Einrichtung, nicht an ihrer Größe innerhalb der Schwelle."
+        },
+        "q2": {
+          "q": "Kann die Geschäftsführung die Verantwortung an die IT oder einen Dienstleister abgeben?",
+          "a": "Nein. Die operative Umsetzung ist delegierbar, die Verantwortung für Umsetzung und Überwachung nicht. Die Letztverantwortung bleibt bei der Leitung."
+        },
+        "q3": {
+          "q": "Welche Schulung erfüllt § 38 Absatz 3 BSIG?",
+          "a": "Das Gesetz schreibt keine bestimmte Schulung oder Zertifizierung vor. Verlangt wird ausreichendes Wissen zur Erkennung und Bewertung von Risiken; nachgewiesen wird es durch regelmäßige, belegbare Teilnahme."
+        },
+        "q4": {
+          "q": "Wofür haftet die Geschäftsleitung genau?",
+          "a": "Nach § 38 Absatz 2 BSIG haften Leitungsmitglieder ihrer eigenen Einrichtung für einen Schaden, den sie durch eine schuldhafte Verletzung ihrer Umsetzungs- und Überwachungspflichten verursachen. Es ist eine Innenhaftung gegenüber dem Unternehmen."
+        },
+        "q5": {
+          "q": "Wie unterscheidet sich § 38 von § 30 BSIG?",
+          "a": "§ 30 BSIG legt fest, welche Maßnahmen die Einrichtung ergreifen muss. § 38 BSIG legt fest, dass die Geschäftsleitung diese Maßnahmen umsetzt, überwacht, sich schult und dafür haftet."
+        }
+      },
+      "ctaCard": {
+        "heading": "Die Schulungspflicht der Geschäftsleitung erfüllen",
+        "description": "Der kostenlose NIS-2-Kurs für Geschäftsführer vermittelt das nach § 38 Absatz 3 BSIG verlangte Wissen, mit Teilnahmenachweis."
+      },
+      "cta": "Zum kostenlosen Kurs"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: die NIS-2-Meldepflicht (24h, 72h, ein Monat)",

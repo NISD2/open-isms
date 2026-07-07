@@ -349,6 +349,20 @@
       "url": "https://www.ris.bka.gv.at/",
       "description": "Austrian Federal Legal Information System and authentic Federal Law Gazette, incl. NISG 2026 (BGBl. I Nr. 94/2025).",
       "language": "de"
+    },
+    {
+      "id": "ilr-lu",
+      "name": "Institut Luxembourgeois de Regulation (ILR)",
+      "url": "https://www.ilr.lu/en/sectors/niss/nis-2/",
+      "description": "Luxembourg NIS 2 competent authority; hosts the NIS 2 information hub and the self-registration portal for essential and important entities.",
+      "language": "both"
+    },
+    {
+      "id": "ncsc-se",
+      "name": "Nationellt cybersaekerhetscenter (NCSC Sweden)",
+      "url": "https://www.ncsc.se/",
+      "description": "Sweden's national cybersecurity centre at the FRA; NIS 2 single point of contact and CERT-SE host since 1 July 2026, runs the cybersaekerhetslagen registration.",
+      "language": "en"
     }
   ],
   "events": [
@@ -2194,7 +2208,35 @@
       "sourceId": "enisa",
       "sourceUrl": "https://www.enisa.europa.eu/news/your-perspective-matters-join-the-nis360-survey",
       "addedAt": "2026-07-02T09:52:54Z"
+    },
+    {
+      "id": "2026-07-10-national-transposition-luxembourg-ilr-registration-deadline",
+      "date": "2026-07-10",
+      "category": "national-transposition",
+      "tags": ["lu", "registration", "deadline"],
+      "type": "update",
+      "title": "Luxembourg: NIS 2 self-registration with the ILR closes 10 July 2026",
+      "titleDe": "Luxemburg: NIS-2-Selbstregistrierung bei der ILR endet am 10. Juli 2026",
+      "summary": "Entities in scope of NIS 2 in Luxembourg must self-register with the Institut Luxembourgeois de Regulation (ILR) by 10 July 2026, the end of the two-month window that opened when the Law of 5 May 2026 entered into force on 10 May 2026. The ILR is the competent authority, with the HCPN as single point of contact and the CSSF for the financial sector.",
+      "summaryDe": "In Luxemburg NIS-2-pflichtige Einrichtungen muessen sich bis zum 10. Juli 2026 beim Institut Luxembourgeois de Regulation (ILR) selbst registrieren, dem Ende der zweimonatigen Frist, die mit Inkrafttreten des Gesetzes vom 5. Mai 2026 am 10. Mai 2026 begann. Zustaendige Behoerde ist die ILR, zentrale Kontaktstelle ist das HCPN, fuer den Finanzsektor die CSSF.",
+      "sourceId": "ilr-lu",
+      "sourceUrl": "https://www.ilr.lu/en/sectors/niss/nis-2/",
+      "addedAt": "2026-07-06T18:30:00Z"
+    },
+    {
+      "id": "2026-07-01-national-transposition-se-ncsc-authority-transfer",
+      "date": "2026-07-01",
+      "category": "national-transposition",
+      "tags": ["se", "organisational"],
+      "type": "update",
+      "title": "Sweden: NIS 2 authority functions and CERT-SE transfer from MCF to the new NCSC",
+      "titleDe": "Schweden: NIS-2-Behoerdenfunktionen und CERT-SE gehen von der MCF an das neue NCSC ueber",
+      "summary": "On 1 July 2026 Sweden's NIS 2 single point of contact, CERT-SE and the cybersaekerhetslagen registration function moved from the Myndigheten foer civilt foersvar (MCF, renamed from MSB on 1 January 2026) to the newly created Nationellt cybersaekerhetscenter (NCSC), hosted at the FRA. Entities register by emailing a form to nis2anmalan@ncsc.se.",
+      "summaryDe": "Zum 1. Juli 2026 gingen die nationale NIS-2-Anlaufstelle, CERT-SE und die Registrierungsfunktion nach dem Cybersaekerhetslagen von der Myndigheten foer civilt foersvar (MCF, am 1. Januar 2026 von MSB umbenannt) auf das neu geschaffene Nationellt cybersaekerhetscenter (NCSC) bei der FRA ueber. Einrichtungen registrieren sich per E-Mail-Formular an nis2anmalan@ncsc.se.",
+      "sourceId": "ncsc-se",
+      "sourceUrl": "https://www.cert.se/2026/06/nu-samlas-cyberverksamheten-hos-nationellt-cybersakerhetscenter.html",
+      "addedAt": "2026-07-06T18:30:00Z"
     }
   ],
-  "lastUpdated": "2026-07-04T15:29:32Z"
+  "lastUpdated": "2026-07-06T18:30:00Z"
 }

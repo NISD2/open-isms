@@ -252,6 +252,80 @@
       },
       "cta": "Začít zdarma"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG: povinnosti vedení společnosti",
+        "description": "§ 38 BSIG ukládá vedení obzvláště významných a významných subjektů povinnost zavést opatření podle § 30 a dohlížet na ně, účastnit se školení a upravuje osobní vnitřní odpovědnost. Co to znamená pro jednatele a členy představenstva."
+      },
+      "title": "§ 38 BSIG: povinnosti vedení společnosti",
+      "subtitle": "Zavést, dohlížet, školit: tři povinnosti, které zůstávají na vedení.",
+      "overview": {
+        "heading": "Co § 38 BSIG vyžaduje",
+        "p1": "§ 38 BSIG provádí článek 20 NIS 2 do německého práva a neobrací se na subjekt jako takový, nýbrž na osoby v jeho čele. Vedení obzvláště významných a významných subjektů musí zavést opatření k řízení rizik podle § 30 BSIG a dohlížet na jejich provádění. Kybernetická bezpečnost je tak výslovně úkolem vedení, nikoli výhradně věcí IT.",
+        "p2": "Článek 20 NIS 2 hovoří o schvalování a dohledu, § 38 BSIG formuluje povinnost jako zavedení a dohled. Význam je tentýž: vedení musí opatření znát, nést za ně odpovědnost a sledovat jejich účinnost. Kdo je jen formálně odsouhlasí, povinnost dohledu neplní."
+      },
+      "duties": {
+        "heading": "Tři povinnosti vedení společnosti",
+        "description": "§ 38 odst. 1 a 3 BSIG, článek 20 NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Zavedení opatření podle § 30",
+            "text": "Vedení musí zajistit, aby byla opatření k řízení rizik podle § 30 odst. 2 BSIG skutečně zavedena. Odpovědnost za to nelze přenést na oddělení IT ani na poskytovatele služeb."
+          },
+          "d2": {
+            "title": "Dohled nad prováděním",
+            "text": "Samotné zavedení nestačí. Vedení musí průběžně sledovat, zda opatření fungují, a být schopno to doložit. Obvyklým dokladem jsou pravidelné zprávy pro vedení a jejich zdokumentované vzetí na vědomí."
+          },
+          "d3": {
+            "title": "Účast na školeních",
+            "text": "Podle § 38 odst. 3 BSIG se mají členové vedení pravidelně účastnit školení, aby dokázali kybernetická rizika sami rozpoznat a posoudit. Zákon neuvádí žádnou konkrétní certifikaci; rozhodující je doložitelná účast."
+          }
+        }
+      },
+      "liability": {
+        "heading": "Osobní odpovědnost podle § 38 odst. 2",
+        "p1": "§ 38 odst. 2 BSIG upravuje vnitřní odpovědnost: poruší-li členové vedení své povinnosti podle odstavce 1, odpovídají vlastnímu subjektu za škodu, kterou tím zaviněně způsobí. Jde o odpovědnost vůči vlastní společnosti, nikoli vůči úřadům nebo třetím osobám.",
+        "p2": "Tato vnitřní odpovědnost přistupuje k obecné odpovědnosti orgánů podle § 43 GmbHG a § 93 AktG. Je důvodem, proč povinnost zavést opatření a dohlížet na ně není pouhou formalitou: zdokumentovaný proces dohledu je zároveň prostředkem k vyvinění jednajících osob."
+      },
+      "training": {
+        "heading": "Povinnost školení a její doložení",
+        "p1": "Povinnost školení podle § 38 odst. 3 BSIG nese osobně každý člen vedení. Vyžadují se dostatečné znalosti k rozpoznání kybernetických rizik a posouzení přiměřenosti opatření, nikoli specializované technické znalosti.",
+        "p2": "Protože zákon nepředepisuje žádného poskytovatele ani certifikaci, je doložení jednoduché: prokazatelná, pravidelná účast. Jako základ postačí potvrzení o účasti a opakující se termín."
+      },
+      "scope": {
+        "heading": "Kdo patří k vedení a co lze delegovat",
+        "p1": "Vedením se rozumějí zákonní zástupci subjektu, například jednatelé společnosti GmbH nebo představenstvo akciové společnosti (AG). Povinnosti podle § 38 BSIG dopadají na tyto osoby přímo, bez ohledu na velikost interního oddělení IT.",
+        "p2": "Delegovat lze provozní výkon, nikoli odpovědnost. Zavedení opatření lze svěřit týmu nebo poskytovateli služeb a dohled navázat na linii podávání zpráv; konečná odpovědnost za zavedení a dohled však zůstává na vedení."
+      },
+      "faq": {
+        "heading": "Časté dotazy",
+        "q1": {
+          "q": "Platí § 38 BSIG i pro malé podniky?",
+          "a": "Ano, jakmile je subjekt zařazen jako obzvláště významný nebo významný. Povinnosti vedení závisí na tom, zda subjekt spadá do působnosti, nikoli na jeho velikosti v rámci prahové hodnoty."
+        },
+        "q2": {
+          "q": "Může vedení přenést odpovědnost na IT nebo na poskytovatele služeb?",
+          "a": "Ne. Provozní zavedení lze delegovat, odpovědnost za zavedení a dohled nikoli. Konečná odpovědnost zůstává na vedení."
+        },
+        "q3": {
+          "q": "Které školení splňuje § 38 odst. 3 BSIG?",
+          "a": "Zákon nepředepisuje žádné konkrétní školení ani certifikaci. Vyžadují se dostatečné znalosti k rozpoznání a posouzení rizik; dokládají se pravidelnou, prokazatelnou účastí."
+        },
+        "q4": {
+          "q": "Za co přesně vedení odpovídá?",
+          "a": "Podle § 38 odst. 2 BSIG odpovídají členové vedení vlastnímu subjektu za škodu, kterou způsobí zaviněným porušením svých povinností zavést opatření a dohlížet na ně. Jde o vnitřní odpovědnost vůči společnosti."
+        },
+        "q5": {
+          "q": "Jak se § 38 liší od § 30 BSIG?",
+          "a": "§ 30 BSIG stanoví, která opatření musí subjekt přijmout. § 38 BSIG stanoví, že vedení tato opatření zavádí, dohlíží na ně, školí se a odpovídá za ně."
+        }
+      },
+      "ctaCard": {
+        "heading": "Splňte povinnost školení vedení společnosti",
+        "description": "Bezplatný kurz NIS 2 pro jednatele předává znalosti vyžadované podle § 38 odst. 3 BSIG, s potvrzením o účasti."
+      },
+      "cta": "Přejít na bezplatný kurz"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: oznamovací povinnost incidentů podle NIS 2 (24h, 72h, jeden měsíc)",
