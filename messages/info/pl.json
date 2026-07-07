@@ -252,6 +252,80 @@
       },
       "cta": "Zacznij za darmo"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG: obowiązki kierownictwa",
+        "description": "§ 38 BSIG zobowiązuje kierownictwo podmiotów szczególnie ważnych i ważnych do wdrożenia oraz nadzorowania środków wynikających z § 30, do udziału w szkoleniach, a także reguluje osobistą odpowiedzialność wewnętrzną. Co to oznacza dla dyrektorów zarządzających i członków zarządu."
+      },
+      "title": "§ 38 BSIG: obowiązki kierownictwa",
+      "subtitle": "Wdrażać, nadzorować, szkolić się: trzy obowiązki, które pozostają po stronie kierownictwa.",
+      "overview": {
+        "heading": "Czego wymaga § 38 BSIG",
+        "p1": "§ 38 BSIG wdraża artykuł 20 NIS 2 do prawa niemieckiego i odnosi się nie do samego podmiotu, lecz do osób stojących na jego czele. Kierownictwo podmiotów szczególnie ważnych i ważnych musi wdrożyć środki zarządzania ryzykiem wynikające z § 30 BSIG oraz nadzorować ich wdrożenie. Cyberbezpieczeństwo jest tym samym wyraźnie zadaniem kierownictwa, a nie wyłącznie sprawą działu IT.",
+        "p2": "Artykuł 20 NIS 2 mówi o zatwierdzaniu i nadzorowaniu, a § 38 BSIG formułuje ten obowiązek jako wdrażanie i nadzorowanie. Chodzi o to samo: kierownictwo musi znać środki, brać za nie odpowiedzialność i mieć na uwadze ich skuteczność. Kto ogranicza się do formalnej akceptacji, nie wypełnia obowiązku nadzoru."
+      },
+      "duties": {
+        "heading": "Trzy obowiązki kierownictwa",
+        "description": "§ 38 ust. 1 i 3 BSIG, artykuł 20 NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Wdrożenie środków wynikających z § 30",
+            "text": "Kierownictwo musi zapewnić, aby środki zarządzania ryzykiem wynikające z § 30 ust. 2 BSIG zostały faktycznie wdrożone. Odpowiedzialności za to nie można przekazać działowi IT ani usługodawcy zewnętrznemu."
+          },
+          "d2": {
+            "title": "Nadzór nad wdrożeniem",
+            "text": "Samo wdrożenie nie wystarcza. Kierownictwo musi na bieżąco nadzorować, czy środki działają, i móc to udokumentować. Zwykłym dowodem są regularne sprawozdania kierowane do zarządu oraz udokumentowane potwierdzenie zapoznania się z nimi."
+          },
+          "d3": {
+            "title": "Udział w szkoleniach",
+            "text": "Zgodnie z § 38 ust. 3 BSIG członkowie kierownictwa powinni regularnie uczestniczyć w szkoleniach, aby samodzielnie rozpoznawać i oceniać ryzyka cyberbezpieczeństwa. Ustawa nie wskazuje żadnej określonej certyfikacji; decydujący jest udokumentowany udział."
+          }
+        }
+      },
+      "liability": {
+        "heading": "Odpowiedzialność osobista według § 38 ust. 2",
+        "p1": "§ 38 ust. 2 BSIG reguluje odpowiedzialność wewnętrzną: jeżeli członkowie kierownictwa naruszą swoje obowiązki wynikające z ust. 1, odpowiadają wobec własnego podmiotu za zawinioną szkodę tym spowodowaną. Jest to odpowiedzialność wobec własnego przedsiębiorstwa, a nie wobec organów administracji ani osób trzecich.",
+        "p2": "Ta odpowiedzialność wewnętrzna występuje obok ogólnej odpowiedzialności organów wynikającej z § 43 GmbHG oraz § 93 AktG. Jest ona powodem, dla którego obowiązek wdrożenia i nadzoru nie jest jedynie formalnością: udokumentowany proces nadzoru stanowi zarazem odciążenie osób działających."
+      },
+      "training": {
+        "heading": "Obowiązek szkoleniowy i jego udokumentowanie",
+        "p1": "Obowiązek szkoleniowy wynikający z § 38 ust. 3 BSIG spoczywa osobiście na osobach kierujących. Wymagana jest wystarczająca wiedza pozwalająca rozpoznawać ryzyka cyberbezpieczeństwa i oceniać adekwatność środków, a nie specjalistyczna wiedza techniczna.",
+        "p2": "Ponieważ ustawa nie narzuca żadnego dostawcy ani żadnej certyfikacji, udokumentowanie jest proste: udokumentowany, regularny udział. Zaświadczenie o uczestnictwie oraz cykliczny termin wystarczą jako podstawa."
+      },
+      "scope": {
+        "heading": "Kto zalicza się do kierownictwa i co można delegować",
+        "p1": "Kierownictwo to przedstawiciele ustawowi podmiotu, na przykład dyrektorzy zarządzający spółki GmbH lub zarząd spółki AG. Obowiązki wynikające z § 38 BSIG dotyczą tych osób bezpośrednio, niezależnie od wielkości wewnętrznego działu IT.",
+        "p2": "Delegować można wykonanie operacyjne, ale nie odpowiedzialność. Wdrożenie można powierzyć zespołowi lub usługodawcy, a nadzór powiązać ze ścieżką raportowania; ostateczna odpowiedzialność za wdrożenie i nadzór pozostaje po stronie kierownictwa."
+      },
+      "faq": {
+        "heading": "Najczęstsze pytania",
+        "q1": {
+          "q": "Czy § 38 BSIG obowiązuje także małe przedsiębiorstwa?",
+          "a": "Tak, o ile podmiot został zaklasyfikowany jako szczególnie ważny lub ważny. Obowiązki kierownictwa zależą od tego, czy podmiot jest objęty przepisami, a nie od jego wielkości w ramach progu."
+        },
+        "q2": {
+          "q": "Czy zarząd może przekazać odpowiedzialność działowi IT lub usługodawcy?",
+          "a": "Nie. Wdrożenie operacyjne można delegować, ale odpowiedzialności za wdrożenie i nadzór już nie. Ostateczna odpowiedzialność pozostaje po stronie kierownictwa."
+        },
+        "q3": {
+          "q": "Które szkolenie spełnia wymóg § 38 ust. 3 BSIG?",
+          "a": "Ustawa nie przewiduje żadnego określonego szkolenia ani certyfikacji. Wymagana jest wystarczająca wiedza do rozpoznawania i oceny ryzyk; potwierdza się ją regularnym, udokumentowanym udziałem."
+        },
+        "q4": {
+          "q": "Za co dokładnie odpowiada kierownictwo?",
+          "a": "Zgodnie z § 38 ust. 2 BSIG członkowie kierownictwa odpowiadają wobec własnego podmiotu za szkodę, którą spowodowali zawinionym naruszeniem obowiązków wdrożenia i nadzoru. Jest to odpowiedzialność wewnętrzna wobec przedsiębiorstwa."
+        },
+        "q5": {
+          "q": "Czym różni się § 38 od § 30 BSIG?",
+          "a": "§ 30 BSIG określa, jakie środki musi podjąć podmiot. § 38 BSIG określa, że kierownictwo te środki wdraża, nadzoruje, szkoli się w ich zakresie i za nie odpowiada."
+        }
+      },
+      "ctaCard": {
+        "heading": "Spełnij obowiązek szkoleniowy kierownictwa",
+        "description": "Bezpłatny kurs NIS 2 dla członków zarządu przekazuje wiedzę wymaganą przez § 38 ust. 3 BSIG, wraz z zaświadczeniem o uczestnictwie."
+      },
+      "cta": "Przejdź do bezpłatnego kursu"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: obowiązek zgłaszania incydentów NIS 2 (24h, 72h, miesiąc)",

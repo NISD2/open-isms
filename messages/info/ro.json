@@ -252,6 +252,80 @@
       },
       "cta": "Începeți gratuit"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG: obligațiile conducerii societății",
+        "description": "§ 38 BSIG obligă conducerea entităților deosebit de importante și importante să pună în aplicare și să monitorizeze măsurile prevăzute la § 30, să participe la instruiri, și reglementează răspunderea personală internă. Ce înseamnă acest lucru pentru administratori și membrii directoratului."
+      },
+      "title": "§ 38 BSIG: obligațiile conducerii societății",
+      "subtitle": "A pune în aplicare, a monitoriza, a se instrui: trei obligații care rămân la nivelul conducerii.",
+      "overview": {
+        "heading": "Ce impune § 38 BSIG",
+        "p1": "§ 38 BSIG transpune articolul 20 NIS 2 în dreptul german și nu se adresează entității, ci persoanelor aflate la conducerea acesteia. Conducerea entităților deosebit de importante și importante trebuie să pună în aplicare măsurile de gestionare a riscurilor prevăzute la § 30 BSIG și să monitorizeze punerea lor în aplicare. Securitatea cibernetică este astfel în mod expres o sarcină a conducerii, nu doar o chestiune a departamentului IT.",
+        "p2": "Articolul 20 NIS 2 vorbește despre a aproba și a supraveghea, iar § 38 BSIG formulează obligația ca a pune în aplicare și a monitoriza. Se are în vedere același lucru: conducerea trebuie să cunoască măsurile, să și le asume și să urmărească eficacitatea acestora. Cine doar aprobă din reflex nu își îndeplinește obligația de monitorizare."
+      },
+      "duties": {
+        "heading": "Cele trei obligații ale conducerii",
+        "description": "§ 38 alineatele 1 și 3 BSIG, articolul 20 NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Punerea în aplicare a măsurilor prevăzute la § 30",
+            "text": "Conducerea trebuie să se asigure că măsurile de gestionare a riscurilor prevăzute la § 30 alineatul 2 BSIG sunt puse în aplicare în mod efectiv. Responsabilitatea pentru acest lucru nu poate fi transferată departamentului IT sau unui prestator de servicii."
+          },
+          "d2": {
+            "title": "Monitorizarea punerii în aplicare",
+            "text": "Punerea în aplicare singură nu este suficientă. Conducerea trebuie să monitorizeze în permanență dacă măsurile funcționează și să poată dovedi acest lucru. Rapoartele periodice către conducere și luarea la cunoștință documentată a acestora reprezintă dovada obișnuită."
+          },
+          "d3": {
+            "title": "Participarea la instruiri",
+            "text": "Potrivit § 38 alineatul 3 BSIG, membrii conducerii ar trebui să participe periodic la instruiri, pentru a putea recunoaște și evalua ei înșiși riscurile cibernetice. Legea nu indică o anumită certificare; ceea ce contează este participarea care poate fi dovedită."
+          }
+        }
+      },
+      "liability": {
+        "heading": "Răspunderea personală potrivit § 38 alineatul 2",
+        "p1": "§ 38 alineatul 2 BSIG reglementează o răspundere internă: dacă membrii conducerii își încalcă obligațiile prevăzute la alineatul 1, ei răspund față de propria entitate pentru prejudiciul cauzat astfel din culpă. Este o răspundere față de propria întreprindere, nu față de autorități sau terți.",
+        "p2": "Această răspundere internă se adaugă răspunderii generale a organelor de conducere prevăzute la § 43 GmbHG și § 93 AktG. Ea este motivul pentru care obligația de punere în aplicare și de monitorizare nu este o simplă formalitate: un proces de monitorizare documentat reprezintă în același timp exonerarea persoanelor implicate."
+      },
+      "training": {
+        "heading": "Obligația de instruire și dovada acesteia",
+        "p1": "Obligația de instruire prevăzută la § 38 alineatul 3 BSIG revine personal persoanelor din conducere. Se cere un nivel de cunoștințe suficient pentru a recunoaște riscurile cibernetice și a aprecia caracterul adecvat al măsurilor, nu cunoștințe tehnice de specialitate.",
+        "p2": "Întrucât legea nu impune un anumit furnizor și nicio certificare, dovada este simplă: o participare periodică ce poate fi dovedită. O adeverință de participare și un termen recurent sunt suficiente ca temei."
+      },
+      "scope": {
+        "heading": "Cine face parte din conducere și ce poate fi delegat",
+        "p1": "Conducerea este formată din reprezentanții legali ai entității, de exemplu administratorii unei GmbH sau directoratul unei AG. Obligațiile prevăzute la § 38 BSIG revin direct acestor persoane, indiferent de dimensiunea departamentului IT intern.",
+        "p2": "Delegabilă este executarea operativă, nu responsabilitatea. Puteți transfera punerea în aplicare unei echipe sau unui prestator de servicii și puteți lega monitorizarea de o linie de raportare; responsabilitatea finală pentru punerea în aplicare și supraveghere rămâne la conducere."
+      },
+      "faq": {
+        "heading": "Întrebări frecvente",
+        "q1": {
+          "q": "§ 38 BSIG se aplică și întreprinderilor mici?",
+          "a": "Da, de îndată ce entitatea este clasificată drept deosebit de importantă sau importantă. Obligațiile conducerii depind de faptul că entitatea intră în domeniul de aplicare, nu de dimensiunea acesteia în cadrul pragului."
+        },
+        "q2": {
+          "q": "Poate conducerea să transfere responsabilitatea către departamentul IT sau către un prestator de servicii?",
+          "a": "Nu. Punerea în aplicare operativă poate fi delegată, dar responsabilitatea pentru punerea în aplicare și monitorizare nu. Responsabilitatea finală rămâne la conducere."
+        },
+        "q3": {
+          "q": "Ce instruire îndeplinește cerințele § 38 alineatul 3 BSIG?",
+          "a": "Legea nu impune o anumită instruire sau certificare. Se cere un nivel de cunoștințe suficient pentru recunoașterea și evaluarea riscurilor; acesta se dovedește prin participare periodică ce poate fi dovedită."
+        },
+        "q4": {
+          "q": "Pentru ce răspunde exact conducerea?",
+          "a": "Potrivit § 38 alineatul 2 BSIG, membrii conducerii răspund față de propria entitate pentru un prejudiciu cauzat prin încălcarea din culpă a obligațiilor lor de punere în aplicare și de monitorizare. Este o răspundere internă față de întreprindere."
+        },
+        "q5": {
+          "q": "Prin ce se deosebește § 38 de § 30 BSIG?",
+          "a": "§ 30 BSIG stabilește ce măsuri trebuie să ia entitatea. § 38 BSIG stabilește că conducerea pune în aplicare aceste măsuri, le monitorizează, se instruiește și răspunde pentru acestea."
+        }
+      },
+      "ctaCard": {
+        "heading": "Îndepliniți obligația de instruire a conducerii",
+        "description": "Cursul NIS 2 gratuit pentru administratori oferă cunoștințele cerute de § 38 alineatul 3 BSIG, cu dovadă de participare."
+      },
+      "cta": "Către cursul gratuit"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "Articolul 32 BSIG: obligatia de notificare a incidentelor NIS 2 (24h, 72h, o luna)",

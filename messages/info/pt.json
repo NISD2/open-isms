@@ -252,6 +252,80 @@
       },
       "cta": "Comece gratuitamente"
     },
+    "bsigParagraph38": {
+      "meta": {
+        "title": "§ 38 BSIG: os deveres do órgão de administração",
+        "description": "O § 38 BSIG obriga o órgão de administração de entidades especialmente importantes e importantes a implementar e monitorizar as medidas previstas no § 30, a participar em formações, e regula a responsabilidade pessoal interna. O que isto significa para gerentes e membros do conselho de administração."
+      },
+      "title": "§ 38 BSIG: os deveres do órgão de administração",
+      "subtitle": "Implementar, monitorizar, formar-se: três deveres que permanecem na administração.",
+      "overview": {
+        "heading": "O que o § 38 BSIG exige",
+        "p1": "O § 38 BSIG transpõe o artigo 20.º NIS 2 para o direito alemão e dirige-se não à entidade, mas às pessoas no seu topo. Os órgãos de administração das entidades especialmente importantes e importantes têm de implementar as medidas de gestão de risco previstas no § 30 BSIG e monitorizar a sua implementação. A cibersegurança é assim expressamente uma tarefa da administração, e não apenas um assunto do departamento de TI.",
+        "p2": "O artigo 20.º NIS 2 fala em aprovar e supervisionar; o § 38 BSIG formula o dever como implementar e monitorizar. O sentido é o mesmo: a administração tem de conhecer as medidas, assumir a sua responsabilidade e manter a sua eficácia sob controlo. Quem se limita a autorizar não cumpre o dever de monitorização."
+      },
+      "duties": {
+        "heading": "Os três deveres do órgão de administração",
+        "description": "§ 38 n.º 1 e n.º 3 BSIG, artigo 20.º NIS 2.",
+        "items": {
+          "d1": {
+            "title": "Implementação das medidas previstas no § 30",
+            "text": "O órgão de administração tem de assegurar que as medidas de gestão de risco do § 30 n.º 2 BSIG são efetivamente implementadas. Essa responsabilidade não pode ser transferida para o departamento de TI ou para um prestador de serviços."
+          },
+          "d2": {
+            "title": "Monitorização da implementação",
+            "text": "A implementação, por si só, não basta. A administração tem de monitorizar de forma contínua se as medidas produzem efeito e tem de o poder demonstrar. Relatórios regulares à gerência e a respetiva tomada de conhecimento documentada são a prova habitual."
+          },
+          "d3": {
+            "title": "Participação em formações",
+            "text": "Nos termos do § 38 n.º 3 BSIG, os membros do órgão de administração devem participar regularmente em formações, de modo a poderem reconhecer e avaliar por si próprios os ciber-riscos. A lei não indica qualquer certificação específica; o que é decisivo é a participação comprovável."
+          }
+        }
+      },
+      "liability": {
+        "heading": "A responsabilidade pessoal nos termos do § 38 n.º 2",
+        "p1": "O § 38 n.º 2 BSIG regula uma responsabilidade interna: se os membros do órgão de administração violarem os seus deveres decorrentes do n.º 1, respondem perante a sua própria entidade pelo dano culposamente causado por essa violação. Trata-se de uma responsabilidade perante a própria empresa, e não perante autoridades ou terceiros.",
+        "p2": "Esta responsabilidade interna acresce à responsabilidade geral dos titulares de órgãos sociais prevista no § 43 GmbHG e no § 93 AktG. É a razão pela qual o dever de implementação e de monitorização não é uma mera formalidade: um processo de monitorização documentado é, ao mesmo tempo, o que isenta de responsabilidade as pessoas que atuam."
+      },
+      "training": {
+        "heading": "O dever de formação e a sua prova",
+        "p1": "O dever de formação decorrente do § 38 n.º 3 BSIG recai pessoalmente sobre as pessoas que exercem a administração. Exige-se conhecimento suficiente para reconhecer os ciber-riscos e avaliar a adequação das medidas, e não conhecimentos técnicos especializados.",
+        "p2": "Como a lei não prescreve qualquer fornecedor nem qualquer certificação, a prova é simples: uma participação regular e comprovável. Um certificado de participação e um compromisso recorrente bastam como base."
+      },
+      "scope": {
+        "heading": "Quem faz parte do órgão de administração e o que é delegável",
+        "p1": "O órgão de administração são os representantes legais da entidade, por exemplo os gerentes de uma GmbH ou o conselho de administração de uma AG. Os deveres do § 38 BSIG recaem diretamente sobre estas pessoas, independentemente da dimensão da equipa interna de TI.",
+        "p2": "Delegável é a execução operacional, não a responsabilidade. Pode transferir a implementação para uma equipa ou para um prestador de serviços e associar a monitorização a uma linha de reporte; a responsabilidade última pela implementação e pela supervisão permanece na administração."
+      },
+      "faq": {
+        "heading": "Perguntas frequentes",
+        "q1": {
+          "q": "O § 38 BSIG também se aplica a pequenas empresas?",
+          "a": "Sim, a partir do momento em que a entidade é classificada como especialmente importante ou importante. Os deveres do órgão de administração dependem de a entidade estar abrangida, e não da sua dimensão dentro do limiar."
+        },
+        "q2": {
+          "q": "Pode a gerência transferir a responsabilidade para o departamento de TI ou para um prestador de serviços?",
+          "a": "Não. A execução operacional é delegável, mas a responsabilidade pela implementação e pela monitorização não. A responsabilidade última permanece na administração."
+        },
+        "q3": {
+          "q": "Que formação cumpre o § 38 n.º 3 BSIG?",
+          "a": "A lei não prescreve qualquer formação ou certificação específica. Exige-se conhecimento suficiente para reconhecer e avaliar riscos; a prova faz-se através de uma participação regular e comprovável."
+        },
+        "q4": {
+          "q": "Por que responde exatamente o órgão de administração?",
+          "a": "Nos termos do § 38 n.º 2 BSIG, os membros da administração respondem perante a sua própria entidade pelo dano que causem através de uma violação culposa dos seus deveres de implementação e de monitorização. Trata-se de uma responsabilidade interna perante a empresa."
+        },
+        "q5": {
+          "q": "Em que se distingue o § 38 do § 30 BSIG?",
+          "a": "O § 30 BSIG determina quais as medidas que a entidade tem de adotar. O § 38 BSIG determina que o órgão de administração implementa e monitoriza essas medidas, se forma e responde por elas."
+        }
+      },
+      "ctaCard": {
+        "heading": "Cumprir o dever de formação do órgão de administração",
+        "description": "O curso NIS 2 gratuito para gerentes transmite o conhecimento exigido pelo § 38 n.º 3 BSIG, com comprovativo de participação."
+      },
+      "cta": "Aceder ao curso gratuito"
+    },
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: o dever de notificação de incidentes NIS 2 (24h, 72h, um mês)",
