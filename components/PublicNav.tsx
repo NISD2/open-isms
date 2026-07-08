@@ -51,16 +51,22 @@ export async function PublicNav() {
             {t("nav.about")}
           </Link>
           <div className="flex items-center gap-2">
-            <a
-              href="https://github.com/NISD2/open-isms"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open ISMS on GitHub"
-              title="Open ISMS on GitHub"
-              className="text-muted-foreground transition-colors hover:text-foreground"
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-2 text-muted-foreground hover:text-foreground"
+              asChild
             >
-              <GithubIcon className="size-5" />
-            </a>
+              <a
+                href="https://github.com/NISD2/open-isms"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open ISMS on GitHub"
+                title="Open ISMS on GitHub"
+              >
+                <GithubIcon className="size-4" />
+              </a>
+            </Button>
             <LocaleSwitcher />
             {user ? (
               <Button size="sm" variant="outline" asChild>
