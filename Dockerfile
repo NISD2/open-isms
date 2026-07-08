@@ -69,7 +69,12 @@ ENV NODE_OPTIONS=--max-old-space-size=4096
 # --add-host. They run at container startup instead, via
 # scripts/runtime-migrate.mjs, which the runner stage's ENTRYPOINT
 # chains before exec'ing node server.js.
-RUN node node_modules/next/dist/bin/next build
+#
+# --webpack pins the webpack builder. Next 16 runs `next build` on
+# Turbopack by default, whose compile peaks well past the 4GB heap set
+# above and gets OOM-killed (exit 137) on the Coolify builder. The 4GB
+# tuning and this app's Tailwind v4 setup target webpack; keep it there.
+RUN node node_modules/next/dist/bin/next build --webpack
 
 # -----------------------------------------------------------------------------
 # Stage 3: runner
