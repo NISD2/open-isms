@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Preise - NIS2-Compliance-Plattform",
-      "description": "Zwei Wege, die Plattform zu nutzen. Gehostet auf nis2.eu, kostenlos für immer. Self-Hosting unter AGPL-3.0: Zahlen Sie, was Sie können, ab 1 € als einmalige, lebenslange Lizenz."
+      "description": "Zwei Wege, die Plattform zu nutzen. Gehostet auf nis2.eu, kostenlos für immer. Self-Hosting unter AGPL-3.0: Zahlen Sie, was Sie können, als einmalige, lebenslange Lizenz."
     },
     "title": "Preise",
     "subtitle": "Zwei Wege, die Plattform zu nutzen. Wählen Sie einen.",
@@ -28,8 +28,8 @@
     "selfHost": {
       "name": "Self-Hosting",
       "description": "Vollständiger Quellcode. Auf eigener Infrastruktur betreiben, dauerhaft.",
-      "price": "ab 1 €",
-      "priceSub": "Zahlen Sie, was Sie können. Einmalig, lebenslange Lizenz",
+      "price": "Zahlen Sie, was Sie können",
+      "priceSub": "einmalig, lebenslange Lizenz",
       "cta": "Kontakt aufnehmen",
       "features": {
         "h1": "Vollständiger Plattform-Quellcode unter AGPL-3.0",

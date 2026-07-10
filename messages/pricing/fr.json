@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Tarifs - Plateforme de conformité NIS2",
-      "description": "Deux façons d'utiliser la plateforme. Hébergée sur nis2.eu, gratuite pour toujours. Auto-hébergement sous AGPL-3.0 : payez ce que vous pouvez, dès 1 €, en un paiement unique pour une licence à vie."
+      "description": "Deux façons d'utiliser la plateforme. Hébergée sur nis2.eu, gratuite pour toujours. Auto-hébergement sous AGPL-3.0 : payez ce que vous pouvez, en un paiement unique pour une licence à vie."
     },
     "title": "Tarifs",
     "subtitle": "Deux façons d'utiliser la plateforme. Choisissez-en une.",
@@ -28,8 +28,8 @@
     "selfHost": {
       "name": "Auto-hébergement",
       "description": "Code source complet. Exécutez-la sur votre propre infrastructure, pour toujours.",
-      "price": "dès 1 €",
-      "priceSub": "payez ce que vous pouvez, en un paiement unique, licence à vie",
+      "price": "Payez ce que vous pouvez",
+      "priceSub": "paiement unique, licence à vie",
       "cta": "Parlons-en",
       "features": {
         "h1": "Code source complet de la plateforme sous AGPL-3.0",

@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Ceník - Platforma pro shodu s NIS2",
-      "description": "Dva způsoby provozu platformy. Hostováno na nis2.eu, navždy zdarma. Vlastní hosting pod licencí AGPL-3.0: zaplaťte, kolik můžete, od 1 € jako jednorázová doživotní licence."
+      "description": "Dva způsoby provozu platformy. Hostováno na nis2.eu, navždy zdarma. Vlastní hosting pod licencí AGPL-3.0: zaplaťte, kolik můžete, jako jednorázová doživotní licence."
     },
     "title": "Ceník",
     "subtitle": "Dva způsoby provozu platformy. Vyberte si jeden.",
@@ -28,8 +28,8 @@
     "selfHost": {
       "name": "Vlastní hosting",
       "description": "Celý zdrojový kód. Provozujte ji na vlastní infrastruktuře, navždy.",
-      "price": "od 1 €",
-      "priceSub": "zaplaťte, kolik můžete, jednorázově, doživotní licence",
+      "price": "Zaplaťte, kolik můžete",
+      "priceSub": "jednorázově, doživotní licence",
       "cta": "Spojte se s námi",
       "features": {
         "h1": "Celý zdrojový kód platformy pod licencí AGPL-3.0",
