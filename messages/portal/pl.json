@@ -50,6 +50,70 @@
     "phaseAdmin": "Administracja",
     "blockedBy": "Najpierw ukończ: {codes}",
     "journey": "Ścieżka",
-    "administration": "Administracja"
+    "administration": "Administracja",
+    "journeyBoard": {
+      "hero": {
+        "title": "Twoje wdrożenie NIS2",
+        "subtitle": "{done} z {total} dowodów jest gotowych. Większość powstaje automatycznie z Twojej pracy, Ty sprawdzasz i zatwierdzasz.",
+        "unit": "wdrożone",
+        "chipPrepared": "{count} przygotowanych dla Ciebie",
+        "chipDone": "{count} wdrożonych",
+        "chipOverdue": "{count} do zrobienia"
+      },
+      "next": {
+        "kicker": "Teraz",
+        "eta": "~15 min",
+        "cta": "Dalej"
+      },
+      "path": {
+        "title": "Cała droga",
+        "hint": "Wszystkie środki. Przełączaj między Najpierw krytyczne (nasza rekomendacja) i Chronologicznie (naturalna kolejność).",
+        "chronoHeader": "Tak zwykle przebiega proces"
+      },
+      "view": {
+        "critical": "Najpierw krytyczne",
+        "criticalTip": "Najpierw największe ryzyko i odpowiedzialność. Nasza rekomendacja.",
+        "chrono": "Chronologicznie",
+        "chronoTip": "W naturalnej kolejności procesu, tak jak zwykle się to realizuje."
+      },
+      "coverage": {
+        "doneLabel": "Wdrożone",
+        "doneTip": "Wdrożone i udokumentowane. Utrzymanie aktualności wymaga niewiele wysiłku.",
+        "currentLabel": "Teraz",
+        "currentTip": "Twój następny krok. Jedno kliknięcie i idziesz dalej.",
+        "preparedLabel": "Przygotowane",
+        "preparedTip": "Przygotowaliśmy to dla Ciebie. Sprawdzasz i zatwierdzasz, zamiast zaczynać od zera.",
+        "openLabel": "Otwarte",
+        "openTip": "Jeszcze nierozpoczęte. Przyjdzie kolej, gdy wcześniejsze kroki będą gotowe.",
+        "overdueLabel": "Do zrobienia",
+        "overdueTip": "Zadanie cykliczne wymaga wykonania, np. coroczne odświeżenie. Krótka aktualizacja."
+      },
+      "owner": {
+        "leadershipName": "Zarząd",
+        "leadershipResp": "Zatwierdza i odpowiada. Ład organizacyjny, budżet i obowiązki wynikające z § 38 BSIG.",
+        "securityName": "Bezpieczeństwo (CISO)",
+        "securityResp": "Kieruje ryzykiem, incydentami, dostępem, szkoleniami i skutecznością.",
+        "itName": "IT",
+        "itResp": "Wdraża środki techniczne: kryptografię, aktualizacje, uwierzytelnianie.",
+        "operationsName": "Operacje",
+        "operationsResp": "Odpowiada za ciągłość, kopie zapasowe i zarządzanie dostawcami."
+      },
+      "band": {
+        "minimumName": "Solidne minimum",
+        "minimumPhase": "W tym miesiącu",
+        "minimumHint": "Obowiązkowe, podstawowe środki. Baza, która musi powstać najpierw.",
+        "yearName": "W ciągu roku",
+        "yearPhase": "Najbliższe 3 miesiące",
+        "yearHint": "Około dwóch godzin tygodniowo. Nie sprint, lecz spokojny rytm.",
+        "laterName": "Niższy priorytet",
+        "laterPhase": "Później",
+        "laterHint": "Gdy reszta będzie gotowa. Ważne, ale nie pilne."
+      },
+      "row": {
+        "recurring": "Cykliczne, przypomnienie automatyczne.",
+        "open": "Otwórz",
+        "explain": "Wyjaśnienie"
+      }
+    }
   }
 }

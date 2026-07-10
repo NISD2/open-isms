@@ -50,6 +50,70 @@
     "phaseAdmin": "Beheer",
     "blockedBy": "Voltooi eerst: {codes}",
     "journey": "Traject",
-    "administration": "Beheer"
+    "administration": "Beheer",
+    "journeyBoard": {
+      "hero": {
+        "title": "Uw NIS2-implementatie",
+        "subtitle": "{done} van {total} bewijsstukken staan. De meeste ontstaan vanzelf uit uw werk, u controleert en geeft vrij.",
+        "unit": "gereed",
+        "chipPrepared": "{count} voor u voorbereid",
+        "chipDone": "{count} gereed",
+        "chipOverdue": "{count} openstaand"
+      },
+      "next": {
+        "kicker": "Nu aan de beurt",
+        "eta": "~15 min",
+        "cta": "Verder"
+      },
+      "path": {
+        "title": "Het hele traject",
+        "hint": "Alle maatregelen. Wissel tussen Kritiek eerst (onze aanbeveling) en Chronologisch (de natuurlijke volgorde).",
+        "chronoHeader": "Zo verloopt het proces meestal"
+      },
+      "view": {
+        "critical": "Kritiek eerst",
+        "criticalTip": "Grootste risico en aansprakelijkheid eerst. Onze aanbeveling.",
+        "chrono": "Chronologisch",
+        "chronoTip": "In de natuurlijke volgorde van het proces, zoals het gewoonlijk wordt afgewerkt."
+      },
+      "coverage": {
+        "doneLabel": "Gereed",
+        "doneTip": "Geïmplementeerd en gedocumenteerd. Blijft met weinig moeite actueel.",
+        "currentLabel": "Nu aan de beurt",
+        "currentTip": "Uw volgende stap. Eén klik en u gaat verder.",
+        "preparedLabel": "Voorbereid",
+        "preparedTip": "Hebben wij voor u opgesteld. U controleert en geeft vrij, in plaats van vanaf nul te beginnen.",
+        "openLabel": "Open",
+        "openTip": "Nog niet begonnen. Komt aan de beurt zodra de stappen ervoor staan.",
+        "overdueLabel": "Openstaand",
+        "overdueTip": "Een terugkerende taak is aan de beurt, bijvoorbeeld een jaarlijkse opfrissing. Even bijwerken."
+      },
+      "owner": {
+        "leadershipName": "Directie",
+        "leadershipResp": "Keurt goed en draagt de verantwoordelijkheid. Governance, budget en de plichten volgens § 38 BSIG.",
+        "securityName": "Beveiliging (CISO)",
+        "securityResp": "Stuurt risico, incidenten, toegang, training en effectiviteit aan.",
+        "itName": "IT",
+        "itResp": "Implementeert de technische maatregelen: cryptografie, patches, authenticatie.",
+        "operationsName": "Operatie",
+        "operationsResp": "Verantwoordelijk voor continuïteit, back-ups en leveranciersbeheer."
+      },
+      "band": {
+        "minimumName": "Verdedigbaar minimum",
+        "minimumPhase": "Deze maand",
+        "minimumHint": "De verplichte, fundamentele maatregelen. De basis die eerst moet staan.",
+        "yearName": "In de loop van het jaar",
+        "yearPhase": "Komende 3 maanden",
+        "yearHint": "Ongeveer twee uur per week. Geen sprint, maar een rustig ritme.",
+        "laterName": "Lagere prioriteit",
+        "laterPhase": "Daarna",
+        "laterHint": "Zodra de rest staat. Belangrijk, maar niet dringend."
+      },
+      "row": {
+        "recurring": "Terugkerend, automatische herinnering.",
+        "open": "Openen",
+        "explain": "Uitleg"
+      }
+    }
   }
 }

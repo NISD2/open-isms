@@ -50,6 +50,70 @@
     "phaseAdmin": "Verwaltung",
     "blockedBy": "Zuerst abschliessen: {codes}",
     "journey": "Weg",
-    "administration": "Verwaltung"
+    "administration": "Verwaltung",
+    "journeyBoard": {
+      "hero": {
+        "title": "Ihre NIS2-Umsetzung",
+        "subtitle": "{done} von {total} Nachweisen stehen. Die meisten entstehen automatisch aus Ihrer Arbeit, Sie prüfen und geben frei.",
+        "unit": "umgesetzt",
+        "chipPrepared": "{count} für Sie vorbereitet",
+        "chipDone": "{count} umgesetzt",
+        "chipOverdue": "{count} fällig"
+      },
+      "next": {
+        "kicker": "Jetzt dran",
+        "eta": "~15 Min",
+        "cta": "Weiter"
+      },
+      "path": {
+        "title": "Der ganze Weg",
+        "hint": "Alle Maßnahmen. Wechseln Sie zwischen Kritisch zuerst (unsere Empfehlung) und Chronologisch (natürliche Reihenfolge).",
+        "chronoHeader": "So läuft der Prozess normalerweise"
+      },
+      "view": {
+        "critical": "Kritisch zuerst",
+        "criticalTip": "Größtes Risiko und größte Haftung zuerst. Unsere Empfehlung.",
+        "chrono": "Chronologisch",
+        "chronoTip": "In der natürlichen Reihenfolge des Prozesses, wie üblich abgearbeitet."
+      },
+      "coverage": {
+        "doneLabel": "Umgesetzt",
+        "doneTip": "Umgesetzt und dokumentiert. Bleibt mit wenig Aufwand aktuell.",
+        "currentLabel": "Jetzt dran",
+        "currentTip": "Ihr nächster Schritt. Ein Klick, dann geht es weiter.",
+        "preparedLabel": "Vorbereitet",
+        "preparedTip": "Haben wir für Sie entworfen. Sie prüfen und geben frei, statt bei null zu starten.",
+        "openLabel": "Offen",
+        "openTip": "Noch nicht begonnen. Kommt an die Reihe, wenn die Schritte davor stehen.",
+        "overdueLabel": "Fällig",
+        "overdueTip": "Wiederkehrende Aufgabe fällig, etwa eine jährliche Auffrischung. Kurz aktualisieren."
+      },
+      "owner": {
+        "leadershipName": "Geschäftsführung",
+        "leadershipResp": "Genehmigt und verantwortet. Governance, Budget und die Pflichten nach § 38 BSIG.",
+        "securityName": "Sicherheit (CISO)",
+        "securityResp": "Steuert Risiko, Vorfälle, Zugriff, Schulung und Wirksamkeit.",
+        "itName": "IT",
+        "itResp": "Setzt technische Maßnahmen um: Kryptografie, Patches, Authentifizierung.",
+        "operationsName": "Betrieb",
+        "operationsResp": "Verantwortet Kontinuität, Backups und Lieferantenmanagement."
+      },
+      "band": {
+        "minimumName": "Belastbares Minimum",
+        "minimumPhase": "Diesen Monat",
+        "minimumHint": "Die verpflichtenden, grundlegenden Maßnahmen. Die Basis, die zuerst stehen muss.",
+        "yearName": "Im Lauf des Jahres",
+        "yearPhase": "Nächste 3 Monate",
+        "yearHint": "Rund zwei Stunden pro Woche. Kein Sprint, sondern ein ruhiger Rhythmus.",
+        "laterName": "Geringere Priorität",
+        "laterPhase": "Danach",
+        "laterHint": "Wenn der Rest steht. Wichtig, aber nicht dringend."
+      },
+      "row": {
+        "recurring": "Wiederkehrend, automatisch erinnert.",
+        "open": "Öffnen",
+        "explain": "Erklärung"
+      }
+    }
   }
 }

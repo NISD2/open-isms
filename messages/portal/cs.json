@@ -50,6 +50,70 @@
     "phaseAdmin": "Administrace",
     "blockedBy": "Nejprve dokončete: {codes}",
     "journey": "Cesta",
-    "administration": "Správa"
+    "administration": "Správa",
+    "journeyBoard": {
+      "hero": {
+        "title": "Vaše zavádění NIS2",
+        "subtitle": "{done} z {total} záznamů je hotovo. Většina vzniká automaticky z vaší práce, vy je zkontrolujete a schválíte.",
+        "unit": "hotovo",
+        "chipPrepared": "{count} pro vás připraveno",
+        "chipDone": "{count} hotovo",
+        "chipOverdue": "{count} po termínu"
+      },
+      "next": {
+        "kicker": "Nyní na řadě",
+        "eta": "~15 min",
+        "cta": "Pokračovat"
+      },
+      "path": {
+        "title": "Celá cesta",
+        "hint": "Všechna opatření. Přepínejte mezi Nejdřív kritické (naše doporučení) a Chronologicky (přirozené pořadí).",
+        "chronoHeader": "Jak proces obvykle probíhá"
+      },
+      "view": {
+        "critical": "Nejdřív kritické",
+        "criticalTip": "Nejdřív největší riziko a odpovědnost. Naše doporučení.",
+        "chrono": "Chronologicky",
+        "chronoTip": "V přirozeném pořadí procesu, jak se obvykle zpracovává."
+      },
+      "coverage": {
+        "doneLabel": "Hotovo",
+        "doneTip": "Zavedeno a zdokumentováno. Zůstává aktuální s malým úsilím.",
+        "currentLabel": "Nyní na řadě",
+        "currentTip": "Váš další krok. Jedno kliknutí a jdete dál.",
+        "preparedLabel": "Připraveno",
+        "preparedTip": "Připravili jsme to za vás. Zkontrolujete a schválíte, místo abyste začínali od nuly.",
+        "openLabel": "Otevřené",
+        "openTip": "Zatím nezahájeno. Přijde na řadu, až budou hotové předchozí kroky.",
+        "overdueLabel": "Po termínu",
+        "overdueTip": "Opakující se úkol je po termínu, například roční obnovení. Krátká aktualizace."
+      },
+      "owner": {
+        "leadershipName": "Vedení",
+        "leadershipResp": "Schvaluje a nese odpovědnost. Governance, rozpočet a povinnosti podle § 38 BSIG.",
+        "securityName": "Bezpečnost (CISO)",
+        "securityResp": "Řídí riziko, incidenty, přístup, školení a účinnost.",
+        "itName": "IT",
+        "itResp": "Zavádí technická opatření: kryptografii, patche, autentizaci.",
+        "operationsName": "Provoz",
+        "operationsResp": "Odpovídá za kontinuitu, zálohy a řízení dodavatelů."
+      },
+      "band": {
+        "minimumName": "Obhajitelné minimum",
+        "minimumPhase": "Tento měsíc",
+        "minimumHint": "Povinná, základní opatření. Základ, který musí stát jako první.",
+        "yearName": "V průběhu roku",
+        "yearPhase": "Další 3 měsíce",
+        "yearHint": "Zhruba dvě hodiny týdně. Ne sprint, ale klidný rytmus.",
+        "laterName": "Nižší priorita",
+        "laterPhase": "Poté",
+        "laterHint": "Až bude zbytek hotový. Důležité, ale ne naléhavé."
+      },
+      "row": {
+        "recurring": "Opakující se, automaticky připomínáno.",
+        "open": "Otevřít",
+        "explain": "Vysvětlení"
+      }
+    }
   }
 }

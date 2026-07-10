@@ -50,6 +50,70 @@
     "phaseAdmin": "Administrare",
     "blockedBy": "Finalizați mai întâi: {codes}",
     "journey": "Parcurs",
-    "administration": "Administrare"
+    "administration": "Administrare",
+    "journeyBoard": {
+      "hero": {
+        "title": "Implementarea dvs. NIS2",
+        "subtitle": "{done} din {total} dovezi sunt gata. Cele mai multe rezultă automat din munca dvs., dvs. verificați și aprobați.",
+        "unit": "gata",
+        "chipPrepared": "{count} pregătite pentru dvs.",
+        "chipDone": "{count} gata",
+        "chipOverdue": "{count} scadente"
+      },
+      "next": {
+        "kicker": "Acum urmează",
+        "eta": "~15 min",
+        "cta": "Continuați"
+      },
+      "path": {
+        "title": "Tot parcursul",
+        "hint": "Toate măsurile. Comutați între Critice mai întâi (recomandarea noastră) și Cronologic (ordinea firească).",
+        "chronoHeader": "Cum decurge de obicei procesul"
+      },
+      "view": {
+        "critical": "Critice mai întâi",
+        "criticalTip": "Riscul și răspunderea cele mai mari mai întâi. Recomandarea noastră.",
+        "chrono": "Cronologic",
+        "chronoTip": "În ordinea firească a procesului, așa cum se parcurge de obicei."
+      },
+      "coverage": {
+        "doneLabel": "Gata",
+        "doneTip": "Implementat și documentat. Rămâne actual cu efort redus.",
+        "currentLabel": "Acum urmează",
+        "currentTip": "Următorul dvs. pas. Un clic și mergeți mai departe.",
+        "preparedLabel": "Pregătit",
+        "preparedTip": "L-am întocmit pentru dvs. Verificați și aprobați, în loc să porniți de la zero.",
+        "openLabel": "Deschis",
+        "openTip": "Neînceput încă. Vine la rând când pașii de dinainte sunt gata.",
+        "overdueLabel": "Scadent",
+        "overdueTip": "O sarcină recurentă este scadentă, de exemplu o reînnoire anuală. O actualizare scurtă."
+      },
+      "owner": {
+        "leadershipName": "Conducerea",
+        "leadershipResp": "Aprobă și își asumă. Guvernanță, buget și obligațiile conform § 38 BSIG.",
+        "securityName": "Securitate (CISO)",
+        "securityResp": "Coordonează riscul, incidentele, accesul, instruirea și eficacitatea.",
+        "itName": "IT",
+        "itResp": "Implementează măsurile tehnice: criptografie, patch-uri, autentificare.",
+        "operationsName": "Operațiuni",
+        "operationsResp": "Răspunde de continuitate, backupuri și managementul furnizorilor."
+      },
+      "band": {
+        "minimumName": "Minimul defensabil",
+        "minimumPhase": "Luna aceasta",
+        "minimumHint": "Măsurile obligatorii, de bază. Fundamentul care trebuie să fie așezat primul.",
+        "yearName": "Pe parcursul anului",
+        "yearPhase": "Următoarele 3 luni",
+        "yearHint": "Cam două ore pe săptămână. Nu un sprint, ci un ritm liniștit.",
+        "laterName": "Prioritate mai mică",
+        "laterPhase": "După aceea",
+        "laterHint": "Când restul este gata. Important, dar nu urgent."
+      },
+      "row": {
+        "recurring": "Recurent, cu reamintire automată.",
+        "open": "Deschideți",
+        "explain": "Explicație"
+      }
+    }
   }
 }

@@ -48,6 +48,70 @@
     "phaseOperations": "Operaciones",
     "phaseVerification": "Verificación",
     "phaseAdmin": "Administración",
-    "blockedBy": "Complete primero: {codes}"
+    "blockedBy": "Complete primero: {codes}",
+    "journeyBoard": {
+      "hero": {
+        "title": "Su implementación de NIS2",
+        "subtitle": "{done} de {total} registros están listos. La mayoría surgen automáticamente de su trabajo, usted revisa y aprueba.",
+        "unit": "listo",
+        "chipPrepared": "{count} preparados para usted",
+        "chipDone": "{count} listos",
+        "chipOverdue": "{count} pendientes"
+      },
+      "next": {
+        "kicker": "Ahora toca",
+        "eta": "~15 min",
+        "cta": "Continuar"
+      },
+      "path": {
+        "title": "El camino completo",
+        "hint": "Todas las medidas. Cambie entre Lo crítico primero (nuestra recomendación) y Cronológico (el orden natural).",
+        "chronoHeader": "Cómo transcurre el proceso normalmente"
+      },
+      "view": {
+        "critical": "Lo crítico primero",
+        "criticalTip": "Primero el mayor riesgo y la mayor responsabilidad. Nuestra recomendación.",
+        "chrono": "Cronológico",
+        "chronoTip": "En el orden natural del proceso, como se suele trabajar."
+      },
+      "coverage": {
+        "doneLabel": "Listo",
+        "doneTip": "Implementado y documentado. Se mantiene al día con poco esfuerzo.",
+        "currentLabel": "Ahora toca",
+        "currentTip": "Su próximo paso. Un clic y sigue adelante.",
+        "preparedLabel": "Preparado",
+        "preparedTip": "Lo hemos redactado para usted. Usted revisa y aprueba, en lugar de empezar de cero.",
+        "openLabel": "Abierto",
+        "openTip": "Aún sin empezar. Le llegará el turno cuando los pasos previos estén listos.",
+        "overdueLabel": "Pendiente",
+        "overdueTip": "Una tarea recurrente vence, por ejemplo una actualización anual. Basta con actualizarla brevemente."
+      },
+      "owner": {
+        "leadershipName": "Dirección",
+        "leadershipResp": "Aprueba y asume la responsabilidad. Gobernanza, presupuesto y las obligaciones del § 38 BSIG.",
+        "securityName": "Seguridad (CISO)",
+        "securityResp": "Gestiona riesgo, incidentes, acceso, formación y eficacia.",
+        "itName": "IT",
+        "itResp": "Implementa las medidas técnicas: criptografía, parches, autenticación.",
+        "operationsName": "Operaciones",
+        "operationsResp": "Responsable de continuidad, copias de seguridad y gestión de proveedores."
+      },
+      "band": {
+        "minimumName": "Mínimo defendible",
+        "minimumPhase": "Este mes",
+        "minimumHint": "Las medidas obligatorias y fundamentales. La base que debe estar primero.",
+        "yearName": "A lo largo del año",
+        "yearPhase": "Próximos 3 meses",
+        "yearHint": "Unas dos horas por semana. No es un sprint, sino un ritmo tranquilo.",
+        "laterName": "Menor prioridad",
+        "laterPhase": "Después",
+        "laterHint": "Cuando lo demás esté listo. Importante, pero no urgente."
+      },
+      "row": {
+        "recurring": "Recurrente, con recordatorio automático.",
+        "open": "Abrir",
+        "explain": "Explicación"
+      }
+    }
   }
 }

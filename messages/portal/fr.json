@@ -50,6 +50,70 @@
     "phaseAdmin": "Administration",
     "blockedBy": "Terminez d'abord : {codes}",
     "journey": "Parcours",
-    "administration": "Administration"
+    "administration": "Administration",
+    "journeyBoard": {
+      "hero": {
+        "title": "Votre mise en oeuvre NIS2",
+        "subtitle": "{done} preuves sur {total} sont en place. La plupart se construisent à partir de votre travail, vous vérifiez et validez.",
+        "unit": "en place",
+        "chipPrepared": "{count} préparées pour vous",
+        "chipDone": "{count} en place",
+        "chipOverdue": "{count} à échéance"
+      },
+      "next": {
+        "kicker": "À faire maintenant",
+        "eta": "~15 min",
+        "cta": "Continuer"
+      },
+      "path": {
+        "title": "Le parcours complet",
+        "hint": "Toutes les mesures. Basculez entre Priorité au critique (notre recommandation) et Chronologique (l'ordre naturel).",
+        "chronoHeader": "Comment le processus se déroule habituellement"
+      },
+      "view": {
+        "critical": "Priorité au critique",
+        "criticalTip": "Le plus grand risque et la plus grande responsabilité d'abord. Notre recommandation.",
+        "chrono": "Chronologique",
+        "chronoTip": "Dans l'ordre naturel du processus, tel qu'on le traite habituellement."
+      },
+      "coverage": {
+        "doneLabel": "En place",
+        "doneTip": "Mis en oeuvre et documenté. Reste à jour sans grand effort.",
+        "currentLabel": "À faire maintenant",
+        "currentTip": "Votre prochaine étape. Un clic et vous avancez.",
+        "preparedLabel": "Préparé",
+        "preparedTip": "Nous l'avons rédigé pour vous. Vous vérifiez et validez au lieu de partir de zéro.",
+        "openLabel": "À faire",
+        "openTip": "Pas encore commencé. Viendra une fois les étapes précédentes en place.",
+        "overdueLabel": "À échéance",
+        "overdueTip": "Une tâche récurrente est due, par exemple une mise à jour annuelle. Une actualisation rapide."
+      },
+      "owner": {
+        "leadershipName": "Direction",
+        "leadershipResp": "Approuve et en assume la responsabilité. Gouvernance, budget et les obligations selon § 38 BSIG.",
+        "securityName": "Sécurité (CISO)",
+        "securityResp": "Pilote le risque, les incidents, les accès, la formation et l'efficacité.",
+        "itName": "IT",
+        "itResp": "Met en oeuvre les mesures techniques : cryptographie, correctifs, authentification.",
+        "operationsName": "Exploitation",
+        "operationsResp": "Assure la continuité, les sauvegardes et la gestion des fournisseurs."
+      },
+      "band": {
+        "minimumName": "Minimum défendable",
+        "minimumPhase": "Ce mois-ci",
+        "minimumHint": "Les mesures obligatoires et fondamentales. La base qui doit tenir en premier.",
+        "yearName": "Au cours de l'année",
+        "yearPhase": "3 prochains mois",
+        "yearHint": "Environ deux heures par semaine. Pas un sprint, un rythme tranquille.",
+        "laterName": "Priorité moindre",
+        "laterPhase": "Ensuite",
+        "laterHint": "Une fois le reste en place. Important, mais pas urgent."
+      },
+      "row": {
+        "recurring": "Récurrent, rappel automatique.",
+        "open": "Ouvrir",
+        "explain": "Explication"
+      }
+    }
   }
 }
