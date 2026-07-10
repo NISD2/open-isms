@@ -40,6 +40,24 @@
       "incorrect": "Incorrect"
     },
     "progressLabel": "{completed} sur {total} leçons terminées",
-    "estimatedTime": "{minutes} min de lecture"
+    "estimatedTime": "{minutes} min de lecture",
+    "certificate": {
+      "lockedTitle": "Attestation de réussite",
+      "lockedText": "Terminez toutes les leçons pour télécharger votre attestation. Encore {remaining} leçons sur {total}.",
+      "completeTitle": "Cours terminé",
+      "completeText": "Vous avez terminé les {total} leçons. Téléchargez votre attestation ci-dessous.",
+      "nameLabel": "Nom sur l'attestation",
+      "namePlaceholder": "Nom complet",
+      "noNameSet": "Aucun nom renseigné",
+      "nameHint": "Ce nom sera imprimé sur l'attestation.",
+      "edit": "Modifier",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "nameSaved": "Nom enregistré",
+      "nameSaveError": "Le nom n'a pas pu être enregistré",
+      "download": "Télécharger l'attestation",
+      "downloadHint": "Téléchargée au format PDF, à enregistrer ou à imprimer.",
+      "finishEditingHint": "Enregistrez ou annulez d'abord la modification du nom."
+    }
   }
 }
