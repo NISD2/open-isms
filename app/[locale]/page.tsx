@@ -70,7 +70,18 @@ export default async function LandingPage() {
           <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,25rem)_1fr] lg:items-center">
             <div>
               <p className="max-w-sm text-base leading-relaxed text-muted-foreground">
-                {t("subtitle")}
+                {t.rich("subtitle", {
+                  os: (chunks) => (
+                    <a
+                      href="https://github.com/NISD2/open-isms"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-foreground"
+                    >
+                      {chunks}
+                    </a>
+                  ),
+                })}
               </p>
 
               {/* CTAs stacked for the narrow column */}
