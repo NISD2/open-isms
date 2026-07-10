@@ -13,6 +13,7 @@ import {
   FileText,
   ScrollText,
   Server,
+  ShieldCheck,
   Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -35,7 +36,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ComplianceProgress } from "@/components/compliance/ComplianceProgress";
 import { UserNav } from "./UserNav";
 import { PortalSwitcher } from "./PortalSwitcher";
 
@@ -163,73 +163,81 @@ export function AppSidebar({
             }
           }
 
+          const pct =
+            fw.total > 0 ? Math.round((fw.completed / fw.total) * 100) : 0;
+
           return (
-            <div key={fw.code} className="mt-2 border-t border-sidebar-border/40">
-              <SidebarGroup className="py-1">
-                <Collapsible className="group/collapsible">
-                  <SidebarGroupLabel asChild>
-                    <CollapsibleTrigger className="flex w-full items-center text-sidebar-foreground/90 font-medium">
-                      {t(fw.label)}
-                      <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                    </CollapsibleTrigger>
-                  </SidebarGroupLabel>
+            <SidebarGroup key={fw.code} className="py-0.5">
+              <SidebarGroupContent>
+                <Collapsible className="group/fw">
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton className="font-medium">
+                          <ShieldCheck />
+                          <span>{t(fw.label)}</span>
+                          <span className="ml-auto font-mono text-[10px] tabular-nums text-muted-foreground group-data-[collapsible=icon]:hidden">
+                            {fw.completed}/{fw.total}
+                          </span>
+                          <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-data-[state=open]/fw:rotate-90 group-data-[collapsible=icon]:hidden" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
                   <CollapsibleContent>
-                    <SidebarGroupContent>
-                      <div className="px-2 pt-1 pb-1 group-data-[collapsible=icon]:hidden">
-                        <ComplianceProgress
-                          completed={fw.completed}
-                          total={fw.total}
-                          className="w-full"
+                    <div className="mb-1 mt-1 px-3 group-data-[collapsible=icon]:hidden">
+                      <div className="h-1 w-full overflow-hidden rounded-full bg-sidebar-border/60">
+                        <div
+                          className="h-full rounded-full bg-primary/70 transition-all"
+                          style={{ width: `${pct}%` }}
                         />
                       </div>
-                      {phases.map((phase) => (
-                        <div key={phase.label}>
-                          <p className="px-2 pt-2 pb-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60 group-data-[collapsible=icon]:hidden">
-                            {t(phase.label)}
-                          </p>
-                          <SidebarMenu>
-                            {phase.steps.map((step) => {
-                              const categoryPath = `/compliance/${step.slug}`;
-                              const isCompleted =
-                                step.completedCount >= step.requirementCount &&
-                                step.requirementCount > 0;
-                              const codePrefix = fw.codePrefix;
-
-                              return (
-                                <SidebarMenuItem key={step.slug}>
-                                  <SidebarMenuButton
-                                    asChild
-                                    isActive={params.categorySlug === step.slug && !params.requirementCode}
-                                    tooltip={step.name}
-                                    size="sm"
-                                  >
-                                    <Link href={categoryPath as never} prefetch={false}>
-                                      <span className="font-mono text-[10px] text-muted-foreground w-4 text-center shrink-0">
-                                        {step.code.replace(codePrefix, "")}
-                                      </span>
-                                      <span>{step.name}</span>
-                                    </Link>
-                                  </SidebarMenuButton>
-                                  <SidebarMenuBadge>
-                                    {isCompleted ? (
-                                      <Check className="size-3 text-green-600" />
-                                    ) : (
-                                      <span className="text-[10px] text-muted-foreground">
-                                        {step.completedCount}/{step.requirementCount}
-                                      </span>
-                                    )}
-                                  </SidebarMenuBadge>
-                                </SidebarMenuItem>
-                              );
-                            })}
-                          </SidebarMenu>
-                        </div>
-                      ))}
-                    </SidebarGroupContent>
+                    </div>
+                    {phases.map((phase) => (
+                      <div key={phase.label} className="group-data-[collapsible=icon]:hidden">
+                        <p className="px-2 pb-0.5 pt-2 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
+                          {t(phase.label)}
+                        </p>
+                        <SidebarMenu>
+                          {phase.steps.map((step) => {
+                            const categoryPath = `/compliance/${step.slug}`;
+                            const isCompleted =
+                              step.completedCount >= step.requirementCount &&
+                              step.requirementCount > 0;
+                            return (
+                              <SidebarMenuItem key={step.slug}>
+                                <SidebarMenuButton
+                                  asChild
+                                  isActive={params.categorySlug === step.slug && !params.requirementCode}
+                                  tooltip={step.name}
+                                  size="sm"
+                                >
+                                  <Link href={categoryPath as never} prefetch={false}>
+                                    <span className="w-4 shrink-0 text-center font-mono text-[10px] text-muted-foreground">
+                                      {step.code.replace(fw.codePrefix, "")}
+                                    </span>
+                                    <span className="truncate">{step.name}</span>
+                                  </Link>
+                                </SidebarMenuButton>
+                                <SidebarMenuBadge>
+                                  {isCompleted ? (
+                                    <Check className="size-3 text-emerald-600" />
+                                  ) : (
+                                    <span className="text-[10px] tabular-nums text-muted-foreground">
+                                      {step.completedCount}/{step.requirementCount}
+                                    </span>
+                                  )}
+                                </SidebarMenuBadge>
+                              </SidebarMenuItem>
+                            );
+                          })}
+                        </SidebarMenu>
+                      </div>
+                    ))}
                   </CollapsibleContent>
                 </Collapsible>
-              </SidebarGroup>
-            </div>
+              </SidebarGroupContent>
+            </SidebarGroup>
           );
         })}
 

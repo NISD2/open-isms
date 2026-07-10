@@ -50,6 +50,70 @@
     "phaseAdmin": "Amministrazione",
     "blockedBy": "Completa prima: {codes}",
     "journey": "Percorso",
-    "administration": "Amministrazione"
+    "administration": "Amministrazione",
+    "journeyBoard": {
+      "hero": {
+        "title": "La vostra attuazione NIS2",
+        "subtitle": "{done} di {total} evidenze sono pronte. La maggior parte nasce automaticamente dal vostro lavoro, voi verificate e approvate.",
+        "unit": "attuata",
+        "chipPrepared": "{count} preparate per voi",
+        "chipDone": "{count} attuate",
+        "chipOverdue": "{count} in scadenza"
+      },
+      "next": {
+        "kicker": "Prossimo passo",
+        "eta": "~15 min",
+        "cta": "Continua"
+      },
+      "path": {
+        "title": "L'intero percorso",
+        "hint": "Tutte le misure. Passate da Prima le critiche (la nostra raccomandazione) a Cronologico (l'ordine naturale).",
+        "chronoHeader": "Come si svolge di solito il processo"
+      },
+      "view": {
+        "critical": "Prima le critiche",
+        "criticalTip": "Prima il rischio e la responsabilità maggiori. La nostra raccomandazione.",
+        "chrono": "Cronologico",
+        "chronoTip": "Nell'ordine naturale del processo, come di norma si procede."
+      },
+      "coverage": {
+        "doneLabel": "Attuata",
+        "doneTip": "Attuata e documentata. Resta aggiornata con poco sforzo.",
+        "currentLabel": "Prossimo passo",
+        "currentTip": "Il vostro passo successivo. Un clic e proseguite.",
+        "preparedLabel": "Preparata",
+        "preparedTip": "L'abbiamo redatta per voi. Voi verificate e approvate, invece di partire da zero.",
+        "openLabel": "Aperta",
+        "openTip": "Non ancora iniziata. Arriva quando i passi precedenti sono pronti.",
+        "overdueLabel": "In scadenza",
+        "overdueTip": "Un'attività ricorrente in scadenza, per esempio un aggiornamento annuale. Una rapida revisione."
+      },
+      "owner": {
+        "leadershipName": "Direzione",
+        "leadershipResp": "Approva e ne risponde. Governance, budget e gli obblighi ai sensi del § 38 BSIG.",
+        "securityName": "Sicurezza (CISO)",
+        "securityResp": "Gestisce rischio, incidenti, accessi, formazione ed efficacia.",
+        "itName": "IT",
+        "itResp": "Attua le misure tecniche: crittografia, patch, autenticazione.",
+        "operationsName": "Operazioni",
+        "operationsResp": "Risponde di continuità, backup e gestione dei fornitori."
+      },
+      "band": {
+        "minimumName": "Minimo difendibile",
+        "minimumPhase": "Questo mese",
+        "minimumHint": "Le misure obbligatorie e fondamentali. La base che deve reggere per prima.",
+        "yearName": "Nel corso dell'anno",
+        "yearPhase": "Prossimi 3 mesi",
+        "yearHint": "Circa due ore a settimana. Non uno sprint, ma un ritmo tranquillo.",
+        "laterName": "Priorità minore",
+        "laterPhase": "In seguito",
+        "laterHint": "Quando il resto è pronto. Importante, ma non urgente."
+      },
+      "row": {
+        "recurring": "Ricorrente, con promemoria automatico.",
+        "open": "Apri",
+        "explain": "Spiegazione"
+      }
+    }
   }
 }

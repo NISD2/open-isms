@@ -32,6 +32,17 @@ export type FlowNode = {
   signOff: { signed: number; total: number };
 };
 
+/** Journey rollup counts. Single source of truth for the aggregate shape
+ *  shared by the board, the preview sample data, and the journey router. */
+export type Aggregate = {
+  total: number;
+  done: number;
+  awaitingSignoff: number;
+  overdue: number;
+  dueSoon: number;
+  open: number;
+};
+
 /** Swimlane columns, in display order. "Management" matches the §38 language. */
 export const COLUMNS: {
   key: ColumnKey;

@@ -342,9 +342,18 @@
         "heading": "Die drei Meldestufen",
         "description": "Artikel 23 Absatz 4 NIS 2, § 32 Absatz 1 BSIG.",
         "items": {
-          "s1": { "title": "Frühwarnung binnen 24 Stunden", "text": "Eine erste Frühwarnung an das BSI binnen 24 Stunden nach Kenntnis des erheblichen Vorfalls, mit der Angabe, ob ein rechtswidriger oder böswilliger Auslöser vermutet wird und ob grenzüberschreitende Auswirkungen möglich sind." },
-          "s2": { "title": "Meldung binnen 72 Stunden", "text": "Eine ausführlichere Meldung binnen 72 Stunden, die die Frühwarnung um eine erste Bewertung des Vorfalls, seine Schwere und Auswirkungen sowie verfügbare Kompromittierungsindikatoren ergänzt." },
-          "s3": { "title": "Abschlussbericht nach einem Monat", "text": "Ein Abschlussbericht spätestens einen Monat nach der Meldung: eine ausführliche Beschreibung, die Art der Bedrohung oder die Ursache, die ergriffenen Abhilfemaßnahmen und etwaige grenzüberschreitende Auswirkungen." }
+          "s1": {
+            "title": "Frühwarnung binnen 24 Stunden",
+            "text": "Eine erste Frühwarnung an das BSI binnen 24 Stunden nach Kenntnis des erheblichen Vorfalls, mit der Angabe, ob ein rechtswidriger oder böswilliger Auslöser vermutet wird und ob grenzüberschreitende Auswirkungen möglich sind."
+          },
+          "s2": {
+            "title": "Meldung binnen 72 Stunden",
+            "text": "Eine ausführlichere Meldung binnen 72 Stunden, die die Frühwarnung um eine erste Bewertung des Vorfalls, seine Schwere und Auswirkungen sowie verfügbare Kompromittierungsindikatoren ergänzt."
+          },
+          "s3": {
+            "title": "Abschlussbericht nach einem Monat",
+            "text": "Ein Abschlussbericht spätestens einen Monat nach der Meldung: eine ausführliche Beschreibung, die Art der Bedrohung oder die Ursache, die ergriffenen Abhilfemaßnahmen und etwaige grenzüberschreitende Auswirkungen."
+          }
         }
       },
       "significant": {
@@ -364,11 +373,26 @@
       },
       "faq": {
         "heading": "Häufige Fragen",
-        "q1": { "q": "Ab wann läuft die 24-Stunden-Frist?", "a": "Ab Kenntnis des erheblichen Vorfalls, nicht ab seinem Beginn." },
-        "q2": { "q": "Gibt es feste Euro-Schwellen für einen erheblichen Vorfall?", "a": "Nur für die in der CIR (EU) 2024/2690 genannten digitalen Diensteanbieter. Für alle anderen Einrichtungen gelten die qualitativen Kriterien aus Artikel 23 Absatz 3 NIS 2." },
-        "q3": { "q": "Was, wenn ich unsicher bin, ob ein Vorfall erheblich ist?", "a": "Dokumentieren Sie Ihre Einschätzung und die Gründe. Die begründete Entscheidung ist, was ein Prüfer sehen will; das Fehlen jeder Einschätzung ist der eigentliche Fehler." },
-        "q4": { "q": "Muss ich auch nach DSGVO melden?", "a": "Sind personenbezogene Daten betroffen, prüfen Sie Artikel 33 DSGVO gesondert. Er hat eine eigene 72-Stunden-Frist und einen anderen Adressaten." },
-        "q5": { "q": "Was passiert nach der Meldung?", "a": "Das BSI kann weitere Informationen anfordern, und der Abschlussbericht folgt spätestens einen Monat nach der Meldung." }
+        "q1": {
+          "q": "Ab wann läuft die 24-Stunden-Frist?",
+          "a": "Ab Kenntnis des erheblichen Vorfalls, nicht ab seinem Beginn."
+        },
+        "q2": {
+          "q": "Gibt es feste Euro-Schwellen für einen erheblichen Vorfall?",
+          "a": "Nur für die in der CIR (EU) 2024/2690 genannten digitalen Diensteanbieter. Für alle anderen Einrichtungen gelten die qualitativen Kriterien aus Artikel 23 Absatz 3 NIS 2."
+        },
+        "q3": {
+          "q": "Was, wenn ich unsicher bin, ob ein Vorfall erheblich ist?",
+          "a": "Dokumentieren Sie Ihre Einschätzung und die Gründe. Die begründete Entscheidung ist, was ein Prüfer sehen will; das Fehlen jeder Einschätzung ist der eigentliche Fehler."
+        },
+        "q4": {
+          "q": "Muss ich auch nach DSGVO melden?",
+          "a": "Sind personenbezogene Daten betroffen, prüfen Sie Artikel 33 DSGVO gesondert. Er hat eine eigene 72-Stunden-Frist und einen anderen Adressaten."
+        },
+        "q5": {
+          "q": "Was passiert nach der Meldung?",
+          "a": "Das BSI kann weitere Informationen anfordern, und der Abschlussbericht folgt spätestens einen Monat nach der Meldung."
+        }
       },
       "ctaCard": {
         "heading": "Strukturieren Sie Ihren Meldeprozess, bevor Sie ihn brauchen",
@@ -6519,6 +6543,12 @@
         "openSource": "Open-Source-Werkzeuge (MIT + CC BY 4.0)",
         "openSourceUrl": "https://github.com/NISD2",
         "hosting": "Hosting in Deutschland · DSGVO-konform"
+      },
+      "platform": {
+        "heading": "Der ganze Weg, in der Plattform",
+        "body": "Sie müssen die Schritte nicht einzeln von Hand abarbeiten. Die kostenlose Plattform führt Sie durch genau diese Roadmap, entwirft die meisten Nachweise vorab und behält Freigaben und Fristen im Blick. Sie prüfen und geben frei. Open Source, kein Lock-in.",
+        "cta": "In der Plattform starten",
+        "compact": "Bereit für den geführten Weg?"
       }
     },
     "corrections": {

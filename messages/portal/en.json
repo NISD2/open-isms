@@ -50,6 +50,70 @@
     "phaseAdmin": "Admin",
     "blockedBy": "Complete first: {codes}",
     "journey": "Journey",
-    "administration": "Administration"
+    "administration": "Administration",
+    "journeyBoard": {
+      "hero": {
+        "title": "Your NIS2 implementation",
+        "subtitle": "{done} of {total} records are in place. Most build themselves from your work; you review and sign off.",
+        "unit": "in place",
+        "chipPrepared": "{count} prepared for you",
+        "chipDone": "{count} in place",
+        "chipOverdue": "{count} due"
+      },
+      "next": {
+        "kicker": "Up next",
+        "eta": "~15 min",
+        "cta": "Continue"
+      },
+      "path": {
+        "title": "The whole path",
+        "hint": "Every measure. Switch between Critical first (our recommendation) and Chronological (the natural order).",
+        "chronoHeader": "How the process usually runs"
+      },
+      "view": {
+        "critical": "Critical first",
+        "criticalTip": "Biggest risk and liability first. Our recommendation.",
+        "chrono": "Chronological",
+        "chronoTip": "In the natural order of the process, the way it is usually worked through."
+      },
+      "coverage": {
+        "doneLabel": "In place",
+        "doneTip": "Implemented and documented. Stays current with little effort.",
+        "currentLabel": "Up next",
+        "currentTip": "Your next step. One click and you move on.",
+        "preparedLabel": "Prepared",
+        "preparedTip": "We drafted it for you. You review and sign off instead of starting from scratch.",
+        "openLabel": "Open",
+        "openTip": "Not started yet. Comes up once the steps before it are in place.",
+        "overdueLabel": "Due",
+        "overdueTip": "A recurring task is due, such as an annual refresh. A quick update."
+      },
+      "owner": {
+        "leadershipName": "Management",
+        "leadershipResp": "Approves and owns it. Governance, budget and the duties under § 38 BSIG.",
+        "securityName": "Security (CISO)",
+        "securityResp": "Runs risk, incidents, access, training and effectiveness.",
+        "itName": "IT",
+        "itResp": "Implements the technical measures: cryptography, patches, authentication.",
+        "operationsName": "Operations",
+        "operationsResp": "Owns continuity, backups and supplier management."
+      },
+      "band": {
+        "minimumName": "Defensible minimum",
+        "minimumPhase": "This month",
+        "minimumHint": "The mandatory, foundational measures. The base that has to stand first.",
+        "yearName": "Over the year",
+        "yearPhase": "Next 3 months",
+        "yearHint": "About two hours a week. Not a sprint, a calm rhythm.",
+        "laterName": "Lower priority",
+        "laterPhase": "After that",
+        "laterHint": "Once the rest is in place. Important, but not urgent."
+      },
+      "row": {
+        "recurring": "Recurring, reminded automatically.",
+        "open": "Open",
+        "explain": "Explanation"
+      }
+    }
   }
 }

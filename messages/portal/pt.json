@@ -50,6 +50,70 @@
     "phaseAdmin": "Administração",
     "blockedBy": "Concluir primeiro: {codes}",
     "journey": "Percurso",
-    "administration": "Administração"
+    "administration": "Administração",
+    "journeyBoard": {
+      "hero": {
+        "title": "A sua implementação NIS2",
+        "subtitle": "{done} de {total} registos estão prontos. A maioria surge automaticamente do seu trabalho, você verifica e aprova.",
+        "unit": "implementado",
+        "chipPrepared": "{count} preparados para si",
+        "chipDone": "{count} implementados",
+        "chipOverdue": "{count} pendentes"
+      },
+      "next": {
+        "kicker": "Agora",
+        "eta": "~15 min",
+        "cta": "Continuar"
+      },
+      "path": {
+        "title": "O caminho completo",
+        "hint": "Todas as medidas. Alterne entre Críticas primeiro (a nossa recomendação) e Cronológico (a ordem natural).",
+        "chronoHeader": "Como o processo costuma decorrer"
+      },
+      "view": {
+        "critical": "Críticas primeiro",
+        "criticalTip": "Maior risco e maior responsabilidade primeiro. A nossa recomendação.",
+        "chrono": "Cronológico",
+        "chronoTip": "Na ordem natural do processo, como habitualmente se avança."
+      },
+      "coverage": {
+        "doneLabel": "Implementado",
+        "doneTip": "Implementado e documentado. Mantém-se atual com pouco esforço.",
+        "currentLabel": "Agora",
+        "currentTip": "O seu próximo passo. Um clique e avança.",
+        "preparedLabel": "Preparado",
+        "preparedTip": "Redigimos para si. Você verifica e aprova, em vez de começar do zero.",
+        "openLabel": "Em aberto",
+        "openTip": "Ainda não iniciado. Chega a vez quando os passos anteriores estiverem prontos.",
+        "overdueLabel": "Pendente",
+        "overdueTip": "Tarefa recorrente pendente, por exemplo uma atualização anual. Uma atualização breve."
+      },
+      "owner": {
+        "leadershipName": "Direção",
+        "leadershipResp": "Aprova e assume a responsabilidade. Governance, orçamento e os deveres nos termos do § 38 BSIG.",
+        "securityName": "Segurança (CISO)",
+        "securityResp": "Gere risco, incidentes, acessos, formação e eficácia.",
+        "itName": "IT",
+        "itResp": "Implementa as medidas técnicas: criptografia, patches, autenticação.",
+        "operationsName": "Operações",
+        "operationsResp": "Responsável por continuidade, backups e gestão de fornecedores."
+      },
+      "band": {
+        "minimumName": "Mínimo defensável",
+        "minimumPhase": "Este mês",
+        "minimumHint": "As medidas obrigatórias e fundamentais. A base que tem de estar primeiro.",
+        "yearName": "Ao longo do ano",
+        "yearPhase": "Próximos 3 meses",
+        "yearHint": "Cerca de duas horas por semana. Não um sprint, mas um ritmo calmo.",
+        "laterName": "Prioridade menor",
+        "laterPhase": "Depois disso",
+        "laterHint": "Quando o resto estiver pronto. Importante, mas não urgente."
+      },
+      "row": {
+        "recurring": "Recorrente, com lembrete automático.",
+        "open": "Abrir",
+        "explain": "Explicação"
+      }
+    }
   }
 }
