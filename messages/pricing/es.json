@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Precios - Plataforma de cumplimiento NIS2",
-      "description": "Dos formas de utilizar la plataforma. Alojada en nis2.eu, gratis para siempre. Autoalojamiento bajo AGPL-3.0: pague lo que pueda, desde 1 €, como licencia perpetua de pago único."
+      "description": "Dos formas de utilizar la plataforma. Alojada en nis2.eu, gratis para siempre. Autoalojamiento bajo AGPL-3.0: pague lo que pueda, como licencia perpetua de pago único."
     },
     "title": "Precios",
     "subtitle": "Dos formas de utilizar la plataforma. Elija una.",
@@ -28,8 +28,8 @@
     "selfHost": {
       "name": "Autoalojamiento",
       "description": "Código fuente completo. Ejecútelo en su propia infraestructura, para siempre.",
-      "price": "desde 1 €",
-      "priceSub": "pague lo que pueda, pago único, licencia perpetua",
+      "price": "Pague lo que pueda",
+      "priceSub": "pago único, licencia perpetua",
       "cta": "Hable con nosotros",
       "features": {
         "h1": "Código fuente completo de la plataforma bajo AGPL-3.0",

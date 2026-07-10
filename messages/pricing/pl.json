@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Cennik - Platforma zgodności z NIS2",
-      "description": "Dwa sposoby uruchomienia platformy. Hostowana na nis2.eu, darmowa na zawsze. Hosting własny na licencji AGPL-3.0: zapłać, ile możesz, od 1 € jako jednorazowa licencja dożywotnia."
+      "description": "Dwa sposoby uruchomienia platformy. Hostowana na nis2.eu, darmowa na zawsze. Hosting własny na licencji AGPL-3.0: zapłać, ile możesz, jako jednorazowa licencja dożywotnia."
     },
     "title": "Cennik",
     "subtitle": "Dwa sposoby uruchomienia platformy. Wybierz jeden.",
@@ -28,8 +28,8 @@
     "selfHost": {
       "name": "Hosting własny",
       "description": "Pełny kod źródłowy. Uruchom go na własnej infrastrukturze, na zawsze.",
-      "price": "od 1 €",
-      "priceSub": "zapłać, ile możesz, jednorazowo, licencja dożywotnia",
+      "price": "Zapłać, ile możesz",
+      "priceSub": "jednorazowo, licencja dożywotnia",
       "cta": "Skontaktuj się z nami",
       "features": {
         "h1": "Pełny kod źródłowy platformy na licencji AGPL-3.0",

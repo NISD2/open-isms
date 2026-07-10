@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Prețuri - Platformă de conformitate NIS2",
-      "description": "Două moduri de a rula platforma. Găzduită la nis2.eu, gratuit pentru totdeauna. Auto-găzduire sub AGPL-3.0: plătiți cât puteți, de la 1 €, ca licență pe viață cu plată unică."
+      "description": "Două moduri de a rula platforma. Găzduită la nis2.eu, gratuit pentru totdeauna. Auto-găzduire sub AGPL-3.0: plătiți cât puteți, ca licență pe viață cu plată unică."
     },
     "title": "Prețuri",
     "subtitle": "Două moduri de a rula platforma. Alegeți unul.",
@@ -28,8 +28,8 @@
     "selfHost": {
       "name": "Auto-găzduire",
       "description": "Cod sursă complet. Rulați-l pe propria infrastructură, pentru totdeauna.",
-      "price": "de la 1 €",
-      "priceSub": "plătiți cât puteți, plată unică, licență pe viață",
+      "price": "Plătiți cât puteți",
+      "priceSub": "plată unică, licență pe viață",
       "cta": "Contactați-ne",
       "features": {
         "h1": "Cod sursă complet al platformei sub AGPL-3.0",
