@@ -3,14 +3,20 @@
 import { useState } from "react";
 import {
   Activity,
+  BadgeCheck,
   Building2,
   GraduationCap,
+  Loader2,
   Mail,
   Shield,
   Trash2,
   Truck,
   Users,
 } from "lucide-react";
+import { trpc, type RouterInputs } from "@/lib/trpc/client";
+import { toast } from "sonner";
+
+type CourseId = RouterInputs["platformAdmin"]["trainingMarkCourseComplete"]["courseId"];
 import {
   Card,
   CardContent,
@@ -18,7 +24,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 
@@ -93,11 +99,15 @@ interface TrainingRow {
   lastActivity: string;
 }
 
-/** Lesson count per course (sum of module.lessonIds across each course definition). */
-const COURSE_TOTALS = {
-  ceo: 47,
-  cra: 9,
-  tabletop: 8,
+/**
+ * Course id + lesson count per table column (count = sum of
+ * module.lessonIds in each course definition). One map so the id and
+ * the total shown next to it cannot drift apart.
+ */
+const COURSES = {
+  ceo: { id: "nis2-ceo", total: 47 },
+  cra: { id: "cra-sbom", total: 9 },
+  tabletop: { id: "nis2-tabletop", total: 8 },
 } as const;
 
 interface SupplierRow {
@@ -483,13 +493,13 @@ function TrainingTable({ rows }: { rows: TrainingRow[] }) {
                   <td className="py-2 pr-4 text-muted-foreground">{r.userEmail}</td>
                   <td className="py-2 pr-4">{r.companyName ?? <span className="text-muted-foreground italic">none</span>}</td>
                   <td className="py-2 pr-4 tabular-nums">
-                    <CourseCell completed={r.ceoCompleted} total={COURSE_TOTALS.ceo} touched={r.ceoTouched} />
+                    <CourseCell completed={r.ceoCompleted} total={COURSES.ceo.total} touched={r.ceoTouched} courseId={COURSES.ceo.id} userId={r.userId} userEmail={r.userEmail} />
                   </td>
                   <td className="py-2 pr-4 tabular-nums">
-                    <CourseCell completed={r.craCompleted} total={COURSE_TOTALS.cra} touched={r.craTouched} />
+                    <CourseCell completed={r.craCompleted} total={COURSES.cra.total} touched={r.craTouched} courseId={COURSES.cra.id} userId={r.userId} userEmail={r.userEmail} />
                   </td>
                   <td className="py-2 pr-4 tabular-nums">
-                    <CourseCell completed={r.tabletopCompleted} total={COURSE_TOTALS.tabletop} touched={r.tabletopTouched} />
+                    <CourseCell completed={r.tabletopCompleted} total={COURSES.tabletop.total} touched={r.tabletopTouched} courseId={COURSES.tabletop.id} userId={r.userId} userEmail={r.userEmail} />
                   </td>
                   <td className="py-2 pr-4 tabular-nums">{r.quizzesPassed}</td>
                   <td className="py-2 text-muted-foreground">{r.lastActivity ? timeAgo(r.lastActivity) : "-"}</td>
@@ -506,15 +516,75 @@ function TrainingTable({ rows }: { rows: TrainingRow[] }) {
   );
 }
 
-function CourseCell({ completed, total, touched }: { completed: number; total: number; touched: number }) {
-  if (touched === 0) {
-    return <span className="text-muted-foreground/50">—</span>;
-  }
+function CourseCell({
+  completed,
+  total,
+  touched,
+  courseId,
+  userId,
+  userEmail,
+}: {
+  completed: number;
+  total: number;
+  touched: number;
+  courseId: CourseId;
+  userId: string;
+  userEmail: string;
+}) {
   return (
-    <span title={`${touched} lesson${touched === 1 ? "" : "s"} touched`}>
-      <span className="text-green-600">{completed}</span>
-      <span className="text-muted-foreground">/{total}</span>
+    <span className="inline-flex items-center gap-1">
+      {touched === 0 ? (
+        <span className="text-muted-foreground/50">—</span>
+      ) : (
+        <span title={`${touched} lesson${touched === 1 ? "" : "s"} touched`}>
+          <span className="text-green-600">{completed}</span>
+          <span className="text-muted-foreground">/{total}</span>
+        </span>
+      )}
+      {completed < total && (
+        <MarkCourseCompleteButton courseId={courseId} userId={userId} userEmail={userEmail} />
+      )}
     </span>
+  );
+}
+
+function MarkCourseCompleteButton({
+  courseId,
+  userId,
+  userEmail,
+}: {
+  courseId: CourseId;
+  userId: string;
+  userEmail: string;
+}) {
+  const router = useRouter();
+  const mark = trpc.platformAdmin.trainingMarkCourseComplete.useMutation({
+    onSuccess: (res) => {
+      toast.success(`Marked ${res.courseId} complete (${res.lessonCount} lessons) for ${userEmail}`);
+      router.refresh();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  return (
+    <Button
+      size="sm"
+      variant="ghost"
+      className="h-6 px-1.5 text-muted-foreground hover:text-green-600"
+      title={`Mark ${courseId} fully complete for ${userEmail}`}
+      disabled={mark.isPending}
+      onClick={() => {
+        if (window.confirm(`Mark ${courseId} fully complete for ${userEmail}?`)) {
+          mark.mutate({ userId, courseId });
+        }
+      }}
+    >
+      {mark.isPending ? (
+        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+      ) : (
+        <BadgeCheck className="h-3.5 w-3.5" />
+      )}
+    </Button>
   );
 }
 
