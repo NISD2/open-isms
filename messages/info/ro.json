@@ -342,9 +342,18 @@
         "heading": "Cele trei etape de notificare",
         "description": "Articolul 23(4) NIS 2, Articolul 32 alineatul 1 BSIG.",
         "items": {
-          "s1": { "title": "Avertizare timpurie in 24 de ore", "text": "O prima avertizare timpurie catre BSI in termen de 24 de ore de la luarea la cunostinta a incidentului semnificativ, indicand daca se suspecteaza ca a fost cauzat de acte ilicite sau rau intentionate si daca ar putea avea un impact transfrontalier." },
-          "s2": { "title": "Notificare in 72 de ore", "text": "O notificare mai completa in 72 de ore, care completeaza avertizarea timpurie cu o prima evaluare a incidentului, a gravitatii si impactului acestuia, precum si cu indicatori de compromitere, atunci cand sunt disponibili." },
-          "s3": { "title": "Raport final dupa o luna", "text": "Un raport final cel tarziu la o luna dupa notificare: o descriere detaliata, tipul de amenintare sau cauza, masurile corective aplicate si orice impact transfrontalier." }
+          "s1": {
+            "title": "Avertizare timpurie in 24 de ore",
+            "text": "O prima avertizare timpurie catre BSI in termen de 24 de ore de la luarea la cunostinta a incidentului semnificativ, indicand daca se suspecteaza ca a fost cauzat de acte ilicite sau rau intentionate si daca ar putea avea un impact transfrontalier."
+          },
+          "s2": {
+            "title": "Notificare in 72 de ore",
+            "text": "O notificare mai completa in 72 de ore, care completeaza avertizarea timpurie cu o prima evaluare a incidentului, a gravitatii si impactului acestuia, precum si cu indicatori de compromitere, atunci cand sunt disponibili."
+          },
+          "s3": {
+            "title": "Raport final dupa o luna",
+            "text": "Un raport final cel tarziu la o luna dupa notificare: o descriere detaliata, tipul de amenintare sau cauza, masurile corective aplicate si orice impact transfrontalier."
+          }
         }
       },
       "significant": {
@@ -364,11 +373,26 @@
       },
       "faq": {
         "heading": "Intrebari frecvente",
-        "q1": { "q": "Cand incepe termenul de 24 de ore?", "a": "Cand entitatea ia cunostinta de incidentul semnificativ, nu cand a inceput." },
-        "q2": { "q": "Exista praguri fixe in euro pentru un incident semnificativ?", "a": "Doar pentru furnizorii de servicii digitale desemnati in RPA (UE) 2024/2690. Pentru toate celelalte entitati se aplica criteriile calitative din articolul 23(3) NIS 2." },
-        "q3": { "q": "Ce fac daca nu sunt sigur ca un incident este semnificativ?", "a": "Documentati evaluarea si motivele. Decizia motivata este ceea ce asteapta un auditor; absenta oricarei evaluari este adevarata deficienta." },
-        "q4": { "q": "Trebuie sa notific si in temeiul RGPD?", "a": "Daca sunt implicate date cu caracter personal, verificati separat articolul 33 RGPD. Are propriul termen de 72 de ore si un destinatar diferit." },
-        "q5": { "q": "Ce se intampla dupa notificare?", "a": "BSI poate solicita informatii suplimentare, iar raportul final urmeaza cel tarziu la o luna dupa notificare." }
+        "q1": {
+          "q": "Cand incepe termenul de 24 de ore?",
+          "a": "Cand entitatea ia cunostinta de incidentul semnificativ, nu cand a inceput."
+        },
+        "q2": {
+          "q": "Exista praguri fixe in euro pentru un incident semnificativ?",
+          "a": "Doar pentru furnizorii de servicii digitale desemnati in RPA (UE) 2024/2690. Pentru toate celelalte entitati se aplica criteriile calitative din articolul 23(3) NIS 2."
+        },
+        "q3": {
+          "q": "Ce fac daca nu sunt sigur ca un incident este semnificativ?",
+          "a": "Documentati evaluarea si motivele. Decizia motivata este ceea ce asteapta un auditor; absenta oricarei evaluari este adevarata deficienta."
+        },
+        "q4": {
+          "q": "Trebuie sa notific si in temeiul RGPD?",
+          "a": "Daca sunt implicate date cu caracter personal, verificati separat articolul 33 RGPD. Are propriul termen de 72 de ore si un destinatar diferit."
+        },
+        "q5": {
+          "q": "Ce se intampla dupa notificare?",
+          "a": "BSI poate solicita informatii suplimentare, iar raportul final urmeaza cel tarziu la o luna dupa notificare."
+        }
       },
       "ctaCard": {
         "heading": "Structurati-va procesul de notificare inainte sa aveti nevoie de el",
@@ -6217,6 +6241,10 @@
       "contribute": {
         "heading": "Contribuții",
         "p1": "Pull request-urile sunt binevenite: în special corecturi la citatele juridice (cu o referință la sursa primară), traduceri suplimentare în alte limbi, extensii specifice sectorului (KRITIS, energie, sănătate) și diferențe de transpunere națională. Pentru modificări substanțiale, vă rugăm să deschideți mai întâi o problemă."
+      },
+      "platform": {
+        "title": "Platforma nisd2.eu: portal, parcurs, cursuri",
+        "description": "Aplicația completă care rulează acest site. Portalul de conformitate, parcursul ghidat NIS 2, cursul pentru conducere și toate datele privind cadrele de reglementare, într-o singură bază de cod Next.js și Drizzle. Poate fi găzduită independent și este licențiată sub AGPL-3.0."
       }
     },
     "status": {

@@ -6244,6 +6244,10 @@
       "contribute": {
         "heading": "Mitwirken",
         "p1": "Pull Requests willkommen - besonders Korrekturen an Rechtsquellen (mit Primärquellen-Zitat), zusätzliche Sprachübersetzungen, sektorspezifische Erweiterungen (KRITIS, Energie, Gesundheitswesen) und nationale Umsetzungs-Deltas. Für größere Änderungen bitte zuerst ein Issue eröffnen."
+      },
+      "platform": {
+        "title": "Die nisd2.eu-Plattform: Portal, Pfad, Kurse",
+        "description": "Die vollständige Anwendung, die diese Seite betreibt. Das Compliance-Portal, der geführte NIS-2-Pfad, die Geschäftsführer-Schulung und alle Framework-Daten in einer Next.js- und Drizzle-Codebasis. Selbst hostbar und unter AGPL-3.0 lizenziert."
       }
     },
     "partners": {

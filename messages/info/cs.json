@@ -342,9 +342,18 @@
         "heading": "Tři fáze oznamování",
         "description": "Článek 23(4) NIS 2, § 32 odstavec 1 BSIG.",
         "items": {
-          "s1": { "title": "Včasné varování do 24 hodin", "text": "První včasné varování pro BSI do 24 hodin od zjištění významného incidentu s uvedením, zda se předpokládá, že byl způsoben protiprávním nebo zlovolným jednáním, a zda by mohl mít přeshraniční dopad." },
-          "s2": { "title": "Oznámení do 72 hodin", "text": "Úplnější oznámení do 72 hodin, které doplňuje včasné varování o první posouzení incidentu, jeho závažnosti a dopadu, jakož i o indikátory kompromitace, jsou-li k dispozici." },
-          "s3": { "title": "Závěrečná zpráva po jednom měsíci", "text": "Závěrečná zpráva nejpozději jeden měsíc po oznámení: podrobný popis, druh hrozby nebo příčinu, přijatá nápravná opatření a případný přeshraniční dopad." }
+          "s1": {
+            "title": "Včasné varování do 24 hodin",
+            "text": "První včasné varování pro BSI do 24 hodin od zjištění významného incidentu s uvedením, zda se předpokládá, že byl způsoben protiprávním nebo zlovolným jednáním, a zda by mohl mít přeshraniční dopad."
+          },
+          "s2": {
+            "title": "Oznámení do 72 hodin",
+            "text": "Úplnější oznámení do 72 hodin, které doplňuje včasné varování o první posouzení incidentu, jeho závažnosti a dopadu, jakož i o indikátory kompromitace, jsou-li k dispozici."
+          },
+          "s3": {
+            "title": "Závěrečná zpráva po jednom měsíci",
+            "text": "Závěrečná zpráva nejpozději jeden měsíc po oznámení: podrobný popis, druh hrozby nebo příčinu, přijatá nápravná opatření a případný přeshraniční dopad."
+          }
         }
       },
       "significant": {
@@ -364,11 +373,26 @@
       },
       "faq": {
         "heading": "Časté dotazy",
-        "q1": { "q": "Kdy začíná běžet 24hodinová lhůta?", "a": "Jakmile se subjekt o významném incidentu dozví, nikoli kdy začal." },
-        "q2": { "q": "Existují pevné prahové hodnoty v eurech pro významný incident?", "a": "Pouze pro poskytovatele digitálních služeb uvedené v PN (EU) 2024/2690. Pro všechny ostatní subjekty platí kvalitativní kritéria podle článku 23(3) NIS 2." },
-        "q3": { "q": "Co když si nejsem jistý, zda je incident významný?", "a": "Doložte své posouzení a důvody. Odůvodněné rozhodnutí je to, co auditor očekává; absence jakéhokoli posouzení je tím skutečným pochybením." },
-        "q4": { "q": "Musím oznamovat i podle GDPR?", "a": "Jsou-li dotčeny osobní údaje, posuďte samostatně článek 33 GDPR. Má vlastní 72hodinovou lhůtu a jiného adresáta." },
-        "q5": { "q": "Co se děje po oznámení?", "a": "BSI si může vyžádat další informace a závěrečná zpráva následuje nejpozději jeden měsíc po oznámení." }
+        "q1": {
+          "q": "Kdy začíná běžet 24hodinová lhůta?",
+          "a": "Jakmile se subjekt o významném incidentu dozví, nikoli kdy začal."
+        },
+        "q2": {
+          "q": "Existují pevné prahové hodnoty v eurech pro významný incident?",
+          "a": "Pouze pro poskytovatele digitálních služeb uvedené v PN (EU) 2024/2690. Pro všechny ostatní subjekty platí kvalitativní kritéria podle článku 23(3) NIS 2."
+        },
+        "q3": {
+          "q": "Co když si nejsem jistý, zda je incident významný?",
+          "a": "Doložte své posouzení a důvody. Odůvodněné rozhodnutí je to, co auditor očekává; absence jakéhokoli posouzení je tím skutečným pochybením."
+        },
+        "q4": {
+          "q": "Musím oznamovat i podle GDPR?",
+          "a": "Jsou-li dotčeny osobní údaje, posuďte samostatně článek 33 GDPR. Má vlastní 72hodinovou lhůtu a jiného adresáta."
+        },
+        "q5": {
+          "q": "Co se děje po oznámení?",
+          "a": "BSI si může vyžádat další informace a závěrečná zpráva následuje nejpozději jeden měsíc po oznámení."
+        }
       },
       "ctaCard": {
         "heading": "Strukturujte svůj oznamovací proces dříve, než ho budete potřebovat",
@@ -6217,6 +6241,10 @@
       "contribute": {
         "heading": "Přispívání",
         "p1": "Pull requesty vítány: zejména opravy právních citací (s odkazem na primární zdroj), další jazykové překlady, sektorová rozšíření (KRITIS, energetika, zdravotnictví) a rozdíly ve vnitrostátní transpozici. U podstatných změn nejprve prosím otevřete issue."
+      },
+      "platform": {
+        "title": "Platforma nisd2.eu: portál, průvodce, kurzy",
+        "description": "Kompletní aplikace, která pohání tento web. Portál pro compliance, řízený průvodce podle NIS 2, školení pro vedení a veškerá data rámců v jedné kódové základně postavené na Next.js a Drizzle. Lze ji hostovat na vlastní infrastruktuře a je licencována pod AGPL-3.0."
       }
     },
     "status": {
