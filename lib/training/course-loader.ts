@@ -12,7 +12,8 @@ const COURSES_DIR = join(process.cwd(), "courses");
  * caller can't pass arbitrary tokens (e.g. with `..`) and fish for module
  * resolution errors as a side-channel.
  */
-const KNOWN_COURSES = new Set(["nis2-ceo", "nis2-tabletop", "cra-sbom"]);
+export const COURSE_IDS = ["nis2-ceo", "nis2-tabletop", "cra-sbom"] as const;
+const KNOWN_COURSES = new Set<string>(COURSE_IDS);
 
 function assertKnownCourse(courseId: string): void {
   if (!KNOWN_COURSES.has(courseId)) {

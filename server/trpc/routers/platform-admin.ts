@@ -26,6 +26,7 @@ import {
 } from "@/schema";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
+import { loadCourse, COURSE_IDS } from "@/lib/training/course-loader";
 import { logAudit } from "@/lib/audit";
 import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
 import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/certificate";
@@ -211,6 +212,69 @@ export const platformAdminRouter = router({
 
     return rows;
   }),
+
+  /**
+   * Support tool: mark every lesson of a course complete for a user.
+   * Grant-only by design — it never un-completes or deletes progress, and
+   * existing completedAt timestamps are preserved so a genuine completion
+   * date is not overwritten by a later admin action. Caveat: quizzes stay
+   * unpassed, and a learner who later FAILS a quiz retake flips that
+   * lesson back to incomplete (submitQuiz behavior), which re-locks the
+   * certificate until the quiz is passed or the course is re-granted.
+   */
+  trainingMarkCourseComplete: platformAdminProcedure
+    .input(z.object({ userId: z.string().uuid(), courseId: z.enum(COURSE_IDS) }))
+    .mutation(async ({ ctx, input }) => {
+      const course = await loadCourse(input.courseId);
+      const lessonIds = course.modules.flatMap((m) => m.lessonIds);
+
+      const target = await ctx.db.query.user.findFirst({
+        where: eq(user.id, input.userId),
+        columns: { id: true, companyId: true, email: true },
+      });
+      if (!target) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+      }
+
+      const now = new Date();
+      await ctx.db
+        .insert(trainingLessonProgress)
+        .values(
+          lessonIds.map((lessonId) => ({
+            userId: target.id,
+            companyId: target.companyId,
+            courseId: course.id,
+            lessonId,
+            completed: true,
+            completedAt: now,
+          })),
+        )
+        .onConflictDoUpdate({
+          target: [
+            trainingLessonProgress.userId,
+            trainingLessonProgress.courseId,
+            trainingLessonProgress.lessonId,
+          ],
+          set: {
+            completed: true,
+            completedAt: sql`COALESCE(${trainingLessonProgress.completedAt}, excluded.completed_at)`,
+            updatedAt: now,
+          },
+        });
+
+      await logAudit({
+        companyId: target.companyId,
+        userId: ctx.userId,
+        action: "training.admin_complete_course",
+        entityType: "user",
+        entityId: target.id,
+        description: `Admin marked course ${course.id} (${lessonIds.length} lessons) complete for ${target.email}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+
+      return { courseId: course.id, lessonCount: lessonIds.length };
+    }),
 
   /**
    * Outbound email activity + subscription state.

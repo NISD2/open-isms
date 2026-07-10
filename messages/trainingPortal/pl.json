@@ -40,6 +40,24 @@
       "incorrect": "Niepoprawne"
     },
     "progressLabel": "Ukończono {completed} z {total} lekcji",
-    "estimatedTime": "{minutes} min czytania"
+    "estimatedTime": "{minutes} min czytania",
+    "certificate": {
+      "lockedTitle": "Certyfikat ukończenia",
+      "lockedText": "Ukończ wszystkie lekcje, aby pobrać certyfikat. Pozostało {remaining} z {total} lekcji.",
+      "completeTitle": "Kurs ukończony",
+      "completeText": "Ukończyłeś wszystkie {total} lekcje. Pobierz swój certyfikat poniżej.",
+      "nameLabel": "Imię i nazwisko na certyfikacie",
+      "namePlaceholder": "Imię i nazwisko",
+      "noNameSet": "Nie podano imienia i nazwiska",
+      "nameHint": "To imię i nazwisko zostanie wydrukowane na certyfikacie.",
+      "edit": "Edytuj",
+      "save": "Zapisz",
+      "cancel": "Anuluj",
+      "nameSaved": "Zapisano imię i nazwisko",
+      "nameSaveError": "Nie udało się zapisać imienia i nazwiska",
+      "download": "Pobierz certyfikat",
+      "downloadHint": "Plik zostanie pobrany jako PDF, który możesz zapisać lub wydrukować.",
+      "finishEditingHint": "Najpierw zapisz lub anuluj zmianę imienia i nazwiska."
+    }
   }
 }

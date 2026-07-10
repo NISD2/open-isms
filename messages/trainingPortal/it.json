@@ -40,6 +40,24 @@
       "incorrect": "Errato"
     },
     "progressLabel": "{completed} di {total} lezioni completate",
-    "estimatedTime": "{minutes} min di lettura"
+    "estimatedTime": "{minutes} min di lettura",
+    "certificate": {
+      "lockedTitle": "Attestato di completamento",
+      "lockedText": "Completa tutte le lezioni per scaricare il tuo attestato. Mancano {remaining} lezioni su {total}.",
+      "completeTitle": "Corso completato",
+      "completeText": "Hai completato tutte le {total} lezioni. Scarica il tuo attestato qui sotto.",
+      "nameLabel": "Nome sull'attestato",
+      "namePlaceholder": "Nome e cognome",
+      "noNameSet": "Nessun nome indicato",
+      "nameHint": "Questo nome viene stampato sull'attestato.",
+      "edit": "Modifica",
+      "save": "Salva",
+      "cancel": "Annulla",
+      "nameSaved": "Nome salvato",
+      "nameSaveError": "Impossibile salvare il nome",
+      "download": "Scarica l'attestato",
+      "downloadHint": "Viene scaricato come PDF che puoi salvare o stampare.",
+      "finishEditingHint": "Prima salva o annulla la modifica del nome."
+    }
   }
 }

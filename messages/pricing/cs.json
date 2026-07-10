@@ -2,11 +2,10 @@
   "pricing": {
     "meta": {
       "title": "Ceník - Platforma pro shodu s NIS2",
-      "description": "Dva způsoby provozu platformy. Hostováno na nis2.eu, navždy zdarma. Vlastní hosting pod licencí AGPL-3.0, jednorázová doživotní licence za 10 000 €."
+      "description": "Dva způsoby provozu platformy. Hostováno na nis2.eu, navždy zdarma. Vlastní hosting pod licencí AGPL-3.0: zaplaťte, kolik můžete, jako jednorázová doživotní licence."
     },
     "title": "Ceník",
     "subtitle": "Dva způsoby provozu platformy. Vyberte si jeden.",
-
     "free": {
       "name": "Hostováno na nis2.eu",
       "description": "Celá platforma, kterou provozujeme my na infrastruktuře v EU.",
@@ -26,11 +25,10 @@
         "f10": "Kein Lock-in. Datový model je Open Source. Export kdykoli."
       }
     },
-
     "selfHost": {
       "name": "Vlastní hosting",
       "description": "Celý zdrojový kód. Provozujte ji na vlastní infrastruktuře, navždy.",
-      "price": "10 000 €",
+      "price": "Zaplaťte, kolik můžete",
       "priceSub": "jednorázově, doživotní licence",
       "cta": "Spojte se s námi",
       "features": {
@@ -40,7 +38,6 @@
         "h4": "Jmenovaný kontakt pro podporu přes e-mail a Signal"
       }
     },
-
     "consultantFootnote": "Potřebujete konzultanta pro NIS2? Spojíme vás s prověřenými specialisty, a to pro vás zdarma.",
     "consultantCta": "Vyžádat konzultanta"
   }

@@ -40,6 +40,24 @@
       "incorrect": "Falsch"
     },
     "progressLabel": "{completed} von {total} Lektionen abgeschlossen",
-    "estimatedTime": "{minutes} Min. Lesezeit"
+    "estimatedTime": "{minutes} Min. Lesezeit",
+    "certificate": {
+      "lockedTitle": "Teilnahmebescheinigung",
+      "lockedText": "Schließen Sie alle Lektionen ab, um Ihre Bescheinigung herunterzuladen. Noch {remaining} von {total} Lektionen offen.",
+      "completeTitle": "Kurs abgeschlossen",
+      "completeText": "Sie haben alle {total} Lektionen abgeschlossen. Laden Sie Ihre Teilnahmebescheinigung herunter.",
+      "nameLabel": "Name auf der Bescheinigung",
+      "namePlaceholder": "Vollständiger Name",
+      "noNameSet": "Kein Name hinterlegt",
+      "nameHint": "Dieser Name wird auf die Bescheinigung gedruckt.",
+      "edit": "Ändern",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "nameSaved": "Name gespeichert",
+      "nameSaveError": "Name konnte nicht gespeichert werden",
+      "download": "Bescheinigung herunterladen",
+      "downloadHint": "Wird als PDF heruntergeladen. Sie können die Datei speichern oder ausdrucken.",
+      "finishEditingHint": "Speichern oder verwerfen Sie zuerst die Namensänderung."
+    }
   }
 }

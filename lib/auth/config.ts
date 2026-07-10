@@ -311,6 +311,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
     where: eq(user.email, session.user.email),
     columns: {
       id: true,
+      name: true,
       companyId: true,
       role: true,
       jobTitle: true,
@@ -329,6 +330,9 @@ export const getSession = cache(async (): Promise<Session | null> => {
   }
 
   session.user.id = dbUser.id;
+  // DB name wins over the JWT snapshot so an in-app name change (e.g. fixing
+  // the name printed on a training certificate) shows up without re-login.
+  session.user.name = dbUser.name;
   session.companyId = dbUser.companyId;
   session.role = dbUser.role;
   session.jobTitle = dbUser.jobTitle ?? null;

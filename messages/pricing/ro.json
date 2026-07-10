@@ -2,11 +2,10 @@
   "pricing": {
     "meta": {
       "title": "Prețuri - Platformă de conformitate NIS2",
-      "description": "Două moduri de a rula platforma. Găzduită la nis2.eu, gratuit pentru totdeauna. Auto-găzduire sub AGPL-3.0, licență pe viață cu plată unică de 10.000 €."
+      "description": "Două moduri de a rula platforma. Găzduită la nis2.eu, gratuit pentru totdeauna. Auto-găzduire sub AGPL-3.0: plătiți cât puteți, ca licență pe viață cu plată unică."
     },
     "title": "Prețuri",
     "subtitle": "Două moduri de a rula platforma. Alegeți unul.",
-
     "free": {
       "name": "Găzduită la nis2.eu",
       "description": "Platforma completă, operată de noi pe infrastructură din UE.",
@@ -26,11 +25,10 @@
         "f10": "Kein Lock-in. Model de date Open Source. Exportați oricând."
       }
     },
-
     "selfHost": {
       "name": "Auto-găzduire",
       "description": "Cod sursă complet. Rulați-l pe propria infrastructură, pentru totdeauna.",
-      "price": "10.000 €",
+      "price": "Plătiți cât puteți",
       "priceSub": "plată unică, licență pe viață",
       "cta": "Contactați-ne",
       "features": {
@@ -40,7 +38,6 @@
         "h4": "Persoană de contact dedicată pentru suport prin e-mail și Signal"
       }
     },
-
     "consultantFootnote": "Aveți nevoie de un consultant NIS2? Vă punem în legătură cu specialiști verificați, fără niciun cost pentru dvs.",
     "consultantCta": "Solicită un consultant"
   }

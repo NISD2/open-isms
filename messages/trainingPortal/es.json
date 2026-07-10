@@ -40,6 +40,24 @@
       "incorrect": "Incorrecto"
     },
     "progressLabel": "{completed} de {total} lecciones completadas",
-    "estimatedTime": "{minutes} min de lectura"
+    "estimatedTime": "{minutes} min de lectura",
+    "certificate": {
+      "lockedTitle": "Certificado de finalización",
+      "lockedText": "Complete todas las lecciones para descargar su certificado. Le quedan {remaining} de {total} lecciones.",
+      "completeTitle": "Curso completado",
+      "completeText": "Ha completado las {total} lecciones. Descargue su certificado a continuación.",
+      "nameLabel": "Nombre en el certificado",
+      "namePlaceholder": "Nombre completo",
+      "noNameSet": "Sin nombre indicado",
+      "nameHint": "Este nombre se imprime en el certificado.",
+      "edit": "Editar",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "nameSaved": "Nombre guardado",
+      "nameSaveError": "No se pudo guardar el nombre",
+      "download": "Descargar certificado",
+      "downloadHint": "Se descarga como PDF que puede guardar o imprimir.",
+      "finishEditingHint": "Guarde o cancele primero el cambio de nombre."
+    }
   }
 }

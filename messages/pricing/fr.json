@@ -2,11 +2,10 @@
   "pricing": {
     "meta": {
       "title": "Tarifs - Plateforme de conformité NIS2",
-      "description": "Deux façons d'utiliser la plateforme. Hébergée sur nis2.eu, gratuite pour toujours. Auto-hébergement sous AGPL-3.0, licence à vie en un paiement unique de 10 000 €."
+      "description": "Deux façons d'utiliser la plateforme. Hébergée sur nis2.eu, gratuite pour toujours. Auto-hébergement sous AGPL-3.0 : payez ce que vous pouvez, en un paiement unique pour une licence à vie."
     },
     "title": "Tarifs",
     "subtitle": "Deux façons d'utiliser la plateforme. Choisissez-en une.",
-
     "free": {
       "name": "Hébergée sur nis2.eu",
       "description": "La plateforme complète, exploitée par nos soins sur une infrastructure de l'UE.",
@@ -26,11 +25,10 @@
         "f10": "Kein Lock-in. Modèle de données Open Source. Export à tout moment."
       }
     },
-
     "selfHost": {
       "name": "Auto-hébergement",
       "description": "Code source complet. Exécutez-la sur votre propre infrastructure, pour toujours.",
-      "price": "10 000 €",
+      "price": "Payez ce que vous pouvez",
       "priceSub": "paiement unique, licence à vie",
       "cta": "Parlons-en",
       "features": {
@@ -40,7 +38,6 @@
         "h4": "Contact nommé pour le support par e-mail et Signal"
       }
     },
-
     "consultantFootnote": "Besoin d'un consultant NIS2 ? Nous vous mettons en relation avec des spécialistes vérifiés, sans frais pour vous.",
     "consultantCta": "Demander un consultant"
   }
