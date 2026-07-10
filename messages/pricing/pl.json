@@ -2,11 +2,10 @@
   "pricing": {
     "meta": {
       "title": "Cennik - Platforma zgodności z NIS2",
-      "description": "Dwa sposoby uruchomienia platformy. Hostowana na nis2.eu, darmowa na zawsze. Hosting własny na licencji AGPL-3.0, jednorazowa licencja dożywotnia za 10 000 €."
+      "description": "Dwa sposoby uruchomienia platformy. Hostowana na nis2.eu, darmowa na zawsze. Hosting własny na licencji AGPL-3.0: zapłać, ile możesz, od 1 € jako jednorazowa licencja dożywotnia."
     },
     "title": "Cennik",
     "subtitle": "Dwa sposoby uruchomienia platformy. Wybierz jeden.",
-
     "free": {
       "name": "Hostowana na nis2.eu",
       "description": "Pełna platforma, obsługiwana przez nas na infrastrukturze w UE.",
@@ -26,12 +25,11 @@
         "f10": "Kein Lock-in. Model danych Open Source. Eksport w dowolnym momencie."
       }
     },
-
     "selfHost": {
       "name": "Hosting własny",
       "description": "Pełny kod źródłowy. Uruchom go na własnej infrastrukturze, na zawsze.",
-      "price": "10 000 €",
-      "priceSub": "jednorazowo, licencja dożywotnia",
+      "price": "od 1 €",
+      "priceSub": "zapłać, ile możesz, jednorazowo, licencja dożywotnia",
       "cta": "Skontaktuj się z nami",
       "features": {
         "h1": "Pełny kod źródłowy platformy na licencji AGPL-3.0",
@@ -40,7 +38,6 @@
         "h4": "Wyznaczona osoba kontaktowa do wsparcia przez e-mail i Signal"
       }
     },
-
     "consultantFootnote": "Potrzebujesz konsultanta NIS2? Łączymy Cię ze zweryfikowanymi specjalistami bez żadnych kosztów dla Ciebie.",
     "consultantCta": "Poproś o konsultanta"
   }
