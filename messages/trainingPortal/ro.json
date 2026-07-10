@@ -40,6 +40,24 @@
       "incorrect": "Incorect"
     },
     "progressLabel": "{completed} din {total} lecții finalizate",
-    "estimatedTime": "{minutes} min de citit"
+    "estimatedTime": "{minutes} min de citit",
+    "certificate": {
+      "lockedTitle": "Certificat de absolvire",
+      "lockedText": "Finalizează toate lecțiile pentru a descărca certificatul. Mai ai {remaining} din {total} lecții.",
+      "completeTitle": "Curs finalizat",
+      "completeText": "Ai finalizat toate cele {total} lecții. Descarcă certificatul mai jos.",
+      "nameLabel": "Numele de pe certificat",
+      "namePlaceholder": "Nume complet",
+      "noNameSet": "Niciun nume setat",
+      "nameHint": "Acest nume va fi tipărit pe certificat.",
+      "edit": "Modifică",
+      "save": "Salvează",
+      "cancel": "Anulează",
+      "nameSaved": "Nume salvat",
+      "nameSaveError": "Numele nu a putut fi salvat",
+      "download": "Descarcă certificatul",
+      "downloadHint": "Se descarcă ca PDF, pe care îl poți salva sau tipări.",
+      "finishEditingHint": "Salvează sau anulează mai întâi modificarea numelui."
+    }
   }
 }

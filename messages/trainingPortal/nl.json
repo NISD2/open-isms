@@ -40,6 +40,24 @@
       "incorrect": "Onjuist"
     },
     "progressLabel": "{completed} van {total} lessen voltooid",
-    "estimatedTime": "{minutes} min leestijd"
+    "estimatedTime": "{minutes} min leestijd",
+    "certificate": {
+      "lockedTitle": "Deelnamecertificaat",
+      "lockedText": "Voltooi alle lessen om uw certificaat te downloaden. Nog {remaining} van {total} lessen te gaan.",
+      "completeTitle": "Cursus afgerond",
+      "completeText": "U heeft alle {total} lessen voltooid. Download hieronder uw certificaat.",
+      "nameLabel": "Naam op het certificaat",
+      "namePlaceholder": "Volledige naam",
+      "noNameSet": "Geen naam ingesteld",
+      "nameHint": "Deze naam wordt op het certificaat afgedrukt.",
+      "edit": "Wijzigen",
+      "save": "Opslaan",
+      "cancel": "Annuleren",
+      "nameSaved": "Naam opgeslagen",
+      "nameSaveError": "Naam kon niet worden opgeslagen",
+      "download": "Certificaat downloaden",
+      "downloadHint": "Wordt gedownload als PDF die u kunt opslaan of afdrukken.",
+      "finishEditingHint": "Sla de naamswijziging eerst op of annuleer deze."
+    }
   }
 }

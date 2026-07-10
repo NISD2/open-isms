@@ -40,6 +40,24 @@
       "incorrect": "Nesprávně"
     },
     "progressLabel": "Dokončeno {completed} z {total} lekcí",
-    "estimatedTime": "{minutes} min čtení"
+    "estimatedTime": "{minutes} min čtení",
+    "certificate": {
+      "lockedTitle": "Osvědčení o absolvování",
+      "lockedText": "Dokončete všechny lekce a stáhněte si osvědčení. Zbývá {remaining} z {total} lekcí.",
+      "completeTitle": "Kurz dokončen",
+      "completeText": "Dokončili jste všech {total} lekcí. Níže si můžete stáhnout osvědčení.",
+      "nameLabel": "Jméno na osvědčení",
+      "namePlaceholder": "Celé jméno",
+      "noNameSet": "Jméno není vyplněno",
+      "nameHint": "Toto jméno bude vytištěno na osvědčení.",
+      "edit": "Upravit",
+      "save": "Uložit",
+      "cancel": "Zrušit",
+      "nameSaved": "Jméno uloženo",
+      "nameSaveError": "Jméno se nepodařilo uložit",
+      "download": "Stáhnout osvědčení",
+      "downloadHint": "Stáhne se jako PDF, které můžete uložit nebo vytisknout.",
+      "finishEditingHint": "Nejprve uložte nebo zrušte změnu jména."
+    }
   }
 }
