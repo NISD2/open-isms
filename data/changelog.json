@@ -1,6 +1,102 @@
 {
   "entries": [
     {
+      "id": "2026-07-10-regulatory-cjeu-nl-adoption",
+      "date": "2026-07-10",
+      "category": "regulatory",
+      "titleDe": "EuGH-Klage gegen vier Staaten, Niederlande verabschieden NIS-2-Gesetz",
+      "titleEn": "CJEU referral against four states, Netherlands adopt NIS 2 law",
+      "bodyDe": "Die EU-Kommission hat Irland, Spanien, Frankreich und die Niederlande wegen unvollstaendiger NIS-2-Umsetzung vor dem EuGH verklagt. Die Niederlande haben zugleich das Cyberbeveiligingswet verabschiedet, das am 15. August 2026 in Kraft tritt. Beide Ereignisse sind in der Zeitleiste dokumentiert.",
+      "bodyEn": "The European Commission referred Ireland, Spain, France and the Netherlands to the Court of Justice of the EU over incomplete NIS 2 transposition. At the same time the Netherlands adopted the Cyberbeveiligingswet, entering into force on 15 August 2026. Both events are documented in the timeline.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-10-product-roadmap-guided-path",
+      "date": "2026-07-10",
+      "category": "product",
+      "titleDe": "NIS-2-Roadmap als klarer, gefuehrter Sechs-Schritte-Pfad",
+      "titleEn": "NIS 2 roadmap as a clear, guided six-step path",
+      "bodyDe": "Die NIS-2-Roadmap-Seite zeigt die sechs Schritte jetzt als uebersichtliche Liste mit Rechtsgrundlage, Zustaendigkeit und Aufwand pro Schritt. Der eine nicht delegierbare Schritt ist hervorgehoben, und die Seite fuehrt direkt in den gefuehrten Pfad der Plattform.",
+      "bodyEn": "The NIS 2 roadmap page now presents the six steps as a clear list with the legal basis, owner and effort for each step. The one non-delegable step is highlighted, and the page leads directly into the platform's guided path.",
+      "links": [
+        {
+          "labelDe": "Zur Roadmap",
+          "labelEn": "See the roadmap",
+          "href": "/wiki/umsetzung/nis2-roadmap"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-10-product-self-host-pay-what-you-can",
+      "date": "2026-07-10",
+      "category": "product",
+      "titleDe": "Self-Hosting-Lizenz: zahlen Sie, was Sie koennen, ab 1 Euro",
+      "titleEn": "Self-hosting licence: pay what you can, from 1 euro",
+      "bodyDe": "Die Lizenz fuer den Eigenbetrieb ist jetzt 'pay what you can' ab 1 Euro. Die Plattform bleibt Open Source und selbst hostbar.",
+      "bodyEn": "The self-hosting licence is now pay what you can, from 1 euro. The platform stays open source and self-hostable.",
+      "links": [
+        {
+          "labelDe": "Preise",
+          "labelEn": "Pricing",
+          "href": "/pricing"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-10-course-certificate-name",
+      "date": "2026-07-10",
+      "category": "course",
+      "titleDe": "Name auf dem Zertifikat selbst bearbeiten",
+      "titleEn": "Edit the name printed on your certificate",
+      "bodyDe": "Teilnehmer der Geschaeftsfuehrer-Schulung koennen den Namen, der auf dem Abschlusszertifikat gedruckt wird, jetzt selbst anpassen.",
+      "bodyEn": "Learners in the managing-director course can now edit the name that is printed on their completion certificate.",
+      "links": [
+        {
+          "labelDe": "Zur Schulung",
+          "labelEn": "To the course",
+          "href": "/training/nis2-ceo"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-08-product-open-source-links",
+      "date": "2026-07-08",
+      "category": "product",
+      "titleDe": "Open-Source-Code direkt verlinkt",
+      "titleEn": "Open-source code linked directly",
+      "bodyDe": "Der Quellcode der Plattform ist jetzt direkt aus der Navigation und von der Startseite aus verlinkt. Die Plattform ist Open Source und pruefbar.",
+      "bodyEn": "The platform's source code is now linked directly from the navigation and the landing page. The platform is open source and auditable.",
+      "links": [
+        {
+          "labelDe": "Open Source",
+          "labelEn": "Open source",
+          "href": "/open-source"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-07-content-bsig-38-management-duties",
+      "date": "2026-07-07",
+      "category": "content",
+      "titleDe": "Neuer Wiki-Artikel: Pflichten der Geschaeftsleitung nach § 38 BSIG",
+      "titleEn": "New wiki article: management duties under § 38 BSIG",
+      "bodyDe": "Ein neuer Grundlagenartikel erklaert die persoenlichen Pflichten der Geschaeftsleitung nach § 38 BSIG: Billigung der Risikomanagementmassnahmen, Ueberwachung der Umsetzung und die vorgeschriebene Schulung.",
+      "bodyEn": "A new foundations article explains the personal duties of management under § 38 BSIG: approving the risk-management measures, overseeing their implementation, and the required training.",
+      "links": [
+        {
+          "labelDe": "Zum Artikel",
+          "labelEn": "Read the article",
+          "href": "/wiki/grundlagen/bsig-38"
+        }
+      ]
+    },
+    {
       "id": "2026-07-04-product-journey-first-login",
       "date": "2026-07-04",
       "category": "product",
