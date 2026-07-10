@@ -2,11 +2,10 @@
   "pricing": {
     "meta": {
       "title": "Pricing - NIS2 Compliance Platform",
-      "description": "Two ways to run the platform. Hosted at nis2.eu, free forever. Self-host under AGPL-3.0, one-time €10,000 lifetime licence."
+      "description": "Two ways to run the platform. Hosted at nis2.eu, free forever. Self-host under AGPL-3.0: pay what you can, from €1, as a one-time lifetime licence."
     },
     "title": "Pricing",
     "subtitle": "Two ways to run the platform. Pick one.",
-
     "free": {
       "name": "Hosted at nis2.eu",
       "description": "The full platform, operated by us on EU infrastructure.",
@@ -26,12 +25,11 @@
         "f10": "Kein Lock-in. Open Source data model. Export anytime."
       }
     },
-
     "selfHost": {
       "name": "Self-host",
       "description": "Full source code. Run it on your own infrastructure, forever.",
-      "price": "€10,000",
-      "priceSub": "one-time, lifetime licence",
+      "price": "€1+",
+      "priceSub": "pay what you can, one-time, lifetime licence",
       "cta": "Talk to us",
       "features": {
         "h1": "Full platform source under AGPL-3.0",
@@ -40,7 +38,6 @@
         "h4": "Named contact for email and Signal support"
       }
     },
-
     "consultantFootnote": "Need a NIS2 consultant? We connect you with vetted specialists at no cost to you.",
     "consultantCta": "Request a consultant"
   }
