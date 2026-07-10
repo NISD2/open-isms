@@ -27,6 +27,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const repos = [
   {
+    name: "open-isms",
+    href: "https://github.com/NISD2/open-isms",
+    titleKey: "platform.title",
+    descKey: "platform.description",
+  },
+  {
     name: "nis2-gap-assessment-schema",
     href: "https://github.com/NISD2/nis2-gap-assessment-schema",
     titleKey: "gapAssessment.title",

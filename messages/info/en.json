@@ -6251,6 +6251,10 @@
       "contribute": {
         "heading": "Contributing",
         "p1": "Pull requests welcome: particularly corrections to legal citations (with a primary-source reference), additional language translations, sector-specific extensions (KRITIS, energy, healthcare), and national transposition deltas. For substantial changes please open an issue first."
+      },
+      "platform": {
+        "title": "The nisd2.eu platform: portal, journey, courses",
+        "description": "The complete application that runs this site. The compliance portal, the guided NIS 2 journey, the management course and all framework data, in one Next.js and Drizzle codebase. Self-hostable and licensed under AGPL-3.0."
       }
     },
     "partners": {

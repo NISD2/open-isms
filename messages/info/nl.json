@@ -342,9 +342,18 @@
         "heading": "De drie meldfasen",
         "description": "Artikel 23 lid 4 NIS 2, § 32 lid 1 BSIG.",
         "items": {
-          "s1": { "title": "Vroegtijdige waarschuwing binnen 24 uur", "text": "Een eerste vroegtijdige waarschuwing aan het BSI binnen 24 uur na kennisname van het significante incident, met vermelding of een onrechtmatige of kwaadwillige oorzaak wordt vermoed en of grensoverschrijdende gevolgen mogelijk zijn." },
-          "s2": { "title": "Melding binnen 72 uur", "text": "Een uitgebreidere melding binnen 72 uur, die de vroegtijdige waarschuwing aanvult met een eerste beoordeling van het incident, de ernst en de gevolgen, en beschikbare compromittatie-indicatoren." },
-          "s3": { "title": "Eindrapport na één maand", "text": "Een eindrapport uiterlijk één maand na de melding: een gedetailleerde beschrijving, het type dreiging of de oorzaak, de getroffen maatregelen en eventuele grensoverschrijdende gevolgen." }
+          "s1": {
+            "title": "Vroegtijdige waarschuwing binnen 24 uur",
+            "text": "Een eerste vroegtijdige waarschuwing aan het BSI binnen 24 uur na kennisname van het significante incident, met vermelding of een onrechtmatige of kwaadwillige oorzaak wordt vermoed en of grensoverschrijdende gevolgen mogelijk zijn."
+          },
+          "s2": {
+            "title": "Melding binnen 72 uur",
+            "text": "Een uitgebreidere melding binnen 72 uur, die de vroegtijdige waarschuwing aanvult met een eerste beoordeling van het incident, de ernst en de gevolgen, en beschikbare compromittatie-indicatoren."
+          },
+          "s3": {
+            "title": "Eindrapport na één maand",
+            "text": "Een eindrapport uiterlijk één maand na de melding: een gedetailleerde beschrijving, het type dreiging of de oorzaak, de getroffen maatregelen en eventuele grensoverschrijdende gevolgen."
+          }
         }
       },
       "significant": {
@@ -364,11 +373,26 @@
       },
       "faq": {
         "heading": "Veelgestelde vragen",
-        "q1": { "q": "Wanneer begint de klok van 24 uur?", "a": "Zodra de entiteit kennis krijgt van het significante incident, niet wanneer het begon." },
-        "q2": { "q": "Zijn er vaste eurodrempels voor een significant incident?", "a": "Alleen voor de in CIR (EU) 2024/2690 genoemde aanbieders van digitale diensten. Voor alle andere entiteiten gelden de kwalitatieve criteria uit artikel 23 lid 3 NIS 2." },
-        "q3": { "q": "Wat als ik niet zeker weet of een incident significant is?", "a": "Documenteer uw beoordeling en de redenen. De onderbouwde beslissing is wat een auditor wil zien; het ontbreken van elke beoordeling is de echte tekortkoming." },
-        "q4": { "q": "Moet ik ook onder de AVG melden?", "a": "Als persoonsgegevens betrokken zijn, controleer artikel 33 AVG apart. Het heeft een eigen termijn van 72 uur en een andere adressaat." },
-        "q5": { "q": "Wat gebeurt er na de melding?", "a": "Het BSI kan nadere informatie opvragen, en het eindrapport volgt uiterlijk één maand na de melding." }
+        "q1": {
+          "q": "Wanneer begint de klok van 24 uur?",
+          "a": "Zodra de entiteit kennis krijgt van het significante incident, niet wanneer het begon."
+        },
+        "q2": {
+          "q": "Zijn er vaste eurodrempels voor een significant incident?",
+          "a": "Alleen voor de in CIR (EU) 2024/2690 genoemde aanbieders van digitale diensten. Voor alle andere entiteiten gelden de kwalitatieve criteria uit artikel 23 lid 3 NIS 2."
+        },
+        "q3": {
+          "q": "Wat als ik niet zeker weet of een incident significant is?",
+          "a": "Documenteer uw beoordeling en de redenen. De onderbouwde beslissing is wat een auditor wil zien; het ontbreken van elke beoordeling is de echte tekortkoming."
+        },
+        "q4": {
+          "q": "Moet ik ook onder de AVG melden?",
+          "a": "Als persoonsgegevens betrokken zijn, controleer artikel 33 AVG apart. Het heeft een eigen termijn van 72 uur en een andere adressaat."
+        },
+        "q5": {
+          "q": "Wat gebeurt er na de melding?",
+          "a": "Het BSI kan nadere informatie opvragen, en het eindrapport volgt uiterlijk één maand na de melding."
+        }
       },
       "ctaCard": {
         "heading": "Structureer uw meldproces voordat u het nodig heeft",
@@ -6640,6 +6664,10 @@
       "contribute": {
         "heading": "Contributing",
         "p1": "Pull requests welcome: particularly corrections to legal citations (with a primary-source reference), additional language translations, sector-specific extensions (KRITIS, energy, healthcare), and national transposition deltas. For substantial changes please open an issue first."
+      },
+      "platform": {
+        "title": "Het nisd2.eu-platform: portaal, traject, cursussen",
+        "description": "De volledige applicatie die deze site aandrijft. Het Compliance-portaal, het begeleide NIS 2-traject, de bestuurderscursus en alle frameworkgegevens in een Next.js- en Drizzle-codebase. Zelf te hosten en gelicentieerd onder AGPL-3.0."
       }
     },
     "partners": {

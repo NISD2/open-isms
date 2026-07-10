@@ -342,9 +342,18 @@
         "heading": "Trzy etapy zgłaszania",
         "description": "Artykuł 23(4) NIS 2, § 32 ustęp 1 BSIG.",
         "items": {
-          "s1": { "title": "Wczesne ostrzeżenie w ciągu 24 godzin", "text": "Pierwsze wczesne ostrzeżenie do BSI w ciągu 24 godzin od powzięcia wiadomości o poważnym incydencie, ze wskazaniem, czy istnieje podejrzenie, że został spowodowany działaniami bezprawnymi lub złośliwymi, oraz czy może mieć skutki transgraniczne." },
-          "s2": { "title": "Zgłoszenie w ciągu 72 godzin", "text": "Pełniejsze zgłoszenie w ciągu 72 godzin, uzupełniające wczesne ostrzeżenie o pierwszą ocenę incydentu, jego powagi i skutków, a także o wskaźniki naruszenia, jeśli są dostępne." },
-          "s3": { "title": "Raport końcowy po miesiącu", "text": "Raport końcowy najpóźniej miesiąc po zgłoszeniu: szczegółowy opis, rodzaj zagrożenia lub przyczynę, zastosowane środki zaradcze oraz wszelkie skutki transgraniczne." }
+          "s1": {
+            "title": "Wczesne ostrzeżenie w ciągu 24 godzin",
+            "text": "Pierwsze wczesne ostrzeżenie do BSI w ciągu 24 godzin od powzięcia wiadomości o poważnym incydencie, ze wskazaniem, czy istnieje podejrzenie, że został spowodowany działaniami bezprawnymi lub złośliwymi, oraz czy może mieć skutki transgraniczne."
+          },
+          "s2": {
+            "title": "Zgłoszenie w ciągu 72 godzin",
+            "text": "Pełniejsze zgłoszenie w ciągu 72 godzin, uzupełniające wczesne ostrzeżenie o pierwszą ocenę incydentu, jego powagi i skutków, a także o wskaźniki naruszenia, jeśli są dostępne."
+          },
+          "s3": {
+            "title": "Raport końcowy po miesiącu",
+            "text": "Raport końcowy najpóźniej miesiąc po zgłoszeniu: szczegółowy opis, rodzaj zagrożenia lub przyczynę, zastosowane środki zaradcze oraz wszelkie skutki transgraniczne."
+          }
         }
       },
       "significant": {
@@ -364,11 +373,26 @@
       },
       "faq": {
         "heading": "Najczęstsze pytania",
-        "q1": { "q": "Kiedy zaczyna biec termin 24 godzin?", "a": "Gdy podmiot dowiaduje się o poważnym incydencie, a nie gdy się on rozpoczął." },
-        "q2": { "q": "Czy istnieją stałe progi w euro dla poważnego incydentu?", "a": "Tylko dla dostawców usług cyfrowych wskazanych w RW (UE) 2024/2690. Dla wszystkich innych podmiotów stosuje się kryteria jakościowe z artykułu 23(3) NIS 2." },
-        "q3": { "q": "Co zrobić, jeśli nie jestem pewien, czy incydent jest poważny?", "a": "Udokumentujcie swoją ocenę i jej powody. Uzasadniona decyzja jest tym, czego oczekuje audytor; brak jakiejkolwiek oceny jest właściwym uchybieniem." },
-        "q4": { "q": "Czy muszę zgłaszać także na podstawie RODO?", "a": "Jeśli dotyczy to danych osobowych, sprawdźcie odrębnie artykuł 33 RODO. Ma własny 72-godzinny termin i innego adresata." },
-        "q5": { "q": "Co dzieje się po zgłoszeniu?", "a": "BSI może zażądać dalszych informacji, a raport końcowy następuje najpóźniej miesiąc po zgłoszeniu." }
+        "q1": {
+          "q": "Kiedy zaczyna biec termin 24 godzin?",
+          "a": "Gdy podmiot dowiaduje się o poważnym incydencie, a nie gdy się on rozpoczął."
+        },
+        "q2": {
+          "q": "Czy istnieją stałe progi w euro dla poważnego incydentu?",
+          "a": "Tylko dla dostawców usług cyfrowych wskazanych w RW (UE) 2024/2690. Dla wszystkich innych podmiotów stosuje się kryteria jakościowe z artykułu 23(3) NIS 2."
+        },
+        "q3": {
+          "q": "Co zrobić, jeśli nie jestem pewien, czy incydent jest poważny?",
+          "a": "Udokumentujcie swoją ocenę i jej powody. Uzasadniona decyzja jest tym, czego oczekuje audytor; brak jakiejkolwiek oceny jest właściwym uchybieniem."
+        },
+        "q4": {
+          "q": "Czy muszę zgłaszać także na podstawie RODO?",
+          "a": "Jeśli dotyczy to danych osobowych, sprawdźcie odrębnie artykuł 33 RODO. Ma własny 72-godzinny termin i innego adresata."
+        },
+        "q5": {
+          "q": "Co dzieje się po zgłoszeniu?",
+          "a": "BSI może zażądać dalszych informacji, a raport końcowy następuje najpóźniej miesiąc po zgłoszeniu."
+        }
       },
       "ctaCard": {
         "heading": "Uporządkujcie proces zgłaszania, zanim będzie potrzebny",
@@ -6217,6 +6241,10 @@
       "contribute": {
         "heading": "Współtworzenie",
         "p1": "Pull requesty mile widziane: w szczególności poprawki cytatów prawnych (z odniesieniem do źródła pierwotnego), dodatkowe tłumaczenia językowe, rozszerzenia sektorowe (KRITIS, energetyka, ochrona zdrowia) oraz różnice w transpozycjach krajowych. W przypadku istotnych zmian prosimy najpierw o otwarcie zgłoszenia."
+      },
+      "platform": {
+        "title": "Platforma nisd2.eu: portal, ścieżka, kursy",
+        "description": "Kompletna aplikacja, która obsługuje tę stronę. Portal zgodności, prowadzona ścieżka NIS 2, szkolenie dla kadry zarządzającej oraz wszystkie dane frameworków w jednej bazie kodu opartej na Next.js i Drizzle. Możliwość samodzielnego hostowania, licencja AGPL-3.0."
       }
     },
     "status": {

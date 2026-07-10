@@ -342,9 +342,18 @@
         "heading": "Le tre fasi di notifica",
         "description": "Articolo 23(4) NIS 2, § 32 comma 1 BSIG.",
         "items": {
-          "s1": { "title": "Preallarme entro 24 ore", "text": "Un primo preallarme al BSI entro 24 ore dalla conoscenza dell'incidente significativo, indicando se si sospetta che sia causato da atti illeciti o dolosi e se possa avere un impatto transfrontaliero." },
-          "s2": { "title": "Notifica entro 72 ore", "text": "Una notifica più completa entro 72 ore, che integra il preallarme con una prima valutazione dell'incidente, della sua gravità e del suo impatto, nonché degli indicatori di compromissione se disponibili." },
-          "s3": { "title": "Relazione finale dopo un mese", "text": "Una relazione finale entro un mese dalla notifica: una descrizione dettagliata, il tipo di minaccia o la causa, le misure correttive applicate ed eventuali impatti transfrontalieri." }
+          "s1": {
+            "title": "Preallarme entro 24 ore",
+            "text": "Un primo preallarme al BSI entro 24 ore dalla conoscenza dell'incidente significativo, indicando se si sospetta che sia causato da atti illeciti o dolosi e se possa avere un impatto transfrontaliero."
+          },
+          "s2": {
+            "title": "Notifica entro 72 ore",
+            "text": "Una notifica più completa entro 72 ore, che integra il preallarme con una prima valutazione dell'incidente, della sua gravità e del suo impatto, nonché degli indicatori di compromissione se disponibili."
+          },
+          "s3": {
+            "title": "Relazione finale dopo un mese",
+            "text": "Una relazione finale entro un mese dalla notifica: una descrizione dettagliata, il tipo di minaccia o la causa, le misure correttive applicate ed eventuali impatti transfrontalieri."
+          }
         }
       },
       "significant": {
@@ -364,11 +373,26 @@
       },
       "faq": {
         "heading": "Domande frequenti",
-        "q1": { "q": "Quando inizia il termine di 24 ore?", "a": "Quando l'entità viene a conoscenza dell'incidente significativo, non quando è iniziato." },
-        "q2": { "q": "Esistono soglie fisse in euro per un incidente significativo?", "a": "Solo per i fornitori di servizi digitali indicati nel RE (UE) 2024/2690. Per tutte le altre entità si applicano i criteri qualitativi dell'articolo 23(3) NIS 2." },
-        "q3": { "q": "Cosa faccio se non sono sicuro che un incidente sia significativo?", "a": "Documentate la vostra valutazione e le ragioni. La decisione motivata è ciò che un auditor si aspetta di vedere; l'assenza di qualsiasi valutazione è la vera mancanza." },
-        "q4": { "q": "Devo notificare anche ai sensi del GDPR?", "a": "Se sono coinvolti dati personali, verificate separatamente l'articolo 33 GDPR. Ha un proprio termine di 72 ore e un destinatario diverso." },
-        "q5": { "q": "Cosa succede dopo la notifica?", "a": "Il BSI può richiedere ulteriori informazioni e la relazione finale segue entro un mese dalla notifica." }
+        "q1": {
+          "q": "Quando inizia il termine di 24 ore?",
+          "a": "Quando l'entità viene a conoscenza dell'incidente significativo, non quando è iniziato."
+        },
+        "q2": {
+          "q": "Esistono soglie fisse in euro per un incidente significativo?",
+          "a": "Solo per i fornitori di servizi digitali indicati nel RE (UE) 2024/2690. Per tutte le altre entità si applicano i criteri qualitativi dell'articolo 23(3) NIS 2."
+        },
+        "q3": {
+          "q": "Cosa faccio se non sono sicuro che un incidente sia significativo?",
+          "a": "Documentate la vostra valutazione e le ragioni. La decisione motivata è ciò che un auditor si aspetta di vedere; l'assenza di qualsiasi valutazione è la vera mancanza."
+        },
+        "q4": {
+          "q": "Devo notificare anche ai sensi del GDPR?",
+          "a": "Se sono coinvolti dati personali, verificate separatamente l'articolo 33 GDPR. Ha un proprio termine di 72 ore e un destinatario diverso."
+        },
+        "q5": {
+          "q": "Cosa succede dopo la notifica?",
+          "a": "Il BSI può richiedere ulteriori informazioni e la relazione finale segue entro un mese dalla notifica."
+        }
       },
       "ctaCard": {
         "heading": "Strutturate il vostro processo di notifica prima di averne bisogno",
@@ -6217,6 +6241,10 @@
       "contribute": {
         "heading": "Contribuire",
         "p1": "Pull request benvenute: in particolare correzioni alle citazioni giuridiche (con riferimento a una fonte primaria), traduzioni in altre lingue, estensioni settoriali (KRITIS, energia, sanità) e delta di recepimento nazionale. Per modifiche sostanziali, apri prima una issue."
+      },
+      "platform": {
+        "title": "La piattaforma nisd2.eu: portale, percorso, corsi",
+        "description": "L'applicazione completa che alimenta questo sito. Il portale di conformità, il percorso guidato NIS 2, la formazione per la direzione e tutti i dati dei framework in un'unica codebase Next.js e Drizzle. Autoospitabile e rilasciata sotto licenza AGPL-3.0."
       }
     },
     "status": {

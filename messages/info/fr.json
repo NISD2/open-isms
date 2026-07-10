@@ -342,9 +342,18 @@
         "heading": "Les trois étapes de notification",
         "description": "Article 23(4) NIS 2, § 32 alinéa 1 BSIG.",
         "items": {
-          "s1": { "title": "Alerte précoce sous 24 heures", "text": "Une première alerte précoce au BSI dans les 24 heures suivant la connaissance de l'incident significatif, indiquant s'il est soupçonné d'être causé par des actes illégaux ou malveillants et s'il pourrait avoir un impact transfrontalier." },
-          "s2": { "title": "Notification sous 72 heures", "text": "Une notification plus complète dans les 72 heures, complétant l'alerte précoce par une première évaluation de l'incident, de sa gravité et de son impact, ainsi que des indicateurs de compromission lorsqu'ils sont disponibles." },
-          "s3": { "title": "Rapport final après un mois", "text": "Un rapport final au plus tard un mois après la notification : une description détaillée, le type de menace ou la cause, les mesures correctives appliquées et tout impact transfrontalier." }
+          "s1": {
+            "title": "Alerte précoce sous 24 heures",
+            "text": "Une première alerte précoce au BSI dans les 24 heures suivant la connaissance de l'incident significatif, indiquant s'il est soupçonné d'être causé par des actes illégaux ou malveillants et s'il pourrait avoir un impact transfrontalier."
+          },
+          "s2": {
+            "title": "Notification sous 72 heures",
+            "text": "Une notification plus complète dans les 72 heures, complétant l'alerte précoce par une première évaluation de l'incident, de sa gravité et de son impact, ainsi que des indicateurs de compromission lorsqu'ils sont disponibles."
+          },
+          "s3": {
+            "title": "Rapport final après un mois",
+            "text": "Un rapport final au plus tard un mois après la notification : une description détaillée, le type de menace ou la cause, les mesures correctives appliquées et tout impact transfrontalier."
+          }
         }
       },
       "significant": {
@@ -364,11 +373,26 @@
       },
       "faq": {
         "heading": "Questions fréquentes",
-        "q1": { "q": "Quand commence le délai de 24 heures ?", "a": "Lorsque l'entité a connaissance de l'incident significatif, et non lorsqu'il a débuté." },
-        "q2": { "q": "Existe-t-il des seuils fixes en euros pour un incident significatif ?", "a": "Uniquement pour les fournisseurs de services numériques désignés par le RE (UE) 2024/2690. Pour toutes les autres entités, ce sont les critères qualitatifs de l'article 23(3) NIS 2 qui s'appliquent." },
-        "q3": { "q": "Que faire si je ne suis pas sûr qu'un incident soit significatif ?", "a": "Documentez votre appréciation et ses motifs. La décision motivée est ce qu'un auditeur s'attend à voir ; l'absence de toute appréciation est la véritable défaillance." },
-        "q4": { "q": "Dois-je aussi notifier au titre du RGPD ?", "a": "Si des données à caractère personnel sont concernées, vérifiez séparément l'article 33 RGPD. Il a son propre délai de 72 heures et un destinataire différent." },
-        "q5": { "q": "Que se passe-t-il après la notification ?", "a": "Le BSI peut demander des informations complémentaires, et le rapport final suit au plus tard un mois après la notification." }
+        "q1": {
+          "q": "Quand commence le délai de 24 heures ?",
+          "a": "Lorsque l'entité a connaissance de l'incident significatif, et non lorsqu'il a débuté."
+        },
+        "q2": {
+          "q": "Existe-t-il des seuils fixes en euros pour un incident significatif ?",
+          "a": "Uniquement pour les fournisseurs de services numériques désignés par le RE (UE) 2024/2690. Pour toutes les autres entités, ce sont les critères qualitatifs de l'article 23(3) NIS 2 qui s'appliquent."
+        },
+        "q3": {
+          "q": "Que faire si je ne suis pas sûr qu'un incident soit significatif ?",
+          "a": "Documentez votre appréciation et ses motifs. La décision motivée est ce qu'un auditeur s'attend à voir ; l'absence de toute appréciation est la véritable défaillance."
+        },
+        "q4": {
+          "q": "Dois-je aussi notifier au titre du RGPD ?",
+          "a": "Si des données à caractère personnel sont concernées, vérifiez séparément l'article 33 RGPD. Il a son propre délai de 72 heures et un destinataire différent."
+        },
+        "q5": {
+          "q": "Que se passe-t-il après la notification ?",
+          "a": "Le BSI peut demander des informations complémentaires, et le rapport final suit au plus tard un mois après la notification."
+        }
       },
       "ctaCard": {
         "heading": "Structurez votre processus de notification avant d'en avoir besoin",
@@ -6217,6 +6241,10 @@
       "contribute": {
         "heading": "Contribuer",
         "p1": "Les pull requests sont les bienvenues : en particulier les corrections de citations juridiques (avec une référence à une source primaire), des traductions supplémentaires, des extensions sectorielles (KRITIS, énergie, santé) et les écarts de transposition nationale. Pour les modifications importantes, veuillez d'abord ouvrir une issue."
+      },
+      "platform": {
+        "title": "La plateforme nisd2.eu : portail, parcours, cours",
+        "description": "L'application complète qui fait tourner ce site. Le portail de conformité, le parcours NIS 2 guidé, la formation destinée aux dirigeants et toutes les données des référentiels, réunis dans une seule base de code Next.js et Drizzle. Auto-hébergeable et sous licence AGPL-3.0."
       }
     },
     "status": {
