@@ -363,6 +363,13 @@
       "url": "https://www.ncsc.se/",
       "description": "Sweden's national cybersecurity centre at the FRA; NIS 2 single point of contact and CERT-SE host since 1 July 2026, runs the cybersaekerhetslagen registration.",
       "language": "en"
+    },
+    {
+      "id": "ec-presscorner",
+      "name": "European Commission Press Corner",
+      "url": "https://ec.europa.eu/commission/presscorner",
+      "description": "Official European Commission press releases, including infringement packages and CJEU referrals.",
+      "language": "en"
     }
   ],
   "events": [
@@ -1933,7 +1940,12 @@
       "id": "2024-02-15-national-transposition-hr-zakon-o-kibernetickoj-sigurnosti",
       "date": "2024-02-15",
       "category": "national-transposition",
-      "tags": ["hr", "transposition", "in-force", "legislation"],
+      "tags": [
+        "hr",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Croatia: Zakon o kibernetickoj sigurnosti (NIS 2 transposition) enters into force",
       "titleDe": "Kroatien: Zakon o kibernetickoj sigurnosti (NIS-2-Umsetzung) tritt in Kraft",
@@ -1947,7 +1959,12 @@
       "id": "2024-09-01-national-transposition-lv-kiberdrosibas-likums",
       "date": "2024-09-01",
       "category": "national-transposition",
-      "tags": ["lv", "transposition", "in-force", "legislation"],
+      "tags": [
+        "lv",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Latvia: National Cybersecurity Law (NIS 2 transposition) enters into force",
       "titleDe": "Lettland: Nationales Cybersicherheitsgesetz (NIS-2-Umsetzung) tritt in Kraft",
@@ -1961,7 +1978,12 @@
       "id": "2024-10-18-national-transposition-lt-kibernetinio-saugumo-istatymas",
       "date": "2024-10-18",
       "category": "national-transposition",
-      "tags": ["lt", "transposition", "in-force", "legislation"],
+      "tags": [
+        "lt",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Lithuania: amended Cybersecurity Law (NIS 2 transposition) enters into force",
       "titleDe": "Litauen: geaendertes Cybersicherheitsgesetz (NIS-2-Umsetzung) tritt in Kraft",
@@ -1975,7 +1997,12 @@
       "id": "2024-11-27-national-transposition-gr-law-5160-2024",
       "date": "2024-11-27",
       "category": "national-transposition",
-      "tags": ["gr", "transposition", "in-force", "legislation"],
+      "tags": [
+        "gr",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Greece transposes NIS 2 with Law 5160/2024",
       "titleDe": "Griechenland setzt NIS 2 mit Gesetz 5160/2024 um",
@@ -1989,7 +2016,12 @@
       "id": "2025-01-01-national-transposition-hu-act-lxix-2024-in-force",
       "date": "2025-01-01",
       "category": "national-transposition",
-      "tags": ["hu", "transposition", "in-force", "legislation"],
+      "tags": [
+        "hu",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Hungary: Act LXIX of 2024 on Cybersecurity enters into force",
       "titleDe": "Ungarn: Gesetz LXIX von 2024 ueber Cybersicherheit tritt in Kraft",
@@ -2003,7 +2035,12 @@
       "id": "2025-01-01-national-transposition-sk-zakon-366-2024",
       "date": "2025-01-01",
       "category": "national-transposition",
-      "tags": ["sk", "transposition", "in-force", "legislation"],
+      "tags": [
+        "sk",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Slovakia: Act 366/2024 Z.z. amending the Cybersecurity Act (NIS 2 transposition) enters into force",
       "titleDe": "Slowakei: Gesetz 366/2024 Z.z. zur Aenderung des Cybersicherheitsgesetzes (NIS-2-Umsetzung) tritt in Kraft",
@@ -2017,7 +2054,11 @@
       "id": "2025-04-08-national-transposition-mt-ln-71-2025",
       "date": "2025-04-08",
       "category": "national-transposition",
-      "tags": ["mt", "transposition", "legislation"],
+      "tags": [
+        "mt",
+        "transposition",
+        "legislation"
+      ],
       "type": "update",
       "title": "Malta enacts NIS 2 transposition via Legal Notice 71 of 2025",
       "titleDe": "Malta erlaesst NIS-2-Umsetzung durch Legal Notice 71 von 2025",
@@ -2031,7 +2072,12 @@
       "id": "2025-04-25-national-transposition-cy-law-60-i-2025",
       "date": "2025-04-25",
       "category": "national-transposition",
-      "tags": ["cy", "transposition", "in-force", "legislation"],
+      "tags": [
+        "cy",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Cyprus transposes NIS 2 with Law 60(I)/2025",
       "titleDe": "Zypern setzt NIS 2 mit Gesetz 60(I)/2025 um",
@@ -2045,7 +2091,12 @@
       "id": "2025-06-19-national-transposition-si-zinfv-1",
       "date": "2025-06-19",
       "category": "national-transposition",
-      "tags": ["si", "transposition", "in-force", "legislation"],
+      "tags": [
+        "si",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Slovenia: Information Security Act (ZInfV-1) (NIS 2 transposition) enters into force",
       "titleDe": "Slowenien: Informationssicherheitsgesetz (ZInfV-1) (NIS-2-Umsetzung) tritt in Kraft",
@@ -2059,7 +2110,12 @@
       "id": "2025-07-10-national-transposition-ro-oug-155-2024-in-force",
       "date": "2025-07-10",
       "category": "national-transposition",
-      "tags": ["ro", "transposition", "in-force", "legislation"],
+      "tags": [
+        "ro",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Romania: NIS 2 transposition (OUG 155/2024, approved by Law 124/2025) enters into force",
       "titleDe": "Rumaenien: NIS-2-Umsetzung (OUG 155/2024, bestaetigt durch Gesetz 124/2025) tritt in Kraft",
@@ -2073,7 +2129,11 @@
       "id": "2025-12-23-national-transposition-at-nisg-2026",
       "date": "2025-12-23",
       "category": "national-transposition",
-      "tags": ["at", "transposition", "legislation"],
+      "tags": [
+        "at",
+        "transposition",
+        "legislation"
+      ],
       "type": "update",
       "title": "Austria enacts NIS 2 transposition (NISG 2026)",
       "titleDe": "Oesterreich erlaesst NIS-2-Umsetzung (NISG 2026)",
@@ -2087,7 +2147,12 @@
       "id": "2026-01-01-national-transposition-ee-kuberts-nis2",
       "date": "2026-01-01",
       "category": "national-transposition",
-      "tags": ["ee", "transposition", "in-force", "legislation"],
+      "tags": [
+        "ee",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Estonia: amended Cybersecurity Act (NIS 2 transposition) enters into force",
       "titleDe": "Estland: geaenderte Kuberturvalisuse seadus (NIS-2-Umsetzung) tritt in Kraft",
@@ -2101,7 +2166,12 @@
       "id": "2026-02-13-national-transposition-bg-cybersecurity-act-amendment",
       "date": "2026-02-13",
       "category": "national-transposition",
-      "tags": ["bg", "transposition", "in-force", "legislation"],
+      "tags": [
+        "bg",
+        "transposition",
+        "in-force",
+        "legislation"
+      ],
       "type": "update",
       "title": "Bulgaria: NIS 2 transposition (Cybersecurity Act amendment) promulgated and in force",
       "titleDe": "Bulgarien: NIS-2-Umsetzung (Aenderung des Cybersicherheitsgesetzes) verkuendet und in Kraft",
@@ -2115,7 +2185,10 @@
       "id": "2026-06-17-eu-cooperation-group-security-measures-reference",
       "date": "2026-06-17",
       "category": "eu",
-      "tags": ["guidance", "organisational"],
+      "tags": [
+        "guidance",
+        "organisational"
+      ],
       "type": "update",
       "title": "NIS Cooperation Group publishes reference document on NIS2 security measures with mapping table",
       "titleDe": "NIS-Kooperationsgruppe veroeffentlicht Referenzdokument zu NIS-2-Sicherheitsmassnahmen mit Zuordnungstabelle",
@@ -2129,7 +2202,9 @@
       "id": "2026-06-10-de-bsi-nis2-support-survey",
       "date": "2026-06-10",
       "category": "de",
-      "tags": ["guidance"],
+      "tags": [
+        "guidance"
+      ],
       "type": "update",
       "title": "BSI launches survey on its NIS-2 support offerings for business",
       "titleDe": "BSI startet Umfrage zu seinen NIS-2-Unterstuetzungsangeboten fuer die Wirtschaft",
@@ -2143,7 +2218,11 @@
       "id": "2026-06-26-national-transposition-nl-cyberbeveiligingswet-second-report",
       "date": "2026-06-26",
       "category": "national-transposition",
-      "tags": ["nl", "transposition", "legislation"],
+      "tags": [
+        "nl",
+        "transposition",
+        "legislation"
+      ],
       "type": "update",
       "title": "Netherlands: Senate committees issue second report on Cyberbeveiligingswet, plenary debate set for 6 or 7 July 2026",
       "titleDe": "Niederlande: Senatsausschuesse bringen zweiten Bericht zur Cyberbeveiligingswet aus, Plenardebatte fuer den 6. oder 7. Juli 2026 angesetzt",
@@ -2157,7 +2236,10 @@
       "id": "2026-06-24-enisa-sme-cra-survey-report",
       "date": "2026-06-24",
       "category": "enisa",
-      "tags": ["publication", "supply-chain"],
+      "tags": [
+        "publication",
+        "supply-chain"
+      ],
       "type": "update",
       "title": "ENISA publishes SME CRA Survey Report on Cyber Resilience Act readiness",
       "titleDe": "ENISA veroeffentlicht SME CRA Survey Report zur Vorbereitung auf den Cyber Resilience Act",
@@ -2171,7 +2253,12 @@
       "id": "2026-06-23-national-transposition-pt-myciber-operating-regulation",
       "date": "2026-06-23",
       "category": "national-transposition",
-      "tags": ["pt", "registration", "transposition", "legislation"],
+      "tags": [
+        "pt",
+        "registration",
+        "transposition",
+        "legislation"
+      ],
       "type": "update",
       "title": "Portugal: CNCS operating regulation for the MyCiber registration platform enters into force",
       "titleDe": "Portugal: CNCS-Betriebsverordnung fuer die Registrierungsplattform MyCiber tritt in Kraft",
@@ -2185,7 +2272,10 @@
       "id": "2026-06-25-eu-cra-adco-reporting-september",
       "date": "2026-06-25",
       "category": "eu",
-      "tags": ["incident-reporting", "organisational"],
+      "tags": [
+        "incident-reporting",
+        "organisational"
+      ],
       "type": "update",
       "title": "CRA market surveillance authorities (AdCo CRA) meet in Berlin; first reporting obligations from 11 September 2026",
       "titleDe": "CRA-Marktueberwachungsbehoerden (AdCo CRA) tagen in Berlin; erste Meldepflichten ab 11. September 2026",
@@ -2199,7 +2289,9 @@
       "id": "2026-07-01-enisa-nis360-2027-survey",
       "date": "2026-07-01",
       "category": "enisa",
-      "tags": ["organisational"],
+      "tags": [
+        "organisational"
+      ],
       "type": "update",
       "title": "ENISA opens NIS360 survey for national authorities and high-criticality entities",
       "titleDe": "ENISA startet NIS360-Umfrage fuer nationale Behoerden und Einrichtungen hoher Kritikalitaet",
@@ -2213,7 +2305,11 @@
       "id": "2026-07-10-national-transposition-luxembourg-ilr-registration-deadline",
       "date": "2026-07-10",
       "category": "national-transposition",
-      "tags": ["lu", "registration", "deadline"],
+      "tags": [
+        "lu",
+        "registration",
+        "deadline"
+      ],
       "type": "update",
       "title": "Luxembourg: NIS 2 self-registration with the ILR closes 10 July 2026",
       "titleDe": "Luxemburg: NIS-2-Selbstregistrierung bei der ILR endet am 10. Juli 2026",
@@ -2227,7 +2323,10 @@
       "id": "2026-07-01-national-transposition-se-ncsc-authority-transfer",
       "date": "2026-07-01",
       "category": "national-transposition",
-      "tags": ["se", "organisational"],
+      "tags": [
+        "se",
+        "organisational"
+      ],
       "type": "update",
       "title": "Sweden: NIS 2 authority functions and CERT-SE transfer from MCF to the new NCSC",
       "titleDe": "Schweden: NIS-2-Behoerdenfunktionen und CERT-SE gehen von der MCF an das neue NCSC ueber",
@@ -2236,7 +2335,45 @@
       "sourceId": "ncsc-se",
       "sourceUrl": "https://www.cert.se/2026/06/nu-samlas-cyberverksamheten-hos-nationellt-cybersakerhetscenter.html",
       "addedAt": "2026-07-06T18:30:00Z"
+    },
+    {
+      "id": "2026-07-08-eu-cjeu-referral-nis2-four-states",
+      "date": "2026-07-08",
+      "category": "eu",
+      "tags": [
+        "enforcement",
+        "infringement",
+        "transposition"
+      ],
+      "type": "update",
+      "title": "Commission refers Ireland, Spain, France and the Netherlands to the CJEU over NIS 2 transposition",
+      "titleDe": "Kommission verklagt Irland, Spanien, Frankreich und die Niederlande vor dem EuGH wegen NIS-2-Umsetzung",
+      "summary": "In its July 2026 infringement package the European Commission referred Ireland, Spain, France and the Netherlands to the Court of Justice of the EU for failing to fully transpose the NIS 2 Directive (EU) 2022/2555, and asked the Court to impose financial sanctions (a lump sum and daily penalty payments). The transposition deadline was 17 October 2024.",
+      "summaryDe": "Im Vertragsverletzungspaket vom Juli 2026 hat die Europaeische Kommission Irland, Spanien, Frankreich und die Niederlande wegen unvollstaendiger Umsetzung der NIS-2-Richtlinie (EU) 2022/2555 vor dem EuGH verklagt und finanzielle Sanktionen beantragt (Pauschalbetrag und taegliches Zwangsgeld). Die Umsetzungsfrist war der 17. Oktober 2024.",
+      "sourceId": "ec-presscorner",
+      "sourceUrl": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1499",
+      "addedAt": "2026-07-10T14:34:45Z"
+    },
+    {
+      "id": "2026-07-07-national-transposition-nl-cyberbeveiligingswet-adopted",
+      "date": "2026-07-07",
+      "category": "national-transposition",
+      "tags": [
+        "nl",
+        "transposition",
+        "in-force",
+        "legislation",
+        "registration"
+      ],
+      "type": "update",
+      "title": "Netherlands adopts the Cyberbeveiligingswet (NIS 2), in force 15 August 2026",
+      "titleDe": "Niederlande verabschieden das Cyberbeveiligingswet (NIS 2), in Kraft ab 15. August 2026",
+      "summary": "The Dutch Senate (Eerste Kamer) adopted the Cyberbeveiligingswet (NIS 2 transposition) and the Wet weerbaarheid kritieke entiteiten (CER transposition) on 7 July 2026. Both enter into force on 15 August 2026, from when registration is mandatory via mijn.ncsc.nl. Around 8,000 entities fall under the Cyberbeveiligingswet and about 500 under the CER law.",
+      "summaryDe": "Der niederlaendische Senat (Eerste Kamer) hat am 7. Juli 2026 das Cyberbeveiligingswet (NIS-2-Umsetzung) und das Wet weerbaarheid kritieke entiteiten (CER-Umsetzung) verabschiedet. Beide treten am 15. August 2026 in Kraft, ab dann ist die Registrierung ueber mijn.ncsc.nl verpflichtend. Rund 8.000 Einrichtungen fallen unter das Cyberbeveiligingswet und etwa 500 unter das CER-Gesetz.",
+      "sourceId": "rijksoverheid",
+      "sourceUrl": "https://www.rijksoverheid.nl/actueel/nieuws/2026/07/07/cyberbeveiligingswet-en-wet-weerbaarheid-kritieke-entiteiten-vanaf-15-augustus-2026-van-kracht",
+      "addedAt": "2026-07-10T14:34:45Z"
     }
   ],
-  "lastUpdated": "2026-07-06T18:30:00Z"
+  "lastUpdated": "2026-07-10T14:34:45Z"
 }
