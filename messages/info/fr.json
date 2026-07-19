@@ -6247,6 +6247,24 @@
         "description": "L'application complète qui fait tourner ce site. Le portail de conformité, le parcours NIS 2 guidé, la formation destinée aux dirigeants et toutes les données des référentiels, réunis dans une seule base de code Next.js et Drizzle. Auto-hébergeable et sous licence AGPL-3.0."
       }
     },
+    "partners": {
+      "meta": {
+        "title": "Partenaires - NISD2.eu",
+        "description": "Programmes et organisations avec lesquels nous collaborons. NISD2.eu est membre du programme NVIDIA Inception."
+      },
+      "title": "Partenaires",
+      "subtitle": "Programmes et organisations avec lesquels nous collaborons pour développer la plateforme.",
+      "learnMore": "En savoir plus",
+      "nvidia": {
+        "title": "NVIDIA Inception Program",
+        "description": "NISD2.eu est membre du programme NVIDIA Inception, qui accompagne les startups avec un soutien technique et des ressources pour développer des produits basés sur l'IA."
+      },
+      "smartcityhouse": {
+        "title": "SmartCity House",
+        "description": "NISD2.eu fait partie du programme d'incubation SmartCity House, qui accompagne les startups développant des solutions pour l'impact urbain et les civic tech."
+      },
+      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries. SmartCity House and its logo are trademarks of their respective owner."
+    },
     "status": {
       "meta": {
         "title": "État de la plateforme - NISD2.eu",

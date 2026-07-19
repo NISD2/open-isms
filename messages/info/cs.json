@@ -6247,6 +6247,24 @@
         "description": "Kompletní aplikace, která pohání tento web. Portál pro compliance, řízený průvodce podle NIS 2, školení pro vedení a veškerá data rámců v jedné kódové základně postavené na Next.js a Drizzle. Lze ji hostovat na vlastní infrastruktuře a je licencována pod AGPL-3.0."
       }
     },
+    "partners": {
+      "meta": {
+        "title": "Partneři - NISD2.eu",
+        "description": "Programy a organizace, se kterými spolupracujeme. NISD2.eu je členem programu NVIDIA Inception."
+      },
+      "title": "Partneři",
+      "subtitle": "Programy a organizace, se kterými spolupracujeme na rozvoji platformy.",
+      "learnMore": "Zjistit více",
+      "nvidia": {
+        "title": "NVIDIA Inception Program",
+        "description": "NISD2.eu je členem programu NVIDIA Inception, který podporuje startupy technickým poradenstvím a zdroji pro vývoj produktů založených na AI."
+      },
+      "smartcityhouse": {
+        "title": "SmartCity House",
+        "description": "NISD2.eu je součástí inkubačního programu SmartCity House, který podporuje startupy vyvíjející řešení pro městský dopad a civic tech."
+      },
+      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries. SmartCity House and its logo are trademarks of their respective owner."
+    },
     "status": {
       "meta": {
         "title": "Stav platformy: NISD2.eu",

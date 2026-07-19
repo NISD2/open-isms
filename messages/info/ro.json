@@ -6247,6 +6247,24 @@
         "description": "Aplicația completă care rulează acest site. Portalul de conformitate, parcursul ghidat NIS 2, cursul pentru conducere și toate datele privind cadrele de reglementare, într-o singură bază de cod Next.js și Drizzle. Poate fi găzduită independent și este licențiată sub AGPL-3.0."
       }
     },
+    "partners": {
+      "meta": {
+        "title": "Parteneri - NISD2.eu",
+        "description": "Programe și organizații cu care colaborăm. NISD2.eu este membru al programului NVIDIA Inception."
+      },
+      "title": "Parteneri",
+      "subtitle": "Programe și organizații cu care colaborăm pentru a dezvolta platforma.",
+      "learnMore": "Află mai multe",
+      "nvidia": {
+        "title": "NVIDIA Inception Program",
+        "description": "NISD2.eu este membru al programului NVIDIA Inception, care sprijină startup-urile cu îndrumare tehnică și resurse pentru dezvoltarea de produse bazate pe AI."
+      },
+      "smartcityhouse": {
+        "title": "SmartCity House",
+        "description": "NISD2.eu face parte din programul de incubare SmartCity House, care sprijină startup-urile care dezvoltă soluții pentru impact urban și civic tech."
+      },
+      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries. SmartCity House and its logo are trademarks of their respective owner."
+    },
     "status": {
       "meta": {
         "title": "Starea platformei - NISD2.eu",

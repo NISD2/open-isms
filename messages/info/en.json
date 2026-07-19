@@ -6269,7 +6269,11 @@
         "title": "NVIDIA Inception Program",
         "description": "NISD2.eu is a member of the NVIDIA Inception program, which supports startups with technical guidance and resources for building AI-driven products."
       },
-      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries."
+      "smartcityhouse": {
+        "title": "SmartCity House",
+        "description": "NISD2.eu is part of the SmartCity House incubation program, which supports startups building solutions for urban impact and civic technology."
+      },
+      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries. SmartCity House and its logo are trademarks of their respective owner."
     },
     "status": {
       "meta": {
