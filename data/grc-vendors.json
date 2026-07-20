@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-17",
+  "lastUpdated": "2026-07-20",
   "methodology": {
     "de": "Wir haben am 17. Mai 2026 die Preisseiten von ~150 GRC/ISMS/NIS2-Anbietern besucht. Preise wurden wörtlich von der eigenen Website jedes Anbieters übernommen. Wo Preise hinter einem Demo-Formular versteckt sind, steht 'Demo-Termin erforderlich'. Keine Extrapolation aus G2, Capterra oder Drittquellen.",
     "en": "On 17 May 2026 we visited the pricing pages of ~150 GRC/ISMS/NIS2 vendors. Prices are quoted verbatim from each vendor's own website. Where pricing is hidden behind a demo form we record 'Demo call required'. No extrapolation from G2, Capterra or third-party sources."
@@ -595,6 +595,28 @@
         "en": "Open-source Vanta alternative"
       },
       "lastVerified": "2026-05-17"
+    },
+    {
+      "id": "kopexa",
+      "name": "Kopexa",
+      "country": "DE",
+      "tier": "transparent",
+      "category": "grc",
+      "entryPriceEur": 249,
+      "priceModel": {
+        "de": "€249/Monat pro Space (Lite, 12 Monate Laufzeit); Pro €599/Monat; Enterprise auf Anfrage",
+        "en": "€249/month per Space (Lite, 12-month term); Pro €599/month; Enterprise on request"
+      },
+      "nis2Listed": true,
+      "frameworks": ["NIS2", "ISO 27001", "TISAX", "GDPR", "DORA"],
+      "freeTier": "trial",
+      "formLikeness": "medium",
+      "sourceUrl": "https://kopexa.com/pricing",
+      "notes": {
+        "de": "Auf Hinweis des Anbieters im Juli 2026 aufgenommen. Preise vollständig öffentlich, 14 Tage Test ohne Kreditkarte.",
+        "en": "Added in July 2026 after the vendor pointed out the omission. Pricing fully public, 14-day trial without credit card."
+      },
+      "lastVerified": "2026-07-20"
     },
     {
       "id": "strike-graph",

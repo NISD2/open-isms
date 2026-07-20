@@ -1,12 +1,12 @@
 {
   "grcComparison": {
     "meta": {
-      "title": "GRC / ISMS / NIS2 pricing audit: 136 commercial vendors verified",
-      "description": "On 17 May 2026 we visited the pricing pages of 136 commercial GRC, ISMS and NIS2 platforms. 103 of them won't tell you what they cost without a demo call. Here's the full list, sortable and filterable. Nine open-source alternatives are excluded by design."
+      "title": "GRC / ISMS / NIS2 pricing audit: 137 commercial vendors verified",
+      "description": "Since 17 May 2026 we have visited the pricing pages of 137 commercial GRC, ISMS and NIS2 platforms. 103 of them won't tell you what they cost without a demo call. Here's the full list, sortable and filterable. Nine open-source alternatives are excluded by design."
     },
     "hero": {
-      "eyebrow": "Market audit · 17 May 2026",
-      "title": "We audited 136 commercial GRC/ISMS platforms. 103 won't tell you what they cost.",
+      "eyebrow": "Market audit · updated 20 July 2026",
+      "title": "We audited 137 commercial GRC/ISMS platforms. 103 won't tell you what they cost.",
       "subtitle": "We captured every vendor's pricing page verbatim. Where pricing is hidden behind a demo form we record 'Demo call required'. No estimates, no third-party sources. Nine open-source alternatives (verinice, CISO Assistant, Deming, ISMS Builder, Unicis CE, ourselves and others) are excluded from this list because they don't sell you a subscription.",
       "ctaPlatform": "Start free",
       "ctaMethodology": "Methodology"
@@ -23,7 +23,7 @@
     },
     "thesis": {
       "title": "Why this market is ripe for disruption",
-      "body": "76% of these 136 commercial GRC/ISMS vendors hide their prices. The products are forms, templates and checklists on top of a database. The marginal cost of one more customer is near zero. The price is not. Here are the receipts.",
+      "body": "75% of these 137 commercial GRC/ISMS vendors hide their prices. The products are forms, templates and checklists on top of a database. The marginal cost of one more customer is near zero. The price is not. Here are the receipts.",
       "points": [
         {
           "title": "Five-figure annual contracts for a form",
