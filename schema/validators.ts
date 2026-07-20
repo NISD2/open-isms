@@ -14,6 +14,7 @@
  *   const parsed = companyInsertSchema.parse(req.body);
  */
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { getTableColumns, type Table } from "drizzle-orm";
 import { z } from "zod";
 
 // --- Table imports (alphabetical by file) ---
@@ -62,6 +63,32 @@ const omitAudit = { id: true, createdAt: true } as const;
  * never from request input.
  */
 const omitTenantMeta = { ...omitMeta, companyId: true } as const;
+
+/**
+ * pg `date` columns surface from drizzle-zod as bare strings, which lets ""
+ * and free-text through to Postgres (`invalid input syntax for type date`)
+ * and makes SchemaForm render a text input instead of a date picker. Spread
+ * this into createInsertSchema overrides for every table that has date
+ * columns; derived from table metadata so new date columns are covered
+ * without maintaining a field list. Explicit overrides listed after the
+ * spread still win.
+ */
+function isoDateColumns<T extends Table>(
+  table: T,
+): Partial<Record<keyof T["_"]["columns"], z.ZodType>> {
+  const out: Partial<Record<keyof T["_"]["columns"], z.ZodType>> = {};
+  for (const [name, col] of Object.entries(getTableColumns(table))) {
+    if (col.columnType === "PgDateString") {
+      // nullish, not nullable: drizzle-zod makes nullable columns optional in
+      // insert schemas (callers may omit the key) and an override replaces
+      // that wholesale — .nullable() alone would make absent keys a 400.
+      out[name as keyof T["_"]["columns"]] = col.notNull
+        ? z.iso.date()
+        : z.iso.date().nullish();
+    }
+  }
+  return out;
+}
 
 // ============================================================================
 // Organization
@@ -211,7 +238,9 @@ export const userUpdateSchema = userInsertSchema.partial().omit(omitTenantMeta);
 // Compliance Frameworks
 // ============================================================================
 
-export const frameworkInsertSchema = createInsertSchema(complianceFramework);
+export const frameworkInsertSchema = createInsertSchema(complianceFramework, {
+  ...isoDateColumns(complianceFramework),
+});
 export const frameworkSelectSchema = createSelectSchema(complianceFramework);
 
 export const categoryInsertSchema = createInsertSchema(requirementCategory, {
@@ -237,10 +266,14 @@ export const requirementUpdateSchema = requirementInsertSchema.partial().omit(om
 // Assessments
 // ============================================================================
 
-export const assessmentInsertSchema = createInsertSchema(companyAssessment);
+export const assessmentInsertSchema = createInsertSchema(companyAssessment, {
+  ...isoDateColumns(companyAssessment),
+});
 export const assessmentSelectSchema = createSelectSchema(companyAssessment);
 
-export const requirementStatusInsertSchema = createInsertSchema(companyRequirementStatus);
+export const requirementStatusInsertSchema = createInsertSchema(companyRequirementStatus, {
+  ...isoDateColumns(companyRequirementStatus),
+});
 export const requirementStatusSelectSchema = createSelectSchema(companyRequirementStatus);
 // assessmentId + requirementId are immutable parent FKs — never patchable.
 export const requirementStatusUpdateSchema = requirementStatusInsertSchema
@@ -252,6 +285,7 @@ export const requirementStatusUpdateSchema = requirementStatusInsertSchema
 // ============================================================================
 
 export const evidenceInsertSchema = createInsertSchema(evidence, {
+  ...isoDateColumns(evidence),
   fileName: z.string().min(1).max(500),
   storageKey: z.string().min(1).max(500),
   contentHash: z.string().length(64).nullish(),
@@ -264,6 +298,7 @@ export const evidenceUpdateSchema = evidenceInsertSchema.partial().omit({ id: tr
 // ============================================================================
 
 export const policyInsertSchema = createInsertSchema(policy, {
+  ...isoDateColumns(policy),
   title: z.string().min(1).max(500),
   type: z.string().min(1).max(100),
 });
@@ -286,16 +321,9 @@ export const auditLogSelectSchema = createSelectSchema(auditLog);
 // ============================================================================
 
 export const assetInsertSchema = createInsertSchema(asset, {
+  ...isoDateColumns(asset),
   name: z.string().min(1).max(255),
   type: z.string().min(1).max(100),
-  // pg `date` columns surface from drizzle-zod as bare strings; tighten to
-  // ISO dates so forms render a date input and Postgres never receives a
-  // non-date string. `.nullable()` restated — overrides drop the column's
-  // nullable flag.
-  lastPatchDate: z.iso.date().nullable(),
-  lastVulnScanDate: z.iso.date().nullable(),
-  lastBackupTestDate: z.iso.date().nullable(),
-  endOfLife: z.iso.date().nullable(),
 });
 export const assetSelectSchema = createSelectSchema(asset);
 export const assetUpdateSchema = assetInsertSchema.partial().omit(omitTenantMeta);
@@ -375,6 +403,7 @@ export const assetServiceUpdateSchema = assetInsertSchema
 // ============================================================================
 
 export const riskInsertSchema = createInsertSchema(risk, {
+  ...isoDateColumns(risk),
   title: z.string().min(1).max(500),
   description: z.string().min(1),
   likelihood: z.number().int().min(1).max(6),
@@ -409,6 +438,7 @@ export const incidentUpdateSchema = incidentInsertSchema.partial().omit(omitTena
 // ============================================================================
 
 export const supplierInsertSchema = createInsertSchema(supplier, {
+  ...isoDateColumns(supplier),
   name: z.string().min(1).max(255),
   // Per-customer contract clauses
   subprocessorList: z.string().max(2000).nullish(),
@@ -453,6 +483,7 @@ export const relationshipClausesUpdateSchema = supplierInsertSchema
 // ============================================================================
 
 export const trainingInsertSchema = createInsertSchema(trainingRecord, {
+  ...isoDateColumns(trainingRecord),
   trainingType: z.string().min(1).max(255),
   title: z.string().min(1).max(500),
   participantName: z.string().min(1).max(255),
@@ -488,6 +519,7 @@ export const changeRequestUpdateSchema = changeRequestInsertSchema.partial().omi
 // ============================================================================
 
 export const patchRecordInsertSchema = createInsertSchema(patchRecord, {
+  ...isoDateColumns(patchRecord),
   patchIdentifier: z.string().min(1).max(255),
   severity: z.string().min(1).max(50),
 });
@@ -499,6 +531,7 @@ export const patchRecordUpdateSchema = patchRecordInsertSchema.partial().omit(om
 // ============================================================================
 
 export const vulnerabilityInsertSchema = createInsertSchema(vulnerability, {
+  ...isoDateColumns(vulnerability),
   title: z.string().min(1).max(500),
   severity: z.string().min(1).max(50),
 });
@@ -510,6 +543,7 @@ export const vulnerabilityUpdateSchema = vulnerabilityInsertSchema.partial().omi
 // ============================================================================
 
 export const internalAuditInsertSchema = createInsertSchema(internalAudit, {
+  ...isoDateColumns(internalAudit),
   title: z.string().min(1).max(500),
   auditArea: z.string().min(1).max(255),
 });
@@ -517,6 +551,7 @@ export const internalAuditSelectSchema = createSelectSchema(internalAudit);
 export const internalAuditUpdateSchema = internalAuditInsertSchema.partial().omit(omitTenantMeta);
 
 export const auditFindingInsertSchema = createInsertSchema(auditFinding, {
+  ...isoDateColumns(auditFinding),
   description: z.string().min(1),
   correctiveAction: z.string().min(1),
 });
@@ -531,6 +566,7 @@ export const auditFindingUpdateSchema = auditFindingInsertSchema
 // ============================================================================
 
 export const improvementItemInsertSchema = createInsertSchema(improvementItem, {
+  ...isoDateColumns(improvementItem),
   title: z.string().min(1).max(500),
   description: z.string().min(1),
 });
@@ -551,6 +587,7 @@ export const kpiMeasurementSelectSchema = createSelectSchema(kpiMeasurement);
 // ============================================================================
 
 export const managementReviewInsertSchema = createInsertSchema(managementReview, {
+  ...isoDateColumns(managementReview),
   title: z.string().min(1).max(500),
 });
 export const managementReviewSelectSchema = createSelectSchema(managementReview);
@@ -561,6 +598,7 @@ export const managementReviewUpdateSchema = managementReviewInsertSchema.partial
 // ============================================================================
 
 export const riskTreatmentInsertSchema = createInsertSchema(riskTreatment, {
+  ...isoDateColumns(riskTreatment),
   action: z.string().min(1).max(500),
 });
 export const riskTreatmentSelectSchema = createSelectSchema(riskTreatment);
@@ -574,6 +612,7 @@ export const riskTreatmentUpdateSchema = riskTreatmentInsertSchema
 // ============================================================================
 
 export const exerciseInsertSchema = createInsertSchema(exercise, {
+  ...isoDateColumns(exercise),
   title: z.string().min(1).max(500),
   domain: z.string().min(1).max(100),
 });
@@ -591,7 +630,9 @@ export const policyAcknowledgmentSelectSchema = createSelectSchema(policyAcknowl
 // BSIG Module
 // ============================================================================
 
-export const bsiRegistrationInsertSchema = createInsertSchema(bsiRegistration);
+export const bsiRegistrationInsertSchema = createInsertSchema(bsiRegistration, {
+  ...isoDateColumns(bsiRegistration),
+});
 export const bsiRegistrationSelectSchema = createSelectSchema(bsiRegistration);
 export const bsiRegistrationUpdateSchema = bsiRegistrationInsertSchema.partial().omit(omitTenantMeta);
 
@@ -653,8 +694,11 @@ export const companyCertificationCreateSchema = z.object({
   typeOther: z.string().max(255).optional(),
   scope: z.string().optional(),
   auditor: z.string().max(255).optional(),
-  validFrom: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-  validUntil: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  // z.iso.date() over a hand regex: same YYYY-MM-DD contract plus calendar
+  // validity, and the `format` metadata makes SchemaForm render a date picker.
+  // nullish: the date input emits null when cleared.
+  validFrom: z.iso.date().nullish(),
+  validUntil: z.iso.date(),
   storageKey: z.string().min(1).max(500),
   fileName: z.string().min(1).max(500).optional(),
   fileSize: z.number().int().nonnegative().optional(),

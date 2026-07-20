@@ -44,6 +44,8 @@ export interface FieldMeta {
   min?: number;
   max?: number;
   isInteger?: boolean;
+  /** True when the schema expects a JS Date (z.date / timestamp column) rather than an ISO string (z.iso.date / pg date column). */
+  jsDate?: boolean;
   label: string;
 }
 
@@ -130,6 +132,7 @@ function resolveType(zodType: any, meta: FieldMeta): void {
 
     case "date":
       meta.type = "date";
+      meta.jsDate = true;
       return;
 
     case "array":
