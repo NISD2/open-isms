@@ -6,7 +6,7 @@
  * (which is company-scoped). This is a platform-level view across
  * ALL companies and users.
  */
-import { desc, count, eq, sql, and, isNotNull, gte } from "drizzle-orm";
+import { desc, count, eq, sql, and, isNotNull, gte, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { randomUUID, randomBytes } from "node:crypto";
 import bcrypt from "bcryptjs";
@@ -61,6 +61,12 @@ export const platformAdminRouter = router({
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
+    // "Finished" = same definition as certificate eligibility
+    // (trainingCertificate.getCourseCompletion): every lesson of the CURRENT
+    // course definition completed — hence the lessonId membership filter, so
+    // progress on since-removed lessons cannot inflate the count.
+    const ceoLessonIds = (await loadCourse("nis2-ceo")).modules.flatMap((m) => m.lessonIds);
+
     const [
       totalUsersRow,
       recentUsersRow,
@@ -68,6 +74,8 @@ export const platformAdminRouter = router({
       activatedCompaniesRow,
       usersWithActivatedCompanyRow,
       totalAssessmentsRow,
+      ceoFinishedRows,
+      ceoStartedRow,
     ] = await Promise.all([
       ctx.db.select({ count: count() }).from(user),
       ctx.db.select({ count: count() }).from(user).where(gte(user.createdAt, sevenDaysAgo)),
@@ -82,6 +90,22 @@ export const platformAdminRouter = router({
         .innerJoin(company, eq(user.companyId, company.id))
         .where(isNotNull(company.activatedAt)),
       ctx.db.select({ count: count() }).from(companyAssessment),
+      ctx.db
+        .select({ userId: trainingLessonProgress.userId })
+        .from(trainingLessonProgress)
+        .where(
+          and(
+            eq(trainingLessonProgress.courseId, "nis2-ceo"),
+            eq(trainingLessonProgress.completed, true),
+            inArray(trainingLessonProgress.lessonId, ceoLessonIds),
+          ),
+        )
+        .groupBy(trainingLessonProgress.userId)
+        .having(sql`count(distinct ${trainingLessonProgress.lessonId}) = ${ceoLessonIds.length}`),
+      ctx.db
+        .select({ count: sql<number>`count(distinct ${trainingLessonProgress.userId})::int` })
+        .from(trainingLessonProgress)
+        .where(eq(trainingLessonProgress.courseId, "nis2-ceo")),
     ]);
 
     const totalCompanies = totalCompaniesRow[0]?.count ?? 0;
@@ -97,6 +121,8 @@ export const platformAdminRouter = router({
       draftCompanies: Math.max(0, totalCompanies - activatedCompanies),
       usersWithActivatedCompany: usersWithActivatedCompanyRow[0]?.count ?? 0,
       totalAssessments: totalAssessmentsRow[0]?.count ?? 0,
+      ceoCourseFinished: ceoFinishedRows.length,
+      ceoCourseStarted: ceoStartedRow[0]?.count ?? 0,
     };
   }),
 
