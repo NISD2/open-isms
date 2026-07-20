@@ -370,6 +370,27 @@
       "url": "https://ec.europa.eu/commission/presscorner",
       "description": "Official European Commission press releases, including infringement packages and CJEU referrals.",
       "language": "en"
+    },
+    {
+      "id": "officielebekendmakingen",
+      "name": "Officiele bekendmakingen (NL)",
+      "url": "https://zoek.officielebekendmakingen.nl",
+      "description": "Official Dutch publication portal: Staatsblad and Staatscourant, where enacted laws and regulations appear.",
+      "language": "en"
+    },
+    {
+      "id": "versterkenweerbaarheid",
+      "name": "Versterken Weerbaarheid (NL)",
+      "url": "https://www.versterkenweerbaarheid.nl",
+      "description": "Dutch government programme site for the Cyberbeveiligingswet and Wet weerbaarheid kritieke entiteiten implementation.",
+      "language": "en"
+    },
+    {
+      "id": "sztfh",
+      "name": "SZTFH",
+      "url": "https://sztfh.hu",
+      "description": "Hungarian Supervisory Authority for Regulated Activities: NIS 2 competent authority, runs the audit and registration regime.",
+      "language": "en"
     }
   ],
   "events": [
@@ -2373,7 +2394,183 @@
       "sourceId": "rijksoverheid",
       "sourceUrl": "https://www.rijksoverheid.nl/actueel/nieuws/2026/07/07/cyberbeveiligingswet-en-wet-weerbaarheid-kritieke-entiteiten-vanaf-15-augustus-2026-van-kracht",
       "addedAt": "2026-07-10T14:34:45Z"
+    },
+    {
+      "id": "2026-07-07-eu-ai-cybersecurity-action-plan",
+      "date": "2026-07-07",
+      "category": "eu",
+      "tags": [
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Commission presents EU Action Plan on Cybersecurity and Artificial Intelligence",
+      "titleDe": "Kommission stellt EU-Aktionsplan fuer Cybersicherheit und Kuenstliche Intelligenz vor",
+      "summary": "The Commission published the EU Action Plan on Cybersecurity and Artificial Intelligence (COM(2026) 577), a non-binding communication on managing AI risks and opportunities in cybersecurity. It creates no new obligations and frames itself as reinforcing implementation of existing law, including NIS 2 and the CRA; ENISA published an aligned paper on AI-era cyber threats the same day.",
+      "summaryDe": "Die Kommission hat den EU-Aktionsplan fuer Cybersicherheit und KI (COM(2026) 577) veroeffentlicht, eine unverbindliche Mitteilung zum Umgang mit KI-Risiken und KI-Chancen in der Cybersicherheit. Er schafft keine neuen Pflichten und soll die Umsetzung bestehenden Rechts staerken, darunter NIS 2 und CRA; ENISA veroeffentlichte am selben Tag ein begleitendes Papier zu Cyberbedrohungen im KI-Zeitalter.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/library/eu-action-plan-cybersecurity-and-artificial-intelligence",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-13-eu-cer-resilience-guidelines",
+      "date": "2026-07-13",
+      "category": "eu",
+      "tags": [
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Commission publishes non-binding resilience guidelines under the CER Directive",
+      "titleDe": "Kommission veroeffentlicht unverbindliche Resilienzleitlinien unter der CER-Richtlinie",
+      "summary": "Communication C/2026/3712 (OJ 13 July 2026) sets out non-binding guidelines under Article 13(5) of the CER Directive (EU) 2022/2557 on resilience measures for critical entities across six categories, from prevention and physical protection to employee security management. Relevant to NIS 2 because entities identified as critical under CER automatically count as essential entities under NIS 2.",
+      "summaryDe": "Die Mitteilung C/2026/3712 (Amtsblatt 13. Juli 2026) enthaelt unverbindliche Leitlinien nach Artikel 13(5) der CER-Richtlinie (EU) 2022/2557 zu Resilienzmassnahmen kritischer Einrichtungen in sechs Kategorien, von Praevention und physischem Schutz bis zur Personalsicherheit. NIS-2-relevant, weil unter CER identifizierte kritische Einrichtungen automatisch als besonders wichtige Einrichtungen unter NIS 2 gelten.",
+      "sourceId": "eur-lex",
+      "sourceUrl": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ%3AC_202603712",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-13-enisa-sme-cra-maturity-model",
+      "date": "2026-07-13",
+      "category": "enisa",
+      "tags": [
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "ENISA publishes SME Cyber Resilience Maturity Assessment Model for the CRA",
+      "titleDe": "ENISA veroeffentlicht Reifegradmodell zur Cyberresilienz fuer KMU unter dem CRA",
+      "summary": "ENISA released a maturity assessment framework for micro and small manufacturers of products with digital elements, with a downloadable assessment tool. Non-binding guidance scoped to the Cyber Resilience Act, adjacent to NIS 2 supply chain duties.",
+      "summaryDe": "ENISA hat ein Reifegradmodell fuer Kleinst- und Kleinhersteller von Produkten mit digitalen Elementen veroeffentlicht, inklusive herunterladbarem Bewertungswerkzeug. Unverbindliche Orientierung im Anwendungsbereich des Cyber Resilience Act, angrenzend an die NIS-2-Lieferkettenpflichten.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/publications/sme-cyber-resilience-maturity-assessment-model",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-10-national-transposition-nl-cbw-staatsblad",
+      "date": "2026-07-10",
+      "category": "national-transposition",
+      "tags": [
+        "nl",
+        "legislation",
+        "transposition"
+      ],
+      "type": "update",
+      "title": "Netherlands publishes the Cyberbeveiligingswet in the Staatsblad (Stb. 2026, 187)",
+      "titleDe": "Niederlande veroeffentlichen die Cyberbeveiligingswet im Staatsblad (Stb. 2026, 187)",
+      "summary": "The Wet van 8 juli 2026 transposing NIS 2 was published on 10 July 2026 as Stb. 2026, 187, together with the CER-transposing Wet weerbaarheid kritieke entiteiten (Stb. 2026, 188) and the implementing Cyberbeveiligingsbesluit (Stb. 2026, 189). All enter into force on 15 August 2026, when registration via MijnNCSC becomes mandatory.",
+      "summaryDe": "Das Wet van 8 juli 2026 zur NIS-2-Umsetzung wurde am 10. Juli 2026 als Stb. 2026, 187 veroeffentlicht, zusammen mit dem CER-Umsetzungsgesetz Wet weerbaarheid kritieke entiteiten (Stb. 2026, 188) und der Durchfuehrungsverordnung Cyberbeveiligingsbesluit (Stb. 2026, 189). Alle treten am 15. August 2026 in Kraft; ab dann ist die Registrierung ueber MijnNCSC verpflichtend.",
+      "sourceId": "officielebekendmakingen",
+      "sourceUrl": "https://zoek.officielebekendmakingen.nl/stb-2026-187.html",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-13-national-transposition-nl-ienw-sectoral-regulations",
+      "date": "2026-07-13",
+      "category": "national-transposition",
+      "tags": [
+        "nl",
+        "legislation",
+        "incident-reporting"
+      ],
+      "type": "update",
+      "title": "Netherlands: first sectoral NIS 2 regulations published for the water sector",
+      "titleDe": "Niederlande: erste sektorale NIS-2-Verordnungen fuer den Wassersektor veroeffentlicht",
+      "summary": "The Infrastructure Ministry published the first sectoral ministerial regulations under the Cyberbeveiligingswet (Stcrt. 2026, 24093) and the Wet weerbaarheid kritieke entiteiten (Stcrt. 2026, 24092), designating CERT-WM as sectoral CSIRT for water authorities and detailing care duty and incident reporting thresholds, plus a decision designating supervisory authorities (Stcrt. 2026, 24155). Effective 15 August 2026 with the parent laws.",
+      "summaryDe": "Das Infrastrukturministerium hat die ersten sektoralen Ministerialverordnungen unter der Cyberbeveiligingswet (Stcrt. 2026, 24093) und dem Wet weerbaarheid kritieke entiteiten (Stcrt. 2026, 24092) veroeffentlicht: CERT-WM wird sektorales CSIRT fuer die Wasserverbaende, Sorgfaltspflicht und Meldeschwellen werden konkretisiert, dazu die Benennung der Aufsichtsbehoerden (Stcrt. 2026, 24155). Wirksam ab 15. August 2026 mit den Stammgesetzen.",
+      "sourceId": "versterkenweerbaarheid",
+      "sourceUrl": "https://www.versterkenweerbaarheid.nl/actueel/nieuws/2026/07/13/ministeriele-regelingen-infrastructuur-en-waterstaat-gepubliceerd",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-07-national-transposition-ie-ncsc-board-guidance",
+      "date": "2026-07-07",
+      "category": "national-transposition",
+      "tags": [
+        "ie",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Ireland: NCSC publishes cyber governance guidance for boards of NIS 2 entities",
+      "titleDe": "Irland: NCSC veroeffentlicht Leitfaden zur Cyber-Governance fuer Leitungsorgane von NIS-2-Einrichtungen",
+      "summary": "The Irish NCSC released non-binding guidance for management boards of in-scope entities, built on Belgium's CyberFundamentals (CyFun) framework as its preferred risk-based baseline. It appeared one day before the Commission referred Ireland to the CJEU for non-transposition; the National Cyber Security Bill remains in pre-legislative scrutiny.",
+      "summaryDe": "Das irische NCSC hat einen unverbindlichen Leitfaden fuer Leitungsorgane betroffener Einrichtungen veroeffentlicht, aufgebaut auf dem belgischen CyberFundamentals-Rahmenwerk (CyFun) als bevorzugter risikobasierter Grundlage. Er erschien einen Tag vor der Klage der Kommission gegen Irland vor dem EuGH wegen Nichtumsetzung; das nationale Cybersicherheitsgesetz ist weiter in der vorparlamentarischen Pruefung.",
+      "sourceId": "ncsc-ie",
+      "sourceUrl": "https://www.ncsc.gov.ie/pdfs/NCSC-Cyber-Governance-Management-Boards.pdf",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-10-national-transposition-hu-first-audit-cycle",
+      "date": "2026-07-10",
+      "category": "national-transposition",
+      "tags": [
+        "hu",
+        "enforcement",
+        "deadline"
+      ],
+      "type": "update",
+      "title": "Hungary: SZTFH closes first NIS 2 audit cycle, 2,132 of 2,520 entities audited on time",
+      "titleDe": "Ungarn: SZTFH schliesst ersten NIS-2-Auditzyklus ab, 2.132 von 2.520 Einrichtungen fristgerecht auditiert",
+      "summary": "Hungary's national first-audit deadline of 30 June 2026 (Act LXIX of 2024) passed with 2,132 of 2,520 registered audit-obligated organisations completing on time; 1,511 audit reports are processed and non-compliant entities face warnings or fines up to HUF 150 million. The 30 June 2026 date is a Hungarian national deadline, not an EU-wide one.",
+      "summaryDe": "Ungarns nationale Frist fuer das erste Audit am 30. Juni 2026 (Gesetz LXIX von 2024) ist abgelaufen: 2.132 von 2.520 registrierten auditpflichtigen Organisationen haben fristgerecht abgeschlossen; 1.511 Auditberichte sind verarbeitet, saeumigen Einrichtungen drohen Verwarnungen oder Bussgelder bis 150 Millionen HUF. Der 30. Juni 2026 ist eine ungarische nationale Frist, keine EU-weite.",
+      "sourceId": "sztfh",
+      "sourceUrl": "https://sztfh.hu/lezarult-a-kiberbiztonsagi-auditok-hatarideje/",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-01-national-transposition-se-incident-reporting-in-force",
+      "date": "2026-07-01",
+      "category": "national-transposition",
+      "tags": [
+        "se",
+        "incident-reporting",
+        "in-force"
+      ],
+      "type": "update",
+      "title": "Sweden: NIS 2 incident reporting obligations enter into force (MCFFS 2026:8)",
+      "titleDe": "Schweden: NIS-2-Meldepflichten treten in Kraft (MCFFS 2026:8)",
+      "summary": "The incident reporting and information duty regulations under the Swedish cybersecurity act (MCFFS 2026:8) took effect on 1 July 2026; reports are received by the NCSC at FRA. Regulations on security measures, management training and audits follow on 1 October 2026.",
+      "summaryDe": "Die Verordnung zu Meldepflichten und Informationspflichten unter dem schwedischen Cybersicherheitsgesetz (MCFFS 2026:8) gilt seit dem 1. Juli 2026; Meldungen nimmt das NCSC bei der FRA entgegen. Verordnungen zu Sicherheitsmassnahmen, Leitungsschulung und Audits folgen zum 1. Oktober 2026.",
+      "sourceId": "ncsc-se",
+      "sourceUrl": "https://www.ncsc.se/sv/radgivning-och-stod/cybersakerhetslagen-nis2/tidsplan-for-inforandet-av-cybersakerhetslagen-i-sverige/",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-06-30-national-transposition-it-categorization-window-closes",
+      "date": "2026-06-30",
+      "category": "national-transposition",
+      "tags": [
+        "it",
+        "deadline",
+        "registration"
+      ],
+      "type": "update",
+      "title": "Italy: ACN categorization window for existing NIS subjects closes",
+      "titleDe": "Italien: ACN-Kategorisierungsfenster fuer bestehende NIS-Einrichtungen endet",
+      "summary": "The window for entities registered in 2025 to complete activity categorization via ACN's NIS Categorization Service (Determinazione 155238/2026, four relevance levels) ran from 1 May to 30 June 2026. The next milestone for existing subjects is implementing the basic security measures by 31 October 2026.",
+      "summaryDe": "Das Fenster fuer 2025 registrierte Einrichtungen zur Kategorisierung ihrer Taetigkeiten ueber den ACN-Kategorisierungsdienst (Determinazione 155238/2026, vier Relevanzstufen) lief vom 1. Mai bis 30. Juni 2026. Naechster Meilenstein fuer Bestandseinrichtungen ist die Umsetzung der grundlegenden Sicherheitsmassnahmen bis 31. Oktober 2026.",
+      "sourceId": "acn",
+      "sourceUrl": "https://www.acn.gov.it/portale/w/nis-online-le-determine-sugli-adempimenti-per-i-nuovi-soggetti-e-sulle-modalita-di-accesso-alla-piattaforma-acn",
+      "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-07-national-transposition-lu-ilr-implementing-consultations",
+      "date": "2026-07-07",
+      "category": "national-transposition",
+      "tags": [
+        "lu",
+        "guidance",
+        "incident-reporting"
+      ],
+      "type": "update",
+      "title": "Luxembourg: ILR consults on implementing regulations for security measures and incident notification",
+      "titleDe": "Luxemburg: ILR konsultiert zu Durchfuehrungsregelungen fuer Sicherheitsmassnahmen und Vorfallsmeldungen",
+      "summary": "The ILR opened public consultations on two draft implementing regulations under the NIS 2 law of 5 May 2026: one on security measures and one on notification procedures and criteria for incidents with significant impact (CP/N26/2), days before the 10 July self-registration deadline.",
+      "summaryDe": "Das ILR hat oeffentliche Konsultationen zu zwei Entwuerfen von Durchfuehrungsregelungen unter dem NIS-2-Gesetz vom 5. Mai 2026 eroeffnet: zu Sicherheitsmassnahmen und zu Meldeverfahren und Kriterien fuer Vorfaelle mit erheblichen Auswirkungen (CP/N26/2), wenige Tage vor Ablauf der Selbstregistrierungsfrist am 10. Juli.",
+      "sourceId": "ilr-lu",
+      "sourceUrl": "https://www.ilr.lu/en/sectors/niss/nis-2/",
+      "addedAt": "2026-07-20T20:30:36Z"
     }
   ],
-  "lastUpdated": "2026-07-10T14:34:45Z"
+  "lastUpdated": "2026-07-20T20:30:36Z"
 }
