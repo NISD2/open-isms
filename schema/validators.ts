@@ -288,6 +288,14 @@ export const auditLogSelectSchema = createSelectSchema(auditLog);
 export const assetInsertSchema = createInsertSchema(asset, {
   name: z.string().min(1).max(255),
   type: z.string().min(1).max(100),
+  // pg `date` columns surface from drizzle-zod as bare strings; tighten to
+  // ISO dates so forms render a date input and Postgres never receives a
+  // non-date string. `.nullable()` restated — overrides drop the column's
+  // nullable flag.
+  lastPatchDate: z.iso.date().nullable(),
+  lastVulnScanDate: z.iso.date().nullable(),
+  lastBackupTestDate: z.iso.date().nullable(),
+  endOfLife: z.iso.date().nullable(),
 });
 export const assetSelectSchema = createSelectSchema(asset);
 export const assetUpdateSchema = assetInsertSchema.partial().omit(omitTenantMeta);

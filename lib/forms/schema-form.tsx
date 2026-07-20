@@ -102,11 +102,21 @@ export function SchemaForm<T extends z.ZodRawShape>({
     omit,
   );
 
+  // Validate only the fields the form renders. Omitted fields (companyId,
+  // timestamps) are bound server-side; keeping them in the resolver schema
+  // fails every submit on a field that has no rendered error slot.
+  const omitMask = Object.fromEntries(
+    omit.filter((k) => k in schema.shape).map((k) => [k, true as const]),
+  );
+  const resolverSchema = Object.keys(omitMask).length
+    ? (schema as z.ZodObject<z.ZodRawShape>).omit(omitMask)
+    : schema;
+
   // Internally FieldValues — the Zod schema enforces correctness at validation time.
   // zodResolver's Zod v4 overload needs explicit generic params to match.
   const form = useForm<FieldValues>({
     resolver: zodResolver<FieldValues, unknown, FieldValues>(
-      schema as z.ZodType<FieldValues, FieldValues>,
+      resolverSchema as z.ZodType<FieldValues, FieldValues>,
     ),
     defaultValues: (defaultValues as FieldValues) ?? buildDefaults(fields),
     // Inline validation: surface errors when the field loses focus, then
@@ -290,6 +300,10 @@ function buildDefaults(fields: FieldMeta[]): FieldValues {
           break;
         case "number":
           defaults[f.key] = undefined;
+          break;
+        case "date":
+          // "" fails ISO-date validation and Postgres rejects ''::date
+          defaults[f.key] = null;
           break;
         default:
           defaults[f.key] = "";

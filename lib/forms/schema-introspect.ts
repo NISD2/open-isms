@@ -149,12 +149,14 @@ function resolveType(zodType: any, meta: FieldMeta): void {
 function resolveStringType(zodType: any, meta: FieldMeta): void {
   meta.type = "text";
 
-  // Check format (zod v4: .email(), .url(), .uuid() set .format)
+  // Check format (zod v4: .email(), .url(), .uuid(), z.iso.date() set .format)
   const format: string | undefined = zodType.format;
   if (format === "email") {
     meta.type = "email";
   } else if (format === "url") {
     meta.type = "url";
+  } else if (format === "date") {
+    meta.type = "date";
   }
   // uuid stays as "text" (usually hidden/omitted)
 
