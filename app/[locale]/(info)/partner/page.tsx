@@ -29,9 +29,20 @@ const partners = [
   {
     name: "nvidia-inception",
     logo: "/partners/nvidia-inception-program-badge.svg",
+    logoWidth: 500,
+    logoHeight: 216,
     href: "https://www.nvidia.com/en-us/startups/",
     titleKey: "nvidia.title",
     descKey: "nvidia.description",
+  },
+  {
+    name: "smartcityhouse",
+    logo: "/partners/smartcityhouse-logo.png",
+    logoWidth: 701,
+    logoHeight: 317,
+    href: "https://smartcityhouse.de/",
+    titleKey: "smartcityhouse.title",
+    descKey: "smartcityhouse.description",
   },
 ] as const;
 
@@ -55,8 +66,8 @@ export default async function PartnerPage() {
               <img
                 src={partner.logo}
                 alt={t(`partners.${partner.titleKey}`)}
-                width={500}
-                height={216}
+                width={partner.logoWidth}
+                height={partner.logoHeight}
                 className="h-24 w-auto"
               />
               <CardTitle className="sr-only">{t(`partners.${partner.titleKey}`)}</CardTitle>
