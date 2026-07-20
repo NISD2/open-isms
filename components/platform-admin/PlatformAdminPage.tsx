@@ -40,6 +40,8 @@ interface Overview {
   draftCompanies: number;
   usersWithActivatedCompany: number;
   totalAssessments: number;
+  ceoCourseFinished: number;
+  ceoCourseStarted: number;
 }
 
 interface UserRow {
@@ -223,10 +225,11 @@ export function PlatformAdminPage({
       </div>
 
       {/* KPI cards */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
         <StatCard label="Total Users" value={overview.totalUsers} sub={`${overview.recentUsers} this week`} />
         <StatCard label="Activated Users" value={overview.usersWithActivatedCompany} sub={`of ${overview.totalUsers}`} />
         <StatCard label="Activated Orgs" value={overview.activatedCompanies} sub={`${overview.draftCompanies} draft`} />
+        <StatCard label="CEO Course Done" value={overview.ceoCourseFinished} sub={`of ${overview.ceoCourseStarted} started`} />
         <StatCard label="Assessments" value={overview.totalAssessments} />
         <StatCard label="Not Activated" value={overview.totalUsers - overview.usersWithActivatedCompany} sub="draft shell only" />
       </div>
