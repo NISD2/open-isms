@@ -223,7 +223,8 @@ export function renderFieldInput(
           {...field}
           value={dateValue}
           onChange={(e) => {
-            field.onChange(e.target.value || "");
+            // null, not "" — nullable date schemas reject the empty string
+            field.onChange(e.target.value || null);
           }}
         />
       );
