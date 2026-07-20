@@ -223,8 +223,11 @@ export function renderFieldInput(
           {...field}
           value={dateValue}
           onChange={(e) => {
-            // null, not "" — nullable date schemas reject the empty string
-            field.onChange(e.target.value || null);
+            // null, not "" — nullable date schemas reject the empty string.
+            // z.date() fields (timestamp columns) need a real Date; the
+            // input's string never passes them.
+            const v = e.target.value;
+            field.onChange(v ? (meta.jsDate ? new Date(v) : v) : null);
           }}
         />
       );

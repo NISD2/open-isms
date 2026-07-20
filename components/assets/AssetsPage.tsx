@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Server, Pencil, Trash2 } from "lucide-react";
-import { toast } from "sonner";
 
 const OTHER_VALUE = "__other__";
 
@@ -144,10 +143,9 @@ export function AssetsPage({ items, inline, focus, policyData }: AssetsPageProps
   const t = useTranslations("assets");
   const router = useRouter();
   const refresh = () => router.refresh();
-  const onError = (err: { message: string }) => toast.error(err.message);
-  const createMut = trpc.asset.create.useMutation({ onSuccess: refresh, onError });
-  const updateMut = trpc.asset.update.useMutation({ onSuccess: refresh, onError });
-  const deleteMut = trpc.asset.delete.useMutation({ onSuccess: refresh, onError });
+  const createMut = trpc.asset.create.useMutation({ onSuccess: refresh });
+  const updateMut = trpc.asset.update.useMutation({ onSuccess: refresh });
+  const deleteMut = trpc.asset.delete.useMutation({ onSuccess: refresh });
 
   const omit = useMemo(() => {
     if (!focus) return DEFAULT_OMIT;
