@@ -1,12 +1,12 @@
 {
   "grcComparison": {
     "meta": {
-      "title": "GRC / ISMS / NIS2 Preisvergleich: 136 kommerzielle Anbieter geprüft",
-      "description": "Wir haben am 17. Mai 2026 die Preisseiten von 136 kommerziellen GRC-, ISMS- und NIS2-Plattformen besucht. 103 davon verlangen einen Demo-Termin, um den Preis überhaupt zu erfahren. Hier ist die ganze Liste, sortiert und filterbar. Neun Open-Source-Alternativen sind bewusst ausgenommen."
+      "title": "GRC / ISMS / NIS2 Preisvergleich: 137 kommerzielle Anbieter geprüft",
+      "description": "Wir haben seit dem 17. Mai 2026 die Preisseiten von 137 kommerziellen GRC-, ISMS- und NIS2-Plattformen besucht. 103 davon verlangen einen Demo-Termin, um den Preis überhaupt zu erfahren. Hier ist die ganze Liste, sortiert und filterbar. Neun Open-Source-Alternativen sind bewusst ausgenommen."
     },
     "hero": {
-      "eyebrow": "Markt-Audit · 17. Mai 2026",
-      "title": "Wir haben 136 kommerzielle GRC/ISMS-Plattformen geprüft. 103 sagen dir nicht, was sie kosten.",
+      "eyebrow": "Marktaudit · Stand 20. Juli 2026",
+      "title": "Wir haben 137 kommerzielle GRC/ISMS-Plattformen geprüft. 103 sagen dir nicht, was sie kosten.",
       "subtitle": "Wir haben die Preisseite jedes Anbieters wörtlich erfasst. Wo Preise hinter einem Demo-Formular versteckt sind, steht 'Demo-Termin erforderlich'. Keine Schätzungen, keine Drittquellen. Neun Open-Source-Alternativen (verinice, CISO Assistant, Deming, ISMS Builder, Unicis CE, wir selbst und weitere) sind nicht in dieser Liste, weil sie dir kein Abo verkaufen.",
       "ctaPlatform": "Kostenlos starten",
       "ctaMethodology": "Methodik"
@@ -23,7 +23,7 @@
     },
     "thesis": {
       "title": "Warum dieser Markt reif für Disruption ist",
-      "body": "76 % dieser 136 kommerziellen GRC/ISMS-Anbieter verstecken ihre Preise. Die Produkte sind im Kern Formulare, Vorlagen und Checklisten, auf eine Datenbank gesetzt. Die Grenzkosten für einen weiteren Kunden gehen gegen null. Die Preise nicht. Hier sind die Beweise.",
+      "body": "75 % dieser 137 kommerziellen GRC/ISMS-Anbieter verstecken ihre Preise. Die Produkte sind im Kern Formulare, Vorlagen und Checklisten, auf eine Datenbank gesetzt. Die Grenzkosten für einen weiteren Kunden gehen gegen null. Die Preise nicht. Hier sind die Beweise.",
       "points": [
         {
           "title": "Verträge mit 5-stelligen Jahresgebühren für ein Formular",
