@@ -36,6 +36,10 @@ import { PolicyItemsPanel, SKIP_INLINE_MODULE } from "./PolicyItemsPanel";
 import { InlineModulePanel } from "./InlineModulePanel";
 import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import { RequirementAssignPopover, type AssignmentRow } from "./RequirementAssignPopover";
+import { Walkthrough } from "@/components/walkthrough/Walkthrough";
+import { WalkthroughTrigger } from "@/components/walkthrough/WalkthroughTrigger";
+import { useWalkthrough } from "@/components/walkthrough/use-walkthrough";
+import type { WalkthroughStep } from "@/components/walkthrough/types";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
@@ -155,6 +159,45 @@ const CUSTOM_EDITORS: Record<string, React.ComponentType<{ disabled?: boolean; g
   "PRO:6.4": PatchPolicyEditor,
 };
 
+const REQUIREMENT_WALKTHROUGH_STEPS: WalkthroughStep[] = [
+  {
+    id: "status",
+    targetId: "walkthrough-status",
+    titleKey: "requirement.steps.status.title",
+    bodyKey: "requirement.steps.status.body",
+    placement: "right",
+  },
+  {
+    id: "form",
+    targetId: "walkthrough-form-section",
+    titleKey: "requirement.steps.form.title",
+    bodyKey: "requirement.steps.form.body",
+    placement: "top",
+  },
+  {
+    id: "evidence",
+    targetId: "walkthrough-evidence",
+    titleKey: "requirement.steps.evidence.title",
+    bodyKey: "requirement.steps.evidence.body",
+    placement: "top",
+    optional: true,
+  },
+  {
+    id: "assign",
+    targetId: "walkthrough-assign",
+    titleKey: "requirement.steps.assign.title",
+    bodyKey: "requirement.steps.assign.body",
+    placement: "top",
+  },
+  {
+    id: "nav",
+    targetId: "walkthrough-footer-nav",
+    titleKey: "requirement.steps.nav.title",
+    bodyKey: "requirement.steps.nav.body",
+    placement: "top",
+  },
+];
+
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
@@ -185,6 +228,8 @@ export function RequirementDetail({
   const t = useTranslations("compliance");
   const tf = useTranslations("form");
   const tc = useTranslations("common");
+  const tw = useTranslations("walkthrough");
+  const walkthrough = useWalkthrough("requirement", REQUIREMENT_WALKTHROUGH_STEPS);
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -358,7 +403,10 @@ export function RequirementDetail({
         </p>
         <div className="flex items-center gap-3 mt-1">
           <h1 className="text-xl font-semibold tracking-tight">{requirement.title}</h1>
-          <StatusBadge status={status.currentStatus} />
+          <span id="walkthrough-status">
+            <StatusBadge status={status.currentStatus} />
+          </span>
+          <WalkthroughTrigger onClick={walkthrough.restart} label={tw("requirement.reopenLabel")} />
         </div>
         {isCompleted && status.signedOffAt && (
           <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1.5">
@@ -440,6 +488,7 @@ export function RequirementDetail({
             </div>
           )}
 
+          <div id="walkthrough-form-section" className="space-y-6">
           {/* Custom structured editor (methodology, crypto, access control, etc.) */}
           {(() => {
             const EditorComponent = CUSTOM_EDITORS[`${categoryCode}:${requirement.code}`];
@@ -523,6 +572,7 @@ export function RequirementDetail({
               </p>
             </div>
           ) : null}
+          </div>
 
           {/* Module data */}
           {requirement.moduleRef && (
@@ -559,7 +609,7 @@ export function RequirementDetail({
           {status.statusId &&
             (requirement.evidenceType === "document" ||
               requirement.evidenceType === "proof") && (
-            <div className="space-y-2 pt-4 border-t">
+            <div id="walkthrough-evidence" className="space-y-2 pt-4 border-t">
               <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("requirement.evidenceSection")}
               </h2>
@@ -577,7 +627,7 @@ export function RequirementDetail({
         <aside className="space-y-6 lg:border-l lg:pl-6">
           {/* Assigned to + sign-off progress */}
           {status.statusId && (
-            <div className="space-y-2">
+            <div id="walkthrough-assign" className="space-y-2">
               <h3 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("assign")}
               </h3>
@@ -719,7 +769,10 @@ export function RequirementDetail({
       {/* ------------------------------------------------------------------ */}
       {/* Sticky footer action bar */}
       {/* ------------------------------------------------------------------ */}
-      <div className="sticky bottom-0 z-30 -mx-6 mt-8 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div
+        id="walkthrough-footer-nav"
+        className="sticky bottom-0 z-30 -mx-6 mt-8 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+      >
         <div className="flex items-center justify-between px-6 py-3">
           <div>
             {prev ? (
@@ -810,6 +863,16 @@ export function RequirementDetail({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Walkthrough
+        isOpen={walkthrough.isOpen}
+        step={walkthrough.currentStep}
+        stepIndex={walkthrough.stepIndex}
+        totalSteps={walkthrough.totalSteps}
+        onNext={walkthrough.next}
+        onSkip={walkthrough.skip}
+        ns="walkthrough"
+      />
     </div>
   );
 }

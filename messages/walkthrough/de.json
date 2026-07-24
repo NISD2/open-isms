@@ -1,0 +1,60 @@
+{
+  "walkthrough": {
+    "common": {
+      "next": "Weiter",
+      "done": "Fertig",
+      "skip": "Überspringen",
+      "stepProgress": "Schritt {current} von {total}"
+    },
+    "journey": {
+      "reopenLabel": "Rundgang starten",
+      "steps": {
+        "order": {
+          "title": "Wähle die Reihenfolge deines Pfads",
+          "body": "Wechsle zwischen der Reihenfolge nach Risiko (größtes Risiko und größte Haftung zuerst) und der chronologischen Ansicht."
+        },
+        "filters": {
+          "title": "Nach Status filtern",
+          "body": "Grenze die Liste ein: überfällig, bald fällig oder wartet auf Freigabe."
+        },
+        "columns": {
+          "title": "Spalten zeigen die Zuständigkeit",
+          "body": "Jede Spalte gruppiert Anforderungen nach der zuständigen Rolle."
+        },
+        "legend": {
+          "title": "Die Punkte verstehen",
+          "body": "Farbe und Füllung jedes Punkts zeigen den Status auf einen Blick: offen, in Arbeit, wartet auf Freigabe oder freigegeben."
+        },
+        "firstNode": {
+          "title": "Das ist eine Anforderung",
+          "body": "Klicke auf eine Karte, um die Anforderung zu öffnen und zu sehen, was als Nächstes zu tun ist."
+        }
+      }
+    },
+    "requirement": {
+      "reopenLabel": "Rundgang starten",
+      "steps": {
+        "status": {
+          "title": "Status im Blick behalten",
+          "body": "Diese Markierung zeigt, ob die Anforderung offen, in Arbeit oder freigegeben ist."
+        },
+        "form": {
+          "title": "Details ausfüllen",
+          "body": "Klicke auf Bearbeiten, um die Fragen zu dieser Anforderung zu beantworten, und speichere danach."
+        },
+        "evidence": {
+          "title": "Nachweise anhängen",
+          "body": "Lade die Dokumente hoch, die zeigen, dass diese Maßnahme tatsächlich umgesetzt ist."
+        },
+        "assign": {
+          "title": "Zuweisen und freigeben",
+          "body": "Weise dieser Anforderung eine verantwortliche Person zu und gib sie frei, sobald sie erfüllt ist."
+        },
+        "nav": {
+          "title": "Durch den Pfad navigieren",
+          "body": "Nutze Zurück/Weiter, um die Anforderungen der Reihe nach durchzugehen, oder markiere eine als nicht zutreffend, falls sie für dich nicht gilt."
+        }
+      }
+    }
+  }
+}

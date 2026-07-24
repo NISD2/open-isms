@@ -1,0 +1,60 @@
+{
+  "walkthrough": {
+    "common": {
+      "next": "Volgende",
+      "done": "Klaar",
+      "skip": "Overslaan",
+      "stepProgress": "Stap {current} van {total}"
+    },
+    "journey": {
+      "reopenLabel": "Rondleiding starten",
+      "steps": {
+        "order": {
+          "title": "Kies de volgorde van je pad",
+          "body": "Wissel tussen de risicovolgorde (grootste risico en aansprakelijkheid eerst) en de chronologische weergave."
+        },
+        "filters": {
+          "title": "Filter op status",
+          "body": "Beperk de lijst tot wat achterstallig is, binnenkort moet, of wacht op goedkeuring."
+        },
+        "columns": {
+          "title": "Kolommen tonen de eigenaar",
+          "body": "Elke kolom groepeert vereisten per verantwoordelijke rol."
+        },
+        "legend": {
+          "title": "Begrijp de stippen",
+          "body": "Kleur en vulling van elke stip tonen de status in één oogopslag: open, in behandeling, wacht op goedkeuring, of goedgekeurd."
+        },
+        "firstNode": {
+          "title": "Dit is een vereiste",
+          "body": "Klik op een kaart om de vereiste te openen en te zien wat je nu moet doen."
+        }
+      }
+    },
+    "requirement": {
+      "reopenLabel": "Rondleiding starten",
+      "steps": {
+        "status": {
+          "title": "Volg je status",
+          "body": "Dit label toont of de vereiste open, in behandeling, of goedgekeurd is."
+        },
+        "form": {
+          "title": "Vul de details in",
+          "body": "Klik op Bewerken om de vragen voor deze vereiste te beantwoorden en sla daarna op."
+        },
+        "evidence": {
+          "title": "Voeg bewijs toe",
+          "body": "Upload de documenten die aantonen dat deze maatregel daadwerkelijk is ingevoerd."
+        },
+        "assign": {
+          "title": "Toewijzen en goedkeuren",
+          "body": "Wijs een eigenaar toe aan deze vereiste en keur goed zodra eraan is voldaan."
+        },
+        "nav": {
+          "title": "Navigeer door je pad",
+          "body": "Gebruik Vorige/Volgende om de vereisten op volgorde te doorlopen, of markeer er een als niet van toepassing."
+        }
+      }
+    }
+  }
+}

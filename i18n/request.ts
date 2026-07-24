@@ -49,6 +49,7 @@ const namespaces = [
   "training",
   "trainingPortal",
   "vulnerabilities",
+  "walkthrough",
 ] as const;
 
 export default getRequestConfig(async ({ requestLocale }) => {
