@@ -2570,7 +2570,59 @@
       "sourceId": "ilr-lu",
       "sourceUrl": "https://www.ilr.lu/en/sectors/niss/nis-2/",
       "addedAt": "2026-07-20T20:30:36Z"
+    },
+    {
+      "id": "2026-07-22-enisa-health-procurement-guidelines",
+      "date": "2026-07-22",
+      "category": "enisa",
+      "tags": [
+        "guidance",
+        "publication",
+        "supply-chain"
+      ],
+      "type": "update",
+      "title": "ENISA publishes procurement guidelines for the cybersecurity of hospitals and healthcare providers",
+      "titleDe": "ENISA veroeffentlicht Beschaffungsleitlinien fuer die Cybersicherheit von Krankenhaeusern und Gesundheitsdienstleistern",
+      "summary": "ENISA publishes non-binding procurement guidelines that help hospitals and healthcare providers build cybersecurity requirements into every phase of the procurement lifecycle. Aligned with the NIS 2 Directive, the medical device regulations, the GDPR and the European Health Data Space, it is the first deliverable of the EU Action Plan on the cybersecurity of hospitals and healthcare providers.",
+      "summaryDe": "ENISA veroeffentlicht unverbindliche Beschaffungsleitlinien, die Krankenhaeusern und Gesundheitsdienstleistern helfen, Cybersicherheitsanforderungen in jede Phase des Beschaffungszyklus aufzunehmen. Abgestimmt auf die NIS-2-Richtlinie, die Medizinprodukteverordnungen, die DSGVO und den Europaeischen Gesundheitsdatenraum, ist es die erste Massnahme des EU-Aktionsplans zur Cybersicherheit von Krankenhaeusern und Gesundheitsdienstleistern.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/publications/procurement-guidelines-for-the-cybersecurity-of-hospitals-and-healthcare-providers",
+      "addedAt": "2026-07-27T13:12:46Z"
+    },
+    {
+      "id": "2026-07-24-enisa-eumss-certification-consultation",
+      "date": "2026-07-24",
+      "category": "enisa",
+      "tags": [
+        "certification",
+        "supply-chain"
+      ],
+      "type": "update",
+      "title": "ENISA opens public consultation on the EU certification scheme for Managed Security Services",
+      "titleDe": "ENISA eroeffnet oeffentliche Konsultation zum EU-Zertifizierungsschema fuer Managed Security Services",
+      "summary": "ENISA opens a public consultation, running until 13 September 2026, on the first draft of a candidate EU cybersecurity certification scheme for Managed Security Services (EUMSS) under Article 48(1) of the Cybersecurity Act. It targets the fragmentation of managed security requirements across Member States and matters for NIS 2 entities that outsource detection and response to third-party providers.",
+      "summaryDe": "ENISA eroeffnet eine bis zum 13. September 2026 laufende oeffentliche Konsultation zum ersten Entwurf eines moeglichen EU-Zertifizierungsschemas fuer Managed Security Services (EUMSS) nach Artikel 48(1) des Cybersecurity Act. Es adressiert die Fragmentierung der Anforderungen an Managed Security ueber die Mitgliedstaaten hinweg und ist fuer NIS-2-Einrichtungen relevant, die Detektion und Reaktion an Dritte auslagern.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/news/have-your-say-on-the-certification-of-eu-managed-security-services",
+      "addedAt": "2026-07-27T13:12:46Z"
+    },
+    {
+      "id": "2026-07-27-eu-cra-business-guidance",
+      "date": "2026-07-27",
+      "category": "eu",
+      "tags": [
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Commission publishes guidance to help businesses implement the Cyber Resilience Act",
+      "titleDe": "Kommission veroeffentlicht Leitlinien zur Umsetzung des Cyber Resilience Act durch Unternehmen",
+      "summary": "The European Commission publishes non-binding guidance clarifying how manufacturers and businesses of all sizes apply the Cyber Resilience Act, covering product scope, substantial modifications, support periods and reporting duties. It points to the first reporting obligations from 11 September 2026 and full application from 11 December 2027; CRA product security evidence such as SBOMs also supports NIS 2 supply-chain requirements under Article 21(2)(d).",
+      "summaryDe": "Die Europaeische Kommission veroeffentlicht unverbindliche Leitlinien, die klaeren, wie Hersteller und Unternehmen jeder Groesse den Cyber Resilience Act anwenden, einschliesslich Produktumfang, wesentlicher Aenderungen, Unterstuetzungszeitraeume und Meldepflichten. Sie verweisen auf die ersten Meldepflichten ab dem 11. September 2026 und die vollstaendige Anwendung ab dem 11. Dezember 2027; CRA-Produktnachweise wie SBOMs stuetzen auch NIS-2-Lieferkettenanforderungen nach Artikel 21(2)(d).",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-new-guidance-support-businesses-implementation-cyber-resilience-act",
+      "addedAt": "2026-07-27T13:12:46Z"
     }
   ],
-  "lastUpdated": "2026-07-20T20:30:36Z"
+  "lastUpdated": "2026-07-27T13:12:46Z"
 }
