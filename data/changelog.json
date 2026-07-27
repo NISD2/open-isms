@@ -1,6 +1,63 @@
 {
   "entries": [
     {
+      "id": "2026-07-20-regulatory-timeline-july-sweep",
+      "date": "2026-07-20",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: zehn neue Ereignisse aus dem Juli 2026",
+      "titleEn": "Timeline: ten new events from July 2026",
+      "bodyDe": "Die NIS-2-Zeitleiste hat zehn neue Juli-Eintraege erhalten, darunter das Inkrafttreten der schwedischen Meldepflichten und die Uebertragung von CERT-SE an das neue NCSC, den EU-Aktionsplan zu Cybersicherheit und kuenstlicher Intelligenz, das CRA-Reifegradmodell der ENISA fuer kleine und mittlere Unternehmen sowie nationale Schritte in Luxemburg, Irland und den Niederlanden. Die Uebersicht der Registrierungsportale wurde fuer die Niederlande und Frankreich aktualisiert.",
+      "bodyEn": "The NIS 2 timeline gained ten new July entries, including Sweden's incident reporting obligations entering into force and the CERT-SE transfer to its new NCSC, the EU action plan on cybersecurity and artificial intelligence, ENISA's CRA maturity model for small and medium enterprises, and national steps in Luxembourg, Ireland and the Netherlands. The registration portal overview was updated for the Netherlands and France.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-20-product-form-reliability",
+      "date": "2026-07-20",
+      "category": "product",
+      "titleDe": "Zuverlaessigere Formulare in der gesamten Plattform",
+      "titleEn": "More reliable forms across the platform",
+      "bodyDe": "Formulare zum Anlegen neuer Eintraege pruefen jetzt nur die tatsaechlich angezeigten Felder und lassen sich dadurch ohne unnoetige Validierungsfehler absenden. Datumsfelder sind plattformweit vereinheitlicht, und fehlgeschlagene Aktionen zeigen eine klare Fehlermeldung.",
+      "bodyEn": "Forms for creating new records now validate only the fields actually shown, so they submit without spurious validation errors. Date fields are consistent across the platform, and failed actions surface a clear error message."
+    },
+    {
+      "id": "2026-07-20-content-grc-vergleich-kopexa",
+      "date": "2026-07-20",
+      "category": "content",
+      "titleDe": "GRC-Vergleich um den Anbieter Kopexa erweitert",
+      "titleEn": "GRC comparison expanded with the vendor Kopexa",
+      "bodyDe": "Der oeffentliche Vergleich von GRC-Plattformen enthaelt jetzt auch Kopexa mit Angaben zu Preisen und Funktionen. Der Vergleich wird laufend gepflegt.",
+      "bodyEn": "The public comparison of GRC platforms now includes Kopexa with pricing and feature details. The comparison is maintained on an ongoing basis.",
+      "links": [
+        {
+          "labelDe": "Zum Vergleich",
+          "labelEn": "See the comparison",
+          "href": "/grc-vergleich"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-20-product-partner-smartcity-house",
+      "date": "2026-07-20",
+      "category": "product",
+      "titleDe": "Partnerseite: SmartCity House aufgenommen",
+      "titleEn": "Partner page: SmartCity House added",
+      "bodyDe": "Die oeffentliche Partnerseite fuehrt jetzt SmartCity House unter den Partnern der Plattform, in allen unterstuetzten Sprachen.",
+      "bodyEn": "The public partner page now lists SmartCity House among the platform's partners, in all supported languages.",
+      "links": [
+        {
+          "labelDe": "Partner",
+          "labelEn": "Partners",
+          "href": "/partner"
+        }
+      ]
+    },
+    {
       "id": "2026-07-10-regulatory-cjeu-nl-adoption",
       "date": "2026-07-10",
       "category": "regulatory",
