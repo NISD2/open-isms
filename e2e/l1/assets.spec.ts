@@ -75,6 +75,12 @@ test.describe("asset inventory: grouped large-company entries", () => {
       await expect(
         page.getByText(String(overrides.name), { exact: false }).first(),
       ).toBeVisible({ timeout: 20_000 });
+
+      // Not-pretend guarantee: reload re-renders from the database.
+      await page.reload();
+      await expect(
+        page.getByText(String(overrides.name), { exact: false }).first(),
+      ).toBeVisible({ timeout: 20_000 });
     });
   }
 });

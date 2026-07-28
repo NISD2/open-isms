@@ -26,6 +26,12 @@ services:
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
+      # Static single-key KMS so MinIO accepts the x-amz-server-side-encryption
+      # AES256 header the evidence upload always sends (SSE-S3 needs KMS in
+      # MinIO). Keeps the client byte-identical with production S3. The base64
+      # value is computed by e2e/start-server.sh (a committed blob trips
+      # gitleaks; the key is a public localhost dummy either way).
+      MINIO_KMS_SECRET_KEY: "e2e-key:${E2E_MINIO_KMS_B64:-}"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 2s

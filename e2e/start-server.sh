@@ -31,7 +31,20 @@ APP_ENV=(
 )
 
 echo "[e2e] starting docker stack"
+# MinIO KMS key (32 bytes, base64) — computed here so no high-entropy blob
+# is committed. Fixed value, localhost-only, not a secret.
+E2E_MINIO_KMS_B64="$(printf 'e2e-minio-kms-0123456789abcdef!!' | base64)"
+export E2E_MINIO_KMS_B64
 docker compose -f e2e/docker-compose.yml up -d --wait
+
+# Hermetic runs: wipe the e2e database entirely so migrations and seed
+# always start from nothing. Re-seeding over a dirty DB crashes on FK
+# references from module records the seed's cleanup predates (finding:
+# cleanUserAndCompany does not cover newer tables like change_request).
+echo "[e2e] resetting e2e database (hermetic run)"
+docker compose -f e2e/docker-compose.yml exec -T postgres \
+  psql -q -U e2e -d openisms_e2e \
+  -c "DROP SCHEMA IF EXISTS public CASCADE; DROP SCHEMA IF EXISTS drizzle CASCADE; CREATE SCHEMA public;"
 
 echo "[e2e] running migrations (same entrypoint as prod: scripts/runtime-migrate.mjs)"
 env "${APP_ENV[@]}" node scripts/runtime-migrate.mjs

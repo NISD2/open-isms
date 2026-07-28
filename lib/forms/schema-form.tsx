@@ -19,7 +19,7 @@ import {
 } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { z } from "zod";
+import { z } from "zod";
 import { introspectSchema, type FieldMeta } from "./schema-introspect";
 import { renderFieldInput, type FieldOverride } from "./field-renderer";
 import { useLLMPrefill } from "./use-llm-prefill";
@@ -108,9 +108,22 @@ export function SchemaForm<T extends z.ZodRawShape>({
   const omitMask = Object.fromEntries(
     omit.filter((k) => k in schema.shape).map((k) => [k, true as const]),
   );
-  const resolverSchema = Object.keys(omitMask).length
+  const baseResolverSchema = Object.keys(omitMask).length
     ? (schema as z.ZodObject<z.ZodRawShape>).omit(omitMask)
     : schema;
+  // Optional fields default to "" in the form, but validators like uuid or
+  // date reject the empty string, so an untouched optional field (e.g. an
+  // asset link) would block submission entirely. Empty string on an
+  // optional field means "not provided": strip it before validation.
+  const optionalKeys = fields.filter((f) => !f.required).map((f) => f.key);
+  const resolverSchema = z.preprocess((raw) => {
+    if (typeof raw !== "object" || raw === null) return raw;
+    const out = { ...(raw as Record<string, unknown>) };
+    for (const key of optionalKeys) {
+      if (out[key] === "") out[key] = undefined;
+    }
+    return out;
+  }, baseResolverSchema);
 
   // Internally FieldValues — the Zod schema enforces correctness at validation time.
   // zodResolver's Zod v4 overload needs explicit generic params to match.
