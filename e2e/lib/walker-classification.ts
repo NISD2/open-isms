@@ -25,10 +25,14 @@ export const UI_CUSTOM_EDITORS = new Set(
   CUSTOM_EDITOR_KEYS.map((k) => k.split(":")[1]),
 );
 
-/** Codes with no custom editor, no moduleRef, and no intake fields. */
+/**
+ * Codes the walker treats as module-backed that grc-data-model does not
+ * mark with a moduleRef. Only genuinely module-backed codes belong here:
+ * 2.3 and 5.3 render custom editors, so the custom-editor branch below wins
+ * before this set is consulted — listing them here would be dead. If the
+ * product later adds one of these to NIS2_MODULE_REF, drop it from here.
+ */
 export const EXTRA_MODULE_BACKED: Record<string, { route: string; note: string }> = {
-  "2.3": { route: "/risks", note: "risk register module (no moduleRef in grc-data-model)" },
-  "5.3": { route: "/risks", note: "supplier risk register (no moduleRef in grc-data-model)" },
   "9.2": { route: "/assets", note: "per-asset encryption fields (no moduleRef in grc-data-model)" },
 };
 

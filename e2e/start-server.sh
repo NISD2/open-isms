@@ -6,13 +6,17 @@ cd "$(dirname "$0")/.."
 
 E2E_DATABASE_URL="${E2E_DATABASE_URL:-postgres://e2e:e2e@localhost:5434/openisms_e2e}"
 
-# Shell-level mirror of e2e/lib/env.ts assertE2eTargets(): localhost + _e2e only.
-case "$E2E_DATABASE_URL" in
-  postgres*://*@localhost*/*_e2e | postgres*://*@127.0.0.1*/*_e2e) ;;
-  *)
-    echo "e2e guard: E2E_DATABASE_URL must be a localhost database whose name ends in _e2e — refusing." >&2
-    exit 1
-    ;;
+# Shell-level mirror of e2e/lib/env.ts assertE2eTargets(): parse the host and
+# db name and check exactly, so laxer globs cannot accept e.g.
+# postgres://u@localhost.evil.example/x_e2e (host "localhost.evil.example").
+_after_at="${E2E_DATABASE_URL#*@}"       # host[:port]/db[?query]
+_host="${_after_at%%/*}"; _host="${_host%%:*}"
+_db="${_after_at#*/}"; _db="${_db%%\?*}"
+case "$_host" in localhost|127.0.0.1|::1) ;; *)
+  echo "e2e guard: DB host '$_host' is not localhost — refusing." >&2; exit 1 ;;
+esac
+case "$_db" in *_e2e) ;; *)
+  echo "e2e guard: DB name '$_db' does not end in _e2e — refusing." >&2; exit 1 ;;
 esac
 
 APP_ENV=(
@@ -20,9 +24,9 @@ APP_ENV=(
   AUTH_SECRET="e2e-dummy-auth-secret-0123456789abcdef"
   # Auth.js v5 in a production build rejects unknown hosts (UntrustedHost)
   # without these. Localhost-only harness, so trusting the host is safe.
-  AUTH_URL="http://localhost:3026"
+  AUTH_URL="http://localhost:3410"
   AUTH_TRUST_HOST="true"
-  NEXT_PUBLIC_APP_URL="http://localhost:3026"
+  NEXT_PUBLIC_APP_URL="http://localhost:3410"
   AWS_S3_ENDPOINT="http://localhost:9000"
   AWS_S3_BUCKET="e2e-evidence"
   AWS_S3_REGION="eu-north-1"
@@ -57,5 +61,5 @@ if [ ! -f .next/BUILD_ID ]; then
   env "${APP_ENV[@]}" SKIP_ENV_VALIDATION=1 bun run build:webpack
 fi
 
-echo "[e2e] starting next on :3026"
-exec env "${APP_ENV[@]}" ./node_modules/.bin/next start -p 3026
+echo "[e2e] starting next on :3410"
+exec env "${APP_ENV[@]}" ./node_modules/.bin/next start -p 3410

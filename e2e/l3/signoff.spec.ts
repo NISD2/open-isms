@@ -123,6 +123,8 @@ test("cross-framework carry-over credits the linked ISO requirement", async () =
     `SELECT s.status
        FROM requirement_satisfaction rs
        JOIN requirement src ON src.id IN (rs.requirement_a_id, rs.requirement_b_id) AND src.code = $1
+       JOIN requirement_category rc ON rc.id = src.category_id
+       JOIN compliance_framework f ON f.id = rc.framework_id AND f.code = 'nis2'
        JOIN requirement dst ON dst.id IN (rs.requirement_a_id, rs.requirement_b_id) AND dst.id <> src.id
        JOIN company_requirement_status s ON s.requirement_id = dst.id`,
     [SINGLE_TARGET],

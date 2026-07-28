@@ -17,13 +17,17 @@ test("grand tour: the company reaches a fully signed-off NIS2 implementation", a
   const alreadyDone: string[] = [];
 
   for (const code of journeyCodes) {
-    await page.goto(`/de/compliance/${slugByCode.get(code)}/${code}`);
+    // networkidle after goto is the page-ready signal that works for every
+    // requirement page type (intake, custom editor, module). Deciding
+    // signable via a fixed timeout on the sign-off button alone both burned
+    // the full wait on every already-done page and risked misclassifying a
+    // slow-rendering signable page as done — a silent flake surfacing only
+    // at the final DB assertion.
+    await page.goto(`/de/compliance/${slugByCode.get(code)}/${code}`, {
+      waitUntil: "networkidle",
+    });
     const button = page.getByTestId("sign-off-button");
-    const visible = await button
-      .waitFor({ state: "visible", timeout: 5_000 })
-      .then(() => true)
-      .catch(() => false);
-    if (!visible) {
+    if (!(await button.isVisible())) {
       alreadyDone.push(code);
       continue;
     }

@@ -41,13 +41,14 @@ const MODULES_TESTED = new Set([
   "internal_audit",
   "management_review",
 ]);
-// l2/editors.spec.ts drives all nine custom editors with SQL-verified
-// persistence.
-const EDITORS_TESTED = new Set<string>([
-  "2.1", "2.3", "2.4", "5.3", "9.1", "10.1", "6.1", "6.2", "6.4",
-]);
+// l2/editors.spec.ts drives every custom editor, so the set IS the custom-
+// editor registry — derive it rather than restate the nine codes a third time.
+// NOTE: "tested" here means the editor's page was driven and persisted, not
+// that every structured sub-table (algorithm/criteria rows) was exercised;
+// those inner surfaces remain a partial gap.
+const EDITORS_TESTED = UI_CUSTOM_EDITORS;
 
-const rows: Row[] = nis2Categories
+const rows: Row[] = [...nis2Categories]
   .sort((a, b) => a.sortOrder - b.sortOrder)
   .flatMap((cat) =>
     getNis2RequirementsForCategory(cat.slug).map((r) => ({
