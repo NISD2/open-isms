@@ -122,7 +122,7 @@
     "google-auth-library": "^10.5.0",
     "og-shot": "^0.4.0",
     "playwright": "^1.60.0",
-    "react-email": "6.9.0",
+    "react-email": "6.9.1",
     "tailwindcss": "^4.1.0",
     "typescript": "^6.0.3",
     "yaml": "^2.8.3"
