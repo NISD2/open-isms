@@ -216,7 +216,7 @@ export function SchemaForm<T extends z.ZodRawShape>({
                   render={({ field }) => (
                     <>
                       {showGroupSep && <Separator className="col-span-full my-1" />}
-                      <FormItem className={cn("flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4", spanClass)}>
+                      <FormItem data-field={meta.key} className={cn("flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4", spanClass)}>
                         <FormControl>
                           {renderFieldInput(meta, field, override, selectPlaceholder, disabled)}
                         </FormControl>
@@ -242,7 +242,7 @@ export function SchemaForm<T extends z.ZodRawShape>({
                 render={({ field }) => (
                   <>
                     {showGroupSep && <Separator className="col-span-full my-1" />}
-                    <FormItem className={spanClass}>
+                    <FormItem data-field={meta.key} className={spanClass}>
                       <FormLabel className={cn(meta.required && "font-semibold")}>
                         {label}
                         {!meta.required && (
@@ -270,7 +270,7 @@ export function SchemaForm<T extends z.ZodRawShape>({
             {llmPrefill && (
               <LLMPrefillButton open={prefill.open} isLoading={prefill.isLoading} />
             )}
-            <Button type="submit" disabled={isSubmitting}>
+            <Button type="submit" data-testid="schema-form-submit" disabled={isSubmitting}>
               {isSubmitting ? t("saving") : resolvedLabel}
             </Button>
           </div>

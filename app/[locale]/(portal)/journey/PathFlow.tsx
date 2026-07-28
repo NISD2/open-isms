@@ -679,6 +679,7 @@ function NodeCard({
       <HoverCardTrigger asChild>
         <Link
           href={href}
+          data-testid={`journey-node-${node.code}`}
           className={cn(
             "relative block rounded-md border bg-background p-2 transition-all hover:border-primary/60 hover:bg-accent/40",
             ring,

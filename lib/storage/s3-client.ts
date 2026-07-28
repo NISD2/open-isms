@@ -8,6 +8,11 @@ export const s3 = new S3Client({
     accessKeyId: env.AWS_ACCESS_KEY_ID,
     secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
   },
+  // MinIO (local e2e stack) needs an explicit endpoint and path-style URLs;
+  // unset in every real environment.
+  ...(env.AWS_S3_ENDPOINT
+    ? { endpoint: env.AWS_S3_ENDPOINT, forcePathStyle: true }
+    : {}),
 });
 
 export const BUCKET = env.AWS_S3_BUCKET;
