@@ -111,19 +111,30 @@ export function SchemaForm<T extends z.ZodRawShape>({
   const baseResolverSchema = Object.keys(omitMask).length
     ? (schema as z.ZodObject<z.ZodRawShape>).omit(omitMask)
     : schema;
-  // Optional fields default to "" in the form, but validators like uuid or
-  // date reject the empty string, so an untouched optional field (e.g. an
-  // asset link) would block submission entirely. Empty string on an
-  // optional field means "not provided": strip it before validation.
-  const optionalKeys = fields.filter((f) => !f.required).map((f) => f.key);
-  const resolverSchema = z.preprocess((raw) => {
-    if (typeof raw !== "object" || raw === null) return raw;
-    const out = { ...(raw as Record<string, unknown>) };
-    for (const key of optionalKeys) {
-      if (out[key] === "") out[key] = undefined;
-    }
-    return out;
-  }, baseResolverSchema);
+  // Optional fields default to "" in the form. For fields whose validator
+  // rejects "" (an optional uuid link, a date, a url) that empty default
+  // would block submission, so "" must be read as "not provided". But for a
+  // plain optional string, "" is a legitimate value: the user clearing the
+  // field. Strip "" only where the field's own validator rejects it, so
+  // clearing a text field still persists the empty value.
+  const baseShape = (baseResolverSchema as z.ZodObject<z.ZodRawShape>).shape;
+  const stripEmptyKeys = fields
+    .filter((f) => !f.required)
+    .filter((f) => {
+      const fieldSchema = baseShape[f.key] as z.ZodType | undefined;
+      return fieldSchema ? !fieldSchema.safeParse("").success : false;
+    })
+    .map((f) => f.key);
+  const resolverSchema = stripEmptyKeys.length
+    ? z.preprocess((raw) => {
+        if (typeof raw !== "object" || raw === null) return raw;
+        const out = { ...(raw as Record<string, unknown>) };
+        for (const key of stripEmptyKeys) {
+          if (out[key] === "") out[key] = undefined;
+        }
+        return out;
+      }, baseResolverSchema)
+    : baseResolverSchema;
 
   // Internally FieldValues — the Zod schema enforces correctness at validation time.
   // zodResolver's Zod v4 overload needs explicit generic params to match.
