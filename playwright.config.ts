@@ -4,6 +4,10 @@ const E2E_BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3026";
 
 export default defineConfig({
   testDir: "./e2e",
+  // e2e/l0 are bun:test unit tests (run via `bun test e2e/l0`), not
+  // browser specs — Playwright's default testMatch would otherwise load
+  // them and crash on the bun:test import.
+  testIgnore: "**/l0/**",
   outputDir: "./test-results",
   fullyParallel: false,
   forbidOnly: !!process.env.CI,

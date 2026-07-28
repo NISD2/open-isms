@@ -28,7 +28,8 @@
     "screenshots": "bun scripts/screenshot-pitch.ts",
     "og": "og-shot",
     "e2e": "playwright test",
-    "e2e:ui": "playwright test --ui"
+    "e2e:ui": "playwright test --ui",
+    "test:l0": "bun test e2e/l0"
   },
   "dependencies": {
     "@ai-sdk/xai": "^4.0.6",
