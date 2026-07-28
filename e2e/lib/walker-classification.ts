@@ -13,19 +13,17 @@
 import {
   REQUIREMENT_FIELD_MAP,
   CUSTOM_EDITOR_FIELDS,
+  CUSTOM_EDITOR_KEYS,
 } from "@/lib/compliance/requirement-fields";
 
 /**
- * Mirror of the CUSTOM_EDITORS map in
- * components/compliance/RequirementDetail.tsx (a client component; importing
- * it here would drag React into the test runtime). It is a SUPERSET of
- * CUSTOM_EDITOR_FIELDS: 2.3, 2.4 and 5.3 render editors without appearing in
- * the guidance registry. If the two drift, the L1 intake spec fails on the
- * affected requirement with "no fields rendered".
+ * Requirement codes whose page renders a custom structured editor, derived
+ * from the product's own CUSTOM_EDITOR_KEYS registry (which the UI map in
+ * RequirementDetail.tsx is compile-time typed against).
  */
-export const UI_CUSTOM_EDITORS = new Set([
-  "2.1", "2.3", "2.4", "5.3", "9.1", "10.1", "6.1", "6.2", "6.4",
-]);
+export const UI_CUSTOM_EDITORS = new Set(
+  CUSTOM_EDITOR_KEYS.map((k) => k.split(":")[1]),
+);
 
 /** Codes with no custom editor, no moduleRef, and no intake fields. */
 export const EXTRA_MODULE_BACKED: Record<string, { route: string; note: string }> = {

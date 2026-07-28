@@ -37,6 +37,7 @@ import { InlineModulePanel } from "./InlineModulePanel";
 import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import { RequirementAssignPopover, type AssignmentRow } from "./RequirementAssignPopover";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
+import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
 import type { Asset } from "@/schema/types";
@@ -143,7 +144,9 @@ interface RequirementDetailProps {
 // ---------------------------------------------------------------------------
 // Custom editor lookup — requirement code → structured editor component
 // ---------------------------------------------------------------------------
-const CUSTOM_EDITORS: Record<string, React.ComponentType<{ disabled?: boolean; guidance?: RequirementGuidanceData | null; initialData?: Record<string, unknown> | null }>> = {
+// Typed against CUSTOM_EDITOR_KEYS (lib/compliance/requirement-fields.ts):
+// an editor added or removed on one side without the other is a compile error.
+const CUSTOM_EDITORS: Record<CustomEditorKey, React.ComponentType<{ disabled?: boolean; guidance?: RequirementGuidanceData | null; initialData?: Record<string, unknown> | null }>> = {
   "RSK:2.1": RiskMethodologyEditor,
   "RSK:2.3": AssetRiskRegister,
   "RSK:2.4": RiskTreatmentView,
@@ -154,6 +157,11 @@ const CUSTOM_EDITORS: Record<string, React.ComponentType<{ disabled?: boolean; g
   "PRO:6.2": SecureDevEditor,
   "PRO:6.4": PatchPolicyEditor,
 };
+
+// Widened view for lookups with runtime-built keys.
+const CUSTOM_EDITOR_LOOKUP: Partial<
+  Record<string, (typeof CUSTOM_EDITORS)[CustomEditorKey]>
+> = CUSTOM_EDITORS;
 
 // ---------------------------------------------------------------------------
 // Component
@@ -442,7 +450,7 @@ export function RequirementDetail({
 
           {/* Custom structured editor (methodology, crypto, access control, etc.) */}
           {(() => {
-            const EditorComponent = CUSTOM_EDITORS[`${categoryCode}:${requirement.code}`];
+            const EditorComponent = CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`];
             if (EditorComponent) return <EditorComponent disabled={isReviewer} guidance={guidance} initialData={editorInitialData} />;
             return null;
           })()}
@@ -455,7 +463,7 @@ export function RequirementDetail({
           />
 
           {/* Form fields */}
-          {!CUSTOM_EDITORS[`${categoryCode}:${requirement.code}`] && fields.length > 0 ? (
+          {!CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`] && fields.length > 0 ? (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -515,7 +523,7 @@ export function RequirementDetail({
                 ))}
               </div>
             </div>
-          ) : !CUSTOM_EDITORS[`${categoryCode}:${requirement.code}`] && !requirement.moduleRef ? (
+          ) : !CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`] && !requirement.moduleRef ? (
             <div className="space-y-2">
               <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("requirement.specificsSection")}
