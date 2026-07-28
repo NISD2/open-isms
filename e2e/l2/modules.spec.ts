@@ -20,11 +20,10 @@ import {
   internalAuditInsertSchema,
   managementReviewInsertSchema,
 } from "@/schema/validators";
-import { Client } from "pg";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { generateValue } from "../lib/value-factory";
 import { fillFields } from "../lib/form-driver";
-import { E2E_DATABASE_URL, assertE2eTargets } from "../lib/env";
+import { e2eQuery } from "../lib/db";
 
 type AnySchema = Parameters<typeof introspectSchema>[0];
 
@@ -61,15 +60,8 @@ test.describe("module create sweep", () => {
       // exist by the time this runs. (UX finding: the field deserves the
       // same asset picker other pages use.)
       if (mod.route === "patches") {
-        assertE2eTargets();
-        const pg = new Client({ connectionString: E2E_DATABASE_URL });
-        await pg.connect();
-        try {
-          const { rows } = await pg.query("SELECT id FROM asset LIMIT 1");
-          if (rows[0]) overrides.assetId = rows[0].id;
-        } finally {
-          await pg.end();
-        }
+        const rows = await e2eQuery<{ id: string }>("SELECT id FROM asset LIMIT 1");
+        if (rows[0]) overrides.assetId = rows[0].id;
       }
       const values: Record<string, unknown> = {};
       for (const meta of metas) {

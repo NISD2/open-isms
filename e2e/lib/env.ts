@@ -21,7 +21,12 @@ export const E2E_BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3026";
 export const E2E_USER_EMAIL = "dev@nis2.local";
 export const E2E_USER_PASSWORD = "e2e-Passw0rd-local-only";
 
+/** Second user (management member), provisioned by auth.setup for the
+ *  N-of-M sign-off specs. Same password as the admin. */
+export const E2E_MANAGER_EMAIL = "e2e-management@nis2.local";
+
 export const E2E_STORAGE_STATE = "e2e/.auth/admin.json";
+export const E2E_STORAGE_STATE_MANAGER = "e2e/.auth/manager.json";
 
 const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]", "::1"]);
 

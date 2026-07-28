@@ -10,6 +10,11 @@ export default defineConfig({
   testIgnore: "**/l0/**",
   outputDir: "./test-results",
   fullyParallel: false,
+  // One shared tenant, deliberate cross-file order: l1 intake saves flip
+  // seeded-complete requirements back to signable before l3 signs them.
+  // Parallel workers break that order (and race router.refresh on the
+  // same company), so the suite is serial by design.
+  workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: [["list"], ["html", { open: "never" }]],
