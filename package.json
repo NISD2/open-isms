@@ -124,7 +124,7 @@
     "playwright": "^1.60.0",
     "react-email": "6.9.0",
     "tailwindcss": "^4.1.0",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "yaml": "^2.8.3"
   },
   "trustedDependencies": [
