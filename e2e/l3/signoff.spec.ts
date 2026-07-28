@@ -8,22 +8,12 @@
  * flips completed requirements back to in_progress by design).
  */
 import { test, expect, type Page } from "@playwright/test";
-import {
-  nis2Categories,
-  getNis2RequirementsForCategory,
-} from "@nisd2/grc-data-model/frameworks";
 import { e2eQuery } from "../lib/db";
 import { E2E_STORAGE_STATE_MANAGER, E2E_MANAGER_EMAIL, E2E_USER_EMAIL } from "../lib/env";
+import { makeSignable, signOffViaUi } from "../lib/journey";
 
 const SINGLE_TARGET = "3.1"; // incident lead — no required role, admin signs alone
 const NOFM_TARGET = "1.4"; // personal liability — CEO-role, two assigned signers
-
-const slugByCode = new Map<string, string>();
-for (const cat of nis2Categories) {
-  for (const r of getNis2RequirementsForCategory(cat.slug)) {
-    slugByCode.set(r.code, cat.slug);
-  }
-}
 
 async function statusRow(code: string): Promise<{ id: string; status: string; signed_off_by: string | null }> {
   const rows = await e2eQuery<{ id: string; status: string; signed_off_by: string | null }>(
@@ -37,39 +27,6 @@ async function statusRow(code: string): Promise<{ id: string; status: string; si
   );
   expect(rows.length, `status row for ${code}`).toBe(1);
   return rows[0];
-}
-
-/**
- * Ensure the requirement is signable, via the product's own invalidation
- * path: saving answers flips a completed requirement back to in_progress.
- * Makes the spec self-sufficient instead of depending on l1 side effects.
- */
-async function makeSignable(page: Page, code: string): Promise<void> {
-  await page.goto(`/de/compliance/${slugByCode.get(code)}/${code}`);
-  if (await page.getByTestId("sign-off-button").isVisible().catch(() => false)) {
-    return;
-  }
-  const edit = page.getByTestId("requirement-edit");
-  const save = page.getByTestId("requirement-save");
-  await expect(edit.or(save).first()).toBeVisible({ timeout: 20_000 });
-  if (await edit.isVisible()) await edit.click();
-  await save.click();
-  await expect(edit).toBeVisible({ timeout: 20_000 });
-  await page.reload();
-}
-
-async function signOffViaUi(page: Page, code: string): Promise<void> {
-  await makeSignable(page, code);
-  const button = page.getByTestId("sign-off-button");
-  await expect(button).toBeVisible({ timeout: 20_000 });
-  const [resp] = await Promise.all([
-    page.waitForResponse(
-      (r) => r.url().includes("assessment.signOff") && r.request().method() === "POST",
-      { timeout: 20_000 },
-    ),
-    button.click(),
-  ]);
-  expect(resp.ok(), `signOff mutation HTTP ${resp.status()}`).toBe(true);
 }
 
 test("single signer: admin sign-off completes the requirement", async ({ page }) => {
