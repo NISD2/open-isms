@@ -254,9 +254,17 @@ export async function proxy(request: NextRequest) {
   // M-3 (commit e351163) — explicit cookieName + salt + secureCookie
   // because Auth.js v5 derives the encryption salt from the cookie name.
   if (!isPublic(pathname)) {
-    const isSecure =
-      request.nextUrl.protocol === "https:" ||
-      process.env.NODE_ENV === "production";
+    // Mirror Auth.js's own secure-cookie decision: it derives the cookie
+    // name from AUTH_URL's protocol when set. NODE_ENV alone misfires on a
+    // production build served over plain http (local e2e stack, self-hosts
+    // behind an external TLS terminator): Auth.js writes the non-secure
+    // cookie while this check would look for the __Secure- name, so no
+    // login can ever pass the default-deny.
+    const authUrl = process.env.AUTH_URL ?? process.env.NEXTAUTH_URL;
+    const isSecure = authUrl
+      ? authUrl.startsWith("https")
+      : request.nextUrl.protocol === "https:" ||
+        process.env.NODE_ENV === "production";
     const cookieName = getAuthCookieName(isSecure);
     const token = await getToken({
       req: request,
