@@ -41,7 +41,11 @@ const MODULES_TESTED = new Set([
   "internal_audit",
   "management_review",
 ]);
-const EDITORS_TESTED = new Set<string>(); // none yet
+// l2/editors.spec.ts drives all nine custom editors with SQL-verified
+// persistence.
+const EDITORS_TESTED = new Set<string>([
+  "2.1", "2.3", "2.4", "5.3", "9.1", "10.1", "6.1", "6.2", "6.4",
+]);
 
 const rows: Row[] = nis2Categories
   .sort((a, b) => a.sortOrder - b.sortOrder)
