@@ -49,10 +49,34 @@ function buildInvertedMap(): Record<string, RequirementFieldInfo> {
 }
 
 // ---------------------------------------------------------------------------
-// Custom editor field definitions (for guidance generation only)
+// Custom editor registry
 // ---------------------------------------------------------------------------
 
-/** Field metadata for requirements with custom editors (not schema-form). */
+/**
+ * Requirement pages rendered by a custom structured editor instead of the
+ * focused intake form. Single source of truth for that set: the
+ * CUSTOM_EDITORS component map in components/compliance/RequirementDetail.tsx
+ * is typed Record<CustomEditorKey, ...> against this list, so an editor
+ * added there without being registered here (or vice versa) is a compile
+ * error. The e2e walker classification derives from this list too.
+ */
+export const CUSTOM_EDITOR_KEYS = [
+  "RSK:2.1",
+  "RSK:2.3",
+  "RSK:2.4",
+  "SUP:5.3",
+  "CRY:9.1",
+  "ACC:10.1",
+  "PRO:6.1",
+  "PRO:6.2",
+  "PRO:6.4",
+] as const;
+
+export type CustomEditorKey = (typeof CUSTOM_EDITOR_KEYS)[number];
+
+/** Field metadata for requirements with custom editors (not schema-form).
+ *  Guidance generation only; a subset of CUSTOM_EDITOR_KEYS because some
+ *  editors (2.3, 2.4, 5.3) present module data and define no fields. */
 export const CUSTOM_EDITOR_FIELDS: Record<string, Array<{
   key: string;
   label: string;

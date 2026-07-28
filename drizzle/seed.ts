@@ -524,6 +524,11 @@ async function seed() {
         bsiContactPhone: config.companyProfile.bsiContactPhone,
         annualSecurityBudget: config.companyProfile.annualSecurityBudget,
         primaryLocations: config.companyProfile.primaryLocations,
+        // The demo company is a complete, working company. Without
+        // activatedAt every compliance work surface renders the
+        // "set up your organization" empty state instead of its content.
+        activatedAt: new Date(),
+        actsAsNis2Entity: true,
       })
       .returning();
 

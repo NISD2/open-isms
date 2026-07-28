@@ -13,7 +13,17 @@
 import {
   REQUIREMENT_FIELD_MAP,
   CUSTOM_EDITOR_FIELDS,
+  CUSTOM_EDITOR_KEYS,
 } from "@/lib/compliance/requirement-fields";
+
+/**
+ * Requirement codes whose page renders a custom structured editor, derived
+ * from the product's own CUSTOM_EDITOR_KEYS registry (which the UI map in
+ * RequirementDetail.tsx is compile-time typed against).
+ */
+export const UI_CUSTOM_EDITORS = new Set(
+  CUSTOM_EDITOR_KEYS.map((k) => k.split(":")[1]),
+);
 
 /** Codes with no custom editor, no moduleRef, and no intake fields. */
 export const EXTRA_MODULE_BACKED: Record<string, { route: string; note: string }> = {
@@ -38,7 +48,9 @@ export function classifyRequirement(
   code: string,
   moduleRef?: string | null,
 ): InteractionKind {
-  if (code in CUSTOM_EDITOR_FIELDS) return "custom-editor";
+  if (code in CUSTOM_EDITOR_FIELDS || UI_CUSTOM_EDITORS.has(code)) {
+    return "custom-editor";
+  }
   if (moduleRef || code in EXTRA_MODULE_BACKED) return "module";
   if (code in REQUIREMENT_FIELD_MAP) return "intake";
   return "unclassified";
