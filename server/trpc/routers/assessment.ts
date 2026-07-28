@@ -767,6 +767,7 @@ export const assessmentRouter = router({
           categoryId: requirement.categoryId,
           currentStatus: companyRequirementStatus.status,
           templateVersion: requirement.templateVersion,
+          requiredSignOffRole: requirement.requiredSignOffRole,
         })
         .from(companyRequirementStatus)
         .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
@@ -777,9 +778,29 @@ export const assessmentRouter = router({
           ),
         );
 
-      const toConfirm = rows.filter(
+      // Confirming a module writes a completed sign-off, so it is subject to
+      // the same per-requirement guards as signOff: it cannot complete a
+      // requirement whose required signer role the caller does not hold
+      // (admin bypass matches signOff), nor an N-of-M requirement whose
+      // assigned signers must sign individually. See bulkSignOffCategory.
+      const confirmerRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const moduleRows = rows.filter(
         (r) => r.moduleRef && r.currentStatus !== "completed" && r.currentStatus !== "approved",
       );
+      const confirmAssignedIds = new Set(
+        (
+          await ctx.db
+            .select({ statusId: requirementAssignment.statusId })
+            .from(requirementAssignment)
+            .where(inArray(requirementAssignment.statusId, moduleRows.map((r) => r.statusId)))
+        ).map((a) => a.statusId),
+      );
+      const toConfirm = moduleRows.filter((r) => {
+        if (confirmAssignedIds.has(r.statusId)) return false;
+        const effectiveRole: RoleKey =
+          (r.requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE;
+        return ctx.session.role === "admin" || confirmerRole === effectiveRole;
+      });
       if (toConfirm.length === 0) return { confirmed: 0 };
 
       const categoryIds = [...new Set(toConfirm.map((r) => r.categoryId))];
@@ -793,7 +814,7 @@ export const assessmentRouter = router({
       }
 
       const now = new Date();
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = confirmerRole;
       const snapshot = await buildSignOffSnapshot(ctx.db, ctx.companyId, toConfirm[0].templateVersion);
 
       // Audit B-2 (2026-06-10): bulk update + per-row chain entries inside
@@ -876,6 +897,7 @@ export const assessmentRouter = router({
           categoryId: requirement.categoryId,
           currentStatus: companyRequirementStatus.status,
           templateVersion: requirement.templateVersion,
+          requiredSignOffRole: requirement.requiredSignOffRole,
         })
         .from(companyRequirementStatus)
         .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
@@ -891,13 +913,41 @@ export const assessmentRouter = router({
 
       const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
 
+      // Bulk sign-off must not be a back door around the per-requirement
+      // guards the single signOff path enforces. Two things it cannot
+      // shortcut: (1) a required signer role (e.g. CEO for the §38 duties) —
+      // same admin-bypass rule as signOff; (2) N-of-M requirements, whose
+      // assigned signers must each sign through the assignment flow. Rows
+      // failing either check are left untouched, not silently completed.
+      const assignedStatusIds = new Set(
+        (
+          await ctx.db
+            .select({ statusId: requirementAssignment.statusId })
+            .from(requirementAssignment)
+            .where(
+              inArray(
+                requirementAssignment.statusId,
+                rows.map((r) => r.statusId),
+              ),
+            )
+        ).map((a) => a.statusId),
+      );
+      const signableRows = rows.filter((row) => {
+        if (assignedStatusIds.has(row.statusId)) return false;
+        const effectiveRole: RoleKey =
+          (row.requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE;
+        return ctx.session.role === "admin" || signedOffRole === effectiveRole;
+      });
+
+      if (signableRows.length === 0) return { signedOff: 0 };
+
       const now = new Date();
-      const snapshot = await buildSignOffSnapshot(ctx.db, ctx.companyId, rows[0].templateVersion);
+      const snapshot = await buildSignOffSnapshot(ctx.db, ctx.companyId, signableRows[0].templateVersion);
 
       // Audit B-2 (2026-06-10): per-row chain entry inside one tx.
       const signedOff = await ctx.db.transaction(async (tx) => {
         let count = 0;
-        for (const row of rows) {
+        for (const row of signableRows) {
           const rowSnapshot = { ...snapshot, templateVersion: row.templateVersion };
           await tx
             .update(companyRequirementStatus)
