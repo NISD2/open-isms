@@ -36,9 +36,14 @@ export function generateValue(meta: FieldMeta, mode: FactoryMode = "default"): u
       }
       return alt ? meta.options[meta.options.length - 1] : meta.options[0];
     case "number": {
-      const base = meta.min ?? 1;
-      if (alt && meta.max !== undefined) return meta.max;
-      return meta.max !== undefined ? Math.min(base, meta.max) : base;
+      // drizzle-zod stamps int32 bounds on plain integer columns; those are
+      // storage limits, not domain constraints. Treat huge bounds as absent
+      // so scale fields (risk 1-4 selects, counts) get sensible values.
+      const min = meta.min !== undefined && Math.abs(meta.min) < 1_000_000 ? meta.min : undefined;
+      const max = meta.max !== undefined && Math.abs(meta.max) < 1_000_000 ? meta.max : undefined;
+      const base = min ?? 1;
+      if (alt && max !== undefined) return max;
+      return max !== undefined ? Math.min(base, max) : base;
     }
     case "date": {
       const iso = alt ? ALT_REFERENCE_DATE : REFERENCE_DATE;

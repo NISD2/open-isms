@@ -27,7 +27,20 @@ type Row = {
 const INTAKE_TESTED = new Set(
   Object.keys(REQUIREMENT_FIELD_MAP).filter((c) => !UI_CUSTOM_EDITORS.has(c)),
 );
-const MODULES_TESTED = new Set(["asset"]); // assets.spec.ts creates entries
+// l1/assets.spec.ts + the l2 module sweep create real records in these.
+const MODULES_TESTED = new Set([
+  "asset",
+  "policy",
+  "incident",
+  "exercise",
+  "improvement_item",
+  "vulnerability",
+  "patch_record",
+  "change_request",
+  "kpi_measurement",
+  "internal_audit",
+  "management_review",
+]);
 const EDITORS_TESTED = new Set<string>(); // none yet
 
 const rows: Row[] = nis2Categories
