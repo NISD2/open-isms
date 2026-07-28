@@ -15,6 +15,18 @@ import {
   CUSTOM_EDITOR_FIELDS,
 } from "@/lib/compliance/requirement-fields";
 
+/**
+ * Mirror of the CUSTOM_EDITORS map in
+ * components/compliance/RequirementDetail.tsx (a client component; importing
+ * it here would drag React into the test runtime). It is a SUPERSET of
+ * CUSTOM_EDITOR_FIELDS: 2.3, 2.4 and 5.3 render editors without appearing in
+ * the guidance registry. If the two drift, the L1 intake spec fails on the
+ * affected requirement with "no fields rendered".
+ */
+export const UI_CUSTOM_EDITORS = new Set([
+  "2.1", "2.3", "2.4", "5.3", "9.1", "10.1", "6.1", "6.2", "6.4",
+]);
+
 /** Codes with no custom editor, no moduleRef, and no intake fields. */
 export const EXTRA_MODULE_BACKED: Record<string, { route: string; note: string }> = {
   "2.3": { route: "/risks", note: "risk register module (no moduleRef in grc-data-model)" },
@@ -38,7 +50,9 @@ export function classifyRequirement(
   code: string,
   moduleRef?: string | null,
 ): InteractionKind {
-  if (code in CUSTOM_EDITOR_FIELDS) return "custom-editor";
+  if (code in CUSTOM_EDITOR_FIELDS || UI_CUSTOM_EDITORS.has(code)) {
+    return "custom-editor";
+  }
   if (moduleRef || code in EXTRA_MODULE_BACKED) return "module";
   if (code in REQUIREMENT_FIELD_MAP) return "intake";
   return "unclassified";

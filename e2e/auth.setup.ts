@@ -58,6 +58,16 @@ setup("provision and authenticate", async ({ page }) => {
         `expected exactly 1 seeded user for ${E2E_USER_EMAIL}, got ${res.rowCount}. Did drizzle/seed.ts run?`,
       );
     }
+    // The seed leaves Dev GmbH as a draft (no activatedAt), and every
+    // compliance work surface gates on activation with a "set up your
+    // organization" empty state. Stamp what activateCompany would.
+    await pg.query(
+      `UPDATE company
+         SET activated_at = COALESCE(activated_at, NOW()),
+             acts_as_nis2_entity = true
+       WHERE id = (SELECT company_id FROM "user" WHERE email = $1)`,
+      [E2E_USER_EMAIL],
+    );
   } finally {
     await pg.end();
   }

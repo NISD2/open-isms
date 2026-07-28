@@ -474,6 +474,7 @@ export function RequirementDetail({
                       </Button>
                       <Button
                         size="sm"
+                        data-testid="requirement-save"
                         onClick={handleSave}
                         disabled={isSaving}
                       >
@@ -489,6 +490,7 @@ export function RequirementDetail({
                     <Button
                       variant="outline"
                       size="sm"
+                      data-testid="requirement-edit"
                       onClick={() => setIsEditing(true)}
                     >
                       <Pencil className="mr-1.5 h-3.5 w-3.5" />
@@ -504,7 +506,7 @@ export function RequirementDetail({
                       name={meta.key}
                       control={form.control}
                       render={({ field }) => (
-                        <div className="space-y-1.5">
+                        <div data-field={meta.key} className="space-y-1.5">
                           <label className="text-sm font-medium">{meta.label}</label>
                           {renderFieldInput(meta, field, undefined, undefined, fieldsDisabled)}
                         </div>

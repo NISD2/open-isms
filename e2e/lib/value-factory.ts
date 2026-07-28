@@ -13,10 +13,20 @@ import {
   type FieldMeta,
 } from "@/lib/forms/schema-introspect";
 
-/** Fixed reference date: deterministic, in the recent past. */
+/** Fixed reference dates: deterministic, in the recent past. */
 const REFERENCE_DATE = "2026-01-15";
+const ALT_REFERENCE_DATE = "2026-02-20";
 
-export function generateValue(meta: FieldMeta): unknown {
+/**
+ * "alt" exercises a second point in each field's value space: the LAST enum
+ * option instead of the first, a different date, different strings, the
+ * upper numeric bound. One alt pass per form covers the option variety a
+ * single fixed dataset would miss.
+ */
+export type FactoryMode = "default" | "alt";
+
+export function generateValue(meta: FieldMeta, mode: FactoryMode = "default"): unknown {
+  const alt = mode === "alt";
   switch (meta.type) {
     case "boolean":
       return true;
@@ -24,13 +34,16 @@ export function generateValue(meta: FieldMeta): unknown {
       if (!meta.options || meta.options.length === 0) {
         throw new Error(`enum field "${meta.key}" has no options`);
       }
-      return meta.options[0];
+      return alt ? meta.options[meta.options.length - 1] : meta.options[0];
     case "number": {
       const base = meta.min ?? 1;
+      if (alt && meta.max !== undefined) return meta.max;
       return meta.max !== undefined ? Math.min(base, meta.max) : base;
     }
-    case "date":
-      return meta.jsDate ? new Date(REFERENCE_DATE) : REFERENCE_DATE;
+    case "date": {
+      const iso = alt ? ALT_REFERENCE_DATE : REFERENCE_DATE;
+      return meta.jsDate ? new Date(iso) : iso;
+    }
     case "email":
       return `e2e-${meta.key.toLowerCase()}@nis2.local`;
     case "url":
@@ -44,7 +57,7 @@ export function generateValue(meta: FieldMeta): unknown {
     case "text":
     case "unknown":
     default: {
-      let value = `E2E ${meta.key}`;
+      let value = `${alt ? "Alt" : "E2E"} ${meta.key}`;
       if (meta.minLength !== undefined && value.length < meta.minLength) {
         value = value.padEnd(meta.minLength, "x");
       }
@@ -64,11 +77,12 @@ export function generateValue(meta: FieldMeta): unknown {
 export function generateFormValues(
   schema: z.ZodObject<z.ZodRawShape>,
   overrides: Record<string, unknown> = {},
+  mode: FactoryMode = "default",
 ): Record<string, unknown> {
   const values: Record<string, unknown> = {};
   for (const meta of introspectSchema(schema, [])) {
     values[meta.key] =
-      meta.key in overrides ? overrides[meta.key] : generateValue(meta);
+      meta.key in overrides ? overrides[meta.key] : generateValue(meta, mode);
   }
   return values;
 }
