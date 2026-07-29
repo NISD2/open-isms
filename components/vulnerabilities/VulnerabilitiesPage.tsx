@@ -69,9 +69,9 @@ export function VulnerabilitiesPage({ items, inline }: { items: Record<string, u
                 <TableCell className="font-mono text-sm">{(item.cveId as string) || "\u2014"}</TableCell>
                 <TableCell className="font-medium">{item.title as string}</TableCell>
                 <TableCell>
-                  <StatusBadge status={item.severity as string} config={severityConfig} label={t(`severity.${item.severity as string}`)} />
+                  <StatusBadge status={item.severity as string} config={severityConfig} label={t.has(`severity.${item.severity as string}`) ? t(`severity.${item.severity as string}`) : (item.severity as string)} />
                 </TableCell>
-                <TableCell>{item.source ? t(`source.${item.source as string}`) : "\u2014"}</TableCell>
+                <TableCell>{item.source ? (t.has(`source.${item.source as string}`) ? t(`source.${item.source as string}`) : (item.source as string)) : "\u2014"}</TableCell>
                 <TableCell>
                   <StatusBadge status={item.status as string} config={statusConfig} label={t(`status.${item.status as string}`)} />
                 </TableCell>
