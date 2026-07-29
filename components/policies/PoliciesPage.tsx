@@ -65,8 +65,8 @@ export function PoliciesPage({ items, inline }: { items: Record<string, unknown>
                 <TableCell>{item.effectiveFrom ? new Date(item.effectiveFrom as string).toLocaleDateString() : "\u2014"}</TableCell>
                 <TableCell>{item.reviewDue ? new Date(item.reviewDue as string).toLocaleDateString() : "\u2014"}</TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="icon" onClick={() => onEdit(item)}><Pencil className="h-4 w-4" /></Button>
-                  <Button variant="ghost" size="icon" onClick={() => onDelete(item.id as string)}><Trash2 className="h-4 w-4" /></Button>
+                  <Button variant="ghost" size="icon" data-testid="row-edit" onClick={() => onEdit(item)}><Pencil className="h-4 w-4" /></Button>
+                  <Button variant="ghost" size="icon" data-testid="row-delete" onClick={() => onDelete(item.id as string)}><Trash2 className="h-4 w-4" /></Button>
                 </TableCell>
               </TableRow>
             ))}
