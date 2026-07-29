@@ -143,8 +143,8 @@ export function RisksPage({ items, inline, methodology: serverMethodology, asset
                   <TableCell>{(item.riskOwner as string) || "\u2014"}</TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="icon" onClick={() => setLinkRiskId(item.id as string)}><Link2 className="h-4 w-4" /></Button>
-                    <Button variant="ghost" size="icon" onClick={() => onEdit(item)}><Pencil className="h-4 w-4" /></Button>
-                    <Button variant="ghost" size="icon" onClick={() => onDelete(item.id as string)}><Trash2 className="h-4 w-4" /></Button>
+                    <Button variant="ghost" size="icon" data-testid="row-edit" onClick={() => onEdit(item)}><Pencil className="h-4 w-4" /></Button>
+                    <Button variant="ghost" size="icon" data-testid="row-delete" onClick={() => onDelete(item.id as string)}><Trash2 className="h-4 w-4" /></Button>
                   </TableCell>
                 </TableRow>
               );
