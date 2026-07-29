@@ -60,6 +60,32 @@ test("cross-tenant: one company cannot read, update or delete another's asset", 
   );
   expect(attacker.company_id).not.toBe(rivalCompanyId);
 
+  // Positive control: the SAME session CAN update and delete its OWN asset.
+  // This is what makes the cross-tenant no-op below meaningful — it proves
+  // the update/delete path genuinely reaches the resolver and writes when
+  // the tenant matches, so a future envelope/validation/activation break
+  // that silently stopped the request would fail HERE (loudly) rather than
+  // let the cross-tenant assertions pass for the wrong reason.
+  const [own] = await e2eQuery<{ id: string }>(
+    `INSERT INTO asset (company_id, name, type)
+     VALUES ($1, 'E2E Eigenes Asset (Kontrolle)', 'server') RETURNING id`,
+    [attacker.company_id],
+  );
+  await trpcMutation(request, "asset.update", { id: own.id, name: "E2E Eigenes Asset UMBENANNT" });
+  const ownAfterUpdate = await e2eQuery<{ name: string }>(
+    `SELECT name FROM asset WHERE id = $1`,
+    [own.id],
+  );
+  expect(ownAfterUpdate[0]?.name, "own-asset update did not persist (mutation path is dead)").toBe(
+    "E2E Eigenes Asset UMBENANNT",
+  );
+  await trpcMutation(request, "asset.delete", { id: own.id });
+  const ownAfterDelete = await e2eQuery<{ id: string }>(
+    `SELECT id FROM asset WHERE id = $1`,
+    [own.id],
+  );
+  expect(ownAfterDelete.length, "own-asset delete did not persist (delete path is dead)").toBe(0);
+
   // Attack 1 — read: asset.list returns only the caller's own assets.
   const listRes = await trpcQuery(request, "asset.list", null);
   expect(listRes.status(), "asset.list endpoint reachable").toBe(200);
