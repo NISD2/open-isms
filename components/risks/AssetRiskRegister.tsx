@@ -168,6 +168,7 @@ export function AssetRiskRegister({ initialData, disabled }: AssetRiskRegisterPr
                   <Button
                     variant="ghost"
                     size="sm"
+                    data-testid="risk-register-add"
                     onClick={() => { setAddingToAsset(asset.id); setExpandedAssets(prev => new Set(prev).add(asset.id)); }}
                   >
                     <Plus className="h-3.5 w-3.5 mr-1" />
@@ -402,7 +403,7 @@ function InlineRiskForm({
       {/* Title (editable after threat selection or manual) */}
       <div className="space-y-1.5">
         <Label className="text-xs">{t("fields.title")}</Label>
-        <Input value={title} onChange={e => setTitle(e.target.value)} disabled={disabled} />
+        <Input data-testid="risk-form-title" value={title} onChange={e => setTitle(e.target.value)} disabled={disabled} />
       </div>
 
       <div className="space-y-1.5">
@@ -446,6 +447,7 @@ function InlineRiskForm({
         <Button variant="ghost" size="sm" onClick={onCancel}>{t("cancel")}</Button>
         <Button
           size="sm"
+          data-testid="risk-form-submit"
           onClick={handleSubmit}
           disabled={!title || likelihood == null || impact == null || isPending || disabled}
         >

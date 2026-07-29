@@ -14,7 +14,7 @@ export const E2E_DATABASE_URL =
   process.env.E2E_DATABASE_URL ??
   "postgres://e2e:e2e@localhost:5434/openisms_e2e";
 
-export const E2E_BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3026";
+export const E2E_BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3410";
 
 /** Seeded by drizzle/seed.ts (Dev GmbH admin). The harness only adds the
  *  password hash — see e2e/auth.setup.ts. */

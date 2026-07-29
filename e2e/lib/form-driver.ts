@@ -17,6 +17,25 @@ function normalize(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
+/**
+ * Resolve the option whose normalized label corresponds to `value`.
+ * Exact match wins; otherwise a single non-empty prefix match (either
+ * direction) is accepted, and ambiguity or no match throws. This avoids two
+ * silent wrong-picks the naive bidirectional-`includes` had: an empty/icon
+ * label ("") matched every value, and "3levels" was a substring of
+ * "13levels". Returns the winning index into `norm`, or -1.
+ */
+function matchOption(want: string, norm: string[]): number {
+  const exact = norm.indexOf(want);
+  if (exact !== -1) return exact;
+  const candidates = norm
+    .map((t, i) => ({ t, i }))
+    .filter(({ t }) => t !== "" && (t.startsWith(want) || want.startsWith(t)));
+  if (candidates.length === 1) return candidates[0].i;
+  if (candidates.length > 1) return -2; // ambiguous
+  return -1;
+}
+
 function isoDate(value: unknown): string {
   if (value instanceof Date) return value.toISOString().slice(0, 10);
   return String(value).slice(0, 10);
@@ -46,12 +65,10 @@ export async function fillFields(
       await expect(options.first()).toBeVisible();
       const want = normalize(String(value));
       const texts = await options.allTextContents();
-      const idx = texts.findIndex(
-        (t) => normalize(t) === want || normalize(t).includes(want) || want.includes(normalize(t)),
-      );
-      if (idx === -1) {
+      const idx = matchOption(want, texts.map(normalize));
+      if (idx < 0) {
         throw new Error(
-          `field "${meta.key}": no option matching "${value}" among [${texts.join(", ")}]`,
+          `field "${meta.key}": ${idx === -2 ? "ambiguous" : "no"} option match for "${value}" among [${texts.join(", ")}]`,
         );
       }
       await options.nth(idx).click();
@@ -97,7 +114,7 @@ export async function verifyFields(
       const text = normalize((await select.textContent()) ?? "");
       const want = normalize(String(value));
       expect(
-        text.includes(want) || want.includes(text),
+        text !== "" && (text === want || text.startsWith(want) || want.startsWith(text)),
         `field "${meta.key}": select shows "${text}", expected "${want}"`,
       ).toBe(true);
     } else if ((await checkbox.count()) > 0) {

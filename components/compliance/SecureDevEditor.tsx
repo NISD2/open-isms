@@ -51,7 +51,7 @@ export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?
               }
               disabled={fieldsDisabled}
             >
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger data-testid="sdlc-framework-select"><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="owasp_samm">{tc("owaspSamm")}</SelectItem>
                 <SelectItem value="bsimm">{tc("bsimm")}</SelectItem>
@@ -70,7 +70,7 @@ export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?
               }
               disabled={fieldsDisabled}
             >
-              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectTrigger data-testid="hardening-baseline-select"><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="cis">{tc("cis")}</SelectItem>
                 <SelectItem value="bsi">{tc("bsi")}</SelectItem>
@@ -108,6 +108,7 @@ export function SecureDevEditor({ disabled, guidance, initialData }: { disabled?
       {/* Environment Segregation — CIR 6(2) */}
       <div className="flex items-center gap-2">
         <Checkbox
+          data-testid="environment-segregation"
           checked={display.environmentSegregation}
           onCheckedChange={(v) =>
             draft && setDraft({ ...draft, environmentSegregation: !!v })

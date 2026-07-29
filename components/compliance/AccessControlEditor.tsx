@@ -43,7 +43,7 @@ export function AccessControlEditor({ disabled, guidance, initialData }: { disab
           onValueChange={(v) => draft && setDraft({ ...draft, model: v as "rbac" | "abac" | "hybrid" })}
           disabled={fieldsDisabled}
         >
-          <SelectTrigger className="max-w-xs"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="max-w-xs" data-testid="access-model-select"><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="rbac">{tc("rbac")}</SelectItem>
             <SelectItem value="abac">{tc("abac")}</SelectItem>
@@ -60,6 +60,7 @@ export function AccessControlEditor({ disabled, guidance, initialData }: { disab
           <div className="space-y-1.5">
             <label className="text-xs text-muted-foreground">{tc("standardReview")}</label>
             <Input
+              data-testid="access-review-standard"
               value={display.reviewFrequency.standard}
               onChange={(e) =>
                 draft && setDraft({
@@ -74,6 +75,7 @@ export function AccessControlEditor({ disabled, guidance, initialData }: { disab
           <div className="space-y-1.5">
             <label className="text-xs text-muted-foreground">{tc("privilegedReview")}</label>
             <Input
+              data-testid="access-review-privileged"
               value={display.reviewFrequency.privileged}
               onChange={(e) =>
                 draft && setDraft({
@@ -111,7 +113,7 @@ export function AccessControlEditor({ disabled, guidance, initialData }: { disab
           onValueChange={(v) => draft && setDraft({ ...draft, sharedAccountPolicy: v as "prohibited" | "documented_exceptions" })}
           disabled={fieldsDisabled}
         >
-          <SelectTrigger className="max-w-xs"><SelectValue /></SelectTrigger>
+          <SelectTrigger className="max-w-xs" data-testid="shared-account-select"><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="prohibited">{tc("sharedProhibited")}</SelectItem>
             <SelectItem value="documented_exceptions">{tc("sharedDocumentedExceptions")}</SelectItem>

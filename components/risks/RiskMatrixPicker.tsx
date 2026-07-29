@@ -71,6 +71,7 @@ export function RiskMatrixPicker({
                     <td key={imp.value} className="px-1 py-1">
                       <button
                         type="button"
+                        data-testid={`matrix-cell-${lik.value}-${imp.value}`}
                         disabled={disabled}
                         onClick={() => onChange(lik.value, imp.value)}
                         className={cn(

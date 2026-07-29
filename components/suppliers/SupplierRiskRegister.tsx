@@ -169,6 +169,7 @@ export function SupplierRiskRegister({ initialData, disabled }: SupplierRiskRegi
                   <Button
                     variant="ghost"
                     size="sm"
+                    data-testid="risk-register-add"
                     onClick={() => { setAddingToSupplier(sup.id); setExpandedSuppliers(prev => new Set(prev).add(sup.id)); }}
                   >
                     <Plus className="h-3.5 w-3.5 mr-1" />
@@ -399,7 +400,7 @@ function InlineRiskForm({
       {/* Title */}
       <div className="space-y-1.5">
         <Label className="text-xs">{t("fields.title")}</Label>
-        <Input value={title} onChange={e => setTitle(e.target.value)} disabled={disabled} />
+        <Input data-testid="risk-form-title" value={title} onChange={e => setTitle(e.target.value)} disabled={disabled} />
       </div>
 
       <div className="space-y-1.5">
@@ -443,6 +444,7 @@ function InlineRiskForm({
         <Button variant="ghost" size="sm" onClick={onCancel}>{t("cancel")}</Button>
         <Button
           size="sm"
+          data-testid="risk-form-submit"
           onClick={handleSubmit}
           disabled={!title || likelihood == null || impact == null || isPending || disabled}
         >

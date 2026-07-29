@@ -48,6 +48,7 @@ export function PatchPolicyEditor({ disabled, guidance, initialData }: { disable
                   <td className="px-3 py-2">
                     <Input
                       type="number"
+                      data-testid={`patch-sla-${sev}`}
                       min={1}
                       max={8760}
                       value={display.patchSlaHours[sev]}
@@ -73,6 +74,7 @@ export function PatchPolicyEditor({ disabled, guidance, initialData }: { disable
         <label className="text-sm font-medium">{tc("reviewCycle")}</label>
         <Input
           type="number"
+          data-testid="patch-review-cycle"
           min={1}
           max={10}
           value={display.reviewCycleYears}
