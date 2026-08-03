@@ -120,7 +120,7 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "drizzle-kit": "^0.31.9",
-    "google-auth-library": "^10.5.0",
+    "google-auth-library": "^11.0.0",
     "og-shot": "^0.4.0",
     "playwright": "^1.60.0",
     "react-email": "6.9.0",
