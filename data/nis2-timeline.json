@@ -391,6 +391,27 @@
       "url": "https://sztfh.hu",
       "description": "Hungarian Supervisory Authority for Regulated Activities: NIS 2 competent authority, runs the audit and registration regime.",
       "language": "en"
+    },
+    {
+      "id": "recht-bund",
+      "name": "Bundesgesetzblatt (recht.bund.de)",
+      "url": "https://www.recht.bund.de",
+      "description": "Official portal of the German Federal Law Gazette, successor to bgbl.de: authentic text of enacted federal statutes and amendments",
+      "language": "de"
+    },
+    {
+      "id": "ncsc-nl",
+      "name": "NCSC-NL",
+      "url": "https://www.ncsc.nl",
+      "description": "Nationaal Cyber Security Centrum: Dutch national CSIRT and single point of contact, merged with DTC and CSIRT-DSP in January 2026; publishes Cyberbeveiligingswet guidance and runs MijnNCSC registration",
+      "language": "en"
+    },
+    {
+      "id": "ncsc-hr",
+      "name": "NCSC-HR",
+      "url": "https://www.ncsc.hr",
+      "description": "Nacionalni centar za kiberneticku sigurnost: Croatian NIS 2 competent authority, publishes quarterly reviews of Cybersecurity Act implementation",
+      "language": "en"
     }
   ],
   "events": [
@@ -475,7 +496,7 @@
       "summary": "Member states were required to transpose NIS2 into national law by this date. Most, including Germany, miss the deadline. Only Belgium has fully transposed and begun enforcement.",
       "summaryDe": "Mitgliedstaaten mussten NIS2 bis zu diesem Datum in nationales Recht umsetzen. Die meisten, einschließlich Deutschland, verpassen die Frist. Nur Belgien hat vollständig umgesetzt und mit der Durchsetzung begonnen.",
       "sourceId": "ecso",
-      "sourceUrl": "https://ecs-org.eu/activities/nis2-directive-transposition-tracker/",
+      "sourceUrl": "https://ecs-org.eu/policy/nis2-directive-transposition-tracker/",
       "addedAt": "2026-03-20T00:00:00Z"
     },
     {
@@ -578,7 +599,7 @@
       "summary": "The European Commission escalates infringement proceedings against 19 member states that failed to transpose the NIS2 Directive by the October 2024 deadline.",
       "summaryDe": "Die Europäische Kommission verschärft Vertragsverletzungsverfahren gegen 19 Mitgliedstaaten, die die NIS2-Richtlinie nicht fristgerecht bis Oktober 2024 umgesetzt haben.",
       "sourceId": "ecso",
-      "sourceUrl": "https://ecs-org.eu/activities/nis2-directive-transposition-tracker/",
+      "sourceUrl": "https://ecs-org.eu/policy/nis2-directive-transposition-tracker/",
       "addedAt": "2026-03-20T00:00:00Z"
     },
     {
@@ -1101,7 +1122,7 @@
       "summary": "Cullen International reports 22 EU states have transposed NIS2. Five remain: France, Ireland, Luxembourg, Netherlands (legislation in parliament) and Spain (no draft submitted). Spain is the furthest behind.",
       "summaryDe": "Cullen International meldet: 22 EU-Staaten haben NIS2 umgesetzt. Funf fehlen noch: Frankreich, Irland, Luxemburg, Niederlande (Gesetzgebung im Parlament) und Spanien (kein Entwurf eingereicht). Spanien ist am weitesten zuruckgeblieben.",
       "sourceId": "ecso",
-      "sourceUrl": "https://ecs-org.eu/activities/nis2-directive-transposition-tracker/",
+      "sourceUrl": "https://ecs-org.eu/policy/nis2-directive-transposition-tracker/",
       "addedAt": "2026-03-30T10:00:00Z"
     },
     {
@@ -2622,7 +2643,222 @@
       "sourceId": "ec-digital",
       "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-publishes-new-guidance-support-businesses-implementation-cyber-resilience-act",
       "addedAt": "2026-07-27T13:12:46Z"
+    },
+    {
+      "id": "2026-07-29-de-bsig-amendment-bgbl-221",
+      "date": "2026-07-29",
+      "category": "de",
+      "tags": [
+        "legislation",
+        "amendment",
+        "in-force",
+        "registration"
+      ],
+      "type": "update",
+      "title": "BSIG amended: critical components redefined, BSI added to the cyberthreat notification duty",
+      "titleDe": "BSIG geaendert: kritische Komponenten neu definiert, BSI in die Meldepflicht bei Cyberbedrohungen aufgenommen",
+      "summary": "Article 9 of the law of 21 July 2026 (BGBl. 2026 I Nr. 221, published 28 July) amends the BSIG with effect from 29 July 2026, the day after publication. Section 2 no. 23 now defines critical components as ICT products designated as such by statutory instrument under section 56(6), and section 35(2) extends the significant cyberthreat duty so that entities in finance, social security and basic jobseeker support, digital infrastructure, ICT service management and digital services inform the BSI as well as the affected recipients of their services about remedial measures. The rewritten section 33(5), which runs the two week deadline for updating registration data from the point the entity learns of the change, does not apply yet: the new section 66 defers it, and section 33(2), until the statutory instrument under sections 4(3) and 5(1) of the KRITIS-Dachgesetz enters into force.",
+      "summaryDe": "Artikel 9 des Gesetzes vom 21. Juli 2026 (BGBl. 2026 I Nr. 221, verkuendet am 28. Juli) aendert das BSIG mit Wirkung zum 29. Juli 2026, dem Tag nach der Verkuendung. § 2 Nummer 23 definiert kritische Komponenten nun als IKT-Produkte, die durch Rechtsverordnung nach § 56 Absatz 6 als solche bestimmt werden, und § 35 Absatz 2 erweitert die Pflicht bei erheblichen Cyberbedrohungen: Einrichtungen aus Finanzwesen, Sozialversicherung und Grundsicherung fuer Arbeitsuchende, digitaler Infrastruktur, Verwaltung von IKT-Diensten und digitalen Diensten informieren kuenftig auch das Bundesamt, nicht nur die betroffenen Empfaenger ihrer Dienste. Der neu gefasste § 33 Absatz 5, nach dem die Zweiwochenfrist fuer Aenderungen der Registrierungsdaten ab Kenntnis der Einrichtung laeuft, gilt noch nicht: Der neue § 66 schiebt ihn und § 33 Absatz 2 auf, bis die Rechtsverordnung nach § 4 Absatz 3 und § 5 Absatz 1 des KRITIS-Dachgesetzes in Kraft getreten ist.",
+      "sourceId": "recht-bund",
+      "sourceUrl": "https://www.recht.bund.de/bgbl/1/2026/221/VO.html",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-07-29-de-kritis-dachgesetz-amendment",
+      "date": "2026-07-29",
+      "category": "de",
+      "tags": [
+        "legislation",
+        "amendment",
+        "kritis",
+        "in-force"
+      ],
+      "type": "update",
+      "title": "KRITIS-Dachgesetz amended: software counts as an installation, resilience deadlines cut loose from the calendar",
+      "titleDe": "KRITIS-Dachgesetz geaendert: Software zaehlt als Anlage, Resilienzfristen vom Kalender geloest",
+      "summary": "Article 8 of the same law of 21 July 2026 (BGBl. 2026 I Nr. 221) amends the KRITIS-Dachgesetz from 29 July 2026. Section 2 no. 2 brings software and IT services into the definition of an installation, while software and IT services that do not directly serve the control, monitoring or support of physical processes remain governed solely by the BSIG; section 8 sets a three month registration duty through a facility run jointly by the BSI and the BBK, with the types of critical components in use reported to the BSI alone. Because the implementing statutory instrument is still outstanding, section 13(5) replaces the fixed date of 17 January 2026 with a deadline of eight months after that instrument enters into force.",
+      "summaryDe": "Artikel 8 desselben Gesetzes vom 21. Juli 2026 (BGBl. 2026 I Nr. 221) aendert das KRITIS-Dachgesetz zum 29. Juli 2026. § 2 Nummer 2 nimmt Software und IT-Dienste in die Anlagendefinition auf, wobei fuer Software und IT-Dienste, die nicht unmittelbar der Steuerung, Ueberwachung oder Unterstuetzung physischer Prozesse dienen, ausschliesslich die Vorgaben des BSI-Gesetzes gelten; § 8 sieht eine Registrierung binnen drei Monaten ueber eine gemeinsam von BSI und BBK eingerichtete Moeglichkeit vor, wobei die eingesetzten Typen kritischer Komponenten allein an das BSI uebermittelt werden. Da die Rechtsverordnung weiterhin aussteht, ersetzt § 13 Absatz 5 das feste Datum 17. Januar 2026 durch eine Frist von acht Monaten nach deren Inkrafttreten.",
+      "sourceId": "recht-bund",
+      "sourceUrl": "https://www.recht.bund.de/bgbl/1/2026/221/VO.html",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-07-31-de-registration-grace-period-lapsed",
+      "date": "2026-07-31",
+      "category": "de",
+      "tags": [
+        "registration",
+        "deadline",
+        "enforcement"
+      ],
+      "type": "update",
+      "title": "BSI registration grace period lapses: 18,845 entities registered, no enforcement opened",
+      "titleDe": "Faktische BSI-Registrierungsfrist laeuft ab: 18.845 Einrichtungen registriert, keine Ordnungsmassnahmen",
+      "summary": "The de facto registration date of 31 July 2026 that the BSI had communicated to business associations passed with 18,845 entities registered, 6,490 as besonders wichtige and 12,355 as wichtige Einrichtungen, against an official expectation of roughly 29,500. heise reported the figures on 4 August 2026, attributing them to the BSI, which described registration as an obligation backed by fines while confirming it has so far refrained from opening administrative proceedings. No further deadline was announced, and the Federal Ministry of the Interior has asked Destatis to re-check how many entities are in fact required to register. The BSI hub page now states plainly that the statutory registration deadline has already expired.",
+      "summaryDe": "Der vom BSI gegenueber den Wirtschaftsverbaenden kommunizierte faktische Registrierungstermin 31. Juli 2026 ist verstrichen. Registriert waren 18.845 Einrichtungen, davon 6.490 besonders wichtige und 12.355 wichtige, gegenueber offiziell erwarteten rund 29.500. heise berichtete die Zahlen am 4. August 2026 unter Berufung auf das BSI, das die Registrierung als bussgeldbewehrte Pflicht bezeichnet, zugleich aber bestaetigt, bislang auf die Einleitung von Ordnungsmassnahmen verzichtet zu haben. Eine neue Frist wurde nicht genannt; das Bundesinnenministerium hat das Statistische Bundesamt beauftragt, die Zahl der registrierungspflichtigen Stellen erneut zu pruefen. Die BSI-Themenseite stellt inzwischen fest, dass die gesetzliche Registrierungsfrist bereits abgelaufen ist.",
+      "sourceId": "heise",
+      "sourceUrl": "https://www.heise.de/news/Raetselraten-um-fehlende-NIS2-Registrierungen-11395728.html",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-08-05-de-bsi-tr-03183-1-v1",
+      "date": "2026-08-05",
+      "category": "de",
+      "tags": [
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "BSI publishes Technical Guideline TR-03183-1 version 1.0.0 as a CRA entry aid",
+      "titleDe": "BSI veroeffentlicht Technische Richtlinie TR-03183-1 in Version 1.0.0 als Einstiegshilfe zum CRA",
+      "summary": "Part 1 of TR-03183 (general requirements) reaches version 1.0.0 and is aimed at manufacturers that do not yet have mature security processes in their development work, offering a risk based route to appropriate cybersecurity measures for standard products under the Cyber Resilience Act. The announcement cites 11 September 2026, when reporting duties for actively exploited vulnerabilities and severe incidents begin, and 11 December 2027, when the CRA applies in full, and ships a machine readable OSCAL starter set of measures. The BSI states plainly that the guideline has no mandatory or binding character and cannot establish a presumption of conformity.",
+      "summaryDe": "Teil 1 der TR-03183 (allgemeine Anforderungen) erreicht Version 1.0.0 und richtet sich an Hersteller, die noch keine ausgereiften IT-Sicherheitsprozesse in der Entwicklung haben; er bietet einen risikobasierten Weg zu angemessenen Cybersicherheitsmassnahmen fuer Standardprodukte unter dem Cyber Resilience Act. Die Meldung nennt den 11. September 2026, ab dem die Meldepflichten fuer aktiv ausgenutzte Schwachstellen und schwerwiegende Sicherheitsvorfaelle gelten, sowie den 11. Dezember 2027, ab dem der CRA vollstaendig anzuwenden ist, und liefert einen maschinenlesbaren OSCAL-Einstiegssatz an Massnahmen mit. Das BSI stellt ausdruecklich klar, dass die Richtlinie keinen verpflichtenden oder verbindlichen Charakter besitzt und keine Konformitaetsvermutung begruendet.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/TR-03183_Einstiegshilfe_CRA_260805.html",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-07-30-enisa-secure-by-design-playbook",
+      "date": "2026-07-30",
+      "category": "enisa",
+      "tags": [
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "ENISA publishes the Secure by Design and Default Playbook",
+      "titleDe": "ENISA veroeffentlicht das Secure by Design and Default Playbook",
+      "summary": "ENISA sets out practical steps for applying secure by design and secure by default principles across the product lifecycle, aimed particularly at small and medium enterprises and framed as repeatable actions that attach to existing engineering and product processes. The material ships as a versioned set of playbooks in a public repository rather than as a single report. Non binding technical guidance: it creates no obligation, but the secure by design and default vocabulary it uses is the language of Annex I of the Cyber Resilience Act.",
+      "summaryDe": "ENISA beschreibt praktische Schritte, um Grundsaetze von Secure by Design und Secure by Default ueber den Produktlebenszyklus anzuwenden, vor allem fuer kleine und mittlere Unternehmen und formuliert als wiederholbare Handgriffe, die an bestehende Entwicklungs- und Produktprozesse andocken. Das Material erscheint als versionierte Sammlung von Playbooks in einem oeffentlichen Repository statt als einzelner Bericht. Unverbindliche technische Leitlinie: Sie begruendet keine Pflicht, verwendet aber genau die Begriffe von Secure by Design und Secure by Default, die auch Anhang I des Cyber Resilience Act praegen.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/publications/enisa-secure-by-design-and-default-playbook",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-07-29-de-bsi-sbom-minimum-elements",
+      "date": "2026-07-29",
+      "category": "de",
+      "tags": [
+        "guidance",
+        "supply-chain",
+        "publication"
+      ],
+      "type": "update",
+      "title": "BSI reports updated Minimum Elements for SBOM, revised by CISA with BSI and international partners",
+      "titleDe": "BSI meldet aktualisierte Minimum Elements for SBOM, ueberarbeitet von CISA mit BSI und internationalen Partnern",
+      "summary": "CISA, working with the BSI and international partners, has revised its 2021 Minimum Elements for a Software Bill of Materials to improve data quality and widen the range of use cases. The BSI links the revision to its own TR-03183-2, which sets the data fields, scope and formats it expects for SBOMs. Non binding guidance on both sides: the underlying obligation to supply an SBOM comes from the Cyber Resilience Act, not from these documents.",
+      "summaryDe": "CISA hat gemeinsam mit dem BSI und internationalen Partnern die Minimum Elements for a Software Bill of Materials von 2021 ueberarbeitet, um die Datenqualitaet zu verbessern und weitere Anwendungsfaelle abzudecken. Das BSI verweist dabei auf die eigene TR-03183-2, die Datenfelder, Umfang und Formate fuer SBOM aus seiner Sicht festlegt. Beide Dokumente sind unverbindlich: Die Pflicht zur Bereitstellung einer SBOM folgt aus dem Cyber Resilience Act, nicht aus ihnen.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/Minimum_Elements_SBOM_aktualisiert_260729.html",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-07-22-de-cybergovsecure-kabinettsbeschluss",
+      "date": "2026-07-22",
+      "category": "de",
+      "tags": [
+        "guidance",
+        "organisational"
+      ],
+      "type": "update",
+      "title": "Federal cabinet adopts CyberGovSecure as a binding framework for the federal administration",
+      "titleDe": "Bundeskabinett beschliesst CyberGovSecure als verbindlichen Rahmen fuer die Bundesverwaltung",
+      "summary": "The federal cabinet approved CyberGovSecure on 22 July 2026, turning the programme launched in May into a binding political and organisational framework for coordinated, measurable cybersecurity across all federal departments. The release ties the programme directly to the NIS2 implementation law, under which the head of the BSI takes on the role of federal government coordinator for information security (CISO Bund). Four areas are prioritised for 2026: secure backups, secure configuration and system hardening, vulnerability management, and logging and detection.",
+      "summaryDe": "Das Bundeskabinett hat CyberGovSecure am 22. Juli 2026 beschlossen und damit das im Mai gestartete Programm in einen verbindlichen politischen und organisatorischen Rahmen fuer koordinierte, messbare Cybersicherheit in allen Ressorts der Bundesverwaltung ueberfuehrt. Die Mitteilung verknuepft das Programm ausdruecklich mit dem NIS2-Umsetzungsgesetz, mit dessen Inkrafttreten die Leitung des BSI die Aufgaben der Koordinatorin der Bundesregierung fuer Informationssicherheit (CISO Bund) wahrnimmt. Fuer 2026 sind vier Handlungsfelder vorrangig: sichere Backups, sichere Konfiguration und Systemhaertung, Schwachstellenmanagement sowie Protokollierung und Detektion.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2026/260722_Bundeskabinett_staerkt_CGS.html",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-07-27-grundschutz-sdt-layer-structure",
+      "date": "2026-07-27",
+      "category": "grundschutz",
+      "tags": [
+        "publication"
+      ],
+      "type": "update",
+      "title": "BSI migrates the Stand-der-Technik-Bibliothek to a layer based structure",
+      "titleDe": "BSI stellt die Stand-der-Technik-Bibliothek auf eine schichtbasierte Struktur um",
+      "summary": "The public Grundschutz++ library moved to a layer based structure on 27 July 2026, followed by the removal of superseded AWS component definitions on 28 July and of an obsolete WLAN component on 30 July. The repository still publishes rolling artefacts with no tagged releases, so tooling that reads the library by file path needs to follow the new layout. Non binding: the library is BSI methodology material, and the Kompendium Edition 2023 remains the valid audit reference during the transition.",
+      "summaryDe": "Die oeffentliche Grundschutz++-Bibliothek wurde am 27. Juli 2026 auf eine schichtbasierte Struktur umgestellt, gefolgt von der Entfernung ueberholter AWS-Komponentendefinitionen am 28. Juli und einer veralteten WLAN-Komponente am 30. Juli. Das Repository veroeffentlicht weiterhin fortlaufende Artefakte ohne getaggte Releases, sodass Werkzeuge, die die Bibliothek ueber Dateipfade einlesen, der neuen Struktur folgen muessen. Unverbindlich: Die Bibliothek ist Methodikmaterial des BSI, und das Kompendium Edition 2023 bleibt waehrend der Uebergangsphase die gueltige Auditreferenz.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://github.com/BSI-Bund/Stand-der-Technik-Bibliothek/commits/main",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-08-03-national-transposition-nl-registration-mandatory",
+      "date": "2026-08-03",
+      "category": "national-transposition",
+      "tags": [
+        "nl",
+        "transposition",
+        "registration",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Netherlands: NCSC-NL confirms registration becomes mandatory on 15 August with no grace period",
+      "titleDe": "Niederlande: NCSC-NL bestaetigt Registrierungspflicht ab 15. August ohne Uebergangsfrist",
+      "summary": "Ahead of the Cyberbeveiligingswet entering into force, NCSC-NL states on its registration page that 'De wet treedt op 15 augustus 2026 in werking, vanaf dan is registreren verplicht'. Registration through mijn.ncsc.nl has been open on a voluntary basis since 17 October 2024 and becomes a legal duty on that date; the Cyberbeveiligingsbesluit provides no transitional law, so there is no grace period. Article 44(2) of the Cbw requires changes to registered data to be reported without delay and in any case within two weeks. NCSC-NL published a registration checklist, a scoping decision tree and guidance on the duty of care, incident reporting and supervision between 20 July and 4 August 2026.",
+      "summaryDe": "Kurz vor Inkrafttreten der Cyberbeveiligingswet stellt NCSC-NL auf seiner Registrierungsseite fest: 'De wet treedt op 15 augustus 2026 in werking, vanaf dan is registreren verplicht'. Die Registrierung ueber mijn.ncsc.nl ist seit dem 17. Oktober 2024 freiwillig moeglich und wird zu diesem Datum zur Pflicht; das Cyberbeveiligingsbesluit enthaelt kein Uebergangsrecht, eine Schonfrist gibt es also nicht. Artikel 44 Absatz 2 Cbw verlangt, Aenderungen der registrierten Angaben unverzueglich und in jedem Fall binnen zwei Wochen zu melden. Zwischen dem 20. Juli und dem 4. August 2026 hat NCSC-NL eine Registrierungscheckliste, einen Entscheidungsbaum zur Betroffenheit sowie Hinweise zu Sorgfaltspflicht, Meldepflicht und Aufsicht veroeffentlicht.",
+      "sourceId": "ncsc-nl",
+      "sourceUrl": "https://www.ncsc.nl/cyberbeveiligingswet-nis2/registreren",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-08-03-national-transposition-lu-ilr-consultation-extension",
+      "date": "2026-08-03",
+      "category": "national-transposition",
+      "tags": [
+        "lu",
+        "transposition",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Luxembourg: ILR extends both NIS 2 consultations to 31 August and publishes deliverable templates",
+      "titleDe": "Luxemburg: ILR verlaengert beide NIS-2-Konsultationen bis zum 31. August und veroeffentlicht Vorlagen",
+      "summary": "The ILR extended its two public consultations, CP/N26/1 on security measures and CP/N26/2 on incident notifications, from 6 August to 31 August 2026. Alongside the extension it published four non-binding templates for the security-measure deliverables: a description of the measures in place, an analysis of the main cyber risk scenarios, a multiannual action plan and a list of dependencies. The templates are working aids; the binding deadlines and technical modalities are set by ILR reglements.",
+      "summaryDe": "Das ILR hat seine beiden oeffentlichen Konsultationen verlaengert, CP/N26/1 zu Sicherheitsmassnahmen und CP/N26/2 zu Vorfallsmeldungen, vom 6. auf den 31. August 2026. Zusammen mit der Verlaengerung wurden vier unverbindliche Vorlagen fuer die Nachweise zu den Sicherheitsmassnahmen veroeffentlicht: eine Beschreibung der umgesetzten Massnahmen, eine Analyse der wesentlichen Cyberrisikoszenarien, ein mehrjaehriger Aktionsplan und eine Liste der Abhaengigkeiten. Die Vorlagen sind Arbeitshilfen; die verbindlichen Fristen und technischen Modalitaeten ergeben sich aus den Reglementen des ILR.",
+      "sourceId": "ilr-lu",
+      "sourceUrl": "https://www.ilr.lu/actualite/prolongation-consultations-publiques-livrables-mesures-de-securite/",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-07-21-national-transposition-hr-zks-q2-2026",
+      "date": "2026-07-21",
+      "category": "national-transposition",
+      "tags": [
+        "hr",
+        "transposition",
+        "registration",
+        "incident-reporting"
+      ],
+      "type": "update",
+      "title": "Croatia: 798 entities categorised under the Cybersecurity Act, 87 incidents in the second quarter",
+      "titleDe": "Kroatien: 798 Einrichtungen nach dem Cybersicherheitsgesetz eingestuft, 87 Vorfaelle im zweiten Quartal",
+      "summary": "NCSC-HR published its quarterly review of the implementation of the Zakon o kibernetickoj sigurnosti on 21 July 2026. It records 798 legal persons categorised as obligated entities, of which 162 are essential (kljucni) and 636 important (vazni), and states that the process of determining obligated entities continues. For the second quarter it reports 87 cyber incidents, of which 23 were significant and 64 other incidents, primarily affecting the public sector. Croatia identifies entities through the authority rather than through self-registration, so these are categorisation figures and not registrations.",
+      "summaryDe": "Das NCSC-HR hat am 21. Juli 2026 seinen Quartalsbericht zur Umsetzung des Zakon o kibernetickoj sigurnosti veroeffentlicht. Erfasst sind 798 juristische Personen als verpflichtete Einrichtungen, davon 162 wesentliche (kljucni) und 636 wichtige (vazni); die Bestimmung der Verpflichteten dauert an. Fuer das zweite Quartal werden 87 Cybervorfaelle genannt, davon 23 erhebliche und 64 sonstige, ueberwiegend im oeffentlichen Sektor. Kroatien identifiziert Einrichtungen behoerdlich statt ueber Selbstregistrierung, es handelt sich also um Einstufungen und nicht um Registrierungen.",
+      "sourceId": "ncsc-hr",
+      "sourceUrl": "https://ncsc.hr/hr/pregled-implementacije-zakona-o-kibernetickoj-sigurnosti-q2-2026",
+      "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-07-17-national-transposition-hr-cyber-solidarity-act",
+      "date": "2026-07-17",
+      "category": "national-transposition",
+      "tags": [
+        "hr",
+        "legislation",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Croatia publishes the regulation implementing the EU Cyber Solidarity Act",
+      "titleDe": "Kroatien veroeffentlicht die Verordnung zur Durchfuehrung des EU-Rechtsakts zur Cybersolidaritaet",
+      "summary": "The Uredba o provedbi Akta o kibernetickoj solidarnosti appeared in Narodne novine 78/2026 on 17 July 2026 and enters into force on the eighth day after publication. It gives national effect to Regulation (EU) 2025/38, covering the European cyber alert system, the EU cybersecurity reserve and incident review. This sits alongside NIS 2 rather than inside it: Croatia's NIS 2 transposition remains the Zakon o kibernetickoj sigurnosti (Narodne novine 14/2024).",
+      "summaryDe": "Die Uredba o provedbi Akta o kibernetickoj solidarnosti ist am 17. Juli 2026 in den Narodne novine 78/2026 erschienen und tritt am achten Tag nach der Veroeffentlichung in Kraft. Sie setzt die Verordnung (EU) 2025/38 national um und betrifft das europaeische Cyberwarnsystem, die EU-Cybersicherheitsreserve und die Ueberpruefung von Vorfaellen. Das steht neben NIS 2, nicht darin: Die kroatische NIS-2-Umsetzung bleibt das Zakon o kibernetickoj sigurnosti (Narodne novine 14/2024).",
+      "sourceId": "narodne-novine",
+      "sourceUrl": "https://narodne-novine.nn.hr/clanci/sluzbeni/2026_07_78_926.html",
+      "addedAt": "2026-08-05T14:10:00Z"
     }
   ],
-  "lastUpdated": "2026-07-27T13:12:46Z"
+  "lastUpdated": "2026-08-05T14:10:00Z"
 }
