@@ -1,6 +1,49 @@
 {
   "entries": [
     {
+      "id": "2026-08-05-regulatory-bsig-amendment-registration-lapse",
+      "date": "2026-08-05",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: BSIG geaendert, Registrierungsfrist verstrichen",
+      "titleEn": "Timeline: BSIG amended, registration deadline lapsed",
+      "bodyDe": "Das BSIG wurde zum 29. Juli 2026 geaendert (BGBl. 2026 I Nr. 221): Kritische Komponenten sind neu definiert, und Einrichtungen aus Finanzwesen, digitaler Infrastruktur und weiteren Sektoren melden Abhilfemassnahmen bei erheblichen Cyberbedrohungen nun auch an das BSI. Der vom BSI kommunizierte Registrierungstermin 31. Juli 2026 ist verstrichen: 18.845 von rund 29.500 erwarteten Einrichtungen waren registriert, Ordnungsmassnahmen hat das BSI bislang nicht eingeleitet. Insgesamt zwoelf neue Eintraege; die Uebersicht der Registrierungsportale wurde fuer sieben Laender aktualisiert, darunter die Niederlande vor dem Inkrafttreten am 15. August.",
+      "bodyEn": "The BSIG was amended with effect from 29 July 2026 (BGBl. 2026 I Nr. 221): critical components are redefined, and entities in finance, digital infrastructure and further sectors now notify the BSI as well as their service recipients about remedial measures for significant cyberthreats. The de facto registration date of 31 July 2026 has passed with 18,845 of an expected 29,500 entities registered, and the BSI has so far opened no administrative proceedings. Twelve new entries in total; the registration portal overview was updated for seven countries, including the Netherlands ahead of entry into force on 15 August.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-29-product-form-field-clearing",
+      "date": "2026-07-29",
+      "category": "product",
+      "titleDe": "Geleerte Felder werden jetzt gespeichert",
+      "titleEn": "Cleared fields now save",
+      "bodyDe": "Wer beim Bearbeiten ein optionales Textfeld leert und speichert, sieht den alten Wert nicht mehr zurueckkehren. Zahlenfelder pruefen ihre Eingaben jetzt strenger, und frei eingetragene Werte fuer Status und Schweregrad werden ueberall korrekt dargestellt.",
+      "bodyEn": "Clearing an optional text field while editing and saving no longer brings the old value back. Numeric fields validate their input more strictly, and freely entered status and severity values now render correctly throughout."
+    },
+    {
+      "id": "2026-07-29-product-end-to-end-tests",
+      "date": "2026-07-29",
+      "category": "product",
+      "titleDe": "Automatisierte Tests fuer den gesamten NIS-2-Weg",
+      "titleEn": "Automated tests across the full NIS 2 journey",
+      "bodyDe": "Neun massgeschneiderte Editoren und eine vollstaendig freigegebene NIS-2-Umsetzung werden jetzt durch automatisierte Tests ueber den gesamten Ablauf abgedeckt. Sie gehen den Weg von der Erfassung der Assets ueber Nachweise bis zur Freigabe mit mehreren Unterzeichnenden und pruefen dabei auch die Trennung der Mandanten.",
+      "bodyEn": "Nine custom editors and a complete signed-off NIS 2 implementation are now covered by automated tests that run the whole way through. They walk the path from asset intake through evidence to sign-off with multiple signers, and check tenant separation along the way."
+    },
+    {
+      "id": "2026-07-28-product-evidence-upload-fix",
+      "date": "2026-07-28",
+      "category": "product",
+      "titleDe": "Hochladen von Nachweisen in der Produktivumgebung repariert",
+      "titleEn": "Evidence uploads fixed in production",
+      "bodyDe": "Das Hochladen von Nachweisdateien schlug in der Produktivumgebung fehl und funktioniert wieder. Gefunden hat den Fehler die neue automatisierte Testreihe, die den vollstaendigen Weg durch eine NIS-2-Umsetzung abgeht.",
+      "bodyEn": "Uploading evidence files failed in the production environment and works again. The bug was found by the new automated test suite that walks the full path through a NIS 2 implementation."
+    },
+    {
       "id": "2026-07-20-regulatory-timeline-july-sweep",
       "date": "2026-07-20",
       "category": "regulatory",
