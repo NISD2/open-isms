@@ -1,259 +1,167 @@
 {
-  "lastUpdated": "2026-07-04T15:38:18Z",
+  "lastUpdated": "2026-08-17T14:05:00Z",
   "events": [
     {
-      "id": "2026-07-08-de-bsi-cra-ot",
-      "title": "CRA & Maschinenrichtlinie in der OT",
-      "topics": [
-        "CRA"
-      ],
-      "startDate": "2026-07-08",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "DE",
-      "organizer": "BSI Allianz für Cyber-Sicherheit (Orange Cyberdefense)",
-      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/",
-      "signupUrl": null,
-      "cost": "free",
-      "language": "de",
-      "notes": "ACS partner webtalk, free to attend."
-    },
-    {
-      "id": "2026-07-08-de-bsi-nis2-qa",
-      "title": "Cyber-Sicherheits-Webtalk: Q&A zu NIS-2/BSIG",
+      "id": "2026-07-24-nl-sdv-nis2-actie-webinars",
+      "title": "De NIS2 Cyberbeveiligingswet gaat in. Weet jij wat je nu moet doen?",
       "topics": [
         "NIS2"
       ],
-      "startDate": "2026-07-08",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "DE",
-      "organizer": "BSI Allianz für Cyber-Sicherheit",
-      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/",
-      "signupUrl": null,
-      "cost": "free",
-      "language": "de",
-      "notes": "Recurring Q&A webtalk (also 16.07)."
-    },
-    {
-      "id": "2026-07-14-de-bsi-nis2know-meldepflichten",
-      "title": "#nis2know: Meldepflichten erheblicher Vorfälle",
-      "topics": [
-        "NIS2"
-      ],
-      "startDate": "2026-07-14",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "DE",
-      "organizer": "BSI Allianz für Cyber-Sicherheit",
-      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/",
-      "signupUrl": null,
-      "cost": "free",
-      "language": "de",
-      "notes": "Incident reporting (Art 23). Part of #nis2know series."
-    },
-    {
-      "id": "2026-07-14-de-dsin-fit-fuer-nis2",
-      "title": "Fit für NIS-2 (FitNIS-2-Navigator)",
-      "topics": [
-        "NIS2"
-      ],
-      "startDate": "2026-07-14",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "DE",
-      "organizer": "DsiN / WFG Kreis Soest",
-      "infoUrl": "https://www.wfg-kreis-soest.de/veranstaltung/fit-fuer-nis-2-eu-netz-und-informationsrichtlinie-verstehen/",
-      "signupUrl": "https://www.wfg-kreis-soest.de/veranstaltung/fit-fuer-nis-2-eu-netz-und-informationsrichtlinie-verstehen/",
-      "cost": "free",
-      "language": "de",
-      "notes": "KMU intro; DsiN fitnis2 regional partner (NRW). Recurring series."
-    },
-    {
-      "id": "2026-07-14-nl-sdv-nis2-inzicht",
-      "title": "NIS2 Inzicht Webinar (supply-chain)",
-      "topics": [
-        "NIS2"
-      ],
-      "startDate": "2026-07-14",
-      "endDate": null,
+      "startDate": "2026-07-24",
+      "endDate": "2026-08-26",
       "format": "online",
       "city": "",
       "country": "NL",
-      "organizer": "Samen Digitaal Veilig",
-      "infoUrl": "https://samendigitaalveilig.nl/webinar/nis2-inzicht-webinars/",
-      "signupUrl": "https://samendigitaalveilig.nl/webinar/nis2-inzicht-webinars/",
+      "organizer": "Samen Digitaal Veilig (MKB-Nederland en VNO-NCW, met IVBB)",
+      "infoUrl": "https://samendigitaalveilig.nl/webinar/nis2-actie-webinars",
+      "signupUrl": "https://samendigitaalveilig.nl/webinar/nis2-actie-webinars",
       "cost": "free",
       "language": "nl",
-      "notes": "Recurring slots (also 13 Aug, 26 Aug). SME supply-chain angle."
+      "notes": "Three identical 30-min sessions: 24.07 09:00, 13.08 14:30, 26.08 10:00. Timed around Cbw entry into force 15.08.2026."
     },
     {
-      "id": "2026-07-14-eu-digitalsme-occtet",
-      "title": "Tester in the Spotlight: The OCCTET Toolkit in Practice",
-      "topics": [
-        "CRA"
-      ],
-      "startDate": "2026-07-14",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "EU",
-      "organizer": "European DIGITAL SME Alliance",
-      "infoUrl": "https://www.digitalsme.eu/events/tester-in-the-spotlight-the-occtet-toolkit-in-practice/",
-      "signupUrl": "https://www.digitalsme.eu/signup/",
-      "cost": "free",
-      "language": "en",
-      "notes": "Non-profit; CRA self-assessment toolkit. Free to attend."
-    },
-    {
-      "id": "2026-07-16-de-bsi-nis2-qa-2",
-      "title": "Cyber-Sicherheits-Webtalk: Q&A zu NIS-2/BSIG (2. Termin)",
+      "id": "2026-08-19-de-digitalsichernrw-nis2-kmu",
+      "title": "Cybersicherheit und NIS-2: Was KMU jetzt wissen müssen",
       "topics": [
         "NIS2"
       ],
-      "startDate": "2026-07-16",
+      "startDate": "2026-08-19",
       "endDate": null,
       "format": "online",
       "city": "",
       "country": "DE",
-      "organizer": "BSI Allianz für Cyber-Sicherheit",
-      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/",
-      "signupUrl": null,
+      "organizer": "DIGITAL.SICHER.NRW, NIS-2-Anlaufstelle NRW, Wirtschaftsförderung Kreis Düren",
+      "infoUrl": "https://www.digital-sicher.nrw/veranstaltungen/veranstaltungsdetails/cybersicherheit-und-nis-2-was-kmu-jetzt-wissen-muessen",
+      "signupUrl": "https://beteiligung.nrw.de/portal/dueren/beteiligung/themen/1029719",
       "cost": "free",
       "language": "de",
-      "notes": "Second date of the recurring Q&A."
+      "notes": "Kostenlos laut Veranstaltungsseite. State competence centre with the regional Wirtschaftsfoerderung. NIS-2 named in title and body."
     },
     {
-      "id": "2026-08-13-de-itsbb-nis2know-doku",
-      "title": "#nis2know: Gesetzliche Dokumentationspflichten",
+      "id": "2026-08-19-de-nis2-kompakt-frankfurt",
+      "title": "NIS2 kompakt: Cyber-Sicherheit als Führungsaufgabe",
       "topics": [
         "NIS2"
       ],
-      "startDate": "2026-08-13",
-      "endDate": null,
-      "format": "online",
-      "city": "Berlin",
-      "country": "DE",
-      "organizer": "it's.BB e.V.",
-      "infoUrl": "https://www.itsbb.net/veranstaltungen/",
-      "signupUrl": null,
-      "cost": "free",
-      "language": "de",
-      "notes": "Non-profit Verein GoTo-Webinar series; registration via Eventbrite."
-    },
-    {
-      "id": "2026-09-04-de-transferstelle-cra",
-      "title": "Cyber Resilience Act verstehen",
-      "topics": [
-        "CRA"
-      ],
-      "startDate": "2026-09-04",
+      "startDate": "2026-08-19",
       "endDate": null,
       "format": "online",
       "city": "",
       "country": "DE",
-      "organizer": "Transferstelle Cybersicherheit",
-      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-verstehen-anforderungen-pflichten-und-umsetzung/",
-      "signupUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-verstehen-anforderungen-pflichten-und-umsetzung/",
+      "organizer": "IHK Frankfurt am Main (IHK Hessen innovativ GbR)",
+      "infoUrl": "https://www.ihk-hessen-innovativ.de/lehrgaenge-events/nis2-kompakt",
+      "signupUrl": "https://www.ihk-hessen-innovativ.de/lehrgaenge-events/nis2-kompakt/anmelden",
       "cost": "free",
       "language": "de",
-      "notes": "Gov-funded. Online workshop 10:00-11:30."
+      "notes": "10:00-11:00, online. Registration deadline 18.08.2026. Chamber hosted, kostenfrei stated on the page. Contact listed: Frank Irmscher."
     },
     {
-      "id": "2026-09-10-de-itsbb-nis2know-umsetzung",
-      "title": "#nis2know: Der Weg zur Umsetzung",
+      "id": "2026-08-20-de-hmbbfdi-internationaler-datentransfer",
+      "title": "Von Hamburg in die Welt: Was Sie über den internationalen Datentransfer wissen sollten",
       "topics": [
-        "NIS2"
+        "GDPR"
       ],
-      "startDate": "2026-09-10",
+      "startDate": "2026-08-20",
       "endDate": null,
       "format": "online",
-      "city": "Berlin",
+      "city": "",
       "country": "DE",
-      "organizer": "it's.BB e.V.",
-      "infoUrl": "https://www.itsbb.net/veranstaltungen/",
+      "organizer": "Der Hamburgische Beauftragte für Datenschutz und Informationsfreiheit (HmbBfDI)",
+      "infoUrl": "https://www.datenschutz-hamburg.de/veranstaltungen",
+      "signupUrl": "https://bbb.hmbbfdi.de/rooms/v2h-sup-6wu-woy/join",
+      "cost": "free",
+      "language": "de",
+      "notes": "Monatliche Datenschutzsprechstunde des HmbBfDI, 12:00 bis 13:00, öffentlich, keine Anmeldung nötig. Drittlandtransfer nach Kapitel V DSGVO. Kostenfrei laut Behördenseite. Reihe laeuft monatlich, lohnt sich als Daueranlaufstelle."
+    },
+    {
+      "id": "2026-08-25-de-cra-umsetzungswebinar-dihk",
+      "title": "Cyber Resilience Act - Umsetzungswebinar für Entscheider und Verantwortliche: Rechtliche Anforderungen praxisnah einordnen",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "DIHK (Deutscher Industrie- und Handelskammertag)",
+      "infoUrl": "https://event.dihk.de/cyberresilienceactumsetzungswebinarfrentscheiderundverantwortlicherechtlicheanforderungenpraxisnaheinordnen",
       "signupUrl": null,
       "cost": "free",
       "language": "de",
-      "notes": "Non-profit Verein GoTo-Webinar series."
+      "notes": "10:00-12:00 via MS Teams. Cost inferred free: no fee stated, registration is a simple name and email form. National chamber federation host. Presentation recorded, live Q&A is not."
     },
     {
-      "id": "2026-09-16-sk-kcckb-kyber-2026",
-      "title": "Konferencia Kyber 2026 jeseň",
+      "id": "2026-08-25-nl-gemeentebestuur-cyberbeveiligingswet",
+      "title": "Webinar: Gemeentebestuur onder de Cyberbeveiligingswet",
       "topics": [
-        "NIS2",
-        "CRA"
+        "NIS2"
       ],
-      "startDate": "2026-09-16",
-      "endDate": "2026-09-17",
-      "format": "in-person",
-      "city": "Nový Smokovec",
-      "country": "SK",
-      "organizer": "KCCKB / Kyberkomunita",
-      "infoUrl": "https://cybercompetence.sk/konferencia/",
-      "signupUrl": "https://cybercompetence.sk/prihlaska-konferencia-kyber-2026-jesen/",
-      "cost": "free",
-      "language": "sk",
-      "notes": "National competence-center; free. CRA advisory session + NIS2 track."
-    },
-    {
-      "id": "2026-10-06-nl-one-conference",
-      "title": "ONE Conference 2026",
-      "topics": [
-        "NIS2",
-        "CRA"
-      ],
-      "startDate": "2026-10-06",
-      "endDate": "2026-10-07",
-      "format": "in-person",
-      "city": "The Hague",
+      "startDate": "2026-08-25",
+      "endDate": null,
+      "format": "online",
+      "city": "",
       "country": "NL",
-      "organizer": "NCSC-NL / Security Delta (HSD)",
-      "infoUrl": "https://one-conference.nl/programme/",
-      "signupUrl": "https://one-conference.nl/",
+      "organizer": "IBD (Informatiebeveiligingsdienst) en VNG",
+      "infoUrl": "https://www.digitaleoverheid.nl/evenementen/webinar-gemeentebestuur-onder-de-cyberbeveiligingswet/",
+      "signupUrl": "https://vng.webinargeek.com/training-gemeentebestuur-onder-de-cbw",
       "cost": "free",
-      "language": "en",
-      "notes": "Government conference, free (registration required). Cyber Governance track + NIS2 sidetrack."
+      "language": "nl",
+      "notes": "Government and non-profit host (IBD and VNG), assumed free. 25 Aug 2026 16:00 to 17:00, for municipal council members, based on the VNG Cybersecurity Management Training syllabus. Names the Cyberbeveiligingswet, the Dutch NIS 2 transposition. Also listed on vng.nl/agenda."
     },
     {
-      "id": "2026-10-07-eu-enisa-ehealth",
-      "title": "11th eHealth Security Conference",
-      "topics": [
-        "NIS2"
-      ],
-      "startDate": "2026-10-07",
-      "endDate": null,
-      "format": "in-person",
-      "city": "Nicosia",
-      "country": "EU",
-      "organizer": "ENISA",
-      "infoUrl": "https://www.enisa.europa.eu/events/11th-ehealth-security-conference",
-      "signupUrl": "https://www.eventora.com/en/Events/11thEnisaeHealthSecurityConference",
-      "cost": "free",
-      "language": "en",
-      "notes": "EU agency event, free. NIS2 implementation for the health sector + EHDS."
-    },
-    {
-      "id": "2026-10-20-ro-dnsc-bcc2026",
-      "title": "Bucharest Cybersecurity Conference 2026 (BCC2026)",
+      "id": "2026-08-26-de-ihk-hessen-cra-hersteller",
+      "title": "Cyber Resilience Act (CRA): Neue Pflichten für Hersteller digitaler Produkte",
       "topics": [
         "CRA"
       ],
-      "startDate": "2026-10-20",
-      "endDate": "2026-10-22",
-      "format": "in-person",
-      "city": "Bucharest",
-      "country": "RO",
-      "organizer": "DNSC",
-      "infoUrl": "https://bcc.dnsc.ro/",
+      "startDate": "2026-08-26",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "IHK Hessen innovativ GbR",
+      "infoUrl": "https://www.ihk-hessen-innovativ.de/lehrgaenge-events/cyber-resilience-act-cra-update",
+      "signupUrl": "https://www.ihk-hessen-innovativ.de/lehrgaenge-events/cyber-resilience-act-cra-update/anmelden",
+      "cost": "free",
+      "language": "de",
+      "notes": "Webinar 10:00 bis 11:00, Anmeldeschluss 25.08.2026. Behandelt die ab 11.09.2026 geltenden CRA Meldepflichten, harmonisierte Normen und Risikoanalyse. Seite weist die Veranstaltung ausdrücklich als kostenfrei aus."
+    },
+    {
+      "id": "2026-08-26-de-mdz-handel-cra-einfuehrung",
+      "title": "Einführung in den Cyber Resilience Act",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-08-26",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Mittelstand-Digital Zentrum Handel",
+      "infoUrl": "https://digitalzentrumhandel.de/veranstaltung/einfuehrung-in-den-cyber-resilience-act/",
       "signupUrl": null,
       "cost": "free",
-      "language": "en",
-      "notes": "National authority conference, free. CRA session. Info page 403s; verify cost on reopen."
+      "language": "de",
+      "notes": "11:00 bis 12:00, Preiszeile kostenlos. Dritter Termin der Themenwoche IT-Sicherheit im Handel vom 24. bis 28.08.2026, die uebrigen Termine der Woche nennen keine der drei Regelungen. Referent aus dem Projekt EASY.CRA bei ibi research."
+    },
+    {
+      "id": "2026-08-27-nl-ezk-ncsc-cra-meldplicht",
+      "title": "Webinar meldplicht Cyber Resilience Act",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-08-27",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "NL",
+      "organizer": "Ministerie van Economische Zaken en Klimaat (EZK) en NCSC-NL",
+      "infoUrl": "https://www.nldigital.nl/nieuws/cra-meldplicht-wat-moet-je-weten-voor-11-september-2026/",
+      "signupUrl": "https://forms.office.com/e/uieZX31fFg",
+      "cost": "free",
+      "language": "nl",
+      "notes": "14.00 tot 15.00 over de CRA meldplicht die op 11 september 2026 ingaat. Aanmelden tot 25 augustus 2026. Let op: EZK en NCSC hebben geen eigen eventpagina gepubliceerd, alle gegevens komen uit de aankondiging van brancheorganisatie NLdigital. De titel is beschrijvend, er is geen officiele titel gepubliceerd."
     },
     {
       "id": "2026-09-01-de-blnbdi-starthilfe-dsgvo",
@@ -292,6 +200,459 @@
       "notes": "Chamber and authority co-host, recurring, historically kostenfrei; NIS2 is a recurring agenda topic. Date from Save-the-Date; 2026 agenda pending."
     },
     {
+      "id": "2026-09-02-eu-cracademy-cra-smes",
+      "title": "CRAcademy UC Workshop: Cybersecurity affects us all - including SMEs",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-02",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "EU",
+      "organizer": "CRACoWi (EU-funded project), listed by the European Cybersecurity Competence Centre",
+      "infoUrl": "https://cybersecurity-centre.europa.eu/events/cracademy-uc-workshop-cybersecurity-affects-us-all-including-smes-2-september-2026-online-2026-09-02_en",
+      "signupUrl": "https://www.cracowi.eu/",
+      "cost": "free",
+      "language": "en",
+      "notes": "11:00 to 12:00 CEST on MS Teams. SME session on vulnerability response, SBOMs, threat modelling and customer communication under the CRA. ECCC page states free."
+    },
+    {
+      "id": "2026-09-03-de-hk-hamburg-cra-einstieg",
+      "title": "Sicher in die Zukunft: Ihr Einstieg in den Cyber Resilience Act",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-03",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Handelskammer Hamburg (Termin gelistet über DiWiSH Schleswig-Holstein)",
+      "infoUrl": "https://www.diwish.de/termin/sicher-in-die-zukunft-ihr-einstieg-in-den-cyber-resilience-act.html",
+      "signupUrl": "https://events.handelskammer-hamburg.de/b?p=2026-2303",
+      "cost": "free",
+      "language": "de",
+      "notes": "Webinar 10:00 bis 12:15, Security by Design, Lieferkette, Praxisbericht Jungheinrich. Nicht identisch mit dem CRA Webinar der IHK München am selben Tag. Kostenfrei laut DiWiSH Terminseite."
+    },
+    {
+      "id": "2026-09-03-de-ihk-muenchen-cra-beschaffung",
+      "title": "Cyber Resilience Act: Wie Unternehmen künftig sicherere Soft- und Hardware beschaffen können",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-03",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "IHK München und Oberbayern mit der Transferstelle Cybersicherheit im Mittelstand",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-wie-unternehmen-kuenftig-sicherere-soft-und-hardware-beschaffen-koennen/",
+      "signupUrl": "https://www.events.ihk-muenchen.de/ihk/cra-anwender",
+      "cost": "free",
+      "language": "de",
+      "notes": "11:00 bis 12:00 Uhr. Kostenfrei laut Anmeldeseite. Procurement angle, distinct from the tracked 04.09 Transferstelle CRA session."
+    },
+    {
+      "id": "2026-09-03-dk-dmaerket-nis2",
+      "title": "Bliv klar til NIS 2 med D-maerket",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-03",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DK",
+      "organizer": "D-maerket (non-profit labelling scheme; Industriens Fond, DI, Dansk Erhverv, SMV Danmark)",
+      "infoUrl": "https://www.d-maerket.dk/da/events-og-webinarer/webinar0309-bliv-klar-til-nis-2-med-d-maerket",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "da",
+      "notes": "09:00-10:00, recorded. Maps D-maerket criteria to the Danish NIS 2 law in force since 01.07.2026."
+    },
+    {
+      "id": "2026-09-03-nl-cbw-webinar6-toezicht",
+      "title": "Webinar 6 'Toezicht op de Cyberbeveiligingswet'",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-03",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "NL",
+      "organizer": "NCSC, NCTV, RDI (met NVWA en ILT)",
+      "infoUrl": "https://www.knmp.nl/actueel/agenda/webinar-over-toezicht-op-de-cyberbeveiligingswet-cbw",
+      "signupUrl": "https://fd7.formdesk.com/ncsc/Toezicht_op_de_Cyberbeveiligingswet",
+      "cost": "free",
+      "language": "nl",
+      "notes": "11:00-12:00. Sixth session of the recurring NCSC/NCTV/RDI Cyberbeveiligingswet webinar series (sessions 1-5 ran Nov 2025-Jun 2026, now past); this one covers toezicht/supervision with NVWA and ILT. Source page is KNMP (pharmacists' association) relaying the government listing; registration link is NCSC's own formdesk page. Timed the week after the Cbw enters force (15.08.2026)."
+    },
+    {
+      "id": "2026-09-04-de-ihk-ostbrandenburg-it-sicherheitstag-bb",
+      "title": "15. IT-Sicherheitstag Mittelstand Berlin-Brandenburg 2026",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-09-04",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Wildau",
+      "country": "DE",
+      "organizer": "IHK Ostbrandenburg mit Handwerkskammer Frankfurt (Oder), Handwerkskammer Berlin, Handwerkskammer Potsdam, SIBB e.V. u.a.",
+      "infoUrl": "https://events.ihk-ostbrandenburg.de/IT-Sicherheitstag2026",
+      "signupUrl": "https://events.ihk-ostbrandenburg.de/IT-Sicherheitstag2026",
+      "cost": "free",
+      "language": "de",
+      "notes": "Chamber and Handwerkskammer co-host, free of charge. Conference with exhibition and workshops at TH Wildau, 09:30 to 15:30. Description names NIS2 and the Cyber Resilience Act. Registration open, deadline 02 Sep 2026. Verified on the IHK Ostbrandenburg and HWK Frankfurt (Oder) pages."
+    },
+    {
+      "id": "2026-09-04-de-transferstelle-cra",
+      "title": "Cyber Resilience Act verstehen",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-04",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-verstehen-anforderungen-pflichten-und-umsetzung/",
+      "signupUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-verstehen-anforderungen-pflichten-und-umsetzung/",
+      "cost": "free",
+      "language": "de",
+      "notes": "Gov-funded. Online workshop 10:00-11:30."
+    },
+    {
+      "id": "2026-09-08-de-blnbdi-starthilfe-themenblock-4",
+      "title": "Starthilfe Datenschutz: Themenblock 4 - Datenschutzmanagement und technisch-organisatorische Maßnahmen",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "Berliner Beauftragte für Datenschutz und Informationsfreiheit (BlnBDI)",
+      "infoUrl": "https://www.datenschutz-berlin.de/service/veranstaltungen/starthilfe-datenschutz/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "10:00 bis 15:30 in Präsenz. Schulungsreihe der Aufsichtsbehörde für Startups, Kleinunternehmen und Vereine. Kostenfrei, aber dieser Termin ist bereits ausgebucht, Anmeldung derzeit nicht möglich."
+    },
+    {
+      "id": "2026-09-08-de-tzn-niederrhein-forum-mittelstand",
+      "title": "Forum Mittelstand: Cybersicherheit und Neues aus der NIS2-Gesetzgebung für KMU",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Niederkrüchten",
+      "country": "DE",
+      "organizer": "WFG für den Kreis Viersen mbH mit dem Technologie- und Gründerzentrum Niederrhein",
+      "infoUrl": "https://tzniederrhein.de/veranstaltung/forum-mittelstand-cybersicherheit-und-neues-aus-der-nis2-gesetzgebung-fuer-kmu/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Beginn 18:00 Uhr, Rathaus Niederkruechten. Kostenfrei laut Veranstaltungsseite. Host is a municipal economic development agency."
+    },
+    {
+      "id": "2026-09-08-si-ursiv-training-series",
+      "title": "Usposabljanje odgovornih oseb za informacijsko varnost (ZInfV-1)",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Ljubljana",
+      "country": "SI",
+      "organizer": "URSIV (Urad Vlade RS za informacijsko varnost)",
+      "infoUrl": "https://ivarnost.si/objavljeni-termini-za-leto-2026-usposabljanje-odgovornih-oseb-za-informacijsko-varnost/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "sl",
+      "notes": "Recurring government training for responsible persons of ZInfV-1 registered entities; further dates 06.10, 03.11, 01.12. E-certificate valid 4 years. Restricted to self-registered entities: register first, then train."
+    },
+    {
+      "id": "2026-09-09-pt-aep-nis2-registo-myciber",
+      "title": "Webinar NIS2: Registo até 15 de setembro. O que fazer, o que não fazer, e o que vem depois da notificação do CNCS",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-09",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "PT",
+      "organizer": "AEP - Associação Empresarial de Portugal",
+      "infoUrl": "https://www.aeportugal.pt/pt/areas-de-formacao/digital/webinar-nis2-registo-ate-15-de-setembro-%E2%80%94-o-que-fazer-o-que-nao-fazer-e-o-que-vem-depois-da-notificacao-do-cncs",
+      "signupUrl": "https://www.aeportugal.pt/pt/curso-gratuito?campaign=308c62d0-e397-f111-8075-7c1e5235b89e&campaign_page=3726",
+      "cost": "free",
+      "language": "pt",
+      "notes": "11h30 bis 12h30. Seite weist Associado AEP 0 EUR und Outros 0 EUR aus, Teilnahme gratis mit Pflichtanmeldung. Behandelt die MyCiber Registrierungsfrist am 15. September, eine Live Demo, die CNCS Benachrichtigung und Artikel 32(3) des Regulamento 756/2026. AEP ist der groesste portugiesische Arbeitgeberverband. Hinweis: ein Slot von zehn Minuten bewirbt die kostenpflichtigen AEP Kurse im Oktober und November."
+    },
+    {
+      "id": "2026-09-10-be-voka-update-digitale-wetgevingen",
+      "title": "Update digitale wetgevingen - Webinar",
+      "topics": [
+        "NIS2",
+        "GDPR"
+      ],
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "BE",
+      "organizer": "Voka Vlaams-Brabant",
+      "infoUrl": "https://www.voka.be/vlaams-brabant/opleidingen/digitalisering-ai-technologie/update-digitale-wetgevingen-webinar",
+      "signupUrl": "https://www.voka.be/vlaams-brabant/opleidingen/digitalisering-ai-technologie/update-digitale-wetgevingen-webinar/event-subscribe",
+      "cost": "free",
+      "language": "nl",
+      "notes": "11.45 tot 13.00. Gratis, maar alleen toegankelijk voor Voka leden. Behandelt GDPR, NIS2, de AI Act en de Data Act binnen de digitale omnibus."
+    },
+    {
+      "id": "2026-09-10-de-itsbb-nis2know-umsetzung",
+      "title": "#nis2know: Der Weg zur Umsetzung",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "format": "online",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "BSI / Allianz fuer Cyber-Sicherheit",
+      "infoUrl": "https://www.bsi.bund.de/SharedDocs/Termine/DE/2026/nis-2-webinar_Umsetzung_260910.html",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "BSI #nis2know series, 14:00-15:00, GoTo Webinar. BSIG registration, reporting and risk management duties. Verein it's.BB co-lists the series."
+    },
+    {
+      "id": "2026-09-10-de-transferstelle-nis2-verstehen",
+      "title": "NIS2 verstehen - Betroffenheit, Pflichten und Umsetzung",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit (CYBERsicher)",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/nis2-verstehen-betroffenheit-pflichten-und-umsetzung/",
+      "signupUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/nis2-verstehen-betroffenheit-pflichten-und-umsetzung/",
+      "cost": "free",
+      "language": "de",
+      "notes": "Gov-funded (CYBERsicher). Online-Workshop 09:00-11:00. KMU intro: Betroffenheit, Pflichten, erste Massnahmen. Distinct organizer from the 10.09 it's.BB nis2know Umsetzung session."
+    },
+    {
+      "id": "2026-09-10-hu-mkik-isms-leadership",
+      "title": "Informaciobiztonsagi iranyitasi rendszer: vezetoi felelosseg (ISMS workshop)",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Budapest",
+      "country": "HU",
+      "organizer": "MKIK / SZTFH",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/31/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "NIS2/Kibertan leadership duties. Free chamber program."
+    },
+    {
+      "id": "2026-09-10-nl-rdi-ictwaarborg-cbw-ict",
+      "title": "Toezicht door de RDI: wat betekent de Cyberbeveiligingswet concreet voor uw ICT-bedrijf?",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "NL",
+      "organizer": "RDI (Rijksinspectie Digitale Infrastructuur), via ICTWaarborg",
+      "infoUrl": "https://ictwaarborg.nl/events/10-september-2026-toezicht-door-de-rdi-wat-betekent-de-cyberbeveiligingswet-concreet-voor-uw-ict-bedrijf/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "nl",
+      "notes": "09:30 bis 10:30. RDI, the government inspectorate, is the named host and presenter; ICTWaarborg is a certification foundation relaying it to members, so attendance may skew toward ICTWaarborg-certified companies rather than the general public. infoUrl reverified 2026-08-05 and loads normally; an earlier automated fetch 403 was user-agent dependent."
+    },
+    {
+      "id": "2026-09-10-nl-sdv-nis2-inzicht-webinar",
+      "title": "De NIS2 Cyberbeveiligingswet gaat in. Weet jij wat je nu moet doen?",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-10",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "NL",
+      "organizer": "Samen Digitaal Veilig (MKB-Nederland en VNO-NCW)",
+      "infoUrl": "https://samendigitaalveilig.nl/webinar/nis2-inzicht-webinars/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "nl",
+      "notes": "13.00 tot 13.30, met een NIS2 actie-checklist voor deelnemers. Vervolg op de actie-webinars reeks van juli en augustus. Inschrijven gaat via een JavaScript formulier zonder directe URL."
+    },
+    {
+      "id": "2026-09-14-be-agoria-cra-learn-and-share",
+      "title": "CRA Learn and Share Project Group",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-14",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Diegem",
+      "country": "BE",
+      "organizer": "Agoria",
+      "infoUrl": "https://www.agoria.be/en/services/expertise/technical-regulations-standardisation/technical-regulations/agenda/cra-learn-and-share-project-group",
+      "signupUrl": "https://portal.agoria.be/event/cra-learn-and-share-project-group-14-09-2026-17395",
+      "cost": "free",
+      "language": "en",
+      "notes": "13.00 tot 17.00, Amber Building Hermeslaan 7. Gratis, maar alleen toegankelijk voor Agoria leden. Documentatie, security by design en een praktijkoefening rond CRA compliance."
+    },
+    {
+      "id": "2026-09-15-hu-mkik-mikro-kisvallalkozas",
+      "title": "NIS2 felkészítő workshop: Kiberbiztonság mikro- és kisvállalkozásoknak",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-15",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "HU",
+      "organizer": "Magyar Kereskedelmi és Iparkamara (MKIK) with SZTFH",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/40/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "Ninth session of the free MKIK and SZTFH workshop series, the one instance missing from the tracked set. Cost not stated on the registration page, inferred free in line with the rest of the series."
+    },
+    {
+      "id": "2026-09-15-pl-uodo-rodo-ochrona-zdrowia",
+      "title": "RODO w Ochronie Zdrowia",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-15",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Gdańsk",
+      "country": "PL",
+      "organizer": "Urząd Ochrony Danych Osobowych (UODO) i Szpitale Pomorskie sp. z o.o.",
+      "infoUrl": "https://uodo.gov.pl/pl/531/4543",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "pl",
+      "notes": "Start 10:00 im Urzad Marszalkowski Wojewodztwa Pomorskiego. Mit dem UODO Praesidenten und dem Expertenteam der Aufsichtsbehoerde. Anmeldung ueber ein eingebettetes Formular, keine Gebuehr auf der Seite ausgewiesen."
+    },
+    {
+      "id": "2026-09-16-sk-kcckb-kyber-2026",
+      "title": "Konferencia Kyber 2026 jeseň",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-09-16",
+      "endDate": "2026-09-17",
+      "format": "in-person",
+      "city": "Nový Smokovec",
+      "country": "SK",
+      "organizer": "KCCKB / Kyberkomunita",
+      "infoUrl": "https://cybercompetence.sk/konferencia/",
+      "signupUrl": "https://cybercompetence.sk/prihlaska-konferencia-kyber-2026-jesen/",
+      "cost": "free",
+      "language": "sk",
+      "notes": "National competence-center; free. CRA advisory session + NIS2 track."
+    },
+    {
+      "id": "2026-09-17-de-lfdi-bw-datenschutzgrundlagen",
+      "title": "Datenschutzgrundlagen für öffentliche Stellen",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-17",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "LfDI Baden-Württemberg",
+      "infoUrl": "https://www.baden-wuerttemberg.datenschutz.de/offene-veranstaltung-2026-024/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "10:00-13:00, online via BigBlueButton, capacity 40. For public sector staff, especially municipalities, and DPOs. Page does not use the word DSGVO in the main body but tells attendees to review the Datenschutz-Grundverordnung beforehand. State DPA host, explicitly kostenfrei."
+    },
+    {
+      "id": "2026-09-17-fr-interconnectes-exigences-cyber",
+      "title": "Webinaire - Préparer sa collectivité aux nouvelles exigences cyber",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-17",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "FR",
+      "organizer": "Les Interconnectés",
+      "infoUrl": "https://www.interconnectes.com/e/preparer-sa-collectivite-nouvelles-exigences-cyber",
+      "signupUrl": "https://www.interconnectes.com/e/preparer-sa-collectivite-nouvelles-exigences-cyber",
+      "cost": "free",
+      "language": "fr",
+      "notes": "9h bis 10h per Video. Laut Seite kostenfrei und offen fuer alle Collectivites und oeffentlichen Stellen, nicht auf Mitglieder beschraenkt. Nennt sowohl die Richtlinie NIS 2 als auch das Projet de loi Resilience. Traeger ist der nationale Verband der Collectivites und Intercommunalites."
+    },
+    {
+      "id": "2026-09-17-pl-nist-ksc-nis2-jst",
+      "title": "Nowelizacja ustawy o KSC – dyrektywa NIS2 - wdrażanie i zarządzanie cyberbezpieczeństwem w JST",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-17",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "PL",
+      "organizer": "Narodowy Instytut Samorządu Terytorialnego (NIST)",
+      "infoUrl": "https://www.nist.gov.pl/szkolenia/bezplatne-szkolenie-on-line-pn-nowelizacja-ustawy-o-ksc-dyrektywa-nis2-wdrazanie-i-zarzadzania-cyberbezpieczenstwem-w-jst-na-bazie-nowelizacji-ustawy-o-ksc-17-wrzesnia-2026-r,15048.html",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "pl",
+      "notes": "10:00 bis 12:00 ueber Webex, ausdruecklich bezplatne. Behandelt Einstufung als podmiot kluczowy oder wazny, Pflichten, Sanktionen und eine Umsetzungscheckliste. Liegt zwei Wochen vor der KSC Registrierungsfrist am 3. Oktober 2026. Plaetze begrenzt."
+    },
+    {
+      "id": "2026-09-17-pt-cra-standards-unlocked-lisbon",
+      "title": "CRA Standards Unlocked - EU Tour (Lisbon)",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-17",
+      "endDate": null,
+      "format": "hybrid",
+      "city": "Lisbon",
+      "country": "PT",
+      "organizer": "CYBERSTAND.eu / STAN4CRA.eu (EU-funded), hosted by Ordem dos Engenheiros",
+      "infoUrl": "https://cyberstand.eu/events/cra-standards-unlocked-eu-tour-lisbon",
+      "signupUrl": "https://cyberstand.eu/form/cra-standards-unlocked-lisbon",
+      "cost": "free",
+      "language": "en",
+      "notes": "09:00-17:00, onsite capped at 40 plus online. Lisbon 17.09 and Bonn 07.10 are the only remaining tour stops."
+    },
+    {
       "id": "2026-09-21-de-bvmw-webimpuls-nis2-vorfall",
       "title": "WebImpuls NIS2: Sicherheitsvorfall im Mittelstand, was tun wenn es brennt?",
       "topics": [
@@ -310,76 +671,22 @@
       "notes": "Non-profit Mittelstand association (e.V.). Part 5 of a free 6-part WebImpuls NIS2 series, each session attendable on its own."
     },
     {
-      "id": "2026-11-06-de-bvmw-webimpuls-nis2-nachweisbarkeit",
-      "title": "WebImpuls NIS2: Nachweisbarkeit im Mittelstand und kontinuierliche Verbesserung",
+      "id": "2026-09-21-eu-cys-cra-horizontal-standards",
+      "title": "Building CRA Compliance through Horizontal Cybersecurity Standards",
       "topics": [
-        "NIS2"
+        "CRA"
       ],
-      "startDate": "2026-11-06",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "DE",
-      "organizer": "Der Mittelstand. BVMW (Köln, Bonn)",
-      "infoUrl": "https://www.bvmw.de/de/koeln-bonn/internet-und-digitalisierung/veranstaltungen/webimpuls-nis2-nachweisbarkeit-im-mittelstand-und-kontinuierliche-verbesserung",
-      "signupUrl": "https://doo.net/veranstaltung/219162/buchung",
-      "cost": "free",
-      "language": "de",
-      "notes": "Non-profit Mittelstand association (e.V.). Part 6 (final) of the free 6-part WebImpuls NIS2 series."
-    },
-    {
-      "id": "2027-04-20-de-hh-datenschutzforum",
-      "title": "6. Hamburger Datenschutzforum",
-      "topics": [
-        "GDPR"
-      ],
-      "startDate": "2027-04-20",
+      "startDate": "2026-09-21",
       "endDate": null,
       "format": "in-person",
-      "city": "Hamburg",
-      "country": "DE",
-      "organizer": "Hamburgische Datenschutzgesellschaft e.V., HmbBfDI, Handelskammer Hamburg",
-      "infoUrl": "https://hdgev.de/event/270420/",
+      "city": "Nicosia",
+      "country": "EU",
+      "organizer": "Cyprus Organization for Standardization (CYS) with the Digital Security Authority, under STAN4CRA and CYBERSTAND.eu",
+      "infoUrl": "https://www.stan4cra.eu/event-details/conference-building-cra-compliance-through-horizontal-cybersecurity-standards",
       "signupUrl": null,
       "cost": "free",
-      "language": "de",
-      "notes": "Non-profit plus Hamburg data-protection authority plus Handelskammer, recurring annual forum, free. Agenda pending."
-    },
-    {
-      "id": "2026-07-14-ie-ics-adpo-dsar",
-      "title": "Revisiting DSARs: from AI-drafted requests to Digital Omnibus nuances",
-      "topics": [
-        "GDPR"
-      ],
-      "startDate": "2026-07-14",
-      "endDate": null,
-      "format": "online",
-      "city": "Dublin",
-      "country": "IE",
-      "organizer": "Irish Computer Society / ADPO",
-      "infoUrl": "https://ics.ie/ics-events/",
-      "signupUrl": "https://zoom.us/meeting/register/PQS2hT8HTiq2brKBUxNAuA",
-      "cost": "free",
       "language": "en",
-      "notes": "Non-profit professional body. Free online GDPR session (DSARs), 45 min. Date and Zoom signup confirmed."
-    },
-    {
-      "id": "2026-09-22-it-verona-pid-nis2",
-      "title": "Navigare tra NIS2, AI Act e nuovi obblighi digitali",
-      "topics": [
-        "NIS2"
-      ],
-      "startDate": "2026-09-22",
-      "endDate": null,
-      "format": "online",
-      "city": "Verona",
-      "country": "IT",
-      "organizer": "Camera di Commercio di Verona (Punto Impresa Digitale)",
-      "infoUrl": "https://confartigianato.verona.it/categorie-cat/attualita/camera-di-commercio-cybersecurity-e-intelligenza-artificiale-servizio-affiancamento-gratuito-per-50-mpmi-invia-candidatura-e-4-webinar-aperti-a-tutti/",
-      "signupUrl": "https://unioncamere.my.site.com/cciaaVerona",
-      "cost": "free",
-      "language": "it",
-      "notes": "Chamber of commerce (public body), one of 4 free open webinars. NIS2/AI Act session."
+      "notes": "09:00 to 16:15 in Egkomi. CEN and CENELEC horizontal standards supporting CRA implementation. No fee printed on the page, treated as free because the sibling CRA Standards Unlocked stops are explicitly free. The registration link on the page wrongly points at the Paris stop, so no signup URL is given."
     },
     {
       "id": "2026-09-22-be-be-cyber-2026",
@@ -419,6 +726,188 @@
       "notes": "Chamber and authority co-host. One of a free 9-part NIS2 workshop series (Jul-Nov 2026); all dates at nis2.mkik.hu/workshopok."
     },
     {
+      "id": "2026-09-22-it-verona-pid-nis2",
+      "title": "Navigare tra NIS2, AI Act e nuovi obblighi digitali",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-22",
+      "endDate": null,
+      "format": "online",
+      "city": "Verona",
+      "country": "IT",
+      "organizer": "Camera di Commercio di Verona (Punto Impresa Digitale)",
+      "infoUrl": "https://confartigianato.verona.it/categorie-cat/attualita/camera-di-commercio-cybersecurity-e-intelligenza-artificiale-servizio-affiancamento-gratuito-per-50-mpmi-invia-candidatura-e-4-webinar-aperti-a-tutti/",
+      "signupUrl": "https://unioncamere.my.site.com/cciaaVerona",
+      "cost": "free",
+      "language": "it",
+      "notes": "Chamber of commerce (public body), one of 4 free open webinars. NIS2/AI Act session."
+    },
+    {
+      "id": "2026-09-24-nl-fg-cafe-2026",
+      "title": "FG-café 2026",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-24",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Utrecht",
+      "country": "NL",
+      "organizer": "CIP (Centrum Informatiebeveiliging en Privacybescherming) en Autoriteit Persoonsgegevens",
+      "infoUrl": "https://www.digitaleoverheid.nl/evenementen/fg-cafe-2026/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "nl",
+      "notes": "Authority host (Autoriteit Persoonsgegevens, the Dutch data protection authority) with CIP, assumed free. 24 Sep 2026 13:00 to 16:45, Jaarbeurs Meetup Utrecht. For data protection officers (FG, the GDPR role) in the public sector. Registration by email."
+    },
+    {
+      "id": "2026-09-29-at-dih-sued-nis2-ai-act",
+      "title": "KI-Verordnung (AI-Act) und NIS-2 / NISG 2026. Sind Sie gut vorbereitet?",
+      "topics": [
+        "NIS2",
+        "GDPR"
+      ],
+      "startDate": "2026-09-29",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Kapfenberg",
+      "country": "AT",
+      "organizer": "DIH SÜD (European Digital Innovation Hub Süd) / FH JOANNEUM",
+      "infoUrl": "https://www.dih-sued.at/veranstaltungen/article/ki-verordnung-ai-act-und-nis-2-nisg-2026-sind-sie-gut-vorbereitet",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "09:00-12:00, FH JOANNEUM Kapfenberg. EU-funded Digital Innovation Hub (competence centre), free for SMEs, registration via a free DIH SÜD account. Agenda covers the AI Act plus NIS2/NISG 2026 plus DSGVO legal basics (Rechtliche Grundlagen zum Datenschutz). First AT event found for this feed; NISG 2026 enters force 01.10.2026."
+    },
+    {
+      "id": "2026-09-29-be-digital-wallonia-cyber-forum",
+      "title": "Digital Wallonia Cyber Forum 2026",
+      "topics": [
+        "NIS2",
+        "GDPR"
+      ],
+      "startDate": "2026-09-29",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Ottignies-Louvain-la-Neuve",
+      "country": "BE",
+      "organizer": "Agence du Numerique / Cyberwal by Digital Wallonia (Walloon public agency)",
+      "infoUrl": "https://www.digitalwallonia.be/fr/agenda/digital-wallonia-cyber-forum-2026/",
+      "signupUrl": "https://www.eventbrite.be/e/billets-digital-wallonia-cyber-forum-2026-1992810285208",
+      "cost": "free",
+      "language": "fr",
+      "notes": "09:30-19:00, Aula Magna. CCB plenary on NIS2 two years in (Phedra Clouner 10:30); RGPD workshop. Free confirmed via Eventbrite EUR 0.00. Opens EU Cybersecurity Month."
+    },
+    {
+      "id": "2026-09-29-de-acs-cyber-sicherheits-tag-hamburg",
+      "title": "40. Cyber-Sicherheits-Tag: Hamburg verNetzt - stark in Zeiten von hybriden Bedrohungen",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-29",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Hamburg",
+      "country": "DE",
+      "organizer": "Allianz fuer Cyber-Sicherheit (BSI) mit Handelskammer Hamburg, Senatskanzlei und Behoerde fuer Inneres und Sport",
+      "infoUrl": "https://www.allianz-fuer-cybersicherheit.de/dok/40CST",
+      "signupUrl": "https://www.handelskammer-hamburg.de/cybersicherheitstag",
+      "cost": "free",
+      "language": "de",
+      "notes": "10:00-16:00, Handelskammer Hamburg. ACS flagship day for companies and decision-makers; hybrid threats, corporate cybersecurity, AI. NIS-2 not yet named in the published agenda; added from ACS newsletter 16/2026 as authority-hosted decision-maker event. Cost inferred free (ACS/chamber host)."
+    },
+    {
+      "id": "2026-09-29-de-nagold-cra-transformations-lounge",
+      "title": "Transformations-Lounge: Der Cyber Resilience Act: Fluch oder Segen für produktentwickelnde Unternehmen?",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-29",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Nagold",
+      "country": "DE",
+      "organizer": "Wirtschaftsförderung Nordschwarzwald (TraFoNetz Nordschwarzwald)",
+      "infoUrl": "https://nordschwarzwald.de/wirtschaftskalender/transformations-lounge-der-cyber-resilience-act-fluch-oder-segen-fuer-produktentwickelnde-unternehmen/",
+      "signupUrl": "https://nordschwarzwald.portal.smartwe.de/record/VAM_EVENT/05CB2C651174320092D6B9EBF1F86FDE",
+      "cost": "free",
+      "language": "de",
+      "notes": "17:30 bis 20:00 im IHK-Bildungszentrum Nagold. Teilnahme laut Seite kostenfrei. Referentin ist Abteilungsleiterin Cybersecurity and Law am FZI Karlsruhe."
+    },
+    {
+      "id": "2026-09-29-fr-cnil-rencontres-informatique-libertes",
+      "title": "Rencontres Informatique et Libertes 2026",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-29",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Paris",
+      "country": "FR",
+      "organizer": "CNIL",
+      "infoUrl": "https://www.cnil.fr/fr/evenement/rencontres-informatique-libertes-2026",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "fr",
+      "notes": "CNIL flagship legal event at CNIL HQ, DPO and legal audience. RGPD not literally named in the current description (data protection law is the subject); registration not yet open. Listed free on CNIL agenda."
+    },
+    {
+      "id": "2026-09-29-lu-cnpd-dp-basics-ai",
+      "title": "Data Protection Basics: Artificial Intelligence",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-29",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Belval (Esch-sur-Alzette)",
+      "country": "LU",
+      "organizer": "CNPD (Commission Nationale pour la Protection des Données)",
+      "infoUrl": "https://cnpd.public.lu/en/actualites/national/2026/09/dpai-sep2026.html",
+      "signupUrl": "mailto:formations@cnpd.lu",
+      "cost": "free",
+      "language": "fr",
+      "notes": "09:00-13:00, Twist Building annex, Belval. Recurring monthly CNPD training (Luxembourg's national data protection authority, a public body); further AI-session dates 13.10, 24.11, 15.12.2026 at the same URL pattern. Explicitly covers 'Implications of the GDPR and the AI Act.' Free, registration by email, limited seats. First LU events found for this feed."
+    },
+    {
+      "id": "2026-09-30-de-bitkom-privacy-conference-day2",
+      "title": "Privacy Conference 2026, Tag 2 (Livestream)",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-30",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Bitkom e.V.",
+      "infoUrl": "https://www.privacy-conference.com/en",
+      "signupUrl": "https://www.privacy-conference.com/en/tickets26",
+      "cost": "free",
+      "language": "en",
+      "notes": "Only the Day-2 livestream is free (verified on tickets page); Day 1 onsite is paid. International English day; counts toward DPO training."
+    },
+    {
+      "id": "2026-09-30-de-wfl-lippstadt-nis2-praxis",
+      "title": "NIS-2 in der Praxis: Grundlagen und Risikomanagement für KMU",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-30",
+      "endDate": null,
+      "format": "in-person",
+      "city": "",
+      "country": "DE",
+      "organizer": "WFL Wirtschaftsförderung Lippstadt (Verbund kmu.kompetent.sicher)",
+      "infoUrl": "https://kmu-kompetent-sicher.de/events/nis-2-in-der-praxis-grundlagen-und-risikomanagement-fuer-kmu",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Kostenfrei ausgewiesen, oeffentlich gefoerdertes Projekt KMU.kompetent.sicher. 18:00 bis 20:00 in Praesenz. Der Veranstaltungsort ist noch nicht publiziert, Anmeldung per E-Mail bei der Wirtschaftsfoerderung Lippstadt bis 21.09.2026. Ort vor der Veroeffentlichung nachfassen."
+    },
+    {
       "id": "2026-09-30-hu-mkik-ot-nis2",
       "title": "NIS2 felkészítő workshop: Ipari kiberbiztonság, az OT rendszerek NIS2 megfelelése",
       "topics": [
@@ -437,22 +926,315 @@
       "notes": "Free MKIK/SZTFH series (OT and industrial NIS2). Full series at nis2.mkik.hu/workshopok."
     },
     {
-      "id": "2026-11-10-hu-mkik-zaro",
-      "title": "NIS2 Kamarai felkészítés, Záró workshop",
+      "id": "2026-10-01-at-dih-sued-cyber-it-security",
+      "title": "Cyber- und IT-Security: Vorbereitung und Verhalten im Angriffsfall",
+      "topics": [
+        "NIS2",
+        "GDPR"
+      ],
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-15",
+      "format": "online",
+      "city": "",
+      "country": "AT",
+      "organizer": "Forschung Burgenland und Wirtschaftskammer Burgenland (DIH SÜD)",
+      "infoUrl": "https://www.dih-sued.at/veranstaltungen/article/cyber-und-it-security-vorbereitung-und-verhalten-im-angriffsfall-1",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Dreiteilige Onlinereihe am 1., 8. und 15. Oktober, jeweils 15:00 bis 16:30. Modul zu branchenspezifischen Anforderungen nennt NIS 2, Modul 3 die DSGVO. Kostenlos fuer KMU, Anmeldung nur nach Login im DIH SUED Portal."
+    },
+    {
+      "id": "2026-10-01-eu-cra-standards-unlocked-hague",
+      "title": "CRA Standards Unlocked - EU Tour in The Hague",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-10-01",
+      "endDate": null,
+      "format": "hybrid",
+      "city": "Den Haag",
+      "country": "EU",
+      "organizer": "CYBERSTAND.eu and STAN4CRA.eu, hosted at the Ministry of Economic Affairs and Climate",
+      "infoUrl": "https://cyberstand.eu/events/cra-standards-unlocked-eu-tour-hague",
+      "signupUrl": "https://cyberstand.eu/form/cra-standards-unlocked-hague",
+      "cost": "free",
+      "language": "en",
+      "notes": "09:30 to 17:00. Page states free. On site capacity 85 with ID check at the door, sessions in English and Dutch. Standards rapporteurs present the draft harmonised standards."
+    },
+    {
+      "id": "2026-10-01-nl-overheidsbreed-cyberprogramma",
+      "title": "Online sessies van het Overheidsbreed Cyberprogramma",
       "topics": [
         "NIS2"
       ],
-      "startDate": "2026-11-10",
+      "startDate": "2026-10-01",
+      "endDate": "2026-11-10",
+      "format": "online",
+      "city": "",
+      "country": "NL",
+      "organizer": "Overheidsbreed Cyberprogramma (BZK en ICTU; met RDI, VNG, AIVD, Logius, CIP)",
+      "infoUrl": "https://www.digitaleoverheid.nl/evenementen/online-sessies-van-het-overheidsbreed-cyberprogramma/",
+      "signupUrl": "https://www.weerbaredigitaleoverheid.nl/programma/",
+      "cost": "free",
+      "language": "nl",
+      "notes": "Eight sessions incl. Cyberbeveiligingswet and supply chain risk, aimed at public sector CISOs and bestuurders. Per-session dates on the JS-heavy signup page."
+    },
+    {
+      "id": "2026-10-02-eu-cyber-resilience-digital-era-athens",
+      "title": "Building Cyber Resilience in the Digital Era",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-10-02",
       "endDate": null,
       "format": "in-person",
-      "city": "Budapest",
+      "city": "Athens",
+      "country": "EU",
+      "organizer": "EU-funded projects CRACoWi, DETANGLE and INCIDENTRON",
+      "infoUrl": "https://www.cracowi.eu/news/event-building-cyber-resilience-in-the-digital-era/",
+      "signupUrl": "https://www.eventbrite.at/e/building-cyber-resilience-in-the-digital-era-workshop-tickets-1995910152996",
+      "cost": "free",
+      "language": "en",
+      "notes": "09:00 to 16:00 at the Electra Palace Athens. Joint workshop on NIS2 compliance in practice, CRA enforcement and cross border incident response. Page states free, agenda not published yet."
+    },
+    {
+      "id": "2026-10-05-de-cybersicherheitsmonat-kickoff",
+      "title": "Was der Mittelstand jetzt über Cybersicherheit wissen muss: Lagebild, Trends und Programm des Cybersicherheitsmonats 2026",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-10-05",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit im Mittelstand (CYBERsicher) mit dem BVMW",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/was-der-mittelstand-jetzt-ueber-cybersicherheit-wissen-muss-lagebild-trends-und-programm-des-cybersicherheitsmonats-2026/",
+      "signupUrl": "https://eu01web.zoom.us/webinar/register/WN_kFWHYQkwQSiH4rqC_bLClA",
+      "cost": "free",
+      "language": "de",
+      "notes": "Kostenfrei laut Anmeldeseite. Opens the BMWE-funded Cybersicherheitsmonat 2026 webinar series; names NIS2 and CRA as programme topics."
+    },
+    {
+      "id": "2026-10-06-de-cybersicherheitsmonat-compliance-gf",
+      "title": "Cybersecurity-Compliance für Geschäftsführende",
+      "topics": [
+        "NIS2",
+        "GDPR"
+      ],
+      "startDate": "2026-10-06",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit im Mittelstand (CYBERsicher)",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cybersecurity-compliance-fuer-geschaeftsfuehrende/",
+      "signupUrl": "https://eu01web.zoom.us/webinar/register/WN_TSMES3-RSyeVJWT_0k1EoQ",
+      "cost": "free",
+      "language": "de",
+      "notes": "Kostenfrei laut Anmeldeseite. Part of Cybersicherheitsmonat 2026. Description names the NIS2-Richtlinie and DSGVO requirements. Management-duty angle, closest fit to the CEO course audience."
+    },
+    {
+      "id": "2026-10-06-nl-one-conference",
+      "title": "ONE Conference 2026",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-10-06",
+      "endDate": "2026-10-07",
+      "format": "in-person",
+      "city": "The Hague",
+      "country": "NL",
+      "organizer": "NCSC-NL / Security Delta (HSD)",
+      "infoUrl": "https://one-conference.nl/programme/",
+      "signupUrl": "https://one-conference.nl/",
+      "cost": "free",
+      "language": "en",
+      "notes": "Government conference, free (registration required). Cyber Governance track + NIS2 sidetrack."
+    },
+    {
+      "id": "2026-10-07-de-cra-standards-unlocked-bonn",
+      "title": "CRA Standards Unlocked - EU Tour (Bonn)",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-10-07",
+      "endDate": null,
+      "format": "hybrid",
+      "city": "Bonn",
+      "country": "DE",
+      "organizer": "CYBERSTAND.eu / STAN4CRA.eu (EU-funded) mit CEN/CENELEC, ETSI und BSI",
+      "infoUrl": "https://cyberstand.eu/events/cra-standards-unlocked-eu-tour-bonn",
+      "signupUrl": "https://cyberstand.eu/form/cra-standards-unlocked-eu-bonn",
+      "cost": "free",
+      "language": "de",
+      "notes": "09:00-17:00, CityHub Bonn, max 80 onsite, DE and EN. Draft harmonised CRA standards presented by ESO rapporteurs; speaker call OPEN for 15-min manufacturer/SME slots and podium (mail CRA-Standards-Unlocked@bsi.bund.de, cc kilian.mitterweger@bsi.bund.de). Cost inferred free (EU-funded projects). Source: ACS newsletter 16/2026."
+    },
+    {
+      "id": "2026-10-07-de-ihk-sbh-it-sicherheitskonferenz",
+      "title": "IHK IT-Sicherheitskonferenz 2026",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-07",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Villingen-Schwenningen",
+      "country": "DE",
+      "organizer": "IHK Schwarzwald-Baar-Heuberg",
+      "infoUrl": "https://veranstaltungen-ihk-sbh.de/b?p=ihkitsicherheitskonferenz2026",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Recheck resolved: date was unpublished as of the last run, now confirmed 09:00-15:30 at the IHK office, Albert-Schweitzer-Str. 7, 78052 Villingen-Schwenningen. Free admission stated, registration requested as binding via an embedded form (no separate URL). Description names NIS2 and DORA together. 4th edition of the conference, previously around 180 attendees. Contact Alexander Rösgen, alexander.roesgen@vs.ihk.de."
+    },
+    {
+      "id": "2026-10-07-eu-enisa-ehealth",
+      "title": "11th eHealth Security Conference",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-07",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Nicosia",
+      "country": "EU",
+      "organizer": "ENISA",
+      "infoUrl": "https://www.enisa.europa.eu/events/11th-ehealth-security-conference",
+      "signupUrl": "https://www.eventora.com/en/Events/11thEnisaeHealthSecurityConference",
+      "cost": "free",
+      "language": "en",
+      "notes": "EU agency event, free. NIS2 implementation for the health sector + EHDS."
+    },
+    {
+      "id": "2026-10-07-hu-mkik-nis2-fokusztema",
+      "title": "NIS2 felkeszites: valasztott fokusztema",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-07",
+      "endDate": null,
+      "format": "online",
+      "city": "",
       "country": "HU",
-      "organizer": "Magyar Kereskedelmi és Iparkamara (MKIK) with SZTFH",
+      "organizer": "MKIK / SZTFH",
       "infoUrl": "https://nis2.mkik.hu/workshopok",
-      "signupUrl": "https://nis2.mkik.hu/workshopok/38/jelentkezes",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/35/jelentkezes",
       "cost": "free",
       "language": "hu",
-      "notes": "Closing in-person session of the free MKIK/SZTFH NIS2 series, Budapest."
+      "notes": "Free chamber program."
+    },
+    {
+      "id": "2026-10-08-at-dih-sued-business-nachmittag-cybersicherheit",
+      "title": "Business Nachmittag - Cyber-Sicherheit im Fokus: Bedrohungen, Lösungen und Notfallpläne für KMU",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-08",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Assling",
+      "country": "AT",
+      "organizer": "FH CAMPUS 02, DIH SÜD GmbH, INNOS GmbH, Hochschule St. Pölten",
+      "infoUrl": "https://www.dih-sued.at/veranstaltungen/article/business-nachmittag-cyber-sicherheit-im-fokus-bedrohungen-loesungen-und-notfallplaene-fuer-kmu",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "16:00 bis 18:00 in Assling, Osttirol. Programm nennt die neuen Anforderungen durch das NISG 2026 sowie Notfallplanung. Kostenlos fuer KMU, Anmeldung nur nach Login im DIH SUED Portal."
+    },
+    {
+      "id": "2026-10-08-de-cybersicherheitsmonat-nis2-erklaert",
+      "title": "NIS2 einfach erklärt: Anforderungen, Pflichten und Umsetzung",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-08",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit im Mittelstand (CYBERsicher)",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/nis2-einfach-erklaert-anforderungen-pflichten-und-umsetzung/",
+      "signupUrl": "https://eu01web.zoom.us/webinar/register/WN_xuScFEZ-SZ2hwPG70VAW6A",
+      "cost": "free",
+      "language": "de",
+      "notes": "10:00 bis 11:00 Uhr, kostenfrei laut Anmeldeseite. Part of Cybersicherheitsmonat 2026. Found independently by two regional sweeps."
+    },
+    {
+      "id": "2026-10-08-de-hmbbfdi-datenschutz-websites",
+      "title": "Datenschutz auf Websites - Ein Überblick",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-10-08",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Der Hamburgische Beauftragte für Datenschutz und Informationsfreiheit (HmbBfDI)",
+      "infoUrl": "https://www.datenschutz-hamburg.de/veranstaltungen",
+      "signupUrl": "https://bbb.hmbbfdi.de/rooms/v2h-sup-6wu-woy/join",
+      "cost": "free",
+      "language": "de",
+      "notes": "Monatliche Datenschutzsprechstunde des HmbBfDI, 12:00 bis 13:00, öffentlich, keine Anmeldung nötig. Cookies, Tracking und eingebundene Drittinhalte für Websitebetreiber. Kostenfrei laut Behördenseite."
+    },
+    {
+      "id": "2026-10-13-de-blnbdi-starthilfe-themenblock-5",
+      "title": "Starthilfe Datenschutz: Themenblock 5 - Gestaltung datenschutzkonformer Websites",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-10-13",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "Berliner Beauftragte für Datenschutz und Informationsfreiheit (BlnBDI)",
+      "infoUrl": "https://www.datenschutz-berlin.de/service/veranstaltungen/starthilfe-datenschutz/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "10:00 bis 15:30 in Präsenz. Kostenfrei, aber dieser Termin ist bereits ausgebucht, Anmeldung derzeit nicht möglich."
+    },
+    {
+      "id": "2026-10-13-de-cybersicherheitsmonat-cra-1",
+      "title": "Cyber Resilience Act I – Chance oder Risiko für die deutsche Industrie?",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-10-13",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit im Mittelstand (CYBERsicher)",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-chance-oder-risiko-fuer-die-deutsche-industrie/",
+      "signupUrl": "https://eu01web.zoom.us/webinar/register/WN_xd-3ipgSQfmUcp_QdO-1Ew",
+      "cost": "free",
+      "language": "de",
+      "notes": "10:00 bis 11:00 Uhr, kostenfrei laut Anmeldeseite. Part one of a two-part series, part two is 15.10. OT and SME angle."
+    },
+    {
+      "id": "2026-10-13-hu-mkik-nis2-workshop-vote",
+      "title": "NIS2 felkészítő workshop, a fókusz témát szavazás alapján választjuk ki",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-13",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "HU",
+      "organizer": "Magyar Kereskedelmi és Iparkamara (MKIK)",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/41/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "Beginn 10:00, ingyenes laut Anmeldeseite. Zusaetzlicher Termin der bereits erfassten MKIK Reihe. Das Schwerpunktthema waehlen die Teilnehmenden per Abstimmung im Anmeldeformular."
     },
     {
       "id": "2026-10-13-lv-certlv-cyberchess",
@@ -473,22 +1255,312 @@
       "notes": "National CERT (with Latvian MoD / NCSC). NIS2 and EU policy featured. Free inferred from prior editions; verify once 2026 registration opens."
     },
     {
-      "id": "2026-09-10-de-transferstelle-nis2-verstehen",
-      "title": "NIS2 verstehen - Betroffenheit, Pflichten und Umsetzung",
+      "id": "2026-10-15-de-cybersicherheitsmonat-cra-2",
+      "title": "Cyber Resilience Act II: Was Unternehmen jetzt wissen müssen",
       "topics": [
-        "NIS2"
+        "CRA"
       ],
-      "startDate": "2026-09-10",
+      "startDate": "2026-10-15",
       "endDate": null,
       "format": "online",
       "city": "",
       "country": "DE",
-      "organizer": "Transferstelle Cybersicherheit (CYBERsicher)",
-      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/nis2-verstehen-betroffenheit-pflichten-und-umsetzung/",
-      "signupUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/nis2-verstehen-betroffenheit-pflichten-und-umsetzung/",
+      "organizer": "Transferstelle Cybersicherheit im Mittelstand (CYBERsicher)",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/cyber-resilience-act-was-unternehmen-jetzt-wissen-muessen/",
+      "signupUrl": "https://eu01web.zoom.us/webinar/register/WN_l3Qa_TL-Qk6NOOYvcOzKRA",
       "cost": "free",
       "language": "de",
-      "notes": "Gov-funded (CYBERsicher). Online-Workshop 09:00-11:00. KMU intro: Betroffenheit, Pflichten, erste Massnahmen. Distinct organizer from the 10.09 it's.BB nis2know Umsetzung session."
+      "notes": "10:00 bis 11:00 Uhr, kostenfrei laut Anmeldeseite. Part two of the 13.10 series. Covers product security, security by design and technical documentation duties."
+    },
+    {
+      "id": "2026-10-15-es-camarabilbao-rgpd-dia-a-dia",
+      "title": "Multas, riesgos y soluciones: cómo cumplir con el RGPD en tu día a día",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-10-15",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "ES",
+      "organizer": "Cámara de Comercio, Industria, Servicios y Navegación de Bilbao",
+      "infoUrl": "https://www.camarabilbao.com/event/como-cumplir-rgpd-multas-riesgos-soluciones/",
+      "signupUrl": "https://www.camarabilbao.com/event/como-cumplir-rgpd-multas-riesgos-soluciones/",
+      "cost": "free",
+      "language": "es",
+      "notes": "Webinar 10:00 bis 11:00. Kostenfrei doppelt bestaetigt, ueber das Preisfeld der Seite und ueber die Events API der Kammer. Teil des oeffentlich gefoerderten Programms Pyme Cibersegura. Anmeldung ueber ein Formular auf derselben Seite."
+    },
+    {
+      "id": "2026-10-15-fr-cci-yonne-atelier-cyber",
+      "title": "Atelier Numerique: Le point sur les menaces cyber en 2026",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-15",
+      "endDate": null,
+      "format": "online",
+      "city": "Auxerre",
+      "country": "FR",
+      "organizer": "CCI Yonne (chambre de commerce)",
+      "infoUrl": "https://www.cci89.fr/votre-cci/agenda/atelier-numerique-cybersecurite-15-10-26/",
+      "signupUrl": "https://www.cci89.fr/votre-cci/agenda/atelier-numerique-cybersecurite-15-10-26/",
+      "cost": "free",
+      "language": "fr",
+      "notes": "12:00-13:00, gratuit stated on page. NIS2/DORA conformity is one segment of the hour, not the whole session."
+    },
+    {
+      "id": "2026-10-20-ro-dnsc-bcc2026",
+      "title": "Bucharest Cybersecurity Conference 2026 (BCC2026)",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-10-20",
+      "endDate": "2026-10-22",
+      "format": "in-person",
+      "city": "Bucharest",
+      "country": "RO",
+      "organizer": "DNSC",
+      "infoUrl": "https://bcc.dnsc.ro/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "en",
+      "notes": "National authority conference, free. CRA session. Info page 403s; verify cost on reopen."
+    },
+    {
+      "id": "2026-10-21-es-incibe-20enise",
+      "title": "20ENISE",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-10-21",
+      "endDate": "2026-10-23",
+      "format": "in-person",
+      "city": "Leon",
+      "country": "ES",
+      "organizer": "INCIBE",
+      "infoUrl": "https://www.incibe.es/eventos/enise",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "es",
+      "notes": "INCIBE flagship national congress; regulatory NIS2/CRA track expected, 2026 agenda not yet published. Free in prior editions, cost inferred; recheck when registration opens (~September)."
+    },
+    {
+      "id": "2026-10-21-hu-mkik-risk-bcp-supply-chain",
+      "title": "Kockazatelemzes, uzletmenet-folytonossag, beszallitoi lanc ertekeles",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-21",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "HU",
+      "organizer": "MKIK / SZTFH",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/36/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "NIS2 risk, BCP and supply chain assessment. Free chamber program."
+    },
+    {
+      "id": "2026-10-28-hu-mkik-nis2-software-devs",
+      "title": "NIS2 megfeleles szoftverfejlesztoknek: NIS2 vs PLD vs AI Act",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-10-28",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "HU",
+      "organizer": "MKIK / SZTFH",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/37/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "NIS2 compliance for software developers vs product liability and AI Act. Free chamber program."
+    },
+    {
+      "id": "2026-10-28-nl-ienw-cybersim-executive",
+      "title": "CyberSim Executive Edition: versterk jouw rol als bestuurder bij cyberincidenten",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-10-28",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Utrecht",
+      "country": "NL",
+      "organizer": "Ministerie van Infrastructuur en Waterstaat",
+      "infoUrl": "https://www.vnci.nl/agenda/evenement/cybersim-executive-edition-versterk-jouw-rol-als-bestuurder-bij-cyberincidenten",
+      "signupUrl": "https://cybersim-executive-edition.yellenge.nl/registration/#/tickets",
+      "cost": "free",
+      "language": "nl",
+      "notes": "13.00 tot 16.30 in Villa Jongerius. Crisissimulatie voor bestuurders en CIO's, beschrijving noemt expliciet de bestuurdersverantwoordelijkheid onder de Cyberbeveiligingswet. Gevonden via de VNCI agenda omdat de eigen pagina van het ministerie niet leesbaar is."
+    },
+    {
+      "id": "2026-11-02-de-cybersicher-nis2-verstehen",
+      "title": "NIS2 verstehen – Betroffenheit, Pflichten und Umsetzung",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-11-02",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Transferstelle Cybersicherheit im Mittelstand (CYBERsicher) mit der IHK Leipzig",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/nis2-verstehen-betroffenheit-pflichten-und-umsetzung-2/",
+      "signupUrl": "https://zoom.us/meeting/register/iFNyCeHARjCinR3QxclmXg",
+      "cost": "free",
+      "language": "de",
+      "notes": "09:00 bis 11:00 Uhr, kostenfrei laut Anmeldeseite. Recurring workshop; this is the next instance after the tracked 10.09 session, on a separate event page."
+    },
+    {
+      "id": "2026-11-03-lu-cnpd-dp-basics-intro-fr",
+      "title": "Data Protection Basics: An introduction to the subject matter",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-11-03",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Belval (Esch-sur-Alzette)",
+      "country": "LU",
+      "organizer": "CNPD (Commission Nationale pour la Protection des Données)",
+      "infoUrl": "https://cnpd.public.lu/en/actualites/national/2026/11/dpbasics-nov2026.html",
+      "signupUrl": "mailto:formations@cnpd.lu",
+      "cost": "free",
+      "language": "fr",
+      "notes": "10:00-12:00 and 13:00-16:00, Twist Building annex, Belval. Recurring CNPD introductory course (national DPA, public body); further FR date 07.12.2026. Explicitly aimed 'so that the GDPR can be properly understood and applied.' Free, no prerequisites, limited seats."
+    },
+    {
+      "id": "2026-11-05-de-innozent-owl-nis2-stand-der-technik",
+      "title": "NIS-2 umsetzen: Der Stand der Technik in der Unternehmenspraxis",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-11-05",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Detmold",
+      "country": "DE",
+      "organizer": "InnoZent OWL e.V. in Kooperation mit der IHK Lippe zu Detmold",
+      "infoUrl": "https://www.innozent-owl.de/05112026-nis-2-umsetzen-der-stand-der-technik-in-der-unternehmenspraxis/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Verein mit Kammer als Gastgeber, 10:00 bis 12:00, IHK Lippe zu Detmold, Leonardo-da-Vinci-Weg 2. Anmeldung ueber das Formular auf der Seite. Keine Gebuehr ausgewiesen, oeffentlich gefoerdertes Projekt KMU.kompetent.sicher."
+    },
+    {
+      "id": "2026-11-06-de-bvmw-webimpuls-nis2-nachweisbarkeit",
+      "title": "WebImpuls NIS2: Nachweisbarkeit im Mittelstand und kontinuierliche Verbesserung",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-11-06",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Der Mittelstand. BVMW (Köln, Bonn)",
+      "infoUrl": "https://www.bvmw.de/de/koeln-bonn/internet-und-digitalisierung/veranstaltungen/webimpuls-nis2-nachweisbarkeit-im-mittelstand-und-kontinuierliche-verbesserung",
+      "signupUrl": "https://doo.net/veranstaltung/219162/buchung",
+      "cost": "free",
+      "language": "de",
+      "notes": "Non-profit Mittelstand association (e.V.). Part 6 (final) of the free 6-part WebImpuls NIS2 series."
+    },
+    {
+      "id": "2026-11-10-de-blnbdi-starthilfe-themenblock-6",
+      "title": "Starthilfe Datenschutz: Themenblock 6 - Externe Dienstleistungen und Künstliche Intelligenz",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-11-10",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "Berliner Beauftragte für Datenschutz und Informationsfreiheit (BlnBDI)",
+      "infoUrl": "https://www.datenschutz-berlin.de/service/veranstaltungen/starthilfe-datenschutz/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "10:00 bis 15:00 in Präsenz. Auftragsverarbeitung und KI unter der DSGVO. Kostenfrei, aber dieser Termin ist bereits ausgebucht, Anmeldung derzeit nicht möglich."
+    },
+    {
+      "id": "2026-11-10-hu-mkik-zaro",
+      "title": "NIS2 Kamarai felkészítés, Záró workshop",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-11-10",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Budapest",
+      "country": "HU",
+      "organizer": "Magyar Kereskedelmi és Iparkamara (MKIK) with SZTFH",
+      "infoUrl": "https://nis2.mkik.hu/workshopok",
+      "signupUrl": "https://nis2.mkik.hu/workshopok/38/jelentkezes",
+      "cost": "free",
+      "language": "hu",
+      "notes": "Closing in-person session of the free MKIK/SZTFH NIS2 series, Budapest."
+    },
+    {
+      "id": "2026-11-16-lu-cnpd-dp-basics-intro-en",
+      "title": "Data Protection Basics: An introduction to the subject matter (English session)",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-11-16",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Belval (Esch-sur-Alzette)",
+      "country": "LU",
+      "organizer": "CNPD (Commission Nationale pour la Protection des Données)",
+      "infoUrl": "https://cnpd.public.lu/en/actualites/national/2026/11/dpbasics-en-nov2026.html",
+      "signupUrl": "mailto:formations@cnpd.lu",
+      "cost": "free",
+      "language": "en",
+      "notes": "10:00-12:00 and 13:00-16:00, Twist Building annex, Belval. English-language run of the recurring CNPD introductory course (national DPA, public body). Free, limited seats."
+    },
+    {
+      "id": "2026-12-08-de-it-sicherheitstag-nrw-duisburg",
+      "title": "IT-Sicherheitstag NRW",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-12-08",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Duisburg",
+      "country": "DE",
+      "organizer": "Industrie- und Handelskammern in NRW mit dem Kompetenzzentrum DIGITAL.SICHER.NRW",
+      "infoUrl": "https://www.it-sicherheitstag-nrw.de/Start.html",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Date confirmed by two sources, 14th edition, Landschaftspark Nord. Cost inferred free, no fee shown and the hosts are chambers plus the state competence centre. Caveat: the 2026 agenda page is still a placeholder, so the NIS2 framing carries over from the previous edition and is not yet reconfirmed in this year's description. Recheck when the agenda publishes."
+    },
+    {
+      "id": "2027-04-20-de-hh-datenschutzforum",
+      "title": "6. Hamburger Datenschutzforum",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2027-04-20",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Hamburg",
+      "country": "DE",
+      "organizer": "Hamburgische Datenschutzgesellschaft e.V., HmbBfDI, Handelskammer Hamburg",
+      "infoUrl": "https://hdgev.de/event/270420/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Non-profit plus Hamburg data-protection authority plus Handelskammer, recurring annual forum, free. Agenda pending."
     }
   ]
 }
