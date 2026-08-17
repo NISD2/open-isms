@@ -412,6 +412,20 @@
       "url": "https://www.ncsc.hr",
       "description": "Nacionalni centar za kiberneticku sigurnost: Croatian NIS 2 competent authority, publishes quarterly reviews of Cybersecurity Act implementation",
       "language": "en"
+    },
+    {
+      "id": "rdi",
+      "name": "RDI (Rijksinspectie Digitale Infrastructuur)",
+      "url": "https://www.rdi.nl",
+      "description": "Dutch horizontal supervisor under the Cyberbeveiligingswet: registration, duty of care and enforcement",
+      "language": "en"
+    },
+    {
+      "id": "digital-gov-pt",
+      "name": "digital.gov.pt",
+      "url": "https://digital.gov.pt",
+      "description": "Portuguese government digital portal: official news on the Regime Juridico da Ciberseguranca and MyCiber",
+      "language": "en"
     }
   ],
   "events": [
@@ -582,25 +596,8 @@
       "summary": "Step 2 of the infringement procedure: 19 Member States that had not notified full transposition of NIS 2 by the 17 October 2024 deadline receive a reasoned opinion from the Commission. The list includes Germany, France, Spain, Netherlands, Sweden, Finland, Denmark, Portugal, Ireland, Poland and others. Next step: referral to the CJEU.",
       "summaryDe": "Schritt 2 des Vertragsverletzungsverfahrens: 19 Mitgliedstaaten, die die NIS 2 Umsetzung bis zur Frist am 17. Oktober 2024 nicht vollstaendig notifiziert hatten, erhalten von der Kommission eine mit Gruenden versehene Stellungnahme. Auf der Liste stehen Deutschland, Frankreich, Spanien, Niederlande, Schweden, Finnland, Daenemark, Portugal, Irland, Polen und weitere. Naechster Schritt: Klage beim EuGH.",
       "sourceId": "ec-digital",
-      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-takes-further-steps-19-member-states-non-transposition-nis2-directive",
+      "sourceUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-calls-19-member-states-fully-transpose-nis2-directive",
       "addedAt": "2026-06-01"
-    },
-    {
-      "id": "2025-05-15-eu-infringement-proceedings",
-      "date": "2025-05-15",
-      "category": "eu",
-      "tags": [
-        "enforcement",
-        "transposition"
-      ],
-      "type": "milestone",
-      "title": "EC sends reasoned opinions to 19 member states for late NIS2 transposition",
-      "titleDe": "EK sendet mit Gründen versehene Stellungnahmen an 19 Mitgliedstaaten wegen verspäteter NIS2-Umsetzung",
-      "summary": "The European Commission escalates infringement proceedings against 19 member states that failed to transpose the NIS2 Directive by the October 2024 deadline.",
-      "summaryDe": "Die Europäische Kommission verschärft Vertragsverletzungsverfahren gegen 19 Mitgliedstaaten, die die NIS2-Richtlinie nicht fristgerecht bis Oktober 2024 umgesetzt haben.",
-      "sourceId": "ecso",
-      "sourceUrl": "https://ecs-org.eu/policy/nis2-directive-transposition-tracker/",
-      "addedAt": "2026-03-20T00:00:00Z"
     },
     {
       "id": "2025-06-26-enisa-nis2-guidance",
@@ -2858,7 +2855,113 @@
       "sourceId": "narodne-novine",
       "sourceUrl": "https://narodne-novine.nn.hr/clanci/sluzbeni/2026_07_78_926.html",
       "addedAt": "2026-08-05T14:10:00Z"
+    },
+    {
+      "id": "2026-08-15-national-transposition-nl-cbw-in-force",
+      "date": "2026-08-15",
+      "category": "national-transposition",
+      "tags": [
+        "nl",
+        "in-force",
+        "legislation",
+        "registration"
+      ],
+      "type": "update",
+      "title": "Netherlands: Cyberbeveiligingswet in force, registration in the entity register now mandatory",
+      "titleDe": "Niederlande: Cyberbeveiligingswet in Kraft, Registrierung im Einrichtungsregister jetzt verpflichtend",
+      "summary": "The Cyberbeveiligingswet (NIS 2) entered into force on 15 August 2026. Essential and important entities must register in the national entity register via Mijn.NCSC.nl from that date and report any change to their registered data within two weeks. The RDI supervises and can impose a fine or a penalty payment; register data is passed on to ENISA.",
+      "summaryDe": "Das Cyberbeveiligingswet (NIS 2) ist am 15. August 2026 in Kraft getreten. Wesentliche und wichtige Einrichtungen muessen sich ab diesem Tag ueber Mijn.NCSC.nl im nationalen Einrichtungsregister registrieren und Aenderungen ihrer Registerdaten binnen zwei Wochen melden. Die RDI fuehrt die Aufsicht und kann Bussgelder oder Zwangsgelder verhaengen; die Registerdaten werden an die ENISA weitergegeben.",
+      "sourceId": "rdi",
+      "sourceUrl": "https://www.rdi.nl/onderwerpen/digitale-weerbaarheid/cyberbeveiligingswet/registratieplicht",
+      "addedAt": "2026-08-17T13:27:27Z"
+    },
+    {
+      "id": "2026-08-06-national-transposition-pt-myciber-registration-window",
+      "date": "2026-08-06",
+      "category": "national-transposition",
+      "tags": [
+        "pt",
+        "registration",
+        "deadline",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Portugal: government sets out the practical obligations under the new cybersecurity regime, 60 working days to register on MyCiber",
+      "titleDe": "Portugal: Regierung konkretisiert die Pflichten des neuen Cybersicherheitsregimes, 60 Arbeitstage zur Registrierung bei MyCiber",
+      "summary": "The Portuguese government digital portal set out how Decreto-Lei 125/2025 and Regulamento 756/2026 apply in practice. Essential, important and relevant public entities have 60 working days to register and self-identify on the MyCiber platform, and 24 months from qualification by the CNCS to implement the minimum security measures.",
+      "summaryDe": "Das Digitalportal der portugiesischen Regierung hat dargelegt, wie das Decreto-Lei 125/2025 und das Regulamento 756/2026 praktisch anzuwenden sind. Wesentliche, wichtige und relevante oeffentliche Einrichtungen haben 60 Arbeitstage Zeit, sich auf der Plattform MyCiber zu registrieren und selbst einzustufen, und 24 Monate ab der Einstufung durch das CNCS, um die Mindestsicherheitsmassnahmen umzusetzen.",
+      "sourceId": "digital-gov-pt",
+      "sourceUrl": "https://digital.gov.pt/pt/noticias/ciberseguranca-novas-obrigacoes-entram-em-vigor",
+      "addedAt": "2026-08-17T13:27:27Z"
+    },
+    {
+      "id": "2026-08-06-enisa-cve-root-expansion",
+      "date": "2026-08-06",
+      "category": "enisa",
+      "tags": [
+        "organisational"
+      ],
+      "type": "update",
+      "title": "ENISA expands its CVE Root to 20 CVE Numbering Authorities",
+      "titleDe": "ENISA baut ihre CVE-Root auf 20 CVE Numbering Authorities aus",
+      "summary": "ENISA onboarded the NATO Communications and Information Agency and AISLE as CVE Numbering Authorities, bringing the ENISA Root to 20 CNAs, 12 onboarded directly and 8 transferred from the MITRE Root. ENISA became a CVE Root in November 2025 and runs the European Vulnerability Database provided for by the NIS 2 Directive.",
+      "summaryDe": "Die ENISA hat die NATO Communications and Information Agency und AISLE als CVE Numbering Authorities aufgenommen. Damit stehen 20 CNAs unter der ENISA-Root, 12 direkt aufgenommen und 8 von der MITRE-Root uebernommen. Die ENISA ist seit November 2025 CVE-Root und betreibt die in der NIS-2-Richtlinie vorgesehene europaeische Schwachstellendatenbank.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/news/enisa-scales-up-its-role-in-the-cve-program",
+      "addedAt": "2026-08-17T13:27:27Z"
+    },
+    {
+      "id": "2026-07-31-de-bsi-kritis-in-zahlen",
+      "date": "2026-07-31",
+      "category": "de",
+      "tags": [
+        "kritis",
+        "publication"
+      ],
+      "type": "update",
+      "title": "BSI updates KRITIS in Zahlen: 1,231 registered operators and 2,180 critical installations",
+      "titleDe": "BSI aktualisiert KRITIS in Zahlen: 1.231 registrierte Betreiber und 2.180 kritische Anlagen",
+      "summary": "The BSI refreshed its KRITIS in Zahlen statistics page with data as at 30 June 2026: 1,231 registered KRITIS operators running 2,180 critical installations, plus incident reports for the first quarter of 2026 broken down by sector. The BSI notes that a high reporting volume is not in itself an indicator of a sector's security posture.",
+      "summaryDe": "Das BSI hat die Statistikseite KRITIS in Zahlen mit Daten zum Stichtag 30. Juni 2026 aktualisiert: 1.231 registrierte KRITIS-Betreiber mit 2.180 kritischen Anlagen sowie die nach Sektoren aufgeschluesselten Meldungen aus dem ersten Quartal 2026. Das BSI weist darauf hin, dass ein hohes Meldeaufkommen fuer sich genommen kein Indikator fuer den Sicherheitsstand eines Sektors ist.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Themen/Regulierte-Wirtschaft/Kritische-Infrastrukturen/KRITIS-in-Zahlen/kritis-in-zahlen_node.html",
+      "addedAt": "2026-08-17T13:27:27Z"
+    },
+    {
+      "id": "2026-07-09-de-bsi-gain-22",
+      "date": "2026-07-09",
+      "category": "de",
+      "tags": [
+        "kritis",
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "BSI publishes GAiN version 2.2, the baseline requirements for evidence under sec. 39(2) BSIG",
+      "titleDe": "BSI veroeffentlicht GAiN Version 2.2, die grundsaetzlichen Anforderungen im Nachweisverfahren nach Paragraf 39 Absatz 2 BSIG",
+      "summary": "Version 2.2 of the Grundsaetzliche Anforderungen im Nachweisverfahren (GAiN), dated 9 July 2026, aligns the audit baseline for KRITIS operators with the amended BSIG and revises the text throughout. Chapter 4 lists the controls that take effect on 1 January 2027 or lapse. GAiN is BSI guidance for the sec. 39 evidence procedure, which KRITIS operators must complete every three years, and does not itself create new statutory duties.",
+      "summaryDe": "Version 2.2 der Grundsaetzlichen Anforderungen im Nachweisverfahren (GAiN) vom 9. Juli 2026 passt die Pruefgrundlage fuer KRITIS-Betreiber an das novellierte BSIG an und ueberarbeitet den Text sprachlich. Kapitel 4 listet die Anforderungen, die zum 1. Januar 2027 in Kraft treten oder entfallen. GAiN ist eine BSI-Handreichung fuer das Nachweisverfahren nach Paragraf 39, das KRITIS-Betreiber alle drei Jahre durchlaufen, und begruendet selbst keine neuen gesetzlichen Pflichten.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/KRITIS/anforderungen_gain_22.html",
+      "addedAt": "2026-08-17T13:27:27Z"
+    },
+    {
+      "id": "2026-07-07-enisa-frontier-ai-view",
+      "date": "2026-07-07",
+      "category": "enisa",
+      "tags": [
+        "publication",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "ENISA publishes its view on cybersecurity in the frontier AI era",
+      "titleDe": "ENISA veroeffentlicht ihre Sicht auf Cybersicherheit im Zeitalter der Frontier-KI",
+      "summary": "ENISA published a report for national competent authorities, EU policymakers, defenders and service providers with a first set of recommendations on building the operational capabilities needed against machine speed threats. The report is non-binding technical opinion and does not change obligations under the NIS 2 Directive.",
+      "summaryDe": "Die ENISA hat einen Bericht fuer nationale Behoerden, EU-Gesetzgeber, Verteidiger und Diensteanbieter veroeffentlicht, der erste Empfehlungen zum Aufbau operativer Faehigkeiten gegen Bedrohungen in Maschinengeschwindigkeit enthaelt. Der Bericht ist eine unverbindliche fachliche Stellungnahme und aendert die Pflichten aus der NIS-2-Richtlinie nicht.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/publications/enisas-view-on-cybersecurity-in-the-frontier-ai-era",
+      "addedAt": "2026-08-17T13:27:27Z"
     }
   ],
-  "lastUpdated": "2026-08-05T14:10:00Z"
+  "lastUpdated": "2026-08-17T13:27:27Z"
 }
