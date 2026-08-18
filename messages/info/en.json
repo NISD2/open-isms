@@ -6592,7 +6592,10 @@
         "heading": "Why us",
         "body": "We're not a consulting firm. We're not selling you a tool and then charging for the training to use it. We built everything on this platform by reading the actual law, the implementing regulation, and the BSI guidance. Every lesson in the managing director course cites its legal basis. Every requirement in the platform maps to a specific BSIG paragraph. We're engineers who decided compliance shouldn't cost six figures."
       },
-      "ctaMission": "Read our mission",
+      "cta": {
+        "heading": "Try the platform",
+        "description": "Check whether NIS2 applies to your company, then work through the requirements step by step. Open source, no lock-in."
+      },
       "ctaPlatform": "Start free"
     },
     "gapAssessmentLanding": {

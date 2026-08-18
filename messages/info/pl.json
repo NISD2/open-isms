@@ -6576,7 +6576,10 @@
         "heading": "Dlaczego my",
         "body": "Nie jesteśmy firmą konsultingową. Nie sprzedajemy Ci narzędzia, a potem nie pobieramy opłat za szkolenie z jego obsługi. Wszystko na tej platformie zbudowaliśmy, czytając samo prawo, rozporządzenie wykonawcze oraz wytyczne BSI. Każda lekcja w kursie dla zarządzających przytacza swoją podstawę prawną. Każdy wymóg na platformie odwzorowuje konkretny paragraf BSIG. Jesteśmy inżynierami, którzy uznali, że zgodność nie powinna kosztować sześciu cyfr."
       },
-      "ctaMission": "Przeczytaj naszą misję",
+      "cta": {
+        "heading": "Wypróbuj platformę",
+        "description": "Sprawdź, czy NIS2 dotyczy Twojej firmy, a następnie realizuj wymagania krok po kroku. Open source, bez uzależnienia od dostawcy."
+      },
       "ctaPlatform": "Zacznij za darmo"
     },
     "gapAssessmentLanding": {

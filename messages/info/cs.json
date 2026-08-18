@@ -6576,7 +6576,10 @@
         "heading": "Proč my",
         "body": "Nejsme konzultantská firma. Neprodáváme vám nástroj a pak vám neúčtujeme školení, jak ho používat. Vše na této platformě jsme vybudovali tím, že jsme přečetli skutečný zákon, prováděcí nařízení a pokyny BSI. Každá lekce v kurzu pro jednatele cituje svůj právní základ. Každý požadavek na platformě se mapuje na konkrétní paragraf BSIG. Jsme inženýři, kteří se rozhodli, že compliance by neměla stát šesticiferné částky."
       },
-      "ctaMission": "Přečtěte si naši misi",
+      "cta": {
+        "heading": "Vyzkoušet platformu",
+        "description": "Ověřte, zda se NIS2 vztahuje na vaši firmu, a poté plňte požadavky krok za krokem. Open source, bez závislosti na dodavateli."
+      },
       "ctaPlatform": "Začít zdarma"
     },
     "gapAssessmentLanding": {

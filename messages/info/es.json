@@ -6576,7 +6576,10 @@
         "heading": "Por qué nosotros",
         "body": "No somos una consultora. No le vendemos una herramienta para luego cobrarle por la formación para usarla. Construimos todo en esta plataforma leyendo la ley real, el reglamento de ejecución y la orientación del BSI. Cada lección del curso para directores gerentes cita su base jurídica. Cada requisito de la plataforma se asigna a un artículo específico del BSIG. Somos ingenieros que decidieron que el cumplimiento no debería costar seis cifras."
       },
-      "ctaMission": "Lee nuestra misión",
+      "cta": {
+        "heading": "Pruebe la plataforma",
+        "description": "Compruebe si la NIS2 se aplica a su empresa y trabaje los requisitos paso a paso. Open source, sin dependencia del proveedor."
+      },
       "ctaPlatform": "Empieza gratis"
     },
     "gapAssessmentLanding": {
