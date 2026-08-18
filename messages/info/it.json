@@ -6576,7 +6576,10 @@
         "heading": "Perché noi",
         "body": "Non siamo una società di consulenza. Non ti vendiamo uno strumento per poi farti pagare la formazione per usarlo. Abbiamo costruito tutto su questa piattaforma leggendo la legge effettiva, il regolamento di attuazione e le linee guida del BSI. Ogni lezione del corso per amministratori delegati cita la propria base giuridica. Ogni requisito della piattaforma è mappato a uno specifico paragrafo del BSIG. Siamo ingegneri che hanno deciso che la conformità non dovrebbe costare sei cifre."
       },
-      "ctaMission": "Leggi la nostra missione",
+      "cta": {
+        "heading": "Prova la piattaforma",
+        "description": "Verifica se la NIS2 si applica alla tua azienda e affronta i requisiti passo dopo passo. Open source, senza lock-in."
+      },
       "ctaPlatform": "Inizia gratis"
     },
     "gapAssessmentLanding": {

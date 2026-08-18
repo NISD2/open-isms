@@ -6576,7 +6576,10 @@
         "heading": "De ce noi",
         "body": "Nu suntem o firmă de consultanță. Nu vă vindem un instrument și apoi vă taxăm pentru instruirea de a-l folosi. Am construit tot ce este pe această platformă citind legea propriu-zisă, regulamentul de punere în aplicare și ghidurile BSI. Fiecare lecție din cursul pentru directori își citează temeiul juridic. Fiecare cerință din platformă se raportează la un paragraf BSIG specific. Suntem ingineri care au decis că conformitatea nu ar trebui să coste șase cifre."
       },
-      "ctaMission": "Citește misiunea noastră",
+      "cta": {
+        "heading": "Încercați platforma",
+        "description": "Verificați dacă NIS2 se aplică companiei dumneavoastră, apoi parcurgeți cerințele pas cu pas. Open source, fără dependență de furnizor."
+      },
       "ctaPlatform": "Începe gratuit"
     },
     "gapAssessmentLanding": {

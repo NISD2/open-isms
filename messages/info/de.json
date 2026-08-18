@@ -6585,7 +6585,10 @@
         "heading": "Warum wir",
         "body": "Wir sind keine Beratungsfirma. Wir verkaufen kein Tool und kassieren dann für die Schulung. Wir haben alles auf dieser Plattform gebaut, indem wir das Gesetz, die Durchführungsverordnung und die BSI-Leitfäden gelesen haben. Jede Lektion im CEO-Kurs nennt ihre Rechtsgrundlage. Jede Anforderung in der Plattform verweist auf einen konkreten BSIG-Paragraphen. Wir sind Ingenieure, die entschieden haben, dass Compliance keine sechs Stellen kosten sollte."
       },
-      "ctaMission": "Unsere Mission lesen",
+      "cta": {
+        "heading": "Plattform ausprobieren",
+        "description": "Prüfen Sie, ob NIS2 für Ihr Unternehmen gilt, und arbeiten Sie die Anforderungen Schritt für Schritt ab. Open Source, kein Lock-in."
+      },
       "ctaPlatform": "Kostenlos starten"
     },
     "gapAssessmentLanding": {

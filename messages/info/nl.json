@@ -19895,6 +19895,26 @@
         "description": "Het platform produceert een overdrachtsmap met herinnering aan registratie-update, §38 opleidingsvolger en briefingsjabloon voor risicoacceptaties."
       },
       "cta": "Aanmelden bij het platform"
+    },
+    "teamPage": {
+      "meta": {
+        "title": "Team - NISD2.eu",
+        "description": "Maak kennis met het team achter NISD2.eu. Twee oprichters die de Europese NIS2-kostenpost halveren."
+      },
+      "badge": "Team",
+      "title": "Wie we zijn",
+      "subtitle": "Twee oprichters die de NIS2-rekening willen halveren. Geen adviesbureau, geen VC-financiering. Alleen de overtuiging dat compliance geen zes cijfers hoeft te kosten.",
+      "simon": "Meer dan 10 jaar softwareontwikkeling in veiligheidskritische sectoren. Senior engineer en tech lead voor een top-5-bank in de EU, Europa's grootste producent van motion plastics en VC-gefinancierde platforms. Bracht de volledige NIS2-rechtsketen in kaart (richtlijn, uitvoeringsverordening 2024/2690, BSIG, IT-Grundschutz) en bouwde daarmee het NISD2-platform, de bestuurderscursus met 47 lessen en de gap-assessment met 116 vragen. Bouwt daarnaast AI-legaltech voor Duitse rechtspraak. Woont in Keulen.",
+      "cory": "M.Eng mechatronica met focus op embedded systems en AI-integratie. Verantwoordelijk voor businessdevelopment, partnerschappen en implementatieondersteuning bij klanten. Achtergrond in softwareontwikkeling met Python, TypeScript en IoT-systemen. Slaat de brug tussen technische compliance-eisen en de bedrijfsrealiteit van de organisaties die ze moeten invoeren. Woont in Duitsland.",
+      "whyUs": {
+        "heading": "Waarom wij",
+        "body": "We zijn geen adviesbureau. We verkopen u geen tool om vervolgens de training voor het gebruik ervan in rekening te brengen. Alles op dit platform is gebouwd op basis van de wet zelf, de uitvoeringsverordening en de BSI-richtsnoeren. Elke les in de bestuurderscursus vermeldt zijn juridische grondslag. Elke eis in het platform verwijst naar een specifieke BSIG-paragraaf. We zijn engineers die vonden dat compliance geen zes cijfers hoeft te kosten."
+      },
+      "cta": {
+        "heading": "Probeer het platform",
+        "description": "Controleer of NIS2 op uw bedrijf van toepassing is en werk de vereisten stap voor stap af. Open source, geen lock-in."
+      },
+      "ctaPlatform": "Gratis starten"
     }
   }
 }
