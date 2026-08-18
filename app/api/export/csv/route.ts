@@ -28,7 +28,8 @@ export async function GET(request: NextRequest) {
     return new Response("Forbidden", { status: 403 });
   }
 
-  const data = await loadReportData(assessmentId);
+  const locale = request.nextUrl.searchParams.get("locale") ?? "en";
+  const data = await loadReportData(assessmentId, locale);
 
   const headers = [
     "Category Code",

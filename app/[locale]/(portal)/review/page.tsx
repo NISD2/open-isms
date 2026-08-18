@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ClipboardCheck } from "lucide-react";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { api } from "@/lib/trpc/server";
@@ -7,8 +7,12 @@ import {
   ReviewDashboard,
   type ReviewRow,
 } from "@/components/review/ReviewDashboard";
-import requirementsEn from "@/messages/requirements/en.json";
-import complianceEn from "@/messages/compliance/en.json";
+import {
+  getComplianceMessages,
+  getRequirementsMessages,
+  type ComplianceMessages,
+  type RequirementsMessages,
+} from "@/lib/messages";
 
 export default async function ReviewPage() {
   const session = await getSession();
@@ -18,14 +22,19 @@ export default async function ReviewPage() {
   }
 
   const t = await getTranslations("review");
+  const locale = await getLocale();
+  const [compliance, requirements] = await Promise.all([
+    getComplianceMessages(locale),
+    getRequirementsMessages(locale),
+  ]);
   const rawRows = await api.review.list();
   const rows = rawRows.map((r) => {
-    const reqKey = r.requirementCode.replace(/\./g, "_") as keyof typeof requirementsEn.requirements;
-    const catKey = r.categoryCode as keyof typeof complianceEn.compliance.categories;
+    const reqKey = r.requirementCode.replace(/\./g, "_") as keyof RequirementsMessages["requirements"];
+    const catKey = r.categoryCode as keyof ComplianceMessages["compliance"]["categories"];
     return {
       ...r,
-      requirementTitle: requirementsEn.requirements[reqKey]?.title ?? r.requirementCode,
-      categoryName: complianceEn.compliance.categories[catKey]?.name ?? r.categoryCode,
+      requirementTitle: requirements.requirements[reqKey]?.title ?? r.requirementCode,
+      categoryName: compliance.compliance.categories[catKey]?.name ?? r.categoryCode,
     };
   }) as ReviewRow[];
 
