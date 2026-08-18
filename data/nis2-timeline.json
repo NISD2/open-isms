@@ -2961,7 +2961,24 @@
       "sourceId": "enisa",
       "sourceUrl": "https://www.enisa.europa.eu/publications/enisas-view-on-cybersecurity-in-the-frontier-ai-era",
       "addedAt": "2026-08-17T13:27:27Z"
+    },
+    {
+      "id": "2026-08-17-de-bsi-nis2-in-zahlen-restored",
+      "date": "2026-08-17",
+      "category": "de",
+      "tags": [
+        "registration",
+        "publication"
+      ],
+      "type": "update",
+      "title": "BSI NIS-2-in-Zahlen dashboard is live again with figures as at 30 June 2026",
+      "titleDe": "BSI-Dashboard NIS-2 in Zahlen wieder erreichbar, Auswertungen zum 30. Juni 2026",
+      "summary": "The BSI dashboard that returned HTTP 404 on 5 August 2026 is reachable again at its original address. It reports 17,729 entities registered in the BSI portal as at 30 June 2026, of which 11,501 wichtige and 6,215 besonders wichtige Einrichtungen, and 17,945 counting the 216 registered cross-border branches. It adds a sector split and 692 initial incident reports, and announces the next update for 31 October 2026. The BSI publishes no restoration date, so this entry is dated to the earliest verified surfacing. The figure is a month older than the 18,845 reported for the 31 July deadline by a BSI spokesperson via heise.",
+      "summaryDe": "Das BSI-Dashboard, das am 5. August 2026 noch HTTP 404 lieferte, ist unter der urspruenglichen Adresse wieder erreichbar. Es weist zum 30. Juni 2026 insgesamt 17.729 im BSI-Portal registrierte Einrichtungen aus, davon 11.501 wichtige und 6.215 besonders wichtige Einrichtungen, sowie 17.945 einschliesslich der 216 registrierten Nebenniederlassungen. Hinzu kommen eine Aufschluesselung nach Sektoren und 692 Erstmeldungen. Die naechste Aktualisierung ist fuer den 31. Oktober 2026 angekuendigt. Das BSI nennt kein Datum der Wiederherstellung, daher ist dieser Eintrag auf den Tag der ersten gesicherten Sichtung datiert. Die Zahl ist einen Monat aelter als die 18.845 zum Stichtag 31. Juli, die ein BSI-Sprecher gegenueber heise genannt hat.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Themen/Regulierte-Wirtschaft/NIS-2-regulierte-Unternehmen/NIS-2-in-Zahlen/nis-2-in-zahlen.html",
+      "addedAt": "2026-08-18T09:10:00Z"
     }
   ],
-  "lastUpdated": "2026-08-17T13:27:27Z"
+  "lastUpdated": "2026-08-18T09:10:00Z"
 }
