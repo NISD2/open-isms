@@ -218,143 +218,178 @@
         "bsiGuidance": "Auditoren prüfen, dass Maßnahmen tatsächlich umgesetzt und nicht nur dokumentiert sind. Erwarten Sie technische Nachweise: Konfigurationsscreenshots, Patch-Logs, SIEM-Ausgaben, Backup-Restore-Testergebnisse und Zugriffsüberprüfungsunterlagen."
       },
       "AI-LIT": {
-        "name": "AI Literacy",
-        "description": "Ensure staff and persons operating AI systems on the company's behalf have a sufficient level of AI literacy.",
+        "name": "KI-Kompetenz",
+        "description": "Sicherstellen, dass Mitarbeitende und Personen, die KI-Systeme im Auftrag des Unternehmens betreiben, über ausreichende KI-Kompetenz verfügen.",
         "legalBasis": "Art. 4 EU AI Act",
-        "threatLandscape": "Untrained staff using AI tools cause data leakage, hallucination-driven errors, and deepfake exposure that organisations cannot defend in audit or court.",
+        "threatLandscape": "Ungeschulte Mitarbeitende verursachen mit KI-Tools Datenabfluss, Fehler durch Halluzinationen und Deepfake-Risiken, die sich in Audit oder Gerichtsverfahren nicht verteidigen lassen.",
         "bsiGuidance": ""
       },
       "AI-PRO": {
-        "name": "Prohibited Practices",
-        "description": "Screen AI use cases against the eight (plus one) banned practices in Art. 5 and document the screening outcome.",
+        "name": "Verbotene Praktiken",
+        "description": "KI-Anwendungsfälle gegen die acht (plus eine) verbotenen Praktiken aus Art. 5 prüfen und das Prüfergebnis dokumentieren.",
         "legalBasis": "Art. 5 EU AI Act",
-        "threatLandscape": "Using a prohibited practice triggers the highest penalty tier (EUR 35M or 7% of global turnover) regardless of intent.",
+        "threatLandscape": "Der Einsatz einer verbotenen Praktik löst unabhängig vom Vorsatz die höchste Bußgeldstufe aus (35 Mio. EUR oder 7 % des weltweiten Umsatzes).",
         "bsiGuidance": ""
       },
       "AI-INV": {
-        "name": "AI System Inventory",
-        "description": "Maintain an inventory of every AI system in use, classify each by risk tier, and re-classify on substantial modification.",
+        "name": "KI-Inventar",
+        "description": "Inventar aller eingesetzten KI-Systeme führen, jedes System einer Risikoklasse zuordnen und bei wesentlichen Änderungen neu einstufen.",
         "legalBasis": "Art. 6, 25, 26 EU AI Act",
-        "threatLandscape": "Without an inventory, shadow-AI deployments evade oversight and create unmitigated compliance and liability exposure.",
+        "threatLandscape": "Ohne Inventar entzieht sich Schatten-KI der Aufsicht, und es entstehen unbehandelte Risiken für Compliance und Haftung.",
         "bsiGuidance": ""
       },
       "AI-RSK": {
-        "name": "AI Risk Management",
-        "description": "Operate a documented risk management system for high-risk AI systems, with annual review and treatment of identified risks.",
+        "name": "KI-Risikomanagement",
+        "description": "Dokumentiertes Risikomanagementsystem für Hochrisiko-KI-Systeme betreiben, mit jährlicher Überprüfung und Behandlung der erkannten Risiken.",
         "legalBasis": "Art. 9 EU AI Act",
-        "threatLandscape": "Unmanaged AI risks (bias, drift, robustness failures) translate directly into incident exposure under Art. 73.",
+        "threatLandscape": "Unbehandelte KI-Risiken (Bias, Drift, mangelnde Robustheit) führen direkt zu meldepflichtigen Vorfällen nach Art. 73.",
         "bsiGuidance": ""
       },
       "AI-FRI": {
-        "name": "Fundamental Rights Impact Assessment",
-        "description": "Conduct a Fundamental Rights Impact Assessment before deploying high-risk AI systems in public, financial, or insurance contexts.",
+        "name": "Grundrechte-Folgenabschätzung",
+        "description": "Grundrechte-Folgenabschätzung vor dem Einsatz von Hochrisiko-KI-Systemen im öffentlichen Bereich sowie bei Finanz- und Versicherungsdienstleistungen durchführen.",
         "legalBasis": "Art. 27 EU AI Act",
-        "threatLandscape": "Skipping the FRIA exposes the deployer to civil claims from affected persons and to market-surveillance enforcement.",
+        "threatLandscape": "Ohne Folgenabschätzung drohen dem Betreiber zivilrechtliche Ansprüche betroffener Personen und Maßnahmen der Marktüberwachung.",
         "bsiGuidance": ""
       },
       "AI-OVS": {
-        "name": "Human Oversight",
-        "description": "Designate a competent human overseer per high-risk AI system and verify oversight effectiveness annually.",
+        "name": "Menschliche Aufsicht",
+        "description": "Für jedes Hochrisiko-KI-System eine kompetente aufsichtsführende Person benennen und die Wirksamkeit der Aufsicht jährlich überprüfen.",
         "legalBasis": "Art. 14, Art. 26(2) EU AI Act",
-        "threatLandscape": "Autonomous high-risk AI systems without effective human override breach Art. 14 and create direct provider/deployer liability.",
+        "threatLandscape": "Autonome Hochrisiko-KI-Systeme ohne wirksame menschliche Eingriffsmöglichkeit verstoßen gegen Art. 14 und begründen unmittelbare Haftung von Anbieter und Betreiber.",
         "bsiGuidance": ""
       },
       "AI-TRA": {
-        "name": "Transparency",
-        "description": "Disclose AI interactions and AI-generated content to end users; watermark synthetic content; disclose deepfakes.",
+        "name": "Transparenz",
+        "description": "KI-Interaktionen und KI-generierte Inhalte gegenüber Endnutzern offenlegen, synthetische Inhalte kennzeichnen, Deepfakes offenlegen.",
         "legalBasis": "Art. 50 EU AI Act",
-        "threatLandscape": "Lack of disclosure on chatbots and synthetic content breaches Art. 50 and undermines trust with customers and regulators.",
+        "threatLandscape": "Fehlende Kennzeichnung von Chatbots und synthetischen Inhalten verstößt gegen Art. 50 und untergräbt das Vertrauen von Kunden und Aufsichtsbehörden.",
         "bsiGuidance": ""
       },
       "AI-INC": {
-        "name": "AI Incident Reporting",
-        "description": "Document the AI incident response procedure; notify the market surveillance authority of serious incidents within 15 days.",
+        "name": "KI-Vorfallsmeldung",
+        "description": "Verfahren zur Reaktion auf KI-Vorfälle dokumentieren; schwerwiegende Vorfälle innerhalb von 15 Tagen an die Marktüberwachungsbehörde melden.",
         "legalBasis": "Art. 73 EU AI Act",
-        "threatLandscape": "Failure to notify within the 15-day window triggers the second penalty tier (EUR 15M or 3% of turnover).",
+        "threatLandscape": "Wird die 15-Tage-Frist versäumt, greift die zweite Bußgeldstufe (15 Mio. EUR oder 3 % des Umsatzes).",
         "bsiGuidance": ""
       },
       "AI-DOC": {
-        "name": "Technical Documentation",
-        "description": "Maintain Annex IV technical documentation, automatic logging, and the EU Declaration of Conformity for high-risk AI systems.",
+        "name": "Technische Dokumentation",
+        "description": "Technische Dokumentation nach Anhang IV, automatische Protokollierung und EU-Konformitätserklärung für Hochrisiko-KI-Systeme pflegen.",
         "legalBasis": "Art. 11, 12, 18, 19, 47 · Annex IV, V EU AI Act",
-        "threatLandscape": "Incomplete technical documentation prevents conformity assessment and blocks placing on the EU market.",
+        "threatLandscape": "Unvollständige technische Dokumentation verhindert die Konformitätsbewertung und blockiert das Inverkehrbringen auf dem EU-Markt.",
         "bsiGuidance": ""
       },
       "AI-GPI": {
-        "name": "General-Purpose AI",
-        "description": "GPAI provider obligations: model card, copyright policy, training-content summary, plus systemic-risk evaluation when training compute exceeds 10^25 FLOPs.",
+        "name": "GPAI-Modelle",
+        "description": "Pflichten für GPAI-Anbieter: Modellkarte, Urheberrechtsrichtlinie, Zusammenfassung der Trainingsinhalte sowie Bewertung systemischer Risiken ab einem Trainingsaufwand von 10^25 FLOPs.",
         "legalBasis": "Art. 51-55 EU AI Act",
-        "threatLandscape": "GPAI providers that miss transparency obligations face EU AI Office enforcement directly, with fines under Art. 101.",
+        "threatLandscape": "GPAI-Anbieter, die Transparenzpflichten versäumen, unterliegen direkt der Durchsetzung durch das EU AI Office, mit Bußgeldern nach Art. 101.",
         "bsiGuidance": ""
       },
       "CRA-MFG": {
-        "name": "Manufacturer Obligations",
-        "description": "Per-product cybersecurity risk assessment and management body sign-off before placing the product on the EU market.",
+        "name": "Herstellerpflichten",
+        "description": "Cyberrisikobewertung je Produkt und Freigabe durch die Geschäftsleitung vor dem Inverkehrbringen auf dem EU-Markt.",
         "legalBasis": "Art. 13 EU CRA",
-        "threatLandscape": "Manufacturers that ship without a documented risk assessment have no defence when actively exploited vulnerabilities surface.",
+        "threatLandscape": "Hersteller, die ohne dokumentierte Risikobewertung ausliefern, stehen ohne Verteidigung da, wenn aktiv ausgenutzte Schwachstellen auftauchen.",
         "bsiGuidance": ""
       },
       "CRA-ESS": {
-        "name": "Essential Cybersecurity Requirements",
-        "description": "Compliance with Annex I Part I: no known exploitable vulnerabilities at placing on market, secure by default, protection of data confidentiality, integrity, availability.",
+        "name": "Grundlegende Cybersicherheitsanforderungen",
+        "description": "Einhaltung von Anhang I Teil I: keine bekannten ausnutzbaren Schwachstellen beim Inverkehrbringen, sichere Voreinstellungen, Schutz von Vertraulichkeit, Integrität und Verfügbarkeit der Daten.",
         "legalBasis": "Annex I Part I EU CRA",
-        "threatLandscape": "Products that fail essential requirements cannot legally remain on the EU market and trigger the highest penalty tier.",
+        "threatLandscape": "Produkte, die die grundlegenden Anforderungen verfehlen, dürfen nicht auf dem EU-Markt bleiben und lösen die höchste Bußgeldstufe aus.",
         "bsiGuidance": ""
       },
       "CRA-VLN": {
-        "name": "Vulnerability Handling",
-        "description": "Documented vulnerability handling, coordinated disclosure policy, security updates without delay, and public disclosure of fixed vulnerabilities.",
+        "name": "Schwachstellenmanagement",
+        "description": "Dokumentierte Schwachstellenbehandlung, koordinierte Offenlegung, Sicherheitsupdates ohne Verzögerung und öffentliche Bekanntgabe behobener Schwachstellen.",
         "legalBasis": "Annex I Part II EU CRA",
-        "threatLandscape": "Vendors without a vulnerability handling process cannot meet the 24h / 72h / 14-day reporting cascade and become liable for downstream incidents.",
+        "threatLandscape": "Anbieter ohne Schwachstellenprozess können die Meldekaskade von 24 Stunden, 72 Stunden und 14 Tagen nicht einhalten und haften für Folgevorfälle.",
         "bsiGuidance": ""
       },
       "CRA-INC": {
-        "name": "Active Exploitation Reporting",
-        "description": "24-hour early warning to ENISA and CSIRT, 72-hour notification, 14-day final report for actively exploited vulnerabilities and severe incidents.",
+        "name": "Meldung aktiver Ausnutzung",
+        "description": "Frühwarnung an ENISA und CSIRT innerhalb von 24 Stunden, Meldung innerhalb von 72 Stunden, Abschlussbericht nach 14 Tagen bei aktiv ausgenutzten Schwachstellen und schwerwiegenden Vorfällen.",
         "legalBasis": "Art. 14 EU CRA",
-        "threatLandscape": "Missed reporting deadlines (other than the 24h deadline for SMEs) trigger the highest penalty tier and product-recall powers.",
+        "threatLandscape": "Versäumte Meldefristen (außer der 24-Stunden-Frist für KMU) lösen die höchste Bußgeldstufe und Rückrufbefugnisse aus.",
         "bsiGuidance": ""
       },
       "CRA-CONF": {
-        "name": "Conformity Assessment",
-        "description": "Conformity assessment route per product class (self-assessment Module A, Module B+C with notified body, or Module H quality system) followed by CE marking.",
+        "name": "Konformitätsbewertung",
+        "description": "Konformitätsbewertungsverfahren je Produktklasse (Selbstbewertung Modul A, Modul B+C mit benannter Stelle oder Qualitätssystem Modul H), anschließend CE-Kennzeichnung.",
         "legalBasis": "Art. 24, Art. 27 EU CRA",
-        "threatLandscape": "Products without valid conformity assessment cannot be placed on the EU market from 11 December 2027.",
+        "threatLandscape": "Produkte ohne gültige Konformitätsbewertung dürfen ab dem 11. Dezember 2027 nicht mehr auf dem EU-Markt bereitgestellt werden.",
         "bsiGuidance": ""
       },
       "CRA-DOC": {
-        "name": "Technical Documentation",
-        "description": "Maintain Annex VII technical documentation for each product placed on the EU market.",
+        "name": "Technische Dokumentation",
+        "description": "Technische Dokumentation nach Anhang VII für jedes auf dem EU-Markt bereitgestellte Produkt pflegen.",
         "legalBasis": "Art. 28 · Annex VII EU CRA",
-        "threatLandscape": "Missing or incomplete technical documentation blocks market surveillance verification and triggers product withdrawal.",
+        "threatLandscape": "Fehlende oder unvollständige technische Dokumentation blockiert die Überprüfung durch die Marktüberwachung und führt zur Marktrücknahme.",
         "bsiGuidance": ""
       },
       "CRA-SUP": {
-        "name": "Support Period",
-        "description": "Publicly commit to a security update support period (default five years or expected product life, whichever is longer).",
+        "name": "Supportzeitraum",
+        "description": "Öffentliche Zusage eines Zeitraums für Sicherheitsupdates (standardmäßig fünf Jahre oder die erwartete Produktlebensdauer, je nachdem, was länger ist).",
         "legalBasis": "Art. 13(8) EU CRA",
-        "threatLandscape": "Failure to support the full period exposes the manufacturer to claims from customers stranded on insecure products.",
+        "threatLandscape": "Wer den vollen Zeitraum nicht abdeckt, riskiert Ansprüche von Kunden, die auf unsicheren Produkten sitzen bleiben.",
         "bsiGuidance": ""
       },
       "CRA-SBOM": {
         "name": "Software Bill of Materials",
-        "description": "Generate and maintain a machine-readable Software Bill of Materials for each product placed on the EU market.",
+        "description": "Maschinenlesbare Software-Stückliste (SBOM) für jedes auf dem EU-Markt bereitgestellte Produkt erstellen und pflegen.",
         "legalBasis": "Annex I Part II §1 EU CRA",
-        "threatLandscape": "Without an SBOM, manufacturers cannot trace which products contain a vulnerable component and miss the Art. 14 reporting window.",
+        "threatLandscape": "Ohne SBOM können Hersteller nicht nachvollziehen, welche Produkte eine verwundbare Komponente enthalten, und verpassen das Meldefenster nach Art. 14.",
         "bsiGuidance": ""
       },
       "CRA-IMP": {
-        "name": "Importer and Distributor",
-        "description": "Importers verify manufacturer compliance before placing on market; distributors perform due diligence on conformity markings.",
+        "name": "Einführer und Händler",
+        "description": "Einführer prüfen die Konformität des Herstellers vor dem Inverkehrbringen; Händler prüfen Konformitätskennzeichnungen mit gebotener Sorgfalt.",
         "legalBasis": "Art. 18, Art. 19 EU CRA",
-        "threatLandscape": "Importers and distributors that miss verification inherit manufacturer liability under Art. 22.",
+        "threatLandscape": "Einführer und Händler, die diese Prüfung versäumen, übernehmen nach Art. 22 die Herstellerhaftung.",
         "bsiGuidance": ""
       },
       "CRA-OSS": {
-        "name": "Open-Source Steward",
-        "description": "Open-source software stewards adopt a cybersecurity policy, coordinated vulnerability disclosure, and report actively exploited vulnerabilities.",
+        "name": "Open-Source-Steward",
+        "description": "Verwalter quelloffener Software führen eine Cybersicherheitsrichtlinie und koordinierte Schwachstellenoffenlegung ein und melden aktiv ausgenutzte Schwachstellen.",
         "legalBasis": "Art. 24 EU CRA",
-        "threatLandscape": "OSS stewards are penalty-exempt under Art. 64(10), but downstream commercial users still depend on their reporting.",
+        "threatLandscape": "OSS-Verwalter sind nach Art. 64(10) von Bußgeldern ausgenommen; nachgelagerte kommerzielle Nutzer sind dennoch auf ihre Meldungen angewiesen.",
+        "bsiGuidance": ""
+      },
+      "DPA": {
+        "name": "Auftragsverarbeitung",
+        "description": "Auftragsverarbeitungsverträge nach Art. 28 DSGVO mit allen Auftragsverarbeitern, die personenbezogene Daten verarbeiten",
+        "legalBasis": "Art. 28 DSGVO",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "ROP": {
+        "name": "Verarbeitungsverzeichnis",
+        "description": "Dokumentation aller Verarbeitungstätigkeiten nach Art. 30 DSGVO: Zweck, Rechtsgrundlage, Empfänger, Speicherdauer",
+        "legalBasis": "Art. 30 DSGVO",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "TOM": {
+        "name": "Technische und organisatorische Maßnahmen",
+        "description": "Sicherheitsmaßnahmen zum Schutz personenbezogener Daten nach Art. 32 DSGVO",
+        "legalBasis": "Art. 32 DSGVO",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "BRC": {
+        "name": "Datenpannen",
+        "description": "Meldeprozess innerhalb von 72 Stunden und Dokumentation von Datenschutzverletzungen nach Art. 33/34 DSGVO",
+        "legalBasis": "Art. 33, Art. 34 DSGVO",
+        "threatLandscape": "",
+        "bsiGuidance": ""
+      },
+      "DSR": {
+        "name": "Betroffenenrechte",
+        "description": "Bearbeitung von Anfragen zu Auskunft, Löschung, Datenübertragbarkeit und Widerspruch innerhalb eines Monats",
+        "legalBasis": "Art. 12-22 DSGVO",
+        "threatLandscape": "",
         "bsiGuidance": ""
       }
     }

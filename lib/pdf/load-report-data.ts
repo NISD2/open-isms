@@ -15,10 +15,11 @@ import {
   companyCategoryIntake,
 } from "@/schema";
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import requirementsEn from "@/messages/requirements/en.json";
-import complianceEn from "@/messages/compliance/en.json";
-
-const categoriesEn = complianceEn.compliance.categories;
+import {
+  getComplianceMessages,
+  getRequirementsMessages,
+  type RequirementsMessages,
+} from "@/lib/messages";
 
 export interface ReportEvidence {
   fileName: string;
@@ -67,7 +68,13 @@ export interface ReportData {
 
 export async function loadReportData(
   assessmentId: string,
+  locale = "en",
 ): Promise<ReportData> {
+  const [compliance, requirementMessages] = await Promise.all([
+    getComplianceMessages(locale),
+    getRequirementsMessages(locale),
+  ]);
+  const categoryMessages = compliance.compliance.categories;
   const assessment = await db.query.companyAssessment.findFirst({
     where: eq(companyAssessment.id, assessmentId),
     with: {
@@ -122,8 +129,8 @@ export async function loadReportData(
         completedCount++;
       }
 
-      const reqKey = req.code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements;
-      const reqI18n = requirementsEn.requirements[reqKey];
+      const reqKey = req.code.replace(/\./g, "_") as keyof RequirementsMessages["requirements"];
+      const reqI18n = requirementMessages.requirements[reqKey];
       return {
         code: req.code,
         title: reqI18n?.title ?? req.code,
@@ -146,7 +153,7 @@ export async function loadReportData(
       };
     });
 
-    const catI18n = categoriesEn[cat.code as keyof typeof categoriesEn];
+    const catI18n = categoryMessages[cat.code as keyof typeof categoryMessages];
     return {
       code: cat.code,
       name: catI18n?.name ?? cat.code,
@@ -162,7 +169,7 @@ export async function loadReportData(
   return {
     companyName: assessment.company.name,
     companySector: assessment.company.sector,
-    frameworkName: complianceEn.compliance.frameworkName,
+    frameworkName: compliance.compliance.frameworkName,
     assessmentDate: assessment.startedAt,
     totalRequirements: allRequirements.length,
     completedCount,

@@ -18,8 +18,12 @@ import {
   CATEGORY_FIELD_MAPPING,
 } from "@/lib/compliance/category-schemas";
 import { introspectSchema, humanize } from "@/lib/forms/schema-introspect";
-import requirementsEn from "@/messages/requirements/en.json";
-import complianceEn from "@/messages/compliance/en.json";
+import {
+  getComplianceMessages,
+  getRequirementsMessages,
+  type ComplianceMessages,
+  type RequirementsMessages,
+} from "@/lib/messages";
 
 export interface PolicyFieldValue {
   key: string;
@@ -48,7 +52,12 @@ export interface PolicyData {
 export async function loadPolicyData(
   assessmentId: string,
   categoryCode: string,
+  locale = "en",
 ): Promise<PolicyData> {
+  const [compliance, requirementMessages] = await Promise.all([
+    getComplianceMessages(locale),
+    getRequirementsMessages(locale),
+  ]);
   const assessment = await db.query.companyAssessment.findFirst({
     where: eq(companyAssessment.id, assessmentId),
     with: {
@@ -97,13 +106,14 @@ export async function loadPolicyData(
     fieldMapping,
     answers,
     metaByKey,
+    requirementMessages,
   );
 
   return {
     companyName: assessment.company.name,
     categoryCode,
-    categoryName: complianceEn.compliance.categories[categoryCode as keyof typeof complianceEn.compliance.categories]?.name ?? categoryCode,
-    frameworkName: complianceEn.compliance.frameworkName,
+    categoryName: compliance.compliance.categories[categoryCode as keyof ComplianceMessages["compliance"]["categories"]]?.name ?? categoryCode,
+    frameworkName: compliance.compliance.frameworkName,
     signedOffBy: intake?.signedOffByUser?.name ?? null,
     signedOffAt: intake?.signedOffAt ?? null,
     groups,
@@ -115,6 +125,7 @@ function buildFieldGroups(
   fieldMapping: Record<string, string[]>,
   answers: Record<string, unknown>,
   metaByKey: Map<string, { key: string; label: string; type: string }>,
+  requirementMessages: RequirementsMessages,
 ): PolicyRequirementGroup[] {
   // Invert mapping: requirement code → field keys
   const reqFieldKeys = new Map<string, string[]>();
@@ -132,8 +143,8 @@ function buildFieldGroups(
     .map((req) => {
       const keys = reqFieldKeys.get(req.code) ?? [];
       const fields = resolveFields(keys, answers, metaByKey, usedFields);
-      const reqKey = req.code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements;
-      return { code: req.code, title: requirementsEn.requirements[reqKey]?.title ?? req.code, legalRef: req.legalRef, fields };
+      const reqKey = req.code.replace(/\./g, "_") as keyof RequirementsMessages["requirements"];
+      return { code: req.code, title: requirementMessages.requirements[reqKey]?.title ?? req.code, legalRef: req.legalRef, fields };
     })
     .filter((g) => g.fields.length > 0);
 

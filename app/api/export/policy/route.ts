@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     return new Response("Forbidden", { status: 403 });
   }
 
-  const data = await loadPolicyData(assessmentId, categoryCode);
+  const data = await loadPolicyData(assessmentId, categoryCode, locale);
   const buffer = await renderToBuffer(
     PolicyDocument({ data, locale }),
   );
