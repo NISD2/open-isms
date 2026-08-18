@@ -72,7 +72,7 @@ export const llmRouter = router({
     }),
 
   evaluateSection: companyProcedure
-    .input(z.object({ categoryCode: z.string() }))
+    .input(z.object({ categoryCode: z.string(), locale: z.string().optional() }))
     .mutation(async ({ ctx, input }) => {
       // Honor the aiDataSharing="none" opt-out before loading sign-off snapshots.
       await requireAiEnabled(ctx.db, ctx.companyId);
@@ -84,7 +84,7 @@ export const llmRouter = router({
         throw new TRPCError({ code: "NOT_FOUND", message: "No assessment found" });
       }
 
-      const reportData = await loadReportData(assessment.id);
+      const reportData = await loadReportData(assessment.id, input.locale);
       const category = reportData.categories.find((c) => c.code === input.categoryCode);
       if (!category) {
         throw new TRPCError({ code: "NOT_FOUND", message: `Category ${input.categoryCode} not found` });
@@ -103,7 +103,8 @@ export const llmRouter = router({
     }),
 
   evaluateAll: companyProcedure
-    .mutation(async ({ ctx }) => {
+    .input(z.object({ locale: z.string().optional() }).optional())
+    .mutation(async ({ ctx, input }) => {
       // Honor the aiDataSharing="none" opt-out before loading sign-off snapshots.
       await requireAiEnabled(ctx.db, ctx.companyId);
 
@@ -114,7 +115,7 @@ export const llmRouter = router({
         throw new TRPCError({ code: "NOT_FOUND", message: "No assessment found" });
       }
 
-      const reportData = await loadReportData(assessment.id);
+      const reportData = await loadReportData(assessment.id, input?.locale);
       const orgContext = await loadOrgContext(ctx.db, ctx.companyId);
       return evaluateAssessment(reportData, orgContext);
     }),

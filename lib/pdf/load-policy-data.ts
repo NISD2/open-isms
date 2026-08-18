@@ -21,9 +21,11 @@ import { introspectSchema, humanize } from "@/lib/forms/schema-introspect";
 import {
   getComplianceMessages,
   getRequirementsMessages,
-  type ComplianceMessages,
+  getCategoryName,
+  getRequirementTitle,
   type RequirementsMessages,
 } from "@/lib/messages";
+import { getDocumentLabels } from "./policy-labels";
 
 export interface PolicyFieldValue {
   key: string;
@@ -54,17 +56,17 @@ export async function loadPolicyData(
   categoryCode: string,
   locale = "en",
 ): Promise<PolicyData> {
-  const [compliance, requirementMessages] = await Promise.all([
+  const [compliance, requirementMessages, assessment] = await Promise.all([
     getComplianceMessages(locale),
     getRequirementsMessages(locale),
+    db.query.companyAssessment.findFirst({
+      where: eq(companyAssessment.id, assessmentId),
+      with: {
+        company: { columns: { name: true } },
+        framework: { columns: { id: true } },
+      },
+    }),
   ]);
-  const assessment = await db.query.companyAssessment.findFirst({
-    where: eq(companyAssessment.id, assessmentId),
-    with: {
-      company: { columns: { name: true } },
-      framework: { columns: { id: true } },
-    },
-  });
 
   if (!assessment) throw new Error("Assessment not found");
 
@@ -107,12 +109,13 @@ export async function loadPolicyData(
     answers,
     metaByKey,
     requirementMessages,
+    getDocumentLabels(locale).general,
   );
 
   return {
     companyName: assessment.company.name,
     categoryCode,
-    categoryName: compliance.compliance.categories[categoryCode as keyof ComplianceMessages["compliance"]["categories"]]?.name ?? categoryCode,
+    categoryName: getCategoryName(compliance, categoryCode),
     frameworkName: compliance.compliance.frameworkName,
     signedOffBy: intake?.signedOffByUser?.name ?? null,
     signedOffAt: intake?.signedOffAt ?? null,
@@ -126,6 +129,7 @@ function buildFieldGroups(
   answers: Record<string, unknown>,
   metaByKey: Map<string, { key: string; label: string; type: string }>,
   requirementMessages: RequirementsMessages,
+  generalLabel: string,
 ): PolicyRequirementGroup[] {
   // Invert mapping: requirement code → field keys
   const reqFieldKeys = new Map<string, string[]>();
@@ -143,8 +147,7 @@ function buildFieldGroups(
     .map((req) => {
       const keys = reqFieldKeys.get(req.code) ?? [];
       const fields = resolveFields(keys, answers, metaByKey, usedFields);
-      const reqKey = req.code.replace(/\./g, "_") as keyof RequirementsMessages["requirements"];
-      return { code: req.code, title: requirementMessages.requirements[reqKey]?.title ?? req.code, legalRef: req.legalRef, fields };
+      return { code: req.code, title: getRequirementTitle(requirementMessages, req.code), legalRef: req.legalRef, fields };
     })
     .filter((g) => g.fields.length > 0);
 
@@ -159,7 +162,7 @@ function buildFieldGroups(
   if (ungroupedFields.length > 0) {
     groups.push({
       code: "GENERAL",
-      title: "General",
+      title: generalLabel,
       legalRef: null,
       fields: ungroupedFields,
     });

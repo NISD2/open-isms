@@ -39,7 +39,7 @@ export default async function JourneyPage({
   const focusCategory = focusRaw ? focusRaw.toUpperCase() : null;
 
   const { items, aggregate } = await api.journey.getItems({
-    locale: locale === "de" ? "de" : "en",
+    locale: rawLocale,
   });
 
   // A draft company (auto-provisioned at verification) renders the full seeded

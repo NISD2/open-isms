@@ -5,27 +5,26 @@ import { TeamPage } from "@/components/team/TeamPage";
 import { Users } from "lucide-react";
 import { redirect } from "next/navigation";
 import { PageHeader } from "@/components/shared/PageHeader";
-import {
-  getComplianceMessages,
-  type ComplianceMessages,
-} from "@/lib/messages";
+import { getComplianceMessages, getCategoryName } from "@/lib/messages";
 
 export default async function TeamManagementPage() {
   const session = await getSession();
   if (!session?.companyId) redirect("/dashboard");
 
-  const t = await getTranslations("team");
-  const compliance = await getComplianceMessages(await getLocale());
   const isAdmin = session.role === "admin";
-  const rawMembers = await api.team.listMembers();
+  const [t, compliance, rawMembers, invites] = await Promise.all([
+    getTranslations("team"),
+    getLocale().then(getComplianceMessages),
+    api.team.listMembers(),
+    isAdmin ? api.team.listInvites() : [],
+  ]);
   const members = rawMembers.map((m) => ({
     ...m,
     assignments: m.assignments.map((a) => ({
       ...a,
-      categoryName: compliance.compliance.categories[a.categoryCode as keyof ComplianceMessages["compliance"]["categories"]]?.name ?? a.categoryCode,
+      categoryName: getCategoryName(compliance, a.categoryCode),
     })),
   }));
-  const invites = isAdmin ? await api.team.listInvites() : [];
 
   return (
     <div className="mx-auto max-w-4xl">

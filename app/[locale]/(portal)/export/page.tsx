@@ -1,6 +1,7 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { api } from "@/lib/trpc/server";
 import { getComplianceMessages } from "@/lib/messages";
+import { formatAbsolute } from "@/lib/format";
 import { FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,9 +51,7 @@ export default async function ExportPage() {
                       </CardTitle>
                       <CardDescription>
                         {t("started")}{" "}
-                        {new Date(assessment.startedAt).toLocaleDateString(
-                          locale === "de" ? "de-DE" : "en-US",
-                        )}
+                        {formatAbsolute(assessment.startedAt, locale)}
                       </CardDescription>
                     </div>
                     <Badge variant="outline" className="font-mono text-xs">

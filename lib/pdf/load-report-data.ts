@@ -18,7 +18,9 @@ import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import {
   getComplianceMessages,
   getRequirementsMessages,
-  type RequirementsMessages,
+  getCategory,
+  getRequirementTitle,
+  getRequirementDescription,
 } from "@/lib/messages";
 
 export interface ReportEvidence {
@@ -70,18 +72,17 @@ export async function loadReportData(
   assessmentId: string,
   locale = "en",
 ): Promise<ReportData> {
-  const [compliance, requirementMessages] = await Promise.all([
+  const [compliance, requirementMessages, assessment] = await Promise.all([
     getComplianceMessages(locale),
     getRequirementsMessages(locale),
+    db.query.companyAssessment.findFirst({
+      where: eq(companyAssessment.id, assessmentId),
+      with: {
+        company: { columns: { name: true, sector: true } },
+        framework: { columns: { id: true, code: true } },
+      },
+    }),
   ]);
-  const categoryMessages = compliance.compliance.categories;
-  const assessment = await db.query.companyAssessment.findFirst({
-    where: eq(companyAssessment.id, assessmentId),
-    with: {
-      company: { columns: { name: true, sector: true } },
-      framework: { columns: { id: true, code: true } },
-    },
-  });
 
   if (!assessment) throw new Error("Assessment not found");
 
@@ -129,12 +130,10 @@ export async function loadReportData(
         completedCount++;
       }
 
-      const reqKey = req.code.replace(/\./g, "_") as keyof RequirementsMessages["requirements"];
-      const reqI18n = requirementMessages.requirements[reqKey];
       return {
         code: req.code,
-        title: reqI18n?.title ?? req.code,
-        description: reqI18n?.description ?? "",
+        title: getRequirementTitle(requirementMessages, req.code),
+        description: getRequirementDescription(requirementMessages, req.code) ?? "",
         priority: req.priority,
         legalRef: req.legalRef,
         evidenceType: req.evidenceType,
@@ -153,7 +152,7 @@ export async function loadReportData(
       };
     });
 
-    const catI18n = categoryMessages[cat.code as keyof typeof categoryMessages];
+    const catI18n = getCategory(compliance, cat.code);
     return {
       code: cat.code,
       name: catI18n?.name ?? cat.code,
