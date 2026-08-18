@@ -10,8 +10,8 @@ import {
 import {
   getComplianceMessages,
   getRequirementsMessages,
-  type ComplianceMessages,
-  type RequirementsMessages,
+  getCategoryName,
+  getRequirementTitle,
 } from "@/lib/messages";
 
 export default async function ReviewPage() {
@@ -21,22 +21,21 @@ export default async function ReviewPage() {
     redirect("/dashboard");
   }
 
-  const t = await getTranslations("review");
-  const locale = await getLocale();
-  const [compliance, requirements] = await Promise.all([
-    getComplianceMessages(locale),
-    getRequirementsMessages(locale),
+  const [t, [compliance, requirements], rawRows] = await Promise.all([
+    getTranslations("review"),
+    getLocale().then((locale) =>
+      Promise.all([
+        getComplianceMessages(locale),
+        getRequirementsMessages(locale),
+      ]),
+    ),
+    api.review.list(),
   ]);
-  const rawRows = await api.review.list();
-  const rows = rawRows.map((r) => {
-    const reqKey = r.requirementCode.replace(/\./g, "_") as keyof RequirementsMessages["requirements"];
-    const catKey = r.categoryCode as keyof ComplianceMessages["compliance"]["categories"];
-    return {
-      ...r,
-      requirementTitle: requirements.requirements[reqKey]?.title ?? r.requirementCode,
-      categoryName: compliance.compliance.categories[catKey]?.name ?? r.categoryCode,
-    };
-  }) as ReviewRow[];
+  const rows = rawRows.map((r) => ({
+    ...r,
+    requirementTitle: getRequirementTitle(requirements, r.requirementCode),
+    categoryName: getCategoryName(compliance, r.categoryCode),
+  })) as ReviewRow[];
 
   const pendingCount = rows.filter((r) => r.status === "completed").length;
   const approvedCount = rows.filter((r) => r.status === "approved").length;

@@ -18,6 +18,7 @@ import {
 import { getLocale } from "next-intl/server";
 import {
   getComplianceMessages,
+  getCategoryName,
   type ComplianceMessages,
 } from "@/lib/messages";
 
@@ -47,7 +48,7 @@ function buildSteps(
       return {
         slug: cat.slug,
         code: cat.code,
-        name: compliance.compliance.categories[cat.code as keyof ComplianceMessages["compliance"]["categories"]]?.name ?? cat.code,
+        name: getCategoryName(compliance, cat.code),
         phase: phaseForSortOrder(cat.sortOrder),
         requirementCount: reqCount,
         completedCount: Math.min(progress[cat.id]?.completed ?? 0, reqCount),
@@ -67,11 +68,11 @@ export default async function PortalLayout({
   // Always load framework structure so the sidebar shows NIS2 / GDPR groups
   // even before the user has set up their company. Pre-onboarding the
   // category links work as a preview — clicking lands on the onboarding banner.
-  const allFrameworks = await getAllActiveCategories();
-  const compliance = await getComplianceMessages(await getLocale());
-  const assessments = session.companyId
-    ? await api.assessment.listAssessments()
-    : [];
+  const [allFrameworks, compliance, assessments] = await Promise.all([
+    getAllActiveCategories(),
+    getLocale().then(getComplianceMessages),
+    session.companyId ? api.assessment.listAssessments() : [],
+  ]);
 
   const frameworks: FrameworkGroup[] = await Promise.all(
     [...allFrameworks.entries()].map(([code, { framework, categories }]) => {

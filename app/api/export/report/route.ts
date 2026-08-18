@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { companyAssessment } from "@/schema";
 import { eq } from "drizzle-orm";
 import { loadReportData } from "@/lib/pdf/load-report-data";
+import { pdfLocale } from "@/lib/pdf/format";
 import { ComplianceReport } from "@/lib/pdf/compliance-report";
 import { rateLimit } from "@/lib/rate-limit";
 
@@ -19,7 +20,7 @@ export async function GET(request: NextRequest) {
   }
 
   const assessmentId = request.nextUrl.searchParams.get("assessmentId");
-  const locale = request.nextUrl.searchParams.get("locale") ?? "en";
+  const locale = pdfLocale(request.nextUrl.searchParams.get("locale"));
 
   if (!assessmentId) {
     return new Response("Missing assessmentId", { status: 400 });

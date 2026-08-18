@@ -2,6 +2,18 @@
  * Shared formatting utilities for PDF document rendering.
  */
 
+export type PdfLocale = "en" | "de";
+
+/**
+ * PDF text renders with the base-14 Helvetica fonts only (WinAnsi/CP1252
+ * encoding), which silently garbles pl/cs/ro characters. Until a Unicode
+ * font is registered via Font.register, PDFs render only in the two
+ * hand-authored locales and everything else falls back to English.
+ */
+export function pdfLocale(raw: string | null): PdfLocale {
+  return raw?.trim().toLowerCase().split("-")[0] === "de" ? "de" : "en";
+}
+
 export function getDateLocale(locale: string): string {
   return locale === "de" ? "de-DE" : "en-US";
 }

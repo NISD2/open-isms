@@ -351,7 +351,7 @@
         "bsiGuidance": ""
       },
       "CRA-OSS": {
-        "name": "Open-Source-Steward",
+        "name": "Verwalter quelloffener Software",
         "description": "Verwalter quelloffener Software führen eine Cybersicherheitsrichtlinie und koordinierte Schwachstellenoffenlegung ein und melden aktiv ausgenutzte Schwachstellen.",
         "legalBasis": "Art. 24 EU CRA",
         "threatLandscape": "OSS-Verwalter sind nach Art. 64(10) von Bußgeldern ausgenommen; nachgelagerte kommerzielle Nutzer sind dennoch auf ihre Meldungen angewiesen.",

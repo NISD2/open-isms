@@ -14,33 +14,11 @@ import {
 import { env } from "@/lib/env";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
 import { isJourneyAllowed } from "@/lib/journey-flag";
-import requirementsEn from "@/messages/requirements/en.json";
-import requirementsDe from "@/messages/requirements/de.json";
-
-const I18N = {
-  en: requirementsEn.requirements as Record<
-    string,
-    { title?: string; description?: string }
-  >,
-  de: requirementsDe.requirements as Record<
-    string,
-    { title?: string; description?: string }
-  >,
-} as const;
-
-type Locale = keyof typeof I18N;
-
-function resolveTitle(code: string, locale: Locale): string {
-  const key = code.replace(/\./g, "_");
-  return I18N[locale][key]?.title ?? I18N.en[key]?.title ?? code;
-}
-
-function resolveDescription(code: string, locale: Locale): string | null {
-  const key = code.replace(/\./g, "_");
-  return (
-    I18N[locale][key]?.description ?? I18N.en[key]?.description ?? null
-  );
-}
+import {
+  getRequirementsMessages,
+  getRequirementTitle,
+  getRequirementDescription,
+} from "@/lib/messages";
 
 /**
  * Terminal/done statuses. "completed" is the normal user sign-off result,
@@ -79,7 +57,7 @@ function isReviewStatus(s: string): boolean {
  */
 export const journeyRouter = router({
   getItems: companyProcedure
-    .input(z.object({ locale: z.enum(["en", "de"]).optional() }).optional())
+    .input(z.object({ locale: z.string().optional() }).optional())
     .query(async ({ ctx, input }) => {
     // Defense-in-depth: page.tsx redirects unauthorised users from the
     // /journey route, but the tRPC procedure itself must also gate or
@@ -191,9 +169,10 @@ export const journeyRouter = router({
       });
     }
 
-    // Resolve requirement titles/descriptions in the caller's locale (NL falls
-    // back to EN: only en/de message bundles exist for requirement strings).
-    const locale: Locale = input?.locale ?? "en";
+    // Resolve requirement titles/descriptions in the caller's locale.
+    // getRequirementsMessages validates the value and falls back to English
+    // per-key for untranslated entries.
+    const requirements = await getRequirementsMessages(input?.locale ?? "en");
     const nowDate = new Date();
     const items = rows.map((r) => {
       const status = r.status ?? "not_started";
@@ -210,8 +189,8 @@ export const journeyRouter = router({
       return {
         id: r.statusId,
         code: r.code,
-        title: resolveTitle(r.code, locale),
-        description: resolveDescription(r.code, locale),
+        title: getRequirementTitle(requirements, r.code),
+        description: getRequirementDescription(requirements, r.code),
         categoryCode: r.categoryCode,
         categorySlug: r.categorySlug,
         status,

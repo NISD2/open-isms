@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Loader2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc/client";
@@ -11,6 +11,7 @@ import type { AssessmentEvaluation } from "@/lib/eval/eval-schema";
 
 export function AuditReadinessPage() {
   const t = useTranslations("audit-readiness");
+  const locale = useLocale();
   const [result, setResult] = useState<AssessmentEvaluation | null>(null);
   const [isPending, startTransition] = useTransition();
   const [reEvaluatingCode, setReEvaluatingCode] = useState<string | null>(null);
@@ -20,14 +21,14 @@ export function AuditReadinessPage() {
 
   function handleStartEvaluation() {
     startTransition(async () => {
-      const data = await evaluateAll.mutateAsync();
+      const data = await evaluateAll.mutateAsync({ locale });
       setResult(data);
     });
   }
 
   function handleReEvaluate(categoryCode: string) {
     setReEvaluatingCode(categoryCode);
-    evaluateSection.mutateAsync({ categoryCode }).then((updated) => {
+    evaluateSection.mutateAsync({ categoryCode, locale }).then((updated) => {
       setResult((prev) => {
         if (!prev) return prev;
         const sections = prev.sections.map((s) =>
