@@ -458,6 +458,11 @@ export const assessmentRouter = router({
   getPrerequisiteStatuses: companyProcedure
     .input(z.object({ assessmentId: z.string().uuid(), requirementId: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
+      // companyProcedure only guarantees a companyId exists; it does not scope
+      // the assessmentId the caller sends. Without this the leftJoin below reads
+      // another tenant's completion state for any assessment id the caller knows.
+      await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
+
       const rows = await ctx.db
         .select({
           code: requirement.code,
