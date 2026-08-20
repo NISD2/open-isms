@@ -14,7 +14,8 @@
  *   const parsed = companyInsertSchema.parse(req.body);
  */
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { getTableColumns, type Table } from "drizzle-orm";
+import { getTableColumns, is, type Table } from "drizzle-orm";
+import { PgNumeric } from "drizzle-orm/pg-core";
 import { z } from "zod";
 
 // --- Table imports (alphabetical by file) ---
@@ -103,13 +104,36 @@ function numericColumns<T extends Table>(
 ): Partial<Record<keyof T["_"]["columns"], z.ZodType>> {
   const out: Partial<Record<keyof T["_"]["columns"], z.ZodType>> = {};
   for (const [name, col] of Object.entries(getTableColumns(table))) {
-    if (col.columnType === "PgNumeric") {
+    // is() over instanceof: entityKind-based, so it survives a second
+    // drizzle-orm copy in the graph where class identity would not.
+    if (is(col, PgNumeric)) {
       // Free-text validation of a number is a genuine free-text case, so the
       // regex is appropriate here. Integers and decimals only; "" is rejected
       // (SchemaForm strips it to undefined for optional columns).
-      const numericStr = z
+      const base = z
         .string()
         .regex(/^-?\d+(\.\d+)?$/, "Must be a number");
+      // pg rejects values whose integer digits exceed precision - scale with
+      // "numeric field overflow" (a 500, not a validation error), while excess
+      // fractional digits are silently rounded. Bound the integer digits from
+      // the column's own declared precision/scale so overflow fails validation.
+      const intDigitCap =
+        typeof col.precision === "number"
+          ? col.precision - (typeof col.scale === "number" ? col.scale : 0)
+          : null;
+      const numericStr =
+        intDigitCap === null
+          ? base
+          : base.refine(
+              (v) => {
+                // Strip ALL leading zeros: pg counts significant digits of
+                // the value, so "0" and "0.95" have zero integer digits.
+                const intPart = v.replace(/^-/, "").split(".")[0] ?? "";
+                const significant = intPart.replace(/^0+/, "");
+                return significant.length <= intDigitCap;
+              },
+              `Must be at most ${intDigitCap} digits before the decimal point`,
+            );
       out[name as keyof T["_"]["columns"]] = col.notNull
         ? numericStr
         : numericStr.nullish();
@@ -297,6 +321,7 @@ export const requirementUpdateSchema = requirementInsertSchema.partial().omit(om
 
 export const assessmentInsertSchema = createInsertSchema(companyAssessment, {
   ...isoDateColumns(companyAssessment),
+  ...numericColumns(companyAssessment),
 });
 export const assessmentSelectSchema = createSelectSchema(companyAssessment);
 
