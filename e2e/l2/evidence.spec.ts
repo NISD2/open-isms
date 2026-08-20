@@ -7,19 +7,13 @@
  * with no custom editor so the evidence section always renders.
  */
 import { test, expect } from "@playwright/test";
-import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
-import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
+import { gotoRequirement } from "../lib/journey";
 
 const CODE = "10.4";
 const FILE_NAME = "pruefprotokoll-zugriffsreview-2026-q2.pdf";
 
-const slug = nis2Categories.find(
-  (c) => c.code === REQUIREMENT_FIELD_MAP[CODE].categoryCode,
-)?.slug;
-
 test("evidence: upload, list, download link, delete round-trip", async ({ page }) => {
-  test.skip(!slug, "category slug not resolvable");
-  await page.goto(`/de/compliance/${slug}/${CODE}`);
+  await gotoRequirement(page, CODE);
 
   const input = page.getByTestId("evidence-file-input");
   await expect(input).toBeVisible({ timeout: 20_000 });

@@ -7,7 +7,7 @@
  * the harness adds only what login and the multi-user specs need — a
  * password hash, and a second management member for N-of-M sign-offs.
  */
-import { test as setup, expect, type Page } from "@playwright/test";
+import { test as setup, expect } from "@playwright/test";
 import bcrypt from "bcryptjs";
 import {
   S3Client,
@@ -24,14 +24,7 @@ import {
   E2E_STORAGE_STATE_MANAGER,
 } from "./lib/env";
 import { e2eQuery } from "./lib/db";
-
-async function login(page: Page, email: string): Promise<void> {
-  await page.goto("/de/auth/signin");
-  await page.locator("#email").fill(email);
-  await page.locator("#password").fill(E2E_USER_PASSWORD);
-  await page.locator('button[type="submit"]').click();
-  await page.waitForURL(/\/(journey|dashboard)/, { timeout: 30_000 });
-}
+import { signInViaForm } from "./lib/signin";
 
 setup("provision and authenticate", async ({ page, browser }) => {
   assertE2eTargets();
@@ -79,13 +72,13 @@ setup("provision and authenticate", async ({ page, browser }) => {
   );
 
   // Log both users in through the real form; each keeps a session file.
-  await login(page, E2E_USER_EMAIL);
+  await signInViaForm(page, E2E_USER_EMAIL);
   await expect(page.locator("body")).toBeVisible();
   await page.context().storageState({ path: E2E_STORAGE_STATE });
 
   const managerContext = await browser.newContext();
   const managerPage = await managerContext.newPage();
-  await login(managerPage, E2E_MANAGER_EMAIL);
+  await signInViaForm(managerPage, E2E_MANAGER_EMAIL);
   await managerContext.storageState({ path: E2E_STORAGE_STATE_MANAGER });
   await managerContext.close();
 });

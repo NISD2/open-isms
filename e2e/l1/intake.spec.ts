@@ -9,7 +9,6 @@
  * submit" and date-column bug classes platform-wide.
  */
 import { test, expect, type Page } from "@playwright/test";
-import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
 import {
   REQUIREMENT_FIELD_MAP,
   getFieldsForRequirement,
@@ -19,10 +18,9 @@ import { generateValue, type FactoryMode } from "../lib/value-factory";
 import { STADTWERK_INTAKE } from "../personas/stadtwerk-musterstadt";
 import { fillFields, verifyFields } from "../lib/form-driver";
 import { UI_CUSTOM_EDITORS } from "../lib/walker-classification";
+import { gotoRequirement } from "../lib/journey";
 
-const slugByCategoryCode = new Map(nis2Categories.map((c) => [c.code, c.slug]));
-
-type Target = { code: string; slug: string; metas: FieldMeta[] };
+type Target = { code: string; metas: FieldMeta[] };
 
 const targets: Target[] = Object.keys(REQUIREMENT_FIELD_MAP)
   .sort()
@@ -30,11 +28,9 @@ const targets: Target[] = Object.keys(REQUIREMENT_FIELD_MAP)
   // even when intake fields map to them (e.g. 2.4).
   .filter((code) => !UI_CUSTOM_EDITORS.has(code))
   .map((code) => {
-    const info = REQUIREMENT_FIELD_MAP[code];
     const sub = getFieldsForRequirement(code);
-    const slug = slugByCategoryCode.get(info.categoryCode);
-    if (!sub || !slug) return null;
-    return { code, slug, metas: introspectSchema(sub.schema, []) };
+    if (!sub) return null;
+    return { code, metas: introspectSchema(sub.schema, []) };
   })
   .filter((t): t is Target => t !== null);
 
@@ -53,7 +49,7 @@ async function fillSaveVerify(
   target: Target,
   values: Record<string, unknown>,
 ): Promise<void> {
-  await page.goto(`/de/compliance/${target.slug}/${target.code}`);
+  await gotoRequirement(page, target.code);
 
   const editButton = page.getByTestId("requirement-edit");
   const saveButton = page.getByTestId("requirement-save");
