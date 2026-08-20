@@ -557,7 +557,12 @@ export function RequirementDetail({
                   isCompleted={isCompleted}
                   isConfirming={isPending}
                   onConfirm={
-                    isReviewer || !status.statusId ? undefined : handleModuleConfirm
+                    // Assigned requirements complete through the sign-off flow
+                    // (the server rejects module-confirm for them), so don't
+                    // offer a button that can only fail.
+                    isReviewer || !status.statusId || optimisticAssignments.length > 0
+                      ? undefined
+                      : handleModuleConfirm
                   }
                   editorInitialData={editorInitialData}
                 />
