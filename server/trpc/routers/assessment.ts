@@ -652,7 +652,7 @@ export const assessmentRouter = router({
       const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
         where: eq(companyRequirementStatus.id, input.statusId),
         with: {
-          requirement: { columns: { id: true, code: true, moduleRef: true, categoryId: true, templateVersion: true } },
+          requirement: { columns: { id: true, code: true, moduleRef: true, categoryId: true, templateVersion: true, requiredSignOffRole: true } },
         },
       });
       if (!statusRow) {
@@ -671,11 +671,37 @@ export const assessmentRouter = router({
       });
 
       const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const effectiveRole: RoleKey =
+        (statusRow.requirement.requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE;
 
       // Audit B-2 (2026-06-10): assignment + status + chain entry inside
       // the same tx so a partial commit cannot leave the chain disagreeing
       // with the status row.
       const result = await ctx.db.transaction(async (tx) => {
+        // Same guard pair as signOff: an N-of-M requirement belongs to the
+        // assignment flow (each signer signs individually), and an unassigned
+        // requirement completes only with the required signer role (admin
+        // bypass). FOR UPDATE matches signOff's locking; like there, it locks
+        // existing rows only, so a concurrent first assignment can still race
+        // the empty read.
+        const lockedAssignments = await tx
+          .select()
+          .from(requirementAssignment)
+          .where(eq(requirementAssignment.statusId, input.statusId))
+          .for("update");
+        if (lockedAssignments.length > 0) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "This requirement has assigned signers; sign off through the assignment flow.",
+          });
+        }
+        if (ctx.session.role !== "admin" && signedOffRole !== effectiveRole) {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: `This requirement requires sign-off by ${effectiveRole.toUpperCase()}.`,
+          });
+        }
+
         await tx
           .insert(requirementAssignment)
           .values({
@@ -787,6 +813,7 @@ export const assessmentRouter = router({
       const moduleRows = rows.filter(
         (r) => r.moduleRef && r.currentStatus !== "completed" && r.currentStatus !== "approved",
       );
+      if (moduleRows.length === 0) return { confirmed: 0 };
       const confirmAssignedIds = new Set(
         (
           await ctx.db
