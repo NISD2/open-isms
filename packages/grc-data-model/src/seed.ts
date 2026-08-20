@@ -189,6 +189,7 @@ export async function seedFramework<TSchema extends Record<string, unknown>>(
         importance: r.importance,
         legalRef: r.legalRef || null,
         frameworkRef: r.frameworkRef || null,
+        cirReference: r.cirReference || null,
         moduleRef: r.moduleRef || null,
         requiredSignOffRole: r.requiredSignOffRole || null,
         sortOrder: i,

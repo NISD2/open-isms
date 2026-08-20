@@ -2,7 +2,7 @@
   "requirements": {
     "1_1": {
       "title": "Management Cybersecurity Training",
-      "description": "Management Cybersecurity Training"
+      "description": "Management takes part in cybersecurity training on a regular basis (§38(3) BSIG). The law sets no fixed interval; recommendation: every 3 years and whenever the management body changes."
     },
     "1_2": {
       "title": "Roles and Responsibilities",
@@ -14,7 +14,7 @@
     },
     "1_4": {
       "title": "Personal Liability Acknowledgment",
-      "description": "Personal Liability Acknowledgment"
+      "description": "Management confirms awareness of the liability rule in §38(2) BSIG (internal liability under company law). Not a statutory confirmation duty, but robust governance evidence for §38(1)."
     },
     "2_1": {
       "title": "Risk Assessment Methodology",
@@ -30,7 +30,7 @@
     },
     "2_4": {
       "title": "Risk Acceptance & IS Policy Sign-Off",
-      "description": "Risk Acceptance & IS Policy Sign-Off"
+      "description": "Management signs the information security policy and accepts the residual risks from the risk register (2.3); the approval is renewed annually."
     },
     "3_1": {
       "title": "Incident Response Plan & Team",
@@ -38,11 +38,11 @@
     },
     "3_2": {
       "title": "Detection, Classification & Logging",
-      "description": "Detection, Classification & Logging"
+      "description": "Set up a classification scheme (significant incident, §2 Nr. 11 BSIG), a reporting channel for suspicious events, detection processes and a complete incident log."
     },
     "3_3": {
-      "title": "BSI Reporting (24h/72h/1m)",
-      "description": "BSI Reporting (24h/72h/1m)"
+      "title": "BSI Reporting Readiness (24h/72h/1M)",
+      "description": "Build the BSI reporting process: 24h early warning, 72h notification, intermediate report on BSI request, final report one month after the 72h notification (§32(1) BSIG). Set up reporting portal access and responsibilities; re-check readiness annually."
     },
     "3_4": {
       "title": "Incident Response Drill",
@@ -94,11 +94,11 @@
     },
     "6_2": {
       "title": "Secure Development & Configuration",
-      "description": "Secure Development & Configuration"
+      "description": "Establish secure development guidelines (SDLC) and configuration baselines."
     },
     "6_3": {
       "title": "Vulnerability Management",
-      "description": "Vulnerability Management"
+      "description": "Implement vulnerability management with scanning, risk-based prioritisation and a disclosure process; document deliberate non-remediation."
     },
     "6_4": {
       "title": "Patch Management",
@@ -110,7 +110,7 @@
     },
     "7_1": {
       "title": "Security KPIs & Metrics",
-      "description": "Security KPIs & Metrics"
+      "description": "Define measurable security KPIs and report them at a self-set rhythm with trends and thresholds (recommendation: quarterly)."
     },
     "7_2": {
       "title": "Internal Audit",
@@ -118,7 +118,7 @@
     },
     "7_3": {
       "title": "Management Review",
-      "description": "Management Review"
+      "description": "Annual management review with gap analysis and management participation."
     },
     "7_4": {
       "title": "Corrective Actions & Continuous Improvement",
@@ -134,11 +134,11 @@
     },
     "8_3": {
       "title": "Role-Specific & Management Training",
-      "description": "Role-Specific & Management Training"
+      "description": "Specialised training for roles with security duties, including on role changes. Management training is evidenced under 1.1."
     },
     "8_4": {
-      "title": "Phishing Simulations & Training Effectiveness",
-      "description": "Phishing Simulations & Training Effectiveness"
+      "title": "Training Effectiveness & Phishing Simulations",
+      "description": "Measure the effectiveness of training and awareness (§30(2) Nr. 6 BSIG). Phishing simulations are an established method, not a legal duty; involve the works council and data protection first."
     },
     "9_1": {
       "title": "Cryptography Policy & Standards",
@@ -150,7 +150,7 @@
     },
     "9_3": {
       "title": "Key & Certificate Management",
-      "description": "Key & Certificate Management"
+      "description": "Document and implement key and certificate management across the full lifecycle (e.g. key vault or HSM where appropriate)."
     },
     "10_1": {
       "title": "Access Control Policy & Model",
@@ -166,11 +166,11 @@
     },
     "10_4": {
       "title": "Access Reviews",
-      "description": "Access Reviews"
+      "description": "Review and document access rights including privileged accounts on a regular basis. Legally: at planned intervals; recommendation: quarterly."
     },
     "11_1": {
       "title": "Authentication: where MFA is mandatory",
-      "description": "Multi-Factor Authentication"
+      "description": "Roll out MFA risk-based and document exceptions with compensating controls. Recommended order: admin accounts first, then internet-facing services, then the remaining systems."
     },
     "11_2": {
       "title": "Secure & Emergency Communications",
@@ -178,7 +178,7 @@
     },
     "11_3": {
       "title": "Authentication Standards",
-      "description": "Authentication Standards"
+      "description": "Review authentication procedures and the password policy against current standards on a regular basis (NIST SP 800-63B, BSI IT-Grundschutz ORP.4)."
     },
     "12_1": {
       "title": "NIS2 Classification & Scope",
@@ -190,11 +190,11 @@
     },
     "12_3": {
       "title": "Registration Maintenance",
-      "description": "Registration Maintenance"
+      "description": "Report changes to registration data to the BSI without delay, at the latest within two weeks (§33(5) BSIG); additionally verify the data annually and keep the contact person reachable."
     },
     "12_4": {
-      "title": "Compliance Evidence & KRITIS",
-      "description": "Compliance Evidence & KRITIS"
+      "title": "Compliance Evidence",
+      "description": "Maintain documentation of implementation on an ongoing basis (§30(1) S. 3 BSIG). Only for operators of critical facilities: evidence every 3 years (§39) and attack detection (§31(2)); special registration under §34 only for the entity types of §60(1) BSIG."
     },
     "G-DPA_1": {
       "title": "Data Processing Agreements",

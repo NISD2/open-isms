@@ -36,7 +36,7 @@ This document maps all 132 requirements in the NIS2 compliance platform to their
 | 1.5 | ISMS scope definition | Art. 21(1) — proportionate measures require defined scope; §30(1) — measures must cover all relevant systems |
 | 1.6 | Cybersecurity roles and responsibilities | Art. 20(1) — oversight requires clear accountability structure; §38(1) — management oversight implies organizational structure |
 | 1.7 | Cybersecurity budget allocation | Art. 20(1) — approval duty implies resource provision; §30(1) — "geeignete, verhaltnismassige und wirksame" measures require adequate funding |
-| 1.8 | Personal liability acknowledgment | Art. 20(1) — "can be held liable for infringements"; §38(2) — personal liability for negligent damage, cannot be waived |
+| 1.8 | Personal liability acknowledgment | Art. 20(1) — "can be held liable for infringements"; §38(2) — subsidiary personal liability under company law (the draft's waiver-invalidity clause was NOT enacted; §38(2) creates no acknowledgment duty) |
 
 ---
 
@@ -361,9 +361,9 @@ This document maps all 132 requirements in the NIS2 compliance platform to their
 
 > **§33(1) BSIG:** Registration within three months of becoming an in-scope entity. Required data: name, legal form, address, contact details, sector/industry, affected EU member states, supervisory authorities.
 
-> **§33(2) BSIG:** KRITIS operators must additionally register: critical services, component types, IP address ranges, facility categories, supply metrics, locations. Must maintain "jederzeit erreichbar" contact point.
+> **§33(2) BSIG (as enacted):** One sentence only: "Die Registrierung von kritischen Anlagen erfolgt gemäß § 8 des KRITIS-Dachgesetzes." The draft's KRITIS data catalogue and "jederzeit erreichbar" contact-point sentence were not enacted here; KRITIS registration content now lives in the KRITIS-Dachgesetz. (Curiosity: §65(2) Nr. 7 still fines violations of a "§33 Absatz 2 Satz 2" that no longer exists — a dangling cross-reference; do not build product copy on it.)
 
-> **§33(5) BSIG:** Supply metric and component changes annually; all other changes "unverzuglich, spatestens jedoch zwei Wochen" (within two weeks).
+> **§33(5) BSIG (as enacted):** All changes to §33(1) data "unverzüglich, spätestens jedoch binnen zwei Wochen ab dem Zeitpunkt, zu dem die Einrichtung Kenntnis von der Änderung erhalten hat". There is NO annual update component in the enacted §33(5); the draft's annual supply-metric rule was dropped.
 
 > **§34 BSIG:** Special registration for certain entity types within three months, including IP address ranges.
 
@@ -378,10 +378,10 @@ This document maps all 132 requirements in the NIS2 compliance platform to their
 | 12.3 | MUK account setup (ELSTER) | §33(1) — BSI portal registration requires MUK/ELSTER (German procedural prerequisite, no direct NIS2 equivalent) |
 | 12.4 | BSI portal registration by deadline | Art. 3(3) — entity lists by April 17, 2025; §33(1) — registration within three months, deadline 6 March 2026 for initial cohort |
 | 12.5 | Registration data submission | Art. 3(3)-(4) — name, contact, sector, service locations; §33(1) — name, legal form, address, contacts, sector, EU countries, supervisory authorities; §34(1) — IP address ranges |
-| 12.6 | KRITIS: Facility-specific data | §33(2) — critical services, component types, IP ranges, facility categories, supply metrics, locations (KRITIS-specific, no direct NIS2 Art. 3 equivalent) |
-| 12.7 | Annual registration data review | Art. 3(3) — lists reviewed biennially; §33(5) — annual update of supply metrics and components |
+| 12.6 | KRITIS: Facility-specific data | §33(2) as enacted delegates KRITIS registration to §8 KRITIS-Dachgesetz; facility data requirements live there, not in the BSIG |
+| 12.7 | Annual registration data review | Recommended practice only — the enacted §33(5) contains no annual element (the draft's annual supply-metric rule was dropped); Art. 3(3) list reviews are a member-state duty |
 | 12.8 | Two-week change notification to BSI | Art. 3(4) — changes notified "within two weeks"; §33(5) — "unverzuglich, spatestens jedoch zwei Wochen" |
-| 12.9 | BSI contact person reachability | §33(2) — "jederzeit erreichbar" contact point for KRITIS; §33(1) — contact person registration for all entities |
+| 12.9 | BSI contact person reachability | Practice, not a cited duty: the enacted §33(2) no longer carries the "jederzeit erreichbar" sentence (§65(2) Nr. 7's reference to it dangles); contact data currency is enforced via §33(5) |
 | 12.10 | KRITIS: Triennial compliance evidence | §39(1) — compliance proof through "Sicherheitsaudits, Prufungen oder Zertifizierungen" every three years |
 | 12.11 | KRITIS: Attack detection systems (SzA) | §30(2) — measures include technical detection; §39 — KRITIS compliance proof covers detection capabilities. BSI orientation guide for SzA (Systeme zur Angriffserkennung) adds maturity levels |
 | 12.12 | BSI request readiness | §33(4) — BSI may request documents and information ("Unterlagen und Auskunfte verlangen"); §39(1) — BSI may request documentation of security measures |
