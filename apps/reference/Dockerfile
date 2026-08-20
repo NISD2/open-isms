@@ -32,6 +32,7 @@ COPY packages/isms-ui/package.json ./packages/isms-ui/
 COPY packages/isms-pages/package.json ./packages/isms-pages/
 COPY packages/isms-lib/package.json ./packages/isms-lib/
 COPY packages/isms-messages/package.json ./packages/isms-messages/
+COPY packages/nis2-supply-chain-questionnaire-schema/package.json ./packages/nis2-supply-chain-questionnaire-schema/
 
 RUN --mount=type=cache,target=/root/.bun/install/cache \
     bun install
@@ -43,6 +44,10 @@ FROM oven/bun:1.3.8 AS builder
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
+# bun keeps a workspace member's own deps (next, next-auth, pg, and the
+# @nisd2/isms-* links) under that member's node_modules, not hoisted to
+# the root. Without this the builder cannot resolve @nisd2/isms-pages.
+COPY --from=deps /app/apps/reference/node_modules ./apps/reference/node_modules
 COPY . .
 
 # Strip workspace-root files that belong to the PRIVATE nisd2.eu app —

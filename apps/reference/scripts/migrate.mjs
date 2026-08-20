@@ -15,7 +15,7 @@
  * tables and append an entry to `dirs` below.
  *
  * Run from the workspace root (Dockerfile sets WORKDIR=/app):
- *   node apps/open-isms/scripts/migrate.mjs
+ *   node apps/reference/scripts/migrate.mjs
  */
 
 import { Client } from "pg";
@@ -37,7 +37,7 @@ const dirs = [
   },
   {
     label: "auth",
-    folder: "./apps/open-isms/drizzle",
+    folder: "./apps/reference/drizzle",
     table: "__drizzle_migrations_auth",
     sentinelTable: "auth_user",
   },

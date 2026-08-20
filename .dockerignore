@@ -35,6 +35,7 @@ coverage
 packages/*/dist
 packages/*/.turbo
 packages/*/node_modules
+apps/*/node_modules
 
 # TS build cache (regenerated)
 *.tsbuildinfo
