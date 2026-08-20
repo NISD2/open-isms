@@ -4,22 +4,32 @@
  * SHA-256 -> confirmUpload) so the post-suite tenant is browsable with
  * downloadable evidence instead of empty lists.
  *
- * Not a test. Run it after a suite run, against the running stack:
- *   bun e2e/demo-evidence.ts
- * (server on E2E_BASE_URL, docker stack up). Re-running skips codes that
- * already carry the demo file. Requirement pages without an evidence panel
- * (custom-editor surfaces) are reported as "no-panel", not failures.
+ * Not a test. Run it after a suite run, against the served state:
+ *   bun run e2e:serve
+ *   bun run e2e:demo-evidence
+ * Re-running skips codes that already carry the demo file. Requirement
+ * pages without an evidence panel are reported as "no-panel", not
+ * failures.
  */
 import { existsSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { chromium, type Page } from "playwright";
 import {
   assertE2eTargets,
   E2E_BASE_URL,
   E2E_STORAGE_STATE,
   E2E_USER_EMAIL,
-  E2E_USER_PASSWORD,
 } from "./lib/env";
 import { journeyCodes, slugByCode } from "./lib/journey";
+import { signInViaForm } from "./lib/signin";
+
+/** E2E_STORAGE_STATE is repo-root-relative (playwright.config.ts reads it
+ *  too); resolve it here so the script works from any cwd. */
+const storageStatePath = join(
+  fileURLToPath(new URL("..", import.meta.url)),
+  E2E_STORAGE_STATE,
+);
 
 /** Smallest well-formed single-page PDF (correct xref offsets, so viewers
  *  open it without repair). Text must stay ASCII without parentheses. */
@@ -62,11 +72,7 @@ async function ensureAuthenticated(page: Page): Promise<void> {
     );
   if (authed) return;
   await page.context().clearCookies();
-  await page.goto("/de/auth/signin");
-  await page.fill("#email", E2E_USER_EMAIL);
-  await page.fill("#password", E2E_USER_PASSWORD);
-  await page.click('button[type="submit"]');
-  await page.waitForURL(/journey|dashboard/, { timeout: 30_000 });
+  await signInViaForm(page, E2E_USER_EMAIL);
   await page.goto("/de/journey");
   await page
     .getByTestId("journey-node-1.1")
@@ -79,20 +85,28 @@ async function uploadFor(page: Page, code: string): Promise<{ code: string; outc
   const fileName = `beispielnachweis-${code}.pdf`;
   await page.goto(`/de/compliance/${slug}/${code}`, { waitUntil: "networkidle" });
 
+  // networkidle already fired, so the panel is either rendered or this
+  // surface has none; the wait only covers late hydration.
   const input = page.getByTestId("evidence-file-input");
   const hasPanel = await input
-    .waitFor({ state: "visible", timeout: 10_000 })
+    .waitFor({ state: "visible", timeout: 5_000 })
     .then(
       () => true,
       () => false,
     );
   if (!hasPanel) return { code, outcome: "no-panel" };
 
+  // Idempotency needs a real wait: the evidence list arrives via tRPC
+  // after the panel, and an instant isVisible() would race it and
+  // duplicate the file on a re-run.
   const existing = await page
     .getByText(fileName, { exact: false })
     .first()
-    .isVisible()
-    .catch(() => false);
+    .waitFor({ state: "visible", timeout: 3_000 })
+    .then(
+      () => true,
+      () => false,
+    );
   if (existing) return { code, outcome: "already" };
 
   try {
@@ -120,8 +134,8 @@ const browser = await chromium.launch();
 const context = await browser.newContext({
   baseURL: E2E_BASE_URL,
   locale: "de-DE",
-  ...(existsSync(E2E_STORAGE_STATE)
-    ? { storageState: E2E_STORAGE_STATE }
+  ...(existsSync(storageStatePath)
+    ? { storageState: storageStatePath }
     : {}),
 });
 const page = await context.newPage();
