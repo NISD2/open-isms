@@ -14,9 +14,14 @@ const envSchema = z.object({
   AWS_S3_BUCKET: z.string().default("nisd2-dev-evidence"),
   AWS_ACCESS_KEY_ID: z.string().default(""),
   AWS_SECRET_ACCESS_KEY: z.string().default(""),
-  // S3-compatible endpoint override (MinIO in the local e2e stack). Unset in
-  // every real environment, so AWS behavior is untouched.
+  // S3-compatible endpoint override (MinIO in the e2e and self-host stacks).
+  // Unset on AWS, so AWS behavior is untouched. This is the PUBLIC address:
+  // presigned URLs are signed for its host and the browser must reach it.
   AWS_S3_ENDPOINT: z.string().optional(),
+  // Address the server itself uses to reach the object store, when that
+  // differs from the public one (object store on the app's container
+  // network). Falls back to AWS_S3_ENDPOINT; unset in every AWS deployment.
+  AWS_S3_INTERNAL_ENDPOINT: z.string().optional(),
 
   // Email — optional (features degrade gracefully)
   // Local-dev hard-blocks email by default in send.ts + resend.ts; set

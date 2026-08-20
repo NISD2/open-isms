@@ -60,13 +60,14 @@ bun run dev               # http://localhost:3026
 ```bash
 git clone https://github.com/NISD2/open-isms.git
 cd open-isms
-cp .env.example .env      # fill in POSTGRES_PASSWORD, AUTH_SECRET, ERASURE_EMAIL_HASH_SALT
-docker compose up --build # http://localhost:3026
+cp .env.example .env                        # fill in the required values
+docker compose --profile minio up --build   # http://localhost:3026
 ```
 
-Same image nisd2.eu runs. Migrations apply at container start; the framework
-data is a separate seed step. Full walkthrough, the 31 environment variables,
-and which third-party services you can do without: **[docs/self-hosting.md](./docs/self-hosting.md)**.
+Same image nisd2.eu runs, with a bundled MinIO for evidence files so no AWS
+account is needed. Migrations apply at container start; the framework data is
+a separate seed step. Full walkthrough, the environment variables, and which
+third-party services you can do without: **[docs/self-hosting.md](./docs/self-hosting.md)**.
 
 For the minimal workspace demo instead of the full platform:
 

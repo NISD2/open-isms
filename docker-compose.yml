@@ -54,7 +54,11 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       AWS_S3_REGION: ${AWS_S3_REGION:-eu-north-1}
       AWS_S3_BUCKET: ${AWS_S3_BUCKET:-}
+      # Public address, the one presigned URLs are signed for and the browser
+      # opens. Internal address, the one this container uses to reach the
+      # store. Same value on AWS; different under `--profile minio`.
       AWS_S3_ENDPOINT: ${AWS_S3_ENDPOINT:-}
+      AWS_S3_INTERNAL_ENDPOINT: ${AWS_S3_INTERNAL_ENDPOINT:-}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
       XAI_API_KEY: ${XAI_API_KEY:-}
@@ -69,5 +73,43 @@ services:
       postgres:
         condition: service_healthy
 
+  # Object store for evidence uploads, so you do not need an AWS account.
+  # Opt in with `docker compose --profile minio up`, and uncomment the
+  # storage block in .env. Leave the profile off to use real S3 instead.
+  minio:
+    image: minio/minio:latest
+    profiles: [minio]
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:?set AWS_ACCESS_KEY_ID in .env}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY:?set AWS_SECRET_ACCESS_KEY in .env, at least 8 characters}
+      # Evidence uploads always send x-amz-server-side-encryption AES256.
+      # MinIO answers SSE-S3 out of a KMS, so without a key every upload is
+      # rejected. 32 bytes, base64: openssl rand -base64 32
+      MINIO_KMS_SECRET_KEY: "openisms-key:${MINIO_KMS_KEY:?set MINIO_KMS_KEY in .env, openssl rand -base64 32}"
+    volumes:
+      - minio-data:/data
+    ports:
+      - "${MINIO_PORT:-9000}:9000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # One-shot: create the evidence bucket, then exit. Idempotent, so it is
+  # harmless on every subsequent `up`.
+  minio-init:
+    image: minio/mc:latest
+    profiles: [minio]
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MC_HOST_store: http://${AWS_ACCESS_KEY_ID}:${AWS_SECRET_ACCESS_KEY}@minio:9000
+    entrypoint: ["/bin/sh", "-c", "mc mb --ignore-existing store/${AWS_S3_BUCKET:-evidence} && echo 'bucket ${AWS_S3_BUCKET:-evidence} ready'"]
+
 volumes:
   postgres-data:
+  minio-data:

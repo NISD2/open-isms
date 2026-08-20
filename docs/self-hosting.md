@@ -11,7 +11,7 @@ This guide is written to be followed straight through by a person or by an AI ag
 - A Postgres 16 or 17 database. The compose file brings its own; skip it if you have one.
 - 20 minutes, most of which is the first image build.
 
-You do **not** need an AWS account, an AI provider, or a Google Cloud project to get a working instance. You do need a way to send email before a human can register. See [Third-party services](#third-party-services).
+You do **not** need an AWS account, an AI provider, or a Google Cloud project. Evidence files can go in a MinIO container that ships with this stack. You do need a way to send email before a human can register. See [Third-party services](#third-party-services).
 
 ## Quick start
 
@@ -31,11 +31,13 @@ NEXT_PUBLIC_APP_URL=http://localhost:3026
 AUTH_URL=http://localhost:3026
 ```
 
-Then:
+Then, to bring up the app with a bundled object store for evidence files:
 
 ```bash
-docker compose up --build
+docker compose --profile minio up --build
 ```
+
+Drop `--profile minio` if you would rather use real S3, and fill in the `AWS_*` values instead. See [Storage for evidence uploads](#storage-for-evidence-uploads).
 
 Expected: the build takes 10 to 20 minutes the first time, then the app logs `[migrate] all chains complete` followed by `✓ Ready`. Open http://localhost:3026.
 
@@ -63,6 +65,39 @@ Two caveats worth knowing before you run it:
 - The seed also creates a demo tenant called **Dev GmbH** with a `dev@nis2.local` user and sample assets, risks, and suppliers. That is deliberate for evaluation and wrong for a production instance. Delete the company row afterwards if you want a clean start.
 - It needs `bun` and the repo checkout. There is no framework-only seed and no seed script inside the image yet.
 
+## Storage for evidence uploads
+
+Evidence files do not go in Postgres. They go to S3-compatible object storage, uploaded straight from the browser with a presigned URL. Pick one of two setups.
+
+### Bundled MinIO, no external account
+
+Uncomment the object-store block in `.env`, set the two secrets, and add `--profile minio` to your compose command:
+
+```bash
+AWS_S3_BUCKET=evidence
+AWS_ACCESS_KEY_ID=openisms
+AWS_SECRET_ACCESS_KEY=$(openssl rand -hex 16)   # at least 8 characters
+AWS_S3_ENDPOINT=http://localhost:9000
+AWS_S3_INTERNAL_ENDPOINT=http://minio:9000
+MINIO_KMS_KEY=$(openssl rand -base64 32)        # exactly 32 bytes, base64
+```
+
+A one-shot container creates the bucket on first start; it is idempotent, so it is a no-op afterwards. Verify with `docker compose logs minio-init`, which should print `bucket evidence ready`.
+
+Three things about this setup are worth understanding, because getting any of them wrong produces a confusing failure:
+
+- **The two endpoints are different on purpose.** `AWS_S3_ENDPOINT` is the address the *browser* uses, because a presigned URL is signed for one specific host and the browser has to hit that exact host or the signature is rejected. `AWS_S3_INTERNAL_ENDPOINT` is the address the *server* uses to reach the same store over the container network. On AWS, and anywhere the two addresses are the same, leave the internal one unset.
+- **`MINIO_KMS_KEY` is required, not decorative.** Every upload sends `x-amz-server-side-encryption: AES256`, and MinIO answers SSE-S3 out of a KMS. With no key configured, every upload is rejected.
+- **Put the real hostname in `AWS_S3_ENDPOINT` once you are on a domain.** `http://localhost:9000` only works while you are evaluating on the machine itself. On a server it becomes something like `https://storage.example.com`, and that origin has to be reachable by your users' browsers.
+
+MinIO's community server is AGPL-3.0, same licence as this project, so running it changes nothing about your obligations for internal use. Note that community builds no longer ship the web console, so administration is through the `mc` CLI.
+
+### Your own S3
+
+Leave the profile off, set `AWS_S3_REGION`, `AWS_S3_BUCKET`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, and leave both endpoint variables unset. Any S3-compatible provider works the same way: set `AWS_S3_ENDPOINT` to their address and leave the internal one unset.
+
+Whichever you choose, uploads are the one feature that fails visibly in the browser rather than degrading quietly, so test one upload before you consider the instance finished.
+
 ## Environment variables
 
 31 variables are read at runtime. You need **2** to boot, **7** for a genuinely usable instance, and the other 24 each unlock or harden one thing. Full annotated list in [`.env.example`](../.env.example).
@@ -89,7 +124,9 @@ Two caveats worth knowing before you run it:
 |---|---|
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | No "Sign in with Google" button. Email and password still works. |
 | `AWS_S3_REGION`, `AWS_S3_BUCKET`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` | Evidence file uploads fail. Every other kind of evidence still records. |
-| `AWS_S3_ENDPOINT` | Only needed to point storage at MinIO or another S3-compatible server instead of AWS. Setting it also switches the client to path-style URLs and rewrites the CSP `connect-src`, so browser uploads keep working. |
+| `AWS_S3_ENDPOINT` | Points storage at MinIO or another S3-compatible server instead of AWS. Setting it switches the client to path-style URLs and rewrites the CSP `connect-src` so browser uploads keep working. |
+| `AWS_S3_INTERNAL_ENDPOINT` | Only when the server reaches the object store at a different address than the browser does, which is the case for the bundled MinIO. Falls back to `AWS_S3_ENDPOINT`. |
+| `MINIO_KMS_KEY`, `MINIO_PORT` | Bundled MinIO only. The KMS key is mandatory when that profile is on. |
 | `XAI_API_KEY` | The AI prefill button returns an error instead of filling the form. Manual entry unaffected. |
 | `RAPIDAPI_KEY` | Company lookup in the applicability wizard falls back to typing the details in. |
 | `CRON_SECRET` | The deadline and course-reminder endpoints have no bearer token to check. Leave the cron jobs unscheduled. |
@@ -106,7 +143,7 @@ The platform talks to five external services at runtime. All five are replaceabl
 | Service | Used for | Required? | Your alternatives |
 |---|---|---|---|
 | **Resend** | Registration codes, deadline reminders, notifications | Effectively yes. Without it nobody completes sign-up. | Google OAuth only (registration bypasses the code path because Google asserts the address is verified). There is no SMTP transport in the code today. Swapping the client in `lib/mail/resend.ts` is a contained change if you want nodemailer. |
-| **AWS S3** | Evidence file storage, via presigned browser uploads | No | Any S3-compatible server via `AWS_S3_ENDPOINT`. MinIO is what the project's own e2e stack uses. |
+| **AWS S3** | Evidence file storage, via presigned browser uploads | No | The bundled MinIO container, `--profile minio`. Or any other S3-compatible server via `AWS_S3_ENDPOINT`. |
 | **Google OAuth** | Optional sign-in provider | No | Email and password is the default and needs no third party beyond the registration code. |
 | **xAI (Grok)** | AI form prefill and requirement guidance | No | None wired. The feature errors out cleanly when the key is absent. Provider swap is via the Vercel AI SDK in `lib/ai/` and `lib/forms/llm-prefill-action.ts`. |
 | **Implisense via RapidAPI** | German company lookup in the applicability wizard | No | Manual entry. |
@@ -144,7 +181,9 @@ git pull
 docker compose up --build -d
 ```
 
-Migrations run automatically at container start, before the server binds. If a migration fails the container exits and your previous version keeps serving, so a bad upgrade does not take the instance down. Back up Postgres first anyway; the project has no downgrade path.
+Migrations run automatically at container start, before the server binds. If a migration fails the container exits and your previous version keeps serving, so a bad upgrade does not take the instance down. Back up first anyway; the project has no downgrade path.
+
+Two things to back up if you run the bundled MinIO, not one: the Postgres database and the `minio-data` volume. Evidence files live only in the object store, and a database restored without them points at documents that no longer exist. That is a real audit problem, so treat them as one backup unit.
 
 ## Troubleshooting
 
@@ -156,6 +195,9 @@ Migrations run automatically at container start, before the server binds. If a m
 | Sign-up says the code was sent, no email arrives | `RESEND_API_KEY` unset. The send path logs `[mail] RESEND_API_KEY not set, skipping email` and reports success anyway. |
 | Portal loads but there are no requirements | The seed has not been run. See [Load the framework data](#load-the-framework-data). |
 | Evidence upload fails in the browser with a CSP error | `AWS_S3_ENDPOINT` does not match the origin the browser is actually PUTting to. |
+| Upload rejected, MinIO logs mention server-side encryption | `MINIO_KMS_KEY` is unset or is not 32 bytes of base64. |
+| Upload works, deleting an evidence file fails | `AWS_S3_INTERNAL_ENDPOINT` is wrong. Presigning is offline so uploads never noticed; deletion is the first call the server actually makes. |
+| `Bind for 0.0.0.0:9000 failed: port is already allocated` | Something else on the box uses 9000. Set `MINIO_PORT` and match `AWS_S3_ENDPOINT` to it. |
 | Build killed at exit code 137 | Docker has under 4 GB. Raise the memory limit. |
 
 ## The other compose file
