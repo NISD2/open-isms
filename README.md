@@ -55,7 +55,20 @@ bun install
 bun run dev               # http://localhost:3026
 ```
 
-For the minimal docker-composed reference app:
+## Quick start (self-host the whole platform)
+
+```bash
+git clone https://github.com/NISD2/open-isms.git
+cd open-isms
+cp .env.example .env      # fill in POSTGRES_PASSWORD, AUTH_SECRET, ERASURE_EMAIL_HASH_SALT
+docker compose up --build # http://localhost:3026
+```
+
+Same image nisd2.eu runs. Migrations apply at container start; the framework
+data is a separate seed step. Full walkthrough, the 31 environment variables,
+and which third-party services you can do without: **[docs/self-hosting.md](./docs/self-hosting.md)**.
+
+For the minimal workspace demo instead of the full platform:
 
 ```bash
 cd apps/reference
