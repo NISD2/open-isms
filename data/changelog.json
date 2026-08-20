@@ -1,6 +1,67 @@
 {
   "entries": [
     {
+      "id": "2026-08-20-product-legal-refs-verified",
+      "date": "2026-08-20",
+      "category": "product",
+      "titleDe": "Rechtsgrundlagen aller 49 Anforderungen verifiziert",
+      "titleEn": "Legal references of all 49 requirements verified",
+      "bodyDe": "Jede Paragrafen- und Artikelangabe im NIS2-Katalog wurde gegen das verkuendete BSIG und den Amtsblatttext der Durchfuehrungsverordnung (EU) 2024/2690 geprueft und wo noetig korrigiert. Pruefrhythmen folgen jetzt dem gesetzlichen Takt, etwa der Zweiwochenfrist fuer Registrierungsaenderungen nach Paragraf 33 Absatz 5 BSIG; drei Schritte wurden praeziser benannt, darunter die BSI-Meldefaehigkeit. Empfohlene Intervalle ohne gesetzliche Grundlage sind jetzt als Empfehlung gekennzeichnet.",
+      "bodyEn": "Every section and article reference in the NIS2 catalogue was checked against the enacted BSIG and the Official Journal text of Implementing Regulation (EU) 2024/2690, and corrected where needed. Review rhythms now follow the statutory clocks, such as the two-week window for registration changes under section 33(5) BSIG; three steps were renamed for precision, including BSI reporting readiness. Recommended intervals without a legal basis are now labelled as recommendations."
+    },
+    {
+      "id": "2026-08-20-product-signoff-enforcement",
+      "date": "2026-08-20",
+      "category": "product",
+      "titleDe": "Freigaberollen werden auf allen Abschlusswegen durchgesetzt",
+      "titleEn": "Required signer roles enforced on every completion path",
+      "bodyDe": "Anforderungen mit vorgeschriebener Freigaberolle, etwa durch die Geschaeftsleitung, lassen sich auf keinem Weg mehr ohne diese Rolle abschliessen; Freigaben mit mehreren Unterzeichnern laufen konsequent ueber den Zuweisungsprozess. Kein Handlungsbedarf fuer bestehende Konten.",
+      "bodyEn": "Requirements that demand a specific signer role, such as management, can no longer be completed through any path without that role; requirements with multiple signers consistently go through the assignment flow. No customer action required."
+    },
+    {
+      "id": "2026-08-20-product-numeric-digit-caps",
+      "date": "2026-08-20",
+      "category": "product",
+      "titleDe": "Zahlenfelder pruefen jetzt auch die zulaessige Stellenzahl",
+      "titleEn": "Numeric fields now check the allowed number of digits",
+      "bodyDe": "Eingaben in Zahlenfelder wie CVSS-Werte oder Budgetbetraege werden vor dem Speichern gegen die zulaessige Stellenzahl des jeweiligen Feldes geprueft. Zu grosse Werte erzeugen eine verstaendliche Fehlermeldung statt eines Serverfehlers.",
+      "bodyEn": "Input in numeric fields such as CVSS scores or budget amounts is validated against the field's allowed number of digits before saving. Oversized values produce a clear validation message instead of a server error."
+    },
+    {
+      "id": "2026-08-20-product-dependency-updates",
+      "date": "2026-08-20",
+      "category": "product",
+      "titleDe": "August: 5 Abhaengigkeitsaktualisierungen ueber Dependabot",
+      "titleEn": "August: 5 dependency updates via Dependabot",
+      "bodyDe": "Fuenf Aktualisierungen von Drittanbieterbibliotheken, darunter Sicherheitskorrekturen an der Anmeldung. Keine Auswirkungen auf bestehende Daten.",
+      "bodyEn": "Five third-party library updates, including security fixes in the sign-in flow. No impact on existing data."
+    },
+    {
+      "id": "2026-08-18-product-portal-locale-fix",
+      "date": "2026-08-18",
+      "category": "product",
+      "titleDe": "Portaltexte erscheinen in der gewaehlten Sprache",
+      "titleEn": "Portal copy follows the selected language",
+      "bodyDe": "Ein Fehler in der Sprachaufloesung zeigte Teile des Portals unabhaengig von der gewaehlten Sprache auf Englisch. Portaltexte folgen jetzt durchgehend der eingestellten Sprache.",
+      "bodyEn": "A locale resolution bug showed parts of the portal in English regardless of the selected language. Portal copy now consistently follows the configured language."
+    },
+    {
+      "id": "2026-08-18-regulatory-timeline-events-refresh",
+      "date": "2026-08-18",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste und Veranstaltungen aktualisiert, BSI-Zahlen wieder online",
+      "titleEn": "Timeline and events refreshed, BSI figures back online",
+      "bodyDe": "Das BSI-Dashboard NIS-2 in Zahlen ist wieder online und weist zum 30. Juni 2026 unter anderem 17.729 registrierte Einrichtungen aus. Die Zeitleiste erhielt sechs neue Ereignisse und vier Portalkorrekturen; der Veranstaltungskalender wurde auf 86 Eintraege synchronisiert.",
+      "bodyEn": "The BSI dashboard NIS-2 in Zahlen is back online, reporting among other figures 17,729 registered entities as of 30 June 2026. The timeline gained six new events and four portal corrections; the events feed was synced to 86 entries.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
       "id": "2026-08-05-regulatory-bsig-amendment-registration-lapse",
       "date": "2026-08-05",
       "category": "regulatory",
