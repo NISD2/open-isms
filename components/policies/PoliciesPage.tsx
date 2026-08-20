@@ -60,7 +60,13 @@ export function PoliciesPage({ items, inline }: { items: Record<string, unknown>
                 <TableCell>{item.type as string}</TableCell>
                 <TableCell>{item.version as string}</TableCell>
                 <TableCell>
-                  <StatusBadge status={item.status as string} config={statusConfig} label={t(`status.${item.status as string}`)} />
+                  {/* policy.status is a free-text varchar (not a DB enum): an
+                      unmapped value must fall back, not crash the render. */}
+                  <StatusBadge
+                    status={item.status as string}
+                    config={statusConfig}
+                    label={t.has(`status.${item.status as string}`) ? t(`status.${item.status as string}`) : (item.status as string)}
+                  />
                 </TableCell>
                 <TableCell>{item.effectiveFrom ? new Date(item.effectiveFrom as string).toLocaleDateString() : "\u2014"}</TableCell>
                 <TableCell>{item.reviewDue ? new Date(item.reviewDue as string).toLocaleDateString() : "\u2014"}</TableCell>

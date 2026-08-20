@@ -56,7 +56,20 @@ env "${APP_ENV[@]}" node scripts/runtime-migrate.mjs
 echo "[e2e] seeding (drizzle/seed.ts refuses NODE_ENV=production by itself)"
 env "${APP_ENV[@]}" bun run drizzle/seed.ts
 
+# Rebuild when there is no build yet OR any source file is newer than the last
+# build. `next start` serves a static production bundle, so without the staleness
+# check a rerun would serve a stale bundle and a green suite would not reflect
+# the current source (a false pass). Only the source dirs that actually feed the
+# bundle are watched; errors on any absent path are swallowed so the check never
+# aborts the run.
+needs_build=0
 if [ ! -f .next/BUILD_ID ]; then
+  needs_build=1
+elif [ -n "$(find app components lib server schema packages messages i18n next.config.ts next.config.mjs -newer .next/BUILD_ID 2>/dev/null | head -1)" ]; then
+  echo "[e2e] source changed since last build"
+  needs_build=1
+fi
+if [ "$needs_build" = 1 ]; then
   echo "[e2e] building production bundle"
   env "${APP_ENV[@]}" SKIP_ENV_VALIDATION=1 bun run build:webpack
 fi
