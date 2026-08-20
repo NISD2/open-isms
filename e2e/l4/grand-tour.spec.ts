@@ -8,7 +8,7 @@
  */
 import { test, expect } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
-import { journeyCodes, slugByCode } from "../lib/journey";
+import { journeyCodes, gotoRequirement } from "../lib/journey";
 
 test("grand tour: the company reaches a fully signed-off NIS2 implementation", async ({ page }) => {
   test.setTimeout(360_000);
@@ -17,15 +17,12 @@ test("grand tour: the company reaches a fully signed-off NIS2 implementation", a
   const alreadyDone: string[] = [];
 
   for (const code of journeyCodes) {
-    // networkidle after goto is the page-ready signal that works for every
-    // requirement page type (intake, custom editor, module). Deciding
-    // signable via a fixed timeout on the sign-off button alone both burned
-    // the full wait on every already-done page and risked misclassifying a
+    // Signable is decided by the button's presence after gotoRequirement's
+    // hydration wait. A fixed timeout on the button alone both burned the
+    // full wait on every already-done page and risked misclassifying a
     // slow-rendering signable page as done — a silent flake surfacing only
     // at the final DB assertion.
-    await page.goto(`/de/compliance/${slugByCode.get(code)}/${code}`, {
-      waitUntil: "networkidle",
-    });
+    await gotoRequirement(page, code);
     const button = page.getByTestId("sign-off-button");
     if (!(await button.isVisible())) {
       alreadyDone.push(code);

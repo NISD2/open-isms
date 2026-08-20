@@ -14,14 +14,14 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium, type Page } from "playwright";
+import { chromium, type Locator, type Page } from "playwright";
 import {
   assertE2eTargets,
   E2E_BASE_URL,
   E2E_STORAGE_STATE,
   E2E_USER_EMAIL,
 } from "./lib/env";
-import { journeyCodes, slugByCode } from "./lib/journey";
+import { journeyCodes, gotoRequirement } from "./lib/journey";
 import { signInViaForm } from "./lib/signin";
 
 /** E2E_STORAGE_STATE is repo-root-relative (playwright.config.ts reads it
@@ -58,18 +58,19 @@ function minimalPdf(text: string): Buffer {
 
 type Outcome = "uploaded" | "already" | "no-panel" | "failed";
 
+/** True if the locator becomes visible within the timeout. */
+const appeared = (locator: Locator, timeout: number): Promise<boolean> =>
+  locator.waitFor({ state: "visible", timeout }).then(
+    () => true,
+    () => false,
+  );
+
 async function ensureAuthenticated(page: Page): Promise<void> {
   // A JWT from a previous DB generation passes the middleware but 404s in
   // the portal (users get new UUIDs on every hermetic run) — so a visible
   // journey node, not a 200, is the ready signal.
   await page.goto("/de/journey");
-  const authed = await page
-    .getByTestId("journey-node-1.1")
-    .waitFor({ state: "visible", timeout: 15_000 })
-    .then(
-      () => true,
-      () => false,
-    );
+  const authed = await appeared(page.getByTestId("journey-node-1.1"), 15_000);
   if (authed) return;
   await page.context().clearCookies();
   await signInViaForm(page, E2E_USER_EMAIL);
@@ -80,33 +81,21 @@ async function ensureAuthenticated(page: Page): Promise<void> {
 }
 
 async function uploadFor(page: Page, code: string): Promise<{ code: string; outcome: Outcome; detail?: string }> {
-  const slug = slugByCode.get(code);
-  if (!slug) throw new Error(`no category slug for requirement ${code}`);
   const fileName = `beispielnachweis-${code}.pdf`;
-  await page.goto(`/de/compliance/${slug}/${code}`, { waitUntil: "networkidle" });
+  await gotoRequirement(page, code);
 
   // networkidle already fired, so the panel is either rendered or this
   // surface has none; the wait only covers late hydration.
   const input = page.getByTestId("evidence-file-input");
-  const hasPanel = await input
-    .waitFor({ state: "visible", timeout: 5_000 })
-    .then(
-      () => true,
-      () => false,
-    );
-  if (!hasPanel) return { code, outcome: "no-panel" };
+  if (!(await appeared(input, 5_000))) return { code, outcome: "no-panel" };
 
   // Idempotency needs a real wait: the evidence list arrives via tRPC
   // after the panel, and an instant isVisible() would race it and
   // duplicate the file on a re-run.
-  const existing = await page
-    .getByText(fileName, { exact: false })
-    .first()
-    .waitFor({ state: "visible", timeout: 3_000 })
-    .then(
-      () => true,
-      () => false,
-    );
+  const existing = await appeared(
+    page.getByText(fileName, { exact: false }).first(),
+    3_000,
+  );
   if (existing) return { code, outcome: "already" };
 
   try {

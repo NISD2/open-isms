@@ -17,12 +17,27 @@ for (const cat of [...nis2Categories].sort((a, b) => a.sortOrder - b.sortOrder))
   }
 }
 
+/** Canonical URL of a requirement page. Throws on an unknown code so
+ *  framework-data drift fails loudly instead of skipping silently. */
+export function requirementUrl(code: string): string {
+  const slug = slugByCode.get(code);
+  if (!slug) throw new Error(`no category slug for requirement ${code}`);
+  return `/de/compliance/${slug}/${code}`;
+}
+
+/** Navigate to a requirement page and wait for hydration. networkidle is
+ *  the ready signal that works for every page type (intake, custom editor,
+ *  module); clicking earlier can be silently lost pre-hydration. */
+export async function gotoRequirement(page: Page, code: string): Promise<void> {
+  await page.goto(requirementUrl(code), { waitUntil: "networkidle" });
+}
+
 /**
  * Ensure the requirement is signable, via the product's own invalidation
  * path: saving answers flips a completed requirement back to in_progress.
  */
 export async function makeSignable(page: Page, code: string): Promise<void> {
-  await page.goto(`/de/compliance/${slugByCode.get(code)}/${code}`);
+  await gotoRequirement(page, code);
   if (await page.getByTestId("sign-off-button").isVisible().catch(() => false)) {
     return;
   }

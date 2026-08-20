@@ -7,6 +7,7 @@
  */
 import { test, expect, type Page } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
+import { gotoRequirement } from "../lib/journey";
 
 const RISK_TITLE = "E2E Risiko Datenbankausfall Kernsystem";
 const SUPPLIER_RISK_TITLE = "E2E Lieferantenausfall Rechenzentrum";
@@ -32,7 +33,7 @@ async function policyConfig(policyType: string): Promise<Record<string, unknown>
 }
 
 test("6.4 patch policy: SLA and review cycle round-trip", async ({ page }) => {
-  await page.goto("/de/compliance/procurement/6.4", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "6.4");
   await page.getByTestId("policy-editor-edit").click();
   await page.getByTestId("patch-sla-critical").fill("12");
   await page.getByTestId("patch-review-cycle").fill("3");
@@ -48,7 +49,7 @@ test("6.4 patch policy: SLA and review cycle round-trip", async ({ page }) => {
 });
 
 test("9.1 crypto policy: key rotation round-trip", async ({ page }) => {
-  await page.goto("/de/compliance/cryptography/9.1", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "9.1");
   await page.getByTestId("policy-editor-edit").click();
   await page.getByTestId("crypto-key-rotation").fill("2");
   await trpcOk(page, "policyConfig.update", () => page.getByTestId("policy-editor-save").click());
@@ -63,7 +64,7 @@ test("9.1 crypto policy: key rotation round-trip", async ({ page }) => {
 });
 
 test("10.1 access control: model, review frequencies, SLA round-trip", async ({ page }) => {
-  await page.goto("/de/compliance/access-control/10.1", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "10.1");
   await page.getByTestId("policy-editor-edit").click();
 
   await page.getByTestId("access-model-select").click();
@@ -82,7 +83,7 @@ test("10.1 access control: model, review frequencies, SLA round-trip", async ({ 
 });
 
 test("6.1 procurement: threshold and clause toggle round-trip", async ({ page }) => {
-  await page.goto("/de/compliance/procurement/6.1", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "6.1");
   await page.getByTestId("policy-editor-edit").click();
   await page.getByTestId("procurement-threshold").fill("25000");
   await page.getByTestId("procurement-clause-auditRights").click(); // default true -> false
@@ -98,7 +99,7 @@ test("6.1 procurement: threshold and clause toggle round-trip", async ({ page })
 });
 
 test("6.2 secure development: frameworks and segregation round-trip", async ({ page }) => {
-  await page.goto("/de/compliance/procurement/6.2", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "6.2");
   await page.getByTestId("policy-editor-edit").click();
 
   await page.getByTestId("sdlc-framework-select").click();
@@ -120,7 +121,7 @@ test("6.2 secure development: frameworks and segregation round-trip", async ({ p
 });
 
 test("2.1 risk methodology: name and acceptance threshold round-trip", async ({ page }) => {
-  await page.goto("/de/compliance/risk-management/2.1", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "2.1");
   await page.getByTestId("methodology-edit").click();
   await page.getByTestId("methodology-name").fill("BSI 200-3 Stadtwerk-Anpassung E2E");
   await page.getByTestId("methodology-threshold").click();
@@ -139,7 +140,7 @@ test("2.1 risk methodology: name and acceptance threshold round-trip", async ({ 
 });
 
 test("2.3 asset risk register: create and link a risk to an asset", async ({ page }) => {
-  await page.goto("/de/compliance/risk-management/2.3", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "2.3");
 
   // The first add button following the asset's name in document order is
   // that asset's own row button.
@@ -167,7 +168,7 @@ test("2.3 asset risk register: create and link a risk to an asset", async ({ pag
 });
 
 test("2.4 risk treatment: measure, residual score, acceptance", async ({ page }) => {
-  await page.goto("/de/compliance/risk-management/2.4", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "2.4");
 
   // Expand the card of the risk created in 2.3 (score 16 > threshold 6).
   await page.getByRole("button").filter({ hasText: RISK_TITLE }).first().click();
@@ -201,7 +202,7 @@ test("2.4 risk treatment: measure, residual score, acceptance", async ({ page })
 });
 
 test("5.3 supplier risk register: create and link a risk to a supplier", async ({ page }) => {
-  await page.goto("/de/compliance/supply-chain/5.3", { waitUntil: "networkidle" });
+  await gotoRequirement(page, "5.3");
 
   await page
     .getByText("Hetzner Online GmbH", { exact: false })
