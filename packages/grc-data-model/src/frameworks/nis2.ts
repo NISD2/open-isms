@@ -8,7 +8,7 @@ export const nis2Categories: FrameworkCategory[] = [
   { id: "cat-02", code: "RSK", slug: "risk-management", name: "Risk Management", description: "Risk identification, assessment, treatment, monitoring.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_21.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__30.html", sortOrder: 2, estimatedMinutes: 60, relevantRoles: ["ciso"], grundschutzModule: "BSI-200-3" },
   { id: "cat-03", code: "INC", slug: "incident-handling", name: "Incident Handling", description: "Detection, response, notification, post-mortem.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_23.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__32.html", sortOrder: 8, estimatedMinutes: 50, relevantRoles: ["ciso"], grundschutzModule: "DER.2.1" },
   { id: "cat-04", code: "BCP", slug: "business-continuity", name: "Business Continuity", description: "Continuity planning, backups, recovery.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_21.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__30.html", sortOrder: 9, estimatedMinutes: 50, relevantRoles: ["coo"], grundschutzModule: "DER.4" },
-  { id: "cat-05", code: "SUP", slug: "supply-chain", name: "Suppliers and Supply Chain", description: "Supplier risk and contractual security obligations.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_21.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__30.html", sortOrder: 3, estimatedMinutes: 40, relevantRoles: ["cpo"], grundschutzModule: "ORP.5" },
+  { id: "cat-05", code: "SUP", slug: "supply-chain", name: "Suppliers and Supply Chain", description: "Supplier risk and contractual security obligations.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_21.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__30.html", sortOrder: 3, estimatedMinutes: 40, relevantRoles: ["cpo"], grundschutzModule: "OPS.2.3" },
   { id: "cat-06", code: "PRO", slug: "procurement", name: "Patching and Vulnerability", description: "Ongoing patch and vulnerability management.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_21.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__30.html", sortOrder: 7, estimatedMinutes: 45, relevantRoles: ["cto"], grundschutzModule: "OPS.1.1.3" },
   { id: "cat-07", code: "EFF", slug: "effectiveness", name: "Effectiveness Review", description: "KPIs, audits, corrective actions, PDCA.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_21.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__30.html", sortOrder: 11, estimatedMinutes: 40, relevantRoles: ["ciso"], grundschutzModule: "DER.3.1" },
   { id: "cat-08", code: "TRN", slug: "training", name: "Training", description: "Awareness training for all staff and management.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_21.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__30.html", sortOrder: 10, estimatedMinutes: 35, relevantRoles: ["ciso"], grundschutzModule: "ORP.3" },
@@ -18,85 +18,91 @@ export const nis2Categories: FrameworkCategory[] = [
   { id: "cat-12", code: "REG", slug: "registration", name: "Registration", description: "NIS 2 entity registration with the national authority.", referenceUrl: "https://www.nis-2-directive.com/NIS_2_Directive_Article_3.html", nationalUrl: "https://www.gesetze-im-internet.de/bsig_2025/__33.html", sortOrder: 0, estimatedMinutes: 30, relevantRoles: ["legal"], grundschutzModule: "ISMS.1" },
 ];
 
+// Legal references verified verbatim against the enacted BSIG (gesetze-im-internet.de/bsig_2025,
+// in force 06.12.2025, BGBl. 2025 I Nr. 301) and the OJ text of CIR (EU) 2024/2690
+// (publications.europa.eu/resource/celex/32024R2690). CIR Annex sub-numbering bounds:
+// point 5 = 5.1 (5.1.1-5.1.7) + 5.2 only; point 7 = 7.1-7.3; point 8 = 8.1 + 8.2 only;
+// point 9 = 9.1-9.3 (key management = 9.2(c)(i)-(xii)). The CIR binds §60(1)-type entities
+// directly (§30(3) BSIG); for other entities it is the platform's adopted structure.
 const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   governance: () => [
     mkReq("1.1", "training", { priority: "P1", frequency: "every-3-years", legalRef: "§38(3) BSIG", frameworkRef: "Art. 20(2)" }),
-    mkReq("1.2", "proof", { priority: "P1", frequency: "on-change", legalRef: "§30(1) BSIG", frameworkRef: "Art. 20(1)" }),
-    mkReq("1.3", "proof", { priority: "P1", legalRef: "§38(1) BSIG", frameworkRef: "Art. 20(1)", requiredSignOffRole: "ceo" }),
-    mkReq("1.4", "sign-off", { frequency: "one-time", legalRef: "§38(2) BSIG", frameworkRef: "Art. 20(1)", requiredSignOffRole: "ceo" }),
+    mkReq("1.2", "proof", { priority: "P1", frequency: "on-change", legalRef: "§30(1) BSIG, CIR 1.2", frameworkRef: "Art. 21(2)(a)", cirReference: "1.2" }),
+    mkReq("1.3", "proof", { priority: "P1", frequency: "annual", legalRef: "§38(1) BSIG, CIR 1.1.1(e)", frameworkRef: "Art. 20(1)", cirReference: "1.1.1(e)", requiredSignOffRole: "ceo" }),
+    mkReq("1.4", "sign-off", { frequency: "on-change", legalRef: "§38(2) BSIG", frameworkRef: "Art. 20(1)", requiredSignOffRole: "ceo" }),
   ],
   "risk-management": () => [
-    mkReq("2.1", "document", { priority: "P0", frequency: "one-time", legalRef: "§30(2) Nr. 1 BSIG, CIR 2.1.2", frameworkRef: "Art. 21(2)(a)", cirReference: "2.1.2" }),
-    mkReq("2.2", "technical", { priority: "P0", frequency: "ongoing", legalRef: "§30(2) Nr. 1 BSIG, CIR 12, §28 BSIG", frameworkRef: "Art. 21(1), Art. 21(2)(a)", cirReference: "12" }),
-    mkReq("2.3", "technical", { priority: "P1", legalRef: "§30(2) Nr. 1 BSIG, CIR 2.1.1, CIR 2.1.2", frameworkRef: "Art. 21(2)(a)", cirReference: "2.1.1, 2.1.2" }),
-    mkReq("2.4", "sign-off", { priority: "P0", frequency: "one-time", legalRef: "§38(1) BSIG, CIR 1.1, CIR 2.1.1", frameworkRef: "Art. 20(1), Art. 21(2)(a)", cirReference: "1.1, 2.1.1", requiredSignOffRole: "ceo" }),
+    mkReq("2.1", "document", { priority: "P0", frequency: "on-change", legalRef: "§30(2) Nr. 1 BSIG, CIR 2.1.2", frameworkRef: "Art. 21(2)(a)", cirReference: "2.1.2" }),
+    mkReq("2.2", "technical", { priority: "P0", frequency: "ongoing", legalRef: "§30(2) Nr. 1 und 9 BSIG, CIR 12", frameworkRef: "Art. 21(2)(a), Art. 21(2)(i)", cirReference: "12.1, 12.4" }),
+    mkReq("2.3", "technical", { priority: "P1", legalRef: "§30(2) Nr. 1 BSIG, CIR 2.1.1, 2.1.4", frameworkRef: "Art. 21(2)(a)", cirReference: "2.1.1, 2.1.3, 2.1.4" }),
+    mkReq("2.4", "sign-off", { priority: "P0", frequency: "annual", legalRef: "§38(1) BSIG, CIR 1.1.1(k), 2.1.1", frameworkRef: "Art. 20(1), Art. 21(2)(a)", cirReference: "1.1.1(k), 2.1.1", requiredSignOffRole: "ceo" }),
   ],
   "incident-handling": () => [
     mkReq("3.1", "document", { priority: "P0", legalRef: "§30(2) Nr. 2 BSIG, CIR 3.1", frameworkRef: "Art. 21(2)(b)", cirReference: "3.1" }),
-    mkReq("3.2", "document", { priority: "P1", legalRef: "§32(1) BSIG, CIR 3.2, 3.4", frameworkRef: "Art. 23(3)", cirReference: "3.2, 3.4" }),
-    mkReq("3.3", "proof", { priority: "P0", frequency: "on-change", legalRef: "§32(1) Nr. 1-4 BSIG", frameworkRef: "Art. 23(4)" }),
+    mkReq("3.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4", frameworkRef: "Art. 21(2)(b), Art. 23(3)", cirReference: "3.2, 3.3, 3.4" }),
+    mkReq("3.3", "proof", { priority: "P0", frequency: "annual", legalRef: "§32(1) Nr. 1-4, §32(2) BSIG", frameworkRef: "Art. 23(4)" }),
     mkReq("3.4", "proof", { priority: "P2", frequency: "annual", legalRef: "§30(2) Nr. 2+6 BSIG, CIR 3.5", frameworkRef: "Art. 21(2)(f)", cirReference: "3.5" }),
-    mkReq("3.5", "document", { priority: "P1", frequency: "on-change", legalRef: "§35 BSIG, CIR 3.6", frameworkRef: "Art. 23(2)", cirReference: "3.6" }),
+    mkReq("3.5", "document", { priority: "P1", frequency: "annual", legalRef: "§30(2) Nr. 2 BSIG, CIR 3.6", frameworkRef: "Art. 21(2)(b)", cirReference: "3.6" }),
   ],
   "business-continuity": () => [
-    mkReq("4.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1" }),
+    mkReq("4.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1.3", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1.3" }),
     mkReq("4.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1, 4.3", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1, 4.3", requiredSignOffRole: "ceo" }),
-    mkReq("4.3", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1" }),
+    mkReq("4.3", "document", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.1.2", frameworkRef: "Art. 21(2)(c)", cirReference: "4.1.2" }),
     mkReq("4.4", "technical", { priority: "P1", legalRef: "§30(2) Nr. 3 BSIG, CIR 4.2", frameworkRef: "Art. 21(2)(c)", cirReference: "4.2" }),
-    mkReq("4.5", "proof", { priority: "P1", frequency: "annual", legalRef: "§30(2) Nr. 3+6 BSIG, CIR 4.1", frameworkRef: "Art. 21(2)(c), Art. 21(2)(f)", cirReference: "4.1" }),
+    mkReq("4.5", "proof", { priority: "P1", frequency: "annual", legalRef: "§30(2) Nr. 3+6 BSIG, CIR 4.1.4, 4.3.4", frameworkRef: "Art. 21(2)(c), Art. 21(2)(f)", cirReference: "4.1.4, 4.2.6, 4.3.4" }),
   ],
   "supply-chain": () => [
-    mkReq("5.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1-5.2", frameworkRef: "Art. 21(2)(d)", cirReference: "5.1, 5.2" }),
-    mkReq("5.2", "document", { priority: "P1", frequency: "on-change", legalRef: "§30(2) Nr. 4 BSIG, CIR 5.3", frameworkRef: "Art. 21(2)(d)", cirReference: "5.3" }),
-    mkReq("5.3", "proof", { priority: "P1", legalRef: "§30(2) Nr. 4 BSIG, CIR 5.4", frameworkRef: "Art. 21(3)", cirReference: "5.4" }),
-    mkReq("5.4", "proof", { priority: "P1", frequency: "ongoing", legalRef: "§30(2) Nr. 4 BSIG, CIR 5.5, §32", frameworkRef: "Art. 21(2)(d), Art. 23", cirReference: "5.5" }),
+    mkReq("5.1", "document", { priority: "P1", frequency: "annual", legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1-5.2", frameworkRef: "Art. 21(2)(d)", cirReference: "5.1, 5.2" }),
+    mkReq("5.2", "document", { priority: "P1", frequency: "on-change", legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1.4", frameworkRef: "Art. 21(2)(d)", cirReference: "5.1.4" }),
+    mkReq("5.3", "proof", { priority: "P1", legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1.6, 5.1.7", frameworkRef: "Art. 21(3)", cirReference: "5.1.6, 5.1.7" }),
+    mkReq("5.4", "proof", { priority: "P1", frequency: "ongoing", legalRef: "§30(2) Nr. 4 BSIG, CIR 5.1.4(d)", frameworkRef: "Art. 21(2)(d)", cirReference: "5.1.4(d)" }),
   ],
   procurement: () => [
     mkReq("6.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 5 BSIG, CIR 6.1", frameworkRef: "Art. 21(2)(e)", cirReference: "6.1" }),
-    mkReq("6.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 5 BSIG, CIR 6.2-6.3, NIS2 Art. 12", frameworkRef: "Art. 21(2)(e)", cirReference: "6.2, 6.3" }),
-    mkReq("6.3", "technical", { priority: "P1", legalRef: "§30(2) Nr. 5 BSIG, CIR 6.5, 6.10", frameworkRef: "Art. 21(2)(e)", cirReference: "6.5, 6.10" }),
+    mkReq("6.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 5 BSIG, CIR 6.2, 6.3", frameworkRef: "Art. 21(2)(e)", cirReference: "6.2, 6.3" }),
+    mkReq("6.3", "technical", { priority: "P1", frequency: "ongoing", legalRef: "§30(2) Nr. 5 BSIG, CIR 6.5, 6.10", frameworkRef: "Art. 21(2)(e)", cirReference: "6.5, 6.10" }),
     mkReq("6.4", "technical", { priority: "P1", frequency: "ongoing", legalRef: "§30(2) Nr. 5 BSIG, CIR 6.6", frameworkRef: "Art. 21(2)(e)", cirReference: "6.6" }),
     mkReq("6.5", "document", { priority: "P1", legalRef: "§30(2) Nr. 5 BSIG, CIR 6.4", frameworkRef: "Art. 21(2)(e)", cirReference: "6.4" }),
   ],
   effectiveness: () => [
-    mkReq("7.1", "proof", { priority: "P1", frequency: "monthly", legalRef: "§30(2) Nr. 6 BSIG, CIR 7.1", frameworkRef: "Art. 21(2)(f)", cirReference: "7.1" }),
-    mkReq("7.2", "proof", { priority: "P1", legalRef: "§30(2) Nr. 6 BSIG, CIR 7.2", frameworkRef: "Art. 21(2)(f)", cirReference: "7.2" }),
+    mkReq("7.1", "proof", { priority: "P1", frequency: "quarterly", legalRef: "§30(2) Nr. 6 BSIG, CIR 7.1, 7.2", frameworkRef: "Art. 21(2)(f)", cirReference: "7.1, 7.2" }),
+    mkReq("7.2", "proof", { priority: "P1", legalRef: "§30(2) Nr. 6 BSIG, CIR 2.3", frameworkRef: "Art. 21(2)(f)", cirReference: "2.3" }),
     mkReq("7.3", "sign-off", { priority: "P1", legalRef: "§30(2) Nr. 6 BSIG, CIR 2.2.1, §38(1)", frameworkRef: "Art. 21(2)(f), Art. 20(1)", cirReference: "2.2.1", requiredSignOffRole: "ceo" }),
-    mkReq("7.4", "document", { priority: "P1", frequency: "ongoing", legalRef: "§30(2) Nr. 6 BSIG, CIR 7.4, Art. 21(4)", frameworkRef: "Art. 21(2)(f), Art. 21(4)", cirReference: "7.4" }),
+    mkReq("7.4", "document", { priority: "P1", frequency: "ongoing", legalRef: "§30(2) Nr. 6 BSIG, CIR 2.3.3, Art. 21(4)", frameworkRef: "Art. 21(2)(f), Art. 21(4)", cirReference: "2.3.3" }),
   ],
   training: () => [
-    mkReq("8.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 7 BSIG, CIR 8.1", frameworkRef: "Art. 21(2)(g)", cirReference: "8.1" }),
-    mkReq("8.2", "training", { priority: "P1", legalRef: "§30(2) Nr. 7 BSIG, CIR 8.2, §38(3)", frameworkRef: "Art. 21(2)(g)", cirReference: "8.2" }),
-    mkReq("8.3", "training", { priority: "P1", legalRef: "§30(2) Nr. 7 BSIG, CIR 8.3, §38(3)", frameworkRef: "Art. 21(2)(g), Art. 20(2)", cirReference: "8.3" }),
-    mkReq("8.4", "proof", { priority: "P1", frequency: "quarterly", legalRef: "§30(2) Nr. 6+7 BSIG, CIR 8.4", frameworkRef: "Art. 21(2)(g), Art. 21(2)(f)", cirReference: "8.4" }),
+    mkReq("8.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 1+7 BSIG, CIR 1.1.1(i), 1.2.2", frameworkRef: "Art. 21(2)(a), Art. 21(2)(g)", cirReference: "1.1.1(i), 1.2.2" }),
+    mkReq("8.2", "training", { priority: "P1", legalRef: "§30(2) Nr. 7 BSIG, CIR 8.1", frameworkRef: "Art. 21(2)(g)", cirReference: "8.1" }),
+    mkReq("8.3", "training", { priority: "P1", legalRef: "§30(2) Nr. 7 BSIG, CIR 8.2", frameworkRef: "Art. 21(2)(g)", cirReference: "8.2" }),
+    mkReq("8.4", "proof", { priority: "P2", frequency: "annual", legalRef: "§30(2) Nr. 6+7 BSIG, CIR 8.1.3, 8.2.3", frameworkRef: "Art. 21(2)(g), Art. 21(2)(f)", cirReference: "8.1.3, 8.2.3" }),
   ],
   cryptography: () => [
-    mkReq("9.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 8 BSIG, CIR 9.1, BSI TR-02102", frameworkRef: "Art. 21(2)(h)", cirReference: "9.1" }),
-    mkReq("9.2", "technical", { priority: "P1", legalRef: "§30(2) Nr. 8 BSIG, CIR 9.2-9.3", frameworkRef: "Art. 21(2)(h)", cirReference: "9.2, 9.3" }),
-    mkReq("9.3", "technical", { priority: "P1", legalRef: "§30(2) Nr. 8 BSIG, CIR 9.4-9.5", frameworkRef: "Art. 21(2)(h)", cirReference: "9.4, 9.5" }),
+    mkReq("9.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 8 BSIG, CIR 9.1, 9.3, BSI TR-02102", frameworkRef: "Art. 21(2)(h)", cirReference: "9.1, 9.3" }),
+    mkReq("9.2", "technical", { priority: "P1", legalRef: "§30(2) Nr. 8 BSIG, CIR 9.2(a)", frameworkRef: "Art. 21(2)(h)", cirReference: "9.2(a)" }),
+    mkReq("9.3", "technical", { priority: "P1", legalRef: "§30(2) Nr. 8 BSIG, CIR 9.2(c)", frameworkRef: "Art. 21(2)(h)", cirReference: "9.2(c)" }),
   ],
   "access-control": () => [
     mkReq("10.1", "document", { priority: "P1", legalRef: "§30(2) Nr. 9 BSIG, CIR 11.1", frameworkRef: "Art. 21(2)(i)", cirReference: "11.1" }),
     mkReq("10.2", "technical", { priority: "P1", frequency: "on-change", legalRef: "§30(2) Nr. 9 BSIG, CIR 11.2, CIR 11.3", frameworkRef: "Art. 21(2)(i)", cirReference: "11.2, 11.3" }),
-    mkReq("10.3", "document", { priority: "P1", frequency: "on-change", legalRef: "§30(2) Nr. 9 BSIG, CIR 10, CIR 11.3", frameworkRef: "Art. 21(2)(i)", cirReference: "10, 11.3" }),
-    mkReq("10.4", "proof", { priority: "P1", frequency: "quarterly", legalRef: "§30(2) Nr. 9 BSIG, CIR 11.2", frameworkRef: "Art. 21(2)(i)", cirReference: "11.2" }),
+    mkReq("10.3", "document", { priority: "P1", frequency: "annual", legalRef: "§30(2) Nr. 9 BSIG, CIR 10.2, 10.3, 11.3", frameworkRef: "Art. 21(2)(i)", cirReference: "10.2, 10.3, 11.3" }),
+    mkReq("10.4", "proof", { priority: "P1", frequency: "quarterly", legalRef: "§30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3", frameworkRef: "Art. 21(2)(i)", cirReference: "11.2.3, 11.3.3" }),
   ],
   authentication: () => [
     mkReq("11.1", "technical", { priority: "P0", legalRef: "§30(2) Nr. 10 BSIG, CIR 11.7", frameworkRef: "Art. 21(2)(j)", cirReference: "11.7" }),
-    mkReq("11.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 10 BSIG, CIR 12, §32", frameworkRef: "Art. 21(2)(j)", cirReference: "12" }),
-    mkReq("11.3", "document", { priority: "P1", frequency: "every-3-years", legalRef: "§30(2) Nr. 10 BSIG, CIR 11.6, BSI TR-03107", frameworkRef: "Art. 21(2)(j)", cirReference: "11.6" }),
+    mkReq("11.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 10 BSIG", frameworkRef: "Art. 21(2)(j)" }),
+    mkReq("11.3", "document", { priority: "P1", frequency: "annual", legalRef: "§30(2) Nr. 10 BSIG, CIR 11.6, NIST SP 800-63B", frameworkRef: "Art. 21(2)(j)", cirReference: "11.6" }),
   ],
   registration: () => [
-    mkReq("12.1", "document", { priority: "P0", frequency: "one-time", legalRef: "§28 BSIG", frameworkRef: "Art. 3(1)-(2)" }),
-    mkReq("12.2", "proof", { priority: "P0", frequency: "one-time", legalRef: "§33 BSIG", frameworkRef: "Art. 3(3)-(4)" }),
-    mkReq("12.3", "proof", { priority: "P1", frequency: "annual", legalRef: "§33(3) BSIG", frameworkRef: "Art. 3(3)-(4)" }),
-    mkReq("12.4", "proof", { priority: "P1", legalRef: "§34, §39, §§61-65 BSIG" }),
+    mkReq("12.1", "document", { priority: "P0", frequency: "on-change", legalRef: "§28, §33(1) BSIG", frameworkRef: "Art. 3(1)-(2)" }),
+    mkReq("12.2", "proof", { priority: "P0", frequency: "one-time", legalRef: "§33(1) BSIG", frameworkRef: "Art. 3(3)-(4)" }),
+    mkReq("12.3", "proof", { priority: "P1", frequency: "annual", legalRef: "§33(5) BSIG", frameworkRef: "Art. 3(4)" }),
+    mkReq("12.4", "proof", { priority: "P2", frequency: "ongoing", legalRef: "§30(1) S. 3, §31(2), §39, §34 BSIG", cirReference: "1.1.1(h)" }),
   ],
 };
 
 const NIS2_MODULE_REF: Record<string, string> = {
   "1.1": "training_record", "1.2": "team",
-  "2.2": "asset",
+  "2.2": "asset", "2.3": "risk",
   "3.1": "policy", "3.2": "incident", "3.3": "incident",
   "3.4": "exercise", "3.5": "improvement_item",
   "4.1": "policy", "4.2": "policy", "4.3": "asset",
@@ -108,7 +114,7 @@ const NIS2_MODULE_REF: Record<string, string> = {
   "8.1": "policy", "8.2": "training_record",
   "8.3": "training_record", "8.4": "kpi_measurement",
   "10.2": "asset",
-  "12.4": "asset",
+  "12.2": "bsi_registration",
 };
 
 export function getNis2RequirementsForCategory(slug: string): FrameworkRequirement[] {
