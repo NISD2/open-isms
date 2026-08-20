@@ -33,7 +33,7 @@ env "${APP_ENV[@]}" bun run drizzle/seed.ts
 needs_build=0
 if [ ! -f .next/BUILD_ID ]; then
   needs_build=1
-elif [ -n "$(find app components lib server schema packages messages i18n next.config.ts next.config.mjs -newer .next/BUILD_ID 2>/dev/null | head -1)" ]; then
+elif [ -n "$(find app components lib server schema packages messages i18n proxy.ts package.json bun.lock next.config.ts next.config.mjs -newer .next/BUILD_ID 2>/dev/null | head -1)" ]; then
   echo "[e2e] source changed since last build"
   needs_build=1
 fi
