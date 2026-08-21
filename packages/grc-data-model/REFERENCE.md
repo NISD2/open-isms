@@ -48,7 +48,7 @@ BSI IT-Grundschutz module: `BSI-200-3`. Estimated effort: 60 minutes.
 | `2.1` | document | P0 | on-change | Art. 21(2)(a) | §30(2) Nr. 1 BSIG, CIR 2.1.2 | G-ROP.1 |
 | `2.2` | technical | P0 | ongoing | Art. 21(2)(a), Art. 21(2)(i) | §30(2) Nr. 1 und 9 BSIG, CIR 12 | G-ROP.1 |
 | `2.3` | technical | P1 | annual | Art. 21(2)(a) | §30(2) Nr. 1 BSIG, CIR 2.1.1, 2.1.4 | G-ROP.1 |
-| `2.4` | sign-off | P0 | annual | Art. 20(1), Art. 21(2)(a) | §38(1) BSIG, CIR 1.1.1(k), 2.1.1 | G-TOM.1 |
+| `2.4` | sign-off | P0 | annual | Art. 20(1), Art. 21(2)(a) | §38(1) BSIG, CIR 1.1.1(k), 1.1.2, 2.1.1, 2.1.4 | G-TOM.1 |
 
 ### SUP — supply-chain
 
@@ -111,7 +111,7 @@ BSI IT-Grundschutz module: `DER.2.1`. Estimated effort: 50 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
 | `3.1` | document | P0 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.1 | G-BRC.1 |
-| `3.2` | document | P1 | annual | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4 | G-BRC.2 |
+| `3.2` | document | P1 | quarterly | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4 | G-BRC.2 |
 | `3.3` | proof | P0 | annual | Art. 23(4) | §32(1) Nr. 1-4, §32(2) BSIG | G-BRC.1 |
 | `3.4` | proof | P2 | annual | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG, CIR 3.5 | — |
 | `3.5` | document | P1 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.6 | G-BRC.2 |
@@ -179,12 +179,19 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 |---|---|---|---|---|---|
 | `G-BRC.1` | document | P0 | Art. 33 | GDPR Art. 33 | 3.1, 3.3 |
 | `G-BRC.2` | document | P1 | Art. 33 | GDPR Art. 33(5) | 3.2, 3.5 |
+| `G-BRC.3` | document | P1 | Art. 34 | GDPR Art. 34 | — |
 
 ### DSR — gdpr-data-subject-rights
 
 | Code | Evidence | Priority | Article | Legal ref | NIS2 sibling |
 |---|---|---|---|---|---|
-| `G-DSR.1` | document | P1 | Art. 15-22 | GDPR Art. 15-22 | — |
+| `G-DSR.1` | document | P1 | Art. 12-22 | GDPR Art. 12(3)-(6), Art. 15-22 | — |
+
+### DPO — gdpr-data-protection-officer
+
+| Code | Evidence | Priority | Article | Legal ref | NIS2 sibling |
+|---|---|---|---|---|---|
+| `G-DPO.1` | document | P0 | Art. 37-39 | GDPR Art. 37-39, §38 BDSG | — |
 
 ## Cross-Framework Satisfaction Pairs
 
@@ -193,7 +200,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | NIS2 | GDPR | Rationale |
 |---|---|---|
 | `5.1` | `G-DPA.1` | Same supplier rows feed both; the Art. 28 DPA itself is evidenced by the 5.2 contract clauses, not by the register alone. |
-| `5.2` | `G-DPA.1` | Contractual security clauses cover the same processor obligations as Art. 28 DPAs. |
+| `5.2` | `G-DPA.1` | CIR 5.1.4 covers part of an Art. 28(3) DPA: its cybersecurity requirements (a) speak to Art. 28(3)(c), its audit rights (e) to (h), its subcontracting rules (g) to (d), its termination retrieval and disposal (h) to (g). Art. 28(3) points (a), (b), (e) and (f) have no CIR counterpart: documented instructions, confidentiality, assistance with data subject rights, and assistance with Arts. 32 to 36. Nor does CIR 5.1.4 carry the Art. 28(3) statement of subject-matter, duration, nature, purpose, data types and categories of data subjects. CIR 5.1.4 clauses are also owed only 'where appropriate'; Art. 28(3) is unconditional. A 5.2 clause set is not a DPA. |
 | `5.2` | `G-DPA.2` | Sub-processor lists live on the same supplier rows used for NIS2 governance and Art. 28(2)/(4). |
 | `2.1` | `G-ROP.1` | Asset classification methodology defines the systems recorded in the Art. 30 register. |
 | `2.2` | `G-ROP.1` | Asset rows inform the Art. 30 record, but a RoPA documents processing activities (purposes, recipients, retention), not IT assets. |
@@ -228,7 +235,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | | Categories | Requirements |
 |---|---|---|
 | NIS2 | 12 | 49 |
-| GDPR | 5 | 7 |
+| GDPR | 6 | 9 |
 
 **Total satisfaction pairs:** 11 bidirectional (NIS2 ↔ GDPR).
 **Article-level mappings:** 12 concept-level rows.
