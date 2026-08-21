@@ -10,16 +10,61 @@
  *
  * Run: bun run scripts/smoke-supplier-portal.ts
  *
- * The test uses the real DB (DATABASE_URL). Idempotent: re-running cleans up
- * the test relationship.
+ * The test writes to DATABASE_URL and refuses to run against anything but a
+ * local database — see assertLocalDatabase below. Idempotent: re-running
+ * cleans up the test relationship.
  */
 import { eq } from "drizzle-orm";
 import * as schema from "@/schema";
-import { createCallerFactory } from "@/server/trpc/init";
+import { createCallerFactory, type TRPCContext } from "@/server/trpc/init";
 import { appRouter } from "@/server/trpc/router";
 import { db as appDb } from "@/lib/db";
+import { env } from "@/lib/env";
 
 const TEST_CUSTOMER_EMAIL = "smoke-test-ciso@example.test";
+
+const LOCAL_DB_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]", "::1"]);
+
+/**
+ * Step 2 overwrites the seed company's legal identity, address, BSI
+ * registration id and security-practice flags with test values, and
+ * cleanupTestData restores none of it. Pointed at production that is silent
+ * customer-data corruption, so refuse anything that is not a local database.
+ *
+ * Connection-shaped rather than a boolean env flag, for the same reason as
+ * assertE2eTargets() in e2e/lib/env.ts: a flag can be set once and forgotten,
+ * a host cannot. Unlike that guard this cannot also require a database-name
+ * suffix, because the smoke test runs against the ordinary dev DATABASE_URL
+ * rather than a dedicated `_e2e` database. So it stops an accident, not a
+ * determined foot-gun: a prod database deliberately fronted by a local proxy
+ * or `ssh -L` tunnel still presents as localhost and would pass.
+ */
+function assertLocalDatabase(): void {
+  // Parse defensively: a malformed connection string makes URL throw with the
+  // whole string (password included) attached to the error, and the caller
+  // logs errors to the console.
+  const url = (() => {
+    try {
+      return new URL(env.DATABASE_URL);
+    } catch {
+      throw new Error("Refusing to run: DATABASE_URL is not a valid connection URL.");
+    }
+  })();
+
+  // pg-connection-string, which is what pg actually parses this with, gives the
+  // `host` query parameter priority over the URL authority. So
+  // `postgres://u:p@localhost/db?host=prod.internal` reads as local here while
+  // connecting to prod. Check the host pg will really use, not the pretty one.
+  const effectiveHost = url.searchParams.get("host") ?? url.hostname;
+
+  if (!LOCAL_DB_HOSTS.has(effectiveHost)) {
+    throw new Error(
+      `Refusing to run: DATABASE_URL host "${effectiveHost}" is not a local database. ` +
+        `This script overwrites the first company row it finds and does not restore it. ` +
+        `Point DATABASE_URL at a local dev database and re-run.`,
+    );
+  }
+}
 
 async function getSeedUser() {
   const user = await appDb.query.user.findFirst({
@@ -28,7 +73,16 @@ async function getSeedUser() {
   if (!user || !user.companyId) {
     throw new Error("No seed user found. Run `bun db:seed` first.");
   }
-  return { id: user.id, companyId: user.companyId, email: user.email };
+  const seedCompany = await appDb.query.company.findFirst({
+    where: eq(schema.company.id, user.companyId),
+    columns: { activatedAt: true },
+  });
+  return {
+    id: user.id,
+    companyId: user.companyId,
+    email: user.email,
+    companyActivated: seedCompany?.activatedAt != null,
+  };
 }
 
 async function cleanupTestData(companyId: string) {
@@ -46,26 +100,34 @@ async function cleanupTestData(companyId: string) {
 }
 
 async function main() {
+  assertLocalDatabase();
+
   console.log("=== Supplier Portal smoke test ===\n");
 
   const user = await getSeedUser();
   console.log(`Seed user: ${user.email} (company ${user.companyId})`);
 
-  // Build a tRPC caller with the seed user's context
+  // Build a tRPC caller with the seed user's context. Typing it as the real
+  // TRPCContext keeps the caller honest about what the procedure ladder reads
+  // (session.role, userId, companyId) instead of asserting past it.
   const createCaller = createCallerFactory(appRouter);
-  const ctx = {
+  const ctx: TRPCContext = {
     db: appDb,
     session: {
       user: { id: user.id, name: "Smoke Test", email: user.email },
-      role: "admin" as const,
+      expires: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+      role: "admin",
       companyId: user.companyId,
-      userId: user.id,
-    } as never,
+      companyActivated: user.companyActivated,
+      jobTitle: null,
+      sessionVersion: null,
+    },
     userId: user.id,
     companyId: user.companyId,
     ip: "smoke-test",
+    userAgent: null,
   };
-  const caller = createCaller(ctx as never);
+  const caller = createCaller(ctx);
 
   // Cleanup from any previous run — also resets actsAsSupplier=false so the
   // next test starts from a fresh "not yet opted in" state.
