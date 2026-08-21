@@ -18,6 +18,7 @@
     "db:generate:grc": "bun run --env-file=$PWD/.env --cwd packages/grc-data-model db:generate",
     "db:generate:isms": "bun run --env-file=$PWD/.env --cwd packages/isms-schema db:generate",
     "db:migrate": "bun run --env-file=$PWD/.env --cwd packages/grc-data-model db:migrate && bun run --env-file=$PWD/.env --cwd packages/isms-schema db:migrate && drizzle-kit migrate",
+    "db:framework-migration": "bun run scripts/generate-framework-migration.ts",
     "db:studio": "drizzle-kit studio",
     "db:seed": "bun run drizzle/seed.ts",
     "index-urls": "bun run scripts/index-urls.ts",

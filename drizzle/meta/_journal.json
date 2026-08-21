@@ -64,6 +64,13 @@
       "when": 1783085729512,
       "tag": "0008_secret_stranger",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1787315309208,
+      "tag": "0009_framework_data_sync",
+      "breakpoints": true
     }
   ]
 }
