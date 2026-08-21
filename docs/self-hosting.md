@@ -100,7 +100,7 @@ Whichever you choose, uploads are the one feature that fails visibly in the brow
 
 ## Environment variables
 
-31 variables are read at runtime. You need **2** to boot, **7** for a genuinely usable instance, and the other 24 each unlock or harden one thing. Full annotated list in [`.env.example`](../.env.example).
+32 variables are read at runtime. You need **2** to boot, **7** for a genuinely usable instance, and the other 25 each unlock or harden one thing. Several of those are only relevant if you run this as a public service rather than for one organisation; `.env.example` marks that section so you can skip it. Full annotated list there.
 
 ### Required to start at all
 
