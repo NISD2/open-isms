@@ -1,3 +1,11 @@
+/**
+ * Values here are seeded into `requirement` / `requirement_category` rows.
+ * Editing them changes what a FRESH seed produces; it does not reach a
+ * database that is already seeded (production included). After changing
+ * anything below, run `bun db:framework-migration` to emit the data
+ * migration that carries it forward. `bun db:generate` will not: it diffs
+ * the schema, and row content is not schema.
+ */
 import type { FrameworkCategory, FrameworkRequirement } from "./types";
 import { makeRequirementFactory } from "./types";
 
