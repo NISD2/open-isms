@@ -110,13 +110,39 @@ const frameworkByCode = new Map(
   ),
 );
 
+// Insert-if-missing then update, rather than a bare UPDATE: a framework change
+// that adds a CATEGORY has to create it, or every requirement underneath it is
+// silently skipped when its INSERT .. SELECT finds no category to attach to.
+// (framework_id, slug) has no unique constraint — the seeder looks it up by
+// hand — so this cannot be an ON CONFLICT and has to be two statements.
 const categoryStatements = selected.flatMap((f) =>
-  f.categories.map(
-    (c) =>
-      `UPDATE "requirement_category" SET "grundschutz_module" = ${sqlLiteral(c.grundschutzModule ?? null)} ` +
-      `WHERE "slug" = ${sqlLiteral(c.slug)} ` +
-      `AND "framework_id" = (SELECT "id" FROM "compliance_framework" WHERE "code" = ${sqlLiteral(f.code)})`,
-  ),
+  f.categories.flatMap((c) => {
+    const frameworkId = `(SELECT "id" FROM "compliance_framework" WHERE "code" = ${sqlLiteral(f.code)})`;
+    const roles = c.relevantRoles
+      ? `${sqlLiteral(JSON.stringify(c.relevantRoles))}::jsonb`
+      : "NULL";
+    return [
+      `INSERT INTO "requirement_category" (` +
+        `"framework_id", "code", "slug", "reference_url", "national_url", ` +
+        `"relevant_roles", "grundschutz_module", "sort_order", "estimated_minutes") ` +
+        `SELECT f."id", ${sqlLiteral(c.code)}, ${sqlLiteral(c.slug)}, ` +
+        `${sqlLiteral(c.referenceUrl || null)}, ${sqlLiteral(c.nationalUrl || null)}, ` +
+        `${roles}, ${sqlLiteral(c.grundschutzModule ?? null)}, ${c.sortOrder}, ${c.estimatedMinutes} ` +
+        `FROM "compliance_framework" f WHERE f."code" = ${sqlLiteral(f.code)} ` +
+        `AND NOT EXISTS (SELECT 1 FROM "requirement_category" rc ` +
+        `WHERE rc."slug" = ${sqlLiteral(c.slug)} AND rc."framework_id" = f."id")`,
+      `UPDATE "requirement_category" SET ` +
+        `"code" = ${sqlLiteral(c.code)}, ` +
+        `"reference_url" = ${sqlLiteral(c.referenceUrl || null)}, ` +
+        `"national_url" = ${sqlLiteral(c.nationalUrl || null)}, ` +
+        `"relevant_roles" = ${roles}, ` +
+        `"grundschutz_module" = ${sqlLiteral(c.grundschutzModule ?? null)}, ` +
+        `"sort_order" = ${c.sortOrder}, ` +
+        `"estimated_minutes" = ${c.estimatedMinutes}, ` +
+        `"updated_at" = now() ` +
+        `WHERE "slug" = ${sqlLiteral(c.slug)} AND "framework_id" = ${frameworkId}`,
+    ];
+  }),
 );
 
 // Insert-on-conflict rather than a bare UPDATE, so a framework change that
