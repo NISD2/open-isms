@@ -2,8 +2,8 @@
 /**
  * Generates the German LaTeX PDF for the NIS2 CEO course.
  *
- * Reads German .de.md content files and quiz .ts files,
- * converts them to LaTeX, and writes the .tex file.
+ * Reads German .de.md content files, imports the quiz modules and reads
+ * their `de` locale, converts both to LaTeX, and writes the .tex file.
  *
  * Run: bun run scripts/generate-german-pdf.ts
  */
@@ -11,6 +11,9 @@
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { quizSchema, type Quiz } from "@/lib/training/schemas";
+
+const LOCALE = "de";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CONTENT_DIR = join(ROOT, "courses/nis2-ceo/content");
@@ -116,12 +119,13 @@ function inlineMarkdown(text: string): string {
 // Parse German markdown content file → LaTeX
 // ---------------------------------------------------------------------------
 
-interface ParsedSection {
-  type: "heading1" | "heading2" | "paragraph" | "list_bullet" | "list_numbered" | "blank";
-  level?: number;
-  text?: string;
-  items?: string[];
-}
+type ParsedSection =
+  | { type: "heading1"; text: string }
+  | { type: "heading2"; text: string }
+  | { type: "paragraph"; text: string }
+  | { type: "list_bullet"; items: string[] }
+  | { type: "list_numbered"; items: string[] }
+  | { type: "blank" };
 
 function parseMd(content: string): ParsedSection[] {
   const lines = content.split("\n");
@@ -129,7 +133,7 @@ function parseMd(content: string): ParsedSection[] {
   let i = 0;
 
   while (i < lines.length) {
-    const line = lines[i]!;
+    const line = lines[i];
 
     // Blank line
     if (line.trim() === "") {
@@ -162,8 +166,8 @@ function parseMd(content: string): ParsedSection[] {
     // Bullet list: - item or * item
     if (line.match(/^[-*] /)) {
       const items: string[] = [];
-      while (i < lines.length && lines[i]!.match(/^[-*] /)) {
-        items.push(lines[i]!.replace(/^[-*] /, "").trim());
+      while (i < lines.length && lines[i].match(/^[-*] /)) {
+        items.push(lines[i].replace(/^[-*] /, "").trim());
         i++;
       }
       sections.push({ type: "list_bullet", items });
@@ -173,8 +177,8 @@ function parseMd(content: string): ParsedSection[] {
     // Numbered list: 1. item
     if (line.match(/^\d+\. /)) {
       const items: string[] = [];
-      while (i < lines.length && lines[i]!.match(/^\d+\. /)) {
-        items.push(lines[i]!.replace(/^\d+\. /, "").trim());
+      while (i < lines.length && lines[i].match(/^\d+\. /)) {
+        items.push(lines[i].replace(/^\d+\. /, "").trim());
         i++;
       }
       sections.push({ type: "list_numbered", items });
@@ -185,12 +189,12 @@ function parseMd(content: string): ParsedSection[] {
     const paraLines: string[] = [];
     while (
       i < lines.length &&
-      lines[i]!.trim() !== "" &&
-      !lines[i]!.startsWith("#") &&
-      !lines[i]!.match(/^[-*] /) &&
-      !lines[i]!.match(/^\d+\. /)
+      lines[i].trim() !== "" &&
+      !lines[i].startsWith("#") &&
+      !lines[i].match(/^[-*] /) &&
+      !lines[i].match(/^\d+\. /)
     ) {
-      paraLines.push(lines[i]!.trim());
+      paraLines.push(lines[i].trim());
       i++;
     }
     if (paraLines.length > 0) {
@@ -221,7 +225,7 @@ function sectionsToLatex(sections: ParsedSection[]): string {
   let i = 0;
 
   while (i < sections.length) {
-    const s = sections[i]!;
+    const s = sections[i];
 
     if (s.type === "blank") {
       i++;
@@ -235,18 +239,18 @@ function sectionsToLatex(sections: ParsedSection[]): string {
     }
 
     if (s.type === "heading2") {
-      const heading = s.text!;
+      const heading = s.text;
 
       if (isKeyTakeaways(heading)) {
         // Collect the numbered list that follows
         i++;
         // Skip blanks
-        while (i < sections.length && sections[i]!.type === "blank") i++;
-        if (i < sections.length && sections[i]!.type === "list_numbered") {
-          const items = sections[i]!.items!;
+        while (sections.at(i)?.type === "blank") i++;
+        const list = sections.at(i);
+        if (list?.type === "list_numbered") {
           out.push("\\begin{keytakeaways}");
           out.push("\\begin{enumerate}");
-          for (const item of items) {
+          for (const item of list.items) {
             out.push(`  \\item ${inlineMarkdown(item)}`);
           }
           out.push("\\end{enumerate}");
@@ -261,21 +265,21 @@ function sectionsToLatex(sections: ParsedSection[]): string {
         out.push(`\\begin{actionboxde}{${inlineMarkdown(heading)}}`);
         i++;
         // Collect content until next heading or end
-        while (i < sections.length && sections[i]!.type !== "heading2" && sections[i]!.type !== "heading1") {
-          const cs = sections[i]!;
+        while (i < sections.length && sections[i].type !== "heading2" && sections[i].type !== "heading1") {
+          const cs = sections[i];
           if (cs.type === "paragraph") {
-            out.push(inlineMarkdown(cs.text!));
+            out.push(inlineMarkdown(cs.text));
             out.push("");
           } else if (cs.type === "list_bullet") {
             out.push("\\begin{itemize}");
-            for (const item of cs.items!) {
+            for (const item of cs.items) {
               out.push(`  \\item ${inlineMarkdown(item)}`);
             }
             out.push("\\end{itemize}");
             out.push("");
           } else if (cs.type === "list_numbered") {
             out.push("\\begin{enumerate}");
-            for (const item of cs.items!) {
+            for (const item of cs.items) {
               out.push(`  \\item ${inlineMarkdown(item)}`);
             }
             out.push("\\end{enumerate}");
@@ -291,10 +295,10 @@ function sectionsToLatex(sections: ParsedSection[]): string {
       if (isWarningBox(heading)) {
         out.push(`\\begin{warningboxde}{${inlineMarkdown(heading)}}`);
         i++;
-        while (i < sections.length && sections[i]!.type !== "heading2" && sections[i]!.type !== "heading1") {
-          const cs = sections[i]!;
+        while (i < sections.length && sections[i].type !== "heading2" && sections[i].type !== "heading1") {
+          const cs = sections[i];
           if (cs.type === "paragraph") {
-            out.push(inlineMarkdown(cs.text!));
+            out.push(inlineMarkdown(cs.text));
             out.push("");
           }
           i++;
@@ -312,7 +316,7 @@ function sectionsToLatex(sections: ParsedSection[]): string {
     }
 
     if (s.type === "paragraph") {
-      out.push(inlineMarkdown(s.text!));
+      out.push(inlineMarkdown(s.text));
       out.push("");
       i++;
       continue;
@@ -320,7 +324,7 @@ function sectionsToLatex(sections: ParsedSection[]): string {
 
     if (s.type === "list_bullet") {
       out.push("\\begin{itemize}");
-      for (const item of s.items!) {
+      for (const item of s.items) {
         out.push(`  \\item ${inlineMarkdown(item)}`);
       }
       out.push("\\end{itemize}");
@@ -331,7 +335,7 @@ function sectionsToLatex(sections: ParsedSection[]): string {
 
     if (s.type === "list_numbered") {
       out.push("\\begin{enumerate}");
-      for (const item of s.items!) {
+      for (const item of s.items) {
         out.push(`  \\item ${inlineMarkdown(item)}`);
       }
       out.push("\\end{enumerate}");
@@ -347,71 +351,50 @@ function sectionsToLatex(sections: ParsedSection[]): string {
 }
 
 // ---------------------------------------------------------------------------
-// Parse quiz .ts file → questions list
+// Load quiz module → LaTeX
 // ---------------------------------------------------------------------------
 
-interface QuizQuestion {
-  question: string;
-  options: string[];
-  correctIndex: number;
-  explanation: string;
-}
-
-function parseQuizFile(lessonSlug: string): QuizQuestion[] {
-  const filePath = join(QUIZ_DIR, `${lessonSlug}.ts`);
-  if (!existsSync(filePath)) return [];
-
-  const src = readFileSync(filePath, "utf-8");
-  const questions: QuizQuestion[] = [];
-
-  // Extract question blocks
-  // Pattern: { id: "...", question: { en: "..." }, options: [...], correctIndex: N, explanation: { en: "..." } }
-  const qRegex = /\{\s*id:\s*"[^"]+",\s*question:\s*\{[^}]+en:\s*"((?:[^"\\]|\\.)*)"\s*[^}]*\},\s*options:\s*\[([\s\S]*?)\],\s*correctIndex:\s*(\d+),\s*explanation:\s*\{\s*en:\s*"((?:[^"\\]|\\.)*)"[^}]*\}/g;
-
-  let match: RegExpExecArray | null;
-  while ((match = qRegex.exec(src)) !== null) {
-    const questionText = match[1]!.replace(/\\"/g, '"').replace(/\\n/g, " ");
-    const optionsBlock = match[2]!;
-    const correctIndex = parseInt(match[3]!, 10);
-    const explanation = match[4]!.replace(/\\"/g, '"').replace(/\\n/g, " ");
-
-    // Parse options - extract en: "..." from each option object
-    const options: string[] = [];
-    const optRegex = /en:\s*"((?:[^"\\]|\\.)*)"/g;
-    let optMatch: RegExpExecArray | null;
-    while ((optMatch = optRegex.exec(optionsBlock)) !== null) {
-      options.push(optMatch[1]!.replace(/\\"/g, '"').replace(/\\n/g, " "));
-    }
-
-    if (options.length > 0) {
-      questions.push({ question: questionText, options, correctIndex, explanation });
-    }
+/**
+ * Only `en` is required by `localeString`, so a missing German string is a
+ * content gap rather than a schema error. Fail loudly: silently emitting the
+ * English text into a German book is exactly the bug this replaced.
+ */
+function localeText(field: Record<string, string>, where: string): string {
+  const text = field[LOCALE];
+  if (!text) {
+    throw new Error(`Missing "${LOCALE}" translation for ${where}`);
   }
-
-  return questions;
+  return text;
 }
 
-function quizToLatex(questions: QuizQuestion[]): string {
-  if (questions.length === 0) return "";
+async function loadQuiz(lessonSlug: string): Promise<Quiz | null> {
+  const filePath = join(QUIZ_DIR, `${lessonSlug}.ts`);
+  if (!existsSync(filePath)) return null;
 
+  const mod = await import(filePath);
+  return quizSchema.parse(mod.default);
+}
+
+function quizToLatex(quiz: Quiz): string {
   const out: string[] = [];
   out.push("\\begin{quizbox}");
   out.push("\\setcounter{quizq}{0}");
   out.push("");
 
-  for (const q of questions) {
-    out.push(`\\quizquestion{${escapeLatex(q.question)}}{`);
-    for (let j = 0; j < q.options.length; j++) {
-      const escaped = escapeLatex(q.options[j]!);
+  for (const q of quiz.questions) {
+    const where = `${quiz.lessonId} question ${q.id}`;
+    out.push(`\\quizquestion{${escapeLatex(localeText(q.question, where))}}{`);
+    q.options.forEach((option, j) => {
+      const escaped = escapeLatex(localeText(option, `${where} option ${j}`));
       if (j === q.correctIndex) {
         out.push(`  \\item \\correct{${escaped}}`);
       } else {
         out.push(`  \\item ${escaped}`);
       }
-    }
+    });
     out.push("}");
     if (q.explanation) {
-      out.push(`\\quizexplain{${escapeLatex(q.explanation)}}`);
+      out.push(`\\quizexplain{${escapeLatex(localeText(q.explanation, `${where} explanation`))}}`);
     }
     out.push("");
   }
@@ -425,7 +408,7 @@ function quizToLatex(questions: QuizQuestion[]): string {
 // Build lesson LaTeX from .de.md content + quiz
 // ---------------------------------------------------------------------------
 
-function buildLesson(lessonSlug: string): string {
+async function buildLesson(lessonSlug: string): Promise<string> {
   const filePath = join(CONTENT_DIR, `${lessonSlug}.de.md`);
   if (!existsSync(filePath)) {
     console.warn(`  Missing: ${filePath}`);
@@ -441,8 +424,8 @@ function buildLesson(lessonSlug: string): string {
 
   // Parse lesson number from title "Lektion X.X: Title" or use slug
   const titleMatch = rawTitle.match(/^Lektion\s+([\d.]+):\s*(.+)$/);
-  const lessonNum = titleMatch ? titleMatch[1]! : lessonSlug.replace("-", ".");
-  const lessonTitle = titleMatch ? titleMatch[2]! : rawTitle;
+  const lessonNum = titleMatch ? titleMatch[1] : lessonSlug.replace("-", ".");
+  const lessonTitle = titleMatch ? titleMatch[2] : rawTitle;
 
   const out: string[] = [];
 
@@ -456,9 +439,9 @@ function buildLesson(lessonSlug: string): string {
   out.push(bodyContent);
 
   // Quiz
-  const quizQuestions = parseQuizFile(lessonSlug);
-  if (quizQuestions.length > 0) {
-    out.push(quizToLatex(quizQuestions));
+  const quiz = await loadQuiz(lessonSlug);
+  if (quiz) {
+    out.push(quizToLatex(quiz));
   }
 
   out.push("");
@@ -821,7 +804,7 @@ function buildChapterIntro(module: typeof MODULES[number]): string {
 // Main
 // ---------------------------------------------------------------------------
 
-function generate(): string {
+async function generate(): Promise<string> {
   console.log("Generating German LaTeX PDF...");
 
   const parts: string[] = [];
@@ -850,7 +833,7 @@ function generate(): string {
   parts.push("");
 
   // Foundation module (no chapter heading)
-  const foundationModule = MODULES[0]!;
+  const foundationModule = MODULES[0];
   parts.push("% ============================================================");
   parts.push("%  GRUNDLAGEN");
   parts.push("% ============================================================");
@@ -878,7 +861,7 @@ function generate(): string {
 
   // Main modules (1-5)
   for (let mi = 1; mi < MODULES.length; mi++) {
-    const mod = MODULES[mi]!;
+    const mod = MODULES[mi];
     parts.push(`% ============================================================`);
     parts.push(`%  KAPITEL ${mi}: ${(mod.title ?? "").toUpperCase()}`);
     parts.push(`% ============================================================`);
@@ -887,7 +870,7 @@ function generate(): string {
 
     for (const slug of mod.lessons) {
       console.log(`  Processing lesson: ${slug}`);
-      parts.push(buildLesson(slug));
+      parts.push(await buildLesson(slug));
     }
   }
 
@@ -914,7 +897,7 @@ function generate(): string {
 // Run
 // ---------------------------------------------------------------------------
 
-const latex = generate();
+const latex = await generate();
 writeFileSync(OUT_TEX, latex, "utf-8");
 console.log(`\nWritten to: ${OUT_TEX}`);
 console.log("To compile: cd courses/nis2-ceo/pdf-book && pdflatex nis2-management-training-de.tex && pdflatex nis2-management-training-de.tex");
