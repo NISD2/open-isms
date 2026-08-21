@@ -391,6 +391,13 @@
         "legalBasis": "Art. 24 EU CRA",
         "threatLandscape": "Opiekunowie OSS są zwolnieni z kar na podstawie art. 64(10), lecz komercyjni użytkownicy końcowi nadal zależą od ich zgłoszeń.",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Inspektor ochrony danych",
+        "description": "Ocena obowiązku wyznaczenia na podstawie §38 BDSG i art. 37 GDPR oraz status i zadania osoby wyznaczonej",
+        "legalBasis": "GDPR Art. 37-39, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

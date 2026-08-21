@@ -28,6 +28,13 @@ export const gdprCategories: FrameworkCategory[] = [
     // Chapter III, not Art. 15 alone: this category spans Art. 12-22.
     referenceUrl: "https://gdpr-info.eu/chapter-3/", nationalUrl: "",
     sortOrder: 5, estimatedMinutes: 60, relevantRoles: ["legal"] },
+  // nationalUrl stays empty even though §38 BDSG is what actually triggers the
+  // appointment for a German controller. The GDPR applies directly; §38 is an
+  // Art. 37(4) opening-clause addition, not a transposition, so the BDSG cite
+  // travels in the requirement's legalRef rather than as a second citation row.
+  { id: "gdpr-cat-06", code: "DPO", slug: "gdpr-data-protection-officer",
+    referenceUrl: "https://gdpr-info.eu/art-37-gdpr/", nationalUrl: "",
+    sortOrder: 6, estimatedMinutes: 45, relevantRoles: ["legal", "ceo"] },
 ];
 
 /**
@@ -51,6 +58,12 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("G-BRC.1", "document", { legalRef: "GDPR Art. 33", frameworkRef: "Art. 33", moduleRef: "policy", priority: "P0", frequency: "annual" }),
     // Art. 33(5) documents each breach as it happens, not on a review cycle.
     mkReq("G-BRC.2", "document", { legalRef: "GDPR Art. 33(5)", frameworkRef: "Art. 33", moduleRef: "incident", priority: "P1", frequency: "on-change" }),
+    // Art. 34 is a second, separate addressee: the data subjects themselves,
+    // owed only where the breach is likely to result in a HIGH risk to them.
+    // Art. 33 notification to the authority does not discharge it, and the
+    // Art. 34(3) carve-outs (data rendered unintelligible, risk since
+    // mitigated, disproportionate effort) are decided per breach.
+    mkReq("G-BRC.3", "document", { legalRef: "GDPR Art. 34", frameworkRef: "Art. 34", moduleRef: "policy", priority: "P1", frequency: "on-change" }),
   ],
   "gdpr-data-subject-rights": () => [
     // The one-month deadline this requirement asserts is Art. 12(3); the
@@ -59,6 +72,18 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     // "ongoing", not "on-change": the clock starts when a request arrives,
     // which is not a change to anything the company controls.
     mkReq("G-DSR.1", "document", { legalRef: "GDPR Art. 12(3)-(6), Art. 15-22", frameworkRef: "Art. 12-22", priority: "P1", frequency: "ongoing" }),
+  ],
+  "gdpr-data-protection-officer": () => [
+    // The GDPR itself only compels appointment in the three Art. 37(1) cases,
+    // none of which catch an ordinary Mittelstand controller. §38(1) BDSG uses
+    // the Art. 37(4) opening clause to add a German threshold that does: 20
+    // persons "ständig mit der automatisierten Verarbeitung personenbezogener
+    // Daten beschäftigt", plus two headcount-independent triggers. Almost every
+    // company in the 50-250 band is over that line, so this is the GDPR duty
+    // German SMEs miss most often.
+    // "on-change": the threshold is dynamic, so the test is re-run when
+    // headcount or the kind of processing changes, not on a review cycle.
+    mkReq("G-DPO.1", "document", { legalRef: "GDPR Art. 37-39, §38 BDSG", frameworkRef: "Art. 37-39", priority: "P0", frequency: "on-change" }),
   ],
 };
 
