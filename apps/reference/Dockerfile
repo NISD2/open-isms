@@ -2,9 +2,9 @@
 #
 # Dockerfile for the open-isms reference app.
 #
-# Distinct from the nisd2.eu private Dockerfile at the monorepo root —
-# this one builds ONLY apps/reference + the OSS workspace packages.
-# Designed for self-hosters running `docker compose up` from this dir.
+# Distinct from the Dockerfile at the repo root, which builds the full
+# platform. This one builds ONLY apps/reference + the workspace packages,
+# for `docker compose up` from this dir.
 #
 # Multi-stage:
 #   deps    — bun install (cached by package manifests)

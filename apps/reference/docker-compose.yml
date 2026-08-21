@@ -1,4 +1,6 @@
-# Self-hostable open-isms reference stack: Postgres + the Next.js app.
+# open-isms reference stack: Postgres + the Next.js app skeleton.
+# This is the package demo, not the platform. To self-host the real thing,
+# use the docker-compose.yml at the repo root and follow docs/self-hosting.md.
 #
 # Quick start:
 #   1. cd apps/reference
