@@ -54,7 +54,7 @@ A fresh database has zero requirements in it. Migrations create the tables; they
 
 ```bash
 DATABASE_URL="postgres://openisms:YOUR_PASSWORD@localhost:5432/openisms" \
-AUTH_SECRET="anything-at-least-32-characters-long" \
+AUTH_SECRET="$(openssl rand -base64 32)" \
 bun run drizzle/seed.ts
 ```
 
