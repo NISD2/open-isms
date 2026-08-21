@@ -206,11 +206,11 @@
     },
     "G-ROP_1": {
       "title": "Records of Processing Activities",
-      "description": "Document every processing activity for each system that handles personal data: purpose, legal basis, recipients, retention, deletion (Art. 30)."
+      "description": "Record each processing activity with the seven Art. 30(1) entries: controller and DPO contacts, purposes, categories of data subjects and of personal data, recipient categories, third-country transfers with safeguards and, where possible, erasure periods and a description of the measures."
     },
     "G-TOM_1": {
       "title": "Technical and Organisational Measures",
-      "description": "Document the security measures protecting personal data: encryption, access control, backups, training (Art. 32)."
+      "description": "Document the measures protecting personal data: pseudonymisation and encryption, lasting confidentiality, integrity, availability and resilience, timely restoration after an incident, and a process for regularly testing and evaluating their effectiveness (Art. 32(1))."
     },
     "G-BRC_1": {
       "title": "Personal Data Breach Response Process",
