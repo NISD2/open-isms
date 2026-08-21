@@ -43,11 +43,15 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
     mkReq("2.1", "document", { priority: "P0", frequency: "on-change", legalRef: "§30(2) Nr. 1 BSIG, CIR 2.1.2", frameworkRef: "Art. 21(2)(a)", cirReference: "2.1.2" }),
     mkReq("2.2", "technical", { priority: "P0", frequency: "ongoing", legalRef: "§30(2) Nr. 1 und 9 BSIG, CIR 12", frameworkRef: "Art. 21(2)(a), Art. 21(2)(i)", cirReference: "12.1, 12.4" }),
     mkReq("2.3", "technical", { priority: "P1", legalRef: "§30(2) Nr. 1 BSIG, CIR 2.1.1, 2.1.4", frameworkRef: "Art. 21(2)(a)", cirReference: "2.1.1, 2.1.3, 2.1.4" }),
-    mkReq("2.4", "sign-off", { priority: "P0", frequency: "annual", legalRef: "§38(1) BSIG, CIR 1.1.1(k), 2.1.1", frameworkRef: "Art. 20(1), Art. 21(2)(a)", cirReference: "1.1.1(k), 2.1.1", requiredSignOffRole: "ceo" }),
+    // 1.1.2 and 2.1.4 carry the "at least annually" floor this requirement's annual
+    // frequency actually rests on; 1.1.1(k) and 2.1.1 only cover the approval itself.
+    mkReq("2.4", "sign-off", { priority: "P0", frequency: "annual", legalRef: "§38(1) BSIG, CIR 1.1.1(k), 1.1.2, 2.1.1, 2.1.4", frameworkRef: "Art. 20(1), Art. 21(2)(a)", cirReference: "1.1.1(k), 1.1.2, 2.1.1, 2.1.4", requiredSignOffRole: "ceo" }),
   ],
   "incident-handling": () => [
     mkReq("3.1", "document", { priority: "P0", legalRef: "§30(2) Nr. 2 BSIG, CIR 3.1", frameworkRef: "Art. 21(2)(b)", cirReference: "3.1" }),
-    mkReq("3.2", "document", { priority: "P1", legalRef: "§30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4", frameworkRef: "Art. 21(2)(b), Art. 23(3)", cirReference: "3.2, 3.3, 3.4" }),
+    // Quarterly, not the default annual: CIR 3.4.2(b) is the implementing act's only
+    // hard interval, and it feeds the Art. 4 recurring-incident aggregation rule.
+    mkReq("3.2", "document", { priority: "P1", frequency: "quarterly", legalRef: "§30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4", frameworkRef: "Art. 21(2)(b), Art. 23(3)", cirReference: "3.2, 3.3, 3.4" }),
     mkReq("3.3", "proof", { priority: "P0", frequency: "annual", legalRef: "§32(1) Nr. 1-4, §32(2) BSIG", frameworkRef: "Art. 23(4)" }),
     mkReq("3.4", "proof", { priority: "P2", frequency: "annual", legalRef: "§30(2) Nr. 2+6 BSIG, CIR 3.5", frameworkRef: "Art. 21(2)(f)", cirReference: "3.5" }),
     mkReq("3.5", "document", { priority: "P1", frequency: "annual", legalRef: "§30(2) Nr. 2 BSIG, CIR 3.6", frameworkRef: "Art. 21(2)(b)", cirReference: "3.6" }),
