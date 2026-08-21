@@ -22,6 +22,16 @@ jobs:
       - run: bun run test
         working-directory: packages/grc-data-model
 
+      # REFERENCE.md is generated from the framework data and is published as
+      # the public reference. It silently went stale after a correction pass,
+      # leaving it citing CIR Annex points that do not exist in the OJ text.
+      - name: REFERENCE.md is up to date with the framework data
+        run: |
+          bun run docs:reference
+          git diff --exit-code -- REFERENCE.md \
+            || { echo "::error::REFERENCE.md is stale. Run 'bun run docs:reference' in packages/grc-data-model and commit."; exit 1; }
+        working-directory: packages/grc-data-model
+
       - run: bun run typecheck
 
       - run: bun run build
