@@ -27,7 +27,7 @@ export type SatisfactionPair = readonly [
 
 export const nis2GdprSatisfactionPairs: SatisfactionPair[] = [
   ["5.1", "G-DPA.1", "Same supplier rows feed both; the Art. 28 DPA itself is evidenced by the 5.2 contract clauses, not by the register alone."],
-  ["5.2", "G-DPA.1", "Contractual security clauses cover the same processor obligations as Art. 28 DPAs.", "equivalent"],
+  ["5.2", "G-DPA.1", "CIR 5.1.4 covers part of an Art. 28(3) DPA: its cybersecurity requirements (a) speak to Art. 28(3)(c), its audit rights (e) to (h), its subcontracting rules (g) to (d), its termination retrieval and disposal (h) to (g). Art. 28(3) points (a), (b), (e) and (f) have no CIR counterpart: documented instructions, confidentiality, assistance with data subject rights, and assistance with Arts. 32 to 36. Nor does CIR 5.1.4 carry the Art. 28(3) statement of subject-matter, duration, nature, purpose, data types and categories of data subjects. CIR 5.1.4 clauses are also owed only 'where appropriate'; Art. 28(3) is unconditional. A 5.2 clause set is not a DPA."],
   ["5.2", "G-DPA.2", "Sub-processor lists live on the same supplier rows used for NIS2 governance and Art. 28(2)/(4).", "equivalent"],
 
   ["2.1", "G-ROP.1", "Asset classification methodology defines the systems recorded in the Art. 30 register."],
@@ -46,10 +46,10 @@ export const aiActNis2SatisfactionPairs: SatisfactionPair[] = [
   ["AI-LIT.1", "8.1", "AI literacy training programme overlaps with the topic-specific IT security rules under CIR 1.1.1(i)."],
   ["AI-LIT.2", "1.1", "Management body AI training (Art. 4 + 26(2)) overlaps with the §38(3) BSIG management cybersecurity training."],
   ["AI-INV.1", "2.2", "Same inventory: AI systems are assets, so one register satisfies both the NIS2 asset list and the AI Act inventory.", "equivalent"],
-  ["AI-RSK.1", "2.1", "AI risk management framework reuses the methodology defined for NIS2 risk management (CIR 2.1).", "equivalent"],
+  ["AI-RSK.1", "2.1", "The process shape carries over: CIR 2.1.2 requires identification, analysis, assessment and treatment of risks, which is the loop Art. 9(2) describes. The scope does not: CIR 2.1 is bounded to risks to network and information systems, while Art. 9 covers risks to health, safety and fundamental rights and pulls in post-market monitoring data (Art. 9(2)(c)). Both sides require residual risk to be accepted, but against different criteria (Art. 9(5) vs CIR 2.1.1). Art. 9(10) lets you combine the procedures; it does not merge the duties."],
   ["AI-RSK.2", "2.3", "Annual AI risk review feeds the same asset-classification update NIS2 expects.", "equivalent"],
   ["AI-INC.1", "3.1", "AI incident response procedure overlaps with the NIS2 incident handling policy under CIR 3.1."],
-  ["AI-INC.2", "3.3", "Same underlying event, separate filings: the AI Act Art. 73 report goes to the market surveillance authority (15 days), the NIS2 24h/72h cascade to the BSI Meldestelle."],
+  ["AI-INC.2", "3.3", "Same underlying event, separate filings: the AI Act Art. 73 report goes to the market surveillance authority, the NIS2 24h/72h cascade to the BSI Meldestelle. Art. 73(2) sets 15 days, but a serious and irreversible disruption of the management or operation of critical infrastructure (Art. 3(49)(b)) is due within two days under Art. 73(3), and a death within 10 days under Art. 73(4). Entities in NIS2 scope should plan for the two-day clock."],
 ];
 
 export const aiActGdprSatisfactionPairs: SatisfactionPair[] = [
@@ -63,7 +63,7 @@ export const aiActGdprSatisfactionPairs: SatisfactionPair[] = [
 export const craNis2SatisfactionPairs: SatisfactionPair[] = [
   ["CRA-VLN.1", "6.3", "Vulnerability handling procedures overlap with NIS2 vulnerability and patch management requirements."],
   ["CRA-VLN.3", "6.4", "Security updates without delay align with the NIS2 patch management cadence."],
-  ["CRA-INC.1", "3.1", "Active-exploitation reporting reuses the same incident response procedure NIS2 expects.", "equivalent"],
+  ["CRA-INC.1", "3.1", "Different artefacts: CIR 3.1 is the internal incident handling policy, CRA Art. 14(2)(a) is a 24h early warning filed to the CSIRT coordinator and ENISA via the Art. 16 platform. The policy is where you name who files it; having the policy does not discharge the filing."],
   ["CRA-INC.2", "3.3", "Same underlying event, separate filings: CRA Art. 14 notifies the exploited product vulnerability to the CSIRT coordinator and ENISA, NIS2 §32 notifies the entity's own significant incident to the BSI."],
   ["CRA-INC.3", "3.5", "CRA 14-day final report and the NIS2 post-incident review share root-cause evidence; the NIS2 final report to the BSI is §32(1) Nr. 4, tracked under 3.3."],
   ["CRA-IMP.1", "5.1", "Importer due diligence on manufacturers overlaps with the NIS2 supplier security policy."],
@@ -73,7 +73,7 @@ export const craNis2SatisfactionPairs: SatisfactionPair[] = [
 ];
 
 export const craAiActSatisfactionPairs: SatisfactionPair[] = [
-  ["CRA-ESS.1", "AI-RSK.1", "Essential cybersecurity requirements (Annex I) overlap with AI risk management for high-risk AI systems with embedded digital elements; Art. 12 CRA presumption-of-conformity links the two."],
+  ["CRA-ESS.1", "AI-RSK.1", "Essential cybersecurity requirements (Annex I) overlap with AI risk management for high-risk AI systems with embedded digital elements. CRA Art. 12 grants presumption of conformity with AI Act Art. 15 (accuracy, robustness, cybersecurity) only; it does not reach the Art. 9 risk management system AI-RSK.1 tracks."],
   ["CRA-DOC.1", "AI-DOC.1", "Annex VII technical documentation overlaps with AI Act Annex IV for products that are both PDE and high-risk AI."],
   ["CRA-INC.1", "AI-INC.1", "Active-exploitation reporting overlaps with the AI Act incident response procedure when the AI system is also a product with digital elements."],
   ["CRA-DOC.1", "AI-DOC.2", "Annex VII technical documentation includes the logging and traceability evidence Art. 12 AI Act requires."],
@@ -90,7 +90,7 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
   ["IS-5.1", "1.4", "Leadership commitment under Cl. 5.1 supports the liability briefing 1.4 documents; ISO defines no liability-acknowledgment artefact (§38(2) BSIG is a liability rule, not a sign-off duty)."],
   ["IS-5.2", "1.2", "The Cl. 5.2 policy assigns responsibilities that 1.2's team mapping reflects; the policy document itself is a different artefact (see 2.4)."],
   ["IS-5.2", "2.4", "The Cl. 5.2 information security policy is the document the 2.4 IS-Leitlinie sign-off approves; scopes differ (full ISMS policy vs risk-acceptance sign-off)."],
-  ["IS-5.3", "1.2", "Documented roles and responsibilities (Cl. 5.3) fulfil the governance structure NIS2 Art. 20(1) requires."],
+  ["IS-5.3", "1.2", "Cl. 5.3 assigns and communicates roles and authorities, which is what 1.2 records under §30(1) BSIG and CIR 1.2 (Art. 21(2)(a)). Art. 20(1) is a separate duty: management-body approval of the risk management measures, oversight of implementation and liability, tracked in 1.3 and 1.4."],
   ["A.5.1",  "1.2", "Policies for information security (A.5.1) overlap with the governance framework NIS2 §30(1) requires."],
   ["A.5.2",  "1.2", "Same roles artefact: A.5.2 information security roles and responsibilities is the role assignment 1.2 records (CIR 1.2).", "equivalent"],
   ["A.5.31", "1.2", "The legal-requirements register (A.5.31) keeps regulatory duties owned by named roles; its NIS2 home is the 12.1 classification step."],
@@ -108,7 +108,7 @@ export const iso27001Nis2SatisfactionPairs: SatisfactionPair[] = [
   ["A.5.9",  "2.2", "Asset inventory (A.5.9) is the same register NIS2 CIR 12.4 / §30(2) Nr. 9 BSIG requires for asset identification.", "equivalent"],
   ["A.8.1",  "2.2", "User endpoint device protection (A.8.1) presupposes the endpoint entries in the same asset register NIS2 mandates."],
   ["A.8.10", "2.2", "Information deletion (A.8.10) is exercised against the retention data of the asset register (CIR 12.2/12.5 territory)."],
-  ["A.5.12", "2.3", "Information classification scheme (A.5.12) drives the asset criticality ratings NIS2 CIR 2.1.2 expects."],
+  ["A.5.12", "2.3", "Information classification scheme (A.5.12) drives the asset classification CIR 12.1 requires; CIR 2.1.3 feeds that classification into risk treatment prioritisation, and 2.3 records the resulting criticality ratings."],
   ["A.5.13", "2.3", "Information labelling (A.5.13) implements the classification that underpins NIS2 asset classification."],
 
   // ── Incident handling (NIS2 3.x) ─────────────────────────────────────────────
