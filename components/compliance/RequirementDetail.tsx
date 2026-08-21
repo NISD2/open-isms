@@ -40,6 +40,7 @@ import { renderFieldInput } from "@/lib/forms/field-renderer";
 import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
+import { buildCitationRows, type FrameworkLabel } from "@/lib/compliance/citations";
 import type { Asset } from "@/schema/types";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import {
@@ -62,19 +63,6 @@ import { teachingLessonForCategory } from "@/lib/training/lesson-journey-map";
 import { cn } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
-// Law URL helpers
-// ---------------------------------------------------------------------------
-function nis2Url(ref: string): string | null {
-  const m = ref.match(/Art\.\s*(\d+)/);
-  return m ? `https://www.nis-2-directive.com/NIS_2_Directive_Article_${m[1]}.html` : null;
-}
-
-function bsigUrl(ref: string): string | null {
-  const m = ref.match(/§(\d+)/);
-  return m ? `https://www.gesetze-im-internet.de/bsig_2025/__${m[1]}.html` : null;
-}
-
-// ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
@@ -90,6 +78,9 @@ export interface RequirementData {
   frameworkRef: string | null;
   importance: string | null;
   moduleRef: string | null;
+  frameworkCode: string | null;
+  referenceUrl: string | null;
+  nationalUrl: string | null;
 }
 
 export interface StatusData {
@@ -193,6 +184,9 @@ export function RequirementDetail({
   const t = useTranslations("compliance");
   const tf = useTranslations("form");
   const tc = useTranslations("common");
+  // Framework names live in the portal namespace, the same catalog the sidebar
+  // reads, so a citation is named the way the rest of the app names it.
+  const tp = useTranslations("portal");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -227,6 +221,10 @@ export function RequirementDetail({
   const isCompleted =
     status.currentStatus === "completed" || status.currentStatus === "approved";
   const isNA = status.currentStatus === "not_applicable";
+
+  const citationRows = buildCitationRows(requirement);
+  const citationLabel = (label: FrameworkLabel) =>
+    label.kind === "message" ? tp(label.key) : label.text;
 
   const [naOpen, setNaOpen] = useState(false);
   const [naReason, setNaReason] = useState("");
@@ -678,38 +676,31 @@ export function RequirementDetail({
                   <dd className="text-xs text-red-600 dark:text-red-400">{t("mandatory")}</dd>
                 </div>
               )}
-              {requirement.frameworkRef && (
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">NIS2</dt>
-                  <dd>
-                    <a
-                      href={nis2Url(requirement.frameworkRef) ?? "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {requirement.frameworkRef}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
+              {/* The link sits on the framework name, not on the citation:
+                  it opens that law's source page for this category, which is
+                  not always the exact article the citation names. */}
+              {citationRows.map((row) => (
+                <div key={row.id} className="flex items-start justify-between gap-3">
+                  <dt className="shrink-0 text-muted-foreground">
+                    {row.href ? (
+                      <a
+                        href={row.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 hover:text-foreground transition-colors"
+                      >
+                        {citationLabel(row.label)}
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    ) : (
+                      citationLabel(row.label)
+                    )}
+                  </dt>
+                  <dd className="text-right text-xs text-muted-foreground">
+                    {row.citation}
                   </dd>
                 </div>
-              )}
-              {requirement.legalRef && (
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">BSIG</dt>
-                  <dd>
-                    <a
-                      href={bsigUrl(requirement.legalRef) ?? "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {requirement.legalRef}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  </dd>
-                </div>
-              )}
+              ))}
             </dl>
             {teachingLesson && (
               <Link

@@ -51,6 +51,11 @@ export const requirementRouter = router({
               id: true,
               code: true,
               slug: true,
+              // Curated source links for the citation block. Without these the
+              // UI has to guess a URL from the citation text, which lands the
+              // reader in the wrong law.
+              referenceUrl: true,
+              nationalUrl: true,
             },
             with: {
               framework: { columns: { code: true } },
