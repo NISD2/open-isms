@@ -6,6 +6,27 @@ import { trainingRecord } from "@/schema";
 import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
 import { createPresignedPut, createPresignedGet } from "@/lib/storage";
 
+/**
+ * batchCreate writes one training_record row per participant, so its input
+ * splits the columns shared by every row from the per-participant ones. Both
+ * halves derive from trainingInsertSchema: the hand-written restatement this
+ * replaced had drifted, typing the pg `date` column nextTrainingDue as a bare
+ * string so free text reached Postgres as `invalid input syntax for type date`
+ * (a 500, not a validation error), and silently dropping trainerQualification
+ * and topicsCovered.
+ */
+const participantColumns = {
+  userId: true,
+  participantName: true,
+  participantRole: true,
+  isManagement: true,
+} as const;
+
+const batchCreateSchema = z.object({
+  training: trainingInsertSchema.omit({ ...participantColumns, id: true, companyId: true, createdAt: true }),
+  participants: z.array(trainingInsertSchema.pick(participantColumns)).min(1),
+});
+
 export const trainingRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
@@ -27,32 +48,7 @@ export const trainingRouter = router({
     }),
 
   batchCreate: companyProcedure
-    .input(
-      z.object({
-        training: z.object({
-          trainingType: z.string().min(1).max(255),
-          title: z.string().min(1).max(500),
-          description: z.string().nullish(),
-          providerName: z.string().max(255).nullish(),
-          trainerName: z.string().max(255).nullish(),
-          startedAt: z.coerce.date().nullish(),
-          completedAt: z.coerce.date().nullish(),
-          durationMinutes: z.number().int().positive().nullish(),
-          nextTrainingDue: z.string().nullish(),
-          certificateFileKey: z.string().max(500).nullish(),
-        }),
-        participants: z
-          .array(
-            z.object({
-              userId: z.string().uuid().nullish(),
-              participantName: z.string().min(1).max(255),
-              participantRole: z.string().max(255).nullish(),
-              isManagement: z.boolean(),
-            }),
-          )
-          .min(1),
-      }),
-    )
+    .input(batchCreateSchema)
     .mutation(async ({ ctx, input }) => {
       const rows = await ctx.db
         .insert(trainingRecord)
