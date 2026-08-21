@@ -87,13 +87,19 @@ const nextConfig: NextConfig = {
     const s3Origin =
       process.env.AWS_S3_ENDPOINT ??
       `https://${process.env.AWS_S3_BUCKET ?? "nisd2-dev-evidence"}.s3.${process.env.AWS_S3_REGION ?? "eu-north-1"}.amazonaws.com`;
+    // Analytics is operator-configured and off by default, so its origin has
+    // to come from the same env that renders the tag. Hardcoding ours would
+    // both leak to us and block a self-hoster's own endpoint.
+    const analyticsOrigin = process.env.ANALYTICS_SCRIPT_URL
+      ? (URL.parse(process.env.ANALYTICS_SCRIPT_URL)?.origin ?? "")
+      : "";
     const cspDirectives = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.sorzel.com https://accounts.google.com",
+      `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${analyticsOrigin} https://accounts.google.com`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
-      `connect-src 'self' https://analytics.sorzel.com https://accounts.google.com ${s3Origin}`,
+      `connect-src 'self' ${analyticsOrigin} https://accounts.google.com ${s3Origin}`,
       "frame-src 'self' https://accounts.google.com https://www.youtube.com https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",

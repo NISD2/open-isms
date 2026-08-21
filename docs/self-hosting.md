@@ -133,6 +133,7 @@ Whichever you choose, uploads are the one feature that fails visibly in the brow
 | `CSP_UPGRADE_INSECURE=1` | Set this **only** once you are HTTPS-only with a real certificate. It turns on HSTS with a two-year max-age, which pins HTTPS for that hostname the moment anyone visits over TLS. |
 | `PLATFORM_ADMIN_EMAILS` | No cross-tenant `/platform-admin` tier. Most self-hosters want this unset. |
 | `SUPPORT_EMAIL`, `NEWSLETTER_REPLY_TO` | Contact addresses fall back to placeholder values. |
+| `ANALYTICS_SCRIPT_URL`, `ANALYTICS_WEBSITE_ID` | No analytics tag, which is the default. Both are required together; the CSP allows the script's origin only when the URL is set. |
 | `JOURNEY_ALLOWED_DOMAINS` | Defaults to `*`. Set an explicit comma-separated list only to narrow who reaches the guided journey. |
 | `DISABLE_EMAIL=1` | Silences all outbound email. Useful for a staging copy of production data. |
 
@@ -151,7 +152,7 @@ The platform talks to five external services at runtime. All five are replaceabl
 Two more outbound calls have no key and no config:
 
 - `rdap.org` is queried during sign-up to check how old a registered domain is, as a throwaway-address signal. It has a short timeout and fails open.
-- `analytics.sorzel.com` is loaded on every page when `NODE_ENV=production`. **This is currently hardcoded to the nisd2.eu website ID.** A self-hosted production instance will send pageviews there. Until that is behind an env flag, strip the `<Script>` block at the end of `app/[locale]/layout.tsx` if you do not want it.
+- Analytics is off unless you turn it on. Set `ANALYTICS_SCRIPT_URL` and `ANALYTICS_WEBSITE_ID` to point at your own endpoint; with either unset, no tag is rendered and the CSP does not allow one. Nothing is reported to the project.
 
 Everything else the app links to (EUR-Lex, gesetze-im-internet, BSI, ENISA) is an outbound hyperlink in content, not a runtime dependency.
 

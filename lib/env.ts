@@ -45,11 +45,8 @@ const envSchema = z.object({
   // AI — optional (LLM features degrade)
   XAI_API_KEY: z.string().optional(),
 
-  // OpenRegister — optional (company lookup degrades)
-  OPENREGISTER_API_KEY: z.string().optional(),
-  OPENREGISTER_API_KEYS: z.string().optional(),
-
-  // Implisense (German company data via RapidAPI)
+  // Implisense (German company data via RapidAPI). Company lookup in the
+  // applicability wizard degrades to manual entry without it.
   RAPIDAPI_KEY: z.string().optional(),
 
   // Cron — optional
