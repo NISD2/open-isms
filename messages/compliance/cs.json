@@ -391,6 +391,13 @@
         "legalBasis": "čl. 24 nařízení EU CRA",
         "threatLandscape": "Správci OSS jsou podle čl. 64(10) osvobozeni od sankcí, ale navazující komerční uživatelé na jejich hlášení nadále spoléhají.",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Pověřenec pro ochranu osobních údajů",
+        "description": "Posouzení povinnosti jmenování podle §38 BDSG a čl. 37 GDPR a postavení a úkoly jmenované osoby",
+        "legalBasis": "čl. 37-39 GDPR, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

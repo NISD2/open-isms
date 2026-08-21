@@ -391,6 +391,13 @@
         "legalBasis": "Art. 12-22 AVG",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Functionaris voor gegevensbescherming",
+        "description": "Beoordeling van de aanwijzingsplicht op grond van §38 BDSG en art. 37 AVG, en de positie en taken van de aangewezen persoon",
+        "legalBasis": "Art. 37-39 AVG, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

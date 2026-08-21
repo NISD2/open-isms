@@ -391,6 +391,13 @@
         "legalBasis": "Art. 24 EU CRA",
         "threatLandscape": "Os administradores de OSS estão isentos de coimas ao abrigo do Art. 64(10), mas os utilizadores comerciais a jusante continuam a depender das suas comunicações.",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Encarregado da proteção de dados",
+        "description": "Avaliação da obrigação de designação nos termos do §38 BDSG e do art. 37.o do GDPR, bem como posição e funções da pessoa designada",
+        "legalBasis": "GDPR Art. 37-39, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

@@ -391,6 +391,13 @@
         "legalBasis": "Art. 24 EU CRA",
         "threatLandscape": "Los administradores de OSS están exentos de sanciones conforme al Art. 64(10), pero los usuarios comerciales posteriores siguen dependiendo de sus notificaciones.",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Delegado de protección de datos",
+        "description": "Evaluación de la obligación de designación conforme al §38 BDSG y al art. 37 del GDPR, y posición y funciones de la persona designada",
+        "legalBasis": "GDPR Art. 37-39, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

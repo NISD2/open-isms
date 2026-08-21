@@ -391,6 +391,13 @@
         "legalBasis": "Art. 12-22 DSGVO",
         "threatLandscape": "",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Datenschutzbeauftragte",
+        "description": "Prüfung der Benennungspflicht nach §38 BDSG und Art. 37 DSGVO sowie Stellung und Aufgaben der oder des Benannten",
+        "legalBasis": "Art. 37-39 DSGVO, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

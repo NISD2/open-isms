@@ -224,6 +224,14 @@
       "title": "Data Subject Rights Workflow",
       "description": "Process for handling access, erasure, rectification, portability, restriction, and objection requests within one month (Art. 12-22)."
     },
+    "G-BRC_3": {
+      "title": "Communication to affected data subjects",
+      "description": "Define the process for telling affected individuals about a breach that is likely to result in a high risk to them (Art. 34(1)). Notifying the supervisory authority under Art. 33 does not discharge it. The communication uses clear and plain language and carries the information in Art. 33(3)(b) to (d). It is not required where the data was rendered unintelligible (for example by encryption), where the high risk has since been mitigated, or where the effort would be disproportionate, in which case a public communication is required instead (Art. 34(3))."
+    },
+    "G-DPO_1": {
+      "title": "Designate a data protection officer",
+      "description": "Assess and document whether a data protection officer must be designated. In Germany the duty starts at 20 persons constantly engaged in the automated processing of personal data (§38(1) BDSG), and applies regardless of headcount where processing requires a data protection impact assessment or is carried out commercially for the purpose of transfer or of market and opinion research. Position and tasks follow Art. 38 and 39 GDPR; the contact details must be published and communicated to the supervisory authority (Art. 37(7))."
+    },
     "IS-4_1": {
       "title": "Context of the Organization",
       "description": "Determine external and internal issues relevant to the ISMS purpose and that affect your ability to achieve intended outcomes."

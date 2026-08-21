@@ -391,6 +391,13 @@
         "legalBasis": "Art. 24 EU CRA",
         "threatLandscape": "Gli steward OSS sono esenti da sanzioni ai sensi dell'Art. 64(10), ma gli utilizzatori commerciali a valle dipendono comunque dalle loro segnalazioni.",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Responsabile della protezione dei dati",
+        "description": "Valutazione dell'obbligo di designazione ai sensi del §38 BDSG e dell'art. 37 del GDPR, nonché posizione e compiti della persona designata",
+        "legalBasis": "GDPR Art. 37-39, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },
