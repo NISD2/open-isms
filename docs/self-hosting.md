@@ -120,6 +120,8 @@ Whichever you choose, uploads are the one feature that fails visibly in the brow
 
 ### Optional, each degrades one feature
 
+The ones worth a decision. `.env.example` carries the remainder: dev-only switches, the newsletter send throttle, and the separate newsletter From address.
+
 | Variable | Without it |
 |---|---|
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | No "Sign in with Google" button. Email and password still works. |
