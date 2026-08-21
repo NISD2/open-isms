@@ -30,7 +30,7 @@
     },
     "2_4": {
       "title": "Risk Acceptance & IS Policy Sign-Off",
-      "description": "Management signs the information security policy and accepts the residual risks from the risk register (2.3); the approval is renewed annually."
+      "description": "Management signs the information security policy and accepts the residual risks from the risk register (2.3). The policy and the risk treatment plan must be reviewed at least annually and whenever significant incidents or significant changes to operations or risks occur; the approval is renewed as part of that review (CIR 1.1.2, 2.1.4)."
     },
     "3_1": {
       "title": "Incident Response Plan & Team",
@@ -38,11 +38,11 @@
     },
     "3_2": {
       "title": "Detection, Classification & Logging",
-      "description": "Set up a classification scheme (significant incident, §2 Nr. 11 BSIG), a reporting channel for suspicious events, detection processes and a complete incident log."
+      "description": "Set up a classification scheme (significant incident, §2 Nr. 11 BSIG), a reporting channel for suspicious events, detection processes and a complete incident log. Recurring incidents must be assessed on a quarterly basis (CIR 3.4.2(b)): incidents sharing the same apparent root cause that occur at least twice within six months and collectively meet the financial loss criterion count together as one significant incident (CIR Article 4)."
     },
     "3_3": {
       "title": "BSI Reporting Readiness (24h/72h/1M)",
-      "description": "Build the BSI reporting process: 24h early warning, 72h notification, intermediate report on BSI request, final report one month after the 72h notification (§32(1) BSIG). Set up reporting portal access and responsibilities; re-check readiness annually."
+      "description": "Build the BSI reporting process: 24h early warning, 72h notification, intermediate report on BSI request, final report one month after the 72h notification (§32(1) BSIG). Set up reporting portal access and responsibilities. Reporting readiness is tested at planned intervals (CIR 3.5.5); no fixed interval is prescribed, recommendation: annually."
     },
     "3_4": {
       "title": "Incident Response Drill",
@@ -118,7 +118,7 @@
     },
     "7_3": {
       "title": "Management Review",
-      "description": "Annual management review with gap analysis and management participation."
+      "description": "Management reviews compliance with the policies and receives regular reporting on the state of information security (§30(2) Nr. 6, §38(1) BSIG, CIR 2.2.1). No fixed interval is prescribed; recommendation: an annual management review with gap analysis."
     },
     "7_4": {
       "title": "Corrective Actions & Continuous Improvement",
