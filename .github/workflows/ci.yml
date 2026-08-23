@@ -22,6 +22,12 @@ jobs:
       - run: bun run test
         working-directory: packages/grc-data-model
 
+      # Root unit tests under lib/ and server/. These existed and passed but
+      # nothing ran them: the step above is scoped to a single package, so a
+      # test file added at the root was never executed by CI. Kept to the two
+      # directories with no database dependency; e2e/ runs in its own workflow.
+      - run: bun run test:unit
+
       # REFERENCE.md is generated from the framework data and is published as
       # the public reference. It silently went stale after a correction pass,
       # leaving it citing CIR Annex points that do not exist in the OJ text.
