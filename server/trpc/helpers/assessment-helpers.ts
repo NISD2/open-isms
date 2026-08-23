@@ -7,6 +7,7 @@ import {
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import type { Database } from "@/lib/db";
 import { recordSignOffChainEntry } from "./sign-off-chain";
+import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
 
 /** Build a sign-off snapshot capturing company profile + operational counts at sign-off time */
 export async function buildSignOffSnapshot(
@@ -191,19 +192,24 @@ export async function propagateSatisfaction(
         continue;
       }
 
+      // The snapshot arrives from the source requirement's sign-off, so it
+      // carries the source's templateVersion. Re-stamp it with the target's
+      // own version: the column below already recorded the target's, and a
+      // row whose snapshot claims a different version than its column escapes
+      // invalidation when the target requirement is later bumped.
+      const targetSnapshot = snapshotForVersion(snapshot, target.requirement.templateVersion);
+
       await tx
         .update(companyRequirementStatus)
-        .set({
-          status: "completed",
-          signedOffBy: userId,
-          signedOffAt: now,
-          signedOffRole,
-          signedOffTemplateVersion: target.requirement.templateVersion,
-          signOffSnapshot: snapshot,
-          completedAt: now,
-          completedBy: userId,
-          updatedAt: now,
-        })
+        .set(
+          completedSignOffValues({
+            userId,
+            signedOffRole,
+            templateVersion: target.requirement.templateVersion,
+            snapshot: targetSnapshot,
+            now,
+          }),
+        )
         .where(eq(companyRequirementStatus.id, target.id));
 
       await recordSignOffChainEntry(tx as unknown as Database, {
@@ -214,7 +220,7 @@ export async function propagateSatisfaction(
         signedOffRole,
         source: "module",
         templateVersion: target.requirement.templateVersion,
-        companyProfile: snapshot.companyProfile ?? {},
+        companyProfile: targetSnapshot.companyProfile ?? {},
         data: { sourceRequirementId, propagation: "cross-framework" },
       });
 
