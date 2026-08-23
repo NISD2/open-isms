@@ -7,6 +7,17 @@
 
 It exists because every German Mittelstand procurement team is currently inventing its own supplier questionnaire from scratch and sending suppliers five slightly different versions of the same NIS2-anchored questions. This repo is one shared, openly maintained, legally-anchored questionnaire that any of them can adopt or fork.
 
+## Where this is developed
+
+The source of truth for this package is the `packages/nis2-supply-chain-questionnaire-schema/`
+directory of the [open-isms](https://github.com/NISD2/open-isms) monorepo, because that is the
+copy the supplier portal imports and therefore the copy that is actually exercised. This
+repository is a publication mirror, updated by running `scripts/push-questionnaire-schema.sh`
+in the monorepo.
+
+Practical consequence: open issues and pull requests here, but expect the fix to land in the
+monorepo first and arrive here on the next publish.
+
 ## What it isn't
 
 Not an app, not a SaaS, not a UI. There is no backend, no auth, no database. Bring your own.
@@ -17,7 +28,7 @@ The reference implementation is the supplier portal at [nisd2.eu](https://nisd2.
 
 - **59 fields** across 6 sections (`profile`, `security_practices`, `saas_technical`, `on_prem_technical`, `pro_services`, `managed_services`)
 - Each field anchored to an **EU-level** primary source: NIS2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance v1.0, GDPR Art. 28, or the Cyber Resilience Act
-- Two locales: English and German
+- Nine locales: English, German, French, Italian, Spanish, Polish, Czech, Portuguese and Romanian
 - Published as a Zod schema (TypeScript), a JSON artefact, and a JSON Schema for non-TS consumers
 
 ## What's deliberately out of scope
