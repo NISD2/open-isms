@@ -180,8 +180,13 @@ export async function propagateSatisfaction(
   const now = new Date();
   const signerIsAdmin = signedOffRole === "admin";
 
+  // Same stable lock order as the bulk sign-off loops. This one is the reason
+  // they need it: propagation runs inside an ordinary sign-off request, so it
+  // is the loop most likely to be holding a row a concurrent bulk call wants.
+  const orderedTargets = [...targetStatuses].sort((a, b) => a.id.localeCompare(b.id));
+
   await db.transaction(async (tx) => {
-    for (const target of targetStatuses) {
+    for (const target of orderedTargets) {
       if (target.status === "completed" || target.status === "approved") continue;
 
       const required = target.requirement.requiredSignOffRole;

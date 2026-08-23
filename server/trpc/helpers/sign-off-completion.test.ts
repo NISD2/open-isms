@@ -57,6 +57,25 @@ describe("completedSignOffValues", () => {
     expect(values.signedOffAt).toBe(now);
     expect(values.updatedAt).toBe(now);
   });
+
+  test("defaults to completed and takes approved for intake", () => {
+    expect(values.status).toBe("completed");
+
+    const approved = completedSignOffValues({
+      userId: "user-1",
+      signedOffRole: "ciso",
+      templateVersion: 3,
+      snapshot: snapshot(3),
+      now,
+      status: "approved",
+    });
+    expect(approved.status).toBe("approved");
+    // The evidentiary columns do not depend on which terminal status it lands
+    // on: an approved intake is signed off exactly as a completed editor
+    // sign-off is.
+    expect(approved.signedOffTemplateVersion).toBe(3);
+    expect(approved.signOffSnapshot).toEqual(values.signOffSnapshot);
+  });
 });
 
 describe("snapshotForVersion", () => {

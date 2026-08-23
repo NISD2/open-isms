@@ -41,12 +41,17 @@ export function signerMeetsRequiredRole(args: {
 /**
  * The column values that mark a requirement signed off.
  *
- * This exists because the four sign-off paths each wrote this set by hand and
- * had already drifted: bulkConfirmModuleRef omitted signedOffTemplateVersion,
- * so rows completed through the bulk module-confirm button carried a null
- * where every other path recorded which version of the requirement text was
- * actually signed. Going through one function makes that class of omission a
- * type error instead of a silent gap in the audit trail.
+ * This exists because every sign-off path wrote this set by hand and they had
+ * drifted: bulkConfirmModuleRef omitted signedOffTemplateVersion, and the
+ * intake path omitted both it and signOffSnapshot, so rows signed through
+ * those carried nulls where the others recorded which version of the
+ * requirement text was signed and what the company looked like at the time.
+ * Going through one function makes that class of omission a type error
+ * instead of a silent gap in the audit trail.
+ *
+ * Not every terminal write is a sign-off. `updateRequirementStatus` moves a
+ * requirement to completed without signing it, and intake derives progress
+ * from saved answers without a signer. Those deliberately do not call this.
  *
  * `now` is passed in rather than read here so every column on a row, and every
  * row in a batch, carries the same instant.
@@ -57,9 +62,14 @@ export function completedSignOffValues(args: {
   templateVersion: number;
   snapshot: SignOffSnapshot;
   now: Date;
+  /**
+   * The terminal status to write. Intake treats approval as the sign-off act
+   * and lands on "approved"; the assessment paths land on "completed".
+   */
+  status?: "completed" | "approved";
 }) {
   return {
-    status: "completed" as const,
+    status: args.status ?? ("completed" as const),
     completedAt: args.now,
     completedBy: args.userId,
     signedOffBy: args.userId,

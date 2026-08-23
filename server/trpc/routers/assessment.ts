@@ -828,8 +828,15 @@ export const assessmentRouter = router({
       // (admin bypass matches signOff), nor an N-of-M requirement whose
       // assigned signers must sign individually. See bulkSignOffCategory.
       const confirmerRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      // not_applicable is excluded here as it is in bulkSignOffCategory:
+      // a requirement documented as out of scope must not come back signed
+      // off as done while its is_applicable flag still says otherwise.
       const moduleRows = rows.filter(
-        (r) => r.moduleRef && r.currentStatus !== "completed" && r.currentStatus !== "approved",
+        (r) =>
+          r.moduleRef &&
+          r.currentStatus !== "completed" &&
+          r.currentStatus !== "approved" &&
+          r.currentStatus !== "not_applicable",
       );
       if (moduleRows.length === 0) return { confirmed: 0 };
       const confirmAssignedIds = new Set(
@@ -850,6 +857,11 @@ export const assessmentRouter = router({
         });
       });
       if (toConfirm.length === 0) return { confirmed: 0 };
+
+      // Rows are locked in a stable order so two overlapping bulk calls, or a
+      // concurrent sign-off propagating cross-framework credits, cannot take
+      // the same two locks in opposite orders and deadlock.
+      toConfirm.sort((a, b) => a.statusId.localeCompare(b.statusId));
 
       const categoryIds = [...new Set(toConfirm.map((r) => r.categoryId))];
       for (const categoryId of categoryIds) {
@@ -889,7 +901,7 @@ export const assessmentRouter = router({
             .where(
               and(
                 eq(companyRequirementStatus.id, row.statusId),
-                sql`${companyRequirementStatus.status} NOT IN ('completed', 'approved')`,
+                sql`${companyRequirementStatus.status} NOT IN ('completed', 'approved', 'not_applicable')`,
               ),
             )
             .returning({ id: companyRequirementStatus.id });
@@ -996,6 +1008,9 @@ export const assessmentRouter = router({
       });
 
       if (signableRows.length === 0) return { signedOff: 0 };
+
+      // Same stable lock order as bulkConfirmModuleRef.
+      signableRows.sort((a, b) => a.statusId.localeCompare(b.statusId));
 
       const now = new Date();
       // Company-scoped half of the snapshot, built once; each row re-stamps
