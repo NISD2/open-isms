@@ -356,7 +356,7 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     let membersErased = 0;
     for (const m of members) {
       if (m.email === TOMBSTONE_EMAIL) continue;
-      await erasePerson(tx, m, scope, del, anon, tombstone);
+      await erasePerson(tx, { ...m, companyId: cid }, scope, del, anon, tombstone);
       membersErased += 1;
     }
     await tearDownCompany(tx, cid, del, anon);
@@ -365,7 +365,14 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
       `Entire organization torn down: ${membersErased} member account(s) and all organization compliance data`,
     );
   } else {
-    await erasePerson(tx, { userId, email: subject.email, name: subject.name }, scope, del, anon, tombstone);
+    await erasePerson(
+      tx,
+      { userId, email: subject.email, name: subject.name, companyId: cid },
+      scope,
+      del,
+      anon,
+      tombstone,
+    );
   }
 
   scope.systemsCleared.push(
@@ -429,13 +436,13 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
  *  a whole-organization teardown. */
 async function erasePerson(
   tx: Tx,
-  person: { userId: string; email: string; name: string },
+  person: { userId: string; email: string; name: string; companyId: string | null },
   scope: ErasureScope,
   del: (label: string, run: () => Promise<unknown[]>) => Promise<void>,
   anon: (label: string, run: () => Promise<unknown[]>) => Promise<void>,
   tombstone: () => Promise<string>,
 ): Promise<void> {
-  const { userId, email, name } = person;
+  const { userId, email, name, companyId } = person;
 
   // Purely-personal rows.
   await del("gap_assessment", () => tx.delete(gapAssessment).where(eq(gapAssessment.userId, userId)).returning());
@@ -460,6 +467,58 @@ async function erasePerson(
     scope.residualNotes.push(
       `${soRows.length} sign-off history entr${soRows.length === 1 ? "y" : "ies"} had the signer reassigned to a tombstone and snapshot PII redacted; their chained checksums are intentionally no longer verifiable as a consequence of lawful erasure.`,
     );
+  }
+
+  // The same PII is frozen a second time on the status row itself.
+  // buildSignOffSnapshot copies the company's cisoName, cisoReportsTo,
+  // bsiContactName, bsiContactEmail and bsiContactPhone into
+  // company_requirement_status.sign_off_snapshot at every sign-off, and until
+  // now nothing here swept that column: redacting sign_off_history alone left
+  // the subject's name and email sitting in the live evidence rows.
+  //
+  // Scoped by company, not by signer. The names in a snapshot describe whoever
+  // held the role when it was taken, so the subject can appear in a
+  // requirement they never signed. Company scope is also what keeps this from
+  // reaching another tenant's rows that happen to contain the same name.
+  if (companyId) {
+    const snapRows = await tx
+      .select({
+        id: companyRequirementStatus.id,
+        snapshot: companyRequirementStatus.signOffSnapshot,
+      })
+      .from(companyRequirementStatus)
+      .innerJoin(
+        companyAssessment,
+        eq(companyAssessment.id, companyRequirementStatus.assessmentId),
+      )
+      .where(
+        and(
+          eq(companyAssessment.companyId, companyId),
+          isNotNull(companyRequirementStatus.signOffSnapshot),
+        ),
+      );
+
+    let redactedCount = 0;
+    for (const r of snapRows) {
+      if (!r.snapshot) continue;
+      const redacted = redactPiiInJson(r.snapshot, [email, name]);
+      // Only write where something actually changed, so an erasure does not
+      // rewrite every signed requirement in the company.
+      if (JSON.stringify(redacted) === JSON.stringify(r.snapshot)) continue;
+      await tx
+        .update(companyRequirementStatus)
+        .set({ signOffSnapshot: redacted })
+        .where(eq(companyRequirementStatus.id, r.id));
+      redactedCount += 1;
+    }
+
+    if (redactedCount > 0) {
+      scope.anonymized["company_requirement_status"] =
+        (scope.anonymized["company_requirement_status"] ?? 0) + redactedCount;
+      scope.residualNotes.push(
+        `${redactedCount} sign-off snapshot${redactedCount === 1 ? "" : "s"} on requirement rows had the subject's name or email redacted from the frozen company profile.`,
+      );
+    }
   }
 
   // Remaining NOT-NULL attribution reassigned to the tombstone.
