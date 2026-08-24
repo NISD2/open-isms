@@ -48,12 +48,20 @@
 -- tenants' evidence, not a migration.
 
 UPDATE "company_requirement_status" AS s
+-- The same COALESCE feeds the column and the snapshot, so the two can never
+-- disagree. Writing the chain's version into the snapshot while COALESCE kept
+-- an existing column value would manufacture the precise inconsistency this
+-- series exists to remove: invalidation reads the snapshot, review.ts reads
+-- the column, and a row where they differ escapes review while looking signed.
 SET "signed_off_template_version" = COALESCE(
       s."signed_off_template_version",
       (h."snapshot" ->> 'templateVersion')::int
     ),
     "sign_off_snapshot" = jsonb_build_object(
-      'templateVersion', (h."snapshot" ->> 'templateVersion')::int,
+      'templateVersion', COALESCE(
+        s."signed_off_template_version",
+        (h."snapshot" ->> 'templateVersion')::int
+      ),
       'companyProfile', COALESCE(h."snapshot" -> 'companyProfile', '{}'::jsonb),
       'derivedData', '{}'::jsonb
     )
