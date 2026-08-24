@@ -404,11 +404,41 @@ async function main() {
   // CSV route covers requirement rows only, so assets, suppliers, risks,
   // trainings and incidents have no machine-readable form anywhere else; they
   // are already in memory here.
+  //
+  // Projected, never the raw rows. `supplier.unsubscribeToken` is a bearer
+  // token: whoever holds it can read that supplier's data and revoke the
+  // relationship without an account. Writing whole rows to a file whose stated
+  // purpose is "hand this to a model" would put it in the export, and the
+  // Anlagenband beside it already curates its columns for exactly this reason.
+  // Everything below is a field the PDF already prints.
+  const pick = <T extends object, K extends keyof T>(rows: T[], keys: readonly K[]) =>
+    rows.map((r) => Object.fromEntries(keys.map((k) => [k, r[k]])));
+
   const dataPath = `${OUT_DIR}/pruefordner-3-register.json`;
   writeFileSync(
     dataPath,
     JSON.stringify(
-      { company: co?.name ?? null, exportedFor: "nis2", assets, suppliers, risks, trainings, incidents },
+      {
+        company: co?.name ?? null,
+        exportedFor: "nis2",
+        note: "Demodaten. Alle Einträge sind frei erfunden.",
+        assets: pick(assets, ASSET_LABELS.map(([k]) => k) as Array<keyof (typeof assets)[number]>),
+        suppliers: pick(suppliers, SUPPLIER_LABELS.map(([k]) => k) as Array<keyof (typeof suppliers)[number]>),
+        risks: pick(risks, [
+          "title", "description", "category", "likelihood", "impact", "riskScore",
+          "treatment", "treatmentDescription", "riskOwner",
+          "residualLikelihood", "residualImpact", "acceptedAt",
+        ] as const),
+        // The same columns the Anlagenband tables print, no more.
+        trainings: pick(trainings, [
+          "title", "participantName", "participantRole", "providerName",
+          "completedAt", "nextTrainingDue",
+        ] as const),
+        incidents: pick(incidents, [
+          "internalRef", "title", "description", "severity",
+          "discoveredAt", "resolvedAt",
+        ] as const),
+      },
       null,
       2,
     ),

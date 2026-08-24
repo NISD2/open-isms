@@ -28,16 +28,19 @@
  * backwards. An explicit variable states intent in the one place intent is
  * knowable: the command line.
  */
-if (process.env.SEED_DEMO_COMPANY !== "1") {
+if (!process.argv.includes("--confirm")) {
   throw new Error(
-    "Refusing to run without SEED_DEMO_COMPANY=1.\n" +
-      "This creates a demo tenant and wipes any previous one in the database " +
-      "that DATABASE_URL points at. Set the variable to confirm that is the " +
-      "database you mean.",
+    "Refusing to run without --confirm.\n\n" +
+      "  bun run db:seed:demo --confirm\n\n" +
+      "This creates a demo tenant and wipes a previous one in the database " +
+      "DATABASE_URL points at. The confirmation is an argument rather than an " +
+      "environment variable on purpose: a variable gets added to .env once and " +
+      "is then silently set for every future run, including the run nobody " +
+      "meant to make.",
   );
 }
 
-import { eq, inArray, is, getTableName, getTableColumns } from "drizzle-orm";
+import { eq, and, inArray, is, getTableName, getTableColumns } from "drizzle-orm";
 import { PgTable } from "drizzle-orm/pg-core";
 import { db } from "@/lib/db";
 import * as schema from "@/schema";
@@ -65,9 +68,11 @@ import bcrypt from "bcryptjs";
 import { randomUUID, randomBytes } from "node:crypto";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { s3, BUCKET } from "@/lib/storage";
+import { s3Signer } from "@/lib/storage/s3-client";
 
 const DEMO_EMAIL = "gf@wertstoff-nordkreis.example";
 const IT_EMAIL = "it@wertstoff-nordkreis.example";
+const DEMO_COMPANY_NAME = "Wertstoff Nordkreis GmbH";
 
 /**
  * Both demo accounts get the same password. Without a passwordHash the
@@ -120,7 +125,13 @@ function demoPdf(fileName: string, requirementCode: string): Buffer {
  */
 async function storageAccepts(): Promise<boolean> {
   try {
-    await s3.send(
+    // Probes through s3Signer, the PUBLIC endpoint, not the internal one the
+    // uploads below use. Evidence links in the UI are presigned against this
+    // host, and a self-host where the internal endpoint resolves but the
+    // public one is misconfigured would otherwise pass the probe and then
+    // serve 46 unopenable Nachweise — the exact failure the probe exists to
+    // prevent. If the public endpoint works, both do.
+    await s3Signer.send(
       new PutObjectCommand({
         Bucket: BUCKET,
         Key: `evidence/.seed-probe-${randomUUID()}`,
@@ -277,6 +288,15 @@ const VIA_PARENT = [
   companyCategoryIntake, supplier, company,
 ] as const;
 
+/**
+ * Known limit: this finds tables by a `company_id` / `customer_company_id`
+ * column, so it cannot see a child table that reaches the tenant only through
+ * a parent (evidence, risk_asset, audit_finding and the rest of VIA_PARENT's
+ * neighbours). Adding such a table later still fails as a foreign-key error
+ * rather than as the sentence below. Covering those would mean walking the FK
+ * graph at runtime, which is more machinery than a seed script should carry;
+ * the column-named tables are the ones that actually accumulate rows in use.
+ */
 function assertWipeCoversEveryCompanyTable() {
   const wiped = new Set<string>([
     ...BY_COMPANY_ID.map((t) => getTableName(t)),
@@ -318,6 +338,47 @@ async function wipeExisting() {
     return;
   }
   const cid = existing.companyId;
+
+  // Prove this is the demo tenant before deleting it. Resolving the target
+  // from the demo email alone is not proof of anything: the documented path is
+  // to seed, sign in as the seeded admin, and look around, and a self-hoster
+  // who then renames the company and starts entering real assets still owns a
+  // tenant this lookup happily points at. Wiping it would destroy exactly the
+  // customer-scoped rows CLAUDE.md names — evidence, requirement statuses,
+  // assignments — on a pointer that was never checked.
+  //
+  // Refusing is the right failure. Nothing here can distinguish "demo tenant
+  // with data added" from "real tenant", so it stops and lets a human decide.
+  const target = await db.query.company.findFirst({
+    where: eq(company.id, cid),
+    columns: { name: true },
+  });
+  if (target && target.name !== DEMO_COMPANY_NAME) {
+    throw new Error(
+      `Refusing to wipe company ${cid}: it is named "${target.name}", not ` +
+        `"${DEMO_COMPANY_NAME}".\n` +
+        "Something other than this seed has taken over that tenant. Delete it " +
+        "by hand if it really is disposable.",
+    );
+  }
+
+  const otherMembers = await db
+    .select({ email: user.email })
+    .from(user)
+    .where(eq(user.companyId, cid));
+  const strangers = otherMembers
+    .map((u) => u.email)
+    .filter((e) => e !== DEMO_EMAIL && e !== IT_EMAIL);
+  if (strangers.length > 0) {
+    throw new Error(
+      `Refusing to wipe company ${cid}: ${strangers.length} account(s) that ` +
+        `this seed did not create are attached to it (${strangers.slice(0, 3).join(", ")}` +
+        `${strangers.length > 3 ? ", …" : ""}).\n` +
+        "Real people have joined that tenant. Their audit trail and training " +
+        "records go with the company if it is deleted.",
+    );
+  }
+
   console.log("wiping previous demo company", cid);
 
   // One transaction: a wipe that fails halfway leaves a tenant that is neither
@@ -402,9 +463,15 @@ async function wipeExisting() {
       await tx.delete(table).where(eq(table.companyId, cid));
     }
 
+    // Delete the demo accounts only while they are still attached to this
+    // company. Matching on email alone would reach a user who left and joined
+    // a real tenant — deleting a stranger's row, or aborting the whole wipe on
+    // a sign-off foreign key if they had signed anything.
+    await tx
+      .delete(user)
+      .where(and(eq(user.companyId, cid), inArray(user.email, [DEMO_EMAIL, IT_EMAIL])));
     await tx.update(user).set({ companyId: null }).where(eq(user.companyId, cid));
     await tx.delete(company).where(eq(company.id, cid));
-    await tx.delete(user).where(inArray(user.email, [DEMO_EMAIL, IT_EMAIL]));
 
   });
 }
@@ -489,14 +556,14 @@ async function main() {
     name: "BSI 200-3 (vereinfachte 5x5-Matrix)",
     likelihoodLevels: [
       ...de.likelihoodLevels,
-      { value: 5, label: "Sehr häufig", description: "Mehrmals jährlich zu erwarten" },
+      { value: 5, label: "Praktisch dauerhaft", description: "Laufend, ohne wirksame Gegenmaßnahme" },
     ],
     impactLevels: [
       ...de.impactLevels,
       {
         value: 5,
-        label: "Existenzbedrohend",
-        description: "Betrieb steht, gesetzliche Nachweispflichten nicht erfüllbar",
+        label: "Existenzgefährdend",
+        description: "Betrieb steht, gesetzliche Nachweispflichten nicht erfüllbar, Fortbestand fraglich",
       },
     ],
     acceptanceThreshold: 6,
