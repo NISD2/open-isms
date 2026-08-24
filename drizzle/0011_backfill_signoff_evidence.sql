@@ -97,6 +97,11 @@ SET "signed_off_template_version" = COALESCE(
       'derivedData', '{}'::jsonb
     )
 FROM (
+  -- The EXISTS mirrors the outer WHERE so the ranking never runs over chain
+  -- rows that cannot qualify. The two predicate lists must stay in step: the
+  -- outer one decides what is updated, this one only decides what is ranked,
+  -- so making this one stricter would silently drop rows the outer would have
+  -- repaired.
   SELECT DISTINCT ON (h2."status_id") h2."status_id", h2."snapshot"
     FROM "sign_off_history" h2
    WHERE EXISTS (
@@ -105,12 +110,18 @@ FROM (
       WHERE s2."id" = h2."status_id"
         AND s2."sign_off_snapshot" IS NULL
         AND s2."signed_off_by" IS NOT NULL
+        AND s2."signed_off_at" IS NOT NULL
         AND s2."status" IN ('completed', 'approved')
    )
    ORDER BY h2."status_id", h2."version" DESC
 ) AS h
 WHERE h."status_id" = s."id"
   AND s."sign_off_snapshot" IS NULL
+  -- Both halves of the signature, matching the guard seed-gdpr applies before
+  -- treating a row as a source worth copying. No current writer produces a
+  -- signer without a timestamp, but a snapshot on such a row would render a
+  -- sign-off panel with a blank date.
   AND s."signed_off_by" IS NOT NULL
+  AND s."signed_off_at" IS NOT NULL
   AND s."status" IN ('completed', 'approved')
   AND h."snapshot" ->> 'templateVersion' ~ '^[0-9]+$';
