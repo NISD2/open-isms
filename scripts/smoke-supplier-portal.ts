@@ -20,50 +20,21 @@ import { createCallerFactory, type TRPCContext } from "@/server/trpc/init";
 import { appRouter } from "@/server/trpc/router";
 import { db as appDb } from "@/lib/db";
 import { env } from "@/lib/env";
+import { assertLocalDatabase as assertLocalDatabaseFor } from "./lib/assert-local-database";
 
 const TEST_CUSTOMER_EMAIL = "smoke-test-ciso@example.test";
 
-const LOCAL_DB_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]", "::1"]);
-
 /**
- * Step 2 overwrites the seed company's legal identity, address, BSI
- * registration id and security-practice flags with test values, and
- * cleanupTestData restores none of it. Pointed at production that is silent
- * customer-data corruption, so refuse anything that is not a local database.
- *
- * Connection-shaped rather than a boolean env flag, for the same reason as
- * assertE2eTargets() in e2e/lib/env.ts: a flag can be set once and forgotten,
- * a host cannot. Unlike that guard this cannot also require a database-name
- * suffix, because the smoke test runs against the ordinary dev DATABASE_URL
- * rather than a dedicated `_e2e` database. So it stops an accident, not a
- * determined foot-gun: a prod database deliberately fronted by a local proxy
- * or `ssh -L` tunnel still presents as localhost and would pass.
+ * Overwrites the first company row it finds and restores none of it, so it must
+ * never see a real database. Shared guard: see scripts/lib/assert-local-database.ts
+ * for why this is connection-shaped rather than an env flag.
  */
 function assertLocalDatabase(): void {
-  // Parse defensively: a malformed connection string makes URL throw with the
-  // whole string (password included) attached to the error, and the caller
-  // logs errors to the console.
-  const url = (() => {
-    try {
-      return new URL(env.DATABASE_URL);
-    } catch {
-      throw new Error("Refusing to run: DATABASE_URL is not a valid connection URL.");
-    }
-  })();
-
-  // pg-connection-string, which is what pg actually parses this with, gives the
-  // `host` query parameter priority over the URL authority. So
-  // `postgres://u:p@localhost/db?host=prod.internal` reads as local here while
-  // connecting to prod. Check the host pg will really use, not the pretty one.
-  const effectiveHost = url.searchParams.get("host") ?? url.hostname;
-
-  if (!LOCAL_DB_HOSTS.has(effectiveHost)) {
-    throw new Error(
-      `Refusing to run: DATABASE_URL host "${effectiveHost}" is not a local database. ` +
-        `This script overwrites the first company row it finds and does not restore it. ` +
-        `Point DATABASE_URL at a local dev database and re-run.`,
-    );
-  }
+  assertLocalDatabaseFor(
+    env.DATABASE_URL,
+    "scripts/smoke-supplier-portal.ts overwrites the first company row it " +
+      "finds and does not restore it.",
+  );
 }
 
 async function getSeedUser() {

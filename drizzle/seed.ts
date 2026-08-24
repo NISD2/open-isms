@@ -1,3 +1,5 @@
+import { assertLocalDatabase } from "../scripts/lib/assert-local-database";
+
 /**
  * Seed script — Populates the database with NIS2 framework data.
  *
@@ -11,15 +13,25 @@
  *
  * Idempotent: clears existing data before inserting.
  */
-// Hard-fail in production — the seed script truncates and re-creates dev data,
-// which would be catastrophic against a live database. NODE_ENV is the cheapest
-// guard we can apply at module-load time, before any imports run side effects.
-if (process.env.NODE_ENV === "production") {
-  throw new Error(
-    "drizzle/seed.ts must not run in production (NODE_ENV=production). " +
-      "This script truncates dev data.",
-  );
-}
+// Refuse anything but a local database.
+//
+// This previously checked NODE_ENV === "production", which is inverted in both
+// directions: `bun run` leaves NODE_ENV undefined, so it never fired under the
+// invocation this file documents, and the Dockerfile sets it to "production",
+// so it fired only where the script never runs. The guard was decorative while
+// docs/coolify-deployment.md listed `bun run db:seed` as a manual production
+// step.
+//
+// It matters because cleanFramework below is not tenant-scoped: it resolves its
+// delete set from the GLOBAL requirement catalog, so it removes evidence,
+// requirement assignments, requirement statuses, category assignments and
+// intake answers for EVERY company in the database. Untransacted, so a
+// mid-way foreign-key abort leaves the earlier deletes committed.
+assertLocalDatabase(
+  process.env.DATABASE_URL ?? "",
+  "drizzle/seed.ts deletes every tenant's evidence, requirement statuses and " +
+    "intake answers before reseeding.",
+);
 
 import { drizzle } from "drizzle-orm/node-postgres";
 import { eq, and, inArray, sql } from "drizzle-orm";

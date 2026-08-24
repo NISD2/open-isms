@@ -131,6 +131,10 @@ Then open http://localhost:3000 and http://localhost:3000/api/health.
 ## Things that intentionally do NOT happen in Docker
 
 - `bun run db:migrate` — handled by Coolify pre-deploy hook, not the Dockerfile
-- `bun run db:seed` — manual, only for fresh databases
+- `bun run db:seed` — **local databases only**. It is not tenant-scoped: it
+  deletes every company's evidence, requirement statuses and intake answers
+  before reseeding, so it refuses any non-localhost `DATABASE_URL`. A fresh
+  production database needs no seed: framework reference data ships as a
+  migration and is applied at container start.
 - Source-map upload to error tracker — separate CI step if/when added
 - AWS credentials rotation — managed in Coolify, not baked into image
