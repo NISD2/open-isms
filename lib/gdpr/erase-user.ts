@@ -25,6 +25,7 @@
  */
 import { createHash, createHmac } from "node:crypto";
 import { and, eq, gte, inArray, isNotNull, lt, or, sql } from "drizzle-orm";
+import { redactPiiInJson } from "./redact-pii";
 import type { InferSelectModel } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
@@ -107,35 +108,6 @@ function hashEmail(email: string): string {
     return createHmac("sha256", "dev-only-erasure-key").update(email.trim().toLowerCase()).digest("hex");
   }
   return createHmac("sha256", key).update(email.trim().toLowerCase()).digest("hex");
-}
-
-/** Recursively replace occurrences of the subject's email/name inside the
- *  string leaves of a JSON value. Walks the PARSED structure (not the
- *  serialized text), so values containing quotes, backslashes, or unicode are
- *  still matched — string-replacing over JSON text would miss their escaped
- *  encodings. Literal free-text PII redaction, not code/structure parsing. */
-function redactPiiInJson<T>(value: T, needles: string[]): T {
-  const patterns = needles
-    .map((n) => n?.trim())
-    .filter((n): n is string => !!n && n.length >= 3)
-    .map((n) => new RegExp(n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"));
-  if (patterns.length === 0) return value;
-  const walk = (v: unknown): unknown => {
-    if (typeof v === "string") {
-      let out = v;
-      for (const re of patterns) out = out.replace(re, "[erased]");
-      return out;
-    }
-    if (Array.isArray(v)) return v.map(walk);
-    if (v && typeof v === "object") {
-      const src = v as Record<string, unknown>;
-      const next: Record<string, unknown> = {};
-      for (const k of Object.keys(src)) next[k] = walk(src[k]);
-      return next;
-    }
-    return v;
-  };
-  return walk(value) as T;
 }
 
 export interface ErasureRequestMeta {
@@ -444,6 +416,12 @@ async function erasePerson(
 ): Promise<void> {
   const { userId, email, name, companyId } = person;
 
+  // A name too short to bound safely is not redacted. That is the right call
+  // (see redact-pii.ts), but it must be disclosed: an erasure certificate that
+  // silently leaves the subject's name in free text overstates what happened.
+  const skippedNeedles: string[] = [];
+  const redact = <T,>(v: T) => redactPiiInJson(v, [email, name], { skipped: skippedNeedles });
+
   // Purely-personal rows.
   await del("gap_assessment", () => tx.delete(gapAssessment).where(eq(gapAssessment.userId, userId)).returning());
   await del("training_lesson_progress", () => tx.delete(trainingLessonProgress).where(eq(trainingLessonProgress.userId, userId)).returning());
@@ -460,7 +438,7 @@ async function erasePerson(
   if (soRows.length) {
     const tid = await tombstone();
     for (const r of soRows) {
-      const redacted = redactPiiInJson(r.snapshot, [email, name]);
+      const redacted = redact(r.snapshot);
       await tx.update(signOffHistory).set({ signedOffBy: tid, snapshot: redacted }).where(eq(signOffHistory.id, r.id));
     }
     scope.anonymized["sign_off_history"] = (scope.anonymized["sign_off_history"] ?? 0) + soRows.length;
@@ -501,7 +479,7 @@ async function erasePerson(
     let redactedCount = 0;
     for (const r of snapRows) {
       if (!r.snapshot) continue;
-      const redacted = redactPiiInJson(r.snapshot, [email, name]);
+      const redacted = redact(r.snapshot);
       // Only write where something actually changed, so an erasure does not
       // rewrite every signed requirement in the company.
       if (JSON.stringify(redacted) === JSON.stringify(r.snapshot)) continue;
@@ -520,6 +498,17 @@ async function erasePerson(
       );
     }
   }
+
+  if (skippedNeedles.length > 0) {
+    const unique = [...new Set(skippedNeedles)];
+    scope.residualNotes.push(
+      `The name${unique.length === 1 ? "" : "s"} ${unique.join(", ")} ` +
+        `${unique.length === 1 ? "was" : "were"} too short to redact safely from free text ` +
+        "and may remain in narrative fields; redacting on a fragment that short would " +
+        "have corrupted unrelated records. Structured attribution was cleared as normal.",
+    );
+  }
+
 
   // Remaining NOT-NULL attribution reassigned to the tombstone.
   const invitedByRows = await tx.select({ id: companyInvite.id }).from(companyInvite).where(eq(companyInvite.invitedBy, userId));
@@ -577,8 +566,8 @@ async function erasePerson(
       .update(auditLog)
       .set({
         userId: null,
-        previousValue: redactPiiInJson(r.previousValue, [email, name]),
-        newValue: redactPiiInJson(r.newValue, [email, name]),
+        previousValue: redact(r.previousValue),
+        newValue: redact(r.newValue),
       })
       .where(eq(auditLog.id, r.id));
   }
