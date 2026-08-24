@@ -259,7 +259,29 @@ const NOT_WIPED = new Set([
  * children before parents. Deriving the COVERAGE is not, so a table added
  * later fails loudly here instead of silently surviving the wipe.
  */
-function assertWipeCoversEveryCompanyTable(wiped: ReadonlySet<string>) {
+/** Wiped with a plain `where(companyId = …)`, children already gone by then. */
+const BY_COMPANY_ID = [
+  schema.auditLog, schema.notification,
+  schema.trainingLessonProgress, trainingRecord,
+  schema.vulnerability, schema.patchRecord, schema.changeRequest,
+  schema.kpiMeasurement, schema.improvementItem, schema.exercise,
+  schema.managementReview, schema.internalAudit, schema.policy,
+  schema.gapAssessment, schema.companyCertification, schema.companyInvite,
+  schema.bsiRegistration, companyRiskMethodology, schema.companyPolicyConfig,
+  incident, risk, asset,
+] as const;
+
+/** Wiped by joining through a parent, so they carry no companyId predicate. */
+const VIA_PARENT = [
+  schema.signOffHistory, companyAssessment, companyRequirementStatus,
+  companyCategoryIntake, supplier, company,
+] as const;
+
+function assertWipeCoversEveryCompanyTable() {
+  const wiped = new Set<string>([
+    ...BY_COMPANY_ID.map((t) => getTableName(t)),
+    ...VIA_PARENT.map((t) => getTableName(t)),
+  ]);
   const missing: string[] = [];
   for (const value of Object.values(schema)) {
     if (!is(value, PgTable)) continue;
@@ -281,6 +303,12 @@ function assertWipeCoversEveryCompanyTable(wiped: ReadonlySet<string>) {
 }
 
 async function wipeExisting() {
+  // Before anything is deleted, not after. A table missing from the wipe
+  // usually announces itself as a foreign-key violation on the final company
+  // delete, which says nothing about which table or what to do; this is a pure
+  // schema check, so running it first turns that into a sentence.
+  assertWipeCoversEveryCompanyTable();
+
   const existing = await db.query.user.findFirst({
     where: eq(user.email, DEMO_EMAIL),
     columns: { companyId: true },
@@ -370,17 +398,7 @@ async function wipeExisting() {
     await tx.delete(companyAssessment).where(eq(companyAssessment.companyId, cid));
     await tx.delete(supplier).where(eq(supplier.customerCompanyId, cid));
 
-    const byCompanyId = [
-      schema.auditLog, schema.notification,
-      schema.trainingLessonProgress, trainingRecord,
-      schema.vulnerability, schema.patchRecord, schema.changeRequest,
-      schema.kpiMeasurement, schema.improvementItem, schema.exercise,
-      schema.managementReview, schema.internalAudit, schema.policy,
-      schema.gapAssessment, schema.companyCertification, schema.companyInvite,
-      schema.bsiRegistration, companyRiskMethodology, schema.companyPolicyConfig,
-      incident, risk, asset,
-    ] as const;
-    for (const table of byCompanyId) {
+    for (const table of BY_COMPANY_ID) {
       await tx.delete(table).where(eq(table.companyId, cid));
     }
 
@@ -388,19 +406,6 @@ async function wipeExisting() {
     await tx.delete(company).where(eq(company.id, cid));
     await tx.delete(user).where(inArray(user.email, [DEMO_EMAIL, IT_EMAIL]));
 
-    assertWipeCoversEveryCompanyTable(
-      new Set([
-        ...byCompanyId.map((t) => getTableName(t)),
-        // Deleted above by joining through a parent rather than by company_id,
-        // but company-scoped all the same, so they belong in the coverage set.
-        getTableName(schema.signOffHistory),
-        getTableName(companyAssessment),
-        getTableName(companyRequirementStatus),
-        getTableName(companyCategoryIntake),
-        getTableName(supplier),
-        getTableName(company),
-      ]),
-    );
   });
 }
 
