@@ -13,12 +13,22 @@
 -- gates its template-version and operational-data lines on the same field. The
 -- affected rows render as signed but show no sign-off detail anywhere.
 --
--- WHAT THIS IS NOT. Nothing here invents evidence. Every value is copied from
--- that row's own sign_off_history entry, which is the append-only record
--- written at the moment of signing. derived_data is left empty because it was
--- genuinely never captured for these rows, and the report already hides that
--- block when it is empty. Claiming asset and risk counts we do not have would
--- be the dishonest option.
+-- WHAT THIS IS NOT. Nothing here invents evidence. templateVersion is copied
+-- from that row's own sign_off_history entry, the append-only record written
+-- at the moment of signing. derivedData is left empty because it was genuinely
+-- never captured for these rows, and both consumers already hide that block
+-- when it is empty. Claiming asset and risk counts we do not have would be the
+-- dishonest option.
+--
+-- companyProfile is deliberately left empty too, for a different reason. The
+-- chain entry has one, but it holds cisoName, bsiContactName and
+-- bsiContactEmail: personal data. lib/gdpr/erase-user.ts redacts
+-- sign_off_history.snapshot and does NOT sweep
+-- company_requirement_status.sign_off_snapshot, so copying the profile across
+-- would plant names and an email address in a column the erasure routine does
+-- not reach, on the majority of rows rather than a minority. Nothing renders
+-- it: SignOffDisplay reads templateVersion and derivedData only, and so does
+-- the PDF. Copying it would add erasure debt and display nothing.
 --
 -- PRODUCTION SAFETY.
 --   * No DELETE, TRUNCATE, DROP or ALTER. One UPDATE.
@@ -28,8 +38,22 @@
 --   * template_version is the only sign-off column touched besides the
 --     snapshot, and only where it is NULL, so no sign-off is invalidated.
 --   * Idempotent: after one run the predicates match nothing.
---   * Scoped to rows that are terminal AND signed AND have a chain entry, so
---     an unsigned or in-progress row cannot be promoted by it.
+--   * Gated on signed_off_by, not signed_off_at. Those differ: erase-user.ts
+--     nulls signed_off_by and leaves signed_off_at set, so a row whose signer
+--     exercised their Art 17 right still carries a timestamp. Keying on the
+--     timestamp would hand that row a sign-off panel attributing an
+--     attestation to nobody. signed_off_by is the codebase's own test for
+--     "signed" (see drizzle/seed-gdpr.ts, which skips a source row lacking it).
+--   * The template version must be an integer literal. ->> returns text and
+--     IS NOT NULL only excludes an absent key or JSON null, so '3.0' or 'v3'
+--     would raise and abort. runtime-migrate rethrows, and the Dockerfile CMD
+--     runs it before `exec node server.js`, so an abort is a container that
+--     never boots and is restarted into the same failure. The regexp turns
+--     that into one skipped row.
+--   * The subquery is filtered to qualifying statuses rather than ranking
+--     every chain row in the database. Unfiltered, it sorts the whole of
+--     sign_off_history, detoasting each snapshot as sort payload, inside the
+--     boot transaction while the healthcheck start period runs.
 --
 -- NOT ADDRESSED HERE, deliberately. Rows carrying a sign_off_snapshot with NO
 -- sign_off_history entry are the signature of the unguarded seed-gdpr backfill
@@ -46,13 +70,20 @@
 --
 -- If that is non-zero, the remediation is a decision about the affected
 -- tenants' evidence, not a migration.
+--
+-- KNOCK-ON, worth knowing before anyone runs seed-gdpr again. Its propagation
+-- loop skips a source row whose sign_off_snapshot is NULL. Every row this
+-- migration repairs stops being skipped. That propagation is opt-in and
+-- role-gated since #76, but it would now copy these snapshots onto linked
+-- GDPR requirements, carrying the empty derivedData with them.
 
 UPDATE "company_requirement_status" AS s
--- The same COALESCE feeds the column and the snapshot, so the two can never
+-- The same COALESCE feeds the column and the snapshot, so the two cannot
 -- disagree. Writing the chain's version into the snapshot while COALESCE kept
--- an existing column value would manufacture the precise inconsistency this
--- series exists to remove: invalidation reads the snapshot, review.ts reads
--- the column, and a row where they differ escapes review while looking signed.
+-- an existing column value would manufacture an inconsistency: the sign-off
+-- invalidation in the dev router reads
+-- sign_off_snapshot->>'templateVersion', so a row whose snapshot claims a
+-- version its own requirement never had escapes review while looking signed.
 SET "signed_off_template_version" = COALESCE(
       s."signed_off_template_version",
       (h."snapshot" ->> 'templateVersion')::int
@@ -62,16 +93,24 @@ SET "signed_off_template_version" = COALESCE(
         s."signed_off_template_version",
         (h."snapshot" ->> 'templateVersion')::int
       ),
-      'companyProfile', COALESCE(h."snapshot" -> 'companyProfile', '{}'::jsonb),
+      'companyProfile', '{}'::jsonb,
       'derivedData', '{}'::jsonb
     )
 FROM (
-  SELECT DISTINCT ON ("status_id") "status_id", "snapshot"
-    FROM "sign_off_history"
-   ORDER BY "status_id", "version" DESC
+  SELECT DISTINCT ON (h2."status_id") h2."status_id", h2."snapshot"
+    FROM "sign_off_history" h2
+   WHERE EXISTS (
+     SELECT 1
+       FROM "company_requirement_status" s2
+      WHERE s2."id" = h2."status_id"
+        AND s2."sign_off_snapshot" IS NULL
+        AND s2."signed_off_by" IS NOT NULL
+        AND s2."status" IN ('completed', 'approved')
+   )
+   ORDER BY h2."status_id", h2."version" DESC
 ) AS h
 WHERE h."status_id" = s."id"
   AND s."sign_off_snapshot" IS NULL
-  AND s."signed_off_at" IS NOT NULL
+  AND s."signed_off_by" IS NOT NULL
   AND s."status" IN ('completed', 'approved')
-  AND (h."snapshot" ->> 'templateVersion') IS NOT NULL;
+  AND h."snapshot" ->> 'templateVersion' ~ '^[0-9]+$';

@@ -30,12 +30,23 @@ type FolderReport = {
   orphans: readonly string[];
   missing: readonly string[];
   outOfOrder: readonly string[];
+  noJournal: boolean;
 };
 
 function inspect(folder: string): FolderReport {
+  const base = { folder, orphans: [], missing: [], outOfOrder: [] };
   const journalPath = `${folder}/meta/_journal.json`;
+
+  // A folder with .sql files but no journal is the loudest version of the
+  // failure this script exists to catch: runtime-migrate logs "no journal —
+  // skipping" and every migration in that chain silently never runs. Reporting
+  // it as consistent would be worse than not checking at all. A folder with no
+  // journal AND no .sql files is simply not a migration folder.
   if (!existsSync(journalPath)) {
-    return { folder, orphans: [], missing: [], outOfOrder: [] };
+    const strays = existsSync(folder)
+      ? readdirSync(folder).filter((f) => f.endsWith(".sql"))
+      : [];
+    return { ...base, noJournal: strays.length > 0 };
   }
 
   const journal = JSON.parse(readFileSync(journalPath, "utf-8")) as Journal;
@@ -58,12 +69,19 @@ function inspect(folder: string): FolderReport {
     orphans: files.filter((f) => !tagSet.has(f)).sort(),
     missing: tags.filter((t) => !fileSet.has(t)).sort(),
     outOfOrder,
+    noJournal: false,
   };
 }
 
 const reports = FOLDERS.map(inspect);
 
 for (const r of reports) {
+  if (r.noJournal) {
+    console.error(
+      `${r.folder} has .sql files but no meta/_journal.json — runtime-migrate ` +
+        `skips the whole chain, so none of them will ever run.`,
+    );
+  }
   for (const o of r.orphans) {
     console.error(`${r.folder}/${o}.sql is not in the journal, so it will never run.`);
   }
@@ -76,7 +94,8 @@ for (const r of reports) {
 }
 
 const problems = reports.reduce(
-  (n, r) => n + r.orphans.length + r.missing.length + r.outOfOrder.length,
+  (n, r) =>
+    n + r.orphans.length + r.missing.length + r.outOfOrder.length + (r.noJournal ? 1 : 0),
   0,
 );
 
