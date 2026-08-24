@@ -1,5 +1,15 @@
 import { readFile } from "node:fs/promises";
 import { db } from "@/lib/db";
+import { assertLocalDatabase } from "./lib/assert-local-database";
+
+// Executes whatever SQL it is handed, statement by statement, with no
+// transaction and no journal entry — so against production it is an unlogged,
+// half-applyable schema change with no record that it happened.
+assertLocalDatabase(
+  process.env.DATABASE_URL ?? "",
+  "scripts/apply-migration.ts executes arbitrary SQL with no transaction and " +
+    "records nothing in the migration journal.",
+);
 
 const sqlPath = process.argv[2];
 if (!sqlPath) {
