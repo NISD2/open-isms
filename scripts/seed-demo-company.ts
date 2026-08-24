@@ -62,7 +62,7 @@ import {
 import { createAssessmentsForFrameworks } from "@/server/trpc/helpers/setup-helpers";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import bcrypt from "bcryptjs";
-import { randomUUID } from "node:crypto";
+import { randomUUID, randomBytes } from "node:crypto";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { s3, BUCKET } from "@/lib/storage";
 
@@ -72,10 +72,15 @@ const IT_EMAIL = "it@wertstoff-nordkreis.example";
 /**
  * Both demo accounts get the same password. Without a passwordHash the
  * credentials provider refuses the login outright (lib/auth/config.ts), so a
- * seeded tenant nobody can sign into defeats the point of seeding it. Override
- * with DEMO_PASSWORD when the instance is reachable by anyone but you.
+ * seeded tenant nobody can sign into defeats the point of seeding it.
+ *
+ * Generated, not defaulted. The GF account is an admin, and this repository is
+ * public: a fixed default here would mean every self-hosted instance that ever
+ * ran this seed shares one published admin credential. Set DEMO_PASSWORD to
+ * choose your own; otherwise a random one is generated and printed once.
  */
-const DEMO_PASSWORD = process.env.DEMO_PASSWORD ?? "demo-wertstoff-2026";
+const DEMO_PASSWORD = process.env.DEMO_PASSWORD ?? randomBytes(12).toString("base64url");
+const DEMO_PASSWORD_WAS_GENERATED = !process.env.DEMO_PASSWORD;
 
 const days = (n: number) => new Date(Date.now() - n * 86_400_000);
 
@@ -875,6 +880,14 @@ async function main() {
   console.log("incidents: 2");
 
   console.log("\nDONE");
+  console.log(`  sign in as ${DEMO_EMAIL} (admin) or ${IT_EMAIL}`);
+  if (DEMO_PASSWORD_WAS_GENERATED) {
+    console.log(`  password:  ${DEMO_PASSWORD}`);
+    console.log("  (generated once and not stored anywhere; re-run to get a new one,");
+    console.log("   or set DEMO_PASSWORD to pick your own)");
+  } else {
+    console.log("  password:  as set in DEMO_PASSWORD");
+  }
   console.log("companyId:   ", co.id);
   console.log("assessmentId:", assessmentId);
 }
