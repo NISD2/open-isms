@@ -125,8 +125,34 @@ export const supplierPublicRouter = router({
 
       // Assets the supplier offers to THIS customer — service profile lives
       // in asset_supplier_offering, joined to the generic asset row.
+      //
+      // Columns are listed, not spread. This endpoint is reached with a 64-hex
+      // token and no account, and the generic asset row carries the supplier's
+      // own internal estate: ipAddress, hostname, operatingSystem,
+      // softwareVersion, lastPatchDate, lastVulnScanDate, privilegedAccountCount.
+      // Handing a customer a live inventory of their supplier's unpatched hosts
+      // is a gift to whoever phishes that customer next. What belongs here is
+      // what the supplier is declaring ABOUT the service, which is the point of
+      // the portal — the same reasoning the `company` select above already
+      // applies to itself.
       const offeringRows = await ctx.db
-        .select({ asset: asset, offering: assetSupplierOffering })
+        .select({
+          asset: {
+            id: asset.id,
+            name: asset.name,
+            type: asset.type,
+            description: asset.description,
+            isCritical: asset.isCritical,
+            hasMfa: asset.hasMfa,
+            encryptionAtRest: asset.encryptionAtRest,
+            encryptionInTransit: asset.encryptionInTransit,
+            hasBackup: asset.hasBackup,
+            rto: asset.rto,
+            rpo: asset.rpo,
+            processesPersonalData: asset.processesPersonalData,
+          },
+          offering: assetSupplierOffering,
+        })
         .from(asset)
         .innerJoin(assetSupplierOffering, eq(assetSupplierOffering.assetId, asset.id))
         .where(
@@ -140,8 +166,28 @@ export const supplierPublicRouter = router({
 
       // Recent incidents addressed to THIS relationship — broadcast metadata
       // lives in incident_broadcast.
+      //
+      // Same treatment, and this one matters more. The incident row is the
+      // supplier's internal post-mortem: rootCause, countermeasures,
+      // estimatedFinancialDamage, affectedUsersCount, affectedSystemsCount,
+      // gdprNotifiedAt, internalRef. A supply-chain broadcast is a notification
+      // that something happened and what the customer should do about it, not
+      // a copy of the supplier's breach file. Anyone holding the token was
+      // receiving all 33 columns.
       const broadcastRows = await ctx.db
-        .select({ incident: incident, broadcast: incidentBroadcast })
+        .select({
+          incident: {
+            id: incident.id,
+            title: incident.title,
+            description: incident.description,
+            severity: incident.severity,
+            situationColor: incident.situationColor,
+            discoveredAt: incident.discoveredAt,
+            resolvedAt: incident.resolvedAt,
+            createdAt: incident.createdAt,
+          },
+          broadcast: incidentBroadcast,
+        })
         .from(incident)
         .innerJoin(incidentBroadcast, eq(incidentBroadcast.incidentId, incident.id))
         .where(
