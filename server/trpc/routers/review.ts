@@ -12,19 +12,14 @@ import {
 import { sendMail, reviewDecisionEmail } from "@/lib/mail";
 import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
 import type { Database } from "@/lib/db";
+import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 
 export const reviewRouter = router({
   /** All submission statuses for the reviewer's company */
   list: reviewerProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
 
-    // Get all assessment IDs for the company
-    const assessments = await ctx.db
-      .select({ id: companyAssessment.id })
-      .from(companyAssessment)
-      .where(eq(companyAssessment.companyId, ctx.companyId));
-
-    const assessmentIds = assessments.map((a) => a.id);
+    const assessmentIds = await getNis2AssessmentIds(ctx.db, ctx.companyId);
     if (assessmentIds.length === 0) return [];
 
     // Fetch all statuses with relational joins
@@ -162,12 +157,7 @@ export const reviewRouter = router({
   countPending: reviewerProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return 0;
 
-    const assessments = await ctx.db
-      .select({ id: companyAssessment.id })
-      .from(companyAssessment)
-      .where(eq(companyAssessment.companyId, ctx.companyId));
-
-    const assessmentIds = assessments.map((a) => a.id);
+    const assessmentIds = await getNis2AssessmentIds(ctx.db, ctx.companyId);
     if (assessmentIds.length === 0) return 0;
 
     const [result] = await ctx.db

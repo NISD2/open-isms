@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure, companyProcedure } from "../init";
 import { extractFromText } from "@/lib/forms/llm-prefill-action";
@@ -9,6 +9,7 @@ import { loadReportData } from "@/lib/pdf/load-report-data";
 import { evaluateSection as evalSection } from "@/lib/eval/evaluate-section";
 import { evaluateAssessment } from "@/lib/eval/evaluate-assessment";
 import { BSIG_SECTIONS } from "@/lib/eval/bsig-sections";
+import { getNis2FrameworkId } from "../helpers/nis2-scope";
 
 /**
  * Hard-fail any LLM call when the company has opted out of AI data sharing.
@@ -77,9 +78,18 @@ export const llmRouter = router({
       // Honor the aiDataSharing="none" opt-out before loading sign-off snapshots.
       await requireAiEnabled(ctx.db, ctx.companyId);
 
-      const assessment = await ctx.db.query.companyAssessment.findFirst({
-        where: eq(companyAssessment.companyId, ctx.companyId),
-      });
+      // NIS 2 only. Unscoped this graded whichever assessment Postgres
+      // returned first, so /audit-readiness could score a tenant's GDPR
+      // assessment and report it as their NIS 2 readiness.
+      const nis2FrameworkId = await getNis2FrameworkId(ctx.db);
+      const assessment = nis2FrameworkId
+        ? await ctx.db.query.companyAssessment.findFirst({
+            where: and(
+              eq(companyAssessment.companyId, ctx.companyId),
+              eq(companyAssessment.frameworkId, nis2FrameworkId),
+            ),
+          })
+        : null;
       if (!assessment) {
         throw new TRPCError({ code: "NOT_FOUND", message: "No assessment found" });
       }
@@ -108,9 +118,18 @@ export const llmRouter = router({
       // Honor the aiDataSharing="none" opt-out before loading sign-off snapshots.
       await requireAiEnabled(ctx.db, ctx.companyId);
 
-      const assessment = await ctx.db.query.companyAssessment.findFirst({
-        where: eq(companyAssessment.companyId, ctx.companyId),
-      });
+      // NIS 2 only. Unscoped this graded whichever assessment Postgres
+      // returned first, so /audit-readiness could score a tenant's GDPR
+      // assessment and report it as their NIS 2 readiness.
+      const nis2FrameworkId = await getNis2FrameworkId(ctx.db);
+      const assessment = nis2FrameworkId
+        ? await ctx.db.query.companyAssessment.findFirst({
+            where: and(
+              eq(companyAssessment.companyId, ctx.companyId),
+              eq(companyAssessment.frameworkId, nis2FrameworkId),
+            ),
+          })
+        : null;
       if (!assessment) {
         throw new TRPCError({ code: "NOT_FOUND", message: "No assessment found" });
       }

@@ -18,6 +18,7 @@ import {
   company,
   companyAssessment,
   companyRequirementStatus,
+  complianceFramework,
   trainingLessonProgress,
   supplier,
   notification,
@@ -31,6 +32,7 @@ import { logAudit } from "@/lib/audit";
 import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
 import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/certificate";
 import { rateLimit } from "@/lib/rate-limit";
+import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
 
 // Character set (not a secret) for human-friendly share passwords —
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
@@ -162,8 +164,14 @@ export const platformAdminRouter = router({
         activatedAt: company.activatedAt,
         createdAt: company.createdAt,
         userCount: sql<number>`(SELECT count(*)::int FROM "user" WHERE "user"."company_id" = ${company.id})`,
+        // NIS 2 only. LIMIT 1 with no ORDER BY and no framework predicate
+        // returned an arbitrary framework's percentage for the Companies tab.
         compliancePct: sql<string>`COALESCE(
-          (SELECT ca.compliance_percentage FROM company_assessment ca WHERE ca.company_id = ${company.id} LIMIT 1),
+          (SELECT ca.compliance_percentage
+             FROM company_assessment ca
+             JOIN compliance_framework cf ON cf.id = ca.framework_id
+            WHERE ca.company_id = ${company.id} AND cf.code = 'nis2'
+            LIMIT 1),
           '0'
         )`,
       })
@@ -191,6 +199,17 @@ export const platformAdminRouter = router({
       .from(companyRequirementStatus)
       .innerJoin(companyAssessment, eq(companyRequirementStatus.assessmentId, companyAssessment.id))
       .innerJoin(company, eq(companyAssessment.companyId, company.id))
+      // NIS 2 only. Without this the totals read 101 or 103 per company -- the
+      // sum of every framework a tenant was ever provisioned -- and understate
+      // real NIS 2 progress by roughly half. Inline rather than via
+      // getNis2AssessmentIds because this query spans all companies at once.
+      .innerJoin(
+        complianceFramework,
+        and(
+          eq(companyAssessment.frameworkId, complianceFramework.id),
+          eq(complianceFramework.code, NIS2_FRAMEWORK_CODE),
+        ),
+      )
       .groupBy(company.id, company.name)
       .orderBy(desc(sql`count(*) FILTER (WHERE ${companyRequirementStatus.status} IN ('completed', 'approved'))`));
 

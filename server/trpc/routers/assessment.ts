@@ -37,6 +37,7 @@ import {
 } from "../helpers/sign-off-completion";
 
 import type { Database } from "@/lib/db";
+import { getNis2FrameworkId } from "../helpers/nis2-scope";
 
 const DONE_STATUSES = new Set(["completed", "approved", "not_applicable"]);
 
@@ -127,10 +128,19 @@ export const assessmentRouter = router({
   // Assessment queries
   // ---------------------------------------------------------------------------
 
+  // The compliance pages read this to resolve "the" assessment. Unscoped and
+  // unordered it returned whichever row Postgres happened to hand back, so a
+  // tenant provisioned with GDPR / AI Act / CRA assessments alongside NIS 2
+  // could render a NIS 2 category against a GDPR assessment.
   getActiveAssessment: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return null;
+    const frameworkId = await getNis2FrameworkId(ctx.db);
+    if (!frameworkId) return null;
     const assessment = await ctx.db.query.companyAssessment.findFirst({
-      where: eq(companyAssessment.companyId, ctx.companyId),
+      where: and(
+        eq(companyAssessment.companyId, ctx.companyId),
+        eq(companyAssessment.frameworkId, frameworkId),
+      ),
     });
     return assessment ?? null;
   }),
@@ -153,10 +163,17 @@ export const assessmentRouter = router({
       return assessment ?? null;
     }),
 
+  // Feeds the portal sidebar and the export page, so it is NIS 2 only. A
+  // tenant's GDPR / AI Act / CRA assessment rows are kept, just not surfaced.
   listAssessments: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
+    const frameworkId = await getNis2FrameworkId(ctx.db);
+    if (!frameworkId) return [];
     return ctx.db.query.companyAssessment.findMany({
-      where: eq(companyAssessment.companyId, ctx.companyId),
+      where: and(
+        eq(companyAssessment.companyId, ctx.companyId),
+        eq(companyAssessment.frameworkId, frameworkId),
+      ),
       with: {
         framework: {
           columns: { id: true, code: true, version: true },
@@ -287,7 +304,19 @@ export const assessmentRouter = router({
               .set({ entityTypeAtAssessment: input.entityType, updatedAt: new Date() })
               .where(eq(companyAssessment.companyId, companyId));
             frameworkAssessmentMap = new Map(seeded.map((a) => [a.frameworkId, a.id]));
-            firstAssessmentId = seeded[0].id;
+            // This id is returned to the client and decides where activation
+            // lands the user. A legacy draft carries one assessment per
+            // framework that was active at draft time, so seeded[0] could hand
+            // them their GDPR assessment. Prefer NIS 2, fall back only if the
+            // draft genuinely has none.
+            const nis2Framework = await tx.query.complianceFramework.findFirst({
+              where: eq(complianceFramework.code, "nis2"),
+              columns: { id: true },
+            });
+            const nis2Seeded = nis2Framework
+              ? seeded.find((a) => a.frameworkId === nis2Framework.id)
+              : undefined;
+            firstAssessmentId = (nis2Seeded ?? seeded[0]).id;
           }
         } else {
           // No draft (edge / legacy path) — create, own, seed, activate in one.

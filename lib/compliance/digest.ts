@@ -18,6 +18,7 @@ import type { Database } from "@/lib/db";
 import type { DigestItem } from "@/lib/mail";
 import { daysUntilDeadline } from "./deadlines";
 import { getAppUrl } from "@/lib/utils";
+import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 import requirementsEn from "@/messages/requirements/en.json";
 
 // ---------------------------------------------------------------------------
@@ -79,9 +80,18 @@ export async function compileDailyDigest(
 
   if (!recipient || !companyRow) return null;
 
-  // Get all assessments for this company
+  // NIS 2 only. Summing totalRequirements across every assessment made the
+  // headline percentage in this email a fraction over 101 or 103 requirements
+  // instead of 49, and put DSGVO / AI-Act / CRA requirement codes in the item
+  // list of a digest the reader treats as their NIS 2 status.
+  const nis2FrameworkId = await getNis2FrameworkId(db);
+  if (!nis2FrameworkId) return null;
+
   const assessments = await db.query.companyAssessment.findMany({
-    where: eq(companyAssessment.companyId, companyId),
+    where: and(
+      eq(companyAssessment.companyId, companyId),
+      eq(companyAssessment.frameworkId, nis2FrameworkId),
+    ),
     columns: { id: true, compliancePercentage: true, completedRequirements: true, totalRequirements: true },
   });
 
@@ -190,8 +200,16 @@ export async function compileManagementDigest(
 
   if (!recipient || !companyRow) return null;
 
+  // NIS 2 only, same reason as compileDailyDigest above. This one is the
+  // management digest, which the reader may file as Art. 20 / section 38 evidence.
+  const nis2FrameworkId = await getNis2FrameworkId(db);
+  if (!nis2FrameworkId) return null;
+
   const assessments = await db.query.companyAssessment.findMany({
-    where: eq(companyAssessment.companyId, companyId),
+    where: and(
+      eq(companyAssessment.companyId, companyId),
+      eq(companyAssessment.frameworkId, nis2FrameworkId),
+    ),
     columns: { id: true, compliancePercentage: true, completedRequirements: true, totalRequirements: true },
   });
 

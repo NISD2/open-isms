@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eq, asc } from "drizzle-orm";
+import { eq, and, asc } from "drizzle-orm";
 import { router, publicProcedure } from "../init";
 import {
   complianceFramework,
@@ -20,7 +20,12 @@ export const requirementRouter = router({
           ctx.db
             .select({ id: complianceFramework.id })
             .from(complianceFramework)
-            .where(eq(complianceFramework.code, input.frameworkCode as FrameworkCode))
+            .where(
+              and(
+                eq(complianceFramework.code, input.frameworkCode as FrameworkCode),
+                eq(complianceFramework.isActive, true),
+              ),
+            )
             .limit(1)
         ),
         orderBy: asc(requirementCategory.sortOrder),
@@ -58,12 +63,19 @@ export const requirementRouter = router({
               nationalUrl: true,
             },
             with: {
-              framework: { columns: { code: true } },
+              framework: { columns: { code: true, isActive: true } },
             },
           },
         },
       });
-      return req ?? null;
+      // These are publicProcedures keyed on a bare code / slug, so a bookmark,
+      // a digest-email link or a hand-typed URL reaches them directly. Without
+      // this gate /compliance/gdpr-toms/DSGVO-3.1 renders a complete, fully
+      // translated GDPR requirement page for a product that only sells NIS 2.
+      // Gating on isActive rather than on code === "nis2" keeps one switch:
+      // the same flag the sidebar and /compliance already read.
+      if (!req || !req.category.framework.isActive) return null;
+      return req;
     }),
 
   listByCategorySlug: publicProcedure
@@ -73,11 +85,13 @@ export const requirementRouter = router({
         where: eq(requirementCategory.slug, input.slug),
         with: {
           framework: {
-            columns: { code: true, codePrefix: true, sidebarLabel: true },
+            columns: { code: true, codePrefix: true, sidebarLabel: true, isActive: true },
           },
         },
       });
-      if (!category) return { category: null, requirements: [] };
+      if (!category || !category.framework.isActive) {
+        return { category: null, requirements: [] };
+      }
 
       const requirements = await ctx.db.query.requirement.findMany({
         where: eq(requirement.categoryId, category.id),
