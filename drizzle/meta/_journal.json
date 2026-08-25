@@ -85,6 +85,13 @@
       "when": 1787566931136,
       "tag": "0011_backfill_signoff_evidence",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1787566932136,
+      "tag": "0012_nis2_only_active_framework",
+      "breakpoints": true
     }
   ]
 }

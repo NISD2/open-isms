@@ -19,6 +19,7 @@ import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
 import { discardDraftCompany } from "../helpers/setup-helpers";
 import { verifyAssessmentOwnership } from "../guards";
+import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 
 const INVITE_EXPIRY_DAYS = 7;
 
@@ -43,12 +44,9 @@ export const teamRouter = router({
       },
     });
 
-    // Fetch all category-level assignments for this company's assessments
-    const assessments = await ctx.db.query.companyAssessment.findMany({
-      where: eq(companyAssessment.companyId, ctx.companyId),
-      columns: { id: true },
-    });
-    const assessmentIds = assessments.map((a) => a.id);
+    // Category-level assignments, NIS 2 only: the /team page listed member
+    // assignments carrying DSGVO / AI-Act / CRA category codes otherwise.
+    const assessmentIds = await getNis2AssessmentIds(ctx.db, ctx.companyId);
 
     if (assessmentIds.length === 0) {
       return members.map((m) => ({ ...m, assignments: [] as Array<{ categoryCode: string; categoryName: string }> }));

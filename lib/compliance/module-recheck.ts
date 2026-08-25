@@ -12,6 +12,7 @@ import { eq, and, sql, inArray } from "drizzle-orm";
 import {
   companyAssessment,
   companyRequirementStatus,
+  complianceFramework,
   requirement,
 } from "@/schema";
 import { logAudit } from "@/lib/audit";
@@ -58,10 +59,22 @@ async function revertSignOffs(
   moduleRef: string,
   ctx: RevertContext,
 ): Promise<void> {
+  // NIS 2 only. Unscoped, an operational-module edit reverted hidden GDPR /
+  // AI Act / CRA sign-offs too and wrote their codes into the audit-log entry
+  // the user reads on /audit ("reverted 7 requirement(s): NIS2-2.1, DSGVO-30, ...").
   const assessments = await db
     .select({ id: companyAssessment.id })
     .from(companyAssessment)
-    .where(eq(companyAssessment.companyId, ctx.companyId));
+    .innerJoin(
+      complianceFramework,
+      eq(complianceFramework.id, companyAssessment.frameworkId),
+    )
+    .where(
+      and(
+        eq(companyAssessment.companyId, ctx.companyId),
+        eq(complianceFramework.code, "nis2"),
+      ),
+    );
 
   if (assessments.length === 0) return;
 

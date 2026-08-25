@@ -377,7 +377,11 @@ async function seed() {
       code: "iso27001",
       version: "2022",
       effectiveDate: "2022-10-25",
-      isActive: true,
+      // NIS 2 is the only framework the product surfaces. ISO 27001 reference
+      // data is still seeded so the NIS2 <-> ISO satisfaction pairs resolve,
+      // but inactive keeps it out of the sidebar, out of /compliance, and out
+      // of what createAssessmentsForFrameworks provisions for a new signup.
+      isActive: false,
       codePrefix: "ISO27001-",
       sidebarLabel: "iso27001",
     })
@@ -386,7 +390,7 @@ async function seed() {
       set: {
         version: "2022",
         effectiveDate: "2022-10-25",
-        isActive: true,
+        isActive: false,
       },
     })
     .returning();

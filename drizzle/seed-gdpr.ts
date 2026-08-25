@@ -57,6 +57,7 @@ async function seed() {
     effectiveDate: "2018-05-25",
     codePrefix: "DSGVO-",
     sidebarLabel: "dsgvo",
+    isActive: false,
     categories: gdprCategories,
     getRequirements: getGdprRequirementsForCategory,
   });

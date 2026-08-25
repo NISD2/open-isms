@@ -14,7 +14,6 @@ import {
   patchRecord,
   internalAudit,
   improvementItem,
-  companyAssessment,
   companyRequirementStatus,
   requirement,
   requirementCategory,
@@ -29,6 +28,7 @@ import {
   type Priority,
   type Importance,
 } from "@/lib/compliance/deadlines";
+import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 import requirementsEn from "@/messages/requirements/en.json";
 
 export const dashboardRouter = router({
@@ -179,12 +179,7 @@ export const dashboardRouter = router({
   }),
 
   complianceProgress: companyProcedure.query(async ({ ctx }) => {
-    const assessments = await ctx.db
-      .select({ id: companyAssessment.id })
-      .from(companyAssessment)
-      .where(eq(companyAssessment.companyId, ctx.companyId));
-
-    const assessmentIds = assessments.map((a) => a.id);
+    const assessmentIds = await getNis2AssessmentIds(ctx.db, ctx.companyId);
     if (assessmentIds.length === 0) return { completed: 0, total: 0 };
 
     const [completedRows, totalRows] = await Promise.all([
@@ -214,13 +209,7 @@ export const dashboardRouter = router({
   }),
 
   deadlines: companyProcedure.query(async ({ ctx }) => {
-    // Get all assessments for this company
-    const assessments = await ctx.db
-      .select({ id: companyAssessment.id })
-      .from(companyAssessment)
-      .where(eq(companyAssessment.companyId, ctx.companyId));
-
-    const assessmentIds = assessments.map((a) => a.id);
+    const assessmentIds = await getNis2AssessmentIds(ctx.db, ctx.companyId);
     if (assessmentIds.length === 0) return null;
 
     // Get all status rows with nextReviewDate, joined with requirement and category

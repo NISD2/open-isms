@@ -28,6 +28,8 @@
  *     effectiveDate: "2024-08-01",
  *     codePrefix: "AI-",
  *     sidebarLabel: "aiact",
+ *     // Seed the reference data, keep it out of the UI. Only NIS 2 is active.
+ *     isActive: false,
  *     categories: euAiActCategories,
  *     getRequirements: getEuAiActRequirementsForCategory,
  *   });
@@ -72,6 +74,16 @@ export interface FrameworkSeedSpec {
   codePrefix: string;
   /** Sidebar label / i18n key, e.g. "aiact". */
   sidebarLabel: string;
+  /**
+   * Drives every framework-scoped surface: the sidebar and /compliance pages
+   * (`getAllActiveCategories`) and what a new signup is provisioned
+   * (`createAssessmentsForFrameworks`). Declared per framework rather than
+   * hardcoded here, because the upsert below re-asserts it on every rerun: a
+   * hardcoded `true` silently reactivated a framework someone had switched off.
+   * Reference data for an inactive framework is still seeded, so satisfaction
+   * pairs keep resolving and existing tenants keep their rows.
+   */
+  isActive: boolean;
   categories: FrameworkCategory[];
   getRequirements: (slug: string) => FrameworkRequirement[];
 }
@@ -110,7 +122,7 @@ export async function seedFramework<TSchema extends Record<string, unknown>>(
       code: spec.code,
       version: spec.version,
       effectiveDate: spec.effectiveDate,
-      isActive: true,
+      isActive: spec.isActive,
       codePrefix: spec.codePrefix,
       sidebarLabel: spec.sidebarLabel,
     })
@@ -119,7 +131,7 @@ export async function seedFramework<TSchema extends Record<string, unknown>>(
       set: {
         version: spec.version,
         effectiveDate: spec.effectiveDate,
-        isActive: true,
+        isActive: spec.isActive,
         codePrefix: spec.codePrefix,
         sidebarLabel: spec.sidebarLabel,
       },
