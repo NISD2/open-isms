@@ -1,6 +1,65 @@
 {
   "entries": [
     {
+      "id": "2026-08-25-product-nis2-focus",
+      "date": "2026-08-25",
+      "category": "product",
+      "titleDe": "Fortschritt zaehlt nur noch die 49 NIS2-Anforderungen",
+      "titleEn": "Progress now counts only the 49 NIS 2 requirements",
+      "bodyDe": "Die Plattform zeigt jetzt ausschliesslich NIS 2. Bisher flossen auch Anforderungen weiterer Rahmenwerke in Dashboards, Fortschrittsanzeigen und Berichte ein; wer alle 49 NIS2-Anforderungen abgeschlossen hatte, sah teils nur rund die Haelfte als erledigt. Daten anderer Rahmenwerke bleiben vollstaendig erhalten, sie werden nur nicht mehr angezeigt.",
+      "bodyEn": "The platform now surfaces NIS 2 exclusively. Previously, requirements from additional frameworks flowed into dashboards, progress figures and reports; a company that had completed all 49 NIS 2 requirements could read roughly half as done. Data from other frameworks is fully retained, it is just no longer shown."
+    },
+    {
+      "id": "2026-08-25-regulatory-timeline-austria-bundestag",
+      "date": "2026-08-25",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: Oesterreichs NISG 2026 und die ersten Bundestagszahlen",
+      "titleEn": "Timeline: Austria's NISG 2026 and the first Bundestag figures",
+      "bodyDe": "Oesterreich fehlte als letzter Mitgliedstaat in der Zeitleiste: das NISG 2026 tritt am 1. Oktober 2026 in Kraft, registriert wird binnen drei Monaten. Neu sind ausserdem die Zahlen aus Bundestagsdrucksache 21/7573 mit 19.058 Registrierungen zum Stichtag 31. Juli 2026 und der Klarstellung der Bundesregierung, dass die kursierende Zahl von rund 29.500 eine Kostenschaetzung ist, kein Bestand. Ein aelterer Eintrag zu Paragraf 35 Absatz 2 BSIG wurde korrigiert: die Meldung an das BSI stand bereits im urspruenglichen Gesetzestext.",
+      "bodyEn": "Austria was the last Member State missing from the timeline: the NISG 2026 enters into force on 1 October 2026, with registration due within three months. Also new are the figures from Bundestag printed paper 21/7573, with 19,058 registrations as of 31 July 2026 and the government's clarification that the circulating figure of around 29,500 is a cost estimate, not a count. An older entry on section 35(2) BSIG was corrected: notifying the BSI was already part of the original statutory text.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-08-24-product-signoff-evidence-erasure",
+      "date": "2026-08-24",
+      "category": "product",
+      "titleDe": "Freigabenachweise vervollstaendigt, Loeschung erfasst Freigabekopien",
+      "titleEn": "Sign-off evidence completed, erasure reaches sign-off snapshots",
+      "bodyDe": "Anforderungen, die ueber das Aufnahmeformular freigegeben wurden, zeigten im Pruefbereich und im PDF-Bericht keine Freigabedetails, obwohl der Nachweis im fortlaufenden Freigabeprotokoll vorlag. Die betroffenen Datensaetze wurden aus genau diesem Protokoll wiederhergestellt; erfunden wurde nichts, fehlende Angaben bleiben leer. Zusaetzlich entfernt die Loeschung personenbezogener Daten jetzt auch die zum Zeitpunkt der Freigabe eingefrorenen Kontaktangaben.",
+      "bodyEn": "Requirements approved through the intake form showed no sign-off detail in the review area and the PDF report, although the evidence existed in the append-only sign-off log. The affected records were restored from exactly that log; nothing was invented, genuinely missing details stay empty. In addition, personal-data erasure now also removes the contact details frozen into each sign-off at signing time."
+    },
+    {
+      "id": "2026-08-21-product-gdpr-catalogue",
+      "date": "2026-08-21",
+      "category": "product",
+      "titleDe": "DSGVO-Katalog: zwei neue Anforderungen, Rechtsangaben geprueft",
+      "titleEn": "GDPR catalogue: two new requirements, legal references checked",
+      "bodyDe": "Der DSGVO-Katalog erhaelt die Benachrichtigung betroffener Personen nach Artikel 34 und die Benennung von Datenschutzbeauftragten nach Artikel 37 bis 39 in Verbindung mit Paragraf 38 BDSG, der Schwelle, die deutsche Mittelstaendler am haeufigsten uebersehen. Rechtsangaben und die Elementlisten zu Artikel 30 und 32 wurden gegen den Amtsblatttext geprueft, Zitate tragen jetzt ihr eigenes Rahmenwerk, und bestehende Installationen erhalten alle Korrekturen automatisch per Migration. Inhalte in allen zehn Sprachen.",
+      "bodyEn": "The GDPR catalogue gains notifying affected people under Article 34 and the data protection officer duty under Articles 37 to 39 together with section 38 BDSG, the threshold German SMEs miss most often. Legal references and the element lists of Articles 30 and 32 were checked against the Official Journal text, citations now carry their own framework, and existing installations receive all corrections automatically through a migration. Content in all ten languages."
+    },
+    {
+      "id": "2026-08-21-product-self-host-stack",
+      "date": "2026-08-21",
+      "category": "product",
+      "titleDe": "Self-Hosting: eine Compose-Datei, Anleitung, kein AWS-Konto noetig",
+      "titleEn": "Self-hosting: one compose file, a guide, no AWS account needed",
+      "bodyDe": "Der Eigenbetrieb hat jetzt eine vollstaendige Anleitung, eine einzige Compose-Datei im Wurzelverzeichnis und ein Verzeichnis aller Drittdienste. Die Dateiablage laeuft ueber ein mitgeliefertes MinIO, ein AWS-Konto ist nicht mehr noetig. Webanalyse ist jetzt strikt Opt-in: eine selbst gehostete Instanz laedt ohne eigene Konfiguration kein Analyseskript und sendet nichts nach aussen.",
+      "bodyEn": "Self-hosting now comes with a complete guide, a single Docker compose file at the repository root, and an inventory of all third-party services. File storage runs on bundled MinIO, so no AWS account is needed. Web analytics is now strictly opt-in: a self-hosted instance loads no analytics script and sends nothing unless configured.",
+      "links": [
+        {
+          "labelDe": "Open Source",
+          "labelEn": "Open source",
+          "href": "/open-source"
+        }
+      ]
+    },
+    {
       "id": "2026-08-20-product-legal-refs-verified",
       "date": "2026-08-20",
       "category": "product",
