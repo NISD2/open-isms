@@ -18,7 +18,6 @@ import {
   requirementSatisfaction,
 } from "@/schema";
 import { or } from "drizzle-orm";
-import { frameworkEnum } from "@nisd2/grc-data-model/enums";
 import { enforceAssignment, verifyAssessmentOwnership, getSignerRole } from "../guards";
 import { sendMail, contactEmailChangedEmail } from "@/lib/mail";
 import { logAudit } from "@/lib/audit";
@@ -37,7 +36,7 @@ import {
 } from "../helpers/sign-off-completion";
 
 import type { Database } from "@/lib/db";
-import { getNis2FrameworkId } from "../helpers/nis2-scope";
+import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 
 const DONE_STATUSES = new Set(["completed", "approved", "not_applicable"]);
 
@@ -134,34 +133,8 @@ export const assessmentRouter = router({
   // could render a NIS 2 category against a GDPR assessment.
   getActiveAssessment: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return null;
-    const frameworkId = await getNis2FrameworkId(ctx.db);
-    if (!frameworkId) return null;
-    const assessment = await ctx.db.query.companyAssessment.findFirst({
-      where: and(
-        eq(companyAssessment.companyId, ctx.companyId),
-        eq(companyAssessment.frameworkId, frameworkId),
-      ),
-    });
-    return assessment ?? null;
+    return getNis2Assessment(ctx.db, ctx.companyId);
   }),
-
-  getAssessmentForFramework: protectedProcedure
-    .input(z.object({ frameworkCode: z.enum(frameworkEnum.enumValues) }))
-    .query(async ({ ctx, input }) => {
-      if (!ctx.companyId) return null;
-      const framework = await ctx.db.query.complianceFramework.findFirst({
-        where: eq(complianceFramework.code, input.frameworkCode),
-      });
-      if (!framework) return null;
-
-      const assessment = await ctx.db.query.companyAssessment.findFirst({
-        where: and(
-          eq(companyAssessment.companyId, ctx.companyId),
-          eq(companyAssessment.frameworkId, framework.id),
-        ),
-      });
-      return assessment ?? null;
-    }),
 
   // Feeds the portal sidebar and the export page, so it is NIS 2 only. A
   // tenant's GDPR / AI Act / CRA assessment rows are kept, just not surfaced.

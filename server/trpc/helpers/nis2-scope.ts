@@ -64,6 +64,23 @@ export async function getNis2AssessmentIds(
 }
 
 /**
+ * A company's single NIS 2 assessment, or null. The shape three callers wanted
+ * after resolving the framework id by hand.
+ */
+export async function getNis2Assessment(db: Database, companyId: string) {
+  const frameworkId = await getNis2FrameworkId(db);
+  if (!frameworkId) return null;
+  return (
+    (await db.query.companyAssessment.findFirst({
+      where: and(
+        eq(companyAssessment.companyId, companyId),
+        eq(companyAssessment.frameworkId, frameworkId),
+      ),
+    })) ?? null
+  );
+}
+
+/**
  * Predicate restricting `company_requirement_status` rows to NIS 2 assessments
  * across EVERY tenant at once.
  *
