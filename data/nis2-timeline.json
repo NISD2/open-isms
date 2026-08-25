@@ -426,6 +426,13 @@
       "url": "https://digital.gov.pt",
       "description": "Portuguese government digital portal: official news on the Regime Juridico da Ciberseguranca and MyCiber",
       "language": "en"
+    },
+    {
+      "id": "bundestag",
+      "name": "Deutscher Bundestag",
+      "url": "https://www.bundestag.de",
+      "description": "German federal parliament: printed papers, written questions and government answers.",
+      "language": "de"
     }
   ],
   "events": [
@@ -2652,10 +2659,10 @@
         "registration"
       ],
       "type": "update",
-      "title": "BSIG amended: critical components redefined, BSI added to the cyberthreat notification duty",
-      "titleDe": "BSIG geaendert: kritische Komponenten neu definiert, BSI in die Meldepflicht bei Cyberbedrohungen aufgenommen",
-      "summary": "Article 9 of the law of 21 July 2026 (BGBl. 2026 I Nr. 221, published 28 July) amends the BSIG with effect from 29 July 2026, the day after publication. Section 2 no. 23 now defines critical components as ICT products designated as such by statutory instrument under section 56(6), and section 35(2) extends the significant cyberthreat duty so that entities in finance, social security and basic jobseeker support, digital infrastructure, ICT service management and digital services inform the BSI as well as the affected recipients of their services about remedial measures. The rewritten section 33(5), which runs the two week deadline for updating registration data from the point the entity learns of the change, does not apply yet: the new section 66 defers it, and section 33(2), until the statutory instrument under sections 4(3) and 5(1) of the KRITIS-Dachgesetz enters into force.",
-      "summaryDe": "Artikel 9 des Gesetzes vom 21. Juli 2026 (BGBl. 2026 I Nr. 221, verkuendet am 28. Juli) aendert das BSIG mit Wirkung zum 29. Juli 2026, dem Tag nach der Verkuendung. § 2 Nummer 23 definiert kritische Komponenten nun als IKT-Produkte, die durch Rechtsverordnung nach § 56 Absatz 6 als solche bestimmt werden, und § 35 Absatz 2 erweitert die Pflicht bei erheblichen Cyberbedrohungen: Einrichtungen aus Finanzwesen, Sozialversicherung und Grundsicherung fuer Arbeitsuchende, digitaler Infrastruktur, Verwaltung von IKT-Diensten und digitalen Diensten informieren kuenftig auch das Bundesamt, nicht nur die betroffenen Empfaenger ihrer Dienste. Der neu gefasste § 33 Absatz 5, nach dem die Zweiwochenfrist fuer Aenderungen der Registrierungsdaten ab Kenntnis der Einrichtung laeuft, gilt noch nicht: Der neue § 66 schiebt ihn und § 33 Absatz 2 auf, bis die Rechtsverordnung nach § 4 Absatz 3 und § 5 Absatz 1 des KRITIS-Dachgesetzes in Kraft getreten ist.",
+      "title": "BSIG amended: critical component definition repointed, cyberthreat notification duty reworded",
+      "titleDe": "BSIG geaendert: Definition kritischer Komponenten neu verwiesen, Unterrichtungspflicht bei Cyberbedrohungen neu gefasst",
+      "summary": "Article 9 of the law of 21 July 2026 (BGBl. 2026 I Nr. 221, published 28 July) amends the BSIG with effect from 29 July 2026, the day after publication. The changes are technical rather than new duties: section 2 no. 23 now points at section 56(6) instead of section 56(7) and (8) for the statutory instrument that designates critical components, and section 35(2) replaces the cross reference to section 35(1) sentence 1 with an explicit reference to essential and important entities, leaving the sector list and the existing duty to inform both affected recipients and the BSI unchanged. Section 33(5) drops the annual reporting track for supply figures and critical component types so that every change to registration data runs on the two week deadline, but it does not apply yet: the new section 66 defers it, and section 33(2), until the statutory instrument under sections 4(3) and 5(1) of the KRITIS-Dachgesetz enters into force.",
+      "summaryDe": "Artikel 9 des Gesetzes vom 21. Juli 2026 (BGBl. 2026 I Nr. 221, verkuendet am 28. Juli) aendert das BSIG mit Wirkung vom 29. Juli 2026, dem Tag nach der Verkuendung. Die Aenderungen sind technischer Natur und begruenden keine neuen Pflichten: § 2 Nummer 23 verweist fuer die Rechtsverordnung zur Bestimmung kritischer Komponenten nun auf § 56 Absatz 6 statt auf § 56 Absatz 7 und 8, und § 35 Absatz 2 ersetzt den Querverweis auf § 35 Absatz 1 Satz 1 durch die ausdrueckliche Nennung besonders wichtiger und wichtiger Einrichtungen, waehrend Sektorliste und die bereits bestehende Pflicht zur Unterrichtung sowohl der betroffenen Empfaenger als auch des Bundesamtes unveraendert bleiben. § 33 Absatz 5 streicht die jaehrliche Meldespur fuer Versorgungskennzahlen und Typen kritischer Komponenten, sodass jede Aenderung der Registrierungsdaten der Zweiwochenfrist unterliegt, gilt aber noch nicht: Der neue § 66 verschiebt ihn ebenso wie § 33 Absatz 2 bis zum Inkrafttreten der Rechtsverordnung nach § 4 Absatz 3 und § 5 Absatz 1 des KRITIS-Dachgesetzes.",
       "sourceId": "recht-bund",
       "sourceUrl": "https://www.recht.bund.de/bgbl/1/2026/221/VO.html",
       "addedAt": "2026-08-05T14:10:00Z"
@@ -2978,7 +2985,44 @@
       "sourceId": "bsi",
       "sourceUrl": "https://www.bsi.bund.de/DE/Themen/Regulierte-Wirtschaft/NIS-2-regulierte-Unternehmen/NIS-2-in-Zahlen/nis-2-in-zahlen.html",
       "addedAt": "2026-08-18T09:10:00Z"
+    },
+    {
+      "id": "2025-12-23-national-transposition-at-nisg-2026-published",
+      "date": "2025-12-23",
+      "category": "national-transposition",
+      "tags": [
+        "at",
+        "transposition",
+        "legislation",
+        "registration"
+      ],
+      "type": "update",
+      "title": "Austria: NISG 2026 published in the Federal Law Gazette, entering into force 1 October 2026",
+      "titleDe": "Oesterreich: NISG 2026 im Bundesgesetzblatt kundgemacht, Inkrafttreten am 1. Oktober 2026",
+      "summary": "Austria promulgated the Netz- und Informationssystemsicherheitsgesetz 2026 (NISG 2026) as BGBl. I Nr. 94/2025 on 23 December 2025, transposing NIS 2 and amending the Telekommunikationsgesetz 2021 and the Gesundheitstelematikgesetz 2012. Under section 51 the substantive provisions enter into force on the first day of the month following nine months after promulgation, that is 1 October 2026, repealing the 2018 NISG, and section 29(3) requires entities to register with the cybersecurity authority within three months of entry into force.",
+      "summaryDe": "Oesterreich hat das Netz- und Informationssystemsicherheitsgesetz 2026 (NISG 2026) am 23. Dezember 2025 als BGBl. I Nr. 94/2025 kundgemacht. Es setzt NIS 2 um und aendert das Telekommunikationsgesetz 2021 sowie das Gesundheitstelematikgesetz 2012. Nach § 51 treten die materiellen Bestimmungen neun Monate nach der Kundmachung mit dem naechstfolgenden Monatsersten in Kraft, also am 1. Oktober 2026, womit das NISG 2018 ausser Kraft tritt; nach § 29 Abs. 3 haben sich Einrichtungen innerhalb von drei Monaten ab Inkrafttreten bei der Cybersicherheitsbehoerde zu registrieren.",
+      "sourceId": "ris-bka",
+      "sourceUrl": "https://www.ris.bka.gv.at/eli/bgbl/I/2025/94/20251223",
+      "addedAt": "2026-08-25T10:20:00Z"
+    },
+    {
+      "id": "2026-08-14-de-bundestag-registration-figures-and-estimate",
+      "date": "2026-08-14",
+      "category": "de",
+      "tags": [
+        "registration",
+        "enforcement",
+        "deadline"
+      ],
+      "type": "update",
+      "title": "Federal government reports 19,058 NIS-2 registrations and says the 29,500 figure is an estimate, not a count of entities in scope",
+      "titleDe": "Bundesregierung meldet 19.058 NIS-2-Registrierungen und stellt klar, dass 29.500 eine Schaetzung und keine Zahl betroffener Einrichtungen ist",
+      "summary": "In written answers of 10 and 14 August 2026, published as Bundestag printed paper 21/7573, the federal government reports 19,058 registrations with the BSI by the extended deadline of 31 July 2026, broken down into 12,354 important entities, 6,487 essential entities and 1,378 KRITIS operators inside the essential group. These are the first Tier 1 figures for that deadline and are higher than the 18,845 reported through the press, because the government count includes cross-border branch registrations. It further states that the roughly 29,500 figure underlying the NIS2UmsuCG is an ex ante compliance cost estimate by Destatis from which the actual number of entities in scope cannot be inferred, and that the BSI will open administrative fine proceedings under section 65(2) no. 6 BSIG once it becomes aware of a specific unregistered entity, noting that registrable entities are generally not known to it by name.",
+      "summaryDe": "In schriftlichen Antworten vom 10. und 14. August 2026, veroeffentlicht als Bundestagsdrucksache 21/7573, berichtet die Bundesregierung von 19.058 Registrierungen beim BSI bis zur verlaengerten Frist am 31. Juli 2026, aufgegliedert in 12.354 wichtige Einrichtungen, 6.487 besonders wichtige Einrichtungen und 1.378 KRITIS-Einrichtungen innerhalb der besonders wichtigen Einrichtungen. Es sind die ersten amtlichen Zahlen zu diesem Stichtag; sie liegen ueber den ueber die Presse berichteten 18.845, weil die Regierungszahl auch registrierte Nebenniederlassungen umfasst. Die Zahl von rund 29.500 aus dem NIS2UmsuCG sei zudem eine Ex-ante-Schaetzung des Erfuellungsaufwands durch Destatis, aus der nicht auf die tatsaechliche Anzahl betroffener Unternehmen geschlossen werden koenne; das BSI werde nach § 65 Absatz 2 Nummer 6 BSIG ein Ordnungswidrigkeitsverfahren einleiten, sobald es Kenntnis von einer konkreten nicht registrierten Einrichtung erlange, kenne registrierungspflichtige Einrichtungen aber in der Regel namentlich nicht.",
+      "sourceId": "bundestag",
+      "sourceUrl": "https://dserver.bundestag.de/btd/21/075/2107573.pdf",
+      "addedAt": "2026-08-25T10:20:00Z"
     }
   ],
-  "lastUpdated": "2026-08-18T09:10:00Z"
+  "lastUpdated": "2026-08-25T11:05:00Z"
 }
