@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-17T14:05:00Z",
+  "lastUpdated": "2026-08-25T12:15:00Z",
   "events": [
     {
       "id": "2026-07-24-nl-sdv-nis2-actie-webinars",
@@ -18,60 +18,6 @@
       "cost": "free",
       "language": "nl",
       "notes": "Three identical 30-min sessions: 24.07 09:00, 13.08 14:30, 26.08 10:00. Timed around Cbw entry into force 15.08.2026."
-    },
-    {
-      "id": "2026-08-19-de-digitalsichernrw-nis2-kmu",
-      "title": "Cybersicherheit und NIS-2: Was KMU jetzt wissen müssen",
-      "topics": [
-        "NIS2"
-      ],
-      "startDate": "2026-08-19",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "DE",
-      "organizer": "DIGITAL.SICHER.NRW, NIS-2-Anlaufstelle NRW, Wirtschaftsförderung Kreis Düren",
-      "infoUrl": "https://www.digital-sicher.nrw/veranstaltungen/veranstaltungsdetails/cybersicherheit-und-nis-2-was-kmu-jetzt-wissen-muessen",
-      "signupUrl": "https://beteiligung.nrw.de/portal/dueren/beteiligung/themen/1029719",
-      "cost": "free",
-      "language": "de",
-      "notes": "Kostenlos laut Veranstaltungsseite. State competence centre with the regional Wirtschaftsfoerderung. NIS-2 named in title and body."
-    },
-    {
-      "id": "2026-08-19-de-nis2-kompakt-frankfurt",
-      "title": "NIS2 kompakt: Cyber-Sicherheit als Führungsaufgabe",
-      "topics": [
-        "NIS2"
-      ],
-      "startDate": "2026-08-19",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "DE",
-      "organizer": "IHK Frankfurt am Main (IHK Hessen innovativ GbR)",
-      "infoUrl": "https://www.ihk-hessen-innovativ.de/lehrgaenge-events/nis2-kompakt",
-      "signupUrl": "https://www.ihk-hessen-innovativ.de/lehrgaenge-events/nis2-kompakt/anmelden",
-      "cost": "free",
-      "language": "de",
-      "notes": "10:00-11:00, online. Registration deadline 18.08.2026. Chamber hosted, kostenfrei stated on the page. Contact listed: Frank Irmscher."
-    },
-    {
-      "id": "2026-08-20-de-hmbbfdi-internationaler-datentransfer",
-      "title": "Von Hamburg in die Welt: Was Sie über den internationalen Datentransfer wissen sollten",
-      "topics": [
-        "GDPR"
-      ],
-      "startDate": "2026-08-20",
-      "endDate": null,
-      "format": "online",
-      "city": "",
-      "country": "DE",
-      "organizer": "Der Hamburgische Beauftragte für Datenschutz und Informationsfreiheit (HmbBfDI)",
-      "infoUrl": "https://www.datenschutz-hamburg.de/veranstaltungen",
-      "signupUrl": "https://bbb.hmbbfdi.de/rooms/v2h-sup-6wu-woy/join",
-      "cost": "free",
-      "language": "de",
-      "notes": "Monatliche Datenschutzsprechstunde des HmbBfDI, 12:00 bis 13:00, öffentlich, keine Anmeldung nötig. Drittlandtransfer nach Kapitel V DSGVO. Kostenfrei laut Behördenseite. Reihe laeuft monatlich, lohnt sich als Daueranlaufstelle."
     },
     {
       "id": "2026-08-25-de-cra-umsetzungswebinar-dihk",
@@ -164,6 +110,24 @@
       "notes": "14.00 tot 15.00 over de CRA meldplicht die op 11 september 2026 ingaat. Aanmelden tot 25 augustus 2026. Let op: EZK en NCSC hebben geen eigen eventpagina gepubliceerd, alle gegevens komen uit de aankondiging van brancheorganisatie NLdigital. De titel is beschrijvend, er is geen officiele titel gepubliceerd."
     },
     {
+      "id": "2026-09-01-de-bitmi-fragestunde-nis2",
+      "title": "Fragestunde ISO 27001 & NIS2",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-01",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Bundesverband IT-Mittelstand e.V. (BITMi)",
+      "infoUrl": "https://bitmi.de/events/fragestunde-iso-27001-nis2/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Offene Fragestunde im Format IT-Security Tuesday, 09:00 bis 10:00 Uhr via Zoom, laut Seite offen fuer alle und mit 0,00 Euro ausgewiesen. Anmeldung ueber das Buchungsformular auf der Seite. Wiederkehrendes Format, dies ist die naechste Ausgabe."
+    },
+    {
       "id": "2026-09-01-de-blnbdi-starthilfe-dsgvo",
       "title": "Starthilfe Datenschutz: Rechtsgrundlagen des Datenschutzes - Basisüberblick DSGVO",
       "topics": [
@@ -180,6 +144,24 @@
       "cost": "free",
       "language": "de",
       "notes": "State data-protection authority, free. Part of the recurring BlnBDI Starthilfe Datenschutz series (further blocks through Nov 2026)."
+    },
+    {
+      "id": "2026-09-02-de-hmbbfdi-datenschutzsprechstunde-sep",
+      "title": "Datenschutzsprechstunde im September",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-02",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Der Hamburgische Beauftragte fuer Datenschutz und Informationsfreiheit (HmbBfDI)",
+      "infoUrl": "https://www.datenschutz-hamburg.de/veranstaltungen",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Monatliche Sprechstunde der Aufsichtsbehoerde, offen fuer alle, Anmeldung per E-Mail mit dem Anliegen. Kostenfrei als Behoerdenformat. Reihe laeuft monatlich weiter (15.10., 04.11.), dazu am 22.10. ein Themenwebinar zu Videoueberwachung auf derselben Seite; nur der naechste Termin wird gefuehrt."
     },
     {
       "id": "2026-09-02-de-ihk-erfurt-it-security-day",
@@ -216,6 +198,42 @@
       "cost": "free",
       "language": "en",
       "notes": "11:00 to 12:00 CEST on MS Teams. SME session on vulnerability response, SBOMs, threat modelling and customer communication under the CRA. ECCC page states free."
+    },
+    {
+      "id": "2026-09-03-at-nis-initiative-steyr",
+      "title": "NIS Initiative in Steyr: Cyber-Resilienz in der Praxis",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-03",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Steyr",
+      "country": "AT",
+      "organizer": "NIS Initiative (FH OOe Campus Steyr/Logistikum, Magistrat Steyr, Konsortialpartner)",
+      "infoUrl": "https://www.meinbezirk.at/event/steyr-steyr-land/c-workshop-seminar-infoveranstaltung/nis-initiative-in-steyr-cyber-resilienz-in-der-praxis_e3957201",
+      "signupUrl": "https://nis-initiative.at/#register",
+      "cost": "free",
+      "language": "de",
+      "notes": "15:30 bis 19:30 im DigiSpace, FH OOe Campus Steyr. Kostenlos, begrenzte Plaetze. Zweite Ausgabe nach dem Auftakt im Juni, Programm zu NISG 2026 Pflichten, Registrierung, Risikopriorisierung, Lieferketten, Vorfallsvorbereitung. Offizielle Seite blockt automatisierten Abruf, Daten ueber meinbezirk Listing verifiziert. Traeger ist ein Konsortium aus FH und Stadt mit Unternehmenspartnern."
+    },
+    {
+      "id": "2026-09-03-de-chemnitzer-wirtschaftsschutzforum",
+      "title": "10. Chemnitzer Wirtschaftsschutzforum",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-03",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Chemnitz",
+      "country": "DE",
+      "organizer": "IHK Chemnitz",
+      "infoUrl": "https://transferstelle-cybersicherheit.de/veranstaltung/10-chemnitzer-wirtschaftsschutzforum/",
+      "signupUrl": "https://www.ihk.de/chemnitz/system/veranstaltungssuche/vstdetail-antrago/5347706/1245456?terminId=1245456",
+      "cost": "free",
+      "language": "de",
+      "notes": "13:00 bis 17:00 Uhr in der IHK Chemnitz, kostenlos laut Detailseite. Enthaelt den Vortrag NIS 2 in der Unternehmenspraxis: Vorgaben, Registrierungspflicht und Umsetzungstipps. Anmeldeseite auf ihk.de ist fuer Bots teilweise gesperrt, Link ungeprueft."
     },
     {
       "id": "2026-09-03-de-hk-hamburg-cra-einstieg",
@@ -290,6 +308,24 @@
       "notes": "11:00-12:00. Sixth session of the recurring NCSC/NCTV/RDI Cyberbeveiligingswet webinar series (sessions 1-5 ran Nov 2025-Jun 2026, now past); this one covers toezicht/supervision with NVWA and ILT. Source page is KNMP (pharmacists' association) relaying the government listing; registration link is NCSC's own formdesk page. Timed the week after the Cbw enters force (15.08.2026)."
     },
     {
+      "id": "2026-09-04-de-bihk-cra-betroffenheit",
+      "title": "BIHK-Webinarreihe Cyber Resilience Act: Wen betrifft er und was bedeutet er für die Unternehmen?",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-04",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Bayerische IHKs (BIHK Webinarreihe mit ibi research und Bayerischem Staatsministerium fuer Digitales)",
+      "infoUrl": "https://events.ihk-regensburg.de/b?p=crawebinarreihe-2026",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "11:00 bis 12:00 Uhr, kostenlos, Anmeldung ueber das gemeinsame Reihenformular. Nicht identisch mit dem Transferstelle Workshop CRA verstehen am selben Tag (10:00 bis 11:30), Ueberschneidung vor Registrierung pruefen."
+    },
+    {
       "id": "2026-09-04-de-ihk-ostbrandenburg-it-sicherheitstag-bb",
       "title": "15. IT-Sicherheitstag Mittelstand Berlin-Brandenburg 2026",
       "topics": [
@@ -327,6 +363,25 @@
       "notes": "Gov-funded. Online workshop 10:00-11:30."
     },
     {
+      "id": "2026-09-07-at-securityweek-graz-decrypting-cyber",
+      "title": "Decrypting Cyber Security @Securityweek TU Graz",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-09-07",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Graz",
+      "country": "AT",
+      "organizer": "Silicon Alps Cluster mit TU Graz und Joanneum Research",
+      "infoUrl": "https://www.silicon-alps.at/event/decrypting-cyber-security-september-2026/",
+      "signupUrl": "https://indico.tugraz.at/event/163/registrations/156/",
+      "cost": "free",
+      "language": "en",
+      "notes": "16:00 bis 18:00, Campus Alte Technik, Teil der Securityweek TU Graz. Vortragsabstract nennt NIS2, CRA, DSGVO, AI Act und Maschinenverordnung. Seite weist freien Eintritt aus, die Indico Anmeldung erwaehnt einen Mitgliederrabatt, vor Registrierung pruefen. Cluster ist landesgefoerdert."
+    },
+    {
       "id": "2026-09-08-de-blnbdi-starthilfe-themenblock-4",
       "title": "Starthilfe Datenschutz: Themenblock 4 - Datenschutzmanagement und technisch-organisatorische Maßnahmen",
       "topics": [
@@ -345,6 +400,24 @@
       "notes": "10:00 bis 15:30 in Präsenz. Schulungsreihe der Aufsichtsbehörde für Startups, Kleinunternehmen und Vereine. Kostenfrei, aber dieser Termin ist bereits ausgebucht, Anmeldung derzeit nicht möglich."
     },
     {
+      "id": "2026-09-08-de-ihk-schwaben-cra-schwachstellenmanagement",
+      "title": "IHK Spezial Webinar: Update Cyber Resilience Act: Ist Ihr Schwachstellenmanagement bereit für den CRA?",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "IHK Schwaben (BIHK Reihe IT-Sicherheit mit Projekt EASY.CRA)",
+      "infoUrl": "https://events.schwaben.ihk.de/b?p=ihkspezialwebinarupdate_cyberresilience",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Kostenlos laut Eventseite. Von zwei Sweeps unabhaengig gefunden. Eventseite nennt 14:00 bis 15:00 Uhr, die BIHK Reihenuebersicht 11:00 bis 12:00 Uhr, vor Registrierung pruefen. Aufhaenger sind die CRA Meldepflichten ab 11.09.2026."
+    },
+    {
       "id": "2026-09-08-de-tzn-niederrhein-forum-mittelstand",
       "title": "Forum Mittelstand: Cybersicherheit und Neues aus der NIS2-Gesetzgebung für KMU",
       "topics": [
@@ -361,6 +434,24 @@
       "cost": "free",
       "language": "de",
       "notes": "Beginn 18:00 Uhr, Rathaus Niederkruechten. Kostenfrei laut Veranstaltungsseite. Host is a municipal economic development agency."
+    },
+    {
+      "id": "2026-09-08-eu-digitalsme-cra-sme-route",
+      "title": "Charting the route to Cyber Resilience Act compliance for SMEs",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-08",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "EU",
+      "organizer": "European DIGITAL SME Alliance",
+      "infoUrl": "https://www.digitalsme.eu/events/charting-the-route-to-cyber-resilience-act-compliance-for-smes/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "en",
+      "notes": "Free webinar 15:00 to 16:30 CET, stated free on the event page. Covers CRA compliance pathways via the OCCTET and CRA-AI projects and the 11 September 2026 CRA reporting duty for actively exploited vulnerabilities. Register via the event page."
     },
     {
       "id": "2026-09-08-si-ursiv-training-series",
@@ -562,6 +653,24 @@
       "notes": "Start 10:00 im Urzad Marszalkowski Wojewodztwa Pomorskiego. Mit dem UODO Praesidenten und dem Expertenteam der Aufsichtsbehoerde. Anmeldung ueber ein eingebettetes Formular, keine Gebuehr auf der Seite ausgewiesen."
     },
     {
+      "id": "2026-09-16-de-bihk-cra-meldepflichten",
+      "title": "BIHK-Webinarreihe Cyber Resilience Act: Welche Meldepflichten haben betroffene Unternehmen?",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-16",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Bayerische IHKs (BIHK Webinarreihe mit ibi research und Bayerischem Staatsministerium fuer Digitales)",
+      "infoUrl": "https://events.ihk-regensburg.de/b?p=crawebinarreihe-2026",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "11:00 bis 12:00 Uhr, kostenlos, gleiches Reihenformular wie die Session am 04.09. Von zwei Sweeps unabhaengig gefunden. Behandelt die ab 11.09.2026 geltenden CRA Meldepflichten, letzter noch offener Teil der vierteiligen Reihe."
+    },
+    {
       "id": "2026-09-16-sk-kcckb-kyber-2026",
       "title": "Konferencia Kyber 2026 jeseň",
       "topics": [
@@ -615,6 +724,24 @@
       "cost": "free",
       "language": "fr",
       "notes": "9h bis 10h per Video. Laut Seite kostenfrei und offen fuer alle Collectivites und oeffentlichen Stellen, nicht auf Mitglieder beschraenkt. Nennt sowohl die Richtlinie NIS 2 als auch das Projet de loi Resilience. Traeger ist der nationale Verband der Collectivites und Intercommunalites."
+    },
+    {
+      "id": "2026-09-17-nl-ncsc-csirt-dag-gemeenten",
+      "title": "NCSC CSIRT-dag gemeenten",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-17",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Nieuwegein",
+      "country": "NL",
+      "organizer": "NCSC-NL",
+      "infoUrl": "https://www.informatiebeveiligingsdienst.nl/agenda/ncsc-csirt-dag-gemeenten/",
+      "signupUrl": "https://ncsc-csirt-dag.xnlevents.nl/page/2325814",
+      "cost": "free",
+      "language": "nl",
+      "notes": "10:00 tot 15:30, NBC Congrescentrum. Kosten niet vermeld, als gratis aangenomen bij een NCSC overheidsformat, bij aanmelding verifieren. Doelgroep beperkt tot gemeente- en provinciemedewerkers. Beschrijving noemt de Cbw expliciet: registratieplicht, meldplicht en zorgplicht na 15.08.2026."
     },
     {
       "id": "2026-09-17-pl-nist-ksc-nis2-jst",
@@ -744,6 +871,25 @@
       "notes": "Chamber of commerce (public body), one of 4 free open webinars. NIS2/AI Act session."
     },
     {
+      "id": "2026-09-24-de-teletrust-it-sicherheitsrechtstag",
+      "title": "11. IT-Sicherheitsrechtstag",
+      "topics": [
+        "NIS2",
+        "CRA"
+      ],
+      "startDate": "2026-09-24",
+      "endDate": null,
+      "format": "hybrid",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "TeleTrusT Bundesverband IT-Sicherheit e.V.",
+      "infoUrl": "https://www.it-sicherheitsrechtstag.de/",
+      "signupUrl": "https://www.teletrust.de/veranstaltungen/it-sicherheitsrecht-und-dsgvo/it-sicherheitsrechtstag-2026/",
+      "cost": "free",
+      "language": "de",
+      "notes": "Praesenz in Berlin-Mitte plus online. Agenda nennt Geschaeftsleitungsschulungen nach NIS-2 und BSIG sowie CRA im Produktlebenszyklus. Kosten als frei angenommen, da gemeinnuetziger Verband und keine Gebuehr auf der Seite; Anmeldung laeuft ueber ein PDF Formular, Gebuehr vor Registrierung unbedingt pruefen."
+    },
+    {
       "id": "2026-09-24-nl-fg-cafe-2026",
       "title": "FG-café 2026",
       "topics": [
@@ -760,6 +906,24 @@
       "cost": "free",
       "language": "nl",
       "notes": "Authority host (Autoriteit Persoonsgegevens, the Dutch data protection authority) with CIP, assumed free. 24 Sep 2026 13:00 to 16:45, Jaarbeurs Meetup Utrecht. For data protection officers (FG, the GDPR role) in the public sector. Registration by email."
+    },
+    {
+      "id": "2026-09-25-fr-cnil-dpo-webinar",
+      "title": "[Webinaire] Le métier de DPO à l'heure de l'intelligence artificielle : les résultats de l'enquête",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-25",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "FR",
+      "organizer": "CNIL",
+      "infoUrl": "https://www.cnil.fr/fr/evenement/webinaire-le-metier-de-dpo-lheure-de-lintelligence-artificielle-les-resultats-de-lenquete",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "fr",
+      "notes": "25.09 um 11:00, kostenfreies CNIL Webinar. Titel nennt den DPO, die Rolle nach Artikel 37 DSGVO; die CNIL stellt ihre Umfrage zu DPOs und KI vor. RGPD nicht woertlich im Titel. Anmeldung Stand 25.08 noch nicht offen (Inscriptions a venir), Link erscheint auf der Eventseite."
     },
     {
       "id": "2026-09-29-at-dih-sued-nis2-ai-act",
@@ -818,6 +982,24 @@
       "notes": "10:00-16:00, Handelskammer Hamburg. ACS flagship day for companies and decision-makers; hybrid threats, corporate cybersecurity, AI. NIS-2 not yet named in the published agenda; added from ACS newsletter 16/2026 as authority-hosted decision-maker event. Cost inferred free (ACS/chamber host)."
     },
     {
+      "id": "2026-09-29-de-blnbdi-datenschutzmanagement-verwaltung",
+      "title": "Datenschutzmanagement in der Verwaltung",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-09-29",
+      "endDate": "2026-09-30",
+      "format": "in-person",
+      "city": "Berlin",
+      "country": "DE",
+      "organizer": "Berliner Beauftragte fuer Datenschutz und Informationsfreiheit (BlnBDI)",
+      "infoUrl": "https://www.datenschutz-berlin.de/service/veranstaltungen/datenschutzmanagement-in-der-verwaltung/",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "Neues BlnBDI Format neben den Starthilfe Bloecken. Zweitaegige Methodenschulung zum Standard Datenschutzmodell in Digitalisierungsprojekten der oeffentlichen Hand, laut Seite kostenfrei. Richtet sich an externe Dienstleister und Beschaeftigte in Digitalisierungsvorhaben, Anmeldung per E-Mail an die BlnBDI. Eine Parallelsession am 16./17.09. ist verwaltungsintern und wird nicht gefuehrt."
+    },
+    {
       "id": "2026-09-29-de-nagold-cra-transformations-lounge",
       "title": "Transformations-Lounge: Der Cyber Resilience Act: Fluch oder Segen für produktentwickelnde Unternehmen?",
       "topics": [
@@ -834,6 +1016,24 @@
       "cost": "free",
       "language": "de",
       "notes": "17:30 bis 20:00 im IHK-Bildungszentrum Nagold. Teilnahme laut Seite kostenfrei. Referentin ist Abteilungsleiterin Cybersecurity and Law am FZI Karlsruhe."
+    },
+    {
+      "id": "2026-09-29-de-technologieforum-industrial-security-cra",
+      "title": "Technologieforum Industrial Security – CRA: Neue Meldepflichten & Praxisberichte",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-09-29",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Nürnberg",
+      "country": "DE",
+      "organizer": "Strategische Partnerschaft Sensorik e.V. mit TeleTrusT und Projekt EASY.CRA",
+      "infoUrl": "https://eveeno.com/technologieforum-cra-sep-2026",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "13:00 bis 17:00 Uhr im Fraunhofer IIS, Nordostpark 84. Teilnahme kostenfrei laut Anmeldeseite, Anmeldeschluss 22.09.2026. Fokus auf die ab 11.09.2026 geltenden CRA Meldepflichten."
     },
     {
       "id": "2026-09-29-fr-cnil-rencontres-informatique-libertes",
@@ -890,6 +1090,24 @@
       "notes": "Only the Day-2 livestream is free (verified on tickets page); Day 1 onsite is paid. International English day; counts toward DPO training."
     },
     {
+      "id": "2026-09-30-de-nis2-praxis-digibasics-paritaetischer",
+      "title": "NIS-2 in der Praxis",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-09-30",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Deutscher Paritaetischer Wohlfahrtsverband Gesamtverband e.V. mit KMU.kompetent.sicher.",
+      "infoUrl": "https://kmu-kompetent-sicher.de/events/nis-2-in-der-praxis-digi-basics-des-deutscher-paritaetischer-wohlfahrtsverband-gesamtverband-e-v",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "de",
+      "notes": "DigiBasics Onlineworkshop 10:00 bis 12:00, kostenfrei, BMWK gefoerdertes Projekt. Nicht identisch mit dem WFL Lippstadt Abendtermin am selben Tag. Anmeldelink noch nicht publiziert, Seite sagt weitere Informationen folgen, naeher am Termin nachsehen."
+    },
+    {
       "id": "2026-09-30-de-wfl-lippstadt-nis2-praxis",
       "title": "NIS-2 in der Praxis: Grundlagen und Risikomanagement für KMU",
       "topics": [
@@ -898,14 +1116,14 @@
       "startDate": "2026-09-30",
       "endDate": null,
       "format": "in-person",
-      "city": "",
+      "city": "Lippstadt",
       "country": "DE",
       "organizer": "WFL Wirtschaftsförderung Lippstadt (Verbund kmu.kompetent.sicher)",
       "infoUrl": "https://kmu-kompetent-sicher.de/events/nis-2-in-der-praxis-grundlagen-und-risikomanagement-fuer-kmu",
       "signupUrl": null,
       "cost": "free",
       "language": "de",
-      "notes": "Kostenfrei ausgewiesen, oeffentlich gefoerdertes Projekt KMU.kompetent.sicher. 18:00 bis 20:00 in Praesenz. Der Veranstaltungsort ist noch nicht publiziert, Anmeldung per E-Mail bei der Wirtschaftsfoerderung Lippstadt bis 21.09.2026. Ort vor der Veroeffentlichung nachfassen."
+      "notes": "Kostenfrei ausgewiesen, oeffentlich gefoerdertes Projekt KMU.kompetent.sicher. 18:00 bis 20:00. Recheck aufgeloest: Veranstaltungsort jetzt publiziert, CARTEC bei der Wirtschaftsfoerderung Lippstadt GmbH, Erwitter Strasse 105, 59557 Lippstadt. Anmeldung per E-Mail bei der WFL bis 21.09.2026."
     },
     {
       "id": "2026-09-30-hu-mkik-ot-nis2",
@@ -1255,6 +1473,42 @@
       "notes": "National CERT (with Latvian MoD / NCSC). NIS2 and EU policy featured. Free inferred from prior editions; verify once 2026 registration opens."
     },
     {
+      "id": "2026-10-14-de-cra-medical-devices-bayern-innovativ",
+      "title": "Regulatorik trifft Realität: Cybersecurity für Connected Medical Devices",
+      "topics": [
+        "CRA"
+      ],
+      "startDate": "2026-10-14",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "DE",
+      "organizer": "Bayern Innovativ mit Medical Valley EMN e.V.",
+      "infoUrl": "https://www.bayern-innovativ.de/events-termine/sicherheit/detail/regulatorik-trifft-realitaet-cybersecurity-fuer-connected-medical-devices/",
+      "signupUrl": "https://www.medical-valley-emn.de/veranstaltungen/webinar-regulatorik-trifft-realitaet-cybersecurity-fuer-connected-medical-devices/",
+      "cost": "free",
+      "language": "de",
+      "notes": "Webinar 15:00 bis 16:00 zur CRA Readiness vernetzter Medizinprodukte, Beschreibung nennt den CRA ausdruecklich. Traeger sind die Landesinnovationsagentur und ein Verein, ein Unternehmenspartner steuert einen Vortrag bei. Teilnehmende erhalten eine Selbstbewertungscheckliste."
+    },
+    {
+      "id": "2026-10-14-it-privacy-day-forum",
+      "title": "Privacy Day Forum 2026",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-10-14",
+      "endDate": null,
+      "format": "in-person",
+      "city": "Arezzo",
+      "country": "IT",
+      "organizer": "Federprivacy",
+      "infoUrl": "https://www.secsolution.com/notizia.asp?id=21208&c=2",
+      "signupUrl": "https://www.federprivacy.org/attivita/agenda/privacy-day-forum-2026",
+      "cost": "free",
+      "language": "it",
+      "notes": "Zwoelfte Ausgabe, 9:15 bis 17:00, Arezzo Fiere e Congressi. Praesenzteilnahme laut Veranstalter gratuita previa prenotazione online. Thema: von formaler GDPR Compliance zu substanziellem Datenschutz, inkl. KI Regeln. Bereits knapp 500 Anmeldungen im August gemeldet, frueh buchen. federprivacy.org blockt automatisierte Abrufe, Anmeldung dort."
+    },
+    {
       "id": "2026-10-15-de-cybersicherheitsmonat-cra-2",
       "title": "Cyber Resilience Act II: Was Unternehmen jetzt wissen müssen",
       "topics": [
@@ -1364,6 +1618,24 @@
       "notes": "NIS2 risk, BCP and supply chain assessment. Free chamber program."
     },
     {
+      "id": "2026-10-22-pl-nist-it-iodo-jst",
+      "title": "Zasady współpracy między działami IT i IODO w jednostce samorządu terytorialnego",
+      "topics": [
+        "GDPR"
+      ],
+      "startDate": "2026-10-22",
+      "endDate": null,
+      "format": "online",
+      "city": "",
+      "country": "PL",
+      "organizer": "Narodowy Instytut Samorządu Terytorialnego (NIST)",
+      "infoUrl": "https://www.nist.gov.pl/szkolenia/bezplatne-szkolenie-on-line-pn-zasady-wspolpracy-miedzy-dzialami-it-i-iodo-w-jednostce-samorzadu-terytorialnego-22-pazdziernika-2026-r,15049.html",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "pl",
+      "notes": "Bezplatne Webex Schulung 10:00 bis 12:00 fuer Kommunalverwaltung (JST) durch das staatliche Institut NIST. Behandelt die Zusammenarbeit von IT und IODO, der RODO Datenschutzbeauftragtenrolle; RODO nicht woertlich im Titel. Begrenzte Plaetze, Einzelanmeldung auf der Seite, Zertifikat binnen 2 Werktagen. Naechster Termin der monatlichen Reihe nach der erfassten KSC Session am 17.09."
+    },
+    {
       "id": "2026-10-28-hu-mkik-nis2-software-devs",
       "title": "NIS2 megfeleles szoftverfejlesztoknek: NIS2 vs PLD vs AI Act",
       "topics": [
@@ -1435,6 +1707,24 @@
       "cost": "free",
       "language": "fr",
       "notes": "10:00-12:00 and 13:00-16:00, Twist Building annex, Belval. Recurring CNPD introductory course (national DPA, public body); further FR date 07.12.2026. Explicitly aimed 'so that the GDPR can be properly understood and applied.' Free, no prerequisites, limited seats."
+    },
+    {
+      "id": "2026-11-04-eu-enisa-skills-conference",
+      "title": "European Cybersecurity Skills Conference 2026",
+      "topics": [
+        "NIS2"
+      ],
+      "startDate": "2026-11-04",
+      "endDate": "2026-11-05",
+      "format": "in-person",
+      "city": "Larnaca",
+      "country": "EU",
+      "organizer": "ENISA with Cyprus Digital Security Authority",
+      "infoUrl": "https://www.enisa.europa.eu/events/european-cybersecurity-skills-conference-2026",
+      "signupUrl": null,
+      "cost": "free",
+      "language": "en",
+      "notes": "Recheck resolved: NIS2 is now verifiably named on the event page via the ENISA guidance Cybersecurity roles and skills for NIS2 Essential and Important Entities. Theme is ECSF revision and skills attestation. Registration opens September 2026, agenda to follow. Cost inferred free as an ENISA agency conference, verify when registration opens."
     },
     {
       "id": "2026-11-05-de-innozent-owl-nis2-stand-der-technik",
