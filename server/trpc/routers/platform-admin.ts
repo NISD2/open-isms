@@ -163,14 +163,23 @@ export const platformAdminRouter = router({
         actsAsSupplier: company.actsAsSupplier,
         activatedAt: company.activatedAt,
         createdAt: company.createdAt,
-        userCount: sql<number>`(SELECT count(*)::int FROM "user" WHERE "user"."company_id" = ${company.id})`,
+        // "company"."id" is written out rather than interpolated as
+        // ${company.id}. Drizzle only qualifies a column with its table when
+        // the outer query has a join; this one selects from `company` alone,
+        // so the interpolation renders as a bare "id". Inside these correlated
+        // subqueries that bare name binds to the SUBQUERY's own table, which
+        // silently made both of these compare a row's id to its own foreign
+        // key (always false: userCount 0, compliancePct '0' for every row),
+        // and became an outright "column reference id is ambiguous" error the
+        // moment the compliance_framework join below put a second id in scope.
+        userCount: sql<number>`(SELECT count(*)::int FROM "user" u WHERE u.company_id = "company"."id")`,
         // NIS 2 only. LIMIT 1 with no ORDER BY and no framework predicate
         // returned an arbitrary framework's percentage for the Companies tab.
         compliancePct: sql<string>`COALESCE(
           (SELECT ca.compliance_percentage
              FROM company_assessment ca
              JOIN compliance_framework cf ON cf.id = ca.framework_id
-            WHERE ca.company_id = ${company.id} AND cf.code = 'nis2'
+            WHERE ca.company_id = "company"."id" AND cf.code = 'nis2'
             LIMIT 1),
           '0'
         )`,
