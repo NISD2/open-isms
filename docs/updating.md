@@ -28,6 +28,7 @@ you set when you need to roll back.
 
 ```bash
 # 1. Take a backup. Migrations are forward-only; there is no undo.
+#    Setup and restore: docs/backup.md
 docker compose exec backup backup    # if you run the backup profile
 # 2. Update.
 docker compose pull

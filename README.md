@@ -73,7 +73,8 @@ you follow releases or pin one.
 
 Full walkthrough, the environment variables, and which third-party services
 you can do without: **[docs/self-hosting.md](./docs/self-hosting.md)**.
-Updating, rollback, and backups: **[docs/updating.md](./docs/updating.md)**.
+Updating and rollback: **[docs/updating.md](./docs/updating.md)**.
+Backup and restore: **[docs/backup.md](./docs/backup.md)**.
 
 For the minimal workspace demo instead of the full platform:
 

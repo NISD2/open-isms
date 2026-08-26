@@ -45,9 +45,23 @@ docker compose up -d
 Expected: the image pulls in a minute or two, then the app logs `[migrate] all
 chains complete` followed by `✓ Ready`. Open http://localhost:3026.
 
+Verify the instance is actually healthy, not just serving:
+
+```bash
+curl -s http://localhost:3026/api/health
+# {"status":"ok","version":"1.4.2","checks":{"database":"ok"}}
+```
+
 `OPEN_ISMS_VERSION` decides what you run: `stable` follows releases, an exact
 version pins you there. Updating, rolling back, and what happens when a
-migration fails are all in **[updating.md](./updating.md)**.
+migration fails are all in **[updating.md](./updating.md)**. Backups and the
+restore procedure are in **[backup.md](./backup.md)**.
+
+One caveat to the "no clone" claim, and it is the next thing being fixed: the
+framework data is seeded by a script that is not yet inside the image, so
+that single step still needs a checkout and `bun`. See
+[Load the framework data](#load-the-framework-data). Everything after it,
+including every update, is image-only.
 
 ### Building from source instead
 
@@ -64,12 +78,6 @@ docker compose --profile minio up --build
 
 Drop `--profile minio` if you would rather use real S3, and fill in the `AWS_*` values instead. See [Storage for evidence uploads](#storage-for-evidence-uploads).
 
-Verify the instance is actually healthy, not just serving:
-
-```bash
-curl -s http://localhost:3026/api/health
-# {"status":"ok","timestamp":"...","checks":{"database":"ok"}}
-```
 
 ## Load the framework data
 
@@ -211,7 +219,7 @@ Migrations run automatically at container start, before the server binds, and ea
 
 Back up before every update. The project is forward-only and has no downgrade migrations.
 
-Two things to back up if you run the bundled MinIO, not one: the Postgres database and the `minio-data` volume. Evidence files live only in the object store, and a database restored without them points at documents that no longer exist. That is a real audit problem, so treat them as one backup unit. The `backup` profile in the published compose file does both together on a schedule.
+Two things to back up if you run the bundled MinIO, not one: the Postgres database and the `minio-data` volume. Evidence files live only in the object store, and a database restored without them points at documents that no longer exist. That is a real audit problem, so treat them as one backup unit. The `backup` profile does both in a single encrypted archive on a schedule; setup and the restore procedure are in **[backup.md](./backup.md)**.
 
 ## Troubleshooting
 

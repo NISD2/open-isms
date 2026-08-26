@@ -26,13 +26,20 @@
 #   --profile minio     bundled object store, if you are not using real S3
 #   --profile proxy     Caddy on 443 with automatic HTTPS
 #   --profile updater   in-app update button (see docs/updating.md)
-#   --profile backup    scheduled offsite backups (see docs/self-hosting.md)
+#   --profile backup    scheduled offsite backups (see docs/backup.md)
 #
 # Combine them:
 #   docker compose --profile minio --profile proxy --profile backup up -d
 #
 # Or set them once in .env and just run `docker compose up -d`:
 #   COMPOSE_PROFILES=minio,proxy,backup
+# ---------------------------------------------------------------------------
+# A note on required values: only POSTGRES_PASSWORD and AUTH_SECRET are
+# enforced by this file. Everything a profile needs is left optional, because
+# compose interpolates every service in the file whether or not its profile is
+# active — marking the updater's token mandatory would demand it from people
+# who never turn the updater on. What each profile needs is listed in .env,
+# and a profile with a missing value fails when you start it, not before.
 # ---------------------------------------------------------------------------
 
 services:
@@ -60,9 +67,11 @@ services:
       # Read by the backup profile: dump the database to a file inside the
       # shared volume before the archive is taken, so the backup holds a
       # consistent logical dump rather than a half-written data directory.
-      docker-volume-backup.exec-pre: >-
+      # A logical dump also restores into a newer Postgres major version,
+      # which a copy of the data directory cannot.
+      docker-volume-backup.archive-pre: >-
         /bin/sh -c 'pg_dump -U ${POSTGRES_USER:-openisms} -d ${POSTGRES_DB:-openisms} --clean --if-exists -f /dump/database.sql'
-      docker-volume-backup.exec-post: "/bin/sh -c 'rm -f /dump/database.sql'"
+      docker-volume-backup.archive-post: "/bin/sh -c 'rm -f /dump/database.sql'"
 
   app:
     # Pinned by tag. `stable` tracks the current release; set OPEN_ISMS_VERSION
@@ -126,11 +135,11 @@ services:
     restart: unless-stopped
     command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:?set AWS_ACCESS_KEY_ID in .env}
-      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY:?set AWS_SECRET_ACCESS_KEY in .env, at least 8 characters}
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:-}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY:-}
       # Evidence uploads always send x-amz-server-side-encryption AES256.
       # Without a KMS key every upload is rejected.
-      MINIO_KMS_SECRET_KEY: "openisms-key:${MINIO_KMS_KEY:?set MINIO_KMS_KEY in .env, openssl rand -base64 32}"
+      MINIO_KMS_SECRET_KEY: "openisms-key:${MINIO_KMS_KEY:-}"
     volumes:
       - minio-data:/data
     ports:
@@ -170,7 +179,7 @@ services:
       - caddy-data:/data
       - caddy-config:/config
     environment:
-      APP_DOMAIN: ${APP_DOMAIN:?set APP_DOMAIN in .env when using the proxy profile}
+      APP_DOMAIN: ${APP_DOMAIN:-}
       STORAGE_DOMAIN: ${STORAGE_DOMAIN:-}
 
   # --------------------------------------------------------------------- #
@@ -193,7 +202,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       WATCHTOWER_HTTP_API_ENDPOINTS: "update"
-      WATCHTOWER_HTTP_API_TOKEN: ${UPDATE_API_TOKEN:?set UPDATE_API_TOKEN in .env when using the updater profile, openssl rand -hex 32}
+      WATCHTOWER_HTTP_API_TOKEN: ${UPDATE_API_TOKEN:-}
       # Only containers labelled com.centurylinklabs.watchtower.enable=true,
       # i.e. the app and nothing else on this host.
       WATCHTOWER_LABEL_ENABLE: "true"
@@ -216,36 +225,48 @@ services:
   # have to be restored together — the database stores object keys and the
   # store holds the bytes, so either half alone restores nothing usable.
   backup:
-    image: offen/docker-volume-backup:v2
+    image: offen/docker-volume-backup:v2.48.2
     profiles: [backup]
     restart: unless-stopped
     environment:
       BACKUP_CRON_EXPRESSION: ${BACKUP_CRON:-0 3 * * *}
-      BACKUP_FILENAME: openisms-%Y-%m-%dT%H-%M-%S.tar.gz
+      # The extension is filled in by the tool, because turning encryption on
+      # changes it. Hardcoding .tar.gz produces files that are not what they
+      # claim to be.
+      BACKUP_FILENAME: openisms-%Y-%m-%dT%H-%M-%S.{{ .Extension }}
       BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-30}
       BACKUP_PRUNING_PREFIX: openisms-
-      # Where the archive goes. Any S3-compatible target, or set the SSH
-      # variables instead. Leaving all of them empty keeps archives on this
-      # machine only, which is not a backup — it dies with the server.
+      # Where the archive goes. Any S3-compatible target; the host goes in
+      # without a scheme, the scheme goes in the PROTO variable. Leaving the
+      # bucket empty keeps archives in the backup-archive volume on this
+      # machine only, which is a copy, not a backup: it dies with the server.
       AWS_S3_BUCKET_NAME: ${BACKUP_S3_BUCKET:-}
-      AWS_ENDPOINT: ${BACKUP_S3_ENDPOINT:-}
+      AWS_ENDPOINT: ${BACKUP_S3_ENDPOINT:-s3.amazonaws.com}
+      AWS_ENDPOINT_PROTO: ${BACKUP_S3_ENDPOINT_PROTO:-https}
       AWS_ACCESS_KEY_ID: ${BACKUP_S3_ACCESS_KEY:-}
       AWS_SECRET_ACCESS_KEY: ${BACKUP_S3_SECRET_KEY:-}
-      # Encrypts the archive before it leaves the machine. Compliance evidence
-      # should not sit unencrypted in someone else's object store.
+      # Encrypts the archive before it leaves the machine. Compliance
+      # evidence should not sit unencrypted in someone else's object store.
+      # Keep this passphrase somewhere other than this server: without it the
+      # archives cannot be read, including by you.
       GPG_PASSPHRASE: ${BACKUP_PASSPHRASE:-}
       NOTIFICATION_URLS: ${BACKUP_NOTIFICATION_URL:-}
       NOTIFICATION_LEVEL: error
     volumes:
       - database-dump:/backup/database:ro
       - minio-data:/backup/evidence:ro
-      # Needed to run the pre-backup dump command inside the postgres
-      # container. Read-only: this profile cannot start or stop anything.
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - backup-archive:/archive
+      # Needed to run the pre-backup dump inside the postgres container.
+      # Mounting a socket :ro does NOT make the Docker API read-only — this
+      # container can do anything the daemon can. It is in the stack because
+      # a backup nobody takes is worse; drop the profile if that trade is
+      # wrong for you and run pg_dump from outside instead.
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   postgres-data:
   database-dump:
   minio-data:
+  backup-archive:
   caddy-data:
   caddy-config:

@@ -339,3 +339,102 @@ jobs:
           echo "::error::The previous release could not serve against the new schema. See docs/migration-policy.md — a release must not break the one before it."
           docker logs rollback
           exit 1
+
+  # A backup nobody has restored is a belief, not a control — and this product
+  # sells backup management as a NIS 2 measure, so the bar is higher here than
+  # "the job ran without error". Writes a row and an object, takes a backup,
+  # destroys every volume, restores, and asserts both halves came back.
+  #
+  # Needs no application image: the archive is Postgres plus the object store.
+  backup-drill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      COMPOSE_FILE: compose.self-host.yml
+      PASSPHRASE: drill-passphrase-not-a-real-one
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Configure
+        run: |
+          cp .env.self-host.example .env
+          set_env() {
+            if grep -q "^$1=" .env; then sed -i "s|^$1=.*|$1=$2|" .env; else echo "$1=$2" >> .env; fi
+          }
+          set_env COMPOSE_PROFILES minio,backup
+          set_env POSTGRES_PASSWORD drill-password
+          set_env AUTH_SECRET drill-auth-secret-0123456789abcdefgh
+          set_env AWS_S3_BUCKET evidence
+          set_env AWS_ACCESS_KEY_ID openisms
+          set_env AWS_SECRET_ACCESS_KEY drill-minio-secret
+          set_env MINIO_KMS_KEY "$(openssl rand -base64 32)"
+          set_env BACKUP_PASSPHRASE "${PASSPHRASE}"
+
+      - name: Write data that must survive
+        run: |
+          docker compose up -d postgres minio minio-init backup
+          for _ in $(seq 1 30); do
+            docker compose exec -T postgres pg_isready -U openisms -d openisms && break
+            sleep 2
+          done
+          docker compose exec -T postgres psql -U openisms -d openisms -c \
+            "CREATE TABLE drill (id int primary key, note text);
+             INSERT INTO drill VALUES (1,'audit trail that must survive');"
+          docker compose exec -T minio sh -c "
+            echo 'this is a signed policy PDF' > /tmp/policy.txt
+            mc alias set l http://localhost:9000 openisms drill-minio-secret >/dev/null
+            mc cp /tmp/policy.txt l/evidence/policy.txt"
+
+      - name: Take a backup
+        run: docker compose exec -T backup backup
+
+      - name: Destroy everything
+        run: |
+          archive=$(docker compose exec -T backup sh -c 'ls /archive' | tr -d '\r\n')
+          echo "archive=${archive}" >> "$GITHUB_ENV"
+          docker compose cp "backup:/archive/${archive}" "./${archive}"
+          docker compose down -v
+          test -z "$(docker volume ls -q --filter name=open-isms)" \
+            || { echo "::error::Volumes survived the teardown; the drill would prove nothing."; exit 1; }
+
+      - name: Restore from the archive alone
+        run: |
+          gpg --decrypt --batch --passphrase "${PASSPHRASE}" "${archive}" > restore.tar.gz
+          mkdir restored && tar -xzf restore.tar.gz -C restored
+          test -f restored/backup/database/database.sql \
+            || { echo "::error::No database dump in the archive. The pre-backup command did not run."; exit 1; }
+
+          # Objects go back before MinIO starts: it reads its data directory
+          # at boot and will not notice files appearing underneath it.
+          project=$(basename "$PWD")
+          docker run --rm \
+            -v "${project}_minio-data":/data \
+            -v "$PWD/restored/backup/evidence":/src:ro \
+            busybox sh -c 'cp -a /src/. /data/'
+
+          docker compose up -d postgres minio
+          for _ in $(seq 1 30); do
+            docker compose exec -T postgres pg_isready -U openisms -d openisms && break
+            sleep 2
+          done
+          docker compose exec -T postgres psql -U openisms -d openisms < restored/backup/database/database.sql
+
+      - name: Both halves came back
+        run: |
+          note=$(docker compose exec -T postgres psql -U openisms -d openisms -tAc \
+            "SELECT note FROM drill WHERE id=1" | tr -d '\r')
+          object=$(docker compose exec -T minio sh -c "
+            mc alias set l http://localhost:9000 openisms drill-minio-secret >/dev/null 2>&1
+            mc cat l/evidence/policy.txt" | tr -d '\r')
+          echo "database: ${note}"
+          echo "object:   ${object}"
+          [ "${note}" = "audit trail that must survive" ] \
+            || { echo "::error::The database did not restore."; exit 1; }
+          [ "${object}" = "this is a signed policy PDF" ] \
+            || { echo "::error::Evidence files did not restore. The database would point at documents that no longer exist."; exit 1; }
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
