@@ -2,8 +2,13 @@
 #
 #   curl -o compose.yaml   https://raw.githubusercontent.com/NISD2/open-isms/main/compose.self-host.yml
 #   curl -o .env           https://raw.githubusercontent.com/NISD2/open-isms/main/.env.self-host.example
+#   curl -o Caddyfile      https://raw.githubusercontent.com/NISD2/open-isms/main/Caddyfile.self-host.example
 #   # fill in .env, then:
 #   docker compose up -d
+#
+# The Caddyfile is only read by the `proxy` profile, but fetch it now: docker
+# creates an empty DIRECTORY where a missing bind mount should be, and the
+# resulting error names neither the file nor the cause.
 #
 # Nothing is built here and there is no need to clone the repository. See
 # docs/self-hosting.md for the full walkthrough, and docs/updating.md for how
@@ -21,7 +26,7 @@
 #   --profile minio     bundled object store, if you are not using real S3
 #   --profile proxy     Caddy on 443 with automatic HTTPS
 #   --profile updater   in-app update button (see docs/updating.md)
-#   --profile backup    scheduled offsite backups (see docs/backup.md)
+#   --profile backup    scheduled offsite backups (see docs/self-hosting.md)
 #
 # Combine them:
 #   docker compose --profile minio --profile proxy --profile backup up -d

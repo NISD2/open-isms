@@ -15,13 +15,17 @@ You do **not** need an AWS account, an AI provider, or a Google Cloud project. E
 
 ## Quick start
 
+You do not need a clone of this repository, and you never need a fork. Three
+files and a published image:
+
 ```bash
-git clone https://github.com/NISD2/open-isms.git
-cd open-isms
-cp .env.example .env
+mkdir open-isms && cd open-isms
+curl -o compose.yaml https://raw.githubusercontent.com/NISD2/open-isms/main/compose.self-host.yml
+curl -o .env         https://raw.githubusercontent.com/NISD2/open-isms/main/.env.self-host.example
+curl -o Caddyfile    https://raw.githubusercontent.com/NISD2/open-isms/main/Caddyfile.self-host.example
 ```
 
-Fill in four values in `.env`:
+Fill in the required values in `.env`:
 
 ```bash
 POSTGRES_PASSWORD=$(openssl rand -hex 16)
@@ -31,15 +35,34 @@ NEXT_PUBLIC_APP_URL=http://localhost:3026
 AUTH_URL=http://localhost:3026
 ```
 
-Then, to bring up the app with a bundled object store for evidence files:
+While you are evaluating on your own machine, drop `proxy` from
+`COMPOSE_PROFILES` — it obtains real certificates and needs public DNS. Then:
 
 ```bash
+docker compose up -d
+```
+
+Expected: the image pulls in a minute or two, then the app logs `[migrate] all
+chains complete` followed by `✓ Ready`. Open http://localhost:3026.
+
+`OPEN_ISMS_VERSION` decides what you run: `stable` follows releases, an exact
+version pins you there. Updating, rolling back, and what happens when a
+migration fails are all in **[updating.md](./updating.md)**.
+
+### Building from source instead
+
+Only needed if you are modifying the code. The repository's own
+`docker-compose.yml` builds the image locally rather than pulling it, which
+takes 10 to 20 minutes and about 8 GB of RAM:
+
+```bash
+git clone https://github.com/NISD2/open-isms.git
+cd open-isms
+cp .env.example .env
 docker compose --profile minio up --build
 ```
 
 Drop `--profile minio` if you would rather use real S3, and fill in the `AWS_*` values instead. See [Storage for evidence uploads](#storage-for-evidence-uploads).
-
-Expected: the build takes 10 to 20 minutes the first time, then the app logs `[migrate] all chains complete` followed by `✓ Ready`. Open http://localhost:3026.
 
 Verify the instance is actually healthy, not just serving:
 
@@ -180,13 +203,15 @@ For Coolify specifically, see [coolify-deployment.md](./coolify-deployment.md).
 ## Upgrading
 
 ```bash
-git pull
-docker compose up --build -d
+docker compose pull
+docker compose up -d
 ```
 
-Migrations run automatically at container start, before the server binds. If a migration fails the container exits and your previous version keeps serving, so a bad upgrade does not take the instance down. Back up first anyway; the project has no downgrade path.
+Migrations run automatically at container start, before the server binds, and each one is applied inside a transaction — so a failed migration rolls back and leaves your data untouched. It does **not** leave the old version serving: `up -d` has already replaced the container, so a failure means a restart loop until you pin the version you were on. That recovery, rollbacks, and update notifications are covered in **[updating.md](./updating.md)**.
 
-Two things to back up if you run the bundled MinIO, not one: the Postgres database and the `minio-data` volume. Evidence files live only in the object store, and a database restored without them points at documents that no longer exist. That is a real audit problem, so treat them as one backup unit.
+Back up before every update. The project is forward-only and has no downgrade migrations.
+
+Two things to back up if you run the bundled MinIO, not one: the Postgres database and the `minio-data` volume. Evidence files live only in the object store, and a database restored without them points at documents that no longer exist. That is a real audit problem, so treat them as one backup unit. The `backup` profile in the published compose file does both together on a schedule.
 
 ## Troubleshooting
 

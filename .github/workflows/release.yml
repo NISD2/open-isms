@@ -76,6 +76,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Without the leading v, so the version the app reports is identical to
+      # the image tag and to the release name the update check compares
+      # against. Three spellings of the same version is one too many.
+      - id: version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+
       - name: Build and push by digest
         id: build
         uses: docker/build-push-action@v6
@@ -83,7 +89,7 @@ jobs:
           context: .
           platforms: ${{ matrix.platform }}
           build-args: |
-            APP_VERSION=${{ github.ref_name }}
+            APP_VERSION=${{ steps.version.outputs.version }}
           outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
           cache-from: type=gha,scope=${{ matrix.platform }}
           cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
@@ -260,7 +266,7 @@ jobs:
             if curl -fsS http://localhost:3000/api/health > /tmp/health.json 2>/dev/null; then
               cat /tmp/health.json
               reported=$(sed -n 's/.*"version":"\([^"]*\)".*/\1/p' /tmp/health.json)
-              if [ "${reported}" != "v${VERSION}" ] && [ "${reported}" != "${VERSION}" ]; then
+              if [ "${reported}" != "${VERSION}" ]; then
                 echo "::error::Image reports version '${reported}', expected '${VERSION}'. APP_VERSION was not stamped."
                 docker logs gate; exit 1
               fi

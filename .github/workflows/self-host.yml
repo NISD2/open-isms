@@ -307,9 +307,16 @@ jobs:
           fi
 
       # The rollback promise in docs/updating.md: after an upgrade, the
-      # previous release still runs against the newer schema. A migration that
-      # drops or renames something the old code still uses fails here, which
-      # is the point.
+      # previous release still starts and serves against the newer schema.
+      #
+      # Worth being precise about what this does and does not prove. It
+      # catches a migration that stops the old image booting at all — a
+      # dropped table its startup path touches, an enum value it cannot
+      # parse. It does not exercise application queries, because /api/health
+      # only issues SELECT 1, so a column dropped from a page nobody loads
+      # here would still pass. Full N-1 coverage needs e2e against the old
+      # image; until then the expand/contract rule in
+      # docs/migration-policy.md is what actually carries this guarantee.
       - name: The previous version still runs against the new schema
         if: steps.scope.outputs.run == 'true'
         run: |
