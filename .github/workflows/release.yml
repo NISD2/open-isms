@@ -251,7 +251,7 @@ jobs:
         run: |
           docker run -d --name gate --network host \
             -e DATABASE_URL="${DB}" \
-            -e AUTH_SECRET=gate_only_not_a_real_secret \
+            -e AUTH_SECRET=gate_only_not_real_0123456789abcdef \
             -e AUTH_URL=http://localhost:3000 \
             -e NEXT_PUBLIC_APP_URL=http://localhost:3000 \
             -e ERASURE_EMAIL_HASH_SALT=gate_only \

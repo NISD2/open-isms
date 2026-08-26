@@ -1,0 +1,334 @@
+name: Self-host stack
+
+# Building the image proves it compiles. It does not prove that a self-hoster
+# can install it, that an update applies migrations and comes back up, or that
+# pinning the previous version rescues them when it does not. Those are the
+# failures that happen on someone else's server where we cannot reach, so they
+# are tested here against real containers and a real database.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  # Base images move underneath us (postgres, node, minio, the updater). A
+  # weekly run catches a stack that broke without anybody touching the repo.
+  schedule:
+    - cron: "0 5 * * 1"
+
+concurrency:
+  group: self-host-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE: ghcr.io/nisd2/open-isms
+  # Two builds differing only by APP_VERSION. That ARG is the last thing in
+  # the Dockerfile, so the second build reuses the entire builder stage and
+  # costs seconds — which is what makes testing a real container swap cheap.
+  VERSION_A: 0.0.0-ci-a
+  VERSION_B: 0.0.0-ci-b
+
+jobs:
+  # Install, update, and roll back — the three things a self-hoster does.
+  lifecycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    env:
+      # Every compose command in this job sees the same file set. Mixing them
+      # between steps is how you end up inspecting a different project than
+      # the one you started.
+      COMPOSE_FILE: compose.self-host.yml:compose.ci.yml
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build the image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: ${{ env.IMAGE }}:ci-a
+          build-args: APP_VERSION=${{ env.VERSION_A }}
+          cache-from: type=gha,scope=ci-amd64
+          cache-to: type=gha,mode=max,scope=ci-amd64
+
+      - name: Build the "next release" image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: ${{ env.IMAGE }}:ci-b
+          build-args: APP_VERSION=${{ env.VERSION_B }}
+          cache-from: type=gha,scope=ci-amd64
+
+      # The published compose file is used as-is. The only addition is a label
+      # telling the updater to use the local image rather than pulling from
+      # ghcr.io, because the versions under test exist only on this runner.
+      - name: Configure the stack
+        run: |
+          # Start from the file self-hosters are handed, so a broken template
+          # fails here rather than on their first install. Values are then
+          # replaced in place — appending a duplicate key would leave the
+          # result depending on parse order, and the proxy profile in
+          # particular must not be inherited (it would try to obtain a
+          # certificate for example.com).
+          cp .env.self-host.example .env
+          set_env() {
+            if grep -q "^$1=" .env; then
+              sed -i "s|^$1=.*|$1=$2|" .env
+            else
+              echo "$1=$2" >> .env
+            fi
+          }
+          set_env OPEN_ISMS_VERSION ci
+          set_env COMPOSE_PROFILES minio,updater
+          set_env POSTGRES_PASSWORD ci-postgres-password
+          set_env AUTH_SECRET ci-auth-secret-not-real-0123456789abcdef
+          set_env ERASURE_EMAIL_HASH_SALT ci-salt
+          set_env AUTH_URL http://localhost:3026
+          set_env NEXT_PUBLIC_APP_URL http://localhost:3026
+          set_env AWS_S3_BUCKET evidence
+          set_env AWS_ACCESS_KEY_ID openisms
+          set_env AWS_SECRET_ACCESS_KEY ci-minio-secret
+          set_env AWS_S3_ENDPOINT http://localhost:9000
+          set_env AWS_S3_INTERNAL_ENDPOINT http://minio:9000
+          set_env UPDATE_API_TOKEN ci-update-token
+          set_env MINIO_KMS_KEY "$(openssl rand -base64 32)"
+          echo "Profiles: $(grep '^COMPOSE_PROFILES=' .env)"
+
+          cat > compose.ci.yml <<'YAMLEOF'
+          services:
+            app:
+              # The versions under test exist only on this runner, so neither
+              # compose nor the updater may go to ghcr.io looking for them.
+              # Without this, changing the pinned tag makes compose try to
+              # re-resolve the image remotely and the rollback step fails on
+              # a registry error rather than on anything real.
+              pull_policy: never
+              labels:
+                com.centurylinklabs.watchtower.no-pull: "true"
+          YAMLEOF
+
+          # `ci` is the tag the stack runs. Pointing it at a different image
+          # later is exactly what a published release does to `stable`.
+          docker tag "${IMAGE}:ci-a" "${IMAGE}:ci"
+
+      - name: Install from scratch
+        run: |
+          docker compose up -d
+          ./scripts/ci/wait-for-version.sh "${VERSION_A}"
+
+      # The stack's security posture is a property of the shipped compose
+      # file, so it is worth asserting rather than trusting. The updater holds
+      # the Docker socket; if it ever gained a published port, anyone who
+      # could reach it could replace the running application.
+      - name: Nothing is exposed beyond loopback
+        run: |
+          docker compose ps --format '{{.Service}} {{.Ports}}'
+          exposed=$(docker compose ps --format '{{.Service}} {{.Ports}}' \
+            | grep -E '0\.0\.0\.0:|:::' || true)
+          if [ -n "${exposed}" ]; then
+            echo "::error::A service publishes on all interfaces: ${exposed}"
+            exit 1
+          fi
+          if docker compose ps --format '{{.Service}} {{.Ports}}' | grep '^updater' | grep -q '\->'; then
+            echo "::error::The updater must not publish a host port."
+            exit 1
+          fi
+
+      # A fresh install has to end up with every chain applied. An empty
+      # bookkeeping table here would mean the app is serving against a schema
+      # nobody migrated.
+      - name: All three migration chains applied
+        run: |
+          for chain in grc isms saas; do
+            count=$(docker compose exec -T postgres \
+              psql -U openisms -d openisms -tAc \
+              "SELECT count(*) FROM drizzle.__drizzle_migrations_${chain}")
+            echo "${chain}: ${count} migration(s)"
+            if [ "${count}" -lt 1 ]; then
+              echo "::error::Chain ${chain} recorded no migrations."
+              exit 1
+            fi
+          done
+
+      # Every restart re-runs the migrator. If it is not a no-op, each restart
+      # would re-apply DDL and a container that restarts under load would
+      # eventually break itself.
+      - name: Restarting applies nothing
+        run: |
+          since=$(date -u +%Y-%m-%dT%H:%M:%S)
+          docker compose restart app
+          ./scripts/ci/wait-for-version.sh "${VERSION_A}"
+          logs=$(docker compose logs app --since "${since}")
+          echo "${logs}" | grep '\[migrate' || true
+          if echo "${logs}" | grep -qE "applied [1-9][0-9]* migration"; then
+            echo "::error::A restart applied migrations. The migrator is not idempotent."
+            exit 1
+          fi
+
+      # The update path a self-hoster actually clicks: the app asks the
+      # updater over the internal network, the updater swaps the container,
+      # and the new one migrates on boot before serving.
+      - name: Update to the next version
+        run: |
+          docker tag "${IMAGE}:ci-b" "${IMAGE}:ci"
+
+          # The app is both the caller and the container being replaced, so
+          # this request dies partway through by design.
+          docker compose exec -T app node -e "
+            fetch('http://updater:8080/v1/update', {
+              method: 'POST',
+              headers: { Authorization: 'Bearer ' + process.env.UPDATE_API_TOKEN },
+            }).then(r => console.log('updater responded', r.status))
+              .catch(e => console.log('connection ended:', e.message));
+          " || echo "exec ended with the container, as expected"
+
+          ./scripts/ci/wait-for-version.sh "${VERSION_B}"
+          echo "Updated ${VERSION_A} -> ${VERSION_B} via the updater API."
+
+      - name: Rolling back to the pinned previous version
+        run: |
+          sed -i 's/^OPEN_ISMS_VERSION=.*/OPEN_ISMS_VERSION=ci-a/' .env
+          docker compose up -d
+          # The previous release has to run against the schema the update
+          # left behind. This is the recovery path docs/updating.md promises.
+          ./scripts/ci/wait-for-version.sh "${VERSION_A}"
+          echo "Rolled back to ${VERSION_A} against the upgraded schema."
+
+      - name: Container logs
+        if: failure()
+        run: |
+          docker compose ps -a
+          docker compose logs --tail 120
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
+
+  # Upgrading from the released code, not just from this branch to itself.
+  # Skipped when a pull request changes nothing that can affect it.
+  upgrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: gate
+          POSTGRES_PASSWORD: gate
+          POSTGRES_DB: gate
+        options: >-
+          --health-cmd "pg_isready -U gate"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    env:
+      DB: postgres://gate:gate@localhost:5432/gate
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Does this change need the upgrade test
+        id: scope
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          changed=$(git diff --name-only "origin/${{ github.base_ref }}"...HEAD \
+            | grep -E '(drizzle/|Dockerfile|compose|scripts/runtime-migrate|packages/grc-data-model/src)' || true)
+          if [ -n "${changed}" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Upgrade test running — this branch touches migrations, the image, or framework data."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Upgrade test skipped — nothing here can change the upgrade path."
+          fi
+
+      - uses: docker/setup-buildx-action@v3
+        if: steps.scope.outputs.run == 'true'
+
+      # The version being upgraded FROM. Prefers the last release, because
+      # that is what somebody is actually running; falls back to the base
+      # branch until a release exists.
+      - name: Build the previous version
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          previous=$(git tag --list 'v*' --sort=-v:refname | grep -v -- '-' | head -1)
+          if [ -n "${previous}" ]; then
+            ref="${previous}"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            ref="origin/${{ github.base_ref }}"
+          else
+            ref="HEAD~1"
+          fi
+          echo "::notice::Upgrading from ${ref}."
+          git worktree add /tmp/previous "${ref}"
+          docker build -t openisms:previous /tmp/previous
+
+      - name: Build this version
+        if: steps.scope.outputs.run == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: openisms:current
+          cache-from: type=gha,scope=ci-amd64
+
+      - name: Migrate with the previous version
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          docker run --rm --network host -e DATABASE_URL="${DB}" \
+            openisms:previous node /app/scripts/runtime-migrate.mjs
+
+      - name: Upgrade to this version
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          docker run --rm --network host -e DATABASE_URL="${DB}" \
+            openisms:current node /app/scripts/runtime-migrate.mjs
+
+      - name: The upgrade is idempotent
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          output=$(docker run --rm --network host -e DATABASE_URL="${DB}" \
+            openisms:current node /app/scripts/runtime-migrate.mjs 2>&1)
+          echo "${output}"
+          if echo "${output}" | grep -qE "applied [1-9][0-9]* migration"; then
+            echo "::error::Re-running the migrator applied migrations again."
+            exit 1
+          fi
+
+      # The rollback promise in docs/updating.md: after an upgrade, the
+      # previous release still runs against the newer schema. A migration that
+      # drops or renames something the old code still uses fails here, which
+      # is the point.
+      - name: The previous version still runs against the new schema
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          docker run --rm --network host -e DATABASE_URL="${DB}" \
+            openisms:previous node /app/scripts/runtime-migrate.mjs
+          docker run -d --name rollback --network host \
+            -e DATABASE_URL="${DB}" \
+            -e AUTH_SECRET=ci-auth-secret-not-real-0123456789abcdef \
+            -e AUTH_URL=http://localhost:3000 \
+            -e NEXT_PUBLIC_APP_URL=http://localhost:3000 \
+            -e ERASURE_EMAIL_HASH_SALT=ci-salt \
+            openisms:previous
+          for _ in $(seq 1 60); do
+            if curl -fsS http://localhost:3000/api/health >/dev/null 2>&1; then
+              echo "Previous release serves against the upgraded schema."
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::The previous release could not serve against the new schema. See docs/migration-policy.md — a release must not break the one before it."
+          docker logs rollback
+          exit 1

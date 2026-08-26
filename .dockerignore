@@ -1,4 +1,7 @@
 node_modules
+# Nested workspace installs too: a bare pattern only matches the context
+# root, so a local working copy would otherwise drag its own into the build.
+**/node_modules
 .next
 .git
 .gitignore

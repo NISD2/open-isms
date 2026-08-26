@@ -69,7 +69,11 @@ partial upgrade, so this brings the instance straight back up. Then send us
 the container log: `docker compose logs app | tail -50`.
 
 If you do not remember which version you were on, `docker image ls
-ghcr.io/nisd2/open-isms` lists what has been pulled on this machine.
+ghcr.io/nisd2/open-isms` lists what has been pulled on this machine. The
+previous image is kept on purpose rather than cleaned up after an update, so
+this recovery works immediately and without network access. Each release you
+keep costs roughly a gigabyte; run `docker image prune` to reclaim it once an
+update has proven itself in use.
 
 ## Rolling back a successful update
 

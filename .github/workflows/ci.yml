@@ -64,27 +64,6 @@ jobs:
           NEXTAUTH_SECRET: "dummy_for_ci_build"
           NEXTAUTH_URL: "http://localhost:3026"
 
-  # The Dockerfile is what self-hosters and production both run, and until now
-  # nothing built it except a Coolify deploy — so a break reached main before
-  # anyone noticed. amd64 only and cached: this is a "does it still build"
-  # check, not the release build.
-  image:
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-
-    steps:
-      - uses: actions/checkout@v7
-
-      - uses: docker/setup-buildx-action@v3
-
-      - uses: docker/build-push-action@v6
-        with:
-          context: .
-          platforms: linux/amd64
-          push: false
-          cache-from: type=gha,scope=ci-amd64
-          cache-to: type=gha,mode=max,scope=ci-amd64
-
   # The published self-host stack has to stay parseable and internally
   # consistent. `docker compose config` resolves every variable reference and
   # profile, so a typo in a service name or an unbalanced ${...} fails here

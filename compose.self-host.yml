@@ -192,7 +192,15 @@ services:
       # Only containers labelled com.centurylinklabs.watchtower.enable=true,
       # i.e. the app and nothing else on this host.
       WATCHTOWER_LABEL_ENABLE: "true"
-      WATCHTOWER_CLEANUP: "true"
+      # Deliberately off. Cleanup deletes the image the previous version ran
+      # from, which is the one thing you need if the update goes wrong:
+      # rollback is "pin the old version and start it again", and that only
+      # works instantly while the image is still on disk. Keeping it costs
+      # about a gigabyte per release; needing it and not having it costs an
+      # outage extended by however long a re-pull takes, or forever on a
+      # machine with no internet. Reclaim space deliberately with
+      # `docker image prune` once an update has proven itself.
+      WATCHTOWER_CLEANUP: "false"
       WATCHTOWER_NO_STARTUP_MESSAGE: "true"
 
   # --------------------------------------------------------------------- #

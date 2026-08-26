@@ -97,10 +97,6 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 # Stamped by the release workflow from the git tag. An image built any other
 # way keeps `dev`, which the app reports as an unversioned build and never
-# compares against published releases.
-ARG APP_VERSION=dev
-ENV APP_VERSION=${APP_VERSION}
-
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
@@ -138,6 +134,17 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+# Stamped by the release workflow from the git tag. An image built any other
+# way keeps `dev`, which the app reports as an unversioned build and never
+# compares against published releases.
+#
+# Deliberately the last thing in the file: changing it invalidates only these
+# final layers, so building a second image that differs solely by version
+# reuses the whole builder stage. The self-host workflow relies on that to
+# test a real container swap without paying for two full builds.
+ARG APP_VERSION=dev
+ENV APP_VERSION=${APP_VERSION}
 
 USER node
 
