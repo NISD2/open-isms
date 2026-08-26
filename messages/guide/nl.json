@@ -6,6 +6,10 @@
       "skip": "Overslaan",
       "progress": "Stap {current} van {total}",
       "steps": {
+        "overview": {
+          "title": "Uw hele pad op één scherm",
+          "body": "Elke eis waaraan u moet voldoen, in één lijst, met de stand ernaast. U hoeft nooit te zoeken naar wat er nog open staat."
+        },
         "order": {
           "title": "Twee volgordes voor uw pad",
           "body": "Verdedigbaar minimum zet het grootste risico en de grootste aansprakelijkheid vooraan. Chronologisch volgt het natuurlijke proces, categorie voor categorie."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Door het pad navigeren",
           "body": "Vorige en Volgende lopen de vereisten op volgorde door. Wat voor uw organisatie niet geldt, markeert u als niet van toepassing, met reden."
+        },
+        "sidebar": {
+          "title": "De rest staat links",
+          "body": "Het pad leidt u door het werk heen. In de zijbalk bereikt u dezelfde inhoud rechtstreeks, plus uw team, de instellingen en het activiteitenlog."
+        },
+        "registers": {
+          "title": "Uw registers",
+          "body": "Assets, risico's, incidenten, leveranciers en de rest. Het pad vult deze registers gaandeweg, en u kunt ze op elk moment rechtstreeks openen."
         }
       }
     },

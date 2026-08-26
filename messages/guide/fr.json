@@ -6,6 +6,10 @@
       "skip": "Passer",
       "progress": "Étape {current} sur {total}",
       "steps": {
+        "overview": {
+          "title": "Tout votre parcours sur un seul écran",
+          "body": "Chaque exigence à laquelle vous devez répondre, en une seule liste, avec son état en regard. Vous n'avez jamais à chercher ce qui reste à faire."
+        },
         "order": {
           "title": "Deux ordres pour votre parcours",
           "body": "Le minimum défendable place en tête le risque et la responsabilité les plus élevés. L'ordre chronologique suit le processus naturel, catégorie par catégorie."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Avancer dans le parcours",
           "body": "Retour et Suivant parcourent les exigences dans l'ordre. Marquez comme non applicable ce qui ne concerne pas votre organisation, avec un motif."
+        },
+        "sidebar": {
+          "title": "Le reste se trouve à gauche",
+          "body": "Le parcours vous guide dans le travail. La barre latérale donne un accès direct aux mêmes contenus, plus votre équipe, les réglages et le journal d'activité."
+        },
+        "registers": {
+          "title": "Vos registres",
+          "body": "Actifs, risques, incidents, fournisseurs et le reste. Le parcours remplit ces registres au fil de l'eau, et vous pouvez ouvrir chacun d'eux directement à tout moment."
         }
       }
     },

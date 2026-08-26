@@ -8,19 +8,40 @@
  * component on one screen.
  */
 export type TourStep = {
-  /** Matches the `data-tour` attribute on the element to highlight. */
-  target: string;
+  /**
+   * Matches the `data-tour` attribute on the element to highlight. Omitted for
+   * an establishing step, which dims the whole screen and centres its card
+   * instead of spotlighting one element.
+   */
+  target?: string;
   /** Key under `guide.tour.steps`. `.title` and `.body` hang off it. */
   key: string;
   /** Which side of the target the card prefers. Radix flips it on collision. */
   side?: "top" | "right" | "bottom" | "left";
 };
 
+/**
+ * Establish the whole board, narrow to what a single row is, then explain the
+ * controls, then hand over to the rest of the portal.
+ *
+ * The opening step has no target on purpose. Spotlighting the board means
+ * spotlighting nearly the whole viewport, which leaves the card nowhere to sit
+ * and reads as a highlight of nothing in particular. Dimming everything and
+ * centring the card says "here is the thing you are looking at" without
+ * pretending to point at a detail.
+ *
+ * `firstStep` sits on a full-width row, so it prefers bottom rather than a
+ * horizontal side: there is no room beside a row that spans the content
+ * column, and Radix shifting a colliding card is what made it look clipped.
+ */
 const JOURNEY_STEPS: readonly TourStep[] = [
+  { key: "overview" },
+  { target: "journey-first-step", key: "firstStep", side: "bottom" },
   { target: "journey-order", key: "order", side: "bottom" },
   { target: "journey-filters", key: "filters", side: "bottom" },
   { target: "journey-legend", key: "legend", side: "left" },
-  { target: "journey-first-step", key: "firstStep", side: "right" },
+  { target: "sidebar-nav", key: "sidebar", side: "right" },
+  { target: "sidebar-registers", key: "registers", side: "right" },
 ];
 
 const REQUIREMENT_STEPS: readonly TourStep[] = [

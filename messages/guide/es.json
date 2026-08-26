@@ -6,6 +6,10 @@
       "skip": "Omitir",
       "progress": "Paso {current} de {total}",
       "steps": {
+        "overview": {
+          "title": "Todo su recorrido en una pantalla",
+          "body": "Cada requisito que debe cumplir, en una sola lista, con su estado al lado. Nunca tiene que buscar lo que queda pendiente."
+        },
         "order": {
           "title": "Dos formas de ordenar su recorrido",
           "body": "El mínimo defendible pone delante el mayor riesgo y la mayor responsabilidad. El orden cronológico sigue el proceso natural, categoría por categoría."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Avanzar por el recorrido",
           "body": "Atrás y Siguiente recorren los requisitos en orden. Marque como no aplicable lo que no afecta a su organización, con un motivo."
+        },
+        "sidebar": {
+          "title": "Lo demás está a la izquierda",
+          "body": "El recorrido le guía por el trabajo. Desde la barra lateral llega directamente a los mismos contenidos, además de su equipo, los ajustes y el registro de actividad."
+        },
+        "registers": {
+          "title": "Sus registros",
+          "body": "Activos, riesgos, incidentes, proveedores y el resto. El recorrido va rellenando estos registros sobre la marcha, y puede abrir cualquiera de ellos directamente en cualquier momento."
         }
       }
     },

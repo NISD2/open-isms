@@ -6,6 +6,10 @@
       "skip": "Überspringen",
       "progress": "Schritt {current} von {total}",
       "steps": {
+        "overview": {
+          "title": "Ihr ganzer Weg auf einem Bildschirm",
+          "body": "Jede Anforderung, die Sie erfüllen müssen, in einer Liste, mit dem aktuellen Stand daneben. Sie müssen nirgends suchen, was noch offen ist."
+        },
         "order": {
           "title": "Zwei Reihenfolgen für Ihren Weg",
           "body": "Belastbares Minimum stellt das größte Risiko und die größte Haftung nach vorn. Chronologisch folgt dem natürlichen Prozess, Kategorie für Kategorie."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Durch den Weg navigieren",
           "body": "Zurück und Weiter gehen die Anforderungen der Reihe nach durch. Was für Ihr Haus nicht gilt, markieren Sie als nicht zutreffend, mit Begründung."
+        },
+        "sidebar": {
+          "title": "Alles Weitere steht links",
+          "body": "Der Weg führt Sie geführt durch die Arbeit. In der Seitenleiste erreichen Sie dieselben Inhalte direkt, dazu Ihr Team, die Einstellungen und das Aktivitätsprotokoll."
+        },
+        "registers": {
+          "title": "Ihre Register",
+          "body": "Assets, Risiken, Vorfälle, Lieferanten und der Rest. Der Weg füllt diese Register nach und nach, und Sie können jedes davon jederzeit direkt öffnen."
         }
       }
     },

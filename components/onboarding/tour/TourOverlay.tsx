@@ -20,10 +20,14 @@ const SPOTLIGHT_PADDING = 6;
  * Returns null until the element has been found and measured, which is also
  * what keeps the overlay off the server render and off the first client paint.
  */
-function useTargetRect(target: string): DOMRect | null {
+function useTargetRect(target: string | undefined): DOMRect | null {
   const [rect, setRect] = useState<DOMRect | null>(null);
 
   useEffect(() => {
+    if (!target) {
+      setRect(null);
+      return;
+    }
     const element = document.querySelector(`[data-tour="${target}"]`);
     if (!(element instanceof HTMLElement)) {
       setRect(null);
@@ -97,7 +101,9 @@ export function TourOverlay({
   const t = useTranslations("guide");
   const rect = useTargetRect(step.target);
 
-  if (!rect) return null;
+  // A targeted step waits for its measurement; an establishing step has
+  // nothing to measure and renders immediately.
+  if (step.target && !rect) return null;
 
   const isLast = index === total - 1;
 
@@ -109,25 +115,41 @@ export function TourOverlay({
         the page content it is supposed to cover.
       */}
       <Portal.Root>
-        {scrimPanels(rect).map((style, panel) => (
+        {rect ? (
+          scrimPanels(rect).map((style, panel) => (
+            <div
+              key={panel}
+              aria-hidden
+              style={style}
+              className="fixed z-50 bg-background/30 backdrop-blur-[1px]"
+            />
+          ))
+        ) : (
           <div
-            key={panel}
             aria-hidden
-            style={style}
-            className="fixed z-50 bg-background/50 backdrop-blur-[3px]"
+            className="fixed inset-0 z-50 bg-background/30 backdrop-blur-[1px]"
           />
-        ))}
+        )}
         <PopoverAnchor asChild>
-          <div
-            aria-hidden
-            className="pointer-events-none fixed z-50 rounded-md ring-2 ring-primary"
-            style={{
-              top: rect.top - SPOTLIGHT_PADDING,
-              left: rect.left - SPOTLIGHT_PADDING,
-              width: rect.width + SPOTLIGHT_PADDING * 2,
-              height: rect.height + SPOTLIGHT_PADDING * 2,
-            }}
-          />
+          {rect ? (
+            <div
+              aria-hidden
+              className="pointer-events-none fixed z-50 rounded-md ring-2 ring-primary"
+              style={{
+                top: rect.top - SPOTLIGHT_PADDING,
+                left: rect.left - SPOTLIGHT_PADDING,
+                width: rect.width + SPOTLIGHT_PADDING * 2,
+                height: rect.height + SPOTLIGHT_PADDING * 2,
+              }}
+            />
+          ) : (
+            /* Zero-size anchor at the centre of the viewport, so the card
+               lands in the middle of the dimmed screen. */
+            <div
+              aria-hidden
+              className="pointer-events-none fixed left-1/2 top-1/2 z-50 size-0"
+            />
+          )}
         </PopoverAnchor>
       </Portal.Root>
 

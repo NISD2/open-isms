@@ -60,6 +60,61 @@ test("the tour runs on a first login, and stays gone once dismissed", async ({
   await expect(card).toBeHidden();
 });
 
+test("every tour card lands fully on screen, and the tour opens on the board", async ({
+  page,
+}) => {
+  await setGuideState("login_count = 1, tour_dismissed_at = NULL");
+
+  await page.goto("/journey");
+  const card = page.getByTestId("tour-card");
+  await expect(card).toBeVisible();
+
+  // The opening step establishes the whole board and points at nothing, so it
+  // has no spotlight ring. Every later step has one.
+  const ring = page.locator(".ring-primary");
+  await expect(ring).toHaveCount(0);
+
+  const viewport = page.viewportSize();
+  if (!viewport) throw new Error("headless run has no viewport size");
+
+  const total = Number(
+    (await page.getByTestId("tour-progress").textContent())?.match(
+      /(\d+)\s*$/,
+    )?.[1],
+  );
+  expect(total).toBeGreaterThan(4);
+
+  for (let step = 1; step <= total; step++) {
+    await expect(page.getByTestId("tour-progress")).toContainText(String(step));
+
+    // The regression: `firstStep` preferred a horizontal side while sitting on
+    // a row that spans the whole content column, so Radix flipped it left and
+    // parked it at a negative x. On the shipped build this assertion fails at
+    // that step with the card half off the screen.
+    //
+    // Clicking through each step covers the other half: a click is hit-tested,
+    // so a card painting behind the scrim would fail here rather than pass.
+    const box = await card.boundingBox();
+    if (!box) throw new Error(`step ${step} rendered no card`);
+    expect(box.x, `step ${step} card left edge`).toBeGreaterThanOrEqual(0);
+    expect(box.y, `step ${step} card top edge`).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width, `step ${step} card right edge`).toBeLessThanOrEqual(
+      viewport.width,
+    );
+    expect(
+      box.y + box.height,
+      `step ${step} card bottom edge`,
+    ).toBeLessThanOrEqual(viewport.height);
+
+    if (step < total) await page.getByTestId("tour-next").click();
+  }
+
+  // The last step closes the tour rather than advancing past the end.
+  await page.getByTestId("tour-next").click();
+  await expect(card).toBeHidden();
+  await dismissalLanded("tour_dismissed_at");
+});
+
 test("a second login offers help, and does not offer it twice", async ({
   page,
 }) => {

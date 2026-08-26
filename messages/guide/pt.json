@@ -6,6 +6,10 @@
       "skip": "Ignorar",
       "progress": "Passo {current} de {total}",
       "steps": {
+        "overview": {
+          "title": "Todo o seu percurso num só ecrã",
+          "body": "Cada requisito que tem de cumprir, numa única lista, com o respetivo estado ao lado. Nunca precisa de procurar o que falta fazer."
+        },
         "order": {
           "title": "Duas formas de ordenar o seu percurso",
           "body": "O mínimo defensável coloca à frente o maior risco e a maior responsabilidade. A ordem cronológica segue o processo natural, categoria a categoria."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Avançar no percurso",
           "body": "Voltar e Seguinte percorrem os requisitos por ordem. Marque como não aplicável o que não diz respeito à sua organização, com um motivo."
+        },
+        "sidebar": {
+          "title": "O resto está à esquerda",
+          "body": "O percurso guia-o pelo trabalho. Na barra lateral chega diretamente aos mesmos conteúdos, além da sua equipa, das definições e do registo de atividade."
+        },
+        "registers": {
+          "title": "Os seus registos",
+          "body": "Ativos, riscos, incidentes, fornecedores e os restantes. O percurso vai preenchendo estes registos à medida que avança, e pode abrir qualquer um deles diretamente a qualquer momento."
         }
       }
     },

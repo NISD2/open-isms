@@ -6,6 +6,10 @@
       "skip": "Skip",
       "progress": "Step {current} of {total}",
       "steps": {
+        "overview": {
+          "title": "Your whole path on one screen",
+          "body": "Every requirement you have to meet, in one list, with where each one stands next to it. You never have to go looking for what is left."
+        },
         "order": {
           "title": "Two ways to order the path",
           "body": "Defensible minimum puts the biggest risk and legal exposure first. Chronological follows the natural process, category by category."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Move through the path",
           "body": "Back and next walk the requirements in order. Mark one as not applicable where it does not apply to your organisation, with a reason."
+        },
+        "sidebar": {
+          "title": "Everything else is on the left",
+          "body": "The path walks you through the work. The sidebar reaches the same content directly, plus your team, the settings, and the activity log."
+        },
+        "registers": {
+          "title": "Your registers",
+          "body": "Assets, risks, incidents, suppliers, and the rest. The path fills these in as you go, and you can open any of them directly at any time."
         }
       }
     },

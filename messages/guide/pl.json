@@ -6,6 +6,10 @@
       "skip": "Pomiń",
       "progress": "Krok {current} z {total}",
       "steps": {
+        "overview": {
+          "title": "Cała Państwa ścieżka na jednym ekranie",
+          "body": "Każdy wymóg, który muszą Państwo spełnić, w jednej liście, a obok aktualny stan. Nie trzeba nigdzie szukać tego, co zostało do zrobienia."
+        },
         "order": {
           "title": "Dwa sposoby uporządkowania ścieżki",
           "body": "Uzasadnione minimum stawia na początku największe ryzyko i odpowiedzialność. Porządek chronologiczny idzie za naturalnym procesem, kategoria po kategorii."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Poruszanie się po ścieżce",
           "body": "Wstecz i Dalej przechodzą wymogi po kolei. Oznacz jako nie dotyczy to, co nie odnosi się do organizacji, wraz z uzasadnieniem."
+        },
+        "sidebar": {
+          "title": "Reszta jest po lewej",
+          "body": "Ścieżka prowadzi Państwa przez pracę. Z panelu bocznego docierają Państwo do tych samych treści bezpośrednio, a także do zespołu, ustawień i dziennika aktywności."
+        },
+        "registers": {
+          "title": "Państwa rejestry",
+          "body": "Assets, ryzyka, incydenty, dostawcy i pozostałe. Ścieżka wypełnia te rejestry na bieżąco, a każdy z nich można w każdej chwili otworzyć bezpośrednio."
         }
       }
     },

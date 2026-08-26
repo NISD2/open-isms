@@ -131,14 +131,14 @@ export function AppSidebar({
         <PortalSwitcher current="compliance" />
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent data-tour="sidebar-nav">
         {/* Overview */}
         <SidebarGroup>
           <SidebarGroupLabel>{t("overview")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <NavMenu items={overviewItems} pathname={pathname} />
             {/* Registers — collapsible sub-section within Overview */}
-            <Collapsible className="group/registers">
+            <Collapsible data-tour="sidebar-registers" className="group/registers">
               <CollapsibleTrigger className="flex w-full items-center px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground">
                 {t("registers")}
                 <ChevronRight className="ml-auto size-3.5 transition-transform group-data-[state=open]/registers:rotate-90" />

@@ -6,6 +6,10 @@
       "skip": "Přeskočit",
       "progress": "Krok {current} z {total}",
       "steps": {
+        "overview": {
+          "title": "Celá vaše cesta na jedné obrazovce",
+          "body": "Každý požadavek, který musíte splnit, v jednom seznamu a vedle něj aktuální stav. Nikdy nemusíte hledat, co ještě zbývá."
+        },
         "order": {
           "title": "Dva způsoby řazení cesty",
           "body": "Obhajitelné minimum staví dopředu největší riziko a odpovědnost. Chronologické řazení jde přirozeným procesem, kategorii po kategorii."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Pohyb po cestě",
           "body": "Zpět a Další procházejí požadavky popořadě. Co se vaší organizace netýká, označte jako nerelevantní, s odůvodněním."
+        },
+        "sidebar": {
+          "title": "Zbytek je vlevo",
+          "body": "Cesta vás provede prací. V postranním panelu se ke stejnému obsahu dostanete přímo, a k tomu k svému týmu, nastavení a protokolu aktivit."
+        },
+        "registers": {
+          "title": "Vaše registry",
+          "body": "Assets, rizika, incidenty, dodavatelé a další. Cesta tyto registry postupně plní a kterýkoli z nich můžete kdykoli otevřít přímo."
         }
       }
     },

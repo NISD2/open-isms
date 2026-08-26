@@ -6,6 +6,10 @@
       "skip": "Omite",
       "progress": "Pasul {current} din {total}",
       "steps": {
+        "overview": {
+          "title": "Tot parcursul dumneavoastră pe un singur ecran",
+          "body": "Fiecare cerință pe care trebuie să o îndepliniți, într-o singură listă, cu stadiul alături. Nu trebuie niciodată să căutați ce a mai rămas de făcut."
+        },
         "order": {
           "title": "Două moduri de a ordona parcursul",
           "body": "Minimul justificabil pune în față riscul și răspunderea cele mai mari. Ordinea cronologică urmează procesul natural, categorie cu categorie."
@@ -41,6 +45,14 @@
         "nav": {
           "title": "Deplasarea prin parcurs",
           "body": "Înapoi și Înainte parcurg cerințele în ordine. Marcați ca neaplicabil ce nu privește organizația dumneavoastră, cu o motivare."
+        },
+        "sidebar": {
+          "title": "Restul se află în stânga",
+          "body": "Parcursul vă ghidează prin activitate. Din bara laterală ajungeți direct la aceleași conținuturi, plus echipa dumneavoastră, setările și jurnalul de activitate."
+        },
+        "registers": {
+          "title": "Registrele dumneavoastră",
+          "body": "Active, riscuri, incidente, furnizori și restul. Parcursul completează aceste registre pe măsură ce avansați, iar pe oricare dintre ele îl puteți deschide direct oricând."
         }
       }
     },
