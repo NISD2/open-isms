@@ -24,7 +24,7 @@ import { SAMPLE_CUSTOMERS, SAMPLE_PROFILE, SAMPLE_USER } from "./sample-data";
 export default async function SupplierPreviewPage() {
   if (process.env.NODE_ENV === "production") notFound();
   const nav = await getTranslations("supplierPortal.nav");
-  const t = await getTranslations("supplierPortal.questionnaire");
+  const pages = await getTranslations("supplierPortal.pages");
 
   return (
     <SidebarProvider defaultOpen>
@@ -44,7 +44,7 @@ export default async function SupplierPreviewPage() {
                 {nav("practices")}
               </h1>
               <p className="max-w-2xl text-sm text-muted-foreground">
-                {t("intro")}
+                {pages("practicesIntro")}
               </p>
             </header>
             <SecurityProfileForm

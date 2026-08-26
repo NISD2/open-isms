@@ -71,6 +71,8 @@ export function PortalHeader({
       }
     } else if (segments[0] === "audit") {
       crumbs.push({ label: t("auditTrail"), href: undefined });
+    } else if (segments[0] === "journey") {
+      crumbs.push({ label: t("journey"), href: undefined });
     } else {
       crumbs.push({ label: titleCase(segments[0]), href: undefined });
     }
