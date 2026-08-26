@@ -91,6 +91,14 @@ jobs:
           build-args: |
             APP_VERSION=${{ steps.version.outputs.version }}
           outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          # An SBOM and full provenance travel with the image. We sell supply
+          # chain compliance and teach the CRA's SBOM obligations; shipping
+          # binaries whose contents nobody can enumerate would be hard to
+          # defend. It also gives self-hosters a way to answer "does this
+          # instance contain the library in today's advisory" without asking
+          # us. Verify both survive the manifest merge on the first release.
+          sbom: true
+          provenance: mode=max
           cache-from: type=gha,scope=${{ matrix.platform }}
           cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
 
