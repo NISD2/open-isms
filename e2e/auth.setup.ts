@@ -71,6 +71,18 @@ setup("provision and authenticate", async ({ page, browser }) => {
     [E2E_USER_EMAIL, E2E_MANAGER_EMAIL, hash],
   );
 
+  // Retire the one-time onboarding surfaces for both harness users. The tour
+  // is a blocking overlay on /journey and on every requirement page, i.e. on
+  // most of what this suite drives, and the seeded users are brand new on
+  // every hermetic run, so without this it would arm itself in every spec.
+  // Unconditional, so a guide spec that dies mid-run leaves the next run
+  // clean rather than poisoned. e2e/l1/guide.spec.ts opts back in on purpose.
+  await e2eQuery(
+    `UPDATE "user" SET tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()
+      WHERE email = ANY($1::text[])`,
+    [[E2E_USER_EMAIL, E2E_MANAGER_EMAIL]],
+  );
+
   // Log both users in through the real form; each keeps a session file.
   await signInViaForm(page, E2E_USER_EMAIL);
   await expect(page.locator("body")).toBeVisible();

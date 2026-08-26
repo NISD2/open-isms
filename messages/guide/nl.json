@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Volgende",
+      "done": "Klaar",
+      "skip": "Overslaan",
+      "progress": "Stap {current} van {total}",
+      "steps": {
+        "order": {
+          "title": "Twee volgordes voor uw pad",
+          "body": "Verdedigbaar minimum zet het grootste risico en de grootste aansprakelijkheid vooraan. Chronologisch volgt het natuurlijke proces, categorie voor categorie."
+        },
+        "filters": {
+          "title": "Beperk het tot wat aan de beurt is",
+          "body": "Filter het pad op wat open, achterstallig, binnenkort aan de beurt of in goedkeuring is."
+        },
+        "legend": {
+          "title": "Wat de stippen betekenen",
+          "body": "Elke stip toont een stand: nu, in behandeling, wacht op goedkeuring of goedgekeurd."
+        },
+        "firstStep": {
+          "title": "Elke regel is één vereiste",
+          "body": "Open een regel om te zien wat de vereiste vraagt en wat er te doen staat. Begin bovenaan en werk naar beneden."
+        },
+        "status": {
+          "title": "Waar deze vereiste staat",
+          "body": "Het label naast de titel toont de stand, van open tot goedgekeurd."
+        },
+        "form": {
+          "title": "De details beantwoorden",
+          "body": "Via Bewerken legt u vast wat er in uw organisatie echt gebeurt. Opslaan bewaart het, en uw antwoorden worden onderdeel van het bewijs."
+        },
+        "evidence": {
+          "title": "Bewijs toevoegen",
+          "body": "Upload de documenten die aantonen dat de maatregel echt draait. Daar vraagt een audit naar."
+        },
+        "assign": {
+          "title": "Eigenaar en goedkeuring",
+          "body": "Wijs de verantwoordelijke persoon toe en keur goed zodra aan de vereiste is voldaan. De goedkeuring is het bewijs dat de leiding heeft ingestemd."
+        },
+        "nav": {
+          "title": "Door het pad navigeren",
+          "body": "Vorige en Volgende lopen de vereisten op volgorde door. Wat voor uw organisatie niet geldt, markeert u als niet van toepassing, met reden."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Hulp",
+      "title": "Kunnen we ergens mee helpen?",
+      "body": "Dit is uw tweede bezoek. Als iets onduidelijk is of u komt niet verder, laat het weten. U bereikt ons rechtstreeks.",
+      "email": "Schrijf ons op",
+      "call": "Of plan een gesprek",
+      "selfHost": "Wilt u het platform op eigen infrastructuur draaien? Daar helpen we ook bij.",
+      "feedback": "Laten weten wat ontbreekt of stroef loopt is net zo welkom als een vraag.",
+      "startTour": "Laat me rondkijken",
+      "close": "Sluiten",
+      "dismissForever": "Niet meer tonen"
+    }
+  }
+}

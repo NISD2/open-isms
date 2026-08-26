@@ -1,21 +1,17 @@
 "use client";
 
-import { usePathname, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { usePortalPath } from "./use-portal-path";
 
 /**
  * Always-visible switch between the journey surface (/journey) and the expert
- * statistics surface (/dashboard/stats). Same underlying data, two views. Uses
- * native next/navigation usePathname for the resolved URL (next-intl's
- * usePathname returns the route template, not the concrete path).
+ * statistics surface (/dashboard/stats). Same underlying data, two views.
  */
 export function ViewToggle() {
-  const pathname = usePathname();
+  const stripped = usePortalPath();
   const params = useParams() as { locale?: string };
-  const stripped = params.locale
-    ? pathname.replace(new RegExp(`^/${params.locale}(?=/|$)`), "")
-    : pathname;
 
   const onJourney =
     stripped === "/journey" || stripped.startsWith("/journey/");

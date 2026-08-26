@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Avanti",
+      "done": "Fatto",
+      "skip": "Salta",
+      "progress": "Passo {current} di {total}",
+      "steps": {
+        "order": {
+          "title": "Due modi di ordinare il percorso",
+          "body": "Il minimo difendibile mette davanti il rischio e la responsabilità più grandi. L'ordine cronologico segue il processo naturale, categoria per categoria."
+        },
+        "filters": {
+          "title": "Restringi a ciò che ti aspetta",
+          "body": "Filtra il percorso su ciò che è aperto, in ritardo, in scadenza o in attesa di approvazione."
+        },
+        "legend": {
+          "title": "Che cosa indicano i punti",
+          "body": "Ogni punto mostra uno stato: adesso, in corso, in attesa di approvazione o approvato."
+        },
+        "firstStep": {
+          "title": "Ogni riga è un requisito",
+          "body": "Apri una riga per vedere che cosa chiede il requisito e che cosa fare. Parti dall'alto e scendi."
+        },
+        "status": {
+          "title": "A che punto è questo requisito",
+          "body": "L'etichetta accanto al titolo segue il requisito, da aperto fino ad approvato."
+        },
+        "form": {
+          "title": "Rispondi ai dettagli",
+          "body": "Con Modifica registri quello che la tua organizzazione fa davvero. Salva lo conserva, e le tue risposte diventano parte delle evidenze."
+        },
+        "evidence": {
+          "title": "Allega le prove",
+          "body": "Carica i documenti che mostrano che la misura è davvero attiva. È questo che chiede un audit."
+        },
+        "assign": {
+          "title": "Assegna un responsabile, poi approva",
+          "body": "Assegna la persona responsabile e approva quando il requisito è soddisfatto. L'approvazione è la traccia del consenso della direzione."
+        },
+        "nav": {
+          "title": "Muoviti nel percorso",
+          "body": "Indietro e Avanti scorrono i requisiti in ordine. Segna come non applicabile ciò che non riguarda la tua organizzazione, con una motivazione."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Aiuto",
+      "title": "Possiamo aiutarti in qualcosa?",
+      "body": "È la tua seconda visita. Se qualcosa non è chiaro o sei bloccato, dillo. Ci raggiungi direttamente.",
+      "email": "Scrivici a",
+      "call": "Oppure prenota una chiamata",
+      "selfHost": "Vuoi far girare la piattaforma sulla tua infrastruttura? Aiutiamo anche in questo.",
+      "feedback": "Dirci che cosa manca o che cosa non funziona è benvenuto quanto una domanda.",
+      "startTour": "Fammi fare un giro",
+      "close": "Chiudi",
+      "dismissForever": "Non mostrare più"
+    }
+  }
+}

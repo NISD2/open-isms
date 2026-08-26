@@ -4,7 +4,7 @@ import NextAuth, { CredentialsSignin } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { user, company } from "@/schema";
 import type { Session } from "next-auth";
@@ -21,6 +21,7 @@ import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { isJourneyAllowed } from "@/lib/journey-flag";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
+import { resolveHints } from "@/lib/onboarding/hints";
 
 // Dummy hash for timing-safe comparison when user doesn't exist
 const DUMMY_HASH = "$2a$12$000000000000000000000uGBYRMjo5lsWIKE/k.HdGZfR5YmKKKu";
@@ -277,10 +278,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
      */
     async jwt({ token, user: authUser }) {
       if (authUser?.email) {
-        const dbUser = await db.query.user.findFirst({
-          where: eq(user.email, authUser.email),
-          columns: { sessionVersion: true },
-        });
+        // Same hook also counts the login. `authUser` is supplied only when a
+        // session is first established, never on the silent refreshes that
+        // keep the 8h token alive, so this is one increment per sign-in and
+        // not one per request. Folded into the sessionVersion read as a single
+        // UPDATE ... RETURNING: same round trip as before, and the increment
+        // is atomic, so two concurrent sign-ins cannot land on one number.
+        const [dbUser] = await db
+          .update(user)
+          .set({ loginCount: sql`${user.loginCount} + 1` })
+          .where(eq(user.email, authUser.email))
+          .returning({ sessionVersion: user.sessionVersion });
         token.sessionVersion = dbUser?.sessionVersion ?? 1;
       }
       return token;
@@ -292,6 +300,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.role = "member";
       session.jobTitle = null;
       session.sessionVersion = token.sessionVersion ?? null;
+      session.hints = { tour: false, helpOffer: false };
       return session;
     },
   },
@@ -316,6 +325,9 @@ export const getSession = cache(async (): Promise<Session | null> => {
       role: true,
       jobTitle: true,
       sessionVersion: true,
+      loginCount: true,
+      tourDismissedAt: true,
+      helpOfferDismissedAt: true,
     },
   });
   if (!dbUser) return null;
@@ -336,6 +348,10 @@ export const getSession = cache(async (): Promise<Session | null> => {
   session.companyId = dbUser.companyId;
   session.role = dbUser.role;
   session.jobTitle = dbUser.jobTitle ?? null;
+  // Derived here rather than queried at the point of use: the row is already
+  // loaded and cache()d for the request, so the one-time onboarding surfaces
+  // cost no extra round trip on any page that renders them.
+  session.hints = resolveHints(dbUser);
 
   // Resolve activation once, here, so every gate reads session.companyActivated
   // instead of re-deriving it (a draft shell has companyId set but activatedAt

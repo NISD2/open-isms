@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Dalej",
+      "done": "Gotowe",
+      "skip": "Pomiń",
+      "progress": "Krok {current} z {total}",
+      "steps": {
+        "order": {
+          "title": "Dwa sposoby uporządkowania ścieżki",
+          "body": "Uzasadnione minimum stawia na początku największe ryzyko i odpowiedzialność. Porządek chronologiczny idzie za naturalnym procesem, kategoria po kategorii."
+        },
+        "filters": {
+          "title": "Zawężenie do tego, co czeka",
+          "body": "Przefiltruj ścieżkę według tego, co otwarte, po terminie, wkrótce wymagane lub czekające na zatwierdzenie."
+        },
+        "legend": {
+          "title": "Co oznaczają kropki",
+          "body": "Każda kropka pokazuje stan: teraz, w toku, czeka na zatwierdzenie albo zatwierdzone."
+        },
+        "firstStep": {
+          "title": "Każdy wiersz to jeden wymóg",
+          "body": "Otwórz wiersz, aby zobaczyć, czego wymaga dany punkt i co zrobić. Zacznij od góry i schodź w dół."
+        },
+        "status": {
+          "title": "Na jakim etapie jest ten wymóg",
+          "body": "Etykieta obok tytułu pokazuje stan, od otwartego do zatwierdzonego."
+        },
+        "form": {
+          "title": "Uzupełnienie szczegółów",
+          "body": "Edycja zapisuje to, co organizacja faktycznie robi. Zapisz zachowuje wpis, a odpowiedzi stają się częścią dowodów."
+        },
+        "evidence": {
+          "title": "Załączenie dowodów",
+          "body": "Wgraj dokumenty pokazujące, że środek naprawdę działa. O to pyta audyt."
+        },
+        "assign": {
+          "title": "Wskaż osobę odpowiedzialną i zatwierdź",
+          "body": "Przypisz osobę odpowiedzialną i zatwierdź, gdy wymóg jest spełniony. Zatwierdzenie to ślad zgody kierownictwa."
+        },
+        "nav": {
+          "title": "Poruszanie się po ścieżce",
+          "body": "Wstecz i Dalej przechodzą wymogi po kolei. Oznacz jako nie dotyczy to, co nie odnosi się do organizacji, wraz z uzasadnieniem."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Pomoc",
+      "title": "Możemy w czymś pomóc?",
+      "body": "To druga wizyta. Jeśli coś jest niejasne albo utknąłeś, napisz. Odpowiadamy my, bezpośrednio.",
+      "email": "Napisz na",
+      "call": "Albo umów rozmowę",
+      "selfHost": "Chcesz uruchomić platformę na własnej infrastrukturze? W tym też pomagamy.",
+      "feedback": "Informacja o tym, czego brakuje albo co uwiera, jest równie mile widziana jak pytanie.",
+      "startTour": "Pokaż mi platformę",
+      "close": "Zamknij",
+      "dismissForever": "Nie pokazuj ponownie"
+    }
+  }
+}

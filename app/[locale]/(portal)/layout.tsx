@@ -6,6 +6,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
 import { OnboardingBanner } from "@/components/dashboard/OnboardingBanner";
 import { getSession } from "@/lib/auth";
+import { env } from "@/lib/env";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { api } from "@/lib/trpc/server";
 import {
@@ -126,7 +127,7 @@ export default async function PortalLayout({
         frameworks={frameworks}
       />
       <SidebarInset>
-        <PortalHeader />
+        <PortalHeader guide={{ hints: session.hints, calLink: env.CAL_LINK }} />
         <div className="flex-1 px-6 py-6">
           {showOnboarding ? <OnboardingBanner /> : children}
         </div>

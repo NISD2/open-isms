@@ -1,5 +1,6 @@
 import "next-auth";
 import "next-auth/jwt";
+import type { Hint } from "@/lib/onboarding/hints";
 
 /**
  * NextAuth type augmentation — extends Session with our custom fields.
@@ -29,6 +30,13 @@ declare module "next-auth" {
      * session is treated as revoked.
      */
     sessionVersion: number | null;
+    /**
+     * One-time onboarding surfaces this user still has coming, derived in
+     * getSession() from the already-loaded user row (see
+     * lib/onboarding/hints.ts). Always false on the raw NextAuth session
+     * callback, which has no DB row to resolve them from.
+     */
+    hints: Record<Hint, boolean>;
     user: {
       id: string;
       name?: string | null;

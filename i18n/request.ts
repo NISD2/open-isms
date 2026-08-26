@@ -18,6 +18,7 @@ const namespaces = [
   "export",
   "funnel",
   "gap-assessment",
+  "guide",
   "grcComparison",
   "improvements",
   "incidents",
@@ -49,7 +50,6 @@ const namespaces = [
   "training",
   "trainingPortal",
   "vulnerabilities",
-  "walkthrough",
 ] as const;
 
 export default getRequestConfig(async ({ requestLocale }) => {

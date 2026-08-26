@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Next",
+      "done": "Done",
+      "skip": "Skip",
+      "progress": "Step {current} of {total}",
+      "steps": {
+        "order": {
+          "title": "Two ways to order the path",
+          "body": "Defensible minimum puts the biggest risk and legal exposure first. Chronological follows the natural process, category by category."
+        },
+        "filters": {
+          "title": "Narrow it to what needs you",
+          "body": "Filter the path down to what is open, overdue, due soon, or waiting on a sign-off."
+        },
+        "legend": {
+          "title": "What the dots mean",
+          "body": "Every dot carries a state: now, in progress, awaiting sign-off, or signed off."
+        },
+        "firstStep": {
+          "title": "Every row is one requirement",
+          "body": "Open a row to see what the requirement asks for and what to do about it. Start at the top and work down."
+        },
+        "status": {
+          "title": "Where this requirement stands",
+          "body": "The badge next to the title tracks the requirement from open through to signed off."
+        },
+        "form": {
+          "title": "Answer the specifics",
+          "body": "Edit records what your organisation actually does. Save keeps it, and your answers become part of the evidence."
+        },
+        "evidence": {
+          "title": "Attach the proof",
+          "body": "Upload the documents that show the measure is really running. That is what an audit asks for."
+        },
+        "assign": {
+          "title": "Give it an owner, then sign it off",
+          "body": "Assign the person responsible and sign off once the requirement is met. The sign-off is the record that management agreed."
+        },
+        "nav": {
+          "title": "Move through the path",
+          "body": "Back and next walk the requirements in order. Mark one as not applicable where it does not apply to your organisation, with a reason."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Help",
+      "title": "Anything we can help with?",
+      "body": "This is your second time here. If something is unclear or you are stuck, say so. You reach us directly.",
+      "email": "Write to us at",
+      "call": "Or book a call",
+      "selfHost": "Want to run the platform on your own infrastructure? We help with that too.",
+      "feedback": "Telling us what is missing or awkward is just as welcome as a question.",
+      "startTour": "Show me around",
+      "close": "Close",
+      "dismissForever": "Don't show this again"
+    }
+  }
+}
