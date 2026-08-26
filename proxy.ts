@@ -192,6 +192,44 @@ const NON_DEFAULT_LOCALE_PREFIX = new RegExp(
   "i",
 );
 
+/**
+ * Supplier portal root → the product lander, for anonymous visitors only.
+ *
+ * `/portal/supplier` is the URL that actually gets shared with a supplier
+ * ("fill this in for us"), and a supplier who has never heard of us has
+ * nothing to sign in with. Sending them to /auth/signin loses them at the
+ * door. Deep links into the portal (/portal/supplier/profile, /practices,
+ * per-customer pages) keep going to signin with callbackUrl — those are app
+ * URLs someone reaches after they already have an account.
+ *
+ * Target is resolved per locale from routing.pathnames so NL lands on
+ * /nl/leveranciersportaal rather than eating a second redirect hop.
+ */
+const SUPPLIER_PORTAL_ROOT = "/portal/supplier";
+
+const SUPPLIER_LANDER_BY_LOCALE: Record<string, string> = (() => {
+  const pathnames = routing.pathnames as Record<
+    string,
+    string | Record<string, string | undefined> | undefined
+  >;
+  const mapping = pathnames["/supplier-portal"];
+  const out: Record<string, string> = {};
+  for (const locale of routing.locales) {
+    out[locale] =
+      (typeof mapping === "string" ? mapping : mapping?.[locale]) ??
+      "/supplier-portal";
+  }
+  return out;
+})();
+
+/** Locale-prefixed lander URL for the locale this request is in. */
+function supplierLanderPath(pathname: string): string {
+  const match = pathname.match(NON_DEFAULT_LOCALE_PREFIX);
+  const locale = match ? match[1].toLowerCase() : routing.defaultLocale;
+  const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+  return `${prefix}${SUPPLIER_LANDER_BY_LOCALE[locale] ?? "/supplier-portal"}`;
+}
+
 function isPublic(pathname: string): boolean {
   const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
   if (PUBLIC_EXACT.has(stripped)) return true;
@@ -276,6 +314,13 @@ export async function proxy(request: NextRequest) {
     });
 
     if (!token) {
+      // The one protected path an anonymous visitor is expected to arrive
+      // at cold. Everything else under /portal/supplier/ still walls.
+      if ((pathname.replace(LOCALE_STRIP, "") || "/") === SUPPLIER_PORTAL_ROOT) {
+        return NextResponse.redirect(
+          new URL(supplierLanderPath(pathname), request.url),
+        );
+      }
       const signinUrl = new URL("/auth/signin", request.url);
       signinUrl.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(signinUrl);
