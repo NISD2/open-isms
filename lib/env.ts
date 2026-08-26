@@ -55,6 +55,15 @@ const envSchema = z.object({
   // App URL
   NEXT_PUBLIC_APP_URL: z.string().default("https://www.nisd2.eu"),
 
+  // Cal.com booking handle behind the "book a call" surfaces. Either a bare
+  // handle ("nisd2") or handle/event-type ("acme/intro").
+  // Empty by default on purpose: a self-hosted instance must not embed someone
+  // else's calendar. Where it is unset, the booking UI is not rendered at all.
+  // Read server-side and passed down as a prop, not NEXT_PUBLIC_: the Dockerfile
+  // declares no build args, so a NEXT_PUBLIC_ value set in the deploy platform
+  // would never reach the client bundle.
+  CAL_LINK: z.string().default(""),
+
   // Standard
   NODE_ENV: z
     .enum(["development", "production", "test"])

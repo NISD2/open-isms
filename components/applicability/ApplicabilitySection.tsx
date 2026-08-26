@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { env } from "@/lib/env";
 import { ApplicabilityCheck } from "./ApplicabilityCheck";
 import { NationalAuthorityCallout } from "./NationalAuthorityCallout";
 
@@ -24,7 +25,7 @@ export async function ApplicabilitySection({
         </p>
       </section>
 
-      <ApplicabilityCheck />
+      <ApplicabilityCheck calLink={env.CAL_LINK} />
     </div>
   );
 }
