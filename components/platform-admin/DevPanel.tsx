@@ -79,6 +79,7 @@ function Armed({ on }: { on: boolean }) {
 }
 
 export function DevPanel() {
+  const router = useRouter();
   const state = trpc.platformAdmin.myDevState.useQuery();
   const data = state.data;
   // The only destructive action on the tab, so it asks twice rather than
@@ -88,6 +89,12 @@ export function DevPanel() {
   const arm = trpc.platformAdmin.armOnboardingSurface.useMutation({
     onSuccess: async ({ surface }) => {
       await state.refetch();
+      // These surfaces are resolved server-side in the portal layout, and the
+      // router keeps a shared layout it has already fetched. Without dropping
+      // that cache, walking over to the portal can render the layout as it was
+      // before the arm, and the walkthrough does not appear until the whole
+      // document is reloaded by hand.
+      router.refresh();
       toast.success(SURFACES.find((s) => s.hint === surface)?.armedToast ?? "Armed.");
     },
     onError: () => toast.error("Could not arm that surface."),
@@ -160,7 +167,9 @@ export function DevPanel() {
             ))}
           </div>
           <p className="text-xs text-muted-foreground">
-            Takes effect on the next portal page load. No sign-out needed.
+            Takes effect immediately, and survives a sign-out: the tours arm at
+            a login count of zero, so the sign-in that follows still counts as
+            a first one.
           </p>
         </CardContent>
       </Card>

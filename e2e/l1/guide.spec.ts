@@ -153,6 +153,41 @@ test("skipping the journey walkthrough leaves the requirement one armed", async 
   await dismissalLanded("requirement_tour_dismissed_at");
 });
 
+test("the requirement walkthrough survives arriving from the journey", async ({
+  page,
+}) => {
+  await setGuideState(
+    "login_count = 1, tour_dismissed_at = NOW(), requirement_tour_dismissed_at = NULL",
+  );
+
+  await page.goto("/journey");
+  await expect(page.getByTestId("journey-node-2.1")).toBeVisible();
+
+  // Hold the requirement page back so its loading skeleton is what is on
+  // screen while the portal header — which owns the walkthrough and stays
+  // mounted across the navigation — is already hydrated.
+  //
+  // That gap is the regression. The guide used to sample the DOM once, a
+  // single frame after the route changed, and keep whatever it found. On this
+  // path it found the skeleton, ended up with no steps, and had nothing left
+  // to re-run the check, so the walkthrough was silently gone until the page
+  // was reloaded by hand a couple of times.
+  await page.route("**/compliance/**", async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 2_000));
+    await route.continue();
+  });
+
+  await page.getByTestId("journey-node-2.1").click();
+
+  const card = page.getByTestId("tour-card");
+  await expect(card).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByTestId("tour-progress")).toContainText("1");
+
+  await page.getByTestId("tour-skip").click();
+  await expect(card).toBeHidden();
+  await dismissalLanded("requirement_tour_dismissed_at");
+});
+
 test("a second login offers help, and does not offer it twice", async ({
   page,
 }) => {

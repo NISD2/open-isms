@@ -322,7 +322,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
       sessionVersion: true,
       loginCount: true,
       journeyTourDismissedAt: true,
-            requirementTourDismissedAt: true,
+      requirementTourDismissedAt: true,
       helpOfferDismissedAt: true,
     },
   });
