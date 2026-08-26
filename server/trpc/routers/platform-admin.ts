@@ -33,7 +33,7 @@ import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
 import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/certificate";
 import { rateLimit } from "@/lib/rate-limit";
 import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
-import { resolveHints, HINTS } from "@/lib/onboarding/hints";
+import { resolveHints, HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
 
 // Character set (not a secret) for human-friendly share passwords —
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
@@ -70,7 +70,8 @@ export const platformAdminRouter = router({
       where: eq(user.id, ctx.userId),
       columns: {
         loginCount: true,
-        tourDismissedAt: true,
+        journeyTourDismissedAt: true,
+        requirementTourDismissedAt: true,
         helpOfferDismissedAt: true,
       },
     });
@@ -113,13 +114,12 @@ export const platformAdminRouter = router({
   armOnboardingSurface: platformAdminProcedure
     .input(z.object({ surface: z.enum(HINTS) }))
     .mutation(async ({ ctx, input }) => {
+      // Both tours want a first-login account; the offer of help wants a
+      // second. Everything else is just clearing that surface's own stamp.
+      const loginCount = input.surface === "helpOffer" ? 2 : 1;
       await ctx.db
         .update(user)
-        .set(
-          input.surface === "tour"
-            ? { loginCount: 1, tourDismissedAt: null }
-            : { loginCount: 2, helpOfferDismissedAt: null },
-        )
+        .set({ loginCount, [HINT_COLUMN[input.surface]]: null })
         .where(eq(user.id, ctx.userId));
       return { surface: input.surface };
     }),

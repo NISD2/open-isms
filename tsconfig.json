@@ -44,6 +44,12 @@
       "@nisd2/grc-data-model/*": [
         "./packages/grc-data-model/src/*"
       ],
+      "@nisd2/isms-schema": [
+        "./packages/isms-schema/src/index.ts"
+      ],
+      "@nisd2/isms-schema/*": [
+        "./packages/isms-schema/src/*"
+      ],
       "@nisd2/incident-notification-schema": [
         "./packages/incident-notification-schema/src/index.ts"
       ],

@@ -30,14 +30,16 @@ async function dismissalLanded(column: string): Promise<void> {
 }
 
 const retire = () =>
-  setGuideState("tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()");
+  setGuideState(
+    "tour_dismissed_at = NOW(), requirement_tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()",
+  );
 
 test.afterAll(retire);
 
 test("the tour runs on a first login, and stays gone once dismissed", async ({
   page,
 }) => {
-  await setGuideState("login_count = 1, tour_dismissed_at = NULL");
+  await setGuideState("login_count = 1, tour_dismissed_at = NULL, requirement_tour_dismissed_at = NULL");
 
   await page.goto("/journey");
   const card = page.getByTestId("tour-card");
@@ -63,7 +65,7 @@ test("the tour runs on a first login, and stays gone once dismissed", async ({
 test("every tour card lands fully on screen, and the tour opens on the board", async ({
   page,
 }) => {
-  await setGuideState("login_count = 1, tour_dismissed_at = NULL");
+  await setGuideState("login_count = 1, tour_dismissed_at = NULL, requirement_tour_dismissed_at = NULL");
 
   await page.goto("/journey");
   const card = page.getByTestId("tour-card");
@@ -122,6 +124,33 @@ test("every tour card lands fully on screen, and the tour opens on the board", a
   await page.getByTestId("tour-next").click();
   await expect(card).toBeHidden();
   await dismissalLanded("tour_dismissed_at");
+});
+
+test("skipping the journey walkthrough leaves the requirement one armed", async ({
+  page,
+}) => {
+  await setGuideState(
+    "login_count = 1, tour_dismissed_at = NULL, requirement_tour_dismissed_at = NULL",
+  );
+
+  // Skip out of the journey walkthrough entirely.
+  await page.goto("/journey");
+  const card = page.getByTestId("tour-card");
+  await expect(card).toBeVisible();
+  await page.getByTestId("tour-skip").click();
+  await expect(card).toBeHidden();
+  await dismissalLanded("tour_dismissed_at");
+
+  // The requirement page still runs its own, which is the whole point of the
+  // split: one shared flag used to make this second card never appear.
+  await page.goto("/compliance/risk-management/2.1");
+  await expect(card).toBeVisible();
+  await expect(page.getByTestId("tour-progress")).toContainText("1");
+
+  // And dismissing that one stamps only its own column.
+  await page.getByTestId("tour-skip").click();
+  await expect(card).toBeHidden();
+  await dismissalLanded("requirement_tour_dismissed_at");
 });
 
 test("a second login offers help, and does not offer it twice", async ({

@@ -4,7 +4,7 @@ import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure } from "../init";
 import { user } from "@/schema";
 import { userUpdateSchema } from "@/schema/validators";
-import { HINTS } from "@/lib/onboarding/hints";
+import { HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
 
 export const userRouter = router({
   /**
@@ -46,11 +46,7 @@ export const userRouter = router({
       const now = new Date();
       await ctx.db
         .update(user)
-        .set(
-          input.hint === "tour"
-            ? { tourDismissedAt: now }
-            : { helpOfferDismissedAt: now },
-        )
+        .set({ [HINT_COLUMN[input.hint]]: now })
         .where(eq(user.id, ctx.userId));
 
       return { hint: input.hint };

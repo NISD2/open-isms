@@ -14,7 +14,7 @@
  * platform-admin gate decides who reaches them at all. Nothing here deletes
  * compliance evidence.
  */
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { RotateCcw, Check, Loader2, Languages, GraduationCap, Compass, FileDown } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/navigation";
@@ -30,6 +30,38 @@ import { trpc } from "@/lib/trpc/client";
 
 /** next-intl writes the chosen locale here; clearing it restores detection. */
 const LOCALE_COOKIE = "NEXT_LOCALE";
+
+/**
+ * The one-time surfaces, in the order a new account meets them. One table so
+ * the status rows, the arm buttons and the toasts cannot drift apart, and
+ * adding a fourth surface is one entry.
+ */
+const SURFACES = [
+  {
+    hint: "journeyTour",
+    stamp: "journeyTourDismissedAt",
+    label: "Journey walkthrough",
+    button: "Arm the journey walkthrough",
+    testId: "arm-journey-tour",
+    armedToast: "Journey walkthrough armed. Open the journey to see it.",
+  },
+  {
+    hint: "requirementTour",
+    stamp: "requirementTourDismissedAt",
+    label: "Requirement walkthrough",
+    button: "Arm the requirement walkthrough",
+    testId: "arm-requirement-tour",
+    armedToast: "Requirement walkthrough armed. Open any requirement to see it.",
+  },
+  {
+    hint: "helpOffer",
+    stamp: "helpOfferDismissedAt",
+    label: "Second-login offer",
+    button: "Arm the second-login offer",
+    testId: "arm-help-offer",
+    armedToast: "Offer of help armed. Open any portal page to see it.",
+  },
+] as const;
 
 function Stamp({ value }: { value: Date | string | null }) {
   if (!value) return <span className="text-muted-foreground">never</span>;
@@ -56,11 +88,7 @@ export function DevPanel() {
   const arm = trpc.platformAdmin.armOnboardingSurface.useMutation({
     onSuccess: async ({ surface }) => {
       await state.refetch();
-      toast.success(
-        surface === "tour"
-          ? "Tour armed. Open the journey to see it."
-          : "Offer of help armed. Open any portal page to see it.",
-      );
+      toast.success(SURFACES.find((s) => s.hint === surface)?.armedToast ?? "Armed.");
     },
     onError: () => toast.error("Could not arm that surface."),
   });
@@ -91,57 +119,45 @@ export function DevPanel() {
             <Compass className="h-4 w-4" /> Onboarding surfaces
           </CardTitle>
           <CardDescription>
-            The tour arms on a first login, the offer of help on a second, so
-            only one of them can be armed at a time. Arming either moves your
-            login counter and disarms the other.
+            The two walkthroughs are separate and dismiss separately, so
+            skipping the journey one leaves the requirement one still to come.
+            Both want a first-login account and the offer of help wants a
+            second, so arming the offer disarms the tours and vice versa.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <dl className="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[10rem_1fr]">
+          <dl className="grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[12rem_1fr]">
             <dt className="text-muted-foreground">Login count</dt>
             <dd className="tabular-nums">{data ? data.loginCount : "…"}</dd>
-            <dt className="text-muted-foreground">Tour</dt>
-            <dd>
-              {data ? (
-                <>
-                  <Armed on={data.hints.tour} /> · dismissed{" "}
-                  <Stamp value={data.tourDismissedAt} />
-                </>
-              ) : "…"}
-            </dd>
-            <dt className="text-muted-foreground">Offer of help</dt>
-            <dd>
-              {data ? (
-                <>
-                  <Armed on={data.hints.helpOffer} /> · dismissed{" "}
-                  <Stamp value={data.helpOfferDismissedAt} />
-                </>
-              ) : "…"}
-            </dd>
+            {SURFACES.map(({ hint, label, stamp }) => (
+              <Fragment key={hint}>
+                <dt className="text-muted-foreground">{label}</dt>
+                <dd>
+                  {data ? (
+                    <>
+                      <Armed on={data.hints[hint]} /> · dismissed{" "}
+                      <Stamp value={data[stamp]} />
+                    </>
+                  ) : "…"}
+                </dd>
+              </Fragment>
+            ))}
           </dl>
           <div className="flex flex-wrap items-center gap-2">
-            <Button
-              type="button" variant="outline" size="sm"
-              data-testid="arm-tour"
-              disabled={arm.isPending}
-              onClick={() => arm.mutate({ surface: "tour" })}
-            >
-              {arm.isPending && arm.variables?.surface === "tour"
-                ? <Loader2 className="h-4 w-4 animate-spin" />
-                : <RotateCcw className="h-4 w-4" />}
-              Arm the walkthrough
-            </Button>
-            <Button
-              type="button" variant="outline" size="sm"
-              data-testid="arm-help-offer"
-              disabled={arm.isPending}
-              onClick={() => arm.mutate({ surface: "helpOffer" })}
-            >
-              {arm.isPending && arm.variables?.surface === "helpOffer"
-                ? <Loader2 className="h-4 w-4 animate-spin" />
-                : <RotateCcw className="h-4 w-4" />}
-              Arm the second-login offer
-            </Button>
+            {SURFACES.map(({ hint, button, testId }) => (
+              <Button
+                key={hint}
+                type="button" variant="outline" size="sm"
+                data-testid={testId}
+                disabled={arm.isPending}
+                onClick={() => arm.mutate({ surface: hint })}
+              >
+                {arm.isPending && arm.variables?.surface === hint
+                  ? <Loader2 className="h-4 w-4 animate-spin" />
+                  : <RotateCcw className="h-4 w-4" />}
+                {button}
+              </Button>
+            ))}
           </div>
           <p className="text-xs text-muted-foreground">
             Takes effect on the next portal page load. No sign-out needed.

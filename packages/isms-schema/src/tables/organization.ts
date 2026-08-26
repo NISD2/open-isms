@@ -333,12 +333,20 @@ export const user = pgTable("user", {
    */
   loginCount: integer("login_count").default(0).notNull(),
   /**
-   * When the user dismissed the guided product tour. One flag for every page
-   * tour on purpose: dismissing it on the journey page means "not interested",
-   * not "ask me again on the next screen". The help trigger in the portal
-   * header replays it on demand, so dismissal costs the user nothing.
+   * When the user dismissed the journey tour.
+   *
+   * One flag per tour, not one for all of them. The journey board and a
+   * requirement page teach different things, and skipping the overview is not
+   * a statement about the page where the actual work happens, so each is
+   * dismissed on its own.
+   *
+   * The column keeps its original name because it already holds exactly this:
+   * every dismissal recorded against it happened on the journey. Renaming it
+   * would rewrite a hot table to buy nothing.
    */
-  tourDismissedAt: timestamp("tour_dismissed_at"),
+  journeyTourDismissedAt: timestamp("tour_dismissed_at"),
+  /** When the user dismissed the requirement-page tour. */
+  requirementTourDismissedAt: timestamp("requirement_tour_dismissed_at"),
   /** When the user dismissed the second-login offer of help. */
   helpOfferDismissedAt: timestamp("help_offer_dismissed_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

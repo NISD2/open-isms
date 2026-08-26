@@ -6,10 +6,12 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc/client";
 import type { Hint } from "@/lib/onboarding/hints";
+
+type TourHint = RouteTour["hint"];
 import { usePortalPath } from "@/components/portal/use-portal-path";
 import { HelpDialog } from "./HelpDialog";
 import { TourOverlay } from "./tour/TourOverlay";
-import { tourForPath, type TourStep } from "./tour/steps";
+import { tourForPath, type RouteTour, type TourStep } from "./tour/steps";
 
 /** Drop steps whose target is not on this page before the tour starts. */
 function presentSteps(steps: readonly TourStep[]): readonly TourStep[] {
@@ -42,37 +44,43 @@ export function PortalGuide({
   // on. The portal layout does not remount between pages, so a dismissal
   // holds for the rest of the session without waiting on the round trip that
   // persists it.
-  const [tourArmed, setTourArmed] = useState(hints.tour);
+  // Per-walkthrough, so dismissing one leaves the other still to come.
+  const [armed, setArmed] = useState<Record<TourHint, boolean>>({
+    journeyTour: hints.journeyTour,
+    requirementTour: hints.requirementTour,
+  });
   const [helpAuto, setHelpAuto] = useState(hints.helpOffer);
   const [helpManual, setHelpManual] = useState(false);
   const [steps, setSteps] = useState<readonly TourStep[]>([]);
   const [index, setIndex] = useState(0);
 
-  const routeSteps = tourForPath(path);
+  const routeTour = tourForPath(path);
+  const routeArmed = routeTour ? armed[routeTour.hint] : false;
 
-  // Re-resolve on every navigation: the tour follows the user across pages for
-  // as long as it is armed, and the targets only exist once the page has
-  // painted.
+  // Re-resolve on every navigation. Each route asks whether ITS walkthrough is
+  // still armed, so walking the journey and then opening a requirement starts
+  // the second one, and skipping the journey does not cancel it.
   useEffect(() => {
-    if (!tourArmed || !routeSteps) {
+    if (!routeTour || !routeArmed) {
       setSteps([]);
       return;
     }
     const frame = requestAnimationFrame(() => {
-      setSteps(presentSteps(routeSteps));
+      setSteps(presentSteps(routeTour.steps));
       setIndex(0);
     });
     return () => cancelAnimationFrame(frame);
-  }, [tourArmed, routeSteps, path]);
+  }, [routeArmed, routeTour, path]);
 
   // Plain functions: nothing downstream is memoised and none of these sit in a
   // dependency array, so useCallback would only add a list to keep in step.
   const dismiss = (hint: Hint) => dismissHint.mutate({ hint });
 
   const closeTour = () => {
-    setTourArmed(false);
+    if (!routeTour) return;
+    setArmed((current) => ({ ...current, [routeTour.hint]: false }));
     setSteps([]);
-    dismiss("tour");
+    dismiss(routeTour.hint);
   };
 
   const closeHelp = () => {
@@ -82,11 +90,11 @@ export function PortalGuide({
   };
 
   const startTour = () => {
-    if (!routeSteps) return;
+    if (!routeTour) return;
     // Leaving through the tour still counts as having met the offer of help,
     // otherwise the automatic one returns on the next page load.
     closeHelp();
-    setSteps(presentSteps(routeSteps));
+    setSteps(presentSteps(routeTour.steps));
     setIndex(0);
   };
 
@@ -110,7 +118,7 @@ export function PortalGuide({
         onOpenChange={(open) => !open && closeHelp()}
         calLink={calLink}
         permanent={helpAuto}
-        onStartTour={routeSteps ? startTour : undefined}
+        onStartTour={routeTour ? startTour : undefined}
       />
 
       {step && (

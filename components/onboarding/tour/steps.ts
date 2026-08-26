@@ -7,6 +7,8 @@
  * is, instrumentation for this file, and survives two instances of the same
  * component on one screen.
  */
+import type { Hint } from "@/lib/onboarding/hints";
+
 export type TourStep = {
   /** Matches the `data-tour` attribute on the element to highlight. */
   target: string;
@@ -60,19 +62,42 @@ const REQUIREMENT_STEPS: readonly TourStep[] = [
   { target: "requirement-nav", key: "nav", side: "top" },
 ];
 
+/** A route's walkthrough: which hint owns it, and what it points at. */
+export type RouteTour = {
+  /** The hint this walkthrough arms and dismisses on its own. */
+  hint: Extract<Hint, "journeyTour" | "requirementTour">;
+  steps: readonly TourStep[];
+};
+
 /**
  * The tour for a locale-stripped portal path, or null where none is defined.
+ *
+ * Returning the hint alongside the steps is what keeps the two walkthroughs
+ * independent: the guide arms whichever one the current route owns and stamps
+ * only that one on dismissal, so skipping the journey overview leaves the
+ * requirement page still to come.
  *
  * Steps whose target is absent on the page are dropped before the tour runs
  * (see PortalGuide), so a page may legitimately carry only some of these.
  */
-export function tourForPath(path: string): readonly TourStep[] | null {
+/**
+ * Module constants, not literals built per call: the guide keeps the returned
+ * tour in an effect dependency, and a fresh object each render re-ran that
+ * effect and reset the walkthrough to step one on every keystroke of state.
+ */
+const JOURNEY_TOUR: RouteTour = { hint: "journeyTour", steps: JOURNEY_STEPS };
+const REQUIREMENT_TOUR: RouteTour = {
+  hint: "requirementTour",
+  steps: REQUIREMENT_STEPS,
+};
+
+export function tourForPath(path: string): RouteTour | null {
   const segments = path.split("/").filter(Boolean);
-  if (segments[0] === "journey") return JOURNEY_STEPS;
+  if (segments[0] === "journey") return JOURNEY_TOUR;
   // /compliance/<category>/<requirement>. The category index is a link list
   // with nothing to explain, so only the three-segment detail page tours.
   if (segments[0] === "compliance" && segments.length === 3) {
-    return REQUIREMENT_STEPS;
+    return REQUIREMENT_TOUR;
   }
   return null;
 }
