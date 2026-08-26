@@ -703,10 +703,10 @@
         "p1": "Środki zapewniające poufność:",
         "items": {
           "physical": "Kontrola dostępu fizycznego: centra danych dostawców hostingu (Hetzner, AWS) posiadają certyfikaty ISO 27001",
-          "auth": "Uwierzytelnianie: wyłącznie przez Google OAuth 2.0; na platformie nie są przechowywane żadne hasła. MFA dla użytkowników zapewniane jest przez ich konto Google",
+          "auth": "Uwierzytelnianie: logowanie adresem e-mail i hasłem albo przez Google OAuth 2.0. Hasła przechowujemy wyłącznie jako skrót bcrypt ze współczynnikiem kosztu 12, nigdy w postaci jawnej. Przy rejestracji hasłem adres e-mail jest jednorazowo potwierdzany kodem jednorazowym, a nieudane próby logowania są ograniczone do 10 w ciągu 15 minut na instancję aplikacji. Platforma nie oferuje drugiego składnika na ścieżce hasłowej. Kto loguje się przez Google, korzysta z MFA własnego konta Google.",
           "rbac": "Uprawnienia oparte na rolach: admin, recenzent, członek; egzekwowane w warstwie aplikacji przez oprogramowanie pośredniczące tRPC",
           "separation": "Izolacja wielodostępowa: każde zapytanie zawierające dane filtruje w warstwie bazy danych według identyfikatora firmy uwierzytelnionego użytkownika; brak współdzielonych zbiorów danych między klientami",
-          "secrets": "Brak haseł w postaci jawnej na platformie - uwierzytelnianie odbywa się wyłącznie w oparciu o OAuth",
+          "secrets": "Hasła nigdy nie są przechowywane w postaci jawnej. Każde logowanie jest porównywane ze skrótem bcrypt, także wtedy, gdy dla podanego adresu nie istnieje żadne konto, aby z czasu odpowiedzi nie dało się wywnioskować, kto jest zarejestrowany.",
           "personnel": "Środki dotyczące personelu: dostęp do systemów produkcyjnych i danych osobowych jest ograniczony do niewielkiej, imiennie wskazanej grupy zobowiązanej do zachowania poufności. Dostęp opiera się na zasadzie najmniejszych uprawnień i jest odbierany po zakończeniu pełnienia roli."
         }
       },
@@ -727,7 +727,7 @@
           "redundancy": "Przechowywanie dokumentów dowodowych w AWS S3 z gwarancjami trwałości obiektów zapewnianymi przez AWS",
           "rateLimit": "Ograniczanie liczby żądań przy próbach logowania, publicznych punktach końcowych (sprawdzenie zakresu stosowania, portal dostawców) oraz zasobochłonnych uwierzytelnionych punktach końcowych (eksporty PDF, generowanie certyfikatów)",
           "uploadLimit": "Przesyłane pliki są ograniczone do 50 MB na plik",
-          "status": "Monitorowanie dostępności: status operacyjny platformy jest stale monitorowany i publicznie widoczny pod adresem nisd2.eu/status."
+          "status": "Wskaźnik dostępności: nisd2.eu/status przy każdym wywołaniu sprawdza dostępność bazy danych i publicznie pokazuje wynik, buforowany przez 30 sekund. Nie prowadzimy ciągłego monitoringu z automatycznym alarmowaniem."
         }
       },
       "evaluation": {

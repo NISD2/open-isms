@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { FunnelFaq } from "@/components/funnel/FunnelFaq";
 import { CalBooker } from "@/components/funnel/CalBooker";
+import { env } from "@/lib/env";
 
 const processSteps = [
   { key: "step1", icon: Clock },
@@ -47,11 +48,13 @@ export default async function FunnelPage() {
         <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
           {t("hero.subhead")}
         </p>
-        <div className="mt-8">
-          <Button asChild size="lg">
-            <a href="#book">{t("hero.cta")}</a>
-          </Button>
-        </div>
+        {env.CAL_LINK && (
+          <div className="mt-8">
+            <Button asChild size="lg">
+              <a href="#book">{t("hero.cta")}</a>
+            </Button>
+          </div>
+        )}
         <p className="mt-4 text-sm text-muted-foreground">{t("hero.trust")}</p>
         <p className="mt-3 text-sm">
           <Link
@@ -145,18 +148,21 @@ export default async function FunnelPage() {
         </div>
       </section>
 
-      {/* Book a call */}
-      <section id="book" className="mx-auto max-w-4xl scroll-mt-16 py-16 sm:py-24">
-        <h2 className="text-center text-3xl font-bold tracking-tight">
-          {t("finalCta.headline")}
-        </h2>
-        <p className="mt-4 text-center text-sm text-muted-foreground">
-          {t("finalCta.email")}
-        </p>
-        <div className="mt-8">
-          <CalBooker calLink="sorzel/work" />
-        </div>
-      </section>
+      {/* Book a call. Hidden where no calendar is configured, so a self-hosted
+          instance never embeds someone else's booking page. */}
+      {env.CAL_LINK && (
+        <section id="book" className="mx-auto max-w-4xl scroll-mt-16 py-16 sm:py-24">
+          <h2 className="text-center text-3xl font-bold tracking-tight">
+            {t("finalCta.headline")}
+          </h2>
+          <p className="mt-4 text-center text-sm text-muted-foreground">
+            {t("finalCta.email")}
+          </p>
+          <div className="mt-8">
+            <CalBooker calLink={env.CAL_LINK} />
+          </div>
+        </section>
+      )}
 
       {/* Sources */}
       <section className="mx-auto max-w-3xl">

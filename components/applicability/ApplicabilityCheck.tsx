@@ -63,7 +63,7 @@ function getStepIndex(step: Step): number {
   return STEPS.indexOf(step);
 }
 
-export function ApplicabilityCheck() {
+export function ApplicabilityCheck({ calLink }: { calLink: string }) {
   const t = useTranslations("applicability");
   const locale = useLocale();
 
@@ -314,7 +314,7 @@ export function ApplicabilityCheck() {
                 <RotateCcw className="h-4 w-4" />
                 <span className="hidden sm:inline">{t("result.restart")}</span>
               </Button>
-              <CalModal>
+              <CalModal calLink={calLink}>
                 <Button
                   variant={result && result.classification !== "not_in_scope" ? "default" : "outline"}
                   className="gap-2 whitespace-normal text-right"

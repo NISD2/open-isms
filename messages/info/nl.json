@@ -704,10 +704,10 @@
         "p1": "Measures ensuring confidentiality:",
         "items": {
           "physical": "Physical access control: data centres of the hosting providers (Hetzner, AWS) hold ISO 27001 certifications",
-          "auth": "Authentication: exclusively via Google OAuth 2.0; no passwords stored on the platform. MFA for users is provided through their Google account",
+          "auth": "Authenticatie: aanmelden met e-mailadres en wachtwoord of via Google OAuth 2.0. Wachtwoorden slaan wij uitsluitend op als bcrypt-hash met kostenfactor 12, nooit in leesbare vorm. Bij registratie met een wachtwoord wordt het e-mailadres eenmalig bevestigd met een eenmalige code, mislukte aanmeldpogingen zijn per applicatie-instantie beperkt tot 10 in 15 minuten. Het platform biedt geen tweede factor voor de wachtwoordroute. Wie via Google aanmeldt, gebruikt de MFA van het eigen Google-account.",
           "rbac": "Role-based permissions: admin, reviewer, member; enforced in the application layer via tRPC middleware",
           "separation": "Multi-tenant isolation: every data-bearing query filters at the database layer on the company ID of the authenticated user; no shared data pools between customers",
-          "secrets": "No plaintext passwords on the platform - authentication is exclusively OAuth-based",
+          "secrets": "Wachtwoorden worden nooit in leesbare vorm opgeslagen. Elke aanmelding wordt vergeleken met een bcrypt-hash, ook wanneer er voor het opgegeven e-mailadres geen account bestaat, zodat uit de responstijd niet valt af te leiden wie geregistreerd is.",
           "personnel": "Personnel measures: access to production systems and personal data is limited to a small, named group bound by confidentiality. Access follows the principle of least privilege and is revoked when a role ends."
         }
       },
@@ -728,7 +728,7 @@
           "redundancy": "Storage of evidence documents in AWS S3 with the object durability guarantees provided by AWS",
           "rateLimit": "Rate limiting on login attempts, public endpoints (applicability check, supplier portal), and resource-heavy authenticated endpoints (PDF exports, certificate generation)",
           "uploadLimit": "Uploaded files are limited to 50 MB per file",
-          "status": "Availability monitoring: the platform's operational status is continuously monitored and publicly visible at nisd2.eu/status."
+          "status": "Beschikbaarheidsweergave: nisd2.eu/status controleert bij elke oproep of de database bereikbaar is en toont het resultaat openbaar, 30 seconden in cache. Wij draaien geen doorlopende monitoring met automatische alarmering."
         }
       },
       "evaluation": {

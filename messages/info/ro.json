@@ -703,10 +703,10 @@
         "p1": "Măsuri care asigură confidențialitatea:",
         "items": {
           "physical": "Controlul accesului fizic: centrele de date ale furnizorilor de găzduire (Hetzner, AWS) dețin certificări ISO 27001",
-          "auth": "Autentificare: exclusiv prin Google OAuth 2.0; nu se stochează parole pe platformă. MFA pentru utilizatori este asigurată prin contul lor Google",
+          "auth": "Autentificare: conectare cu adresa de e-mail și parolă sau prin Google OAuth 2.0. Parolele sunt stocate exclusiv ca hash bcrypt cu factor de cost 12, niciodată în clar. La înregistrarea cu parolă, adresa de e-mail este confirmată o singură dată printr-un cod de unică folosință, iar încercările eșuate de conectare sunt limitate la 10 în 15 minute per instanță a aplicației. Platforma nu oferă un al doilea factor pe traseul cu parolă. Cine se conectează prin Google folosește MFA din propriul cont Google.",
           "rbac": "Permisiuni bazate pe roluri: administrator, evaluator, membru; aplicate la nivelul aplicației prin middleware tRPC",
           "separation": "Izolare multi-tenant: fiecare interogare care conține date filtrează la nivelul bazei de date după ID-ul companiei utilizatorului autentificat; nu există fonduri de date comune între clienți",
-          "secrets": "Nicio parolă în text clar pe platformă. Autentificarea este exclusiv bazată pe OAuth",
+          "secrets": "Parolele nu sunt niciodată stocate în clar. Fiecare conectare este comparată cu un hash bcrypt, inclusiv atunci când pentru adresa indicată nu există niciun cont, astfel încât timpul de răspuns să nu dezvăluie cine este înregistrat.",
           "personnel": "Măsuri privind personalul: accesul la sistemele de producție și la datele cu caracter personal este limitat la un grup restrâns, nominalizat, obligat la confidențialitate. Accesul respectă principiul privilegiului minim și este revocat la încetarea unui rol."
         }
       },
@@ -727,7 +727,7 @@
           "redundancy": "Stocarea documentelor de dovadă în AWS S3 cu garanțiile de durabilitate a obiectelor oferite de AWS",
           "rateLimit": "Limitarea ratei pentru încercările de autentificare, punctele finale publice (verificarea aplicabilității, portalul furnizorilor) și punctele finale autentificate cu consum intens de resurse (exporturi PDF, generarea de certificate)",
           "uploadLimit": "Fișierele încărcate sunt limitate la 50 MB per fișier",
-          "status": "Monitorizarea disponibilității: starea operațională a platformei este monitorizată continuu și vizibilă public la nisd2.eu/status."
+          "status": "Indicator de disponibilitate: nisd2.eu/status verifică la fiecare solicitare accesibilitatea bazei de date și afișează public rezultatul, memorat în cache 30 de secunde. Nu operăm monitorizare continuă cu alertare automată."
         }
       },
       "evaluation": {

@@ -703,10 +703,10 @@
         "p1": "Medidas que garantizan la confidencialidad:",
         "items": {
           "physical": "Control de acceso físico: los centros de datos de los proveedores de alojamiento (Hetzner, AWS) cuentan con certificaciones ISO 27001",
-          "auth": "Autenticación: exclusivamente mediante Google OAuth 2.0; no se almacenan contraseñas en la plataforma. La MFA para los usuarios se proporciona a través de su cuenta de Google",
+          "auth": "Autenticación: inicio de sesión con correo electrónico y contraseña o mediante Google OAuth 2.0. Las contraseñas se almacenan únicamente como hash bcrypt con factor de coste 12, nunca en texto claro. En el registro con contraseña, la dirección de correo se confirma una vez mediante un código de un solo uso, y los intentos fallidos de inicio de sesión se limitan a 10 en 15 minutos por instancia de la aplicación. La plataforma no ofrece un segundo factor en la vía de contraseña. Quien inicia sesión con Google utiliza la MFA de su propia cuenta de Google.",
           "rbac": "Permisos basados en roles: admin, revisor, miembro; aplicados en la capa de aplicación mediante middleware de tRPC",
           "separation": "Aislamiento multiinquilino: toda consulta que contenga datos filtra en la capa de base de datos por el ID de empresa del usuario autenticado; sin agrupaciones de datos compartidas entre clientes",
-          "secrets": "Sin contraseñas en texto plano en la plataforma: la autenticación es exclusivamente basada en OAuth",
+          "secrets": "Las contraseñas nunca se almacenan en texto claro. Cada inicio de sesión se compara con un hash bcrypt, incluso cuando no existe ninguna cuenta para la dirección indicada, de modo que el tiempo de respuesta no revele quién está registrado.",
           "personnel": "Medidas relativas al personal: el acceso a los sistemas productivos y a los datos personales se limita a un grupo reducido y nominado, sujeto a confidencialidad. El acceso sigue el principio de mínimo privilegio y se revoca cuando finaliza un rol."
         }
       },
@@ -727,7 +727,7 @@
           "redundancy": "Almacenamiento de documentos de prueba en AWS S3 con las garantías de durabilidad de objetos proporcionadas por AWS",
           "rateLimit": "Limitación de tasa en los intentos de inicio de sesión, los puntos finales públicos (comprobación de aplicabilidad, portal de proveedores) y los puntos finales autenticados con uso intensivo de recursos (exportaciones de PDF, generación de certificados)",
           "uploadLimit": "Los archivos cargados están limitados a 50 MB por archivo",
-          "status": "Supervisión de la disponibilidad: el estado operativo de la plataforma se supervisa de forma continua y es visible públicamente en nisd2.eu/status."
+          "status": "Indicador de disponibilidad: nisd2.eu/status comprueba en cada solicitud si la base de datos es accesible y muestra el resultado públicamente, con una caché de 30 segundos. No operamos una supervisión continua con alertas automáticas."
         }
       },
       "evaluation": {
