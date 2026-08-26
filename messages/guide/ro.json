@@ -69,9 +69,11 @@
       "title": "Vă putem ajuta cu ceva?",
       "body": "Este a doua vizită. Dacă ceva nu este clar sau v-ați blocat, spuneți-ne. Ne găsiți direct.",
       "email": "Scrieți-ne la",
+      "emailCopied": "Adresa de e-mail copiată",
       "call": "Sau rezervați o discuție",
-      "selfHost": "Vreți să găzduiți platforma pe infrastructura proprie? Ajutăm și la asta.",
-      "feedback": "Să ne spuneți ce lipsește sau ce incomodează este la fel de binevenit ca o întrebare.",
+      "selfHost": "Codul este deschis pe GitHub sub AGPL-3.0. Puteți rula platforma pe propria infrastructură oricând doriți, iar noi răspundem la întrebări despre asta.",
+      "training": "Și cursul nostru pentru conducere explică toate acestea.",
+      "trainingLink": "Deschideți cursul",
       "startTour": "Arătați-mi platforma",
       "close": "Închide",
       "dismissForever": "Nu mai afișa"

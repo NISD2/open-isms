@@ -69,9 +69,11 @@
       "title": "Kunnen we ergens mee helpen?",
       "body": "Dit is uw tweede bezoek. Als iets onduidelijk is of u komt niet verder, laat het weten. U bereikt ons rechtstreeks.",
       "email": "Schrijf ons op",
+      "emailCopied": "E-mailadres gekopieerd",
       "call": "Of plan een gesprek",
-      "selfHost": "Wilt u het platform op eigen infrastructuur draaien? Daar helpen we ook bij.",
-      "feedback": "Laten weten wat ontbreekt of stroef loopt is net zo welkom als een vraag.",
+      "selfHost": "De code staat open op GitHub onder AGPL-3.0. U mag het platform op elk moment op eigen infrastructuur draaien, en wij beantwoorden daar vragen over.",
+      "training": "Onze bestuurstraining legt dit allemaal ook uit.",
+      "trainingLink": "Naar de training",
       "startTour": "Laat me rondkijken",
       "close": "Sluiten",
       "dismissForever": "Niet meer tonen"

@@ -1,7 +1,9 @@
 "use client";
 
-import { CalendarDays, Mail, MessageSquare, Server, Compass } from "lucide-react";
+import { CalendarDays, Mail, Check, GraduationCap, Server, Compass } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
+import { useCopy } from "@/lib/clipboard/use-copy";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,7 +13,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-const CONTACT_EMAIL = "contact@nisd2.eu";
+const CONTACT_EMAIL = "cory@nisd2.eu";
 
 function HelpRow({
   icon: Icon,
@@ -52,6 +54,7 @@ export function HelpDialog({
   onStartTour?: () => void;
 }) {
   const t = useTranslations("guide");
+  const { copied, copy } = useCopy();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -67,14 +70,16 @@ export function HelpDialog({
         </DialogHeader>
 
         <ul className="space-y-3">
-          <HelpRow icon={Mail}>
+          <HelpRow icon={copied ? Check : Mail}>
             {t("help.email")}{" "}
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="font-medium underline underline-offset-4"
+            <button
+              type="button"
+              data-testid="help-copy-email"
+              onClick={() => void copy(CONTACT_EMAIL, t("help.emailCopied"))}
+              className="font-medium underline underline-offset-4 hover:text-foreground"
             >
               {CONTACT_EMAIL}
-            </a>
+            </button>
           </HelpRow>
 
           {calLink && (
@@ -91,7 +96,18 @@ export function HelpDialog({
           )}
 
           <HelpRow icon={Server}>{t("help.selfHost")}</HelpRow>
-          <HelpRow icon={MessageSquare}>{t("help.feedback")}</HelpRow>
+          <HelpRow icon={GraduationCap}>
+            {t("help.training")}{" "}
+            <Link
+              href={{
+                pathname: "/training/courses/[courseId]",
+                params: { courseId: "nis2-ceo" },
+              }}
+              className="font-medium underline underline-offset-4"
+            >
+              {t("help.trainingLink")}
+            </Link>
+          </HelpRow>
         </ul>
 
         <div className="flex flex-wrap items-center justify-end gap-2">

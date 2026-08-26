@@ -69,9 +69,11 @@
       "title": "Můžeme s něčím pomoct?",
       "body": "Jste tu podruhé. Pokud je něco nejasné nebo se zaseknete, dejte vědět. Ozveme se my, přímo.",
       "email": "Napište nám na",
+      "emailCopied": "E-mailová adresa zkopírována",
       "call": "Nebo si domluvte hovor",
-      "selfHost": "Chcete platformu provozovat na vlastní infrastruktuře? I s tím pomůžeme.",
-      "feedback": "Zpětná vazba k tomu, co chybí nebo drhne, je vítaná stejně jako dotaz.",
+      "selfHost": "Kód je otevřený na GitHubu pod licencí AGPL-3.0. Platformu můžete kdykoli provozovat na vlastní infrastruktuře a my na dotazy k tomu odpovídáme.",
+      "training": "Všechno tohle vysvětluje i naše školení pro vedení.",
+      "trainingLink": "Otevřít školení",
       "startTour": "Proveďte mě",
       "close": "Zavřít",
       "dismissForever": "Příště nezobrazovat"

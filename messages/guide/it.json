@@ -69,9 +69,11 @@
       "title": "Possiamo aiutarti in qualcosa?",
       "body": "È la tua seconda visita. Se qualcosa non è chiaro o sei bloccato, dillo. Ci raggiungi direttamente.",
       "email": "Scrivici a",
+      "emailCopied": "Indirizzo e-mail copiato",
       "call": "Oppure prenota una chiamata",
-      "selfHost": "Vuoi far girare la piattaforma sulla tua infrastruttura? Aiutiamo anche in questo.",
-      "feedback": "Dirci che cosa manca o che cosa non funziona è benvenuto quanto una domanda.",
+      "selfHost": "Il codice è aperto su GitHub con licenza AGPL-3.0. Potete eseguire la piattaforma sulla vostra infrastruttura quando volete, e rispondiamo alle domande in merito.",
+      "training": "Anche il nostro corso per la direzione spiega tutto questo.",
+      "trainingLink": "Apri il corso",
       "startTour": "Fammi fare un giro",
       "close": "Chiudi",
       "dismissForever": "Non mostrare più"

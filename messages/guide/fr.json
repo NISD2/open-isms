@@ -69,9 +69,11 @@
       "title": "Pouvons-nous vous aider ?",
       "body": "C'est votre deuxième visite. Si quelque chose n'est pas clair ou si vous bloquez, dites-le. Vous nous joignez directement.",
       "email": "Écrivez-nous à",
+      "emailCopied": "Adresse e-mail copiée",
       "call": "Ou réservez un échange",
-      "selfHost": "Vous souhaitez héberger la plateforme sur votre propre infrastructure ? Nous aidons aussi pour cela.",
-      "feedback": "Nous dire ce qui manque ou ce qui coince est aussi bienvenu qu'une question.",
+      "selfHost": "Le code est ouvert sur GitHub sous AGPL-3.0. Vous êtes libre d'exécuter la plateforme sur votre propre infrastructure quand vous le souhaitez, et nous répondons à vos questions à ce sujet.",
+      "training": "Notre formation pour les dirigeants reprend tout cela.",
+      "trainingLink": "Ouvrir la formation",
       "startTour": "Faites-moi visiter",
       "close": "Fermer",
       "dismissForever": "Ne plus afficher"

@@ -69,9 +69,11 @@
       "title": "¿Podemos ayudarle en algo?",
       "body": "Esta es su segunda visita. Si algo no está claro o se ha atascado, díganoslo. Le respondemos nosotros directamente.",
       "email": "Escríbanos a",
+      "emailCopied": "Dirección de correo copiada",
       "call": "O reserve una llamada",
-      "selfHost": "¿Quiere alojar la plataforma en su propia infraestructura? También ayudamos con eso.",
-      "feedback": "Contarnos qué falta o qué resulta incómodo es tan bienvenido como una pregunta.",
+      "selfHost": "El código está abierto en GitHub bajo AGPL-3.0. Puede ejecutar la plataforma en su propia infraestructura cuando quiera, y respondemos a sus preguntas al respecto.",
+      "training": "Nuestra formación para la dirección explica todo esto.",
+      "trainingLink": "Abrir la formación",
       "startTour": "Muéstremelo",
       "close": "Cerrar",
       "dismissForever": "No volver a mostrar"

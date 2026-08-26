@@ -69,9 +69,11 @@
       "title": "Können wir irgendwo helfen?",
       "body": "Sie sind zum zweiten Mal hier. Wenn etwas unklar ist oder Sie nicht weiterkommen, sagen Sie Bescheid. Sie erreichen uns direkt.",
       "email": "Schreiben Sie an",
+      "emailCopied": "E-Mail-Adresse kopiert",
       "call": "Oder buchen Sie ein Gespräch",
-      "selfHost": "Sie möchten die Plattform auf eigener Infrastruktur betreiben? Dabei helfen wir auch.",
-      "feedback": "Rückmeldung dazu, was fehlt oder hakt, ist genauso willkommen wie eine Frage.",
+      "selfHost": "Der Code steht unter AGPL-3.0 offen auf GitHub. Sie dürfen die Plattform jederzeit auf eigener Infrastruktur betreiben, und wir beantworten Fragen dazu.",
+      "training": "Das alles erklärt auch unsere Schulung für die Geschäftsführung.",
+      "trainingLink": "Zur Schulung",
       "startTour": "Zeigen Sie mir die Oberfläche",
       "close": "Schließen",
       "dismissForever": "Nicht mehr anzeigen"

@@ -132,7 +132,15 @@ test("a second login offers help, and does not offer it twice", async ({
   await page.goto("/journey");
   const dialog = page.getByTestId("help-dialog");
   await expect(dialog).toBeVisible();
-  await expect(dialog).toContainText("contact@nisd2.eu");
+  await expect(dialog).toContainText("cory@nisd2.eu");
+
+  // The address is a copy button rather than a mailto, so it has to actually
+  // put something on the clipboard.
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
+  await dialog.getByTestId("help-copy-email").click();
+  await expect
+    .poll(() => page.evaluate(() => navigator.clipboard.readText()))
+    .toBe("cory@nisd2.eu");
 
   // Exactly one close control: the explicit button, with the built-in corner
   // cross suppressed, so "close" and "never again" cannot disagree.
