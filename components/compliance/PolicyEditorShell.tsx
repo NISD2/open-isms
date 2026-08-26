@@ -58,10 +58,10 @@ export function PolicyEditorShell({
         {!disabled &&
           (isEditing ? (
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={onCancel}>
+              <Button variant="outline" size="sm" data-testid="policy-editor-cancel" onClick={onCancel}>
                 {t("cancel")}
               </Button>
-              <Button size="sm" onClick={onSave} disabled={isPending}>
+              <Button size="sm" data-testid="policy-editor-save" onClick={onSave} disabled={isPending}>
                 {isPending ? (
                   <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
                 ) : (
@@ -71,7 +71,7 @@ export function PolicyEditorShell({
               </Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" onClick={onEdit}>
+            <Button variant="outline" size="sm" data-testid="policy-editor-edit" onClick={onEdit}>
               <Pencil className="mr-1.5 h-3.5 w-3.5" />
               {t("edit")}
             </Button>

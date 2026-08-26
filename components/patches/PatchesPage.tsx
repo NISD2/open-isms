@@ -67,7 +67,7 @@ export function PatchesPage({ items, inline }: { items: Record<string, unknown>[
                 <TableCell className="font-medium">{item.patchIdentifier as string}</TableCell>
                 <TableCell>{(item.title as string) || "\u2014"}</TableCell>
                 <TableCell>
-                  <StatusBadge status={item.severity as string} config={severityConfig} label={t(`severity.${item.severity as string}`)} />
+                  <StatusBadge status={item.severity as string} config={severityConfig} label={t.has(`severity.${item.severity as string}`) ? t(`severity.${item.severity as string}`) : (item.severity as string)} />
                 </TableCell>
                 <TableCell>
                   <StatusBadge status={item.status as string} config={statusConfig} label={t(`status.${item.status as string}`)} />

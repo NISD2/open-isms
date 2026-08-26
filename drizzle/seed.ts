@@ -1,3 +1,5 @@
+import { assertLocalDatabase } from "../scripts/lib/assert-local-database";
+
 /**
  * Seed script — Populates the database with NIS2 framework data.
  *
@@ -11,15 +13,25 @@
  *
  * Idempotent: clears existing data before inserting.
  */
-// Hard-fail in production — the seed script truncates and re-creates dev data,
-// which would be catastrophic against a live database. NODE_ENV is the cheapest
-// guard we can apply at module-load time, before any imports run side effects.
-if (process.env.NODE_ENV === "production") {
-  throw new Error(
-    "drizzle/seed.ts must not run in production (NODE_ENV=production). " +
-      "This script truncates dev data.",
-  );
-}
+// Refuse anything but a local database.
+//
+// This previously checked NODE_ENV === "production", which is inverted in both
+// directions: `bun run` leaves NODE_ENV undefined, so it never fired under the
+// invocation this file documents, and the Dockerfile sets it to "production",
+// so it fired only where the script never runs. The guard was decorative while
+// docs/coolify-deployment.md listed `bun run db:seed` as a manual production
+// step.
+//
+// It matters because cleanFramework below is not tenant-scoped: it resolves its
+// delete set from the GLOBAL requirement catalog, so it removes evidence,
+// requirement assignments, requirement statuses, category assignments and
+// intake answers for EVERY company in the database. Untransacted, so a
+// mid-way foreign-key abort leaves the earlier deletes committed.
+assertLocalDatabase(
+  process.env.DATABASE_URL ?? "",
+  "drizzle/seed.ts deletes every tenant's evidence, requirement statuses and " +
+    "intake answers before reseeding.",
+);
 
 import { drizzle } from "drizzle-orm/node-postgres";
 import { eq, and, inArray, sql } from "drizzle-orm";
@@ -365,7 +377,11 @@ async function seed() {
       code: "iso27001",
       version: "2022",
       effectiveDate: "2022-10-25",
-      isActive: true,
+      // NIS 2 is the only framework the product surfaces. ISO 27001 reference
+      // data is still seeded so the NIS2 <-> ISO satisfaction pairs resolve,
+      // but inactive keeps it out of the sidebar, out of /compliance, and out
+      // of what createAssessmentsForFrameworks provisions for a new signup.
+      isActive: false,
       codePrefix: "ISO27001-",
       sidebarLabel: "iso27001",
     })
@@ -374,7 +390,7 @@ async function seed() {
       set: {
         version: "2022",
         effectiveDate: "2022-10-25",
-        isActive: true,
+        isActive: false,
       },
     })
     .returning();
@@ -524,6 +540,11 @@ async function seed() {
         bsiContactPhone: config.companyProfile.bsiContactPhone,
         annualSecurityBudget: config.companyProfile.annualSecurityBudget,
         primaryLocations: config.companyProfile.primaryLocations,
+        // The demo company is a complete, working company. Without
+        // activatedAt every compliance work surface renders the
+        // "set up your organization" empty state instead of its content.
+        activatedAt: new Date(),
+        actsAsNis2Entity: true,
       })
       .returning();
 

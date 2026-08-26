@@ -79,13 +79,27 @@ const nextConfig: NextConfig = {
     // once a user later visits the same hostname over HTTPS. Skip both
     // until the deployment is HTTPS-only with a real TLS cert.
     const httpsHardened = process.env.CSP_UPGRADE_INSECURE === "1";
+    // Evidence uploads PUT directly to presigned S3 URLs from the browser,
+    // so connect-src must include the storage origin. Derive it from the
+    // same env that configures the S3 client (custom endpoint = MinIO in
+    // the e2e stack; otherwise the bucket's virtual-host AWS origin).
+    // Without this the browser silently blocks every evidence upload.
+    const s3Origin =
+      process.env.AWS_S3_ENDPOINT ??
+      `https://${process.env.AWS_S3_BUCKET ?? "nisd2-dev-evidence"}.s3.${process.env.AWS_S3_REGION ?? "eu-north-1"}.amazonaws.com`;
+    // Analytics is operator-configured and off by default, so its origin has
+    // to come from the same env that renders the tag. Hardcoding ours would
+    // both leak to us and block a self-hoster's own endpoint.
+    const analyticsOrigin = process.env.ANALYTICS_SCRIPT_URL
+      ? (URL.parse(process.env.ANALYTICS_SCRIPT_URL)?.origin ?? "")
+      : "";
     const cspDirectives = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.sorzel.com https://accounts.google.com",
+      `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${analyticsOrigin} https://accounts.google.com`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
-      "connect-src 'self' https://analytics.sorzel.com https://accounts.google.com",
+      `connect-src 'self' ${analyticsOrigin} https://accounts.google.com ${s3Origin}`,
       "frame-src 'self' https://accounts.google.com https://www.youtube.com https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",

@@ -10,16 +10,32 @@
  *
  * Run: bun run scripts/smoke-supplier-portal.ts
  *
- * The test uses the real DB (DATABASE_URL). Idempotent: re-running cleans up
- * the test relationship.
+ * The test writes to DATABASE_URL and refuses to run against anything but a
+ * local database — see assertLocalDatabase below. Idempotent: re-running
+ * cleans up the test relationship.
  */
 import { eq } from "drizzle-orm";
 import * as schema from "@/schema";
-import { createCallerFactory } from "@/server/trpc/init";
+import { createCallerFactory, type TRPCContext } from "@/server/trpc/init";
 import { appRouter } from "@/server/trpc/router";
 import { db as appDb } from "@/lib/db";
+import { env } from "@/lib/env";
+import { assertLocalDatabase as assertLocalDatabaseFor } from "./lib/assert-local-database";
 
 const TEST_CUSTOMER_EMAIL = "smoke-test-ciso@example.test";
+
+/**
+ * Overwrites the first company row it finds and restores none of it, so it must
+ * never see a real database. Shared guard: see scripts/lib/assert-local-database.ts
+ * for why this is connection-shaped rather than an env flag.
+ */
+function assertLocalDatabase(): void {
+  assertLocalDatabaseFor(
+    env.DATABASE_URL,
+    "scripts/smoke-supplier-portal.ts overwrites the first company row it " +
+      "finds and does not restore it.",
+  );
+}
 
 async function getSeedUser() {
   const user = await appDb.query.user.findFirst({
@@ -28,7 +44,16 @@ async function getSeedUser() {
   if (!user || !user.companyId) {
     throw new Error("No seed user found. Run `bun db:seed` first.");
   }
-  return { id: user.id, companyId: user.companyId, email: user.email };
+  const seedCompany = await appDb.query.company.findFirst({
+    where: eq(schema.company.id, user.companyId),
+    columns: { activatedAt: true },
+  });
+  return {
+    id: user.id,
+    companyId: user.companyId,
+    email: user.email,
+    companyActivated: seedCompany?.activatedAt != null,
+  };
 }
 
 async function cleanupTestData(companyId: string) {
@@ -46,26 +71,34 @@ async function cleanupTestData(companyId: string) {
 }
 
 async function main() {
+  assertLocalDatabase();
+
   console.log("=== Supplier Portal smoke test ===\n");
 
   const user = await getSeedUser();
   console.log(`Seed user: ${user.email} (company ${user.companyId})`);
 
-  // Build a tRPC caller with the seed user's context
+  // Build a tRPC caller with the seed user's context. Typing it as the real
+  // TRPCContext keeps the caller honest about what the procedure ladder reads
+  // (session.role, userId, companyId) instead of asserting past it.
   const createCaller = createCallerFactory(appRouter);
-  const ctx = {
+  const ctx: TRPCContext = {
     db: appDb,
     session: {
       user: { id: user.id, name: "Smoke Test", email: user.email },
-      role: "admin" as const,
+      expires: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+      role: "admin",
       companyId: user.companyId,
-      userId: user.id,
-    } as never,
+      companyActivated: user.companyActivated,
+      jobTitle: null,
+      sessionVersion: null,
+    },
     userId: user.id,
     companyId: user.companyId,
     ip: "smoke-test",
+    userAgent: null,
   };
-  const caller = createCaller(ctx as never);
+  const caller = createCaller(ctx);
 
   // Cleanup from any previous run — also resets actsAsSupplier=false so the
   // next test starts from a fresh "not yet opted in" state.

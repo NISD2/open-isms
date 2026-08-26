@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ClipboardCheck } from "lucide-react";
 import { getSession, hasReviewAccess } from "@/lib/auth";
 import { api } from "@/lib/trpc/server";
@@ -7,8 +7,12 @@ import {
   ReviewDashboard,
   type ReviewRow,
 } from "@/components/review/ReviewDashboard";
-import requirementsEn from "@/messages/requirements/en.json";
-import complianceEn from "@/messages/compliance/en.json";
+import {
+  getComplianceMessages,
+  getRequirementsMessages,
+  getCategoryName,
+  getRequirementTitle,
+} from "@/lib/messages";
 
 export default async function ReviewPage() {
   const session = await getSession();
@@ -17,17 +21,21 @@ export default async function ReviewPage() {
     redirect("/dashboard");
   }
 
-  const t = await getTranslations("review");
-  const rawRows = await api.review.list();
-  const rows = rawRows.map((r) => {
-    const reqKey = r.requirementCode.replace(/\./g, "_") as keyof typeof requirementsEn.requirements;
-    const catKey = r.categoryCode as keyof typeof complianceEn.compliance.categories;
-    return {
-      ...r,
-      requirementTitle: requirementsEn.requirements[reqKey]?.title ?? r.requirementCode,
-      categoryName: complianceEn.compliance.categories[catKey]?.name ?? r.categoryCode,
-    };
-  }) as ReviewRow[];
+  const [t, [compliance, requirements], rawRows] = await Promise.all([
+    getTranslations("review"),
+    getLocale().then((locale) =>
+      Promise.all([
+        getComplianceMessages(locale),
+        getRequirementsMessages(locale),
+      ]),
+    ),
+    api.review.list(),
+  ]);
+  const rows = rawRows.map((r) => ({
+    ...r,
+    requirementTitle: getRequirementTitle(requirements, r.requirementCode),
+    categoryName: getCategoryName(compliance, r.categoryCode),
+  })) as ReviewRow[];
 
   const pendingCount = rows.filter((r) => r.status === "completed").length;
   const approvedCount = rows.filter((r) => r.status === "approved").length;

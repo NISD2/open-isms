@@ -22,6 +22,28 @@ jobs:
       - run: bun run test
         working-directory: packages/grc-data-model
 
+      # Root unit tests under lib/ and server/. These existed and passed but
+      # nothing ran them: the step above is scoped to a single package, so a
+      # test file added at the root was never executed by CI. Kept to the two
+      # directories with no database dependency; e2e/ runs in its own workflow.
+      - run: bun run test:unit
+      # A .sql file that is not in its journal never runs. drizzle/ carried
+      # one for months: 0016_aberrant_devos, a duplicate of DDL that had moved
+      # into the isms-schema chain. Harmless there, but the next one might be
+      # a migration somebody believes is live.
+      - name: migration journals match their .sql files
+        run: bun run check:migrations
+
+      # REFERENCE.md is generated from the framework data and is published as
+      # the public reference. It silently went stale after a correction pass,
+      # leaving it citing CIR Annex points that do not exist in the OJ text.
+      - name: REFERENCE.md is up to date with the framework data
+        run: |
+          bun run docs:reference
+          git diff --exit-code -- REFERENCE.md \
+            || { echo "::error::REFERENCE.md is stale. Run 'bun run docs:reference' in packages/grc-data-model and commit."; exit 1; }
+        working-directory: packages/grc-data-model
+
       - run: bun run typecheck
 
       - run: bun run build

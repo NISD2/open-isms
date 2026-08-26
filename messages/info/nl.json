@@ -704,10 +704,10 @@
         "p1": "Measures ensuring confidentiality:",
         "items": {
           "physical": "Physical access control: data centres of the hosting providers (Hetzner, AWS) hold ISO 27001 certifications",
-          "auth": "Authentication: exclusively via Google OAuth 2.0; no passwords stored on the platform. MFA for users is provided through their Google account",
+          "auth": "Authenticatie: aanmelden met e-mailadres en wachtwoord of via Google OAuth 2.0. Wachtwoorden slaan wij uitsluitend op als bcrypt-hash met kostenfactor 12, nooit in leesbare vorm. Bij registratie met een wachtwoord wordt het e-mailadres eenmalig bevestigd met een eenmalige code, mislukte aanmeldpogingen zijn per applicatie-instantie beperkt tot 10 in 15 minuten. Het platform biedt geen tweede factor voor de wachtwoordroute. Wie via Google aanmeldt, gebruikt de MFA van het eigen Google-account.",
           "rbac": "Role-based permissions: admin, reviewer, member; enforced in the application layer via tRPC middleware",
           "separation": "Multi-tenant isolation: every data-bearing query filters at the database layer on the company ID of the authenticated user; no shared data pools between customers",
-          "secrets": "No plaintext passwords on the platform - authentication is exclusively OAuth-based",
+          "secrets": "Wachtwoorden worden nooit in leesbare vorm opgeslagen. Elke aanmelding wordt vergeleken met een bcrypt-hash, ook wanneer er voor het opgegeven e-mailadres geen account bestaat, zodat uit de responstijd niet valt af te leiden wie geregistreerd is.",
           "personnel": "Personnel measures: access to production systems and personal data is limited to a small, named group bound by confidentiality. Access follows the principle of least privilege and is revoked when a role ends."
         }
       },
@@ -728,7 +728,7 @@
           "redundancy": "Storage of evidence documents in AWS S3 with the object durability guarantees provided by AWS",
           "rateLimit": "Rate limiting on login attempts, public endpoints (applicability check, supplier portal), and resource-heavy authenticated endpoints (PDF exports, certificate generation)",
           "uploadLimit": "Uploaded files are limited to 50 MB per file",
-          "status": "Availability monitoring: the platform's operational status is continuously monitored and publicly visible at nisd2.eu/status."
+          "status": "Beschikbaarheidsweergave: nisd2.eu/status controleert bij elke oproep of de database bereikbaar is en toont het resultaat openbaar, 30 seconden in cache. Wij draaien geen doorlopende monitoring met automatische alarmering."
         }
       },
       "evaluation": {
@@ -19895,6 +19895,26 @@
         "description": "Het platform produceert een overdrachtsmap met herinnering aan registratie-update, §38 opleidingsvolger en briefingsjabloon voor risicoacceptaties."
       },
       "cta": "Aanmelden bij het platform"
+    },
+    "teamPage": {
+      "meta": {
+        "title": "Team - NISD2.eu",
+        "description": "Maak kennis met het team achter NISD2.eu. Twee oprichters die de Europese NIS2-kostenpost halveren."
+      },
+      "badge": "Team",
+      "title": "Wie we zijn",
+      "subtitle": "Twee oprichters die de NIS2-rekening willen halveren. Geen adviesbureau, geen VC-financiering. Alleen de overtuiging dat compliance geen zes cijfers hoeft te kosten.",
+      "simon": "Meer dan 10 jaar softwareontwikkeling in veiligheidskritische sectoren. Senior engineer en tech lead voor een top-5-bank in de EU, Europa's grootste producent van motion plastics en VC-gefinancierde platforms. Bracht de volledige NIS2-rechtsketen in kaart (richtlijn, uitvoeringsverordening 2024/2690, BSIG, IT-Grundschutz) en bouwde daarmee het NISD2-platform, de bestuurderscursus met 47 lessen en de gap-assessment met 116 vragen. Bouwt daarnaast AI-legaltech voor Duitse rechtspraak. Woont in Keulen.",
+      "cory": "M.Eng mechatronica met focus op embedded systems en AI-integratie. Verantwoordelijk voor businessdevelopment, partnerschappen en implementatieondersteuning bij klanten. Achtergrond in softwareontwikkeling met Python, TypeScript en IoT-systemen. Slaat de brug tussen technische compliance-eisen en de bedrijfsrealiteit van de organisaties die ze moeten invoeren. Woont in Duitsland.",
+      "whyUs": {
+        "heading": "Waarom wij",
+        "body": "We zijn geen adviesbureau. We verkopen u geen tool om vervolgens de training voor het gebruik ervan in rekening te brengen. Alles op dit platform is gebouwd op basis van de wet zelf, de uitvoeringsverordening en de BSI-richtsnoeren. Elke les in de bestuurderscursus vermeldt zijn juridische grondslag. Elke eis in het platform verwijst naar een specifieke BSIG-paragraaf. We zijn engineers die vonden dat compliance geen zes cijfers hoeft te kosten."
+      },
+      "cta": {
+        "heading": "Probeer het platform",
+        "description": "Controleer of NIS2 op uw bedrijf van toepassing is en werk de vereisten stap voor stap af. Open source, geen lock-in."
+      },
+      "ctaPlatform": "Gratis starten"
     }
   }
 }

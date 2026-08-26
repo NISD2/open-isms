@@ -26,6 +26,8 @@ import {
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
+import { buildSignOffSnapshot } from "../helpers/assessment-helpers";
+import { completedSignOffValues, snapshotForVersion } from "../helpers/sign-off-completion";
 import type { Database } from "@/lib/db";
 
 export const intakeRouter = router({
@@ -449,38 +451,61 @@ async function deriveRequirementStatuses(
   const setsTerminal = targetStatus === "completed" || targetStatus === "approved";
   const now = new Date();
 
+  // A signed intake is a sign-off, so its rows carry the same evidence as one
+  // signed from the assessment editor. Without a snapshot the reviewer view
+  // and the compliance report both hide their sign-off panels, which gate on
+  // it, and the row records no version of the requirement text that was
+  // approved. Built once here (the expensive half is company-scoped) and
+  // re-stamped per requirement below.
+  const snapshotBase =
+    setsTerminal && chainContext
+      ? await buildSignOffSnapshot(db, chainContext.companyId, reqs[0].templateVersion)
+      : null;
+
+  // Rows are locked in a stable order so a concurrent sign-off touching an
+  // overlapping set cannot deadlock against this loop.
+  const orderedStatuses = [...statuses].sort((a, b) => a.id.localeCompare(b.id));
+
   await db.transaction(async (tx) => {
-    for (const status of statuses) {
+    for (const status of orderedStatuses) {
       if (status.status === "not_applicable") continue;
+      const req = reqById.get(status.requirementId);
 
       const isReopen =
         targetStatus === "in_progress" &&
         (status.status === "completed" || status.status === "approved");
 
-      // Build the update payload. When this call originates from
-      // intake.submit (chainContext supplied + terminal), also stamp
-      // signedOffBy and signedOffRole — previously these stayed null
-      // even though signedOffAt was set, so the sign-off row was
-      // unattributable and the chain entry would record a signer the
-      // status row didn't.
+      // Build the update payload. A submit (chainContext supplied + terminal)
+      // is a sign-off and writes the full evidentiary set. A derive without a
+      // chain context is progress inferred from saved answers, not a signature,
+      // so it stamps only the completion timestamps and deliberately leaves
+      // the signer columns alone.
       const terminalPatch =
-        setsTerminal && chainContext
-          ? {
-              completedAt: now,
-              completedBy: chainContext.userId,
-              signedOffAt: now,
-              signedOffBy: chainContext.userId,
+        setsTerminal && chainContext && req && snapshotBase
+          ? completedSignOffValues({
+              userId: chainContext.userId,
               signedOffRole: chainContext.signedOffRole,
-            }
+              templateVersion: req.templateVersion,
+              snapshot: snapshotForVersion(snapshotBase, req.templateVersion),
+              now,
+              status: targetStatus === "approved" ? "approved" : "completed",
+            })
           : setsTerminal
             ? { completedAt: now, completedBy: null, signedOffAt: now }
             : {};
 
+      // Reopening clears the signature. The snapshot and version have to go
+      // with it: the reviewer view and the report both decide whether to show
+      // a sign-off panel by testing signOffSnapshot alone, so leaving one
+      // behind renders a panel for a requirement that is back in progress and
+      // has no signer.
       const reopenPatch = isReopen
         ? {
             signedOffBy: null,
             signedOffAt: null,
             signedOffRole: null,
+            signedOffTemplateVersion: null,
+            signOffSnapshot: null,
             completedAt: null,
             completedBy: null,
           }
@@ -496,9 +521,7 @@ async function deriveRequirementStatuses(
         })
         .where(eq(companyRequirementStatus.id, status.id));
 
-      if (setsTerminal && chainContext) {
-        const req = reqById.get(status.requirementId);
-        if (!req) continue;
+      if (setsTerminal && chainContext && req) {
         await recordSignOffChainEntry(tx as unknown as Database, {
           companyId: chainContext.companyId,
           statusId: status.id,

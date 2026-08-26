@@ -197,6 +197,7 @@ export function CryptoPolicyEditor({ disabled, guidance, initialData }: { disabl
             <label className="text-sm font-medium">{tc("keyRotation")}</label>
             <Input
               type="number"
+              data-testid="crypto-key-rotation"
               min={1}
               max={10}
               value={display.keyRotationFrequencyYears}

@@ -23,7 +23,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Notfall- & Kontinuitätsplan",
     "9.1": "Wirksamkeitsprüfung & KPIs",
     "12.3": "Registrierungspflege",
-    "12.4": "Compliance-Nachweise & KRITIS",
+    "12.4": "Compliance-Nachweise",
     "5.2": "Netzwerksegmentierung",
   },
   en: {
@@ -47,7 +47,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Emergency & continuity plan",
     "9.1": "Effectiveness review & KPIs",
     "12.3": "Registration upkeep",
-    "12.4": "Compliance records & KRITIS",
+    "12.4": "Compliance evidence",
     "5.2": "Network segmentation",
   },
   nl: {
@@ -71,7 +71,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Nood- & continuïteitsplan",
     "9.1": "Effectiviteitstoetsing & KPIs",
     "12.3": "Registratieonderhoud",
-    "12.4": "Compliancebewijs & KRITIS",
+    "12.4": "Compliancebewijzen",
     "5.2": "Netwerksegmentatie",
   },
   fr: {
@@ -95,7 +95,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Plan d'urgence et de continuité",
     "9.1": "Contrôle d'efficacité et KPIs",
     "12.3": "Maintien de l'enregistrement",
-    "12.4": "Preuves de conformité et KRITIS",
+    "12.4": "Preuves de conformité",
     "5.2": "Segmentation du réseau",
   },
   it: {
@@ -119,7 +119,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Piano di emergenza e continuità",
     "9.1": "Verifica dell'efficacia e KPIs",
     "12.3": "Mantenimento della registrazione",
-    "12.4": "Evidenze di conformità e KRITIS",
+    "12.4": "Evidenze di conformità",
     "5.2": "Segmentazione della rete",
   },
   es: {
@@ -143,7 +143,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Plan de emergencia y continuidad",
     "9.1": "Revisión de eficacia y KPIs",
     "12.3": "Mantenimiento del registro",
-    "12.4": "Evidencias de cumplimiento y KRITIS",
+    "12.4": "Evidencias de cumplimiento",
     "5.2": "Segmentación de red",
   },
   pl: {
@@ -167,7 +167,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Plan awaryjny i ciągłości działania",
     "9.1": "Ocena skuteczności i KPIs",
     "12.3": "Utrzymanie rejestracji",
-    "12.4": "Dowody zgodności i KRITIS",
+    "12.4": "Dowody zgodności",
     "5.2": "Segmentacja sieci",
   },
   cs: {
@@ -191,7 +191,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Nouzový plán a plán kontinuity",
     "9.1": "Kontrola účinnosti a KPIs",
     "12.3": "Údržba registrace",
-    "12.4": "Doklady o shodě a KRITIS",
+    "12.4": "Doklady o shodě",
     "5.2": "Segmentace sítě",
   },
   pt: {
@@ -215,7 +215,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Plano de emergência e continuidade",
     "9.1": "Avaliação de eficácia e KPIs",
     "12.3": "Manutenção do registo",
-    "12.4": "Comprovativos de conformidade e KRITIS",
+    "12.4": "Comprovativos de conformidade",
     "5.2": "Segmentação de rede",
   },
   ro: {
@@ -239,7 +239,7 @@ export const SAMPLE_TITLES: Record<string, Record<string, string>> = {
     "6.2": "Planul de urgență și continuitate",
     "9.1": "Evaluarea eficacității și KPIs",
     "12.3": "Întreținerea înregistrării",
-    "12.4": "Dovezi de conformitate și KRITIS",
+    "12.4": "Dovezi de conformitate",
     "5.2": "Segmentarea rețelei",
   },
 };

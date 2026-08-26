@@ -14,6 +14,14 @@ const envSchema = z.object({
   AWS_S3_BUCKET: z.string().default("nisd2-dev-evidence"),
   AWS_ACCESS_KEY_ID: z.string().default(""),
   AWS_SECRET_ACCESS_KEY: z.string().default(""),
+  // S3-compatible endpoint override (MinIO in the e2e and self-host stacks).
+  // Unset on AWS, so AWS behavior is untouched. This is the PUBLIC address:
+  // presigned URLs are signed for its host and the browser must reach it.
+  AWS_S3_ENDPOINT: z.string().optional(),
+  // Address the server itself uses to reach the object store, when that
+  // differs from the public one (object store on the app's container
+  // network). Falls back to AWS_S3_ENDPOINT; unset in every AWS deployment.
+  AWS_S3_INTERNAL_ENDPOINT: z.string().optional(),
 
   // Email — optional (features degrade gracefully)
   // Local-dev hard-blocks email by default in send.ts + resend.ts; set
@@ -37,11 +45,8 @@ const envSchema = z.object({
   // AI — optional (LLM features degrade)
   XAI_API_KEY: z.string().optional(),
 
-  // OpenRegister — optional (company lookup degrades)
-  OPENREGISTER_API_KEY: z.string().optional(),
-  OPENREGISTER_API_KEYS: z.string().optional(),
-
-  // Implisense (German company data via RapidAPI)
+  // Implisense (German company data via RapidAPI). Company lookup in the
+  // applicability wizard degrades to manual entry without it.
   RAPIDAPI_KEY: z.string().optional(),
 
   // Cron — optional
@@ -49,6 +54,15 @@ const envSchema = z.object({
 
   // App URL
   NEXT_PUBLIC_APP_URL: z.string().default("https://www.nisd2.eu"),
+
+  // Cal.com booking handle behind the "book a call" surfaces. Either a bare
+  // handle ("nisd2") or handle/event-type ("acme/intro").
+  // Empty by default on purpose: a self-hosted instance must not embed someone
+  // else's calendar. Where it is unset, the booking UI is not rendered at all.
+  // Read server-side and passed down as a prop, not NEXT_PUBLIC_: the Dockerfile
+  // declares no build args, so a NEXT_PUBLIC_ value set in the deploy platform
+  // would never reach the client bundle.
+  CAL_LINK: z.string().default(""),
 
   // Standard
   NODE_ENV: z

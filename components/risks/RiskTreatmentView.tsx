@@ -186,7 +186,7 @@ export function RiskTreatmentView({ initialData, disabled }: RiskTreatmentViewPr
                       disabled={disabled}
                     />
                   ) : !disabled && (
-                    <Button variant="ghost" size="sm" className="ml-4" onClick={() => setAddingTreatment(risk.id)}>
+                    <Button variant="ghost" size="sm" className="ml-4" data-testid="treatment-add" onClick={() => setAddingTreatment(risk.id)}>
                       <Plus className="h-3.5 w-3.5 mr-1" />
                       {t("addMeasure")}
                     </Button>
@@ -213,7 +213,7 @@ export function RiskTreatmentView({ initialData, disabled }: RiskTreatmentViewPr
                       <Button variant="ghost" size="sm" onClick={() => setSettingResidual(null)}>{t("cancel")}</Button>
                     </div>
                   ) : (
-                    <Button variant="outline" size="sm" onClick={() => setSettingResidual(risk.id)} disabled={disabled}>
+                    <Button variant="outline" size="sm" data-testid="residual-open" onClick={() => setSettingResidual(risk.id)} disabled={disabled}>
                       {hasResidual ? t("updateResidual") : t("setResidual")}
                     </Button>
                   )}
@@ -223,6 +223,7 @@ export function RiskTreatmentView({ initialData, disabled }: RiskTreatmentViewPr
                 {residualBelow && !risk.acceptedAt && !disabled && (
                   <Button
                     size="sm"
+                    data-testid="risk-accept"
                     onClick={() => updateRiskMut.mutate({ id: risk.id, acceptedAt: new Date() })}
                     disabled={updateRiskMut.isPending}
                   >
@@ -292,7 +293,7 @@ function AddTreatmentForm({
     <div className="ml-4 p-3 border rounded-lg bg-muted/30 space-y-3">
       <div className="space-y-1.5">
         <Label className="text-xs">{t("measureAction")}</Label>
-        <Input value={action} onChange={e => setAction(e.target.value)} disabled={disabled} placeholder={t("measureActionPlaceholder")} />
+        <Input data-testid="treatment-action" value={action} onChange={e => setAction(e.target.value)} disabled={disabled} placeholder={t("measureActionPlaceholder")} />
       </div>
       <div className="space-y-1.5">
         <Label className="text-xs">{t("fields.description")}</Label>
@@ -300,7 +301,7 @@ function AddTreatmentForm({
       </div>
       <div className="flex justify-end gap-2">
         <Button variant="ghost" size="sm" onClick={onCancel}>{t("cancel")}</Button>
-        <Button size="sm" onClick={() => onSave({ riskId, action, description })} disabled={!action || isPending || disabled}>
+        <Button size="sm" data-testid="treatment-submit" onClick={() => onSave({ riskId, action, description })} disabled={!action || isPending || disabled}>
           {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : t("addMeasure")}
         </Button>
       </div>

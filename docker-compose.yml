@@ -1,0 +1,115 @@
+# Self-host stack for the full open-isms platform: Postgres + the app.
+#
+#   cp .env.example .env      # then fill in the four required values
+#   docker compose up --build # http://localhost:3026
+#
+# Migrations run automatically at container start. Seeding the framework
+# data is a separate one-off step, see docs/self-hosting.md.
+#
+# This builds the same image nisd2.eu runs. For the minimal workspace demo
+# instead, see apps/reference/docker-compose.yml.
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-openisms}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-openisms}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    # Bound to loopback only: the app reaches Postgres over the compose
+    # network, and this mapping exists so you can run the one-off seed and
+    # take backups from the host. It is not reachable from outside the box.
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER:-openisms}", "-d", "${POSTGRES_DB:-openisms}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      # Required. The app refuses to start without these.
+      DATABASE_URL: postgres://${POSTGRES_USER:-openisms}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@postgres:5432/${POSTGRES_DB:-openisms}
+      AUTH_SECRET: ${AUTH_SECRET:?set AUTH_SECRET in .env, generate with openssl rand -base64 32}
+      # Required for correct cookies and links. Both must be the URL your
+      # users actually type, including the scheme.
+      AUTH_URL: ${AUTH_URL:-http://localhost:3026}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3026}
+      # Required before anyone can register: the sign-up flow verifies the
+      # address with a one-time code. Without it registration cannot finish.
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
+      # Required in production: GDPR erasure throws without it.
+      ERASURE_EMAIL_HASH_SALT: ${ERASURE_EMAIL_HASH_SALT:-}
+      # Optional. Each one degrades a single feature, see docs/self-hosting.md.
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      AWS_S3_REGION: ${AWS_S3_REGION:-eu-north-1}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET:-}
+      # Public address, the one presigned URLs are signed for and the browser
+      # opens. Internal address, the one this container uses to reach the
+      # store. Same value on AWS; different under `--profile minio`.
+      AWS_S3_ENDPOINT: ${AWS_S3_ENDPOINT:-}
+      AWS_S3_INTERNAL_ENDPOINT: ${AWS_S3_INTERNAL_ENDPOINT:-}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      XAI_API_KEY: ${XAI_API_KEY:-}
+      RAPIDAPI_KEY: ${RAPIDAPI_KEY:-}
+      CRON_SECRET: ${CRON_SECRET:-}
+      SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
+      PLATFORM_ADMIN_EMAILS: ${PLATFORM_ADMIN_EMAILS:-}
+      CSP_UPGRADE_INSECURE: ${CSP_UPGRADE_INSECURE:-}
+    ports:
+      - "${APP_PORT:-3026}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Object store for evidence uploads, so you do not need an AWS account.
+  # Opt in with `docker compose --profile minio up`, and uncomment the
+  # storage block in .env. Leave the profile off to use real S3 instead.
+  minio:
+    image: minio/minio:latest
+    profiles: [minio]
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:?set AWS_ACCESS_KEY_ID in .env}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY:?set AWS_SECRET_ACCESS_KEY in .env, at least 8 characters}
+      # Evidence uploads always send x-amz-server-side-encryption AES256.
+      # MinIO answers SSE-S3 out of a KMS, so without a key every upload is
+      # rejected. 32 bytes, base64: openssl rand -base64 32
+      MINIO_KMS_SECRET_KEY: "openisms-key:${MINIO_KMS_KEY:?set MINIO_KMS_KEY in .env, openssl rand -base64 32}"
+    volumes:
+      - minio-data:/data
+    ports:
+      - "${MINIO_PORT:-9000}:9000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # One-shot: create the evidence bucket, then exit. Idempotent, so it is
+  # harmless on every subsequent `up`.
+  minio-init:
+    image: minio/mc:latest
+    profiles: [minio]
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MC_HOST_store: http://${AWS_ACCESS_KEY_ID}:${AWS_SECRET_ACCESS_KEY}@minio:9000
+    entrypoint: ["/bin/sh", "-c", "mc mb --ignore-existing store/${AWS_S3_BUCKET:-evidence} && echo 'bucket ${AWS_S3_BUCKET:-evidence} ready'"]
+
+volumes:
+  postgres-data:
+  minio-data:

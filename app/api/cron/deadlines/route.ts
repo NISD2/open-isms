@@ -26,6 +26,7 @@ import {
   user,
   notification,
 } from "@/schema";
+import { nis2StatusScope } from "@/server/trpc/helpers/nis2-scope";
 import { logAudit } from "@/lib/audit";
 import { env } from "@/lib/env";
 import { verifyCronBearer } from "@/lib/cron/auth";
@@ -89,6 +90,7 @@ export async function GET(req: NextRequest) {
 
     const overdueStatuses = await db.query.companyRequirementStatus.findMany({
       where: and(
+        nis2StatusScope(db),
         sql`${companyRequirementStatus.nextReviewDate} <= ${today}`,
         inArray(companyRequirementStatus.status, ["completed", "approved", "not_applicable"]),
       ),
@@ -114,6 +116,7 @@ export async function GET(req: NextRequest) {
     // -----------------------------------------------------------------------
     const missingDeadlines = await db.query.companyRequirementStatus.findMany({
       where: and(
+        nis2StatusScope(db),
         isNull(companyRequirementStatus.nextReviewDate),
         inArray(companyRequirementStatus.status, ["not_started", "in_progress"]),
       ),
@@ -158,6 +161,7 @@ export async function GET(req: NextRequest) {
     // Find items with nextReviewDate within 90 days that don't have pending notifications
     const upcomingStatuses = await db.query.companyRequirementStatus.findMany({
       where: and(
+        nis2StatusScope(db),
         sql`${companyRequirementStatus.nextReviewDate} IS NOT NULL`,
         sql`${companyRequirementStatus.nextReviewDate} <= ${toDateString(new Date(Date.now() + 90 * 24 * 60 * 60 * 1000))}`,
         inArray(companyRequirementStatus.status, ["completed", "approved", "needs_review", "not_applicable"]),
@@ -271,6 +275,7 @@ export async function GET(req: NextRequest) {
     // -----------------------------------------------------------------------
     const overdueForEscalation = await db.query.companyRequirementStatus.findMany({
       where: and(
+        nis2StatusScope(db),
         sql`${companyRequirementStatus.nextReviewDate} < ${today}`,
         inArray(companyRequirementStatus.status, ["needs_review", "completed", "approved"]),
       ),

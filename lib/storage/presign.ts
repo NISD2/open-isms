@@ -5,7 +5,7 @@ import {
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { s3, BUCKET } from "./s3-client";
+import { s3, s3Signer, BUCKET } from "./s3-client";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
@@ -25,7 +25,7 @@ export async function createPresignedPut(
     ContentLength: fileSize,
     ServerSideEncryption: "AES256",
   });
-  return getSignedUrl(s3, command, { expiresIn: 900 });
+  return getSignedUrl(s3Signer, command, { expiresIn: 900 });
 }
 
 /** Generate a presigned GET URL for file download (1 hour expiry) */
@@ -34,7 +34,7 @@ export async function createPresignedGet(key: string): Promise<string> {
     Bucket: BUCKET,
     Key: key,
   });
-  return getSignedUrl(s3, command, { expiresIn: 3600 });
+  return getSignedUrl(s3Signer, command, { expiresIn: 3600 });
 }
 
 /** Delete an object from S3 */

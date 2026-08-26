@@ -703,10 +703,10 @@
         "p1": "Opatření zajišťující důvěrnost:",
         "items": {
           "physical": "Kontrola fyzického přístupu: datová centra poskytovatelů hostingu (Hetzner, AWS) mají certifikace ISO 27001",
-          "auth": "Ověřování: výhradně přes Google OAuth 2.0; na platformě se neukládají žádná hesla. MFA pro uživatele zajišťuje jejich účet Google",
+          "auth": "Ověřování: přihlášení e-mailovou adresou a heslem nebo přes Google OAuth 2.0. Hesla ukládáme výhradně jako otisk bcrypt s nákladovým faktorem 12, nikdy v otevřené podobě. Při registraci heslem se e-mailová adresa jednorázově potvrzuje jednorázovým kódem a neúspěšné pokusy o přihlášení jsou omezeny na 10 za 15 minut na instanci aplikace. Platforma nenabízí druhý faktor na heslové cestě. Kdo se přihlašuje přes Google, používá MFA vlastního účtu Google.",
           "rbac": "Oprávnění založená na rolích: admin, reviewer, member; vynucená v aplikační vrstvě přes middleware tRPC",
           "separation": "Izolace více tenantů: každý dotaz nesoucí data filtruje na databázové vrstvě podle ID společnosti ověřeného uživatele; žádné sdílené datové fondy mezi zákazníky",
-          "secrets": "Žádná hesla v otevřeném textu na platformě, ověřování probíhá výhradně přes OAuth",
+          "secrets": "Hesla nikdy neukládáme v otevřené podobě. Každé přihlášení se porovnává s otiskem bcrypt, i když k zadané adrese žádný účet neexistuje, aby z doby odpovědi nešlo odvodit, kdo je registrovaný.",
           "personnel": "Personální opatření: přístup k produkčním systémům a osobním údajům je omezen na malou, jmenovitě určenou skupinu vázanou mlčenlivostí. Přístup se řídí zásadou nejmenších oprávnění a odebírá se při ukončení role."
         }
       },
@@ -727,7 +727,7 @@
           "redundancy": "Ukládání důkazních dokumentů v AWS S3 se zárukami trvanlivosti objektů poskytovanými AWS",
           "rateLimit": "Omezení četnosti u pokusů o přihlášení, veřejných endpointů (kontrola působnosti, dodavatelský portál) a náročných ověřených endpointů (exporty PDF, generování certifikátů)",
           "uploadLimit": "Nahrávané soubory jsou omezeny na 50 MB na soubor",
-          "status": "Sledování dostupnosti: provozní stav platformy je průběžně sledován a veřejně viditelný na nisd2.eu/status."
+          "status": "Ukazatel dostupnosti: nisd2.eu/status při každém vyvolání ověří dostupnost databáze a výsledek veřejně zobrazí, s mezipamětí 30 sekund. Neprovozujeme průběžné sledování s automatickým alarmem."
         }
       },
       "evaluation": {
@@ -6576,7 +6576,10 @@
         "heading": "Proč my",
         "body": "Nejsme konzultantská firma. Neprodáváme vám nástroj a pak vám neúčtujeme školení, jak ho používat. Vše na této platformě jsme vybudovali tím, že jsme přečetli skutečný zákon, prováděcí nařízení a pokyny BSI. Každá lekce v kurzu pro jednatele cituje svůj právní základ. Každý požadavek na platformě se mapuje na konkrétní paragraf BSIG. Jsme inženýři, kteří se rozhodli, že compliance by neměla stát šesticiferné částky."
       },
-      "ctaMission": "Přečtěte si naši misi",
+      "cta": {
+        "heading": "Vyzkoušet platformu",
+        "description": "Ověřte, zda se NIS2 vztahuje na vaši firmu, a poté plňte požadavky krok za krokem. Open source, bez závislosti na dodavateli."
+      },
       "ctaPlatform": "Začít zdarma"
     },
     "gapAssessmentLanding": {

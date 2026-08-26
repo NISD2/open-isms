@@ -704,10 +704,10 @@
         "p1": "Maßnahmen zur Sicherstellung der Vertraulichkeit:",
         "items": {
           "physical": "Zutrittskontrolle: Rechenzentren der eingesetzten Hoster (Hetzner, AWS) verfügen über ISO 27001-Zertifizierungen",
-          "auth": "Authentifizierung: ausschließlich über Google OAuth 2.0; keine Speicherung von Passwörtern auf der Plattform. MFA für Nutzer wird über deren Google-Konto bereitgestellt",
+          "auth": "Authentifizierung: Anmeldung per E-Mail und Passwort oder über Google OAuth 2.0. Passwörter speichern wir ausschließlich als bcrypt-Hash mit Kostenfaktor 12, nie im Klartext. Bei der Registrierung per Passwort wird die E-Mail-Adresse einmalig über einen Einmalcode bestätigt, fehlgeschlagene Anmeldeversuche sind je Anwendungsinstanz auf 10 in 15 Minuten begrenzt. Eine zweite Stufe bietet die Plattform für den Passwortweg nicht an. Wer sich über Google anmeldet, nutzt die MFA des eigenen Google-Kontos.",
           "rbac": "Rollenbasierte Berechtigungen: Admin, Reviewer, Member; Trennung in der Anwendungsschicht über tRPC-Middleware",
           "separation": "Mandantentrennung: jede datentragende Abfrage filtert auf der Datenbankebene über die Company-ID des angemeldeten Nutzers; keine gemeinsamen Datenpools zwischen Kunden",
-          "secrets": "Keine Klartext-Passwörter auf der Plattform - Authentifizierung erfolgt ausschließlich über OAuth",
+          "secrets": "Passwörter werden nie im Klartext gespeichert. Der Abgleich läuft immer gegen einen bcrypt-Hash, auch wenn zu der angefragten E-Mail-Adresse kein Konto existiert, damit sich aus der Antwortzeit nicht ableiten lässt, wer registriert ist.",
           "personnel": "Personelle Maßnahmen: Zugriff auf Produktivsysteme und personenbezogene Daten ist auf einen kleinen, namentlich benannten Personenkreis beschränkt, der zur Vertraulichkeit verpflichtet ist. Zugänge folgen dem Prinzip der minimalen Rechte und werden bei Beendigung der Tätigkeit entzogen."
         }
       },
@@ -728,7 +728,7 @@
           "redundancy": "Speicherung von Nachweisdokumenten in AWS S3 mit der von AWS bereitgestellten Objekt-Haltbarkeit",
           "rateLimit": "Rate-Limiting auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie ressourcenintensiven authentifizierten Endpunkten (PDF-Exports, Zertifikat-Generierung)",
           "uploadLimit": "Hochgeladene Dateien sind auf 50 MB pro Datei begrenzt",
-          "status": "Verfügbarkeitsüberwachung: der Betriebsstatus der Plattform wird laufend überwacht und ist öffentlich unter nisd2.eu/status einsehbar."
+          "status": "Verfügbarkeitsanzeige: nisd2.eu/status prüft bei jedem Aufruf die Erreichbarkeit der Datenbank und zeigt das Ergebnis öffentlich an, zwischengespeichert für 30 Sekunden. Eine durchgehende Überwachung mit automatischer Alarmierung betreiben wir nicht."
         }
       },
       "evaluation": {
@@ -6585,7 +6585,10 @@
         "heading": "Warum wir",
         "body": "Wir sind keine Beratungsfirma. Wir verkaufen kein Tool und kassieren dann für die Schulung. Wir haben alles auf dieser Plattform gebaut, indem wir das Gesetz, die Durchführungsverordnung und die BSI-Leitfäden gelesen haben. Jede Lektion im CEO-Kurs nennt ihre Rechtsgrundlage. Jede Anforderung in der Plattform verweist auf einen konkreten BSIG-Paragraphen. Wir sind Ingenieure, die entschieden haben, dass Compliance keine sechs Stellen kosten sollte."
       },
-      "ctaMission": "Unsere Mission lesen",
+      "cta": {
+        "heading": "Plattform ausprobieren",
+        "description": "Prüfen Sie, ob NIS2 für Ihr Unternehmen gilt, und arbeiten Sie die Anforderungen Schritt für Schritt ab. Open Source, kein Lock-in."
+      },
       "ctaPlatform": "Kostenlos starten"
     },
     "gapAssessmentLanding": {

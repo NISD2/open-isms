@@ -15,7 +15,12 @@ import {
   myRequirementCount,
   type CategoryInfo,
 } from "@/lib/compliance/access";
-import complianceEn from "@/messages/compliance/en.json";
+import { getLocale } from "next-intl/server";
+import {
+  getComplianceMessages,
+  getCategoryName,
+  type ComplianceMessages,
+} from "@/lib/messages";
 
 /** Map sortOrder ranges to i18n phase keys.
  * REG(0) | GOV(1) RSK(2) SUP(3) | CRY(4) ACC(5) AUT(6) | PRO(7) INC(8) BCP(9) | TRN(10) EFF(11) */
@@ -32,6 +37,7 @@ function buildSteps(
   categories: CategoryInfo[],
   access: Awaited<ReturnType<typeof getUserAccess>> | null,
   progress: Record<string, { completed: number; total: number }>,
+  compliance: ComplianceMessages,
 ) {
   return categories
     .filter((cat) => !access || canSeeCategory(access, cat.id))
@@ -42,7 +48,7 @@ function buildSteps(
       return {
         slug: cat.slug,
         code: cat.code,
-        name: complianceEn.compliance.categories[cat.code as keyof typeof complianceEn.compliance.categories]?.name ?? cat.code,
+        name: getCategoryName(compliance, cat.code),
         phase: phaseForSortOrder(cat.sortOrder),
         requirementCount: reqCount,
         completedCount: Math.min(progress[cat.id]?.completed ?? 0, reqCount),
@@ -62,10 +68,11 @@ export default async function PortalLayout({
   // Always load framework structure so the sidebar shows NIS2 / GDPR groups
   // even before the user has set up their company. Pre-onboarding the
   // category links work as a preview — clicking lands on the onboarding banner.
-  const allFrameworks = await getAllActiveCategories();
-  const assessments = session.companyId
-    ? await api.assessment.listAssessments()
-    : [];
+  const [allFrameworks, compliance, assessments] = await Promise.all([
+    getAllActiveCategories(),
+    getLocale().then(getComplianceMessages),
+    session.companyId ? api.assessment.listAssessments() : [],
+  ]);
 
   const frameworks: FrameworkGroup[] = await Promise.all(
     [...allFrameworks.entries()].map(([code, { framework, categories }]) => {
@@ -78,7 +85,7 @@ export default async function PortalLayout({
           ? api.assessment.getProgressByCategory({ assessmentId: assessment.id })
           : ({} as Record<string, { completed: number; total: number }>),
       ]).then(([access, progress]) => {
-        const steps = buildSteps(categories, access, progress);
+        const steps = buildSteps(categories, access, progress, compliance);
         return {
           code,
           label: framework.sidebarLabel ?? code,

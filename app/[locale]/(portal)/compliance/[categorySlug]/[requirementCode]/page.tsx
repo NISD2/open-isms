@@ -237,6 +237,9 @@ export default async function RequirementDetailPage({
     frameworkRef: req.frameworkRef,
     importance: req.importance,
     moduleRef: req.moduleRef,
+    frameworkCode: req.category.framework.code,
+    referenceUrl: req.category.referenceUrl,
+    nationalUrl: req.category.nationalUrl,
   };
 
   return (

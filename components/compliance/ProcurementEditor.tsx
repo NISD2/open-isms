@@ -47,6 +47,7 @@ export function ProcurementEditor({ disabled, guidance, initialData }: { disable
         <SectionGuidance guidance={guidance} fieldKey="threshold" />
         <Input
           type="number"
+          data-testid="procurement-threshold"
           min={0}
           value={display.thresholdEur}
           onChange={(e) => draft && setDraft({ ...draft, thresholdEur: Number(e.target.value) || 0 })}
@@ -63,6 +64,7 @@ export function ProcurementEditor({ disabled, guidance, initialData }: { disable
           {CLAUSE_KEYS.map((key) => (
             <div key={key} className="flex items-center gap-2">
               <Checkbox
+                data-testid={`procurement-clause-${key}`}
                 checked={display.requiredClauses[key]}
                 onCheckedChange={(v) =>
                   draft && setDraft({

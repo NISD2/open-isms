@@ -1,6 +1,226 @@
 {
   "entries": [
     {
+      "id": "2026-08-25-product-nis2-focus",
+      "date": "2026-08-25",
+      "category": "product",
+      "titleDe": "Fortschritt zaehlt nur noch die 49 NIS2-Anforderungen",
+      "titleEn": "Progress now counts only the 49 NIS 2 requirements",
+      "bodyDe": "Die Plattform zeigt jetzt ausschliesslich NIS 2. Bisher flossen auch Anforderungen weiterer Rahmenwerke in Dashboards, Fortschrittsanzeigen und Berichte ein; wer alle 49 NIS2-Anforderungen abgeschlossen hatte, sah teils nur rund die Haelfte als erledigt. Daten anderer Rahmenwerke bleiben vollstaendig erhalten, sie werden nur nicht mehr angezeigt.",
+      "bodyEn": "The platform now surfaces NIS 2 exclusively. Previously, requirements from additional frameworks flowed into dashboards, progress figures and reports; a company that had completed all 49 NIS 2 requirements could read roughly half as done. Data from other frameworks is fully retained, it is just no longer shown."
+    },
+    {
+      "id": "2026-08-25-regulatory-timeline-austria-bundestag",
+      "date": "2026-08-25",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: Oesterreichs NISG 2026 und die ersten Bundestagszahlen",
+      "titleEn": "Timeline: Austria's NISG 2026 and the first Bundestag figures",
+      "bodyDe": "Oesterreich fehlte als letzter Mitgliedstaat in der Zeitleiste: das NISG 2026 tritt am 1. Oktober 2026 in Kraft, registriert wird binnen drei Monaten. Neu sind ausserdem die Zahlen aus Bundestagsdrucksache 21/7573 mit 19.058 Registrierungen zum Stichtag 31. Juli 2026 und der Klarstellung der Bundesregierung, dass die kursierende Zahl von rund 29.500 eine Kostenschaetzung ist, kein Bestand. Ein aelterer Eintrag zu Paragraf 35 Absatz 2 BSIG wurde korrigiert: die Meldung an das BSI stand bereits im urspruenglichen Gesetzestext.",
+      "bodyEn": "Austria was the last Member State missing from the timeline: the NISG 2026 enters into force on 1 October 2026, with registration due within three months. Also new are the figures from Bundestag printed paper 21/7573, with 19,058 registrations as of 31 July 2026 and the government's clarification that the circulating figure of around 29,500 is a cost estimate, not a count. An older entry on section 35(2) BSIG was corrected: notifying the BSI was already part of the original statutory text.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-08-24-product-signoff-evidence-erasure",
+      "date": "2026-08-24",
+      "category": "product",
+      "titleDe": "Freigabenachweise vervollstaendigt, Loeschung erfasst Freigabekopien",
+      "titleEn": "Sign-off evidence completed, erasure reaches sign-off snapshots",
+      "bodyDe": "Anforderungen, die ueber das Aufnahmeformular freigegeben wurden, zeigten im Pruefbereich und im PDF-Bericht keine Freigabedetails, obwohl der Nachweis im fortlaufenden Freigabeprotokoll vorlag. Die betroffenen Datensaetze wurden aus genau diesem Protokoll wiederhergestellt; erfunden wurde nichts, fehlende Angaben bleiben leer. Zusaetzlich entfernt die Loeschung personenbezogener Daten jetzt auch die zum Zeitpunkt der Freigabe eingefrorenen Kontaktangaben.",
+      "bodyEn": "Requirements approved through the intake form showed no sign-off detail in the review area and the PDF report, although the evidence existed in the append-only sign-off log. The affected records were restored from exactly that log; nothing was invented, genuinely missing details stay empty. In addition, personal-data erasure now also removes the contact details frozen into each sign-off at signing time."
+    },
+    {
+      "id": "2026-08-21-product-gdpr-catalogue",
+      "date": "2026-08-21",
+      "category": "product",
+      "titleDe": "DSGVO-Katalog: zwei neue Anforderungen, Rechtsangaben geprueft",
+      "titleEn": "GDPR catalogue: two new requirements, legal references checked",
+      "bodyDe": "Der DSGVO-Katalog erhaelt die Benachrichtigung betroffener Personen nach Artikel 34 und die Benennung von Datenschutzbeauftragten nach Artikel 37 bis 39 in Verbindung mit Paragraf 38 BDSG, der Schwelle, die deutsche Mittelstaendler am haeufigsten uebersehen. Rechtsangaben und die Elementlisten zu Artikel 30 und 32 wurden gegen den Amtsblatttext geprueft, Zitate tragen jetzt ihr eigenes Rahmenwerk, und bestehende Installationen erhalten alle Korrekturen automatisch per Migration. Inhalte in allen zehn Sprachen.",
+      "bodyEn": "The GDPR catalogue gains notifying affected people under Article 34 and the data protection officer duty under Articles 37 to 39 together with section 38 BDSG, the threshold German SMEs miss most often. Legal references and the element lists of Articles 30 and 32 were checked against the Official Journal text, citations now carry their own framework, and existing installations receive all corrections automatically through a migration. Content in all ten languages."
+    },
+    {
+      "id": "2026-08-21-product-self-host-stack",
+      "date": "2026-08-21",
+      "category": "product",
+      "titleDe": "Self-Hosting: eine Compose-Datei, Anleitung, kein AWS-Konto noetig",
+      "titleEn": "Self-hosting: one compose file, a guide, no AWS account needed",
+      "bodyDe": "Der Eigenbetrieb hat jetzt eine vollstaendige Anleitung, eine einzige Compose-Datei im Wurzelverzeichnis und ein Verzeichnis aller Drittdienste. Die Dateiablage laeuft ueber ein mitgeliefertes MinIO, ein AWS-Konto ist nicht mehr noetig. Webanalyse ist jetzt strikt Opt-in: eine selbst gehostete Instanz laedt ohne eigene Konfiguration kein Analyseskript und sendet nichts nach aussen.",
+      "bodyEn": "Self-hosting now comes with a complete guide, a single Docker compose file at the repository root, and an inventory of all third-party services. File storage runs on bundled MinIO, so no AWS account is needed. Web analytics is now strictly opt-in: a self-hosted instance loads no analytics script and sends nothing unless configured.",
+      "links": [
+        {
+          "labelDe": "Open Source",
+          "labelEn": "Open source",
+          "href": "/open-source"
+        }
+      ]
+    },
+    {
+      "id": "2026-08-20-product-legal-refs-verified",
+      "date": "2026-08-20",
+      "category": "product",
+      "titleDe": "Rechtsgrundlagen aller 49 Anforderungen verifiziert",
+      "titleEn": "Legal references of all 49 requirements verified",
+      "bodyDe": "Jede Paragrafen- und Artikelangabe im NIS2-Katalog wurde gegen das verkuendete BSIG und den Amtsblatttext der Durchfuehrungsverordnung (EU) 2024/2690 geprueft und wo noetig korrigiert. Pruefrhythmen folgen jetzt dem gesetzlichen Takt, etwa der Zweiwochenfrist fuer Registrierungsaenderungen nach Paragraf 33 Absatz 5 BSIG; drei Schritte wurden praeziser benannt, darunter die BSI-Meldefaehigkeit. Empfohlene Intervalle ohne gesetzliche Grundlage sind jetzt als Empfehlung gekennzeichnet.",
+      "bodyEn": "Every section and article reference in the NIS2 catalogue was checked against the enacted BSIG and the Official Journal text of Implementing Regulation (EU) 2024/2690, and corrected where needed. Review rhythms now follow the statutory clocks, such as the two-week window for registration changes under section 33(5) BSIG; three steps were renamed for precision, including BSI reporting readiness. Recommended intervals without a legal basis are now labelled as recommendations."
+    },
+    {
+      "id": "2026-08-20-product-signoff-enforcement",
+      "date": "2026-08-20",
+      "category": "product",
+      "titleDe": "Freigaberollen werden auf allen Abschlusswegen durchgesetzt",
+      "titleEn": "Required signer roles enforced on every completion path",
+      "bodyDe": "Anforderungen mit vorgeschriebener Freigaberolle, etwa durch die Geschaeftsleitung, lassen sich auf keinem Weg mehr ohne diese Rolle abschliessen; Freigaben mit mehreren Unterzeichnern laufen konsequent ueber den Zuweisungsprozess. Kein Handlungsbedarf fuer bestehende Konten.",
+      "bodyEn": "Requirements that demand a specific signer role, such as management, can no longer be completed through any path without that role; requirements with multiple signers consistently go through the assignment flow. No customer action required."
+    },
+    {
+      "id": "2026-08-20-product-numeric-digit-caps",
+      "date": "2026-08-20",
+      "category": "product",
+      "titleDe": "Zahlenfelder pruefen jetzt auch die zulaessige Stellenzahl",
+      "titleEn": "Numeric fields now check the allowed number of digits",
+      "bodyDe": "Eingaben in Zahlenfelder wie CVSS-Werte oder Budgetbetraege werden vor dem Speichern gegen die zulaessige Stellenzahl des jeweiligen Feldes geprueft. Zu grosse Werte erzeugen eine verstaendliche Fehlermeldung statt eines Serverfehlers.",
+      "bodyEn": "Input in numeric fields such as CVSS scores or budget amounts is validated against the field's allowed number of digits before saving. Oversized values produce a clear validation message instead of a server error."
+    },
+    {
+      "id": "2026-08-20-product-dependency-updates",
+      "date": "2026-08-20",
+      "category": "product",
+      "titleDe": "August: 5 Abhaengigkeitsaktualisierungen ueber Dependabot",
+      "titleEn": "August: 5 dependency updates via Dependabot",
+      "bodyDe": "Fuenf Aktualisierungen von Drittanbieterbibliotheken, darunter Sicherheitskorrekturen an der Anmeldung. Keine Auswirkungen auf bestehende Daten.",
+      "bodyEn": "Five third-party library updates, including security fixes in the sign-in flow. No impact on existing data."
+    },
+    {
+      "id": "2026-08-18-product-portal-locale-fix",
+      "date": "2026-08-18",
+      "category": "product",
+      "titleDe": "Portaltexte erscheinen in der gewaehlten Sprache",
+      "titleEn": "Portal copy follows the selected language",
+      "bodyDe": "Ein Fehler in der Sprachaufloesung zeigte Teile des Portals unabhaengig von der gewaehlten Sprache auf Englisch. Portaltexte folgen jetzt durchgehend der eingestellten Sprache.",
+      "bodyEn": "A locale resolution bug showed parts of the portal in English regardless of the selected language. Portal copy now consistently follows the configured language."
+    },
+    {
+      "id": "2026-08-18-regulatory-timeline-events-refresh",
+      "date": "2026-08-18",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste und Veranstaltungen aktualisiert, BSI-Zahlen wieder online",
+      "titleEn": "Timeline and events refreshed, BSI figures back online",
+      "bodyDe": "Das BSI-Dashboard NIS-2 in Zahlen ist wieder online und weist zum 30. Juni 2026 unter anderem 17.729 registrierte Einrichtungen aus. Die Zeitleiste erhielt sechs neue Ereignisse und vier Portalkorrekturen; der Veranstaltungskalender wurde auf 86 Eintraege synchronisiert.",
+      "bodyEn": "The BSI dashboard NIS-2 in Zahlen is back online, reporting among other figures 17,729 registered entities as of 30 June 2026. The timeline gained six new events and four portal corrections; the events feed was synced to 86 entries.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-08-05-regulatory-bsig-amendment-registration-lapse",
+      "date": "2026-08-05",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: BSIG geaendert, Registrierungsfrist verstrichen",
+      "titleEn": "Timeline: BSIG amended, registration deadline lapsed",
+      "bodyDe": "Das BSIG wurde zum 29. Juli 2026 geaendert (BGBl. 2026 I Nr. 221): Kritische Komponenten sind neu definiert, und Einrichtungen aus Finanzwesen, digitaler Infrastruktur und weiteren Sektoren melden Abhilfemassnahmen bei erheblichen Cyberbedrohungen nun auch an das BSI. Der vom BSI kommunizierte Registrierungstermin 31. Juli 2026 ist verstrichen: 18.845 von rund 29.500 erwarteten Einrichtungen waren registriert, Ordnungsmassnahmen hat das BSI bislang nicht eingeleitet. Insgesamt zwoelf neue Eintraege; die Uebersicht der Registrierungsportale wurde fuer sieben Laender aktualisiert, darunter die Niederlande vor dem Inkrafttreten am 15. August.",
+      "bodyEn": "The BSIG was amended with effect from 29 July 2026 (BGBl. 2026 I Nr. 221): critical components are redefined, and entities in finance, digital infrastructure and further sectors now notify the BSI as well as their service recipients about remedial measures for significant cyberthreats. The de facto registration date of 31 July 2026 has passed with 18,845 of an expected 29,500 entities registered, and the BSI has so far opened no administrative proceedings. Twelve new entries in total; the registration portal overview was updated for seven countries, including the Netherlands ahead of entry into force on 15 August.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-29-product-form-field-clearing",
+      "date": "2026-07-29",
+      "category": "product",
+      "titleDe": "Geleerte Felder werden jetzt gespeichert",
+      "titleEn": "Cleared fields now save",
+      "bodyDe": "Wer beim Bearbeiten ein optionales Textfeld leert und speichert, sieht den alten Wert nicht mehr zurueckkehren. Zahlenfelder pruefen ihre Eingaben jetzt strenger, und frei eingetragene Werte fuer Status und Schweregrad werden ueberall korrekt dargestellt.",
+      "bodyEn": "Clearing an optional text field while editing and saving no longer brings the old value back. Numeric fields validate their input more strictly, and freely entered status and severity values now render correctly throughout."
+    },
+    {
+      "id": "2026-07-29-product-end-to-end-tests",
+      "date": "2026-07-29",
+      "category": "product",
+      "titleDe": "Automatisierte Tests fuer den gesamten NIS-2-Weg",
+      "titleEn": "Automated tests across the full NIS 2 journey",
+      "bodyDe": "Neun massgeschneiderte Editoren und eine vollstaendig freigegebene NIS-2-Umsetzung werden jetzt durch automatisierte Tests ueber den gesamten Ablauf abgedeckt. Sie gehen den Weg von der Erfassung der Assets ueber Nachweise bis zur Freigabe mit mehreren Unterzeichnenden und pruefen dabei auch die Trennung der Mandanten.",
+      "bodyEn": "Nine custom editors and a complete signed-off NIS 2 implementation are now covered by automated tests that run the whole way through. They walk the path from asset intake through evidence to sign-off with multiple signers, and check tenant separation along the way."
+    },
+    {
+      "id": "2026-07-28-product-evidence-upload-fix",
+      "date": "2026-07-28",
+      "category": "product",
+      "titleDe": "Hochladen von Nachweisen in der Produktivumgebung repariert",
+      "titleEn": "Evidence uploads fixed in production",
+      "bodyDe": "Das Hochladen von Nachweisdateien schlug in der Produktivumgebung fehl und funktioniert wieder. Gefunden hat den Fehler die neue automatisierte Testreihe, die den vollstaendigen Weg durch eine NIS-2-Umsetzung abgeht.",
+      "bodyEn": "Uploading evidence files failed in the production environment and works again. The bug was found by the new automated test suite that walks the full path through a NIS 2 implementation."
+    },
+    {
+      "id": "2026-07-20-regulatory-timeline-july-sweep",
+      "date": "2026-07-20",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: zehn neue Ereignisse aus dem Juli 2026",
+      "titleEn": "Timeline: ten new events from July 2026",
+      "bodyDe": "Die NIS-2-Zeitleiste hat zehn neue Juli-Eintraege erhalten, darunter das Inkrafttreten der schwedischen Meldepflichten und die Uebertragung von CERT-SE an das neue NCSC, den EU-Aktionsplan zu Cybersicherheit und kuenstlicher Intelligenz, das CRA-Reifegradmodell der ENISA fuer kleine und mittlere Unternehmen sowie nationale Schritte in Luxemburg, Irland und den Niederlanden. Die Uebersicht der Registrierungsportale wurde fuer die Niederlande und Frankreich aktualisiert.",
+      "bodyEn": "The NIS 2 timeline gained ten new July entries, including Sweden's incident reporting obligations entering into force and the CERT-SE transfer to its new NCSC, the EU action plan on cybersecurity and artificial intelligence, ENISA's CRA maturity model for small and medium enterprises, and national steps in Luxembourg, Ireland and the Netherlands. The registration portal overview was updated for the Netherlands and France.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-20-product-form-reliability",
+      "date": "2026-07-20",
+      "category": "product",
+      "titleDe": "Zuverlaessigere Formulare in der gesamten Plattform",
+      "titleEn": "More reliable forms across the platform",
+      "bodyDe": "Formulare zum Anlegen neuer Eintraege pruefen jetzt nur die tatsaechlich angezeigten Felder und lassen sich dadurch ohne unnoetige Validierungsfehler absenden. Datumsfelder sind plattformweit vereinheitlicht, und fehlgeschlagene Aktionen zeigen eine klare Fehlermeldung.",
+      "bodyEn": "Forms for creating new records now validate only the fields actually shown, so they submit without spurious validation errors. Date fields are consistent across the platform, and failed actions surface a clear error message."
+    },
+    {
+      "id": "2026-07-20-content-grc-vergleich-kopexa",
+      "date": "2026-07-20",
+      "category": "content",
+      "titleDe": "GRC-Vergleich um den Anbieter Kopexa erweitert",
+      "titleEn": "GRC comparison expanded with the vendor Kopexa",
+      "bodyDe": "Der oeffentliche Vergleich von GRC-Plattformen enthaelt jetzt auch Kopexa mit Angaben zu Preisen und Funktionen. Der Vergleich wird laufend gepflegt.",
+      "bodyEn": "The public comparison of GRC platforms now includes Kopexa with pricing and feature details. The comparison is maintained on an ongoing basis.",
+      "links": [
+        {
+          "labelDe": "Zum Vergleich",
+          "labelEn": "See the comparison",
+          "href": "/grc-vergleich"
+        }
+      ]
+    },
+    {
+      "id": "2026-07-20-product-partner-smartcity-house",
+      "date": "2026-07-20",
+      "category": "product",
+      "titleDe": "Partnerseite: SmartCity House aufgenommen",
+      "titleEn": "Partner page: SmartCity House added",
+      "bodyDe": "Die oeffentliche Partnerseite fuehrt jetzt SmartCity House unter den Partnern der Plattform, in allen unterstuetzten Sprachen.",
+      "bodyEn": "The public partner page now lists SmartCity House among the platform's partners, in all supported languages.",
+      "links": [
+        {
+          "labelDe": "Partner",
+          "labelEn": "Partners",
+          "href": "/partner"
+        }
+      ]
+    },
+    {
       "id": "2026-07-10-regulatory-cjeu-nl-adoption",
       "date": "2026-07-10",
       "category": "regulatory",

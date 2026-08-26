@@ -36,13 +36,11 @@ import { PolicyItemsPanel, SKIP_INLINE_MODULE } from "./PolicyItemsPanel";
 import { InlineModulePanel } from "./InlineModulePanel";
 import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import { RequirementAssignPopover, type AssignmentRow } from "./RequirementAssignPopover";
-import { Walkthrough } from "@/components/walkthrough/Walkthrough";
-import { WalkthroughTrigger } from "@/components/walkthrough/WalkthroughTrigger";
-import { useWalkthrough } from "@/components/walkthrough/use-walkthrough";
-import type { WalkthroughStep } from "@/components/walkthrough/types";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
+import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
+import { buildCitationRows, type FrameworkLabel } from "@/lib/compliance/citations";
 import type { Asset } from "@/schema/types";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import {
@@ -65,19 +63,6 @@ import { teachingLessonForCategory } from "@/lib/training/lesson-journey-map";
 import { cn } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
-// Law URL helpers
-// ---------------------------------------------------------------------------
-function nis2Url(ref: string): string | null {
-  const m = ref.match(/Art\.\s*(\d+)/);
-  return m ? `https://www.nis-2-directive.com/NIS_2_Directive_Article_${m[1]}.html` : null;
-}
-
-function bsigUrl(ref: string): string | null {
-  const m = ref.match(/§(\d+)/);
-  return m ? `https://www.gesetze-im-internet.de/bsig_2025/__${m[1]}.html` : null;
-}
-
-// ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
@@ -93,6 +78,9 @@ export interface RequirementData {
   frameworkRef: string | null;
   importance: string | null;
   moduleRef: string | null;
+  frameworkCode: string | null;
+  referenceUrl: string | null;
+  nationalUrl: string | null;
 }
 
 export interface StatusData {
@@ -147,7 +135,9 @@ interface RequirementDetailProps {
 // ---------------------------------------------------------------------------
 // Custom editor lookup — requirement code → structured editor component
 // ---------------------------------------------------------------------------
-const CUSTOM_EDITORS: Record<string, React.ComponentType<{ disabled?: boolean; guidance?: RequirementGuidanceData | null; initialData?: Record<string, unknown> | null }>> = {
+// Typed against CUSTOM_EDITOR_KEYS (lib/compliance/requirement-fields.ts):
+// an editor added or removed on one side without the other is a compile error.
+const CUSTOM_EDITORS: Record<CustomEditorKey, React.ComponentType<{ disabled?: boolean; guidance?: RequirementGuidanceData | null; initialData?: Record<string, unknown> | null }>> = {
   "RSK:2.1": RiskMethodologyEditor,
   "RSK:2.3": AssetRiskRegister,
   "RSK:2.4": RiskTreatmentView,
@@ -159,44 +149,10 @@ const CUSTOM_EDITORS: Record<string, React.ComponentType<{ disabled?: boolean; g
   "PRO:6.4": PatchPolicyEditor,
 };
 
-const REQUIREMENT_WALKTHROUGH_STEPS: WalkthroughStep[] = [
-  {
-    id: "status",
-    targetId: "walkthrough-status",
-    titleKey: "requirement.steps.status.title",
-    bodyKey: "requirement.steps.status.body",
-    placement: "right",
-  },
-  {
-    id: "form",
-    targetId: "walkthrough-form-section",
-    titleKey: "requirement.steps.form.title",
-    bodyKey: "requirement.steps.form.body",
-    placement: "top",
-  },
-  {
-    id: "evidence",
-    targetId: "walkthrough-evidence",
-    titleKey: "requirement.steps.evidence.title",
-    bodyKey: "requirement.steps.evidence.body",
-    placement: "top",
-    optional: true,
-  },
-  {
-    id: "assign",
-    targetId: "walkthrough-assign",
-    titleKey: "requirement.steps.assign.title",
-    bodyKey: "requirement.steps.assign.body",
-    placement: "top",
-  },
-  {
-    id: "nav",
-    targetId: "walkthrough-footer-nav",
-    titleKey: "requirement.steps.nav.title",
-    bodyKey: "requirement.steps.nav.body",
-    placement: "top",
-  },
-];
+// Widened view for lookups with runtime-built keys.
+const CUSTOM_EDITOR_LOOKUP: Partial<
+  Record<string, (typeof CUSTOM_EDITORS)[CustomEditorKey]>
+> = CUSTOM_EDITORS;
 
 // ---------------------------------------------------------------------------
 // Component
@@ -228,8 +184,9 @@ export function RequirementDetail({
   const t = useTranslations("compliance");
   const tf = useTranslations("form");
   const tc = useTranslations("common");
-  const tw = useTranslations("walkthrough");
-  const walkthrough = useWalkthrough("requirement", REQUIREMENT_WALKTHROUGH_STEPS);
+  // Framework names live in the portal namespace, the same catalog the sidebar
+  // reads, so a citation is named the way the rest of the app names it.
+  const tp = useTranslations("portal");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -264,6 +221,10 @@ export function RequirementDetail({
   const isCompleted =
     status.currentStatus === "completed" || status.currentStatus === "approved";
   const isNA = status.currentStatus === "not_applicable";
+
+  const citationRows = buildCitationRows(requirement);
+  const citationLabel = (label: FrameworkLabel) =>
+    label.kind === "message" ? tp(label.key) : label.text;
 
   const [naOpen, setNaOpen] = useState(false);
   const [naReason, setNaReason] = useState("");
@@ -403,10 +364,7 @@ export function RequirementDetail({
         </p>
         <div className="flex items-center gap-3 mt-1">
           <h1 className="text-xl font-semibold tracking-tight">{requirement.title}</h1>
-          <span id="walkthrough-status">
-            <StatusBadge status={status.currentStatus} />
-          </span>
-          <WalkthroughTrigger onClick={walkthrough.restart} label={tw("requirement.reopenLabel")} />
+          <StatusBadge status={status.currentStatus} />
         </div>
         {isCompleted && status.signedOffAt && (
           <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-1.5 flex items-center gap-1.5">
@@ -488,10 +446,9 @@ export function RequirementDetail({
             </div>
           )}
 
-          <div id="walkthrough-form-section" className="space-y-6">
           {/* Custom structured editor (methodology, crypto, access control, etc.) */}
           {(() => {
-            const EditorComponent = CUSTOM_EDITORS[`${categoryCode}:${requirement.code}`];
+            const EditorComponent = CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`];
             if (EditorComponent) return <EditorComponent disabled={isReviewer} guidance={guidance} initialData={editorInitialData} />;
             return null;
           })()}
@@ -504,7 +461,7 @@ export function RequirementDetail({
           />
 
           {/* Form fields */}
-          {!CUSTOM_EDITORS[`${categoryCode}:${requirement.code}`] && fields.length > 0 ? (
+          {!CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`] && fields.length > 0 ? (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -523,6 +480,7 @@ export function RequirementDetail({
                       </Button>
                       <Button
                         size="sm"
+                        data-testid="requirement-save"
                         onClick={handleSave}
                         disabled={isSaving}
                       >
@@ -538,6 +496,7 @@ export function RequirementDetail({
                     <Button
                       variant="outline"
                       size="sm"
+                      data-testid="requirement-edit"
                       onClick={() => setIsEditing(true)}
                     >
                       <Pencil className="mr-1.5 h-3.5 w-3.5" />
@@ -553,7 +512,7 @@ export function RequirementDetail({
                       name={meta.key}
                       control={form.control}
                       render={({ field }) => (
-                        <div className="space-y-1.5">
+                        <div data-field={meta.key} className="space-y-1.5">
                           <label className="text-sm font-medium">{meta.label}</label>
                           {renderFieldInput(meta, field, undefined, undefined, fieldsDisabled)}
                         </div>
@@ -562,7 +521,7 @@ export function RequirementDetail({
                 ))}
               </div>
             </div>
-          ) : !CUSTOM_EDITORS[`${categoryCode}:${requirement.code}`] && !requirement.moduleRef ? (
+          ) : !CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`] && !requirement.moduleRef ? (
             <div className="space-y-2">
               <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("requirement.specificsSection")}
@@ -572,7 +531,6 @@ export function RequirementDetail({
               </p>
             </div>
           ) : null}
-          </div>
 
           {/* Module data */}
           {requirement.moduleRef && (
@@ -597,7 +555,12 @@ export function RequirementDetail({
                   isCompleted={isCompleted}
                   isConfirming={isPending}
                   onConfirm={
-                    isReviewer || !status.statusId ? undefined : handleModuleConfirm
+                    // Assigned requirements complete through the sign-off flow
+                    // (the server rejects module-confirm for them), so don't
+                    // offer a button that can only fail.
+                    isReviewer || !status.statusId || optimisticAssignments.length > 0
+                      ? undefined
+                      : handleModuleConfirm
                   }
                   editorInitialData={editorInitialData}
                 />
@@ -609,7 +572,7 @@ export function RequirementDetail({
           {status.statusId &&
             (requirement.evidenceType === "document" ||
               requirement.evidenceType === "proof") && (
-            <div id="walkthrough-evidence" className="space-y-2 pt-4 border-t">
+            <div className="space-y-2 pt-4 border-t">
               <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("requirement.evidenceSection")}
               </h2>
@@ -627,7 +590,7 @@ export function RequirementDetail({
         <aside className="space-y-6 lg:border-l lg:pl-6">
           {/* Assigned to + sign-off progress */}
           {status.statusId && (
-            <div id="walkthrough-assign" className="space-y-2">
+            <div className="space-y-2">
               <h3 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("assign")}
               </h3>
@@ -713,38 +676,31 @@ export function RequirementDetail({
                   <dd className="text-xs text-red-600 dark:text-red-400">{t("mandatory")}</dd>
                 </div>
               )}
-              {requirement.frameworkRef && (
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">NIS2</dt>
-                  <dd>
-                    <a
-                      href={nis2Url(requirement.frameworkRef) ?? "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {requirement.frameworkRef}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
+              {/* The link sits on the framework name, not on the citation:
+                  it opens that law's source page for this category, which is
+                  not always the exact article the citation names. */}
+              {citationRows.map((row) => (
+                <div key={row.id} className="flex items-start justify-between gap-3">
+                  <dt className="shrink-0 text-muted-foreground">
+                    {row.href ? (
+                      <a
+                        href={row.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 hover:text-foreground transition-colors"
+                      >
+                        {citationLabel(row.label)}
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    ) : (
+                      citationLabel(row.label)
+                    )}
+                  </dt>
+                  <dd className="text-right text-xs text-muted-foreground">
+                    {row.citation}
                   </dd>
                 </div>
-              )}
-              {requirement.legalRef && (
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">BSIG</dt>
-                  <dd>
-                    <a
-                      href={bsigUrl(requirement.legalRef) ?? "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {requirement.legalRef}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  </dd>
-                </div>
-              )}
+              ))}
             </dl>
             {teachingLesson && (
               <Link
@@ -769,10 +725,7 @@ export function RequirementDetail({
       {/* ------------------------------------------------------------------ */}
       {/* Sticky footer action bar */}
       {/* ------------------------------------------------------------------ */}
-      <div
-        id="walkthrough-footer-nav"
-        className="sticky bottom-0 z-30 -mx-6 mt-8 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
-      >
+      <div className="sticky bottom-0 z-30 -mx-6 mt-8 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="flex items-center justify-between px-6 py-3">
           <div>
             {prev ? (
@@ -863,16 +816,6 @@ export function RequirementDetail({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-      <Walkthrough
-        isOpen={walkthrough.isOpen}
-        step={walkthrough.currentStep}
-        stepIndex={walkthrough.stepIndex}
-        totalSteps={walkthrough.totalSteps}
-        onNext={walkthrough.next}
-        onSkip={walkthrough.skip}
-        ns="walkthrough"
-      />
     </div>
   );
 }

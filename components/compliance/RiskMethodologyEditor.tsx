@@ -315,6 +315,7 @@ export function RiskMethodologyEditor({
               </Button>
               <Button
                 size="sm"
+                data-testid="methodology-save"
                 onClick={handleSave}
                 disabled={updateMut.isPending}
               >
@@ -327,7 +328,7 @@ export function RiskMethodologyEditor({
               </Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" onClick={startEditing}>
+            <Button variant="outline" size="sm" data-testid="methodology-edit" onClick={startEditing}>
               <Pencil className="mr-1.5 h-3.5 w-3.5" />
               {t("edit")}
             </Button>
@@ -340,6 +341,7 @@ export function RiskMethodologyEditor({
         <label className="text-sm font-medium">{t("methodologyName")}</label>
         <SectionGuidance guidance={guidance} fieldKey="methodologyName" />
         <Input
+          data-testid="methodology-name"
           value={displayName}
           onChange={(e) => setName(e.target.value)}
           disabled={fieldsDisabled}
@@ -390,7 +392,7 @@ export function RiskMethodologyEditor({
             onValueChange={(v) => setAcceptanceThreshold(Number(v))}
             disabled={fieldsDisabled}
           >
-            <SelectTrigger className="w-20">
+            <SelectTrigger className="w-20" data-testid="methodology-threshold">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

@@ -146,6 +146,7 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
                   variant="ghost"
                   size="icon"
                   className="h-7 w-7 text-destructive"
+                  data-testid="evidence-delete"
                   onClick={() => handleDelete(f.id)}
                   disabled={deleteEvidence.isPending}
                 >
@@ -163,6 +164,7 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
           <div className="relative flex-1">
             <Input
               type="file"
+              data-testid="evidence-file-input"
               onChange={handleFileChange}
               disabled={uploading}
               accept=".pdf,.docx,.xlsx,.doc,.xls,.png,.jpg,.jpeg,.gif,.txt,.csv"

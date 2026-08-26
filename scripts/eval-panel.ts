@@ -18,6 +18,16 @@ import type { FormatMode } from "@/lib/eval/format-category";
 import type { MergedCategoryEvaluation, PanelEvaluationResult, Verdict } from "@/lib/eval/panel-schema";
 
 // ANSI colors
+import { assertLocalDatabase } from "./lib/assert-local-database";
+
+// Picks a tenant with an unfiltered findFirst and sends that company's
+// compliance report to an external model. Whoever's row comes back first is
+// whose data leaves the building, so it must never see a real database.
+assertLocalDatabase(
+  process.env.DATABASE_URL ?? "",
+  "scripts/eval-panel.ts sends the first company it finds to an external LLM.",
+);
+
 const GREEN = "\x1b[32m";
 const YELLOW = "\x1b[33m";
 const RED = "\x1b[31m";

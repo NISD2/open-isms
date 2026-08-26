@@ -391,6 +391,13 @@
         "legalBasis": "Art. 24 EU CRA",
         "threatLandscape": "Administratorii de software cu sursa deschisa sunt scutiti de sanctiuni conform art. 64(10), dar utilizatorii comerciali din aval depind in continuare de raportarea lor.",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Responsabil cu protecția datelor",
+        "description": "Evaluarea obligației de desemnare în temeiul §38 BDSG și al art. 37 din GDPR, precum și funcția și sarcinile persoanei desemnate",
+        "legalBasis": "GDPR Art. 37-39, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

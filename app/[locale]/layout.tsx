@@ -53,13 +53,20 @@ export default async function LocaleLayout({
           </TRPCProvider>
         </NextIntlClientProvider>
         <Toaster />
-        {process.env.NODE_ENV === "production" && (
-          <Script
-            defer
-            src="https://analytics.sorzel.com/script.js"
-            data-website-id="a1c48dc2-a9f6-4c09-a3ec-d2e93022f734"
-          />
-        )}
+        {/*
+          Analytics is opt-in and unconfigured by default, so a self-hosted
+          instance reports to nobody unless its operator says otherwise. Both
+          values are required; one without the other renders nothing.
+        */}
+        {process.env.NODE_ENV === "production" &&
+          process.env.ANALYTICS_SCRIPT_URL &&
+          process.env.ANALYTICS_WEBSITE_ID && (
+            <Script
+              defer
+              src={process.env.ANALYTICS_SCRIPT_URL}
+              data-website-id={process.env.ANALYTICS_WEBSITE_ID}
+            />
+          )}
       </body>
     </html>
   );

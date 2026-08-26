@@ -1,8 +1,10 @@
 # open-isms (reference app)
 
-Self-hostable Next.js app skeleton for an NIS 2 ISMS, wired up to the workspace packages (`@nisd2/grc-data-model`, `@nisd2/isms-schema`, etc.).
+Minimal Next.js app skeleton for an NIS 2 ISMS, wired up to the workspace packages (`@nisd2/grc-data-model`, `@nisd2/isms-schema`, etc.). Use it to understand the packages. To run the actual platform, follow [docs/self-hosting.md](../../docs/self-hosting.md) instead: that path uses the root `docker-compose.yml`, the same image nisd2.eu runs, and needs no SMTP setup.
 
-> **Status**: hello-world landing page today. The portal pages (compliance, assets, risks, suppliers, incidents) are still being added; until they land, this app demonstrates the workspace + Docker setup but does not yet expose the full ISMS. See the main README for the roadmap.
+> **Status**: landing page, email magic-link sign-in, and two portal pages (dashboard, compliance). The rest (assets, risks, suppliers, incidents, training, reviews) is still being added; until it lands, this app demonstrates the workspace + Docker setup but does not yet expose the full ISMS. See the main README for the roadmap.
+>
+> Sign-in needs an SMTP transport you wire yourself. See `.env.example` under Email.
 
 ## Quick start (Docker)
 
@@ -48,7 +50,7 @@ apps/reference/
 │   └── migrate.mjs         # runtime DB migrator (runs at container start)
 ├── public/                 # static assets served at /
 ├── Dockerfile              # multi-stage build (deps → builder → runner)
-├── docker-compose.yml      # Postgres + app for self-hosters
+├── docker-compose.yml      # Postgres + app, for running this demo
 ├── .env.example            # template for environment variables
 ├── package.json
 ├── next.config.ts
@@ -58,8 +60,8 @@ apps/reference/
 
 ## What's NOT here yet
 
-- Auth (Auth.js / NextAuth with email magic links, planned)
-- The ISMS portal pages (compliance, assets, risks, suppliers, incidents, training, reviews) — still being added
+- An email transport. `lib/auth.ts:sendVerificationRequest` is a stub; wire nodemailer/Resend/SES against `EMAIL_SERVER` or nobody can sign in.
+- Most ISMS portal pages (assets, risks, suppliers, incidents, training, reviews) — dashboard and compliance are in
 - Translation strings (the i18n registry exists, the catalog needs to be added)
 
 These are tracked roadmap items, not bugs. See the upstream README for the full project picture.

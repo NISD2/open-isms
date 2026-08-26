@@ -35,6 +35,7 @@ async function main() {
     effectiveDate: "2024-08-01",
     codePrefix: "AI-",
     sidebarLabel: "aiact",
+    isActive: false,
     categories: euAiActCategories,
     getRequirements: getEuAiActRequirementsForCategory,
   });
@@ -46,6 +47,7 @@ async function main() {
     effectiveDate: "2024-12-10",
     codePrefix: "CRA-",
     sidebarLabel: "cra",
+    isActive: false,
     categories: euCraCategories,
     getRequirements: getEuCraRequirementsForCategory,
   });

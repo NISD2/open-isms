@@ -14,7 +14,8 @@
  *   const parsed = companyInsertSchema.parse(req.body);
  */
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { getTableColumns, type Table } from "drizzle-orm";
+import { getTableColumns, is, type Table } from "drizzle-orm";
+import { PgNumeric } from "drizzle-orm/pg-core";
 import { z } from "zod";
 
 // --- Table imports (alphabetical by file) ---
@@ -90,11 +91,63 @@ function isoDateColumns<T extends Table>(
   return out;
 }
 
+/**
+ * pg `numeric`/`decimal` columns surface from drizzle-zod as bare strings,
+ * so free text ("ca. 95%", "12k") flows to Postgres and fails the insert
+ * with `invalid input syntax for type numeric` — a 500, not a validation
+ * error. Same shape as isoDateColumns: constrain those columns to a numeric
+ * string so the form and the server reject non-numbers up front. Derived
+ * from table metadata; explicit overrides after the spread still win.
+ */
+function numericColumns<T extends Table>(
+  table: T,
+): Partial<Record<keyof T["_"]["columns"], z.ZodType>> {
+  const out: Partial<Record<keyof T["_"]["columns"], z.ZodType>> = {};
+  for (const [name, col] of Object.entries(getTableColumns(table))) {
+    // is() over instanceof: entityKind-based, so it survives a second
+    // drizzle-orm copy in the graph where class identity would not.
+    if (is(col, PgNumeric)) {
+      // Free-text validation of a number is a genuine free-text case, so the
+      // regex is appropriate here. Integers and decimals only; "" is rejected
+      // (SchemaForm strips it to undefined for optional columns).
+      const base = z
+        .string()
+        .regex(/^-?\d+(\.\d+)?$/, "Must be a number");
+      // pg rejects values whose integer digits exceed precision - scale with
+      // "numeric field overflow" (a 500, not a validation error), while excess
+      // fractional digits are silently rounded. Bound the integer digits from
+      // the column's own declared precision/scale so overflow fails validation.
+      const intDigitCap =
+        typeof col.precision === "number"
+          ? col.precision - (typeof col.scale === "number" ? col.scale : 0)
+          : null;
+      const numericStr =
+        intDigitCap === null
+          ? base
+          : base.refine(
+              (v) => {
+                // Strip ALL leading zeros: pg counts significant digits of
+                // the value, so "0" and "0.95" have zero integer digits.
+                const intPart = v.replace(/^-/, "").split(".")[0] ?? "";
+                const significant = intPart.replace(/^0+/, "");
+                return significant.length <= intDigitCap;
+              },
+              `Must be at most ${intDigitCap} digits before the decimal point`,
+            );
+      out[name as keyof T["_"]["columns"]] = col.notNull
+        ? numericStr
+        : numericStr.nullish();
+    }
+  }
+  return out;
+}
+
 // ============================================================================
 // Organization
 // ============================================================================
 
 export const companyInsertSchema = createInsertSchema(company, {
+  ...numericColumns(company),
   name: z.string().min(2).max(255),
   sector: z.string().min(1).max(255),
   contactEmail: z.union([
@@ -268,6 +321,7 @@ export const requirementUpdateSchema = requirementInsertSchema.partial().omit(om
 
 export const assessmentInsertSchema = createInsertSchema(companyAssessment, {
   ...isoDateColumns(companyAssessment),
+  ...numericColumns(companyAssessment),
 });
 export const assessmentSelectSchema = createSelectSchema(companyAssessment);
 
@@ -422,6 +476,7 @@ export const riskSupplierInsertSchema = createInsertSchema(riskSupplier);
 // ============================================================================
 
 export const incidentInsertSchema = createInsertSchema(incident, {
+  ...numericColumns(incident),
   title: z.string().min(1).max(500),
   description: z.string().min(1),
 });
@@ -532,6 +587,7 @@ export const patchRecordUpdateSchema = patchRecordInsertSchema.partial().omit(om
 
 export const vulnerabilityInsertSchema = createInsertSchema(vulnerability, {
   ...isoDateColumns(vulnerability),
+  ...numericColumns(vulnerability),
   title: z.string().min(1).max(500),
   severity: z.string().min(1).max(50),
 });
@@ -578,6 +634,7 @@ export const improvementItemUpdateSchema = improvementItemInsertSchema.partial()
 // ============================================================================
 
 export const kpiMeasurementInsertSchema = createInsertSchema(kpiMeasurement, {
+  ...numericColumns(kpiMeasurement),
   kpiName: z.string().min(1).max(255),
 });
 export const kpiMeasurementSelectSchema = createSelectSchema(kpiMeasurement);

@@ -391,6 +391,13 @@
         "legalBasis": "Art. 24 EU CRA",
         "threatLandscape": "OSS stewards are penalty-exempt under Art. 64(10), but downstream commercial users still depend on their reporting.",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Data Protection Officer",
+        "description": "Assessment of the designation duty under §38 BDSG and Art. 37 GDPR, and the position and tasks of the person designated",
+        "legalBasis": "GDPR Art. 37-39, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

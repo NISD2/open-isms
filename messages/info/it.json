@@ -703,10 +703,10 @@
         "p1": "Misure che garantiscono la riservatezza:",
         "items": {
           "physical": "Controllo degli accessi fisici: i data center dei fornitori di hosting (Hetzner, AWS) sono in possesso di certificazioni ISO 27001",
-          "auth": "Autenticazione: esclusivamente tramite Google OAuth 2.0; nessuna password memorizzata sulla piattaforma. L'MFA per gli utenti è fornita tramite il loro account Google",
+          "auth": "Autenticazione: accesso con indirizzo e-mail e password oppure tramite Google OAuth 2.0. Le password sono conservate esclusivamente come hash bcrypt con fattore di costo 12, mai in chiaro. Nella registrazione con password l'indirizzo e-mail viene confermato una volta con un codice monouso, e i tentativi di accesso falliti sono limitati a 10 in 15 minuti per istanza applicativa. La piattaforma non offre un secondo fattore sul percorso con password. Chi accede con Google utilizza la MFA del proprio account Google.",
           "rbac": "Autorizzazioni basate sui ruoli: admin, reviewer, member; applicate a livello applicativo tramite middleware tRPC",
           "separation": "Isolamento multi-tenant: ogni query che gestisce dati filtra a livello di database in base all'ID aziendale dell'utente autenticato; nessun pool di dati condiviso tra i clienti",
-          "secrets": "Nessuna password in chiaro sulla piattaforma: l'autenticazione è esclusivamente basata su OAuth",
+          "secrets": "Le password non vengono mai conservate in chiaro. Ogni accesso viene confrontato con un hash bcrypt, anche quando per l'indirizzo indicato non esiste alcun account, così che il tempo di risposta non riveli chi è registrato.",
           "personnel": "Misure relative al personale: l'accesso ai sistemi di produzione e ai dati personali è limitato a un gruppo ristretto e nominativo vincolato alla riservatezza. L'accesso segue il principio del privilegio minimo e viene revocato quando un ruolo termina."
         }
       },
@@ -727,7 +727,7 @@
           "redundancy": "Archiviazione dei documenti di evidenza in AWS S3 con le garanzie di durabilità degli oggetti fornite da AWS",
           "rateLimit": "Rate limiting sui tentativi di login, sugli endpoint pubblici (verifica di applicabilità, portale fornitori) e sugli endpoint autenticati ad alto consumo di risorse (esportazioni PDF, generazione di certificati)",
           "uploadLimit": "I file caricati sono limitati a 50 MB per file",
-          "status": "Monitoraggio della disponibilità: lo stato operativo della piattaforma è monitorato in continuo ed è pubblicamente visibile su nisd2.eu/status."
+          "status": "Indicatore di disponibilità: nisd2.eu/status verifica a ogni richiesta la raggiungibilità del database e mostra pubblicamente il risultato, con una cache di 30 secondi. Non gestiamo un monitoraggio continuo con allarme automatico."
         }
       },
       "evaluation": {
@@ -6576,7 +6576,10 @@
         "heading": "Perché noi",
         "body": "Non siamo una società di consulenza. Non ti vendiamo uno strumento per poi farti pagare la formazione per usarlo. Abbiamo costruito tutto su questa piattaforma leggendo la legge effettiva, il regolamento di attuazione e le linee guida del BSI. Ogni lezione del corso per amministratori delegati cita la propria base giuridica. Ogni requisito della piattaforma è mappato a uno specifico paragrafo del BSIG. Siamo ingegneri che hanno deciso che la conformità non dovrebbe costare sei cifre."
       },
-      "ctaMission": "Leggi la nostra missione",
+      "cta": {
+        "heading": "Prova la piattaforma",
+        "description": "Verifica se la NIS2 si applica alla tua azienda e affronta i requisiti passo dopo passo. Open source, senza lock-in."
+      },
       "ctaPlatform": "Inizia gratis"
     },
     "gapAssessmentLanding": {

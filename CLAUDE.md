@@ -7,7 +7,8 @@ bun install              # Install dependencies (ALWAYS use bun, never npm/yarn)
 bun run dev              # Dev server on port 3026 (webpack, not turbopack)
 bun run typecheck        # tsc --noEmit — must pass with ZERO errors
 bun run build            # Production build — must pass clean
-bun db:generate          # Generate Drizzle migration after schema changes
+bun db:generate          # Generate Drizzle migration after SCHEMA changes
+bun db:framework-migration # Generate data migration after FRAMEWORK DATA changes
 bun db:migrate           # Apply migrations
 bun db:seed              # Seed database (drops + recreates dev data)
 ```
@@ -18,7 +19,7 @@ bun db:seed              # Seed database (drops + recreates dev data)
 - **No `as any` casts** — use proper types, generics, or type narrowing
 - **No non-null assertions (`!`)** — use explicit null checks, early returns, or narrowing. If a value is guaranteed non-null by prior logic, add a runtime check
 - **NEVER `drizzle-kit push`** — ALWAYS `bun db:generate` then `bun db:migrate`. Push bypasses migration tracking and causes DB state drift. No exceptions.
-- **NEVER destroy production data in a migration or a deploy-time seed.** This is OpenGRC: a real open-source GRC platform holding customers' compliance evidence, sign-offs, and progress (`companyRequirementStatus`, `evidence`, `requirementAssignment`). Migrations TRANSFORM, they do not lose: add the new shape, backfill from the old, then drop the old. Data is destroyed only with explicit, intentional, reviewed cause. Changes to reference/framework data (e.g. `requirement_prerequisite` rules) ship as a proper, idempotent `bun db:generate` + `bun db:migrate` migration that touches reference rows only. A seed that runs on deploy must never delete customer-scoped rows. If you are unsure whether a row is customer data or reference data, treat it as customer data.
+- **NEVER destroy production data in a migration or a deploy-time seed.** This is OpenGRC: a real open-source GRC platform holding customers' compliance evidence, sign-offs, and progress (`companyRequirementStatus`, `evidence`, `requirementAssignment`). Migrations TRANSFORM, they do not lose: add the new shape, backfill from the old, then drop the old. Data is destroyed only with explicit, intentional, reviewed cause. Changes to reference/framework data (legal refs, CIR points, priorities, frequencies, satisfaction pairs) ship as a proper, idempotent migration that touches reference rows only — run `bun db:framework-migration`, which regenerates the sync from `packages/grc-data-model` and appends the journal entry. `bun db:generate` will NOT do this: drizzle-kit diffs the schema, so a row-content change produces an empty migration and the edit silently never reaches an already-seeded database. A seed that runs on deploy must never delete customer-scoped rows. If you are unsure whether a row is customer data or reference data, treat it as customer data.
 - **No "wizard" or "demo"** in route names or visible UI
 - **KISS** — don't over-engineer. Simple > clever. 3 similar lines > premature abstraction
 - **Turbopack is the default for `next build` since 16.2** — the prior "Webpack required" rule (TW v4 PostCSS conflict) was fixed mid-16.x. `bun run build` uses Turbopack; `bun run build:webpack` is the escape hatch. Dev still uses webpack via `bun run dev` (HMR is steadier today); `bun run dev:turbo` is opt-in.

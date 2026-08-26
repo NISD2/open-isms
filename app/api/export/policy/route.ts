@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { companyAssessment } from "@/schema";
 import { eq } from "drizzle-orm";
 import { loadPolicyData } from "@/lib/pdf/load-policy-data";
+import { pdfLocale } from "@/lib/pdf/format";
 import { PolicyDocument } from "@/lib/pdf/policy-document";
 import { rateLimit } from "@/lib/rate-limit";
 
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
 
   const assessmentId = request.nextUrl.searchParams.get("assessmentId");
   const categoryCode = request.nextUrl.searchParams.get("categoryCode");
-  const locale = request.nextUrl.searchParams.get("locale") ?? "en";
+  const locale = pdfLocale(request.nextUrl.searchParams.get("locale"));
 
   if (!assessmentId || !categoryCode) {
     return new Response("Missing assessmentId or categoryCode", { status: 400 });
@@ -34,7 +35,7 @@ export async function GET(request: NextRequest) {
     return new Response("Forbidden", { status: 403 });
   }
 
-  const data = await loadPolicyData(assessmentId, categoryCode);
+  const data = await loadPolicyData(assessmentId, categoryCode, locale);
   const buffer = await renderToBuffer(
     PolicyDocument({ data, locale }),
   );

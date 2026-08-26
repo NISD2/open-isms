@@ -704,10 +704,10 @@
         "p1": "Measures ensuring confidentiality:",
         "items": {
           "physical": "Physical access control: data centres of the hosting providers (Hetzner, AWS) hold ISO 27001 certifications",
-          "auth": "Authentication: exclusively via Google OAuth 2.0; no passwords stored on the platform. MFA for users is provided through their Google account",
+          "auth": "Authentication: sign-in by email and password or through Google OAuth 2.0. Passwords are stored only as a bcrypt hash at cost factor 12, never in clear text. Password registrations confirm the email address once through a one-time code, and failed sign-in attempts are limited to 10 in 15 minutes per application instance. The platform offers no second factor on the password path. Users who sign in with Google rely on the MFA of their own Google account.",
           "rbac": "Role-based permissions: admin, reviewer, member; enforced in the application layer via tRPC middleware",
           "separation": "Multi-tenant isolation: every data-bearing query filters at the database layer on the company ID of the authenticated user; no shared data pools between customers",
-          "secrets": "No plaintext passwords on the platform - authentication is exclusively OAuth-based",
+          "secrets": "Passwords are never stored in clear text. Every sign-in is compared against a bcrypt hash, including when no account exists for the address supplied, so that response time cannot reveal who is registered.",
           "personnel": "Personnel measures: access to production systems and personal data is limited to a small, named group bound by confidentiality. Access follows the principle of least privilege and is revoked when a role ends."
         }
       },
@@ -728,7 +728,7 @@
           "redundancy": "Storage of evidence documents in AWS S3 with the object durability guarantees provided by AWS",
           "rateLimit": "Rate limiting on login attempts, public endpoints (applicability check, supplier portal), and resource-heavy authenticated endpoints (PDF exports, certificate generation)",
           "uploadLimit": "Uploaded files are limited to 50 MB per file",
-          "status": "Availability monitoring: the platform's operational status is continuously monitored and publicly visible at nisd2.eu/status."
+          "status": "Availability display: nisd2.eu/status checks database reachability on each request and shows the result publicly, cached for 30 seconds. We do not run continuous monitoring with automated alerting."
         }
       },
       "evaluation": {
@@ -6592,7 +6592,10 @@
         "heading": "Why us",
         "body": "We're not a consulting firm. We're not selling you a tool and then charging for the training to use it. We built everything on this platform by reading the actual law, the implementing regulation, and the BSI guidance. Every lesson in the managing director course cites its legal basis. Every requirement in the platform maps to a specific BSIG paragraph. We're engineers who decided compliance shouldn't cost six figures."
       },
-      "ctaMission": "Read our mission",
+      "cta": {
+        "heading": "Try the platform",
+        "description": "Check whether NIS2 applies to your company, then work through the requirements step by step. Open source, no lock-in."
+      },
       "ctaPlatform": "Start free"
     },
     "gapAssessmentLanding": {

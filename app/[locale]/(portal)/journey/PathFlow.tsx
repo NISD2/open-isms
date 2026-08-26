@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -9,10 +8,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Walkthrough } from "@/components/walkthrough/Walkthrough";
-import { WalkthroughTrigger } from "@/components/walkthrough/WalkthroughTrigger";
-import { useWalkthrough } from "@/components/walkthrough/use-walkthrough";
-import type { WalkthroughStep } from "@/components/walkthrough/types";
 import {
   Check,
   CheckCheck,
@@ -193,62 +188,11 @@ export function PathFlow({
     : "grid-cols-[2.75rem_minmax(0,1fr)]";
   const activeOrder = ORDER_OPTS.find((o) => o.key === order);
 
-  const tw = useTranslations("walkthrough");
-  const firstNodeCode = sections[0]?.rows[0]?.node.code ?? null;
-  const walkthroughSteps: WalkthroughStep[] = [
-    {
-      id: "order",
-      targetId: "walkthrough-order-toggle",
-      titleKey: "journey.steps.order.title",
-      bodyKey: "journey.steps.order.body",
-      placement: "bottom",
-    },
-    {
-      id: "filters",
-      targetId: "walkthrough-filter-group",
-      titleKey: "journey.steps.filters.title",
-      bodyKey: "journey.steps.filters.body",
-      placement: "bottom",
-    },
-    {
-      id: "columns",
-      targetId: "walkthrough-columns",
-      titleKey: "journey.steps.columns.title",
-      bodyKey: "journey.steps.columns.body",
-      placement: "bottom",
-      optional: true,
-    },
-    {
-      id: "legend",
-      targetId: "walkthrough-legend",
-      titleKey: "journey.steps.legend.title",
-      bodyKey: "journey.steps.legend.body",
-      placement: "left",
-      optional: true,
-    },
-    ...(firstNodeCode
-      ? [
-          {
-            id: "firstNode",
-            targetId: `step-${firstNodeCode}`,
-            titleKey: "journey.steps.firstNode.title",
-            bodyKey: "journey.steps.firstNode.body",
-            placement: "right" as const,
-            optional: true,
-          },
-        ]
-      : []),
-  ];
-  const walkthrough = useWalkthrough("journey", walkthroughSteps);
-
   return (
     <div className="space-y-2">
-      <div className="flex items-center gap-1.5">
-        <h2 className="text-lg font-semibold tracking-tight">
-          {de ? "Die Reise" : "The Journey"}
-        </h2>
-        <WalkthroughTrigger onClick={walkthrough.restart} label={tw("journey.reopenLabel")} />
-      </div>
+      <h2 className="text-lg font-semibold tracking-tight">
+        {de ? "Die Reise" : "The Journey"}
+      </h2>
       {/* Control bar: ordering (primary) on the left, filters on the right. */}
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <OrderToggle order={order} setOrder={setOrder} de={de} />
@@ -265,22 +209,10 @@ export function PathFlow({
         </p>
         <Legend de={de} />
       </div>
-      <Walkthrough
-        isOpen={walkthrough.isOpen}
-        step={walkthrough.currentStep}
-        stepIndex={walkthrough.stepIndex}
-        totalSteps={walkthrough.totalSteps}
-        onNext={walkthrough.next}
-        onSkip={walkthrough.skip}
-        ns="walkthrough"
-      />
 
       <div className="overflow-x-auto rounded-lg border bg-card">
         <div className={cn(swimlane ? "min-w-[820px]" : "min-w-[460px]")}>
-          <div
-            id="walkthrough-columns"
-            className={cn("grid gap-2 border-b bg-muted/40 px-3 py-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4", rowCols)}
-          >
+          <div className={cn("grid gap-2 border-b bg-muted/40 px-3 py-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4", rowCols)}>
             <span className="text-center">#</span>
             {swimlane ? (
               COLUMNS.map((c) => <ColumnHeader key={c.key} col={c} de={de} />)
@@ -350,7 +282,6 @@ function OrderToggle({
 }) {
   return (
     <div
-      id="walkthrough-order-toggle"
       role="radiogroup"
       aria-label={de ? "Reihenfolge" : "Ordering"}
       className="inline-flex rounded-lg border bg-muted/60 p-0.5"
@@ -397,7 +328,7 @@ function FilterGroup({
 }) {
   const toggle = (f: StatusFilter) => setFilter(filter === f ? null : f);
   return (
-    <div id="walkthrough-filter-group" className="flex flex-wrap items-center gap-1.5">
+    <div className="flex flex-wrap items-center gap-1.5">
       <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
         {de ? "Filter" : "Filter"}
       </span>
@@ -491,7 +422,7 @@ function Legend({ de }: { de: boolean }) {
     { state: "signed", label: de ? "Freigegeben" : "Signed off" },
   ];
   return (
-    <div id="walkthrough-legend" className="hidden items-center gap-3 sm:flex">
+    <div className="hidden items-center gap-3 sm:flex">
       {items.map((it) => (
         <span key={it.state} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
           <Dot
@@ -748,6 +679,7 @@ function NodeCard({
       <HoverCardTrigger asChild>
         <Link
           href={href}
+          data-testid={`journey-node-${node.code}`}
           className={cn(
             "relative block rounded-md border bg-background p-2 transition-all hover:border-primary/60 hover:bg-accent/40",
             ring,

@@ -147,13 +147,6 @@ export default async function TeamPage({
 
       <Separator />
 
-      {/* Pitch deck — full business overview. Migrated here from /pitch. */}
-      <section className="space-y-3">
-        <PitchDeckViewer locale={pitchLocale} stats={stats} />
-      </section>
-
-      <Separator />
-
       <div className="grid gap-6 sm:grid-cols-2">
         {/* Simon */}
         <Card>
@@ -287,12 +280,25 @@ export default async function TeamPage({
         </p>
       </section>
 
+      <Separator />
+
+      {/* Pitch deck — full business overview. Migrated here from /pitch. */}
+      <section className="space-y-3">
+        <PitchDeckViewer locale={pitchLocale} stats={stats} />
+      </section>
+
       {/* CTA */}
-      <Card>
-        <CardContent className="pt-6 flex flex-col gap-3 sm:flex-row">
-          <Button asChild>
-            <Link href="/applicability">{t("teamPage.ctaPlatform")}</Link>
-          </Button>
+      <Card className="text-center">
+        <CardContent className="pt-6 space-y-4">
+          <h2 className="text-xl font-semibold">{t("teamPage.cta.heading")}</h2>
+          <p className="text-sm text-muted-foreground">
+            {t("teamPage.cta.description")}
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button asChild>
+              <Link href="/applicability">{t("teamPage.ctaPlatform")}</Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

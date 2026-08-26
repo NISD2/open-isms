@@ -1,14 +1,31 @@
 /**
  * Standalone GDPR framework seed.
  *
- * Upserts: 1 framework (GDPR), 5 categories, 7 requirements.
+ * This script does two very different jobs, and the safety of the first does
+ * not extend to the second.
  *
- * Safe in any environment: the underlying seedFramework primitive matches
- * existing rows by natural key (framework code, category slug, requirement
- * code) and updates metadata in place. No operational data is ever deleted,
- * so live sign-offs, assignments, and audit trails stay intact.
+ * 1. REFERENCE DATA (default, safe anywhere). Upserts 1 framework, 6
+ *    categories, 9 requirements and the NIS2 satisfaction pairs. seedFramework
+ *    matches existing rows by natural key and updates metadata in place, so no
+ *    operational data is touched and live sign-offs stay intact. Note that
+ *    production no longer needs this: framework reference data ships as a
+ *    generated migration and is applied at container start.
  *
- * Usage: bun run drizzle/seed-gdpr.ts
+ * 2. TENANT BACKFILL (opt-in). Creates a GDPR assessment for every company
+ *    that lacks one and copies existing NIS2 sign-offs onto their linked GDPR
+ *    requirements. This writes operational data for every tenant in the
+ *    database: it manufactures sign-off records, which in a compliance system
+ *    are legal evidence that somebody attested to something. It is a one-time
+ *    backfill for companies that signed NIS2 before GDPR existed, not routine
+ *    maintenance.
+ *
+ *    An earlier version of this header called the whole script "safe in any
+ *    environment". That was true of job 1 and badly wrong about job 2, which
+ *    ran unguarded against whatever DATABASE_URL happened to be set.
+ *
+ * Usage:
+ *   bun run drizzle/seed-gdpr.ts                    # reference data only
+ *   SEED_GDPR_BACKFILL=1 bun run drizzle/seed-gdpr.ts   # + tenant backfill
  */
 import { eq, and, or, inArray } from "drizzle-orm";
 import * as schema from "@/schema";
@@ -22,6 +39,14 @@ import {
   linkSatisfactionPairs,
   seedFramework,
 } from "@nisd2/grc-data-model/seed";
+import { recalculateProgress } from "@/server/trpc/helpers/assessment-helpers";
+import { recordSignOffChainEntry } from "@/server/trpc/helpers/sign-off-chain";
+import {
+  completedSignOffValues,
+  effectiveSignOffRole,
+  snapshotForVersion,
+} from "@/server/trpc/helpers/sign-off-completion";
+import type { Database } from "@/lib/db";
 
 async function seed() {
   console.log("GDPR framework seed\n");
@@ -32,6 +57,7 @@ async function seed() {
     effectiveDate: "2018-05-25",
     codePrefix: "DSGVO-",
     sidebarLabel: "dsgvo",
+    isActive: false,
     categories: gdprCategories,
     getRequirements: getGdprRequirementsForCategory,
   });
@@ -52,6 +78,18 @@ async function seed() {
   });
   if (!fw) throw new Error("Framework lookup failed after upsert");
 
+  // Everything above this line is reference data. Everything below writes
+  // operational rows for every tenant in the database, so it is opt-in.
+  if (process.env.SEED_GDPR_BACKFILL !== "1") {
+    console.log(
+      "\n  Reference data done. Skipping the tenant backfill (assessment " +
+        "bootstrap + NIS2 sign-off propagation), which writes operational " +
+        "data for every company.\n  Re-run with SEED_GDPR_BACKFILL=1 to " +
+        "include it.\n",
+    );
+    return;
+  }
+
   // Bootstrap GDPR assessments for existing companies + propagate any
   // existing NIS2 sign-offs to their linked GDPR requirements. Idempotent.
   console.log("\n  Bootstrapping GDPR assessments for existing companies...");
@@ -69,6 +107,8 @@ async function seed() {
   let companiesBootstrapped = 0;
   let statusRowsCreated = 0;
   let propagated = 0;
+  let skippedRoleMismatch = 0;
+  let skippedIncompleteSource = 0;
 
   for (const co of companies) {
     let gdprAssessment = await db.query.companyAssessment.findFirst({
@@ -122,20 +162,70 @@ async function seed() {
       );
       if (!signedSide || !unsignedSide) continue;
 
-      await db
-        .update(schema.companyRequirementStatus)
-        .set({
-          status: "completed",
-          signedOffBy: signedSide.signedOffBy,
-          signedOffAt: signedSide.signedOffAt,
-          signedOffRole: signedSide.signedOffRole,
-          signedOffTemplateVersion: signedSide.signedOffTemplateVersion,
-          signOffSnapshot: signedSide.signOffSnapshot,
-          completedAt: signedSide.completedAt ?? signedSide.signedOffAt,
-          completedBy: signedSide.signedOffBy,
-          updatedAt: new Date(),
-        })
-        .where(eq(schema.companyRequirementStatus.id, unsignedSide.id));
+      // A copied sign-off is still a sign-off, so it answers to the same rules
+      // the live propagation applies (see propagateSatisfaction). Without this
+      // gate a CISO's NIS2 signature lands on a GDPR requirement that names
+      // the DPO, which reads to an auditor as the wrong officer attesting.
+      // No session here, so no admin bypass: a script cannot vouch for a role
+      // nobody holds. effectiveSignOffRole supplies the same default the live
+      // paths use when a requirement names no signer.
+      const signerRole = signedSide.signedOffRole;
+      if (
+        !signerRole ||
+        signerRole !== effectiveSignOffRole(unsignedSide.requirement.requiredSignOffRole)
+      ) {
+        skippedRoleMismatch++;
+        continue;
+      }
+
+      // Narrowed here rather than asserted at the call site: a source row can
+      // be status=completed with no signer at all (updateRequirementStatus
+      // does exactly that), and copying those nulls forward would produce a
+      // sign-off attributed to nobody.
+      const signedOffBy = signedSide.signedOffBy;
+      const signedOffAt = signedSide.signedOffAt;
+      const sourceSnapshot = signedSide.signOffSnapshot;
+      if (!signedOffBy || !signedOffAt || !sourceSnapshot) {
+        skippedIncompleteSource++;
+        continue;
+      }
+
+      // The source's snapshot describes the source requirement. Re-stamp it
+      // for the target, or the row claims a version belonging to a different
+      // requirement and escapes invalidation when its own text is bumped.
+      const targetVersion = unsignedSide.requirement.templateVersion;
+      const targetSnapshot = snapshotForVersion(sourceSnapshot, targetVersion);
+
+      await db.transaction(async (tx) => {
+        await tx
+          .update(schema.companyRequirementStatus)
+          .set(
+            completedSignOffValues({
+              userId: signedOffBy,
+              signedOffRole: signerRole,
+              templateVersion: targetVersion,
+              snapshot: targetSnapshot,
+              now: signedOffAt,
+            }),
+          )
+          .where(eq(schema.companyRequirementStatus.id, unsignedSide.id));
+
+        // sign-off-chain.ts states every writer of signOffSnapshot must append
+        // a history row. This loop never did, so back-propagated rows had no
+        // verifiable chain and verifySignOffChain reported them valid by
+        // vacuous truth.
+        await recordSignOffChainEntry(tx as unknown as Database, {
+          companyId: co.id,
+          statusId: unsignedSide.id,
+          requirementId: unsignedSide.requirementId,
+          signedOffBy,
+          signedOffRole: signerRole,
+          source: "module",
+          templateVersion: targetVersion,
+          companyProfile: targetSnapshot.companyProfile ?? {},
+          data: { backfill: "seed-gdpr", sourceRequirementId: signedSide.requirementId },
+        });
+      });
       propagated++;
     }
   }
@@ -144,28 +234,25 @@ async function seed() {
     `  Bootstrapped ${companiesBootstrapped} new GDPR assessments, ` +
       `created ${statusRowsCreated} status rows, propagated ${propagated} sign-offs.`,
   );
+  if (skippedRoleMismatch > 0 || skippedIncompleteSource > 0) {
+    console.log(
+      `  Skipped ${skippedRoleMismatch} pair(s) whose target requires a ` +
+        `different signer role, and ${skippedIncompleteSource} whose source ` +
+        `row carries no signature to copy.`,
+    );
+  }
 
   // Recalculate progress counters for every assessment that may have
   // drifted (live signOff mutation does this; backfill must too).
   console.log("  Recalculating assessment progress counters...");
   const allAssessments = await db.query.companyAssessment.findMany();
   for (const a of allAssessments) {
-    const statuses = await db.query.companyRequirementStatus.findMany({
-      where: eq(schema.companyRequirementStatus.assessmentId, a.id),
-    });
-    const completed = statuses.filter(
-      (s) => s.status === "completed" || s.status === "approved" || s.status === "not_applicable",
-    ).length;
-    const total = statuses.length;
-    const percentage = total > 0 ? ((completed / total) * 100).toFixed(2) : "0";
-    await db
-      .update(schema.companyAssessment)
-      .set({ completedRequirements: completed, compliancePercentage: percentage, updatedAt: new Date() })
-      .where(eq(schema.companyAssessment.id, a.id));
+    // Reuse the live path's counter logic rather than restating the
+    // completed/approved/not_applicable rule, which is the sort of copy that
+    // drifts the moment a status value is added.
+    await recalculateProgress(db, a.id);
   }
   console.log(`  Recalculated ${allAssessments.length} assessment counters.\n`);
-
-  process.exit(0);
 }
 
 async function resolveSidesForCompany(
@@ -179,7 +266,12 @@ async function resolveSidesForCompany(
       eq(schema.companyRequirementStatus.requirementId, reqAId),
       eq(schema.companyRequirementStatus.requirementId, reqBId),
     ),
-    with: { assessment: { columns: { companyId: true } } },
+    with: {
+      assessment: { columns: { companyId: true } },
+      // The target's own required signer and template version decide whether a
+      // copied sign-off is allowed and which version it records.
+      requirement: { columns: { requiredSignOffRole: true, templateVersion: true } },
+    },
   });
   const ourStatuses = statuses.filter((s) => s.assessment.companyId === companyId);
   const aStatus = ourStatuses.find((s) => s.requirementId === reqAId);
@@ -194,7 +286,12 @@ async function resolveSidesForCompany(
   return [null, null] as const;
 }
 
-seed().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// One exit point per outcome, at the end. seed() now returns early when the
+// backfill is not opted into, and an early return alone would leave the
+// connection pool holding the event loop open.
+seed()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });

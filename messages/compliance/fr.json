@@ -391,6 +391,13 @@
         "legalBasis": "Art. 24 EU CRA",
         "threatLandscape": "Les dépositaires OSS sont exemptés de sanctions au titre de l'art. 64(10), mais les utilisateurs commerciaux en aval dépendent toujours de leurs notifications.",
         "bsiGuidance": ""
+      },
+      "DPO": {
+        "name": "Délégué à la protection des données",
+        "description": "Évaluation de l'obligation de désignation au titre du §38 BDSG et de l'art. 37 du GDPR, ainsi que fonction et missions de la personne désignée",
+        "legalBasis": "GDPR Art. 37-39, §38 BDSG",
+        "threatLandscape": "",
+        "bsiGuidance": ""
       }
     }
   },

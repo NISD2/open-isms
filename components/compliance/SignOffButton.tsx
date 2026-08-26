@@ -16,6 +16,7 @@ export function SignOffButton({ isSubmitting, onSignOff }: SignOffButtonProps) {
     <Button
       variant="default"
       size="sm"
+      data-testid="sign-off-button"
       disabled={isSubmitting}
       onClick={() => onSignOff()}
     >

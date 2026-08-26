@@ -1,6 +1,7 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { api } from "@/lib/trpc/server";
-import complianceEn from "@/messages/compliance/en.json";
+import { getComplianceMessages } from "@/lib/messages";
+import { formatAbsolute } from "@/lib/format";
 import { FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +20,7 @@ export default async function ExportPage() {
     getLocale(),
     api.assessment.listAssessments(),
   ]);
+  const compliance = await getComplianceMessages(locale);
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -45,13 +47,11 @@ export default async function ExportPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <CardTitle className="text-base">
-                        {complianceEn.compliance.frameworkName}
+                        {compliance.compliance.frameworkName}
                       </CardTitle>
                       <CardDescription>
                         {t("started")}{" "}
-                        {new Date(assessment.startedAt).toLocaleDateString(
-                          locale === "de" ? "de-DE" : "en-US",
-                        )}
+                        {formatAbsolute(assessment.startedAt, locale)}
                       </CardDescription>
                     </div>
                     <Badge variant="outline" className="font-mono text-xs">

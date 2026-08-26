@@ -7,6 +7,7 @@ import {
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import type { Database } from "@/lib/db";
 import { recordSignOffChainEntry } from "./sign-off-chain";
+import { completedSignOffValues, snapshotForVersion } from "./sign-off-completion";
 
 /** Build a sign-off snapshot capturing company profile + operational counts at sign-off time */
 export async function buildSignOffSnapshot(
@@ -179,8 +180,13 @@ export async function propagateSatisfaction(
   const now = new Date();
   const signerIsAdmin = signedOffRole === "admin";
 
+  // Same stable lock order as the bulk sign-off loops. This one is the reason
+  // they need it: propagation runs inside an ordinary sign-off request, so it
+  // is the loop most likely to be holding a row a concurrent bulk call wants.
+  const orderedTargets = [...targetStatuses].sort((a, b) => a.id.localeCompare(b.id));
+
   await db.transaction(async (tx) => {
-    for (const target of targetStatuses) {
+    for (const target of orderedTargets) {
       if (target.status === "completed" || target.status === "approved") continue;
 
       const required = target.requirement.requiredSignOffRole;
@@ -191,19 +197,24 @@ export async function propagateSatisfaction(
         continue;
       }
 
+      // The snapshot arrives from the source requirement's sign-off, so it
+      // carries the source's templateVersion. Re-stamp it with the target's
+      // own version: the column below already recorded the target's, and a
+      // row whose snapshot claims a different version than its column escapes
+      // invalidation when the target requirement is later bumped.
+      const targetSnapshot = snapshotForVersion(snapshot, target.requirement.templateVersion);
+
       await tx
         .update(companyRequirementStatus)
-        .set({
-          status: "completed",
-          signedOffBy: userId,
-          signedOffAt: now,
-          signedOffRole,
-          signedOffTemplateVersion: target.requirement.templateVersion,
-          signOffSnapshot: snapshot,
-          completedAt: now,
-          completedBy: userId,
-          updatedAt: now,
-        })
+        .set(
+          completedSignOffValues({
+            userId,
+            signedOffRole,
+            templateVersion: target.requirement.templateVersion,
+            snapshot: targetSnapshot,
+            now,
+          }),
+        )
         .where(eq(companyRequirementStatus.id, target.id));
 
       await recordSignOffChainEntry(tx as unknown as Database, {
@@ -214,7 +225,7 @@ export async function propagateSatisfaction(
         signedOffRole,
         source: "module",
         templateVersion: target.requirement.templateVersion,
-        companyProfile: snapshot.companyProfile ?? {},
+        companyProfile: targetSnapshot.companyProfile ?? {},
         data: { sourceRequirementId, propagation: "cross-framework" },
       });
 
