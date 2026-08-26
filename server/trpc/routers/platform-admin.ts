@@ -104,7 +104,7 @@ export const platformAdminRouter = router({
    * Re-arm one of the one-time onboarding surfaces for the caller.
    *
    * Takes which surface because the two cannot both be armed: resolveHints
-   * gates the tour on `loginCount <= 1` and the offer of help on
+   * gates the tours on `loginCount <= 1` and the offer of help on
    * `loginCount >= 2`, so arming either means moving the counter to a value
    * that disarms the other. Clearing the dismissal stamp alone would do
    * nothing on an account that has signed in more than once.
@@ -116,7 +116,14 @@ export const platformAdminRouter = router({
     .mutation(async ({ ctx, input }) => {
       // Both tours want a first-login account; the offer of help wants a
       // second. Everything else is just clearing that surface's own stamp.
-      const loginCount = input.surface === "helpOffer" ? 2 : 1;
+      //
+      // The tours arm at 0, not 1, so that arming survives a sign-out. The
+      // jwt callback increments this on every sign-in, so parking it on the
+      // last value that still counts as a first login meant "arm it, log out,
+      // log back in" landed on 2 and silently disarmed the thing that had
+      // just been armed. From 0 the next sign-in lands on 1 and the tour is
+      // still there, which is how the reset is actually used.
+      const loginCount = input.surface === "helpOffer" ? 2 : 0;
       await ctx.db
         .update(user)
         .set({ loginCount, [HINT_COLUMN[input.surface]]: null })

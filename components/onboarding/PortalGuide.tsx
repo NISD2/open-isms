@@ -6,12 +6,10 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc/client";
 import type { Hint } from "@/lib/onboarding/hints";
-
-type TourHint = RouteTour["hint"];
 import { usePortalPath } from "@/components/portal/use-portal-path";
 import { HelpDialog } from "./HelpDialog";
 import { TourOverlay } from "./tour/TourOverlay";
-import { tourForPath, type RouteTour, type TourStep } from "./tour/steps";
+import { tourForPath, type TourStep } from "./tour/steps";
 
 /** Drop steps whose target is not on this page before the tour starts. */
 function presentSteps(steps: readonly TourStep[]): readonly TourStep[] {
@@ -19,6 +17,16 @@ function presentSteps(steps: readonly TourStep[]): readonly TourStep[] {
     document.querySelector(`[data-tour="${step.target}"]`),
   );
 }
+
+/**
+ * How long to keep waiting for a walkthrough's page to render before giving
+ * up on it. Long, deliberately: waiting costs nothing, and being impatient
+ * costs the walkthrough, which is the one thing this component exists to do.
+ */
+const TARGET_WAIT_MS = 15_000;
+
+/** Shared so "no tour here" is the same value every time and React bails out. */
+const NO_STEPS: readonly TourStep[] = [];
 
 /**
  * Owns every guided surface in the portal: the question mark in the header,
@@ -40,36 +48,71 @@ export function PortalGuide({
   const path = usePortalPath();
   const dismissHint = trpc.user.dismissHint.useMutation();
 
-  // Seeded from the server-resolved hints and owned by the client from then
-  // on. The portal layout does not remount between pages, so a dismissal
-  // holds for the rest of the session without waiting on the round trip that
-  // persists it.
-  // Per-walkthrough, so dismissing one leaves the other still to come.
-  const [armed, setArmed] = useState<Record<TourHint, boolean>>({
-    journeyTour: hints.journeyTour,
-    requirementTour: hints.requirementTour,
+  // What this session has dismissed, per surface, so skipping one leaves the
+  // others still to come. Only the dismissals are held here: the portal layout
+  // does not remount between pages, so a dismissal has to hold for the rest of
+  // the session without waiting on the round trip that persists it.
+  //
+  // Whether a surface is armed is derived from the prop rather than copied
+  // into state beside it. Copying froze it at whatever the first render of
+  // this layout saw, so re-arming a surface could not reach the component at
+  // all until the whole document was reloaded by hand.
+  const [dismissed, setDismissed] = useState<Record<Hint, boolean>>({
+    journeyTour: false,
+    requirementTour: false,
+    helpOffer: false,
   });
-  const [helpAuto, setHelpAuto] = useState(hints.helpOffer);
   const [helpManual, setHelpManual] = useState(false);
-  const [steps, setSteps] = useState<readonly TourStep[]>([]);
+  const [steps, setSteps] = useState<readonly TourStep[]>(NO_STEPS);
   const [index, setIndex] = useState(0);
 
+  const helpAuto = hints.helpOffer && !dismissed.helpOffer;
+
   const routeTour = tourForPath(path);
-  const routeArmed = routeTour ? armed[routeTour.hint] : false;
+  const routeArmed = routeTour
+    ? hints[routeTour.hint] && !dismissed[routeTour.hint]
+    : false;
 
   // Re-resolve on every navigation. Each route asks whether ITS walkthrough is
   // still armed, so walking the journey and then opening a requirement starts
   // the second one, and skipping the journey does not cancel it.
   useEffect(() => {
     if (!routeTour || !routeArmed) {
-      setSteps([]);
+      setSteps(NO_STEPS);
       return;
     }
-    const frame = requestAnimationFrame(() => {
+
+    // The page being explained is not necessarily in the DOM yet. This header
+    // lives in the portal layout, which hydrates as soon as the shell arrives,
+    // while a route with a loading.tsx is still showing its skeleton. Sampling
+    // once and keeping whatever happened to be present lost the walkthrough on
+    // exactly those loads: the anchor was missing, the step list came back
+    // empty, and nothing was left to re-run the check. That is the reload-it-
+    // three-times bug.
+    //
+    // So wait for the opening step's target instead. Every tour opens on
+    // something its route always renders (see TourSteps), so that element
+    // arriving is the signal that the page is here. The rest of it landed in
+    // the same commit, and presentSteps then drops only the sections that
+    // genuinely do not apply to this requirement.
+    const anchor = routeTour.steps[0].target;
+    const start = () => {
+      if (!document.querySelector(`[data-tour="${anchor}"]`)) return false;
       setSteps(presentSteps(routeTour.steps));
       setIndex(0);
+      return true;
+    };
+    if (start()) return;
+
+    const observer = new MutationObserver(() => {
+      if (start()) observer.disconnect();
     });
-    return () => cancelAnimationFrame(frame);
+    observer.observe(document.body, { childList: true, subtree: true });
+    const giveUp = setTimeout(() => observer.disconnect(), TARGET_WAIT_MS);
+    return () => {
+      observer.disconnect();
+      clearTimeout(giveUp);
+    };
   }, [routeArmed, routeTour, path]);
 
   // Plain functions: nothing downstream is memoised and none of these sit in a
@@ -78,14 +121,16 @@ export function PortalGuide({
 
   const closeTour = () => {
     if (!routeTour) return;
-    setArmed((current) => ({ ...current, [routeTour.hint]: false }));
-    setSteps([]);
+    setDismissed((current) => ({ ...current, [routeTour.hint]: true }));
+    setSteps(NO_STEPS);
     dismiss(routeTour.hint);
   };
 
   const closeHelp = () => {
+    // Only the automatic offer is a one-time surface worth stamping. Closing
+    // one the user opened from the header themselves records nothing.
     if (helpAuto) dismiss("helpOffer");
-    setHelpAuto(false);
+    setDismissed((current) => ({ ...current, helpOffer: true }));
     setHelpManual(false);
   };
 

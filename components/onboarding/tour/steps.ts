@@ -19,6 +19,18 @@ export type TourStep = {
 };
 
 /**
+ * A tour's steps, opening step first, and never empty.
+ *
+ * The opening step is load-bearing beyond being shown first: the guide waits
+ * for its target to appear before starting the tour, and treats that as the
+ * signal that the route has actually rendered. So it has to point at
+ * something the route always puts on the page, never at a conditional
+ * section. The tuple type is what stops a later edit leaving a tour with no
+ * first step for the guide to wait on.
+ */
+export type TourSteps = readonly [TourStep, ...TourStep[]];
+
+/**
  * Establish the whole board, narrow to what a single row is, then explain the
  * controls, then hand over to the rest of the portal.
  *
@@ -32,7 +44,7 @@ export type TourStep = {
  * there is no room beside a row that spans the content column, and Radix
  * shifting a colliding card is what made it look clipped.
  */
-const JOURNEY_STEPS: readonly TourStep[] = [
+const JOURNEY_STEPS: TourSteps = [
   { target: "journey-board", key: "overview", side: "top" },
   { target: "journey-first-step", key: "firstStep", side: "bottom" },
   { target: "journey-order", key: "order", side: "bottom" },
@@ -52,7 +64,7 @@ const JOURNEY_STEPS: readonly TourStep[] = [
  * rendered while the requirement is still open, so a signed-off or
  * not-applicable one simply has one step fewer.
  */
-const REQUIREMENT_STEPS: readonly TourStep[] = [
+const REQUIREMENT_STEPS: TourSteps = [
   { target: "requirement-status", key: "status", side: "bottom" },
   { target: "requirement-form", key: "form", side: "top" },
   { target: "requirement-evidence", key: "evidence", side: "top" },
@@ -66,7 +78,8 @@ const REQUIREMENT_STEPS: readonly TourStep[] = [
 export type RouteTour = {
   /** The hint this walkthrough arms and dismisses on its own. */
   hint: Extract<Hint, "journeyTour" | "requirementTour">;
-  steps: readonly TourStep[];
+  /** Opening step first; the guide waits on it. See `TourSteps`. */
+  steps: TourSteps;
 };
 
 /**
