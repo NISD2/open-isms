@@ -4,6 +4,9 @@
 # .env.production, .env.staging, etc.) except the committed .env.example
 .env*
 !.env.example
+# Template shipped to self-hosters alongside compose.self-host.yml. Contains
+# placeholders only; every secret in it is empty.
+!.env.self-host.example
 .next/
 tsconfig.tsbuildinfo
 google-service-account.json

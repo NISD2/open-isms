@@ -95,6 +95,12 @@ ENV NODE_ENV=production
 ENV AUTH_TRUST_HOST=true
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Stamped by the release workflow from the git tag. An image built any other
+# way keeps `dev`, which the app reports as an unversioned build and never
+# compares against published releases.
+ARG APP_VERSION=dev
+ENV APP_VERSION=${APP_VERSION}
+
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public

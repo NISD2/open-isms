@@ -19,6 +19,13 @@ export async function GET() {
   return NextResponse.json(
     {
       status: allOk ? "ok" : "degraded",
+      // Stamped into the image at release. A self-hoster watching an update
+      // land has no other way to tell which version answered: the browser
+      // loses its server mid-swap, and this is what it polls until the
+      // version changes. `dev` means the image was not built by the release
+      // pipeline.
+      version: process.env.APP_VERSION ?? "dev",
+      composeRevision: process.env.COMPOSE_REVISION ?? null,
       timestamp: new Date().toISOString(),
       checks,
     },

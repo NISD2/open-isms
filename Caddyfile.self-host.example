@@ -1,0 +1,21 @@
+# Save next to compose.yaml as `Caddyfile`, used by `--profile proxy`.
+#
+# Caddy obtains and renews certificates on its own. Both names must already
+# resolve to this server before the first start, or the certificate order
+# fails and you get a TLS error rather than a page.
+
+{$APP_DOMAIN} {
+	reverse_proxy app:3000
+}
+
+# Only needed with the bundled MinIO. Evidence uploads go straight from the
+# browser to the object store using a presigned URL, and that URL is signed
+# for one exact hostname — so the store needs a public name of its own, and
+# AWS_S3_ENDPOINT in .env has to be this same https:// address.
+{$STORAGE_DOMAIN} {
+	reverse_proxy minio:9000
+
+	request_body {
+		max_size 100MB
+	}
+}
