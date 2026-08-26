@@ -10,6 +10,7 @@ import {
   Mail,
   Shield,
   Trash2,
+  FlaskConical,
   Truck,
   Users,
 } from "lucide-react";
@@ -27,6 +28,7 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { Link, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
+import { DevPanel } from "./DevPanel";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -180,7 +182,7 @@ function planBadge(plan: string | null) {
   return <span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">{plan}</span>;
 }
 
-type Tab = "users" | "companies" | "compliance" | "training" | "suppliers" | "emails" | "erasures";
+type Tab = "users" | "companies" | "compliance" | "training" | "suppliers" | "emails" | "erasures" | "dev";
 
 /** Human-readable label for a notification.entityType value. */
 function emailTypeLabel(t: string): string {
@@ -244,6 +246,7 @@ export function PlatformAdminPage({
           { key: "suppliers" as const, label: "Suppliers", icon: Truck, count: supplierActivity.length },
           { key: "emails" as const, label: "Emails", icon: Mail, count: emailActivity.totalSent },
           { key: "erasures" as const, label: "Erasures", icon: Trash2, count: undefined as number | undefined },
+          { key: "dev" as const, label: "Dev", icon: FlaskConical, count: undefined as number | undefined },
         ]).map(({ key, label, icon: Icon, count }) => (
           <button
             key={key}
@@ -269,6 +272,7 @@ export function PlatformAdminPage({
       {tab === "suppliers" && <SuppliersTable rows={supplierActivity} />}
       {tab === "emails" && <EmailsPanel data={emailActivity} />}
       {tab === "erasures" && <ErasuresPanel />}
+      {tab === "dev" && <DevPanel />}
     </div>
   );
 }

@@ -33,6 +33,7 @@ import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
 import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/certificate";
 import { rateLimit } from "@/lib/rate-limit";
 import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
+import { resolveHints, HINTS } from "@/lib/onboarding/hints";
 
 // Character set (not a secret) for human-friendly share passwords —
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
@@ -57,6 +58,95 @@ const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
 });
 
 export const platformAdminRouter = router({
+  /**
+   * The caller's own resettable state, for the personal dev tab.
+   *
+   * Scoped to ctx.userId throughout: the admin gate decides who may reach the
+   * tab, and every read and write here is fixed to the caller's own row. No
+   * procedure in this group takes an id that could point at somebody else.
+   */
+  myDevState: platformAdminProcedure.query(async ({ ctx }) => {
+    const row = await ctx.db.query.user.findFirst({
+      where: eq(user.id, ctx.userId),
+      columns: {
+        loginCount: true,
+        tourDismissedAt: true,
+        helpOfferDismissedAt: true,
+      },
+    });
+    if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "User row missing" });
+
+    const progress = await ctx.db
+      .select({
+        courseId: trainingLessonProgress.courseId,
+        lessons: count(),
+      })
+      .from(trainingLessonProgress)
+      .where(eq(trainingLessonProgress.userId, ctx.userId))
+      .groupBy(trainingLessonProgress.courseId);
+
+    return {
+      ...row,
+      // The panel feeds this straight back into trainingMarkCourseComplete,
+      // which already takes a userId, so "complete my course" needs no
+      // procedure of its own.
+      userId: ctx.userId,
+      hints: resolveHints(row),
+      courses: COURSE_IDS.map((courseId) => ({
+        courseId,
+        lessons: progress.find((p) => p.courseId === courseId)?.lessons ?? 0,
+      })),
+    };
+  }),
+
+  /**
+   * Re-arm one of the one-time onboarding surfaces for the caller.
+   *
+   * Takes which surface because the two cannot both be armed: resolveHints
+   * gates the tour on `loginCount <= 1` and the offer of help on
+   * `loginCount >= 2`, so arming either means moving the counter to a value
+   * that disarms the other. Clearing the dismissal stamp alone would do
+   * nothing on an account that has signed in more than once.
+   *
+   * Self-scoped, so the worst it can do is show the caller a tour.
+   */
+  armOnboardingSurface: platformAdminProcedure
+    .input(z.object({ surface: z.enum(HINTS) }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(user)
+        .set(
+          input.surface === "tour"
+            ? { loginCount: 1, tourDismissedAt: null }
+            : { loginCount: 2, helpOfferDismissedAt: null },
+        )
+        .where(eq(user.id, ctx.userId));
+      return { surface: input.surface };
+    }),
+
+  /**
+   * Drop the caller's lesson progress for one course so it can be walked
+   * again from the start.
+   *
+   * Deliberately leaves `training_record` alone. That row is the company's
+   * §38 BSIG training evidence, not a per-user replay flag, and a dev tool
+   * has no business deleting compliance evidence.
+   */
+  resetMyCourseProgress: platformAdminProcedure
+    .input(z.object({ courseId: z.enum(COURSE_IDS) }))
+    .mutation(async ({ ctx, input }) => {
+      const deleted = await ctx.db
+        .delete(trainingLessonProgress)
+        .where(
+          and(
+            eq(trainingLessonProgress.userId, ctx.userId),
+            eq(trainingLessonProgress.courseId, input.courseId),
+          ),
+        )
+        .returning({ id: trainingLessonProgress.id });
+      return { courseId: input.courseId, removed: deleted.length };
+    }),
+
   overview: platformAdminProcedure.query(async ({ ctx }) => {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
