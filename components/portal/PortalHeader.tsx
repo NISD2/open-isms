@@ -14,7 +14,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { ViewToggle } from "./ViewToggle";
 import { PortalGuide } from "@/components/onboarding/PortalGuide";
 import { usePortalPath } from "./use-portal-path";
 
@@ -107,7 +106,6 @@ export function PortalHeader({
         </BreadcrumbList>
       </Breadcrumb>
       <div className="ml-auto flex items-center gap-1">
-        <ViewToggle />
         {guide && <PortalGuide hints={guide.hints} calLink={guide.calLink} />}
       </div>
     </header>

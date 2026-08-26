@@ -7,8 +7,6 @@ import { sendMail, sendWelcomeEmail, newUserSignupEmail } from "@/lib/mail";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
-import { isJourneyAllowed } from "@/lib/journey-flag";
-import { env } from "@/lib/env";
 
 // In-memory rate limit: max 10 verification attempts per IP per 15 min.
 // Per-OTP attempts are already capped server-side at 5 in `verifyOtp`,
@@ -101,14 +99,12 @@ export async function POST(request: Request) {
     // boundary: post-OTP the email is proven-owned and disposable signups never
     // reach here (they were never issued an OTP). createDraftCompany is
     // idempotent, and the isNull(emailVerifiedAt) guard above already makes this
-    // block run exactly once per user. Gated on the journey flag; a failure just
-    // logs (the user is verified regardless, and onboarding still works).
-    if (isJourneyAllowed(email, env.JOURNEY_ALLOWED_DOMAINS)) {
-      try {
-        await createDraftCompany(db, userRow.id);
-      } catch (err) {
-        console.error("[verify-email] Failed to provision draft company:", err);
-      }
+    // block run exactly once per user. A failure just logs (the user is
+    // verified regardless, and onboarding still works).
+    try {
+      await createDraftCompany(db, userRow.id);
+    } catch (err) {
+      console.error("[verify-email] Failed to provision draft company:", err);
     }
 
     const admins = [...getPlatformAdminEmails()];

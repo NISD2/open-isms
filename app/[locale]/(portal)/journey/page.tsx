@@ -1,8 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { api } from "@/lib/trpc/server";
-import { env } from "@/lib/env";
-import { isJourneyAllowed } from "@/lib/journey-flag";
 import { liveNode } from "./views";
 import { PathHero } from "./PathHero";
 import { PathFlow } from "./PathFlow";
@@ -23,11 +21,6 @@ export default async function JourneyPage({
   const session = await getSession();
   if (!session) redirect("/auth/signin");
   if (!session.companyId) redirect("/dashboard");
-
-  // Journey gate (defaults open; narrow via JOURNEY_ALLOWED_DOMAINS).
-  if (!isJourneyAllowed(session.user.email, env.JOURNEY_ALLOWED_DOMAINS)) {
-    redirect("/dashboard");
-  }
 
   const { locale: rawLocale } = await params;
   const locale: Locale = (["en", "de", "nl"].includes(rawLocale)

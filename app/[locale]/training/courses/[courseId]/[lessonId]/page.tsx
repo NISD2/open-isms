@@ -1,8 +1,6 @@
 import { api } from "@/lib/trpc/server";
 import { getLocale } from "next-intl/server";
 import { getSession } from "@/lib/auth";
-import { env } from "@/lib/env";
-import { isJourneyAllowed } from "@/lib/journey-flag";
 import { journeyCategoryForLesson } from "@/lib/training/lesson-journey-map";
 import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
@@ -33,11 +31,7 @@ export default async function LessonRoute({
   // must not leak into them.
   let journeyCategory: string | null = null;
   const session = await getSession();
-  if (
-    courseId === "nis2-ceo" &&
-    session?.companyId &&
-    isJourneyAllowed(session.user.email, env.JOURNEY_ALLOWED_DOMAINS)
-  ) {
+  if (courseId === "nis2-ceo" && session?.companyId) {
     journeyCategory = journeyCategoryForLesson(lessonId);
   }
 

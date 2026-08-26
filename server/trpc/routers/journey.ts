@@ -1,6 +1,5 @@
 import { eq, and, asc, count } from "drizzle-orm";
 import { z } from "zod";
-import { TRPCError } from "@trpc/server";
 import { router, companyProcedure } from "../init";
 import {
   companyRequirementStatus,
@@ -11,9 +10,7 @@ import {
   complianceFramework,
   user,
 } from "@/schema";
-import { env } from "@/lib/env";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
-import { isJourneyAllowed } from "@/lib/journey-flag";
 import {
   getRequirementsMessages,
   getRequirementTitle,
@@ -59,17 +56,6 @@ export const journeyRouter = router({
   getItems: companyProcedure
     .input(z.object({ locale: z.string().optional() }).optional())
     .query(async ({ ctx, input }) => {
-    // Defense-in-depth: page.tsx redirects unauthorised users from the
-    // /journey route, but the tRPC procedure itself must also gate or
-    // someone could call it directly and probe the feature's data shape.
-    // Same predicate, same env var → single source of truth.
-    if (!isJourneyAllowed(ctx.session.user.email, env.JOURNEY_ALLOWED_DOMAINS)) {
-      throw new TRPCError({
-        code: "FORBIDDEN",
-        message: "Journey feature not available for this account.",
-      });
-    }
-
     const cid = ctx.companyId;
 
     // Resolve the NIS2 framework. Without this filter, a company with both

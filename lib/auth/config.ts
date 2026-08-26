@@ -19,7 +19,6 @@ import {
 import { getAppUrl } from "@/lib/utils";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
-import { isJourneyAllowed } from "@/lib/journey-flag";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 import { resolveHints } from "@/lib/onboarding/hints";
 
@@ -249,13 +248,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         // Google users bypass the verify-email route, so this is their draft-
-        // company provisioning boundary. Idempotent + journey-gated; a failure
-        // logs but never blocks signin.
-        if (
-          shouldProvision &&
-          userId &&
-          isJourneyAllowed(authUser.email, env.JOURNEY_ALLOWED_DOMAINS)
-        ) {
+        // company provisioning boundary. Idempotent; a failure logs but never
+        // blocks signin.
+        if (shouldProvision && userId) {
           try {
             await createDraftCompany(db, userId);
           } catch (err) {
