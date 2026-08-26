@@ -39,12 +39,20 @@
           "body": "Carica i documenti che mostrano che la misura è davvero attiva. È questo che chiede un audit."
         },
         "assign": {
-          "title": "Assegna un responsabile, poi approva",
-          "body": "Assegna la persona responsabile e approva quando il requisito è soddisfatto. L'approvazione è la traccia del consenso della direzione."
+          "title": "Chi ne è responsabile",
+          "body": "Assegnate la persona responsabile. Il requisito comparirà nel suo elenco."
+        },
+        "legal": {
+          "title": "Su cosa si fonda giuridicamente",
+          "body": "Ogni requisito cita l'articolo da cui deriva: l'articolo della NIS 2 e il recepimento nazionale, in Germania il BSIG. Il nome del quadro rimanda al testo di riferimento."
+        },
+        "decide": {
+          "title": "Approvare o escludere",
+          "body": "Quando il requisito è soddisfatto, approvatelo. L'approvazione è la prova che la direzione ha acconsentito. Se davvero non vi riguarda, segnatelo come non applicabile con una motivazione."
         },
         "nav": {
-          "title": "Muoviti nel percorso",
-          "body": "Indietro e Avanti scorrono i requisiti in ordine. Segna come non applicabile ciò che non riguarda la tua organizzazione, con una motivazione."
+          "title": "Muoversi nel percorso",
+          "body": "Indietro e avanti scorrono i requisiti in ordine, senza passare dalla panoramica."
         },
         "sidebar": {
           "title": "Il resto è a sinistra",

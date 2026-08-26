@@ -39,12 +39,20 @@
           "body": "Încărcați documentele care arată că măsura chiar funcționează. Exact asta cere un audit."
         },
         "assign": {
-          "title": "Stabiliți un responsabil și aprobați",
-          "body": "Atribuiți persoana responsabilă și aprobați odată ce cerința este îndeplinită. Aprobarea este dovada că a fost de acord conducerea."
+          "title": "Cine răspunde",
+          "body": "Atribuiți persoana responsabilă. Cerința îi apare apoi în propria listă."
+        },
+        "legal": {
+          "title": "Pe ce se sprijină juridic",
+          "body": "Fiecare cerință indică articolul din care decurge: articolul din NIS 2 și transpunerea națională, în Germania BSIG. Numele cadrului duce la textul sursă."
+        },
+        "decide": {
+          "title": "Aprobați sau excludeți",
+          "body": "Când cerința este îndeplinită, aprobați-o. Aprobarea este dovada că a fost de acord conducerea. Dacă într-adevăr nu vi se aplică, marcați-o ca neaplicabilă, cu motivare."
         },
         "nav": {
-          "title": "Deplasarea prin parcurs",
-          "body": "Înapoi și Înainte parcurg cerințele în ordine. Marcați ca neaplicabil ce nu privește organizația dumneavoastră, cu o motivare."
+          "title": "Parcurgerea traseului",
+          "body": "Înapoi și înainte parcurg cerințele în ordine, fără ocolul prin vederea de ansamblu."
         },
         "sidebar": {
           "title": "Restul se află în stânga",

@@ -8,12 +8,8 @@
  * component on one screen.
  */
 export type TourStep = {
-  /**
-   * Matches the `data-tour` attribute on the element to highlight. Omitted for
-   * an establishing step, which dims the whole screen and centres its card
-   * instead of spotlighting one element.
-   */
-  target?: string;
+  /** Matches the `data-tour` attribute on the element to highlight. */
+  target: string;
   /** Key under `guide.tour.steps`. `.title` and `.body` hang off it. */
   key: string;
   /** Which side of the target the card prefers. Radix flips it on collision. */
@@ -24,18 +20,18 @@ export type TourStep = {
  * Establish the whole board, narrow to what a single row is, then explain the
  * controls, then hand over to the rest of the portal.
  *
- * The opening step has no target on purpose. Spotlighting the board means
- * spotlighting nearly the whole viewport, which leaves the card nowhere to sit
- * and reads as a highlight of nothing in particular. Dimming everything and
- * centring the card says "here is the thing you are looking at" without
- * pretending to point at a detail.
+ * The opening step spotlights the board itself rather than dimming the screen
+ * behind a floating card: the point of the step is "this table is your path",
+ * which only lands if the table is the thing lit up. It prefers the top side
+ * because the board runs off the bottom of the viewport, so the only reliable
+ * gap beside it is the header strip above.
  *
- * `firstStep` sits on a full-width row, so it prefers bottom rather than a
- * horizontal side: there is no room beside a row that spans the content
- * column, and Radix shifting a colliding card is what made it look clipped.
+ * `firstStep` sits on a full-width row, so it also prefers a vertical side:
+ * there is no room beside a row that spans the content column, and Radix
+ * shifting a colliding card is what made it look clipped.
  */
 const JOURNEY_STEPS: readonly TourStep[] = [
-  { key: "overview" },
+  { target: "journey-board", key: "overview", side: "top" },
   { target: "journey-first-step", key: "firstStep", side: "bottom" },
   { target: "journey-order", key: "order", side: "bottom" },
   { target: "journey-filters", key: "filters", side: "bottom" },
@@ -44,11 +40,23 @@ const JOURNEY_STEPS: readonly TourStep[] = [
   { target: "sidebar-registers", key: "registers", side: "right" },
 ];
 
+/**
+ * The requirement page, in the order someone works it: see where it stands,
+ * answer it, prove it, give it an owner, check what the law actually says,
+ * then take the decision and move on.
+ *
+ * `legal` and `decide` drop themselves where they do not apply: a requirement
+ * with no mapped citations renders no rows, and the decide group is only
+ * rendered while the requirement is still open, so a signed-off or
+ * not-applicable one simply has one step fewer.
+ */
 const REQUIREMENT_STEPS: readonly TourStep[] = [
   { target: "requirement-status", key: "status", side: "bottom" },
   { target: "requirement-form", key: "form", side: "top" },
   { target: "requirement-evidence", key: "evidence", side: "top" },
   { target: "requirement-assign", key: "assign", side: "left" },
+  { target: "requirement-legal", key: "legal", side: "left" },
+  { target: "requirement-decide", key: "decide", side: "top" },
   { target: "requirement-nav", key: "nav", side: "top" },
 ];
 

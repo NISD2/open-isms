@@ -39,12 +39,20 @@
           "body": "Upload de documenten die aantonen dat de maatregel echt draait. Daar vraagt een audit naar."
         },
         "assign": {
-          "title": "Eigenaar en goedkeuring",
-          "body": "Wijs de verantwoordelijke persoon toe en keur goed zodra aan de vereiste is voldaan. De goedkeuring is het bewijs dat de leiding heeft ingestemd."
+          "title": "Wie is verantwoordelijk",
+          "body": "Wijs de verantwoordelijke persoon toe. De eis verschijnt dan in zijn eigen lijst."
+        },
+        "legal": {
+          "title": "Waar dit juridisch op steunt",
+          "body": "Elke eis noemt het artikel waarop hij berust: het artikel uit NIS 2 en de nationale omzetting, in Duitsland het BSIG. De naam van het kader linkt naar de brontekst."
+        },
+        "decide": {
+          "title": "Vrijgeven of uitsluiten",
+          "body": "Is de eis vervuld, geef hem dan vrij. De vrijgave is het bewijs dat de leiding heeft ingestemd. Geldt hij echt niet voor u, markeer hem dan met reden als niet van toepassing."
         },
         "nav": {
           "title": "Door het pad navigeren",
-          "body": "Vorige en Volgende lopen de vereisten op volgorde door. Wat voor uw organisatie niet geldt, markeert u als niet van toepassing, met reden."
+          "body": "Terug en volgende lopen de eisen op volgorde door, zonder omweg via het overzicht."
         },
         "sidebar": {
           "title": "De rest staat links",

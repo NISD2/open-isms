@@ -39,12 +39,20 @@
           "body": "Nahrajte dokumenty, které ukazují, že opatření opravdu běží. Přesně na to se audit ptá."
         },
         "assign": {
-          "title": "Určete odpovědnou osobu a schvalte",
-          "body": "Přiřaďte odpovědnou osobu a schvalte, jakmile je požadavek splněn. Schválení je záznam o souhlasu vedení."
+          "title": "Kdo za to odpovídá",
+          "body": "Přiřaďte odpovědnou osobu. Požadavek se jí pak objeví ve vlastním seznamu."
+        },
+        "legal": {
+          "title": "O co se to opírá právně",
+          "body": "Každý požadavek uvádí článek, ze kterého vychází: článek NIS 2 a národní transpozici, v Německu BSIG. Název předpisu vede na zdrojový text."
+        },
+        "decide": {
+          "title": "Schválit, nebo vyloučit",
+          "body": "Jakmile je požadavek splněn, schvalte jej. Schválení je doklad, že vedení souhlasilo. Pokud se vás opravdu netýká, označte jej s odůvodněním jako nepoužitelný."
         },
         "nav": {
           "title": "Pohyb po cestě",
-          "body": "Zpět a Další procházejí požadavky popořadě. Co se vaší organizace netýká, označte jako nerelevantní, s odůvodněním."
+          "body": "Zpět a dále procházejí požadavky popořadě, bez okliky přes přehled."
         },
         "sidebar": {
           "title": "Zbytek je vlevo",

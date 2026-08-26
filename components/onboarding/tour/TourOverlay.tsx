@@ -20,14 +20,10 @@ const SPOTLIGHT_PADDING = 6;
  * Returns null until the element has been found and measured, which is also
  * what keeps the overlay off the server render and off the first client paint.
  */
-function useTargetRect(target: string | undefined): DOMRect | null {
+function useTargetRect(target: string): DOMRect | null {
   const [rect, setRect] = useState<DOMRect | null>(null);
 
   useEffect(() => {
-    if (!target) {
-      setRect(null);
-      return;
-    }
     const element = document.querySelector(`[data-tour="${target}"]`);
     if (!(element instanceof HTMLElement)) {
       setRect(null);
@@ -37,7 +33,13 @@ function useTargetRect(target: string | undefined): DOMRect | null {
     // Instant rather than smooth: the card anchors to the measured box, and a
     // running smooth scroll leaves that measurement stale for its whole
     // duration. The blurred surround already makes the jump legible.
-    element.scrollIntoView({ block: "center", behavior: "auto" });
+    //
+    // A target taller than the viewport is left where it is. Centring one
+    // scrolls its top off the screen, and for the board that top edge —
+    // column headers and the first section — is the part worth looking at.
+    if (element.getBoundingClientRect().height < window.innerHeight) {
+      element.scrollIntoView({ block: "center", behavior: "auto" });
+    }
 
     let frame = 0;
     const measure = () => {
@@ -64,6 +66,35 @@ function useTargetRect(target: string | undefined): DOMRect | null {
 }
 
 /**
+ * The lit area, clamped to the viewport.
+ *
+ * The board is taller than the screen, so its raw rect runs past the bottom
+ * edge. Clamping keeps the ring on the part the user can actually see instead
+ * of drawing three sides of a frame off into space, and gives the scrim the
+ * same box so the two cannot disagree about where the hole is.
+ */
+function spotlight(rect: DOMRect) {
+  const top = Math.max(rect.top - SPOTLIGHT_PADDING, 0);
+  const bottom = Math.min(rect.bottom + SPOTLIGHT_PADDING, window.innerHeight);
+  const left = Math.max(rect.left - SPOTLIGHT_PADDING, 0);
+  const right = Math.min(rect.right + SPOTLIGHT_PADDING, window.innerWidth);
+  return {
+    top,
+    left,
+    width: Math.max(right - left, 0),
+    height: Math.max(bottom - top, 0),
+    bottom,
+    right,
+  };
+}
+
+/** The clamped box as a style object for the ring. */
+function spotlightBox(rect: DOMRect): CSSProperties {
+  const { top, left, width, height } = spotlight(rect);
+  return { top, left, width, height };
+}
+
+/**
  * The four panels that cover the viewport except for the target.
  *
  * A single element with a giant spread box-shadow is the shorter trick, but it
@@ -71,12 +102,7 @@ function useTargetRect(target: string | undefined): DOMRect | null {
  * except the thing being explained is actually blurred out.
  */
 function scrimPanels(rect: DOMRect): readonly CSSProperties[] {
-  const top = Math.max(rect.top - SPOTLIGHT_PADDING, 0);
-  const bottom = Math.min(rect.bottom + SPOTLIGHT_PADDING, window.innerHeight);
-  const left = Math.max(rect.left - SPOTLIGHT_PADDING, 0);
-  const right = Math.min(rect.right + SPOTLIGHT_PADDING, window.innerWidth);
-  const height = Math.max(bottom - top, 0);
-
+  const { top, left, bottom, right, height } = spotlight(rect);
   return [
     { top: 0, left: 0, right: 0, height: top },
     { top: bottom, left: 0, right: 0, bottom: 0 },
@@ -101,9 +127,7 @@ export function TourOverlay({
   const t = useTranslations("guide");
   const rect = useTargetRect(step.target);
 
-  // A targeted step waits for its measurement; an establishing step has
-  // nothing to measure and renders immediately.
-  if (step.target && !rect) return null;
+  if (!rect) return null;
 
   const isLast = index === total - 1;
 
@@ -115,41 +139,20 @@ export function TourOverlay({
         the page content it is supposed to cover.
       */}
       <Portal.Root>
-        {rect ? (
-          scrimPanels(rect).map((style, panel) => (
-            <div
-              key={panel}
-              aria-hidden
-              style={style}
-              className="fixed z-50 bg-background/30 backdrop-blur-[1px]"
-            />
-          ))
-        ) : (
+        {scrimPanels(rect).map((style, panel) => (
+          <div
+            key={panel}
+            aria-hidden
+            style={style}
+            className="fixed z-50 bg-background/30 backdrop-blur-[1px]"
+          />
+        ))}
+        <PopoverAnchor asChild>
           <div
             aria-hidden
-            className="fixed inset-0 z-50 bg-background/30 backdrop-blur-[1px]"
+            className="pointer-events-none fixed z-50 rounded-md ring-2 ring-primary"
+            style={spotlightBox(rect)}
           />
-        )}
-        <PopoverAnchor asChild>
-          {rect ? (
-            <div
-              aria-hidden
-              className="pointer-events-none fixed z-50 rounded-md ring-2 ring-primary"
-              style={{
-                top: rect.top - SPOTLIGHT_PADDING,
-                left: rect.left - SPOTLIGHT_PADDING,
-                width: rect.width + SPOTLIGHT_PADDING * 2,
-                height: rect.height + SPOTLIGHT_PADDING * 2,
-              }}
-            />
-          ) : (
-            /* Zero-size anchor at the centre of the viewport, so the card
-               lands in the middle of the dimmed screen. */
-            <div
-              aria-hidden
-              className="pointer-events-none fixed left-1/2 top-1/2 z-50 size-0"
-            />
-          )}
         </PopoverAnchor>
       </Portal.Root>
 

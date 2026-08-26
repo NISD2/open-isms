@@ -679,6 +679,7 @@ export function RequirementDetail({
               {/* The link sits on the framework name, not on the citation:
                   it opens that law's source page for this category, which is
                   not always the exact article the citation names. */}
+              <div data-tour="requirement-legal" className="space-y-2">
               {citationRows.map((row) => (
                 <div key={row.id} className="flex items-start justify-between gap-3">
                   <dt className="shrink-0 text-muted-foreground">
@@ -701,6 +702,7 @@ export function RequirementDetail({
                   </dd>
                 </div>
               ))}
+              </div>
             </dl>
             {teachingLesson && (
               <Link
@@ -756,7 +758,7 @@ export function RequirementDetail({
           </div>
 
           {status.statusId && !isReviewer && !isCompleted && !isNA && (
-            <div className="flex items-center gap-2">
+            <div data-tour="requirement-decide" className="flex items-center gap-2">
               <Button
                 variant="outline"
                 size="sm"

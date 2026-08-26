@@ -39,12 +39,20 @@
           "body": "Wgraj dokumenty pokazujące, że środek naprawdę działa. O to pyta audyt."
         },
         "assign": {
-          "title": "Wskaż osobę odpowiedzialną i zatwierdź",
-          "body": "Przypisz osobę odpowiedzialną i zatwierdź, gdy wymóg jest spełniony. Zatwierdzenie to ślad zgody kierownictwa."
+          "title": "Kto odpowiada",
+          "body": "Proszę wskazać osobę odpowiedzialną. Wymóg pojawi się wtedy na jej własnej liście."
+        },
+        "legal": {
+          "title": "Na czym to opiera się prawnie",
+          "body": "Każdy wymóg wskazuje artykuł, z którego wynika: artykuł NIS 2 oraz krajową transpozycję, w Niemczech BSIG. Nazwa aktu prowadzi do tekstu źródłowego."
+        },
+        "decide": {
+          "title": "Zatwierdzić albo wykluczyć",
+          "body": "Gdy wymóg jest spełniony, proszę go zatwierdzić. Zatwierdzenie jest dowodem, że kierownictwo wyraziło zgodę. Jeśli naprawdę Państwa nie dotyczy, proszę oznaczyć go jako niemający zastosowania i podać powód."
         },
         "nav": {
           "title": "Poruszanie się po ścieżce",
-          "body": "Wstecz i Dalej przechodzą wymogi po kolei. Oznacz jako nie dotyczy to, co nie odnosi się do organizacji, wraz z uzasadnieniem."
+          "body": "Wstecz i dalej przechodzą wymogi po kolei, bez wracania do przeglądu."
         },
         "sidebar": {
           "title": "Reszta jest po lewej",

@@ -213,7 +213,10 @@ export function PathFlow({
         <Legend de={de} />
       </div>
 
-      <div className="overflow-x-auto rounded-lg border bg-card">
+      <div
+        data-tour="journey-board"
+        className="overflow-x-auto rounded-lg border bg-card"
+      >
         <div className={cn(swimlane ? "min-w-[820px]" : "min-w-[460px]")}>
           <div className={cn("grid gap-2 border-b bg-muted/40 px-3 py-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4", rowCols)}>
             <span className="text-center">#</span>

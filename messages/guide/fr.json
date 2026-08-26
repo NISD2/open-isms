@@ -39,12 +39,20 @@
           "body": "Téléversez les documents qui montrent que la mesure fonctionne vraiment. C'est ce qu'un audit demande."
         },
         "assign": {
-          "title": "Désigner un responsable, puis approuver",
-          "body": "Affectez la personne responsable et approuvez une fois l'exigence satisfaite. L'approbation est la trace de l'accord de la direction."
+          "title": "Qui en est responsable",
+          "body": "Désignez la personne responsable. L'exigence apparaît alors dans sa propre liste."
+        },
+        "legal": {
+          "title": "Sur quoi cela repose en droit",
+          "body": "Chaque exigence cite l'article dont elle découle : l'article de NIS 2 et la transposition nationale, en Allemagne le BSIG. Le nom du cadre renvoie au texte source."
+        },
+        "decide": {
+          "title": "Valider ou écarter",
+          "body": "Une fois l'exigence satisfaite, validez-la. La validation est la preuve que la direction a donné son accord. Si elle ne vous concerne réellement pas, marquez-la non applicable en indiquant pourquoi."
         },
         "nav": {
-          "title": "Avancer dans le parcours",
-          "body": "Retour et Suivant parcourent les exigences dans l'ordre. Marquez comme non applicable ce qui ne concerne pas votre organisation, avec un motif."
+          "title": "Parcourir le chemin",
+          "body": "Précédent et suivant parcourent les exigences dans l'ordre, sans repasser par la vue d'ensemble."
         },
         "sidebar": {
           "title": "Le reste se trouve à gauche",

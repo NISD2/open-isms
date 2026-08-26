@@ -11,16 +11,10 @@ import { HelpDialog } from "./HelpDialog";
 import { TourOverlay } from "./tour/TourOverlay";
 import { tourForPath, type TourStep } from "./tour/steps";
 
-/**
- * Drop steps whose target is not on this page before the tour starts.
- *
- * A step with no target is an establishing card rather than a pointer at
- * something, so it always survives: there is no element for it to be missing.
- */
+/** Drop steps whose target is not on this page before the tour starts. */
 function presentSteps(steps: readonly TourStep[]): readonly TourStep[] {
-  return steps.filter(
-    (step) =>
-      !step.target || document.querySelector(`[data-tour="${step.target}"]`),
+  return steps.filter((step) =>
+    document.querySelector(`[data-tour="${step.target}"]`),
   );
 }
 

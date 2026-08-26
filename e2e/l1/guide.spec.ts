@@ -69,10 +69,19 @@ test("every tour card lands fully on screen, and the tour opens on the board", a
   const card = page.getByTestId("tour-card");
   await expect(card).toBeVisible();
 
-  // The opening step establishes the whole board and points at nothing, so it
-  // has no spotlight ring. Every later step has one.
+  // The opening step lights up the whole board rather than floating a card
+  // over a dimmed screen, so the spotlight is there from step one and it is
+  // the board it sits on.
   const ring = page.locator(".ring-primary");
-  await expect(ring).toHaveCount(0);
+  await expect(ring).toHaveCount(1);
+
+  const ringBox = await ring.boundingBox();
+  const boardBox = await page.locator('[data-tour="journey-board"]').boundingBox();
+  if (!ringBox || !boardBox) throw new Error("board or spotlight not rendered");
+  // Same box, give or take the spotlight padding, and clamped to the viewport
+  // because the board runs off the bottom of the screen.
+  expect(Math.abs(ringBox.x - boardBox.x)).toBeLessThanOrEqual(12);
+  expect(Math.abs(ringBox.width - boardBox.width)).toBeLessThanOrEqual(24);
 
   const viewport = page.viewportSize();
   if (!viewport) throw new Error("headless run has no viewport size");

@@ -39,12 +39,20 @@
           "body": "Upload the documents that show the measure is really running. That is what an audit asks for."
         },
         "assign": {
-          "title": "Give it an owner, then sign it off",
-          "body": "Assign the person responsible and sign off once the requirement is met. The sign-off is the record that management agreed."
+          "title": "Who is responsible",
+          "body": "Assign the person who owns this. It then shows up in their own list."
+        },
+        "legal": {
+          "title": "What this rests on in law",
+          "body": "Every requirement names the article behind it: the NIS 2 article and the national transposition, in Germany the BSIG. The framework name links to the source text."
+        },
+        "decide": {
+          "title": "Sign it off, or rule it out",
+          "body": "Once the requirement is met, sign it off. The sign-off is the record that management agreed. If it genuinely does not apply to you, mark it not applicable with a reason."
         },
         "nav": {
           "title": "Move through the path",
-          "body": "Back and next walk the requirements in order. Mark one as not applicable where it does not apply to your organisation, with a reason."
+          "body": "Back and next walk the requirements in order, without going via the overview."
         },
         "sidebar": {
           "title": "Everything else is on the left",

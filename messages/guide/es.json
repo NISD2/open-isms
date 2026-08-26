@@ -39,12 +39,20 @@
           "body": "Suba los documentos que muestran que la medida funciona de verdad. Eso es lo que pide una auditoría."
         },
         "assign": {
-          "title": "Asigne un responsable y apruebe",
-          "body": "Asigne a la persona responsable y apruebe cuando el requisito esté cumplido. La aprobación es la constancia de que la dirección lo respaldó."
+          "title": "Quién es responsable",
+          "body": "Asigne a la persona responsable. El requisito aparecerá en su propia lista."
+        },
+        "legal": {
+          "title": "En qué se apoya jurídicamente",
+          "body": "Cada requisito cita el artículo del que procede: el artículo de NIS 2 y la transposición nacional, en Alemania el BSIG. El nombre del marco enlaza con el texto original."
+        },
+        "decide": {
+          "title": "Aprobar o descartar",
+          "body": "Cuando el requisito esté cumplido, apruébelo. La aprobación es la constancia de que la dirección dio su conformidad. Si realmente no le aplica, márquelo como no aplicable indicando el motivo."
         },
         "nav": {
           "title": "Avanzar por el recorrido",
-          "body": "Atrás y Siguiente recorren los requisitos en orden. Marque como no aplicable lo que no afecta a su organización, con un motivo."
+          "body": "Atrás y siguiente recorren los requisitos en orden, sin pasar por la vista general."
         },
         "sidebar": {
           "title": "Lo demás está a la izquierda",

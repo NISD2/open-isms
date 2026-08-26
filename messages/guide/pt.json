@@ -39,12 +39,20 @@
           "body": "Carregue os documentos que mostram que a medida está mesmo a funcionar. É isso que uma auditoria pede."
         },
         "assign": {
-          "title": "Atribua um responsável e aprove",
-          "body": "Atribua a pessoa responsável e aprove assim que o requisito estiver cumprido. A aprovação é o registo de que a direção concordou."
+          "title": "Quem é o responsável",
+          "body": "Atribua a pessoa responsável. O requisito passa a constar na lista dela."
+        },
+        "legal": {
+          "title": "Em que assenta juridicamente",
+          "body": "Cada requisito indica o artigo de onde decorre: o artigo da NIS 2 e a transposição nacional, na Alemanha o BSIG. O nome do referencial liga ao texto original."
+        },
+        "decide": {
+          "title": "Aprovar ou excluir",
+          "body": "Quando o requisito estiver cumprido, aprove-o. A aprovação é o registo de que a direção concordou. Se realmente não se aplica a si, marque-o como não aplicável com uma justificação."
         },
         "nav": {
-          "title": "Avançar no percurso",
-          "body": "Voltar e Seguinte percorrem os requisitos por ordem. Marque como não aplicável o que não diz respeito à sua organização, com um motivo."
+          "title": "Percorrer o caminho",
+          "body": "Anterior e seguinte percorrem os requisitos por ordem, sem passar pela vista geral."
         },
         "sidebar": {
           "title": "O resto está à esquerda",

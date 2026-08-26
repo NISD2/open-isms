@@ -39,12 +39,20 @@
           "body": "Laden Sie die Dokumente hoch, die zeigen, dass die Maßnahme wirklich läuft. Genau danach fragt eine Prüfung."
         },
         "assign": {
-          "title": "Zuständigkeit und Freigabe",
-          "body": "Weisen Sie die verantwortliche Person zu und geben Sie frei, sobald die Anforderung erfüllt ist. Die Freigabe ist der Nachweis, dass die Leitung zugestimmt hat."
+          "title": "Wer ist zuständig",
+          "body": "Weisen Sie die verantwortliche Person zu. Sie sieht die Anforderung dann in ihrer eigenen Liste."
+        },
+        "legal": {
+          "title": "Woraus das rechtlich folgt",
+          "body": "Jede Anforderung nennt den Artikel, auf dem sie beruht: den Artikel der NIS2-Richtlinie und die nationale Umsetzung, in Deutschland das BSIG. Der Name des Regelwerks führt zum Quelltext."
+        },
+        "decide": {
+          "title": "Freigeben oder ausschließen",
+          "body": "Ist die Anforderung erfüllt, geben Sie sie frei. Die Freigabe ist der Nachweis, dass die Leitung zugestimmt hat. Gilt sie für Ihr Haus nicht, markieren Sie sie mit Begründung als nicht zutreffend."
         },
         "nav": {
           "title": "Durch den Weg navigieren",
-          "body": "Zurück und Weiter gehen die Anforderungen der Reihe nach durch. Was für Ihr Haus nicht gilt, markieren Sie als nicht zutreffend, mit Begründung."
+          "body": "Zurück und Weiter gehen die Anforderungen der Reihe nach durch, ohne den Umweg über die Übersicht."
         },
         "sidebar": {
           "title": "Alles Weitere steht links",
