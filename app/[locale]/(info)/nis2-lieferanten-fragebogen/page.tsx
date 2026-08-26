@@ -40,7 +40,7 @@ export async function generateMetadata({
   return {
     title: t("supplierQuestionnaire.meta.title"),
     description: t("supplierQuestionnaire.meta.description"),
-    alternates: pageAlternates("/nis2-lieferanten-fragebogen", locale),
+    alternates: pageAlternates("nis2-lieferanten-fragebogen", locale),
     openGraph: {
       images: ogImages("nis2-lieferanten-fragebogen", locale, t("supplierQuestionnaire.meta.title")),
     },

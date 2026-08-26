@@ -110,7 +110,7 @@ export default async function LandingPage() {
               <div className="mt-8 max-w-sm border-t border-border/60 pt-6">
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   <Link
-                    href="/portal/supplier"
+                    href="/supplier-portal"
                     className="font-medium text-foreground/70 underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/40"
                   >
                     {t("supplierDoor")}

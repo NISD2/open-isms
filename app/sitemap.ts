@@ -123,6 +123,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // sicherheitsfragebogen.de, which 301s here. High priority because it's
     // the primary entry point for the supplier-portal funnel.
     ...multilingualEntries("/sicherheitsfragebogen", { priority: 0.9 }),
+    // Supplier portal product lander — the other half of the supply-chain
+    // funnel, and the destination of the landing page's supplier door.
+    ...multilingualEntries("/supplier-portal", { priority: 0.9 }),
 
     // Public newsletter archive + every published issue permalink
     ...multilingualEntries("/newsletter", { changeFrequency: "weekly", priority: 0.6 }),

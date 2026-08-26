@@ -99,8 +99,9 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/start",
   "/pitch",
   "/supplier-portal",
-  // Design playground for the portal sidebar + journey redesign (preview only).
+  // Design playgrounds for the entity + supplier portals (preview only).
   "/journey-preview",
+  "/supplier-preview",
 ];
 
 const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [

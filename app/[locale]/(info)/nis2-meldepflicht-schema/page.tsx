@@ -57,7 +57,7 @@ export async function generateMetadata({
   return {
     title: t("meldepflichtSchema.meta.title"),
     description: t("meldepflichtSchema.meta.description"),
-    alternates: pageAlternates("/nis2-meldepflicht-schema", locale),
+    alternates: pageAlternates("nis2-meldepflicht-schema", locale),
   };
 }
 

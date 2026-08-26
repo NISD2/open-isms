@@ -58,6 +58,14 @@
       }
     },
     {
+      "slug": "supplier-portal",
+      "paths": {
+        "de": "/supplier-portal",
+        "en": "/en/supplier-portal",
+        "nl": "/nl/leveranciersportaal"
+      }
+    },
+    {
       "slug": "risikobewertung",
       "paths": {
         "de": "/risikobewertung",

@@ -23,6 +23,7 @@
  */
 import { Link, usePathname } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   Building2,
   ListChecks,
@@ -56,25 +57,26 @@ import { PortalSwitcher } from "@/components/portal/PortalSwitcher";
 
 interface NavItem {
   href: string;
-  label: string;
+  /** Key under the `supplierPortal.nav` namespace, resolved at render. */
+  labelKey: string;
   icon: LucideIcon;
 }
 
 const GENERAL_NAV: NavItem[] = [
-  { href: "/portal/supplier/profile", label: "Profile", icon: Building2 },
+  { href: "/portal/supplier/profile", labelKey: "profile", icon: Building2 },
   {
     href: "/portal/supplier/practices",
-    label: "Security practices",
+    labelKey: "practices",
     icon: ListChecks,
   },
   {
     href: "/portal/supplier/service-type",
-    label: "Service type",
+    labelKey: "serviceType",
     icon: Layers,
   },
   {
     href: "/portal/supplier/certifications",
-    label: "Certifications",
+    labelKey: "certifications",
     icon: ShieldCheck,
   },
 ];
@@ -108,6 +110,7 @@ export function SupplierAppSidebar({
   user,
   customers,
 }: SupplierAppSidebarProps) {
+  const t = useTranslations("supplierPortal.nav");
   const pathname = usePathname();
   // `usePathname()` returns the route template (e.g.
   // `/portal/supplier/customers/[relationshipId]/assets`), so per-customer
@@ -127,11 +130,12 @@ export function SupplierAppSidebar({
       <SidebarContent>
         {/* ── General group ── */}
         <SidebarGroup>
-          <SidebarGroupLabel>General</SidebarGroupLabel>
+          <SidebarGroupLabel>{t("general")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {GENERAL_NAV.map((item) => {
                 const Icon = item.icon;
+                const label = t(item.labelKey);
                 const active =
                   pathname === item.href || pathname.startsWith(`${item.href}/`);
                 return (
@@ -139,11 +143,11 @@ export function SupplierAppSidebar({
                     <SidebarMenuButton
                       asChild
                       isActive={active}
-                      tooltip={item.label}
+                      tooltip={label}
                     >
                       <Link href={item.href as never} prefetch={false}>
                         <Icon className="h-4 w-4" />
-                        <span>{item.label}</span>
+                        <span>{label}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -155,15 +159,15 @@ export function SupplierAppSidebar({
 
         {/* ── Customers group ── */}
         <SidebarGroup>
-          <SidebarGroupLabel>Customers</SidebarGroupLabel>
+          <SidebarGroupLabel>{t("customers")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {visibleCustomers.length === 0 ? (
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild tooltip="Add customer">
+                  <SidebarMenuButton asChild tooltip={t("addCustomer")}>
                     <Link href="/portal/supplier/customers" prefetch={false}>
                       <Plus className="h-4 w-4" />
-                      <span>Add customer</span>
+                      <span>{t("addCustomer")}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -204,7 +208,7 @@ export function SupplierAppSidebar({
                                   prefetch={false}
                                 >
                                   <Server className="h-3.5 w-3.5" />
-                                  <span>Assets</span>
+                                  <span>{t("assets")}</span>
                                 </Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
@@ -221,7 +225,7 @@ export function SupplierAppSidebar({
                                   prefetch={false}
                                 >
                                   <AlertCircle className="h-3.5 w-3.5" />
-                                  <span>Incidents</span>
+                                  <span>{t("incidents")}</span>
                                 </Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
@@ -238,7 +242,7 @@ export function SupplierAppSidebar({
                                   prefetch={false}
                                 >
                                   <KeyRound className="h-3.5 w-3.5" />
-                                  <span>Access</span>
+                                  <span>{t("access")}</span>
                                 </Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
@@ -248,10 +252,10 @@ export function SupplierAppSidebar({
                     );
                   })}
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild tooltip="Add customer">
+                    <SidebarMenuButton asChild tooltip={t("addCustomer")}>
                       <Link href="/portal/supplier/customers" prefetch={false}>
                         <Plus className="h-4 w-4" />
-                        <span>Add customer</span>
+                        <span>{t("addCustomer")}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
