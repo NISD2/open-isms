@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { api } from "@/lib/trpc/server";
 
@@ -13,6 +14,10 @@ export default async function PerCustomerLayout({
   params: Promise<{ relationshipId: string }>;
 }) {
   const { relationshipId } = await params;
+  const [nav, pages] = await Promise.all([
+    getTranslations("supplierPortal.nav"),
+    getTranslations("supplierPortal.pages"),
+  ]);
 
   let rel;
   try {
@@ -27,13 +32,13 @@ export default async function PerCustomerLayout({
       ? rel.customerEmail.includes("@")
         ? rel.customerEmail.slice(rel.customerEmail.indexOf("@") + 1)
         : rel.customerEmail
-      : "(unknown customer)");
+      : pages("unknownCustomer"));
 
   return (
     <div className="space-y-6 max-w-5xl">
       <header className="space-y-2">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
-          Supplier portal · Customer
+          {`${nav("portalName")} · ${pages("customer")}`}
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">{label}</h1>
         {rel.customerEmail && (

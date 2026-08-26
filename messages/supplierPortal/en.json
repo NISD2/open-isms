@@ -13,6 +13,17 @@
       "incidents": "Incidents",
       "access": "Access"
     },
+    "pages": {
+      "profileIntro": "Identity, the public description customers see, and the contact they reach when something happens. Anchored to the ENISA TIG §5.2 supplier register and the CIR §5.1.4(d) notification chain.",
+      "practicesIntro": "Universal facts about how your company runs information security: management system, ISO 27001 or Grundschutz status, staff training, and the NIS 2 Article 21(2) baseline. The same answers for every customer.",
+      "serviceTypeIntro": "Technical declarations specific to what you provide: hosting and encryption for SaaS, SBOM and signed releases for on-premise software, background checks for professional services, PAM and on-call for managed services. Answer only the sections that apply to you.",
+      "certificationsIntro": "Upload your security attestations (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). The PDFs and their details are visible to the customers you have invited.",
+      "nis2Regulated": "Directly regulated under NIS 2",
+      "customersTitle": "Add your first customer",
+      "customersIntro": "Invite a customer by email. They get a private link to your security profile and need no account for it. Once they accept, you enter the systems you run for them and report incidents that affect those systems.",
+      "customer": "Customer",
+      "unknownCustomer": "(unknown customer)"
+    },
     "marketing": {
       "eyebrow": "Supplier portal",
       "title": "One security questionnaire for <blue>all your customers</blue>.",

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { api } from "@/lib/trpc/server";
 import { SecurityProfileForm } from "@/components/supplier-portal/SecurityProfileForm";
 import {
@@ -20,6 +21,10 @@ import {
  * fields omitted so only the service-type fields appear.
  */
 export default async function SupplierServiceTypePage() {
+  const [nav, pages] = await Promise.all([
+    getTranslations("supplierPortal.nav"),
+    getTranslations("supplierPortal.pages"),
+  ]);
   const profile = await api.supplierPortal.profile.get();
   if (!profile) redirect("/portal/supplier-onboarding");
 
@@ -27,14 +32,13 @@ export default async function SupplierServiceTypePage() {
     <div className="space-y-6 max-w-4xl">
       <header className="space-y-2">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
-          Supplier portal
+          {nav("portalName")}
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight">Service type</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {nav("serviceType")}
+        </h1>
         <p className="text-sm text-muted-foreground max-w-2xl">
-          Technical declarations specific to the services you provide: SaaS
-          hosting and encryption, on-prem SBOM and signed releases, consultant
-          background checks, managed-service PAM and on-call. Answer only the
-          sections that apply.
+          {pages("serviceTypeIntro")}
         </p>
       </header>
 

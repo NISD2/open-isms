@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { ShieldCheck } from "lucide-react";
 import { api } from "@/lib/trpc/server";
 import { SecurityProfileForm } from "@/components/supplier-portal/SecurityProfileForm";
@@ -16,6 +17,10 @@ import {
  * it shows.
  */
 export default async function SupplierProfileSectionPage() {
+  const [nav, pages] = await Promise.all([
+    getTranslations("supplierPortal.nav"),
+    getTranslations("supplierPortal.pages"),
+  ]);
   const profile = await api.supplierPortal.profile.get();
   if (!profile) redirect("/portal/supplier-onboarding");
 
@@ -27,18 +32,18 @@ export default async function SupplierProfileSectionPage() {
     <div className="space-y-6 max-w-4xl">
       <header className="space-y-2">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
-          Supplier portal
+          {nav("portalName")}
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight">Profile</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {nav("profile")}
+        </h1>
         <p className="text-sm text-muted-foreground max-w-2xl">
-          Identity, public marketing description, and the customer-facing
-          incident contact. Anchored to ENISA TIG §5.2 supplier-register
-          requirements and CIR §5.1.4(d) incident-notification chain.
+          {pages("profileIntro")}
         </p>
         {isNis2Regulated && (
           <div className="inline-flex items-center gap-2 rounded-full border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950/30 px-3 py-1 text-xs font-medium text-green-800 dark:text-green-200">
             <ShieldCheck className="h-3 w-3" />
-            Directly NIS2-regulated
+            {pages("nis2Regulated")}
             <span className="text-green-700 dark:text-green-300 font-mono">
               · BSI {profile.bsiRegistrationId}
             </span>

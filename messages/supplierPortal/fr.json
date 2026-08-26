@@ -13,6 +13,17 @@
       "incidents": "Incidents",
       "access": "Accès"
     },
+    "pages": {
+      "profileIntro": "Identité, description publique que voient vos clients, et le contact qu'ils joignent en cas d'incident. Fondé sur le registre des fournisseurs de l'ENISA TIG §5.2 et la chaîne de notification du CIR §5.1.4(d).",
+      "practicesIntro": "Informations générales sur la façon dont votre entreprise gère la sécurité de l'information : système de management, statut ISO 27001 ou Grundschutz, formation et les mesures de base de l'article 21(2) NIS 2. Les mêmes réponses pour tous vos clients.",
+      "serviceTypeIntro": "Déclarations techniques propres à ce que vous fournissez : hébergement et chiffrement pour le SaaS, SBOM et versions signées pour le logiciel installé chez le client, vérifications d'antécédents pour les prestations de services, PAM et astreinte pour les services gérés. Ne remplissez que les sections qui vous concernent.",
+      "certificationsIntro": "Déposez vos attestations de sécurité (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Les PDF et leurs informations sont visibles par les clients que vous avez invités.",
+      "nis2Regulated": "Directement soumis à NIS 2",
+      "customersTitle": "Ajouter votre premier client",
+      "customersIntro": "Invitez un client par e-mail. Il reçoit un lien privé vers votre profil de sécurité et n'a besoin d'aucun compte pour cela. Une fois qu'il a accepté, vous saisissez les systèmes que vous gérez pour lui et signalez les incidents qui les touchent.",
+      "customer": "Client",
+      "unknownCustomer": "(client inconnu)"
+    },
     "marketing": {
       "eyebrow": "Portail fournisseur",
       "title": "Un seul questionnaire de sécurité pour <blue>tous vos clients</blue>.",

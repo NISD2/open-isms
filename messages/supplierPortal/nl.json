@@ -13,6 +13,17 @@
       "incidents": "Incidenten",
       "access": "Toegang"
     },
+    "pages": {
+      "profileIntro": "Identiteit, de openbare beschrijving die klanten zien, en het contact dat zij bereiken als er iets gebeurt. Gebaseerd op het leveranciersregister uit ENISA TIG §5.2 en de meldketen uit CIR §5.1.4(d).",
+      "practicesIntro": "Algemene gegevens over hoe uw bedrijf informatiebeveiliging aanpakt: managementsysteem, status van ISO 27001 of Grundschutz, opleiding en de basismaatregelen uit artikel 21(2) NIS 2. Voor elke klant dezelfde antwoorden.",
+      "serviceTypeIntro": "Technische gegevens over wat u levert: hosting en versleuteling bij SaaS, SBOM en ondertekende releases bij software op locatie, achtergrondcontroles bij dienstverlening, PAM en bereikbaarheid bij managed services. Beantwoord alleen de onderdelen die op u van toepassing zijn.",
+      "certificationsIntro": "Upload uw beveiligingsverklaringen (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). De pdf's en hun gegevens zijn zichtbaar voor de klanten die u hebt uitgenodigd.",
+      "nis2Regulated": "Zelf onder NIS 2",
+      "customersTitle": "Eerste klant toevoegen",
+      "customersIntro": "Nodig een klant uit per e-mail. Hij krijgt een private link naar uw beveiligingsprofiel en heeft daarvoor geen account nodig. Zodra hij accepteert, voert u de systemen in die u voor hem beheert en meldt u incidenten die deze systemen raken.",
+      "customer": "Klant",
+      "unknownCustomer": "(onbekende klant)"
+    },
     "marketing": {
       "eyebrow": "Leveranciersportaal",
       "title": "Eén beveiligingsvragenlijst voor <blue>al uw klanten</blue>.",

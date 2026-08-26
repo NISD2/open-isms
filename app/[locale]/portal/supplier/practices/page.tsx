@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { api } from "@/lib/trpc/server";
 import { SecurityProfileForm } from "@/components/supplier-portal/SecurityProfileForm";
 import {
@@ -20,6 +21,10 @@ import {
  * universal baseline + ENISA TIG §5.1.2.
  */
 export default async function SupplierPracticesPage() {
+  const [nav, pages] = await Promise.all([
+    getTranslations("supplierPortal.nav"),
+    getTranslations("supplierPortal.pages"),
+  ]);
   const profile = await api.supplierPortal.profile.get();
   if (!profile) redirect("/portal/supplier-onboarding");
 
@@ -27,15 +32,13 @@ export default async function SupplierPracticesPage() {
     <div className="space-y-6 max-w-4xl">
       <header className="space-y-2">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
-          Supplier portal
+          {nav("portalName")}
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">
-          Security practices
+          {nav("practices")}
         </h1>
         <p className="text-sm text-muted-foreground max-w-2xl">
-          Universal facts about your company&apos;s information security
-          program: ISMS, ISO 27001 / Grundschutz status, staff training, and
-          NIS2 Art 21(2) baseline practices. Same answers for every customer.
+          {pages("practicesIntro")}
         </p>
       </header>
 

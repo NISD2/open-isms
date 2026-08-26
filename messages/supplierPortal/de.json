@@ -13,6 +13,17 @@
       "incidents": "Vorfälle",
       "access": "Zugriff"
     },
+    "pages": {
+      "profileIntro": "Identität, die öffentliche Beschreibung, die Kunden sehen, und der Kontakt, den sie im Vorfall erreichen. Gestützt auf das Lieferantenregister nach ENISA TIG §5.2 und die Meldekette nach CIR §5.1.4(d).",
+      "practicesIntro": "Allgemeine Angaben dazu, wie Ihr Unternehmen Informationssicherheit betreibt: Managementsystem, Stand bei ISO 27001 oder Grundschutz, Schulungen und die Basismaßnahmen nach Artikel 21(2) NIS2. Für jeden Kunden dieselben Antworten.",
+      "serviceTypeIntro": "Technische Angaben zu dem, was Sie liefern: Hosting und Verschlüsselung bei SaaS, SBOM und signierte Releases bei Software beim Kunden, Zuverlässigkeitsprüfungen bei Dienstleistungen, PAM und Rufbereitschaft bei Managed Services. Beantworten Sie nur die Abschnitte, die auf Sie zutreffen.",
+      "certificationsIntro": "Laden Sie Ihre Sicherheitsnachweise hoch (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Die PDFs und ihre Angaben sehen die Kunden, die Sie eingeladen haben.",
+      "nis2Regulated": "Selbst NIS2-reguliert",
+      "customersTitle": "Ersten Kunden hinzufügen",
+      "customersIntro": "Laden Sie einen Kunden per E-Mail ein. Er bekommt einen privaten Link auf Ihr Sicherheitsprofil und braucht dafür kein Konto. Sobald er angenommen hat, tragen Sie die Systeme ein, die Sie für ihn betreuen, und melden Vorfälle, die diese Systeme betreffen.",
+      "customer": "Kunde",
+      "unknownCustomer": "(unbekannter Kunde)"
+    },
     "marketing": {
       "eyebrow": "Lieferantenportal",
       "title": "Ein Sicherheitsfragebogen für <blue>alle Ihre Kunden</blue>.",

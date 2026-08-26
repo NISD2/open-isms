@@ -13,6 +13,17 @@
       "incidents": "Incydenty",
       "access": "Dostęp"
     },
+    "pages": {
+      "profileIntro": "Tożsamość, publiczny opis, który widzą klienci, i kontakt, z którego korzystają, gdy coś się wydarzy. Oparte na rejestrze dostawców z ENISA TIG §5.2 oraz na ścieżce zgłoszeń z CIR §5.1.4(d).",
+      "practicesIntro": "Ogólne informacje o tym, jak Państwa firma prowadzi bezpieczeństwo informacji: system zarządzania, stan ISO 27001 lub Grundschutz, szkolenia oraz środki podstawowe z artykułu 21(2) NIS 2. Dla każdego klienta te same odpowiedzi.",
+      "serviceTypeIntro": "Informacje techniczne właściwe dla tego, co Państwo dostarczają: hosting i szyfrowanie przy SaaS, SBOM i podpisane wydania przy oprogramowaniu u klienta, weryfikacja personelu przy usługach doradczych, PAM i dyżury przy usługach zarządzanych. Proszę wypełnić tylko te części, które Państwa dotyczą.",
+      "certificationsIntro": "Proszę wgrać swoje poświadczenia bezpieczeństwa (ISO 27001, BSI Grundschutz, BSI C5, TISAX, SOC 2). Pliki PDF i ich dane widzą klienci, których Państwo zaprosili.",
+      "nis2Regulated": "Sam podlega NIS 2",
+      "customersTitle": "Dodaj pierwszego klienta",
+      "customersIntro": "Proszę zaprosić klienta e-mailem. Otrzyma prywatny link do Państwa profilu bezpieczeństwa i nie potrzebuje do tego konta. Gdy zaakceptuje, wpisują Państwo systemy, które dla niego prowadzą, i zgłaszają incydenty dotyczące tych systemów.",
+      "customer": "Klient",
+      "unknownCustomer": "(nieznany klient)"
+    },
     "marketing": {
       "eyebrow": "Portal dostawcy",
       "title": "Jedna ankieta bezpieczeństwa dla <blue>wszystkich klientów</blue>.",

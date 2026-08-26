@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { api } from "@/lib/trpc/server";
 import { CustomerInviteSection } from "@/components/supplier-portal/CustomerInviteSection";
 
@@ -16,6 +17,10 @@ import { CustomerInviteSection } from "@/components/supplier-portal/CustomerInvi
  * doesn't feel like a dead end.
  */
 export default async function CustomersIndexPage() {
+  const [nav, pages] = await Promise.all([
+    getTranslations("supplierPortal.nav"),
+    getTranslations("supplierPortal.pages"),
+  ]);
   const customers = await api.supplierPortal.relationship.listMyCustomers();
   const active = customers.filter((c) => c.status !== "revoked");
 
@@ -27,16 +32,13 @@ export default async function CustomersIndexPage() {
     <div className="space-y-6 max-w-4xl">
       <header className="space-y-2">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
-          Supplier portal
+          {nav("portalName")}
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">
-          Add your first customer
+          {pages("customersTitle")}
         </h1>
         <p className="text-sm text-muted-foreground max-w-2xl">
-          Invite a customer by email — they get a private link to view your
-          security profile, no platform account required. After they accept,
-          you can declare the assets you manage for them and publish incidents
-          that affect those assets.
+          {pages("customersIntro")}
         </p>
       </header>
       <CustomerInviteSection />
