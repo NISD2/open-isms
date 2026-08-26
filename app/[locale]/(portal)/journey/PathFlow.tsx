@@ -187,6 +187,9 @@ export function PathFlow({
     ? "grid-cols-[2.75rem_repeat(4,minmax(0,1fr))]"
     : "grid-cols-[2.75rem_minmax(0,1fr)]";
   const activeOrder = ORDER_OPTS.find((o) => o.key === order);
+  // Only the very first row is toured, so it is the only one that needs the
+  // marker (see components/onboarding/tour/steps.ts).
+  const firstNodeId = sections[0]?.rows[0]?.node.id;
 
   return (
     <div className="space-y-2">
@@ -229,6 +232,9 @@ export function PathFlow({
                   <li
                     key={node.id}
                     id={`step-${node.code}`}
+                    data-tour={
+                      node.id === firstNodeId ? "journey-first-step" : undefined
+                    }
                     className={cn("grid items-center gap-2 py-1.5", rowCols)}
                   >
                     <Rail
@@ -282,6 +288,7 @@ function OrderToggle({
 }) {
   return (
     <div
+      data-tour="journey-order"
       role="radiogroup"
       aria-label={de ? "Reihenfolge" : "Ordering"}
       className="inline-flex rounded-lg border bg-muted/60 p-0.5"
@@ -328,7 +335,7 @@ function FilterGroup({
 }) {
   const toggle = (f: StatusFilter) => setFilter(filter === f ? null : f);
   return (
-    <div className="flex flex-wrap items-center gap-1.5">
+    <div data-tour="journey-filters" className="flex flex-wrap items-center gap-1.5">
       <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
         {de ? "Filter" : "Filter"}
       </span>
@@ -422,7 +429,7 @@ function Legend({ de }: { de: boolean }) {
     { state: "signed", label: de ? "Freigegeben" : "Signed off" },
   ];
   return (
-    <div className="hidden items-center gap-3 sm:flex">
+    <div data-tour="journey-legend" className="hidden items-center gap-3 sm:flex">
       {items.map((it) => (
         <span key={it.state} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
           <Dot

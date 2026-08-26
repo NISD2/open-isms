@@ -362,7 +362,7 @@ export function RequirementDetail({
           <span className="mx-1.5 text-muted-foreground/50">/</span>
           <span className="font-mono">{requirement.code}</span>
         </p>
-        <div className="flex items-center gap-3 mt-1">
+        <div data-tour="requirement-status" className="flex items-center gap-3 mt-1">
           <h1 className="text-xl font-semibold tracking-tight">{requirement.title}</h1>
           <StatusBadge status={status.currentStatus} />
         </div>
@@ -462,7 +462,7 @@ export function RequirementDetail({
 
           {/* Form fields */}
           {!CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`] && fields.length > 0 ? (
-            <div className="space-y-3">
+            <div data-tour="requirement-form" className="space-y-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   {t("requirement.specificsSection")}
@@ -572,7 +572,7 @@ export function RequirementDetail({
           {status.statusId &&
             (requirement.evidenceType === "document" ||
               requirement.evidenceType === "proof") && (
-            <div className="space-y-2 pt-4 border-t">
+            <div data-tour="requirement-evidence" className="space-y-2 pt-4 border-t">
               <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("requirement.evidenceSection")}
               </h2>
@@ -590,7 +590,7 @@ export function RequirementDetail({
         <aside className="space-y-6 lg:border-l lg:pl-6">
           {/* Assigned to + sign-off progress */}
           {status.statusId && (
-            <div className="space-y-2">
+            <div data-tour="requirement-assign" className="space-y-2">
               <h3 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("assign")}
               </h3>
@@ -725,7 +725,10 @@ export function RequirementDetail({
       {/* ------------------------------------------------------------------ */}
       {/* Sticky footer action bar */}
       {/* ------------------------------------------------------------------ */}
-      <div className="sticky bottom-0 z-30 -mx-6 mt-8 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div
+        data-tour="requirement-nav"
+        className="sticky bottom-0 z-30 -mx-6 mt-8 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+      >
         <div className="flex items-center justify-between px-6 py-3">
           <div>
             {prev ? (

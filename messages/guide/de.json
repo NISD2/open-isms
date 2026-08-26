@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Weiter",
+      "done": "Fertig",
+      "skip": "Überspringen",
+      "progress": "Schritt {current} von {total}",
+      "steps": {
+        "order": {
+          "title": "Zwei Reihenfolgen für Ihren Weg",
+          "body": "Belastbares Minimum stellt das größte Risiko und die größte Haftung nach vorn. Chronologisch folgt dem natürlichen Prozess, Kategorie für Kategorie."
+        },
+        "filters": {
+          "title": "Auf das eingrenzen, was ansteht",
+          "body": "Filtern Sie den Weg auf das, was offen, überfällig, bald fällig oder in Freigabe ist."
+        },
+        "legend": {
+          "title": "Was die Punkte bedeuten",
+          "body": "Jeder Punkt zeigt einen Stand: jetzt, in Arbeit, wartet auf Freigabe oder freigegeben."
+        },
+        "firstStep": {
+          "title": "Jede Zeile ist eine Anforderung",
+          "body": "Öffnen Sie eine Zeile, um zu sehen, was die Anforderung verlangt und was zu tun ist. Fangen Sie oben an und arbeiten Sie sich nach unten."
+        },
+        "status": {
+          "title": "Wo diese Anforderung steht",
+          "body": "Die Markierung neben dem Titel zeigt den Stand, von offen bis freigegeben."
+        },
+        "form": {
+          "title": "Die Details beantworten",
+          "body": "Über Bearbeiten tragen Sie ein, was in Ihrem Haus tatsächlich passiert. Speichern übernimmt es, und Ihre Angaben werden Teil des Nachweises."
+        },
+        "evidence": {
+          "title": "Nachweise anhängen",
+          "body": "Laden Sie die Dokumente hoch, die zeigen, dass die Maßnahme wirklich läuft. Genau danach fragt eine Prüfung."
+        },
+        "assign": {
+          "title": "Zuständigkeit und Freigabe",
+          "body": "Weisen Sie die verantwortliche Person zu und geben Sie frei, sobald die Anforderung erfüllt ist. Die Freigabe ist der Nachweis, dass die Leitung zugestimmt hat."
+        },
+        "nav": {
+          "title": "Durch den Weg navigieren",
+          "body": "Zurück und Weiter gehen die Anforderungen der Reihe nach durch. Was für Ihr Haus nicht gilt, markieren Sie als nicht zutreffend, mit Begründung."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Hilfe",
+      "title": "Können wir irgendwo helfen?",
+      "body": "Sie sind zum zweiten Mal hier. Wenn etwas unklar ist oder Sie nicht weiterkommen, sagen Sie Bescheid. Sie erreichen uns direkt.",
+      "email": "Schreiben Sie an",
+      "call": "Oder buchen Sie ein Gespräch",
+      "selfHost": "Sie möchten die Plattform auf eigener Infrastruktur betreiben? Dabei helfen wir auch.",
+      "feedback": "Rückmeldung dazu, was fehlt oder hakt, ist genauso willkommen wie eine Frage.",
+      "startTour": "Zeigen Sie mir die Oberfläche",
+      "close": "Schließen",
+      "dismissForever": "Nicht mehr anzeigen"
+    }
+  }
+}

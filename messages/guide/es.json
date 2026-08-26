@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Siguiente",
+      "done": "Listo",
+      "skip": "Omitir",
+      "progress": "Paso {current} de {total}",
+      "steps": {
+        "order": {
+          "title": "Dos formas de ordenar su recorrido",
+          "body": "El mínimo defendible pone delante el mayor riesgo y la mayor responsabilidad. El orden cronológico sigue el proceso natural, categoría por categoría."
+        },
+        "filters": {
+          "title": "Reducirlo a lo que le toca",
+          "body": "Filtre el recorrido por lo que está abierto, vencido, próximo a vencer o pendiente de aprobación."
+        },
+        "legend": {
+          "title": "Qué significan los puntos",
+          "body": "Cada punto muestra un estado: ahora, en curso, pendiente de aprobación o aprobado."
+        },
+        "firstStep": {
+          "title": "Cada fila es un requisito",
+          "body": "Abra una fila para ver qué pide el requisito y qué hacer. Empiece arriba y baje."
+        },
+        "status": {
+          "title": "En qué punto está este requisito",
+          "body": "La etiqueta junto al título sigue el requisito, de abierto hasta aprobado."
+        },
+        "form": {
+          "title": "Responder a las particularidades",
+          "body": "Con Editar registra lo que su organización hace realmente. Guardar lo conserva, y sus respuestas pasan a formar parte de las evidencias."
+        },
+        "evidence": {
+          "title": "Adjuntar las pruebas",
+          "body": "Suba los documentos que muestran que la medida funciona de verdad. Eso es lo que pide una auditoría."
+        },
+        "assign": {
+          "title": "Asigne un responsable y apruebe",
+          "body": "Asigne a la persona responsable y apruebe cuando el requisito esté cumplido. La aprobación es la constancia de que la dirección lo respaldó."
+        },
+        "nav": {
+          "title": "Avanzar por el recorrido",
+          "body": "Atrás y Siguiente recorren los requisitos en orden. Marque como no aplicable lo que no afecta a su organización, con un motivo."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Ayuda",
+      "title": "¿Podemos ayudarle en algo?",
+      "body": "Esta es su segunda visita. Si algo no está claro o se ha atascado, díganoslo. Le respondemos nosotros directamente.",
+      "email": "Escríbanos a",
+      "call": "O reserve una llamada",
+      "selfHost": "¿Quiere alojar la plataforma en su propia infraestructura? También ayudamos con eso.",
+      "feedback": "Contarnos qué falta o qué resulta incómodo es tan bienvenido como una pregunta.",
+      "startTour": "Muéstremelo",
+      "close": "Cerrar",
+      "dismissForever": "No volver a mostrar"
+    }
+  }
+}

@@ -18,6 +18,7 @@ const namespaces = [
   "export",
   "funnel",
   "gap-assessment",
+  "guide",
   "grcComparison",
   "improvements",
   "incidents",

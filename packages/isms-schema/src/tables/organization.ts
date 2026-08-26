@@ -320,6 +320,27 @@ export const user = pgTable("user", {
    * stay valid until first rotation.
    */
   sessionVersion: integer("session_version").default(1).notNull(),
+  /**
+   * Completed sign-ins, incremented once per sign-in in the NextAuth `jwt`
+   * callback. That hook receives a `user` argument only when a session is
+   * first established, never on the silent refreshes that keep an 8h token
+   * alive, so this counts logins and not requests.
+   *
+   * It exists because "first login" is a per-account fact and localStorage
+   * cannot express it: browser storage makes a colleague on a shared machine
+   * look like a returning user, and the same person on a second device look
+   * like a new one. Both got the one-time onboarding surfaces wrong.
+   */
+  loginCount: integer("login_count").default(0).notNull(),
+  /**
+   * When the user dismissed the guided product tour. One flag for every page
+   * tour on purpose: dismissing it on the journey page means "not interested",
+   * not "ask me again on the next screen". The help trigger in the portal
+   * header replays it on demand, so dismissal costs the user nothing.
+   */
+  tourDismissedAt: timestamp("tour_dismissed_at"),
+  /** When the user dismissed the second-login offer of help. */
+  helpOfferDismissedAt: timestamp("help_offer_dismissed_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 }, (table) => [

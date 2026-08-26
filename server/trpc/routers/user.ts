@@ -1,8 +1,10 @@
 import { eq } from "drizzle-orm";
+import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure } from "../init";
 import { user } from "@/schema";
 import { userUpdateSchema } from "@/schema/validators";
+import { HINTS } from "@/lib/onboarding/hints";
 
 export const userRouter = router({
   /**
@@ -28,5 +30,29 @@ export const userRouter = router({
         .where(eq(user.id, ctx.userId));
 
       return { name };
+    }),
+
+  /**
+   * Retire a one-time onboarding surface for the calling user.
+   *
+   * Scoped to `ctx.userId` and nothing else: the hint name is the only input,
+   * so there is no id a caller could point at somebody else's row. Idempotent
+   * — a second call just restamps a column that is already gating the surface
+   * off.
+   */
+  dismissHint: protectedProcedure
+    .input(z.object({ hint: z.enum(HINTS) }))
+    .mutation(async ({ ctx, input }) => {
+      const now = new Date();
+      await ctx.db
+        .update(user)
+        .set(
+          input.hint === "tour"
+            ? { tourDismissedAt: now }
+            : { helpOfferDismissedAt: now },
+        )
+        .where(eq(user.id, ctx.userId));
+
+      return { hint: input.hint };
     }),
 });

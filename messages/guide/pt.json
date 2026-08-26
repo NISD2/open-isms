@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Seguinte",
+      "done": "Concluído",
+      "skip": "Ignorar",
+      "progress": "Passo {current} de {total}",
+      "steps": {
+        "order": {
+          "title": "Duas formas de ordenar o seu percurso",
+          "body": "O mínimo defensável coloca à frente o maior risco e a maior responsabilidade. A ordem cronológica segue o processo natural, categoria a categoria."
+        },
+        "filters": {
+          "title": "Reduzir ao que lhe compete",
+          "body": "Filtre o percurso pelo que está em aberto, em atraso, a vencer em breve ou à espera de aprovação."
+        },
+        "legend": {
+          "title": "O que significam os pontos",
+          "body": "Cada ponto mostra um estado: agora, em curso, à espera de aprovação ou aprovado."
+        },
+        "firstStep": {
+          "title": "Cada linha é um requisito",
+          "body": "Abra uma linha para ver o que o requisito pede e o que fazer. Comece em cima e desça."
+        },
+        "status": {
+          "title": "Em que ponto está este requisito",
+          "body": "A etiqueta junto ao título acompanha o requisito, de aberto até aprovado."
+        },
+        "form": {
+          "title": "Responder aos dados específicos",
+          "body": "Editar regista o que a sua organização faz de facto. Guardar mantém-no, e as suas respostas passam a fazer parte da evidência."
+        },
+        "evidence": {
+          "title": "Anexar as provas",
+          "body": "Carregue os documentos que mostram que a medida está mesmo a funcionar. É isso que uma auditoria pede."
+        },
+        "assign": {
+          "title": "Atribua um responsável e aprove",
+          "body": "Atribua a pessoa responsável e aprove assim que o requisito estiver cumprido. A aprovação é o registo de que a direção concordou."
+        },
+        "nav": {
+          "title": "Avançar no percurso",
+          "body": "Voltar e Seguinte percorrem os requisitos por ordem. Marque como não aplicável o que não diz respeito à sua organização, com um motivo."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Ajuda",
+      "title": "Podemos ajudar nalguma coisa?",
+      "body": "Esta é a sua segunda visita. Se algo não estiver claro ou se ficar preso, diga. Fala diretamente connosco.",
+      "email": "Escreva-nos para",
+      "call": "Ou marque uma conversa",
+      "selfHost": "Quer alojar a plataforma na sua própria infraestrutura? Também ajudamos nisso.",
+      "feedback": "Dizer-nos o que falta ou o que incomoda é tão bem-vindo como uma pergunta.",
+      "startTour": "Mostre-me a plataforma",
+      "close": "Fechar",
+      "dismissForever": "Não mostrar novamente"
+    }
+  }
+}

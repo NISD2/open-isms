@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Další",
+      "done": "Hotovo",
+      "skip": "Přeskočit",
+      "progress": "Krok {current} z {total}",
+      "steps": {
+        "order": {
+          "title": "Dva způsoby řazení cesty",
+          "body": "Obhajitelné minimum staví dopředu největší riziko a odpovědnost. Chronologické řazení jde přirozeným procesem, kategorii po kategorii."
+        },
+        "filters": {
+          "title": "Zúžení na to, co je na řadě",
+          "body": "Filtrujte cestu podle toho, co je otevřené, po termínu, brzy splatné nebo čeká na schválení."
+        },
+        "legend": {
+          "title": "Co znamenají tečky",
+          "body": "Každá tečka ukazuje stav: teď, rozpracováno, čeká na schválení nebo schváleno."
+        },
+        "firstStep": {
+          "title": "Každý řádek je jeden požadavek",
+          "body": "Otevřete řádek a uvidíte, co požadavek žádá a co udělat. Začněte nahoře a postupujte dolů."
+        },
+        "status": {
+          "title": "Kde tento požadavek stojí",
+          "body": "Štítek vedle názvu sleduje požadavek od otevřeného až po schválený."
+        },
+        "form": {
+          "title": "Doplnění specifik",
+          "body": "Úpravy zaznamenají, co vaše organizace skutečně dělá. Uložit to zachová a vaše odpovědi se stanou součástí důkazů."
+        },
+        "evidence": {
+          "title": "Přiložení důkazů",
+          "body": "Nahrajte dokumenty, které ukazují, že opatření opravdu běží. Přesně na to se audit ptá."
+        },
+        "assign": {
+          "title": "Určete odpovědnou osobu a schvalte",
+          "body": "Přiřaďte odpovědnou osobu a schvalte, jakmile je požadavek splněn. Schválení je záznam o souhlasu vedení."
+        },
+        "nav": {
+          "title": "Pohyb po cestě",
+          "body": "Zpět a Další procházejí požadavky popořadě. Co se vaší organizace netýká, označte jako nerelevantní, s odůvodněním."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Nápověda",
+      "title": "Můžeme s něčím pomoct?",
+      "body": "Jste tu podruhé. Pokud je něco nejasné nebo se zaseknete, dejte vědět. Ozveme se my, přímo.",
+      "email": "Napište nám na",
+      "call": "Nebo si domluvte hovor",
+      "selfHost": "Chcete platformu provozovat na vlastní infrastruktuře? I s tím pomůžeme.",
+      "feedback": "Zpětná vazba k tomu, co chybí nebo drhne, je vítaná stejně jako dotaz.",
+      "startTour": "Proveďte mě",
+      "close": "Zavřít",
+      "dismissForever": "Příště nezobrazovat"
+    }
+  }
+}

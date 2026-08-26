@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Suivant",
+      "done": "Terminé",
+      "skip": "Passer",
+      "progress": "Étape {current} sur {total}",
+      "steps": {
+        "order": {
+          "title": "Deux ordres pour votre parcours",
+          "body": "Le minimum défendable place en tête le risque et la responsabilité les plus élevés. L'ordre chronologique suit le processus naturel, catégorie par catégorie."
+        },
+        "filters": {
+          "title": "Réduire à ce qui vous attend",
+          "body": "Filtrez le parcours sur ce qui est ouvert, en retard, bientôt dû ou en attente d'approbation."
+        },
+        "legend": {
+          "title": "Ce que signifient les points",
+          "body": "Chaque point indique un état : maintenant, en cours, en attente d'approbation ou approuvé."
+        },
+        "firstStep": {
+          "title": "Chaque ligne est une exigence",
+          "body": "Ouvrez une ligne pour voir ce que l'exigence demande et ce qu'il faut faire. Commencez en haut et descendez."
+        },
+        "status": {
+          "title": "Où en est cette exigence",
+          "body": "Le badge à côté du titre suit l'exigence, de l'état ouvert jusqu'à l'approbation."
+        },
+        "form": {
+          "title": "Répondre aux spécificités",
+          "body": "Modifier consigne ce que votre organisation fait réellement. Enregistrer le conserve, et vos réponses font partie des preuves."
+        },
+        "evidence": {
+          "title": "Joindre les preuves",
+          "body": "Téléversez les documents qui montrent que la mesure fonctionne vraiment. C'est ce qu'un audit demande."
+        },
+        "assign": {
+          "title": "Désigner un responsable, puis approuver",
+          "body": "Affectez la personne responsable et approuvez une fois l'exigence satisfaite. L'approbation est la trace de l'accord de la direction."
+        },
+        "nav": {
+          "title": "Avancer dans le parcours",
+          "body": "Retour et Suivant parcourent les exigences dans l'ordre. Marquez comme non applicable ce qui ne concerne pas votre organisation, avec un motif."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Aide",
+      "title": "Pouvons-nous vous aider ?",
+      "body": "C'est votre deuxième visite. Si quelque chose n'est pas clair ou si vous bloquez, dites-le. Vous nous joignez directement.",
+      "email": "Écrivez-nous à",
+      "call": "Ou réservez un échange",
+      "selfHost": "Vous souhaitez héberger la plateforme sur votre propre infrastructure ? Nous aidons aussi pour cela.",
+      "feedback": "Nous dire ce qui manque ou ce qui coince est aussi bienvenu qu'une question.",
+      "startTour": "Faites-moi visiter",
+      "close": "Fermer",
+      "dismissForever": "Ne plus afficher"
+    }
+  }
+}

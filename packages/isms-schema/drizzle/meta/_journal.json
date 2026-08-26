@@ -50,6 +50,13 @@
       "when": 1783126249131,
       "tag": "0006_cuddly_namorita",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1787744925271,
+      "tag": "0007_oval_mach_iv",
+      "breakpoints": true
     }
   ]
 }

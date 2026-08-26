@@ -1,7 +1,8 @@
 "use client";
 
 import { Fragment } from "react";
-import { usePathname, useParams } from "next/navigation";
+import type { Hint } from "@/lib/onboarding/hints";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -14,6 +15,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { ViewToggle } from "./ViewToggle";
+import { PortalGuide } from "@/components/onboarding/PortalGuide";
+import { usePortalPath } from "./use-portal-path";
 
 function titleCase(slug: string) {
   return slug
@@ -22,23 +25,29 @@ function titleCase(slug: string) {
     .join(" ");
 }
 
-export function PortalHeader() {
+/**
+ * `guide` is optional because this header is reused by two surfaces that
+ * should not carry the product tour: the external supplier portal, whose
+ * visitors are not our users at all, and the course reader, which is a
+ * focused surface with nothing to tour. Leaving it off renders no trigger.
+ */
+export function PortalHeader({
+  guide,
+}: {
+  guide?: {
+    hints: Record<Hint, boolean>;
+    /** Cal.com handle from CAL_LINK, "" where the instance sets no calendar. */
+    calLink: string;
+  };
+}) {
   const t = useTranslations("portal");
   const tCompliance = useTranslations("compliance");
-  const pathname = usePathname();
   const params = useParams() as {
     locale?: string;
     categorySlug?: string;
     requirementCode?: string;
   };
-
-  // next-intl with pathnames returns the canonical template ("[categorySlug]")
-  // from its usePathname. Native next/navigation gives us the resolved URL.
-  // Strip a leading locale prefix if present so segment[0] is the section.
-  const stripped = params.locale
-    ? pathname.replace(new RegExp(`^/${params.locale}(?=/|$)`), "")
-    : pathname;
-  const segments = stripped.split("/").filter(Boolean);
+  const segments = usePortalPath().split("/").filter(Boolean);
 
   function buildBreadcrumbs() {
     if (segments.length === 0) {
@@ -97,8 +106,9 @@ export function PortalHeader() {
           })}
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center gap-1">
         <ViewToggle />
+        {guide && <PortalGuide hints={guide.hints} calLink={guide.calLink} />}
       </div>
     </header>
   );

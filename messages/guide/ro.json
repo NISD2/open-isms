@@ -1,0 +1,60 @@
+{
+  "guide": {
+    "tour": {
+      "next": "Înainte",
+      "done": "Gata",
+      "skip": "Omite",
+      "progress": "Pasul {current} din {total}",
+      "steps": {
+        "order": {
+          "title": "Două moduri de a ordona parcursul",
+          "body": "Minimul justificabil pune în față riscul și răspunderea cele mai mari. Ordinea cronologică urmează procesul natural, categorie cu categorie."
+        },
+        "filters": {
+          "title": "Restrângeți la ce urmează",
+          "body": "Filtrați parcursul după ce este deschis, întârziat, scadent în curând sau în așteptarea aprobării."
+        },
+        "legend": {
+          "title": "Ce înseamnă punctele",
+          "body": "Fiecare punct arată o stare: acum, în lucru, în așteptarea aprobării sau aprobat."
+        },
+        "firstStep": {
+          "title": "Fiecare rând este o cerință",
+          "body": "Deschideți un rând ca să vedeți ce cere cerința și ce aveți de făcut. Începeți de sus și coborâți."
+        },
+        "status": {
+          "title": "Unde se află această cerință",
+          "body": "Eticheta de lângă titlu urmărește cerința, de la deschis până la aprobat."
+        },
+        "form": {
+          "title": "Completarea particularităților",
+          "body": "Editare consemnează ce face în realitate organizația dumneavoastră. Salvează păstrează datele, iar răspunsurile devin parte din dovezi."
+        },
+        "evidence": {
+          "title": "Atașarea dovezilor",
+          "body": "Încărcați documentele care arată că măsura chiar funcționează. Exact asta cere un audit."
+        },
+        "assign": {
+          "title": "Stabiliți un responsabil și aprobați",
+          "body": "Atribuiți persoana responsabilă și aprobați odată ce cerința este îndeplinită. Aprobarea este dovada că a fost de acord conducerea."
+        },
+        "nav": {
+          "title": "Deplasarea prin parcurs",
+          "body": "Înapoi și Înainte parcurg cerințele în ordine. Marcați ca neaplicabil ce nu privește organizația dumneavoastră, cu o motivare."
+        }
+      }
+    },
+    "help": {
+      "trigger": "Ajutor",
+      "title": "Vă putem ajuta cu ceva?",
+      "body": "Este a doua vizită. Dacă ceva nu este clar sau v-ați blocat, spuneți-ne. Ne găsiți direct.",
+      "email": "Scrieți-ne la",
+      "call": "Sau rezervați o discuție",
+      "selfHost": "Vreți să găzduiți platforma pe infrastructura proprie? Ajutăm și la asta.",
+      "feedback": "Să ne spuneți ce lipsește sau ce incomodează este la fel de binevenit ca o întrebare.",
+      "startTour": "Arătați-mi platforma",
+      "close": "Închide",
+      "dismissForever": "Nu mai afișa"
+    }
+  }
+}
