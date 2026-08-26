@@ -15,6 +15,20 @@ async function setGuideState(sql: string): Promise<void> {
   await e2eQuery(`UPDATE "user" SET ${sql} WHERE email = $1`, [E2E_USER_EMAIL]);
 }
 
+/** Both surfaces persist their dismissal through a mutation, so a reload
+ *  issued straight after the click would race the write it is meant to test. */
+async function dismissalLanded(column: string): Promise<void> {
+  await expect
+    .poll(async () => {
+      const [row] = await e2eQuery<Record<string, Date | null>>(
+        `SELECT ${column} AS stamped FROM "user" WHERE email = $1`,
+        [E2E_USER_EMAIL],
+      );
+      return row?.stamped !== null;
+    })
+    .toBe(true);
+}
+
 const retire = () =>
   setGuideState("tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()");
 
@@ -39,16 +53,11 @@ test("the tour runs on a first login, and stays gone once dismissed", async ({
 
   await page.getByTestId("tour-skip").click();
   await expect(card).toBeHidden();
+  await dismissalLanded("tour_dismissed_at");
 
   // Dismissal is a stamped column, not a client flag, so it survives a reload.
   await page.reload();
   await expect(card).toBeHidden();
-
-  const [row] = await e2eQuery<{ tour_dismissed_at: Date | null }>(
-    `SELECT tour_dismissed_at FROM "user" WHERE email = $1`,
-    [E2E_USER_EMAIL],
-  );
-  expect(row.tour_dismissed_at).not.toBeNull();
 });
 
 test("a second login offers help, and does not offer it twice", async ({
@@ -66,6 +75,7 @@ test("a second login offers help, and does not offer it twice", async ({
   await expect(dialog.locator('[data-slot="dialog-close"]')).toHaveCount(0);
   await dialog.getByTestId("help-close").click();
   await expect(dialog).toBeHidden();
+  await dismissalLanded("help_offer_dismissed_at");
 
   await page.reload();
   await expect(page.getByTestId("help-dialog")).toBeHidden();
