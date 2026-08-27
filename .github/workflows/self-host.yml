@@ -8,8 +8,12 @@ name: Self-host stack
 
 on:
   pull_request:
-  push:
-    branches: [main]
+  # No push trigger. A merge re-tests the tree the PR just tested, and
+  # release.yml's upgrade-gate covers the same migration path against the
+  # published image rather than a locally built one, which is the stronger
+  # check. What a push run added over the PR run was a second copy of the
+  # same answer.
+  #
   # Base images move underneath us (postgres, node, minio, the updater). A
   # weekly run catches a stack that broke without anybody touching the repo.
   schedule:

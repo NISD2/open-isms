@@ -19,13 +19,19 @@ on:
   pull_request:
     branches: [main]
 
+# Superseded runs are cancelled. Pushing three times to a PR used to run three
+# full suites to completion; only the newest tells you anything.
+concurrency:
+  group: gitleaks-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
+      # Shallow on purpose: the scan below is --no-git, so the full history
+      # was being downloaded and never read.
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - name: Run gitleaks (Docker)
         run: |
@@ -38,7 +44,7 @@ jobs:
           # scan is sufficient.
           docker run --rm \
             -v "${{ github.workspace }}:/path" \
-            zricethezav/gitleaks:latest \
+            zricethezav/gitleaks:v8.30.1 \
             detect \
             --source=/path \
             --no-git \

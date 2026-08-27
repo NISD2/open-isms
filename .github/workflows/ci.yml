@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [main]
 
+# Superseded runs are cancelled. Pushing three times to a PR used to run three
+# full suites to completion; only the newest tells you anything.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +26,7 @@ jobs:
         with:
           bun-version: latest
 
-      - run: bun install
+      - run: bun install --frozen-lockfile
 
       - run: bun run test
         working-directory: packages/grc-data-model

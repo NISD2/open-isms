@@ -4,6 +4,12 @@ on:
   pull_request:
     branches: [main]
 
+# Superseded runs are cancelled. Pushing three times to a PR used to run three
+# full suites to completion; only the newest tells you anything.
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   e2e:
     runs-on: ubuntu-latest
