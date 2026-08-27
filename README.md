@@ -93,16 +93,27 @@ docker compose up --build # http://localhost:3000
 
 ## Quick start (just the schema packages)
 
+The framework data and schemas are published to npm on their own, so you can
+build against them without running any of this. There is no npm package for
+the platform itself: open-isms ships as a container image, see above.
+
 ```bash
-bun add @nisd2/grc-data-model @nisd2/incident-notification-schema
+bun add @nisd2/grc-data-model @nisd2/incident-notification-schema @nisd2/nis2-supply-chain-questionnaire-schema
 ```
+
+| package | what it gives you |
+|---|---|
+| [`@nisd2/grc-data-model`](https://www.npmjs.com/package/@nisd2/grc-data-model) | 219 requirements across NIS 2, GDPR, the EU AI Act, the CRA and ISO 27001:2022, with 125 cross-framework satisfaction pairs and Drizzle-compatible Postgres schemas |
+| [`@nisd2/incident-notification-schema`](https://www.npmjs.com/package/@nisd2/incident-notification-schema) | the NIS 2 Article 23 incident notification format as a typed Zod schema |
+| [`@nisd2/nis2-supply-chain-questionnaire-schema`](https://www.npmjs.com/package/@nisd2/nis2-supply-chain-questionnaire-schema) | the questions a regulated entity asks its suppliers, as Zod plus JSON Schema |
 
 ```ts
 import { nis2Categories, getNis2RequirementsForCategory } from "@nisd2/grc-data-model/frameworks";
 import { complianceFramework, requirement } from "@nisd2/grc-data-model/schema";
 ```
 
-49 NIS 2 articles, 7 GDPR articles, NIS 2 ↔ GDPR mappings, Drizzle-compatible Postgres schema.
+Per framework: NIS 2 12 categories / 49 requirements, GDPR 6 / 9, EU AI Act
+10 / 24, CRA 10 / 21, ISO 27001:2022 5 / 116.
 
 ## Legal scope
 
