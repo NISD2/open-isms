@@ -16,6 +16,8 @@
     "typecheck": "tsc --noEmit",
     "test:unit": "bun test lib server",
     "check:migrations": "bun scripts/check-migration-journals.ts",
+    "db:seed:demo": "bun run scripts/seed-demo-company.ts",
+    "db:export:demo": "bun run scripts/export-demo-ordner.tsx",
     "db:generate": "drizzle-kit generate",
     "db:generate:grc": "bun run --env-file=$PWD/.env --cwd packages/grc-data-model db:generate",
     "db:generate:isms": "bun run --env-file=$PWD/.env --cwd packages/isms-schema db:generate",
