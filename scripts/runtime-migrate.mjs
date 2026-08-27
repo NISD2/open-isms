@@ -24,6 +24,15 @@
  *        wrap the SQL in a transaction, apply statements, INSERT
  *        (hash, when) — hash matches drizzle's createHash("sha256").update(query).digest("hex")
  *
+ * The transaction is the guarantee a self-hoster depends on: a migration that
+ * fails leaves the database exactly as it was, because the bookkeeping INSERT
+ * commits with the DDL or not at all. scripts/ci/migration-failure-drill.sh
+ * proves it rather than asserting it.
+ *
+ * A migration whose first line is `-- migrate:no-transaction` runs outside one,
+ * for statements Postgres refuses inside a transaction block. See
+ * docs/migration-policy.md rule 3.
+ *
  * The three chains run independently against their own per-package
  * bookkeeping tables — see docs/migrations.md.
  */
@@ -186,24 +195,58 @@ try {
         continue;
       }
 
-      console.log(`[migrate ${label}] applying ${entry.tag}`);
+      // Opt-out for statements Postgres refuses to run inside a transaction.
+      // CREATE INDEX CONCURRENTLY is the one that matters: migration-policy.md
+      // rule 3 recommends it on large tables, and without this a migration
+      // following that advice fails at container start on every instance with
+      // "cannot run inside a transaction block".
+      //
+      // The trade is explicit and belongs to whoever writes the migration: a
+      // non-transactional migration that fails partway leaves the schema
+      // partly changed and is NOT recorded as applied, so the next boot
+      // retries it from the top. Every statement in such a file must therefore
+      // be independently re-runnable — IF NOT EXISTS, or a guard.
+      const nonTransactional = /^\s*--\s*migrate:no-transaction\b/m.test(sql);
 
-      await client.query("BEGIN");
-      try {
-        for (const stmt of sql.split("--> statement-breakpoint")) {
-          const s = stmt.trim();
-          if (s) await client.query(s);
+      console.log(
+        `[migrate ${label}] applying ${entry.tag}${nonTransactional ? " (no transaction)" : ""}`,
+      );
+
+      const statements = sql
+        .split("--> statement-breakpoint")
+        .map((stmt) => stmt.trim())
+        .filter((stmt) => stmt !== "");
+
+      if (nonTransactional) {
+        try {
+          for (const stmt of statements) await client.query(stmt);
+          await client.query(
+            `INSERT INTO drizzle.${table} ("hash", "created_at") VALUES ($1, $2)`,
+            [hash, entry.when],
+          );
+          appliedCount++;
+        } catch (err) {
+          console.error(
+            `[migrate ${label}] FAILED on ${entry.tag} (no transaction — the schema may be partly changed, and this migration is not recorded as applied):`,
+            err.message,
+          );
+          throw err;
         }
-        await client.query(
-          `INSERT INTO drizzle.${table} ("hash", "created_at") VALUES ($1, $2)`,
-          [hash, entry.when],
-        );
-        await client.query("COMMIT");
-        appliedCount++;
-      } catch (err) {
-        await client.query("ROLLBACK");
-        console.error(`[migrate ${label}] FAILED on ${entry.tag}:`, err.message);
-        throw err;
+      } else {
+        await client.query("BEGIN");
+        try {
+          for (const stmt of statements) await client.query(stmt);
+          await client.query(
+            `INSERT INTO drizzle.${table} ("hash", "created_at") VALUES ($1, $2)`,
+            [hash, entry.when],
+          );
+          await client.query("COMMIT");
+          appliedCount++;
+        } catch (err) {
+          await client.query("ROLLBACK");
+          console.error(`[migrate ${label}] FAILED on ${entry.tag}:`, err.message);
+          throw err;
+        }
       }
     }
 

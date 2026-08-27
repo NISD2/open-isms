@@ -73,6 +73,41 @@ jobs:
           AUTH_SECRET: "ci_build_dummy_value_not_a_real_secret_0000"
           RESEND_API_KEY: "re_dummy_for_ci_build"
 
+  # What happens to a customer's database when a migration fails. Every other
+  # migration test asks whether the good path works; this one deliberately
+  # breaks it, because "your data is untouched" is a promise docs/updating.md
+  # makes to people storing audit evidence, and it was untested until now.
+  migration-failure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: drill
+          POSTGRES_PASSWORD: drill
+          POSTGRES_DB: drill
+        options: >-
+          --health-cmd "pg_isready -U drill"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - name: a failing migration leaves the database untouched
+        run: bash scripts/ci/migration-failure-drill.sh
+        env:
+          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
+
   # The published self-host stack has to stay parseable and internally
   # consistent. `docker compose config` resolves every variable reference and
   # profile, so a typo in a service name or an unbalanced ${...} fails here
