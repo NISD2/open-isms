@@ -44,7 +44,11 @@ The Drizzle migration chain runs against a local Postgres (see `docs/coolify-dep
 
 ## Releases
 
-Releases are automatic. Merging to `main` builds both architectures, proves the image installs and upgrades into the previous release, then moves `stable`, tags the commit and writes the release notes. Nothing to run locally, and docs-only changes do not trigger one. npm packages are separate and on demand: run the **Publish npm packages** workflow with the version you want.
+Releases are a deliberate step, and still need nothing run locally. Go to Actions, run the **Release** workflow, and it works out the next version itself, builds both architectures, proves the image installs and upgrades into the previous release, then moves `stable`, tags the commit and writes the release notes. Tick `dry_run` to build both architectures and publish nothing.
+
+It does not fire on merge. A version here is something a stranger installs onto a database holding their compliance evidence, so it is worth choosing when that happens rather than releasing whatever main happens to be.
+
+npm packages are separate and also on demand: run the **Publish npm packages** workflow with the version you want.
 
 ## Code of conduct
 
