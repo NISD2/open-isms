@@ -4,6 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/NISD2/open-isms/tags"><img src="https://img.shields.io/github/v/tag/NISD2/open-isms?logo=github&label=version&color=284b63" alt="Latest version"></a>
+  <a href="https://www.npmjs.com/package/@nisd2/grc-data-model"><img src="https://img.shields.io/npm/v/@nisd2/grc-data-model.svg?logo=npm&label=grc-data-model" alt="npm"></a>
   <a href="https://github.com/NISD2/open-isms/pkgs/container/open-isms"><img src="https://img.shields.io/badge/ghcr.io-open--isms-284b63?logo=docker&logoColor=white" alt="Container image"></a>
   <a href="https://github.com/NISD2/open-isms/actions/workflows/ci.yml"><img src="https://github.com/NISD2/open-isms/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/NISD2/open-isms/actions/workflows/release.yml"><img src="https://github.com/NISD2/open-isms/actions/workflows/release.yml/badge.svg" alt="Release"></a>
