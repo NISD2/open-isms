@@ -60,6 +60,9 @@ bun run dev               # http://localhost:3026
 
 ## Quick start (self-host the whole platform)
 
+Three files and a published image. No clone, no fork, nothing compiled on your
+machine.
+
 ```bash
 mkdir open-isms && cd open-isms
 curl -o compose.yaml https://raw.githubusercontent.com/NISD2/open-isms/main/compose.self-host.yml
@@ -69,19 +72,11 @@ curl -o Caddyfile    https://raw.githubusercontent.com/NISD2/open-isms/main/Cadd
 docker compose up -d                        # http://localhost:3026
 ```
 
-No clone and no fork: this pulls the same published image nisd2.eu runs, from
-`ghcr.io/nisd2/open-isms`, built natively for x86-64 and ARM64 so a NAS pulls
-the same release an Intel server does. Evidence files go to a bundled MinIO,
-so no AWS account is needed and nothing leaves the machine. Migrations apply
-at container start.
-
-`OPEN_ISMS_VERSION` in `.env` decides what you run: `stable` follows releases,
-an exact version pins you there and is how you roll back.
-
-Full walkthrough, the environment variables, and which third-party services
-you can do without: **[docs/self-hosting.md](./docs/self-hosting.md)**.
-Updating and rollback: **[docs/updating.md](./docs/updating.md)**.
-Backup and restore: **[docs/backup.md](./docs/backup.md)**.
+**[docs/self-hosting.md](./docs/self-hosting.md)** is the walkthrough: which
+values to fill in, what each of the 32 environment variables does, which
+third-party services you can do without, and what to check when something is
+wrong. **[docs/updating.md](./docs/updating.md)** covers updates and rollback,
+**[docs/backup.md](./docs/backup.md)** backup and restore.
 
 For the minimal workspace demo instead of the full platform:
 
