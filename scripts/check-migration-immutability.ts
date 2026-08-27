@@ -90,7 +90,18 @@ const checkSqlFile = (ref: string, path: string): readonly Finding[] => {
 
 const checkJournal = (ref: string, path: string): readonly Finding[] => {
   const atRef = fileAtRef(ref, path);
-  if (atRef === null || !existsSync(path)) return [];
+  if (atRef === null) return [];
+
+  if (!existsSync(path)) {
+    return [
+      {
+        file: path,
+        problem: `deleted, but it shipped in ${ref}`,
+        remedy:
+          "Restore it. Journal history is append-only, and without the journal a fresh install has nothing to apply.",
+      },
+    ];
+  }
 
   const before = journalEntries(atRef);
   const after = journalEntries(readFileSync(path, "utf-8"));
