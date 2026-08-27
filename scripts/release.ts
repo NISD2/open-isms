@@ -62,7 +62,7 @@ for (const path of targets) {
 // 5. Commit + tag.
 await $`git add -A`.cwd(root);
 await $`git commit -m "release ${tag}"`.cwd(root);
-await $`git tag ${tag}`.cwd(root);
+await $`git tag -a ${tag} -m ${`release ${target}`}`.cwd(root);
 
 console.log(`\n  tagged ${tag}`);
 console.log(`  next:  git push --follow-tags`);

@@ -42,8 +42,20 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
+      # Page-data collection evaluates route modules, which pull in lib/env.ts
+      # and fail the build without these. ci.yml has carried them since it was
+      # written; this job never ran until the first tag, so it never noticed.
       - name: Build
         run: bun run build
+        env:
+          # lib/env.ts:68 short-circuits on this; the rest are here so the
+          # block still describes reality if that escape hatch ever goes away.
+          # lib/env.ts validates DATABASE_URL and AUTH_SECRET (min 32 chars),
+          # and nothing named NEXTAUTH_*.
+          SKIP_ENV_VALIDATION: "1"
+          DATABASE_URL: "postgres://dummy:dummy@localhost:5432/dummy"
+          AUTH_SECRET: "ci_build_dummy_value_not_a_real_secret_0000"
+          RESEND_API_KEY: "re_dummy_for_ci_build"
 
       - name: Publish all packages
         run: bun scripts/publish-all.ts
