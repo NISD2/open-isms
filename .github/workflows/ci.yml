@@ -91,3 +91,14 @@ jobs:
             echo "--- profiles: ${profiles:-none}"
             COMPOSE_PROFILES="$profiles" docker compose -f compose.self-host.yml config --quiet
           done
+
+      # The proxy config ships to self-hosters too. Caddy can check it without
+      # starting, so a typo fails here instead of taking down the one service
+      # that terminates TLS.
+      - name: proxy config is valid
+        run: |
+          docker run --rm \
+            -v "$PWD/Caddyfile.self-host.example":/etc/caddy/Caddyfile:ro \
+            -e APP_DOMAIN=isms.example.com \
+            -e STORAGE_DOMAIN=storage.example.com \
+            caddy:2-alpine caddy validate --config /etc/caddy/Caddyfile

@@ -52,6 +52,11 @@ curl -s http://localhost:3026/api/health
 # {"status":"ok","version":"1.4.2","checks":{"database":"ok"}}
 ```
 
+The bundled Caddyfile answers 404 for this path on the public side, so the
+version is readable from the server but not from the internet. It tells
+anyone who asks exactly which advisories apply to you, and nothing that needs
+it is external.
+
 `OPEN_ISMS_VERSION` decides what you run: `stable` follows releases, an exact
 version pins you there. Updating, rolling back, and what happens when a
 migration fails are all in **[updating.md](./updating.md)**. Backups and the

@@ -5,6 +5,15 @@
 # fails and you get a TLS error rather than a page.
 
 {$APP_DOMAIN} {
+	# /api/health reports the exact version running, which is convenient for
+	# you and equally convenient for anyone matching instances against a
+	# published advisory. Docker's own healthcheck runs inside the container
+	# and the update flow talks to the app directly, so neither needs this
+	# route to be public. Delete these two lines if you point an external
+	# uptime monitor at it, and prefer authenticating that monitor.
+	@health path /api/health
+	respond @health 404
+
 	reverse_proxy app:3000
 }
 
