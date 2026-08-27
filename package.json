@@ -17,6 +17,7 @@
     "test:unit": "bun test lib server schema/",
     "check:migrations": "bun scripts/check-migration-journals.ts",
     "check:migration-immutability": "bun scripts/check-migration-immutability.ts",
+    "check:migration-safety": "bun scripts/check-migration-safety.ts",
     "db:seed:demo": "bun run scripts/seed-demo-company.ts",
     "db:export:demo": "bun run scripts/export-demo-ordner.tsx",
     "db:generate": "drizzle-kit generate",

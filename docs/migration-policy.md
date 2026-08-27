@@ -72,7 +72,20 @@ Understand what you are giving up. A migration that runs outside a transaction
 and fails partway leaves the schema partly changed, and is not recorded as
 applied, so the next boot retries it from the top. Every statement in such a
 file must therefore be safe to re-run: `IF NOT EXISTS`, or an explicit guard.
-Use it only where the transaction is genuinely the obstacle.
+Use it only where the transaction is genuinely the obstacle. `bun run
+check:migration-safety` enforces that: a migration carrying the marker without
+a `CONCURRENTLY` in it fails CI, because there is no other statement that needs
+it.
+
+The same check flags one-step constraints on tables that already exist. It
+skips tables created in the same migration, which have no rows to violate
+anything, and it only looks at migrations that have not shipped yet, since
+shipped ones are immutable under rule 1. A genuine exception is declared in
+the file so the reasoning is visible in review:
+
+```sql
+-- migration-safety:allow: <why this is safe here>
+```
 
 ## 4. A migration may not depend on the app that shipped with it
 

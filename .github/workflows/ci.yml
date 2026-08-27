@@ -50,6 +50,14 @@ jobs:
       - name: shipped migrations are unchanged
         run: bun run check:migration-immutability
 
+      # Rule 3 in one command. A constraint added in one step passes CI here by
+      # construction, because this schema is built from scratch and has no rows
+      # to violate it, then fails on a self-hoster's database. Also catches
+      # `-- migrate:no-transaction` on a migration that has no CONCURRENTLY in
+      # it, which is the only thing that marker is for.
+      - name: migrations are safe against existing data
+        run: bun run check:migration-safety
+
       # REFERENCE.md is generated from the framework data and is published as
       # the public reference. It silently went stale after a correction pass,
       # leaving it citing CIR Annex points that do not exist in the OJ text.
