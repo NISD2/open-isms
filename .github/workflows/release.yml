@@ -189,6 +189,11 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.IMAGE }}
+          # latest=auto is the action's default and it appends `latest` to any
+          # semver tag. That is a floating tag moving at manifest time, before
+          # the gate has run, which is the one thing this pipeline is built not
+          # to do. `stable` is the floating tag here and it moves in `promote`.
+          flavor: latest=false
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}},enable=${{ !contains(github.ref_name, '-') }}
