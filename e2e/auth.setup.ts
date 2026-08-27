@@ -23,6 +23,9 @@ import {
   E2E_STORAGE_STATE,
   E2E_STORAGE_STATE_MANAGER,
 } from "./lib/env";
+import { getTableColumns } from "drizzle-orm";
+import { user } from "@/schema";
+import { HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
 import { e2eQuery } from "./lib/db";
 import { signInViaForm } from "./lib/signin";
 
@@ -77,9 +80,17 @@ setup("provision and authenticate", async ({ page, browser }) => {
   // every hermetic run, so without this it would arm itself in every spec.
   // Unconditional, so a guide spec that dies mid-run leaves the next run
   // clean rather than poisoned. e2e/l1/guide.spec.ts opts back in on purpose.
+  //
+  // Derived from HINT_COLUMN rather than listed by hand. Splitting the journey
+  // and requirement walkthroughs added a fourth column and this statement kept
+  // stamping the old pair, so the manager — the one harness user no spec
+  // retires by name — spent every run behind an overlay that ate its sign-off
+  // click. Column names come from the table, not from snake-casing the field:
+  // journeyTourDismissedAt is `tour_dismissed_at`.
+  const userColumns = getTableColumns(user);
+  const retireHints = HINTS.map((hint) => `${userColumns[HINT_COLUMN[hint]].name} = NOW()`);
   await e2eQuery(
-    `UPDATE "user" SET tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()
-      WHERE email = ANY($1::text[])`,
+    `UPDATE "user" SET ${retireHints.join(", ")} WHERE email = ANY($1::text[])`,
     [[E2E_USER_EMAIL, E2E_MANAGER_EMAIL]],
   );
 
