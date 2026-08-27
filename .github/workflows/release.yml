@@ -1,31 +1,32 @@
 name: Release
 
-# Merging to main is the release. There is no tag to push, no version to bump,
-# and nothing to run locally: the workflow works out the next version, builds
-# it, proves it can be installed and upgraded into, and only then moves the
-# tag everyone pulls.
+# Releasing is a decision, not a side effect of merging. There is still nothing
+# to run locally and no version to bump: the workflow works out the next
+# version itself, builds it, proves it can be installed and upgraded into, and
+# only then moves the tag everyone pulls and writes the release notes.
+#
+# It used to fire on every push to main. That released a version per merge,
+# and roughly half of them changed nothing that reaches the image — .github is
+# in .dockerignore, so a workflow edit cannot alter the artifact, yet it still
+# cost two native builds and a full upgrade gate. Each version here is
+# something a stranger installs deliberately onto a database holding their
+# compliance evidence, which is a poor fit for "whatever main happens to be".
 #
 # npm publishing deliberately lives in publish-npm.yml. It used to gate this
 # pipeline, which meant a registry nobody had configured could hold `stable`
 # hostage over a version mismatch in a package no self-hoster installs.
 on:
-  push:
-    branches: [main]
-    # Docs cannot change what the image does, and a release costs two native
-    # builds plus a full upgrade gate.
-    paths-ignore:
-      - "**/*.md"
-      - "docs/**"
-      - "LICENSE"
-      - ".github/ISSUE_TEMPLATE/**"
-  # Builds both architectures and publishes nothing. Use it to check a change
-  # to this file before merging it.
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build both architectures and publish nothing"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
-# Serialised, never cancelled. Two merges landing together would otherwise
+# Serialised, never cancelled. Two runs started close together would otherwise
 # both read the same "latest tag" and compute the same next version.
 concurrency:
   group: release
@@ -90,7 +91,7 @@ jobs:
       - uses: docker/setup-buildx-action@v3
 
       - uses: docker/login-action@v3
-        if: github.event_name == 'push'
+        if: ${{ !inputs.dry_run }}
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -104,7 +105,7 @@ jobs:
           platforms: ${{ matrix.platform }}
           build-args: |
             APP_VERSION=${{ needs.version.outputs.version }}
-          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=${{ github.event_name == 'push' }}
+          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=${{ !inputs.dry_run }}
           # An SBOM and full provenance travel with the image. We sell supply
           # chain compliance and teach the CRA's SBOM obligations; shipping
           # binaries whose contents nobody can enumerate would be hard to
@@ -120,7 +121,7 @@ jobs:
       # re-applies it, so it comes off here. Left on, the reference becomes
       # `@sha256:sha256:...`, which buildx rejects at parse time.
       - name: Export digest
-        if: github.event_name == 'push'
+        if: ${{ !inputs.dry_run }}
         run: |
           mkdir -p /tmp/digests
           touch "/tmp/digests/${DIGEST#sha256:}"
@@ -128,7 +129,7 @@ jobs:
           DIGEST: ${{ steps.build.outputs.digest }}
 
       - uses: actions/upload-artifact@v4
-        if: github.event_name == 'push'
+        if: ${{ !inputs.dry_run }}
         with:
           name: digest-${{ strategy.job-index }}
           path: /tmp/digests/*
@@ -140,7 +141,7 @@ jobs:
   # after the gate below, so a release that cannot be upgraded into never
   # becomes the version new self-hosters pull.
   manifest:
-    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
+    if: ${{ github.repository == 'NISD2/open-isms' && !inputs.dry_run }}
     needs: [version, image]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -200,7 +201,7 @@ jobs:
   # backward incompatibility beyond the schema. Both are covered by policy,
   # see docs/migration-policy.md.
   upgrade-gate:
-    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
+    if: ${{ github.repository == 'NISD2/open-isms' && !inputs.dry_run }}
     needs: [version, manifest]
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -309,7 +310,7 @@ jobs:
   # written here rather than by a human beforehand, so a tag can never name a
   # version that failed.
   promote:
-    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
+    if: ${{ github.repository == 'NISD2/open-isms' && !inputs.dry_run }}
     needs: [version, manifest, upgrade-gate]
     runs-on: ubuntu-latest
     timeout-minutes: 10
