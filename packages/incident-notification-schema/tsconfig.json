@@ -13,6 +13,10 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    // tsup's dts pass sets baseUrl internally, which TypeScript 6 rejects
+    // (TS5101). Nothing here sets it; silencing is the remedy the compiler
+    // itself names, until tsup stops emitting it.
+    "ignoreDeprecations": "6.0",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
