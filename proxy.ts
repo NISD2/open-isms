@@ -1,3 +1,4 @@
+import { buildCsp } from "@/lib/security/csp";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
@@ -250,7 +251,7 @@ const FRAGEBOGEN_HOSTS = new Set([
   "www.sicherheitsfragebogen.de",
 ]);
 
-export async function proxy(request: NextRequest) {
+async function route(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const requestHost = request.headers.get("host")?.toLowerCase() ?? "";
@@ -334,6 +335,21 @@ export async function proxy(request: NextRequest) {
   const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
   response.headers.set("x-pathname", stripped);
 
+  return response;
+}
+
+/**
+ * Every response leaves with a Content-Security-Policy computed now, not the
+ * one frozen into next.config.ts when the image was built.
+ *
+ * Only `connect-src` actually differs, and only by the storage origin, but it
+ * is the difference between a self-hoster's evidence uploads working and being
+ * blocked by an origin belonging to whoever ran the build. Set here rather than
+ * at each return so a new branch cannot forget it.
+ */
+export async function proxy(request: NextRequest) {
+  const response = await route(request);
+  response.headers.set("Content-Security-Policy", buildCsp(process.env));
   return response;
 }
 
