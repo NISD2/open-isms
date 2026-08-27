@@ -85,34 +85,51 @@ and note that restoring loses anything written since the backup ran.
 
 ## Update notifications
 
-The app can tell you when a new version exists, including what is in it.
-`UPDATE_MODE` in `.env` controls this:
+**Not implemented yet.** `UPDATE_MODE` and `UPDATE_API_TOKEN` are carried
+through `.env` and the compose file, but no application code reads either one
+today. Setting `UPDATE_MODE=notify` does nothing: the instance makes no
+outbound update request, and nothing appears in the admin area. Documented
+here because the variables exist and would otherwise look broken rather than
+unbuilt.
 
-| Value | Behaviour |
-|---|---|
-| `off` (default) | No outbound update traffic at all. The admin area shows the version you run and links to the releases page. |
-| `notify` | One request a day to the GitHub releases API. No instance identifier, no telemetry, no payload of any kind: it asks what the newest release is and compares locally. |
-| `auto` | Unattended updates via the updater profile. |
+Until it lands, checking for updates is a manual step. Watch the tags at
+`github.com/NISD2/open-isms/tags`, or ask the registry directly:
 
-`auto` is not recommended here. It applies migrations to a compliance database
-with nobody watching and no fresh backup, which is a poor trade for the
-convenience.
+```bash
+curl -s "https://ghcr.io/token?scope=repository:nisd2/open-isms:pull&service=ghcr.io" \
+  | sed -n 's/.*"token":"\([^"]*\)".*/\1/p' \
+  | xargs -I{} curl -s -H "Authorization: Bearer {}" \
+      https://ghcr.io/v2/nisd2/open-isms/tags/list
+```
 
-Egress-restricted networks: `notify` needs `api.github.com`. Pulling images
-needs `ghcr.io` and `pkg-ghcr.githubusercontent.com`, and the rest of the
-stack comes from Docker Hub.
+Compare that against what your instance reports at `/api/health`.
+
+When it is built, the intent is one request a day to the GitHub releases API,
+with no instance identifier and no telemetry: it asks what the newest release
+is and compares locally. Unattended updates are deliberately not planned. They
+apply migrations to a compliance database with nobody watching and no fresh
+backup, which is a poor trade for the convenience.
+
+Egress-restricted networks: pulling images needs `ghcr.io` and
+`pkg-ghcr.githubusercontent.com`, and the rest of the stack comes from Docker
+Hub.
 
 ## The updater profile
 
-With `--profile updater`, the stack runs a small companion container that can
-pull a new image and recreate the app when the app asks it to. That is what
-puts an update button in the admin area instead of you running two commands.
+With `--profile updater`, the stack runs a small companion container
+(watchtower) that can pull a new image and recreate the app on request. It
+exposes an HTTP endpoint on the internal network, authenticated with
+`UPDATE_API_TOKEN`.
 
-It publishes no port, is reachable only from the app over the internal
-network, and does nothing on its own: with no periodic polling configured it
-acts only on request, and a request only happens after a human clicks. It is
-scoped by label to the app container and will not touch anything else on the
-host.
+The in-app button that would call it does not exist yet, so today the endpoint
+is only reachable by something you drive yourself. Running `docker compose
+pull && docker compose up -d` does the same job with nothing extra installed,
+which is why this profile is off by default.
+
+It publishes no port, is reachable only from within the stack, and does
+nothing on its own: with no periodic polling configured it acts only when
+called. It is scoped by label to the app container and will not touch anything
+else on the host.
 
 It does mount the Docker socket, which is root-equivalent on the host. That is
 true of every self-update mechanism, including the ones built into Coolify and
@@ -138,8 +155,8 @@ docker save ghcr.io/nisd2/open-isms:1.5.0 | gzip > openisms-1.5.0.tar.gz
 
 Move the file across, then `docker load < openisms-1.5.0.tar.gz`, set
 `OPEN_ISMS_VERSION=1.5.0`, and `docker compose up -d`. Migrations apply at
-startup exactly as they would otherwise. Set `UPDATE_MODE=off` so the instance
-does not try to reach the releases API.
+startup exactly as they would otherwise. Nothing in the app reaches out on its
+own today, so an air-gapped instance needs no extra setting to keep it quiet.
 
 Note that a fully offline instance cannot send email, and the sign-up flow
 verifies addresses with a one-time code, so no one can complete a first login
@@ -149,6 +166,7 @@ without a mail route. Plan for that before disconnecting.
 
 `COMPOSE_REVISION` in `.env` records which revision of `compose.yaml` you are
 running. Some releases need a change there — a new service, a new variable —
-and the release notes say so. With `UPDATE_MODE=notify` the app compares your
-revision against what the release expects and tells you, rather than letting
-the deployment drift silently into a state nobody can reproduce.
+and the tag notes say so. The app reports the value it was given at
+`/api/health` as `composeRevision`, so you can see what your deployment
+believes it is running. Comparing that against what a release expects is the
+manual half of the notification feature above.

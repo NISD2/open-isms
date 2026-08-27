@@ -110,7 +110,7 @@ Evidence files do not go in Postgres. They go to S3-compatible object storage, u
 
 ### Bundled MinIO, no external account
 
-Uncomment the object-store block in `.env`, set the two secrets, and add `--profile minio` to your compose command:
+This is the default. The `minio` profile is already on in `COMPOSE_PROFILES` and the object-store block in `.env` already points at it, so the only things left to fill in are the two secrets:
 
 ```bash
 AWS_S3_BUCKET=evidence
@@ -238,7 +238,8 @@ Two things to back up if you run the bundled MinIO, not one: the Postgres databa
 | Login redirects back to the sign-in page forever | `AUTH_URL` does not match the scheme users actually reach you on. This is the single most common self-host failure. |
 | Sign-up says the code was sent, no email arrives | `RESEND_API_KEY` unset. The send path logs `[mail] RESEND_API_KEY not set, skipping email` and reports success anyway. |
 | Portal loads but there are no requirements | The seed has not been run. See [Load the framework data](#load-the-framework-data). |
-| Evidence upload fails in the browser with a CSP error | `AWS_S3_ENDPOINT` does not match the origin the browser is actually PUTting to. |
+| Evidence upload fails in the browser with a CSP error | `AWS_S3_ENDPOINT` does not match the origin the browser is actually PUTting to. The app names that origin in its `Content-Security-Policy`, computed per request, so `curl -sI <your-url>/ \| grep -i content-security-policy` shows exactly what it currently allows. |
+| An evidence row appears but the file is not in the bucket | The browser's upload was refused and the server never learned. Presigning is offline, so nothing server-side notices a blocked or failed PUT. Check the CSP row above first, then that the bucket exists. |
 | Upload rejected, MinIO logs mention server-side encryption | `MINIO_KMS_KEY` is unset or is not 32 bytes of base64. |
 | Upload works, deleting an evidence file fails | `AWS_S3_INTERNAL_ENDPOINT` is wrong. Presigning is offline so uploads never noticed; deletion is the first call the server actually makes. |
 | `Bind for 0.0.0.0:9000 failed: port is already allocated` | Something else on the box uses 9000. Set `MINIO_PORT` and match `AWS_S3_ENDPOINT` to it. |

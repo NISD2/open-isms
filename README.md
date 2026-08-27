@@ -3,8 +3,10 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@nisd2/grc-data-model"><img src="https://img.shields.io/npm/v/@nisd2/grc-data-model.svg?logo=npm&label=grc-data-model" alt="npm"></a>
+  <a href="https://github.com/NISD2/open-isms/tags"><img src="https://img.shields.io/github/v/tag/NISD2/open-isms?logo=github&label=version&color=284b63" alt="Latest version"></a>
+  <a href="https://github.com/NISD2/open-isms/pkgs/container/open-isms"><img src="https://img.shields.io/badge/ghcr.io-open--isms-284b63?logo=docker&logoColor=white" alt="Container image"></a>
   <a href="https://github.com/NISD2/open-isms/actions/workflows/ci.yml"><img src="https://github.com/NISD2/open-isms/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/NISD2/open-isms/actions/workflows/release.yml"><img src="https://github.com/NISD2/open-isms/actions/workflows/release.yml/badge.svg" alt="Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License: AGPL-3.0"></a>
   <a href="https://www.nisd2.eu"><img src="https://img.shields.io/badge/site-nisd2.eu-284b63.svg" alt="nisd2.eu"></a>
 </p>
@@ -66,10 +68,14 @@ curl -o Caddyfile    https://raw.githubusercontent.com/NISD2/open-isms/main/Cadd
 docker compose up -d                        # http://localhost:3026
 ```
 
-No clone and no fork: this pulls the same published image nisd2.eu runs, with
-a bundled MinIO for evidence files so no AWS account is needed. Migrations
-apply at container start, and `OPEN_ISMS_VERSION` in `.env` decides whether
-you follow releases or pin one.
+No clone and no fork: this pulls the same published image nisd2.eu runs, from
+`ghcr.io/nisd2/open-isms`, built natively for x86-64 and ARM64 so a NAS pulls
+the same release an Intel server does. Evidence files go to a bundled MinIO,
+so no AWS account is needed and nothing leaves the machine. Migrations apply
+at container start.
+
+`OPEN_ISMS_VERSION` in `.env` decides what you run: `stable` follows releases,
+an exact version pins you there and is how you roll back.
 
 Full walkthrough, the environment variables, and which third-party services
 you can do without: **[docs/self-hosting.md](./docs/self-hosting.md)**.
