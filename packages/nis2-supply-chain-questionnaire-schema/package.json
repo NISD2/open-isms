@@ -1,6 +1,6 @@
 {
   "name": "@nisd2/nis2-supply-chain-questionnaire-schema",
-  "version": "3.1.0",
+  "version": "0.2.0",
   "description": "Open EU data format for the NIS2 supply-chain questionnaire — typed Zod schema as source of truth, JSON + JSON Schema as published artefacts. The questions a NIS2-regulated entity asks its suppliers, anchored to NIS2 Art. 21(2)(d), CIR 2024/2690, ENISA TIG, GDPR, and the Cyber Resilience Act.",
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.com/NISD2/nis2-supply-chain-questionnaire-schema",
