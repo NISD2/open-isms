@@ -1,50 +1,9 @@
 import { z } from "zod";
-import { eq, and, asc } from "drizzle-orm";
+import { eq, asc } from "drizzle-orm";
 import { router, publicProcedure } from "../init";
-import {
-  complianceFramework,
-  requirementCategory,
-  requirement,
-} from "@/schema";
-import { frameworkEnum } from "@nisd2/grc-data-model/enums";
-
-type FrameworkCode = (typeof frameworkEnum.enumValues)[number];
+import { requirementCategory, requirement } from "@/schema";
 
 export const requirementRouter = router({
-  listCategoriesWithCounts: publicProcedure
-    .input(z.object({ frameworkCode: z.string() }))
-    .query(async ({ ctx, input }) => {
-      const categories = await ctx.db.query.requirementCategory.findMany({
-        where: eq(
-          requirementCategory.frameworkId,
-          ctx.db
-            .select({ id: complianceFramework.id })
-            .from(complianceFramework)
-            .where(
-              and(
-                eq(complianceFramework.code, input.frameworkCode as FrameworkCode),
-                eq(complianceFramework.isActive, true),
-              ),
-            )
-            .limit(1)
-        ),
-        orderBy: asc(requirementCategory.sortOrder),
-        with: {
-          requirements: {
-            columns: { id: true },
-          },
-        },
-      });
-      return categories.map((cat) => ({
-        id: cat.id,
-        code: cat.code,
-        slug: cat.slug,
-        sortOrder: cat.sortOrder,
-        estimatedMinutes: cat.estimatedMinutes,
-        requirementCount: cat.requirements.length,
-      }));
-    }),
-
   getByCode: publicProcedure
     .input(z.object({ code: z.string() }))
     .query(async ({ ctx, input }) => {
