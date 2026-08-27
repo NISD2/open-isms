@@ -44,3 +44,6 @@ test-results/
 playwright-report/
 e2e/screenshots/
 e2e/screenshots-before/
+
+# Local PDF design previews (scripts/preview-certificate.ts)
+.preview/

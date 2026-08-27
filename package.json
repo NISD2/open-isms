@@ -29,6 +29,7 @@
     "i18n:translate:dry": "bun run scripts/i18n/translate.ts --dry-run",
     "email:dev": "email dev --dir lib/mail/templates --port 3027",
     "screenshots": "bun scripts/screenshot-pitch.ts",
+    "preview:certificate": "bun run scripts/preview-certificate.ts",
     "og": "og-shot",
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",

@@ -52,6 +52,11 @@ const nextConfig: NextConfig = {
       "./lib/auth/disposable-domains.txt",
       "./lib/auth/disposable-domains-local.txt",
       "./lib/auth/disposable-mx-hosts.txt",
+      // lib/pdf/fonts.ts reads these at render time via process.cwd(). The
+      // Dockerfile copies public/ wholesale, but a plain `next build` +
+      // standalone run does not, and an unregistered font falls back to
+      // base-14 Helvetica without erroring.
+      "./public/fonts/*.ttf",
     ],
   },
   transpilePackages: [
