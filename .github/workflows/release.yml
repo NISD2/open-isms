@@ -327,13 +327,27 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Move stable
+      # `latest` moves with `stable`, not instead of it. A bare
+      # `docker pull ghcr.io/nisd2/open-isms` resolves to `:latest`, so someone
+      # doing the obvious thing gets whatever it points at. Leaving it behind
+      # is worse than not having it: v0.2.0 published one before this workflow
+      # stopped emitting it, and it sat pointing at an old release while the
+      # docs told everyone to use `stable`.
+      #
+      # Both are written here, after the gate, so neither can name a version
+      # that failed to install.
+      - name: Move stable and latest
         run: |
-          docker buildx imagetools create -t "${IMAGE}:stable" "${IMAGE}:${VERSION}"
-          echo "::notice::stable now points at ${VERSION}"
+          docker buildx imagetools create \
+            -t "${IMAGE}:stable" \
+            -t "${IMAGE}:latest" \
+            "${IMAGE}:${VERSION}"
+          echo "::notice::stable and latest now point at ${VERSION}"
 
-      - name: Stable is pullable without credentials
-        run: bash scripts/ci/assert-public-pull.sh "${IMAGE}" stable
+      - name: Stable and latest are pullable without credentials
+        run: |
+          bash scripts/ci/assert-public-pull.sh "${IMAGE}" stable
+          bash scripts/ci/assert-public-pull.sh "${IMAGE}" latest
 
       # Creates the tag and the release together, from this commit. The notes
       # are generated from the merged PRs, which is what self-hosters read
