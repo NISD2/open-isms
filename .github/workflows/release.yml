@@ -230,6 +230,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
       # First, and before any login: every other step here authenticates, so
       # this is the only one that exercises the path a self-hoster's docker
       # actually takes. A GHCR package is private when first created.
@@ -260,6 +266,31 @@ jobs:
           docker run --rm --network host -e DATABASE_URL="${DB}" \
             "${IMAGE}:${{ steps.previous.outputs.tag }}" \
             node /app/scripts/runtime-migrate.mjs
+
+      # Until now this gate migrated an empty schema, which is the one thing
+      # migration-policy.md rule 3 says it cannot afford to do: a bare
+      # `SET NOT NULL` or a new UNIQUE index passes against nothing and fails on
+      # a database with real rows in it. These two steps put rows in the way.
+      #
+      # The seed is used rather than hand-written INSERTs because it produces a
+      # populated instance across ~50 tables and is maintained anyway, so it
+      # cannot rot the way a fixed list of columns would.
+      - name: Fill the previous release's schema with realistic data
+        if: steps.previous.outputs.tag != ''
+        run: |
+          DATABASE_URL="${DB}" \
+          AUTH_SECRET="gate_only_not_real_0123456789abcdef" \
+          NODE_ENV=development \
+            bun run drizzle/seed.ts | tail -3
+
+      # Then make that data awkward: one null in every nullable column that has
+      # a value. Schema-derived, so it covers tables added since this was
+      # written without anybody updating it.
+      - name: Introduce the shapes a new constraint would reject
+        if: steps.previous.outputs.tag != ''
+        run: |
+          docker run --rm --network host -i postgres:17-alpine \
+            psql "${DB}" -v ON_ERROR_STOP=1 -f - < scripts/ci/dirty-data.sql
 
       - name: Apply this release's migrations
         run: |
