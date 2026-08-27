@@ -62,6 +62,21 @@ const dirs = [
   },
 ];
 
+// Fixed forever. Any process holding this advisory lock is migrating; every
+// other instance waits rather than racing it. The pair is arbitrary but must
+// never change, or two versions of this script would not exclude each other.
+const LOCK_CLASS = 4919;
+const LOCK_KEY = 1;
+
+// How long to wait for another instance to finish migrating before giving up.
+const LOCK_WAIT = process.env.MIGRATE_LOCK_WAIT ?? "300s";
+// Ceiling on a single statement inside a migration. A DDL statement that
+// cannot take its lock (a long-running query holding the table) fails the
+// migration instead of blocking startup indefinitely — this shape has
+// crash-looped a container before.
+const LOCK_TIMEOUT = process.env.MIGRATE_LOCK_TIMEOUT ?? "10s";
+const STATEMENT_TIMEOUT = process.env.MIGRATE_STATEMENT_TIMEOUT ?? "600s";
+
 const url = process.env.DATABASE_URL;
 if (!url) {
   console.error("[migrate] DATABASE_URL not set — cannot migrate");
@@ -73,6 +88,25 @@ await client.connect();
 console.log("[migrate] connected to database");
 
 try {
+  // Serialise the whole run. Without this, two replicas starting together
+  // both read the same lastApplied and apply the same migrations twice.
+  // lock_timeout applies to advisory locks too, so a stuck peer surfaces as
+  // a clear error rather than an indefinite hang.
+  await client.query(`SET lock_timeout = '${LOCK_WAIT}'`);
+  try {
+    await client.query(`SELECT pg_advisory_lock($1, $2)`, [LOCK_CLASS, LOCK_KEY]);
+  } catch (err) {
+    console.error(
+      `[migrate] could not acquire the migration lock within ${LOCK_WAIT}. ` +
+        `Another instance is migrating, or a previous run left a session open. ` +
+        `Run exactly one instance during an upgrade.`,
+    );
+    throw err;
+  }
+
+  await client.query(`SET lock_timeout = '${LOCK_TIMEOUT}'`);
+  await client.query(`SET statement_timeout = '${STATEMENT_TIMEOUT}'`);
+
   await client.query(`CREATE SCHEMA IF NOT EXISTS drizzle`);
 
   for (const { label, folder, table, sentinelTable } of dirs) {
@@ -92,10 +126,13 @@ try {
       continue;
     }
 
-    const lastRes = await client.query(
-      `SELECT created_at FROM drizzle.${table} ORDER BY created_at DESC LIMIT 1`,
+    const appliedRes = await client.query(
+      `SELECT hash, created_at FROM drizzle.${table} ORDER BY created_at DESC`,
     );
-    let lastApplied = lastRes.rows[0]?.created_at ?? 0;
+    const appliedHashes = new Map(
+      appliedRes.rows.map((row) => [String(row.created_at), row.hash]),
+    );
+    let lastApplied = appliedRes.rows[0]?.created_at ?? 0;
 
     // Self-convergence: if our bookkeeping is empty but the sentinel table
     // already exists in the schema, the DB was migrated under the pre-split
@@ -130,11 +167,24 @@ try {
 
     let appliedCount = 0;
     for (const entry of journal.entries) {
-      if (Number(lastApplied) >= entry.when) continue;
-
       const sqlPath = `${folder}/${entry.tag}.sql`;
       const sql = readFileSync(sqlPath, "utf-8");
       const hash = createHash("sha256").update(sql).digest("hex");
+
+      if (Number(lastApplied) >= entry.when) {
+        // Applied migrations are immutable (see docs/migration-policy.md).
+        // The hash has always been stored and never read back; comparing it
+        // is how an edited migration becomes visible instead of silently
+        // producing databases that disagree about what a version means.
+        const recorded = appliedHashes.get(String(entry.when));
+        if (recorded && recorded !== hash) {
+          console.warn(
+            `[migrate ${label}] WARNING: ${entry.tag} was applied with different SQL than the file now contains. ` +
+              `This database and a freshly-installed one no longer agree. Report this with your version number.`,
+          );
+        }
+        continue;
+      }
 
       console.log(`[migrate ${label}] applying ${entry.tag}`);
 
@@ -166,5 +216,10 @@ try {
 
   console.log("[migrate] all chains complete");
 } finally {
+  // Session locks die with the connection, so this is belt-and-braces for the
+  // case where the client is reused rather than ended.
+  await client
+    .query(`SELECT pg_advisory_unlock($1, $2)`, [LOCK_CLASS, LOCK_KEY])
+    .catch(() => {});
   await client.end();
 }

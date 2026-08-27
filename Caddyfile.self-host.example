@@ -1,0 +1,30 @@
+# Save next to compose.yaml as `Caddyfile`, used by `--profile proxy`.
+#
+# Caddy obtains and renews certificates on its own. Both names must already
+# resolve to this server before the first start, or the certificate order
+# fails and you get a TLS error rather than a page.
+
+{$APP_DOMAIN} {
+	# /api/health reports the exact version running, which is convenient for
+	# you and equally convenient for anyone matching instances against a
+	# published advisory. Docker's own healthcheck runs inside the container
+	# and the update flow talks to the app directly, so neither needs this
+	# route to be public. Delete these two lines if you point an external
+	# uptime monitor at it, and prefer authenticating that monitor.
+	@health path /api/health
+	respond @health 404
+
+	reverse_proxy app:3000
+}
+
+# Only needed with the bundled MinIO. Evidence uploads go straight from the
+# browser to the object store using a presigned URL, and that URL is signed
+# for one exact hostname — so the store needs a public name of its own, and
+# AWS_S3_ENDPOINT in .env has to be this same https:// address.
+{$STORAGE_DOMAIN} {
+	reverse_proxy minio:9000
+
+	request_body {
+		max_size 100MB
+	}
+}

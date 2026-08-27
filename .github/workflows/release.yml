@@ -3,6 +3,10 @@ name: Release
 on:
   push:
     tags: ["v*"]
+  # Exercises the whole pipeline without cutting a release: both architectures
+  # build, nothing is pushed, nothing is published, no tag moves. Use it before
+  # the first real tag, and after any edit to this file.
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -12,9 +16,12 @@ concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  IMAGE: ghcr.io/nisd2/open-isms
+
 jobs:
   release:
-    if: github.repository == 'NISD2/open-isms'
+    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -42,3 +49,313 @@ jobs:
         run: bun scripts/publish-all.ts
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # Each architecture builds on its own native runner and pushes an untagged
+  # image identified only by digest. Emulating arm64 through QEMU would take
+  # this build (webpack, ~200 routes, a 4 GB heap) well past any reasonable
+  # timeout, so the two run side by side and are joined in `manifest`.
+  image:
+    if: github.repository == 'NISD2/open-isms'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        if: github.event_name == 'push'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Without the leading v, so the version the app reports is identical to
+      # the image tag and to the release name the update check compares
+      # against. Three spellings of the same version is one too many.
+      - id: version
+        run: |
+          case "${GITHUB_REF}" in
+            refs/tags/v*) echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT" ;;
+            *) echo "version=dev" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Build and push by digest
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: ${{ matrix.platform }}
+          build-args: |
+            APP_VERSION=${{ steps.version.outputs.version }}
+          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=${{ github.event_name == 'push' }}
+          # An SBOM and full provenance travel with the image. We sell supply
+          # chain compliance and teach the CRA's SBOM obligations; shipping
+          # binaries whose contents nobody can enumerate would be hard to
+          # defend. It also gives self-hosters a way to answer "does this
+          # instance contain the library in today's advisory" without asking
+          # us.
+          #
+          # Both survive the merge below: `imagetools create` copies each
+          # architecture's attestation manifest alongside its image and keeps
+          # the cross-reference, so the merged index holds four manifests
+          # rather than two. Verified against a registry before this shipped.
+          sbom: true
+          provenance: mode=max
+          cache-from: type=gha,scope=${{ matrix.platform }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
+
+      # The digest output carries its `sha256:` prefix. The merge step below
+      # re-applies it, so it comes off here — otherwise the filename round-trips
+      # into `@sha256:sha256:...`, which is not a reference anything can pull.
+      - name: Export digest
+        if: github.event_name == 'push'
+        run: |
+          mkdir -p /tmp/digests
+          touch "/tmp/digests/${DIGEST#sha256:}"
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'push'
+        with:
+          name: digest-${{ strategy.job-index }}
+          path: /tmp/digests/*
+          # An empty artifact would surface as an unreadable reference in the
+          # merge below rather than as a missing digest here.
+          if-no-files-found: error
+          retention-days: 1
+
+  # Joins the per-architecture digests into one multi-arch manifest and gives
+  # it the version tags. `stable` is deliberately NOT set here — it moves only
+  # after the upgrade gate below, so a release that cannot be upgraded into
+  # never becomes the version new self-hosters pull.
+  manifest:
+    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
+    needs: image
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: /tmp/digests
+          pattern: digest-*
+          merge-multiple: true
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Tag computation belongs to metadata-action, not to shell. The floating
+      # minor tag must not move for a prerelease — `${version%.*}` of 1.4.2-rc1
+      # is 1.4 — and `enable` states that outright rather than depending on how
+      # the action happens to treat a hyphen. `stable` is deliberately absent:
+      # it moves in `promote`, after the gate.
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}},enable=${{ !contains(github.ref_name, '-') }}
+
+      - name: Create manifest
+        working-directory: /tmp/digests
+        run: |
+          docker buildx imagetools create \
+            $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf "${IMAGE}@sha256:%s " *)
+
+      - name: Read manifest digest
+        id: digest
+        run: |
+          digest=$(docker buildx imagetools inspect "${IMAGE}:${{ steps.meta.outputs.version }}" --format '{{json .Manifest.Digest}}' | tr -d '"')
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      # Signs the manifest with the workflow's own identity, so anyone pulling
+      # can verify this image was built by this repository at this commit.
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.IMAGE }}
+          subject-digest: ${{ steps.digest.outputs.digest }}
+          push-to-registry: true
+
+  # Proves the release can actually be installed and upgraded into before it
+  # becomes `stable`.
+  #
+  # What this catches: migrations that fail from scratch, migrations that fail
+  # on top of the previous release's schema, and an image that does not boot.
+  # That is the whole class of "the update bricked my instance" failures we can
+  # test without customer data.
+  #
+  # What it does NOT catch: a migration that is valid against the empty schema
+  # here but violates a constraint on somebody's real data, and code-level
+  # backward incompatibility beyond the schema (health only proves the process
+  # serves). Both are covered by policy, see docs/migration-policy.md.
+  upgrade-gate:
+    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
+    needs: manifest
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: read
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: gate
+          POSTGRES_PASSWORD: gate
+          POSTGRES_DB: gate
+        options: >-
+          --health-cmd "pg_isready -U gate"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+    env:
+      VERSION: ${{ needs.manifest.outputs.version }}
+      DB: postgres://gate:gate@localhost:5432/gate
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # First, and before any login: everything below this point authenticates,
+      # so this is the only step that exercises the path a self-hoster's docker
+      # actually takes.
+      - name: The published image is pullable without credentials
+        run: bash scripts/ci/assert-public-pull.sh "${IMAGE}" "${VERSION}"
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Find the previous release
+        id: previous
+        run: |
+          previous=$(git tag --list 'v*' --sort=-v:refname \
+            | grep -v -- '-' \
+            | grep -v "^v${VERSION}$" \
+            | head -1)
+          # Git tags carry the leading v, image tags never do. Strip it here or
+          # the pull below asks the registry for a tag that was never pushed —
+          # which no first release can catch, because it has no previous to
+          # upgrade from.
+          echo "tag=${previous#v}" >> "$GITHUB_OUTPUT"
+          if [ -z "${previous}" ]; then
+            echo "::notice::No earlier release exists — testing a fresh install only."
+          else
+            echo "::notice::Testing upgrade from ${previous}."
+          fi
+
+      # Upgrade path: the previous release's schema first, then this one on
+      # top of it. Skipped for the very first release, which has no "from".
+      - name: Apply the previous release's migrations
+        if: steps.previous.outputs.tag != ''
+        run: |
+          docker run --rm --network host -e DATABASE_URL="${DB}" \
+            "${IMAGE}:${{ steps.previous.outputs.tag }}" \
+            node /app/scripts/runtime-migrate.mjs
+
+      - name: Apply this release's migrations
+        run: |
+          docker run --rm --network host -e DATABASE_URL="${DB}" \
+            "${IMAGE}:${VERSION}" \
+            node /app/scripts/runtime-migrate.mjs
+
+      # Running the migrator twice must be a no-op. If it is not, the journal
+      # and the bookkeeping table disagree and every restart would re-apply
+      # something.
+      - name: Migrations are idempotent
+        run: |
+          output=$(docker run --rm --network host -e DATABASE_URL="${DB}" \
+            "${IMAGE}:${VERSION}" node /app/scripts/runtime-migrate.mjs 2>&1)
+          echo "${output}"
+          if echo "${output}" | grep -q "applied [1-9]"; then
+            echo "::error::A second migrate run applied migrations. The chain is not idempotent."
+            exit 1
+          fi
+
+      - name: The image boots and serves
+        run: |
+          docker run -d --name gate --network host \
+            -e DATABASE_URL="${DB}" \
+            -e AUTH_SECRET=gate_only_not_real_0123456789abcdef \
+            -e AUTH_URL=http://localhost:3000 \
+            -e NEXT_PUBLIC_APP_URL=http://localhost:3000 \
+            -e ERASURE_EMAIL_HASH_SALT=gate_only \
+            "${IMAGE}:${VERSION}"
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:3000/api/health > /tmp/health.json 2>/dev/null; then
+              cat /tmp/health.json
+              reported=$(sed -n 's/.*"version":"\([^"]*\)".*/\1/p' /tmp/health.json)
+              if [ "${reported}" != "${VERSION}" ]; then
+                echo "::error::Image reports version '${reported}', expected '${VERSION}'. APP_VERSION was not stamped."
+                docker logs gate; exit 1
+              fi
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::The image never became healthy."
+          docker logs gate
+          exit 1
+
+  # `stable` is what a self-hoster pulls when they have not pinned a version.
+  # It moves last, and only for a final release — a prerelease tag builds and
+  # publishes under its own version but never becomes what everyone else gets.
+  promote:
+    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push' && !contains(github.ref_name, '-')
+    needs: [release, manifest, upgrade-gate]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      # Only for scripts/ci/assert-public-pull.sh below.
+      - uses: actions/checkout@v7
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Move stable
+        run: |
+          docker buildx imagetools create \
+            -t "${IMAGE}:stable" \
+            "${IMAGE}:${{ needs.manifest.outputs.version }}"
+          echo "::notice::stable now points at ${{ needs.manifest.outputs.version }}"
+
+      # `stable` is what the compose file defaults to, so it is the one tag
+      # whose anonymous reachability decides whether a fresh install works.
+      - name: Stable is pullable without credentials
+        run: bash scripts/ci/assert-public-pull.sh "${IMAGE}" stable

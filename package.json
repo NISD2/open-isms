@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit",
     "test:unit": "bun test lib server schema/",
     "check:migrations": "bun scripts/check-migration-journals.ts",
+    "check:migration-immutability": "bun scripts/check-migration-immutability.ts",
     "db:seed:demo": "bun run scripts/seed-demo-company.ts",
     "db:export:demo": "bun run scripts/export-demo-ordner.tsx",
     "db:generate": "drizzle-kit generate",

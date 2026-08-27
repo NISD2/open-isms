@@ -44,17 +44,21 @@ Already set by the Dockerfile (do NOT override unless needed):
 
 ## Migrations
 
-The Dockerfile does NOT run `drizzle-kit migrate` on container start. Pick one of:
+Migrations run automatically at container start, before the server binds. The
+Dockerfile's `CMD` chains `scripts/runtime-migrate.mjs` ahead of `node
+server.js`, so a failed migration exits the container and Coolify keeps the
+previous version serving.
 
-### Option A — Coolify pre-deployment command (recommended)
+Do **not** configure a pre-deployment migrate command. It would run the same
+migrations a second time from a container that does not ship `drizzle-kit`
+anyway, and Coolify's build network cannot reliably reach the managed Postgres
+host — which is why the migrate step moved into the runtime container in the
+first place.
 
-In Coolify > Project > Configuration > Pre-Deployment Command, set:
-
-```bash
-bun x drizzle-kit migrate
-```
-
-Coolify runs this once before each new deployment, against `DATABASE_URL`. Failed migrations block the deployment.
+Only one instance may migrate at a time. The runner takes a Postgres advisory
+lock for the whole run, so a second replica waits rather than racing, but
+scaling the app to more than one instance across an upgrade is still not
+supported.
 
 ## Cron schedules
 

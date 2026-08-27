@@ -12,6 +12,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Tags are the baseline for the migration-immutability check below.
+          fetch-depth: 0
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -34,6 +37,13 @@ jobs:
       - name: migration journals match their .sql files
         run: bun run check:migrations
 
+      # A migration that has already run somewhere will never run again there.
+      # Editing it afterwards therefore changes only the databases that have
+      # not seen it yet, leaving two schemas that both claim the same version.
+      # Nothing at runtime notices, so it is caught here instead.
+      - name: shipped migrations are unchanged
+        run: bun run check:migration-immutability
+
       # REFERENCE.md is generated from the framework data and is published as
       # the public reference. It silently went stale after a correction pass,
       # leaving it citing CIR Annex points that do not exist in the OJ text.
@@ -53,3 +63,42 @@ jobs:
           DATABASE_URL: "postgres://dummy:dummy@localhost:5432/dummy"
           NEXTAUTH_SECRET: "dummy_for_ci_build"
           NEXTAUTH_URL: "http://localhost:3026"
+
+  # The published self-host stack has to stay parseable and internally
+  # consistent. `docker compose config` resolves every variable reference and
+  # profile, so a typo in a service name or an unbalanced ${...} fails here
+  # rather than on somebody's server.
+  compose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: self-host compose file is valid
+        run: |
+          cp .env.self-host.example .env
+          # Placeholders for the values the file deliberately refuses to
+          # default, so validation exercises the required-variable syntax.
+          {
+            echo "POSTGRES_PASSWORD=ci"
+            echo "AUTH_SECRET=ci"
+            echo "AWS_SECRET_ACCESS_KEY=ci-secret"
+            echo "MINIO_KMS_KEY=$(openssl rand -base64 32)"
+            echo "UPDATE_API_TOKEN=ci"
+          } >> .env
+          for profiles in "" "minio" "proxy" "updater" "backup" "minio,proxy,updater,backup"; do
+            echo "--- profiles: ${profiles:-none}"
+            COMPOSE_PROFILES="$profiles" docker compose -f compose.self-host.yml config --quiet
+          done
+
+      # The proxy config ships to self-hosters too. Caddy can check it without
+      # starting, so a typo fails here instead of taking down the one service
+      # that terminates TLS.
+      - name: proxy config is valid
+        run: |
+          docker run --rm \
+            -v "$PWD/Caddyfile.self-host.example":/etc/caddy/Caddyfile:ro \
+            -e APP_DOMAIN=isms.example.com \
+            -e STORAGE_DOMAIN=storage.example.com \
+            caddy:2-alpine caddy validate --config /etc/caddy/Caddyfile

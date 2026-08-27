@@ -58,16 +58,23 @@ bun run dev               # http://localhost:3026
 ## Quick start (self-host the whole platform)
 
 ```bash
-git clone https://github.com/NISD2/open-isms.git
-cd open-isms
-cp .env.example .env                        # fill in the required values
-docker compose --profile minio up --build   # http://localhost:3026
+mkdir open-isms && cd open-isms
+curl -o compose.yaml https://raw.githubusercontent.com/NISD2/open-isms/main/compose.self-host.yml
+curl -o .env         https://raw.githubusercontent.com/NISD2/open-isms/main/.env.self-host.example
+curl -o Caddyfile    https://raw.githubusercontent.com/NISD2/open-isms/main/Caddyfile.self-host.example
+# fill in the required values in .env, then:
+docker compose up -d                        # http://localhost:3026
 ```
 
-Same image nisd2.eu runs, with a bundled MinIO for evidence files so no AWS
-account is needed. Migrations apply at container start; the framework data is
-a separate seed step. Full walkthrough, the environment variables, and which
-third-party services you can do without: **[docs/self-hosting.md](./docs/self-hosting.md)**.
+No clone and no fork: this pulls the same published image nisd2.eu runs, with
+a bundled MinIO for evidence files so no AWS account is needed. Migrations
+apply at container start, and `OPEN_ISMS_VERSION` in `.env` decides whether
+you follow releases or pin one.
+
+Full walkthrough, the environment variables, and which third-party services
+you can do without: **[docs/self-hosting.md](./docs/self-hosting.md)**.
+Updating and rollback: **[docs/updating.md](./docs/updating.md)**.
+Backup and restore: **[docs/backup.md](./docs/backup.md)**.
 
 For the minimal workspace demo instead of the full platform:
 
