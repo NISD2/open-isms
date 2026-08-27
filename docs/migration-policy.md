@@ -57,9 +57,35 @@ constraint would reject. A bare `ALTER TABLE ... SET NOT NULL` or a new
 under a plain `docker compose up -d` means a crash-looping container.
 
 Add the column or index nullable and unvalidated, backfill the existing rows
-in the same migration, and validate in a later one. Prefer `CREATE UNIQUE
-INDEX CONCURRENTLY` where the table is large, and reconcile duplicates in code
-before the constraint exists rather than assuming there are none.
+in the same migration, and validate in a later one. Reconcile duplicates in
+code before the constraint exists rather than assuming there are none.
+
+`CREATE UNIQUE INDEX CONCURRENTLY` is the right tool on a large table, and
+Postgres refuses to run it inside a transaction block — which every migration
+otherwise is. Opt that file out with a first line of:
+
+```sql
+-- migrate:no-transaction
+```
+
+Understand what you are giving up. A migration that runs outside a transaction
+and fails partway leaves the schema partly changed, and is not recorded as
+applied, so the next boot retries it from the top. Every statement in such a
+file must therefore be safe to re-run: `IF NOT EXISTS`, or an explicit guard.
+Use it only where the transaction is genuinely the obstacle. `bun run
+check:migration-safety` enforces that: a migration carrying the marker without
+a `CONCURRENTLY` in it fails CI, because there is no other statement that needs
+it.
+
+The same check flags one-step constraints on tables that already exist. It
+skips tables created in the same migration, which have no rows to violate
+anything, and it only looks at migrations that have not shipped yet, since
+shipped ones are immutable under rule 1. A genuine exception is declared in
+the file so the reasoning is visible in review:
+
+```sql
+-- migration-safety:allow: <why this is safe here>
+```
 
 ## 4. A migration may not depend on the app that shipped with it
 

@@ -50,6 +50,14 @@ jobs:
       - name: shipped migrations are unchanged
         run: bun run check:migration-immutability
 
+      # Rule 3 in one command. A constraint added in one step passes CI here by
+      # construction, because this schema is built from scratch and has no rows
+      # to violate it, then fails on a self-hoster's database. Also catches
+      # `-- migrate:no-transaction` on a migration that has no CONCURRENTLY in
+      # it, which is the only thing that marker is for.
+      - name: migrations are safe against existing data
+        run: bun run check:migration-safety
+
       # REFERENCE.md is generated from the framework data and is published as
       # the public reference. It silently went stale after a correction pass,
       # leaving it citing CIR Annex points that do not exist in the OJ text.
@@ -72,6 +80,41 @@ jobs:
           DATABASE_URL: "postgres://dummy:dummy@localhost:5432/dummy"
           AUTH_SECRET: "ci_build_dummy_value_not_a_real_secret_0000"
           RESEND_API_KEY: "re_dummy_for_ci_build"
+
+  # What happens to a customer's database when a migration fails. Every other
+  # migration test asks whether the good path works; this one deliberately
+  # breaks it, because "your data is untouched" is a promise docs/updating.md
+  # makes to people storing audit evidence, and it was untested until now.
+  migration-failure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: drill
+          POSTGRES_PASSWORD: drill
+          POSTGRES_DB: drill
+        options: >-
+          --health-cmd "pg_isready -U drill"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - name: a failing migration leaves the database untouched
+        run: bash scripts/ci/migration-failure-drill.sh
+        env:
+          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
 
   # The published self-host stack has to stay parseable and internally
   # consistent. `docker compose config` resolves every variable reference and
