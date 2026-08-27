@@ -31,12 +31,12 @@ bun db:seed              # Seed database (drops + recreates dev data)
 |-------|------|---------|-------|
 | Framework | Next.js | 16.1.6 | App Router, SSR-first |
 | React | React | 19.1.0 | `useOptimistic`, `useTransition` available |
-| TypeScript | TS | 5.7.3 | Strict mode |
+| TypeScript | TS | 6.0.3 | Strict mode. Note: 6.x errors on deprecated options such as `baseUrl` (TS5101) |
 | Styling | Tailwind CSS | 4.1.0 | `@theme inline` for shadcn color vars |
 | Validation | Zod | **4.x** | NOT v3. Uses `_def.type` not `_def.typeName` |
 | ORM | Drizzle | 0.45.x | PostgreSQL, relational queries |
 | API | tRPC | 11.1.0 | superjson transformer |
-| Auth | NextAuth | 5.0.0-beta.30 | JWT strategy, Google OAuth |
+| Auth | NextAuth | 5.0.0-beta.32 | JWT strategy, Google OAuth |
 | i18n | next-intl | 4.8.2 | Cookie-based locale, DE default + EN + NL |
 | AI | Vercel AI SDK | 6.x | + @ai-sdk/xai (grok-2-1212) for form prefill |
 | Storage | AWS S3 | SDK v3 | Presigned URLs for evidence uploads |
