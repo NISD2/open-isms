@@ -80,7 +80,7 @@ Auto-audit middleware extracts entity ID from input (checks: id, statusId, evide
 - **GRC-core schema lives in `@nisd2/grc-data-model`** (workspace package at `packages/grc-data-model/`, mirrored to `github.com/NISD2/grc-data-model` via `git subtree push`)
   - Drizzle tables: `framework`, `requirement`, `requirement-satisfaction`, `supplier`, `asset`, `risk`, `incident`
   - GRC enums (16): framework, entity_type, evidence_type, frequency, priority, etc.
-  - Framework data: NIS2 (12 cats / 49 reqs) + GDPR (5 / 7), satisfaction pairs
+  - Framework data: NIS2 (12 cats / 49 reqs), GDPR (6 / 9), EU AI Act (10 / 24), CRA (10 / 21), ISO 27001:2022 (5 / 116), 125 satisfaction pairs
 - **App-only schema** in `schema/`:
   - `schema/tables/*.ts` — auth, billing, audit-log, notification, evidence, policies, leads, supplier-portal, training, etc.
   - `schema/enums.ts` — app-specific enums (plan, lead_intent, ai_data_sharing, notification_status, operational-table enums)
@@ -267,7 +267,7 @@ When answering substantive questions about NIS 2 / GDPR / EU AI Act / CRA / ISO 
 
 ### Framework + legal facts (in-repo, canonical)
 
-- `packages/grc-data-model/src/frameworks/` — article-level data per framework. NIS 2 has 49 requirements across 12 categories with EUR-Lex references and BSIG transposition links. GDPR has 7 articles. Same for EU AI Act, CRA, ISO 27001:2022.
+- `packages/grc-data-model/src/frameworks/` — article-level data per framework. NIS 2 has 49 requirements across 12 categories with EUR-Lex references and BSIG transposition links. GDPR has 9 across 6, the EU AI Act 24 across 10, the CRA 21 across 10, ISO 27001:2022 116 across 5. 219 requirements and 125 satisfaction pairs in total.
 - `packages/grc-data-model/src/schema/` — Drizzle table definitions for framework, requirement, asset, supplier, risk, incident
 - `packages/grc-data-model/src/mappings/` — cross-framework mappings (NIS 2 ↔ GDPR)
 - `packages/incident-notification-schema/` — NIS 2 §23(4) incident notification format: structured fields, severity, timing windows, IoC reporting
