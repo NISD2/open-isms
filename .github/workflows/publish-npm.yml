@@ -1,0 +1,54 @@
+name: Publish npm packages
+
+# Manual, and separate from Release on purpose.
+#
+# The container pipeline used to depend on this job, which meant a mismatch in
+# a package no self-hoster installs could block `stable` for everyone. They are
+# different products on different schedules: the image ships on every merge,
+# the packages ship when someone decides to cut them.
+#
+# Versions here are NOT the app's version. Pass the one you want.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish, e.g. 0.11.0"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write # npm provenance via GitHub OIDC
+
+jobs:
+  publish:
+    if: github.repository == 'NISD2/open-isms'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # required for npm provenance attestation
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - name: Set every publishable package to the requested version
+        run: bun scripts/set-package-versions.ts "${{ inputs.version }}"
+
+      - run: bun run typecheck
+
+      # The root build script is `next build`; it does not touch the workspace
+      # packages, each of which has its own tsup/tsc build. publish-all.ts
+      # refuses a package with no dist/, which is how this surfaced on the
+      # first release that ever ran.
+      - name: Build the publishable packages
+        run: bun run --filter './packages/*' build
+
+      - name: Publish
+        run: bun scripts/publish-all.ts
+        env:
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}

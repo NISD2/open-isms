@@ -44,7 +44,7 @@ The Drizzle migration chain runs against a local Postgres (see `docs/coolify-dep
 
 ## Releases
 
-Maintainers cut releases via `bun scripts/release.ts <version>` + `git push --follow-tags`. CI publishes packages to npm with provenance attestations.
+Releases are automatic. Merging to `main` builds both architectures, proves the image installs and upgrades into the previous release, then moves `stable`, tags the commit and writes the release notes. Nothing to run locally, and docs-only changes do not trigger one. npm packages are separate and on demand: run the **Publish npm packages** workflow with the version you want.
 
 ## Code of conduct
 
