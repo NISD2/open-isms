@@ -27,6 +27,21 @@ const course = courseSchema.parse({
     ro: "Tot ceea ce Directiva NIS2 cere ca un membru al organului de conducere să cunoască, structurat în jurul celor trei domenii de competență ale BSI și al celor zece măsuri din articolul 21.",
   },
   version: "2.0",
+  certificate: {
+    sealLabel: "NIS 2",
+    legalBasis: {
+      en: "Management training per §38(3) BSIG / Article 20(2) NIS2 Directive",
+      de: "Managementschulung gemäß §38(3) BSIG / Artikel 20(2) NIS2-Richtlinie",
+      nl: "Managementtraining volgens artikel 20(2) NIS2-richtlijn",
+      fr: "Formation des dirigeants au titre du §38(3) BSIG / article 20(2) de la directive NIS2",
+      it: "Formazione per il management ai sensi del §38(3) BSIG / articolo 20(2) della direttiva NIS2",
+      es: "Formación de la dirección conforme al §38(3) BSIG / artículo 20(2) de la directiva NIS2",
+      pl: "Szkolenie kierownictwa zgodnie z §38(3) BSIG / artykułem 20(2) dyrektywy NIS2",
+      cs: "Školení vedení podle §38(3) BSIG / článku 20(2) směrnice NIS2",
+      pt: "Formação da direção nos termos do §38(3) BSIG / artigo 20(2) da Diretiva NIS2",
+      ro: "Instruirea conducerii conform §38(3) BSIG / articolului 20(2) din Directiva NIS2",
+    },
+  },
   modules: [
     {
       id: "foundation",

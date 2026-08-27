@@ -25,6 +25,21 @@ const course = courseSchema.parse({
     ro: "Concepeți, derulați și documentați exercițiul anual pe care îl impune NIS 2. Conceput pentru facilitatori: responsabili cu securitatea informațiilor, manageri IT și responsabili de continuitatea activității care trebuie să conducă un exercițiu tabletop ce produce dovezi valabile la audit. Cadru la nivelul UE, cu referințe la transpunerea germană.",
   },
   version: "1.0",
+  certificate: {
+    sealLabel: "NIS 2",
+    legalBasis: {
+      en: "Exercise per Article 21(2)(b) and (c) NIS2 Directive",
+      de: "Übung gemäß Artikel 21(2)(b) und (c) NIS2-Richtlinie",
+      nl: "Oefening volgens artikel 21(2)(b) en (c) NIS2-richtlijn",
+      fr: "Exercice au titre de l'article 21(2)(b) et (c) de la directive NIS2",
+      it: "Esercitazione ai sensi dell'articolo 21(2)(b) e (c) della direttiva NIS2",
+      es: "Ejercicio conforme al artículo 21(2)(b) y (c) de la directiva NIS2",
+      pl: "Ćwiczenie zgodnie z artykułem 21(2)(b) i (c) dyrektywy NIS2",
+      cs: "Cvičení podle článku 21(2)(b) a (c) směrnice NIS2",
+      pt: "Exercício nos termos do artigo 21(2)(b) e (c) da Diretiva NIS2",
+      ro: "Exercițiu conform articolului 21(2)(b) și (c) din Directiva NIS2",
+    },
+  },
   modules: [
     {
       id: "foundation",

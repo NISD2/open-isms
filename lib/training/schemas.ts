@@ -85,11 +85,29 @@ export const courseModuleSchema = z.object({
 
 export type CourseModule = z.infer<typeof courseModuleSchema>;
 
+/**
+ * What the completion certificate may claim about this course.
+ *
+ * Required, not optional. The certificate is a compliance document a learner
+ * forwards to an auditor, and the basis line used to be one hardcoded string
+ * in the PDF template — so the CRA SBOM course printed "Managementschulung
+ * gemäß §38(3) BSIG". A course that has not stated its own basis should fail
+ * to load rather than borrow the last one's.
+ *
+ * `legalBasis` cites the obligation the course actually teaches, in the same
+ * wording the course content uses. `sealLabel` is the short mark on the seal.
+ */
+export const courseCertificateSchema = z.object({
+  legalBasis: localeString,
+  sealLabel: z.string().min(1).max(8),
+});
+
 export const courseSchema = z.object({
   id: z.string(),
   title: localeString,
   description: localeString,
   version: z.string(),
+  certificate: courseCertificateSchema,
   modules: z.array(courseModuleSchema).min(1),
 });
 

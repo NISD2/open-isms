@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { hasLocale } from "next-intl";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { routing } from "@/i18n/routing";
+import { pickLocalized } from "@/lib/locale";
 import { getSession } from "@/lib/auth";
 import { rateLimit } from "@/lib/rate-limit";
 import { api } from "@/lib/trpc/server";
@@ -52,7 +53,7 @@ export async function GET(request: NextRequest) {
     })),
   }));
 
-  const totalHours = Math.max(1, Math.round((completion.totalCount * 5) / 60));
+  const totalHours = Math.max(1, Math.round(completion.totalMinutes / 60));
 
   const buffer = await renderToBuffer(
     TrainingCertificateDocument({
@@ -67,6 +68,8 @@ export async function GET(request: NextRequest) {
         totalHours,
         totalLessons: completion.totalCount,
         certificateRef: ref,
+        legalBasis: pickLocalized(completion.certificate.legalBasis, locale),
+        sealLabel: completion.certificate.sealLabel,
         modules,
       },
       locale,
