@@ -16,6 +16,15 @@ export const E2E_DATABASE_URL =
 
 export const E2E_BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3410";
 
+/** Object store the harness provisions the evidence bucket in. Defaults to the
+ *  hermetic stack in e2e/docker-compose.yml; overridden when the suite runs
+ *  against a self-host stack, whose MinIO lives on a different port with
+ *  different credentials. See scripts/e2e-against-image.sh. */
+export const E2E_S3_ENDPOINT = process.env.E2E_S3_ENDPOINT ?? "http://localhost:9000";
+export const E2E_S3_BUCKET = process.env.E2E_S3_BUCKET ?? "e2e-evidence";
+export const E2E_S3_ACCESS_KEY_ID = process.env.E2E_S3_ACCESS_KEY_ID ?? "minioadmin";
+export const E2E_S3_SECRET_ACCESS_KEY = process.env.E2E_S3_SECRET_ACCESS_KEY ?? "minioadmin";
+
 /** Seeded by drizzle/seed.ts (Dev GmbH admin). The harness only adds the
  *  password hash — see e2e/auth.setup.ts. */
 export const E2E_USER_EMAIL = "dev@nis2.local";

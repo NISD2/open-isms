@@ -17,6 +17,10 @@ import {
 } from "@aws-sdk/client-s3";
 import {
   assertE2eTargets,
+  E2E_S3_ACCESS_KEY_ID,
+  E2E_S3_BUCKET,
+  E2E_S3_ENDPOINT,
+  E2E_S3_SECRET_ACCESS_KEY,
   E2E_USER_EMAIL,
   E2E_USER_PASSWORD,
   E2E_MANAGER_EMAIL,
@@ -35,12 +39,15 @@ setup("provision and authenticate", async ({ page, browser }) => {
   // Evidence bucket for the MinIO stack (idempotent).
   const s3 = new S3Client({
     region: "eu-north-1",
-    endpoint: "http://localhost:9000",
+    endpoint: E2E_S3_ENDPOINT,
     forcePathStyle: true,
-    credentials: { accessKeyId: "minioadmin", secretAccessKey: "minioadmin" },
+    credentials: {
+      accessKeyId: E2E_S3_ACCESS_KEY_ID,
+      secretAccessKey: E2E_S3_SECRET_ACCESS_KEY,
+    },
   });
   try {
-    await s3.send(new CreateBucketCommand({ Bucket: "e2e-evidence" }));
+    await s3.send(new CreateBucketCommand({ Bucket: E2E_S3_BUCKET }));
   } catch (err) {
     if (
       !(err instanceof BucketAlreadyOwnedByYou) &&
