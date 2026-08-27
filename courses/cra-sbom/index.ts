@@ -27,6 +27,21 @@ const course = courseSchema.parse({
     "ro": "Construiți, mențineți și păstrați Software Bill of Materials pe care Cyber Resilience Act îl solicită. Conceput pentru manageri de produs, ingineri și responsabili de securitate la companii care vând produse cu elemente digitale în UE. Acoperă obligația SBOM din Anexa I, Partea II, punctul (1), formatele CycloneDX și SPDX, instrumentele și legătura cu raportarea vulnerabilităților din Articolul 14."
   },
   "version": "1.0",
+  "certificate": {
+    "sealLabel": "CRA",
+    "legalBasis": {
+      "en": "SBOM per Annex I, Part II, point (1) Cyber Resilience Act",
+      "de": "SBOM gemäß Anhang I Teil II Nummer 1 Cyber Resilience Act",
+      "nl": "SBOM volgens Bijlage I, Deel II, punt (1) Cyber Resilience Act",
+      "fr": "SBOM au titre de l'annexe I, partie II, point (1) du Cyber Resilience Act",
+      "it": "SBOM ai sensi dell'Allegato I, Parte II, punto (1) del Cyber Resilience Act",
+      "es": "SBOM conforme al Anexo I, Parte II, punto (1) del Cyber Resilience Act",
+      "pl": "SBOM zgodnie z Załącznikiem I Część II punkt (1) Cyber Resilience Act",
+      "cs": "SBOM podle Přílohy I Část II bod (1) Cyber Resilience Act",
+      "pt": "SBOM nos termos do Anexo I, Parte II, ponto (1) do Cyber Resilience Act",
+      "ro": "SBOM conform Anexei I, Partea II, punctul (1) din Cyber Resilience Act",
+    },
+  },
   "modules": [
     {
       "id": "foundation",

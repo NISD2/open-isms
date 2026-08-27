@@ -22,6 +22,11 @@ interface TrainingCertificateData {
   /** Stable, non-reversible reference so a recipient and an auditor can talk
    *  about the same document. Computed by the route from the completion. */
   certificateRef: string;
+  /** The obligation this course actually teaches, in the reader's locale, and
+   *  the short mark on the seal. Both come from the course, because a single
+   *  template constant meant the CRA course claimed §38(3) BSIG. */
+  legalBasis: string;
+  sealLabel: string;
   modules: CertModule[];
 }
 
@@ -33,7 +38,6 @@ interface CertificateLabels {
   durationLabel: string;
   lessonsLabel: string;
   durationValue: (hours: number) => string;
-  legal: string;
   topics: string;
   disclaimer: string;
   issuer: string;
@@ -51,7 +55,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Dauer",
     lessonsLabel: "Lektionen",
     durationValue: (h) => `ca. ${h} Std.`,
-    legal: "Managementschulung gemäß §38(3) BSIG / Artikel 20(2) NIS2-Richtlinie",
     topics: "Behandelte Themen",
     disclaimer:
       "Diese Bescheinigung bestätigt die Teilnahme am Kurs. Sie stellt keine rechtliche Zertifizierung der Fachkompetenz dar.",
@@ -68,7 +71,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Duration",
     lessonsLabel: "Lessons",
     durationValue: (h) => `approx. ${h} h`,
-    legal: "Management training per §38(3) BSIG / Article 20(2) NIS2 Directive",
     topics: "Topics Covered",
     disclaimer:
       "This certificate confirms course participation. It does not constitute a legal certification of competence.",
@@ -85,7 +87,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Duur",
     lessonsLabel: "Lessen",
     durationValue: (h) => `ca. ${h} uur`,
-    legal: "Managementtraining volgens artikel 20(2) NIS2-richtlijn",
     topics: "Behandelde onderwerpen",
     disclaimer:
       "Dit certificaat bevestigt deelname aan de cursus. Het vormt geen wettelijke certificering van vakbekwaamheid.",
@@ -102,7 +103,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Durée",
     lessonsLabel: "Leçons",
     durationValue: (h) => `env. ${h} h`,
-    legal: "Formation des dirigeants au titre du §38(3) BSIG / article 20(2) de la directive NIS2",
     topics: "Sujets abordés",
     disclaimer:
       "Ce certificat confirme la participation au cours. Il ne constitue pas une certification légale de compétence.",
@@ -119,7 +119,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Durata",
     lessonsLabel: "Lezioni",
     durationValue: (h) => `circa ${h} h`,
-    legal: "Formazione per il management ai sensi del §38(3) BSIG / articolo 20(2) della direttiva NIS2",
     topics: "Argomenti trattati",
     disclaimer:
       "Questo certificato conferma la partecipazione al corso. Non costituisce una certificazione legale di competenza.",
@@ -136,7 +135,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Duración",
     lessonsLabel: "Lecciones",
     durationValue: (h) => `aprox. ${h} h`,
-    legal: "Formación de la dirección conforme al §38(3) BSIG / artículo 20(2) de la directiva NIS2",
     topics: "Temas tratados",
     disclaimer:
       "Este certificado confirma la participación en el curso. No constituye una certificación legal de competencia.",
@@ -153,7 +151,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Czas trwania",
     lessonsLabel: "Lekcje",
     durationValue: (h) => `ok. ${h} godz.`,
-    legal: "Szkolenie kierownictwa zgodnie z §38(3) BSIG / artykułem 20(2) dyrektywy NIS2",
     topics: "Omawiane tematy",
     disclaimer:
       "Niniejszy certyfikat potwierdza udział w kursie. Nie stanowi prawnej certyfikacji kompetencji.",
@@ -170,7 +167,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Délka",
     lessonsLabel: "Lekce",
     durationValue: (h) => `přibl. ${h} h`,
-    legal: "Školení vedení podle §38(3) BSIG / článku 20(2) směrnice NIS2",
     topics: "Probíraná témata",
     disclaimer:
       "Toto osvědčení potvrzuje účast v kurzu. Nepředstavuje právní certifikaci odborné způsobilosti.",
@@ -187,7 +183,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Duração",
     lessonsLabel: "Lições",
     durationValue: (h) => `aprox. ${h} h`,
-    legal: "Formação da direção nos termos do §38(3) BSIG / artigo 20(2) da Diretiva NIS2",
     topics: "Temas abordados",
     disclaimer:
       "Este certificado confirma a participação no curso. Não constitui uma certificação legal de competência.",
@@ -204,7 +199,6 @@ const LABELS: Record<Locale, CertificateLabels> = {
     durationLabel: "Durată",
     lessonsLabel: "Lecții",
     durationValue: (h) => `aprox. ${h} h`,
-    legal: "Instruirea conducerii conform §38(3) BSIG / articolului 20(2) din Directiva NIS2",
     topics: "Subiecte abordate",
     disclaimer:
       "Acest certificat confirmă participarea la curs. Nu constituie o certificare legală a competenței.",
@@ -437,12 +431,12 @@ function Header({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Seal() {
+function Seal({ label }: { label: string }) {
   return (
     <View style={styles.seal}>
       <View style={styles.sealInner} />
       <ShieldGlyph size={17} color={BRAND.primary} strokeWidth={1.9} />
-      <Text style={styles.sealText}>NIS 2</Text>
+      <Text style={styles.sealText}>{label}</Text>
     </View>
   );
 }
@@ -480,7 +474,7 @@ export function TrainingCertificateDocument({
     <Document
       title={`${labels.title}: ${identity}`}
       author="NISD2.eu"
-      subject={labels.legal}
+      subject={data.legalBasis}
       keywords="NIS2, BSIG, management training, certificate"
     >
       {/* Page 1: certificate cover */}
@@ -489,7 +483,7 @@ export function TrainingCertificateDocument({
         <Header label={labels.refLabel} value={data.certificateRef} />
 
         <View style={styles.body}>
-          <Text style={styles.eyebrow}>{labels.legal}</Text>
+          <Text style={styles.eyebrow}>{data.legalBasis}</Text>
           <Text style={styles.title}>{labels.title}</Text>
 
           <Text style={styles.certifies}>{labels.certifies}</Text>
@@ -521,7 +515,7 @@ export function TrainingCertificateDocument({
           </View>
           <Text style={styles.disclaimer}>{labels.disclaimer}</Text>
           <View style={styles.sealWrap}>
-            <Seal />
+            <Seal label={data.sealLabel} />
           </View>
         </View>
       </Page>
