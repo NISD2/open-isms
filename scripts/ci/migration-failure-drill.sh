@@ -88,8 +88,12 @@ fail=0
 check() { if [ "$2" = "$3" ]; then echo "  PASS  $1"; else echo "  FAIL  $1"; echo "        expected: $3"; echo "        actual:   $2"; fail=1; fi; }
 
 echo "[drill] verdict"
-[ "$EXIT" -ne 0 ] && echo "  PASS  the migrator exited non-zero (${EXIT}), so the container would refuse to serve" \
-                 || { echo "  FAIL  the migrator exited 0 despite a failing migration"; fail=1; }
+if [ "$EXIT" -ne 0 ]; then
+  echo "  PASS  the migrator exited non-zero (${EXIT}), so the container would refuse to serve"
+else
+  echo "  FAIL  the migrator exited 0 despite a failing migration"
+  fail=1
+fi
 check "the schema is byte-identical to before the failure" "$(fingerprint)" "$SCHEMA_BEFORE"
 check "no migration was recorded as applied" "$(bookkeeping)" "$BOOKS_BEFORE"
 check "the table created before the failing statement was rolled back" \
@@ -98,8 +102,11 @@ check "the customer row survived untouched" \
       "$(psql -tAc "SELECT note FROM drill_customer_data WHERE id = 1;" | tr -d '[:space:]')" "sign-offevidence"
 
 echo "[drill] and the database is still usable afterwards"
-( cd "$ROOT" && DATABASE_URL="$DB" node scripts/runtime-migrate.mjs ) 2>&1 | grep -q "all chains complete" \
-  && echo "  PASS  a clean migrator run still succeeds against it" \
-  || { echo "  FAIL  the database was left wedged"; fail=1; }
+if ( cd "$ROOT" && DATABASE_URL="$DB" node scripts/runtime-migrate.mjs ) 2>&1 | grep -q "all chains complete"; then
+  echo "  PASS  a clean migrator run still succeeds against it"
+else
+  echo "  FAIL  the database was left wedged"
+  fail=1
+fi
 
 exit "$fail"

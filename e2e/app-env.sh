@@ -25,6 +25,8 @@ esac
 E2E_MINIO_KMS_B64="$(printf 'e2e-minio-kms-0123456789abcdef!!' | base64)"
 export E2E_MINIO_KMS_B64
 
+# Consumed by e2e/start-server.sh and e2e/serve.sh, which source this file.
+# shellcheck disable=SC2034
 APP_ENV=(
   DATABASE_URL="$E2E_DATABASE_URL"
   AUTH_SECRET="e2e-dummy-auth-secret-0123456789abcdef"

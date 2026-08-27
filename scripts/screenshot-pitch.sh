@@ -29,7 +29,7 @@ for locale in "${LOCALES[@]}"; do
   if [[ -n "$SINGLE_SLIDE" ]]; then
     slides=("$SINGLE_SLIDE")
   else
-    slides=($(seq 0 $((TOTAL - 1))))
+    mapfile -t slides < <(seq 0 $((TOTAL - 1)))
   fi
 
   for i in "${slides[@]}"; do
