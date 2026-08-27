@@ -1,9 +1,12 @@
 import { NextRequest } from "next/server";
+import { hasLocale } from "next-intl";
 import { renderToBuffer } from "@react-pdf/renderer";
+import { routing } from "@/i18n/routing";
 import { getSession } from "@/lib/auth";
 import { rateLimit } from "@/lib/rate-limit";
 import { api } from "@/lib/trpc/server";
 import { TrainingCertificateDocument } from "@/lib/pdf/training-certificate";
+import { certificateRef } from "@/lib/training/certificate-ref";
 
 export async function GET(request: NextRequest) {
   const session = await getSession();
@@ -12,7 +15,12 @@ export async function GET(request: NextRequest) {
   }
 
   const courseId = request.nextUrl.searchParams.get("courseId") ?? "nis2-ceo";
-  const locale = request.nextUrl.searchParams.get("locale") ?? "en";
+  // The query string is caller-controlled and the locale reaches Intl, which
+  // throws on a malformed tag. Pin it to a locale we actually ship.
+  const requestedLocale = request.nextUrl.searchParams.get("locale");
+  const locale = hasLocale(routing.locales, requestedLocale)
+    ? requestedLocale
+    : routing.defaultLocale;
 
   if (!rateLimit(`cert:${session.user.id}`, 5, 60_000)) {
     return new Response("Too many requests", { status: 429 });
@@ -24,18 +32,17 @@ export async function GET(request: NextRequest) {
     return new Response("Course not completed", { status: 403 });
   }
 
-  const dateLocale = locale === "de" ? "de-DE" : locale === "nl" ? "nl-NL" : "en-US";
-  const completionDate = completion.completionDate
-    ? new Date(completion.completionDate).toLocaleDateString(dateLocale, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : new Date().toLocaleDateString(dateLocale, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
+  // Intl resolves a bare language subtag, so every locale we ship gets its own
+  // date order and month name rather than falling back to en-US.
+  const completionDate = new Date(
+    completion.completionDate ?? Date.now(),
+  ).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
+
+  const ref = certificateRef({
+    userId: session.user.id,
+    courseId,
+    completionDate: completion.completionDate ?? "",
+  });
 
   const modules = completion.courseModules.map((m) => ({
     title: m.title[locale] ?? m.title.en ?? "",
@@ -59,6 +66,7 @@ export async function GET(request: NextRequest) {
         completionDate,
         totalHours,
         totalLessons: completion.totalCount,
+        certificateRef: ref,
         modules,
       },
       locale,
