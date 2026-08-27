@@ -58,11 +58,14 @@ jobs:
 
       - run: bun run build
         env:
+          # lib/env.ts:68 short-circuits on this; the rest are here so the
+          # block still describes reality if that escape hatch ever goes away.
+          # lib/env.ts validates DATABASE_URL and AUTH_SECRET (min 32 chars),
+          # and nothing named NEXTAUTH_*.
           SKIP_ENV_VALIDATION: "1"
-          RESEND_API_KEY: "re_dummy_for_ci_build"
           DATABASE_URL: "postgres://dummy:dummy@localhost:5432/dummy"
-          NEXTAUTH_SECRET: "dummy_for_ci_build"
-          NEXTAUTH_URL: "http://localhost:3026"
+          AUTH_SECRET: "ci_build_dummy_value_not_a_real_secret_0000"
+          RESEND_API_KEY: "re_dummy_for_ci_build"
 
   # The published self-host stack has to stay parseable and internally
   # consistent. `docker compose config` resolves every variable reference and
