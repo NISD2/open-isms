@@ -3,6 +3,10 @@ name: Release
 on:
   push:
     tags: ["v*"]
+  # Exercises the whole pipeline without cutting a release: both architectures
+  # build, nothing is pushed, nothing is published, no tag moves. Use it before
+  # the first real tag, and after any edit to this file.
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,7 +21,7 @@ env:
 
 jobs:
   release:
-    if: github.repository == 'NISD2/open-isms'
+    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -71,6 +75,7 @@ jobs:
       - uses: docker/setup-buildx-action@v3
 
       - uses: docker/login-action@v3
+        if: github.event_name == 'push'
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -80,7 +85,11 @@ jobs:
       # the image tag and to the release name the update check compares
       # against. Three spellings of the same version is one too many.
       - id: version
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+        run: |
+          case "${GITHUB_REF}" in
+            refs/tags/v*) echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT" ;;
+            *) echo "version=dev" >> "$GITHUB_OUTPUT" ;;
+          esac
 
       - name: Build and push by digest
         id: build
@@ -90,27 +99,42 @@ jobs:
           platforms: ${{ matrix.platform }}
           build-args: |
             APP_VERSION=${{ steps.version.outputs.version }}
-          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=${{ github.event_name == 'push' }}
           # An SBOM and full provenance travel with the image. We sell supply
           # chain compliance and teach the CRA's SBOM obligations; shipping
           # binaries whose contents nobody can enumerate would be hard to
           # defend. It also gives self-hosters a way to answer "does this
           # instance contain the library in today's advisory" without asking
-          # us. Verify both survive the manifest merge on the first release.
+          # us.
+          #
+          # Both survive the merge below: `imagetools create` copies each
+          # architecture's attestation manifest alongside its image and keeps
+          # the cross-reference, so the merged index holds four manifests
+          # rather than two. Verified against a registry before this shipped.
           sbom: true
           provenance: mode=max
           cache-from: type=gha,scope=${{ matrix.platform }}
           cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
 
+      # The digest output carries its `sha256:` prefix. The merge step below
+      # re-applies it, so it comes off here — otherwise the filename round-trips
+      # into `@sha256:sha256:...`, which is not a reference anything can pull.
       - name: Export digest
+        if: github.event_name == 'push'
         run: |
           mkdir -p /tmp/digests
-          touch "/tmp/digests/${{ steps.build.outputs.digest }}"
+          touch "/tmp/digests/${DIGEST#sha256:}"
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
 
       - uses: actions/upload-artifact@v4
+        if: github.event_name == 'push'
         with:
           name: digest-${{ strategy.job-index }}
           path: /tmp/digests/*
+          # An empty artifact would surface as an unreadable reference in the
+          # merge below rather than as a missing digest here.
+          if-no-files-found: error
           retention-days: 1
 
   # Joins the per-architecture digests into one multi-arch manifest and gives
@@ -118,7 +142,7 @@ jobs:
   # after the upgrade gate below, so a release that cannot be upgraded into
   # never becomes the version new self-hosters pull.
   manifest:
-    if: github.repository == 'NISD2/open-isms'
+    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
     needs: image
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -128,7 +152,7 @@ jobs:
       id-token: write
       attestations: write
     outputs:
-      version: ${{ steps.version.outputs.version }}
+      version: ${{ steps.meta.outputs.version }}
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -144,23 +168,30 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - id: version
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+      # Tag computation belongs to metadata-action, not to shell. The floating
+      # minor tag must not move for a prerelease — `${version%.*}` of 1.4.2-rc1
+      # is 1.4 — and `enable` states that outright rather than depending on how
+      # the action happens to treat a hyphen. `stable` is deliberately absent:
+      # it moves in `promote`, after the gate.
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}},enable=${{ !contains(github.ref_name, '-') }}
 
       - name: Create manifest
         working-directory: /tmp/digests
         run: |
-          version="${{ steps.version.outputs.version }}"
-          minor="${version%.*}"
           docker buildx imagetools create \
-            -t "${IMAGE}:${version}" \
-            -t "${IMAGE}:${minor}" \
+            $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
             $(printf "${IMAGE}@sha256:%s " *)
 
       - name: Read manifest digest
         id: digest
         run: |
-          digest=$(docker buildx imagetools inspect "${IMAGE}:${{ steps.version.outputs.version }}" --format '{{json .Manifest.Digest}}' | tr -d '"')
+          digest=$(docker buildx imagetools inspect "${IMAGE}:${{ steps.meta.outputs.version }}" --format '{{json .Manifest.Digest}}' | tr -d '"')
           echo "digest=${digest}" >> "$GITHUB_OUTPUT"
 
       # Signs the manifest with the workflow's own identity, so anyone pulling
@@ -184,7 +215,7 @@ jobs:
   # backward incompatibility beyond the schema (health only proves the process
   # serves). Both are covered by policy, see docs/migration-policy.md.
   upgrade-gate:
-    if: github.repository == 'NISD2/open-isms'
+    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push'
     needs: manifest
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -213,6 +244,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      # First, and before any login: everything below this point authenticates,
+      # so this is the only step that exercises the path a self-hoster's docker
+      # actually takes.
+      - name: The published image is pullable without credentials
+        run: bash scripts/ci/assert-public-pull.sh "${IMAGE}" "${VERSION}"
+
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -226,7 +263,11 @@ jobs:
             | grep -v -- '-' \
             | grep -v "^v${VERSION}$" \
             | head -1)
-          echo "tag=${previous}" >> "$GITHUB_OUTPUT"
+          # Git tags carry the leading v, image tags never do. Strip it here or
+          # the pull below asks the registry for a tag that was never pushed —
+          # which no first release can catch, because it has no previous to
+          # upgrade from.
+          echo "tag=${previous#v}" >> "$GITHUB_OUTPUT"
           if [ -z "${previous}" ]; then
             echo "::notice::No earlier release exists — testing a fresh install only."
           else
@@ -290,7 +331,7 @@ jobs:
   # It moves last, and only for a final release — a prerelease tag builds and
   # publishes under its own version but never becomes what everyone else gets.
   promote:
-    if: github.repository == 'NISD2/open-isms' && !contains(github.ref_name, '-')
+    if: github.repository == 'NISD2/open-isms' && github.event_name == 'push' && !contains(github.ref_name, '-')
     needs: [release, manifest, upgrade-gate]
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -298,6 +339,9 @@ jobs:
       contents: read
       packages: write
     steps:
+      # Only for scripts/ci/assert-public-pull.sh below.
+      - uses: actions/checkout@v7
+
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -310,3 +354,8 @@ jobs:
             -t "${IMAGE}:stable" \
             "${IMAGE}:${{ needs.manifest.outputs.version }}"
           echo "::notice::stable now points at ${{ needs.manifest.outputs.version }}"
+
+      # `stable` is what the compose file defaults to, so it is the one tag
+      # whose anonymous reachability decides whether a fresh install works.
+      - name: Stable is pullable without credentials
+        run: bash scripts/ci/assert-public-pull.sh "${IMAGE}" stable
