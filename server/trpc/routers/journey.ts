@@ -3,11 +3,9 @@ import { z } from "zod";
 import { router, companyProcedure } from "../init";
 import {
   companyRequirementStatus,
-  companyAssessment,
   requirement,
   requirementCategory,
   requirementAssignment,
-  complianceFramework,
   user,
 } from "@/schema";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
@@ -16,6 +14,7 @@ import {
   getRequirementTitle,
   getRequirementDescription,
 } from "@/lib/messages";
+import { getNis2Assessment } from "../helpers/nis2-scope";
 
 /**
  * Terminal/done statuses. "completed" is the normal user sign-off result,
@@ -58,14 +57,6 @@ export const journeyRouter = router({
     .query(async ({ ctx, input }) => {
     const cid = ctx.companyId;
 
-    // Resolve the NIS2 framework. Without this filter, a company with both
-    // NIS2 and GDPR assessments would get whichever was inserted first —
-    // typically GDPR for our seed data — and the projection would silently
-    // fall apart because category codes won't match CISO_CATS / MSP_CATS.
-    const nis2 = await ctx.db.query.complianceFramework.findFirst({
-      where: eq(complianceFramework.code, "nis2"),
-      columns: { id: true },
-    });
     const emptyAggregate = {
       total: 0,
       done: 0,
@@ -75,17 +66,11 @@ export const journeyRouter = router({
       open: 0,
     };
 
-    if (!nis2) {
-      return { items: [], isManagement: false, aggregate: emptyAggregate };
-    }
-
-    const assessment = await ctx.db.query.companyAssessment.findFirst({
-      where: and(
-        eq(companyAssessment.companyId, cid),
-        eq(companyAssessment.frameworkId, nis2.id),
-      ),
-      columns: { id: true },
-    });
+    // NIS 2 only. Without this filter a company holding both a NIS 2 and a
+    // GDPR assessment would get whichever was inserted first, and the
+    // projection would silently fall apart because category codes would not
+    // match CISO_CATS / MSP_CATS.
+    const assessment = await getNis2Assessment(ctx.db, cid);
     if (!assessment) {
       return { items: [], isManagement: false, aggregate: emptyAggregate };
     }

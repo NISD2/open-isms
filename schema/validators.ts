@@ -500,14 +500,33 @@ export const supplierInsertSchema = createInsertSchema(supplier, {
   incidentSlaHours: z.number().int().positive().max(168).nullish(),
 });
 export const supplierSelectSchema = createSelectSchema(supplier);
-export const supplierUpdateSchema = supplierInsertSchema
-  .partial()
-  .omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
-    customerCompanyId: true,
-  });
+/**
+ * Note what is omitted beyond the usual meta, and why.
+ *
+ * `unsubscribeToken` is the supplier portal's bearer credential: holding it
+ * grants read access to that supplier's data and the right to revoke the
+ * relationship, with no account. Leaving it writable let the customer-side
+ * tenant mint or overwrite it through an ordinary supplier edit.
+ *
+ * `supplierCompanyId` is the identity the relationship points at, and `status`
+ * / `unsubscribedAt` / `confirmedAt` are the lifecycle the supplier controls
+ * from their side — a customer able to set them can undo a revocation the
+ * supplier performed.
+ *
+ * None of these are fields a form posts; they were reachable only because the
+ * omit list named individual columns and stopped at the obvious ones.
+ * omitTenantMeta does not apply here: the supplier row is bilateral and has no
+ * companyId, which is exactly why it slipped past the convention.
+ */
+export const supplierUpdateSchema = supplierInsertSchema.partial().omit({
+  ...omitMeta,
+  customerCompanyId: true,
+  supplierCompanyId: true,
+  unsubscribeToken: true,
+  status: true,
+  confirmedAt: true,
+  unsubscribedAt: true,
+});
 
 /**
  * Layer 2 — Per-customer contract clauses (supplier portal).
@@ -545,7 +564,13 @@ export const trainingInsertSchema = createInsertSchema(trainingRecord, {
   durationMinutes: z.number().int().positive().nullish(),
 });
 export const trainingSelectSchema = createSelectSchema(trainingRecord);
-export const trainingUpdateSchema = trainingInsertSchema.partial().omit(omitAudit);
+// companyId must be stripped here too. omitAudit alone leaves it in the
+// input, and training.update writes it straight to the row — the
+// mass-assignment omitTenantMeta exists to prevent. omitTenantMeta itself
+// does not fit: training_record has no updatedAt column for it to omit.
+export const trainingUpdateSchema = trainingInsertSchema
+  .partial()
+  .omit({ ...omitAudit, companyId: true });
 
 // ============================================================================
 // Notifications

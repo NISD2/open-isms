@@ -10,13 +10,12 @@
  */
 import { eq, and, sql, inArray } from "drizzle-orm";
 import {
-  companyAssessment,
   companyRequirementStatus,
-  complianceFramework,
   requirement,
 } from "@/schema";
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
+import { getNis2AssessmentIds } from "@/server/trpc/helpers/nis2-scope";
 
 const TABLE_COUNT_SQL: Record<string, (db: DbOrTx, companyId: string) => Promise<number>> = {};
 
@@ -62,23 +61,8 @@ async function revertSignOffs(
   // NIS 2 only. Unscoped, an operational-module edit reverted hidden GDPR /
   // AI Act / CRA sign-offs too and wrote their codes into the audit-log entry
   // the user reads on /audit ("reverted 7 requirement(s): NIS2-2.1, DSGVO-30, ...").
-  const assessments = await db
-    .select({ id: companyAssessment.id })
-    .from(companyAssessment)
-    .innerJoin(
-      complianceFramework,
-      eq(complianceFramework.id, companyAssessment.frameworkId),
-    )
-    .where(
-      and(
-        eq(companyAssessment.companyId, ctx.companyId),
-        eq(complianceFramework.code, "nis2"),
-      ),
-    );
-
-  if (assessments.length === 0) return;
-
-  const assessmentIds = assessments.map((a) => a.id);
+  const assessmentIds = await getNis2AssessmentIds(db, ctx.companyId);
+  if (assessmentIds.length === 0) return;
 
   const toRevert = await db
     .select({

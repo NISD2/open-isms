@@ -4,7 +4,7 @@ import {
   companyRequirementStatus,
   complianceFramework,
 } from "@/schema";
-import type { Database } from "@/lib/db";
+import type { DbOrTx } from "@/lib/db";
 
 /**
  * NIS 2 is the only framework the product surfaces.
@@ -29,7 +29,7 @@ export const NIS2_FRAMEWORK_CODE = "nis2" as const;
 
 /** The NIS 2 framework row id, or null when it has not been seeded. */
 export async function getNis2FrameworkId(
-  db: Database,
+  db: DbOrTx,
 ): Promise<string | null> {
   const framework = await db.query.complianceFramework.findFirst({
     where: eq(complianceFramework.code, NIS2_FRAMEWORK_CODE),
@@ -45,7 +45,7 @@ export async function getNis2FrameworkId(
  * safe direction.
  */
 export async function getNis2AssessmentIds(
-  db: Database,
+  db: DbOrTx,
   companyId: string,
 ): Promise<string[]> {
   const frameworkId = await getNis2FrameworkId(db);
@@ -61,6 +61,23 @@ export async function getNis2AssessmentIds(
       ),
     );
   return rows.map((r) => r.id);
+}
+
+/**
+ * A company's single NIS 2 assessment, or null. The shape three callers wanted
+ * after resolving the framework id by hand.
+ */
+export async function getNis2Assessment(db: DbOrTx, companyId: string) {
+  const frameworkId = await getNis2FrameworkId(db);
+  if (!frameworkId) return null;
+  return (
+    (await db.query.companyAssessment.findFirst({
+      where: and(
+        eq(companyAssessment.companyId, companyId),
+        eq(companyAssessment.frameworkId, frameworkId),
+      ),
+    })) ?? null
+  );
 }
 
 /**
@@ -82,7 +99,7 @@ export async function getNis2AssessmentIds(
  * builder survives the remapping. `bun run e2e/l0/nis2-scope.test.ts` pins the
  * compiled SQL; the browser suite never hits this route.
  */
-export function nis2StatusScope(db: Database) {
+export function nis2StatusScope(db: DbOrTx) {
   return inArray(
     companyRequirementStatus.assessmentId,
     db
