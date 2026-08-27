@@ -7,9 +7,11 @@ This guide is written to be followed straight through by a person or by an AI ag
 ## What you need before you start
 
 - Docker with Compose v2 (`docker compose version` prints v2.x or later)
-- 8 GB RAM available to Docker. The Next.js build peaks around 3.5 GB.
+- An x86-64 or ARM64 machine. Every release publishes both, each built on its own native runner, so an ARM NAS or a Raspberry Pi pulls the same version an Intel server does. `docker pull` picks the right one with no flags.
 - A Postgres 16 or 17 database. The compose file brings its own; skip it if you have one.
-- 20 minutes, most of which is the first image build.
+- Around ten minutes, most of it spent pulling images.
+
+Nothing is compiled on your machine, so the old 8 GB figure applies only if you deliberately [build from source](#building-from-source-instead). What the running stack needs on small hardware we have not measured yet. If you put this on a NAS or a modest VPS, an issue saying what it actually used would be useful.
 
 You do **not** need an AWS account, an AI provider, or a Google Cloud project. Evidence files can go in a MinIO container that ships with this stack. You do need a way to send email before a human can register. See [Third-party services](#third-party-services).
 
@@ -62,11 +64,12 @@ version pins you there. Updating, rolling back, and what happens when a
 migration fails are all in **[updating.md](./updating.md)**. Backups and the
 restore procedure are in **[backup.md](./backup.md)**.
 
-One caveat to the "no clone" claim, and it is the next thing being fixed: the
-framework data is seeded by a script that is not yet inside the image, so
-that single step still needs a checkout and `bun`. See
-[Load the framework data](#load-the-framework-data). Everything after it,
-including every update, is image-only.
+One caveat to the "no clone" claim: the framework data is seeded by a script
+that is not yet inside the image, so that single step still needs a checkout
+and `bun`. Skip it and the portal loads with zero requirements in it, which
+looks like a broken install and is not. See
+[Load the framework data](#load-the-framework-data). Everything after that
+step, including every update, is image-only.
 
 ### Building from source instead
 
@@ -239,7 +242,8 @@ Two things to back up if you run the bundled MinIO, not one: the Postgres databa
 | Upload rejected, MinIO logs mention server-side encryption | `MINIO_KMS_KEY` is unset or is not 32 bytes of base64. |
 | Upload works, deleting an evidence file fails | `AWS_S3_INTERNAL_ENDPOINT` is wrong. Presigning is offline so uploads never noticed; deletion is the first call the server actually makes. |
 | `Bind for 0.0.0.0:9000 failed: port is already allocated` | Something else on the box uses 9000. Set `MINIO_PORT` and match `AWS_S3_ENDPOINT` to it. |
-| Build killed at exit code 137 | Docker has under 4 GB. Raise the memory limit. |
+| Build killed at exit code 137 | Only reachable when building from source. Docker has under 4 GB; raise the memory limit. A normal install pulls the image and never compiles anything. |
+| `no matching manifest for linux/...` | The architecture is neither x86-64 nor ARM64. Those are the two published; nothing else has an image. |
 
 ## The other compose file
 
