@@ -68,9 +68,7 @@
   "exclude": [
     "node_modules",
     "apps",
-    "scripts/release.ts",
     "scripts/publish-all.ts",
-    "scripts/check-versions.ts",
     "scripts/audit-dep-graph.ts",
     "scripts/i18n",
     "**/*.test.ts",
