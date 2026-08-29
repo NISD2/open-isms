@@ -26,9 +26,30 @@ function GithubIcon({ className }: { className?: string }) {
   );
 }
 
-export async function PublicNav() {
+/**
+ * The site header, in two variants.
+ *
+ * `site` is the marketing and portal one: fixed to the viewport, shows the
+ * signed-in user, offers the locale switcher.
+ *
+ * `docs` is the same header, in the same place, above /docs — which is a
+ * section of this site and should not announce itself as a different one.
+ * Two differences, both forced rather than chosen:
+ *
+ *   - It does not call auth(). Reading the session cookie would make all
+ *     twenty-four documentation pages render per request instead of being
+ *     prerendered, which is a poor trade for showing an avatar.
+ *   - No locale switcher. Those pages exist in English at one URL each, so
+ *     the switcher would offer nine languages and navigate to a 404.
+ *
+ * The docs tree calls setRequestLocale("en") and wraps this in
+ * NextIntlClientProvider, which is what lets getTranslations and the
+ * localized Link work outside [locale].
+ */
+export async function PublicNav({ variant = "site" }: { variant?: "site" | "docs" } = {}) {
   const t = await getTranslations("landing");
-  const session = await auth();
+  const isDocs = variant === "docs";
+  const session = isDocs ? null : await auth();
   const user = session?.user;
 
   return (
@@ -61,7 +82,12 @@ export async function PublicNav() {
             */}
             <a
               href="/docs"
-              className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+              aria-current={isDocs ? "page" : undefined}
+              className={
+                isDocs
+                  ? "hidden text-sm font-medium text-foreground sm:block"
+                  : "hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+              }
             >
               Docs
             </a>
@@ -81,7 +107,7 @@ export async function PublicNav() {
                 <GithubIcon className="size-4" />
               </a>
             </Button>
-            <LocaleSwitcher />
+            {isDocs ? null : <LocaleSwitcher />}
             {user ? (
               <Button size="sm" variant="outline" asChild>
                 <Link href={"/dashboard" as never}>

@@ -25,7 +25,10 @@ export function TableOfContents({ headings }: { headings: readonly Heading[] }) 
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
         if (visible[0]) setActiveId(visible[0].target.id);
       },
-      { rootMargin: "-80px 0px -70% 0px", threshold: 0 },
+      // Top margin matches the stacked header (site nav 56px + docs bar 48px),
+      // so a heading counts as current once it clears both, not once it
+      // touches the window edge and disappears under them.
+      { rootMargin: "-112px 0px -70% 0px", threshold: 0 },
     );
 
     for (const heading of headings) {

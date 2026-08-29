@@ -60,7 +60,7 @@ const SHORTCUTS = [
 
 export default function DocsHome() {
   return (
-    <div className="py-14">
+    <div>
       {/*
         One CollectionPage listing every article, so a crawler reaches the
         whole tree from the hub and an answer engine sees these as one body

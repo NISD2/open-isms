@@ -53,7 +53,7 @@ export default async function DocsPage({ params }: DocsParams) {
   const { previous, next } = neighbours(path);
 
   return (
-    <div className="flex gap-10 py-10">
+    <div className="flex gap-8">
       {/*
         TechArticle plus BreadcrumbList. The breadcrumb is what a search
         result renders as a path instead of a bare URL, and on a tree this
@@ -63,7 +63,7 @@ export default async function DocsPage({ params }: DocsParams) {
       <JsonLd data={docsArticleJsonLd(entry)} />
       <JsonLd data={docsBreadcrumbJsonLd(entry)} />
 
-      <article className="min-w-0 max-w-2xl flex-1">
+      <article className="min-w-0 max-w-3xl flex-1">
         <nav
           aria-label="Breadcrumb"
           className="flex items-center gap-1.5 text-sm text-muted-foreground"
@@ -135,7 +135,7 @@ export default async function DocsPage({ params }: DocsParams) {
         </nav>
       </article>
 
-      <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-56 shrink-0 overflow-y-auto py-2 xl:block">
+      <aside className="sticky top-20 hidden h-[calc(100vh-6rem)] w-48 shrink-0 overflow-y-auto py-2 xl:block">
         <TableOfContents headings={headings} />
       </aside>
     </div>

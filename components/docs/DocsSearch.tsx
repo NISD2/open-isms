@@ -38,11 +38,11 @@ export function DocsSearch() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex h-8 items-center gap-2 rounded-md border border-border bg-muted/40 pl-2.5 pr-2 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted sm:w-56"
+        className="flex h-8 w-full items-center gap-2 rounded-md border border-border bg-muted/40 pl-2.5 pr-2 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted"
       >
         <Search className="size-3.5 shrink-0" aria-hidden="true" />
-        <span className="hidden sm:inline">Search docs</span>
-        <kbd className="ml-auto hidden rounded border border-border bg-background px-1.5 font-mono text-[0.6875rem] text-muted-foreground sm:inline">
+        <span>Search docs</span>
+        <kbd className="ml-auto hidden shrink-0 rounded border border-border bg-background px-1.5 font-mono text-[0.6875rem] text-muted-foreground sm:inline">
           ⌘K
         </kbd>
       </button>

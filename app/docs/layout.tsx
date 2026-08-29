@@ -1,22 +1,37 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Shield } from "lucide-react";
+import { NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { PublicNav } from "@/components/PublicNav";
+import { PublicFooter } from "@/components/PublicFooter";
 import { DocsSidebar } from "@/components/docs/DocsSidebar";
 import { DocsSearch } from "@/components/docs/DocsSearch";
 import { MobileNav } from "@/components/docs/MobileNav";
 import "./docs.css";
 
 /**
- * /docs lives outside app/[locale] on purpose.
+ * /docs is a section of this website, laid out the way /wiki is: the site's
+ * own header, one `max-w-6xl` column, the site's footer. It had a header,
+ * container width and footer of its own for about a day, and the result read
+ * as a different site that happened to share a domain.
  *
- * The marketing site and the portal are translated into ten languages and
- * routed by next-intl. These pages are English only and have one canonical
- * URL each, so they skip the locale segment entirely — which also keeps ten
- * duplicate URLs per page out of the index. proxy.ts bypasses the i18n
- * middleware for this prefix.
+ * The one structural difference from /wiki is the route, not the chrome:
+ * these pages sit outside app/[locale] because they are English only and
+ * have one canonical URL each, where ten locale variants of a `docker
+ * compose` walkthrough would be ten more things to keep true. Two
+ * consequences follow, and both are handled here rather than pushed into the
+ * shared components:
+ *
+ *   - `setRequestLocale("en")` gives next-intl a locale to work from. Without
+ *     it the request config falls back to the default, and the site header
+ *     would render in German above English documentation.
+ *   - `NextIntlClientProvider` is what the client half needs. next-intl's
+ *     Link is a client component that reads the locale from context, so
+ *     without a provider the header throws "No intl context found".
+ *
+ * No messages are passed to the provider. Nothing in this subtree calls
+ * useTranslations on the client, and the `info` namespace alone is ~1.8 MB
+ * per locale — the locale layout trims it for the same reason.
  */
-
-const GITHUB_URL = "https://github.com/NISD2/open-isms";
 
 export const metadata: Metadata = {
   title: {
@@ -32,102 +47,41 @@ export const metadata: Metadata = {
   },
 };
 
-function GithubIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-      <path d="M9 18c-4.51 2-5-2-7-2" />
-    </svg>
-  );
-}
-
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
+  setRequestLocale("en");
+
   return (
     <html lang="en" className="scroll-smooth">
       <body className="docs-root min-h-screen bg-background text-foreground antialiased">
-        <a href="#docs-content" className="docs-skip-link">
-          Skip to content
-        </a>
-        <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-sm">
-          <div className="mx-auto flex h-14 max-w-[92rem] items-center gap-3 px-4 sm:px-6">
-            <MobileNav />
+        <NextIntlClientProvider locale="en" messages={{}}>
+          <a href="#docs-content" className="docs-skip-link">
+            Skip to content
+          </a>
 
-            <Link href="/docs" className="flex items-center gap-2.5">
-              <span className="flex size-7 items-center justify-center rounded-lg bg-primary">
-                <Shield className="size-3.5 text-primary-foreground" />
-              </span>
-              <span className="text-sm font-semibold tracking-tight">open-isms</span>
-              <span className="rounded border border-border px-1.5 py-0.5 text-[0.625rem] font-medium uppercase tracking-wider text-muted-foreground">
-                Docs
-              </span>
-            </Link>
+          <PublicNav variant="docs" />
 
-            <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          <main className="mx-auto flex max-w-6xl gap-8 px-6 pt-16 pb-16 sm:pt-20 lg:px-0">
+            {/*
+              Search sits at the top of the documentation's own column rather
+              than in a second global bar. One header, and the tool that only
+              this section needs stays inside this section.
+            */}
+            <aside className="sticky top-20 hidden h-[calc(100vh-6rem)] w-52 shrink-0 flex-col gap-6 overflow-y-auto py-2 pr-4 lg:flex">
               <DocsSearch />
-              <a
-                href="https://www.nisd2.eu"
-                className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:block"
-              >
-                nisd2.eu
-              </a>
-              <a
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="open-isms on GitHub"
-                className="flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <GithubIcon className="size-4" />
-              </a>
+              <DocsSidebar />
+            </aside>
+
+            <div id="docs-content" className="min-w-0 flex-1">
+              <div className="mb-6 flex items-center gap-3 lg:hidden">
+                <MobileNav />
+                <DocsSearch />
+              </div>
+              {children}
             </div>
-          </div>
-        </header>
+          </main>
 
-        <div className="mx-auto flex max-w-[92rem] px-4 sm:px-6">
-          <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-56 shrink-0 overflow-y-auto py-10 pr-6 lg:block">
-            <DocsSidebar />
-          </aside>
-
-          <div id="docs-content" className="min-w-0 flex-1">
-            {children}
-          </div>
-        </div>
-
-        <footer className="mt-16 border-t border-border/60">
-          <div className="mx-auto flex max-w-[92rem] flex-col gap-2 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <p>
-              open-isms is free software under{" "}
-              <a
-                href={`${GITHUB_URL}/blob/main/LICENSE`}
-                className="underline underline-offset-4 hover:text-foreground"
-              >
-                AGPL-3.0-or-later
-              </a>
-              .
-            </p>
-            <p className="flex gap-4">
-              <a href={`${GITHUB_URL}/issues`} className="hover:text-foreground">
-                Issues
-              </a>
-              <a href={`${GITHUB_URL}/discussions`} className="hover:text-foreground">
-                Discussions
-              </a>
-              <a href="https://www.nisd2.eu" className="hover:text-foreground">
-                nisd2.eu
-              </a>
-            </p>
-          </div>
-        </footer>
+          <PublicFooter variant="docs" />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

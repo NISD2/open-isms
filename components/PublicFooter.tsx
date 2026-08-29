@@ -2,7 +2,15 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
-export async function PublicFooter() {
+/**
+ * `variant="docs"` drops the locale switcher and nothing else. /docs is a
+ * section of this site and gets the same footer, but its pages exist in
+ * English at one URL each, so switching locale there would navigate to a
+ * page that does not exist.
+ */
+export async function PublicFooter({
+  variant = "site",
+}: { variant?: "site" | "docs" } = {}) {
   const t = await getTranslations("info");
 
   return (
@@ -157,7 +165,7 @@ export async function PublicFooter() {
             <p className="text-xs text-muted-foreground">
               &copy; {new Date().getFullYear()} {t("footer.copyright")}
             </p>
-            <LocaleSwitcher />
+            {variant === "docs" ? null : <LocaleSwitcher />}
           </div>
           <p className="mt-3 text-xs text-muted-foreground/60">
             {t("footer.disclaimer")}
