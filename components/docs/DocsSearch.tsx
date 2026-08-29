@@ -106,7 +106,7 @@ export function DocsSearchTrigger() {
       // next to the full navigation tree, and a flex item shrinks past its
       // height when the column overflows. Without it the button collapsed
       // onto its own icon and label.
-      className="flex h-9 w-full shrink-0 items-center gap-2 rounded-md border border-border bg-muted/40 pl-3 pr-2.5 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted"
+      className="flex h-8 w-full shrink-0 items-center gap-2 rounded-md border border-border bg-muted/40 pl-3 pr-2.5 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted"
     >
       <Search className="size-3.5 shrink-0" aria-hidden="true" />
       <span>Search docs</span>
