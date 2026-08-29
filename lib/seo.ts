@@ -726,7 +726,7 @@ export function buildSoftwareApplicationJsonLd(input: {
     ...(input.featureList && input.featureList.length > 0
       ? { featureList: input.featureList }
       : {}),
-    license: "https://opensource.org/licenses/Apache-2.0",
+    license: "https://www.gnu.org/licenses/agpl-3.0.html",
   };
 }
 

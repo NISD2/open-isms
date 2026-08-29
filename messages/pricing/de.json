@@ -2,12 +2,12 @@
   "pricing": {
     "meta": {
       "title": "Preise - NIS2-Compliance-Plattform",
-      "description": "Zwei Wege, die Plattform zu nutzen. Gehostet auf nis2.eu, kostenlos für immer. Self-Hosting unter AGPL-3.0: Zahlen Sie, was Sie können, als einmalige, lebenslange Lizenz."
+      "description": "Die Plattform ist kostenlos, dauerhaft. Gehostet auf nisd2.eu oder im Selbstbetrieb auf eigener Infrastruktur, Quellcode offen unter AGPL-3.0. Kein Vertrag, keine Freischaltung, kein Lock-in."
     },
     "title": "Preise",
-    "subtitle": "Zwei Wege, die Plattform zu nutzen. Wählen Sie einen.",
+    "subtitle": "Kostenlos, dauerhaft. Sie entscheiden nur, wer sie betreibt.",
     "free": {
-      "name": "Gehostet auf nis2.eu",
+      "name": "Gehostet auf nisd2.eu",
       "description": "Die vollständige Plattform, von uns auf EU-Infrastruktur betrieben.",
       "price": "0 €",
       "priceSub": "für immer",
@@ -22,22 +22,25 @@
         "f7": "Unbegrenzte Teammitglieder",
         "f8": "Risiko-, Asset- und Lieferantenregister",
         "f9": "KI-gestützte Formularausfüllung",
-        "f10": "Kein Lock-in. Open Source Datenmodell. Jederzeit exportierbar."
+        "f10": "Kein Lock-in. Offenes Datenmodell. Export jederzeit, auch in den Selbstbetrieb."
       }
     },
     "selfHost": {
-      "name": "Self-Hosting",
-      "description": "Vollständiger Quellcode. Auf eigener Infrastruktur betreiben, dauerhaft.",
-      "price": "Zahlen Sie, was Sie können",
-      "priceSub": "einmalig, lebenslange Lizenz",
-      "cta": "Kontakt aufnehmen",
+      "name": "Selbstbetrieb",
+      "description": "Vollständiger Quellcode. Auf eigener Infrastruktur, dauerhaft.",
+      "price": "0 €",
+      "priceSub": "für immer",
+      "cta": "Zum Quellcode",
       "features": {
-        "h1": "Vollständiger Plattform-Quellcode unter AGPL-3.0",
-        "h2": "Alle künftigen Updates inklusive",
+        "h1": "Vollständiger Plattform-Quellcode, offen unter AGPL-3.0",
+        "h2": "Alle künftigen Updates inklusive, dauerhaft",
         "h3": "Auf eigener Infrastruktur, mit eigenen Daten",
-        "h4": "Persönlicher Ansprechpartner per E-Mail und Signal"
+        "h4": "Kein Vertrag, keine Freischaltung, keine Anmeldung bei uns",
+        "h5": "Ihren Stand von nisd2.eu exportieren und selbst weiterbetreiben",
+        "h6": "Direkter Kontakt per E-Mail und Signal"
       }
     },
+    "whyFree": "Warum kostenlos: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Geld nehmen wir perspektivisch für Schulungen und Beratung, nicht für die Plattform.",
     "consultantFootnote": "Brauchen Sie einen NIS2-Berater? Wir vermitteln geprüfte Fachleute, kostenlos für Sie.",
     "consultantCta": "Berater anfragen"
   }

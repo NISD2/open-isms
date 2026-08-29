@@ -2,12 +2,12 @@
   "pricing": {
     "meta": {
       "title": "Pricing - NIS2 Compliance Platform",
-      "description": "Two ways to run the platform. Hosted at nis2.eu, free forever. Self-host under AGPL-3.0: pay what you can, one-time, lifetime licence."
+      "description": "The platform is free, permanently. Hosted at nisd2.eu, or self-hosted on your own infrastructure, source open under AGPL-3.0. No contract, no activation, no lock-in."
     },
     "title": "Pricing",
-    "subtitle": "Two ways to run the platform. Pick one.",
+    "subtitle": "Free, permanently. The only choice is who runs it.",
     "free": {
-      "name": "Hosted at nis2.eu",
+      "name": "Hosted at nisd2.eu",
       "description": "The full platform, operated by us on EU infrastructure.",
       "price": "€0",
       "priceSub": "forever",
@@ -22,22 +22,25 @@
         "f7": "Unlimited team members",
         "f8": "Risk, asset, and supplier registers",
         "f9": "AI-powered form assistance",
-        "f10": "Kein Lock-in. Open Source data model. Export anytime."
+        "f10": "No lock-in. Open data model. Export anytime, including into self-hosting."
       }
     },
     "selfHost": {
       "name": "Self-host",
-      "description": "Full source code. Run it on your own infrastructure, forever.",
-      "price": "Pay what you can",
-      "priceSub": "one-time, lifetime licence",
-      "cta": "Talk to us",
+      "description": "Full source code. On your own infrastructure, permanently.",
+      "price": "€0",
+      "priceSub": "forever",
+      "cta": "View the source",
       "features": {
-        "h1": "Full platform source under AGPL-3.0",
-        "h2": "All future updates included",
-        "h3": "Run on your own infrastructure, your own data",
-        "h4": "Named contact for email and Signal support"
+        "h1": "Full platform source, open under AGPL-3.0",
+        "h2": "All future updates included, permanently",
+        "h3": "On your own infrastructure, with your own data",
+        "h4": "No contract, no activation key, no account with us",
+        "h5": "Export your work from nisd2.eu and carry on running it yourself",
+        "h6": "Direct contact by email and Signal"
       }
     },
+    "whyFree": "Why free: the source is open on GitHub, auditable and yours to run. We expect to earn from training and consultancy, not from the platform.",
     "consultantFootnote": "Need a NIS2 consultant? We connect you with vetted specialists at no cost to you.",
     "consultantCta": "Request a consultant"
   }

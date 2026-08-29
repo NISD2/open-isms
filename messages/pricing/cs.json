@@ -2,12 +2,12 @@
   "pricing": {
     "meta": {
       "title": "Ceník - Platforma pro shodu s NIS2",
-      "description": "Dva způsoby provozu platformy. Hostováno na nis2.eu, navždy zdarma. Vlastní hosting pod licencí AGPL-3.0: zaplaťte, kolik můžete, jako jednorázová doživotní licence."
+      "description": "Platforma je trvale zdarma. Hostovaná na nisd2.eu nebo ve vlastním provozu na vaší infrastruktuře, zdrojový kód otevřený pod AGPL-3.0. Žádná smlouva, žádná aktivace, žádný lock-in."
     },
     "title": "Ceník",
-    "subtitle": "Dva způsoby provozu platformy. Vyberte si jeden.",
+    "subtitle": "Trvale zdarma. Vybíráte jen to, kdo ji provozuje.",
     "free": {
-      "name": "Hostováno na nis2.eu",
+      "name": "Hostováno na nisd2.eu",
       "description": "Celá platforma, kterou provozujeme my na infrastruktuře v EU.",
       "price": "0 €",
       "priceSub": "navždy",
@@ -22,22 +22,25 @@
         "f7": "Neomezený počet členů týmu",
         "f8": "Registry rizik, aktiv a dodavatelů",
         "f9": "Pomoc s formuláři využívající AI",
-        "f10": "Kein Lock-in. Datový model je Open Source. Export kdykoli."
+        "f10": "Žádný lock-in. Otevřený datový model. Export kdykoli, i do vlastního provozu."
       }
     },
     "selfHost": {
-      "name": "Vlastní hosting",
-      "description": "Celý zdrojový kód. Provozujte ji na vlastní infrastruktuře, navždy.",
-      "price": "Zaplaťte, kolik můžete",
-      "priceSub": "jednorázově, doživotní licence",
-      "cta": "Spojte se s námi",
+      "name": "Vlastní provoz",
+      "description": "Celý zdrojový kód. Na vlastní infrastruktuře, trvale.",
+      "price": "0 €",
+      "priceSub": "navždy",
+      "cta": "Zobrazit zdrojový kód",
       "features": {
-        "h1": "Celý zdrojový kód platformy pod licencí AGPL-3.0",
-        "h2": "Všechny budoucí aktualizace v ceně",
-        "h3": "Provoz na vlastní infrastruktuře, s vlastními daty",
-        "h4": "Jmenovaný kontakt pro podporu přes e-mail a Signal"
+        "h1": "Celý zdrojový kód platformy, otevřený pod AGPL-3.0",
+        "h2": "Všechny budoucí aktualizace v ceně, trvale",
+        "h3": "Na vlastní infrastruktuře, s vlastními daty",
+        "h4": "Žádná smlouva, žádný aktivační klíč, žádný účet u nás",
+        "h5": "Exportujte svou práci z nisd2.eu a provozujte ji dál sami",
+        "h6": "Přímý kontakt e-mailem a přes Signal"
       }
     },
+    "whyFree": "Proč zdarma: zdrojový kód je otevřený na GitHubu, ověřitelný a můžete si ho provozovat sami. Vydělávat počítáme na školeních a poradenství, ne na platformě.",
     "consultantFootnote": "Potřebujete konzultanta pro NIS2? Spojíme vás s prověřenými specialisty, a to pro vás zdarma.",
     "consultantCta": "Vyžádat konzultanta"
   }

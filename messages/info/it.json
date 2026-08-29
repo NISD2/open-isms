@@ -1867,7 +1867,7 @@
       },
       "paid": {
         "heading": "Dove facciamo pagare",
-        "p1": "Corsi di formazione per la direzione e il personale. Consulenza guidata per decisioni specifiche all'azienda: compromessi sul trattamento del rischio, negoziazioni con i fornitori, risposta a incidenti complessi. Funzioni premium man mano che si sviluppano. Licenze self-host per i soggetti che hanno bisogno di eseguire la piattaforma internamente.",
+        "p1": "Corsi di formazione per la direzione e il personale. Consulenza guidata per decisioni specifiche all'azienda: compromessi sul trattamento del rischio, negoziazioni con i fornitori, risposta a incidenti complessi. Funzioni premium man mano che si sviluppano. Per il self-hosting non facciamo pagare nulla, il codice è aperto con AGPL-3.0.",
         "p2": "La piattaforma di conformità di base resta gratuita. Il dataset aperto resta aperto. Il principio è che il conto deve essere tagliato, non spostato su di noi."
       },
       "team": {

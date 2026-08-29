@@ -2,12 +2,12 @@
   "pricing": {
     "meta": {
       "title": "Precios - Plataforma de cumplimiento NIS2",
-      "description": "Dos formas de utilizar la plataforma. Alojada en nis2.eu, gratis para siempre. Autoalojamiento bajo AGPL-3.0: pague lo que pueda, como licencia perpetua de pago único."
+      "description": "La plataforma es gratuita, de forma permanente. Alojada en nisd2.eu o autoalojada en su propia infraestructura, código abierto bajo AGPL-3.0. Sin contrato, sin activación, sin dependencia del proveedor."
     },
     "title": "Precios",
-    "subtitle": "Dos formas de utilizar la plataforma. Elija una.",
+    "subtitle": "Gratis, de forma permanente. Lo único que elige es quién la opera.",
     "free": {
-      "name": "Alojada en nis2.eu",
+      "name": "Alojada en nisd2.eu",
       "description": "La plataforma completa, operada por nosotros en infraestructura de la UE.",
       "price": "0 €",
       "priceSub": "para siempre",
@@ -22,22 +22,25 @@
         "f7": "Miembros del equipo ilimitados",
         "f8": "Registros de riesgos, activos y proveedores",
         "f9": "Asistencia de formularios con IA",
-        "f10": "Kein Lock-in. Modelo de datos Open Source. Exporte cuando quiera."
+        "f10": "Sin dependencia del proveedor. Modelo de datos abierto. Exporte cuando quiera, también al autoalojamiento."
       }
     },
     "selfHost": {
       "name": "Autoalojamiento",
-      "description": "Código fuente completo. Ejecútelo en su propia infraestructura, para siempre.",
-      "price": "Pague lo que pueda",
-      "priceSub": "pago único, licencia perpetua",
-      "cta": "Hable con nosotros",
+      "description": "Código fuente completo. En su propia infraestructura, de forma permanente.",
+      "price": "0 €",
+      "priceSub": "para siempre",
+      "cta": "Ver el código fuente",
       "features": {
-        "h1": "Código fuente completo de la plataforma bajo AGPL-3.0",
-        "h2": "Todas las actualizaciones futuras incluidas",
-        "h3": "Ejecútela en su propia infraestructura, con sus propios datos",
-        "h4": "Contacto designado para soporte por correo electrónico y Signal"
+        "h1": "Código fuente completo de la plataforma, abierto bajo AGPL-3.0",
+        "h2": "Todas las actualizaciones futuras incluidas, de forma permanente",
+        "h3": "En su propia infraestructura, con sus propios datos",
+        "h4": "Sin contrato, sin clave de activación, sin cuenta con nosotros",
+        "h5": "Exporte su trabajo desde nisd2.eu y siga operándolo usted mismo",
+        "h6": "Contacto directo por correo electrónico y Signal"
       }
     },
+    "whyFree": "Por qué es gratis: el código está abierto en GitHub, auditable y puede ejecutarlo usted mismo. Esperamos ganar dinero con formación y consultoría, no con la plataforma.",
     "consultantFootnote": "¿Necesita un consultor de NIS2? Le ponemos en contacto con especialistas verificados sin coste alguno para usted.",
     "consultantCta": "Solicitar un consultor"
   }
