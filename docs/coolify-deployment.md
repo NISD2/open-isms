@@ -94,7 +94,7 @@ The Dockerfile's `HEALTHCHECK` hits `GET /api/health`, which checks DB connectiv
 Healthcheck behaviour:
 - Interval: 30s
 - Timeout: 5s
-- Start period: 15s (gives Next.js time to boot)
+- Start period: 60s (gives Next.js time to boot, and the migrator time to run first)
 - Retries: 3
 
 ## Ports
@@ -135,10 +135,12 @@ Then open http://localhost:3000 and http://localhost:3000/api/health.
 ## Things that intentionally do NOT happen in Docker
 
 - `bun run db:migrate` — handled by Coolify pre-deploy hook, not the Dockerfile
-- `bun run db:seed` — **local databases only**. It is not tenant-scoped: it
-  deletes every company's evidence, requirement statuses and intake answers
-  before reseeding, so it refuses any non-localhost `DATABASE_URL`. A fresh
-  production database needs no seed: framework reference data ships as a
-  migration and is applied at container start.
+- `bun run db:seed` — **local databases only**, and never needed here. It is not
+  tenant-scoped: it deletes every company's evidence, requirement statuses and
+  intake answers before reseeding, so it refuses any non-localhost
+  `DATABASE_URL`. A fresh database needs no seeding step at all: after the
+  migration chains, `scripts/runtime-migrate.mjs` checks whether the requirement
+  catalogue is empty and applies `db/framework-seed.sql` from the image if it
+  is. Framework updates after that arrive as migrations.
 - Source-map upload to error tracker — separate CI step if/when added
 - AWS credentials rotation — managed in Coolify, not baked into image

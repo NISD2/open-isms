@@ -60,8 +60,18 @@ bun run dev               # http://localhost:3026
 
 ## Quick start (self-host the whole platform)
 
-Three files and a published image. No clone, no fork, nothing compiled on your
-machine.
+One command. It checks Docker, downloads the compose file, generates the
+secrets, picks free ports, starts the stack and waits until it answers.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/NISD2/open-isms/main/install.sh | bash
+# http://localhost:3026
+```
+
+Rather read it first? `curl -fsSL … -o install.sh && less install.sh && bash install.sh`.
+
+By hand instead, three files and a published image, no clone and nothing
+compiled:
 
 ```bash
 mkdir open-isms && cd open-isms
@@ -72,11 +82,20 @@ curl -o Caddyfile    https://raw.githubusercontent.com/NISD2/open-isms/main/Cadd
 docker compose up -d                        # http://localhost:3026
 ```
 
-**[docs/self-hosting.md](./docs/self-hosting.md)** is the walkthrough: which
-values to fill in, what each of the 32 environment variables does, which
-third-party services you can do without, and what to check when something is
-wrong. **[docs/updating.md](./docs/updating.md)** covers updates and rollback,
-**[docs/backup.md](./docs/backup.md)** backup and restore.
+Nobody can register until the instance can send email, because sign-up verifies
+the address with a one-time code. Until you configure a provider, the code goes
+to the log: `docker compose logs app | grep "sign-in code"`.
+
+**[nisd2.eu/docs](https://www.nisd2.eu/docs)** is the full documentation:
+installation, every environment variable, storage, email, TLS, updates,
+backup and restore, and the platform's own data model. The same material is
+in this repository as **[docs/self-hosting.md](./docs/self-hosting.md)**,
+**[docs/updating.md](./docs/updating.md)** and
+**[docs/backup.md](./docs/backup.md)**.
+
+Framework data loads itself: the container fills an empty requirement catalogue
+from `db/framework-seed.sql` at startup, so a fresh install has NIS 2 in it
+without a checkout or a seed script.
 
 For the minimal workspace demo instead of the full platform:
 
@@ -123,13 +142,13 @@ Per framework: NIS 2 12 categories / 49 requirements, GDPR 6 / 9, EU AI Act
 | Layer | Tech |
 |---|---|
 | Framework | Next.js 16 + React 19 (App Router, SSR-first) |
-| Language | TypeScript 5.7 strict mode |
+| Language | TypeScript 6 strict mode |
 | Styling | Tailwind CSS 4 + shadcn |
 | Validation | Zod 4 |
 | ORM | Drizzle 0.45 (Postgres) |
 | API | tRPC 11 |
-| Auth | Auth.js v5 (email magic links + Google OAuth) |
-| i18n | next-intl (DE/EN/NL) |
+| Auth | Auth.js v5 (email and password, one-time code verification, optional Google OAuth) |
+| i18n | next-intl, 10 locales (DE/EN/NL/FR/IT/ES/PL/CS/PT/RO) |
 | AI | Vercel AI SDK + xAI Grok for form prefill |
 | Runtime | Bun 1.3+ |
 | Hosting | Coolify (self-hosted) |

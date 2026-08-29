@@ -1,5 +1,7 @@
 # Updating a self-hosted instance
 
+> Also published at **[nisd2.eu/docs/self-hosting/updating](https://www.nisd2.eu/docs/self-hosting/updating)**.
+
 Updates are published as versioned images at `ghcr.io/nisd2/open-isms`. You do
 not need a clone of this repository, and you never need a fork. Your
 `compose.yaml` names a tag; updating means pulling a newer image behind that
@@ -16,7 +18,7 @@ In `.env`:
 
 ```bash
 OPEN_ISMS_VERSION=stable    # follow releases
-OPEN_ISMS_VERSION=1.4.2     # stay exactly here until you decide otherwise
+OPEN_ISMS_VERSION=0.2.8     # stay exactly here until you decide otherwise
 ```
 
 `stable` moves only after a release has passed the upgrade gate in CI, which
@@ -61,7 +63,7 @@ Recover by pinning the version you were on and starting it again:
 
 ```bash
 # .env
-OPEN_ISMS_VERSION=1.4.2
+OPEN_ISMS_VERSION=0.2.7
 docker compose up -d
 ```
 
@@ -149,12 +151,12 @@ An instance with no outbound access still updates, just by hand. On a machine
 that does have access:
 
 ```bash
-docker pull ghcr.io/nisd2/open-isms:1.5.0
-docker save ghcr.io/nisd2/open-isms:1.5.0 | gzip > openisms-1.5.0.tar.gz
+docker pull ghcr.io/nisd2/open-isms:0.2.8
+docker save ghcr.io/nisd2/open-isms:0.2.8 | gzip > openisms-0.2.8.tar.gz
 ```
 
-Move the file across, then `docker load < openisms-1.5.0.tar.gz`, set
-`OPEN_ISMS_VERSION=1.5.0`, and `docker compose up -d`. Migrations apply at
+Move the file across, then `docker load < openisms-0.2.8.tar.gz`, set
+`OPEN_ISMS_VERSION=0.2.8`, and `docker compose up -d`. Migrations apply at
 startup exactly as they would otherwise. Nothing in the app reaches out on its
 own today, so an air-gapped instance needs no extra setting to keep it quiet.
 

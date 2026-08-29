@@ -75,7 +75,7 @@ services:
 
   app:
     # Pinned by tag. `stable` tracks the current release; set OPEN_ISMS_VERSION
-    # to an exact version (e.g. 1.4.2) to pin, and to roll back.
+    # to an exact version (e.g. 0.2.8) to pin, and to roll back.
     image: ghcr.io/nisd2/open-isms:${OPEN_ISMS_VERSION:-stable}
     restart: unless-stopped
     environment:
@@ -94,9 +94,11 @@ services:
       # what the release expects and tells you when an update also needs a
       # change here, instead of letting your deployment quietly drift.
       COMPOSE_REVISION: ${COMPOSE_REVISION:-1}
-      # off | notify | auto — see docs/updating.md. `notify` performs one
-      # outbound GET a day against the GitHub releases API. No instance
-      # identifier and no telemetry are sent.
+      # Not implemented: no application code reads this, and setting it has
+      # no effect today. Passed through so the variable exists where it will
+      # be read once it is built. Checking for updates is manual for now, see
+      # docs/updating.md. Planned: `notify` = one GET a day against the GitHub
+      # releases API, no instance identifier and no telemetry.
       UPDATE_MODE: ${UPDATE_MODE:-off}
       UPDATE_API_TOKEN: ${UPDATE_API_TOKEN:-}
       # Optional. Each one degrades a single feature, see docs/self-hosting.md.

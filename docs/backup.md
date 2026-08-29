@@ -1,5 +1,7 @@
 # Backup and restore
 
+> Also published at **[nisd2.eu/docs/self-hosting/backup-and-restore](https://www.nisd2.eu/docs/self-hosting/backup-and-restore)**.
+
 An instance is two stores, not one. Postgres holds the rows, including the
 storage key of every uploaded file; the object store holds the bytes. A
 database restored without its objects points at evidence that no longer

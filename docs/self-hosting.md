@@ -1,5 +1,7 @@
 # Self-hosting open-isms
 
+> Also published, with search and cross-links, at **[nisd2.eu/docs](https://www.nisd2.eu/docs)**.
+
 Run your own instance of the NIS 2 ISMS behind nisd2.eu. AGPL-3.0, no licence key, no phone-home for entitlement.
 
 This guide is written to be followed straight through by a person or by an AI agent. Every step has a command and an expected result. If a step's result does not match, stop and check the troubleshooting table at the bottom rather than continuing.
@@ -51,7 +53,7 @@ Verify the instance is actually healthy, not just serving:
 
 ```bash
 curl -s http://localhost:3026/api/health
-# {"status":"ok","version":"1.4.2","checks":{"database":"ok"}}
+# {"status":"ok","version":"0.2.8","composeRevision":"1","checks":{"database":"ok"}}
 ```
 
 The bundled Caddyfile answers 404 for this path on the public side, so the
@@ -60,16 +62,13 @@ anyone who asks exactly which advisories apply to you, and nothing that needs
 it is external.
 
 `OPEN_ISMS_VERSION` decides what you run: `stable` follows releases, an exact
-version pins you there. Updating, rolling back, and what happens when a
+version (e.g. `0.2.8`) pins you there. Updating, rolling back, and what happens when a
 migration fails are all in **[updating.md](./updating.md)**. Backups and the
 restore procedure are in **[backup.md](./backup.md)**.
 
-One caveat to the "no clone" claim: the framework data is seeded by a script
-that is not yet inside the image, so that single step still needs a checkout
-and `bun`. Skip it and the portal loads with zero requirements in it, which
-looks like a broken install and is not. See
-[Load the framework data](#load-the-framework-data). Everything after that
-step, including every update, is image-only.
+There is no caveat to the "no clone" claim any more. The framework data used to
+need a checkout and `bun`; the image now loads it itself on a first start. See
+[Framework data](#framework-data).
 
 ### Building from source instead
 
@@ -87,22 +86,46 @@ docker compose --profile minio up --build
 Drop `--profile minio` if you would rather use real S3, and fill in the `AWS_*` values instead. See [Storage for evidence uploads](#storage-for-evidence-uploads).
 
 
-## Load the framework data
+## Framework data
 
-A fresh database has zero requirements in it. Migrations create the tables; they do not populate NIS 2. The seed is a separate one-off step and it is **not** in the container image, so run it from your checkout. Compose publishes Postgres on `127.0.0.1:5432` for exactly this (loopback only, not reachable from outside the machine; change it with `POSTGRES_PORT` if that port is taken):
+Nothing to do. Migrations create the tables, and from 0.2.9 the container also
+fills them: after the chains complete it checks whether the requirement
+catalogue is empty and, if it is, applies `db/framework-seed.sql` from inside
+the image.
 
-```bash
-DATABASE_URL="postgres://openisms:YOUR_PASSWORD@localhost:5432/openisms" \
-AUTH_SECRET="$(openssl rand -base64 32)" \
-bun run drizzle/seed.ts
+```
+[migrate] all chains complete
+[seed] empty catalogue — loading db/framework-seed.sql
+[seed] loaded 165 requirements
 ```
 
-Expected: NIS 2 seeded with 12 categories and 49 requirements, then ISO 27001:2022 with 5 categories and 116 requirements, ending in `Seeded successfully`.
+On later starts it finds the data and does nothing. The guard is an empty
+catalogue, so it cannot overwrite an instance in use, and the file is
+upsert-only regardless: no deletes, no company data touched.
 
-Two caveats worth knowing before you run it:
+You get NIS 2 (12 categories, 49 requirements) active, ISO 27001:2022 (5
+categories, 116 requirements) inactive so the 87 satisfaction pairs between
+them resolve.
 
-- The seed also creates a demo tenant called **Dev GmbH** with a `dev@nis2.local` user and sample assets, risks, and suppliers. That is deliberate for evaluation and wrong for a production instance. Delete the company row afterwards if you want a clean start.
-- It needs `bun` and the repo checkout. There is no framework-only seed and no seed script inside the image yet.
+If the portal comes up empty, on an older image or because the step was
+skipped, apply the file by hand:
+
+```bash
+docker compose exec -T app cat /app/db/framework-seed.sql \
+  | docker compose exec -T postgres psql -U openisms -d openisms
+```
+
+Taking it out of the running image rather than off `main` matters when the
+version is pinned: the file writes into the schema its own release's
+migrations created.
+
+**`bun run drizzle/seed.ts` is a development tool and does not belong here.**
+It writes the same reference data plus prerequisites and a **Dev GmbH** demo
+tenant, and it clears before it writes: its delete set comes from the global
+requirement catalogue rather than one tenant, so on a database with real data
+it removes evidence links, requirement assignments, statuses, category
+assignments and intake answers **for every company**, untransacted. It refuses
+any host but localhost, which stops the accident and not an `ssh -L` tunnel.
 
 ## Storage for evidence uploads
 
@@ -139,7 +162,7 @@ Whichever you choose, uploads are the one feature that fails visibly in the brow
 
 ## Environment variables
 
-32 variables are read at runtime. You need **2** to boot, **7** for a genuinely usable instance, and the other 25 each unlock or harden one thing. Several of those are only relevant if you run this as a public service rather than for one organisation; `.env.example` marks that section so you can skip it. Full annotated list there.
+You need **2** variables to boot and **7** for a genuinely usable instance. The rest each unlock or harden exactly one thing. Several of those are only relevant if you run this as a public service rather than for one organisation; `.env.example` marks that section so you can skip it. Full annotated list there.
 
 ### Required to start at all
 
@@ -175,7 +198,6 @@ The ones worth a decision. `.env.example` carries the remainder: dev-only switch
 | `PLATFORM_ADMIN_EMAILS` | No cross-tenant `/platform-admin` tier. Most self-hosters want this unset. |
 | `SUPPORT_EMAIL`, `NEWSLETTER_REPLY_TO` | Contact addresses fall back to placeholder values. |
 | `ANALYTICS_SCRIPT_URL`, `ANALYTICS_WEBSITE_ID` | No analytics tag, which is the default. Both are required together; the CSP allows the script's origin only when the URL is set. |
-| `JOURNEY_ALLOWED_DOMAINS` | Defaults to `*`. Set an explicit comma-separated list only to narrow who reaches the guided journey. |
 | `DISABLE_EMAIL=1` | Silences all outbound email. Useful for a staging copy of production data. |
 
 ## Third-party services
@@ -211,8 +233,14 @@ Schedule two cron jobs against your public URL with an `Authorization: Bearer ${
 
 | Path | Schedule (UTC) | Purpose |
 |---|---|---|
-| `/api/cron/deadlines` | `0 6 * * *` | NIS 2 deadline reminders to assigned owners |
+| `/api/cron/deadlines` | `0 6 * * *` | The daily heartbeat: status transitions, deadline backfill, reminder scheduling, escalation, digest sending, queued supplier broadcasts, and GDPR retention on erasure records |
 | `/api/cron/course-reminders` | `0 7 * * *` | Course follow-ups for enrolled users |
+
+Calling the first one "deadline reminders" undersells it. Nothing inside the
+container has a timer, so an instance that never calls it never transitions a
+status, never escalates, never drains a queued supplier notification, and never
+minimises an erasure record past its three-year window. That last one is a
+compliance obligation of your own.
 
 For Coolify specifically, see [coolify-deployment.md](./coolify-deployment.md).
 
@@ -236,8 +264,8 @@ Two things to back up if you run the bundled MinIO, not one: the Postgres databa
 | `Environment validation failed: AUTH_SECRET` | Under 32 characters, or unset. |
 | Container restarts, logs stop after `[migrate] connected to database` | A migration failed. Read the lines above the exit; the container deliberately refuses to serve on a half-applied schema. |
 | Login redirects back to the sign-in page forever | `AUTH_URL` does not match the scheme users actually reach you on. This is the single most common self-host failure. |
-| Sign-up says the code was sent, no email arrives | `RESEND_API_KEY` unset. The send path logs `[mail] RESEND_API_KEY not set, skipping email` and reports success anyway. |
-| Portal loads but there are no requirements | The seed has not been run. See [Load the framework data](#load-the-framework-data). |
+| Sign-up says the code was sent, no email arrives | `RESEND_API_KEY` is unset, so nothing was sent. The code is in the log: `docker compose logs app \| grep "sign-in code"`. Configure a provider before inviting anyone else. |
+| Portal loads but there are no requirements | The framework data did not load. Check the log for a `[seed]` line saying why, then see [Framework data](#framework-data). |
 | Evidence upload fails in the browser with a CSP error | `AWS_S3_ENDPOINT` does not match the origin the browser is actually PUTting to. The app names that origin in its `Content-Security-Policy`, computed per request, so `curl -sI <your-url>/ \| grep -i content-security-policy` shows exactly what it currently allows. |
 | An evidence row appears but the file is not in the bucket | The browser's upload was refused and the server never learned. Presigning is offline, so nothing server-side notices a blocked or failed PUT. Check the CSP row above first, then that the bucket exists. |
 | Upload rejected, MinIO logs mention server-side encryption | `MINIO_KMS_KEY` is unset or is not 32 bytes of base64. |
