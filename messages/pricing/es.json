@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Precios - Plataforma de cumplimiento NIS2",
-      "description": "La plataforma es gratuita, de forma permanente. Alojada en nisd2.eu o autoalojada en su propia infraestructura bajo AGPL-3.0. Sin licencia, sin activación, sin dependencia del proveedor."
+      "description": "La plataforma es gratuita, de forma permanente. Alojada en nisd2.eu o autoalojada en su propia infraestructura, código abierto bajo AGPL-3.0. Sin contrato, sin activación, sin dependencia del proveedor."
     },
     "title": "Precios",
     "subtitle": "Gratis, de forma permanente. Lo único que elige es quién la opera.",
@@ -32,15 +32,15 @@
       "priceSub": "para siempre",
       "cta": "Ver el código fuente",
       "features": {
-        "h1": "Código fuente completo de la plataforma bajo AGPL-3.0",
+        "h1": "Código fuente completo de la plataforma, abierto bajo AGPL-3.0",
         "h2": "Todas las actualizaciones futuras incluidas, de forma permanente",
         "h3": "En su propia infraestructura, con sus propios datos",
-        "h4": "Sin licencia, sin contrato, sin clave de activación",
+        "h4": "Sin contrato, sin clave de activación, sin cuenta con nosotros",
         "h5": "Exporte su trabajo desde nisd2.eu y siga operándolo usted mismo",
         "h6": "Contacto directo por correo electrónico y Signal"
       }
     },
-    "whyFree": "Por qué es gratis: el código fuente es público bajo AGPL-3.0 en GitHub. Una licencia nos habría servido sobre todo para saber quién usa la plataforma. Eso no es motivo para enviarle una factura.",
+    "whyFree": "Por qué es gratis: el código está abierto en GitHub, auditable y puede ejecutarlo usted mismo. Esperamos ganar dinero con formación y consultoría, no con la plataforma.",
     "consultantFootnote": "¿Necesita un consultor de NIS2? Le ponemos en contacto con especialistas verificados sin coste alguno para usted.",
     "consultantCta": "Solicitar un consultor"
   }

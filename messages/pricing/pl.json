@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Cennik - Platforma zgodności z NIS2",
-      "description": "Platforma jest darmowa, na stałe. Hostowana na nisd2.eu albo we własnym hostingu na Twojej infrastrukturze na licencji AGPL-3.0. Bez licencji, bez aktywacji, bez lock-inu."
+      "description": "Platforma jest darmowa, na stałe. Hostowana na nisd2.eu albo we własnym hostingu na Twojej infrastrukturze, kod źródłowy otwarty na AGPL-3.0. Bez umowy, bez aktywacji, bez lock-inu."
     },
     "title": "Cennik",
     "subtitle": "Darmowa, na stałe. Wybierasz tylko, kto ją uruchamia.",
@@ -32,15 +32,15 @@
       "priceSub": "na zawsze",
       "cta": "Zobacz kod źródłowy",
       "features": {
-        "h1": "Pełny kod źródłowy platformy na licencji AGPL-3.0",
+        "h1": "Pełny kod źródłowy platformy, otwarty na AGPL-3.0",
         "h2": "Wszystkie przyszłe aktualizacje w cenie, na stałe",
         "h3": "Na własnej infrastrukturze, z własnymi danymi",
-        "h4": "Bez licencji, bez umowy, bez klucza aktywacyjnego",
+        "h4": "Bez umowy, bez klucza aktywacyjnego, bez konta u nas",
         "h5": "Wyeksportuj swoją pracę z nisd2.eu i prowadź ją dalej samodzielnie",
         "h6": "Bezpośredni kontakt przez e-mail i Signal"
       }
     },
-    "whyFree": "Dlaczego za darmo: kod źródłowy jest publiczny na GitHubie na licencji AGPL-3.0. Licencja pokazałaby nam głównie to, kto korzysta z platformy. To nie jest powód, żeby wystawiać Ci fakturę.",
+    "whyFree": "Dlaczego za darmo: kod źródłowy jest otwarty na GitHubie, można go sprawdzić i uruchomić samodzielnie. Zarabiać zamierzamy na szkoleniach i doradztwie, nie na platformie.",
     "consultantFootnote": "Potrzebujesz konsultanta NIS2? Łączymy Cię ze zweryfikowanymi specjalistami bez żadnych kosztów dla Ciebie.",
     "consultantCta": "Poproś o konsultanta"
   }

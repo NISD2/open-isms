@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Preise - NIS2-Compliance-Plattform",
-      "description": "Die Plattform ist kostenlos, dauerhaft. Gehostet auf nisd2.eu oder im Selbstbetrieb auf eigener Infrastruktur unter AGPL-3.0. Keine Lizenz, keine Freischaltung, kein Lock-in."
+      "description": "Die Plattform ist kostenlos, dauerhaft. Gehostet auf nisd2.eu oder im Selbstbetrieb auf eigener Infrastruktur, Quellcode offen unter AGPL-3.0. Kein Vertrag, keine Freischaltung, kein Lock-in."
     },
     "title": "Preise",
     "subtitle": "Kostenlos, dauerhaft. Sie entscheiden nur, wer sie betreibt.",
@@ -32,15 +32,15 @@
       "priceSub": "für immer",
       "cta": "Zum Quellcode",
       "features": {
-        "h1": "Vollständiger Plattform-Quellcode unter AGPL-3.0",
+        "h1": "Vollständiger Plattform-Quellcode, offen unter AGPL-3.0",
         "h2": "Alle künftigen Updates inklusive, dauerhaft",
         "h3": "Auf eigener Infrastruktur, mit eigenen Daten",
-        "h4": "Keine Lizenz, kein Vertrag, keine Freischaltung",
+        "h4": "Kein Vertrag, keine Freischaltung, keine Anmeldung bei uns",
         "h5": "Ihren Stand von nisd2.eu exportieren und selbst weiterbetreiben",
         "h6": "Direkter Kontakt per E-Mail und Signal"
       }
     },
-    "whyFree": "Warum kostenlos: Der Quellcode steht unter AGPL-3.0 und ist auf GitHub einsehbar. Eine Lizenz hätte uns vor allem gezeigt, wer die Plattform einsetzt. Das ist kein Grund, Ihnen eine Rechnung zu schicken.",
+    "whyFree": "Warum kostenlos: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Geld nehmen wir perspektivisch für Schulungen und Beratung, nicht für die Plattform.",
     "consultantFootnote": "Brauchen Sie einen NIS2-Berater? Wir vermitteln geprüfte Fachleute, kostenlos für Sie.",
     "consultantCta": "Berater anfragen"
   }

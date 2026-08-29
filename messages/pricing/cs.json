@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Ceník - Platforma pro shodu s NIS2",
-      "description": "Platforma je trvale zdarma. Hostovaná na nisd2.eu nebo ve vlastním provozu na vaší infrastruktuře pod licencí AGPL-3.0. Žádná licence, žádná aktivace, žádný lock-in."
+      "description": "Platforma je trvale zdarma. Hostovaná na nisd2.eu nebo ve vlastním provozu na vaší infrastruktuře, zdrojový kód otevřený pod AGPL-3.0. Žádná smlouva, žádná aktivace, žádný lock-in."
     },
     "title": "Ceník",
     "subtitle": "Trvale zdarma. Vybíráte jen to, kdo ji provozuje.",
@@ -32,15 +32,15 @@
       "priceSub": "navždy",
       "cta": "Zobrazit zdrojový kód",
       "features": {
-        "h1": "Celý zdrojový kód platformy pod licencí AGPL-3.0",
+        "h1": "Celý zdrojový kód platformy, otevřený pod AGPL-3.0",
         "h2": "Všechny budoucí aktualizace v ceně, trvale",
         "h3": "Na vlastní infrastruktuře, s vlastními daty",
-        "h4": "Žádná licence, žádná smlouva, žádný aktivační klíč",
+        "h4": "Žádná smlouva, žádný aktivační klíč, žádný účet u nás",
         "h5": "Exportujte svou práci z nisd2.eu a provozujte ji dál sami",
         "h6": "Přímý kontakt e-mailem a přes Signal"
       }
     },
-    "whyFree": "Proč zdarma: zdrojový kód je veřejný na GitHubu pod licencí AGPL-3.0. Licence by nám hlavně ukázala, kdo platformu provozuje. To není důvod posílat vám fakturu.",
+    "whyFree": "Proč zdarma: zdrojový kód je otevřený na GitHubu, ověřitelný a můžete si ho provozovat sami. Vydělávat počítáme na školeních a poradenství, ne na platformě.",
     "consultantFootnote": "Potřebujete konzultanta pro NIS2? Spojíme vás s prověřenými specialisty, a to pro vás zdarma.",
     "consultantCta": "Vyžádat konzultanta"
   }

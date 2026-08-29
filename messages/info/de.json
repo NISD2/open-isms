@@ -1868,7 +1868,7 @@
       },
       "paid": {
         "heading": "Wofür wir Geld nehmen",
-        "p1": "Schulungskurse für Geschäftsführung und Personal. Geführte Beratung für unternehmensspezifische Entscheidungen: Risikobehandlungs-Abwägungen, Lieferantenverhandlungen, komplexe Vorfallreaktion. Premium-Funktionen nach Entwicklung. Für den Selbstbetrieb nehmen wir nichts: der Code steht unter AGPL-3.0, ohne Lizenzgebühr.",
+        "p1": "Schulungskurse für Geschäftsführung und Personal. Geführte Beratung für unternehmensspezifische Entscheidungen: Risikobehandlungs-Abwägungen, Lieferantenverhandlungen, komplexe Vorfallreaktion. Premium-Funktionen nach Entwicklung. Für den Selbstbetrieb nehmen wir nichts, der Code ist offen unter AGPL-3.0.",
         "p2": "Die Kern-Compliance-Plattform bleibt kostenlos. Der offene Datensatz bleibt offen. Das Prinzip ist, dass die Rechnung gekürzt werden soll: nicht zu uns verschoben."
       },
       "team": {

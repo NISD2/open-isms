@@ -1867,7 +1867,7 @@
       },
       "paid": {
         "heading": "Za co účtujeme",
-        "p1": "Školicí kurzy pro vedení a personál. Vedené poradenství pro rozhodnutí specifická pro danou společnost: kompromisy při ošetření rizik, vyjednávání s dodavateli, složitá reakce na incidenty. Prémiové funkce, jak se budou vyvíjet. Za vlastní provoz si neúčtujeme nic: kód je pod licencí AGPL-3.0, bez licenčního poplatku.",
+        "p1": "Školicí kurzy pro vedení a personál. Vedené poradenství pro rozhodnutí specifická pro danou společnost: kompromisy při ošetření rizik, vyjednávání s dodavateli, složitá reakce na incidenty. Prémiové funkce, jak se budou vyvíjet. Za vlastní provoz si neúčtujeme nic, kód je otevřený pod AGPL-3.0.",
         "p2": "Jádro platformy pro shodu zůstává zdarma. Otevřená datová sada zůstává otevřená. Princip je ten, že účet má být snížen, nikoli přesunut na nás."
       },
       "team": {

@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Prijzen - NIS2-complianceplatform",
-      "description": "Het platform is gratis, blijvend. Gehost op nisd2.eu of in eigen beheer op uw eigen infrastructuur onder AGPL-3.0. Geen licentie, geen activering, geen lock-in."
+      "description": "Het platform is gratis, blijvend. Gehost op nisd2.eu of in eigen beheer op uw eigen infrastructuur, broncode open onder AGPL-3.0. Geen contract, geen activering, geen lock-in."
     },
     "title": "Prijzen",
     "subtitle": "Gratis, blijvend. U kiest alleen wie het draait.",
@@ -32,15 +32,15 @@
       "priceSub": "voor altijd",
       "cta": "Naar de broncode",
       "features": {
-        "h1": "Volledige platformbroncode onder AGPL-3.0",
+        "h1": "Volledige platformbroncode, open onder AGPL-3.0",
         "h2": "Alle toekomstige updates inbegrepen, blijvend",
         "h3": "Op uw eigen infrastructuur, met uw eigen data",
-        "h4": "Geen licentie, geen contract, geen activering",
+        "h4": "Geen contract, geen activering, geen account bij ons",
         "h5": "Uw werk op nisd2.eu exporteren en zelf verder draaien",
         "h6": "Direct contact via e-mail en Signal"
       }
     },
-    "whyFree": "Waarom gratis: de broncode staat onder AGPL-3.0 en is in te zien op GitHub. Een licentie had ons vooral laten zien wie het platform gebruikt. Dat is geen reden om u een factuur te sturen.",
+    "whyFree": "Waarom gratis: de broncode staat open op GitHub, controleerbaar en zelf te draaien. Geld verwachten wij te verdienen met trainingen en advies, niet met het platform.",
     "consultantFootnote": "Heeft u een NIS2-adviseur nodig? Wij verbinden u kosteloos met getoetste specialisten.",
     "consultantCta": "Adviseur aanvragen"
   }

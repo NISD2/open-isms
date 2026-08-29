@@ -2,7 +2,7 @@
   "pricing": {
     "meta": {
       "title": "Preços - Plataforma de Conformidade NIS2",
-      "description": "A plataforma é gratuita, de forma permanente. Alojada em nisd2.eu ou em autoalojamento na sua própria infraestrutura sob AGPL-3.0. Sem licença, sem ativação, sem lock-in."
+      "description": "A plataforma é gratuita, de forma permanente. Alojada em nisd2.eu ou em autoalojamento na sua própria infraestrutura, código-fonte aberto sob AGPL-3.0. Sem contrato, sem ativação, sem lock-in."
     },
     "title": "Preços",
     "subtitle": "Gratuita, de forma permanente. Só escolhe quem a opera.",
@@ -32,15 +32,15 @@
       "priceSub": "para sempre",
       "cta": "Ver o código-fonte",
       "features": {
-        "h1": "Código-fonte completo da plataforma sob AGPL-3.0",
+        "h1": "Código-fonte completo da plataforma, aberto sob AGPL-3.0",
         "h2": "Todas as atualizações futuras incluídas, de forma permanente",
         "h3": "Na sua própria infraestrutura, com os seus próprios dados",
-        "h4": "Sem licença, sem contrato, sem chave de ativação",
+        "h4": "Sem contrato, sem chave de ativação, sem conta connosco",
         "h5": "Exporte o seu trabalho de nisd2.eu e continue a operá-lo por si",
         "h6": "Contacto direto por email e Signal"
       }
     },
-    "whyFree": "Porquê gratuita: o código-fonte é público no GitHub sob AGPL-3.0. Uma licença ter-nos-ia mostrado sobretudo quem usa a plataforma. Isso não é razão para lhe enviar uma fatura.",
+    "whyFree": "Porquê gratuita: o código-fonte está aberto no GitHub, verificável e pode operá-lo por si. Contamos ganhar com formação e consultoria, não com a plataforma.",
     "consultantFootnote": "Precisa de um consultor NIS2? Colocamo-lo em contacto com especialistas verificados, sem qualquer custo para si.",
     "consultantCta": "Pedir um consultor"
   }
