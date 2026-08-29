@@ -4,7 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { PublicNav } from "@/components/PublicNav";
 import { PublicFooter } from "@/components/PublicFooter";
 import { DocsSidebar } from "@/components/docs/DocsSidebar";
-import { DocsSearch } from "@/components/docs/DocsSearch";
+import { DocsSearchProvider, DocsSearchTrigger } from "@/components/docs/DocsSearch";
 import { MobileNav } from "@/components/docs/MobileNav";
 import "./docs.css";
 
@@ -54,33 +54,42 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="scroll-smooth">
       <body className="docs-root min-h-screen bg-background text-foreground antialiased">
         <NextIntlClientProvider locale="en" messages={{}}>
-          <a href="#docs-content" className="docs-skip-link">
-            Skip to content
-          </a>
+          {/*
+            One dialog, two triggers. The search button appears in the sidebar
+            and again above the article on small screens; a self-contained
+            component rendered twice would mount two dialogs and two ⌘K
+            listeners, and a dialog portals to the body, so `lg:hidden` on the
+            mobile wrapper would not have hidden the second one.
+          */}
+          <DocsSearchProvider>
+            <a href="#docs-content" className="docs-skip-link">
+              Skip to content
+            </a>
 
-          <PublicNav variant="docs" />
+            <PublicNav variant="docs" />
 
-          <main className="mx-auto flex max-w-6xl gap-8 px-6 pt-16 pb-16 sm:pt-20 lg:px-0">
-            {/*
-              Search sits at the top of the documentation's own column rather
-              than in a second global bar. One header, and the tool that only
-              this section needs stays inside this section.
-            */}
-            <aside className="sticky top-20 hidden h-[calc(100vh-6rem)] w-52 shrink-0 flex-col gap-6 overflow-y-auto py-2 pr-4 lg:flex">
-              <DocsSearch />
-              <DocsSidebar />
-            </aside>
+            <main className="mx-auto flex max-w-6xl gap-8 px-6 pt-16 pb-16 sm:pt-20 lg:px-0">
+              {/*
+                Search sits at the top of the documentation's own column rather
+                than in a second global bar. One header, and the tool that only
+                this section needs stays inside this section.
+              */}
+              <aside className="sticky top-20 hidden h-[calc(100vh-6rem)] w-52 shrink-0 flex-col gap-6 overflow-y-auto py-2 pr-4 lg:flex">
+                <DocsSearchTrigger />
+                <DocsSidebar />
+              </aside>
 
-            <div id="docs-content" className="min-w-0 flex-1">
-              <div className="mb-6 flex items-center gap-3 lg:hidden">
-                <MobileNav />
-                <DocsSearch />
+              <div id="docs-content" className="min-w-0 flex-1">
+                <div className="mb-6 flex items-center gap-3 lg:hidden">
+                  <MobileNav />
+                  <DocsSearchTrigger />
+                </div>
+                {children}
               </div>
-              {children}
-            </div>
-          </main>
+            </main>
 
-          <PublicFooter variant="docs" />
+            <PublicFooter variant="docs" />
+          </DocsSearchProvider>
         </NextIntlClientProvider>
       </body>
     </html>
