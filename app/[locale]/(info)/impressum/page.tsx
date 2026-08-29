@@ -47,6 +47,7 @@ export default async function ImpressumPage() {
             <p>{t("impressum.responsible.represented")}</p>
             <p>{t("impressum.responsible.registration")}</p>
             <p>{t("impressum.responsible.euid")}</p>
+            <p>{t("impressum.responsible.vatId")}</p>
             <p>{t("impressum.responsible.emailLabel")}: {t("impressum.responsible.email")}</p>
           </CardContent>
         </Card>
