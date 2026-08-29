@@ -2,11 +2,23 @@ A NAS is what most Mittelstand operators and public bodies actually have, rather
 
 Two ways: the terminal, which is the same one command as anywhere else, or Container Manager, which is clicking.
 
+<div class="docs-callout docs-callout--warning">
+
+**What has been verified, and what has not.**
+
+Verified: the images are published for x86-64 and ARM64, each built on its own native runner, and the compose file pulls a finished image rather than building one. The installer has been run end to end against the published image, and the framework data loads from it.
+
+Not verified: **nobody has run this on a Synology yet.** The DSM-specific steps below come from Synology's documented behaviour rather than from a machine we have in front of us, and the two things most likely to differ are whether Container Manager's project import reads your `.env` and whether it honours `COMPOSE_PROFILES`. If either does not, the SSH route further down avoids both questions entirely.
+
+If you run this on a NAS, an issue saying what actually happened is worth more to us than a star: [github.com/NISD2/open-isms/issues](https://github.com/NISD2/open-isms/issues).
+
+</div>
+
 ## What you need
 
-- **DSM 7.2 or later** with **Container Manager** installed from Package Center. On DSM 6 the package is called Docker and the steps below differ enough to be misleading, so this page does not cover it.
-- **A model with an x86-64 or ARM64 processor.** Both are published, and `docker pull` picks the right one. Storage Manager, then Info Center, names the CPU.
-- **At least 4 GB of RAM**, and preferably more. Nothing is compiled on the NAS, but Postgres, the application and the file store share whatever the NAS has left after DSM.
+- **DSM 7.2 or later** with **Container Manager** from Package Center. On DSM 6 the package is called Docker and behaves differently enough that this page would mislead you.
+- **A model with an x86-64 or ARM64 processor.** Both are published and `docker pull` picks the right one. Storage Manager, then Info Center, names the CPU. Older Atom and ARMv7 models have no image.
+- **Disk and memory.** The application image is about 500 MB unpacked, and the stack adds Postgres and the object store beside it. Nothing is compiled on the NAS, so the build memory figures you may have seen do not apply. What the running stack needs on a small machine we have not measured, which is a gap rather than a reassurance: if you try it, tell us what it actually used.
 
 <div class="docs-callout docs-callout--warning">
 
@@ -69,8 +81,10 @@ Getting this wrong is the single most common self-host failure: sign-in appears 
    `MINIO_KMS_KEY` has to be exactly 32 bytes encoded as base64, which a password generator will not give you. If you cannot run `openssl rand -base64 32` anywhere, leave `minio` out of `COMPOSE_PROFILES` and use an S3 bucket instead ([Evidence storage](/docs/self-hosting/storage)); the rest of the platform works either way, only evidence file uploads depend on it.
 
 4. **Container Manager → Project → Create.** Path: the folder from step 1. Source: "Use existing docker-compose.yml". Start it.
-5. **Watch it come up.** The first start pulls about a gigabyte. In the project's log you are waiting for `[migrate] all chains complete`, then `[seed] loaded 165 requirements`, then `✓ Ready`.
+5. **Watch it come up.** The first start pulls four images, a few hundred megabytes in total. In the project's log you are waiting for `[migrate] all chains complete`, then `[seed] loaded 165 requirements`, then `✓ Ready`.
 6. **Open** `http://your-nas-address:3026`.
+
+If the project starts but the object store never appears, Container Manager did not apply `COMPOSE_PROFILES` from your `.env`. That is the unverified part of this page. Either add `--profile minio` through the SSH route, or drop the bundled store and point `AWS_S3_*` at an S3 bucket instead. Everything except evidence file uploads works either way.
 
 ## Signing in the first time
 

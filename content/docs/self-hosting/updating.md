@@ -45,7 +45,7 @@ docker compose up -d
 
 Every release is built to keep the release before it working against the schema a newer migration left behind, so this brings the instance straight back up. Then send us the container log: `docker compose logs app | tail -50`.
 
-If you do not remember which version you were on, `docker image ls ghcr.io/nisd2/open-isms` lists what has been pulled on this machine. The previous image is kept on purpose rather than cleaned up after an update, so recovery works immediately and without network access. Each release you keep costs roughly a gigabyte; run `docker image prune` once an update has proven itself in use.
+If you do not remember which version you were on, `docker image ls ghcr.io/nisd2/open-isms` lists what has been pulled on this machine. The previous image is kept on purpose rather than cleaned up after an update, so recovery works immediately and without network access. Each release you keep costs about 500 MB of disk; run `docker image prune` once an update has proven itself in use.
 
 ## Rolling back a successful update
 

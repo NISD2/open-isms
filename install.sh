@@ -241,7 +241,7 @@ fi
 # ---------------------------------------------------------------- start -----
 
 step "Starting open-isms"
-note "The first run downloads about a gigabyte and takes a few minutes."
+note "The first run pulls four images, a few hundred megabytes, and takes a few minutes."
 docker compose up -d || die "docker compose could not start the stack.
 
   The output above says why. The most common cause is a port that another
