@@ -258,6 +258,49 @@ try {
   }
 
   console.log("[migrate] all chains complete");
+
+  // ---------------------------------------------------------------------
+  // Framework reference data, once, on a database that has none.
+  //
+  // Migrations create the tables and correct the rows in them; nothing in the
+  // chains inserts the frameworks themselves. Until this ran here, a fresh
+  // install came up with an empty portal and the fix was a git clone, a bun
+  // install and a seed script — three things a self-hoster should never need,
+  // and the single most common reason a correct install looked broken.
+  //
+  // Guarded on an empty catalogue, so it happens exactly once and never
+  // touches an instance that is in use. The file is upsert-only in any case.
+  // Failure is logged and startup continues: reference data missing is a
+  // portal with nothing in it, while refusing to boot over it would take down
+  // an instance whose own data is fine.
+  // ---------------------------------------------------------------------
+  const seedPath = new URL("../db/framework-seed.sql", import.meta.url).pathname;
+
+  try {
+    const { rows } = await client.query(
+      `SELECT count(*)::int AS n FROM information_schema.tables
+        WHERE table_schema = 'public' AND table_name = 'requirement'`,
+    );
+    if (rows[0].n === 0) {
+      console.log("[seed] no requirement table — skipping framework data");
+    } else {
+      const { rows: counted } = await client.query(`SELECT count(*)::int AS n FROM requirement`);
+      if (counted[0].n > 0) {
+        console.log(`[seed] framework data present (${counted[0].n} requirements)`);
+      } else {
+        console.log("[seed] empty catalogue — loading db/framework-seed.sql");
+        await client.query(readFileSync(seedPath, "utf-8"));
+        const { rows: after } = await client.query(`SELECT count(*)::int AS n FROM requirement`);
+        console.log(`[seed] loaded ${after[0].n} requirements`);
+      }
+    }
+  } catch (err) {
+    console.warn(
+      `[seed] could not load framework data: ${err.message}\n` +
+        "[seed] the instance will start with an empty portal. Load it by hand with:\n" +
+        "[seed]   docker compose exec -T postgres psql -U openisms -d openisms < framework-seed.sql",
+    );
+  }
 } finally {
   // Session locks die with the connection, so this is belt-and-braces for the
   // case where the client is reused rather than ended.

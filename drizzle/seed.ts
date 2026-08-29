@@ -33,6 +33,9 @@ assertLocalDatabase(
     "intake answers before reseeding.",
 );
 
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { eq, and, inArray, sql } from "drizzle-orm";
 import * as schema from "@/schema";
@@ -408,6 +411,25 @@ async function seed() {
   console.log(`     1 framework (ISO 27001:2022)`);
   console.log(`     ${iso27001Result.categoryMap.size} categories`);
   console.log(`     ${iso27001Result.reqCount} requirements`);
+
+  // ------------------------------------------------------------------
+  // Cross-framework satisfaction pairs
+  // ------------------------------------------------------------------
+  // Applied from db/framework-seed.sql, the same file a self-hoster runs,
+  // rather than from a second set of inserts here. Two emitters for one
+  // dataset drift, and this one already had: before this ran, nothing in
+  // this script ever wrote requirement_satisfaction, so every freshly
+  // seeded database had zero pairs while production had 87 — production
+  // got them from a later framework-sync migration landing on rows that
+  // were already there. The file is upsert-only, so re-applying the
+  // requirement rows this script just wrote is a no-op.
+  const seedSqlPath = join(dirname(fileURLToPath(import.meta.url)), "..", "db", "framework-seed.sql");
+  console.log("\n  Applying db/framework-seed.sql (satisfaction pairs)...");
+  await db.execute(sql.raw(readFileSync(seedSqlPath, "utf-8")));
+  const [{ pairs }] = await db
+    .select({ pairs: sql<number>`count(*)::int` })
+    .from(schema.requirementSatisfaction);
+  console.log(`     ${pairs} satisfaction pairs`);
 
   // ------------------------------------------------------------------
   // Load framework data (shared across all company seeds)

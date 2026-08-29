@@ -66,7 +66,17 @@ jobs:
       - name: shell scripts pass shellcheck
         run: |
           docker run --rm -v "$PWD:/mnt" -w /mnt koalaman/shellcheck:v0.10.0 \
-            scripts/ci/*.sh scripts/*.sh e2e/*.sh
+            install.sh scripts/ci/*.sh scripts/*.sh e2e/*.sh
+
+      # db/framework-seed.sql is what a self-hoster runs to fill a fresh
+      # database, and what drizzle/seed.ts applies for the satisfaction pairs.
+      # Generated from the same emitters as the sync migrations, so a framework
+      # change that skips regenerating it would hand new installs stale
+      # reference data while every existing instance got the correction.
+      - name: db/framework-seed.sql is up to date with the framework data
+        run: |
+          bun run check:framework-seed \
+            || { echo "::error::db/framework-seed.sql is stale. Run 'bun run db:seed:file' and commit."; exit 1; }
 
       # REFERENCE.md is generated from the framework data and is published as
       # the public reference. It silently went stale after a correction pass,

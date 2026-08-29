@@ -106,6 +106,11 @@ COPY --from=builder /app/public ./public
 # Overlay the full .next/server/app from the regular build over the
 # standalone copy. Same files, plus the missing manifests.
 COPY --from=builder /app/.next/server/app ./.next/server/app
+# The markdown behind /docs. Those pages are prerendered at build time and
+# dynamicParams is false, so nothing should read these files at runtime; they
+# are ~100 KB and shipping them means a page that does fall through to a render
+# finds its source instead of throwing ENOENT.
+COPY --from=builder /app/content ./content
 # Migration SQL kept alongside runtime so Coolify pre-deploy can run
 # drizzle-kit migrate. The drizzle-kit binary is NOT included; ship the
 # SQL only.
@@ -125,6 +130,11 @@ COPY --from=builder /app/drizzle ./drizzle
 # Runtime migration runner. See scripts/runtime-migrate.mjs for the
 # rationale and the embedded drizzle-orm-compatible migrator.
 COPY --from=builder /app/scripts/runtime-migrate.mjs ./scripts/runtime-migrate.mjs
+# Framework reference data. runtime-migrate.mjs applies it when the catalogue
+# is empty, so a fresh install has NIS 2 in it without a checkout or a seed
+# script. Version-matched by construction: this file ships in the same image
+# as the migrations whose schema it writes into.
+COPY --from=builder /app/db ./db
 
 RUN mkdir -p .next/cache && chown -R node:node .next/cache
 

@@ -29,6 +29,16 @@
  * entry, so no one hand-edits meta/_journal.json or picks a `when` timestamp.
  * Pass --dry-run to print the SQL to stdout without writing anything.
  *
+ * Second mode, --seed-file:
+ *
+ *   bun run scripts/generate-framework-migration.ts --seed-file
+ *
+ * Writes db/framework-seed.sql instead of a migration: the same upserts, plus
+ * the two `compliance_framework` rows drizzle/seed.ts creates, joined with
+ * plain semicolons so `psql -f` can run it. That file is what a self-hoster
+ * applies to fill a fresh database, with no checkout, no bun and no demo
+ * tenant. `bun run check:framework-seed` fails CI when it is out of date.
+ *
  * Safety: upsert-only. Rows are matched on their natural keys
  * (requirement.code, requirement_category.slug, uq_satisfaction_pair) and
  * nothing is ever deleted, so company_requirement_status, sign_off_history and
@@ -36,7 +46,7 @@
  * codes are not seeded in the target database is skipped rather than failing,
  * matching how linkSatisfactionPairs behaves when a framework is inactive.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -63,7 +73,8 @@ interface JournalEntry {
   breakpoints: boolean;
 }
 
-const DRIZZLE_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "drizzle");
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const DRIZZLE_DIR = join(ROOT, "drizzle");
 const JOURNAL_PATH = join(DRIZZLE_DIR, "meta", "_journal.json");
 const MIGRATION_NAME = "framework_data_sync";
 
@@ -202,6 +213,39 @@ const pairStatements = pairs.map(
     `"rationale" = EXCLUDED."rationale", "equivalence_kind" = EXCLUDED."equivalence_kind"`,
 );
 
+/**
+ * The framework rows themselves. A migration never needs these — every
+ * database that has ever run drizzle/seed.ts already has them, and the
+ * category and requirement upserts below are scoped to an existing framework
+ * row, so on a database without one they match nothing and do nothing.
+ *
+ * The seed file does need them, because its whole job is a database where
+ * nothing has been seeded. Values match drizzle/seed.ts exactly, ISO 27001
+ * inactive included: it is seeded only so the NIS 2 satisfaction pairs
+ * resolve, and being inactive keeps it out of the sidebar, out of /compliance
+ * and out of what a new signup is provisioned with.
+ */
+const dryRun = process.argv.includes("--dry-run");
+
+const FRAMEWORK_ROWS = [
+  { code: "nis2", version: "2026", effectiveDate: "2026-03-17", isActive: true, codePrefix: "NIS2-", sidebarLabel: "nis2" },
+  { code: "iso27001", version: "2022", effectiveDate: "2022-10-25", isActive: false, codePrefix: "ISO27001-", sidebarLabel: "iso27001" },
+] as const;
+
+const frameworkStatements = FRAMEWORK_ROWS.filter((row) =>
+  selected.some((f) => f.code === row.code),
+).map(
+  (row) =>
+    `INSERT INTO "compliance_framework" (` +
+      `"code", "version", "effective_date", "is_active", "code_prefix", "sidebar_label") ` +
+      `VALUES (${sqlLiteral(row.code)}, ${sqlLiteral(row.version)}, ${sqlLiteral(row.effectiveDate)}, ` +
+      `${row.isActive}, ${sqlLiteral(row.codePrefix)}, ${sqlLiteral(row.sidebarLabel)}) ` +
+      `ON CONFLICT ("code") DO UPDATE SET ` +
+      `"version" = EXCLUDED."version", ` +
+      `"effective_date" = EXCLUDED."effective_date", ` +
+      `"is_active" = EXCLUDED."is_active"`,
+);
+
 const statements = [
   ...categoryStatements,
   ...requirementStatements,
@@ -217,49 +261,101 @@ const sql =
     "",
   ].join("\n") + statements.join(";\n--> statement-breakpoint\n") + ";\n";
 
-const journal: { entries: JournalEntry[] } = JSON.parse(
-  readFileSync(JOURNAL_PATH, "utf-8"),
-);
-const previous = journal.entries.at(-1);
-if (!previous) {
-  throw new Error(`no existing entries in ${JOURNAL_PATH}; refusing to guess a baseline`);
+const categoryCountAll = selected.reduce((n, f) => n + f.categories.length, 0);
+
+/**
+ * Seed-file mode exits here. It shares every statement above with the
+ * migration path, which is the point: two generators would drift, and the
+ * one that drifts is always the one nobody runs.
+ */
+const seedFileMode = process.argv.includes("--seed-file");
+
+if (seedFileMode) {
+  const seedSql =
+    [
+      "-- open-isms framework reference data.",
+      "--",
+      "-- Fills a fresh database with the frameworks, categories, requirements and",
+      "-- cross-framework satisfaction pairs. Apply it once after the first start:",
+      "--",
+      "--   docker compose exec -T postgres psql -U openisms -d openisms < framework-seed.sql",
+      "--",
+      "-- Upsert-only and safe to re-run: nothing is deleted and no company data is",
+      "-- touched, so it cannot damage an instance that is already in use.",
+      "--",
+      "-- Not included: the requirement prerequisites drizzle/seed.ts also writes.",
+      "-- Those gate the order requirements are worked in; without them nothing is",
+      "-- gated, which is a difference worth knowing and not a broken install.",
+      "--",
+      "-- Generated by scripts/generate-framework-migration.ts --seed-file.",
+      "-- Do not hand-edit; `bun run check:framework-seed` compares it to the data.",
+      "",
+    ].join("\n") +
+    [...frameworkStatements, ...statements].join(";\n\n") +
+    ";\n";
+
+  const seedPath = join(ROOT, "db", "framework-seed.sql");
+  if (dryRun) {
+    // Synchronous write to fd 1, and no process.exit afterwards. Both matter:
+    // console.log would append a newline the file does not have, and exiting
+    // right after an async stdout write truncates it at the pipe buffer, which
+    // made `check:framework-seed` compare half a file and always fail.
+    writeFileSync(1, seedSql);
+  } else {
+    mkdirSync(dirname(seedPath), { recursive: true });
+    writeFileSync(seedPath, seedSql);
+    console.log(
+      `wrote db/framework-seed.sql (${selected.map((f) => f.code).join("+")}, ` +
+        `${categoryCountAll} categories, ${requirements.length} requirements, ` +
+        `${pairs.length} pairs, ${frameworkStatements.length + statements.length} statements)`,
+    );
+  }
 }
 
-const idx = previous.idx + 1;
-const tag = `${String(idx).padStart(4, "0")}_${MIGRATION_NAME}`;
-const when = Date.now();
-if (when <= previous.when) {
-  // runtime-migrate.mjs applies entries with `when > lastApplied`, so a
-  // non-increasing timestamp would silently never run.
-  throw new Error(
-    `clock skew: new timestamp ${when} is not after the previous entry's ${previous.when}`,
+// Migration mode. Guarded rather than reached by an early process.exit above,
+// because exiting mid-script is what truncated the seed file's stdout.
+if (!seedFileMode) {
+  const journal: { entries: JournalEntry[] } = JSON.parse(
+    readFileSync(JOURNAL_PATH, "utf-8"),
   );
-}
+  const previous = journal.entries.at(-1);
+  if (!previous) {
+    throw new Error(`no existing entries in ${JOURNAL_PATH}; refusing to guess a baseline`);
+  }
 
-const dryRun = process.argv.includes("--dry-run");
+  const idx = previous.idx + 1;
+  const tag = `${String(idx).padStart(4, "0")}_${MIGRATION_NAME}`;
+  const when = Date.now();
+  if (when <= previous.when) {
+    // runtime-migrate.mjs applies entries with `when > lastApplied`, so a
+    // non-increasing timestamp would silently never run.
+    throw new Error(
+      `clock skew: new timestamp ${when} is not after the previous entry's ${previous.when}`,
+    );
+  }
 
-const categoryCount = selected.reduce((n, f) => n + f.categories.length, 0);
-const summary = `${selected.map((f) => f.code).join("+")}, ${categoryCount} categories, ${requirements.length} requirements, ${pairs.length} pairs`;
+  const summary = `${selected.map((f) => f.code).join("+")}, ${categoryCountAll} categories, ${requirements.length} requirements, ${pairs.length} pairs`;
 
-if (dryRun) {
-  console.log(sql);
-  console.error(`-- dry run: ${summary} (${statements.length} statements), would write ${tag}.sql`);
-} else {
-  writeFileSync(join(DRIZZLE_DIR, `${tag}.sql`), sql);
-  writeFileSync(
-    JOURNAL_PATH,
-    `${JSON.stringify(
-      {
-        ...journal,
-        entries: [
-          ...journal.entries,
-          { idx, version: previous.version, when, tag, breakpoints: true },
-        ],
-      },
-      null,
-      2,
-    )}\n`,
-  );
-  console.log(`wrote drizzle/${tag}.sql (${summary}, ${statements.length} statements)`);
-  console.log(`appended journal entry idx ${idx}`);
+  if (dryRun) {
+    console.log(sql);
+    console.error(`-- dry run: ${summary} (${statements.length} statements), would write ${tag}.sql`);
+  } else {
+    writeFileSync(join(DRIZZLE_DIR, `${tag}.sql`), sql);
+    writeFileSync(
+      JOURNAL_PATH,
+      `${JSON.stringify(
+        {
+          ...journal,
+          entries: [
+            ...journal.entries,
+            { idx, version: previous.version, when, tag, breakpoints: true },
+          ],
+        },
+        null,
+        2,
+      )}\n`,
+    );
+    console.log(`wrote drizzle/${tag}.sql (${summary}, ${statements.length} statements)`);
+    console.log(`appended journal entry idx ${idx}`);
+  }
 }
