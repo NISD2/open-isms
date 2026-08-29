@@ -1867,7 +1867,7 @@
       },
       "paid": {
         "heading": "Za co pobieramy opłaty",
-        "p1": "Kursy szkoleniowe dla kadry zarządzającej i pracowników. Doradztwo prowadzone w przypadku decyzji specyficznych dla firmy: kompromisy w postępowaniu z ryzykiem, negocjacje z dostawcami, złożone reagowanie na incydenty. Funkcje premium w miarę ich rozwoju. Licencjonowanie samodzielnego hostingu dla podmiotów, które muszą uruchamiać platformę wewnętrznie.",
+        "p1": "Kursy szkoleniowe dla kadry zarządzającej i pracowników. Doradztwo prowadzone w przypadku decyzji specyficznych dla firmy: kompromisy w postępowaniu z ryzykiem, negocjacje z dostawcami, złożone reagowanie na incydenty. Funkcje premium w miarę ich rozwoju. Za samodzielny hosting nie pobieramy nic: kod jest na licencji AGPL-3.0, bez opłaty licencyjnej.",
         "p2": "Podstawowa platforma zgodności pozostaje bezpłatna. Otwarty zbiór danych pozostaje otwarty. Zasada jest taka, że rachunek ma zostać obcięty, a nie przeniesiony na nas."
       },
       "team": {

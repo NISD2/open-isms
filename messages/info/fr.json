@@ -1867,7 +1867,7 @@
       },
       "paid": {
         "heading": "Là où nous facturons",
-        "p1": "Des formations pour la direction et le personnel. Du conseil guidé pour les décisions propres à l'entreprise : arbitrages de traitement des risques, négociations avec les fournisseurs, réponse à incident complexe. Des fonctionnalités premium au fur et à mesure de leur développement. Des licences d'auto-hébergement pour les entités qui ont besoin d'exploiter la plateforme en interne.",
+        "p1": "Des formations pour la direction et le personnel. Du conseil guidé pour les décisions propres à l'entreprise : arbitrages de traitement des risques, négociations avec les fournisseurs, réponse à incident complexe. Des fonctionnalités premium au fur et à mesure de leur développement. L'auto-hébergement ne nous rapporte rien : le code est sous AGPL-3.0, sans frais de licence.",
         "p2": "La plateforme de conformité de base reste gratuite. Le jeu de données ouvert reste ouvert. Le principe est que la facture doit être réduite, et non reportée sur nous."
       },
       "team": {

@@ -2,12 +2,12 @@
   "pricing": {
     "meta": {
       "title": "Prețuri - Platformă de conformitate NIS2",
-      "description": "Două moduri de a rula platforma. Găzduită la nis2.eu, gratuit pentru totdeauna. Auto-găzduire sub AGPL-3.0: plătiți cât puteți, ca licență pe viață cu plată unică."
+      "description": "Platforma este gratuită, permanent. Găzduită la nisd2.eu sau auto-găzduită pe propria infrastructură sub AGPL-3.0. Fără licență, fără activare, fără lock-in."
     },
     "title": "Prețuri",
-    "subtitle": "Două moduri de a rula platforma. Alegeți unul.",
+    "subtitle": "Gratuită, permanent. Alegeți doar cine o operează.",
     "free": {
-      "name": "Găzduită la nis2.eu",
+      "name": "Găzduită la nisd2.eu",
       "description": "Platforma completă, operată de noi pe infrastructură din UE.",
       "price": "0 €",
       "priceSub": "pentru totdeauna",
@@ -22,22 +22,25 @@
         "f7": "Membri de echipă nelimitați",
         "f8": "Registre de riscuri, active și furnizori",
         "f9": "Asistență la formulare bazată pe AI",
-        "f10": "Kein Lock-in. Model de date Open Source. Exportați oricând."
+        "f10": "Fără lock-in. Model de date deschis. Export oricând, inclusiv către auto-găzduire."
       }
     },
     "selfHost": {
       "name": "Auto-găzduire",
-      "description": "Cod sursă complet. Rulați-l pe propria infrastructură, pentru totdeauna.",
-      "price": "Plătiți cât puteți",
-      "priceSub": "plată unică, licență pe viață",
-      "cta": "Contactați-ne",
+      "description": "Cod sursă complet. Pe propria infrastructură, permanent.",
+      "price": "0 €",
+      "priceSub": "pentru totdeauna",
+      "cta": "Vezi codul sursă",
       "features": {
         "h1": "Cod sursă complet al platformei sub AGPL-3.0",
-        "h2": "Toate actualizările viitoare incluse",
-        "h3": "Rulați pe propria infrastructură, propriile dvs. date",
-        "h4": "Persoană de contact dedicată pentru suport prin e-mail și Signal"
+        "h2": "Toate actualizările viitoare incluse, permanent",
+        "h3": "Pe propria infrastructură, cu propriile date",
+        "h4": "Fără licență, fără contract, fără cheie de activare",
+        "h5": "Exportați lucrul dvs. din nisd2.eu și continuați să îl rulați singuri",
+        "h6": "Contact direct prin e-mail și Signal"
       }
     },
+    "whyFree": "De ce este gratuită: codul sursă este public pe GitHub sub AGPL-3.0. O licență ne-ar fi arătat mai ales cine folosește platforma. Acesta nu este un motiv să vă trimitem o factură.",
     "consultantFootnote": "Aveți nevoie de un consultant NIS2? Vă punem în legătură cu specialiști verificați, fără niciun cost pentru dvs.",
     "consultantCta": "Solicită un consultant"
   }

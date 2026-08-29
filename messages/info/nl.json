@@ -1868,7 +1868,7 @@
       },
       "paid": {
         "heading": "Where we charge",
-        "p1": "Training courses for management and staff. Guided consultancy for company-specific decisions: risk treatment trade-offs, supplier negotiations, complex incident response. Premium features as they develop. Self-host licensing for entities that need to run the platform internally.",
+        "p1": "Training courses for management and staff. Guided consultancy for company-specific decisions: risk treatment trade-offs, supplier negotiations, complex incident response. Premium features as they develop. We charge nothing for self-hosting: the code is AGPL-3.0, with no licence fee.",
         "p2": "The core compliance platform stays free. The open dataset stays open. The principle is that the bill should be cut, not shifted to us."
       },
       "cta": {

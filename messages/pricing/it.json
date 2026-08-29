@@ -2,12 +2,12 @@
   "pricing": {
     "meta": {
       "title": "Prezzi - Piattaforma di conformità NIS2",
-      "description": "Due modi per utilizzare la piattaforma. In hosting su nis2.eu, gratuita per sempre. Self-hosting con licenza AGPL-3.0: paga quanto puoi, come licenza a vita una tantum."
+      "description": "La piattaforma è gratuita, in modo permanente. In hosting su nisd2.eu o in self-hosting sulla tua infrastruttura con licenza AGPL-3.0. Nessuna licenza a pagamento, nessuna attivazione, nessun lock-in."
     },
     "title": "Prezzi",
-    "subtitle": "Due modi per utilizzare la piattaforma. Scegline uno.",
+    "subtitle": "Gratuita, in modo permanente. L'unica scelta è chi la gestisce.",
     "free": {
-      "name": "In hosting su nis2.eu",
+      "name": "In hosting su nisd2.eu",
       "description": "La piattaforma completa, gestita da noi su infrastruttura UE.",
       "price": "€0",
       "priceSub": "per sempre",
@@ -22,22 +22,25 @@
         "f7": "Membri del team illimitati",
         "f8": "Registri dei rischi, degli asset e dei fornitori",
         "f9": "Assistenza ai moduli basata sull'IA",
-        "f10": "Nessun lock-in. Modello dati Open Source. Esporta in qualsiasi momento."
+        "f10": "Nessun lock-in. Modello dati aperto. Esporta in qualsiasi momento, anche verso il self-hosting."
       }
     },
     "selfHost": {
       "name": "Self-hosting",
-      "description": "Codice sorgente completo. Eseguila sulla tua infrastruttura, per sempre.",
-      "price": "Paga quanto puoi",
-      "priceSub": "una tantum, licenza a vita",
-      "cta": "Contattaci",
+      "description": "Codice sorgente completo. Sulla tua infrastruttura, in modo permanente.",
+      "price": "€0",
+      "priceSub": "per sempre",
+      "cta": "Vedi il codice sorgente",
       "features": {
         "h1": "Codice sorgente completo della piattaforma con licenza AGPL-3.0",
-        "h2": "Tutti gli aggiornamenti futuri inclusi",
-        "h3": "Eseguila sulla tua infrastruttura, con i tuoi dati",
-        "h4": "Contatto dedicato per il supporto via email e Signal"
+        "h2": "Tutti gli aggiornamenti futuri inclusi, in modo permanente",
+        "h3": "Sulla tua infrastruttura, con i tuoi dati",
+        "h4": "Nessuna licenza, nessun contratto, nessuna chiave di attivazione",
+        "h5": "Esporta il tuo lavoro da nisd2.eu e continua a gestirlo da solo",
+        "h6": "Contatto diretto via email e Signal"
       }
     },
+    "whyFree": "Perché è gratuita: il codice sorgente è pubblico su GitHub con licenza AGPL-3.0. Una licenza a pagamento ci avrebbe soprattutto mostrato chi usa la piattaforma. Non è un motivo per mandarti una fattura.",
     "consultantFootnote": "Hai bisogno di un consulente NIS2? Ti mettiamo in contatto con specialisti selezionati senza alcun costo per te.",
     "consultantCta": "Richiedi un consulente"
   }

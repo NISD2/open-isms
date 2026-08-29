@@ -2,12 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check } from "lucide-react";
 
 const freeKeys = ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10"] as const;
-const selfHostKeys = ["h1", "h2", "h3", "h4"] as const;
+const selfHostKeys = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
 
 export function PricingCards() {
   const t = useTranslations("pricing");
@@ -51,9 +52,7 @@ export function PricingCards() {
           </CardHeader>
           <CardContent className="space-y-4">
             <Button variant="outline" className="w-full" size="lg" asChild>
-              <a href="mailto:contact@nisd2.eu?subject=Self-Host%20License">
-                {t("selfHost.cta")}
-              </a>
+              <Link href="/open-source">{t("selfHost.cta")}</Link>
             </Button>
             <ul className="space-y-2 text-sm">
               {selfHostKeys.map((key) => (
@@ -66,6 +65,10 @@ export function PricingCards() {
           </CardContent>
         </Card>
       </div>
+
+      <p className="mx-auto max-w-2xl text-center text-sm text-muted-foreground">
+        {t("whyFree")}
+      </p>
 
       <p className="text-center text-sm text-muted-foreground">
         {t("consultantFootnote")}{" "}

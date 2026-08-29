@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "id": "2026-08-29-product-self-host-free",
+      "date": "2026-08-29",
+      "category": "product",
+      "titleDe": "Selbstbetrieb ist jetzt kostenlos, die Lizenz entfaellt",
+      "titleEn": "Self-hosting is now free, the licence is gone",
+      "bodyDe": "Die Preisseite kannte zwei Wege: kostenlos gehostet auf nisd2.eu, oder Selbstbetrieb gegen eine einmalige Lizenz nach dem Prinzip 'Zahlen Sie, was Sie koennen'. Diese Lizenz gibt es nicht mehr. Der Quellcode steht weiterhin unter AGPL-3.0, alle kuenftigen Updates sind eingeschlossen, und es gibt weder Vertrag noch Freischaltung. Wer auf nisd2.eu angefangen hat, exportiert seinen Stand und betreibt ihn selbst weiter. Nebenbei korrigiert: die Seite nannte in allen zehn Sprachen die falsche Domain nis2.eu statt nisd2.eu.",
+      "bodyEn": "The pricing page offered two routes: hosted free at nisd2.eu, or self-hosting against a one-time 'pay what you can' licence. That licence is gone. The source stays under AGPL-3.0, all future updates are included, and there is no contract and no activation key. Anyone who started on nisd2.eu can export their work and carry on running it themselves. Fixed along the way: the page named the wrong domain, nis2.eu instead of nisd2.eu, in all ten languages.",
+      "links": [
+        {
+          "labelDe": "Preise",
+          "labelEn": "Pricing",
+          "href": "/pricing"
+        }
+      ]
+    },
+    {
       "id": "2026-08-25-product-nis2-focus",
       "date": "2026-08-25",
       "category": "product",

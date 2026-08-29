@@ -1867,7 +1867,7 @@
       },
       "paid": {
         "heading": "Onde cobramos",
-        "p1": "Cursos de formação para a gestão e o pessoal. Consultoria orientada para decisões específicas da empresa: compromissos no tratamento de risco, negociações com fornecedores, resposta a incidentes complexos. Funcionalidades premium à medida que se desenvolvem. Licenciamento de auto-alojamento para entidades que precisam de executar a plataforma internamente.",
+        "p1": "Cursos de formação para a gestão e o pessoal. Consultoria orientada para decisões específicas da empresa: compromissos no tratamento de risco, negociações com fornecedores, resposta a incidentes complexos. Funcionalidades premium à medida que se desenvolvem. Pelo autoalojamento não cobramos nada: o código está sob AGPL-3.0, sem taxa de licença.",
         "p2": "A plataforma central de conformidade permanece gratuita. O conjunto de dados aberto permanece aberto. O princípio é que a fatura deve ser cortada, não transferida para nós."
       },
       "team": {
