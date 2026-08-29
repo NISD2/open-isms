@@ -4,6 +4,7 @@ import { routing } from "@/i18n/routing";
 import { localizedAbsoluteUrl, type Locale } from "@/lib/seo";
 import { wikiSitemapPaths } from "@/lib/content/wiki-toc";
 import { DOCS_ENTRIES } from "@/lib/docs/toc";
+import { DOCS_REVISED, docsUrl } from "@/lib/docs/seo";
 import { db } from "@/lib/db";
 import { newsletterIssue } from "@/schema";
 
@@ -56,13 +57,12 @@ function multilingualEntries(
  * for one document.
  */
 function docsEntries(): SitemapEntry[] {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
   return [
-    { path: "/docs", priority: 0.6 },
-    ...DOCS_ENTRIES.map((entry) => ({ path: entry.href, priority: 0.5 })),
-  ].map(({ path, priority }) => ({
-    url: new URL(path, baseUrl).toString(),
-    lastModified: "2026-08-29",
+    { url: docsUrl(), priority: 0.7 },
+    ...DOCS_ENTRIES.map((entry) => ({ url: docsUrl(entry.path), priority: 0.5 })),
+  ].map(({ url, priority }) => ({
+    url,
+    lastModified: DOCS_REVISED,
     changeFrequency: "monthly" as const,
     priority,
   }));

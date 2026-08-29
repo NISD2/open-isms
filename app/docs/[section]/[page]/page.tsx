@@ -3,52 +3,49 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 import { DOCS_ENTRIES, findEntry, neighbours } from "@/lib/docs/toc";
+import { docsArticleJsonLd, docsBreadcrumbJsonLd, docsPageMetadata } from "@/lib/docs/seo";
 import { renderDoc } from "@/lib/docs/content";
 import { TableOfContents } from "@/components/docs/TableOfContents";
 import { CopyableCodeBlocks } from "@/components/docs/CopyableCodeBlocks";
+import { JsonLd } from "@/components/JsonLd";
 
 /**
  * Every page is prerendered from lib/docs/toc.ts and nothing else resolves:
  * an unknown slug is a 404 rather than an attempt to read an arbitrary path
  * off the filesystem.
+ *
+ * Two dynamic segments rather than one catch-all, because the tree is exactly
+ * two levels deep and Next.js will not host a metadata route (the per-page
+ * Open Graph card next door) under a catch-all: the catch-all has to be the
+ * last part of the URL.
  */
 export const dynamicParams = false;
 
 const ARTICLE_ID = "docs-article";
 const GITHUB_EDIT_BASE = "https://github.com/NISD2/open-isms/edit/main/content/docs";
 
-export function generateStaticParams() {
-  return DOCS_ENTRIES.map((entry) => ({ slug: [entry.section.slug, entry.page.slug] }));
+interface DocsParams {
+  params: Promise<{ section: string; page: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const entry = findEntry(slug.join("/"));
+export function generateStaticParams() {
+  return DOCS_ENTRIES.map((entry) => ({
+    section: entry.section.slug,
+    page: entry.page.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: DocsParams): Promise<Metadata> {
+  const { section, page } = await params;
+  const entry = findEntry(`${section}/${page}`);
   if (!entry) return {};
 
-  return {
-    title: entry.page.title,
-    description: entry.page.description,
-    alternates: { canonical: entry.href },
-    openGraph: {
-      title: `${entry.page.title} — open-isms docs`,
-      description: entry.page.description,
-      url: entry.href,
-    },
-  };
+  return docsPageMetadata(entry);
 }
 
-export default async function DocsPage({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}) {
-  const { slug } = await params;
-  const path = slug.join("/");
+export default async function DocsPage({ params }: DocsParams) {
+  const { section, page } = await params;
+  const path = `${section}/${page}`;
   const entry = findEntry(path);
   if (!entry) notFound();
 
@@ -57,6 +54,15 @@ export default async function DocsPage({
 
   return (
     <div className="flex gap-10 py-10">
+      {/*
+        TechArticle plus BreadcrumbList. The breadcrumb is what a search
+        result renders as a path instead of a bare URL, and on a tree this
+        deep that is the difference between "nisd2.eu › docs › self-hosting ›
+        Backup and restore" and a truncated link nobody clicks.
+      */}
+      <JsonLd data={docsArticleJsonLd(entry)} />
+      <JsonLd data={docsBreadcrumbJsonLd(entry)} />
+
       <article className="min-w-0 max-w-2xl flex-1">
         <nav
           aria-label="Breadcrumb"

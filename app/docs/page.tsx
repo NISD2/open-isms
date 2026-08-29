@@ -2,12 +2,33 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Boxes, Rocket, Server, Wrench } from "lucide-react";
 import { DOCS_SECTIONS } from "@/lib/docs/toc";
+import { docsCollectionJsonLd, docsUrl } from "@/lib/docs/seo";
+import { JsonLd } from "@/components/JsonLd";
+
+const DESCRIPTION =
+  "Install, configure and operate open-isms: the free, self-hostable ISMS for the EU NIS 2 Directive. Docker, Postgres, backups, updates and the data model.";
 
 export const metadata: Metadata = {
-  title: "open-isms documentation",
-  description:
-    "Install, configure, operate and contribute to open-isms: the open-source ISMS for the EU NIS 2 Directive.",
-  alternates: { canonical: "/docs" },
+  title: { absolute: "open-isms documentation: self-hosted NIS 2 ISMS" },
+  description: DESCRIPTION,
+  keywords: [
+    "open source ISMS",
+    "self-hosted NIS 2",
+    "NIS 2 compliance software",
+    "ISMS documentation",
+    "AGPL compliance platform",
+  ],
+  alternates: { canonical: docsUrl() },
+  openGraph: {
+    type: "website",
+    title: "open-isms documentation",
+    description: DESCRIPTION,
+    url: docsUrl(),
+    siteName: "open-isms docs",
+    locale: "en_US",
+    images: [{ url: `${docsUrl()}/opengraph-image`, width: 1200, height: 630, alt: "open-isms documentation" }],
+  },
+  twitter: { card: "summary_large_image", title: "open-isms documentation", description: DESCRIPTION },
 };
 
 const SHORTCUTS = [
@@ -40,6 +61,13 @@ const SHORTCUTS = [
 export default function DocsHome() {
   return (
     <div className="py-14">
+      {/*
+        One CollectionPage listing every article, so a crawler reaches the
+        whole tree from the hub and an answer engine sees these as one body
+        of work rather than twenty-four unrelated URLs.
+      */}
+      <JsonLd data={docsCollectionJsonLd()} />
+
       <div className="max-w-2xl">
         <p className="text-sm font-medium text-primary">Documentation</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight">open-isms</h1>

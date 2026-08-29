@@ -55,6 +55,46 @@ describe("docs table of contents", () => {
       expect(page.description).not.toContain("\n");
     }
   });
+});
+
+/**
+ * The limits below are what a result page actually renders before it
+ * truncates. They are cheap to keep and impossible to eyeball across
+ * twenty-four pages, which is exactly the kind of thing that rots quietly.
+ */
+describe("docs metadata is fit for a result page", () => {
+  test("search titles fit, and are not the navigation label", () => {
+    for (const { page } of DOCS_ENTRIES) {
+      expect(page.seoTitle.length).toBeGreaterThanOrEqual(24);
+      expect(page.seoTitle.length).toBeLessThanOrEqual(65);
+      // A nav label reads as one item in a list; a title tag has to stand on
+      // its own in a result page. "Email" is a fine sidebar entry and a
+      // useless search result.
+      expect(page.seoTitle).not.toBe(page.title);
+    }
+  });
+
+  test("descriptions fit a meta description", () => {
+    for (const { page } of DOCS_ENTRIES) {
+      expect(page.description.length).toBeGreaterThanOrEqual(40);
+      expect(page.description.length).toBeLessThanOrEqual(160);
+    }
+  });
+
+  test("titles and descriptions are unique across the tree", () => {
+    const titles = DOCS_ENTRIES.map((e) => e.page.seoTitle);
+    const descriptions = DOCS_ENTRIES.map((e) => e.page.description);
+    expect(new Set(titles).size).toBe(titles.length);
+    expect(new Set(descriptions).size).toBe(descriptions.length);
+  });
+
+  test("every page declares keywords, and none is padding", () => {
+    for (const { page } of DOCS_ENTRIES) {
+      expect(page.keywords.length).toBeGreaterThanOrEqual(3);
+      expect(page.keywords.length).toBeLessThanOrEqual(6);
+      expect(new Set(page.keywords).size).toBe(page.keywords.length);
+    }
+  });
 
   test("sections are not empty", () => {
     for (const section of DOCS_SECTIONS) {
