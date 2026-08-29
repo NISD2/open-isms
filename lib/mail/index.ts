@@ -1,4 +1,5 @@
 export { sendMail, sendWelcomeEmail, type SendMailOptions } from "./send";
+export { sendAuthCode } from "./auth-code";
 export {
   inviteEmail,
   memberRemovedEmail,

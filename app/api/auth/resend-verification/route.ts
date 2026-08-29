@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { eq, isNull, and } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { user } from "@/schema";
-import { sendMail, emailVerificationCodeEmail } from "@/lib/mail";
+import { sendAuthCode } from "@/lib/mail";
 import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
 
 /**
@@ -46,10 +46,7 @@ export async function POST(request: Request) {
 
   try {
     const { code } = await requestOtp(email, "email_verify");
-    await sendMail({
-      to: email,
-      ...emailVerificationCodeEmail({ code, locale }),
-    }).catch((err) =>
+    await sendAuthCode({ to: email, code, locale, kind: "verification" }).catch((err) =>
       console.error("[resend-verification] Failed to send email:", err),
     );
   } catch (err) {

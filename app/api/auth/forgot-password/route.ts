@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { user } from "@/schema";
 import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
-import { sendMail, passwordResetCodeEmail } from "@/lib/mail";
+import { sendAuthCode } from "@/lib/mail";
 import { isDisposableEmail } from "@/lib/auth/disposable";
 import { getClientIp } from "@/lib/client-ip";
 
@@ -84,10 +84,7 @@ export async function POST(request: Request) {
 
   try {
     const { code } = await requestOtp(email, "password_reset");
-    await sendMail({
-      to: email,
-      ...passwordResetCodeEmail({ code, locale }),
-    });
+    await sendAuthCode({ to: email, code, locale, kind: "password-reset" });
   } catch (err) {
     if (err instanceof OtpRateLimitedError) {
       // Silent — we still return success to keep enumeration resistance.
