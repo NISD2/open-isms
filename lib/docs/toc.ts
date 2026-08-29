@@ -45,7 +45,7 @@ export const DOCS_SECTIONS = [
       {
         slug: "quickstart",
         title: "Quickstart",
-        description: "Three files and a published image. A running instance in about ten minutes.",
+        description: "One command, about ten minutes, and no Docker knowledge required.",
       },
       {
         slug: "how-it-works",

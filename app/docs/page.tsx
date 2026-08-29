@@ -14,7 +14,7 @@ const SHORTCUTS = [
   {
     href: "/docs/getting-started/quickstart",
     title: "Quickstart",
-    body: "Three files and a published image. A running instance in about ten minutes.",
+    body: "One command. It installs, starts and loads the framework data for you.",
     icon: Rocket,
   },
   {
