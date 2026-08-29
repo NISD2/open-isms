@@ -276,6 +276,13 @@ async function route(request: NextRequest) {
   // Bypass paths — handled by route handlers or no auth meaningful.
   if (
     pathname.startsWith("/api/") ||
+    // The open-isms developer and operator documentation. It lives outside
+    // app/[locale] because it is English only with one canonical URL per
+    // page, so the i18n middleware must not rewrite it into a locale segment
+    // that has no route. Public by definition: it is the install guide for
+    // software anyone can download.
+    pathname === "/docs" ||
+    pathname.startsWith("/docs/") ||
     pathname.startsWith("/.well-known/") ||
     pathname.startsWith("/pitch-preview") ||
     pathname.startsWith("/email/unsubscribed") ||

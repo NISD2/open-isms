@@ -51,6 +51,20 @@ export async function PublicNav() {
             {t("nav.about")}
           </Link>
           <div className="flex items-center gap-2">
+            {/*
+              A plain anchor, not the next-intl Link: /docs is the open-isms
+              developer documentation, which sits outside the localized route
+              tree and has one canonical URL. Routing it through Link would
+              prefix it with a locale that has no page. The label stays
+              "Docs" in every locale because the pages themselves are
+              English only.
+            */}
+            <a
+              href="/docs"
+              className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+            >
+              Docs
+            </a>
             <Button
               variant="ghost"
               size="sm"

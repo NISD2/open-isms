@@ -1119,11 +1119,12 @@ export function docsToWikiRedirects(): Array<{
   destination: string;
   permanent: boolean;
 }> {
-  const out: Array<{ source: string; destination: string; permanent: boolean }> = [
-    { source: "/docs", destination: "/wiki", permanent: true },
-    { source: "/en/docs", destination: "/en/wiki", permanent: true },
-    { source: "/nl/docs", destination: "/nl/wiki", permanent: true },
-  ];
+  // The three bare `/docs` roots are deliberately absent. That URL is now the
+  // open-isms developer documentation (app/docs), not a redirect to the wiki.
+  // The category and article paths below stay: those are the URLs with inbound
+  // links from the short-lived first iteration of the wiki hub, and none of
+  // their slugs collide with a docs section.
+  const out: Array<{ source: string; destination: string; permanent: boolean }> = [];
   for (const cat of WIKI_TOP_LEVEL) {
     const meta = WIKI_TOC[cat];
     out.push(

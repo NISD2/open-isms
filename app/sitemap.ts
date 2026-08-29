@@ -3,6 +3,7 @@ import { isNotNull } from "drizzle-orm";
 import { routing } from "@/i18n/routing";
 import { localizedAbsoluteUrl, type Locale } from "@/lib/seo";
 import { wikiSitemapPaths } from "@/lib/content/wiki-toc";
+import { DOCS_ENTRIES } from "@/lib/docs/toc";
 import { db } from "@/lib/db";
 import { newsletterIssue } from "@/schema";
 
@@ -45,6 +46,25 @@ function multilingualEntries(
     url: urlPerLocale[locale],
     ...base,
     alternates: { languages: urlPerLocale },
+  }));
+}
+
+/**
+ * The developer documentation at /docs. One URL per page, no locale segment
+ * and no hreflang alternates: those pages are English only and live outside
+ * the localized route tree, so a per-locale entry would advertise ten URLs
+ * for one document.
+ */
+function docsEntries(): SitemapEntry[] {
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
+  return [
+    { path: "/docs", priority: 0.6 },
+    ...DOCS_ENTRIES.map((entry) => ({ path: entry.href, priority: 0.5 })),
+  ].map(({ path, priority }) => ({
+    url: new URL(path, baseUrl).toString(),
+    lastModified: "2026-08-29",
+    changeFrequency: "monthly" as const,
+    priority,
   }));
 }
 
@@ -151,6 +171,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...multilingualEntries("/vertrauen", { priority: 0.6 }),
     ...multilingualEntries("/sicherheit", { priority: 0.5 }),
     ...multilingualEntries("/subprozessoren", { priority: 0.5 }),
+
+    // Developer documentation, English only
+    ...docsEntries(),
 
     // Legal pages — DE only by convention (local boilerplate)
     singleLocaleEntry("/terms", "de", {}),
