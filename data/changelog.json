@@ -1,6 +1,86 @@
 {
   "entries": [
     {
+      "id": "2026-08-30-regulatory-timeline-august-events",
+      "date": "2026-08-30",
+      "category": "regulatory",
+      "titleDe": "Zeitleiste: fuenf Ereignisse im August, vier Korrekturen an den Portalen",
+      "titleEn": "Timeline: five August events, four portal corrections",
+      "bodyDe": "Neu in der Zeitleiste: das BSI beziffert die Verbreitung von security.txt in Deutschland auf 1,8 Prozent, der Inspektionsdienst des belgischen CCB verlangt von wesentlichen Einrichtungen Auskunft zur Konformitaetsbewertung, das tschechische NUKIB fragt ab, welche Hilfestellungen noch fehlen, und meldet 203 Vorfaelle fuer 2025, und die ungarische SZTFH berichtet von 2.194 Einrichtungen im ersten Auditzyklus. Belgien wird dabei konkreter: geprueft wird vorrangig bis zum 18. April 2027, ob die Massnahmen dem CyFun Assurance Level Important entsprechen, das Level Essential folgt bis spaetestens 18. April 2028. Korrigiert wurden ausserdem drei Laendereintraege: Tschechiens Neufassung ist als Gesetz 264/2025 Sb. seit dem 1. November 2025 in Kraft und nicht mehr im Verfahren, CERT-SE sitzt seit dem 1. Juli 2026 im NCSC bei der FRA, und fuer die Slowakei war keine Portaladresse hinterlegt.",
+      "bodyEn": "New on the timeline: the BSI puts security.txt adoption in Germany at 1.8 percent, the Belgian CCB Inspection Service has asked essential entities for information on their conformity assessment, Czechia's NUKIB asked which guidance is still missing and reported 203 incidents for 2025, and Hungary's SZTFH reports 2,194 entities through the first audit cycle. Belgium gets more specific: it will verify by 18 April 2027 that measures match CyFun assurance level Important, with level Essential to follow by 18 April 2028 at the latest. Three country entries were also corrected: Czechia's rewrite is in force as Act 264/2025 Sb. since 1 November 2025 rather than still in the legislative process, CERT-SE has sat in the NCSC at the FRA since 1 July 2026, and Slovakia had no portal address on file.",
+      "links": [
+        {
+          "labelDe": "Zeitleiste",
+          "labelEn": "Timeline",
+          "href": "/wiki/zeit-und-status/nis2-timeline"
+        }
+      ]
+    },
+    {
+      "id": "2026-08-30-content-nis2-documents-annex-anchors",
+      "date": "2026-08-30",
+      "category": "content",
+      "titleDe": "Dokumentenliste: alle 42 Zeilen gegen den Anhang der Durchfuehrungsverordnung geprueft",
+      "titleEn": "Document list: all 42 rows checked against the Implementing Regulation Annex",
+      "bodyDe": "Die Liste der NIS2-Dokumente nennt zu jeder Zeile den Punkt im Anhang der Durchfuehrungsverordnung (EU) 2024/2690, auf den sie sich stuetzt. Diese Verweise waren seit Juni unveraendert und von vier spaeteren Korrekturlaeufen uebersprungen worden. Jetzt wurden alle 42 Zeilen gegen den Text im Amtsblatt geprueft: drei Verweise zeigten auf Punkte, die es nicht gibt (5.3, 5.4 und 7.4), interne Revision und Managementbewertung standen unter Punkt 7 statt unter Punkt 2, und die Meldekette nach Artikel 23 Absatz 4 haengt jetzt an Punkt 3.5.3.",
+      "bodyEn": "The NIS 2 document list names, for every row, the Annex point of Implementing Regulation (EU) 2024/2690 it rests on. Those references had been untouched since June and were skipped by four later correction passes. All 42 rows have now been checked against the Official Journal text: three references pointed at points that do not exist (5.3, 5.4 and 7.4), internal audit and management review sat under point 7 instead of point 2, and the Article 23(4) reporting cascade now hangs on point 3.5.3.",
+      "links": [
+        {
+          "labelDe": "Dokumentenliste",
+          "labelEn": "Document list",
+          "href": "/wiki/umsetzung/nis2-documents"
+        }
+      ]
+    },
+    {
+      "id": "2026-08-29-product-self-host-installer",
+      "date": "2026-08-29",
+      "category": "product",
+      "titleDe": "Selbstbetrieb: Installation mit einem Befehl",
+      "titleEn": "Self-hosting: install with one command",
+      "bodyDe": "Der Selbstbetrieb setzte bisher voraus, dass jemand Docker kennt, drei Dateien von Hand zusammensucht, fuenf Geheimnisse selbst erzeugt und belegte Ports einzeln aufloest. Ein Installationsskript uebernimmt das jetzt: es prueft Docker, laedt die Dateien, erzeugt die Geheimnisse einmalig, sucht freie Ports und wartet, bis die Instanz antwortet. Zwei Fehler, die eine korrekte Installation defekt aussehen liessen, sind behoben: der Anforderungskatalog wird beim Start des Containers geladen statt leer zu bleiben, und ohne eingerichteten Mailversand steht der Anmeldecode im Protokoll des Containers, damit sich das erste Konto ueberhaupt anlegen laesst.",
+      "bodyEn": "Self-hosting used to assume someone knows Docker, collects three files by hand, generates five secrets themselves and resolves occupied ports one at a time. An install script now does that: it checks Docker, downloads the files, generates the secrets once, picks free ports and waits until the instance answers. Two faults that made a correct install look broken are fixed: the requirement catalogue loads when the container starts instead of staying empty, and with no mail provider configured the sign-in code is written to the container log, so the first account can be created at all.",
+      "links": [
+        {
+          "labelDe": "Dokumentation",
+          "labelEn": "Documentation",
+          "href": "/docs"
+        }
+      ]
+    },
+    {
+      "id": "2026-08-29-product-docs-site",
+      "date": "2026-08-29",
+      "category": "product",
+      "titleDe": "Dokumentation unter /docs",
+      "titleEn": "Documentation at /docs",
+      "bodyDe": "Was bisher in sieben Dateien im Repository lag, ist jetzt eine Rubrik auf der Seite: 24 Seiten zu Einstieg, Selbstbetrieb, Datenmodell der Plattform, den npm-Paketen und zur Mitarbeit. Nur auf Englisch, weil diese Seiten liest, wer die Software installiert, und zehn Uebersetzungen einer Anleitung fuer Docker zehn weitere Texte waeren, die stimmen muessen. Kopfzeile, Navigation und Fusszeile sind die der uebrigen Seite, das Logo fuehrt zurueck.",
+      "bodyEn": "What lived in seven files inside the repository is now a section of the site: 24 pages covering getting started, self-hosting, the platform's data model, the npm packages and contributing. English only, because the people who read these pages are the ones installing the software, and ten translations of a Docker walkthrough would be ten more texts to keep true. The header, navigation and footer are the site's own, so the logo leads back.",
+      "links": [
+        {
+          "labelDe": "Dokumentation",
+          "labelEn": "Documentation",
+          "href": "/docs"
+        }
+      ]
+    },
+    {
+      "id": "2026-08-29-compliance-impressum-vat-id",
+      "date": "2026-08-29",
+      "category": "compliance",
+      "titleDe": "Impressum: Umsatzsteueridentifikationsnummer ergaenzt",
+      "titleEn": "Impressum: VAT identification number added",
+      "bodyDe": "Das Impressum weist jetzt die Umsatzsteueridentifikationsnummer nach Paragraf 27a Umsatzsteuergesetz aus.",
+      "bodyEn": "The Impressum now states the VAT identification number under section 27a of the German VAT Act.",
+      "links": [
+        {
+          "labelDe": "Impressum",
+          "labelEn": "Impressum",
+          "href": "/impressum"
+        }
+      ]
+    },
+    {
       "id": "2026-08-29-product-self-host-free",
       "date": "2026-08-29",
       "category": "product",
