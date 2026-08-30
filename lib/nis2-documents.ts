@@ -774,7 +774,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     group: "registration",
     name_en: "Entity Registration with Competent Authority",
     name_de: "Einrichtungsregistrierung bei der zuständigen Behörde",
-    nis2Ref: "Art. 27, §33 BSIG",
+    nis2Ref: "Art. 3(4), §33 BSIG",
     cirRef: "—",
     description_en: "Registration data submitted to the national competent authority: legal entity details, sector, contact points, services, EU presence.",
     description_de: "Registrierungsdaten an die nationale zuständige Behörde: Rechtsform, Sektor, Kontaktstellen, Dienste, EU-Präsenz.",
