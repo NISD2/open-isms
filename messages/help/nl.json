@@ -2,7 +2,7 @@
   "help": {
     "meta": {
       "title": "Als u vastloopt bij NIS 2",
-      "description": "Het platform en de cursus zijn gratis. Onze eigen hulp op dit moment ook. Is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u. Het bedrijf betaalt ons 15 procent van zijn nettohonorarium, en dat zeggen wij op deze pagina."
+      "description": "Het platform en de cursus zijn gratis. Korte vakinhoudelijke vragen beantwoorden wij kosteloos. Wordt het echt werk, dan kost onze tijd 120 EUR netto per uur. Is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u."
     },
     "title": "Als u vastloopt bij NIS 2",
     "intro": "Het platform is gratis en blijft gratis. De cursus ook. De meeste bedrijven komen er zelf doorheen. Lukt dat niet, dan zijn er twee wegen, en beide beginnen met dezelfde mail.",
@@ -17,11 +17,11 @@
     "tier2": {
       "label": "Niveau 2",
       "heading": "U loopt ergens vast. Wij helpen zelf.",
-      "p1": "Vakinhoudelijke vragen beantwoorden wij per mail, meestal binnen twee werkdagen.",
-      "rate": "Op dit moment gratis",
-      "rateNote": "en verandert dat, dan zeggen wij het vooraf",
-      "p2": "Dat geldt voor alles wat van ons komt: het uitleggen van een concrete eis voor een bedrijf van uw omvang, zelfclassificatie, het maatregelenplan, bewijs dat een inspectie doorstaat, een sessie met uw directie over haar eigen plichten onder artikel 20, of hulp om het platform op uw eigen infrastructuur draaiend te krijgen.",
-      "p3": "Wij zijn vroeg, en elk geval leert ons waar het platform nog tekortschiet. Zolang dat zo is, brengen wij er niets voor in rekening. Geen minimumlooptijd, geen abonnement, geen opzegtermijn."
+      "p1": "Korte vakinhoudelijke vragen beantwoorden wij per mail, meestal binnen twee werkdagen, kosteloos.",
+      "rate": "120 EUR netto per uur",
+      "rateNote": "afgerekend per half uur",
+      "p2": "Wordt het echt werk, dan kost onze tijd 120 EUR netto per uur, afgerekend per half uur. Eén tarief voor alles wat van ons komt: het uitleggen van een concrete eis voor een bedrijf van uw omvang, zelfclassificatie, het maatregelenplan, bewijs dat een inspectie doorstaat, een sessie met uw directie over haar eigen plichten onder artikel 20, of hulp om het platform op uw eigen infrastructuur draaiend te krijgen.",
+      "p3": "U geeft vooraf het aantal uren vrij, en u krijgt een gespecificeerd overzicht waaraan ze zijn opgegaan. Geen minimumlooptijd, geen abonnement, geen opzegtermijn."
     },
     "tier3": {
       "label": "Niveau 3",
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Waaraan wij verdienen",
-      "p1": "Op dit moment niet aan u. Niveau 1 en niveau 2 kosten u niets. Er gaat pas geld om als een doorverwijzing op niveau 3 tot een opdracht leidt: het bedrijf betaalt ons dan 15 procent van zijn nettohonorarium.",
+      "p1": "Bij niveau 2 aan onze eigen uren. Bij niveau 3 betaalt het bedrijf ons 15 procent van zijn nettohonorarium als de doorverwijzing tot een opdracht leidt.",
       "p2": "Onze partners leggen schriftelijk vast hun honorarium daarom niet te verhogen. Wij adviseren niet op provisiehoogte, en de volgorde van onze lijst hangt er niet van af.",
       "p3": "Gebruikt u liever uw eigen adviseur, dan is dat volledig in orde, en u houdt het platform hoe dan ook.",
       "link": "Bemiddelingsvoorwaarden lezen"
@@ -109,11 +109,11 @@
     "inApp": {
       "stuck": "Loopt u hier vast?",
       "idle": {
-        "body": "Uw voortgang staat al twee weken op {done} van {total} stappen. Dat is normaal, en meestal is het één enkel punt dat blokkeert. Vertel ons welk punt, dan zeggen wij u of wij het zelf met u kunnen oplossen of dat er een gespecialiseerd bedrijf voor nodig is.",
+        "body": "Uw voortgang staat al twee weken op {done} van {total} stappen. Dat is normaal, en meestal is het één enkel punt dat blokkeert. Vertel ons welk punt, dan zeggen wij u of het een half uur met ons is of werk voor een gespecialiseerd bedrijf.",
         "cta": "Vertel ons waar u vastloopt"
       },
       "dialog": {
-        "line": "Loopt u ergens vast? Onze hulp kost op dit moment niets, en is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u.",
+        "line": "Loopt u ergens vast? Korte vakinhoudelijke vragen kosten niets, en is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u.",
         "cta": "Vakspecialist zoeken"
       }
     }

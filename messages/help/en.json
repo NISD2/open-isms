@@ -2,7 +2,7 @@
   "help": {
     "meta": {
       "title": "If you get stuck with NIS 2",
-      "description": "The platform and the course are free. So is our own help, for now. If it needs a specialist firm, we refer you to one at no cost to you. The firm pays us 15 percent of its net fee, and we say so on this page."
+      "description": "The platform and the course are free. Short technical questions are answered at no charge. When it turns into real work, our time costs 120 EUR net per hour. If it needs a specialist firm, we refer you to one at no cost to you."
     },
     "title": "If you get stuck with NIS 2",
     "intro": "The platform is free and stays free. So does the course. Most companies get through on their own. If you do not, there are two routes, and both start with the same email.",
@@ -17,11 +17,11 @@
     "tier2": {
       "label": "Level 2",
       "heading": "You get stuck on something. We help directly.",
-      "p1": "We answer technical questions by email, usually within two working days.",
-      "rate": "Free for now",
-      "rateNote": "and if that changes, we will say so before it does",
-      "p2": "That covers everything that comes from us: interpreting a specific requirement for a company your size, self-classification, the measures plan, evidence that survives an inspection, a session with your management on their own duties under Article 20, or help getting the platform running on your own infrastructure.",
-      "p3": "We are early, and every case teaches us where the platform does not yet carry its weight. While that holds, we do not invoice for it. No minimum term, no subscription, no notice period."
+      "p1": "Short technical questions get answered by email, usually within two working days, at no charge.",
+      "rate": "120 EUR net per hour",
+      "rateNote": "billed in half hours",
+      "p2": "When it turns into real work, our time costs 120 EUR net per hour, billed in half hours. One rate for everything that comes from us: interpreting a specific requirement for a company your size, self-classification, the measures plan, evidence that survives an inspection, a session with your management on their own duties under Article 20, or help getting the platform running on your own infrastructure.",
+      "p3": "You approve the number of hours before we start, and you get an itemised account of where they went. No minimum term, no subscription, no notice period."
     },
     "tier3": {
       "label": "Level 3",
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "How we earn",
-      "p1": "Not from you, for now. Levels 1 and 2 cost you nothing. Money only moves if a level 3 referral turns into an engagement: the firm then pays us 15 percent of its net fee.",
+      "p1": "Level 2 is our own hours. On level 3 the firm pays us 15 percent of its net fee if the referral turns into an engagement.",
       "p2": "Our partners commit in writing not to raise their fee because of it. We do not recommend by commission, and the order of our list does not depend on it.",
       "p3": "If you would rather use your own consultant, that is completely fine, and you keep the platform either way.",
       "link": "Read the referral terms"
@@ -109,11 +109,11 @@
     "inApp": {
       "stuck": "Stuck here?",
       "idle": {
-        "body": "Your progress has been at {done} of {total} steps for two weeks. That is normal, and it is usually one single point that blocks it. Tell us which one, and we will tell you whether we can settle it with you or whether it needs a specialist firm.",
+        "body": "Your progress has been at {done} of {total} steps for two weeks. That is normal, and it is usually one single point that blocks it. Tell us which one, and we will tell you whether it is half an hour with us or a job for a specialist firm.",
         "cta": "Tell us where you are stuck"
       },
       "dialog": {
-        "line": "Stuck on something? Our help costs nothing at the moment, and if it needs a specialist firm, we refer you to one at no cost to you.",
+        "line": "Stuck on something? Short technical questions are free, and if it needs a specialist firm, we refer you to one at no cost to you.",
         "cta": "Find a specialist"
       }
     }

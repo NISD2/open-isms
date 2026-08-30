@@ -2,7 +2,7 @@
   "help": {
     "meta": {
       "title": "Wenn Sie bei NIS 2 nicht weiterkommen",
-      "description": "Die Plattform und der Kurs sind kostenlos. Unsere eigene Hilfe ist es zurzeit auch. Braucht es einen Fachbetrieb, vermitteln wir Ihnen einen, ohne Kosten für Sie. Vom Betrieb bekommen wir 15 Prozent seines Nettohonorars, und das sagen wir hier."
+      "description": "Die Plattform und der Kurs sind kostenlos. Kurze Fachfragen beantworten wir kostenlos. Wird daraus echte Arbeit, kostet unsere Zeit 120 Euro netto je Stunde. Braucht es einen Fachbetrieb, vermitteln wir Ihnen einen, ohne Kosten für Sie."
     },
     "title": "Wenn Sie bei NIS 2 nicht weiterkommen",
     "intro": "Die Plattform ist kostenlos und bleibt es. Der Kurs auch. Die meisten Unternehmen kommen damit durch. Wer nicht durchkommt, hat zwei Wege, und beide fangen mit derselben Mail an.",
@@ -16,11 +16,11 @@
     "tier2": {
       "label": "Stufe 2",
       "heading": "Sie kommen an einer Stelle nicht weiter. Wir helfen selbst.",
-      "p1": "Fachfragen beantworten wir per Mail, in der Regel innerhalb von zwei Werktagen.",
-      "rate": "Zurzeit kostenlos",
-      "rateNote": "und wenn sich das ändert, sagen wir es vorher",
-      "p2": "Das gilt für alles, was von uns kommt: Auslegung einzelner Anforderungen, Selbsteinstufung, Maßnahmenplan, Nachweisführung, eine Sitzung mit Ihrer Geschäftsführung zu deren Pflichten, oder Unterstützung dabei, die Plattform auf Ihrer eigenen Infrastruktur einzurichten und zu betreiben.",
-      "p3": "Wir sind früh dran, und wir lernen an jedem Fall, wo die Plattform noch nicht trägt. Solange das so ist, stellen wir dafür nichts in Rechnung. Keine Mindestlaufzeit, kein Abo, keine Kündigungsfrist."
+      "p1": "Kurze Fachfragen beantworten wir per Mail, in der Regel innerhalb von zwei Werktagen, kostenlos.",
+      "rate": "120 Euro netto je Stunde",
+      "rateNote": "abgerechnet in halben Stunden",
+      "p2": "Wird daraus echte Arbeit, kostet unsere Zeit 120 Euro netto je Stunde, abgerechnet in halben Stunden. Ein Preis, für alles, was von uns kommt: Auslegung einzelner Anforderungen, Selbsteinstufung, Maßnahmenplan, Nachweisführung, eine Sitzung mit Ihrer Geschäftsführung zu deren Pflichten, oder Unterstützung dabei, die Plattform auf Ihrer eigenen Infrastruktur einzurichten und zu betreiben.",
+      "p3": "Sie geben vorher frei, wie viele Stunden es sein dürfen, und Sie bekommen eine Aufstellung, worauf sie gegangen sind. Keine Mindestlaufzeit, kein Abo, keine Kündigungsfrist."
     },
     "tier3": {
       "label": "Stufe 3",
@@ -37,7 +37,7 @@
     },
     "earn": {
       "heading": "Womit wir Geld verdienen",
-      "p1": "Zurzeit nicht an Ihnen. Stufe 1 und Stufe 2 kosten Sie nichts. Geld fließt nur, wenn aus einer Vermittlung nach Stufe 3 ein Auftrag wird: dann bekommen wir vom Fachbetrieb 15 Prozent seines Nettohonorars.",
+      "p1": "Bei Stufe 2 mit unseren eigenen Stunden. Bei Stufe 3 bekommen wir vom Fachbetrieb 15 Prozent seines Nettohonorars, wenn aus der Vermittlung ein Auftrag wird.",
       "p2": "Unsere Partner verpflichten sich dabei schriftlich, ihr Honorar deswegen nicht zu erhöhen. Wir empfehlen nicht nach Provisionshöhe, und die Reihenfolge unserer Liste hängt nicht davon ab.",
       "p3": "Wenn Sie lieber Ihren eigenen Berater nehmen, ist das völlig in Ordnung, und Sie behalten trotzdem die Plattform.",
       "link": "Vermittlungsbedingungen lesen"
@@ -108,11 +108,11 @@
     "inApp": {
       "stuck": "Kommen Sie hier nicht weiter?",
       "idle": {
-        "body": "Seit zwei Wochen steht Ihr Fortschritt bei {done} von {total} Schritten. Das ist normal, meistens hakt es an einer einzigen Stelle. Schreiben Sie uns, woran, dann sagen wir Ihnen, ob wir das selbst mit Ihnen klären oder ob es dafür einen Fachbetrieb braucht.",
+        "body": "Seit zwei Wochen steht Ihr Fortschritt bei {done} von {total} Schritten. Das ist normal, meistens hakt es an einer einzigen Stelle. Schreiben Sie uns, woran, dann sagen wir Ihnen, ob das etwas für eine halbe Stunde mit uns ist oder für einen Fachbetrieb.",
         "cta": "Schreiben Sie uns, woran es hängt"
       },
       "dialog": {
-        "line": "Kommen Sie an einer Stelle nicht weiter? Unsere Hilfe kostet zurzeit nichts, und wenn es einen Fachbetrieb braucht, vermitteln wir Ihnen einen, ohne Kosten für Sie.",
+        "line": "Kommen Sie an einer Stelle nicht weiter? Kurze Fachfragen kosten nichts, und wenn es einen Fachbetrieb braucht, vermitteln wir Ihnen einen, ohne Kosten für Sie.",
         "cta": "Fachberater finden"
       }
     }
