@@ -147,8 +147,8 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     platform: COVERED(
       "GOV",
       "/policies",
-      "Sign-off history (GOV 1.3, 1.4) — eIDAS-AES signature with checksummed snapshot.",
-      "Sign-Off-Historie (GOV 1.3, 1.4) — eIDAS-AES-Signatur mit Prüfsummen-Snapshot."
+      "Sign-off history (GOV 1.3, 1.4) — chained SHA-256 checksum over the frozen snapshot, with audit trail.",
+      "Sign-Off-Historie (GOV 1.3, 1.4) — verkettete SHA-256-Prüfsumme über den eingefrorenen Snapshot, mit Audit-Trail."
     ),
   },
 
