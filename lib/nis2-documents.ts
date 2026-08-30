@@ -20,17 +20,27 @@
  *   - BSIG (German transposition) — §§ 30, 32, 33, 38
  *
  * Every `cirRef` below was checked on 30.08.2026 against the OJ text of the
- * CIR Annex (eur-lex.europa.eu, OJ L_202402690) and resolves to a point that
- * exists. Anchors worth remembering, because they are easy to get wrong:
- * 2.2.1 is the report to the management bodies and 2.3 the independent
- * review, so internal audit and management review live under point 2 and not
- * under point 7; point 7 (7.1-7.3) is only the effectiveness policy itself.
- * 3.5 is incident response and 3.6 post-incident reviews, so neither covers
- * the Article 23(4) reporting cascade, which has no Annex point at all and
- * carries "—". 5.2 is the directory of suppliers while 5.1.4 is the contract
- * clauses. 11.6 is authentication and 11.7 is multi-factor authentication;
- * secured voice, video and text communications under Art. 21(2)(j) has no
- * Annex point. 12.1 classification, 12.4 inventory, 12.5 disposal.
+ * CIR Annex (eur-lex.europa.eu, OJ L_202402690), point by point, and resolves
+ * to a point that says what the row claims. Anchors that are easy to get
+ * wrong, all of them mistakes this file previously shipped:
+ *   - Point 7 (7.1-7.3) is only the effectiveness policy itself. The word
+ *     "audit" does not appear in it. Internal audit is 2.3, the independent
+ *     review, and the report to the management bodies is 2.2.1.
+ *   - 3.5 is incident response and 3.6 post-incident reviews. The Article
+ *     23(4) reporting cascade is a Directive duty with no annex point of its
+ *     own, but 3.5.3(a) does require a communication procedure with the CSIRT
+ *     for incident notification, and 3.5.3(b) the same for external
+ *     stakeholders, so those are the annex hooks for the reporting rows.
+ *   - 5.2 is the directory of suppliers; 5.1.4 is the contract clauses.
+ *   - 6.3 is configuration management; 6.6 is patch management.
+ *   - 11.6 is authentication and 11.7 multi-factor authentication. The
+ *     secured voice, video and text limb of Art. 21(2)(j) has no annex point:
+ *     "voice", "video" and "emergency communication" appear nowhere in it.
+ *   - 12.1 is classification, 12.2 handling, 12.4 the inventory. Disposal and
+ *     irretrievable destruction is 12.2.2, NOT 12.5, which is only about
+ *     assets held by staff at termination of employment.
+ * No row currently cites 12.3 (removable media) or 12.5; both are annex
+ * points with no matching document in this list.
  */
 
 export type DocumentGroup =
@@ -249,7 +259,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Early Warning to CSIRT (within 24h)",
     name_de: "Frühwarnung an CSIRT (innerhalb 24h)",
     nis2Ref: "Art. 23(4)(a)",
-    cirRef: "—",
+    cirRef: "CIR 3.5.3(a)",
     description_en: "Initial flag to the CSIRT or competent authority indicating whether the incident is suspected to be malicious or has cross-border impact.",
     description_de: "Erstmeldung an das CSIRT oder die zuständige Behörde mit Hinweis, ob der Vorfall mutmaßlich böswillig ist oder grenzüberschreitende Auswirkungen hat.",
     platform: COVERED(
@@ -265,7 +275,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Incident Notification (within 72h)",
     name_de: "Vorfallsmeldung (innerhalb 72h)",
     nis2Ref: "Art. 23(4)(b)",
-    cirRef: "—",
+    cirRef: "CIR 3.5.3(a)",
     description_en: "Initial assessment of severity, impact and indicators of compromise, submitted to the CSIRT within 72 hours.",
     description_de: "Erste Bewertung von Schweregrad, Auswirkung und Kompromittierungs-Indikatoren, innerhalb 72 Stunden an das CSIRT.",
     platform: COVERED(
@@ -281,7 +291,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Intermediate Report",
     name_de: "Zwischenbericht",
     nis2Ref: "Art. 23(4)(c)",
-    cirRef: "—",
+    cirRef: "CIR 3.5.3(a)",
     description_en: "Status update on request of the CSIRT or competent authority during the response phase.",
     description_de: "Statusbericht auf Anforderung des CSIRT oder der zuständigen Behörde während der Reaktionsphase.",
     platform: COVERED(
@@ -297,7 +307,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Final Report (within 1 month)",
     name_de: "Abschlussbericht (innerhalb 1 Monat)",
     nis2Ref: "Art. 23(4)(d)",
-    cirRef: "—",
+    cirRef: "CIR 3.5.3(a)",
     description_en: "Detailed description of the incident: severity and impact, threat type, root cause, mitigations applied and any cross-border impact.",
     description_de: "Detaillierte Beschreibung des Vorfalls: Schweregrad und Auswirkung, Bedrohungsart, Ursache, getroffene Maßnahmen und ggf. grenzüberschreitende Auswirkungen.",
     platform: COVERED(
@@ -313,7 +323,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Notification to Recipients of Services",
     name_de: "Benachrichtigung der Empfänger der Dienste",
     nis2Ref: "Art. 23(1), Art. 23(2)",
-    cirRef: "—",
+    cirRef: "CIR 3.5.3(b)",
     description_en: "Communication to customers/users likely affected by a significant incident or cyber threat, including any mitigations they can apply.",
     description_de: "Kommunikation an Kunden/Nutzer, die von einem erheblichen Vorfall oder einer Cyber-Bedrohung betroffen sein könnten — einschließlich möglicher Gegenmaßnahmen.",
     platform: COVERED(
@@ -413,7 +423,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Supplier Security Policy",
     name_de: "Lieferantensicherheitsrichtlinie",
     nis2Ref: "Art. 21(2)(d)",
-    cirRef: "CIR 5.1-5.2",
+    cirRef: "CIR 5.1",
     description_en: "Security requirements for direct suppliers and service providers, due-diligence process, ongoing monitoring obligations.",
     description_de: "Sicherheitsanforderungen an direkte Lieferanten und Dienstleister, Prüfprozess, laufende Überwachungspflichten.",
     platform: COVERED(
@@ -463,7 +473,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Acquisition, Development & Maintenance Policy",
     name_de: "Richtlinie für Beschaffung, Entwicklung und Wartung",
     nis2Ref: "Art. 21(2)(e)",
-    cirRef: "CIR 6.1-6.3",
+    cirRef: "CIR 6.1, 6.2",
     description_en: "Security requirements throughout the ICT lifecycle — acquisition criteria, secure development practices, vulnerability disclosure, decommissioning.",
     description_de: "Sicherheitsanforderungen über den IKT-Lebenszyklus — Beschaffungskriterien, sichere Entwicklung, Schwachstellenoffenlegung, Außerbetriebnahme.",
     platform: COVERED(
@@ -797,7 +807,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Secure Disposal & Destruction Policy",
     name_de: "Richtlinie zur sicheren Entsorgung und Vernichtung",
     nis2Ref: "Art. 21(2)(i)",
-    cirRef: "CIR 12.5",
+    cirRef: "CIR 12.2.2",
     description_en: "How media and devices are wiped or destroyed at end-of-life so that data cannot be recovered.",
     description_de: "Wie Datenträger und Geräte am Lebensende gelöscht oder vernichtet werden, sodass Daten nicht rekonstruierbar sind.",
     platform: NOT_COVERED(
