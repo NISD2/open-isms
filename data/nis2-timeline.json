@@ -3022,7 +3022,94 @@
       "sourceId": "bundestag",
       "sourceUrl": "https://dserver.bundestag.de/btd/21/075/2107573.pdf",
       "addedAt": "2026-08-25T10:20:00Z"
+    },
+    {
+      "id": "2026-08-06-de-bsi-security-txt-adoption",
+      "date": "2026-08-06",
+      "category": "de",
+      "tags": [
+        "guidance",
+        "publication"
+      ],
+      "type": "update",
+      "title": "BSI measures security.txt adoption in Germany at 1.8 percent and recommends the file for vulnerability reports",
+      "titleDe": "BSI misst 1,8 Prozent Verbreitung von security.txt in Deutschland und empfiehlt die Datei fuer Schwachstellenmeldungen",
+      "summary": "Measurements in the BSI Cyberdome project found that 1.8 percent of website operators in Germany publish a security.txt at /.well-known/security.txt. The BSI and the Allianz fuer Cyber-Sicherheit recommend the file, standardised in RFC 9116, as a named contact point for coordinated vulnerability disclosure, and point out that reporting duties for actively exploited vulnerabilities and severe security incidents apply from 11 September 2026, with vulnerability handling under the Cyber Resilience Act becoming fully binding in December 2027. The recommendation is guidance and creates no obligation of its own.",
+      "summaryDe": "Messungen im BSI-Projekt Cyberdome ergaben, dass 1,8 Prozent der Webseitenbetreiber in Deutschland eine security.txt unter /.well-known/security.txt bereitstellen. BSI und Allianz fuer Cyber-Sicherheit empfehlen die in RFC 9116 standardisierte Datei als benannten Kontaktpunkt fuer die koordinierte Offenlegung von Schwachstellen und weisen darauf hin, dass ab dem 11. September 2026 Meldepflichten fuer aktiv ausgenutzte Schwachstellen und schwere Sicherheitsvorfaelle gelten und der Umgang mit Schwachstellen nach dem Cyber Resilience Act ab Dezember 2027 vollstaendig verbindlich wird. Die Empfehlung ist eine Handreichung und begruendet selbst keine Pflicht.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Pressemitteilungen/Presse2026/260806_security_txt.html",
+      "addedAt": "2026-08-30T09:45:00Z"
+    },
+    {
+      "id": "2026-08-11-national-transposition-be-ccb-conformity-assessment-request",
+      "date": "2026-08-11",
+      "category": "national-transposition",
+      "tags": [
+        "be",
+        "enforcement",
+        "certification"
+      ],
+      "type": "update",
+      "title": "Belgium: CCB Inspection Service issues an information request to NIS 2 essential entities on their conformity assessment",
+      "titleDe": "Belgien: Inspektionsdienst des CCB fordert von wesentlichen NIS-2-Einrichtungen Auskunft zur Konformitaetsbewertung",
+      "summary": "The Inspection Service of the Centre for Cybersecurity Belgium, which also acts as national cybersecurity certification authority, addressed a communication and information request to NIS 2 essential entities under Article 48 of the Belgian NIS 2 law. The letter is dated 11 August 2026 and carries the reference NCCA/JK/INS/2026-002; the CCB posted it on its news page on 18 August 2026. Entities are asked to report where they stand on the mandatory conformity assessment and are told what to do when they cannot meet a deadline. The Inspection Service says it will prioritise verifying by 18 April 2027 that essential entities have measures equivalent to CyFun assurance level Important, with assurance level Essential to follow by 18 April 2028 at the latest.",
+      "summaryDe": "Der Inspektionsdienst des Centre for Cybersecurity Belgium, zugleich nationale Zertifizierungsbehoerde fuer Cybersicherheit, hat auf Grundlage von Artikel 48 des belgischen NIS-2-Gesetzes eine Mitteilung samt Auskunftsersuchen an wesentliche NIS-2-Einrichtungen gerichtet. Das Schreiben ist auf den 11. August 2026 datiert und traegt das Aktenzeichen NCCA/JK/INS/2026-002; das CCB hat es am 18. August 2026 auf seiner Nachrichtenseite veroeffentlicht. Die Einrichtungen sollen mitteilen, wo sie bei der verpflichtenden Konformitaetsbewertung stehen, und erhalten Hinweise fuer den Fall, dass sie eine Frist nicht einhalten koennen. Der Inspektionsdienst will vorrangig bis zum 18. April 2027 pruefen, ob wesentliche Einrichtungen Massnahmen auf dem CyFun-Niveau Important nachweisen; das Niveau Essential soll spaetestens bis zum 18. April 2028 folgen.",
+      "sourceId": "ccb",
+      "sourceUrl": "https://ccb.belgium.be/fr/news/nouvelle-communication-lattention-des-entites-essentielles-nis2",
+      "addedAt": "2026-08-30T09:45:00Z"
+    },
+    {
+      "id": "2026-08-20-national-transposition-cz-nukib-guidance-call-for-input",
+      "date": "2026-08-20",
+      "category": "national-transposition",
+      "tags": [
+        "cz",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "Czechia: NÚKIB asks regulated entities which guidance materials they still need under the new Cybersecurity Act",
+      "titleDe": "Tschechien: NÚKIB fragt regulierte Einrichtungen, welche Hilfestellungen zum neuen Cybersicherheitsgesetz noch fehlen",
+      "summary": "NÚKIB opened an open-ended call for input on which supporting materials and methodologies are still missing for Act 264/2025 Sb., the Czech NIS 2 transposition in force since 1 November 2025 that widened the regulated population substantially. Entities can name unclear topics, unanswered questions and the practical guides they need, by email to regulace@nukib.gov.cz under the subject Podpůrné materiály. There is no closing date and submissions are assessed on a rolling basis. Whatever NÚKIB publishes as a result is guidance and does not change the Act.",
+      "summaryDe": "NÚKIB hat einen unbefristeten Aufruf gestartet, welche Hilfestellungen und Methodiken zum Gesetz 264/2025 Sb. noch fehlen, der tschechischen NIS-2-Umsetzung, die seit 1. November 2025 in Kraft ist und den Kreis der regulierten Einrichtungen deutlich erweitert hat. Einrichtungen koennen unklare Themen, offene Fragen und benoetigte Praxisleitfaeden per E-Mail an regulace@nukib.gov.cz mit dem Betreff Podpůrné materiály nennen. Eine Frist gibt es nicht, die Eingaben werden laufend ausgewertet. Was NÚKIB daraufhin veroeffentlicht, ist eine Hilfestellung und aendert das Gesetz nicht.",
+      "sourceId": "nukib",
+      "sourceUrl": "https://nukib.gov.cz/cs/infoservis/aktuality/2452-nukib-vyzyva-verejnost-k-zasilani-podnetu-k-podpurnym-materialum",
+      "addedAt": "2026-08-30T09:45:00Z"
+    },
+    {
+      "id": "2026-08-21-national-transposition-cz-nukib-annual-report-2025",
+      "date": "2026-08-21",
+      "category": "national-transposition",
+      "tags": [
+        "cz",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Czechia: NÚKIB reports 203 cyber incidents for 2025, the year its NIS 2 transposition took effect",
+      "titleDe": "Tschechien: NÚKIB meldet 203 Cybervorfaelle fuer 2025, das Jahr des Inkrafttretens der NIS-2-Umsetzung",
+      "summary": "NÚKIB published its annual report on the state of cybersecurity in Czechia for 2025, which the government took note of on 17 August 2026. It records 203 cyber incidents, 65 fewer than the year before, while very significant incidents rose from one to two and significant incidents fell from 18 to 12. Availability attacks accounted for 46 percent of cases, nine in ten surveyed organisations were hit by phishing and more than a third never tested their staff against it. The report treats 2025 as the legislative turning point: the Cybersecurity Act transposing NIS 2 took effect on 1 November 2025 and the NÚKIB portal went live as the central channel for regulated organisations.",
+      "summaryDe": "NÚKIB hat den Jahresbericht zur Lage der Cybersicherheit in Tschechien fuer 2025 veroeffentlicht, den die Regierung am 17. August 2026 zur Kenntnis genommen hat. Er verzeichnet 203 Cybervorfaelle, 65 weniger als im Vorjahr; die sehr bedeutenden Vorfaelle stiegen von einem auf zwei, die bedeutenden Vorfaelle sanken von 18 auf 12. Angriffe auf die Verfuegbarkeit machten 46 Prozent der Faelle aus, neun von zehn befragten Organisationen waren von Phishing betroffen und mehr als ein Drittel testete die eigenen Beschaeftigten nie darauf. Der Bericht sieht 2025 als gesetzgeberische Zaesur: Das Cybersicherheitsgesetz zur Umsetzung von NIS 2 trat am 1. November 2025 in Kraft, und das NÚKIB-Portal ging als zentraler Kanal fuer regulierte Organisationen in Betrieb.",
+      "sourceId": "nukib",
+      "sourceUrl": "https://nukib.gov.cz/cs/infoservis/aktuality/2453-nukib-vydal-zpravu-o-stavu-kyberneticke-bezpecnosti-cr-za-rok-2025-incidentu-ubylo-sofistikovanost-utocniku-roste",
+      "addedAt": "2026-08-30T09:45:00Z"
+    },
+    {
+      "id": "2026-08-26-national-transposition-hu-first-audit-results",
+      "date": "2026-08-26",
+      "category": "national-transposition",
+      "tags": [
+        "hu",
+        "enforcement",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Hungary: SZTFH reports 2,194 entities completed the first cybersecurity audit, close to 90 percent compliant",
+      "titleDe": "Ungarn: SZTFH meldet 2.194 abgeschlossene Erstaudits zur Cybersicherheit, knapp 90 Prozent bestanden",
+      "summary": "With all audit reports now processed, SZTFH reports that 2,194 organisations completed the first mandatory cybersecurity audit by 30 June 2026, above the 2,132 on-time figure it published on 10 July. Close to 90 percent met the audit requirements and around 10 percent received the top rating, compliant with negligible risk. Auditors on the SZTFH register had to file their report within seven days of closing an audit. The authority notes that remote access to company systems mattered to the audited organisations but that the documentation of those systems was frequently deficient. The audit is due every two years under Hungary's cybersecurity act and is a national obligation, not an EU-wide one.",
+      "summaryDe": "Nach vollstaendiger Auswertung aller Auditberichte meldet die SZTFH, dass bis zum 30. Juni 2026 insgesamt 2.194 Organisationen das erste verpflichtende Cybersicherheitsaudit abgeschlossen haben, mehr als die am 10. Juli genannten 2.132 fristgerechten Abschluesse. Knapp 90 Prozent erfuellten die Auditanforderungen, rund 10 Prozent erhielten die hoechste Bewertung, bestanden mit vernachlaessigbarem Risiko. Bei der SZTFH registrierte Auditoren mussten ihren Bericht binnen sieben Tagen nach Abschluss des Audits einreichen. Die Behoerde haelt fest, dass der Fernzugriff auf Unternehmenssysteme fuer die geprueften Organisationen wichtig war, die Dokumentation dieser Systeme aber haeufig Luecken aufwies. Das Audit ist nach dem ungarischen Cybersicherheitsgesetz alle zwei Jahre faellig und eine nationale Pflicht, keine EU-weite.",
+      "sourceId": "sztfh",
+      "sourceUrl": "https://sztfh.hu/sikeresen-lezarultak-az-elso-kiberbiztonsagi-auditok/",
+      "addedAt": "2026-08-30T09:45:00Z"
     }
   ],
-  "lastUpdated": "2026-08-25T11:05:00Z"
+  "lastUpdated": "2026-08-30T09:45:00Z"
 }
