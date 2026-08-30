@@ -18,6 +18,19 @@
  *   - Directive (EU) 2022/2555 — Articles 20, 21(2), 23, 27
  *   - Commission Implementing Regulation (EU) 2024/2690 — Annex sections 1-13
  *   - BSIG (German transposition) — §§ 30, 32, 33, 38
+ *
+ * Every `cirRef` below was checked on 30.08.2026 against the OJ text of the
+ * CIR Annex (eur-lex.europa.eu, OJ L_202402690) and resolves to a point that
+ * exists. Anchors worth remembering, because they are easy to get wrong:
+ * 2.2.1 is the report to the management bodies and 2.3 the independent
+ * review, so internal audit and management review live under point 2 and not
+ * under point 7; point 7 (7.1-7.3) is only the effectiveness policy itself.
+ * 3.5 is incident response and 3.6 post-incident reviews, so neither covers
+ * the Article 23(4) reporting cascade, which has no Annex point at all and
+ * carries "—". 5.2 is the directory of suppliers while 5.1.4 is the contract
+ * clauses. 11.6 is authentication and 11.7 is multi-factor authentication;
+ * secured voice, video and text communications under Art. 21(2)(j) has no
+ * Annex point. 12.1 classification, 12.4 inventory, 12.5 disposal.
  */
 
 export type DocumentGroup =
@@ -102,7 +115,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Information System Security Policy",
     name_de: "Richtlinie zur Sicherheit der Netz- und Informationssysteme",
     nis2Ref: "Art. 21(2)(a)",
-    cirRef: "CIR Annex 1",
+    cirRef: "CIR 1.1",
     description_en: "Top-level policy approved by management that sets the cybersecurity direction, scope, roles and responsibilities, and is reviewed at planned intervals.",
     description_de: "Übergeordnete, vom Management genehmigte Richtlinie, die Richtung, Geltungsbereich, Rollen und Verantwortlichkeiten der Cybersicherheit festlegt und regelmäßig überprüft wird.",
     platform: COVERED(
@@ -118,7 +131,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Management Approval Record",
     name_de: "Nachweis der Geschäftsleitungs-Genehmigung",
     nis2Ref: "Art. 20(1)",
-    cirRef: "CIR Annex 1.1",
+    cirRef: "CIR 1.1.1(k), 1.1.2",
     description_en: "Evidence that the management body has approved the cybersecurity risk-management measures and is overseeing their implementation.",
     description_de: "Nachweis, dass die Geschäftsleitung die Cybersicherheits-Risikomanagementmaßnahmen genehmigt hat und ihre Umsetzung überwacht.",
     platform: COVERED(
@@ -218,7 +231,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Post-Incident Review",
     name_de: "Nachbereitung von Vorfällen",
     nis2Ref: "Art. 21(2)(b)",
-    cirRef: "CIR 3.5",
+    cirRef: "CIR 3.6",
     description_en: "Lessons-learned analysis after a significant incident: what failed, what worked, which controls or processes need adjustment.",
     description_de: "Lessons-Learned-Analyse nach einem erheblichen Vorfall: was versagt hat, was funktioniert hat, welche Maßnahmen oder Prozesse angepasst werden müssen.",
     platform: COVERED(
@@ -236,7 +249,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Early Warning to CSIRT (within 24h)",
     name_de: "Frühwarnung an CSIRT (innerhalb 24h)",
     nis2Ref: "Art. 23(4)(a)",
-    cirRef: "CIR 3.5",
+    cirRef: "—",
     description_en: "Initial flag to the CSIRT or competent authority indicating whether the incident is suspected to be malicious or has cross-border impact.",
     description_de: "Erstmeldung an das CSIRT oder die zuständige Behörde mit Hinweis, ob der Vorfall mutmaßlich böswillig ist oder grenzüberschreitende Auswirkungen hat.",
     platform: COVERED(
@@ -252,7 +265,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Incident Notification (within 72h)",
     name_de: "Vorfallsmeldung (innerhalb 72h)",
     nis2Ref: "Art. 23(4)(b)",
-    cirRef: "CIR 3.5",
+    cirRef: "—",
     description_en: "Initial assessment of severity, impact and indicators of compromise, submitted to the CSIRT within 72 hours.",
     description_de: "Erste Bewertung von Schweregrad, Auswirkung und Kompromittierungs-Indikatoren, innerhalb 72 Stunden an das CSIRT.",
     platform: COVERED(
@@ -268,7 +281,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Intermediate Report",
     name_de: "Zwischenbericht",
     nis2Ref: "Art. 23(4)(c)",
-    cirRef: "CIR 3.5",
+    cirRef: "—",
     description_en: "Status update on request of the CSIRT or competent authority during the response phase.",
     description_de: "Statusbericht auf Anforderung des CSIRT oder der zuständigen Behörde während der Reaktionsphase.",
     platform: COVERED(
@@ -284,7 +297,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Final Report (within 1 month)",
     name_de: "Abschlussbericht (innerhalb 1 Monat)",
     nis2Ref: "Art. 23(4)(d)",
-    cirRef: "CIR 3.5",
+    cirRef: "—",
     description_en: "Detailed description of the incident: severity and impact, threat type, root cause, mitigations applied and any cross-border impact.",
     description_de: "Detaillierte Beschreibung des Vorfalls: Schweregrad und Auswirkung, Bedrohungsart, Ursache, getroffene Maßnahmen und ggf. grenzüberschreitende Auswirkungen.",
     platform: COVERED(
@@ -300,7 +313,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Notification to Recipients of Services",
     name_de: "Benachrichtigung der Empfänger der Dienste",
     nis2Ref: "Art. 23(1), Art. 23(2)",
-    cirRef: "CIR 3.6",
+    cirRef: "—",
     description_en: "Communication to customers/users likely affected by a significant incident or cyber threat, including any mitigations they can apply.",
     description_de: "Kommunikation an Kunden/Nutzer, die von einem erheblichen Vorfall oder einer Cyber-Bedrohung betroffen sein könnten — einschließlich möglicher Gegenmaßnahmen.",
     platform: COVERED(
@@ -416,7 +429,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Supplier Register",
     name_de: "Lieferantenverzeichnis",
     nis2Ref: "Art. 21(2)(d)",
-    cirRef: "CIR 5.3",
+    cirRef: "CIR 5.2",
     description_en: "Authoritative list of suppliers and service providers with criticality, services received, security clauses in place and risk status.",
     description_de: "Vollständiges Verzeichnis der Lieferanten und Dienstleister mit Kritikalität, bezogenen Leistungen, vereinbarten Sicherheitsklauseln und Risikostatus.",
     platform: COVERED(
@@ -432,7 +445,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Supplier Risk Assessment",
     name_de: "Lieferanten-Risikobewertung",
     nis2Ref: "Art. 21(3)",
-    cirRef: "CIR 5.4",
+    cirRef: "CIR 5.1.2, 5.1.6",
     description_en: "Per-supplier risk evaluation considering supplier-specific vulnerabilities and the security practices of their development processes.",
     description_de: "Lieferantenbezogene Risikobewertung unter Berücksichtigung lieferantenspezifischer Schwachstellen und der Sicherheitspraktiken ihrer Entwicklungsprozesse.",
     platform: COVERED(
@@ -482,7 +495,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Vulnerability & Patch Management Procedure",
     name_de: "Verfahren zum Schwachstellen- und Patch-Management",
     nis2Ref: "Art. 21(2)(e)",
-    cirRef: "CIR 6.5, 6.10",
+    cirRef: "CIR 6.6, 6.10",
     description_en: "How vulnerabilities are discovered, classified by severity, prioritised, remediated and tracked, with SLAs by severity tier.",
     description_de: "Wie Schwachstellen erkannt, nach Schweregrad klassifiziert, priorisiert, behoben und verfolgt werden — mit SLAs je Schweregrad.",
     platform: COVERED(
@@ -498,7 +511,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Configuration & Hardening Standards",
     name_de: "Konfigurations- und Härtungsstandards",
     nis2Ref: "Art. 21(2)(e)",
-    cirRef: "CIR 6.6",
+    cirRef: "CIR 6.3",
     description_en: "Baseline secure configuration for ICT systems — what is enabled, what is disabled, default credentials handling, logging baselines.",
     description_de: "Sichere Standardkonfiguration für IKT-Systeme — was aktiviert, was deaktiviert ist, Umgang mit Standard-Zugangsdaten, Logging-Baselines.",
     platform: COVERED(
@@ -516,7 +529,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Effectiveness Measurement Programme",
     name_de: "Programm zur Wirksamkeitsmessung",
     nis2Ref: "Art. 21(2)(f)",
-    cirRef: "CIR 7.1",
+    cirRef: "CIR 7.1, 7.2",
     description_en: "KPIs, frequency, data sources and reporting format used to assess whether the cybersecurity measures are working.",
     description_de: "KPIs, Frequenz, Datenquellen und Berichtsformat zur Bewertung der Wirksamkeit der Cybersicherheitsmaßnahmen.",
     platform: COVERED(
@@ -532,7 +545,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Independent Review / Internal Audit Report",
     name_de: "Unabhängige Prüfung / Bericht des internen Audits",
     nis2Ref: "Art. 21(2)(f)",
-    cirRef: "CIR 7.2",
+    cirRef: "CIR 2.3",
     description_en: "Periodic independent assessment of the cybersecurity measures, with findings (nonconformities, observations) and severity.",
     description_de: "Regelmäßige unabhängige Prüfung der Cybersicherheitsmaßnahmen, mit Befunden (Nichtkonformitäten, Beobachtungen) und Schweregrad.",
     platform: COVERED(
@@ -548,7 +561,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Management Review",
     name_de: "Managementbewertung",
     nis2Ref: "Art. 20(1), Art. 21(2)(f)",
-    cirRef: "CIR 7.3",
+    cirRef: "CIR 2.2.1",
     description_en: "Periodic top-management review of cybersecurity performance — KPI report, audit findings, incidents, decisions and assigned actions.",
     description_de: "Regelmäßige Bewertung der Cybersicherheits-Leistung durch die Geschäftsleitung — KPI-Bericht, Audit-Befunde, Vorfälle, Entscheidungen und zugewiesene Maßnahmen.",
     platform: COVERED(
@@ -564,7 +577,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Corrective Actions Register",
     name_de: "Register der Korrekturmaßnahmen",
     nis2Ref: "Art. 21(4)",
-    cirRef: "CIR 7.4",
+    cirRef: "CIR 2.3.3",
     description_en: "Tracking of all corrective actions arising from incidents, audits or reviews — root cause, owner, deadline, verification.",
     description_de: "Nachverfolgung aller Korrekturmaßnahmen aus Vorfällen, Audits oder Bewertungen — Ursache, Verantwortlicher, Frist, Verifizierung.",
     platform: COVERED(
@@ -650,7 +663,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Human Resources Security Policy",
     name_de: "Richtlinie zur Personalsicherheit",
     nis2Ref: "Art. 21(2)(i)",
-    cirRef: "CIR 10",
+    cirRef: "CIR 10.1",
     description_en: "Background checks, onboarding, role changes, offboarding and confidentiality obligations across the employment lifecycle.",
     description_de: "Hintergrundprüfungen, Eintritt, Rollenwechsel, Austritt und Vertraulichkeitspflichten über den gesamten Beschäftigungszyklus.",
     platform: COVERED(
@@ -684,7 +697,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Authentication Policy",
     name_de: "Authentifizierungsrichtlinie",
     nis2Ref: "Art. 21(2)(j)",
-    cirRef: "CIR 11.6",
+    cirRef: "CIR 11.6, 11.7",
     description_en: "MFA requirements, password rules, session controls, service-account handling, alignment with BSI TR-03107 where applicable.",
     description_de: "MFA-Anforderungen, Passwortregeln, Sitzungssteuerung, Umgang mit Service-Konten, ggf. Abgleich mit BSI TR-03107.",
     platform: COVERED(
@@ -700,7 +713,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Secure Voice, Video & Emergency Communication Policy",
     name_de: "Richtlinie für sichere Sprach-, Video- und Notfallkommunikation",
     nis2Ref: "Art. 21(2)(j)",
-    cirRef: "CIR 11.7",
+    cirRef: "—",
     description_en: "Approved tools and channels for sensitive communications, with explicit rules for emergency communication if normal channels fail.",
     description_de: "Zugelassene Werkzeuge und Kanäle für sensible Kommunikation, mit expliziten Regeln für die Notfallkommunikation bei Ausfall regulärer Kanäle.",
     platform: COVERED(
@@ -718,7 +731,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Asset Register",
     name_de: "Asset-Verzeichnis",
     nis2Ref: "Art. 21(2)(i)",
-    cirRef: "CIR 12",
+    cirRef: "CIR 12.4",
     description_en: "Authoritative inventory of ICT assets — owner, classification, criticality, location, operational state. Foundation for risk analysis and BCP.",
     description_de: "Vollständiges Verzeichnis der IKT-Assets — Verantwortlicher, Klassifizierung, Kritikalität, Standort, Betriebszustand. Grundlage für Risikoanalyse und Notfallplan.",
     platform: COVERED(
@@ -734,7 +747,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Asset Classification & Handling Procedure",
     name_de: "Verfahren zur Asset-Klassifizierung und -Handhabung",
     nis2Ref: "Art. 21(2)(i)",
-    cirRef: "CIR 12",
+    cirRef: "CIR 12.1, 12.2",
     description_en: "How assets are classified by sensitivity and criticality, and the handling rules per classification level.",
     description_de: "Wie Assets nach Sensibilität und Kritikalität klassifiziert werden, und die Handhabungsregeln je Klassifizierungsstufe.",
     platform: COVERED(
@@ -784,7 +797,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Secure Disposal & Destruction Policy",
     name_de: "Richtlinie zur sicheren Entsorgung und Vernichtung",
     nis2Ref: "Art. 21(2)(i)",
-    cirRef: "CIR 12",
+    cirRef: "CIR 12.5",
     description_en: "How media and devices are wiped or destroyed at end-of-life so that data cannot be recovered.",
     description_de: "Wie Datenträger und Geräte am Lebensende gelöscht oder vernichtet werden, sodass Daten nicht rekonstruierbar sind.",
     platform: NOT_COVERED(
