@@ -159,6 +159,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Pricing + Training
     ...multilingualEntries("/pricing", { priority: 0.9 }),
+    ...multilingualEntries("/hilfe", { lastModified: "2026-08-30", priority: 0.8 }),
+    ...multilingualEntries("/vermittlung", { lastModified: "2026-08-30", priority: 0.4 }),
     ...multilingualEntries("/training/nis2-ceo", { priority: 0.9 }),
 
     // About + open-source. /pitch and /mission are 308-redirects to /about,

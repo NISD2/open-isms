@@ -193,6 +193,17 @@ export const routing = defineRouting({
 
     // Universal slugs (proper nouns, acronyms, brand terms)
     "/mission": "/mission",
+    // Help + referral offer: what happens when the free platform is not enough
+    "/hilfe": {
+      de: "/hilfe",
+      en: "/help",
+      nl: "/hulp",
+    },
+    "/vermittlung": {
+      de: "/vermittlung",
+      en: "/referrals",
+      nl: "/bemiddeling",
+    },
     "/open-source": "/open-source",
     "/partner": "/partner",
     "/changelog": "/changelog",

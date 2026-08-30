@@ -5,6 +5,7 @@ import { journeyCategoryForLesson } from "@/lib/training/lesson-journey-map";
 import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
 import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
 import { StartJourneyCta } from "@/components/training-portal/StartJourneyCta";
+import { StuckLink } from "@/components/help/StuckLink";
 
 export default async function LessonRoute({
   params,
@@ -69,6 +70,11 @@ export default async function LessonRoute({
             userName={completion.userName}
           />
           {completion.allCompleted && <StartJourneyCta locale={locale} />}
+          {/* End of the course is the second place someone stalls: they have
+              the theory and no next step. Same one-line offer as the
+              requirement sidebar, below the certificate rather than above it,
+              so finishing is still the headline. */}
+          <StuckLink />
         </div>
       )}
     </>

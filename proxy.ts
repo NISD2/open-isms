@@ -74,6 +74,7 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/ethik",
   "/features",
   "/finanzierung",
+  "/hilfe",
   "/impressum",
   "/mission",
   "/nis2-lieferanten-fragebogen",
@@ -88,6 +89,7 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/subprozessoren",
   "/terms",
   "/toms",
+  "/vermittlung",
   "/vertrauen",
   // Public course landing pages — under (info)/training/
   "/training/cra-sbom",

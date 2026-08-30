@@ -1,7 +1,8 @@
-import { eq, and, asc, count } from "drizzle-orm";
+import { eq, and, asc, count, desc } from "drizzle-orm";
 import { z } from "zod";
 import { router, companyProcedure } from "../init";
 import {
+  auditLog,
   companyRequirementStatus,
   requirement,
   requirementCategory,
@@ -72,7 +73,12 @@ export const journeyRouter = router({
     // match CISO_CATS / MSP_CATS.
     const assessment = await getNis2Assessment(ctx.db, cid);
     if (!assessment) {
-      return { items: [], isManagement: false, aggregate: emptyAggregate };
+      return {
+        items: [],
+        isManagement: false,
+        aggregate: emptyAggregate,
+        lastActivityAt: null,
+      };
     }
 
     const [rows, signOffRows, currentUserRow] = await Promise.all([
@@ -193,10 +199,25 @@ export const journeyRouter = router({
       open: items.filter((i) => !isDoneStatus(i.status)).length,
     };
 
+    // When this company last changed anything, used only to decide whether the
+    // path has stalled. Read from the audit log rather than from
+    // companyRequirementStatus.updatedAt: every mutation is logged by the
+    // auto-audit middleware, so this covers evidence, risks, assets and
+    // sign-offs alike, where the status timestamp is bumped by a handful of
+    // call sites and would report a company as idle while it was busy
+    // elsewhere. Null for a company that has never mutated anything.
+    const [lastAudit] = await ctx.db
+      .select({ at: auditLog.createdAt })
+      .from(auditLog)
+      .where(eq(auditLog.companyId, cid))
+      .orderBy(desc(auditLog.createdAt))
+      .limit(1);
+
     return {
       items,
       isManagement: currentUserRow?.isManagement ?? false,
       aggregate,
+      lastActivityAt: lastAudit?.at ?? null,
     };
   }),
 });

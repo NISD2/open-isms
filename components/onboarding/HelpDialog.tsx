@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, Mail, Check, GraduationCap, Server, Compass } from "lucide-react";
+import { CalendarDays, Mail, Check, GraduationCap, Server, Compass, Handshake } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useCopy } from "@/lib/clipboard/use-copy";
@@ -54,6 +54,7 @@ export function HelpDialog({
   onStartTour?: () => void;
 }) {
   const t = useTranslations("guide");
+  const tHelp = useTranslations("help");
   const { copied, copy } = useCopy();
 
   return (
@@ -96,6 +97,10 @@ export function HelpDialog({
           )}
 
           <HelpRow icon={Server}>{t("help.selfHost")}</HelpRow>
+          {/* What happens when the platform is not enough. The full offer,
+              including how a referral earns us anything, lives on /hilfe;
+              this is the pointer to it, not a second copy of it. */}
+          <HelpRow icon={Handshake}>{tHelp("inApp.dialog.line")}</HelpRow>
           <HelpRow icon={GraduationCap}>
             {t("help.training")}{" "}
             <Link
@@ -111,6 +116,12 @@ export function HelpDialog({
         </ul>
 
         <div className="flex flex-wrap items-center justify-end gap-2">
+          <Button type="button" variant="ghost" asChild>
+            <Link href="/hilfe" target="_blank" rel="noopener noreferrer">
+              <Handshake className="size-4" aria-hidden />
+              {tHelp("inApp.dialog.cta")}
+            </Link>
+          </Button>
           {onStartTour && (
             <Button type="button" variant="ghost" onClick={onStartTour}>
               <Compass className="size-4" aria-hidden />
