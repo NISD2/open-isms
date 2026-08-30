@@ -79,7 +79,7 @@ export default async function ManagementChangePage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            Art. 20 + Art. 27 NIS 2 · §33(5) + §38 + §65 BSIG
+            Art. 20 + Art. 3(4) NIS 2 · §33(5) + §38 + §65 BSIG
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
             {t("nis2ManagementChange.title")}

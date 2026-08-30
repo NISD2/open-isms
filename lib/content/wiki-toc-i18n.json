@@ -752,31 +752,31 @@
   "entry:nis2-selbsteinstufung": {
     "fr": {
       "title": "Auto-classification au titre de NIS 2 : le silence du BSI n'est pas un moyen de défense",
-      "summary": "L'obligation d'évaluation incombe à l'entité. Art. 27 NIS 2 + §33 BSIG. Le délai de trois mois court à compter du moment où les conditions sont remplies, et non à la réception d'un courrier."
+      "summary": "L'obligation d'évaluation incombe à l'entité. Art. 3(4) NIS 2 + §33 BSIG. Le délai de trois mois court à compter du moment où les conditions sont remplies, et non à la réception d'un courrier."
     },
     "it": {
       "title": "Autoclassificazione ai sensi di NIS 2 : il silenzio del BSI non è una difesa",
-      "summary": "L'obbligo di valutazione spetta al soggetto. Art. 27 NIS 2 + §33 BSIG. Il termine di tre mesi decorre dal momento in cui le condizioni sono soddisfatte, non dall'arrivo di una lettera."
+      "summary": "L'obbligo di valutazione spetta al soggetto. Art. 3(4) NIS 2 + §33 BSIG. Il termine di tre mesi decorre dal momento in cui le condizioni sono soddisfatte, non dall'arrivo di una lettera."
     },
     "es": {
       "title": "Autoclasificación conforme a NIS 2 : el silencio del BSI no es una defensa",
-      "summary": "El deber de evaluación recae en la entidad. Art. 27 NIS 2 + §33 BSIG. El plazo de tres meses comienza cuando se cumplen las condiciones, no cuando llega una carta."
+      "summary": "El deber de evaluación recae en la entidad. Art. 3(4) NIS 2 + §33 BSIG. El plazo de tres meses comienza cuando se cumplen las condiciones, no cuando llega una carta."
     },
     "pl": {
       "title": "Samokwalifikacja w ramach NIS 2 : milczenie BSI nie jest linią obrony",
-      "summary": "Obowiązek oceny spoczywa na podmiocie. Art. 27 NIS 2 + §33 BSIG. Trzymiesięczny termin biegnie od chwili spełnienia warunków, a nie od otrzymania pisma."
+      "summary": "Obowiązek oceny spoczywa na podmiocie. Art. 3(4) NIS 2 + §33 BSIG. Trzymiesięczny termin biegnie od chwili spełnienia warunków, a nie od otrzymania pisma."
     },
     "cs": {
       "title": "Sebezařazení podle NIS 2: mlčení BSI není obranou",
-      "summary": "Povinnost posouzení nese subjekt. Čl. 27 NIS 2 + §33 BSIG. Tříměsíční lhůta běží od okamžiku, kdy jsou podmínky splněny, nikoli od doručení dopisu."
+      "summary": "Povinnost posouzení nese subjekt. Čl. 3(4) NIS 2 + §33 BSIG. Tříměsíční lhůta běží od okamžiku, kdy jsou podmínky splněny, nikoli od doručení dopisu."
     },
     "pt": {
       "title": "Autoclassificação ao abrigo da NIS 2: o silêncio do BSI não é uma defesa",
-      "summary": "O dever de avaliação recai sobre a entidade. Art. 27.º NIS 2 + §33 BSIG. O prazo de três meses começa quando as condições são preenchidas, não quando chega uma carta."
+      "summary": "O dever de avaliação recai sobre a entidade. Art. 3.º, n.º 4 NIS 2 + §33 BSIG. O prazo de três meses começa quando as condições são preenchidas, não quando chega uma carta."
     },
     "ro": {
       "title": "Autoclasificarea în temeiul NIS 2: tăcerea BSI nu este o apărare",
-      "summary": "Obligația de evaluare revine entității. Art. 27 NIS 2 + §33 BSIG. Termenul de trei luni curge din momentul în care condițiile sunt îndeplinite, nu de la primirea unei scrisori."
+      "summary": "Obligația de evaluare revine entității. Art. 3(4) NIS 2 + §33 BSIG. Termenul de trei luni curge din momentul în care condițiile sunt îndeplinite, nu de la primirea unei scrisori."
     }
   },
   "cat:sektoren": {
@@ -3092,31 +3092,31 @@
   "entry:nis2-vs-dora-finanzsektor": {
     "fr": {
       "title": "NIS 2 ou DORA : qu'est-ce qui s'applique aux entités financières ?",
-      "summary": "L'article 4 NIS 2 (lex specialis) confie la gestion des risques et la notification des incidents à DORA. Ce qui reste sous NIS 2 : l'enregistrement selon l'article 27."
+      "summary": "L'article 4 NIS 2 (lex specialis) confie la gestion des risques et la notification des incidents à DORA. Ce qui reste sous NIS 2 : l'enregistrement selon l'article 3, paragraphe 4."
     },
     "it": {
       "title": "NIS 2 o DORA: cosa si applica alle entità finanziarie?",
-      "summary": "L'articolo 4 NIS 2 (lex specialis) affida la gestione del rischio e la notifica degli incidenti a DORA. Cosa resta sotto NIS 2: la registrazione ai sensi dell'articolo 27."
+      "summary": "L'articolo 4 NIS 2 (lex specialis) affida la gestione del rischio e la notifica degli incidenti a DORA. Cosa resta sotto NIS 2: la registrazione ai sensi dell'articolo 3, paragrafo 4."
     },
     "es": {
       "title": "NIS 2 o DORA: ¿qué se aplica a las entidades financieras?",
-      "summary": "El artículo 4 NIS 2 (lex specialis) traspasa la gestión de riesgos y la notificación de incidentes a DORA. Qué permanece bajo NIS 2: el registro según el artículo 27."
+      "summary": "El artículo 4 NIS 2 (lex specialis) traspasa la gestión de riesgos y la notificación de incidentes a DORA. Qué permanece bajo NIS 2: el registro según el artículo 3, apartado 4."
     },
     "pl": {
       "title": "NIS 2 czy DORA: co obowiązuje podmioty finansowe?",
-      "summary": "Artykuł 4 NIS 2 (lex specialis) przekazuje zarządzanie ryzykiem i zgłaszanie incydentów do DORA. Co pozostaje pod NIS 2: rejestracja zgodnie z artykułem 27."
+      "summary": "Artykuł 4 NIS 2 (lex specialis) przekazuje zarządzanie ryzykiem i zgłaszanie incydentów do DORA. Co pozostaje pod NIS 2: rejestracja zgodnie z art. 3 ust. 4."
     },
     "cs": {
       "title": "NIS 2 nebo DORA: co se vztahuje na finanční subjekty?",
-      "summary": "Článek 4 NIS 2 (lex specialis) svěřuje řízení rizik a ohlašování incidentů DORA. Co zůstává pod NIS 2: registrace podle článku 27."
+      "summary": "Článek 4 NIS 2 (lex specialis) svěřuje řízení rizik a ohlašování incidentů DORA. Co zůstává pod NIS 2: registrace podle čl. 3 odst. 4."
     },
     "pt": {
       "title": "NIS 2 ou DORA: o que se aplica às entidades financeiras?",
-      "summary": "O artigo 4.º da NIS 2 (lex specialis) transfere a gestão de riscos e a notificação de incidentes para a DORA. O que permanece sob a NIS 2: o registo ao abrigo do artigo 27.º."
+      "summary": "O artigo 4.º da NIS 2 (lex specialis) transfere a gestão de riscos e a notificação de incidentes para a DORA. O que permanece sob a NIS 2: o registo ao abrigo do artigo 3.º, n.º 4."
     },
     "ro": {
       "title": "NIS 2 sau DORA: ce se aplică entităților financiare?",
-      "summary": "Articolul 4 din NIS 2 (lex specialis) transferă gestionarea riscurilor și notificarea incidentelor către DORA. Ce rămâne sub NIS 2: înregistrarea în temeiul articolului 27."
+      "summary": "Articolul 4 din NIS 2 (lex specialis) transferă gestionarea riscurilor și notificarea incidentelor către DORA. Ce rămâne sub NIS 2: înregistrarea în temeiul articolului 3 alineatul (4)."
     }
   },
   "entry:nis2-und-dsgvo-schnittmenge": {

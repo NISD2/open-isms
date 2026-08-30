@@ -74,7 +74,7 @@ export default async function SelfClassificationPage({
 
         <header>
           <Badge variant="secondary" className="mb-3">
-            Art. 27 NIS 2 + §33 BSIG
+            Art. 3(4) NIS 2 + §33 BSIG
           </Badge>
           <h1 className="text-3xl font-bold tracking-tight">
             {t("nis2SelfClassification.title")}
