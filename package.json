@@ -134,7 +134,7 @@
     "google-auth-library": "^11.0.2",
     "og-shot": "^0.4.0",
     "playwright": "^1.62.0",
-    "react-email": "6.9.2",
+    "react-email": "6.9.3",
     "tailwindcss": "^4.1.0",
     "typescript": "^6.0.3",
     "yaml": "^2.8.3"
