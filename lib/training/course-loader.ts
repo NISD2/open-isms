@@ -45,6 +45,34 @@ export async function loadLesson(
 }
 
 /**
+ * Module / lesson / minute totals for a course.
+ *
+ * The landing page states the whole commitment up front. Analytics for
+ * the 30 days to 2026-08-31 showed 80 visitors on the NIS 2 for CEOs
+ * landing page, 27 opening lesson 0.1 and 7 reaching the last lesson —
+ * and lessons 5.1/5.2 (7 each) outdrawing every lesson in module 4 (a
+ * flat 4), i.e. people skipping to the end. Both patterns point at
+ * "how big is this and can I start where I need to", which the page
+ * previously never answered: the only CTA started at 0.1.
+ */
+export async function courseTotals(courseId: string): Promise<{
+  modules: number;
+  lessons: number;
+  minutes: number;
+}> {
+  const course = await loadCourse(courseId);
+  const lessonIds = course.modules.flatMap((m) => m.lessonIds);
+  const lessons = await Promise.all(
+    lessonIds.map((id) => loadLesson(courseId, id)),
+  );
+  return {
+    modules: course.modules.length,
+    lessons: lessonIds.length,
+    minutes: lessons.reduce((sum, l) => sum + (l.estimatedMinutes ?? 0), 0),
+  };
+}
+
+/**
  * Load a quiz by course and lesson ID.
  * Returns null if the lesson has no quiz.
  */

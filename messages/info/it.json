@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Non sei sicuro che la NIS 2 ti riguardi?",
+        "body": "La verifica di applicabilità esamina le soglie dimensionali, gli allegati settoriali e il luogo di stabilimento e ti dà una risposta scritta in circa due minuti.",
+        "cta": "Verifica l'applicabilità"
+      },
+      "timeline": {
+        "heading": "La scadenza è fissata. Rientri nell'ambito?",
+        "body": "Lo stato di recepimento ti dice quando. La verifica di applicabilità ti dice se riguarda te — soglie dimensionali, allegati settoriali e dove è stabilita l'entità.",
+        "cta": "Verifica il tuo ambito"
+      },
+      "advice": {
+        "heading": "Stai affrontando questo con una scadenza reale?",
+        "body": "Parlane con chi l'ha già fatto. Trenta minuti, senza presentazioni commerciali: raccontaci la tua situazione e ti diciamo cosa deve succedere per primo.",
+        "cta": "Prenota una call"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "Cosa è realmente nisd2.eu: il registro degli obblighi gratuito e aperto per NIS 2",
@@ -401,6 +418,7 @@
       "cta": "Inizia gratis"
     },
     "footer": {
+      "partners": "Partner",
       "nis2Info": "Informazioni su NIS2",
       "whatIsNis2": "Che cos'è NIS2?",
       "nis2InGermany": "NIS2 in Germania",
@@ -6650,6 +6668,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} moduli · {lessons} lezioni · circa {hours} h · inizia da qualsiasi lezione",
       "meta": {
         "title": "Formazione gratuita NIS2 per gli organi di gestione - Articoli 20 + 21",
         "description": "Formazione NIS2 per gli organi di gestione sugli Articoli 20 + 21: rischi, le 10 misure di cibersicurezza e la sorveglianza. Soddisfa il dovere di formazione dell'Art. 20(2). 47 lezioni, gratuita.",

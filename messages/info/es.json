@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "¿No sabe si NIS 2 le afecta?",
+        "body": "La comprobación de ámbito repasa los umbrales de tamaño, los anexos sectoriales y el lugar de establecimiento, y le da una respuesta por escrito en unos dos minutos.",
+        "cta": "Comprobar el ámbito"
+      },
+      "timeline": {
+        "heading": "El plazo ya está fijado. ¿Está usted dentro del ámbito?",
+        "body": "El estado de transposición le dice cuándo. La comprobación de ámbito le dice si le afecta: umbrales de tamaño, anexos sectoriales y dónde está establecida la entidad.",
+        "cta": "Comprobar su ámbito"
+      },
+      "advice": {
+        "heading": "¿Está resolviendo esto con un plazo real?",
+        "body": "Háblelo con alguien que ya lo ha hecho. Treinta minutos, sin argumentario de venta: cuéntenos su situación y le diremos qué tiene que ocurrir primero.",
+        "cta": "Reservar una llamada"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "Qué es realmente nisd2.eu: el registro de obligaciones gratuito y abierto para NIS 2",
@@ -401,6 +418,7 @@
       "cta": "Empezar gratis"
     },
     "footer": {
+      "partners": "Socios",
       "nis2Info": "Información sobre NIS2",
       "whatIsNis2": "¿Qué es NIS2?",
       "nis2InGermany": "NIS2 en Alemania",
@@ -6650,6 +6668,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} módulos · {lessons} lecciones · unas {hours} h · empiece por cualquier lección",
       "meta": {
         "title": "Formación gratuita de dirección de NIS2 - Artículos 20 + 21",
         "description": "Formación de dirección de NIS2 que cubre los artículos 20 + 21: riesgos, las 10 medidas de ciberseguridad y la supervisión. Cumple el deber de formación del Art. 20(2). 47 lecciones, gratis.",

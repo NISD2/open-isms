@@ -11,7 +11,7 @@ import {
   ArrowRight,
   User,
 } from "lucide-react";
-import { loadCourse } from "@/lib/training/course-loader";
+import { loadCourse, courseTotals } from "@/lib/training/course-loader";
 import { CourseOutlineList } from "@/components/training/CourseOutlineList";
 import { pageAlternates } from "@/lib/seo";
 import { ogImages } from "@/lib/og-card";
@@ -68,9 +68,10 @@ export default async function TrainingLandingPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("info");
-  const [course, learnerCount] = await Promise.all([
+  const [course, learnerCount, totals] = await Promise.all([
     loadCourse("nis2-ceo"),
     getLearnerCount(),
+    courseTotals("nis2-ceo"),
   ]);
 
   return (
@@ -115,6 +116,22 @@ export default async function TrainingLandingPage({
             {t("trainingCeo.startCourse")}
             <ArrowRight className="size-4" />
           </Link>
+          {/*
+            Scale and freedom-to-skip, stated before the click. The only
+            CTA used to be "start at lesson 0.1", which reads as a
+            12-lesson run of law before anything practical; the outline
+            below has always deep-linked every lesson, but nothing said so.
+          */}
+          <div className="flex items-center gap-2 rounded-full bg-muted/50 px-3 py-1.5 w-fit">
+            <Clock className="size-3.5 text-muted-foreground" />
+            <span className="text-xs text-muted-foreground">
+              {t("trainingCeo.courseScale", {
+                modules: totals.modules,
+                lessons: totals.lessons,
+                hours: Math.round(totals.minutes / 60),
+              })}
+            </span>
+          </div>
           {/* Learner count */}
           {learnerCount > 0 && (
             <div className="flex items-center gap-2 rounded-full bg-muted/50 px-3 py-1.5 w-fit">

@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Nie wiesz, czy NIS 2 dotyczy Twojej organizacji?",
+        "body": "Test zakresu sprawdza progi wielkości, załączniki sektorowe i miejsce prowadzenia działalności i w około dwie minuty daje pisemną odpowiedź.",
+        "cta": "Sprawdź zakres"
+      },
+      "timeline": {
+        "heading": "Termin jest ustalony. Czy obejmuje Twoją organizację?",
+        "body": "Stan wdrożenia mówi, kiedy. Test zakresu mówi, czy to Ty — progi wielkości, załączniki sektorowe i miejsce siedziby podmiotu.",
+        "cta": "Sprawdź swój zakres"
+      },
+      "advice": {
+        "heading": "Pracujesz nad tym z realnym terminem?",
+        "body": "Porozmawiaj z kimś, kto już przez to przeszedł. Trzydzieści minut, bez sprzedaży — opisz swoją sytuację, a powiemy, co musi wydarzyć się najpierw.",
+        "cta": "Umów rozmowę"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "Czym właściwie jest nisd2.eu: darmowy, otwarty rejestr obowiązków dla NIS 2",
@@ -401,6 +418,7 @@
       "cta": "Zacznij za darmo"
     },
     "footer": {
+      "partners": "Partnerzy",
       "nis2Info": "Informacje o NIS2",
       "whatIsNis2": "Czym jest NIS2?",
       "nis2InGermany": "NIS2 w Niemczech",
@@ -6650,6 +6668,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} modułów · {lessons} lekcji · około {hours} godz. · zacznij od dowolnej lekcji",
       "meta": {
         "title": "Bezpłatne szkolenie dla kierownictwa NIS2 - artykuły 20 + 21",
         "description": "Szkolenie dla kierownictwa NIS2 obejmujące artykuły 20 + 21: ryzyka, 10 środków cyberbezpieczeństwa oraz nadzór. Spełnia obowiązek szkoleniowy z art. 20 ust. 2. 47 lekcji, bezpłatnie.",

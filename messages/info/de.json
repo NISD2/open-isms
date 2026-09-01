@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Unsicher, ob NIS 2 für Sie gilt?",
+        "body": "Der Betroffenheitscheck geht Größenschwellen, Sektoranhänge und den Ort der Niederlassung durch und gibt Ihnen in rund zwei Minuten eine schriftliche Antwort.",
+        "cta": "Betroffenheit prüfen"
+      },
+      "timeline": {
+        "heading": "Die Frist steht. Sind Sie betroffen?",
+        "body": "Der Umsetzungsstand sagt Ihnen, wann. Der Betroffenheitscheck sagt Ihnen, ob Sie es sind — Größenschwellen, Sektoranhänge und Ort der Niederlassung.",
+        "cta": "Betroffenheit prüfen"
+      },
+      "advice": {
+        "heading": "Sie arbeiten das mit einer echten Frist ab?",
+        "body": "Sprechen Sie mit jemandem, der das schon gemacht hat. 30 Minuten, kein Vertrieb — schildern Sie Ihre Lage, wir sagen Ihnen, was zuerst passieren muss.",
+        "cta": "Gespräch buchen"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "Was ist nisd2.eu? Das kostenlose, offene Pflichtenregister für NIS 2",
@@ -6659,6 +6676,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} Module · {lessons} Lektionen · rund {hours} Std. · Einstieg bei jeder Lektion",
       "meta": {
         "title": "NIS2 Management-Training - Artikel 20 + 21",
         "description": "NIS2-Training zu Artikel 20 + 21: Risiken, die 10 Sicherheitsmaßnahmen und Aufsicht durch die Leitung. Erfüllt die Schulungspflicht nach Art. 20(2). 47 Lektionen, kostenlos.",
