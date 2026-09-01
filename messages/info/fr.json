@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Vous ne savez pas si NIS 2 vous concerne ?",
+        "body": "Le test d'applicabilité passe en revue les seuils d'effectif, les annexes sectorielles et le lieu d'établissement, et vous donne une réponse écrite en deux minutes environ.",
+        "cta": "Faire le test d'applicabilité"
+      },
+      "timeline": {
+        "heading": "L'échéance est fixée. Êtes-vous concerné ?",
+        "body": "L'état de transposition vous dit quand. Le test d'applicabilité vous dit si c'est vous — seuils d'effectif, annexes sectorielles et lieu d'établissement de l'entité.",
+        "cta": "Vérifier votre situation"
+      },
+      "advice": {
+        "heading": "Vous traitez ce sujet avec une échéance réelle ?",
+        "body": "Parlez-en avec quelqu'un qui l'a déjà fait. Trente minutes, sans argumentaire commercial : exposez votre situation, nous vous dirons ce qui doit passer en premier.",
+        "cta": "Réserver un échange"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "Ce qu'est réellement nisd2.eu : le registre des obligations NIS 2, libre et gratuit",
@@ -401,6 +418,7 @@
       "cta": "Commencer gratuitement"
     },
     "footer": {
+      "partners": "Partenaires",
       "nis2Info": "Informations NIS2",
       "whatIsNis2": "Qu'est-ce que NIS2 ?",
       "nis2InGermany": "NIS2 en Allemagne",
@@ -6650,6 +6668,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} modules · {lessons} leçons · environ {hours} h · commencez où vous voulez",
       "meta": {
         "title": "Formation gratuite des dirigeants NIS2 - Articles 20 + 21",
         "description": "Formation des dirigeants NIS2 couvrant les articles 20 + 21 : risques, les 10 mesures de cybersécurité et la supervision. Satisfait à l'obligation de formation de l'art. 20, par. 2. 47 leçons, gratuit.",

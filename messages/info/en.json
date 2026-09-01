@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Not sure whether NIS 2 applies to you?",
+        "body": "The scope check walks the size thresholds, the sector annexes and where your entity is established, and gives you a written answer in about two minutes.",
+        "cta": "Run the scope check"
+      },
+      "timeline": {
+        "heading": "The deadline is set. Is your organisation in scope?",
+        "body": "Transposition status tells you when. The scope check tells you whether it is you — size thresholds, sector annexes and where your entity is established.",
+        "cta": "Check your scope"
+      },
+      "advice": {
+        "heading": "Working through this against a real deadline?",
+        "body": "Talk it through with someone who has done it. Thirty minutes, no pitch — bring your situation and we will tell you what actually has to happen first.",
+        "cta": "Book a call"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "What nisd2.eu actually is: the free, open obligation register for NIS 2",
@@ -6666,6 +6683,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} modules · {lessons} lessons · about {hours} h · start at any lesson",
       "meta": {
         "title": "Free NIS2 Management Training - Articles 20 + 21",
         "description": "NIS2 management training covering Articles 20 + 21: risks, the 10 cybersecurity measures, and oversight. Meets the Art. 20(2) training duty. 47 lessons, free.",

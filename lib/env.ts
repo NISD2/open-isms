@@ -46,6 +46,18 @@ const envSchema = z.object({
   // Cron — optional
   CRON_SECRET: z.string().optional(),
 
+  // IndexNow — optional. When set, /api/cron/indexnow submits the public
+  // URL set to the IndexNow endpoint (Bing, Yandex, Seznam, Naver share
+  // one index), and /api/indexnow-key serves the ownership key file the
+  // protocol requires. Unset on a self-hosted instance means no
+  // submission and no key file, which is the correct default: a
+  // self-hoster must not ping search engines with someone else's key.
+  // Must be 8–128 hex-ish characters per the IndexNow spec.
+  INDEXNOW_KEY: z
+    .string()
+    .regex(/^[A-Za-z0-9-]{8,128}$/, "INDEXNOW_KEY must be 8-128 chars of [A-Za-z0-9-]")
+    .optional(),
+
   // App URL
   NEXT_PUBLIC_APP_URL: z.string().default("https://www.nisd2.eu"),
 

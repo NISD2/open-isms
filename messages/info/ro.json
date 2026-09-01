@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Nu știți dacă NIS 2 vi se aplică?",
+        "body": "Verificarea domeniului de aplicare parcurge pragurile de mărime, anexele sectoriale și locul de stabilire și vă dă un răspuns scris în aproximativ două minute.",
+        "cta": "Verificați aplicabilitatea"
+      },
+      "timeline": {
+        "heading": "Termenul este stabilit. Intrați în domeniul de aplicare?",
+        "body": "Stadiul transpunerii vă spune când. Verificarea aplicabilității vă spune dacă este vorba despre dumneavoastră — praguri de mărime, anexe sectoriale și unde este stabilită entitatea.",
+        "cta": "Verificați domeniul de aplicare"
+      },
+      "advice": {
+        "heading": "Lucrați la asta cu un termen real?",
+        "body": "Discutați cu cineva care a trecut prin asta. Treizeci de minute, fără prezentare de vânzări — descrieți situația și vă spunem ce trebuie să se întâmple mai întâi.",
+        "cta": "Programați o discuție"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "Ce este de fapt nisd2.eu: registrul obligațiilor gratuit și deschis pentru NIS 2",
@@ -401,6 +418,7 @@
       "cta": "Incepe gratuit"
     },
     "footer": {
+      "partners": "Parteneri",
       "nis2Info": "Informații NIS2",
       "whatIsNis2": "Ce este NIS2?",
       "nis2InGermany": "NIS2 în Germania",
@@ -6650,6 +6668,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} module · {lessons} lecții · aproximativ {hours} h · începeți de la orice lecție",
       "meta": {
         "title": "Instruire gratuită NIS2 pentru conducere: articolele 20 + 21",
         "description": "Instruire NIS2 pentru conducere care acoperă articolele 20 + 21: riscuri, cele 10 măsuri de securitate cibernetică și supravegherea. Îndeplinește obligația de instruire din art. 20(2). 47 de lecții, gratuit.",

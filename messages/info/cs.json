@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Nevíte, jestli se na vás NIS 2 vztahuje?",
+        "body": "Test působnosti projde velikostní prahy, sektorové přílohy a místo usazení a přibližně za dvě minuty vám dá písemnou odpověď.",
+        "cta": "Ověřit působnost"
+      },
+      "timeline": {
+        "heading": "Termín je daný. Spadáte do působnosti?",
+        "body": "Stav transpozice říká kdy. Test působnosti říká, zda jde o vás — velikostní prahy, sektorové přílohy a kde je subjekt usazen.",
+        "cta": "Ověřit svou působnost"
+      },
+      "advice": {
+        "heading": "Řešíte to se skutečným termínem?",
+        "body": "Proberte to s někým, kdo si tím prošel. Třicet minut, žádný prodej — popište svou situaci a řekneme vám, co musí proběhnout první.",
+        "cta": "Domluvit hovor"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "Co je nisd2.eu ve skutečnosti: bezplatný, otevřený registr povinností pro NIS 2",
@@ -401,6 +418,7 @@
       "cta": "Začít zdarma"
     },
     "footer": {
+      "partners": "Partneři",
       "nis2Info": "Informace o NIS2",
       "whatIsNis2": "Co je NIS2?",
       "nis2InGermany": "NIS2 v Německu",
@@ -6650,6 +6668,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} modulů · {lessons} lekcí · asi {hours} h · začněte kteroukoli lekcí",
       "meta": {
         "title": "Bezplatné školení vedení NIS2, články 20 + 21",
         "description": "Školení vedení NIS2 pokrývající články 20 + 21: rizika, 10 opatření kybernetické bezpečnosti a dohled. Splňuje povinnost školení podle čl. 20 odst. 2. 47 lekcí, zdarma.",

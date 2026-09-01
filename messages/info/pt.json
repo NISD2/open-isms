@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Não sabe se a NIS 2 se aplica a si?",
+        "body": "A verificação de âmbito percorre os limiares de dimensão, os anexos setoriais e o local de estabelecimento e dá-lhe uma resposta escrita em cerca de dois minutos.",
+        "cta": "Verificar o âmbito"
+      },
+      "timeline": {
+        "heading": "O prazo está fixado. Está abrangido?",
+        "body": "O estado de transposição diz-lhe quando. A verificação de âmbito diz-lhe se é consigo — limiares de dimensão, anexos setoriais e onde a entidade está estabelecida.",
+        "cta": "Verificar o seu âmbito"
+      },
+      "advice": {
+        "heading": "Está a tratar disto com um prazo real?",
+        "body": "Fale com quem já passou por isso. Trinta minutos, sem argumentário de venda: descreva a sua situação e dizemos-lhe o que tem de acontecer primeiro.",
+        "cta": "Marcar uma chamada"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "O que é realmente o nisd2.eu: o registo de obrigações gratuito e aberto para a NIS 2",
@@ -401,6 +418,7 @@
       "cta": "Começar gratuitamente"
     },
     "footer": {
+      "partners": "Parceiros",
       "nis2Info": "Informação NIS2",
       "whatIsNis2": "O que é a NIS2?",
       "nis2InGermany": "NIS2 na Alemanha",
@@ -6650,6 +6668,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} módulos · {lessons} lições · cerca de {hours} h · comece em qualquer lição",
       "meta": {
         "title": "Formação gratuita de gestão NIS2, Artigos 20.o + 21.o",
         "description": "Formação de gestão NIS2 que abrange os Artigos 20.o + 21.o: riscos, as 10 medidas de cibersegurança e a supervisão. Cumpre o dever de formação do Art. 20.o, n.o 2. 47 lições, gratuita.",
