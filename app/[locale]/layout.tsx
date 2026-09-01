@@ -21,13 +21,20 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   // The `info` namespace holds ~1.8 MB of long-form wiki body content per
   // locale. Server components render it via getTranslations('info'); only
-  // RelatedArticles (client) reads from it, and only its footer.* +
-  // relatedArticles.* sub-trees. Keep those; drop the rest from the RSC
-  // payload so every page stops shipping the wiki bundle.
-  const info = messages.info as { footer?: unknown; relatedArticles?: unknown } | undefined;
+  // RelatedArticles and WikiNextStep (both client) read from it, and only
+  // their footer.* + relatedArticles.* + wikiNextStep.* sub-trees. Keep
+  // those; drop the rest from the RSC payload so every page stops
+  // shipping the wiki bundle. Anything added here ships to every client.
+  const info = messages.info as
+    | { footer?: unknown; relatedArticles?: unknown; wikiNextStep?: unknown }
+    | undefined;
   const clientMessages = {
     ...messages,
-    info: { footer: info?.footer, relatedArticles: info?.relatedArticles },
+    info: {
+      footer: info?.footer,
+      relatedArticles: info?.relatedArticles,
+      wikiNextStep: info?.wikiNextStep,
+    },
   };
 
   return (

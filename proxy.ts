@@ -196,41 +196,78 @@ const NON_DEFAULT_LOCALE_PREFIX = new RegExp(
 );
 
 /**
- * Supplier portal root → the product lander, for anonymous visitors only.
+ * Gated roots an anonymous visitor is expected to reach cold → the public
+ * page to send them to instead of the sign-in form.
  *
  * `/portal/supplier` is the URL that actually gets shared with a supplier
  * ("fill this in for us"), and a supplier who has never heard of us has
  * nothing to sign in with. Sending them to /auth/signin loses them at the
- * door. Deep links into the portal (/portal/supplier/profile, /practices,
- * per-customer pages) keep going to signin with callbackUrl — those are app
- * URLs someone reaches after they already have an account.
+ * door.
  *
- * Target is resolved per locale from routing.pathnames so NL lands on
- * /nl/leveranciersportaal rather than eating a second redirect hop.
+ * `/journey` is the same shape of problem found later in analytics: it is
+ * the surface people link to and search for, and it had the highest
+ * return rate on the site (1.65 visits per visitor) while an anonymous
+ * hit got nothing but a login form.
+ *
+ * It points at /start rather than /journey-preview: the preview route
+ * calls notFound() when NODE_ENV === "production" on purpose — it is a
+ * screenshot rig for the landing hero, rendering a fake company's board
+ * with a sidebar full of gated links, not a marketing surface. Sending
+ * real traffic there would 404. /start is the actual public pre-login
+ * entry page, and it recorded zero visits in the 30 days to 2026-08-31,
+ * so it was getting no traffic from anywhere.
+ *
+ * Only the EXACT root redirects. Deep links below it
+ * (/portal/supplier/profile, /practices, per-customer pages) keep going to
+ * signin with callbackUrl — those are app URLs someone reaches after they
+ * already have an account.
+ *
+ * Targets resolve per locale from routing.pathnames so NL lands on
+ * /nl/leveranciersportaal rather than eating a second redirect hop. A
+ * target that is not in routing.pathnames (like /journey-preview) is
+ * locale-stable and falls through to itself.
  */
-const SUPPLIER_PORTAL_ROOT = "/portal/supplier";
+const ANONYMOUS_LANDER_TARGETS: Record<string, string> = {
+  "/portal/supplier": "/supplier-portal",
+  "/journey": "/start",
+};
 
-const SUPPLIER_LANDER_BY_LOCALE: Record<string, string> = (() => {
+function landerByLocale(target: string): Record<string, string> {
   const pathnames = routing.pathnames as Record<
     string,
     string | Record<string, string | undefined> | undefined
   >;
-  const mapping = pathnames["/supplier-portal"];
+  const mapping = pathnames[target];
   const out: Record<string, string> = {};
   for (const locale of routing.locales) {
     out[locale] =
-      (typeof mapping === "string" ? mapping : mapping?.[locale]) ??
-      "/supplier-portal";
+      (typeof mapping === "string" ? mapping : mapping?.[locale]) ?? target;
   }
   return out;
-})();
+}
 
-/** Locale-prefixed lander URL for the locale this request is in. */
-function supplierLanderPath(pathname: string): string {
+const ANONYMOUS_LANDERS: Record<string, Record<string, string>> =
+  Object.fromEntries(
+    Object.entries(ANONYMOUS_LANDER_TARGETS).map(([root, target]) => [
+      root,
+      landerByLocale(target),
+    ]),
+  );
+
+/**
+ * Locale-prefixed lander for an anonymous hit on `strippedPath`, or null
+ * when that path has no lander and should go to signin as before.
+ */
+function anonymousLanderPath(
+  pathname: string,
+  strippedPath: string,
+): string | null {
+  const byLocale = ANONYMOUS_LANDERS[strippedPath];
+  if (!byLocale) return null;
   const match = pathname.match(NON_DEFAULT_LOCALE_PREFIX);
   const locale = match ? match[1].toLowerCase() : routing.defaultLocale;
   const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
-  return `${prefix}${SUPPLIER_LANDER_BY_LOCALE[locale] ?? "/supplier-portal"}`;
+  return `${prefix}${byLocale[locale] ?? ANONYMOUS_LANDER_TARGETS[strippedPath]}`;
 }
 
 function isPublic(pathname: string): boolean {
@@ -324,12 +361,15 @@ async function route(request: NextRequest) {
     });
 
     if (!token) {
-      // The one protected path an anonymous visitor is expected to arrive
-      // at cold. Everything else under /portal/supplier/ still walls.
-      if ((pathname.replace(LOCALE_STRIP, "") || "/") === SUPPLIER_PORTAL_ROOT) {
-        return NextResponse.redirect(
-          new URL(supplierLanderPath(pathname), request.url),
-        );
+      // The protected roots an anonymous visitor is expected to arrive at
+      // cold get a public lander instead of the login form. Everything
+      // deeper still walls.
+      const lander = anonymousLanderPath(
+        pathname,
+        pathname.replace(LOCALE_STRIP, "") || "/",
+      );
+      if (lander) {
+        return NextResponse.redirect(new URL(lander, request.url));
       }
       const signinUrl = new URL("/auth/signin", request.url);
       signinUrl.searchParams.set("callbackUrl", pathname);

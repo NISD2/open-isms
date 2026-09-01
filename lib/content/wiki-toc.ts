@@ -22,6 +22,11 @@
  */
 
 import { isPublished } from "./wiki-publish-schedule";
+import {
+  EXTRA_CATEGORY_SLUGS,
+  EXTRA_ENTRY_SLUGS,
+  EXTRA_SLUG_LOCALES,
+} from "./wiki-slugs-extra";
 
 export const WIKI_TOP_LEVEL = [
   "anwendungsbereich",
@@ -41,6 +46,32 @@ export interface PerLocaleSlug {
   de: string;
   en: string;
   nl: string;
+  /**
+   * Locales that gained slugs later. Optional: an absent value falls back
+   * to `en`, which is what every one of these locales did for all of its
+   * URLs before wiki-slugs-extra.ts existed. Populated at module load by
+   * the merge below — authored in lib/content/wiki-slugs-extra.ts, not
+   * inline here, so the ~200 added strings stay reviewable in one place.
+   */
+  pl?: string;
+  ro?: string;
+  fr?: string;
+  it?: string;
+}
+
+/** Locales that can carry a distinct URL slug. Others resolve to `en`. */
+export const SLUG_LOCALES = ["de", "en", "nl", "pl", "ro", "fr", "it"] as const;
+export type SlugLocale = (typeof SLUG_LOCALES)[number];
+
+/**
+ * The slug this locale should use, falling back to English. The fallback
+ * is load-bearing: es/cs/pt have full content translations but no slugs
+ * yet, and locales absent from PerLocaleSlug must resolve to something.
+ */
+export function slugFor(slugs: PerLocaleSlug, locale: string): string {
+  return (SLUG_LOCALES as readonly string[]).includes(locale)
+    ? (slugs[locale as SlugLocale] ?? slugs.en)
+    : slugs.en;
 }
 
 /**
@@ -1030,6 +1061,25 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
   },
 };
 
+// ── Late-locale slug merge ──────────────────────────────────────────
+
+/**
+ * Fold the pl/ro/fr/it slugs from wiki-slugs-extra.ts into the TOC once,
+ * at module load, so every consumer (pathnames, sitemap, JSON-LD,
+ * breadcrumbs, redirects) sees one populated shape rather than each
+ * having to remember a second lookup.
+ *
+ * Mutating the literal is deliberate: the alternative is a parallel
+ * "resolved TOC" export that half the callers would forget to use.
+ */
+for (const cat of WIKI_TOP_LEVEL) {
+  const meta = WIKI_TOC[cat];
+  Object.assign(meta.slugs, EXTRA_CATEGORY_SLUGS[cat] ?? {});
+  for (const entry of meta.entries) {
+    Object.assign(entry.slugs, EXTRA_ENTRY_SLUGS[entry.slug] ?? {});
+  }
+}
+
 // ── Derivation helpers ──────────────────────────────────────────────
 
 /** All entries in a category, filtered to those whose publishAt has elapsed (or who have no publishAt). */
@@ -1063,23 +1113,35 @@ export function topLevelSummary(): Array<WikiCategoryMeta & { count: number }> {
  * (used for `<Link href="...">`) is always the German-slug path.
  */
 export function wikiPathnames(): Record<string, PerLocaleSlug> {
-  const result: Record<string, PerLocaleSlug> = {
-    "/wiki": { de: "/wiki", en: "/wiki", nl: "/wiki" },
+  /**
+   * Build the per-locale path for one category, optionally with an entry
+   * under it. Every locale in SLUG_LOCALES gets an explicit value;
+   * es/cs/pt are not in that list and are filled from `en` by `fill()`
+   * in i18n/routing.ts, exactly as before.
+   */
+  const paths = (
+    catSlugs: PerLocaleSlug,
+    entrySlugs?: PerLocaleSlug,
+  ): PerLocaleSlug => {
+    const out = {} as Record<SlugLocale, string>;
+    for (const loc of SLUG_LOCALES) {
+      const cat = slugFor(catSlugs, loc);
+      out[loc] = entrySlugs
+        ? `/wiki/${cat}/${slugFor(entrySlugs, loc)}`
+        : `/wiki/${cat}`;
+    }
+    return out;
   };
+
+  const hub = {} as Record<SlugLocale, string>;
+  for (const loc of SLUG_LOCALES) hub[loc] = "/wiki";
+  const result: Record<string, PerLocaleSlug> = { "/wiki": hub };
 
   for (const cat of WIKI_TOP_LEVEL) {
     const meta = WIKI_TOC[cat];
-    result[`/wiki/${cat}`] = {
-      de: `/wiki/${meta.slugs.de}`,
-      en: `/wiki/${meta.slugs.en}`,
-      nl: `/wiki/${meta.slugs.nl}`,
-    };
+    result[`/wiki/${cat}`] = paths(meta.slugs);
     for (const entry of meta.entries) {
-      result[`/wiki/${cat}/${entry.slug}`] = {
-        de: `/wiki/${meta.slugs.de}/${entry.slugs.de}`,
-        en: `/wiki/${meta.slugs.en}/${entry.slugs.en}`,
-        nl: `/wiki/${meta.slugs.nl}/${entry.slugs.nl}`,
-      };
+      result[`/wiki/${cat}/${entry.slug}`] = paths(meta.slugs, entry.slugs);
     }
   }
 
@@ -1190,6 +1252,54 @@ export function wikiLegacyRedirects(): Array<{
           permanent: true,
         },
       );
+    }
+  }
+  return out;
+}
+
+/**
+ * Redirects for the pl/ro/fr/it slug localization.
+ *
+ * Those four locales served fully translated content on English URLs
+ * until wiki-slugs-extra.ts landed — /it/wiki/timelines-and-status/
+ * nis2-eu-tracker was a real, crawlable, indexed page. Giving them real
+ * slugs MOVES those URLs, so each one needs a 301 or the ranking built
+ * up on it is thrown away.
+ *
+ * Emitted only where the localized slug actually differs from the
+ * English one; identical values would produce a self-redirect loop.
+ * Locales without slugs (es/cs/pt) never move and appear nowhere here.
+ */
+export function localizedWikiSlugRedirects(): Array<{
+  source: string;
+  destination: string;
+  permanent: boolean;
+}> {
+  const out: Array<{ source: string; destination: string; permanent: boolean }> = [];
+  for (const cat of WIKI_TOP_LEVEL) {
+    const meta = WIKI_TOC[cat];
+    for (const loc of EXTRA_SLUG_LOCALES) {
+      const oldCat = meta.slugs.en;
+      const newCat = slugFor(meta.slugs, loc);
+
+      if (newCat !== oldCat) {
+        out.push({
+          source: `/${loc}/wiki/${oldCat}`,
+          destination: `/${loc}/wiki/${newCat}`,
+          permanent: true,
+        });
+      }
+
+      for (const entry of meta.entries) {
+        const oldSlug = entry.slugs.en;
+        const newSlug = slugFor(entry.slugs, loc);
+        if (newCat === oldCat && newSlug === oldSlug) continue;
+        out.push({
+          source: `/${loc}/wiki/${oldCat}/${oldSlug}`,
+          destination: `/${loc}/wiki/${newCat}/${newSlug}`,
+          permanent: true,
+        });
+      }
     }
   }
   return out;

@@ -14,7 +14,11 @@
  * one per locale — pointing OLD locale slug → NEW localized /docs path.
  */
 
-import { wikiLegacyRedirects, docsToWikiRedirects } from "./wiki-toc";
+import {
+  wikiLegacyRedirects,
+  docsToWikiRedirects,
+  localizedWikiSlugRedirects,
+} from "./wiki-toc";
 
 export interface LegacyRedirect {
   source: string;
@@ -25,4 +29,7 @@ export interface LegacyRedirect {
 export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   ...wikiLegacyRedirects(),
   ...docsToWikiRedirects(),
+  // pl/ro/fr/it moved off English slugs onto localized ones; the English
+  // URLs they were indexed on still have to resolve.
+  ...localizedWikiSlugRedirects(),
 ];

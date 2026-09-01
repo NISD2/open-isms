@@ -46,10 +46,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
 
       - name: Build the image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           load: true
@@ -59,7 +59,7 @@ jobs:
           cache-to: type=gha,mode=max,scope=ci-amd64
 
       - name: Build the "next release" image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           load: true
@@ -257,7 +257,7 @@ jobs:
             echo "::notice::Upgrade test skipped — nothing here can change the upgrade path."
           fi
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
         if: steps.scope.outputs.run == 'true'
 
       # The version being upgraded FROM. Prefers the last release, because
@@ -280,7 +280,7 @@ jobs:
 
       - name: Build this version
         if: steps.scope.outputs.run == 'true'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           load: true

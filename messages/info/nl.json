@@ -1,5 +1,22 @@
 {
   "info": {
+    "wikiNextStep": {
+      "scope": {
+        "heading": "Niet zeker of NIS 2 op u van toepassing is?",
+        "body": "De toepassingscheck loopt de omvangdrempels, de sectorbijlagen en de vestigingsplaats na en geeft u in ongeveer twee minuten een schriftelijk antwoord.",
+        "cta": "Toepassing controleren"
+      },
+      "timeline": {
+        "heading": "De deadline staat vast. Valt u eronder?",
+        "body": "De omzettingsstatus vertelt u wanneer. De toepassingscheck vertelt u of u het bent — omvangdrempels, sectorbijlagen en waar uw entiteit is gevestigd.",
+        "cta": "Controleer uw toepassingsgebied"
+      },
+      "advice": {
+        "heading": "Werkt u dit uit met een echte deadline?",
+        "body": "Bespreek het met iemand die het al heeft gedaan. Dertig minuten, geen verkooppraatje — leg uw situatie voor en wij zeggen wat er eerst moet gebeuren.",
+        "cta": "Gesprek inplannen"
+      }
+    },
     "whatIsNisd2": {
       "meta": {
         "title": "Wat nisd2.eu werkelijk is: het gratis, open verplichtingenregister voor NIS 2",
@@ -6258,6 +6275,7 @@
       }
     },
     "trainingCeo": {
+      "courseScale": "{modules} modules · {lessons} lessen · ongeveer {hours} u · begin bij elke les",
       "meta": {
         "title": "Free NIS2 Management Training - Articles 20 + 21",
         "description": "NIS2 management training covering Articles 20 + 21: risks, the 10 cybersecurity measures, and oversight. Meets the Art. 20(2) training duty. 47 lessons, free.",
