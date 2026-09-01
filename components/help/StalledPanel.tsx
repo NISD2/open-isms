@@ -30,6 +30,12 @@ export function StalledPanel({
   const t = useTranslations("help");
 
   if (!lastActivityAt) return null;
+  // An empty aggregate is not a stalled path. journey.getItems reports
+  // total = items.length, which is 0 whenever the assessment exists but has
+  // no requirement rows (part-way seeding, a framework swap). Without this
+  // the panel tells the company its progress has been stuck at "0 of 0
+  // steps" for two weeks, which is not a sentence anyone should read.
+  if (total === 0) return null;
 
   const daysIdle =
     (Date.now() - lastActivityAt.getTime()) / (1000 * 60 * 60 * 24);

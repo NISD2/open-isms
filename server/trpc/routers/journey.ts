@@ -1,4 +1,4 @@
-import { eq, and, asc, count, desc } from "drizzle-orm";
+import { eq, and, asc, count, desc, isNotNull } from "drizzle-orm";
 import { z } from "zod";
 import { router, companyProcedure } from "../init";
 import {
@@ -81,7 +81,8 @@ export const journeyRouter = router({
       };
     }
 
-    const [rows, signOffRows, currentUserRow] = await Promise.all([
+    const [rows, signOffRows, currentUserRow, lastAuditRows] =
+      await Promise.all([
       ctx.db
         .select({
           statusId: companyRequirementStatus.id,
@@ -132,6 +133,28 @@ export const journeyRouter = router({
         where: eq(user.id, ctx.session.user.id),
         columns: { isManagement: true },
       }),
+      // When this company last changed anything, used only to decide whether
+      // the path has stalled. Read from the audit log rather than from
+      // companyRequirementStatus.updatedAt: every mutation is logged by the
+      // auto-audit middleware, so this covers evidence, risks, assets and
+      // sign-offs alike, where the status timestamp is bumped by a handful of
+      // call sites and would report a company as idle while it was busy
+      // elsewhere. Null for a company that has never mutated anything.
+      //
+      // isNotNull(userId) is load-bearing. Cron-driven writes carry a real
+      // companyId and a null userId: escalation.ts logs
+      // notification.escalated_level_N per overdue requirement, and
+      // schedule-notifications.ts and module-recheck.ts do the same. Without
+      // the filter those machine rows reset the idle clock, so a company that
+      // stopped working is marked active by the very escalations that prove it
+      // stopped. The tRPC middleware always supplies a real userId, so a
+      // non-null userId means a person did something.
+      ctx.db
+        .select({ at: auditLog.createdAt })
+        .from(auditLog)
+        .where(and(eq(auditLog.companyId, cid), isNotNull(auditLog.userId)))
+        .orderBy(desc(auditLog.createdAt))
+        .limit(1),
     ]);
 
     // statusId → { signed, total } sign-off progress.
@@ -199,25 +222,11 @@ export const journeyRouter = router({
       open: items.filter((i) => !isDoneStatus(i.status)).length,
     };
 
-    // When this company last changed anything, used only to decide whether the
-    // path has stalled. Read from the audit log rather than from
-    // companyRequirementStatus.updatedAt: every mutation is logged by the
-    // auto-audit middleware, so this covers evidence, risks, assets and
-    // sign-offs alike, where the status timestamp is bumped by a handful of
-    // call sites and would report a company as idle while it was busy
-    // elsewhere. Null for a company that has never mutated anything.
-    const [lastAudit] = await ctx.db
-      .select({ at: auditLog.createdAt })
-      .from(auditLog)
-      .where(eq(auditLog.companyId, cid))
-      .orderBy(desc(auditLog.createdAt))
-      .limit(1);
-
     return {
       items,
       isManagement: currentUserRow?.isManagement ?? false,
       aggregate,
-      lastActivityAt: lastAudit?.at ?? null,
+      lastActivityAt: lastAuditRows[0]?.at ?? null,
     };
   }),
 });

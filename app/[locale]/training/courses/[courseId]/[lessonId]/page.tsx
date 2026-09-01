@@ -73,8 +73,14 @@ export default async function LessonRoute({
           {/* End of the course is the second place someone stalls: they have
               the theory and no next step. Same one-line offer as the
               requirement sidebar, below the certificate rather than above it,
-              so finishing is still the headline. */}
-          <StuckLink />
+              so finishing is still the headline.
+
+              Gated on allCompleted like StartJourneyCta above, not on
+              `completion` being non-null: completion is fetched for the
+              certificate lesson whatever the progress, so opening it two
+              modules in used to show end-of-course help to someone who has
+              not got the theory yet. */}
+          {completion.allCompleted && <StuckLink />}
         </div>
       )}
     </>

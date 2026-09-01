@@ -23,10 +23,22 @@ export async function generateMetadata({
 const sectionKeys = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"] as const;
 
 /**
- * Provider block. The company details are held once, in the `info.impressum`
- * namespace that renders /impressum, so the two pages cannot drift.
+ * Provider block. The company VALUES are held once, in the `info.impressum`
+ * namespace that renders /impressum. The field LIST is not shared, though,
+ * and had already drifted: euid ships in all ten locales and renders on
+ * /impressum but was missing here, on the page that presents the Anbieter
+ * block for a commission-bearing commercial offer. Adding an identifier to
+ * /impressum still will not reach this page, so keep the two in step by hand
+ * or derive both from one list.
  */
-const providerKeys = ["company", "represented", "address", "registration", "vatId"] as const;
+const providerKeys = [
+  "company",
+  "represented",
+  "address",
+  "registration",
+  "euid",
+  "vatId",
+] as const;
 
 export default async function ReferralTermsPage() {
   const t = await getTranslations("help");

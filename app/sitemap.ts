@@ -25,6 +25,28 @@ interface PageOptions {
 }
 
 /**
+ * Locales the help offer actually exists in.
+ *
+ * messages/help/ ships de, en and nl only. i18n/request.ts falls back to
+ * English for an absent namespace, so /es/ayuda serves English prose under a
+ * URL that claims to be Spanish. Listing all ten here with reciprocal
+ * hreflang told Google that eight of them were translations of each other
+ * when they are one English page repeated, which is the shape of duplicate
+ * content it penalises.
+ *
+ * /vermittlung is the sharper case: it states the 15 percent commission,
+ * liability limits and data-transfer consent. Offering that as an es/fr/it/
+ * pl/cs/pt/ro document when it is English is not a translation gap, it is a
+ * legal page presented as something it is not.
+ *
+ * The routes still resolve in every locale, so an existing link keeps
+ * working; they are simply no longer advertised as translations. Widen this
+ * list the moment the namespace is translated -- it is the only thing
+ * gating them.
+ */
+const HELP_LOCALES = ["de", "en", "nl"] as const;
+
+/**
  * Generates a sitemap entry per locale for a public-facing canonical path,
  * with hreflang alternates wired up for SEO.
  */
@@ -159,8 +181,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Pricing + Training
     ...multilingualEntries("/pricing", { priority: 0.9 }),
-    ...multilingualEntries("/hilfe", { lastModified: "2026-08-30", priority: 0.8 }),
-    ...multilingualEntries("/vermittlung", { lastModified: "2026-08-30", priority: 0.4 }),
+    ...multilingualEntries("/hilfe", {
+      lastModified: "2026-08-30",
+      priority: 0.8,
+      locales: HELP_LOCALES,
+    }),
+    ...multilingualEntries("/vermittlung", {
+      lastModified: "2026-08-30",
+      priority: 0.4,
+      locales: HELP_LOCALES,
+    }),
     ...multilingualEntries("/training/nis2-ceo", { priority: 0.9 }),
 
     // About + open-source. /pitch and /mission are 308-redirects to /about,

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CopyProtected } from "@/components/CopyProtected";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { pageAlternates } from "@/lib/seo";
-import { ogImages } from "@/lib/og-card";
+import { SUPPORT_EMAIL } from "@/lib/support-contact";
 
 export async function generateMetadata({
   params,
@@ -21,14 +21,16 @@ export async function generateMetadata({
     title,
     description: t("meta.description"),
     alternates: pageAlternates("hilfe", locale),
-    openGraph: {
-      type: "website",
-      images: ogImages("hilfe", locale, title),
-    },
+    // No openGraph block, deliberately. lib/og-cards.json carries no "hilfe"
+    // entry, so ogImages() returned undefined -- and Next REPLACES the parent
+    // openGraph object rather than deep-merging it. Declaring one here
+    // therefore dropped siteName, locale, alternateLocale, title and
+    // description from app/layout.tsx and shipped a bare share card for a
+    // page the sitemap lists at priority 0.8. Inheriting the root defaults is
+    // strictly better until a card exists, which is what /vermittlung does.
   };
 }
 
-const CONTACT_EMAIL = "contact@nisd2.eu";
 const stepKeys = ["s1", "s2", "s3", "s4"] as const;
 const notDoKeys = ["legal", "authority", "commission"] as const;
 
@@ -52,8 +54,25 @@ function TierHeading({ index, label, heading }: { index: number; label: string; 
   );
 }
 
-export default async function HelpPage() {
+export default async function HelpPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ req?: string }>;
+}) {
   const t = await getTranslations("help");
+  const { req } = await searchParams;
+
+  // StuckLink appends ?req=<requirementCode> so the reader does not have to
+  // retype where they got stuck. Nothing read it before, so every code
+  // produced a distinct URL that behaved identically and the prefill the
+  // prop documents silently did not happen. Folded into the mail subject
+  // here. Shape-checked because the value goes straight into a mailto the
+  // user is about to send: a requirement code, not arbitrary query text.
+  const stuckOn =
+    req && /^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$/.test(req) ? req : null;
+  const subject = stuckOn
+    ? `${t("contact.subject")} (${stuckOn})`
+    : t("contact.subject");
 
   return (
     <CopyProtected>
@@ -169,7 +188,7 @@ export default async function HelpPage() {
               <p>{t("contact.p1")}</p>
               <Button asChild>
                 <a
-                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t("contact.subject"))}`}
+                  href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}`}
                 >
                   {t("contact.cta")}
                 </a>

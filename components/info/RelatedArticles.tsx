@@ -1,8 +1,7 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { usePathname } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { relatedArticles, pageTitleKeys, relatedPathname } from "@/lib/seo-related";
 
@@ -18,7 +17,17 @@ export function RelatedArticles() {
   const slug = pathname.replace(/^\//, "").replace(/\/$/, "");
 
   const related = relatedArticles[slug];
-  if (!related || related.length === 0) return null;
+
+  // Resolve the hrefs BEFORE deciding whether there is anything to show.
+  // relatedPathname returns null by design for a slug that no longer
+  // resolves, so checking the raw slug list first would render the heading,
+  // the border-top separator and an empty <ul> for a page whose related
+  // entries have all been retired from routing.pathnames or unpublished.
+  const cards = (related ?? []).flatMap((relatedSlug) => {
+    const href = relatedPathname(relatedSlug);
+    return href ? [{ relatedSlug, href }] : [];
+  });
+  if (cards.length === 0) return null;
 
   return (
     <section className="mt-12 border-t border-border/40 pt-8">
@@ -26,18 +35,11 @@ export function RelatedArticles() {
         {t("relatedArticles.heading")}
       </h2>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-        {related.map((relatedSlug) => {
+        {cards.map(({ relatedSlug, href }) => {
           const titleKey = pageTitleKeys[relatedSlug];
           const label = titleKey
             ? t(`footer.${titleKey}` as Parameters<typeof t>[0])
             : relatedSlug;
-
-          // Most of these pages live under /wiki now, where each locale has
-          // its own slug. Resolving through the routing map is what makes the
-          // link correct outside German; building the href by hand sent every
-          // other locale to a path that does not exist.
-          const href = relatedPathname(relatedSlug);
-          if (!href) return null;
 
           return (
             <li key={relatedSlug}>

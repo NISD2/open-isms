@@ -9,6 +9,9 @@
  * key that next-intl can localize. See the note on that function for what
  * went wrong when the component built hrefs by hand.
  */
+import { routing } from "@/i18n/routing";
+import { WIKI_TOP_LEVEL, publishedEntries } from "@/lib/content/wiki-toc";
+
 export const relatedArticles: Record<string, string[]> = {
   "what-is-nis2": [
     "nis2-in-germany",
@@ -258,9 +261,6 @@ export const pageTitleKeys: Record<string, string> = {
   "nis2-produzierendes-gewerbe": "sectorManufacturing",
 };
 
-import { routing } from "@/i18n/routing";
-import { WIKI_TOC, WIKI_TOP_LEVEL } from "@/lib/content/wiki-toc";
-
 /**
  * A pathname the next-intl routing config can localize from the key alone.
  *
@@ -275,12 +275,19 @@ export type AppPathname = Exclude<
 
 /**
  * Canonical (German) wiki slug -> the pathname key `wikiPathnames()` registers
- * for it. Built from WIKI_TOC, the same source that produces the routing map,
- * so the two cannot drift.
+ * for it. Built from the same source that produces the routing map, so the
+ * two cannot drift.
+ *
+ * publishedEntries, not WIKI_TOC[cat].entries: an entry whose publishAt is
+ * still in the future is deliberately absent from the /wiki hub and from the
+ * sitemap, so linking to it from a related-articles card would advertise a
+ * page the rest of the site is holding back. Falling through to null here
+ * renders no card, which is this module's designed outcome for a slug that
+ * cannot be reached.
  */
 const WIKI_SLUG_TO_PATHNAME: ReadonlyMap<string, string> = new Map(
   WIKI_TOP_LEVEL.flatMap((cat) =>
-    WIKI_TOC[cat].entries.map(
+    publishedEntries(cat).map(
       (entry) => [entry.slug, `/wiki/${cat}/${entry.slug}`] as const,
     ),
   ),
