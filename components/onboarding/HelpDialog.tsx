@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { SUPPORT_EMAIL as CONTACT_EMAIL } from "@/lib/support-contact";
+import { IN_PRODUCT_SUPPORT_EMAIL as CONTACT_EMAIL } from "@/lib/support-contact";
 
 function HelpRow({
   icon: Icon,

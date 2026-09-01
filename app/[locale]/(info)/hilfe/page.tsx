@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CopyProtected } from "@/components/CopyProtected";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { pageAlternates } from "@/lib/seo";
-import { SUPPORT_EMAIL } from "@/lib/support-contact";
+import { PUBLIC_SUPPORT_EMAIL } from "@/lib/support-contact";
 
 export async function generateMetadata({
   params,
@@ -188,7 +188,7 @@ export default async function HelpPage({
               <p>{t("contact.p1")}</p>
               <Button asChild>
                 <a
-                  href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}`}
+                  href={`mailto:${PUBLIC_SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}`}
                 >
                   {t("contact.cta")}
                 </a>
