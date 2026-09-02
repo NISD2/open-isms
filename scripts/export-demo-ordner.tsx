@@ -18,32 +18,39 @@ if (process.env.EXPORT_DEMO_ORDNER !== "1") {
       "points at.",
   );
 }
-import { writeFileSync, mkdirSync } from "node:fs";
+
+import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import React from "react";
-import {
-  renderToBuffer,
-  Document,
-  Page,
-  Text,
-  View,
-} from "@react-pdf/renderer";
+import { Document, Page, renderToBuffer, Text, View } from "@react-pdf/renderer";
 import { eq } from "drizzle-orm";
+import type React from "react";
 import { db } from "@/lib/db";
 import {
-  user,
+  BrandBands,
+  Callout,
+  type Column,
+  CoverFooter,
+  CoverHeading,
+  DocHeader,
+  FieldRow,
+  PageFooter,
+  SectionHeading,
+  Table,
+} from "@/lib/pdf/chrome";
+import { ComplianceReport } from "@/lib/pdf/compliance-report";
+import { loadReportData } from "@/lib/pdf/load-report-data";
+import { styles } from "@/lib/pdf/styles";
+import {
+  asset,
+  company,
   companyAssessment,
   complianceFramework,
-  company,
-  asset,
-  supplier,
-  risk,
-  trainingRecord,
   incident,
+  risk,
+  supplier,
+  trainingRecord,
+  user,
 } from "@/schema";
-import { loadReportData } from "@/lib/pdf/load-report-data";
-import { ComplianceReport } from "@/lib/pdf/compliance-report";
-import { styles } from "@/lib/pdf/styles";
 
 const DEMO_EMAIL = "gf@wertstoff-nordkreis.example";
 
@@ -52,7 +59,8 @@ const DEMO_EMAIL = "gf@wertstoff-nordkreis.example";
  * container has no Desktop and often no HOME, so the path is overridable and
  * created if absent. Writing to `undefined/Desktop` was the previous outcome.
  */
-const OUT_DIR = process.env.DEMO_ORDNER_OUT ?? join(process.env.HOME ?? process.cwd(), "Desktop");
+const OUT_DIR =
+  process.env.DEMO_ORDNER_OUT ?? join(process.env.HOME ?? process.cwd(), "Desktop");
 
 const fmtDate = (d: Date | string | null | undefined) =>
   d ? new Date(d).toLocaleDateString("de-DE") : "—";
@@ -60,72 +68,71 @@ const fmtDate = (d: Date | string | null | undefined) =>
 const yesNo = (v: boolean | null | undefined) => (v ? "ja" : "nein");
 
 // ── shared annex building blocks ─────────────────────────────────────────
-const cell = { fontSize: 8.5, padding: 3, flex: 1 } as const;
-const cellHead = {
-  ...cell,
-  fontFamily: "Helvetica-Bold",
-  backgroundColor: "#f0f0f0",
-} as const;
-const row = {
-  flexDirection: "row" as const,
-  borderBottom: "0.5 solid #ddd",
-};
+/** head + widths in the shape lib/pdf/chrome's Table wants. */
+const cols = (head: string[], widths: number[]): Column[] =>
+  head.map((header, i) => ({ header, width: widths[i] }));
 
-function Table({
-  head,
-  widths,
-  rows,
-}: {
-  head: string[];
-  widths: number[];
-  rows: string[][];
-}) {
+const FOOTER = "Wertstoff Nordkreis GmbH · Anlagenband";
+
+/** Every annex sheet carries the same furniture as the report it is bound with. */
+function AnnexPage({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <View style={{ marginBottom: 18 }}>
-      <View style={row}>
-        {head.map((h, i) => (
-          <Text key={i} style={{ ...cellHead, flex: widths[i] }}>
-            {h}
-          </Text>
-        ))}
+    <Page size="A4" style={styles.page}>
+      <BrandBands />
+      <View fixed>
+        <DocHeader label="Anlagenband" value="NIS 2" />
       </View>
-      {rows.map((r, ri) => (
-        <View key={ri} style={row} wrap={false}>
-          {r.map((c, ci) => (
-            <Text key={ci} style={{ ...cell, flex: widths[ci] }}>
-              {c}
-            </Text>
-          ))}
-        </View>
-      ))}
-    </View>
+      <SectionHeading title={title} />
+      <View style={{ marginTop: 10 }}>{children}</View>
+      <PageFooter context={FOOTER} pageLabel={(n, total) => `Seite ${n} von ${total}`} />
+    </Page>
   );
 }
 
 const ASSET_LABELS: Array<[string, string]> = [
-  ["type", "Typ"], ["description", "Beschreibung"], ["quantity", "Anzahl"],
-  ["isCritical", "Kritisch"], ["isOT", "OT-System"], ["owner", "Verantwortlich"],
-  ["location", "Standort"], ["hostname", "Hostname"], ["ipAddress", "IP-Adresse"],
-  ["operatingSystem", "Betriebssystem"], ["softwareVersion", "Software-Version"],
-  ["accessManagement", "Zugriffsverwaltung"], ["privilegedAccountCount", "Privilegierte Konten"],
-  ["hasMfa", "MFA"], ["encryptionAtRest", "Verschlüsselung (ruhend)"],
+  ["type", "Typ"],
+  ["description", "Beschreibung"],
+  ["quantity", "Anzahl"],
+  ["isCritical", "Kritisch"],
+  ["isOT", "OT-System"],
+  ["owner", "Verantwortlich"],
+  ["location", "Standort"],
+  ["hostname", "Hostname"],
+  ["ipAddress", "IP-Adresse"],
+  ["operatingSystem", "Betriebssystem"],
+  ["softwareVersion", "Software-Version"],
+  ["accessManagement", "Zugriffsverwaltung"],
+  ["privilegedAccountCount", "Privilegierte Konten"],
+  ["hasMfa", "MFA"],
+  ["encryptionAtRest", "Verschlüsselung (ruhend)"],
   ["encryptionInTransit", "Verschlüsselung (Übertragung)"],
-  ["hasBackup", "Backup"], ["backupFrequency", "Backup-Turnus"],
-  ["backupLocation", "Backup-Ablage"], ["lastBackupTestDate", "Letzter Restore-Test"],
-  ["lastPatchDate", "Letzter Patch"], ["lastVulnScanDate", "Letzter Schwachstellenscan"],
-  ["rto", "RTO (Stunden)"], ["rpo", "RPO (Stunden)"],
-  ["processesPersonalData", "Personenbezogene Daten"], ["endOfLife", "End-of-Life"],
+  ["hasBackup", "Backup"],
+  ["backupFrequency", "Backup-Turnus"],
+  ["backupLocation", "Backup-Ablage"],
+  ["lastBackupTestDate", "Letzter Restore-Test"],
+  ["lastPatchDate", "Letzter Patch"],
+  ["lastVulnScanDate", "Letzter Schwachstellenscan"],
+  ["rto", "RTO (Stunden)"],
+  ["rpo", "RPO (Stunden)"],
+  ["processesPersonalData", "Personenbezogene Daten"],
+  ["endOfLife", "End-of-Life"],
 ];
 
 const SUPPLIER_LABELS: Array<[string, string]> = [
-  ["serviceType", "Leistung"], ["description", "Beschreibung"],
-  ["contactName", "Ansprechpartner"], ["contactEmail", "Kontakt-E-Mail"],
-  ["riskLevel", "Risikoeinstufung"], ["isCritical", "Kritischer Lieferant"],
-  ["hasAccessToSystems", "Zugriff auf Systeme"], ["hasAccessToData", "Zugriff auf Daten"],
+  ["serviceType", "Leistung"],
+  ["description", "Beschreibung"],
+  ["contactName", "Ansprechpartner"],
+  ["contactEmail", "Kontakt-E-Mail"],
+  ["riskLevel", "Risikoeinstufung"],
+  ["isCritical", "Kritischer Lieferant"],
+  ["hasAccessToSystems", "Zugriff auf Systeme"],
+  ["hasAccessToData", "Zugriff auf Daten"],
   ["hasSecurityCertification", "Sicherheitszertifizierung"],
   ["securityCertificationType", "Zertifizierung"],
-  ["contractStartDate", "Vertrag seit"], ["contractEndDate", "Vertrag bis"],
-  ["hasSecurityClauses", "IS-Vertragsklauseln"], ["hasAuditRights", "Auditrechte"],
+  ["contractStartDate", "Vertrag seit"],
+  ["contractEndDate", "Vertrag bis"],
+  ["hasSecurityClauses", "IS-Vertragsklauseln"],
+  ["hasAuditRights", "Auditrechte"],
   ["contractSecurityClauses", "Vertragliche Regelungen"],
   ["lastReviewDate", "Letzte Überprüfung"],
   ["processesPersonalData", "Verarbeitet personenbezogene Daten"],
@@ -156,22 +163,15 @@ function DetailBlock({
     .map(([key, label]) => [label, fmtVal(record[key])] as const)
     .filter(([, v]) => v !== null);
   return (
-    <View style={styles.requirementBlock} wrap={false}>
-      <Text style={{ fontSize: 10.5, fontFamily: "Helvetica-Bold", marginBottom: 4 }}>
-        {title}
-      </Text>
+    <View style={styles.record} wrap={false}>
+      <View style={styles.recordHeader}>
+        <Text style={styles.recordTitle}>{title}</Text>
+      </View>
       {rows.map(([label, v], i) => (
-        <View key={i} style={{ flexDirection: "row", marginBottom: 1.5 }}>
-          <Text style={{ fontSize: 8, color: "#888", width: 170 }}>{label}</Text>
-          <Text style={{ fontSize: 8, color: "#333", flex: 1 }}>{v}</Text>
-        </View>
+        <FieldRow key={i} label={label} value={v ?? ""} />
       ))}
     </View>
   );
-}
-
-function SectionTitle({ children }: { children: string }) {
-  return <Text style={styles.categoryHeader}>{children}</Text>;
 }
 
 async function main() {
@@ -200,9 +200,7 @@ async function main() {
 
   // ── part 1: the production compliance report ───────────────────────────
   const data = await loadReportData(nis2Assessment.id, "de");
-  const reportBuffer = await renderToBuffer(
-    ComplianceReport({ data, locale: "de" }),
-  );
+  const reportBuffer = await renderToBuffer(ComplianceReport({ data, locale: "de" }));
   const reportPath = `${OUT_DIR}/pruefordner-1-bericht.pdf`;
   mkdirSync(OUT_DIR, { recursive: true });
   writeFileSync(reportPath, reportBuffer);
@@ -231,54 +229,99 @@ async function main() {
 
   const annex = (
     <Document>
-      <Page size="A4" style={{ ...styles.page, ...styles.coverPage }}>
-        <Text style={styles.coverTitle}>Anlagenband</Text>
-        <Text style={{ fontSize: 9, marginTop: 4, color: "#b45309" }}>
-          Demodaten. Unternehmen, Personen, Lieferanten und alle Registereinträge
-          sind frei erfunden und dienen ausschließlich der Veranschaulichung.
-        </Text>
-        <Text style={styles.coverSubtitle}>
-          NIS2-Dokumentation · Wertstoff Nordkreis GmbH
-        </Text>
-        <Text style={styles.coverMeta}>Stammdaten der Einrichtung</Text>
-        <Text style={styles.coverMeta}>Anlage A — Asset-Inventar ({assets.length} Positionen, mit Stammblättern)</Text>
-        <Text style={styles.coverMeta}>Anlage B — Lieferantenregister ({suppliers.length} Lieferanten, mit Stammblättern)</Text>
-        <Text style={styles.coverMeta}>Anlage C — Risikoregister ({risks.length} Risiken)</Text>
-        <Text style={styles.coverMeta}>Anlage D — Schulungsnachweise ({trainings.length} Einträge)</Text>
-        <Text style={styles.coverMeta}>Anlage E — Vorfallregister ({incidents.length} Einträge, §32 BSIG bewertet)</Text>
-        <Text style={{ ...styles.coverMeta, marginTop: 30 }}>
-          Stand: {new Date().toLocaleDateString("de-DE")} · Erstellt mit nisd2.eu
-        </Text>
+      <Page size="A4" style={[styles.page, styles.coverPage]}>
+        <BrandBands />
+        <DocHeader label="Stand" value={new Date().toLocaleDateString("de-DE")} />
+
+        <View style={styles.coverBody}>
+          <CoverHeading
+            eyebrow="NIS2-Dokumentation"
+            title="Anlagenband"
+            subtitle="Wertstoff Nordkreis GmbH"
+            meta={[
+              { label: "Stammdaten", value: "Einrichtung" },
+              {
+                label: "Anlage A",
+                value: `Asset-Inventar (${assets.length} Positionen, mit Stammblättern)`,
+              },
+              {
+                label: "Anlage B",
+                value: `Lieferantenregister (${suppliers.length} Lieferanten, mit Stammblättern)`,
+              },
+              { label: "Anlage C", value: `Risikoregister (${risks.length} Risiken)` },
+              {
+                label: "Anlage D",
+                value: `Schulungsnachweise (${trainings.length} Einträge)`,
+              },
+              {
+                label: "Anlage E",
+                value: `Vorfallregister (${incidents.length} Einträge, §32 BSIG bewertet)`,
+              },
+            ]}
+          />
+
+          <Callout tone="caution" title="Demodaten">
+            Unternehmen, Personen, Lieferanten und alle Registereinträge sind frei
+            erfunden und dienen ausschließlich der Veranschaulichung.
+          </Callout>
+        </View>
+
+        <CoverFooter issuedByLabel="Erstellt mit" disclaimer="Vertraulich" />
       </Page>
 
-      <Page size="A4" style={styles.page}>
-        <SectionTitle>Stammdaten der Einrichtung</SectionTitle>
+      <AnnexPage title={"Stammdaten der Einrichtung"}>
         <DetailBlock
           title="Wertstoff Nordkreis GmbH"
           labels={[
-            ["legalForm", "Rechtsform"], ["sector", "Sektor"], ["subSector", "Teilsektor"],
-            ["entityTypeLabel", "Einstufung"], ["employeeCount", "Beschäftigte"],
-            ["annualRevenueLabel", "Jahresumsatz"], ["registeredAddress", "Anschrift"],
-            ["primaryLocations", "Standorte"], ["contactEmail", "Kontakt"],
-            ["contactPhone", "Telefon"], ["cisoName", "IT-Sicherheitsverantwortliche"],
-            ["cisoReportsTo", "Berichtsweg"], ["bsiContactName", "BSI-Kontaktstelle"],
-            ["bsiContactEmail", "BSI-Kontakt E-Mail"], ["bsiContactPhone", "BSI-Kontakt Telefon"],
-            ["bsiRegistrationId", "BSI-Registrierung"], ["activatedAtLabel", "NIS2-Programm seit"],
+            ["legalForm", "Rechtsform"],
+            ["sector", "Sektor"],
+            ["subSector", "Teilsektor"],
+            ["entityTypeLabel", "Einstufung"],
+            ["employeeCount", "Beschäftigte"],
+            ["annualRevenueLabel", "Jahresumsatz"],
+            ["registeredAddress", "Anschrift"],
+            ["primaryLocations", "Standorte"],
+            ["contactEmail", "Kontakt"],
+            ["contactPhone", "Telefon"],
+            ["cisoName", "IT-Sicherheitsverantwortliche"],
+            ["cisoReportsTo", "Berichtsweg"],
+            ["bsiContactName", "BSI-Kontaktstelle"],
+            ["bsiContactEmail", "BSI-Kontakt E-Mail"],
+            ["bsiContactPhone", "BSI-Kontakt Telefon"],
+            ["bsiRegistrationId", "BSI-Registrierung"],
+            ["activatedAtLabel", "NIS2-Programm seit"],
           ]}
           record={{
             ...co,
-            entityTypeLabel: co.entityType === "important" ? "wichtige Einrichtung (§28 Abs. 2 BSIG)" : co.entityType,
-            annualRevenueLabel: co.annualRevenue ? `${(Number(co.annualRevenue) / 1_000_000).toLocaleString("de-DE")} Mio. €` : null,
-            activatedAtLabel: co.activatedAt ? new Date(co.activatedAt).toLocaleDateString("de-DE") : null,
+            entityTypeLabel:
+              co.entityType === "important"
+                ? "wichtige Einrichtung (§28 Abs. 2 BSIG)"
+                : co.entityType,
+            annualRevenueLabel: co.annualRevenue
+              ? `${(Number(co.annualRevenue) / 1_000_000).toLocaleString("de-DE")} Mio. €`
+              : null,
+            activatedAtLabel: co.activatedAt
+              ? new Date(co.activatedAt).toLocaleDateString("de-DE")
+              : null,
           }}
         />
-      </Page>
+      </AnnexPage>
 
-      <Page size="A4" style={styles.page}>
-        <SectionTitle>Anlage A — Asset-Inventar</SectionTitle>
+      <AnnexPage title={"Anlage A — Asset-Inventar"}>
         <Table
-          head={["Asset", "Typ", "Anz.", "Kritisch", "OT", "Verantwortlich", "Backup", "Letzter Patch"]}
-          widths={[2.7, 1.2, 0.45, 0.7, 0.45, 1.4, 0.7, 0.9]}
+          columns={cols(
+            [
+              "Asset",
+              "Typ",
+              "Anz.",
+              "Kritisch",
+              "OT",
+              "Verantwortlich",
+              "Backup",
+              "Letzter Patch",
+            ],
+            [2.7, 1.2, 0.45, 0.7, 0.45, 1.4, 0.7, 0.9],
+          )}
           rows={assets.map((a) => [
             a.name,
             a.type,
@@ -290,20 +333,34 @@ async function main() {
             fmtDate(a.lastPatchDate),
           ])}
         />
-      </Page>
+      </AnnexPage>
 
-      <Page size="A4" style={styles.page}>
-        <SectionTitle>Anlage A.2 — Asset-Stammblätter (alle erfassten Felder)</SectionTitle>
+      <AnnexPage title={"Anlage A.2 — Asset-Stammblätter (alle erfassten Felder)"}>
         {assets.map((a, i) => (
-          <DetailBlock key={i} title={a.name} record={a as unknown as Record<string, unknown>} labels={ASSET_LABELS} />
+          <DetailBlock
+            key={i}
+            title={a.name}
+            record={a as unknown as Record<string, unknown>}
+            labels={ASSET_LABELS}
+          />
         ))}
-      </Page>
+      </AnnexPage>
 
-      <Page size="A4" style={styles.page}>
-        <SectionTitle>Anlage B — Lieferantenregister (§30 Abs. 2 Nr. 6 BSIG)</SectionTitle>
+      <AnnexPage title={"Anlage B — Lieferantenregister (§30 Abs. 2 Nr. 6 BSIG)"}>
         <Table
-          head={["Lieferant", "Leistung", "Risiko", "Kritisch", "IS-Klauseln", "AVV", "Vertrag seit", "Letzte Prüfung"]}
-          widths={[1.7, 2.1, 0.65, 0.65, 0.8, 0.5, 0.85, 0.85]}
+          columns={cols(
+            [
+              "Lieferant",
+              "Leistung",
+              "Risiko",
+              "Kritisch",
+              "IS-Klauseln",
+              "AVV",
+              "Vertrag seit",
+              "Letzte Prüfung",
+            ],
+            [1.7, 2.1, 0.65, 0.65, 0.8, 0.5, 0.85, 0.85],
+          )}
           rows={suppliers.map((s) => [
             s.name,
             s.serviceType ?? "—",
@@ -315,47 +372,57 @@ async function main() {
             fmtDate(s.lastReviewDate),
           ])}
         />
-      </Page>
+      </AnnexPage>
 
-      <Page size="A4" style={styles.page}>
-        <SectionTitle>Anlage B.2 — Lieferanten-Stammblätter (alle erfassten Felder)</SectionTitle>
+      <AnnexPage title={"Anlage B.2 — Lieferanten-Stammblätter (alle erfassten Felder)"}>
         {suppliers.map((s, i) => (
-          <DetailBlock key={i} title={s.name} record={s as unknown as Record<string, unknown>} labels={SUPPLIER_LABELS} />
+          <DetailBlock
+            key={i}
+            title={s.name}
+            record={s as unknown as Record<string, unknown>}
+            labels={SUPPLIER_LABELS}
+          />
         ))}
-      </Page>
+      </AnnexPage>
 
-      <Page size="A4" style={styles.page}>
-        <SectionTitle>Anlage C — Risikoregister (§30 Abs. 2 Nr. 1 BSIG)</SectionTitle>
-        <Text style={{ fontSize: 8.5, color: "#666", marginBottom: 10 }}>
-          Methodik: BSI-Standard 200-3, vereinfachte 5x5-Matrix (Risikomethodik-Richtlinie v1.1). Risikoakzeptanz durch die Geschäftsführung.
+      <AnnexPage title={"Anlage C — Risikoregister (§30 Abs. 2 Nr. 1 BSIG)"}>
+        <Text style={styles.sectionNote}>
+          Methodik: BSI-Standard 200-3, vereinfachte 5x5-Matrix (Risikomethodik-Richtlinie
+          v1.1). Risikoakzeptanz durch die Geschäftsführung.
         </Text>
         {risks.map((r, i) => (
-          <View key={i} style={styles.requirementBlock} wrap={false}>
-            <View style={styles.requirementHeader}>
-              <Text style={styles.requirementCode}>R-{String(i + 1).padStart(2, "0")}</Text>
-              <Text style={styles.requirementTitle}>{r.title}</Text>
+          <View key={i} style={styles.record} wrap={false}>
+            <View style={styles.recordHeader}>
+              <Text style={styles.recordCode}>R-{String(i + 1).padStart(2, "0")}</Text>
+              <Text style={styles.recordTitle}>{r.title}</Text>
             </View>
-            <Text style={{ fontSize: 9, color: "#444", marginBottom: 3 }}>{r.description}</Text>
-            <Text style={{ fontSize: 8.5, color: "#666" }}>
+            <Text style={styles.prose}>{r.description}</Text>
+            <Text style={styles.sectionNote}>
               Eintritt {r.likelihood}/5 · Auswirkung {r.impact}/5 · Score {r.riskScore}
               {r.residualRiskScore ? ` → Restrisiko ${r.residualRiskScore}` : ""}
               {" · "}Behandlung: {r.treatment}
               {r.riskOwner ? ` · Verantwortlich: ${r.riskOwner}` : ""}
             </Text>
             {r.treatmentDescription ? (
-              <Text style={{ fontSize: 8.5, color: "#666", marginTop: 2 }}>
-                Maßnahmen: {r.treatmentDescription}
-              </Text>
+              <Text style={styles.sectionNote}>Maßnahmen: {r.treatmentDescription}</Text>
             ) : null}
           </View>
         ))}
-      </Page>
+      </AnnexPage>
 
-      <Page size="A4" style={styles.page}>
-        <SectionTitle>Anlage D — Schulungsnachweise (§38 Abs. 3 BSIG)</SectionTitle>
+      <AnnexPage title={"Anlage D — Schulungsnachweise (§38 Abs. 3 BSIG)"}>
         <Table
-          head={["Schulung", "Teilnehmer", "Rolle", "Anbieter", "Abschluss", "Nächste fällig"]}
-          widths={[2.4, 1.6, 1.2, 1.4, 0.9, 0.9]}
+          columns={cols(
+            [
+              "Schulung",
+              "Teilnehmer",
+              "Rolle",
+              "Anbieter",
+              "Abschluss",
+              "Nächste fällig",
+            ],
+            [2.4, 1.6, 1.2, 1.4, 0.9, 0.9],
+          )}
           rows={trainings.map((t) => [
             t.title,
             t.participantName,
@@ -365,31 +432,39 @@ async function main() {
             fmtDate(t.nextTrainingDue),
           ])}
         />
-      </Page>
-      <Page size="A4" style={styles.page}>
-        <SectionTitle>Anlage E — Vorfallregister (§32 BSIG)</SectionTitle>
-        <Text style={{ fontSize: 8.5, color: "#666", marginBottom: 10 }}>
-          Geführt seit 03/2026. Jeder Eintrag wird auf Meldepflicht nach §32 BSIG bewertet. Bisher kein meldepflichtiger Vorfall.
+      </AnnexPage>
+      <AnnexPage title={"Anlage E — Vorfallregister (§32 BSIG)"}>
+        <Text style={styles.sectionNote}>
+          Geführt seit 03/2026. Jeder Eintrag wird auf Meldepflicht nach §32 BSIG
+          bewertet. Bisher kein meldepflichtiger Vorfall.
         </Text>
         {incidents.map((inc, i) => (
-          <View key={i} style={styles.requirementBlock} wrap={false}>
-            <View style={styles.requirementHeader}>
-              <Text style={styles.requirementCode}>{inc.internalRef ?? `VF-${i + 1}`}</Text>
-              <Text style={styles.requirementTitle}>{inc.title}</Text>
+          <View key={i} style={styles.record} wrap={false}>
+            <View style={styles.recordHeader}>
+              <Text style={styles.recordCode}>{inc.internalRef ?? `VF-${i + 1}`}</Text>
+              <Text style={styles.recordTitle}>{inc.title}</Text>
             </View>
-            <Text style={{ fontSize: 8.5, color: "#666", marginBottom: 3 }}>
-              Entdeckt {fmtDate(inc.discoveredAt)} · behoben {fmtDate(inc.resolvedAt)} · Schweregrad: {inc.severity === "near_miss" ? "Beinahe-Vorfall" : inc.severity === "incident" ? "Vorfall" : "erheblich"}
+            <Text style={styles.sectionNote}>
+              Entdeckt {fmtDate(inc.discoveredAt)} · behoben {fmtDate(inc.resolvedAt)} ·
+              Schweregrad:{" "}
+              {inc.severity === "near_miss"
+                ? "Beinahe-Vorfall"
+                : inc.severity === "incident"
+                  ? "Vorfall"
+                  : "erheblich"}
             </Text>
-            <Text style={{ fontSize: 9, color: "#444", marginBottom: 3 }}>{inc.description}</Text>
+            <Text style={styles.prose}>{inc.description}</Text>
             {inc.countermeasures ? (
-              <Text style={{ fontSize: 8.5, color: "#666" }}>Sofortmaßnahmen: {inc.countermeasures}</Text>
+              <Text style={styles.sectionNote}>
+                Sofortmaßnahmen: {inc.countermeasures}
+              </Text>
             ) : null}
             {inc.preventiveMeasures ? (
-              <Text style={{ fontSize: 8.5, color: "#666" }}>Prävention: {inc.preventiveMeasures}</Text>
+              <Text style={styles.sectionNote}>Prävention: {inc.preventiveMeasures}</Text>
             ) : null}
           </View>
         ))}
-      </Page>
+      </AnnexPage>
     </Document>
   );
 
@@ -422,21 +497,44 @@ async function main() {
         company: co?.name ?? null,
         exportedFor: "nis2",
         note: "Demodaten. Alle Einträge sind frei erfunden.",
-        assets: pick(assets, ASSET_LABELS.map(([k]) => k) as Array<keyof (typeof assets)[number]>),
-        suppliers: pick(suppliers, SUPPLIER_LABELS.map(([k]) => k) as Array<keyof (typeof suppliers)[number]>),
+        assets: pick(
+          assets,
+          ASSET_LABELS.map(([k]) => k) as Array<keyof (typeof assets)[number]>,
+        ),
+        suppliers: pick(
+          suppliers,
+          SUPPLIER_LABELS.map(([k]) => k) as Array<keyof (typeof suppliers)[number]>,
+        ),
         risks: pick(risks, [
-          "title", "description", "category", "likelihood", "impact", "riskScore",
-          "treatment", "treatmentDescription", "riskOwner",
-          "residualLikelihood", "residualImpact", "acceptedAt",
+          "title",
+          "description",
+          "category",
+          "likelihood",
+          "impact",
+          "riskScore",
+          "treatment",
+          "treatmentDescription",
+          "riskOwner",
+          "residualLikelihood",
+          "residualImpact",
+          "acceptedAt",
         ] as const),
         // The same columns the Anlagenband tables print, no more.
         trainings: pick(trainings, [
-          "title", "participantName", "participantRole", "providerName",
-          "completedAt", "nextTrainingDue",
+          "title",
+          "participantName",
+          "participantRole",
+          "providerName",
+          "completedAt",
+          "nextTrainingDue",
         ] as const),
         incidents: pick(incidents, [
-          "internalRef", "title", "description", "severity",
-          "discoveredAt", "resolvedAt",
+          "internalRef",
+          "title",
+          "description",
+          "severity",
+          "discoveredAt",
+          "resolvedAt",
         ] as const),
       },
       null,

@@ -1,118 +1,102 @@
-import React from "react";
-import {
-  Document,
-  Page,
-  Text,
-  View,
-} from "@react-pdf/renderer";
-import { styles } from "./styles";
-import { formatFieldValue, getDateLocale } from "./format";
-import {
-  getDocumentLabels,
-  getReportLabels,
-  getStatusLabel,
-} from "./policy-labels";
+import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { humanize } from "@/lib/forms/schema-introspect";
+import {
+  Badge,
+  BrandBands,
+  Callout,
+  CoverFooter,
+  CoverHeading,
+  DocHeader,
+  FieldRow,
+  PageFooter,
+  SectionHeading,
+  StatPlate,
+} from "./chrome";
+import { formatFieldValue, getDateLocale } from "./format";
 import type { ReportData, ReportRequirement } from "./load-report-data";
+import { getDocumentLabels, getReportLabels, getStatusLabel } from "./policy-labels";
+import { styles } from "./styles";
+import type { StatusTone } from "./theme";
 
 interface ComplianceReportProps {
   data: ReportData;
   locale: string;
 }
 
-function StatusBadge({ status, locale }: { status: string; locale: string }) {
-  const variantStyle =
-    status === "approved"
-      ? styles.statusApproved
-      : status === "completed"
-        ? styles.statusCompleted
-        : status === "rejected"
-          ? styles.statusRejected
-          : styles.statusDefault;
+/** Review states map onto the shared tones; anything unrecognised reads as
+ *  neutral rather than inventing a colour for it. */
+const STATUS_TONE: Record<string, StatusTone> = {
+  approved: "approved",
+  completed: "completed",
+  rejected: "rejected",
+};
 
-  return (
-    <Text style={[styles.statusBadge, variantStyle]}>
-      {getStatusLabel(status, locale)}
-    </Text>
-  );
-}
-
-function RequirementSection({
-  req,
-  locale,
-}: {
-  req: ReportRequirement;
-  locale: string;
-}) {
+function RequirementSection({ req, locale }: { req: ReportRequirement; locale: string }) {
   const dateLocale = getDateLocale(locale);
   const labels = getReportLabels(locale);
 
   return (
-    <View style={styles.requirementBlock} wrap={false}>
-      <View style={styles.requirementHeader}>
-        <Text style={styles.requirementCode}>{req.code}</Text>
-        <Text style={styles.requirementTitle}>{req.title}</Text>
-        <StatusBadge status={req.status} locale={locale} />
+    <View style={styles.record} wrap={false}>
+      <View style={styles.recordHeader}>
+        <Text style={styles.recordCode}>{req.code}</Text>
+        <Text style={styles.recordTitle}>{req.title}</Text>
+        <Badge tone={STATUS_TONE[req.status] ?? "neutral"}>
+          {getStatusLabel(req.status, locale)}
+        </Badge>
       </View>
 
-      {/* Sign-off data */}
       {req.signedOffRole && (
         <View>
-          <View style={styles.fieldRow}>
-            <Text style={styles.fieldLabel}>{labels.signedOffBy}</Text>
-            <Text style={styles.fieldValue}>{req.signedOffRole}</Text>
-          </View>
+          <FieldRow label={labels.signedOffBy} value={req.signedOffRole} />
           {req.signedOffAt && (
-            <View style={styles.fieldRow}>
-              <Text style={styles.fieldLabel}>{labels.signedOffAt}</Text>
-              <Text style={styles.fieldValue}>
-                {new Date(req.signedOffAt).toLocaleDateString(dateLocale)}
-              </Text>
-            </View>
+            <FieldRow
+              label={labels.signedOffAt}
+              value={new Date(req.signedOffAt).toLocaleDateString(dateLocale)}
+            />
           )}
           {req.signOffSnapshot?.templateVersion && (
-            <View style={styles.fieldRow}>
-              <Text style={styles.fieldLabel}>{labels.templateVersion}</Text>
-              <Text style={styles.fieldValue}>v{req.signOffSnapshot.templateVersion}</Text>
-            </View>
+            <FieldRow
+              label={labels.templateVersion}
+              value={`v${req.signOffSnapshot.templateVersion}`}
+            />
           )}
-          {req.signOffSnapshot?.derivedData && Object.keys(req.signOffSnapshot.derivedData).length > 0 && (
-            <View style={styles.fieldRow}>
-              <Text style={styles.fieldLabel}>{labels.operationalData}</Text>
-              <Text style={styles.fieldValue}>
-                {Object.entries(req.signOffSnapshot.derivedData)
+          {req.signOffSnapshot?.derivedData &&
+            Object.keys(req.signOffSnapshot.derivedData).length > 0 && (
+              <FieldRow
+                label={labels.operationalData}
+                value={Object.entries(req.signOffSnapshot.derivedData)
                   .map(([key, val]) => {
-                    const data = val as Record<string, unknown> | null;
-                    return `${key}: ${data && typeof data === "object" && "total" in data ? data.total : JSON.stringify(val)}`;
+                    const entry = val as Record<string, unknown> | null;
+                    const total =
+                      entry && typeof entry === "object" && "total" in entry
+                        ? entry.total
+                        : JSON.stringify(val);
+                    return `${key}: ${total}`;
                   })
                   .join(", ")}
-              </Text>
-            </View>
-          )}
+              />
+            )}
         </View>
       )}
 
-      {/* Evidence files */}
       {req.evidence.length > 0 && (
         <View>
-          <Text style={styles.sectionLabel}>{labels.evidenceFiles}</Text>
+          <Text style={styles.subheading}>{labels.evidenceFiles}</Text>
           {req.evidence.map((e, i) => (
-            <Text key={i} style={styles.evidenceItem}>
+            <Text key={i} style={styles.prose}>
               {e.fileName}
               {e.fileSize ? ` (${(e.fileSize / 1024).toFixed(0)} KB)` : ""}
-              {" — "}
+              {" - "}
               {e.status}
             </Text>
           ))}
         </View>
       )}
 
-      {/* Review feedback */}
       {req.reviewFeedback && (
-        <View style={styles.feedbackBlock}>
-          <Text style={styles.feedbackLabel}>{labels.reviewerFeedback}</Text>
-          <Text style={styles.feedbackText}>{req.reviewFeedback}</Text>
-        </View>
+        <Callout tone="alert" title={labels.reviewerFeedback}>
+          {req.reviewFeedback}
+        </Callout>
       )}
     </View>
   );
@@ -126,110 +110,99 @@ export function ComplianceReport({ data, locale }: ComplianceReportProps) {
 
   const unapprovedCount = data.completedCount - data.approvedCount;
   const labels = getReportLabels(locale);
+  const docLabels = getDocumentLabels(locale);
+  const dateLocale = getDateLocale(locale);
+  const footerContext = `${data.companyName} - ${data.frameworkName}`;
+
+  const stats = [
+    { value: `${percentage}%`, label: labels.statCompliance },
+    { value: String(data.completedCount), label: labels.statCompleted },
+    { value: String(data.approvedCount), label: labels.statApproved },
+    ...(unapprovedCount > 0
+      ? [{ value: String(unapprovedCount), label: labels.statPendingApproval }]
+      : []),
+    { value: String(data.totalRequirements), label: labels.statTotal },
+  ];
 
   return (
-    <Document>
-      {/* Cover Page */}
+    <Document
+      title={`${labels.title}: ${data.companyName}`}
+      author="NISD2.eu"
+      subject={data.frameworkName}
+    >
       <Page size="A4" style={[styles.page, styles.coverPage]}>
-        <Text style={styles.coverTitle}>{labels.title}</Text>
-        <Text style={styles.coverSubtitle}>{data.frameworkName}</Text>
-        <Text style={styles.coverMeta}>{data.companyName}</Text>
-        {data.companySector && (
-          <Text style={styles.coverMeta}>{labels.sector}: {data.companySector}</Text>
-        )}
-        <Text style={styles.coverMeta}>
-          {labels.generated}: {new Date().toLocaleDateString(getDateLocale(locale))}
-        </Text>
-        <Text style={styles.coverMeta}>
-          {labels.assessmentStarted}:{" "}
-          {data.assessmentDate.toLocaleDateString(getDateLocale(locale))}
-        </Text>
+        <BrandBands />
+        <DocHeader
+          label={labels.generated}
+          value={new Date().toLocaleDateString(dateLocale)}
+        />
 
-        {unapprovedCount > 0 && (
-          <View style={styles.draftBanner}>
-            <Text style={styles.draftTitle}>{labels.draftTitle}</Text>
-            <Text style={styles.draftText}>
-              {labels.draftText(unapprovedCount, data.completedCount)}
-            </Text>
-          </View>
-        )}
+        <View style={styles.coverBody}>
+          <CoverHeading
+            eyebrow={data.frameworkName}
+            title={labels.title}
+            subtitle={data.companyName}
+            meta={[
+              ...(data.companySector
+                ? [{ label: labels.sector, value: data.companySector }]
+                : []),
+              {
+                label: labels.assessmentStarted,
+                value: data.assessmentDate.toLocaleDateString(dateLocale),
+              },
+              {
+                label: labels.generated,
+                value: new Date().toLocaleDateString(dateLocale),
+              },
+            ]}
+          />
 
-        <View style={[styles.statsRow, { marginTop: unapprovedCount > 0 ? 12 : 40 }]}>
-          <View style={styles.statBox}>
-            <Text style={styles.statValue}>{percentage}%</Text>
-            <Text style={styles.statLabel}>{labels.statCompliance}</Text>
-          </View>
-          <View style={styles.statBox}>
-            <Text style={styles.statValue}>{data.completedCount}</Text>
-            <Text style={styles.statLabel}>{labels.statCompleted}</Text>
-          </View>
-          <View style={styles.statBox}>
-            <Text style={styles.statValue}>{data.approvedCount}</Text>
-            <Text style={styles.statLabel}>{labels.statApproved}</Text>
-          </View>
+          <StatPlate stats={stats} />
+
           {unapprovedCount > 0 && (
-            <View style={styles.statBox}>
-              <Text style={styles.statValue}>{unapprovedCount}</Text>
-              <Text style={styles.statLabel}>{labels.statPendingApproval}</Text>
-            </View>
+            <Callout tone="caution" title={labels.draftTitle}>
+              {labels.draftText(unapprovedCount, data.completedCount)}
+            </Callout>
           )}
-          <View style={styles.statBox}>
-            <Text style={styles.statValue}>{data.totalRequirements}</Text>
-            <Text style={styles.statLabel}>{labels.statTotal}</Text>
-          </View>
         </View>
 
-        <View style={styles.footer}>
-          <Text>{labels.title} · {data.companyName}</Text>
-          <Text>{getDocumentLabels(locale).confidential}</Text>
-        </View>
+        <CoverFooter
+          issuedByLabel={docLabels.generatedWith}
+          disclaimer={docLabels.confidential}
+        />
       </Page>
 
-      {/* Category Pages */}
       {data.categories.map((cat) => (
         <Page key={cat.code} size="A4" style={styles.page}>
-          <View style={styles.categoryHeader}>
-            <Text>
-              <Text style={styles.categoryCode}>{cat.code}</Text>
-              {"  "}
-              {cat.name}
-            </Text>
+          <BrandBands />
+          <View fixed>
+            <DocHeader label={labels.title} value={cat.code} />
           </View>
 
+          <SectionHeading code={cat.code} title={cat.name} />
+
           {cat.grundschutzModule && (
-            <View style={styles.fieldRow}>
-              <Text style={styles.fieldLabel}>IT-Grundschutz</Text>
-              <Text style={styles.fieldValue}>{cat.grundschutzModule}</Text>
-            </View>
+            <FieldRow label="IT-Grundschutz" value={cat.grundschutzModule} />
           )}
 
-          {cat.description && (
-            <Text style={styles.categoryDescription}>{cat.description}</Text>
-          )}
+          {cat.description && <Text style={styles.sectionNote}>{cat.description}</Text>}
+          {cat.bsiGuidance && <Text style={styles.sectionNote}>{cat.bsiGuidance}</Text>}
 
-          {cat.bsiGuidance && (
-            <Text style={styles.categoryDescription}>{cat.bsiGuidance}</Text>
-          )}
-
-          {/* Intake form answers */}
           {cat.intakeAnswers && Object.keys(cat.intakeAnswers).length > 0 && (
-            <View style={{ marginBottom: 12 }}>
-              <Text style={styles.sectionLabel}>{labels.categoryIntake}</Text>
+            <View>
+              <Text style={styles.subheading}>{labels.categoryIntake}</Text>
               {cat.intakeSignedOffAt && (
-                <View style={styles.fieldRow}>
-                  <Text style={styles.fieldLabel}>{labels.signedOff}</Text>
-                  <Text style={styles.fieldValue}>
-                    {new Date(cat.intakeSignedOffAt).toLocaleDateString(getDateLocale(locale))}
-                  </Text>
-                </View>
+                <FieldRow
+                  label={labels.signedOff}
+                  value={new Date(cat.intakeSignedOffAt).toLocaleDateString(dateLocale)}
+                />
               )}
               {Object.entries(cat.intakeAnswers).map(([key, val]) => (
-                <View key={key} style={styles.fieldRow}>
-                  <Text style={styles.fieldLabel}>
-                    {humanize(key)}
-                  </Text>
-                  <Text style={styles.fieldValue}>{formatFieldValue(val, "text", locale)}</Text>
-                </View>
+                <FieldRow
+                  key={key}
+                  label={humanize(key)}
+                  value={formatFieldValue(val, "text", locale)}
+                />
               ))}
             </View>
           )}
@@ -238,17 +211,9 @@ export function ComplianceReport({ data, locale }: ComplianceReportProps) {
             <RequirementSection key={req.code} req={req} locale={locale} />
           ))}
 
-          <View style={styles.footer} fixed>
-            <Text>{data.companyName} · {data.frameworkName}</Text>
-            <Text
-              render={({ pageNumber, totalPages }) =>
-                `${pageNumber} / ${totalPages}`
-              }
-            />
-          </View>
+          <PageFooter context={footerContext} pageLabel={docLabels.page} />
         </Page>
       ))}
     </Document>
   );
 }
-

@@ -1,92 +1,94 @@
-import React from "react";
+import { Document, Page, Text, View } from "@react-pdf/renderer";
 import {
-  Document,
-  Page,
-  Text,
-  View,
-} from "@react-pdf/renderer";
-import { styles } from "./styles";
+  BrandBands,
+  CoverFooter,
+  CoverHeading,
+  DocHeader,
+  FieldRow,
+  PageFooter,
+  SectionHeading,
+} from "./chrome";
 import { formatFieldValue, getDateLocale } from "./format";
-import { getPolicyTitle, getDocumentLabels } from "./policy-labels";
 import type { PolicyData } from "./load-policy-data";
+import { getDocumentLabels, getPolicyTitle } from "./policy-labels";
+import { styles } from "./styles";
 
 interface PolicyDocumentProps {
   data: PolicyData;
   locale: string;
 }
 
+const POLICY_VERSION = "1.0";
+
 export function PolicyDocument({ data, locale }: PolicyDocumentProps) {
   const dateLocale = getDateLocale(locale);
   const policyTitle = getPolicyTitle(data.categoryCode, locale);
   const labels = getDocumentLabels(locale);
+  const today = new Date().toLocaleDateString(dateLocale);
+  const footerContext = `${data.companyName} - ${policyTitle}`;
 
   return (
-    <Document>
+    <Document
+      title={`${policyTitle}: ${data.companyName}`}
+      author={data.companyName}
+      subject={data.frameworkName}
+    >
       <Page size="A4" style={[styles.page, styles.coverPage]}>
-        <Text style={styles.coverTitle}>{policyTitle}</Text>
-        <Text style={styles.coverSubtitle}>{data.companyName}</Text>
-        <Text style={styles.coverMeta}>
-          {labels.framework}: {data.frameworkName}
-        </Text>
-        <Text style={styles.coverMeta}>
-          {labels.version}: 1.0
-        </Text>
-        <Text style={styles.coverMeta}>
-          {labels.date}: {new Date().toLocaleDateString(dateLocale)}
-        </Text>
+        <BrandBands />
+        <DocHeader label={labels.version} value={`v${POLICY_VERSION}`} />
 
-        {data.signedOffBy && (
-          <View style={{ marginTop: 24 }}>
-            <View style={styles.fieldRow}>
-              <Text style={styles.fieldLabel}>{labels.signedOff}</Text>
-              <Text style={styles.fieldValue}>
-                {data.signedOffBy}
-                {data.signedOffAt &&
-                  ` — ${new Date(data.signedOffAt).toLocaleDateString(dateLocale)}`}
-              </Text>
-            </View>
-          </View>
-        )}
-
-        <View style={styles.footer}>
-          <Text>{data.companyName} — {policyTitle}</Text>
-          <Text>{labels.confidential}</Text>
+        <View style={styles.coverBody}>
+          <CoverHeading
+            eyebrow={data.frameworkName}
+            title={policyTitle}
+            subtitle={data.companyName}
+            meta={[
+              { label: labels.framework, value: data.frameworkName },
+              { label: labels.version, value: POLICY_VERSION },
+              { label: labels.date, value: today },
+              ...(data.signedOffBy
+                ? [
+                    {
+                      label: labels.signedOff,
+                      value: data.signedOffAt
+                        ? `${data.signedOffBy} - ${new Date(data.signedOffAt).toLocaleDateString(dateLocale)}`
+                        : data.signedOffBy,
+                    },
+                  ]
+                : []),
+            ]}
+          />
         </View>
+
+        <CoverFooter
+          issuedByLabel={labels.generatedWith}
+          disclaimer={labels.confidential}
+        />
       </Page>
 
       <Page size="A4" style={styles.page}>
+        <BrandBands />
+        <View fixed>
+          <DocHeader label={labels.version} value={`v${POLICY_VERSION}`} />
+        </View>
+
         {data.groups.map((group) => (
-          <View key={group.code} style={styles.requirementBlock} wrap={false}>
-            <View style={styles.requirementHeader}>
-              <Text style={styles.requirementCode}>{group.code}</Text>
-              <Text style={styles.requirementTitle}>{group.title}</Text>
+          <View key={group.code} wrap={false}>
+            <SectionHeading code={group.code} title={group.title} />
+            {group.legalRef && <Text style={styles.sectionNote}>{group.legalRef}</Text>}
+            <View style={styles.record}>
+              {group.fields.map((field) => (
+                <FieldRow
+                  key={field.key}
+                  label={field.label}
+                  value={formatFieldValue(field.value, field.type, locale)}
+                />
+              ))}
             </View>
-
-            {group.legalRef && (
-              <Text style={[styles.categoryDescription, { marginBottom: 6 }]}>
-                {group.legalRef}
-              </Text>
-            )}
-
-            {group.fields.map((field) => (
-              <View key={field.key} style={styles.fieldRow}>
-                <Text style={styles.fieldLabel}>{field.label}</Text>
-                <Text style={styles.fieldValue}>
-                  {formatFieldValue(field.value, field.type, locale)}
-                </Text>
-              </View>
-            ))}
           </View>
         ))}
 
-        <View style={styles.footer} fixed>
-          <Text>{data.companyName} — {policyTitle}</Text>
-          <Text
-            render={({ pageNumber, totalPages }) =>
-              `${pageNumber} / ${totalPages}`
-            }
-          />
-        </View>
+        <PageFooter context={footerContext} pageLabel={labels.page} />
       </Page>
     </Document>
   );

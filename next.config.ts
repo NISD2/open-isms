@@ -31,7 +31,6 @@ const nextConfig: NextConfig = {
   // for clarity rather than necessity.)
   serverExternalPackages: [
     "pg",
-    "pdfkit",
     "sharp",
     "@react-pdf/renderer",
     "@aws-sdk/client-s3",

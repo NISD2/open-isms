@@ -1,73 +1,116 @@
-import React from "react";
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import type { AssessmentScores, GapDomain, GapQuestion } from "@/lib/gap-assessment/schema";
+import { Document, Page, View } from "@react-pdf/renderer";
+import type {
+  AssessmentScores,
+  GapDomain,
+  GapQuestion,
+} from "@/lib/gap-assessment/schema";
+import { Meter } from "./brand";
+import {
+  BrandBands,
+  type Column,
+  CoverFooter,
+  CoverHeading,
+  DocHeader,
+  PageFooter,
+  SectionHeading,
+  StatPlate,
+  scoreColor,
+  Table,
+} from "./chrome";
+import { styles } from "./styles";
+import { SIGNAL } from "./theme";
 
-const s = StyleSheet.create({
-  page: { padding: 40, fontSize: 10, fontFamily: "Helvetica", color: "#1a1a1a" },
-  coverPage: { padding: 60, justifyContent: "center" },
-  coverTitle: { fontSize: 28, fontFamily: "Helvetica-Bold", marginBottom: 8 },
-  coverSubtitle: { fontSize: 14, color: "#666", marginBottom: 40 },
-  coverMeta: { fontSize: 11, color: "#444", marginBottom: 6 },
-  heading: { fontSize: 14, fontFamily: "Helvetica-Bold", marginTop: 20, marginBottom: 8, paddingBottom: 4, borderBottom: "1 solid #ddd" },
-  subheading: { fontSize: 11, fontFamily: "Helvetica-Bold", marginTop: 12, marginBottom: 4 },
-  row: { flexDirection: "row", borderBottom: "0.5 solid #eee", paddingVertical: 4 },
-  headerRow: { flexDirection: "row", borderBottom: "1 solid #ccc", paddingVertical: 4, marginBottom: 2 },
-  cell: { fontSize: 9 },
-  cellBold: { fontSize: 9, fontFamily: "Helvetica-Bold" },
-  domainName: { width: "35%" },
-  domainScore: { width: "15%", textAlign: "right" },
-  domainMaturity: { width: "20%", textAlign: "center" },
-  domainAnswered: { width: "15%", textAlign: "center" },
-  bar: { height: 8, borderRadius: 2, marginTop: 2 },
-  barBg: { width: "15%", backgroundColor: "#eee", borderRadius: 2 },
-  gapRank: { width: "5%" },
-  gapQuestion: { width: "45%" },
-  gapDomain: { width: "15%" },
-  gapConsequence: { width: "15%" },
-  gapTime: { width: "10%" },
-  gapFine: { width: "10%", textAlign: "center" },
-  scoreCircle: { width: 80, height: 80, borderRadius: 40, borderWidth: 3, borderColor: "#333", justifyContent: "center", alignItems: "center", marginBottom: 8 },
-  scoreText: { fontSize: 24, fontFamily: "Helvetica-Bold" },
-  scoreLabel: { fontSize: 8, color: "#666" },
-  summaryRow: { flexDirection: "row", gap: 16, marginTop: 12, marginBottom: 20 },
-  summaryCard: { flex: 1, padding: 8, backgroundColor: "#f8f8f8", borderRadius: 4 },
-  summaryValue: { fontSize: 16, fontFamily: "Helvetica-Bold" },
-  summaryLabel: { fontSize: 7, color: "#666", marginTop: 2 },
-  footer: { position: "absolute", bottom: 20, left: 40, right: 40, flexDirection: "row", justifyContent: "space-between", fontSize: 7, color: "#999" },
-});
+/**
+ * Readiness report for the public gap assessment.
+ *
+ * Shares lib/pdf/chrome with the certificate and the compliance report; it used
+ * to carry its own StyleSheet and its own traffic-light palette, which meant a
+ * customer who ran the assessment and then exported a report got two documents
+ * that did not look like they came from the same company.
+ */
 
 const MATURITY_LABELS: Record<string, Record<string, string>> = {
-  en: { critical: "Critical", initial: "Initial", developing: "Developing", managed: "Managed", optimized: "Optimized" },
-  de: { critical: "Kritisch", initial: "Initial", developing: "In Entwicklung", managed: "Gesteuert", optimized: "Optimiert" },
+  en: {
+    critical: "Critical",
+    initial: "Initial",
+    developing: "Developing",
+    managed: "Managed",
+    optimized: "Optimized",
+  },
+  de: {
+    critical: "Kritisch",
+    initial: "Initial",
+    developing: "In Entwicklung",
+    managed: "Gesteuert",
+    optimized: "Optimiert",
+  },
 };
 
 const CONSEQUENCE_LABELS: Record<string, Record<number, string>> = {
-  en: { 0: "Audit Finding", 1: "Operational Risk", 2: "Fine", 3: "Personal Liability" },
-  de: { 0: "Audit-Feststellung", 1: "Operatives Risiko", 2: "Bussgeld", 3: "Persoenliche Haftung" },
+  en: { 0: "Audit finding", 1: "Operational risk", 2: "Fine", 3: "Personal liability" },
+  de: {
+    0: "Audit-Feststellung",
+    1: "Operatives Risiko",
+    2: "Bußgeld",
+    3: "Persönliche Haftung",
+  },
 };
 
 const TIME_LABELS: Record<string, Record<number, string>> = {
-  en: { 0: "Quick Win", 1: "Days", 2: "Weeks", 3: "Months" },
+  en: { 0: "Quick win", 1: "Days", 2: "Weeks", 3: "Months" },
   de: { 0: "Sofort", 1: "Tage", 2: "Wochen", 3: "Monate" },
 };
 
-function barColor(pct: number) {
-  if (pct >= 90) return "#22c55e";
-  if (pct >= 75) return "#3b82f6";
-  if (pct >= 50) return "#f59e0b";
-  if (pct >= 25) return "#f97316";
-  return "#ef4444";
-}
-
-function Footer({ companyName }: { companyName?: string }) {
-  return (
-    <View style={s.footer} fixed>
-      <Text>{companyName ?? "NIS2 Gap Assessment"}</Text>
-      <Text>Confidential</Text>
-      <Text render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} />
-    </View>
-  );
-}
+const COPY = {
+  en: {
+    title: "NIS 2 Gap Assessment",
+    subtitle: "Readiness Assessment",
+    company: "Organisation",
+    date: "Date",
+    answered: "Questions answered",
+    domainScores: "Domain scores",
+    priorityGaps: "Priority gaps",
+    overall: "Overall",
+    criticalGaps: "Critical gaps",
+    fineExposure: "Fine exposure",
+    quickWins: "Quick wins",
+    domain: "Domain",
+    score: "Score",
+    maturity: "Maturity",
+    answeredShort: "Answered",
+    finding: "Finding",
+    consequence: "Consequence",
+    effort: "Effort",
+    fine: "Fine",
+    confidential: "Confidential",
+    generatedWith: "Generated with",
+    page: (n: number, total: number) => `Page ${n} of ${total}`,
+  },
+  de: {
+    title: "NIS 2 Gap-Assessment",
+    subtitle: "Bereitschaftsbewertung",
+    company: "Einrichtung",
+    date: "Datum",
+    answered: "Beantwortete Fragen",
+    domainScores: "Ergebnisse pro Bereich",
+    priorityGaps: "Prioritäre Lücken",
+    overall: "Gesamt",
+    criticalGaps: "Kritische Lücken",
+    fineExposure: "Bußgeldrisiko",
+    quickWins: "Sofort behebbar",
+    domain: "Bereich",
+    score: "Ergebnis",
+    maturity: "Reifegrad",
+    answeredShort: "Beantwortet",
+    finding: "Feststellung",
+    consequence: "Konsequenz",
+    effort: "Aufwand",
+    fine: "Bußgeld",
+    confidential: "Vertraulich",
+    generatedWith: "Erstellt mit",
+    page: (n: number, total: number) => `Seite ${n} von ${total}`,
+  },
+} as const;
 
 export function GapAssessmentReport({
   scores,
@@ -85,14 +128,16 @@ export function GapAssessmentReport({
   date: string;
 }) {
   const l = locale === "de" ? "de" : "en";
+  const t = COPY[l];
   const maturityLabels = MATURITY_LABELS[l];
   const consequenceLabels = CONSEQUENCE_LABELS[l];
   const timeLabels = TIME_LABELS[l];
 
   const criticalGaps = scores.gaps.filter((g) => g.criticality === 3).length;
   const fineExposed = scores.gaps.filter((g) => g.fineExposure).length;
-  const personalLiability = scores.gaps.filter((g) => g.consequence === 3).length;
   const quickWins = scores.gaps.filter((g) => g.timeToFix === 0).length;
+
+  const footerContext = companyName ?? t.title;
 
   function getDomainName(id: number) {
     const d = domains.find((dom) => dom.id === id);
@@ -104,100 +149,112 @@ export function GapAssessmentReport({
     return q ? (l === "de" ? q.text.de : q.text.en) : qid;
   }
 
+  const domainColumns: Column[] = [
+    { header: t.domain, width: 34 },
+    { header: t.score, width: 10, align: "right" },
+    { header: "", width: 16 },
+    { header: t.maturity, width: 20 },
+    { header: t.answeredShort, width: 14, align: "center" },
+  ];
+
+  const gapColumns: Column[] = [
+    { header: "#", width: 5, mono: true },
+    { header: t.finding, width: 44 },
+    { header: t.domain, width: 16 },
+    { header: t.consequence, width: 16 },
+    { header: t.effort, width: 11 },
+    { header: t.fine, width: 8, align: "center" },
+  ];
+
   return (
-    <Document>
-      {/* Cover */}
-      <Page size="A4" style={[s.page, s.coverPage]}>
-        <Text style={s.coverTitle}>NIS2 Gap Assessment</Text>
-        <Text style={s.coverSubtitle}>
-          {l === "de" ? "Bereitschaftsbewertung" : "Readiness Assessment"}
-        </Text>
-        {companyName && <Text style={s.coverMeta}>{companyName}</Text>}
-        <Text style={s.coverMeta}>{date}</Text>
-        <Text style={s.coverMeta}>
-          {l === "de" ? "Gesamtergebnis" : "Overall Score"}: {scores.overall}%
-        </Text>
-        <Text style={s.coverMeta}>
-          {scores.totalAnswered} / {scores.totalQuestions}{" "}
-          {l === "de" ? "Fragen beantwortet" : "questions answered"}
-        </Text>
-        <Footer companyName={companyName} />
+    <Document title={t.title} author="NISD2.eu" subject={t.subtitle}>
+      <Page size="A4" style={[styles.page, styles.coverPage]}>
+        <BrandBands />
+        <DocHeader label={t.date} value={date} />
+
+        <View style={styles.coverBody}>
+          <CoverHeading
+            eyebrow={t.subtitle}
+            title={t.title}
+            subtitle={companyName}
+            meta={[
+              ...(companyName ? [{ label: t.company, value: companyName }] : []),
+              { label: t.date, value: date },
+              {
+                label: t.answered,
+                value: `${scores.totalAnswered} / ${scores.totalQuestions}`,
+              },
+            ]}
+          />
+
+          <StatPlate
+            stats={[
+              {
+                value: `${scores.overall}%`,
+                label: t.overall,
+                tone: scoreColor(scores.overall),
+              },
+              { value: String(criticalGaps), label: t.criticalGaps, tone: SIGNAL.poor },
+              { value: String(fineExposed), label: t.fineExposure, tone: SIGNAL.fair },
+              { value: String(quickWins), label: t.quickWins, tone: SIGNAL.strong },
+            ]}
+          />
+        </View>
+
+        <CoverFooter issuedByLabel={t.generatedWith} disclaimer={t.confidential} />
       </Page>
 
-      {/* Domain scores */}
-      <Page size="A4" style={s.page}>
-        <Text style={s.heading}>
-          {l === "de" ? "Ergebnisse pro Bereich" : "Domain Scores"}
-        </Text>
-
-        <View style={s.summaryRow}>
-          <View style={s.summaryCard}>
-            <Text style={s.summaryValue}>{scores.overall}%</Text>
-            <Text style={s.summaryLabel}>{l === "de" ? "Gesamt" : "Overall"}</Text>
-          </View>
-          <View style={s.summaryCard}>
-            <Text style={[s.summaryValue, { color: "#ef4444" }]}>{criticalGaps}</Text>
-            <Text style={s.summaryLabel}>{l === "de" ? "Kritische Luecken" : "Critical Gaps"}</Text>
-          </View>
-          <View style={s.summaryCard}>
-            <Text style={[s.summaryValue, { color: "#f59e0b" }]}>{fineExposed}</Text>
-            <Text style={s.summaryLabel}>{l === "de" ? "Bussgeldrisiko" : "Fine Exposure"}</Text>
-          </View>
-          <View style={s.summaryCard}>
-            <Text style={[s.summaryValue, { color: "#22c55e" }]}>{quickWins}</Text>
-            <Text style={s.summaryLabel}>{l === "de" ? "Sofort behebbar" : "Quick Wins"}</Text>
-          </View>
+      <Page size="A4" style={styles.page}>
+        <BrandBands />
+        <View fixed>
+          <DocHeader label={t.subtitle} value={date} />
         </View>
 
-        {/* Header row */}
-        <View style={s.headerRow}>
-          <Text style={[s.cellBold, s.domainName]}>{l === "de" ? "Bereich" : "Domain"}</Text>
-          <Text style={[s.cellBold, s.domainScore]}>{l === "de" ? "Ergebnis" : "Score"}</Text>
-          <View style={s.barBg} />
-          <Text style={[s.cellBold, s.domainMaturity]}>{l === "de" ? "Reifegrad" : "Maturity"}</Text>
-          <Text style={[s.cellBold, s.domainAnswered]}>{l === "de" ? "Beantwortet" : "Answered"}</Text>
+        <SectionHeading title={t.domainScores} />
+        <View style={{ marginTop: 10 }}>
+          <Table
+            columns={domainColumns}
+            rows={scores.domains.map((d) => [
+              getDomainName(d.domainId),
+              `${d.percentage}%`,
+              <Meter
+                key={d.domainId}
+                percent={d.percentage}
+                color={scoreColor(d.percentage)}
+              />,
+              maturityLabels[d.maturity] ?? d.maturity,
+              `${d.answeredCount}/${d.totalCount}`,
+            ])}
+          />
         </View>
 
-        {scores.domains.map((d) => (
-          <View key={d.domainId} style={s.row}>
-            <Text style={[s.cell, s.domainName]}>{getDomainName(d.domainId)}</Text>
-            <Text style={[s.cell, s.domainScore]}>{d.percentage}%</Text>
-            <View style={s.barBg}>
-              <View style={[s.bar, { width: `${d.percentage}%`, backgroundColor: barColor(d.percentage) }]} />
-            </View>
-            <Text style={[s.cell, s.domainMaturity]}>{maturityLabels[d.maturity] ?? d.maturity}</Text>
-            <Text style={[s.cell, s.domainAnswered]}>{d.answeredCount}/{d.totalCount}</Text>
-          </View>
-        ))}
-        <Footer companyName={companyName} />
+        <PageFooter context={footerContext} pageLabel={t.page} />
       </Page>
 
-      {/* Priority gaps */}
-      <Page size="A4" style={s.page}>
-        <Text style={s.heading}>
-          {l === "de" ? "Prioritaere Luecken" : "Priority Gaps"}
-        </Text>
-
-        <View style={s.headerRow}>
-          <Text style={[s.cellBold, s.gapRank]}>#</Text>
-          <Text style={[s.cellBold, s.gapQuestion]}>{l === "de" ? "Feststellung" : "Finding"}</Text>
-          <Text style={[s.cellBold, s.gapDomain]}>{l === "de" ? "Bereich" : "Domain"}</Text>
-          <Text style={[s.cellBold, s.gapConsequence]}>{l === "de" ? "Konsequenz" : "Consequence"}</Text>
-          <Text style={[s.cellBold, s.gapTime]}>{l === "de" ? "Aufwand" : "Effort"}</Text>
-          <Text style={[s.cellBold, s.gapFine]}>{l === "de" ? "Bussgeld" : "Fine"}</Text>
+      <Page size="A4" style={styles.page}>
+        <BrandBands />
+        <View fixed>
+          <DocHeader label={t.subtitle} value={date} />
         </View>
 
-        {scores.gaps.slice(0, 30).map((gap, i) => (
-          <View key={gap.questionId} style={s.row} wrap={false}>
-            <Text style={[s.cell, s.gapRank]}>{i + 1}</Text>
-            <Text style={[s.cell, s.gapQuestion]}>{getQuestionText(gap.questionId)}</Text>
-            <Text style={[s.cell, s.gapDomain]}>{getDomainName(gap.domain)}</Text>
-            <Text style={[s.cell, s.gapConsequence]}>{consequenceLabels[gap.consequence] ?? ""}</Text>
-            <Text style={[s.cell, s.gapTime]}>{timeLabels[gap.timeToFix] ?? ""}</Text>
-            <Text style={[s.cell, s.gapFine]}>{gap.fineExposure ? "!" : ""}</Text>
-          </View>
-        ))}
-        <Footer companyName={companyName} />
+        <SectionHeading title={t.priorityGaps} />
+        <View style={{ marginTop: 10 }}>
+          <Table
+            columns={gapColumns}
+            rows={scores.gaps
+              .slice(0, 30)
+              .map((gap, i) => [
+                String(i + 1),
+                getQuestionText(gap.questionId),
+                getDomainName(gap.domain),
+                consequenceLabels[gap.consequence] ?? "",
+                timeLabels[gap.timeToFix] ?? "",
+                gap.fineExposure ? "!" : "",
+              ])}
+          />
+        </View>
+
+        <PageFooter context={footerContext} pageLabel={t.page} />
       </Page>
     </Document>
   );

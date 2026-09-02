@@ -4,24 +4,24 @@
  * Framework-agnostic: reads framework name, categories, requirements,
  * sign-off snapshots, and evidence from the database.
  */
-import { eq, asc, inArray } from "drizzle-orm";
+
+import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
+import { asc, eq, inArray } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
-  companyAssessment,
-  companyRequirementStatus,
-  requirementCategory,
-  requirement,
-  evidence,
-  companyCategoryIntake,
-} from "@/schema";
-import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import {
-  getComplianceMessages,
-  getRequirementsMessages,
   getCategory,
-  getRequirementTitle,
+  getComplianceMessages,
   getRequirementDescription,
+  getRequirementsMessages,
+  getRequirementTitle,
 } from "@/lib/messages";
+import {
+  companyAssessment,
+  companyCategoryIntake,
+  companyRequirementStatus,
+  requirement,
+  requirementCategory,
+} from "@/schema";
 
 export interface ReportEvidence {
   fileName: string;

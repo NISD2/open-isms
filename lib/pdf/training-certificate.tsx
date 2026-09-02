@@ -1,11 +1,18 @@
-import React from "react";
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import type { Locale } from "@/lib/seo";
+import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import { pickLocalized } from "@/lib/locale";
-import { FONT, registerPdfFonts } from "./fonts";
-import { BRAND, Logo, ShieldGlyph } from "./brand";
+import type { Locale } from "@/lib/seo";
+import { Seal } from "./brand";
+import { BrandBands, DocHeader, PageFooter, StatPlate } from "./chrome";
+import { FONT } from "./fonts";
+import { BRAND, EYEBROW, PAGE, RULE, TYPE } from "./theme";
 
-registerPdfFonts();
+/**
+ * The certificate is the reference implementation of the house PDF style: the
+ * brand bands, the header lockup, the stat plate and the seal all come from
+ * lib/pdf/chrome so the reports and the questionnaire inherit the same ones.
+ * What stays local is the cover typography, which is set larger than any other
+ * document because this is the only one meant to be framed.
+ */
 
 interface CertModule {
   title: string;
@@ -217,41 +224,24 @@ function chunk<T>(items: readonly T[], size: number): T[][] {
   );
 }
 
+/**
+ * Cover typography only. The bands, header, stat plate, seal and running
+ * footer live in lib/pdf/chrome and lib/pdf/brand, shared with every other
+ * document; what is left here is the part that is specific to a sheet meant to
+ * be framed rather than filed.
+ */
 const styles = StyleSheet.create({
   page: {
-    paddingTop: 38,
+    paddingTop: PAGE.top,
     paddingBottom: 30,
-    paddingHorizontal: 56,
+    paddingHorizontal: PAGE.coverMarginX,
     fontFamily: FONT.sans,
     color: BRAND.body,
   },
 
-  // Full-bleed brand rules. Two segments in the house colours give the sheet an
-  // identity at a glance without the doubled hairline frame of a clip-art
-  // certificate.
-  bandTop: { position: "absolute", top: 0, left: 0, right: 0, height: 7, flexDirection: "row" },
-  bandBottom: { position: "absolute", bottom: 0, left: 0, right: 0, height: 3, flexDirection: "row" },
-  bandPrimary: { flex: 3, backgroundColor: BRAND.primary },
-  bandAccent: { flex: 1, backgroundColor: BRAND.accent },
-
-  // Header
-  header: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  refBlock: { alignItems: "flex-end" },
-  refLabel: {
-    fontSize: 6.5,
-    fontWeight: 500,
-    letterSpacing: 1.3,
-    marginRight: -1.3,
-    textTransform: "uppercase",
-    color: BRAND.faint,
-  },
-  refValue: { fontFamily: FONT.mono, fontSize: 8.5, color: BRAND.muted, marginTop: 3 },
-  headerRule: { height: 0.75, backgroundColor: BRAND.rule, marginTop: 14 },
-
-  // Cover body
   body: { flexGrow: 1, alignItems: "center", justifyContent: "center", paddingTop: 20 },
   eyebrow: {
-    fontSize: 7.5,
+    fontSize: TYPE.fine,
     fontWeight: 600,
     letterSpacing: 1.7,
     textTransform: "uppercase",
@@ -260,13 +250,18 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 12,
-    fontSize: 33,
+    fontSize: TYPE.display,
     fontWeight: 700,
     letterSpacing: -0.5,
     color: BRAND.ink,
     textAlign: "center",
   },
-  certifies: { marginTop: 26, fontSize: 10.5, color: BRAND.muted, textAlign: "center" },
+  certifies: {
+    marginTop: 26,
+    fontSize: TYPE.lead,
+    color: BRAND.muted,
+    textAlign: "center",
+  },
   name: {
     marginTop: 9,
     fontSize: 29,
@@ -276,8 +271,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   email: { marginTop: 7, fontSize: 8.5, color: BRAND.faint, textAlign: "center" },
-  identityRule: { width: 190, height: 0.75, backgroundColor: BRAND.ruleStrong, marginTop: 20 },
-  completed: { marginTop: 20, fontSize: 10.5, color: BRAND.muted, textAlign: "center" },
+  identityRule: {
+    width: 190,
+    height: RULE.hair,
+    backgroundColor: BRAND.ruleStrong,
+    marginTop: 20,
+  },
+  completed: {
+    marginTop: 20,
+    fontSize: TYPE.lead,
+    color: BRAND.muted,
+    textAlign: "center",
+  },
   courseTitle: {
     marginTop: 7,
     fontSize: 17,
@@ -286,89 +291,31 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  // Stat plate
-  stats: {
-    marginTop: 28,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 0.75,
-    borderColor: BRAND.rule,
-    borderRadius: 6,
-    backgroundColor: BRAND.surface,
-    paddingVertical: 12,
-  },
-  statCell: { paddingHorizontal: 28, alignItems: "center", minWidth: 128 },
-  statDivider: { width: 1, height: 28, backgroundColor: BRAND.rule },
-  statValue: { fontSize: 13, fontWeight: 600, color: BRAND.ink },
-  statLabel: {
-    marginTop: 5,
-    fontSize: 6.5,
-    fontWeight: 500,
-    letterSpacing: 1.1,
-    textTransform: "uppercase",
-    color: BRAND.faint,
-  },
-
-  // Cover footer
   footer: {
     marginTop: 22,
     paddingTop: 15,
-    borderTopWidth: 0.75,
+    borderTopWidth: RULE.hair,
     borderTopColor: BRAND.rule,
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "space-between",
   },
   footerSide: { width: 190 },
-  issuerLabel: {
-    fontSize: 6.5,
-    fontWeight: 500,
-    letterSpacing: 1.3,
-    textTransform: "uppercase",
-    color: BRAND.faint,
-  },
+  issuerLabel: EYEBROW,
   issuerName: { marginTop: 4, fontSize: 11, fontWeight: 600, color: BRAND.primary },
   issuerUrl: { marginTop: 2, fontSize: 8, color: BRAND.faint },
   disclaimer: {
     flex: 1,
     paddingHorizontal: 28,
-    fontSize: 7,
+    fontSize: TYPE.caption,
     lineHeight: 1.5,
     color: BRAND.faint,
     textAlign: "center",
   },
-
-  // Seal
   sealWrap: { width: 190, alignItems: "flex-end" },
-  seal: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    borderWidth: 1.1,
-    borderColor: BRAND.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  sealInner: {
-    position: "absolute",
-    top: 3.5,
-    left: 3.5,
-    right: 3.5,
-    bottom: 3.5,
-    borderRadius: 25,
-    borderWidth: 0.5,
-    borderColor: "#a8bcc9",
-  },
-  sealText: {
-    marginTop: 3,
-    fontSize: 6,
-    fontWeight: 600,
-    letterSpacing: 1.2,
-    color: BRAND.primary,
-  },
 
   // Appendix
-  appendixTitle: { marginTop: 15, fontSize: 15, fontWeight: 700, color: BRAND.ink },
+  appendixTitle: { marginTop: 15, fontSize: TYPE.h2, fontWeight: 700, color: BRAND.ink },
   appendixSub: { marginTop: 4, fontSize: 8.5, color: BRAND.muted },
   moduleBlock: { marginTop: 11 },
   moduleHeader: {
@@ -376,70 +323,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 7,
     paddingBottom: 4,
-    borderBottomWidth: 0.75,
+    borderBottomWidth: RULE.hair,
     borderBottomColor: BRAND.rule,
   },
   moduleMark: { width: 3, height: 12, borderRadius: 1.5, backgroundColor: BRAND.primary },
-  moduleTitle: { fontSize: 10.5, fontWeight: 600, color: BRAND.ink, flex: 1 },
+  moduleTitle: { fontSize: TYPE.h4, fontWeight: 600, color: BRAND.ink, flex: 1 },
   lessonGrid: { marginTop: 5 },
   lessonRow: { flexDirection: "row", marginBottom: 2.5 },
   lessonCell: { width: "50%", flexDirection: "row", paddingRight: 20 },
-  lessonId: { width: 22, fontFamily: FONT.mono, fontSize: 6.8, color: BRAND.faint, paddingTop: 0.7 },
-  lessonTitle: { flex: 1, fontSize: 8.3, lineHeight: 1.35, color: BRAND.body },
-  pageFooter: {
-    position: "absolute",
-    bottom: 20,
-    left: 56,
-    right: 56,
-    paddingTop: 9,
-    borderTopWidth: 0.75,
-    borderTopColor: BRAND.rule,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    fontSize: 7,
+  lessonId: {
+    width: 22,
+    fontFamily: FONT.mono,
+    fontSize: 6.8,
     color: BRAND.faint,
+    paddingTop: 0.7,
   },
+  lessonTitle: { flex: 1, fontSize: TYPE.small, lineHeight: 1.35, color: BRAND.body },
 });
-
-function BrandBands() {
-  return (
-    <>
-      <View style={styles.bandTop} fixed>
-        <View style={styles.bandPrimary} />
-        <View style={styles.bandAccent} />
-      </View>
-      <View style={styles.bandBottom} fixed>
-        <View style={styles.bandAccent} />
-        <View style={styles.bandPrimary} />
-      </View>
-    </>
-  );
-}
-
-function Header({ label, value }: { label: string; value: string }) {
-  return (
-    <>
-      <View style={styles.header}>
-        <Logo />
-        <View style={styles.refBlock}>
-          <Text style={styles.refLabel}>{label}</Text>
-          <Text style={styles.refValue}>{value}</Text>
-        </View>
-      </View>
-      <View style={styles.headerRule} />
-    </>
-  );
-}
-
-function Seal({ label }: { label: string }) {
-  return (
-    <View style={styles.seal}>
-      <View style={styles.sealInner} />
-      <ShieldGlyph size={17} color={BRAND.primary} strokeWidth={1.9} />
-      <Text style={styles.sealText}>{label}</Text>
-    </View>
-  );
-}
 
 export function TrainingCertificateDocument({
   data,
@@ -480,7 +380,7 @@ export function TrainingCertificateDocument({
       {/* Page 1: certificate cover */}
       <Page size="A4" orientation="landscape" style={styles.page}>
         <BrandBands />
-        <Header label={labels.refLabel} value={data.certificateRef} />
+        <DocHeader label={labels.refLabel} value={data.certificateRef} />
 
         <View style={styles.body}>
           <Text style={styles.eyebrow}>{data.legalBasis}</Text>
@@ -494,17 +394,7 @@ export function TrainingCertificateDocument({
           <Text style={styles.completed}>{labels.completed}</Text>
           <Text style={styles.courseTitle}>{data.courseTitle}</Text>
 
-          <View style={styles.stats}>
-            {stats.map((stat, i) => (
-              <React.Fragment key={stat.label}>
-                {i > 0 && <View style={styles.statDivider} />}
-                <View style={styles.statCell}>
-                  <Text style={styles.statValue}>{stat.value}</Text>
-                  <Text style={styles.statLabel}>{stat.label}</Text>
-                </View>
-              </React.Fragment>
-            ))}
-          </View>
+          <StatPlate stats={stats} centered />
         </View>
 
         <View style={styles.footer}>
@@ -524,7 +414,7 @@ export function TrainingCertificateDocument({
       <Page size="A4" orientation="landscape" style={styles.page}>
         <BrandBands />
         <View fixed>
-          <Header label={labels.refLabel} value={data.certificateRef} />
+          <DocHeader label={labels.refLabel} value={data.certificateRef} />
         </View>
 
         <Text style={styles.appendixTitle}>{labels.topics}</Text>
@@ -555,10 +445,11 @@ export function TrainingCertificateDocument({
           </View>
         ))}
 
-        <View style={styles.pageFooter} fixed>
-          <Text>{labels.issuer}</Text>
-          <Text render={({ pageNumber, totalPages }) => labels.pageLabel(pageNumber, totalPages)} />
-        </View>
+        <PageFooter
+          context={labels.issuer}
+          pageLabel={labels.pageLabel}
+          inset={PAGE.coverMarginX}
+        />
       </Page>
     </Document>
   );
