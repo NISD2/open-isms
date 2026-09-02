@@ -40,24 +40,64 @@ function isLocale(value: string): value is Locale {
 }
 
 /**
+ * Locales the help offer actually exists in.
+ *
+ * messages/help/ ships de, en and nl only. i18n/request.ts falls back to
+ * English for an absent namespace, so /es/ayuda serves English prose under a
+ * URL that claims to be Spanish. Advertising all ten with reciprocal hreflang
+ * told Google that eight of them were translations of each other when they are
+ * one English page repeated, which is the shape of duplicate content it
+ * penalises.
+ *
+ * /vermittlung is the sharper case: it states the 15 percent commission,
+ * liability limits and data-transfer consent. Offering that as an es/fr/it/
+ * pl/cs/pt/ro document when it is English is not a translation gap, it is a
+ * legal page presented as something it is not.
+ *
+ * It lives here rather than in app/sitemap.ts because the sitemap is only half
+ * of the claim: pageAlternates writes the <head> hreflang set, and Google reads
+ * the two together. A list narrowed in one place and not the other produces
+ * non-reciprocal hreflang, which is worse than either choice made consistently.
+ * Both readers take this constant, so widening it to a newly translated locale
+ * is a one-line change that moves both at once.
+ *
+ * The routes still resolve in every locale, so an existing link keeps working;
+ * they are simply no longer advertised as translations.
+ */
+export const HELP_LOCALES = ["de", "en", "nl"] as const;
+
+/**
  * Returns canonical + hreflang alternates for a page.
  *
  * `slug` is the legacy slug-without-leading-slash form (e.g. "nis2-bussgelder",
  * or "" for the homepage). It is converted to a canonical pathname (with
  * leading slash) and resolved per locale via the routing config.
  *
- * Emits hreflang for all 3 locales + x-default → DE root. The
+ * Emits hreflang for every configured locale + x-default → DE root. The
  * `x-default` value is what Google serves when no locale match is
  * found, so we point it at DE (our primary market).
+ *
+ * `locales` narrows that set for a page that does not exist in all of them --
+ * see HELP_LOCALES above. It must be passed the same list the sitemap uses for
+ * that page, or the two disagree and the hreflang stops being reciprocal.
  */
-export function pageAlternates(slug: string, locale: string) {
+export function pageAlternates(
+  slug: string,
+  locale: string,
+  locales: readonly Locale[] = routing.locales,
+) {
   const canonical = slug ? `/${slug}` : "/";
   const safeLocale: Locale = isLocale(locale) ? locale : routing.defaultLocale;
   const languages: Record<string, string> = {};
-  for (const l of routing.locales) {
+  for (const l of locales) {
     languages[l] = localizedAbsoluteUrl(canonical, l);
   }
-  languages["x-default"] = localizedAbsoluteUrl(canonical, routing.defaultLocale);
+  // x-default has to name a locale we actually advertise: pointing it at a DE
+  // URL absent from the alternate set is the same non-reciprocity again.
+  const fallback = locales.includes(routing.defaultLocale)
+    ? routing.defaultLocale
+    : (locales[0] ?? routing.defaultLocale);
+  languages["x-default"] = localizedAbsoluteUrl(canonical, fallback);
   return {
     canonical: localizedAbsoluteUrl(canonical, safeLocale),
     languages,

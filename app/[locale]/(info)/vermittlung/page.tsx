@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { CopyProtected } from "@/components/CopyProtected";
-import { pageAlternates } from "@/lib/seo";
+import { HELP_LOCALES, pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -16,7 +16,7 @@ export async function generateMetadata({
   return {
     title: t("referral.meta.title"),
     description: t("referral.meta.description"),
-    alternates: pageAlternates("vermittlung", locale),
+    alternates: pageAlternates("vermittlung", locale, HELP_LOCALES),
   };
 }
 

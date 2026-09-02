@@ -51,7 +51,8 @@
     },
     "contact": {
       "heading": "Contact",
-      "p1": "contact@nisd2.eu. One line is enough: where you are stuck, how many employees, which sector, which country.",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. One line is enough: where you are stuck, how many employees, which sector, which country.",
       "cta": "Write to us",
       "subject": "NIS 2: this is where I am stuck"
     },

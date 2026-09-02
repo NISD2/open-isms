@@ -36,6 +36,10 @@ export function StalledPanel({
   // the panel tells the company its progress has been stuck at "0 of 0
   // steps" for two weeks, which is not a sentence anyone should read.
   if (total === 0) return null;
+  // Nor is a finished one. A company on 49 of 49 has nothing left to move,
+  // so two weeks of quiet is the expected shape of done, not a stall, and
+  // "you have been stuck at 49 of 49" is the wrong sentence to hand it.
+  if (done >= total) return null;
 
   const daysIdle =
     (Date.now() - lastActivityAt.getTime()) / (1000 * 60 * 60 * 24);

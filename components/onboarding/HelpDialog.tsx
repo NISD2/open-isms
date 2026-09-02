@@ -12,7 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { IN_PRODUCT_SUPPORT_EMAIL as CONTACT_EMAIL } from "@/lib/support-contact";
+
+const CONTACT_EMAIL = "cory@nisd2.eu";
 
 function HelpRow({
   icon: Icon,

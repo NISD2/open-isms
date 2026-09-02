@@ -6,8 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { CopyProtected } from "@/components/CopyProtected";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
-import { pageAlternates } from "@/lib/seo";
-import { PUBLIC_SUPPORT_EMAIL } from "@/lib/support-contact";
+import { HELP_LOCALES, pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -20,7 +19,7 @@ export async function generateMetadata({
   return {
     title,
     description: t("meta.description"),
-    alternates: pageAlternates("hilfe", locale),
+    alternates: pageAlternates("hilfe", locale, HELP_LOCALES),
     // No openGraph block, deliberately. lib/og-cards.json carries no "hilfe"
     // entry, so ogImages() returned undefined -- and Next REPLACES the parent
     // openGraph object rather than deep-merging it. Declaring one here
@@ -57,10 +56,11 @@ function TierHeading({ index, label, heading }: { index: number; label: string; 
 export default async function HelpPage({
   searchParams,
 }: {
-  searchParams: Promise<{ req?: string }>;
+  searchParams: Promise<{ req?: string | string[] }>;
 }) {
   const t = await getTranslations("help");
   const { req } = await searchParams;
+  const reqRaw = Array.isArray(req) ? req[0] : req;
 
   // StuckLink appends ?req=<requirementCode> so the reader does not have to
   // retype where they got stuck. Nothing read it before, so every code
@@ -69,7 +69,7 @@ export default async function HelpPage({
   // here. Shape-checked because the value goes straight into a mailto the
   // user is about to send: a requirement code, not arbitrary query text.
   const stuckOn =
-    req && /^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$/.test(req) ? req : null;
+    reqRaw && /^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$/.test(reqRaw) ? reqRaw : null;
   const subject = stuckOn
     ? `${t("contact.subject")} (${stuckOn})`
     : t("contact.subject");
@@ -185,10 +185,10 @@ export default async function HelpPage({
               <CardTitle className="text-xl">{t("contact.heading")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm text-muted-foreground">
-              <p>{t("contact.p1")}</p>
+              <p>{t("contact.p1", { email: t("contact.email") })}</p>
               <Button asChild>
                 <a
-                  href={`mailto:${PUBLIC_SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}`}
+                  href={`mailto:${t("contact.email")}?subject=${encodeURIComponent(subject)}`}
                 >
                   {t("contact.cta")}
                 </a>

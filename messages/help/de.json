@@ -50,7 +50,8 @@
     },
     "contact": {
       "heading": "Kontakt",
-      "p1": "contact@nisd2.eu. Eine Zeile reicht: wo Sie hängen, wie viele Mitarbeiter, welche Branche.",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Eine Zeile reicht: wo Sie hängen, wie viele Mitarbeiter, welche Branche.",
       "cta": "Mail schreiben",
       "subject": "NIS 2: hier komme ich nicht weiter"
     },

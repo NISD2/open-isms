@@ -51,7 +51,8 @@
     },
     "contact": {
       "heading": "Contact",
-      "p1": "contact@nisd2.eu. Eén regel is genoeg: waar u vastloopt, hoeveel medewerkers, welke sector, welk land.",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Eén regel is genoeg: waar u vastloopt, hoeveel medewerkers, welke sector, welk land.",
       "cta": "Schrijf ons",
       "subject": "NIS 2: hier loop ik vast"
     },

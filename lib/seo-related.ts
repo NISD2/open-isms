@@ -10,7 +10,8 @@
  * went wrong when the component built hrefs by hand.
  */
 import { routing } from "@/i18n/routing";
-import { WIKI_TOP_LEVEL, publishedEntries } from "@/lib/content/wiki-toc";
+import { WIKI_TOP_LEVEL, WIKI_TOC } from "@/lib/content/wiki-toc";
+import { isPublished } from "@/lib/content/wiki-publish-schedule";
 
 export const relatedArticles: Record<string, string[]> = {
   "what-is-nis2": [
@@ -278,16 +279,16 @@ export type AppPathname = Exclude<
  * for it. Built from the same source that produces the routing map, so the
  * two cannot drift.
  *
- * publishedEntries, not WIKI_TOC[cat].entries: an entry whose publishAt is
- * still in the future is deliberately absent from the /wiki hub and from the
- * sitemap, so linking to it from a related-articles card would advertise a
- * page the rest of the site is holding back. Falling through to null here
- * renders no card, which is this module's designed outcome for a slug that
- * cannot be reached.
+ * Every entry, published or not, exactly as wikiPathnames() registers them.
+ * The publish schedule is NOT applied here: isPublished() reads the clock, and
+ * this is a module-scope const, so filtering at this point would freeze the
+ * answer at first evaluation -- for a long-lived server process, at deploy. An
+ * entry whose publishAt elapses at 09:00 would stay unlinkable until the next
+ * restart. relatedPathname() asks the schedule per call instead.
  */
 const WIKI_SLUG_TO_PATHNAME: ReadonlyMap<string, string> = new Map(
   WIKI_TOP_LEVEL.flatMap((cat) =>
-    publishedEntries(cat).map(
+    WIKI_TOC[cat].entries.map(
       (entry) => [entry.slug, `/wiki/${cat}/${entry.slug}`] as const,
     ),
   ),
@@ -310,7 +311,14 @@ const WIKI_SLUG_TO_PATHNAME: ReadonlyMap<string, string> = new Map(
  * renders no card, instead of a link that 404s or bounces to sign-in.
  */
 export function relatedPathname(slug: string): AppPathname | null {
-  const candidates = [`/${slug}`, WIKI_SLUG_TO_PATHNAME.get(slug)];
+  // An entry whose publishAt is still in the future is deliberately absent
+  // from the /wiki hub and from the sitemap, so linking to it from a card
+  // would advertise a page the rest of the site is holding back. Checked here,
+  // per call, so a page becomes linkable the moment it goes live.
+  const wikiPath = isPublished(slug)
+    ? WIKI_SLUG_TO_PATHNAME.get(slug)
+    : undefined;
+  const candidates = [`/${slug}`, wikiPath];
   for (const candidate of candidates) {
     // The `in` check is the narrowing: only keys the routing config actually
     // carries are returned, so the assertion below cannot outrun reality.
