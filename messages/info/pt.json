@@ -6492,9 +6492,9 @@
       },
       "step2": {
         "title": "Registar-se junto da sua autoridade nacional da NIS2",
-        "law": "NIS2 Art. 27.o · §33 BSIG (DE)",
+        "law": "NIS2 Art. 3.o, n.o 4 · §33 BSIG (DE)",
         "owner": "O responsável de TI submete, o diretor-geral assina",
-        "time": "cerca de 1 hora por país + configuração da identidade nacional (por exemplo, ELSTER na DE: 5 a 10 dias úteis)",
+        "time": "cerca de 1 hora por país + configuração da identidade nacional (por exemplo, ELSTER na DE: carta de ativação por correio, segundo o BSI em regra pelo menos cinco dias úteis; um certificado de organização existente, por exemplo da área fiscal, pode ser reutilizado)",
         "deadline": "Aplicam-se prazos nacionais: DE: 06.03.2026 ultrapassado; a obrigação mantém-se",
         "what": "Regista-se junto da autoridade da NIS2 de cada Estado-Membro da UE em que opera: não apenas a Alemanha. 'Operar em' significa estabelecimento físico: a sua própria empresa, uma sucursal, um escritório ou os seus próprios trabalhadores presentes nesse país. As vendas transfronteiriças por si só não contam. Exemplo: uma GmbH alemã com um escritório em Viena regista-se junto do BSI (DE) e da NIS-Stelle (AT).",
         "actionText": "Ver autoridades por país",

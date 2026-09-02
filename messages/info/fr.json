@@ -6492,9 +6492,9 @@
       },
       "step2": {
         "title": "S'enregistrer auprès de votre autorité NIS2 nationale",
-        "law": "NIS2 art. 27 · §33 BSIG (DE)",
+        "law": "NIS2 art. 3(4) · §33 BSIG (DE)",
         "owner": "Le responsable informatique dépose, le dirigeant signe",
-        "time": "~1 heure par pays + mise en place de l'identité nationale (par exemple ELSTER en DE : 5 à 10 jours ouvrés)",
+        "time": "~1 heure par pays + mise en place de l'identité nationale (par exemple ELSTER en DE : lettre d'activation par courrier, selon le BSI en règle générale au moins cinq jours ouvrés ; un certificat d'organisation existant, par exemple du domaine fiscal, peut être réutilisé)",
         "deadline": "Des échéances nationales s'appliquent : DE : 06.03.2026 dépassée ; l'obligation demeure",
         "what": "Vous vous enregistrez auprès de l'autorité NIS2 de chaque État membre de l'UE dans lequel vous opérez : pas seulement l'Allemagne. « Opérer dans » signifie un établissement physique : votre propre entreprise, une succursale, un bureau ou vos propres employés sur place dans ce pays. Les ventes transfrontalières seules ne comptent pas. Exemple : une GmbH allemande disposant d'un bureau à Vienne s'enregistre auprès du BSI (DE) et de la NIS-Stelle (AT).",
         "actionText": "Voir les autorités par pays",

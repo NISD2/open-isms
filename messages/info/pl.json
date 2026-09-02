@@ -6492,9 +6492,9 @@
       },
       "step2": {
         "title": "Zarejestruj się u krajowego organu NIS2",
-        "law": "NIS2 art. 27 · §33 BSIG (DE)",
+        "law": "NIS2 art. 3 ust. 4 · §33 BSIG (DE)",
         "owner": "Kierownik IT składa, osoba zarządzająca podpisuje",
-        "time": "~1 godzina na kraj + krajowe ustanowienie tożsamości (np. ELSTER w DE: 5 do 10 dni roboczych)",
+        "time": "~1 godzina na kraj + krajowe ustanowienie tożsamości (np. ELSTER w DE: list aktywacyjny pocztą, według BSI z reguły co najmniej pięć dni roboczych; istniejący certyfikat organizacji, np. z obszaru podatkowego, można wykorzystać ponownie)",
         "deadline": "Obowiązują terminy krajowe: DE: 06.03.2026 minął; obowiązek trwa nadal",
         "what": "Rejestrujesz się u organu NIS2 każdego państwa członkowskiego UE, w którym prowadzisz działalność: nie tylko w Niemczech. „Prowadzić działalność w” oznacza fizyczną obecność: własną firmę, oddział, biuro lub własnych pracowników na miejscu w danym kraju. Sama sprzedaż transgraniczna się nie liczy. Przykład: niemiecka GmbH z biurem w Wiedniu rejestruje się w BSI (DE) oraz w NIS-Stelle (AT).",
         "actionText": "Zobacz organy według kraju",

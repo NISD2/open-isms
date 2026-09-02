@@ -6492,9 +6492,9 @@
       },
       "step2": {
         "title": "Înregistrați-vă la autoritatea națională NIS2",
-        "law": "NIS2 art. 27 · §33 BSIG (DE)",
+        "law": "NIS2 art. 3 alin. (4) · §33 BSIG (DE)",
         "owner": "Responsabilul IT depune, directorul semnează",
-        "time": "~1 oră per țară + configurarea identității naționale (de exemplu ELSTER în DE: 5-10 zile lucrătoare)",
+        "time": "~1 oră per țară + configurarea identității naționale (de exemplu ELSTER în DE: scrisoare de activare prin poștă, potrivit BSI de regulă cel puțin cinci zile lucrătoare; un certificat de organizație existent, de exemplu din domeniul fiscal, poate fi reutilizat)",
         "deadline": "Se aplică termenele naționale: DE: 06.03.2026 a trecut; obligația continuă",
         "what": "Vă înregistrați la autoritatea NIS2 a fiecărui stat membru UE în care operați: nu doar Germania. \"A opera în\" înseamnă o prezență fizică: propria companie, o sucursală, un birou sau proprii angajați prezenți efectiv în acea țară. Doar vânzările transfrontaliere nu contează. Exemplu: o GmbH germană cu un birou la Viena se înregistrează la BSI (DE) și la NIS-Stelle (AT).",
         "actionText": "Vezi autoritățile pe țări",
