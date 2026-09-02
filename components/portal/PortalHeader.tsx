@@ -37,6 +37,8 @@ export function PortalHeader({
     hints: Record<Hint, boolean>;
     /** Cal.com handle from CAL_LINK, "" where the instance sets no calendar. */
     calLink: string;
+    /** Direct line from IN_APP_SUPPORT_EMAIL, "" where the instance offers none. */
+    supportEmail: string;
   };
 }) {
   const t = useTranslations("portal");
@@ -108,7 +110,13 @@ export function PortalHeader({
         </BreadcrumbList>
       </Breadcrumb>
       <div className="ml-auto flex items-center gap-1">
-        {guide && <PortalGuide hints={guide.hints} calLink={guide.calLink} />}
+        {guide && (
+          <PortalGuide
+            hints={guide.hints}
+            calLink={guide.calLink}
+            supportEmail={guide.supportEmail}
+          />
+        )}
       </div>
     </header>
   );

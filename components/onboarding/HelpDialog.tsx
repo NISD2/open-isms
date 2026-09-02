@@ -13,34 +13,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-/**
- * The in-product address, and deliberately NOT the one /hilfe publishes.
- *
- *   PUBLIC   /hilfe is reachable by anyone, including people who have never
- *            signed up, and goes to the shared inbox (help.contact.email).
- *   IN-APP   this dialog is what a signed-in user meets on their second
- *            login. It is a direct line, not a queue.
- *
- * Recorded here because the split reads as drift from the code alone and has
- * been "corrected" once already. e2e/l1/guide.spec.ts:199 pins this value, so
- * the test is the second half of the same decision.
- *
- * STILL A LITERAL, and it should not stay one. CLAUDE.md's "Never commit"
- * list says support emails belong in the SUPPORT_EMAIL env var, and this is a
- * named person's mailbox shipping in an AGPL repo: a self-hosted instance
- * renders it in its own help dialog with no way to change it. Being a client
- * component is NOT the obstacle -- `calLink` two properties down is
- * env.CAL_LINK, threaded (portal)/layout.tsx -> PortalHeader -> PortalGuide
- * -> here, and it already models the empty case ("" hides the row).
- *
- * Left as it is only because SUPPORT_EMAIL is the OTHER address, the shared
- * inbox /hilfe publishes; pointing this at it would silently reroute the
- * in-app direct line and fail e2e/l1/guide.spec.ts:199. It wants its own
- * variable and its own prop, which is a change to the portal layout rather
- * than to this file, so it is written down here instead of half-done.
- */
-const CONTACT_EMAIL = "cory@nisd2.eu";
-
 function HelpRow({
   icon: Icon,
   children,
@@ -68,6 +40,7 @@ export function HelpDialog({
   open,
   onOpenChange,
   calLink,
+  supportEmail,
   permanent,
   onStartTour,
 }: {
@@ -75,6 +48,12 @@ export function HelpDialog({
   onOpenChange: (open: boolean) => void;
   /** Cal.com handle from CAL_LINK. Empty on instances that set no calendar. */
   calLink: string;
+  /**
+   * Direct-line address from IN_APP_SUPPORT_EMAIL. Deliberately not the
+   * shared inbox /hilfe publishes; "" on an instance that offers no direct
+   * line, where the row is not rendered.
+   */
+  supportEmail: string;
   permanent: boolean;
   /** Absent on pages that have no tour to replay. */
   onStartTour?: () => void;
@@ -97,17 +76,19 @@ export function HelpDialog({
         </DialogHeader>
 
         <ul className="space-y-3">
-          <HelpRow icon={copied ? Check : Mail}>
-            {t("help.email")}{" "}
-            <button
-              type="button"
-              data-testid="help-copy-email"
-              onClick={() => void copy(CONTACT_EMAIL, t("help.emailCopied"))}
-              className="font-medium underline underline-offset-4 hover:text-foreground"
-            >
-              {CONTACT_EMAIL}
-            </button>
-          </HelpRow>
+          {supportEmail && (
+            <HelpRow icon={copied ? Check : Mail}>
+              {t("help.email")}{" "}
+              <button
+                type="button"
+                data-testid="help-copy-email"
+                onClick={() => void copy(supportEmail, t("help.emailCopied"))}
+                className="font-medium underline underline-offset-4 hover:text-foreground"
+              >
+                {supportEmail}
+              </button>
+            </HelpRow>
+          )}
 
           {calLink && (
             <HelpRow icon={CalendarDays}>

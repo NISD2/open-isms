@@ -39,10 +39,13 @@ const NO_STEPS: readonly TourStep[] = [];
 export function PortalGuide({
   hints,
   calLink,
+  supportEmail,
 }: {
   hints: Record<Hint, boolean>;
   /** Cal.com handle from CAL_LINK, "" where the instance sets no calendar. */
   calLink: string;
+  /** Direct line from IN_APP_SUPPORT_EMAIL, "" where the instance offers none. */
+  supportEmail: string;
 }) {
   const t = useTranslations("guide");
   const path = usePortalPath();
@@ -162,6 +165,7 @@ export function PortalGuide({
         open={helpAuto || helpManual}
         onOpenChange={(open) => !open && closeHelp()}
         calLink={calLink}
+        supportEmail={supportEmail}
         permanent={helpAuto}
         onStartTour={routeTour ? startTour : undefined}
       />

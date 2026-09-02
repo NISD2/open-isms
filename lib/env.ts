@@ -70,6 +70,20 @@ const envSchema = z.object({
   // would never reach the client bundle.
   CAL_LINK: z.string().default(""),
 
+  // The address the in-product help dialog offers as a direct line. NOT
+  // SUPPORT_EMAIL: that is the shared inbox /hilfe publishes, and the two are
+  // different on purpose (a queue vs. a direct line), which e2e/l1/guide.spec
+  // pins. Read server-side and passed down as a prop for the same reason
+  // CAL_LINK is.
+  //
+  // The default is the maintainer's own address so nothing reroutes when the
+  // variable is unset, but that means an AGPL instance ships it until its
+  // operator overrides it. Once nisd2.eu sets this in its deploy platform the
+  // default should become "" and the row hidden when empty, exactly as
+  // CAL_LINK does -- an instance must no more publish someone else's mailbox
+  // than someone else's calendar.
+  IN_APP_SUPPORT_EMAIL: z.string().default("cory@nisd2.eu"),
+
   // Standard
   NODE_ENV: z
     .enum(["development", "production", "test"])

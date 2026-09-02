@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { CopyProtected } from "@/components/CopyProtected";
+import { Copyable, CopyProtected } from "@/components/CopyProtected";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { HELP_LOCALES, pageAlternates } from "@/lib/seo";
 
@@ -61,14 +61,11 @@ function TierHeading({ index, label, heading }: { index: number; label: string; 
 const REQUIREMENT_CODE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$/;
 
 export default async function HelpPage({
-  params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>;
   searchParams: Promise<{ req?: string | string[] }>;
 }) {
   const t = await getTranslations("help");
-  const { locale } = await params;
   const { req } = await searchParams;
 
   // Nothing read ?req before, so every code produced a distinct URL that
@@ -105,20 +102,24 @@ export default async function HelpPage({
                 <p>{t("tier1.p1")}</p>
                 <p>{t("tier1.p2")}</p>
                 <p>{t("tier1.p3")}</p>
-                {/* Member-state transposition note. Deliberately absent
-                    from the German copy, whose tier1.p1 already cites §30
-                    BSIG inline; rendering both puts the same statute in two
-                    adjacent paragraphs of one card.
+                {/* Member-state transposition note, and no guard on it.
 
-                    NOT t.has("tier1.p4"), which was here and never fired.
+                    It used to be `t.has("tier1.p4") &&`, which never fired:
                     i18n/request.ts fillMissing() merges the English namespace
                     into every non-en locale key by key at every depth before a
                     component sees it, so t.has() is true in all ten locales
-                    whatever the locale file contains -- it read as a guard and
-                    was in fact shipping the English paragraph to the German
-                    page, on the one page whose subject is German law. An
-                    explicit locale is the only thing that gates this. */}
-                {locale !== "de" && <p>{t("tier1.p4")}</p>}
+                    whatever the locale file holds. de.json was the one file
+                    without the key, so the guard that read as "only where this
+                    locale has it" was shipping the English paragraph to the
+                    German page -- on the one page whose subject is German law.
+
+                    The German copy now has its own p4 rather than a gate, and
+                    it is not the English one translated: that one is addressed
+                    outward ("for example §30 BSIG in Germany"), and it says
+                    §30 BSIG a second time after tier1.p1 already has. The
+                    German text states the same thing to the reader it binds
+                    and names the statute once. */}
+                <p>{t("tier1.p4")}</p>
               </CardContent>
             </Card>
           </section>
@@ -208,7 +209,11 @@ export default async function HelpPage({
               <CardTitle className="text-xl">{t("contact.heading")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm text-muted-foreground">
-              <p>{t("contact.p1", { email: t("contact.email") })}</p>
+              <p>
+                <Copyable>
+                  {t("contact.p1", { email: t("contact.email") })}
+                </Copyable>
+              </p>
               <Button asChild>
                 <a
                   href={`mailto:${t("contact.email")}?subject=${encodeURIComponent(subject)}`}
