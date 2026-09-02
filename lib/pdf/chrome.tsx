@@ -3,7 +3,6 @@ import React from "react";
 import { Logo } from "./brand";
 import { styles } from "./styles";
 import {
-  BRAND,
   CALLOUT,
   type CalloutTone,
   ISSUER,
@@ -316,5 +315,3 @@ export function scoreColor(percent: number): string {
   if (percent >= 25) return SIGNAL.weak;
   return SIGNAL.poor;
 }
-
-export { BRAND, ISSUER };
