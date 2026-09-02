@@ -49,9 +49,9 @@ export function HelpDialog({
   /** Cal.com handle from CAL_LINK. Empty on instances that set no calendar. */
   calLink: string;
   /**
-   * Direct-line address from IN_APP_SUPPORT_EMAIL. Deliberately not the
-   * shared inbox /hilfe publishes; "" on an instance that offers no direct
-   * line, where the row is not rendered.
+   * Support address from SUPPORT_EMAIL, the same one /email/unsubscribed
+   * shows and outbound mail replies to. "" on an instance that sets none,
+   * where the row is not rendered at all rather than shown as a placeholder.
    */
   supportEmail: string;
   permanent: boolean;

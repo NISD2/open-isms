@@ -131,7 +131,7 @@ export default async function PortalLayout({
           guide={{
             hints: session.hints,
             calLink: env.CAL_LINK,
-            supportEmail: env.IN_APP_SUPPORT_EMAIL,
+            supportEmail: env.SUPPORT_EMAIL,
           }}
         />
         <div className="flex-1 px-6 py-6">

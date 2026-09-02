@@ -12,6 +12,7 @@ import {
   Text,
 } from "@react-email/components";
 import * as React from "react";
+import { mailSupportEmail } from "@/lib/env";
 
 interface WelcomeEmailProps {
   name: string;
@@ -19,7 +20,7 @@ interface WelcomeEmailProps {
 }
 
 export function WelcomeEmail(_props: WelcomeEmailProps) {
-  const supportEmail = process.env.SUPPORT_EMAIL ?? "support@example.com";
+  const supportEmail = mailSupportEmail();
   return (
     <Html>
       <Head />

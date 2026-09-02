@@ -37,7 +37,7 @@ export function PortalHeader({
     hints: Record<Hint, boolean>;
     /** Cal.com handle from CAL_LINK, "" where the instance sets no calendar. */
     calLink: string;
-    /** Direct line from IN_APP_SUPPORT_EMAIL, "" where the instance offers none. */
+    /** Support address from SUPPORT_EMAIL, "" where the instance sets none. */
     supportEmail: string;
   };
 }) {

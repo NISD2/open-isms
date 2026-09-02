@@ -70,19 +70,16 @@ const envSchema = z.object({
   // would never reach the client bundle.
   CAL_LINK: z.string().default(""),
 
-  // The address the in-product help dialog offers as a direct line. NOT
-  // SUPPORT_EMAIL: that is the shared inbox /hilfe publishes, and the two are
-  // different on purpose (a queue vs. a direct line), which e2e/l1/guide.spec
-  // pins. Read server-side and passed down as a prop for the same reason
-  // CAL_LINK is.
+  // The one support address: the reply-to on outbound mail, the contact on
+  // /email/unsubscribed, and the direct line the in-product help dialog
+  // offers. It was already an env var read straight from process.env in three
+  // files; it belongs here with the rest of them.
   //
-  // The default is the maintainer's own address so nothing reroutes when the
-  // variable is unset, but that means an AGPL instance ships it until its
-  // operator overrides it. Once nisd2.eu sets this in its deploy platform the
-  // default should become "" and the row hidden when empty, exactly as
-  // CAL_LINK does -- an instance must no more publish someone else's mailbox
-  // than someone else's calendar.
-  IN_APP_SUPPORT_EMAIL: z.string().default("cory@nisd2.eu"),
+  // Empty by default, like CAL_LINK and for the same reason: an instance must
+  // not publish someone else's mailbox. Where it is unset the help dialog
+  // renders no address row at all rather than a placeholder one. Mail cannot
+  // do that -- see mailSupportEmail below.
+  SUPPORT_EMAIL: z.string().default(""),
 
   // Standard
   NODE_ENV: z
@@ -118,3 +115,16 @@ function validateEnv() {
 }
 
 export const env = validateEnv();
+
+/**
+ * The support address for outbound mail, which cannot carry an empty
+ * reply-to the way a UI can render nothing.
+ *
+ * The placeholder lives here and only here. It used to be the same literal
+ * written out at each of the three send sites, so "what do we fall back to"
+ * had no owner and the answer could drift between an email header and the
+ * page that email links to.
+ */
+export function mailSupportEmail(): string {
+  return env.SUPPORT_EMAIL || "support@example.com";
+}
