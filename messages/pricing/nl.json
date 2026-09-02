@@ -37,10 +37,11 @@
         "h3": "Op uw eigen infrastructuur, met uw eigen data",
         "h4": "Geen contract, geen activering, geen account bij ons",
         "h5": "Uw werk op nisd2.eu exporteren en zelf verder draaien",
-        "h6": "Direct contact via e-mail en Signal"
+        "h6": "Direct contact via e-mail en Signal",
+        "h7": "Installatie door ons als u dat wilt: € 500 netto, eenmalig"
       }
     },
-    "whyFree": "Waarom gratis: de broncode staat open op GitHub, controleerbaar en zelf te draaien. Wij rekenen onze eigen uren en krijgen een provisie van de gespecialiseerde bedrijven waarnaar wij doorverwijzen. Niet voor het platform.",
+    "whyFree": "Waarom gratis: de broncode staat open op GitHub, controleerbaar en zelf te draaien. Wij rekenen voor het opzetten van eigen beheer en krijgen een provisie van de gespecialiseerde bedrijven waarnaar wij doorverwijzen. Niet voor het platform.",
     "consultantFootnote": "Loopt u vast bij NIS 2? Korte vakinhoudelijke vragen kosten niets, en is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u.",
     "consultantCta": "Hulp en bemiddeling"
   }

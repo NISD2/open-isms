@@ -42,17 +42,18 @@ function isLocale(value: string): value is Locale {
 /**
  * Locales the help offer actually exists in.
  *
- * messages/help/ ships de, en and nl only. i18n/request.ts falls back to
- * English for an absent namespace, so /es/ayuda serves English prose under a
- * URL that claims to be Spanish. Advertising all ten with reciprocal hreflang
- * told Google that eight of them were translations of each other when they are
- * one English page repeated, which is the shape of duplicate content it
- * penalises.
- *
- * /vermittlung is the sharper case: it states the 15 percent commission,
- * liability limits and data-transfer consent. Offering that as an es/fr/it/
- * pl/cs/pt/ro document when it is English is not a translation gap, it is a
- * legal page presented as something it is not.
+ * Now all ten: messages/help/ ships a real translation per locale, so the
+ * narrowing this constant used to carry is spent. It stays as a named list
+ * rather than collapsing into routing.locales because what it asserts is not
+ * "every locale the site has" but "every locale someone has actually written
+ * this offer in". Those coincide today. They come apart again the moment an
+ * eleventh locale is added to routing, and the page that must NOT be
+ * advertised in it is /vermittlung: it states the 15 percent commission,
+ * liability limits and data-transfer consent, and serving that as a Danish
+ * document when it is English prose is not a translation gap, it is a legal
+ * page presented as something it is not. A new locale therefore lands here
+ * deliberately, once its help namespace exists, not by inheriting a list that
+ * grew underneath it.
  *
  * It lives here rather than in app/sitemap.ts because the sitemap is only half
  * of the claim: pageAlternates writes the <head> hreflang set, and Google reads
@@ -65,11 +66,19 @@ function isLocale(value: string): value is Locale {
  * entries carry no x-default and the <head> set does. That asymmetry predates
  * this constant and applies to every page on the site, so it is left for a
  * change that can move all of them together.
- *
- * The routes still resolve in every locale, so an existing link keeps working;
- * they are simply no longer advertised as translations.
  */
-export const HELP_LOCALES = ["de", "en", "nl"] as const;
+export const HELP_LOCALES = [
+  "de",
+  "en",
+  "nl",
+  "fr",
+  "it",
+  "es",
+  "pl",
+  "cs",
+  "pt",
+  "ro",
+] as const;
 
 /**
  * The locale every other one degrades to. i18n/request.ts loads a missing

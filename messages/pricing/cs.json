@@ -37,10 +37,11 @@
         "h3": "Na vlastní infrastruktuře, s vlastními daty",
         "h4": "Žádná smlouva, žádný aktivační klíč, žádný účet u nás",
         "h5": "Exportujte svou práci z nisd2.eu a provozujte ji dál sami",
-        "h6": "Přímý kontakt e-mailem a přes Signal"
+        "h6": "Přímý kontakt e-mailem a přes Signal",
+        "h7": "Nasazení námi, pokud chcete: 500 € bez DPH, jednorázově"
       }
     },
-    "whyFree": "Proč zdarma: zdrojový kód je otevřený na GitHubu, ověřitelný a provozovatelný ve vlastní režii. Účtujeme si vlastní hodiny a dostáváme provizi od specializovaných firem, na které vás odkazujeme. Nikoli za platformu.",
+    "whyFree": "Proč zdarma: zdrojový kód je otevřený na GitHubu, ověřitelný a provozovatelný ve vlastní režii. Účtujeme si nasazení vlastního provozu a dostáváme provizi od specializovaných firem, na které vás odkazujeme. Nikoli za platformu.",
     "consultantFootnote": "Zasekli jste se u NIS 2? Krátké odborné dotazy nic nestojí, a pokud je potřeba specializovaná firma, doporučíme vám ji bez nákladů pro vás.",
     "consultantCta": "Pomoc a doporučení"
   }

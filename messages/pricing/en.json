@@ -37,10 +37,11 @@
         "h3": "On your own infrastructure, with your own data",
         "h4": "No contract, no activation key, no account with us",
         "h5": "Export your work from nisd2.eu and carry on running it yourself",
-        "h6": "Direct contact by email and Signal"
+        "h6": "Direct contact by email and Signal",
+        "h7": "Setup by us if you want it: €500 net, one-time"
       }
     },
-    "whyFree": "Why free: the source is open on GitHub, auditable and yours to run. We charge for our own hours, and we take a commission from the specialist firms we refer you to. Not for the platform.",
+    "whyFree": "Why free: the source is open on GitHub, auditable and yours to run. We charge for setting up self-hosted installations, and we take a commission from the specialist firms we refer you to. Not for the platform.",
     "consultantFootnote": "Stuck with NIS 2? Short technical questions cost nothing, and if it needs a specialist firm, we refer you to one at no cost to you.",
     "consultantCta": "Help and referrals"
   }

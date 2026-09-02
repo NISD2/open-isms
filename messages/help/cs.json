@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Když se u NIS 2 zaseknete",
+      "description": "Platforma i kurz jsou zdarma. Krátké odborné dotazy zodpovídáme bez poplatku. Chcete-li provozovat vlastní instalaci, nasadíme ji za jednorázových 500 EUR bez DPH. Je-li potřeba specializovaná firma, doporučíme vám ji bez nákladů pro vás."
+    },
+    "title": "Když se u NIS 2 zaseknete",
+    "intro": "Platforma je zdarma a zůstane. Kurz také. Většina firem to zvládne sama. Kdo ne, má dvě cesty, a obě začínají stejným e-mailem.",
+    "tier1": {
+      "label": "Úroveň 1",
+      "heading": "Uděláte to sami. 0 EUR.",
+      "p1": "Ověření, zda se na vás předpis vztahuje, každé opatření požadované článkem 21 jako jednotlivý krok, nahrávání důkazů, export do PDF, auditní stopa a kurz pro vedení s potvrzením o účasti, které článek 20 žádá umět doložit.",
+      "p2": "Chcete-li platformu provozovat sami, zdrojový kód je na GitHubu pod AGPL-3.0. Rovněž zdarma. Bez licenčního poplatku, bez omezení počtu uživatelů.",
+      "p3": "Bez časového limitu, bez platební karty, bez telefonátu od obchodníka.",
+      "p4": "NIS 2 transponuje každý členský stát: text, podle kterého jste kontrolováni, je váš vnitrostátní zákon, nikoli směrnice. Platforma odkazuje nejprve na směrnici a uvádí vnitrostátní odkaz tam, kde existuje, například §30 BSIG v Německu."
+    },
+    "tier2": {
+      "label": "Úroveň 2",
+      "heading": "Chcete provozovat sami. My to nasadíme.",
+      "p1": "Krátké odborné dotazy zodpovídáme e-mailem, zpravidla do dvou pracovních dnů, bez poplatku. Včetně dotazů k vlastnímu provozu.",
+      "rate": "500 EUR bez DPH, jednorázově",
+      "rateNote": "za instalaci, nic opakovaného",
+      "p2": "Vlastní provoz je zdarma a zůstane: zdrojový kód je pod AGPL-3.0 a licenční poplatek se neplatí. Těch 500 EUR je naše práce rozběhnout platformu na vaší infrastruktuře: databáze a migrace, objektové úložiště pro důkazy, odesílání transakčních e-mailů, přihlašování, první nasazení a předání, od kterého si aktualizace vede váš tým sám.",
+      "p3": "Jedna platba, nikoli předplatné. Po předání je instance vaše, bez účtu u nás a bez obnovování. Chcete-li si ji nasadit sami podle dokumentace, tato cesta zůstává otevřená a nic nestojí."
+    },
+    "tier3": {
+      "label": "Úroveň 3",
+      "heading": "Je potřeba specializovaná firma. Doporučíme vám ji.",
+      "p1": "Část z toho není naše práce a raději to řekneme dřív, než nám zaplatíte, než potom. Penetrační testy a technické audity, certifikace ISO 27001, stálý externí bezpečnostní manažer, právní poradenství, řešení incidentů, OT a řídicí systémy, samotná implementace na vaší infrastruktuře.",
+      "p2": "Na to vedeme seznam firem, se kterými spolupracujeme. Probíhá to takto:",
+      "steps": {
+        "s1": "Napište nám jednu řádku, na čem to vázne. Nebo klikněte v platformě na „Najít specialistu“.",
+        "s2": "Uvedeme vám jednu až tři firmy a napíšeme, proč právě tyto. Obor, region, volná kapacita.",
+        "s3": "Rozhodnete se, zda některou oslovíte. Nic o vás nepředáváme, dokud to výslovně neřeknete.",
+        "s4": "Smlouva běží mezi vámi a firmou. Nestojíme mezi tím a nic nefakturujeme."
+      },
+      "p3": "Doporučení vás nic nestojí. Bez přirážky, bez zprostředkovatelského poplatku na vaší straně, bez závazku."
+    },
+    "earn": {
+      "heading": "Čím vyděláváme",
+      "p1": "U úrovně 2 jednorázovým poplatkem za nasazení. U úrovně 3 nám firma platí 15 procent svého čistého honoráře, pokud se z doporučení stane zakázka.",
+      "p2": "Naši partneři se písemně zavazují, že kvůli tomu honorář nezvýší. Nedoporučujeme podle výše provize a pořadí našeho seznamu na ní nezávisí.",
+      "p3": "Dáte-li přednost vlastnímu poradci, je to zcela v pořádku a platformu si přesto ponecháte.",
+      "link": "Přečíst podmínky doporučování"
+    },
+    "notDo": {
+      "heading": "Co neděláme",
+      "legal": "Žádné právní poradenství. Na to potřebujete advokátní kancelář.",
+      "authority": "Žádný příslib, že úřad vaši realizaci přijme. Ten vám nikdo seriózně nedá.",
+      "commission": "Žádné doporučení, které bychom nevyslovili i bez provize."
+    },
+    "contact": {
+      "heading": "Kontakt",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Stačí jedna řádka: kde váznete, kolik zaměstnanců, jaký obor, jaká země.",
+      "cta": "Napište nám",
+      "subject": "NIS 2: tady se nemohu pohnout"
+    },
+    "referral": {
+      "meta": {
+        "title": "Podmínky doporučování",
+        "description": "Podmínky, za kterých doporučujeme specializované firmy: pro vás zdarma, naši odměnu platí firma, výběr neprobíhá podle provize a nic o vás nepředáváme bez vašeho souhlasu."
+      },
+      "title": "Podmínky doporučování",
+      "asOf": "Stav k 30. srpnu 2026",
+      "providerHeading": "Poskytovatel",
+      "s1": {
+        "heading": "1. Co doporučujeme",
+        "body": "Na vyžádání uvádíme firmy, které poskytují služby, jež sami nenabízíme. Ukazujeme vám příležitost, nic víc. Jakákoli poradenská smlouva, smlouva o dílo nebo o poskytování služeb vzniká výhradně mezi vámi a firmou."
+      },
+      "s2": {
+        "heading": "2. Pro vás zdarma",
+        "body": "Za doporučení nám nic neplatíte, ani odměnu, ani přirážku. Nevzniká z něj žádný závazek a v žádném okamžiku nejste povinni zadat zakázku firmě, kterou navrhneme."
+      },
+      "s3": {
+        "heading": "3. Naše odměna",
+        "body": "Pokud mezi vámi a doporučenou firmou vznikne smlouva, tato firma nám platí provizi, zpravidla 15 procent čistého honoráře, který za doporučenou službu zaplatíte, omezenou na prvních dvanáct měsíců zakázky. Naši partneři se smluvně zavazují, že kvůli této provizi honorář nezvýší. V jednotlivých případech platí jiné sazby; na vyžádání vám sdělíme tu, která platí pro váš."
+      },
+      "s4": {
+        "heading": "4. Jak vybíráme",
+        "body": "Rozhoduje obor, zkušenost v odvětví, region, volná kapacita a zpětná vazba z dřívějších doporučení. Výše provize není kritériem výběru ani pořadí. Zpravidla navrhujeme několik firem a u každé uvádíme důvod."
+      },
+      "s5": {
+        "heading": "5. Nejde o úplný přehled trhu",
+        "body": "Náš seznam je výběrem firem, se kterými spolupracujeme, nikoli přehledem trhu. Existují vhodní poskytovatelé, kteří na něm nejsou."
+      },
+      "s6": {
+        "heading": "6. Odpovědnost",
+        "body": "Za plnění doporučené firmy neodpovídáme. Nedlužíme ani úspěch doporučení, ani určitou kvalitu služby. Za samotné doporučení odpovídáme podle zákonných předpisů při úmyslu a hrubé nedbalosti a při újmě na životě, těle nebo zdraví; jinak při porušení podstatných smluvních povinností omezeně na předvídatelnou škodu typickou pro tento druh smlouvy."
+      },
+      "s7": {
+        "heading": "7. Nejde o právní službu",
+        "body": "Neposkytujeme právní služby ve smyslu německého zákona o právních službách (Rechtsdienstleistungsgesetz). Naše pokyny k NIS 2 a BSIG nejsou právním poradenstvím a nenahrazují je."
+      },
+      "s8": {
+        "heading": "8. Vaše údaje",
+        "body": "Bez vašeho výslovného souhlasu nepředáváme firmě žádné osobní údaje. Pokud jej udělíte, předáváme jméno, firmu, kontaktní údaje a vámi popsanou poptávku. Ve vztahu k těmto údajům je firma samostatným správcem. Souhlas můžete kdykoli odvolat s účinností do budoucna, neformálně na {email}. Podrobnosti najdete v našich zásadách ochrany osobních údajů."
+      },
+      "s9": {
+        "heading": "9. Stížnosti",
+        "body": "Pokud doporučení dopadne špatně, napište nám. Věc prověříme a firmy, u kterých se to opakuje, ze seznamu vyřadíme."
+      },
+      "s10": {
+        "heading": "10. Změny",
+        "body": "Tyto podmínky platí ve znění zveřejněném v okamžiku vaší poptávky."
+      },
+      "backToHelp": "Zpět na přehled: když se zaseknete",
+      "privacyLink": "Zásady ochrany osobních údajů"
+    },
+    "inApp": {
+      "stuck": "Zaseklo se to tady?",
+      "idle": {
+        "body": "Váš postup stojí už dva týdny na {done} z {total} kroků. To je normální a obvykle vázne jediné místo. Napište nám které, a řekneme vám, jestli je to něco, co zodpovíme jednou řádkou, nebo práce pro specializovanou firmu.",
+        "cta": "Napište nám, kde váznete"
+      },
+      "dialog": {
+        "line": "Zaseklo se to na něčem? Krátké odborné dotazy jsou zdarma, a je-li potřeba specializovaná firma, doporučíme vám ji bez nákladů pro vás.",
+        "cta": "Najít specialistu"
+      }
+    }
+  }
+}

@@ -37,10 +37,11 @@
         "h3": "Na sua própria infraestrutura, com os seus próprios dados",
         "h4": "Sem contrato, sem chave de ativação, sem conta connosco",
         "h5": "Exporte o seu trabalho de nisd2.eu e continue a operá-lo por si",
-        "h6": "Contacto direto por email e Signal"
+        "h6": "Contacto direto por email e Signal",
+        "h7": "Instalação por nós, se desejar: 500 € sem IVA, pagamento único"
       }
     },
-    "whyFree": "Porque é gratuito: o código-fonte está aberto no GitHub, auditável e pronto a ser executado por si. Cobramos as nossas próprias horas e recebemos uma comissão das empresas especializadas para as quais o encaminhamos. Não a plataforma.",
+    "whyFree": "Porque é gratuito: o código-fonte está aberto no GitHub, auditável e pronto a ser executado por si. Cobramos a instalação em autoalojamento e recebemos uma comissão das empresas especializadas para as quais o encaminhamos. Não a plataforma.",
     "consultantFootnote": "Bloqueado com o NIS 2? As perguntas técnicas curtas não custam nada e, se for preciso uma empresa especializada, indicamos uma sem custos para si.",
     "consultantCta": "Ajuda e encaminhamento"
   }

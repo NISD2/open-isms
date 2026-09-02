@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Jeśli utkniesz przy NIS 2",
+      "description": "Platforma i szkolenie są bezpłatne. Krótkie pytania merytoryczne odpowiadamy bez opłat. Jeśli chcesz hostować u siebie, wdrożymy to za jednorazowe 500 EUR netto. Jeśli potrzebna jest wyspecjalizowana firma, polecimy ją bez kosztów dla Ciebie."
+    },
+    "title": "Jeśli utkniesz przy NIS 2",
+    "intro": "Platforma jest bezpłatna i taka pozostanie. Szkolenie również. Większość firm radzi sobie sama. Jeśli Tobie się nie uda, są dwie drogi, i obie zaczynają się tym samym mailem.",
+    "tier1": {
+      "label": "Poziom 1",
+      "heading": "Robisz to sam. 0 EUR.",
+      "p1": "Sprawdzenie, czy przepisy Cię obejmują, każdy środek wymagany przez artykuł 21 jako pojedynczy krok do przejścia, wgrywanie dowodów, eksport do PDF, ścieżka audytu, oraz szkolenie dla zarządu z zaświadczeniem o uczestnictwie, które artykuł 20 każe móc okazać.",
+      "p2": "Jeśli wolisz prowadzić platformę samodzielnie, kod źródłowy jest na GitHubie na licencji AGPL-3.0. Także bezpłatnie. Bez opłaty licencyjnej, bez limitu użytkowników.",
+      "p3": "Bez limitu czasu, bez karty kredytowej, bez telefonu od handlowca.",
+      "p4": "NIS 2 wdraża każde państwo członkowskie: tekstem, według którego jesteś kontrolowany, jest Twoja ustawa krajowa, a nie dyrektywa. Platforma odsyła najpierw do dyrektywy i pokazuje krajowe odniesienie tam, gdzie istnieje, na przykład §30 BSIG w Niemczech."
+    },
+    "tier2": {
+      "label": "Poziom 2",
+      "heading": "Chcesz prowadzić to sam. My to wdrażamy.",
+      "p1": "Krótkie pytania merytoryczne odpowiadamy mailem, zwykle w ciągu dwóch dni roboczych, bez opłat. Także pytania o hosting własny.",
+      "rate": "500 EUR netto, jednorazowo",
+      "rateNote": "za instalację, nic cyklicznego",
+      "p2": "Hosting własny jest bezpłatny i taki pozostanie: kod źródłowy jest na licencji AGPL-3.0 i nie ma opłaty licencyjnej. Te 500 EUR to nasza praca, żeby uruchomić platformę na Twojej infrastrukturze: baza danych i migracje, magazyn obiektowy na dowody, wysyłka maili transakcyjnych, logowanie, pierwsze wdrożenie oraz przekazanie, od którego Twój zespół sam prowadzi aktualizacje.",
+      "p3": "Jedna płatność, nie abonament. Po przekazaniu instancja należy do Ciebie, bez konta u nas i bez odnawiania. Jeśli wolisz wdrożyć to sam na podstawie dokumentacji, ta droga pozostaje otwarta i nic nie kosztuje."
+    },
+    "tier3": {
+      "label": "Poziom 3",
+      "heading": "Potrzebna jest wyspecjalizowana firma. Kierujemy Cię do niej.",
+      "p1": "Część z tego nie jest naszą pracą i wolimy powiedzieć to, zanim nam zapłacisz, niż potem. Testy penetracyjne i audyty techniczne, certyfikacja ISO 27001, stały zewnętrzny pełnomocnik do spraw bezpieczeństwa, doradztwo prawne, obsługa incydentów, OT i systemy sterowania, wdrożenie na Twojej infrastrukturze.",
+      "p2": "Do tego prowadzimy listę firm, z którymi współpracujemy. Tak to wygląda:",
+      "steps": {
+        "s1": "Napisz nam jedną linijkę o tym, na czym utknąłeś. Albo kliknij „Znajdź specjalistę” w platformie.",
+        "s2": "Wskazujemy jedną do trzech firm i piszemy, dlaczego akurat te. Specjalizacja, region, wolne moce.",
+        "s3": "Decydujesz, czy którąś zaczepisz. Nic o Tobie nie jest przekazywane, dopóki wyraźnie tego nie powiesz.",
+        "s4": "Umowa jest między Tobą a firmą. Nie stoimy pośrodku i niczego nie fakturujemy."
+      },
+      "p3": "Skierowanie nic Cię nie kosztuje. Bez narzutu, bez prowizji po Twojej stronie, bez zobowiązania."
+    },
+    "earn": {
+      "heading": "Na czym zarabiamy",
+      "p1": "Na poziomie 2 na jednorazowej opłacie wdrożeniowej. Na poziomie 3 firma płaci nam 15 procent swojego honorarium netto, jeśli skierowanie zamieni się w zlecenie.",
+      "p2": "Nasi partnerzy zobowiązują się na piśmie, że z tego powodu nie podniosą honorarium. Nie polecamy według wysokości prowizji, a kolejność naszej listy od niej nie zależy.",
+      "p3": "Jeśli wolisz swojego własnego doradcę, jest to całkowicie w porządku, a platformę i tak zachowujesz.",
+      "link": "Przeczytaj warunki polecania"
+    },
+    "notDo": {
+      "heading": "Czego nie robimy",
+      "legal": "Żadnego doradztwa prawnego. Do tego potrzebna jest kancelaria.",
+      "authority": "Żadnej gwarancji, że organ zaakceptuje Twoje wdrożenie. Nikt nie może jej uczciwie dać.",
+      "commission": "Żadnej rekomendacji, której nie wydalibyśmy również bez prowizji."
+    },
+    "contact": {
+      "heading": "Kontakt",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Wystarczy jedna linijka: gdzie utknąłeś, ilu pracowników, jaka branża, jaki kraj.",
+      "cta": "Napisz do nas",
+      "subject": "NIS 2: tutaj utknąłem"
+    },
+    "referral": {
+      "meta": {
+        "title": "Warunki polecania",
+        "description": "Warunki, na jakich polecamy wyspecjalizowane firmy: bezpłatnie dla Ciebie, nasze wynagrodzenie płaci firma, wybór nie odbywa się według prowizji, a nic o Tobie nie jest przekazywane bez Twojej zgody."
+      },
+      "title": "Warunki polecania",
+      "asOf": "Stan na 30 sierpnia 2026",
+      "providerHeading": "Dostawca",
+      "s1": {
+        "heading": "1. Co polecamy",
+        "body": "Na życzenie wskazujemy firmy, które świadczą usługi, jakich sami nie oferujemy. Wskazujemy Ci możliwość, nic więcej. Każda umowa doradcza, o dzieło lub o świadczenie usług dochodzi do skutku wyłącznie między Tobą a firmą."
+      },
+      "s2": {
+        "heading": "2. Bezpłatnie dla Ciebie",
+        "body": "Za polecenie nic nam nie płacisz, ani honorarium, ani narzutu. Nie powstaje z tego żadne zobowiązanie i w żadnym momencie nie musisz zlecać czegokolwiek firmie, którą sugerujemy."
+      },
+      "s3": {
+        "heading": "3. Nasze wynagrodzenie",
+        "body": "Jeśli między Tobą a poleconą firmą dojdzie do zawarcia umowy, firma ta płaci nam prowizję, z reguły 15 procent honorarium netto, które płacisz za poleconą usługę, ograniczoną do pierwszych dwunastu miesięcy zlecenia. Nasi partnerzy zobowiązują się umownie, że z powodu tej prowizji nie podniosą honorarium. W pojedynczych przypadkach obowiązują inne stawki; na życzenie podajemy tę, która dotyczy Twojego."
+      },
+      "s4": {
+        "heading": "4. Jak wybieramy",
+        "body": "Liczą się specjalizacja, doświadczenie branżowe, region, wolne moce oraz opinie z wcześniejszych skierowań. Wysokość prowizji nie jest kryterium wyboru ani kolejności. Z reguły sugerujemy kilka firm i uzasadniamy każdą."
+      },
+      "s5": {
+        "heading": "5. To nie jest pełny obraz rynku",
+        "body": "Nasza lista to wybór firm, z którymi współpracujemy, a nie przegląd rynku. Istnieją odpowiedni dostawcy, których na niej nie ma."
+      },
+      "s6": {
+        "heading": "6. Odpowiedzialność",
+        "body": "Za świadczenie poleconej firmy nie odpowiadamy. Nie jesteśmy winni ani powodzenia polecenia, ani określonej jakości usługi. Za samo polecenie odpowiadamy według przepisów ustawowych w przypadku winy umyślnej i rażącego niedbalstwa oraz za naruszenie życia, ciała lub zdrowia; poza tym, w przypadku naruszenia istotnych obowiązków umownych, w granicach przewidywalnej szkody typowej dla tego rodzaju umowy."
+      },
+      "s7": {
+        "heading": "7. To nie jest usługa prawna",
+        "body": "Nie świadczymy usług prawnych w rozumieniu niemieckiej ustawy o usługach prawnych (Rechtsdienstleistungsgesetz). Nasze wskazówki dotyczące NIS 2 i BSIG nie są doradztwem prawnym i go nie zastępują."
+      },
+      "s8": {
+        "heading": "8. Twoje dane",
+        "body": "Bez Twojej wyraźnej zgody nie przekazujemy firmie żadnych danych osobowych. Jeśli jej udzielisz, przekazujemy imię i nazwisko, firmę, dane kontaktowe oraz opisane przez Ciebie zapytanie. W odniesieniu do tych danych firma jest samodzielnym administratorem. Zgodę możesz w każdej chwili odwołać ze skutkiem na przyszłość, bez formalności, na adres {email}. Szczegóły w naszej polityce prywatności."
+      },
+      "s9": {
+        "heading": "9. Reklamacje",
+        "body": "Jeśli skierowanie wypadnie źle, napisz do nas. Sprawdzamy to i usuwamy z listy firmy, u których zdarza się to wielokrotnie."
+      },
+      "s10": {
+        "heading": "10. Zmiany",
+        "body": "Niniejsze warunki obowiązują w wersji opublikowanej w chwili Twojego zapytania."
+      },
+      "backToHelp": "Powrót do przeglądu: jeśli utkniesz",
+      "privacyLink": "Polityka prywatności"
+    },
+    "inApp": {
+      "stuck": "Utknąłeś w tym miejscu?",
+      "idle": {
+        "body": "Twój postęp od dwóch tygodni stoi na {done} z {total} kroków. To normalne i zwykle blokuje jeden jedyny punkt. Napisz nam który, a powiemy Ci, czy to coś, co odpowiemy w jednej linijce, czy praca dla wyspecjalizowanej firmy.",
+        "cta": "Napisz nam, gdzie utknąłeś"
+      },
+      "dialog": {
+        "line": "Utknąłeś na czymś? Krótkie pytania merytoryczne są bezpłatne, a jeśli potrzebna jest wyspecjalizowana firma, polecimy ją bez kosztów dla Ciebie.",
+        "cta": "Znajdź specjalistę"
+      }
+    }
+  }
+}

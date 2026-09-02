@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Si vous êtes bloqué avec NIS 2",
+      "description": "La plateforme et la formation sont gratuites. Les questions techniques courtes sont traitées sans frais. Si vous voulez héberger vous-même, nous réalisons l'installation pour 500 EUR HT, en paiement unique. S'il faut une entreprise spécialisée, nous vous en recommandons une, sans frais pour vous."
+    },
+    "title": "Si vous êtes bloqué avec NIS 2",
+    "intro": "La plateforme est gratuite et le reste. La formation aussi. La plupart des entreprises y arrivent seules. Si ce n'est pas votre cas, il existe deux voies, et toutes deux commencent par le même e-mail.",
+    "tier1": {
+      "label": "Niveau 1",
+      "heading": "Vous le faites vous-même. 0 EUR.",
+      "p1": "Un test d'applicabilité, chaque mesure exigée par l'article 21 sous forme d'étape à parcourir, le dépôt de preuves, l'export PDF, une piste d'audit, et la formation pour la direction avec une attestation de participation que l'article 20 vous demande de pouvoir présenter.",
+      "p2": "Si vous préférez exploiter la plateforme vous-même, le code source est sur GitHub sous AGPL-3.0. Gratuit également. Pas de redevance de licence, pas de limite d'utilisateurs.",
+      "p3": "Pas de limite de durée, pas de carte bancaire, personne du service commercial ne vous appelle.",
+      "p4": "NIS 2 est transposée par chaque État membre : le texte sur lequel vous êtes contrôlé est votre loi nationale, pas la directive. La plateforme renvoie d'abord à la directive et indique la référence nationale lorsqu'elle existe, par exemple le §30 BSIG en Allemagne."
+    },
+    "tier2": {
+      "label": "Niveau 2",
+      "heading": "Vous voulez l'exploiter vous-même. Nous l'installons.",
+      "p1": "Les questions techniques courtes reçoivent une réponse par e-mail, en général sous deux jours ouvrés, sans frais. Y compris les questions sur l'auto-hébergement.",
+      "rate": "500 EUR HT, paiement unique",
+      "rateNote": "par installation, rien de récurrent",
+      "p2": "L'auto-hébergement est gratuit et le reste : le code source est sous AGPL-3.0 et aucune redevance de licence n'est due. Les 500 EUR correspondent à notre travail pour faire fonctionner la plateforme sur votre infrastructure : base de données et migrations, stockage objet pour les preuves, envoi d'e-mails transactionnels, authentification, le premier déploiement, et une remise à partir de laquelle votre équipe assure les mises à jour.",
+      "p3": "Un paiement, pas un abonnement. Après la remise, l'instance vous appartient, sans compte chez nous et sans renouvellement. Si vous préférez l'installer vous-même à partir de la documentation, cette voie reste ouverte et ne coûte rien."
+    },
+    "tier3": {
+      "label": "Niveau 3",
+      "heading": "Il faut une entreprise spécialisée. Nous vous orientons.",
+      "p1": "Une partie de tout cela n'est pas notre métier, et nous préférons le dire avant que vous nous payiez plutôt qu'après. Tests d'intrusion et audits techniques, certification ISO 27001, un responsable de la sécurité externe permanent, conseil juridique, réponse à incident, OT et systèmes de contrôle industriel, mise en œuvre sur votre infrastructure.",
+      "p2": "Pour cela, nous tenons une liste d'entreprises avec lesquelles nous travaillons. Voici comment cela se passe :",
+      "steps": {
+        "s1": "Envoyez-nous une ligne sur ce qui vous bloque. Ou cliquez sur « Trouver un spécialiste » dans la plateforme.",
+        "s2": "Nous vous citons une à trois entreprises et indiquons pourquoi celles-là. Domaine, région, capacité disponible.",
+        "s3": "Vous décidez si vous en contactez une. Rien vous concernant n'est transmis tant que vous ne l'avez pas dit expressément.",
+        "s4": "Le contrat lie vous et l'entreprise. Nous ne sommes pas entre les deux et nous ne facturons rien."
+      },
+      "p3": "La recommandation ne vous coûte rien. Pas de majoration, pas de frais d'apport, pas d'engagement."
+    },
+    "earn": {
+      "heading": "Comment nous gagnons notre vie",
+      "p1": "Au niveau 2, avec le forfait d'installation unique. Au niveau 3, l'entreprise nous verse 15 pour cent de ses honoraires nets si la recommandation débouche sur une mission.",
+      "p2": "Nos partenaires s'engagent par écrit à ne pas augmenter leurs honoraires pour autant. Nous ne recommandons pas selon le montant de la commission, et l'ordre de notre liste n'en dépend pas.",
+      "p3": "Si vous préférez faire appel à votre propre consultant, c'est parfaitement en ordre, et vous gardez la plateforme dans tous les cas.",
+      "link": "Lire les conditions de recommandation"
+    },
+    "notDo": {
+      "heading": "Ce que nous ne faisons pas",
+      "legal": "Pas de conseil juridique. Pour cela, il vous faut un cabinet d'avocats.",
+      "authority": "Aucune garantie qu'une autorité acceptera votre mise en œuvre. Personne ne peut honnêtement vous la donner.",
+      "commission": "Aucune recommandation que nous ne ferions pas également sans commission."
+    },
+    "contact": {
+      "heading": "Contact",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Une ligne suffit : où vous bloquez, combien de salariés, quel secteur, quel pays.",
+      "cta": "Écrivez-nous",
+      "subject": "NIS 2 : voilà où je bloque"
+    },
+    "referral": {
+      "meta": {
+        "title": "Conditions de recommandation",
+        "description": "Les conditions dans lesquelles nous recommandons des entreprises spécialisées : gratuit pour vous, notre rémunération est payée par l'entreprise, la sélection ne se fait pas selon la commission, et rien vous concernant n'est transmis sans votre consentement."
+      },
+      "title": "Conditions de recommandation",
+      "asOf": "Version du 30 août 2026",
+      "providerHeading": "Éditeur",
+      "s1": {
+        "heading": "1. Ce que nous recommandons",
+        "body": "Sur demande, nous citons des entreprises qui fournissent des prestations que nous n'offrons pas nous-mêmes. Nous vous indiquons l'opportunité, rien de plus. Tout contrat de conseil, de travail ou de service se forme uniquement entre vous et l'entreprise."
+      },
+      "s2": {
+        "heading": "2. Gratuit pour vous",
+        "body": "Vous ne nous payez rien pour la recommandation, ni honoraires ni majoration. Aucune obligation n'en naît, et vous n'êtes à aucun moment tenu de mandater une entreprise que nous suggérons."
+      },
+      "s3": {
+        "heading": "3. Notre rémunération",
+        "body": "Si un contrat se forme entre vous et une entreprise recommandée, cette entreprise nous verse une commission, en règle générale de 15 pour cent des honoraires nets que vous payez pour la prestation recommandée, limitée aux douze premiers mois de la mission. Nos partenaires s'engagent contractuellement à ne pas augmenter leurs honoraires en raison de cette commission. Des taux différents s'appliquent dans certains cas ; sur demande, nous vous indiquons celui qui s'applique au vôtre."
+      },
+      "s4": {
+        "heading": "4. Comment nous sélectionnons",
+        "body": "Ce qui compte, c'est le domaine d'expertise, l'expérience sectorielle, la région, la capacité disponible et les retours des recommandations précédentes. Le montant de la commission n'est ni un critère de sélection ni un critère de classement. Nous suggérons en règle générale plusieurs entreprises et motivons chacune."
+      },
+      "s5": {
+        "heading": "5. Pas une vue complète du marché",
+        "body": "Notre liste est une sélection d'entreprises avec lesquelles nous travaillons, pas un panorama du marché. Il existe des prestataires adaptés qui n'y figurent pas."
+      },
+      "s6": {
+        "heading": "6. Responsabilité",
+        "body": "Nous ne répondons pas de la prestation de l'entreprise recommandée. Nous ne devons ni le succès d'une recommandation ni une qualité déterminée de la prestation. Pour la recommandation elle-même, nous répondons selon les règles légales en cas de dol et de faute lourde ainsi qu'en cas d'atteinte à la vie, à l'intégrité physique ou à la santé ; pour le reste, en cas de manquement à des obligations contractuelles essentielles, dans la limite du dommage prévisible et typique de ce type de contrat."
+      },
+      "s7": {
+        "heading": "7. Pas une prestation juridique",
+        "body": "Nous ne fournissons pas de prestation juridique au sens de la loi allemande sur les services juridiques (Rechtsdienstleistungsgesetz). Nos indications sur NIS 2 et le BSIG ne constituent pas un conseil juridique et ne le remplacent pas."
+      },
+      "s8": {
+        "heading": "8. Vos données",
+        "body": "Sans votre consentement explicite, nous ne transmettons aucune donnée à caractère personnel à une entreprise. Si vous le donnez, nous transmettons le nom, l'entreprise, les coordonnées et la demande que vous avez décrite. L'entreprise est responsable du traitement de manière autonome pour ces données. Vous pouvez retirer votre consentement à tout moment pour l'avenir, sans formalité, à {email}. Les détails figurent dans notre politique de confidentialité."
+      },
+      "s9": {
+        "heading": "9. Réclamations",
+        "body": "Si une recommandation se passe mal, écrivez-nous. Nous y donnons suite et retirons de la liste les entreprises pour lesquelles cela se répète."
+      },
+      "s10": {
+        "heading": "10. Modifications",
+        "body": "Ces conditions s'appliquent dans la version publiée au moment de votre demande."
+      },
+      "backToHelp": "Retour à la vue d'ensemble : si vous êtes bloqué",
+      "privacyLink": "Politique de confidentialité"
+    },
+    "inApp": {
+      "stuck": "Bloqué ici ?",
+      "idle": {
+        "body": "Votre progression est à {done} sur {total} étapes depuis deux semaines. C'est normal, et c'est en général un seul point qui bloque. Dites-nous lequel, et nous vous dirons si c'est quelque chose auquel nous pouvons répondre en une ligne ou un travail pour une entreprise spécialisée.",
+        "cta": "Dites-nous où vous bloquez"
+      },
+      "dialog": {
+        "line": "Bloqué sur quelque chose ? Les questions techniques courtes sont gratuites, et s'il faut une entreprise spécialisée, nous vous en recommandons une, sans frais pour vous.",
+        "cta": "Trouver un spécialiste"
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "help": {
     "meta": {
       "title": "Als u vastloopt bij NIS 2",
-      "description": "Het platform en de cursus zijn gratis. Korte vakinhoudelijke vragen beantwoorden wij kosteloos. Wordt het echt werk, dan kost onze tijd 120 EUR netto per uur. Is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u."
+      "description": "Het platform en de cursus zijn gratis. Korte vakinhoudelijke vragen beantwoorden wij kosteloos. Wilt u zelf draaien, dan zetten wij het op voor eenmalig 500 EUR netto. Is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u."
     },
     "title": "Als u vastloopt bij NIS 2",
     "intro": "Het platform is gratis en blijft gratis. De cursus ook. De meeste bedrijven komen er zelf doorheen. Lukt dat niet, dan zijn er twee wegen, en beide beginnen met dezelfde mail.",
@@ -16,12 +16,12 @@
     },
     "tier2": {
       "label": "Niveau 2",
-      "heading": "U loopt ergens vast. Wij helpen zelf.",
-      "p1": "Korte vakinhoudelijke vragen beantwoorden wij per mail, meestal binnen twee werkdagen, kosteloos.",
-      "rate": "120 EUR netto per uur",
-      "rateNote": "afgerekend per half uur",
-      "p2": "Wordt het echt werk, dan kost onze tijd 120 EUR netto per uur, afgerekend per half uur. Eén tarief voor alles wat van ons komt: het uitleggen van een concrete eis voor een bedrijf van uw omvang, zelfclassificatie, het maatregelenplan, bewijs dat een inspectie doorstaat, een sessie met uw directie over haar eigen plichten onder artikel 20, of hulp om het platform op uw eigen infrastructuur draaiend te krijgen.",
-      "p3": "U geeft vooraf het aantal uren vrij, en u krijgt een gespecificeerd overzicht waaraan ze zijn opgegaan. Geen minimumlooptijd, geen abonnement, geen opzegtermijn."
+      "heading": "U wilt het zelf draaien. Wij zetten het op.",
+      "p1": "Korte vakinhoudelijke vragen beantwoorden wij per mail, meestal binnen twee werkdagen, kosteloos. Ook vragen over eigen beheer.",
+      "rate": "500 EUR netto, eenmalig",
+      "rateNote": "per installatie, niets terugkerends",
+      "p2": "Eigen beheer is en blijft gratis: de broncode staat onder AGPL-3.0 en er zijn geen licentiekosten. De 500 EUR is ons werk om het platform op uw infrastructuur draaiend te krijgen: database en migraties, objectopslag voor bewijs, mailverzending, aanmelding, de eerste deployment, en een overdracht waarmee uw eigen team het daarna bijwerkt.",
+      "p3": "Eén betaling, geen abonnement. Na de overdracht is de installatie van u, zonder account bij ons en zonder verlenging. Zet u het liever zelf op aan de hand van de documentatie, dan blijft die weg open en kost hij niets."
     },
     "tier3": {
       "label": "Niveau 3",
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Waaraan wij verdienen",
-      "p1": "Bij niveau 2 aan onze eigen uren. Bij niveau 3 betaalt het bedrijf ons 15 procent van zijn nettohonorarium als de doorverwijzing tot een opdracht leidt.",
+      "p1": "Bij niveau 2 aan het eenmalige installatietarief. Bij niveau 3 betaalt het bedrijf ons 15 procent van zijn nettohonorarium als de doorverwijzing tot een opdracht leidt.",
       "p2": "Onze partners leggen schriftelijk vast hun honorarium daarom niet te verhogen. Wij adviseren niet op provisiehoogte, en de volgorde van onze lijst hangt er niet van af.",
       "p3": "Gebruikt u liever uw eigen adviseur, dan is dat volledig in orde, en u houdt het platform hoe dan ook.",
       "link": "Bemiddelingsvoorwaarden lezen"
@@ -110,7 +110,7 @@
     "inApp": {
       "stuck": "Loopt u hier vast?",
       "idle": {
-        "body": "Uw voortgang staat al twee weken op {done} van {total} stappen. Dat is normaal, en meestal is het één enkel punt dat blokkeert. Vertel ons welk punt, dan zeggen wij u of het een half uur met ons is of werk voor een gespecialiseerd bedrijf.",
+        "body": "Uw voortgang staat al twee weken op {done} van {total} stappen. Dat is normaal, en meestal is het één enkel punt dat blokkeert. Vertel ons welk punt, dan zeggen wij u of wij het kort kunnen beantwoorden of dat het werk is voor een gespecialiseerd bedrijf.",
         "cta": "Vertel ons waar u vastloopt"
       },
       "dialog": {

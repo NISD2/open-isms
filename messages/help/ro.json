@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Dacă vă blocați la NIS 2",
+      "description": "Platforma și cursul sunt gratuite. Întrebările tehnice scurte primesc răspuns fără costuri. Dacă vreți să o găzduiți singuri, o instalăm noi pentru 500 EUR fără TVA, o singură dată. Dacă e nevoie de o firmă specializată, vă recomandăm una fără costuri pentru dumneavoastră."
+    },
+    "title": "Dacă vă blocați la NIS 2",
+    "intro": "Platforma este gratuită și rămâne gratuită. Cursul la fel. Majoritatea companiilor se descurcă singure. Dacă nu reușiți, există două căi, și amândouă încep cu același e-mail.",
+    "tier1": {
+      "label": "Nivelul 1",
+      "heading": "O faceți singuri. 0 EUR.",
+      "p1": "O verificare a aplicabilității, fiecare măsură cerută de articolul 21 ca pas separat pe care îl puteți parcurge, încărcarea dovezilor, exportul PDF, o pistă de audit și cursul pentru conducere cu certificatul de participare pe care articolul 20 vă cere să îl puteți prezenta.",
+      "p2": "Dacă preferați să rulați platforma singuri, codul sursă este pe GitHub sub AGPL-3.0. Tot gratuit. Fără taxă de licență, fără limită de utilizatori.",
+      "p3": "Fără limită de timp, fără card bancar, fără să vă sune cineva din vânzări.",
+      "p4": "NIS 2 este transpusă de fiecare stat membru: textul după care sunteți controlat este legea dumneavoastră națională, nu directiva. Platforma trimite mai întâi la directivă și arată referința națională acolo unde există, de exemplu §30 BSIG în Germania."
+    },
+    "tier2": {
+      "label": "Nivelul 2",
+      "heading": "Vreți să o rulați singuri. Noi o instalăm.",
+      "p1": "Întrebările tehnice scurte primesc răspuns pe e-mail, de regulă în două zile lucrătoare, fără costuri. Inclusiv întrebările despre auto-găzduire.",
+      "rate": "500 EUR fără TVA, o singură dată",
+      "rateNote": "pe instalare, nimic recurent",
+      "p2": "Auto-găzduirea este gratuită și rămâne gratuită: codul sursă este sub AGPL-3.0 și nu se datorează nicio taxă de licență. Cei 500 EUR sunt munca noastră de a pune platforma să funcționeze pe infrastructura dumneavoastră: baza de date și migrările, stocarea de obiecte pentru dovezi, trimiterea e-mailurilor tranzacționale, autentificarea, prima instalare și o predare de la care echipa dumneavoastră continuă actualizările.",
+      "p3": "O plată, nu un abonament. După predare instanța este a dumneavoastră, fără cont la noi și fără reînnoiri. Dacă preferați să o instalați singuri după documentație, calea aceea rămâne deschisă și nu costă nimic."
+    },
+    "tier3": {
+      "label": "Nivelul 3",
+      "heading": "E nevoie de o firmă specializată. Vă îndrumăm.",
+      "p1": "O parte din toate acestea nu este munca noastră și preferăm să o spunem înainte să ne plătiți, nu după. Teste de penetrare și audituri tehnice, certificare ISO 27001, un responsabil de securitate extern permanent, consultanță juridică, răspuns la incidente, OT și sisteme de control industrial, implementarea pe infrastructura dumneavoastră.",
+      "p2": "Pentru asta ținem o listă de firme cu care lucrăm. Așa decurge:",
+      "steps": {
+        "s1": "Scrieți-ne un rând despre unde v-ați blocat. Sau apăsați „Găsește un specialist” în platformă.",
+        "s2": "Vă indicăm una până la trei firme și scriem de ce tocmai acelea. Domeniu, regiune, capacitate liberă.",
+        "s3": "Dumneavoastră decideți dacă abordați vreuna. Nimic despre dumneavoastră nu este transmis până nu spuneți expres.",
+        "s4": "Contractul este între dumneavoastră și firmă. Noi nu stăm la mijloc și nu facturăm nimic."
+      },
+      "p3": "Recomandarea nu vă costă nimic. Fără adaos, fără comision în sarcina dumneavoastră, fără obligație."
+    },
+    "earn": {
+      "heading": "Din ce câștigăm",
+      "p1": "La nivelul 2, din taxa unică de instalare. La nivelul 3, firma ne plătește 15 la sută din onorariul său net dacă recomandarea se transformă într-o colaborare.",
+      "p2": "Partenerii noștri se angajează în scris să nu își majoreze onorariul din acest motiv. Nu recomandăm după mărimea comisionului, iar ordinea listei noastre nu depinde de el.",
+      "p3": "Dacă preferați propriul consultant, este perfect în regulă, și păstrați platforma oricum.",
+      "link": "Citiți condițiile de recomandare"
+    },
+    "notDo": {
+      "heading": "Ce nu facem",
+      "legal": "Fără consultanță juridică. Pentru asta vă trebuie o casă de avocatură.",
+      "authority": "Nicio garanție că o autoritate va accepta implementarea dumneavoastră. Nimeni nu v-o poate da onest.",
+      "commission": "Nicio recomandare pe care nu am face-o și fără comision."
+    },
+    "contact": {
+      "heading": "Contact",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Un rând este de ajuns: unde v-ați blocat, câți angajați, ce sector, ce țară.",
+      "cta": "Scrieți-ne",
+      "subject": "NIS 2: aici m-am blocat"
+    },
+    "referral": {
+      "meta": {
+        "title": "Condiții de recomandare",
+        "description": "Condițiile în care recomandăm firme specializate: gratuit pentru dumneavoastră, remunerația noastră este plătită de firmă, selecția nu se face după comision, iar nimic despre dumneavoastră nu este transmis fără consimțământ."
+      },
+      "title": "Condiții de recomandare",
+      "asOf": "Versiunea din 30 august 2026",
+      "providerHeading": "Furnizor",
+      "s1": {
+        "heading": "1. Ce recomandăm",
+        "body": "La cerere indicăm firme care prestează servicii pe care noi înșine nu le oferim. Vă arătăm oportunitatea, nimic mai mult. Orice contract de consultanță, de execuție sau de prestări servicii se încheie exclusiv între dumneavoastră și firmă."
+      },
+      "s2": {
+        "heading": "2. Gratuit pentru dumneavoastră",
+        "body": "Pentru recomandare nu ne plătiți nimic, nici onorariu, nici adaos. Din ea nu se naște nicio obligație și în niciun moment nu sunteți ținut să contractați o firmă pe care v-o sugerăm."
+      },
+      "s3": {
+        "heading": "3. Remunerația noastră",
+        "body": "Dacă între dumneavoastră și o firmă recomandată se încheie un contract, acea firmă ne plătește un comision, de regulă 15 la sută din onorariul net pe care îl plătiți pentru serviciul recomandat, limitat la primele douăsprezece luni ale colaborării. Partenerii noștri se angajează contractual să nu își majoreze onorariul din cauza acestui comision. În cazuri individuale se aplică cote diferite; la cerere vă comunicăm cota care se aplică în cazul dumneavoastră."
+      },
+      "s4": {
+        "heading": "4. Cum selectăm",
+        "body": "Contează domeniul de specialitate, experiența în sector, regiunea, capacitatea liberă și reacțiile de la recomandări anterioare. Mărimea comisionului nu este criteriu de selecție sau de ordonare. De regulă sugerăm mai multe firme și motivăm fiecare alegere."
+      },
+      "s5": {
+        "heading": "5. Nu este o imagine completă a pieței",
+        "body": "Lista noastră este o selecție de firme cu care lucrăm, nu o privire de ansamblu asupra pieței. Există furnizori potriviți care nu figurează pe ea."
+      },
+      "s6": {
+        "heading": "6. Răspundere",
+        "body": "Nu răspundem pentru prestația firmei recomandate. Nu datorăm nici succesul unei recomandări, nici o anumită calitate a serviciului. Pentru recomandarea în sine răspundem potrivit dispozițiilor legale în caz de intenție și culpă gravă, precum și pentru vătămarea vieții, corpului sau sănătății; în rest, în caz de încălcare a unor obligații contractuale esențiale, limitat la prejudiciul previzibil și tipic pentru acest tip de contract."
+      },
+      "s7": {
+        "heading": "7. Nu este un serviciu juridic",
+        "body": "Nu prestăm servicii juridice în sensul legii germane privind serviciile juridice (Rechtsdienstleistungsgesetz). Indicațiile noastre privind NIS 2 și BSIG nu sunt consultanță juridică și nu o înlocuiesc."
+      },
+      "s8": {
+        "heading": "8. Datele dumneavoastră",
+        "body": "Fără consimțământul dumneavoastră expres nu transmitem date cu caracter personal către nicio firmă. Dacă îl acordați, transmitem numele, compania, datele de contact și solicitarea pe care ați descris-o. Pentru aceste date firma este operator independent. Puteți retrage consimțământul oricând, cu efect pentru viitor, informal la {email}. Detaliile se află în politica noastră de confidențialitate."
+      },
+      "s9": {
+        "heading": "9. Reclamații",
+        "body": "Dacă o recomandare merge prost, scrieți-ne. Urmărim cazul și scoatem de pe listă firmele la care se repetă."
+      },
+      "s10": {
+        "heading": "10. Modificări",
+        "body": "Aceste condiții se aplică în versiunea publicată la momentul solicitării dumneavoastră."
+      },
+      "backToHelp": "Înapoi la prezentare: dacă vă blocați",
+      "privacyLink": "Politica de confidențialitate"
+    },
+    "inApp": {
+      "stuck": "V-ați blocat aici?",
+      "idle": {
+        "body": "Progresul dumneavoastră stă de două săptămâni la {done} din {total} pași. Este normal și de obicei un singur punct blochează. Spuneți-ne care, și vă spunem dacă este ceva la care putem răspunde într-un rând sau o treabă pentru o firmă specializată.",
+        "cta": "Spuneți-ne unde v-ați blocat"
+      },
+      "dialog": {
+        "line": "V-ați blocat la ceva? Întrebările tehnice scurte sunt gratuite, iar dacă e nevoie de o firmă specializată, vă recomandăm una fără costuri pentru dumneavoastră.",
+        "cta": "Găsește un specialist"
+      }
+    }
+  }
+}

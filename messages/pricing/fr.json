@@ -37,10 +37,11 @@
         "h3": "Sur votre propre infrastructure, avec vos propres données",
         "h4": "Pas de contrat, pas de clé d'activation, pas de compte chez nous",
         "h5": "Exportez votre travail depuis nisd2.eu et continuez à l'exploiter vous-même",
-        "h6": "Contact direct par e-mail et Signal"
+        "h6": "Contact direct par e-mail et Signal",
+        "h7": "Installation par nos soins si vous le souhaitez : 500 € HT, paiement unique"
       }
     },
-    "whyFree": "Pourquoi gratuit : le code source est ouvert sur GitHub, vérifiable et exploitable par vos soins. Nous facturons nos propres heures et percevons une commission des entreprises spécialisées vers lesquelles nous vous orientons. Pas la plateforme.",
+    "whyFree": "Pourquoi gratuit : le code source est ouvert sur GitHub, vérifiable et exploitable par vos soins. Nous facturons l'installation en auto-hébergement et percevons une commission des entreprises spécialisées vers lesquelles nous vous orientons. Pas la plateforme.",
     "consultantFootnote": "Bloqué avec NIS 2 ? Les questions techniques courtes ne coûtent rien, et s'il faut une entreprise spécialisée, nous vous en recommandons une, sans frais pour vous.",
     "consultantCta": "Aide et recommandation"
   }

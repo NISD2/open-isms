@@ -2,7 +2,7 @@
   "help": {
     "meta": {
       "title": "If you get stuck with NIS 2",
-      "description": "The platform and the course are free. Short technical questions are answered at no charge. When it turns into real work, our time costs 120 EUR net per hour. If it needs a specialist firm, we refer you to one at no cost to you."
+      "description": "The platform and the course are free. Short technical questions are answered at no charge. If you want to self-host, we set it up for a one-time 500 EUR net. If it needs a specialist firm, we refer you to one at no cost to you."
     },
     "title": "If you get stuck with NIS 2",
     "intro": "The platform is free and stays free. So does the course. Most companies get through on their own. If you do not, there are two routes, and both start with the same email.",
@@ -16,12 +16,12 @@
     },
     "tier2": {
       "label": "Level 2",
-      "heading": "You get stuck on something. We help directly.",
-      "p1": "Short technical questions get answered by email, usually within two working days, at no charge.",
-      "rate": "120 EUR net per hour",
-      "rateNote": "billed in half hours",
-      "p2": "When it turns into real work, our time costs 120 EUR net per hour, billed in half hours. One rate for everything that comes from us: interpreting a specific requirement for a company your size, self-classification, the measures plan, evidence that survives an inspection, a session with your management on their own duties under Article 20, or help getting the platform running on your own infrastructure.",
-      "p3": "You approve the number of hours before we start, and you get an itemised account of where they went. No minimum term, no subscription, no notice period."
+      "heading": "You want to run it yourself. We set it up.",
+      "p1": "Short technical questions get answered by email, usually within two working days, at no charge. Questions about self-hosting included.",
+      "rate": "500 EUR net, one-time",
+      "rateNote": "per installation, nothing recurring",
+      "p2": "Self-hosting is free and stays free: the source is under AGPL-3.0 and there is no licence fee. The 500 EUR is our work getting the platform running on your infrastructure: database and migrations, object storage for evidence, transactional email, sign-in, the first deployment, and a handover your own team can keep updating from.",
+      "p3": "One payment, not a subscription. After the handover the instance is yours, with no account with us and nothing to renew. If you would rather set it up yourself from the documentation, that route stays open and costs nothing."
     },
     "tier3": {
       "label": "Level 3",
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "How we earn",
-      "p1": "Level 2 is our own hours. On level 3 the firm pays us 15 percent of its net fee if the referral turns into an engagement.",
+      "p1": "Level 2 is the one-time setup fee. On level 3 the firm pays us 15 percent of its net fee if the referral turns into an engagement.",
       "p2": "Our partners commit in writing not to raise their fee because of it. We do not recommend by commission, and the order of our list does not depend on it.",
       "p3": "If you would rather use your own consultant, that is completely fine, and you keep the platform either way.",
       "link": "Read the referral terms"
@@ -110,7 +110,7 @@
     "inApp": {
       "stuck": "Stuck here?",
       "idle": {
-        "body": "Your progress has been at {done} of {total} steps for two weeks. That is normal, and it is usually one single point that blocks it. Tell us which one, and we will tell you whether it is half an hour with us or a job for a specialist firm.",
+        "body": "Your progress has been at {done} of {total} steps for two weeks. That is normal, and it is usually one single point that blocks it. Tell us which one, and we will tell you whether it is something we can answer in a line or a job for a specialist firm.",
         "cta": "Tell us where you are stuck"
       },
       "dialog": {

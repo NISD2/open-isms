@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Check } from "lucide-react";
 
 const freeKeys = ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10"] as const;
-const selfHostKeys = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
+const selfHostKeys = ["h1", "h2", "h3", "h4", "h5", "h6", "h7"] as const;
 
 export function PricingCards() {
   const t = useTranslations("pricing");

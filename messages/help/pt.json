@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Se ficar bloqueado com a NIS 2",
+      "description": "A plataforma e o curso são gratuitos. As perguntas técnicas curtas são respondidas sem custos. Se quiser alojá-la por si, tratamos da instalação por 500 EUR sem IVA, em pagamento único. Se for preciso uma empresa especializada, indicamos uma sem custos para si."
+    },
+    "title": "Se ficar bloqueado com a NIS 2",
+    "intro": "A plataforma é gratuita e continua a sê-lo. O curso também. A maioria das empresas consegue sozinha. Se não for o seu caso, há dois caminhos, e ambos começam com o mesmo email.",
+    "tier1": {
+      "label": "Nível 1",
+      "heading": "Faz por si. 0 EUR.",
+      "p1": "Uma verificação de aplicabilidade, cada medida exigida pelo artigo 21 como um passo que pode percorrer, o carregamento de provas, a exportação em PDF, um registo de auditoria, e o curso para a direção com o certificado de participação que o artigo 20 lhe pede para poder mostrar.",
+      "p2": "Se preferir operar a plataforma por si, o código-fonte está no GitHub sob AGPL-3.0. Também gratuito. Sem taxa de licença, sem limite de utilizadores.",
+      "p3": "Sem limite de tempo, sem cartão de crédito, sem ninguém das vendas a ligar-lhe.",
+      "p4": "A NIS 2 é transposta por cada Estado-Membro: o texto pelo qual é fiscalizado é a sua lei nacional, não a diretiva. A plataforma remete primeiro para a diretiva e mostra a referência nacional onde existe, por exemplo o §30 BSIG na Alemanha."
+    },
+    "tier2": {
+      "label": "Nível 2",
+      "heading": "Quer operá-la por si. Nós instalamos.",
+      "p1": "As perguntas técnicas curtas são respondidas por email, normalmente em dois dias úteis, sem custos. Incluindo perguntas sobre autoalojamento.",
+      "rate": "500 EUR sem IVA, pagamento único",
+      "rateNote": "por instalação, nada recorrente",
+      "p2": "O autoalojamento é gratuito e continua a sê-lo: o código-fonte está sob AGPL-3.0 e não é devida qualquer taxa de licença. Os 500 EUR são o nosso trabalho para pôr a plataforma a funcionar na sua infraestrutura: base de dados e migrações, armazenamento de objetos para as provas, envio de email transacional, autenticação, a primeira implementação, e uma entrega a partir da qual a sua equipa mantém as atualizações.",
+      "p3": "Um pagamento, não uma subscrição. Depois da entrega a instância é sua, sem conta connosco e sem renovações. Se preferir instalá-la por si a partir da documentação, esse caminho continua aberto e não custa nada."
+    },
+    "tier3": {
+      "label": "Nível 3",
+      "heading": "É preciso uma empresa especializada. Nós encaminhamos.",
+      "p1": "Parte disto não é o nosso trabalho, e preferimos dizê-lo antes de nos pagar do que depois. Testes de intrusão e auditorias técnicas, certificação ISO 27001, um responsável de segurança externo permanente, aconselhamento jurídico, resposta a incidentes, OT e sistemas de controlo industrial, implementação na sua infraestrutura.",
+      "p2": "Para isso mantemos uma lista de empresas com que trabalhamos. É assim que funciona:",
+      "steps": {
+        "s1": "Escreva-nos uma linha sobre onde ficou bloqueado. Ou clique em «Encontrar um especialista» dentro da plataforma.",
+        "s2": "Indicamos uma a três empresas e escrevemos porquê essas. Área de especialidade, região, capacidade disponível.",
+        "s3": "Decide se aborda alguma delas. Nada sobre si é transmitido enquanto não o disser expressamente.",
+        "s4": "O contrato é entre si e a empresa. Não estamos pelo meio e não faturamos nada."
+      },
+      "p3": "O encaminhamento não lhe custa nada. Sem margem, sem comissão a seu cargo, sem compromisso."
+    },
+    "earn": {
+      "heading": "Como ganhamos dinheiro",
+      "p1": "No nível 2, com a taxa única de instalação. No nível 3, a empresa paga-nos 15 por cento dos seus honorários líquidos se o encaminhamento se converter num trabalho.",
+      "p2": "Os nossos parceiros comprometem-se por escrito a não aumentar os honorários por causa disso. Não recomendamos pelo valor da comissão, e a ordem da nossa lista não depende dele.",
+      "p3": "Se preferir recorrer ao seu próprio consultor, está perfeitamente bem, e fica com a plataforma de qualquer modo.",
+      "link": "Ler as condições de encaminhamento"
+    },
+    "notDo": {
+      "heading": "O que não fazemos",
+      "legal": "Sem aconselhamento jurídico. Para isso precisa de uma sociedade de advogados.",
+      "authority": "Nenhuma garantia de que uma autoridade aceite a sua implementação. Ninguém lha pode dar honestamente.",
+      "commission": "Nenhuma recomendação que não fizéssemos também sem comissão."
+    },
+    "contact": {
+      "heading": "Contacto",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Basta uma linha: onde ficou bloqueado, quantos colaboradores, que setor, que país.",
+      "cta": "Escreva-nos",
+      "subject": "NIS 2: é aqui que fico bloqueado"
+    },
+    "referral": {
+      "meta": {
+        "title": "Condições de encaminhamento",
+        "description": "As condições em que encaminhamos para empresas especializadas: gratuito para si, a nossa remuneração é paga pela empresa, a seleção não é feita por comissão, e nada sobre si é transmitido sem o seu consentimento."
+      },
+      "title": "Condições de encaminhamento",
+      "asOf": "Versão de 30 de agosto de 2026",
+      "providerHeading": "Prestador",
+      "s1": {
+        "heading": "1. O que encaminhamos",
+        "body": "A pedido, indicamos empresas que prestam serviços que nós próprios não oferecemos. Indicamos-lhe a oportunidade, nada mais. Qualquer contrato de consultoria, de empreitada ou de prestação de serviços é celebrado exclusivamente entre si e a empresa."
+      },
+      "s2": {
+        "heading": "2. Gratuito para si",
+        "body": "Não nos paga nada pelo encaminhamento, nem honorários nem margem. Daí não nasce qualquer obrigação, e em momento algum é obrigado a contratar uma empresa que lhe sugerimos."
+      },
+      "s3": {
+        "heading": "3. A nossa remuneração",
+        "body": "Se for celebrado um contrato entre si e uma empresa encaminhada, essa empresa paga-nos uma comissão, em regra de 15 por cento dos honorários líquidos que pagar pelo serviço encaminhado, limitada aos primeiros doze meses do trabalho. Os nossos parceiros comprometem-se contratualmente a não aumentar os honorários por causa desta comissão. Em casos concretos aplicam-se percentagens diferentes; a pedido, indicamos-lhe a que se aplica ao seu."
+      },
+      "s4": {
+        "heading": "4. Como selecionamos",
+        "body": "Contam a área de especialidade, a experiência no setor, a região, a capacidade disponível e o retorno de encaminhamentos anteriores. O valor da comissão não é critério de seleção nem de ordenação. Em regra sugerimos várias empresas e fundamentamos cada uma."
+      },
+      "s5": {
+        "heading": "5. Não é uma visão completa do mercado",
+        "body": "A nossa lista é uma seleção de empresas com que trabalhamos, não um panorama do mercado. Existem prestadores adequados que dela não constam."
+      },
+      "s6": {
+        "heading": "6. Responsabilidade",
+        "body": "Não respondemos pela prestação da empresa encaminhada. Não devemos nem o êxito de um encaminhamento nem uma qualidade determinada do serviço. Pelo encaminhamento em si respondemos nos termos legais em caso de dolo e negligência grosseira, bem como por lesão da vida, do corpo ou da saúde; quanto ao restante, em caso de violação de deveres contratuais essenciais, limitado ao dano previsível e típico deste tipo de contrato."
+      },
+      "s7": {
+        "heading": "7. Não é um serviço jurídico",
+        "body": "Não prestamos serviços jurídicos na aceção da lei alemã dos serviços jurídicos (Rechtsdienstleistungsgesetz). As nossas indicações sobre a NIS 2 e o BSIG não são aconselhamento jurídico nem o substituem."
+      },
+      "s8": {
+        "heading": "8. Os seus dados",
+        "body": "Sem o seu consentimento expresso não transmitimos dados pessoais a nenhuma empresa. Se o der, transmitimos nome, empresa, contactos e o pedido que descreveu. Quanto a esses dados, a empresa é responsável pelo tratamento de forma autónoma. Pode retirar o consentimento a qualquer momento com efeitos para o futuro, sem formalidade, para {email}. Os detalhes constam da nossa política de privacidade."
+      },
+      "s9": {
+        "heading": "9. Reclamações",
+        "body": "Se um encaminhamento correr mal, escreva-nos. Damos seguimento e retiramos da lista as empresas em que isso acontece repetidamente."
+      },
+      "s10": {
+        "heading": "10. Alterações",
+        "body": "Estas condições aplicam-se na versão publicada no momento do seu pedido."
+      },
+      "backToHelp": "Voltar à visão geral: se ficar bloqueado",
+      "privacyLink": "Política de privacidade"
+    },
+    "inApp": {
+      "stuck": "Ficou bloqueado aqui?",
+      "idle": {
+        "body": "O seu progresso está em {done} de {total} passos há duas semanas. É normal, e é quase sempre um único ponto que bloqueia. Diga-nos qual, e dizemos-lhe se é algo a que podemos responder numa linha ou um trabalho para uma empresa especializada.",
+        "cta": "Diga-nos onde ficou bloqueado"
+      },
+      "dialog": {
+        "line": "Ficou bloqueado nalguma coisa? As perguntas técnicas curtas são gratuitas, e se for preciso uma empresa especializada, indicamos uma sem custos para si.",
+        "cta": "Encontrar um especialista"
+      }
+    }
+  }
+}

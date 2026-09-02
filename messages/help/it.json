@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Se ti blocchi con NIS 2",
+      "description": "La piattaforma e il corso sono gratuiti. Le domande tecniche brevi ricevono risposta senza costi. Se vuoi ospitarla in proprio, la installiamo noi per 500 EUR IVA esclusa, una tantum. Se serve un'azienda specializzata, te ne segnaliamo una senza costi per te."
+    },
+    "title": "Se ti blocchi con NIS 2",
+    "intro": "La piattaforma è gratuita e resta gratuita. Anche il corso. La maggior parte delle aziende ce la fa da sola. Se non è il tuo caso, ci sono due strade, ed entrambe cominciano con la stessa email.",
+    "tier1": {
+      "label": "Livello 1",
+      "heading": "Fai da te. 0 EUR.",
+      "p1": "Una verifica di applicabilità, ogni misura richiesta dall'articolo 21 come singolo passaggio da percorrere, il caricamento delle prove, l'esportazione in PDF, un registro di audit, e il corso per la direzione con l'attestato di partecipazione che l'articolo 20 chiede di poter esibire.",
+      "p2": "Se preferisci gestire la piattaforma da solo, il codice sorgente è su GitHub con licenza AGPL-3.0. Anch'esso gratuito. Nessun canone di licenza, nessun limite di utenti.",
+      "p3": "Nessun limite di tempo, nessuna carta di credito, nessun commerciale che ti chiama.",
+      "p4": "La NIS 2 viene recepita da ogni Stato membro: il testo su cui vieni controllato è la tua legge nazionale, non la direttiva. La piattaforma rimanda prima alla direttiva e indica il riferimento nazionale dove esiste, per esempio il §30 BSIG in Germania."
+    },
+    "tier2": {
+      "label": "Livello 2",
+      "heading": "Vuoi gestirla tu. La installiamo noi.",
+      "p1": "Le domande tecniche brevi ricevono risposta via email, di norma entro due giorni lavorativi, senza costi. Comprese le domande sul self-hosting.",
+      "rate": "500 EUR IVA esclusa, una tantum",
+      "rateNote": "per installazione, nulla di ricorrente",
+      "p2": "Il self-hosting è gratuito e resta gratuito: il codice sorgente è sotto AGPL-3.0 e non è dovuto alcun canone di licenza. I 500 EUR sono il nostro lavoro per far funzionare la piattaforma sulla tua infrastruttura: database e migrazioni, archiviazione a oggetti per le prove, invio delle email transazionali, autenticazione, il primo deployment, e una consegna da cui il tuo team prosegue con gli aggiornamenti.",
+      "p3": "Un pagamento, non un abbonamento. Dopo la consegna l'istanza è tua, senza account presso di noi e senza rinnovi. Se preferisci installarla da solo seguendo la documentazione, quella strada resta aperta e non costa nulla."
+    },
+    "tier3": {
+      "label": "Livello 3",
+      "heading": "Serve un'azienda specializzata. Ti segnaliamo noi.",
+      "p1": "Una parte di tutto questo non è il nostro lavoro, e preferiamo dirlo prima che tu ci paghi piuttosto che dopo. Penetration test e audit tecnici, certificazione ISO 27001, un responsabile della sicurezza esterno stabile, consulenza legale, risposta agli incidenti, OT e sistemi di controllo industriale, implementazione sulla tua infrastruttura.",
+      "p2": "Per questo teniamo un elenco di aziende con cui lavoriamo. Ecco come funziona:",
+      "steps": {
+        "s1": "Scrivici una riga su dove ti sei bloccato. Oppure clicca su «Trova uno specialista» dentro la piattaforma.",
+        "s2": "Ti indichiamo da una a tre aziende e scriviamo perché proprio quelle. Settore di competenza, area geografica, capacità disponibile.",
+        "s3": "Decidi tu se contattarne una. Nulla che ti riguardi viene trasmesso finché non lo dici espressamente.",
+        "s4": "Il contratto corre tra te e l'azienda. Noi non stiamo in mezzo e non fatturiamo nulla."
+      },
+      "p3": "La segnalazione non ti costa nulla. Nessun ricarico, nessuna commissione di intermediazione a tuo carico, nessun vincolo."
+    },
+    "earn": {
+      "heading": "Come guadagniamo",
+      "p1": "Al livello 2 con il costo di installazione una tantum. Al livello 3 l'azienda ci versa il 15 per cento del suo onorario netto se la segnalazione si traduce in un incarico.",
+      "p2": "I nostri partner si impegnano per iscritto a non aumentare per questo il loro onorario. Non consigliamo in base all'importo della provvigione, e l'ordine del nostro elenco non ne dipende.",
+      "p3": "Se preferisci rivolgerti al tuo consulente, va benissimo, e la piattaforma resta tua in ogni caso.",
+      "link": "Leggi le condizioni di segnalazione"
+    },
+    "notDo": {
+      "heading": "Cosa non facciamo",
+      "legal": "Nessuna consulenza legale. Per quella serve uno studio legale.",
+      "authority": "Nessuna garanzia che un'autorità accetti la tua attuazione. Nessuno può dartela onestamente.",
+      "commission": "Nessuna raccomandazione che non faremmo anche senza provvigione."
+    },
+    "contact": {
+      "heading": "Contatti",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Basta una riga: dove ti sei bloccato, quanti dipendenti, quale settore, quale paese.",
+      "cta": "Scrivici",
+      "subject": "NIS 2: qui mi sono bloccato"
+    },
+    "referral": {
+      "meta": {
+        "title": "Condizioni di segnalazione",
+        "description": "Le condizioni alle quali segnaliamo aziende specializzate: gratuito per te, il nostro compenso lo paga l'azienda, la selezione non avviene in base alla provvigione, e nulla che ti riguardi viene trasmesso senza il tuo consenso."
+      },
+      "title": "Condizioni di segnalazione",
+      "asOf": "Aggiornato al 30 agosto 2026",
+      "providerHeading": "Fornitore",
+      "s1": {
+        "heading": "1. Che cosa segnaliamo",
+        "body": "Su richiesta indichiamo aziende che forniscono prestazioni che noi stessi non offriamo. Ti indichiamo l'opportunità, nulla di più. Qualsiasi contratto di consulenza, d'opera o di servizio si perfeziona unicamente tra te e l'azienda."
+      },
+      "s2": {
+        "heading": "2. Gratuito per te",
+        "body": "Per la segnalazione non ci paghi nulla, né un compenso né un ricarico. Non ne nasce alcun obbligo, e in nessun momento sei tenuto a incaricare un'azienda che ti suggeriamo."
+      },
+      "s3": {
+        "heading": "3. Il nostro compenso",
+        "body": "Se tra te e un'azienda segnalata si perfeziona un contratto, quell'azienda ci versa una provvigione, di norma pari al 15 per cento dell'onorario netto che paghi per la prestazione segnalata, limitata ai primi dodici mesi dell'incarico. I nostri partner si impegnano contrattualmente a non aumentare il loro onorario a causa di questa provvigione. In singoli casi si applicano percentuali diverse; su richiesta ti indichiamo quella applicabile al tuo."
+      },
+      "s4": {
+        "heading": "4. Come selezioniamo",
+        "body": "Contano il settore di competenza, l'esperienza nel comparto, l'area geografica, la capacità disponibile e i riscontri delle segnalazioni precedenti. L'entità della provvigione non è un criterio di selezione né di ordinamento. Di norma suggeriamo più aziende e motiviamo ciascuna."
+      },
+      "s5": {
+        "heading": "5. Non una panoramica completa del mercato",
+        "body": "Il nostro elenco è una selezione di aziende con cui lavoriamo, non una panoramica del mercato. Esistono fornitori adatti che non vi compaiono."
+      },
+      "s6": {
+        "heading": "6. Responsabilità",
+        "body": "Non rispondiamo della prestazione dell'azienda segnalata. Non dobbiamo né il buon esito di una segnalazione né una determinata qualità della prestazione. Per la segnalazione stessa rispondiamo secondo le norme di legge in caso di dolo e colpa grave nonché per lesione della vita, dell'integrità fisica o della salute; per il resto, in caso di violazione di obblighi contrattuali essenziali, nei limiti del danno prevedibile e tipico di questo tipo di contratto."
+      },
+      "s7": {
+        "heading": "7. Non è una prestazione legale",
+        "body": "Non forniamo prestazioni legali ai sensi della legge tedesca sui servizi legali (Rechtsdienstleistungsgesetz). Le nostre indicazioni su NIS 2 e BSIG non sono consulenza legale e non la sostituiscono."
+      },
+      "s8": {
+        "heading": "8. I tuoi dati",
+        "body": "Senza il tuo consenso esplicito non trasmettiamo alcun dato personale a un'azienda. Se lo presti, trasmettiamo nome, azienda, recapiti e la richiesta che hai descritto. Per quei dati l'azienda è titolare autonomo del trattamento. Puoi revocare il consenso in qualsiasi momento con effetto per il futuro, senza formalità, scrivendo a {email}. I dettagli sono nella nostra informativa sulla privacy."
+      },
+      "s9": {
+        "heading": "9. Reclami",
+        "body": "Se una segnalazione va male, scrivici. Diamo seguito e togliamo dall'elenco le aziende per cui accade ripetutamente."
+      },
+      "s10": {
+        "heading": "10. Modifiche",
+        "body": "Queste condizioni si applicano nella versione pubblicata al momento della tua richiesta."
+      },
+      "backToHelp": "Torna alla panoramica: se ti blocchi",
+      "privacyLink": "Informativa sulla privacy"
+    },
+    "inApp": {
+      "stuck": "Ti sei bloccato qui?",
+      "idle": {
+        "body": "I tuoi progressi sono fermi a {done} di {total} passaggi da due settimane. È normale, e di solito è un unico punto a bloccare. Dicci quale, e ti diremo se è qualcosa a cui possiamo rispondere in una riga o un lavoro per un'azienda specializzata.",
+        "cta": "Dicci dove ti sei bloccato"
+      },
+      "dialog": {
+        "line": "Ti sei bloccato su qualcosa? Le domande tecniche brevi sono gratuite, e se serve un'azienda specializzata, te ne segnaliamo una senza costi per te.",
+        "cta": "Trova uno specialista"
+      }
+    }
+  }
+}

@@ -37,10 +37,11 @@
         "h3": "Auf eigener Infrastruktur, mit eigenen Daten",
         "h4": "Kein Vertrag, keine Freischaltung, keine Anmeldung bei uns",
         "h5": "Ihren Stand von nisd2.eu exportieren und selbst weiterbetreiben",
-        "h6": "Direkter Kontakt per E-Mail und Signal"
+        "h6": "Direkter Kontakt per E-Mail und Signal",
+        "h7": "Einrichtung durch uns, wenn Sie möchten: 500 € netto, einmalig"
       }
     },
-    "whyFree": "Warum kostenlos: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Geld nehmen wir für unsere eigenen Stunden und von Fachbetrieben, an die wir vermitteln, nicht für die Plattform.",
+    "whyFree": "Warum kostenlos: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Geld nehmen wir für die Einrichtung des Selbstbetriebs und von Fachbetrieben, an die wir vermitteln, nicht für die Plattform.",
     "consultantFootnote": "Kommen Sie bei NIS 2 nicht weiter? Kurze Fachfragen kosten nichts, und wenn es einen Fachbetrieb braucht, vermitteln wir Ihnen einen, ohne Kosten für Sie.",
     "consultantCta": "Hilfe und Vermittlung"
   }

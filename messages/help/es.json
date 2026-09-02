@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Si se atasca con NIS 2",
+      "description": "La plataforma y el curso son gratuitos. Las preguntas técnicas breves se responden sin coste. Si quiere alojarla usted mismo, se la instalamos por 500 EUR sin IVA, en un pago único. Si hace falta una empresa especializada, le recomendamos una sin coste para usted."
+    },
+    "title": "Si se atasca con NIS 2",
+    "intro": "La plataforma es gratuita y seguirá siéndolo. El curso también. La mayoría de las empresas lo resuelve por su cuenta. Si no es su caso, hay dos vías, y ambas empiezan con el mismo correo.",
+    "tier1": {
+      "label": "Nivel 1",
+      "heading": "Lo hace usted mismo. 0 EUR.",
+      "p1": "Una comprobación de aplicabilidad, cada medida exigida por el artículo 21 como un paso que puede recorrer, la carga de pruebas, la exportación en PDF, un registro de auditoría, y el curso para la dirección con el certificado de asistencia que el artículo 20 le pide poder mostrar.",
+      "p2": "Si prefiere operar la plataforma usted mismo, el código fuente está en GitHub bajo AGPL-3.0. También gratuito. Sin canon de licencia, sin límite de usuarios.",
+      "p3": "Sin límite de tiempo, sin tarjeta de crédito, sin que nadie de ventas le llame.",
+      "p4": "La NIS 2 la transpone cada Estado miembro: el texto con el que se le audita es su ley nacional, no la directiva. La plataforma remite primero a la directiva y muestra la referencia nacional donde existe, por ejemplo el §30 BSIG en Alemania."
+    },
+    "tier2": {
+      "label": "Nivel 2",
+      "heading": "Quiere operarla usted mismo. Se la instalamos.",
+      "p1": "Las preguntas técnicas breves se responden por correo, normalmente en dos días laborables, sin coste. También las preguntas sobre autoalojamiento.",
+      "rate": "500 EUR sin IVA, pago único",
+      "rateNote": "por instalación, nada recurrente",
+      "p2": "El autoalojamiento es gratuito y lo seguirá siendo: el código fuente está bajo AGPL-3.0 y no se devenga canon de licencia. Los 500 EUR son nuestro trabajo para dejar la plataforma funcionando en su infraestructura: base de datos y migraciones, almacenamiento de objetos para las pruebas, envío de correo transaccional, inicio de sesión, el primer despliegue, y una entrega desde la que su propio equipo sigue actualizando.",
+      "p3": "Un pago, no una suscripción. Tras la entrega la instancia es suya, sin cuenta con nosotros y sin renovaciones. Si prefiere instalarla usted mismo a partir de la documentación, esa vía sigue abierta y no cuesta nada."
+    },
+    "tier3": {
+      "label": "Nivel 3",
+      "heading": "Hace falta una empresa especializada. Le derivamos.",
+      "p1": "Parte de esto no es nuestro trabajo, y preferimos decirlo antes de que nos pague y no después. Pruebas de penetración y auditorías técnicas, certificación ISO 27001, un responsable de seguridad externo permanente, asesoramiento jurídico, respuesta a incidentes, OT y sistemas de control industrial, implantación en su infraestructura.",
+      "p2": "Para eso mantenemos una lista de empresas con las que trabajamos. Así funciona:",
+      "steps": {
+        "s1": "Escríbanos una línea sobre dónde se ha atascado. O pulse «Encontrar un especialista» dentro de la plataforma.",
+        "s2": "Le nombramos entre una y tres empresas y explicamos por qué esas. Especialidad, región, capacidad disponible.",
+        "s3": "Usted decide si contacta con alguna. No se transmite nada sobre usted hasta que lo diga expresamente.",
+        "s4": "El contrato es entre usted y la empresa. Nosotros no estamos en medio y no facturamos nada."
+      },
+      "p3": "La derivación no le cuesta nada. Sin recargo, sin comisión a su cargo, sin compromiso."
+    },
+    "earn": {
+      "heading": "Cómo ganamos dinero",
+      "p1": "En el nivel 2, con la tarifa única de instalación. En el nivel 3, la empresa nos paga el 15 por ciento de sus honorarios netos si la derivación se convierte en un encargo.",
+      "p2": "Nuestros socios se comprometen por escrito a no subir sus honorarios por ello. No recomendamos según el importe de la comisión, y el orden de nuestra lista no depende de él.",
+      "p3": "Si prefiere recurrir a su propio consultor, está perfectamente bien, y usted conserva la plataforma igualmente.",
+      "link": "Leer las condiciones de derivación"
+    },
+    "notDo": {
+      "heading": "Lo que no hacemos",
+      "legal": "Nada de asesoramiento jurídico. Para eso necesita un despacho de abogados.",
+      "authority": "Ninguna garantía de que una autoridad acepte su implantación. Nadie puede dársela honestamente.",
+      "commission": "Ninguna recomendación que no haríamos también sin comisión."
+    },
+    "contact": {
+      "heading": "Contacto",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Basta una línea: dónde se ha atascado, cuántos empleados, qué sector, qué país.",
+      "cta": "Escríbanos",
+      "subject": "NIS 2: aquí me he atascado"
+    },
+    "referral": {
+      "meta": {
+        "title": "Condiciones de derivación",
+        "description": "Las condiciones bajo las que derivamos a empresas especializadas: gratuito para usted, nuestra retribución la paga la empresa, la selección no se hace por comisión, y no se transmite nada sobre usted sin su consentimiento."
+      },
+      "title": "Condiciones de derivación",
+      "asOf": "Versión de 30 de agosto de 2026",
+      "providerHeading": "Prestador",
+      "s1": {
+        "heading": "1. Qué derivamos",
+        "body": "A petición nombramos empresas que prestan servicios que nosotros no ofrecemos. Le señalamos la oportunidad, nada más. Cualquier contrato de consultoría, de obra o de servicios se celebra únicamente entre usted y la empresa."
+      },
+      "s2": {
+        "heading": "2. Gratuito para usted",
+        "body": "No nos paga nada por la derivación, ni honorarios ni recargo. De ella no nace obligación alguna, y en ningún momento está obligado a contratar a una empresa que le sugiramos."
+      },
+      "s3": {
+        "heading": "3. Nuestra retribución",
+        "body": "Si entre usted y una empresa derivada se celebra un contrato, esa empresa nos paga una comisión, por regla general del 15 por ciento de los honorarios netos que usted abone por el servicio derivado, limitada a los doce primeros meses del encargo. Nuestros socios se comprometen contractualmente a no subir sus honorarios por causa de esta comisión. En casos concretos se aplican porcentajes distintos; a petición le indicamos el que se aplica al suyo."
+      },
+      "s4": {
+        "heading": "4. Cómo seleccionamos",
+        "body": "Cuentan la especialidad, la experiencia sectorial, la región, la capacidad disponible y los comentarios de derivaciones anteriores. La cuantía de la comisión no es criterio de selección ni de orden. Por regla general sugerimos varias empresas y motivamos cada una."
+      },
+      "s5": {
+        "heading": "5. No es una visión completa del mercado",
+        "body": "Nuestra lista es una selección de empresas con las que trabajamos, no un panorama del mercado. Hay proveedores adecuados que no figuran en ella."
+      },
+      "s6": {
+        "heading": "6. Responsabilidad",
+        "body": "No respondemos de la prestación de la empresa derivada. No debemos ni el éxito de una derivación ni una calidad determinada del servicio. Por la derivación en sí respondemos conforme a las normas legales en caso de dolo y culpa grave, así como por lesión de la vida, la integridad física o la salud; por lo demás, en caso de incumplimiento de obligaciones contractuales esenciales, limitado al daño previsible y típico de este tipo de contrato."
+      },
+      "s7": {
+        "heading": "7. No es un servicio jurídico",
+        "body": "No prestamos servicios jurídicos en el sentido de la ley alemana de servicios jurídicos (Rechtsdienstleistungsgesetz). Nuestras indicaciones sobre NIS 2 y BSIG no son asesoramiento jurídico ni lo sustituyen."
+      },
+      "s8": {
+        "heading": "8. Sus datos",
+        "body": "Sin su consentimiento expreso no transmitimos datos personales a ninguna empresa. Si lo presta, transmitimos nombre, empresa, datos de contacto y la solicitud que usted describió. Respecto de esos datos la empresa es responsable del tratamiento de forma autónoma. Puede retirar el consentimiento en cualquier momento con efectos para el futuro, sin formalidad, escribiendo a {email}. Los detalles están en nuestra política de privacidad."
+      },
+      "s9": {
+        "heading": "9. Reclamaciones",
+        "body": "Si una derivación sale mal, escríbanos. Le damos seguimiento y retiramos de la lista a las empresas en las que ocurre repetidamente."
+      },
+      "s10": {
+        "heading": "10. Cambios",
+        "body": "Estas condiciones se aplican en la versión publicada en el momento de su solicitud."
+      },
+      "backToHelp": "Volver al resumen: si se atasca",
+      "privacyLink": "Política de privacidad"
+    },
+    "inApp": {
+      "stuck": "¿Se ha atascado aquí?",
+      "idle": {
+        "body": "Su progreso lleva dos semanas en {done} de {total} pasos. Es normal, y casi siempre es un único punto el que bloquea. Díganos cuál, y le diremos si es algo que podemos responder en una línea o un trabajo para una empresa especializada.",
+        "cta": "Díganos dónde se ha atascado"
+      },
+      "dialog": {
+        "line": "¿Se ha atascado en algo? Las preguntas técnicas breves son gratuitas, y si hace falta una empresa especializada, le recomendamos una sin coste para usted.",
+        "cta": "Encontrar un especialista"
+      }
+    }
+  }
+}

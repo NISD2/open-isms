@@ -2,7 +2,7 @@
   "help": {
     "meta": {
       "title": "Wenn Sie bei NIS 2 nicht weiterkommen",
-      "description": "Die Plattform und der Kurs sind kostenlos. Kurze Fachfragen beantworten wir kostenlos. Wird daraus echte Arbeit, kostet unsere Zeit 120 Euro netto je Stunde. Braucht es einen Fachbetrieb, vermitteln wir Ihnen einen, ohne Kosten für Sie."
+      "description": "Die Plattform und der Kurs sind kostenlos. Kurze Fachfragen beantworten wir kostenlos. Wollen Sie selbst betreiben, richten wir es für einmalig 500 Euro netto ein. Braucht es einen Fachbetrieb, vermitteln wir Ihnen einen, ohne Kosten für Sie."
     },
     "title": "Wenn Sie bei NIS 2 nicht weiterkommen",
     "intro": "Die Plattform ist kostenlos und bleibt es. Der Kurs auch. Die meisten Unternehmen kommen damit durch. Wer nicht durchkommt, hat zwei Wege, und beide fangen mit derselben Mail an.",
@@ -16,12 +16,12 @@
     },
     "tier2": {
       "label": "Stufe 2",
-      "heading": "Sie kommen an einer Stelle nicht weiter. Wir helfen selbst.",
-      "p1": "Kurze Fachfragen beantworten wir per Mail, in der Regel innerhalb von zwei Werktagen, kostenlos.",
-      "rate": "120 Euro netto je Stunde",
-      "rateNote": "abgerechnet in halben Stunden",
-      "p2": "Wird daraus echte Arbeit, kostet unsere Zeit 120 Euro netto je Stunde, abgerechnet in halben Stunden. Ein Preis, für alles, was von uns kommt: Auslegung einzelner Anforderungen, Selbsteinstufung, Maßnahmenplan, Nachweisführung, eine Sitzung mit Ihrer Geschäftsführung zu deren Pflichten, oder Unterstützung dabei, die Plattform auf Ihrer eigenen Infrastruktur einzurichten und zu betreiben.",
-      "p3": "Sie geben vorher frei, wie viele Stunden es sein dürfen, und Sie bekommen eine Aufstellung, worauf sie gegangen sind. Keine Mindestlaufzeit, kein Abo, keine Kündigungsfrist."
+      "heading": "Sie wollen selbst betreiben. Wir richten es ein.",
+      "p1": "Kurze Fachfragen beantworten wir per Mail, in der Regel innerhalb von zwei Werktagen, kostenlos. Auch Fragen zum Selbstbetrieb.",
+      "rate": "500 Euro netto, einmalig",
+      "rateNote": "je Installation, nichts Wiederkehrendes",
+      "p2": "Der Selbstbetrieb ist und bleibt kostenlos: Der Quellcode steht unter AGPL-3.0, eine Lizenzgebühr fällt nicht an. Die 500 Euro sind unsere Arbeit, die Plattform auf Ihrer Infrastruktur zum Laufen zu bringen: Datenbank und Migrationen, Objektspeicher für Nachweise, Mailversand, Anmeldung, das erste Deployment und eine Übergabe, mit der Ihr Team selbst weiter aktualisiert.",
+      "p3": "Eine Zahlung, kein Abo. Nach der Übergabe gehört die Instanz Ihnen, ohne Konto bei uns und ohne Verlängerung. Wenn Sie es lieber anhand der Dokumentation selbst einrichten, bleibt dieser Weg offen und kostet nichts."
     },
     "tier3": {
       "label": "Stufe 3",
@@ -38,7 +38,7 @@
     },
     "earn": {
       "heading": "Womit wir Geld verdienen",
-      "p1": "Bei Stufe 2 mit unseren eigenen Stunden. Bei Stufe 3 bekommen wir vom Fachbetrieb 15 Prozent seines Nettohonorars, wenn aus der Vermittlung ein Auftrag wird.",
+      "p1": "Bei Stufe 2 mit der einmaligen Einrichtungspauschale. Bei Stufe 3 bekommen wir vom Fachbetrieb 15 Prozent seines Nettohonorars, wenn aus der Vermittlung ein Auftrag wird.",
       "p2": "Unsere Partner verpflichten sich dabei schriftlich, ihr Honorar deswegen nicht zu erhöhen. Wir empfehlen nicht nach Provisionshöhe, und die Reihenfolge unserer Liste hängt nicht davon ab.",
       "p3": "Wenn Sie lieber Ihren eigenen Berater nehmen, ist das völlig in Ordnung, und Sie behalten trotzdem die Plattform.",
       "link": "Vermittlungsbedingungen lesen"
@@ -110,7 +110,7 @@
     "inApp": {
       "stuck": "Kommen Sie hier nicht weiter?",
       "idle": {
-        "body": "Seit zwei Wochen steht Ihr Fortschritt bei {done} von {total} Schritten. Das ist normal, meistens hakt es an einer einzigen Stelle. Schreiben Sie uns, woran, dann sagen wir Ihnen, ob das etwas für eine halbe Stunde mit uns ist oder für einen Fachbetrieb.",
+        "body": "Seit zwei Wochen steht Ihr Fortschritt bei {done} von {total} Schritten. Das ist normal, meistens hakt es an einer einzigen Stelle. Schreiben Sie uns, woran, dann sagen wir Ihnen, ob wir das kurz beantworten können oder ob es ein Fachbetrieb ist.",
         "cta": "Schreiben Sie uns, woran es hängt"
       },
       "dialog": {

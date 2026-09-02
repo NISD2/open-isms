@@ -18,6 +18,19 @@ import { relatedPathname } from "./seo-related";
 const languagesOf = (a: ReturnType<typeof pageAlternates>) =>
   "languages" in a ? Object.keys(a.languages) : null;
 
+/**
+ * A stand-in for "a page that does not exist in every locale".
+ *
+ * These cases used HELP_LOCALES, which was de/en/nl. Once messages/help/
+ * gained the other seven it became all ten, and every assertion about
+ * narrowing either duplicated the unnarrowed case or, for the non-member one,
+ * iterated an empty list and passed while testing nothing. The narrowing
+ * branch of pageAlternates is still live for the next partly-translated page,
+ * so the tests keep exercising it against a list pinned here rather than one
+ * that widens out from under them.
+ */
+const NARROWED = ["de", "en", "nl"] as const;
+
 describe("pageAlternates", () => {
   test("a page in every locale advertises every locale, plus x-default", () => {
     const alternates = pageAlternates("about", "de");
@@ -25,10 +38,25 @@ describe("pageAlternates", () => {
   });
 
   test("a narrowed page advertises only the locales it exists in", () => {
-    expect(languagesOf(pageAlternates("hilfe", "de", HELP_LOCALES))).toEqual([
-      ...HELP_LOCALES,
+    expect(languagesOf(pageAlternates("toms", "de", NARROWED))).toEqual([
+      ...NARROWED,
       "x-default",
     ]);
+  });
+
+  test("every locale HELP_LOCALES names has a help namespace to serve", () => {
+    // The constant claims these locales hold a written translation, and both
+    // the sitemap and the hreflang set repeat that claim to Google. Adding a
+    // locale here without adding messages/help/<locale>.json puts /hilfe and
+    // /vermittlung back to advertising English prose as a translation, which
+    // is what the narrowing originally existed to prevent. /vermittlung is
+    // the one that matters: commission, liability and consent.
+    for (const locale of HELP_LOCALES) {
+      const path = new URL(`../messages/help/${locale}.json`, import.meta.url);
+      const messages = JSON.parse(readFileSync(path, "utf-8"));
+      expect(messages.help.tier2.rate).toBeTruthy();
+      expect(messages.help.referral.s3.body).toBeTruthy();
+    }
   });
 
   test("every locale it advertises names itself in its own cluster", () => {
@@ -45,7 +73,7 @@ describe("pageAlternates", () => {
   });
 
   test("x-default names a locale inside the set it heads", () => {
-    for (const locales of [routing.locales, HELP_LOCALES] as const) {
+    for (const locales of [routing.locales, NARROWED] as const) {
       const alternates = pageAlternates("hilfe", "de", locales);
       if (!("languages" in alternates)) throw new Error("expected a cluster");
       const { "x-default": xDefault, ...rest } = alternates.languages;
@@ -57,13 +85,18 @@ describe("pageAlternates", () => {
     // It still resolves -- the route exists in all ten and the namespace falls
     // back to English -- so what it serves IS the English page. It carries one
     // canonical saying so and heads no cluster of its own.
-    for (const locale of routing.locales.filter(
-      (l) => !(HELP_LOCALES as readonly string[]).includes(l),
-    )) {
-      const alternates = pageAlternates("hilfe", locale, HELP_LOCALES);
+    const outside = routing.locales.filter(
+      (l) => !(NARROWED as readonly string[]).includes(l),
+    );
+    // Guards the guard: if NARROWED ever covers every locale this loop stops
+    // asserting anything, which is exactly how the HELP_LOCALES version of
+    // this test went quiet.
+    expect(outside.length).toBeGreaterThan(0);
+    for (const locale of outside) {
+      const alternates = pageAlternates("toms", locale, NARROWED);
       expect(languagesOf(alternates)).toBeNull();
       expect(alternates.canonical).toBe(
-        pageAlternates("hilfe", "en", HELP_LOCALES).canonical,
+        pageAlternates("toms", "en", NARROWED).canonical,
       );
     }
   });

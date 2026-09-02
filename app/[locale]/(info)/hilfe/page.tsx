@@ -124,7 +124,7 @@ export default async function HelpPage({
             </Card>
           </section>
 
-          {/* Tier 2 — our own hours, the only rate on this page */}
+          {/* Tier 2 - self-host setup, the only price on this page */}
           <section id="tier-2">
             <Card>
               <TierHeading index={2} label={t("tier2.label")} heading={t("tier2.heading")} />
