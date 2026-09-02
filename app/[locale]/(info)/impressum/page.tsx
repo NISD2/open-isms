@@ -44,10 +44,6 @@ export default async function ImpressumPage() {
           <CardContent className="space-y-1 text-sm text-muted-foreground">
             <p className="font-medium text-foreground">{t("impressum.responsible.company")}</p>
             <p>{t("impressum.responsible.address")}</p>
-            <p>{t("impressum.responsible.represented")}</p>
-            <p>{t("impressum.responsible.registration")}</p>
-            <p>{t("impressum.responsible.euid")}</p>
-            <p>{t("impressum.responsible.vatId")}</p>
             <p>{t("impressum.responsible.emailLabel")}: {t("impressum.responsible.email")}</p>
           </CardContent>
         </Card>
