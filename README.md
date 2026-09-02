@@ -168,10 +168,13 @@ For security disclosures, see [SECURITY.md](./.github/SECURITY.md).
 
 [AGPL-3.0-or-later](./LICENSE) for the app, scripts, and workspace-only packages.
 
+**Course content is [CC BY 4.0](./courses/LICENSE).** Everything under `courses/` — lesson text, quizzes, appendices and the typeset PDF editions — may be reused, adapted and republished under your own name, including commercially. Attribution is the only condition. Chambers of commerce, associations and schools are explicitly welcome to turn it into their own guidance under their own branding.
+
 Published npm packages have their own licenses:
 
 | Package | License |
 |---|---|
 | `@nisd2/grc-data-model` | MIT |
+| `@nisd2/nis2-supply-chain-questionnaire-schema` | MIT (code) + CC BY 4.0 (content) |
 | `@nisd2/incident-notification-schema` | Dual: AGPL-3.0 + commercial |
 | `@nisd2/isms-*` (workspace-only) | AGPL-3.0-or-later |

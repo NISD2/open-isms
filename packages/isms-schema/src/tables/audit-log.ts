@@ -45,5 +45,14 @@ export const auditLog = pgTable(
     index("idx_audit_company").on(table.companyId),
     index("idx_audit_entity").on(table.entityType, table.entityId),
     index("idx_audit_created").on(table.createdAt),
+    // "the last thing this company did", which the journey page asks on every
+    // load (server/trpc/routers/journey.ts, lastActivityAt). Neither
+    // single-column index answers it: idx_audit_company finds the company's
+    // rows and then Postgres sorts all of them to take one, and
+    // idx_audit_created walks newest-first across every tenant until it
+    // happens on this one -- unbounded for a company that has been quiet.
+    // Leading with company_id and ordering by created_at makes it a scan of
+    // one index that stops at the first row.
+    index("idx_audit_company_created").on(table.companyId, table.createdAt),
   ]
 );

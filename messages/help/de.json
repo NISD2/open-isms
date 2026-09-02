@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Wenn Sie bei NIS 2 nicht weiterkommen",
+      "description": "Die Plattform und der Kurs sind kostenlos. Kurze Fachfragen beantworten wir kostenlos. Wird daraus echte Arbeit, kostet unsere Zeit 120 Euro netto je Stunde. Braucht es einen Fachbetrieb, vermitteln wir Ihnen einen, ohne Kosten für Sie."
+    },
+    "title": "Wenn Sie bei NIS 2 nicht weiterkommen",
+    "intro": "Die Plattform ist kostenlos und bleibt es. Der Kurs auch. Die meisten Unternehmen kommen damit durch. Wer nicht durchkommt, hat zwei Wege, und beide fangen mit derselben Mail an.",
+    "tier1": {
+      "label": "Stufe 1",
+      "heading": "Sie machen es selbst. 0 Euro.",
+      "p1": "Betroffenheitsprüfung, alle Anforderungen aus Artikel 21 NIS 2 und §30 BSIG als einzelne Schritte, Nachweise hochladen, PDF-Export, Prüfpfad, der Kurs für die Geschäftsführung mit Teilnahmenachweis.",
+      "p2": "Wenn Sie die Plattform lieber selbst betreiben: der Quellcode steht unter AGPL-3.0 auf GitHub, ebenfalls kostenlos, ohne Lizenzgebühr, ohne Nutzerbegrenzung.",
+      "p3": "Ohne Zeitlimit, ohne Kreditkarte, ohne Vertrieb im Nacken.",
+      "p4": "NIS 2 ist eine Richtlinie; geprüft werden Sie am Wortlaut Ihres nationalen Umsetzungsgesetzes, nicht an dem der Richtlinie. Die Plattform bildet zuerst die Richtlinie ab und nennt die nationale Fundstelle, wo es eine gibt, in Deutschland das BSIG."
+    },
+    "tier2": {
+      "label": "Stufe 2",
+      "heading": "Sie kommen an einer Stelle nicht weiter. Wir helfen selbst.",
+      "p1": "Kurze Fachfragen beantworten wir per Mail, in der Regel innerhalb von zwei Werktagen, kostenlos.",
+      "rate": "120 Euro netto je Stunde",
+      "rateNote": "abgerechnet in halben Stunden",
+      "p2": "Wird daraus echte Arbeit, kostet unsere Zeit 120 Euro netto je Stunde, abgerechnet in halben Stunden. Ein Preis, für alles, was von uns kommt: Auslegung einzelner Anforderungen, Selbsteinstufung, Maßnahmenplan, Nachweisführung, eine Sitzung mit Ihrer Geschäftsführung zu deren Pflichten, oder Unterstützung dabei, die Plattform auf Ihrer eigenen Infrastruktur einzurichten und zu betreiben.",
+      "p3": "Sie geben vorher frei, wie viele Stunden es sein dürfen, und Sie bekommen eine Aufstellung, worauf sie gegangen sind. Keine Mindestlaufzeit, kein Abo, keine Kündigungsfrist."
+    },
+    "tier3": {
+      "label": "Stufe 3",
+      "heading": "Es braucht einen Fachbetrieb. Wir vermitteln.",
+      "p1": "Manches gehört nicht zu unserer Arbeit, und wir sagen das lieber vorher als hinterher. Penetrationstests, ISO 27001 Zertifizierung, ein externer Sicherheitsbeauftragter auf Dauer, Rechtsberatung, Vorfallsbearbeitung, Netzleittechnik, Umsetzung an Ihren Systemen.",
+      "p2": "Dafür haben wir eine Liste von Betrieben, mit denen wir zusammenarbeiten. So läuft es:",
+      "steps": {
+        "s1": "Sie schreiben uns eine Zeile, woran es hängt. Oder Sie klicken in der Plattform auf „Fachberater finden“.",
+        "s2": "Wir nennen Ihnen ein bis drei Betriebe und schreiben dazu, warum gerade diese. Fachgebiet, Region, freie Kapazität.",
+        "s3": "Sie entscheiden, ob Sie einen davon ansprechen. Ihre Daten geben wir erst weiter, wenn Sie das ausdrücklich sagen.",
+        "s4": "Der Vertrag läuft zwischen Ihnen und dem Betrieb. Wir stehen nicht dazwischen und rechnen nichts ab."
+      },
+      "p3": "Die Vermittlung kostet Sie nichts. Kein Aufschlag, keine Vermittlungsgebühr, keine Bindung."
+    },
+    "earn": {
+      "heading": "Womit wir Geld verdienen",
+      "p1": "Bei Stufe 2 mit unseren eigenen Stunden. Bei Stufe 3 bekommen wir vom Fachbetrieb 15 Prozent seines Nettohonorars, wenn aus der Vermittlung ein Auftrag wird.",
+      "p2": "Unsere Partner verpflichten sich dabei schriftlich, ihr Honorar deswegen nicht zu erhöhen. Wir empfehlen nicht nach Provisionshöhe, und die Reihenfolge unserer Liste hängt nicht davon ab.",
+      "p3": "Wenn Sie lieber Ihren eigenen Berater nehmen, ist das völlig in Ordnung, und Sie behalten trotzdem die Plattform.",
+      "link": "Vermittlungsbedingungen lesen"
+    },
+    "notDo": {
+      "heading": "Was wir nicht machen",
+      "legal": "Keine Rechtsberatung, dafür brauchen Sie eine Kanzlei.",
+      "authority": "Keine Zusage, dass eine Behörde Ihre Umsetzung akzeptiert, die kann Ihnen niemand seriös geben.",
+      "commission": "Keine Empfehlung, die wir nicht auch ohne Provision aussprechen würden."
+    },
+    "contact": {
+      "heading": "Kontakt",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Eine Zeile reicht: wo Sie hängen, wie viele Mitarbeiter, welche Branche.",
+      "cta": "Mail schreiben",
+      "subject": "NIS 2: hier komme ich nicht weiter"
+    },
+    "referral": {
+      "meta": {
+        "title": "Vermittlungsbedingungen",
+        "description": "Unter welchen Bedingungen wir Fachbetriebe vermitteln: für Sie kostenlos, unsere Vergütung zahlt der Betrieb, Auswahl nicht nach Provision, keine Weitergabe Ihrer Daten ohne Einwilligung."
+      },
+      "title": "Vermittlungsbedingungen",
+      "asOf": "Stand: 30. August 2026",
+      "providerHeading": "Anbieter",
+      "s1": {
+        "heading": "1. Was wir vermitteln",
+        "body": "Wir nennen Ihnen auf Anfrage Betriebe, die Leistungen erbringen, die wir selbst nicht anbieten. Wir weisen Ihnen die Gelegenheit nach, mehr nicht. Ein Beratungs-, Werk- oder Dienstvertrag kommt ausschließlich zwischen Ihnen und dem Betrieb zustande."
+      },
+      "s2": {
+        "heading": "2. Für Sie kostenlos",
+        "body": "Sie zahlen uns für die Vermittlung nichts, weder Gebühr noch Aufschlag. Es entsteht keine Bindung, Sie sind zu keinem Zeitpunkt verpflichtet, einen vorgeschlagenen Betrieb zu beauftragen."
+      },
+      "s3": {
+        "heading": "3. Unsere Vergütung",
+        "body": "Kommt zwischen Ihnen und einem vermittelten Betrieb ein Vertrag zustande, erhalten wir von diesem Betrieb eine Provision von in der Regel 15 Prozent des Nettohonorars, das Sie für die vermittelte Leistung zahlen, begrenzt auf die ersten zwölf Monate der Zusammenarbeit. Unsere Partner verpflichten sich vertraglich, ihr Honorar wegen dieser Provision nicht zu erhöhen. In Einzelfällen gelten abweichende Sätze; auf Nachfrage nennen wir Ihnen den Satz, der für Ihren Fall gilt."
+      },
+      "s4": {
+        "heading": "4. Wonach wir auswählen",
+        "body": "Maßgeblich sind Fachgebiet, Branchenerfahrung, Region, freie Kapazität und Rückmeldungen früherer Vermittlungen. Die Höhe der Provision ist kein Auswahl- oder Reihenfolgekriterium. Wir schlagen in der Regel mehrere Betriebe vor und begründen jeden Vorschlag."
+      },
+      "s5": {
+        "heading": "5. Keine Vollständigkeit",
+        "body": "Unsere Liste ist eine Auswahl von Betrieben, mit denen wir zusammenarbeiten, kein Marktüberblick. Es gibt geeignete Anbieter, die nicht darauf stehen."
+      },
+      "s6": {
+        "heading": "6. Haftung",
+        "body": "Für die Leistung des vermittelten Betriebs haften wir nicht. Wir schulden keinen Erfolg der Vermittlung und keine bestimmte Qualität der Leistung. Für die Vermittlung selbst haften wir nach den gesetzlichen Vorschriften bei Vorsatz und grober Fahrlässigkeit sowie bei Verletzung von Leben, Körper und Gesundheit; im Übrigen bei Verletzung wesentlicher Vertragspflichten begrenzt auf den vorhersehbaren, vertragstypischen Schaden."
+      },
+      "s7": {
+        "heading": "7. Keine Rechtsdienstleistung",
+        "body": "Wir erbringen keine Rechtsdienstleistung im Sinne des Rechtsdienstleistungsgesetzes. Unsere Hinweise zu NIS 2 und BSIG sind keine Rechtsberatung und ersetzen sie nicht."
+      },
+      "s8": {
+        "heading": "8. Ihre Daten",
+        "body": "Ohne Ihre ausdrückliche Einwilligung geben wir keine personenbezogenen Daten an einen Betrieb weiter. Erteilen Sie sie, übermitteln wir Name, Unternehmen, Kontaktdaten und die von Ihnen geschilderte Anfrage. Der Betrieb ist dafür eigenständig Verantwortlicher. Sie können die Einwilligung jederzeit für die Zukunft widerrufen, formlos an {email}. Einzelheiten in unserer Datenschutzerklärung."
+      },
+      "s9": {
+        "heading": "9. Beschwerden",
+        "body": "Läuft eine Vermittlung schlecht, schreiben Sie uns. Wir gehen dem nach und nehmen Betriebe von der Liste, bei denen sich das wiederholt."
+      },
+      "s10": {
+        "heading": "10. Änderungen",
+        "body": "Diese Bedingungen gelten in der bei Ihrer Anfrage veröffentlichten Fassung."
+      },
+      "backToHelp": "Zurück zur Übersicht: Wenn Sie nicht weiterkommen",
+      "privacyLink": "Datenschutzerklärung"
+    },
+    "inApp": {
+      "stuck": "Kommen Sie hier nicht weiter?",
+      "idle": {
+        "body": "Seit zwei Wochen steht Ihr Fortschritt bei {done} von {total} Schritten. Das ist normal, meistens hakt es an einer einzigen Stelle. Schreiben Sie uns, woran, dann sagen wir Ihnen, ob das etwas für eine halbe Stunde mit uns ist oder für einen Fachbetrieb.",
+        "cta": "Schreiben Sie uns, woran es hängt"
+      },
+      "dialog": {
+        "line": "Kommen Sie an einer Stelle nicht weiter? Kurze Fachfragen kosten nichts, und wenn es einen Fachbetrieb braucht, vermitteln wir Ihnen einen, ohne Kosten für Sie.",
+        "cta": "Fachberater finden"
+      }
+    }
+  }
+}

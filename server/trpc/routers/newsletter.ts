@@ -34,6 +34,7 @@ import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { getAppUrl } from "@/lib/utils";
 import { logAudit } from "@/lib/audit";
 import { getNewsletterCta, NEWSLETTER_CTA_KEYS } from "@/lib/newsletter/cta";
+import { mailSupportEmail } from "@/lib/env";
 
 const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
   if (!isPlatformAdmin(ctx.session?.user.email)) {
@@ -45,8 +46,7 @@ const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
 // Replies to the broadcast route to a real Workspace mailbox (cory@nisd2.eu),
 // configured via env so no real address is committed to the public repo. Set
 // NEWSLETTER_REPLY_TO in .env / prod env; falls back to the support inbox.
-const REPLY_TO =
-  process.env.NEWSLETTER_REPLY_TO ?? process.env.SUPPORT_EMAIL ?? "support@example.com";
+const REPLY_TO = process.env.NEWSLETTER_REPLY_TO || mailSupportEmail();
 
 // Newsletter sends from a distinct mailbox (e.g. newsletter@nisd2.eu) when
 // RESEND_FROM_EMAIL_NEWS is set; otherwise sendMail uses the default
