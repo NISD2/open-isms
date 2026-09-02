@@ -43,6 +43,10 @@ interface DocumentLabels {
   confidential: string;
   framework: string;
   general: string;
+  /** Sits above the wordmark in a cover footer. These documents are generated
+   *  by the platform but issued by the customer, so the label says so. */
+  generatedWith: string;
+  page: (n: number, total: number) => string;
 }
 
 const LABELS: Record<string, DocumentLabels> = {
@@ -53,6 +57,8 @@ const LABELS: Record<string, DocumentLabels> = {
     confidential: "Confidential",
     framework: "Framework",
     general: "General",
+    generatedWith: "Generated with",
+    page: (n, total) => `Page ${n} of ${total}`,
   },
   de: {
     version: "Version",
@@ -61,6 +67,8 @@ const LABELS: Record<string, DocumentLabels> = {
     confidential: "Vertraulich",
     framework: "Rahmenwerk",
     general: "Allgemein",
+    generatedWith: "Erstellt mit",
+    page: (n, total) => `Seite ${n} von ${total}`,
   },
 };
 
@@ -153,13 +161,13 @@ const STATUS_LABELS: Record<string, Record<string, string>> = {
 };
 
 export function getReportLabels(locale: string): ReportLabels {
-  return REPORT_LABELS[locale] ?? REPORT_LABELS["en"];
+  return REPORT_LABELS[locale] ?? REPORT_LABELS.en;
 }
 
 export function getStatusLabel(status: string, locale: string): string {
   return (
     STATUS_LABELS[locale]?.[status] ??
-    STATUS_LABELS["en"]?.[status] ??
+    STATUS_LABELS.en?.[status] ??
     status.replace(/_/g, " ")
   );
 }
@@ -167,11 +175,11 @@ export function getStatusLabel(status: string, locale: string): string {
 export function getPolicyTitle(categoryCode: string, locale: string): string {
   return (
     POLICY_TITLES[locale]?.[categoryCode] ??
-    POLICY_TITLES["en"]?.[categoryCode] ??
+    POLICY_TITLES.en?.[categoryCode] ??
     categoryCode
   );
 }
 
 export function getDocumentLabels(locale: string): DocumentLabels {
-  return LABELS[locale] ?? LABELS["en"];
+  return LABELS[locale] ?? LABELS.en;
 }

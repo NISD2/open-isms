@@ -1,192 +1,299 @@
 import { StyleSheet } from "@react-pdf/renderer";
+import { FONT, registerPdfFonts } from "./fonts";
+import { BRAND, EYEBROW, PAGE, RADIUS, RULE, TYPE } from "./theme";
+
+/**
+ * The shared StyleSheet every generated document is built from.
+ *
+ * Importing this registers the embedded typefaces. The styles below name
+ * FONT.sans, and an unregistered family falls back to the base-14 Helvetica
+ * silently - no error, just a different document on every reader. Registration
+ * is idempotent, so the side effect is safe to trigger from each document, and
+ * putting it here means no document can adopt the design system and forget the
+ * fonts that design system assumes.
+ */
+registerPdfFonts();
 
 export const styles = StyleSheet.create({
+  // -- Page ---------------------------------------------------------------
+  // Deliberately no page-level `lineHeight`: react-pdf inherits it into the
+  // `fixed` running footer and then drops that footer from every page, with no
+  // error. Leading belongs on the text styles that want it, a few lines down.
   page: {
-    padding: 40,
-    fontSize: 10,
-    fontFamily: "Helvetica",
-    color: "#1a1a1a",
+    paddingTop: PAGE.top,
+    paddingBottom: PAGE.bottom,
+    paddingHorizontal: PAGE.marginX,
+    fontFamily: FONT.sans,
+    fontSize: TYPE.body,
+    color: BRAND.body,
   },
-  // Cover page
   coverPage: {
-    padding: 60,
-    justifyContent: "center",
+    paddingTop: PAGE.top,
+    paddingBottom: PAGE.bottom,
+    paddingHorizontal: PAGE.coverMarginX,
   },
-  coverTitle: {
-    fontSize: 28,
-    fontFamily: "Helvetica-Bold",
-    marginBottom: 8,
+
+  // -- Full-bleed brand rules ---------------------------------------------
+  // Two segments in the house colours give a sheet its identity at a glance
+  // without a clip-art border.
+  bandTop: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 7,
+    flexDirection: "row",
   },
-  coverSubtitle: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 40,
+  bandBottom: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 3,
+    flexDirection: "row",
   },
-  coverMeta: {
-    fontSize: 11,
-    color: "#444",
-    marginBottom: 6,
-  },
-  // Section headers
-  categoryHeader: {
-    fontSize: 14,
-    fontFamily: "Helvetica-Bold",
-    marginTop: 20,
-    marginBottom: 8,
-    paddingBottom: 4,
-    borderBottom: "1 solid #ddd",
-  },
-  categoryCode: {
-    fontSize: 10,
-    color: "#888",
-    marginRight: 6,
-  },
-  categoryDescription: {
-    fontSize: 9,
-    color: "#666",
-    marginBottom: 12,
-  },
-  // Requirement
-  requirementBlock: {
-    marginBottom: 16,
-    paddingLeft: 8,
-    borderLeft: "2 solid #e5e5e5",
-  },
-  requirementHeader: {
+  bandPrimary: { flex: 3, backgroundColor: BRAND.primary },
+  bandAccent: { flex: 1, backgroundColor: BRAND.accent },
+
+  // -- Document header ----------------------------------------------------
+  header: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 4,
-  },
-  requirementCode: {
-    fontSize: 9,
-    fontFamily: "Courier",
-    color: "#888",
-    marginRight: 6,
-  },
-  requirementTitle: {
-    fontSize: 11,
-    fontFamily: "Helvetica-Bold",
-    flex: 1,
-  },
-  statusBadge: {
-    fontSize: 8,
-    padding: "2 6",
-    borderRadius: 3,
-    textTransform: "uppercase" as const,
-  },
-  statusApproved: {
-    backgroundColor: "#dcfce7",
-    color: "#166534",
-  },
-  statusCompleted: {
-    backgroundColor: "#dbeafe",
-    color: "#1e40af",
-  },
-  statusRejected: {
-    backgroundColor: "#fee2e2",
-    color: "#991b1b",
-  },
-  statusDefault: {
-    backgroundColor: "#f3f4f6",
-    color: "#374151",
-  },
-  // Form data
-  fieldRow: {
-    flexDirection: "row",
-    marginBottom: 3,
-    paddingVertical: 2,
-  },
-  fieldLabel: {
-    width: "35%",
-    fontSize: 9,
-    color: "#666",
-  },
-  fieldValue: {
-    width: "65%",
-    fontSize: 9,
-  },
-  // Evidence
-  evidenceItem: {
-    flexDirection: "row",
-    fontSize: 8,
-    color: "#555",
-    marginBottom: 2,
-  },
-  // Feedback
-  feedbackBlock: {
-    backgroundColor: "#fef2f2",
-    padding: 8,
-    borderRadius: 4,
-    marginTop: 4,
-    marginBottom: 4,
-  },
-  feedbackLabel: {
-    fontSize: 8,
-    fontFamily: "Helvetica-Bold",
-    color: "#991b1b",
-    marginBottom: 2,
-  },
-  feedbackText: {
-    fontSize: 9,
-    color: "#1a1a1a",
-  },
-  // Footer
-  footer: {
-    position: "absolute",
-    bottom: 20,
-    left: 40,
-    right: 40,
-    fontSize: 8,
-    color: "#999",
-    flexDirection: "row",
     justifyContent: "space-between",
   },
-  // Summary stats
-  statsRow: {
+  headerMetaBlock: { alignItems: "flex-end" },
+  headerMetaLabel: { ...EYEBROW, marginRight: -1.3 },
+  headerMetaValue: {
+    fontFamily: FONT.mono,
+    fontSize: 8.5,
+    color: BRAND.muted,
+    marginTop: 3,
+  },
+  headerRule: { height: RULE.hair, backgroundColor: BRAND.rule, marginTop: 14 },
+
+  // -- Cover --------------------------------------------------------------
+  coverBody: { flexGrow: 1, justifyContent: "center", paddingTop: 12 },
+  eyebrow: {
+    fontSize: TYPE.fine,
+    fontWeight: 600,
+    letterSpacing: 1.7,
+    textTransform: "uppercase",
+    color: BRAND.accent,
+  },
+  coverTitle: {
+    marginTop: 12,
+    fontSize: TYPE.h1,
+    fontWeight: 700,
+    letterSpacing: -0.4,
+    lineHeight: 1.18,
+    color: BRAND.ink,
+  },
+  coverSubtitle: {
+    marginTop: 9,
+    fontSize: TYPE.h3,
+    fontWeight: 500,
+    color: BRAND.muted,
+  },
+  coverRule: {
+    width: 190,
+    height: RULE.hair,
+    backgroundColor: BRAND.ruleStrong,
+    marginTop: 22,
+    marginBottom: 20,
+  },
+  coverMeta: { flexDirection: "row", marginBottom: 5 },
+  coverMetaLabel: { width: 132, fontSize: TYPE.small, color: BRAND.faint },
+  coverMetaValue: { flex: 1, fontSize: TYPE.small, color: BRAND.body },
+
+  // -- Stat plate ---------------------------------------------------------
+  stats: {
+    marginTop: 26,
     flexDirection: "row",
-    gap: 20,
-    marginBottom: 12,
+    alignItems: "flex-start",
+    borderWidth: RULE.hair,
+    borderColor: BRAND.rule,
+    borderRadius: RADIUS.md,
+    backgroundColor: BRAND.surface,
+    paddingVertical: 12,
   },
-  statBox: {
-    padding: 8,
-    backgroundColor: "#f9fafb",
-    borderRadius: 4,
-    minWidth: 80,
+  statCell: { flex: 1, paddingHorizontal: 12, alignItems: "center" },
+  statsCentered: { alignSelf: "center" },
+  statCellCentered: {
+    flexGrow: 0,
+    flexShrink: 0,
+    flexBasis: "auto",
+    paddingHorizontal: 28,
+    minWidth: 128,
   },
-  statValue: {
-    fontSize: 18,
-    fontFamily: "Helvetica-Bold",
-  },
+  statDivider: { width: 1, height: 28, marginTop: 3, backgroundColor: BRAND.rule },
+  statValue: { fontSize: 15, fontWeight: 600, color: BRAND.ink },
   statLabel: {
-    fontSize: 8,
-    color: "#666",
-    marginTop: 2,
+    marginTop: 5,
+    fontSize: TYPE.micro,
+    fontWeight: 500,
+    letterSpacing: 1.1,
+    textTransform: "uppercase",
+    color: BRAND.faint,
+    textAlign: "center",
   },
-  sectionLabel: {
-    fontSize: 9,
-    fontFamily: "Helvetica-Bold",
-    color: "#444",
-    marginTop: 8,
-    marginBottom: 4,
+
+  // -- Sections -----------------------------------------------------------
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    marginTop: 18,
+    paddingBottom: 5,
+    borderBottomWidth: RULE.hair,
+    borderBottomColor: BRAND.rule,
   },
-  // Draft warning banner
-  draftBanner: {
-    backgroundColor: "#fefce8",
-    border: "1 solid #f59e0b",
-    borderRadius: 4,
-    padding: 12,
-    marginTop: 24,
-    marginBottom: 12,
+  sectionMark: {
+    width: 3,
+    height: 13,
+    borderRadius: 1.5,
+    backgroundColor: BRAND.primary,
   },
-  draftTitle: {
-    fontSize: 12,
-    fontFamily: "Helvetica-Bold",
-    color: "#92400e",
-    marginBottom: 4,
+  sectionCode: { fontFamily: FONT.mono, fontSize: TYPE.fine, color: BRAND.faint },
+  sectionTitle: { flex: 1, fontSize: TYPE.h4, fontWeight: 600, color: BRAND.ink },
+  sectionNote: {
+    marginTop: 7,
+    fontSize: TYPE.small,
+    lineHeight: 1.5,
+    color: BRAND.muted,
   },
-  draftText: {
-    fontSize: 9,
-    color: "#78350f",
+  subheading: {
+    ...EYEBROW,
+    marginTop: 12,
+    marginBottom: 5,
+    color: BRAND.muted,
+  },
+
+  // -- Record block -------------------------------------------------------
+  // One requirement, asset, supplier or risk. The left keyline groups its rows
+  // without drawing a box around every entry.
+  record: {
+    marginTop: 11,
+    paddingLeft: 9,
+    borderLeftWidth: 2,
+    borderLeftColor: BRAND.rule,
+  },
+  recordHeader: { flexDirection: "row", alignItems: "center", gap: 6 },
+  recordCode: { fontFamily: FONT.mono, fontSize: TYPE.fine, color: BRAND.faint },
+  recordTitle: {
+    flex: 1,
+    fontSize: TYPE.body,
+    lineHeight: 1.35,
+    fontWeight: 600,
+    color: BRAND.ink,
+  },
+
+  // -- Field rows ---------------------------------------------------------
+  fieldRow: { flexDirection: "row", marginTop: 3 },
+  fieldLabel: {
+    width: "34%",
+    fontSize: TYPE.small,
     lineHeight: 1.4,
+    color: BRAND.faint,
+  },
+  fieldValue: {
+    width: "66%",
+    fontSize: TYPE.small,
+    lineHeight: 1.4,
+    color: BRAND.body,
+  },
+
+  /** Full-measure body copy. `fieldValue` is the right-hand column of a
+   *  label/value pair and is 66% wide; a paragraph set in it wears a ragged
+   *  third of the page as dead margin. */
+  prose: { fontSize: TYPE.small, lineHeight: 1.5, color: BRAND.body },
+
+  // -- Tables -------------------------------------------------------------
+  tableHead: {
+    flexDirection: "row",
+    borderBottomWidth: RULE.thin,
+    borderBottomColor: BRAND.ruleStrong,
+    paddingBottom: 4,
+  },
+  tableRow: {
+    flexDirection: "row",
+    borderBottomWidth: 0.5,
+    borderBottomColor: BRAND.rule,
+    paddingVertical: 4,
+  },
+  th: {
+    fontSize: TYPE.micro,
+    fontWeight: 600,
+    letterSpacing: 0.7,
+    textTransform: "uppercase",
+    color: BRAND.muted,
+    paddingRight: 8,
+  },
+  td: { fontSize: TYPE.small, lineHeight: 1.4, color: BRAND.body, paddingRight: 8 },
+  tdMono: {
+    fontFamily: FONT.mono,
+    fontSize: TYPE.fine,
+    color: BRAND.muted,
+    paddingRight: 8,
+  },
+
+  // -- Badge --------------------------------------------------------------
+  badge: {
+    fontSize: TYPE.micro,
+    fontWeight: 600,
+    letterSpacing: 0.6,
+    textTransform: "uppercase",
+    paddingVertical: 2.5,
+    paddingHorizontal: 6,
+    borderRadius: RADIUS.sm,
+  },
+
+  // -- Callout ------------------------------------------------------------
+  callout: {
+    marginTop: 14,
+    padding: 11,
+    borderLeftWidth: 2.5,
+    borderRadius: RADIUS.sm,
+  },
+  calloutTitle: {
+    fontSize: TYPE.small,
+    fontWeight: 600,
+    letterSpacing: 0.3,
+    marginBottom: 3,
+  },
+  calloutText: { fontSize: TYPE.small, lineHeight: 1.5 },
+
+  // -- Footers ------------------------------------------------------------
+  pageFooter: {
+    position: "absolute",
+    bottom: 20,
+    left: PAGE.marginX,
+    right: PAGE.marginX,
+    paddingTop: 8,
+    borderTopWidth: RULE.hair,
+    borderTopColor: BRAND.rule,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    fontSize: TYPE.caption,
+    color: BRAND.faint,
+  },
+  coverFooter: {
+    marginTop: 22,
+    paddingTop: 15,
+    borderTopWidth: RULE.hair,
+    borderTopColor: BRAND.rule,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+  },
+  issuerLabel: EYEBROW,
+  issuerName: { marginTop: 4, fontSize: 11, fontWeight: 600, color: BRAND.primary },
+  issuerUrl: { marginTop: 2, fontSize: TYPE.small, color: BRAND.faint },
+  disclaimer: {
+    flex: 1,
+    paddingHorizontal: 24,
+    fontSize: TYPE.caption,
+    lineHeight: 1.5,
+    color: BRAND.faint,
+    textAlign: "center",
   },
 });

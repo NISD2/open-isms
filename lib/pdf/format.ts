@@ -5,10 +5,14 @@
 export type PdfLocale = "en" | "de";
 
 /**
- * PDF text renders with the base-14 Helvetica fonts only (WinAnsi/CP1252
- * encoding), which silently garbles pl/cs/ro characters. Until a Unicode
- * font is registered via Font.register, PDFs render only in the two
- * hand-authored locales and everything else falls back to English.
+ * The report and policy documents ship in two languages.
+ *
+ * This used to be a font limitation: PDFs rendered in the base-14 Helvetica,
+ * whose WinAnsi encoding silently garbled pl/cs/ro. That is fixed - lib/pdf
+ * embeds Inter, and the certificate and the supplier questionnaire render all
+ * ten locales. What still constrains these two documents is translation:
+ * policy-labels.ts is hand-authored and only has en and de. Adding a locale
+ * there is now the only thing standing between them and the rest of the set.
  */
 export function pdfLocale(raw: string | null): PdfLocale {
   return raw?.trim().toLowerCase().split("-")[0] === "de" ? "de" : "en";
@@ -32,7 +36,7 @@ export function formatFieldValue(
     (typeof value === "string" && /^\d{4}-\d{2}-\d{2}/.test(value))
   ) {
     const d = new Date(value as string);
-    if (!isNaN(d.getTime())) {
+    if (!Number.isNaN(d.getTime())) {
       return d.toLocaleDateString(getDateLocale(locale));
     }
   }

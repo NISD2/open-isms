@@ -5,26 +5,26 @@
  * field labels via schema introspection, sign-off data, and groups
  * fields by requirement code using CATEGORY_FIELD_MAPPING.
  */
-import { eq, and, asc } from "drizzle-orm";
-import { db } from "@/lib/db";
+import { and, asc, eq } from "drizzle-orm";
 import {
-  companyAssessment,
-  companyCategoryIntake,
-  requirementCategory,
-  requirement,
-} from "@/schema";
-import {
-  CATEGORY_SCHEMAS,
   CATEGORY_FIELD_MAPPING,
+  CATEGORY_SCHEMAS,
 } from "@/lib/compliance/category-schemas";
-import { introspectSchema, humanize } from "@/lib/forms/schema-introspect";
+import { db } from "@/lib/db";
+import { humanize, introspectSchema } from "@/lib/forms/schema-introspect";
 import {
+  getCategoryName,
   getComplianceMessages,
   getRequirementsMessages,
-  getCategoryName,
   getRequirementTitle,
   type RequirementsMessages,
 } from "@/lib/messages";
+import {
+  companyAssessment,
+  companyCategoryIntake,
+  requirement,
+  requirementCategory,
+} from "@/schema";
 import { getDocumentLabels } from "./policy-labels";
 
 export interface PolicyFieldValue {
@@ -147,7 +147,12 @@ function buildFieldGroups(
     .map((req) => {
       const keys = reqFieldKeys.get(req.code) ?? [];
       const fields = resolveFields(keys, answers, metaByKey, usedFields);
-      return { code: req.code, title: getRequirementTitle(requirementMessages, req.code), legalRef: req.legalRef, fields };
+      return {
+        code: req.code,
+        title: getRequirementTitle(requirementMessages, req.code),
+        legalRef: req.legalRef,
+        fields,
+      };
     })
     .filter((g) => g.fields.length > 0);
 

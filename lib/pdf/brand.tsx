@@ -1,25 +1,13 @@
-import React from "react";
-import { Svg, Path, View, Text, StyleSheet } from "@react-pdf/renderer";
+import { Path, StyleSheet, Svg, Text, View } from "@react-pdf/renderer";
 import { FONT } from "./fonts";
+import { BRAND, RADIUS } from "./theme";
 
 /**
- * Brand primitives shared by every generated PDF. Colours mirror the CSS
- * custom properties in app/globals.css so a printed document and the screen it
- * came from read as the same product.
+ * The brand marks: the shield, the logo lockup and the seal.
+ *
+ * Tokens live in theme.ts and are imported from there by every consumer;
+ * this file only draws.
  */
-export const BRAND = {
-  primary: "#284b63",
-  primaryDeep: "#1d3a4d",
-  accent: "#3c6e71",
-  ink: "#0f172a",
-  body: "#334155",
-  muted: "#64748b",
-  faint: "#94a3b8",
-  rule: "#e2e8f0",
-  ruleStrong: "#cbd5e1",
-  surface: "#f8fafc",
-  paper: "#ffffff",
-} as const;
 
 /** lucide-react `shield`, the same mark the site header uses. Vector rather
  *  than the PNG so it stays crisp at print resolution and can be recoloured. */
@@ -76,6 +64,69 @@ export function Logo() {
         <ShieldGlyph size={14} color={BRAND.paper} strokeWidth={2.1} />
       </View>
       <Text style={logoStyles.wordmark}>NISD2.eu</Text>
+    </View>
+  );
+}
+
+const sealStyles = StyleSheet.create({
+  seal: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    borderWidth: 1.1,
+    borderColor: BRAND.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inner: {
+    position: "absolute",
+    top: 3.5,
+    left: 3.5,
+    right: 3.5,
+    bottom: 3.5,
+    borderRadius: 25,
+    borderWidth: 0.5,
+    borderColor: "#a8bcc9",
+  },
+  text: {
+    marginTop: 3,
+    fontFamily: FONT.sans,
+    fontSize: 6,
+    fontWeight: 600,
+    letterSpacing: 1.2,
+    color: BRAND.primary,
+  },
+});
+
+/** Embossed-looking double ring around the shield. Marks a document as issued
+ *  rather than merely printed; the label names what it attests to. */
+export function Seal({ label }: { label: string }) {
+  return (
+    <View style={sealStyles.seal}>
+      <View style={sealStyles.inner} />
+      <ShieldGlyph size={17} color={BRAND.primary} strokeWidth={1.9} />
+      <Text style={sealStyles.text}>{label}</Text>
+    </View>
+  );
+}
+
+const barStyles = StyleSheet.create({
+  track: {
+    height: 5,
+    borderRadius: RADIUS.sm,
+    backgroundColor: BRAND.rule,
+    overflow: "hidden",
+  },
+  fill: { height: 5, borderRadius: RADIUS.sm },
+});
+
+/** Horizontal meter. Used wherever a percentage needs a shape as well as a
+ *  number, so a reader can scan a column of scores without reading each one. */
+export function Meter({ percent, color }: { percent: number; color: string }) {
+  const clamped = Math.max(0, Math.min(100, percent));
+  return (
+    <View style={barStyles.track}>
+      <View style={[barStyles.fill, { width: `${clamped}%`, backgroundColor: color }]} />
     </View>
   );
 }
