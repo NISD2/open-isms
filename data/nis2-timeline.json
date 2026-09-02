@@ -3109,7 +3109,43 @@
       "sourceId": "sztfh",
       "sourceUrl": "https://sztfh.hu/sikeresen-lezarultak-az-elso-kiberbiztonsagi-auditok/",
       "addedAt": "2026-08-30T09:45:00Z"
+    },
+    {
+      "id": "2026-07-24-national-transposition-it-acn-h1-2026",
+      "date": "2026-07-24",
+      "category": "national-transposition",
+      "tags": [
+        "it",
+        "incident-reporting",
+        "publication"
+      ],
+      "type": "update",
+      "title": "Italy: ACN reports 1,160 incident notifications in the first half of 2026 under the NIS 2 regime",
+      "titleDe": "Italien: ACN meldet 1.160 Vorfallmeldungen im ersten Halbjahr 2026 unter dem NIS-2-Regime",
+      "summary": "In its operational summary for January to June 2026, ACN reports that CSIRT Italia handled 2,171 cyber events, 47 percent more than in the same period of 2025, of which 1,072 were incidents with confirmed impact. It received 1,160 notifications, 953 mandatory and 207 voluntary, from 890 entities, 690 of which notified for the first time. The agency attributes the rise to the wider field of view created by the NIS 2 notification duties rather than to a proportional increase in attacks: ransomware cases fell 12 percent to 181 and DDoS events fell 32 percent to 407. Italy transposed NIS 2 with Decreto Legislativo 138/2024, and ACN describes the half year as the first under the full application of those duties.",
+      "summaryDe": "Im Lagebericht fuer Januar bis Juni 2026 meldet die ACN, dass CSIRT Italia 2.171 Cybervorfaelle bearbeitet hat, 47 Prozent mehr als im gleichen Zeitraum 2025, davon 1.072 mit bestaetigter Auswirkung. Eingegangen sind 1.160 Meldungen, 953 verpflichtende und 207 freiwillige, von 890 Einrichtungen, davon 690 erstmals meldend. Die Behoerde fuehrt den Anstieg auf das durch die NIS-2-Meldepflichten erweiterte Blickfeld zurueck und nicht auf eine entsprechend gestiegene Bedrohung: Ransomwarefaelle gingen um 12 Prozent auf 181 zurueck, DDoS-Ereignisse um 32 Prozent auf 407. Italien hat NIS 2 mit dem Decreto Legislativo 138/2024 umgesetzt; die ACN bezeichnet das Halbjahr als das erste unter der vollen Anwendung dieser Pflichten.",
+      "sourceId": "acn",
+      "sourceUrl": "https://www.acn.gov.it/portale/w/cybersecurity-la-piena-attuazione-della-nis2-rafforza-la-capacita-di-rilevare-gli-incidenti-e-la-resilienza-del-sistema-paese",
+      "addedAt": "2026-09-02T12:20:24Z"
+    },
+    {
+      "id": "2026-08-31-de-bsi-kritis-auditor-personenzertifizierung",
+      "date": "2026-08-31",
+      "category": "de",
+      "tags": [
+        "kritis",
+        "certification",
+        "guidance"
+      ],
+      "type": "update",
+      "title": "BSI publishes the KRITIS auditor training concept and announces mandatory personal certification",
+      "titleDe": "BSI veroeffentlicht das Schulungskonzept fuer KRITIS-Pruefer und kuendigt die verpflichtende Personenzertifizierung an",
+      "summary": "The BSI has published the training concept for auditors and audit team leaders who carry out the evidence inspections that operators of critical installations owe under section 39(1) BSIG. It consists of a master slide set, a training guide and practice exercises; training providers submit a self declaration on trainer qualification and curriculum compliance and are then listed by the BSI. Personal certification as a KRITIS auditor becomes mandatory for those auditors once the revised Grundsaetzliche Anforderungen im Nachweisverfahren (GAiN) take effect, which the BSI expects in early 2027. The basis is section 39(2) BSIG, which lets the BSI set professional and organisational requirements for auditing bodies. The concept is administrative guidance and does not change what operators themselves owe.",
+      "summaryDe": "Das BSI hat das Schulungskonzept fuer Auditorinnen, Auditoren und Auditteamleitungen veroeffentlicht, die die Nachweispruefungen durchfuehren, die Betreiber kritischer Anlagen nach § 39 Absatz 1 BSIG schulden. Es besteht aus einem Mastersatz an Folien, einem Schulungsleitfaden und Uebungsaufgaben; Schulungsanbieter geben eine Selbsterklaerung zur Qualifikation der Lehrenden und zur Einhaltung des Curriculums ab und werden anschliessend vom BSI gelistet. Verpflichtend wird die Personenzertifizierung zum KRITIS-Auditor fuer diese Pruefenden mit Inkrafttreten der ueberarbeiteten Grundsaetzlichen Anforderungen im Nachweisverfahren (GAiN), das das BSI fuer Anfang 2027 erwartet. Grundlage ist § 39 Absatz 2 BSIG, wonach das BSI fachliche und organisatorische Anforderungen an die pruefenden Stellen stellen kann. Das Konzept ist Verwaltungshandeln und aendert nichts an den Pflichten der Betreiber selbst.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/KRITIS_Personenzertifizierung_260831.html",
+      "addedAt": "2026-09-02T12:20:24Z"
     }
   ],
-  "lastUpdated": "2026-08-30T09:45:00Z"
+  "lastUpdated": "2026-09-02T12:20:24Z"
 }

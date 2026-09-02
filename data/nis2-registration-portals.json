@@ -416,8 +416,8 @@
       "registrationDeadline": "2025-09-30",
       "nationalLaw": "Law No. 5160/2024",
       "entryIntoForce": "2024-11-27",
-      "notes": "Registration runs through the NCSA entity register at nis2register.cyber.gov.gr, a client-rendered application titled 'Εγγραφή Οντοτήτων του ν.5160/2024'. The initial registration window ran to 30 September 2025. Note for automated checks: the register serves its index with a misconfigured HTTP 404 status even though the page loads normally in a browser, so a status-code check will wrongly report it dead.",
-      "notesDe": "Die Registrierung läuft über das Einrichtungsregister der NCSA unter nis2register.cyber.gov.gr, eine clientseitig gerenderte Anwendung mit dem Titel 'Εγγραφή Οντοτήτων του ν.5160/2024'. Die erste Registrierungsfrist lief bis zum 30. September 2025. Hinweis für automatisierte Prüfungen: Das Register liefert seine Startseite mit einem falsch konfigurierten HTTP-Status 404 aus, obwohl die Seite im Browser normal lädt; eine reine Statusprüfung meldet es daher fälschlich als tot.",
+      "notes": "Registration runs through the NCSA entity register at nis2register.cyber.gov.gr, a client-rendered application titled 'Εγγραφή Οντοτήτων του ν.5160/2024'. The initial registration window ran to 30 September 2025. Note for automated checks: the register serves its index with a misconfigured HTTP 404 status even though the page loads normally in a browser, so a status-code check will wrongly report it dead. The application entry point that does answer is nis2register.cyber.gov.gr/app/home.",
+      "notesDe": "Die Registrierung läuft über das Einrichtungsregister der NCSA unter nis2register.cyber.gov.gr, eine clientseitig gerenderte Anwendung mit dem Titel 'Εγγραφή Οντοτήτων του ν.5160/2024'. Die erste Registrierungsfrist lief bis zum 30. September 2025. Hinweis für automatisierte Prüfungen: Das Register liefert seine Startseite mit einem falsch konfigurierten HTTP-Status 404 aus, obwohl die Seite im Browser normal lädt; eine reine Statusprüfung meldet es daher fälschlich als tot. Der antwortende Einstiegspunkt der Anwendung ist nis2register.cyber.gov.gr/app/home.",
       "notesFr": "Enregistrement prolongé jusqu'au 30 septembre 2025 via la plateforme numérique de la NCSA.",
       "notesIt": "Registrazione prorogata fino al 30 settembre 2025 tramite la piattaforma digitale della NCSA.",
       "notesEs": "Registro ampliado hasta el 30 de septiembre de 2025 a través de la plataforma digital de la NCSA.",
@@ -425,7 +425,7 @@
       "notesCs": "Registrace prodloužena do 30. září 2025 prostřednictvím digitální platformy NCSA.",
       "notesPt": "Registo prorrogado até 30 de setembro de 2025 através da plataforma digital da NCSA.",
       "notesRo": "Înregistrare prelungită până la 30 septembrie 2025 prin platforma digitală a NCSA.",
-      "lastVerified": "2026-08-05",
+      "lastVerified": "2026-09-02",
       "csirt": "GR-CERT (within NCA)",
       "wikiSlug": "nis2-status-griechenland"
     },
@@ -783,5 +783,5 @@
       "wikiSlug": "nis2-status-slowenien"
     }
   ],
-  "lastUpdated": "2026-08-30"
+  "lastUpdated": "2026-09-02"
 }
