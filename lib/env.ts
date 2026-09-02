@@ -70,6 +70,17 @@ const envSchema = z.object({
   // would never reach the client bundle.
   CAL_LINK: z.string().default(""),
 
+  // The one support address: the reply-to on outbound mail, the contact on
+  // /email/unsubscribed, and the direct line the in-product help dialog
+  // offers. It was already an env var read straight from process.env in three
+  // files; it belongs here with the rest of them.
+  //
+  // Empty by default, like CAL_LINK and for the same reason: an instance must
+  // not publish someone else's mailbox. Where it is unset the help dialog
+  // renders no address row at all rather than a placeholder one. Mail cannot
+  // do that -- see mailSupportEmail below.
+  SUPPORT_EMAIL: z.string().default(""),
+
   // Standard
   NODE_ENV: z
     .enum(["development", "production", "test"])
@@ -104,3 +115,16 @@ function validateEnv() {
 }
 
 export const env = validateEnv();
+
+/**
+ * The support address for outbound mail, which cannot carry an empty
+ * reply-to the way a UI can render nothing.
+ *
+ * The placeholder lives here and only here. It used to be the same literal
+ * written out at each of the three send sites, so "what do we fall back to"
+ * had no owner and the answer could drift between an email header and the
+ * page that email links to.
+ */
+export function mailSupportEmail(): string {
+  return env.SUPPORT_EMAIL || "support@example.com";
+}

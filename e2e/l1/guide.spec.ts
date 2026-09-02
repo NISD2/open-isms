@@ -11,6 +11,9 @@ import { test, expect } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { E2E_USER_EMAIL } from "../lib/env";
 
+/** Mirrors SUPPORT_EMAIL in e2e/app-env.sh, which is where the app gets it. */
+const SUPPORT_EMAIL = "support@e2e.local";
+
 async function setGuideState(sql: string): Promise<void> {
   await e2eQuery(`UPDATE "user" SET ${sql} WHERE email = $1`, [E2E_USER_EMAIL]);
 }
@@ -196,7 +199,7 @@ test("a second login offers help, and does not offer it twice", async ({
   await page.goto("/journey");
   const dialog = page.getByTestId("help-dialog");
   await expect(dialog).toBeVisible();
-  await expect(dialog).toContainText("cory@nisd2.eu");
+  await expect(dialog).toContainText(SUPPORT_EMAIL);
 
   // The address is a copy button rather than a mailto, so it has to actually
   // put something on the clipboard.
@@ -204,7 +207,7 @@ test("a second login offers help, and does not offer it twice", async ({
   await dialog.getByTestId("help-copy-email").click();
   await expect
     .poll(() => page.evaluate(() => navigator.clipboard.readText()))
-    .toBe("cory@nisd2.eu");
+    .toBe(SUPPORT_EMAIL);
 
   // Exactly one close control: the explicit button, with the built-in corner
   // cross suppressed, so "close" and "never again" cannot disagree.

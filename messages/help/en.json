@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "If you get stuck with NIS 2",
+      "description": "The platform and the course are free. Short technical questions are answered at no charge. When it turns into real work, our time costs 120 EUR net per hour. If it needs a specialist firm, we refer you to one at no cost to you."
+    },
+    "title": "If you get stuck with NIS 2",
+    "intro": "The platform is free and stays free. So does the course. Most companies get through on their own. If you do not, there are two routes, and both start with the same email.",
+    "tier1": {
+      "label": "Level 1",
+      "heading": "You do it yourself. 0 EUR.",
+      "p1": "A scope check, every measure required by Article 21 as a single step you can work through, evidence upload, PDF export, an audit trail, and the management course with a certificate of attendance that Article 20 asks you to be able to show.",
+      "p2": "If you would rather run the platform yourself, the source is on GitHub under AGPL-3.0. Also free. No licence fee, no user limit.",
+      "p3": "No time limit, no credit card, nobody from sales calling you.",
+      "p4": "NIS 2 is transposed by each member state, so the wording you are audited against is your national law, not the directive. The platform maps to the directive first and shows the national reference where one exists, for example §30 BSIG in Germany."
+    },
+    "tier2": {
+      "label": "Level 2",
+      "heading": "You get stuck on something. We help directly.",
+      "p1": "Short technical questions get answered by email, usually within two working days, at no charge.",
+      "rate": "120 EUR net per hour",
+      "rateNote": "billed in half hours",
+      "p2": "When it turns into real work, our time costs 120 EUR net per hour, billed in half hours. One rate for everything that comes from us: interpreting a specific requirement for a company your size, self-classification, the measures plan, evidence that survives an inspection, a session with your management on their own duties under Article 20, or help getting the platform running on your own infrastructure.",
+      "p3": "You approve the number of hours before we start, and you get an itemised account of where they went. No minimum term, no subscription, no notice period."
+    },
+    "tier3": {
+      "label": "Level 3",
+      "heading": "It needs a specialist firm. We refer you.",
+      "p1": "Some of it is not our work, and we would rather say so before you pay us than after. Penetration testing and technical audits, ISO 27001 certification, a standing external security officer, legal advice, incident response, OT and control systems, hands-on implementation on your infrastructure.",
+      "p2": "For that we keep a list of firms we work with. How it goes:",
+      "steps": {
+        "s1": "Send us one line about where you are stuck. Or click “Find a specialist” inside the platform.",
+        "s2": "We name one to three firms and write down why those ones. Field, region, free capacity.",
+        "s3": "You decide whether to approach any of them. Nothing about you is passed on until you explicitly say so.",
+        "s4": "The contract is between you and the firm. We are not in the middle of it and we invoice nothing."
+      },
+      "p3": "The referral costs you nothing. No markup, no finder's fee, no obligation."
+    },
+    "earn": {
+      "heading": "How we earn",
+      "p1": "Level 2 is our own hours. On level 3 the firm pays us 15 percent of its net fee if the referral turns into an engagement.",
+      "p2": "Our partners commit in writing not to raise their fee because of it. We do not recommend by commission, and the order of our list does not depend on it.",
+      "p3": "If you would rather use your own consultant, that is completely fine, and you keep the platform either way.",
+      "link": "Read the referral terms"
+    },
+    "notDo": {
+      "heading": "What we do not do",
+      "legal": "No legal advice. For that you need a law firm.",
+      "authority": "No promise that an authority will accept your implementation. Nobody can honestly give you that.",
+      "commission": "No recommendation we would not also make without a commission."
+    },
+    "contact": {
+      "heading": "Contact",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. One line is enough: where you are stuck, how many employees, which sector, which country.",
+      "cta": "Write to us",
+      "subject": "NIS 2: this is where I am stuck"
+    },
+    "referral": {
+      "meta": {
+        "title": "Referral terms",
+        "description": "The terms under which we refer specialist firms: free for you, our fee is paid by the firm, selection is not by commission, and nothing about you is passed on without your consent."
+      },
+      "title": "Referral terms",
+      "asOf": "As of 30 August 2026",
+      "providerHeading": "Provider",
+      "s1": {
+        "heading": "1. What we refer",
+        "body": "On request we name firms that provide services we do not offer ourselves. We point you to the opportunity, nothing more. Any consulting, work or service contract comes about solely between you and the firm."
+      },
+      "s2": {
+        "heading": "2. Free for you",
+        "body": "You pay us nothing for the referral, neither a fee nor a markup. No obligation arises, and you are at no point required to engage a firm we suggest."
+      },
+      "s3": {
+        "heading": "3. Our compensation",
+        "body": "If a contract comes about between you and a referred firm, that firm pays us a commission of normally 15 percent of the net fee you pay for the referred service, limited to the first twelve months of the engagement. Our partners commit contractually not to raise their fee because of this commission. Different rates apply in individual cases; on request we tell you the rate that applies to yours."
+      },
+      "s4": {
+        "heading": "4. How we select",
+        "body": "What counts is field of expertise, sector experience, region, free capacity and feedback from earlier referrals. The size of the commission is not a selection or ranking criterion. We normally suggest several firms and give a reason for each."
+      },
+      "s5": {
+        "heading": "5. Not a complete market view",
+        "body": "Our list is a selection of firms we work with, not an overview of the market. There are suitable providers that are not on it."
+      },
+      "s6": {
+        "heading": "6. Liability",
+        "body": "We are not liable for the work of the referred firm. We owe neither the success of a referral nor any particular quality of the service. For the referral itself we are liable under the statutory rules for intent and gross negligence and for injury to life, body or health; otherwise, for breach of material contractual duties, limited to the foreseeable damage typical for this kind of contract."
+      },
+      "s7": {
+        "heading": "7. Not a legal service",
+        "body": "We do not provide legal services within the meaning of the German Legal Services Act (Rechtsdienstleistungsgesetz). Our guidance on NIS 2 and BSIG is not legal advice and does not replace it."
+      },
+      "s8": {
+        "heading": "8. Your data",
+        "body": "Without your explicit consent we pass no personal data to a firm. If you give it, we transmit name, company, contact details and the request you described. The firm is an independent controller for that data. You can withdraw your consent at any time with effect for the future, informally to {email}. Details are in our privacy policy."
+      },
+      "s9": {
+        "heading": "9. Complaints",
+        "body": "If a referral goes badly, write to us. We follow it up and take firms off the list where it happens repeatedly."
+      },
+      "s10": {
+        "heading": "10. Changes",
+        "body": "These terms apply in the version published at the time of your request."
+      },
+      "backToHelp": "Back to the overview: if you get stuck",
+      "privacyLink": "Privacy policy"
+    },
+    "inApp": {
+      "stuck": "Stuck here?",
+      "idle": {
+        "body": "Your progress has been at {done} of {total} steps for two weeks. That is normal, and it is usually one single point that blocks it. Tell us which one, and we will tell you whether it is half an hour with us or a job for a specialist firm.",
+        "cta": "Tell us where you are stuck"
+      },
+      "dialog": {
+        "line": "Stuck on something? Short technical questions are free, and if it needs a specialist firm, we refer you to one at no cost to you.",
+        "cta": "Find a specialist"
+      }
+    }
+  }
+}

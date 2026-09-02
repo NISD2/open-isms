@@ -6,6 +6,7 @@ import { PathHero } from "./PathHero";
 import { PathFlow } from "./PathFlow";
 import { buildRequirementNodes } from "./path-nodes";
 import { journeyDisclaimer } from "./disclaimer";
+import { StalledPanel } from "@/components/help/StalledPanel";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +32,7 @@ export default async function JourneyPage({
   const focusRaw = Array.isArray(focus) ? focus[0] : focus;
   const focusCategory = focusRaw ? focusRaw.toUpperCase() : null;
 
-  const { items, aggregate } = await api.journey.getItems({
+  const { items, aggregate, lastActivityAt } = await api.journey.getItems({
     locale: rawLocale,
   });
 
@@ -77,6 +78,12 @@ export default async function JourneyPage({
         aggregate={aggregate}
         locale={locale}
         focusCategory={focusCategory}
+      />
+      {/* Renders itself only after two weeks without a single mutation. */}
+      <StalledPanel
+        lastActivityAt={lastActivityAt}
+        done={aggregate.done}
+        total={aggregate.total}
       />
       <PathDisclaimer locale={locale} />
     </div>

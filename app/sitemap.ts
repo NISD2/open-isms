@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { isNotNull } from "drizzle-orm";
 import { routing } from "@/i18n/routing";
-import { localizedAbsoluteUrl, type Locale } from "@/lib/seo";
+import { HELP_LOCALES, localizedAbsoluteUrl, type Locale } from "@/lib/seo";
 import { wikiSitemapPaths } from "@/lib/content/wiki-toc";
 import { DOCS_ENTRIES } from "@/lib/docs/toc";
 import { DOCS_REVISED, docsUrl } from "@/lib/docs/seo";
@@ -33,9 +33,12 @@ function multilingualEntries(
   options: PageOptions = {},
 ): SitemapEntry[] {
   const locales = options.locales ?? routing.locales;
+  // Partial, not Record: `locales` is narrowed for a page that does not exist
+  // in all ten (HELP_LOCALES), so asserting a complete record here would let
+  // urlPerLocale["es"] typecheck as string and emit `url: undefined`.
   const urlPerLocale = Object.fromEntries(
     locales.map((l) => [l, localizedAbsoluteUrl(canonicalPath, l)]),
-  ) as Record<Locale, string>;
+  ) as Partial<Record<Locale, string>>;
 
   const base = {
     lastModified: options.lastModified ?? "2026-05-10",
@@ -44,7 +47,7 @@ function multilingualEntries(
   };
 
   return locales.map((locale) => ({
-    url: urlPerLocale[locale],
+    url: localizedAbsoluteUrl(canonicalPath, locale),
     ...base,
     alternates: { languages: urlPerLocale },
   }));
@@ -159,6 +162,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Pricing + Training
     ...multilingualEntries("/pricing", { priority: 0.9 }),
+    ...multilingualEntries("/hilfe", {
+      lastModified: "2026-09-02",
+      priority: 0.8,
+      locales: HELP_LOCALES,
+    }),
+    ...multilingualEntries("/vermittlung", {
+      lastModified: "2026-09-02",
+      priority: 0.4,
+      locales: HELP_LOCALES,
+    }),
     ...multilingualEntries("/training/nis2-ceo", { priority: 0.9 }),
 
     // About + open-source. /pitch and /mission are 308-redirects to /about,

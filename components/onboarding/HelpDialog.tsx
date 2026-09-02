@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, Mail, Check, GraduationCap, Server, Compass } from "lucide-react";
+import { CalendarDays, Mail, Check, GraduationCap, Server, Compass, Handshake } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useCopy } from "@/lib/clipboard/use-copy";
@@ -12,8 +12,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-const CONTACT_EMAIL = "cory@nisd2.eu";
 
 function HelpRow({
   icon: Icon,
@@ -42,6 +40,7 @@ export function HelpDialog({
   open,
   onOpenChange,
   calLink,
+  supportEmail,
   permanent,
   onStartTour,
 }: {
@@ -49,11 +48,18 @@ export function HelpDialog({
   onOpenChange: (open: boolean) => void;
   /** Cal.com handle from CAL_LINK. Empty on instances that set no calendar. */
   calLink: string;
+  /**
+   * Support address from SUPPORT_EMAIL, the same one /email/unsubscribed
+   * shows and outbound mail replies to. "" on an instance that sets none,
+   * where the row is not rendered at all rather than shown as a placeholder.
+   */
+  supportEmail: string;
   permanent: boolean;
   /** Absent on pages that have no tour to replay. */
   onStartTour?: () => void;
 }) {
   const t = useTranslations("guide");
+  const tHelp = useTranslations("help");
   const { copied, copy } = useCopy();
 
   return (
@@ -70,17 +76,19 @@ export function HelpDialog({
         </DialogHeader>
 
         <ul className="space-y-3">
-          <HelpRow icon={copied ? Check : Mail}>
-            {t("help.email")}{" "}
-            <button
-              type="button"
-              data-testid="help-copy-email"
-              onClick={() => void copy(CONTACT_EMAIL, t("help.emailCopied"))}
-              className="font-medium underline underline-offset-4 hover:text-foreground"
-            >
-              {CONTACT_EMAIL}
-            </button>
-          </HelpRow>
+          {supportEmail && (
+            <HelpRow icon={copied ? Check : Mail}>
+              {t("help.email")}{" "}
+              <button
+                type="button"
+                data-testid="help-copy-email"
+                onClick={() => void copy(supportEmail, t("help.emailCopied"))}
+                className="font-medium underline underline-offset-4 hover:text-foreground"
+              >
+                {supportEmail}
+              </button>
+            </HelpRow>
+          )}
 
           {calLink && (
             <HelpRow icon={CalendarDays}>
@@ -96,6 +104,10 @@ export function HelpDialog({
           )}
 
           <HelpRow icon={Server}>{t("help.selfHost")}</HelpRow>
+          {/* What happens when the platform is not enough. The full offer,
+              including how a referral earns us anything, lives on /hilfe;
+              this is the pointer to it, not a second copy of it. */}
+          <HelpRow icon={Handshake}>{tHelp("inApp.dialog.line")}</HelpRow>
           <HelpRow icon={GraduationCap}>
             {t("help.training")}{" "}
             <Link
@@ -111,6 +123,12 @@ export function HelpDialog({
         </ul>
 
         <div className="flex flex-wrap items-center justify-end gap-2">
+          <Button type="button" variant="ghost" asChild>
+            <Link href="/hilfe" target="_blank" rel="noopener noreferrer">
+              <Handshake className="size-4" aria-hidden />
+              {tHelp("inApp.dialog.cta")}
+            </Link>
+          </Button>
           {onStartTour && (
             <Button type="button" variant="ghost" onClick={onStartTour}>
               <Compass className="size-4" aria-hidden />
