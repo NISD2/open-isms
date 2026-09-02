@@ -1,0 +1,72 @@
+Course content licence
+======================
+
+Copyright (c) 2026 Kardashev Catalyst UG (haftungsbeschränkt)
+
+The course content in this directory is licensed under the
+Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+    https://creativecommons.org/licenses/by/4.0/
+    SPDX-License-Identifier: CC-BY-4.0
+
+
+What this covers
+----------------
+
+Everything under `courses/`, in every language, including:
+
+  - lesson text and course outlines
+  - quiz questions and answer keys
+  - the checklists, glossaries and reference tables in the appendices
+  - the typeset PDF editions under `courses/*/pdf-book/`, both the
+    LaTeX sources and the compiled PDFs
+
+It covers the course material as prose and teaching content. It does not
+cover the application that renders it.
+
+
+What you may do
+---------------
+
+Share it, print it, translate it, cut it down, build on it, and publish
+the result under your own name — including commercially, and without
+asking us first.
+
+This is deliberate. Chambers of commerce, trade associations, schools,
+public bodies and consultancies are welcome to turn this material into
+their own guidance under their own branding. We would rather see a
+chamber publish its own leaflet than link to ours.
+
+
+The one condition
+-----------------
+
+Give appropriate credit: name the source, link to the licence, and
+indicate if you made changes. A line such as the following is enough:
+
+    Based on the NIS 2 management training by NISD2.eu
+    (https://nisd2.eu), CC BY 4.0, adapted.
+
+You may not imply that we endorse you or your adaptation.
+
+
+What this licence does NOT change
+---------------------------------
+
+  - The application code, scripts and workspace-only packages remain
+    AGPL-3.0-or-later. See ../LICENSE.
+  - `@nisd2/grc-data-model` remains MIT. See
+    ../packages/grc-data-model/LICENSE.
+  - The other published packages keep their own licences. See the
+    licence table in ../README.md.
+
+
+Not legal advice, and not a certification
+-----------------------------------------
+
+This material teaches the NIS 2 Directive and the concepts behind it. It
+is not legal advice. No body in the EU currently certifies NIS 2 training
+or NIS 2 trainers, and this licence is not an accreditation of any kind.
+Reusing this material does not make you or your organisation compliant,
+and it does not transfer any obligation of ours to you or any of yours
+to us.
