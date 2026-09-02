@@ -1,0 +1,16 @@
+-- migration-safety:allow: CONCURRENTLY is not available on this runner.
+-- drizzle-kit migrate wraps the whole migration loop in one transaction
+-- (drizzle-orm/pg-core/dialect.js, session.transaction) and reads no opt-out.
+-- The `-- migrate:no-transaction` marker that docs/migration-policy.md and
+-- check-migration-safety.ts both point at is a dbmate/goose convention this
+-- repo's runner does not understand, so a CONCURRENTLY statement here would
+-- not take a shorter lock -- it would abort the migration on every instance
+-- with "cannot run inside a transaction block".
+--
+-- The cost of the plain build, stated rather than waved past: it holds a
+-- write lock on audit_log for its duration, and audit_log takes a row from
+-- every mutation in the app, so writes block while it runs. Seconds at the
+-- row counts this product carries today. An instance with a long trail
+-- should build the index by hand with CONCURRENTLY before upgrading -- IF
+-- NOT EXISTS below makes this a no-op when they have.
+CREATE INDEX IF NOT EXISTS "idx_audit_company_created" ON "audit_log" USING btree ("company_id","created_at");
