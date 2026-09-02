@@ -506,11 +506,7 @@
       "subtitle": "Legal notice pursuant to Section 5 DDG (Digitale-Dienste-Gesetz).",
       "responsible": {
         "heading": "Information pursuant to Section 5 DDG",
-        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
-        "represented": "Represented by: Simon Orzel (Geschäftsführer)",
-        "registration": "Amtsgericht Köln, HRB 126993",
-        "euid": "EUID: DER3306.HRB126993",
-        "vatId": "VAT ID pursuant to Section 27a UStG: DE462889433",
+        "company": "Simon Orzel",
         "address": "Trierer Str. 6, 50676 Köln, Germany",
         "emailLabel": "Email",
         "email": "contact@nisd2.eu"

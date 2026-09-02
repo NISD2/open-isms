@@ -499,18 +499,14 @@
     },
     "impressum": {
       "meta": {
-        "title": "Impressum - Kardashev Catalyst UG",
-        "description": "Impressum der Kardashev Catalyst UG (haftungsbeschränkt) - Betreiber von NISD2.eu. Angaben gemäß § 5 DDG und Kontaktdaten."
+        "title": "Impressum - NISD2.eu",
+        "description": "Impressum von NISD2.eu. Angaben gemäß § 5 DDG und Kontaktdaten."
       },
       "title": "Impressum",
       "subtitle": "Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz).",
       "responsible": {
         "heading": "Angaben gemäß § 5 DDG",
-        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
-        "represented": "Vertreten durch: Simon Orzel (Geschäftsführer)",
-        "registration": "Amtsgericht Köln, HRB 126993",
-        "euid": "EUID: DER3306.HRB126993",
-        "vatId": "USt-IdNr. gemäß § 27a UStG: DE462889433",
+        "company": "Simon Orzel",
         "address": "Trierer Str. 6, 50676 Köln, Deutschland",
         "emailLabel": "E-Mail",
         "email": "contact@nisd2.eu"
