@@ -47,7 +47,7 @@ function multilingualEntries(
   };
 
   return locales.map((locale) => ({
-    url: urlPerLocale[locale] ?? localizedAbsoluteUrl(canonicalPath, locale),
+    url: localizedAbsoluteUrl(canonicalPath, locale),
     ...base,
     alternates: { languages: urlPerLocale },
   }));

@@ -25,8 +25,19 @@ import {
  * been "corrected" once already. e2e/l1/guide.spec.ts:199 pins this value, so
  * the test is the second half of the same decision.
  *
- * A literal rather than an import: this is a client component, so a server
- * SUPPORT_EMAIL env var is not reachable from it.
+ * STILL A LITERAL, and it should not stay one. CLAUDE.md's "Never commit"
+ * list says support emails belong in the SUPPORT_EMAIL env var, and this is a
+ * named person's mailbox shipping in an AGPL repo: a self-hosted instance
+ * renders it in its own help dialog with no way to change it. Being a client
+ * component is NOT the obstacle -- `calLink` two properties down is
+ * env.CAL_LINK, threaded (portal)/layout.tsx -> PortalHeader -> PortalGuide
+ * -> here, and it already models the empty case ("" hides the row).
+ *
+ * Left as it is only because SUPPORT_EMAIL is the OTHER address, the shared
+ * inbox /hilfe publishes; pointing this at it would silently reroute the
+ * in-app direct line and fail e2e/l1/guide.spec.ts:199. It wants its own
+ * variable and its own prop, which is a change to the portal layout rather
+ * than to this file, so it is written down here instead of half-done.
  */
 const CONTACT_EMAIL = "cory@nisd2.eu";
 

@@ -83,13 +83,23 @@ export default async function ReferralTermsPage() {
                   <CardTitle className="text-lg">{t(`referral.${key}.heading`)}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground">
-                  {/* s8 names the address consent is withdrawn at. It
-                      takes it from help.contact.email, the same key the
-                      /hilfe button uses, so the two cannot drift into a
-                      legal page pointing at a dead mailbox. next-intl
-                      ignores a value a message does not reference, so the
-                      other nine sections are unaffected. */}
-                  <p>{t(`referral.${key}.body`, { email: t("contact.email") })}</p>
+                  {/* s8 names the address consent is withdrawn at, and
+                      takes it from help.contact.email -- the same key the
+                      /hilfe button uses -- so the two cannot drift into a
+                      legal page pointing at a dead mailbox.
+
+                      Passed to s8 alone, not to every section: next-intl only
+                      parses ICU when values are supplied, so handing them to
+                      all ten would put the commission and liability clauses
+                      on a parse path they are not on today, where one stray
+                      brace renders "help.referral.s3.body" instead of the
+                      clause. */}
+                  <p>
+                    {t(
+                      `referral.${key}.body`,
+                      key === "s8" ? { email: t("contact.email") } : undefined,
+                    )}
+                  </p>
                 </CardContent>
               </Card>
             </section>

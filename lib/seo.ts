@@ -93,6 +93,13 @@ const I18N_FALLBACK_LOCALE: Locale = "en";
  * `locales` narrows that set for a page that does not exist in all of them --
  * see HELP_LOCALES above. It must be passed the same list the sitemap uses for
  * that page, or the two disagree and the hreflang stops being reciprocal.
+ *
+ * RETURN SHAPE IS A UNION. For a locale inside `locales` you get
+ * `{ canonical, languages }`. For one outside it you get `{ canonical }` and
+ * nothing else -- that page is a duplicate of the English original and says
+ * so, rather than heading a cluster it is not a member of. Destructuring
+ * `languages` unconditionally will not compile, which is the intended
+ * reminder; narrow on `"languages" in alternates` if a caller needs both.
  */
 export function pageAlternates(
   slug: string,
@@ -119,10 +126,13 @@ export function pageAlternates(
   for (const l of locales) {
     languages[l] = localizedAbsoluteUrl(canonical, l);
   }
-  // x-default has to name a locale that is in the set it heads.
+  // x-default has to name a locale that is in the set it heads. safeLocale is
+  // guaranteed to be one -- the early return above is the only way out when it
+  // is not -- so this cannot name a URL absent from `languages`, whatever list
+  // a future caller passes.
   const fallback = locales.includes(routing.defaultLocale)
     ? routing.defaultLocale
-    : I18N_FALLBACK_LOCALE;
+    : safeLocale;
   languages["x-default"] = localizedAbsoluteUrl(canonical, fallback);
   return {
     canonical: localizedAbsoluteUrl(canonical, safeLocale),

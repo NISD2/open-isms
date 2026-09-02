@@ -74,9 +74,11 @@ export default async function HelpPage({
   // Nothing read ?req before, so every code produced a distinct URL that
   // behaved identically and the prefill the prop documents silently did not
   // happen. Folded into the mail subject here.
-  // ?req=&req=ART-21-1 is a real shape (a cleared field resubmitted), so
-  // take the first value that passes rather than the first value present:
-  // req[0] would drop a good code because an empty one preceded it.
+  // The one producer, components/help/StuckLink.tsx, emits a single req, so a
+  // repeated one only arrives hand-edited or mangled in transit. Taking the
+  // first value that PASSES rather than the first value present costs nothing
+  // and means ?req=&req=ART-21-1 still prefills; req[0] would drop a good code
+  // because an empty one preceded it.
   const stuckOn =
     (Array.isArray(req) ? req : [req]).find(
       (value) => value !== undefined && REQUIREMENT_CODE.test(value),

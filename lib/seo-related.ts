@@ -10,7 +10,7 @@
  * went wrong when the component built hrefs by hand.
  */
 import { routing } from "@/i18n/routing";
-import { WIKI_TOP_LEVEL, publishedEntries } from "@/lib/content/wiki-toc";
+import { WIKI_TOP_LEVEL, WIKI_TOC } from "@/lib/content/wiki-toc";
 
 export const relatedArticles: Record<string, string[]> = {
   "what-is-nis2": [
@@ -278,28 +278,35 @@ export type AppPathname = Exclude<
  * for it. Built from the same source that produces the routing map, so the
  * two cannot drift.
  *
- * publishedEntries, not WIKI_TOC[cat].entries: an entry whose publishAt is
- * still in the future is deliberately absent from the /wiki hub and from the
- * sitemap, so linking to it from a related-articles card would advertise a
- * page the rest of the site is holding back. Falling through to null in
- * relatedPathname renders no card, which is this module's designed outcome
- * for a slug that cannot be reached.
+ * NO PUBLISH FILTER HERE, and it is not an oversight -- two attempts at one
+ * are in this branch's history and both were worse than none.
  *
- * KNOWN LIMITATION, and the reason the filter is here rather than inside
- * relatedPathname where the clock could be read fresh: isPublished() calls
- * new Date(), and the only caller is components/info/RelatedArticles.tsx,
- * which is "use client". A clock read on that path is evaluated once on the
- * server and again in the browser, so a slug whose publishAt falls between
- * the two renders differently on each side -- a hydration mismatch, daily, at
- * the 09:00 CET boundary the schedule spaces pages on. Frozen at module
- * evaluation is wrong for at most one process lifetime; disagreeing with
- * itself mid-page is wrong visibly. Fixing it properly means resolving hrefs
- * in a server component and passing them down as props, which is a change to
- * RelatedArticles, not to this map.
+ * The only caller is components/info/RelatedArticles.tsx, which is "use
+ * client" because it needs usePathname(). So this module is bundled and
+ * evaluated in the BROWSER as well as on the server (confirmed: the schedule
+ * timestamps land in .next/static/chunks). isPublished() calls new Date(),
+ * and the two sides read it at different moments whatever the shape:
+ *
+ *   inside relatedPathname  -> server at render, client at render. Mismatch
+ *                              for requests spanning a publishAt.
+ *   at module scope         -> server frozen at process start, client rebuilt
+ *                              every page load. Mismatch on EVERY load until
+ *                              the next deploy, which is strictly worse.
+ *
+ * A slug that is registered in routing.pathnames but not yet published still
+ * resolves here, so a card can point at a page the /wiki hub is holding back.
+ * That is a visible, bounded cost -- the per-page guard 404s it in production
+ * -- and it is the one of the three that does not depend on when the clock is
+ * read. pendingSlugs() is currently empty, so nothing is reachable today.
+ *
+ * The real fix is to resolve hrefs in a server component and pass them down
+ * as props, which takes the schedule out of the client bundle along with the
+ * whole of wiki-toc. That is a change to RelatedArticles and to how the info
+ * layout feeds it a pathname, not to this map.
  */
 const WIKI_SLUG_TO_PATHNAME: ReadonlyMap<string, string> = new Map(
   WIKI_TOP_LEVEL.flatMap((cat) =>
-    publishedEntries(cat).map(
+    WIKI_TOC[cat].entries.map(
       (entry) => [entry.slug, `/wiki/${cat}/${entry.slug}`] as const,
     ),
   ),
