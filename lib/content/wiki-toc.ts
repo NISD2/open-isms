@@ -574,9 +574,9 @@ export const WIKI_TOC: Record<WikiTopLevel, WikiCategoryMeta> = {
       {
         slug: "nis2-roadmap",
         slugs: { de: "nis2-roadmap", en: "nis2-roadmap", nl: "nis2-stappenplan" },
-        titleDe: "NIS 2 in fünf Schritten",
-        titleEn: "NIS 2 in five steps",
-        summaryDe: "Der praxisnahe Roadmap für Geschäftsführung und IT-Leitung.",
+        titleDe: "NIS 2 in sechs Schritten",
+        titleEn: "NIS 2 in six steps",
+        summaryDe: "Die praxisnahe Roadmap für Geschäftsführung und IT-Leitung.",
         summaryEn: "The practical roadmap for management and IT leadership.",
       },
       {

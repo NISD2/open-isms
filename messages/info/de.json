@@ -4773,7 +4773,7 @@
         },
         "q3": {
           "q": "Wir haben kein ELSTER-Organisationszertifikat. Wie lange dauert die Beantragung?",
-          "a": "Die Beantragung erfolgt über elster.de unter „Unternehmenszertifikat beantragen“. Die Bearbeitung dauert in der Regel 5 bis 10 Werktage, da der Aktivierungscode per Post zugestellt wird. Beginnen Sie diesen Schritt als Erstes - er ist der häufigste Engpass bei der BSI-Registrierung."
+          "a": "Prüfen Sie zuerst, ob Ihr Haus schon eines hat, etwa aus dem Steuerbereich: Bestehende ELSTER-Organisationszertifikate lassen sich für das BSI-Portal weiterverwenden. Ein neues beantragen Sie über „Mein Unternehmenskonto“ (mein-unternehmenskonto.de); der Aktivierungsbrief kommt per Post und braucht laut BSI regelmäßig mindestens fünf Werktage. Beginnen Sie diesen Schritt als Erstes - er ist der häufigste Engpass bei der BSI-Registrierung."
         },
         "q4": {
           "q": "Können wir uns registrieren, auch wenn wir noch nicht sicher sind, ob wir betroffen sind?",
@@ -6488,9 +6488,9 @@
       },
       "step2": {
         "title": "Bei der nationalen NIS2-Behörde registrieren",
-        "law": "NIS2 Art. 27 · §33 BSIG (DE)",
+        "law": "NIS2 Art. 3(4) · §33 BSIG (DE)",
         "owner": "IT-Leitung füllt aus, Geschäftsführer zeichnet",
-        "time": "~1 Stunde pro Land + nationale Identitätsverfahren (z. B. ELSTER in DE: 5 bis 10 Werktage)",
+        "time": "~1 Stunde pro Land + nationale Identitätsverfahren (z. B. ELSTER in DE: Aktivierungsbrief per Post, laut BSI regelmäßig mindestens fünf Werktage; ein vorhandenes Organisationszertifikat, etwa aus dem Steuerbereich, lässt sich weiterverwenden)",
         "deadline": "Nationale Fristen gelten: DE: 06.03.2026 abgelaufen, Pflicht besteht weiter",
         "what": "Sie registrieren sich bei der NIS2-Behörde jedes EU-Mitgliedstaats, in dem Sie tätig sind: nicht nur in Deutschland. Tätig sein heißt hier: physische Niederlassung: eigene Gesellschaft, Zweigstelle, Büro oder eigene Mitarbeiter vor Ort in diesem Land. Reiner grenzüberschreitender Vertrieb zählt nicht. Beispiel: GmbH in Köln plus Standort in Wien → Registrierung beim BSI (DE) und bei der NIS-Stelle (AT).",
         "actionText": "Behörden je Land ansehen",

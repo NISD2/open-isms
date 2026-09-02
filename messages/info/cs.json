@@ -6486,9 +6486,9 @@
       },
       "step2": {
         "title": "Zaregistrovat se u vašeho vnitrostátního orgánu NIS2",
-        "law": "NIS2 čl. 27 · § 33 BSIG (DE)",
+        "law": "NIS2 čl. 3 odst. 4 · § 33 BSIG (DE)",
         "owner": "Podává vedoucí IT, podepisuje jednatel",
-        "time": "~1 hodina na zemi + nastavení vnitrostátní identity (např. ELSTER v DE: 5 až 10 pracovních dnů)",
+        "time": "~1 hodina na zemi + nastavení vnitrostátní identity (např. ELSTER v DE: aktivační dopis poštou, podle BSI zpravidla nejméně pět pracovních dnů; stávající certifikát organizace, např. z daňové oblasti, lze znovu použít)",
         "deadline": "Platí vnitrostátní lhůty: DE: 06.03.2026 uplynula; povinnost trvá dál",
         "what": "Registrujete se u orgánu NIS2 každého členského státu EU, ve kterém působíte: nejen Německa. 'Působit v' znamená fyzickou provozovnu: vaše vlastní společnost, pobočka, kancelář nebo vaši vlastní zaměstnanci přímo v dané zemi. Samotný přeshraniční prodej se nezapočítává. Příklad: německá GmbH s vídeňskou kanceláří se registruje u BSI (DE) a u NIS-Stelle (AT).",
         "actionText": "Zobrazit orgány podle zemí",
