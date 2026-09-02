@@ -19,6 +19,7 @@ const namespaces = [
   "funnel",
   "gap-assessment",
   "guide",
+  "help",
   "grcComparison",
   "improvements",
   "incidents",

@@ -60,7 +60,19 @@ const stepIcons = [UserPlus, ClipboardList, Mail] as const;
 const serviceTypeIcons = [Cloud, HardDrive, Users, Wrench] as const;
 
 type Step = { title: string; body: string };
-type RelatedItem = { title: string; body: string; href: string };
+/**
+ * Canonical (DE-key) paths for the related cards. Narrowed to the four routes
+ * actually used so the localized <Link> can resolve them: a bare `string`
+ * cannot be checked against the pathname map, and rendering these as plain
+ * <a href> sent every non-German reader to the German URL, because the
+ * canonical key is only the real path in the default locale.
+ */
+type RelatedHref =
+  | "/supplier-portal"
+  | "/nis2-lieferanten-fragebogen"
+  | "/hilfe"
+  | "/open-source";
+type RelatedItem = { title: string; body: string; href: RelatedHref };
 type ServiceTypeBlock = { title: string; fields: string };
 
 export default async function SicherheitsfragebogenLanding({
@@ -326,7 +338,7 @@ export default async function SicherheitsfragebogenLanding({
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {related.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className="group rounded-lg border bg-card p-5 transition hover:border-primary/40 hover:bg-primary/5"
@@ -336,7 +348,7 @@ export default async function SicherheitsfragebogenLanding({
                 <ArrowRight className="h-4 w-4 flex-none text-muted-foreground transition group-hover:text-primary" />
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{item.body}</p>
-            </a>
+            </Link>
           ))}
         </div>
       </section>

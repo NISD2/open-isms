@@ -1,0 +1,122 @@
+{
+  "help": {
+    "meta": {
+      "title": "Als u vastloopt bij NIS 2",
+      "description": "Het platform en de cursus zijn gratis. Korte vakinhoudelijke vragen beantwoorden wij kosteloos. Wordt het echt werk, dan kost onze tijd 120 EUR netto per uur. Is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u."
+    },
+    "title": "Als u vastloopt bij NIS 2",
+    "intro": "Het platform is gratis en blijft gratis. De cursus ook. De meeste bedrijven komen er zelf doorheen. Lukt dat niet, dan zijn er twee wegen, en beide beginnen met dezelfde mail.",
+    "tier1": {
+      "label": "Niveau 1",
+      "heading": "U doet het zelf. 0 EUR.",
+      "p1": "Een toepassingstoets, elke maatregel uit artikel 21 als losse stap die u kunt doorlopen, bewijs uploaden, PDF-export, een audittrail, en de cursus voor de directie met een deelnamebewijs dat artikel 20 van u verlangt te kunnen tonen.",
+      "p2": "Wilt u het platform liever zelf draaien: de broncode staat op GitHub onder AGPL-3.0. Ook gratis. Geen licentiekosten, geen gebruikerslimiet.",
+      "p3": "Geen tijdslimiet, geen creditcard, geen verkoper aan de lijn.",
+      "p4": "NIS 2 wordt door elke lidstaat omgezet, dus de tekst waarop u wordt getoetst is uw nationale wet, niet de richtlijn. Het platform verwijst eerst naar de richtlijn en toont de nationale verwijzing waar die bestaat, bijvoorbeeld §30 BSIG in Duitsland."
+    },
+    "tier2": {
+      "label": "Niveau 2",
+      "heading": "U loopt ergens vast. Wij helpen zelf.",
+      "p1": "Korte vakinhoudelijke vragen beantwoorden wij per mail, meestal binnen twee werkdagen, kosteloos.",
+      "rate": "120 EUR netto per uur",
+      "rateNote": "afgerekend per half uur",
+      "p2": "Wordt het echt werk, dan kost onze tijd 120 EUR netto per uur, afgerekend per half uur. Eén tarief voor alles wat van ons komt: het uitleggen van een concrete eis voor een bedrijf van uw omvang, zelfclassificatie, het maatregelenplan, bewijs dat een inspectie doorstaat, een sessie met uw directie over haar eigen plichten onder artikel 20, of hulp om het platform op uw eigen infrastructuur draaiend te krijgen.",
+      "p3": "U geeft vooraf het aantal uren vrij, en u krijgt een gespecificeerd overzicht waaraan ze zijn opgegaan. Geen minimumlooptijd, geen abonnement, geen opzegtermijn."
+    },
+    "tier3": {
+      "label": "Niveau 3",
+      "heading": "Er is een gespecialiseerd bedrijf nodig. Wij verwijzen u door.",
+      "p1": "Een deel hiervan is niet ons werk, en dat zeggen wij liever voordat u ons betaalt dan erna. Penetratietesten en technische audits, ISO 27001 certificering, een vaste externe security officer, juridisch advies, incidentafhandeling, OT en procesbesturing, uitvoering op uw eigen infrastructuur.",
+      "p2": "Daarvoor houden wij een lijst bij van bedrijven waarmee wij samenwerken. Zo gaat het:",
+      "steps": {
+        "s1": "Stuur ons één regel over waar u vastloopt. Of klik in het platform op „Vakspecialist zoeken“.",
+        "s2": "Wij noemen één tot drie bedrijven en schrijven erbij waarom juist deze. Vakgebied, regio, vrije capaciteit.",
+        "s3": "U beslist of u er een benadert. Er gaat niets over u door totdat u dat uitdrukkelijk zegt.",
+        "s4": "Het contract loopt tussen u en het bedrijf. Wij staan er niet tussen en factureren niets."
+      },
+      "p3": "De doorverwijzing kost u niets. Geen opslag, geen bemiddelingskosten, geen verplichting."
+    },
+    "earn": {
+      "heading": "Waaraan wij verdienen",
+      "p1": "Bij niveau 2 aan onze eigen uren. Bij niveau 3 betaalt het bedrijf ons 15 procent van zijn nettohonorarium als de doorverwijzing tot een opdracht leidt.",
+      "p2": "Onze partners leggen schriftelijk vast hun honorarium daarom niet te verhogen. Wij adviseren niet op provisiehoogte, en de volgorde van onze lijst hangt er niet van af.",
+      "p3": "Gebruikt u liever uw eigen adviseur, dan is dat volledig in orde, en u houdt het platform hoe dan ook.",
+      "link": "Bemiddelingsvoorwaarden lezen"
+    },
+    "notDo": {
+      "heading": "Wat wij niet doen",
+      "legal": "Geen juridisch advies. Daarvoor heeft u een advocatenkantoor nodig.",
+      "authority": "Geen toezegging dat een toezichthouder uw uitvoering accepteert. Dat kan niemand u eerlijk geven.",
+      "commission": "Geen aanbeveling die wij zonder provisie niet ook zouden doen."
+    },
+    "contact": {
+      "heading": "Contact",
+      "email": "contact@nisd2.eu",
+      "p1": "{email}. Eén regel is genoeg: waar u vastloopt, hoeveel medewerkers, welke sector, welk land.",
+      "cta": "Schrijf ons",
+      "subject": "NIS 2: hier loop ik vast"
+    },
+    "referral": {
+      "meta": {
+        "title": "Bemiddelingsvoorwaarden",
+        "description": "De voorwaarden waaronder wij gespecialiseerde bedrijven doorverwijzen: gratis voor u, onze vergoeding betaalt het bedrijf, de selectie gebeurt niet op provisie, en er gaat niets over u door zonder uw toestemming."
+      },
+      "title": "Bemiddelingsvoorwaarden",
+      "asOf": "Stand: 30 augustus 2026",
+      "providerHeading": "Aanbieder",
+      "s1": {
+        "heading": "1. Wat wij bemiddelen",
+        "body": "Op verzoek noemen wij u bedrijven die diensten leveren die wij zelf niet aanbieden. Wij wijzen u op de gelegenheid, meer niet. Een advies-, aannemings- of dienstverleningsovereenkomst komt uitsluitend tot stand tussen u en het bedrijf."
+      },
+      "s2": {
+        "heading": "2. Gratis voor u",
+        "body": "U betaalt ons niets voor de bemiddeling, geen vergoeding en geen opslag. Er ontstaat geen binding, en u bent op geen enkel moment verplicht een voorgesteld bedrijf opdracht te geven."
+      },
+      "s3": {
+        "heading": "3. Onze vergoeding",
+        "body": "Komt tussen u en een bemiddeld bedrijf een overeenkomst tot stand, dan ontvangen wij van dat bedrijf een provisie van doorgaans 15 procent van het nettohonorarium dat u voor de bemiddelde dienst betaalt, beperkt tot de eerste twaalf maanden van de samenwerking. Onze partners leggen contractueel vast hun honorarium wegens deze provisie niet te verhogen. In afzonderlijke gevallen gelden afwijkende percentages; op verzoek noemen wij u het percentage dat voor uw geval geldt."
+      },
+      "s4": {
+        "heading": "4. Waarop wij selecteren",
+        "body": "Bepalend zijn vakgebied, sectorervaring, regio, vrije capaciteit en terugkoppeling uit eerdere bemiddelingen. De hoogte van de provisie is geen selectie- of volgordecriterium. Wij stellen doorgaans meerdere bedrijven voor en onderbouwen elk voorstel."
+      },
+      "s5": {
+        "heading": "5. Geen volledig marktoverzicht",
+        "body": "Onze lijst is een selectie van bedrijven waarmee wij samenwerken, geen marktoverzicht. Er zijn geschikte aanbieders die er niet op staan."
+      },
+      "s6": {
+        "heading": "6. Aansprakelijkheid",
+        "body": "Voor het werk van het bemiddelde bedrijf zijn wij niet aansprakelijk. Wij zijn geen resultaat van de bemiddeling en geen bepaalde kwaliteit van de dienst verschuldigd. Voor de bemiddeling zelf zijn wij aansprakelijk volgens de wettelijke bepalingen bij opzet en grove nalatigheid en bij letsel aan leven, lichaam of gezondheid; voor het overige bij schending van wezenlijke contractuele verplichtingen beperkt tot de voorzienbare, voor dit soort overeenkomst typische schade."
+      },
+      "s7": {
+        "heading": "7. Geen juridische dienstverlening",
+        "body": "Wij verlenen geen juridische dienst in de zin van de Duitse Rechtsdienstleistungsgesetz. Onze aanwijzingen bij NIS 2 en BSIG zijn geen juridisch advies en vervangen dat niet."
+      },
+      "s8": {
+        "heading": "8. Uw gegevens",
+        "body": "Zonder uw uitdrukkelijke toestemming geven wij geen persoonsgegevens door aan een bedrijf. Geeft u die wel, dan geven wij naam, onderneming, contactgegevens en de door u beschreven vraag door. Het bedrijf is daarvoor zelfstandig verwerkingsverantwoordelijke. U kunt uw toestemming op elk moment voor de toekomst intrekken, vormvrij via {email}. Bijzonderheden staan in onze privacyverklaring."
+      },
+      "s9": {
+        "heading": "9. Klachten",
+        "body": "Loopt een bemiddeling slecht af, schrijf ons dan. Wij gaan dat na en halen bedrijven van de lijst waarbij dit zich herhaalt."
+      },
+      "s10": {
+        "heading": "10. Wijzigingen",
+        "body": "Deze voorwaarden gelden in de versie die op het moment van uw aanvraag gepubliceerd is."
+      },
+      "backToHelp": "Terug naar het overzicht: als u vastloopt",
+      "privacyLink": "Privacyverklaring"
+    },
+    "inApp": {
+      "stuck": "Loopt u hier vast?",
+      "idle": {
+        "body": "Uw voortgang staat al twee weken op {done} van {total} stappen. Dat is normaal, en meestal is het één enkel punt dat blokkeert. Vertel ons welk punt, dan zeggen wij u of het een half uur met ons is of werk voor een gespecialiseerd bedrijf.",
+        "cta": "Vertel ons waar u vastloopt"
+      },
+      "dialog": {
+        "line": "Loopt u ergens vast? Korte vakinhoudelijke vragen kosten niets, en is er een gespecialiseerd bedrijf nodig, dan verwijzen wij u door, zonder kosten voor u.",
+        "cta": "Vakspecialist zoeken"
+      }
+    }
+  }
+}

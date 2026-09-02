@@ -2,7 +2,16 @@
  * Related articles mapping for internal linking.
  * Each key is a slug (without locale prefix), value is array of related slugs.
  * Used by RelatedArticles component in the info layout.
+ *
+ * The slugs here are the canonical German ones. Most of these pages have since
+ * migrated under /wiki, where every locale has its own slug, so a slug on its
+ * own is not a URL. `relatedPathname` turns one into the canonical pathname
+ * key that next-intl can localize. See the note on that function for what
+ * went wrong when the component built hrefs by hand.
  */
+import { routing } from "@/i18n/routing";
+import { WIKI_TOP_LEVEL, WIKI_TOC } from "@/lib/content/wiki-toc";
+
 export const relatedArticles: Record<string, string[]> = {
   "what-is-nis2": [
     "nis2-in-germany",
@@ -251,3 +260,86 @@ export const pageTitleKeys: Record<string, string> = {
   "nis2-lebensmittel": "sectorFood",
   "nis2-produzierendes-gewerbe": "sectorManufacturing",
 };
+
+/**
+ * A pathname the next-intl routing config can localize from the key alone.
+ *
+ * Parameterised routes (`/newsletter/[slug]`) are excluded: <Link> needs a
+ * `params` object for those, so a bare key is not a usable href. No related
+ * article is a dynamic route, and the exclusion keeps that true by construction.
+ */
+export type AppPathname = Exclude<
+  keyof typeof routing.pathnames,
+  `${string}[${string}]${string}`
+>;
+
+/**
+ * Canonical (German) wiki slug -> the pathname key `wikiPathnames()` registers
+ * for it. Built from the same source that produces the routing map, so the
+ * two cannot drift.
+ *
+ * NO PUBLISH FILTER HERE, and it is not an oversight -- two attempts at one
+ * are in this branch's history and both were worse than none.
+ *
+ * The only caller is components/info/RelatedArticles.tsx, which is "use
+ * client" because it needs usePathname(). So this module is bundled and
+ * evaluated in the BROWSER as well as on the server (confirmed: the schedule
+ * timestamps land in .next/static/chunks). isPublished() calls new Date(),
+ * and the two sides read it at different moments whatever the shape:
+ *
+ *   inside relatedPathname  -> server at render, client at render. Mismatch
+ *                              for requests spanning a publishAt.
+ *   at module scope         -> server frozen at process start, client rebuilt
+ *                              every page load. Mismatch on EVERY load until
+ *                              the next deploy, which is strictly worse.
+ *
+ * A slug that is registered in routing.pathnames but not yet published still
+ * resolves here, so a card can point at a page the /wiki hub is holding back.
+ * That is a visible, bounded cost -- the per-page guard 404s it in production
+ * -- and it is the one of the three that does not depend on when the clock is
+ * read. pendingSlugs() is currently empty, so nothing is reachable today.
+ *
+ * The real fix is to resolve hrefs in a server component and pass them down
+ * as props, which takes the schedule out of the client bundle along with the
+ * whole of wiki-toc. That is a change to RelatedArticles and to how the info
+ * layout feeds it a pathname, not to this map.
+ */
+const WIKI_SLUG_TO_PATHNAME: ReadonlyMap<string, string> = new Map(
+  WIKI_TOP_LEVEL.flatMap((cat) =>
+    WIKI_TOC[cat].entries.map(
+      (entry) => [entry.slug, `/wiki/${cat}/${entry.slug}`] as const,
+    ),
+  ),
+);
+
+/**
+ * Resolve a related-articles slug to a registered pathname, or null when it
+ * points at nothing we can link to.
+ *
+ * WHY THIS EXISTS. RelatedArticles used to render `href={`/${slug}` as never}`.
+ * The cast silenced the typed-route check, and next-intl, given a pathname it
+ * does not know, falls back to prefixing the locale verbatim. So the German
+ * slug came out as /en/kosten and /nl/what-is-nis2: URLs that are neither a
+ * registered route nor a legacy redirect (those exist only for each locale's
+ * OWN old slug), leaving them to the proxy's protected-by-default branch. 28
+ * of 32 slugs were broken in at least one locale, on every info page in the
+ * site's footer-adjacent related block.
+ *
+ * Returning null rather than a guess means a slug that no longer resolves
+ * renders no card, instead of a link that 404s or bounces to sign-in.
+ */
+export function relatedPathname(slug: string): AppPathname | null {
+  const candidates = [`/${slug}`, WIKI_SLUG_TO_PATHNAME.get(slug)];
+  for (const candidate of candidates) {
+    // The `in` check is the narrowing: only keys the routing config actually
+    // carries are returned, so the assertion below cannot outrun reality.
+    if (
+      candidate &&
+      !candidate.includes("[") &&
+      candidate in routing.pathnames
+    ) {
+      return candidate as AppPathname;
+    }
+  }
+  return null;
+}

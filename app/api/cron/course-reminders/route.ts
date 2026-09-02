@@ -24,7 +24,7 @@ import { and, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { notification, user } from "@/schema";
 import { logAudit } from "@/lib/audit";
-import { env } from "@/lib/env";
+import { env, mailSupportEmail } from "@/lib/env";
 import { verifyCronBearer } from "@/lib/cron/auth";
 import { getAppUrl } from "@/lib/utils";
 import { sendMail, courseFollowupEmail } from "@/lib/mail";
@@ -36,7 +36,7 @@ export const dynamic = "force-dynamic";
 const STALL_DAYS = 7;
 const ENTITY_TYPE = "course_followup";
 const TRIGGER_PREFIX = "stalled_7d:";
-const REPLY_TO = process.env.SUPPORT_EMAIL ?? "support@example.com";
+const REPLY_TO = mailSupportEmail();
 
 type StalledRow = {
   user_id: string;

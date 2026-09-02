@@ -40,24 +40,100 @@ function isLocale(value: string): value is Locale {
 }
 
 /**
+ * Locales the help offer actually exists in.
+ *
+ * messages/help/ ships de, en and nl only. i18n/request.ts falls back to
+ * English for an absent namespace, so /es/ayuda serves English prose under a
+ * URL that claims to be Spanish. Advertising all ten with reciprocal hreflang
+ * told Google that eight of them were translations of each other when they are
+ * one English page repeated, which is the shape of duplicate content it
+ * penalises.
+ *
+ * /vermittlung is the sharper case: it states the 15 percent commission,
+ * liability limits and data-transfer consent. Offering that as an es/fr/it/
+ * pl/cs/pt/ro document when it is English is not a translation gap, it is a
+ * legal page presented as something it is not.
+ *
+ * It lives here rather than in app/sitemap.ts because the sitemap is only half
+ * of the claim: pageAlternates writes the <head> hreflang set, and Google reads
+ * the two together. A list narrowed in one place and not the other produces
+ * non-reciprocal hreflang, which is worse than either choice made consistently.
+ * Both readers take this constant, so widening it to a newly translated locale
+ * is a one-line change that moves both at once.
+ *
+ * The two are unified in WHICH locales they name, not yet in shape: sitemap
+ * entries carry no x-default and the <head> set does. That asymmetry predates
+ * this constant and applies to every page on the site, so it is left for a
+ * change that can move all of them together.
+ *
+ * The routes still resolve in every locale, so an existing link keeps working;
+ * they are simply no longer advertised as translations.
+ */
+export const HELP_LOCALES = ["de", "en", "nl"] as const;
+
+/**
+ * The locale every other one degrades to. i18n/request.ts loads a missing
+ * namespace file from en, then fills any key still absent from the English
+ * messages, so a page in an untranslated locale is serving the English one.
+ * That makes en the canonical target for those URLs, not routing.defaultLocale.
+ */
+const I18N_FALLBACK_LOCALE: Locale = "en";
+
+/**
  * Returns canonical + hreflang alternates for a page.
  *
  * `slug` is the legacy slug-without-leading-slash form (e.g. "nis2-bussgelder",
  * or "" for the homepage). It is converted to a canonical pathname (with
  * leading slash) and resolved per locale via the routing config.
  *
- * Emits hreflang for all 3 locales + x-default → DE root. The
+ * Emits hreflang for every configured locale + x-default → DE root. The
  * `x-default` value is what Google serves when no locale match is
  * found, so we point it at DE (our primary market).
+ *
+ * `locales` narrows that set for a page that does not exist in all of them --
+ * see HELP_LOCALES above. It must be passed the same list the sitemap uses for
+ * that page, or the two disagree and the hreflang stops being reciprocal.
+ *
+ * RETURN SHAPE IS A UNION. For a locale inside `locales` you get
+ * `{ canonical, languages }`. For one outside it you get `{ canonical }` and
+ * nothing else -- that page is a duplicate of the English original and says
+ * so, rather than heading a cluster it is not a member of. Destructuring
+ * `languages` unconditionally will not compile, which is the intended
+ * reminder; narrow on `"languages" in alternates` if a caller needs both.
  */
-export function pageAlternates(slug: string, locale: string) {
+export function pageAlternates(
+  slug: string,
+  locale: string,
+  locales: readonly Locale[] = routing.locales,
+) {
   const canonical = slug ? `/${slug}` : "/";
   const safeLocale: Locale = isLocale(locale) ? locale : routing.defaultLocale;
+
+  // A locale outside `locales` still resolves -- the route exists in all ten
+  // and i18n/request.ts fills the namespace from English -- so what it serves
+  // is the English page under a localized URL. It says exactly that: one
+  // canonical pointing at the English original, and no hreflang set of its
+  // own. Emitting the narrowed cluster here instead would name three URLs and
+  // omit this page from its own annotation, which is the invalid shape Google
+  // discards the whole set for, and dropping it from the sitemap alone never
+  // stopped it being crawled: PricingCards and /vermittlung link /hilfe in
+  // every locale, and layout.tsx indexes everything by default.
+  if (!locales.includes(safeLocale)) {
+    return { canonical: localizedAbsoluteUrl(canonical, I18N_FALLBACK_LOCALE) };
+  }
+
   const languages: Record<string, string> = {};
-  for (const l of routing.locales) {
+  for (const l of locales) {
     languages[l] = localizedAbsoluteUrl(canonical, l);
   }
-  languages["x-default"] = localizedAbsoluteUrl(canonical, routing.defaultLocale);
+  // x-default has to name a locale that is in the set it heads. safeLocale is
+  // guaranteed to be one -- the early return above is the only way out when it
+  // is not -- so this cannot name a URL absent from `languages`, whatever list
+  // a future caller passes.
+  const fallback = locales.includes(routing.defaultLocale)
+    ? routing.defaultLocale
+    : safeLocale;
+  languages["x-default"] = localizedAbsoluteUrl(canonical, fallback);
   return {
     canonical: localizedAbsoluteUrl(canonical, safeLocale),
     languages,

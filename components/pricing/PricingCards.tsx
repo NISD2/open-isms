@@ -72,12 +72,13 @@ export function PricingCards() {
 
       <p className="text-center text-sm text-muted-foreground">
         {t("consultantFootnote")}{" "}
-        <a
-          href="mailto:contact@nisd2.eu?subject=NIS2-Berater%20anfragen"
-          className="underline hover:text-foreground"
-        >
+        {/* /hilfe, not a bare mailto: the referral earns us a commission, and
+            the page is where that is disclosed. Sending the reader straight to
+            an email composer advertises the offer while leaving out the part
+            that makes it honest. */}
+        <Link href="/hilfe" className="underline hover:text-foreground">
           {t("consultantCta")}
-        </a>
+        </Link>
       </p>
     </div>
   );

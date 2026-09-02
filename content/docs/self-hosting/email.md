@@ -33,6 +33,12 @@ NEWSLETTER_REPLY_TO=hello@example.com
 SUPPORT_EMAIL=support@example.com
 ```
 
+`SUPPORT_EMAIL` is read in three places: the reply-to on outbound mail, the
+contact on `/email/unsubscribed`, and the address the in-product help dialog
+offers a signed-in user. Leave it unset and the help dialog renders no address
+row rather than a placeholder one, so an instance never publishes a mailbox its
+operator did not choose.
+
 ## Option 2: Google OAuth only
 
 ```ini

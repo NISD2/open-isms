@@ -127,7 +127,13 @@ export default async function PortalLayout({
         frameworks={frameworks}
       />
       <SidebarInset>
-        <PortalHeader guide={{ hints: session.hints, calLink: env.CAL_LINK }} />
+        <PortalHeader
+          guide={{
+            hints: session.hints,
+            calLink: env.CAL_LINK,
+            supportEmail: env.SUPPORT_EMAIL,
+          }}
+        />
         <div className="flex-1 px-6 py-6">
           {showOnboarding ? <OnboardingBanner /> : children}
         </div>

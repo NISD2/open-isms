@@ -36,6 +36,7 @@ import { PolicyItemsPanel, SKIP_INLINE_MODULE } from "./PolicyItemsPanel";
 import { InlineModulePanel } from "./InlineModulePanel";
 import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import { RequirementAssignPopover, type AssignmentRow } from "./RequirementAssignPopover";
+import { StuckLink } from "@/components/help/StuckLink";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
 import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
@@ -719,6 +720,11 @@ export function RequirementDetail({
                 <ExternalLink className="h-3 w-3" />
               </Link>
             )}
+
+            {/* Offer of help, at the point where someone actually stalls.
+                Same weight as the course link above it, so it reads as one
+                more thing available rather than an interruption. */}
+            <StuckLink requirementCode={requirement.code} className="mt-1" />
           </div>
 
         </aside>

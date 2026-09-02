@@ -113,6 +113,18 @@ export default async function GlossaryPage({ params }: { params: Promise<{ local
               <div className="flex items-start gap-3">
                 <div>
                   <p className="text-sm font-semibold">{t(`glossary.terms.${key}.term`)}</p>
+                  {/* t.has is load-bearing here, and for a reason worth
+                      stating: i18n/request.ts fillMissing() merges English
+                      into every non-en locale key by key, so t.has() can
+                      never report "this LOCALE lacks the key" -- only "no
+                      locale has it". That is exactly the question being asked.
+                      `german` and `legalRef` are properties of the TERM, not
+                      of the locale (17 of 24 entries have a German term, 23
+                      have a statute reference, identically in all ten files),
+                      so English's coverage is the right answer for every
+                      locale. Do not copy this pattern to gate on translation
+                      status: there it is always true and silently renders
+                      English. */}
                   {t.has(`glossary.terms.${key}.german`) && (
                     <p className="text-xs text-muted-foreground/60 italic">{t(`glossary.terms.${key}.german`)}</p>
                   )}
