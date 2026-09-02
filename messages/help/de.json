@@ -11,8 +11,7 @@
       "heading": "Sie machen es selbst. 0 Euro.",
       "p1": "Betroffenheitsprüfung, alle Anforderungen aus Artikel 21 NIS 2 und §30 BSIG als einzelne Schritte, Nachweise hochladen, PDF-Export, Prüfpfad, der Kurs für die Geschäftsführung mit Teilnahmenachweis.",
       "p2": "Wenn Sie die Plattform lieber selbst betreiben: der Quellcode steht unter AGPL-3.0 auf GitHub, ebenfalls kostenlos, ohne Lizenzgebühr, ohne Nutzerbegrenzung.",
-      "p3": "Ohne Zeitlimit, ohne Kreditkarte, ohne Vertrieb im Nacken.",
-      "p4": "NIS 2 wird von jedem Mitgliedstaat in nationales Recht umgesetzt, geprüft werden Sie also am Wortlaut Ihres nationalen Gesetzes, nicht an dem der Richtlinie. Die Plattform bildet zuerst die Richtlinie ab und zeigt die nationale Fundstelle, wo es eine gibt, in Deutschland zum Beispiel §30 BSIG."
+      "p3": "Ohne Zeitlimit, ohne Kreditkarte, ohne Vertrieb im Nacken."
     },
     "tier2": {
       "label": "Stufe 2",
@@ -94,7 +93,7 @@
       },
       "s8": {
         "heading": "8. Ihre Daten",
-        "body": "Ohne Ihre ausdrückliche Einwilligung geben wir keine personenbezogenen Daten an einen Betrieb weiter. Erteilen Sie sie, übermitteln wir Name, Unternehmen, Kontaktdaten und die von Ihnen geschilderte Anfrage. Der Betrieb ist dafür eigenständig Verantwortlicher. Sie können die Einwilligung jederzeit für die Zukunft widerrufen, formlos an contact@nisd2.eu. Einzelheiten in unserer Datenschutzerklärung."
+        "body": "Ohne Ihre ausdrückliche Einwilligung geben wir keine personenbezogenen Daten an einen Betrieb weiter. Erteilen Sie sie, übermitteln wir Name, Unternehmen, Kontaktdaten und die von Ihnen geschilderte Anfrage. Der Betrieb ist dafür eigenständig Verantwortlicher. Sie können die Einwilligung jederzeit für die Zukunft widerrufen, formlos an {email}. Einzelheiten in unserer Datenschutzerklärung."
       },
       "s9": {
         "heading": "9. Beschwerden",

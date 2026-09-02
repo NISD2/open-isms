@@ -10,8 +10,7 @@
  * went wrong when the component built hrefs by hand.
  */
 import { routing } from "@/i18n/routing";
-import { WIKI_TOP_LEVEL, WIKI_TOC } from "@/lib/content/wiki-toc";
-import { isPublished } from "@/lib/content/wiki-publish-schedule";
+import { WIKI_TOP_LEVEL, publishedEntries } from "@/lib/content/wiki-toc";
 
 export const relatedArticles: Record<string, string[]> = {
   "what-is-nis2": [
@@ -279,16 +278,28 @@ export type AppPathname = Exclude<
  * for it. Built from the same source that produces the routing map, so the
  * two cannot drift.
  *
- * Every entry, published or not, exactly as wikiPathnames() registers them.
- * The publish schedule is NOT applied here: isPublished() reads the clock, and
- * this is a module-scope const, so filtering at this point would freeze the
- * answer at first evaluation -- for a long-lived server process, at deploy. An
- * entry whose publishAt elapses at 09:00 would stay unlinkable until the next
- * restart. relatedPathname() asks the schedule per call instead.
+ * publishedEntries, not WIKI_TOC[cat].entries: an entry whose publishAt is
+ * still in the future is deliberately absent from the /wiki hub and from the
+ * sitemap, so linking to it from a related-articles card would advertise a
+ * page the rest of the site is holding back. Falling through to null in
+ * relatedPathname renders no card, which is this module's designed outcome
+ * for a slug that cannot be reached.
+ *
+ * KNOWN LIMITATION, and the reason the filter is here rather than inside
+ * relatedPathname where the clock could be read fresh: isPublished() calls
+ * new Date(), and the only caller is components/info/RelatedArticles.tsx,
+ * which is "use client". A clock read on that path is evaluated once on the
+ * server and again in the browser, so a slug whose publishAt falls between
+ * the two renders differently on each side -- a hydration mismatch, daily, at
+ * the 09:00 CET boundary the schedule spaces pages on. Frozen at module
+ * evaluation is wrong for at most one process lifetime; disagreeing with
+ * itself mid-page is wrong visibly. Fixing it properly means resolving hrefs
+ * in a server component and passing them down as props, which is a change to
+ * RelatedArticles, not to this map.
  */
 const WIKI_SLUG_TO_PATHNAME: ReadonlyMap<string, string> = new Map(
   WIKI_TOP_LEVEL.flatMap((cat) =>
-    WIKI_TOC[cat].entries.map(
+    publishedEntries(cat).map(
       (entry) => [entry.slug, `/wiki/${cat}/${entry.slug}`] as const,
     ),
   ),
@@ -311,14 +322,7 @@ const WIKI_SLUG_TO_PATHNAME: ReadonlyMap<string, string> = new Map(
  * renders no card, instead of a link that 404s or bounces to sign-in.
  */
 export function relatedPathname(slug: string): AppPathname | null {
-  // An entry whose publishAt is still in the future is deliberately absent
-  // from the /wiki hub and from the sitemap, so linking to it from a card
-  // would advertise a page the rest of the site is holding back. Checked here,
-  // per call, so a page becomes linkable the moment it goes live.
-  const wikiPath = isPublished(slug)
-    ? WIKI_SLUG_TO_PATHNAME.get(slug)
-    : undefined;
-  const candidates = [`/${slug}`, wikiPath];
+  const candidates = [`/${slug}`, WIKI_SLUG_TO_PATHNAME.get(slug)];
   for (const candidate of candidates) {
     // The `in` check is the narrowing: only keys the routing config actually
     // carries are returned, so the assertion below cannot outrun reality.

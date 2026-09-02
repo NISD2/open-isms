@@ -53,23 +53,34 @@ function TierHeading({ index, label, heading }: { index: number; label: string; 
   );
 }
 
+/**
+ * StuckLink appends ?req=<requirementCode>. The value goes straight into a
+ * mailto the user is about to send, so it is shape-checked rather than
+ * trusted: a requirement code, not arbitrary query text.
+ */
+const REQUIREMENT_CODE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$/;
+
 export default async function HelpPage({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ req?: string | string[] }>;
 }) {
   const t = await getTranslations("help");
+  const { locale } = await params;
   const { req } = await searchParams;
-  const reqRaw = Array.isArray(req) ? req[0] : req;
 
-  // StuckLink appends ?req=<requirementCode> so the reader does not have to
-  // retype where they got stuck. Nothing read it before, so every code
-  // produced a distinct URL that behaved identically and the prefill the
-  // prop documents silently did not happen. Folded into the mail subject
-  // here. Shape-checked because the value goes straight into a mailto the
-  // user is about to send: a requirement code, not arbitrary query text.
+  // Nothing read ?req before, so every code produced a distinct URL that
+  // behaved identically and the prefill the prop documents silently did not
+  // happen. Folded into the mail subject here.
+  // ?req=&req=ART-21-1 is a real shape (a cleared field resubmitted), so
+  // take the first value that passes rather than the first value present:
+  // req[0] would drop a good code because an empty one preceded it.
   const stuckOn =
-    reqRaw && /^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$/.test(reqRaw) ? reqRaw : null;
+    (Array.isArray(req) ? req : [req]).find(
+      (value) => value !== undefined && REQUIREMENT_CODE.test(value),
+    ) ?? null;
   const subject = stuckOn
     ? `${t("contact.subject")} (${stuckOn})`
     : t("contact.subject");
@@ -92,10 +103,20 @@ export default async function HelpPage({
                 <p>{t("tier1.p1")}</p>
                 <p>{t("tier1.p2")}</p>
                 <p>{t("tier1.p3")}</p>
-                {/* Member-state transposition note: written for the EU-wide
-                    copy, absent from the German original, which cites §30
-                    BSIG inline instead. */}
-                {t.has("tier1.p4") && <p>{t("tier1.p4")}</p>}
+                {/* Member-state transposition note. Deliberately absent
+                    from the German copy, whose tier1.p1 already cites §30
+                    BSIG inline; rendering both puts the same statute in two
+                    adjacent paragraphs of one card.
+
+                    NOT t.has("tier1.p4"), which was here and never fired.
+                    i18n/request.ts fillMissing() merges the English namespace
+                    into every non-en locale key by key at every depth before a
+                    component sees it, so t.has() is true in all ten locales
+                    whatever the locale file contains -- it read as a guard and
+                    was in fact shipping the English paragraph to the German
+                    page, on the one page whose subject is German law. An
+                    explicit locale is the only thing that gates this. */}
+                {locale !== "de" && <p>{t("tier1.p4")}</p>}
               </CardContent>
             </Card>
           </section>

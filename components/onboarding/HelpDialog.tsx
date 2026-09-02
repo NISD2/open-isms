@@ -13,6 +13,21 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+/**
+ * The in-product address, and deliberately NOT the one /hilfe publishes.
+ *
+ *   PUBLIC   /hilfe is reachable by anyone, including people who have never
+ *            signed up, and goes to the shared inbox (help.contact.email).
+ *   IN-APP   this dialog is what a signed-in user meets on their second
+ *            login. It is a direct line, not a queue.
+ *
+ * Recorded here because the split reads as drift from the code alone and has
+ * been "corrected" once already. e2e/l1/guide.spec.ts:199 pins this value, so
+ * the test is the second half of the same decision.
+ *
+ * A literal rather than an import: this is a client component, so a server
+ * SUPPORT_EMAIL env var is not reachable from it.
+ */
 const CONTACT_EMAIL = "cory@nisd2.eu";
 
 function HelpRow({

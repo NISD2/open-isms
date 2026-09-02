@@ -83,7 +83,13 @@ export default async function ReferralTermsPage() {
                   <CardTitle className="text-lg">{t(`referral.${key}.heading`)}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground">
-                  <p>{t(`referral.${key}.body`)}</p>
+                  {/* s8 names the address consent is withdrawn at. It
+                      takes it from help.contact.email, the same key the
+                      /hilfe button uses, so the two cannot drift into a
+                      legal page pointing at a dead mailbox. next-intl
+                      ignores a value a message does not reference, so the
+                      other nine sections are unaffected. */}
+                  <p>{t(`referral.${key}.body`, { email: t("contact.email") })}</p>
                 </CardContent>
               </Card>
             </section>

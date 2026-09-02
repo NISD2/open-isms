@@ -30,15 +30,14 @@ export function StalledPanel({
   const t = useTranslations("help");
 
   if (!lastActivityAt) return null;
-  // An empty aggregate is not a stalled path. journey.getItems reports
-  // total = items.length, which is 0 whenever the assessment exists but has
-  // no requirement rows (part-way seeding, a framework swap). Without this
-  // the panel tells the company its progress has been stuck at "0 of 0
-  // steps" for two weeks, which is not a sentence anyone should read.
-  if (total === 0) return null;
-  // Nor is a finished one. A company on 49 of 49 has nothing left to move,
-  // so two weeks of quiet is the expected shape of done, not a stall, and
-  // "you have been stuck at 49 of 49" is the wrong sentence to hand it.
+  // Nothing left to move is not a stall, in either of the two ways a journey
+  // reaches that state: 49 of 49 done, or an aggregate with no requirement
+  // rows at all (journey.getItems reports total = items.length, which is 0
+  // part-way through seeding or across a framework swap). done >= total
+  // covers both -- done is a subset count of the same list, so total 0 means
+  // done 0 -- and two weeks of quiet on either is the expected shape of the
+  // thing, not something to hand the company "you have been stuck at 0 of 0"
+  // over.
   if (done >= total) return null;
 
   const daysIdle =

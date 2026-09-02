@@ -61,10 +61,23 @@ function isLocale(value: string): value is Locale {
  * Both readers take this constant, so widening it to a newly translated locale
  * is a one-line change that moves both at once.
  *
+ * The two are unified in WHICH locales they name, not yet in shape: sitemap
+ * entries carry no x-default and the <head> set does. That asymmetry predates
+ * this constant and applies to every page on the site, so it is left for a
+ * change that can move all of them together.
+ *
  * The routes still resolve in every locale, so an existing link keeps working;
  * they are simply no longer advertised as translations.
  */
 export const HELP_LOCALES = ["de", "en", "nl"] as const;
+
+/**
+ * The locale every other one degrades to. i18n/request.ts loads a missing
+ * namespace file from en, then fills any key still absent from the English
+ * messages, so a page in an untranslated locale is serving the English one.
+ * That makes en the canonical target for those URLs, not routing.defaultLocale.
+ */
+const I18N_FALLBACK_LOCALE: Locale = "en";
 
 /**
  * Returns canonical + hreflang alternates for a page.
@@ -88,15 +101,28 @@ export function pageAlternates(
 ) {
   const canonical = slug ? `/${slug}` : "/";
   const safeLocale: Locale = isLocale(locale) ? locale : routing.defaultLocale;
+
+  // A locale outside `locales` still resolves -- the route exists in all ten
+  // and i18n/request.ts fills the namespace from English -- so what it serves
+  // is the English page under a localized URL. It says exactly that: one
+  // canonical pointing at the English original, and no hreflang set of its
+  // own. Emitting the narrowed cluster here instead would name three URLs and
+  // omit this page from its own annotation, which is the invalid shape Google
+  // discards the whole set for, and dropping it from the sitemap alone never
+  // stopped it being crawled: PricingCards and /vermittlung link /hilfe in
+  // every locale, and layout.tsx indexes everything by default.
+  if (!locales.includes(safeLocale)) {
+    return { canonical: localizedAbsoluteUrl(canonical, I18N_FALLBACK_LOCALE) };
+  }
+
   const languages: Record<string, string> = {};
   for (const l of locales) {
     languages[l] = localizedAbsoluteUrl(canonical, l);
   }
-  // x-default has to name a locale we actually advertise: pointing it at a DE
-  // URL absent from the alternate set is the same non-reciprocity again.
+  // x-default has to name a locale that is in the set it heads.
   const fallback = locales.includes(routing.defaultLocale)
     ? routing.defaultLocale
-    : (locales[0] ?? routing.defaultLocale);
+    : I18N_FALLBACK_LOCALE;
   languages["x-default"] = localizedAbsoluteUrl(canonical, fallback);
   return {
     canonical: localizedAbsoluteUrl(canonical, safeLocale),

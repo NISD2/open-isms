@@ -33,9 +33,12 @@ function multilingualEntries(
   options: PageOptions = {},
 ): SitemapEntry[] {
   const locales = options.locales ?? routing.locales;
+  // Partial, not Record: `locales` is narrowed for a page that does not exist
+  // in all ten (HELP_LOCALES), so asserting a complete record here would let
+  // urlPerLocale["es"] typecheck as string and emit `url: undefined`.
   const urlPerLocale = Object.fromEntries(
     locales.map((l) => [l, localizedAbsoluteUrl(canonicalPath, l)]),
-  ) as Record<Locale, string>;
+  ) as Partial<Record<Locale, string>>;
 
   const base = {
     lastModified: options.lastModified ?? "2026-05-10",
@@ -44,7 +47,7 @@ function multilingualEntries(
   };
 
   return locales.map((locale) => ({
-    url: urlPerLocale[locale],
+    url: urlPerLocale[locale] ?? localizedAbsoluteUrl(canonicalPath, locale),
     ...base,
     alternates: { languages: urlPerLocale },
   }));
@@ -160,12 +163,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Pricing + Training
     ...multilingualEntries("/pricing", { priority: 0.9 }),
     ...multilingualEntries("/hilfe", {
-      lastModified: "2026-08-30",
+      lastModified: "2026-09-02",
       priority: 0.8,
       locales: HELP_LOCALES,
     }),
     ...multilingualEntries("/vermittlung", {
-      lastModified: "2026-08-30",
+      lastModified: "2026-09-02",
       priority: 0.4,
       locales: HELP_LOCALES,
     }),
