@@ -36,10 +36,9 @@ export default async function EthikPage({
         <h2>Conflicts of interest</h2>
         <p>
           We disclose every commercial relationship that could shape what we
-          write. The founders' direct financial interests (in the
-          Kardashev Catalyst UG that publishes nisd2.eu) are public via the
-          Impressum. We do not own equity in NIS 2 consultancies, audit
-          firms, or competing GRC platforms.
+          write. The direct financial interest behind nisd2.eu (Simon Orzel,
+          who publishes it) is public via the Impressum. We do not own equity
+          in NIS 2 consultancies, audit firms, or competing GRC platforms.
         </p>
 
         <h2>Advertising and sponsorships</h2>
@@ -80,10 +79,10 @@ export default async function EthikPage({
       <h2>Interessenkonflikte</h2>
       <p>
         Wir legen jede kommerzielle Beziehung offen, die unsere Inhalte
-        beeinflussen könnte. Die direkten finanziellen Interessen der Gründer
-        (an der Kardashev Catalyst UG, die nisd2.eu betreibt) sind über das
-        Impressum öffentlich. Wir halten keine Beteiligungen an
-        NIS 2 Beratungen, Auditfirmen oder konkurrierenden GRC-Plattformen.
+        beeinflussen könnte. Das direkte finanzielle Interesse hinter nisd2.eu
+        (Simon Orzel, der die Website betreibt) ist über das Impressum
+        öffentlich. Wir halten keine Beteiligungen an NIS 2 Beratungen,
+        Auditfirmen oder konkurrierenden GRC-Plattformen.
       </p>
 
       <h2>Werbung und Sponsorings</h2>

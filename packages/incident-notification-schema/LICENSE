@@ -15,7 +15,7 @@ You are free to share, adapt, and use the content commercially, provided you
 give appropriate credit. Suggested attribution:
 
     "Based on the NIS 2 Incident Notification Schema by
-     Kardashev Catalyst UG / nisd2.eu, licensed under CC BY 4.0.
+     Simon Orzel / nisd2.eu, licensed under CC BY 4.0.
      https://github.com/NISD2/nis2-incident-notification-schema"
 
 ------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ All source code (everything in `src/`, plus build configuration files such as
 
     MIT License
 
-    Copyright (c) 2026 Kardashev Catalyst UG (haftungsbeschränkt)
+    Copyright (c) 2026 Simon Orzel
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),

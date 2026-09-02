@@ -155,4 +155,4 @@ applicable national authority's requirements.
 
 ## Maintainer
 
-Maintained by [Kardashev Catalyst UG (haftungsbeschränkt)](https://www.nisd2.eu/impressum) for [nisd2.eu](https://www.nisd2.eu) — a free EU NIS 2 compliance platform. Contact: [contact@nisd2.eu](mailto:contact@nisd2.eu).
+Maintained by [Simon Orzel](https://www.nisd2.eu/impressum) for [nisd2.eu](https://www.nisd2.eu) — a free EU NIS 2 compliance platform. Contact: [contact@nisd2.eu](mailto:contact@nisd2.eu).

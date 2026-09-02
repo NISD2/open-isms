@@ -548,9 +548,7 @@
       "responsible": {
         "heading": "Responsable du traitement",
         "p1": "Le responsable du traitement des données sur ce site web est :",
-        "company": "Kardashev Catalyst UG (haftungsbeschränkt)",
-        "represented": "Représentée par : Simon Orzel (Geschäftsführer)",
-        "registration": "Amtsgericht Köln, HRB 126993",
+        "company": "Simon Orzel",
         "address": "Trierer Str. 6, 50676 Köln, Germany",
         "emailLabel": "E-mail",
         "email": "contact@nisd2.eu"
@@ -693,7 +691,7 @@
       "lastUpdated": "Dernière mise à jour : juin 2026.",
       "intro": {
         "heading": "Vue d'ensemble",
-        "p1": "Ce document décrit les mesures techniques et organisationnelles effectivement mises en œuvre par Kardashev Catalyst UG (haftungsbeschränkt) en tant qu'exploitant de la plateforme NISD2.eu. Il s'agit d'un inventaire honnête, et non d'une liste de souhaits : nous ne mentionnons que ce qui est déjà en place.",
+        "p1": "Ce document décrit les mesures techniques et organisationnelles effectivement mises en œuvre par Simon Orzel en tant qu'exploitant de la plateforme NISD2.eu. Il s'agit d'un inventaire honnête, et non d'une liste de souhaits : nous ne mentionnons que ce qui est déjà en place.",
         "p2": "Les mesures sont alignées sur IT-Grundschutz (BSI) et seront étendues à mesure que la plateforme se développe."
       },
       "hosting": {

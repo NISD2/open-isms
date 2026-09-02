@@ -50,8 +50,6 @@ export default async function DatenschutzPage() {
           <CardContent className="space-y-1 text-sm text-muted-foreground">
             <p>{t("datenschutz.responsible.p1")}</p>
             <p className="mt-3 font-medium text-foreground">{t("datenschutz.responsible.company")}</p>
-            <p>{t("datenschutz.responsible.represented")}</p>
-            <p>{t("datenschutz.responsible.registration")}</p>
             <p>{t("datenschutz.responsible.address")}</p>
             <p>{t("datenschutz.responsible.emailLabel")}: {t("datenschutz.responsible.email")}</p>
           </CardContent>

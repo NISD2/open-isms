@@ -24,5 +24,5 @@ For non-security bugs, open a normal issue.
 
 ## Maintainers
 
-- Kardashev Catalyst UG (haftungsbeschränkt) — operator of nisd2.eu
+- Simon Orzel — operator of nisd2.eu
 - Primary contact: contact@nisd2.eu

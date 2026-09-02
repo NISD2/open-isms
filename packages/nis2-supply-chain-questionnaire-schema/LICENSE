@@ -13,7 +13,7 @@ descriptions, and the substantive content of the README) is licensed under
 You are free to share, adapt, and use the content commercially, provided you
 give appropriate credit. Suggested attribution:
 
-    "Based on the NIS2 Supplier Questionnaire by Kardashev Catalyst UG /
+    "Based on the NIS2 Supplier Questionnaire by Simon Orzel /
      nisd2.eu, licensed under CC BY 4.0.
      https://github.com/NISD2/nis2-supplier-questionnaire"
 
@@ -26,7 +26,7 @@ files such as `tsconfig.json` and `package.json`) is licensed under
 
     MIT License
 
-    Copyright (c) 2026 Kardashev Catalyst UG (haftungsbeschränkt)
+    Copyright (c) 2026 Simon Orzel
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
