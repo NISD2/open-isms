@@ -33,12 +33,10 @@ export default async function FinanzierungPage({
       <div className="prose prose-sm max-w-none">
         <h1>How we are funded</h1>
 
-        <h2>Operating company</h2>
+        <h2>Operator</h2>
         <p>
-          The wiki and the NIS 2 platform are operated by Kardashev Catalyst UG
-          (haftungsbeschränkt), incorporated on 11 March 2026 in Germany. The
-          UG is co-owned by its two founders (Simon Orzel and Cory Hisey). No
-          external shareholders, no VC investment.
+          The wiki and the NIS 2 platform are operated by Simon Orzel in
+          Germany. No external shareholders, no VC investment.
         </p>
 
         <h2>Revenue today (2026)</h2>
@@ -81,12 +79,10 @@ export default async function FinanzierungPage({
     <div className="prose prose-sm max-w-none">
       <h1>Finanzierung</h1>
 
-      <h2>Betreibergesellschaft</h2>
+      <h2>Betreiber</h2>
       <p>
-        Wiki und NIS 2 Plattform werden von der Kardashev Catalyst UG
-        (haftungsbeschränkt) betrieben, gegründet am 11. März 2026 in
-        Deutschland. Die UG gehört zu je 50 % den beiden Gründern Simon Orzel
-        und Cory Hisey. Keine externen Gesellschafter, kein VC-Investment.
+        Wiki und NIS 2 Plattform werden von Simon Orzel in Deutschland
+        betrieben. Keine externen Gesellschafter, kein VC-Investment.
       </p>
 
       <h2>Einnahmen heute (2026)</h2>

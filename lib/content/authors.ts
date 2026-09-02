@@ -6,8 +6,8 @@
  * components — always import from here.
  *
  * Founder direction (2026-05-29): publisher and worksFor both resolve
- * to the NISD2 brand. Legal entity (Kardashev Catalyst UG) stays out
- * of structured data — it lives in Impressum where it belongs.
+ * to the NISD2 brand, never to the operator behind it — that name
+ * belongs in the Impressum, not in an author byline.
  */
 
 export interface DocsAuthor {

@@ -878,8 +878,8 @@ async function seed() {
     createUser: true,
   });
 
-  // Operating-company dogfood (Kardashev Catalyst UG) lives in the
-  // private notebook now: ~/repositories/NIS2/business/dogfood-seed-nisd2.ts.
+  // Operator dogfood seed lives in the private notebook now:
+  // ~/repositories/NIS2/business/dogfood-seed-nisd2.ts.
   // Audit P-3 (2026-06-10). The public seed stops at Dev GmbH.
 
   // ------------------------------------------------------------------
