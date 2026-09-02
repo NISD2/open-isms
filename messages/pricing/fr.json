@@ -40,8 +40,8 @@
         "h6": "Contact direct par e-mail et Signal"
       }
     },
-    "whyFree": "Pourquoi c'est gratuit : le code source est ouvert sur GitHub, vérifiable et exploitable par vos soins. Nous comptons gagner notre vie avec la formation et le conseil, pas avec la plateforme.",
-    "consultantFootnote": "Besoin d'un consultant NIS2 ? Nous vous mettons en relation avec des spécialistes vérifiés, sans frais pour vous.",
-    "consultantCta": "Demander un consultant"
+    "whyFree": "Pourquoi gratuit : le code source est ouvert sur GitHub, vérifiable et exploitable par vos soins. Nous facturons nos propres heures et percevons une commission des entreprises spécialisées vers lesquelles nous vous orientons. Pas la plateforme.",
+    "consultantFootnote": "Bloqué avec NIS 2 ? Les questions techniques courtes ne coûtent rien, et s'il faut une entreprise spécialisée, nous vous en recommandons une, sans frais pour vous.",
+    "consultantCta": "Aide et recommandation"
   }
 }

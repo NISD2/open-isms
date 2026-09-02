@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { mailSupportEmail } from "@/lib/env";
 
 // Skip static rendering during `next build` — the Coolify build container
 // occasionally hangs in worker-thread page generation and OOM-kills. This
@@ -15,7 +16,7 @@ export default async function UnsubscribedPage(props: {
   searchParams: Promise<{ status?: string }>;
 }) {
   const { status } = await props.searchParams;
-  const supportEmail = process.env.SUPPORT_EMAIL ?? "support@example.com";
+  const supportEmail = mailSupportEmail();
   const isInvalid = status === "invalid";
 
   return (
