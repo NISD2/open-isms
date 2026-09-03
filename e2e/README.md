@@ -16,8 +16,20 @@ bun run e2e:image          # same suite, against a published image in the self-h
 `bun run e2e` builds locally and serves with `next start`, which bakes the
 local environment into the bundle. `e2e:image` pulls the artifact a
 self-hoster actually gets and runs the same specs against
-`compose.self-host.yml`; it is the only path that catches build-time-frozen
-config. Nothing in CI runs it yet, so it is a manual gate before a release.
+`compose.self-host.yml`, so it is the only path that catches build-time-frozen
+config (that is how the frozen CSP storage origin was found).
+
+**It runs the working tree's specs against a released image, so the two drift
+apart between releases.** Any spec written for behaviour that has not shipped
+yet fails, and the failure says nothing about the image. Against `:stable`
+(v0.2.8, 27.08) on 03.09 it was 90 passed and 3 failed, and all three were
+specs from PRs merged after the tag (#119, #128, #136). Read a failure here as
+"spec newer than image" until you have ruled it
+out — `git diff --name-only <tag>..HEAD -- e2e/` tells you which specs moved,
+and `git merge-base --is-ancestor <commit> <tag>` settles whether the spec
+predates the image. The version-matched way to run it is from the tag:
+`git checkout v0.2.8 && bun run e2e:image 0.2.8`. Nothing in CI runs it
+either way.
 
 ## Isolation
 
