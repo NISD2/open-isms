@@ -10,6 +10,7 @@ import { assetInsertSchema } from "@/schema/validators";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { generateValue } from "../lib/value-factory";
 import { fillFields } from "../lib/form-driver";
+import { e2eQuery } from "../lib/db";
 
 const metas = introspectSchema(
   assetInsertSchema as Parameters<typeof introspectSchema>[0],
@@ -83,4 +84,24 @@ test.describe("asset inventory: grouped large-company entries", () => {
       ).toBeVisible({ timeout: 20_000 });
     });
   }
+
+  // Writing an asset reverts the requirements that reference the module, and
+  // that reversal has to reach the audit trail. It did not: module-recheck
+  // passed the module key "asset" as entity_id, a uuid column, so every insert
+  // failed and logAudit only console.errored it. The suite stayed green for
+  // weeks because nothing asserted the row. Runs last in the file so the three
+  // creates above have already triggered the revert (workers: 1, serial).
+  test("the revert those writes caused is recorded in the audit trail", async () => {
+    const rows = await e2eQuery<{ entity_id: string | null; description: string }>(
+      `SELECT entity_id, description
+         FROM audit_log
+        WHERE action = 'requirement.sign_off_invalidated'
+          AND entity_type = 'module'
+        ORDER BY created_at DESC`,
+    );
+    expect(rows.length, "sign_off_invalidated rows written").toBeGreaterThan(0);
+    // The module key belongs in the description, never in the uuid column.
+    expect(rows[0].entity_id).toBeNull();
+    expect(rows[0].description).toContain("reverted");
+  });
 });

@@ -10,7 +10,14 @@ bun run e2e                # full browser suite (first run builds the app)
 bun run e2e:ui             # same, with the Playwright UI
 bun run e2e:serve          # serve the state a run left behind, without wiping it
 bun run e2e:demo-evidence  # attach example evidence PDFs to that state
+bun run e2e:image          # same suite, against a published image in the self-host stack
 ```
+
+`bun run e2e` builds locally and serves with `next start`, which bakes the
+local environment into the bundle. `e2e:image` pulls the artifact a
+self-hoster actually gets and runs the same specs against
+`compose.self-host.yml`; it is the only path that catches build-time-frozen
+config. Nothing in CI runs it yet, so it is a manual gate before a release.
 
 ## Isolation
 
@@ -33,7 +40,7 @@ The harness cannot reach production by construction:
 |---|---|---|
 | L0 | `l0/` | No browser: all 49 requirements classify, personas match schemas |
 | smoke | `smoke.spec.ts`, `i18n-sidebar.spec.ts` | Journey renders 49 nodes, auth redirect, sidebar locale regression |
-| L1 | `l1/` | Every intake form filled via UI, saved, round-trip verified; assets |
+| L1 | `l1/` | Every intake form filled via UI, saved, round-trip verified; assets and the audit row their writes invalidate; the first-login tour |
 | L2 | `l2/` | Module CRUD sweep, the 9 bespoke editors, evidence upload round-trip, edit/delete, validation |
 | L3 | `l3/` | Sign-off semantics incl. N-of-M with two sessions, cross-tenant isolation |
 | L4 | `l4/grand-tour.spec.ts` | Walks all 49 journey items to a fully signed-off 49/49 |

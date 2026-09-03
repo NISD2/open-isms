@@ -17,8 +17,27 @@ export interface AuditEntry {
 
 export type AuditDb = NodePgDatabase<Record<string, never>>;
 
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export function createLogAudit(db: AuditDb) {
-  return async function logAudit(entry: AuditEntry): Promise<void> {
+  return async function logAudit(input: AuditEntry): Promise<void> {
+    // audit_log.entity_id is a uuid column, and AuditEntry types it as a
+    // plain string, so a caller passing a non-uuid key compiles and then
+    // fails the insert at runtime. Losing the whole row over one nullable
+    // field is the wrong trade for an accountability trail, so drop the
+    // bad id, keep the event, and make the caller bug visible.
+    // module-recheck.ts did exactly this and cost the trail every
+    // requirement.sign_off_invalidated event.
+    const entityIdIsUsable = input.entityId === null || UUID.test(input.entityId);
+    if (!entityIdIsUsable) {
+      console.warn("[audit] dropping non-uuid entityId, row kept", {
+        action: input.action,
+        entityType: input.entityType,
+        entityId: input.entityId,
+      });
+    }
+    const entry: AuditEntry = entityIdIsUsable ? input : { ...input, entityId: null };
+
     const checksum = computeChecksum(entry);
     try {
       await db.insert(auditLog).values({
