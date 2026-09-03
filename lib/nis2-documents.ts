@@ -15,9 +15,13 @@
  *   - Where the regulation does not require a separate document, none is listed.
  *
  * Sources:
- *   - Directive (EU) 2022/2555 — Articles 20, 21(2), 23, 27
+ *   - Directive (EU) 2022/2555 — Articles 20, 21(2), 23, 3(4)
  *   - Commission Implementing Regulation (EU) 2024/2690 — Annex sections 1-13
  *   - BSIG (German transposition) — §§ 30, 32, 33, 38
+ *
+ * CIR anchors bind directly only the entity types listed in Article 1 of
+ * CIR 2024/2690; for all other entities they are the Commission's reference
+ * interpretation, not a direct legal duty.
  *
  * Every `cirRef` below was checked on 30.08.2026 against the OJ text of the
  * CIR Annex (eur-lex.europa.eu, OJ L_202402690), point by point, and resolves
@@ -190,10 +194,10 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     group: "risk",
     name_en: "Residual Risk Acceptance",
     name_de: "Restrisiko-Akzeptanz",
-    nis2Ref: "Art. 20(1)",
+    nis2Ref: "Art. 21(2)(a)",
     cirRef: "CIR 2.1.1",
-    description_en: "Formal sign-off by management of risks that are accepted rather than mitigated, with rationale.",
-    description_de: "Formale Genehmigung der Geschäftsleitung für Risiken, die akzeptiert statt behandelt werden, mit Begründung.",
+    description_en: "Formal sign-off by the management body or a delegated accountable risk owner (with reporting to management) of risks that are accepted rather than mitigated, with rationale.",
+    description_de: "Formale Genehmigung durch die Geschäftsleitung oder einen benannten verantwortlichen Risikoeigner (mit Berichterstattung an die Geschäftsleitung) für Risiken, die akzeptiert statt behandelt werden, mit Begründung.",
     platform: COVERED(
       "RSK",
       "/risks",
@@ -225,7 +229,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Incident Register",
     name_de: "Vorfallsregister",
     nis2Ref: "Art. 21(2)(b)",
-    cirRef: "CIR 3.4",
+    cirRef: "CIR 3.4, 3.5.4",
     description_en: "Chronological record of all incidents and near-misses, with timeline, classification, response actions and lessons learned.",
     description_de: "Chronologisches Verzeichnis aller Vorfälle und Beinahe-Vorfälle mit Zeitstrahl, Klassifizierung, Reaktionsmaßnahmen und Erkenntnissen.",
     platform: COVERED(
@@ -304,8 +308,8 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
   {
     id: "final-report-1m",
     group: "incident-reporting",
-    name_en: "Final Report (within 1 month)",
-    name_de: "Abschlussbericht (innerhalb 1 Monat)",
+    name_en: "Final Report (1 month after the 72h notification)",
+    name_de: "Abschlussbericht (1 Monat nach der 72h-Meldung)",
     nis2Ref: "Art. 23(4)(d)",
     cirRef: "CIR 3.5.3(a)",
     description_en: "Detailed description of the incident: severity and impact, threat type, root cause, mitigations applied and any cross-border impact.",
@@ -554,7 +558,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     group: "effectiveness",
     name_en: "Independent Review / Internal Audit Report",
     name_de: "Unabhängige Prüfung / Bericht des internen Audits",
-    nis2Ref: "Art. 21(2)(f)",
+    nis2Ref: "Art. 21(2)(a), (f)",
     cirRef: "CIR 2.3",
     description_en: "Periodic independent assessment of the cybersecurity measures, with findings (nonconformities, observations) and severity.",
     description_de: "Regelmäßige unabhängige Prüfung der Cybersicherheitsmaßnahmen, mit Befunden (Nichtkonformitäten, Beobachtungen) und Schweregrad.",
@@ -570,7 +574,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     group: "effectiveness",
     name_en: "Management Review",
     name_de: "Managementbewertung",
-    nis2Ref: "Art. 20(1), Art. 21(2)(f)",
+    nis2Ref: "Art. 20(1), Art. 21(2)(a), (f)",
     cirRef: "CIR 2.2.1",
     description_en: "Periodic top-management review of cybersecurity performance — KPI report, audit findings, incidents, decisions and assigned actions.",
     description_de: "Regelmäßige Bewertung der Cybersicherheits-Leistung durch die Geschäftsleitung — KPI-Bericht, Audit-Befunde, Vorfälle, Entscheidungen und zugewiesene Maßnahmen.",
@@ -621,7 +625,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Management Cybersecurity Training Record",
     name_de: "Schulungsnachweis Geschäftsleitung",
     nis2Ref: "Art. 20(2)",
-    cirRef: "CIR 8.2",
+    cirRef: "CIR 8.1.2",
     description_en: "Evidence that the management body has received cybersecurity training sufficient to assess risks and management practices.",
     description_de: "Nachweis, dass die Geschäftsleitung ausreichende Cybersicherheitsschulung erhalten hat, um Risiken und Managementpraktiken zu beurteilen.",
     platform: COVERED(
@@ -673,7 +677,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     name_en: "Human Resources Security Policy",
     name_de: "Richtlinie zur Personalsicherheit",
     nis2Ref: "Art. 21(2)(i)",
-    cirRef: "CIR 10.1",
+    cirRef: "CIR 10.1-10.3",
     description_en: "Background checks, onboarding, role changes, offboarding and confidentiality obligations across the employment lifecycle.",
     description_de: "Hintergrundprüfungen, Eintritt, Rollenwechsel, Austritt und Vertraulichkeitspflichten über den gesamten Beschäftigungszyklus.",
     platform: COVERED(
@@ -792,7 +796,7 @@ export const NIS2_DOCUMENTS: Nis2Document[] = [
     group: "hr-access",
     name_en: "Physical & Environmental Security Policy",
     name_de: "Richtlinie zur physischen und Umgebungssicherheit",
-    nis2Ref: "Art. 21(2)(i)",
+    nis2Ref: "Art. 21(2)(c), (e), (i)",
     cirRef: "CIR 13",
     description_en: "Physical access controls to facilities, server rooms and data centres; environmental safeguards (fire, flood, power).",
     description_de: "Physische Zugangskontrollen für Gebäude, Serverräume und Rechenzentren; Schutz vor Umgebungsrisiken (Brand, Wasser, Strom).",

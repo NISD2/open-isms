@@ -870,8 +870,8 @@
       "type": "milestone",
       "title": "BSI NIS2 registration portal launches",
       "titleDe": "BSI-NIS2-Registrierungsportal geht online",
-      "summary": "BSI launches portal.bsi.bund.de for NIS2 entity registration and incident reporting. Registration requires an ELSTER organizational certificate (5-10 business days processing).",
-      "summaryDe": "BSI startet portal.bsi.bund.de für NIS2-Registrierung und Vorfallsmeldung. Registrierung erfordert ein ELSTER-Organisationszertifikat (5-10 Werktage Bearbeitungszeit).",
+      "summary": "BSI launches portal.bsi.bund.de for NIS2 entity registration and incident reporting. Registration requires an ELSTER organizational certificate (activation letter by post, per the BSI regularly at least five working days; existing certificates can be reused).",
+      "summaryDe": "BSI startet portal.bsi.bund.de für NIS2-Registrierung und Vorfallsmeldung. Registrierung erfordert ein ELSTER-Organisationszertifikat (Aktivierungsbrief per Post, laut BSI regelmäßig mindestens fünf Werktage; bestehende Zertifikate können weiterverwendet werden).",
       "sourceId": "bsi",
       "sourceUrl": "https://www.bsi.bund.de/DE/Themen/Regulierte-Wirtschaft/NIS-2-regulierte-Unternehmen/nis-2-regulierte-unternehmen_node.html",
       "addedAt": "2026-03-20T00:00:00Z"
@@ -1089,8 +1089,8 @@
       "type": "milestone",
       "title": "BSI registration deadline passes: fines now possible for non-registration",
       "titleDe": "BSI-Registrierungsfrist läuft ab: Bußgelder für Nicht-Registrierung jetzt möglich",
-      "summary": "Three months after BSIG entry into force, the mandatory registration deadline at the BSI portal expires. Late registration is still accepted but penalties of up to €10M or 2% of annual revenue are now legally enforceable.",
-      "summaryDe": "Drei Monate nach Inkrafttreten des BSIG läuft die Pflicht-Registrierungsfrist am BSI-Portal ab. Verspätete Registrierung wird noch angenommen, aber Bußgelder bis 10 Mio. € oder 2% des Jahresumsatzes sind nun rechtlich durchsetzbar.",
+      "summary": "Three months after BSIG entry into force, the mandatory registration deadline at the BSI portal expires. Late registration is still accepted but penalties of up to €500,000 for the registration breach (§ 65(2) No 6 BSIG) are now legally enforceable.",
+      "summaryDe": "Drei Monate nach Inkrafttreten des BSIG läuft die Pflicht-Registrierungsfrist am BSI-Portal ab. Verspätete Registrierung wird noch angenommen, aber Bußgelder bis 500.000 € für den Registrierungsverstoß (§ 65 Abs. 2 Nr. 6 BSIG) sind nun rechtlich durchsetzbar.",
       "sourceId": "heise",
       "sourceUrl": "https://www.heise.de/en/news/The-clock-is-ticking-NIS2-registration-deadline-at-BSI-expires-on-March-6-2026-11182664.html",
       "addedAt": "2026-03-20T00:00:00Z"

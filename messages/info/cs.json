@@ -3262,7 +3262,7 @@
           "independent": {
             "section": "Test 3",
             "title": "Vylučuje vás některá výjimka?",
-            "body": "I když jsou testy 1 a 2 splněny, čl. 2 odst. 7 až 11 vás může vyjmout (národní bezpečnost, veřejná bezpečnost, obrana, vymáhání práva) nebo může mít přednost specifičtější právo EU (finanční subjekty podle DORA přeskakují článek 21 a článek 23, ale stále se registrují podle článku 27). To, že jste dodavatelem subjektu NIS 2, není nikdy výjimkou, která vás vtáhne dovnitř. A není ani nikdy spouštěčem, který vás vtáhne dovnitř."
+            "body": "I když jsou testy 1 a 2 splněny, čl. 2 odst. 7 až 11 vás může vyjmout (národní bezpečnost, veřejná bezpečnost, obrana, vymáhání práva) nebo může mít přednost specifičtější právo EU (finanční subjekty podle DORA přeskakují článek 21 a článek 23, ale stále se registrují podle článku 3 odst. 4). To, že jste dodavatelem subjektu NIS 2, není nikdy výjimkou, která vás vtáhne dovnitř. A není ani nikdy spouštěčem, který vás vtáhne dovnitř."
           }
         }
       },
@@ -3315,14 +3315,14 @@
           },
           "noAcceptanceCriteria": {
             "myth": "Náš zákazník nám řekl, abychom se zaregistrovali u vnitrostátního orgánu, takže musíme.",
-            "reality": "Ne. Registrace podle článku 27 je vyžadována pouze pro subjekty, které jsou samy v působnosti podle článku 2 (s dalšími pravidly pro poskytovatele DNS, poskytovatele cloudu, MSP a několik dalších). Zákazník vám nemůže vymyslet registrační povinnost. Pokud kupující trvá na svém, zeptejte se ho, pod kterou položku přílohy a který velikostní práh si myslí, že spadáte. Pokud odpověď není v článku 2, povinnost neexistuje."
+            "reality": "Ne. Registrace podle článku 3 odst. 4 je vyžadována pouze pro subjekty, které jsou samy v působnosti podle článku 2 (s dalšími pravidly pro poskytovatele DNS, poskytovatele cloudu, MSP a několik dalších). Zákazník vám nemůže vymyslet registrační povinnost. Pokud kupující trvá na svém, zeptejte se ho, pod kterou položku přílohy a který velikostní práh si myslí, že spadáte. Pokud odpověď není v článku 2, povinnost neexistuje."
           }
         }
       },
       "practitioner": {
         "heading": "Co by kupující a dodavatelé měli skutečně dělat",
         "p1": "Pokud jste kupující (subjekt NIS 2), vaším úkolem podle čl. 21 odst. 2 písm. d) a CIR §5 je sepsat politiku bezpečnosti dodavatelů s kritérii výběru, vést registr rizik dodavatelů a vložit přiměřená bezpečnostní ustanovení do smluv svých přímých dodavatelů. Posuzujete a řídíte. Nedelegujete to na regulátora. CIR §5 výslovně říká, že si můžete vybrat doklady přiměřené riziku: certifikaci ISO 27001, zprávy SOC 2, shrnutí penetračních testů, prohlášení o bezpečném vývoji. Čl. 21 odst. 1 vám umožňuje škálovat hloubku dokladů podle skutečného rizika dodavatele. Vysoce rizikový dodavatel softwaru dostane hlubší žádost než firma, která vám tiskne vizitky.",
-        "p2": "Pokud jste dodavatel a váš zákazník je v působnosti, proveďte nejprve test podle článku 2 na sobě. Pokud jím neprojdete, nejste subjektem NIS 2. Váš zákazník vám přesto pošle smluvní bezpečnostní povinnosti. Čtěte je jako obchodní podmínky: vyjednávejte rozsah, hloubku dokladů, práva na audit, lhůty pro oznámení narušení. Pokud projdete článkem 2 sami, registrujte se podle článku 27 a splňte článek 21 a článek 23 sami za sebe, bez ohledu na to, co žádá kterýkoli jednotlivý zákazník."
+        "p2": "Pokud jste dodavatel a váš zákazník je v působnosti, proveďte nejprve test podle článku 2 na sobě. Pokud jím neprojdete, nejste subjektem NIS 2. Váš zákazník vám přesto pošle smluvní bezpečnostní povinnosti. Čtěte je jako obchodní podmínky: vyjednávejte rozsah, hloubku dokladů, práva na audit, lhůty pro oznámení narušení. Pokud projdete článkem 2 sami, registrujte se podle článku 3 odst. 4 a splňte článek 21 a článek 23 sami za sebe, bez ohledu na to, co žádá kterýkoli jednotlivý zákazník."
       },
       "platform": {
         "heading": "Jak to řešíme na platformě",
@@ -5846,7 +5846,7 @@
         },
         "q13": {
           "q": "Klíčové a důležité subjekty musí mimo jiné podle prováděcího zákona k NIS 2 předkládat své veřejné rozsahy IP adres. Jaké informace je zde třeba uvést?",
-          "a": "Při registraci vyžaduje článek 27 směrnice NIS 2 (v Německu transponovaný v §33 BSIG) název a právní formu, adresu, aktuální kontaktní údaje, příslušné odvětví, seznam členských států, v nichž jsou služby poskytovány, a skutečně i veřejné rozsahy IP adres. To se týká pouze statických, veřejně směrovaných rozsahů adres, pod nimiž je váš subjekt dosažitelný zvenčí nebo provozuje kritické systémy. Dynamické adresy a rozsahy IP, které přidělujete svým koncovým zákazníkům, sem nepatří. V praxi tedy uvádíte své vlastní registrované sítě (často v notaci CIDR), nikoli každou jednotlivou adresu. Postup a lhůty jsou vysvětleny na /wiki/anwendungsbereich/nis2-registrierung."
+          "a": "Při registraci vyžaduje článek 3 odst. 4 směrnice NIS 2 (v Německu transponovaný v §33 BSIG) název a právní formu, adresu, aktuální kontaktní údaje, příslušné odvětví, seznam členských států, v nichž jsou služby poskytovány, a skutečně i veřejné rozsahy IP adres. To se týká pouze statických, veřejně směrovaných rozsahů adres, pod nimiž je váš subjekt dosažitelný zvenčí nebo provozuje kritické systémy. Dynamické adresy a rozsahy IP, které přidělujete svým koncovým zákazníkům, sem nepatří. V praxi tedy uvádíte své vlastní registrované sítě (často v notaci CIDR), nikoli každou jednotlivou adresu. Postup a lhůty jsou vysvětleny na /wiki/anwendungsbereich/nis2-registrierung."
         },
         "q14": {
           "q": "Jak jsou definovány digitální služby?",
@@ -5912,7 +5912,7 @@
         },
         "q3": {
           "q": "Moje firma splňuje kritéria pro klíčový subjekt nebo provozovatele KRITIS, případně pro důležitý subjekt. Které povinnosti je třeba splnit?",
-          "a": "Pro obě kategorie platí stejně tři soubory povinností. Zaprvé registrace u BSI včetně kontaktních údajů (článek 27, §33 BSIG). Zadruhé opatření k řízení rizik z katalogu v čl. 21 odst. 2 (§30 BSIG), od analýzy rizik přes řešení incidentů a dodavatelský řetězec až po kryptografii a řízení přístupu. Zatřetí stupňovité ohlašování významných bezpečnostních incidentů podle článku 23 (§32 BSIG): včasné varování do 24 hodin, potvrzení do 72 hodin, závěrečná zpráva po jednom měsíci. Rozdíl spočívá v dozoru: klíčové subjekty jsou dozorovány proaktivně, důležité subjekty na následném základě. Kompletní klasifikační test najdete na [Kdo je dotčen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "Pro obě kategorie platí stejně tři soubory povinností. Zaprvé registrace u BSI včetně kontaktních údajů (článek 3 odst. 4, §33 BSIG). Zadruhé opatření k řízení rizik z katalogu v čl. 21 odst. 2 (§30 BSIG), od analýzy rizik přes řešení incidentů a dodavatelský řetězec až po kryptografii a řízení přístupu. Zatřetí stupňovité ohlašování významných bezpečnostních incidentů podle článku 23 (§32 BSIG): včasné varování do 24 hodin, potvrzení do 72 hodin, závěrečná zpráva po jednom měsíci. Rozdíl spočívá v dozoru: klíčové subjekty jsou dozorovány proaktivně, důležité subjekty na následném základě. Kompletní klasifikační test najdete na [Kdo je dotčen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q4": {
           "q": "Od kdy platí povinnosti BSIG / prováděcího zákona k NIS 2?",
@@ -5924,7 +5924,7 @@
         },
         "q6": {
           "q": "Jaké požadavky jsou kladeny na dosažitelnost důležitých a klíčových subjektů?",
-          "a": "Musíte poskytnout BSI dosažitelné kontaktní místo, zpravidla telefonní číslo a e-mailovou adresu, a tyto údaje udržovat aktuální (článek 27, §33 BSIG). Tímto kanálem BSI doručuje hlášení incidentů, varování a doplňující dotazy. Zákon nepředepisuje žádnou konkrétní kvalifikaci osob v pozadí. Záleží jen na tom, aby kontaktní místo bylo skutečně dosažitelné a aby bylo možné hlášení rychle zpracovat, aby 24hodinové včasné varování podle článku 23 fungovalo. Pro provozovatele KRITIS navíc platí přísnější požadavky na dosažitelnost."
+          "a": "Musíte poskytnout BSI dosažitelné kontaktní místo, zpravidla telefonní číslo a e-mailovou adresu, a tyto údaje udržovat aktuální (článek 3 odst. 4, §33 BSIG). Tímto kanálem BSI doručuje hlášení incidentů, varování a doplňující dotazy. Zákon nepředepisuje žádnou konkrétní kvalifikaci osob v pozadí. Záleží jen na tom, aby kontaktní místo bylo skutečně dosažitelné a aby bylo možné hlášení rychle zpracovat, aby 24hodinové včasné varování podle článku 23 fungovalo. Pro provozovatele KRITIS navíc platí přísnější požadavky na dosažitelnost."
         },
         "q7": {
           "q": "Plně jsme předali naše IT externím poskytovatelům služeb. Které povinnosti pak my jako důležitý subjekt vůbec ještě musíme plnit?",
@@ -5978,11 +5978,11 @@
       "registration": {
         "q1": {
           "q": "Kdy je registrace podle § 33 odst. 1 BSIG v portálu BSI možná, jak se registrace provádí a jak funguje ohlašovací proces podle § 32 BSIG?",
-          "a": "Registrace je možná, jakmile se kvalifikujete jako dotčený subjekt, a musí proběhnout do tří měsíců poté, co poprvé nebo znovu spadnete do působnosti (článek 27 NIS 2, v Německu § 33 odst. 1 BSIG). Proces má dvě fáze: nejprve si vytvoříte účet u Mein Unternehmenskonto (MUK) pomocí organizačního certifikátu ELSTER, poté zaregistrujete subjekt v portálu BSI. Bezpečnostní incidenty následně rovněž hlásíte prostřednictvím portálu BSI podle třístupňového postupu včasného varování, navazujícího hlášení a závěrečné zprávy (článek 23 NIS 2, v Německu § 32 BSIG). Postup krok za krokem najdete na [Registrace](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "Registrace je možná, jakmile se kvalifikujete jako dotčený subjekt, a musí proběhnout do tří měsíců poté, co poprvé nebo znovu spadnete do působnosti (článek 3 odst. 4 NIS 2, v Německu § 33 odst. 1 BSIG). Proces má dvě fáze: nejprve si vytvoříte účet u Mein Unternehmenskonto (MUK) pomocí organizačního certifikátu ELSTER, poté zaregistrujete subjekt v portálu BSI. Bezpečnostní incidenty následně rovněž hlásíte prostřednictvím portálu BSI podle třístupňového postupu včasného varování, navazujícího hlášení a závěrečné zprávy (článek 23 NIS 2, v Německu § 32 BSIG). Postup krok za krokem najdete na [Registrace](/wiki/anwendungsbereich/nis2-registrierung)."
         },
         "q2": {
           "q": "Co dělá BSI pro podporu firem ohledně nevyřízených registrací NIS 2?",
-          "a": "BSI poskytuje kontrolu použitelnosti, sekci FAQ, informační balíčky a webináře, aby subjekty mohly samy posoudit a splnit svou registrační povinnost (základ: článek 27 NIS 2, § 33 BSIG). Zda jste vůbec dotčeni, si nejprve vyjasníte na základě odvětví a velikosti. Kompletní sebetest najdete na [Kdo je dotčen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "BSI poskytuje kontrolu použitelnosti, sekci FAQ, informační balíčky a webináře, aby subjekty mohly samy posoudit a splnit svou registrační povinnost (základ: článek 3 odst. 4 NIS 2, § 33 BSIG). Zda jste vůbec dotčeni, si nejprve vyjasníte na základě odvětví a velikosti. Kompletní sebetest najdete na [Kdo je dotčen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q3": {
           "q": "Jak může firma registrovat kritické komponenty?",
@@ -6132,7 +6132,7 @@
         },
         "q12": {
           "q": "Čelí finanční subjekty podléhající DORA povinnostem dvojí registrace, dvojího ohlašování bezpečnostních incidentů, dvojího dozoru, dvojích důkazů atd. kvůli prováděcímu zákonu k NIS 2 a DORA?",
-          "a": "Ne, skutečná dvojí regulace zamýšlena není. Pro finanční subjekty je DORA (nařízení (EU) 2022/2554) specifičtějším pravidlem. Podle článku 4 směrnice NIS 2 mají proto požadavky DORA na řízení rizik, ohlašování incidentů a dozor přednost a příslušné povinnosti NIS 2 ustupují. Zůstává pouze registrace: článek 27 směrnice NIS 2 (promítnutý do německého práva prostřednictvím příslušné registrační povinnosti BSIG) pokrývá i subjekty DORA, aby orgány mohly vést úplný přehled. Incidenty nadále hlásíte podle DORA a navíc se registrujete, aniž by tím vznikal druhý ohlašovací řetězec nebo druhá vrstva dozoru."
+          "a": "Ne, skutečná dvojí regulace zamýšlena není. Pro finanční subjekty je DORA (nařízení (EU) 2022/2554) specifičtějším pravidlem. Podle článku 4 směrnice NIS 2 mají proto požadavky DORA na řízení rizik, ohlašování incidentů a dozor přednost a příslušné povinnosti NIS 2 ustupují. Zůstává pouze registrace: článek 3 odst. 4 směrnice NIS 2 (promítnutý do německého práva prostřednictvím příslušné registrační povinnosti BSIG) pokrývá i subjekty DORA, aby orgány mohly vést úplný přehled. Incidenty nadále hlásíte podle DORA a navíc se registrujete, aniž by tím vznikal druhý ohlašovací řetězec nebo druhá vrstva dozoru."
         },
         "q13": {
           "q": "Jak se požadavky NIS 2 liší od specifických bezpečnostních požadavků na smart meter gateway?",
@@ -7614,7 +7614,7 @@
           "monitoring": {
             "section": "§ 32 + § 33 BSIG",
             "title": "Hlášení incidentů a registrace",
-            "body": "§ 32 BSIG stanoví kaskádu hlášení incidentů: 24 hodin pro včasné varování, 72 hodin pro hlášení incidentu, jeden měsíc pro závěrečné hlášení. Transponuje článek 23. § 33 BSIG vyžaduje registraci u BSI. Lhůta pro registraci byla 6. března 2026. § 33 transponuje článek 27."
+            "body": "§ 32 BSIG stanoví kaskádu hlášení incidentů: 24 hodin pro včasné varování, 72 hodin pro hlášení incidentu, jeden měsíc pro závěrečné hlášení. Transponuje článek 23. § 33 BSIG vyžaduje registraci u BSI. Lhůta pro registraci byla 6. března 2026. § 33 transponuje článek 3 odst. 4."
           },
           "independent": {
             "section": "§ 38 + § 65 BSIG",
@@ -9470,7 +9470,7 @@
           "kritis": {
             "section": "KRITIS",
             "title": "Překračujete prahovou hodnotu KRITIS-Verordnung?",
-            "body": "Specifické pro sektor. Distribuce elektřiny: 100 000 připojených koncových zákazníků. Pitná voda: 22 milionů metrů krychlových ročně. Odpadní voda: 500 000 ekvivalentních obyvatel. Překročte jakoukoli prahovou hodnotu u jakékoli činnosti a KRITIS se na tuto činnost vztahuje navrch k NIS 2. Režim KRITIS přináší přísnější auditní povinnosti (nezávislý audit každé tři roky, § 65 BSIG) a dodatečné hlášení."
+            "body": "Specifické pro sektor. Distribuce elektřiny: 100 000 připojených koncových zákazníků. Pitná voda: 22 milionů metrů krychlových ročně. Odpadní voda: 500 000 ekvivalentních obyvatel. Překročte jakoukoli prahovou hodnotu u jakékoli činnosti a KRITIS se na tuto činnost vztahuje navrch k NIS 2. Režim KRITIS přináší přísnější auditní povinnosti (nezávislý audit každé tři roky, § 39 BSIG) a dodatečné hlášení."
           }
         }
       },
@@ -9534,7 +9534,7 @@
       },
       "practitioner": {
         "heading": "Jak to vypadá v praxi",
-        "p1": "Typický Stadtwerk s 200 zaměstnanci, elektroenergetickou sítí s 60 000 zákazníky, dodávkou pitné vody kolem 8 milionů metrů krychlových ročně a malou optickou divizí sedí jednoznačně v působnosti NIS 2 prostřednictvím sektorů 1, 6, 7 a 8 přílohy I. Test velikosti je s rezervou splněn. Prahové hodnoty KRITIS nejsou dosaženy, takže auditní povinnosti podle § 65 BSIG se neuplatní, ale povinnosti podle § 28 BSIG ano.",
+        "p1": "Typický Stadtwerk s 200 zaměstnanci, elektroenergetickou sítí s 60 000 zákazníky, dodávkou pitné vody kolem 8 milionů metrů krychlových ročně a malou optickou divizí sedí jednoznačně v působnosti NIS 2 prostřednictvím sektorů 1, 6, 7 a 8 přílohy I. Test velikosti je s rezervou splněn. Prahové hodnoty KRITIS nejsou dosaženy, takže auditní povinnosti podle § 39 BSIG se neuplatní, ale povinnosti podle § 28 BSIG ano.",
         "p2": "Registr rizik podle § 30 musí na jednom místě pokrýt OT a SCADA u elektřiny, vody a odpadních vod. Hlášení incidentů podle § 32 prochází přes BSI. Registrace podle § 33 je jediné podání za celou společnost. Pokud navíc překročíte prahovou hodnotu KRITIS u jakékoli činnosti, vaše klasifikace podle § 28 se posune na 'besonders wichtige Einrichtung' a navrch nastupuje tříletý audit KRITIS."
       },
       "platform": {
@@ -9562,15 +9562,15 @@
     "amIBank": {
       "meta": {
         "title": "Jsem banka podle NIS 2? Ano, ale DORA vyjímá podstatu",
-        "description": "Banky sídlí v příloze I sektoru 3 NIS 2 jako úvěrové instituce. Článek 4 NIS 2 (lex specialis) pak předává podstatu článků 21 a 23 nařízení DORA. Registrace podle článku 27 u BSI stále platí. Tato stránka prochází třemi vrstvami a běžnými chybnými výklady."
+        "description": "Banky sídlí v příloze I sektoru 3 NIS 2 jako úvěrové instituce. Článek 4 NIS 2 (lex specialis) pak předává podstatu článků 21 a 23 nařízení DORA. Registrace podle článku 3 odst. 4 u BSI stále platí. Tato stránka prochází třemi vrstvami a běžnými chybnými výklady."
       },
       "title": "Jsem banka podle NIS 2?",
-      "subtitle": "Úvěrové instituce jsou uvedeny v příloze I sektoru 3 NIS 2. Článek 4 NIS 2 pak odkládá hmotné povinnosti v oblasti kybernetické bezpečnosti a ohlašování incidentů na nařízení DORA. Registrační povinnost podle článku 27 u vašeho národního orgánu zůstává tak jako tak v platnosti.",
+      "subtitle": "Úvěrové instituce jsou uvedeny v příloze I sektoru 3 NIS 2. Článek 4 NIS 2 pak odkládá hmotné povinnosti v oblasti kybernetické bezpečnosti a ohlašování incidentů na nařízení DORA. Registrační povinnost podle článku 3 odst. 4 u vašeho národního orgánu zůstává tak jako tak v platnosti.",
       "overview": {
         "heading": "Krátká verze",
         "p1": "Banky spadají do působnosti NIS 2. Příloha I sektor 3 uvádí „úvěrové instituce“ ve smyslu článku 4(1) nařízení (EU) č. 575/2013 (CRR). Pokud jste Kreditinstitut podle CRR, jste uvnitř perimetru NIS 2.",
         "p2": "Článek 4 NIS 2 je však ustanovením typu lex specialis. Tam, kde sektorově specifický akt EU stanoví alespoň rovnocenné povinnosti v oblasti kybernetické bezpečnosti a ohlašování incidentů, hmotné povinnosti NIS 2 ustupují. Nařízení DORA (nařízení (EU) 2022/2554) bylo napsáno přesně k tomuto účelu. Článek 21 (opatření řízení rizik) a článek 23 (oznámení významného incidentu) podle NIS 2 se tedy nevztahují na finanční subjekty podléhající DORA. Místo nich platí rovnocenné kapitoly DORA.",
-        "p3": "Výjimka není úplná. Článek 27 NIS 2 (registrace u národního orgánu pro situační přehled na úrovni EU) stále platí. BSI ponechává váš záznam v registru podle §33 BSIG. Komise a ENISA si zachovávají celounijní přehled o tom, kdo spadá do působnosti, i když hmotné povinnosti žijí v jiném nařízení."
+        "p3": "Výjimka není úplná. Článek 3 odst. 4 NIS 2 (registrace u národního orgánu pro situační přehled na úrovni EU) stále platí. BSI ponechává váš záznam v registru podle §33 BSIG. Komise a ENISA si zachovávají celounijní přehled o tom, kdo spadá do působnosti, i když hmotné povinnosti žijí v jiném nařízení."
       },
       "legalAnchor": {
         "heading": "Právní zdroj",
@@ -9578,7 +9578,7 @@
         "directive": {
           "label": "NIS 2 příloha I sektor 3 + článek 4 (směrnice (EU) 2022/2555)",
           "quote": "Úvěrové instituce ve smyslu článku 4 bodu 1 nařízení Evropského parlamentu a Rady (EU) č. 575/2013. [Příloha I, sektor 3, Bankovnictví] / Pokud sektorově specifické právní akty Unie vyžadují, aby zásadní nebo důležité subjekty přijaly opatření k řízení rizik kybernetické bezpečnosti nebo oznamovaly významné incidenty, a pokud jsou tyto požadavky alespoň rovnocenné svým účinkem povinnostem stanoveným v této směrnici, příslušná ustanovení této směrnice, včetně ustanovení o dozoru a vymáhání stanovených v kapitole VII, se na takové subjekty nepoužijí. [Článek 4(1)]",
-          "context": "Příloha I řadí banky do působnosti. Článek 4 pak vyjímá podstatu, je-li sektorově specifický akt alespoň rovnocenný svým účinkem. Článek 4 nevyjímá registraci. Článek 27 NIS 2 stále zavazuje."
+          "context": "Příloha I řadí banky do působnosti. Článek 4 pak vyjímá podstatu, je-li sektorově specifický akt alespoň rovnocenný svým účinkem. Článek 4 nevyjímá registraci. Článek 3 odst. 4 NIS 2 stále zavazuje."
         },
         "regulation": {
           "label": "DORA (nařízení (EU) 2022/2554)",
@@ -9587,8 +9587,8 @@
         },
         "transposition": {
           "label": "§28 BSIG + národní implementace DORA",
-          "quote": "§28 BSIG operacionalizuje pravidlo lex specialis z článku 4 NIS 2 v německém právu. BaFin dozoruje soulad s DORA u německých úvěrových institucí. BSI nadále vede registr podle §33 BSIG, který provádí článek 27 NIS 2.",
-          "context": "Zde hrají roli dva německé orgány. BaFin drží hmotný dozor (opatření řízení rizik, ohlašování incidentů podle DORA). BSI drží záznam v registru podle §33 podle článku 27 NIS 2. Obojí jsou reálné povinnosti. Jedna druhou nenahrazuje."
+          "quote": "§28 BSIG operacionalizuje pravidlo lex specialis z článku 4 NIS 2 v německém právu. BaFin dozoruje soulad s DORA u německých úvěrových institucí. BSI nadále vede registr podle §33 BSIG, který provádí článek 3 odst. 4 NIS 2.",
+          "context": "Zde hrají roli dva německé orgány. BaFin drží hmotný dozor (opatření řízení rizik, ohlašování incidentů podle DORA). BSI drží záznam v registru podle §33 podle článku 3 odst. 4 NIS 2. Obojí jsou reálné povinnosti. Jedna druhou nenahrazuje."
         }
       },
       "elements": {
@@ -9607,8 +9607,8 @@
           },
           "registration": {
             "section": "Krok 3",
-            "title": "Registrace podle článku 27 NIS 2 stále platí",
-            "body": "Článek 27 NIS 2 ukládá zásadním a důležitým subjektům poskytnout svému národnímu orgánu definovaný soubor údajů (název, adresa, sektor, kontaktní místo, rozsahy IP adres, kde je to relevantní). DORA toto nenahrazuje. BSI provozuje registr podle §33 BSIG pro Německo. Banky se tam registrují vedle všech ostatních v působnosti. Aktualizace do dvou týdnů podle článku 27(2)."
+            "title": "Registrace podle článku 3 odst. 4 NIS 2 stále platí",
+            "body": "Článek 3 odst. 4 NIS 2 ukládá zásadním a důležitým subjektům poskytnout svému národnímu orgánu definovaný soubor údajů (název, adresa, sektor, kontaktní místo, rozsahy IP adres, kde je to relevantní). DORA toto nenahrazuje. BSI provozuje registr podle §33 BSIG pro Německo. Banky se tam registrují vedle všech ostatních v působnosti. Aktualizace do dvou týdnů podle článku 3 odst. 4."
           }
         }
       },
@@ -9622,7 +9622,7 @@
           },
           "informational": {
             "title": "Registrace je informační, nikoli hmotná",
-            "body": "Článek 27 NIS 2 sídlí mimo výjimku, protože slouží jinému účelu. Hmotné povinnosti (články 21 a 23) regulují chování. Registrační povinnost (článek 27) dává ENISA a Komisi úplný celounijní obraz o tom, kdo spadá do režimu. Tento obraz musí zahrnovat i subjekty podléhající DORA, jinak má dozorová mapa díry. Komise si tuto viditelnost záměrně udržuje."
+            "body": "Článek 3 odst. 4 NIS 2 sídlí mimo výjimku, protože slouží jinému účelu. Hmotné povinnosti (články 21 a 23) regulují chování. Registrační povinnost (článek 3 odst. 4) dává ENISA a Komisi úplný celounijní obraz o tom, kdo spadá do režimu. Tento obraz musí zahrnovat i subjekty podléhající DORA, jinak má dozorová mapa díry. Komise si tuto viditelnost záměrně udržuje."
           }
         }
       },
@@ -9638,12 +9638,12 @@
           "bsi": {
             "country": "Německo",
             "label": "BSI (registr podle §33 BSIG)",
-            "body": "BSI vede registr provádějící článek 27 NIS 2 v Německu. Banky se tam registrují, i když jejich hmotné povinnosti spadají pod DORA. BSI podstatu nedozoruje dvakrát. Vede záznam, vyměňuje data s Komisí a ENISA a zůstává kontaktním místem pro povinnosti podle článku 27."
+            "body": "BSI vede registr provádějící článek 3 odst. 4 NIS 2 v Německu. Banky se tam registrují, i když jejich hmotné povinnosti spadají pod DORA. BSI podstatu nedozoruje dvakrát. Vede záznam, vyměňuje data s Komisí a ENISA a zůstává kontaktním místem pro povinnosti podle článku 3 odst. 4."
           },
           "ecb": {
             "country": "EU",
             "label": "ECB / SSM a Bundesbank",
-            "body": "U významných institucí v rámci jednotného mechanismu dohledu přebírá vedoucí dohled ECB (DORA je zařazena do tohoto dozorového cyklu). U méně významných institucí vedou BaFin a Bundesbank. Bundesbank zajišťuje průběžný sběr dozorových dat. Žádná z těchto vrstev nemění samostatnou roli BSI v registru podle článku 27."
+            "body": "U významných institucí v rámci jednotného mechanismu dohledu přebírá vedoucí dohled ECB (DORA je zařazena do tohoto dozorového cyklu). U méně významných institucí vedou BaFin a Bundesbank. Bundesbank zajišťuje průběžný sběr dozorových dat. Žádná z těchto vrstev nemění samostatnou roli BSI v registru podle článku 3 odst. 4."
           }
         }
       },
@@ -9653,11 +9653,11 @@
         "items": {
           "doraReplacesAll": {
             "myth": "DORA zcela nahrazuje NIS 2. Podle NIS 2 nemusíme dělat nic.",
-            "reality": "Článek 4 NIS 2 vyjímá pouze hmotné povinnosti (článek 21 řízení rizik, článek 23 oznámení incidentu). Článek 27 (registrace) na tomto seznamu není. BSI vás stále očekává v registru podle §33 BSIG. Vynechání registrace vytváří porušení NIS 2, i když je váš program DORA v dokonalém stavu."
+            "reality": "Článek 4 NIS 2 vyjímá pouze hmotné povinnosti (článek 21 řízení rizik, článek 23 oznámení incidentu). Článek 3 odst. 4 (registrace) na tomto seznamu není. BSI vás stále očekává v registru podle §33 BSIG. Vynechání registrace vytváří porušení NIS 2, i když je váš program DORA v dokonalém stavu."
           },
           "bsiDoesNotRegulate": {
             "myth": "Jsme jen pod DORA. BSI nás nereguluje.",
-            "reality": "BSI nedozoruje váš rámec řízení rizik. To dělá BaFin. BSI však provozuje registr podle §33 BSIG, který provádí článek 27 NIS 2, a vy jste v něm. Změny adresy, změny kontaktního místa a překlasifikace sektoru stále jdou na BSI v rámci dvoutýdenního okna podle článku 27(2)."
+            "reality": "BSI nedozoruje váš rámec řízení rizik. To dělá BaFin. BSI však provozuje registr podle §33 BSIG, který provádí článek 3 odst. 4 NIS 2, a vy jste v něm. Změny adresy, změny kontaktního místa a překlasifikace sektoru stále jdou na BSI v rámci dvoutýdenního okna podle článku 3 odst. 4."
           },
           "smallBanksOut": {
             "myth": "Jsme malá banka, takže jsme mimo působnost NIS 2.",
@@ -9668,17 +9668,17 @@
       "practitioner": {
         "heading": "Jak to skutečně provozuje typická středně velká německá banka",
         "p1": "Podstata pod DORA, registrace pod BSI. Typická německá Sparkasse nebo Volksbank nestaví paralelní rámec podle článku 21 NIS 2. Kapitola o řízení rizik IKT podle DORA pokrývá stejnou oblast ve stejné hloubce. Cyklus ohlašování závažných incidentů IKT podle článku 19 DORA pokrývá tutéž smyčku významných incidentů, kterou by si žádal článek 23 NIS 2, jen na harmonogramu a šabloně DORA.",
-        "p2": "Na straně registrace banka jednou podá záznam u BSI podle §33 BSIG, aktualizuje jej do dvou týdnů podle článku 27(2), když se změní kontaktní data nebo zařazení sektoru, a vede jednostránkovou interní zprávu vysvětlující výjimku podle článku 4 NIS 2, aby ji příští dozorový orgán nebo auditor nemusel znovu projednávat. Tato zpráva stojí odpoledne práce a ušetří ekvivalent dvou auditních cyklů trapných diskusí."
+        "p2": "Na straně registrace banka jednou podá záznam u BSI podle §33 BSIG, aktualizuje jej do dvou týdnů podle článku 3 odst. 4, když se změní kontaktní data nebo zařazení sektoru, a vede jednostránkovou interní zprávu vysvětlující výjimku podle článku 4 NIS 2, aby ji příští dozorový orgán nebo auditor nemusel znovu projednávat. Tato zpráva stojí odpoledne práce a ušetří ekvivalent dvou auditních cyklů trapných diskusí."
       },
       "platform": {
         "heading": "Jak to řešíme na platformě",
-        "p1": "Kontrola působnosti rozlišuje hmotnou působnost (povinnosti podle článků 21 a 23) od působnosti pouze registrační (povinnost podle článku 27). Banka dostane výsledek pouze registrační s odkazem na DORA. Výstupem je zpráva připravená k vložení, kterou mohou podepsat váš projektový manažer DORA i váš řídicí orgán.",
-        "p2": "Tam, kde se požadavky překrývají, mapujeme povinnost vůči ekvivalentu DORA, místo abychom vás žádali splnit ji dvakrát. Pracovní postup registru podle §33 BSIG zůstává na platformě, včetně dvoutýdenního aktualizačního cyklu podle článku 27(2). Hmotná část pracovního proudu DORA zůstává u BaFin a u vašich stávajících nástrojů pro řízení rizik IKT."
+        "p1": "Kontrola působnosti rozlišuje hmotnou působnost (povinnosti podle článků 21 a 23) od působnosti pouze registrační (povinnost podle článku 3 odst. 4). Banka dostane výsledek pouze registrační s odkazem na DORA. Výstupem je zpráva připravená k vložení, kterou mohou podepsat váš projektový manažer DORA i váš řídicí orgán.",
+        "p2": "Tam, kde se požadavky překrývají, mapujeme povinnost vůči ekvivalentu DORA, místo abychom vás žádali splnit ji dvakrát. Pracovní postup registru podle §33 BSIG zůstává na platformě, včetně dvoutýdenního aktualizačního cyklu podle článku 3 odst. 4. Hmotná část pracovního proudu DORA zůstává u BaFin a u vašich stávajících nástrojů pro řízení rizik IKT."
       },
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "Směrnice (EU) 2022/2555 (NIS 2), příloha I sektor 3, článek 4, článek 27 (eur-lex.europa.eu/eli/dir/2022/2555/oj)",
+          "Směrnice (EU) 2022/2555 (NIS 2), příloha I sektor 3, článek 4, článek 3 odst. 4 (eur-lex.europa.eu/eli/dir/2022/2555/oj)",
           "Nařízení (EU) 2022/2554 (DORA), článek 1 působnost a kapitoly II + III (eur-lex.europa.eu/eli/reg/2022/2554/oj)",
           "Nařízení (EU) č. 575/2013 (CRR), článek 4(1) (eur-lex.europa.eu/eli/reg/2013/575/oj)",
           "Zákon o BSI (BSIG), §28 (lex specialis) a §33 (registr) ve znění zákona o zavedení NIS2 a posílení kybernetické bezpečnosti",
@@ -10369,7 +10369,7 @@
         "heading": "Stručná verze",
         "p1": "Energetika je odvětví 1 Přílohy I NIS 2. Směrnice jmenuje pět pododvětví (elektřina, dálkové vytápění a chlazení, ropa, plyn, vodík) a pro každé z nich vyjmenovává typy subjektů v působnosti: výrobci, provozovatelé distribučních soustav, provozovatelé přenosových soustav, dodavatelé, nominovaní organizátoři trhu s elektřinou, účastníci trhu s elektřinou, provozovatelé rafinerií a zpracovatelských zařízení, provozovatelé ropovodů a skladů, ústřední správci zásob, provozovatelé zařízení LNG pro zemní plyn, provozovatelé výroby a přepravy vodíku. Jedno pododvětví stačí k tomu, aby se firma dostala do působnosti.",
         "p2": "Čl. 2 odst. 1 NIS 2 přidává test velikosti odkazem na doporučení 2003/361/ES: střední podnik nebo větší, což znamená alespoň 50 zaměstnanců nebo více než 10 milionů eur ročního obratu a bilanční sumy. Většina energetických firem se pohodlně nachází nad touto laťkou. Pod ní jste obvykle mimo NIS 2, ledaže by vás zachytila výjimka „bez ohledu na velikost“ podle čl. 2 odst. 2.",
-        "p3": "Německo to transponuje prostřednictvím §28 BSIG (Anwendungsbereich) a souvisejícího katalogu subjektů v Anlagen 1 a 2 BSIG. Samostatně BSI-KritisV (KRITIS-Verordnung) stanoví odvětvové prahy pro přísnější režim KRITIS (například připojené koncové zákazníky v distribuci elektřiny nebo roční dodané objemy). Překročení prahu KRITIS přidává povinnosti nad rámec NIS 2 (nezávislý audit každé tři roky podle §65 BSIG). Jeho nepřekročení NIS 2 neodstraňuje."
+        "p3": "Německo to transponuje prostřednictvím §28 BSIG (Anwendungsbereich) a souvisejícího katalogu subjektů v Anlagen 1 a 2 BSIG. Samostatně BSI-KritisV (KRITIS-Verordnung) stanoví odvětvové prahy pro přísnější režim KRITIS (například připojené koncové zákazníky v distribuci elektřiny nebo roční dodané objemy). Překročení prahu KRITIS přidává povinnosti nad rámec NIS 2 (nezávislý audit každé tři roky podle §39 BSIG). Jeho nepřekročení NIS 2 neodstraňuje."
       },
       "legalAnchor": {
         "heading": "Právní zdroj",
@@ -10387,7 +10387,7 @@
         "transposition": {
           "label": "§28 BSIG plus BSI-KritisV (Německo)",
           "quote": "Besonders wichtige Einrichtungen und wichtige Einrichtungen sind natürliche oder juristische Personen oder rechtlich unselbständige Organisationseinheiten einer Gebietskörperschaft, die einer der in den Anlagen 1 oder 2 genannten Einrichtungsarten zuzuordnen sind und die Schwellenwerte nach Artikel 2 der Empfehlung 2003/361/EG erreichen oder überschreiten.",
-          "context": "§28 BSIG je německými vstupními dveřmi do působnosti NIS 2. Anlage 1 BSIG vyjmenovává typy subjektů „besonders wichtige“ (klíčové), Anlage 2 vyjmenovává typy „wichtige“ (významné). Energetická pododvětví spadají převážně do Anlage 1. BSI-KritisV (Verordnung zur Bestimmung Kritischer Anlagen) stanoví samostatné prahy KRITIS. Energetická firma, která překročí práh KRITIS, je rovněž Betreiber einer Kritischen Anlage a na tomto základě spadá do přísnější kategorie „besonders wichtige“ s povinností tříletého auditu podle §65 BSIG."
+          "context": "§28 BSIG je německými vstupními dveřmi do působnosti NIS 2. Anlage 1 BSIG vyjmenovává typy subjektů „besonders wichtige“ (klíčové), Anlage 2 vyjmenovává typy „wichtige“ (významné). Energetická pododvětví spadají převážně do Anlage 1. BSI-KritisV (Verordnung zur Bestimmung Kritischer Anlagen) stanoví samostatné prahy KRITIS. Energetická firma, která překročí práh KRITIS, je rovněž Betreiber einer Kritischen Anlage a na tomto základě spadá do přísnější kategorie „besonders wichtige“ s povinností tříletého auditu podle §39 BSIG."
         }
       },
       "elements": {
@@ -10407,7 +10407,7 @@
           "kritis": {
             "section": "KRITIS",
             "title": "Překračujete práh BSI-KritisV?",
-            "body": "Odvětvové prahy stanovené v BSI-KritisV rozhodují o režimu KRITIS, nikoli o NIS 2. Dobře zdokumentovaný příklad pro distribuci elektřiny je 100 000 připojených koncových zákazníků nebo zhruba 3 700 GWh ročně dodané elektřiny. Srovnatelné prahy existují pro plyn, dálkové vytápění a ropu. Překročte jeden z nich a navrch k NIS 2 se uplatní přísnější povinnosti auditu (nezávislý audit každé tři roky podle §65 BSIG). Pokud jste pod všemi, stále dlužíte úplný katalog podle §28 BSIG a čl. 21 NIS 2."
+            "body": "Odvětvové prahy stanovené v BSI-KritisV rozhodují o režimu KRITIS, nikoli o NIS 2. Dobře zdokumentovaný příklad pro distribuci elektřiny je 100 000 připojených koncových zákazníků nebo zhruba 3 700 GWh ročně dodané elektřiny. Srovnatelné prahy existují pro plyn, dálkové vytápění a ropu. Překročte jeden z nich a navrch k NIS 2 se uplatní přísnější povinnosti auditu (nezávislý audit každé tři roky podle §39 BSIG). Pokud jste pod všemi, stále dlužíte úplný katalog podle §28 BSIG a čl. 21 NIS 2."
           }
         }
       },
@@ -10432,7 +10432,7 @@
           "bsi": {
             "country": "Německo",
             "label": "BSI / §28 BSIG, hlášení podle §32, registr podle §33",
-            "body": "BSI je kybernetickým orgánem podle BSIG. Provozuje registrační portál podle §33, kde každý energetický subjekt v působnosti NIS 2 předkládá údaje o firmě a aktualizace do dvou týdnů podle čl. 27 odst. 2. Přijímá hlášení významných incidentů podle §32 BSIG v časovém rámci NIS 2. Pokud je subjekt rovněž Betreiber einer Kritischen Anlage, je BSI protistranou auditu pro tříletý důkaz auditu podle §65 BSIG."
+            "body": "BSI je kybernetickým orgánem podle BSIG. Provozuje registrační portál podle §33, kde každý energetický subjekt v působnosti NIS 2 předkládá údaje o firmě a aktualizace do dvou týdnů podle čl. 3 odst. 4. Přijímá hlášení významných incidentů podle §32 BSIG v časovém rámci NIS 2. Pokud je subjekt rovněž Betreiber einer Kritischen Anlage, je BSI protistranou auditu pro tříletý důkaz auditu podle §39 BSIG."
           },
           "bnetza": {
             "country": "Německo",
@@ -10466,13 +10466,13 @@
       },
       "practitioner": {
         "heading": "Jak to vypadá v praxi",
-        "p1": "Typická středně velká německá energetická firma se 150 zaměstnanci, distribuční složkou elektřiny obsluhující zhruba 40 000 koncových zákazníků, dodavatelskou složkou plynu a malým portfoliem výroby z obnovitelných zdrojů spadá do působnosti NIS 2 prostřednictvím odvětví 1 Přílohy I (pododvětví elektřiny a plynu). Test velikosti je na úrovni subjektu splněn. Prahy BSI-KritisV pro distribuční složku nejsou překročeny, takže povinnost auditu podle §65 se neuplatní, ale §28 BSIG ano. Katalog §11 EnWG je pro síť již zaveden, takže většina čl. 21 je rozjetá ještě před zahájením práce na NIS 2.",
+        "p1": "Typická středně velká německá energetická firma se 150 zaměstnanci, distribuční složkou elektřiny obsluhující zhruba 40 000 koncových zákazníků, dodavatelskou složkou plynu a malým portfoliem výroby z obnovitelných zdrojů spadá do působnosti NIS 2 prostřednictvím odvětví 1 Přílohy I (pododvětví elektřiny a plynu). Test velikosti je na úrovni subjektu splněn. Prahy BSI-KritisV pro distribuční složku nejsou překročeny, takže povinnost auditu podle §39 se neuplatní, ale §28 BSIG ano. Katalog §11 EnWG je pro síť již zaveden, takže většina čl. 21 je rozjetá ještě před zahájením práce na NIS 2.",
         "p2": "Registr rizik podle §30 musí na jednom místě pokrýt OT a SCADA napříč distribuční sítí, řízení plynárenské sítě a výrobní portfolio. Hlášení podle §32 protéká přes BSI v časovém rámci NIS 2. Registrace podle §33 je jediné podání za celý právní subjekt. Školení vedení podle čl. 20 NIS 2 je pro většinu představenstev v tomto segmentu nové a katalog EnWG je nepokrývá. Kontroly dodavatelského řetězce podle čl. 21 odst. 2 písm. d) jsou druhým velkým rozdílem oproti světu EnWG."
       },
       "platform": {
         "heading": "Jak to řešíme na platformě",
         "p1": "Kontrola působnosti vás provede pododvětvími odvětví 1 Přílohy I, zeptá se na počet zaměstnanců a obrat na úrovni subjektu a řekne vám, do které kategorie podle §28 BSIG spadáte a zda nějaká činnost zároveň vtahuje KRITIS. Výstupem je memo připravené ke vložení, které přečte jak váš řídicí orgán, tak vaše protistrana z Bundesnetzagentur.",
-        "p2": "Tam, kde se čl. 21 NIS 2 a katalog §11 EnWG překrývají, platforma mapuje požadavky jednou a nechá tentýž důkaz počítat pro oba. Modul aktiv zachytí inventář OT i IT napříč všemi pododvětvími na jednom místě. Pracovní postup registrace podle §33 zůstává na platformě, včetně dvoutýdenního cyklu aktualizací podle čl. 27 odst. 2."
+        "p2": "Tam, kde se čl. 21 NIS 2 a katalog §11 EnWG překrývají, platforma mapuje požadavky jednou a nechá tentýž důkaz počítat pro oba. Modul aktiv zachytí inventář OT i IT napříč všemi pododvětvími na jednom místě. Pracovní postup registrace podle §33 zůstává na platformě, včetně dvoutýdenního cyklu aktualizací podle čl. 3 odst. 4."
       },
       "sources": {
         "heading": "Zdroje",
@@ -10480,7 +10480,7 @@
           "Směrnice (EU) 2022/2555 (NIS 2), Příloha I odvětví 1. eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Směrnice (EU) 2022/2555 (NIS 2), čl. 2 odst. 1 a čl. 2 odst. 2. eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Doporučení Komise 2003/361/ES o definici mikropodniků, malých a středních podniků",
-          "Zákon o BSI (BSIG), §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §65 (audity) ve znění zákona o provádění NIS2 a posílení kybernetické bezpečnosti. gesetze-im-internet.de",
+          "Zákon o BSI (BSIG), §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §39 (audity) ve znění zákona o provádění NIS2 a posílení kybernetické bezpečnosti. gesetze-im-internet.de",
           "Verordnung zur Bestimmung Kritischer Anlagen (BSI-KritisV). odvětvové prahy pro Energie",
           "Energiewirtschaftsgesetz (EnWG), §11 odst. 1a a §11 odst. 1b. gesetze-im-internet.de",
           "Katalog bezpečnosti IT Bundesnetzagentur pro provozovatele energetických sítí a energetických zařízení"
@@ -10521,7 +10521,7 @@
         "transposition": {
           "label": "§28 BSIG (Německo)",
           "quote": "Besonders wichtige Einrichtungen und wichtige Einrichtungen sind natürliche oder juristische Personen oder rechtlich unselbständige Organisationseinheiten einer Gebietskörperschaft, die einer der in den Anlagen 1 oder 2 genannten Einrichtungsarten zuzuordnen sind und die Schwellenwerte nach Artikel 2 der Empfehlung 2003/361/EG erreichen oder überschreiten.",
-          "context": "§28 BSIG je německými dveřmi do NIS 2. Pitná voda sedí v Anlage 1 (besonders wichtige Sektoren) jako Trinkwasser. Překročení prahu KRITIS-Verordnung 22 milionů metrů krychlových ročně přidává vrstvu Betreiber kritischer Anlagen s tříletým auditním cyklem podle §65 BSIG. Pod tímto prahem je dodavatel pitné vody stále besonders wichtige Einrichtung ve smyslu NIS 2."
+          "context": "§28 BSIG je německými dveřmi do NIS 2. Pitná voda sedí v Anlage 1 (besonders wichtige Sektoren) jako Trinkwasser. Překročení prahu KRITIS-Verordnung 22 milionů metrů krychlových ročně přidává vrstvu Betreiber kritischer Anlagen s tříletým auditním cyklem podle §39 BSIG. Pod tímto prahem je dodavatel pitné vody stále besonders wichtige Einrichtung ve smyslu NIS 2."
         }
       },
       "elements": {
@@ -10541,7 +10541,7 @@
           "kritis": {
             "section": "KRITIS",
             "title": "Překračujete 22 milionů metrů krychlových ročně?",
-            "body": "KRITIS-Verordnung stanoví jediný práh pro pitnou vodu: více než 22 milionů metrů krychlových dodané vody ročně. Překročte tuto hranici a navrch NIS 2 se uplatní režim KRITIS: nezávislý audit každé tři roky podle §65 BSIG, další povinnosti hlášení, registrace jako Betreiber einer kritischen Anlage. Pod touto hranicí dlužíte jen NIS 2. Zhruba 80 procent německých dodavatelů pitné vody sedí pod prahem KRITIS, ale uvnitř NIS 2."
+            "body": "KRITIS-Verordnung stanoví jediný práh pro pitnou vodu: více než 22 milionů metrů krychlových dodané vody ročně. Překročte tuto hranici a navrch NIS 2 se uplatní režim KRITIS: nezávislý audit každé tři roky podle §39 BSIG, další povinnosti hlášení, registrace jako Betreiber einer kritischen Anlage. Pod touto hranicí dlužíte jen NIS 2. Zhruba 80 procent německých dodavatelů pitné vody sedí pod prahem KRITIS, ale uvnitř NIS 2."
           }
         }
       },
@@ -10566,7 +10566,7 @@
           "bsi": {
             "country": "Německo",
             "label": "BSI / §28 BSIG a KRITIS-Verordnung",
-            "body": "BSI je kybernetickým orgánem pro pitnou vodu. Provozuje registrační portál podle §33 BSIG, přijímá oznámení významných incidentů podle §32 BSIG a vydává branchenspezifischer Sicherheitsstandard Wasser. Pokud je dodavatel zároveň KRITIS, je BSI adresátem důkazů tříletého auditu podle §65 BSIG."
+            "body": "BSI je kybernetickým orgánem pro pitnou vodu. Provozuje registrační portál podle §33 BSIG, přijímá oznámení významných incidentů podle §32 BSIG a vydává branchenspezifischer Sicherheitsstandard Wasser. Pokud je dodavatel zároveň KRITIS, je BSI adresátem důkazů tříletého auditu podle §39 BSIG."
           },
           "uba": {
             "country": "Německo",
@@ -10605,7 +10605,7 @@
       },
       "practitioner": {
         "heading": "Jak to vypadá v praxi",
-        "p1": "Typický malý německý dodavatel pitné vody s 80 zaměstnanci, dodávající 6 milionů metrů krychlových pitné vody ročně přibližně 40 000 domácnostem, sedí jednoznačně uvnitř působnosti NIS 2 přes přílohu I sektor 6. Velikostní test je pohodlně splněn. KRITIS se neuplatní, takže tříletý audit podle §65 BSIG není ve hře. Ale §28, §30, §32 a §33 BSIG se uplatní v plném rozsahu: registrace u BSI, katalog kontrol podle článku 21, podpis řídicího orgánu, hlášení významných incidentů do 24 a 72 hodin.",
+        "p1": "Typický malý německý dodavatel pitné vody s 80 zaměstnanci, dodávající 6 milionů metrů krychlových pitné vody ročně přibližně 40 000 domácnostem, sedí jednoznačně uvnitř působnosti NIS 2 přes přílohu I sektor 6. Velikostní test je pohodlně splněn. KRITIS se neuplatní, takže tříletý audit podle §39 BSIG není ve hře. Ale §28, §30, §32 a §33 BSIG se uplatní v plném rozsahu: registrace u BSI, katalog kontrol podle článku 21, podpis řídicího orgánu, hlášení významných incidentů do 24 a 72 hodin.",
         "p2": "Registr rizik musí pokrýt OT a SCADA ve vodárně, úpravny, telemetrii sítě, IT pro fakturaci zákazníků a cloudové služby používané k monitoringu. Opatření pro dodavatelský řetězec podle čl. 21 odst. 2 písm. d) musí dosáhnout k dodavateli chemikálií a dodavateli SCADA. Nic z toho není podmíněno dosažením 22 milionů metrů krychlových. Laťka KRITIS je samostatná, přísnější vrstva, na kterou téměř žádná německá vodárna nedosáhne."
       },
       "platform": {
@@ -10681,7 +10681,7 @@
           "kritis": {
             "section": "KRITIS",
             "title": "Překračujete práh KRITIS 500 000 ekvivalentních obyvatel?",
-            "body": "KRITIS-Verordnung stanoví německý práh pro odpadní vody na ekvivalent 500 000 obyvatel. Překročte toto číslo a jste také 'Betreiber einer Kritischen Anlage', s tříletým auditním cyklem podle §65 BSIG a přísnější klasifikací. Většina městských čistíren v Německu sedí hluboko pod 500 000 EO. Nejsou KRITIS, ale jsou stále subjekty NIS 2 podle §28 BSIG."
+            "body": "KRITIS-Verordnung stanoví německý práh pro odpadní vody na ekvivalent 500 000 obyvatel. Překročte toto číslo a jste také 'Betreiber einer Kritischen Anlage', s tříletým auditním cyklem podle §39 BSIG a přísnější klasifikací. Většina městských čistíren v Německu sedí hluboko pod 500 000 EO. Nejsou KRITIS, ale jsou stále subjekty NIS 2 podle §28 BSIG."
           }
         }
       },
@@ -10706,7 +10706,7 @@
           "bsi": {
             "country": "Německo",
             "label": "BSI podle §28, §32 a §33 BSIG",
-            "body": "BSI je kybernetickým orgánem pro odpadní vody podle §28 BSIG. Provozuje registrační portál podle §33 BSIG, přijímá oznámení významných incidentů podle §32 BSIG a pro provozovatele KRITIS nad 500 000 EO přijímá důkazy tříletého auditu podle §65 BSIG. Pro provozovatele pod prahem KRITIS žádná auditní povinnost neexistuje, ale registrace a hlášení stále platí."
+            "body": "BSI je kybernetickým orgánem pro odpadní vody podle §28 BSIG. Provozuje registrační portál podle §33 BSIG, přijímá oznámení významných incidentů podle §32 BSIG a pro provozovatele KRITIS nad 500 000 EO přijímá důkazy tříletého auditu podle §39 BSIG. Pro provozovatele pod prahem KRITIS žádná auditní povinnost neexistuje, ale registrace a hlášení stále platí."
           },
           "uba": {
             "country": "Německo",
@@ -10751,7 +10751,7 @@
       "platform": {
         "heading": "Jak to řešíme na platformě",
         "p1": "Kontrola použitelnosti prochází definici sektoru 7 přesně tak, jak ji píše příloha I: městské, domovní, průmyslové odpadní vody, s výjimkou pro vedlejší činnost jako samostatnou otázkou. Velikostní test z čl. 2 odst. 1 je druhým krokem. Práh KRITIS-Verordnung 500 000 EO je třetí a je prezentován jako 'navrch NIS 2', ne jako brána.",
-        "p2": "Modul aktiv pokrývá SCADA, telemetrii, čerpací stanice a laboratorní IT pod jedním inventářem. Kontroly B3S Wasser/Abwasser zapadají do katalogu čl. 21 odst. 2 bez paralelního seznamu. Pokud zároveň překročíte práh KRITIS, tříletý auditní cyklus podle §65 BSIG se zapne jako samostatný pracovní postup navrch stejných dokladů."
+        "p2": "Modul aktiv pokrývá SCADA, telemetrii, čerpací stanice a laboratorní IT pod jedním inventářem. Kontroly B3S Wasser/Abwasser zapadají do katalogu čl. 21 odst. 2 bez paralelního seznamu. Pokud zároveň překročíte práh KRITIS, tříletý auditní cyklus podle §39 BSIG se zapne jako samostatný pracovní postup navrch stejných dokladů."
       },
       "sources": {
         "heading": "Zdroje",
@@ -10760,7 +10760,7 @@
           "Směrnice (EU) 2022/2555 (NIS 2), čl. 2 odst. 1. eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Směrnice Rady 91/271/EHS o čištění městských odpadních vod, čl. 2 body (1), (2), (3)",
           "Doporučení Komise 2003/361/ES o definici mikropodniků, malých a středních podniků",
-          "BSIG, §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §65 (Nachweise) ve znění zákona o provedení NIS2 a posílení kyberbezpečnosti",
+          "BSIG, §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §39 (Nachweise) ve znění zákona o provedení NIS2 a posílení kyberbezpečnosti",
           "BSI-Kritisverordnung (KRITIS-Verordnung), Anhang 1 Teil 2 Wasser: ekvivalent 500 000 obyvatel pro čištění odpadních vod",
           "Branchenspezifischer Sicherheitsstandard Wasser/Abwasser (B3S), DWA / BDEW"
         ]
@@ -11691,7 +11691,7 @@
       "practitioner": {
         "heading": "Jak analýzu provádějí skuteční provozovatelé z řad Mittelstandu",
         "p1": "Co vídáme v praxi: třicetiminutový hovor o působnosti prochází nejprve přílohou I nebo II, pak počty zaměstnanců a finanční čísla, pak otázku propojených podniků, pak čl. 2 odst. 2. Pořadí je důležité. Skok rovnou k velikosti, jak otázku většina konzultantů prezentuje, skrývá působnost, kterou skutečně máte.",
-        "p2": "Výsledek zdokumentujte. Krátké memo o působnosti, které jmenuje sektor podle přílohy I nebo II, uvádí počty zaměstnanců a obratu, řeší propojené podniky a prochází čl. 2 odst. 2, je artefaktem, který chcete mít, pokud se vnitrostátní orgán později zeptá, proč jste se samoklasifikovali jako mimo působnost. Pokud jste v působnosti, musíte se také registrovat podle článku 27 NIS 2 a příslušného vnitrostátního ustanovení (v Německu: §33 BSIG)."
+        "p2": "Výsledek zdokumentujte. Krátké memo o působnosti, které jmenuje sektor podle přílohy I nebo II, uvádí počty zaměstnanců a obratu, řeší propojené podniky a prochází čl. 2 odst. 2, je artefaktem, který chcete mít, pokud se vnitrostátní orgán později zeptá, proč jste se samoklasifikovali jako mimo působnost. Pokud jste v působnosti, musíte se také registrovat podle článku 3 odst. 4 NIS 2 a příslušného vnitrostátního ustanovení (v Německu: §33 BSIG)."
       },
       "platform": {
         "heading": "Jak to řešíme na platformě",
@@ -11995,11 +11995,11 @@
         "description": "Článek 4 NIS 2 předává finanční subjekty DORA, pokud jde o podstatu a dohled, ale ne pro registraci. BSI vás stále chce na seznamu podle § 33 BSIG."
       },
       "title": "NIS 2 vs DORA: Jak vlastně funguje výjimka pro finanční sektor",
-      "subtitle": "Článek 4 NIS 2 předává finanční subjekty DORA, pokud jde o řízení rizik, hlášení incidentů a dohled. Článek 27 NIS 2 na tomto seznamu není. Banky, platební instituce, ústřední protistrany a poskytovatelé služeb souvisejících s kryptoaktivy se stále registrují u BSI podle § 33 BSIG.",
+      "subtitle": "Článek 4 NIS 2 předává finanční subjekty DORA, pokud jde o řízení rizik, hlášení incidentů a dohled. Článek 3 odst. 4 NIS 2 na tomto seznamu není. Banky, platební instituce, ústřední protistrany a poskytovatelé služeb souvisejících s kryptoaktivy se stále registrují u BSI podle § 33 BSIG.",
       "overview": {
         "heading": "Dva regulátoři, jedna výjimka, jedna povinnost, která přežívá",
         "p1": "Nařízení (EU) 2022/2554 (DORA) vstoupilo v použitelnost 17. ledna 2025 a pokrývá kolem dvaceti kategorií finančních subjektů, od bank a pojišťoven po poskytovatele služeb souvisejících s kryptoaktivy a obchodní platformy. Pro vše, co DORA již reguluje, vytlačuje článek 4 NIS 2 odpovídající články NIS 2. To je pravidlo lex specialis a stojí v centru každé konverzace o tom, jak se finanční firmy mapují vůči NIS 2.",
-        "p2": "Vytlačení je úzké. Článek 4 odst. 2 NIS 2 uvádí přesně, které články NIS 2 ustupují, když je sektorově specifický akt alespoň rovnocenný v účinku. Seznam pokrývá článek 21 (opatření řízení rizik), článek 23 (hlášení incidentů) a kapitolu VII (dohled a vymáhání). Článek 27 (registrace) na seznamu není. Ani ustanovení o působnosti v příloze I, která vkládají bankovnictví a infrastrukturu finančních trhů do NIS 2 vůbec na začátku.",
+        "p2": "Vytlačení je úzké. Článek 4 odst. 2 NIS 2 uvádí přesně, které články NIS 2 ustupují, když je sektorově specifický akt alespoň rovnocenný v účinku. Seznam pokrývá článek 21 (opatření řízení rizik), článek 23 (hlášení incidentů) a kapitolu VII (dohled a vymáhání). Článek 3 odst. 4 (registrace) na seznamu není. Ani ustanovení o působnosti v příloze I, která vkládají bankovnictví a infrastrukturu finančních trhů do NIS 2 vůbec na začátku.",
         "p3": "Praktický výsledek pro německou banku, platební instituci licencovanou BaFin nebo ústřední protistranu: podstata pochází z DORA, dohled v Německu sedí u BaFin a Bundesbank, ale subjekt se stále registruje u BSI prostřednictvím portálu podle § 33 BSIG. Jeden regulátor v registru. Jiný regulátor u všeho, co je v provozu důležité."
       },
       "legalAnchor": {
@@ -12008,7 +12008,7 @@
         "directive": {
           "label": "Směrnice NIS 2, článek 4 odst. 1 a odst. 2",
           "quote": "Pokud sektorově specifické právní akty Unie vyžadují, aby zásadně významné nebo významné subjekty přijaly opatření k řízení rizik v oblasti kybernetické bezpečnosti nebo aby oznamovaly významné incidenty, a pokud jsou tyto požadavky alespoň rovnocenné v účinku povinnostem stanoveným v této směrnici, příslušná ustanovení této směrnice, včetně ustanovení o dohledu a vymáhání stanoveného v kapitole VII, se na tyto subjekty nepoužijí.",
-          "context": "Dvě podmínky jsou naskládány: musí existovat sektorově specifický akt Unie a jeho požadavky musí být alespoň rovnocenné v účinku. Teprve pak ustupují články 21, 23 a kapitola VII. Článek 27 v tomto seznamu nápadně chybí, a proto se nadále uplatňuje."
+          "context": "Dvě podmínky jsou naskládány: musí existovat sektorově specifický akt Unie a jeho požadavky musí být alespoň rovnocenné v účinku. Teprve pak ustupují články 21, 23 a kapitola VII. Článek 3 odst. 4 v tomto seznamu nápadně chybí, a proto se nadále uplatňuje."
         },
         "regulation": {
           "label": "Nařízení (EU) 2022/2554 (DORA)",
@@ -12016,9 +12016,9 @@
           "context": "DORA je nařízení, použitelné přímo v každém členském státě od 17. ledna 2025. Pro subjekty v jeho působnosti je to soubor pravidel, který vyplňuje prostor, který by jinak zaujímaly články 21 a 23 NIS 2. Věcným pravidlem kybernetické bezpečnosti je DORA, nikoli provedení NIS 2 prostřednictvím BSIG."
         },
         "transposition": {
-          "label": "Článek 27 NIS 2 a § 33 BSIG",
+          "label": "Článek 3 odst. 4 NIS 2 a § 33 BSIG",
           "quote": "Členské státy zajistí, aby zásadně významné a významné subjekty předkládaly příslušným orgánům tyto informace: název subjektu, adresu a aktuální kontaktní údaje, příslušný sektor a podsektor podle přílohy I nebo II a seznam členských států, v nichž subjekt poskytuje služby.",
-          "context": "Článek 27 NIS 2 ukládá registraci u vnitrostátního příslušného orgánu. V Německu § 33 BSIG směruje toto na registrační portál BSI. Článek 4 se článku 27 nedotýká. DORA má vlastní registr u evropských orgánů dohledu, ale ten nenahrazuje vnitrostátní registr NIS 2. Finanční subjekty proto žijí v obou."
+          "context": "Článek 3 odst. 4 NIS 2 ukládá registraci u vnitrostátního příslušného orgánu. V Německu § 33 BSIG směruje toto na registrační portál BSI. Článek 4 se článku 3 odst. 4 nedotýká. DORA má vlastní registr u evropských orgánů dohledu, ale ten nenahrazuje vnitrostátní registr NIS 2. Finanční subjekty proto žijí v obou."
         }
       },
       "elements": {
@@ -12033,7 +12033,7 @@
           "registration": {
             "section": "Registrace",
             "title": "BSI podle § 33 BSIG, žádné vytlačení",
-            "body": "Článek 27 NIS 2 stojí mimo seznam podle článku 4. Vnitrostátní registr výjimku přežívá. Banka nebo platební instituce licencovaná BaFin se registruje u BSI prostřednictvím portálu podle § 33, předkládá klasifikaci sektoru, kontaktní údaje a rozsahy IP adres a aktualizuje ve lhůtách, které platí pro každý jiný subjekt v působnosti. Neregistrace má vlastní sankční dráhu."
+            "body": "Článek 3 odst. 4 NIS 2 stojí mimo seznam podle článku 4. Vnitrostátní registr výjimku přežívá. Banka nebo platební instituce licencovaná BaFin se registruje u BSI prostřednictvím portálu podle § 33, předkládá klasifikaci sektoru, kontaktní údaje a rozsahy IP adres a aktualizuje ve lhůtách, které platí pro každý jiný subjekt v působnosti. Neregistrace má vlastní sankční dráhu."
           },
           "supervision": {
             "section": "Dohled",
@@ -12048,7 +12048,7 @@
         "items": {
           "equivalence": {
             "title": "Lex specialis je úzký, ne plošný",
-            "body": "Článek 4 vytlačuje pouze ty články NIS 2, které jmenuje. Registrace podle článku 27, působnost podle přílohy I a II a definice sektorů se nadále uplatňují. Banka se nestává nesubjektem NIS 2. Stává se subjektem NIS 2 řízeným DORA, pokud jde o věcné části. Rozdíl je důležitý, když přijdou na řadu registrační lhůty, reklasifikace sektoru nebo oznámení o přeshraničních službách."
+            "body": "Článek 4 vytlačuje pouze ty články NIS 2, které jmenuje. Registrace podle článku 3 odst. 4, působnost podle přílohy I a II a definice sektorů se nadále uplatňují. Banka se nestává nesubjektem NIS 2. Stává se subjektem NIS 2 řízeným DORA, pokud jde o věcné části. Rozdíl je důležitý, když přijdou na řadu registrační lhůty, reklasifikace sektoru nebo oznámení o přeshraničních službách."
           },
           "informational": {
             "title": "Rovnocenný v účinku, ne totožný v textu",
@@ -12083,7 +12083,7 @@
         "items": {
           "doraReplacesAll": {
             "myth": "Mýtus: DORA nahrazuje NIS 2 zcela pro finanční subjekty.",
-            "reality": "DORA nahrazuje článek 21, článek 23 a kapitolu VII. Nenahrazuje článek 27 (registrace), ustanovení o působnosti v příloze I a II ani mechanismy spolupráce v kapitole IV. Registr podle § 33 BSIG zůstává. Banka, která registraci vynechá, čelí samostatné sankci za neregistraci, nikoli vymáhacímu spisu pouze podle DORA."
+            "reality": "DORA nahrazuje článek 21, článek 23 a kapitolu VII. Nenahrazuje článek 3 odst. 4 (registrace), ustanovení o působnosti v příloze I a II ani mechanismy spolupráce v kapitole IV. Registr podle § 33 BSIG zůstává. Banka, která registraci vynechá, čelí samostatné sankci za neregistraci, nikoli vymáhacímu spisu pouze podle DORA."
           },
           "doraBanksOnly": {
             "myth": "Mýtus: DORA se vztahuje jen na banky, takže nebankovní finanční subjekty se řídí NIS 2.",
@@ -12102,13 +12102,13 @@
       },
       "platform": {
         "heading": "Co platforma sleduje",
-        "p1": "Platforma modeluje registraci podle článku 27 NIS 2 jako prvořadou povinnost nezávislou na obsahu řízení rizik. Finanční subjekt používající platformu vidí registrační lhůty, připomínky změny kontaktních údajů a stav portálu podle § 33 BSIG, aniž by zdědil jakýkoli seznam úkolů podle článku 21 NIS 2, který nepotřebuje.",
-        "p2": "Věcná vrstva DORA je mimo působnost open-source platformy. Doporučený vzorec je: sledujte zde článek 27 NIS 2, spusťte program DORA v nástrojích sladěných s BaFin, které vaše dohledové orgány očekávají, a použijte stav registru z platformy jako auditní stopu, která dokazuje, že povinnost podle § 33 BSIG byla splněna."
+        "p1": "Platforma modeluje registraci podle článku 3 odst. 4 NIS 2 jako prvořadou povinnost nezávislou na obsahu řízení rizik. Finanční subjekt používající platformu vidí registrační lhůty, připomínky změny kontaktních údajů a stav portálu podle § 33 BSIG, aniž by zdědil jakýkoli seznam úkolů podle článku 21 NIS 2, který nepotřebuje.",
+        "p2": "Věcná vrstva DORA je mimo působnost open-source platformy. Doporučený vzorec je: sledujte zde článek 3 odst. 4 NIS 2, spusťte program DORA v nástrojích sladěných s BaFin, které vaše dohledové orgány očekávají, a použijte stav registru z platformy jako auditní stopu, která dokazuje, že povinnost podle § 33 BSIG byla splněna."
       },
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "Směrnice (EU) 2022/2555 (NIS 2), článek 4 (lex specialis), článek 27 (povinnost registrace), příloha I sektor 3 (infrastruktura finančních trhů) a sektor 4 (bankovnictví)",
+          "Směrnice (EU) 2022/2555 (NIS 2), článek 4 (lex specialis), článek 3 odst. 4 (povinnost registrace), příloha I sektor 3 (infrastruktura finančních trhů) a sektor 4 (bankovnictví)",
           "Nařízení (EU) 2022/2554 (DORA), články 5 až 17 (řízení rizik IKT), články 17 až 23 (hlášení incidentů), články 24 až 27 (testování odolnosti), články 28 až 44 (rizika IKT třetích stran), článek 45 (sdílení informací), článek 46 (příslušné orgány)",
           "BSIG (ve znění NIS2UmsuCG), § 33 (registrace), § 65 (sankce za neregistraci)",
           "Bod odůvodnění 28 směrnice NIS 2 o vztahu mezi NIS 2 a sektorově specifickými akty Unie",
@@ -12118,9 +12118,9 @@
       },
       "ctaCard": {
         "heading": "Sledujte registraci, která výjimku přežívá",
-        "description": "DORA řídí podstatu. NIS 2 článek 27 vás stále chce na seznamu podle § 33 BSIG. Platforma sleduje registraci, aktualizace při změně okolností a auditní stopu, aniž by subjektu DORA vnucovala paralelní program podle článku 21."
+        "description": "DORA řídí podstatu. NIS 2 článek 3 odst. 4 vás stále chce na seznamu podle § 33 BSIG. Platforma sleduje registraci, aktualizace při změně okolností a auditní stopu, aniž by subjektu DORA vnucovala paralelní program podle článku 21."
       },
-      "cta": "Zaregistrujte svůj subjekt a sledujte článek 27"
+      "cta": "Zaregistrujte svůj subjekt a sledujte článek 3 odst. 4"
     },
     "nis2AndGdprOverlap": {
       "meta": {
@@ -12240,7 +12240,7 @@
       },
       "platform": {
         "heading": "Jak to řešíme na platformě",
-        "p1": "Platforma modeluje registr povinností NIS 2: registrace podle článku 27, opatření k řízení rizik podle článku 21, hlášení incidentů podle článku 23, školení vedení podle článku 20. Nemodeluje registr zpracování podle GDPR a neprovádí vaše posouzení vlivu na ochranu osobních údajů. Ta zůstávají ve vašich nástrojích pro ochranu osobních údajů, vedena vaším pověřencem pro ochranu osobních údajů, pod dohledem vašeho úřadu pro ochranu osobních údajů.",
+        "p1": "Platforma modeluje registr povinností NIS 2: registrace podle článku 3 odst. 4, opatření k řízení rizik podle článku 21, hlášení incidentů podle článku 23, školení vedení podle článku 20. Nemodeluje registr zpracování podle GDPR a neprovádí vaše posouzení vlivu na ochranu osobních údajů. Ta zůstávají ve vašich nástrojích pro ochranu osobních údajů, vedena vaším pověřencem pro ochranu osobních údajů, pod dohledem vašeho úřadu pro ochranu osobních údajů.",
         "p2": "Kde oba režimy sdílejí důkazy (technická a organizační opatření, dodavatelská bezpečnostní ustanovení, záznamy o školení), zpřístupňujeme je jako exportovatelné artefakty, které lze připojit i k vašemu spisu podle článku 32 GDPR. Kaskáda incidentů podle §32 BSIG má na platformě vlastní pracovní postup. Oznámení podle článku 33 GDPR zůstává tam, kde vždy bylo, ve vašem registru porušení zabezpečení osobních údajů."
       },
       "sources": {
@@ -12255,22 +12255,22 @@
       },
       "ctaCard": {
         "heading": "Provozujte registr povinností NIS 2, spis GDPR nechte tam, kde žije",
-        "description": "Mapujeme opatření podle článku 21, kaskádu podle článku 23 a registraci podle článku 27. Váš pověřenec pro ochranu osobních údajů vede spis podle článku 32 a článku 33 GDPR odděleně. Zdarma, open source, bez lock-inu."
+        "description": "Mapujeme opatření podle článku 21, kaskádu podle článku 23 a registraci podle článku 3 odst. 4. Váš pověřenec pro ochranu osobních údajů vede spis podle článku 32 a článku 33 GDPR odděleně. Zdarma, open source, bez lock-inu."
       },
       "cta": "Otevřít bezplatnou platformu"
     },
     "nis2AndKritisSimultaneous": {
       "meta": {
         "title": "Když NIS 2 a KRITIS platí současně",
-        "description": "Provozovatelé kritických zařízení v Německu žijí pod dvěma režimy najednou. NIS 2 stanoví základní opatření a povinnosti hlášení. KRITIS přidává tříletý cyklus prokazování podle §29 BSIG a vyšší sankční pásmo podle §65 BSIG. Jeden regulátor (BSI), jedna důkazní základna, dvě vrstvy povinností."
+        "description": "Provozovatelé kritických zařízení v Německu žijí pod dvěma režimy najednou. NIS 2 stanoví základní opatření a povinnosti hlášení. KRITIS přidává tříletý cyklus prokazování podle §39 BSIG a vyšší sankční pásmo podle §65 BSIG. Jeden regulátor (BSI), jedna důkazní základna, dvě vrstvy povinností."
       },
       "title": "Provozovatelé kritických zařízení pod NIS 2 a KRITIS současně",
-      "subtitle": "Provozovatel KRITIS si nevybírá mezi NIS 2 a KRITIS. Platí oboje. Opatření NIS 2 podle čl. 21 jsou základ. Povinnosti specifické pro KRITIS podle §29, §32 a §65 BSIG sedí navrch. BSI vede oba režimy ze stejné důkazní základny.",
+      "subtitle": "Provozovatel KRITIS si nevybírá mezi NIS 2 a KRITIS. Platí oboje. Opatření NIS 2 podle čl. 21 jsou základ. Povinnosti specifické pro KRITIS podle §39, §32 a §65 BSIG sedí navrch. BSI vede oba režimy ze stejné důkazní základny.",
       "overview": {
         "heading": "Stručná verze",
         "p1": "Zhruba 1 500 až 2 000 subjektů v Německu provozuje „kritische Anlage“ ve smyslu BSI-KritisV. Distribuce elektřiny nad 500 GWh za rok, pitná voda nad 22 milionů metrů krychlových za rok, datová centra nad 3,5 megawattu smluvní kapacity a dlouhý seznam dalších odvětvových prahů. Tito provozovatelé nesedí ve vlastním odděleném světě. Sedí uvnitř NIS 2 jako každý jiný klíčový subjekt a povinnosti KRITIS se naskládají navrch.",
-        "p2": "Základ pochází z čl. 21 směrnice NIS 2: deset opatření řízení kybernetických rizik, přiměřených riziku. Německo to opisuje do §30 BSIG. Vrstva KRITIS přidává tři věci: vyšší laťku proporcionality podle čl. 21 odst. 1, protože důsledky selhání jsou větší, povinný tříletý cyklus prokazování podle §29 BSIG a vyšší sankční pásmo podle §65 BSIG (až 10 milionů eur nebo 2 procenta obratu skupiny).",
-        "p3": "Oba režimy vede jeden regulátor. BSI registruje subjekt podle §33 BSIG, přezkoumává důkazy podle §29, přijímá hlášení incidentů podle §32 a vymáhá podle §65. Tatáž důkazní základna napájí obě vrstvy. Tato stránka rozkládá právní strukturu, dodatečné prvky KRITIS, dvě zásady rozhodující každý hraniční případ a tři mýty, které slýcháme nejčastěji."
+        "p2": "Základ pochází z čl. 21 směrnice NIS 2: deset opatření řízení kybernetických rizik, přiměřených riziku. Německo to opisuje do §30 BSIG. Vrstva KRITIS přidává tři věci: vyšší laťku proporcionality podle čl. 21 odst. 1, protože důsledky selhání jsou větší, povinný tříletý cyklus prokazování podle §39 BSIG a vyšší sankční pásmo podle §65 BSIG (až 10 milionů eur nebo 2 procenta obratu skupiny).",
+        "p3": "Oba režimy vede jeden regulátor. BSI registruje subjekt podle §33 BSIG, přezkoumává důkazy podle §39, přijímá hlášení incidentů podle §32 a vymáhá podle §65. Tatáž důkazní základna napájí obě vrstvy. Tato stránka rozkládá právní strukturu, dodatečné prvky KRITIS, dvě zásady rozhodující každý hraniční případ a tři mýty, které slýcháme nejčastěji."
       },
       "legalAnchor": {
         "heading": "Právní zdroj",
@@ -12286,9 +12286,9 @@
           "context": "BSIG skládá povinnosti do jednoho zákona. §28 stanoví působnost (klíčový, významný, provozovatel KRITIS). §30 stanoví deset opatření. §32 stanoví kaskádu hlášení incidentů (24 hodin včasné varování, 72 hodin oznámení, závěrečná zpráva do jednoho měsíce). §33 stanoví registrační povinnost u BSI. §65 stanoví sankční pásmo: až 10 milionů eur nebo 2 procenta obratu skupiny pro klíčové subjekty a provozovatele KRITIS, až 7 milionů eur nebo 1,4 procenta pro významné subjekty. Provozovatelé KRITIS sedí ve vyšším pásmu, i kdyby jejich odvětví bylo jinak Příloha II."
         },
         "kritisRegulation": {
-          "label": "§29 BSIG a BSI-KritisV",
+          "label": "§39 BSIG a BSI-KritisV",
           "quote": "Betreiber kritischer Anlagen müssen mindestens alle drei Jahre dem Bundesamt für Sicherheit in der Informationstechnik die Erfüllung der Anforderungen nachweisen. Der Nachweis erfolgt durch Sicherheitsaudits, Prüfungen oder Zertifizierungen.",
-          "context": "§29 BSIG je důkazní cyklus specifický pro KRITIS. Každé tři roky předá provozovatel BSI audit, kontrolu nebo certifikaci, která ukazuje, že opatření podle §30 skutečně fungují. Anlage je vymezena v BSI-KritisV: odvětvové kvantitativní prahy (distribuce elektřiny na 500 GWh za rok, pitná voda na 22 milionů metrů krychlových za rok, datová centra na 3,5 megawattu smluvní kapacity IT a tak dále). Dosáhněte prahu a jste Betreiber kritischer Anlage. Cyklus podle §29 se připojí automaticky."
+          "context": "§39 BSIG je důkazní cyklus specifický pro KRITIS. Každé tři roky předá provozovatel BSI audit, kontrolu nebo certifikaci, která ukazuje, že opatření podle §30 skutečně fungují. Anlage je vymezena v BSI-KritisV: odvětvové kvantitativní prahy (distribuce elektřiny na 500 GWh za rok, pitná voda na 22 milionů metrů krychlových za rok, datová centra na 3,5 megawattu smluvní kapacity IT a tak dále). Dosáhněte prahu a jste Betreiber kritischer Anlage. Cyklus podle §39 se připojí automaticky."
         }
       },
       "elements": {
@@ -12302,7 +12302,7 @@
           },
           "kritisAdditions": {
             "section": "Vrstva 2",
-            "title": "Tříletý Nachweis podle §29 BSIG",
+            "title": "Tříletý Nachweis podle §39 BSIG",
             "body": "Nad rámec základu NIS 2 předá provozovatel KRITIS BSI důkazní balík každé tři roky: zprávu o auditu, kontrolu nebo uznanou certifikaci pokrývající opatření podle §30. Cyklus je pevný, nikoli na základě rizika. Zmeškání lhůty spustí vymáhání podle §65 BSIG. Registrace podle §33 nese pro provozovatele KRITIS i dodatečná pole: kritická služba, metriky zásobování, umístění Anlage a kontaktní místo 24/7."
           },
           "sectorSpecific": {
@@ -12318,11 +12318,11 @@
         "items": {
           "stacked": {
             "title": "Jeden regulátor, jedna důkazní základna, dvě vrstvy",
-            "body": "BSI vede oba režimy z téže kanceláře v Bonnu. Audit, který odevzdáte podle §29 BSIG, je tentýž audit, který dokazuje vaše opatření podle §30 pro NIS 2. Registr dodavatelů, který vedete pro čl. 21 odst. 2 písm. d), je tentýž registr, který BSI čte během kontroly podle §29. KRITIS nedubluje důkazy NIS 2. Pouze žádá, abyste prokázali opatření NIS 2 v pevném cyklu, s vyšším sankčním pásmem jako pojistkou."
+            "body": "BSI vede oba režimy z téže kanceláře v Bonnu. Audit, který odevzdáte podle §39 BSIG, je tentýž audit, který dokazuje vaše opatření podle §30 pro NIS 2. Registr dodavatelů, který vedete pro čl. 21 odst. 2 písm. d), je tentýž registr, který BSI čte během kontroly podle §39. KRITIS nedubluje důkazy NIS 2. Pouze žádá, abyste prokázali opatření NIS 2 v pevném cyklu, s vyšším sankčním pásmem jako pojistkou."
           },
           "fallback": {
             "title": "KRITIS je aditivní, nikoli náhrada",
-            "body": "Častý chybný výklad: „jsme KRITIS, takže pravidla NIS 2 se nepoužijí.“ Špatný směr. KRITIS sedí v BSIG navrch nad NIS 2, ne vedle. §28 vyjmenovává provozovatele KRITIS navíc ke klíčovým a významným subjektům. §30 (opatření), §32 (hlášení) a §33 (registrace) platí pro všechny tři. §29 (tříletý Nachweis) a vyšší pásmo §65 jsou dodatky specifické pro KRITIS. Vypusťte opatření NIS 2 a porušíte čl. 21 směrnice."
+            "body": "Častý chybný výklad: „jsme KRITIS, takže pravidla NIS 2 se nepoužijí.“ Špatný směr. KRITIS sedí v BSIG navrch nad NIS 2, ne vedle. §28 vyjmenovává provozovatele KRITIS navíc ke klíčovým a významným subjektům. §30 (opatření), §32 (hlášení) a §33 (registrace) platí pro všechny tři. §39 (tříletý Nachweis) a vyšší pásmo §65 jsou dodatky specifické pro KRITIS. Vypusťte opatření NIS 2 a porušíte čl. 21 směrnice."
           }
         }
       },
@@ -12333,7 +12333,7 @@
           "bsi": {
             "country": "Německo",
             "label": "BSI vede oba režimy",
-            "body": "Bundesamt für Sicherheit in der Informationstechnik je ústředním příslušným orgánem podle §40 BSIG. Registruje provozovatele KRITIS, přezkoumává důkazy podle §29, přijímá hlášení incidentů podle §32 a vymáhá podle §65. Tatáž kancelář v Bonnu řeší 60členného výrobce podle Přílohy II i 5000členného distributora elektřiny. Jiné měřítko, stejný regulátor, stejná právní struktura."
+            "body": "Bundesamt für Sicherheit in der Informationstechnik je ústředním příslušným orgánem podle §40 BSIG. Registruje provozovatele KRITIS, přezkoumává důkazy podle §39, přijímá hlášení incidentů podle §32 a vymáhá podle §65. Tatáž kancelář v Bonnu řeší 60členného výrobce podle Přílohy II i 5000členného distributora elektřiny. Jiné měřítko, stejný regulátor, stejná právní struktura."
           },
           "sectorAufsicht": {
             "country": "Německo (odvětvové překryvy)",
@@ -12343,7 +12343,7 @@
           "otherMs": {
             "country": "Celounijně",
             "label": "Na úrovni EU žádný přímý ekvivalent KRITIS",
-            "body": "Směrnice NIS 2 neobsahuje režim KRITIS. ENISA nevede tříletý cyklus prokazování. Nejbližší srovnatelnou konstrukcí je směrnice CER (2022/2557) o odolnosti kritických subjektů, která je o fyzické odolnosti, nikoli o kybernetické bezpečnosti. Ostatní členské státy transponují čl. 21 a čl. 23 stejně, ale dodatečná německá vrstva KRITIS je národní volbou přenesenou z IT-Sicherheitsgesetz z roku 2015. Zahraniční dceřiné společnosti německého provozovatele KRITIS nepřebírají povinnost podle §29 v zahraničí."
+            "body": "Směrnice NIS 2 neobsahuje režim KRITIS. ENISA nevede tříletý cyklus prokazování. Nejbližší srovnatelnou konstrukcí je směrnice CER (2022/2557) o odolnosti kritických subjektů, která je o fyzické odolnosti, nikoli o kybernetické bezpečnosti. Ostatní členské státy transponují čl. 21 a čl. 23 stejně, ale dodatečná německá vrstva KRITIS je národní volbou přenesenou z IT-Sicherheitsgesetz z roku 2015. Zahraniční dceřiné společnosti německého provozovatele KRITIS nepřebírají povinnost podle §39 v zahraničí."
           }
         }
       },
@@ -12353,33 +12353,33 @@
         "items": {
           "kritisReplacesNis2": {
             "myth": "Jsme KRITIS, takže nová pravidla NIS 2 se na nás nevztahují.",
-            "reality": "Špatný směr. §28 BSIG vyjmenovává provozovatele KRITIS jako jednu ze tří regulovaných kategorií vedle klíčových a významných subjektů. §30 (opatření), §32 (hlášení), §33 (registrace) a základ čl. 21 platí pro všechny tři. Dodatky specifické pro KRITIS jsou §29 (tříletý Nachweis) a sankční pásmo §65. Pokud vypustíte opatření NIS 2, protože „KRITIS už to pokrývá“, porušíte čl. 21 směrnice a německou transpozici."
+            "reality": "Špatný směr. §28 BSIG vyjmenovává provozovatele KRITIS jako jednu ze tří regulovaných kategorií vedle klíčových a významných subjektů. §30 (opatření), §32 (hlášení), §33 (registrace) a základ čl. 21 platí pro všechny tři. Dodatky specifické pro KRITIS jsou §39 (tříletý Nachweis) a sankční pásmo §65. Pokud vypustíte opatření NIS 2, protože „KRITIS už to pokrývá“, porušíte čl. 21 směrnice a německou transpozici."
           },
           "belowThresholdMeansNoNis2": {
             "myth": "Jsme pod prahem KRITIS-V, takže jsme i mimo NIS 2.",
-            "reality": "Práh BSI-KritisV (např. 500 GWh za rok pro distribuci elektřiny, 22 milionů metrů krychlových za rok pro vodu, 3,5 megawattu pro datová centra) rozhoduje o KRITIS, nikoli o NIS 2. Městská utilita zásobující 80 000 osob je pod prahem KRITIS, ale stále je v odvětví 1 Přílohy I (energetika) a téměř jistě je středním podnikem. To ji staví do působnosti NIS 2 jako klíčový subjekt s povinnostmi podle §30, §32 a §33. Jen bez tříletého cyklu podle §29 a v nižším sankčním pásmu podle §65."
+            "reality": "Práh BSI-KritisV (např. 500 GWh za rok pro distribuci elektřiny, 22 milionů metrů krychlových za rok pro vodu, 3,5 megawattu pro datová centra) rozhoduje o KRITIS, nikoli o NIS 2. Městská utilita zásobující 80 000 osob je pod prahem KRITIS, ale stále je v odvětví 1 Přílohy I (energetika) a téměř jistě je středním podnikem. To ji staví do působnosti NIS 2 jako klíčový subjekt s povinnostmi podle §30, §32 a §33. Jen bez tříletého cyklu podle §39 a v nižším sankčním pásmu podle §65."
           },
           "kritisAuditCoversAll": {
-            "myth": "Právě jsme prošli auditem podle §29, takže máme hotovo i pro NIS 2.",
-            "reality": "Úspěšný Nachweis podle §29 pokrývá důkazní cyklus. Nevypíná zbytek NIS 2. Kaskáda hlášení incidentů podle §32 (24 hodin / 72 hodin / jeden měsíc) běží nepřetržitě. Registrační údaje podle §33 musí být aktualizovány do dvou týdnů od jakékoli změny (čl. 27 odst. 2 NIS 2). Riziko dodavatelů podle §30 odst. 2 bodu 4 běží jako nepřetržitá povinnost. Audit podle §29 je snímek. Zbytek BSIG je operační systém."
+            "myth": "Právě jsme prošli auditem podle §39, takže máme hotovo i pro NIS 2.",
+            "reality": "Úspěšný Nachweis podle §39 pokrývá důkazní cyklus. Nevypíná zbytek NIS 2. Kaskáda hlášení incidentů podle §32 (24 hodin / 72 hodin / jeden měsíc) běží nepřetržitě. Registrační údaje podle §33 musí být aktualizovány do dvou týdnů od jakékoli změny (čl. 3 odst. 4 NIS 2). Riziko dodavatelů podle §30 odst. 2 bodu 4 běží jako nepřetržitá povinnost. Audit podle §39 je snímek. Zbytek BSIG je operační systém."
           }
         }
       },
       "practitioner": {
         "heading": "Praxe: Stadtwerk se smíšenými odvětvími",
         "p1": "Vezměte městskou utilitu (Stadtwerk) ve městě s 200 000 obyvateli. Distribuce elektřiny, pitná voda, dálkové vytápění, veřejná doprava a dceřiná společnost pro optické sítě. Položte BSI-KritisV vedle organizační struktury firmy. Distribuce elektřiny nad 500 GWh za rok překračuje práh. Pitná voda nad 22 milionů metrů krychlových za rok jej překračuje. Dálkové vytápění pod prahem ne. Veřejná doprava sedí v Příloze II směrnice, ale v Německu nemá klasifikaci Anlage.",
-        "p2": "Výsledkem je jedna firma pod třemi úrovněmi čtení najednou. Dvě obchodní linie (Strom, Wasser) jsou Anlagen KRITIS s plným cyklem Nachweis podle §29 navrch. Jedna obchodní linie (Fernwärme) je odvětví 1 Přílohy I, ale pod prahem KRITIS, takže NIS 2 klíčová bez §29. Jedna obchodní linie (ÖPNV) je doprava podle Přílohy II. Dceřiná společnost pro optické sítě je odvětví 8 Přílohy I, pokud sama překročí práh velikosti. Jedna registrace podle §33 pokrývá právní subjekt. Audit podle §29 pokrývá pouze Anlagen KRITIS. Opatření podle §30 pokrývají vše."
+        "p2": "Výsledkem je jedna firma pod třemi úrovněmi čtení najednou. Dvě obchodní linie (Strom, Wasser) jsou Anlagen KRITIS s plným cyklem Nachweis podle §39 navrch. Jedna obchodní linie (Fernwärme) je odvětví 1 Přílohy I, ale pod prahem KRITIS, takže NIS 2 klíčová bez §39. Jedna obchodní linie (ÖPNV) je doprava podle Přílohy II. Dceřiná společnost pro optické sítě je odvětví 8 Přílohy I, pokud sama překročí práh velikosti. Jedna registrace podle §33 pokrývá právní subjekt. Audit podle §39 pokrývá pouze Anlagen KRITIS. Opatření podle §30 pokrývají vše."
       },
       "platform": {
         "heading": "Jak to řešíme na platformě",
-        "p1": "Kontrola působnosti projde prahy BSI-KritisV řádek po řádku: která Anlage, které odvětví, která kvantitativní metrika, který práh. Pokud jeden překročíte, stránka označí cyklus Nachweis podle §29 a přepne profil firmy na provozovatele KRITIS. Modul registrace pak vynese dodatečná pole podle §33 (kritická služba, metriky zásobování, umístění, kontakt 24/7). Kalkulačka sankcí se přepne na vyšší pásmo podle §65.",
-        "p2": "Důkazní základna je sdílená. Tytéž kontroly, které splňují §30 BSIG, vytvářejí auditní stopu, kterou předáte BSI podle §29. Registr dodavatelů podle čl. 21 odst. 2 písm. d) je tentýž registr, který se přezkoumává během kontroly podle §29. Formulář hlášení incidentů pokrývá kaskádu podle §32 (24 hodin / 72 hodin / jeden měsíc) pro oba režimy. Jedna důkazní základna, dvě cílová místa hlášení, je-li to potřeba (BSI plus, pro energetiku a telekomunikace, BNetzA)."
+        "p1": "Kontrola působnosti projde prahy BSI-KritisV řádek po řádku: která Anlage, které odvětví, která kvantitativní metrika, který práh. Pokud jeden překročíte, stránka označí cyklus Nachweis podle §39 a přepne profil firmy na provozovatele KRITIS. Modul registrace pak vynese dodatečná pole podle §33 (kritická služba, metriky zásobování, umístění, kontakt 24/7). Kalkulačka sankcí se přepne na vyšší pásmo podle §65.",
+        "p2": "Důkazní základna je sdílená. Tytéž kontroly, které splňují §30 BSIG, vytvářejí auditní stopu, kterou předáte BSI podle §39. Registr dodavatelů podle čl. 21 odst. 2 písm. d) je tentýž registr, který se přezkoumává během kontroly podle §39. Formulář hlášení incidentů pokrývá kaskádu podle §32 (24 hodin / 72 hodin / jeden měsíc) pro oba režimy. Jedna důkazní základna, dvě cílová místa hlášení, je-li to potřeba (BSI plus, pro energetiku a telekomunikace, BNetzA)."
       },
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "Směrnice (EU) 2022/2555 (NIS 2), čl. 21 odst. 1 (proporcionalita), čl. 21 odst. 2 (deset opatření), čl. 27 (aktualizace registrace). eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "BSIG (NIS2-Umsetzungsgesetz), §28 (působnost), §29 (tříletý Nachweis pro provozovatele KRITIS), §30 (opatření), §32 (hlášení incidentů), §33 (registrace), §65 (sankce). gesetze-im-internet.de/bsig_2009",
+          "Směrnice (EU) 2022/2555 (NIS 2), čl. 21 odst. 1 (proporcionalita), čl. 21 odst. 2 (deset opatření), čl. 3 odst. 4 (aktualizace registrace). eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "BSIG (NIS2-Umsetzungsgesetz), §28 (působnost), §39 (tříletý Nachweis pro provozovatele KRITIS), §30 (opatření), §32 (hlášení incidentů), §33 (registrace), §65 (sankce). gesetze-im-internet.de/bsig_2009",
           "BSI-KritisV (Verordnung zur Bestimmung kritischer Anlagen), odvětvové prahy pro elektřinu, vodu, potraviny, zdravotnictví, dopravu, finance, IT a telekomunikace, odpady, vesmír. gesetze-im-internet.de/bsi-kritisv",
           "BSI, „Kritische Infrastrukturen“ Informationspaket a NIS 2 FAQ. bsi.bund.de/DE/Themen/KRITIS-und-regulierte-Unternehmen",
           "Bundesnetzagentur, IT-Sicherheitskatalog gemäß §11 EnWG (odvětvový překryv energetiky). bundesnetzagentur.de",
@@ -12388,7 +12388,7 @@
       },
       "ctaCard": {
         "heading": "Spusťte kontrolu prahů KRITIS-V pro svůj provoz",
-        "description": "Působnost, registrace podle §33, opatření podle §30 a důkazy Nachweis podle §29 na jedné platformě. Kostenlos, Open Source, kein Lock-in."
+        "description": "Působnost, registrace podle §33, opatření podle §30 a důkazy Nachweis podle §39 na jedné platformě. Kostenlos, Open Source, kein Lock-in."
       },
       "cta": "Otevřít bezplatnou platformu"
     },
@@ -12688,7 +12688,7 @@
         "transposition": {
           "label": "§64 BSIG (Německo)",
           "quote": "Das Bundesamt kann die zur Erfüllung seiner Aufgaben erforderlichen Informationen einschließlich personenbezogener Daten verarbeiten. Es kann insbesondere Auskünfte und die Übermittlung von Unterlagen verlangen, Räume, Grundstücke und Anlagen besonders wichtiger und wichtiger Einrichtungen während der üblichen Geschäftszeiten betreten und besichtigen sowie Prüfungen, einschließlich technischer Untersuchungen, vornehmen.",
-          "context": "§64 BSIG dává BSI tři operativní pravomoci: žádat o dokumenty, vstoupit do vašich kanceláří v obvyklé pracovní době, provést technickou kontrolu. §61 BSIG stanoví širší dohledový mandát. §65 BSIG stanoví pokuty, přičemž horní hranice z článku 34 jsou přeneseny přímo. Provozovatelé KRITIS nesou dodatečnou tříletou povinnost prokazování podle §29 BSIG."
+          "context": "§64 BSIG dává BSI tři operativní pravomoci: žádat o dokumenty, vstoupit do vašich kanceláří v obvyklé pracovní době, provést technickou kontrolu. §61 BSIG stanoví širší dohledový mandát. §65 BSIG stanoví pokuty, přičemž horní hranice z článku 34 jsou přeneseny přímo. Provozovatelé KRITIS nesou dodatečnou tříletou povinnost prokazování podle §39 BSIG."
         }
       },
       "elements": {
@@ -12708,7 +12708,7 @@
           "dataRoom": {
             "section": "Krok 4",
             "title": "Cílený bezpečnostní audit a technická kontrola",
-            "body": "Článek 32 odst. 2 písm. b) umožňuje BSI nařídit pravidelný nebo cílený bezpečnostní audit nezávislým orgánem, na vaše náklady. §64 BSIG přidává technische Untersuchung: skeny, přezkumy konfigurace, analýzu logů. Článek 32 odst. 2 písm. d) jim umožňuje provádět bezpečnostní skenování vašeho perimetru podle objektivních a nediskriminačních kritérií. Tento krok je u důležitých subjektů vzácný, u nezbytných subjektů strukturálně dostupný a u provozovatelů KRITIS standardní cestou podle §29 BSIG (tříletý cyklus prokazování, Nachweis)."
+            "body": "Článek 32 odst. 2 písm. b) umožňuje BSI nařídit pravidelný nebo cílený bezpečnostní audit nezávislým orgánem, na vaše náklady. §64 BSIG přidává technische Untersuchung: skeny, přezkumy konfigurace, analýzu logů. Článek 32 odst. 2 písm. d) jim umožňuje provádět bezpečnostní skenování vašeho perimetru podle objektivních a nediskriminačních kritérií. Tento krok je u důležitých subjektů vzácný, u nezbytných subjektů strukturálně dostupný a u provozovatelů KRITIS standardní cestou podle §39 BSIG (tříletý cyklus prokazování, Nachweis)."
           }
         }
       },
@@ -12732,8 +12732,8 @@
         "items": {
           "bsi": {
             "country": "Německo",
-            "label": "Standardní audit BSI + prokazování KRITIS podle §29",
-            "body": "U nezbytných a důležitých subjektů provozuje BSI žebříček podle §64 BSIG od žádosti o dokumentaci výše. U provozovatelů KRITIS (kritická infrastruktura podle §28 BSIG) §29 BSIG přidává tříletou povinnost prokazování (Nachweis): každé tři roky provozovatel předkládá důkaz (obvykle zprávu externího auditu), který prokazuje, že opatření podle §30 BSIG jsou zavedena. Prokazování podle §29 je řízeno kalendářem a nezávisí na tom, zda BSI zahájí audit."
+            "label": "Standardní audit BSI + prokazování KRITIS podle §39",
+            "body": "U nezbytných a důležitých subjektů provozuje BSI žebříček podle §64 BSIG od žádosti o dokumentaci výše. U provozovatelů KRITIS (kritická infrastruktura podle §28 BSIG) §39 BSIG přidává tříletou povinnost prokazování (Nachweis): každé tři roky provozovatel předkládá důkaz (obvykle zprávu externího auditu), který prokazuje, že opatření podle §30 BSIG jsou zavedena. Prokazování podle §39 je řízeno kalendářem a nezávisí na tom, zda BSI zahájí audit."
           },
           "enisa": {
             "country": "Celá EU",
@@ -12761,26 +12761,26 @@
           },
           "onlyWhatWeHand": {
             "myth": "Odpovídáme jen za to, co provozujeme sami, ne za své dodavatele.",
-            "reality": "Článek 21 odst. 2 písm. d) NIS 2 a §30 odst. 2 bod 4 BSIG kladou bezpečnost dodavatelského řetězce na subjekt, nikoli na dodavatele. Odpověď typu černá skříňka jako „to řeší náš poskytovatel řízených služeb“ je zjištěním. Auditor bude žádat o smluvní ustanovení, posouzení rizika dodavatele a důkaz, že dodavatele kontrolujete. Provozovatelé KRITIS to čelí ostřeji: prokazování podle §29 pokrývá i řízené služby. Můžete outsourcovat provoz, nikoli odpovědnost."
+            "reality": "Článek 21 odst. 2 písm. d) NIS 2 a §30 odst. 2 bod 4 BSIG kladou bezpečnost dodavatelského řetězce na subjekt, nikoli na dodavatele. Odpověď typu černá skříňka jako „to řeší náš poskytovatel řízených služeb“ je zjištěním. Auditor bude žádat o smluvní ustanovení, posouzení rizika dodavatele a důkaz, že dodavatele kontrolujete. Provozovatelé KRITIS to čelí ostřeji: prokazování podle §39 pokrývá i řízené služby. Můžete outsourcovat provoz, nikoli odpovědnost."
           }
         }
       },
       "practitioner": {
         "heading": "Jak to provádí skutečný provozovatel KRITIS",
-        "p1": "Regionální dodavatel energie, se kterým pracujeme, je v působnosti jako provozovatel KRITIS podle §28 BSIG. Jeho poslední prokazování podle §29 bylo před osmnácti měsíci, další je za osmnáct. Přípravu provádějí průběžně: každé čtvrtletí CISO projde s jednatelem jedno opatření podle §30 BSIG, zachytí důkaz (verze politiky, podpis, poslední přezkum, otevřené položky nápravy) a uzavře jakoukoli mezeru před dalším čtvrtletím. Než auditor zaklepe, nevyrábí se nic kvůli návštěvě. Vše je datované.",
-        "p2": "Samotné prokazování podle §29 probíhá prostřednictvím externího auditora pověřeného provozovatelem. BSI audit neprovádí přímo: přijímá externí zprávu. Auditní zpráva označuje mezery jako „erhebliche Mängel“ (závažné nedostatky), „sonstige Mängel“ (ostatní nedostatky) nebo žádné. Závažné nedostatky spouštějí navazující povinnosti. Ostatní nedostatky přicházejí s plánem nápravy a cílovým datem. Dodavatel energie uzavře zhruba osmdesát procent auditních zjištění předtím, než zpráva jde k BSI, tím, že seznam mezer bere jako stálý program jednání na další dvě čtvrtletí."
+        "p1": "Regionální dodavatel energie, se kterým pracujeme, je v působnosti jako provozovatel KRITIS podle §28 BSIG. Jeho poslední prokazování podle §39 bylo před osmnácti měsíci, další je za osmnáct. Přípravu provádějí průběžně: každé čtvrtletí CISO projde s jednatelem jedno opatření podle §30 BSIG, zachytí důkaz (verze politiky, podpis, poslední přezkum, otevřené položky nápravy) a uzavře jakoukoli mezeru před dalším čtvrtletím. Než auditor zaklepe, nevyrábí se nic kvůli návštěvě. Vše je datované.",
+        "p2": "Samotné prokazování podle §39 probíhá prostřednictvím externího auditora pověřeného provozovatelem. BSI audit neprovádí přímo: přijímá externí zprávu. Auditní zpráva označuje mezery jako „erhebliche Mängel“ (závažné nedostatky), „sonstige Mängel“ (ostatní nedostatky) nebo žádné. Závažné nedostatky spouštějí navazující povinnosti. Ostatní nedostatky přicházejí s plánem nápravy a cílovým datem. Dodavatel energie uzavře zhruba osmdesát procent auditních zjištění předtím, než zpráva jde k BSI, tím, že seznam mezer bere jako stálý program jednání na další dvě čtvrtletí."
       },
       "platform": {
         "heading": "Jak to řešíme na platformě",
         "p1": "Každý požadavek NIS 2 na platformě standardně produkuje tři věci: politiku s verzí a podpisem, opakující se přezkum s lhůtou a auditní stopu, která zaznamenává, kdo co a kdy udělal. Auskunfts- und Unterlagenanforderung podle §64 BSIG se stává exportem, nikoli psacím projektem. Předáváte zabalený balík důkazů (politiky, podpisy, seznam aktiv, registr rizik, záznam incidentů, záznamy o školení, seznam dodavatelů) namísto pročesávání souborů.",
-        "p2": "U provozovatelů KRITIS běží prokazování podle §29 na týchž datech. Externí auditor dostane pouze pro čtení náhled na tytéž artefakty, které společnost již provozuje. Žádný druhý nástroj, žádná paralelní hromada tabulek a žádný spěch v týdnu auditu. Smysl je strukturální: až přijde den dopisu o auditu, nepřipravujete se. Exportujete."
+        "p2": "U provozovatelů KRITIS běží prokazování podle §39 na týchž datech. Externí auditor dostane pouze pro čtení náhled na tytéž artefakty, které společnost již provozuje. Žádný druhý nástroj, žádná paralelní hromada tabulek a žádný spěch v týdnu auditu. Smysl je strukturální: až přijde den dopisu o auditu, nepřipravujete se. Exportujete."
       },
       "sources": {
         "heading": "Zdroje",
         "items": [
           "Směrnice (EU) 2022/2555 (NIS 2), články 32, 33, 34. eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Prováděcí nařízení Komise (EU) 2024/2690 (CIR), příloha. eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "Zákon o BSI (BSIG), §29 (KRITIS Nachweis), §61 (Aufsichtsbefugnisse), §64 (Auskunfts- und Untersuchungsbefugnisse), §65 (Bußgeldvorschriften)",
+          "Zákon o BSI (BSIG), §39 (KRITIS Nachweis), §61 (Aufsichtsbefugnisse), §64 (Auskunfts- und Untersuchungsbefugnisse), §65 (Bußgeldvorschriften)",
           "BSI Infopakete „NIS 2 Pflichten“. bsi.bund.de/dok/nis-2-infopakete",
           "Technické pokyny k implementaci od ENISA pro CIR (EU) 2024/2690 (k květnu 2026)",
           "Referenční dokumenty skupiny pro spolupráci NIS k praxi dohledu. digital-strategy.ec.europa.eu"
@@ -13073,7 +13073,7 @@
       "cta": "Spustit kontrolu použitelnosti",
       "overview": {
         "heading": "Přehled",
-        "p1": "Kybernetické pojištění a NIS 2 sedí na různých vrstvách. Kybernetická pojistka je soukromá smlouva mezi subjektem a pojistitelem, která po incidentu vyplácí definované náklady. NIS 2 je veřejné právo: článek 21 stanoví technická a organizační opatření, která musí klíčové a důležité subjekty implementovat, článek 23 stanoví ohlašovací povinnost, článek 27 stanoví registrační povinnost. Žádná z těchto povinností nepřechází na pojistitele, když se pojistka podepíše.",
+        "p1": "Kybernetické pojištění a NIS 2 sedí na různých vrstvách. Kybernetická pojistka je soukromá smlouva mezi subjektem a pojistitelem, která po incidentu vyplácí definované náklady. NIS 2 je veřejné právo: článek 21 stanoví technická a organizační opatření, která musí klíčové a důležité subjekty implementovat, článek 23 stanoví ohlašovací povinnost, článek 3 odst. 4 stanoví registrační povinnost. Žádná z těchto povinností nepřechází na pojistitele, když se pojistka podepíše.",
         "p2": "BSI to říká přímo. Jeho informační balíček k NIS 2 popisuje plošný přenos rizika prostřednictvím pojistné smlouvy jako nedostupný v rámci režimu řízení rizik podle směrnice. Článek 21 odst. 1 NIS 2 vyžaduje vhodná a přiměřená opatření, s ohledem na stav techniky a náklady na implementaci. Podepsaná pojistka není ani opatřením, ani jeho náhradou.",
         "p3": "Praktická otázka pro provozovatele v působnosti článku 21 tedy není, zda mít kybernetické pojištění, ale jak pojistka interaguje s podkladovými opatřeními NIS 2. Většina pojistek vyžaduje tato opatření jako předpoklad krytí. Tatáž opatření jsou ta, na která se BSI a národní dozorové orgány dívají během auditu NIS 2."
       },
@@ -13684,7 +13684,7 @@
           "sector": {
             "country": "DE",
             "label": "Sektoroví dozorci",
-            "body": "Pro finance, energetiku, dopravu a zdravotnictví si sektoroví regulátoři ponechávají paralelní roli podle §61 BSIG a sektorově specifického práva. Strop podle §65 BSIG stále platí. Tam, kde DORA pokrývá finanční subjekt, má vlastní sankční režim DORA přednost pro opatření kybernetické bezpečnosti, ale povinnost registrace podle čl. 27 NIS 2 stále běží."
+            "body": "Pro finance, energetiku, dopravu a zdravotnictví si sektoroví regulátoři ponechávají paralelní roli podle §61 BSIG a sektorově specifického práva. Strop podle §65 BSIG stále platí. Tam, kde DORA pokrývá finanční subjekt, má vlastní sankční režim DORA přednost pro opatření kybernetické bezpečnosti, ale povinnost registrace podle čl. 3 odst. 4 NIS 2 stále běží."
           }
         }
       },
@@ -13806,7 +13806,7 @@
           "bsi": {
             "country": "DE",
             "label": "BSI jako odvětvový orgán",
-            "body": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI) je příslušným orgánem pro dozor nad NIS 2 podle § 61 BSIG. Hlášení oznamovatele tvrdící, že subjekt nesplňuje opatření článku 21 nebo se nezaregistroval podle článku 27, zpravidla skončí u BSI prostřednictvím směrování vnějšího kanálu, i když je nejprve podáno u Bundesamt fuer Justiz."
+            "body": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI) je příslušným orgánem pro dozor nad NIS 2 podle § 61 BSIG. Hlášení oznamovatele tvrdící, že subjekt nesplňuje opatření článku 21 nebo se nezaregistroval podle článku 3 odst. 4, zpravidla skončí u BSI prostřednictvím směrování vnějšího kanálu, i když je nejprve podáno u Bundesamt fuer Justiz."
           },
           "bfdi": {
             "country": "DE",
@@ -14662,7 +14662,7 @@
     "nis2Bankwesen": {
       "meta": {
         "title": "Bankovnictví podle NIS 2: příloha I odvětví 4, článek 4 a DORA",
-        "description": "Jak NIS 2 přistupuje k bankovnímu sektoru. Rozsah přílohy I odvětví 4, lex specialis článku 4 s nařízením DORA (EU) 2022/2554, registrace podle článku 27, která stále platí, role BaFin a ECB."
+        "description": "Jak NIS 2 přistupuje k bankovnímu sektoru. Rozsah přílohy I odvětví 4, lex specialis článku 4 s nařízením DORA (EU) 2022/2554, registrace podle článku 3 odst. 4, která stále platí, role BaFin a ECB."
       },
       "title": "Bankovnictví podle NIS 2",
       "subtitle": "Příloha I odvětví 4, interakce článku 4 s DORA a registrační povinnost, která nezmizí.",
@@ -14670,7 +14670,7 @@
         "heading": "Přehled",
         "p1": "Úvěrové instituce a části infrastruktury finančního trhu sedí v příloze I odvětví 4 směrnice (EU) 2022/2555 (NIS 2). Na papíře se na ně směrnice vztahuje. V praxi se většina provozních povinností čte společně s aktem o digitální provozní odolnosti, nařízením (EU) 2022/2554 (DORA).",
         "p2": "Článek 4 NIS 2 je přemosťovací klauzule. Tam, kde odvětvově specifický akt Unie ukládá povinnosti řízení rizik IKT nebo hlášení incidentů, které jsou alespoň rovnocenné NIS 2, ustupují opatření a pravidla hlášení NIS 2. Pro banky a vymezenou množinu finančních subjektů je tímto aktem DORA. Článek 21 (bezpečnostní opatření) a článek 23 (hlášení incidentů) NIS 2 jsou nahrazeny ekvivalenty v DORA.",
-        "p3": "Jedna povinnost podle NIS 2 není článkem 4 nahrazena: registrační povinnost v článku 27. Členské státy stále shromažďují seznam nezbytných a důležitých subjektů, včetně bank. V Německu jde o zápis podle § 33 BSIG v registru BSI. Vrstva směrnice zachovává počet nedotčený i tam, kde kontroly řídí DORA."
+        "p3": "Jedna povinnost podle NIS 2 není článkem 4 nahrazena: registrační povinnost v článku 3 odst. 4. Členské státy stále shromažďují seznam nezbytných a důležitých subjektů, včetně bank. V Německu jde o zápis podle § 33 BSIG v registru BSI. Vrstva směrnice zachovává počet nedotčený i tam, kde kontroly řídí DORA."
       },
       "legalAnchor": {
         "heading": "Právní kotva",
@@ -14686,9 +14686,9 @@
           "context": "Toto je přepínač lex specialis. Evropské orgány dohledu a Komise potvrdily, že nařízení DORA (EU) 2022/2554 splňuje test rovnocennosti pro finanční subjekty v rozsahu. Články 21 a 23 NIS 2 pro tyto subjekty ustupují. Zbytek směrnice zůstává v platnosti."
         },
         "transposition": {
-          "label": "Směrnice (EU) 2022/2555, článek 27",
+          "label": "Směrnice (EU) 2022/2555, článek 3 odst. 4",
           "quote": "Členské státy vyžadují, aby nezbytné a důležité subjekty předkládaly příslušným orgánům tyto informace ... nejpozději do 17. dubna 2025 a poté bez prodlení a v každém případě do dvou týdnů ode dne změny.",
-          "context": "Článek 27 je registrační klauzule. Není uvedena ve výjimce podle článku 4. V Německu ji operacionalizuje § 33 BSIG registrem BSI. Banky podávají registraci, i když jsou jejich bezpečnostní a oznamovací povinnosti řízeny DORA."
+          "context": "Článek 3 odst. 4 je registrační klauzule. Není uvedena ve výjimce podle článku 4. V Německu ji operacionalizuje § 33 BSIG registrem BSI. Banky podávají registraci, i když jsou jejich bezpečnostní a oznamovací povinnosti řízeny DORA."
         }
       },
       "elements": {
@@ -14707,7 +14707,7 @@
           },
           "registration": {
             "section": "Registr",
-            "title": "Registrace podle článku 27 přežívá",
+            "title": "Registrace podle článku 3 odst. 4 přežívá",
             "body": "Registrace jako nezbytný nebo důležitý subjekt je povinnost ze směrnice, kterou DORA nenahrazuje. V Německu se uplatní zápis podle § 33 BSIG u BSI. Aktualizace do dvou týdnů od jakékoli změny se stále řídí pravidlem směrnice."
           }
         }
@@ -14722,7 +14722,7 @@
           },
           "registrationStays": {
             "title": "Registrace je povinnost ze směrnice, ne z DORA",
-            "body": "DORA nevytváří registr nezbytných a důležitých subjektů ve stylu NIS 2. Článek 27 NIS 2 ano. Proto se banky objevují v seznamu podle § 33 BSIG, i když se jejich kontroly IKT čtou proti DORA. Oba režimy jsou sešity na vrstvě směrnice."
+            "body": "DORA nevytváří registr nezbytných a důležitých subjektů ve stylu NIS 2. Článek 3 odst. 4 NIS 2 ano. Proto se banky objevují v seznamu podle § 33 BSIG, i když se jejich kontroly IKT čtou proti DORA. Oba režimy jsou sešity na vrstvě směrnice."
           }
         }
       },
@@ -14738,12 +14738,12 @@
           "bsi": {
             "country": "Německo",
             "label": "BSI",
-            "body": "Spolkový úřad pro bezpečnost informací provozuje registr podle § 33 BSIG, který operacionalizuje článek 27 NIS 2. Banky se u BSI registrují prostřednictvím portálu pro subjekty. Každodenní dohled nad kybernetickou bezpečností banky se na BSI nepřesouvá."
+            "body": "Spolkový úřad pro bezpečnost informací provozuje registr podle § 33 BSIG, který operacionalizuje článek 3 odst. 4 NIS 2. Banky se u BSI registrují prostřednictvím portálu pro subjekty. Každodenní dohled nad kybernetickou bezpečností banky se na BSI nepřesouvá."
           },
           "enisa": {
             "country": "EU",
             "label": "ECB a SSM",
-            "body": "Významné úvěrové instituce uvnitř jednotného mechanismu dohledu jsou přímo dohlíženy Evropskou centrální bankou. Pro tyto subjekty leží dohled DORA u ECB spíše než u národního příslušného orgánu, zatímco registrace podle článku 27 NIS 2 zůstává národním podáním."
+            "body": "Významné úvěrové instituce uvnitř jednotného mechanismu dohledu jsou přímo dohlíženy Evropskou centrální bankou. Pro tyto subjekty leží dohled DORA u ECB spíše než u národního příslušného orgánu, zatímco registrace podle článku 3 odst. 4 NIS 2 zůstává národním podáním."
           }
         }
       },
@@ -14753,7 +14753,7 @@
         "items": {
           "doraReplacesAll": {
             "myth": "DORA nahrazuje NIS 2 pro banky, takže NIS 2 neplatí.",
-            "reality": "Článek 4 NIS 2 nahrazuje pouze ty části NIS 2, které DORA pokrývá v rovnocenné formě. Registrace podle článku 27 u národního orgánu mezi ně nepatří. Subjekt se stále objevuje jako nezbytný nebo důležitý subjekt v národním registru."
+            "reality": "Článek 4 NIS 2 nahrazuje pouze ty části NIS 2, které DORA pokrývá v rovnocenné formě. Registrace podle čl. 3 odst. 4 u národního orgánu mezi ně nepatří. Subjekt se stále objevuje jako nezbytný nebo důležitý subjekt v národním registru."
           },
           "smallBankSafe": {
             "myth": "Jsme malá banka, jsme pod velikostním prahem a mimo rozsah.",
@@ -14767,19 +14767,19 @@
       },
       "practitioner": {
         "heading": "Jak to vypadá v praxi",
-        "p1": "Středně velká banka v Německu má obvykle dvě koleje shody. Jednu podle DORA, dohlíženou BaFin nebo ECB, pokud je banka významná. Tato kolej vlastní riziko IKT, registr třetích stran, hlášení velkých incidentů a testování odolnosti. Druhou podle článku 27 NIS 2, dohlíženou BSI, je zápis do registru plus aktualizace do dvou týdnů od jakékoli změny.",
+        "p1": "Středně velká banka v Německu má obvykle dvě koleje shody. Jednu podle DORA, dohlíženou BaFin nebo ECB, pokud je banka významná. Tato kolej vlastní riziko IKT, registr třetích stran, hlášení velkých incidentů a testování odolnosti. Druhou podle čl. 3 odst. 4 NIS 2, dohlíženou BSI, je zápis do registru plus aktualizace do dvou týdnů od jakékoli změny.",
         "p2": "Družstevní banky, Sparkassen a menší úvěrové instituce sedí ve stejné logice. Kolej DORA je pro ně jako finanční subjekty podle nařízení (EU) 2022/2554 povinná. Zápis podle § 33 BSIG sedí vedle ní. Považovat kteroukoli kolej za nepovinnou vytváří expozici, která je viditelná z veřejného registru i z hlášení BaFin."
       },
       "platform": {
         "heading": "Kde platforma zapadá",
-        "p1": "Platforma je postavena kolem logiky kontrol článku 21 a článku 23 NIS 2. Pro finanční subjekt v rozsahu jsou tyto články nahrazeny DORA, takže platforma není systémem záznamu pro řízení rizik IKT podle DORA. Stále je užitečná jako společník registru podle článku 27, knihovna politik a důkazů a místo, kde bankovní skupina dokumentuje vrstvu NIS 2 pro dodavatelské a skupinové subjekty, které nejsou finančními subjekty podle DORA.",
+        "p1": "Platforma je postavena kolem logiky kontrol článku 21 a článku 23 NIS 2. Pro finanční subjekt v rozsahu jsou tyto články nahrazeny DORA, takže platforma není systémem záznamu pro řízení rizik IKT podle DORA. Stále je užitečná jako společník registru podle čl. 3 odst. 4, knihovna politik a důkazů a místo, kde bankovní skupina dokumentuje vrstvu NIS 2 pro dodavatelské a skupinové subjekty, které nejsou finančními subjekty podle DORA.",
         "p2": "Skupiny se smíšeným perimetrem, například banka plus nefinanční dceřiná společnost IT služeb v příloze I odvětví 8, často potřebují oba režimy namapované vedle sebe. Platforma je určena pro stranu NIS 2 této mapy."
       },
       "sources": {
         "heading": "Zdroje",
         "items": [
           "Směrnice (EU) 2022/2555 (NIS 2), příloha I odvětví 4 a článek 4(1), EUR-Lex.",
-          "Směrnice (EU) 2022/2555 (NIS 2), registrační povinnost podle článku 27, EUR-Lex.",
+          "Směrnice (EU) 2022/2555 (NIS 2), registrační povinnost podle čl. 3 odst. 4, EUR-Lex.",
           "Nařízení (EU) 2022/2554 (DORA), články 5 až 17 řízení rizik IKT a články 17 až 23 hlášení incidentů, EUR-Lex.",
           "Nařízení (EU) č. 575/2013 (CRR), čl. 4 odst. 1 definice úvěrové instituce, EUR-Lex.",
           "§ 33 BSIG, registrace nezbytných a důležitých subjektů u BSI, gesetze-im-internet.de.",
@@ -14789,7 +14789,7 @@
       },
       "ctaCard": {
         "heading": "Spusťte kontrolu použitelnosti",
-        "description": "Tři minuty. Řekne vám, zda subjekt sedí v příloze I odvětví 4, zda se pravděpodobně uplatní DORA a zda je registrace podle článku 27 otevřená."
+        "description": "Tři minuty. Řekne vám, zda subjekt sedí v příloze I odvětví 4, zda se pravděpodobně uplatní DORA a zda je registrace podle čl. 3 odst. 4 otevřená."
       },
       "cta": "Spustit kontrolu použitelnosti"
     },
@@ -15174,7 +15174,7 @@
       },
       "platform": {
         "heading": "Jak to platforma řeší",
-        "p1": "Subjekty odvětví 10 provozují tentýž registr povinností NIS 2 jako jakýkoli jiný důležitý subjekt: registrace podle článku 27, správa podle článku 20, deset oblastí řízení rizik v čl. 21 odst. 2 a hlášení incidentů podle článku 23. Platforma strukturuje všechny tyto věci jako průběžné povinnosti spíše než jako jednorázový projekt.",
+        "p1": "Subjekty odvětví 10 provozují tentýž registr povinností NIS 2 jako jakýkoli jiný důležitý subjekt: registrace podle čl. 3 odst. 4, správa podle článku 20, deset oblastí řízení rizik v čl. 21 odst. 2 a hlášení incidentů podle článku 23. Platforma strukturuje všechny tyto věci jako průběžné povinnosti spíše než jako jednorázový projekt.",
         "p2": "Tam, kde má výzkumná organizace specifický vzorec důkazů (například smlouvy o transferu technologií, které musí splňovat doložky dodavatelského řetězce podle čl. 21 odst. 2 písm. d)), žije to v modulech dodavatelů a smluv. Neexistuje samostatný modul pro výzkum, protože opatření článku 21 jsou odvětvově neutrální."
       },
       "sources": {
@@ -15214,7 +15214,7 @@
         "directive": {
           "label": "Směrnice EU",
           "quote": "Směrnice (EU) 2022/2555 o opatřeních k zajištění vysoké společné úrovně kybernetické bezpečnosti v celé Unii (NIS 2).",
-          "context": "Stanoví povinnosti řízení rizik (čl. 21), hlášení incidentů (čl. 23), odpovědnost řídicího orgánu (čl. 20) a registraci subjektů (čl. 27). Členské státy musí transponovat do národního práva, ale nesmí jít pod minimální úroveň."
+          "context": "Stanoví povinnosti řízení rizik (čl. 21), hlášení incidentů (čl. 23), odpovědnost řídicího orgánu (čl. 20) a registraci subjektů (čl. 3 odst. 4). Členské státy musí transponovat do národního práva, ale nesmí jít pod minimální úroveň."
         },
         "regulation": {
           "label": "Prováděcí nařízení EU",
@@ -15293,18 +15293,18 @@
           },
           "noRegistry": {
             "myth": "Nizozemská registrační povinnost zatím neexistuje, takže můžeme počkat.",
-            "reality": "Čl. 27 NIS 2 vyžaduje, aby každý členský stát vedl registr a aby subjekty poskytly své údaje. Nizozemsko spustí registrační kanál prostřednictvím příslušných orgánů, jakmile Cbw nabude účinnosti. Pravidlo aktualizace do dvou týdnů podle čl. 27 odst. 2 platí celounijně a zavazuje nizozemské subjekty v okamžiku, kdy se zákon začne uplatňovat."
+            "reality": "Čl. 3 odst. 4 NIS 2 vyžaduje, aby každý členský stát vedl registr a aby subjekty poskytly své údaje. Nizozemsko spustí registrační kanál prostřednictvím příslušných orgánů, jakmile Cbw nabude účinnosti. Pravidlo aktualizace do dvou týdnů podle čl. 3 odst. 4 platí celounijně a zavazuje nizozemské subjekty v okamžiku, kdy se zákon začne uplatňovat."
           },
           "onlySector": {
             "myth": "Můj odvětvový regulátor řeší vše, RDI není relevantní.",
-            "reality": "Odvětvové regulátory si drží svou finanční, telekomunikační nebo zdravotnickou dozorovou působnost. RDI je horizontální dozor kybernetické bezpečnosti pro několik odvětví a kontaktní místo pro mezioborové otázky kybernetické bezpečnosti. U finančních subjektů spadajících pod DORA působí DORA jako lex specialis v oblasti kybernetické bezpečnosti, ale registrace podle čl. 27 NIS 2 stále platí."
+            "reality": "Odvětvové regulátory si drží svou finanční, telekomunikační nebo zdravotnickou dozorovou působnost. RDI je horizontální dozor kybernetické bezpečnosti pro několik odvětví a kontaktní místo pro mezioborové otázky kybernetické bezpečnosti. U finančních subjektů spadajících pod DORA působí DORA jako lex specialis v oblasti kybernetické bezpečnosti, ale registrace podle čl. 3 odst. 4 NIS 2 stále platí."
           }
         }
       },
       "practitioner": {
         "heading": "Pohled z praxe",
         "p1": "Většina nizozemských subjektů v působnosti už ví, že do působnosti spadne. Otázkou není, zda NIS 2 dopadne, ale jak je nizozemský zákon nasměruje. Sledujte týdně dvě věci: legislativní stav Cbw v Tweede Kamer a jakoukoli odvětvovou komunikaci RDI, která ukotvuje načasování nebo vymezení.",
-        "p2": "Provozně drží na úrovni EU dnes čtyři stálé povinnosti: řídit bezpečnost s odpovědností vedení (čl. 20), provozovat opatření pro řízení rizik (čl. 21), hlásit významné incidenty v rytmu 24 hodin a 72 hodin (čl. 23) a připravit se na registraci (čl. 27). Žádná z těchto čtyř nevyžaduje, aby byl nizozemský zákon účinný, aby byla užitečná."
+        "p2": "Provozně drží na úrovni EU dnes čtyři stálé povinnosti: řídit bezpečnost s odpovědností vedení (čl. 20), provozovat opatření pro řízení rizik (čl. 21), hlásit významné incidenty v rytmu 24 hodin a 72 hodin (čl. 23) a připravit se na registraci (čl. 3 odst. 4). Žádná z těchto čtyř nevyžaduje, aby byl nizozemský zákon účinný, aby byla užitečná."
       },
       "platform": {
         "heading": "Jak platforma pomáhá",
@@ -15392,7 +15392,7 @@
           },
           "euFloor": {
             "title": "Odvětvové zákony zůstávají v platnosti",
-            "body": "Odvětvové režimy pro finance, energetiku a telekomunikace nadále platí. Finanční subjekty se řídí DORA (nařízení (EU) 2022/2554) jako lex specialis pro řízení rizik a hlášení incidentů, ale zůstávají v působnosti registračních povinností podle čl. 27 NIS 2 prostřednictvím mechanismu svého členského státu."
+            "body": "Odvětvové režimy pro finance, energetiku a telekomunikace nadále platí. Finanční subjekty se řídí DORA (nařízení (EU) 2022/2554) jako lex specialis pro řízení rizik a hlášení incidentů, ale zůstávají v působnosti registračních povinností podle čl. 3 odst. 4 NIS 2 prostřednictvím mechanismu svého členského státu."
           }
         }
       },
@@ -15774,7 +15774,7 @@
           "obligations": {
             "section": "Povinnosti",
             "title": "Z opatření na vysoké úrovni podle čl. 14 na čl. 21 s 10 oblastmi opatření plus čl. 20 a čl. 23",
-            "body": "Čl. 14 NIS 1 vyžadoval vhodná a přiměřená opatření v poměrně obecných pojmech. Čl. 21 odst. 2 NIS 2 jmenuje 10 konkrétních oblastí opatření (analýza rizik, zvládání incidentů, kontinuita činností, dodavatelský řetězec, zvládání zranitelností, účinnost, základní kybernetická hygiena a školení, kryptografie, řízení přístupu a správa aktiv, vícefaktorové ověřování a zabezpečená komunikace). Čl. 20 přidává výslovné povinnosti vedení, čl. 23 přidává strukturovanou kaskádu hlášení a čl. 27 přidává registraci údajů o subjektu u příslušného orgánu."
+            "body": "Čl. 14 NIS 1 vyžadoval vhodná a přiměřená opatření v poměrně obecných pojmech. Čl. 21 odst. 2 NIS 2 jmenuje 10 konkrétních oblastí opatření (analýza rizik, zvládání incidentů, kontinuita činností, dodavatelský řetězec, zvládání zranitelností, účinnost, základní kybernetická hygiena a školení, kryptografie, řízení přístupu a správa aktiv, vícefaktorové ověřování a zabezpečená komunikace). Čl. 20 přidává výslovné povinnosti vedení, čl. 23 přidává strukturovanou kaskádu hlášení a čl. 3 odst. 4 přidává registraci údajů o subjektu u příslušného orgánu."
           },
           "enforcement": {
             "section": "Vymáhání",
@@ -15814,7 +15814,7 @@
           "transposition": {
             "country": "DE",
             "label": "BSIG nahrazuje architekturu IT-Sicherheitsgesetz 2.0",
-            "body": "Německo transponuje NIS 2 novelizací BSIG. Dřívější model IT-Sicherheitsgesetz 2.0 se zaměřoval na provozovatele KRITIS. Verze BSIG podle NIS 2 rozšiřuje rozsah na klíčové a důležité subjekty a přidává povinnosti vedení podle čl. 20, hlášení podle čl. 23 a registraci podle čl. 27."
+            "body": "Německo transponuje NIS 2 novelizací BSIG. Dřívější model IT-Sicherheitsgesetz 2.0 se zaměřoval na provozovatele KRITIS. Verze BSIG podle NIS 2 rozšiřuje rozsah na klíčové a důležité subjekty a přidává povinnosti vedení podle čl. 20, hlášení podle čl. 23 a registraci podle čl. 3 odst. 4."
           }
         }
       },
@@ -15824,7 +15824,7 @@
         "items": {
           "nis1Carryover": {
             "myth": "Naše dokumentace k NIS 1 se přenáší do NIS 2.",
-            "reality": "Technická opatření se obecně přenášejí, ale právní obálka nikoli. NIS 2 zavádí povinnosti vedení (čl. 20), třístupňovou kaskádu hlášení (čl. 23), registraci subjektu (čl. 27) a strukturovaný katalog podle čl. 21 odst. 2. Stará dokumentace k NIS 1 má obvykle mezery ve správě a řízení, časových lhůtách hlášení a v sekci dodavatelského řetězce. Berte dokumenty k NIS 1 jako výchozí bod, nikoli jako hotový spis."
+            "reality": "Technická opatření se obecně přenášejí, ale právní obálka nikoli. NIS 2 zavádí povinnosti vedení (čl. 20), třístupňovou kaskádu hlášení (čl. 23), registraci subjektu (čl. 3 odst. 4) a strukturovaný katalog podle čl. 21 odst. 2. Stará dokumentace k NIS 1 má obvykle mezery ve správě a řízení, časových lhůtách hlášení a v sekci dodavatelského řetězce. Berte dokumenty k NIS 1 jako výchozí bod, nikoli jako hotový spis."
           },
           "sameAuthority": {
             "myth": "Je to stejný regulátor, takže je to stejný režim.",
@@ -15832,18 +15832,18 @@
           },
           "noChange": {
             "myth": "Nic podstatného se nezměnilo.",
-            "reality": "Rozsah (15 plus 7 sektorů s pravidlem velikosti), správa a řízení (povinnosti vedení podle čl. 20), hlášení (kaskáda podle čl. 23), registrace (čl. 27) a pokuty (stropy podle čl. 34) se všechny změnily. Totéž znění 'vhodná a přiměřená' se objevuje v obou směrnicích, ale katalog kolem něj je v NIS 2 mnohem konkrétnější."
+            "reality": "Rozsah (15 plus 7 sektorů s pravidlem velikosti), správa a řízení (povinnosti vedení podle čl. 20), hlášení (kaskáda podle čl. 23), registrace (čl. 3 odst. 4) a pokuty (stropy podle čl. 34) se všechny změnily. Totéž znění 'vhodná a přiměřená' se objevuje v obou směrnicích, ale katalog kolem něj je v NIS 2 mnohem konkrétnější."
           }
         }
       },
       "practitioner": {
         "heading": "Pohled z praxe",
-        "p1": "V praxi je migrace zřídka čistým restartem. Většina subjektů znovu použije části svého registru rizik z NIS 1, příručku pro incidenty a seznam dodavatelů a poté přidá nové části: rozhodnutí vedení o opatřeních podle čl. 21 odst. 2, pracovní postup hlášení podle čl. 23 s časovými značkami 24 hodin, 72 hodin a jeden měsíc, registrační záznam podle čl. 27 a sekci dodavatelského řetězce, která odpovídá čl. 21 odst. 2 písm. d).",
+        "p1": "V praxi je migrace zřídka čistým restartem. Většina subjektů znovu použije části svého registru rizik z NIS 1, příručku pro incidenty a seznam dodavatelů a poté přidá nové části: rozhodnutí vedení o opatřeních podle čl. 21 odst. 2, pracovní postup hlášení podle čl. 23 s časovými značkami 24 hodin, 72 hodin a jeden měsíc, registrační záznam podle čl. 3 odst. 4 a sekci dodavatelského řetězce, která odpovídá čl. 21 odst. 2 písm. d).",
         "p2": "Nejčastější viditelnou změnou je hlášení. Jediné oznámení 'bez zbytečného odkladu' podle NIS 1 se v NIS 2 stává třemi samostatnými dokumenty, každý s vlastní lhůtou a vlastním adresátem uvnitř subjektu. Praktici obvykle přestavují pracovní postup pro incidenty jako první, protože tam nová pravidla načasování zaberou rychle."
       },
       "platform": {
         "heading": "Jak tato platforma řeší migraci",
-        "p1": "Registr povinností je strukturován kolem článků NIS 2. Opatření podle čl. 21 odst. 2 jsou sledována jako jednotlivé požadavky, lhůty hlášení podle čl. 23 jsou sledovány jako třístupňový pracovní postup pro incidenty, registrace podle čl. 27 je sledována jako samostatný záznam a rozhodnutí vedení podle čl. 20 je sledováno jako schválení.",
+        "p1": "Registr povinností je strukturován kolem článků NIS 2. Opatření podle čl. 21 odst. 2 jsou sledována jako jednotlivé požadavky, lhůty hlášení podle čl. 23 jsou sledovány jako třístupňový pracovní postup pro incidenty, registrace podle čl. 3 odst. 4 je sledována jako samostatný záznam a rozhodnutí vedení podle čl. 20 je sledováno jako schválení.",
         "p2": "Pokud subjekt již má důkazy z NIS 1, lze je připojit k odpovídajícímu požadavku NIS 2. Platforma nepředpokládá přenos; každý požadavek je přezkoumán a označen jako splněný, částečně splněný nebo otevřený, s datem a odpovědnou osobou."
       },
       "sources": {
@@ -16229,7 +16229,7 @@
           },
           "noRegistry": {
             "myth": "Oficiální seznam zatím neexistuje, takže můžeme počkat.",
-            "reality": "Registrace je povinná od 8. dubna 2025. Traficom vede seznam subjektů NIS 2 a počáteční lhůta pro registraci byla 8. května 2025. Být neregistrován neznamená být ve shodě, znamená to být pro dozor neviditelný. Čl. 27 odst. 2 NIS 2 také vyžaduje aktualizace do dvou týdnů od jakékoli změny registrovaných údajů."
+            "reality": "Registrace je povinná od 8. dubna 2025. Traficom vede seznam subjektů NIS 2 a počáteční lhůta pro registraci byla 8. května 2025. Být neregistrován neznamená být ve shodě, znamená to být pro dozor neviditelný. Čl. 3 odst. 4 pododst. 2 NIS 2 také vyžaduje aktualizace do dvou týdnů od jakékoli změny registrovaných údajů."
           },
           "onlySector": {
             "myth": "Můj odvětvový regulátor řeší vše, NCSC-FI je jen poradní.",
@@ -16636,7 +16636,7 @@
           },
           "noRegistry": {
             "myth": "Funkční registrační portál zatím neexistuje.",
-            "reality": "Safeonweb@work je v provozu a funkční. Poskytovatelé z digitálního odvětví se museli zaregistrovat do 18. prosince 2024; všechny ostatní klíčové a důležité subjekty do 18. března 2025. Pozdní registrace je mezerou ve shodě, na kterou může CCB reagovat, a registrační údaje musí být udržovány aktuální podle čl. 27 směrnice."
+            "reality": "Safeonweb@work je v provozu a funkční. Poskytovatelé z digitálního odvětví se museli zaregistrovat do 18. prosince 2024; všechny ostatní klíčové a důležité subjekty do 18. března 2025. Pozdní registrace je mezerou ve shodě, na kterou může CCB reagovat, a registrační údaje musí být udržovány aktuální podle čl. 3 odst. 4 směrnice."
           },
           "onlySector": {
             "myth": "Do působnosti spadají jen odvětví, která už měla regulátora podle NIS 1.",
@@ -17017,7 +17017,7 @@
           "bsi": {
             "country": "Německo",
             "label": "BSI jako příslušný orgán",
-            "body": "Bundesamt für Sicherheit in der Informationstechnik (BSI) je německým příslušným orgánem podle § 29 BSIG. Dohlíží na opatření řízení rizik podle § 30 BSIG, provozuje kanál hlášení incidentů podle § 32 BSIG a provozuje registrační portál podle § 33 BSIG. Pro řídicí orgán je BSI adresou pro dotazy, registrace, oznámení incidentů a audity."
+            "body": "Bundesamt für Sicherheit in der Informationstechnik (BSI) je německým příslušným orgánem podle § 40 BSIG. Dohlíží na opatření řízení rizik podle § 30 BSIG, provozuje kanál hlášení incidentů podle § 32 BSIG a provozuje registrační portál podle § 33 BSIG. Pro řídicí orgán je BSI adresou pro dotazy, registrace, oznámení incidentů a audity."
           },
           "enisa": {
             "country": "Celounijní",
@@ -17064,7 +17064,7 @@
         "items": [
           "Směrnice (EU) 2022/2555 (NIS 2), články 20, 21 a 41. eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Prováděcí nařízení Komise (EU) 2024/2690 (CIR), příloha § 1. eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "Zákon o BSI (BSIG), § 29, § 30, § 32, § 33 a § 38. gesetze-im-internet.de/bsig_2009",
+          "Zákon o BSI (BSIG), § 28, § 30, § 32, § 33 a § 38. gesetze-im-internet.de/bsig_2009",
           "Aktiengesetz (AktG), § 111. gesetze-im-internet.de/aktg",
           "Technické prováděcí pokyny ENISA k CIR (EU) 2024/2690. enisa.europa.eu"
         ]
@@ -18540,7 +18540,7 @@
           "deadlines": {
             "section": "Lhůty",
             "title": "Unijní lhůty stále platí",
-            "body": "Kypr zmeškal transpoziční lhůtu 17. října 2024. Jakmile kyperské právo dožene náskok, časování směrnice se přenáší: identifikace subjektů v souladu s článkem 27 NIS 2, včasné varování do 24 hodin, oznámení incidentu do 72 hodin a závěrečná zpráva do jednoho měsíce. Dokud nejsou kyperská pravidla plně účinná, zůstávají referenčním bodem povinnosti na úrovni směrnice."
+            "body": "Kypr zmeškal transpoziční lhůtu 17. října 2024. Jakmile kyperské právo dožene náskok, časování směrnice se přenáší: identifikace subjektů v souladu s čl. 3 odst. 4 NIS 2, včasné varování do 24 hodin, oznámení incidentu do 72 hodin a závěrečná zpráva do jednoho měsíce. Dokud nejsou kyperská pravidla plně účinná, zůstávají referenčním bodem povinnosti na úrovni směrnice."
           }
         }
       },
@@ -18857,7 +18857,7 @@
           },
           "noRegistry": {
             "myth": "Protože veřejný registr nelze prohledávat, registrace je dobrovolná.",
-            "reality": "NKSC vede registr klíčových a důležitých subjektů, ale seznam není otevřeně zveřejněn. To nečiní registraci dobrovolnou. Subjekty, které splňují test velikosti a sektoru podle přílohy I nebo II směrnice, se musí samy identifikovat a poskytnout registrační údaje NKSC. Článek 27 NIS 2 také vyžaduje, aby subjekty udržovaly své registrační údaje aktuální."
+            "reality": "NKSC vede registr klíčových a důležitých subjektů, ale seznam není otevřeně zveřejněn. To nečiní registraci dobrovolnou. Subjekty, které splňují test velikosti a sektoru podle přílohy I nebo II směrnice, se musí samy identifikovat a poskytnout registrační údaje NKSC. Článek 3 odst. 4 NIS 2 také vyžaduje, aby subjekty udržovaly své registrační údaje aktuální."
           },
           "onlySector": {
             "myth": "V Litvě je v rozsahu jen jedenáct sektorů CIR.",
@@ -19273,14 +19273,14 @@
       },
       "legalAnchor": {
         "heading": "Dvě právní povinnosti, jeden portál",
-        "description": "§ 32 BSIG upravuje ohlašování, § 33 BSIG upravuje registraci. Obojí provádí čl. 23 a čl. 27 NIS 2 do německého práva.",
+        "description": "§ 32 BSIG upravuje ohlašování, § 33 BSIG upravuje registraci. Obojí provádí čl. 23 a čl. 3 odst. 4 NIS 2 do německého práva.",
         "reporting": {
           "label": "§ 32 BSIG (ohlašovací povinnosti) + čl. 23 NIS 2",
           "quote": "Nezbytné a důležité subjekty ohlásí Spolkovému úřadu významné bezpečnostní incidenty bez zbytečného odkladu, nejpozději do 24 hodin od okamžiku, kdy se o nich dozvědí, prostřednictvím jednotného kontaktního místa.",
           "context": "Jednotným kontaktním místem je portál BSI. Povinnost platí pro všechny nezbytné a důležité subjekty bez ohledu na sektor nebo velikost v rámci prahových hodnot NIS 2. Lhůta běží od okamžiku, kdy se o incidentu dozvíte, ne od vzniku škody."
         },
         "registration": {
-          "label": "§ 33 BSIG (registrační povinnost) + čl. 27 NIS 2",
+          "label": "§ 33 BSIG (registrační povinnost) + čl. 3 odst. 4 NIS 2",
           "quote": "Nezbytné a důležité subjekty se zaregistrují u Spolkového úřadu do tří měsíců od okamžiku, kdy poprvé splní podmínky. Změny se oznámí do dvou týdnů.",
           "context": "Tříměsíční lhůta platí pro prvotní registraci. Dvoutýdenní lhůta podle § 33 odst. 5 BSIG platí pro každou pozdější změnu (kontaktní osoba, sektor, činnost). Oba kroky probíhají přes portál."
         }
@@ -19311,7 +19311,7 @@
           },
           "update": {
             "title": "Aktualizace údajů do 2 týdnů",
-            "body": "Podle § 33 odst. 5 BSIG a čl. 27 odst. 2 NIS 2: dva týdny na aktualizaci registračních údajů. Nejčastějším spouštěčem je personální změna kontaktní osoby."
+            "body": "Podle § 33 odst. 5 BSIG a čl. 3 odst. 4 NIS 2: dva týdny na aktualizaci registračních údajů. Nejčastějším spouštěčem je personální změna kontaktní osoby."
           },
           "info": {
             "title": "Přístup k varováním a situačním zprávám",
@@ -19336,7 +19336,7 @@
           },
           "stalePerson": {
             "title": "Neaktualizovaná kontaktní osoba",
-            "body": "Personální změny jsou nejčastějším tichým porušením NIS 2. Podle § 33 odst. 5 BSIG a čl. 27 odst. 2 NIS 2 máte dva týdny na aktualizaci registračních údajů. Pokud se na to zapomene, dotazy BSI nikam nedojdou a všimnete si toho až při příští eskalaci."
+            "body": "Personální změny jsou nejčastějším tichým porušením NIS 2. Podle § 33 odst. 5 BSIG a čl. 3 odst. 4 NIS 2 máte dva týdny na aktualizaci registračních údajů. Pokud se na to zapomene, dotazy BSI nikam nedojdou a všimnete si toho až při příští eskalaci."
           },
           "noTestRun": {
             "title": "Žádný nácvik ohlášení nanečisto",
@@ -19348,7 +19348,7 @@
         "heading": "Zdroje",
         "items": [
           "Zákon o Spolkovém úřadu pro bezpečnost informací (BSIG), §§ 32, 33, 65, www.gesetze-im-internet.de",
-          "Směrnice (EU) 2022/2555 (NIS 2), čl. 23, čl. 27, www.eur-lex.europa.eu",
+          "Směrnice (EU) 2022/2555 (NIS 2), čl. 23, čl. 3 odst. 4, www.eur-lex.europa.eu",
           "Mein Unternehmenskonto (organizační certifikát ELSTER): mein-unternehmenskonto.de",
           "Web BSI s odkazem na portál: www.bsi.bund.de"
         ]
@@ -19480,14 +19480,14 @@
       "overview": {
         "heading": "Nejdražší mylná představa",
         "p1": "Mnoho subjektů Mittelstandu bere absenci dopisu od BSI jako důkaz, že nejsou v rozsahu NIS 2. Mýlí se. Směrnice a §33 BSIG kladou registrační povinnost na subjekt, nikoli na orgán.",
-        "p2": "Mechanismus je přímočarý. Čl. 27(1) NIS 2 ukládá členským státům zřídit registr zásadních a důležitých subjektů. §33(1) BSIG to transponuje: subjekty se registrují do tří měsíců od splnění podmínek. Lhůta začíná, když splníte kritéria, nikoli když vám to někdo řekne.",
+        "p2": "Mechanismus je přímočarý. Čl. 3 odst. 4 NIS 2 ukládá členským státům zřídit registr zásadních a důležitých subjektů. §33(1) BSIG to transponuje: subjekty se registrují do tří měsíců od splnění podmínek. Lhůta začíná, když splníte kritéria, nikoli když vám to někdo řekne.",
         "p3": "V praxi to znamená, že sedmdesátičlenná firma odpadového hospodářství v příloze II může tiše být v rozsahu déle než rok, hromadit pokuty podle §65 BSIG a osobní odpovědnost podle §38 BSIG, dokud konečně někdo nezkontroluje přílohu."
       },
       "legalAnchor": {
         "heading": "Kde povinnost spočívá",
         "description": "Hlavní práci odvádějí dva články. Jeden ve směrnici, jeden v německé transpozici.",
         "directive": {
-          "label": "Čl. 27(1) NIS 2 (povinnost registru)",
+          "label": "Čl. 3 odst. 4 NIS 2 (povinnost registru)",
           "quote": "Členské státy vyžadují, aby zásadní a důležité subjekty předložily příslušným orgánům alespoň tyto informace: název; adresu; aktuální kontaktní údaje; odvětví a pododvětví; seznam členských států, kde poskytují služby.",
           "context": "Povinnost běží od subjektu k orgánu, nikoli naopak. V NIS 2 neexistuje žádné ustanovení, které by od orgánu vyžadovalo, aby nejprve identifikoval subjekty v rozsahu."
         },
@@ -19512,7 +19512,7 @@
           },
           "size": {
             "title": "Porovnejte velikost s definicí MSP v EU",
-            "body": "Střední: 50 až 249 zaměstnanců A ZÁROVEŇ (obrat nebo bilanční suma nad 10 mil. EUR). Velký: více než 250 zaměstnanců NEBO obrat nad 50 mil. EUR NEBO bilanční suma nad 43 mil. EUR. Použijte doporučení 2003/361/ES doslovně, počítejte propojené a partnerské podniky podle pravidel doporučení."
+            "body": "Důležitý subjekt: alespoň 50 zaměstnanců NEBO (obrat nad 10 mil. EUR A ZÁROVEŇ bilanční suma nad 10 mil. EUR). Zvláště významný subjekt: alespoň 250 zaměstnanců NEBO (obrat nad 50 mil. EUR A ZÁROVEŇ bilanční suma nad 43 mil. EUR). Použijte doporučení 2003/361/ES doslovně, počítejte propojené a partnerské podniky podle pravidel doporučení."
           },
           "overrides": {
             "title": "Zkontrolujte přepisy bez ohledu na velikost",
@@ -19559,7 +19559,7 @@
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "Směrnice (EU) 2022/2555 (NIS 2), čl. 2, čl. 3, příloha I, příloha II, čl. 27, www.eur-lex.europa.eu",
+          "Směrnice (EU) 2022/2555 (NIS 2), čl. 2, čl. 3, příloha I, příloha II, čl. 3 odst. 4, www.eur-lex.europa.eu",
           "Zákon o spolkovém úřadu pro informační bezpečnost (BSIG), §33, §38, §65, www.gesetze-im-internet.de",
           "Doporučení Komise 2003/361/ES o definici mikropodniků, malých a středních podniků, www.eur-lex.europa.eu",
           "Zákon o implementaci NIS-2 a posílení kybernetické bezpečnosti (NIS2UmsuCG)"
@@ -20117,7 +20117,7 @@
           "context": "Odpovědnost a povinnost školení se připínají v den, kdy je nový člen řídicího orgánu zaregistrován, nikoli k pohodlnějšímu pozdějšímu datu. Ve směrnici neexistuje žádné ochranné období."
         },
         "registryUpdate": {
-          "label": "§33(5) BSIG + čl. 27(2) NIS 2 (aktualizace registru)",
+          "label": "§33(5) BSIG + čl. 3 odst. 4 NIS 2 (aktualizace registru)",
           "quote": "Wesentliche und wichtige Einrichtungen teilen dem Bundesamt Änderungen der für die Registrierung erforderlichen Angaben innerhalb von zwei Wochen mit.",
           "context": "Dvoutýdenní lhůta. Kontaktní osoba zaregistrovaná u BSI je kanál, kterým přicházejí žádosti o incidenty, výstrahy a dohledová oznámení. Zastaralá kontaktní osoba znamená, že dotazy BSI tiše selžou."
         },
@@ -20193,7 +20193,7 @@
       "sources": {
         "heading": "Zdroje",
         "items": [
-          "Směrnice (EU) 2022/2555 (NIS 2), čl. 20, čl. 27, čl. 32, www.eur-lex.europa.eu",
+          "Směrnice (EU) 2022/2555 (NIS 2), čl. 20, čl. 3 odst. 4, čl. 32, www.eur-lex.europa.eu",
           "Zákon o spolkovém úřadu pro informační bezpečnost (BSIG), §33(5), §38, §65, www.gesetze-im-internet.de",
           "BSI handreichung k §38 BSIG (duben 2026, verze 1.0), www.bsi.bund.de",
           "Zákon o implementaci NIS-2 a posílení kybernetické bezpečnosti (NIS2UmsuCG)"

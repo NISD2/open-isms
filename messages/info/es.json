@@ -3262,7 +3262,7 @@
           "independent": {
             "section": "Prueba 3",
             "title": "¿Le excluye una exención?",
-            "body": "Aunque las pruebas 1 y 2 sean afirmativas, el artículo 2, apartados 7 a 11, puede excluirle (seguridad nacional, seguridad pública, defensa, aplicación de la ley) o una norma de la UE más específica puede prevalecer (las entidades financieras sujetas a DORA omiten los artículos 21 y 23, pero siguen registrándose conforme al artículo 27). Ser proveedor de una entidad sujeta a NIS 2 nunca es una exención que le incluya. Tampoco es nunca un desencadenante que le incluya."
+            "body": "Aunque las pruebas 1 y 2 sean afirmativas, el artículo 2, apartados 7 a 11, puede excluirle (seguridad nacional, seguridad pública, defensa, aplicación de la ley) o una norma de la UE más específica puede prevalecer (las entidades financieras sujetas a DORA omiten los artículos 21 y 23, pero siguen registrándose conforme al artículo 3(4)). Ser proveedor de una entidad sujeta a NIS 2 nunca es una exención que le incluya. Tampoco es nunca un desencadenante que le incluya."
           }
         }
       },
@@ -3315,14 +3315,14 @@
           },
           "noAcceptanceCriteria": {
             "myth": "Nuestro cliente nos dijo que nos registráramos ante la autoridad nacional, así que debemos hacerlo.",
-            "reality": "No. El registro conforme al artículo 27 solo es obligatorio para las entidades que están ellas mismas sujetas al ámbito conforme al artículo 2 (con reglas adicionales para prestadores de DNS, proveedores de la nube, MSP y algunos otros). Un cliente no puede inventarle un deber de registro. Si un comprador insiste, pregúntele bajo qué entrada del anexo y qué umbral de tamaño cree que usted encaja. Si la respuesta no está en el artículo 2, el deber no existe."
+            "reality": "No. El registro conforme al artículo 3(4) solo es obligatorio para las entidades que están ellas mismas sujetas al ámbito conforme al artículo 2 (con reglas adicionales para prestadores de DNS, proveedores de la nube, MSP y algunos otros). Un cliente no puede inventarle un deber de registro. Si un comprador insiste, pregúntele bajo qué entrada del anexo y qué umbral de tamaño cree que usted encaja. Si la respuesta no está en el artículo 2, el deber no existe."
           }
         }
       },
       "practitioner": {
         "heading": "Qué deberían hacer realmente compradores y proveedores",
         "p1": "Si usted es el comprador (una entidad sujeta a NIS 2), su tarea conforme al artículo 21, apartado 2, letra d), y al CIR §5 es redactar una política de seguridad de proveedores con criterios de selección, llevar un registro de riesgos de proveedores e incluir cláusulas de seguridad proporcionadas en los contratos de sus proveedores directos. Usted evalúa y gestiona. No delega eso en el regulador. El CIR §5 dice explícitamente que puede elegir pruebas apropiadas al riesgo: certificación ISO 27001, informes SOC 2, resúmenes de pruebas de penetración, atestaciones de desarrollo seguro. El artículo 21, apartado 1, le permite ajustar la profundidad de las pruebas al riesgo real del proveedor. Un proveedor de software de alto riesgo recibe una solicitud más profunda que la empresa que imprime sus tarjetas de visita.",
-        "p2": "Si usted es el proveedor y su cliente está sujeto al ámbito, aplíquese primero a usted mismo la prueba del artículo 2. Si no la supera, no es una entidad sujeta a NIS 2. Su cliente le seguirá enviando obligaciones de seguridad contractuales. Léalas como condiciones comerciales: negocie el alcance, la profundidad de las pruebas, los derechos de auditoría, los plazos de notificación de brechas. Si supera el artículo 2 por sí mismo, regístrese conforme al artículo 27 y cumpla los artículos 21 y 23 por derecho propio, con independencia de lo que pida cualquier cliente individual."
+        "p2": "Si usted es el proveedor y su cliente está sujeto al ámbito, aplíquese primero a usted mismo la prueba del artículo 2. Si no la supera, no es una entidad sujeta a NIS 2. Su cliente le seguirá enviando obligaciones de seguridad contractuales. Léalas como condiciones comerciales: negocie el alcance, la profundidad de las pruebas, los derechos de auditoría, los plazos de notificación de brechas. Si supera el artículo 2 por sí mismo, regístrese conforme al artículo 3(4) y cumpla los artículos 21 y 23 por derecho propio, con independencia de lo que pida cualquier cliente individual."
       },
       "platform": {
         "heading": "Cómo gestionamos esto en la plataforma",
@@ -5846,7 +5846,7 @@
         },
         "q13": {
           "q": "Las entidades esenciales e importantes deben, entre otras cosas, presentar sus rangos de direcciones IP públicas conforme a la Ley de Implementación de NIS 2. ¿Qué información hay que facilitar aquí?",
-          "a": "Al registrarse, el artículo 27 de la Directiva NIS 2 (transpuesto en Alemania en el §33 BSIG) exige el nombre y la forma jurídica, la dirección, los datos de contacto actuales, el sector pertinente, una lista de los Estados miembros en los que se prestan servicios y, en efecto, los rangos de direcciones IP públicas. Esto se refiere únicamente a los rangos de direcciones estáticos, enrutados públicamente, bajo los cuales su entidad es accesible desde el exterior u opera sistemas críticos. Las direcciones dinámicas y los rangos de IP que asigna a sus clientes finales no se incluyen. En la práctica indica por tanto sus propias redes registradas (a menudo en notación CIDR), no cada dirección individual. El procedimiento y los plazos se explican en /wiki/anwendungsbereich/nis2-registrierung."
+          "a": "Al registrarse, el artículo 3(4) de la Directiva NIS 2 (transpuesto en Alemania en el §33 BSIG) exige el nombre y la forma jurídica, la dirección, los datos de contacto actuales, el sector pertinente, una lista de los Estados miembros en los que se prestan servicios y, en efecto, los rangos de direcciones IP públicas. Esto se refiere únicamente a los rangos de direcciones estáticos, enrutados públicamente, bajo los cuales su entidad es accesible desde el exterior u opera sistemas críticos. Las direcciones dinámicas y los rangos de IP que asigna a sus clientes finales no se incluyen. En la práctica indica por tanto sus propias redes registradas (a menudo en notación CIDR), no cada dirección individual. El procedimiento y los plazos se explican en /wiki/anwendungsbereich/nis2-registrierung."
         },
         "q14": {
           "q": "¿Cómo se definen los servicios digitales?",
@@ -5912,7 +5912,7 @@
         },
         "q3": {
           "q": "Mi empresa cumple los criterios para calificar como entidad esencial u operador KRITIS, o como entidad importante. ¿Qué obligaciones deben cumplirse?",
-          "a": "Tres conjuntos de obligaciones se aplican por igual a ambas categorías. Primero, el registro ante el BSI incluidos los datos de contacto (artículo 27, §33 BSIG). Segundo, las medidas de gestión de riesgos del catálogo del artículo 21(2) (§30 BSIG), que van desde el análisis de riesgos pasando por la gestión de incidentes y la cadena de suministro hasta la criptografía y el control de acceso. Tercero, la notificación escalonada de incidentes de seguridad significativos conforme al artículo 23 (§32 BSIG): alerta temprana en un plazo de 24 horas, confirmación en un plazo de 72 horas, informe final tras un mes. La diferencia reside en la supervisión: las entidades esenciales se supervisan de forma proactiva, las entidades importantes sobre una base ex post. La prueba de clasificación completa la encuentra en [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "Tres conjuntos de obligaciones se aplican por igual a ambas categorías. Primero, el registro ante el BSI incluidos los datos de contacto (artículo 3(4), §33 BSIG). Segundo, las medidas de gestión de riesgos del catálogo del artículo 21(2) (§30 BSIG), que van desde el análisis de riesgos pasando por la gestión de incidentes y la cadena de suministro hasta la criptografía y el control de acceso. Tercero, la notificación escalonada de incidentes de seguridad significativos conforme al artículo 23 (§32 BSIG): alerta temprana en un plazo de 24 horas, confirmación en un plazo de 72 horas, informe final tras un mes. La diferencia reside en la supervisión: las entidades esenciales se supervisan de forma proactiva, las entidades importantes sobre una base ex post. La prueba de clasificación completa la encuentra en [Wer ist betroffen](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q4": {
           "q": "¿A partir de cuándo se aplican las obligaciones del BSIG / la Ley de Implementación de NIS 2?",
@@ -5924,7 +5924,7 @@
         },
         "q6": {
           "q": "¿Qué requisitos se imponen a la disponibilidad de las entidades importantes y esenciales?",
-          "a": "Usted debe facilitar al BSI un punto de contacto accesible, por regla general un número de teléfono y una dirección de correo electrónico, y mantener estos datos actualizados (artículo 27, §33 BSIG). A través de este canal el BSI entrega informes de incidentes, advertencias y consultas de seguimiento. La ley no prescribe ninguna cualificación particular para las personas que están detrás. Lo que importa es únicamente que el punto de contacto sea efectivamente accesible y que los informes puedan tramitarse con prontitud, de modo que la alerta temprana de 24 horas conforme al artículo 23 funcione. Para los operadores KRITIS se aplican adicionalmente requisitos de disponibilidad más estrictos."
+          "a": "Usted debe facilitar al BSI un punto de contacto accesible, por regla general un número de teléfono y una dirección de correo electrónico, y mantener estos datos actualizados (artículo 3(4), §33 BSIG). A través de este canal el BSI entrega informes de incidentes, advertencias y consultas de seguimiento. La ley no prescribe ninguna cualificación particular para las personas que están detrás. Lo que importa es únicamente que el punto de contacto sea efectivamente accesible y que los informes puedan tramitarse con prontitud, de modo que la alerta temprana de 24 horas conforme al artículo 23 funcione. Para los operadores KRITIS se aplican adicionalmente requisitos de disponibilidad más estrictos."
         },
         "q7": {
           "q": "Hemos externalizado por completo nuestra TI a proveedores de servicios externos. ¿Qué obligaciones tenemos entonces como entidad importante que cumplir todavía?",
@@ -5978,11 +5978,11 @@
       "registration": {
         "q1": {
           "q": "¿Cuándo es posible el registro conforme al §33(1) BSIG en el portal del BSI, cómo se realiza el registro y cómo funciona el proceso de notificación conforme al §32 BSIG?",
-          "a": "El registro es posible tan pronto como usted califica como entidad afectada, y debe llevarse a cabo en un plazo de tres meses tras caer dentro del ámbito por primera vez o de nuevo (NIS 2 artículo 27, en Alemania §33(1) BSIG). El proceso tiene dos fases: primero crea una cuenta con Mein Unternehmenskonto (MUK) utilizando el certificado de organización ELSTER, después registra la entidad en el portal del BSI. A continuación notifica los incidentes de seguridad también a través del portal del BSI, siguiendo el procedimiento de tres pasos de alerta temprana, informe de seguimiento e informe final (NIS 2 artículo 23, en Alemania §32 BSIG). Encontrará una guía paso a paso en [Registration](/wiki/anwendungsbereich/nis2-registrierung)."
+          "a": "El registro es posible tan pronto como usted califica como entidad afectada, y debe llevarse a cabo en un plazo de tres meses tras caer dentro del ámbito por primera vez o de nuevo (NIS 2 artículo 3(4), en Alemania §33(1) BSIG). El proceso tiene dos fases: primero crea una cuenta con Mein Unternehmenskonto (MUK) utilizando el certificado de organización ELSTER, después registra la entidad en el portal del BSI. A continuación notifica los incidentes de seguridad también a través del portal del BSI, siguiendo el procedimiento de tres pasos de alerta temprana, informe de seguimiento e informe final (NIS 2 artículo 23, en Alemania §32 BSIG). Encontrará una guía paso a paso en [Registration](/wiki/anwendungsbereich/nis2-registrierung)."
         },
         "q2": {
           "q": "¿Qué hace el BSI para apoyar a las empresas respecto de los registros NIS 2 pendientes?",
-          "a": "El BSI ofrece una comprobación de aplicabilidad, una sección de preguntas frecuentes, paquetes de información y seminarios web para que las entidades puedan evaluar y cumplir por sí mismas su obligación de registro (base: NIS 2 artículo 27, §33 BSIG). Si usted está afectado siquiera es algo que aclara primero en función del sector y el tamaño. Encontrará la autoprueba completa en [Quién está afectado](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
+          "a": "El BSI ofrece una comprobación de aplicabilidad, una sección de preguntas frecuentes, paquetes de información y seminarios web para que las entidades puedan evaluar y cumplir por sí mismas su obligación de registro (base: NIS 2 artículo 3(4), §33 BSIG). Si usted está afectado siquiera es algo que aclara primero en función del sector y el tamaño. Encontrará la autoprueba completa en [Quién está afectado](/wiki/anwendungsbereich/wer-ist-betroffen-vollstaendiger-test)."
         },
         "q3": {
           "q": "¿Cómo puede una empresa registrar componentes críticos?",
@@ -6132,7 +6132,7 @@
         },
         "q12": {
           "q": "¿Se enfrentan las entidades financieras sujetas a DORA a obligaciones de doble registro, doble notificación de incidentes de seguridad, doble supervisión, doble evidencia, etc. a través de la Ley de Implementación de NIS 2 y DORA?",
-          "a": "No, no se pretende una doble regulación genuina. Para las entidades financieras, DORA (Reglamento (UE) 2022/2554) es la regla más específica. Conforme al artículo 4 de la Directiva NIS 2, los requisitos de DORA sobre gestión de riesgos, notificación de incidentes y supervisión tienen por tanto preferencia, y las obligaciones correspondientes de NIS 2 retroceden. Lo que queda es únicamente el registro: el artículo 27 de la Directiva NIS 2 (reflejado en el Derecho alemán mediante la obligación de registro pertinente del BSIG) cubre también a las entidades DORA, de modo que las autoridades puedan mantener un registro completo. Usted sigue notificando los incidentes conforme a DORA y se registra adicionalmente, sin que esto cree una segunda cadena de notificación o una segunda capa de supervisión."
+          "a": "No, no se pretende una doble regulación genuina. Para las entidades financieras, DORA (Reglamento (UE) 2022/2554) es la regla más específica. Conforme al artículo 4 de la Directiva NIS 2, los requisitos de DORA sobre gestión de riesgos, notificación de incidentes y supervisión tienen por tanto preferencia, y las obligaciones correspondientes de NIS 2 retroceden. Lo que queda es únicamente el registro: el artículo 3(4) de la Directiva NIS 2 (reflejado en el Derecho alemán mediante la obligación de registro pertinente del BSIG) cubre también a las entidades DORA, de modo que las autoridades puedan mantener un registro completo. Usted sigue notificando los incidentes conforme a DORA y se registra adicionalmente, sin que esto cree una segunda cadena de notificación o una segunda capa de supervisión."
         },
         "q13": {
           "q": "¿En qué se diferencian los requisitos de NIS 2 de los requisitos específicos de seguridad para el smart meter gateway?",
@@ -7614,7 +7614,7 @@
           "monitoring": {
             "section": "§32 + §33 BSIG",
             "title": "Notificación de incidentes y registro",
-            "body": "El §32 BSIG fija la cascada de notificación de incidentes: 24 horas para una alerta temprana, 72 horas para una notificación de incidente, un mes para un informe final. Transpone el artículo 23. El §33 BSIG exige el registro ante el BSI. El plazo de registro fue el 6 de marzo de 2026. El §33 transpone el artículo 27."
+            "body": "El §32 BSIG fija la cascada de notificación de incidentes: 24 horas para una alerta temprana, 72 horas para una notificación de incidente, un mes para un informe final. Transpone el artículo 23. El §33 BSIG exige el registro ante el BSI. El plazo de registro fue el 6 de marzo de 2026. El §33 transpone el artículo 3(4)."
           },
           "independent": {
             "section": "§38 + §65 BSIG",
@@ -9470,7 +9470,7 @@
           "kritis": {
             "section": "KRITIS",
             "title": "¿Cruzas un umbral de la KRITIS-Verordnung?",
-            "body": "Específico por sector. Distribución de electricidad: 100.000 clientes finales conectados. Agua potable: 22 millones de metros cúbicos al año. Aguas residuales: 500.000 habitantes equivalentes. Si cruzas cualquier umbral en cualquier actividad, KRITIS se aplica a esa actividad, además de NIS 2. El régimen KRITIS conlleva deberes de auditoría más estrictos (auditoría independiente cada tres años, §65 BSIG) y obligaciones de notificación adicionales."
+            "body": "Específico por sector. Distribución de electricidad: 100.000 clientes finales conectados. Agua potable: 22 millones de metros cúbicos al año. Aguas residuales: 500.000 habitantes equivalentes. Si cruzas cualquier umbral en cualquier actividad, KRITIS se aplica a esa actividad, además de NIS 2. El régimen KRITIS conlleva deberes de auditoría más estrictos (auditoría independiente cada tres años, §39 BSIG) y obligaciones de notificación adicionales."
           }
         }
       },
@@ -9534,7 +9534,7 @@
       },
       "practitioner": {
         "heading": "Qué aspecto tiene esto en la práctica",
-        "p1": "Un Stadtwerk típico con 200 empleados, una red eléctrica de 60.000 clientes, un suministro de agua potable de unos 8 millones de metros cúbicos al año y una pequeña rama de fibra se sitúa, sin ambigüedad, dentro del ámbito de NIS 2 a través de los sectores 1, 6, 7 y 8 del Anexo I. La prueba de tamaño se supera con holgura. No se alcanzan los umbrales KRITIS, de modo que no se aplican los deberes de auditoría del §65 BSIG, pero sí los deberes del §28 BSIG.",
+        "p1": "Un Stadtwerk típico con 200 empleados, una red eléctrica de 60.000 clientes, un suministro de agua potable de unos 8 millones de metros cúbicos al año y una pequeña rama de fibra se sitúa, sin ambigüedad, dentro del ámbito de NIS 2 a través de los sectores 1, 6, 7 y 8 del Anexo I. La prueba de tamaño se supera con holgura. No se alcanzan los umbrales KRITIS, de modo que no se aplican los deberes de auditoría del §39 BSIG, pero sí los deberes del §28 BSIG.",
         "p2": "El registro de riesgos del §30 ha de cubrir el OT y el SCADA de electricidad, agua y aguas residuales en un solo lugar. La notificación de incidentes del §32 se canaliza a través del BSI. El registro del §33 es una única presentación para toda la empresa. Si además cruzas un umbral KRITIS en cualquier actividad, tu clasificación conforme al §28 asciende a 'besonders wichtige Einrichtung' y la auditoría KRITIS trienal se activa por encima."
       },
       "platform": {
@@ -9562,15 +9562,15 @@
     "amIBank": {
       "meta": {
         "title": "¿Soy un banco conforme a NIS 2? Sí, pero DORA absorbe la sustancia",
-        "description": "Los bancos se sitúan en el Anexo I sector 3 de NIS 2 como entidades de crédito. El Artículo 4 NIS 2 (lex specialis) traslada después la sustancia de los Artículos 21 y 23 a DORA. El registro del Artículo 27 ante el BSI sigue aplicándose. Esta página recorre las tres capas y las lecturas erróneas habituales."
+        "description": "Los bancos se sitúan en el Anexo I sector 3 de NIS 2 como entidades de crédito. El Artículo 4 NIS 2 (lex specialis) traslada después la sustancia de los Artículos 21 y 23 a DORA. El registro del Artículo 3(4) ante el BSI sigue aplicándose. Esta página recorre las tres capas y las lecturas erróneas habituales."
       },
       "title": "¿Soy un banco conforme a NIS 2?",
-      "subtitle": "Las entidades de crédito figuran en el Anexo I sector 3 de NIS 2. El Artículo 4 NIS 2 remite después los deberes sustantivos de ciberseguridad y notificación de incidentes a DORA. El deber de registro del Artículo 27 ante su autoridad nacional permanece en pie en todo caso.",
+      "subtitle": "Las entidades de crédito figuran en el Anexo I sector 3 de NIS 2. El Artículo 4 NIS 2 remite después los deberes sustantivos de ciberseguridad y notificación de incidentes a DORA. El deber de registro del Artículo 3(4) ante su autoridad nacional permanece en pie en todo caso.",
       "overview": {
         "heading": "La versión corta",
         "p1": "Los bancos están dentro del ámbito de NIS 2. El Anexo I sector 3 enumera las 'entidades de crédito' tal como se definen en el Artículo 4(1) del Reglamento (UE) n.º 575/2013 (CRR). Si es un Kreditinstitut conforme al CRR, está dentro del perímetro de NIS 2.",
         "p2": "Pero el Artículo 4 NIS 2 es una cláusula de lex specialis. Cuando un acto sectorial específico de la UE establece deberes de ciberseguridad y notificación de incidentes al menos equivalentes, las obligaciones sustantivas de NIS 2 se hacen a un lado. DORA (Reglamento (UE) 2022/2554) se redactó precisamente para esto. Así que el Artículo 21 (medidas de gestión de riesgos) y el Artículo 23 (notificación de incidentes significativos) de NIS 2 no se aplican a las entidades financieras sujetas a DORA. En su lugar se aplican los capítulos equivalentes de DORA.",
-        "p3": "La exclusión no es total. El Artículo 27 NIS 2 (registro ante la autoridad nacional para el conocimiento de la situación a nivel de la UE) sigue aplicándose. El BSI mantiene su entrada en el registro del §33 BSIG. La Comisión y ENISA mantienen su panorámica de toda la UE de quién está dentro del ámbito, incluso cuando los deberes sustantivos residen en otro reglamento."
+        "p3": "La exclusión no es total. El Artículo 3(4) NIS 2 (registro ante la autoridad nacional para el conocimiento de la situación a nivel de la UE) sigue aplicándose. El BSI mantiene su entrada en el registro del §33 BSIG. La Comisión y ENISA mantienen su panorámica de toda la UE de quién está dentro del ámbito, incluso cuando los deberes sustantivos residen en otro reglamento."
       },
       "legalAnchor": {
         "heading": "La fuente jurídica",
@@ -9578,7 +9578,7 @@
         "directive": {
           "label": "NIS 2 Anexo I sector 3 + Artículo 4 (Directiva (UE) 2022/2555)",
           "quote": "Entidades de crédito tal como se definen en el artículo 4, punto 1, del Reglamento (UE) n.º 575/2013 del Parlamento Europeo y del Consejo. [Anexo I, Sector 3, Banca] / Cuando actos jurídicos sectoriales de la Unión exijan a las entidades esenciales o importantes adoptar medidas para la gestión de riesgos de ciberseguridad o notificar incidentes significativos, y cuando esos requisitos sean al menos equivalentes en sus efectos a las obligaciones establecidas en la presente Directiva, las disposiciones pertinentes de la presente Directiva, incluidas las disposiciones sobre supervisión y ejecución establecidas en el capítulo VII, no se aplicarán a dichas entidades. [Artículo 4(1)]",
-          "context": "El Anexo I sitúa a los bancos en el ámbito. El Artículo 4 absorbe después la sustancia cuando un acto sectorial específico es al menos equivalente en sus efectos. El Artículo 4 no excluye el registro. El Artículo 27 NIS 2 sigue vinculando."
+          "context": "El Anexo I sitúa a los bancos en el ámbito. El Artículo 4 absorbe después la sustancia cuando un acto sectorial específico es al menos equivalente en sus efectos. El Artículo 4 no excluye el registro. El Artículo 3(4) NIS 2 sigue vinculando."
         },
         "regulation": {
           "label": "DORA (Reglamento (UE) 2022/2554)",
@@ -9587,8 +9587,8 @@
         },
         "transposition": {
           "label": "§28 BSIG + implementación nacional de DORA",
-          "quote": "El §28 BSIG operacionaliza en el Derecho alemán la regla de lex specialis del Artículo 4 NIS 2. La BaFin supervisa el cumplimiento de DORA para las entidades de crédito alemanas. El BSI sigue manteniendo el registro del §33 BSIG que implementa el Artículo 27 NIS 2.",
-          "context": "Aquí importan dos autoridades alemanas. La BaFin ostenta la supervisión sustantiva (medidas de gestión de riesgos, notificación de incidentes conforme a DORA). El BSI ostenta la entrada de registro del §33 conforme al Artículo 27 NIS 2. Ambas son obligaciones reales. Ninguna sustituye a la otra."
+          "quote": "El §28 BSIG operacionaliza en el Derecho alemán la regla de lex specialis del Artículo 4 NIS 2. La BaFin supervisa el cumplimiento de DORA para las entidades de crédito alemanas. El BSI sigue manteniendo el registro del §33 BSIG que implementa el Artículo 3(4) NIS 2.",
+          "context": "Aquí importan dos autoridades alemanas. La BaFin ostenta la supervisión sustantiva (medidas de gestión de riesgos, notificación de incidentes conforme a DORA). El BSI ostenta la entrada de registro del §33 conforme al Artículo 3(4) NIS 2. Ambas son obligaciones reales. Ninguna sustituye a la otra."
         }
       },
       "elements": {
@@ -9607,8 +9607,8 @@
           },
           "registration": {
             "section": "Paso 3",
-            "title": "El registro del Artículo 27 NIS 2 sigue aplicándose",
-            "body": "El Artículo 27 NIS 2 obliga a las entidades esenciales e importantes a facilitar a su autoridad nacional un conjunto definido de datos (nombre, dirección, sector, punto de contacto, rangos de IP cuando proceda). DORA no sustituye esto. El BSI gestiona el registro del §33 BSIG para Alemania. Los bancos se registran allí junto con todos los demás incluidos en el ámbito. Actualizaciones en el plazo de dos semanas conforme al Artículo 27(2)."
+            "title": "El registro del Artículo 3(4) NIS 2 sigue aplicándose",
+            "body": "El Artículo 3(4) NIS 2 obliga a las entidades esenciales e importantes a facilitar a su autoridad nacional un conjunto definido de datos (nombre, dirección, sector, punto de contacto, rangos de IP cuando proceda). DORA no sustituye esto. El BSI gestiona el registro del §33 BSIG para Alemania. Los bancos se registran allí junto con todos los demás incluidos en el ámbito. Actualizaciones en el plazo de dos semanas conforme al Artículo 3(4)."
           }
         }
       },
@@ -9622,7 +9622,7 @@
           },
           "informational": {
             "title": "El registro es informativo, no sustantivo",
-            "body": "El Artículo 27 NIS 2 queda fuera de la exclusión porque cumple una finalidad distinta. Los deberes sustantivos (Artículos 21 y 23) regulan la conducta. El deber de registro (Artículo 27) da a ENISA y a la Comisión una imagen completa de toda la UE de quién cae bajo el régimen. Esa imagen tiene que incluir también a las entidades sujetas a DORA, de lo contrario el mapa de supervisión tendría agujeros. La Comisión mantiene esa visibilidad a propósito."
+            "body": "El Artículo 3(4) NIS 2 queda fuera de la exclusión porque cumple una finalidad distinta. Los deberes sustantivos (Artículos 21 y 23) regulan la conducta. El deber de registro (Artículo 3(4)) da a ENISA y a la Comisión una imagen completa de toda la UE de quién cae bajo el régimen. Esa imagen tiene que incluir también a las entidades sujetas a DORA, de lo contrario el mapa de supervisión tendría agujeros. La Comisión mantiene esa visibilidad a propósito."
           }
         }
       },
@@ -9638,12 +9638,12 @@
           "bsi": {
             "country": "Alemania",
             "label": "BSI (registro del §33 BSIG)",
-            "body": "El BSI mantiene el registro que implementa el Artículo 27 NIS 2 en Alemania. Los bancos se registran allí aunque sus deberes sustantivos estén bajo DORA. El BSI no duplica la supervisión de la sustancia. Mantiene la entrada, intercambia datos con la Comisión y ENISA, y sigue siendo el punto de contacto para las obligaciones del Artículo 27."
+            "body": "El BSI mantiene el registro que implementa el Artículo 3(4) NIS 2 en Alemania. Los bancos se registran allí aunque sus deberes sustantivos estén bajo DORA. El BSI no duplica la supervisión de la sustancia. Mantiene la entrada, intercambia datos con la Comisión y ENISA, y sigue siendo el punto de contacto para las obligaciones del Artículo 3(4)."
           },
           "ecb": {
             "country": "UE",
             "label": "BCE / MUS y Bundesbank",
-            "body": "Para las entidades significativas bajo el Mecanismo Único de Supervisión, el BCE asume la supervisión principal (DORA se incorpora a ese ciclo de supervisión). Para las entidades menos significativas, la BaFin y el Bundesbank llevan la batuta. El Bundesbank gestiona la recopilación continua de datos de supervisión. Ninguna de estas capas cambia el papel separado del registro del Artículo 27 que tiene el BSI."
+            "body": "Para las entidades significativas bajo el Mecanismo Único de Supervisión, el BCE asume la supervisión principal (DORA se incorpora a ese ciclo de supervisión). Para las entidades menos significativas, la BaFin y el Bundesbank llevan la batuta. El Bundesbank gestiona la recopilación continua de datos de supervisión. Ninguna de estas capas cambia el papel separado del registro del Artículo 3(4) que tiene el BSI."
           }
         }
       },
@@ -9653,11 +9653,11 @@
         "items": {
           "doraReplacesAll": {
             "myth": "DORA sustituye a NIS 2 por completo. No tenemos que hacer nada conforme a NIS 2.",
-            "reality": "El Artículo 4 NIS 2 solo excluye las obligaciones sustantivas (Artículo 21 gestión de riesgos, Artículo 23 notificación de incidentes). El Artículo 27 (registro) no está en esa lista. El BSI sigue esperándole en el registro del §33 BSIG. Omitir el registro genera una infracción de NIS 2 incluso cuando su programa DORA esté en perfecto estado."
+            "reality": "El Artículo 4 NIS 2 solo excluye las obligaciones sustantivas (Artículo 21 gestión de riesgos, Artículo 23 notificación de incidentes). El Art. 3(4) NIS 2 (registro) no está en esa lista. El BSI sigue esperándole en el registro del §33 BSIG. Omitir el registro genera una infracción de NIS 2 incluso cuando su programa DORA esté en perfecto estado."
           },
           "bsiDoesNotRegulate": {
             "myth": "Somos solo-DORA. El BSI no nos regula.",
-            "reality": "El BSI no supervisa su marco de gestión de riesgos. La BaFin sí. Pero el BSI sí gestiona el registro del §33 BSIG que implementa el Artículo 27 NIS 2, y usted está en él. Los cambios de dirección, los cambios de punto de contacto y las reclasificaciones de sector siguen yendo al BSI dentro de la ventana de dos semanas del Artículo 27(2)."
+            "reality": "El BSI no supervisa su marco de gestión de riesgos. La BaFin sí. Pero el BSI sí gestiona el registro del §33 BSIG que implementa el Art. 3(4) NIS 2, y usted está en él. Los cambios de dirección, los cambios de punto de contacto y las reclasificaciones de sector siguen yendo al BSI dentro de la ventana de dos semanas del Art. 3(4) NIS 2."
           },
           "smallBanksOut": {
             "myth": "Somos un banco pequeño, así que estamos fuera del ámbito de NIS 2.",
@@ -9668,17 +9668,17 @@
       "practitioner": {
         "heading": "Cómo lo gestiona realmente un banco alemán mediano típico",
         "p1": "Sustancia bajo DORA, registro bajo el BSI. Una Sparkasse o Volksbank alemana típica no levanta un marco paralelo del Artículo 21 NIS 2. El capítulo de gestión de riesgos de las TIC de DORA cubre el mismo terreno con la misma profundidad. El ciclo de notificación de incidentes graves relacionados con las TIC del Artículo 19 DORA cubre el mismo bucle de incidentes significativos que el Artículo 23 NIS 2 habría pedido, solo que en el calendario y la plantilla de DORA.",
-        "p2": "En el lado del registro, el banco presenta una vez ante el BSI conforme al §33 BSIG, actualiza en el plazo de dos semanas conforme al Artículo 27(2) cuando cambian los datos de contacto o la clasificación de sector, y conserva un memorándum interno de una página que explica la exclusión del Artículo 4 NIS 2 para que el próximo supervisor o auditor no tenga que volver a litigarla. Ese memorándum cuesta una tarde de redacción y ahorra el equivalente a dos ciclos de auditoría en conversaciones incómodas."
+        "p2": "En el lado del registro, el banco presenta una vez ante el BSI conforme al §33 BSIG, actualiza en el plazo de dos semanas conforme al Artículo 3(4) cuando cambian los datos de contacto o la clasificación de sector, y conserva un memorándum interno de una página que explica la exclusión del Artículo 4 NIS 2 para que el próximo supervisor o auditor no tenga que volver a litigarla. Ese memorándum cuesta una tarde de redacción y ahorra el equivalente a dos ciclos de auditoría en conversaciones incómodas."
       },
       "platform": {
         "heading": "Cómo gestionamos esto en la plataforma",
-        "p1": "La comprobación de aplicabilidad distingue el ámbito sustantivo (deberes de los Artículos 21 y 23) del ámbito solo-registro (deber del Artículo 27). Un banco obtiene un resultado de solo-registro con una remisión a DORA. La salida es un memorándum listo para pegar que tanto su jefe de proyecto de DORA como su órgano de dirección pueden aprobar.",
-        "p2": "Cuando los requisitos se solapan, mapeamos la obligación frente al equivalente de DORA en lugar de pedirle que la cumpla dos veces. El flujo de trabajo del registro del §33 BSIG permanece en la plataforma, incluido el ciclo de actualización de dos semanas conforme al Artículo 27(2). La línea de trabajo sustantiva de DORA permanece con la BaFin y con sus herramientas existentes de gestión de riesgos de las TIC."
+        "p1": "La comprobación de aplicabilidad distingue el ámbito sustantivo (deberes de los Artículos 21 y 23) del ámbito solo-registro (deber del Artículo 3(4)). Un banco obtiene un resultado de solo-registro con una remisión a DORA. La salida es un memorándum listo para pegar que tanto su jefe de proyecto de DORA como su órgano de dirección pueden aprobar.",
+        "p2": "Cuando los requisitos se solapan, mapeamos la obligación frente al equivalente de DORA en lugar de pedirle que la cumpla dos veces. El flujo de trabajo del registro del §33 BSIG permanece en la plataforma, incluido el ciclo de actualización de dos semanas conforme al Artículo 3(4). La línea de trabajo sustantiva de DORA permanece con la BaFin y con sus herramientas existentes de gestión de riesgos de las TIC."
       },
       "sources": {
         "heading": "Fuentes",
         "items": [
-          "Directiva (UE) 2022/2555 (NIS 2), Anexo I sector 3, Artículo 4, Artículo 27: eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "Directiva (UE) 2022/2555 (NIS 2), Anexo I sector 3, Artículo 4, Artículo 3(4): eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Reglamento (UE) 2022/2554 (DORA), Artículo 1 ámbito y Capítulos II + III: eur-lex.europa.eu/eli/reg/2022/2554/oj",
           "Reglamento (UE) n.º 575/2013 (CRR), Artículo 4(1): eur-lex.europa.eu/eli/reg/2013/575/oj",
           "Ley del BSI (BSIG), §28 (lex specialis) y §33 (registro) en su redacción dada por la Ley de Implementación de NIS2 y de Refuerzo de la Ciberseguridad",
@@ -10369,7 +10369,7 @@
         "heading": "La versión corta",
         "p1": "La energía es el sector 1 del Anexo I de NIS 2. La directiva nombra cinco subsectores (electricidad, calefacción y refrigeración urbana, petróleo, gas, hidrógeno) y para cada uno enumera los tipos de entidad en el ámbito: productores, operadores de redes de distribución, operadores de redes de transporte, suministradores, operadores designados del mercado eléctrico, participantes en el mercado eléctrico, operadores de refinerías y plantas de tratamiento, operadores de oleoductos y almacenamiento de petróleo, entidades de almacenamiento central, operadores de instalaciones de GNL de gas natural, operadores de producción y transporte de hidrógeno. Un solo subsector basta para situar a una empresa en el ámbito.",
         "p2": "El Artículo 2(1) NIS 2 añade la prueba de tamaño por remisión a la Recomendación 2003/361/CE: mediana empresa o mayor, lo que significa al menos 50 empleados o más de 10 millones de euros de volumen de negocio anual y de balance. La mayoría de las empresas energéticas se sitúan holgadamente por encima de ese listón. Por debajo, normalmente está fuera de NIS 2 salvo que le alcance una excepción de 'con independencia del tamaño' del Artículo 2(2).",
-        "p3": "Alemania transpone esto a través del §28 BSIG (Anwendungsbereich) y el catálogo de entidades asociado de las Anlagen 1 y 2 BSIG. Por separado, la BSI-KritisV (KRITIS-Verordnung) establece umbrales específicos por sector para el régimen KRITIS, más estricto (por ejemplo, clientes finales conectados en la distribución de electricidad, o volúmenes anuales suministrados). Cruzar un umbral KRITIS añade deberes por encima de NIS 2 (auditoría independiente cada tres años bajo el §65 BSIG). No cruzarlo no elimina NIS 2."
+        "p3": "Alemania transpone esto a través del §28 BSIG (Anwendungsbereich) y el catálogo de entidades asociado de las Anlagen 1 y 2 BSIG. Por separado, la BSI-KritisV (KRITIS-Verordnung) establece umbrales específicos por sector para el régimen KRITIS, más estricto (por ejemplo, clientes finales conectados en la distribución de electricidad, o volúmenes anuales suministrados). Cruzar un umbral KRITIS añade deberes por encima de NIS 2 (auditoría independiente cada tres años bajo el §39 BSIG). No cruzarlo no elimina NIS 2."
       },
       "legalAnchor": {
         "heading": "La fuente jurídica",
@@ -10387,7 +10387,7 @@
         "transposition": {
           "label": "§28 BSIG más BSI-KritisV (Alemania)",
           "quote": "Besonders wichtige Einrichtungen und wichtige Einrichtungen sind natürliche oder juristische Personen oder rechtlich unselbständige Organisationseinheiten einer Gebietskörperschaft, die einer der in den Anlagen 1 oder 2 genannten Einrichtungsarten zuzuordnen sind und die Schwellenwerte nach Artikel 2 der Empfehlung 2003/361/EG erreichen oder überschreiten.",
-          "context": "El §28 BSIG es la puerta de entrada alemana al ámbito de NIS 2. La Anlage 1 BSIG enumera los tipos de entidad 'besonders wichtige' (esenciales), la Anlage 2 enumera los tipos 'wichtige' (importantes). Los subsectores energéticos aterrizan en gran medida en la Anlage 1. La BSI-KritisV (Verordnung zur Bestimmung Kritischer Anlagen) establece los umbrales KRITIS separados. Una empresa energética que cruza un umbral KRITIS es además Betreiber einer Kritischen Anlage y aterriza en la categoría más estricta 'besonders wichtige' por esa razón, con el deber de auditoría trienal bajo el §65 BSIG."
+          "context": "El §28 BSIG es la puerta de entrada alemana al ámbito de NIS 2. La Anlage 1 BSIG enumera los tipos de entidad 'besonders wichtige' (esenciales), la Anlage 2 enumera los tipos 'wichtige' (importantes). Los subsectores energéticos aterrizan en gran medida en la Anlage 1. La BSI-KritisV (Verordnung zur Bestimmung Kritischer Anlagen) establece los umbrales KRITIS separados. Una empresa energética que cruza un umbral KRITIS es además Betreiber einer Kritischen Anlage y aterriza en la categoría más estricta 'besonders wichtige' por esa razón, con el deber de auditoría trienal bajo el §39 BSIG."
         }
       },
       "elements": {
@@ -10407,7 +10407,7 @@
           "kritis": {
             "section": "KRITIS",
             "title": "¿Cruza un umbral de la BSI-KritisV?",
-            "body": "Los umbrales específicos por sector establecidos en la BSI-KritisV deciden el régimen KRITIS, no NIS 2. El ejemplo bien documentado para la distribución de electricidad es 100.000 clientes finales conectados o aproximadamente 3.700 GWh de electricidad anual suministrada. Existen umbrales comparables para el gas, la calefacción urbana y el petróleo. Cruce uno de ellos y se aplican los deberes de auditoría más estrictos (auditoría independiente cada tres años bajo el §65 BSIG) por encima de NIS 2. Sitúese por debajo de todos ellos y aún así debe el catálogo completo del §28 BSIG y del Artículo 21 NIS 2."
+            "body": "Los umbrales específicos por sector establecidos en la BSI-KritisV deciden el régimen KRITIS, no NIS 2. El ejemplo bien documentado para la distribución de electricidad es 100.000 clientes finales conectados o aproximadamente 3.700 GWh de electricidad anual suministrada. Existen umbrales comparables para el gas, la calefacción urbana y el petróleo. Cruce uno de ellos y se aplican los deberes de auditoría más estrictos (auditoría independiente cada tres años bajo el §39 BSIG) por encima de NIS 2. Sitúese por debajo de todos ellos y aún así debe el catálogo completo del §28 BSIG y del Artículo 21 NIS 2."
           }
         }
       },
@@ -10432,7 +10432,7 @@
           "bsi": {
             "country": "Alemania",
             "label": "BSI / §28 BSIG, notificación §32, registro §33",
-            "body": "El BSI es la autoridad cibernética bajo el BSIG. Gestiona el portal de registro del §33 donde cada entidad energética en el ámbito de NIS 2 presenta sus datos de empresa y las actualizaciones en un plazo de dos semanas bajo el Artículo 27(2). Acepta las notificaciones de incidentes significativos bajo el §32 BSIG según el calendario de NIS 2. Si la entidad es además Betreiber einer Kritischen Anlage, el BSI es la contraparte de auditoría para las pruebas de auditoría trienal bajo el §65 BSIG."
+            "body": "El BSI es la autoridad cibernética bajo el BSIG. Gestiona el portal de registro del §33 donde cada entidad energética en el ámbito de NIS 2 presenta sus datos de empresa y las actualizaciones en un plazo de dos semanas bajo el Art. 3(4) NIS 2. Acepta las notificaciones de incidentes significativos bajo el §32 BSIG según el calendario de NIS 2. Si la entidad es además Betreiber einer Kritischen Anlage, el BSI es la contraparte de auditoría para las pruebas de auditoría trienal bajo el §39 BSIG."
           },
           "bnetza": {
             "country": "Alemania",
@@ -10466,13 +10466,13 @@
       },
       "practitioner": {
         "heading": "Cómo se ve esto en la práctica",
-        "p1": "Una empresa energética alemana mediana típica con 150 empleados, una rama de distribución de electricidad que abastece a aproximadamente 40.000 clientes finales, una rama de suministro de gas y una pequeña cartera de generación renovable se sitúa dentro del ámbito de NIS 2 a través del sector 1 del Anexo I (subsectores de electricidad y gas). La prueba de tamaño se supera a nivel de entidad. Los umbrales de la BSI-KritisV para la rama de distribución no se cruzan, por lo que el deber de auditoría del §65 no se aplica, pero el §28 BSIG sí. El catálogo del §11 EnWG ya está implantado para la red, así que la mayor parte del Artículo 21 está en marcha antes de que empiece el trabajo de NIS 2.",
+        "p1": "Una empresa energética alemana mediana típica con 150 empleados, una rama de distribución de electricidad que abastece a aproximadamente 40.000 clientes finales, una rama de suministro de gas y una pequeña cartera de generación renovable se sitúa dentro del ámbito de NIS 2 a través del sector 1 del Anexo I (subsectores de electricidad y gas). La prueba de tamaño se supera a nivel de entidad. Los umbrales de la BSI-KritisV para la rama de distribución no se cruzan, por lo que el deber de auditoría del §39 no se aplica, pero el §28 BSIG sí. El catálogo del §11 EnWG ya está implantado para la red, así que la mayor parte del Artículo 21 está en marcha antes de que empiece el trabajo de NIS 2.",
         "p2": "El registro de riesgos del §30 tiene que cubrir OT y SCADA en toda la red de distribución, el control de la red de gas y la cartera de generación en un único lugar. La notificación del §32 fluye a través del BSI según el calendario de NIS 2. El registro del §33 es una única presentación para toda la persona jurídica. La formación de la dirección del Artículo 20 NIS 2 es nueva para la mayoría de los consejos de este segmento y no está cubierta por el catálogo de la EnWG. Los controles de cadena de suministro del Artículo 21(2)(d) son el segundo gran salto frente al mundo de la EnWG."
       },
       "platform": {
         "heading": "Cómo gestionamos esto en la plataforma",
         "p1": "La comprobación de aplicabilidad le guía por los subsectores del sector 1 del Anexo I, pregunta por los empleados y el volumen de negocio a nivel de entidad, y le indica en qué categoría del §28 BSIG aterriza y si alguna actividad atrae además a KRITIS. El resultado es un memorando listo para pegar que tanto su órgano de dirección como su contraparte de la Bundesnetzagentur pueden leer.",
-        "p2": "Allí donde el Artículo 21 NIS 2 y el catálogo del §11 EnWG se solapan, la plataforma mapea los requisitos una vez y deja que la misma evidencia cuente para ambos. El módulo de activos captura el inventario de OT y TI de todos los subsectores en un único lugar. El flujo de registro del §33 permanece en la plataforma, incluido el ciclo de actualización de dos semanas bajo el Artículo 27(2)."
+        "p2": "Allí donde el Artículo 21 NIS 2 y el catálogo del §11 EnWG se solapan, la plataforma mapea los requisitos una vez y deja que la misma evidencia cuente para ambos. El módulo de activos captura el inventario de OT y TI de todos los subsectores en un único lugar. El flujo de registro del §33 permanece en la plataforma, incluido el ciclo de actualización de dos semanas bajo el Artículo 3(4)."
       },
       "sources": {
         "heading": "Fuentes",
@@ -10480,7 +10480,7 @@
           "Directiva (UE) 2022/2555 (NIS 2), Anexo I sector 1: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Directiva (UE) 2022/2555 (NIS 2), Artículo 2(1) y Artículo 2(2): eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Recomendación 2003/361/CE de la Comisión sobre la definición de microempresas, pequeñas y medianas empresas",
-          "Ley del BSI (BSIG), §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §65 (Audits) en su versión modificada por la NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetz: gesetze-im-internet.de",
+          "Ley del BSI (BSIG), §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §39 (Audits) en su versión modificada por la NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetz: gesetze-im-internet.de",
           "Verordnung zur Bestimmung Kritischer Anlagen (BSI-KritisV): umbrales específicos por sector para Energie",
           "Energiewirtschaftsgesetz (EnWG), §11(1a) y §11(1b): gesetze-im-internet.de",
           "Catálogo de seguridad de TI de la Bundesnetzagentur para operadores de redes energéticas e instalaciones energéticas"
@@ -10521,7 +10521,7 @@
         "transposition": {
           "label": "§28 BSIG (Alemania)",
           "quote": "Besonders wichtige Einrichtungen und wichtige Einrichtungen sind natürliche oder juristische Personen oder rechtlich unselbständige Organisationseinheiten einer Gebietskörperschaft, die einer der in den Anlagen 1 oder 2 genannten Einrichtungsarten zuzuordnen sind und die Schwellenwerte nach Artikel 2 der Empfehlung 2003/361/EG erreichen oder überschreiten.",
-          "context": "El §28 BSIG es la puerta de entrada alemana a NIS 2. El agua potable figura en la Anlage 1 (besonders wichtige Sektoren) como Trinkwasser. Cruzar el umbral de 22 millones de metros cúbicos al año de la KRITIS-Verordnung añade la capa de Betreiber kritischer Anlagen con el ciclo de auditoría de tres años conforme al §65 BSIG. Por debajo de ese umbral, un suministrador de agua potable sigue siendo una besonders wichtige Einrichtung en el sentido de NIS 2."
+          "context": "El §28 BSIG es la puerta de entrada alemana a NIS 2. El agua potable figura en la Anlage 1 (besonders wichtige Sektoren) como Trinkwasser. Cruzar el umbral de 22 millones de metros cúbicos al año de la KRITIS-Verordnung añade la capa de Betreiber kritischer Anlagen con el ciclo de auditoría de tres años conforme al §39 BSIG. Por debajo de ese umbral, un suministrador de agua potable sigue siendo una besonders wichtige Einrichtung en el sentido de NIS 2."
         }
       },
       "elements": {
@@ -10541,7 +10541,7 @@
           "kritis": {
             "section": "KRITIS",
             "title": "¿Cruza los 22 millones de metros cúbicos al año?",
-            "body": "La KRITIS-Verordnung fija un único umbral para el agua potable: más de 22 millones de metros cúbicos de agua suministrada al año. Cruce esa línea y el régimen KRITIS se aplica además de NIS 2: auditoría independiente cada tres años conforme al §65 BSIG, deberes de notificación adicionales, registro como Betreiber einer kritischen Anlage. Por debajo de esa línea, usted solo debe cumplir NIS 2. Aproximadamente el 80 por ciento de los suministradores de agua potable alemanes se sitúan por debajo del umbral KRITIS pero dentro de NIS 2."
+            "body": "La KRITIS-Verordnung fija un único umbral para el agua potable: más de 22 millones de metros cúbicos de agua suministrada al año. Cruce esa línea y el régimen KRITIS se aplica además de NIS 2: auditoría independiente cada tres años conforme al §39 BSIG, deberes de notificación adicionales, registro como Betreiber einer kritischen Anlage. Por debajo de esa línea, usted solo debe cumplir NIS 2. Aproximadamente el 80 por ciento de los suministradores de agua potable alemanes se sitúan por debajo del umbral KRITIS pero dentro de NIS 2."
           }
         }
       },
@@ -10566,7 +10566,7 @@
           "bsi": {
             "country": "Alemania",
             "label": "BSI / §28 BSIG y KRITIS-Verordnung",
-            "body": "El BSI es la autoridad cibernética para el agua potable. Opera el portal de registro del §33 BSIG, recibe las notificaciones de incidentes significativos del §32 BSIG y publica el branchenspezifischer Sicherheitsstandard Wasser. Si el suministrador también es KRITIS, el BSI es el destinatario de las pruebas de auditoría trienal conforme al §65 BSIG."
+            "body": "El BSI es la autoridad cibernética para el agua potable. Opera el portal de registro del §33 BSIG, recibe las notificaciones de incidentes significativos del §32 BSIG y publica el branchenspezifischer Sicherheitsstandard Wasser. Si el suministrador también es KRITIS, el BSI es el destinatario de las pruebas de auditoría trienal conforme al §39 BSIG."
           },
           "uba": {
             "country": "Alemania",
@@ -10605,7 +10605,7 @@
       },
       "practitioner": {
         "heading": "Cómo se ve esto en la práctica",
-        "p1": "Un suministrador de agua alemán pequeño típico, con 80 empleados, que suministra 6 millones de metros cúbicos de agua potable al año a unos 40 000 hogares, se sitúa inequívocamente dentro del ámbito de NIS 2 a través del sector 6 del anexo I. La prueba de tamaño se supera con holgura. KRITIS no se aplica, así que la auditoría trienal conforme al §65 BSIG no entra en juego. Pero los §28, §30, §32 y §33 BSIG se aplican todos plenamente: registro ante el BSI, el catálogo de controles del artículo 21, la aprobación del órgano de dirección, la notificación de incidentes significativos en un plazo de 24 y 72 horas.",
+        "p1": "Un suministrador de agua alemán pequeño típico, con 80 empleados, que suministra 6 millones de metros cúbicos de agua potable al año a unos 40 000 hogares, se sitúa inequívocamente dentro del ámbito de NIS 2 a través del sector 6 del anexo I. La prueba de tamaño se supera con holgura. KRITIS no se aplica, así que la auditoría trienal conforme al §39 BSIG no entra en juego. Pero los §28, §30, §32 y §33 BSIG se aplican todos plenamente: registro ante el BSI, el catálogo de controles del artículo 21, la aprobación del órgano de dirección, la notificación de incidentes significativos en un plazo de 24 y 72 horas.",
         "p2": "El registro de riesgos tiene que cubrir la OT y el SCADA de la planta de aguas, las plantas de tratamiento, la telemetría de la red, la TI de facturación a clientes y los servicios en la nube utilizados para la monitorización. Las medidas de cadena de suministro conforme al artículo 21, apartado 2, letra d), tienen que alcanzar al proveedor de productos químicos y al proveedor del SCADA. Nada de esto está condicionado a alcanzar 22 millones de metros cúbicos. El listón KRITIS es una capa separada y más estricta que casi ningún Wasserwerk alemán alcanza."
       },
       "platform": {
@@ -10681,7 +10681,7 @@
           "kritis": {
             "section": "KRITIS",
             "title": "¿Cruza el umbral KRITIS de 500 000 equivalentes-habitante?",
-            "body": "La KRITIS-Verordnung fija el umbral alemán de aguas residuales en un equivalente-habitante de 500 000. Cruce esa cifra y usted es también 'Betreiber einer Kritischen Anlage', con el ciclo de auditoría trienal conforme al §65 BSIG y la clasificación más estricta. La mayoría de las plantas municipales en Alemania se sitúan muy por debajo de 500 000 EW. No son KRITIS, pero siguen siendo entidades sujetas a NIS 2 conforme al §28 BSIG."
+            "body": "La KRITIS-Verordnung fija el umbral alemán de aguas residuales en un equivalente-habitante de 500 000. Cruce esa cifra y usted es también 'Betreiber einer Kritischen Anlage', con el ciclo de auditoría trienal conforme al §39 BSIG y la clasificación más estricta. La mayoría de las plantas municipales en Alemania se sitúan muy por debajo de 500 000 EW. No son KRITIS, pero siguen siendo entidades sujetas a NIS 2 conforme al §28 BSIG."
           }
         }
       },
@@ -10706,7 +10706,7 @@
           "bsi": {
             "country": "Alemania",
             "label": "BSI conforme a los §28, §32 y §33 BSIG",
-            "body": "El BSI es la autoridad cibernética para las aguas residuales conforme al §28 BSIG. Opera el portal de registro del §33 BSIG, acepta las notificaciones de incidentes significativos del §32 BSIG y, para los operadores KRITIS por encima de 500 000 EW, recibe las pruebas de auditoría trienal conforme al §65 BSIG. Para los operadores por debajo del umbral KRITIS no hay deber de auditoría, pero el registro y la notificación siguen aplicándose."
+            "body": "El BSI es la autoridad cibernética para las aguas residuales conforme al §28 BSIG. Opera el portal de registro del §33 BSIG, acepta las notificaciones de incidentes significativos del §32 BSIG y, para los operadores KRITIS por encima de 500 000 EW, recibe las pruebas de auditoría trienal conforme al §39 BSIG. Para los operadores por debajo del umbral KRITIS no hay deber de auditoría, pero el registro y la notificación siguen aplicándose."
           },
           "uba": {
             "country": "Alemania",
@@ -10751,7 +10751,7 @@
       "platform": {
         "heading": "Cómo gestionamos esto en la plataforma",
         "p1": "La comprobación de aplicabilidad recorre la definición del sector 7 exactamente como la escribe el anexo I: aguas residuales urbanas, domésticas, industriales, con la exención por actividad secundaria como pregunta separada. La prueba de tamaño del artículo 2, apartado 1, es el segundo paso. El umbral de la KRITIS-Verordnung de 500 000 EW es el tercero, y se presenta como 'además de NIS 2', no como una puerta.",
-        "p2": "El módulo de activos cubre el SCADA, la telemetría, las estaciones de bombeo y la TI del laboratorio bajo un solo inventario. Los controles del B3S Wasser/Abwasser se integran en el catálogo del artículo 21, apartado 2, sin una lista paralela. Si además cruza el umbral KRITIS, el ciclo de auditoría trienal conforme al §65 BSIG se activa como un flujo de trabajo separado sobre las mismas pruebas."
+        "p2": "El módulo de activos cubre el SCADA, la telemetría, las estaciones de bombeo y la TI del laboratorio bajo un solo inventario. Los controles del B3S Wasser/Abwasser se integran en el catálogo del artículo 21, apartado 2, sin una lista paralela. Si además cruza el umbral KRITIS, el ciclo de auditoría trienal conforme al §39 BSIG se activa como un flujo de trabajo separado sobre las mismas pruebas."
       },
       "sources": {
         "heading": "Fuentes",
@@ -10760,7 +10760,7 @@
           "Directiva (UE) 2022/2555 (NIS 2), artículo 2, apartado 1: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Directiva 91/271/CEE del Consejo sobre el tratamiento de las aguas residuales urbanas, artículo 2 puntos (1), (2), (3)",
           "Recomendación 2003/361/CE de la Comisión sobre la definición de microempresas, pequeñas y medianas empresas",
-          "BSIG, §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §65 (Nachweise) en su versión modificada por la Ley de Aplicación de la NIS2 y de Refuerzo de la Ciberseguridad",
+          "BSIG, §28 (Anwendungsbereich), §32 (Meldepflichten), §33 (Registrierung), §39 (Nachweise) en su versión modificada por la Ley de Aplicación de la NIS2 y de Refuerzo de la Ciberseguridad",
           "BSI-Kritisverordnung (KRITIS-Verordnung), Anhang 1 Teil 2 Wasser: equivalente-habitante de 500 000 para el tratamiento de aguas residuales",
           "Branchenspezifischer Sicherheitsstandard Wasser/Abwasser (B3S), DWA / BDEW"
         ]
@@ -11691,7 +11691,7 @@
       "practitioner": {
         "heading": "Cómo ejecutan el análisis los operadores reales del Mittelstand",
         "p1": "Lo que vemos en la práctica: una llamada de delimitación de ámbito de 30 minutos recorre primero el anexo I o II, luego las cifras de empleados y financieras, luego la cuestión de las empresas vinculadas, luego el artículo 2, apartado 2. El orden importa. Saltar directamente al tamaño, como la mayoría de los consultores plantean la cuestión, oculta un ámbito que usted realmente tiene.",
-        "p2": "Documente el resultado. Una breve nota de delimitación de ámbito que nombre el sector conforme al anexo I o II, enumere las cifras de empleados y volumen de negocio, aborde las empresas vinculadas y recorra el artículo 2, apartado 2, es el documento que querrá si una autoridad nacional pregunta más tarde por qué se autoclasificó fuera del ámbito. Si está sujeto al ámbito, también necesita registrarse conforme al artículo 27 de NIS 2 y a la disposición nacional pertinente (en Alemania: §33 BSIG)."
+        "p2": "Documente el resultado. Una breve nota de delimitación de ámbito que nombre el sector conforme al anexo I o II, enumere las cifras de empleados y volumen de negocio, aborde las empresas vinculadas y recorra el artículo 2, apartado 2, es el documento que querrá si una autoridad nacional pregunta más tarde por qué se autoclasificó fuera del ámbito. Si está sujeto al ámbito, también necesita registrarse conforme al artículo 3(4) de NIS 2 y a la disposición nacional pertinente (en Alemania: §33 BSIG)."
       },
       "platform": {
         "heading": "Cómo gestionamos esto en la plataforma",
@@ -11995,11 +11995,11 @@
         "description": "El artículo 4 de NIS 2 remite las entidades financieras a DORA en cuanto al fondo y la supervisión, pero no en cuanto al registro. El BSI sigue queriéndote en la lista del §33 BSIG."
       },
       "title": "NIS 2 frente a DORA: cómo funciona realmente la exclusión del sector financiero",
-      "subtitle": "El artículo 4 de NIS 2 remite las entidades financieras a DORA en cuanto a la gestión de riesgos, la notificación de incidentes y la supervisión. El artículo 27 de NIS 2 no está en esa lista. Los bancos, las entidades de pago, las entidades de contrapartida central y los proveedores de servicios de criptoactivos siguen registrándose ante el BSI conforme al §33 BSIG.",
+      "subtitle": "El artículo 4 de NIS 2 remite las entidades financieras a DORA en cuanto a la gestión de riesgos, la notificación de incidentes y la supervisión. El artículo 3(4) de NIS 2 no está en esa lista. Los bancos, las entidades de pago, las entidades de contrapartida central y los proveedores de servicios de criptoactivos siguen registrándose ante el BSI conforme al §33 BSIG.",
       "overview": {
         "heading": "Dos reguladores, una exclusión, una obligación que sobrevive",
         "p1": "El Reglamento (UE) 2022/2554 (DORA) empezó a aplicarse el 17 de enero de 2025 y cubre alrededor de veinte categorías de entidades financieras, desde bancos y empresas de seguros hasta proveedores de servicios de criptoactivos y centros de negociación. Para todo lo que DORA ya regula, el artículo 4 de NIS 2 desplaza los artículos correspondientes de NIS 2. Esa es la regla de lex specialis y se sitúa en el centro de toda conversación sobre cómo las empresas financieras se mapean frente a NIS 2.",
-        "p2": "El desplazamiento es limitado. El artículo 4, apartado 2, de NIS 2 enumera exactamente qué artículos de NIS 2 se apartan cuando un acto sectorial específico es al menos equivalente en sus efectos. La lista cubre el artículo 21 (medidas de gestión de riesgos), el artículo 23 (notificación de incidentes) y el capítulo VII (supervisión y ejecución). El artículo 27 (registro) no está en la lista. Tampoco lo están las disposiciones de ámbito del Anexo I que sitúan a la banca y a las infraestructuras de los mercados financieros dentro de NIS 2 en primer lugar.",
+        "p2": "El desplazamiento es limitado. El artículo 4, apartado 2, de NIS 2 enumera exactamente qué artículos de NIS 2 se apartan cuando un acto sectorial específico es al menos equivalente en sus efectos. La lista cubre el artículo 21 (medidas de gestión de riesgos), el artículo 23 (notificación de incidentes) y el capítulo VII (supervisión y ejecución). El artículo 3(4) (registro) no está en la lista. Tampoco lo están las disposiciones de ámbito del Anexo I que sitúan a la banca y a las infraestructuras de los mercados financieros dentro de NIS 2 en primer lugar.",
         "p3": "El resultado práctico para un banco alemán, una entidad de pago autorizada por la BaFin o una entidad de contrapartida central: el fondo procede de DORA, la supervisión en Alemania recae en la BaFin y el Bundesbank, pero la entidad sigue registrándose ante el BSI a través del portal del §33 BSIG. Un regulador en el registro. Un regulador diferente en todo lo que importa en la operativa."
       },
       "legalAnchor": {
@@ -12008,7 +12008,7 @@
         "directive": {
           "label": "Directiva NIS 2, artículo 4, apartados 1 y 2",
           "quote": "Cuando actos jurídicos sectoriales específicos de la Unión exijan a las entidades esenciales o importantes que adopten medidas de gestión de riesgos de ciberseguridad o que notifiquen incidentes significativos, y cuando esos requisitos sean al menos equivalentes en sus efectos a las obligaciones establecidas en la presente Directiva, las disposiciones pertinentes de la presente Directiva, incluida la disposición sobre supervisión y ejecución establecida en el capítulo VII, no se aplicarán a tales entidades.",
-          "context": "Se acumulan dos condiciones: ha de existir un acto sectorial específico de la Unión, y sus requisitos han de ser al menos equivalentes en sus efectos. Solo entonces se apartan los artículos 21, 23 y el capítulo VII. El artículo 27 está claramente ausente de esta lista y, por tanto, sigue aplicándose."
+          "context": "Se acumulan dos condiciones: ha de existir un acto sectorial específico de la Unión, y sus requisitos han de ser al menos equivalentes en sus efectos. Solo entonces se apartan los artículos 21, 23 y el capítulo VII. El artículo 3(4) está claramente ausente de esta lista y, por tanto, sigue aplicándose."
         },
         "regulation": {
           "label": "Reglamento (UE) 2022/2554 (DORA)",
@@ -12016,9 +12016,9 @@
           "context": "DORA es un Reglamento, de aplicación directa en todos los Estados miembros desde el 17 de enero de 2025. Para las entidades dentro de su ámbito de aplicación, este es el cuerpo de normas que ocupa el espacio que de otro modo ocuparían los artículos 21 y 23 de NIS 2. El reglamento sustantivo de ciberseguridad es DORA, no la aplicación de NIS 2 mediante el BSIG."
         },
         "transposition": {
-          "label": "Artículo 27 de NIS 2 y §33 BSIG",
+          "label": "Artículo 3(4) de NIS 2 y §33 BSIG",
           "quote": "Los Estados miembros garantizarán que las entidades esenciales e importantes presenten a las autoridades competentes la información siguiente: el nombre de la entidad, la dirección y los datos de contacto actualizados, el sector y subsector pertinentes con arreglo al anexo I o II, y una lista de los Estados miembros en los que la entidad presta servicios.",
-          "context": "El artículo 27 de NIS 2 obliga al registro ante la autoridad nacional competente. En Alemania, el §33 BSIG canaliza esto hacia el portal de registro del BSI. El artículo 4 no afecta al artículo 27. DORA tiene su propio registro ante las Autoridades Europeas de Supervisión, pero eso no sustituye al registro nacional de NIS 2. Las entidades financieras viven, por tanto, en ambos."
+          "context": "El artículo 3(4) de NIS 2 obliga al registro ante la autoridad nacional competente. En Alemania, el §33 BSIG canaliza esto hacia el portal de registro del BSI. El artículo 4 no afecta al artículo 3(4). DORA tiene su propio registro ante las Autoridades Europeas de Supervisión, pero eso no sustituye al registro nacional de NIS 2. Las entidades financieras viven, por tanto, en ambos."
         }
       },
       "elements": {
@@ -12033,7 +12033,7 @@
           "registration": {
             "section": "Registro",
             "title": "BSI conforme al §33 BSIG, sin desplazamiento",
-            "body": "El artículo 27 de NIS 2 queda fuera de la lista del artículo 4. El registro nacional sobrevive a la exclusión. Un banco o una entidad de pago autorizados por la BaFin se registran ante el BSI a través del portal del §33, presentan la clasificación sectorial, los datos de contacto y los rangos de direcciones IP, y los actualizan dentro de los plazos que se aplican a cualquier otra entidad dentro del ámbito de aplicación. La falta de registro acarrea su propia vía sancionadora."
+            "body": "El artículo 3(4) de NIS 2 queda fuera de la lista del artículo 4. El registro nacional sobrevive a la exclusión. Un banco o una entidad de pago autorizados por la BaFin se registran ante el BSI a través del portal del §33, presentan la clasificación sectorial, los datos de contacto y los rangos de direcciones IP, y los actualizan dentro de los plazos que se aplican a cualquier otra entidad dentro del ámbito de aplicación. La falta de registro acarrea su propia vía sancionadora."
           },
           "supervision": {
             "section": "Supervisión",
@@ -12048,7 +12048,7 @@
         "items": {
           "equivalence": {
             "title": "La lex specialis es limitada, no general",
-            "body": "El artículo 4 desplaza únicamente los artículos de NIS 2 que nombra. El registro conforme al artículo 27, el ámbito conforme a los Anexos I y II y las definiciones de sector siguen aplicándose. Un banco no se convierte en una entidad ajena a NIS 2. Se convierte en una entidad NIS 2 regida por DORA en cuanto a las partes sustantivas. La distinción importa cuando surgen plazos de registro, reclasificaciones de sector o notificaciones de servicios transfronterizos."
+            "body": "El artículo 4 desplaza únicamente los artículos de NIS 2 que nombra. El registro conforme al artículo 3(4), el ámbito conforme a los Anexos I y II y las definiciones de sector siguen aplicándose. Un banco no se convierte en una entidad ajena a NIS 2. Se convierte en una entidad NIS 2 regida por DORA en cuanto a las partes sustantivas. La distinción importa cuando surgen plazos de registro, reclasificaciones de sector o notificaciones de servicios transfronterizos."
           },
           "informational": {
             "title": "Equivalente en sus efectos, no idéntico en el texto",
@@ -12083,7 +12083,7 @@
         "items": {
           "doraReplacesAll": {
             "myth": "Mito: DORA sustituye por completo a NIS 2 para las entidades financieras.",
-            "reality": "DORA sustituye al artículo 21, al artículo 23 y al capítulo VII. No sustituye al artículo 27 (registro), a las disposiciones de ámbito de los Anexos I y II, ni a los mecanismos de cooperación del capítulo IV. El registro del §33 BSIG permanece. Un banco que omite el registro se enfrenta a la sanción autónoma por falta de registro, no a un expediente de ejecución exclusivamente conforme a DORA."
+            "reality": "DORA sustituye al artículo 21, al artículo 23 y al capítulo VII. No sustituye al artículo 3(4) (registro), a las disposiciones de ámbito de los Anexos I y II, ni a los mecanismos de cooperación del capítulo IV. El registro del §33 BSIG permanece. Un banco que omite el registro se enfrenta a la sanción autónoma por falta de registro, no a un expediente de ejecución exclusivamente conforme a DORA."
           },
           "doraBanksOnly": {
             "myth": "Mito: DORA solo se aplica a los bancos, así que las entidades financieras no bancarias siguen NIS 2.",
@@ -12102,13 +12102,13 @@
       },
       "platform": {
         "heading": "Qué rastrea la plataforma",
-        "p1": "La plataforma modela el registro del artículo 27 de NIS 2 como una obligación de primera clase, independiente del contenido de gestión de riesgos. Una entidad financiera que utiliza la plataforma ve los plazos de registro, los recordatorios de cambio de datos de contacto y el estado del portal del §33 BSIG sin heredar ninguna lista de tareas del artículo 21 de NIS 2 que no necesita.",
-        "p2": "La capa sustantiva de DORA queda fuera del ámbito de la plataforma de código abierto. El patrón recomendado es: rastrear aquí el artículo 27 de NIS 2, ejecutar el programa de DORA en las herramientas alineadas con la BaFin que esperan tus supervisores, y utilizar el estado del registro de la plataforma como el rastro de auditoría que prueba que se cumplió la obligación del §33 BSIG."
+        "p1": "La plataforma modela el registro del artículo 3(4) de NIS 2 como una obligación de primera clase, independiente del contenido de gestión de riesgos. Una entidad financiera que utiliza la plataforma ve los plazos de registro, los recordatorios de cambio de datos de contacto y el estado del portal del §33 BSIG sin heredar ninguna lista de tareas del artículo 21 de NIS 2 que no necesita.",
+        "p2": "La capa sustantiva de DORA queda fuera del ámbito de la plataforma de código abierto. El patrón recomendado es: rastrear aquí el artículo 3(4) de NIS 2, ejecutar el programa de DORA en las herramientas alineadas con la BaFin que esperan tus supervisores, y utilizar el estado del registro de la plataforma como el rastro de auditoría que prueba que se cumplió la obligación del §33 BSIG."
       },
       "sources": {
         "heading": "Fuentes",
         "items": [
-          "Directiva (UE) 2022/2555 (NIS 2), artículo 4 (lex specialis), artículo 27 (obligación de registro), Anexo I, sector 3 (infraestructuras de los mercados financieros) y sector 4 (banca)",
+          "Directiva (UE) 2022/2555 (NIS 2), artículo 4 (lex specialis), artículo 3(4) (obligación de registro), Anexo I, sector 3 (infraestructuras de los mercados financieros) y sector 4 (banca)",
           "Reglamento (UE) 2022/2554 (DORA), artículos 5 a 17 (gestión del riesgo de las TIC), artículos 17 a 23 (notificación de incidentes), artículos 24 a 27 (pruebas de resiliencia), artículos 28 a 44 (riesgo de terceros de las TIC), artículo 45 (intercambio de información), artículo 46 (autoridades competentes)",
           "BSIG (modificado por la NIS2UmsuCG), §33 (registro), §65 (sanciones por falta de registro)",
           "Considerando 28 de la Directiva NIS 2 sobre la relación entre NIS 2 y los actos sectoriales específicos de la Unión",
@@ -12118,9 +12118,9 @@
       },
       "ctaCard": {
         "heading": "Rastrea el registro que sobrevive a la exclusión",
-        "description": "DORA gestiona el fondo. El artículo 27 de NIS 2 sigue queriéndote en la lista del §33 BSIG. La plataforma rastrea el registro, las actualizaciones por cambio de circunstancias y el rastro de auditoría sin forzar un programa paralelo del artículo 21 sobre una entidad DORA."
+        "description": "DORA gestiona el fondo. El artículo 3(4) de NIS 2 sigue queriéndote en la lista del §33 BSIG. La plataforma rastrea el registro, las actualizaciones por cambio de circunstancias y el rastro de auditoría sin forzar un programa paralelo del artículo 21 sobre una entidad DORA."
       },
-      "cta": "Registra tu entidad y rastrea el artículo 27"
+      "cta": "Registra tu entidad y rastrea el artículo 3(4)"
     },
     "nis2AndGdprOverlap": {
       "meta": {
@@ -12240,7 +12240,7 @@
       },
       "platform": {
         "heading": "Cómo gestionamos esto en la plataforma",
-        "p1": "La plataforma modela el registro de obligaciones de NIS2: registro conforme al artículo 27, medidas de gestión de riesgos conforme al artículo 21, notificación de incidentes conforme al artículo 23, formación de la dirección conforme al artículo 20. No modela el registro de tratamientos del GDPR y no ejecuta sus evaluaciones de impacto relativas a la protección de datos. Esas permanecen en sus herramientas de protección de datos, gestionadas por su delegado de protección de datos, supervisadas por su autoridad de protección de datos.",
+        "p1": "La plataforma modela el registro de obligaciones de NIS2: registro conforme al artículo 3(4), medidas de gestión de riesgos conforme al artículo 21, notificación de incidentes conforme al artículo 23, formación de la dirección conforme al artículo 20. No modela el registro de tratamientos del GDPR y no ejecuta sus evaluaciones de impacto relativas a la protección de datos. Esas permanecen en sus herramientas de protección de datos, gestionadas por su delegado de protección de datos, supervisadas por su autoridad de protección de datos.",
         "p2": "Donde los dos regímenes comparten evidencia (medidas técnicas y organizativas, cláusulas de seguridad de proveedores, registros de formación) la exponemos como artefactos exportables que también puede adjuntar a su expediente del artículo 32 del GDPR. La cascada de incidentes del §32 BSIG tiene su propio flujo de trabajo en la plataforma. La notificación del artículo 33 del GDPR permanece donde siempre ha vivido, en su registro de violaciones de protección de datos."
       },
       "sources": {
@@ -12255,22 +12255,22 @@
       },
       "ctaCard": {
         "heading": "Ejecute el registro de obligaciones de NIS2, mantenga el expediente del GDPR donde vive",
-        "description": "Mapeamos las medidas del artículo 21, la cascada del artículo 23 y el registro del artículo 27. Su delegado de protección de datos mantiene el expediente de los artículos 32 y 33 del GDPR por separado. Gratuito, de código abierto, sin lock-in."
+        "description": "Mapeamos las medidas del artículo 21, la cascada del artículo 23 y el registro del artículo 3(4). Su delegado de protección de datos mantiene el expediente de los artículos 32 y 33 del GDPR por separado. Gratuito, de código abierto, sin lock-in."
       },
       "cta": "Abrir la plataforma gratuita"
     },
     "nis2AndKritisSimultaneous": {
       "meta": {
         "title": "Cuando NIS 2 y KRITIS se aplican al mismo tiempo",
-        "description": "Los operadores de instalaciones críticas en Alemania viven bajo dos regímenes a la vez. NIS 2 fija las medidas de base y los deberes de notificación. KRITIS añade un ciclo de evidencia trienal bajo el §29 BSIG y la banda de sanción más alta bajo el §65 BSIG. Un regulador (BSI), una base de evidencia, dos capas de deber."
+        "description": "Los operadores de instalaciones críticas en Alemania viven bajo dos regímenes a la vez. NIS 2 fija las medidas de base y los deberes de notificación. KRITIS añade un ciclo de evidencia trienal bajo el §39 BSIG y la banda de sanción más alta bajo el §65 BSIG. Un regulador (BSI), una base de evidencia, dos capas de deber."
       },
       "title": "Operadores de instalaciones críticas bajo NIS 2 y KRITIS al mismo tiempo",
-      "subtitle": "Un operador KRITIS no elige entre NIS 2 y KRITIS. Ambos se aplican. Las medidas de NIS 2 bajo el Artículo 21 son el suelo. Los deberes específicos de KRITIS bajo los §29, §32 y §65 BSIG se sitúan por encima. El BSI gestiona ambos regímenes a partir de la misma evidencia.",
+      "subtitle": "Un operador KRITIS no elige entre NIS 2 y KRITIS. Ambos se aplican. Las medidas de NIS 2 bajo el Artículo 21 son el suelo. Los deberes específicos de KRITIS bajo los §39, §32 y §65 BSIG se sitúan por encima. El BSI gestiona ambos regímenes a partir de la misma evidencia.",
       "overview": {
         "heading": "La versión corta",
         "p1": "Aproximadamente entre 1.500 y 2.000 entidades en Alemania operan una 'kritische Anlage' según la define la BSI-KritisV. Distribución de electricidad por encima de 500 GWh al año, agua potable por encima de 22 millones de metros cúbicos al año, centros de datos por encima de 3,5 megavatios de capacidad contratada, y una larga lista de otros umbrales sectoriales. Estos operadores no viven en su propio mundo aparte. Viven dentro de NIS 2 como cualquier otra entidad esencial, y los deberes KRITIS se apilan por encima.",
-        "p2": "La base procede del Artículo 21 de la Directiva NIS 2: diez medidas de gestión de riesgos de ciberseguridad, proporcionadas al riesgo. Alemania lo copia en el §30 BSIG. La capa KRITIS añade tres cosas: un listón de proporcionalidad más alto bajo el Artículo 21(1) porque las consecuencias del fallo son mayores, un ciclo de evidencia trienal obligatorio bajo el §29 BSIG, y la banda de sanción más alta bajo el §65 BSIG (hasta 10 millones de euros o el 2 por ciento del volumen de negocio del grupo).",
-        "p3": "Un único regulador gestiona ambos regímenes. El BSI registra a la entidad bajo el §33 BSIG, revisa la evidencia del §29, recibe los informes de incidentes del §32 y aplica la norma bajo el §65. La misma base de evidencia alimenta ambas capas. Esta página expone la pila jurídica, los elementos KRITIS adicionales, los dos principios que deciden cada caso límite y los tres mitos que oímos con más frecuencia."
+        "p2": "La base procede del Artículo 21 de la Directiva NIS 2: diez medidas de gestión de riesgos de ciberseguridad, proporcionadas al riesgo. Alemania lo copia en el §30 BSIG. La capa KRITIS añade tres cosas: un listón de proporcionalidad más alto bajo el Artículo 21(1) porque las consecuencias del fallo son mayores, un ciclo de evidencia trienal obligatorio bajo el §39 BSIG, y la banda de sanción más alta bajo el §65 BSIG (hasta 10 millones de euros o el 2 por ciento del volumen de negocio del grupo).",
+        "p3": "Un único regulador gestiona ambos regímenes. El BSI registra a la entidad bajo el §33 BSIG, revisa la evidencia del §39, recibe los informes de incidentes del §32 y aplica la norma bajo el §65. La misma base de evidencia alimenta ambas capas. Esta página expone la pila jurídica, los elementos KRITIS adicionales, los dos principios que deciden cada caso límite y los tres mitos que oímos con más frecuencia."
       },
       "legalAnchor": {
         "heading": "La fuente jurídica",
@@ -12286,9 +12286,9 @@
           "context": "El BSIG apila los deberes en una única ley. El §28 establece el ámbito (esencial, importante, operador KRITIS). El §30 establece las diez medidas. El §32 establece la cascada de notificación de incidentes (24 horas alerta temprana, 72 horas notificación, un mes informe final). El §33 establece el deber de registro ante el BSI. El §65 establece la banda de sanción: hasta 10 millones de euros o el 2 por ciento del volumen de negocio del grupo para las entidades esenciales y los operadores KRITIS, hasta 7 millones de euros o el 1,4 por ciento para las entidades importantes. Los operadores KRITIS se sitúan en la banda más alta incluso si su sector fuera de otro modo Anexo II."
         },
         "kritisRegulation": {
-          "label": "§29 BSIG y BSI-KritisV",
+          "label": "§39 BSIG y BSI-KritisV",
           "quote": "Betreiber kritischer Anlagen müssen mindestens alle drei Jahre dem Bundesamt für Sicherheit in der Informationstechnik die Erfüllung der Anforderungen nachweisen. Der Nachweis erfolgt durch Sicherheitsaudits, Prüfungen oder Zertifizierungen.",
-          "context": "El §29 BSIG es el ciclo de evidencia específico de KRITIS. Cada tres años, el operador entrega al BSI una auditoría, una inspección o una certificación que demuestre que las medidas del §30 funcionan realmente. La Anlage se define por la BSI-KritisV: umbrales cuantitativos específicos por sector (distribución de electricidad a 500 GWh al año, agua potable a 22 millones de metros cúbicos al año, centros de datos a 3,5 megavatios de capacidad de TI contratada, y así sucesivamente). Alcance un umbral y será un Betreiber kritischer Anlage. El ciclo del §29 se adhiere automáticamente."
+          "context": "El §39 BSIG es el ciclo de evidencia específico de KRITIS. Cada tres años, el operador entrega al BSI una auditoría, una inspección o una certificación que demuestre que las medidas del §30 funcionan realmente. La Anlage se define por la BSI-KritisV: umbrales cuantitativos específicos por sector (distribución de electricidad a 500 GWh al año, agua potable a 22 millones de metros cúbicos al año, centros de datos a 3,5 megavatios de capacidad de TI contratada, y así sucesivamente). Alcance un umbral y será un Betreiber kritischer Anlage. El ciclo del §39 se adhiere automáticamente."
         }
       },
       "elements": {
@@ -12302,7 +12302,7 @@
           },
           "kritisAdditions": {
             "section": "Capa 2",
-            "title": "Nachweis trienal bajo el §29 BSIG",
+            "title": "Nachweis trienal bajo el §39 BSIG",
             "body": "Por encima de la base de NIS 2, un operador KRITIS entrega al BSI un paquete de evidencia cada tres años: un informe de auditoría, una inspección o una certificación reconocida que cubra las medidas del §30. El ciclo es fijo, no basado en el riesgo. Incumplir el plazo desencadena la aplicación de la norma bajo el §65 BSIG. El registro bajo el §33 también incluye campos adicionales para los operadores KRITIS: servicio crítico, métricas de abastecimiento, la ubicación de la Anlage y un punto de contacto 24/7."
           },
           "sectorSpecific": {
@@ -12318,11 +12318,11 @@
         "items": {
           "stacked": {
             "title": "Un regulador, una base de evidencia, dos capas",
-            "body": "El BSI gestiona ambos regímenes desde la misma oficina de Bonn. La auditoría que entrega bajo el §29 BSIG es la misma auditoría que prueba sus medidas del §30 para NIS 2. El registro de proveedores que mantiene para el Artículo 21(2)(d) es el mismo registro que el BSI lee durante una inspección del §29. KRITIS no duplica la evidencia de NIS 2. Solo le pide probar las medidas de NIS 2 en un ciclo fijo, con la banda de sanción más alta como respaldo."
+            "body": "El BSI gestiona ambos regímenes desde la misma oficina de Bonn. La auditoría que entrega bajo el §39 BSIG es la misma auditoría que prueba sus medidas del §30 para NIS 2. El registro de proveedores que mantiene para el Artículo 21(2)(d) es el mismo registro que el BSI lee durante una inspección del §39. KRITIS no duplica la evidencia de NIS 2. Solo le pide probar las medidas de NIS 2 en un ciclo fijo, con la banda de sanción más alta como respaldo."
           },
           "fallback": {
             "title": "KRITIS es aditivo, no un reemplazo",
-            "body": "Una lectura errónea frecuente: 'somos KRITIS, así que las reglas de NIS 2 no se aplican.' Dirección equivocada. KRITIS se sitúa por encima de NIS 2 en el BSIG, no junto a él. El §28 enumera a los operadores KRITIS además de las entidades esenciales e importantes. El §30 (medidas), el §32 (notificación) y el §33 (registro) se aplican a las tres. El §29 (Nachweis trienal) y la banda más alta del §65 son los extras específicos de KRITIS. Suprima las medidas de NIS 2 e incumple el Artículo 21 de la Directiva."
+            "body": "Una lectura errónea frecuente: 'somos KRITIS, así que las reglas de NIS 2 no se aplican.' Dirección equivocada. KRITIS se sitúa por encima de NIS 2 en el BSIG, no junto a él. El §28 enumera a los operadores KRITIS además de las entidades esenciales e importantes. El §30 (medidas), el §32 (notificación) y el §33 (registro) se aplican a las tres. El §39 (Nachweis trienal) y la banda más alta del §65 son los extras específicos de KRITIS. Suprima las medidas de NIS 2 e incumple el Artículo 21 de la Directiva."
           }
         }
       },
@@ -12333,7 +12333,7 @@
           "bsi": {
             "country": "Alemania",
             "label": "El BSI gestiona ambos regímenes",
-            "body": "El Bundesamt für Sicherheit in der Informationstechnik es la autoridad competente central bajo el §40 BSIG. Registra a los operadores KRITIS, revisa la evidencia del §29, recibe los informes de incidentes del §32 y aplica la norma bajo el §65. La misma oficina de Bonn gestiona un fabricante del Anexo II de 60 personas y un distribuidor de electricidad de 5.000 personas. Escala distinta, mismo regulador, misma pila jurídica."
+            "body": "El Bundesamt für Sicherheit in der Informationstechnik es la autoridad competente central bajo el §40 BSIG. Registra a los operadores KRITIS, revisa la evidencia del §39, recibe los informes de incidentes del §32 y aplica la norma bajo el §65. La misma oficina de Bonn gestiona un fabricante del Anexo II de 60 personas y un distribuidor de electricidad de 5.000 personas. Escala distinta, mismo regulador, misma pila jurídica."
           },
           "sectorAufsicht": {
             "country": "Alemania (superposiciones sectoriales)",
@@ -12343,7 +12343,7 @@
           "otherMs": {
             "country": "A escala de la UE",
             "label": "Sin equivalente KRITIS directo a nivel de la UE",
-            "body": "La Directiva NIS 2 no contiene un régimen KRITIS. ENISA no gestiona un ciclo de evidencia trienal. La construcción comparable más próxima es la Directiva CER (2022/2557) sobre la resiliencia de las entidades críticas, que trata de la resiliencia física, no de la ciberseguridad. Otros Estados miembros transponen el Artículo 21 y el Artículo 23 del mismo modo, pero la capa KRITIS alemana adicional es una opción nacional heredada de la IT-Sicherheitsgesetz de 2015. Las filiales extranjeras de un operador KRITIS alemán no asumen el deber del §29 en el extranjero."
+            "body": "La Directiva NIS 2 no contiene un régimen KRITIS. ENISA no gestiona un ciclo de evidencia trienal. La construcción comparable más próxima es la Directiva CER (2022/2557) sobre la resiliencia de las entidades críticas, que trata de la resiliencia física, no de la ciberseguridad. Otros Estados miembros transponen el Artículo 21 y el Artículo 23 del mismo modo, pero la capa KRITIS alemana adicional es una opción nacional heredada de la IT-Sicherheitsgesetz de 2015. Las filiales extranjeras de un operador KRITIS alemán no asumen el deber del §39 en el extranjero."
           }
         }
       },
@@ -12353,33 +12353,33 @@
         "items": {
           "kritisReplacesNis2": {
             "myth": "Somos KRITIS, así que las nuevas reglas de NIS 2 no se nos aplican.",
-            "reality": "Dirección equivocada. El §28 BSIG enumera a los operadores KRITIS como una de las tres categorías reguladas junto a las entidades esenciales e importantes. El §30 (medidas), el §32 (notificación), el §33 (registro) y la base del Artículo 21 se aplican a las tres. Los extras específicos de KRITIS son el §29 (Nachweis trienal) y la banda de sanción del §65. Si suprime las medidas de NIS 2 porque 'KRITIS ya lo cubre', incumple el Artículo 21 de la Directiva y la transposición alemana."
+            "reality": "Dirección equivocada. El §28 BSIG enumera a los operadores KRITIS como una de las tres categorías reguladas junto a las entidades esenciales e importantes. El §30 (medidas), el §32 (notificación), el §33 (registro) y la base del Artículo 21 se aplican a las tres. Los extras específicos de KRITIS son el §39 (Nachweis trienal) y la banda de sanción del §65. Si suprime las medidas de NIS 2 porque 'KRITIS ya lo cubre', incumple el Artículo 21 de la Directiva y la transposición alemana."
           },
           "belowThresholdMeansNoNis2": {
             "myth": "Estamos por debajo del umbral de la KRITIS-V, así que también estamos fuera de NIS 2.",
-            "reality": "El umbral de la BSI-KritisV (p. ej. 500 GWh al año para la distribución de electricidad, 22 millones de metros cúbicos al año para el agua, 3,5 megavatios para los centros de datos) decide KRITIS, no NIS 2. Una empresa municipal de servicios públicos que abastece a 80.000 personas está por debajo del umbral KRITIS pero sigue estando en el sector 1 del Anexo I (energía) y es casi con seguridad una mediana empresa. Eso la sitúa en el ámbito de NIS 2 como entidad esencial, con obligaciones de los §30, §32 y §33. Solo que sin el ciclo trienal del §29 y con la banda de sanción más baja del §65."
+            "reality": "El umbral de la BSI-KritisV (p. ej. 500 GWh al año para la distribución de electricidad, 22 millones de metros cúbicos al año para el agua, 3,5 megavatios para los centros de datos) decide KRITIS, no NIS 2. Una empresa municipal de servicios públicos que abastece a 80.000 personas está por debajo del umbral KRITIS pero sigue estando en el sector 1 del Anexo I (energía) y es casi con seguridad una mediana empresa. Eso la sitúa en el ámbito de NIS 2 como entidad esencial, con obligaciones de los §30, §32 y §33. Solo que sin el ciclo trienal del §39 y con la banda de sanción más baja del §65."
           },
           "kritisAuditCoversAll": {
-            "myth": "Acabamos de pasar nuestra auditoría del §29, así que también hemos terminado con NIS 2.",
-            "reality": "Pasar un Nachweis del §29 cubre el ciclo de evidencia. No desactiva el resto de NIS 2. La cascada de notificación de incidentes del §32 (24 horas / 72 horas / un mes) discurre de forma continua. Los datos de registro del §33 tienen que mantenerse actualizados en un plazo de dos semanas tras cualquier cambio (Artículo 27(2) NIS 2). El riesgo de proveedores bajo el §30(2) punto 4 discurre como obligación continua. La auditoría del §29 es una instantánea. El resto del BSIG es el sistema operativo."
+            "myth": "Acabamos de pasar nuestra auditoría del §39, así que también hemos terminado con NIS 2.",
+            "reality": "Pasar un Nachweis del §39 cubre el ciclo de evidencia. No desactiva el resto de NIS 2. La cascada de notificación de incidentes del §32 (24 horas / 72 horas / un mes) discurre de forma continua. Los datos de registro del §33 tienen que mantenerse actualizados en un plazo de dos semanas tras cualquier cambio (Art. 3(4) NIS 2). El riesgo de proveedores bajo el §30(2) punto 4 discurre como obligación continua. La auditoría del §39 es una instantánea. El resto del BSIG es el sistema operativo."
           }
         }
       },
       "practitioner": {
         "heading": "Práctica: un Stadtwerk con sectores mixtos",
         "p1": "Tome una empresa municipal de servicios públicos (Stadtwerk) en una ciudad de 200.000 habitantes. Distribución de electricidad, agua potable, calefacción urbana, transporte público y una filial de fibra. Coloque la BSI-KritisV junto al organigrama de la empresa. La distribución de electricidad por encima de 500 GWh al año cruza el umbral. El agua potable por encima de 22 millones de metros cúbicos al año lo cruza. La calefacción urbana por debajo del umbral no. El transporte público se sitúa en el Anexo II de la Directiva pero no tiene clasificación de Anlage en Alemania.",
-        "p2": "El resultado es una única empresa bajo tres niveles de lectura a la vez. Dos líneas de negocio (Strom, Wasser) son Anlagen KRITIS con el ciclo completo de Nachweis del §29 por encima. Una línea de negocio (Fernwärme) es sector 1 del Anexo I pero por debajo del umbral KRITIS, de modo que NIS 2 esencial sin §29. Una línea de negocio (ÖPNV) es transporte del Anexo II. La filial de fibra es sector 8 del Anexo I si cruza el umbral de tamaño por sí sola. Un único registro del §33 cubre la persona jurídica. La auditoría del §29 cubre solo las Anlagen KRITIS. Las medidas del §30 lo cubren todo."
+        "p2": "El resultado es una única empresa bajo tres niveles de lectura a la vez. Dos líneas de negocio (Strom, Wasser) son Anlagen KRITIS con el ciclo completo de Nachweis del §39 por encima. Una línea de negocio (Fernwärme) es sector 1 del Anexo I pero por debajo del umbral KRITIS, de modo que NIS 2 esencial sin §39. Una línea de negocio (ÖPNV) es transporte del Anexo II. La filial de fibra es sector 8 del Anexo I si cruza el umbral de tamaño por sí sola. Un único registro del §33 cubre la persona jurídica. La auditoría del §39 cubre solo las Anlagen KRITIS. Las medidas del §30 lo cubren todo."
       },
       "platform": {
         "heading": "Cómo gestionamos esto en la plataforma",
-        "p1": "La comprobación de aplicabilidad recorre los umbrales de la BSI-KritisV línea por línea: qué Anlage, qué sector, qué métrica cuantitativa, qué umbral. Si cruza uno, la página señala el ciclo de Nachweis del §29 y cambia el perfil de la empresa a operador KRITIS. El módulo de registro hace aparecer después los campos adicionales del §33 (servicio crítico, métricas de abastecimiento, ubicación, contacto 24/7). La calculadora de sanciones cambia a la banda más alta del §65.",
-        "p2": "La base de evidencia es compartida. Los mismos controles que satisfacen el §30 BSIG producen el rastro de auditoría que entrega al BSI bajo el §29. El registro de proveedores del Artículo 21(2)(d) es el mismo registro que se revisa durante una inspección del §29. El formulario de notificación de incidentes cubre la cascada del §32 (24 horas / 72 horas / un mes) para ambos regímenes. Una base de evidencia, dos destinos de notificación cuando es necesario (BSI más, para energía y telecomunicaciones, la BNetzA)."
+        "p1": "La comprobación de aplicabilidad recorre los umbrales de la BSI-KritisV línea por línea: qué Anlage, qué sector, qué métrica cuantitativa, qué umbral. Si cruza uno, la página señala el ciclo de Nachweis del §39 y cambia el perfil de la empresa a operador KRITIS. El módulo de registro hace aparecer después los campos adicionales del §33 (servicio crítico, métricas de abastecimiento, ubicación, contacto 24/7). La calculadora de sanciones cambia a la banda más alta del §65.",
+        "p2": "La base de evidencia es compartida. Los mismos controles que satisfacen el §30 BSIG producen el rastro de auditoría que entrega al BSI bajo el §39. El registro de proveedores del Artículo 21(2)(d) es el mismo registro que se revisa durante una inspección del §39. El formulario de notificación de incidentes cubre la cascada del §32 (24 horas / 72 horas / un mes) para ambos regímenes. Una base de evidencia, dos destinos de notificación cuando es necesario (BSI más, para energía y telecomunicaciones, la BNetzA)."
       },
       "sources": {
         "heading": "Fuentes",
         "items": [
-          "Directiva (UE) 2022/2555 (NIS 2), Artículo 21(1) (proporcionalidad), Artículo 21(2) (diez medidas), Artículo 27 (actualización del registro): eur-lex.europa.eu/eli/dir/2022/2555/oj",
-          "BSIG (NIS2-Umsetzungsgesetz), §28 (ámbito), §29 (Nachweis trienal para operadores KRITIS), §30 (medidas), §32 (notificación de incidentes), §33 (registro), §65 (sanciones): gesetze-im-internet.de/bsig_2009",
+          "Directiva (UE) 2022/2555 (NIS 2), Artículo 21(1) (proporcionalidad), Artículo 21(2) (diez medidas), Artículo 3(4) (actualización del registro): eur-lex.europa.eu/eli/dir/2022/2555/oj",
+          "BSIG (NIS2-Umsetzungsgesetz), §28 (ámbito), §39 (Nachweis trienal para operadores KRITIS), §30 (medidas), §32 (notificación de incidentes), §33 (registro), §65 (sanciones): gesetze-im-internet.de/bsig_2009",
           "BSI-KritisV (Verordnung zur Bestimmung kritischer Anlagen), umbrales específicos por sector para electricidad, agua, alimentación, salud, transporte, finanzas, TI y telecomunicaciones, residuos, espacio: gesetze-im-internet.de/bsi-kritisv",
           "BSI, paquete informativo 'Kritische Infrastrukturen' y FAQ de NIS 2: bsi.bund.de/DE/Themen/KRITIS-und-regulierte-Unternehmen",
           "Bundesnetzagentur, IT-Sicherheitskatalog según el §11 EnWG (superposición del sector energético): bundesnetzagentur.de",
@@ -12388,7 +12388,7 @@
       },
       "ctaCard": {
         "heading": "Ejecute la comprobación de umbrales KRITIS-V sobre sus operaciones",
-        "description": "Aplicabilidad, registro del §33, medidas del §30 y evidencia de Nachweis del §29 en una única plataforma. Kostenlos, Open Source, kein Lock-in."
+        "description": "Aplicabilidad, registro del §33, medidas del §30 y evidencia de Nachweis del §39 en una única plataforma. Kostenlos, Open Source, kein Lock-in."
       },
       "cta": "Abrir la plataforma gratuita"
     },
@@ -12688,7 +12688,7 @@
         "transposition": {
           "label": "§64 BSIG (Alemania)",
           "quote": "Das Bundesamt kann die zur Erfüllung seiner Aufgaben erforderlichen Informationen einschließlich personenbezogener Daten verarbeiten. Es kann insbesondere Auskünfte und die Übermittlung von Unterlagen verlangen, Räume, Grundstücke und Anlagen besonders wichtiger und wichtiger Einrichtungen während der üblichen Geschäftszeiten betreten und besichtigen sowie Prüfungen, einschließlich technischer Untersuchungen, vornehmen.",
-          "context": "El §64 BSIG otorga al BSI tres competencias operativas: solicitar documentos, entrar en sus oficinas durante el horario laboral, llevar a cabo una inspección técnica. El §61 BSIG fija el ámbito de supervisión más amplio. El §65 BSIG fija las sanciones, con los topes del artículo 34 trasladados directamente. Los operadores KRITIS asumen un deber trienal adicional de evidencia conforme al §29 BSIG."
+          "context": "El §64 BSIG otorga al BSI tres competencias operativas: solicitar documentos, entrar en sus oficinas durante el horario laboral, llevar a cabo una inspección técnica. El §61 BSIG fija el ámbito de supervisión más amplio. El §65 BSIG fija las sanciones, con los topes del artículo 34 trasladados directamente. Los operadores KRITIS asumen un deber trienal adicional de evidencia conforme al §39 BSIG."
         }
       },
       "elements": {
@@ -12708,7 +12708,7 @@
           "dataRoom": {
             "section": "Paso 4",
             "title": "Auditoría de seguridad específica e inspección técnica",
-            "body": "El artículo 32(2)(b) permite al BSI ordenar una auditoría de seguridad periódica o específica por un organismo independiente, a su costa. El §64 BSIG añade la technische Untersuchung: escaneos, revisiones de configuración, análisis de registros. El artículo 32(2)(d) les permite ejecutar escaneos de seguridad en su perímetro conforme a criterios objetivos y no discriminatorios. Este paso es raro para las entidades importantes, estructuralmente disponible para las entidades esenciales, y la vía estándar para los operadores KRITIS conforme al §29 BSIG (ciclo trienal de Nachweis)."
+            "body": "El artículo 32(2)(b) permite al BSI ordenar una auditoría de seguridad periódica o específica por un organismo independiente, a su costa. El §64 BSIG añade la technische Untersuchung: escaneos, revisiones de configuración, análisis de registros. El artículo 32(2)(d) les permite ejecutar escaneos de seguridad en su perímetro conforme a criterios objetivos y no discriminatorios. Este paso es raro para las entidades importantes, estructuralmente disponible para las entidades esenciales, y la vía estándar para los operadores KRITIS conforme al §39 BSIG (ciclo trienal de Nachweis)."
           }
         }
       },
@@ -12732,8 +12732,8 @@
         "items": {
           "bsi": {
             "country": "Alemania",
-            "label": "Auditoría estándar del BSI + Nachweis KRITIS del §29",
-            "body": "Para las entidades esenciales e importantes, el BSI opera la escalera del §64 BSIG desde la solicitud de documentación hacia arriba. Para los operadores KRITIS (infraestructura crítica conforme al §28 BSIG), el §29 BSIG añade un deber trienal de Nachweis: cada tres años, el operador presenta evidencia (normalmente un informe de auditoría externa) que muestra que las medidas del §30 BSIG están implantadas. El Nachweis del §29 se rige por el calendario y no depende de que el BSI inicie una auditoría."
+            "label": "Auditoría estándar del BSI + Nachweis KRITIS del §39",
+            "body": "Para las entidades esenciales e importantes, el BSI opera la escalera del §64 BSIG desde la solicitud de documentación hacia arriba. Para los operadores KRITIS (infraestructura crítica conforme al §28 BSIG), el §39 BSIG añade un deber trienal de Nachweis: cada tres años, el operador presenta evidencia (normalmente un informe de auditoría externa) que muestra que las medidas del §30 BSIG están implantadas. El Nachweis del §39 se rige por el calendario y no depende de que el BSI inicie una auditoría."
           },
           "enisa": {
             "country": "Toda la UE",
@@ -12761,26 +12761,26 @@
           },
           "onlyWhatWeHand": {
             "myth": "Solo somos responsables de lo que operamos nosotros mismos, no de nuestros proveedores.",
-            "reality": "El artículo 21(2)(d) de NIS2 y el §30(2)(4) BSIG ponen la seguridad de la cadena de suministro sobre la entidad, no sobre el proveedor. Una respuesta de caja negra como «nuestro proveedor de servicios gestionados se encarga de eso» es un hallazgo. El auditor pedirá las cláusulas del contrato, la evaluación de riesgos del proveedor y la evidencia de que comprueba al proveedor. Los operadores KRITIS afrontan esto de forma más aguda: el Nachweis del §29 cubre también los servicios gestionados. Puede externalizar la operación, no la rendición de cuentas."
+            "reality": "El artículo 21(2)(d) de NIS2 y el §30(2)(4) BSIG ponen la seguridad de la cadena de suministro sobre la entidad, no sobre el proveedor. Una respuesta de caja negra como «nuestro proveedor de servicios gestionados se encarga de eso» es un hallazgo. El auditor pedirá las cláusulas del contrato, la evaluación de riesgos del proveedor y la evidencia de que comprueba al proveedor. Los operadores KRITIS afrontan esto de forma más aguda: el Nachweis del §39 cubre también los servicios gestionados. Puede externalizar la operación, no la rendición de cuentas."
           }
         }
       },
       "practitioner": {
         "heading": "Cómo gestiona esto un operador KRITIS real",
-        "p1": "Un proveedor regional de energía con el que trabajamos está dentro del ámbito de aplicación como operador KRITIS conforme al §28 BSIG. Su último Nachweis del §29 fue hace dieciocho meses, el siguiente vence dentro de dieciocho. Llevan la preparación de forma continua: cada trimestre, el CISO recorre una medida del §30 BSIG con el director gerente, captura la evidencia (versión de la política, aprobación, última revisión, elementos de tratamiento abiertos) y cierra cualquier laguna antes del siguiente trimestre. Para cuando el auditor llama a la puerta, no se produce nada para la visita. Todo está fechado.",
-        "p2": "El propio Nachweis del §29 se ejecuta a través de un auditor externo contratado por el operador. El BSI no lleva a cabo la auditoría directamente: acepta el informe externo. El informe de auditoría señala las lagunas como «erhebliche Mängel» (defectos significativos), «sonstige Mängel» (otros defectos) o ninguna. Los defectos significativos activan deberes de seguimiento. Los otros defectos vienen con un plan de tratamiento y una fecha objetivo. El proveedor de energía cierra alrededor del ochenta por ciento de los hallazgos de auditoría antes de que el informe llegue al BSI, tratando la lista de lagunas como el orden del día permanente de los dos trimestres siguientes."
+        "p1": "Un proveedor regional de energía con el que trabajamos está dentro del ámbito de aplicación como operador KRITIS conforme al §28 BSIG. Su último Nachweis del §39 fue hace dieciocho meses, el siguiente vence dentro de dieciocho. Llevan la preparación de forma continua: cada trimestre, el CISO recorre una medida del §30 BSIG con el director gerente, captura la evidencia (versión de la política, aprobación, última revisión, elementos de tratamiento abiertos) y cierra cualquier laguna antes del siguiente trimestre. Para cuando el auditor llama a la puerta, no se produce nada para la visita. Todo está fechado.",
+        "p2": "El propio Nachweis del §39 se ejecuta a través de un auditor externo contratado por el operador. El BSI no lleva a cabo la auditoría directamente: acepta el informe externo. El informe de auditoría señala las lagunas como «erhebliche Mängel» (defectos significativos), «sonstige Mängel» (otros defectos) o ninguna. Los defectos significativos activan deberes de seguimiento. Los otros defectos vienen con un plan de tratamiento y una fecha objetivo. El proveedor de energía cierra alrededor del ochenta por ciento de los hallazgos de auditoría antes de que el informe llegue al BSI, tratando la lista de lagunas como el orden del día permanente de los dos trimestres siguientes."
       },
       "platform": {
         "heading": "Cómo gestionamos esto en la plataforma",
         "p1": "Cada requisito de NIS2 en la plataforma produce tres cosas por defecto: una política con una versión y una aprobación, una revisión recurrente con un plazo, y un registro de auditoría que anota quién hizo qué y cuándo. Una Auskunfts- und Unterlagenanforderung del §64 BSIG se convierte en una exportación, no en un proyecto de redacción. Usted entrega un paquete de evidencia empaquetado (políticas, aprobaciones, lista de activos, registro de riesgos, registro de incidentes, registros de formación, lista de proveedores) en lugar de rastrear archivos.",
-        "p2": "Para los operadores KRITIS el Nachweis del §29 se ejecuta sobre los mismos datos. El auditor externo obtiene una vista de solo lectura de los mismos artefactos que la empresa ya opera. No hay una segunda herramienta, ni una pila paralela de hojas de cálculo, ni una carrera de la semana de auditoría. El punto es estructural: cuando llega el día de la carta de auditoría, usted no está preparando. Está exportando."
+        "p2": "Para los operadores KRITIS el Nachweis del §39 se ejecuta sobre los mismos datos. El auditor externo obtiene una vista de solo lectura de los mismos artefactos que la empresa ya opera. No hay una segunda herramienta, ni una pila paralela de hojas de cálculo, ni una carrera de la semana de auditoría. El punto es estructural: cuando llega el día de la carta de auditoría, usted no está preparando. Está exportando."
       },
       "sources": {
         "heading": "Fuentes",
         "items": [
           "Directiva (UE) 2022/2555 (NIS2), Artículos 32, 33, 34: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Reglamento de Ejecución (UE) 2024/2690 de la Comisión (CIR), Anexo: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "Ley del BSI (BSIG), §29 (Nachweis KRITIS), §61 (Aufsichtsbefugnisse), §64 (Auskunfts- und Untersuchungsbefugnisse), §65 (Bußgeldvorschriften)",
+          "Ley del BSI (BSIG), §39 (Nachweis KRITIS), §61 (Aufsichtsbefugnisse), §64 (Auskunfts- und Untersuchungsbefugnisse), §65 (Bußgeldvorschriften)",
           "BSI Infopakete «NIS 2 Pflichten»: bsi.bund.de/dok/nis-2-infopakete",
           "ENISA Technical Implementation Guidance para la CIR (UE) 2024/2690 (a mayo de 2026)",
           "Documentos de referencia del Grupo de Cooperación NIS sobre la práctica de supervisión: digital-strategy.ec.europa.eu"
@@ -13073,7 +13073,7 @@
       "cta": "Ejecute la comprobación de aplicabilidad",
       "overview": {
         "heading": "Visión general",
-        "p1": "El ciberseguro y NIS 2 se sitúan en capas distintas. Una ciberpóliza es un contrato privado entre una entidad y una aseguradora que paga costes definidos tras un incidente. NIS 2 es derecho público: el artículo 21 expone las medidas técnicas y organizativas que las entidades esenciales e importantes tienen que implementar, el artículo 23 expone el deber de notificación, el artículo 27 expone el deber de registro. Ninguno de estos deberes se traslada a la aseguradora cuando se firma una póliza.",
+        "p1": "El ciberseguro y NIS 2 se sitúan en capas distintas. Una ciberpóliza es un contrato privado entre una entidad y una aseguradora que paga costes definidos tras un incidente. NIS 2 es derecho público: el artículo 21 expone las medidas técnicas y organizativas que las entidades esenciales e importantes tienen que implementar, el artículo 23 expone el deber de notificación, el artículo 3(4) expone el deber de registro. Ninguno de estos deberes se traslada a la aseguradora cuando se firma una póliza.",
         "p2": "El BSI lo afirma directamente. Su paquete de información sobre NIS 2 describe la transferencia generalizada del riesgo mediante una póliza de seguro como no disponible bajo el régimen de gestión de riesgos de la directiva. El artículo 21(1) NIS 2 exige medidas adecuadas y proporcionadas, teniendo en cuenta el estado de la técnica y el coste de implementación. Una póliza firmada no es ni una medida ni un sustituto de una.",
         "p3": "La pregunta práctica para un operador incluido en el ámbito del artículo 21 no es, por tanto, si tener ciberseguro, sino cómo interactúa la póliza con los controles subyacentes de NIS 2. La mayoría de las pólizas exigen que esos controles estén implementados como condición previa para la cobertura. Esos mismos controles son los que el BSI y los supervisores nacionales examinan durante una auditoría de NIS 2."
       },
@@ -13684,7 +13684,7 @@
           "sector": {
             "country": "DE",
             "label": "Supervisores sectoriales",
-            "body": "Para finanzas, energía, transporte y salud, los reguladores sectoriales conservan un papel paralelo conforme al §61 BSIG y a la ley sectorial específica. El límite máximo del §65 BSIG sigue aplicándose. Cuando DORA cubre a una entidad financiera, el propio régimen sancionador de DORA tiene precedencia sobre las medidas de ciberseguridad, pero el deber de registro del artículo 27 NIS 2 sigue rigiendo."
+            "body": "Para finanzas, energía, transporte y salud, los reguladores sectoriales conservan un papel paralelo conforme al §61 BSIG y a la ley sectorial específica. El límite máximo del §65 BSIG sigue aplicándose. Cuando DORA cubre a una entidad financiera, el propio régimen sancionador de DORA tiene precedencia sobre las medidas de ciberseguridad, pero el deber de registro del artículo 3(4) NIS 2 sigue rigiendo."
           }
         }
       },
@@ -13806,7 +13806,7 @@
           "bsi": {
             "country": "DE",
             "label": "El BSI como autoridad sectorial",
-            "body": "El Bundesamt für Sicherheit in der Informationstechnik (BSI) es la autoridad competente para la supervisión de NIS 2 en virtud del §61 BSIG. Una denuncia de un whistleblower que alegue que una entidad no cumple las medidas del artículo 21 o que no se ha registrado en virtud del artículo 27 acabará normalmente en el BSI a través del encaminamiento del canal externo, aunque se presente primero ante el Bundesamt für Justiz."
+            "body": "El Bundesamt für Sicherheit in der Informationstechnik (BSI) es la autoridad competente para la supervisión de NIS 2 en virtud del §61 BSIG. Una denuncia de un whistleblower que alegue que una entidad no cumple las medidas del artículo 21 o que no se ha registrado en virtud del artículo 3(4) acabará normalmente en el BSI a través del encaminamiento del canal externo, aunque se presente primero ante el Bundesamt für Justiz."
           },
           "bfdi": {
             "country": "DE",
@@ -14662,7 +14662,7 @@
     "nis2Bankwesen": {
       "meta": {
         "title": "La banca bajo NIS 2: anexo I sector 4, artículo 4 y DORA",
-        "description": "Cómo trata NIS 2 al sector bancario. Ámbito del anexo I sector 4, lex specialis del artículo 4 con el Reglamento (UE) 2022/2554 DORA, registro del artículo 27 que sigue aplicándose, papeles de BaFin y del BCE."
+        "description": "Cómo trata NIS 2 al sector bancario. Ámbito del anexo I sector 4, lex specialis del artículo 4 con el Reglamento (UE) 2022/2554 DORA, registro del artículo 3(4) que sigue aplicándose, papeles de BaFin y del BCE."
       },
       "title": "La banca bajo NIS 2",
       "subtitle": "El anexo I sector 4, la interacción del artículo 4 con DORA y el deber de registro que no desaparece.",
@@ -14670,7 +14670,7 @@
         "heading": "Resumen",
         "p1": "Las entidades de crédito y partes de la infraestructura del mercado financiero se sitúan en el anexo I sector 4 de la Directiva (UE) 2022/2555 (NIS 2). Sobre el papel, la directiva se les aplica. En la práctica, la mayoría de las obligaciones operativas se leen junto con el Reglamento de Resiliencia Operativa Digital, el Reglamento (UE) 2022/2554 (DORA).",
         "p2": "El artículo 4 NIS 2 es la cláusula puente. Cuando un acto sectorial específico de la Unión imponga obligaciones de gestión de riesgos de TIC o de notificación de incidentes que sean al menos equivalentes a NIS 2, las medidas y las reglas de notificación de NIS 2 ceden. Para los bancos y un conjunto definido de entidades financieras, DORA es ese acto. El artículo 21 (medidas de seguridad) y el artículo 23 (notificación de incidentes) de NIS 2 quedan desplazados por los equivalentes de DORA.",
-        "p3": "Un deber de NIS 2 no queda desplazado por el artículo 4: el deber de registro del artículo 27. Los Estados miembros siguen recopilando una lista de entidades esenciales e importantes, incluidos los bancos. En Alemania esto es la inscripción del §33 BSIG en el registro del BSI. La capa de la directiva mantiene intacto el censo incluso cuando DORA gobierna los controles."
+        "p3": "Un deber de NIS 2 no queda desplazado por el artículo 4: el deber de registro del artículo 3(4). Los Estados miembros siguen recopilando una lista de entidades esenciales e importantes, incluidos los bancos. En Alemania esto es la inscripción del §33 BSIG en el registro del BSI. La capa de la directiva mantiene intacto el censo incluso cuando DORA gobierna los controles."
       },
       "legalAnchor": {
         "heading": "Anclaje jurídico",
@@ -14686,9 +14686,9 @@
           "context": "Este es el conmutador de lex specialis. Las Autoridades Europeas de Supervisión y la Comisión han confirmado que el Reglamento (UE) 2022/2554 DORA cumple la prueba de equivalencia para las entidades financieras dentro de su ámbito. Los artículos 21 y 23 de NIS 2 se apartan para esas entidades. El resto de la directiva sigue en vigor."
         },
         "transposition": {
-          "label": "Directiva (UE) 2022/2555, artículo 27",
+          "label": "Directiva (UE) 2022/2555, artículo 3(4)",
           "quote": "Los Estados miembros exigirán a las entidades esenciales e importantes que presenten a las autoridades competentes la siguiente información ... a más tardar el 17 de abril de 2025 y, posteriormente, sin demora y, en todo caso, en un plazo de dos semanas a partir de la fecha del cambio.",
-          "context": "El artículo 27 es la cláusula de registro. No figura en la exclusión del artículo 4. En Alemania, el §33 BSIG lo operativiza con un registro del BSI. Los bancos presentan el registro incluso cuando sus obligaciones de seguridad y de notificación se rigen por DORA."
+          "context": "El artículo 3(4) es la cláusula de registro. No figura en la exclusión del artículo 4. En Alemania, el §33 BSIG lo operativiza con un registro del BSI. Los bancos presentan el registro incluso cuando sus obligaciones de seguridad y de notificación se rigen por DORA."
         }
       },
       "elements": {
@@ -14707,7 +14707,7 @@
           },
           "registration": {
             "section": "Registro",
-            "title": "El registro del artículo 27 sobrevive",
+            "title": "El registro del artículo 3(4) sobrevive",
             "body": "El registro como entidad esencial o importante es un deber de la directiva que DORA no desplaza. En Alemania se aplica la inscripción del §33 BSIG ante el BSI. Las actualizaciones en un plazo de dos semanas tras cualquier cambio siguen aplicando la regla de la directiva."
           }
         }
@@ -14722,7 +14722,7 @@
           },
           "registrationStays": {
             "title": "El registro es un deber de la directiva, no de DORA",
-            "body": "DORA no crea un registro al estilo de NIS 2 de entidades esenciales e importantes. El artículo 27 NIS 2 sí. Por eso los bancos aparecen en la lista del §33 BSIG aunque sus controles de TIC se lean frente a DORA. Los dos regímenes quedan cosidos en la capa de la directiva."
+            "body": "DORA no crea un registro al estilo de NIS 2 de entidades esenciales e importantes. El artículo 3(4) NIS 2 sí. Por eso los bancos aparecen en la lista del §33 BSIG aunque sus controles de TIC se lean frente a DORA. Los dos regímenes quedan cosidos en la capa de la directiva."
           }
         }
       },
@@ -14738,12 +14738,12 @@
           "bsi": {
             "country": "Alemania",
             "label": "BSI",
-            "body": "La Oficina Federal de Seguridad de la Información gestiona el registro del §33 BSIG que operativiza el artículo 27 NIS 2. Los bancos se registran ante el BSI a través del portal de entidades. La supervisión diaria de la ciberseguridad del banco no pasa al BSI."
+            "body": "La Oficina Federal de Seguridad de la Información gestiona el registro del §33 BSIG que operativiza el artículo 3(4) NIS 2. Los bancos se registran ante el BSI a través del portal de entidades. La supervisión diaria de la ciberseguridad del banco no pasa al BSI."
           },
           "enisa": {
             "country": "EU",
             "label": "BCE y el MUS",
-            "body": "Las entidades de crédito significativas dentro del Mecanismo Único de Supervisión están supervisadas directamente por el Banco Central Europeo. Para esas entidades, la supervisión de DORA recae en el BCE y no en la autoridad nacional competente, mientras que el registro del artículo 27 NIS 2 sigue siendo una presentación nacional."
+            "body": "Las entidades de crédito significativas dentro del Mecanismo Único de Supervisión están supervisadas directamente por el Banco Central Europeo. Para esas entidades, la supervisión de DORA recae en el BCE y no en la autoridad nacional competente, mientras que el registro del artículo 3(4) NIS 2 sigue siendo una presentación nacional."
           }
         }
       },
@@ -14753,7 +14753,7 @@
         "items": {
           "doraReplacesAll": {
             "myth": "DORA sustituye a NIS 2 para los bancos, así que NIS 2 no se aplica.",
-            "reality": "El artículo 4 NIS 2 solo desplaza las partes de NIS 2 que DORA cubre de forma equivalente. El registro del artículo 27 ante la autoridad nacional no es una de esas partes. La entidad sigue apareciendo como entidad esencial o importante en el registro nacional."
+            "reality": "El artículo 4 NIS 2 solo desplaza las partes de NIS 2 que DORA cubre de forma equivalente. El registro del artículo 3(4) ante la autoridad nacional no es una de esas partes. La entidad sigue apareciendo como entidad esencial o importante en el registro nacional."
           },
           "smallBankSafe": {
             "myth": "Somos un banco pequeño, estamos por debajo del umbral de tamaño y fuera de ámbito.",
@@ -14767,19 +14767,19 @@
       },
       "practitioner": {
         "heading": "Qué aspecto tiene esto en la práctica",
-        "p1": "Un banco mediano en Alemania suele tener dos vías de cumplimiento en marcha. Una bajo DORA, supervisada por BaFin o por el BCE si el banco es significativo. Esa vía es titular del riesgo de TIC, el registro de terceros, la notificación de incidentes graves y las pruebas de resiliencia. La otra bajo el artículo 27 NIS 2, supervisada por el BSI, es una inscripción en el registro más actualizaciones en un plazo de dos semanas tras cualquier cambio.",
+        "p1": "Un banco mediano en Alemania suele tener dos vías de cumplimiento en marcha. Una bajo DORA, supervisada por BaFin o por el BCE si el banco es significativo. Esa vía es titular del riesgo de TIC, el registro de terceros, la notificación de incidentes graves y las pruebas de resiliencia. La otra bajo el artículo 3(4) NIS 2, supervisada por el BSI, es una inscripción en el registro más actualizaciones en un plazo de dos semanas tras cualquier cambio.",
         "p2": "Los bancos cooperativos, las Sparkassen y las entidades de crédito más pequeñas se sitúan en la misma lógica. La vía de DORA es obligatoria para ellos como entidades financieras en virtud del Reglamento (UE) 2022/2554. La inscripción del §33 BSIG se sitúa junto a ella. Tratar cualquiera de las dos vías como opcional crea una exposición que es visible desde el registro público y desde los informes de BaFin por igual."
       },
       "platform": {
         "heading": "Dónde encaja la plataforma",
-        "p1": "La plataforma está construida en torno a la lógica de control de los artículos 21 y 23 NIS 2. Para una entidad financiera dentro de ámbito, esos artículos quedan desplazados por DORA, por lo que la plataforma no es el sistema de registro para la gestión de riesgos de TIC de DORA. Sigue siendo útil como compañera del registro del artículo 27, como biblioteca de políticas y evidencia, y como el lugar donde un grupo bancario documenta la capa de NIS 2 para las entidades proveedoras y del grupo que no son entidades financieras bajo DORA.",
+        "p1": "La plataforma está construida en torno a la lógica de control de los artículos 21 y 23 NIS 2. Para una entidad financiera dentro de ámbito, esos artículos quedan desplazados por DORA, por lo que la plataforma no es el sistema de registro para la gestión de riesgos de TIC de DORA. Sigue siendo útil como compañera del registro del artículo 3(4), como biblioteca de políticas y evidencia, y como el lugar donde un grupo bancario documenta la capa de NIS 2 para las entidades proveedoras y del grupo que no son entidades financieras bajo DORA.",
         "p2": "Los grupos con un perímetro mixto, por ejemplo un banco más una filial no financiera de servicios de TI en el anexo I sector 8, suelen necesitar ambos regímenes mapeados en paralelo. La plataforma está pensada para el lado de NIS 2 de ese mapa."
       },
       "sources": {
         "heading": "Fuentes",
         "items": [
           "Directiva (UE) 2022/2555 (NIS 2), anexo I sector 4 y artículo 4(1), EUR-Lex.",
-          "Directiva (UE) 2022/2555 (NIS 2), deber de registro del artículo 27, EUR-Lex.",
+          "Directiva (UE) 2022/2555 (NIS 2), deber de registro del artículo 3(4), EUR-Lex.",
           "Reglamento (UE) 2022/2554 (DORA), artículos 5 a 17 gestión de riesgos de TIC y artículos 17 a 23 notificación de incidentes, EUR-Lex.",
           "Reglamento (UE) n.º 575/2013 (RRC), artículo 4(1) definición de entidad de crédito, EUR-Lex.",
           "§33 BSIG, registro de entidades esenciales e importantes ante el BSI, gesetze-im-internet.de.",
@@ -14789,7 +14789,7 @@
       },
       "ctaCard": {
         "heading": "Ejecute la comprobación de aplicabilidad",
-        "description": "Tres minutos. Le dice si la entidad se sitúa en el anexo I sector 4, si DORA es probablemente aplicable y si el registro del artículo 27 está abierto."
+        "description": "Tres minutos. Le dice si la entidad se sitúa en el anexo I sector 4, si DORA es probablemente aplicable y si el registro del artículo 3(4) está abierto."
       },
       "cta": "Iniciar la comprobación de aplicabilidad"
     },
@@ -15174,7 +15174,7 @@
       },
       "platform": {
         "heading": "Cómo gestiona esto la plataforma",
-        "p1": "Las entidades del sector 10 ejecutan el mismo registro de obligaciones de NIS 2 que cualquier otra entidad importante: registro en virtud del artículo 27, gobernanza en virtud del artículo 20, las diez áreas de gestión de riesgos del artículo 21(2) y la notificación de incidentes en virtud del artículo 23. La plataforma estructura todas ellas como obligaciones continuas en lugar de como un proyecto puntual.",
+        "p1": "Las entidades del sector 10 ejecutan el mismo registro de obligaciones de NIS 2 que cualquier otra entidad importante: registro en virtud del artículo 3(4), gobernanza en virtud del artículo 20, las diez áreas de gestión de riesgos del artículo 21(2) y la notificación de incidentes en virtud del artículo 23. La plataforma estructura todas ellas como obligaciones continuas en lugar de como un proyecto puntual.",
         "p2": "Cuando un organismo de investigación tiene un patrón de evidencia específico (por ejemplo, contratos de transferencia de tecnología que tienen que satisfacer las cláusulas de cadena de suministro del artículo 21(2)(d)), esto reside en los módulos de proveedores y contratos. No hay un módulo de investigación independiente porque las medidas del artículo 21 son neutras en cuanto al sector."
       },
       "sources": {
@@ -15214,7 +15214,7 @@
         "directive": {
           "label": "Directiva de la UE",
           "quote": "Directiva (UE) 2022/2555 relativa a medidas para un elevado nivel común de ciberseguridad en toda la Unión (NIS 2).",
-          "context": "Establece obligaciones de gestión de riesgos (Art. 21), notificación de incidentes (Art. 23), responsabilidad del órgano de dirección (Art. 20) y registro de entidades (Art. 27). Los Estados miembros deben transponerla a su derecho nacional, pero no pueden quedar por debajo del mínimo."
+          "context": "Establece obligaciones de gestión de riesgos (Art. 21), notificación de incidentes (Art. 23), responsabilidad del órgano de dirección (Art. 20) y registro de entidades (Art. 3(4)). Los Estados miembros deben transponerla a su derecho nacional, pero no pueden quedar por debajo del mínimo."
         },
         "regulation": {
           "label": "Reglamento de ejecución de la UE",
@@ -15293,18 +15293,18 @@
           },
           "noRegistry": {
             "myth": "Todavía no hay obligación de registro neerlandesa, así que podemos esperar.",
-            "reality": "El Art. 27 NIS 2 exige que cada Estado miembro mantenga un registro y que las entidades aporten sus datos. Los Países Bajos pondrán en marcha un canal de registro a través de las autoridades competentes una vez que la Cbw entre en vigor. La regla de actualización en dos semanas del Art. 27(2) es de ámbito europeo y vincula a las entidades neerlandesas en el momento en que la ley se aplique."
+            "reality": "El Art. 3(4) NIS 2 exige que cada Estado miembro mantenga un registro y que las entidades aporten sus datos. Los Países Bajos pondrán en marcha un canal de registro a través de las autoridades competentes una vez que la Cbw entre en vigor. La regla de actualización en dos semanas del Art. 3(4) NIS 2 es de ámbito europeo y vincula a las entidades neerlandesas en el momento en que la ley se aplique."
           },
           "onlySector": {
             "myth": "Mi regulador sectorial se encarga de todo, la RDI no es relevante.",
-            "reality": "Los reguladores sectoriales conservan su ámbito de supervisión financiera, de telecomunicaciones o de salud. La RDI es el supervisor horizontal de ciberseguridad para varios sectores y el punto de contacto para cuestiones de ciberseguridad intersectoriales. Para las entidades financieras cubiertas por DORA, DORA actúa como lex specialis en ciberseguridad, pero el registro NIS 2 conforme al Art. 27 sigue aplicándose."
+            "reality": "Los reguladores sectoriales conservan su ámbito de supervisión financiera, de telecomunicaciones o de salud. La RDI es el supervisor horizontal de ciberseguridad para varios sectores y el punto de contacto para cuestiones de ciberseguridad intersectoriales. Para las entidades financieras cubiertas por DORA, DORA actúa como lex specialis en ciberseguridad, pero el registro NIS 2 conforme al Art. 3(4) sigue aplicándose."
           }
         }
       },
       "practitioner": {
         "heading": "Visión del profesional",
         "p1": "La mayoría de las entidades neerlandesas dentro del ámbito ya saben que lo estarán. La pregunta no es si NIS 2 aterriza, sino cómo las encauzará el acto neerlandés. Sigue dos cosas cada semana: el estado legislativo de la Cbw en la Tweede Kamer y cualquier comunicación sectorial de la RDI que ancle el calendario o el ámbito.",
-        "p2": "Operativamente, los cuatro deberes constantes ya se sostienen hoy a nivel de la UE: gobernar la seguridad con responsabilidad de la dirección (Art. 20), ejecutar medidas de gestión de riesgos (Art. 21), notificar los incidentes significativos con el reloj de 24 y 72 horas (Art. 23) y prepararse para registrarse (Art. 27). Ninguno de esos cuatro requiere que el acto neerlandés esté en vigor para ser útil."
+        "p2": "Operativamente, los cuatro deberes constantes ya se sostienen hoy a nivel de la UE: gobernar la seguridad con responsabilidad de la dirección (Art. 20), ejecutar medidas de gestión de riesgos (Art. 21), notificar los incidentes significativos con el reloj de 24 y 72 horas (Art. 23) y prepararse para registrarse (Art. 3(4)). Ninguno de esos cuatro requiere que el acto neerlandés esté en vigor para ser útil."
       },
       "platform": {
         "heading": "Cómo ayuda la plataforma",
@@ -15392,7 +15392,7 @@
           },
           "euFloor": {
             "title": "Las leyes sectoriales siguen en vigor",
-            "body": "Los regímenes sectoriales de finanzas, energía y telecomunicaciones siguen aplicándose. Las entidades financieras siguen DORA (Reglamento (UE) 2022/2554) como lex specialis para la gestión de riesgos y la notificación de incidentes, pero permanecen dentro del ámbito de las obligaciones de registro del artículo 27 de NIS 2 a través del mecanismo de su Estado miembro."
+            "body": "Los regímenes sectoriales de finanzas, energía y telecomunicaciones siguen aplicándose. Las entidades financieras siguen DORA (Reglamento (UE) 2022/2554) como lex specialis para la gestión de riesgos y la notificación de incidentes, pero permanecen dentro del ámbito de las obligaciones de registro del artículo 3(4) de NIS 2 a través del mecanismo de su Estado miembro."
           }
         }
       },
@@ -15774,7 +15774,7 @@
           "obligations": {
             "section": "Obligaciones",
             "title": "De medidas de alto nivel del artículo 14 al artículo 21 con 10 áreas de medidas más el artículo 20 y el artículo 23",
-            "body": "El artículo 14 de NIS 1 exigía medidas adecuadas y proporcionadas en términos bastante generales. El artículo 21(2) de NIS 2 nombra 10 áreas de medidas específicas (análisis de riesgos, gestión de incidentes, continuidad de negocio, cadena de suministro, gestión de vulnerabilidades, eficacia, higiene cibernética básica y formación, criptografía, control de acceso y gestión de activos, autenticación multifactor y comunicaciones seguras). El artículo 20 añade deberes explícitos del órgano de dirección, el artículo 23 añade una cascada de notificación estructurada, y el artículo 27 añade el registro de los datos de la entidad ante la autoridad competente."
+            "body": "El artículo 14 de NIS 1 exigía medidas adecuadas y proporcionadas en términos bastante generales. El artículo 21(2) de NIS 2 nombra 10 áreas de medidas específicas (análisis de riesgos, gestión de incidentes, continuidad de negocio, cadena de suministro, gestión de vulnerabilidades, eficacia, higiene cibernética básica y formación, criptografía, control de acceso y gestión de activos, autenticación multifactor y comunicaciones seguras). El artículo 20 añade deberes explícitos del órgano de dirección, el artículo 23 añade una cascada de notificación estructurada, y el artículo 3(4) añade el registro de los datos de la entidad ante la autoridad competente."
           },
           "enforcement": {
             "section": "Aplicación",
@@ -15814,7 +15814,7 @@
           "transposition": {
             "country": "DE",
             "label": "La BSIG sustituye la arquitectura de la IT-Sicherheitsgesetz 2.0",
-            "body": "Alemania transpone NIS 2 modificando la BSIG. El modelo anterior de la IT-Sicherheitsgesetz 2.0 se centraba en los operadores KRITIS. La versión NIS 2 de la BSIG amplía el ámbito a entidades esenciales e importantes y añade los deberes de dirección del artículo 20, la notificación del artículo 23 y el registro del artículo 27."
+            "body": "Alemania transpone NIS 2 modificando la BSIG. El modelo anterior de la IT-Sicherheitsgesetz 2.0 se centraba en los operadores KRITIS. La versión NIS 2 de la BSIG amplía el ámbito a entidades esenciales e importantes y añade los deberes de dirección del artículo 20, la notificación del artículo 23 y el registro del artículo 3(4)."
           }
         }
       },
@@ -15824,7 +15824,7 @@
         "items": {
           "nis1Carryover": {
             "myth": "Nuestra documentación de NIS 1 se traslada a NIS 2.",
-            "reality": "Las medidas técnicas se trasladan en gran medida, pero la envoltura jurídica no. NIS 2 introduce deberes del órgano de dirección (artículo 20), una cascada de notificación de tres pasos (artículo 23), el registro de la entidad (artículo 27) y un catálogo estructurado del artículo 21(2). La documentación antigua de NIS 1 suele tener brechas en gobernanza, plazos de notificación y la sección de cadena de suministro. Trate los documentos de NIS 1 como un punto de partida, no como un expediente completo."
+            "reality": "Las medidas técnicas se trasladan en gran medida, pero la envoltura jurídica no. NIS 2 introduce deberes del órgano de dirección (artículo 20), una cascada de notificación de tres pasos (artículo 23), el registro de la entidad (artículo 3(4)) y un catálogo estructurado del artículo 21(2). La documentación antigua de NIS 1 suele tener brechas en gobernanza, plazos de notificación y la sección de cadena de suministro. Trate los documentos de NIS 1 como un punto de partida, no como un expediente completo."
           },
           "sameAuthority": {
             "myth": "Es el mismo regulador, así que es el mismo régimen.",
@@ -15832,18 +15832,18 @@
           },
           "noChange": {
             "myth": "No cambió nada material.",
-            "reality": "El ámbito (15 más 7 sectores con una regla de tamaño), la gobernanza (deberes de dirección del artículo 20), la notificación (cascada del artículo 23), el registro (artículo 27) y las sanciones (límites máximos del artículo 34) cambiaron todos. La misma redacción 'adecuadas y proporcionadas' aparece en ambas directivas, pero el catálogo a su alrededor es mucho más específico en NIS 2."
+            "reality": "El ámbito (15 más 7 sectores con una regla de tamaño), la gobernanza (deberes de dirección del artículo 20), la notificación (cascada del artículo 23), el registro (artículo 3(4)) y las sanciones (límites máximos del artículo 34) cambiaron todos. La misma redacción 'adecuadas y proporcionadas' aparece en ambas directivas, pero el catálogo a su alrededor es mucho más específico en NIS 2."
           }
         }
       },
       "practitioner": {
         "heading": "Visión del profesional",
-        "p1": "En la práctica, la migración rara vez es un reinicio limpio. La mayoría de las entidades reutilizan partes de su registro de riesgos, su manual de incidentes y su lista de proveedores de NIS 1, y luego añaden las piezas nuevas: una decisión del órgano de dirección sobre las medidas del artículo 21(2), un flujo de notificación del artículo 23 con las marcas de tiempo de 24 horas, 72 horas y un mes, una entrada de registro del artículo 27, y una sección de cadena de suministro que coincida con el artículo 21(2)(d).",
+        "p1": "En la práctica, la migración rara vez es un reinicio limpio. La mayoría de las entidades reutilizan partes de su registro de riesgos, su manual de incidentes y su lista de proveedores de NIS 1, y luego añaden las piezas nuevas: una decisión del órgano de dirección sobre las medidas del artículo 21(2), un flujo de notificación del artículo 23 con las marcas de tiempo de 24 horas, 72 horas y un mes, una entrada de registro del artículo 3(4), y una sección de cadena de suministro que coincida con el artículo 21(2)(d).",
         "p2": "El cambio visible más común es la notificación. La única notificación 'sin demora indebida' de NIS 1 se convierte en tres documentos separados en NIS 2, cada uno con su propio plazo y su propia audiencia dentro de la entidad. Los profesionales suelen reconstruir el flujo de incidentes primero, porque ahí es donde las nuevas reglas de plazos muerden rápidamente."
       },
       "platform": {
         "heading": "Cómo gestiona esta plataforma la migración",
-        "p1": "El registro de obligaciones está estructurado en torno a los artículos de NIS 2. Las medidas del artículo 21(2) se siguen como requisitos individuales, los plazos de notificación del artículo 23 se siguen como un flujo de incidentes de tres pasos, el registro del artículo 27 se sigue como un registro separado, y la decisión del órgano de dirección del artículo 20 se sigue como una firma.",
+        "p1": "El registro de obligaciones está estructurado en torno a los artículos de NIS 2. Las medidas del artículo 21(2) se siguen como requisitos individuales, los plazos de notificación del artículo 23 se siguen como un flujo de incidentes de tres pasos, el registro del artículo 3(4) se sigue como un registro separado, y la decisión del órgano de dirección del artículo 20 se sigue como una firma.",
         "p2": "Si una entidad ya tiene evidencia de NIS 1, puede adjuntarse al requisito correspondiente de NIS 2. La plataforma no asume el traslado; cada requisito se revisa y se marca como satisfecho, parcialmente satisfecho o abierto, con una fecha y una persona responsable."
       },
       "sources": {
@@ -16229,7 +16229,7 @@
           },
           "noRegistry": {
             "myth": "Todavía no hay una lista oficial, así que podemos esperar.",
-            "reality": "El registro es obligatorio desde el 8 de abril de 2025. Traficom mantiene la lista de entidades NIS 2 y el plazo inicial para registrarse fue el 8 de mayo de 2025. No estar registrado no significa ser conforme, significa ser invisible para el supervisor. El artículo 27(2) de NIS 2 también exige actualizaciones en un plazo de dos semanas ante cualquier cambio en los datos registrados."
+            "reality": "El registro es obligatorio desde el 8 de abril de 2025. Traficom mantiene la lista de entidades NIS 2 y el plazo inicial para registrarse fue el 8 de mayo de 2025. No estar registrado no significa ser conforme, significa ser invisible para el supervisor. El artículo 3(4) de NIS 2 también exige actualizaciones en un plazo de dos semanas ante cualquier cambio en los datos registrados."
           },
           "onlySector": {
             "myth": "Mi regulador sectorial se encarga de todo, NCSC-FI es solo consultivo.",
@@ -16636,7 +16636,7 @@
           },
           "noRegistry": {
             "myth": "Todavía no hay un portal de registro funcional.",
-            "reality": "Safeonweb@work está en marcha y operativo. Los proveedores del sector digital tenían que registrarse a más tardar el 18 de diciembre de 2024; todas las demás entidades esenciales e importantes a más tardar el 18 de marzo de 2025. El registro tardío es una brecha de conformidad sobre la que el CCB puede actuar, y los datos de registro deben mantenerse actualizados conforme al artículo 27 de la directiva."
+            "reality": "Safeonweb@work está en marcha y operativo. Los proveedores del sector digital tenían que registrarse a más tardar el 18 de diciembre de 2024; todas las demás entidades esenciales e importantes a más tardar el 18 de marzo de 2025. El registro tardío es una brecha de conformidad sobre la que el CCB puede actuar, y los datos de registro deben mantenerse actualizados conforme al artículo 3(4) de la directiva."
           },
           "onlySector": {
             "myth": "Solo están dentro del ámbito los sectores que ya tenían un regulador de NIS 1.",
@@ -17017,7 +17017,7 @@
           "bsi": {
             "country": "Alemania",
             "label": "BSI como autoridad competente",
-            "body": "El Bundesamt für Sicherheit in der Informationstechnik (BSI) es la autoridad competente alemana conforme al §29 BSIG. Supervisa las medidas de gestión de riesgos del §30 BSIG, gestiona el canal de notificación de incidentes del §32 BSIG y opera el portal de registro del §33 BSIG. Para el órgano de dirección, el BSI es la dirección a la que dirigir preguntas, registros, notificaciones de incidentes y auditorías."
+            "body": "El Bundesamt für Sicherheit in der Informationstechnik (BSI) es la autoridad competente alemana conforme al §40 BSIG. Supervisa las medidas de gestión de riesgos del §30 BSIG, gestiona el canal de notificación de incidentes del §32 BSIG y opera el portal de registro del §33 BSIG. Para el órgano de dirección, el BSI es la dirección a la que dirigir preguntas, registros, notificaciones de incidentes y auditorías."
           },
           "enisa": {
             "country": "Escala de la UE",
@@ -17064,7 +17064,7 @@
         "items": [
           "Directiva (UE) 2022/2555 (NIS 2), artículos 20, 21 y 41: eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Reglamento de Ejecución (UE) 2024/2690 de la Comisión (CIR), Anexo §1: eur-lex.europa.eu/eli/reg_impl/2024/2690/oj",
-          "Ley del BSI (BSIG), §29, §30, §32, §33 y §38: gesetze-im-internet.de/bsig_2009",
+          "Ley del BSI (BSIG), §28, §30, §32, §33 y §38: gesetze-im-internet.de/bsig_2009",
           "Aktiengesetz (AktG), §111: gesetze-im-internet.de/aktg",
           "Guía Técnica de Aplicación de ENISA para el CIR (UE) 2024/2690: enisa.europa.eu"
         ]
@@ -18540,7 +18540,7 @@
           "deadlines": {
             "section": "Plazos",
             "title": "Los plazos de la UE siguen aplicándose",
-            "body": "Chipre incumplió el plazo de transposición del 17 de octubre de 2024. Una vez que la legislación chipriota se ponga al día, el calendario de la directiva se traslada: identificación de las entidades conforme al artículo 27 de NIS 2, alerta temprana en un plazo de 24 horas, notificación del incidente en un plazo de 72 horas e informe final en un plazo de un mes. Hasta que las normas chipriotas estén plenamente en vigor, las obligaciones de nivel de la directiva siguen siendo la referencia."
+            "body": "Chipre incumplió el plazo de transposición del 17 de octubre de 2024. Una vez que la legislación chipriota se ponga al día, el calendario de la directiva se traslada: identificación de las entidades conforme al artículo 3(4) de NIS 2, alerta temprana en un plazo de 24 horas, notificación del incidente en un plazo de 72 horas e informe final en un plazo de un mes. Hasta que las normas chipriotas estén plenamente en vigor, las obligaciones de nivel de la directiva siguen siendo la referencia."
           }
         }
       },
@@ -18857,7 +18857,7 @@
           },
           "noRegistry": {
             "myth": "Dado que el registro público no es consultable, el registro es opcional.",
-            "reality": "El NKSC mantiene el registro de entidades esenciales e importantes, pero la lista no se publica abiertamente. Eso no hace que el registro sea opcional. Las entidades que cumplen el criterio de tamaño y sector en virtud del Anexo I o II de la directiva deben autoidentificarse y aportar datos de registro al NKSC. El artículo 27 de NIS 2 también exige que las entidades mantengan actualizados sus datos de registro."
+            "reality": "El NKSC mantiene el registro de entidades esenciales e importantes, pero la lista no se publica abiertamente. Eso no hace que el registro sea opcional. Las entidades que cumplen el criterio de tamaño y sector en virtud del Anexo I o II de la directiva deben autoidentificarse y aportar datos de registro al NKSC. El artículo 3(4) de NIS 2 también exige que las entidades mantengan actualizados sus datos de registro."
           },
           "onlySector": {
             "myth": "Solo los once sectores del CIR entran en el ámbito en Lituania.",
@@ -19273,14 +19273,14 @@
       },
       "legalAnchor": {
         "heading": "Dos deberes legales, un portal",
-        "description": "El §32 BSIG regula la notificación, el §33 BSIG regula el registro. Ambos transponen los Art. 23 y Art. 27 NIS 2 al derecho alemán.",
+        "description": "El §32 BSIG regula la notificación, el §33 BSIG regula el registro. Ambos transponen los Art. 23 y Art. 3(4) NIS 2 al derecho alemán.",
         "reporting": {
           "label": "§32 BSIG (deberes de notificación) + Art. 23 NIS 2",
           "quote": "Las entidades esenciales e importantes notificarán a la Oficina Federal los incidentes de seguridad significativos sin demora indebida, a más tardar en un plazo de 24 horas desde que tengan conocimiento, a través del punto único de notificación.",
           "context": "El punto único de notificación es el portal del BSI. El deber se aplica a todas las entidades esenciales e importantes, con independencia del sector o el tamaño dentro de los umbrales de NIS 2. El reloj empieza al tener conocimiento, no al producirse el daño."
         },
         "registration": {
-          "label": "§33 BSIG (deber de registro) + Art. 27 NIS 2",
+          "label": "§33 BSIG (deber de registro) + Art. 3(4) NIS 2",
           "quote": "Las entidades esenciales e importantes se registrarán ante la Oficina Federal en un plazo de tres meses desde que cumplan por primera vez las condiciones. Los cambios deberán notificarse en un plazo de dos semanas.",
           "context": "El plazo de tres meses se aplica al primer registro. El plazo de dos semanas conforme al §33(5) BSIG se aplica a cualquier cambio posterior (persona de contacto, sector, actividad). Ambos pasos se realizan a través del portal."
         }
@@ -19311,7 +19311,7 @@
           },
           "update": {
             "title": "Actualización de datos en un plazo de 2 semanas",
-            "body": "Conforme al §33(5) BSIG y al Art. 27(2) NIS 2: dos semanas para actualizar los datos de registro. El desencadenante más habitual es un cambio de personal en la persona de contacto."
+            "body": "Conforme al §33(5) BSIG y al Art. 3(4) NIS 2: dos semanas para actualizar los datos de registro. El desencadenante más habitual es un cambio de personal en la persona de contacto."
           },
           "info": {
             "title": "Acceso a alertas e informes de situación",
@@ -19336,7 +19336,7 @@
           },
           "stalePerson": {
             "title": "Persona de contacto no actualizada",
-            "body": "Los cambios de personal son el incumplimiento silencioso más habitual de NIS 2. Conforme al §33(5) BSIG y al Art. 27(2) NIS 2 dispone de dos semanas para actualizar los datos de registro. Si se olvida, las consultas del BSI no llegan a ningún sitio y solo lo advierte en el siguiente escalado."
+            "body": "Los cambios de personal son el incumplimiento silencioso más habitual de NIS 2. Conforme al §33(5) BSIG y al Art. 3(4) NIS 2 dispone de dos semanas para actualizar los datos de registro. Si se olvida, las consultas del BSI no llegan a ningún sitio y solo lo advierte en el siguiente escalado."
           },
           "noTestRun": {
             "title": "Sin ensayo previo de la notificación",
@@ -19348,7 +19348,7 @@
         "heading": "Fuentes",
         "items": [
           "Ley sobre la Oficina Federal de Seguridad de la Información (BSIG), §§32, 33, 65, www.gesetze-im-internet.de",
-          "Directiva (UE) 2022/2555 (NIS 2), Art. 23, Art. 27, www.eur-lex.europa.eu",
+          "Directiva (UE) 2022/2555 (NIS 2), Art. 23, Art. 3(4), www.eur-lex.europa.eu",
           "Mein Unternehmenskonto (certificado de organización ELSTER): mein-unternehmenskonto.de",
           "Web del BSI con enlace al portal: www.bsi.bund.de"
         ]
@@ -19480,14 +19480,14 @@
       "overview": {
         "heading": "El error de concepto más caro",
         "p1": "Muchas entidades del Mittelstand toman la ausencia de una carta del BSI como prueba de que no están dentro del ámbito de NIS 2. Se equivocan. La directiva y el §33 BSIG ponen el deber de registro en la entidad, no en la autoridad.",
-        "p2": "El mecanismo es sencillo. El Art. 27(1) NIS 2 obliga a los Estados miembros a crear un registro de entidades esenciales e importantes. El §33(1) BSIG lo transpone: las entidades se registran dentro de los tres meses siguientes a cumplir las condiciones. El plazo empieza cuando cumples los criterios, no cuando alguien te lo dice.",
+        "p2": "El mecanismo es sencillo. El Art. 3(4) NIS 2 obliga a los Estados miembros a crear un registro de entidades esenciales e importantes. El §33(1) BSIG lo transpone: las entidades se registran dentro de los tres meses siguientes a cumplir las condiciones. El plazo empieza cuando cumples los criterios, no cuando alguien te lo dice.",
         "p3": "En la práctica esto significa que una empresa de gestión de residuos de 70 personas del Anexo II puede estar discretamente dentro del ámbito durante más de un año, acumulando multas en virtud del §65 BSIG y responsabilidad personal en virtud del §38 BSIG, hasta que por fin alguien consulta el Anexo."
       },
       "legalAnchor": {
         "heading": "Dónde reside la obligación",
         "description": "Dos artículos hacen el trabajo pesado. Uno en la directiva, otro en la transposición alemana.",
         "directive": {
-          "label": "Art. 27(1) NIS 2 (deber de registro)",
+          "label": "Art. 3(4) NIS 2 (deber de registro)",
           "quote": "Member States shall require essential and important entities to submit at least the following information to the competent authorities: name; address; up-to-date contact details; sector and subsector; list of Member States where they provide services.",
           "context": "El deber va de la entidad a la autoridad, no al revés. No hay ninguna disposición en NIS 2 que exija a la autoridad identificar primero a las entidades dentro del ámbito."
         },
@@ -19512,7 +19512,7 @@
           },
           "size": {
             "title": "Contrasta el tamaño con la definición de PYME de la UE",
-            "body": "Mediana: de 50 a 249 empleados Y (facturación o balance superior a 10 M€). Grande: 250+ empleados O facturación superior a 50 M€ O balance superior a 43 M€. Usa la Recomendación 2003/361/CE textualmente, cuenta las empresas vinculadas y asociadas según las reglas de la recomendación."
+            "body": "Entidad importante: al menos 50 empleados, O facturación superior a 10 M€ Y balance superior a 10 M€. Entidad esencial: al menos 250 empleados, O facturación superior a 50 M€ Y balance superior a 43 M€. Usa la Recomendación 2003/361/CE textualmente, cuenta las empresas vinculadas y asociadas según las reglas de la recomendación."
           },
           "overrides": {
             "title": "Comprueba las excepciones de con independencia del tamaño",
@@ -19559,7 +19559,7 @@
       "sources": {
         "heading": "Fuentes",
         "items": [
-          "Directiva (UE) 2022/2555 (NIS 2), Art. 2, Art. 3, Anexo I, Anexo II, Art. 27, www.eur-lex.europa.eu",
+          "Directiva (UE) 2022/2555 (NIS 2), Art. 2, Art. 3, Anexo I, Anexo II, Art. 3(4), www.eur-lex.europa.eu",
           "Ley sobre la Oficina Federal de Seguridad de la Información (BSIG), §33, §38, §65, www.gesetze-im-internet.de",
           "Recomendación 2003/361/CE de la Comisión sobre la definición de microempresas, pequeñas y medianas empresas, www.eur-lex.europa.eu",
           "Ley de transposición de NIS-2 y de refuerzo de la ciberseguridad (NIS2UmsuCG)"
@@ -20117,7 +20117,7 @@
           "context": "El deber de responsabilidad y de formación se activa el día en que se registra al nuevo miembro del órgano de dirección, no en una fecha posterior conveniente. No hay periodo de gracia en la directiva."
         },
         "registryUpdate": {
-          "label": "§33(5) BSIG + Art. 27(2) NIS 2 (actualización del registro)",
+          "label": "§33(5) BSIG + Art. 3(4) NIS 2 (actualización del registro)",
           "quote": "Wesentliche und wichtige Einrichtungen teilen dem Bundesamt Änderungen der für die Registrierung erforderlichen Angaben innerhalb von zwei Wochen mit.",
           "context": "Plazo de dos semanas. La persona de contacto registrada ante el BSI es el canal por el que llegan las solicitudes de incidentes, los avisos y las notificaciones de supervisión. Una persona de contacto obsoleta significa que las consultas del BSI fallan silenciosamente."
         },
@@ -20193,7 +20193,7 @@
       "sources": {
         "heading": "Fuentes",
         "items": [
-          "Directiva (UE) 2022/2555 (NIS 2), Art. 20, Art. 27, Art. 32, www.eur-lex.europa.eu",
+          "Directiva (UE) 2022/2555 (NIS 2), Art. 20, Art. 3(4), Art. 32, www.eur-lex.europa.eu",
           "Ley sobre la Oficina Federal de Seguridad de la Información (BSIG), §33(5), §38, §65, www.gesetze-im-internet.de",
           "BSI handreichung zu §38 BSIG (abril de 2026, versión 1.0), www.bsi.bund.de",
           "Ley de transposición de NIS-2 y de refuerzo de la ciberseguridad (NIS2UmsuCG)"
