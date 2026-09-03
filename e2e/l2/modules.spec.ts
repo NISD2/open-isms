@@ -34,8 +34,10 @@ const MODULES: Array<{
 }> = [
   { route: "risks", schema: riskInsertSchema as unknown as AnySchema, overrides: { title: "Ausfall Fernwirktechnik durch Ransomware" } },
   // Numeric-string overrides: drizzle numeric/decimal columns are typed as
-  // plain strings, so the factory's text values 500 the insert (recorded
-  // finding: the product accepts non-numeric input into these and crashes).
+  // plain strings, so the generic factory emits text for them. It no longer
+  // 500s — #59 derives a validator from each column's own precision/scale, so
+  // text and overflow are both rejected as validation errors — but the form
+  // then refuses to submit, so the sweep still has to supply real numbers.
   { route: "incidents", schema: incidentInsertSchema as unknown as AnySchema, overrides: { title: "Phishing-Welle Leitstellenpersonal", estimatedFinancialDamage: "25000" } },
   { route: "policies", schema: policyInsertSchema as unknown as AnySchema, overrides: { title: "IT-Sicherheitsleitlinie Stadtwerk" } },
   { route: "patches", schema: patchRecordInsertSchema as unknown as AnySchema, overrides: { patchIdentifier: "KB5044284 Leitstellen-Cluster", title: "Sicherheitsupdate SCADA-Hosts Oktober" } },

@@ -92,16 +92,57 @@ test.describe("asset inventory: grouped large-company entries", () => {
   // weeks because nothing asserted the row. Runs last in the file so the three
   // creates above have already triggered the revert (workers: 1, serial).
   test("the revert those writes caused is recorded in the audit trail", async () => {
-    const rows = await e2eQuery<{ entity_id: string | null; description: string }>(
-      `SELECT entity_id, description
-         FROM audit_log
-        WHERE action = 'requirement.sign_off_invalidated'
-          AND entity_type = 'module'
-        ORDER BY created_at DESC`,
-    );
-    expect(rows.length, "sign_off_invalidated rows written").toBeGreaterThan(0);
+    // asset.create fires invalidateModuleSignOffs without awaiting it, so the
+    // row lands after the mutation responds. Poll rather than read once.
+    const read = () =>
+      e2eQuery<{ entity_id: string | null; description: string }>(
+        `SELECT entity_id, description
+           FROM audit_log
+          WHERE action = 'requirement.sign_off_invalidated'
+            AND entity_type = 'module'
+          ORDER BY created_at DESC`,
+      );
+    await expect
+      .poll(async () => (await read()).length, {
+        message: "sign_off_invalidated rows written",
+        timeout: 15_000,
+      })
+      .toBeGreaterThan(0);
+
+    const [latest] = await read();
     // The module key belongs in the description, never in the uuid column.
-    expect(rows[0].entity_id).toBeNull();
-    expect(rows[0].description).toContain("reverted");
+    expect(latest.entity_id).toBeNull();
+    expect(latest.description).toContain("reverted");
+  });
+
+  // Grouping keeps a real inventory small (BSI 200-2, and the entries above
+  // stand for 2 + 48 + 180 machines), but a self-hoster importing a CMDB dump
+  // gets one row per machine. asset.list has no limit and no pagination and
+  // the table renders every row, which is fine at this size and is exactly
+  // the kind of thing a later "just add a LIMIT 100" would break silently:
+  // the page would still look right, with the tail missing. Seeded by SQL
+  // because 500 UI creates would cost minutes and prove nothing extra.
+  test("a CMDB-sized inventory renders every row, none silently dropped", async ({ page }) => {
+    const BULK = 500;
+    const [{ company_id }] = await e2eQuery<{ company_id: string }>(
+      `SELECT company_id FROM "user" WHERE email = 'dev@nis2.local'`,
+    );
+    await e2eQuery(
+      `INSERT INTO asset (company_id, name, type, description, quantity, owner, location)
+       SELECT $1, 'Lasttest ' || g, 'server', 'CMDB import row ' || g, 1, 'IT', 'RZ Nord'
+         FROM generate_series(1, $2) g`,
+      [company_id, BULK],
+    );
+
+    try {
+      await page.goto("/de/assets");
+      await expect(page.getByText("Lasttest 1", { exact: false }).first()).toBeVisible({
+        timeout: 60_000,
+      });
+      await expect(page.getByText(/^Lasttest \d+$/)).toHaveCount(BULK, { timeout: 60_000 });
+    } finally {
+      // Later layers sign off against this tenant; leave the inventory as found.
+      await e2eQuery(`DELETE FROM asset WHERE name LIKE 'Lasttest %'`);
+    }
   });
 });

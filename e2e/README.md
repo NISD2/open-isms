@@ -54,7 +54,7 @@ The harness cannot reach production by construction:
 | smoke | `smoke.spec.ts`, `i18n-sidebar.spec.ts` | Journey renders 49 nodes, auth redirect, sidebar locale regression |
 | L1 | `l1/` | Every intake form filled via UI, saved, round-trip verified; assets and the audit row their writes invalidate; the first-login tour |
 | L2 | `l2/` | Module CRUD sweep, the 9 bespoke editors, evidence upload round-trip, edit/delete, validation |
-| L3 | `l3/` | Sign-off semantics incl. N-of-M with two sessions, cross-tenant isolation |
+| L3 | `l3/` | Sign-off semantics incl. N-of-M with two sessions, cross-tenant isolation, the token-gated supplier portal (the app's only unauthenticated data surface) |
 | L4 | `l4/grand-tour.spec.ts` | Walks all 49 journey items to a fully signed-off 49/49 |
 
 Ordering is load-bearing. `workers: 1` and `fullyParallel: false` are

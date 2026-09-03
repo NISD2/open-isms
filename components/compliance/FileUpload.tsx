@@ -135,7 +135,12 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
                   className="h-7 w-7"
                   asChild
                 >
-                  <a href={f.downloadUrl} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={f.downloadUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="evidence-download"
+                  >
                     <Download className="h-3.5 w-3.5" />
                   </a>
                 </Button>
