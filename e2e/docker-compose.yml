@@ -12,7 +12,16 @@ services:
       POSTGRES_PASSWORD: e2e
       POSTGRES_DB: openisms_e2e
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U e2e -d openisms_e2e"]
+      # -h 127.0.0.1 is load-bearing. Without it pg_isready checks the unix
+      # socket, and the postgres entrypoint runs a TEMPORARY server on that
+      # socket while it initialises the database, with listen_addresses=''.
+      # So the container reported healthy during init, the entrypoint then
+      # stopped that server to start the real one, and the next command lost
+      # the race: `docker compose up --wait` returned, start-server.sh ran its
+      # wipe, and psql died on "socket /var/run/postgresql/.s.PGSQL.5432: No
+      # such file or directory". Seen in CI on 03.09.2026. Checking TCP cannot
+      # pass against the init server, so healthy now means the real one.
+      test: ["CMD-SHELL", "pg_isready -U e2e -d openisms_e2e -h 127.0.0.1"]
       interval: 2s
       timeout: 3s
       retries: 30
