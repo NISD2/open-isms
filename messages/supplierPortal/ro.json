@@ -91,6 +91,36 @@
       "sectionProServices": "Detalii servicii profesionale",
       "sectionManaged": "Detalii servicii gestionate"
     },
+    "customerView": {
+      "securityProfile": "Profil de securitate",
+      "sharedWith": "Partajat cu dumneavoastră ca",
+      "revoke": "Încheiați accesul",
+      "revokedTitle": "Acces încheiat",
+      "revokedBody": "Nu veți mai primi notificări de la acest furnizor.",
+      "nis2Regulated": "Direct sub incidența NIS2",
+      "nis2RegulatedNote": "Acest furnizor intră el însuși sub incidența NIS2 și este înregistrat la BSI. Conform ENISA TIG §5.1.2 vă puteți baza pe acest fapt pentru o mare parte din evaluarea furnizorului potrivit CIR 2024/2690.",
+      "servicesTitle": "Sisteme pe care acest furnizor le operează pentru dumneavoastră",
+      "servicesIntro": "Aceste date se referă numai la relația dumneavoastră. Alți clienți ai aceluiași furnizor își văd propriile sisteme, nu pe acestea.",
+      "servicesEmpty": "Încă nu a fost înregistrat niciun sistem pentru dumneavoastră.",
+      "nothingDeclared": "Pentru acest sistem nu au fost furnizate încă date.",
+      "incidentsTitle": "Incidente care v-au fost raportate",
+      "incidentsIntro": "Numai incidentele pe care acest furnizor vi le-a raportat. Urmărirea lor ține de articolul 21 alineatul (2) litera (d) NIS2.",
+      "incidentsEmpty": "Până acum nu v-a fost raportat niciun incident.",
+      "discovered": "Descoperit",
+      "resolved": "Rezolvat",
+      "ongoing": "Încă neînchis",
+      "serviceTypes": {
+        "saas": "SaaS",
+        "on_prem": "Software la sediul dumneavoastră",
+        "pro_services": "Servicii profesionale",
+        "managed": "Serviciu administrat"
+      },
+      "severity": {
+        "near_miss": "Cvasi-incident",
+        "incident": "Incident",
+        "significant": "Incident semnificativ"
+      }
+    },
     "fields": {
       "legalName": "Denumire legală",
       "registeredAddress": "Adresă înregistrată",

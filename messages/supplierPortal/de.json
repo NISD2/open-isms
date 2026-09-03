@@ -91,6 +91,36 @@
       "sectionProServices": "Dienstleistungen: Details",
       "sectionManaged": "Managed Services: Details"
     },
+    "customerView": {
+      "securityProfile": "Sicherheitsprofil",
+      "sharedWith": "Freigegeben für",
+      "revoke": "Zugriff beenden",
+      "revokedTitle": "Zugriff beendet",
+      "revokedBody": "Sie erhalten keine Meldungen mehr von diesem Lieferanten.",
+      "nis2Regulated": "Direkt NIS2-reguliert",
+      "nis2RegulatedNote": "Dieser Lieferant fällt selbst unter NIS2 und ist beim BSI registriert. Nach ENISA TIG §5.1.2 können Sie das für einen großen Teil Ihrer Lieferantenprüfung nach CIR 2024/2690 heranziehen.",
+      "servicesTitle": "Systeme, die dieser Lieferant für Sie betreut",
+      "servicesIntro": "Diese Angaben gelten nur für Ihre Zusammenarbeit. Andere Kunden desselben Lieferanten sehen ihre eigenen Systeme, nicht diese.",
+      "servicesEmpty": "Für Sie ist bisher kein System eingetragen.",
+      "nothingDeclared": "Zu diesem System liegen noch keine Angaben vor.",
+      "incidentsTitle": "Vorfälle, die Ihnen gemeldet wurden",
+      "incidentsIntro": "Nur Vorfälle, die dieser Lieferant an Sie gemeldet hat. Die laufende Übersicht gehört zu Artikel 21 Absatz 2 Buchstabe d NIS2.",
+      "incidentsEmpty": "Bisher wurde Ihnen kein Vorfall gemeldet.",
+      "discovered": "Entdeckt",
+      "resolved": "Behoben",
+      "ongoing": "Noch nicht abgeschlossen",
+      "serviceTypes": {
+        "saas": "SaaS",
+        "on_prem": "Software bei Ihnen",
+        "pro_services": "Dienstleistung",
+        "managed": "Managed Service"
+      },
+      "severity": {
+        "near_miss": "Beinahevorfall",
+        "incident": "Vorfall",
+        "significant": "Erheblicher Vorfall"
+      }
+    },
     "fields": {
       "legalName": "Firmierung (Rechtsname)",
       "registeredAddress": "Geschäftsanschrift",

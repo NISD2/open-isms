@@ -15,6 +15,7 @@
  *
  * Server component — receives the data already loaded by the route.
  */
+import { getTranslations } from "next-intl/server";
 import { ShieldCheck } from "lucide-react";
 import {
   SecurityProfileForm,
@@ -42,12 +43,13 @@ interface SecurityProfilePageProps {
   supplierName?: string | null;
 }
 
-export function SecurityProfilePage({
+export async function SecurityProfilePage({
   profile,
   certifications,
   mode,
   supplierName,
 }: SecurityProfilePageProps) {
+  const t = await getTranslations("supplierPortal.customerView");
   // ENISA TIG §5.1.2 selection-criteria shortcut: if the supplier has filled
   // in their own BSI registration ID, they are themselves directly regulated
   // under NIS2 — meaning the customer can shortcut a chunk of supplier
@@ -60,7 +62,7 @@ export function SecurityProfilePage({
       {supplierName && (
         <header className="space-y-2">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">
-            Security profile
+            {t("securityProfile")}
           </div>
           <h1 className="text-3xl font-semibold tracking-tight">
             {supplierName}
@@ -68,7 +70,7 @@ export function SecurityProfilePage({
           {isNis2Regulated && (
             <div className="inline-flex items-center gap-2 rounded-full border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950/30 px-3 py-1 text-xs font-medium text-green-800 dark:text-green-200">
               <ShieldCheck className="h-3 w-3" />
-              Directly NIS2-regulated
+              {t("nis2Regulated")}
               <span className="text-green-700 dark:text-green-300 font-mono">
                 · BSI {profile.bsiRegistrationId}
               </span>
@@ -76,10 +78,7 @@ export function SecurityProfilePage({
           )}
           {mode === "view" && isNis2Regulated && (
             <p className="text-xs text-muted-foreground max-w-2xl">
-              This supplier is itself a NIS2-regulated entity with a registered
-              BSI ID. Per ENISA TIG §5.1.2, you may use this fact to satisfy a
-              significant portion of your supplier-selection-criteria
-              obligations under CIR 2024/2690.
+              {t("nis2RegulatedNote")}
             </p>
           )}
         </header>

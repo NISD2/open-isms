@@ -91,6 +91,36 @@
       "sectionProServices": "Professional services details",
       "sectionManaged": "Managed service details"
     },
+    "customerView": {
+      "securityProfile": "Security profile",
+      "sharedWith": "Shared with you as",
+      "revoke": "End access",
+      "revokedTitle": "Access ended",
+      "revokedBody": "You will no longer receive notifications from this supplier.",
+      "nis2Regulated": "Directly regulated under NIS2",
+      "nis2RegulatedNote": "This supplier is itself in scope of NIS2 and registered with the BSI. Under ENISA TIG §5.1.2 you may rely on that for a large part of your supplier assessment under CIR 2024/2690.",
+      "servicesTitle": "Systems this supplier runs for you",
+      "servicesIntro": "These answers apply to your relationship only. Other customers of the same supplier see their own systems, not these.",
+      "servicesEmpty": "No system has been recorded for you yet.",
+      "nothingDeclared": "No details have been provided for this system yet.",
+      "incidentsTitle": "Incidents reported to you",
+      "incidentsIntro": "Only incidents this supplier reported to you. Keeping track of them is part of Article 21(2)(d) NIS2.",
+      "incidentsEmpty": "No incident has been reported to you so far.",
+      "discovered": "Discovered",
+      "resolved": "Resolved",
+      "ongoing": "Not yet closed",
+      "serviceTypes": {
+        "saas": "SaaS",
+        "on_prem": "Software on your premises",
+        "pro_services": "Professional services",
+        "managed": "Managed service"
+      },
+      "severity": {
+        "near_miss": "Near miss",
+        "incident": "Incident",
+        "significant": "Significant incident"
+      }
+    },
     "fields": {
       "legalName": "Legal name",
       "registeredAddress": "Registered address",

@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { api } from "@/lib/trpc/server";
 import { SecurityProfilePage } from "@/components/supplier-portal/SecurityProfilePage";
 import { CustomerAccessShell } from "@/components/supplier-portal/CustomerAccessShell";
+import { SharedServicesSection } from "@/components/supplier-portal/SharedServicesSection";
+import { SharedIncidentsSection } from "@/components/supplier-portal/SharedIncidentsSection";
 
 /**
  * Token-gated customer access page.
@@ -95,6 +97,22 @@ export default async function SupplierAccessPage({ params }: PageProps) {
         mode="view"
         supplierName={data.supplierCompany?.name ?? null}
       />
+
+      {/*
+        The two per-customer halves of the payload. getByToken has always
+        returned them, scoped to this relationship, and nothing rendered
+        them: `managedAssets` was destructured and dropped, `recentEvents`
+        had no renderer anywhere. That left the customer view showing only
+        the company-wide questionnaire, while the portal's own marketing
+        page promises "die Systeme, die Sie für ihn betreuen" and a per
+        customer incident feed.
+      */}
+      <div className="space-y-10 max-w-4xl mx-auto">
+        <hr className="border-muted" />
+        <SharedServicesSection services={data.managedAssets} />
+        <hr className="border-muted" />
+        <SharedIncidentsSection incidents={data.recentEvents} />
+      </div>
     </CustomerAccessShell>
   );
 }
