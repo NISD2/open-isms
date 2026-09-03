@@ -101,7 +101,13 @@ async function revertSignOffs(
     userId: ctx.userId,
     action: "requirement.sign_off_invalidated",
     entityType: "module",
-    entityId: moduleRef,
+    // audit_log.entity_id is a uuid column and moduleRef is a module key
+    // ("asset", "supplier"). Passing it made every insert fail on
+    // 22P02 invalid input syntax, and logAudit only console.errors, so the
+    // trail recorded no sign_off_invalidated event at all. The module key
+    // is carried by entityType + description, which is where /audit reads
+    // it from; nothing queries entity_id for this action.
+    entityId: null,
     description: `${moduleRef} ${reasonText} — reverted ${reverted.length} requirement(s): ${reverted.map((r) => r.code).join(", ")}`,
     previousValue: reverted,
     newValue: { status: "needs_review" },
