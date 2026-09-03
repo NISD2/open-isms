@@ -91,6 +91,36 @@
       "sectionProServices": "Detalles de servicios profesionales",
       "sectionManaged": "Detalles de servicios gestionados"
     },
+    "customerView": {
+      "securityProfile": "Perfil de seguridad",
+      "sharedWith": "Compartido con usted como",
+      "revoke": "Finalizar el acceso",
+      "revokedTitle": "Acceso finalizado",
+      "revokedBody": "Ya no recibirá notificaciones de este proveedor.",
+      "nis2Regulated": "Sujeto directamente a NIS2",
+      "nis2RegulatedNote": "Este proveedor está a su vez dentro del ámbito de NIS2 y registrado ante el BSI. Según ENISA TIG §5.1.2 puede apoyarse en ello para buena parte de su evaluación de proveedores conforme al CIR 2024/2690.",
+      "servicesTitle": "Sistemas que este proveedor opera para usted",
+      "servicesIntro": "Estos datos se refieren únicamente a su relación. Otros clientes del mismo proveedor ven sus propios sistemas, no estos.",
+      "servicesEmpty": "Todavía no se ha registrado ningún sistema para usted.",
+      "nothingDeclared": "Aún no se han facilitado datos sobre este sistema.",
+      "incidentsTitle": "Incidentes que se le han comunicado",
+      "incidentsIntro": "Solo los incidentes que este proveedor le ha comunicado. Su seguimiento forma parte del artículo 21, apartado 2, letra d), NIS2.",
+      "incidentsEmpty": "Hasta ahora no se le ha comunicado ningún incidente.",
+      "discovered": "Detectado",
+      "resolved": "Resuelto",
+      "ongoing": "Aún no cerrado",
+      "serviceTypes": {
+        "saas": "SaaS",
+        "on_prem": "Software en sus instalaciones",
+        "pro_services": "Servicios profesionales",
+        "managed": "Servicio gestionado"
+      },
+      "severity": {
+        "near_miss": "Cuasi incidente",
+        "incident": "Incidente",
+        "significant": "Incidente significativo"
+      }
+    },
     "fields": {
       "legalName": "Razón social",
       "registeredAddress": "Domicilio social",

@@ -91,6 +91,36 @@
       "sectionProServices": "Podrobnosti o profesionálních službách",
       "sectionManaged": "Podrobnosti o řízených službách"
     },
+    "customerView": {
+      "securityProfile": "Bezpečnostní profil",
+      "sharedWith": "Sdíleno s vámi jako",
+      "revoke": "Ukončit přístup",
+      "revokedTitle": "Přístup ukončen",
+      "revokedBody": "Od tohoto dodavatele již nebudete dostávat oznámení.",
+      "nis2Regulated": "Sám podléhá NIS2",
+      "nis2RegulatedNote": "Tento dodavatel sám spadá pod NIS2 a je registrován u BSI. Podle ENISA TIG §5.1.2 se na to můžete opřít u podstatné části svého hodnocení dodavatele podle CIR 2024/2690.",
+      "servicesTitle": "Systémy, které pro vás tento dodavatel provozuje",
+      "servicesIntro": "Tyto údaje platí pouze pro vaši spolupráci. Ostatní zákazníci téhož dodavatele vidí své vlastní systémy, nikoli tyto.",
+      "servicesEmpty": "Zatím pro vás nebyl zaznamenán žádný systém.",
+      "nothingDeclared": "K tomuto systému zatím nebyly poskytnuty žádné údaje.",
+      "incidentsTitle": "Incidenty, které vám byly nahlášeny",
+      "incidentsIntro": "Pouze incidenty, které vám tento dodavatel nahlásil. Jejich sledování patří k článku 21 odst. 2 písm. d) NIS2.",
+      "incidentsEmpty": "Dosud vám nebyl nahlášen žádný incident.",
+      "discovered": "Zjištěno",
+      "resolved": "Vyřešeno",
+      "ongoing": "Dosud neuzavřeno",
+      "serviceTypes": {
+        "saas": "SaaS",
+        "on_prem": "Software u vás",
+        "pro_services": "Odborné služby",
+        "managed": "Spravovaná služba"
+      },
+      "severity": {
+        "near_miss": "Téměř incident",
+        "incident": "Incident",
+        "significant": "Významný incident"
+      }
+    },
     "fields": {
       "legalName": "Obchodní firma",
       "registeredAddress": "Sídlo zapsané v rejstříku",

@@ -91,6 +91,36 @@
       "sectionProServices": "Details professionele diensten",
       "sectionManaged": "Details beheerde diensten"
     },
+    "customerView": {
+      "securityProfile": "Beveiligingsprofiel",
+      "sharedWith": "Gedeeld met u als",
+      "revoke": "Toegang beëindigen",
+      "revokedTitle": "Toegang beëindigd",
+      "revokedBody": "U ontvangt geen meldingen meer van deze leverancier.",
+      "nis2Regulated": "Zelf onder NIS2",
+      "nis2RegulatedNote": "Deze leverancier valt zelf onder NIS2 en is geregistreerd bij het BSI. Volgens ENISA TIG §5.1.2 kunt u dat gebruiken voor een groot deel van uw leveranciersbeoordeling onder CIR 2024/2690.",
+      "servicesTitle": "Systemen die deze leverancier voor u beheert",
+      "servicesIntro": "Deze gegevens gelden alleen voor uw samenwerking. Andere klanten van dezelfde leverancier zien hun eigen systemen, niet deze.",
+      "servicesEmpty": "Er is nog geen systeem voor u vastgelegd.",
+      "nothingDeclared": "Over dit systeem zijn nog geen gegevens verstrekt.",
+      "incidentsTitle": "Incidenten die aan u zijn gemeld",
+      "incidentsIntro": "Alleen incidenten die deze leverancier aan u heeft gemeld. Dat bijhouden hoort bij artikel 21, lid 2, onder d, NIS2.",
+      "incidentsEmpty": "Er is tot nu toe geen incident aan u gemeld.",
+      "discovered": "Ontdekt",
+      "resolved": "Opgelost",
+      "ongoing": "Nog niet afgerond",
+      "serviceTypes": {
+        "saas": "SaaS",
+        "on_prem": "Software bij u",
+        "pro_services": "Dienstverlening",
+        "managed": "Managed service"
+      },
+      "severity": {
+        "near_miss": "Bijna-incident",
+        "incident": "Incident",
+        "significant": "Significant incident"
+      }
+    },
     "fields": {
       "legalName": "Wettelijke naam",
       "registeredAddress": "Geregistreerd adres",

@@ -91,6 +91,36 @@
       "sectionProServices": "Szczegóły usług profesjonalnych",
       "sectionManaged": "Szczegóły usług zarządzanych"
     },
+    "customerView": {
+      "securityProfile": "Profil bezpieczeństwa",
+      "sharedWith": "Udostępniono Państwu jako",
+      "revoke": "Zakończ dostęp",
+      "revokedTitle": "Dostęp zakończony",
+      "revokedBody": "Nie będą Państwo już otrzymywać powiadomień od tego dostawcy.",
+      "nis2Regulated": "Sam podlega NIS2",
+      "nis2RegulatedNote": "Ten dostawca sam podlega NIS2 i jest zarejestrowany w BSI. Zgodnie z ENISA TIG §5.1.2 mogą Państwo oprzeć na tym znaczną część oceny dostawcy według CIR 2024/2690.",
+      "servicesTitle": "Systemy, które ten dostawca prowadzi dla Państwa",
+      "servicesIntro": "Te dane dotyczą wyłącznie Państwa współpracy. Inni klienci tego samego dostawcy widzą własne systemy, nie te.",
+      "servicesEmpty": "Nie zapisano jeszcze żadnego systemu dla Państwa.",
+      "nothingDeclared": "Do tego systemu nie podano jeszcze żadnych danych.",
+      "incidentsTitle": "Incydenty zgłoszone Państwu",
+      "incidentsIntro": "Tylko incydenty, które ten dostawca Państwu zgłosił. Ich śledzenie należy do artykułu 21 ust. 2 lit. d NIS2.",
+      "incidentsEmpty": "Dotychczas nie zgłoszono Państwu żadnego incydentu.",
+      "discovered": "Wykryto",
+      "resolved": "Rozwiązano",
+      "ongoing": "Jeszcze niezamknięty",
+      "serviceTypes": {
+        "saas": "SaaS",
+        "on_prem": "Oprogramowanie u Państwa",
+        "pro_services": "Usługi profesjonalne",
+        "managed": "Usługa zarządzana"
+      },
+      "severity": {
+        "near_miss": "Zdarzenie potencjalnie wypadkowe",
+        "incident": "Incydent",
+        "significant": "Poważny incydent"
+      }
+    },
     "fields": {
       "legalName": "Nazwa prawna",
       "registeredAddress": "Adres siedziby",
