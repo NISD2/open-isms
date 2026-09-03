@@ -16,8 +16,20 @@ bun run e2e:image          # same suite, against a published image in the self-h
 `bun run e2e` builds locally and serves with `next start`, which bakes the
 local environment into the bundle. `e2e:image` pulls the artifact a
 self-hoster actually gets and runs the same specs against
-`compose.self-host.yml`; it is the only path that catches build-time-frozen
-config. Nothing in CI runs it yet, so it is a manual gate before a release.
+`compose.self-host.yml`, so it is the only path that catches build-time-frozen
+config (that is how the frozen CSP storage origin was found).
+
+**It runs the working tree's specs against a released image, so the two drift
+apart between releases.** Any spec written for behaviour that has not shipped
+yet fails, and the failure says nothing about the image. Against `:stable`
+(v0.2.8, 27.08) on 03.09 it was 90 passed and 3 failed, and all three were
+specs from PRs merged after the tag (#119, #128, #136). Read a failure here as
+"spec newer than image" until you have ruled it
+out — `git diff --name-only <tag>..HEAD -- e2e/` tells you which specs moved,
+and `git merge-base --is-ancestor <commit> <tag>` settles whether the spec
+predates the image. The version-matched way to run it is from the tag:
+`git checkout v0.2.8 && bun run e2e:image 0.2.8`. Nothing in CI runs it
+either way.
 
 ## Isolation
 
@@ -42,7 +54,7 @@ The harness cannot reach production by construction:
 | smoke | `smoke.spec.ts`, `i18n-sidebar.spec.ts` | Journey renders 49 nodes, auth redirect, sidebar locale regression |
 | L1 | `l1/` | Every intake form filled via UI, saved, round-trip verified; assets and the audit row their writes invalidate; the first-login tour |
 | L2 | `l2/` | Module CRUD sweep, the 9 bespoke editors, evidence upload round-trip, edit/delete, validation |
-| L3 | `l3/` | Sign-off semantics incl. N-of-M with two sessions, cross-tenant isolation |
+| L3 | `l3/` | Sign-off semantics incl. N-of-M with two sessions, cross-tenant isolation, the token-gated supplier portal (the app's only unauthenticated data surface) |
 | L4 | `l4/grand-tour.spec.ts` | Walks all 49 journey items to a fully signed-off 49/49 |
 
 Ordering is load-bearing. `workers: 1` and `fullyParallel: false` are
