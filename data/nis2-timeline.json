@@ -433,6 +433,27 @@
       "url": "https://www.bundestag.de",
       "description": "German federal parliament: printed papers, written questions and government answers.",
       "language": "de"
+    },
+    {
+      "id": "eccc",
+      "name": "European Cybersecurity Competence Centre",
+      "url": "https://cybersecurity-centre.europa.eu",
+      "description": "EU body managing Digital Europe Programme cybersecurity funding and the National Coordination Centre network.",
+      "language": "en"
+    },
+    {
+      "id": "senat-fr",
+      "name": "Sénat (France)",
+      "url": "https://www.senat.fr",
+      "description": "French upper house: legislative dossiers, including the projet de loi resilience that carries the NIS 2 transposition.",
+      "language": "en"
+    },
+    {
+      "id": "dsn-es",
+      "name": "Departamento de Seguridad Nacional",
+      "url": "https://www.dsn.gob.es",
+      "description": "Spanish National Security Department under the Presidency: official record of the NIS 2 transposition bill.",
+      "language": "en"
     }
   ],
   "events": [
@@ -3145,7 +3166,113 @@
       "sourceId": "bsi",
       "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/KRITIS_Personenzertifizierung_260831.html",
       "addedAt": "2026-09-02T12:20:24Z"
+    },
+    {
+      "id": "2026-09-01-eu-eccc-digital-europe-cyber-call",
+      "date": "2026-09-01",
+      "category": "eu",
+      "tags": [
+        "organisational"
+      ],
+      "type": "update",
+      "title": "ECCC opens a 96 million euro Digital Europe call that names NIS 2 entities as beneficiaries",
+      "titleDe": "ECCC eroeffnet eine Ausschreibung ueber 96 Millionen Euro aus Digitales Europa und nennt NIS-2-Einrichtungen als Zielgruppe",
+      "summary": "The European Cybersecurity Competence Centre opened a call for proposals under the Digital Europe Programme with a budget of up to 96 million euros, open from 1 September 2026 until 14 January 2027 at 17:00 CET. Seven topics are funded, among them 20 million euros for strengthening the cybersecurity capacities of European SMEs with AI supported solutions, 20 million euros for strengthening EU cybersecurity capacities in line with legislative requirements, 15 million euros for coordinated preparedness testing and 11 million euros for the National Coordination Centre network. NIS 2 entities, competent authorities and entities in sectors of high criticality are named as intended beneficiaries. This is funding, not a new obligation.",
+      "summaryDe": "Das Europaeische Kompetenzzentrum fuer Cybersicherheit (ECCC) hat im Programm Digitales Europa eine Ausschreibung mit einem Budget von bis zu 96 Millionen Euro eroeffnet, offen vom 1. September 2026 bis zum 14. Januar 2027 um 17:00 MEZ. Gefoerdert werden sieben Themen, darunter 20 Millionen Euro fuer die Staerkung der Cybersicherheit europaeischer KMU mit KI-gestuetzten Loesungen, 20 Millionen Euro fuer den Ausbau von Cybersicherheitskapazitaeten entlang gesetzlicher Anforderungen, 15 Millionen Euro fuer koordinierte Uebungen zur Vorbereitung und 11 Millionen Euro fuer das Netz der nationalen Koordinierungszentren. NIS-2-Einrichtungen, zustaendige Behoerden und Einrichtungen in Sektoren hoher Kritikalitaet werden ausdruecklich als Zielgruppe genannt. Es geht um Foerderung, nicht um eine neue Pflicht.",
+      "sourceId": "eccc",
+      "sourceUrl": "https://cybersecurity-centre.europa.eu/news/new-eccc-call-proposals-under-digital-europe-programme-open-applications-2026-09-01_en",
+      "addedAt": "2026-09-07T14:54:27Z"
+    },
+    {
+      "id": "2026-09-03-eu-g7-post-quantum-call-to-action",
+      "date": "2026-09-03",
+      "category": "eu",
+      "tags": [
+        "guidance",
+        "publication",
+        "post-quantum"
+      ],
+      "type": "update",
+      "title": "G7 Cybersecurity Working Group publishes Preparing for the Post-Quantum Era: A Call to Action",
+      "titleDe": "G7-Cybersicherheits-Arbeitsgruppe veroeffentlicht Preparing for the Post-Quantum Era: A Call to Action",
+      "summary": "Under the French G7 presidency ANSSI led the publication of a joint call to action on post-quantum cryptography, signed by the national cybersecurity agencies of all seven G7 states, with the European Commission and ENISA taking part as guests. It sets five priorities: raising awareness of quantum related cyber risk, national PQC strategies including supply of PQC products, research and deployment, public private cooperation, and writing PQC into cybersecurity requirements and procurement. Organisations are asked to take a phased risk based approach, starting with an inventory of cryptographic assets and a migration plan. The document is non-binding and creates no NIS 2 duty of its own: cryptography requirements for NIS 2 entities remain those set by the Annex to CIR 2024/2690 and national transposition law.",
+      "summaryDe": "Unter franzoesischer G7-Praesidentschaft hat die ANSSI die Veroeffentlichung eines gemeinsamen Handlungsaufrufs zur Post-Quanten-Kryptografie angefuehrt, getragen von den nationalen Cybersicherheitsbehoerden aller sieben G7-Staaten, mit der Europaeischen Kommission und der ENISA als Gaesten. Fuenf Prioritaeten werden gesetzt: Bewusstsein fuer quantenbezogene Risiken, nationale PQC-Strategien einschliesslich der Verfuegbarkeit von PQC-Produkten, Forschung und Einfuehrung, Zusammenarbeit von Staat und Wirtschaft sowie die Verankerung von PQC in Sicherheitsanforderungen und Beschaffung. Organisationen sollen schrittweise und risikobasiert vorgehen, beginnend mit einer Bestandsaufnahme kryptografischer Verfahren und einem Migrationsplan. Das Dokument ist unverbindlich und begruendet keine eigene NIS-2-Pflicht: Fuer NIS-2-Einrichtungen gelten weiterhin die Kryptografieanforderungen aus dem Anhang der Durchfuehrungsverordnung (EU) 2024/2690 und dem nationalen Umsetzungsrecht.",
+      "sourceId": "anssi",
+      "sourceUrl": "https://cyber.gouv.fr/en/news/post-quantum-cryptography-transition-anssi-and-its-g7-partners-rally-public-and-private-sectors-with-urgent-call-to-action/",
+      "addedAt": "2026-09-07T14:54:27Z"
+    },
+    {
+      "id": "2026-09-03-de-bsi-memory-safe-languages",
+      "date": "2026-09-03",
+      "category": "de",
+      "tags": [
+        "guidance",
+        "publication",
+        "supply-chain"
+      ],
+      "type": "update",
+      "title": "BSI and Sovereign Tech Agency recommend memory safe programming languages",
+      "titleDe": "BSI und Sovereign Tech Agency empfehlen speichersichere Programmiersprachen",
+      "summary": "The Sovereign Tech Agency published a position paper recommending memory safe programming languages, with the BSI contributing to the recommendations. It puts memory related flaws at 60 to 70 percent of the vulnerabilities found in large codebases written in languages such as C and C++, and argues that memory safe languages remove that class of error at compile time. The paper proposes migration strategies and EU and national funding for training rather than a blanket rewrite, and the BSI frames it as support for secure by design, which it links to the Cyber Resilience Act. It is a recommendation, not a rule, and neither NIS 2 nor the BSIG is cited in the announcement.",
+      "summaryDe": "Die Sovereign Tech Agency hat ein Positionspapier zu speichersicheren Programmiersprachen veroeffentlicht, an dessen Empfehlungen das BSI mitgewirkt hat. Es beziffert speicherbezogene Fehler auf 60 bis 70 Prozent der Schwachstellen in grossen Codebasen, die in Sprachen wie C und C++ geschrieben sind, und argumentiert, dass speichersichere Sprachen diese Fehlerklasse bereits beim Kompilieren ausschliessen. Statt eines pauschalen Neuschreibens schlaegt das Papier Migrationsstrategien sowie eine Foerderung von Schulungen auf EU-Ebene und national vor; das BSI ordnet es als Unterstuetzung fuer Security by Design ein und verweist auf den Cyber Resilience Act. Es ist eine Empfehlung, keine Vorgabe, und weder NIS 2 noch das BSIG werden in der Meldung genannt.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/STA_Programmiersprachen_260903.html",
+      "addedAt": "2026-09-07T14:54:27Z"
+    },
+    {
+      "id": "2025-03-12-national-transposition-fr-senat-first-reading",
+      "date": "2025-03-12",
+      "category": "national-transposition",
+      "tags": [
+        "fr",
+        "transposition",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "France: Senat adopts the resilience bill carrying the NIS 2 transposition at first reading",
+      "titleDe": "Frankreich: Senat nimmt das Resilienzgesetz mit der NIS-2-Umsetzung in erster Lesung an",
+      "summary": "The French Senate adopted at first reading the projet de loi relatif a la resilience des infrastructures critiques et au renforcement de la cybersecurite, the single vehicle that transposes NIS 2 together with the CER Directive and parts of DORA. The government had tabled it on 15 October 2024 under the accelerated procedure; it was transmitted to the Assemblee nationale on 13 March 2025 and the special committee reported on 10 September 2025. No plenary vote had followed at the Assemblee nationale as at early September 2026, and the Commission referred France to the CJEU on 8 July 2026 for non transposition.",
+      "summaryDe": "Der franzoesische Senat hat in erster Lesung das Projet de loi relatif a la resilience des infrastructures critiques et au renforcement de la cybersecurite angenommen, das NIS 2 gemeinsam mit der CER-Richtlinie und Teilen von DORA umsetzt. Die Regierung hatte es am 15. Oktober 2024 im beschleunigten Verfahren eingebracht; am 13. Maerz 2025 ging es an die Assemblee nationale, deren Sonderausschuss am 10. September 2025 berichtete. Bis Anfang September 2026 folgte keine Abstimmung im Plenum der Assemblee nationale, und die Kommission hat Frankreich am 8. Juli 2026 wegen Nichtumsetzung beim EuGH verklagt.",
+      "sourceId": "senat-fr",
+      "sourceUrl": "https://www.senat.fr/dossier-legislatif/pjl24-033.html",
+      "addedAt": "2026-09-07T14:54:27Z"
+    },
+    {
+      "id": "2026-03-17-national-transposition-fr-recyf",
+      "date": "2026-03-17",
+      "category": "national-transposition",
+      "tags": [
+        "fr",
+        "guidance",
+        "transposition"
+      ],
+      "type": "update",
+      "title": "France: ANSSI publishes the Referentiel Cyber France ahead of transposition",
+      "titleDe": "Frankreich: ANSSI veroeffentlicht das Referentiel Cyber France vor der Umsetzung",
+      "summary": "ANSSI made the Referentiel Cyber France (ReCyF) available from 17 March 2026, listing the measures it recommends for meeting the security objectives set by NIS 2. It is circulated as a working document and is voluntary by default, though entities that apply it can rely on it during an ANSSI inspection, and it corresponds to the cybersecurity framework named in article 14 of the resilience bill. ANSSI states that no final version will be published while the transposition is unfinished. A comparison tool on MesServicesCyber maps ReCyF against other frameworks including the ISO 2700x series and the Annex to CIR 2024/2690, and a pre registration service for future essential and important entities is already open.",
+      "summaryDe": "Die ANSSI stellt seit dem 17. Maerz 2026 das Referentiel Cyber France (ReCyF) bereit, das die von ihr empfohlenen Massnahmen zur Erreichung der Sicherheitsziele von NIS 2 auflistet. Es zirkuliert als Arbeitsfassung und ist grundsaetzlich freiwillig, kann von anwendenden Einrichtungen aber bei einer ANSSI-Pruefung herangezogen werden; es entspricht dem in Artikel 14 des Resilienzgesetzes genannten Cybersicherheitsrahmen. Die ANSSI stellt klar, dass vor Abschluss der Umsetzung keine finale Fassung erscheint. Ein Vergleichswerkzeug auf MesServicesCyber ordnet das ReCyF anderen Rahmenwerken zu, darunter die Normenreihe ISO 2700x und der Anhang der Durchfuehrungsverordnung (EU) 2024/2690; ein Dienst zur Vorregistrierung kuenftiger wesentlicher und wichtiger Einrichtungen ist bereits offen.",
+      "sourceId": "anssi",
+      "sourceUrl": "https://cyber.gouv.fr/reglementation/cybersecurite-systemes-dinformation/directives-nis-nis2-et-dispositif-saiv/directive-nis-2/",
+      "addedAt": "2026-09-07T14:54:27Z"
+    },
+    {
+      "id": "2025-01-14-national-transposition-es-anteproyecto",
+      "date": "2025-01-14",
+      "category": "national-transposition",
+      "tags": [
+        "es",
+        "transposition",
+        "legislation"
+      ],
+      "type": "update",
+      "title": "Spain: Council of Ministers approves the draft Cybersecurity Coordination and Governance Act",
+      "titleDe": "Spanien: Ministerrat billigt den Gesetzentwurf zur Koordinierung und Steuerung der Cybersicherheit",
+      "summary": "The Spanish Council of Ministers approved the Anteproyecto de Ley de Coordinacion y Gobernanza de la Ciberseguridad, the bill that transposes NIS 2 into Spanish law. It creates a Centro Nacional de Ciberseguridad attached to the Presidency as the single competent national authority, single point of contact for cross border cooperation and national cyber crisis management authority, with supervision distributed across sector authorities. The bill had still not been published in the BOE as at September 2026, Royal Decree 43/2021 continues to apply in the meantime, and the Commission referred Spain to the CJEU on 8 July 2026.",
+      "summaryDe": "Der spanische Ministerrat hat den Anteproyecto de Ley de Coordinacion y Gobernanza de la Ciberseguridad gebilligt, den Gesetzentwurf zur Umsetzung von NIS 2 in spanisches Recht. Er schafft ein dem Praesidialamt zugeordnetes Centro Nacional de Ciberseguridad als einzige zustaendige nationale Behoerde, zentrale Anlaufstelle fuer die grenzueberschreitende Zusammenarbeit und nationale Krisenmanagementbehoerde, waehrend die Aufsicht auf Sektorbehoerden verteilt bleibt. Bis September 2026 war der Entwurf nicht im BOE veroeffentlicht, bis dahin gilt weiterhin das Real Decreto 43/2021, und die Kommission hat Spanien am 8. Juli 2026 beim EuGH verklagt.",
+      "sourceId": "dsn-es",
+      "sourceUrl": "https://www.dsn.gob.es/en/node/24160",
+      "addedAt": "2026-09-07T14:54:27Z"
     }
   ],
-  "lastUpdated": "2026-09-02T12:20:24Z"
+  "lastUpdated": "2026-09-07T14:54:27Z"
 }
