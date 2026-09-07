@@ -182,7 +182,7 @@ jobs:
 
       # Signs the manifest with the workflow's own identity, so anyone pulling
       # can verify this image was built by this repository at this commit.
-      - uses: actions/attest-build-provenance@v2
+      - uses: actions/attest-build-provenance@v4
         with:
           subject-name: ${{ env.IMAGE }}
           subject-digest: ${{ steps.digest.outputs.digest }}
