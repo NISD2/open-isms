@@ -282,10 +282,11 @@ export interface DigestItem {
 }
 
 function digestItemRow(item: DigestItem): string {
+  // Only the daily digest renders item tables, so the campaign is fixed here.
   return `
     <tr>
       <td style="padding: 8px 12px; border-bottom: 1px solid ${BRAND.border};">
-        <a href="${item.categoryUrl}" style="color: ${BRAND.primary}; font-weight: 500; text-decoration: none;">${escapeHtml(item.requirementCode)}</a>
+        <a href="${withUtm(item.categoryUrl, "daily_digest")}" style="color: ${BRAND.primary}; font-weight: 500; text-decoration: none;">${escapeHtml(item.requirementCode)}</a>
       </td>
       <td style="padding: 8px 12px; border-bottom: 1px solid ${BRAND.border}; color: ${BRAND.foreground};">${escapeHtml(item.requirementTitle)}</td>
       <td style="padding: 8px 12px; border-bottom: 1px solid ${BRAND.border}; color: ${BRAND.foreground}; white-space: nowrap;">${escapeHtml(item.deadline)}</td>
@@ -322,30 +323,65 @@ function digestItemText(item: DigestItem): string {
  * The reader's next open step on the journey, in the path view's order.
  * Every digest carries it so the mail always ends on a concrete action:
  * either "these reviews are overdue" or "this is next up" — never a bare
- * count with nothing to do about it.
+ * count with nothing to do about it. The progress numbers feed the payoff
+ * line; assigneeName is for the management digest's "who owns it".
  */
 export interface DigestNextStep {
   requirementCode: string;
   requirementTitle: string;
   url: string;
+  /** Journey-wide progress: steps done of total. */
+  done: number;
+  total: number;
+  categoryName: string;
+  categoryDone: number;
+  categoryTotal: number;
+  /** First assigned owner of the step; null when nobody is assigned yet. */
+  assigneeName: string | null;
 }
 
-function nextStepHtml(nextStep: DigestNextStep | null): string {
-  if (!nextStep) return "";
+type DigestCampaign = "daily_digest" | "weekly_management_digest";
+
+/**
+ * utm_* tags on digest links so Umami can attribute return visits to the
+ * digest that caused them. The requirement deep links end in a #<code>
+ * fragment, and the fragment must stay last, so the query is spliced in
+ * before it.
+ */
+function withUtm(url: string, campaign: DigestCampaign): string {
+  const [base, fragment] = url.split("#");
+  const sep = base.includes("?") ? "&" : "?";
+  const tagged = `${base}${sep}utm_source=email&utm_medium=digest&utm_campaign=${campaign}`;
+  return fragment ? `${tagged}#${fragment}` : tagged;
+}
+
+/**
+ * What completing the next step does to the numbers the reader already
+ * owns. When it is the category's last open step, say so: "completes
+ * Registration" pulls harder than another fraction.
+ */
+function payoffLine(nextStep: DigestNextStep): string {
+  const categoryLeft = nextStep.categoryTotal - nextStep.categoryDone;
+  const categoryPart =
+    categoryLeft === 1
+      ? `completes ${nextStep.categoryName}`
+      : `moves ${nextStep.categoryName} to ${nextStep.categoryDone + 1} of ${nextStep.categoryTotal}`;
+  return `You are at ${nextStep.done} of ${nextStep.total} steps. Finishing ${nextStep.requirementCode} makes it ${nextStep.done + 1} and ${categoryPart}.`;
+}
+
+function continueButtonHtml(nextStep: DigestNextStep, campaign: DigestCampaign): string {
   return `
-    <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-      Next up in your journey:
-      <a href="${nextStep.url}" style="color: ${BRAND.primary}; font-weight: 600; text-decoration: none;">${escapeHtml(nextStep.requirementCode)} ${escapeHtml(nextStep.requirementTitle)}</a>
-    </p>`;
+    <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 16px;">${escapeHtml(payoffLine(nextStep))}</p>
+    <a href="${withUtm(nextStep.url, campaign)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
+      Continue: ${escapeHtml(nextStep.requirementCode)} ${escapeHtml(nextStep.requirementTitle)}
+    </a>`;
 }
 
-function nextStepText(nextStep: DigestNextStep | null): string[] {
-  if (!nextStep) return [];
-  return [
-    `Next up in your journey: ${nextStep.requirementCode} ${nextStep.requirementTitle}`,
-    `${nextStep.url}`,
-    ``,
-  ];
+function dashboardButtonHtml(dashboardUrl: string, campaign: DigestCampaign, label: string): string {
+  return `
+    <a href="${withUtm(dashboardUrl, campaign)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
+      ${escapeHtml(label)}
+    </a>`;
 }
 
 export function dailyDigestEmail(opts: {
@@ -387,10 +423,14 @@ export function dailyDigestEmail(opts: {
         ${digestSection("Overdue", SEVERITY.destructive, overdueItems)}
         ${digestSection("Due This Week", SEVERITY.warning, urgentItems)}
         ${digestSection("Upcoming", BRAND.mutedForeground, upcomingItems)}
-        ${nextStepHtml(nextStep)}
-        <a href="${dashboardUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          View Dashboard
-        </a>
+        ${
+          nextStep
+            ? `${continueButtonHtml(nextStep, "daily_digest")}
+        <p style="font-size: 13px; margin: 12px 0 0;">
+          <a href="${withUtm(dashboardUrl, "daily_digest")}" style="color: ${BRAND.mutedForeground};">or open the dashboard</a>
+        </p>`
+            : dashboardButtonHtml(dashboardUrl, "daily_digest", "View Dashboard")
+        }
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">
           You are receiving this digest because you are a member of ${safeCo}.
         </p>
@@ -413,8 +453,15 @@ export function dailyDigestEmail(opts: {
       ...(upcomingItems.length > 0
         ? [`Upcoming (${upcomingItems.length}):`, ...upcomingItems.map(digestItemText), ``]
         : []),
-      ...nextStepText(nextStep),
-      `View dashboard: ${dashboardUrl}`,
+      ...(nextStep
+        ? [
+            payoffLine(nextStep),
+            `Continue: ${nextStep.requirementCode} ${nextStep.requirementTitle}`,
+            withUtm(nextStep.url, "daily_digest"),
+            ``,
+          ]
+        : []),
+      `View dashboard: ${withUtm(dashboardUrl, "daily_digest")}`,
       ``,
       `Unsubscribe from digest emails: ${unsubscribeUrl}`,
     ].join("\n"),
@@ -491,10 +538,25 @@ export function weeklyManagementDigestEmail(opts: {
             <td style="padding: 10px 12px; border-bottom: 1px solid ${BRAND.border}; font-weight: 600; text-align: right; color: ${escalationCount > 0 ? SEVERITY.destructive : SEVERITY.success};">${escalationCount}</td>
           </tr>
         </table>
-        ${nextStepHtml(nextStep)}
-        <a href="${dashboardUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          View Dashboard
-        </a>
+        ${
+          nextStep
+            ? `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
+          Next up: <a href="${withUtm(nextStep.url, "weekly_management_digest")}" style="color: ${BRAND.primary}; font-weight: 600; text-decoration: none;">${escapeHtml(nextStep.requirementCode)} ${escapeHtml(nextStep.requirementTitle)}</a> (${escapeHtml(nextStep.categoryName)}), ${nextStep.assigneeName ? `assigned to ${escapeHtml(nextStep.assigneeName)}` : "not yet assigned"}.
+        </p>`
+            : ""
+        }
+        ${
+          completedRequirements < totalRequirements
+            ? `<p style="color: ${BRAND.mutedForeground}; font-size: 13px; line-height: 1.6; margin: 0 0 16px;">
+          Open items return in every weekly report until they are done. Completed items land in the audit trail as evidence.
+        </p>`
+            : ""
+        }
+        ${dashboardButtonHtml(
+          dashboardUrl,
+          "weekly_management_digest",
+          completedRequirements < totalRequirements ? "Review the open items" : "View Dashboard",
+        )}
         <div style="margin: 24px 0 0; padding: 16px; background: ${BRAND.muted}; border: 1px solid ${BRAND.border}; border-radius: 6px; font-size: 12px; color: ${BRAND.mutedForeground}; line-height: 1.5;">
           This email serves as documentation of management notification per Art. 20 NIS 2 / &sect;38 BSIG.<br/>
           Diese E-Mail dient als Nachweis der Leitungsunterrichtung gem&auml;&szlig; Art. 20 NIS 2 / &sect;38 BSIG.
@@ -516,8 +578,20 @@ export function weeklyManagementDigestEmail(opts: {
       `Urgent Items: ${urgentCount}`,
       `Escalations: ${escalationCount}`,
       ``,
-      ...nextStepText(nextStep),
-      `View dashboard: ${dashboardUrl}`,
+      ...(nextStep
+        ? [
+            `Next up: ${nextStep.requirementCode} ${nextStep.requirementTitle} (${nextStep.categoryName}), ${nextStep.assigneeName ? `assigned to ${nextStep.assigneeName}` : "not yet assigned"}.`,
+            withUtm(nextStep.url, "weekly_management_digest"),
+            ``,
+          ]
+        : []),
+      ...(completedRequirements < totalRequirements
+        ? [
+            `Open items return in every weekly report until they are done. Completed items land in the audit trail as evidence.`,
+            ``,
+          ]
+        : []),
+      `View dashboard: ${withUtm(dashboardUrl, "weekly_management_digest")}`,
       ``,
       `---`,
       `This email serves as documentation of management notification per Art. 20 NIS 2 / §38 BSIG.`,

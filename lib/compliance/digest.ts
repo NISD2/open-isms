@@ -4,9 +4,10 @@
  * Used by the cron job to batch pending email notifications into a single
  * digest email instead of individual emails per reminder.
  */
+import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
 import { and, desc, eq, inArray, lte, sql } from "drizzle-orm";
 import type { Database } from "@/lib/db";
-import type { DigestItem } from "@/lib/mail";
+import type { DigestItem, DigestNextStep } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
 import requirementsEn from "@/messages/requirements/en.json";
 import {
@@ -15,6 +16,7 @@ import {
   companyRequirementStatus,
   notification,
   requirement,
+  requirementAssignment,
   requirementCategory,
   user,
 } from "@/schema";
@@ -26,12 +28,6 @@ import { isDoneStatus, journeyPosition } from "./journey-position";
 // Types
 // ---------------------------------------------------------------------------
 
-export interface NextJourneyStep {
-  requirementCode: string;
-  requirementTitle: string;
-  url: string;
-}
-
 export interface DigestData {
   recipientId: string;
   recipientName: string;
@@ -42,7 +38,7 @@ export interface DigestData {
   urgentItems: DigestItem[];
   upcomingItems: DigestItem[];
   /** First open requirement in journey order; null when the path is done. */
-  nextStep: NextJourneyStep | null;
+  nextStep: DigestNextStep | null;
   compliancePercentage: string;
   dashboardUrl: string;
 }
@@ -60,9 +56,14 @@ export interface ManagementDigestData {
   totalRequirements: number;
   completedRequirements: number;
   /** First open requirement in journey order; null when the path is done. */
-  nextStep: NextJourneyStep | null;
+  nextStep: DigestNextStep | null;
   dashboardUrl: string;
 }
+
+/** English category names live in the framework data, not the DB. */
+const CATEGORY_NAME_BY_SLUG: Record<string, string> = Object.fromEntries(
+  nis2Categories.map((c) => [c.slug ?? "", c.name ?? ""]),
+);
 
 // ---------------------------------------------------------------------------
 // Next journey step — shared by both digests
@@ -80,15 +81,17 @@ function requirementTitle(code: string): string {
  * The first not-done requirement in journey order — the same
  * category-weighted order the path view and the activation-nudge email use
  * (journeyPosition), so every email names the step the journey page
- * highlights when the reader clicks through.
+ * highlights when the reader clicks through. Carries the progress numbers
+ * the templates turn into the payoff line ("20 of 49; finishing 12.1
+ * completes Registration") and, for the management digest, who owns it.
  */
 async function findNextJourneyStep(
   db: Database,
   assessmentIds: string[],
-): Promise<NextJourneyStep | null> {
+): Promise<DigestNextStep | null> {
   const rows = await db.query.companyRequirementStatus.findMany({
     where: inArray(companyRequirementStatus.assessmentId, assessmentIds),
-    columns: { status: true },
+    columns: { id: true, status: true },
     with: {
       requirement: {
         columns: { code: true, sortOrder: true },
@@ -100,6 +103,7 @@ async function findNextJourneyStep(
   const next = rows
     .filter((r) => !isDoneStatus(r.status))
     .map((r) => ({
+      statusId: r.id,
       code: r.requirement.code,
       slug: r.requirement.category?.slug ?? "unknown",
       position: journeyPosition(
@@ -110,10 +114,25 @@ async function findNextJourneyStep(
     .sort((a, b) => a.position - b.position || a.code.localeCompare(b.code))[0];
 
   if (!next) return null;
+
+  const categoryRows = rows.filter(
+    (r) => (r.requirement.category?.slug ?? "unknown") === next.slug,
+  );
+  const assignment = await db.query.requirementAssignment.findFirst({
+    where: eq(requirementAssignment.statusId, next.statusId),
+    with: { user: { columns: { name: true } } },
+  });
+
   return {
     requirementCode: next.code,
     requirementTitle: requirementTitle(next.code),
     url: `${getAppUrl()}/compliance/${next.slug}#${next.code}`,
+    done: rows.filter((r) => isDoneStatus(r.status)).length,
+    total: rows.length,
+    categoryName: CATEGORY_NAME_BY_SLUG[next.slug] ?? next.slug,
+    categoryDone: categoryRows.filter((r) => isDoneStatus(r.status)).length,
+    categoryTotal: categoryRows.length,
+    assigneeName: assignment?.user?.name ?? null,
   };
 }
 
