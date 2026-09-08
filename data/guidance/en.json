@@ -50,10 +50,10 @@
     }
   },
   "1.4": {
-    "summary": "Your company's management board members must each personally confirm they understand their personal liability for cybersecurity failures. You're done when every board member has signed off individually on the platform.",
+    "summary": "§38(1) BSIG obliges the management board to implement the risk-management measures and supervise that implementation. §38(2) attaches liability to that: a member who breaches the duty is liable to their own entity for culpably caused damage, under company law. No statute requires a signature for this. This platform has each member confirm individually that they know the duty, so the §38(1) supervision is evidenced. You're done when every current member has confirmed.",
     "applicability": "Every member of the management board must do this; other employees can skip it.",
     "quickTip": "List out all your current management board members and have the first one log in to sign the acknowledgment.",
-    "implementationSteps": "List all current members of your management board.\nHave each one log into the platform and review the liability info.\nGet each to click 'acknowledge' or sign digitally, do it one by one.\nCheck the platform shows all as confirmed.\nSet a reminder to re-do this if your board changes.",
+    "implementationSteps": "List all current members of your management board.\nHave each one log into the platform and review the liability info.\nHave each confirm individually that they know the duty under §38(1).\nCheck the platform shows all as confirmed.\nSet a reminder to re-do this if your board changes.",
     "evidenceExample": "Screenshot or platform record showing each management board member's name, date, and confirmation that they personally acknowledged their liability for cybersecurity.",
     "fields": {
       "liabilityAcknowledged": {
@@ -323,10 +323,10 @@
     }
   },
   "3.5": {
-    "summary": "After every major security incident, hold a review meeting within 2 weeks to figure out what went wrong and how to fix it. Document the lessons learned and create ready-to-use message templates for telling customers and the public what happened.",
+    "summary": "After every major security incident, hold a review meeting within a deadline you set yourself (CIR 3.6 requires the review but names no deadline) to figure out what went wrong and how to fix it. Document the lessons learned and create ready-to-use message templates for telling customers and the public what happened.",
     "applicability": "Every company handling this requirement must assign someone to lead these reviews; smaller companies without incidents yet still need to name a responsible person.",
     "quickTip": "Pick one trusted person on your team to own these reviews and jot down their name and role right now.",
-    "implementationSteps": "Choose one person to lead post-incident reviews and write down their name and contact info.\nSet up a simple review process: meet within 2 weeks after an incident ends, cover what caused it, timeline, what worked or failed, and fix actions with deadlines and owners.\nCreate message templates ahead of time for customers and public notices, including what happened, data affected, your response, and their next steps.\nAfter each review, add the improvement actions to your company's to-do list for fixes.\nTest the process once by doing a fake incident review with your team.",
+    "implementationSteps": "Choose one person to lead post-incident reviews and write down their name and contact info.\nSet up a simple review process: meet within your own deadline after an incident ends, cover what caused it, timeline, what worked or failed, and fix actions with deadlines and owners.\nCreate message templates ahead of time for customers and public notices, including what happened, data affected, your response, and their next steps.\nAfter each review, add the improvement actions to your company's to-do list for fixes.\nTest the process once by doing a fake incident review with your team.",
     "evidenceExample": "A document showing the review process details, including who leads it, what gets covered in reviews, sample communication templates, and how actions feed into improvements.",
     "fields": {
       "postIncidentReviewOwner": {
@@ -657,7 +657,7 @@
     "fields": {}
   },
   "6.5": {
-    "summary": "Your company must have a formal change management process covering risk assessment before changes, testing before production, and retroactive documentation of emergency changes. These three controls are mandatory under CIR 6(4). You're done when you have a documented process and are tracking changes.",
+    "summary": "Your company must have a formal change management process covering risk assessment before changes, testing before production, and retroactive documentation of emergency changes. These three controls sit in CIR Annex point 6.4 (change management, repairs and maintenance). You're done when you have a documented process and are tracking changes.",
     "applicability": "Every company with IT or OT systems that could affect critical operations needs this; small firms without complex systems might use a simple spreadsheet version.",
     "quickTip": "Talk to your IT team about how they currently handle updates or changes to systems. That's your starting point.",
     "implementationSteps": "Name your change tracking tool in the intake field below.\nEnsure your process covers the three CIR 6(4) mandatory controls: risk assessment before changes, testing before production, and retroactive documentation of emergency changes.\nTrack actual changes in the change register with full lifecycle (draft → approved → implemented).\nReview change history quarterly for patterns.",
@@ -982,7 +982,7 @@
     "summary": "Document your company-wide processes for managing user access throughout the employee lifecycle (joining, moving roles, leaving) and how you handle privileged/admin accounts. You're done when you've named your tools, defined background check scope, and identified your PAM approach.",
     "applicability": "Every company with employees needs JML processes; PAM tooling is needed if you have any admin or service accounts.",
     "quickTip": "Ask HR: 'What happens when someone starts or leaves?' Ask IT: 'What tool manages admin accounts?'",
-    "implementationSteps": "Document your joiner-mover-leaver process: onboarding checklist, role change procedure, offboarding steps.\nName the tool(s) used to track JML (HR system, ticketing, spreadsheet).\nDefine background check scope per CIR Art. 10 (all employees, security roles, management).\nName your PAM tool or approach for admin account management.\nGet management approval for the documented processes.",
+    "implementationSteps": "Document your joiner-mover-leaver process: onboarding checklist, role change procedure, offboarding steps.\nName the tool(s) used to track JML (HR system, ticketing, spreadsheet).\nDefine background check scope per CIR Annex point 10 (human resources security), covering all employees, security roles and management.\nName your PAM tool or approach for admin account management.\nGet management approval for the documented processes.",
     "evidenceExample": "A document describing your JML process with checklists, your PAM tool configuration, and background check policy, uploaded as evidence or maintained in the platform's policy module.",
     "fields": {
       "jmlTool": {
@@ -1114,10 +1114,10 @@
     }
   },
   "12.1": {
-    "summary": "Figure out if your company falls under NIS2 rules by checking your sector and size, then classify it as essential, important, or required. You're done when you have a written document explaining your classification with legal reasons.",
+    "summary": "Figure out if your company falls under NIS2 rules by checking your sector and size, then classify it under §28 BSIG as a 'besonders wichtige Einrichtung' (essential), a 'wichtige Einrichtung' (important), or out of scope. You're done when you have a written document explaining your classification with legal reasons.",
     "applicability": "Managers at companies in key sectors like energy, transport, or health with 50+ employees or certain revenue need this; smaller companies outside those sectors can skip it.",
     "quickTip": "List what your company does and check if it matches the critical sectors in NIS2 Annex I or II.",
-    "implementationSteps": "List the sectors your company works in, like energy or banking.\nCheck your employee count and revenue against the thresholds: 250+ employees or €50M+ revenue for essential, 50+ for important.\nPick your classification: essential (high risk), important (medium risk), or required (special cases).\nWrite a short document explaining your sector, size, why you chose that class, and cite §28 BSIG.\nGet your legal team or external lawyer to review it if unsure.",
+    "implementationSteps": "List the sectors your company works in, like energy or banking.\nCheck your size against §28 BSIG, and note the \"and\": besonders wichtig means at least 250 employees, or annual turnover over 50 million euro AND a balance sheet total over 43 million euro. Wichtig means at least 50 employees, or turnover and balance sheet total each over 10 million euro. Turnover on its own is not enough.\nPick your classification: essential (high risk), important (medium risk), or required (special cases).\nWrite a short document explaining your sector, size, why you chose that class, and cite §28 BSIG.\nGet your legal team or external lawyer to review it if unsure.",
     "evidenceExample": "A document that lists your company's sectors, employee count, revenue, chosen classification, and legal reasons why it fits under §28 BSIG.",
     "fields": {
       "entityClassification": {
