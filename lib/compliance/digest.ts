@@ -4,22 +4,22 @@
  * Used by the cron job to batch pending email notifications into a single
  * digest email instead of individual emails per reminder.
  */
-import { eq, and, lte, inArray, sql, desc } from "drizzle-orm";
-import {
-  notification,
-  companyRequirementStatus,
-  companyAssessment,
-  requirement,
-  requirementCategory,
-  company,
-  user,
-} from "@/schema";
+import { and, desc, eq, inArray, lte, sql } from "drizzle-orm";
 import type { Database } from "@/lib/db";
 import type { DigestItem } from "@/lib/mail";
-import { daysUntilDeadline } from "./deadlines";
 import { getAppUrl } from "@/lib/utils";
-import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 import requirementsEn from "@/messages/requirements/en.json";
+import {
+  company,
+  companyAssessment,
+  companyRequirementStatus,
+  notification,
+  requirement,
+  requirementCategory,
+  user,
+} from "@/schema";
+import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
+import { daysUntilDeadline } from "./deadlines";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -92,14 +92,22 @@ export async function compileDailyDigest(
       eq(companyAssessment.companyId, companyId),
       eq(companyAssessment.frameworkId, nis2FrameworkId),
     ),
-    columns: { id: true, compliancePercentage: true, completedRequirements: true, totalRequirements: true },
+    columns: {
+      id: true,
+      compliancePercentage: true,
+      completedRequirements: true,
+      totalRequirements: true,
+    },
   });
 
   if (assessments.length === 0) return null;
 
   // Compute aggregate compliance %
   const totalReq = assessments.reduce((s, a) => s + (a.totalRequirements ?? 0), 0);
-  const completedReq = assessments.reduce((s, a) => s + (a.completedRequirements ?? 0), 0);
+  const completedReq = assessments.reduce(
+    (s, a) => s + (a.completedRequirements ?? 0),
+    0,
+  );
   const pct = totalReq > 0 ? ((completedReq / totalReq) * 100).toFixed(1) : "0";
 
   const assessmentIds = assessments.map((a) => a.id);
@@ -134,10 +142,17 @@ export async function compileDailyDigest(
 
     const item: DigestItem = {
       requirementCode: s.requirement.code,
-      requirementTitle: requirementsEn.requirements[s.requirement.code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements]?.title ?? s.requirement.code,
+      requirementTitle:
+        requirementsEn.requirements[
+          s.requirement.code.replace(
+            /\./g,
+            "_",
+          ) as keyof typeof requirementsEn.requirements
+        ]?.title ?? s.requirement.code,
       deadline: s.nextReviewDate,
       daysRemaining: days,
-      urgency: days < 0 ? "critical" : days <= 7 ? "urgent" : days <= 30 ? "warning" : "info",
+      urgency:
+        days < 0 ? "critical" : days <= 7 ? "urgent" : days <= 30 ? "warning" : "info",
       categoryUrl: `${appUrl}/compliance/${slug}#${s.requirement.code}`,
     };
 
@@ -151,7 +166,11 @@ export async function compileDailyDigest(
   }
 
   // Don't send empty digests
-  if (overdueItems.length === 0 && urgentItems.length === 0 && upcomingItems.length === 0) {
+  if (
+    overdueItems.length === 0 &&
+    urgentItems.length === 0 &&
+    upcomingItems.length === 0
+  ) {
     return null;
   }
 
@@ -210,11 +229,25 @@ export async function compileManagementDigest(
       eq(companyAssessment.companyId, companyId),
       eq(companyAssessment.frameworkId, nis2FrameworkId),
     ),
-    columns: { id: true, compliancePercentage: true, completedRequirements: true, totalRequirements: true },
+    columns: {
+      id: true,
+      compliancePercentage: true,
+      completedRequirements: true,
+      totalRequirements: true,
+    },
   });
 
+  // No NIS 2 assessment means there is nothing to report on. The daily digest
+  // has always guarded this; this one did not, so a company with no NIS 2
+  // scope — a supplier-portal signup, say — could be mailed a management
+  // report announcing it was 0% compliant across 0 of 0 requirements.
+  if (assessments.length === 0) return null;
+
   const totalReq = assessments.reduce((s, a) => s + (a.totalRequirements ?? 0), 0);
-  const completedReq = assessments.reduce((s, a) => s + (a.completedRequirements ?? 0), 0);
+  const completedReq = assessments.reduce(
+    (s, a) => s + (a.completedRequirements ?? 0),
+    0,
+  );
   const pct = totalReq > 0 ? ((completedReq / totalReq) * 100).toFixed(1) : "0";
 
   const assessmentIds = assessments.map((a) => a.id);

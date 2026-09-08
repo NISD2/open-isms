@@ -85,6 +85,13 @@
       "when": 1788876271648,
       "tag": "0011_email_preferences",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1788883904391,
+      "tag": "0012_digest_once_per_day",
+      "breakpoints": true
     }
   ]
 }

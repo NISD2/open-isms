@@ -546,7 +546,7 @@ function DigestQueuePanel() {
         toast.warning(`Nothing sent: ${r.skipped}`);
       } else {
         toast.success(
-          `Sent ${r.sent}${r.failed ? `, ${r.failed} failed` : ""}${r.deferred ? `, ${r.deferred} still queued` : ""}`,
+          `Sent ${r.sent}${r.failed ? `, ${r.failed} failed` : ""}${r.alreadySentToday ? `, ${r.alreadySentToday} already had today's` : ""}${r.deferred ? `, ${r.deferred} still queued` : ""}`,
         );
       }
       void utils.platformAdmin.digestQueue.invalidate();

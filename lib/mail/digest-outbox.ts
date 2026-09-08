@@ -15,13 +15,16 @@
  * correct than queueing a snapshot that can go stale between the operator
  * reading it and pressing send.
  *
- * Unlike the lifecycle campaign there is no once-ever claim: a digest is
- * meant to recur. What stops a double-send is that a person presses the
- * button, plus the empty-digest rule below — send twice in a morning and
- * the second one still has content, so the operator is the guard here.
+ * Unlike the lifecycle campaign the claim is not once-EVER — a digest is
+ * meant to recur — but there is still a claim: one row per recipient per
+ * digest kind per UTC day, inserted before the send. That is what makes the
+ * queue drain after a batch and what stops a second press, or a second
+ * browser tab, mailing somebody the same digest twice. Without it the panel
+ * kept showing the same people as "waiting" after they had been mailed,
+ * which invites exactly the duplicate send it looks like it is warning about.
  */
 import "@/lib/server-guard";
-import { eq, isNotNull } from "drizzle-orm";
+import { and, eq, gte, inArray, isNotNull } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import type { Database } from "@/lib/db";
@@ -30,7 +33,7 @@ import type { UserConsentEmailTypeId } from "@/lib/mail/email-types";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { isSuppressedSendId, mailSuppressionReason, sendMail } from "@/lib/mail/send";
 import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
-import { company, user } from "@/schema";
+import { company, notification, user } from "@/schema";
 
 export type DigestKind = "daily" | "weekly";
 
@@ -53,6 +56,50 @@ const EMAIL_TYPE: Record<DigestKind, UserConsentEmailTypeId> = {
   weekly: "reminders.weekly_management_digest",
 };
 
+/** notification.entityType per kind; the partial unique index keys on these. */
+const ENTITY_TYPE: Record<DigestKind, string> = {
+  daily: "daily_digest",
+  weekly: "weekly_management_digest",
+};
+
+/** UTC day, so "already sent today" means the same thing everywhere. */
+function utcDay(now = new Date()): string {
+  return now.toISOString().slice(0, 10);
+}
+
+function digestClaimKey(userId: string, kind: DigestKind): string {
+  return `${userId}:${kind}`;
+}
+
+/**
+ * Recipients who already received each digest kind today, as claim keys.
+ * Read once per queue build rather than per member: a send loop over every
+ * member of every company would otherwise issue one query each.
+ */
+async function loadTodaysDigestRecipients(db: Database): Promise<Set<string>> {
+  const startOfDay = new Date(`${utcDay()}T00:00:00.000Z`);
+  const rows = await db
+    .select({
+      recipientId: notification.recipientId,
+      entityType: notification.entityType,
+    })
+    .from(notification)
+    .where(
+      and(
+        inArray(notification.entityType, [ENTITY_TYPE.daily, ENTITY_TYPE.weekly]),
+        gte(notification.createdAt, startOfDay),
+      ),
+    );
+
+  const sent = new Set<string>();
+  for (const row of rows) {
+    if (!row.recipientId) continue;
+    const kind: DigestKind = row.entityType === ENTITY_TYPE.daily ? "daily" : "weekly";
+    sent.add(digestClaimKey(row.recipientId, kind));
+  }
+  return sent;
+}
+
 /**
  * Everyone with a digest worth sending right now.
  *
@@ -68,9 +115,17 @@ const EMAIL_TYPE: Record<DigestKind, UserConsentEmailTypeId> = {
  */
 export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
   const companies = await db.query.company.findMany({
-    where: isNotNull(company.activatedAt),
+    // actsAsNis2Entity as well as activated: a supplier-portal signup is a
+    // real, activated company that is explicitly NOT in NIS 2 scope, and
+    // mailing it a NIS 2 compliance report is both wrong and alarming.
+    where: and(isNotNull(company.activatedAt), eq(company.actsAsNis2Entity, true)),
     columns: { id: true, name: true },
   });
+
+  // Who already got which digest today. This is what drains the queue: a
+  // recipient mailed an hour ago must not still read as "waiting", or the
+  // operator presses send again and mails them a second identical copy.
+  const alreadySentToday = await loadTodaysDigestRecipients(db);
 
   const queue: QueuedDigest[] = [];
   for (const co of companies) {
@@ -82,7 +137,10 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
     for (const member of members) {
       const consent = await loadEmailConsent(db, member.id);
 
-      if (consent.allows(EMAIL_TYPE.daily)) {
+      if (
+        consent.allows(EMAIL_TYPE.daily) &&
+        !alreadySentToday.has(digestClaimKey(member.id, "daily"))
+      ) {
         const digest = await compileDailyDigest(db, member.id, co.id);
         if (digest) {
           queue.push({
@@ -107,7 +165,11 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
       }
 
       const isManagementOrAdmin = member.isManagement || member.role === "admin";
-      if (isManagementOrAdmin && consent.allows(EMAIL_TYPE.weekly)) {
+      if (
+        isManagementOrAdmin &&
+        consent.allows(EMAIL_TYPE.weekly) &&
+        !alreadySentToday.has(digestClaimKey(member.id, "weekly"))
+      ) {
         const mgmt = await compileManagementDigest(db, member.id, co.id);
         if (mgmt) {
           queue.push({
@@ -149,6 +211,8 @@ export interface DigestSendResult {
   sent: number;
   failed: number;
   optedOut: number;
+  /** Claimed by an earlier press or another tab; nothing sent, nothing lost. */
+  alreadySentToday: number;
   deferred: number;
 }
 
@@ -158,7 +222,35 @@ export interface DigestSendResult {
  * operator looked at, so nobody receives a digest whose numbers moved while
  * the page was open.
  */
+/** The in-flight batch, or null. Same single-container assumption as the
+ *  lifecycle dispatcher: two presses cannot interleave two send loops. */
+let activeDigestRun: Promise<DigestSendResult> | null = null;
+
 export async function sendDigestBatch(
+  db: Database,
+  limit: number,
+  actorUserId: string,
+): Promise<DigestSendResult> {
+  if (activeDigestRun) {
+    return {
+      skipped: "a digest batch is already in progress",
+      sent: 0,
+      failed: 0,
+      optedOut: 0,
+      alreadySentToday: 0,
+      deferred: 0,
+    };
+  }
+  const run = executeDigestBatch(db, limit, actorUserId);
+  activeDigestRun = run;
+  try {
+    return await run;
+  } finally {
+    activeDigestRun = null;
+  }
+}
+
+async function executeDigestBatch(
   db: Database,
   limit: number,
   actorUserId: string,
@@ -170,6 +262,7 @@ export async function sendDigestBatch(
       sent: 0,
       failed: 0,
       optedOut: 0,
+      alreadySentToday: 0,
       deferred: 0,
     };
   }
@@ -181,6 +274,7 @@ export async function sendDigestBatch(
     sent: 0,
     failed: 0,
     optedOut: 0,
+    alreadySentToday: 0,
     deferred: queue.length - batch.length,
   };
 
@@ -221,6 +315,34 @@ export async function sendDigestBatch(
 
     // Emptied out between queueing and sending: nothing left to say.
     if (!content) continue;
+
+    // Claim before sending, exactly as the lifecycle dispatcher does. The
+    // partial unique index arbitrates, so a second press or a second tab
+    // finds the row already there and skips rather than sending a duplicate.
+    const now = new Date();
+    const claimed = await db
+      .insert(notification)
+      .values({
+        companyId: item.companyId,
+        recipientId: item.userId,
+        entityType: ENTITY_TYPE[item.kind],
+        entityId: item.userId,
+        triggerField: utcDay(now),
+        subject: content.subject,
+        channel: "email" as const,
+        status: "sent" as const,
+        scheduledFor: now,
+        sentAt: now,
+        urgency: "info" as const,
+        escalationLevel: 0,
+      })
+      .onConflictDoNothing()
+      .returning({ id: notification.id });
+    const claim = claimed[0];
+    if (!claim) {
+      result.alreadySentToday++;
+      continue;
+    }
 
     const res = await sendMail({
       emailType: EMAIL_TYPE[item.kind],
