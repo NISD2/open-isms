@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { ChevronDown, FileCheck, Lightbulb } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronDown, Lightbulb, FileCheck } from "lucide-react";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
 import { cn } from "@/lib/utils";
 

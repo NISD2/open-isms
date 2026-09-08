@@ -13,6 +13,12 @@ drizzle/                the `saas` migration chain, plus seed.ts
 messages/               i18n catalogues, ten locales
 i18n/                   next-intl routing and request configuration
 content/docs/           the markdown behind these pages
+public/                 served verbatim at the site root
+  images/hero/          per-locale product shots for / and /supplier-portal
+  images/people/        author and about-page photos
+  og/                   generated Open Graph cards, one per route and locale
+  pitch/                pitch deck figures and mobile slide screenshots
+  fonts/                the .ttf files lib/pdf registers at render time
 
 packages/
   grc-data-model/                 framework data + entity model, published to npm (MIT)
@@ -23,12 +29,11 @@ packages/
   isms-pages/                     pre-translated page components
   isms-lib/                       compliance helpers: deadlines, formatting
   isms-trpc/                      tRPC setup and the audit middleware
-  isms-messages/                  package-level i18n catalogues
 
 apps/reference/         minimal demo of the packages, its own compose file
 courses/                NIS 2 CEO course, tabletop exercises, CRA SBOM
 data/                   public reference data: registration portals, timeline
-docs/                   deployment and legal reference markdown
+docs/                   migration policy, deployment notes, legal reference
 scripts/                operational and release tooling
 e2e/                    Playwright specs and their fixtures
 .github/workflows/      CI, e2e, release, npm publishing, self-host drills
@@ -43,7 +48,7 @@ e2e/                    Playwright specs and their fixtures
 | A table only the SaaS needs (billing, newsletter, sessions) | `schema/` plus a migration in `drizzle/` |
 | A UI primitive several surfaces use | `packages/isms-ui/` |
 | A page or a flow | `app/[locale]/` |
-| Translated copy | `messages/` and `packages/isms-messages/` |
+| Translated copy | `messages/` |
 | Operator or developer documentation | `content/docs/` |
 
 ## Three path aliases worth knowing

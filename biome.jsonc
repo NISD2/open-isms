@@ -4,9 +4,9 @@
   "files": {
     "includes": [
       "**",
-      "!**/.next/**",
-      "!**/node_modules/**",
-      "!**/drizzle/**",
+      "!**/.next",
+      "!**/node_modules",
+      "!**/drizzle",
       "!**/*.min.js",
       "!bun.lock"
     ]
@@ -57,6 +57,10 @@
     }
   ],
   "javascript": {
-    "formatter": { "quoteStyle": "double", "trailingCommas": "all", "semicolons": "always" }
+    "formatter": {
+      "quoteStyle": "double",
+      "trailingCommas": "all",
+      "semicolons": "always"
+    }
   }
 }

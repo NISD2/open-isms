@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { CopyProtected } from "@/components/CopyProtected";
-import { pageAlternates } from "@/lib/seo";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { ogImages } from "@/lib/og-card";
+import { pageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("info");
   return {
@@ -50,51 +49,57 @@ export default async function PartnerPage() {
   const t = await getTranslations("info");
 
   return (
-    <CopyProtected><article>
-      <header className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">{t("partners.title")}</h1>
-        <p className="text-lg text-muted-foreground">{t("partners.subtitle")}</p>
-      </header>
+    <CopyProtected>
+      <article>
+        <header className="space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight">{t("partners.title")}</h1>
+          <p className="text-lg text-muted-foreground">{t("partners.subtitle")}</p>
+        </header>
 
-      <Separator className="my-8" />
+        <Separator className="my-8" />
 
-      <section id="partners" className="space-y-4">
-        {partners.map((partner) => (
-          <Card key={partner.name}>
-            <CardHeader>
-              {/* biome-ignore lint/performance/noImgElement: partner logos are arbitrary aspect ratios from a static list; next/image adds no value here */}
-              <img
-                src={partner.logo}
-                alt={t(`partners.${partner.titleKey}`)}
-                width={partner.logoWidth}
-                height={partner.logoHeight}
-                className="h-24 w-auto"
-              />
-              <CardTitle className="sr-only">{t(`partners.${partner.titleKey}`)}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <p className="font-medium text-foreground">{t(`partners.${partner.titleKey}`)}</p>
-              <p>{t(`partners.${partner.descKey}`)}</p>
-              <p>
-                <a
-                  href={partner.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted"
-                >
-                  {t("partners.learnMore")}
-                </a>
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </section>
+        <section id="partners" className="space-y-4">
+          {partners.map((partner) => (
+            <Card key={partner.name}>
+              <CardHeader>
+                {/* biome-ignore lint/performance/noImgElement: partner logos are arbitrary aspect ratios from a static list; next/image adds no value here */}
+                <img
+                  src={partner.logo}
+                  alt={t(`partners.${partner.titleKey}`)}
+                  width={partner.logoWidth}
+                  height={partner.logoHeight}
+                  className="h-24 w-auto"
+                />
+                <CardTitle className="sr-only">
+                  {t(`partners.${partner.titleKey}`)}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm text-muted-foreground">
+                <p className="font-medium text-foreground">
+                  {t(`partners.${partner.titleKey}`)}
+                </p>
+                <p>{t(`partners.${partner.descKey}`)}</p>
+                <p>
+                  <a
+                    href={partner.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted"
+                  >
+                    {t("partners.learnMore")}
+                  </a>
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </section>
 
-      <Separator className="my-8" />
+        <Separator className="my-8" />
 
-      <footer>
-        <p className="text-xs text-muted-foreground">{t("partners.legal")}</p>
-      </footer>
-    </article></CopyProtected>
+        <footer>
+          <p className="text-xs text-muted-foreground">{t("partners.legal")}</p>
+        </footer>
+      </article>
+    </CopyProtected>
   );
 }

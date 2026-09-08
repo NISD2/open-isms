@@ -1,9 +1,12 @@
+import type { ZodObject, ZodRawShape } from "zod";
 import { companyInsertSchema } from "@/schema/validators";
-import { type ZodRawShape, type ZodObject } from "zod";
 
 // Bridge drizzle-zod BuildSchema (Zod v3 internals) → Zod v4 ZodObject
-// biome-ignore lint/suspicious/noExplicitAny: drizzle-zod uses the "strip" literal where Zod v4 expects its $strip symbol
-export const companyFormSchema = companyInsertSchema as unknown as ZodObject<ZodRawShape, any>;
+export const companyFormSchema = companyInsertSchema as unknown as ZodObject<
+  ZodRawShape,
+  // biome-ignore lint/suspicious/noExplicitAny: drizzle-zod uses the "strip" literal where Zod v4 expects its $strip symbol
+  any
+>;
 
 export const SECTORS = [
   "energy",
