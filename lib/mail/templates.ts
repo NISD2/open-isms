@@ -36,7 +36,7 @@ export function inviteEmail(opts: {
   const safeRole = escapeHtml(role);
 
   return {
-    subject: `Join ${safeHeader(companyName)} on NISD2`,
+    subject: `${safeHeader(inviterName)} invited you to ${safeHeader(companyName)} on NISD2`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Join ${safeCo}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
@@ -79,7 +79,7 @@ export function contactEmailChangedEmail(opts: {
   const safeNew = escapeHtml(newEmail);
 
   return {
-    subject: `Compliance contact email changed for ${safeHeader(companyName)}`,
+    subject: `The compliance contact for ${safeHeader(companyName)} was changed`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Contact Email Changed</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
@@ -127,7 +127,7 @@ export function categoryAssignedEmail(opts: {
   const safeAssigner = escapeHtml(assignerName);
 
   return {
-    subject: `You've been assigned to ${safeHeader(categoryName)} (${safeHeader(categoryCode)})`,
+    subject: `${safeHeader(assignerName)} assigned you ${safeHeader(categoryName)}`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">New Assignment</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
@@ -169,7 +169,7 @@ export function categoryUnassignedEmail(opts: {
   const safeCo = escapeHtml(companyName);
 
   return {
-    subject: `You've been unassigned from ${safeHeader(categoryName)} (${safeHeader(categoryCode)})`,
+    subject: `You are no longer assigned to ${safeHeader(categoryName)}`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Assignment Removed</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
@@ -211,7 +211,9 @@ export function reviewDecisionEmail(opts: {
   const safeFeedback = feedback ? escapeHtml(feedback) : null;
 
   return {
-    subject: `[NIS2] Requirement ${safeHeader(requirementCode)} ${label}`,
+    subject: decision === "approved"
+      ? `${safeHeader(requirementCode)} was approved`
+      : `${safeHeader(requirementCode)} needs another look`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Submission ${label}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
@@ -242,7 +244,7 @@ export function memberRemovedEmail(opts: {
   const safeMember = escapeHtml(memberName);
 
   return {
-    subject: `You've been removed from ${safeHeader(companyName)}`,
+    subject: `You no longer have access to ${safeHeader(companyName)}`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Removed from ${safeCo}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
@@ -281,7 +283,7 @@ export function deadlineReminderEmail(opts: {
   const safeDeadline = escapeHtml(deadline);
 
   return {
-    subject: `[NIS2] ${safeHeader(requirementCode)} is due for review in ${daysRemaining} days`,
+    subject: `${safeHeader(requirementCode)} is due for review in ${daysRemaining} days`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Upcoming Deadline</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
@@ -331,7 +333,7 @@ export function deadlineUrgentEmail(opts: {
   const safeDeadline = escapeHtml(deadline);
 
   return {
-    subject: `[NIS2] URGENT: ${safeHeader(requirementCode)} is due ${dueLabel}`,
+    subject: `${safeHeader(requirementCode)} is due ${dueLabel}`,
     html: emailLayout(`
         <div style="background: ${SEVERITY.warning}; color: #fff; padding: 12px 16px; border-radius: 6px 6px 0 0; font-weight: 600; font-size: 14px;">
           URGENT: Immediate Action Required
@@ -385,7 +387,7 @@ export function deadlineOverdueEmail(opts: {
   const safeDeadline = escapeHtml(deadline);
 
   return {
-    subject: `[NIS2] OVERDUE: ${safeHeader(requirementCode)} is ${daysOverdue} day(s) past deadline`,
+    subject: `${safeHeader(requirementCode)} passed its review date ${daysOverdue} day(s) ago`,
     html: emailLayout(`
         <div style="background: ${SEVERITY.destructive}; color: #fff; padding: 12px 16px; border-radius: 6px 6px 0 0; font-weight: 600; font-size: 14px;">
           OVERDUE: Compliance at Risk
@@ -486,7 +488,16 @@ export function dailyDigestEmail(opts: {
   const safePct = escapeHtml(compliancePercentage);
 
   return {
-    subject: `[NIS2] Daily Compliance Digest: ${safeHeader(companyName)}`,
+    // Lead with the thing worth opening the mail for. "Daily Compliance
+    // Digest" told the reader only that a machine sent it on a schedule,
+    // which is the definition of a mail you archive unread.
+    subject: safeHeader(
+      overdueItems.length > 0
+        ? `${overdueItems.length} overdue at ${companyName}`
+        : urgentItems.length > 0
+          ? `${urgentItems.length} due this week at ${companyName}`
+          : `${upcomingItems.length} deadlines coming up at ${companyName}`,
+    ),
     html: emailLayout(`
         <h2 style="margin: 0 0 8px; color: ${BRAND.foreground};">Daily Compliance Digest</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 4px;">
@@ -569,7 +580,9 @@ export function weeklyManagementDigestEmail(opts: {
   const safePct = escapeHtml(compliancePercentage);
 
   return {
-    subject: `[NIS2] Weekly Management Report: ${safeHeader(companyName)}`,
+    subject: safeHeader(
+      `${companyName} is at ${compliancePercentage}% on NIS 2 this week`,
+    ),
     html: emailLayout(`
         <h2 style="margin: 0 0 8px; color: ${BRAND.foreground};">Weekly Management Report</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
@@ -652,7 +665,7 @@ export function escalationEmail(opts: {
   const safeAssignee = escapeHtml(assigneeName);
 
   return {
-    subject: `[NIS2] Escalation Level ${escalationLevel}: ${safeHeader(requirementCode)} is ${daysOverdue}d overdue`,
+    subject: `${safeHeader(requirementCode)} has been open ${daysOverdue} days and needs a decision`,
     html: emailLayout(`
         <div style="background: ${SEVERITY.destructive}; color: #fff; padding: 12px 16px; border-radius: 6px 6px 0 0; font-weight: 600; font-size: 14px;">
           Escalation Level ${escalationLevel}
@@ -723,7 +736,7 @@ export function supplierIncidentBroadcastEmail(opts: {
   const safeBody = escapeHtml(body);
 
   return {
-    subject: `[${safeHeader(severityLabel)}] ${safeHeader(supplierName)}: ${safeHeader(title)}`,
+    subject: `${safeHeader(supplierName)} reported a security incident: ${safeHeader(title)}`,
     html: emailLayout(`
         <div style="display: inline-block; background: ${severityColor}; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${safeSeverityLabel}</div>
         <h2 style="margin: 16px 0 8px; color: ${BRAND.foreground};">${safeTitle}</h2>
@@ -857,7 +870,7 @@ export function supplierAddedYouEmail(opts: {
   const safeName = escapeHtml(supplierName);
 
   return {
-    subject: `${safeHeader(supplierName)} added you to their NIS2 supplier security updates`,
+    subject: `${safeHeader(supplierName)} will send you their security updates`,
     html: emailLayout(`
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">You've been added as a security update recipient</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">

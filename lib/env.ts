@@ -28,6 +28,14 @@ const envSchema = z.object({
   // ENABLE_EMAIL_IN_DEV=true to exercise the real path in dev.
   RESEND_API_KEY: z.string().optional(),
   RESEND_FROM_EMAIL: z.string().default("noreply@nisd2.eu"),
+  /**
+   * From display name for system mail. Self-hosters running their own
+   * instance should set this to their own organisation, since the recipient
+   * has never heard of NISD2.
+   */
+  RESEND_FROM_NAME: z.string().default("NISD2"),
+  /** From display name for mail written in a person's voice. */
+  RESEND_FROM_NAME_PERSONAL: z.string().default("Simon von NISD2"),
   // Separate From for the newsletter so lifecycle email can send from a
   // distinct mailbox (e.g. newsletter@nisd2.eu) while auth/transactional
   // email stays on RESEND_FROM_EMAIL. Falls back to RESEND_FROM_EMAIL.

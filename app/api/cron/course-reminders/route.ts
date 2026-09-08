@@ -28,6 +28,7 @@ import { env, mailSupportEmail } from "@/lib/env";
 import { verifyCronBearer } from "@/lib/cron/auth";
 import { getAppUrl } from "@/lib/utils";
 import { sendMail, courseFollowupEmail } from "@/lib/mail";
+import { FROM_NAME_PERSONAL } from "@/lib/mail/resend";
 import { loadCourse } from "@/lib/training/course-loader";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 
@@ -249,6 +250,8 @@ export async function GET(req: NextRequest) {
       sendMail({
         emailType: "product.course_followup",
         recipientUserId: u.id,
+        // Signed by Simon in the body, so the From line says so too.
+        fromName: FROM_NAME_PERSONAL,
         to: u.email,
         subject: email.subject,
         html: email.html,

@@ -29,6 +29,11 @@
     "en": "/og/changelog-en.png",
     "nl": "/og/changelog-nl.png"
   },
+  "drata-alternative": {
+    "de": "/og/drata-alternative-de.png",
+    "en": "/og/drata-alternative-en.png",
+    "nl": "/og/drata-alternative-nl.png"
+  },
   "ethik": {
     "de": "/og/ethik-de.png",
     "en": "/og/ethik-en.png",
@@ -191,6 +196,11 @@
     "de": "/og/training-tabletop-de.png",
     "en": "/og/training-tabletop-en.png",
     "nl": "/og/training-tabletop-nl.png"
+  },
+  "vanta-alternative": {
+    "de": "/og/vanta-alternative-de.png",
+    "en": "/og/vanta-alternative-en.png",
+    "nl": "/og/vanta-alternative-nl.png"
   },
   "vertrauen": {
     "de": "/og/vertrauen-de.png",
