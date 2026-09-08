@@ -153,7 +153,7 @@ export default async function TeamPage({
           <CardContent className="pt-6 space-y-4">
             <div className="flex items-center gap-4">
               <Image
-                src="/simon-bg-rem.png"
+                src="/images/people/simon-cutout.png"
                 alt="Simon Orzel"
                 width={80}
                 height={80}
@@ -203,7 +203,7 @@ export default async function TeamPage({
           <CardContent className="pt-6 space-y-4">
             <div className="flex items-center gap-4">
               <Image
-                src="/team-cory.png"
+                src="/images/people/cory.png"
                 alt="Cory Hisey"
                 width={80}
                 height={80}

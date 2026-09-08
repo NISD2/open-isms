@@ -161,7 +161,7 @@ export default async function SupplierPortalLandingPage() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`/supplier-hero-${locale}.png`}
+              src={`/images/hero/supplier-${locale}.png`}
               alt={t("screenshotAlt")}
               className="block w-full rounded-xl border border-border/60"
             />

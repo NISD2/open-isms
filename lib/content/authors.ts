@@ -48,7 +48,7 @@ export const SIMON: DocsAuthor = {
   ],
   profileUrl: "/autor/simon-orzel",
   linkedinUrl: "https://www.linkedin.com/in/simon-orzel-5a974b180/",
-  photoUrl: "/team-simon.png",
+  photoUrl: "/images/people/simon.png",
 };
 
 export const CORY: DocsAuthor = {
@@ -71,7 +71,7 @@ export const CORY: DocsAuthor = {
   ],
   profileUrl: "/autor/cory-hisey",
   linkedinUrl: "https://www.linkedin.com/in/cory-hisey-730a8a59/",
-  photoUrl: "/team-cory.png",
+  photoUrl: "/images/people/cory.png",
 };
 
 export const AUTHORS: Record<DocsAuthor["slug"], DocsAuthor> = {

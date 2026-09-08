@@ -452,7 +452,7 @@ function TeamSlide({ en }: { en: boolean }) {
         <div className="flex-1 bg-white rounded-xl p-5 border border-slate-200 flex flex-col">
           <div className="flex items-center gap-3 mb-3">
             <div className="relative h-12 w-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
-              <Image src="/simon-bg-rem.png" alt="Simon Orzel" fill className="object-cover" />
+              <Image src="/images/people/simon-cutout.png" alt="Simon Orzel" fill className="object-cover" />
             </div>
             <div>
               <p className="text-sm font-bold text-slate-900">Simon Orzel</p>
@@ -468,7 +468,7 @@ function TeamSlide({ en }: { en: boolean }) {
         <div className="flex-1 bg-white rounded-xl p-5 border border-slate-200 flex flex-col">
           <div className="flex items-center gap-3 mb-3">
             <div className="relative h-12 w-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
-              <Image src="/team-cory.png" alt="Cory Hisey" fill className="object-cover" />
+              <Image src="/images/people/cory.png" alt="Cory Hisey" fill className="object-cover" />
             </div>
             <div>
               <p className="text-sm font-bold text-slate-900">Cory Hisey</p>
