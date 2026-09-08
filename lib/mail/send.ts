@@ -24,6 +24,14 @@ export interface SendMailOptions {
    * Apple Mail render a native "Unsubscribe" link in the message header.
    */
   unsubscribeUrl?: string;
+  /**
+   * Resend Idempotency-Key. The retry loop below re-POSTs on ambiguous
+   * network failures, so a request that Resend accepted but whose response
+   * was lost would otherwise be delivered AGAIN on the retry. Callers with
+   * exactly-once semantics (lifecycle claims) pass a stable per-message key
+   * so Resend dedups the retries server-side.
+   */
+  idempotencyKey?: string;
 }
 
 const MAX_RETRIES = 2;
@@ -31,6 +39,44 @@ const RETRY_DELAY_MS = 1000;
 
 function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export type MailSuppressionReason = "dev-blocked" | "disabled" | "no-api-key";
+
+/**
+ * Why sendMail would suppress a send right now, or null when a real send
+ * would go out. sendMail derives its short-circuits from this; callers that
+ * persist per-send state (lib/lifecycle claims a one-shot dedup row BEFORE
+ * sending) must consult it first, because sendMail reports suppressed sends
+ * as `{ success: true }` and would otherwise burn the one shot on an email
+ * that never left the box.
+ */
+export function mailSuppressionReason(): MailSuppressionReason | null {
+  if (
+    process.env.NODE_ENV !== "production" &&
+    process.env.ENABLE_EMAIL_IN_DEV !== "true"
+  ) {
+    return "dev-blocked";
+  }
+  if (process.env.DISABLE_EMAIL || env.DISABLE_EMAIL) return "disabled";
+  if (!env.RESEND_API_KEY) return "no-api-key";
+  return null;
+}
+
+/**
+ * The sentinel ids sendMail (and the dev-stub Resend client) return instead
+ * of a Resend message id when a send was suppressed. `success: true` with one
+ * of these ids means "not an error" — it never means "delivered".
+ */
+const SUPPRESSED_SEND_IDS: ReadonlySet<string> = new Set([
+  "dev-blocked",
+  "disabled",
+  "no-api-key",
+  "dev-stub",
+]);
+
+export function isSuppressedSendId(id: string | undefined): boolean {
+  return id !== undefined && SUPPRESSED_SEND_IDS.has(id);
 }
 
 /**
@@ -44,10 +90,8 @@ function wait(ms: number) {
  * To exercise the email path in dev: set ENABLE_EMAIL_IN_DEV=true.
  */
 export async function sendMail(opts: SendMailOptions) {
-  if (
-    process.env.NODE_ENV !== "production" &&
-    process.env.ENABLE_EMAIL_IN_DEV !== "true"
-  ) {
+  const suppression = mailSuppressionReason();
+  if (suppression === "dev-blocked") {
     const to = Array.isArray(opts.to) ? opts.to.join(", ") : opts.to;
     console.log(
       `[mail] dev-blocked (NODE_ENV=${process.env.NODE_ENV ?? "unknown"}) — would send to=${to} subject="${opts.subject}"`,
@@ -55,11 +99,11 @@ export async function sendMail(opts: SendMailOptions) {
     return { success: true, id: "dev-blocked" } as const;
   }
 
-  if (process.env.DISABLE_EMAIL || env.DISABLE_EMAIL) {
+  if (suppression === "disabled") {
     return { success: true, id: "disabled" } as const;
   }
 
-  if (!env.RESEND_API_KEY) {
+  if (suppression === "no-api-key") {
     console.warn("[mail] RESEND_API_KEY not set, skipping email");
     return { success: true, id: "no-api-key" } as const;
   }
@@ -73,15 +117,18 @@ export async function sendMail(opts: SendMailOptions) {
           }
         : undefined;
 
-      const { data, error } = await resend.emails.send({
-        from: `NIS2 Compliance <${opts.fromEmail ?? FROM_EMAIL}>`,
-        to: Array.isArray(opts.to) ? opts.to : [opts.to],
-        subject: opts.subject,
-        html: opts.html,
-        text: opts.text,
-        replyTo: opts.replyTo,
-        headers,
-      });
+      const { data, error } = await resend.emails.send(
+        {
+          from: `NIS2 Compliance <${opts.fromEmail ?? FROM_EMAIL}>`,
+          to: Array.isArray(opts.to) ? opts.to : [opts.to],
+          subject: opts.subject,
+          html: opts.html,
+          text: opts.text,
+          replyTo: opts.replyTo,
+          headers,
+        },
+        opts.idempotencyKey ? { idempotencyKey: opts.idempotencyKey } : undefined,
+      );
 
       if (error) {
         console.error(`[mail] Attempt ${attempt + 1}/${MAX_RETRIES + 1} failed:`, error);

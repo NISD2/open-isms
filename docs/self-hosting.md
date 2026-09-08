@@ -229,12 +229,13 @@ Once you have a certificate:
 2. Set `CSP_UPGRADE_INSECURE=1`.
 3. Restart. Confirm login works before you walk away, because a wrong `AUTH_URL` fails at the cookie layer with no error message.
 
-Schedule two cron jobs against your public URL with an `Authorization: Bearer ${CRON_SECRET}` header:
+Schedule three cron jobs against your public URL with an `Authorization: Bearer ${CRON_SECRET}` header:
 
 | Path | Schedule (UTC) | Purpose |
 |---|---|---|
 | `/api/cron/deadlines` | `0 6 * * *` | The daily heartbeat: status transitions, deadline backfill, reminder scheduling, escalation, digest sending, queued supplier broadcasts, and GDPR retention on erasure records |
 | `/api/cron/course-reminders` | `0 7 * * *` | Course follow-ups for enrolled users |
+| `/api/cron/lifecycle` | `0 8 * * *` | One-time re-engagement emails for quiet accounts (at most once per user per email type, enforced in the database) |
 
 Calling the first one "deadline reminders" undersells it. Nothing inside the
 container has a timer, so an instance that never calls it never transitions a

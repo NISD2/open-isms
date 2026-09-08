@@ -333,6 +333,24 @@ export const user = pgTable("user", {
    */
   loginCount: integer("login_count").default(0).notNull(),
   /**
+   * When the user last completed a sign-in. Stamped in the same
+   * UPDATE ... RETURNING that increments loginCount (NextAuth `jwt` callback),
+   * so it moves once per sign-in and never on the silent refreshes that keep
+   * an 8h token alive. NULL for accounts that have not signed in since the
+   * column shipped; readers fall back to emailVerifiedAt, then createdAt
+   * (see lib/lifecycle). Sessions are stateless JWTs, so this column is the
+   * only durable "when were they last here" fact.
+   */
+  lastLoginAt: timestamp("last_login_at"),
+  /**
+   * UI locale snapshot taken at registration (one of the app's locale codes,
+   * lib/locale.ts). Exists so emails sent OUTSIDE a request context (lifecycle
+   * crons) can pick a language; in-request emails keep using the request
+   * locale. NULL for OAuth signups and accounts predating the column; readers
+   * fall back to company.country, then "de" (lib/lifecycle/locale.ts).
+   */
+  locale: varchar("locale", { length: 10 }),
+  /**
    * When the user dismissed the journey tour.
    *
    * One flag per tour, not one for all of them. The journey board and a

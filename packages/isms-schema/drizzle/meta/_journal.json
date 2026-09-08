@@ -71,6 +71,13 @@
       "when": 1788349346505,
       "tag": "0009_striped_obadiah_stane",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1788860524812,
+      "tag": "0010_lifecycle_email_foundations",
+      "breakpoints": true
     }
   ]
 }

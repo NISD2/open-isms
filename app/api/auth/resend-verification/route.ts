@@ -4,6 +4,8 @@ import { db } from "@/lib/db";
 import { user } from "@/schema";
 import { sendAuthCode } from "@/lib/mail";
 import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
+import { LOCALES } from "@/lib/locale";
+import type { Locale } from "@/lib/seo";
 
 /**
  * Resend the email-verification OTP for a pending-verify account.
@@ -28,8 +30,10 @@ export async function POST(request: Request) {
 
   const email = (body.email as string | undefined)?.toLowerCase().trim();
   const localeInput = body.locale as string | undefined;
-  const locale: "de" | "en" | "nl" =
-    localeInput === "en" || localeInput === "nl" ? localeInput : "de";
+  // Full app-locale validation: the OTP templates carry all 10 locales.
+  const locale: Locale = LOCALES.some((l) => l.code === localeInput)
+    ? (localeInput as Locale)
+    : "de";
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });

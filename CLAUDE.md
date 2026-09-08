@@ -157,7 +157,7 @@ messages/              # i18n JSON files per namespace per locale
 1. **Solid composable clean code** — isolate functionality cleanly into modules
 2. **SSR-first** — fetch on server, render on client. Minimize client-side fetching
 3. **Type safety end-to-end** — Drizzle → drizzle-zod → Zod → tRPC → React. No gaps
-4. **Audit everything** — every mutation is logged. Notifications use status lifecycle (pending → sent → acknowledged), never deleted
+4. **Audit everything** — every mutation is logged. Notifications use status lifecycle (pending → sent → acknowledged), never deleted. One carve-out: lifecycle-email claim rows (entity_type `lifecycle_email`, lib/lifecycle) exist to make double-sends impossible, and deleting one is the sanctioned way to re-arm a recipient — the dispatcher does it automatically when a send was provably suppressed, ops does it by hand after a failed send. Flipping such a row to a status instead would permanently block the re-send, because the unique index ignores status
 5. **Fire-and-forget for non-critical work** — email sending, notification scheduling use `.catch(() => {})` pattern
 6. **Company-scoped queries** — always filter by `ctx.companyId` in tRPC procedures
 7. **i18n all user-facing strings** — no hardcoded English in components

@@ -64,6 +64,7 @@ If you need SMTP, the change is contained: `lib/mail/resend.ts` is the client, a
 | Password reset | The forgot-password flow |
 | Deadline reminders | The `/api/cron/deadlines` job, if you schedule it |
 | Course reminders | The `/api/cron/course-reminders` job, if you schedule it |
+| Re-engagement nudges | The `/api/cron/lifecycle` job, if you schedule it |
 | Supplier invitations | Sending a questionnaire to a supplier |
 | Newsletter | Only if you operate one |
 
@@ -71,4 +72,4 @@ Turn all of it off with `DISABLE_EMAIL=1`, which is the right setting for a stag
 
 ## Known gap
 
-The welcome mail is English regardless of the recipient's language, because no locale is stored at that point in the flow. Every other template follows the recipient's locale. That is a real defect rather than a design decision, and it is on the list.
+The welcome mail is English regardless of the recipient's language. The signup locale is now stored on the account and the lifecycle nudges use it; the registration and reset codes follow the language of the page that requested them; the welcome mail uses neither yet. That is a real defect rather than a design decision, and it is on the list.

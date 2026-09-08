@@ -31,7 +31,7 @@ Set these in the Coolify project's Environment Variables section:
 - `RESEND_API_KEY` — transactional email
 - `RESEND_FROM_EMAIL` — sender address
 - `XAI_API_KEY` — Grok (form prefill / AI features)
-- `CRON_SECRET` — Bearer token for `/api/cron/deadlines` and `/api/cron/course-reminders`
+- `CRON_SECRET` — Bearer token for `/api/cron/deadlines`, `/api/cron/course-reminders` and `/api/cron/lifecycle`
 
 ### Optional
 - `DISABLE_EMAIL=1` — set to silence email sending in non-prod
@@ -69,8 +69,9 @@ public URL with the `Authorization: Bearer ${CRON_SECRET}` header.
 |---|---|---|
 | `/api/cron/deadlines` | `0 6 * * *` (06:00 daily) | Sends NIS 2 deadline reminders to assigned users |
 | `/api/cron/course-reminders` | `0 7 * * *` (07:00 daily) | Sends CEO course follow-up reminders to enrolled users |
+| `/api/cron/lifecycle` | `0 8 * * *` (08:00 daily) | Sends one-time re-engagement emails (activation nudge) to quiet accounts |
 
-Both endpoints reject requests without a matching `CRON_SECRET` bearer
+All three endpoints reject requests without a matching `CRON_SECRET` bearer
 token. The previous `vercel.json` (deleted 2026-06-11) declared these
 schedules to Vercel; Coolify ignores `vercel.json` entirely, so the
 table above is now the source of truth.

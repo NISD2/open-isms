@@ -658,6 +658,26 @@ async function tearDownCompany(
   await del("training_record", () => tx.delete(trainingRecord).where(eq(trainingRecord.companyId, cid)).returning());
   await del("training_lesson_progress", () => tx.delete(trainingLessonProgress).where(eq(trainingLessonProgress.companyId, cid)).returning());
   await del("gap_assessment", () => tx.delete(gapAssessment).where(eq(gapAssessment.companyId, cid)).returning());
+  // Lifecycle claims (entity_type 'lifecycle_email') are per-USER once-ever
+  // dedup records (lib/lifecycle) that merely carry the company the recipient
+  // belonged to at claim time. Deleting them with this company would re-arm a
+  // recipient who has since moved to another company — they would receive the
+  // one-shot email a second time. Re-home those claims to the recipient's
+  // current company before the blanket delete. Claims whose recipient is being
+  // erased here die with the user row; claims of company-less survivors cannot
+  // be kept (company_id is NOT NULL) and accept the exotic re-arm instead.
+  // Not recorded in the erasure scope: these rows are other people's data
+  // being preserved, not this company's data being erased.
+  await tx.execute(sql`
+    UPDATE notification n
+    SET company_id = u.company_id
+    FROM "user" u
+    WHERE n.recipient_id = u.id
+      AND n.company_id = ${cid}
+      AND n.entity_type = 'lifecycle_email'
+      AND u.company_id IS NOT NULL
+      AND u.company_id <> ${cid}
+  `);
   await del("notification", () => tx.delete(notification).where(eq(notification.companyId, cid)).returning());
   await del("company_invite", () => tx.delete(companyInvite).where(eq(companyInvite.companyId, cid)).returning());
   await del("bsi_registration", () => tx.delete(bsiRegistration).where(eq(bsiRegistration.companyId, cid)).returning());
