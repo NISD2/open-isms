@@ -48,7 +48,7 @@
   --shadow-sm: 0 2px 4px rgb(0 0 0 / 0.04), 0 1px 2px rgb(0 0 0 / 0.06);
   --shadow-md: 0 4px 12px rgb(0 0 0 / 0.06), 0 2px 4px rgb(0 0 0 / 0.04);
   --shadow-lg: 0 10px 30px rgb(0 0 0 / 0.08), 0 4px 8px rgb(0 0 0 / 0.04);
-  --shadow-xl: 0 20px 50px rgb(0 0 0 / 0.10), 0 8px 16px rgb(0 0 0 / 0.06);
+  --shadow-xl: 0 20px 50px rgb(0 0 0 / 0.1), 0 8px 16px rgb(0 0 0 / 0.06);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
