@@ -49,6 +49,22 @@ WHERE entity_type = 'lifecycle_email' AND urgency = 'warning'
 
 On a large backlog the request can stay open for a minute or two (sends are paced to the mail provider's rate limit). If your reverse proxy times out first, the run still completes server-side and the stats land in the audit log under `cron.lifecycle`; do not re-trigger in a loop, the next scheduled run continues where this one stopped.
 
+First rollout, done carefully. Two query parameters (valid only with the bearer token) turn the endpoint into its own canary:
+
+```bash
+# 1. See who would get what. Sends nothing, records nothing.
+curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
+  "https://isms.example.com/api/cron/lifecycle?dryRun=1" | jq
+
+# 2. First real run to exactly one person (oldest-dormant first).
+curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
+  "https://isms.example.com/api/cron/lifecycle?limit=1" | jq
+
+# 3. Ramp: limit=5, then limit=25, then no limit. Then add the schedule.
+```
+
+`limit` can only lower the built-in per-run cap, never raise it. The platform admin's Emails tab also has "Send me a test nudge", which delivers the rendered email to your own mailbox without touching any claim.
+
 ## Authentication
 
 All three endpoints check a bearer token against `CRON_SECRET`. With the variable unset they return 500 and `CRON_SECRET not configured` rather than running unauthenticated, so an empty value is a closed door and not an open one.

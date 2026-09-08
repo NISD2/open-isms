@@ -35,6 +35,9 @@ import { rateLimit } from "@/lib/rate-limit";
 import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
 import { resolveHints, HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
+import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
+import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
+import { mailSupportEmail } from "@/lib/env";
 
 /**
  * Sends to one recipient in one UTC day at which the email dashboard flags
@@ -631,6 +634,37 @@ export const platformAdminRouter = router({
       })),
       optedOutUsers,
     };
+  }),
+
+  /**
+   * Send the activation nudge to the CALLING platform admin's own mailbox,
+   * subject-prefixed [Test]. Renders through the real campaign code (their
+   * own journey numbers when available, marked sample values otherwise) but
+   * writes NO claim row and checks NO eligibility — the once-ever guarantee
+   * for the real campaign is untouched, and the admin can send themselves
+   * as many tests as they like. Same shape as newsletter.sendTest. Note the
+   * footer unsubscribe link is live: clicking it in the test opts the admin
+   * out of follow-up emails like any other user.
+   */
+  sendLifecycleTestEmail: platformAdminProcedure.mutation(async ({ ctx }) => {
+    const sample = await prepareActivationNudgeSample(ctx.db, ctx.userId);
+    if (!sample) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Calling user not found." });
+    }
+    const res = await sendMail({
+      to: sample.to,
+      subject: `[Test] ${sample.subject}`,
+      html: sample.html,
+      text: sample.text,
+      replyTo: mailSupportEmail(),
+      unsubscribeUrl: sample.unsubscribeUrl,
+    });
+    if (!res.success) {
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Test send failed." });
+    }
+    // res.id carries a sentinel instead of a Resend id when delivery was
+    // suppressed (dev block / DISABLE_EMAIL / no API key).
+    return { to: sample.to, suppressed: isSuppressedSendId(res.id) };
   }),
 
   /** Supplier portal activity — companies acting as suppliers */

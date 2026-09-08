@@ -247,6 +247,47 @@ describe("runLifecycleEmails", () => {
     expect(audit.userId).toBeNull();
   });
 
+  test("dryRun renders the batch but claims nothing and sends nothing", async () => {
+    reset();
+    setTypes(stubType(prepared(3)));
+    const { db, inserted } = makeDb();
+
+    const result = await runLifecycleEmails(db, { ...FAST, dryRun: true });
+
+    if (result.skipped !== undefined) throw new Error("unexpected skip");
+    const stats = result.types.test_type_v1;
+    expect(stats).toMatchObject({ prepared: 3, sent: 0, failed: 0 });
+    expect(stats.wouldSend).toEqual([
+      { to: "user-0@example.com", subject: "Subject 0" },
+      { to: "user-1@example.com", subject: "Subject 1" },
+      { to: "user-2@example.com", subject: "Subject 2" },
+    ]);
+    expect(inserted).toHaveLength(0);
+    expect(sendMail).toHaveBeenCalledTimes(0);
+  });
+
+  test("maxPerType lowers the batch for a manual ramp and cannot raise it", async () => {
+    reset();
+    setTypes(stubType(prepared(5)));
+    const { db } = makeDb();
+
+    const result = await runLifecycleEmails(db, { ...FAST, maxPerType: 2 });
+
+    if (result.skipped !== undefined) throw new Error("unexpected skip");
+    expect(result.types.test_type_v1).toMatchObject({
+      prepared: 5,
+      sent: 2,
+      deferred: 3,
+    });
+
+    reset();
+    setTypes(stubType(prepared(105)));
+    const big = makeDb();
+    const capped = await runLifecycleEmails(big.db, { ...FAST, maxPerType: 5000 });
+    if (capped.skipped !== undefined) throw new Error("unexpected skip");
+    expect(capped.types.test_type_v1).toMatchObject({ sent: 100, deferred: 5 });
+  });
+
   test("the per-run cap sends 100 and reports the rest as deferred", async () => {
     reset();
     setTypes(stubType(prepared(105)));

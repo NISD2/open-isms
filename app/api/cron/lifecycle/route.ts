@@ -33,9 +33,19 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Manual rollout controls, honored only behind the bearer check above:
+  //   ?dryRun=1  — select and render, send nothing, claim nothing; the
+  //                response lists who WOULD get what (canary step)
+  //   ?limit=N   — cap the first real runs (1, then 5, then 25...); can only
+  //                lower the built-in per-run cap, never raise it
+  const params = req.nextUrl.searchParams;
+  const dryRun = params.get("dryRun") === "1" || params.get("dryRun") === "true";
+  const limitRaw = Number.parseInt(params.get("limit") ?? "", 10);
+  const maxPerType = Number.isInteger(limitRaw) && limitRaw > 0 ? limitRaw : undefined;
+
   const startTime = Date.now();
   try {
-    const result = await runLifecycleEmails(db);
+    const result = await runLifecycleEmails(db, { dryRun, maxPerType });
     const elapsed = Date.now() - startTime;
 
     // A type whose prepare() threw is a dead campaign, not a partial success:
@@ -64,9 +74,11 @@ export async function GET(req: NextRequest) {
       action: "cron.lifecycle",
       entityType: "system",
       entityId: null,
-      description: `Lifecycle cron completed in ${elapsed}ms: ${JSON.stringify(result)}`,
+      // wouldSend (dry runs) is a recipient address list — it belongs in the
+      // operator's response, not in an audit row.
+      description: `Lifecycle cron ${dryRun ? "[dry run] " : ""}completed in ${elapsed}ms: ${JSON.stringify(result, (key, value) => (key === "wouldSend" ? undefined : value))}`,
     });
-    return NextResponse.json({ ok: true, elapsed, ...result });
+    return NextResponse.json({ ok: true, dryRun, elapsed, ...result });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     logAudit({

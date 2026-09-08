@@ -65,6 +65,23 @@ export interface LifecycleTypeStats {
   optedOut: number;
   deferred: number;
   error?: string;
+  /** Dry runs only: who the batch WOULD have gone to, nothing sent or claimed. */
+  wouldSend?: Array<{ to: string; subject: string }>;
+}
+
+export interface LifecycleRunOptions {
+  sendIntervalMs?: number;
+  /**
+   * Select and render, but claim nothing and send nothing; report the batch
+   * as `wouldSend`. The canary step before the first real run.
+   */
+  dryRun?: boolean;
+  /**
+   * Lower the per-type batch below MAX_SENDS_PER_TYPE_PER_RUN for a manual
+   * ramp-up (first real run to 1 person, then 5, then 25). Can only lower —
+   * values above the cap are clamped down.
+   */
+  maxPerType?: number;
 }
 
 export type LifecycleRunResult =
@@ -165,7 +182,7 @@ async function deliverOne(
 async function runType(
   db: DbOrTx,
   type: LifecycleEmailType,
-  sendIntervalMs: number,
+  opts: { sendIntervalMs: number; dryRun: boolean; maxPerType: number },
 ): Promise<LifecycleTypeStats> {
   const stats: LifecycleTypeStats = {
     prepared: 0,
@@ -179,8 +196,14 @@ async function runType(
 
   const prepared = await type.prepare(db);
   stats.prepared = prepared.length;
-  const batch = prepared.slice(0, MAX_SENDS_PER_TYPE_PER_RUN);
+  const cap = Math.min(MAX_SENDS_PER_TYPE_PER_RUN, Math.max(1, opts.maxPerType));
+  const batch = prepared.slice(0, cap);
   stats.deferred = prepared.length - batch.length;
+
+  if (opts.dryRun) {
+    stats.wouldSend = batch.map((email) => ({ to: email.to, subject: email.subject }));
+    return stats;
+  }
 
   for (const [index, email] of batch.entries()) {
     try {
@@ -202,7 +225,7 @@ async function runType(
         description: `Lifecycle email ${type.key} to ${email.to} threw: ${err instanceof Error ? err.message : "unknown"}`,
       });
     }
-    if (index < batch.length - 1) await wait(sendIntervalMs);
+    if (index < batch.length - 1) await wait(opts.sendIntervalMs);
   }
   return stats;
 }
@@ -215,7 +238,7 @@ let activeRun: Promise<LifecycleRunResult> | null = null;
 
 export async function runLifecycleEmails(
   db: DbOrTx,
-  opts?: { sendIntervalMs?: number },
+  opts?: LifecycleRunOptions,
 ): Promise<LifecycleRunResult> {
   const suppression = mailSuppressionReason();
   if (suppression) {
@@ -225,7 +248,11 @@ export async function runLifecycleEmails(
     return { skipped: "a lifecycle run is already in progress" };
   }
 
-  const run = executeRun(db, opts?.sendIntervalMs ?? SEND_INTERVAL_MS);
+  const run = executeRun(db, {
+    sendIntervalMs: opts?.sendIntervalMs ?? SEND_INTERVAL_MS,
+    dryRun: opts?.dryRun ?? false,
+    maxPerType: opts?.maxPerType ?? MAX_SENDS_PER_TYPE_PER_RUN,
+  });
   activeRun = run;
   try {
     return await run;
@@ -236,12 +263,12 @@ export async function runLifecycleEmails(
 
 async function executeRun(
   db: DbOrTx,
-  sendIntervalMs: number,
+  opts: { sendIntervalMs: number; dryRun: boolean; maxPerType: number },
 ): Promise<LifecycleRunResult> {
   const types: Record<string, LifecycleTypeStats> = {};
   for (const type of LIFECYCLE_EMAIL_TYPES) {
     try {
-      types[type.key] = await runType(db, type, sendIntervalMs);
+      types[type.key] = await runType(db, type, opts);
     } catch (err) {
       // One broken type must not silence the others.
       types[type.key] = {

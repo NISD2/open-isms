@@ -291,6 +291,28 @@ export function PlatformAdminPage({
 // Stat card
 // ---------------------------------------------------------------------------
 
+function SendTestNudgeButton() {
+  const send = trpc.platformAdmin.sendLifecycleTestEmail.useMutation({
+    onSuccess: (r) =>
+      toast.success(
+        r.suppressed
+          ? `Rendered for ${r.to}; delivery suppressed in this environment`
+          : `Test nudge sent to ${r.to}`,
+      ),
+    onError: (e) => toast.error(e.message),
+  });
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => send.mutate()}
+      disabled={send.isPending}
+    >
+      {send.isPending ? "Sending..." : "Send me a test nudge"}
+    </Button>
+  );
+}
+
 function StatCard({ label, value, sub }: { label: string; value: number; sub?: string }) {
   return (
     <Card>
@@ -660,6 +682,12 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
 
   return (
     <div className="space-y-6">
+      {/* Test send: prove template + transport in this environment without
+          touching any claim or real recipient. */}
+      <div className="flex justify-end">
+        <SendTestNudgeButton />
+      </div>
+
       {/* KPI strip */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         <StatCard label="Sent (all time)" value={data.totalSent} sub="cron-driven only" />

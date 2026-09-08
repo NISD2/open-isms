@@ -181,6 +181,108 @@ export function renderActivationNudge(input: ActivationNudgeInput): EmailContent
 }
 
 // ---------------------------------------------------------------------------
+// Test send (platform admin "send me this email")
+// ---------------------------------------------------------------------------
+
+/**
+ * Placeholder next-step title for a test send when the target user has no
+ * NIS 2 path (or a finished one). Clearly marked as a sample so a test
+ * email can never be mistaken for real guidance.
+ */
+const SAMPLE_STEP_TITLE: Record<LifecycleLocale, string> = {
+  de: "(Beispiel) Risikoanalyse dokumentieren",
+  en: "(Sample) Document the risk analysis",
+  nl: "(Voorbeeld) Risicoanalyse documenteren",
+};
+
+/**
+ * Render this campaign for ONE user, ignoring eligibility — the platform
+ * admin's "send me a test" path. Uses the user's real journey numbers when
+ * their company has an open NIS 2 path, sample values otherwise. Claims
+ * nothing and checks no dormancy; the caller decides where the result goes.
+ */
+export async function prepareActivationNudgeSample(
+  db: DbOrTx,
+  userId: string,
+): Promise<{
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+  unsubscribeUrl: string;
+} | null> {
+  const rows = await db
+    .select({
+      email: user.email,
+      name: user.name,
+      locale: user.locale,
+      companyId: user.companyId,
+      country: company.country,
+    })
+    .from(user)
+    .leftJoin(company, eq(user.companyId, company.id))
+    .where(eq(user.id, userId))
+    .limit(1);
+  const target = rows[0];
+  if (!target) return null;
+
+  const locale = resolveEmailLocale(target.locale, target.country);
+
+  let done = 3;
+  let total = 49;
+  let nextCode: string | null = null;
+  if (target.companyId) {
+    const statusRows = await db
+      .select({
+        companyId: companyAssessment.companyId,
+        status: companyRequirementStatus.status,
+        code: requirement.code,
+        sortOrder: requirement.sortOrder,
+        categorySortOrder: requirementCategory.sortOrder,
+      })
+      .from(companyRequirementStatus)
+      .innerJoin(
+        companyAssessment,
+        eq(companyRequirementStatus.assessmentId, companyAssessment.id),
+      )
+      .innerJoin(
+        complianceFramework,
+        and(
+          eq(complianceFramework.id, companyAssessment.frameworkId),
+          eq(complianceFramework.code, NIS2_FRAMEWORK_CODE),
+        ),
+      )
+      .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
+      .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
+      .where(eq(companyAssessment.companyId, target.companyId));
+    const journey = summarizeJourneys(statusRows).get(target.companyId);
+    if (journey && journey.total > 0) {
+      done = journey.done;
+      total = journey.total;
+      nextCode = journey.nextCode;
+    }
+  }
+
+  const nextStepTitle = nextCode
+    ? getRequirementTitle(await getRequirementsMessages(locale), nextCode)
+    : SAMPLE_STEP_TITLE[locale];
+  const appUrl = getAppUrl();
+  const journeyUrl =
+    locale === "de" ? `${appUrl}/journey` : `${appUrl}/${locale}/journey`;
+  const unsubUrl = buildUnsubscribeUrl(userId);
+  const email = renderActivationNudge({
+    name: target.name,
+    locale,
+    done,
+    total,
+    nextStepTitle,
+    journeyUrl,
+    unsubscribeUrl: unsubUrl,
+  });
+  return { to: target.email, ...email, unsubscribeUrl: unsubUrl };
+}
+
+// ---------------------------------------------------------------------------
 // Recipient selection
 // ---------------------------------------------------------------------------
 
