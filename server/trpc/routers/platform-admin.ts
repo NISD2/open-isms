@@ -552,11 +552,21 @@ export const platformAdminRouter = router({
       // Per-recipient per-day counts, last 7 days — raw material for the
       // over-mailing view. Recipient identity: portal user email when the
       // row has a recipientId, the external address otherwise.
+      //
+      // COUNT(DISTINCT entity_type), not COUNT(*): a notification row is not
+      // an email. The deadline cron writes one row per requirement and then
+      // sends ONE digest covering all of them; the course cron writes one row
+      // per stalled course and sends ONE email listing them. Counting rows
+      // told the operator that somebody with twelve due requirements had been
+      // mailed twelve times, which would fire the over-mailing flag on a
+      // person who received a single message. Each producer sends at most one
+      // email per recipient per day, so distinct producers per day IS the
+      // number of emails that day.
       ctx.db
         .select({
           recipient: sql<string>`COALESCE(${user.email}, ${notification.recipientEmail}, 'unknown')`,
           day: sql<string>`to_char(${notification.sentAt}, 'YYYY-MM-DD')`,
-          c: count(),
+          c: sql<number>`count(DISTINCT ${notification.entityType})::int`,
         })
         .from(notification)
         .leftJoin(user, eq(notification.recipientId, user.id))
@@ -596,11 +606,27 @@ export const platformAdminRouter = router({
       if (row.c > entry.maxPerDay) entry.maxPerDay = row.c;
       byRecipient.set(row.recipient, entry);
     }
-    const frequentRecipients = Array.from(byRecipient, ([recipient, v]) => ({
+    const allRecipients = Array.from(byRecipient, ([recipient, v]) => ({
       recipient,
       ...v,
-    }))
-      .sort((a, b) => b.total - a.total || b.maxPerDay - a.maxPerDay)
+    }));
+    // Count the flagged over the WHOLE set before truncating. Sorting by
+    // total and slicing first hid exactly the case the flag exists for: a
+    // person mailed four times in one day but only four times all week ranks
+    // below twenty steady recipients and fell off the list, taking the alert
+    // with it — the badge could read zero while someone was being spammed.
+    const flaggedCount = allRecipients.filter(
+      (r) => r.maxPerDay >= MULTI_SEND_ALERT_PER_DAY,
+    ).length;
+    // Flagged rows first, so anything worth acting on is always visible.
+    const frequentRecipients = allRecipients
+      .sort(
+        (a, b) =>
+          Number(b.maxPerDay >= MULTI_SEND_ALERT_PER_DAY) -
+            Number(a.maxPerDay >= MULTI_SEND_ALERT_PER_DAY) ||
+          b.maxPerDay - a.maxPerDay ||
+          b.total - a.total,
+      )
       .slice(0, 20);
 
     // Stable 14-slot series: quiet days render as zero-height bars instead
@@ -616,6 +642,8 @@ export const platformAdminRouter = router({
     return {
       dailyVolume,
       frequentRecipients,
+      /** Flagged across ALL recipients, not just the twenty listed above. */
+      flaggedRecipientCount: flaggedCount,
       multiSendAlertPerDay: MULTI_SEND_ALERT_PER_DAY,
       lifecycleFailed: lifecycleFailedRow[0]?.count ?? 0,
       totalSent: totalSentRow[0]?.count ?? 0,

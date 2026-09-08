@@ -152,6 +152,8 @@ interface EmailActivity {
   dailyVolume: Array<{ day: string; count: number }>;
   /** Top recipients of the last 7 days with their busiest single day. */
   frequentRecipients: Array<{ recipient: string; total: number; maxPerDay: number }>;
+  /** Flagged across every recipient, not only the ones listed above. */
+  flaggedRecipientCount: number;
   /** Sends-per-recipient-per-day level at which a row gets flagged. */
   multiSendAlertPerDay: number;
   /** Lifecycle claims kept after a failed send (urgency 'warning'). */
@@ -676,9 +678,6 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
   const subscribed = data.totalUsers - data.optedOut;
   const optOutRate = data.totalUsers > 0 ? (data.optedOut / data.totalUsers) * 100 : 0;
   const maxDaily = Math.max(1, ...data.dailyVolume.map((d) => d.count));
-  const flaggedRecipients = data.frequentRecipients.filter(
-    (r) => r.maxPerDay >= data.multiSendAlertPerDay,
-  );
 
   return (
     <div className="space-y-6">
@@ -740,9 +739,9 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
         <CardHeader>
           <CardTitle className="text-base">
             Most-mailed recipients (last 7 days)
-            {flaggedRecipients.length > 0 && (
+            {data.flaggedRecipientCount > 0 && (
               <span className="ml-2 rounded bg-orange-100 px-1.5 py-0.5 text-xs font-medium text-orange-700 dark:bg-orange-900 dark:text-orange-300">
-                {flaggedRecipients.length} to review
+                {data.flaggedRecipientCount} to review
               </span>
             )}
           </CardTitle>

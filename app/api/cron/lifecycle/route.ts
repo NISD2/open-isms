@@ -22,6 +22,7 @@ import { verifyCronBearer } from "@/lib/cron/auth";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
+import { parseRolloutParams } from "@/lib/lifecycle/rollout-params";
 
 export const dynamic = "force-dynamic";
 
@@ -38,10 +39,17 @@ export async function GET(req: NextRequest) {
   //                response lists who WOULD get what (canary step)
   //   ?limit=N   — cap the first real runs (1, then 5, then 25...); can only
   //                lower the built-in per-run cap, never raise it
-  const params = req.nextUrl.searchParams;
-  const dryRun = params.get("dryRun") === "1" || params.get("dryRun") === "true";
-  const limitRaw = Number.parseInt(params.get("limit") ?? "", 10);
-  const maxPerType = Number.isInteger(limitRaw) && limitRaw > 0 ? limitRaw : undefined;
+  //
+  // Both parse strictly and REJECT anything they do not recognise, rather
+  // than falling back to the default. The default here is "send to everyone
+  // due, up to 100", and these sends are irreversible: a mistyped safety flag
+  // (?dryrun=1, a bare ?dryRun, ?limit=one) must never quietly mean "safety
+  // off". Unparseable input is an operator error worth a 400, not a campaign.
+  const parsed = parseRolloutParams(req.nextUrl.searchParams);
+  if (!parsed.ok) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
+  }
+  const { dryRun, maxPerType } = parsed;
 
   const startTime = Date.now();
   try {
