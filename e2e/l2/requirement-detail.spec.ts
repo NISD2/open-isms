@@ -147,3 +147,21 @@ test("module: roles and responsibilities reaches the team register", async ({ pa
   });
   await expect(link).toHaveAttribute("href", /\/team$/);
 });
+
+test("navigation: prev/next stay real links, openable in a new tab", async ({ page }) => {
+  await gotoRequirement(page, LAST_IN_CATEGORY);
+
+  // These carry the save-before-leaving hook, which an earlier revision
+  // implemented by turning them into buttons. That silently removed
+  // middle-click and cmd-click on the control people page the whole
+  // assessment with, so the anchor is part of the contract.
+  for (const testId of ["requirement-next", "requirement-prev"]) {
+    const el = page.getByTestId(testId);
+    await expect(el).toBeVisible({ timeout: 20_000 });
+    expect(
+      await el.evaluate((n) => n.tagName),
+      `${testId} must be an anchor, not a button`,
+    ).toBe("A");
+    expect(await el.getAttribute("href"), `${testId} href`).toContain("/compliance/");
+  }
+});
