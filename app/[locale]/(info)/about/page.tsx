@@ -1,24 +1,19 @@
+import { user } from "@nisd2/isms-schema/tables/organization";
+import { trainingLessonProgress } from "@nisd2/isms-schema/tables/training-progress";
+import { and, count, countDistinct, eq, sql } from "drizzle-orm";
+import { Globe } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
-import {
-  pageAlternates,
-  pageOg,
-  buildAboutPageJsonLd,
-  type Locale,
-} from "@/lib/seo";
 import { JsonLd } from "@/components/JsonLd";
-import { Globe } from "lucide-react";
 import { PitchDeckViewer } from "@/components/pitch/PitchDeckViewer";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Link } from "@/i18n/navigation";
 import { db } from "@/lib/db";
-import { trainingLessonProgress } from "@nisd2/isms-schema/tables/training-progress";
-import { user } from "@nisd2/isms-schema/tables/organization";
-import { eq, countDistinct, count, and, sql } from "drizzle-orm";
+import { buildAboutPageJsonLd, type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 /**
  * Live platform stats for the pitch deck. Falls back to a sane baseline if
@@ -108,7 +103,14 @@ export async function generateMetadata({
     title,
     description,
     alternates: pageAlternates("about", locale),
-    ...pageOg({ slug: "about", locale, title, description, type: "website", image: `/og/about-${locale}.png` }),
+    ...pageOg({
+      slug: "about",
+      locale,
+      title,
+      description,
+      type: "website",
+      image: `/og/about-${locale}.png`,
+    }),
   };
 }
 
@@ -137,12 +139,8 @@ export default async function TeamPage({
         <Badge variant="secondary" className="mb-3">
           {t("teamPage.badge")}
         </Badge>
-        <h1 className="text-3xl font-bold tracking-tight">
-          {t("teamPage.title")}
-        </h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          {t("teamPage.subtitle")}
-        </p>
+        <h1 className="text-3xl font-bold tracking-tight">{t("teamPage.title")}</h1>
+        <p className="mt-2 text-lg text-muted-foreground">{t("teamPage.subtitle")}</p>
       </header>
 
       <Separator />
@@ -211,9 +209,7 @@ export default async function TeamPage({
               />
               <div>
                 <p className="text-lg font-semibold">Cory Hisey</p>
-                <p className="text-sm text-muted-foreground">
-                  COO / Co-Founder
-                </p>
+                <p className="text-sm text-muted-foreground">COO / Co-Founder</p>
               </div>
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -260,9 +256,7 @@ export default async function TeamPage({
           tactics cards were dropped: they belong in the business plan, not
           a public about page. */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight">
-          {t("mission.badge")}
-        </h2>
+        <h2 className="text-xl font-semibold tracking-tight">{t("mission.badge")}</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
           {t("mission.subtitle")}
         </p>
@@ -291,9 +285,7 @@ export default async function TeamPage({
       <Card className="text-center">
         <CardContent className="pt-6 space-y-4">
           <h2 className="text-xl font-semibold">{t("teamPage.cta.heading")}</h2>
-          <p className="text-sm text-muted-foreground">
-            {t("teamPage.cta.description")}
-          </p>
+          <p className="text-sm text-muted-foreground">{t("teamPage.cta.description")}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button asChild>
               <Link href="/applicability">{t("teamPage.ctaPlatform")}</Link>

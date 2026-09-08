@@ -13,7 +13,7 @@ import { X } from "lucide-react";
 
 type Item = Record<string, unknown>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- drizzle-zod uses "strip" literal
+// biome-ignore lint/suspicious/noExplicitAny: drizzle-zod uses the "strip" literal where Zod v4 expects its $strip symbol
 interface CrudPageProps<T extends z.ZodRawShape> {
   items: Item[];
   icon: React.ReactNode;

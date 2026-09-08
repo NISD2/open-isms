@@ -47,7 +47,7 @@ import { cn } from "@/lib/utils";
 // Props
 // ============================================================================
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- drizzle-zod uses "strip" literal vs Zod v4's $strip symbol
+// biome-ignore lint/suspicious/noExplicitAny: drizzle-zod uses the "strip" literal where Zod v4 expects its $strip symbol
 interface SchemaFormProps<T extends z.ZodRawShape> {
   schema: z.ZodObject<T, any>;
   onSubmit: (data: z.infer<z.ZodObject<T>>) => void | Promise<void>;

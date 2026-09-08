@@ -62,7 +62,7 @@ export default async function PartnerPage() {
         {partners.map((partner) => (
           <Card key={partner.name}>
             <CardHeader>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {/* biome-ignore lint/performance/noImgElement: partner logos are arbitrary aspect ratios from a static list; next/image adds no value here */}
               <img
                 src={partner.logo}
                 alt={t(`partners.${partner.titleKey}`)}

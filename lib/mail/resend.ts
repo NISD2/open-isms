@@ -16,7 +16,7 @@ let _resend: Resend | null = null;
  * future direct callers that bypass `sendMail()`.
  */
 function makeDevStub(): Resend {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: dev stub only implements the two Resend methods sendMail() reaches for
   return {
     emails: {
       send: async (opts: { to: string | string[]; subject?: string }) => {

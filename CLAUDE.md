@@ -6,6 +6,8 @@
 bun install              # Install dependencies (ALWAYS use bun, never npm/yarn)
 bun run dev              # Dev server on port 3026 (webpack, not turbopack)
 bun run typecheck        # tsc --noEmit — must pass with ZERO errors
+bun run lint:fix         # Biome, autofix. Run on the files you touched
+bun run lint:ci          # What CI gates: Biome on files changed vs origin/main
 bun run build            # Production build — must pass clean
 bun db:generate          # Generate Drizzle migration after SCHEMA changes
 bun db:framework-migration # Generate data migration after FRAMEWORK DATA changes
@@ -161,6 +163,7 @@ messages/              # i18n JSON files per namespace per locale
 5. **Fire-and-forget for non-critical work** — email sending, notification scheduling use `.catch(() => {})` pattern
 6. **Company-scoped queries** — always filter by `ctx.companyId` in tRPC procedures
 7. **i18n all user-facing strings** — no hardcoded English in components
+8. **Biome is the only linter and formatter** — there is no ESLint and no Prettier, so an `eslint-disable` comment suppresses nothing. CI runs `bun run lint:ci`, which checks only the files changed against `origin/main`; the pre-existing backlog is not gated, but anything you touch is. Suppress with `// biome-ignore lint/<group>/<rule>: <why>` and always give the why
 
 ## Voice & Copy Rules (shared with NIS2 private notebook)
 

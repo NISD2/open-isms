@@ -1,7 +1,7 @@
-import { buildCsp } from "./lib/security/csp";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import { LEGACY_REDIRECTS } from "./lib/content/legacy-redirects";
+import { buildCsp } from "./lib/security/csp";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
@@ -125,14 +125,38 @@ const nextConfig: NextConfig = {
       // deep-link here to send a user to the change-password flow. There is no
       // logged-in change-password page yet, so point at the email reset flow.
       // permanent:false (307) so it can be repointed once such a page exists.
-      { source: "/.well-known/change-password", destination: "/auth/forgot-password", permanent: false },
+      {
+        source: "/.well-known/change-password",
+        destination: "/auth/forgot-password",
+        permanent: false,
+      },
       // Merge overlapping pages — consolidate SEO authority
-      { source: "/bsi-registrierung-anleitung", destination: "/nis2-registrierung", permanent: true },
-      { source: "/en/bsi-registrierung-anleitung", destination: "/en/nis2-registrierung", permanent: true },
-      { source: "/anforderungen-checkliste", destination: "/nis2-requirements", permanent: true },
-      { source: "/en/anforderungen-checkliste", destination: "/en/nis2-requirements", permanent: true },
+      {
+        source: "/bsi-registrierung-anleitung",
+        destination: "/nis2-registrierung",
+        permanent: true,
+      },
+      {
+        source: "/en/bsi-registrierung-anleitung",
+        destination: "/en/nis2-registrierung",
+        permanent: true,
+      },
+      {
+        source: "/anforderungen-checkliste",
+        destination: "/nis2-requirements",
+        permanent: true,
+      },
+      {
+        source: "/en/anforderungen-checkliste",
+        destination: "/en/nis2-requirements",
+        permanent: true,
+      },
       { source: "/nis2-was-tun", destination: "/umsetzung-mittelstand", permanent: true },
-      { source: "/en/nis2-was-tun", destination: "/en/umsetzung-mittelstand", permanent: true },
+      {
+        source: "/en/nis2-was-tun",
+        destination: "/en/umsetzung-mittelstand",
+        permanent: true,
+      },
       // Short URL for lead gen
       { source: "/check", destination: "/applicability", permanent: false },
       { source: "/en/check", destination: "/en/applicability", permanent: false },
@@ -144,15 +168,39 @@ const nextConfig: NextConfig = {
       // Risk-assessment landing localized June 2026 — old un-localized
       // EN/NL slugs redirect to the canonical localized paths so any
       // accidental backlinks to /en/risikobewertung land correctly.
-      { source: "/en/risikobewertung", destination: "/en/risk-assessment", permanent: true },
-      { source: "/nl/risikobewertung", destination: "/nl/risicobeoordeling", permanent: true },
+      {
+        source: "/en/risikobewertung",
+        destination: "/en/risk-assessment",
+        permanent: true,
+      },
+      {
+        source: "/nl/risikobewertung",
+        destination: "/nl/risicobeoordeling",
+        permanent: true,
+      },
       // Keyword variants → canonical pages (May 2026)
       { source: "/nis2-compliance-software", destination: "/features", permanent: true },
-      { source: "/en/nis2-compliance-software", destination: "/en/features", permanent: true },
-      { source: "/nl/nis2-compliance-software", destination: "/nl/features", permanent: true },
+      {
+        source: "/en/nis2-compliance-software",
+        destination: "/en/features",
+        permanent: true,
+      },
+      {
+        source: "/nl/nis2-compliance-software",
+        destination: "/nl/features",
+        permanent: true,
+      },
       { source: "/nis2-compliance-tool", destination: "/nis2-tool", permanent: true },
-      { source: "/en/nis2-compliance-tool", destination: "/en/nis2-tool", permanent: true },
-      { source: "/nl/nis2-compliance-tool", destination: "/nl/nis2-tool", permanent: true },
+      {
+        source: "/en/nis2-compliance-tool",
+        destination: "/en/nis2-tool",
+        permanent: true,
+      },
+      {
+        source: "/nl/nis2-compliance-tool",
+        destination: "/nl/nis2-tool",
+        permanent: true,
+      },
       // Docs hub migration — entries land in lib/content/legacy-redirects.ts
       // when an info page moves under /docs. Empty array today; non-breaking.
       ...LEGACY_REDIRECTS,

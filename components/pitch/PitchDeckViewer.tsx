@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 type Locale = "de" | "en";
@@ -16,30 +16,62 @@ export interface PitchStats {
 const TOTAL = 11;
 
 const NAV_TITLES: Record<Locale, string[]> = {
-  en: ["Cover", "Problem", "Solution", "Traction", "Market", "Business Model", "Competition", "Why Now", "Financials", "Roadmap", "Team"],
-  de: ["Cover", "Problem", "Lösung", "Traktion", "Markt", "Geschäftsmodell", "Wettbewerb", "Warum Jetzt", "Finanzen", "Fahrplan", "Team"],
+  en: [
+    "Cover",
+    "Problem",
+    "Solution",
+    "Traction",
+    "Market",
+    "Business Model",
+    "Competition",
+    "Why Now",
+    "Financials",
+    "Roadmap",
+    "Team",
+  ],
+  de: [
+    "Cover",
+    "Problem",
+    "Lösung",
+    "Traktion",
+    "Markt",
+    "Geschäftsmodell",
+    "Wettbewerb",
+    "Warum Jetzt",
+    "Finanzen",
+    "Fahrplan",
+    "Team",
+  ],
 };
 
 // Desktop: h-full fills the aspect-video container.
 // Mobile: h-auto so the slide grows with its stacked content.
-function SlideShell({ children, tinted = false }: { children: React.ReactNode; tinted?: boolean }) {
+function SlideShell({
+  children,
+  tinted = false,
+}: {
+  children: React.ReactNode;
+  tinted?: boolean;
+}) {
   return (
-    <div className={`h-full w-full flex flex-col px-10 py-7 max-md:h-auto max-md:px-6 max-md:py-5 ${tinted ? "bg-slate-50" : "bg-white"}`}>
+    <div
+      className={`h-full w-full flex flex-col px-10 py-7 max-md:h-auto max-md:px-6 max-md:py-5 ${tinted ? "bg-slate-50" : "bg-white"}`}
+    >
       {children}
     </div>
   );
 }
 
 function Kicker({ text }: { text: string }) {
-  return <p className="text-[10px] font-semibold tracking-widest uppercase text-slate-400 mb-1.5">{text}</p>;
+  return (
+    <p className="text-[10px] font-semibold tracking-widest uppercase text-slate-400 mb-1.5">
+      {text}
+    </p>
+  );
 }
 
 function Headline({ text }: { text: string }) {
-  return (
-    <h2 className="text-xl font-bold text-slate-900 leading-tight mb-3">
-      {text}
-    </h2>
-  );
+  return <h2 className="text-xl font-bold text-slate-900 leading-tight mb-3">{text}</h2>;
 }
 
 // Desktop: flex-1 fills remaining slide width.
@@ -92,12 +124,20 @@ function ProblemSlide({ en, locale }: { en: boolean; locale: Locale }) {
   return (
     <SlideShell>
       <Kicker text="02 / Problem" />
-      <Headline text={en ? "160,000+ European companies. No affordable compliance tool." : "160.000+ europäische Unternehmen. Kein bezahlbares Compliance-Tool."} />
+      <Headline
+        text={
+          en
+            ? "160,000+ European companies. No affordable compliance tool."
+            : "160.000+ europäische Unternehmen. Kein bezahlbares Compliance-Tool."
+        }
+      />
       <div className="flex flex-1 gap-6 min-h-0 max-md:flex-col max-md:flex-none max-md:gap-4">
         <div className="w-[38%] flex flex-col justify-center space-y-4 max-md:w-full">
           {bullets.map((b, i) => (
             <div key={i} className="flex gap-3">
-              <span className="text-indigo-500 font-bold text-xs mt-0.5 shrink-0">{i + 1}.</span>
+              <span className="text-indigo-500 font-bold text-xs mt-0.5 shrink-0">
+                {i + 1}.
+              </span>
               <p className="text-sm text-slate-700 leading-snug">{b}</p>
             </div>
           ))}
@@ -134,7 +174,13 @@ function SolutionSlide({ en, locale }: { en: boolean; locale: Locale }) {
   return (
     <SlideShell>
       <Kicker text="03 / Solution" />
-      <Headline text={en ? "The platform is the documentation. Free, forever." : "Die Plattform ist die Dokumentation. Kostenlos, für immer."} />
+      <Headline
+        text={
+          en
+            ? "The platform is the documentation. Free, forever."
+            : "Die Plattform ist die Dokumentation. Kostenlos, für immer."
+        }
+      />
       <div className="flex flex-1 gap-6 min-h-0 max-md:flex-col max-md:flex-none max-md:gap-4">
         <div className="w-[38%] flex flex-col justify-center space-y-3 max-md:w-full">
           {bullets.map((b, i) => (
@@ -146,7 +192,11 @@ function SolutionSlide({ en, locale }: { en: boolean; locale: Locale }) {
         </div>
         <ChartPane
           src={`/pitch/${locale}/REF-10_audit-coverage.png`}
-          alt={en ? "Platform coverage of top NIS2 audit findings" : "Plattformabdeckung der häufigsten NIS2-Prüfbefunde"}
+          alt={
+            en
+              ? "Platform coverage of top NIS2 audit findings"
+              : "Plattformabdeckung der häufigsten NIS2-Prüfbefunde"
+          }
         />
       </div>
     </SlideShell>
@@ -154,7 +204,15 @@ function SolutionSlide({ en, locale }: { en: boolean; locale: Locale }) {
 }
 
 // ── Slide 4: Traction ─────────────────────────────────────────────────────────
-function TractionSlide({ en, locale, liveStats }: { en: boolean; locale: Locale; liveStats?: PitchStats }) {
+function TractionSlide({
+  en,
+  locale,
+  liveStats,
+}: {
+  en: boolean;
+  locale: Locale;
+  liveStats?: PitchStats;
+}) {
   const stats = [
     {
       value: liveStats ? String(liveStats.users) : "152",
@@ -165,22 +223,43 @@ function TractionSlide({ en, locale, liveStats }: { en: boolean; locale: Locale;
       label: en ? "CEO courses started" : "Gestartete CEO-Kurse",
     },
     {
-      value: liveStats && liveStats.courseCompletions > 0 ? String(liveStats.courseCompletions) : "40.5k",
-      label: liveStats && liveStats.courseCompletions > 0
-        ? (en ? "CEO courses completed" : "Abgeschlossene CEO-Kurse")
-        : (en ? "LinkedIn impressions (May 20 week)" : "LinkedIn-Impressionen (KW 21)"),
+      value:
+        liveStats && liveStats.courseCompletions > 0
+          ? String(liveStats.courseCompletions)
+          : "40.5k",
+      label:
+        liveStats && liveStats.courseCompletions > 0
+          ? en
+            ? "CEO courses completed"
+            : "Abgeschlossene CEO-Kurse"
+          : en
+            ? "LinkedIn impressions (May 20 week)"
+            : "LinkedIn-Impressionen (KW 21)",
     },
   ];
   return (
     <SlideShell>
       <Kicker text="04 / Traction" />
-      <Headline text={en ? "Live since Q1 2026. Growing without paid ads." : "Live seit Q1 2026. Wachstum ohne bezahlte Werbung."} />
+      <Headline
+        text={
+          en
+            ? "Live since Q1 2026. Growing without paid ads."
+            : "Live seit Q1 2026. Wachstum ohne bezahlte Werbung."
+        }
+      />
       <div className="flex flex-1 gap-6 min-h-0 max-md:flex-col max-md:flex-none max-md:gap-4">
         <div className="w-[42%] flex flex-col justify-center gap-3 max-md:w-full max-md:flex-row max-md:gap-2">
           {stats.map((s) => (
-            <div key={s.label} className="bg-slate-50 rounded-lg px-4 py-3 border border-slate-200 max-md:flex-1 max-md:px-3 max-md:py-2">
-              <p className="text-3xl font-bold text-slate-900 max-md:text-2xl">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-0.5 max-md:text-[10px]">{s.label}</p>
+            <div
+              key={s.label}
+              className="bg-slate-50 rounded-lg px-4 py-3 border border-slate-200 max-md:flex-1 max-md:px-3 max-md:py-2"
+            >
+              <p className="text-3xl font-bold text-slate-900 max-md:text-2xl">
+                {s.value}
+              </p>
+              <p className="text-xs text-slate-500 mt-0.5 max-md:text-[10px]">
+                {s.label}
+              </p>
             </div>
           ))}
         </div>
@@ -205,11 +284,19 @@ function MarketSlide({ en, locale }: { en: boolean; locale: Locale }) {
   return (
     <SlideShell>
       <Kicker text="05 / Market" />
-      <Headline text={en ? "160,000–180,000 companies obligated across the EU." : "160.000–180.000 verpflichtete Unternehmen in der EU."} />
+      <Headline
+        text={
+          en
+            ? "160,000–180,000 companies obligated across the EU."
+            : "160.000–180.000 verpflichtete Unternehmen in der EU."
+        }
+      />
       <div className="relative flex-1 rounded-lg overflow-hidden bg-slate-50 border border-slate-100 min-h-0 max-md:flex-none max-md:h-48">
         <Image
           src={`/pitch/${locale}/REF-02_tam-sam-som.png`}
-          alt={en ? "TAM SAM SOM market size pyramid" : "TAM SAM SOM Marktgrößen-Pyramide"}
+          alt={
+            en ? "TAM SAM SOM market size pyramid" : "TAM SAM SOM Marktgrößen-Pyramide"
+          }
           fill
           className="object-contain p-3"
         />
@@ -241,11 +328,21 @@ function BusinessModelSlide({ en, locale }: { en: boolean; locale: Locale }) {
   return (
     <SlideShell>
       <Kicker text="06 / Business Model" />
-      <Headline text={en ? "Free platform. Revenue from what surrounds it." : "Kostenlose Plattform. Erlöse aus dem Umfeld."} />
+      <Headline
+        text={
+          en
+            ? "Free platform. Revenue from what surrounds it."
+            : "Kostenlose Plattform. Erlöse aus dem Umfeld."
+        }
+      />
       <div className="relative flex-1 rounded-lg overflow-hidden bg-slate-50 border border-slate-100 min-h-0 mb-3 max-md:flex-none max-md:h-44">
         <Image
           src={`/pitch/${locale}/REF-01_geschaeftsmodell-fluss.png`}
-          alt={en ? "Five revenue channels around the free open-source core" : "Fünf Erlöskanäle um den kostenfreien Open-Source-Kern"}
+          alt={
+            en
+              ? "Five revenue channels around the free open-source core"
+              : "Fünf Erlöskanäle um den kostenfreien Open-Source-Kern"
+          }
           fill
           className="object-contain p-2"
         />
@@ -264,27 +361,53 @@ function BusinessModelSlide({ en, locale }: { en: boolean; locale: Locale }) {
 // ── Slide 7: Competition ──────────────────────────────────────────────────────
 function CompetitionSlide({ en, locale }: { en: boolean; locale: Locale }) {
   const left = en
-    ? ["US platforms (Vanta, Drata): €7,500–€100k/year, English, ISO-centric", "German SaaS (DataGuard, NIS2Compass): demo walls, 3-year lock-in", "Consulting (KPMG, Sopra Steria): €30,000–€80,000 per project"]
-    : ["US-Plattformen (Vanta, Drata): 7.500–100.000 Euro/Jahr, englisch, ISO-zentrisch", "Deutsche SaaS (DataGuard, NIS2Compass): Demo-Wall, 3-Jahres-Lock-in", "Beratung (KPMG, Sopra Steria): 30.000–80.000 Euro pro Projekt"];
+    ? [
+        "US platforms (Vanta, Drata): €7,500–€100k/year, English, ISO-centric",
+        "German SaaS (DataGuard, NIS2Compass): demo walls, 3-year lock-in",
+        "Consulting (KPMG, Sopra Steria): €30,000–€80,000 per project",
+      ]
+    : [
+        "US-Plattformen (Vanta, Drata): 7.500–100.000 Euro/Jahr, englisch, ISO-zentrisch",
+        "Deutsche SaaS (DataGuard, NIS2Compass): Demo-Wall, 3-Jahres-Lock-in",
+        "Beratung (KPMG, Sopra Steria): 30.000–80.000 Euro pro Projekt",
+      ];
   const right = en
-    ? ["Free forever. Open source. No lock-in.", "BSIG-specific (covers the 20% of NIS2 that ISO 27001 misses)", "IHK chambers can endorse us (no vendor conflict)"]
-    : ["Kostenlos für immer. Open Source. Kein Lock-in.", "BSIG-spezifisch (deckt die 20% ab, die ISO 27001 verfehlt)", "IHK-Kammern können uns empfehlen (kein Anbieterkonflikt)"];
+    ? [
+        "Free forever. Open source. No lock-in.",
+        "BSIG-specific (covers the 20% of NIS2 that ISO 27001 misses)",
+        "IHK chambers can endorse us (no vendor conflict)",
+      ]
+    : [
+        "Kostenlos für immer. Open Source. Kein Lock-in.",
+        "BSIG-spezifisch (deckt die 20% ab, die ISO 27001 verfehlt)",
+        "IHK-Kammern können uns empfehlen (kein Anbieterkonflikt)",
+      ];
   return (
     <SlideShell>
       <Kicker text="07 / Competition" />
-      <Headline text={en ? "Nobody else is free, open-source, and BSIG-specific." : "Niemand sonst ist kostenlos, Open-Source und BSIG-spezifisch."} />
+      <Headline
+        text={
+          en
+            ? "Nobody else is free, open-source, and BSIG-specific."
+            : "Niemand sonst ist kostenlos, Open-Source und BSIG-spezifisch."
+        }
+      />
       <div className="flex flex-1 gap-4 min-h-0 max-md:flex-col max-md:flex-none max-md:gap-4">
         <div className="relative flex-1 rounded-lg overflow-hidden bg-slate-50 border border-slate-100 max-md:flex-none max-md:h-44">
           <Image
             src={`/pitch/${locale}/REF-03_wettbewerber-matrix.png`}
-            alt={en ? "Competitor positioning matrix" : "Wettbewerber-Positionierungsmatrix"}
+            alt={
+              en ? "Competitor positioning matrix" : "Wettbewerber-Positionierungsmatrix"
+            }
             fill
             className="object-contain p-2"
           />
         </div>
         <div className="w-[38%] flex flex-col gap-3 justify-center max-md:w-full">
           <div className="space-y-2">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-rose-500">{en ? "Market gap" : "Marktlücke"}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-rose-500">
+              {en ? "Market gap" : "Marktlücke"}
+            </p>
             {left.map((b, i) => (
               <div key={i} className="flex gap-2">
                 <span className="text-rose-500 text-xs shrink-0 mt-0.5">✗</span>
@@ -293,7 +416,9 @@ function CompetitionSlide({ en, locale }: { en: boolean; locale: Locale }) {
             ))}
           </div>
           <div className="space-y-2 border-t border-slate-200 pt-3">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-indigo-600">nisd2.eu</p>
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-indigo-600">
+              nisd2.eu
+            </p>
             {right.map((b, i) => (
               <div key={i} className="flex gap-2">
                 <span className="text-indigo-500 text-xs shrink-0 mt-0.5">✓</span>
@@ -311,23 +436,69 @@ function CompetitionSlide({ en, locale }: { en: boolean; locale: Locale }) {
 function WhyNowSlide({ en }: { en: boolean }) {
   const points = en
     ? [
-        { n: "1", head: "Regulation live", body: "NIS2 in force Dec 6, 2025. No transition period." },
-        { n: "2", head: "62% unregistered", body: "Most obligated German companies still haven't filed with the BSI." },
-        { n: "3", head: "Enforcement starting", body: "First fines and §38 personal-liability cases expected 2026–2027." },
-        { n: "4", head: "No market leader", body: "US providers too expensive. German providers closed. Window is open." },
-        { n: "5", head: "Channels opening", body: "IHK chambers actively seeking NIS2 material for their 3.5M members." },
+        {
+          n: "1",
+          head: "Regulation live",
+          body: "NIS2 in force Dec 6, 2025. No transition period.",
+        },
+        {
+          n: "2",
+          head: "62% unregistered",
+          body: "Most obligated German companies still haven't filed with the BSI.",
+        },
+        {
+          n: "3",
+          head: "Enforcement starting",
+          body: "First fines and §38 personal-liability cases expected 2026–2027.",
+        },
+        {
+          n: "4",
+          head: "No market leader",
+          body: "US providers too expensive. German providers closed. Window is open.",
+        },
+        {
+          n: "5",
+          head: "Channels opening",
+          body: "IHK chambers actively seeking NIS2 material for their 3.5M members.",
+        },
       ]
     : [
-        { n: "1", head: "Verordnung in Kraft", body: "NIS2 gilt seit 6. Dez. 2025. Keine Übergangsfrist." },
-        { n: "2", head: "62% nicht registriert", body: "Die meisten verpflichteten deutschen Unternehmen haben sich noch nicht beim BSI angemeldet." },
-        { n: "3", head: "Durchsetzung beginnt", body: "Erste Bußgelder und §38-Haftungsfälle für 2026–2027 erwartet." },
-        { n: "4", head: "Noch kein Marktführer", body: "US-Anbieter zu teuer. Deutsche Anbieter geschlossen. Fenster steht offen." },
-        { n: "5", head: "Kanäle öffnen sich", body: "IHK-Kammern suchen aktiv nach NIS2-Material für ihre 3,5 Mio. Mitglieder." },
+        {
+          n: "1",
+          head: "Verordnung in Kraft",
+          body: "NIS2 gilt seit 6. Dez. 2025. Keine Übergangsfrist.",
+        },
+        {
+          n: "2",
+          head: "62% nicht registriert",
+          body: "Die meisten verpflichteten deutschen Unternehmen haben sich noch nicht beim BSI angemeldet.",
+        },
+        {
+          n: "3",
+          head: "Durchsetzung beginnt",
+          body: "Erste Bußgelder und §38-Haftungsfälle für 2026–2027 erwartet.",
+        },
+        {
+          n: "4",
+          head: "Noch kein Marktführer",
+          body: "US-Anbieter zu teuer. Deutsche Anbieter geschlossen. Fenster steht offen.",
+        },
+        {
+          n: "5",
+          head: "Kanäle öffnen sich",
+          body: "IHK-Kammern suchen aktiv nach NIS2-Material für ihre 3,5 Mio. Mitglieder.",
+        },
       ];
   return (
     <SlideShell tinted>
       <Kicker text="08 / Why Now" />
-      <Headline text={en ? "Enforcement starts 2026. The window to build authority is open." : "Durchsetzung beginnt 2026. Das Fenster zur Marktführerschaft steht offen."} />
+      <Headline
+        text={
+          en
+            ? "Enforcement starts 2026. The window to build authority is open."
+            : "Durchsetzung beginnt 2026. Das Fenster zur Marktführerschaft steht offen."
+        }
+      />
       <div className="flex-1 grid grid-cols-3 gap-3 content-start max-md:flex-none max-md:grid-cols-2 max-md:gap-2">
         {points.map((p) => (
           <div key={p.n} className="bg-white rounded-lg p-3 border border-slate-200">
@@ -364,7 +535,13 @@ function FinancialsSlide({ en, locale }: { en: boolean; locale: Locale }) {
   return (
     <SlideShell>
       <Kicker text="09 / Financials" />
-      <Headline text={en ? "Profitable from Year 1. First Managing Director salary January 2027." : "Profitabel ab Jahr 1. Erstes Geschäftsführergehalt Januar 2027."} />
+      <Headline
+        text={
+          en
+            ? "Profitable from Year 1. First Managing Director salary January 2027."
+            : "Profitabel ab Jahr 1. Erstes Geschäftsführergehalt Januar 2027."
+        }
+      />
       <div className="flex flex-1 gap-6 min-h-0 max-md:flex-col max-md:flex-none max-md:gap-4">
         <ChartPane
           src={`/pitch/${locale}/REF-06_break-even.png`}
@@ -374,9 +551,15 @@ function FinancialsSlide({ en, locale }: { en: boolean; locale: Locale }) {
           <table className="text-xs w-full">
             <thead>
               <tr className="border-b border-slate-300">
-                <th className="text-left py-1.5 text-slate-500 font-medium">{en ? "Year" : "Jahr"}</th>
-                <th className="text-right py-1.5 text-slate-500 font-medium">{en ? "Revenue" : "Umsatz"}</th>
-                <th className="text-right py-1.5 text-slate-500 font-medium">{en ? "Net result" : "Ergebnis"}</th>
+                <th className="text-left py-1.5 text-slate-500 font-medium">
+                  {en ? "Year" : "Jahr"}
+                </th>
+                <th className="text-right py-1.5 text-slate-500 font-medium">
+                  {en ? "Revenue" : "Umsatz"}
+                </th>
+                <th className="text-right py-1.5 text-slate-500 font-medium">
+                  {en ? "Net result" : "Ergebnis"}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -384,13 +567,19 @@ function FinancialsSlide({ en, locale }: { en: boolean; locale: Locale }) {
                 <tr key={i} className="border-b border-slate-100">
                   <td className="py-2 text-slate-700">{year}</td>
                   <td className="py-2 text-right text-slate-900 font-medium">{rev}</td>
-                  <td className={`py-2 text-right font-medium ${result.startsWith("−") || result.startsWith("-") ? "text-rose-600" : "text-emerald-600"}`}>{result}</td>
+                  <td
+                    className={`py-2 text-right font-medium ${result.startsWith("−") || result.startsWith("-") ? "text-rose-600" : "text-emerald-600"}`}
+                  >
+                    {result}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
           <div className="bg-slate-50 rounded-lg p-3 border border-slate-200 space-y-1.5">
-            <p className="text-xs text-slate-700 font-medium">{en ? "Model assumptions" : "Modellannahmen"}</p>
+            <p className="text-xs text-slate-700 font-medium">
+              {en ? "Model assumptions" : "Modellannahmen"}
+            </p>
             <p className="text-[11px] text-slate-500 leading-snug">
               {en
                 ? "IHK Köln business plan v1.4 (Stand 10.06.2026). Conservative path. No grants in base case. Phase 1 Gründungszuschuss covers Jul–Dec 2026 living costs, so no Managing Director salary in Y1."
@@ -407,21 +596,51 @@ function FinancialsSlide({ en, locale }: { en: boolean; locale: Locale }) {
 function RoadmapSlide({ en, locale }: { en: boolean; locale: Locale }) {
   const milestones = en
     ? [
-        { t: "Q1 2026", b: "Platform live. BSI registration deadline 6 March. Plan v1.4 cleared by IHK Köln 10 June." },
-        { t: "Q3 2026", b: "Gründungszuschuss Phase 1 (Jul–Dec). Own NIS2 implementation line starts Oct. First referral commissions." },
-        { t: "Q1 2027", b: "First Managing Director salary. Gründungszuschuss Phase 2 (Jan–Sep). Affiliate contracts close." },
-        { t: "Q1 2028", b: "~400 paying SMEs via partners. €304k revenue. Stammkapital + reserve reach €25k GmbH threshold." },
+        {
+          t: "Q1 2026",
+          b: "Platform live. BSI registration deadline 6 March. Plan v1.4 cleared by IHK Köln 10 June.",
+        },
+        {
+          t: "Q3 2026",
+          b: "Gründungszuschuss Phase 1 (Jul–Dec). Own NIS2 implementation line starts Oct. First referral commissions.",
+        },
+        {
+          t: "Q1 2027",
+          b: "First Managing Director salary. Gründungszuschuss Phase 2 (Jan–Sep). Affiliate contracts close.",
+        },
+        {
+          t: "Q1 2028",
+          b: "~400 paying SMEs via partners. €304k revenue. Stammkapital + reserve reach €25k GmbH threshold.",
+        },
       ]
     : [
-        { t: "Q1 2026", b: "Plattform live. BSI-Registrierungsfrist 6. März. Plan v1.4 von IHK Köln freigegeben 10. Juni." },
-        { t: "Q3 2026", b: "Gründungszuschuss Phase 1 (Jul–Dez). Eigenleistungslinie NIS2 startet im Oktober. Erste Vermittlungsprovisionen." },
-        { t: "Q1 2027", b: "Erstes Geschäftsführergehalt. Gründungszuschuss Phase 2 (Jan–Sep). Affiliate-Verträge unterzeichnet." },
-        { t: "Q1 2028", b: "~400 zahlende KMU über Partner. 304.000 Euro Umsatz. Stammkapital + Rücklage erreichen 25.000 Euro GmbH-Schwelle." },
+        {
+          t: "Q1 2026",
+          b: "Plattform live. BSI-Registrierungsfrist 6. März. Plan v1.4 von IHK Köln freigegeben 10. Juni.",
+        },
+        {
+          t: "Q3 2026",
+          b: "Gründungszuschuss Phase 1 (Jul–Dez). Eigenleistungslinie NIS2 startet im Oktober. Erste Vermittlungsprovisionen.",
+        },
+        {
+          t: "Q1 2027",
+          b: "Erstes Geschäftsführergehalt. Gründungszuschuss Phase 2 (Jan–Sep). Affiliate-Verträge unterzeichnet.",
+        },
+        {
+          t: "Q1 2028",
+          b: "~400 zahlende KMU über Partner. 304.000 Euro Umsatz. Stammkapital + Rücklage erreichen 25.000 Euro GmbH-Schwelle.",
+        },
       ];
   return (
     <SlideShell>
       <Kicker text="10 / Roadmap" />
-      <Headline text={en ? "Four milestones to market leadership." : "Vier Meilensteine zur Marktführerschaft."} />
+      <Headline
+        text={
+          en
+            ? "Four milestones to market leadership."
+            : "Vier Meilensteine zur Marktführerschaft."
+        }
+      />
       <div className="relative flex-1 rounded-lg overflow-hidden bg-slate-50 border border-slate-100 min-h-0 mb-3 max-md:flex-none max-md:h-40">
         <Image
           src={`/pitch/${locale}/REF-07_realisierungsfahrplan.png`}
@@ -447,16 +666,29 @@ function TeamSlide({ en }: { en: boolean }) {
   return (
     <SlideShell tinted>
       <Kicker text="11 / Team" />
-      <Headline text={en ? "Built by people who read the regulation in its original language." : "Gebaut von Menschen, die die Verordnung im Original gelesen haben."} />
+      <Headline
+        text={
+          en
+            ? "Built by people who read the regulation in its original language."
+            : "Gebaut von Menschen, die die Verordnung im Original gelesen haben."
+        }
+      />
       <div className="flex flex-1 gap-6 min-h-0 max-md:flex-col max-md:flex-none max-md:gap-4">
         <div className="flex-1 bg-white rounded-xl p-5 border border-slate-200 flex flex-col">
           <div className="flex items-center gap-3 mb-3">
             <div className="relative h-12 w-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
-              <Image src="/images/people/simon-cutout.png" alt="Simon Orzel" fill className="object-cover" />
+              <Image
+                src="/images/people/simon-cutout.png"
+                alt="Simon Orzel"
+                fill
+                className="object-cover"
+              />
             </div>
             <div>
               <p className="text-sm font-bold text-slate-900">Simon Orzel</p>
-              <p className="text-xs text-indigo-600">{en ? "Managing Director · 51%" : "Geschäftsführer · 51%"}</p>
+              <p className="text-xs text-indigo-600">
+                {en ? "Managing Director · 51%" : "Geschäftsführer · 51%"}
+              </p>
             </div>
           </div>
           <p className="text-xs text-slate-600 leading-relaxed flex-1">
@@ -468,11 +700,18 @@ function TeamSlide({ en }: { en: boolean }) {
         <div className="flex-1 bg-white rounded-xl p-5 border border-slate-200 flex flex-col">
           <div className="flex items-center gap-3 mb-3">
             <div className="relative h-12 w-12 rounded-full overflow-hidden bg-slate-100 shrink-0">
-              <Image src="/images/people/cory.png" alt="Cory Hisey" fill className="object-cover" />
+              <Image
+                src="/images/people/cory.png"
+                alt="Cory Hisey"
+                fill
+                className="object-cover"
+              />
             </div>
             <div>
               <p className="text-sm font-bold text-slate-900">Cory Hisey</p>
-              <p className="text-xs text-indigo-600">{en ? "Co-Founder · 49%" : "Mitgründer · 49%"}</p>
+              <p className="text-xs text-indigo-600">
+                {en ? "Co-Founder · 49%" : "Mitgründer · 49%"}
+              </p>
             </div>
           </div>
           <p className="text-xs text-slate-600 leading-relaxed flex-1">
@@ -522,7 +761,13 @@ function PrintView({ locale, liveStats }: { locale: Locale; liveStats?: PitchSta
 }
 
 // ── Main export ───────────────────────────────────────────────────────────────
-export function PitchDeckViewer({ locale, stats }: { locale: Locale; stats?: PitchStats }) {
+export function PitchDeckViewer({
+  locale,
+  stats,
+}: {
+  locale: Locale;
+  stats?: PitchStats;
+}) {
   const [current, setCurrent] = useState(0);
   const en = locale === "en";
 
@@ -549,7 +794,7 @@ export function PitchDeckViewer({ locale, stats }: { locale: Locale; stats?: Pit
           </div>
           {/* Mobile: pre-rendered screenshot — plain img to bypass Next.js image cache */}
           <div className="absolute inset-0 md:hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {/* biome-ignore lint/performance/noImgElement: slide screenshots are pre-sized and swap on every step; next/image would refetch */}
             <img
               src={`/pitch/slides/${locale}/slide-${String(current).padStart(2, "0")}.png`}
               alt={`${NAV_TITLES[locale][current]} — slide ${current + 1} of ${TOTAL}`}
@@ -560,7 +805,13 @@ export function PitchDeckViewer({ locale, stats }: { locale: Locale; stats?: Pit
 
         {/* Navigation */}
         <div className="flex items-center justify-between">
-          <Button variant="outline" size="sm" onClick={prev} disabled={current === 0} className="gap-1 text-xs">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={prev}
+            disabled={current === 0}
+            className="gap-1 text-xs"
+          >
             <ChevronLeft className="size-3.5" />
             {en ? "Previous" : "Zurück"}
           </Button>
@@ -570,6 +821,7 @@ export function PitchDeckViewer({ locale, stats }: { locale: Locale; stats?: Pit
               {Array.from({ length: TOTAL }, (_, i) => (
                 <button
                   key={i}
+                  type="button"
                   onClick={() => setCurrent(i)}
                   className={`rounded-full transition-all duration-200 ${
                     i === current
@@ -585,7 +837,13 @@ export function PitchDeckViewer({ locale, stats }: { locale: Locale; stats?: Pit
             </span>
           </div>
 
-          <Button variant="outline" size="sm" onClick={next} disabled={current === TOTAL - 1} className="gap-1 text-xs">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={next}
+            disabled={current === TOTAL - 1}
+            className="gap-1 text-xs"
+          >
             {en ? "Next" : "Weiter"}
             <ChevronRight className="size-3.5" />
           </Button>

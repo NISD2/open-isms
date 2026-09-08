@@ -14,6 +14,7 @@
     "start": "next start",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
+    "lint:ci": "biome check --changed --since=origin/main",
     "typecheck": "tsc --noEmit",
     "test:unit": "bun test lib server schema/",
     "check:migrations": "bun scripts/check-migration-journals.ts",

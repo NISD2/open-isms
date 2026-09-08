@@ -166,7 +166,7 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
       previewMutation.mutate(composerPayload());
     }, 500);
     return () => clearTimeout(handle);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // biome-ignore lint/correctness/useExhaustiveDependencies: debounced preview intentionally tracks only the composer fields, not the mutation object
   }, [subject, preheader, bodyMarkdown, slug, ctaKey, canRender]);
 
   const selectedGroup = audience === ALL_AUDIENCE ? null : groups.find((g) => g.id === audience);

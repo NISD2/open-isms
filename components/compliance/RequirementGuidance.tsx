@@ -85,7 +85,7 @@ export function RequirementGuidance({ description, guidance }: RequirementGuidan
                     never reordered, and two identically-worded steps in a
                     regenerated guidance file would collide on a text key. */}
                 {steps.map((step, i) => (
-                  // eslint-disable-next-line react/no-array-index-key
+                  // biome-ignore lint/suspicious/noArrayIndexKey: see above — steps are ordered, never reordered, and two identically-worded steps would collide on a text key
                   <li key={i} className="leading-relaxed">
                     {step}
                   </li>

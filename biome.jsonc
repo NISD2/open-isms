@@ -35,7 +35,18 @@
   },
   "overrides": [
     {
-      "includes": ["lib/pdf/**", "scripts/preview-pdfs.ts", "scripts/export-demo-ordner.tsx"],
+      // Rendered documents and the slide deck: fixed literal arrays, authored
+      // in order, never reordered or filtered at runtime. An index IS the
+      // stable identity here, and a text key would collide on two
+      // identically-worded bullets.
+      // The `**/` prefix is load-bearing: bare "lib/pdf/**" matched nothing,
+      // so this override silently did nothing until 09.09.
+      "includes": [
+        "**/lib/pdf/**",
+        "**/components/pitch/**",
+        "**/scripts/preview-pdfs.ts",
+        "**/scripts/export-demo-ordner.tsx"
+      ],
       "linter": {
         "rules": {
           "suspicious": {
