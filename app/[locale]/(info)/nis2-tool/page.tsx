@@ -148,7 +148,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "Was kostet ein NIS2 Tool?",
-          a: "Kommerzielle GRC-Tools (Vanta, Drata, OneTrust) liegen bei 10.000 bis 60.000 EUR pro Jahr für ein Mittelstand-Unternehmen. nisd2.eu ist kostenlos. Implementierungsbegleitung kostet bei uns ab 500 EUR pro Monat.",
+          a: "Vanta, Drata und OneTrust veröffentlichen keine Preise, den Einstieg gibt es nur über ein Vertriebsgespräch. In unserer Prüfung von 150 GRC-Anbietern im Mai 2026 nannten 120 keinen öffentlichen Preis. nisd2.eu ist kostenlos, gehostet wie selbst betrieben.",
         },
         {
           q: "Brauche ich ein Tool, oder reicht Excel?",
@@ -270,7 +270,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "What does a NIS2 tool cost?",
-          a: "Commercial GRC tools (Vanta, Drata, OneTrust) typically run €10,000 to €60,000 per year for a mid-sized company. nisd2.eu is free. Implementation guidance from us starts at €500 per month.",
+          a: "Vanta, Drata and OneTrust publish no prices; the only way in is a sales call. In our May 2026 audit of 150 GRC vendors, 120 named no public price. nisd2.eu is free, hosted or self-hosted.",
         },
         {
           q: "Do I need a tool, or is Excel enough?",
@@ -355,7 +355,7 @@ const content: Record<Locale, {
     faq: {
       heading: "Frequently asked questions",
       items: [
-        { q: "What does a NIS2 tool cost?", a: "Commercial GRC tools (Vanta, Drata, OneTrust) run €10,000 to €60,000 per year for a mid-sized company. nisd2.eu is free." },
+        { q: "What does a NIS2 tool cost?", a: "Commercial GRC tools (Vanta, Drata, OneTrust) publish no prices; access is through a sales call. nisd2.eu is free." },
         { q: "Do I need a tool, or is Excel enough?", a: "Excel is not enough. Authorities require a tamper-evident audit trail. After an incident, you must prove who changed what when." },
         { q: "Is one tool enough, or do I need several?", a: "A GRC tool covers documentation and proof. For SIEM, patch management, MFA, backups you still need separate technical tools." },
         { q: "Can a free platform be NIS2-compliant?", a: "Yes. NIS2 doesn't mandate a specific vendor. What matters is whether the requirements are met and documented." },
@@ -468,7 +468,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "Combien coûte un outil NIS2 ?",
-          a: "Les outils GRC commerciaux (Vanta, Drata, OneTrust) se situent généralement entre 10 000 et 60 000 EUR par an pour une entreprise de taille moyenne. nisd2.eu est gratuit. Notre accompagnement à la mise en œuvre démarre à 500 EUR par mois.",
+          a: "Vanta, Drata et OneTrust ne publient aucun prix ; l'accès passe par un entretien commercial. Dans notre audit de 150 fournisseurs GRC en mai 2026, 120 n'affichaient aucun prix public. nisd2.eu est gratuit, hébergé ou auto-hébergé.",
         },
         {
           q: "Ai-je besoin d'un outil, ou Excel suffit-il ?",
@@ -591,7 +591,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "Quanto costa uno strumento NIS2?",
-          a: "Gli strumenti GRC commerciali (Vanta, Drata, OneTrust) si attestano in genere tra 10.000 e 60.000 EUR all'anno per un'azienda di medie dimensioni. nisd2.eu è gratuito. Il nostro accompagnamento all'attuazione parte da 500 EUR al mese.",
+          a: "Vanta, Drata e OneTrust non pubblicano prezzi; l'accesso passa da un colloquio commerciale. Nella nostra verifica di 150 fornitori GRC di maggio 2026, 120 non indicavano alcun prezzo pubblico. nisd2.eu è gratuito, in hosting o sui propri server.",
         },
         {
           q: "Mi serve uno strumento o basta Excel?",
@@ -714,7 +714,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "¿Cuánto cuesta una herramienta NIS2?",
-          a: "Las herramientas GRC comerciales (Vanta, Drata, OneTrust) suelen costar entre 10.000 y 60.000 EUR al año para una empresa mediana. nisd2.eu es gratuito. Nuestro acompañamiento a la implementación arranca en 500 EUR al mes.",
+          a: "Vanta, Drata y OneTrust no publican precios; el acceso pasa por una llamada comercial. En nuestra auditoría de 150 proveedores GRC de mayo de 2026, 120 no indicaban ningún precio público. nisd2.eu es gratuito, alojado o autoalojado.",
         },
         {
           q: "¿Necesito una herramienta o basta con Excel?",
@@ -837,7 +837,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "Ile kosztuje narzędzie NIS2?",
-          a: "Komercyjne narzędzia GRC (Vanta, Drata, OneTrust) kosztują zwykle od 10 000 do 60 000 EUR rocznie dla średniej firmy. nisd2.eu jest bezpłatne. Nasze wsparcie przy wdrożeniu zaczyna się od 500 EUR miesięcznie.",
+          a: "Vanta, Drata i OneTrust nie publikują cen; dostęp prowadzi przez rozmowę handlową. W naszym audycie 150 dostawców GRC z maja 2026 roku 120 nie podawało żadnej publicznej ceny. nisd2.eu jest bezpłatne, w hostingu lub na własnej infrastrukturze.",
         },
         {
           q: "Czy potrzebuję narzędzia, czy wystarczy Excel?",
@@ -960,7 +960,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "Kolik stojí nástroj NIS2?",
-          a: "Komerční nástroje GRC (Vanta, Drata, OneTrust) se u středně velké firmy obvykle pohybují mezi 10 000 a 60 000 EUR ročně. nisd2.eu je zdarma. Náš doprovod při zavádění začíná na 500 EUR měsíčně.",
+          a: "Vanta, Drata ani OneTrust ceny nezveřejňují; přístup vede přes obchodní hovor. V naší prověrce 150 dodavatelů GRC z května 2026 neuvádělo 120 z nich žádnou veřejnou cenu. nisd2.eu je zdarma, v hostingu i na vlastní infrastruktuře.",
         },
         {
           q: "Potřebuji nástroj, nebo stačí Excel?",
@@ -1083,7 +1083,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "Quanto custa uma ferramenta NIS2?",
-          a: "As ferramentas GRC comerciais (Vanta, Drata, OneTrust) situam-se em geral entre 10 000 e 60 000 EUR por ano para uma empresa de média dimensão. O nisd2.eu é gratuito. O nosso acompanhamento à implementação começa em 500 EUR por mês.",
+          a: "A Vanta, a Drata e a OneTrust não publicam preços; o acesso passa por uma conversa comercial. Na nossa auditoria de 150 fornecedores GRC de maio de 2026, 120 não indicavam qualquer preço público. O nisd2.eu é gratuito, alojado ou autoalojado.",
         },
         {
           q: "Preciso de uma ferramenta ou basta o Excel?",
@@ -1206,7 +1206,7 @@ const content: Record<Locale, {
       items: [
         {
           q: "Cât costă un instrument NIS2?",
-          a: "Instrumentele GRC comerciale (Vanta, Drata, OneTrust) se situează de regulă între 10.000 și 60.000 EUR pe an pentru o companie de dimensiune medie. nisd2.eu este gratuit. Acompanierea noastră la implementare pornește de la 500 EUR pe lună.",
+          a: "Vanta, Drata și OneTrust nu publică prețuri; accesul trece printr-o discuție comercială. În auditul nostru din mai 2026 asupra a 150 de furnizori GRC, 120 nu afișau niciun preț public. nisd2.eu este gratuit, găzduit sau pe infrastructura proprie.",
         },
         {
           q: "Am nevoie de un instrument sau este suficient Excel?",
