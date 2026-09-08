@@ -14,16 +14,28 @@
  * and the at-most-once guarantee silently vanishes — this is the tripwire.
  */
 
-import { describe, expect, test } from "bun:test";
+import { describe, expect, mock, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { drizzle } from "drizzle-orm/node-postgres";
-import {
-  ACTIVATION_NUDGE_KEY,
-  buildCandidateQuery,
-} from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import * as schema from "@/schema";
+
+// activation-nudge.ts transitively loads lib/env (via the unsubscribe
+// helper), whose validation throws where no .env exists — and l0 runs in CI
+// without one. Mock env (full export shape), then import dynamically so the
+// mock is in place first. The query builder itself never reads env.
+mock.module("../../lib/env", () => ({
+  env: {
+    DATABASE_URL: "postgres://unused:unused@localhost:5432/unused",
+    AUTH_SECRET: "test-secret-test-secret-test-secret",
+  },
+  mailSupportEmail: () => "support@example.com",
+}));
+
+const { ACTIVATION_NUDGE_KEY, buildCandidateQuery } = await import(
+  "@/lib/lifecycle/emails/activation-nudge"
+);
 
 const db = drizzle.mock({ schema });
 const cutoff = new Date("2026-09-01T08:00:00.000Z");

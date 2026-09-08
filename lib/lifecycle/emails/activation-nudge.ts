@@ -45,7 +45,11 @@ import {
   type PreparedLifecycleEmail,
 } from "../types";
 
-export const ACTIVATION_NUDGE_KEY = "activation_nudge_v1";
+// Campaign identifier, not a credential — the "KEY" in the name is the
+// notification.triggerField dedup key. `gitleaks:allow` suppresses the
+// generic-api-key false positive (same precedent as the share-password
+// alphabet in platform-admin.ts).
+export const ACTIVATION_NUDGE_KEY = "activation_nudge_v1"; // gitleaks:allow
 
 /**
  * How long an account must be quiet before the nudge. Three days, not two:

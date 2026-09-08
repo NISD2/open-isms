@@ -1,9 +1,21 @@
-import { describe, expect, test } from "bun:test";
-import {
-  type ActivationNudgeInput,
-  displayableFirstName,
-  renderActivationNudge,
-} from "./activation-nudge";
+import { describe, expect, mock, test } from "bun:test";
+import type { ActivationNudgeInput } from "./activation-nudge";
+
+// activation-nudge.ts imports @/lib/email/unsubscribe, which loads lib/env,
+// whose validation throws in CI (no .env there; the unit suite stays
+// env-free by invariant). Mock env with its full export shape, then import
+// the module under test dynamically so the mock is registered first.
+mock.module("../../env", () => ({
+  env: {
+    DATABASE_URL: "postgres://unused:unused@localhost:5432/unused",
+    AUTH_SECRET: "test-secret-test-secret-test-secret",
+  },
+  mailSupportEmail: () => "support@example.com",
+}));
+
+const { displayableFirstName, renderActivationNudge } = await import(
+  "./activation-nudge"
+);
 
 function input(overrides: Partial<ActivationNudgeInput> = {}): ActivationNudgeInput {
   return {

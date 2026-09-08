@@ -42,6 +42,18 @@ mock.module("../mail/send", () => ({
 const logAudit = mock((_row: { action: string; userId: string | null }) => {});
 mock.module("../audit", () => ({ logAudit }));
 
+// dispatch.ts imports mailSupportEmail from @/lib/env, and lib/env.ts
+// validates process.env at module load. CI runs the unit suite with no .env
+// (main's tests never evaluate lib/env — that is the invariant this mock
+// preserves). Full export shape: env + mailSupportEmail.
+mock.module("../env", () => ({
+  env: {
+    DATABASE_URL: "postgres://unused:unused@localhost:5432/unused",
+    AUTH_SECRET: "test-secret-test-secret-test-secret",
+  },
+  mailSupportEmail: () => "support@example.com",
+}));
+
 // One stable array the mocked module hands out; tests swap its CONTENTS so
 // dispatch's imported binding always sees the current fixture.
 const registryTypes: LifecycleEmailType[] = [];
