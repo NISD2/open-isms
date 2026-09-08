@@ -3089,6 +3089,66 @@
       "summary": "De ce NIS 2 este un standard unitar al UE și cum diferă transpunerile naționale."
     }
   },
+  "entry:vanta-alternative": {
+    "fr": {
+      "title": "Alternative à Vanta : la voie open source vers NIS 2",
+      "summary": "Vous cherchez une alternative à Vanta pour NIS 2 ? open-isms est gratuit, open source et auto-hébergeable, avec les 49 exigences allemandes NIS 2 intégrées. Une comparaison honnête, avec sources."
+    },
+    "it": {
+      "title": "Alternativa a Vanta: la via open source verso la NIS 2",
+      "summary": "Cerca un'alternativa a Vanta per la NIS 2? open-isms è gratuito, open source e installabile sui propri server, con tutti i 49 requisiti tedeschi della NIS 2 già integrati. Un confronto onesto, con le fonti."
+    },
+    "es": {
+      "title": "Alternativa a Vanta: la vía de código abierto hacia NIS 2",
+      "summary": "¿Busca una alternativa a Vanta para NIS 2? open-isms es gratuito, de código abierto y autoalojable, con los 49 requisitos alemanes de NIS 2 incorporados. Una comparación honesta, con fuentes."
+    },
+    "pl": {
+      "title": "Alternatywa dla Vanta: otwarta droga do NIS 2",
+      "summary": "Szukają Państwo alternatywy dla Vanta w zakresie NIS 2? open-isms jest bezpłatny, open source i możliwy do samodzielnego hostowania, z wbudowanymi wszystkimi 49 niemieckimi wymaganiami NIS 2. Uczciwe porównanie, ze źródłami."
+    },
+    "cs": {
+      "title": "Alternativa k Vanta: otevřená cesta k NIS 2",
+      "summary": "Hledáte alternativu k Vanta pro NIS 2? open-isms je zdarma, open source a lze jej provozovat na vlastní infrastruktuře, se všemi 49 požadavky německé transpozice NIS 2. Poctivé srovnání se zdroji."
+    },
+    "pt": {
+      "title": "Alternativa à Vanta: o caminho open source para a NIS 2",
+      "summary": "Procura uma alternativa à Vanta para a NIS 2? O open-isms é gratuito, open source e autoalojável, com os 49 requisitos alemães da NIS 2 incluídos. Uma comparação honesta, com fontes."
+    },
+    "ro": {
+      "title": "Alternativa la Vanta: calea open source către NIS 2",
+      "summary": "Căutați o alternativă la Vanta pentru NIS 2? open-isms este gratuit, open source și găzduibil pe infrastructura proprie, cu toate cele 49 de cerințe germane NIS 2 incluse. O comparație onestă, cu surse."
+    }
+  },
+  "entry:drata-alternative": {
+    "fr": {
+      "title": "Alternative à Drata : NIS 2 à partir de la loi, pas d'un catalogue de contrôles",
+      "summary": "Vous cherchez une alternative à Drata pour NIS 2 ? Drata transpose NIS 2 en CIS Controls v8.1. open-isms part de la loi elle-même : gratuit, open source, auto-hébergeable. Une comparaison honnête."
+    },
+    "it": {
+      "title": "Alternativa a Drata: la NIS 2 dalla legge, non da un catalogo di controlli",
+      "summary": "Cerca un'alternativa a Drata per la NIS 2? Drata mappa la NIS 2 sui CIS Controls v8.1. open-isms parte dalla legge stessa: gratuito, open source, installabile sui propri server. Un confronto onesto."
+    },
+    "es": {
+      "title": "Alternativa a Drata: NIS 2 desde la ley, no desde un catálogo de controles",
+      "summary": "¿Busca una alternativa a Drata para NIS 2? Drata mapea NIS 2 a CIS Controls v8.1. open-isms parte de la propia ley: gratuito, de código abierto, autoalojable. Una comparación honesta."
+    },
+    "pl": {
+      "title": "Alternatywa dla Drata: NIS 2 z ustawy, nie z katalogu kontroli",
+      "summary": "Szukają Państwo alternatywy dla Drata w zakresie NIS 2? Drata mapuje NIS 2 na CIS Controls v8.1. open-isms zaczyna od samej ustawy: bezpłatny, open source, możliwy do samodzielnego hostowania. Uczciwe porównanie."
+    },
+    "cs": {
+      "title": "Alternativa k Drata: NIS 2 ze zákona, ne z katalogu kontrol",
+      "summary": "Hledáte alternativu k Drata pro NIS 2? Drata mapuje NIS 2 na CIS Controls v8.1. open-isms vychází přímo ze zákona: zdarma, open source, provoz na vlastní infrastruktuře. Poctivé srovnání."
+    },
+    "pt": {
+      "title": "Alternativa à Drata: NIS 2 a partir da lei, não de um catálogo de controlos",
+      "summary": "Procura uma alternativa à Drata para a NIS 2? A Drata mapeia a NIS 2 para os CIS Controls v8.1. O open-isms parte da própria lei: gratuito, open source, autoalojável. Uma comparação honesta."
+    },
+    "ro": {
+      "title": "Alternativa la Drata: NIS 2 pornind de la lege, nu de la un catalog de controale",
+      "summary": "Căutați o alternativă la Drata pentru NIS 2? Drata pune NIS 2 în corespondență cu CIS Controls v8.1. open-isms pornește de la legea însăși: gratuit, open source, găzduibil pe infrastructura proprie. O comparație onestă."
+    }
+  },
   "entry:nis2-vs-dora-finanzsektor": {
     "fr": {
       "title": "NIS 2 ou DORA : qu'est-ce qui s'applique aux entités financières ?",

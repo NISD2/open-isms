@@ -1,5 +1,245 @@
 {
   "info": {
+    "vantaAlternative": {
+      "meta": {
+        "title": "Vanta-Alternative: der quelloffene Weg zu NIS 2",
+        "description": "Sie suchen eine Vanta-Alternative für NIS 2? open-isms ist kostenlos, Open Source und selbst hostbar, mit allen 49 deutschen NIS 2 Anforderungen. Ein ehrlicher Vergleich mit Quellen."
+      },
+      "title": "Vanta-Alternative: der quelloffene Weg zu NIS 2",
+      "subtitle": "Vanta ist die bekannteste Plattform für Compliance-Automatisierung weltweit. Sie ist zugleich in den USA gebaut, nur per Vertriebsgespräch bepreist und gemietet, nie besessen. Diese Seite ist der ehrliche Vergleich: was Vanta gut kann, wo es für einen europäischen Mittelständler nicht passt, und wann Sie es trotzdem wählen sollten.",
+      "overview": {
+        "heading": "Was Vanta ist, und warum Menschen nach einer Alternative suchen",
+        "p1": "Vanta, 2018 in San Francisco gegründet, führt die Kategorie Compliance-Automatisierung an. Das Produkt ist um SOC 2 herum entstanden, das Audit, das US-Softwarekäufer von ihren Anbietern verlangen, und deckt heute über 35 Rahmenwerke ab, darunter ISO 27001, DSGVO und seit Oktober 2024 auch NIS 2. Das Kernversprechen: automatische Nachweiserhebung über Integrationen in Cloud- und SaaS-Werkzeuge.",
+        "p2": "Drei Dinge treiben die Suche nach einer Alternative. Preise gibt es nur im Vertriebsgespräch: die Preisseite nennt vier Stufen und keine Zahlen (geprüft am 08.09.2026). Die Plattform ist US-SaaS zur Miete, Ihre Compliance-Daten liegen in der Cloud des Anbieters. Und die NIS 2 Unterstützung ist ein Eintrag in einem großen Katalog, gebaut als länderübergreifendes Kontrollset, das in jedem Land funktioniert. Das ist eine andere Formulierung dafür, dass es nicht aus dem nationalen Gesetz gebaut ist, das Ihre Aufsicht tatsächlich zitieren wird.",
+        "p3": "Diese Seite vergleicht Vanta mit open-isms, dem kostenlosen, AGPL-lizenzierten, selbst hostbaren ISMS hinter nisd2.eu. open-isms wurde NIS 2 zuerst gebaut: die 49 Anforderungen der deutschen Umsetzung sind das Rückgrat, kein Katalogeintrag."
+      },
+      "goodAt": {
+        "heading": "Was Vanta wirklich gut kann",
+        "description": "Ein ehrlicher Vergleich beginnt mit den Stärken der Gegenseite.",
+        "items": {
+          "automation": {
+            "title": "Integrationstiefe",
+            "body": "Hunderte Integrationen ziehen Nachweise automatisch aus Cloud-Anbietern, Identitätssystemen und Entwicklerwerkzeugen. Wer einen modernen US-SaaS-Stack fährt, bekommt einen großen Teil der Routinenachweise geschenkt."
+          },
+          "frameworks": {
+            "title": "SOC 2 und die US-Auditmaschine",
+            "body": "Für die Vorbereitung auf SOC 2 und ISO 27001 ist Vanta ein erprobter Weg mit angeschlossenem Auditorennetzwerk. Wenn US-Unternehmenskunden SOC 2 von Ihnen verlangen, ist das genau der Zweck, für den das Produkt gebaut wurde."
+          },
+          "trust": {
+            "title": "Trust Center und Fragebögen",
+            "body": "Gepflegte, käuferseitige Vertrauensseiten und KI-gestützte Antworten auf Sicherheitsfragebögen. Nützlich für Softwareanbieter, bei denen laufend Due-Diligence-Anfragen von Kunden eingehen."
+          }
+        }
+      },
+      "gaps": {
+        "heading": "Wo Vanta nicht passt",
+        "description": "Vier strukturelle Punkte, jeder nachprüfbar, keiner ein Geheimnis.",
+        "items": {
+          "pricing": {
+            "title": "Preise nur im Vertriebsgespräch",
+            "body": "Die Preisseite zeigt die Stufen Essentials, Plus, Professional und Enterprise und keine Preise (geprüft am 08.09.2026). In unserer Prüfung von 150 GRC-Anbietern im Mai 2026 veröffentlichten 120 keine Preise. Wer das Werkzeug budgetieren will, muss erst darüber verhandeln."
+          },
+          "residency": {
+            "title": "US-SaaS, kein Selbsthosting",
+            "body": "Ihre Compliance-Akte liegt in Vantas Cloud, unter US-Jurisdiktion. Ein Betrieb auf eigener Infrastruktur ist nicht vorgesehen. Wer Datensouveränität in der eigenen Lieferkettenbewertung gewichtet, findet das ISMS selbst als Posten in dieser Bewertung wieder."
+          },
+          "depth": {
+            "title": "NIS 2 als ein Katalogeintrag",
+            "body": "Vanta hat NIS 2 im Oktober 2024 als länderübergreifendes Kontrollset ergänzt, das unabhängig vom Land funktionieren soll. NIS 2 ist aber eine Richtlinie: bindend ist die nationale Umsetzung, in Deutschland das BSIG, mit eigenen Anforderungstexten, Registrierungspflicht und Fristen. Ein Kontrollset, das in jeden Mitgliedstaat passt, ist in keinem verankert."
+          },
+          "weight": {
+            "title": "Gebaut für finanzierte Softwarefirmen",
+            "body": "Produkt und Preismodell zielen auf Unternehmen, die Software verkaufen und Zertifikate für den Vertrieb brauchen. Ein Versorger, Logistiker oder eine Klinik mit 120 Beschäftigten, die NIS 2 erfüllen müssen, bezahlt Automatisierung für einen Stack, den sie gar nicht betreibt."
+          }
+        }
+      },
+      "different": {
+        "heading": "Was open-isms anders macht",
+        "description": "Kein kleineres Vanta. Ein anderer Ausgangspunkt.",
+        "items": {
+          "register": {
+            "title": "49 Anforderungen, Rechtsgrundlage zuerst",
+            "body": "Jede Anforderung trägt ihre Fundstelle im Gesetz, vom BSIG zurück zur Richtlinie, mit Querverweisen zu DSGVO, EU AI Act und CRA. Das Datenmodell ist öffentlich und auf npm; wer einer Zuordnung widerspricht, stellt einen Pull Request, kein Support-Ticket."
+          },
+          "evidence": {
+            "title": "Nachweise im laufenden Betrieb",
+            "body": "Jede Anforderung hat einen Verantwortlichen, eine Frist und eine Freigabe. Freigaben und Änderungen landen in einem nur anfügbaren Audit-Log. Die Nachweise für Ihre Prüfung entstehen während der Arbeit, statt in der Woche davor rekonstruiert zu werden."
+          },
+          "selfhost": {
+            "title": "Open Source und selbst hostbar",
+            "body": "AGPL-3.0, die ganze Plattform auf GitHub, ein Referenz-Setup mit docker compose für eigene Hardware. Ein offenes ISMS lässt sich überprüfen statt nur zusichern, und es gibt keinen Lock-in, den man später verlassen müsste."
+          },
+          "cost": {
+            "title": "Kostenlose Plattform, bezahlte Hilfe",
+            "body": "Die Plattform kostet nichts, gehostet wie selbst betrieben. Einnahmen entstehen aus Schulung und betreutem Hosting. Es gibt keine Lizenz zu verhandeln und keinen Aufpreis pro Rahmenwerk."
+          }
+        }
+      },
+      "stay": {
+        "heading": "Wann Vanta trotzdem die richtige Wahl ist",
+        "p1": "Wenn US-Unternehmenskunden SOC 2 von Ihnen verlangen, Ihr Stack moderne Cloud-SaaS ist und Sie gemanagte Automatisierung mit Auditorennetzwerk wollen, ist Vanta ein starkes Produkt und die ehrliche Empfehlung.",
+        "p2": "Wenn NIS 2 das Rahmenwerk ist, das Sie tatsächlich erfüllen müssen, Sie in der EU sitzen und Ihr Nachweissystem ohne Beschaffungszyklus unter eigener Kontrolle haben wollen, ist das der Fall, für den open-isms gebaut wurde. Manche Unternehmen fahren beides: SOC 2 in Vanta für den US-Markt, NIS 2 in open-isms."
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": {
+          "q1": {
+            "q": "Unterstützt Vanta NIS 2?",
+            "a": "Ja. Vanta hat NIS 2 im Oktober 2024 als eines von über 35 Rahmenwerken ergänzt, umgesetzt als länderübergreifendes Kontrollset. Was fehlt, ist die nationale Ebene: die Anforderungstexte des BSIG, die Registrierungspflicht und die Fristen, die eine Aufsicht zitieren wird."
+          },
+          "q2": {
+            "q": "Was kostet Vanta?",
+            "a": "Vanta veröffentlicht keine Preise; die Preisseite nennt vier Stufen und verweist auf ein Demogespräch (geprüft am 08.09.2026). Wir erfinden hier keine Zahl. Dass es Verhandlungsratgeber von Dritten gibt, sagt genug darüber, wo der Preis entsteht."
+          },
+          "q3": {
+            "q": "Gibt es eine kostenlose Open-Source-Alternative zu Vanta?",
+            "a": "Ja, ein kleines Feld: open-isms (NIS 2 zuerst, EU-Fokus), verinice (IT-Grundschutz-Herkunft), CISO Assistant (breiter Katalog) und Eramba (generisches GRC). Die Schwerpunkte unterscheiden sich; alle sind echte Open Source. Diese Seite wirbt für eines davon und sagt das offen."
+          },
+          "q4": {
+            "q": "Kann ich Vanta selbst hosten?",
+            "a": "Nein. Vanta gibt es nur als SaaS. open-isms liefert ein Referenz-Setup mit docker compose und läuft auf eigener Infrastruktur; derselbe Code treibt die gehostete Version auf nisd2.eu."
+          },
+          "q5": {
+            "q": "Kann ich Vanta und open-isms parallel nutzen?",
+            "a": "Ja. Das offene Datenmodell verknüpft NIS 2 Anforderungen mit ISO 27001 Controls, Arbeit für das eine Rahmenwerk bleibt im anderen sichtbar. SOC 2 oder ISO in Vanta und NIS 2 in open-isms ist eine gangbare Aufteilung, und der Export nimmt Ihre Daten in beide Richtungen mit."
+          }
+        }
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Vanta-Preisseite, geprüft am 08.09.2026: Stufen Essentials, Plus, Professional, Enterprise; keine öffentlichen Preise. vanta.com/pricing",
+          "Vanta NIS 2 Produktseite und Ankündigung Oktober 2024: länderübergreifendes Kontrollset. vanta.com/products/nis2",
+          "Eigene Prüfung von 150 GRC-Anbieter-Preisseiten, Mai 2026: 120 ohne öffentliche Preise. Methodik im GRC-Vergleichsartikel.",
+          "Quellcode, NIS 2 Datenmodell und Referenz-Setup von open-isms. github.com/NISD2/open-isms"
+        ]
+      },
+      "ctaCard": {
+        "heading": "Die 49 Anforderungen ansehen, ohne Vertriebsgespräch",
+        "description": "Kostenloses Konto anlegen oder selbst hosten. Der erste Schritt ist derselbe: Anwendungsbereich, Asset-Inventar und die Anforderungen, die für Sie wirklich gelten."
+      },
+      "cta": "Plattform öffnen"
+    },
+    "drataAlternative": {
+      "meta": {
+        "title": "Drata-Alternative: NIS 2 aus dem Gesetz, nicht aus dem Kontrollkatalog",
+        "description": "Sie suchen eine Drata-Alternative für NIS 2? Drata bildet NIS 2 über CIS Controls v8.1 ab. open-isms beginnt beim Gesetz selbst: kostenlos, Open Source, selbst hostbar."
+      },
+      "title": "Drata-Alternative: NIS 2 aus dem Gesetz, nicht aus dem Kontrollkatalog",
+      "subtitle": "Drata ist einer der beiden großen Namen der Compliance-Automatisierung. Wie der Rivale Vanta ist es in den USA gebaut, nur per Demogespräch zugänglich und gemietet. Die NIS 2 Unterstützung ist ein Kontrollset auf Basis von CIS Controls v8.1. Diese Seite vergleicht diesen Ansatz mit dem Start beim Gesetz selbst.",
+      "overview": {
+        "heading": "Was Drata ist, und warum Menschen nach einer Alternative suchen",
+        "p1": "Drata, 2020 in San Diego gegründet, automatisiert Nachweiserhebung und Auditvorbereitung. Der Katalog reicht von SOC 2 über ISO 27001, DSGVO, HIPAA und PCI DSS bis zu DORA, FedRAMP und CMMC. Für NIS 2 bietet Drata ein Cybersecurity Core Framework: vorgefertigte Controls entlang der Richtlinie, nach eigener Beschreibung abgebildet auf CIS Controls v8.1.",
+        "p2": "Die Gründe, weiterzusuchen, spiegeln die Kategorie. Die Preisseite zeigt weder Stufen noch Zahlen, nur eine Demoanfrage (geprüft am 08.09.2026). Die Plattform ist US-SaaS, Ihre Compliance-Akte liegt in der Cloud des Anbieters. Und die NIS 2 Ebene ist eine Katalogübersetzung der Richtlinie, nicht das nationale Gesetz: CIS Controls sind ein respektierter Katalog, geprüft werden Sie aber gegen die Umsetzung, in Deutschland das BSIG.",
+        "p3": "Diese Seite vergleicht Drata mit open-isms, dem kostenlosen, AGPL-lizenzierten, selbst hostbaren ISMS hinter nisd2.eu, das bei den 49 Anforderungen der deutschen NIS 2 Umsetzung beginnt und an jeder die Fundstelle im Gesetz behält."
+      },
+      "goodAt": {
+        "heading": "Was Drata wirklich gut kann",
+        "description": "Die ehrliche Hälfte jeder Vergleichsseite.",
+        "items": {
+          "automation": {
+            "title": "Automatische Nachweiserhebung",
+            "body": "Dratas Kernstärke: Integrationen ziehen laufend Nachweise aus Cloud-Infrastruktur, Identitätsanbietern und Entwicklerwerkzeugen und ersetzen Screenshots und Tabellen für den abgedeckten Stack."
+          },
+          "frameworks": {
+            "title": "Ein breiter Zertifizierungskatalog",
+            "body": "SOC 2, ISO 27001, PCI DSS, FedRAMP, CMMC und mehr, mit Querabbildung, sodass ein Control mehreren Rahmenwerken dient. Für Unternehmen, die Zertifikate sammeln, um Abschlüsse zu ermöglichen, ist diese Breite das Produkt."
+          },
+          "trust": {
+            "title": "Audit-Arbeitsablauf",
+            "body": "Zusammenarbeit mit Auditoren, laufende Kontrollüberwachung und Reifegrad-Übersichten sind ausgereift. Der Weg von der Überwachung zum abgeschlossenen SOC 2 oder ISO Audit ist gut ausgetreten."
+          }
+        }
+      },
+      "gaps": {
+        "heading": "Wo Drata nicht passt",
+        "description": "Vier strukturelle Punkte, jeder nachprüfbar.",
+        "items": {
+          "pricing": {
+            "title": "Gar keine öffentlichen Preise",
+            "body": "Die Preisseite nennt weder Stufen noch Zahlen, nur eine Demoanfrage (geprüft am 08.09.2026). In unserer Prüfung von 150 GRC-Anbietern im Mai 2026 veröffentlichten 120 keine Preise. Der Preis des Werkzeugs ist ein Ergebnis des Vertriebsprozesses, keine Eingangsgröße für Ihr Budget."
+          },
+          "residency": {
+            "title": "US-SaaS, kein Selbsthosting",
+            "body": "Einen Betrieb auf eigener Infrastruktur gibt es nicht. Ihr ISMS, einschließlich Vorfalls- und Risikoakten, liegt in der Cloud eines US-Anbieters. Wer in der eigenen Lieferkettenbewertung die Jurisdiktion von Anbietern gewichtet, hat das Werkzeug, das diese Bewertung enthält, selbst im Prüfumfang."
+          },
+          "depth": {
+            "title": "NIS 2 durch die CIS-Brille",
+            "body": "Dratas NIS 2 Rahmenwerk bildet die Richtlinie auf CIS Controls v8.1 ab. Das ergibt eine vernünftige technische Grundlinie, aber NIS 2 Pflichten sind Rechtspflichten: Registrierung, Verantwortung der Geschäftsleitung, gestufte Meldungen, Lieferkettendokumentation. Ein Kontrollkatalog trägt keine Paragrafentexte, keine nationalen Fristen und keine Registrierungspflicht."
+          },
+          "weight": {
+            "title": "Gebaut für den Zertifikatskäufer",
+            "body": "Dratas Zuschnitt unterstellt, dass Sie Zertifikate sammeln, um Software zu verkaufen. Die NIS 2 Grundgesamtheit ist eine andere: Versorger, Logistik, Fertigung, Gesundheitswesen, viele davon zum ersten Mal unter formaler Cybersicherheitsregulierung und ohne jedes Zertifikatsziel."
+          }
+        }
+      },
+      "different": {
+        "heading": "Was open-isms anders macht",
+        "description": "Beim Gesetz beginnen, die Nachweise behalten, das System besitzen.",
+        "items": {
+          "register": {
+            "title": "Das Gesetz ist das Datenmodell",
+            "body": "Alle 49 Anforderungen der deutschen NIS 2 Umsetzung, jede mit Fundstelle, quer verknüpft mit DSGVO, EU AI Act und CRA. Das Modell ist Open Source und auf npm veröffentlicht. Wo Drata die Richtlinie in CIS Controls übersetzt, behält open-isms den Paragrafen, gegen den Sie geprüft werden."
+          },
+          "evidence": {
+            "title": "Nachweise im laufenden Betrieb",
+            "body": "Verantwortlicher, Frist und Freigabe je Anforderung, darunter ein nur anfügbares Audit-Log. Was Prüfer akzeptieren, ist kein Dashboard, sondern eine Akte, die sich nicht still umschreiben lässt. Diese Akte wächst während der Arbeit."
+          },
+          "selfhost": {
+            "title": "Open Source und selbst hostbar",
+            "body": "AGPL-3.0, kompletter Quellcode auf GitHub, Referenz-Setup mit docker compose. Auf eigener Hardware oder gehostet; in beiden Fällen ist der Code überprüfbar und die Ausgangstür offen."
+          },
+          "cost": {
+            "title": "Kostenlose Plattform, bezahlte Hilfe",
+            "body": "Keine Lizenz, kein Aufpreis pro Rahmenwerk, keine Verhandlung. Die Plattform ist kostenlos; Geld kosten Schulung und betreutes Hosting. Ihr Budgetgespräch dreht sich um Umsetzungsarbeit, nicht um Werkzeuge."
+          }
+        }
+      },
+      "stay": {
+        "heading": "Wann Drata trotzdem die richtige Wahl ist",
+        "p1": "Wenn Ihr Unternehmen Software verkauft, Ihre Kunden SOC 2 oder ISO 27001 verlangen und Ihre Infrastruktur in den großen Clouds liegt, automatisiert Drata echte Arbeit, und die Investition kann sich über gewonnene Abschlüsse tragen.",
+        "p2": "Liegt auf Ihrem Tisch dagegen NIS 2, ist die ehrliche Frage eine andere: Sie brauchen die nationalen Anforderungen, eine belastbare Nachweiskette und ein System, das Ihre eigene Risikobewertung aushält. Dafür ist open-isms gebaut, und die Prüfung kostet nichts."
+      },
+      "faq": {
+        "heading": "Häufige Fragen",
+        "items": {
+          "q1": {
+            "q": "Unterstützt Drata NIS 2?",
+            "a": "Ja. Drata bietet ein NIS 2 Cybersecurity Core Framework mit Controls, die auf CIS Controls v8.1 abgebildet sind, dazu Richtlinienvorlagen. Was fehlt, ist die nationale Umsetzung: die Paragrafentexte des BSIG, die Registrierungspflicht und die Fristen."
+          },
+          "q2": {
+            "q": "Was kostet Drata?",
+            "a": "Drata veröffentlicht auf der Preisseite weder Preise noch Stufennamen; der einzige Weg ist eine Demoanfrage (geprüft am 08.09.2026). Wir erfinden hier keine Zahl."
+          },
+          "q3": {
+            "q": "Drata oder Vanta?",
+            "a": "Direkte Rivalen mit derselben Form: breite Kataloge, tiefe Integrationen, Preise nur im Gespräch, US-SaaS. Wer zwischen beiden für SOC 2 wählt, sollte sich Preise schriftlich geben lassen und die EU-Datenhaltung vergleichen. Ist die eigentliche Pflicht NIS 2, ist die Wahl eine ganz andere Kategorie."
+          },
+          "q4": {
+            "q": "Gibt es eine kostenlose Open-Source-Alternative zu Drata?",
+            "a": "Ja: open-isms (NIS 2 zuerst, EU-Fokus), verinice, CISO Assistant und Eramba. Alle echte Open Source, mit unterschiedlichen Schwerpunkten. Diese Seite wirbt für eines davon und stammt von dessen Machern; rechnen Sie das ein."
+          },
+          "q5": {
+            "q": "Kann ich migrieren oder beides parallel fahren?",
+            "a": "Zertifizierungsrahmenwerke in Drata und NIS 2 in open-isms ist eine gangbare Aufteilung. Das offene Datenmodell hält NIS 2 Anforderungen mit ISO 27001 Controls verknüpft, Aufwand bleibt in beiden sichtbar, und Exporte halten Ihre Daten portabel."
+          }
+        }
+      },
+      "sources": {
+        "heading": "Quellen",
+        "items": [
+          "Drata-Preisseite, geprüft am 08.09.2026: keine Stufen, keine Preise, nur Demoanfrage. drata.com/pricing",
+          "Drata NIS 2 Produktseite: Cybersecurity Core Framework, Controls abgebildet auf CIS Controls v8.1. drata.com/product/nis-2",
+          "Eigene Prüfung von 150 GRC-Anbieter-Preisseiten, Mai 2026: 120 ohne öffentliche Preise. Methodik im GRC-Vergleichsartikel.",
+          "Quellcode, NIS 2 Datenmodell und Referenz-Setup von open-isms. github.com/NISD2/open-isms"
+        ]
+      },
+      "ctaCard": {
+        "heading": "Beim Gesetz beginnen, nicht beim Katalog",
+        "description": "Kostenloses Konto anlegen oder selbst hosten. Anwendungsbereich, Asset-Inventar und Ihre einschlägigen Anforderungen sind die erste Stunde Arbeit, und nichts davon braucht ein Vertriebsgespräch."
+      },
+      "cta": "Plattform öffnen"
+    },
     "wikiNextStep": {
       "scope": {
         "heading": "Unsicher, ob NIS 2 für Sie gilt?",
