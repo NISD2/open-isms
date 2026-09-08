@@ -31,6 +31,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Copy, UserMinus, UserPlus, X, Check } from "lucide-react";
 import { trpc } from "@/lib/trpc/client";
+import { userFacingError } from "@/lib/trpc/error-message";
 import { toast } from "sonner";
 import { ALL_ROLE_KEYS, type RoleKey } from "@/lib/compliance/role-keys";
 import { ROLE_HIERARCHY } from "@/lib/compliance/role-mapping";
@@ -96,6 +97,7 @@ function MembersCard({
 }) {
   const router = useRouter();
   const t = useTranslations("team");
+  const tc = useTranslations("common");
 
   // Sort by role hierarchy (users with compliance roles first, then unassigned)
   const sortedMembers = [...members].sort((a, b) => {
@@ -111,7 +113,7 @@ function MembersCard({
       toast.success(t("remove.success"));
       router.refresh();
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
 
   const assignRoleMutation = trpc.team.assignRole.useMutation({
@@ -123,7 +125,7 @@ function MembersCard({
       }
       router.refresh();
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
 
   return (
@@ -241,13 +243,14 @@ function MembersCard({
 function InvitesCard({ invites }: { invites: Invite[] }) {
   const router = useRouter();
   const t = useTranslations("team");
+  const tc = useTranslations("common");
 
   const revokeMutation = trpc.team.revokeInvite.useMutation({
     onSuccess: () => {
       toast.success(t("revoke.success"));
       router.refresh();
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
 
   if (invites.length === 0) return null;
@@ -317,6 +320,7 @@ function InvitesCard({ invites }: { invites: Invite[] }) {
 function InviteForm() {
   const router = useRouter();
   const t = useTranslations("team");
+  const tc = useTranslations("common");
   const [email, setEmail] = useState("");
   const [complianceRole, setComplianceRole] = useState<RoleKey | undefined>();
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
@@ -329,7 +333,7 @@ function InviteForm() {
       setComplianceRole(undefined);
       router.refresh();
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
 
   const handleSubmit = (e: React.FormEvent) => {

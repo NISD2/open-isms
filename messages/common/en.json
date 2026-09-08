@@ -13,6 +13,7 @@
     "yes": "Yes",
     "no": "No",
     "noData": "No data",
+    "actionFailed": "That did not work. Please try again.",
     "user": "User",
     "modules": {
       "asset": "Assets",
@@ -29,11 +30,21 @@
       "internal_audit": "Internal Audits",
       "improvement_item": "Improvements",
       "bsi_registration": "BSI Registration",
-      "bsi_incident_report": "BSI Incident Reports"
+      "bsi_incident_report": "BSI Incident Reports",
+      "vulnerability": "Vulnerabilities",
+      "team": "Team and roles"
     },
     "moduleRef": {
       "confirmCompliance": "Confirm compliance",
-      "noRecords": "No records yet - add data in the module first"
+      "noRecords": "No records yet - add data in the module first",
+      "noRoute": "No page is wired up for the \"{module}\" module. Please report this as a bug."
+    },
+    "evidenceTypes": {
+      "document": "Expected here: a document. The policy, concept or plan itself.",
+      "proof": "Expected here: proof that this actually happened. Minutes, a confirmation, an official notice.",
+      "training": "Expected here: a training record. Attendance list, certificate or confirmation of participation.",
+      "technical": "Expected here: technical evidence. A configuration, scan report, screenshot or export.",
+      "sign-off": "The sign-off is the evidence. You can still attach supporting files such as board minutes."
     }
   },
   "status": {

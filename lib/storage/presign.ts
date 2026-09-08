@@ -6,8 +6,7 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { s3, s3Signer, BUCKET } from "./s3-client";
-
-const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
+import { MAX_UPLOAD_BYTES } from "./limits";
 
 /** Generate a presigned PUT URL for direct client upload (15 min expiry) */
 export async function createPresignedPut(
@@ -15,8 +14,8 @@ export async function createPresignedPut(
   contentType: string,
   fileSize: number,
 ): Promise<string> {
-  if (fileSize > MAX_FILE_SIZE) {
-    throw new Error(`File size ${fileSize} exceeds maximum of ${MAX_FILE_SIZE} bytes`);
+  if (fileSize > MAX_UPLOAD_BYTES) {
+    throw new Error(`File size ${fileSize} exceeds maximum of ${MAX_UPLOAD_BYTES} bytes`);
   }
   const command = new PutObjectCommand({
     Bucket: BUCKET,

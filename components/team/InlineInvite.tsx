@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
+import { userFacingError } from "@/lib/trpc/error-message";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Check, Copy, Loader2, Send } from "lucide-react";
@@ -36,6 +37,7 @@ export function InlineInvite({
   assignmentContext,
 }: InlineInviteProps) {
   const t = useTranslations("team");
+  const tc = useTranslations("common");
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [inviteUrl, setInviteUrl] = useState<string | null>(null);
@@ -50,7 +52,7 @@ export function InlineInvite({
       toast.success(t("inline.sent", { email: invited }));
       onInvited?.(invited);
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
 
   function handleSubmit(e: React.FormEvent) {

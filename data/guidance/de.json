@@ -1,10 +1,10 @@
 {
   "1.1": {
-    "summary": "Die Geschäftsführung muss eine Schulung zu Cybersecurity machen, die mindestens 4 Stunden dauert und bestimmte Themen abdeckt. Sie wissen, dass sie fertig sind, wenn alle Vorstände teilgenommen haben und Nachweise mit Teilnehmerliste, Trainer, Inhalten, Dauer und Datum vorliegen.",
+    "summary": "Die Geschäftsführung muss regelmäßig an Schulungen zu Cybersicherheit teilnehmen. §38(3) BSIG schreibt keine Mindestdauer und kein festes Intervall vor: Sie legen beides selbst fest und begründen es. Sie wissen, dass Sie fertig sind, wenn alle Mitglieder teilgenommen haben und Nachweise mit Teilnehmerliste, Trainer, Inhalten, Dauer und Datum vorliegen.",
     "applicability": "Das gilt für jedes Mitglied der Geschäftsführung in Ihrem Unternehmen. Niemand kann das delegieren oder überspringen.",
     "quickTip": "Fragen Sie Ihren IT-Leiter oder einen externen Berater nach einem geeigneten Schulungsanbieter für Führungskräfte.",
-    "implementationSteps": "Planen Sie einen Termin für die Schulung aller Geschäftsführung-Mitglieder.\nWählen Sie einen qualifizierten Trainer oder Anbieter, der die Pflichtthemen abdeckt.\nLassen Sie die Schulung durchführen (mindestens 4 Stunden) und sammeln Sie Nachweise.\nPlanen Sie die nächste Schulung in spätestens 3 Jahren.\nArchivieren Sie alle Unterlagen zentral, damit Sie sie jederzeit vorzeigen können.",
-    "evidenceExample": "Schulungsnachweise, die zeigen: Namen der teilnehmenden Vorstände, Name und Qualifikation des Trainers, behandelte Themen (Bedrohungen, BSIG-Pflichten, Grundlagen, Haftung), Dauer von mindestens 4 Stunden und das Datum.",
+    "implementationSteps": "Planen Sie einen Termin für die Schulung aller Geschäftsführung-Mitglieder.\nWählen Sie einen qualifizierten Trainer oder Anbieter, der die Pflichtthemen abdeckt.\nLassen Sie die Schulung durchführen und sammeln Sie Nachweise.\nLegen Sie fest, in welchem Abstand Sie wiederholen, und halten Sie die Begründung fest. Diese Plattform schlägt drei Jahre vor; das Gesetz sagt nur \"regelmäßig\".\nArchivieren Sie alle Unterlagen zentral, damit Sie sie jederzeit vorzeigen können.",
+    "evidenceExample": "Schulungsnachweise, die zeigen: Namen der teilnehmenden Vorstände, Name und Qualifikation des Trainers, behandelte Themen (Bedrohungen, BSIG-Pflichten, Grundlagen, Haftung), die Dauer und das Datum.",
     "fields": {
       "managementTrainingProvider": {
         "label": "Management Training Provider",
@@ -31,8 +31,8 @@
   "1.3": {
     "summary": "Ihr Unternehmen muss ein separates Budget für Cybersicherheit in der jährlichen Planung festlegen. Sie sind fertig, wenn die Geschäftsleitung das Budget genehmigt hat und Sie die Details dokumentiert haben.",
     "applicability": "Alle Unternehmen mit 50-250 Mitarbeitern müssen das umsetzen; kleinere Firmen ohne IT-Budget können es überspringen, wenn sie nachweisen, dass keine Risiken bestehen.",
-    "quickTip": "Schauen Sie sich Ihr aktuelles IT-Budget an und tragen Sie 10 Prozent davon als Cybersicherheitsbudget ein.",
-    "implementationSteps": "Legen Sie ein separates Budget für Cybersicherheit in Ihrer Jahresplanung fest. Decken Sie Personal, Tools, Schulungen und Audits ab.\n\nBerechnen Sie den Betrag basierend auf 7-15% Ihres IT-Budgets oder mindestens 25.000 Euro pro Jahr.\n\nLegen Sie den Vorschlag der Geschäftsleitung vor, zusammen mit Ihrer Risikoanalyse.\n\nLassen Sie die Geschäftsleitung das Budget genehmigen und notieren Sie das Datum.\n\nDokumentieren Sie ungeminderte Risiken, falls das Budget nicht reicht.",
+    "quickTip": "Gehen Sie Ihre Risikoanalyse durch und rechnen Sie zusammen, was die geplanten Maßnahmen kosten. Das ist Ihr Budget. Eine gesetzliche Vorgabe zur Höhe gibt es nicht.",
+    "implementationSteps": "Legen Sie ein separates Budget für Cybersicherheit in Ihrer Jahresplanung fest. Decken Sie Personal, Tools, Schulungen und Audits ab.\n\nLeiten Sie den Betrag aus Ihrer Risikoanalyse ab: Was kosten die Maßnahmen, die Sie für Ihre Risiken beschlossen haben? Weder NIS 2 noch das BSIG nennen eine Mindesthöhe oder einen Anteil am IT-Budget.\n\nLegen Sie den Vorschlag der Geschäftsleitung vor, zusammen mit Ihrer Risikoanalyse.\n\nLassen Sie die Geschäftsleitung das Budget genehmigen und notieren Sie das Datum.\n\nDokumentieren Sie ungeminderte Risiken, falls das Budget nicht reicht.",
     "evidenceExample": "Ein Budgetplan-Dokument, das das dedizierte Cybersicherheitsbudget als eigene Position zeigt, inklusive Genehmigung durch die Geschäftsleitung mit Datum und Unterschriften.",
     "fields": {
       "annualSecurityBudget": {
@@ -257,7 +257,7 @@
     "summary": "Ihr Unternehmen muss ein Schema zur Einstufung von Sicherheitsvorfällen definieren und Tools für die Erkennung sowie Kriterien für wichtige Vorfälle festlegen. Sie sind fertig, wenn Sie diese Regeln schriftlich haben und ein Log-System läuft, das Vorfälle automatisch erfasst.",
     "applicability": "Jedes Unternehmen mit kritischen Diensten nach BSIG muss das umsetzen; kleinere Firmen ohne kritische Infrastruktur können es überspringen.",
     "quickTip": "Schauen Sie sich das BSI-Klassifizierungsschema an. Das ist ein guter Startpunkt für Ihr eigenes Schema.",
-    "implementationSteps": "Definieren Sie Kategorien für Vorfälle: normale Ereignisse, kleine, bedeutende (BSI-meldungspflichtig) und kritische.\n\nLegen Sie Schwellenwerte für 'bedeutend' fest, z. B. Anzahl betroffener Nutzer oder Ausfallzeit.\n\nRichten Sie ein Ticketing-System oder SIEM-Tool ein, das alle Vorfälle protokolliert (mindestens 3 Jahre aufbewahren).\n\nErstellen Sie einen Entscheidungsbaum zur schnellen Einstufung.\n\nLassen Sie das vom Vorstand oder der Geschäftsführung genehmigen.",
+    "implementationSteps": "Definieren Sie Kategorien für Vorfälle: normale Ereignisse, kleine, bedeutende (BSI-meldungspflichtig) und kritische.\n\nLegen Sie Schwellenwerte für 'bedeutend' fest, z. B. Anzahl betroffener Nutzer oder Ausfallzeit.\n\nRichten Sie ein Ticketing-System oder SIEM-Tool ein, das alle Vorfälle protokolliert. Die Aufbewahrungsdauer leiten Sie aus Ihrer Risikoanalyse ab; NIS 2 und BSIG nennen keine.\n\nErstellen Sie einen Entscheidungsbaum zur schnellen Einstufung.\n\nLassen Sie das vom Vorstand oder der Geschäftsführung genehmigen.",
     "evidenceExample": "Ein Dokument, das Ihr Klassifizierungsschema beschreibt, Screenshots oder Konfigurationsberichte von SIEM oder Ticketing-System zeigt und ein Beispielprotokoll eines Vorfalls enthält.",
     "fields": {
       "classificationScheme": {
@@ -652,7 +652,7 @@
     "summary": "Nutzen Sie den Patch-Policy-Editor, um SLA-Fristen pro Schweregrad festzulegen. Erfassen Sie Patches im Patch-Register. Sie sind fertig, wenn SLA-Fristen gesetzt und Patches dagegen getrackt werden.",
     "applicability": "Jedes Unternehmen mit kritischen IT-Systemen muss das umsetzen; kleine Firmen ohne IT-Abteilung können es mit einem Dienstleister delegieren.",
     "quickTip": "Schreiben Sie zuerst eine einfache Regel auf: Wie schnell werden Patches für dringende Lücken installiert?",
-    "implementationSteps": "Nutzen Sie den Patch-Policy-Editor, um SLA-Fristen pro Schweregrad zu setzen.\nBSI empfiehlt: Kritisch = 24 Stunden, Hoch = 7 Tage, Mittel = 30 Tage, Niedrig = 90 Tage.\nErfassen Sie Patches im Patch-Register unterhalb des Policy-Editors.\nDie Plattform berechnet automatisch die Einhaltung pro Schweregrad.\nÜberprüfen und aktualisieren Sie die SLAs jährlich.",
+    "implementationSteps": "Nutzen Sie den Patch-Policy-Editor, um SLA-Fristen pro Schweregrad zu setzen.\nDie Fristen wählen Sie selbst und begründen sie mit Ihrem Risiko: CIR 6.6 verlangt Fristen, nennt aber keine Zahlen. Zur Orientierung: der BSI-Baustein OPS.1.1.3 erwartet, dass Sie eine Schwachstelle innerhalb von Minuten bis wenigen Stunden bewerten, und ordnet die Behebung in das international übliche Fenster von 45 bis 90 Tagen ein.\nErfassen Sie Patches im Patch-Register unterhalb des Policy-Editors.\nDie Plattform berechnet automatisch die Einhaltung pro Schweregrad.\nÜberprüfen und aktualisieren Sie die SLAs jährlich.",
     "evidenceExample": "Patch-Richtlinie mit SLA pro Schweregrad, das Patch-Register mit Compliance-Raten und dokumentierte Ausnahmen.",
     "fields": {}
   },
@@ -783,7 +783,7 @@
     }
   },
   "8.2": {
-    "summary": "Ihr Unternehmen muss ein Sicherheitsbewusstseinsprogramm für alle Mitarbeiter einrichten, mit regelmäßigen Schulungen, einem Jahresplan und Onboarding für Neue. Sie wissen, dass Sie fertig sind, wenn alle Schulungen dokumentiert sind, 100% Abschlussrate erreicht wurde und Nachweise für Audits vorliegen.",
+    "summary": "Ihr Unternehmen muss ein Sicherheitsbewusstseinsprogramm für alle Mitarbeiter einrichten, mit regelmäßigen Schulungen, einem Jahresplan und Onboarding für Neue. Sie wissen, dass Sie fertig sind, wenn alle Schulungen dokumentiert sind, die Abschlussquote je Mitarbeitergruppe nachvollziehbar ist und Nachweise für Audits vorliegen.",
     "applicability": "Jedes Unternehmen mit Mitarbeitern muss das umsetzen; Ausnahmen gibt es nur bei Firmen ohne Personal.",
     "quickTip": "Erstellen Sie zuerst einen einfachen Jahreskalender mit monatlichen Themen wie Phishing und Passwörtern.",
     "implementationSteps": "Richten Sie eine Plattform für Online-Schulungen ein, z.B. ein Tool wie KnowBe4.\nErstellen Sie einen Jahreskalender mit Themen wie Phishing, Passwörter und Social Engineering.\nLegen Sie fest, dass jede Schulung jährlich obligatorisch ist und Neue beim Onboarding mitmachen müssen.\nFühren Sie die erste Schulung durch und tracken Sie die Abschlüsse.\nSammeln Sie Nachweise wie Teilnahmelisten und Tests in einem Ordner.",
@@ -825,7 +825,7 @@
     "summary": "Ihr Unternehmen muss spezielle Schulungen für Rollen mit hohen Sicherheitsaufgaben anbieten und die Geschäftsleitung regelmäßig schulen. Sie sind fertig, wenn Sie eine Übersicht haben, welche Schulung wem zusteht, und Nachweise für die abgeschlossenen Trainings vorliegen.",
     "applicability": "Alle Unternehmen mit Mitarbeitern in sicherheitskritischen Rollen wie IT-Admins oder Entwicklern müssen das umsetzen; kleine Firmen ohne solche Rollen können es überspringen.",
     "quickTip": "Listen Sie zuerst alle Rollen auf, die mit IT-Sicherheit zu tun haben, wie IT-Admin oder Entwickler.",
-    "implementationSteps": "Identifizieren Sie Rollen mit besonderen Sicherheitsaufgaben, z. B. IT-Admins, Entwickler oder Sicherheits-Team.\nErstellen Sie eine Tabelle, die Rollen mit passenden Schulungen verknüpft, z. B. SIEM-Bedienung für Admins.\nPlanen Sie Schulungen für die Geschäftsleitung zu Risikomanagement, Haftung und Bedrohungen, mindestens 4 Stunden, alle 3 Jahre.\nLassen Sie alle Schulungen durchführen und sammeln Sie Nachweise.\nÜberprüfen Sie jährlich, ob alle up-to-date sind.",
+    "implementationSteps": "Identifizieren Sie Rollen mit besonderen Sicherheitsaufgaben, z. B. IT-Admins, Entwickler oder Sicherheits-Team.\nErstellen Sie eine Tabelle, die Rollen mit passenden Schulungen verknüpft, z. B. SIEM-Bedienung für Admins.\nPlanen Sie Schulungen für die Geschäftsleitung zu Risikomanagement, Haftung und Bedrohungen. Dauer und Abstand legen Sie selbst fest: §38(3) BSIG sagt nur \"regelmäßig\".\nLassen Sie alle Schulungen durchführen und sammeln Sie Nachweise.\nÜberprüfen Sie jährlich, ob alle up-to-date sind.",
     "evidenceExample": "Eine Tabelle, die zeigt, welche Rolle welche Schulung braucht und wann sie absolviert wurde, plus Bescheinigungen oder Protokolle über die Geschäftsleiter-Schulung.",
     "fields": {
       "roleSpecificTrainingProvider": {
@@ -841,7 +841,7 @@
     "applicability": "Jedes Unternehmen mit kritischen IT-Systemen muss das umsetzen; kleine Firmen ohne sensible Daten können es überspringen.",
     "quickTip": "Fragen Sie Ihren IT-Leiter, ob schon Phishing-Tests laufen. Das ist oft der einfachste Einstieg.",
     "implementationSteps": "Wählen Sie einen Anbieter für Phishing-Simulationen aus und starten Sie die erste Kampagne.\nFühren Sie Tests mindestens vierteljährlich durch und variieren Sie die Angriffsarten.\nMesssen Sie Klickraten und Melderaten, geben Sie Feedback an die Klicker.\nErstellen Sie Berichte mit Trends und speichern Sie Schulungsdaten zentral.\nPassen Sie die Schulungen an, wenn die Raten nicht besser werden.",
-    "evidenceExample": "Berichte von Phishing-Kampagnen, die Klickraten unter 5 %, Melderaten über 60 % und Trends über mehrere Tests zeigen, plus eine Übersicht über abgeschlossene Schulungen pro Abteilung.",
+    "evidenceExample": "Berichte von Phishing-Kampagnen, die Klick- und Melderaten gegen Ihre selbst gesetzten Zielwerte sowie Trends über mehrere Tests zeigen, plus eine Übersicht über abgeschlossene Schulungen pro Abteilung.",
     "fields": {
       "phishingSimFrequency": {
         "label": "Phishing Sim Frequency",

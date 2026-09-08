@@ -24,9 +24,19 @@ export function ModuleRefPanel({
 }: ModuleRefPanelProps) {
   const t = useTranslations("common");
   const href = MODULE_HREF[moduleRef];
-  if (!href) return null;
-
   const hasData = count > 0;
+
+  // An unmapped moduleRef used to return null here, which put an "Operational
+  // data" heading above an empty space and no way to reach the register. A
+  // missing route is a wiring gap, so say so rather than rendering nothing:
+  // silence is the one outcome the reader cannot act on or report.
+  if (!href) {
+    return (
+      <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+        {t("moduleRef.noRoute", { module: moduleRef })}
+      </div>
+    );
+  }
 
   return (
     <div className="rounded-lg border bg-muted/30 p-4 space-y-3">

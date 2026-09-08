@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "id": "2026-09-08-product-requirement-page-and-team-signoff",
+      "date": "2026-09-08",
+      "category": "product",
+      "titleDe": "Anforderungsseite: Erklaerung, Nachweise ueberall, Freigabe zuruecknehmen",
+      "titleEn": "Requirement page: guidance, evidence everywhere, withdraw a sign-off",
+      "bodyDe": "Jede Anforderung erklaert jetzt oben, was sie verlangt, mit Umsetzungsschritten zum Aufklappen. Nachweise koennen ab sofort an jeder Anforderung hochgeladen werden, nicht nur an denen vom Typ Dokument oder Nachweis: 15 der 49 NIS-2-Anforderungen hatten bisher gar kein Feld dafuer, darunter die Managementschulung, deren Nachweis genau ein Zertifikat ist. Eine erteilte Freigabe laesst sich zuruecknehmen; der Eintrag in der Freigabehistorie bleibt erhalten, sodass Pruefer weiterhin sehen, dass freigegeben und spaeter zurueckgenommen wurde. Weiter und Zurueck fuehren jetzt ueber Kategoriegrenzen hinweg, und ungespeicherte Eingaben werden beim Blaettern gespeichert statt verworfen. Wichtig fuer bestehende Konten: Anforderung 1.2 (Rollen und Zustaendigkeiten) verhaelt sich jetzt wie jedes andere Modul und geht zurueck in Pruefung, sobald sich Ihr Team oder eine Rollenzuordnung aendert. Bisher blieb die Freigabe stehen, auch wenn die Person, die eine Rolle innehatte, das Unternehmen verlassen hatte. Wer eine Freigabe erteilt hatte und sie durch eine Zuruecknahme verliert, wird darueber benachrichtigt.",
+      "bodyEn": "Every requirement now opens with what it asks for, plus implementation steps behind a disclosure. Evidence can be attached to any requirement rather than only the document and proof ones: 15 of the 49 NIS 2 requirements previously had no field for it at all, including the management training duty whose evidence is precisely a certificate. A sign-off can be withdrawn; the sign-off history entry stays, so an auditor still sees that it was signed and later withdrawn. Next and Previous now cross category boundaries, and unsaved input is saved on the way out instead of discarded. Note for existing accounts: requirement 1.2 (roles and responsibilities) now behaves like every other module and returns to review whenever your team or a role assignment changes. Until now the sign-off stood even after the person holding a role had left. Anyone who signed off and loses that signature to a withdrawal is notified.",
+      "links": []
+    },
+    {
       "id": "2026-08-30-regulatory-timeline-august-events",
       "date": "2026-08-30",
       "category": "regulatory",

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { trpc } from "@/lib/trpc/client";
+import { userFacingError } from "@/lib/trpc/error-message";
 import { toast } from "sonner";
 import { formatFileSize } from "@/lib/utils";
 import {
@@ -116,6 +117,7 @@ export function ReviewDashboard({ rows }: ReviewDashboardProps) {
 
 function ReviewItem({ row }: { row: ReviewRow }) {
   const t = useTranslations("review");
+  const tc = useTranslations("common");
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [showReject, setShowReject] = useState(false);
@@ -128,7 +130,7 @@ function ReviewItem({ row }: { row: ReviewRow }) {
       toast.success(t("approveConfirm"));
       router.refresh();
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
 
   const reject = trpc.review.reject.useMutation({
@@ -138,7 +140,7 @@ function ReviewItem({ row }: { row: ReviewRow }) {
       setFeedback("");
       router.refresh();
     },
-    onError: (err) => toast.error(err.message),
+    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
 
   const isMutating = approve.isPending || reject.isPending;

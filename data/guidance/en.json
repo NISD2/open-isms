@@ -1,10 +1,10 @@
 {
   "1.1": {
-    "summary": "Your company's management board must complete at least 4 hours of cybersecurity training covering key threats, legal duties, and personal risks. You're done when you have records showing everyone attended, what was covered, who taught it, and when.",
+    "summary": "Your company's management board must attend cybersecurity training regularly, covering key threats, legal duties, and personal risks. §38(3) BSIG sets no minimum duration and no fixed interval: you decide both and record why. You're done when you have records showing everyone attended, what was covered, who taught it, and when.",
     "applicability": "Every German company in scope must train its full management board; smaller firms without a formal board still train top decision-makers.",
     "quickTip": "Email your management board today to pick a date for the training and search for 'cybersecurity training for executives Germany'.",
-    "implementationSteps": "Pick a qualified trainer who knows current cyber threats and German laws like BSIG.\nBook a 4-hour session for all management board members together.\nHave the trainer cover threats, legal duties, security basics, and personal liability.\nGet attendance sheets signed by everyone, noting date, duration, topics, and trainer details.\nPlan to repeat every 3 years and save all records.",
-    "evidenceExample": "Training records or certificates showing all management board members' names, the trainer's name and qualifications, topics covered like threats and BSIG duties, at least 4 hours duration, and the date.",
+    "implementationSteps": "Pick a qualified trainer who knows current cyber threats and German laws like BSIG.\nBook a session for all management board members together.\nHave the trainer cover threats, legal duties, security basics, and personal liability.\nGet attendance sheets signed by everyone, noting date, duration, topics, and trainer details.\nDecide how often you repeat it and write down why. This platform suggests three years; the law only says \"regularly\".",
+    "evidenceExample": "Training records or certificates showing all management board members' names, the trainer's name and qualifications, topics covered like threats and BSIG duties, the duration, and the date.",
     "fields": {
       "managementTrainingProvider": {
         "label": "Management Training Provider",
@@ -31,8 +31,8 @@
   "1.3": {
     "summary": "Your company needs to set aside a specific budget just for cybersecurity each year and get your management board to approve it. You'll know you're done when you have the budget amount written down and a record of the board's approval date.",
     "applicability": "Every company covered by this needs to do it, regardless of size. No skipping.",
-    "quickTip": "Look at last year's IT spending and set aside 10% of that for cybersecurity as a starting point.",
-    "implementationSteps": "Estimate your cybersecurity needs: staff time, software tools, training, audits, and emergency response funds.\nWrite it as a clear line item in your annual budget plan.\nPresent the budget and your risk assessment to the management board.\nGet the board to formally approve it and note the date.\nKeep unaddressed risks documented if budget is tight.",
+    "quickTip": "Work through your risk assessment and add up what the measures you decided on actually cost. That is your budget. No law sets an amount.",
+    "implementationSteps": "Estimate your cybersecurity needs: staff time, software tools, training, audits, and emergency response funds.\nDerive the amount from your risk assessment — what the measures you chose actually cost. Neither NIS 2 nor the BSIG names a minimum or a share of the IT budget.\nWrite it as a clear line item in your annual budget plan.\nPresent the budget and your risk assessment to the management board.\nGet the board to formally approve it and note the date.\nKeep unaddressed risks documented if budget is tight.",
     "evidenceExample": "Budget plan document showing a dedicated cybersecurity budget line item, plus a signed management board summary or meeting minutes proving they reviewed and approved it.",
     "fields": {
       "annualSecurityBudget": {
@@ -257,7 +257,7 @@
     "summary": "Your company needs to set up a way to spot security problems, sort them by seriousness, and keep a detailed record of everything. You're done when you have a clear classification guide, tools that automatically log incidents, and written rules for what counts as a major incident that needs reporting to authorities.",
     "applicability": "Every company handling critical infrastructure or personal data must do this; smaller companies without those risks can skip it unless required by other laws.",
     "quickTip": "Start by listing out your current tools like antivirus software or helpdesk tickets that already spot and track issues.",
-    "implementationSteps": "Pick or create a simple way to label incidents from low-risk events to major crises that need outside reporting.\nList all your tools or systems that detect and log security problems, like SIEM software or a ticketing app.\nWrite down exact rules for 'significant' incidents, such as how many customers affected or how much downtime.\nGet your IT team to set up automatic logging that keeps records for at least 3 years.\nTest it by walking through a fake incident with your team to classify and log it.",
+    "implementationSteps": "Pick or create a simple way to label incidents from low-risk events to major crises that need outside reporting.\nList all your tools or systems that detect and log security problems, like SIEM software or a ticketing app.\nWrite down exact rules for 'significant' incidents, such as how many customers affected or how much downtime.\nGet your IT team to set up automatic logging, and decide your own retention period from your risk assessment. Neither NIS 2 nor the BSIG fixes one.\nTest it by walking through a fake incident with your team to classify and log it.",
     "evidenceExample": "A document showing your incident classification levels with examples, screenshots or descriptions of your detection/logging tools in action, and a sample incident log entry proving it captures key details like date, impact, and response.",
     "fields": {
       "classificationScheme": {
@@ -652,7 +652,7 @@
     "summary": "Your company needs to set rules for how quickly to apply software security patches based on how serious the problem is. Use the Patch Policy Editor to define SLAs per severity level. Track actual patches in the inline patch register. You're done when SLA timelines are set and patches are tracked against them.",
     "applicability": "Every company handling sensitive data or critical IT systems needs this; small firms without IT vulnerabilities might use a simpler custom approach.",
     "quickTip": "Ask your IT team what their current patch update speed is for emergencies. That's your starting SLA.",
-    "implementationSteps": "Use the Patch Policy Editor to set SLA timelines for each severity level (critical, high, medium, low).\nBSI recommends: critical = 24 hours, high = 7 days, medium = 30 days, low = 90 days.\nTrack actual patches in the patch register below the policy editor.\nThe platform automatically calculates on-time vs overdue per severity.\nReview and adjust SLAs annually.",
+    "implementationSteps": "Use the Patch Policy Editor to set SLA timelines for each severity level (critical, high, medium, low).\nYou choose the deadlines and justify them from your risk: CIR 6.6 requires deadlines but names no figures. For orientation, the BSI module OPS.1.1.3 expects a vulnerability to be assessed within minutes to a few hours, and places remediation in the internationally common window of 45 to 90 days.\nTrack actual patches in the patch register below the policy editor.\nThe platform automatically calculates on-time vs overdue per severity.\nReview and adjust SLAs annually.",
     "evidenceExample": "Patch policy showing SLA per severity, plus the patch register showing on-time compliance rates and any exceptions with documented reasons.",
     "fields": {}
   },
@@ -786,7 +786,7 @@
     "summary": "Set up a security awareness program to teach all employees how to spot and avoid cyber threats. You'll know you're done when you have a yearly training plan, proof everyone completes it, and new hires get trained before starting work.",
     "applicability": "Every company needs this because all employees handle sensitive info and can accidentally cause breaches; no one skips it.",
     "quickTip": "Grab your HR and IT leads for a quick chat: list 12 monthly security topics like phishing to kick off your annual calendar.",
-    "implementationSteps": "Create a yearly calendar with one security topic per month, like phishing in January and passwords in February.\nBuild an onboarding checklist so new hires complete training, sign rules, and set up security before getting computer access.\nPick a training method like online modules or group sessions and schedule them for everyone at least once a year.\nTrack who finishes training and test their knowledge; retrain anyone who doesn't pass within 30 days.\nSave records of all trainings, dates, and completion rates in one easy-to-find spot for at least 5 years.",
+    "implementationSteps": "Create a yearly calendar with one security topic per month, like phishing in January and passwords in February.\nBuild an onboarding checklist so new hires complete training, sign rules, and set up security before getting computer access.\nPick a training method like online modules or group sessions and schedule them for everyone at least once a year.\nTrack who finishes training and test their knowledge; retrain anyone who does not pass, within a deadline you set.\nSave records of all trainings, dates, and completion rates in one easy-to-find spot. Set your own retention period and write down why; no NIS 2 or BSIG provision names one for training records.",
     "evidenceExample": "Documents showing your annual training calendar with topics and dates, an onboarding checklist with required steps and signatures, and records or reports proving employee training completion like attendance lists, quiz scores, or platform screenshots.",
     "fields": {
       "trainingPlatform": {
@@ -825,7 +825,7 @@
     "summary": "Your company must give special cybersecurity training to people with key security jobs like IT admins and developers, plus mandatory training for the management board. You're done when you have a list showing who gets what training and proof that management completed theirs.",
     "applicability": "All companies in scope for cybersecurity laws must do this; smaller companies without specialized roles like developers can focus mainly on management training.",
     "quickTip": "List out 4-5 key roles in your company that handle security stuff, like your IT manager or HR lead for data protection.",
-    "implementationSteps": "Identify key roles with security duties, like IT admins, developers, or managers handling sensitive data.\nMap each role to specific training topics they need, such as secure coding or incident response.\nPick a training provider or course for each role and schedule the sessions.\nGet your management board to complete their required 4-hour cybersecurity training session.\nCreate a simple grid showing roles, trainings, who completed them, and dates.",
+    "implementationSteps": "Identify key roles with security duties, like IT admins, developers, or managers handling sensitive data.\nMap each role to specific training topics they need, such as secure coding or incident response.\nPick a training provider or course for each role and schedule the sessions.\nGet your management board to complete their cybersecurity training. You set the duration and interval; §38(3) BSIG only says \"regularly\".\nCreate a simple grid showing roles, trainings, who completed them, and dates.",
     "evidenceExample": "A table or matrix listing roles, their required trainings, providers, and completion dates, plus certificates or attendance records showing management board members finished their personal training session.",
     "fields": {
       "roleSpecificTrainingProvider": {
@@ -837,11 +837,11 @@
     }
   },
   "8.4": {
-    "summary": "Run fake phishing email tests on your employees at least every quarter to train them and check if they're getting better at spotting scams. You're done when you have reports showing low click rates (under 5%), high reporting rates (over 60%), and proof of tests over time with improving trends.",
+    "summary": "Run fake phishing email tests on your employees at least every quarter to train them and check if they're getting better at spotting scams. You're done when you have reports showing click and reporting rates against targets you set yourself, and proof of tests over time with improving trends. No law fixes those rates.",
     "applicability": "All companies in scope must do this since employee training is a core cyber hygiene requirement. No one skips it.",
     "quickTip": "Talk to your IT or security team today and ask if they use a phishing simulation tool like KnowBe4 or Proofpoint.",
-    "implementationSteps": "Choose a phishing simulation tool and set it up for quarterly tests with different scam types like fake login pages or bad attachments.\nRun your first test and track who clicks, who reports it as suspicious, and who gives up fake credentials.\nReview the results: aim for under 5% clicks and over 60% reports. If not, retrain the worst performers.\nRepeat tests quarterly and keep a simple database or spreadsheet of everyone's training completion and test scores by department.\nCheck trends over time and tweak your training if people aren't improving.",
-    "evidenceExample": "Phishing campaign reports showing test dates, click rates under 5%, report rates over 60%, improving trends over multiple tests, and a summary of training completion rates by department.",
+    "implementationSteps": "Choose a phishing simulation tool and set it up for quarterly tests with different scam types like fake login pages or bad attachments.\nRun your first test and track who clicks, who reports it as suspicious, and who gives up fake credentials.\nReview the results against the targets you set, and retrain the worst performers if you miss them.\nRepeat tests quarterly and keep a simple database or spreadsheet of everyone's training completion and test scores by department.\nCheck trends over time and tweak your training if people aren't improving.",
+    "evidenceExample": "Phishing campaign reports showing test dates, click and reporting rates against your own targets, improving trends over multiple tests, and a summary of training completion rates by department.",
     "fields": {
       "phishingSimFrequency": {
         "label": "Phishing Sim Frequency",
@@ -900,8 +900,8 @@
     "summary": "Your company must encrypt all sensitive data both when it's stored (at rest) and when it's moving between systems (in transit). You'll know you're done when you have an inventory of all encryption tools in use, proof that nearly all sensitive data is covered, and confirmation from audits or scans that everything is secure.",
     "applicability": "Every company handling sensitive data like customer info or business secrets needs this; small firms without such data might skip, but check with your legal team.",
     "quickTip": "Ask your IT team for a quick list of all tools and systems handling sensitive data, then note which ones are already encrypted.",
-    "implementationSteps": "Talk to your IT lead and list every system, database, laptop, cloud storage, and backup that holds sensitive data.\nPick and install encryption tools like BitLocker for laptops or AES-256 for backups, aiming to cover at least 95% of that data.\nSet up TLS 1.2 or higher for websites, emails, and APIs, and test it with a free online scanner.\nCreate a simple inventory spreadsheet showing each system, its encryption tool, and status (e.g., 'fully encrypted').\nGet your board to review and approve the inventory in a meeting.",
-    "evidenceExample": "A spreadsheet or document listing all systems with their encryption tools, coverage percentage (like 98%), and status, plus a scan report or audit summary showing TLS version in use and no unencrypted backups.",
+    "implementationSteps": "Talk to your IT lead and list every system, database, laptop, cloud storage, and backup that holds sensitive data.\nPick and install encryption tools like BitLocker for laptops or AES-256 for backups, and set your own coverage target for that data.\nSet up TLS 1.2 or higher for websites, emails, and APIs, and test it with a free online scanner.\nCreate a simple inventory spreadsheet showing each system, its encryption tool, and status (e.g., 'fully encrypted').\nGet your board to review and approve the inventory in a meeting.",
+    "evidenceExample": "A spreadsheet or document listing all systems with their encryption tools, the coverage you reached, and status, plus a scan report or audit summary showing TLS version in use and no unencrypted backups.",
     "fields": {}
   },
   "9.3": {

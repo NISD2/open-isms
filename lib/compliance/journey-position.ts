@@ -14,6 +14,12 @@
  * Terminal-success statuses of the `item_status` enum. "completed" is the
  * normal user sign-off result, "approved" adds the legal review on top,
  * "not_applicable" is scoped out.
+ *
+ * Read several ways, and they have to stay one set: the journey and the
+ * activation-nudge email call these "done", `getPrerequisiteStatuses` calls
+ * them satisfied, and `reopenRequirement` treats exactly these as having
+ * something to withdraw. A status that counted as done but was not
+ * reopenable would be a dead end in the UI.
  */
 export const DONE_STATUSES: ReadonlySet<string> = new Set([
   "completed",

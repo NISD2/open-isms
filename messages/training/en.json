@@ -19,6 +19,7 @@
     "uploadingCert": "Uploading...",
     "certUploaded": "Certificate uploaded",
     "certUploadFailed": "Upload failed",
+    "certTooLarge": "That file is too large. The limit is {size} MB per file.",
     "removeCert": "Remove",
     "managementTraining": "Management Training (§38 BSIG)",
     "managementHint": "Auto-detected from role. Override if needed.",
