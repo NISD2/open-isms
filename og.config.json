@@ -162,6 +162,22 @@
       }
     },
     {
+      "slug": "vanta-alternative",
+      "paths": {
+        "de": "/wiki/vergleich/vanta-alternative",
+        "en": "/en/wiki/comparison/vanta-alternative",
+        "nl": "/nl/wiki/vergelijking/vanta-alternatief"
+      }
+    },
+    {
+      "slug": "drata-alternative",
+      "paths": {
+        "de": "/wiki/vergleich/drata-alternative",
+        "en": "/en/wiki/comparison/drata-alternative",
+        "nl": "/nl/wiki/vergelijking/drata-alternatief"
+      }
+    },
+    {
       "slug": "nis2-meldepflicht",
       "paths": {
         "de": "/wiki/umsetzung/nis2-meldepflicht",
