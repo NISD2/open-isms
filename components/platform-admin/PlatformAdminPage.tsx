@@ -1,34 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import {
   Activity,
   BadgeCheck,
   Building2,
+  FlaskConical,
   GraduationCap,
   Loader2,
   Mail,
   Shield,
   Trash2,
-  FlaskConical,
   Truck,
   Users,
 } from "lucide-react";
-import { trpc, type RouterInputs } from "@/lib/trpc/client";
+import { useState } from "react";
 import { toast } from "sonner";
+import { type RouterInputs, trpc } from "@/lib/trpc/client";
 
 type CourseId = RouterInputs["platformAdmin"]["trainingMarkCourseComplete"]["courseId"];
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import { PageHeader } from "@/components/shared/PageHeader";
-import { Link, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link, useRouter } from "@/i18n/navigation";
 import { DevPanel } from "./DevPanel";
+import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -138,6 +134,10 @@ interface OptedOutUserRow {
   name: string;
   companyName: string | null;
   updatedAt: Date;
+  /** The legacy coarse switch: all optional email off. */
+  allOff: boolean;
+  /** Per-scope opt-outs ("category:reminders", "type:newsletter.issue", ...). */
+  scopes: string[];
 }
 
 interface EmailActivity {
@@ -187,23 +187,52 @@ function timeAgo(date: Date | string): string {
 }
 
 function planBadge(plan: string | null) {
-  if (!plan || plan === "free") return <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400">free</span>;
-  if (plan === "guided") return <span className="rounded bg-blue-100 px-1.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">guided</span>;
-  return <span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">{plan}</span>;
+  if (!plan || plan === "free")
+    return (
+      <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+        free
+      </span>
+    );
+  if (plan === "guided")
+    return (
+      <span className="rounded bg-blue-100 px-1.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+        guided
+      </span>
+    );
+  return (
+    <span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+      {plan}
+    </span>
+  );
 }
 
-type Tab = "users" | "companies" | "compliance" | "training" | "suppliers" | "emails" | "erasures" | "dev";
+type Tab =
+  | "users"
+  | "companies"
+  | "compliance"
+  | "training"
+  | "suppliers"
+  | "emails"
+  | "erasures"
+  | "dev";
 
 /** Human-readable label for a notification.entityType value. */
 function emailTypeLabel(t: string): string {
   switch (t) {
-    case "course_followup": return "Course follow-up";
-    case "requirement": return "Compliance reminder";
-    case "policy": return "Policy reminder";
-    case "supplier_publication_event": return "Supplier incident broadcast";
-    case "lifecycle_email": return "Lifecycle nudge";
-    case "newsletter_issue": return "Newsletter";
-    default: return t;
+    case "course_followup":
+      return "Course follow-up";
+    case "requirement":
+      return "Compliance reminder";
+    case "policy":
+      return "Policy reminder";
+    case "supplier_publication_event":
+      return "Supplier incident broadcast";
+    case "lifecycle_email":
+      return "Lifecycle nudge";
+    case "newsletter_issue":
+      return "Newsletter";
+    default:
+      return t;
   }
 }
 
@@ -240,26 +269,81 @@ export function PlatformAdminPage({
 
       {/* KPI cards */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-        <StatCard label="Total Users" value={overview.totalUsers} sub={`${overview.recentUsers} this week`} />
-        <StatCard label="Activated Users" value={overview.usersWithActivatedCompany} sub={`of ${overview.totalUsers}`} />
-        <StatCard label="Activated Orgs" value={overview.activatedCompanies} sub={`${overview.draftCompanies} draft`} />
-        <StatCard label="CEO Course Done" value={overview.ceoCourseFinished} sub={`of ${overview.ceoCourseStarted} started`} />
+        <StatCard
+          label="Total Users"
+          value={overview.totalUsers}
+          sub={`${overview.recentUsers} this week`}
+        />
+        <StatCard
+          label="Activated Users"
+          value={overview.usersWithActivatedCompany}
+          sub={`of ${overview.totalUsers}`}
+        />
+        <StatCard
+          label="Activated Orgs"
+          value={overview.activatedCompanies}
+          sub={`${overview.draftCompanies} draft`}
+        />
+        <StatCard
+          label="CEO Course Done"
+          value={overview.ceoCourseFinished}
+          sub={`of ${overview.ceoCourseStarted} started`}
+        />
         <StatCard label="Assessments" value={overview.totalAssessments} />
-        <StatCard label="Not Activated" value={overview.totalUsers - overview.usersWithActivatedCompany} sub="draft shell only" />
+        <StatCard
+          label="Not Activated"
+          value={overview.totalUsers - overview.usersWithActivatedCompany}
+          sub="draft shell only"
+        />
       </div>
 
       {/* Tabs */}
       <div className="flex flex-wrap gap-1 rounded-lg border bg-muted/50 p-1">
-        {([
+        {[
           { key: "users" as const, label: "Users", icon: Users, count: users.length },
-          { key: "companies" as const, label: "Companies", icon: Building2, count: companies.length },
-          { key: "compliance" as const, label: "Compliance", icon: Activity, count: complianceActivity.length },
-          { key: "training" as const, label: "Training", icon: GraduationCap, count: trainingActivity.length },
-          { key: "suppliers" as const, label: "Suppliers", icon: Truck, count: supplierActivity.length },
-          { key: "emails" as const, label: "Emails", icon: Mail, count: emailActivity.totalSent },
-          { key: "erasures" as const, label: "Erasures", icon: Trash2, count: undefined as number | undefined },
-          { key: "dev" as const, label: "Dev", icon: FlaskConical, count: undefined as number | undefined },
-        ]).map(({ key, label, icon: Icon, count }) => (
+          {
+            key: "companies" as const,
+            label: "Companies",
+            icon: Building2,
+            count: companies.length,
+          },
+          {
+            key: "compliance" as const,
+            label: "Compliance",
+            icon: Activity,
+            count: complianceActivity.length,
+          },
+          {
+            key: "training" as const,
+            label: "Training",
+            icon: GraduationCap,
+            count: trainingActivity.length,
+          },
+          {
+            key: "suppliers" as const,
+            label: "Suppliers",
+            icon: Truck,
+            count: supplierActivity.length,
+          },
+          {
+            key: "emails" as const,
+            label: "Emails",
+            icon: Mail,
+            count: emailActivity.totalSent,
+          },
+          {
+            key: "erasures" as const,
+            label: "Erasures",
+            icon: Trash2,
+            count: undefined as number | undefined,
+          },
+          {
+            key: "dev" as const,
+            label: "Dev",
+            icon: FlaskConical,
+            count: undefined as number | undefined,
+          },
+        ].map(({ key, label, icon: Icon, count }) => (
           <button
             key={key}
             onClick={() => setTab(key)}
@@ -271,7 +355,9 @@ export function PlatformAdminPage({
           >
             <Icon className="h-4 w-4" />
             {label}
-            {typeof count === "number" && <span className="text-xs text-muted-foreground">({count})</span>}
+            {typeof count === "number" && (
+              <span className="text-xs text-muted-foreground">({count})</span>
+            )}
           </button>
         ))}
       </div>
@@ -294,13 +380,24 @@ export function PlatformAdminPage({
 // ---------------------------------------------------------------------------
 
 function SendTestNudgeButton() {
+  const utils = trpc.useUtils();
   const send = trpc.platformAdmin.sendLifecycleTestEmail.useMutation({
-    onSuccess: (r) =>
+    onSuccess: (r) => {
+      if (!r.sent) {
+        // The gate refused, which is the honest answer: this is the same
+        // check a customer gets. Say so instead of quietly delivering.
+        toast.warning(
+          `Nothing sent — ${r.to} is unsubscribed from this email. Resubscribe below to test it.`,
+        );
+        return;
+      }
       toast.success(
         r.suppressed
           ? `Rendered for ${r.to}; delivery suppressed in this environment`
           : `Test nudge sent to ${r.to}`,
-      ),
+      );
+      void utils.platformAdmin.emailActivity.invalidate();
+    },
     onError: (e) => toast.error(e.message),
   });
   return (
@@ -313,6 +410,154 @@ function SendTestNudgeButton() {
       {send.isPending ? "Sending..." : "Send me a test nudge"}
     </Button>
   );
+}
+
+/**
+ * The send console: what is queued, how many to send, and the button that
+ * sends them. Nothing about the lifecycle campaign goes out on a timer —
+ * this is the only path, so the queue is always reviewed by a person before
+ * anything leaves.
+ */
+function LifecycleQueuePanel() {
+  const utils = trpc.useUtils();
+  const [limit, setLimit] = useState(1);
+  const queue = trpc.platformAdmin.lifecycleQueue.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+  });
+  const send = trpc.platformAdmin.sendLifecycleBatch.useMutation({
+    onSuccess: (r) => {
+      if (r.skipped) {
+        toast.warning(`Nothing sent: ${r.skipped}`);
+      } else {
+        toast.success(
+          `Sent ${r.sent}${r.failed ? `, ${r.failed} failed` : ""}${r.deferred ? `, ${r.deferred} still queued` : ""}`,
+        );
+      }
+      void utils.platformAdmin.lifecycleQueue.invalidate();
+      void utils.platformAdmin.emailActivity.invalidate();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const totalQueued = queue.data?.types.reduce((sum, t) => sum + t.prepared, 0) ?? 0;
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">
+          Queued to send
+          {totalQueued > 0 && (
+            <span className="ml-2 rounded bg-muted px-1.5 py-0.5 text-xs font-medium">
+              {totalQueued} waiting
+            </span>
+          )}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <p className="text-xs text-muted-foreground">
+          Nothing here sends on a schedule. These people are eligible right now; they
+          receive the email only when you press send, oldest-dormant first, and each
+          person can receive it at most once ever.
+        </p>
+
+        {queue.isLoading && (
+          <p className="text-sm text-muted-foreground">Checking who is due...</p>
+        )}
+        {queue.data?.available === false && (
+          <p className="text-sm text-muted-foreground">
+            Sending unavailable: {queue.data.reason}
+          </p>
+        )}
+
+        {queue.data?.types.map((t) => (
+          <div key={t.key} className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">{t.key}</span>
+              <span className="text-sm text-muted-foreground">{t.prepared} queued</span>
+            </div>
+            {t.error && (
+              <p className="text-sm text-destructive">
+                Campaign failed to run: {t.error}
+              </p>
+            )}
+            {t.recipients.length > 0 && (
+              <div className="max-h-48 overflow-y-auto rounded border border-border">
+                <table className="w-full text-sm">
+                  <tbody>
+                    {t.recipients.map((r, i) => (
+                      <tr key={r.to} className="border-b border-border/50 last:border-0">
+                        <td className="py-1.5 pl-3 pr-2 text-muted-foreground w-10">
+                          {i + 1}
+                        </td>
+                        <td className="py-1.5 pr-4">{r.to}</td>
+                        <td className="py-1.5 pr-3 text-muted-foreground">{r.subject}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        ))}
+
+        <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4">
+          <label className="text-sm text-muted-foreground" htmlFor="lifecycle-limit">
+            How many to send
+          </label>
+          <input
+            id="lifecycle-limit"
+            type="number"
+            min={1}
+            max={100}
+            value={limit}
+            onChange={(e) =>
+              setLimit(Math.min(100, Math.max(1, Number(e.target.value) || 1)))
+            }
+            className="w-20 rounded border border-border bg-background px-2 py-1 text-sm"
+          />
+          <Button
+            size="sm"
+            onClick={() => send.mutate({ limit })}
+            disabled={send.isPending || totalQueued === 0}
+          >
+            {send.isPending ? "Sending..." : `Send ${Math.min(limit, totalQueued)} now`}
+          </Button>
+          <SendTestNudgeButton />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function ResubscribeButton({ userId, email }: { userId: string; email: string }) {
+  const utils = trpc.useUtils();
+  const resubscribe = trpc.platformAdmin.resubscribeUser.useMutation({
+    onSuccess: (r) => {
+      toast.success(`${r.email} resubscribed to all optional email`);
+      void utils.platformAdmin.emailActivity.invalidate();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => resubscribe.mutate({ userId })}
+      disabled={resubscribe.isPending}
+      title={`Put ${email} back on the list`}
+    >
+      {resubscribe.isPending ? "..." : "Resubscribe"}
+    </Button>
+  );
+}
+
+/** "category:reminders" -> "Reminders", "type:newsletter.issue" -> "Newsletter issue". */
+function scopeLabel(scope: string): string {
+  const [kind, ...rest] = scope.split(":");
+  const value = rest.join(":");
+  if (kind === "category") return value.charAt(0).toUpperCase() + value.slice(1);
+  if (kind === "type") return value.split(".").pop()?.replace(/_/g, " ") ?? value;
+  return scope;
 }
 
 function StatCard({ label, value, sub }: { label: string; value: number; sub?: string }) {
@@ -356,11 +601,19 @@ function UsersTable({ users }: { users: UserRow[] }) {
                 <tr key={u.id} className="border-b border-border/50 last:border-0">
                   <td className="py-2 pr-4 font-medium">{u.name}</td>
                   <td className="py-2 pr-4 text-muted-foreground">{u.email}</td>
-                  <td className="py-2 pr-4">{u.companyName ?? <span className="text-muted-foreground italic">none</span>}</td>
+                  <td className="py-2 pr-4">
+                    {u.companyName ?? (
+                      <span className="text-muted-foreground italic">none</span>
+                    )}
+                  </td>
                   <td className="py-2 pr-4">{planBadge(u.companyPlan)}</td>
                   <td className="py-2 pr-4">{u.role}</td>
-                  <td className="py-2 pr-4 text-muted-foreground">{timeAgo(u.createdAt)}</td>
-                  <td className="py-2"><EraseUserButton userId={u.id} email={u.email} /></td>
+                  <td className="py-2 pr-4 text-muted-foreground">
+                    {timeAgo(u.createdAt)}
+                  </td>
+                  <td className="py-2">
+                    <EraseUserButton userId={u.id} email={u.email} />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -409,16 +662,32 @@ function CompaniesTable({ companies }: { companies: CompanyRow[] }) {
                       <div className="h-1.5 w-16 rounded-full bg-gray-200 dark:bg-gray-700">
                         <div
                           className="h-1.5 rounded-full bg-green-500"
-                          style={{ width: `${Math.min(100, parseFloat(c.compliancePct))}%` }}
+                          style={{
+                            width: `${Math.min(100, parseFloat(c.compliancePct))}%`,
+                          }}
                         />
                       </div>
-                      <span className="text-xs text-muted-foreground">{parseFloat(c.compliancePct).toFixed(0)}%</span>
+                      <span className="text-xs text-muted-foreground">
+                        {parseFloat(c.compliancePct).toFixed(0)}%
+                      </span>
                     </div>
                   </td>
                   <td className="py-2 pr-4 space-x-1">
-                    {!c.activatedAt && <span className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">Draft</span>}
-                    {c.actsAsNis2Entity && <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700 dark:bg-amber-900 dark:text-amber-300">NIS2</span>}
-                    {c.actsAsSupplier && <span className="rounded bg-cyan-100 px-1.5 py-0.5 text-xs text-cyan-700 dark:bg-cyan-900 dark:text-cyan-300">Supplier</span>}
+                    {!c.activatedAt && (
+                      <span className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">
+                        Draft
+                      </span>
+                    )}
+                    {c.actsAsNis2Entity && (
+                      <span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+                        NIS2
+                      </span>
+                    )}
+                    {c.actsAsSupplier && (
+                      <span className="rounded bg-cyan-100 px-1.5 py-0.5 text-xs text-cyan-700 dark:bg-cyan-900 dark:text-cyan-300">
+                        Supplier
+                      </span>
+                    )}
                   </td>
                   <td className="py-2 text-muted-foreground">{timeAgo(c.createdAt)}</td>
                 </tr>
@@ -459,11 +728,19 @@ function ComplianceTable({ rows }: { rows: ComplianceRow[] }) {
               {rows.map((r) => {
                 const pct = r.total > 0 ? (r.completed / r.total) * 100 : 0;
                 return (
-                  <tr key={r.companyId} className="border-b border-border/50 last:border-0">
+                  <tr
+                    key={r.companyId}
+                    className="border-b border-border/50 last:border-0"
+                  >
                     <td className="py-2 pr-4 font-medium">{r.companyName}</td>
                     <td className="py-2 pr-4 text-xs text-muted-foreground">
                       {r.adminEmail ? (
-                        <a href={`mailto:${r.adminEmail}`} className="underline-offset-2 hover:underline">{r.adminEmail}</a>
+                        <a
+                          href={`mailto:${r.adminEmail}`}
+                          className="underline-offset-2 hover:underline"
+                        >
+                          {r.adminEmail}
+                        </a>
                       ) : (
                         <span>—</span>
                       )}
@@ -475,16 +752,25 @@ function ComplianceTable({ rows }: { rows: ComplianceRow[] }) {
                     <td className="py-2">
                       <div className="flex items-center gap-2">
                         <div className="h-1.5 w-20 rounded-full bg-gray-200 dark:bg-gray-700">
-                          <div className="h-1.5 rounded-full bg-green-500" style={{ width: `${pct}%` }} />
+                          <div
+                            className="h-1.5 rounded-full bg-green-500"
+                            style={{ width: `${pct}%` }}
+                          />
                         </div>
-                        <span className="text-xs text-muted-foreground">{pct.toFixed(0)}%</span>
+                        <span className="text-xs text-muted-foreground">
+                          {pct.toFixed(0)}%
+                        </span>
                       </div>
                     </td>
                   </tr>
                 );
               })}
               {rows.length === 0 && (
-                <tr><td colSpan={7} className="py-8 text-center text-muted-foreground">No compliance activity yet</td></tr>
+                <tr>
+                  <td colSpan={7} className="py-8 text-center text-muted-foreground">
+                    No compliance activity yet
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
@@ -512,16 +798,28 @@ function TrainingTable({ rows }: { rows: TrainingRow[] }) {
                 <th className="pb-2 pr-4 font-medium">User</th>
                 <th className="pb-2 pr-4 font-medium">Email</th>
                 <th className="pb-2 pr-4 font-medium">Company</th>
-                <th className="pb-2 pr-4 font-medium" title="Completed / total lessons in the CEO course (47)">
+                <th
+                  className="pb-2 pr-4 font-medium"
+                  title="Completed / total lessons in the CEO course (47)"
+                >
                   CEO
                 </th>
-                <th className="pb-2 pr-4 font-medium" title="Completed / total lessons in the CRA-SBOM course (9)">
+                <th
+                  className="pb-2 pr-4 font-medium"
+                  title="Completed / total lessons in the CRA-SBOM course (9)"
+                >
                   CRA
                 </th>
-                <th className="pb-2 pr-4 font-medium" title="Completed / total lessons in the NIS2 Tabletop course (8)">
+                <th
+                  className="pb-2 pr-4 font-medium"
+                  title="Completed / total lessons in the NIS2 Tabletop course (8)"
+                >
                   Tabletop
                 </th>
-                <th className="pb-2 pr-4 font-medium" title="Quizzes passed across all courses">
+                <th
+                  className="pb-2 pr-4 font-medium"
+                  title="Quizzes passed across all courses"
+                >
                   Quizzes
                 </th>
                 <th className="pb-2 font-medium">Last Active</th>
@@ -532,22 +830,53 @@ function TrainingTable({ rows }: { rows: TrainingRow[] }) {
                 <tr key={r.userId} className="border-b border-border/50 last:border-0">
                   <td className="py-2 pr-4 font-medium">{r.userName}</td>
                   <td className="py-2 pr-4 text-muted-foreground">{r.userEmail}</td>
-                  <td className="py-2 pr-4">{r.companyName ?? <span className="text-muted-foreground italic">none</span>}</td>
-                  <td className="py-2 pr-4 tabular-nums">
-                    <CourseCell completed={r.ceoCompleted} total={COURSES.ceo.total} touched={r.ceoTouched} courseId={COURSES.ceo.id} userId={r.userId} userEmail={r.userEmail} />
+                  <td className="py-2 pr-4">
+                    {r.companyName ?? (
+                      <span className="text-muted-foreground italic">none</span>
+                    )}
                   </td>
                   <td className="py-2 pr-4 tabular-nums">
-                    <CourseCell completed={r.craCompleted} total={COURSES.cra.total} touched={r.craTouched} courseId={COURSES.cra.id} userId={r.userId} userEmail={r.userEmail} />
+                    <CourseCell
+                      completed={r.ceoCompleted}
+                      total={COURSES.ceo.total}
+                      touched={r.ceoTouched}
+                      courseId={COURSES.ceo.id}
+                      userId={r.userId}
+                      userEmail={r.userEmail}
+                    />
                   </td>
                   <td className="py-2 pr-4 tabular-nums">
-                    <CourseCell completed={r.tabletopCompleted} total={COURSES.tabletop.total} touched={r.tabletopTouched} courseId={COURSES.tabletop.id} userId={r.userId} userEmail={r.userEmail} />
+                    <CourseCell
+                      completed={r.craCompleted}
+                      total={COURSES.cra.total}
+                      touched={r.craTouched}
+                      courseId={COURSES.cra.id}
+                      userId={r.userId}
+                      userEmail={r.userEmail}
+                    />
+                  </td>
+                  <td className="py-2 pr-4 tabular-nums">
+                    <CourseCell
+                      completed={r.tabletopCompleted}
+                      total={COURSES.tabletop.total}
+                      touched={r.tabletopTouched}
+                      courseId={COURSES.tabletop.id}
+                      userId={r.userId}
+                      userEmail={r.userEmail}
+                    />
                   </td>
                   <td className="py-2 pr-4 tabular-nums">{r.quizzesPassed}</td>
-                  <td className="py-2 text-muted-foreground">{r.lastActivity ? timeAgo(r.lastActivity) : "-"}</td>
+                  <td className="py-2 text-muted-foreground">
+                    {r.lastActivity ? timeAgo(r.lastActivity) : "-"}
+                  </td>
                 </tr>
               ))}
               {rows.length === 0 && (
-                <tr><td colSpan={8} className="py-8 text-center text-muted-foreground">No training activity yet</td></tr>
+                <tr>
+                  <td colSpan={8} className="py-8 text-center text-muted-foreground">
+                    No training activity yet
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
@@ -583,7 +912,11 @@ function CourseCell({
         </span>
       )}
       {completed < total && (
-        <MarkCourseCompleteButton courseId={courseId} userId={userId} userEmail={userEmail} />
+        <MarkCourseCompleteButton
+          courseId={courseId}
+          userId={userId}
+          userEmail={userEmail}
+        />
       )}
     </span>
   );
@@ -601,7 +934,9 @@ function MarkCourseCompleteButton({
   const router = useRouter();
   const mark = trpc.platformAdmin.trainingMarkCourseComplete.useMutation({
     onSuccess: (res) => {
-      toast.success(`Marked ${res.courseId} complete (${res.lessonCount} lessons) for ${userEmail}`);
+      toast.success(
+        `Marked ${res.courseId} complete (${res.lessonCount} lessons) for ${userEmail}`,
+      );
       router.refresh();
     },
     onError: (e) => toast.error(e.message),
@@ -660,7 +995,11 @@ function SuppliersTable({ rows }: { rows: SupplierRow[] }) {
                 </tr>
               ))}
               {rows.length === 0 && (
-                <tr><td colSpan={4} className="py-8 text-center text-muted-foreground">No supplier portal companies yet</td></tr>
+                <tr>
+                  <td colSpan={4} className="py-8 text-center text-muted-foreground">
+                    No supplier portal companies yet
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
@@ -681,18 +1020,23 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
 
   return (
     <div className="space-y-6">
-      {/* Test send: prove template + transport in this environment without
-          touching any claim or real recipient. */}
-      <div className="flex justify-end">
-        <SendTestNudgeButton />
-      </div>
+      {/* The send console: review the queue, choose how many, press send. */}
+      <LifecycleQueuePanel />
 
       {/* KPI strip */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         <StatCard label="Sent (all time)" value={data.totalSent} sub="cron-driven only" />
         <StatCard label="Sent (last 7 days)" value={data.sentLast7d} />
-        <StatCard label="Subscribed users" value={subscribed} sub={`of ${data.totalUsers}`} />
-        <StatCard label="Opted out" value={data.optedOut} sub={`${optOutRate.toFixed(1)}% opt-out`} />
+        <StatCard
+          label="Subscribed users"
+          value={subscribed}
+          sub={`of ${data.totalUsers}`}
+        />
+        <StatCard
+          label="Opted out"
+          value={data.optedOut}
+          sub={`${optOutRate.toFixed(1)}% opt-out`}
+        />
         <StatCard
           label="Send failures"
           value={data.lifecycleFailed}
@@ -702,9 +1046,12 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
 
       {/* Scope note */}
       <p className="text-xs text-muted-foreground italic">
-        Scope: emails recorded in the notification table (course follow-ups, daily digests, weekly management digests, deadline reminders, lifecycle nudges, newsletter sends).
-        Transactional emails (invites, welcome, contact-change notices, supplier incident broadcasts) are not yet logged here.
-        Lifecycle rows record claims, not confirmed deliveries; the send-failures counter is the reconciliation signal.
+        Scope: emails recorded in the notification table (course follow-ups, daily
+        digests, weekly management digests, deadline reminders, lifecycle nudges,
+        newsletter sends). Transactional emails (invites, welcome, contact-change notices,
+        supplier incident broadcasts) are not yet logged here. Lifecycle rows record
+        claims, not confirmed deliveries; the send-failures counter is the reconciliation
+        signal.
       </p>
 
       {/* Daily volume, last 14 days */}
@@ -722,7 +1069,9 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
               >
                 <div
                   className="w-full rounded-t bg-primary/80 transition-colors group-hover:bg-primary"
-                  style={{ height: `${Math.max(2, Math.round((d.count / maxDaily) * 88))}px` }}
+                  style={{
+                    height: `${Math.max(2, Math.round((d.count / maxDaily) * 88))}px`,
+                  }}
                 />
               </div>
             ))}
@@ -748,8 +1097,9 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
         </CardHeader>
         <CardContent>
           <p className="mb-3 text-xs text-muted-foreground">
-            Rows are flagged from {data.multiSendAlertPerDay} sends to one person in a single day.
-            A digest, a course follow-up and a lifecycle nudge can coincide once; repeatedly hitting this level means a producer is misbehaving.
+            Rows are flagged from {data.multiSendAlertPerDay} sends to one person in a
+            single day. A digest, a course follow-up and a lifecycle nudge can coincide
+            once; repeatedly hitting this level means a producer is misbehaving.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -764,18 +1114,29 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
                 {data.frequentRecipients.map((r) => {
                   const flagged = r.maxPerDay >= data.multiSendAlertPerDay;
                   return (
-                    <tr key={r.recipient} className="border-b border-border/50 last:border-0">
+                    <tr
+                      key={r.recipient}
+                      className="border-b border-border/50 last:border-0"
+                    >
                       <td className="py-2 pr-4 text-muted-foreground">{r.recipient}</td>
                       <td className="py-2 pr-4">{r.total}</td>
-                      <td className={`py-2 ${flagged ? "font-semibold text-orange-600 dark:text-orange-400" : ""}`}>
+                      <td
+                        className={`py-2 ${flagged ? "font-semibold text-orange-600 dark:text-orange-400" : ""}`}
+                      >
                         {r.maxPerDay}
-                        {flagged && <span className="ml-1.5 text-xs font-normal">review</span>}
+                        {flagged && (
+                          <span className="ml-1.5 text-xs font-normal">review</span>
+                        )}
                       </td>
                     </tr>
                   );
                 })}
                 {data.frequentRecipients.length === 0 && (
-                  <tr><td colSpan={3} className="py-8 text-center text-muted-foreground">No sends in the last 7 days</td></tr>
+                  <tr>
+                    <td colSpan={3} className="py-8 text-center text-muted-foreground">
+                      No sends in the last 7 days
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
@@ -796,7 +1157,8 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
                   key={b.type}
                   className="rounded bg-muted px-2.5 py-1 text-xs text-foreground"
                 >
-                  {emailTypeLabel(b.type)} <span className="font-semibold">{b.count}</span>
+                  {emailTypeLabel(b.type)}{" "}
+                  <span className="font-semibold">{b.count}</span>
                 </span>
               ))}
             </div>
@@ -827,16 +1189,28 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
                     <td className="py-2 pr-4 text-muted-foreground whitespace-nowrap">
                       {e.sentAt ? timeAgo(e.sentAt) : "—"}
                     </td>
-                    <td className="py-2 pr-4 text-muted-foreground">{e.recipientEmail ?? "—"}</td>
-                    <td className="py-2 pr-4">{e.companyName ?? <span className="text-muted-foreground italic">—</span>}</td>
+                    <td className="py-2 pr-4 text-muted-foreground">
+                      {e.recipientEmail ?? "—"}
+                    </td>
                     <td className="py-2 pr-4">
-                      <span className="rounded bg-muted px-1.5 py-0.5 text-xs">{emailTypeLabel(e.entityType)}</span>
+                      {e.companyName ?? (
+                        <span className="text-muted-foreground italic">—</span>
+                      )}
+                    </td>
+                    <td className="py-2 pr-4">
+                      <span className="rounded bg-muted px-1.5 py-0.5 text-xs">
+                        {emailTypeLabel(e.entityType)}
+                      </span>
                     </td>
                     <td className="py-2">{e.subject}</td>
                   </tr>
                 ))}
                 {data.recentEmails.length === 0 && (
-                  <tr><td colSpan={5} className="py-8 text-center text-muted-foreground">No emails sent yet</td></tr>
+                  <tr>
+                    <td colSpan={5} className="py-8 text-center text-muted-foreground">
+                      No emails sent yet
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
@@ -847,17 +1221,22 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
       {/* Opted-out users */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Opted-out users</CardTitle>
+          <CardTitle className="text-base">Unsubscribed</CardTitle>
         </CardHeader>
         <CardContent>
+          <p className="mb-3 text-xs text-muted-foreground">
+            Resubscribing overrides a person&rsquo;s own choice and is recorded in the
+            audit log. Use it when someone asks to come back.
+          </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b text-left text-muted-foreground">
                   <th className="pb-2 pr-4 font-medium">Name</th>
                   <th className="pb-2 pr-4 font-medium">Email</th>
-                  <th className="pb-2 pr-4 font-medium">Company</th>
-                  <th className="pb-2 font-medium">Opted out</th>
+                  <th className="pb-2 pr-4 font-medium">Unsubscribed from</th>
+                  <th className="pb-2 pr-4 font-medium">When</th>
+                  <th className="pb-2 font-medium" />
                 </tr>
               </thead>
               <tbody>
@@ -865,12 +1244,38 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
                   <tr key={u.id} className="border-b border-border/50 last:border-0">
                     <td className="py-2 pr-4 font-medium">{u.name}</td>
                     <td className="py-2 pr-4 text-muted-foreground">{u.email}</td>
-                    <td className="py-2 pr-4">{u.companyName ?? <span className="text-muted-foreground italic">none</span>}</td>
-                    <td className="py-2 text-muted-foreground">{timeAgo(u.updatedAt)}</td>
+                    <td className="py-2 pr-4">
+                      {u.allOff ? (
+                        <span className="rounded bg-muted px-1.5 py-0.5 text-xs">
+                          Everything optional
+                        </span>
+                      ) : (
+                        <span className="flex flex-wrap gap-1">
+                          {u.scopes.map((s) => (
+                            <span
+                              key={s}
+                              className="rounded bg-muted px-1.5 py-0.5 text-xs"
+                            >
+                              {scopeLabel(s)}
+                            </span>
+                          ))}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-2 pr-4 text-muted-foreground">
+                      {timeAgo(u.updatedAt)}
+                    </td>
+                    <td className="py-2">
+                      <ResubscribeButton userId={u.id} email={u.email} />
+                    </td>
                   </tr>
                 ))}
                 {data.optedOutUsers.length === 0 && (
-                  <tr><td colSpan={4} className="py-8 text-center text-muted-foreground">No users have opted out</td></tr>
+                  <tr>
+                    <td colSpan={5} className="py-8 text-center text-muted-foreground">
+                      No users have opted out
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>

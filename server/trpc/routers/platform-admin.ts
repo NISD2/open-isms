@@ -6,38 +6,45 @@
  * (which is company-scoped). This is a platform-level view across
  * ALL companies and users.
  */
-import { desc, count, eq, sql, and, isNotNull, gte, inArray } from "drizzle-orm";
-import { z } from "zod";
-import { randomUUID, randomBytes } from "node:crypto";
-import bcrypt from "bcryptjs";
-import { router, protectedProcedure } from "../init";
+
+import { randomBytes, randomUUID } from "node:crypto";
 import { TRPCError } from "@trpc/server";
+import bcrypt from "bcryptjs";
+import { and, count, desc, eq, gte, inArray, isNotNull, or, sql } from "drizzle-orm";
+import { z } from "zod";
+import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { mailSupportEmail } from "@/lib/env";
+import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
+import { computeScores } from "@/lib/gap-assessment/scoring";
 import {
-  user,
+  buildErasureCertificate,
+  erasureCertificateFilename,
+} from "@/lib/gdpr/certificate";
+import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
+import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
+import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
+import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
+import { loadEmailConsent } from "@/lib/mail/consent";
+import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
+import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
+import { rateLimit } from "@/lib/rate-limit";
+import { COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
+import {
   company,
   companyAssessment,
   companyRequirementStatus,
   complianceFramework,
-  trainingLessonProgress,
-  supplier,
-  notification,
-  gapAssessment,
   dataErasureLog,
+  emailPreference,
+  gapAssessment,
+  notification,
+  supplier,
+  trainingLessonProgress,
+  user,
 } from "@/schema";
-import { computeScores } from "@/lib/gap-assessment/scoring";
-import { getGapAssessmentData, answerMapSchema } from "@/lib/gap-assessment";
-import { loadCourse, COURSE_IDS } from "@/lib/training/course-loader";
-import { logAudit } from "@/lib/audit";
-import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
-import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/certificate";
-import { rateLimit } from "@/lib/rate-limit";
 import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
-import { resolveHints, HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
-import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
-import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
-import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
-import { mailSupportEmail } from "@/lib/env";
+import { protectedProcedure, router } from "../init";
 
 /**
  * Sends to one recipient in one UTC day at which the email dashboard flags
@@ -51,7 +58,8 @@ const MULTI_SEND_ALERT_PER_DAY = 3;
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
 // can be typed without ambiguity. `gitleaks:allow` flags it as a known
 // safe constant so EW-16's scan doesn't trip on the high-entropy alphabet.
-const SHARE_PASSWORD_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789"; // gitleaks:allow
+const SHARE_PASSWORD_ALPHABET =
+  "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789"; // gitleaks:allow
 
 function generateSharePassword(): string {
   const bytes = randomBytes(12);
@@ -176,7 +184,9 @@ export const platformAdminRouter = router({
     // (trainingCertificate.getCourseCompletion): every lesson of the CURRENT
     // course definition completed — hence the lessonId membership filter, so
     // progress on since-removed lessons cannot inflate the count.
-    const ceoLessonIds = (await loadCourse("nis2-ceo")).modules.flatMap((m) => m.lessonIds);
+    const ceoLessonIds = (await loadCourse("nis2-ceo")).modules.flatMap(
+      (m) => m.lessonIds,
+    );
 
     const [
       totalUsersRow,
@@ -189,12 +199,18 @@ export const platformAdminRouter = router({
       ceoStartedRow,
     ] = await Promise.all([
       ctx.db.select({ count: count() }).from(user),
-      ctx.db.select({ count: count() }).from(user).where(gte(user.createdAt, sevenDaysAgo)),
+      ctx.db
+        .select({ count: count() })
+        .from(user)
+        .where(gte(user.createdAt, sevenDaysAgo)),
       ctx.db.select({ count: count() }).from(company),
       // Real orgs = activated (non-draft) companies. Every verified user now
       // auto-gets a draft shell, so a raw company/companyId count no longer
       // measures real activation — filter on activatedAt.
-      ctx.db.select({ count: count() }).from(company).where(isNotNull(company.activatedAt)),
+      ctx.db
+        .select({ count: count() })
+        .from(company)
+        .where(isNotNull(company.activatedAt)),
       ctx.db
         .select({ count: count() })
         .from(user)
@@ -212,9 +228,13 @@ export const platformAdminRouter = router({
           ),
         )
         .groupBy(trainingLessonProgress.userId)
-        .having(sql`count(distinct ${trainingLessonProgress.lessonId}) = ${ceoLessonIds.length}`),
+        .having(
+          sql`count(distinct ${trainingLessonProgress.lessonId}) = ${ceoLessonIds.length}`,
+        ),
       ctx.db
-        .select({ count: sql<number>`count(distinct ${trainingLessonProgress.userId})::int` })
+        .select({
+          count: sql<number>`count(distinct ${trainingLessonProgress.userId})::int`,
+        })
         .from(trainingLessonProgress)
         .where(eq(trainingLessonProgress.courseId, "nis2-ceo")),
     ]);
@@ -315,7 +335,10 @@ export const platformAdminRouter = router({
         notStarted: sql<number>`count(*) FILTER (WHERE ${companyRequirementStatus.status} = 'not_started')::int`,
       })
       .from(companyRequirementStatus)
-      .innerJoin(companyAssessment, eq(companyRequirementStatus.assessmentId, companyAssessment.id))
+      .innerJoin(
+        companyAssessment,
+        eq(companyRequirementStatus.assessmentId, companyAssessment.id),
+      )
       .innerJoin(company, eq(companyAssessment.companyId, company.id))
       // NIS 2 only. Without this the totals read 101 or 103 per company -- the
       // sum of every framework a tenant was ever provisioned -- and understate
@@ -329,7 +352,11 @@ export const platformAdminRouter = router({
         ),
       )
       .groupBy(company.id, company.name)
-      .orderBy(desc(sql`count(*) FILTER (WHERE ${companyRequirementStatus.status} IN ('completed', 'approved'))`));
+      .orderBy(
+        desc(
+          sql`count(*) FILTER (WHERE ${companyRequirementStatus.status} IN ('completed', 'approved'))`,
+        ),
+      );
 
     return rows;
   }),
@@ -474,9 +501,7 @@ export const platformAdminRouter = router({
       ctx.db
         .select({ count: count() })
         .from(notification)
-        .where(
-          and(eq(notification.channel, "email"), eq(notification.status, "sent")),
-        ),
+        .where(and(eq(notification.channel, "email"), eq(notification.status, "sent"))),
       ctx.db
         .select({ count: count() })
         .from(notification)
@@ -506,11 +531,13 @@ export const platformAdminRouter = router({
         .from(notification)
         .leftJoin(user, eq(notification.recipientId, user.id))
         .leftJoin(company, eq(notification.companyId, company.id))
-        .where(
-          and(eq(notification.channel, "email"), eq(notification.status, "sent")),
-        )
+        .where(and(eq(notification.channel, "email"), eq(notification.status, "sent")))
         .orderBy(desc(notification.sentAt))
         .limit(100),
+      // Everyone who has switched something off: the legacy all-off boolean
+      // OR any per-scope row. A person with only scope rows is just as
+      // unsubscribed as one with the boolean, and the admin view has to show
+      // both or the resubscribe button will not find them.
       ctx.db
         .select({
           id: user.id,
@@ -518,10 +545,18 @@ export const platformAdminRouter = router({
           name: user.name,
           companyName: company.name,
           updatedAt: user.updatedAt,
+          allOff: user.emailFollowupsDisabled,
+          scopes: sql<
+            string[]
+          >`COALESCE(array_agg(${emailPreference.scope}) FILTER (WHERE ${emailPreference.scope} IS NOT NULL), '{}')`,
         })
         .from(user)
         .leftJoin(company, eq(user.companyId, company.id))
-        .where(eq(user.emailFollowupsDisabled, true))
+        .leftJoin(emailPreference, eq(emailPreference.userId, user.id))
+        .where(
+          or(eq(user.emailFollowupsDisabled, true), isNotNull(emailPreference.scope)),
+        )
+        .groupBy(user.id, user.email, user.name, company.name, user.updatedAt)
         .orderBy(desc(user.updatedAt)),
       ctx.db
         .select({
@@ -529,9 +564,7 @@ export const platformAdminRouter = router({
           c: count(),
         })
         .from(notification)
-        .where(
-          and(eq(notification.channel, "email"), eq(notification.status, "sent")),
-        )
+        .where(and(eq(notification.channel, "email"), eq(notification.status, "sent")))
         .groupBy(notification.entityType),
       // Daily send volume, last 14 days. sent_at stores UTC wall time, so
       // to_char on the bare column groups by UTC day without timezone math.
@@ -679,10 +712,25 @@ export const platformAdminRouter = router({
     if (!sample) {
       throw new TRPCError({ code: "NOT_FOUND", message: "Calling user not found." });
     }
-    // internal.test_send, not product.lifecycle_nudge: an admin asking to see
-    // the email must get it even if they have switched that message off.
+    // Sent as the REAL message type, so the consent gate applies exactly as it
+    // would to a customer. An earlier version sent this as internal.test_send
+    // to guarantee the admin saw it; that made the test useless as a test —
+    // it delivered to an admin who had unsubscribed, which reads as a broken
+    // unsubscribe rather than as a bypass. Refusing and saying why is more
+    // honest, and the caller can resubscribe themselves in one click.
+    const consent = await loadEmailConsent(ctx.db, ctx.userId);
+    if (!consent.allows("product.lifecycle_nudge")) {
+      return {
+        to: sample.to,
+        sent: false as const,
+        reason: "opted-out" as const,
+        suppressed: false,
+      };
+    }
     const res = await sendMail({
-      emailType: "internal.test_send",
+      emailType: "product.lifecycle_nudge",
+      recipientUserId: ctx.userId,
+      db: ctx.db,
       to: sample.to,
       subject: `[Test] ${sample.subject}`,
       html: sample.html,
@@ -690,12 +738,122 @@ export const platformAdminRouter = router({
       replyTo: mailSupportEmail(),
     });
     if (!res.success) {
-      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Test send failed." });
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Test send failed.",
+      });
     }
     // res.id carries a sentinel instead of a Resend id when delivery was
     // suppressed (dev block / DISABLE_EMAIL / no API key).
-    return { to: sample.to, suppressed: isSuppressedSendId(res.id) };
+    return {
+      to: sample.to,
+      sent: true as const,
+      reason: null,
+      suppressed: "id" in res ? isSuppressedSendId(res.id) : false,
+    };
   }),
+
+  /**
+   * Who the activation nudge would go to right now, without sending.
+   *
+   * The same selection the sender uses, run in dry-run mode, so the list an
+   * operator approves is the list that ships — not a second implementation
+   * of "who is eligible" that could drift from the first.
+   */
+  lifecycleQueue: platformAdminProcedure.query(async ({ ctx }) => {
+    const result = await runLifecycleEmails(ctx.db, { dryRun: true });
+    if (result.skipped !== undefined) {
+      return { available: false as const, reason: result.skipped, types: [] };
+    }
+    return {
+      available: true as const,
+      reason: null,
+      types: Object.entries(result.types).map(([key, stats]) => ({
+        key,
+        prepared: stats.prepared,
+        error: stats.error ?? null,
+        recipients: (stats.wouldSend ?? []).map((r) => ({
+          to: r.to,
+          subject: r.subject,
+        })),
+      })),
+    };
+  }),
+
+  /**
+   * Send the next `limit` queued lifecycle emails, oldest-dormant first.
+   *
+   * Manual by design: nisd2.eu does not schedule the lifecycle cron, so
+   * nothing leaves the building unless a person presses the button. The
+   * at-most-once claim still guards every recipient, so pressing twice
+   * cannot double-send — the second press simply finds fewer people queued.
+   */
+  sendLifecycleBatch: platformAdminProcedure
+    .input(z.object({ limit: z.number().int().min(1).max(100) }))
+    .mutation(async ({ ctx, input }) => {
+      const result = await runLifecycleEmails(ctx.db, { maxPerType: input.limit });
+      logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "email.lifecycle_batch_sent",
+        entityType: "system",
+        entityId: null,
+        description: `Platform admin sent a lifecycle batch (limit ${input.limit}): ${JSON.stringify(result, (k, v) => (k === "wouldSend" ? undefined : v))}`,
+      });
+      if (result.skipped !== undefined) {
+        return { skipped: result.skipped, sent: 0, failed: 0, deferred: 0 };
+      }
+      const totals = Object.values(result.types).reduce(
+        (acc, s) => ({
+          sent: acc.sent + s.sent,
+          failed: acc.failed + s.failed,
+          deferred: acc.deferred + s.deferred,
+        }),
+        { sent: 0, failed: 0, deferred: 0 },
+      );
+      return { skipped: null, ...totals };
+    }),
+
+  /**
+   * Put somebody back on the list, by hand.
+   *
+   * Clears both switches: the legacy all-off boolean and every per-scope
+   * opt-out row. Anything less would leave a person who looks resubscribed
+   * in the admin view still silently filtered at send time.
+   *
+   * This is an operator override of a recipient's own choice, so it writes an
+   * audit row naming the admin who did it. Use it for people who ask to come
+   * back, not to undo unsubscribes in bulk.
+   */
+  resubscribeUser: platformAdminProcedure
+    .input(z.object({ userId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const target = await ctx.db.query.user.findFirst({
+        where: eq(user.id, input.userId),
+        columns: { id: true, email: true, companyId: true },
+      });
+      if (!target) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "User not found." });
+      }
+      await ctx.db
+        .update(user)
+        .set({ emailFollowupsDisabled: false, updatedAt: new Date() })
+        .where(eq(user.id, target.id));
+      const removed = await ctx.db
+        .delete(emailPreference)
+        .where(eq(emailPreference.userId, target.id))
+        .returning({ id: emailPreference.id });
+
+      logAudit({
+        companyId: target.companyId,
+        userId: ctx.userId,
+        action: "email.resubscribed_by_admin",
+        entityType: "user",
+        entityId: target.id,
+        description: `Platform admin resubscribed ${target.email} to all optional email (${removed.length} scope opt-out(s) cleared)`,
+      });
+      return { email: target.email, scopesCleared: removed.length };
+    }),
 
   /** Supplier portal activity — companies acting as suppliers */
   supplierActivity: platformAdminProcedure.query(async ({ ctx }) => {
@@ -743,7 +901,10 @@ export const platformAdminRouter = router({
         })
         .returning({ id: company.id });
       if (!newCompany) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Company insert returned no rows" });
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Company insert returned no rows",
+        });
       }
 
       const [assessment] = await ctx.db
@@ -754,7 +915,10 @@ export const platformAdminRouter = router({
         })
         .returning({ id: gapAssessment.id });
       if (!assessment) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Assessment insert returned no rows" });
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Assessment insert returned no rows",
+        });
       }
 
       return { assessmentId: assessment.id, companyId: newCompany.id };
@@ -795,7 +959,8 @@ export const platformAdminRouter = router({
       if (Object.keys(answers).length === 0) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: "Cannot publish an assessment with no answers. Fill in at least one question first.",
+          message:
+            "Cannot publish an assessment with no answers. Fill in at least one question first.",
         });
       }
 
@@ -888,7 +1053,8 @@ export const platformAdminRouter = router({
       if (isPlatformAdmin(target.email)) {
         throw new TRPCError({
           code: "FORBIDDEN",
-          message: "Refusing to erase a platform-admin account. Remove them from PLATFORM_ADMIN_EMAILS first.",
+          message:
+            "Refusing to erase a platform-admin account. Remove them from PLATFORM_ADMIN_EMAILS first.",
         });
       }
       if (target.email.trim().toLowerCase() !== input.confirmEmail.trim().toLowerCase()) {
