@@ -26,6 +26,7 @@ import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { loadEmailConsent } from "@/lib/mail/consent";
+import { buildDigestQueue, sendDigestBatch } from "@/lib/mail/digest-outbox";
 import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
@@ -812,6 +813,31 @@ export const platformAdminRouter = router({
         { sent: 0, failed: 0, deferred: 0 },
       );
       return { skipped: null, ...totals };
+    }),
+
+  /**
+   * The deadline digests waiting to go out, with the numbers each one would
+   * carry. Same builder the sender uses, so the list is the list.
+   */
+  digestQueue: platformAdminProcedure.query(async ({ ctx }) => {
+    const queue = await buildDigestQueue(ctx.db);
+    return {
+      total: queue.length,
+      items: queue.map((q) => ({
+        kind: q.kind,
+        email: q.email,
+        companyName: q.companyName,
+        subject: q.subject,
+        summary: q.summary,
+      })),
+    };
+  }),
+
+  /** Send the first `limit` queued digests. Manual by design; see the outbox. */
+  sendDigestBatch: platformAdminProcedure
+    .input(z.object({ limit: z.number().int().min(1).max(100) }))
+    .mutation(async ({ ctx, input }) => {
+      return sendDigestBatch(ctx.db, input.limit, ctx.userId);
     }),
 
   /**

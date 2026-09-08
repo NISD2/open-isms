@@ -75,17 +75,22 @@ export function PreferenceForm({
 
   return (
     <div className="space-y-6">
+      {/* Every switch on this page means the same thing: ticked = you receive
+          it. An earlier version had this master switch inverted (ticked =
+          unsubscribe from everything) while the ones below meant the
+          opposite, which is how somebody ends up subscribing when they meant
+          to leave. One polarity, no exceptions. */}
       <label className="flex items-start gap-3 rounded-lg border border-border p-4">
         <input
           type="checkbox"
           className="mt-1 h-4 w-4"
-          checked={allOff}
-          onChange={(e) => toggle("all", !e.target.checked)}
+          checked={!allOff}
+          onChange={(e) => toggle("all", e.target.checked)}
         />
         <span>
-          <span className="font-medium">{copy.allOffTitle}</span>
+          <span className="font-medium">{copy.allOnTitle}</span>
           <span className="block text-sm text-muted-foreground">
-            {copy.allOffDescription}
+            {copy.allOnDescription}
           </span>
         </span>
       </label>

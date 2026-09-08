@@ -529,6 +529,121 @@ function LifecycleQueuePanel() {
   );
 }
 
+/**
+ * The deadline digests waiting to go out. Same shape as the lifecycle
+ * console: see who, choose how many, press send. These used to leave from
+ * the nightly cron; they no longer do.
+ */
+function DigestQueuePanel() {
+  const utils = trpc.useUtils();
+  const [limit, setLimit] = useState(1);
+  const queue = trpc.platformAdmin.digestQueue.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+  });
+  const send = trpc.platformAdmin.sendDigestBatch.useMutation({
+    onSuccess: (r) => {
+      if (r.skipped) {
+        toast.warning(`Nothing sent: ${r.skipped}`);
+      } else {
+        toast.success(
+          `Sent ${r.sent}${r.failed ? `, ${r.failed} failed` : ""}${r.deferred ? `, ${r.deferred} still queued` : ""}`,
+        );
+      }
+      void utils.platformAdmin.digestQueue.invalidate();
+      void utils.platformAdmin.emailActivity.invalidate();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const total = queue.data?.total ?? 0;
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">
+          Deadline digests
+          {total > 0 && (
+            <span className="ml-2 rounded bg-muted px-1.5 py-0.5 text-xs font-medium">
+              {total} waiting
+            </span>
+          )}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <p className="text-xs text-muted-foreground">
+          Daily summaries and the weekly management report. Only people with something to
+          report and who have not unsubscribed appear here. Each is rebuilt at the moment
+          you send, so the numbers are never stale.
+        </p>
+
+        {queue.isLoading && (
+          <p className="text-sm text-muted-foreground">Building digests...</p>
+        )}
+        {queue.isError && (
+          <p className="text-sm text-destructive">
+            Could not build the queue: {queue.error.message}
+          </p>
+        )}
+        {queue.data && total === 0 && (
+          <p className="text-sm text-muted-foreground">
+            Nothing to send — no company has open items worth a digest today.
+          </p>
+        )}
+
+        {total > 0 && (
+          <div className="max-h-48 overflow-y-auto rounded border border-border">
+            <table className="w-full text-sm">
+              <tbody>
+                {queue.data?.items.map((item) => (
+                  <tr
+                    key={`${item.kind}:${item.email}:${item.companyName}`}
+                    className="border-b border-border/50 last:border-0"
+                  >
+                    <td className="py-1.5 pl-3 pr-2">
+                      <span className="rounded bg-muted px-1.5 py-0.5 text-xs">
+                        {item.kind}
+                      </span>
+                    </td>
+                    <td className="py-1.5 pr-4">{item.email}</td>
+                    <td className="py-1.5 pr-4 text-muted-foreground">
+                      {item.companyName}
+                    </td>
+                    <td className="py-1.5 pr-3 text-muted-foreground">{item.summary}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4">
+          <label className="text-sm text-muted-foreground" htmlFor="digest-limit">
+            How many to send
+          </label>
+          <input
+            id="digest-limit"
+            type="number"
+            min={1}
+            max={100}
+            value={limit}
+            onChange={(e) =>
+              setLimit(Math.min(100, Math.max(1, Number(e.target.value) || 1)))
+            }
+            className="w-20 rounded border border-border bg-background px-2 py-1 text-sm"
+          />
+          <Button
+            size="sm"
+            onClick={() => send.mutate({ limit })}
+            disabled={send.isPending || total === 0}
+          >
+            {send.isPending ? "Sending..." : `Send ${Math.min(limit, total)} now`}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 function ResubscribeButton({ userId, email }: { userId: string; email: string }) {
   const utils = trpc.useUtils();
   const resubscribe = trpc.platformAdmin.resubscribeUser.useMutation({
@@ -1020,8 +1135,10 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
 
   return (
     <div className="space-y-6">
-      {/* The send console: review the queue, choose how many, press send. */}
+      {/* The send consoles: review the queue, choose how many, press send.
+          Nothing on this page goes out on a timer. */}
       <LifecycleQueuePanel />
+      <DigestQueuePanel />
 
       {/* KPI strip */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">

@@ -184,8 +184,14 @@ export const PAGE_COPY: Record<
   {
     title: string;
     intro: string;
-    allOffTitle: string;
-    allOffDescription: string;
+    /**
+     * Phrased as what ticking the box DOES, because every switch on the page
+     * means "ticked = you receive it". A label that said "unsubscribe from
+     * everything" on a box that means "subscribed" is how people leave when
+     * they meant to stay, or the reverse.
+     */
+    allOnTitle: string;
+    allOnDescription: string;
     alwaysSent: string;
     saved: string;
     failed: string;
@@ -197,9 +203,9 @@ export const PAGE_COPY: Record<
     title: "E-Mail-Einstellungen",
     intro:
       "Wählen Sie, welche E-Mails Sie von nisd2.eu erhalten. Änderungen gelten sofort.",
-    allOffTitle: "Alle optionalen E-Mails abbestellen",
-    allOffDescription:
-      "Sie erhalten dann nur noch das Nötigste: Anmeldecodes, Sicherheitshinweise und Kontoänderungen.",
+    allOnTitle: "Optionale E-Mails erhalten",
+    allOnDescription:
+      "Abwählen heißt: nur noch das Nötigste, also Anmeldecodes, Sicherheitshinweise und Kontoänderungen.",
     alwaysSent: "Wird immer gesendet",
     saved: "Gespeichert",
     failed: "Konnte nicht gespeichert werden. Bitte erneut versuchen.",
@@ -210,9 +216,9 @@ export const PAGE_COPY: Record<
   en: {
     title: "Email settings",
     intro: "Choose which emails you get from nisd2.eu. Changes take effect immediately.",
-    allOffTitle: "Unsubscribe from all optional emails",
-    allOffDescription:
-      "You will only keep the essentials: sign-in codes, security notices and account changes.",
+    allOnTitle: "Receive optional emails",
+    allOnDescription:
+      "Unticking this keeps only the essentials: sign-in codes, security notices and account changes.",
     alwaysSent: "Always sent",
     saved: "Saved",
     failed: "Could not save. Please try again.",
@@ -223,9 +229,9 @@ export const PAGE_COPY: Record<
   nl: {
     title: "E-mailinstellingen",
     intro: "Kies welke e-mails u van nisd2.eu ontvangt. Wijzigingen gaan meteen in.",
-    allOffTitle: "Afmelden voor alle optionele e-mails",
-    allOffDescription:
-      "U houdt alleen het noodzakelijke: aanmeldcodes, beveiligingsmeldingen en accountwijzigingen.",
+    allOnTitle: "Optionele e-mails ontvangen",
+    allOnDescription:
+      "Uitvinken betekent: alleen nog het noodzakelijke, dus aanmeldcodes, beveiligingsmeldingen en accountwijzigingen.",
     alwaysSent: "Wordt altijd verzonden",
     saved: "Opgeslagen",
     failed: "Opslaan mislukt. Probeer het opnieuw.",
