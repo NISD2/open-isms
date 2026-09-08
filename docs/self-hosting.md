@@ -53,7 +53,7 @@ Verify the instance is actually healthy, not just serving:
 
 ```bash
 curl -s http://localhost:3026/api/health
-# {"status":"ok","version":"0.2.8","composeRevision":"1","checks":{"database":"ok"}}
+# {"status":"ok","version":"0.2.8","composeRevision":"2","checks":{"database":"ok"}}
 ```
 
 The bundled Caddyfile answers 404 for this path on the public side, so the
@@ -222,19 +222,18 @@ Port 587 opens in the clear and upgrades with STARTTLS, which is what most relay
 
 ### Trying it without any mail account at all
 
-`--profile mail` starts a Mailpit container that accepts everything the app sends and shows it in a web inbox. Nothing leaves the machine.
+The `mail` profile starts a Mailpit container that accepts everything the app sends and shows it in a web inbox. Nothing leaves the machine.
+
+Add it to `COMPOSE_PROFILES` in `.env` and point the app at it:
 
 ```bash
-docker compose --profile mail up -d
-```
-
-with this in `.env`:
-
-```bash
+COMPOSE_PROFILES=minio,backup,mail
 SMTP_HOST=mailpit
 SMTP_PORT=1025
 MAIL_FROM_EMAIL=noreply@example.test
 ```
+
+then `docker compose up -d`. (Building from source with the repository's own `docker-compose.yml` instead? Same thing, spelled `docker compose --profile mail up -d`.)
 
 Register in the browser, then open <http://localhost:8025> and read the code out of the inbox. Mailpit holds mail in memory, so restarting it empties the inbox, and its SMTP port stays on the compose network rather than being published to your host. It is for evaluating the stack, not for running it: it cannot deliver to a real address.
 
