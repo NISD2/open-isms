@@ -740,17 +740,21 @@ export function RequirementDetail({
                   <dd className="text-xs">{requirement.frequency}</dd>
                 </div>
               )}
-              {status.nextReviewDate && (
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">{t("requirement.deadline")}</dt>
-                  <dd>
-                    <DeadlineBadge
-                      nextReviewDate={status.nextReviewDate}
-                      frequency={requirement.frequency}
-                    />
-                  </dd>
-                </div>
-              )}
+              {status.nextReviewDate &&
+                ["completed", "approved", "needs_review"].includes(
+                  status.currentStatus,
+                ) && (
+                  <div className="flex items-center justify-between">
+                    <dt className="text-muted-foreground">{t("requirement.deadline")}</dt>
+                    <dd>
+                      <DeadlineBadge
+                        nextReviewDate={status.nextReviewDate}
+                        frequency={requirement.frequency}
+                        status={status.currentStatus}
+                      />
+                    </dd>
+                  </div>
+                )}
               {requirement.importance === "mandatory" && (
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">{t("requirement.importance")}</dt>

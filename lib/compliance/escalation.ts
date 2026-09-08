@@ -1,7 +1,8 @@
 /**
  * Escalation Engine — Smart escalation for overdue compliance requirements
  *
- * Mirrors NIS2 Art. 38 chain of responsibility:
+ * Escalation chain, ending at management per Art. 20 NIS 2 / §38 BSIG
+ * (implement and supervise the risk-management measures):
  *   Level 0: assignee (reminders before/at deadline)
  *   Level 1: category_lead (on due date)
  *   Level 2: admin (7d overdue)

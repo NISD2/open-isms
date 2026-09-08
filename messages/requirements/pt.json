@@ -46,7 +46,7 @@
   "11_2": { "title": "Comunicações Seguras e de Emergência", "description": "Comunicações Seguras e de Emergência" },
   "11_3": { "title": "Normas de Autenticação", "description": "Normas de Autenticação" },
   "12_1": { "title": "Classificação e Âmbito NIS2", "description": "Classificação e Âmbito NIS2" },
-  "12_2": { "title": "Registo no BSI", "description": "Registo no BSI" },
+  "12_2": { "title": "Registo no BSI", "description": "Criar a conta MUK, concluir o registo no portal do BSI e transmitir todos os dados obrigatórios. Prazo legal: o mais tardar três meses depois de a empresa ser considerada pela primeira vez uma entidade essencial ou importante (§33(1) BSIG). Para as entidades abrangidas desde a entrada em vigor da BSIG em 6 de dezembro de 2025, esse prazo terminou em 6 de março de 2026; o registo é então imediatamente devido." },
   "12_3": { "title": "Manutenção do Registo", "description": "Manutenção do Registo" },
   "12_4": { "title": "Evidências de conformidade", "description": "Evidências de conformidade" },
   "G-DPA_1": { "title": "Contratos de Tratamento de Dados", "description": "Mantenha um registo de cada subcontratante que trata dados pessoais por sua conta, com um DPA assinado que cubra as oito cláusulas do art. 28.o, n.o 3." },

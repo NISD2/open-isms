@@ -21,12 +21,16 @@ import { getNis2Assessment } from "../helpers/nis2-scope";
 /**
  * Statuses where companyRequirementStatus.nextReviewDate is a recurring REVIEW
  * date (vs the initial implementation deadline written to not-done rows by
- * backfillInitialDeadlines / the deadlines cron). completed/approved only: a
- * needs_review item surfaces via the separate "Awaiting" signal instead, so it
- * is not double-counted as both awaiting and review-due.
+ * backfillInitialDeadlines / the deadlines cron). Includes needs_review: the
+ * cron is the only writer of that status, flipping a completed/approved item
+ * whose review date passed, so its date is a real review deadline. This
+ * matches dashboard.ts and digest.ts — before, the dashboard counted a
+ * cron-flipped item as overdue while this router filed it under "awaiting",
+ * and the two headline numbers disagreed. Double-counting is avoided in the
+ * aggregate below: an overdue needs_review item counts as overdue only.
  */
 function isReviewStatus(s: string): boolean {
-  return s === "completed" || s === "approved";
+  return s === "completed" || s === "approved" || s === "needs_review";
 }
 
 /**
@@ -201,7 +205,14 @@ export const journeyRouter = router({
     const aggregate = {
       total: items.length,
       done: items.filter((i) => isDoneStatus(i.status)).length,
-      awaitingSignoff: items.filter((i) => i.status === "needs_review").length,
+      // Partition, not overlap: a needs_review item past its review date
+      // counts as overdue below, so "awaiting" holds only the ones whose
+      // review is not (yet) late.
+      awaitingSignoff: items.filter(
+        (i) =>
+          i.status === "needs_review" &&
+          (i.dueInDays === null || i.dueInDays >= 0),
+      ).length,
       // Recurring-review cycle (only on review-status items, so a never-done
       // item past its initial deadline is NOT mislabelled "review overdue").
       overdue: items.filter((i) => i.dueInDays !== null && i.dueInDays < 0)

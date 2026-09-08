@@ -20,10 +20,17 @@ import {
 } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 import { daysUntilDeadline } from "./deadlines";
+import { isDoneStatus, journeyPosition } from "./journey-position";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
+
+export interface NextJourneyStep {
+  requirementCode: string;
+  requirementTitle: string;
+  url: string;
+}
 
 export interface DigestData {
   recipientId: string;
@@ -34,6 +41,8 @@ export interface DigestData {
   overdueItems: DigestItem[];
   urgentItems: DigestItem[];
   upcomingItems: DigestItem[];
+  /** First open requirement in journey order; null when the path is done. */
+  nextStep: NextJourneyStep | null;
   compliancePercentage: string;
   dashboardUrl: string;
 }
@@ -50,7 +59,62 @@ export interface ManagementDigestData {
   escalationCount: number;
   totalRequirements: number;
   completedRequirements: number;
+  /** First open requirement in journey order; null when the path is done. */
+  nextStep: NextJourneyStep | null;
   dashboardUrl: string;
+}
+
+// ---------------------------------------------------------------------------
+// Next journey step — shared by both digests
+// ---------------------------------------------------------------------------
+
+function requirementTitle(code: string): string {
+  return (
+    requirementsEn.requirements[
+      code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements
+    ]?.title ?? code
+  );
+}
+
+/**
+ * The first not-done requirement in journey order — the same
+ * category-weighted order the path view and the activation-nudge email use
+ * (journeyPosition), so every email names the step the journey page
+ * highlights when the reader clicks through.
+ */
+async function findNextJourneyStep(
+  db: Database,
+  assessmentIds: string[],
+): Promise<NextJourneyStep | null> {
+  const rows = await db.query.companyRequirementStatus.findMany({
+    where: inArray(companyRequirementStatus.assessmentId, assessmentIds),
+    columns: { status: true },
+    with: {
+      requirement: {
+        columns: { code: true, sortOrder: true },
+        with: { category: { columns: { slug: true, sortOrder: true } } },
+      },
+    },
+  });
+
+  const next = rows
+    .filter((r) => !isDoneStatus(r.status))
+    .map((r) => ({
+      code: r.requirement.code,
+      slug: r.requirement.category?.slug ?? "unknown",
+      position: journeyPosition(
+        r.requirement.category?.sortOrder,
+        r.requirement.sortOrder,
+      ),
+    }))
+    .sort((a, b) => a.position - b.position || a.code.localeCompare(b.code))[0];
+
+  if (!next) return null;
+  return {
+    requirementCode: next.code,
+    requirementTitle: requirementTitle(next.code),
+    url: `${getAppUrl()}/compliance/${next.slug}#${next.code}`,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -142,13 +206,7 @@ export async function compileDailyDigest(
 
     const item: DigestItem = {
       requirementCode: s.requirement.code,
-      requirementTitle:
-        requirementsEn.requirements[
-          s.requirement.code.replace(
-            /\./g,
-            "_",
-          ) as keyof typeof requirementsEn.requirements
-        ]?.title ?? s.requirement.code,
+      requirementTitle: requirementTitle(s.requirement.code),
       deadline: s.nextReviewDate,
       daysRemaining: days,
       urgency:
@@ -188,6 +246,7 @@ export async function compileDailyDigest(
     overdueItems,
     urgentItems,
     upcomingItems,
+    nextStep: await findNextJourneyStep(db, assessmentIds),
     compliancePercentage: pct,
     dashboardUrl: `${appUrl}/`,
   };
@@ -252,7 +311,11 @@ export async function compileManagementDigest(
 
   const assessmentIds = assessments.map((a) => a.id);
 
-  // Count overdue
+  // Count overdue. Review-relevant statuses only, matching the daily digest
+  // and the dashboard: on not-done rows nextReviewDate holds the initial
+  // implementation deadline (an internal pacing plan, not a review), so
+  // without this filter a company that never entered anything was mailed a
+  // weekly report claiming N items "overdue" against dates it never set.
   let overdueCount = 0;
   let urgentCount = 0;
 
@@ -261,6 +324,11 @@ export async function compileManagementDigest(
       where: and(
         inArray(companyRequirementStatus.assessmentId, assessmentIds),
         sql`${companyRequirementStatus.nextReviewDate} IS NOT NULL`,
+        inArray(companyRequirementStatus.status, [
+          "completed",
+          "approved",
+          "needs_review",
+        ]),
       ),
       columns: { nextReviewDate: true },
     });
@@ -295,6 +363,7 @@ export async function compileManagementDigest(
     escalationCount: escalationRows.length,
     totalRequirements: totalReq,
     completedRequirements: completedReq,
+    nextStep: await findNextJourneyStep(db, assessmentIds),
     dashboardUrl: `${getAppUrl()}/`,
   };
 }

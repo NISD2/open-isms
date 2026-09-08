@@ -2,8 +2,17 @@
  * Deadline Math Engine — Pure date computation for compliance deadlines
  *
  * Zero side effects. All functions are deterministic and easily testable.
- * This is the most legally critical code in the platform — under NIS2 Art. 38,
- * management faces personal liability for missed compliance deadlines.
+ *
+ * Two distinct kinds of date come out of here and must not be conflated:
+ * computeInitialDeadline is the platform's own onboarding pacing (P0-P3
+ * tiers from the assessment start — no statute phases anything in; §30 BSIG
+ * measures are simply due), while computeNextReviewDate is the recurring
+ * review cadence. Of the cadences, only a few are statutory intervals (CIR
+ * (EU) 2024/2690 Annex 1.1.2, 2.1.4, 10.1.3 "at least annually"; 3.4.2(b)
+ * quarterly); the rest implement the Annex's "at planned intervals" with a
+ * cadence the platform adopts. Management accountability sits in Art. 20
+ * NIS 2 / §38 BSIG and attaches to implementing and supervising the
+ * measures, not to these dates.
  */
 import {
   addMonths,

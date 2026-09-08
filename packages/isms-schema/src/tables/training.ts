@@ -2,7 +2,8 @@
  * Training — Employee and management training records
  *
  * Domain 08: Cyber hygiene and training (8.1 through 8.12)
- * Key: §38(3) BSIG mandates management cybersecurity training every 3 years.
+ * Key: §38(3) BSIG mandates that management attend cybersecurity training
+ * "regelmäßig" — the statute names no interval, so never claim one.
  *
  * References: companies, users
  */

@@ -46,7 +46,7 @@
   "11_2": { "title": "Comunicazioni sicure e di emergenza", "description": "Comunicazioni sicure e di emergenza" },
   "11_3": { "title": "Standard di autenticazione", "description": "Standard di autenticazione" },
   "12_1": { "title": "Classificazione e ambito NIS2", "description": "Classificazione e ambito NIS2" },
-  "12_2": { "title": "Registrazione presso il BSI", "description": "Registrazione presso il BSI" },
+  "12_2": { "title": "Registrazione presso il BSI", "description": "Creare l'account MUK, completare la registrazione nel portale BSI e trasmettere tutti i dati obbligatori. Termine di legge: al più tardi tre mesi dopo che l'azienda è considerata per la prima volta un soggetto essenziale o importante (§33(1) BSIG). Per i soggetti rientranti nell'ambito di applicazione dall'entrata in vigore della BSIG il 6 dicembre 2025, tale termine è scaduto il 6 marzo 2026; la registrazione è quindi immediatamente dovuta." },
   "12_3": { "title": "Mantenimento della registrazione", "description": "Mantenimento della registrazione" },
   "12_4": { "title": "Evidenze di conformità", "description": "Evidenze di conformità" },
   "G-DPA_1": { "title": "Accordi sul trattamento dei dati", "description": "Mantieni un registro di ogni responsabile del trattamento che gestisce dati personali per tuo conto, con un DPA firmato che copra le otto clausole dell'art. 28(3)." },
