@@ -7,12 +7,8 @@ export {
   categoryUnassignedEmail,
   contactEmailChangedEmail,
   reviewDecisionEmail,
-  deadlineReminderEmail,
-  deadlineUrgentEmail,
-  deadlineOverdueEmail,
   dailyDigestEmail,
   weeklyManagementDigestEmail,
-  escalationEmail,
   supplierIncidentBroadcastEmail,
   supplierAddedYouEmail,
   entityInvitesSupplierEmail,
@@ -22,4 +18,5 @@ export {
   emailVerificationCodeEmail,
   passwordResetCodeEmail,
   type DigestItem,
+  type DigestNextStep,
 } from "./templates";

@@ -12,7 +12,17 @@ import type { Frequency } from "@/lib/compliance/deadlines";
 interface DeadlineBadgeProps {
   nextReviewDate: string | null;
   frequency: string;
+  status: string;
 }
+
+/**
+ * nextReviewDate is only a review deadline on these statuses. On not-done
+ * rows the same column holds the initial implementation deadline — an
+ * internal pacing plan seeded from the priority tier, not a date the company
+ * set and not a statutory one — so a never-touched item must not render a
+ * red "overdue" badge. Matches journey.ts / dashboard.ts / digest.ts.
+ */
+const REVIEW_STATUSES = new Set(["completed", "approved", "needs_review"]);
 
 const URGENCY_COLORS = {
   green: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400",
@@ -28,10 +38,14 @@ function getColorBand(days: number): keyof typeof URGENCY_COLORS {
   return "green";
 }
 
-export function DeadlineBadge({ nextReviewDate, frequency }: DeadlineBadgeProps) {
+export function DeadlineBadge({ nextReviewDate, frequency, status }: DeadlineBadgeProps) {
   const t = useTranslations("compliance");
 
-  if (!nextReviewDate || !isRecurringFrequency(frequency as Frequency)) {
+  if (
+    !nextReviewDate ||
+    !isRecurringFrequency(frequency as Frequency) ||
+    !REVIEW_STATUSES.has(status)
+  ) {
     return null;
   }
 

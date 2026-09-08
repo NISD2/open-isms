@@ -34,8 +34,16 @@ export const nis2Categories: FrameworkCategory[] = [
 // directly (§30(3) BSIG); for other entities it is the platform's adopted structure.
 const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   governance: () => [
+    // §38(3) says "regelmäßig" and names NO interval. The 3-year cadence is
+    // the platform's labeled recommendation, carried with exactly that caveat
+    // in the requirement description ("The law sets no fixed interval;
+    // recommendation: ..."). Never present it as statutory.
     mkReq("1.1", "training", { priority: "P1", frequency: "every-3-years", legalRef: "§38(3) BSIG", frameworkRef: "Art. 20(2)" }),
-    mkReq("1.2", "proof", { priority: "P1", frequency: "on-change", legalRef: "§30(1) BSIG, CIR 1.2", frameworkRef: "Art. 21(2)(a)", cirReference: "1.2" }),
+    // Annual is statutory here: CIR 10.1.3 requires the assignment of
+    // personnel to the roles of point 1.2 to be reviewed "at planned
+    // intervals and at least annually" — one of the Annex's three
+    // at-least-annually floors (1.1.2, 2.1.4, 10.1.3).
+    mkReq("1.2", "proof", { priority: "P1", frequency: "annual", legalRef: "§30(1) BSIG, CIR 1.2, CIR 10.1.3", frameworkRef: "Art. 21(2)(a)", cirReference: "1.2, 10.1.3" }),
     mkReq("1.3", "proof", { priority: "P1", frequency: "annual", legalRef: "§38(1) BSIG, CIR 1.1.1(e)", frameworkRef: "Art. 20(1)", cirReference: "1.1.1(e)", requiredSignOffRole: "ceo" }),
     mkReq("1.4", "sign-off", { frequency: "on-change", legalRef: "§38(2) BSIG", frameworkRef: "Art. 20(1)", requiredSignOffRole: "ceo" }),
   ],
@@ -107,7 +115,11 @@ const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   registration: () => [
     mkReq("12.1", "document", { priority: "P0", frequency: "on-change", legalRef: "§28, §33(1) BSIG", frameworkRef: "Art. 3(1)-(2)" }),
     mkReq("12.2", "proof", { priority: "P0", frequency: "one-time", legalRef: "§33(1) BSIG", frameworkRef: "Art. 3(3)-(4)" }),
-    mkReq("12.3", "proof", { priority: "P1", frequency: "annual", legalRef: "§33(5) BSIG", frameworkRef: "Art. 3(4)" }),
+    // §33(5) is event-driven, not annual: changes to the registered data go
+    // to the BSI unverzüglich, at latest two weeks after the entity learns
+    // of the change. An annual re-check invented a cadence the law does not
+    // have while hiding the hard two-week window the law does have.
+    mkReq("12.3", "proof", { priority: "P1", frequency: "on-change", legalRef: "§33(5) BSIG", frameworkRef: "Art. 3(4)" }),
     mkReq("12.4", "proof", { priority: "P2", frequency: "ongoing", legalRef: "§30(1) S. 3, §31(2), §39, §34 BSIG", cirReference: "1.1.1(h)" }),
   ],
 };

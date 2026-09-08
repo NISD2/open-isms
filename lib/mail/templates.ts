@@ -268,160 +268,6 @@ export function memberRemovedEmail(opts: {
 // Deadline Reminder
 // ---------------------------------------------------------------------------
 
-export function deadlineReminderEmail(opts: {
-  recipientName: string;
-  requirementCode: string;
-  requirementTitle: string;
-  daysRemaining: number;
-  deadline: string;
-  categoryUrl: string;
-}): EmailContent {
-  const { recipientName, requirementCode, requirementTitle, daysRemaining, deadline, categoryUrl } = opts;
-  const safeRecipient = escapeHtml(recipientName);
-  const safeCode = escapeHtml(requirementCode);
-  const safeTitle = escapeHtml(requirementTitle);
-  const safeDeadline = escapeHtml(deadline);
-
-  return {
-    subject: `${safeHeader(requirementCode)} is due for review in ${daysRemaining} days`,
-    html: emailLayout(`
-        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Upcoming Deadline</h2>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          Hi ${safeRecipient}, this is a friendly reminder that <strong>${safeCode}</strong> (${safeTitle}) is coming up for review.
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-          Deadline: <strong>${safeDeadline}</strong> (${daysRemaining} days remaining)
-        </p>
-        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-          Please review and complete this requirement before the deadline.
-        </p>
-        <a href="${categoryUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-          Go to Requirement
-        </a>
-    `),
-    text: [
-      `Upcoming Deadline`,
-      ``,
-      `Hi ${recipientName}, this is a friendly reminder that ${requirementCode} (${requirementTitle}) is coming up for review.`,
-      ``,
-      `Deadline: ${deadline} (${daysRemaining} days remaining)`,
-      ``,
-      `Please review and complete this requirement before the deadline.`,
-      ``,
-      `Go to requirement: ${categoryUrl}`,
-    ].join("\n"),
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Deadline Urgent
-// ---------------------------------------------------------------------------
-
-export function deadlineUrgentEmail(opts: {
-  recipientName: string;
-  requirementCode: string;
-  requirementTitle: string;
-  daysRemaining: number;
-  deadline: string;
-  categoryUrl: string;
-}): EmailContent {
-  const { recipientName, requirementCode, requirementTitle, daysRemaining, deadline, categoryUrl } = opts;
-  const dueLabel = daysRemaining <= 0 ? "today" : `in ${daysRemaining} day(s)`;
-  const safeRecipient = escapeHtml(recipientName);
-  const safeCode = escapeHtml(requirementCode);
-  const safeTitle = escapeHtml(requirementTitle);
-  const safeDeadline = escapeHtml(deadline);
-
-  return {
-    subject: `${safeHeader(requirementCode)} is due ${dueLabel}`,
-    html: emailLayout(`
-        <div style="background: ${SEVERITY.warning}; color: #fff; padding: 12px 16px; border-radius: 6px 6px 0 0; font-weight: 600; font-size: 14px;">
-          URGENT: Immediate Action Required
-        </div>
-        <div style="border: 1px solid ${SEVERITY.warningBgBorder}; border-top: none; border-radius: 0 0 6px 6px; padding: 20px 16px;">
-          <h2 style="margin: 0 0 16px; color: ${SEVERITY.warning};">Deadline Approaching</h2>
-          <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-            Hi ${safeRecipient}, <strong>${safeCode}</strong> (${safeTitle}) is due <strong>${dueLabel}</strong> and requires your immediate attention.
-          </p>
-          <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-            Deadline: <strong>${safeDeadline}</strong>
-          </p>
-          <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-            Please complete this requirement as soon as possible to maintain compliance.
-          </p>
-          <a href="${categoryUrl}" style="display: inline-block; background: ${SEVERITY.warning}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-            Take Action Now
-          </a>
-        </div>
-    `),
-    text: [
-      `URGENT: Immediate Action Required`,
-      ``,
-      `Hi ${recipientName}, ${requirementCode} (${requirementTitle}) is due ${dueLabel} and requires your immediate attention.`,
-      ``,
-      `Deadline: ${deadline}`,
-      ``,
-      `Please complete this requirement as soon as possible to maintain compliance.`,
-      ``,
-      `Take action now: ${categoryUrl}`,
-    ].join("\n"),
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Deadline Overdue
-// ---------------------------------------------------------------------------
-
-export function deadlineOverdueEmail(opts: {
-  recipientName: string;
-  requirementCode: string;
-  requirementTitle: string;
-  daysOverdue: number;
-  deadline: string;
-  categoryUrl: string;
-}): EmailContent {
-  const { recipientName, requirementCode, requirementTitle, daysOverdue, deadline, categoryUrl } = opts;
-  const safeRecipient = escapeHtml(recipientName);
-  const safeCode = escapeHtml(requirementCode);
-  const safeTitle = escapeHtml(requirementTitle);
-  const safeDeadline = escapeHtml(deadline);
-
-  return {
-    subject: `${safeHeader(requirementCode)} passed its review date ${daysOverdue} day(s) ago`,
-    html: emailLayout(`
-        <div style="background: ${SEVERITY.destructive}; color: #fff; padding: 12px 16px; border-radius: 6px 6px 0 0; font-weight: 600; font-size: 14px;">
-          OVERDUE: Compliance at Risk
-        </div>
-        <div style="border: 1px solid ${SEVERITY.destructiveBgBorder}; border-top: none; border-radius: 0 0 6px 6px; padding: 20px 16px;">
-          <h2 style="margin: 0 0 16px; color: ${SEVERITY.destructive};">Requirement Overdue</h2>
-          <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-            Hi ${safeRecipient}, <strong>${safeCode}</strong> (${safeTitle}) is now <strong style="color: ${SEVERITY.destructive};">${daysOverdue} day(s) past its deadline</strong>.
-          </p>
-          <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-            Original deadline: <strong>${safeDeadline}</strong>
-          </p>
-          <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-            This overdue item may affect your organization's compliance standing. Please address it immediately.
-          </p>
-          <a href="${categoryUrl}" style="display: inline-block; background: ${SEVERITY.destructive}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-            Resolve Now
-          </a>
-        </div>
-    `),
-    text: [
-      `OVERDUE: Compliance at Risk`,
-      ``,
-      `Hi ${recipientName}, ${requirementCode} (${requirementTitle}) is now ${daysOverdue} day(s) past its deadline.`,
-      ``,
-      `Original deadline: ${deadline}`,
-      ``,
-      `This overdue item may affect your organization's compliance standing. Please address it immediately.`,
-      ``,
-      `Resolve now: ${categoryUrl}`,
-    ].join("\n"),
-  };
-}
-
 // ---------------------------------------------------------------------------
 // Daily Digest
 // ---------------------------------------------------------------------------
@@ -472,17 +318,48 @@ function digestItemText(item: DigestItem): string {
   return `  - ${item.requirementCode}: ${item.requirementTitle} (due ${item.deadline}, ${item.daysRemaining}d remaining)`;
 }
 
+/**
+ * The reader's next open step on the journey, in the path view's order.
+ * Every digest carries it so the mail always ends on a concrete action:
+ * either "these reviews are overdue" or "this is next up" — never a bare
+ * count with nothing to do about it.
+ */
+export interface DigestNextStep {
+  requirementCode: string;
+  requirementTitle: string;
+  url: string;
+}
+
+function nextStepHtml(nextStep: DigestNextStep | null): string {
+  if (!nextStep) return "";
+  return `
+    <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
+      Next up in your journey:
+      <a href="${nextStep.url}" style="color: ${BRAND.primary}; font-weight: 600; text-decoration: none;">${escapeHtml(nextStep.requirementCode)} ${escapeHtml(nextStep.requirementTitle)}</a>
+    </p>`;
+}
+
+function nextStepText(nextStep: DigestNextStep | null): string[] {
+  if (!nextStep) return [];
+  return [
+    `Next up in your journey: ${nextStep.requirementCode} ${nextStep.requirementTitle}`,
+    `${nextStep.url}`,
+    ``,
+  ];
+}
+
 export function dailyDigestEmail(opts: {
   recipientName: string;
   companyName: string;
   overdueItems: DigestItem[];
   urgentItems: DigestItem[];
   upcomingItems: DigestItem[];
+  nextStep: DigestNextStep | null;
   compliancePercentage: string;
   dashboardUrl: string;
   unsubscribeUrl: string;
 }): EmailContent {
-  const { recipientName, companyName, overdueItems, urgentItems, upcomingItems, compliancePercentage, dashboardUrl, unsubscribeUrl } = opts;
+  const { recipientName, companyName, overdueItems, urgentItems, upcomingItems, nextStep, compliancePercentage, dashboardUrl, unsubscribeUrl } = opts;
   const safeRecipient = escapeHtml(recipientName);
   const safeCo = escapeHtml(companyName);
   const safePct = escapeHtml(compliancePercentage);
@@ -510,6 +387,7 @@ export function dailyDigestEmail(opts: {
         ${digestSection("Overdue", SEVERITY.destructive, overdueItems)}
         ${digestSection("Due This Week", SEVERITY.warning, urgentItems)}
         ${digestSection("Upcoming", BRAND.mutedForeground, upcomingItems)}
+        ${nextStepHtml(nextStep)}
         <a href="${dashboardUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
           View Dashboard
         </a>
@@ -535,6 +413,7 @@ export function dailyDigestEmail(opts: {
       ...(upcomingItems.length > 0
         ? [`Upcoming (${upcomingItems.length}):`, ...upcomingItems.map(digestItemText), ``]
         : []),
+      ...nextStepText(nextStep),
       `View dashboard: ${dashboardUrl}`,
       ``,
       `Unsubscribe from digest emails: ${unsubscribeUrl}`,
@@ -555,6 +434,7 @@ export function weeklyManagementDigestEmail(opts: {
   escalationCount: number;
   totalRequirements: number;
   completedRequirements: number;
+  nextStep: DigestNextStep | null;
   dashboardUrl: string;
   unsubscribeUrl: string;
 }): EmailContent {
@@ -567,6 +447,7 @@ export function weeklyManagementDigestEmail(opts: {
     escalationCount,
     totalRequirements,
     completedRequirements,
+    nextStep,
     dashboardUrl,
     unsubscribeUrl,
   } = opts;
@@ -610,12 +491,13 @@ export function weeklyManagementDigestEmail(opts: {
             <td style="padding: 10px 12px; border-bottom: 1px solid ${BRAND.border}; font-weight: 600; text-align: right; color: ${escalationCount > 0 ? SEVERITY.destructive : SEVERITY.success};">${escalationCount}</td>
           </tr>
         </table>
+        ${nextStepHtml(nextStep)}
         <a href="${dashboardUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
           View Dashboard
         </a>
         <div style="margin: 24px 0 0; padding: 16px; background: ${BRAND.muted}; border: 1px solid ${BRAND.border}; border-radius: 6px; font-size: 12px; color: ${BRAND.mutedForeground}; line-height: 1.5;">
-          This email serves as documentation of management notification per NIS2 Art. 38 / BSIG &sect;38.<br/>
-          Diese E-Mail dient als Nachweis der Leitungsunterrichtung gem&auml;&szlig; NIS2 Art. 38 / BSIG &sect;38.
+          This email serves as documentation of management notification per Art. 20 NIS 2 / &sect;38 BSIG.<br/>
+          Diese E-Mail dient als Nachweis der Leitungsunterrichtung gem&auml;&szlig; Art. 20 NIS 2 / &sect;38 BSIG.
         </div>
         <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 16px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
           <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe from digest emails</a>
@@ -634,81 +516,14 @@ export function weeklyManagementDigestEmail(opts: {
       `Urgent Items: ${urgentCount}`,
       `Escalations: ${escalationCount}`,
       ``,
+      ...nextStepText(nextStep),
       `View dashboard: ${dashboardUrl}`,
       ``,
       `---`,
-      `This email serves as documentation of management notification per NIS2 Art. 38 / BSIG §38.`,
-      `Diese E-Mail dient als Nachweis der Leitungsunterrichtung gemäß NIS2 Art. 38 / BSIG §38.`,
+      `This email serves as documentation of management notification per Art. 20 NIS 2 / §38 BSIG.`,
+      `Diese E-Mail dient als Nachweis der Leitungsunterrichtung gemäß Art. 20 NIS 2 / §38 BSIG.`,
       ``,
       `Unsubscribe from digest emails: ${unsubscribeUrl}`,
-    ].join("\n"),
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Escalation
-// ---------------------------------------------------------------------------
-
-export function escalationEmail(opts: {
-  recipientName: string;
-  requirementCode: string;
-  requirementTitle: string;
-  daysOverdue: number;
-  assigneeName: string;
-  escalationLevel: number;
-  categoryUrl: string;
-}): EmailContent {
-  const { recipientName, requirementCode, requirementTitle, daysOverdue, assigneeName, escalationLevel, categoryUrl } = opts;
-  const safeRecipient = escapeHtml(recipientName);
-  const safeCode = escapeHtml(requirementCode);
-  const safeTitle = escapeHtml(requirementTitle);
-  const safeAssignee = escapeHtml(assigneeName);
-
-  return {
-    subject: `${safeHeader(requirementCode)} has been open ${daysOverdue} days and needs a decision`,
-    html: emailLayout(`
-        <div style="background: ${SEVERITY.destructive}; color: #fff; padding: 12px 16px; border-radius: 6px 6px 0 0; font-weight: 600; font-size: 14px;">
-          Escalation Level ${escalationLevel}
-        </div>
-        <div style="border: 1px solid ${SEVERITY.destructiveBgBorder}; border-top: none; border-radius: 0 0 6px 6px; padding: 20px 16px;">
-          <h2 style="margin: 0 0 16px; color: ${SEVERITY.destructive};">Requirement Escalated</h2>
-          <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
-            Hi ${safeRecipient}, <strong>${safeCode}</strong> (${safeTitle}) has been escalated to <strong>Level ${escalationLevel}</strong>.
-          </p>
-          <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 0 0 16px;">
-            <tr>
-              <td style="padding: 8px 0; color: ${BRAND.foreground}; border-bottom: 1px solid ${BRAND.border};">Days Overdue</td>
-              <td style="padding: 8px 0; font-weight: 600; text-align: right; color: ${SEVERITY.destructive}; border-bottom: 1px solid ${BRAND.border};">${daysOverdue}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: ${BRAND.foreground}; border-bottom: 1px solid ${BRAND.border};">Originally Assigned To</td>
-              <td style="padding: 8px 0; font-weight: 600; text-align: right; color: ${BRAND.foreground}; border-bottom: 1px solid ${BRAND.border};">${safeAssignee}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: ${BRAND.foreground}; border-bottom: 1px solid ${BRAND.border};">Escalation Level</td>
-              <td style="padding: 8px 0; font-weight: 600; text-align: right; color: ${SEVERITY.destructive}; border-bottom: 1px solid ${BRAND.border};">${escalationLevel}</td>
-            </tr>
-          </table>
-          <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
-            This requirement requires your immediate attention. Please review and take appropriate action.
-          </p>
-          <a href="${categoryUrl}" style="display: inline-block; background: ${SEVERITY.destructive}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
-            View Requirement
-          </a>
-        </div>
-    `),
-    text: [
-      `Escalation Level ${escalationLevel}: ${requirementCode}`,
-      ``,
-      `Hi ${recipientName}, ${requirementCode} (${requirementTitle}) has been escalated to Level ${escalationLevel}.`,
-      ``,
-      `Days Overdue: ${daysOverdue}`,
-      `Originally Assigned To: ${assigneeName}`,
-      `Escalation Level: ${escalationLevel}`,
-      ``,
-      `This requirement requires your immediate attention. Please review and take appropriate action.`,
-      ``,
-      `View requirement: ${categoryUrl}`,
     ].join("\n"),
   };
 }

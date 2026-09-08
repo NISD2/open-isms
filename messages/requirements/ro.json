@@ -46,7 +46,7 @@
   "11_2": { "title": "Comunicații sigure și de urgență", "description": "Comunicații sigure și de urgență" },
   "11_3": { "title": "Standarde de autentificare", "description": "Standarde de autentificare" },
   "12_1": { "title": "Clasificare și perimetru NIS2", "description": "Clasificare și perimetru NIS2" },
-  "12_2": { "title": "Înregistrare la BSI", "description": "Înregistrare la BSI" },
+  "12_2": { "title": "Înregistrare la BSI", "description": "Crearea contului MUK, finalizarea înregistrării în portalul BSI și transmiterea tuturor datelor obligatorii. Termen legal: cel târziu trei luni după ce compania este considerată pentru prima dată entitate esențială sau importantă (§33(1) BSIG). Pentru entitățile aflate în domeniul de aplicare de la intrarea în vigoare a BSIG la 6 decembrie 2025, acest termen a expirat la 6 martie 2026; înregistrarea devine atunci imediat scadentă." },
   "12_3": { "title": "Menținerea înregistrării", "description": "Menținerea înregistrării" },
   "12_4": { "title": "Dovezi de conformitate", "description": "Dovezi de conformitate" },
   "G-DPA_1": { "title": "Acorduri de prelucrare a datelor", "description": "Mențineți un registru al fiecărei persoane împuternicite care prelucrează date cu caracter personal în numele dumneavoastră, cu un DPA semnat care acoperă cele opt clauze prevăzute la art. 28 alin. (3)." },

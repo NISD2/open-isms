@@ -83,6 +83,7 @@ async function buildDigestContent(
       overdueItems: d.overdueItems,
       urgentItems: d.urgentItems,
       upcomingItems: d.upcomingItems,
+      nextStep: d.nextStep,
       compliancePercentage: d.compliancePercentage,
       dashboardUrl: d.dashboardUrl,
       unsubscribeUrl: footer.unsubscribeUrl,
@@ -99,6 +100,7 @@ async function buildDigestContent(
     escalationCount: m.escalationCount,
     totalRequirements: m.totalRequirements,
     completedRequirements: m.completedRequirements,
+    nextStep: m.nextStep,
     dashboardUrl: m.dashboardUrl,
     unsubscribeUrl: footer.unsubscribeUrl,
   });

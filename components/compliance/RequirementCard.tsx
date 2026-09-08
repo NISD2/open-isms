@@ -165,7 +165,7 @@ export function RequirementCard({
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <DeadlineBadge nextReviewDate={nextReviewDate ?? null} frequency={frequency} />
+          <DeadlineBadge nextReviewDate={nextReviewDate ?? null} frequency={frequency} status={status} />
           {assigneeName && (
             <TooltipProvider delayDuration={200}>
               <Tooltip>

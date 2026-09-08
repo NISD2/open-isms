@@ -46,7 +46,7 @@
     "11_2": { "title": "Communications sécurisées et d'urgence", "description": "Communications sécurisées et d'urgence" },
     "11_3": { "title": "Normes d'authentification", "description": "Normes d'authentification" },
     "12_1": { "title": "Classification et périmètre NIS2", "description": "Classification et périmètre NIS2" },
-    "12_2": { "title": "Enregistrement auprès du BSI", "description": "Enregistrement auprès du BSI" },
+    "12_2": { "title": "Enregistrement auprès du BSI", "description": "Créer le compte MUK, finaliser l'enregistrement sur le portail du BSI et transmettre toutes les données obligatoires. Délai légal : au plus tard trois mois après que l'entreprise est considérée pour la première fois comme entité essentielle ou importante (§33(1) BSIG). Pour les entités entrant dans le champ d'application depuis l'entrée en vigueur du BSIG le 6 décembre 2025, ce délai a expiré le 6 mars 2026 ; l'enregistrement est alors immédiatement exigible." },
     "12_3": { "title": "Maintien de l'enregistrement", "description": "Maintien de l'enregistrement" },
     "12_4": { "title": "Preuves de conformité", "description": "Preuves de conformité" },
     "G-DPA_1": { "title": "Accords de traitement des données", "description": "Tenir un registre de chaque sous-traitant qui traite des données à caractère personnel pour votre compte, avec un DPA signé couvrant les huit clauses de l'art. 28(3)." },

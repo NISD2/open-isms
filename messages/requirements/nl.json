@@ -46,7 +46,7 @@
   "11_2": { "title": "Beveiligde & noodcommunicatie", "description": "Beveiligde & noodcommunicatie" },
   "11_3": { "title": "Authenticatiestandaarden", "description": "Authenticatiestandaarden" },
   "12_1": { "title": "NIS2-classificatie & reikwijdte", "description": "NIS2-classificatie & reikwijdte" },
-  "12_2": { "title": "BSI-registratie", "description": "BSI-registratie" },
+  "12_2": { "title": "BSI-registratie", "description": "MUK-account aanmaken, de registratie in het BSI-portaal afronden en alle verplichte gegevens indienen. Wettelijke termijn: uiterlijk drie maanden nadat het bedrijf voor het eerst als essentiële of belangrijke entiteit geldt (§33(1) BSIG). Voor entiteiten die sinds de inwerkingtreding van het BSIG op 6 december 2025 binnen het toepassingsgebied vallen, verstreek deze termijn op 6 maart 2026; de registratie is dan onmiddellijk verschuldigd." },
   "12_3": { "title": "Registratieonderhoud", "description": "Registratieonderhoud" },
   "12_4": { "title": "Compliancebewijzen", "description": "Compliancebewijzen" },
   "G-DPA_1": { "title": "Data Processing Agreements", "description": "Maintain a register of every processor that handles personal data on your behalf, with a signed DPA covering the eight Art. 28(3) clauses." },
