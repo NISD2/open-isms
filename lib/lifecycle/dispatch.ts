@@ -67,7 +67,7 @@ export interface LifecycleTypeStats {
   deferred: number;
   error?: string;
   /** Dry runs only: who the batch WOULD have gone to, nothing sent or claimed. */
-  wouldSend?: Array<{ to: string; subject: string }>;
+  wouldSend?: Array<{ userId: string; to: string; subject: string }>;
 }
 
 export interface LifecycleRunOptions {
@@ -83,6 +83,13 @@ export interface LifecycleRunOptions {
    * values above the cap are clamped down.
    */
   maxPerType?: number;
+  /**
+   * Restrict the run to one recipient: the per-row "Send" button in the admin
+   * console. Selection and eligibility are unchanged — the person must still
+   * be in the prepared batch — so this cannot mail someone the campaign
+   * would not have mailed, and the once-ever claim still arbitrates.
+   */
+  onlyUserId?: string;
 }
 
 export type LifecycleRunResult =
@@ -187,7 +194,12 @@ async function deliverOne(
 async function runType(
   db: DbOrTx,
   type: LifecycleEmailType,
-  opts: { sendIntervalMs: number; dryRun: boolean; maxPerType: number },
+  opts: {
+    sendIntervalMs: number;
+    dryRun: boolean;
+    maxPerType: number;
+    onlyUserId?: string;
+  },
 ): Promise<LifecycleTypeStats> {
   const stats: LifecycleTypeStats = {
     prepared: 0,
@@ -199,14 +211,21 @@ async function runType(
     deferred: 0,
   };
 
-  const prepared = await type.prepare(db);
+  const allPrepared = await type.prepare(db);
+  const prepared = opts.onlyUserId
+    ? allPrepared.filter((email) => email.userId === opts.onlyUserId)
+    : allPrepared;
   stats.prepared = prepared.length;
   const cap = Math.min(MAX_SENDS_PER_TYPE_PER_RUN, Math.max(1, opts.maxPerType));
   const batch = prepared.slice(0, cap);
   stats.deferred = prepared.length - batch.length;
 
   if (opts.dryRun) {
-    stats.wouldSend = batch.map((email) => ({ to: email.to, subject: email.subject }));
+    stats.wouldSend = batch.map((email) => ({
+      userId: email.userId,
+      to: email.to,
+      subject: email.subject,
+    }));
     return stats;
   }
 
@@ -257,6 +276,7 @@ export async function runLifecycleEmails(
     sendIntervalMs: opts?.sendIntervalMs ?? SEND_INTERVAL_MS,
     dryRun: opts?.dryRun ?? false,
     maxPerType: opts?.maxPerType ?? MAX_SENDS_PER_TYPE_PER_RUN,
+    onlyUserId: opts?.onlyUserId,
   });
   activeRun = run;
   try {
@@ -268,7 +288,12 @@ export async function runLifecycleEmails(
 
 async function executeRun(
   db: DbOrTx,
-  opts: { sendIntervalMs: number; dryRun: boolean; maxPerType: number },
+  opts: {
+    sendIntervalMs: number;
+    dryRun: boolean;
+    maxPerType: number;
+    onlyUserId?: string;
+  },
 ): Promise<LifecycleRunResult> {
   const types: Record<string, LifecycleTypeStats> = {};
   for (const type of LIFECYCLE_EMAIL_TYPES) {

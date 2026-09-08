@@ -258,11 +258,40 @@ describe("runLifecycleEmails", () => {
     const stats = result.types.test_type_v1;
     expect(stats).toMatchObject({ prepared: 3, sent: 0, failed: 0 });
     expect(stats.wouldSend).toEqual([
-      { to: "user-0@example.com", subject: "Subject 0" },
-      { to: "user-1@example.com", subject: "Subject 1" },
-      { to: "user-2@example.com", subject: "Subject 2" },
+      { userId: "user-0", to: "user-0@example.com", subject: "Subject 0" },
+      { userId: "user-1", to: "user-1@example.com", subject: "Subject 1" },
+      { userId: "user-2", to: "user-2@example.com", subject: "Subject 2" },
     ]);
     expect(inserted).toHaveLength(0);
+    expect(sendMail).toHaveBeenCalledTimes(0);
+  });
+
+  test("onlyUserId narrows the run to that one recipient and sends nobody else", async () => {
+    reset();
+    setTypes(stubType(prepared(3)));
+    const { db } = makeDb();
+
+    const result = await runLifecycleEmails(db, { ...FAST, onlyUserId: "user-1" });
+
+    if (result.skipped !== undefined) throw new Error("unexpected skip");
+    expect(result.types.test_type_v1).toMatchObject({
+      prepared: 1,
+      sent: 1,
+      deferred: 0,
+    });
+    expect(sendMail).toHaveBeenCalledTimes(1);
+    expect(sendMail.mock.calls[0][0].to).toBe("user-1@example.com");
+  });
+
+  test("onlyUserId with a user outside the prepared batch sends nothing", async () => {
+    reset();
+    setTypes(stubType(prepared(2)));
+    const { db } = makeDb();
+
+    const result = await runLifecycleEmails(db, { ...FAST, onlyUserId: "stranger" });
+
+    if (result.skipped !== undefined) throw new Error("unexpected skip");
+    expect(result.types.test_type_v1).toMatchObject({ prepared: 0, sent: 0 });
     expect(sendMail).toHaveBeenCalledTimes(0);
   });
 
