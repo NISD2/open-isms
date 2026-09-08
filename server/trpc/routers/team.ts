@@ -16,6 +16,7 @@ import { sendMail, inviteEmail, memberRemovedEmail } from "@/lib/mail";
 import { logAudit } from "@/lib/audit";
 import { getAppUrl } from "@/lib/utils";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
+import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
 import { discardDraftCompany } from "../helpers/setup-helpers";
 import { verifyAssessmentOwnership } from "../guards";
@@ -356,6 +357,13 @@ export const teamRouter = router({
         );
       }
 
+      // A new member changes the role map behind requirement 1.2. Scoped to
+      // the invite's company, not ctx.companyId — the accepting user is only
+      // joining it now, so their session still carries their draft shell.
+      invalidateModuleSignOffs(ctx.db, invite.companyId, "team", ctx.userId).catch(
+        (err) => console.error("[background] team acceptInvite:", err),
+      );
+
       return { companyId: invite.companyId };
     }),
 
@@ -464,6 +472,15 @@ export const teamRouter = router({
         }
       });
 
+      // Losing a member changes who holds which role, which is the evidence
+      // behind requirement 1.2. Every other module reverts its requirements
+      // when its data changes; the team module did not, so a company could
+      // sign off "roles and responsibilities are defined" and then delete the
+      // person holding one without the sign-off noticing.
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "team", ctx.userId).catch(
+        (err) => console.error("[background] team removeMember:", err),
+      );
+
       return { removed: true };
     }),
 
@@ -493,6 +510,14 @@ export const teamRouter = router({
         .update(user)
         .set({ jobTitle: input.roleKey, updatedAt: new Date() })
         .where(eq(user.id, input.userId));
+
+      // Fired here, right after the role actually changes, rather than after
+      // the category assignments below: a role that resolves to no categories
+      // returns early, and that is still a change to requirement 1.2's
+      // evidence. The role map is what 1.2 attests to, not the assignments.
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "team", ctx.userId).catch(
+        (err) => console.error("[background] team assignRole:", err),
+      );
 
       const rows = await resolveRoleAssignments(
         ctx.db,

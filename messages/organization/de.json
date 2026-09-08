@@ -68,6 +68,7 @@
       "email": "E-Mail",
       "role": "Rolle",
       "rolePlaceholder": "Rolle wählen...",
+      "ownsAreas": "Verantwortet: {areas}",
       "addMember": "Teammitglied hinzufügen",
       "removeMember": "Entfernen",
       "back": "Zurück",

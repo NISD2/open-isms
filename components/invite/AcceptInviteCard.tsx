@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Shield, UserPlus } from "lucide-react";
 import { trpc } from "@/lib/trpc/client";
+import { userFacingError } from "@/lib/trpc/error-message";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
@@ -38,6 +39,7 @@ export function AcceptInviteCard({
   isSignedIn,
 }: Props) {
   const t = useTranslations("team");
+  const tc = useTranslations("common");
   const router = useRouter();
   const [accepting, setAccepting] = useState(false);
 
@@ -48,7 +50,7 @@ export function AcceptInviteCard({
       router.refresh();
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(userFacingError(err, tc("actionFailed")));
       setAccepting(false);
     },
   });

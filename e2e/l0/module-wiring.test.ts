@@ -7,7 +7,10 @@
  *
  *   1. `MODULE_HREF`            — the route the panel links to
  *   2. `common.modules.{ref}`   — the label the panel prints
- *   3. `MODULE_FETCHERS`        — the rows the panel counts (page-local, so
+ *   3. `COUNTABLE_MODULES`      — how its rows are counted, which is what
+ *                                 decides whether a data change invalidates
+ *                                 the sign-off it backs
+ *   4. `MODULE_FETCHERS`        — the rows the panel shows (page-local, so
  *                                 asserted by the l2 spec, not here)
  *
  * `team` was registered in none of them. `ModuleRefPanel` returned null on the
@@ -15,6 +18,11 @@
  * "Operational data" heading above empty space — no link, no count, no error.
  * Found by Corey while dogfooding, not by any test, because nothing asserted
  * that a module key resolves to anything at all.
+ *
+ * The counter gap was the worse half and nobody saw it: with no entry,
+ * `recheckModuleRequirements` returns early, so 1.2 kept its sign-off however
+ * the role map changed. An attestation outliving what it attests to is the
+ * one failure here with audit consequences.
  *
  * These loops derive their cases from the framework data, so a moduleRef added
  * to a requirement fails here until it is wired, rather than shipping silent.
@@ -25,6 +33,7 @@ import {
   getNis2RequirementsForCategory,
 } from "@nisd2/grc-data-model/frameworks";
 import { MODULE_HREF } from "@/lib/compliance/operational-links";
+import { COUNTABLE_MODULES } from "@/lib/compliance/module-tables";
 import commonDe from "@/messages/common/de.json";
 import commonEn from "@/messages/common/en.json";
 
@@ -54,6 +63,15 @@ describe("every assigned moduleRef is wired", () => {
         MODULE_HREF[ref],
         `moduleRef "${ref}" has no MODULE_HREF entry, so ModuleRefPanel cannot link to it`,
       ).toBeTruthy();
+    });
+
+    test(`${ref} can be counted`, () => {
+      expect(
+        COUNTABLE_MODULES.has(ref),
+        `moduleRef "${ref}" has no counter, so recheckModuleRequirements returns ` +
+          `early and the requirements it backs never lose their sign-off when ` +
+          `its data changes`,
+      ).toBe(true);
     });
 
     for (const locale of ["de", "en"] as const) {

@@ -16,8 +16,14 @@ import {
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
 import { getNis2AssessmentIds } from "@/server/trpc/helpers/nis2-scope";
+import {
+  COMPANY_SCOPED_MODULE_TABLES,
+  CUSTOM_COUNT_MODULES,
+} from "./module-tables";
 
-const TABLE_COUNT_SQL: Record<string, (db: DbOrTx, companyId: string) => Promise<number>> = {};
+type CountFn = (db: DbOrTx, companyId: string) => Promise<number>;
+
+const TABLE_COUNT_SQL: Record<string, CountFn> = {};
 
 function registerTable(name: string) {
   TABLE_COUNT_SQL[name] = async (db, companyId) => {
@@ -28,24 +34,40 @@ function registerTable(name: string) {
   };
 }
 
-for (const name of [
-  "asset", "risk", "incident", "supplier", "policy", "training_record",
-  "exercise", "management_review", "kpi_measurement", "change_request",
-  "patch_record", "vulnerability", "internal_audit", "improvement_item",
-  "bsi_registration",
-]) {
+for (const name of COMPANY_SCOPED_MODULE_TABLES) {
   registerTable(name);
 }
 
-TABLE_COUNT_SQL["bsi_incident_report"] = async (db, companyId) => {
-  const result = await db.execute<{ cnt: number }>(
-    sql`SELECT count(DISTINCT r.id)::int as cnt
-        FROM bsi_incident_report r
-        JOIN incident i ON r.incident_id = i.id
-        WHERE i.company_id = ${companyId}`
-  );
-  return result.rows[0]?.cnt ?? 0;
+/**
+ * Counters for the modules the generic query cannot serve. Typed against
+ * CUSTOM_COUNT_MODULES so listing a module there without writing its counter
+ * is a compile error — the same trick CUSTOM_EDITORS uses. The other
+ * direction (a framework moduleRef missing from the list entirely, which is
+ * how `team` slipped through) is covered by e2e/l0/module-wiring.test.ts.
+ */
+const CUSTOM_COUNTERS: Record<(typeof CUSTOM_COUNT_MODULES)[number], CountFn> = {
+  // Team members are `user` rows, not a `team` table.
+  team: async (db, companyId) => {
+    const result = await db.execute<{ cnt: number }>(
+      sql`SELECT count(*)::int as cnt FROM "user" WHERE company_id = ${companyId}`
+    );
+    return result.rows[0]?.cnt ?? 0;
+  },
+  // A BSI report reaches its company through the incident it belongs to.
+  bsi_incident_report: async (db, companyId) => {
+    const result = await db.execute<{ cnt: number }>(
+      sql`SELECT count(DISTINCT r.id)::int as cnt
+          FROM bsi_incident_report r
+          JOIN incident i ON r.incident_id = i.id
+          WHERE i.company_id = ${companyId}`
+    );
+    return result.rows[0]?.cnt ?? 0;
+  },
 };
+
+for (const [name, fn] of Object.entries(CUSTOM_COUNTERS)) {
+  TABLE_COUNT_SQL[name] = fn;
+}
 
 interface RevertContext {
   companyId: string;
