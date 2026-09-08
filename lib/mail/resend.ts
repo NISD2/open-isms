@@ -51,3 +51,22 @@ export const resend = new Proxy({} as Resend, {
 }) as Resend;
 
 export const FROM_EMAIL = env.RESEND_FROM_EMAIL;
+
+/**
+ * The From display name, and the first thing a reader decides on.
+ *
+ * It used to be "NIS2 Compliance", which names a topic rather than a sender.
+ * A recipient scanning an inbox reads that as a vendor blast about
+ * compliance, not as mail from a product they signed up to — and mail
+ * nobody recognises is mail people report. "NISD2" is the name on the site
+ * they registered with and the name in the footer, so the From line, the
+ * body and the link all agree.
+ */
+export const FROM_NAME = env.RESEND_FROM_NAME;
+
+/**
+ * Display name for mail written in a person's voice (the course follow-up,
+ * the activation nudge). Those are signed by Simon in the body; the From
+ * line should not say otherwise.
+ */
+export const FROM_NAME_PERSONAL = env.RESEND_FROM_NAME_PERSONAL;

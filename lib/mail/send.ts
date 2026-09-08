@@ -1,7 +1,7 @@
 import "@/lib/server-guard";
 import * as React from "react";
 import { render } from "@react-email/render";
-import { resend, FROM_EMAIL } from "./resend";
+import { resend, FROM_EMAIL, FROM_NAME } from "./resend";
 import { env } from "@/lib/env";
 import { WelcomeEmail } from "./templates/WelcomeEmail";
 import { getAppUrl } from "@/lib/utils";
@@ -17,11 +17,22 @@ interface BaseMailOptions {
   text?: string;
   replyTo?: string;
   /**
-   * Override the From address (email only; the "NIS2 Compliance" display name
-   * is kept). Defaults to RESEND_FROM_EMAIL. Used by the newsletter to send
-   * from a distinct mailbox while transactional email stays on the default.
+   * Override the From address. Defaults to RESEND_FROM_EMAIL. Used by the
+   * newsletter to send from a distinct mailbox while transactional email
+   * stays on the default.
    */
   fromEmail?: string;
+  /**
+   * Override the From display name. Defaults to FROM_NAME.
+   *
+   * Mail people expect from a person reads better from a person: the course
+   * follow-up and the activation nudge are written in Simon's voice and
+   * signed by him, so they say so in the From line too. Anything a machine
+   * plainly sent — sign-in codes, digests — keeps the brand name, because a
+   * personal name on an automated notice is the kind of small dishonesty
+   * readers notice.
+   */
+  fromName?: string;
   /**
    * Resend Idempotency-Key. The retry loop below re-POSTs on ambiguous
    * network failures, so a request that Resend accepted but whose response
@@ -170,7 +181,7 @@ export async function sendMail(opts: SendMailOptions) {
 
       const { data, error } = await resend.emails.send(
         {
-          from: `NIS2 Compliance <${opts.fromEmail ?? FROM_EMAIL}>`,
+          from: `${opts.fromName ?? FROM_NAME} <${opts.fromEmail ?? FROM_EMAIL}>`,
           to: Array.isArray(opts.to) ? opts.to : [opts.to],
           subject: opts.subject,
           html: opts.html,
@@ -216,7 +227,7 @@ export async function sendWelcomeEmail(opts: { name: string; email: string }) {
   return sendMail({
     emailType: "auth.welcome",
     to: opts.email,
-    subject: "Welcome to NISD2",
+    subject: "Your NISD2 account is ready",
     html,
   });
 }

@@ -33,6 +33,7 @@ import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
 import { mailSupportEmail } from "@/lib/env";
 import { isSuppressedSendId, mailSuppressionReason, sendMail } from "@/lib/mail/send";
+import { FROM_NAME_PERSONAL } from "@/lib/mail/resend";
 import { notification, user } from "@/schema";
 import { LIFECYCLE_EMAIL_TYPES } from "./registry";
 import {
@@ -135,6 +136,8 @@ async function deliverOne(
   const result = await sendMail({
     emailType: "product.lifecycle_nudge",
     recipientUserId: email.userId,
+    // Written in a person's voice; the From line matches.
+    fromName: FROM_NAME_PERSONAL,
     db,
     to: email.to,
     subject: email.subject,
