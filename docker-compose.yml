@@ -1,13 +1,20 @@
-# Self-host stack for the full open-isms platform: Postgres + the app.
+# Developer stack: Postgres + the app, built from the source next to it.
 #
 #   cp .env.example .env      # then fill in the four required values
 #   docker compose up --build # http://localhost:3026
 #
+# Building takes 10-20 minutes and about 8 GB of RAM, and it expects the whole
+# repository as its context.
+#
+# TO SELF-HOST, USE compose.self-host.yml INSTEAD. That one pulls a finished
+# image, builds nothing, and is what docs/self-hosting.md and install.sh set
+# up. On a NAS or any small box it is the only one that will work.
+#
 # Migrations run automatically at container start. Seeding the framework
 # data is a separate one-off step, see docs/self-hosting.md.
 #
-# This builds the same image nisd2.eu runs. For the minimal workspace demo
-# instead, see apps/reference/docker-compose.yml.
+# For the minimal workspace-package demo instead, see
+# apps/reference/docker-compose.yml.
 
 services:
   postgres:

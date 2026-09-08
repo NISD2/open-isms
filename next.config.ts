@@ -69,8 +69,8 @@ const nextConfig: NextConfig = {
     "@nisd2/nis2-supply-chain-questionnaire-schema",
   ],
   // Skip TypeScript checking during the production build. `bun run typecheck`
-  // runs separately in dev / pre-commit; tsc inside `next build` doubled
-  // memory use and triggered SIGKILL on the Coolify build host.
+  // runs as its own CI step; tsc inside `next build` doubled memory use and
+  // triggered SIGKILL on the Coolify build host.
   typescript: { ignoreBuildErrors: true },
   async headers() {
     // Baseline security headers — applied to every response.

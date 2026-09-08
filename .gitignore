@@ -16,7 +16,11 @@ eval-bsig-results.json
 eval-panel-results.json
 generated-guides.json
 research/*.pdf
-public/downloads/*.pdf
+# LaTeX build output. The published PDF is the versioned copy under
+# public/downloads/, which lib/course-pdf.ts serves and which IS committed —
+# this rule used to read `public/downloads/*.pdf` and would have swallowed the
+# next COURSE_PDF_VERSION bump on `git add`, 404ing the download in production.
+courses/**/pdf-book/*.pdf
 courses/**/pdf-book/*.aux
 courses/**/pdf-book/*.log
 courses/**/pdf-book/*.toc
