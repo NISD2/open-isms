@@ -126,8 +126,16 @@ export const assessmentRouter = router({
           oldEmail: prev.contactEmail,
           newEmail: input.contactEmail,
         });
-        sendMail({ to: prev.contactEmail, ...template });
-        sendMail({ to: input.contactEmail, ...template });
+        sendMail({
+          emailType: "account.contact_email_changed",
+          to: prev.contactEmail,
+          ...template,
+        });
+        sendMail({
+          emailType: "account.contact_email_changed",
+          to: input.contactEmail,
+          ...template,
+        });
       }
 
       return updated;

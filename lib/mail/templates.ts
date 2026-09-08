@@ -14,6 +14,8 @@ import {
   type EmailContent,
   emailLayout,
   escapeHtml,
+  type PreferenceFooter,
+  preferenceFooterText,
   SEVERITY,
   safeHeader,
 } from "./layout";
@@ -115,6 +117,7 @@ export function categoryAssignedEmail(opts: {
   companyName: string;
   assignerName: string;
   categoryUrl: string;
+  footer?: PreferenceFooter;
 }): EmailContent {
   const { assigneeName, categoryName, categoryCode, companyName, assignerName, categoryUrl } = opts;
   const safeAssignee = escapeHtml(assigneeName);
@@ -136,13 +139,14 @@ export function categoryAssignedEmail(opts: {
         <a href="${categoryUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
           Go to ${safeCatCode}
         </a>
-    `),
+    `, opts.footer),
     text: [
       `New Assignment`,
       ``,
       `Hi ${assigneeName}, ${assignerName} has assigned you to ${categoryName} (${categoryCode}) in ${companyName}.`,
       ``,
       `Go to category: ${categoryUrl}`,
+      ...(opts.footer ? ["", preferenceFooterText(opts.footer)] : []),
     ].join("\n"),
   };
 }
@@ -156,6 +160,7 @@ export function categoryUnassignedEmail(opts: {
   categoryName: string;
   categoryCode: string;
   companyName: string;
+  footer?: PreferenceFooter;
 }): EmailContent {
   const { assigneeName, categoryName, categoryCode, companyName } = opts;
   const safeAssignee = escapeHtml(assigneeName);
@@ -173,13 +178,14 @@ export function categoryUnassignedEmail(opts: {
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0;">
           If you believe this was a mistake, please contact your team administrator.
         </p>
-    `),
+    `, opts.footer),
     text: [
       `Assignment Removed`,
       ``,
       `Hi ${assigneeName}, you have been unassigned from ${categoryName} (${categoryCode}) in ${companyName}.`,
       ``,
       `If you believe this was a mistake, please contact your team administrator.`,
+      ...(opts.footer ? ["", preferenceFooterText(opts.footer)] : []),
     ].join("\n"),
   };
 }
@@ -194,6 +200,7 @@ export function reviewDecisionEmail(opts: {
   requirementTitle: string;
   decision: "approved" | "rejected";
   feedback?: string | null;
+  footer?: PreferenceFooter;
 }): EmailContent {
   const { submitterName, requirementCode, requirementTitle, decision, feedback } = opts;
   const label = decision === "approved" ? "Approved" : "Rejected";
@@ -211,12 +218,13 @@ export function reviewDecisionEmail(opts: {
           Hi ${safeName}, your submission for <strong>${safeCode}</strong> (${safeTitle}) has been <span style="color: ${color}; font-weight: 600;">${decision}</span>.
         </p>
         ${safeFeedback ? `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 16px 0 0; padding: 12px; background: ${BRAND.muted}; border-radius: 6px;"><strong>Feedback:</strong> ${safeFeedback}</p>` : ""}
-    `),
+    `, opts.footer),
     text: [
       `Submission ${label}`,
       ``,
       `Hi ${submitterName}, your submission for ${requirementCode} (${requirementTitle}) has been ${decision}.`,
       feedback ? `\nFeedback: ${feedback}` : "",
+      ...(opts.footer ? ["", preferenceFooterText(opts.footer)] : []),
     ].join("\n"),
   };
 }

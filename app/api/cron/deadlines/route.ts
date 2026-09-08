@@ -6,7 +6,8 @@
  *   2. Backfill: NULL nextReviewDate → compute from priority
  *   3. Notification creation: schedule reminders for approaching deadlines
  *   4. Escalation: process overdue items through escalation chain
- *   5. Digest compilation: batch pending emails into daily/weekly digests
+ *   5. Notification dispatch: due in-app notifications are marked sent.
+ *      Digest EMAIL is not sent here — see lib/mail/digest-outbox.ts.
  *   6. Supplier portal: drain queued supplier_publication_event broadcasts
  *      (incident notifications); cron is the safety net for sync fan-out
  *      that failed in the publish path.
@@ -16,46 +17,37 @@
  * Security: Bearer token from CRON_SECRET env var.
  * Schedule: Vercel Cron at 06:00 UTC (08:00 CET)
  */
-import { NextRequest, NextResponse } from "next/server";
-import { eq, and, sql, inArray, lte, isNull, isNotNull } from "drizzle-orm";
-import { db } from "@/lib/db";
-import {
-  companyRequirementStatus,
-  companyAssessment,
-  company,
-  user,
-  notification,
-} from "@/schema";
-import { nis2StatusScope } from "@/server/trpc/helpers/nis2-scope";
+
+import { and, eq, inArray, isNotNull, isNull, lte, sql } from "drizzle-orm";
+import { type NextRequest, NextResponse } from "next/server";
 import { logAudit } from "@/lib/audit";
-import { env } from "@/lib/env";
-import { verifyCronBearer } from "@/lib/cron/auth";
-import { purgeExpiredErasureRecords } from "@/lib/gdpr/erase-user";
-import requirementsEn from "@/messages/requirements/en.json";
 import {
   computeInitialDeadline,
   computeNotificationSchedule,
   computeUrgency,
   daysUntilDeadline,
-  isRecurringFrequency,
-  toDateString,
   type Frequency,
-  type Priority,
   type Importance,
+  isRecurringFrequency,
+  type Priority,
+  toDateString,
 } from "@/lib/compliance/deadlines";
 import { processEscalation } from "@/lib/compliance/escalation";
 import { resolveRecipients } from "@/lib/compliance/resolve-recipients";
-import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
+import { verifyCronBearer } from "@/lib/cron/auth";
+import { db } from "@/lib/db";
+import { env } from "@/lib/env";
+import { purgeExpiredErasureRecords } from "@/lib/gdpr/erase-user";
+import requirementsEn from "@/messages/requirements/en.json";
 import {
-  sendMail,
-  deadlineReminderEmail,
-  deadlineUrgentEmail,
-  deadlineOverdueEmail,
-  dailyDigestEmail,
-  weeklyManagementDigestEmail,
-} from "@/lib/mail";
+  company,
+  companyAssessment,
+  companyRequirementStatus,
+  notification,
+  user,
+} from "@/schema";
+import { nis2StatusScope } from "@/server/trpc/helpers/nis2-scope";
 import { drainQueuedBroadcasts } from "@/server/trpc/routers/supplier-portal/broadcast";
-import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 
 export const dynamic = "force-dynamic";
 
@@ -76,7 +68,7 @@ export async function GET(req: NextRequest) {
     phase2_backfills: 0,
     phase3_notifications: 0,
     phase4_escalations: 0,
-    phase5_digests: 0,
+    phase5_in_app_marked: 0,
     phase6_supplier_events: 0,
     phase6_supplier_emails: 0,
     phase7_erasure_records_minimised: 0,
@@ -92,7 +84,11 @@ export async function GET(req: NextRequest) {
       where: and(
         nis2StatusScope(db),
         sql`${companyRequirementStatus.nextReviewDate} <= ${today}`,
-        inArray(companyRequirementStatus.status, ["completed", "approved", "not_applicable"]),
+        inArray(companyRequirementStatus.status, [
+          "completed",
+          "approved",
+          "not_applicable",
+        ]),
       ),
       columns: { id: true, assessmentId: true },
     });
@@ -128,7 +124,9 @@ export async function GET(req: NextRequest) {
 
     // Group by assessmentId for start date lookup
     const assessmentStartDates = new Map<string, Date>();
-    const assessmentIdsForBackfill = [...new Set(missingDeadlines.map((s) => s.assessmentId))];
+    const assessmentIdsForBackfill = [
+      ...new Set(missingDeadlines.map((s) => s.assessmentId)),
+    ];
 
     if (assessmentIdsForBackfill.length > 0) {
       const assessments = await db.query.companyAssessment.findMany({
@@ -147,7 +145,10 @@ export async function GET(req: NextRequest) {
       const startedAt = assessmentStartDates.get(status.assessmentId);
       if (!startedAt) continue;
 
-      const deadline = computeInitialDeadline(startedAt, status.requirement.priority as Priority);
+      const deadline = computeInitialDeadline(
+        startedAt,
+        status.requirement.priority as Priority,
+      );
       await db
         .update(companyRequirementStatus)
         .set({ nextReviewDate: toDateString(deadline), updatedAt: new Date() })
@@ -164,7 +165,12 @@ export async function GET(req: NextRequest) {
         nis2StatusScope(db),
         sql`${companyRequirementStatus.nextReviewDate} IS NOT NULL`,
         sql`${companyRequirementStatus.nextReviewDate} <= ${toDateString(new Date(Date.now() + 90 * 24 * 60 * 60 * 1000))}`,
-        inArray(companyRequirementStatus.status, ["completed", "approved", "needs_review", "not_applicable"]),
+        inArray(companyRequirementStatus.status, [
+          "completed",
+          "approved",
+          "needs_review",
+          "not_applicable",
+        ]),
       ),
       with: {
         requirement: {
@@ -207,7 +213,10 @@ export async function GET(req: NextRequest) {
       if (existingActive.length > 0) continue; // Already has active notifications
 
       const req = status.requirement;
-      const reqKey = req.code.replace(/\./g, "_") as keyof typeof requirementsEn.requirements;
+      const reqKey = req.code.replace(
+        /\./g,
+        "_",
+      ) as keyof typeof requirementsEn.requirements;
       const reqTitle = requirementsEn.requirements[reqKey]?.title ?? req.code;
       const frequency = req.frequency as Frequency;
       const priority = req.priority as Priority;
@@ -215,7 +224,12 @@ export async function GET(req: NextRequest) {
       const reviewDate = new Date(status.nextReviewDate);
       const slug = req.category?.slug ?? "unknown";
 
-      const schedule = computeNotificationSchedule(reviewDate, frequency, priority, importance);
+      const schedule = computeNotificationSchedule(
+        reviewDate,
+        frequency,
+        priority,
+        importance,
+      );
       if (schedule.length === 0) continue;
 
       const recipients = await resolveRecipients(db, {
@@ -261,7 +275,7 @@ export async function GET(req: NextRequest) {
             escalationLevel: 0,
             linkUrl,
           },
-        ])
+        ]),
       );
 
       if (rows.length > 0) {
@@ -277,7 +291,11 @@ export async function GET(req: NextRequest) {
       where: and(
         nis2StatusScope(db),
         sql`${companyRequirementStatus.nextReviewDate} < ${today}`,
-        inArray(companyRequirementStatus.status, ["needs_review", "completed", "approved"]),
+        inArray(companyRequirementStatus.status, [
+          "needs_review",
+          "completed",
+          "approved",
+        ]),
       ),
       columns: { id: true, assessmentId: true },
     });
@@ -297,9 +315,10 @@ export async function GET(req: NextRequest) {
     }
 
     // -----------------------------------------------------------------------
-    // Phase 5: Dispatch due notifications + compile digests
+    // Phase 5: Dispatch due IN-APP notifications
     // -----------------------------------------------------------------------
-    // Send individual notifications that are due now
+    // These surface in the bell, not in anybody's inbox, so the cron still
+    // owns them.
     const dueNotifications = await db.query.notification.findMany({
       where: and(
         eq(notification.status, "pending"),
@@ -313,121 +332,25 @@ export async function GET(req: NextRequest) {
         .update(notification)
         .set({ status: "sent", sentAt: new Date() })
         .where(eq(notification.id, n.id));
+      stats.phase5_in_app_marked++;
     }
 
-    // Compile and send digests (one per company). Exclude draft shells
-    // (activatedAt IS NULL, auto-provisioned at email verification): they carry
-    // seeded assessment rows but no real work, and the weekly management digest
-    // would otherwise mail every drive-by signup a blank-named 0% report.
-    const companies = await db.query.company.findMany({
-      where: isNotNull(company.activatedAt),
-      columns: { id: true, name: true },
-    });
+    // Digests are NOT sent here. They go out from the platform admin's send
+    // console (lib/mail/digest-outbox.ts), because nothing at nisd2.eu mails
+    // a customer without a person pressing a button — and a job that emails
+    // everybody as a side effect of doing bookkeeping is precisely the shape
+    // that rule exists to prevent. The remaining phases below still run.
+    //
+    // Self-hosters who want the old behaviour can schedule their own call to
+    // the console's send path; the endpoint is unchanged in every other way.
 
-    for (const co of companies) {
-      const members = await db.query.user.findMany({
-        where: eq(user.companyId, co.id),
-        columns: {
-          id: true,
-          email: true,
-          name: true,
-          isManagement: true,
-          role: true,
-          emailFollowupsDisabled: true,
-        },
-      });
-
-      for (const member of members) {
-        // Users who opted out of follow-up emails get neither the daily nor
-        // the weekly digest. Transactional emails are unaffected (they're
-        // sent elsewhere and not gated by this flag).
-        if (member.emailFollowupsDisabled) continue;
-
-        const unsubUrl = buildUnsubscribeUrl(member.id);
-
-        // Daily digest for everyone (default frequency)
-        const digest = await compileDailyDigest(db, member.id, co.id);
-        if (digest) {
-          sendMail({
-            to: digest.recipientEmail,
-            unsubscribeUrl: unsubUrl,
-            ...dailyDigestEmail({
-              recipientName: digest.recipientName,
-              companyName: digest.companyName,
-              overdueItems: digest.overdueItems,
-              urgentItems: digest.urgentItems,
-              upcomingItems: digest.upcomingItems,
-              compliancePercentage: digest.compliancePercentage,
-              dashboardUrl: digest.dashboardUrl,
-              unsubscribeUrl: unsubUrl,
-            }),
-          }).catch((err) => {
-            logAudit({
-              companyId: co.id,
-              userId: null,
-              action: "email.digest_failed",
-              entityType: "notification",
-              entityId: null,
-              description: `Daily digest to ${digest.recipientEmail} failed: ${err instanceof Error ? err.message : "unknown"}`,
-            });
-          });
-          stats.phase5_digests++;
-        }
-
-        // Weekly management digest on Mondays
-        const isMonday = new Date().getDay() === 1;
-        const isManagementOrAdmin = member.isManagement || member.role === "admin";
-
-        if (isMonday && isManagementOrAdmin) {
-          const mgmtDigest = await compileManagementDigest(db, member.id, co.id);
-          if (mgmtDigest) {
-            sendMail({
-              to: mgmtDigest.recipientEmail,
-              unsubscribeUrl: unsubUrl,
-              ...weeklyManagementDigestEmail({
-                recipientName: mgmtDigest.recipientName,
-                companyName: mgmtDigest.companyName,
-                compliancePercentage: mgmtDigest.compliancePercentage,
-                overdueCount: mgmtDigest.overdueCount,
-                urgentCount: mgmtDigest.urgentCount,
-                escalationCount: mgmtDigest.escalationCount,
-                totalRequirements: mgmtDigest.totalRequirements,
-                completedRequirements: mgmtDigest.completedRequirements,
-                dashboardUrl: mgmtDigest.dashboardUrl,
-                unsubscribeUrl: unsubUrl,
-              }),
-            }).catch((err) => {
-              logAudit({
-                companyId: co.id,
-                userId: null,
-                action: "email.mgmt_digest_failed",
-                entityType: "notification",
-                entityId: null,
-                description: `Management digest to ${mgmtDigest.recipientEmail} failed: ${err instanceof Error ? err.message : "unknown"}`,
-              });
-            });
-            stats.phase5_digests++;
-          }
-        }
-      }
-    }
-
-    // Mark digest email notifications as sent
-    const pendingEmails = await db.query.notification.findMany({
-      where: and(
-        eq(notification.status, "pending"),
-        eq(notification.channel, "email"),
-        lte(notification.scheduledFor, new Date()),
-      ),
-      columns: { id: true },
-    });
-
-    if (pendingEmails.length > 0) {
-      await db
-        .update(notification)
-        .set({ status: "sent", sentAt: new Date() })
-        .where(inArray(notification.id, pendingEmails.map((n) => n.id)));
-    }
+    // The per-requirement email rows that the digest covers are NOT flipped to
+    // "sent" here any more. They were, back when this phase did the sending —
+    // which already overstated reality, because the flip ran whether or not
+    // the digest actually left. Now that digests go out from the console, a
+    // flip here would mark mail sent that nobody has pressed send on yet, and
+    // would then hide those items from the next digest. They stay pending
+    // until a digest genuinely carries them (lib/mail/digest-outbox.ts).
 
     // -----------------------------------------------------------------------
     // Phase 6: Supplier portal — drain queued publication event broadcasts
@@ -458,7 +381,9 @@ export async function GET(req: NextRequest) {
     // pseudonymous fingerprint. Isolated: errors do NOT abort the cron.
     // -----------------------------------------------------------------------
     try {
-      stats.phase7_erasure_records_minimised = await purgeExpiredErasureRecords(new Date());
+      stats.phase7_erasure_records_minimised = await purgeExpiredErasureRecords(
+        new Date(),
+      );
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unknown error";
       console.error("[cron] erasure retention purge failed:", err);
@@ -512,7 +437,10 @@ async function recalculateAssessmentProgress(assessmentId: string) {
     where: eq(companyRequirementStatus.assessmentId, assessmentId),
   });
   const completed = allStatuses.filter(
-    (s) => s.status === "completed" || s.status === "approved" || s.status === "not_applicable"
+    (s) =>
+      s.status === "completed" ||
+      s.status === "approved" ||
+      s.status === "not_applicable",
   ).length;
   const total = allStatuses.length;
   const percentage = total > 0 ? ((completed / total) * 100).toFixed(2) : "0";

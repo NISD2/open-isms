@@ -21,18 +21,19 @@
  *
  * References: companies, users
  */
+
+import { sql } from "drizzle-orm";
 import {
+  check,
+  index,
+  integer,
   pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
   uuid,
   varchar,
-  text,
-  integer,
-  timestamp,
-  index,
-  uniqueIndex,
-  check,
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
 import { notificationChannelEnum, notificationStatusEnum, urgencyEnum } from "../enums";
 import { company, user } from "./organization";
 
@@ -99,11 +100,19 @@ export const notification = pgTable(
     uniqueIndex("uq_notification_lifecycle_once")
       .on(table.recipientId, table.triggerField)
       .where(sql`${table.entityType} = 'lifecycle_email'`),
+    // Digests are the other operator-sent mail, and they recur — so unlike a
+    // lifecycle claim the key carries the day. One row per recipient per
+    // digest kind per UTC day, inserted before the send, which is what makes
+    // the queue drain and what stops a second press (or a second browser tab)
+    // mailing the same person the same digest twice.
+    uniqueIndex("uq_notification_digest_once_per_day")
+      .on(table.recipientId, table.entityType, table.triggerField)
+      .where(sql`${table.entityType} IN ('daily_digest', 'weekly_management_digest')`),
     // Enforce the XOR invariant at the DB level: exactly one of recipientId
     // (in-portal user) or recipientEmail (external CISO) must be set.
     check(
       "chk_notification_recipient_xor",
       sql`(${table.recipientId} IS NOT NULL) <> (${table.recipientEmail} IS NOT NULL)`,
     ),
-  ]
+  ],
 );

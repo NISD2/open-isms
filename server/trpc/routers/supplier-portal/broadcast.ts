@@ -100,6 +100,9 @@ export async function broadcastIncidentBroadcast(broadcastId: string): Promise<b
   const link = accessUrl(rel.unsubscribeToken);
 
   const result = await sendMail({
+    // External recipient: consent lives with the portal's own token
+    // (supplier.unsubscribedAt), checked when the relationship is selected.
+    emailType: "supplier.incident_broadcast",
     to: rel.customerEmail,
     ...supplierIncidentBroadcastEmail({
       supplierName,
@@ -145,7 +148,7 @@ export async function notifyCustomerAdded(
     profileUrl: link,
     unsubscribeUrl: link,
   });
-  await sendMail({ to: customerEmail, ...email });
+  await sendMail({ emailType: "supplier.added_you", to: customerEmail, ...email });
 }
 
 export async function drainQueuedBroadcasts(): Promise<{

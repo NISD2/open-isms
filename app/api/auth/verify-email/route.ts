@@ -111,6 +111,7 @@ export async function POST(request: Request) {
     await Promise.all([
       admins.length > 0
         ? sendMail({
+            emailType: "internal.new_signup_alert",
             to: admins,
             ...newUserSignupEmail({
               userEmail: email,

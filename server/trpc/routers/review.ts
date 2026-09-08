@@ -13,6 +13,7 @@ import { sendMail, reviewDecisionEmail } from "@/lib/mail";
 import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
 import type { Database } from "@/lib/db";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
+import { preferenceFooterFor } from "@/lib/mail/footer";
 
 export const reviewRouter = router({
   /** All submission statuses for the reviewer's company */
@@ -328,6 +329,8 @@ async function notifySubmitter(
     const reqTitle = requirementsEn[reqKey]?.title ?? req.code;
 
     sendMail({
+      emailType: "work.review_decision",
+      recipientUserId: status.completedBy,
       to: submitter.email,
       ...reviewDecisionEmail({
         submitterName: submitter.name ?? "",
@@ -335,6 +338,7 @@ async function notifySubmitter(
         requirementTitle: reqTitle,
         decision,
         feedback,
+        footer: preferenceFooterFor(status.completedBy, "work.review_decision"),
       }),
     });
   } catch {

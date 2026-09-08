@@ -84,11 +84,72 @@ function brandFooter(): string {
 }
 
 /**
+ * The consent footer every optional email carries: one link to switch off
+ * this kind of message, one to the preference centre for everything else.
+ * Rendered by the layout rather than hand-written per template, so the two
+ * links cannot drift apart or go missing from a new email.
+ *
+ * Essential mail (sign-in codes, security notices) passes no footer: there
+ * is nothing to opt out of, and offering it would be a lie.
+ */
+export interface PreferenceFooter {
+  unsubscribeUrl: string;
+  preferencesUrl: string;
+  /** Copy language; falls back to German, the platform default. */
+  locale?: "de" | "en" | "nl";
+}
+
+const FOOTER_COPY: Record<
+  "de" | "en" | "nl",
+  { unsubscribe: string; manage: string; separator: string }
+> = {
+  de: {
+    unsubscribe: "Diese E-Mails abbestellen",
+    manage: "E-Mail-Einstellungen",
+    separator: "oder",
+  },
+  en: {
+    unsubscribe: "Unsubscribe from these emails",
+    manage: "Email settings",
+    separator: "or",
+  },
+  nl: {
+    unsubscribe: "Afmelden voor deze e-mails",
+    manage: "E-mailinstellingen",
+    separator: "of",
+  },
+};
+
+export function preferenceFooterHtml(footer: PreferenceFooter): string {
+  const copy = FOOTER_COPY[footer.locale ?? "de"];
+  return `
+        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
+          <a href="${footer.unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">${copy.unsubscribe}</a>
+          &nbsp;${copy.separator}&nbsp;
+          <a href="${footer.preferencesUrl}" style="color: ${BRAND.mutedForeground};">${copy.manage}</a>
+        </p>`;
+}
+
+/** Plain-text twin of the footer, for the text/plain alternative. */
+export function preferenceFooterText(footer: PreferenceFooter): string {
+  const copy = FOOTER_COPY[footer.locale ?? "de"];
+  return [`${copy.unsubscribe}: ${footer.unsubscribeUrl}`, `${copy.manage}: ${footer.preferencesUrl}`].join(
+    "\n",
+  );
+}
+
+/**
  * Wrap an inner HTML body in the shared brand layout (header + footer +
  * card container). Inner content is rendered inside a 24px-padded white
- * panel below the header.
+ * panel below the header. Pass `footer` for any message the recipient is
+ * allowed to switch off; omit it for essential mail.
  */
-export function emailLayout(innerHtml: string): string {
+export function emailLayout(innerHtml: string, footer?: PreferenceFooter): string {
+  const body = footer ? `${innerHtml}\n${preferenceFooterHtml(footer)}` : innerHtml;
+  return renderLayout(body);
+}
+
+function renderLayout(innerHtml: string): string {
   return `
     <div style="background: ${BRAND.pageBackground}; padding: 24px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
       <div style="max-width: 560px; margin: 0 auto; background: ${BRAND.background}; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">

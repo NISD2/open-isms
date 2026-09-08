@@ -5,9 +5,13 @@ import { resend, FROM_EMAIL } from "./resend";
 import { env } from "@/lib/env";
 import { WelcomeEmail } from "./templates/WelcomeEmail";
 import { getAppUrl } from "@/lib/utils";
+import { db } from "@/lib/db";
+import type { DbOrTx } from "@/lib/db";
+import { loadEmailConsent } from "./consent";
+import type { EmailTypeId, UngatedEmailTypeId, UserConsentEmailTypeId } from "./email-types";
+import { oneClickUnsubscribeUrl } from "@/lib/email/unsubscribe";
 
-export interface SendMailOptions {
-  to: string | string[];
+interface BaseMailOptions {
   subject: string;
   html: string;
   text?: string;
@@ -19,12 +23,6 @@ export interface SendMailOptions {
    */
   fromEmail?: string;
   /**
-   * If set, adds RFC 8058 one-click List-Unsubscribe headers. The URL is sent
-   * via both `List-Unsubscribe` and `List-Unsubscribe-Post`, letting Gmail /
-   * Apple Mail render a native "Unsubscribe" link in the message header.
-   */
-  unsubscribeUrl?: string;
-  /**
    * Resend Idempotency-Key. The retry loop below re-POSTs on ambiguous
    * network failures, so a request that Resend accepted but whose response
    * was lost would otherwise be delivered AGAIN on the retry. Callers with
@@ -33,6 +31,39 @@ export interface SendMailOptions {
    */
   idempotencyKey?: string;
 }
+
+/**
+ * Every send names the message it is (lib/mail/email-types.ts). For messages
+ * a recipient is allowed to switch off, the id alone is not enough — the
+ * caller must also say WHO the recipient is, because the consent gate below
+ * needs an identity to look up. That obligation is carried by the type, not
+ * by a convention someone can forget: there is no way to spell a call that
+ * sends `product.lifecycle_nudge` without a recipientUserId, and no way to
+ * send one to an unbounded list of addresses.
+ *
+ * The unsubscribe URL and its RFC 8058 headers are derived here rather than
+ * passed in, so an optional message cannot go out without a working one-click
+ * opt-out. Ungated messages (sign-in codes, security notices, supplier-portal
+ * mail with its own token, operator alerts) carry no such header.
+ */
+export type SendMailOptions =
+  | (BaseMailOptions & {
+      emailType: UserConsentEmailTypeId;
+      /** Single recipient: consent is per person, so a bulk `to` is not expressible. */
+      to: string;
+      recipientUserId: string;
+      /** Overrides the transaction the gate reads (defaults to the app db). */
+      db?: DbOrTx;
+    })
+  | (BaseMailOptions & {
+      emailType: UngatedEmailTypeId;
+      to: string | string[];
+      recipientUserId?: undefined;
+      db?: undefined;
+    });
+
+/** Reasons a send did not happen that are not errors. */
+export type SendSkippedReason = "opted-out";
 
 const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 1000;
@@ -114,11 +145,25 @@ export async function sendMail(opts: SendMailOptions) {
     return { success: true, id: "no-api-key" } as const;
   }
 
+  // The consent gate. Reached only by messages the recipient may switch off,
+  // and only after the transport checks above, so a suppressed environment
+  // never spends a database query on it.
+  let unsubscribeUrl: string | undefined;
+  if (opts.recipientUserId !== undefined) {
+    const consent = await loadEmailConsent(opts.db ?? db, opts.recipientUserId);
+    if (!consent.allows(opts.emailType)) {
+      return { success: true, skipped: "opted-out" as SendSkippedReason } as const;
+    }
+    // Derived, never passed in: an optional message always leaves with a
+    // working one-click opt-out for its own kind.
+    unsubscribeUrl = oneClickUnsubscribeUrl(opts.recipientUserId, opts.emailType);
+  }
+
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
-      const headers = opts.unsubscribeUrl
+      const headers = unsubscribeUrl
         ? {
-            "List-Unsubscribe": `<${opts.unsubscribeUrl}>`,
+            "List-Unsubscribe": `<${unsubscribeUrl}>`,
             "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
           }
         : undefined;
@@ -169,6 +214,7 @@ export async function sendWelcomeEmail(opts: { name: string; email: string }) {
     React.createElement(WelcomeEmail, { name: opts.name, dashboardUrl }),
   );
   return sendMail({
+    emailType: "auth.welcome",
     to: opts.email,
     subject: "Welcome to NISD2",
     html,

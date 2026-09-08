@@ -78,6 +78,20 @@
       "when": 1788860524812,
       "tag": "0010_lifecycle_email_foundations",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1788876271648,
+      "tag": "0011_email_preferences",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1788883904391,
+      "tag": "0012_digest_once_per_day",
+      "breakpoints": true
     }
   ]
 }

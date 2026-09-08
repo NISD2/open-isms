@@ -95,6 +95,7 @@ export const supplierInviteRouter = router({
       // best-effort. The supplier could also be given the link directly.
       const inviteUrl = `${getAppUrl()}/supplier-invite/${row.token}`;
       sendMail({
+        emailType: "supplier.invite",
         to: email,
         ...entityInvitesSupplierEmail({
           entityName: entity?.name ?? "A NIS2 entity",
