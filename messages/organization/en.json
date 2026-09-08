@@ -68,6 +68,7 @@
       "email": "Email",
       "role": "Role",
       "rolePlaceholder": "Select role...",
+      "ownsAreas": "Owns: {areas}",
       "addMember": "Add Team Member",
       "removeMember": "Remove",
       "back": "Back",

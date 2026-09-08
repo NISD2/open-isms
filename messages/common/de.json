@@ -13,6 +13,7 @@
     "yes": "Ja",
     "no": "Nein",
     "noData": "Keine Daten",
+    "actionFailed": "Das hat nicht geklappt. Bitte versuchen Sie es erneut.",
     "user": "Benutzer",
     "modules": {
       "asset": "Assets",
@@ -29,11 +30,21 @@
       "internal_audit": "Interne Audits",
       "improvement_item": "Verbesserungen",
       "bsi_registration": "BSI-Registrierung",
-      "bsi_incident_report": "BSI-Vorfallmeldungen"
+      "bsi_incident_report": "BSI-Vorfallmeldungen",
+      "vulnerability": "Schwachstellen",
+      "team": "Team und Rollen"
     },
     "moduleRef": {
       "confirmCompliance": "Compliance bestätigen",
-      "noRecords": "Noch keine Einträge - zuerst Daten im Modul anlegen"
+      "noRecords": "Noch keine Einträge - zuerst Daten im Modul anlegen",
+      "noRoute": "Für das Modul \"{module}\" ist keine Seite hinterlegt. Bitte melden Sie das als Fehler."
+    },
+    "evidenceTypes": {
+      "document": "Erwartet wird ein Dokument: die Richtlinie, das Konzept oder der Plan selbst.",
+      "proof": "Erwartet wird ein Beleg, dass die Maßnahme tatsächlich stattgefunden hat: Protokoll, Bestätigung, Bescheid.",
+      "training": "Erwartet wird ein Schulungsnachweis: Teilnehmerliste, Zertifikat oder Teilnahmebestätigung.",
+      "technical": "Erwartet wird ein technischer Nachweis: Konfiguration, Scanbericht, Screenshot oder Exportdatei.",
+      "sign-off": "Die Freigabe selbst ist der Nachweis. Zusätzliche Dateien wie ein Beschlussprotokoll können Sie ergänzen."
     }
   },
   "status": {

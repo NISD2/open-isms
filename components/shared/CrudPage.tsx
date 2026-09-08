@@ -23,8 +23,10 @@ interface CrudPageProps<T extends z.ZodRawShape> {
   fieldOverrides?: Record<string, FieldOverride>;
   inline?: boolean;
   formColumns?: 1 | 2 | 3;
-  onCreate?: (data: z.infer<z.ZodObject<T>>) => void;
-  onUpdate?: (id: string, data: z.infer<z.ZodObject<T>>) => void;
+  /** Awaited before the create form clears, so a caller passing `mutateAsync`
+   *  keeps the input on screen when the write fails. */
+  onCreate?: (data: z.infer<z.ZodObject<T>>) => void | Promise<unknown>;
+  onUpdate?: (id: string, data: z.infer<z.ZodObject<T>>) => void | Promise<unknown>;
   onDelete?: (id: string) => void;
   isSubmitting?: boolean;
   llmPrefill?: boolean;
@@ -108,11 +110,16 @@ export function CrudPage<T extends z.ZodRawShape>({
               key={editItem ? (editItem.id as string) : "create"}
               schema={schema}
               defaultValues={editItem as DefaultValues<z.infer<z.ZodObject<T>>> ?? undefined}
-              onSubmit={(data) => {
+              // The create form stays open under the table, so it has to clear
+              // itself: leaving the saved row's values in place made adding a
+              // second item look like editing the first. Editing keeps its
+              // values — the card closes on save anyway.
+              resetOnSubmit={!editItem}
+              onSubmit={async (data) => {
                 if (editItem && onUpdate) {
-                  onUpdate(editItem.id as string, data);
+                  await onUpdate(editItem.id as string, data);
                 } else if (onCreate) {
-                  onCreate(data);
+                  await onCreate(data);
                 }
                 setEditItem(null);
               }}

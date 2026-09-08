@@ -24,6 +24,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { trpc } from "@/lib/trpc/client";
+import { userFacingError } from "@/lib/trpc/error-message";
 import { toast } from "sonner";
 import { SchemaForm } from "@/lib/forms/schema-form";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
@@ -43,7 +44,11 @@ export function RequestSupplierProfileButton() {
       setLastEmail(variables.toEmail);
       toast.success(`Invite sent to ${variables.toEmail}`);
     },
-    onError: (err) => toast.error(err.message),
+    // Untranslated to match the rest of this component, which is English
+    // throughout. The fallback matters more than the wording: without it an
+    // unhandled server exception was rendered verbatim into the toast.
+    onError: (err) =>
+      toast.error(userFacingError(err, "Could not send the invite. Please try again.")),
   });
 
   function handleCopy() {

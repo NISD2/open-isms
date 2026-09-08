@@ -30,10 +30,11 @@ type Step = "company" | "team" | "ai";
 const STEPS: Step[] = ["company", "team", "ai"];
 
 interface OnboardingFlowProps {
-  roleSlugMap: Record<string, string[]>;
+  /** roleKey → translated names of the compliance areas that role owns. */
+  roleAreas: Record<string, string[]>;
 }
 
-export function OnboardingFlow({ roleSlugMap }: OnboardingFlowProps) {
+export function OnboardingFlow({ roleAreas }: OnboardingFlowProps) {
   const t = useTranslations("onboarding");
   const tOrg = useTranslations("organization");
   const router = useRouter();
@@ -176,7 +177,7 @@ export function OnboardingFlow({ roleSlugMap }: OnboardingFlowProps) {
             <h2 className="text-lg font-semibold">{t("steps.team")}</h2>
           </div>
           <TeamRolesForm
-            roleSlugMap={roleSlugMap}
+            roleAreas={roleAreas}
             onSubmit={(roles) => handleTeamSubmit(roles)}
             onSkip={() => handleTeamSubmit()}
             onBack={() => setStep("company")}

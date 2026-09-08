@@ -374,6 +374,7 @@ export function TrainingPage({ items }: { items: Item[] }) {
               hint={t("certificateHint")}
               uploadingText={t("uploadingCert")}
               errorText={t("certUploadFailed")}
+              tooLargeText={(size) => t("certTooLarge", { size })}
               removeText={t("removeCert")}
               currentFileKey={certFileKey}
               currentFileName={certFileName}

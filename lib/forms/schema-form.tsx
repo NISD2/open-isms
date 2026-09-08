@@ -66,6 +66,19 @@ interface SchemaFormProps<T extends z.ZodRawShape> {
   disabled?: boolean;
   /** i18n namespace for auto-resolving field labels (fields.{key}) and descriptions (fieldDescriptions.{key}) */
   translationNamespace?: string;
+  /**
+   * Clear the form back to its defaults after a submit that did not throw.
+   *
+   * Off by default, because an edit form should keep showing what was just
+   * saved. Turn it on for the repeated-entry case — the "add another" form
+   * that sits permanently open under a table. Without it, submitting an asset
+   * left every field populated with that asset, so the next entry meant
+   * overwriting the previous one field by field rather than starting clean.
+   *
+   * Only a resolved `onSubmit` resets. If the handler rejects, the input stays
+   * on screen, which is the whole point of waiting for it.
+   */
+  resetOnSubmit?: boolean;
 }
 
 // ============================================================================
@@ -90,6 +103,7 @@ export function SchemaForm<T extends z.ZodRawShape>({
   llmPrefill = false,
   disabled = false,
   translationNamespace,
+  resetOnSubmit = false,
 }: SchemaFormProps<T>) {
   const t = useTranslations("common");
   // Namespace is dynamic — cast needed because next-intl expects literal union
@@ -186,9 +200,14 @@ export function SchemaForm<T extends z.ZodRawShape>({
 
   // onSubmit is typed as (data: z.infer<ZodObject<T>>) externally.
   // Internally the data has been validated by zodResolver so the cast is safe.
-  const handleSubmit = form.handleSubmit((data) =>
-    onSubmit(data as z.infer<z.ZodObject<T>>),
-  );
+  const handleSubmit = form.handleSubmit(async (data) => {
+    await onSubmit(data as z.infer<z.ZodObject<T>>);
+    // Reset to the same defaults the form was built with, not to the values
+    // just submitted, so the next entry starts from a blank sheet.
+    if (resetOnSubmit) {
+      form.reset(defaultValues ?? (buildDefaults(fields) as DefaultValues<FieldValues>));
+    }
+  });
 
   const gridClass =
     columns === 3

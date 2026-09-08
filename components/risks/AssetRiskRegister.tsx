@@ -428,14 +428,28 @@ function InlineRiskForm({
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1.5">
           <Label className="text-xs">{t("fields.treatment")}</Label>
+          {/* The four options are ISO 27005 terms of art. Naming them alone
+              leaves the reader guessing which one their situation is, so each
+              carries what it means in practice and the chosen one explains
+              itself under the field. */}
           <Select value={treatment} onValueChange={(v) => setTreatment(v as typeof TREATMENTS[number])} disabled={disabled}>
             <SelectTrigger><SelectValue /></SelectTrigger>
-            <SelectContent>
+            <SelectContent className="max-w-md">
               {TREATMENTS.map(tr => (
-                <SelectItem key={tr} value={tr}>{t(`treatment.${tr}`)}</SelectItem>
+                <SelectItem key={tr} value={tr} className="items-start">
+                  <span className="flex flex-col gap-0.5">
+                    <span className="font-medium">{t(`treatment.${tr}`)}</span>
+                    <span className="text-xs text-muted-foreground whitespace-normal">
+                      {t(`treatmentDescriptions.${tr}`)}
+                    </span>
+                  </span>
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
+          <p className="text-xs text-muted-foreground">
+            {t(`treatmentDescriptions.${treatment}`)}
+          </p>
         </div>
         <div className="space-y-1.5">
           <Label className="text-xs">{t("fields.category")}</Label>

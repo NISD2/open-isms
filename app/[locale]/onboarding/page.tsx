@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { ALL_ROLE_KEYS, getSlugsForRole, type RoleKey } from "@/lib/compliance/role-mapping";
+import { ALL_ROLE_KEYS, getCategoriesByRole } from "@/lib/compliance/role-mapping";
+import { getComplianceMessages, getCategoryName } from "@/lib/messages";
 import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
 
 export default async function OnboardingPage() {
@@ -12,18 +14,23 @@ export default async function OnboardingPage() {
   // activated company skips onboarding.
   if (session.companyActivated) redirect("/dashboard");
 
-  // Build roleKey → category slugs map for TeamRolesForm badges
-  const entries = await Promise.all(
-    ALL_ROLE_KEYS.map(async (key) => {
-      const slugs = await getSlugsForRole(db, key as RoleKey);
-      return [key, slugs] as const;
-    }),
+  // What each role takes on, named the way the rest of the app names it.
+  // Resolved here rather than in the form so the client component does not
+  // have to carry the framework catalogue or a slug-to-code lookup.
+  const [categoriesByRole, compliance] = await Promise.all([
+    getCategoriesByRole(db),
+    getLocale().then(getComplianceMessages),
+  ]);
+  const roleAreas: Record<string, string[]> = Object.fromEntries(
+    ALL_ROLE_KEYS.map((key) => [
+      key,
+      (categoriesByRole[key] ?? []).map((c) => getCategoryName(compliance, c.code)),
+    ]),
   );
-  const roleSlugMap: Record<string, string[]> = Object.fromEntries(entries);
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-12">
-      <OnboardingFlow roleSlugMap={roleSlugMap} />
+      <OnboardingFlow roleAreas={roleAreas} />
     </main>
   );
 }

@@ -17,6 +17,15 @@ import type { Asset } from "@/schema/types";
 
 type Items = Record<string, unknown>[];
 
+/**
+ * moduleRef -> the operational rows behind it.
+ *
+ * Every key in `NIS2_MODULE_REF` needs an entry here. A missing one is not a
+ * type error, it silently renders "0 entries" (or an empty inline table) on a
+ * requirement whose register is in fact full: `vulnerability` was missing and
+ * requirement 6.3 always showed an empty vulnerability list, `team` was
+ * missing and 1.2 (roles and responsibilities) showed nothing at all.
+ */
 const MODULE_FETCHERS: Record<string, () => Promise<Items>> = {
   risk: () => api.risk.list() as Promise<Items>,
   incident: () => api.incident.list() as Promise<Items>,
@@ -30,6 +39,8 @@ const MODULE_FETCHERS: Record<string, () => Promise<Items>> = {
   change_request: () => api.change.list() as Promise<Items>,
   patch_record: () => api.patch.list() as Promise<Items>,
   training_record: () => api.training.list() as Promise<Items>,
+  vulnerability: () => api.vulnerability.list() as Promise<Items>,
+  team: () => api.team.listMembers() as Promise<Items>,
 };
 
 interface ModuleData {
@@ -181,21 +192,24 @@ export default async function RequirementDetailPage({
     signedOffAt: a.signedOffAt?.toISOString() ?? null,
   }));
 
-  // Build prev/next navigation from all requirements in this category
+  // Prev/next span the whole framework, not just this category, so the last
+  // requirement of a category still offers the first of the next one.
   const tReq = await getTranslations("requirements");
   const tc = await getTranslations("compliance");
-  const allReqsInCategory = rawStatuses.map((rs) => {
-    const k = rs.requirementCode.replace(/\./g, "_");
-    return {
-      code: rs.requirementCode,
-      title: tReq(`${k}.title`),
-    };
-  });
-  const currentIdx = allReqsInCategory.findIndex((r) => r.code === req.code);
-  const prev = currentIdx > 0 ? allReqsInCategory[currentIdx - 1] : null;
-  const next =
-    currentIdx < allReqsInCategory.length - 1
-      ? allReqsInCategory[currentIdx + 1]
+  const adjacent = await api.requirement.getAdjacent({ code: req.code });
+
+  // A neighbour in another category is worth naming: crossing from 9.3 to
+  // 10.1 is a section change, and an unlabelled arrow hides that.
+  const toNavLink = (link: typeof adjacent.prev) =>
+    link
+      ? {
+          code: link.code,
+          categorySlug: link.categorySlug,
+          categoryName:
+            link.categorySlug === categorySlug
+              ? null
+              : tc(`categories.${link.categoryCode}.name`),
+        }
       : null;
 
   // Resolve intake fields for this requirement
@@ -256,8 +270,8 @@ export default async function RequirementDetailPage({
       fields={fields}
       fieldKeys={fieldKeys}
       answers={{ ...PLATFORM_DEFAULTS[req.code], ...intakeAnswers.answers }}
-      prev={prev}
-      next={next}
+      prev={toNavLink(adjacent.prev)}
+      next={toNavLink(adjacent.next)}
       isReviewer={isReviewer}
       isAdmin={isAdmin}
       guidance={guidance}

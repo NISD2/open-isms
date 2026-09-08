@@ -3,6 +3,8 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Upload, X, FileText, Loader2 } from "lucide-react";
+import { exceedsUploadLimit, MAX_UPLOAD_MB } from "@/lib/storage/limits";
+import { userFacingError } from "@/lib/trpc/error-message";
 import { cn } from "@/lib/utils";
 
 interface SimpleFileUploadProps {
@@ -27,8 +29,10 @@ interface SimpleFileUploadProps {
   hint: string;
   /** Loading/uploading text */
   uploadingText: string;
-  /** Error text */
+  /** Error text shown when the reason is not one we can name. */
   errorText: string;
+  /** Error text for a file above the storage limit. Takes a `size` param. */
+  tooLargeText?: (maxMb: number) => string;
   /** Remove button text */
   removeText: string;
   disabled?: boolean;
@@ -45,6 +49,7 @@ export function SimpleFileUpload({
   hint,
   uploadingText,
   errorText,
+  tooLargeText,
   removeText,
   disabled = false,
 }: SimpleFileUploadProps) {
@@ -56,6 +61,14 @@ export function SimpleFileUpload({
 
   async function handleFile(file: File) {
     setError(null);
+    // Caught here rather than at the presigner, which throws a bare Error the
+    // client can only render as a generic failure.
+    if (exceedsUploadLimit(file.size)) {
+      setError(
+        tooLargeText ? tooLargeText(MAX_UPLOAD_MB) : errorText,
+      );
+      return;
+    }
     setUploading(true);
     try {
       const { uploadUrl, fileKey } = await getUploadUrl({
@@ -80,7 +93,11 @@ export function SimpleFileUpload({
       onUploaded(fileKey, file.name);
     } catch (err) {
       console.error("[file upload]", err);
-      setError(errorText);
+      // Same rule as the evidence uploader: the server's own wording when the
+      // server chose it, the generic string otherwise. The S3 PUT failure
+      // thrown above deliberately falls into "otherwise" — its text carries
+      // the storage response, which is not for the reader.
+      setError(userFacingError(err, errorText));
     } finally {
       setUploading(false);
     }

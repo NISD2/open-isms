@@ -85,6 +85,44 @@ test.describe("asset inventory: grouped large-company entries", () => {
     });
   }
 
+  // The create form stays open under the table for the next entry, so it has
+  // to come back empty. It did not: SchemaForm never reset, so after saving an
+  // asset every field still held that asset and adding a second one meant
+  // overwriting the first field by field. Corey read that as "it doesn't have
+  // an option for add new, you just replace the form with your next asset".
+  //
+  // The three creates above cannot catch this — fillFields overwrites whatever
+  // is in the field, so a stale form and a clean one look identical to them.
+  test("the create form clears itself after a save", async ({ page }) => {
+    const name = `Netzwerkdrucker Verwaltung ${Date.now()}`;
+    await page.goto("/de/assets");
+
+    const submit = page.getByTestId("schema-form-submit");
+    await expect(submit).toBeVisible({ timeout: 20_000 });
+
+    const values: Record<string, unknown> = {};
+    for (const meta of metas) values[meta.key] = generateValue(meta);
+    values.name = name;
+    // `type` renders through a SelectWithOther override, so it takes one of
+    // the catalogue options rather than the factory's free-text default.
+    values.type = "server";
+    await fillFields(page, metas, values);
+
+    const nameInput = page.locator('[data-field="name"]').locator("input").first();
+    await expect(nameInput).toHaveValue(name);
+
+    await submit.click();
+    await expect(page.getByText(name, { exact: false }).first()).toBeVisible({
+      timeout: 20_000,
+    });
+
+    // Same form element, now blank and ready for the next asset.
+    await expect(
+      nameInput,
+      "the create form must not still hold the asset just saved",
+    ).toHaveValue("", { timeout: 20_000 });
+  });
+
   // Writing an asset reverts the requirements that reference the module, and
   // that reversal has to reach the audit trail. It did not: module-recheck
   // passed the module key "asset" as entity_id, a uuid column, so every insert

@@ -18,6 +18,12 @@
       "transfer": "Übertragen",
       "avoid": "Vermeiden"
     },
+    "treatmentDescriptions": {
+      "mitigate": "Sie ergreifen eine Maßnahme, die Wahrscheinlichkeit oder Schaden senkt. Beispiel: Mehrfaktorauthentifizierung einführen, Backups testen, Systeme patchen. Der häufigste Fall.",
+      "accept": "Sie tragen das Risiko bewusst und tun nichts weiter. Nur sinnvoll unterhalb Ihrer Akzeptanzschwelle, und die Entscheidung gehört dokumentiert und von der Geschäftsführung getragen.",
+      "transfer": "Sie geben die finanziellen Folgen an Dritte ab, etwa über eine Cyberversicherung oder vertraglich an einen Dienstleister. Die Pflicht nach §38 BSIG bleibt bei der Geschäftsführung: übertragbar ist der Schaden, nicht die Verantwortung.",
+      "avoid": "Sie lassen die Tätigkeit weg, aus der das Risiko entsteht. Beispiel: ein Altsystem abschalten, eine Schnittstelle schließen, einen Dienst nicht mehr selbst betreiben."
+    },
     "fields": {
       "title": "Titel",
       "description": "Beschreibung",

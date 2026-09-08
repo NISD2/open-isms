@@ -25,7 +25,15 @@ export interface TeamRoleEntry {
 }
 
 interface TeamRolesFormProps {
-  roleSlugMap: Record<string, string[]>;
+  /**
+   * roleKey → translated names of the compliance areas that role owns.
+   *
+   * The page has always computed this ("for TeamRolesForm badges") and the
+   * form never read it, so onboarding asked who should be CISO while showing
+   * nothing about what a CISO ends up accountable for. Resolved to display
+   * names server-side; this component only renders them.
+   */
+  roleAreas: Record<string, string[]>;
   onSubmit: (roles: TeamRoleEntry[]) => void;
   onSkip: () => void;
   onBack: () => void;
@@ -40,6 +48,7 @@ interface MemberRow {
 }
 
 export function TeamRolesForm({
+  roleAreas,
   onSubmit,
   onSkip,
   onBack,
@@ -143,14 +152,28 @@ export function TeamRolesForm({
                     <SelectTrigger>
                       <SelectValue placeholder={t("rolePlaceholder")} />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="max-w-sm">
                       {ALL_ROLE_KEYS.map((key) => (
-                        <SelectItem key={key} value={key}>
-                          {t(`roles.${key}.label`)}
+                        <SelectItem key={key} value={key} className="items-start">
+                          <span className="flex flex-col gap-0.5">
+                            <span>{t(`roles.${key}.label`)}</span>
+                            {roleAreas[key]?.length > 0 && (
+                              <span className="text-xs text-muted-foreground whitespace-normal">
+                                {roleAreas[key].join(", ")}
+                              </span>
+                            )}
+                          </span>
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
+                  {/* Repeated under the closed select: the areas are the whole
+                      point of the choice, and they vanish with the dropdown. */}
+                  {m.roleKey && roleAreas[m.roleKey]?.length > 0 && (
+                    <p className="text-xs text-muted-foreground">
+                      {t("ownsAreas", { areas: roleAreas[m.roleKey].join(", ") })}
+                    </p>
+                  )}
                 </div>
               </div>
               <Button

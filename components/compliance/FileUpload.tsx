@@ -12,6 +12,8 @@ import {
   Download,
 } from "lucide-react";
 import { toast } from "sonner";
+import { exceedsUploadLimit, MAX_UPLOAD_MB } from "@/lib/storage/limits";
+import { userFacingError } from "@/lib/trpc/error-message";
 import { formatFileSize } from "@/lib/utils";
 
 interface FileUploadProps {
@@ -45,6 +47,15 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
+
+      // Checked before the round trip: past the limit the presigner throws a
+      // bare Error, which arrives as an unlabelled tRPC failure and used to
+      // be rendered as the same "upload failed" as a network problem.
+      if (exceedsUploadLimit(file.size)) {
+        toast.error(t("fileTooLarge", { size: MAX_UPLOAD_MB }));
+        e.target.value = "";
+        return;
+      }
 
       setUploading(true);
       try {
@@ -81,14 +92,19 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
         });
       } catch (err) {
         console.error("[evidence upload]", err);
-        toast.error(t("uploadFailed"));
+        // Show the server's reason when the server chose it (not assigned to
+        // this category, for one) and the generic string otherwise. Swallowing
+        // every reason is what made a failed upload impossible to act on;
+        // passing every message through would leak whatever an unhandled
+        // storage exception happened to say.
+        toast.error(userFacingError(err, t("uploadFailed")));
       } finally {
         setUploading(false);
         // Reset input
         e.target.value = "";
       }
     },
-    [requirementStatusId, createUploadUrl, confirmUpload, utils]
+    [requirementStatusId, createUploadUrl, confirmUpload, utils, t]
   );
 
   const handleDelete = useCallback(

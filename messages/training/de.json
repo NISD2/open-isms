@@ -19,6 +19,7 @@
     "uploadingCert": "Wird hochgeladen...",
     "certUploaded": "Zertifikat hochgeladen",
     "certUploadFailed": "Upload fehlgeschlagen",
+    "certTooLarge": "Die Datei ist zu groß. Maximal {size} MB pro Datei.",
     "removeCert": "Entfernen",
     "managementTraining": "Geschäftsführerschulung (§38 BSIG)",
     "managementHint": "Automatisch anhand der Rolle erkannt. Bei Bedarf ändern.",
