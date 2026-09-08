@@ -8,7 +8,7 @@ Particularly valuable:
 
 - **New / corrected framework data** — articles in `packages/grc-data-model/src/frameworks/`. NIS 2, GDPR, EU AI Act, CRA, ISO 27001 mappings.
 - **Schema improvements** — `packages/isms-schema/src/tables/`. Especially around process tracking edge cases (sign-off chains, evidence types, audit-log retention).
-- **Translation** — DE/EN/NL catalogs in `messages/` and `packages/isms-messages/`.
+- **Translation** — DE/EN/NL catalogs in `messages/`.
 - **Documentation** — `docs/` for deployment, legal references, requirement walkthroughs.
 - **Bug reports** — open a GitHub issue with a minimal reproduction, the affected file paths, and the relevant version (commit SHA or release tag).
 

@@ -23,7 +23,6 @@ COPY packages/isms-schema/package.json ./packages/isms-schema/
 COPY packages/isms-trpc/package.json ./packages/isms-trpc/
 COPY packages/isms-ui/package.json ./packages/isms-ui/
 COPY packages/isms-lib/package.json ./packages/isms-lib/
-COPY packages/isms-messages/package.json ./packages/isms-messages/
 COPY packages/nis2-supply-chain-questionnaire-schema/package.json ./packages/nis2-supply-chain-questionnaire-schema/
 
 # BuildKit cache mount: bun's package download cache persists between

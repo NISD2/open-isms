@@ -35,7 +35,6 @@ packages/
   isms-pages/                     # pre-translated page components
   isms-lib/                       # compliance helpers (deadlines, format)
   isms-trpc/                      # tRPC setup + audit middleware
-  isms-messages/                  # i18n catalogs
 
 app/                              # the production SaaS — marketing + portal + supplier + training
 components/  lib/  schema/  server/  drizzle/  messages/  i18n/   # SaaS app code
@@ -158,7 +157,7 @@ Per framework: NIS 2 12 categories / 49 requirements, GDPR 6 / 9, EU AI Act
 See [CONTRIBUTING.md](./.github/CONTRIBUTING.md). External PRs welcome — particularly:
 
 - New framework articles / mappings (`packages/grc-data-model/src/frameworks/`)
-- Translation work (`messages/`, `packages/isms-messages/`)
+- Translation work (`messages/`)
 - Schema improvements (`packages/isms-schema/src/tables/`)
 - Documentation and examples
 
