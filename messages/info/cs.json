@@ -1,5 +1,245 @@
 {
   "info": {
+    "vantaAlternative": {
+      "meta": {
+        "title": "Alternativa k Vanta: otevřená cesta k NIS 2",
+        "description": "Hledáte alternativu k Vanta pro NIS 2? open-isms je zdarma, open source a lze jej provozovat na vlastní infrastruktuře, se všemi 49 požadavky německé transpozice NIS 2. Poctivé srovnání se zdroji."
+      },
+      "title": "Alternativa k Vanta: otevřená cesta k NIS 2",
+      "subtitle": "Vanta je nejznámější platforma pro automatizaci compliance na světě. Zároveň je postavená v USA, cenu se dozvíte jen na obchodním hovoru a platformu si pronajímáte, nikdy nevlastníte. Tato stránka je poctivé srovnání: co Vanta umí dobře, kde se nehodí pro evropskou středně velkou firmu a kdy ji přesto zvolit.",
+      "overview": {
+        "heading": "Co je Vanta a proč lidé hledají alternativu",
+        "p1": "Vanta, založená v roce 2018 v San Francisku, je lídrem kategorie automatizace compliance. Produkt vyrostl kolem SOC 2, auditu, který američtí kupci softwaru vyžadují od svých dodavatelů, a dnes pokrývá více než 35 rámců včetně ISO 27001, GDPR a od října 2024 také NIS 2. Jeho hlavním příslibem je automatizovaný sběr důkazů prostřednictvím integrací s cloudovými a SaaS nástroji.",
+        "p2": "K hledání alternativy vedou tři věci. Cenu se dozvíte jen na obchodním hovoru: ceníková stránka uvádí čtyři úrovně a žádná čísla (ověřeno 8. září 2026). Platforma je americký SaaS, který si pronajímáte, s vašimi compliance daty v cloudu dodavatele. A podpora NIS 2 je jednou položkou ve velkém katalogu rámců, postavenou jako nadnárodní sada kontrol, která funguje v kterékoli zemi. To je jen jiný způsob, jak říct, že nevychází z národního zákona, který váš dozorový orgán skutečně bude citovat.",
+        "p3": "Tato stránka srovnává Vanta s open-isms, bezplatným ISMS s licencí AGPL, provozovatelným na vlastní infrastruktuře, které stojí za nisd2.eu. open-isms bylo postaveno od NIS 2: 49 požadavků německé transpozice tvoří jeho páteř, nikoli položku v katalogu."
+      },
+      "goodAt": {
+        "heading": "V čem je Vanta skutečně dobrá",
+        "description": "Poctivé srovnání začíná silnými stránkami druhé strany.",
+        "items": {
+          "automation": {
+            "title": "Hloubka integrací",
+            "body": "Stovky integrací automaticky stahují důkazy z cloudových poskytovatelů, systémů správy identit a vývojářských nástrojů. Pokud váš stack tvoří moderní americký SaaS, velká část rutinních důkazů se sbírá sama."
+          },
+          "frameworks": {
+            "title": "SOC 2 a americká auditní mašinerie",
+            "body": "Pro přípravu na audit SOC 2 a ISO 27001 je Vanta osvědčenou cestou s připojenou sítí auditorů. Pokud od vás američtí korporátní zákazníci vyžadují SOC 2, přesně pro tento účel byl produkt stvořen."
+          },
+          "trust": {
+            "title": "Trust Center a dotazníky",
+            "body": "Vyladěné stránky důvěry určené kupujícím a odpovědi na bezpečnostní dotazníky s podporou AI. Užitečné pro dodavatele softwaru, kterým neustále přicházejí due diligence požadavky od zákazníků."
+          }
+        }
+      },
+      "gaps": {
+        "heading": "Kde se Vanta nehodí",
+        "description": "Čtyři strukturální body, každý ověřitelný, žádný z nich není tajemstvím.",
+        "items": {
+          "pricing": {
+            "title": "Ceny až po obchodním hovoru",
+            "body": "Ceníková stránka zobrazuje úrovně Essentials, Plus, Professional a Enterprise a žádné ceny (ověřeno 8. září 2026). V našem auditu 150 GRC dodavatelů z května 2026 nezveřejňovalo ceny 120 z nich. Kdo chce nástroj zahrnout do rozpočtu, musí o něm nejprve vyjednávat."
+          },
+          "residency": {
+            "title": "Americký SaaS, bez možnosti vlastního provozu",
+            "body": "Vaše compliance záznamy leží v cloudu Vanty, pod jurisdikcí USA. Provoz na vlastní infrastruktuře není možný. Pro subjekty, které ve vlastním hodnocení dodavatelského řetězce zvažují datovou suverenitu, se samotné ISMS stává položkou tohoto hodnocení."
+          },
+          "depth": {
+            "title": "NIS 2 jako jedna položka katalogu",
+            "body": "Vanta přidala NIS 2 v říjnu 2024 jako nadnárodní sadu kontrol navrženou tak, aby platila bez ohledu na zemi. NIS 2 je ale směrnice: závazná je pro vás národní transpozice, v Německu BSIG, s vlastními texty požadavků, registrační povinností a lhůtami. Sada kontrol, která pasuje na každý členský stát, není ukotvena v žádném z nich."
+          },
+          "weight": {
+            "title": "Postaveno pro financované softwarové firmy",
+            "body": "Produkt i jeho cenový model cílí na firmy, které prodávají software a potřebují certifikace k uzavírání obchodů. Energetická společnost, logistická firma nebo klinika se 120 zaměstnanci, která musí splnit NIS 2, platí za automatizaci postavenou kolem stacku, který vůbec neprovozuje."
+          }
+        }
+      },
+      "different": {
+        "heading": "Co dělá open-isms jinak",
+        "description": "Ne menší Vanta. Jiný výchozí bod.",
+        "items": {
+          "register": {
+            "title": "49 požadavků, právní zakotvení na prvním místě",
+            "body": "Každý požadavek nese odkaz na zákon, od německé transpozice BSIG zpět ke směrnici, s křížovým mapováním na GDPR, EU AI Act a CRA. Datový model je veřejný a dostupný na npm; pokud s některým mapováním nesouhlasíte, řeší se to pull requestem, ne tiketem na podporu."
+          },
+          "evidence": {
+            "title": "Důkazy vznikají za provozu",
+            "body": "Každý požadavek má odpovědnou osobu, termín a schválení. Schválení a změny se ukládají do auditního logu, do kterého lze pouze přidávat. Důkazy pro váš audit se hromadí během provozu, místo aby se rekonstruovaly týden před ním."
+          },
+          "selfhost": {
+            "title": "Open source a provoz na vlastní infrastruktuře",
+            "body": "AGPL-3.0, celá platforma na GitHub, referenční docker compose pro váš vlastní hardware. Otevřené ISMS lze ověřit, nikoli pouze slibovat, a neexistuje žádný lock-in, který byste museli opouštět."
+          },
+          "cost": {
+            "title": "Bezplatná platforma, placená pomoc",
+            "body": "Platforma nestojí nic, ať už hostovaná, nebo provozovaná vlastními silami. Příjmy plynou ze školení a provozovaného hostingu. Není žádná licence k vyjednávání ani příplatek za každý rámec."
+          }
+        }
+      },
+      "stay": {
+        "heading": "Kdy je Vanta stále správnou volbou",
+        "p1": "Pokud od vás američtí korporátní zákazníci vyžadují SOC 2, váš stack tvoří moderní cloudový SaaS a chcete spravovanou automatizaci s připojenou sítí auditorů, je Vanta silný produkt a poctivé doporučení.",
+        "p2": "Pokud je rámcem, který skutečně musíte splnit, NIS 2, sídlíte v EU a chcete mít systém důkazů pod vlastní kontrolou bez nákupního cyklu, přesně pro tento případ bylo open-isms postaveno. Některé firmy provozují obojí: SOC 2 ve Vanta pro americký trh, NIS 2 v open-isms."
+      },
+      "faq": {
+        "heading": "Časté otázky",
+        "items": {
+          "q1": {
+            "q": "Podporuje Vanta NIS 2?",
+            "a": "Ano. Vanta přidala NIS 2 v říjnu 2024 jako jeden z více než 35 rámců, implementovaný jako nadnárodní sada kontrol. Co jí chybí, je vrstva národní transpozice: texty požadavků německého BSIG, registrační povinnost a národní lhůty, které dozorový orgán bude citovat."
+          },
+          "q2": {
+            "q": "Kolik stojí Vanta?",
+            "a": "Vanta ceny nezveřejňuje; ceníková stránka uvádí čtyři úrovně a odkazuje na demo hovor (ověřeno 8. září 2026). Žádné číslo si vymýšlet nebudeme. Průvodce vyjednáváním od třetích stran existují právě proto, že cena vzniká v obchodním procesu."
+          },
+          "q3": {
+            "q": "Existuje bezplatná open source alternativa k Vanta?",
+            "a": "Ano, malá skupina: open-isms (od NIS 2, zaměření na EU), verinice (kořeny v IT-Grundschutz), CISO Assistant (široký katalog rámců) a Eramba (obecné GRC). Liší se zaměřením; všechny jsou skutečně open source. Tato stránka argumentuje pro jednu z nich a říká to otevřeně."
+          },
+          "q4": {
+            "q": "Mohu Vanta provozovat na vlastní infrastruktuře?",
+            "a": "Ne. Vanta existuje pouze jako SaaS. open-isms dodává referenční sestavu docker compose a běží na vaší vlastní infrastruktuře; stejný kód pohání hostovanou verzi na nisd2.eu."
+          },
+          "q5": {
+            "q": "Mohu používat Vanta a open-isms zároveň?",
+            "a": "Ano. Otevřený datový model mapuje požadavky NIS 2 na kontroly ISO 27001, takže práce odvedená pro jeden rámec je viditelná i vůči druhému. Provozovat SOC 2 nebo ISO ve Vanta a NIS 2 v open-isms je funkční rozdělení a export si vaše data vezme s sebou v obou směrech."
+          }
+        }
+      },
+      "sources": {
+        "heading": "Zdroje",
+        "items": [
+          "Ceníková stránka Vanta, ověřeno 8. září 2026: úrovně Essentials, Plus, Professional, Enterprise; žádné veřejné ceny. vanta.com/pricing",
+          "Produktová stránka Vanta pro NIS 2 a oznámení rámce z října 2024: nadnárodní sada kontrol. vanta.com/products/nis2",
+          "Vlastní audit ceníkových stránek 150 GRC dodavatelů, květen 2026: 120 nezveřejňuje ceny. Metodika ve srovnávacím článku o GRC.",
+          "Zdrojový kód open-isms, datový model NIS 2 a referenční sestava pro vlastní provoz. github.com/NISD2/open-isms"
+        ]
+      },
+      "ctaCard": {
+        "heading": "Prohlédněte si 49 požadavků bez obchodního hovoru",
+        "description": "Vytvořte si bezplatný účet nebo provozujte platformu na vlastní infrastruktuře. První krok je v obou případech stejný: rozsah, inventura aktiv a požadavky, které se na vás skutečně vztahují."
+      },
+      "cta": "Otevřít platformu"
+    },
+    "drataAlternative": {
+      "meta": {
+        "title": "Alternativa k Drata: NIS 2 ze zákona, ne z katalogu kontrol",
+        "description": "Hledáte alternativu k Drata pro NIS 2? Drata mapuje NIS 2 na CIS Controls v8.1. open-isms vychází přímo ze zákona: zdarma, open source, provoz na vlastní infrastruktuře. Poctivé srovnání."
+      },
+      "title": "Alternativa k Drata: NIS 2 ze zákona, ne z katalogu kontrol",
+      "subtitle": "Drata je jedním ze dvou velkých jmen automatizace compliance. Stejně jako její rival Vanta je postavená v USA, přístupná jen přes demo a pronajímaná. Její podpora NIS 2 je sada kontrol mapovaná na CIS Controls v8.1. Tato stránka srovnává tento přístup s vycházením přímo ze zákona.",
+      "overview": {
+        "heading": "Co je Drata a proč lidé hledají alternativu",
+        "p1": "Drata, založená v roce 2020 v San Diegu, automatizuje sběr compliance důkazů a přípravu na audit. Její katalog zahrnuje SOC 2, ISO 27001, GDPR, HIPAA, PCI DSS, DORA, FedRAMP, CMMC a další. Pro NIS 2 nabízí Cybersecurity Core Framework: předmapované kontroly zarovnané s požadavky směrnice a mapované, podle vlastního popisu Draty, na CIS Controls v8.1.",
+        "p2": "Důvody hledat jinde odrážejí celou kategorii. Ceníková stránka nezobrazuje žádné úrovně ani čísla, pouze žádost o demo (ověřeno 8. září 2026). Platforma je americký SaaS s vašimi compliance záznamy v cloudu dodavatele. A vrstva NIS 2 je katalogovým překladem směrnice, nikoli národním zákonem: CIS Controls jsou respektovaný katalog, ale dozorový orgán vás audituje podle transpozice, v Německu podle BSIG.",
+        "p3": "Tato stránka srovnává Drata s open-isms, bezplatným ISMS s licencí AGPL, provozovatelným na vlastní infrastruktuře, které stojí za nisd2.eu a které vychází ze 49 požadavků německé transpozice NIS 2 a u každého z nich zachovává odkaz na zákon."
+      },
+      "goodAt": {
+        "heading": "V čem je Drata skutečně dobrá",
+        "description": "Poctivá polovina každé srovnávací stránky.",
+        "items": {
+          "automation": {
+            "title": "Automatizovaný sběr důkazů",
+            "body": "Hlavní síla Draty: integrace průběžně stahují důkazy z cloudové infrastruktury, poskytovatelů identit a vývojářských nástrojů a nahrazují snímky obrazovky a tabulky pro pokrytý stack."
+          },
+          "frameworks": {
+            "title": "Široký katalog certifikací",
+            "body": "SOC 2, ISO 27001, PCI DSS, FedRAMP, CMMC a další, s křížovým mapováním, takže jedna kontrola slouží několika rámcům. Pro firmy, které sbírají certifikace k uzavírání korporátních obchodů, je tato šíře samotným produktem."
+          },
+          "trust": {
+            "title": "Auditní workflow",
+            "body": "Spolupráce s auditory, průběžné sledování kontrol a přehledy připravenosti jsou vyzrálé. Cesta od monitoringu k dokončenému auditu SOC 2 nebo ISO je dobře prošlapaná."
+          }
+        }
+      },
+      "gaps": {
+        "heading": "Kde se Drata nehodí",
+        "description": "Čtyři strukturální body, každý ověřitelný.",
+        "items": {
+          "pricing": {
+            "title": "Žádné veřejné ceny",
+            "body": "Ceníková stránka neuvádí žádné úrovně ani čísla, pouze žádost o demo (ověřeno 8. září 2026). V našem auditu 150 GRC dodavatelů z května 2026 nezveřejňovalo ceny 120 z nich. Cena nástroje je výstupem obchodního procesu, nikoli vstupem pro váš rozpočet."
+          },
+          "residency": {
+            "title": "Americký SaaS, bez možnosti vlastního provozu",
+            "body": "Možnost provozovat Drata na vlastní infrastruktuře neexistuje. Vaše ISMS, včetně záznamů o incidentech a rizicích, leží v cloudu amerického dodavatele. Pokud vaše vlastní hodnocení dodavatelského řetězce zvažuje jurisdikci dodavatelů, spadá do jeho rozsahu i nástroj, který toto hodnocení obsahuje."
+          },
+          "depth": {
+            "title": "NIS 2 optikou CIS",
+            "body": "Rámec NIS 2 od Draty mapuje směrnici na CIS Controls v8.1. To dává rozumnou technickou základnu, jenže povinnosti NIS 2 jsou povinnosti právní: registrace, odpovědnost vedení, stupňované hlášení incidentů, dokumentace dodavatelského řetězce. Katalog kontrol nenese texty paragrafů, národní lhůty ani registrační povinnost."
+          },
+          "weight": {
+            "title": "Postaveno pro kupce certifikací",
+            "body": "Podoba Draty předpokládá, že sbíráte certifikace, abyste prodávali software. Populace NIS 2 je jiná: energetika, logistika, výroba, zdravotnictví, většina z nich plní formální regulaci kybernetické bezpečnosti poprvé a na žádný certifikát se nepřipravuje."
+          }
+        }
+      },
+      "different": {
+        "heading": "Co dělá open-isms jinak",
+        "description": "Vyjít ze zákona, uchovat důkazy, vlastnit systém.",
+        "items": {
+          "register": {
+            "title": "Zákon je datový model",
+            "body": "Všech 49 požadavků německé transpozice NIS 2, každý s odkazem na zákon, křížově mapovaných na GDPR, EU AI Act a CRA. Model je open source a publikovaný na npm. Zatímco Drata překládá směrnici do CIS Controls, open-isms zachovává paragraf, podle kterého budete auditováni."
+          },
+          "evidence": {
+            "title": "Důkazy vznikají za provozu",
+            "body": "Odpovědná osoba, termín a schválení u každého požadavku, pod tím auditní log, do kterého lze pouze přidávat. Auditoři neakceptují dashboard, ale záznam, který nelze potichu přepsat. Ten záznam roste s tím, jak pracujete."
+          },
+          "selfhost": {
+            "title": "Open source a provoz na vlastní infrastruktuře",
+            "body": "AGPL-3.0, kompletní zdrojový kód na GitHub, referenční docker compose. Provozujte na vlastním hardwaru, nebo použijte hostovanou verzi; v obou případech je kód auditovatelný a dveře ven zůstávají otevřené."
+          },
+          "cost": {
+            "title": "Bezplatná platforma, placená pomoc",
+            "body": "Žádná licence, žádný příplatek za rámec, žádné vyjednávání. Platforma je zdarma; peníze stojí školení a provozovaný hosting. Vaše rozpočtová debata se točí kolem implementační práce, ne kolem nástrojů."
+          }
+        }
+      },
+      "stay": {
+        "heading": "Kdy je Drata stále správnou volbou",
+        "p1": "Pokud vaše firma prodává software, zákazníci od vás žádají SOC 2 nebo ISO 27001 a vaše infrastruktura žije ve velkých cloudech, automatizuje Drata skutečnou práci a investice se může zaplatit uzavřenými obchody.",
+        "p2": "Pokud na vašem stole leží povinnost NIS 2, zní poctivá otázka jinak: potřebujete národní požadavky, obhajitelnou stopu důkazů a systém, se kterým se vaše vlastní hodnocení rizik dokáže srovnat. Přesně pro tento případ je open-isms postaveno a jeho vyzkoušení nestojí nic."
+      },
+      "faq": {
+        "heading": "Časté otázky",
+        "items": {
+          "q1": {
+            "q": "Podporuje Drata NIS 2?",
+            "a": "Ano. Drata nabízí pro NIS 2 Cybersecurity Core Framework s kontrolami mapovanými na CIS Controls v8.1, plus šablony politik. Co jí chybí, je národní transpozice: texty paragrafů německého BSIG, registrační povinnost a lhůty."
+          },
+          "q2": {
+            "q": "Kolik stojí Drata?",
+            "a": "Drata na své ceníkové stránce nezveřejňuje žádné ceny ani názvy úrovní; jedinou cestou je žádost o demo (ověřeno 8. září 2026). Žádné číslo si zde vymýšlet nebudeme."
+          },
+          "q3": {
+            "q": "Drata, nebo Vanta?",
+            "a": "Jsou to přímí rivalové se stejnou podobou: široké katalogy rámců, hluboké integrace, ceny až po demu, americký SaaS. Pokud mezi nimi vybíráte pro SOC 2, vyžádejte si od obou ceny písemně a porovnejte nakládání s daty v EU. Pokud je vaší skutečnou povinností NIS 2, je volba úplně jinou kategorií."
+          },
+          "q4": {
+            "q": "Existuje bezplatná open source alternativa k Drata?",
+            "a": "Ano: open-isms (od NIS 2, zaměření na EU), verinice, CISO Assistant a Eramba. Všechny skutečně open source, s různými těžišti. Tato stránka argumentuje pro jednu z nich a vydávají ji její tvůrci, což byste měli vzít v úvahu."
+          },
+          "q5": {
+            "q": "Mohu migrovat nebo provozovat obojí?",
+            "a": "Provozovat certifikační rámce v Drata a NIS 2 v open-isms je funkční rozdělení. Otevřený datový model udržuje požadavky NIS 2 mapované na kontroly ISO 27001, takže úsilí o důkazy je viditelné v obou, a exporty udržují vaše data přenositelná."
+          }
+        }
+      },
+      "sources": {
+        "heading": "Zdroje",
+        "items": [
+          "Ceníková stránka Drata, ověřeno 8. září 2026: žádné úrovně, žádné ceny, pouze žádost o demo. drata.com/pricing",
+          "Produktová stránka Drata pro NIS 2: Cybersecurity Core Framework, kontroly mapované na CIS Controls v8.1. drata.com/product/nis-2",
+          "Vlastní audit ceníkových stránek 150 GRC dodavatelů, květen 2026: 120 nezveřejňuje ceny. Metodika ve srovnávacím článku o GRC.",
+          "Zdrojový kód open-isms, datový model NIS 2 a referenční sestava pro vlastní provoz. github.com/NISD2/open-isms"
+        ]
+      },
+      "ctaCard": {
+        "heading": "Vyjděte ze zákona, ne z katalogu",
+        "description": "Vytvořte si bezplatný účet nebo provozujte platformu vlastními silami. Rozsah, inventura aktiv a požadavky, které se na vás vztahují, jsou první hodinou práce a nic z toho nevyžaduje obchodní hovor."
+      },
+      "cta": "Otevřít platformu"
+    },
     "wikiNextStep": {
       "scope": {
         "heading": "Nevíte, jestli se na vás NIS 2 vztahuje?",
