@@ -50,10 +50,10 @@
     }
   },
   "1.4": {
-    "summary": "Jedes Mitglied Ihrer Geschäftsführung muss eine persönliche Erklärung zur Haftung für Cybersicherheitsmaßnahmen unterschreiben. Sie sind fertig, wenn alle aktuellen Geschäftsführer das individuell bestätigt haben. Die Plattform trackt das pro Person.",
+    "summary": "§38(1) BSIG verpflichtet die Geschäftsleitung, die Risikomanagementmaßnahmen umzusetzen und ihre Umsetzung zu überwachen. §38(2) knüpft daran die Haftung: Wer diese Pflicht verletzt, haftet der eigenen Einrichtung für den schuldhaft verursachten Schaden nach dem Gesellschaftsrecht. Eine gesetzlich vorgeschriebene Unterschrift gibt es dafür nicht. Diese Plattform lässt jedes Mitglied einzeln bestätigen, dass es die Pflicht kennt, damit die Überwachung nach §38(1) belegt ist. Sie sind fertig, wenn alle aktuellen Mitglieder bestätigt haben.",
     "applicability": "Das müssen alle Mitglieder der Geschäftsführung machen; andere Mitarbeiter können das überspringen.",
     "quickTip": "Sammeln Sie zuerst die Namen aller aktuellen Geschäftsführer und schicken Sie ihnen den Link zur Plattform zum Unterschreiben.",
-    "implementationSteps": "Listen Sie alle aktuellen Mitglieder der Geschäftsführung auf.\nLassen Sie jedes Mitglied individuell die Haftungserklärung auf der Plattform unterschreiben.\nErklären Sie ihnen klar: Sie haften persönlich für Cybersicherheit, das kann der Arbeitgeber nicht abwälzen, und Verstöße können Bußgelder bis 500.000 € nach sich ziehen.\nÜberprüfen Sie auf der Plattform, ob alle bestätigt haben.\nWiederholen Sie das, wenn sich die Geschäftsführung ändert.",
+    "implementationSteps": "Listen Sie alle aktuellen Mitglieder der Geschäftsführung auf.\nLassen Sie jedes Mitglied einzeln auf der Plattform bestätigen, dass es die Pflicht aus §38(1) kennt.\nErklären Sie den Unterschied: §38(2) begründet eine Haftung gegenüber der eigenen Einrichtung nach Gesellschaftsrecht. Die Bußgelder in §65 BSIG richten sich dagegen an die Einrichtung, nicht an die einzelne Person.\nÜberprüfen Sie auf der Plattform, ob alle bestätigt haben.\nWiederholen Sie das, wenn sich die Geschäftsführung ändert.",
     "evidenceExample": "Individuelle Bestätigungen jedes Geschäftsführers auf der Plattform, die zeigen, dass sie die persönliche Haftung für Cybersicherheitsmaßnahmen verstanden und anerkannt haben.",
     "fields": {
       "liabilityAcknowledged": {
@@ -323,10 +323,10 @@
     }
   },
   "3.5": {
-    "summary": "Nach jedem großen Vorfall führen Sie innerhalb von zwei Wochen eine strukturierte Nachbesprechung durch und dokumentieren Ursache, Ablauf, was gut lief und was nicht, sowie konkrete Verbesserungen mit Verantwortlichen und Fristen. Sie erstellen zudem genehmigte Vorlagen für die Kommunikation an Kunden und Öffentlichkeit, die erklären, was passiert ist, welche Daten betroffen sind und was zu tun ist.",
+    "summary": "Nach jedem großen Vorfall führen Sie eine strukturierte Nachbesprechung durch, innerhalb einer Frist, die Sie selbst festlegen (CIR 3.6 verlangt die Nachbesprechung, nennt aber keine Frist) und dokumentieren Ursache, Ablauf, was gut lief und was nicht, sowie konkrete Verbesserungen mit Verantwortlichen und Fristen. Sie erstellen zudem genehmigte Vorlagen für die Kommunikation an Kunden und Öffentlichkeit, die erklären, was passiert ist, welche Daten betroffen sind und was zu tun ist.",
     "applicability": "Jedes Unternehmen, das kritische Vorfälle haben kann, muss das machen. Kleine Firmen ohne Vorfälle in der Vergangenheit können es erst bei Bedarf einrichten.",
     "quickTip": "Schauen Sie in Ihrem IT-Team nach, wer schon mal einen Vorfall bearbeitet hat, und fragen Sie die Person, ob sie die Nachbesprechungen leiten kann.",
-    "implementationSteps": "Richten Sie einen Prozess ein, dass nach jedem großen Vorfall innerhalb von 2 Wochen eine Nachbesprechung stattfindet.\nDokumentieren Sie in einem Bericht: Ursache, vollständigen Zeitverlauf, was gut und schlecht lief, und Verbesserungsmaßnahmen mit Verantwortlichen und Fristen.\nErstellen Sie Vorlagen für Kunden- und Öffentlichkeitsmitteilungen, die abdecken: Was passiert ist, betroffene Daten, Ihre Maßnahmen und Tipps für Empfänger.\nLassen Sie Vorlagen vom Vorstand oder der Geschäftsleitung genehmigen.\nFüttern Sie alle Verbesserungen in Ihren Plan für kontinuierliche Verbesserungen ein.",
+    "implementationSteps": "Richten Sie einen Prozess ein, dass nach jedem großen Vorfall eine Nachbesprechung stattfindet, und legen Sie die Frist dafür selbst fest.\nDokumentieren Sie in einem Bericht: Ursache, vollständigen Zeitverlauf, was gut und schlecht lief, und Verbesserungsmaßnahmen mit Verantwortlichen und Fristen.\nErstellen Sie Vorlagen für Kunden- und Öffentlichkeitsmitteilungen, die abdecken: Was passiert ist, betroffene Daten, Ihre Maßnahmen und Tipps für Empfänger.\nLassen Sie Vorlagen vom Vorstand oder der Geschäftsleitung genehmigen.\nFüttern Sie alle Verbesserungen in Ihren Plan für kontinuierliche Verbesserungen ein.",
     "evidenceExample": "Ein Bericht über eine Nachbesprechung, der Ursachenanalyse, Zeitlinie, Erfolge und Misserfolge sowie zugewiesene Verbesserungsmaßnahmen mit Fristen zeigt, plus genehmigte Vorlagen für Kundenmitteilungen, die den Vorfall, betroffene Daten und nächsten Schritte beschreiben.",
     "fields": {
       "postIncidentReviewOwner": {
@@ -657,7 +657,7 @@
     "fields": {}
   },
   "6.5": {
-    "summary": "Ihr Unternehmen braucht einen formalen Change-Management-Prozess, der Risikobewertung vor Änderungen, Tests vor Produktivnahme und nachträgliche Dokumentation von Notfalländerungen umfasst. Diese drei Kontrollen sind nach CIR 6(4) verpflichtend. Sie sind fertig, wenn der Prozess dokumentiert ist und Änderungen getrackt werden.",
+    "summary": "Ihr Unternehmen braucht einen formalen Change-Management-Prozess, der Risikobewertung vor Änderungen, Tests vor Produktivnahme und nachträgliche Dokumentation von Notfalländerungen umfasst. Diese drei Kontrollen stehen in CIR Anhang Nr. 6.4 (Änderungsmanagement, Reparatur und Wartung). Sie sind fertig, wenn der Prozess dokumentiert ist und Änderungen getrackt werden.",
     "applicability": "Jedes Unternehmen mit kritischen IT-Systemen muss das umsetzen; kleine Firmen ohne IT-Änderungen können es überspringen.",
     "quickTip": "Sprechen Sie mit Ihrem IT-Leiter: Welches Tool nutzen Sie schon für Änderungsanfragen?",
     "implementationSteps": "Nennen Sie Ihr Change-Tracking-Tool im Intake-Feld.\nStellen Sie sicher, dass Ihr Prozess die drei CIR 6(4)-Pflichtkontrollen abdeckt: Risikobewertung vor Änderungen, Tests vor Produktivnahme, nachträgliche Dokumentation von Notfalländerungen.\nErfassen Sie Änderungen im Änderungsregister mit vollständigem Lebenszyklus (Entwurf → genehmigt → umgesetzt).\nÜberprüfen Sie die Änderungshistorie vierteljährlich.",
@@ -982,7 +982,7 @@
     "summary": "Dokumentieren Sie Ihre unternehmensweiten Prozesse für den Mitarbeiter-Lifecycle (Eintritt, Versetzung, Austritt) und Ihr Privileged Access Management. Sie sind fertig, wenn Tools, Hintergrundprüfungen und PAM-Ansatz dokumentiert sind.",
     "applicability": "Jedes Unternehmen mit Mitarbeitern braucht JML-Prozesse; PAM-Tooling ist nötig bei Admin- oder Service-Accounts.",
     "quickTip": "Fragen Sie HR: 'Was passiert, wenn jemand anfängt oder aufhört?' Fragen Sie IT: 'Welches Tool verwaltet Admin-Accounts?'",
-    "implementationSteps": "Dokumentieren Sie Ihren Joiner-Mover-Leaver-Prozess mit Checklisten.\nBenennen Sie die verwendeten Tools (HR-System, Ticketing, Tabelle).\nDefinieren Sie den Umfang der Hintergrundprüfungen gemäß CIR Art. 10.\nBenennen Sie Ihr PAM-Tool oder Ihren Ansatz.\nLassen Sie die Prozesse von der Geschäftsleitung genehmigen.",
+    "implementationSteps": "Dokumentieren Sie Ihren Joiner-Mover-Leaver-Prozess mit Checklisten.\nBenennen Sie die verwendeten Tools (HR-System, Ticketing, Tabelle).\nDefinieren Sie den Umfang der Hintergrundprüfungen nach CIR Anhang Nr. 10 (Personalsicherheit).\nBenennen Sie Ihr PAM-Tool oder Ihren Ansatz.\nLassen Sie die Prozesse von der Geschäftsleitung genehmigen.",
     "evidenceExample": "Dokumentation des JML-Prozesses mit Checklisten, PAM-Tool-Konfiguration und Hintergrundprüfungsrichtlinie.",
     "fields": {
       "jmlTool": {
@@ -1114,10 +1114,10 @@
     }
   },
   "12.1": {
-    "summary": "Ihre Firma prüft, ob sie unter NIS2 fällt, und klassifiziert sich als 'wesentlich', 'wichtig' oder verpflichtet. Sie sind fertig, wenn Sie das schriftlich dokumentiert haben mit Sektoren, Größe und Begründung.",
-    "applicability": "Jede Firma mit 50+ Mitarbeitern oder 10 Mio. € Umsatz in kritischen Sektoren muss das machen. Kleinere oder nicht betroffene können es überspringen.",
+    "summary": "Ihre Firma prüft, ob sie unter NIS2 fällt, und klassifiziert sich nach §28 BSIG als 'besonders wichtige Einrichtung', 'wichtige Einrichtung' oder als nicht betroffen. Sie sind fertig, wenn Sie das schriftlich dokumentiert haben mit Sektoren, Größe und Begründung.",
+    "applicability": "Betroffen ist, wer in einem Sektor der Anlagen 1 oder 2 tätig ist und die Größenschwellen des §28 BSIG erreicht. Achtung auf das \"und\": mindestens 50 Mitarbeiter ODER Jahresumsatz und Jahresbilanzsumme von jeweils über 10 Millionen Euro. Umsatz allein genügt nicht.",
     "quickTip": "Schauen Sie zuerst Ihre Mitarbeiterzahl und Umsatz der letzten zwei Jahre an, und vergleichen Sie mit den NIS2-Sektoren.",
-    "implementationSteps": "1. Listen Sie auf, in welchen Branchen (Sektoren) Ihre Firma arbeitet, z.B. Energie oder Gesundheit.\n2. Prüfen Sie Größe: Mindestens 50 Mitarbeiter oder 10 Mio. € Umsatz?\n3. Bestimmen Sie die Klassifizierung: wesentlich (250+ MA oder 50 Mio. €), wichtig (50+ MA oder 10 Mio. €) oder verpflichtet.\n4. Schreiben Sie alles in ein Dokument mit Begründung und Gesetzesstellen aus §28 BSIG.\n5. Lassen Sie es vom Vorstand oder Rechtsberater prüfen.",
+    "implementationSteps": "1. Listen Sie auf, in welchen Branchen (Sektoren) Ihre Firma arbeitet, z.B. Energie oder Gesundheit.\n2. Prüfen Sie die Größe nach §28 BSIG: mindestens 50 Mitarbeiter, oder Jahresumsatz UND Jahresbilanzsumme von jeweils über 10 Millionen Euro.\n3. Bestimmen Sie die Einstufung nach §28 BSIG: besonders wichtige Einrichtung (mindestens 250 Mitarbeiter, oder Jahresumsatz über 50 Millionen Euro UND Jahresbilanzsumme über 43 Millionen Euro), wichtige Einrichtung (mindestens 50 Mitarbeiter, oder Umsatz und Bilanzsumme jeweils über 10 Millionen Euro), oder nicht betroffen.\n4. Schreiben Sie alles in ein Dokument mit Begründung und Gesetzesstellen aus §28 BSIG.\n5. Lassen Sie es vom Vorstand oder Rechtsberater prüfen.",
     "evidenceExample": "Ein internes Dokument, das Ihre Sektoren, Firmengröße, Klassifizierung und die rechtliche Begründung mit Verweisen auf §28 BSIG zeigt.",
     "fields": {
       "entityClassification": {
