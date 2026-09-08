@@ -230,6 +230,13 @@ export async function sendDigestBatch(
   db: Database,
   limit: number,
   actorUserId: string,
+  /**
+   * Restrict the batch to one queued (recipient, kind) pair: the per-row
+   * "Send" button. The person must still be in the built queue, so this
+   * cannot mail anyone the digest logic would not have mailed, and the
+   * per-day claim still arbitrates duplicates.
+   */
+  only?: { userId: string; kind: DigestKind },
 ): Promise<DigestSendResult> {
   if (activeDigestRun) {
     return {
@@ -241,7 +248,7 @@ export async function sendDigestBatch(
       deferred: 0,
     };
   }
-  const run = executeDigestBatch(db, limit, actorUserId);
+  const run = executeDigestBatch(db, limit, actorUserId, only);
   activeDigestRun = run;
   try {
     return await run;
@@ -254,6 +261,7 @@ async function executeDigestBatch(
   db: Database,
   limit: number,
   actorUserId: string,
+  only?: { userId: string; kind: DigestKind },
 ): Promise<DigestSendResult> {
   const suppression = mailSuppressionReason();
   if (suppression) {
@@ -267,7 +275,10 @@ async function executeDigestBatch(
     };
   }
 
-  const queue = await buildDigestQueue(db);
+  const allQueued = await buildDigestQueue(db);
+  const queue = only
+    ? allQueued.filter((q) => q.userId === only.userId && q.kind === only.kind)
+    : allQueued;
   const batch = queue.slice(0, Math.max(1, limit));
   const result: DigestSendResult = {
     skipped: null,

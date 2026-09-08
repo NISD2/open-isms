@@ -25,9 +25,17 @@ import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
+import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import { loadEmailConsent } from "@/lib/mail/consent";
-import { buildDigestQueue, sendDigestBatch } from "@/lib/mail/digest-outbox";
+import {
+  buildDigestQueue,
+  type DigestKind,
+  sendDigestBatch,
+} from "@/lib/mail/digest-outbox";
 import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
+import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
+import type { Database } from "@/lib/db";
+import { preferenceFooterFor } from "@/lib/mail/footer";
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
 import { COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
@@ -54,6 +62,80 @@ import { protectedProcedure, router } from "../init";
  * a producer is misbehaving.
  */
 const MULTI_SEND_ALERT_PER_DAY = 3;
+
+/** Compile and render one digest for one user, or null when there is nothing to say. */
+async function buildDigestContent(
+  db: Database,
+  userId: string,
+  companyId: string,
+  kind: DigestKind,
+): Promise<{ subject: string; html: string; text: string } | null> {
+  const footer = preferenceFooterFor(
+    userId,
+    kind === "daily" ? "reminders.daily_digest" : "reminders.weekly_management_digest",
+  );
+  if (kind === "daily") {
+    const d = await compileDailyDigest(db, userId, companyId);
+    if (!d) return null;
+    return dailyDigestEmail({
+      recipientName: d.recipientName,
+      companyName: d.companyName,
+      overdueItems: d.overdueItems,
+      urgentItems: d.urgentItems,
+      upcomingItems: d.upcomingItems,
+      compliancePercentage: d.compliancePercentage,
+      dashboardUrl: d.dashboardUrl,
+      unsubscribeUrl: footer.unsubscribeUrl,
+    });
+  }
+  const m = await compileManagementDigest(db, userId, companyId);
+  if (!m) return null;
+  return weeklyManagementDigestEmail({
+    recipientName: m.recipientName,
+    companyName: m.companyName,
+    compliancePercentage: m.compliancePercentage,
+    overdueCount: m.overdueCount,
+    urgentCount: m.urgentCount,
+    escalationCount: m.escalationCount,
+    totalRequirements: m.totalRequirements,
+    completedRequirements: m.completedRequirements,
+    dashboardUrl: m.dashboardUrl,
+    unsubscribeUrl: footer.unsubscribeUrl,
+  });
+}
+
+/**
+ * Record a [Test] send in the notification table so the activity view (graph,
+ * totals, recent list) counts every email that actually left the building.
+ * Not a claim: internal.test_send is under no dedup index and no campaign
+ * reads it, so admins can test as often as they like. Best-effort — the
+ * bookkeeping row must never fail a test send that already went out.
+ */
+async function logTestSend(
+  db: Database,
+  userId: string,
+  companyId: string,
+  info: { subject: string; triggerField: string },
+): Promise<void> {
+  const now = new Date();
+  await db
+    .insert(notification)
+    .values({
+      companyId,
+      recipientId: userId,
+      entityType: "internal.test_send",
+      entityId: userId,
+      triggerField: info.triggerField,
+      subject: info.subject,
+      channel: "email" as const,
+      status: "sent" as const,
+      scheduledFor: now,
+      sentAt: now,
+      urgency: "info" as const,
+      escalationLevel: 0,
+    })
+    .catch(() => {});
+}
 
 // Character set (not a secret) for human-friendly share passwords —
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
@@ -746,11 +828,24 @@ export const platformAdminRouter = router({
     }
     // res.id carries a sentinel instead of a Resend id when delivery was
     // suppressed (dev block / DISABLE_EMAIL / no API key).
+    const suppressed = "id" in res ? isSuppressedSendId(res.id) : false;
+    if (!suppressed) {
+      const caller = await ctx.db.query.user.findFirst({
+        where: eq(user.id, ctx.userId),
+        columns: { companyId: true },
+      });
+      if (caller?.companyId) {
+        await logTestSend(ctx.db, ctx.userId, caller.companyId, {
+          subject: `[Test] ${sample.subject}`,
+          triggerField: "activation_nudge_v1",
+        });
+      }
+    }
     return {
       to: sample.to,
       sent: true as const,
       reason: null,
-      suppressed: "id" in res ? isSuppressedSendId(res.id) : false,
+      suppressed,
     };
   }),
 
@@ -774,6 +869,7 @@ export const platformAdminRouter = router({
         prepared: stats.prepared,
         error: stats.error ?? null,
         recipients: (stats.wouldSend ?? []).map((r) => ({
+          userId: r.userId,
           to: r.to,
           subject: r.subject,
         })),
@@ -825,6 +921,7 @@ export const platformAdminRouter = router({
       total: queue.length,
       items: queue.map((q) => ({
         kind: q.kind,
+        userId: q.userId,
         email: q.email,
         companyName: q.companyName,
         subject: q.subject,
@@ -838,6 +935,177 @@ export const platformAdminRouter = router({
     .input(z.object({ limit: z.number().int().min(1).max(100) }))
     .mutation(async ({ ctx, input }) => {
       return sendDigestBatch(ctx.db, input.limit, ctx.userId);
+    }),
+
+  /**
+   * The per-row "Send" button: one queued lifecycle recipient, nobody else.
+   * Same selection, same once-ever claim — the run is simply narrowed to
+   * this user, so a stale row (someone who became ineligible since the page
+   * loaded) sends nothing rather than sending wrongly.
+   */
+  sendLifecycleToUser: platformAdminProcedure
+    .input(z.object({ userId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const result = await runLifecycleEmails(ctx.db, {
+        onlyUserId: input.userId,
+        maxPerType: 1,
+      });
+      logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "email.lifecycle_batch_sent",
+        entityType: "system",
+        entityId: null,
+        description: `Platform admin sent a single lifecycle email to user ${input.userId}: ${JSON.stringify(result, (k, v) => (k === "wouldSend" ? undefined : v))}`,
+      });
+      if (result.skipped !== undefined) {
+        return { skipped: result.skipped, sent: 0, failed: 0 };
+      }
+      const totals = Object.values(result.types).reduce(
+        (acc, s) => ({ sent: acc.sent + s.sent, failed: acc.failed + s.failed }),
+        { sent: 0, failed: 0 },
+      );
+      return { skipped: null, ...totals };
+    }),
+
+  /**
+   * The per-row "Send" button for one queued digest. The queue is rebuilt and
+   * narrowed to this (recipient, kind); the per-day claim still arbitrates,
+   * so a double-click cannot double-send.
+   */
+  sendDigestToRecipient: platformAdminProcedure
+    .input(
+      z.object({
+        userId: z.string().uuid(),
+        kind: z.enum(["daily", "weekly"]),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return sendDigestBatch(ctx.db, 1, ctx.userId, {
+        userId: input.userId,
+        kind: input.kind as DigestKind,
+      });
+    }),
+
+  /**
+   * Send the daily or weekly digest to the CALLING admin's own mailbox,
+   * subject-prefixed [Test]. Rendered from the admin's own company state via
+   * the real compilers; writes no per-day claim, so it never blocks the real
+   * digest, and the consent gate applies exactly as it would to a customer.
+   * Logged as internal.test_send so the activity view counts it.
+   */
+  sendDigestTestEmail: platformAdminProcedure
+    .input(z.object({ kind: z.enum(["daily", "weekly"]) }))
+    .mutation(async ({ ctx, input }) => {
+      const caller = await ctx.db.query.user.findFirst({
+        where: eq(user.id, ctx.userId),
+        columns: { email: true, companyId: true },
+      });
+      if (!caller) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Calling user not found." });
+      }
+      if (!caller.companyId) {
+        return {
+          to: caller.email,
+          sent: false as const,
+          reason: "no-company" as const,
+          suppressed: false,
+        };
+      }
+      const emailType =
+        input.kind === "daily"
+          ? ("reminders.daily_digest" as const)
+          : ("reminders.weekly_management_digest" as const);
+      const consent = await loadEmailConsent(ctx.db, ctx.userId);
+      if (!consent.allows(emailType)) {
+        return {
+          to: caller.email,
+          sent: false as const,
+          reason: "opted-out" as const,
+          suppressed: false,
+        };
+      }
+      const content = await buildDigestContent(
+        ctx.db,
+        ctx.userId,
+        caller.companyId,
+        input.kind,
+      );
+      if (!content) {
+        return {
+          to: caller.email,
+          sent: false as const,
+          reason: "no-content" as const,
+          suppressed: false,
+        };
+      }
+      const res = await sendMail({
+        emailType,
+        recipientUserId: ctx.userId,
+        db: ctx.db,
+        to: caller.email,
+        subject: `[Test] ${content.subject}`,
+        html: content.html,
+        text: content.text,
+        replyTo: mailSupportEmail(),
+      });
+      if (!res.success) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Test send failed.",
+        });
+      }
+      const suppressed = "id" in res ? isSuppressedSendId(res.id) : false;
+      if (!suppressed) {
+        await logTestSend(ctx.db, ctx.userId, caller.companyId, {
+          subject: `[Test] ${content.subject}`,
+          triggerField: `${input.kind}_digest`,
+        });
+      }
+      return { to: caller.email, sent: true as const, reason: null, suppressed };
+    }),
+
+  /**
+   * The rendered HTML of one email template, for the "Preview" button.
+   * Rendered from the calling admin's own data through the same code the
+   * real send uses, returned to the client, never sent anywhere.
+   */
+  emailPreview: platformAdminProcedure
+    .input(
+      z.object({
+        template: z.enum(["activation-nudge", "daily-digest", "weekly-digest"]),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      if (input.template === "activation-nudge") {
+        const sample = await prepareActivationNudgeSample(ctx.db, ctx.userId);
+        if (!sample) {
+          return { html: null, subject: null, reason: "Calling user not found." };
+        }
+        return { html: sample.html, subject: sample.subject, reason: null };
+      }
+      const caller = await ctx.db.query.user.findFirst({
+        where: eq(user.id, ctx.userId),
+        columns: { companyId: true },
+      });
+      if (!caller?.companyId) {
+        return {
+          html: null,
+          subject: null,
+          reason: "Your account has no company, so there is no digest to render.",
+        };
+      }
+      const kind: DigestKind = input.template === "daily-digest" ? "daily" : "weekly";
+      const content = await buildDigestContent(ctx.db, ctx.userId, caller.companyId, kind);
+      if (!content) {
+        return {
+          html: null,
+          subject: null,
+          reason:
+            "Your company has nothing to report right now, so this digest renders empty. It looks the same for customers: no content, no send.",
+        };
+      }
+      return { html: content.html, subject: content.subject, reason: null };
     }),
 
   /**

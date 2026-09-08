@@ -413,6 +413,97 @@ function SendTestNudgeButton() {
 }
 
 /**
+ * One-paragraph TLDR per email type, shown under the queue titles so the
+ * operator knows what a row will actually put in someone's inbox without
+ * opening the template code.
+ */
+const EMAIL_TYPE_DESCRIPTIONS: Record<string, string> = {
+  activation_nudge_v1:
+    "A short, personal re-engagement mail (plain style, sent from a person, not a noreply). Goes to verified users who signed up, did a step or two, and have been quiet for 2+ days. Names their real progress (X of 49 requirements done) and the one concrete next step, links to their journey. German, English or Dutch by stored locale. Once ever per person.",
+  daily:
+    "Daily digest: the recipient's own overdue, urgent and upcoming requirement deadlines in their company, as a short list with a dashboard link. Recurs, at most one per person per UTC day, only when there is something to report.",
+  weekly:
+    "Weekly management report: compliance percentage, overdue and escalation counts across the whole framework. Goes to admins and management members only. Recurs, at most one per person per UTC day.",
+};
+
+type PreviewTemplate = "activation-nudge" | "daily-digest" | "weekly-digest";
+
+/** Opens the rendered template in a new tab, exactly as the send would render it. */
+function PreviewEmailButton({ template }: { template: PreviewTemplate }) {
+  const utils = trpc.useUtils();
+  const [loading, setLoading] = useState(false);
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      disabled={loading}
+      onClick={async () => {
+        setLoading(true);
+        try {
+          const r = await utils.platformAdmin.emailPreview.fetch(
+            { template },
+            { staleTime: 0 },
+          );
+          if (!r.html) {
+            toast.warning(r.reason ?? "Nothing to preview.");
+            return;
+          }
+          const w = window.open("", "_blank");
+          if (!w) {
+            toast.error("Popup blocked — allow popups for this page to preview.");
+            return;
+          }
+          w.document.write(r.html);
+          w.document.close();
+        } catch (e) {
+          toast.error(e instanceof Error ? e.message : "Preview failed");
+        } finally {
+          setLoading(false);
+        }
+      }}
+    >
+      {loading ? "Rendering..." : "Preview"}
+    </Button>
+  );
+}
+
+/** Sends the daily or weekly digest to the calling admin, [Test]-prefixed. */
+function SendTestDigestButton({ kind }: { kind: "daily" | "weekly" }) {
+  const utils = trpc.useUtils();
+  const send = trpc.platformAdmin.sendDigestTestEmail.useMutation({
+    onSuccess: (r) => {
+      if (!r.sent) {
+        toast.warning(
+          r.reason === "opted-out"
+            ? `Nothing sent — ${r.to} is unsubscribed from this email. Resubscribe below to test it.`
+            : r.reason === "no-content"
+              ? "Nothing sent — your company has nothing to report, so this digest would be empty."
+              : `Nothing sent — your account has no company to build a digest from.`,
+        );
+        return;
+      }
+      toast.success(
+        r.suppressed
+          ? `Rendered for ${r.to}; delivery suppressed in this environment`
+          : `Test ${kind} digest sent to ${r.to}`,
+      );
+      void utils.platformAdmin.emailActivity.invalidate();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => send.mutate({ kind })}
+      disabled={send.isPending}
+    >
+      {send.isPending ? "Sending..." : `Send me a test (${kind})`}
+    </Button>
+  );
+}
+
+/**
  * The send console: what is queued, how many to send, and the button that
  * sends them. Nothing about the lifecycle campaign goes out on a timer —
  * this is the only path, so the queue is always reviewed by a person before
@@ -472,9 +563,17 @@ function LifecycleQueuePanel() {
         {queue.data?.types.map((t) => (
           <div key={t.key} className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">{t.key}</span>
+              <div className="flex items-center gap-1">
+                <span className="text-sm font-medium">{t.key}</span>
+                <PreviewEmailButton template="activation-nudge" />
+              </div>
               <span className="text-sm text-muted-foreground">{t.prepared} queued</span>
             </div>
+            {EMAIL_TYPE_DESCRIPTIONS[t.key] && (
+              <p className="text-xs text-muted-foreground">
+                {EMAIL_TYPE_DESCRIPTIONS[t.key]}
+              </p>
+            )}
             {t.error && (
               <p className="text-sm text-destructive">
                 Campaign failed to run: {t.error}
@@ -491,6 +590,9 @@ function LifecycleQueuePanel() {
                         </td>
                         <td className="py-1.5 pr-4">{r.to}</td>
                         <td className="py-1.5 pr-3 text-muted-foreground">{r.subject}</td>
+                        <td className="py-1 pr-2 text-right">
+                          <SendOneLifecycleButton userId={r.userId} email={r.to} />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -526,6 +628,68 @@ function LifecycleQueuePanel() {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+/** The per-row send for one queued lifecycle recipient. */
+function SendOneLifecycleButton({ userId, email }: { userId: string; email: string }) {
+  const utils = trpc.useUtils();
+  const send = trpc.platformAdmin.sendLifecycleToUser.useMutation({
+    onSuccess: (r) => {
+      if (r.skipped) toast.warning(`Nothing sent: ${r.skipped}`);
+      else if (r.sent > 0) toast.success(`Sent to ${email}`);
+      else toast.warning(`Nothing sent to ${email} — no longer eligible or already claimed.`);
+      void utils.platformAdmin.lifecycleQueue.invalidate();
+      void utils.platformAdmin.emailActivity.invalidate();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => send.mutate({ userId })}
+      disabled={send.isPending}
+      title={`Send only to ${email}`}
+    >
+      {send.isPending ? "..." : "Send"}
+    </Button>
+  );
+}
+
+/** The per-row send for one queued digest (recipient + kind). */
+function SendOneDigestButton({
+  userId,
+  kind,
+  email,
+}: {
+  userId: string;
+  kind: "daily" | "weekly";
+  email: string;
+}) {
+  const utils = trpc.useUtils();
+  const send = trpc.platformAdmin.sendDigestToRecipient.useMutation({
+    onSuccess: (r) => {
+      if (r.skipped) toast.warning(`Nothing sent: ${r.skipped}`);
+      else if (r.sent > 0) toast.success(`${kind} digest sent to ${email}`);
+      else if (r.alreadySentToday > 0)
+        toast.warning(`${email} already received today's ${kind} digest.`);
+      else toast.warning(`Nothing sent to ${email} — nothing left to report.`);
+      void utils.platformAdmin.digestQueue.invalidate();
+      void utils.platformAdmin.emailActivity.invalidate();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => send.mutate({ userId, kind })}
+      disabled={send.isPending}
+      title={`Send only to ${email}`}
+    >
+      {send.isPending ? "..." : "Send"}
+    </Button>
   );
 }
 
@@ -576,6 +740,19 @@ function DigestQueuePanel() {
           you send, so the numbers are never stale.
         </p>
 
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-1">
+            <span className="rounded bg-muted px-1.5 py-0.5 text-xs">daily</span>
+            <PreviewEmailButton template="daily-digest" />
+          </div>
+          <p className="text-xs text-muted-foreground">{EMAIL_TYPE_DESCRIPTIONS.daily}</p>
+          <div className="flex items-center gap-1 pt-1">
+            <span className="rounded bg-muted px-1.5 py-0.5 text-xs">weekly</span>
+            <PreviewEmailButton template="weekly-digest" />
+          </div>
+          <p className="text-xs text-muted-foreground">{EMAIL_TYPE_DESCRIPTIONS.weekly}</p>
+        </div>
+
         {queue.isLoading && (
           <p className="text-sm text-muted-foreground">Building digests...</p>
         )}
@@ -609,6 +786,13 @@ function DigestQueuePanel() {
                       {item.companyName}
                     </td>
                     <td className="py-1.5 pr-3 text-muted-foreground">{item.summary}</td>
+                    <td className="py-1 pr-2 text-right">
+                      <SendOneDigestButton
+                        userId={item.userId}
+                        kind={item.kind}
+                        email={item.email}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -638,6 +822,8 @@ function DigestQueuePanel() {
           >
             {send.isPending ? "Sending..." : `Send ${Math.min(limit, total)} now`}
           </Button>
+          <SendTestDigestButton kind="daily" />
+          <SendTestDigestButton kind="weekly" />
         </div>
       </CardContent>
     </Card>
@@ -1142,7 +1328,11 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
 
       {/* KPI strip */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        <StatCard label="Sent (all time)" value={data.totalSent} sub="cron-driven only" />
+        <StatCard
+          label="Sent (all time)"
+          value={data.totalSent}
+          sub="everything the notification table records"
+        />
         <StatCard label="Sent (last 7 days)" value={data.sentLast7d} />
         <StatCard
           label="Subscribed users"
@@ -1165,10 +1355,10 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
       <p className="text-xs text-muted-foreground italic">
         Scope: emails recorded in the notification table (course follow-ups, daily
         digests, weekly management digests, deadline reminders, lifecycle nudges,
-        newsletter sends). Transactional emails (invites, welcome, contact-change notices,
-        supplier incident broadcasts) are not yet logged here. Lifecycle rows record
-        claims, not confirmed deliveries; the send-failures counter is the reconciliation
-        signal.
+        newsletter sends, and [Test] sends from this console). Transactional emails
+        (invites, welcome, contact-change notices, supplier incident broadcasts) are not
+        yet logged here. Lifecycle rows record claims, not confirmed deliveries; the
+        send-failures counter is the reconciliation signal.
       </p>
 
       {/* Daily volume, last 14 days */}
