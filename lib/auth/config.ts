@@ -279,9 +279,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         // not one per request. Folded into the sessionVersion read as a single
         // UPDATE ... RETURNING: same round trip as before, and the increment
         // is atomic, so two concurrent sign-ins cannot land on one number.
+        // lastLoginAt rides along: sessions are stateless JWTs, so this stamp
+        // is the only durable last-sign-in fact (lifecycle emails read it).
         const [dbUser] = await db
           .update(user)
-          .set({ loginCount: sql`${user.loginCount} + 1` })
+          .set({ loginCount: sql`${user.loginCount} + 1`, lastLoginAt: new Date() })
           .where(eq(user.email, authUser.email))
           .returning({ sessionVersion: user.sessionVersion });
         token.sessionVersion = dbUser?.sessionVersion ?? 1;

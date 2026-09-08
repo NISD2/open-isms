@@ -148,6 +148,16 @@ interface EmailActivity {
   typeBreakdown: Array<{ type: string; count: number }>;
   recentEmails: EmailRow[];
   optedOutUsers: OptedOutUserRow[];
+  /** One entry per UTC day, oldest first, quiet days included as zero. */
+  dailyVolume: Array<{ day: string; count: number }>;
+  /** Top recipients of the last 7 days with their busiest single day. */
+  frequentRecipients: Array<{ recipient: string; total: number; maxPerDay: number }>;
+  /** Flagged across every recipient, not only the ones listed above. */
+  flaggedRecipientCount: number;
+  /** Sends-per-recipient-per-day level at which a row gets flagged. */
+  multiSendAlertPerDay: number;
+  /** Lifecycle claims kept after a failed send (urgency 'warning'). */
+  lifecycleFailed: number;
 }
 
 interface Props {
@@ -191,6 +201,8 @@ function emailTypeLabel(t: string): string {
     case "requirement": return "Compliance reminder";
     case "policy": return "Policy reminder";
     case "supplier_publication_event": return "Supplier incident broadcast";
+    case "lifecycle_email": return "Lifecycle nudge";
+    case "newsletter_issue": return "Newsletter";
     default: return t;
   }
 }
@@ -280,6 +292,28 @@ export function PlatformAdminPage({
 // ---------------------------------------------------------------------------
 // Stat card
 // ---------------------------------------------------------------------------
+
+function SendTestNudgeButton() {
+  const send = trpc.platformAdmin.sendLifecycleTestEmail.useMutation({
+    onSuccess: (r) =>
+      toast.success(
+        r.suppressed
+          ? `Rendered for ${r.to}; delivery suppressed in this environment`
+          : `Test nudge sent to ${r.to}`,
+      ),
+    onError: (e) => toast.error(e.message),
+  });
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => send.mutate()}
+      disabled={send.isPending}
+    >
+      {send.isPending ? "Sending..." : "Send me a test nudge"}
+    </Button>
+  );
+}
 
 function StatCard({ label, value, sub }: { label: string; value: number; sub?: string }) {
   return (
@@ -643,22 +677,111 @@ function SuppliersTable({ rows }: { rows: SupplierRow[] }) {
 function EmailsPanel({ data }: { data: EmailActivity }) {
   const subscribed = data.totalUsers - data.optedOut;
   const optOutRate = data.totalUsers > 0 ? (data.optedOut / data.totalUsers) * 100 : 0;
+  const maxDaily = Math.max(1, ...data.dailyVolume.map((d) => d.count));
 
   return (
     <div className="space-y-6">
+      {/* Test send: prove template + transport in this environment without
+          touching any claim or real recipient. */}
+      <div className="flex justify-end">
+        <SendTestNudgeButton />
+      </div>
+
       {/* KPI strip */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         <StatCard label="Sent (all time)" value={data.totalSent} sub="cron-driven only" />
         <StatCard label="Sent (last 7 days)" value={data.sentLast7d} />
         <StatCard label="Subscribed users" value={subscribed} sub={`of ${data.totalUsers}`} />
         <StatCard label="Opted out" value={data.optedOut} sub={`${optOutRate.toFixed(1)}% opt-out`} />
+        <StatCard
+          label="Send failures"
+          value={data.lifecycleFailed}
+          sub="lifecycle claims kept after a failed send"
+        />
       </div>
 
       {/* Scope note */}
       <p className="text-xs text-muted-foreground italic">
-        Scope: emails recorded in the notification table (course follow-ups, daily digests, weekly management digests, deadline reminders).
+        Scope: emails recorded in the notification table (course follow-ups, daily digests, weekly management digests, deadline reminders, lifecycle nudges, newsletter sends).
         Transactional emails (invites, welcome, contact-change notices, supplier incident broadcasts) are not yet logged here.
+        Lifecycle rows record claims, not confirmed deliveries; the send-failures counter is the reconciliation signal.
       </p>
+
+      {/* Daily volume, last 14 days */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Sends per day (last 14 days)</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex h-24 items-end gap-1.5">
+            {data.dailyVolume.map((d) => (
+              <div
+                key={d.day}
+                className="group relative flex-1"
+                title={`${d.day}: ${d.count}`}
+              >
+                <div
+                  className="w-full rounded-t bg-primary/80 transition-colors group-hover:bg-primary"
+                  style={{ height: `${Math.max(2, Math.round((d.count / maxDaily) * 88))}px` }}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="mt-1 flex justify-between text-xs text-muted-foreground">
+            <span>{data.dailyVolume[0]?.day}</span>
+            <span>{data.dailyVolume[data.dailyVolume.length - 1]?.day}</span>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Over-mailing guard */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">
+            Most-mailed recipients (last 7 days)
+            {data.flaggedRecipientCount > 0 && (
+              <span className="ml-2 rounded bg-orange-100 px-1.5 py-0.5 text-xs font-medium text-orange-700 dark:bg-orange-900 dark:text-orange-300">
+                {data.flaggedRecipientCount} to review
+              </span>
+            )}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="mb-3 text-xs text-muted-foreground">
+            Rows are flagged from {data.multiSendAlertPerDay} sends to one person in a single day.
+            A digest, a course follow-up and a lifecycle nudge can coincide once; repeatedly hitting this level means a producer is misbehaving.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b text-left text-muted-foreground">
+                  <th className="pb-2 pr-4 font-medium">Recipient</th>
+                  <th className="pb-2 pr-4 font-medium">Last 7 days</th>
+                  <th className="pb-2 font-medium">Busiest day</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.frequentRecipients.map((r) => {
+                  const flagged = r.maxPerDay >= data.multiSendAlertPerDay;
+                  return (
+                    <tr key={r.recipient} className="border-b border-border/50 last:border-0">
+                      <td className="py-2 pr-4 text-muted-foreground">{r.recipient}</td>
+                      <td className="py-2 pr-4">{r.total}</td>
+                      <td className={`py-2 ${flagged ? "font-semibold text-orange-600 dark:text-orange-400" : ""}`}>
+                        {r.maxPerDay}
+                        {flagged && <span className="ml-1.5 text-xs font-normal">review</span>}
+                      </td>
+                    </tr>
+                  );
+                })}
+                {data.frequentRecipients.length === 0 && (
+                  <tr><td colSpan={3} className="py-8 text-center text-muted-foreground">No sends in the last 7 days</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Breakdown by type */}
       {data.typeBreakdown.length > 0 && (

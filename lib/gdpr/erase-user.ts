@@ -28,6 +28,7 @@ import { and, eq, gte, inArray, isNotNull, lt, or, sql } from "drizzle-orm";
 import { redactPiiInJson } from "./redact-pii";
 import type { InferSelectModel } from "drizzle-orm";
 import { db } from "@/lib/db";
+import { logAudit } from "@/lib/audit";
 import {
   user,
   company,
@@ -658,6 +659,39 @@ async function tearDownCompany(
   await del("training_record", () => tx.delete(trainingRecord).where(eq(trainingRecord.companyId, cid)).returning());
   await del("training_lesson_progress", () => tx.delete(trainingLessonProgress).where(eq(trainingLessonProgress.companyId, cid)).returning());
   await del("gap_assessment", () => tx.delete(gapAssessment).where(eq(gapAssessment.companyId, cid)).returning());
+  // Lifecycle claims (entity_type 'lifecycle_email') are per-USER once-ever
+  // dedup records (lib/lifecycle) that merely carry the company the recipient
+  // belonged to at claim time. Deleting them with this company would re-arm a
+  // recipient who has since moved to another company — they would receive the
+  // one-shot email a second time. Re-home those claims to the recipient's
+  // current company before the blanket delete. Claims whose recipient is being
+  // erased here die with the user row; claims of company-less survivors cannot
+  // be kept (company_id is NOT NULL) and accept the exotic re-arm instead.
+  // Not recorded in the erasure scope: these rows are other people's data
+  // being preserved, not this company's data being erased. The audit row
+  // below records the cross-tenant write instead (the row count only, no
+  // subject data), because notification.companyId is otherwise contractually
+  // the SOURCE company — see the exception note on the table definition.
+  const rehomed = await tx.execute(sql`
+    UPDATE notification n
+    SET company_id = u.company_id
+    FROM "user" u
+    WHERE n.recipient_id = u.id
+      AND n.company_id = ${cid}
+      AND n.entity_type = 'lifecycle_email'
+      AND u.company_id IS NOT NULL
+      AND u.company_id <> ${cid}
+  `);
+  if ((rehomed.rowCount ?? 0) > 0) {
+    logAudit({
+      companyId: null,
+      userId: null,
+      action: "gdpr.lifecycle_claims_rehomed",
+      entityType: "system",
+      entityId: null,
+      description: `Company teardown re-homed ${rehomed.rowCount} lifecycle claim row(s) to their recipients' current companies (once-ever email dedup preserved)`,
+    });
+  }
   await del("notification", () => tx.delete(notification).where(eq(notification.companyId, cid)).returning());
   await del("company_invite", () => tx.delete(companyInvite).where(eq(companyInvite.companyId, cid)).returning());
   await del("bsi_registration", () => tx.delete(bsiRegistration).where(eq(bsiRegistration.companyId, cid)).returning());

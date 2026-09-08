@@ -256,9 +256,13 @@ export async function GET(req: NextRequest) {
       })
         .then((result) => {
           if (!result.success) {
+            // userId null by cron convention: rows with a non-null userId
+            // mean "a person did something" (journey idle detection and the
+            // lifecycle dormancy check both filter on it), and a failed
+            // send is the cron's doing, not the recipient's.
             logAudit({
               companyId: meta.companyId,
-              userId: u.id,
+              userId: null,
               action: "email.course_followup_failed",
               entityType: "notification",
               entityId: firstNotificationId,
@@ -269,7 +273,7 @@ export async function GET(req: NextRequest) {
         .catch((err) => {
           logAudit({
             companyId: meta.companyId,
-            userId: u.id,
+            userId: null,
             action: "email.course_followup_failed",
             entityType: "notification",
             entityId: firstNotificationId,

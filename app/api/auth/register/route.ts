@@ -7,6 +7,8 @@ import { sendAuthCode } from "@/lib/mail";
 import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getClientIp } from "@/lib/client-ip";
+import { LOCALES, type LocaleCode } from "@/lib/locale";
+import type { Locale } from "@/lib/seo";
 
 // Simple in-memory rate limiter: max 5 attempts per IP per 15 minutes
 const attempts = new Map<string, { count: number; resetAt: number }>();
@@ -64,8 +66,16 @@ export async function POST(request: Request) {
   const email = (body.email as string | undefined)?.toLowerCase().trim();
   const password = body.password as string | undefined;
   const localeInput = body.locale as string | undefined;
-  const locale: "de" | "en" | "nl" =
-    localeInput === "en" || localeInput === "nl" ? localeInput : "de";
+  // Validated against the full app locale list: the OTP templates carry copy
+  // for all 10 locales, and the same value is persisted on the user row so
+  // emails sent outside a request (lifecycle crons) can localize later.
+  // Unknown values stay null on the row and fall back to "de" for the email.
+  const persistedLocale: LocaleCode | null = LOCALES.some(
+    (l) => l.code === localeInput,
+  )
+    ? (localeInput as LocaleCode)
+    : null;
+  const locale: Locale = persistedLocale ?? "de";
 
   if (!email || !password) {
     return NextResponse.json(
@@ -118,7 +128,14 @@ export async function POST(request: Request) {
     // which proves mailbox control via OTP before mutating the password.
     await db
       .update(user)
-      .set({ isDisposableEmail: disposable, updatedAt: new Date() })
+      .set({
+        isDisposableEmail: disposable,
+        // Pre-verification retry may come from a different-locale page;
+        // the latest choice wins. Locale is not credential-bearing, so
+        // updating it here is safe where passwordHash is not (audit C-1).
+        ...(persistedLocale ? { locale: persistedLocale } : {}),
+        updatedAt: new Date(),
+      })
       .where(eq(user.id, existing.id));
   } else {
     const passwordHash = await bcrypt.hash(password, 12);
@@ -132,6 +149,7 @@ export async function POST(request: Request) {
       passwordHash,
       role: "member",
       isDisposableEmail: disposable,
+      locale: persistedLocale,
       // emailVerifiedAt left null — set by /api/auth/verify-email
     }).onConflictDoNothing({ target: user.email });
   }

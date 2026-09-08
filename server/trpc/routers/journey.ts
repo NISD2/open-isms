@@ -10,23 +10,13 @@ import {
   user,
 } from "@/schema";
 import { daysUntilDeadline } from "@/lib/compliance/deadlines";
+import { isDoneStatus } from "@/lib/compliance/journey-position";
 import {
   getRequirementsMessages,
   getRequirementTitle,
   getRequirementDescription,
 } from "@/lib/messages";
 import { getNis2Assessment } from "../helpers/nis2-scope";
-
-/**
- * Terminal/done statuses. "completed" is the normal user sign-off result,
- * "approved" adds the legal review on top, "not_applicable" is scoped out.
- * (This view previously omitted "completed", which wrongly counted
- * user-signed requirements as still open.) Mirrors DONE_STATUSES in
- * assessment.ts.
- */
-function isDoneStatus(s: string): boolean {
-  return s === "completed" || s === "approved" || s === "not_applicable";
-}
 
 /**
  * Statuses where companyRequirementStatus.nextReviewDate is a recurring REVIEW

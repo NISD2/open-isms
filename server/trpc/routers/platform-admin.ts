@@ -34,6 +34,18 @@ import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/
 import { rateLimit } from "@/lib/rate-limit";
 import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
 import { resolveHints, HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
+import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
+import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
+import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
+import { mailSupportEmail } from "@/lib/env";
+
+/**
+ * Sends to one recipient in one UTC day at which the email dashboard flags
+ * the row. Three legitimate producers can coincide once (daily digest,
+ * course follow-up, lifecycle nudge); reaching this level repeatedly means
+ * a producer is misbehaving.
+ */
+const MULTI_SEND_ALERT_PER_DAY = 3;
 
 // Character set (not a secret) for human-friendly share passwords —
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
@@ -432,12 +444,20 @@ export const platformAdminRouter = router({
    *
    * Scope: emails recorded in the `notification` table (cron-driven —
    * course follow-ups, daily digests, weekly management digests, deadline
-   * reminders). Transactional emails (invites, welcome, contact-change
-   * notifications, supplier incident broadcasts) currently bypass the
-   * notification table and are NOT counted here.
+   * reminders, lifecycle nudges). Transactional emails (invites, welcome,
+   * contact-change notifications, supplier incident broadcasts) currently
+   * bypass the notification table and are NOT counted here.
+   *
+   * Caveat for lifecycle rows (entityType "lifecycle_email"): they record
+   * CLAIMS, not confirmed deliveries — the row is written status "sent"
+   * before the transport call, and a failed send keeps it (marked
+   * urgency "warning", plus an email.lifecycle_failed audit row). Counts
+   * here therefore read a failed nudge as sent; the warning marker is the
+   * reconciliation signal.
    */
   emailActivity: platformAdminProcedure.query(async ({ ctx }) => {
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
 
     const [
       totalSentRow,
@@ -447,6 +467,9 @@ export const platformAdminRouter = router({
       recentEmails,
       optedOutUsers,
       typeBreakdown,
+      dailyVolumeRows,
+      recipientDayRows,
+      lifecycleFailedRow,
     ] = await Promise.all([
       ctx.db
         .select({ count: count() })
@@ -510,9 +533,119 @@ export const platformAdminRouter = router({
           and(eq(notification.channel, "email"), eq(notification.status, "sent")),
         )
         .groupBy(notification.entityType),
+      // Daily send volume, last 14 days. sent_at stores UTC wall time, so
+      // to_char on the bare column groups by UTC day without timezone math.
+      ctx.db
+        .select({
+          day: sql<string>`to_char(${notification.sentAt}, 'YYYY-MM-DD')`,
+          c: count(),
+        })
+        .from(notification)
+        .where(
+          and(
+            eq(notification.channel, "email"),
+            eq(notification.status, "sent"),
+            gte(notification.sentAt, fourteenDaysAgo),
+          ),
+        )
+        .groupBy(sql`to_char(${notification.sentAt}, 'YYYY-MM-DD')`),
+      // Per-recipient per-day counts, last 7 days — raw material for the
+      // over-mailing view. Recipient identity: portal user email when the
+      // row has a recipientId, the external address otherwise.
+      //
+      // COUNT(DISTINCT entity_type), not COUNT(*): a notification row is not
+      // an email. The deadline cron writes one row per requirement and then
+      // sends ONE digest covering all of them; the course cron writes one row
+      // per stalled course and sends ONE email listing them. Counting rows
+      // told the operator that somebody with twelve due requirements had been
+      // mailed twelve times, which would fire the over-mailing flag on a
+      // person who received a single message. Each producer sends at most one
+      // email per recipient per day, so distinct producers per day IS the
+      // number of emails that day.
+      ctx.db
+        .select({
+          recipient: sql<string>`COALESCE(${user.email}, ${notification.recipientEmail}, 'unknown')`,
+          day: sql<string>`to_char(${notification.sentAt}, 'YYYY-MM-DD')`,
+          c: sql<number>`count(DISTINCT ${notification.entityType})::int`,
+        })
+        .from(notification)
+        .leftJoin(user, eq(notification.recipientId, user.id))
+        .where(
+          and(
+            eq(notification.channel, "email"),
+            eq(notification.status, "sent"),
+            gte(notification.sentAt, sevenDaysAgo),
+          ),
+        )
+        .groupBy(
+          sql`COALESCE(${user.email}, ${notification.recipientEmail}, 'unknown')`,
+          sql`to_char(${notification.sentAt}, 'YYYY-MM-DD')`,
+        ),
+      // Lifecycle claims kept after a failed transport send (the dispatcher
+      // marks them urgency 'warning') — the reconciliation signal for rows
+      // this view would otherwise count as delivered.
+      ctx.db
+        .select({ count: count() })
+        .from(notification)
+        .where(
+          and(
+            eq(notification.entityType, LIFECYCLE_ENTITY_TYPE),
+            eq(notification.urgency, "warning"),
+          ),
+        ),
     ]);
 
+    // Fold per-day recipient counts into totals plus the busiest single day.
+    // MULTI_SEND_ALERT_PER_DAY is the "someone should look" line: a digest,
+    // a course follow-up and a lifecycle nudge can legitimately coincide on
+    // one day, but hitting that level repeatedly means a producer misbehaves.
+    const byRecipient = new Map<string, { total: number; maxPerDay: number }>();
+    for (const row of recipientDayRows) {
+      const entry = byRecipient.get(row.recipient) ?? { total: 0, maxPerDay: 0 };
+      entry.total += row.c;
+      if (row.c > entry.maxPerDay) entry.maxPerDay = row.c;
+      byRecipient.set(row.recipient, entry);
+    }
+    const allRecipients = Array.from(byRecipient, ([recipient, v]) => ({
+      recipient,
+      ...v,
+    }));
+    // Count the flagged over the WHOLE set before truncating. Sorting by
+    // total and slicing first hid exactly the case the flag exists for: a
+    // person mailed four times in one day but only four times all week ranks
+    // below twenty steady recipients and fell off the list, taking the alert
+    // with it — the badge could read zero while someone was being spammed.
+    const flaggedCount = allRecipients.filter(
+      (r) => r.maxPerDay >= MULTI_SEND_ALERT_PER_DAY,
+    ).length;
+    // Flagged rows first, so anything worth acting on is always visible.
+    const frequentRecipients = allRecipients
+      .sort(
+        (a, b) =>
+          Number(b.maxPerDay >= MULTI_SEND_ALERT_PER_DAY) -
+            Number(a.maxPerDay >= MULTI_SEND_ALERT_PER_DAY) ||
+          b.maxPerDay - a.maxPerDay ||
+          b.total - a.total,
+      )
+      .slice(0, 20);
+
+    // Stable 14-slot series: quiet days render as zero-height bars instead
+    // of disappearing, so a gap reads as a gap.
+    const volumeByDay = new Map(dailyVolumeRows.map((r) => [r.day, r.c]));
+    const dailyVolume = Array.from({ length: 14 }, (_, i) => {
+      const day = new Date(Date.now() - (13 - i) * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10);
+      return { day, count: volumeByDay.get(day) ?? 0 };
+    });
+
     return {
+      dailyVolume,
+      frequentRecipients,
+      /** Flagged across ALL recipients, not just the twenty listed above. */
+      flaggedRecipientCount: flaggedCount,
+      multiSendAlertPerDay: MULTI_SEND_ALERT_PER_DAY,
+      lifecycleFailed: lifecycleFailedRow[0]?.count ?? 0,
       totalSent: totalSentRow[0]?.count ?? 0,
       sentLast7d: sentLast7dRow[0]?.count ?? 0,
       totalUsers: totalUsersRow[0]?.count ?? 0,
@@ -529,6 +662,37 @@ export const platformAdminRouter = router({
       })),
       optedOutUsers,
     };
+  }),
+
+  /**
+   * Send the activation nudge to the CALLING platform admin's own mailbox,
+   * subject-prefixed [Test]. Renders through the real campaign code (their
+   * own journey numbers when available, marked sample values otherwise) but
+   * writes NO claim row and checks NO eligibility — the once-ever guarantee
+   * for the real campaign is untouched, and the admin can send themselves
+   * as many tests as they like. Same shape as newsletter.sendTest. Note the
+   * footer unsubscribe link is live: clicking it in the test opts the admin
+   * out of follow-up emails like any other user.
+   */
+  sendLifecycleTestEmail: platformAdminProcedure.mutation(async ({ ctx }) => {
+    const sample = await prepareActivationNudgeSample(ctx.db, ctx.userId);
+    if (!sample) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Calling user not found." });
+    }
+    const res = await sendMail({
+      to: sample.to,
+      subject: `[Test] ${sample.subject}`,
+      html: sample.html,
+      text: sample.text,
+      replyTo: mailSupportEmail(),
+      unsubscribeUrl: sample.unsubscribeUrl,
+    });
+    if (!res.success) {
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Test send failed." });
+    }
+    // res.id carries a sentinel instead of a Resend id when delivery was
+    // suppressed (dev block / DISABLE_EMAIL / no API key).
+    return { to: sample.to, suppressed: isSuppressedSendId(res.id) };
   }),
 
   /** Supplier portal activity — companies acting as suppliers */

@@ -6,6 +6,8 @@ import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
 import { sendAuthCode } from "@/lib/mail";
 import { isDisposableEmail } from "@/lib/auth/disposable";
 import { getClientIp } from "@/lib/client-ip";
+import { LOCALES } from "@/lib/locale";
+import type { Locale } from "@/lib/seo";
 
 // In-memory IP rate limit. Matches the pattern used by /api/auth/register.
 // Per-email rate limiting lives in requestOtp itself.
@@ -56,8 +58,10 @@ export async function POST(request: Request) {
 
   const email = (body.email as string | undefined)?.toLowerCase().trim();
   const rawLocale = body.locale as string | undefined;
-  const locale: "de" | "en" | "nl" =
-    rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
+  // Full app-locale validation: the OTP templates carry all 10 locales.
+  const locale: Locale = LOCALES.some((l) => l.code === rawLocale)
+    ? (rawLocale as Locale)
+    : "de";
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     // Shape validation only — still return the generic success shape so

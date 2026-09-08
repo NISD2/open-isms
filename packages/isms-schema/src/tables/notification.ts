@@ -12,6 +12,12 @@
  *
  * companyId always points at the SOURCE company (the supplier whose event this is,
  * or the entity whose deadline this is). It is never the recipient's company.
+ * One exception: lifecycle claim rows (entityType "lifecycle_email") are
+ * per-USER once-ever dedup records, and for them companyId is merely the
+ * recipient's company at claim time. When that company is GDPR-erased while
+ * the recipient lives on elsewhere, the claim is re-homed to the recipient's
+ * current company (lib/gdpr/erase-user.ts) — deleting it would re-arm a
+ * one-shot email; the column is NOT NULL so it cannot be detached instead.
  *
  * References: companies, users
  */
@@ -23,6 +29,7 @@ import {
   integer,
   timestamp,
   index,
+  uniqueIndex,
   check,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
@@ -82,6 +89,16 @@ export const notification = pgTable(
     index("idx_notification_status").on(table.status),
     index("idx_notification_scheduled").on(table.scheduledFor),
     index("idx_notification_entity").on(table.entityType, table.entityId),
+    // Lifecycle emails (lib/lifecycle) are one-shot per (user, email type):
+    // the row doubles as the claim record, inserted BEFORE the send with
+    // onConflictDoNothing. This partial unique index is what makes the claim
+    // race-proof — two concurrent cron runs cannot both insert, so a user can
+    // never receive the same lifecycle email twice. Scoped to the
+    // lifecycle_email entityType so the reminder/escalation rows, which
+    // legitimately repeat per (recipient, triggerField), are untouched.
+    uniqueIndex("uq_notification_lifecycle_once")
+      .on(table.recipientId, table.triggerField)
+      .where(sql`${table.entityType} = 'lifecycle_email'`),
     // Enforce the XOR invariant at the DB level: exactly one of recipientId
     // (in-portal user) or recipientEmail (external CISO) must be set.
     check(

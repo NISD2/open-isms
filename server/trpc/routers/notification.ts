@@ -14,9 +14,15 @@ export const notificationRouter = router({
     )
     .query(async ({ ctx, input }) => {
       return ctx.db.query.notification.findMany({
+        // in_app only: email-channel rows are delivery bookkeeping (digest
+        // scheduling, course-followup dedup, lifecycle claims) and were never
+        // written for the bell — surfacing them showed raw entityType strings
+        // and, for a kept-after-failure lifecycle claim, an entry for an
+        // email that never arrived.
         where: and(
           eq(notification.recipientId, ctx.userId),
           eq(notification.companyId, ctx.companyId),
+          eq(notification.channel, "in_app"),
         ),
         orderBy: [desc(notification.createdAt)],
         limit: input.limit,
@@ -32,6 +38,7 @@ export const notificationRouter = router({
         and(
           eq(notification.recipientId, ctx.userId),
           eq(notification.companyId, ctx.companyId),
+          eq(notification.channel, "in_app"),
           isNull(notification.acknowledgedAt),
         )
       );

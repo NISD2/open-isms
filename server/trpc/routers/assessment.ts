@@ -51,14 +51,7 @@ import { hasReviewAccess } from "@/lib/auth";
 import type { Database } from "@/lib/db";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 
-/**
- * The terminal states of a requirement: signed off, approved in review, or
- * declared out of scope. Read two ways, and they have to stay one set —
- * `getPrerequisiteStatuses` calls these "done", and `reopenRequirement`
- * treats exactly these as having something to withdraw. A status that
- * counted as done but was not reopenable would be a dead end in the UI.
- */
-const DONE_STATUSES = new Set(["completed", "approved", "not_applicable"]);
+import { DONE_STATUSES } from "@/lib/compliance/journey-position";
 
 // Prerequisites are advisory only — the UI surfaces them as a "recommended
 // first" suggestion (see RequirementDetail), but nothing blocks sign-off.
