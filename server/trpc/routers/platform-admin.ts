@@ -34,6 +34,15 @@ import { buildErasureCertificate, erasureCertificateFilename } from "@/lib/gdpr/
 import { rateLimit } from "@/lib/rate-limit";
 import { NIS2_FRAMEWORK_CODE } from "../helpers/nis2-scope";
 import { resolveHints, HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
+import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
+
+/**
+ * Sends to one recipient in one UTC day at which the email dashboard flags
+ * the row. Three legitimate producers can coincide once (daily digest,
+ * course follow-up, lifecycle nudge); reaching this level repeatedly means
+ * a producer is misbehaving.
+ */
+const MULTI_SEND_ALERT_PER_DAY = 3;
 
 // Character set (not a secret) for human-friendly share passwords —
 // confusable chars (0, O, I, l, 1) intentionally excluded so the password
@@ -445,6 +454,7 @@ export const platformAdminRouter = router({
    */
   emailActivity: platformAdminProcedure.query(async ({ ctx }) => {
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
 
     const [
       totalSentRow,
@@ -454,6 +464,9 @@ export const platformAdminRouter = router({
       recentEmails,
       optedOutUsers,
       typeBreakdown,
+      dailyVolumeRows,
+      recipientDayRows,
+      lifecycleFailedRow,
     ] = await Promise.all([
       ctx.db
         .select({ count: count() })
@@ -517,9 +530,91 @@ export const platformAdminRouter = router({
           and(eq(notification.channel, "email"), eq(notification.status, "sent")),
         )
         .groupBy(notification.entityType),
+      // Daily send volume, last 14 days. sent_at stores UTC wall time, so
+      // to_char on the bare column groups by UTC day without timezone math.
+      ctx.db
+        .select({
+          day: sql<string>`to_char(${notification.sentAt}, 'YYYY-MM-DD')`,
+          c: count(),
+        })
+        .from(notification)
+        .where(
+          and(
+            eq(notification.channel, "email"),
+            eq(notification.status, "sent"),
+            gte(notification.sentAt, fourteenDaysAgo),
+          ),
+        )
+        .groupBy(sql`to_char(${notification.sentAt}, 'YYYY-MM-DD')`),
+      // Per-recipient per-day counts, last 7 days — raw material for the
+      // over-mailing view. Recipient identity: portal user email when the
+      // row has a recipientId, the external address otherwise.
+      ctx.db
+        .select({
+          recipient: sql<string>`COALESCE(${user.email}, ${notification.recipientEmail}, 'unknown')`,
+          day: sql<string>`to_char(${notification.sentAt}, 'YYYY-MM-DD')`,
+          c: count(),
+        })
+        .from(notification)
+        .leftJoin(user, eq(notification.recipientId, user.id))
+        .where(
+          and(
+            eq(notification.channel, "email"),
+            eq(notification.status, "sent"),
+            gte(notification.sentAt, sevenDaysAgo),
+          ),
+        )
+        .groupBy(
+          sql`COALESCE(${user.email}, ${notification.recipientEmail}, 'unknown')`,
+          sql`to_char(${notification.sentAt}, 'YYYY-MM-DD')`,
+        ),
+      // Lifecycle claims kept after a failed transport send (the dispatcher
+      // marks them urgency 'warning') — the reconciliation signal for rows
+      // this view would otherwise count as delivered.
+      ctx.db
+        .select({ count: count() })
+        .from(notification)
+        .where(
+          and(
+            eq(notification.entityType, LIFECYCLE_ENTITY_TYPE),
+            eq(notification.urgency, "warning"),
+          ),
+        ),
     ]);
 
+    // Fold per-day recipient counts into totals plus the busiest single day.
+    // MULTI_SEND_ALERT_PER_DAY is the "someone should look" line: a digest,
+    // a course follow-up and a lifecycle nudge can legitimately coincide on
+    // one day, but hitting that level repeatedly means a producer misbehaves.
+    const byRecipient = new Map<string, { total: number; maxPerDay: number }>();
+    for (const row of recipientDayRows) {
+      const entry = byRecipient.get(row.recipient) ?? { total: 0, maxPerDay: 0 };
+      entry.total += row.c;
+      if (row.c > entry.maxPerDay) entry.maxPerDay = row.c;
+      byRecipient.set(row.recipient, entry);
+    }
+    const frequentRecipients = Array.from(byRecipient, ([recipient, v]) => ({
+      recipient,
+      ...v,
+    }))
+      .sort((a, b) => b.total - a.total || b.maxPerDay - a.maxPerDay)
+      .slice(0, 20);
+
+    // Stable 14-slot series: quiet days render as zero-height bars instead
+    // of disappearing, so a gap reads as a gap.
+    const volumeByDay = new Map(dailyVolumeRows.map((r) => [r.day, r.c]));
+    const dailyVolume = Array.from({ length: 14 }, (_, i) => {
+      const day = new Date(Date.now() - (13 - i) * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10);
+      return { day, count: volumeByDay.get(day) ?? 0 };
+    });
+
     return {
+      dailyVolume,
+      frequentRecipients,
+      multiSendAlertPerDay: MULTI_SEND_ALERT_PER_DAY,
+      lifecycleFailed: lifecycleFailedRow[0]?.count ?? 0,
       totalSent: totalSentRow[0]?.count ?? 0,
       sentLast7d: sentLast7dRow[0]?.count ?? 0,
       totalUsers: totalUsersRow[0]?.count ?? 0,
