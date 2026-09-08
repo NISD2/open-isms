@@ -174,6 +174,20 @@ test("reopen: withdrawing a sign-off clears the attestation and keeps the histor
   expect(after[0].sign_off_snapshot).toBeNull();
   expect(after[0].completed_by).toBeNull();
 
+  // The review date is the one column that must NOT end up null. It described
+  // a sign-off that no longer stands, so it is cleared and then recomputed to
+  // the deadline a never-signed row would carry. 3.1 is annual, so it is
+  // recurring and keeps one; without the recompute a reopened requirement
+  // drops out of the journey board's overdue and due-soon filters.
+  const dated = await e2eQuery<{ next_review_date: string | null }>(
+    `SELECT next_review_date FROM company_requirement_status WHERE id = $1`,
+    [before.id],
+  );
+  expect(
+    dated[0].next_review_date,
+    "a reopened recurring requirement keeps a deadline",
+  ).not.toBeNull();
+
   // Per-signer rows clear too. Left signed, the next single signature would
   // close an N-of-M requirement on the strength of stale attestations.
   const stillSigned = await e2eQuery<{ n: string }>(

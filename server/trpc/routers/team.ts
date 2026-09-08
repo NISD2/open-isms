@@ -505,6 +505,8 @@ export const teamRouter = router({
         });
       }
 
+      const roleChanged = member.jobTitle !== input.roleKey;
+
       // Set the user's jobTitle to the compliance role
       await ctx.db
         .update(user)
@@ -515,9 +517,15 @@ export const teamRouter = router({
       // the category assignments below: a role that resolves to no categories
       // returns early, and that is still a change to requirement 1.2's
       // evidence. The role map is what 1.2 attests to, not the assignments.
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "team", ctx.userId).catch(
-        (err) => console.error("[background] team assignRole:", err),
-      );
+      //
+      // Guarded on an actual change: re-selecting the role somebody already
+      // holds is a no-op, and reverting a sign-off over it would make 1.2
+      // look fragile for no reason.
+      if (roleChanged) {
+        invalidateModuleSignOffs(ctx.db, ctx.companyId, "team", ctx.userId).catch(
+          (err) => console.error("[background] team assignRole:", err),
+        );
+      }
 
       const rows = await resolveRoleAssignments(
         ctx.db,

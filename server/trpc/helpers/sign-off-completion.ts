@@ -104,6 +104,14 @@ export function completedSignOffValues(args: {
  *
  * Reopening also restores applicability, because the same action undoes a
  * "not applicable" decision — that is one declaration to retract, not two.
+ *
+ * `nextReviewDate` is cleared here because the date described a sign-off that
+ * no longer stands, and because the "not applicable" path sets it a year out.
+ * Null is not the final answer for a *recurring* requirement, though: a
+ * never-signed one carries an initial deadline from
+ * `backfillInitialDeadlines`, so `reopenRequirement` recomputes that after
+ * calling this. Kept out of here because it needs the assessment start date,
+ * which would turn a pure column map into a query.
  */
 export function reopenedSignOffValues(args: { now: Date }) {
   return {

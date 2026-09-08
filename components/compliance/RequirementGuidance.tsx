@@ -81,8 +81,12 @@ export function RequirementGuidance({ description, guidance }: RequirementGuidan
           <CollapsibleContent className="space-y-3 pt-3">
             {steps.length > 0 && (
               <ol className="list-decimal space-y-1.5 pl-5 text-sm text-muted-foreground marker:text-muted-foreground/60">
-                {steps.map((step) => (
-                  <li key={step} className="leading-relaxed">
+                {/* Keyed by position, not by text: the list is static and
+                    never reordered, and two identically-worded steps in a
+                    regenerated guidance file would collide on a text key. */}
+                {steps.map((step, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <li key={i} className="leading-relaxed">
                     {step}
                   </li>
                 ))}

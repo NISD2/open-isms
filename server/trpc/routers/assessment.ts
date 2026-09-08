@@ -22,7 +22,13 @@ import { enforceAssignment, verifyAssessmentOwnership, getSignerRole } from "../
 import { sendMail, contactEmailChangedEmail } from "@/lib/mail";
 import { logAudit } from "@/lib/audit";
 import { scheduleDeadlineReminders, backfillInitialDeadlines } from "@/lib/compliance/schedule-notifications";
-import { toDateString } from "@/lib/compliance/deadlines";
+import {
+  computeInitialDeadline,
+  isRecurringFrequency,
+  toDateString,
+  type Frequency,
+  type Priority,
+} from "@/lib/compliance/deadlines";
 import { addYears } from "date-fns";
 
 import { buildSignOffSnapshot, recalculateProgress, propagateSatisfaction } from "../helpers/assessment-helpers";
@@ -690,7 +696,17 @@ export const assessmentRouter = router({
     .mutation(async ({ ctx, input }) => {
       const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
         where: eq(companyRequirementStatus.id, input.statusId),
-        with: { requirement: { columns: { id: true, code: true, categoryId: true } } },
+        with: {
+          requirement: {
+            columns: {
+              id: true,
+              code: true,
+              categoryId: true,
+              frequency: true,
+              priority: true,
+            },
+          },
+        },
       });
       if (!statusRow) {
         throw new TRPCError({ code: "NOT_FOUND", message: "Status not found" });
@@ -719,6 +735,34 @@ export const assessmentRouter = router({
       }
 
       const now = new Date();
+
+      /**
+       * The deadline a never-signed row of this requirement would carry.
+       *
+       * Reopening clears `nextReviewDate` because that date described a
+       * sign-off that no longer stands. Leaving it null would be wrong in the
+       * other direction: `backfillInitialDeadlines` gives every *recurring*
+       * requirement an initial deadline at assessment creation, so a reopened
+       * one with none silently drops out of the journey board's overdue and
+       * due-soon filters — 35 of the 49 NIS 2 requirements are recurring.
+       * Non-recurring ones legitimately carry no date; `scheduleDeadline
+       * Reminders` nulls theirs on sign-off for the same reason.
+       */
+      const assessment = await ctx.db.query.companyAssessment.findFirst({
+        where: eq(companyAssessment.id, statusRow.assessmentId),
+        columns: { startedAt: true },
+      });
+      const frequency = statusRow.requirement.frequency as Frequency;
+      const initialDeadline =
+        assessment && isRecurringFrequency(frequency)
+          ? toDateString(
+              computeInitialDeadline(
+                assessment.startedAt,
+                statusRow.requirement.priority as Priority,
+              ),
+            )
+          : null;
+
       const reopened = await ctx.db.transaction(async (tx) => {
         // Clearing the per-signer rows is what makes reopening honest for an
         // N-of-M requirement. Left signed, the next single signature would
@@ -730,7 +774,7 @@ export const assessmentRouter = router({
 
         const [row] = await tx
           .update(companyRequirementStatus)
-          .set(reopenedSignOffValues({ now }))
+          .set({ ...reopenedSignOffValues({ now }), nextReviewDate: initialDeadline })
           .where(eq(companyRequirementStatus.id, input.statusId))
           .returning();
         return row;

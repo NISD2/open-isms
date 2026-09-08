@@ -89,6 +89,11 @@ export function RequirementFooterNav({
       try {
         if (onBeforeNavigate && !(await onBeforeNavigate())) return;
         router.push(href);
+      } catch (err) {
+        // The hook owns reporting its own failure. Catching here only keeps a
+        // contract violation from becoming an unhandled rejection inside a
+        // click handler, and stays put rather than navigating past it.
+        console.error("[requirement-nav] save before navigate:", err);
       } finally {
         setNavigatingTo(null);
       }

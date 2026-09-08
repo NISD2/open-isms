@@ -132,6 +132,13 @@ describe("reopenedSignOffValues", () => {
   test("restores applicability and drops the N/A reason", () => {
     expect(reopened.isApplicable).toBe(true);
     expect(reopened.notApplicableReason).toBeNull();
+  });
+
+  // Cleared here, then recomputed by reopenRequirement for recurring
+  // requirements — a reopened row with no deadline drops out of the journey
+  // board's overdue and due-soon filters, which a never-signed one does not.
+  // The date needs the assessment start, so it stays out of this pure map.
+  test("clears the review date for the caller to recompute", () => {
     expect(reopened.nextReviewDate).toBeNull();
   });
 });
