@@ -324,7 +324,14 @@ async function route(request: NextRequest) {
     pathname.startsWith("/docs/") ||
     pathname.startsWith("/.well-known/") ||
     pathname.startsWith("/pitch-preview") ||
+    // Both email-link landing pages, and for the same reason: they are opened
+    // from a mail client with no session, and their credential is the HMAC
+    // token in the URL rather than a cookie. Sending them through the
+    // default-deny gate redirects the reader to a sign-in screen, which for
+    // an unsubscribe surface is worse than a dead link — it reads as being
+    // made to create an account in order to stop receiving email.
     pathname.startsWith("/email/unsubscribed") ||
+    pathname.startsWith("/email/preferences") ||
     pathname === "/sitemap.xml" ||
     pathname === "/robots.txt" ||
     pathname === "/site.webmanifest"
