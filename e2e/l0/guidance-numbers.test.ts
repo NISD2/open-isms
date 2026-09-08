@@ -34,9 +34,37 @@ const PROSE_FIELDS = [
   "evidenceExample",
 ] as const;
 
-/** A quantity with a unit — the shape a threshold claim takes. */
-const QUANTITY =
-  /\d[\d.,]*\s*(Stunden|Stunde|Tage|Tagen|Monate|Monaten|Jahre|Jahren|%|Prozent|EUR|Euro|hours|hour|days|day|months|month|years|year|percent)/gi;
+/**
+ * A quantity with a unit — the shape a threshold claim takes.
+ *
+ * Digits alone were not enough. The first version of this test matched only
+ * `\d`, and a follow-up factcheck found two claims it had waved through: a
+ * post-incident review due "innerhalb von zwei Wochen" (spelled out) and a
+ * "Bußgelder bis 500.000 €" (currency symbol rather than the word "Euro").
+ * Both were wrong. Number words and currency symbols are in the pattern now.
+ */
+const NUMBER = String.raw`(?:\d[\d.,]*|ein|eine|einem|einer|zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|zwölf|one|two|three|four|five|six|seven|eight|nine|ten|twelve)`;
+const UNIT = String.raw`(?:Stunden?|Tage[n]?|Wochen?|Monate[n]?|Jahre[n]?|Prozent|EUR|Euro|hours?|days?|weeks?|months?|years?|percent)`;
+/** Scale words that sit between the figure and its currency: "10 Mio. €". */
+const SCALE = String.raw`(?:\s*(?:Mio\.?|Mrd\.?|Millionen|Milliarden|million|billion|M|k))?`;
+const QUANTITY = new RegExp(
+  // "3 Jahre", "zwei Wochen", "50 %", "10 Mio. €", "€50M", "500.000 €".
+  // The trailing \b matters: without it "einem Jahresplan" reads as "einem Jahre".
+  String.raw`\b${NUMBER}\s*(?:${UNIT})\b|\b${NUMBER}${SCALE}\s*[%€$£]|[%€$£]\s*${NUMBER}${SCALE}`,
+  "gi",
+);
+
+/**
+ * Compare on a normalised form so a German dative or an English plural does
+ * not need its own allowlist entry: "90 Tagen" is the same claim as "90 Tage".
+ */
+function normalise(quantity: string): string {
+  return quantity
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/[ns]$/, "");
+}
 
 /**
  * Numbers allowed to appear in a requirement's guidance, and why.
@@ -49,6 +77,30 @@ const QUANTITY =
  * A number with no entry here is a claim nobody has checked.
  */
 const ALLOWED: Record<string, { values: string[]; why: string }> = {
+  "1.1": {
+    values: ["drei Jahre", "three years"],
+    why: "This platform's own default review interval, and the sentence says so: §38(3) BSIG says 'regelmäßig' and the text tells the reader to set and justify their own.",
+  },
+  "12.1": {
+    values: [
+      "50 Millionen Euro",
+      "43 Millionen Euro",
+      "10 Millionen Euro",
+      "50 million euro",
+      "43 million euro",
+      "10 million euro",
+      "zwei Jahre",
+    ],
+    why: "§28 BSIG size thresholds, verbatim. Note the conjunction: turnover AND balance-sheet total, not either. The two-year look-back is the practical instruction for reading your own figures.",
+  },
+  "12.3": {
+    values: ["zwei Wochen", "2 Wochen", "two weeks"],
+    why: "§33(5) BSIG: changes to registration data go to the BSI 'unverzüglich, spätestens jedoch binnen zwei Wochen'. Verbatim in the statute.",
+  },
+  "7.1": {
+    values: ["one month"],
+    why: "Suggests piloting the KPI dashboard for a month before fixing it. A trial period, not a duty.",
+  },
   "3.1": {
     values: ["24 hours", "72 hours", "1 month"],
     why: "§32(1) BSIG: Erstmeldung 24h, Meldung 72h, Abschlussmeldung one month. Verbatim in the statute.",
@@ -128,7 +180,8 @@ describe("every number in the rendered guidance is accounted for", () => {
             `or it was invented and belongs out of the guidance.`,
         ).toBeDefined();
 
-        const unlisted = quantities.filter((q) => !allowed.values.includes(q));
+        const permitted = new Set(allowed.values.map(normalise));
+        const unlisted = quantities.filter((q) => !permitted.has(normalise(q)));
         expect(
           unlisted,
           `${code} (${locale}) states ${unlisted.join(", ")}, which ALLOWED does not cover. ${allowed?.why ?? ""}`,
