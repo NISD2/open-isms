@@ -43,6 +43,36 @@ const envSchema = z.object({
   DISABLE_EMAIL: z.string().optional(),
   ENABLE_EMAIL_IN_DEV: z.string().optional(),
 
+  // SMTP — the second transport, and the one a self-hoster can satisfy with
+  // infrastructure they already own. SMTP_HOST is the switch: set it and
+  // every send goes over SMTP, leave it unset and the Resend path is
+  // unchanged. Nothing here affects nisd2.eu, which sets no SMTP_HOST.
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().int().min(1).max(65535).default(587),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASSWORD: z.string().optional(),
+  /**
+   * Implicit TLS from the first byte. Defaults to on for port 465 and off
+   * everywhere else, which is what almost every relay wants: 587 and 25
+   * start in the clear and upgrade with STARTTLS. Set it only to override
+   * that pairing.
+   */
+  SMTP_SECURE: z.string().optional(),
+  /**
+   * Accept a certificate that does not verify. This turns off the check that
+   * the server is who it claims to be, so it belongs to exactly one case: an
+   * internal relay with a self-signed certificate, on a network you control.
+   * Never set it against a relay reached over the public internet.
+   */
+  SMTP_ALLOW_SELF_SIGNED: z.string().optional(),
+  /**
+   * From address for both transports. Falls back to RESEND_FROM_EMAIL, which
+   * is what every existing deployment already sets; the neutral name exists
+   * so an SMTP self-hoster is not asked to fill in a variable named after a
+   * vendor they are not using.
+   */
+  MAIL_FROM_EMAIL: z.string().optional(),
+
 
   // AI — optional (LLM features degrade)
   XAI_API_KEY: z.string().optional(),

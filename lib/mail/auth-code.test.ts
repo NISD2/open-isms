@@ -10,17 +10,17 @@ import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
  * the log line it greps for is a contract rather than a debug aid.
  */
 
-const sendMail = mock(async () => ({ success: true, id: "no-api-key" }) as const);
+const sendMail = mock(async () => ({ success: true, id: "no-transport" }) as const);
 
 // Full module shape: bun module mocks are process-global, so a partial mock
 // here would strip exports (mailSuppressionReason, sendWelcomeEmail, ...)
 // from send.ts for every test file that runs after this one.
 mock.module("./send", () => ({
   sendMail,
-  sendWelcomeEmail: async () => ({ success: true, id: "no-api-key" }) as const,
+  sendWelcomeEmail: async () => ({ success: true, id: "no-transport" }) as const,
   mailSuppressionReason: () => null,
   isSuppressedSendId: (id: string | undefined) =>
-    id !== undefined && ["dev-blocked", "disabled", "no-api-key", "dev-stub"].includes(id),
+    id !== undefined && ["dev-blocked", "disabled", "no-transport", "dev-stub"].includes(id),
 }));
 
 const { sendAuthCode } = await import("./auth-code");
