@@ -25,7 +25,7 @@ BSI IT-Grundschutz module: `ISMS.1`. Estimated effort: 30 minutes.
 |---|---|---|---|---|---|---|
 | `12.1` | document | P0 | on-change | Art. 3(1)-(2) | §28, §33(1) BSIG | — |
 | `12.2` | proof | P0 | one-time | Art. 3(3)-(4) | §33(1) BSIG | — |
-| `12.3` | proof | P1 | annual | Art. 3(4) | §33(5) BSIG | — |
+| `12.3` | proof | P1 | on-change | Art. 3(4) | §33(5) BSIG | — |
 | `12.4` | proof | P2 | ongoing | — | §30(1) S. 3, §31(2), §39, §34 BSIG | — |
 
 ### GOV — governance
@@ -35,7 +35,7 @@ BSI IT-Grundschutz module: `ISMS.1`. Estimated effort: 45 minutes.
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
 | `1.1` | training | P1 | every-3-years | Art. 20(2) | §38(3) BSIG | — |
-| `1.2` | proof | P1 | on-change | Art. 21(2)(a) | §30(1) BSIG, CIR 1.2 | — |
+| `1.2` | proof | P1 | annual | Art. 21(2)(a) | §30(1) BSIG, CIR 1.2, CIR 10.1.3 | — |
 | `1.3` | proof | P1 | annual | Art. 20(1) | §38(1) BSIG, CIR 1.1.1(e) | — |
 | `1.4` | sign-off | P1 | on-change | Art. 20(1) | §38(2) BSIG | — |
 
