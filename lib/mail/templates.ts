@@ -546,7 +546,11 @@ export function weeklyManagementDigestEmail(opts: {
             : ""
         }
         ${
-          completedRequirements < totalRequirements
+          // Gate on nextStep, not the persisted assessment counters: nextStep
+          // is derived from the live status rows, so "there are open items"
+          // and "here is the next one" cannot contradict each other when the
+          // counters are stale.
+          nextStep
             ? `<p style="color: ${BRAND.mutedForeground}; font-size: 13px; line-height: 1.6; margin: 0 0 16px;">
           Open items return in every weekly report until they are done. Completed items land in the audit trail as evidence.
         </p>`
@@ -555,7 +559,7 @@ export function weeklyManagementDigestEmail(opts: {
         ${dashboardButtonHtml(
           dashboardUrl,
           "weekly_management_digest",
-          completedRequirements < totalRequirements ? "Review the open items" : "View Dashboard",
+          nextStep ? "Review the open items" : "View Dashboard",
         )}
         <div style="margin: 24px 0 0; padding: 16px; background: ${BRAND.muted}; border: 1px solid ${BRAND.border}; border-radius: 6px; font-size: 12px; color: ${BRAND.mutedForeground}; line-height: 1.5;">
           This email serves as documentation of management notification per Art. 20 NIS 2 / &sect;38 BSIG.<br/>
@@ -585,7 +589,7 @@ export function weeklyManagementDigestEmail(opts: {
             ``,
           ]
         : []),
-      ...(completedRequirements < totalRequirements
+      ...(nextStep
         ? [
             `Open items return in every weekly report until they are done. Completed items land in the audit trail as evidence.`,
             ``,

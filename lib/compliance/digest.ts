@@ -5,7 +5,7 @@
  * digest email instead of individual emails per reminder.
  */
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
-import { and, desc, eq, inArray, lte, sql } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, lte, sql } from "drizzle-orm";
 import type { Database } from "@/lib/db";
 import type { DigestItem, DigestNextStep } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
@@ -60,9 +60,13 @@ export interface ManagementDigestData {
   dashboardUrl: string;
 }
 
-/** English category names live in the framework data, not the DB. */
+/**
+ * English category names live in the framework data, not the DB. Only named
+ * entries go into the map: an entry stored as "" would defeat the lookup
+ * site's `?? slug` fallback, since the empty string is not nullish.
+ */
 const CATEGORY_NAME_BY_SLUG: Record<string, string> = Object.fromEntries(
-  nis2Categories.map((c) => [c.slug ?? "", c.name ?? ""]),
+  nis2Categories.flatMap((c) => (c.slug && c.name ? [[c.slug, c.name]] : [])),
 );
 
 // ---------------------------------------------------------------------------
@@ -84,10 +88,15 @@ function requirementTitle(code: string): string {
  * highlights when the reader clicks through. Carries the progress numbers
  * the templates turn into the payoff line ("20 of 49; finishing 12.1
  * completes Registration") and, for the management digest, who owns it.
+ *
+ * includeAssignee: only the weekly management template renders the owner,
+ * so the daily path skips that query — it runs per member of every active
+ * company, and twice per send (queue build, then send time).
  */
 async function findNextJourneyStep(
   db: Database,
   assessmentIds: string[],
+  includeAssignee: boolean,
 ): Promise<DigestNextStep | null> {
   const rows = await db.query.companyRequirementStatus.findMany({
     where: inArray(companyRequirementStatus.assessmentId, assessmentIds),
@@ -118,10 +127,17 @@ async function findNextJourneyStep(
   const categoryRows = rows.filter(
     (r) => (r.requirement.category?.slug ?? "unknown") === next.slug,
   );
-  const assignment = await db.query.requirementAssignment.findFirst({
-    where: eq(requirementAssignment.statusId, next.statusId),
-    with: { user: { columns: { name: true } } },
-  });
+  // A status row can carry several assignments (unique index is
+  // statusId+userId). Without an ORDER BY, LIMIT 1 returns an arbitrary
+  // row, and the §38-evidence email could name a different owner each
+  // week; assignedAt pins it to the first assigned owner.
+  const assignment = includeAssignee
+    ? await db.query.requirementAssignment.findFirst({
+        where: eq(requirementAssignment.statusId, next.statusId),
+        orderBy: asc(requirementAssignment.assignedAt),
+        with: { user: { columns: { name: true } } },
+      })
+    : null;
 
   return {
     requirementCode: next.code,
@@ -265,7 +281,7 @@ export async function compileDailyDigest(
     overdueItems,
     urgentItems,
     upcomingItems,
-    nextStep: await findNextJourneyStep(db, assessmentIds),
+    nextStep: await findNextJourneyStep(db, assessmentIds, false),
     compliancePercentage: pct,
     dashboardUrl: `${appUrl}/`,
   };
@@ -382,7 +398,7 @@ export async function compileManagementDigest(
     escalationCount: escalationRows.length,
     totalRequirements: totalReq,
     completedRequirements: completedReq,
-    nextStep: await findNextJourneyStep(db, assessmentIds),
+    nextStep: await findNextJourneyStep(db, assessmentIds, true),
     dashboardUrl: `${getAppUrl()}/`,
   };
 }
