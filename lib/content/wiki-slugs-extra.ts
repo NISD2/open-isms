@@ -110,6 +110,19 @@ export const EXTRA_CATEGORY_SLUGS: Record<WikiTopLevel, Extra> = {
  * easier.
  */
 export const EXTRA_ENTRY_SLUGS: Record<string, Extra> = {
+  // ── vergleich — vendor alternative pages (SEO: "<vendor> alternative") ─
+  "vanta-alternative": {
+    pl: "alternatywa-dla-vanta",
+    ro: "alternativa-vanta",
+    fr: "alternative-a-vanta",
+    it: "alternativa-a-vanta",
+  },
+  "drata-alternative": {
+    pl: "alternatywa-dla-drata",
+    ro: "alternativa-drata",
+    fr: "alternative-a-drata",
+    it: "alternativa-a-drata",
+  },
   // ── zeit-und-status — 45% of wiki traffic, localized in full ────────
   "nis2-timeline": {
     pl: "harmonogram-nis2",
