@@ -374,7 +374,8 @@ function buildSubject(code: string, triggerField: string, urgency: Urgency): str
   }
 }
 
-async function buildRequirementLink(
+/** Deep link to a requirement, for any notification that references one. */
+export async function buildRequirementLink(
   db: Database,
   categoryId: string,
   requirementCode: string,

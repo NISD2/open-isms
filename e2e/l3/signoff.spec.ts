@@ -129,6 +129,17 @@ test("reopen: withdrawing a sign-off clears the attestation and keeps the histor
     [before.id],
   );
 
+  // Give the manager a signature on this requirement too, so the withdrawal
+  // below destroys somebody else's attestation and not only the admin's own.
+  // Removed again at the end of the test, so the state the grand tour walks
+  // into is unchanged.
+  await e2eQuery(
+    `INSERT INTO requirement_assignment (status_id, user_id, assigned_by, signed_off_at, signed_off_role)
+     SELECT $1, u.id, u.id, now(), 'ciso' FROM "user" u WHERE u.email = $2
+     ON CONFLICT (status_id, user_id) DO UPDATE SET signed_off_at = now()`,
+    [before.id, E2E_MANAGER_EMAIL],
+  );
+
   await gotoRequirement(page, SINGLE_TARGET);
   const reopen = page.getByTestId("reopen-button");
   await expect(reopen, "a completed requirement offers a way back").toBeVisible({
@@ -196,6 +207,43 @@ test("reopen: withdrawing a sign-off clears the attestation and keeps the histor
     [before.id],
   );
   expect(stillSigned[0].n).toBe("0");
+
+  // Anyone else whose signature was erased gets told. This is the only action
+  // in the product that deletes another person's attestation, and it did so
+  // silently; review.ts notifies on approve and reject, so the precedent for
+  // "your work changed standing, here is why" already existed.
+  const notifiedEmails = async () =>
+    (
+      await e2eQuery<{ email: string }>(
+        `SELECT u.email
+           FROM notification n
+           JOIN "user" u ON u.id = n.recipient_id
+          WHERE n.entity_type = 'requirement'
+            AND n.trigger_field = 'signedOffAt'
+            AND n.entity_id = (SELECT requirement_id FROM company_requirement_status WHERE id = $1)`,
+        [before.id],
+      )
+    ).map((r) => r.email);
+
+  await expect
+    .poll(notifiedEmails, {
+      message: "the manager, whose signature was erased, is notified",
+      timeout: 15_000,
+    })
+    .toContain(E2E_MANAGER_EMAIL);
+
+  // And never the person who did it — they already know.
+  expect(
+    await notifiedEmails(),
+    "the withdrawer is not notified about their own action",
+  ).not.toContain(E2E_USER_EMAIL);
+
+  // Restore the assignment set so the grand tour can still close this one.
+  await e2eQuery(
+    `DELETE FROM requirement_assignment
+      WHERE status_id = $1 AND user_id = (SELECT id FROM "user" WHERE email = $2)`,
+    [before.id, E2E_MANAGER_EMAIL],
+  );
 
   // The chain is append-only: withdrawing is an event in the record, not a
   // deletion from it. An auditor must still see that this was signed.

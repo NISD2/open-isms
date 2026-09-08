@@ -16,12 +16,17 @@ import {
   requirementAssignment,
   requirementPrerequisite,
   requirementSatisfaction,
+  notification,
 } from "@/schema";
 import { or } from "drizzle-orm";
 import { enforceAssignment, verifyAssessmentOwnership, getSignerRole } from "../guards";
 import { sendMail, contactEmailChangedEmail } from "@/lib/mail";
 import { logAudit } from "@/lib/audit";
-import { scheduleDeadlineReminders, backfillInitialDeadlines } from "@/lib/compliance/schedule-notifications";
+import {
+  scheduleDeadlineReminders,
+  backfillInitialDeadlines,
+  buildRequirementLink,
+} from "@/lib/compliance/schedule-notifications";
 import {
   computeInitialDeadline,
   isRecurringFrequency,
@@ -763,6 +768,19 @@ export const assessmentRouter = router({
             )
           : null;
 
+      // Who is about to lose a signature they made. Read before the clear,
+      // and excluding whoever is doing the withdrawing — they know.
+      const losingSignature = await ctx.db
+        .select({ userId: requirementAssignment.userId })
+        .from(requirementAssignment)
+        .where(
+          and(
+            eq(requirementAssignment.statusId, input.statusId),
+            sql`${requirementAssignment.signedOffAt} IS NOT NULL`,
+            sql`${requirementAssignment.userId} <> ${ctx.userId}`,
+          ),
+        );
+
       const reopened = await ctx.db.transaction(async (tx) => {
         // Clearing the per-signer rows is what makes reopening honest for an
         // N-of-M requirement. Left signed, the next single signature would
@@ -782,6 +800,43 @@ export const assessmentRouter = router({
 
       if (reopened) {
         await recalculateProgress(ctx.db, reopened.assessmentId);
+
+        // Tell the people whose signature was just removed.
+        //
+        // Withdrawing is the only action that deletes somebody else's
+        // attestation, and it was doing so silently. `review.ts` notifies the
+        // submitter on both approve and reject, so the precedent for "we
+        // changed the standing of your work, here is why" already exists; an
+        // erased signature is at least as worth knowing about.
+        if (losingSignature.length > 0) {
+          buildRequirementLink(
+            ctx.db,
+            statusRow.requirement.categoryId,
+            statusRow.requirement.code,
+          )
+            .then((linkUrl) =>
+              ctx.db.insert(notification).values(
+                losingSignature.map(({ userId }) => ({
+                  companyId: ctx.companyId,
+                  recipientId: userId,
+                  entityType: "requirement",
+                  entityId: statusRow.requirement.id,
+                  triggerField: "signedOffAt",
+                  subject: `Sign-off withdrawn: ${statusRow.requirement.code}`,
+                  body:
+                    `Your sign-off on requirement ${statusRow.requirement.code} was withdrawn, ` +
+                    `and the requirement is open for editing again. It needs signing off once ` +
+                    `the work is finished.`,
+                  channel: "in_app" as const,
+                  scheduledFor: now,
+                  urgency: "warning" as const,
+                  linkUrl,
+                })),
+              ),
+            )
+            .catch((err) => console.error("[notify] reopenRequirement:", err));
+        }
+
         logAudit({
           companyId: ctx.companyId,
           userId: ctx.userId,
