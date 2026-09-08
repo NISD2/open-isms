@@ -432,9 +432,16 @@ export const platformAdminRouter = router({
    *
    * Scope: emails recorded in the `notification` table (cron-driven —
    * course follow-ups, daily digests, weekly management digests, deadline
-   * reminders). Transactional emails (invites, welcome, contact-change
-   * notifications, supplier incident broadcasts) currently bypass the
-   * notification table and are NOT counted here.
+   * reminders, lifecycle nudges). Transactional emails (invites, welcome,
+   * contact-change notifications, supplier incident broadcasts) currently
+   * bypass the notification table and are NOT counted here.
+   *
+   * Caveat for lifecycle rows (entityType "lifecycle_email"): they record
+   * CLAIMS, not confirmed deliveries — the row is written status "sent"
+   * before the transport call, and a failed send keeps it (marked
+   * urgency "warning", plus an email.lifecycle_failed audit row). Counts
+   * here therefore read a failed nudge as sent; the warning marker is the
+   * reconciliation signal.
    */
   emailActivity: platformAdminProcedure.query(async ({ ctx }) => {
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);

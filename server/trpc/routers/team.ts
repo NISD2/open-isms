@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eq, and, desc, inArray } from "drizzle-orm";
+import { eq, and, desc, inArray, ne } from "drizzle-orm";
 import { randomBytes } from "crypto";
 import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure, adminProcedure } from "../init";
@@ -14,6 +14,7 @@ import {
 } from "@/schema";
 import { sendMail, inviteEmail, memberRemovedEmail } from "@/lib/mail";
 import { logAudit } from "@/lib/audit";
+import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { getAppUrl } from "@/lib/utils";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
@@ -421,7 +422,12 @@ export const teamRouter = router({
           );
       }
 
-      // Cancel pending notifications for the removed user in this company
+      // Cancel pending notifications for the removed user in this company.
+      // Lifecycle claim rows are excluded: they are per-user once-ever dedup
+      // records, not company reminders, and their contract (lib/lifecycle)
+      // reads any status change as meaningful — a claim flipped to cancelled
+      // here would look never-delivered to ops and invite the manual delete
+      // that re-arms a user who already got the email.
       await ctx.db
         .update(notification)
         .set({ status: "cancelled" })
@@ -430,6 +436,7 @@ export const teamRouter = router({
             eq(notification.recipientId, input.userId),
             eq(notification.companyId, ctx.companyId),
             inArray(notification.status, ["pending", "sent"]),
+            ne(notification.entityType, LIFECYCLE_ENTITY_TYPE),
           ),
         );
 

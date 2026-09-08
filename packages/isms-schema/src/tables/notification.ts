@@ -12,6 +12,12 @@
  *
  * companyId always points at the SOURCE company (the supplier whose event this is,
  * or the entity whose deadline this is). It is never the recipient's company.
+ * One exception: lifecycle claim rows (entityType "lifecycle_email") are
+ * per-USER once-ever dedup records, and for them companyId is merely the
+ * recipient's company at claim time. When that company is GDPR-erased while
+ * the recipient lives on elsewhere, the claim is re-homed to the recipient's
+ * current company (lib/gdpr/erase-user.ts) — deleting it would re-arm a
+ * one-shot email; the column is NOT NULL so it cannot be detached instead.
  *
  * References: companies, users
  */

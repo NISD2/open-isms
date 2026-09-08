@@ -33,6 +33,7 @@ import {
   complianceFramework,
   notification,
   requirement,
+  requirementCategory,
   user,
 } from "@/schema";
 import { NIS2_FRAMEWORK_CODE } from "@/server/trpc/helpers/nis2-scope";
@@ -47,11 +48,14 @@ import {
 export const ACTIVATION_NUDGE_KEY = "activation_nudge_v1";
 
 /**
- * How long an account must be quiet before the nudge. Two days: one day
- * still catches people mid-onboarding who were in the product yesterday
- * evening; a week is churn territory. Single constant, safe to tune.
+ * How long an account must be quiet before the nudge. Three days, not two:
+ * the Monday 08:00 cron with a two-day window reached back to Saturday
+ * morning and read every ordinary Friday sign-in as "went quiet", burning
+ * the once-ever email on people who were merely offline over the weekend.
+ * Three days clears a weekend; a week is churn territory. Single constant,
+ * safe to tune.
  */
-export const NUDGE_AFTER_DAYS = 2;
+export const NUDGE_AFTER_DAYS = 3;
 
 // ---------------------------------------------------------------------------
 // Copy (de primary, en, nl — the locales the auth flow already narrows to)
@@ -176,32 +180,33 @@ export function renderActivationNudge(input: ActivationNudgeInput): EmailContent
 // Recipient selection
 // ---------------------------------------------------------------------------
 
-export const activationNudge: LifecycleEmailType = {
-  key: ACTIVATION_NUDGE_KEY,
-  description:
-    "One-time re-engagement email for quiet accounts with open NIS 2 path steps",
+/**
+ * The candidates query, exported UN-AWAITED so e2e/l0 can pin its compiled
+ * SQL without a database (e2e/l0/lifecycle-eligibility.test.ts). Same lesson
+ * as nis2-scope.test.ts: cron-only queries are executed by no browser flow
+ * and no suite, so the compiled SQL is the only thing a test can hold still.
+ */
+export function buildCandidateQuery(db: DbOrTx, cutoff: Date) {
+  // When they were last here, best knowledge first: accounts from before
+  // the lastLoginAt column fall back to when they proved their mailbox,
+  // then to signup time.
+  const dormantSince = sql`COALESCE(${user.lastLoginAt}, ${user.emailVerifiedAt}, ${user.createdAt})`;
 
-  async prepare(db: DbOrTx): Promise<PreparedLifecycleEmail[]> {
-    const cutoff = new Date(Date.now() - NUDGE_AFTER_DAYS * 24 * 60 * 60 * 1000);
-    // When they were last here, best knowledge first: accounts from before
-    // the lastLoginAt column fall back to when they proved their mailbox,
-    // then to signup time.
-    const dormantSince = sql`COALESCE(${user.lastLoginAt}, ${user.emailVerifiedAt}, ${user.createdAt})`;
+  // Cheap soft filter for "never claimed"; the partial unique index on
+  // notification is the hard guarantee at insert time.
+  const priorClaim = db
+    .select({ one: sql`1` })
+    .from(notification)
+    .where(
+      and(
+        eq(notification.recipientId, user.id),
+        eq(notification.entityType, LIFECYCLE_ENTITY_TYPE),
+        eq(notification.triggerField, ACTIVATION_NUDGE_KEY),
+      ),
+    );
 
-    // Cheap soft filter for "never claimed"; the partial unique index on
-    // notification is the hard guarantee at insert time.
-    const priorClaim = db
-      .select({ one: sql`1` })
-      .from(notification)
-      .where(
-        and(
-          eq(notification.recipientId, user.id),
-          eq(notification.entityType, LIFECYCLE_ENTITY_TYPE),
-          eq(notification.triggerField, ACTIVATION_NUDGE_KEY),
-        ),
-      );
-
-    const candidates = await db
+  return (
+    db
       .select({
         userId: user.id,
         email: user.email,
@@ -217,34 +222,44 @@ export const activationNudge: LifecycleEmailType = {
           isNotNull(user.emailVerifiedAt),
           eq(user.isDisposableEmail, false),
           eq(user.emailFollowupsDisabled, false),
-          sql`${dormantSince} <= ${cutoff}`,
+          // Bound as an ISO string, not a Date: a raw sql`` parameter has no
+          // column encoder, so node-postgres would serialize a Date as LOCAL
+          // wall time while the compared columns hold UTC — a ~2h skew on
+          // any TZ-set self-host. The ISO string always carries UTC.
+          sql`${dormantSince} <= ${cutoff.toISOString()}`,
           notExists(priorClaim),
         ),
       )
       // Oldest-dormant first, so the dispatcher's per-run cap defers
       // deterministically (FIFO) instead of by whatever order the planner
       // returns rows in.
-      .orderBy(asc(dormantSince));
+      .orderBy(asc(dormantSince))
+  );
+}
+
+export const activationNudge: LifecycleEmailType = {
+  key: ACTIVATION_NUDGE_KEY,
+  description:
+    "One-time re-engagement email for quiet accounts with open NIS 2 path steps",
+
+  async prepare(db: DbOrTx): Promise<PreparedLifecycleEmail[]> {
+    const cutoff = new Date(Date.now() - NUDGE_AFTER_DAYS * 24 * 60 * 60 * 1000);
+    const candidates = await buildCandidateQuery(db, cutoff);
     if (candidates.length === 0) return [];
 
     // Drop anyone with audit-logged activity since the cutoff. lastLoginAt is
     // NULL for every account predating the column, so without this check the
     // first run would nudge users who were busy in the product yesterday.
     // Every tRPC mutation is audit-logged with the acting userId; querying by
-    // createdAt keeps this on the indexed column.
+    // createdAt keeps this on the indexed column. Deliberately NOT filtered
+    // to the candidate ids: distinct active users inside the window is
+    // bounded by real usage, while an IN list over the whole dormant backlog
+    // would bind one parameter per candidate (audit_log has no user_id index
+    // to reward it, and node-postgres hard-fails at 65535 binds).
     const recentlyActive = await db
       .selectDistinct({ userId: auditLog.userId })
       .from(auditLog)
-      .where(
-        and(
-          gt(auditLog.createdAt, cutoff),
-          isNotNull(auditLog.userId),
-          inArray(
-            auditLog.userId,
-            candidates.map((c) => c.userId),
-          ),
-        ),
-      );
+      .where(and(gt(auditLog.createdAt, cutoff), isNotNull(auditLog.userId)));
     const activeIds = new Set(recentlyActive.map((r) => r.userId));
     const quiet = candidates.filter((c) => !activeIds.has(c.userId));
     if (quiet.length === 0) return [];
@@ -258,6 +273,10 @@ export const activationNudge: LifecycleEmailType = {
         status: companyRequirementStatus.status,
         code: requirement.code,
         sortOrder: requirement.sortOrder,
+        // Category order joins in so summarizeJourneys can rank by the same
+        // journeyPosition the path view uses — requirement.sortOrder alone is
+        // only unique WITHIN a category.
+        categorySortOrder: requirementCategory.sortOrder,
       })
       .from(companyRequirementStatus)
       .innerJoin(
@@ -272,6 +291,7 @@ export const activationNudge: LifecycleEmailType = {
         ),
       )
       .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
+      .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
       .where(inArray(companyAssessment.companyId, companyIds));
     const journeys = summarizeJourneys(statusRows);
 

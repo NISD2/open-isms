@@ -7,6 +7,7 @@
  */
 
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
+import { isDoneStatus, journeyPosition } from "@/lib/compliance/journey-position";
 
 export type JourneyItem = {
   id: string;
@@ -32,31 +33,17 @@ export type JourneyItem = {
   signOff: { signed: number; total: number };
 };
 
-/**
- * Terminal-success status. Schema `item_status` enum:
- * not_started / in_progress / completed / not_applicable / needs_review /
- * approved / rejected. "completed" is the normal user sign-off result,
- * "approved" adds the legal review; both (plus not_applicable) are done.
- */
 function isDone(item: JourneyItem): boolean {
-  return (
-    item.status === "completed" ||
-    item.status === "approved" ||
-    item.status === "not_applicable"
-  );
+  return isDoneStatus(item.status);
 }
 
 const CAT_ORDER: Record<string, number> = Object.fromEntries(
   nis2Categories.map((c) => [c.code, c.sortOrder]),
 );
 
-/**
- * True journey position. requirement.sortOrder is the requirement's index
- * within its category (0, 1, 2, ...), not a global order, so order by the
- * category sequence first, then that index.
- */
+/** True journey position — the shared category-weighted order. */
 function journeyOrder(item: JourneyItem): number {
-  return (CAT_ORDER[item.categoryCode] ?? 99) * 100 + item.sortOrder;
+  return journeyPosition(CAT_ORDER[item.categoryCode], item.sortOrder);
 }
 
 /**

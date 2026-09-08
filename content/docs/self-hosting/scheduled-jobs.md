@@ -24,6 +24,31 @@ Skip it and none of that happens. Requirements stay in the status they were last
 
 `/api/cron/lifecycle` sends the one-shot re-engagement emails. Each user receives each email type at most once, ever: the send is recorded in the database before the email goes out, and a unique index makes a second send impossible even if two runs overlap. Without `RESEND_API_KEY` the endpoint reports `skipped` and records nothing, so enabling email later starts with a clean slate. Users with `emailFollowupsDisabled` are never selected, and every one of these emails carries an unsubscribe link that sets exactly that flag.
 
+Who gets the first campaign (the activation nudge): accounts with a verified email, a company, at least one open step on the NIS 2 path, and no sign-in or recorded activity for 3 days or more. Selection runs oldest-dormant first.
+
+Reading the response. `{"skipped": ...}` means the run did nothing on purpose (no mail transport, or another run was still in flight). Otherwise you get per-type stats:
+
+| Field | Meaning |
+|---|---|
+| `prepared` | users eligible this run |
+| `sent` | emails handed to the mail provider |
+| `deferred` | eligible but past the 100-per-run cap; tomorrow's run takes them, oldest first |
+| `alreadyClaimed` | claimed by an earlier or concurrent run; nothing sent, nothing lost |
+| `released` | claim rolled back because the transport was suppressed mid-run |
+| `optedOut` | unsubscribed between selection and send |
+| `failed` | transport failed after retries; see below |
+| `error` | this email type could not run at all; the endpoint also returns HTTP 500 so a `curl -f` cron line goes red |
+
+A `failed` send keeps its database row so the user cannot be double-mailed, marked with `urgency = 'warning'` and paired with an `email.lifecycle_failed` row in the audit log naming the address. If you decide the email never arrived and want that one user re-armed, delete the claim:
+
+```sql
+DELETE FROM notification
+WHERE entity_type = 'lifecycle_email' AND urgency = 'warning'
+  AND recipient_id = '<user id from the audit row>';
+```
+
+On a large backlog the request can stay open for a minute or two (sends are paced to the mail provider's rate limit). If your reverse proxy times out first, the run still completes server-side and the stats land in the audit log under `cron.lifecycle`; do not re-trigger in a loop, the next scheduled run continues where this one stopped.
+
 ## Authentication
 
 All three endpoints check a bearer token against `CRON_SECRET`. With the variable unset they return 500 and `CRON_SECRET not configured` rather than running unauthenticated, so an empty value is a closed door and not an open one.

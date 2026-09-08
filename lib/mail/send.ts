@@ -58,7 +58,13 @@ export function mailSuppressionReason(): MailSuppressionReason | null {
   ) {
     return "dev-blocked";
   }
-  if (process.env.DISABLE_EMAIL || env.DISABLE_EMAIL) return "disabled";
+  // "0"/"false" mean OFF: a self-hoster flipping DISABLE_EMAIL=1 to =0 to
+  // re-enable email must not end up with mail silently suppressed forever
+  // (the docs only ever show =1, so =0 reads as the obvious inverse).
+  const disableEmail = process.env.DISABLE_EMAIL ?? env.DISABLE_EMAIL;
+  if (disableEmail && disableEmail !== "0" && disableEmail.toLowerCase() !== "false") {
+    return "disabled";
+  }
   if (!env.RESEND_API_KEY) return "no-api-key";
   return null;
 }

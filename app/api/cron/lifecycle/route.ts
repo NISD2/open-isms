@@ -38,6 +38,26 @@ export async function GET(req: NextRequest) {
     const result = await runLifecycleEmails(db);
     const elapsed = Date.now() - startTime;
 
+    // A type whose prepare() threw is a dead campaign, not a partial success:
+    // report it as a 500 so `curl -f` monitoring goes red instead of green
+    // forever. Individual send failures stay 200 — they are per-recipient,
+    // audited (email.lifecycle_failed), and visible in the stats.
+    const brokenTypes =
+      result.skipped === undefined
+        ? Object.entries(result.types).filter(([, stats]) => stats.error)
+        : [];
+    if (brokenTypes.length > 0) {
+      logAudit({
+        companyId: null,
+        userId: null,
+        action: "cron.lifecycle.error",
+        entityType: "system",
+        entityId: null,
+        description: `Lifecycle cron: ${brokenTypes.length} type(s) failed to run in ${elapsed}ms: ${JSON.stringify(result)}`,
+      });
+      return NextResponse.json({ error: "Internal error" }, { status: 500 });
+    }
+
     logAudit({
       companyId: null,
       userId: null,

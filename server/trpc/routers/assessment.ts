@@ -38,7 +38,7 @@ import {
 import type { Database } from "@/lib/db";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 
-const DONE_STATUSES = new Set(["completed", "approved", "not_applicable"]);
+import { DONE_STATUSES } from "@/lib/compliance/journey-position";
 
 // Prerequisites are advisory only — the UI surfaces them as a "recommended
 // first" suggestion (see RequirementDetail), but nothing blocks sign-off.

@@ -12,12 +12,20 @@
  *   2. Send. On success the claim row already says sent.
  *   3. On transport failure the claim row STAYS — the request may have
  *      reached Resend before failing, and "never double-send" outranks
- *      "always send". An audit row (email.lifecycle_failed) points ops at
+ *      "always send". The row is marked urgency='warning' so failures are
+ *      queryable, and an audit row (email.lifecycle_failed) points ops at
  *      it; deleting the row by hand re-arms that one user. Same trade-off
  *      as the course-reminders cron.
  *   4. Suppressed sends (dev-block, DISABLE_EMAIL, missing API key) cannot
  *      burn claims: the run-level gate returns early, and should suppression
  *      somehow flip mid-run, the provably-unsent claim is released.
+ *
+ * Only one run executes at a time per process: overlapping invocations (a
+ * manual curl during the daily run, a scheduler double-fire) would stack
+ * send loops past Resend's rate limit and 429-fail claims that are then
+ * never retried. An in-process guard is sufficient because the app deploys
+ * as a single container — the same assumption the in-memory auth rate
+ * limiters already make.
  */
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
@@ -130,13 +138,26 @@ async function deliverOne(
     return "released";
   }
 
+  // Mark the kept claim so failed sends are queryable (the row must keep
+  // status 'sent' — see the insert above — but urgency is free to carry the
+  // signal). Best-effort: a marker failure must not fail the delivery loop.
+  await db
+    .update(notification)
+    .set({ urgency: "warning" })
+    .where(eq(notification.id, claim.id))
+    .catch(() => {});
+
+  // userId stays null by cron convention: audit rows with a non-null userId
+  // mean "a person did something" (journey idle detection and this
+  // subsystem's own dormancy check both rely on that), and a failed send is
+  // not the recipient's action.
   logAudit({
     companyId: email.companyId,
-    userId: email.userId,
+    userId: null,
     action: "email.lifecycle_failed",
     entityType: "notification",
     entityId: claim.id,
-    description: `Lifecycle email ${type.key} to ${email.to} failed after retries; claim row kept, delete it to re-arm this user`,
+    description: `Lifecycle email ${type.key} to ${email.to} failed after retries; claim row kept (urgency=warning), delete it to re-arm this user`,
   });
   return "failed";
 }
@@ -144,6 +165,7 @@ async function deliverOne(
 async function runType(
   db: DbOrTx,
   type: LifecycleEmailType,
+  sendIntervalMs: number,
 ): Promise<LifecycleTypeStats> {
   const stats: LifecycleTypeStats = {
     prepared: 0,
@@ -170,30 +192,56 @@ async function runType(
       else stats.failed++;
     } catch (err) {
       stats.failed++;
+      // userId null: cron convention, see the failure branch in deliverOne.
       logAudit({
         companyId: email.companyId,
-        userId: email.userId,
+        userId: null,
         action: "email.lifecycle_failed",
         entityType: "notification",
         entityId: null,
         description: `Lifecycle email ${type.key} to ${email.to} threw: ${err instanceof Error ? err.message : "unknown"}`,
       });
     }
-    if (index < batch.length - 1) await wait(SEND_INTERVAL_MS);
+    if (index < batch.length - 1) await wait(sendIntervalMs);
   }
   return stats;
 }
 
-export async function runLifecycleEmails(db: DbOrTx): Promise<LifecycleRunResult> {
+/**
+ * The in-flight run, or null. Overlap guard — see the header. Cleared in the
+ * finally below, so a crashed run never wedges the next one.
+ */
+let activeRun: Promise<LifecycleRunResult> | null = null;
+
+export async function runLifecycleEmails(
+  db: DbOrTx,
+  opts?: { sendIntervalMs?: number },
+): Promise<LifecycleRunResult> {
   const suppression = mailSuppressionReason();
   if (suppression) {
     return { skipped: `email transport unavailable (${suppression})` };
   }
+  if (activeRun) {
+    return { skipped: "a lifecycle run is already in progress" };
+  }
 
+  const run = executeRun(db, opts?.sendIntervalMs ?? SEND_INTERVAL_MS);
+  activeRun = run;
+  try {
+    return await run;
+  } finally {
+    activeRun = null;
+  }
+}
+
+async function executeRun(
+  db: DbOrTx,
+  sendIntervalMs: number,
+): Promise<LifecycleRunResult> {
   const types: Record<string, LifecycleTypeStats> = {};
   for (const type of LIFECYCLE_EMAIL_TYPES) {
     try {
-      types[type.key] = await runType(db, type);
+      types[type.key] = await runType(db, type, sendIntervalMs);
     } catch (err) {
       // One broken type must not silence the others.
       types[type.key] = {
