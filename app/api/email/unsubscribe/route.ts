@@ -16,8 +16,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { user } from "@/schema";
+import { emailPreference, user } from "@/schema";
 import { verifyUnsubscribeToken } from "@/lib/email/unsubscribe";
+import { SCOPE_ALL, parseScope } from "@/lib/mail/consent";
 import { logAudit } from "@/lib/audit";
 import { getAppUrl } from "@/lib/utils";
 
@@ -48,27 +49,56 @@ async function processUnsubscribe(req: NextRequest): Promise<boolean> {
   if (!userId || !token) return false;
   if (!verifyUnsubscribeToken(userId, token)) return false;
 
+  // A scope names what to switch off: one message type, a whole category, or
+  // everything optional. Absent (every link in already-delivered mail) means
+  // everything, which is what those links have always done. An unrecognised
+  // scope is treated as a broken link rather than silently widened to "all".
+  const scope = parseScope(url.searchParams.get("scope"));
+  if (!scope) return false;
+
   // Look up the user to confirm existence and capture their companyId for
-  // the audit row. The flag flip is idempotent — clicking twice is a no-op.
+  // the audit row. Every path here is idempotent — clicking twice is a no-op.
   const row = await db.query.user.findFirst({
     where: eq(user.id, userId),
     columns: { id: true, email: true, companyId: true, emailFollowupsDisabled: true },
   });
   if (!row) return false;
 
-  if (!row.emailFollowupsDisabled) {
-    await db
-      .update(user)
-      .set({ emailFollowupsDisabled: true, updatedAt: new Date() })
-      .where(eq(user.id, userId));
+  if (scope === SCOPE_ALL) {
+    // The coarse switch stays the boolean it has always been, so nothing that
+    // reads emailFollowupsDisabled needs to learn about the new table.
+    if (!row.emailFollowupsDisabled) {
+      await db
+        .update(user)
+        .set({ emailFollowupsDisabled: true, updatedAt: new Date() })
+        .where(eq(user.id, userId));
 
+      logAudit({
+        companyId: row.companyId,
+        userId: row.id,
+        action: "email.unsubscribed",
+        entityType: "user",
+        entityId: row.id,
+        description: `Unsubscribed ${row.email} from all optional emails`,
+      });
+    }
+    return true;
+  }
+
+  const inserted = await db
+    .insert(emailPreference)
+    .values({ userId: row.id, scope, source: "one_click" })
+    .onConflictDoNothing()
+    .returning({ id: emailPreference.id });
+
+  if (inserted.length > 0) {
     logAudit({
       companyId: row.companyId,
       userId: row.id,
-      action: "email.unsubscribed",
+      action: "email.unsubscribed_scope",
       entityType: "user",
       entityId: row.id,
-      description: `Unsubscribed ${row.email} from follow-up emails`,
+      description: `Unsubscribed ${row.email} from ${scope}`,
     });
   }
   return true;

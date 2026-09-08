@@ -238,6 +238,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           await Promise.all([
             admins.length > 0
               ? sendMail({
+                  emailType: "internal.new_signup_alert",
                   to: admins,
                   ...newUserSignupEmail({ userEmail: authUser.email, userName: newName, provider: account.provider }),
                 }).catch((err) => console.error("[auth] Failed to send admin signup alert:", err))

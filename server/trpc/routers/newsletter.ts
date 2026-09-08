@@ -113,13 +113,14 @@ function dispatchNewsletter(opts: {
           viewInBrowserUrl,
         });
         sendMail({
+          emailType: "newsletter.issue",
+          recipientUserId: r.id,
           to: r.email,
           subject: email.subject,
           html: email.html,
           text: email.text,
           replyTo: REPLY_TO,
           fromEmail: NEWS_FROM_EMAIL,
-          unsubscribeUrl: unsubUrl,
         }).catch(() => {});
       }
       if (i + BURST_SIZE < recipients.length) {
@@ -476,14 +477,16 @@ export const newsletterRouter = router({
         cta: await resolveEmailCta(input.ctaKey ?? null),
         viewInBrowserUrl: input.slug ? issuePermalink(slugify(input.slug)) : null,
       });
+      // internal.test_send: an admin previewing an issue must receive it even
+      // if they personally unsubscribed from the newsletter.
       const res = await sendMail({
+        emailType: "internal.test_send",
         to,
         subject: email.subject,
         html: email.html,
         text: email.text,
         replyTo: REPLY_TO,
         fromEmail: NEWS_FROM_EMAIL,
-        unsubscribeUrl: unsubUrl,
       });
       if (!res.success) {
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Test send failed." });

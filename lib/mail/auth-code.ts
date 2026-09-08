@@ -49,7 +49,12 @@ export async function sendAuthCode({ to, code, locale, kind }: SendAuthCodeOptio
       ? emailVerificationCodeEmail({ code, locale })
       : passwordResetCodeEmail({ code, locale });
 
-  const result = await sendMail({ to, ...content });
+  const result = await sendMail({
+    emailType:
+      kind === "verification" ? "auth.verification_code" : "auth.password_reset_code",
+    to,
+    ...content,
+  });
 
   if (hasNoMailTransport()) {
     const what = kind === "verification" ? "sign-in code" : "password reset code";

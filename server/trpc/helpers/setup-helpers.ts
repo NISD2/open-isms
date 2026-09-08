@@ -257,6 +257,7 @@ export async function processTeamRoleAssignments(
       const inviterName = opts.userName ?? "Your team admin";
 
       sendMail({
+        emailType: "account.invite",
         to: email,
         ...inviteEmail({
           companyName: opts.companyName,

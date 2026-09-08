@@ -133,12 +133,14 @@ async function deliverOne(
   if (!claim) return "already_claimed";
 
   const result = await sendMail({
+    emailType: "product.lifecycle_nudge",
+    recipientUserId: email.userId,
+    db,
     to: email.to,
     subject: email.subject,
     html: email.html,
     text: email.text,
     replyTo: mailSupportEmail(),
-    unsubscribeUrl: email.unsubscribeUrl,
     // Keyed on the claim row: sendMail's retry loop re-POSTs on ambiguous
     // network failures, and without this a request Resend accepted (response
     // lost) would deliver a second copy on the retry — the one double-send

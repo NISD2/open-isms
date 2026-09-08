@@ -216,6 +216,7 @@ export const teamRouter = router({
       const emailRole = input.complianceRole ?? "member";
 
       sendMail({
+        emailType: "account.invite",
         to: email,
         ...inviteEmail({
           companyName: companyRow?.name ?? "your company",
@@ -461,6 +462,7 @@ export const teamRouter = router({
       });
 
       sendMail({
+        emailType: "account.member_removed",
         to: member.email,
         ...memberRemovedEmail({
           companyName: companyRow?.name ?? "your company",

@@ -14,6 +14,7 @@ export * from "./tables/gap-assessment";
 export * from "./tables/improvement";
 export * from "./tables/incident-broadcast";
 export * from "./tables/kpi";
+export * from "./tables/email-preference";
 export * from "./tables/notification";
 export * from "./tables/organization";
 export * from "./tables/patch-management";

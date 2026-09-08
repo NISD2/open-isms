@@ -679,13 +679,15 @@ export const platformAdminRouter = router({
     if (!sample) {
       throw new TRPCError({ code: "NOT_FOUND", message: "Calling user not found." });
     }
+    // internal.test_send, not product.lifecycle_nudge: an admin asking to see
+    // the email must get it even if they have switched that message off.
     const res = await sendMail({
+      emailType: "internal.test_send",
       to: sample.to,
       subject: `[Test] ${sample.subject}`,
       html: sample.html,
       text: sample.text,
       replyTo: mailSupportEmail(),
-      unsubscribeUrl: sample.unsubscribeUrl,
     });
     if (!res.success) {
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Test send failed." });

@@ -349,8 +349,9 @@ export async function GET(req: NextRequest) {
         const digest = await compileDailyDigest(db, member.id, co.id);
         if (digest) {
           sendMail({
+            emailType: "reminders.daily_digest",
+            recipientUserId: member.id,
             to: digest.recipientEmail,
-            unsubscribeUrl: unsubUrl,
             ...dailyDigestEmail({
               recipientName: digest.recipientName,
               companyName: digest.companyName,
@@ -382,8 +383,9 @@ export async function GET(req: NextRequest) {
           const mgmtDigest = await compileManagementDigest(db, member.id, co.id);
           if (mgmtDigest) {
             sendMail({
+              emailType: "reminders.weekly_management_digest",
+              recipientUserId: member.id,
               to: mgmtDigest.recipientEmail,
-              unsubscribeUrl: unsubUrl,
               ...weeklyManagementDigestEmail({
                 recipientName: mgmtDigest.recipientName,
                 companyName: mgmtDigest.companyName,

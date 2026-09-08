@@ -247,12 +247,13 @@ export async function GET(req: NextRequest) {
       const firstNotificationId = insertedRows[0]?.id ?? null;
 
       sendMail({
+        emailType: "product.course_followup",
+        recipientUserId: u.id,
         to: u.email,
         subject: email.subject,
         html: email.html,
         text: email.text,
         replyTo: REPLY_TO,
-        unsubscribeUrl: unsubUrl,
       })
         .then((result) => {
           if (!result.success) {
