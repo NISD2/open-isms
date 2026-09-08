@@ -3,6 +3,7 @@
     "loading": "Loading files…",
     "uploading": "Uploading…",
     "uploadFailed": "Upload failed. Please try again.",
+    "fileTooLarge": "That file is too large. The limit is {size} MB per file.",
     "deleteFailed": "Delete failed. Please try again."
   }
 }

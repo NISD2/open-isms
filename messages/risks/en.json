@@ -18,6 +18,12 @@
       "transfer": "Transfer",
       "avoid": "Avoid"
     },
+    "treatmentDescriptions": {
+      "mitigate": "You put a control in place that lowers the likelihood or the damage. Multi-factor authentication, tested backups, patching. The usual answer.",
+      "accept": "You knowingly carry the risk and do nothing further. Only sound below your acceptance threshold, and the decision belongs in writing with management behind it.",
+      "transfer": "You move the financial consequence to someone else, through cyber insurance or contractually to a provider. The duty under §38 BSIG stays with management: the loss transfers, the accountability does not.",
+      "avoid": "You stop doing the thing that creates the risk. Retire the legacy system, close the interface, hand the service to someone who runs it properly."
+    },
     "fields": {
       "title": "Title",
       "description": "Description",

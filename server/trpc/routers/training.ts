@@ -5,6 +5,7 @@ import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compl
 import { trainingRecord } from "@/schema";
 import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
 import { createPresignedPut, createPresignedGet } from "@/lib/storage";
+import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 
 /**
  * batchCreate writes one training_record row per participant, so its input
@@ -87,8 +88,18 @@ export const trainingRouter = router({
       return { deleted: true };
     }),
 
+  // fileSize is bounded here the way evidence.createUploadUrl bounds it.
+  // Without the ceiling, an oversized certificate reached createPresignedPut
+  // and came back as a bare thrown Error rather than a validation failure —
+  // which the uploader could only render as "upload failed".
   getCertificateUploadUrl: companyProcedure
-    .input(z.object({ fileName: z.string(), contentType: z.string(), fileSize: z.number().int().positive() }))
+    .input(
+      z.object({
+        fileName: z.string().min(1).max(500),
+        contentType: z.string().min(1).max(100),
+        fileSize: z.number().int().positive().max(MAX_UPLOAD_BYTES),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const key = `companies/${ctx.companyId}/training-certs/${crypto.randomUUID()}-${input.fileName}`;
       const uploadUrl = await createPresignedPut(key, input.contentType, input.fileSize);

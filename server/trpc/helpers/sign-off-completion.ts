@@ -82,6 +82,47 @@ export function completedSignOffValues(args: {
 }
 
 /**
+ * The column values that withdraw a sign-off and reopen the requirement.
+ *
+ * The exact mirror of {@link completedSignOffValues}: every evidentiary
+ * column that function writes, this one clears. Keeping the pair adjacent is
+ * the point — a column added to the sign-off set and forgotten here would
+ * leave a reopened row still carrying half an attestation.
+ *
+ * `signedOffBy` is the load-bearing clear. It, not `signedOffAt`, is what
+ * the rest of the system reads as "this is signed" (`lib/gdpr/erase-user.ts`
+ * nulls the signer and keeps the timestamp, so the timestamp alone cannot be
+ * trusted). `signOffSnapshot` matters nearly as much: `ReviewDashboard` and
+ * `lib/pdf/compliance-report.tsx` gate their whole sign-off panel on it, so
+ * a stale snapshot would keep rendering an attestation for a requirement
+ * nobody currently vouches for.
+ *
+ * What this deliberately does NOT touch is `sign_off_history`. That chain is
+ * append-only and tamper-evident; withdrawing an attestation is an event in
+ * the record, not a deletion from it. An auditor should be able to see that
+ * a requirement was signed and later reopened, and by whom.
+ *
+ * Reopening also restores applicability, because the same action undoes a
+ * "not applicable" decision — that is one declaration to retract, not two.
+ */
+export function reopenedSignOffValues(args: { now: Date }) {
+  return {
+    status: "in_progress" as const,
+    completedAt: null,
+    completedBy: null,
+    signedOffBy: null,
+    signedOffAt: null,
+    signedOffRole: null,
+    signedOffTemplateVersion: null,
+    signOffSnapshot: null,
+    isApplicable: true,
+    notApplicableReason: null,
+    nextReviewDate: null,
+    updatedAt: args.now,
+  };
+}
+
+/**
  * Re-stamp a batch snapshot for one requirement.
  *
  * The expensive half of a snapshot (company profile, asset and risk counts) is

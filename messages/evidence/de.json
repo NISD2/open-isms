@@ -3,6 +3,7 @@
     "loading": "Dateien werden geladen…",
     "uploading": "Wird hochgeladen…",
     "uploadFailed": "Upload fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "fileTooLarge": "Die Datei ist zu groß. Maximal {size} MB pro Datei.",
     "deleteFailed": "Löschen fehlgeschlagen. Bitte versuchen Sie es erneut."
   }
 }

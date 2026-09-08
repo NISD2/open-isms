@@ -3,7 +3,7 @@
 import { useState, useOptimistic, useTransition } from "react";
 import { useRouter, Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, useFormState, Controller } from "react-hook-form";
 import { trpc } from "@/lib/trpc/client";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -19,8 +19,11 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { SignOffButton } from "./SignOffButton";
+import { ReopenButton } from "./ReopenButton";
 import { FileUpload } from "./FileUpload";
 import { DeadlineBadge } from "./DeadlineBadge";
+import { RequirementGuidance } from "./RequirementGuidance";
+import { RequirementFooterNav, type NavLink } from "./RequirementFooterNav";
 import { StatusBadge, PriorityBadge } from "./RequirementConstants";
 
 import { RiskMethodologyEditor } from "./RiskMethodologyEditor";
@@ -38,6 +41,7 @@ import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import { RequirementAssignPopover, type AssignmentRow } from "./RequirementAssignPopover";
 import { StuckLink } from "@/components/help/StuckLink";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
+import { userFacingError } from "@/lib/trpc/error-message";
 import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
@@ -45,8 +49,6 @@ import { buildCitationRows, type FrameworkLabel } from "@/lib/compliance/citatio
 import type { Asset } from "@/schema/types";
 import type { RoleKey } from "@/lib/compliance/role-keys";
 import {
-  ChevronLeft,
-  ChevronRight,
   Ban,
   CheckCircle2,
   ExternalLink,
@@ -94,10 +96,7 @@ export interface StatusData {
   nextReviewDate: string | null;
 }
 
-export interface NavLink {
-  code: string;
-  title: string;
-}
+export type { NavLink };
 
 export interface PrerequisiteStatus {
   code: string;
@@ -192,6 +191,7 @@ export function RequirementDetail({
   const [isPending, startTransition] = useTransition();
 
   const signOff = trpc.assessment.signOff.useMutation();
+  const reopen = trpc.assessment.reopenRequirement.useMutation();
   const updateStatus = trpc.assessment.updateRequirementStatus.useMutation();
   const confirmModuleRef = trpc.assessment.confirmModuleRef.useMutation();
   const saveAnswers = trpc.intake.saveRequirementAnswers.useMutation();
@@ -245,10 +245,26 @@ export function RequirementDetail({
 
   const fieldsDisabled = !isEditing || isNA || isReviewer;
 
-  async function handleSave() {
+  // Subscribed through useFormState rather than read off form.formState.
+  // That object is a Proxy which only tracks properties read during render:
+  // `form.formState.isDirty` evaluated inside a callback never subscribes and
+  // is permanently false, which silently disables save-on-navigate. A bare
+  // render-time read fixes that but looks like an unused variable, so the next
+  // tidy-up reintroduces the bug. A hook call cannot be mistaken for dead code.
+  const { isDirty: isFormDirty } = useFormState({ control: form.control });
+
+  // Resolved once: the same lookup was repeated inline three times below.
+  const editorKey = `${categoryCode}:${requirement.code}`;
+  const CustomEditor = CUSTOM_EDITOR_LOOKUP[editorKey];
+  /** Whether this page holds intake answers the reader could lose by leaving. */
+  const hasEditableForm = !CustomEditor && fields.length > 0 && !isNA && !isReviewer;
+
+  /** Persist the intake answers. Resolves false when the write failed, so
+   *  callers that were about to navigate away can stay put. */
+  async function saveFormAnswers(): Promise<boolean> {
     if (!assessmentId) {
       toast.error(tf("failedToSave"));
-      return;
+      return false;
     }
     setIsSaving(true);
     try {
@@ -266,12 +282,34 @@ export function RequirementDetail({
       });
       toast.success(tf("requirementSaved"));
       setIsEditing(false);
-      startTransition(() => router.refresh());
+      return true;
     } catch {
       toast.error(tf("failedToSave"));
+      return false;
     } finally {
       setIsSaving(false);
     }
+  }
+
+  async function handleSave() {
+    if (await saveFormAnswers()) {
+      startTransition(() => router.refresh());
+    }
+  }
+
+  /**
+   * Save on the way out of the page.
+   *
+   * Prev/Next used to be plain links, so anything typed and not explicitly
+   * saved was gone on arrival at the next requirement. Nothing warned, and
+   * the loss only showed up on the way back. Saving silently here is the
+   * right default because the write is not the commitment — sign-off is, and
+   * `intake.saveRequirementAnswers` already flips a signed requirement back
+   * to in_progress, so a save can never smuggle a change past an attestation.
+   */
+  async function handleSaveBeforeNavigate(): Promise<boolean> {
+    if (!hasEditableForm || !isFormDirty) return true;
+    return saveFormAnswers();
   }
 
   function handleCancelEdit() {
@@ -289,6 +327,24 @@ export function RequirementDetail({
         router.refresh();
       } catch {
         toast.error(tf("failedToSave"));
+      }
+    });
+  }
+
+  function handleReopen() {
+    const statusId = status.statusId;
+    if (!statusId) return;
+    startTransition(async () => {
+      try {
+        await reopen.mutateAsync({ statusId });
+        toast.success(tf("requirementReopened", { code: requirement.code }));
+        setIsEditing(true);
+        router.refresh();
+      } catch (err) {
+        // The server refuses with FORBIDDEN when a reviewer's approval is
+        // being withdrawn by someone without review access. That reason is
+        // worth showing; an unexpected failure falls back to the generic one.
+        toast.error(userFacingError(err, tf("failedToSave")));
       }
     });
   }
@@ -388,6 +444,12 @@ export function RequirementDetail({
         {/* PRIMARY COLUMN: Form + Evidence + Module */}
         {/* ============================================================== */}
         <div className="space-y-6 min-w-0">
+          {/* What this requirement asks for, before any input is requested */}
+          <RequirementGuidance
+            description={requirement.description}
+            guidance={guidance}
+          />
+
           {/* Review feedback — shown first when rejected */}
           {status.currentStatus === "rejected" && status.reviewFeedback && (
             <div className="border-l-2 border-l-red-500 pl-4 py-2">
@@ -448,21 +510,23 @@ export function RequirementDetail({
           )}
 
           {/* Custom structured editor (methodology, crypto, access control, etc.) */}
-          {(() => {
-            const EditorComponent = CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`];
-            if (EditorComponent) return <EditorComponent disabled={isReviewer} guidance={guidance} initialData={editorInitialData} />;
-            return null;
-          })()}
+          {CustomEditor && (
+            <CustomEditor
+              disabled={isReviewer}
+              guidance={guidance}
+              initialData={editorInitialData}
+            />
+          )}
 
           {/* Policy items — shows per-item compliance below the policy editor */}
           <PolicyItemsPanel
-            editorKey={`${categoryCode}:${requirement.code}`}
+            editorKey={editorKey}
             disabled={isReviewer}
             assets={moduleAssets}
           />
 
           {/* Form fields */}
-          {!CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`] && fields.length > 0 ? (
+          {!CustomEditor && fields.length > 0 ? (
             <div data-tour="requirement-form" className="space-y-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -522,7 +586,7 @@ export function RequirementDetail({
                 ))}
               </div>
             </div>
-          ) : !CUSTOM_EDITOR_LOOKUP[`${categoryCode}:${requirement.code}`] && !requirement.moduleRef ? (
+          ) : !CustomEditor && !requirement.moduleRef ? (
             <div className="space-y-2">
               <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("requirement.specificsSection")}
@@ -535,7 +599,7 @@ export function RequirementDetail({
 
           {/* Module data */}
           {requirement.moduleRef && (
-            SKIP_INLINE_MODULE.has(`${categoryCode}:${requirement.code}`) ? (
+            SKIP_INLINE_MODULE.has(editorKey) ? (
               <div className="pt-2">
                 <Button variant="outline" size="sm" asChild>
                   <Link href={(MODULE_HREF[requirement.moduleRef] ?? `/${requirement.moduleRef}s`) as never}>
@@ -569,14 +633,30 @@ export function RequirementDetail({
             )
           )}
 
-          {/* Evidence */}
-          {status.statusId &&
-            (requirement.evidenceType === "document" ||
-              requirement.evidenceType === "proof") && (
-            <div data-tour="requirement-evidence" className="space-y-2 pt-4 border-t">
+          {/* Evidence.
+
+              Open on every requirement, not only the "document" and "proof"
+              ones. Gating the uploader on evidenceType left 15 of the 49 NIS 2
+              requirements with nowhere to put a file — including 1.1 and 8.3,
+              the management-training duties whose whole evidence is a
+              certificate. evidenceType says what an auditor will expect to
+              see, which is a hint worth showing, not a reason to refuse the
+              attachment. The server never enforced the distinction either:
+              evidence.createUploadUrl checks tenancy and assignment only. */}
+          {status.statusId && (
+            <div
+              data-tour="requirement-evidence"
+              data-testid="requirement-evidence"
+              className="space-y-2 pt-4 border-t"
+            >
               <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("requirement.evidenceSection")}
               </h2>
+              {tc.has(`evidenceTypes.${requirement.evidenceType}`) && (
+                <p className="text-sm text-muted-foreground">
+                  {tc(`evidenceTypes.${requirement.evidenceType}`)}
+                </p>
+              )}
               <FileUpload
                 requirementStatusId={status.statusId}
                 disabled={isReviewer || status.currentStatus === "approved"}
@@ -733,67 +813,29 @@ export function RequirementDetail({
       {/* ------------------------------------------------------------------ */}
       {/* Sticky footer action bar */}
       {/* ------------------------------------------------------------------ */}
-      <div
-        data-tour="requirement-nav"
-        className="sticky bottom-0 z-30 -mx-6 mt-8 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+      <RequirementFooterNav
+        prev={prev}
+        next={next}
+        categorySlug={categorySlug}
+        categoryName={categoryName}
+        onBeforeNavigate={handleSaveBeforeNavigate}
       >
-        <div className="flex items-center justify-between px-6 py-3">
-          <div>
-            {prev ? (
-              <Button variant="outline" size="sm" asChild>
-                <Link
-                  href={{
-                    pathname: "/compliance/[categorySlug]/[requirementCode]",
-                    params: { categorySlug, requirementCode: prev.code },
-                  }}
-                >
-                  <ChevronLeft className="mr-1 h-4 w-4" />
-                  {t("requirement.prevRequirement")}
-                </Link>
-              </Button>
+        {status.statusId && !isReviewer && (
+          <div data-tour="requirement-decide" className="flex items-center gap-2">
+            {isCompleted || isNA ? (
+              <ReopenButton isSubmitting={isPending} onReopen={handleReopen} />
             ) : (
-              <Button variant="outline" size="sm" asChild>
-                <Link
-                  href={{ pathname: "/compliance/[categorySlug]", params: { categorySlug } }}
-                >
-                  <ChevronLeft className="mr-1 h-4 w-4" />
-                  {t("requirement.backToCategory", { category: categoryName })}
-                </Link>
-              </Button>
+              <>
+                <Button variant="outline" size="sm" onClick={() => setNaOpen(true)}>
+                  <Ban className="mr-1.5 h-3.5 w-3.5" />
+                  {t("notApplicable")}
+                </Button>
+                <SignOffButton isSubmitting={isPending} onSignOff={handleSignOff} />
+              </>
             )}
           </div>
-
-          {status.statusId && !isReviewer && !isCompleted && !isNA && (
-            <div data-tour="requirement-decide" className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setNaOpen(true)}
-              >
-                <Ban className="mr-1.5 h-3.5 w-3.5" />
-                {t("notApplicable")}
-              </Button>
-              <SignOffButton isSubmitting={isPending} onSignOff={handleSignOff} />
-            </div>
-          )}
-
-          <div>
-            {next && (
-              <Button size="sm" asChild>
-                <Link
-                  href={{
-                    pathname: "/compliance/[categorySlug]/[requirementCode]",
-                    params: { categorySlug, requirementCode: next.code },
-                  }}
-                >
-                  {t("requirement.nextRequirement")}
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </Link>
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
+        )}
+      </RequirementFooterNav>
 
       {/* ------------------------------------------------------------------ */}
       {/* N/A AlertDialog */}

@@ -3,6 +3,7 @@ import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
 import {
   completedSignOffValues,
   effectiveSignOffRole,
+  reopenedSignOffValues,
   signerMeetsRequiredRole,
   snapshotForVersion,
 } from "./sign-off-completion";
@@ -75,6 +76,63 @@ describe("completedSignOffValues", () => {
     // sign-off is.
     expect(approved.signedOffTemplateVersion).toBe(3);
     expect(approved.signOffSnapshot).toEqual(values.signOffSnapshot);
+  });
+});
+
+describe("reopenedSignOffValues", () => {
+  const now = new Date("2026-09-08T09:00:00.000Z");
+  const reopened: Record<string, unknown> = reopenedSignOffValues({ now });
+
+  /**
+   * The mirror property, checked structurally instead of by eye.
+   *
+   * `reopenedSignOffValues` claims to undo everything `completedSignOffValues`
+   * writes. Asserting that by listing columns twice would drift the moment a
+   * tenth evidentiary column is added — which is the exact failure mode the
+   * sign-off helper was centralised to stop. So derive the list from the
+   * sign-off side: a column added there and forgotten here fails this test
+   * rather than shipping a reopened row that still carries half an
+   * attestation.
+   *
+   * `status` and `updatedAt` are excluded because reopening rewrites them
+   * rather than clearing them.
+   */
+  test("clears every column the sign-off contract writes", () => {
+    const rewritten = new Set(["status", "updatedAt"]);
+    const signedColumns = Object.keys(
+      completedSignOffValues({
+        userId: "user-1",
+        signedOffRole: "ciso",
+        templateVersion: 3,
+        snapshot: snapshot(3),
+        now,
+      }),
+    ).filter((key) => !rewritten.has(key));
+
+    expect(signedColumns.length).toBeGreaterThan(0);
+    for (const column of signedColumns) {
+      expect(column in reopened, `reopen must address ${column}`).toBe(true);
+      expect(reopened[column], `reopen must clear ${column}`).toBeNull();
+    }
+  });
+
+  // signed_off_by, not signed_off_at, is what the rest of the system reads as
+  // "signed" — erase-user.ts nulls the signer and keeps the timestamp.
+  test("clears the signer, which is the test for signed", () => {
+    expect(reopened.signedOffBy).toBeNull();
+  });
+
+  test("returns the requirement to editing", () => {
+    expect(reopened.status).toBe("in_progress");
+    expect(reopened.updatedAt).toBe(now);
+  });
+
+  // The same action undoes a "not applicable" declaration, so it has to put
+  // the requirement back in scope rather than leaving it excluded but open.
+  test("restores applicability and drops the N/A reason", () => {
+    expect(reopened.isApplicable).toBe(true);
+    expect(reopened.notApplicableReason).toBeNull();
+    expect(reopened.nextReviewDate).toBeNull();
   });
 });
 

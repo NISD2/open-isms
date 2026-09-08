@@ -31,13 +31,22 @@ import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
 import {
   completedSignOffValues,
   effectiveSignOffRole,
+  reopenedSignOffValues,
   signerMeetsRequiredRole,
   snapshotForVersion,
 } from "../helpers/sign-off-completion";
+import { hasReviewAccess } from "@/lib/auth";
 
 import type { Database } from "@/lib/db";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 
+/**
+ * The terminal states of a requirement: signed off, approved in review, or
+ * declared out of scope. Read two ways, and they have to stay one set —
+ * `getPrerequisiteStatuses` calls these "done", and `reopenRequirement`
+ * treats exactly these as having something to withdraw. A status that
+ * counted as done but was not reopenable would be a dead end in the UI.
+ */
 const DONE_STATUSES = new Set(["completed", "approved", "not_applicable"]);
 
 // Prerequisites are advisory only — the UI surfaces them as a "recommended
@@ -660,6 +669,92 @@ export const assessmentRouter = router({
       }
 
       return result.row;
+    }),
+
+  /**
+   * Withdraw a sign-off (or a "not applicable" decision) and reopen the
+   * requirement for editing.
+   *
+   * The inverse of `signOff`, and gated the same way, with one addition: a
+   * row a reviewer has *approved* can only be reopened by someone with
+   * review access. A member undoing their own attestation is ordinary work;
+   * a member erasing a reviewer's approval is not.
+   *
+   * `sign_off_history` is untouched by design. The chain is append-only and
+   * tamper-evident — the record that this was signed, and later withdrawn,
+   * is exactly what an auditor needs. The audit_log entry below is what
+   * carries the withdrawal itself.
+   */
+  reopenRequirement: companyProcedure
+    .input(z.object({ statusId: z.string().uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
+        where: eq(companyRequirementStatus.id, input.statusId),
+        with: { requirement: { columns: { id: true, code: true, categoryId: true } } },
+      });
+      if (!statusRow) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Status not found" });
+      }
+
+      await verifyAssessmentOwnership(ctx.db, statusRow.assessmentId, ctx.companyId);
+      await enforceAssignment(ctx.db, {
+        role: ctx.session.role,
+        userId: ctx.userId,
+        assessmentId: statusRow.assessmentId,
+        categoryId: statusRow.requirement.categoryId,
+      });
+
+      if (!DONE_STATUSES.has(statusRow.status)) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `Requirement is ${statusRow.status} and has nothing to reopen.`,
+        });
+      }
+
+      if (statusRow.status === "approved" && !hasReviewAccess(ctx.session.role)) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "This requirement was approved in review. Only a reviewer can reopen it.",
+        });
+      }
+
+      const now = new Date();
+      const reopened = await ctx.db.transaction(async (tx) => {
+        // Clearing the per-signer rows is what makes reopening honest for an
+        // N-of-M requirement. Left signed, the next single signature would
+        // close the requirement again with M-1 stale attestations behind it.
+        await tx
+          .update(requirementAssignment)
+          .set({ signedOffAt: null, signedOffRole: null })
+          .where(eq(requirementAssignment.statusId, input.statusId));
+
+        const [row] = await tx
+          .update(companyRequirementStatus)
+          .set(reopenedSignOffValues({ now }))
+          .where(eq(companyRequirementStatus.id, input.statusId))
+          .returning();
+        return row;
+      });
+
+      if (reopened) {
+        await recalculateProgress(ctx.db, reopened.assessmentId);
+        logAudit({
+          companyId: ctx.companyId,
+          userId: ctx.userId,
+          action: "requirement.sign_off_withdrawn",
+          entityType: "requirement",
+          entityId: statusRow.requirement.id,
+          description: `${statusRow.requirement.code} reopened from ${statusRow.status}`,
+          previousValue: {
+            status: statusRow.status,
+            signedOffBy: statusRow.signedOffBy,
+            signedOffAt: statusRow.signedOffAt,
+          },
+          newValue: { status: reopened.status },
+        }).catch((err) => console.error("[audit] reopenRequirement:", err));
+      }
+
+      return reopened;
     }),
 
   confirmModuleRef: companyProcedure

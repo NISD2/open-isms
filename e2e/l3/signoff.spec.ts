@@ -10,7 +10,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { E2E_STORAGE_STATE_MANAGER, E2E_MANAGER_EMAIL, E2E_USER_EMAIL } from "../lib/env";
-import { makeSignable, signOffViaUi } from "../lib/journey";
+import { gotoRequirement, makeSignable, signOffViaUi } from "../lib/journey";
 
 const SINGLE_TARGET = "3.1"; // incident lead — no required role, admin signs alone
 const NOFM_TARGET = "1.4"; // personal liability — CEO-role, two assigned signers
@@ -107,6 +107,106 @@ test("sign-off chain: append-only history rows exist for both sign-offs", async 
       expect(r.checksum, `checksum present for ${code}`).toBeTruthy();
     });
   }
+});
+
+/**
+ * Withdrawing a sign-off. Until this existed there was no way back from
+ * "completed" in the UI at all — the whole action bar disappeared once a
+ * requirement was signed, so a premature sign-off was permanent.
+ *
+ * Runs after the two sign-off tests above (Playwright keeps file order), so
+ * SINGLE_TARGET is genuinely signed when this starts.
+ */
+test("reopen: withdrawing a sign-off clears the attestation and keeps the history", async ({
+  page,
+}) => {
+  const before = await statusRow(SINGLE_TARGET);
+  expect(before.status, "precondition: signed by the earlier test").toBe("completed");
+  expect(before.signed_off_by).not.toBeNull();
+
+  const chainBefore = await e2eQuery<{ n: string }>(
+    `SELECT count(*)::text AS n FROM sign_off_history WHERE status_id = $1`,
+    [before.id],
+  );
+
+  await gotoRequirement(page, SINGLE_TARGET);
+  const reopen = page.getByTestId("reopen-button");
+  await expect(reopen, "a completed requirement offers a way back").toBeVisible({
+    timeout: 20_000,
+  });
+  await reopen.click();
+
+  const [resp] = await Promise.all([
+    page.waitForResponse(
+      (r) =>
+        r.url().includes("assessment.reopenRequirement") &&
+        r.request().method() === "POST",
+      { timeout: 20_000 },
+    ),
+    page.getByTestId("reopen-confirm").click(),
+  ]);
+  expect(resp.ok(), `reopenRequirement HTTP ${resp.status()}`).toBe(true);
+
+  // Every evidentiary column clears together. signed_off_by is the one that
+  // decides whether the rest of the system reads this row as signed, and
+  // sign_off_snapshot is what makes ReviewDashboard and the PDF render an
+  // attestation — a half-cleared row would keep showing one for a
+  // requirement nobody currently vouches for.
+  const after = await e2eQuery<{
+    status: string;
+    signed_off_by: string | null;
+    signed_off_at: string | null;
+    signed_off_role: string | null;
+    signed_off_template_version: number | null;
+    sign_off_snapshot: unknown;
+    completed_by: string | null;
+  }>(
+    `SELECT status, signed_off_by, signed_off_at, signed_off_role,
+            signed_off_template_version, sign_off_snapshot, completed_by
+       FROM company_requirement_status WHERE id = $1`,
+    [before.id],
+  );
+  expect(after[0].status).toBe("in_progress");
+  expect(after[0].signed_off_by).toBeNull();
+  expect(after[0].signed_off_at).toBeNull();
+  expect(after[0].signed_off_role).toBeNull();
+  expect(after[0].signed_off_template_version).toBeNull();
+  expect(after[0].sign_off_snapshot).toBeNull();
+  expect(after[0].completed_by).toBeNull();
+
+  // Per-signer rows clear too. Left signed, the next single signature would
+  // close an N-of-M requirement on the strength of stale attestations.
+  const stillSigned = await e2eQuery<{ n: string }>(
+    `SELECT count(*)::text AS n FROM requirement_assignment
+      WHERE status_id = $1 AND signed_off_at IS NOT NULL`,
+    [before.id],
+  );
+  expect(stillSigned[0].n).toBe("0");
+
+  // The chain is append-only: withdrawing is an event in the record, not a
+  // deletion from it. An auditor must still see that this was signed.
+  const chainAfter = await e2eQuery<{ n: string }>(
+    `SELECT count(*)::text AS n FROM sign_off_history WHERE status_id = $1`,
+    [before.id],
+  );
+  expect(
+    Number(chainAfter[0].n),
+    "sign_off_history must survive a withdrawal",
+  ).toBe(Number(chainBefore[0].n));
+  expect(Number(chainAfter[0].n)).toBeGreaterThan(0);
+
+  // And the withdrawal itself is recorded. Asserted against the table rather
+  // than the UI because logAudit swallows its own failures: an insert that
+  // never lands is invisible to Playwright (see the entity_id/uuid bug that
+  // dropped every sign_off_invalidated row for two weeks).
+  const audit = await e2eQuery<{ n: string }>(
+    `SELECT count(*)::text AS n FROM audit_log WHERE action = 'requirement.sign_off_withdrawn'`,
+  );
+  expect(Number(audit[0].n), "audit_log records the withdrawal").toBeGreaterThan(0);
+
+  // Back in the UI the requirement is signable again, which is the point.
+  await page.reload();
+  await expect(page.getByTestId("sign-off-button")).toBeVisible({ timeout: 20_000 });
 });
 
 test("cross-framework carry-over credits the linked ISO requirement", async () => {
