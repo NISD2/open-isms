@@ -14,6 +14,7 @@ import {
 } from "@/schema";
 import { verifyAssessmentOwnership, verifyStatusOwnership } from "../guards";
 import { preferenceFooterFor } from "@/lib/mail/footer";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import {
   sendMail,
   categoryAssignedEmail,
@@ -91,7 +92,7 @@ export const assignmentRouter = router({
         const [assignee, category, companyRow] = await Promise.all([
           ctx.db.query.user.findFirst({
             where: eq(user.id, input.userId),
-            columns: { name: true, email: true },
+            columns: { name: true, email: true, locale: true },
           }),
           ctx.db.query.requirementCategory.findFirst({
             where: eq(requirementCategory.id, input.categoryId),
@@ -99,7 +100,7 @@ export const assignmentRouter = router({
           }),
           ctx.db.query.company.findFirst({
             where: eq(company.id, ctx.companyId),
-            columns: { name: true },
+            columns: { name: true, country: true },
           }),
         ]);
 
@@ -118,7 +119,11 @@ export const assignmentRouter = router({
               companyName: companyRow?.name ?? "your company",
               assignerName: ctx.session.user.name ?? "Your admin",
               categoryUrl: `${getAppUrl()}/compliance/${category.slug}`,
-              footer: preferenceFooterFor(input.userId, "work.category_assigned"),
+              footer: preferenceFooterFor(
+                input.userId,
+                "work.category_assigned",
+                resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
+              ),
             }),
           }).then((r) => {
             if (r.success) {
@@ -189,7 +194,7 @@ export const assignmentRouter = router({
         const [assignee, category, companyRow] = await Promise.all([
           ctx.db.query.user.findFirst({
             where: eq(user.id, input.userId),
-            columns: { name: true, email: true },
+            columns: { name: true, email: true, locale: true },
           }),
           ctx.db.query.requirementCategory.findFirst({
             where: eq(requirementCategory.id, input.categoryId),
@@ -197,7 +202,7 @@ export const assignmentRouter = router({
           }),
           ctx.db.query.company.findFirst({
             where: eq(company.id, ctx.companyId),
-            columns: { name: true },
+            columns: { name: true, country: true },
           }),
         ]);
 
@@ -214,7 +219,11 @@ export const assignmentRouter = router({
               categoryName: catName,
               categoryCode: category.code,
               companyName: companyRow?.name ?? "your company",
-              footer: preferenceFooterFor(input.userId, "work.category_unassigned"),
+              footer: preferenceFooterFor(
+                input.userId,
+                "work.category_unassigned",
+                resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
+              ),
             }),
           }).then((r) => {
             if (r.success) {

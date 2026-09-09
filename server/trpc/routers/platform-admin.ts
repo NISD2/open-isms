@@ -36,6 +36,7 @@ import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
 import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
 import type { Database } from "@/lib/db";
 import { preferenceFooterFor } from "@/lib/mail/footer";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
 import { COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
@@ -70,9 +71,15 @@ async function buildDigestContent(
   companyId: string,
   kind: DigestKind,
 ): Promise<{ subject: string; html: string; text: string } | null> {
+  const [recipient, co] = await Promise.all([
+    db.query.user.findFirst({ where: eq(user.id, userId), columns: { locale: true } }),
+    db.query.company.findFirst({ where: eq(company.id, companyId), columns: { country: true } }),
+  ]);
+
   const footer = preferenceFooterFor(
     userId,
     kind === "daily" ? "reminders.daily_digest" : "reminders.weekly_management_digest",
+    resolveEmailLocale(recipient?.locale ?? null, co?.country ?? null),
   );
   if (kind === "daily") {
     const d = await compileDailyDigest(db, userId, companyId);

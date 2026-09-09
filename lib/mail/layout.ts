@@ -4,6 +4,7 @@
  * (lib/lifecycle) can compose on-brand emails without templates.ts growing
  * a new export for every campaign.
  */
+import type { EmailLocale } from "./locale";
 
 export interface EmailContent {
   subject: string;
@@ -95,12 +96,17 @@ function brandFooter(): string {
 export interface PreferenceFooter {
   unsubscribeUrl: string;
   preferencesUrl: string;
-  /** Copy language; falls back to German, the platform default. */
-  locale?: "de" | "en" | "nl";
+  /**
+   * Copy language. Required, not optional with a German default: while it was
+   * optional every call site left it out, so English digests went out with a
+   * German footer. A default here is indistinguishable from a caller that
+   * forgot, which is why there is no longer one.
+   */
+  locale: EmailLocale;
 }
 
 const FOOTER_COPY: Record<
-  "de" | "en" | "nl",
+  EmailLocale,
   { unsubscribe: string; manage: string; separator: string }
 > = {
   de: {
@@ -121,7 +127,7 @@ const FOOTER_COPY: Record<
 };
 
 export function preferenceFooterHtml(footer: PreferenceFooter): string {
-  const copy = FOOTER_COPY[footer.locale ?? "de"];
+  const copy = FOOTER_COPY[footer.locale];
   return `
         <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 32px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
           <a href="${footer.unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">${copy.unsubscribe}</a>
@@ -132,7 +138,7 @@ export function preferenceFooterHtml(footer: PreferenceFooter): string {
 
 /** Plain-text twin of the footer, for the text/plain alternative. */
 export function preferenceFooterText(footer: PreferenceFooter): string {
-  const copy = FOOTER_COPY[footer.locale ?? "de"];
+  const copy = FOOTER_COPY[footer.locale];
   return [`${copy.unsubscribe}: ${footer.unsubscribeUrl}`, `${copy.manage}: ${footer.preferencesUrl}`].join(
     "\n",
   );

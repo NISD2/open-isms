@@ -4,6 +4,7 @@ import { TRPCError } from "@trpc/server";
 import { router, reviewerProcedure } from "../init";
 import {
   auditLog,
+  company,
   companyAssessment,
   companyRequirementStatus,
   requirement,
@@ -14,6 +15,7 @@ import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notificatio
 import type { Database } from "@/lib/db";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
 import { preferenceFooterFor } from "@/lib/mail/footer";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 
 export const reviewRouter = router({
   /** All submission statuses for the reviewer's company */
@@ -315,7 +317,9 @@ async function notifySubmitter(
     const [submitter, req] = await Promise.all([
       db.query.user.findFirst({
         where: eq(user.id, status.completedBy),
-        columns: { email: true, name: true },
+        // locale and the company's country decide what language the footer
+        // and the preference centre come back in.
+        columns: { email: true, name: true, locale: true, companyId: true },
       }),
       db.query.requirement.findFirst({
         where: eq(requirement.id, status.requirementId),
@@ -323,6 +327,17 @@ async function notifySubmitter(
       }),
     ]);
     if (!submitter?.email || !req) return;
+
+    // Only when there is no stored locale to use, so the common path stays
+    // one query lighter.
+    const country = submitter.locale
+      ? null
+      : ((
+          await db.query.company.findFirst({
+            where: eq(company.id, submitter.companyId ?? ""),
+            columns: { country: true },
+          })
+        )?.country ?? null);
 
     const requirementsEn = (await import("@/messages/requirements/en.json")).default.requirements;
     const reqKey = req.code.replace(/\./g, "_") as keyof typeof requirementsEn;
@@ -338,7 +353,11 @@ async function notifySubmitter(
         requirementTitle: reqTitle,
         decision,
         feedback,
-        footer: preferenceFooterFor(status.completedBy, "work.review_decision"),
+        footer: preferenceFooterFor(
+          status.completedBy,
+          "work.review_decision",
+          resolveEmailLocale(submitter.locale, country),
+        ),
       }),
     });
   } catch {
