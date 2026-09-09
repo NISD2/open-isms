@@ -1,6 +1,6 @@
+import { describe, expect, it } from "bun:test";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { describe, expect, it } from "bun:test";
 import { COURSE_PDF_FILES, COURSE_PDF_VERSION, getCoursePdfFilename } from "./course-pdf";
 
 /**
