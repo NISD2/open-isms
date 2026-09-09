@@ -20,15 +20,16 @@ function isSet(value: string | undefined): value is string {
 }
 
 /**
- * The From address. MAIL_FROM_EMAIL is the name to use on a new instance;
- * RESEND_FROM_EMAIL is what every existing deployment already sets and stays
- * authoritative until the new one carries a real value.
+ * The first of two settings that actually carries a value.
+ *
+ * Used for the From address and the From display name, which follow the same
+ * rule: MAIL_FROM_* is the name to use on a new instance, and the older
+ * RESEND_FROM_* stays authoritative until the new one is filled in, so no
+ * existing deployment has to change anything. Blank is not a value, because
+ * compose writes an empty string for every variable the operator left out.
  */
-export function resolveFromEmail(
-  mailFromEmail: string | undefined,
-  resendFromEmail: string,
-): string {
-  return isSet(mailFromEmail) ? mailFromEmail : resendFromEmail;
+export function preferConfigured(preferred: string | undefined, fallback: string): string {
+  return isSet(preferred) ? preferred : fallback;
 }
 
 /**

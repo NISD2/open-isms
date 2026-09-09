@@ -72,6 +72,14 @@ const envSchema = z.object({
    * vendor they are not using.
    */
   MAIL_FROM_EMAIL: z.string().optional(),
+  /**
+   * From display name for both transports. Falls back to RESEND_FROM_NAME,
+   * which every existing deployment already sets. Same reason as the address
+   * above: an SMTP self-hoster should not have to set a variable named after
+   * a vendor they are not using to put their own organisation in the From
+   * line, and that name is the first thing a recipient reads.
+   */
+  MAIL_FROM_NAME: z.string().optional(),
 
 
   // AI — optional (LLM features degrade)

@@ -66,6 +66,7 @@ services:
       # From address for either transport. RESEND_FROM_EMAIL still works and
       # is what existing deployments set.
       MAIL_FROM_EMAIL: ${MAIL_FROM_EMAIL:-}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-}
       RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
       # Third way in, for an instance with no mail transport at all: the first
       # account is created at startup instead of being verified by email.

@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Einladung gesendet an {email}",
+      "notEmailed": "Einladung für {email} erstellt. Diese Instanz versendet keine E-Mails. Schicken Sie den Link selbst.",
       "linkCopied": "Link kopiert"
     },
     "invalidTitle": "Ungültige Einladung",

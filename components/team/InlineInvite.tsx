@@ -49,7 +49,14 @@ export function InlineInvite({
       const invited = email.trim();
       setEmail("");
       router.refresh();
-      toast.success(t("inline.sent", { email: invited }));
+      // The invite is real either way; only the delivery differs. On an
+      // instance with no mail transport the link below is the only way the
+      // person hears about it, so say that instead of claiming a send.
+      if (data.emailed) {
+        toast.success(t("inline.sent", { email: invited }));
+      } else {
+        toast.warning(t("inline.notEmailed", { email: invited }));
+      }
       onInvited?.(invited);
     },
     onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),

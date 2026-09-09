@@ -1,6 +1,20 @@
 Registration verifies the address with a one-time code, so email is what stands between a running instance and a first login.
 
-## Getting in with no mail at all
+There are three ways to deal with that, and you need exactly one of them.
+
+| | What it is | Gets you in | Lets you add people |
+|---|---|---|---|
+| **Bootstrap admin** | Two environment variables. No mail of any kind. | Yes | **No** |
+| **SMTP** | Your own relay. | Yes | Yes |
+| **Resend** | A hosted mail API. | Yes | Yes |
+
+Resend is not required and never was. It is what nisd2.eu happens to run; SMTP is a first-class transport, not a fallback, and it is the one that keeps working on a network that cannot reach a hosted API.
+
+**The bootstrap admin is a one-person answer.** It creates your account and nothing else. Every other person who needs access gets there through an invitation, and an invitation is an email, so the moment there is a second person you need SMTP or Resend. The app is explicit about this rather than quiet: inviting somebody on an instance with no transport still creates the invite and gives you the link, and says the link is yours to deliver instead of claiming a message was sent.
+
+You can also skip the whole question with Google OAuth, which is covered at the end: Google asserts the address is verified, so no code is ever needed.
+
+## Bootstrap admin: no mail at all
 
 Two environment variables create the first account at startup, so there is no code to wait for and nothing to configure:
 
@@ -27,9 +41,9 @@ Remove `BOOTSTRAP_ADMIN_PASSWORD` once you are in. Leaving it set is not a live 
 
 This is the whole answer for a single-operator instance: no SMTP, no Resend, no Google, no mail server of any kind. The moment a second person needs an account, they need a code, and a code needs one of the transports below.
 
-## Getting in when you would rather not set variables
+### If you would rather not set the variables
 
-With no mail provider set, the code is written to the container log instead of being sent. Register in the browser, then:
+There is a second way in with no mail, and it predates the one above. With no transport set, the sign-in code is written to the container log instead of being sent. Register in the browser, then:
 
 ```bash
 docker compose logs app | grep "sign-in code"
@@ -39,13 +53,11 @@ docker compose logs app | grep "sign-in code"
 [mail] No mail transport is configured, so nothing was sent. The sign-in code for you@example.com is 481920.
 ```
 
-That exists so a correct install does not look like a broken one: sign-up used to report success while the code went nowhere.
+That exists so a correct install does not look like a broken one: sign-up used to report success while the code went nowhere. The bootstrap variables are the tidier version of the same idea, and they are what the installation guide uses.
 
-It is enough to create your own account and look around. It is not enough to invite anyone, because the second person's code goes to the same log rather than to them.
+Either way the limit is the same: it is enough for one administrator on a machine only they can reach, and the wrong place to stop once other people have accounts, because anyone who can read the container log can take over an account. On a single-organisation self-host that person already holds the Docker socket, which is root on the host and a shell in the database, so the log is not the weak link. Neither happens on an instance with a transport configured.
 
-It is enough for one administrator on a machine only they can reach, and it is the wrong place to stop once other people have accounts, because anyone who can read the container log can take over an account. On a single-organisation self-host that person already holds the Docker socket, which is root on the host and a shell in the database, so the log is not the weak link. It never happens on an instance with `RESEND_API_KEY` set.
-
-## Option 1: your own SMTP relay
+## SMTP: your own relay
 
 Set `SMTP_HOST` and it is selected, even if a Resend key is also present.
 
@@ -78,7 +90,7 @@ Then `docker compose up -d`, register in the browser, and read the code out of t
 
 Mailpit holds mail in memory, so restarting it empties the inbox, and its SMTP port stays on the compose network rather than being published to your host. It is for evaluating the stack, not for running it: it cannot deliver to a real address.
 
-## Option 2: Resend
+## Resend
 
 ```ini
 RESEND_API_KEY=re_...
@@ -103,7 +115,7 @@ operator did not choose.
 
 `RESEND_FROM_EMAIL` still works as the From address and is what existing deployments set. `MAIL_FROM_EMAIL` is the name to use on a new instance, and takes precedence when both are present.
 
-## Option 3: Google OAuth only
+## Google OAuth, instead of any of them
 
 ```ini
 GOOGLE_CLIENT_ID=...

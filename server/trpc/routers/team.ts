@@ -13,6 +13,7 @@ import {
   notification,
 } from "@/schema";
 import { sendMail, inviteEmail, memberRemovedEmail } from "@/lib/mail";
+import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
 import { logAudit } from "@/lib/audit";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { getAppUrl } from "@/lib/utils";
@@ -215,6 +216,14 @@ export const teamRouter = router({
       const inviterName = ctx.session.user.name ?? "Your team admin";
       const emailRole = input.complianceRole ?? "member";
 
+      // Asked before sending, not after, because the send is fire-and-forget
+      // and the answer has to reach the caller. An instance with no transport
+      // (the BOOTSTRAP_ADMIN route, where the operator never configured mail)
+      // can still create the invite — the row and the token are real — but
+      // nobody will receive it, so the UI has to say so and offer the link
+      // instead of reporting a send that did not happen.
+      const emailed = mailSuppressionReason() === null;
+
       sendMail({
         emailType: "account.invite",
         to: email,
@@ -225,7 +234,10 @@ export const teamRouter = router({
           role: emailRole,
         }),
       }).then((r) => {
-        if (r.success) {
+        // isSuppressedSendId, not r.success: a suppressed send also reports
+        // success, and an audit trail claiming "invite email sent" for mail
+        // that never left the box is worse than no line at all.
+        if (r.success && "id" in r && !isSuppressedSendId(r.id)) {
           logAudit({
             companyId: ctx.companyId,
             userId: ctx.userId,
@@ -237,7 +249,7 @@ export const teamRouter = router({
         }
       });
 
-      return { inviteId: invite.id, token, inviteUrl };
+      return { inviteId: invite.id, token, inviteUrl, emailed };
     }),
 
   /** Look up an invite by token (for the accept page) */

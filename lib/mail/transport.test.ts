@@ -9,7 +9,7 @@
  * ./transport here would fail env validation before the first assertion.
  */
 import { describe, expect, test } from "bun:test";
-import { resolveFromEmail, selectTransport, useImplicitTls } from "./transport-rules";
+import { preferConfigured, selectTransport, useImplicitTls } from "./transport-rules";
 
 describe("selectTransport", () => {
   test("no configuration means no transport, not a silent default", () => {
@@ -42,21 +42,21 @@ describe("selectTransport", () => {
   });
 });
 
-describe("resolveFromEmail", () => {
+describe("preferConfigured", () => {
   test("the new name wins when it carries a value", () => {
-    expect(resolveFromEmail("new@example.test", "old@example.test")).toBe("new@example.test");
+    expect(preferConfigured("new@example.test", "old@example.test")).toBe("new@example.test");
   });
 
   test("unset falls back to the name existing deployments already set", () => {
-    expect(resolveFromEmail(undefined, "old@example.test")).toBe("old@example.test");
+    expect(preferConfigured(undefined, "old@example.test")).toBe("old@example.test");
   });
 
   // The regression this pins: compose passes MAIL_FROM_EMAIL as "" for every
   // operator who has not adopted the new name, and an empty From address is
   // an email nobody receives.
   test("blank falls back too, rather than becoming an empty From address", () => {
-    expect(resolveFromEmail("", "old@example.test")).toBe("old@example.test");
-    expect(resolveFromEmail("  ", "old@example.test")).toBe("old@example.test");
+    expect(preferConfigured("", "old@example.test")).toBe("old@example.test");
+    expect(preferConfigured("  ", "old@example.test")).toBe("old@example.test");
   });
 });
 
