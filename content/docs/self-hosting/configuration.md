@@ -49,6 +49,25 @@ Why two endpoints, and what goes wrong with one: [Evidence storage](/docs/self-h
 | `DISABLE_EMAIL=1` | Silences all outbound email. Useful for a staging copy of production data. |
 | `CSP_UPGRADE_INSECURE=1` | Set this **only** once you are HTTPS-only with a real certificate. It turns on HSTS with a two-year max-age, which pins HTTPS for that hostname the moment anyone visits over TLS. |
 
+## Third-party services
+
+The platform talks to five external services at runtime. Four of the five are genuinely optional, and the published sub-processor list at [/subprozessoren](/subprozessoren) describes the hosted instance at nisd2.eu. It is not a description of yours. If you are building your own Art. 28 register, start from the table below and list only what you actually switched on.
+
+| Service | Used for | Required? | Alternative |
+|---|---|---|---|
+| Resend | Registration codes, deadline reminders, notifications | Effectively yes. Without a mail transport nobody finishes sign-up. | Google OAuth alone gets people in, because Google asserts the address is already verified. Delivery is isolated in `lib/mail/`, so swapping the client is a contained change. |
+| S3 storage | Evidence uploads, through presigned browser PUTs | No | The bundled MinIO container, `COMPOSE_PROFILES=minio`, or any S3-compatible server via `AWS_S3_ENDPOINT`. |
+| Google OAuth | Optional sign-in provider | No | Email and password is the default. |
+| xAI (Grok) | AI form prefill and requirement guidance | No | None wired. The feature errors cleanly when `XAI_API_KEY` is absent. The provider is reached through the Vercel AI SDK in `lib/ai/` and `lib/forms/llm-prefill-action.ts`. |
+| Implisense, via RapidAPI | German company lookup in the applicability wizard | No | Typing the details in. |
+
+Two more outbound calls have no key and no setting:
+
+- `rdap.org` is queried at sign-up to see how old a registered domain is, as a throwaway-address signal. Short timeout, fails open (`lib/auth/email-quality.ts`).
+- Analytics is off unless you turn it on. With `ANALYTICS_SCRIPT_URL` or `ANALYTICS_WEBSITE_ID` unset, no tag is rendered and the CSP does not permit one. Nothing is reported to this project either way.
+
+Everything else the application links to (EUR-Lex, gesetze-im-internet, BSI, ENISA) is a hyperlink in content, not a runtime dependency.
+
 ## The compose file, not the app
 
 These are read by the stack rather than by the application, and several have no effect unless their profile is on.

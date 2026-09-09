@@ -1,6 +1,6 @@
 # open-isms (reference app)
 
-Minimal Next.js app skeleton for an NIS 2 ISMS, wired up to the workspace packages (`@nisd2/grc-data-model`, `@nisd2/isms-schema`, etc.). Use it to understand the packages. To run the actual platform, follow [docs/self-hosting.md](../../docs/self-hosting.md) instead: that path uses the root `docker-compose.yml`, the same image nisd2.eu runs, and needs no SMTP setup.
+Minimal Next.js app skeleton for an NIS 2 ISMS, wired up to the workspace packages (`@nisd2/grc-data-model`, `@nisd2/isms-schema`, etc.). Use it to understand the packages. To run the actual platform, follow [nisd2.eu/docs/self-hosting/installation](https://www.nisd2.eu/docs/self-hosting/installation) instead: that path uses `compose.self-host.yml`, which pulls the same published image nisd2.eu runs and builds nothing. The root `docker-compose.yml` is the developer stack and builds from source.
 
 > **Status**: landing page, email magic-link sign-in, and two portal pages (dashboard, compliance). The rest (assets, risks, suppliers, incidents, training, reviews) is still being added; until it lands, this app demonstrates the workspace + Docker setup but does not yet expose the full ISMS. See the main README for the roadmap.
 >

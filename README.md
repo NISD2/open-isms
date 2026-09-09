@@ -87,10 +87,9 @@ to the log: `docker compose logs app | grep "sign-in code"`.
 
 **[nisd2.eu/docs](https://www.nisd2.eu/docs)** is the full documentation:
 installation, every environment variable, storage, email, TLS, updates,
-backup and restore, and the platform's own data model. The same material is
-in this repository as **[docs/self-hosting.md](./docs/self-hosting.md)**,
-**[docs/updating.md](./docs/updating.md)** and
-**[docs/backup.md](./docs/backup.md)**.
+backup and restore, and the platform's own data model. Its source is
+[`content/docs/`](./content/docs/) in this repository, so a correction is a
+pull request against the same file the site renders.
 
 Framework data loads itself: the container fills an empty requirement catalogue
 from `db/framework-seed.sql` at startup, so a fresh install has NIS 2 in it
