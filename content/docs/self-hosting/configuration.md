@@ -51,7 +51,7 @@ Why two endpoints, and what goes wrong with one: [Evidence storage](/docs/self-h
 
 ## Third-party services
 
-The platform talks to five external services at runtime. Four of the five are genuinely optional, and the published sub-processor list at [/subprozessoren](/subprozessoren) describes the hosted instance at nisd2.eu. It is not a description of yours. If you are building your own Art. 28 register, start from the table below and list only what you actually switched on.
+The platform talks to five external services at runtime. Four of the five are genuinely optional, and the published sub-processor list at [nisd2.eu/en/subprocessors](/en/subprocessors) describes the hosted instance at nisd2.eu. It is not a description of yours. If you are building your own Art. 28 register, start from the table below and list only what you actually switched on.
 
 | Service | Used for | Required? | Alternative |
 |---|---|---|---|
