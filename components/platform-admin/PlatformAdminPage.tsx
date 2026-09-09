@@ -158,6 +158,13 @@ interface EmailActivity {
   multiSendAlertPerDay: number;
   /** Lifecycle claims kept after a failed send (urgency 'warning'). */
   lifecycleFailed: number;
+  /** Mail that did not go out, last 30 days, newest first. */
+  failedSends: Array<{
+    id: string;
+    at: Date;
+    description: string;
+    companyName: string | null;
+  }>;
 }
 
 interface Props {
@@ -1468,6 +1475,54 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
                   <span className="font-semibold">{b.count}</span>
                 </span>
               ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/*
+        Mail that did not go out. Shown above the sent list on purpose: a
+        failure is the only thing on this page that needs someone to act, and
+        the card disappears entirely when there is nothing wrong rather than
+        sitting there as a permanent empty box.
+      */}
+      {data.failedSends.length > 0 && (
+        <Card className="border-destructive/40">
+          <CardHeader>
+            <CardTitle className="text-base text-destructive">
+              Failed sends ({data.failedSends.length}, last 30 days)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-3 text-sm text-muted-foreground">
+              These messages were not delivered. Each line names the message type, the
+              recipient and the reason the transport gave.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b text-left text-muted-foreground">
+                    <th className="pb-2 pr-4 font-medium">When</th>
+                    <th className="pb-2 pr-4 font-medium">Company</th>
+                    <th className="pb-2 font-medium">What failed, and why</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.failedSends.map((f) => (
+                    <tr key={f.id} className="border-b border-border/50 last:border-0">
+                      <td className="py-2 pr-4 whitespace-nowrap text-muted-foreground">
+                        {timeAgo(f.at)}
+                      </td>
+                      <td className="py-2 pr-4">
+                        {f.companyName ?? (
+                          <span className="text-muted-foreground italic">—</span>
+                        )}
+                      </td>
+                      <td className="py-2 font-mono text-xs">{f.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </CardContent>
         </Card>

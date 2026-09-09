@@ -4,6 +4,7 @@ import { z } from "zod";
 import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
 import type { Database } from "@/lib/db";
 import { reviewDecisionEmail, sendMail } from "@/lib/mail";
+import { recordEmailFailure } from "@/lib/mail/failure-log";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { resolveEmailLocale } from "@/lib/mail/locale";
 import {
@@ -373,7 +374,15 @@ async function notifySubmitter(
         ),
       }),
     });
-  } catch {
-    // Email is non-critical — don't fail the mutation
+  } catch (error) {
+    // Email is non-critical: it must not fail the mutation. It must also not
+    // disappear. This catch used to be bare, which is how a review-decision
+    // email stopped going out for every submitter without a company and
+    // nobody found out.
+    await recordEmailFailure({
+      emailType: "work.review_decision",
+      recipient: statusId,
+      error,
+    });
   }
 }

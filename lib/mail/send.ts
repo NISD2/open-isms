@@ -1,6 +1,7 @@
 import "@/lib/server-guard";
 import * as React from "react";
 import { render } from "@react-email/render";
+import { recordEmailFailure } from "./failure-log";
 import { FROM_EMAIL, FROM_NAME } from "./resend";
 import { configuredTransport, sendViaTransport } from "./transport";
 import { env } from "@/lib/env";
@@ -206,7 +207,7 @@ export async function sendMail(opts: SendMailOptions) {
           await wait(RETRY_DELAY_MS * (attempt + 1));
           continue;
         }
-        return { success: false, error: result.error } as const;
+        return failed(opts, result.error);
       }
 
       return { success: true, id: result.id } as const;
@@ -216,11 +217,30 @@ export async function sendMail(opts: SendMailOptions) {
         await wait(RETRY_DELAY_MS * (attempt + 1));
         continue;
       }
-      return { success: false, error: err } as const;
+      return failed(opts, err);
     }
   }
 
-  return { success: false, error: "Exhausted retries" } as const;
+  return failed(opts, "Exhausted retries");
+}
+
+/**
+ * One exit for a failed send, so the record cannot be attached to two of the
+ * three failure paths and forgotten on the third.
+ *
+ * Recorded here rather than at the call sites because most callers drop the
+ * result: of the nineteen places that send mail, the majority either ignore
+ * the return value or only branch on `success` being true. A failure that
+ * depends on every caller remembering to check is a failure nobody sees.
+ */
+async function failed(opts: SendMailOptions, error: unknown) {
+  await recordEmailFailure({
+    emailType: opts.emailType,
+    recipient: Array.isArray(opts.to) ? opts.to.join(", ") : opts.to,
+    error,
+    userId: opts.recipientUserId ?? null,
+  });
+  return { success: false, error } as const;
 }
 
 // ---------------------------------------------------------------------------
