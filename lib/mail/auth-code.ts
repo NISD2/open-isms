@@ -3,6 +3,7 @@ import "@/lib/server-guard";
 import type { Locale } from "@/lib/seo";
 import { sendMail } from "./send";
 import { emailVerificationCodeEmail, passwordResetCodeEmail } from "./templates";
+import { configuredTransport } from "./transport";
 
 /**
  * The two emails that decide whether anyone can get into an instance at all:
@@ -38,9 +39,18 @@ interface SendAuthCodeOptions {
   kind: AuthCodeKind;
 }
 
-/** True when no message can physically leave the instance. */
+/**
+ * True when no message can physically leave the instance.
+ *
+ * Asks the transport layer rather than testing an env var, because there are
+ * two transports now. Reading RESEND_API_KEY alone meant an instance sending
+ * happily through SMTP still took the fallback below and wrote every one-time
+ * code to the container log, while telling the operator no transport was
+ * configured. Verified against a Mailpit stack: the mail arrived and the code
+ * was in the log at the same time.
+ */
 function hasNoMailTransport(): boolean {
-  return !process.env.RESEND_API_KEY;
+  return configuredTransport() === null;
 }
 
 export async function sendAuthCode({ to, code, locale, kind }: SendAuthCodeOptions) {
