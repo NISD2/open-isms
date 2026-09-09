@@ -11,7 +11,8 @@
     ".": "./src/index.ts",
     "./lib/*": "./src/lib/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
-    "./components/*": "./src/components/ui/*.tsx"
+    "./components/*": "./src/components/ui/*.tsx",
+    "./theme.css": "./src/theme.css"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
