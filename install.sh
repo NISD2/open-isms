@@ -305,14 +305,21 @@ fi
 step "Done"
 printf '\n    Open %s%s%s\n\n' "$BOLD" "$URL" "$RESET"
 
-info "One thing is still missing before anyone can log in:"
-info "signing up sends a code by email, and no email provider is configured yet."
+info "Nobody has an account yet: signing up sends a code by email, and no"
+info "mail transport is configured. Two lines in .env create the first account"
+info "at startup instead, with no mail at all:"
+note "  BOOTSTRAP_ADMIN_EMAIL=you@example.com"
+note "  BOOTSTRAP_ADMIN_PASSWORD=a-password-you-choose"
+note "  docker compose up -d      then sign in, and remove the password line"
 printf '\n'
-info "Either add one to .env:"
-note "  RESEND_API_KEY=...      from resend.com, with your own domain verified"
-note "  RESEND_FROM_EMAIL=isms@yourdomain.example"
+info "The second person needs an invitation, and that is an email. Either"
+info "transport works, and SMTP_HOST wins when both are set:"
+note "  SMTP_HOST=smtp.example.com, SMTP_PORT=587, SMTP_USER=..., SMTP_PASSWORD=..."
+note "  RESEND_API_KEY=...        from resend.com, with your own domain verified"
+note "  MAIL_FROM_EMAIL=isms@yourdomain.example    required for SMTP"
 printf '\n'
-info "or read the code straight out of the log instead, which needs no account:"
+info "You can also read a sign-in code straight out of the log, which needs"
+info "no account and no transport:"
 note "  docker compose logs app | grep 'sign-in code'"
 printf '\n'
 info "Everyday commands, run from $(pwd):"

@@ -55,7 +55,7 @@ curl -s http://localhost:3026/api/health
 ```json
 {
   "status": "ok",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "composeRevision": "1",
   "checks": { "database": "ok" }
 }
@@ -63,36 +63,74 @@ curl -s http://localhost:3026/api/health
 
 `status: ok` means the application is running **and** reached its database. `version` is stamped into the image at release; `dev` there means the image was built somewhere else.
 
-## The one thing that is still missing
+## Your first account
 
-You can open it, but nobody can sign in yet. Registration verifies the address with a one-time code, and a fresh instance has no way to send email.
+You can open it, but nobody has an account yet. Registration verifies the address with a one-time code, and a fresh instance has no way to send you one.
 
-Two ways forward, and the first needs no account anywhere:
-
-**Read the code from the log.** Register in the browser, then:
-
-```bash
-docker compose logs app | grep "sign-in code"
-```
-
-```text
-[mail] No RESEND_API_KEY is set, so nothing was sent. The sign-in code for you@example.com is 481920.
-```
-
-Good enough to get in and look around, and fine for a single administrator on a machine only they can reach.
-
-**Or configure email properly**, which you want before inviting anyone else. Put a [Resend](https://resend.com) key in `.env` and restart:
+Two lines in `.env` settle that with no mail of any kind. They create the first account at startup:
 
 ```ini
-RESEND_API_KEY=re_...
-RESEND_FROM_EMAIL=isms@yourdomain.example
+BOOTSTRAP_ADMIN_EMAIL=you@example.com
+BOOTSTRAP_ADMIN_PASSWORD=a-password-you-choose
 ```
 
 ```bash
 docker compose up -d
 ```
 
-Details, including the Google sign-in alternative: [Email](/docs/self-hosting/email).
+Sign in with exactly those credentials. Then delete `BOOTSTRAP_ADMIN_PASSWORD` from `.env`: the account exists by that point and the value is ignored.
+
+<div class="docs-callout">
+
+There is a second way in with no mail, if you would rather not put a password in a file. With no transport configured the sign-in code is written to the container log instead of being sent, so register in the browser and then:
+
+```bash
+docker compose logs app | grep "sign-in code"
+```
+
+```text
+[mail] No mail transport is configured, so nothing was sent. The sign-in code for you@example.com is 481920.
+```
+
+Same limit either way: enough for one administrator on a machine only they can reach, and the wrong place to stop once other people have accounts.
+
+</div>
+
+## Mail, once a second person needs an account
+
+The bootstrap account is a one-person answer. Everyone after you arrives through an invitation, and an invitation is an email. On an instance with no transport the invite is still created and the app gives you the link to deliver yourself, which is honest but does not scale past a handful of people. Two transports send it for you, and `SMTP_HOST` is the one selected when both are set.
+
+Your own relay:
+
+```ini
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=openisms@example.com
+SMTP_PASSWORD=...
+MAIL_FROM_EMAIL=noreply@yourdomain.example
+```
+
+Or [Resend](https://resend.com), the hosted API that nisd2.eu itself runs on:
+
+```ini
+RESEND_API_KEY=re_...
+MAIL_FROM_EMAIL=isms@yourdomain.example
+```
+
+```bash
+docker compose up -d
+```
+
+`MAIL_FROM_EMAIL` is not optional on SMTP. Without it the app refuses to send, because the fallback would be this project's own domain: your relay would reject the message, or deliver mail your colleagues cannot reply to.
+
+There is one more route, which skips the verification code rather than delivering it. Google asserts that the address is verified, so an instance where everyone has a Workspace account signs in with no mail transport at all:
+
+```ini
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+```
+
+No relay to hand and you want to watch the mail anyway? The `mail` profile starts a local inbox that catches everything the app sends, before you point it at anything real. That, the reminder and notification mail a transport also carries, and where failed sends get recorded: [Email](/docs/self-hosting/email).
 
 ## Everyday commands
 

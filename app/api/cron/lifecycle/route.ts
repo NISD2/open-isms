@@ -7,8 +7,8 @@
  * enforced by the uq_notification_lifecycle_once unique index, so the
  * endpoint is safe to call as often as you like.
  *
- * When the email transport is unavailable (self-host without
- * RESEND_API_KEY, DISABLE_EMAIL, dev block) the run reports `skipped` and
+ * When the email transport is unavailable (self-host with neither SMTP_HOST
+ * nor RESEND_API_KEY, DISABLE_EMAIL, dev block) the run reports `skipped` and
  * claims nothing, so nobody's one shot is burned on an email that never
  * left the box.
  *
