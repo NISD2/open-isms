@@ -44,7 +44,9 @@ describe("selectTransport", () => {
 
 describe("preferConfigured", () => {
   test("the new name wins when it carries a value", () => {
-    expect(preferConfigured("new@example.test", "old@example.test")).toBe("new@example.test");
+    expect(preferConfigured("new@example.test", "old@example.test")).toBe(
+      "new@example.test",
+    );
   });
 
   test("unset falls back to the name existing deployments already set", () => {

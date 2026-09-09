@@ -1,28 +1,28 @@
-import { z } from "zod";
-import { eq, and, desc, inArray, ne } from "drizzle-orm";
-import { randomBytes } from "crypto";
 import { TRPCError } from "@trpc/server";
-import { router, protectedProcedure, adminProcedure } from "../init";
-import {
-  user,
-  company,
-  companyInvite,
-  categoryAssignment,
-  companyAssessment,
-  requirementCategory,
-  notification,
-} from "@/schema";
-import { sendMail, inviteEmail, memberRemovedEmail } from "@/lib/mail";
-import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
+import { randomBytes } from "crypto";
+import { and, desc, eq, inArray, ne } from "drizzle-orm";
+import { z } from "zod";
 import { logAudit } from "@/lib/audit";
-import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
-import { getAppUrl } from "@/lib/utils";
-import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
-import { discardDraftCompany } from "../helpers/setup-helpers";
+import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
+import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
+import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
+import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
+import { getAppUrl } from "@/lib/utils";
+import {
+  categoryAssignment,
+  company,
+  companyAssessment,
+  companyInvite,
+  notification,
+  requirementCategory,
+  user,
+} from "@/schema";
 import { verifyAssessmentOwnership } from "../guards";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
+import { resolveRoleAssignments } from "../helpers/resolve-role-assignments";
+import { discardDraftCompany } from "../helpers/setup-helpers";
+import { adminProcedure, protectedProcedure, router } from "../init";
 
 const INVITE_EXPIRY_DAYS = 7;
 
@@ -52,7 +52,10 @@ export const teamRouter = router({
     const assessmentIds = await getNis2AssessmentIds(ctx.db, ctx.companyId);
 
     if (assessmentIds.length === 0) {
-      return members.map((m) => ({ ...m, assignments: [] as Array<{ categoryCode: string; categoryName: string }> }));
+      return members.map((m) => ({
+        ...m,
+        assignments: [] as Array<{ categoryCode: string; categoryName: string }>,
+      }));
     }
 
     const assignments = await ctx.db.query.categoryAssignment.findMany({
@@ -92,17 +95,21 @@ export const teamRouter = router({
 
   /** Create an invite link (admin only) */
   invite: adminProcedure
-    .input(z.object({
-      email: z.string().email(),
-      redirectPath: z.string().max(500).optional(),
-      /** Compliance role to auto-assign categories on accept */
-      complianceRole: z.enum(ALL_ROLE_KEYS).optional(),
-      /** When inviting from assignment popover, auto-assign on accept */
-      assignmentContext: z.object({
-        assessmentId: z.string().uuid(),
-        categoryId: z.string().uuid(),
-      }).optional(),
-    }))
+    .input(
+      z.object({
+        email: z.string().email(),
+        redirectPath: z.string().max(500).optional(),
+        /** Compliance role to auto-assign categories on accept */
+        complianceRole: z.enum(ALL_ROLE_KEYS).optional(),
+        /** When inviting from assignment popover, auto-assign on accept */
+        assignmentContext: z
+          .object({
+            assessmentId: z.string().uuid(),
+            categoryId: z.string().uuid(),
+          })
+          .optional(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const email = input.email.toLowerCase();
 
@@ -175,9 +182,7 @@ export const teamRouter = router({
       }
 
       const token = generateToken();
-      const expiresAt = new Date(
-        Date.now() + INVITE_EXPIRY_DAYS * 24 * 60 * 60 * 1000,
-      );
+      const expiresAt = new Date(Date.now() + INVITE_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
 
       // Upsert: if a pending invite exists for this email+company, reset it
       const [invite] = await ctx.db
@@ -413,10 +418,7 @@ export const teamRouter = router({
 
       // Verify user belongs to this company
       const member = await ctx.db.query.user.findFirst({
-        where: and(
-          eq(user.id, input.userId),
-          eq(user.companyId, ctx.companyId),
-        ),
+        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
       });
       if (!member) {
         throw new TRPCError({
@@ -498,8 +500,8 @@ export const teamRouter = router({
       // when its data changes; the team module did not, so a company could
       // sign off "roles and responsibilities are defined" and then delete the
       // person holding one without the sign-off noticing.
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "team", ctx.userId).catch(
-        (err) => console.error("[background] team removeMember:", err),
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "team", ctx.userId).catch((err) =>
+        console.error("[background] team removeMember:", err),
       );
 
       return { removed: true };
@@ -507,17 +509,16 @@ export const teamRouter = router({
 
   /** Assign a compliance role to an existing member (admin only) */
   assignRole: adminProcedure
-    .input(z.object({
-      userId: z.string().uuid(),
-      roleKey: z.enum(ALL_ROLE_KEYS),
-    }))
+    .input(
+      z.object({
+        userId: z.string().uuid(),
+        roleKey: z.enum(ALL_ROLE_KEYS),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       // Verify user belongs to this company
       const member = await ctx.db.query.user.findFirst({
-        where: and(
-          eq(user.id, input.userId),
-          eq(user.companyId, ctx.companyId),
-        ),
+        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
       });
       if (!member) {
         throw new TRPCError({
@@ -543,8 +544,8 @@ export const teamRouter = router({
       // holds is a no-op, and reverting a sign-off over it would make 1.2
       // look fragile for no reason.
       if (roleChanged) {
-        invalidateModuleSignOffs(ctx.db, ctx.companyId, "team", ctx.userId).catch(
-          (err) => console.error("[background] team assignRole:", err),
+        invalidateModuleSignOffs(ctx.db, ctx.companyId, "team", ctx.userId).catch((err) =>
+          console.error("[background] team assignRole:", err),
         );
       }
 

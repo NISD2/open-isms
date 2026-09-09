@@ -81,7 +81,6 @@ const envSchema = z.object({
    */
   MAIL_FROM_NAME: z.string().optional(),
 
-
   // AI — optional (LLM features degrade)
   XAI_API_KEY: z.string().optional(),
 
@@ -128,9 +127,7 @@ const envSchema = z.object({
   SUPPORT_EMAIL: z.string().default(""),
 
   // Standard
-  NODE_ENV: z
-    .enum(["development", "production", "test"])
-    .default("development"),
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });
 
 function validateEnv() {

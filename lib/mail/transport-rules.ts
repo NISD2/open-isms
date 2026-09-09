@@ -28,7 +28,10 @@ function isSet(value: string | undefined): value is string {
  * existing deployment has to change anything. Blank is not a value, because
  * compose writes an empty string for every variable the operator left out.
  */
-export function preferConfigured(preferred: string | undefined, fallback: string): string {
+export function preferConfigured(
+  preferred: string | undefined,
+  fallback: string,
+): string {
   return isSet(preferred) ? preferred : fallback;
 }
 
@@ -37,7 +40,10 @@ export function preferConfigured(preferred: string | undefined, fallback: string
  * implicit-TLS port; 587 and 25 open in the clear and upgrade with STARTTLS.
  * SMTP_SECURE overrides that pairing, and a blank value is not an override.
  */
-export function useImplicitTls(port: number, secureOverride: string | undefined): boolean {
+export function useImplicitTls(
+  port: number,
+  secureOverride: string | undefined,
+): boolean {
   if (!isSet(secureOverride)) return port === 465;
   const normalised = secureOverride.trim().toLowerCase();
   return normalised === "1" || normalised === "true";
