@@ -37,9 +37,9 @@
  * bookkeeping tables — see docs/migrations.md.
  */
 
-import { Client } from "pg";
-import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { Client } from "pg";
 
 // Each chain carries a sentinel table — a known table from its baseline
 // migration. If the sentinel exists in `public` but the chain's per-package
@@ -131,7 +131,9 @@ try {
     try {
       journal = JSON.parse(readFileSync(`${folder}/meta/_journal.json`, "utf-8"));
     } catch (err) {
-      console.warn(`[migrate ${label}] no journal at ${folder}/meta/_journal.json — skipping`);
+      console.warn(
+        `[migrate ${label}] no journal at ${folder}/meta/_journal.json — skipping`,
+      );
       continue;
     }
 
@@ -284,13 +286,17 @@ try {
     if (rows[0].n === 0) {
       console.log("[seed] no requirement table — skipping framework data");
     } else {
-      const { rows: counted } = await client.query(`SELECT count(*)::int AS n FROM requirement`);
+      const { rows: counted } = await client.query(
+        `SELECT count(*)::int AS n FROM requirement`,
+      );
       if (counted[0].n > 0) {
         console.log(`[seed] framework data present (${counted[0].n} requirements)`);
       } else {
         console.log("[seed] empty catalogue — loading db/framework-seed.sql");
         await client.query(readFileSync(seedPath, "utf-8"));
-        const { rows: after } = await client.query(`SELECT count(*)::int AS n FROM requirement`);
+        const { rows: after } = await client.query(
+          `SELECT count(*)::int AS n FROM requirement`,
+        );
         console.log(`[seed] loaded ${after[0].n} requirements`);
       }
     }

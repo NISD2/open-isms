@@ -128,6 +128,26 @@ Only verified Google addresses are accepted. Users who signed up with email and 
 
 Turn all of it off with `DISABLE_EMAIL=1`, which is the right setting for a staging copy of production data. Nobody gets a reminder addressed to a real person from a test instance.
 
+## When a send fails
+
+A send that fails is recorded rather than swallowed. Most of the code that sends mail is deliberately fire-and-forget, because a broken notification must not fail the action that triggered it, and for a long time that meant a failure left no trace anywhere. It now leaves two.
+
+In the container log:
+
+```bash
+docker compose logs app | grep "\[mail\] send failed"
+```
+
+```text
+[mail] send failed type=work.review_decision to=jan@example.com: Invalid login: 535 Authentication failed
+```
+
+And in the app, on the **email** tab of `/platform-admin`, as a **Failed sends** card listing the last 30 days: what failed, for whom, and the reason the transport gave. The card is absent when there is nothing wrong, so its presence is the signal.
+
+Both are written from one place inside the send path rather than at each call site, so a failure does not depend on the calling code having remembered to check a return value.
+
+What it does not do is retry later. Three attempts happen inside the send itself, with a short backoff; after that the message is gone and the record is what remains. For a registration code that is fine, because the person will ask for another one. For a deadline reminder it means one reminder was missed, so a card with entries in it is worth reading rather than dismissing.
+
 ## What language email arrives in
 
 | Message | Languages |
