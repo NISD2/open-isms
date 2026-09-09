@@ -1,17 +1,17 @@
 import "@/lib/server-guard";
 
+import type { Locale } from "@/lib/seo";
 import { sendMail } from "./send";
 import { emailVerificationCodeEmail, passwordResetCodeEmail } from "./templates";
-import type { Locale } from "@/lib/seo";
 
 /**
  * The two emails that decide whether anyone can get into an instance at all:
  * the sign-up verification code and the password-reset code.
  *
  * They are separated from every other message because of what happens when
- * there is no mail provider. `sendMail` reports success with no API key
- * configured, so the sign-up screen says the code was sent and the code goes
- * nowhere. On the hosted instance that state never occurs. On a self-hosted
+ * there is no mail transport, meaning neither SMTP_HOST nor RESEND_API_KEY.
+ * `sendMail` reports success in that state, so the sign-up screen says the
+ * code was sent and the code goes nowhere. On the hosted instance that state never occurs. On a self-hosted
  * one it is the default, and it makes a fresh install look broken while being
  * correctly installed: the operator cannot create the first account, and
  * nothing anywhere says why.
