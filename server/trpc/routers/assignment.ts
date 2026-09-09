@@ -1,26 +1,23 @@
-import { z } from "zod";
-import { eq, and, inArray } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure, adminProcedure } from "../init";
+import { and, eq, inArray } from "drizzle-orm";
+import { z } from "zod";
+import { logAudit } from "@/lib/audit";
+import { categoryAssignedEmail, categoryUnassignedEmail, sendMail } from "@/lib/mail";
+import { preferenceFooterFor } from "@/lib/mail/footer";
+import { resolveEmailLocale } from "@/lib/mail/locale";
+import { getAppUrl } from "@/lib/utils";
 import {
   categoryAssignment,
-  companyRequirementStatus,
-  requirementAssignment,
-  user,
   company,
-  requirementCategory,
-  requirement,
+  companyRequirementStatus,
   notification,
+  requirement,
+  requirementAssignment,
+  requirementCategory,
+  user,
 } from "@/schema";
 import { verifyAssessmentOwnership, verifyStatusOwnership } from "../guards";
-import { preferenceFooterFor } from "@/lib/mail/footer";
-import {
-  sendMail,
-  categoryAssignedEmail,
-  categoryUnassignedEmail,
-} from "@/lib/mail";
-import { logAudit } from "@/lib/audit";
-import { getAppUrl } from "@/lib/utils";
+import { adminProcedure, companyProcedure, router } from "../init";
 
 export const assignmentRouter = router({
   /** List all category owners for an assessment */
@@ -53,7 +50,7 @@ export const assignmentRouter = router({
         assessmentId: z.string().uuid(),
         categoryId: z.string().uuid(),
         userId: z.string().uuid(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
@@ -64,7 +61,10 @@ export const assignmentRouter = router({
         columns: { id: true },
       });
       if (!member) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "User not found in your company" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found in your company",
+        });
       }
 
       // Upsert: replaces previous owner for this category
@@ -91,7 +91,7 @@ export const assignmentRouter = router({
         const [assignee, category, companyRow] = await Promise.all([
           ctx.db.query.user.findFirst({
             where: eq(user.id, input.userId),
-            columns: { name: true, email: true },
+            columns: { name: true, email: true, locale: true },
           }),
           ctx.db.query.requirementCategory.findFirst({
             where: eq(requirementCategory.id, input.categoryId),
@@ -99,13 +99,16 @@ export const assignmentRouter = router({
           }),
           ctx.db.query.company.findFirst({
             where: eq(company.id, ctx.companyId),
-            columns: { name: true },
+            columns: { name: true, country: true },
           }),
         ]);
 
         if (assignee && category) {
-          const categoriesEn = (await import("@/messages/compliance/en.json")).default.compliance.categories;
-          const catName = categoriesEn[category.code as keyof typeof categoriesEn]?.name ?? category.code;
+          const categoriesEn = (await import("@/messages/compliance/en.json")).default
+            .compliance.categories;
+          const catName =
+            categoriesEn[category.code as keyof typeof categoriesEn]?.name ??
+            category.code;
 
           sendMail({
             emailType: "work.category_assigned",
@@ -118,7 +121,11 @@ export const assignmentRouter = router({
               companyName: companyRow?.name ?? "your company",
               assignerName: ctx.session.user.name ?? "Your admin",
               categoryUrl: `${getAppUrl()}/compliance/${category.slug}`,
-              footer: preferenceFooterFor(input.userId, "work.category_assigned"),
+              footer: preferenceFooterFor(
+                input.userId,
+                "work.category_assigned",
+                resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
+              ),
             }),
           }).then((r) => {
             if (r.success) {
@@ -145,7 +152,7 @@ export const assignmentRouter = router({
         assessmentId: z.string().uuid(),
         categoryId: z.string().uuid(),
         userId: z.string().uuid(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
@@ -157,7 +164,7 @@ export const assignmentRouter = router({
             eq(categoryAssignment.assessmentId, input.assessmentId),
             eq(categoryAssignment.categoryId, input.categoryId),
             eq(categoryAssignment.userId, input.userId),
-          )
+          ),
         )
         .returning();
 
@@ -189,7 +196,7 @@ export const assignmentRouter = router({
         const [assignee, category, companyRow] = await Promise.all([
           ctx.db.query.user.findFirst({
             where: eq(user.id, input.userId),
-            columns: { name: true, email: true },
+            columns: { name: true, email: true, locale: true },
           }),
           ctx.db.query.requirementCategory.findFirst({
             where: eq(requirementCategory.id, input.categoryId),
@@ -197,13 +204,16 @@ export const assignmentRouter = router({
           }),
           ctx.db.query.company.findFirst({
             where: eq(company.id, ctx.companyId),
-            columns: { name: true },
+            columns: { name: true, country: true },
           }),
         ]);
 
         if (assignee && category) {
-          const categoriesEn = (await import("@/messages/compliance/en.json")).default.compliance.categories;
-          const catName = categoriesEn[category.code as keyof typeof categoriesEn]?.name ?? category.code;
+          const categoriesEn = (await import("@/messages/compliance/en.json")).default
+            .compliance.categories;
+          const catName =
+            categoriesEn[category.code as keyof typeof categoriesEn]?.name ??
+            category.code;
 
           sendMail({
             emailType: "work.category_unassigned",
@@ -214,7 +224,11 @@ export const assignmentRouter = router({
               categoryName: catName,
               categoryCode: category.code,
               companyName: companyRow?.name ?? "your company",
-              footer: preferenceFooterFor(input.userId, "work.category_unassigned"),
+              footer: preferenceFooterFor(
+                input.userId,
+                "work.category_unassigned",
+                resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
+              ),
             }),
           }).then((r) => {
             if (r.success) {
@@ -240,7 +254,7 @@ export const assignmentRouter = router({
       z.object({
         statusId: z.string().uuid(),
         userId: z.string().uuid(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const member = await ctx.db.query.user.findFirst({
@@ -248,7 +262,10 @@ export const assignmentRouter = router({
         columns: { id: true },
       });
       if (!member) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "User not found in your company" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found in your company",
+        });
       }
 
       await verifyStatusOwnership(ctx.db, input.statusId, ctx.companyId);
@@ -278,7 +295,7 @@ export const assignmentRouter = router({
           and(
             eq(requirementAssignment.statusId, input.statusId),
             eq(requirementAssignment.userId, input.userId),
-          )
+          ),
         );
 
       return { removed: true };
@@ -300,7 +317,9 @@ export const assignmentRouter = router({
 
   /** List assignments by assessment + requirement — single JOIN, no sequential lookups */
   getAssignmentsByRequirement: companyProcedure
-    .input(z.object({ assessmentId: z.string().uuid(), requirementId: z.string().uuid() }))
+    .input(
+      z.object({ assessmentId: z.string().uuid(), requirementId: z.string().uuid() }),
+    )
     .query(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
 
@@ -330,7 +349,12 @@ export const assignmentRouter = router({
         id: r.id,
         userId: r.userId,
         signedOffAt: r.signedOffAt,
-        user: { id: r.userId, name: r.userName, email: r.userEmail, jobTitle: r.userJobTitle },
+        user: {
+          id: r.userId,
+          name: r.userName,
+          email: r.userEmail,
+          jobTitle: r.userJobTitle,
+        },
       }));
     }),
 });

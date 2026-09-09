@@ -14,6 +14,8 @@ import { and, count, desc, eq, gte, inArray, isNotNull, or, sql } from "drizzle-
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
+import type { Database } from "@/lib/db";
 import { mailSupportEmail } from "@/lib/env";
 import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
 import { computeScores } from "@/lib/gap-assessment/scoring";
@@ -25,17 +27,16 @@ import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
-import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import { loadEmailConsent } from "@/lib/mail/consent";
 import {
   buildDigestQueue,
   type DigestKind,
   sendDigestBatch,
 } from "@/lib/mail/digest-outbox";
+import { preferenceFooterFor } from "@/lib/mail/footer";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
 import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
-import type { Database } from "@/lib/db";
-import { preferenceFooterFor } from "@/lib/mail/footer";
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
 import { rateLimit } from "@/lib/rate-limit";
 import { COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
@@ -48,7 +49,6 @@ import {
   emailPreference,
   gapAssessment,
   notification,
-  supplier,
   trainingLessonProgress,
   user,
 } from "@/schema";
@@ -70,9 +70,18 @@ async function buildDigestContent(
   companyId: string,
   kind: DigestKind,
 ): Promise<{ subject: string; html: string; text: string } | null> {
+  const [recipient, co] = await Promise.all([
+    db.query.user.findFirst({ where: eq(user.id, userId), columns: { locale: true } }),
+    db.query.company.findFirst({
+      where: eq(company.id, companyId),
+      columns: { country: true },
+    }),
+  ]);
+
   const footer = preferenceFooterFor(
     userId,
     kind === "daily" ? "reminders.daily_digest" : "reminders.weekly_management_digest",
+    resolveEmailLocale(recipient?.locale ?? null, co?.country ?? null),
   );
   if (kind === "daily") {
     const d = await compileDailyDigest(db, userId, companyId);
@@ -86,7 +95,7 @@ async function buildDigestContent(
       nextStep: d.nextStep,
       compliancePercentage: d.compliancePercentage,
       dashboardUrl: d.dashboardUrl,
-      unsubscribeUrl: footer.unsubscribeUrl,
+      footer,
     });
   }
   const m = await compileManagementDigest(db, userId, companyId);
@@ -102,7 +111,7 @@ async function buildDigestContent(
     completedRequirements: m.completedRequirements,
     nextStep: m.nextStep,
     dashboardUrl: m.dashboardUrl,
-    unsubscribeUrl: footer.unsubscribeUrl,
+    footer,
   });
 }
 
@@ -1098,7 +1107,12 @@ export const platformAdminRouter = router({
         };
       }
       const kind: DigestKind = input.template === "daily-digest" ? "daily" : "weekly";
-      const content = await buildDigestContent(ctx.db, ctx.userId, caller.companyId, kind);
+      const content = await buildDigestContent(
+        ctx.db,
+        ctx.userId,
+        caller.companyId,
+        kind,
+      );
       if (!content) {
         return {
           html: null,

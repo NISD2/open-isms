@@ -1,28 +1,32 @@
 /**
- * Language selection for emails sent OUTSIDE a request context.
+ * Which language an email is written in.
  *
- * In-request emails read the request locale; a cron has nothing to read, so
- * lifecycle emails resolve a language from what the account left behind:
+ * Lives under lib/mail rather than lib/lifecycle because it is not a
+ * lifecycle concern: the digest footer needs it too, and lib/mail must not
+ * import from lib/lifecycle when lifecycle already imports from lib/mail.
+ *
+ * An in-request email could read the request locale, but a cron has nothing
+ * to read, so the language comes from what the account left behind:
  *
  *   1. user.locale — the UI locale snapshotted at registration. de/en/nl map
- *      directly; the other app locales have no lifecycle copy yet, and for
+ *      directly; the other app locales have no email copy yet, and for
  *      someone who chose French or Polish, English is the safer neighbour
  *      than German. (The OTP emails differ here on purpose: their templates
  *      carry all 10 locales, so a stored "fr" gets a French OTP but an
- *      English lifecycle email until lifecycle copy grows past de/en/nl.)
+ *      English digest until the rest of the copy grows past de/en/nl.)
  *   2. company.country — coarse but honest: DACH gets German, NL gets Dutch.
  *   3. "de" — the platform default (DE-canonical site, German target market;
  *      same nothing-known fallback the OTP emails use).
  */
 
-export type LifecycleLocale = "de" | "en" | "nl";
+export type EmailLocale = "de" | "en" | "nl";
 
 const GERMAN_SPEAKING_COUNTRIES: ReadonlySet<string> = new Set(["DE", "AT", "CH", "LI"]);
 
 export function resolveEmailLocale(
   userLocale: string | null,
   companyCountry: string | null,
-): LifecycleLocale {
+): EmailLocale {
   if (userLocale === "de" || userLocale === "en" || userLocale === "nl") {
     return userLocale;
   }

@@ -23,6 +23,7 @@ import type { DbOrTx } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import type { EmailContent } from "@/lib/mail/layout";
 import { BRAND, emailLayout, escapeHtml, safeHeader } from "@/lib/mail/layout";
+import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
 import { getRequirementsMessages, getRequirementTitle } from "@/lib/messages";
 import { getAppUrl } from "@/lib/utils";
 import {
@@ -38,7 +39,6 @@ import {
 } from "@/schema";
 import { NIS2_FRAMEWORK_CODE } from "@/server/trpc/helpers/nis2-scope";
 import { type JourneySummary, summarizeJourneys } from "../journey-progress";
-import { type LifecycleLocale, resolveEmailLocale } from "../locale";
 import {
   LIFECYCLE_ENTITY_TYPE,
   type LifecycleEmailType,
@@ -81,7 +81,7 @@ interface NudgeCopy {
   unsubscribe: string;
 }
 
-const COPY: Record<LifecycleLocale, NudgeCopy> = {
+const COPY: Record<EmailLocale, NudgeCopy> = {
   de: {
     subjectPrefix: "Ihr nächster Schritt",
     greeting: (firstName) => (firstName ? `Guten Tag, ${firstName},` : "Guten Tag,"),
@@ -133,7 +133,7 @@ export function displayableFirstName(name: string | null): string | null {
 
 export interface ActivationNudgeInput {
   name: string | null;
-  locale: LifecycleLocale;
+  locale: EmailLocale;
   done: number;
   total: number;
   nextStepTitle: string;
@@ -189,7 +189,7 @@ export function renderActivationNudge(input: ActivationNudgeInput): EmailContent
  * NIS 2 path (or a finished one). Clearly marked as a sample so a test
  * email can never be mistaken for real guidance.
  */
-const SAMPLE_STEP_TITLE: Record<LifecycleLocale, string> = {
+const SAMPLE_STEP_TITLE: Record<EmailLocale, string> = {
   de: "(Beispiel) Risikoanalyse dokumentieren",
   en: "(Sample) Document the risk analysis",
   nl: "(Voorbeeld) Risicoanalyse documenteren",

@@ -9,19 +9,20 @@
  * Framework-specific extensions (BSI registration, DSGVO controller info, etc.)
  * live in their respective modules under schema/modules/.
  */
+
+import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
+  type AnyPgColumn,
   boolean,
-  integer,
-  timestamp,
   decimal,
   index,
-  type AnyPgColumn,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
 import { aiDataSharingEnum, planEnum } from "../enums";
 
 // ---------------------------------------------------------------------------
@@ -37,7 +38,9 @@ export const company = pgTable("company", {
    * deletes the owner's user row, does not FK-block the subsequent company
    * delete. Nullable: legacy orgs are backfilled to their earliest admin.
    */
-  ownerId: uuid("owner_id").references((): AnyPgColumn => user.id, { onDelete: "set null" }),
+  ownerId: uuid("owner_id").references((): AnyPgColumn => user.id, {
+    onDelete: "set null",
+  }),
   name: varchar("name", { length: 255 }).notNull(),
   legalForm: varchar("legal_form", { length: 100 }), // GmbH, AG, KG, etc.
   sector: varchar("sector", { length: 255 }).notNull(),
@@ -246,7 +249,9 @@ export const company = pgTable("company", {
   // ─────────────────────────────────────────────────────────────────────────
   // Professional services (rendered when isProfessionalServices) — BSI ORP.2/ORP.3
   // ─────────────────────────────────────────────────────────────────────────
-  proServicesBackgroundCheckScope: varchar("pro_services_background_check_scope", { length: 500 }),
+  proServicesBackgroundCheckScope: varchar("pro_services_background_check_scope", {
+    length: 500,
+  }),
   proServicesNdaInPlace: boolean("pro_services_nda_in_place"),
   proServicesCustomerPremisesPolicy: boolean("pro_services_customer_premises_policy"),
 
@@ -278,97 +283,99 @@ export const company = pgTable("company", {
 // Users — Platform accounts (not the company workforce, just login users)
 // ---------------------------------------------------------------------------
 
-export const user = pgTable("user", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  companyId: uuid("company_id").references(() => company.id),
-  email: varchar("email", { length: 255 }).notNull().unique(),
-  name: varchar("name", { length: 255 }).notNull(),
-  passwordHash: varchar("password_hash", { length: 255 }),
-  role: varchar("role", { length: 100 }).notNull(),
-  jobTitle: varchar("job_title", { length: 255 }),
-  isManagement: boolean("is_management").default(false),
-  /**
-   * When the user proved control of this email address. Set by:
-   *  - signup OTP verification (Credentials registration flow)
-   *  - Google OAuth signin (Google has already verified profile.email_verified)
-   * NULL = pending verification, blocks Credentials login but not Google.
-   * Existing users at migration time are backfilled to `createdAt`.
-   */
-  emailVerifiedAt: timestamp("email_verified_at"),
-  /**
-   * Set at registration time if the email domain matches the vendored
-   * disposable-email blocklist. We still create the user record so we can
-   * see scoping/bot signups in the admin panel, but the OTP is never sent
-   * and the account can never be verified.
-   */
-  isDisposableEmail: boolean("is_disposable_email").default(false).notNull(),
-  phone: varchar("phone", { length: 50 }),
-  /**
-   * Per-user opt-out for non-essential follow-up emails (course reminders,
-   * future research questions). Transactional emails (invites, deadline
-   * reminders, incident notifications) are not gated by this flag — only
-   * emails sent from soft-touch crons like /api/cron/course-reminders.
-   * Flipped via /api/email/unsubscribe?u=...&t=... HMAC-signed URL.
-   */
-  emailFollowupsDisabled: boolean("email_followups_disabled").default(false).notNull(),
-  /**
-   * Session revocation counter (audit M-1, 2026-06-10). Stamped into the
-   * JWT at sign-in; compared on every getSession. Bumped on password
-   * reset (and on any future "sign out of all devices" action) so a
-   * leaked JWT stops working the moment the legitimate user rotates
-   * credentials. Defaults to 1 so existing tokens at migration time
-   * stay valid until first rotation.
-   */
-  sessionVersion: integer("session_version").default(1).notNull(),
-  /**
-   * Completed sign-ins, incremented once per sign-in in the NextAuth `jwt`
-   * callback. That hook receives a `user` argument only when a session is
-   * first established, never on the silent refreshes that keep an 8h token
-   * alive, so this counts logins and not requests.
-   *
-   * It exists because "first login" is a per-account fact and localStorage
-   * cannot express it: browser storage makes a colleague on a shared machine
-   * look like a returning user, and the same person on a second device look
-   * like a new one. Both got the one-time onboarding surfaces wrong.
-   */
-  loginCount: integer("login_count").default(0).notNull(),
-  /**
-   * When the user last completed a sign-in. Stamped in the same
-   * UPDATE ... RETURNING that increments loginCount (NextAuth `jwt` callback),
-   * so it moves once per sign-in and never on the silent refreshes that keep
-   * an 8h token alive. NULL for accounts that have not signed in since the
-   * column shipped; readers fall back to emailVerifiedAt, then createdAt
-   * (see lib/lifecycle). Sessions are stateless JWTs, so this column is the
-   * only durable "when were they last here" fact.
-   */
-  lastLoginAt: timestamp("last_login_at"),
-  /**
-   * UI locale snapshot taken at registration (one of the app's locale codes,
-   * lib/locale.ts). Exists so emails sent OUTSIDE a request context (lifecycle
-   * crons) can pick a language; in-request emails keep using the request
-   * locale. NULL for OAuth signups and accounts predating the column; readers
-   * fall back to company.country, then "de" (lib/lifecycle/locale.ts).
-   */
-  locale: varchar("locale", { length: 10 }),
-  /**
-   * When the user dismissed the journey tour.
-   *
-   * One flag per tour, not one for all of them. The journey board and a
-   * requirement page teach different things, and skipping the overview is not
-   * a statement about the page where the actual work happens, so each is
-   * dismissed on its own.
-   *
-   * The column keeps its original name because it already holds exactly this:
-   * every dismissal recorded against it happened on the journey. Renaming it
-   * would rewrite a hot table to buy nothing.
-   */
-  journeyTourDismissedAt: timestamp("tour_dismissed_at"),
-  /** When the user dismissed the requirement-page tour. */
-  requirementTourDismissedAt: timestamp("requirement_tour_dismissed_at"),
-  /** When the user dismissed the second-login offer of help. */
-  helpOfferDismissedAt: timestamp("help_offer_dismissed_at"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-}, (table) => [
-  index("idx_user_company").on(table.companyId),
-]);
+export const user = pgTable(
+  "user",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    companyId: uuid("company_id").references(() => company.id),
+    email: varchar("email", { length: 255 }).notNull().unique(),
+    name: varchar("name", { length: 255 }).notNull(),
+    passwordHash: varchar("password_hash", { length: 255 }),
+    role: varchar("role", { length: 100 }).notNull(),
+    jobTitle: varchar("job_title", { length: 255 }),
+    isManagement: boolean("is_management").default(false),
+    /**
+     * When the user proved control of this email address. Set by:
+     *  - signup OTP verification (Credentials registration flow)
+     *  - Google OAuth signin (Google has already verified profile.email_verified)
+     * NULL = pending verification, blocks Credentials login but not Google.
+     * Existing users at migration time are backfilled to `createdAt`.
+     */
+    emailVerifiedAt: timestamp("email_verified_at"),
+    /**
+     * Set at registration time if the email domain matches the vendored
+     * disposable-email blocklist. We still create the user record so we can
+     * see scoping/bot signups in the admin panel, but the OTP is never sent
+     * and the account can never be verified.
+     */
+    isDisposableEmail: boolean("is_disposable_email").default(false).notNull(),
+    phone: varchar("phone", { length: 50 }),
+    /**
+     * Per-user opt-out for non-essential follow-up emails (course reminders,
+     * future research questions). Transactional emails (invites, deadline
+     * reminders, incident notifications) are not gated by this flag — only
+     * emails sent from soft-touch crons like /api/cron/course-reminders.
+     * Flipped via /api/email/unsubscribe?u=...&t=... HMAC-signed URL.
+     */
+    emailFollowupsDisabled: boolean("email_followups_disabled").default(false).notNull(),
+    /**
+     * Session revocation counter (audit M-1, 2026-06-10). Stamped into the
+     * JWT at sign-in; compared on every getSession. Bumped on password
+     * reset (and on any future "sign out of all devices" action) so a
+     * leaked JWT stops working the moment the legitimate user rotates
+     * credentials. Defaults to 1 so existing tokens at migration time
+     * stay valid until first rotation.
+     */
+    sessionVersion: integer("session_version").default(1).notNull(),
+    /**
+     * Completed sign-ins, incremented once per sign-in in the NextAuth `jwt`
+     * callback. That hook receives a `user` argument only when a session is
+     * first established, never on the silent refreshes that keep an 8h token
+     * alive, so this counts logins and not requests.
+     *
+     * It exists because "first login" is a per-account fact and localStorage
+     * cannot express it: browser storage makes a colleague on a shared machine
+     * look like a returning user, and the same person on a second device look
+     * like a new one. Both got the one-time onboarding surfaces wrong.
+     */
+    loginCount: integer("login_count").default(0).notNull(),
+    /**
+     * When the user last completed a sign-in. Stamped in the same
+     * UPDATE ... RETURNING that increments loginCount (NextAuth `jwt` callback),
+     * so it moves once per sign-in and never on the silent refreshes that keep
+     * an 8h token alive. NULL for accounts that have not signed in since the
+     * column shipped; readers fall back to emailVerifiedAt, then createdAt
+     * (see lib/lifecycle). Sessions are stateless JWTs, so this column is the
+     * only durable "when were they last here" fact.
+     */
+    lastLoginAt: timestamp("last_login_at"),
+    /**
+     * UI locale snapshot taken at registration (one of the app's locale codes,
+     * lib/locale.ts). Exists so emails sent OUTSIDE a request context (lifecycle
+     * crons) can pick a language; in-request emails keep using the request
+     * locale. NULL for OAuth signups and accounts predating the column; readers
+     * fall back to company.country, then "de" (lib/mail/locale.ts).
+     */
+    locale: varchar("locale", { length: 10 }),
+    /**
+     * When the user dismissed the journey tour.
+     *
+     * One flag per tour, not one for all of them. The journey board and a
+     * requirement page teach different things, and skipping the overview is not
+     * a statement about the page where the actual work happens, so each is
+     * dismissed on its own.
+     *
+     * The column keeps its original name because it already holds exactly this:
+     * every dismissal recorded against it happened on the journey. Renaming it
+     * would rewrite a hot table to buy nothing.
+     */
+    journeyTourDismissedAt: timestamp("tour_dismissed_at"),
+    /** When the user dismissed the requirement-page tour. */
+    requirementTourDismissedAt: timestamp("requirement_tour_dismissed_at"),
+    /** When the user dismissed the second-login offer of help. */
+    helpOfferDismissedAt: timestamp("help_offer_dismissed_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => [index("idx_user_company").on(table.companyId)],
+);

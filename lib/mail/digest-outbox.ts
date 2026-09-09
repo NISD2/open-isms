@@ -31,6 +31,7 @@ import type { Database } from "@/lib/db";
 import { loadEmailConsent } from "@/lib/mail/consent";
 import type { UserConsentEmailTypeId } from "@/lib/mail/email-types";
 import { preferenceFooterFor } from "@/lib/mail/footer";
+import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
 import { isSuppressedSendId, mailSuppressionReason, sendMail } from "@/lib/mail/send";
 import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
 import { company, notification, user } from "@/schema";
@@ -46,6 +47,12 @@ export interface QueuedDigest {
   subject: string;
   /** One line the operator can scan: what this person is being told. */
   summary: string;
+  /**
+   * Resolved here rather than at send time because this is where the rows it
+   * depends on are already loaded: one more column on two existing queries
+   * instead of a lookup per recipient in the send loop.
+   */
+  locale: EmailLocale;
 }
 
 // Narrowed to the gated ids on purpose: sendMail only accepts a
@@ -119,7 +126,8 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
     // real, activated company that is explicitly NOT in NIS 2 scope, and
     // mailing it a NIS 2 compliance report is both wrong and alarming.
     where: and(isNotNull(company.activatedAt), eq(company.actsAsNis2Entity, true)),
-    columns: { id: true, name: true },
+    // country feeds the email language when a member has no stored locale.
+    columns: { id: true, name: true, country: true },
   });
 
   // Who already got which digest today. This is what drains the queue: a
@@ -131,11 +139,12 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
   for (const co of companies) {
     const members = await db.query.user.findMany({
       where: eq(user.companyId, co.id),
-      columns: { id: true, email: true, isManagement: true, role: true },
+      columns: { id: true, email: true, isManagement: true, role: true, locale: true },
     });
 
     for (const member of members) {
       const consent = await loadEmailConsent(db, member.id);
+      const locale = resolveEmailLocale(member.locale, co.country);
 
       if (
         consent.allows(EMAIL_TYPE.daily) &&
@@ -158,9 +167,10 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
               nextStep: digest.nextStep,
               compliancePercentage: digest.compliancePercentage,
               dashboardUrl: digest.dashboardUrl,
-              unsubscribeUrl: "",
+              footer: preferenceFooterFor(member.id, EMAIL_TYPE.daily, locale),
             }).subject,
             summary: `${digest.overdueItems.length} overdue, ${digest.urgentItems.length} urgent, ${digest.upcomingItems.length} upcoming`,
+            locale,
           });
         }
       }
@@ -190,9 +200,10 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
               completedRequirements: mgmt.completedRequirements,
               nextStep: mgmt.nextStep,
               dashboardUrl: mgmt.dashboardUrl,
-              unsubscribeUrl: "",
+              footer: preferenceFooterFor(member.id, EMAIL_TYPE.weekly, locale),
             }).subject,
             summary: `${mgmt.compliancePercentage}% compliant, ${mgmt.overdueCount} overdue, ${mgmt.escalationCount} escalations`,
+            locale,
           });
         }
       }
@@ -292,7 +303,7 @@ async function executeDigestBatch(
   };
 
   for (const [index, item] of batch.entries()) {
-    const footer = preferenceFooterFor(item.userId, EMAIL_TYPE[item.kind]);
+    const footer = preferenceFooterFor(item.userId, EMAIL_TYPE[item.kind], item.locale);
     const content =
       item.kind === "daily"
         ? await compileDailyDigest(db, item.userId, item.companyId).then((d) =>
@@ -306,7 +317,7 @@ async function executeDigestBatch(
                   nextStep: d.nextStep,
                   compliancePercentage: d.compliancePercentage,
                   dashboardUrl: d.dashboardUrl,
-                  unsubscribeUrl: footer.unsubscribeUrl,
+                  footer,
                 })
               : null,
           )
@@ -323,7 +334,7 @@ async function executeDigestBatch(
                   completedRequirements: d.completedRequirements,
                   nextStep: d.nextStep,
                   dashboardUrl: d.dashboardUrl,
-                  unsubscribeUrl: footer.unsubscribeUrl,
+                  footer,
                 })
               : null,
           );
