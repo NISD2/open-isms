@@ -157,6 +157,16 @@ jobs:
         env:
           DATABASE_URL: postgres://drill:drill@localhost:5432/drill
 
+      # Same live database, and the only automated check on the path a
+      # self-hoster with no mail transport depends on. Asserts the account is
+      # created and signable-in, that a restart does NOT rewrite its password,
+      # and that a bad value is refused without stopping startup.
+      - name: the bootstrap admin creates an account and never rewrites one
+        run: bash scripts/ci/bootstrap-admin-drill.sh
+        env:
+          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
+          PGPASSWORD: drill
+
   # The published self-host stack has to stay parseable and internally
   # consistent. `docker compose config` resolves every variable reference and
   # profile, so a typo in a service name or an unbalanced ${...} fails here
