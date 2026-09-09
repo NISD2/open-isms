@@ -2,6 +2,7 @@ import "@/lib/server-guard";
 import nodemailer, { type Transporter } from "nodemailer";
 import { env } from "@/lib/env";
 import type { OutgoingMail, TransportResult } from "./transport";
+import { useImplicitTls } from "./transport-rules";
 
 /**
  * SMTP transport, for instances that send through their own relay instead of
@@ -14,32 +15,27 @@ import type { OutgoingMail, TransportResult } from "./transport";
  */
 let _transporter: Transporter | null = null;
 
+/** Blank is not a yes. Compose passes "" for every variable left unset. */
 function isTrue(value: string | undefined): boolean {
-  return value === "1" || value?.toLowerCase() === "true";
+  const normalised = value?.trim().toLowerCase();
+  return normalised === "1" || normalised === "true";
 }
 
 function getTransporter(): Transporter {
   if (_transporter) return _transporter;
 
-  const host = env.SMTP_HOST;
+  const host = env.SMTP_HOST?.trim();
   if (!host) {
     throw new Error("SMTP transport selected without SMTP_HOST set");
   }
 
-  // Implicit TLS is the pairing for 465; 587 and 25 open in the clear and
-  // upgrade with STARTTLS, which nodemailer does on its own when the server
-  // advertises it. SMTP_SECURE overrides the pairing for the relays that
-  // disagree with it.
-  const secure =
-    env.SMTP_SECURE === undefined ? env.SMTP_PORT === 465 : isTrue(env.SMTP_SECURE);
-
   _transporter = nodemailer.createTransport({
     host,
     port: env.SMTP_PORT,
-    secure,
+    secure: useImplicitTls(env.SMTP_PORT, env.SMTP_SECURE),
     // An unauthenticated relay is a normal thing on a private network, and a
     // user with no password is how you spell it.
-    auth: env.SMTP_USER
+    auth: env.SMTP_USER?.trim()
       ? { user: env.SMTP_USER, pass: env.SMTP_PASSWORD ?? "" }
       : undefined,
     tls: isTrue(env.SMTP_ALLOW_SELF_SIGNED) ? { rejectUnauthorized: false } : undefined,

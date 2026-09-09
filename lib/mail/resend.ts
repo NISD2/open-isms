@@ -2,6 +2,7 @@ import "@/lib/server-guard";
 import { Resend } from "resend";
 import { env } from "@/lib/env";
 import type { OutgoingMail, TransportResult } from "./transport";
+import { resolveFromEmail } from "./transport-rules";
 
 // Lazy: the Resend SDK constructor throws if the key is missing, which
 // happens during `next build` page-data collection when SKIP_ENV_VALIDATION
@@ -54,9 +55,11 @@ export const resend = new Proxy({} as Resend, {
 /**
  * The From address for both transports. MAIL_FROM_EMAIL is the name to set
  * on a new instance; RESEND_FROM_EMAIL stays authoritative when it is the
- * only one present, so no existing deployment has to change anything.
+ * only one carrying a value, so no existing deployment has to change
+ * anything. The blank-is-not-a-value rule matters here: compose puts an
+ * empty string on the environment for every variable the operator left out.
  */
-export const FROM_EMAIL = env.MAIL_FROM_EMAIL ?? env.RESEND_FROM_EMAIL;
+export const FROM_EMAIL = resolveFromEmail(env.MAIL_FROM_EMAIL, env.RESEND_FROM_EMAIL);
 
 /**
  * Resend transport. One of the two implementations behind
