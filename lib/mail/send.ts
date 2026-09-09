@@ -1,7 +1,8 @@
 import "@/lib/server-guard";
 import * as React from "react";
 import { render } from "@react-email/render";
-import { resend, FROM_EMAIL, FROM_NAME } from "./resend";
+import { FROM_EMAIL, FROM_NAME } from "./resend";
+import { configuredTransport, sendViaTransport } from "./transport";
 import { env } from "@/lib/env";
 import { WelcomeEmail } from "./templates/WelcomeEmail";
 import { getAppUrl } from "@/lib/utils";
@@ -34,11 +35,13 @@ interface BaseMailOptions {
    */
   fromName?: string;
   /**
-   * Resend Idempotency-Key. The retry loop below re-POSTs on ambiguous
-   * network failures, so a request that Resend accepted but whose response
-   * was lost would otherwise be delivered AGAIN on the retry. Callers with
-   * exactly-once semantics (lifecycle claims) pass a stable per-message key
-   * so Resend dedups the retries server-side.
+   * Idempotency key. The retry loop below re-sends on ambiguous network
+   * failures, so a message the transport accepted but whose response was
+   * lost would otherwise be delivered AGAIN on the retry. Callers with
+   * exactly-once semantics (lifecycle claims) pass a stable per-message key.
+   * Resend dedups on it server-side; SMTP can only spend it on a
+   * deterministic Message-ID, which most receiving servers honour and none
+   * guarantee. See OutgoingMail.idempotencyKey in ./transport.
    */
   idempotencyKey?: string;
 }
@@ -83,7 +86,7 @@ function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export type MailSuppressionReason = "dev-blocked" | "disabled" | "no-api-key";
+export type MailSuppressionReason = "dev-blocked" | "disabled" | "no-transport";
 
 /**
  * Why sendMail would suppress a send right now, or null when a real send
@@ -107,7 +110,7 @@ export function mailSuppressionReason(): MailSuppressionReason | null {
   if (disableEmail && disableEmail !== "0" && disableEmail.toLowerCase() !== "false") {
     return "disabled";
   }
-  if (!env.RESEND_API_KEY) return "no-api-key";
+  if (configuredTransport() === null) return "no-transport";
   return null;
 }
 
@@ -119,7 +122,7 @@ export function mailSuppressionReason(): MailSuppressionReason | null {
 const SUPPRESSED_SEND_IDS: ReadonlySet<string> = new Set([
   "dev-blocked",
   "disabled",
-  "no-api-key",
+  "no-transport",
   "dev-stub",
 ]);
 
@@ -128,7 +131,8 @@ export function isSuppressedSendId(id: string | undefined): boolean {
 }
 
 /**
- * Send a transactional email via Resend.
+ * Send a transactional email over whichever transport this instance has
+ * configured: its own SMTP relay when SMTP_HOST is set, Resend otherwise.
  * Retries up to MAX_RETRIES times with linear backoff on failure.
  *
  * Local-dev hard block: when NODE_ENV !== "production", emails are
@@ -151,9 +155,11 @@ export async function sendMail(opts: SendMailOptions) {
     return { success: true, id: "disabled" } as const;
   }
 
-  if (suppression === "no-api-key") {
-    console.warn("[mail] RESEND_API_KEY not set, skipping email");
-    return { success: true, id: "no-api-key" } as const;
+  if (suppression === "no-transport") {
+    console.warn(
+      "[mail] no transport configured (set SMTP_HOST or RESEND_API_KEY), skipping email",
+    );
+    return { success: true, id: "no-transport" } as const;
   }
 
   // The consent gate. Reached only by messages the recipient may switch off,
@@ -179,29 +185,31 @@ export async function sendMail(opts: SendMailOptions) {
           }
         : undefined;
 
-      const { data, error } = await resend.emails.send(
-        {
-          from: `${opts.fromName ?? FROM_NAME} <${opts.fromEmail ?? FROM_EMAIL}>`,
-          to: Array.isArray(opts.to) ? opts.to : [opts.to],
-          subject: opts.subject,
-          html: opts.html,
-          text: opts.text,
-          replyTo: opts.replyTo,
-          headers,
-        },
-        opts.idempotencyKey ? { idempotencyKey: opts.idempotencyKey } : undefined,
-      );
+      const result = await sendViaTransport({
+        fromName: opts.fromName ?? FROM_NAME,
+        fromEmail: opts.fromEmail ?? FROM_EMAIL,
+        to: Array.isArray(opts.to) ? opts.to : [opts.to],
+        subject: opts.subject,
+        html: opts.html,
+        text: opts.text,
+        replyTo: opts.replyTo,
+        headers,
+        idempotencyKey: opts.idempotencyKey,
+      });
 
-      if (error) {
-        console.error(`[mail] Attempt ${attempt + 1}/${MAX_RETRIES + 1} failed:`, error);
+      if (!result.ok) {
+        console.error(
+          `[mail] Attempt ${attempt + 1}/${MAX_RETRIES + 1} failed:`,
+          result.error,
+        );
         if (attempt < MAX_RETRIES) {
           await wait(RETRY_DELAY_MS * (attempt + 1));
           continue;
         }
-        return { success: false, error } as const;
+        return { success: false, error: result.error } as const;
       }
 
-      return { success: true, id: data?.id } as const;
+      return { success: true, id: result.id } as const;
     } catch (err) {
       console.error(`[mail] Attempt ${attempt + 1}/${MAX_RETRIES + 1} threw:`, err);
       if (attempt < MAX_RETRIES) {

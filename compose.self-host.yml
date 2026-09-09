@@ -86,14 +86,24 @@ services:
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3026}
       # Required before anyone can register: sign-up verifies the address with
       # a one-time code, so with no mail transport nobody can complete a login.
+      # Two transports, pick one. SMTP_HOST wins when both are set.
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_SECURE: ${SMTP_SECURE:-}
+      SMTP_ALLOW_SELF_SIGNED: ${SMTP_ALLOW_SELF_SIGNED:-}
       RESEND_API_KEY: ${RESEND_API_KEY:-}
+      # From address for either transport. RESEND_FROM_EMAIL is the older name
+      # and still works.
+      MAIL_FROM_EMAIL: ${MAIL_FROM_EMAIL:-}
       RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
       # Required in production: GDPR erasure throws without it.
       ERASURE_EMAIL_HASH_SALT: ${ERASURE_EMAIL_HASH_SALT:-}
       # Which version of THIS file you are running. The app compares it against
       # what the release expects and tells you when an update also needs a
       # change here, instead of letting your deployment quietly drift.
-      COMPOSE_REVISION: ${COMPOSE_REVISION:-1}
+      COMPOSE_REVISION: ${COMPOSE_REVISION:-2}
       # Not implemented: no application code reads this, and setting it has
       # no effect today. Passed through so the variable exists where it will
       # be read once it is built. Checking for updates is manual for now, see
@@ -127,6 +137,31 @@ services:
     labels:
       # Scopes the updater: it will only ever touch containers carrying this.
       com.centurylinklabs.watchtower.enable: "true"
+
+  # --------------------------------------------------------------------- #
+  # profile: mail — a mail server for evaluating, so registration works
+  # before you own a relay
+  # --------------------------------------------------------------------- #
+  # Add `mail` to COMPOSE_PROFILES and set SMTP_HOST=mailpit, SMTP_PORT=1025.
+  # Every message the app sends is caught here and readable at
+  # http://localhost:8025; nothing leaves the machine, and mail is held in
+  # memory so a restart empties it.
+  #
+  # For evaluating only. A real instance points SMTP_HOST at a relay that can
+  # deliver to the internet, or sets RESEND_API_KEY instead.
+  mailpit:
+    image: axllent/mailpit:latest
+    profiles: [mail]
+    restart: unless-stopped
+    ports:
+      # The web inbox, on loopback. SMTP stays on the compose network, where
+      # the app reaches it as mailpit:1025, so this is not an open relay.
+      - "${MAILPIT_BIND:-127.0.0.1}:${MAILPIT_UI_PORT:-8025}:8025"
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   # --------------------------------------------------------------------- #
   # profile: minio — bundled object store for evidence uploads

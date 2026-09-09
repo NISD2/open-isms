@@ -160,9 +160,10 @@ Move the file across, then `docker load < openisms-0.2.8.tar.gz`, set
 startup exactly as they would otherwise. Nothing in the app reaches out on its
 own today, so an air-gapped instance needs no extra setting to keep it quiet.
 
-Note that a fully offline instance cannot send email, and the sign-up flow
-verifies addresses with a one-time code, so no one can complete a first login
-without a mail route. Plan for that before disconnecting.
+Note that the sign-up flow verifies addresses with a one-time code, so no one
+completes a first login without a mail route. An offline instance can still
+have one: point `SMTP_HOST` at a relay inside your own network. What it cannot
+do is reach a hosted mail API. Plan for that before disconnecting.
 
 ## When the compose file itself changes
 
@@ -172,3 +173,8 @@ and the tag notes say so. The app reports the value it was given at
 `/api/health` as `composeRevision`, so you can see what your deployment
 believes it is running. Comparing that against what a release expects is the
 manual half of the notification feature above.
+
+| Revision | What changed |
+|---|---|
+| 2 | SMTP transport: `SMTP_*` and `MAIL_FROM_EMAIL` passed through to the app, plus a `mail` profile running Mailpit for evaluation. Nothing breaks on revision 1; you keep sending through Resend until you set `SMTP_HOST`. |
+| 1 | The first published `compose.yaml`. |

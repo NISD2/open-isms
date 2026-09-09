@@ -1,6 +1,8 @@
 import "@/lib/server-guard";
 import { Resend } from "resend";
 import { env } from "@/lib/env";
+import type { OutgoingMail, TransportResult } from "./transport";
+import { resolveFromEmail } from "./transport-rules";
 
 // Lazy: the Resend SDK constructor throws if the key is missing, which
 // happens during `next build` page-data collection when SKIP_ENV_VALIDATION
@@ -50,7 +52,40 @@ export const resend = new Proxy({} as Resend, {
   },
 }) as Resend;
 
-export const FROM_EMAIL = env.RESEND_FROM_EMAIL;
+/**
+ * The From address for both transports. MAIL_FROM_EMAIL is the name to set
+ * on a new instance; RESEND_FROM_EMAIL stays authoritative when it is the
+ * only one carrying a value, so no existing deployment has to change
+ * anything. The blank-is-not-a-value rule matters here: compose puts an
+ * empty string on the environment for every variable the operator left out.
+ */
+export const FROM_EMAIL = resolveFromEmail(env.MAIL_FROM_EMAIL, env.RESEND_FROM_EMAIL);
+
+/**
+ * Resend transport. One of the two implementations behind
+ * lib/mail/transport.ts; selected when no SMTP_HOST is set.
+ */
+export async function sendViaResend(mail: OutgoingMail): Promise<TransportResult> {
+  try {
+    const { data, error } = await resend.emails.send(
+      {
+        from: `${mail.fromName} <${mail.fromEmail}>`,
+        to: [...mail.to],
+        subject: mail.subject,
+        html: mail.html,
+        text: mail.text,
+        replyTo: mail.replyTo,
+        headers: mail.headers,
+      },
+      mail.idempotencyKey ? { idempotencyKey: mail.idempotencyKey } : undefined,
+    );
+
+    if (error) return { ok: false, error };
+    return { ok: true, id: data?.id };
+  } catch (error) {
+    return { ok: false, error };
+  }
+}
 
 /**
  * The From display name, and the first thing a reader decides on.

@@ -15,7 +15,7 @@ This guide is written to be followed straight through by a person or by an AI ag
 
 Nothing is compiled on your machine, so the old 8 GB figure applies only if you deliberately [build from source](#building-from-source-instead). What the running stack needs on small hardware we have not measured yet. If you put this on a NAS or a modest VPS, an issue saying what it actually used would be useful.
 
-You do **not** need an AWS account, an AI provider, or a Google Cloud project. Evidence files can go in a MinIO container that ships with this stack. You do need a way to send email before a human can register. See [Third-party services](#third-party-services).
+You do **not** need an AWS account, an AI provider, a Google Cloud project, or an email SaaS account. Evidence files can go in a MinIO container that ships with this stack, and mail can go through your own SMTP relay or, while you are evaluating, a Mailpit container that ships with it too. See [Email transport](#email-transport) and [Third-party services](#third-party-services).
 
 ## Quick start
 
@@ -53,7 +53,7 @@ Verify the instance is actually healthy, not just serving:
 
 ```bash
 curl -s http://localhost:3026/api/health
-# {"status":"ok","version":"0.2.8","composeRevision":"1","checks":{"database":"ok"}}
+# {"status":"ok","version":"0.2.8","composeRevision":"2","checks":{"database":"ok"}}
 ```
 
 The bundled Caddyfile answers 404 for this path on the public side, so the
@@ -177,7 +177,7 @@ You need **2** variables to boot and **7** for a genuinely usable instance. The 
 |---|---|
 | `AUTH_URL` | Behind a reverse proxy or TLS terminator, no login survives. Auth.js picks its cookie name from this URL's scheme; get it wrong and the middleware looks for a cookie that was never written. Set it to the URL your users type. |
 | `NEXT_PUBLIC_APP_URL` | Links in emails and canonical URLs point at nisd2.eu instead of you. |
-| `RESEND_API_KEY` + `RESEND_FROM_EMAIL` | Nobody can register. Sign-up verifies the address with a one-time code, and without a key `sendMail` logs a warning and returns success, so the flow looks fine and the code never arrives. Google OAuth is the alternative, see below. |
+| `SMTP_HOST` **or** `RESEND_API_KEY`, plus `MAIL_FROM_EMAIL` | Nobody but you can register. Sign-up verifies the address with a one-time code, and with no transport `sendMail` logs a warning and returns success, so the flow looks fine and the code never arrives by mail. See [Email transport](#email-transport). |
 | `ERASURE_EMAIL_HASH_SALT` | GDPR erasure throws in production rather than fall back to a committed constant. Everything else works until someone requests erasure. |
 
 ### Optional, each degrades one feature
@@ -200,13 +200,60 @@ The ones worth a decision. `.env.example` carries the remainder: dev-only switch
 | `ANALYTICS_SCRIPT_URL`, `ANALYTICS_WEBSITE_ID` | No analytics tag, which is the default. Both are required together; the CSP allows the script's origin only when the URL is set. |
 | `DISABLE_EMAIL=1` | Silences all outbound email. Useful for a staging copy of production data. |
 
+## Email transport
+
+Registration codes, password resets, invitations and reminders all go out the same way. Pick one of two transports.
+
+**Your own SMTP relay.** Set `SMTP_HOST` and it is selected, even if a Resend key is also present:
+
+```bash
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=openisms@example.com
+SMTP_PASSWORD=...
+MAIL_FROM_EMAIL=noreply@example.com
+```
+
+Port 587 opens in the clear and upgrades with STARTTLS, which is what most relays want and what happens by default. Port 465 turns on implicit TLS on its own. `SMTP_SECURE` exists to override that pairing for a relay that disagrees, and `SMTP_ALLOW_SELF_SIGNED=1` turns off certificate verification for an internal relay whose certificate you signed yourself. That second one removes the guarantee that you are talking to the server you think you are, so it belongs on a network you control and nowhere else.
+
+**Resend.** Set `RESEND_API_KEY` and `MAIL_FROM_EMAIL`. This is what nisd2.eu runs.
+
+`RESEND_FROM_EMAIL` still works as the From address and is what existing deployments set; `MAIL_FROM_EMAIL` is the name to use on a new instance, and takes precedence when both are present.
+
+### Trying it without any mail account at all
+
+The `mail` profile starts a Mailpit container that accepts everything the app sends and shows it in a web inbox. Nothing leaves the machine.
+
+Add it to `COMPOSE_PROFILES` in `.env` and point the app at it:
+
+```bash
+COMPOSE_PROFILES=minio,backup,mail
+SMTP_HOST=mailpit
+SMTP_PORT=1025
+MAIL_FROM_EMAIL=noreply@example.test
+```
+
+then `docker compose up -d`. (Building from source with the repository's own `docker-compose.yml` instead? Same thing, spelled `docker compose --profile mail up -d`.)
+
+Register in the browser, then open <http://localhost:8025> and read the code out of the inbox. Mailpit holds mail in memory, so restarting it empties the inbox, and its SMTP port stays on the compose network rather than being published to your host. It is for evaluating the stack, not for running it: it cannot deliver to a real address.
+
+### With no transport configured
+
+Sign-up still works for you alone. The code is written to the app log instead of sent:
+
+```bash
+docker compose logs app | grep "sign-in code"
+```
+
+That is enough to get your own account created and to look around. It is not enough to invite anyone, because the second person's code goes to the same log rather than to them.
+
 ## Third-party services
 
 The platform talks to five external services at runtime. All five are replaceable or optional; the published sub-processor list at `/subprozessoren` reflects the hosted instance at nisd2.eu, not a requirement for yours.
 
 | Service | Used for | Required? | Your alternatives |
 |---|---|---|---|
-| **Resend** | Registration codes, deadline reminders, notifications | Effectively yes. Without it nobody completes sign-up. | Google OAuth only (registration bypasses the code path because Google asserts the address is verified). There is no SMTP transport in the code today. Swapping the client in `lib/mail/resend.ts` is a contained change if you want nodemailer. |
+| **Resend** | Registration codes, deadline reminders, notifications | No | Your own SMTP relay via `SMTP_HOST`, which is a first-class transport rather than a patch: see [Email transport](#email-transport). Google OAuth also bypasses the registration code path entirely, because Google asserts the address is verified. |
 | **AWS S3** | Evidence file storage, via presigned browser uploads | No | The bundled MinIO container, `--profile minio`. Or any other S3-compatible server via `AWS_S3_ENDPOINT`. |
 | **Google OAuth** | Optional sign-in provider | No | Email and password is the default and needs no third party beyond the registration code. |
 | **xAI (Grok)** | AI form prefill and requirement guidance | No | None wired. The feature errors out cleanly when the key is absent. Provider swap is via the Vercel AI SDK in `lib/ai/` and `lib/forms/llm-prefill-action.ts`. |
@@ -265,7 +312,9 @@ Two things to back up if you run the bundled MinIO, not one: the Postgres databa
 | `Environment validation failed: AUTH_SECRET` | Under 32 characters, or unset. |
 | Container restarts, logs stop after `[migrate] connected to database` | A migration failed. Read the lines above the exit; the container deliberately refuses to serve on a half-applied schema. |
 | Login redirects back to the sign-in page forever | `AUTH_URL` does not match the scheme users actually reach you on. This is the single most common self-host failure. |
-| Sign-up says the code was sent, no email arrives | `RESEND_API_KEY` is unset, so nothing was sent. The code is in the log: `docker compose logs app \| grep "sign-in code"`. Configure a provider before inviting anyone else. |
+| Sign-up says the code was sent, no email arrives | Neither `SMTP_HOST` nor `RESEND_API_KEY` is set, so nothing was sent. The log says `no transport configured`, and the code is in there too: `docker compose logs app \| grep "sign-in code"`. Configure a transport before inviting anyone else. |
+| SMTP configured, sends fail with a certificate error | The relay's certificate does not verify. Fix the certificate if the relay is reachable from the internet. If it is an internal relay you signed yourself, `SMTP_ALLOW_SELF_SIGNED=1`. |
+| SMTP configured, nothing arrives and no error | Check which transport is live: the app logs `no transport configured` only when both are unset. A relay that accepts the message and drops it silently is a relay-side problem; `docker compose --profile mail up` and pointing `SMTP_HOST` at `mailpit` proves whether the app or the relay is at fault. |
 | Portal loads but there are no requirements | The framework data did not load. Check the log for a `[seed]` line saying why, then see [Framework data](#framework-data). |
 | Evidence upload fails in the browser with a CSP error | `AWS_S3_ENDPOINT` does not match the origin the browser is actually PUTting to. The app names that origin in its `Content-Security-Policy`, computed per request, so `curl -sI <your-url>/ \| grep -i content-security-policy` shows exactly what it currently allows. |
 | An evidence row appears but the file is not in the bucket | The browser's upload was refused and the server never learned. Presigning is offline, so nothing server-side notices a blocked or failed PUT. Check the CSP row above first, then that the bucket exists. |
