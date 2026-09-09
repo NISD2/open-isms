@@ -35,7 +35,6 @@ packages/
   isms-pages/                     # pre-translated page components
   isms-lib/                       # compliance helpers (deadlines, format)
   isms-trpc/                      # tRPC setup + audit middleware
-  isms-messages/                  # i18n catalogs
 
 app/                              # the production SaaS — marketing + portal + supplier + training
 components/  lib/  schema/  server/  drizzle/  messages/  i18n/   # SaaS app code
@@ -88,10 +87,9 @@ to the log: `docker compose logs app | grep "sign-in code"`.
 
 **[nisd2.eu/docs](https://www.nisd2.eu/docs)** is the full documentation:
 installation, every environment variable, storage, email, TLS, updates,
-backup and restore, and the platform's own data model. The same material is
-in this repository as **[docs/self-hosting.md](./docs/self-hosting.md)**,
-**[docs/updating.md](./docs/updating.md)** and
-**[docs/backup.md](./docs/backup.md)**.
+backup and restore, and the platform's own data model. Its source is
+[`content/docs/`](./content/docs/) in this repository, so a correction is a
+pull request against the same file the site renders.
 
 Framework data loads itself: the container fills an empty requirement catalogue
 from `db/framework-seed.sql` at startup, so a fresh install has NIS 2 in it
@@ -158,7 +156,7 @@ Per framework: NIS 2 12 categories / 49 requirements, GDPR 6 / 9, EU AI Act
 See [CONTRIBUTING.md](./.github/CONTRIBUTING.md). External PRs welcome — particularly:
 
 - New framework articles / mappings (`packages/grc-data-model/src/frameworks/`)
-- Translation work (`messages/`, `packages/isms-messages/`)
+- Translation work (`messages/`)
 - Schema improvements (`packages/isms-schema/src/tables/`)
 - Documentation and examples
 

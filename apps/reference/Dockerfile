@@ -31,7 +31,6 @@ COPY packages/isms-trpc/package.json ./packages/isms-trpc/
 COPY packages/isms-ui/package.json ./packages/isms-ui/
 COPY packages/isms-pages/package.json ./packages/isms-pages/
 COPY packages/isms-lib/package.json ./packages/isms-lib/
-COPY packages/isms-messages/package.json ./packages/isms-messages/
 COPY packages/nis2-supply-chain-questionnaire-schema/package.json ./packages/nis2-supply-chain-questionnaire-schema/
 
 RUN --mount=type=cache,target=/root/.bun/install/cache \

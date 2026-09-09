@@ -88,6 +88,27 @@ jobs:
             || { echo "::error::REFERENCE.md is stale. Run 'bun run docs:reference' in packages/grc-data-model and commit."; exit 1; }
         working-directory: packages/grc-data-model
 
+      # Biome was configured in September and then nothing ran it: no CI step,
+      # no hook, no editor config. It had accumulated ~1900 findings across
+      # files nobody was going to revisit. Rather than force a repo-wide
+      # reformat, this gates only what the branch actually touched, so the
+      # backlog shrinks as files get edited and never blocks an unrelated PR.
+      # `--since=origin/main` needs real history; fetch-depth: 0 above provides
+      # it. On a push to main the changed set is empty and this passes.
+      #
+      # The ref is checked first because `--no-errors-on-unmatched` cannot tell
+      # "nothing changed" from "the ref does not resolve": both exit 0. Without
+      # this guard, a shallow clone or a renamed default branch would turn the
+      # gate into a no-op that reports success, which is worse than not having
+      # it. Measured: --since=<nonexistent> exits 0 with the flag.
+      - name: biome (files changed on this branch)
+        run: |
+          git rev-parse --verify --quiet origin/main >/dev/null || {
+            echo "::error::origin/main does not resolve, so the lint gate would pass without checking anything."
+            exit 1
+          }
+          bun run lint:ci
+
       - run: bun run typecheck
 
       - run: bun run build

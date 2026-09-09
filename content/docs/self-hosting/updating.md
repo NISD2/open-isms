@@ -29,7 +29,9 @@ The health response reports the running version, so you can watch the new one ta
 
 ## When a migration fails
 
-Each migration runs inside a transaction. If one fails it rolls back and the container exits rather than serving against a half-changed schema. **Your data is intact**, and the migrations that succeeded before it stay applied.
+Almost every migration runs inside a transaction. If one of those fails it rolls back and the container exits rather than serving against a half-changed schema. **Your data is intact**, and the migrations that succeeded before it stay applied.
+
+The exception is a migration carrying a `-- migrate:no-transaction` comment on any line, not only the first. Postgres will not build an index `CONCURRENTLY` inside a transaction, so those few run outside one, and if such a migration fails the schema may be partly changed and the migration is not recorded as applied. The log says so in as many words: `FAILED on <tag> (no transaction — the schema may be partly changed…)`. This is the reason the advice above is to back up before every update rather than only before big ones.
 
 What is not true, and is worth knowing before you need it: the old version does *not* keep running. `docker compose up -d` has already replaced the container by the time migrations run, so the failure leaves a container restarting in a loop and the site down. Coolify and similar tools that swap containers only after a health check do hold the old version; plain Docker Compose does not.
 
@@ -99,7 +101,7 @@ docker save ghcr.io/nisd2/open-isms:0.2.8 | gzip > openisms-0.2.8.tar.gz
 
 Move the file across, `docker load < openisms-0.2.8.tar.gz`, set `OPEN_ISMS_VERSION=0.2.8`, and `docker compose up -d`. Migrations apply at startup exactly as they would otherwise, and nothing in the app reaches out on its own, so an air-gapped instance needs no extra setting to stay quiet.
 
-A fully offline instance cannot send email, and sign-up verifies addresses with a one-time code, so nobody can complete a first login without a mail route. Plan for that before disconnecting.
+Sign-up verifies addresses with a one-time code, so nobody completes a first login without a mail route. An offline instance can still have one: point `SMTP_HOST` at a relay inside your own network. What it cannot do is reach a hosted mail API. Plan for that before disconnecting.
 
 ## Egress-restricted networks
 
@@ -108,3 +110,8 @@ Pulling images needs `ghcr.io` and `pkg-ghcr.githubusercontent.com`. The rest of
 ## When the compose file itself changes
 
 `COMPOSE_REVISION` in `.env` records which revision of `compose.yaml` you are running. Some releases need a change there, a new service or a new variable, and the release notes say so. The app reports the value it was given at `/api/health` as `composeRevision`, so you can see what your deployment believes it is running.
+
+| Revision | What changed |
+|---|---|
+| 2 | SMTP transport: `SMTP_*` and `MAIL_FROM_EMAIL` passed through to the app, plus a `mail` profile running Mailpit for evaluation. Nothing breaks on revision 1; you keep sending through Resend until you set `SMTP_HOST`. |
+| 1 | The first published `compose.yaml`. |

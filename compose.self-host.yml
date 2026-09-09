@@ -10,9 +10,12 @@
 # creates an empty DIRECTORY where a missing bind mount should be, and the
 # resulting error names neither the file nor the cause.
 #
-# Nothing is built here and there is no need to clone the repository. See
-# docs/self-hosting.md for the full walkthrough, and docs/updating.md for how
-# updates and rollbacks work.
+# Nothing is built here and there is no need to clone the repository, which is
+# also why the pointers below are URLs: you have this file on a server with no
+# checkout, so a repo-relative path would be nothing you could open.
+#
+#   https://www.nisd2.eu/docs/self-hosting/installation   full walkthrough
+#   https://www.nisd2.eu/docs/self-hosting/updating       updates and rollbacks
 #
 # ---------------------------------------------------------------------------
 # Profiles
@@ -25,8 +28,10 @@
 #
 #   --profile minio     bundled object store, if you are not using real S3
 #   --profile proxy     Caddy on 443 with automatic HTTPS
-#   --profile updater   in-app update button (see docs/updating.md)
-#   --profile backup    scheduled offsite backups (see docs/backup.md)
+#   --profile updater   in-app update button
+#                       (nisd2.eu/docs/self-hosting/updating)
+#   --profile backup    scheduled offsite backups
+#                       (nisd2.eu/docs/self-hosting/backup-and-restore)
 #
 # Combine them:
 #   docker compose --profile minio --profile proxy --profile backup up -d
@@ -107,11 +112,13 @@ services:
       # Not implemented: no application code reads this, and setting it has
       # no effect today. Passed through so the variable exists where it will
       # be read once it is built. Checking for updates is manual for now, see
-      # docs/updating.md. Planned: `notify` = one GET a day against the GitHub
+      # nisd2.eu/docs/self-hosting/updating.
+      # Planned: `notify` = one GET a day against the GitHub
       # releases API, no instance identifier and no telemetry.
       UPDATE_MODE: ${UPDATE_MODE:-off}
       UPDATE_API_TOKEN: ${UPDATE_API_TOKEN:-}
-      # Optional. Each one degrades a single feature, see docs/self-hosting.md.
+      # Optional. Each one degrades a single feature, see
+      # nisd2.eu/docs/self-hosting/configuration.
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       AWS_S3_REGION: ${AWS_S3_REGION:-eu-north-1}

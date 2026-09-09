@@ -1,23 +1,23 @@
 "use client";
 
-import { useState, useOptimistic, useTransition } from "react";
+import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { z } from "zod";
+import { useOptimistic, useState, useTransition } from "react";
 import type { DefaultValues } from "react-hook-form";
+import type { z } from "zod";
+import { PageHeader } from "@/components/shared/PageHeader";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
 import { SchemaForm } from "@/lib/forms/schema-form";
-import { PageHeader } from "@/components/shared/PageHeader";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 
 type Item = Record<string, unknown>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- drizzle-zod uses "strip" literal
 interface CrudPageProps<T extends z.ZodRawShape> {
   items: Item[];
   icon: React.ReactNode;
   namespace: string;
+  // biome-ignore lint/suspicious/noExplicitAny: drizzle-zod uses the "strip" literal where Zod v4 expects its $strip symbol
   schema: z.ZodObject<T, any>;
   omit?: string[];
   fieldOverrides?: Record<string, FieldOverride>;
@@ -109,7 +109,9 @@ export function CrudPage<T extends z.ZodRawShape>({
             <SchemaForm
               key={editItem ? (editItem.id as string) : "create"}
               schema={schema}
-              defaultValues={editItem as DefaultValues<z.infer<z.ZodObject<T>>> ?? undefined}
+              defaultValues={
+                (editItem as DefaultValues<z.infer<z.ZodObject<T>>>) ?? undefined
+              }
               // The create form stays open under the table, so it has to clear
               // itself: leaving the saved row's values in place made adding a
               // second item look like editing the first. Editing keeps its

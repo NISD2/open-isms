@@ -1,44 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "@/i18n/navigation";
-import { trpc } from "@/lib/trpc/client";
-import { toast } from "sonner";
 import {
-  Mail,
-  Users,
-  Send,
-  Save,
-  RefreshCw,
-  Plus,
-  Trash2,
-  FlaskConical,
   ExternalLink,
+  FlaskConical,
+  Mail,
+  Plus,
+  RefreshCw,
+  Save,
+  Send,
+  Trash2,
+  Users,
 } from "lucide-react";
-import { NEWSLETTER_CTAS, type NewsletterCtaKey } from "@/lib/newsletter/cta";
-import { getAppUrl } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -50,12 +24,33 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "@/i18n/navigation";
+import { NEWSLETTER_CTAS, type NewsletterCtaKey } from "@/lib/newsletter/cta";
+import { trpc } from "@/lib/trpc/client";
+import { getAppUrl } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Props (inferred from tRPC, kept flat)
@@ -157,6 +152,7 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
   const canRender = subject.trim().length > 0;
 
   // Live preview: debounce-render whenever subject / preheader / body changes.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: debounced preview intentionally tracks only the composer fields, not the mutation object or composerPayload
   useEffect(() => {
     if (!canRender) {
       setPreviewHtml("");
@@ -166,10 +162,10 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
       previewMutation.mutate(composerPayload());
     }, 500);
     return () => clearTimeout(handle);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subject, preheader, bodyMarkdown, slug, ctaKey, canRender]);
 
-  const selectedGroup = audience === ALL_AUDIENCE ? null : groups.find((g) => g.id === audience);
+  const selectedGroup =
+    audience === ALL_AUDIENCE ? null : groups.find((g) => g.id === audience);
   const targetCount = selectedGroup ? selectedGroup.eligibleCount : stats.eligible;
   const targetLabel = selectedGroup ? selectedGroup.name : "All eligible";
 
@@ -204,7 +200,9 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
       const sentDate = issue.sentAt ? fmtDate(issue.sentAt) : "—";
       setViewing({
         subject: issue.subject,
-        html: issue.sentHtml ?? "<p style='padding:24px;font-family:sans-serif'>No snapshot stored for this issue.</p>",
+        html:
+          issue.sentHtml ??
+          "<p style='padding:24px;font-family:sans-serif'>No snapshot stored for this issue.</p>",
         meta: `Sent ${sentDate} to ${issue.recipientCount ?? recipients.length} recipients`,
         recipients,
       });
@@ -251,7 +249,9 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
       {
         onSuccess: (res) => {
           if (res.devBlocked) {
-            toast.info(`Dev mode: send to ${res.to} was suppressed (set ENABLE_EMAIL_IN_DEV=true).`);
+            toast.info(
+              `Dev mode: send to ${res.to} was suppressed (set ENABLE_EMAIL_IN_DEV=true).`,
+            );
           } else {
             toast.success(`Test sent to ${res.to}`);
           }
@@ -275,7 +275,9 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
         id: saved.id,
         groupId: selectedGroup ? selectedGroup.id : null,
       });
-      toast.success(`Issue queued to ${result.recipientCount} recipients (sending in bursts)`);
+      toast.success(
+        `Issue queued to ${result.recipientCount} recipients (sending in bursts)`,
+      );
       resetComposer();
       router.refresh();
     } catch (err) {
@@ -305,9 +307,9 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
           <Mail className="h-6 w-6" /> Newsletter
         </h1>
         <p className="text-muted-foreground text-sm mt-1">
-          Opportunistic lifecycle email to verified, opted-in signups. Send only when there is a
-          reason: a release, a short value drop, a new course, a feedback ask. Sends trickle out in
-          bursts to protect deliverability.
+          Opportunistic lifecycle email to verified, opted-in signups. Send only when
+          there is a reason: a release, a short value drop, a new course, a feedback ask.
+          Sends trickle out in bursts to protect deliverability.
         </p>
       </div>
 
@@ -362,7 +364,9 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                 onChange={(e) => setBodyMarkdown(e.target.value)}
                 rows={14}
                 className="font-mono text-sm"
-                placeholder={"## Heading\n\nWrite the value inline. Links are fine, but the content lives in the email, not behind a teaser link.\n\n- point one\n- point two"}
+                placeholder={
+                  "## Heading\n\nWrite the value inline. Links are fine, but the content lives in the email, not behind a teaser link.\n\n- point one\n- point two"
+                }
               />
             </div>
 
@@ -403,7 +407,9 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={ALL_AUDIENCE}>All eligible ({stats.eligible})</SelectItem>
+                  <SelectItem value={ALL_AUDIENCE}>
+                    All eligible ({stats.eligible})
+                  </SelectItem>
                   {groups.map((g) => (
                     <SelectItem key={g.id} value={g.id}>
                       {g.name} ({g.eligibleCount})
@@ -438,7 +444,12 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
             </div>
 
             <div className="flex flex-wrap justify-end gap-2 pt-1">
-              <Button type="button" variant="outline" onClick={handleSaveDraft} disabled={busy}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleSaveDraft}
+                disabled={busy}
+              >
                 <Save className="h-4 w-4" /> Save draft
               </Button>
               <AlertDialog>
@@ -451,15 +462,18 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                   <AlertDialogHeader>
                     <AlertDialogTitle>Send this issue now?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Audience: <strong>{targetLabel}</strong> — about <strong>{targetCount}</strong>{" "}
-                      eligible recipients (verified, not opted out, not disposable). Messages send in
-                      bursts to protect deliverability. The issue is marked sent and cannot be edited
+                      Audience: <strong>{targetLabel}</strong> — about{" "}
+                      <strong>{targetCount}</strong> eligible recipients (verified, not
+                      opted out, not disposable). Messages send in bursts to protect
+                      deliverability. The issue is marked sent and cannot be edited
                       afterwards.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleSend}>Send to {targetCount}</AlertDialogAction>
+                    <AlertDialogAction onClick={handleSend}>
+                      Send to {targetCount}
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -526,20 +540,27 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                 {issues.map((it) => (
                   <TableRow key={it.id}>
                     <TableCell className="font-medium">{it.subject}</TableCell>
-                    <TableCell>{it.targetGroupName ?? (it.status === "sent" ? "All eligible" : "—")}</TableCell>
+                    <TableCell>
+                      {it.targetGroupName ??
+                        (it.status === "sent" ? "All eligible" : "—")}
+                    </TableCell>
                     <TableCell>
                       <Badge variant={it.status === "sent" ? "secondary" : "outline"}>
                         {it.status}
                       </Badge>
                     </TableCell>
                     <TableCell>{fmtDate(it.sentAt)}</TableCell>
-                    <TableCell className="text-right">{it.recipientCount ?? "—"}</TableCell>
+                    <TableCell className="text-right">
+                      {it.recipientCount ?? "—"}
+                    </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Switch
                           checked={it.publishedAt !== null}
                           disabled={publishMutation.isPending}
-                          onCheckedChange={(checked) => handleTogglePublished(it.id, checked)}
+                          onCheckedChange={(checked) =>
+                            handleTogglePublished(it.id, checked)
+                          }
                           aria-label="Publish to site"
                         />
                         {it.publishedAt !== null && (
@@ -557,11 +578,19 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
                     </TableCell>
                     <TableCell className="text-right">
                       {it.status === "draft" ? (
-                        <Button variant="ghost" size="sm" onClick={() => loadIssue(it.id)}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => loadIssue(it.id)}
+                        >
                           Edit
                         </Button>
                       ) : (
-                        <Button variant="ghost" size="sm" onClick={() => handleViewSent(it.id)}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleViewSent(it.id)}
+                        >
                           View
                         </Button>
                       )}
@@ -596,7 +625,9 @@ export function NewsletterAdmin({ stats, issues, subscribers, groups }: Props) {
       <Dialog open={viewing !== null} onOpenChange={(open) => !open && setViewing(null)}>
         <DialogContent className="max-w-3xl">
           <DialogHeader>
-            <DialogTitle className="truncate">{viewing?.subject ?? "Sent issue"}</DialogTitle>
+            <DialogTitle className="truncate">
+              {viewing?.subject ?? "Sent issue"}
+            </DialogTitle>
           </DialogHeader>
           {viewing ? (
             <div className="space-y-3">
@@ -675,7 +706,7 @@ function GroupsCard({
     onError: (err) => toast.error(err.message),
   });
 
-  const managing = managingId ? groups.find((g) => g.id === managingId) ?? null : null;
+  const managing = managingId ? (groups.find((g) => g.id === managingId) ?? null) : null;
 
   return (
     <Card>
@@ -684,8 +715,8 @@ function GroupsCard({
           <Users className="h-5 w-5" /> Groups
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          Named audience segments. Send a campaign to one group instead of everyone. Group sends
-          still skip opted-out, disposable and unverified addresses.
+          Named audience segments. Send a campaign to one group instead of everyone. Group
+          sends still skip opted-out, disposable and unverified addresses.
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -699,7 +730,9 @@ function GroupsCard({
           />
           <Button
             size="sm"
-            onClick={() => newName.trim() && createMutation.mutate({ name: newName.trim() })}
+            onClick={() =>
+              newName.trim() && createMutation.mutate({ name: newName.trim() })
+            }
             disabled={createMutation.isPending || !newName.trim()}
           >
             <Plus className="h-4 w-4" /> Create group
@@ -740,14 +773,19 @@ function GroupsCard({
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>Delete group &ldquo;{g.name}&rdquo;?</AlertDialogTitle>
+                          <AlertDialogTitle>
+                            Delete group &ldquo;{g.name}&rdquo;?
+                          </AlertDialogTitle>
                           <AlertDialogDescription>
-                            Membership is removed. Past issues sent to this group keep their history.
+                            Membership is removed. Past issues sent to this group keep
+                            their history.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => deleteMutation.mutate({ id: g.id })}>
+                          <AlertDialogAction
+                            onClick={() => deleteMutation.mutate({ id: g.id })}
+                          >
                             Delete
                           </AlertDialogAction>
                         </AlertDialogFooter>
@@ -760,9 +798,7 @@ function GroupsCard({
           </Table>
         )}
 
-        {managing ? (
-          <GroupMembers group={managing} subscribers={subscribers} />
-        ) : null}
+        {managing ? <GroupMembers group={managing} subscribers={subscribers} /> : null}
       </CardContent>
     </Card>
   );
@@ -889,8 +925,8 @@ function SubscriberTable({
           <Users className="h-5 w-5" /> Subscribers
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          Toggle email off to stop all sends to a signup. The account stays active. Disposable and
-          unverified addresses are excluded from sends automatically.
+          Toggle email off to stop all sends to a signup. The account stays active.
+          Disposable and unverified addresses are excluded from sends automatically.
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -919,7 +955,9 @@ function SubscriberTable({
                     {s.isDisposableEmail ? (
                       <Badge variant="destructive">disposable</Badge>
                     ) : null}
-                    {!s.emailVerifiedAt ? <Badge variant="outline">unverified</Badge> : null}
+                    {!s.emailVerifiedAt ? (
+                      <Badge variant="outline">unverified</Badge>
+                    ) : null}
                   </TableCell>
                   <TableCell className="text-right">
                     <Switch

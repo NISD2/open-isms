@@ -49,6 +49,32 @@ Why two endpoints, and what goes wrong with one: [Evidence storage](/docs/self-h
 | `DISABLE_EMAIL=1` | Silences all outbound email. Useful for a staging copy of production data. |
 | `CSP_UPGRADE_INSECURE=1` | Set this **only** once you are HTTPS-only with a real certificate. It turns on HSTS with a two-year max-age, which pins HTTPS for that hostname the moment anyone visits over TLS. |
 
+## Third-party services
+
+These are the outbound calls the software can make. Every one of them is behind a key you supply, so an instance with none of these set makes none of these calls.
+
+| Service | Used for | Required? | Alternative |
+|---|---|---|---|
+| Resend | Registration codes, deadline reminders, notifications | No. A mail transport is effectively required, but Resend is not the only one. | Your own SMTP relay: set `SMTP_HOST` and it wins even if a Resend key is present. That is the option that keeps an air-gapped instance working. Google OAuth alone also gets people in, because Google asserts the address is already verified. See [Email](/docs/self-hosting/email). |
+| S3 storage | Evidence uploads, through presigned browser PUTs | No | The bundled MinIO container, `COMPOSE_PROFILES=minio`, or any S3-compatible server via `AWS_S3_ENDPOINT`. |
+| Google OAuth | Optional sign-in provider | No | Email and password is the default. |
+| xAI (Grok) | AI form prefill and requirement guidance | No | None wired. The feature errors cleanly when `XAI_API_KEY` is absent. The provider is reached through the Vercel AI SDK in `lib/ai/` and `lib/forms/llm-prefill-action.ts`. |
+| Implisense, via RapidAPI | German company lookup in the applicability wizard | No | Typing the details in. |
+| IndexNow | Submits public sitemap URLs to search engines, from the `/api/cron/indexnow` job | No | Leave `INDEXNOW_KEY` unset and the job makes no call. Nothing but URLs already in your sitemap is sent. |
+
+Two more outbound calls have no key and no setting:
+
+- `rdap.org` is queried at sign-up to see how old a registered domain is, as a throwaway-address signal. Short timeout, fails open (`lib/auth/email-quality.ts`).
+- Analytics is off unless you turn it on. With `ANALYTICS_SCRIPT_URL` or `ANALYTICS_WEBSITE_ID` unset, no tag is rendered and the CSP does not permit one. Nothing is reported to this project either way.
+
+Everything else the application links to (EUR-Lex, gesetze-im-internet, BSI, ENISA) is a hyperlink in content, not a runtime dependency.
+
+### This table is not a sub-processor register
+
+The two questions are different, and answering the second with the first is how a register ends up wrong. This table is "what can the software call". An Art. 28 register is "who processes personal data on my behalf", which depends on what you switched on, where you host, and who your own suppliers are. IndexNow receives sitemap URLs and rdap.org receives a domain name, so neither is processing personal data for you; your hosting provider is, and it is not on this list because it is yours, not ours.
+
+The published register at [nisd2.eu/en/subprocessors](/en/subprocessors) names five processors for the hosted instance at nisd2.eu, including its hosting provider. That page describes our instance. Yours will differ.
+
 ## The compose file, not the app
 
 These are read by the stack rather than by the application, and several have no effect unless their profile is on.

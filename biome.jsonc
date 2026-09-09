@@ -1,0 +1,73 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.11/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "includes": [
+      "**",
+      "!**/.next",
+      "!**/node_modules",
+      "!**/drizzle",
+      "!**/*.min.js",
+      "!bun.lock"
+    ]
+  },
+  // Without this, Biome cannot parse either globals.css: Tailwind v4's
+  // @plugin / @custom-variant / @theme are a parse error, and a parse error
+  // has no autofix and no biome-ignore form. Anyone editing a theme token
+  // would have hit a failure they could only clear by editing lint config.
+  "css": { "parser": { "tailwindDirectives": true } },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 90
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "style": {
+        "noNonNullAssertion": "off",
+        "useImportType": "warn"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "warn"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // Rendered documents and the slide deck: fixed literal arrays, authored
+      // in order, never reordered or filtered at runtime. An index IS the
+      // stable identity here, and a text key would collide on two
+      // identically-worded bullets.
+      // These globs are anchored at the repository root deliberately. A `**/`
+      // prefix would also match packages/*/components/pitch/** and
+      // apps/*/components/pitch/**, switching the rule off in trees nobody
+      // meant to exempt.
+      "includes": [
+        "lib/pdf/**",
+        "components/pitch/**",
+        "scripts/preview-pdfs.ts",
+        "scripts/export-demo-ordner.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noArrayIndexKey": "off"
+          }
+        }
+      }
+    }
+  ],
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "trailingCommas": "all",
+      "semicolons": "always"
+    }
+  }
+}

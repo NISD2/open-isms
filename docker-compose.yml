@@ -1,13 +1,22 @@
-# Self-host stack for the full open-isms platform: Postgres + the app.
+# Developer stack: Postgres + the app, built from the source next to it.
 #
 #   cp .env.example .env      # then fill in the four required values
 #   docker compose up --build # http://localhost:3026
 #
-# Migrations run automatically at container start. Seeding the framework
-# data is a separate one-off step, see docs/self-hosting.md.
+# Building takes 10-20 minutes and about 8 GB of RAM, and it expects the whole
+# repository as its context.
 #
-# This builds the same image nisd2.eu runs. For the minimal workspace demo
-# instead, see apps/reference/docker-compose.yml.
+# TO SELF-HOST, USE compose.self-host.yml INSTEAD. That one pulls a finished
+# image, builds nothing, and is what install.sh and
+# nisd2.eu/docs/self-hosting/installation set up. On a NAS or any small box it
+# is the only one that will work.
+#
+# Migrations run at container start, and the framework data loads itself:
+# runtime-migrate.mjs fills an empty requirement catalogue from
+# db/framework-seed.sql. There is no manual seed step.
+#
+# For the minimal workspace-package demo instead, see
+# apps/reference/docker-compose.yml.
 
 services:
   postgres:
@@ -60,7 +69,8 @@ services:
       RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
       # Required in production: GDPR erasure throws without it.
       ERASURE_EMAIL_HASH_SALT: ${ERASURE_EMAIL_HASH_SALT:-}
-      # Optional. Each one degrades a single feature, see docs/self-hosting.md.
+      # Optional. Each one degrades a single feature, see
+      # content/docs/self-hosting/configuration.md.
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       AWS_S3_REGION: ${AWS_S3_REGION:-eu-north-1}

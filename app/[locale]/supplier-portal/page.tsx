@@ -1,5 +1,4 @@
-import type { Metadata } from "next";
-import { getTranslations, getLocale } from "next-intl/server";
+import { supplierQuestionnaire } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import {
   ArrowRight,
   Building2,
@@ -14,11 +13,12 @@ import {
   Server,
   UserPlus,
 } from "lucide-react";
-import { supplierQuestionnaire } from "@nisd2/nis2-supply-chain-questionnaire-schema";
-import { Link } from "@/i18n/navigation";
+import type { Metadata } from "next";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
-import { pageAlternates } from "@/lib/seo";
+import { Link } from "@/i18n/navigation";
 import { ogImages } from "@/lib/og-card";
+import { pageAlternates } from "@/lib/seo";
 
 /**
  * Question count comes from the published questionnaire schema, so the copy
@@ -78,8 +78,7 @@ export default async function SupplierPortalLandingPage() {
           backgroundImage:
             "radial-gradient(circle, rgb(40 75 99 / 0.06) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
-          maskImage:
-            "radial-gradient(92% 60% at 64% 24%, black 0%, transparent 78%)",
+          maskImage: "radial-gradient(92% 60% at 64% 24%, black 0%, transparent 78%)",
           WebkitMaskImage:
             "radial-gradient(92% 60% at 64% 24%, black 0%, transparent 78%)",
         }}
@@ -159,9 +158,9 @@ export default async function SupplierPortalLandingPage() {
             className="rounded-xl"
             style={{ boxShadow: "0 40px 80px -20px rgb(40 75 99 / 0.28)" }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {/* biome-ignore lint/performance/noImgElement: locale-templated src, one file per locale, no optimisation wanted */}
             <img
-              src={`/supplier-hero-${locale}.png`}
+              src={`/images/hero/supplier-${locale}.png`}
               alt={t("screenshotAlt")}
               className="block w-full rounded-xl border border-border/60"
             />
@@ -293,9 +292,7 @@ export default async function SupplierPortalLandingPage() {
       </section>
 
       <section className="mx-auto mt-20 w-full max-w-6xl border-t border-border/60 pt-10">
-        <h2 className="text-2xl font-semibold tracking-tight">
-          {t("footerHeadline")}
-        </h2>
+        <h2 className="text-2xl font-semibold tracking-tight">{t("footerHeadline")}</h2>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
           {t("footerBody")}
         </p>

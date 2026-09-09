@@ -65,4 +65,4 @@ Two schema packages are also mirrored as standalone repositories under [github.c
 
 ## Workspace-only packages
 
-`@nisd2/isms-schema`, `isms-ui`, `isms-pages`, `isms-lib`, `isms-trpc` and `isms-messages` are consumed through bun workspaces and are not on npm. They are AGPL-3.0-or-later, and their interfaces change with the application, so depending on them from outside this repository is not something to rely on yet.
+`@nisd2/isms-schema`, `isms-ui`, `isms-pages`, `isms-lib` and `isms-trpc` are consumed through bun workspaces and are not on npm. They are AGPL-3.0-or-later, and their interfaces change with the application, so depending on them from outside this repository is not something to rely on yet.

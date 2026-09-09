@@ -20,17 +20,31 @@ mock.module("./send", () => ({
   sendWelcomeEmail: async () => ({ success: true, id: "no-transport" }) as const,
   mailSuppressionReason: () => null,
   isSuppressedSendId: (id: string | undefined) =>
-    id !== undefined && ["dev-blocked", "disabled", "no-transport", "dev-stub"].includes(id),
+    id !== undefined &&
+    ["dev-blocked", "disabled", "no-transport", "dev-stub"].includes(id),
+}));
+
+/**
+ * The transport is mocked rather than driven through process.env, because
+ * configuredTransport() reads the validated `env` snapshot and a test mutating
+ * process.env would not reach it. That gap is how an SMTP-configured instance
+ * came to log every code: the only "has a transport" case here set
+ * RESEND_API_KEY, so nothing covered the transport #154 added.
+ */
+let transport: "smtp" | "resend" | null = null;
+mock.module("./transport", () => ({
+  configuredTransport: () => transport,
+  sendViaTransport: async () => ({ ok: true as const, id: "mock" }),
 }));
 
 const { sendAuthCode } = await import("./auth-code");
 
 let warnings: string[] = [];
 const realWarn = console.warn;
-const realKey = process.env.RESEND_API_KEY;
 
 beforeEach(() => {
   warnings = [];
+  transport = null;
   console.warn = (...args: unknown[]) => {
     warnings.push(args.join(" "));
   };
@@ -38,15 +52,15 @@ beforeEach(() => {
 
 afterEach(() => {
   console.warn = realWarn;
-  if (realKey === undefined) delete process.env.RESEND_API_KEY;
-  else process.env.RESEND_API_KEY = realKey;
 });
 
 describe("sendAuthCode with no mail transport", () => {
   test("writes the sign-in code to the log, greppable as documented", async () => {
-    delete process.env.RESEND_API_KEY;
-
-    await sendAuthCode({ to: "operator@example.com", code: "481920", kind: "verification" });
+    await sendAuthCode({
+      to: "operator@example.com",
+      code: "481920",
+      kind: "verification",
+    });
 
     const line = warnings.find((w) => w.includes("sign-in code"));
     expect(line).toBeDefined();
@@ -55,22 +69,45 @@ describe("sendAuthCode with no mail transport", () => {
   });
 
   test("names the password reset code separately", async () => {
-    delete process.env.RESEND_API_KEY;
+    await sendAuthCode({
+      to: "operator@example.com",
+      code: "112233",
+      kind: "password-reset",
+    });
 
-    await sendAuthCode({ to: "operator@example.com", code: "112233", kind: "password-reset" });
-
-    expect(warnings.some((w) => w.includes("password reset code") && w.includes("112233"))).toBe(
-      true,
-    );
+    expect(
+      warnings.some((w) => w.includes("password reset code") && w.includes("112233")),
+    ).toBe(true);
   });
 });
 
 describe("sendAuthCode with a mail transport", () => {
-  test("logs no code", async () => {
-    process.env.RESEND_API_KEY = "re_not_a_real_key";
+  test("logs no code when sending through Resend", async () => {
+    transport = "resend";
 
-    await sendAuthCode({ to: "operator@example.com", code: "999888", kind: "verification" });
+    await sendAuthCode({
+      to: "operator@example.com",
+      code: "999888",
+      kind: "verification",
+    });
 
     expect(warnings.join(" ")).not.toContain("999888");
+  });
+
+  // The regression. An instance with SMTP_HOST set delivered the mail *and*
+  // wrote the code to the container log, because the check here read
+  // RESEND_API_KEY directly instead of asking the transport layer. Caught by
+  // running the self-host stack against Mailpit, not by any test.
+  test("logs no code when sending through SMTP", async () => {
+    transport = "smtp";
+
+    await sendAuthCode({
+      to: "operator@example.com",
+      code: "777666",
+      kind: "verification",
+    });
+
+    expect(warnings.join(" ")).not.toContain("777666");
+    expect(warnings.join(" ")).not.toContain("No mail transport is configured");
   });
 });

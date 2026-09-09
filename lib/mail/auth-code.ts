@@ -1,17 +1,18 @@
 import "@/lib/server-guard";
 
+import type { Locale } from "@/lib/seo";
 import { sendMail } from "./send";
 import { emailVerificationCodeEmail, passwordResetCodeEmail } from "./templates";
-import type { Locale } from "@/lib/seo";
+import { configuredTransport } from "./transport";
 
 /**
  * The two emails that decide whether anyone can get into an instance at all:
  * the sign-up verification code and the password-reset code.
  *
  * They are separated from every other message because of what happens when
- * there is no mail provider. `sendMail` reports success with no API key
- * configured, so the sign-up screen says the code was sent and the code goes
- * nowhere. On the hosted instance that state never occurs. On a self-hosted
+ * there is no mail transport, meaning neither SMTP_HOST nor RESEND_API_KEY.
+ * `sendMail` reports success in that state, so the sign-up screen says the
+ * code was sent and the code goes nowhere. On the hosted instance that state never occurs. On a self-hosted
  * one it is the default, and it makes a fresh install look broken while being
  * correctly installed: the operator cannot create the first account, and
  * nothing anywhere says why.
@@ -38,9 +39,18 @@ interface SendAuthCodeOptions {
   kind: AuthCodeKind;
 }
 
-/** True when no message can physically leave the instance. */
+/**
+ * True when no message can physically leave the instance.
+ *
+ * Asks the transport layer rather than testing an env var, because there are
+ * two transports now. Reading RESEND_API_KEY alone meant an instance sending
+ * happily through SMTP still took the fallback below and wrote every one-time
+ * code to the container log, while telling the operator no transport was
+ * configured. Verified against a Mailpit stack: the mail arrived and the code
+ * was in the log at the same time.
+ */
 function hasNoMailTransport(): boolean {
-  return !process.env.RESEND_API_KEY;
+  return configuredTransport() === null;
 }
 
 export async function sendAuthCode({ to, code, locale, kind }: SendAuthCodeOptions) {
@@ -59,9 +69,10 @@ export async function sendAuthCode({ to, code, locale, kind }: SendAuthCodeOptio
   if (hasNoMailTransport()) {
     const what = kind === "verification" ? "sign-in code" : "password reset code";
     console.warn(
-      `[mail] No RESEND_API_KEY is set, so nothing was sent. ` +
+      `[mail] No mail transport is configured, so nothing was sent. ` +
         `The ${what} for ${to} is ${code}. ` +
-        `Configure RESEND_API_KEY and RESEND_FROM_EMAIL to deliver these by email instead: ` +
+        `Set SMTP_HOST (your own relay) or RESEND_API_KEY, plus MAIL_FROM_EMAIL, ` +
+        `to deliver these by email instead: ` +
         `https://www.nisd2.eu/docs/self-hosting/email`,
     );
   }
