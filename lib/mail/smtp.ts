@@ -2,7 +2,7 @@ import "@/lib/server-guard";
 import nodemailer, { type Transporter } from "nodemailer";
 import { env } from "@/lib/env";
 import type { OutgoingMail, TransportResult } from "./transport";
-import { useImplicitTls } from "./transport-rules";
+import { hasOwnFromAddress, implicitTlsForPort } from "./transport-rules";
 
 /**
  * SMTP transport, for instances that send through their own relay instead of
@@ -32,7 +32,7 @@ function getTransporter(): Transporter {
   _transporter = nodemailer.createTransport({
     host,
     port: env.SMTP_PORT,
-    secure: useImplicitTls(env.SMTP_PORT, env.SMTP_SECURE),
+    secure: implicitTlsForPort(env.SMTP_PORT, env.SMTP_SECURE),
     // An unauthenticated relay is a normal thing on a private network, and a
     // user with no password is how you spell it.
     auth: env.SMTP_USER?.trim()
@@ -56,6 +56,20 @@ function messageIdFor(mail: OutgoingMail): string | undefined {
 }
 
 export async function sendViaSmtp(mail: OutgoingMail): Promise<TransportResult> {
+  // Refused rather than sent, because the alternative is mail leaving this
+  // relay with nisd2.eu in the From line. The failure is recorded and shows
+  // up in the platform-admin email page naming the variable to set, which is
+  // a better outcome than a message the recipient cannot reply to.
+  if (!hasOwnFromAddress(mail.fromEmail)) {
+    return {
+      ok: false,
+      error:
+        "refusing to send: MAIL_FROM_EMAIL is unset or still this project's own address " +
+        `(got "${mail.fromEmail}"). Set it to an address on a domain you control, or the ` +
+        "message goes out claiming to be from someone else.",
+    };
+  }
+
   try {
     const info = await getTransporter().sendMail({
       from: { name: mail.fromName, address: mail.fromEmail },

@@ -20,15 +20,50 @@ function isSet(value: string | undefined): value is string {
 }
 
 /**
- * The From address. MAIL_FROM_EMAIL is the name to use on a new instance;
- * RESEND_FROM_EMAIL is what every existing deployment already sets and stays
- * authoritative until the new one carries a real value.
+ * The first of two settings that actually carries a value.
+ *
+ * Used for the From address and the From display name, which follow the same
+ * rule: MAIL_FROM_* is the name to use on a new instance, and the older
+ * RESEND_FROM_* stays authoritative until the new one is filled in, so no
+ * existing deployment has to change anything. Blank is not a value, because
+ * compose writes an empty string for every variable the operator left out.
  */
-export function resolveFromEmail(
-  mailFromEmail: string | undefined,
-  resendFromEmail: string,
+export function preferConfigured(
+  preferred: string | undefined,
+  fallback: string,
 ): string {
-  return isSet(mailFromEmail) ? mailFromEmail : resendFromEmail;
+  return isSet(preferred) ? preferred : fallback;
+}
+
+/**
+ * The From address this project ships as a default, which belongs to the
+ * hosted instance and to nobody who self-hosts.
+ *
+ * It was harmless while Resend was the only transport: Resend refuses to send
+ * from a domain the account has not verified, so an operator who never set a
+ * From address got a loud rejection. Their own SMTP relay has no such check,
+ * so the same omission would put mail on the wire claiming to come from
+ * nisd2.eu — a domain they do not own, with replies going somewhere they
+ * cannot read, and our deliverability spent on their instance.
+ */
+export const PLATFORM_DEFAULT_FROM_EMAIL = "noreply@nisd2.eu";
+
+/**
+ * Whether an SMTP instance has been told who its mail comes from.
+ *
+ * Sending nothing and saying why beats sending mail with a From line the
+ * operator did not choose, so the SMTP transport refuses on false.
+ */
+export function hasOwnFromAddress(fromEmail: string): boolean {
+  // Blank counts as "not theirs", and that case is the common one rather than
+  // the exotic one: both compose files write `MAIL_FROM_EMAIL: ${...:-}` and
+  // `.env.self-host.example` ships both From variables empty, so an operator
+  // who sets SMTP_HOST and nothing else arrives here with "" — never with the
+  // literal default, because an empty string satisfies z.string() and Zod's
+  // .default() never fires. Checking only the literal made this guard inert
+  // in exactly the deployment it was written for.
+  if (!isSet(fromEmail)) return false;
+  return fromEmail.trim().toLowerCase() !== PLATFORM_DEFAULT_FROM_EMAIL;
 }
 
 /**
@@ -36,7 +71,10 @@ export function resolveFromEmail(
  * implicit-TLS port; 587 and 25 open in the clear and upgrade with STARTTLS.
  * SMTP_SECURE overrides that pairing, and a blank value is not an override.
  */
-export function useImplicitTls(port: number, secureOverride: string | undefined): boolean {
+export function implicitTlsForPort(
+  port: number,
+  secureOverride: string | undefined,
+): boolean {
   if (!isSet(secureOverride)) return port === 465;
   const normalised = secureOverride.trim().toLowerCase();
   return normalised === "1" || normalised === "true";

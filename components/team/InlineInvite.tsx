@@ -1,14 +1,14 @@
 "use client";
 
+import { Check, Copy, Loader2, Send } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Check, Copy, Loader2, Send } from "lucide-react";
-import { toast } from "sonner";
-import { useTranslations } from "next-intl";
 
 interface InlineInviteProps {
   /** Called after a successful invite (e.g. to close a popover) */
@@ -49,7 +49,14 @@ export function InlineInvite({
       const invited = email.trim();
       setEmail("");
       router.refresh();
-      toast.success(t("inline.sent", { email: invited }));
+      // The invite is real either way; only the delivery differs. On an
+      // instance with no mail transport the link below is the only way the
+      // person hears about it, so say that instead of claiming a send.
+      if (data.emailed) {
+        toast.success(t("inline.sent", { email: invited }));
+      } else {
+        toast.warning(t("inline.notEmailed", { email: invited }));
+      }
       onInvited?.(invited);
     },
     onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),

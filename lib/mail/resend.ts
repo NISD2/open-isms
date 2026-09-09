@@ -2,7 +2,7 @@ import "@/lib/server-guard";
 import { Resend } from "resend";
 import { env } from "@/lib/env";
 import type { OutgoingMail, TransportResult } from "./transport";
-import { resolveFromEmail } from "./transport-rules";
+import { preferConfigured } from "./transport-rules";
 
 // Lazy: the Resend SDK constructor throws if the key is missing, which
 // happens during `next build` page-data collection when SKIP_ENV_VALIDATION
@@ -58,7 +58,7 @@ export const resend = new Proxy({} as Resend, {
  * anything. The blank-is-not-a-value rule matters here: compose puts an
  * empty string on the environment for every variable the operator left out.
  */
-export const FROM_EMAIL = resolveFromEmail(env.MAIL_FROM_EMAIL, env.RESEND_FROM_EMAIL);
+export const FROM_EMAIL = preferConfigured(env.MAIL_FROM_EMAIL, env.RESEND_FROM_EMAIL);
 
 /**
  * Resend transport. One of the two implementations behind
@@ -96,11 +96,14 @@ export async function sendViaResend(mail: OutgoingMail): Promise<TransportResult
  * they registered with and the name in the footer, so the From line, the
  * body and the link all agree.
  */
-export const FROM_NAME = env.RESEND_FROM_NAME;
+export const FROM_NAME = preferConfigured(env.MAIL_FROM_NAME, env.RESEND_FROM_NAME);
 
 /**
  * Display name for mail written in a person's voice (the course follow-up,
  * the activation nudge). Those are signed by Simon in the body; the From
  * line should not say otherwise.
  */
-export const FROM_NAME_PERSONAL = env.RESEND_FROM_NAME_PERSONAL;
+export const FROM_NAME_PERSONAL = preferConfigured(
+  env.MAIL_FROM_NAME_PERSONAL,
+  env.RESEND_FROM_NAME_PERSONAL,
+);

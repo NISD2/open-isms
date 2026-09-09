@@ -129,6 +129,13 @@ COPY --from=builder /app/drizzle ./drizzle
 # Runtime migration runner. See scripts/runtime-migrate.mjs for the
 # rationale and the embedded drizzle-orm-compatible migrator.
 COPY --from=builder /app/scripts/runtime-migrate.mjs ./scripts/runtime-migrate.mjs
+# runtime-migrate.mjs hashes BOOTSTRAP_ADMIN_PASSWORD with bcrypt, at the same
+# cost the sign-up route uses, so the account it writes is byte-compatible with
+# one made through the form. Copied explicitly rather than trusted to Next's
+# standalone tracer: the tracer follows imports from the app, and a refactor
+# that stopped importing bcryptjs from a traced module would silently take the
+# hasher out of the image and break first-boot for anyone with no mail.
+COPY --from=deps /app/node_modules/bcryptjs ./node_modules/bcryptjs
 # Framework reference data. runtime-migrate.mjs applies it when the catalogue
 # is empty, so a fresh install has NIS 2 in it without a checkout or a seed
 # script. Version-matched by construction: this file ships in the same image

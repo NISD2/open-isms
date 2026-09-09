@@ -59,7 +59,7 @@ The file is annotated; this is the shape of it.
 
 ```ini
 OPEN_ISMS_VERSION=stable
-COMPOSE_REVISION=1
+COMPOSE_REVISION=3
 COMPOSE_PROFILES=minio,proxy,backup
 
 # Required
@@ -68,8 +68,19 @@ AUTH_SECRET=
 ERASURE_EMAIL_HASH_SALT=
 AUTH_URL=https://isms.example.com
 NEXT_PUBLIC_APP_URL=https://isms.example.com
+
+# Your first account, created at startup. The alternative is a mail
+# transport, because sign-up otherwise waits on a code nobody can send.
+BOOTSTRAP_ADMIN_EMAIL=you@example.com
+BOOTSTRAP_ADMIN_PASSWORD=
+
+# Mail, once a second person needs an account. SMTP_HOST wins if both are set.
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASSWORD=
 RESEND_API_KEY=
-RESEND_FROM_EMAIL=
+MAIL_FROM_EMAIL=
 
 # Proxy profile
 APP_DOMAIN=isms.example.com
@@ -112,21 +123,24 @@ curl -s http://localhost:3026/api/health
 ```
 
 ```json
-{"status":"ok","version":"0.2.8","composeRevision":"1","checks":{"database":"ok"}}
+{"status":"ok","version":"0.2.9","composeRevision":"3","checks":{"database":"ok"}}
 ```
 
 Under the `proxy` profile the bundled Caddyfile answers 404 for that path on the public side, so the version stays readable from the server and not from the internet.
 
-The log also shows the framework data being loaded on a first start, which needs nothing from you:
+The log also shows the framework data being loaded on a first start, and your account being created, neither of which needs anything from you:
 
 ```text
 [seed] empty catalogue — loading db/framework-seed.sql
 [seed] loaded 165 requirements
+[bootstrap] created you@example.com. Sign in, create your organisation, and then remove BOOTSTRAP_ADMIN_PASSWORD from the environment.
 ```
+
+Sign in with those credentials. Delete `BOOTSTRAP_ADMIN_PASSWORD` from `.env` once you are in; the account exists by then and the value is ignored.
 
 ## Then, in order
 
-1. [Email](/docs/self-hosting/email). Without it nobody can complete a first registration.
+1. [Email](/docs/self-hosting/email). You are in without it; the second person is not.
 2. [Domains and TLS](/docs/self-hosting/domains-and-tls). Get `AUTH_URL` right before you walk away.
 3. [Backup and restore](/docs/self-hosting/backup-and-restore). Before real evidence goes in, not after.
 4. [Scheduled jobs](/docs/self-hosting/scheduled-jobs), if you want deadline reminders and the daily housekeeping to run.

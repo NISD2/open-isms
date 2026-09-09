@@ -158,6 +158,17 @@ interface EmailActivity {
   multiSendAlertPerDay: number;
   /** Lifecycle claims kept after a failed send (urgency 'warning'). */
   lifecycleFailed: number;
+  /** Mail that did not go out, last 30 days, newest first, capped. */
+  failedSends: Array<{
+    id: string;
+    at: Date;
+    description: string;
+    /** Null once GDPR erasure has redacted it. */
+    recipient: string | null;
+  }>;
+  /** Every failure in the window, not just the listed page. */
+  failedSendTotal: number;
+  failedSendPageSize: number;
 }
 
 interface Props {
@@ -346,6 +357,7 @@ export function PlatformAdminPage({
         ].map(({ key, label, icon: Icon, count }) => (
           <button
             key={key}
+            type="button"
             onClick={() => setTab(key)}
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
               tab === key
@@ -638,7 +650,10 @@ function SendOneLifecycleButton({ userId, email }: { userId: string; email: stri
     onSuccess: (r) => {
       if (r.skipped) toast.warning(`Nothing sent: ${r.skipped}`);
       else if (r.sent > 0) toast.success(`Sent to ${email}`);
-      else toast.warning(`Nothing sent to ${email} — no longer eligible or already claimed.`);
+      else
+        toast.warning(
+          `Nothing sent to ${email} — no longer eligible or already claimed.`,
+        );
       void utils.platformAdmin.lifecycleQueue.invalidate();
       void utils.platformAdmin.emailActivity.invalidate();
     },
@@ -750,7 +765,9 @@ function DigestQueuePanel() {
             <span className="rounded bg-muted px-1.5 py-0.5 text-xs">weekly</span>
             <PreviewEmailButton template="weekly-digest" />
           </div>
-          <p className="text-xs text-muted-foreground">{EMAIL_TYPE_DESCRIPTIONS.weekly}</p>
+          <p className="text-xs text-muted-foreground">
+            {EMAIL_TYPE_DESCRIPTIONS.weekly}
+          </p>
         </div>
 
         {queue.isLoading && (
@@ -1468,6 +1485,57 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
                   <span className="font-semibold">{b.count}</span>
                 </span>
               ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/*
+        Mail that did not go out. Shown above the sent list on purpose: a
+        failure is the only thing on this page that needs someone to act, and
+        the card disappears entirely when there is nothing wrong rather than
+        sitting there as a permanent empty box.
+      */}
+      {data.failedSends.length > 0 && (
+        <Card className="border-destructive/40">
+          <CardHeader>
+            <CardTitle className="text-base text-destructive">
+              Failed sends ({data.failedSendTotal}, last 30 days)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-3 text-sm text-muted-foreground">
+              These messages were not delivered. Each line names who it was for, the
+              message type, and the reason the transport gave.
+              {data.failedSendTotal > data.failedSendPageSize && (
+                <> Showing the {data.failedSendPageSize} most recent.</>
+              )}
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b text-left text-muted-foreground">
+                    <th className="pb-2 pr-4 font-medium">When</th>
+                    <th className="pb-2 pr-4 font-medium">Recipient</th>
+                    <th className="pb-2 font-medium">What failed, and why</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.failedSends.map((f) => (
+                    <tr key={f.id} className="border-b border-border/50 last:border-0">
+                      <td className="py-2 pr-4 whitespace-nowrap text-muted-foreground">
+                        {timeAgo(f.at)}
+                      </td>
+                      <td className="py-2 pr-4">
+                        {f.recipient ?? (
+                          <span className="text-muted-foreground italic">erased</span>
+                        )}
+                      </td>
+                      <td className="py-2 font-mono text-xs">{f.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </CardContent>
         </Card>

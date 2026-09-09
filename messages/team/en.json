@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Invite sent to {email}",
+      "notEmailed": "Invite created for {email}. This instance has no mail transport, so send them the link yourself.",
       "linkCopied": "Link copied"
     },
     "invalidTitle": "Invalid Invite",

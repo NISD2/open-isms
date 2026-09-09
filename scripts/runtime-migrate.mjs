@@ -37,9 +37,9 @@
  * bookkeeping tables — see docs/migrations.md.
  */
 
-import { Client } from "pg";
-import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { Client } from "pg";
 
 // Each chain carries a sentinel table — a known table from its baseline
 // migration. If the sentinel exists in `public` but the chain's per-package
@@ -130,8 +130,10 @@ try {
     let journal;
     try {
       journal = JSON.parse(readFileSync(`${folder}/meta/_journal.json`, "utf-8"));
-    } catch (err) {
-      console.warn(`[migrate ${label}] no journal at ${folder}/meta/_journal.json — skipping`);
+    } catch {
+      console.warn(
+        `[migrate ${label}] no journal at ${folder}/meta/_journal.json — skipping`,
+      );
       continue;
     }
 
@@ -284,13 +286,17 @@ try {
     if (rows[0].n === 0) {
       console.log("[seed] no requirement table — skipping framework data");
     } else {
-      const { rows: counted } = await client.query(`SELECT count(*)::int AS n FROM requirement`);
+      const { rows: counted } = await client.query(
+        `SELECT count(*)::int AS n FROM requirement`,
+      );
       if (counted[0].n > 0) {
         console.log(`[seed] framework data present (${counted[0].n} requirements)`);
       } else {
         console.log("[seed] empty catalogue — loading db/framework-seed.sql");
         await client.query(readFileSync(seedPath, "utf-8"));
-        const { rows: after } = await client.query(`SELECT count(*)::int AS n FROM requirement`);
+        const { rows: after } = await client.query(
+          `SELECT count(*)::int AS n FROM requirement`,
+        );
         console.log(`[seed] loaded ${after[0].n} requirements`);
       }
     }
@@ -301,6 +307,28 @@ try {
         "[seed]   docker compose exec -T postgres psql -U openisms -d openisms < framework-seed.sql",
     );
   }
+
+  // ---------------------------------------------------------------------
+  // First account, for an instance with no way to send mail.
+  //
+  // Sign-up verifies the address with a one-time code, so without a mail
+  // transport nobody finishes registering. SMTP and Resend both solve that;
+  // neither is available to someone evaluating on a laptop, behind a network
+  // that blocks outbound 587, or on a genuinely offline machine.
+  //
+  // These two variables replace the verification email and nothing else. The
+  // row written here is exactly what registering would have written, minus
+  // the round trip: same bcrypt cost, same "member" role, no company. The
+  // first company you create promotes you to admin through the normal path,
+  // so this grants no privilege that signing up would not have.
+  //
+  // Deliberately NOT an upsert. An existing account is left alone, because a
+  // variable that rewrites a password on every restart is a backdoor with a
+  // friendly name: anyone who can read the compose file would own the account
+  // permanently, and an operator who changed their password in the app would
+  // find it silently reverted on the next deploy.
+  // ---------------------------------------------------------------------
+  await bootstrapAdmin(client);
 } finally {
   // Session locks die with the connection, so this is belt-and-braces for the
   // case where the client is reused rather than ended.
@@ -308,4 +336,78 @@ try {
     .query(`SELECT pg_advisory_unlock($1, $2)`, [LOCK_CLASS, LOCK_KEY])
     .catch(() => {});
   await client.end();
+}
+
+/**
+ * Create the first account from BOOTSTRAP_ADMIN_EMAIL / BOOTSTRAP_ADMIN_PASSWORD
+ * when both are set and that address has no account yet.
+ *
+ * Validation mirrors app/api/auth/register/route.ts exactly (same address
+ * shape, same 8-128 character range, same bcrypt cost of 12) so an account
+ * made this way is indistinguishable from one made through the form. If the
+ * rules there change, change them here.
+ *
+ * Never throws: a misconfigured variable is reported and skipped rather than
+ * crash-looping a container whose own data is fine. The operator finds the
+ * message when they cannot log in, which is the moment they go looking.
+ */
+async function bootstrapAdmin(client) {
+  const email = (process.env.BOOTSTRAP_ADMIN_EMAIL ?? "").trim().toLowerCase();
+  const password = process.env.BOOTSTRAP_ADMIN_PASSWORD ?? "";
+
+  if (!email && !password) return;
+
+  if (!email || !password) {
+    console.error(
+      "[bootstrap] set BOTH BOOTSTRAP_ADMIN_EMAIL and BOOTSTRAP_ADMIN_PASSWORD, or neither",
+    );
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 255) {
+    console.error(`[bootstrap] BOOTSTRAP_ADMIN_EMAIL is not a usable address: ${email}`);
+    return;
+  }
+
+  if (password.length < 8 || password.length > 128) {
+    console.error(
+      "[bootstrap] BOOTSTRAP_ADMIN_PASSWORD must be 8-128 characters, same as the sign-up form",
+    );
+    return;
+  }
+
+  try {
+    const { rows: existing } = await client.query(
+      `SELECT id FROM "user" WHERE lower(email) = $1 LIMIT 1`,
+      [email],
+    );
+    if (existing.length > 0) {
+      console.log(
+        `[bootstrap] ${email} already has an account, leaving it untouched. ` +
+          "Use the password-reset flow to change its password.",
+      );
+      return;
+    }
+
+    const { default: bcrypt } = await import("bcryptjs");
+    const passwordHash = await bcrypt.hash(password, 12);
+    const name = email.split("@")[0] || "Administrator";
+
+    await client.query(
+      `INSERT INTO "user" (email, name, password_hash, role, email_verified_at)
+       VALUES ($1, $2, $3, 'member', now())`,
+      [email, name, passwordHash],
+    );
+
+    console.log(
+      `[bootstrap] created ${email}. Sign in, create your organisation, and then ` +
+        "remove BOOTSTRAP_ADMIN_PASSWORD from the environment.",
+    );
+  } catch (err) {
+    console.error(
+      `[bootstrap] could not create the first account: ${err.message}\n` +
+        "[bootstrap] the instance is otherwise fine; configure a mail transport " +
+        "and register normally, or read the sign-in code out of this log.",
+    );
+  }
 }

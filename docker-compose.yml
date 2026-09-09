@@ -66,7 +66,13 @@ services:
       # From address for either transport. RESEND_FROM_EMAIL still works and
       # is what existing deployments set.
       MAIL_FROM_EMAIL: ${MAIL_FROM_EMAIL:-}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME:-}
+      MAIL_FROM_NAME_PERSONAL: ${MAIL_FROM_NAME_PERSONAL:-}
       RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
+      # Third way in, for an instance with no mail transport at all: the first
+      # account is created at startup instead of being verified by email.
+      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
       # Required in production: GDPR erasure throws without it.
       ERASURE_EMAIL_HASH_SALT: ${ERASURE_EMAIL_HASH_SALT:-}
       # Optional. Each one degrades a single feature, see
@@ -101,14 +107,44 @@ services:
     image: minio/minio:latest
     profiles: [minio]
     restart: unless-stopped
-    command: server /data --console-address ":9001"
+    # The "you forgot a variable" check lives in this command rather than in a
+    # `${VAR:?}` on the environment below, because Compose interpolates EVERY
+    # service in the file regardless of which profiles are active. With the
+    # guards on the environment, `docker compose up` failed with
+    # "required variable AWS_ACCESS_KEY_ID is missing" for people who never
+    # asked for MinIO and had those lines commented out, exactly as
+    # .env.example ships them. The message is worth keeping; failing the whole
+    # file to deliver it is not.
+    # entrypoint, not command: the image's entrypoint IS `minio`, so a
+    # command array is passed to it as sub-command arguments.
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        if [ -z "$$MINIO_ROOT_USER" ]; then
+          echo "minio: set AWS_ACCESS_KEY_ID in .env" >&2
+          exit 1
+        fi
+        if [ -z "$$MINIO_ROOT_PASSWORD" ]; then
+          echo "minio: set AWS_SECRET_ACCESS_KEY in .env (at least 8 characters)" >&2
+          exit 1
+        fi
+        if [ "$$MINIO_KMS_SECRET_KEY" = "openisms-key:" ]; then
+          echo "minio: set MINIO_KMS_KEY in .env (openssl rand -base64 32)" >&2
+          exit 1
+        fi
+        exec minio server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:?set AWS_ACCESS_KEY_ID in .env}
-      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY:?set AWS_SECRET_ACCESS_KEY in .env, at least 8 characters}
+      # Not defaulted to "openisms": minio-init below builds its credentials
+      # from AWS_ACCESS_KEY_ID, and the app signs its S3 requests with the same
+      # value. Defaulting only here would boot MinIO under a username neither
+      # of them uses, and every upload would 403 with nothing naming the cause.
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:-}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY:-}
       # Evidence uploads always send x-amz-server-side-encryption AES256.
       # MinIO answers SSE-S3 out of a KMS, so without a key every upload is
       # rejected. 32 bytes, base64: openssl rand -base64 32
-      MINIO_KMS_SECRET_KEY: "openisms-key:${MINIO_KMS_KEY:?set MINIO_KMS_KEY in .env, openssl rand -base64 32}"
+      MINIO_KMS_SECRET_KEY: "openisms-key:${MINIO_KMS_KEY:-}"
     volumes:
       - minio-data:/data
     ports:
