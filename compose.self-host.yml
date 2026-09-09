@@ -103,12 +103,17 @@ services:
       # and still works.
       MAIL_FROM_EMAIL: ${MAIL_FROM_EMAIL:-}
       RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
+      # Third way in, for an instance with no mail transport at all: the first
+      # account is created at startup instead of being verified by email.
+      # Read at boot by scripts/runtime-migrate.mjs; the app never reads them.
+      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
       # Required in production: GDPR erasure throws without it.
       ERASURE_EMAIL_HASH_SALT: ${ERASURE_EMAIL_HASH_SALT:-}
       # Which version of THIS file you are running. The app compares it against
       # what the release expects and tells you when an update also needs a
       # change here, instead of letting your deployment quietly drift.
-      COMPOSE_REVISION: ${COMPOSE_REVISION:-2}
+      COMPOSE_REVISION: ${COMPOSE_REVISION:-3}
       # Not implemented: no application code reads this, and setting it has
       # no effect today. Passed through so the variable exists where it will
       # be read once it is built. Checking for updates is manual for now, see

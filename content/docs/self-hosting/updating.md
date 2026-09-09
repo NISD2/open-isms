@@ -113,5 +113,6 @@ Pulling images needs `ghcr.io` and `pkg-ghcr.githubusercontent.com`. The rest of
 
 | Revision | What changed |
 |---|---|
+| 3 | `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD` passed through, so a first account can be created without any mail transport. Nothing breaks on revision 2: leave them unset and startup behaves exactly as before. |
 | 2 | SMTP transport: `SMTP_*` and `MAIL_FROM_EMAIL` passed through to the app, plus a `mail` profile running Mailpit for evaluation. Nothing breaks on revision 1; you keep sending through Resend until you set `SMTP_HOST`. |
 | 1 | The first published `compose.yaml`. |

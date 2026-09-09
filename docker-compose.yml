@@ -67,6 +67,10 @@ services:
       # is what existing deployments set.
       MAIL_FROM_EMAIL: ${MAIL_FROM_EMAIL:-}
       RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
+      # Third way in, for an instance with no mail transport at all: the first
+      # account is created at startup instead of being verified by email.
+      BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:-}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-}
       # Required in production: GDPR erasure throws without it.
       ERASURE_EMAIL_HASH_SALT: ${ERASURE_EMAIL_HASH_SALT:-}
       # Optional. Each one degrades a single feature, see

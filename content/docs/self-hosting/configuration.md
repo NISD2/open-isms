@@ -17,7 +17,7 @@ Startup validates the environment with Zod and refuses to run on a bad value, na
 |---|---|
 | `AUTH_URL` | Every login. Auth.js derives its cookie name from this URL's scheme, so behind TLS with an `http://` value set the middleware looks for a cookie that was never written. Set it to the URL your users type. |
 | `NEXT_PUBLIC_APP_URL` | Links in outgoing email and canonical URLs point at nisd2.eu instead of you. |
-| `RESEND_API_KEY` and `RESEND_FROM_EMAIL` | Registration. Sign-up verifies the address with a one-time code, and with no key the send path logs a warning and returns success, so the flow looks fine and the code never arrives. Google OAuth is the alternative. |
+| `SMTP_HOST` **or** `RESEND_API_KEY`, plus `MAIL_FROM_EMAIL` | Registration for anyone but you. Sign-up verifies the address with a one-time code; with no transport the code goes to the container log instead of to the person. `BOOTSTRAP_ADMIN_EMAIL` gets *you* in without either, and Google OAuth skips the code entirely. See [Email](/docs/self-hosting/email). |
 | `ERASURE_EMAIL_HASH_SALT` | GDPR erasure, which throws in production rather than fall back to a committed constant. Everything else works until someone requests erasure. |
 
 ## Storage

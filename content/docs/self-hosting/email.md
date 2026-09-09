@@ -1,6 +1,33 @@
 Registration verifies the address with a one-time code, so email is what stands between a running instance and a first login.
 
-## Getting in before you have configured anything
+## Getting in with no mail at all
+
+Two environment variables create the first account at startup, so there is no code to wait for and nothing to configure:
+
+```ini
+BOOTSTRAP_ADMIN_EMAIL=you@example.com
+BOOTSTRAP_ADMIN_PASSWORD=a-password-you-choose
+```
+
+Start the stack, then sign in with exactly those credentials. The log says so:
+
+```text
+[bootstrap] created you@example.com. Sign in, create your organisation, and then remove BOOTSTRAP_ADMIN_PASSWORD from the environment.
+```
+
+What it does and does not do, precisely:
+
+- It writes the same row registering would have written: same bcrypt cost, the same `member` role, no organisation. Creating your first organisation promotes you to admin through the ordinary path, so this grants nothing that signing up would not have. The name "admin" is about who this is for, not about a privilege level.
+- It runs only when **both** variables are set, and only when that address has no account yet. An existing account is never touched.
+- It is deliberately not an upsert. A variable that rewrote the password on every restart would be a backdoor with a friendly name: anyone who could read the compose file would own the account permanently, and a password you changed in the app would revert on the next deploy.
+- The password is hashed before it is stored, exactly as the sign-up form does it. It is not kept anywhere in plaintext except your `.env`.
+- A password shorter than 8 characters, or a malformed address, is refused with a message in the log and the instance starts anyway. It does not crash-loop over a typo.
+
+Remove `BOOTSTRAP_ADMIN_PASSWORD` once you are in. Leaving it set is not a live backdoor, because the account already exists and the value is then ignored, but a password sitting in an environment file is worth deleting on principle.
+
+This is the whole answer for a single-operator instance: no SMTP, no Resend, no Google, no mail server of any kind. The moment a second person needs an account, they need a code, and a code needs one of the transports below.
+
+## Getting in when you would rather not set variables
 
 With no mail provider set, the code is written to the container log instead of being sent. Register in the browser, then:
 
@@ -101,6 +128,13 @@ Only verified Google addresses are accepted. Users who signed up with email and 
 
 Turn all of it off with `DISABLE_EMAIL=1`, which is the right setting for a staging copy of production data. Nobody gets a reminder addressed to a real person from a test instance.
 
-## Known gap
+## What language email arrives in
 
-The welcome mail is English regardless of the recipient's language. The signup locale is now stored on the account and the lifecycle nudges use it; the registration and reset codes follow the language of the page that requested them; the welcome mail uses neither yet. That is a real defect rather than a design decision, and it is on the list.
+| Message | Languages |
+|---|---|
+| Registration and password-reset codes | Ten. They follow the language of the page that asked for them, and the choice is stored on the account. |
+| Re-engagement nudges | German, English, Dutch, resolved from the stored language, then the organisation's country, then German. |
+| The opt-out footer on optional mail | German, English, Dutch, following the recipient. |
+| Everything else | English. |
+
+That last row covers the digests, assignment notices, review decisions, invitations and the welcome mail. It is a real gap rather than a design decision: a German recipient gets English copy above a German opt-out line, which is at least honest about which half is translated. The footer follows the recipient rather than the body on purpose, because the preference centre it links to has to open in a language they can read.
