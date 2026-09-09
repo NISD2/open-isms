@@ -18,8 +18,11 @@ Everything under `courses/`, in every language, including:
   - lesson text and course outlines
   - quiz questions and answer keys
   - the checklists, glossaries and reference tables in the appendices
-  - the typeset PDF editions under `courses/*/pdf-book/`, both the
-    LaTeX sources and the compiled PDFs
+  - the typeset PDF editions: the LaTeX sources under
+    `courses/*/pdf-book/`, and the compiled PDFs wherever they are
+    published, which today is `public/downloads/`. The compiled PDF is
+    build output and is not committed under `courses/`; the licence
+    follows the edition, not the directory it lands in.
 
 It covers the course material as prose and teaching content. It does not
 cover the application that renders it.

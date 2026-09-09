@@ -6,8 +6,8 @@
 bun install              # Install dependencies (ALWAYS use bun, never npm/yarn)
 bun run dev              # Dev server on port 3026 (webpack, not turbopack)
 bun run typecheck        # tsc --noEmit — must pass with ZERO errors
-bun run lint:fix         # Biome, autofix. Run on the files you touched
-bun run lint:ci          # What CI gates: Biome on files changed vs origin/main
+bun run lint:ci          # What CI gates: Biome errors on files changed vs origin/main
+bunx biome check --write <paths>   # Autofix. Pass paths — `lint:fix` is repo-wide
 bun run build            # Production build — must pass clean
 bun db:generate          # Generate Drizzle migration after SCHEMA changes
 bun db:framework-migration # Generate data migration after FRAMEWORK DATA changes
@@ -163,7 +163,7 @@ messages/              # i18n JSON files per namespace per locale
 5. **Fire-and-forget for non-critical work** — email sending, notification scheduling use `.catch(() => {})` pattern
 6. **Company-scoped queries** — always filter by `ctx.companyId` in tRPC procedures
 7. **i18n all user-facing strings** — no hardcoded English in components
-8. **Biome is the only linter and formatter** — there is no ESLint and no Prettier, so an `eslint-disable` comment suppresses nothing. CI runs `bun run lint:ci`, which checks only the files changed against `origin/main`; the pre-existing backlog is not gated, but anything you touch is. Suppress with `// biome-ignore lint/<group>/<rule>: <why>` and always give the why
+8. **Biome is the only linter and formatter** — there is no ESLint and no Prettier, so an `eslint-disable` comment suppresses nothing. CI runs `bun run lint:ci` on the files changed against `origin/main`, so the pre-existing backlog is not gated. Know what that gate does and does not do: `biome check` exits non-zero on **errors only**. `noExplicitAny` and `useExhaustiveDependencies` are configured as warnings and `noNonNullAssertion` is off, so rules 1-7 above and the `as any` / non-null bans in CONTRIBUTING are **not** machine-enforced by it. They are review's job. Suppress with `// biome-ignore lint/<group>/<rule>: <why>`, always give the why, and put it on the line Biome reports rather than the line you think it means
 
 ## Voice & Copy Rules (shared with NIS2 private notebook)
 

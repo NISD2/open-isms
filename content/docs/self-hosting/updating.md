@@ -31,7 +31,7 @@ The health response reports the running version, so you can watch the new one ta
 
 Almost every migration runs inside a transaction. If one of those fails it rolls back and the container exits rather than serving against a half-changed schema. **Your data is intact**, and the migrations that succeeded before it stay applied.
 
-The exception is a migration whose first line is `-- migrate:no-transaction`. Postgres will not build an index `CONCURRENTLY` inside a transaction, so those few run outside one, and if such a migration fails the schema may be partly changed and the migration is not recorded as applied. The log says so in as many words: `FAILED on <tag> (no transaction — the schema may be partly changed…)`. This is the reason the advice above is to back up before every update rather than only before big ones.
+The exception is a migration carrying a `-- migrate:no-transaction` comment on any line, not only the first. Postgres will not build an index `CONCURRENTLY` inside a transaction, so those few run outside one, and if such a migration fails the schema may be partly changed and the migration is not recorded as applied. The log says so in as many words: `FAILED on <tag> (no transaction — the schema may be partly changed…)`. This is the reason the advice above is to back up before every update rather than only before big ones.
 
 What is not true, and is worth knowing before you need it: the old version does *not* keep running. `docker compose up -d` has already replaced the container by the time migrations run, so the failure leaves a container restarting in a loop and the site down. Coolify and similar tools that swap containers only after a health check do hold the old version; plain Docker Compose does not.
 

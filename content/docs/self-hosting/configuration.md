@@ -51,7 +51,7 @@ Why two endpoints, and what goes wrong with one: [Evidence storage](/docs/self-h
 
 ## Third-party services
 
-The platform talks to five external services at runtime. Four of the five are genuinely optional, and the published sub-processor list at [nisd2.eu/en/subprocessors](/en/subprocessors) describes the hosted instance at nisd2.eu. It is not a description of yours. If you are building your own Art. 28 register, start from the table below and list only what you actually switched on.
+These are the outbound calls the software can make. Every one of them is behind a key you supply, so an instance with none of these set makes none of these calls.
 
 | Service | Used for | Required? | Alternative |
 |---|---|---|---|
@@ -60,6 +60,7 @@ The platform talks to five external services at runtime. Four of the five are ge
 | Google OAuth | Optional sign-in provider | No | Email and password is the default. |
 | xAI (Grok) | AI form prefill and requirement guidance | No | None wired. The feature errors cleanly when `XAI_API_KEY` is absent. The provider is reached through the Vercel AI SDK in `lib/ai/` and `lib/forms/llm-prefill-action.ts`. |
 | Implisense, via RapidAPI | German company lookup in the applicability wizard | No | Typing the details in. |
+| IndexNow | Submits public sitemap URLs to search engines, from the `/api/cron/indexnow` job | No | Leave `INDEXNOW_KEY` unset and the job makes no call. Nothing but URLs already in your sitemap is sent. |
 
 Two more outbound calls have no key and no setting:
 
@@ -67,6 +68,12 @@ Two more outbound calls have no key and no setting:
 - Analytics is off unless you turn it on. With `ANALYTICS_SCRIPT_URL` or `ANALYTICS_WEBSITE_ID` unset, no tag is rendered and the CSP does not permit one. Nothing is reported to this project either way.
 
 Everything else the application links to (EUR-Lex, gesetze-im-internet, BSI, ENISA) is a hyperlink in content, not a runtime dependency.
+
+### This table is not a sub-processor register
+
+The two questions are different, and answering the second with the first is how a register ends up wrong. This table is "what can the software call". An Art. 28 register is "who processes personal data on my behalf", which depends on what you switched on, where you host, and who your own suppliers are. IndexNow receives sitemap URLs and rdap.org receives a domain name, so neither is processing personal data for you; your hosting provider is, and it is not on this list because it is yours, not ours.
+
+The published register at [nisd2.eu/en/subprocessors](/en/subprocessors) names five processors for the hosted instance at nisd2.eu, including its hosting provider. That page describes our instance. Yours will differ.
 
 ## The compose file, not the app
 

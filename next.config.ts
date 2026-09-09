@@ -201,6 +201,61 @@ const nextConfig: NextConfig = {
         destination: "/nl/nis2-tool",
         permanent: true,
       },
+      // Asset move, September 2026: the hero shots and people photos went from
+      // public/ root into public/images/. These are not "accidental backlink"
+      // insurance — /team-simon.png is the `image` in the Person JSON-LD on
+      // every author page, so it is indexed, and the hero shots are in OG
+      // caches. Renaming without these would 404 URLs that are live today.
+      // Parameterised so eleven locales cost one rule rather than eleven.
+      {
+        source: "/journey-hero-:locale.png",
+        destination: "/images/hero/journey-:locale.png",
+        permanent: true,
+      },
+      {
+        source: "/journey-hero.png",
+        destination: "/images/hero/journey.png",
+        permanent: true,
+      },
+      {
+        source: "/supplier-hero-:locale.png",
+        destination: "/images/hero/supplier-:locale.png",
+        permanent: true,
+      },
+      {
+        source: "/supplier-hero.png",
+        destination: "/images/hero/supplier.png",
+        permanent: true,
+      },
+      {
+        source: "/team-simon.png",
+        destination: "/images/people/simon.png",
+        permanent: true,
+      },
+      {
+        source: "/team-cory.png",
+        destination: "/images/people/cory.png",
+        permanent: true,
+      },
+      {
+        source: "/simon-bg-rem.png",
+        destination: "/images/people/simon-cutout.png",
+        permanent: true,
+      },
+      // Deleted duplicates. Each pointed at a byte-identical file that the App
+      // Router already serves under its own convention name.
+      { source: "/favicon-16x16.png", destination: "/icon.png", permanent: true },
+      { source: "/favicon-32x32.png", destination: "/icon.png", permanent: true },
+      {
+        source: "/apple-touch-icon.png",
+        destination: "/apple-icon.png",
+        permanent: true,
+      },
+      {
+        source: "/nisd2-og-image.png",
+        destination: "/opengraph-image.png",
+        permanent: true,
+      },
       // Docs hub migration — entries land in lib/content/legacy-redirects.ts
       // when an info page moves under /docs. Empty array today; non-breaking.
       ...LEGACY_REDIRECTS,
