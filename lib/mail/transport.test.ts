@@ -9,7 +9,12 @@
  * ./transport here would fail env validation before the first assertion.
  */
 import { describe, expect, test } from "bun:test";
-import { preferConfigured, selectTransport, useImplicitTls } from "./transport-rules";
+import {
+  hasOwnFromAddress,
+  preferConfigured,
+  selectTransport,
+  useImplicitTls,
+} from "./transport-rules";
 
 describe("selectTransport", () => {
   test("no configuration means no transport, not a silent default", () => {
@@ -59,6 +64,24 @@ describe("preferConfigured", () => {
   test("blank falls back too, rather than becoming an empty From address", () => {
     expect(preferConfigured("", "old@example.test")).toBe("old@example.test");
     expect(preferConfigured("  ", "old@example.test")).toBe("old@example.test");
+  });
+});
+
+/**
+ * The hosted instance's own From address is a default in lib/env, which was
+ * safe only because Resend refuses to send from an unverified domain. A
+ * self-hoster's relay has no such check, so the same default would put mail
+ * on the wire claiming to come from nisd2.eu.
+ */
+describe("hasOwnFromAddress", () => {
+  test("the project's default address is not the operator's", () => {
+    expect(hasOwnFromAddress("noreply@nisd2.eu")).toBe(false);
+    expect(hasOwnFromAddress("  NoReply@NISD2.eu  ")).toBe(false);
+  });
+
+  test("any address the operator chose is theirs, including another nisd2 mailbox", () => {
+    expect(hasOwnFromAddress("noreply@acme.test")).toBe(true);
+    expect(hasOwnFromAddress("isms@nisd2.eu")).toBe(true);
   });
 });
 

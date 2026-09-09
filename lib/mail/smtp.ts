@@ -2,7 +2,7 @@ import "@/lib/server-guard";
 import nodemailer, { type Transporter } from "nodemailer";
 import { env } from "@/lib/env";
 import type { OutgoingMail, TransportResult } from "./transport";
-import { useImplicitTls } from "./transport-rules";
+import { hasOwnFromAddress, useImplicitTls } from "./transport-rules";
 
 /**
  * SMTP transport, for instances that send through their own relay instead of
@@ -56,6 +56,19 @@ function messageIdFor(mail: OutgoingMail): string | undefined {
 }
 
 export async function sendViaSmtp(mail: OutgoingMail): Promise<TransportResult> {
+  // Refused rather than sent, because the alternative is mail leaving this
+  // relay with nisd2.eu in the From line. The failure is recorded and shows
+  // up in the platform-admin email page naming the variable to set, which is
+  // a better outcome than a message the recipient cannot reply to.
+  if (!hasOwnFromAddress(mail.fromEmail)) {
+    return {
+      ok: false,
+      error:
+        `refusing to send as ${mail.fromEmail}, which is this project's default address ` +
+        "and not yours. Set MAIL_FROM_EMAIL to an address on a domain you control.",
+    };
+  }
+
   try {
     const info = await getTransporter().sendMail({
       from: { name: mail.fromName, address: mail.fromEmail },

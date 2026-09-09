@@ -36,6 +36,29 @@ export function preferConfigured(
 }
 
 /**
+ * The From address this project ships as a default, which belongs to the
+ * hosted instance and to nobody who self-hosts.
+ *
+ * It was harmless while Resend was the only transport: Resend refuses to send
+ * from a domain the account has not verified, so an operator who never set a
+ * From address got a loud rejection. Their own SMTP relay has no such check,
+ * so the same omission would put mail on the wire claiming to come from
+ * nisd2.eu — a domain they do not own, with replies going somewhere they
+ * cannot read, and our deliverability spent on their instance.
+ */
+export const PLATFORM_DEFAULT_FROM_EMAIL = "noreply@nisd2.eu";
+
+/**
+ * Whether an SMTP instance has been told who its mail comes from.
+ *
+ * Sending nothing and saying why beats sending mail with a From line the
+ * operator did not choose, so the SMTP transport refuses on false.
+ */
+export function hasOwnFromAddress(fromEmail: string): boolean {
+  return fromEmail.trim().toLowerCase() !== PLATFORM_DEFAULT_FROM_EMAIL;
+}
+
+/**
  * Whether to open the connection with TLS from the first byte. 465 is the
  * implicit-TLS port; 587 and 25 open in the clear and upgrade with STARTTLS.
  * SMTP_SECURE overrides that pairing, and a blank value is not an override.
