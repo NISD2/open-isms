@@ -1,17 +1,17 @@
 import "@/lib/server-guard";
-import * as React from "react";
 import { render } from "@react-email/render";
+import * as React from "react";
+import type { DbOrTx } from "@/lib/db";
+import { db } from "@/lib/db";
+import { oneClickUnsubscribeUrl } from "@/lib/email/unsubscribe";
+import { env } from "@/lib/env";
+import { getAppUrl } from "@/lib/utils";
+import { loadEmailConsent } from "./consent";
+import type { UngatedEmailTypeId, UserConsentEmailTypeId } from "./email-types";
 import { recordEmailFailure } from "./failure-log";
 import { FROM_EMAIL, FROM_NAME } from "./resend";
-import { configuredTransport, sendViaTransport } from "./transport";
-import { env } from "@/lib/env";
 import { WelcomeEmail } from "./templates/WelcomeEmail";
-import { getAppUrl } from "@/lib/utils";
-import { db } from "@/lib/db";
-import type { DbOrTx } from "@/lib/db";
-import { loadEmailConsent } from "./consent";
-import type { EmailTypeId, UngatedEmailTypeId, UserConsentEmailTypeId } from "./email-types";
-import { oneClickUnsubscribeUrl } from "@/lib/email/unsubscribe";
+import { configuredTransport, sendViaTransport } from "./transport";
 
 interface BaseMailOptions {
   subject: string;

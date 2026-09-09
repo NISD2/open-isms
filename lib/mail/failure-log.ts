@@ -37,9 +37,7 @@ export async function recordEmailFailure(input: {
   const reason = input.error instanceof Error ? input.error.message : String(input.error);
   const recipient = input.recipient ?? "unknown recipient";
 
-  console.error(
-    `[mail] send failed type=${input.emailType} to=${recipient}: ${reason}`,
-  );
+  console.error(`[mail] send failed type=${input.emailType} to=${recipient}: ${reason}`);
 
   try {
     await logAudit({

@@ -353,6 +353,7 @@ export function PlatformAdminPage({
         ].map(({ key, label, icon: Icon, count }) => (
           <button
             key={key}
+            type="button"
             onClick={() => setTab(key)}
             className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
               tab === key
@@ -645,7 +646,10 @@ function SendOneLifecycleButton({ userId, email }: { userId: string; email: stri
     onSuccess: (r) => {
       if (r.skipped) toast.warning(`Nothing sent: ${r.skipped}`);
       else if (r.sent > 0) toast.success(`Sent to ${email}`);
-      else toast.warning(`Nothing sent to ${email} — no longer eligible or already claimed.`);
+      else
+        toast.warning(
+          `Nothing sent to ${email} — no longer eligible or already claimed.`,
+        );
       void utils.platformAdmin.lifecycleQueue.invalidate();
       void utils.platformAdmin.emailActivity.invalidate();
     },
@@ -757,7 +761,9 @@ function DigestQueuePanel() {
             <span className="rounded bg-muted px-1.5 py-0.5 text-xs">weekly</span>
             <PreviewEmailButton template="weekly-digest" />
           </div>
-          <p className="text-xs text-muted-foreground">{EMAIL_TYPE_DESCRIPTIONS.weekly}</p>
+          <p className="text-xs text-muted-foreground">
+            {EMAIL_TYPE_DESCRIPTIONS.weekly}
+          </p>
         </div>
 
         {queue.isLoading && (
