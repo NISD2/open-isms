@@ -1,7 +1,11 @@
-import { z } from "zod";
-import { eq, and, inArray, desc, count } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { router, reviewerProcedure } from "../init";
+import { and, count, desc, eq, inArray } from "drizzle-orm";
+import { z } from "zod";
+import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
+import type { Database } from "@/lib/db";
+import { reviewDecisionEmail, sendMail } from "@/lib/mail";
+import { preferenceFooterFor } from "@/lib/mail/footer";
+import { resolveEmailLocale } from "@/lib/mail/locale";
 import {
   auditLog,
   company,
@@ -10,12 +14,8 @@ import {
   requirement,
   user,
 } from "@/schema";
-import { sendMail, reviewDecisionEmail } from "@/lib/mail";
-import { scheduleDeadlineReminders } from "@/lib/compliance/schedule-notifications";
-import type { Database } from "@/lib/db";
 import { getNis2AssessmentIds } from "../helpers/nis2-scope";
-import { preferenceFooterFor } from "@/lib/mail/footer";
-import { resolveEmailLocale } from "@/lib/mail/locale";
+import { reviewerProcedure, router } from "../init";
 
 export const reviewRouter = router({
   /** All submission statuses for the reviewer's company */
@@ -129,7 +129,7 @@ export const reviewRouter = router({
         action: a.action,
         description: a.description,
         createdAt: a.createdAt,
-        userName: a.userId ? auditUserMap.get(a.userId) ?? null : null,
+        userName: a.userId ? (auditUserMap.get(a.userId) ?? null) : null,
       });
       auditByStatus.set(a.entityId, list);
     }
@@ -140,9 +140,7 @@ export const reviewRouter = router({
       completedAt: r.completedAt,
       reviewedAt: r.reviewedAt,
       reviewFeedback: r.reviewFeedback,
-      submitterName: r.completedBy
-        ? submitterMap.get(r.completedBy) ?? null
-        : null,
+      submitterName: r.completedBy ? (submitterMap.get(r.completedBy) ?? null) : null,
       reviewerName: r.reviewer?.name ?? null,
       requirementCode: r.requirement.code,
       categorySlug: r.requirement.category.slug,
@@ -195,7 +193,12 @@ export const reviewRouter = router({
       const [owned] = await ctx.db
         .select({ id: companyAssessment.id })
         .from(companyAssessment)
-        .where(and(eq(companyAssessment.id, statusRow.assessmentId), eq(companyAssessment.companyId, ctx.companyId)))
+        .where(
+          and(
+            eq(companyAssessment.id, statusRow.assessmentId),
+            eq(companyAssessment.companyId, ctx.companyId),
+          ),
+        )
         .limit(1);
       if (!owned) {
         throw new TRPCError({ code: "FORBIDDEN", message: "Access denied" });
@@ -261,7 +264,12 @@ export const reviewRouter = router({
       const [owned] = await ctx.db
         .select({ id: companyAssessment.id })
         .from(companyAssessment)
-        .where(and(eq(companyAssessment.id, statusRow.assessmentId), eq(companyAssessment.companyId, ctx.companyId)))
+        .where(
+          and(
+            eq(companyAssessment.id, statusRow.assessmentId),
+            eq(companyAssessment.companyId, ctx.companyId),
+          ),
+        )
         .limit(1);
       if (!owned) {
         throw new TRPCError({ code: "FORBIDDEN", message: "Access denied" });
@@ -305,7 +313,7 @@ async function notifySubmitter(
   db: Database,
   statusId: string,
   decision: "approved" | "rejected",
-  feedback?: string | null
+  feedback?: string | null,
 ) {
   try {
     const status = await db.query.companyRequirementStatus.findFirst({
@@ -339,7 +347,8 @@ async function notifySubmitter(
           })
         )?.country ?? null);
 
-    const requirementsEn = (await import("@/messages/requirements/en.json")).default.requirements;
+    const requirementsEn = (await import("@/messages/requirements/en.json")).default
+      .requirements;
     const reqKey = req.code.replace(/\./g, "_") as keyof typeof requirementsEn;
     const reqTitle = requirementsEn[reqKey]?.title ?? req.code;
 

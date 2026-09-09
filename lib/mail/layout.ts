@@ -139,9 +139,10 @@ export function preferenceFooterHtml(footer: PreferenceFooter): string {
 /** Plain-text twin of the footer, for the text/plain alternative. */
 export function preferenceFooterText(footer: PreferenceFooter): string {
   const copy = FOOTER_COPY[footer.locale];
-  return [`${copy.unsubscribe}: ${footer.unsubscribeUrl}`, `${copy.manage}: ${footer.preferencesUrl}`].join(
-    "\n",
-  );
+  return [
+    `${copy.unsubscribe}: ${footer.unsubscribeUrl}`,
+    `${copy.manage}: ${footer.preferencesUrl}`,
+  ].join("\n");
 }
 
 /**

@@ -23,6 +23,7 @@ import type { DbOrTx } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import type { EmailContent } from "@/lib/mail/layout";
 import { BRAND, emailLayout, escapeHtml, safeHeader } from "@/lib/mail/layout";
+import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
 import { getRequirementsMessages, getRequirementTitle } from "@/lib/messages";
 import { getAppUrl } from "@/lib/utils";
 import {
@@ -38,7 +39,6 @@ import {
 } from "@/schema";
 import { NIS2_FRAMEWORK_CODE } from "@/server/trpc/helpers/nis2-scope";
 import { type JourneySummary, summarizeJourneys } from "../journey-progress";
-import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
 import {
   LIFECYCLE_ENTITY_TYPE,
   type LifecycleEmailType,
