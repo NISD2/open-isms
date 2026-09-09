@@ -6380,10 +6380,10 @@
         },
         "q14": {
           "q": "Come è avvenuta la ridenominazione in \"Digital Energy Services\"?",
-          "a": "La precedente categoria di impianto del punto di aggregazione (Buendelstelle) è stata rinominata \"Digital Energy Services\" perché il termine riflette meglio il ruolo crescente dei sistemi informatici e dei processi digitali nel settore energetico rispetto al vecchio nome, strettamente legato all'aggregazione delle letture dei contatori. Più importante del nome è la conseguenza: per questa categoria, la regolamentazione della sicurezza delle informazioni non spetta più al BSIG, bensì agli articoli 5c e seguenti EnWG, ed è competente la Bundesnetzagentur."
+          "a": "La precedente categoria di impianto del punto di aggregazione (Bündelstelle) è stata rinominata \"Digital Energy Services\" perché il termine riflette meglio il ruolo crescente dei sistemi informatici e dei processi digitali nel settore energetico rispetto al vecchio nome, strettamente legato all'aggregazione delle letture dei contatori. Più importante del nome è la conseguenza: per questa categoria, la regolamentazione della sicurezza delle informazioni non spetta più al BSIG, bensì agli articoli 5c e seguenti EnWG, ed è competente la Bundesnetzagentur."
         },
         "q15": {
-          "q": "Cosa significa la modifica normativa per il mio punto di aggregazione (BueStel)?",
+          "q": "Cosa significa la modifica normativa per il mio punto di aggregazione (BüStel)?",
           "a": "Il vostro punto di aggregazione è sottratto alla regolamentazione del BSIG in quanto \"Digital Energy Service\". I requisiti di sicurezza delle informazioni saranno in futuro disciplinati dagli articoli 5c e seguenti EnWG, e l'autorità di vigilanza competente è la Bundesnetzagentur, non più il BSI. Per l'impianto interessato nella categoria 1.1.2 non dovete più fornire evidenze al BSI ai sensi dell'articolo 8a BSIG. Il vostro punto di contatto e i vostri requisiti tecnici cambiano quindi; verificate tempestivamente i requisiti della Bundesnetzagentur."
         },
         "q16": {
@@ -13982,7 +13982,7 @@
       "overview": {
         "heading": "Cos'è questa pagina",
         "p1": "Il whistleblowing è un binario giuridico distinto dalla notifica di incidente NIS 2. Un dipendente, collaboratore o candidato che segnala un fallimento di conformità NIS 2 è tutelato dalla direttiva (UE) 2019/1937. La direttiva elenca esplicitamente la sicurezza delle reti e dei sistemi informativi nel suo allegato, parte I.B, come ambito di segnalazione tutelato.",
-        "p2": "In Germania la Hinweisgeberschutzgesetz (HinSchG, in vigore dal 2 luglio 2023) recepisce la direttiva. Il Bundesamt fuer Justiz ospita il canale esterno centrale. Le entità con 50 o più dipendenti sono tenute a mantenere un canale di segnalazione interno ai sensi della Sezione 12 HinSchG.",
+        "p2": "In Germania la Hinweisgeberschutzgesetz (HinSchG, in vigore dal 2 luglio 2023) recepisce la direttiva. Il Bundesamt für Justiz ospita il canale esterno centrale. Le entità con 50 o più dipendenti sono tenute a mantenere un canale di segnalazione interno ai sensi della Sezione 12 HinSchG.",
         "p3": "Una divulgazione di whistleblowing a un'autorità esterna non sostituisce la notifica di incidente propria dell'entità ai sensi dell'articolo 23 NIS 2 (Sezione 32 BSIG in Germania). Entrambi gli obblighi possono essere innescati dallo stesso evento ed entrambi scorrono sui propri tempi."
       },
       "legalAnchor": {
@@ -14000,8 +14000,8 @@
         },
         "transposition": {
           "label": "HinSchG Sezione 12 (canali di segnalazione interni)",
-          "quote": "Beschaeftigungsgeber mit in der Regel mindestens 50 Beschaeftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschaeftigte zur Abgabe von Meldungen nach diesem Gesetz wenden koennen.",
-          "context": "La soglia dei 50 dipendenti è un dato di organico di norma, non una cifra giornaliera precisa. Le entità al di sotto dei 50 dipendenti possono istituire un canale interno su base volontaria; le entità pari o superiori a 50 devono farlo. Il Bundesamt fuer Justiz gestisce il canale esterno."
+          "quote": "Beschäftigungsgeber mit in der Regel mindestens 50 Beschäftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschäftigte zur Abgabe von Meldungen nach diesem Gesetz wenden können.",
+          "context": "La soglia dei 50 dipendenti è un dato di organico di norma, non una cifra giornaliera precisa. Le entità al di sotto dei 50 dipendenti possono istituire un canale interno su base volontaria; le entità pari o superiori a 50 devono farlo. Il Bundesamt für Justiz gestisce il canale esterno."
         }
       },
       "elements": {
@@ -14016,7 +14016,7 @@
           "channels": {
             "section": "Canali",
             "title": "Prima interno, esterno in parallelo",
-            "body": "Canale interno ai sensi della Sezione 12 HinSchG (50+ dipendenti). Canali esterni ai sensi della Sezione 19 HinSchG: il Bundesamt fuer Justiz come ufficio esterno centrale, oltre alle autorità settoriali. La persona segnalante può scegliere l'uno o l'altro; il considerando 33 della direttiva esprime una preferenza per il canale interno per primo, ma non ne fa una precondizione."
+            "body": "Canale interno ai sensi della Sezione 12 HinSchG (50+ dipendenti). Canali esterni ai sensi della Sezione 19 HinSchG: il Bundesamt für Justiz come ufficio esterno centrale, oltre alle autorità settoriali. La persona segnalante può scegliere l'uno o l'altro; il considerando 33 della direttiva esprime una preferenza per il canale interno per primo, ma non ne fa una precondizione."
           },
           "retention": {
             "section": "Conservazione",
@@ -14046,17 +14046,17 @@
           "bsi": {
             "country": "DE",
             "label": "BSI come autorità settoriale",
-            "body": "Il Bundesamt fuer Sicherheit in der Informationstechnik (BSI) è l'autorità competente per la vigilanza NIS 2 ai sensi della Sezione 61 BSIG. Una segnalazione di whistleblowing che lamenta che un'entità non soddisfa le misure dell'articolo 21 o non si è registrata ai sensi dell'articolo 3, paragrafo 4, finirà tipicamente al BSI attraverso l'instradamento del canale esterno, anche se è presentata in primo luogo al Bundesamt fuer Justiz."
+            "body": "Il Bundesamt für Sicherheit in der Informationstechnik (BSI) è l'autorità competente per la vigilanza NIS 2 ai sensi della Sezione 61 BSIG. Una segnalazione di whistleblowing che lamenta che un'entità non soddisfa le misure dell'articolo 21 o non si è registrata ai sensi dell'articolo 3, paragrafo 4, finirà tipicamente al BSI attraverso l'instradamento del canale esterno, anche se è presentata in primo luogo al Bundesamt für Justiz."
           },
           "bfdi": {
             "country": "DE",
-            "label": "Bundesbeauftragte fuer den Datenschutz und die Informationsfreiheit",
+            "label": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit",
             "body": "Il BfDI è il canale esterno settoriale per le violazioni della protezione dei dati a livello federale. NIS 2 e GDPR si sovrappongono quando un incidente coinvolge dati personali. Una segnalazione di whistleblowing può citare entrambe le basi giuridiche; l'autorità ricevente instrada le parti all'organo competente."
           },
           "bafa": {
             "country": "DE",
-            "label": "Bundesamt fuer Justiz come canale esterno centrale",
-            "body": "Il Bundesamt fuer Justiz gestisce l'ufficio di segnalazione esterno centrale ai sensi della Sezione 19 HinSchG. È l'indirizzo esterno predefinito se non si applica alcun canale settoriale, e instrada le segnalazioni all'autorità di vigilanza competente (BSI, BNetzA, BAFin, BfDI) quando l'oggetto vi ricade."
+            "label": "Bundesamt für Justiz come canale esterno centrale",
+            "body": "Il Bundesamt für Justiz gestisce l'ufficio di segnalazione esterno centrale ai sensi della Sezione 19 HinSchG. È l'indirizzo esterno predefinito se non si applica alcun canale settoriale, e instrada le segnalazioni all'autorità di vigilanza competente (BSI, BNetzA, BAFin, BfDI) quando l'oggetto vi ricade."
           }
         }
       },
@@ -14095,7 +14095,7 @@
           "Hinweisgeberschutzgesetz (HinSchG) del 31 maggio 2023, BGBl. 2023 I Nr. 140. Sezioni 2, 8, 11, 12, 16, 17, 19, 36, 40.",
           "Direttiva (UE) 2022/2555 (NIS 2) del 14 dicembre 2022, articoli 21, 23, 27.",
           "BSI-Gesetz (BSIG), Sezioni 32, 33, 61, 65.",
-          "Bundesamt fuer Justiz, ufficio di segnalazione esterno ai sensi della Sezione 19 HinSchG."
+          "Bundesamt für Justiz, ufficio di segnalazione esterno ai sensi della Sezione 19 HinSchG."
         ]
       },
       "ctaCard": {

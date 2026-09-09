@@ -6380,10 +6380,10 @@
         },
         "q14": {
           "q": "Cum a survenit redenumirea în „Servicii energetice digitale”?",
-          "a": "Vechea categorie de instalație a punctului de agregare (Buendelstelle) a fost redenumită „Servicii energetice digitale” deoarece termenul reflectă mai bine rolul în creștere al sistemelor IT și al proceselor digitale în sectorul energetic decât vechea denumire, care era strâns legată de agregarea citirilor de contor. Mai importantă decât denumirea este consecința: pentru această categorie, reglementarea securității informației nu mai revine BSIG, ci §5c și urm. EnWG, iar Bundesnetzagentur este responsabilă."
+          "a": "Vechea categorie de instalație a punctului de agregare (Bündelstelle) a fost redenumită „Servicii energetice digitale” deoarece termenul reflectă mai bine rolul în creștere al sistemelor IT și al proceselor digitale în sectorul energetic decât vechea denumire, care era strâns legată de agregarea citirilor de contor. Mai importantă decât denumirea este consecința: pentru această categorie, reglementarea securității informației nu mai revine BSIG, ci §5c și urm. EnWG, iar Bundesnetzagentur este responsabilă."
         },
         "q15": {
-          "q": "Ce înseamnă modificarea legală pentru punctul meu de agregare (BueStel)?",
+          "q": "Ce înseamnă modificarea legală pentru punctul meu de agregare (BüStel)?",
           "a": "Punctul dumneavoastră de agregare este eliminat din reglementarea BSIG ca „Serviciu energetic digital”. Cerințele privind securitatea informației vor fi în viitor reglementate de §5c și urm. EnWG, iar autoritatea de supraveghere competentă este Bundesnetzagentur, nu mai BSI. Pentru instalația afectată din categoria 1.1.2, nu mai trebuie să furnizați dovezi către BSI în temeiul §8a BSIG. Punctul dumneavoastră de contact și cerințele tehnice se schimbă, prin urmare; verificați prompt cerințele Bundesnetzagentur."
         },
         "q16": {
@@ -13982,7 +13982,7 @@
       "overview": {
         "heading": "Ce este această pagină",
         "p1": "Avertizarea de integritate este o cale juridică separată de raportarea incidentelor NIS 2. Un angajat, contractor sau candidat la un loc de muncă care raportează un eșec de conformitate NIS 2 este protejat de Directiva UE 2019/1937. Directiva enumeră în mod explicit securitatea rețelelor și a sistemelor informatice în Anexa, Partea I.B, ca domeniu de raportare protejat.",
-        "p2": "În Germania, Hinweisgeberschutzgesetz (HinSchG, în vigoare de la 2 iulie 2023) transpune Directiva. Bundesamt fuer Justiz găzduiește canalul extern central. Entitățile cu 50 sau mai mulți angajați sunt obligate să mențină un canal intern de raportare conform articolului 12 din HinSchG.",
+        "p2": "În Germania, Hinweisgeberschutzgesetz (HinSchG, în vigoare de la 2 iulie 2023) transpune Directiva. Bundesamt für Justiz găzduiește canalul extern central. Entitățile cu 50 sau mai mulți angajați sunt obligate să mențină un canal intern de raportare conform articolului 12 din HinSchG.",
         "p3": "O divulgare de avertizare către o autoritate externă nu înlocuiește propria notificare de incident a entității conform Articolului 23 NIS 2 (articolul 32 BSIG în Germania). Ambele obligații pot fi declanșate de același eveniment și ambele rulează pe propriile ceasuri."
       },
       "legalAnchor": {
@@ -14000,8 +14000,8 @@
         },
         "transposition": {
           "label": "HinSchG articolul 12 (canale interne de raportare)",
-          "quote": "Beschaeftigungsgeber mit in der Regel mindestens 50 Beschaeftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschaeftigte zur Abgabe von Meldungen nach diesem Gesetz wenden koennen.",
-          "context": "Pragul de 50 de angajați este numărul de angajați ca regulă, nu o cifră zilnică exactă. Entitățile sub 50 de angajați pot înființa voluntar un canal intern; entitățile la sau peste 50 trebuie. Bundesamt fuer Justiz operează canalul extern."
+          "quote": "Beschäftigungsgeber mit in der Regel mindestens 50 Beschäftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschäftigte zur Abgabe von Meldungen nach diesem Gesetz wenden können.",
+          "context": "Pragul de 50 de angajați este numărul de angajați ca regulă, nu o cifră zilnică exactă. Entitățile sub 50 de angajați pot înființa voluntar un canal intern; entitățile la sau peste 50 trebuie. Bundesamt für Justiz operează canalul extern."
         }
       },
       "elements": {
@@ -14016,7 +14016,7 @@
           "channels": {
             "section": "Canale",
             "title": "Intern întâi, extern în paralel",
-            "body": "Canal intern conform articolului 12 din HinSchG (50 sau mai mulți angajați). Canale externe conform articolului 19 din HinSchG: Bundesamt fuer Justiz ca oficiu extern central, plus autorități specifice sectorului. Persoana care raportează poate alege oricare; considerentul 33 al Directivei exprimă o preferință pentru canalul intern întâi, dar nu îl face o condiție prealabilă."
+            "body": "Canal intern conform articolului 12 din HinSchG (50 sau mai mulți angajați). Canale externe conform articolului 19 din HinSchG: Bundesamt für Justiz ca oficiu extern central, plus autorități specifice sectorului. Persoana care raportează poate alege oricare; considerentul 33 al Directivei exprimă o preferință pentru canalul intern întâi, dar nu îl face o condiție prealabilă."
           },
           "retention": {
             "section": "Păstrare",
@@ -14046,17 +14046,17 @@
           "bsi": {
             "country": "DE",
             "label": "BSI ca autoritate sectorială",
-            "body": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI) este autoritatea competentă pentru supravegherea NIS 2 conform articolului 61 BSIG. O raportare de avertizare care susține că o entitate nu îndeplinește măsurile din Articolul 21 sau nu s-a înregistrat conform articolului 3 alineatul (4) va ajunge de regulă la BSI prin direcționarea canalului extern, chiar dacă este depusă întâi la Bundesamt fuer Justiz."
+            "body": "Bundesamt für Sicherheit in der Informationstechnik (BSI) este autoritatea competentă pentru supravegherea NIS 2 conform articolului 61 BSIG. O raportare de avertizare care susține că o entitate nu îndeplinește măsurile din Articolul 21 sau nu s-a înregistrat conform articolului 3 alineatul (4) va ajunge de regulă la BSI prin direcționarea canalului extern, chiar dacă este depusă întâi la Bundesamt für Justiz."
           },
           "bfdi": {
             "country": "DE",
-            "label": "Bundesbeauftragte fuer den Datenschutz und die Informationsfreiheit",
+            "label": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit",
             "body": "BfDI este canalul extern specific sectorului pentru încălcările federale de protecție a datelor. NIS 2 și GDPR se suprapun atunci când un incident implică date cu caracter personal. O raportare de avertizare poate numi ambele temeiuri juridice; autoritatea care o primește direcționează părțile către organul competent."
           },
           "bafa": {
             "country": "DE",
-            "label": "Bundesamt fuer Justiz ca canal extern central",
-            "body": "Bundesamt fuer Justiz operează oficiul extern central de raportare conform articolului 19 din HinSchG. Este adresa externă implicită dacă nu se aplică niciun canal specific sectorului și direcționează raportările către supraveghetorul competent (BSI, BNetzA, BAFin, BfDI) atunci când obiectul se află acolo."
+            "label": "Bundesamt für Justiz ca canal extern central",
+            "body": "Bundesamt für Justiz operează oficiul extern central de raportare conform articolului 19 din HinSchG. Este adresa externă implicită dacă nu se aplică niciun canal specific sectorului și direcționează raportările către supraveghetorul competent (BSI, BNetzA, BAFin, BfDI) atunci când obiectul se află acolo."
           }
         }
       },
@@ -14095,7 +14095,7 @@
           "Hinweisgeberschutzgesetz (HinSchG) din 31 mai 2023, BGBl. 2023 I Nr. 140. Articolele 2, 8, 11, 12, 16, 17, 19, 36, 40.",
           "Directiva (UE) 2022/2555 (NIS 2) din 14 decembrie 2022, Articolele 21, 23, 27.",
           "BSI-Gesetz (BSIG), Articolele 32, 33, 61, 65.",
-          "Bundesamt fuer Justiz, oficiul extern de raportare conform articolului 19 din HinSchG."
+          "Bundesamt für Justiz, oficiul extern de raportare conform articolului 19 din HinSchG."
         ]
       },
       "ctaCard": {
