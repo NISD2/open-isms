@@ -233,15 +233,13 @@ export function SchemaForm<T extends z.ZodRawShape>({
                 currentGroup !== prevGroup &&
                 (currentGroup || prevGroup);
 
-              // Resolve label: override > i18n > humanized
-              const i18nLabelKey = `fields.${meta.key}`;
+              // Same resolution the LLM prefill payload uses. Kept as one
+              // function on purpose: when these were two copies of the same
+              // expression, adding a label source to one would have prompted
+              // the model with a name the user never saw, and nothing compares
+              // them.
+              const label = resolveLabel(meta);
               const i18nDescKey = `fieldDescriptions.${meta.key}`;
-              const label =
-                override?.label ??
-                (translationNamespace && tNs.has(i18nLabelKey)
-                  ? tNs(i18nLabelKey)
-                  : null) ??
-                meta.label;
               const descriptionText =
                 override?.description ??
                 (translationNamespace && tNs.has(i18nDescKey) ? tNs(i18nDescKey) : null);

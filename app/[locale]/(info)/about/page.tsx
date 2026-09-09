@@ -3,6 +3,7 @@ import { trainingLessonProgress } from "@nisd2/isms-schema/tables/training-progr
 import { and, count, countDistinct, eq, sql } from "drizzle-orm";
 import { Globe } from "lucide-react";
 import type { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "@/components/JsonLd";
@@ -20,8 +21,16 @@ import { buildAboutPageJsonLd, type Locale, pageAlternates, pageOg } from "@/lib
  * the DB is unreachable (e.g. local dev without postgres). Same query shape
  * the dedicated /pitch page used before the consolidation; the route now
  * redirects here.
+ *
+ * Cached, because /about is public and ten locales deep and these three
+ * queries were running on every single request: a COUNT over `user` plus two
+ * scans of `training_lesson_progress`, which no index leads with `course_id`
+ * for. A page-level `export const revalidate` does not help here — the (info)
+ * layout sets `dynamic = "force-dynamic"`, which is why neither /about nor
+ * /status appears in the prerender manifest despite status/page.tsx
+ * declaring one. Caching the data rather than the route sidesteps that.
  */
-async function getPitchStats() {
+async function queryPitchStats() {
   try {
     const [usersResult, startsResult, completionsResult] = await Promise.all([
       db.select({ count: count(user.id) }).from(user),
@@ -50,6 +59,14 @@ async function getPitchStats() {
     return { users: 158, courseStarts: 76, courseCompletions: 0 };
   }
 }
+
+/**
+ * Ten minutes. These are headline numbers on a marketing page, not a
+ * dashboard; nobody is watching them tick.
+ */
+const getPitchStats = unstable_cache(queryPitchStats, ["about-pitch-stats"], {
+  revalidate: 600,
+});
 
 function GithubIcon({ className }: { className?: string }) {
   return (

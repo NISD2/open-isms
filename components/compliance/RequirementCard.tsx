@@ -1,31 +1,27 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { Badge } from "@/components/ui/badge";
 import {
-  Avatar,
-  AvatarFallback,
-} from "@/components/ui/avatar";
+  AlertTriangle,
+  Ban,
+  CheckCircle2,
+  ChevronRight,
+  Circle,
+  Clock,
+  Database,
+  Info,
+  XCircle,
+} from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { getInitials } from "@/lib/utils";
-import {
-  CheckCircle2,
-  XCircle,
-  Circle,
-  Clock,
-  Ban,
-  AlertTriangle,
-  ChevronRight,
-  Database,
-  Info,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
+import { cn, getInitials } from "@/lib/utils";
 import { DeadlineBadge } from "./DeadlineBadge";
 import { PriorityBadge } from "./RequirementConstants";
 
@@ -55,11 +51,15 @@ interface RequirementCardProps {
 
 const STATUS_BORDER: Record<Status, string> = {
   not_started: "border-border",
-  in_progress: "border-l-2 border-l-blue-500 border-blue-200/50 bg-blue-50/30 dark:border-blue-900/50 dark:bg-blue-950/10",
-  completed: "border-l-2 border-l-emerald-500 border-emerald-200/60 bg-emerald-50/30 dark:border-emerald-900/30 dark:bg-emerald-950/10",
+  in_progress:
+    "border-l-2 border-l-blue-500 border-blue-200/50 bg-blue-50/30 dark:border-blue-900/50 dark:bg-blue-950/10",
+  completed:
+    "border-l-2 border-l-emerald-500 border-emerald-200/60 bg-emerald-50/30 dark:border-emerald-900/30 dark:bg-emerald-950/10",
   not_applicable: "border-muted-foreground/20 bg-muted/30 opacity-60",
-  needs_review: "border-l-2 border-l-amber-500 border-amber-200/50 bg-amber-50/30 dark:border-amber-900/50 dark:bg-amber-950/10",
-  approved: "border-l-2 border-l-emerald-500 border-emerald-200/60 bg-emerald-50/30 dark:border-emerald-900/30 dark:bg-emerald-950/10",
+  needs_review:
+    "border-l-2 border-l-amber-500 border-amber-200/50 bg-amber-50/30 dark:border-amber-900/50 dark:bg-amber-950/10",
+  approved:
+    "border-l-2 border-l-emerald-500 border-emerald-200/60 bg-emerald-50/30 dark:border-emerald-900/30 dark:bg-emerald-950/10",
   rejected: "border-l-2 border-l-red-500 border-destructive/30 bg-destructive/5",
 };
 
@@ -104,9 +104,14 @@ export function RequirementCard({
 
   return (
     <Link
+      // Scroll target for the segmented progress bar above the list:
+      // ComplianceProgress does getElementById(seg.code) and both sides get
+      // their code from the same requirement row. Without this the click was
+      // a silent no-op. scroll-mt keeps the card clear of the sticky header.
+      id={code}
       href={href as never}
       className={cn(
-        "group flex gap-4 rounded-lg border p-5 transition-colors hover:border-foreground/20 hover:bg-accent/50",
+        "group flex scroll-mt-24 gap-4 rounded-lg border p-5 transition-colors hover:border-foreground/20 hover:bg-accent/50",
         STATUS_BORDER[status],
       )}
     >
@@ -165,7 +170,11 @@ export function RequirementCard({
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <DeadlineBadge nextReviewDate={nextReviewDate ?? null} frequency={frequency} status={status} />
+          <DeadlineBadge
+            nextReviewDate={nextReviewDate ?? null}
+            frequency={frequency}
+            status={status}
+          />
           {assigneeName && (
             <TooltipProvider delayDuration={200}>
               <Tooltip>
