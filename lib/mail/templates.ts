@@ -119,7 +119,14 @@ export function categoryAssignedEmail(opts: {
   categoryUrl: string;
   footer?: PreferenceFooter;
 }): EmailContent {
-  const { assigneeName, categoryName, categoryCode, companyName, assignerName, categoryUrl } = opts;
+  const {
+    assigneeName,
+    categoryName,
+    categoryCode,
+    companyName,
+    assignerName,
+    categoryUrl,
+  } = opts;
   const safeAssignee = escapeHtml(assigneeName);
   const safeCatName = escapeHtml(categoryName);
   const safeCatCode = escapeHtml(categoryCode);
@@ -128,7 +135,8 @@ export function categoryAssignedEmail(opts: {
 
   return {
     subject: `${safeHeader(assignerName)} assigned you ${safeHeader(categoryName)}`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">New Assignment</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
           Hi ${safeAssignee}, ${safeAssigner} has assigned you to <strong>${safeCatName}</strong> (${safeCatCode}) in ${safeCo}.
@@ -139,7 +147,9 @@ export function categoryAssignedEmail(opts: {
         <a href="${categoryUrl}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
           Go to ${safeCatCode}
         </a>
-    `, opts.footer),
+    `,
+      opts.footer,
+    ),
     text: [
       `New Assignment`,
       ``,
@@ -170,7 +180,8 @@ export function categoryUnassignedEmail(opts: {
 
   return {
     subject: `You are no longer assigned to ${safeHeader(categoryName)}`,
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Assignment Removed</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
           Hi ${safeAssignee}, you have been unassigned from <strong>${safeCatName}</strong> (${safeCatCode}) in ${safeCo}.
@@ -178,7 +189,9 @@ export function categoryUnassignedEmail(opts: {
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0;">
           If you believe this was a mistake, please contact your team administrator.
         </p>
-    `, opts.footer),
+    `,
+      opts.footer,
+    ),
     text: [
       `Assignment Removed`,
       ``,
@@ -211,16 +224,20 @@ export function reviewDecisionEmail(opts: {
   const safeFeedback = feedback ? escapeHtml(feedback) : null;
 
   return {
-    subject: decision === "approved"
-      ? `${safeHeader(requirementCode)} was approved`
-      : `${safeHeader(requirementCode)} needs another look`,
-    html: emailLayout(`
+    subject:
+      decision === "approved"
+        ? `${safeHeader(requirementCode)} was approved`
+        : `${safeHeader(requirementCode)} needs another look`,
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Submission ${label}</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">
           Hi ${safeName}, your submission for <strong>${safeCode}</strong> (${safeTitle}) has been <span style="color: ${color}; font-weight: 600;">${decision}</span>.
         </p>
         ${safeFeedback ? `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 16px 0 0; padding: 12px; background: ${BRAND.muted}; border-radius: 6px;"><strong>Feedback:</strong> ${safeFeedback}</p>` : ""}
-    `, opts.footer),
+    `,
+      opts.footer,
+    ),
     text: [
       `Submission ${label}`,
       ``,
@@ -377,7 +394,11 @@ function continueButtonHtml(nextStep: DigestNextStep, campaign: DigestCampaign):
     </a>`;
 }
 
-function dashboardButtonHtml(dashboardUrl: string, campaign: DigestCampaign, label: string): string {
+function dashboardButtonHtml(
+  dashboardUrl: string,
+  campaign: DigestCampaign,
+  label: string,
+): string {
   return `
     <a href="${withUtm(dashboardUrl, campaign)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
       ${escapeHtml(label)}
@@ -393,9 +414,19 @@ export function dailyDigestEmail(opts: {
   nextStep: DigestNextStep | null;
   compliancePercentage: string;
   dashboardUrl: string;
-  unsubscribeUrl: string;
+  footer: PreferenceFooter;
 }): EmailContent {
-  const { recipientName, companyName, overdueItems, urgentItems, upcomingItems, nextStep, compliancePercentage, dashboardUrl, unsubscribeUrl } = opts;
+  const {
+    recipientName,
+    companyName,
+    overdueItems,
+    urgentItems,
+    upcomingItems,
+    nextStep,
+    compliancePercentage,
+    dashboardUrl,
+    footer,
+  } = opts;
   const safeRecipient = escapeHtml(recipientName);
   const safeCo = escapeHtml(companyName);
   const safePct = escapeHtml(compliancePercentage);
@@ -411,7 +442,8 @@ export function dailyDigestEmail(opts: {
           ? `${urgentItems.length} due this week at ${companyName}`
           : `${upcomingItems.length} deadlines coming up at ${companyName}`,
     ),
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 8px; color: ${BRAND.foreground};">Daily Compliance Digest</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 4px;">
           Hi ${safeRecipient}, here is your daily summary for <strong>${safeCo}</strong>.
@@ -434,10 +466,9 @@ export function dailyDigestEmail(opts: {
         <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">
           You are receiving this digest because you are a member of ${safeCo}.
         </p>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 16px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe from digest emails</a>
-        </p>
-    `),
+    `,
+      footer,
+    ),
     text: [
       `Daily Compliance Digest: ${companyName}`,
       ``,
@@ -448,10 +479,18 @@ export function dailyDigestEmail(opts: {
         ? [`Overdue (${overdueItems.length}):`, ...overdueItems.map(digestItemText), ``]
         : []),
       ...(urgentItems.length > 0
-        ? [`Due This Week (${urgentItems.length}):`, ...urgentItems.map(digestItemText), ``]
+        ? [
+            `Due This Week (${urgentItems.length}):`,
+            ...urgentItems.map(digestItemText),
+            ``,
+          ]
         : []),
       ...(upcomingItems.length > 0
-        ? [`Upcoming (${upcomingItems.length}):`, ...upcomingItems.map(digestItemText), ``]
+        ? [
+            `Upcoming (${upcomingItems.length}):`,
+            ...upcomingItems.map(digestItemText),
+            ``,
+          ]
         : []),
       ...(nextStep
         ? [
@@ -463,7 +502,7 @@ export function dailyDigestEmail(opts: {
         : []),
       `View dashboard: ${withUtm(dashboardUrl, "daily_digest")}`,
       ``,
-      `Unsubscribe from digest emails: ${unsubscribeUrl}`,
+      preferenceFooterText(footer),
     ].join("\n"),
   };
 }
@@ -483,7 +522,7 @@ export function weeklyManagementDigestEmail(opts: {
   completedRequirements: number;
   nextStep: DigestNextStep | null;
   dashboardUrl: string;
-  unsubscribeUrl: string;
+  footer: PreferenceFooter;
 }): EmailContent {
   const {
     recipientName,
@@ -496,7 +535,7 @@ export function weeklyManagementDigestEmail(opts: {
     completedRequirements,
     nextStep,
     dashboardUrl,
-    unsubscribeUrl,
+    footer,
   } = opts;
 
   const pct = Math.min(100, Math.max(0, parseFloat(compliancePercentage) || 0));
@@ -511,7 +550,8 @@ export function weeklyManagementDigestEmail(opts: {
     subject: safeHeader(
       `${companyName} is at ${compliancePercentage}% on NIS 2 this week`,
     ),
-    html: emailLayout(`
+    html: emailLayout(
+      `
         <h2 style="margin: 0 0 8px; color: ${BRAND.foreground};">Weekly Management Report</h2>
         <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">
           Hi ${safeRecipient}, here is the weekly compliance summary for <strong>${safeCo}</strong>.
@@ -565,10 +605,9 @@ export function weeklyManagementDigestEmail(opts: {
           This email serves as documentation of management notification per Art. 20 NIS 2 / &sect;38 BSIG.<br/>
           Diese E-Mail dient als Nachweis der Leitungsunterrichtung gem&auml;&szlig; Art. 20 NIS 2 / &sect;38 BSIG.
         </div>
-        <p style="color: ${BRAND.mutedForeground}; font-size: 12px; margin: 16px 0 0; line-height: 1.5; border-top: 1px solid ${BRAND.border}; padding-top: 16px;">
-          <a href="${unsubscribeUrl}" style="color: ${BRAND.mutedForeground};">Unsubscribe from digest emails</a>
-        </p>
-    `),
+    `,
+      footer,
+    ),
     text: [
       `Weekly Management Report: ${companyName}`,
       ``,
@@ -601,7 +640,7 @@ export function weeklyManagementDigestEmail(opts: {
       `This email serves as documentation of management notification per Art. 20 NIS 2 / §38 BSIG.`,
       `Diese E-Mail dient als Nachweis der Leitungsunterrichtung gemäß Art. 20 NIS 2 / §38 BSIG.`,
       ``,
-      `Unsubscribe from digest emails: ${unsubscribeUrl}`,
+      preferenceFooterText(footer),
     ].join("\n"),
   };
 }
@@ -619,9 +658,14 @@ export function supplierIncidentBroadcastEmail(opts: {
   profileUrl: string;
   unsubscribeUrl: string;
 }): EmailContent {
-  const { supplierName, title, body, severity, publishedAt, profileUrl, unsubscribeUrl } = opts;
+  const { supplierName, title, body, severity, publishedAt, profileUrl, unsubscribeUrl } =
+    opts;
   const severityColor =
-    severity === "critical" ? SEVERITY.destructive : severity === "warning" ? SEVERITY.warning : "#2563eb";
+    severity === "critical"
+      ? SEVERITY.destructive
+      : severity === "warning"
+        ? SEVERITY.warning
+        : "#2563eb";
   const severityLabel = severity.charAt(0).toUpperCase() + severity.slice(1);
   const safeSeverityLabel = escapeHtml(severityLabel);
   const safeName = escapeHtml(supplierName);
@@ -714,7 +758,9 @@ export function entityInvitesSupplierEmail(opts: {
       `Accept and create your profile: ${inviteUrl}`,
       ``,
       `This link expires in 30 days. You do not need to be NIS2-regulated yourself to use the supplier portal.`,
-    ].filter(Boolean).join("\n"),
+    ]
+      .filter(Boolean)
+      .join("\n"),
   };
 }
 
@@ -731,7 +777,9 @@ export function newUserSignupEmail(opts: {
   const safeEmail = escapeHtml(userEmail);
   const safeName = escapeHtml(userName);
   const mailtoSubject = encodeURIComponent(`Welcome to NIS2: quick question`);
-  const mailtoBody = encodeURIComponent(`Hi ${userName},\n\nI saw you just signed up on nisd2.eu. Welcome!\n\nI'd love to learn a bit about what you're looking for. Are you exploring NIS2 compliance for your company, or just researching the topic?\n\nHappy to help either way.\n\nBest,\n`);
+  const mailtoBody = encodeURIComponent(
+    `Hi ${userName},\n\nI saw you just signed up on nisd2.eu. Welcome!\n\nI'd love to learn a bit about what you're looking for. Are you exploring NIS2 compliance for your company, or just researching the topic?\n\nHappy to help either way.\n\nBest,\n`,
+  );
   const mailtoUrl = escapeHtml(
     `mailto:${encodeURIComponent(userEmail)}?subject=${mailtoSubject}&body=${mailtoBody}`,
   );
@@ -790,7 +838,9 @@ export function supplierAddedYouEmail(opts: {
       profileUrl ? `View profile: ${profileUrl}` : "",
       ``,
       `Unsubscribe: ${unsubscribeUrl}`,
-    ].filter(Boolean).join("\n"),
+    ]
+      .filter(Boolean)
+      .join("\n"),
   };
 }
 
@@ -878,7 +928,8 @@ const VERIFICATION_COPY: Record<
   de: {
     subjectPrefix: "NISD2 Bestätigungscode",
     heading: "E-Mail bestätigen",
-    intro: "Bitte gib diesen Code in der Anmeldung ein, um deine E-Mail-Adresse zu bestätigen.",
+    intro:
+      "Bitte gib diesen Code in der Anmeldung ein, um deine E-Mail-Adresse zu bestätigen.",
     expiryNote: "Der Code ist 10 Minuten gültig.",
     ignoreNote: "Falls du dich nicht registriert hast, ignoriere diese E-Mail.",
   },
@@ -899,21 +950,24 @@ const VERIFICATION_COPY: Record<
   fr: {
     subjectPrefix: "Code de vérification NISD2",
     heading: "Vérifiez votre e-mail",
-    intro: "Saisissez ce code sur l'écran de connexion pour vérifier votre adresse e-mail.",
+    intro:
+      "Saisissez ce code sur l'écran de connexion pour vérifier votre adresse e-mail.",
     expiryNote: "Le code est valable 10 minutes.",
     ignoreNote: "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail.",
   },
   it: {
     subjectPrefix: "Codice di verifica NISD2",
     heading: "Verifica la tua e-mail",
-    intro: "Inserisci questo codice nella schermata di accesso per verificare il tuo indirizzo e-mail.",
+    intro:
+      "Inserisci questo codice nella schermata di accesso per verificare il tuo indirizzo e-mail.",
     expiryNote: "Il codice è valido per 10 minuti.",
     ignoreNote: "Se non hai richiesto questa operazione, ignora questa e-mail.",
   },
   es: {
     subjectPrefix: "Código de verificación de NISD2",
     heading: "Verifica tu correo electrónico",
-    intro: "Introduce este código en la pantalla de inicio de sesión para verificar tu dirección de correo electrónico.",
+    intro:
+      "Introduce este código en la pantalla de inicio de sesión para verificar tu dirección de correo electrónico.",
     expiryNote: "El código es válido durante 10 minutos.",
     ignoreNote: "Si no has solicitado esto, ignora este correo electrónico.",
   },
@@ -934,14 +988,16 @@ const VERIFICATION_COPY: Record<
   pt: {
     subjectPrefix: "Código de verificação NISD2",
     heading: "Verifique o seu e-mail",
-    intro: "Introduza este código no ecrã de início de sessão para verificar o seu endereço de e-mail.",
+    intro:
+      "Introduza este código no ecrã de início de sessão para verificar o seu endereço de e-mail.",
     expiryNote: "O código é válido durante 10 minutos.",
     ignoreNote: "Se não solicitou isto, ignore este e-mail.",
   },
   ro: {
     subjectPrefix: "Cod de verificare NISD2",
     heading: "Verificați-vă adresa de e-mail",
-    intro: "Introduceți acest cod în ecranul de autentificare pentru a vă verifica adresa de e-mail.",
+    intro:
+      "Introduceți acest cod în ecranul de autentificare pentru a vă verifica adresa de e-mail.",
     expiryNote: "Codul este valabil timp de 10 minute.",
     ignoreNote: "Dacă nu ați solicitat acest lucru, ignorați acest e-mail.",
   },
@@ -997,72 +1053,88 @@ const PASSWORD_RESET_COPY: Record<
   de: {
     subjectPrefix: "NISD2 Passwort zurücksetzen",
     heading: "Passwort zurücksetzen",
-    intro: "Gib diesen Code zusammen mit deinem neuen Passwort ein, um dein Passwort zurückzusetzen.",
+    intro:
+      "Gib diesen Code zusammen mit deinem neuen Passwort ein, um dein Passwort zurückzusetzen.",
     expiryNote: "Der Code ist 10 Minuten gültig.",
-    ignoreNote: "Falls du das nicht angefordert hast, ignoriere diese E-Mail. Dein Passwort bleibt unverändert.",
+    ignoreNote:
+      "Falls du das nicht angefordert hast, ignoriere diese E-Mail. Dein Passwort bleibt unverändert.",
   },
   en: {
     subjectPrefix: "NISD2 password reset code",
     heading: "Reset your password",
     intro: "Enter this code together with your new password to complete the reset.",
     expiryNote: "The code is valid for 10 minutes.",
-    ignoreNote: "If you did not request this, ignore this email. Your password is unchanged.",
+    ignoreNote:
+      "If you did not request this, ignore this email. Your password is unchanged.",
   },
   nl: {
     subjectPrefix: "NISD2 wachtwoord resetcode",
     heading: "Wachtwoord opnieuw instellen",
-    intro: "Voer deze code samen met je nieuwe wachtwoord in om het opnieuw instellen te voltooien.",
+    intro:
+      "Voer deze code samen met je nieuwe wachtwoord in om het opnieuw instellen te voltooien.",
     expiryNote: "De code is 10 minuten geldig.",
-    ignoreNote: "Heb je dit niet aangevraagd? Negeer deze e-mail. Je wachtwoord blijft ongewijzigd.",
+    ignoreNote:
+      "Heb je dit niet aangevraagd? Negeer deze e-mail. Je wachtwoord blijft ongewijzigd.",
   },
   fr: {
     subjectPrefix: "Code de réinitialisation du mot de passe NISD2",
     heading: "Réinitialisez votre mot de passe",
-    intro: "Saisissez ce code avec votre nouveau mot de passe pour terminer la réinitialisation.",
+    intro:
+      "Saisissez ce code avec votre nouveau mot de passe pour terminer la réinitialisation.",
     expiryNote: "Le code est valable 10 minutes.",
-    ignoreNote: "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail. Votre mot de passe reste inchangé.",
+    ignoreNote:
+      "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail. Votre mot de passe reste inchangé.",
   },
   it: {
     subjectPrefix: "Codice di reimpostazione della password NISD2",
     heading: "Reimposta la tua password",
-    intro: "Inserisci questo codice insieme alla tua nuova password per completare la reimpostazione.",
+    intro:
+      "Inserisci questo codice insieme alla tua nuova password per completare la reimpostazione.",
     expiryNote: "Il codice è valido per 10 minuti.",
-    ignoreNote: "Se non hai richiesto questa operazione, ignora questa e-mail. La tua password rimane invariata.",
+    ignoreNote:
+      "Se non hai richiesto questa operazione, ignora questa e-mail. La tua password rimane invariata.",
   },
   es: {
     subjectPrefix: "Código de restablecimiento de contraseña de NISD2",
     heading: "Restablece tu contraseña",
-    intro: "Introduce este código junto con tu nueva contraseña para completar el restablecimiento.",
+    intro:
+      "Introduce este código junto con tu nueva contraseña para completar el restablecimiento.",
     expiryNote: "El código es válido durante 10 minutos.",
-    ignoreNote: "Si no has solicitado esto, ignora este correo electrónico. Tu contraseña no se ha modificado.",
+    ignoreNote:
+      "Si no has solicitado esto, ignora este correo electrónico. Tu contraseña no se ha modificado.",
   },
   pl: {
     subjectPrefix: "Kod resetowania hasła NISD2",
     heading: "Zresetuj swoje hasło",
     intro: "Wprowadź ten kod razem z nowym hasłem, aby zakończyć resetowanie.",
     expiryNote: "Kod jest ważny przez 10 minut.",
-    ignoreNote: "Jeśli to nie Ty wysłałeś tę prośbę, zignoruj tę wiadomość. Twoje hasło pozostaje bez zmian.",
+    ignoreNote:
+      "Jeśli to nie Ty wysłałeś tę prośbę, zignoruj tę wiadomość. Twoje hasło pozostaje bez zmian.",
   },
   cs: {
     subjectPrefix: "Kód pro obnovení hesla NISD2",
     heading: "Obnovte své heslo",
     intro: "Zadejte tento kód spolu s novým heslem a dokončete obnovení.",
     expiryNote: "Kód je platný 10 minut.",
-    ignoreNote: "Pokud jste o to nežádali, tento e-mail ignorujte. Vaše heslo zůstává beze změny.",
+    ignoreNote:
+      "Pokud jste o to nežádali, tento e-mail ignorujte. Vaše heslo zůstává beze změny.",
   },
   pt: {
     subjectPrefix: "Código de redefinição de palavra-passe NISD2",
     heading: "Redefina a sua palavra-passe",
-    intro: "Introduza este código juntamente com a sua nova palavra-passe para concluir a redefinição.",
+    intro:
+      "Introduza este código juntamente com a sua nova palavra-passe para concluir a redefinição.",
     expiryNote: "O código é válido durante 10 minutos.",
-    ignoreNote: "Se não solicitou isto, ignore este e-mail. A sua palavra-passe permanece inalterada.",
+    ignoreNote:
+      "Se não solicitou isto, ignore este e-mail. A sua palavra-passe permanece inalterada.",
   },
   ro: {
     subjectPrefix: "Cod de resetare a parolei NISD2",
     heading: "Resetați-vă parola",
     intro: "Introduceți acest cod împreună cu noua parolă pentru a finaliza resetarea.",
     expiryNote: "Codul este valabil timp de 10 minute.",
-    ignoreNote: "Dacă nu ați solicitat acest lucru, ignorați acest e-mail. Parola dumneavoastră rămâne neschimbată.",
+    ignoreNote:
+      "Dacă nu ați solicitat acest lucru, ignorați acest e-mail. Parola dumneavoastră rămâne neschimbată.",
   },
 };
 
@@ -1090,8 +1162,16 @@ export function newsletterEmail(opts: {
   /** Public permalink for the "view in browser" link. */
   viewInBrowserUrl?: string | null;
 }): EmailContent {
-  const { subject, preheader, bodyHtml, bodyText, unsubscribeUrl, forwardUrl, cta, viewInBrowserUrl } =
-    opts;
+  const {
+    subject,
+    preheader,
+    bodyHtml,
+    bodyText,
+    unsubscribeUrl,
+    forwardUrl,
+    cta,
+    viewInBrowserUrl,
+  } = opts;
 
   // Hidden preview text: shown by most clients next to the subject line,
   // not rendered in the body. Kept short so following content does not leak in.

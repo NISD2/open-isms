@@ -24,6 +24,7 @@ mock.module("@/lib/env", () => ({
 
 const { preferenceFooterFor } = await import("./footer");
 const { preferenceFooterHtml, preferenceFooterText } = await import("./layout");
+const { dailyDigestEmail } = await import("./templates");
 
 const LOCALES = ["de", "en", "nl"] as const;
 
@@ -54,5 +55,44 @@ describe("preferenceFooterFor", () => {
 
     expect(english).toContain("Unsubscribe from these emails");
     expect(english).not.toContain("Diese E-Mails abbestellen");
+  });
+});
+
+/**
+ * The digests are the reason any of this matters: they are the highest-volume
+ * optional email. They used to render their own hard-coded English opt-out
+ * line and ignore the footer entirely, so an earlier version of this change
+ * resolved a locale, threaded it through the queue, and altered nothing in
+ * the sent mail. These pin that the footer reaches the rendered digest.
+ */
+describe("digest emails render the shared footer", () => {
+  const digest = (locale: (typeof LOCALES)[number]) =>
+    dailyDigestEmail({
+      recipientName: "Recipient",
+      companyName: "Example GmbH",
+      overdueItems: [],
+      urgentItems: [],
+      upcomingItems: [],
+      nextStep: null,
+      compliancePercentage: "50",
+      dashboardUrl: "https://example.test/dashboard",
+      footer: preferenceFooterFor("user-1", "reminders.daily_digest", locale),
+    });
+
+  test("the opt-out line follows the footer language", () => {
+    expect(digest("de").html).toContain("Diese E-Mails abbestellen");
+    expect(digest("nl").html).toContain("Afmelden voor deze e-mails");
+    expect(digest("en").html).toContain("Unsubscribe from these emails");
+  });
+
+  test("the old hard-coded English line is gone from both parts", () => {
+    for (const locale of LOCALES) {
+      expect(digest(locale).html).not.toContain("Unsubscribe from digest emails");
+      expect(digest(locale).text).not.toContain("Unsubscribe from digest emails");
+    }
+  });
+
+  test("the preference-centre link reaches the digest, which it never used to", () => {
+    expect(digest("de").html).toContain("lang=de");
   });
 });

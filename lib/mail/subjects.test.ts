@@ -21,6 +21,13 @@ mock.module("../env", () => ({
 
 const t = await import("./templates");
 
+/** The digests render the shared preference footer; the subject ignores it. */
+const FOOTER = {
+  unsubscribeUrl: "https://nisd2.eu/u",
+  preferencesUrl: "https://nisd2.eu/p",
+  locale: "en",
+} as const;
+
 const ITEM = {
   requirementCode: "GOV-1",
   requirementTitle: "Assign responsibility for the ISMS",
@@ -102,7 +109,7 @@ const SUBJECTS: Array<[string, string]> = [
       nextStep: null,
       compliancePercentage: "42.0",
       dashboardUrl: "https://nisd2.eu/",
-      unsubscribeUrl: "https://nisd2.eu/u",
+      footer: FOOTER,
     }).subject,
   ],
   [
@@ -116,7 +123,7 @@ const SUBJECTS: Array<[string, string]> = [
       nextStep: null,
       compliancePercentage: "42.0",
       dashboardUrl: "https://nisd2.eu/",
-      unsubscribeUrl: "https://nisd2.eu/u",
+      footer: FOOTER,
     }).subject,
   ],
   [
@@ -132,7 +139,7 @@ const SUBJECTS: Array<[string, string]> = [
       completedRequirements: 20,
       nextStep: null,
       dashboardUrl: "https://nisd2.eu/",
-      unsubscribeUrl: "https://nisd2.eu/u",
+      footer: FOOTER,
     }).subject,
   ],
   [

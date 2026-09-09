@@ -95,7 +95,7 @@ async function buildDigestContent(
       nextStep: d.nextStep,
       compliancePercentage: d.compliancePercentage,
       dashboardUrl: d.dashboardUrl,
-      unsubscribeUrl: footer.unsubscribeUrl,
+      footer,
     });
   }
   const m = await compileManagementDigest(db, userId, companyId);
@@ -111,7 +111,7 @@ async function buildDigestContent(
     completedRequirements: m.completedRequirements,
     nextStep: m.nextStep,
     dashboardUrl: m.dashboardUrl,
-    unsubscribeUrl: footer.unsubscribeUrl,
+    footer,
   });
 }
 

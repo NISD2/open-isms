@@ -336,16 +336,20 @@ async function notifySubmitter(
     ]);
     if (!submitter?.email || !req) return;
 
-    // Only when there is no stored locale to use, so the common path stays
-    // one query lighter.
-    const country = submitter.locale
-      ? null
-      : ((
-          await db.query.company.findFirst({
-            where: eq(company.id, submitter.companyId ?? ""),
-            columns: { country: true },
-          })
-        )?.country ?? null);
+    // Only when there is no stored locale to fall back from, so the common
+    // path stays one query lighter. companyId is nullable — a Google OAuth
+    // signup has neither locale nor company — and coercing that null to ""
+    // would hand Postgres an empty string for a uuid column, raising an
+    // error that the catch below would swallow along with the whole email.
+    const country =
+      submitter.locale || !submitter.companyId
+        ? null
+        : ((
+            await db.query.company.findFirst({
+              where: eq(company.id, submitter.companyId),
+              columns: { country: true },
+            })
+          )?.country ?? null);
 
     const requirementsEn = (await import("@/messages/requirements/en.json")).default
       .requirements;
