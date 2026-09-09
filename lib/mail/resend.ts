@@ -103,4 +103,7 @@ export const FROM_NAME = preferConfigured(env.MAIL_FROM_NAME, env.RESEND_FROM_NA
  * the activation nudge). Those are signed by Simon in the body; the From
  * line should not say otherwise.
  */
-export const FROM_NAME_PERSONAL = env.RESEND_FROM_NAME_PERSONAL;
+export const FROM_NAME_PERSONAL = preferConfigured(
+  env.MAIL_FROM_NAME_PERSONAL,
+  env.RESEND_FROM_NAME_PERSONAL,
+);

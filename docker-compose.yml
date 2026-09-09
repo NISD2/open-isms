@@ -67,6 +67,7 @@ services:
       # is what existing deployments set.
       MAIL_FROM_EMAIL: ${MAIL_FROM_EMAIL:-}
       MAIL_FROM_NAME: ${MAIL_FROM_NAME:-}
+      MAIL_FROM_NAME_PERSONAL: ${MAIL_FROM_NAME_PERSONAL:-}
       RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
       # Third way in, for an instance with no mail transport at all: the first
       # account is created at startup instead of being verified by email.
@@ -120,6 +121,10 @@ services:
       - /bin/sh
       - -c
       - |
+        if [ -z "$$MINIO_ROOT_USER" ]; then
+          echo "minio: set AWS_ACCESS_KEY_ID in .env" >&2
+          exit 1
+        fi
         if [ -z "$$MINIO_ROOT_PASSWORD" ]; then
           echo "minio: set AWS_SECRET_ACCESS_KEY in .env (at least 8 characters)" >&2
           exit 1
@@ -130,7 +135,11 @@ services:
         fi
         exec minio server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:-openisms}
+      # Not defaulted to "openisms": minio-init below builds its credentials
+      # from AWS_ACCESS_KEY_ID, and the app signs its S3 requests with the same
+      # value. Defaulting only here would boot MinIO under a username neither
+      # of them uses, and every upload would 403 with nothing naming the cause.
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:-}
       MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY:-}
       # Evidence uploads always send x-amz-server-side-encryption AES256.
       # MinIO answers SSE-S3 out of a KMS, so without a key every upload is

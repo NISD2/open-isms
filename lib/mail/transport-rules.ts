@@ -55,6 +55,14 @@ export const PLATFORM_DEFAULT_FROM_EMAIL = "noreply@nisd2.eu";
  * operator did not choose, so the SMTP transport refuses on false.
  */
 export function hasOwnFromAddress(fromEmail: string): boolean {
+  // Blank counts as "not theirs", and that case is the common one rather than
+  // the exotic one: both compose files write `MAIL_FROM_EMAIL: ${...:-}` and
+  // `.env.self-host.example` ships both From variables empty, so an operator
+  // who sets SMTP_HOST and nothing else arrives here with "" — never with the
+  // literal default, because an empty string satisfies z.string() and Zod's
+  // .default() never fires. Checking only the literal made this guard inert
+  // in exactly the deployment it was written for.
+  if (!isSet(fromEmail)) return false;
   return fromEmail.trim().toLowerCase() !== PLATFORM_DEFAULT_FROM_EMAIL;
 }
 

@@ -158,13 +158,17 @@ interface EmailActivity {
   multiSendAlertPerDay: number;
   /** Lifecycle claims kept after a failed send (urgency 'warning'). */
   lifecycleFailed: number;
-  /** Mail that did not go out, last 30 days, newest first. */
+  /** Mail that did not go out, last 30 days, newest first, capped. */
   failedSends: Array<{
     id: string;
     at: Date;
     description: string;
-    companyName: string | null;
+    /** Null once GDPR erasure has redacted it. */
+    recipient: string | null;
   }>;
+  /** Every failure in the window, not just the listed page. */
+  failedSendTotal: number;
+  failedSendPageSize: number;
 }
 
 interface Props {
@@ -1496,20 +1500,23 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
         <Card className="border-destructive/40">
           <CardHeader>
             <CardTitle className="text-base text-destructive">
-              Failed sends ({data.failedSends.length}, last 30 days)
+              Failed sends ({data.failedSendTotal}, last 30 days)
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-3 text-sm text-muted-foreground">
-              These messages were not delivered. Each line names the message type, the
-              recipient and the reason the transport gave.
+              These messages were not delivered. Each line names who it was for, the
+              message type, and the reason the transport gave.
+              {data.failedSendTotal > data.failedSendPageSize && (
+                <> Showing the {data.failedSendPageSize} most recent.</>
+              )}
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b text-left text-muted-foreground">
                     <th className="pb-2 pr-4 font-medium">When</th>
-                    <th className="pb-2 pr-4 font-medium">Company</th>
+                    <th className="pb-2 pr-4 font-medium">Recipient</th>
                     <th className="pb-2 font-medium">What failed, and why</th>
                   </tr>
                 </thead>
@@ -1520,8 +1527,8 @@ function EmailsPanel({ data }: { data: EmailActivity }) {
                         {timeAgo(f.at)}
                       </td>
                       <td className="py-2 pr-4">
-                        {f.companyName ?? (
-                          <span className="text-muted-foreground italic">—</span>
+                        {f.recipient ?? (
+                          <span className="text-muted-foreground italic">erased</span>
                         )}
                       </td>
                       <td className="py-2 font-mono text-xs">{f.description}</td>

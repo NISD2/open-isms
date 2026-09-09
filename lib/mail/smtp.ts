@@ -64,8 +64,9 @@ export async function sendViaSmtp(mail: OutgoingMail): Promise<TransportResult> 
     return {
       ok: false,
       error:
-        `refusing to send as ${mail.fromEmail}, which is this project's default address ` +
-        "and not yours. Set MAIL_FROM_EMAIL to an address on a domain you control.",
+        "refusing to send: MAIL_FROM_EMAIL is unset or still this project's own address " +
+        `(got "${mail.fromEmail}"). Set it to an address on a domain you control, or the ` +
+        "message goes out claiming to be from someone else.",
     };
   }
 

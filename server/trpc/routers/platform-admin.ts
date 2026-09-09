@@ -65,6 +65,22 @@ import { protectedProcedure, router } from "../init";
  */
 const MULTI_SEND_ALERT_PER_DAY = 3;
 
+/** How many failed sends the card lists. The total is counted separately. */
+const FAILED_SEND_PAGE_SIZE = 50;
+
+/**
+ * The recipient of a failed send, read back out of audit_log.newValue.
+ *
+ * Returns null once GDPR erasure has redacted the row, which is the correct
+ * outcome rather than a bug: the address was removed on request and the card
+ * shows that it is gone instead of resurrecting it.
+ */
+function recipientFromAuditValue(value: unknown): string | null {
+  if (typeof value !== "object" || value === null) return null;
+  const recipient = (value as { recipient?: unknown }).recipient;
+  return typeof recipient === "string" ? recipient : null;
+}
+
 /** Compile and render one digest for one user, or null when there is nothing to say. */
 async function buildDigestContent(
   db: Database,
@@ -595,6 +611,7 @@ export const platformAdminRouter = router({
       recipientDayRows,
       lifecycleFailedRow,
       failedSends,
+      failedSendTotalRow,
     ] = await Promise.all([
       ctx.db
         .select({ count: count() })
@@ -732,10 +749,13 @@ export const platformAdminRouter = router({
           id: auditLog.id,
           createdAt: auditLog.createdAt,
           description: auditLog.description,
-          companyName: company.name,
+          // The recipient lives in newValue rather than in the description so
+          // GDPR erasure can redact it. No company join: sendMail has no
+          // company to pass, so the column was always null and the cell was
+          // always a dash.
+          newValue: auditLog.newValue,
         })
         .from(auditLog)
-        .leftJoin(company, eq(auditLog.companyId, company.id))
         .where(
           and(
             eq(auditLog.action, EMAIL_FAILURE_ACTION),
@@ -743,7 +763,16 @@ export const platformAdminRouter = router({
           ),
         )
         .orderBy(desc(auditLog.createdAt))
-        .limit(50),
+        .limit(FAILED_SEND_PAGE_SIZE),
+      ctx.db
+        .select({ count: count() })
+        .from(auditLog)
+        .where(
+          and(
+            eq(auditLog.action, EMAIL_FAILURE_ACTION),
+            gte(auditLog.createdAt, thirtyDaysAgo),
+          ),
+        ),
     ]);
 
     // Fold per-day recipient counts into totals plus the busiest single day.
@@ -801,8 +830,12 @@ export const platformAdminRouter = router({
         id: r.id,
         at: r.createdAt,
         description: r.description,
-        companyName: r.companyName,
+        recipient: recipientFromAuditValue(r.newValue),
       })),
+      // The list is capped; the count is not. A card headed "50" during an
+      // outage that produced 300 understates the thing it exists to reveal.
+      failedSendTotal: failedSendTotalRow[0]?.count ?? 0,
+      failedSendPageSize: FAILED_SEND_PAGE_SIZE,
       totalSent: totalSentRow[0]?.count ?? 0,
       sentLast7d: sentLast7dRow[0]?.count ?? 0,
       totalUsers: totalUsersRow[0]?.count ?? 0,

@@ -46,7 +46,13 @@ export async function recordEmailFailure(input: {
       action: EMAIL_FAILURE_ACTION,
       entityType: "email",
       entityId: null,
-      description: `${input.emailType} to ${recipient} failed: ${reason}`,
+      // The address goes in newValue, not into the description, because GDPR
+      // erasure redacts the JSONB columns and leaves free text alone
+      // (lib/gdpr/erase-user.ts). An address in the description would outlive
+      // the erasure request that was supposed to remove it, and this row is
+      // rendered back out in /platform-admin.
+      description: `${input.emailType} failed: ${reason}`,
+      newValue: { recipient },
     });
   } catch (auditError) {
     // The audit insert is the backstop, not the point. If it is also broken,

@@ -156,7 +156,9 @@ docker compose logs app | grep "\[mail\] send failed"
 [mail] send failed type=work.review_decision to=jan@example.com: Invalid login: 535 Authentication failed
 ```
 
-And in the app, on the **email** tab of `/platform-admin`, as a **Failed sends** card listing the last 30 days: what failed, for whom, and the reason the transport gave. The card is absent when there is nothing wrong, so its presence is the signal.
+And in the app, on the **email** tab of `/platform-admin`, as a **Failed sends** card listing the last 30 days: who it was for, what failed, and the reason the transport gave. The card is absent when there is nothing wrong, so its presence is the signal.
+
+That page is gated on `PLATFORM_ADMIN_EMAILS`, which ships empty and which single-organisation installs are otherwise told to leave alone. Put your own address in it if you want the card; leave it unset and the log is your only view of this.
 
 Both are written from one place inside the send path rather than at each call site, so a failure does not depend on the calling code having remembered to check a return value.
 

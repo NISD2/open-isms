@@ -79,6 +79,16 @@ describe("hasOwnFromAddress", () => {
     expect(hasOwnFromAddress("  NoReply@NISD2.eu  ")).toBe(false);
   });
 
+  // The case that actually happens, and the one the first version of this
+  // guard let through. Both compose files write MAIL_FROM_EMAIL as an empty
+  // string, which satisfies z.string() so Zod's .default() never fires — so
+  // the literal default never arrives here, and checking only for it made the
+  // guard inert in every containerised deployment.
+  test("blank is not the operator's address either", () => {
+    expect(hasOwnFromAddress("")).toBe(false);
+    expect(hasOwnFromAddress("   ")).toBe(false);
+  });
+
   test("any address the operator chose is theirs, including another nisd2 mailbox", () => {
     expect(hasOwnFromAddress("noreply@acme.test")).toBe(true);
     expect(hasOwnFromAddress("isms@nisd2.eu")).toBe(true);

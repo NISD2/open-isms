@@ -80,6 +80,17 @@ const envSchema = z.object({
    * line, and that name is the first thing a recipient reads.
    */
   MAIL_FROM_NAME: z.string().optional(),
+  /**
+   * From display name for the two messages written in a person's voice, the
+   * course follow-up and the activation nudge. Falls back to
+   * RESEND_FROM_NAME_PERSONAL, whose default names a person at nisd2.eu.
+   *
+   * It exists because that default was previously unreachable in a container:
+   * neither compose file passed the RESEND_ name through, so a self-hoster who
+   * set every other From variable still sent those two from their own relay
+   * signed by somebody at another company.
+   */
+  MAIL_FROM_NAME_PERSONAL: z.string().optional(),
 
   // AI — optional (LLM features degrade)
   XAI_API_KEY: z.string().optional(),
