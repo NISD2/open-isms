@@ -461,10 +461,7 @@
       "id": "2022-12-27-eu-nis2-published",
       "date": "2022-12-27",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "publication"
-      ],
+      "tags": ["legislation", "publication"],
       "type": "milestone",
       "title": "NIS2 Directive published in Official Journal",
       "titleDe": "NIS2-Richtlinie im Amtsblatt veröffentlicht",
@@ -478,9 +475,7 @@
       "id": "2023-01-16-eu-nis2-force",
       "date": "2023-01-16",
       "category": "eu",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "milestone",
       "title": "NIS2 Directive enters into force",
       "titleDe": "NIS2-Richtlinie tritt in Kraft",
@@ -494,9 +489,7 @@
       "id": "2023-02-01-grundschutz-edition-2023",
       "date": "2023-02-01",
       "category": "grundschutz",
-      "tags": [
-        "publication"
-      ],
+      "tags": ["publication"],
       "type": "milestone",
       "title": "IT-Grundschutz Kompendium Edition 2023 released",
       "titleDe": "IT-Grundschutz-Kompendium Edition 2023 veröffentlicht",
@@ -510,11 +503,7 @@
       "id": "2024-09-04-it-dlgs-138-published",
       "date": "2024-09-04",
       "category": "national-transposition",
-      "tags": [
-        "it",
-        "transposition",
-        "publication"
-      ],
+      "tags": ["it", "transposition", "publication"],
       "type": "update",
       "title": "Italy publishes Decreto Legislativo n. 138/2024 (NIS 2 transposition)",
       "titleDe": "Italien veröffentlicht Decreto Legislativo n. 138/2024 (NIS 2 Umsetzung)",
@@ -528,10 +517,7 @@
       "id": "2024-10-17-eu-transposition-deadline",
       "date": "2024-10-17",
       "category": "eu",
-      "tags": [
-        "deadline",
-        "transposition"
-      ],
+      "tags": ["deadline", "transposition"],
       "type": "milestone",
       "title": "NIS2 transposition deadline expires: most member states miss it",
       "titleDe": "NIS2-Umsetzungsfrist läuft ab: die meisten Mitgliedstaaten verpassen sie",
@@ -545,10 +531,7 @@
       "id": "2024-10-18-cir-published",
       "date": "2024-10-18",
       "category": "cir",
-      "tags": [
-        "legislation",
-        "publication"
-      ],
+      "tags": ["legislation", "publication"],
       "type": "milestone",
       "title": "CIR 2024/2690 published: NIS2 technical requirements regulation",
       "titleDe": "CIR 2024/2690 veröffentlicht: Durchführungsverordnung zu technischen NIS2-Anforderungen",
@@ -562,11 +545,7 @@
       "id": "2024-10-18-be-nis2-act-in-force",
       "date": "2024-10-18",
       "category": "national-transposition",
-      "tags": [
-        "be",
-        "transposition",
-        "in-force"
-      ],
+      "tags": ["be", "transposition", "in-force"],
       "type": "update",
       "title": "Belgium: Law of 26 April 2024 (NIS 2) enters into force",
       "titleDe": "Belgien: Gesetz vom 26. April 2024 (NIS 2) tritt in Kraft",
@@ -580,9 +559,7 @@
       "id": "2024-11-07-cir-force",
       "date": "2024-11-07",
       "category": "cir",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "milestone",
       "title": "CIR 2024/2690 enters into force",
       "titleDe": "CIR 2024/2690 tritt in Kraft",
@@ -596,11 +573,7 @@
       "id": "2025-04-08-fi-cybersecurity-act-in-force",
       "date": "2025-04-08",
       "category": "national-transposition",
-      "tags": [
-        "fi",
-        "transposition",
-        "in-force"
-      ],
+      "tags": ["fi", "transposition", "in-force"],
       "type": "update",
       "title": "Finland: Cybersecurity Act 124/2025 enters into force",
       "titleDe": "Finnland: Kyberturvallisuuslaki 124/2025 tritt in Kraft",
@@ -614,10 +587,7 @@
       "id": "2025-05-07-ec-reasoned-opinion-19ms",
       "date": "2025-05-07",
       "category": "eu",
-      "tags": [
-        "enforcement",
-        "infringement"
-      ],
+      "tags": ["enforcement", "infringement"],
       "type": "update",
       "title": "Commission sends reasoned opinion to 19 Member States for NIS 2 transposition failure",
       "titleDe": "Kommission sendet mit Gründen versehene Stellungnahme an 19 Mitgliedstaaten wegen NIS 2 Umsetzungsversaeumnis",
@@ -631,10 +601,7 @@
       "id": "2025-06-26-enisa-nis2-guidance",
       "date": "2025-06-26",
       "category": "enisa",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "milestone",
       "title": "ENISA publishes NIS2 Technical Implementation Guidance v1.0",
       "titleDe": "ENISA veröffentlicht NIS2-Leitfaden zur technischen Umsetzung v1.0",
@@ -648,11 +615,7 @@
       "id": "2025-07-01-dk-nis2-loven-in-force",
       "date": "2025-07-01",
       "category": "national-transposition",
-      "tags": [
-        "dk",
-        "transposition",
-        "in-force"
-      ],
+      "tags": ["dk", "transposition", "in-force"],
       "type": "update",
       "title": "Denmark: NIS 2-loven (LOV nr 434) enters into force",
       "titleDe": "Dänemark: NIS 2-loven (LOV nr 434) tritt in Kraft",
@@ -666,9 +629,7 @@
       "id": "2025-07-30-de-cabinet-approves",
       "date": "2025-07-30",
       "category": "de",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "milestone",
       "title": "German cabinet approves NIS2UmsuCG draft law",
       "titleDe": "Bundeskabinett beschließt NIS2UmsuCG-Gesetzentwurf",
@@ -682,11 +643,7 @@
       "id": "2025-08-04-cz-act-264-published",
       "date": "2025-08-04",
       "category": "national-transposition",
-      "tags": [
-        "cz",
-        "transposition",
-        "publication"
-      ],
+      "tags": ["cz", "transposition", "publication"],
       "type": "update",
       "title": "Czech Republic publishes Cybersecurity Act 264/2025 Sb. in Sbírka zákonů",
       "titleDe": "Tschechien veröffentlicht Cybersicherheitsgesetz 264/2025 Sb. in der Sbírka zákonů",
@@ -700,9 +657,7 @@
       "id": "2025-09-29-grundschutz-github",
       "date": "2025-09-29",
       "category": "grundschutz",
-      "tags": [
-        "publication"
-      ],
+      "tags": ["publication"],
       "type": "milestone",
       "title": "BSI publishes Grundschutz++ preview on GitHub (OSCAL/JSON)",
       "titleDe": "BSI veröffentlicht Grundschutz++ Vorschau auf GitHub (OSCAL/JSON)",
@@ -716,11 +671,7 @@
       "id": "2025-11-01-cz-act-264-in-force",
       "date": "2025-11-01",
       "category": "national-transposition",
-      "tags": [
-        "cz",
-        "transposition",
-        "in-force"
-      ],
+      "tags": ["cz", "transposition", "in-force"],
       "type": "update",
       "title": "Czech Republic: Act 264/2025 Sb. on Cybersecurity enters into force",
       "titleDe": "Tschechien: Zákon č. 264/2025 Sb. o kybernetické bezpečnosti tritt in Kraft",
@@ -734,9 +685,7 @@
       "id": "2025-11-06-de-coalition-compromise",
       "date": "2025-11-06",
       "category": "de",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "milestone",
       "title": "Coalition agrees on NIS2UmsuCG compromises: ex-post model for critical components",
       "titleDe": "Koalition einigt sich auf NIS2UmsuCG-Kompromisse: Ex-post-Modell für kritische Komponenten",
@@ -750,9 +699,7 @@
       "id": "2025-11-13-de-bundestag-passes",
       "date": "2025-11-13",
       "category": "de",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "milestone",
       "title": "Bundestag passes NIS2UmsuCG: Germany's NIS2 implementation law",
       "titleDe": "Bundestag verabschiedet NIS2UmsuCG: Deutschlands NIS2-Umsetzungsgesetz",
@@ -766,11 +713,7 @@
       "id": "2025-12-04-pt-decreto-lei-125-published",
       "date": "2025-12-04",
       "category": "national-transposition",
-      "tags": [
-        "pt",
-        "transposition",
-        "publication"
-      ],
+      "tags": ["pt", "transposition", "publication"],
       "type": "update",
       "title": "Portugal publishes Decreto-Lei n.º 125/2025 in Diário da República",
       "titleDe": "Portugal veröffentlicht Decreto-Lei n.º 125/2025 im Diário da República",
@@ -784,10 +727,7 @@
       "id": "2025-12-05-de-bgbl-published",
       "date": "2025-12-05",
       "category": "de",
-      "tags": [
-        "legislation",
-        "publication"
-      ],
+      "tags": ["legislation", "publication"],
       "type": "milestone",
       "title": "NIS2UmsuCG published in Federal Law Gazette (BGBl. 2025 I Nr. 301)",
       "titleDe": "NIS2UmsuCG im Bundesgesetzblatt veröffentlicht (BGBl. 2025 I Nr. 301)",
@@ -801,9 +741,7 @@
       "id": "2025-12-06-de-bsig-force",
       "date": "2025-12-06",
       "category": "de",
-      "tags": [
-        "legislation"
-      ],
+      "tags": ["legislation"],
       "type": "milestone",
       "title": "BSIG enters into force: NIS2 is law in Germany",
       "titleDe": "BSIG tritt in Kraft: NIS2 ist Gesetz in Deutschland",
@@ -817,11 +755,7 @@
       "id": "2025-12-11-se-cybersakerhetslagen-issued",
       "date": "2025-12-11",
       "category": "national-transposition",
-      "tags": [
-        "se",
-        "transposition",
-        "publication"
-      ],
+      "tags": ["se", "transposition", "publication"],
       "type": "update",
       "title": "Sweden: Cybersäkerhetslagen (SFS 2025:1506) issued",
       "titleDe": "Schweden: Cybersäkerhetslagen (SFS 2025:1506) ausgefertigt",
@@ -835,9 +769,7 @@
       "id": "2026-01-01-grundschutz-plus-transition",
       "date": "2026-01-01",
       "category": "grundschutz",
-      "tags": [
-        "publication"
-      ],
+      "tags": ["publication"],
       "type": "milestone",
       "title": "Grundschutz++ transition phase begins: parallel operation through 2029",
       "titleDe": "Grundschutz++ Übergangsphase beginnt: Parallelbetrieb bis 2029",
@@ -851,10 +783,7 @@
       "id": "2026-01-01-dk-cfcs-samsik-merger",
       "date": "2026-01-01",
       "category": "national-transposition",
-      "tags": [
-        "dk",
-        "organisational"
-      ],
+      "tags": ["dk", "organisational"],
       "type": "update",
       "title": "Denmark: CFCS becomes part of SAMSIK",
       "titleDe": "Dänemark: CFCS wird Teil von SAMSIK",
@@ -868,10 +797,7 @@
       "id": "2026-01-01-se-msb-renamed-mcf",
       "date": "2026-01-01",
       "category": "national-transposition",
-      "tags": [
-        "se",
-        "organisational"
-      ],
+      "tags": ["se", "organisational"],
       "type": "update",
       "title": "Sweden: MSB renamed to MCF (Myndigheten för civilt försvar)",
       "titleDe": "Schweden: MSB wird in MCF (Myndigheten för civilt försvar) umbenannt",
@@ -885,9 +811,7 @@
       "id": "2026-01-06-de-bsi-portal-launch",
       "date": "2026-01-06",
       "category": "de",
-      "tags": [
-        "registration"
-      ],
+      "tags": ["registration"],
       "type": "milestone",
       "title": "BSI NIS2 registration portal launches",
       "titleDe": "BSI-NIS2-Registrierungsportal geht online",
@@ -901,9 +825,7 @@
       "id": "2026-01-13-eu-first-eucc",
       "date": "2026-01-13",
       "category": "eu",
-      "tags": [
-        "certification"
-      ],
+      "tags": ["certification"],
       "type": "update",
       "title": "First EUCC cybersecurity certificate issued under EU framework",
       "titleDe": "Erstes EUCC-Cybersicherheitszertifikat unter EU-Rahmenwerk ausgestellt",
@@ -917,11 +839,7 @@
       "id": "2026-01-15-se-cybersakerhetslagen-in-force",
       "date": "2026-01-15",
       "category": "national-transposition",
-      "tags": [
-        "se",
-        "transposition",
-        "in-force"
-      ],
+      "tags": ["se", "transposition", "in-force"],
       "type": "update",
       "title": "Sweden: Cybersäkerhetslagen (SFS 2025:1506) enters into force",
       "titleDe": "Schweden: Cybersäkerhetslagen (SFS 2025:1506) tritt in Kraft",
@@ -935,10 +853,7 @@
       "id": "2026-01-20-eu-cybersecurity-package",
       "date": "2026-01-20",
       "category": "eu",
-      "tags": [
-        "amendment",
-        "legislation"
-      ],
+      "tags": ["amendment", "legislation"],
       "type": "update",
       "title": "EU proposes NIS2 amendments: new entity types, harmonization ceiling, PQC migration",
       "titleDe": "EU schlägt NIS2-Änderungen vor: neue Einrichtungstypen, Harmonisierungsgrenze, PQC-Migration",
@@ -952,9 +867,7 @@
       "id": "2026-01-23-de-suedwestfalen-grundschutz",
       "date": "2026-01-23",
       "category": "grundschutz",
-      "tags": [
-        "certification"
-      ],
+      "tags": ["certification"],
       "type": "update",
       "title": "Südwestfalen-IT receives ISO 27001 certification on IT-Grundschutz basis",
       "titleDe": "Südwestfalen-IT erhält ISO 27001-Zertifizierung auf Basis von IT-Grundschutz",
@@ -968,9 +881,7 @@
       "id": "2026-02-09-enisa-international-strategy",
       "date": "2026-02-09",
       "category": "enisa",
-      "tags": [
-        "publication"
-      ],
+      "tags": ["publication"],
       "type": "update",
       "title": "ENISA publishes International Strategy for cybersecurity cooperation",
       "titleDe": "ENISA veröffentlicht internationale Strategie für Cybersicherheitskooperation",
@@ -984,11 +895,7 @@
       "id": "2026-02-13-eu-ict-supply-chain-toolbox",
       "date": "2026-02-13",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "supply-chain",
-        "publication"
-      ],
+      "tags": ["guidance", "supply-chain", "publication"],
       "type": "update",
       "title": "NIS Cooperation Group adopts ICT Supply Chain Security Toolbox",
       "titleDe": "NIS-Kooperationsgruppe verabschiedet ICT-Lieferketten-Sicherheits-Toolbox",
@@ -1002,10 +909,7 @@
       "id": "2026-02-16-enisa-exercise-methodology",
       "date": "2026-02-16",
       "category": "enisa",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "ENISA releases Cybersecurity Exercise Methodology framework",
       "titleDe": "ENISA veröffentlicht Methodik-Rahmenwerk für Cybersicherheitsübungen",
@@ -1019,10 +923,7 @@
       "id": "2026-02-19-eu-poland-nis2-signed",
       "date": "2026-02-19",
       "category": "eu",
-      "tags": [
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["transposition", "legislation"],
       "type": "update",
       "title": "Poland signs NIS2 transposition into law: enters force April 2, 2026",
       "titleDe": "Polen unterzeichnet NIS2-Umsetzung: tritt am 2. April 2026 in Kraft",
@@ -1036,9 +937,7 @@
       "id": "2026-02-27-eu-cra-comment-period",
       "date": "2026-02-27",
       "category": "eu",
-      "tags": [
-        "guidance"
-      ],
+      "tags": ["guidance"],
       "type": "update",
       "title": "Public comment period opens for CRA compliance technical guideline",
       "titleDe": "Öffentliche Kommentierungsphase für technische CRA-Compliance-Richtlinie eröffnet",
@@ -1052,10 +951,7 @@
       "id": "2026-02-27-de-active-cyber-defense-draft",
       "date": "2026-02-27",
       "category": "de",
-      "tags": [
-        "legislation",
-        "enforcement"
-      ],
+      "tags": ["legislation", "enforcement"],
       "type": "update",
       "title": "BMI publishes draft Active Cyber Defense Act: new obligations for NIS2-regulated entities",
       "titleDe": "BMI veröffentlicht Entwurf des Cybersicherheitsstärkungsgesetzes: neue Pflichten für NIS2-regulierte Unternehmen",
@@ -1069,11 +965,7 @@
       "id": "2026-03-02-pl-uksc-amendment-published",
       "date": "2026-03-02",
       "category": "national-transposition",
-      "tags": [
-        "pl",
-        "transposition",
-        "publication"
-      ],
+      "tags": ["pl", "transposition", "publication"],
       "type": "update",
       "title": "Poland publishes UKSC amendment in Dziennik Ustaw (Dz.U. 2026 poz. 252)",
       "titleDe": "Polen veröffentlicht UKSC-Novelle im Dziennik Ustaw (Dz.U. 2026 poz. 252)",
@@ -1087,9 +979,7 @@
       "id": "2026-03-04-de-bos-grundschutz-cert",
       "date": "2026-03-04",
       "category": "grundschutz",
-      "tags": [
-        "certification"
-      ],
+      "tags": ["certification"],
       "type": "update",
       "title": "BOS digital radio operator receives ISO 27001/IT-Grundschutz certification",
       "titleDe": "BOS-Digitalfunk-Betreiber erhält ISO 27001/IT-Grundschutz-Zertifizierung",
@@ -1103,10 +993,7 @@
       "id": "2026-03-06-de-registration-deadline",
       "date": "2026-03-06",
       "category": "de",
-      "tags": [
-        "deadline",
-        "registration"
-      ],
+      "tags": ["deadline", "registration"],
       "type": "milestone",
       "title": "BSI registration deadline passes: fines now possible for non-registration",
       "titleDe": "BSI-Registrierungsfrist läuft ab: Bußgelder für Nicht-Registrierung jetzt möglich",
@@ -1120,10 +1007,7 @@
       "id": "2026-03-06-de-registration-gap",
       "date": "2026-03-06",
       "category": "de",
-      "tags": [
-        "registration",
-        "enforcement"
-      ],
+      "tags": ["registration", "enforcement"],
       "type": "update",
       "title": "Only ~11,500 of ~29,500 affected entities registered by the deadline",
       "titleDe": "Nur ~11.500 von ~29.500 betroffenen Einrichtungen haben sich bis zur Frist registriert",
@@ -1137,10 +1021,7 @@
       "id": "2026-03-09-eu-transposition-22-of-27",
       "date": "2026-03-09",
       "category": "eu",
-      "tags": [
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["transposition", "legislation"],
       "type": "update",
       "title": "22 of 27 EU member states have completed NIS2 transposition",
       "titleDe": "22 von 27 EU-Mitgliedstaaten haben NIS2-Umsetzung abgeschlossen",
@@ -1154,11 +1035,7 @@
       "id": "2026-03-10-enisa-package-managers",
       "date": "2026-03-10",
       "category": "enisa",
-      "tags": [
-        "guidance",
-        "publication",
-        "supply-chain"
-      ],
+      "tags": ["guidance", "publication", "supply-chain"],
       "type": "update",
       "title": "ENISA publishes Technical Advisory for Secure Use of Package Managers",
       "titleDe": "ENISA veröffentlicht technischen Leitfaden zur sicheren Nutzung von Paketmanagern",
@@ -1172,9 +1049,7 @@
       "id": "2026-03-13-de-bsi-nis2-faq-admin",
       "date": "2026-03-13",
       "category": "de",
-      "tags": [
-        "guidance"
-      ],
+      "tags": ["guidance"],
       "type": "update",
       "title": "BSI launches NIS2 FAQ specifically for public administration",
       "titleDe": "BSI veröffentlicht NIS2-FAQ speziell für die öffentliche Verwaltung",
@@ -1188,10 +1063,7 @@
       "id": "2026-03-13-de-bsi-nis2-checkliste",
       "date": "2026-03-13",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "BSI publishes NIS-2 implementation checklist for affected entities",
       "titleDe": "BSI veröffentlicht NIS-2-Checkliste zur schrittweisen Umsetzungspruefung",
@@ -1205,10 +1077,7 @@
       "id": "2026-03-15-market-cyber-security-report",
       "date": "2026-03-15",
       "category": "market",
-      "tags": [
-        "market",
-        "guidance"
-      ],
+      "tags": ["market", "guidance"],
       "type": "update",
       "title": "Cyber Security Report 2026: 92% of small German firms misunderstand NIS2 scope",
       "titleDe": "Cyber Security Report 2026: 92% der kleinen deutschen Unternehmen unterschatzen NIS2-Betroffenheit",
@@ -1222,10 +1091,7 @@
       "id": "2026-03-17-de-kritis-dachgesetz",
       "date": "2026-03-17",
       "category": "de",
-      "tags": [
-        "legislation",
-        "kritis"
-      ],
+      "tags": ["legislation", "kritis"],
       "type": "update",
       "title": "KRITIS-Dachgesetz enters into force: physical security on top of NIS2 cyber requirements",
       "titleDe": "KRITIS-Dachgesetz tritt in Kraft: physische Sicherheit zusätzlich zu NIS2-Cyberanforderungen",
@@ -1239,9 +1105,7 @@
       "id": "2026-03-18-de-bsi-cyberdome",
       "date": "2026-03-18",
       "category": "de",
-      "tags": [
-        "enforcement"
-      ],
+      "tags": ["enforcement"],
       "type": "update",
       "title": "BSI and Govdigital announce 'Cyberdome': automated cyber defense for 10 federal states",
       "titleDe": "BSI und Govdigital kündigen 'Cyberdome' an: automatisierte Cyberabwehr für 10 Bundesländer",
@@ -1255,10 +1119,7 @@
       "id": "2026-03-19-eu-edpb-edps-nis2-opinion",
       "date": "2026-03-19",
       "category": "eu",
-      "tags": [
-        "amendment",
-        "guidance"
-      ],
+      "tags": ["amendment", "guidance"],
       "type": "update",
       "title": "EDPB and EDPS adopt Joint Opinion 4/2026 on NIS2 amendments and Cybersecurity Act 2",
       "titleDe": "EDPB und EDSB verabschieden gemeinsame Stellungnahme 4/2026 zu NIS2-Änderungen und Cybersecurity Act 2",
@@ -1272,10 +1133,7 @@
       "id": "2026-04-01-grundschutz-plus-methodology",
       "date": "2026-04-01",
       "category": "grundschutz",
-      "tags": [
-        "publication",
-        "guidance"
-      ],
+      "tags": ["publication", "guidance"],
       "type": "update",
       "title": "BSI publishes Grundschutz++ methodology guide: PDCA-based ISMS framework",
       "titleDe": "BSI veröffentlicht Grundschutz++ Methodikleitfaden: PDCA-basiertes ISMS-Rahmenwerk",
@@ -1289,11 +1147,7 @@
       "id": "2026-04-03-eu-poland-ksc-force",
       "date": "2026-04-03",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "transposition",
-        "registration"
-      ],
+      "tags": ["legislation", "transposition", "registration"],
       "type": "update",
       "title": "Poland's amended KSC Act enters force: 42,000 entities now in scope",
       "titleDe": "Polens novelliertes KSC-Gesetz tritt in Kraft: 42.000 Einrichtungen nun betroffen",
@@ -1307,11 +1161,7 @@
       "id": "2026-04-03-pt-decreto-lei-125-in-force",
       "date": "2026-04-03",
       "category": "national-transposition",
-      "tags": [
-        "pt",
-        "transposition",
-        "in-force"
-      ],
+      "tags": ["pt", "transposition", "in-force"],
       "type": "update",
       "title": "Portugal: Decreto-Lei n.º 125/2025 enters into force",
       "titleDe": "Portugal: Decreto-Lei n.º 125/2025 tritt in Kraft",
@@ -1325,11 +1175,7 @@
       "id": "2026-04-03-pl-uksc-amendment-in-force",
       "date": "2026-04-03",
       "category": "national-transposition",
-      "tags": [
-        "pl",
-        "transposition",
-        "in-force"
-      ],
+      "tags": ["pl", "transposition", "in-force"],
       "type": "update",
       "title": "Poland: UKSC amendment of 23 January 2026 enters into force",
       "titleDe": "Polen: UKSC-Novelle vom 23. Januar 2026 tritt in Kraft",
@@ -1343,11 +1189,7 @@
       "id": "2026-04-07-de-bsi-c5-2026",
       "date": "2026-04-07",
       "category": "de",
-      "tags": [
-        "publication",
-        "certification",
-        "post-quantum"
-      ],
+      "tags": ["publication", "certification", "post-quantum"],
       "type": "update",
       "title": "BSI publishes C5:2026 cloud computing criteria catalogue",
       "titleDe": "BSI veröffentlicht Kriterienkatalog C5:2026 für Cloud-Computing",
@@ -1361,10 +1203,7 @@
       "id": "2026-04-14-de-denic-phase2-risk-assessment",
       "date": "2026-04-14",
       "category": "de",
-      "tags": [
-        "enforcement",
-        "registration"
-      ],
+      "tags": ["enforcement", "registration"],
       "type": "update",
       "title": "DENIC launches Phase 2 automated domain risk assessment for .de domains under NIS2",
       "titleDe": "DENIC startet Phase-2-Risikoprüfung für .de-Domains unter NIS2",
@@ -1378,10 +1217,7 @@
       "id": "2026-04-15-eu-netherlands-nis2-passed",
       "date": "2026-04-15",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "transposition"
-      ],
+      "tags": ["legislation", "transposition"],
       "type": "update",
       "title": "Netherlands passes Cyberbeveiligingswet (NIS2 transposition) in lower house",
       "titleDe": "Niederlande verabschieden Cyberbeveiligingswet (NIS2-Umsetzung) in der Zweiten Kammer",
@@ -1395,10 +1231,7 @@
       "id": "2026-04-15-de-bsi-congress-implementation-gap",
       "date": "2026-04-15",
       "category": "de",
-      "tags": [
-        "enforcement",
-        "registration"
-      ],
+      "tags": ["enforcement", "registration"],
       "type": "update",
       "title": "BSI Congress reveals NIS-2 implementation far behind expectations: companies deliberately avoiding registration",
       "titleDe": "BSI-Kongress zeigt NIS-2-Umsetzung weit hinter Erwartungen: Unternehmen vermeiden bewusst Registrierung",
@@ -1412,10 +1245,7 @@
       "id": "2026-04-16-de-bsi-congress-21",
       "date": "2026-04-16",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "21st German IT Security Congress concludes: 8,000 participants, NIS2 and AI security in focus",
       "titleDe": "21. Deutscher IT-Sicherheitskongress abgeschlossen: 8.000 Teilnehmer, NIS2 und KI-Sicherheit im Fokus",
@@ -1429,10 +1259,7 @@
       "id": "2026-04-17-de-bsi-gf-schulung-v1",
       "date": "2026-04-17",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "BSI publishes v1.0 of management training guidance for §38(3) BSIG",
       "titleDe": "BSI veröffentlicht Handreichung v1.0 zur Geschäftsleitungs-Schulungspflicht nach §38(3) BSIG",
@@ -1446,11 +1273,7 @@
       "id": "2026-04-18-eu-belgium-cyberfun-enforcement",
       "date": "2026-04-18",
       "category": "eu",
-      "tags": [
-        "enforcement",
-        "certification",
-        "deadline"
-      ],
+      "tags": ["enforcement", "certification", "deadline"],
       "type": "update",
       "title": "Belgium enforces first NIS2 compliance deadline: essential entities must prove cybersecurity posture",
       "titleDe": "Belgien setzt erste NIS2-Compliance-Frist durch: wesentliche Einrichtungen müssen Cybersicherheitsstatus nachweisen",
@@ -1464,10 +1287,7 @@
       "id": "2026-04-22-eu-nis2-amendment-feedback-closes",
       "date": "2026-04-22",
       "category": "eu",
-      "tags": [
-        "amendment",
-        "deadline"
-      ],
+      "tags": ["amendment", "deadline"],
       "type": "update",
       "title": "Public feedback period closes for proposed NIS2 Directive amendments",
       "titleDe": "Öffentliche Feedbackfrist für vorgeschlagene NIS2-Richtlinienaenderungen endet",
@@ -1481,10 +1301,7 @@
       "id": "2026-04-22-enisa-ncaf-2",
       "date": "2026-04-22",
       "category": "enisa",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "ENISA publishes National Capabilities Assessment Framework 2.0",
       "titleDe": "ENISA veröffentlicht National Capabilities Assessment Framework 2.0",
@@ -1498,11 +1315,7 @@
       "id": "2026-04-27-de-bsi-c3a-sovereignty",
       "date": "2026-04-27",
       "category": "de",
-      "tags": [
-        "publication",
-        "certification",
-        "guidance"
-      ],
+      "tags": ["publication", "certification", "guidance"],
       "type": "update",
       "title": "BSI publishes C3A criteria framework for cloud sovereignty",
       "titleDe": "BSI veröffentlicht C3A-Kriterienrahmen für Cloud-Souveränität",
@@ -1516,10 +1329,7 @@
       "id": "2026-04-29-de-bsi-brandenburg-cooperation",
       "date": "2026-04-29",
       "category": "de",
-      "tags": [
-        "enforcement",
-        "kritis"
-      ],
+      "tags": ["enforcement", "kritis"],
       "type": "update",
       "title": "BSI signs cybersecurity cooperation agreement with state of Brandenburg",
       "titleDe": "BSI und Brandenburg unterzeichnen Kooperationsvereinbarung zur Cybersicherheit",
@@ -1533,11 +1343,7 @@
       "id": "2026-04-29-eu-cer-cjeu-referral-seven-states",
       "date": "2026-04-29",
       "category": "eu",
-      "tags": [
-        "enforcement",
-        "transposition",
-        "penalty"
-      ],
+      "tags": ["enforcement", "transposition", "penalty"],
       "type": "update",
       "title": "Commission refers 7 member states to CJEU for failing to transpose CER Directive",
       "titleDe": "Kommission verklagt 7 Mitgliedstaaten vor dem EuGH wegen fehlender CER-Umsetzung",
@@ -1551,10 +1357,7 @@
       "id": "2026-05-04-de-bsi-cybergovsecure",
       "date": "2026-05-04",
       "category": "de",
-      "tags": [
-        "guidance",
-        "kritis"
-      ],
+      "tags": ["guidance", "kritis"],
       "type": "update",
       "title": "BSI launches CyberGovSecure programme: coordinated NIS-2 implementation across German federal administration",
       "titleDe": "BSI startet CyberGovSecure: koordinierte NIS-2-Umsetzung in der Bundesverwaltung",
@@ -1568,10 +1371,7 @@
       "id": "2026-05-07-eu-ai-act-omnibus-agreement",
       "date": "2026-05-07",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "amendment"
-      ],
+      "tags": ["legislation", "amendment"],
       "type": "update",
       "title": "AI Act Digital Omnibus: provisional political agreement reached",
       "titleDe": "AI Act Digital Omnibus: vorläufige politische Einigung erzielt",
@@ -1585,11 +1385,7 @@
       "id": "2026-05-07-de-bsi-ladeinfrastruktur",
       "date": "2026-05-07",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication",
-        "kritis"
-      ],
+      "tags": ["guidance", "publication", "kritis"],
       "type": "update",
       "title": "BSI publishes first IT security report on public EV charging infrastructure",
       "titleDe": "BSI veröffentlicht ersten Bericht zur IT-Sicherheit der öffentlichen Ladeinfrastruktur",
@@ -1603,10 +1399,7 @@
       "id": "2026-05-10-eu-luxembourg-nis2-transposition",
       "date": "2026-05-10",
       "category": "eu",
-      "tags": [
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["transposition", "legislation"],
       "type": "update",
       "title": "Luxembourg transposes NIS 2: Act of 5 May 2026 enters into force",
       "titleDe": "Luxemburg setzt NIS 2 um: Gesetz vom 5. Mai 2026 in Kraft",
@@ -1620,10 +1413,7 @@
       "id": "2026-05-11-de-bsi-cybersicherheitsmonitor-2026",
       "date": "2026-05-11",
       "category": "market",
-      "tags": [
-        "publication",
-        "market"
-      ],
+      "tags": ["publication", "market"],
       "type": "update",
       "title": "BSI Cybersecurity Monitor 2026: one in ten Germans hit by cybercrime in the past year",
       "titleDe": "BSI Cybersicherheitsmonitor 2026: Jede zehnte Person in Deutschland im Vorjahr von Cyberkriminalitaet betroffen",
@@ -1637,11 +1427,7 @@
       "id": "2026-05-12-de-bsi-g7-sbom-ai",
       "date": "2026-05-12",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication",
-        "supply-chain"
-      ],
+      "tags": ["guidance", "publication", "supply-chain"],
       "type": "update",
       "title": "BSI publishes G7 guideline on Software Bill of Materials for AI",
       "titleDe": "BSI veröffentlicht G7-Richtlinie zu Software Bill of Materials for AI",
@@ -1655,10 +1441,7 @@
       "id": "2026-05-12-de-bmi-bundeslagebild-cybercrime-2025",
       "date": "2026-05-12",
       "category": "de",
-      "tags": [
-        "publication",
-        "enforcement"
-      ],
+      "tags": ["publication", "enforcement"],
       "type": "update",
       "title": "BMI/BKA Bundeslagebild Cybercrime 2025: ~335,000 cases, EUR 202.4bn damage to German economy",
       "titleDe": "BMI/BKA Bundeslagebild Cybercrime 2025: rund 335.000 Fälle, 202,4 Mrd. Euro Schaden für die deutsche Wirtschaft",
@@ -1672,10 +1455,7 @@
       "id": "2026-05-13-de-bsi-mecklenburg-cooperation",
       "date": "2026-05-13",
       "category": "de",
-      "tags": [
-        "enforcement",
-        "kritis"
-      ],
+      "tags": ["enforcement", "kritis"],
       "type": "update",
       "title": "BSI signs cybersecurity cooperation agreement with Mecklenburg-Vorpommern (12th federal state)",
       "titleDe": "BSI und Mecklenburg-Vorpommern unterzeichnen Kooperationsvereinbarung zur Cybersicherheit (12. Bundesland)",
@@ -1689,10 +1469,7 @@
       "id": "2026-05-19-eu-netherlands-eerstekamer-input",
       "date": "2026-05-19",
       "category": "eu",
-      "tags": [
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["transposition", "legislation"],
       "type": "update",
       "title": "Dutch Senate committees open written input phase on Cyberbeveiligingswet (NIS2 transposition)",
       "titleDe": "Niederlaendischer Senat: Ausschuesse eröffnen schriftliche Inbreng-Phase zur Cyberbeveiligingswet (NIS2-Umsetzung)",
@@ -1706,10 +1483,7 @@
       "id": "2026-05-19-eu-ai-act-article-6-guidelines-draft",
       "date": "2026-05-19",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "European Commission publishes draft Guidelines on classification of high-risk AI systems (Art 6 AI Act)",
       "titleDe": "EU-Kommission veröffentlicht Entwurf der Leitlinien zur Einstufung als Hochrisiko-KI-System (Art 6 KI-Verordnung)",
@@ -1723,10 +1497,7 @@
       "id": "2026-05-26-de-kritis-verordnung-draft",
       "date": "2026-05-26",
       "category": "de",
-      "tags": [
-        "legislation",
-        "kritis"
-      ],
+      "tags": ["legislation", "kritis"],
       "type": "update",
       "title": "BMI publishes draft of new KRITIS-Verordnung: thresholds and sector list under KRITIS-Dachgesetz",
       "titleDe": "BMI legt Entwurf der neuen KRITIS-Verordnung vor: Schwellenwerte und Sektorliste unter dem KRITIS-Dachgesetz",
@@ -1740,10 +1511,7 @@
       "id": "2026-05-28-enisa-nis360-2026",
       "date": "2026-05-28",
       "category": "enisa",
-      "tags": [
-        "publication",
-        "guidance"
-      ],
+      "tags": ["publication", "guidance"],
       "type": "update",
       "title": "ENISA publishes NIS360 2026: third annual maturity-and-criticality assessment of NIS2 sectors",
       "titleDe": "ENISA veröffentlicht NIS360 2026: dritte jährliche Reife- und Kritikalitätsbewertung der NIS2-Sektoren",
@@ -1757,11 +1525,7 @@
       "id": "2026-06-02-nl-eerstekamer-cbw-verslag",
       "date": "2026-06-02",
       "category": "national-transposition",
-      "tags": [
-        "nl",
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["nl", "transposition", "legislation"],
       "type": "update",
       "title": "Netherlands: Dutch Senate committees publish report on Cyberbeveiligingswet, await government response",
       "titleDe": "Niederlande: Eerste-Kamer-Ausschuesse veröffentlichen Bericht zur Cyberbeveiligingswet, warten auf Regierungsantwort",
@@ -1775,11 +1539,7 @@
       "id": "2026-06-08-eu-g7-cybersecurity-declaration",
       "date": "2026-06-08",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "supply-chain",
-        "post-quantum"
-      ],
+      "tags": ["guidance", "supply-chain", "post-quantum"],
       "type": "update",
       "title": "European Commission welcomes G7 Cybersecurity Working Group Declaration",
       "titleDe": "Europäische Kommission begruesst Erklärung der G7-Cybersicherheits-Arbeitsgruppe",
@@ -1793,11 +1553,7 @@
       "id": "2026-06-09-eu-tte-council-cybersecurity-package",
       "date": "2026-06-09",
       "category": "eu",
-      "tags": [
-        "legislation",
-        "amendment",
-        "supply-chain"
-      ],
+      "tags": ["legislation", "amendment", "supply-chain"],
       "type": "update",
       "title": "TTE Telecommunications Council reviews progress report on cybersecurity package (CSA2 + NIS2 amendments)",
       "titleDe": "Telekommunikationsrat (TTE) prüft Fortschrittsbericht zum Cybersicherheitspaket (CSA2 + NIS2-Änderungen)",
@@ -1811,10 +1567,7 @@
       "id": "2026-06-11-enisa-cyber-europe-2026",
       "date": "2026-06-11",
       "category": "enisa",
-      "tags": [
-        "organisational",
-        "publication"
-      ],
+      "tags": ["organisational", "publication"],
       "type": "update",
       "title": "ENISA-organised Cyber Europe 2026 exercise tests EU response to rail and maritime cyberattacks",
       "titleDe": "ENISA-Übung Cyber Europe 2026 testet EU-Reaktion auf Cyberangriffe auf Schienen- und Seenetze",
@@ -1828,11 +1581,7 @@
       "id": "2026-06-02-de-bsi-nis2know-iso27001",
       "date": "2026-06-02",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication",
-        "certification"
-      ],
+      "tags": ["guidance", "publication", "certification"],
       "type": "update",
       "title": "BSI publishes #nis2know infopaket on ISO/IEC 27001 mapping to NIS-2 / sec. 30 BSIG",
       "titleDe": "BSI veröffentlicht #nis2know-Infopaket zur Abbildung von ISO/IEC 27001 auf NIS-2 / Section 30 BSIG",
@@ -1846,10 +1595,7 @@
       "id": "2026-06-11-de-bsi-magazin-2026-01",
       "date": "2026-06-11",
       "category": "de",
-      "tags": [
-        "publication",
-        "guidance"
-      ],
+      "tags": ["publication", "guidance"],
       "type": "update",
       "title": "BSI publishes BSI-Magazin 2026/01 with cover feature on NIS-2 and BSI-Gesetz",
       "titleDe": "BSI veröffentlicht BSI-Magazin 2026/01 mit Titelthema NIS-2 und BSI-Gesetz",
@@ -1863,10 +1609,7 @@
       "id": "2026-06-17-de-bsi-letter-july-31-grace-period",
       "date": "2026-06-17",
       "category": "de",
-      "tags": [
-        "registration",
-        "enforcement"
-      ],
+      "tags": ["registration", "enforcement"],
       "type": "update",
       "title": "BSI letter to business associations sets de facto registration deadline of 31 July 2026",
       "titleDe": "BSI-Schreiben an Wirtschaftsverbaende setzt faktische Registrierungsfrist auf den 31. Juli 2026",
@@ -1880,11 +1623,7 @@
       "id": "2026-05-26-eu-cooperation-group-incident-templates",
       "date": "2026-05-26",
       "category": "eu",
-      "tags": [
-        "incident-reporting",
-        "guidance",
-        "organisational"
-      ],
+      "tags": ["incident-reporting", "guidance", "organisational"],
       "type": "update",
       "title": "NIS Cooperation Group agrees common incident reporting templates",
       "titleDe": "NIS-Kooperationsgruppe einigt sich auf einheitliche Meldevorlagen",
@@ -1898,11 +1637,7 @@
       "id": "2026-06-02-enisa-acm-v3-eucc-review",
       "date": "2026-06-02",
       "category": "enisa",
-      "tags": [
-        "certification",
-        "guidance",
-        "publication"
-      ],
+      "tags": ["certification", "guidance", "publication"],
       "type": "update",
       "title": "ENISA opens public review of Agreed Cryptographic Mechanisms version 3 for EUCC",
       "titleDe": "ENISA startet öffentliche Konsultation zu Agreed Cryptographic Mechanisms Version 3 für EUCC",
@@ -1916,12 +1651,7 @@
       "id": "2026-06-04-enisa-cra-notified-bodies-competence",
       "date": "2026-06-04",
       "category": "enisa",
-      "tags": [
-        "guidance",
-        "publication",
-        "certification",
-        "supply-chain"
-      ],
+      "tags": ["guidance", "publication", "certification", "supply-chain"],
       "type": "update",
       "title": "ENISA publishes Technical Competence Requirements for CRA Notified Bodies",
       "titleDe": "ENISA veröffentlicht technische Kompetenzanforderungen für benannte Stellen nach dem CRA",
@@ -1935,11 +1665,7 @@
       "id": "2026-06-09-enisa-sbom-adoption-2026",
       "date": "2026-06-09",
       "category": "enisa",
-      "tags": [
-        "supply-chain",
-        "publication",
-        "guidance"
-      ],
+      "tags": ["supply-chain", "publication", "guidance"],
       "type": "update",
       "title": "ENISA publishes SBOM Adoption State of Play 2026",
       "titleDe": "ENISA veröffentlicht SBOM Adoption State of Play 2026",
@@ -1953,10 +1679,7 @@
       "id": "2026-06-15-de-ag-kritis-kritisverordnung-stellungnahme",
       "date": "2026-06-15",
       "category": "de",
-      "tags": [
-        "kritis",
-        "legislation"
-      ],
+      "tags": ["kritis", "legislation"],
       "type": "update",
       "title": "AG KRITIS submits statement on the draft KRITIS-Verordnung",
       "titleDe": "AG KRITIS reicht Stellungnahme zur Kritisverordnung ein",
@@ -1970,12 +1693,7 @@
       "id": "2026-06-30-national-transposition-hungary-first-audit-deadline",
       "date": "2026-06-30",
       "category": "national-transposition",
-      "tags": [
-        "hu",
-        "transposition",
-        "deadline",
-        "in-force"
-      ],
+      "tags": ["hu", "transposition", "deadline", "in-force"],
       "type": "update",
       "title": "Hungary: first mandatory NIS 2 audit due 30 June 2026 (national deadline, not EU-wide)",
       "titleDe": "Ungarn: erste verpflichtende NIS-2-Prüfung bis 30. Juni 2026 fällig (nationale Frist, nicht EU-weit)",
@@ -1989,11 +1707,7 @@
       "id": "2026-06-17-national-transposition-nl-cyberbeveiligingswet-senate-response",
       "date": "2026-06-17",
       "category": "national-transposition",
-      "tags": [
-        "nl",
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["nl", "transposition", "legislation"],
       "type": "update",
       "title": "Netherlands: government files Senate response on Cyberbeveiligingswet, committees set further procedure 23 June",
       "titleDe": "Niederlande: Regierung legt Senatsantwort zum Cyberbeveiligingswet vor, Ausschuesse legen weiteres Verfahren am 23. Juni fest",
@@ -2007,12 +1721,7 @@
       "id": "2024-02-15-national-transposition-hr-zakon-o-kibernetickoj-sigurnosti",
       "date": "2024-02-15",
       "category": "national-transposition",
-      "tags": [
-        "hr",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["hr", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Croatia: Zakon o kibernetickoj sigurnosti (NIS 2 transposition) enters into force",
       "titleDe": "Kroatien: Zakon o kibernetickoj sigurnosti (NIS-2-Umsetzung) tritt in Kraft",
@@ -2026,12 +1735,7 @@
       "id": "2024-09-01-national-transposition-lv-kiberdrosibas-likums",
       "date": "2024-09-01",
       "category": "national-transposition",
-      "tags": [
-        "lv",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["lv", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Latvia: National Cybersecurity Law (NIS 2 transposition) enters into force",
       "titleDe": "Lettland: Nationales Cybersicherheitsgesetz (NIS-2-Umsetzung) tritt in Kraft",
@@ -2045,12 +1749,7 @@
       "id": "2024-10-18-national-transposition-lt-kibernetinio-saugumo-istatymas",
       "date": "2024-10-18",
       "category": "national-transposition",
-      "tags": [
-        "lt",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["lt", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Lithuania: amended Cybersecurity Law (NIS 2 transposition) enters into force",
       "titleDe": "Litauen: geändertes Cybersicherheitsgesetz (NIS-2-Umsetzung) tritt in Kraft",
@@ -2064,12 +1763,7 @@
       "id": "2024-11-27-national-transposition-gr-law-5160-2024",
       "date": "2024-11-27",
       "category": "national-transposition",
-      "tags": [
-        "gr",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["gr", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Greece transposes NIS 2 with Law 5160/2024",
       "titleDe": "Griechenland setzt NIS 2 mit Gesetz 5160/2024 um",
@@ -2083,12 +1777,7 @@
       "id": "2025-01-01-national-transposition-hu-act-lxix-2024-in-force",
       "date": "2025-01-01",
       "category": "national-transposition",
-      "tags": [
-        "hu",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["hu", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Hungary: Act LXIX of 2024 on Cybersecurity enters into force",
       "titleDe": "Ungarn: Gesetz LXIX von 2024 über Cybersicherheit tritt in Kraft",
@@ -2102,12 +1791,7 @@
       "id": "2025-01-01-national-transposition-sk-zakon-366-2024",
       "date": "2025-01-01",
       "category": "national-transposition",
-      "tags": [
-        "sk",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["sk", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Slovakia: Act 366/2024 Z.z. amending the Cybersecurity Act (NIS 2 transposition) enters into force",
       "titleDe": "Slowakei: Gesetz 366/2024 Z.z. zur Änderung des Cybersicherheitsgesetzes (NIS-2-Umsetzung) tritt in Kraft",
@@ -2121,11 +1805,7 @@
       "id": "2025-04-08-national-transposition-mt-ln-71-2025",
       "date": "2025-04-08",
       "category": "national-transposition",
-      "tags": [
-        "mt",
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["mt", "transposition", "legislation"],
       "type": "update",
       "title": "Malta enacts NIS 2 transposition via Legal Notice 71 of 2025",
       "titleDe": "Malta erlässt NIS-2-Umsetzung durch Legal Notice 71 von 2025",
@@ -2139,12 +1819,7 @@
       "id": "2025-04-25-national-transposition-cy-law-60-i-2025",
       "date": "2025-04-25",
       "category": "national-transposition",
-      "tags": [
-        "cy",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["cy", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Cyprus transposes NIS 2 with Law 60(I)/2025",
       "titleDe": "Zypern setzt NIS 2 mit Gesetz 60(I)/2025 um",
@@ -2158,12 +1833,7 @@
       "id": "2025-06-19-national-transposition-si-zinfv-1",
       "date": "2025-06-19",
       "category": "national-transposition",
-      "tags": [
-        "si",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["si", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Slovenia: Information Security Act (ZInfV-1) (NIS 2 transposition) enters into force",
       "titleDe": "Slowenien: Informationssicherheitsgesetz (ZInfV-1) (NIS-2-Umsetzung) tritt in Kraft",
@@ -2177,12 +1847,7 @@
       "id": "2025-07-10-national-transposition-ro-oug-155-2024-in-force",
       "date": "2025-07-10",
       "category": "national-transposition",
-      "tags": [
-        "ro",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["ro", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Romania: NIS 2 transposition (OUG 155/2024, approved by Law 124/2025) enters into force",
       "titleDe": "Rumänien: NIS-2-Umsetzung (OUG 155/2024, bestätigt durch Gesetz 124/2025) tritt in Kraft",
@@ -2196,11 +1861,7 @@
       "id": "2025-12-23-national-transposition-at-nisg-2026",
       "date": "2025-12-23",
       "category": "national-transposition",
-      "tags": [
-        "at",
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["at", "transposition", "legislation"],
       "type": "update",
       "title": "Austria enacts NIS 2 transposition (NISG 2026)",
       "titleDe": "Österreich erlässt NIS-2-Umsetzung (NISG 2026)",
@@ -2214,12 +1875,7 @@
       "id": "2026-01-01-national-transposition-ee-kuberts-nis2",
       "date": "2026-01-01",
       "category": "national-transposition",
-      "tags": [
-        "ee",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["ee", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Estonia: amended Cybersecurity Act (NIS 2 transposition) enters into force",
       "titleDe": "Estland: geänderte Kuberturvalisuse seadus (NIS-2-Umsetzung) tritt in Kraft",
@@ -2233,12 +1889,7 @@
       "id": "2026-02-13-national-transposition-bg-cybersecurity-act-amendment",
       "date": "2026-02-13",
       "category": "national-transposition",
-      "tags": [
-        "bg",
-        "transposition",
-        "in-force",
-        "legislation"
-      ],
+      "tags": ["bg", "transposition", "in-force", "legislation"],
       "type": "update",
       "title": "Bulgaria: NIS 2 transposition (Cybersecurity Act amendment) promulgated and in force",
       "titleDe": "Bulgarien: NIS-2-Umsetzung (Änderung des Cybersicherheitsgesetzes) verkündet und in Kraft",
@@ -2252,10 +1903,7 @@
       "id": "2026-06-17-eu-cooperation-group-security-measures-reference",
       "date": "2026-06-17",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "organisational"
-      ],
+      "tags": ["guidance", "organisational"],
       "type": "update",
       "title": "NIS Cooperation Group publishes reference document on NIS2 security measures with mapping table",
       "titleDe": "NIS-Kooperationsgruppe veröffentlicht Referenzdokument zu NIS-2-Sicherheitsmaßnahmen mit Zuordnungstabelle",
@@ -2269,9 +1917,7 @@
       "id": "2026-06-10-de-bsi-nis2-support-survey",
       "date": "2026-06-10",
       "category": "de",
-      "tags": [
-        "guidance"
-      ],
+      "tags": ["guidance"],
       "type": "update",
       "title": "BSI launches survey on its NIS-2 support offerings for business",
       "titleDe": "BSI startet Umfrage zu seinen NIS-2-Unterstuetzungsangeboten für die Wirtschaft",
@@ -2285,11 +1931,7 @@
       "id": "2026-06-26-national-transposition-nl-cyberbeveiligingswet-second-report",
       "date": "2026-06-26",
       "category": "national-transposition",
-      "tags": [
-        "nl",
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["nl", "transposition", "legislation"],
       "type": "update",
       "title": "Netherlands: Senate committees issue second report on Cyberbeveiligingswet, plenary debate set for 6 or 7 July 2026",
       "titleDe": "Niederlande: Senatsausschuesse bringen zweiten Bericht zur Cyberbeveiligingswet aus, Plenardebatte für den 6. oder 7. Juli 2026 angesetzt",
@@ -2303,10 +1945,7 @@
       "id": "2026-06-24-enisa-sme-cra-survey-report",
       "date": "2026-06-24",
       "category": "enisa",
-      "tags": [
-        "publication",
-        "supply-chain"
-      ],
+      "tags": ["publication", "supply-chain"],
       "type": "update",
       "title": "ENISA publishes SME CRA Survey Report on Cyber Resilience Act readiness",
       "titleDe": "ENISA veröffentlicht SME CRA Survey Report zur Vorbereitung auf den Cyber Resilience Act",
@@ -2320,12 +1959,7 @@
       "id": "2026-06-23-national-transposition-pt-myciber-operating-regulation",
       "date": "2026-06-23",
       "category": "national-transposition",
-      "tags": [
-        "pt",
-        "registration",
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["pt", "registration", "transposition", "legislation"],
       "type": "update",
       "title": "Portugal: CNCS operating regulation for the MyCiber registration platform enters into force",
       "titleDe": "Portugal: CNCS-Betriebsverordnung für die Registrierungsplattform MyCiber tritt in Kraft",
@@ -2339,10 +1973,7 @@
       "id": "2026-06-25-eu-cra-adco-reporting-september",
       "date": "2026-06-25",
       "category": "eu",
-      "tags": [
-        "incident-reporting",
-        "organisational"
-      ],
+      "tags": ["incident-reporting", "organisational"],
       "type": "update",
       "title": "CRA market surveillance authorities (AdCo CRA) meet in Berlin; first reporting obligations from 11 September 2026",
       "titleDe": "CRA-Marktüberwachungsbehörden (AdCo CRA) tagen in Berlin; erste Meldepflichten ab 11. September 2026",
@@ -2356,9 +1987,7 @@
       "id": "2026-07-01-enisa-nis360-2027-survey",
       "date": "2026-07-01",
       "category": "enisa",
-      "tags": [
-        "organisational"
-      ],
+      "tags": ["organisational"],
       "type": "update",
       "title": "ENISA opens NIS360 survey for national authorities and high-criticality entities",
       "titleDe": "ENISA startet NIS360-Umfrage für nationale Behörden und Einrichtungen hoher Kritikalität",
@@ -2372,11 +2001,7 @@
       "id": "2026-07-10-national-transposition-luxembourg-ilr-registration-deadline",
       "date": "2026-07-10",
       "category": "national-transposition",
-      "tags": [
-        "lu",
-        "registration",
-        "deadline"
-      ],
+      "tags": ["lu", "registration", "deadline"],
       "type": "update",
       "title": "Luxembourg: NIS 2 self-registration with the ILR closes 10 July 2026",
       "titleDe": "Luxemburg: NIS-2-Selbstregistrierung bei der ILR endet am 10. Juli 2026",
@@ -2390,10 +2015,7 @@
       "id": "2026-07-01-national-transposition-se-ncsc-authority-transfer",
       "date": "2026-07-01",
       "category": "national-transposition",
-      "tags": [
-        "se",
-        "organisational"
-      ],
+      "tags": ["se", "organisational"],
       "type": "update",
       "title": "Sweden: NIS 2 authority functions and CERT-SE transfer from MCF to the new NCSC",
       "titleDe": "Schweden: NIS-2-Behoerdenfunktionen und CERT-SE gehen von der MCF an das neue NCSC über",
@@ -2407,11 +2029,7 @@
       "id": "2026-07-08-eu-cjeu-referral-nis2-four-states",
       "date": "2026-07-08",
       "category": "eu",
-      "tags": [
-        "enforcement",
-        "infringement",
-        "transposition"
-      ],
+      "tags": ["enforcement", "infringement", "transposition"],
       "type": "update",
       "title": "Commission refers Ireland, Spain, France and the Netherlands to the CJEU over NIS 2 transposition",
       "titleDe": "Kommission verklagt Irland, Spanien, Frankreich und die Niederlande vor dem EuGH wegen NIS-2-Umsetzung",
@@ -2425,13 +2043,7 @@
       "id": "2026-07-07-national-transposition-nl-cyberbeveiligingswet-adopted",
       "date": "2026-07-07",
       "category": "national-transposition",
-      "tags": [
-        "nl",
-        "transposition",
-        "in-force",
-        "legislation",
-        "registration"
-      ],
+      "tags": ["nl", "transposition", "in-force", "legislation", "registration"],
       "type": "update",
       "title": "Netherlands adopts the Cyberbeveiligingswet (NIS 2), in force 15 August 2026",
       "titleDe": "Niederlande verabschieden das Cyberbeveiligingswet (NIS 2), in Kraft ab 15. August 2026",
@@ -2445,10 +2057,7 @@
       "id": "2026-07-07-eu-ai-cybersecurity-action-plan",
       "date": "2026-07-07",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "Commission presents EU Action Plan on Cybersecurity and Artificial Intelligence",
       "titleDe": "Kommission stellt EU-Aktionsplan für Cybersicherheit und Kuenstliche Intelligenz vor",
@@ -2462,10 +2071,7 @@
       "id": "2026-07-13-eu-cer-resilience-guidelines",
       "date": "2026-07-13",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "Commission publishes non-binding resilience guidelines under the CER Directive",
       "titleDe": "Kommission veröffentlicht unverbindliche Resilienzleitlinien unter der CER-Richtlinie",
@@ -2479,10 +2085,7 @@
       "id": "2026-07-13-enisa-sme-cra-maturity-model",
       "date": "2026-07-13",
       "category": "enisa",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "ENISA publishes SME Cyber Resilience Maturity Assessment Model for the CRA",
       "titleDe": "ENISA veröffentlicht Reifegradmodell zur Cyberresilienz für KMU unter dem CRA",
@@ -2496,11 +2099,7 @@
       "id": "2026-07-10-national-transposition-nl-cbw-staatsblad",
       "date": "2026-07-10",
       "category": "national-transposition",
-      "tags": [
-        "nl",
-        "legislation",
-        "transposition"
-      ],
+      "tags": ["nl", "legislation", "transposition"],
       "type": "update",
       "title": "Netherlands publishes the Cyberbeveiligingswet in the Staatsblad (Stb. 2026, 187)",
       "titleDe": "Niederlande veröffentlichen die Cyberbeveiligingswet im Staatsblad (Stb. 2026, 187)",
@@ -2514,11 +2113,7 @@
       "id": "2026-07-13-national-transposition-nl-ienw-sectoral-regulations",
       "date": "2026-07-13",
       "category": "national-transposition",
-      "tags": [
-        "nl",
-        "legislation",
-        "incident-reporting"
-      ],
+      "tags": ["nl", "legislation", "incident-reporting"],
       "type": "update",
       "title": "Netherlands: first sectoral NIS 2 regulations published for the water sector",
       "titleDe": "Niederlande: erste sektorale NIS-2-Verordnungen für den Wassersektor veröffentlicht",
@@ -2532,10 +2127,7 @@
       "id": "2026-07-07-national-transposition-ie-ncsc-board-guidance",
       "date": "2026-07-07",
       "category": "national-transposition",
-      "tags": [
-        "ie",
-        "guidance"
-      ],
+      "tags": ["ie", "guidance"],
       "type": "update",
       "title": "Ireland: NCSC publishes cyber governance guidance for boards of NIS 2 entities",
       "titleDe": "Irland: NCSC veröffentlicht Leitfaden zur Cyber-Governance für Leitungsorgane von NIS-2-Einrichtungen",
@@ -2549,11 +2141,7 @@
       "id": "2026-07-10-national-transposition-hu-first-audit-cycle",
       "date": "2026-07-10",
       "category": "national-transposition",
-      "tags": [
-        "hu",
-        "enforcement",
-        "deadline"
-      ],
+      "tags": ["hu", "enforcement", "deadline"],
       "type": "update",
       "title": "Hungary: SZTFH closes first NIS 2 audit cycle, 2,132 of 2,520 entities audited on time",
       "titleDe": "Ungarn: SZTFH schließt ersten NIS-2-Auditzyklus ab, 2.132 von 2.520 Einrichtungen fristgerecht auditiert",
@@ -2567,11 +2155,7 @@
       "id": "2026-07-01-national-transposition-se-incident-reporting-in-force",
       "date": "2026-07-01",
       "category": "national-transposition",
-      "tags": [
-        "se",
-        "incident-reporting",
-        "in-force"
-      ],
+      "tags": ["se", "incident-reporting", "in-force"],
       "type": "update",
       "title": "Sweden: NIS 2 incident reporting obligations enter into force (MCFFS 2026:8)",
       "titleDe": "Schweden: NIS-2-Meldepflichten treten in Kraft (MCFFS 2026:8)",
@@ -2585,11 +2169,7 @@
       "id": "2026-06-30-national-transposition-it-categorization-window-closes",
       "date": "2026-06-30",
       "category": "national-transposition",
-      "tags": [
-        "it",
-        "deadline",
-        "registration"
-      ],
+      "tags": ["it", "deadline", "registration"],
       "type": "update",
       "title": "Italy: ACN categorization window for existing NIS subjects closes",
       "titleDe": "Italien: ACN-Kategorisierungsfenster für bestehende NIS-Einrichtungen endet",
@@ -2603,11 +2183,7 @@
       "id": "2026-07-07-national-transposition-lu-ilr-implementing-consultations",
       "date": "2026-07-07",
       "category": "national-transposition",
-      "tags": [
-        "lu",
-        "guidance",
-        "incident-reporting"
-      ],
+      "tags": ["lu", "guidance", "incident-reporting"],
       "type": "update",
       "title": "Luxembourg: ILR consults on implementing regulations for security measures and incident notification",
       "titleDe": "Luxemburg: ILR konsultiert zu Durchfuehrungsregelungen für Sicherheitsmaßnahmen und Vorfallsmeldungen",
@@ -2621,11 +2197,7 @@
       "id": "2026-07-22-enisa-health-procurement-guidelines",
       "date": "2026-07-22",
       "category": "enisa",
-      "tags": [
-        "guidance",
-        "publication",
-        "supply-chain"
-      ],
+      "tags": ["guidance", "publication", "supply-chain"],
       "type": "update",
       "title": "ENISA publishes procurement guidelines for the cybersecurity of hospitals and healthcare providers",
       "titleDe": "ENISA veröffentlicht Beschaffungsleitlinien für die Cybersicherheit von Krankenhäusern und Gesundheitsdienstleistern",
@@ -2639,10 +2211,7 @@
       "id": "2026-07-24-enisa-eumss-certification-consultation",
       "date": "2026-07-24",
       "category": "enisa",
-      "tags": [
-        "certification",
-        "supply-chain"
-      ],
+      "tags": ["certification", "supply-chain"],
       "type": "update",
       "title": "ENISA opens public consultation on the EU certification scheme for Managed Security Services",
       "titleDe": "ENISA eröffnet öffentliche Konsultation zum EU-Zertifizierungsschema für Managed Security Services",
@@ -2656,10 +2225,7 @@
       "id": "2026-07-27-eu-cra-business-guidance",
       "date": "2026-07-27",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "Commission publishes guidance to help businesses implement the Cyber Resilience Act",
       "titleDe": "Kommission veröffentlicht Leitlinien zur Umsetzung des Cyber Resilience Act durch Unternehmen",
@@ -2673,12 +2239,7 @@
       "id": "2026-07-29-de-bsig-amendment-bgbl-221",
       "date": "2026-07-29",
       "category": "de",
-      "tags": [
-        "legislation",
-        "amendment",
-        "in-force",
-        "registration"
-      ],
+      "tags": ["legislation", "amendment", "in-force", "registration"],
       "type": "update",
       "title": "BSIG amended: critical component definition repointed, cyberthreat notification duty reworded",
       "titleDe": "BSIG geändert: Definition kritischer Komponenten neu verwiesen, Unterrichtungspflicht bei Cyberbedrohungen neu gefasst",
@@ -2692,12 +2253,7 @@
       "id": "2026-07-29-de-kritis-dachgesetz-amendment",
       "date": "2026-07-29",
       "category": "de",
-      "tags": [
-        "legislation",
-        "amendment",
-        "kritis",
-        "in-force"
-      ],
+      "tags": ["legislation", "amendment", "kritis", "in-force"],
       "type": "update",
       "title": "KRITIS-Dachgesetz amended: software counts as an installation, resilience deadlines cut loose from the calendar",
       "titleDe": "KRITIS-Dachgesetz geändert: Software zählt als Anlage, Resilienzfristen vom Kalender gelöst",
@@ -2711,11 +2267,7 @@
       "id": "2026-07-31-de-registration-grace-period-lapsed",
       "date": "2026-07-31",
       "category": "de",
-      "tags": [
-        "registration",
-        "deadline",
-        "enforcement"
-      ],
+      "tags": ["registration", "deadline", "enforcement"],
       "type": "update",
       "title": "BSI registration grace period lapses: 18,845 entities registered, no enforcement opened",
       "titleDe": "Faktische BSI-Registrierungsfrist läuft ab: 18.845 Einrichtungen registriert, keine Ordnungsmassnahmen",
@@ -2729,10 +2281,7 @@
       "id": "2026-08-05-de-bsi-tr-03183-1-v1",
       "date": "2026-08-05",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "BSI publishes Technical Guideline TR-03183-1 version 1.0.0 as a CRA entry aid",
       "titleDe": "BSI veröffentlicht Technische Richtlinie TR-03183-1 in Version 1.0.0 als Einstiegshilfe zum CRA",
@@ -2746,10 +2295,7 @@
       "id": "2026-07-30-enisa-secure-by-design-playbook",
       "date": "2026-07-30",
       "category": "enisa",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "ENISA publishes the Secure by Design and Default Playbook",
       "titleDe": "ENISA veröffentlicht das Secure by Design and Default Playbook",
@@ -2763,11 +2309,7 @@
       "id": "2026-07-29-de-bsi-sbom-minimum-elements",
       "date": "2026-07-29",
       "category": "de",
-      "tags": [
-        "guidance",
-        "supply-chain",
-        "publication"
-      ],
+      "tags": ["guidance", "supply-chain", "publication"],
       "type": "update",
       "title": "BSI reports updated Minimum Elements for SBOM, revised by CISA with BSI and international partners",
       "titleDe": "BSI meldet aktualisierte Minimum Elements for SBOM, überarbeitet von CISA mit BSI und internationalen Partnern",
@@ -2781,10 +2323,7 @@
       "id": "2026-07-22-de-cybergovsecure-kabinettsbeschluss",
       "date": "2026-07-22",
       "category": "de",
-      "tags": [
-        "guidance",
-        "organisational"
-      ],
+      "tags": ["guidance", "organisational"],
       "type": "update",
       "title": "Federal cabinet adopts CyberGovSecure as a binding framework for the federal administration",
       "titleDe": "Bundeskabinett beschließt CyberGovSecure als verbindlichen Rahmen für die Bundesverwaltung",
@@ -2798,9 +2337,7 @@
       "id": "2026-07-27-grundschutz-sdt-layer-structure",
       "date": "2026-07-27",
       "category": "grundschutz",
-      "tags": [
-        "publication"
-      ],
+      "tags": ["publication"],
       "type": "update",
       "title": "BSI migrates the Stand-der-Technik-Bibliothek to a layer based structure",
       "titleDe": "BSI stellt die Stand-der-Technik-Bibliothek auf eine schichtbasierte Struktur um",
@@ -2814,12 +2351,7 @@
       "id": "2026-08-03-national-transposition-nl-registration-mandatory",
       "date": "2026-08-03",
       "category": "national-transposition",
-      "tags": [
-        "nl",
-        "transposition",
-        "registration",
-        "guidance"
-      ],
+      "tags": ["nl", "transposition", "registration", "guidance"],
       "type": "update",
       "title": "Netherlands: NCSC-NL confirms registration becomes mandatory on 15 August with no grace period",
       "titleDe": "Niederlande: NCSC-NL bestätigt Registrierungspflicht ab 15. August ohne Übergangsfrist",
@@ -2833,11 +2365,7 @@
       "id": "2026-08-03-national-transposition-lu-ilr-consultation-extension",
       "date": "2026-08-03",
       "category": "national-transposition",
-      "tags": [
-        "lu",
-        "transposition",
-        "guidance"
-      ],
+      "tags": ["lu", "transposition", "guidance"],
       "type": "update",
       "title": "Luxembourg: ILR extends both NIS 2 consultations to 31 August and publishes deliverable templates",
       "titleDe": "Luxemburg: ILR verlängert beide NIS-2-Konsultationen bis zum 31. August und veröffentlicht Vorlagen",
@@ -2851,12 +2379,7 @@
       "id": "2026-07-21-national-transposition-hr-zks-q2-2026",
       "date": "2026-07-21",
       "category": "national-transposition",
-      "tags": [
-        "hr",
-        "transposition",
-        "registration",
-        "incident-reporting"
-      ],
+      "tags": ["hr", "transposition", "registration", "incident-reporting"],
       "type": "update",
       "title": "Croatia: 798 entities categorised under the Cybersecurity Act, 87 incidents in the second quarter",
       "titleDe": "Kroatien: 798 Einrichtungen nach dem Cybersicherheitsgesetz eingestuft, 87 Vorfälle im zweiten Quartal",
@@ -2870,11 +2393,7 @@
       "id": "2026-07-17-national-transposition-hr-cyber-solidarity-act",
       "date": "2026-07-17",
       "category": "national-transposition",
-      "tags": [
-        "hr",
-        "legislation",
-        "publication"
-      ],
+      "tags": ["hr", "legislation", "publication"],
       "type": "update",
       "title": "Croatia publishes the regulation implementing the EU Cyber Solidarity Act",
       "titleDe": "Kroatien veröffentlicht die Verordnung zur Durchführung des EU-Rechtsakts zur Cybersolidaritaet",
@@ -2888,12 +2407,7 @@
       "id": "2026-08-15-national-transposition-nl-cbw-in-force",
       "date": "2026-08-15",
       "category": "national-transposition",
-      "tags": [
-        "nl",
-        "in-force",
-        "legislation",
-        "registration"
-      ],
+      "tags": ["nl", "in-force", "legislation", "registration"],
       "type": "update",
       "title": "Netherlands: Cyberbeveiligingswet in force, registration in the entity register now mandatory",
       "titleDe": "Niederlande: Cyberbeveiligingswet in Kraft, Registrierung im Einrichtungsregister jetzt verpflichtend",
@@ -2907,12 +2421,7 @@
       "id": "2026-08-06-national-transposition-pt-myciber-registration-window",
       "date": "2026-08-06",
       "category": "national-transposition",
-      "tags": [
-        "pt",
-        "registration",
-        "deadline",
-        "guidance"
-      ],
+      "tags": ["pt", "registration", "deadline", "guidance"],
       "type": "update",
       "title": "Portugal: government sets out the practical obligations under the new cybersecurity regime, 60 working days to register on MyCiber",
       "titleDe": "Portugal: Regierung konkretisiert die Pflichten des neuen Cybersicherheitsregimes, 60 Arbeitstage zur Registrierung bei MyCiber",
@@ -2926,9 +2435,7 @@
       "id": "2026-08-06-enisa-cve-root-expansion",
       "date": "2026-08-06",
       "category": "enisa",
-      "tags": [
-        "organisational"
-      ],
+      "tags": ["organisational"],
       "type": "update",
       "title": "ENISA expands its CVE Root to 20 CVE Numbering Authorities",
       "titleDe": "ENISA baut ihre CVE-Root auf 20 CVE Numbering Authorities aus",
@@ -2942,10 +2449,7 @@
       "id": "2026-07-31-de-bsi-kritis-in-zahlen",
       "date": "2026-07-31",
       "category": "de",
-      "tags": [
-        "kritis",
-        "publication"
-      ],
+      "tags": ["kritis", "publication"],
       "type": "update",
       "title": "BSI updates KRITIS in Zahlen: 1,231 registered operators and 2,180 critical installations",
       "titleDe": "BSI aktualisiert KRITIS in Zahlen: 1.231 registrierte Betreiber und 2.180 kritische Anlagen",
@@ -2959,11 +2463,7 @@
       "id": "2026-07-09-de-bsi-gain-22",
       "date": "2026-07-09",
       "category": "de",
-      "tags": [
-        "kritis",
-        "guidance",
-        "publication"
-      ],
+      "tags": ["kritis", "guidance", "publication"],
       "type": "update",
       "title": "BSI publishes GAiN version 2.2, the baseline requirements for evidence under sec. 39(2) BSIG",
       "titleDe": "BSI veröffentlicht GAiN Version 2.2, die grundsaetzlichen Anforderungen im Nachweisverfahren nach Paragraf 39 Absatz 2 BSIG",
@@ -2977,10 +2477,7 @@
       "id": "2026-07-07-enisa-frontier-ai-view",
       "date": "2026-07-07",
       "category": "enisa",
-      "tags": [
-        "publication",
-        "guidance"
-      ],
+      "tags": ["publication", "guidance"],
       "type": "update",
       "title": "ENISA publishes its view on cybersecurity in the frontier AI era",
       "titleDe": "ENISA veröffentlicht ihre Sicht auf Cybersicherheit im Zeitalter der Frontier-KI",
@@ -2994,10 +2491,7 @@
       "id": "2026-08-17-de-bsi-nis2-in-zahlen-restored",
       "date": "2026-08-17",
       "category": "de",
-      "tags": [
-        "registration",
-        "publication"
-      ],
+      "tags": ["registration", "publication"],
       "type": "update",
       "title": "BSI NIS-2-in-Zahlen dashboard is live again with figures as at 30 June 2026",
       "titleDe": "BSI-Dashboard NIS-2 in Zahlen wieder erreichbar, Auswertungen zum 30. Juni 2026",
@@ -3011,12 +2505,7 @@
       "id": "2025-12-23-national-transposition-at-nisg-2026-published",
       "date": "2025-12-23",
       "category": "national-transposition",
-      "tags": [
-        "at",
-        "transposition",
-        "legislation",
-        "registration"
-      ],
+      "tags": ["at", "transposition", "legislation", "registration"],
       "type": "update",
       "title": "Austria: NISG 2026 published in the Federal Law Gazette, entering into force 1 October 2026",
       "titleDe": "Österreich: NISG 2026 im Bundesgesetzblatt kundgemacht, Inkrafttreten am 1. Oktober 2026",
@@ -3030,11 +2519,7 @@
       "id": "2026-08-14-de-bundestag-registration-figures-and-estimate",
       "date": "2026-08-14",
       "category": "de",
-      "tags": [
-        "registration",
-        "enforcement",
-        "deadline"
-      ],
+      "tags": ["registration", "enforcement", "deadline"],
       "type": "update",
       "title": "Federal government reports 19,058 NIS-2 registrations and says the 29,500 figure is an estimate, not a count of entities in scope",
       "titleDe": "Bundesregierung meldet 19.058 NIS-2-Registrierungen und stellt klar, dass 29.500 eine Schätzung und keine Zahl betroffener Einrichtungen ist",
@@ -3048,10 +2533,7 @@
       "id": "2026-08-06-de-bsi-security-txt-adoption",
       "date": "2026-08-06",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication"
-      ],
+      "tags": ["guidance", "publication"],
       "type": "update",
       "title": "BSI measures security.txt adoption in Germany at 1.8 percent and recommends the file for vulnerability reports",
       "titleDe": "BSI misst 1,8 Prozent Verbreitung von security.txt in Deutschland und empfiehlt die Datei für Schwachstellenmeldungen",
@@ -3065,11 +2547,7 @@
       "id": "2026-08-11-national-transposition-be-ccb-conformity-assessment-request",
       "date": "2026-08-11",
       "category": "national-transposition",
-      "tags": [
-        "be",
-        "enforcement",
-        "certification"
-      ],
+      "tags": ["be", "enforcement", "certification"],
       "type": "update",
       "title": "Belgium: CCB Inspection Service issues an information request to NIS 2 essential entities on their conformity assessment",
       "titleDe": "Belgien: Inspektionsdienst des CCB fordert von wesentlichen NIS-2-Einrichtungen Auskunft zur Konformitätsbewertung",
@@ -3083,10 +2561,7 @@
       "id": "2026-08-20-national-transposition-cz-nukib-guidance-call-for-input",
       "date": "2026-08-20",
       "category": "national-transposition",
-      "tags": [
-        "cz",
-        "guidance"
-      ],
+      "tags": ["cz", "guidance"],
       "type": "update",
       "title": "Czechia: NÚKIB asks regulated entities which guidance materials they still need under the new Cybersecurity Act",
       "titleDe": "Tschechien: NÚKIB fragt regulierte Einrichtungen, welche Hilfestellungen zum neuen Cybersicherheitsgesetz noch fehlen",
@@ -3100,10 +2575,7 @@
       "id": "2026-08-21-national-transposition-cz-nukib-annual-report-2025",
       "date": "2026-08-21",
       "category": "national-transposition",
-      "tags": [
-        "cz",
-        "publication"
-      ],
+      "tags": ["cz", "publication"],
       "type": "update",
       "title": "Czechia: NÚKIB reports 203 cyber incidents for 2025, the year its NIS 2 transposition took effect",
       "titleDe": "Tschechien: NÚKIB meldet 203 Cybervorfälle für 2025, das Jahr des Inkrafttretens der NIS-2-Umsetzung",
@@ -3117,11 +2589,7 @@
       "id": "2026-08-26-national-transposition-hu-first-audit-results",
       "date": "2026-08-26",
       "category": "national-transposition",
-      "tags": [
-        "hu",
-        "enforcement",
-        "publication"
-      ],
+      "tags": ["hu", "enforcement", "publication"],
       "type": "update",
       "title": "Hungary: SZTFH reports 2,194 entities completed the first cybersecurity audit, close to 90 percent compliant",
       "titleDe": "Ungarn: SZTFH meldet 2.194 abgeschlossene Erstaudits zur Cybersicherheit, knapp 90 Prozent bestanden",
@@ -3135,11 +2603,7 @@
       "id": "2026-07-24-national-transposition-it-acn-h1-2026",
       "date": "2026-07-24",
       "category": "national-transposition",
-      "tags": [
-        "it",
-        "incident-reporting",
-        "publication"
-      ],
+      "tags": ["it", "incident-reporting", "publication"],
       "type": "update",
       "title": "Italy: ACN reports 1,160 incident notifications in the first half of 2026 under the NIS 2 regime",
       "titleDe": "Italien: ACN meldet 1.160 Vorfallmeldungen im ersten Halbjahr 2026 unter dem NIS-2-Regime",
@@ -3153,11 +2617,7 @@
       "id": "2026-08-31-de-bsi-kritis-auditor-personenzertifizierung",
       "date": "2026-08-31",
       "category": "de",
-      "tags": [
-        "kritis",
-        "certification",
-        "guidance"
-      ],
+      "tags": ["kritis", "certification", "guidance"],
       "type": "update",
       "title": "BSI publishes the KRITIS auditor training concept and announces mandatory personal certification",
       "titleDe": "BSI veröffentlicht das Schulungskonzept für KRITIS-Prüfer und kuendigt die verpflichtende Personenzertifizierung an",
@@ -3171,9 +2631,7 @@
       "id": "2026-09-01-eu-eccc-digital-europe-cyber-call",
       "date": "2026-09-01",
       "category": "eu",
-      "tags": [
-        "organisational"
-      ],
+      "tags": ["organisational"],
       "type": "update",
       "title": "ECCC opens a 96 million euro Digital Europe call that names NIS 2 entities as beneficiaries",
       "titleDe": "ECCC eröffnet eine Ausschreibung über 96 Millionen Euro aus Digitales Europa und nennt NIS-2-Einrichtungen als Zielgruppe",
@@ -3187,11 +2645,7 @@
       "id": "2026-09-03-eu-g7-post-quantum-call-to-action",
       "date": "2026-09-03",
       "category": "eu",
-      "tags": [
-        "guidance",
-        "publication",
-        "post-quantum"
-      ],
+      "tags": ["guidance", "publication", "post-quantum"],
       "type": "update",
       "title": "G7 Cybersecurity Working Group publishes Preparing for the Post-Quantum Era: A Call to Action",
       "titleDe": "G7-Cybersicherheits-Arbeitsgruppe veröffentlicht Preparing for the Post-Quantum Era: A Call to Action",
@@ -3205,11 +2659,7 @@
       "id": "2026-09-03-de-bsi-memory-safe-languages",
       "date": "2026-09-03",
       "category": "de",
-      "tags": [
-        "guidance",
-        "publication",
-        "supply-chain"
-      ],
+      "tags": ["guidance", "publication", "supply-chain"],
       "type": "update",
       "title": "BSI and Sovereign Tech Agency recommend memory safe programming languages",
       "titleDe": "BSI und Sovereign Tech Agency empfehlen speichersichere Programmiersprachen",
@@ -3223,11 +2673,7 @@
       "id": "2025-03-12-national-transposition-fr-senat-first-reading",
       "date": "2025-03-12",
       "category": "national-transposition",
-      "tags": [
-        "fr",
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["fr", "transposition", "legislation"],
       "type": "update",
       "title": "France: Senat adopts the resilience bill carrying the NIS 2 transposition at first reading",
       "titleDe": "Frankreich: Senat nimmt das Resilienzgesetz mit der NIS-2-Umsetzung in erster Lesung an",
@@ -3241,11 +2687,7 @@
       "id": "2026-03-17-national-transposition-fr-recyf",
       "date": "2026-03-17",
       "category": "national-transposition",
-      "tags": [
-        "fr",
-        "guidance",
-        "transposition"
-      ],
+      "tags": ["fr", "guidance", "transposition"],
       "type": "update",
       "title": "France: ANSSI publishes the Referentiel Cyber France ahead of transposition",
       "titleDe": "Frankreich: ANSSI veröffentlicht das Referentiel Cyber France vor der Umsetzung",
@@ -3259,11 +2701,7 @@
       "id": "2025-01-14-national-transposition-es-anteproyecto",
       "date": "2025-01-14",
       "category": "national-transposition",
-      "tags": [
-        "es",
-        "transposition",
-        "legislation"
-      ],
+      "tags": ["es", "transposition", "legislation"],
       "type": "update",
       "title": "Spain: Council of Ministers approves the draft Cybersecurity Coordination and Governance Act",
       "titleDe": "Spanien: Ministerrat billigt den Gesetzentwurf zur Koordinierung und Steuerung der Cybersicherheit",
