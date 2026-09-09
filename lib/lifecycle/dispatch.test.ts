@@ -21,7 +21,7 @@ type SendResult =
 /** Shared call sequence so ordering (claim before send) is assertable. */
 const sequence: string[] = [];
 let sendResult: SendResult = { success: true, id: "resend-id" };
-let suppression: "dev-blocked" | "disabled" | "no-api-key" | null = null;
+let suppression: "dev-blocked" | "disabled" | "no-transport" | null = null;
 
 const sendMail = mock(async (opts: { idempotencyKey?: string }) => {
   sequence.push(`send:${opts.idempotencyKey ?? "no-key"}`);
@@ -31,7 +31,7 @@ const sendMail = mock(async (opts: { idempotencyKey?: string }) => {
 // Relative specifiers on purpose: they resolve to the same files dispatch.ts
 // imports via "@/...", and a mock registered under a specifier that fails to
 // resolve would silently not apply.
-const SUPPRESSED = new Set(["dev-blocked", "disabled", "no-api-key", "dev-stub"]);
+const SUPPRESSED = new Set(["dev-blocked", "disabled", "no-transport", "dev-stub"]);
 mock.module("../mail/send", () => ({
   sendMail,
   sendWelcomeEmail: async () => ({ success: true, id: "unused" }),
@@ -156,13 +156,13 @@ const FAST = { sendIntervalMs: 0 };
 describe("runLifecycleEmails", () => {
   test("suppressed transport skips the whole run and claims nothing", async () => {
     reset();
-    suppression = "no-api-key";
+    suppression = "no-transport";
     setTypes(stubType(prepared(2)));
     const { db } = makeDb();
 
     const result = await runLifecycleEmails(db, FAST);
 
-    expect("skipped" in result && result.skipped).toContain("no-api-key");
+    expect("skipped" in result && result.skipped).toContain("no-transport");
     expect(sequence).toEqual([]);
   });
 
@@ -218,7 +218,7 @@ describe("runLifecycleEmails", () => {
 
   test("a suppressed send id releases the claim (provably nothing left the box)", async () => {
     reset();
-    sendResult = { success: true, id: "no-api-key" };
+    sendResult = { success: true, id: "no-transport" };
     setTypes(stubType(prepared(1)));
     const { db, deletes } = makeDb();
 

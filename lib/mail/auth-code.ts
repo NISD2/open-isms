@@ -59,9 +59,10 @@ export async function sendAuthCode({ to, code, locale, kind }: SendAuthCodeOptio
   if (hasNoMailTransport()) {
     const what = kind === "verification" ? "sign-in code" : "password reset code";
     console.warn(
-      `[mail] No RESEND_API_KEY is set, so nothing was sent. ` +
+      `[mail] No mail transport is configured, so nothing was sent. ` +
         `The ${what} for ${to} is ${code}. ` +
-        `Configure RESEND_API_KEY and RESEND_FROM_EMAIL to deliver these by email instead: ` +
+        `Set SMTP_HOST (your own relay) or RESEND_API_KEY, plus MAIL_FROM_EMAIL, ` +
+        `to deliver these by email instead: ` +
         `https://www.nisd2.eu/docs/self-hosting/email`,
     );
   }

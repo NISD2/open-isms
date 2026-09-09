@@ -38,6 +38,7 @@ const nextConfig: NextConfig = {
     "@ai-sdk/xai",
     "google-auth-library",
     "resend",
+    "nodemailer",
     "mammoth",
     "docx",
     "unpdf",

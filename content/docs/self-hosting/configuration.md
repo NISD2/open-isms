@@ -55,7 +55,7 @@ These are the outbound calls the software can make. Every one of them is behind 
 
 | Service | Used for | Required? | Alternative |
 |---|---|---|---|
-| Resend | Registration codes, deadline reminders, notifications | Effectively yes. Without a mail transport nobody finishes sign-up. | Google OAuth alone gets people in, because Google asserts the address is already verified. Delivery is isolated in `lib/mail/`, so swapping the client is a contained change. |
+| Resend | Registration codes, deadline reminders, notifications | No. A mail transport is effectively required, but Resend is not the only one. | Your own SMTP relay: set `SMTP_HOST` and it wins even if a Resend key is present. That is the option that keeps an air-gapped instance working. Google OAuth alone also gets people in, because Google asserts the address is already verified. See [Email](/docs/self-hosting/email). |
 | S3 storage | Evidence uploads, through presigned browser PUTs | No | The bundled MinIO container, `COMPOSE_PROFILES=minio`, or any S3-compatible server via `AWS_S3_ENDPOINT`. |
 | Google OAuth | Optional sign-in provider | No | Email and password is the default. |
 | xAI (Grok) | AI form prefill and requirement guidance | No | None wired. The feature errors cleanly when `XAI_API_KEY` is absent. The provider is reached through the Vercel AI SDK in `lib/ai/` and `lib/forms/llm-prefill-action.ts`. |
