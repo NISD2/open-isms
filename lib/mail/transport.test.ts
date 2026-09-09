@@ -11,9 +11,9 @@
 import { describe, expect, test } from "bun:test";
 import {
   hasOwnFromAddress,
+  implicitTlsForPort,
   preferConfigured,
   selectTransport,
-  useImplicitTls,
 } from "./transport-rules";
 
 describe("selectTransport", () => {
@@ -85,23 +85,23 @@ describe("hasOwnFromAddress", () => {
   });
 });
 
-describe("useImplicitTls", () => {
+describe("implicitTlsForPort", () => {
   test("465 is implicit TLS, 587 and 25 are not", () => {
-    expect(useImplicitTls(465, undefined)).toBe(true);
-    expect(useImplicitTls(587, undefined)).toBe(false);
-    expect(useImplicitTls(25, undefined)).toBe(false);
+    expect(implicitTlsForPort(465, undefined)).toBe(true);
+    expect(implicitTlsForPort(587, undefined)).toBe(false);
+    expect(implicitTlsForPort(25, undefined)).toBe(false);
   });
 
   test("an explicit value overrides the port pairing in both directions", () => {
-    expect(useImplicitTls(587, "true")).toBe(true);
-    expect(useImplicitTls(587, "1")).toBe(true);
-    expect(useImplicitTls(465, "false")).toBe(false);
+    expect(implicitTlsForPort(587, "true")).toBe(true);
+    expect(implicitTlsForPort(587, "1")).toBe(true);
+    expect(implicitTlsForPort(465, "false")).toBe(false);
   });
 
   // Same blank-is-not-an-answer rule: read as an explicit "false", this would
   // open port 465 in the clear and the connection would hang rather than fail.
   test("blank is not an override, so 465 keeps its implicit TLS", () => {
-    expect(useImplicitTls(465, "")).toBe(true);
-    expect(useImplicitTls(465, "   ")).toBe(true);
+    expect(implicitTlsForPort(465, "")).toBe(true);
+    expect(implicitTlsForPort(465, "   ")).toBe(true);
   });
 });

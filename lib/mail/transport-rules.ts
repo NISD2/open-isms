@@ -63,7 +63,7 @@ export function hasOwnFromAddress(fromEmail: string): boolean {
  * implicit-TLS port; 587 and 25 open in the clear and upgrade with STARTTLS.
  * SMTP_SECURE overrides that pairing, and a blank value is not an override.
  */
-export function useImplicitTls(
+export function implicitTlsForPort(
   port: number,
   secureOverride: string | undefined,
 ): boolean {

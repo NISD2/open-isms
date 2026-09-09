@@ -130,7 +130,7 @@ try {
     let journal;
     try {
       journal = JSON.parse(readFileSync(`${folder}/meta/_journal.json`, "utf-8"));
-    } catch (err) {
+    } catch {
       console.warn(
         `[migrate ${label}] no journal at ${folder}/meta/_journal.json — skipping`,
       );

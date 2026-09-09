@@ -2,7 +2,7 @@ import "@/lib/server-guard";
 import nodemailer, { type Transporter } from "nodemailer";
 import { env } from "@/lib/env";
 import type { OutgoingMail, TransportResult } from "./transport";
-import { hasOwnFromAddress, useImplicitTls } from "./transport-rules";
+import { hasOwnFromAddress, implicitTlsForPort } from "./transport-rules";
 
 /**
  * SMTP transport, for instances that send through their own relay instead of
@@ -32,7 +32,7 @@ function getTransporter(): Transporter {
   _transporter = nodemailer.createTransport({
     host,
     port: env.SMTP_PORT,
-    secure: useImplicitTls(env.SMTP_PORT, env.SMTP_SECURE),
+    secure: implicitTlsForPort(env.SMTP_PORT, env.SMTP_SECURE),
     // An unauthenticated relay is a normal thing on a private network, and a
     // user with no password is how you spell it.
     auth: env.SMTP_USER?.trim()
