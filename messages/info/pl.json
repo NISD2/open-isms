@@ -6380,10 +6380,10 @@
         },
         "q14": {
           "q": "Jak doszło do zmiany nazwy na „Cyfrowe Usługi Energetyczne”?",
-          "a": "Dawną kategorię instalacji punktu agregacji (Buendelstelle) przemianowano na „Cyfrowe Usługi Energetyczne”, ponieważ termin lepiej oddaje rosnącą rolę systemów IT i procesów cyfrowych w sektorze energetyki niż dawna nazwa, ściśle związana z agregacją odczytów liczników. Ważniejsza od nazwy jest konsekwencja: dla tej kategorii regulacja bezpieczeństwa informacji nie leży już w BSIG, lecz w sekcjach 5c i nast. EnWG, a właściwa jest Bundesnetzagentur."
+          "a": "Dawną kategorię instalacji punktu agregacji (Bündelstelle) przemianowano na „Cyfrowe Usługi Energetyczne”, ponieważ termin lepiej oddaje rosnącą rolę systemów IT i procesów cyfrowych w sektorze energetyki niż dawna nazwa, ściśle związana z agregacją odczytów liczników. Ważniejsza od nazwy jest konsekwencja: dla tej kategorii regulacja bezpieczeństwa informacji nie leży już w BSIG, lecz w sekcjach 5c i nast. EnWG, a właściwa jest Bundesnetzagentur."
         },
         "q15": {
-          "q": "Co zmiana ustawowa oznacza dla mojego punktu agregacji (BueStel)?",
+          "q": "Co zmiana ustawowa oznacza dla mojego punktu agregacji (BüStel)?",
           "a": "Twój punkt agregacji jest usunięty z regulacji BSIG jako „Cyfrowa Usługa Energetyczna”. Wymogi w zakresie bezpieczeństwa informacji będą w przyszłości regulowane sekcjami 5c i nast. EnWG, a właściwym organem nadzorczym jest Bundesnetzagentur, a nie już BSI. Dla dotkniętej instalacji w kategorii 1.1.2 nie musisz już dostarczać dowodów do BSI na podstawie sekcji 8a BSIG. Twój punkt kontaktowy i twoje wymogi techniczne zatem się zmieniają; sprawdź niezwłocznie wymogi Bundesnetzagentur."
         },
         "q16": {
@@ -13982,7 +13982,7 @@
       "overview": {
         "heading": "Czym jest ta strona",
         "p1": "Sygnalizowanie to odrębna ścieżka prawna od zgłaszania incydentów w NIS 2. Pracownik, wykonawca lub kandydat do pracy, który zgłasza uchybienie zgodności z NIS 2, jest chroniony przez dyrektywę UE 2019/1937. Dyrektywa wymienia bezpieczeństwo sieci i systemów informatycznych wprost w swoim załączniku część I.B jako chroniony obszar zgłaszania.",
-        "p2": "W Niemczech Hinweisgeberschutzgesetz (HinSchG, obowiązująca od 2 lipca 2023 r.) transponuje dyrektywę. Bundesamt fuer Justiz prowadzi centralny kanał zewnętrzny. Podmioty zatrudniające 50 lub więcej pracowników są zobowiązane do utrzymywania wewnętrznego kanału zgłaszania na podstawie sekcji 12 HinSchG.",
+        "p2": "W Niemczech Hinweisgeberschutzgesetz (HinSchG, obowiązująca od 2 lipca 2023 r.) transponuje dyrektywę. Bundesamt für Justiz prowadzi centralny kanał zewnętrzny. Podmioty zatrudniające 50 lub więcej pracowników są zobowiązane do utrzymywania wewnętrznego kanału zgłaszania na podstawie sekcji 12 HinSchG.",
         "p3": "Ujawnienie przez sygnalistę organowi zewnętrznemu nie zastępuje własnego zgłoszenia incydentu przez podmiot na podstawie artykułu 23 NIS 2 (sekcja 32 BSIG w Niemczech). Oba obowiązki mogą zostać uruchomione tym samym zdarzeniem i oba biegną według własnych zegarów."
       },
       "legalAnchor": {
@@ -14000,8 +14000,8 @@
         },
         "transposition": {
           "label": "HinSchG sekcja 12 (wewnętrzne kanały zgłaszania)",
-          "quote": "Beschaeftigungsgeber mit in der Regel mindestens 50 Beschaeftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschaeftigte zur Abgabe von Meldungen nach diesem Gesetz wenden koennen.",
-          "context": "Próg 50 pracowników to liczba osób co do zasady, a nie precyzyjna wartość dzienna. Podmioty poniżej 50 pracowników mogą utworzyć kanał wewnętrzny dobrowolnie; podmioty z 50 lub więcej muszą. Bundesamt fuer Justiz prowadzi kanał zewnętrzny."
+          "quote": "Beschäftigungsgeber mit in der Regel mindestens 50 Beschäftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschäftigte zur Abgabe von Meldungen nach diesem Gesetz wenden können.",
+          "context": "Próg 50 pracowników to liczba osób co do zasady, a nie precyzyjna wartość dzienna. Podmioty poniżej 50 pracowników mogą utworzyć kanał wewnętrzny dobrowolnie; podmioty z 50 lub więcej muszą. Bundesamt für Justiz prowadzi kanał zewnętrzny."
         }
       },
       "elements": {
@@ -14016,7 +14016,7 @@
           "channels": {
             "section": "Kanały",
             "title": "Najpierw wewnętrzny, równolegle zewnętrzny",
-            "body": "Kanał wewnętrzny na podstawie sekcji 12 HinSchG (50 i więcej pracowników). Kanały zewnętrzne na podstawie sekcji 19 HinSchG: Bundesamt fuer Justiz jako centralny urząd zewnętrzny, plus organy sektorowe. Osoba zgłaszająca może wybrać dowolny; motyw 33 dyrektywy wyraża preferencję dla najpierw wewnętrznego, ale nie czyni z tego warunku wstępnego."
+            "body": "Kanał wewnętrzny na podstawie sekcji 12 HinSchG (50 i więcej pracowników). Kanały zewnętrzne na podstawie sekcji 19 HinSchG: Bundesamt für Justiz jako centralny urząd zewnętrzny, plus organy sektorowe. Osoba zgłaszająca może wybrać dowolny; motyw 33 dyrektywy wyraża preferencję dla najpierw wewnętrznego, ale nie czyni z tego warunku wstępnego."
           },
           "retention": {
             "section": "Przechowywanie",
@@ -14046,17 +14046,17 @@
           "bsi": {
             "country": "DE",
             "label": "BSI jako organ sektorowy",
-            "body": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI) jest właściwym organem nadzoru NIS 2 na podstawie sekcji 61 BSIG. Zgłoszenie sygnalisty zarzucające, że podmiot nie spełnia środków z artykułu 21 lub nie zarejestrował się na podstawie art. 3 ust. 4 NIS 2, zwykle trafi do BSI poprzez routing kanału zewnętrznego, nawet jeśli najpierw zostanie złożone w Bundesamt fuer Justiz."
+            "body": "Bundesamt für Sicherheit in der Informationstechnik (BSI) jest właściwym organem nadzoru NIS 2 na podstawie sekcji 61 BSIG. Zgłoszenie sygnalisty zarzucające, że podmiot nie spełnia środków z artykułu 21 lub nie zarejestrował się na podstawie art. 3 ust. 4 NIS 2, zwykle trafi do BSI poprzez routing kanału zewnętrznego, nawet jeśli najpierw zostanie złożone w Bundesamt für Justiz."
           },
           "bfdi": {
             "country": "DE",
-            "label": "Bundesbeauftragte fuer den Datenschutz und die Informationsfreiheit",
+            "label": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit",
             "body": "BfDI jest sektorowym kanałem zewnętrznym dla naruszeń ochrony danych na szczeblu federalnym. NIS 2 i GDPR nakładają się, gdy incydent obejmuje dane osobowe. Zgłoszenie sygnalisty może wskazywać obie podstawy prawne; przyjmujący organ kieruje poszczególne części do właściwego organu."
           },
           "bafa": {
             "country": "DE",
-            "label": "Bundesamt fuer Justiz jako centralny kanał zewnętrzny",
-            "body": "Bundesamt fuer Justiz prowadzi centralny zewnętrzny urząd zgłoszeniowy na podstawie sekcji 19 HinSchG. Jest domyślnym adresem zewnętrznym, jeśli nie ma zastosowania kanał sektorowy, i kieruje zgłoszenia do właściwego organu nadzoru (BSI, BNetzA, BAFin, BfDI), gdy przedmiot tam się mieści."
+            "label": "Bundesamt für Justiz jako centralny kanał zewnętrzny",
+            "body": "Bundesamt für Justiz prowadzi centralny zewnętrzny urząd zgłoszeniowy na podstawie sekcji 19 HinSchG. Jest domyślnym adresem zewnętrznym, jeśli nie ma zastosowania kanał sektorowy, i kieruje zgłoszenia do właściwego organu nadzoru (BSI, BNetzA, BAFin, BfDI), gdy przedmiot tam się mieści."
           }
         }
       },
@@ -14095,7 +14095,7 @@
           "Hinweisgeberschutzgesetz (HinSchG) of 31 May 2023, BGBl. 2023 I Nr. 140. Sections 2, 8, 11, 12, 16, 17, 19, 36, 40.",
           "Directive (EU) 2022/2555 (NIS 2) of 14 December 2022, Articles 21, 23, 27.",
           "BSI-Gesetz (BSIG), Sections 32, 33, 61, 65.",
-          "Bundesamt fuer Justiz, external reporting office under Section 19 HinSchG."
+          "Bundesamt für Justiz, external reporting office under Section 19 HinSchG."
         ]
       },
       "ctaCard": {
@@ -15911,12 +15911,12 @@
           "bsi": {
             "country": "DE / NIS 2",
             "label": "BSI",
-            "body": "W Niemczech Bundesamt fuer Sicherheit in der Informationstechnik (BSI) jest wiodącym organem dla wdrożenia NIS 2. BSI przyjmuje rejestracje, zgłoszenia incydentów i nadzoruje środki zarządzania ryzykiem cyberbezpieczeństwa NIS 2."
+            "body": "W Niemczech Bundesamt für Sicherheit in der Informationstechnik (BSI) jest wiodącym organem dla wdrożenia NIS 2. BSI przyjmuje rejestracje, zgłoszenia incydentów i nadzoruje środki zarządzania ryzykiem cyberbezpieczeństwa NIS 2."
           },
           "bbk": {
             "country": "DE / CER",
             "label": "BBK",
-            "body": "Niemieckim organem wiodącym dla CER jest Bundesamt fuer Bevoelkerungsschutz und Katastrophenhilfe (BBK), a nie BSI. BBK nadzoruje wyznaczanie podmiotów krytycznych i odporność fizyczną na podstawie planowanego KRITIS-Dachgesetz."
+            "body": "Niemieckim organem wiodącym dla CER jest Bundesamt für Bevoelkerungsschutz und Katastrophenhilfe (BBK), a nie BSI. BBK nadzoruje wyznaczanie podmiotów krytycznych i odporność fizyczną na podstawie planowanego KRITIS-Dachgesetz."
           },
           "enisa": {
             "country": "EU",

@@ -3250,7 +3250,7 @@
       },
       "customerNotification": {
         "heading": "Kunden über erhebliche Cyberbedrohungen unterrichten (Art. 23 Abs. 2 NIS 2)",
-        "p1": "Artikel 23 Absatz 2 NIS 2 fügt eine separate Pflicht hinzu. Wesentliche und wichtige Einrichtungen unterrichten unverzüglich ihre Empfänger der Dienste über erhebliche Cyberbedrohungen, gegen die diese Maßnahmen ergreifen können. Das ist nicht die CSIRT-Meldung, sondern die Aussenkommunikation an Kunden.",
+        "p1": "Artikel 23 Absatz 2 NIS 2 fügt eine separate Pflicht hinzu. Wesentliche und wichtige Einrichtungen unterrichten unverzüglich ihre Empfänger der Dienste über erhebliche Cyberbedrohungen, gegen die diese Maßnahmen ergreifen können. Das ist nicht die CSIRT-Meldung, sondern die Außenkommunikation an Kunden.",
         "p2": "In Deutschland setzt §35 BSIG das um. §35 Absatz 1 erlaubt dem BSI, die Unterrichtung anzuordnen. §35 Absatz 2 verpflichtet zusätzlich bestimmte Sektoren (Finanzwesen, Sozialversicherung, Digitale Infrastruktur, IKT-Dienste-Verwaltung, Digitale Dienste) zur eigenständigen Unterrichtung. Die Kommunikation kann per Veröffentlichung auf der Webseite erfolgen."
       },
       "nationalView": {
@@ -5318,7 +5318,7 @@
         "heading": "Was produzierende Unternehmen besonders macht",
         "p1": "Die OT/IT-Konvergenz ist die größte Herausforderung. Moderne Industrie-4.0-Konzepte verbinden Maschinen mit dem Internet, sammeln Echtzeitdaten und ermöglichen Fernwartung. Gleichzeitig laufen auf vielen Fertigungsanlagen Betriebssysteme, die seit Jahren keine Sicherheitsupdates mehr erhalten. Windows XP in einer CNC-Steuerung ist keine Seltenheit. Diese Systeme können oft nicht einfach aktualisiert werden, weil der Maschinenhersteller die Kompatibilität nicht garantiert.",
         "p2": "Fernwartungszugänge sind ein besonderes Risiko. Fast jede größere Maschine hat einen VPN-Zugang für den Hersteller. In vielen Betrieben sind diese Zugänge dauerhaft aktiv und nicht überwacht. Unter NIS2 müssen Sie diese Zugänge dokumentieren, minimieren und überwachen. Der Grundschutz-Baustein IND.2.7 adressiert explizit die Fernwartung im industriellen Umfeld.",
-        "p3": "Der Schutz von Konstruktions- und Fertigungsdaten (CAD, NC-Programme, Rezepturen) ist ein oft unterschätztes Thema. Im Maschinenbau und in der Automobilzulieferung sind diese Daten das wertvollste geistige Eigentum. Ein Cyberangriff, der diese Daten abgreift, kann existenzbedrohend sein - auch wenn die Produktion weiterlauft. Die Risikobewertung muss neben Verfügbarkeit auch Vertraulichkeit adressieren."
+        "p3": "Der Schutz von Konstruktions- und Fertigungsdaten (CAD, NC-Programme, Rezepturen) ist ein oft unterschätztes Thema. Im Maschinenbau und in der Automobilzulieferung sind diese Daten das wertvollste geistige Eigentum. Ein Cyberangriff, der diese Daten abgreift, kann existenzbedrohend sein - auch wenn die Produktion weiterläuft. Die Risikobewertung muss neben Verfügbarkeit auch Vertraulichkeit adressieren."
       },
       "faq": {
         "heading": "Häufig gestellte Fragen",
@@ -5557,7 +5557,7 @@
       "subtitle": "NIS2-Richtlinie, CIR, BSIG, Grundschutz - vier Regelwerke, ein Ziel. Wir nehmen die strengste Anforderung aus jedem und machen sie zu Ihrem Standard. Das Ergebnis: echte EU-weite Compliance, nicht nur auf dem Papier.",
       "problem": {
         "heading": "Das Chaos der europäischen Cybersicherheit",
-        "p1": "NIS2 ist eine EU-Richtlinie, kein einheitliches Gesetz. Sie setzt Mindestanforderungen - und jedes Land darf strenger werden. Deutschland hat genau das getan. Frankreich wird es tun. Die Niederlande auch. Für Unternehmen mit grenzüberschreitenden Aktivitäten heisst das: Willkommen im Dschungel.",
+        "p1": "NIS2 ist eine EU-Richtlinie, kein einheitliches Gesetz. Sie setzt Mindestanforderungen - und jedes Land darf strenger werden. Deutschland hat genau das getan. Frankreich wird es tun. Die Niederlande auch. Für Unternehmen mit grenzüberschreitenden Aktivitäten heißt das: Willkommen im Dschungel.",
         "p2": "Dazu kommen die CIR 2024/2690, eine EU-Durchführungsverordnung, die für bestimmte Einrichtungen verbindliche technische Anforderungen definiert - deutlich konkreter als die Richtlinie selbst. Und in Deutschland schreibt das BSI mit den IT-Grundschutz-Standards vor, wie die Umsetzung konkret auszusehen hat.",
         "p3": "Unternehmen stehen vor der Frage: Was gilt für mich? Die Richtlinie? Das nationale Gesetz? Die CIR? Grundschutz? Die ehrliche Antwort: alles davon, je nach Kontext. Und genau deshalb brauchen Sie einen Ansatz, der nicht rät, sondern den höchsten Standard als Baseline nimmt."
       },
@@ -5567,11 +5567,11 @@
         "items": {
           "directive": {
             "title": "NIS2-Richtlinie (EU 2022/2555)",
-            "description": "Das EU-Minimum. Definiert Pflichten für wesentliche und wichtige Einrichtungen - bewusst vage gehalten, damit jedes Land sie national umsetzen kann. Artikel 21 nennt zehn Risikomanagement-Massnahmen, ohne zu sagen, wie genau."
+            "description": "Das EU-Minimum. Definiert Pflichten für wesentliche und wichtige Einrichtungen - bewusst vage gehalten, damit jedes Land sie national umsetzen kann. Artikel 21 nennt zehn Risikomanagement-Maßnahmen, ohne zu sagen, wie genau."
           },
           "nationalLaw": {
             "title": "BSIG - Deutsches Umsetzungsgesetz",
-            "description": "Deutschlands Antwort auf NIS2. Das BSIG geht weiter: §30 konkretisiert die Massnahmen, §38 schafft persönliche Haftung für Geschäftsführer, die Meldepflichten sind enger getaktet. Wer nur die EU-Richtlinie liest, ist in Deutschland nicht compliant."
+            "description": "Deutschlands Antwort auf NIS2. Das BSIG geht weiter: §30 konkretisiert die Maßnahmen, §38 schafft persönliche Haftung für Geschäftsführer, die Meldepflichten sind enger getaktet. Wer nur die EU-Richtlinie liest, ist in Deutschland nicht compliant."
           },
           "cir": {
             "title": "CIR 2024/2690 - EU-Durchführungsverordnung",
@@ -5585,7 +5585,7 @@
       },
       "approach": {
         "heading": "Unser Ansatz: der strengste gemeinsame Nenner",
-        "p1": "Wir vergleichen jede einzelne Anforderung über alle vier Ebenen hinweg und nehmen die strengste Version als Massstab. Wo die Richtlinie vage bleibt, nutzen wir die CIR-Konkretisierung. Wo das BSIG strenger ist, gilt das BSIG. Wo Grundschutz die detaillierteste Umsetzungsmethodik liefert, folgen wir Grundschutz.",
+        "p1": "Wir vergleichen jede einzelne Anforderung über alle vier Ebenen hinweg und nehmen die strengste Version als Maßstab. Wo die Richtlinie vage bleibt, nutzen wir die CIR-Konkretisierung. Wo das BSIG strenger ist, gilt das BSIG. Wo Grundschutz die detaillierteste Umsetzungsmethodik liefert, folgen wir Grundschutz.",
         "p2": "Das Ergebnis ist kein theoretisches Konstrukt - es ist das, was die EU eigentlich hätte liefern sollen: ein einheitlicher europäischer Standard für Cybersicherheit. Die EU hat 27 nationale Umsetzungen zugelassen. Wir normalisieren sie auf ein Niveau, das überall besteht.",
         "p3": "Unsere 128 Anforderungen bilden die Schnittmenge aus allen vier Ebenen ab. Jede Anforderung referenziert ihre Quellen: Richtlinien-Artikel, BSIG-Paragraph, CIR-Abschnitt, Grundschutz-Baustein. Sie wissen immer, warum Sie etwas tun - nicht nur, dass Sie es tun müssen."
       },
@@ -5599,9 +5599,9 @@
         "rows": {
           "riskManagement": {
             "area": "Risikomanagement",
-            "directive": "\"Geeignete Massnahmen\" - keine Methodik vorgeschrieben",
+            "directive": "\"Geeignete Maßnahmen\" - keine Methodik vorgeschrieben",
             "cir": "Dokumentierte Risikobewertung mit definierten Kriterien, jährliche Überprüfung",
-            "bsig": "BSI-200-3: Vollständige Risikoanalyse mit Schutzbedarfsfeststellung, Gefährdungsmodellierung, Massnahmenableitung"
+            "bsig": "BSI-200-3: Vollständige Risikoanalyse mit Schutzbedarfsfeststellung, Gefährdungsmodellierung, Maßnahmenableitung"
           },
           "incidentReporting": {
             "area": "Vorfallmeldung",
@@ -5645,7 +5645,7 @@
           },
           "noGuesswork": {
             "title": "Kein Interpretationsspielraum",
-            "description": "Die NIS2-Richtlinie ist absichtlich vage. Das BSIG etwas konkreter. Grundschutz sagt Ihnen genau, was zu tun ist. Wir nehmen die konkreteste Formulierung und übersetzen sie in klare Anforderungen - kein Berater nötig, der Ihnen erklärt, was \"geeignete Massnahmen\" bedeuten."
+            "description": "Die NIS2-Richtlinie ist absichtlich vage. Das BSIG etwas konkreter. Grundschutz sagt Ihnen genau, was zu tun ist. Wir nehmen die konkreteste Formulierung und übersetzen sie in klare Anforderungen - kein Berater nötig, der Ihnen erklärt, was \"geeignete Maßnahmen\" bedeuten."
           },
           "futureProof": {
             "title": "Zukunftssicher",
@@ -5658,9 +5658,9 @@
         }
       },
       "myth": {
-        "heading": "Strenger heisst nicht mehr Arbeit",
+        "heading": "Strenger heißt nicht mehr Arbeit",
         "p1": "Der grösste Einwand, den wir hören: \"Wenn ich den strengsten Standard nehme, habe ich doch viel mehr zu tun.\" Das klingt logisch, stimmt aber nicht. Der Unterschied zwischen der vagen EU-Richtlinie und dem konkreten Grundschutz-Ansatz liegt nicht im Umfang der Arbeit - er liegt im Verständnis dessen, was zu tun ist.",
-        "p2": "Die vage Richtlinie sagt: \"Treffen Sie geeignete Massnahmen.\" Das klingt nach weniger Arbeit - bis Sie drei Monate und einen teuren Berater später immer noch nicht wissen, was \"geeignet\" bedeutet. Grundschutz sagt: \"Erstellen Sie ein Berechtigungskonzept nach ORP.4 mit diesen Elementen.\" Das klingt nach mehr - ist aber in zwei Stunden erledigt, weil Sie genau wissen, was gemeint ist.",
+        "p2": "Die vage Richtlinie sagt: \"Treffen Sie geeignete Maßnahmen.\" Das klingt nach weniger Arbeit - bis Sie drei Monate und einen teuren Berater später immer noch nicht wissen, was \"geeignet\" bedeutet. Grundschutz sagt: \"Erstellen Sie ein Berechtigungskonzept nach ORP.4 mit diesen Elementen.\" Das klingt nach mehr - ist aber in zwei Stunden erledigt, weil Sie genau wissen, was gemeint ist.",
         "p3": "Unser Job ist es, dieses Verständnis zu liefern. Nicht als 300-seitiges PDF, sondern als geführten Prozess in der Plattform. Sie füllen keine Fragebögen aus - Sie bauen Ihr Sicherheitskonzept auf, Schritt für Schritt, mit klaren Anforderungen statt interpretierbaren Richtlinien."
       },
       "faq": {
@@ -6919,7 +6919,7 @@
       },
       "badge": "NIS2 Artikel 20 + 21",
       "title": "NIS2 Management-Training",
-      "subtitle": "Alles, was die NIS2-Richtlinie von Ihnen als Mitglied des Leitungsorgans verlangt - strukturiert, kostenlos und fuer die Fragen des Auditors aufbereitet.",
+      "subtitle": "Alles, was die NIS2-Richtlinie von Ihnen als Mitglied des Leitungsorgans verlangt - strukturiert, kostenlos und für die Fragen des Auditors aufbereitet.",
       "startCourse": "Kurs starten",
       "downloadPdf": "PDF herunterladen",
       "lessonsLabel": "Lektionen",
@@ -6927,35 +6927,35 @@
       "highlights": {
         "lessons": {
           "title": "47 Lektionen",
-          "description": "Strukturiert nach den drei BSI-Kompetenzbereichen und den zehn Massnahmen nach Artikel 21"
+          "description": "Strukturiert nach den drei BSI-Kompetenzbereichen und den zehn Maßnahmen nach Artikel 21"
         },
         "hours": {
           "title": "~4 Stunden",
-          "description": "Kurze Lektionen, die Sie in Ihrem eigenen Tempo absolvieren koennen - zwischen Terminen"
+          "description": "Kurze Lektionen, die Sie in Ihrem eigenen Tempo absolvieren können - zwischen Terminen"
         },
         "quizzes": {
           "title": "Quiz nach jeder Lektion",
-          "description": "Ueberpruefen Sie Ihr Verstaendnis fortlaufend - keine Abschlusspruefung, kein Druck"
+          "description": "Überprüfen Sie Ihr Verständnis fortlaufend - keine Abschlussprüfung, kein Druck"
         },
         "certificate": {
           "title": "Abschlusszertifikat",
-          "description": "Datierter Schulungsnachweis fuer den Auditor - dokumentiert Inhalte und Zeitaufwand"
+          "description": "Datierter Schulungsnachweis für den Auditor - dokumentiert Inhalte und Zeitaufwand"
         }
       },
       "whoFor": {
-        "heading": "Fuer wen ist dieses Training?",
-        "body": "Wenn Sie in der Geschaeftsfuehrung eines von NIS2 betroffenen Unternehmens taetig sind - als Geschaeftsfuehrer, Vorstand, COO, CFO oder in einer anderen Rolle, die das Gesetz als \"Mitglied des Leitungsorgans\" bezeichnet - ist dieser Kurs fuer Sie. Artikel 20(2) macht die Schulungspflicht persoenlich und nicht delegierbar. Sie koennen nicht Ihren CISO an Ihrer Stelle schicken."
+        "heading": "Für wen ist dieses Training?",
+        "body": "Wenn Sie in der Geschäftsführung eines von NIS2 betroffenen Unternehmens tätig sind - als Geschäftsführer, Vorstand, COO, CFO oder in einer anderen Rolle, die das Gesetz als \"Mitglied des Leitungsorgans\" bezeichnet - ist dieser Kurs für Sie. Artikel 20(2) macht die Schulungspflicht persönlich und nicht delegierbar. Sie können nicht Ihren CISO an Ihrer Stelle schicken."
       },
       "whatLearn": {
         "heading": "Was Sie lernen werden",
-        "body": "Die Schulung muss drei Kompetenzbereiche abdecken: Risiken erkennen, die eingesetzten Massnahmen bewerten und verstehen, wie diese Risiken die Dienstleistungen Ihres Unternehmens beeinflussen. Dieser Kurs deckt alle drei ab, strukturiert in {moduleCount} Module:"
+        "body": "Die Schulung muss drei Kompetenzbereiche abdecken: Risiken erkennen, die eingesetzten Maßnahmen bewerten und verstehen, wie diese Risiken die Dienstleistungen Ihres Unternehmens beeinflussen. Dieser Kurs deckt alle drei ab, strukturiert in {moduleCount} Module:"
       },
       "whyFree": {
         "heading": "Warum ist das kostenlos?",
-        "body": "Kein EU-Mitgliedstaat hat eine staatlich anerkannte Zertifizierungsstelle fuer NIS2-Schulungen eingerichtet. Bis offizielle Zertifizierungswege existieren, ist die Schulungsdokumentation der universelle Standard. Wir haben diesen Kurs entwickelt, damit jeder betroffene Geschaeftsfuehrer in der EU seine Pflicht nach Artikel 20(2) erfuellen kann, ohne einen Berater zu bezahlen. Die Plattform ist kostenlos. Das Zertifikat ist kostenlos. Kein Lock-in, keine Paywall."
+        "body": "Kein EU-Mitgliedstaat hat eine staatlich anerkannte Zertifizierungsstelle für NIS2-Schulungen eingerichtet. Bis offizielle Zertifizierungswege existieren, ist die Schulungsdokumentation der universelle Standard. Wir haben diesen Kurs entwickelt, damit jeder betroffene Geschäftsführer in der EU seine Pflicht nach Artikel 20(2) erfüllen kann, ohne einen Berater zu bezahlen. Die Plattform ist kostenlos. Das Zertifikat ist kostenlos. Kein Lock-in, keine Paywall."
       },
       "cta": {
-        "heading": "Bereit, Ihre Schulungspflicht zu erfuellen?",
+        "heading": "Bereit, Ihre Schulungspflicht zu erfüllen?",
         "body": "Erstellen Sie ein kostenloses Konto und starten Sie mit Lektion 0.1. Dauert insgesamt etwa vier Stunden.",
         "button": "Kostenlos starten"
       },
@@ -6968,11 +6968,11 @@
         "title": "Kostenlose NIS-2-Tabletop-Schulung - Artikel 21 + 23",
         "description": "NIS-2-Tabletop-Schulung für Informationssicherheits-Beauftragte, IT-Verantwortliche und Notfall- und Krisenmanagement-Leitungen. Artikel 21(2)(b) + (c) sowie Artikel 23 Meldekette. 8 Lektionen, 50 Minuten, kostenlos.",
         "ogTitle": "NIS-2-Tabletop-Schulung",
-        "ogDescription": "8 Lektionen. 50 Minuten. Die jaehrliche Tabletop-Uebung der Richtlinie planen, durchfuehren und dokumentieren. Kostenlos."
+        "ogDescription": "8 Lektionen. 50 Minuten. Die jährliche Tabletop-Übung der Richtlinie planen, durchführen und dokumentieren. Kostenlos."
       },
       "badge": "NIS 2 Artikel 21 + 23",
       "title": "NIS-2-Tabletop-Schulung",
-      "subtitle": "Planen, durchfuehren und dokumentieren Sie die jaehrliche Uebung, die die Richtlinie verlangt. Fuer Moderationen - 50 Minuten, auditfest, kostenlos.",
+      "subtitle": "Planen, durchführen und dokumentieren Sie die jährliche Übung, die die Richtlinie verlangt. Für Moderationen - 50 Minuten, auditfest, kostenlos.",
       "startCourse": "Kurs starten",
       "downloadPdf": "PDF herunterladen",
       "lessonsLabel": "Lektionen",
@@ -6980,11 +6980,11 @@
       "highlights": {
         "lessons": {
           "title": "8 Lektionen",
-          "description": "Rechtliche Grundlage, Rollen, Trennung der Moderation, vollstaendiges Szenario, Hot-Wash-Nachbesprechung, Protokoll und Haeufigkeit"
+          "description": "Rechtliche Grundlage, Rollen, Trennung der Moderation, vollständiges Szenario, Hot-Wash-Nachbesprechung, Protokoll und Häufigkeit"
         },
         "hours": {
           "title": "~50 Minuten",
-          "description": "Kurs in einer Sitzung, fuer Moderationen mit wenig Zeit"
+          "description": "Kurs in einer Sitzung, für Moderationen mit wenig Zeit"
         },
         "quizzes": {
           "title": "7 Quizze",
@@ -6992,37 +6992,37 @@
         },
         "certificate": {
           "title": "Teilnahmebescheinigung",
-          "description": "Datierter Nachweis der Schulung nach Artikel 21(2)(g) NIS 2 fuer die Moderationsrolle - das Dokument, nach dem das Audit fragt"
+          "description": "Datierter Nachweis der Schulung nach Artikel 21(2)(g) NIS 2 für die Moderationsrolle - das Dokument, nach dem das Audit fragt"
         }
       },
       "whoFor": {
-        "heading": "Fuer wen dieser Kurs ist",
-        "body": "Informationssicherheits-Beauftragte, CISOs, IT-Verantwortliche, Notfall- und Krisenmanagement-Leitungen sowie Krisenmanager in wesentlichen und wichtigen Einrichtungen unter NIS 2. Die Moderation, die Ihre jaehrliche Tabletop-Uebung leitet. EU-weit verstaendlich, mit Beispielen aus der deutschen Umsetzung."
+        "heading": "Für wen dieser Kurs ist",
+        "body": "Informationssicherheits-Beauftragte, CISOs, IT-Verantwortliche, Notfall- und Krisenmanagement-Leitungen sowie Krisenmanager in wesentlichen und wichtigen Einrichtungen unter NIS 2. Die Moderation, die Ihre jährliche Tabletop-Übung leitet. EU-weit verständlich, mit Beispielen aus der deutschen Umsetzung."
       },
       "whatLearn": {
-        "heading": "Was Sie nach dem Kurs koennen",
-        "body": "Die rechtliche Grundlage der Uebungspflicht erkennen, die Meldekette nach Artikel 23 durchspielen, die Pflicht- und empfohlenen Rollen besetzen, die Moderation von den Teilnehmenden trennen, ein vollstaendiges Szenario mit Entscheidungspunkten durchspielen, den Hot Wash so fuehren, dass Verbesserungspunkte entstehen, und ein auditfestes Protokoll mit Freigabe der Geschaeftsleitung schreiben. Strukturiert ueber {moduleCount} Module:"
+        "heading": "Was Sie nach dem Kurs können",
+        "body": "Die rechtliche Grundlage der Übungspflicht erkennen, die Meldekette nach Artikel 23 durchspielen, die Pflicht- und empfohlenen Rollen besetzen, die Moderation von den Teilnehmenden trennen, ein vollständiges Szenario mit Entscheidungspunkten durchspielen, den Hot Wash so führen, dass Verbesserungspunkte entstehen, und ein auditfestes Protokoll mit Freigabe der Geschäftsleitung schreiben. Strukturiert über {moduleCount} Module:"
       },
       "whyFree": {
         "heading": "Warum ist der Kurs kostenlos?",
-        "body": "Es gibt keine EU-Stelle, die NIS-2-Schulungsanbieter zertifiziert. Die Uebungspflicht aus Artikel 21(2)(b) und (c) trifft jede wesentliche und wichtige Einrichtung, aber Beratungs-Tabletops kosten €15.000-50.000 pro Sitzung. Wir haben diesen Kurs und das Live-System-Tabletop-Modul gebaut, damit jede Moderation einen verteidigungsfaehigen Uebungsnachweis erstellen kann, ohne eine Beratung zu beauftragen. Die Plattform ist kostenlos. Die Bescheinigung ist kostenlos. Open Source, kein Lock-in."
+        "body": "Es gibt keine EU-Stelle, die NIS-2-Schulungsanbieter zertifiziert. Die Übungspflicht aus Artikel 21(2)(b) und (c) trifft jede wesentliche und wichtige Einrichtung, aber Beratungs-Tabletops kosten €15.000-50.000 pro Sitzung. Wir haben diesen Kurs und das Live-System-Tabletop-Modul gebaut, damit jede Moderation einen verteidigungsfähigen Übungsnachweis erstellen kann, ohne eine Beratung zu beauftragen. Die Plattform ist kostenlos. Die Bescheinigung ist kostenlos. Open Source, kein Lock-in."
       },
       "cta": {
-        "heading": "Bereit fuer Ihre erste Tabletop-Uebung?",
-        "body": "Erstellen Sie ein kostenloses Konto und starten Sie mit Lektion 0.1. Insgesamt fuenfzig Minuten. Kombinieren Sie den Kurs mit dem Live-System-Tabletop-Modul, um die Uebung selbst durchzufuehren.",
+        "heading": "Bereit für Ihre erste Tabletop-Übung?",
+        "body": "Erstellen Sie ein kostenloses Konto und starten Sie mit Lektion 0.1. Insgesamt fünfzig Minuten. Kombinieren Sie den Kurs mit dem Live-System-Tabletop-Modul, um die Übung selbst durchzuführen.",
         "button": "Kostenlos starten"
       }
     },
     "trainingCraSbom": {
       "meta": {
         "title": "Kostenloses CRA-SBOM-Training - Artikel 13(5) Cyber Resilience Act",
-        "description": "CRA-SBOM-Training fuer Produktmanager, Entwickler und Security-Leads. CRA-Artikel-13(5)-Pflichten, CycloneDX- und SPDX-Formate, Werkzeuge und Artikel-14-Schwachstellenmonitoring. 9 Lektionen, ca. 50 Minuten, kostenlos.",
+        "description": "CRA-SBOM-Training für Produktmanager, Entwickler und Security-Leads. CRA-Artikel-13(5)-Pflichten, CycloneDX- und SPDX-Formate, Werkzeuge und Artikel-14-Schwachstellenmonitoring. 9 Lektionen, ca. 50 Minuten, kostenlos.",
         "ogTitle": "CRA SBOM-Grundlagen Training",
         "ogDescription": "9 Lektionen. Ca. 50 Minuten. Erstellen, pflegen und archivieren Sie die SBOM, die der Cyber Resilience Act fordert. Kostenlos."
       },
       "badge": "CRA Artikel 13(5) + Artikel 14",
       "title": "CRA SBOM-Grundlagen",
-      "subtitle": "Erstellen, pflegen und archivieren Sie die Software-Stueckliste, die der Cyber Resilience Act fordert. Fuer Produktteams, die in die EU verkaufen - 60 Minuten, Audit-tauglich, kostenlos.",
+      "subtitle": "Erstellen, pflegen und archivieren Sie die Software-Stückliste, die der Cyber Resilience Act fordert. Für Produktteams, die in die EU verkaufen - 60 Minuten, Audit-tauglich, kostenlos.",
       "startCourse": "Kurs starten",
       "downloadPdf": "PDF herunterladen",
       "lessonsLabel": "Lektionen",
@@ -7030,11 +7030,11 @@
       "highlights": {
         "lessons": {
           "title": "9 Lektionen",
-          "description": "Rechtsgrundlage, Pflichtfelder, direkte vs. transitive Abhaengigkeiten, CycloneDX, SPDX, Werkzeuge und Schwachstellenmonitoring"
+          "description": "Rechtsgrundlage, Pflichtfelder, direkte vs. transitive Abhängigkeiten, CycloneDX, SPDX, Werkzeuge und Schwachstellenmonitoring"
         },
         "hours": {
           "title": "Ca. 60 Minuten",
-          "description": "Kurs in einer Sitzung fuer Produktteams mit wenig Zeit"
+          "description": "Kurs in einer Sitzung für Produktteams mit wenig Zeit"
         },
         "quizzes": {
           "title": "8 Wissenstests",
@@ -7042,24 +7042,24 @@
         },
         "certificate": {
           "title": "Attestierungs-PDF",
-          "description": "Datierter Nachweis der SBOM-Compliance-Schulung - das Dokument, das eine Marktueberwauchungsbehoerde anfordert"
+          "description": "Datierter Nachweis der SBOM-Compliance-Schulung - das Dokument, das eine Marktüberwachungsbehörde anfordert"
         }
       },
       "whoFor": {
-        "heading": "Fuer wen ist dieser Kurs",
-        "body": "Produktmanager, Softwareentwickler, Security-Leads und Compliance-Beauftragte in Unternehmen, die Produkte mit digitalen Elementen in der EU herstellen oder vertreiben. Jedes Team, das die CRA-Artikel-13(5)-SBOM-Pflichten oder die Artikel-14-Schwachstellenmeldepflichten erfuellen muss."
+        "heading": "Für wen ist dieser Kurs",
+        "body": "Produktmanager, Softwareentwickler, Security-Leads und Compliance-Beauftragte in Unternehmen, die Produkte mit digitalen Elementen in der EU herstellen oder vertreiben. Jedes Team, das die CRA-Artikel-13(5)-SBOM-Pflichten oder die Artikel-14-Schwachstellenmeldepflichten erfüllen muss."
       },
       "whatLearn": {
-        "heading": "Was Sie danach koennen",
-        "body": "Die CRA-Artikel-13(5)-SBOM-Pflicht erklaeren, die Pflichtfelder eines SBOM-Komponenteneintrags benennen, direkte von transitiven Abhaengigkeiten unterscheiden, zwischen CycloneDX und SPDX waehlen, eine SBOM aus einer CI/CD-Pipeline generieren, automatisiertes Schwachstellenmonitoring gegen eine SBOM durchfuehren und Artikel-14-Meldeentscheidungen mit VEX-Aussagen dokumentieren. Strukturiert in {moduleCount} Modulen:"
+        "heading": "Was Sie danach können",
+        "body": "Die CRA-Artikel-13(5)-SBOM-Pflicht erklären, die Pflichtfelder eines SBOM-Komponenteneintrags benennen, direkte von transitiven Abhängigkeiten unterscheiden, zwischen CycloneDX und SPDX wählen, eine SBOM aus einer CI/CD-Pipeline generieren, automatisiertes Schwachstellenmonitoring gegen eine SBOM durchführen und Artikel-14-Meldeentscheidungen mit VEX-Aussagen dokumentieren. Strukturiert in {moduleCount} Modulen:"
       },
       "whyFree": {
         "heading": "Warum ist dieser Kurs kostenlos?",
         "body": "Die CRA-SBOM-Pflicht betrifft jeden Hersteller von Produkten mit digitalen Elementen, die in der EU verkauft werden. Die meisten Leitlinien sind in Regulierungstexten und Normenentwuerfen vergraben. Wir haben diesen Kurs entwickelt, damit jedes Produktteam seine Artikel-13(5)-Pflichten ohne Beraterkosten verstehen und umsetzen kann. Die Plattform ist kostenlos. Die Attestierung ist kostenlos. Open Source, kein Lock-in."
       },
       "cta": {
-        "heading": "Bereit fuer Ihre erste CRA-konforme SBOM?",
-        "body": "Erstellen Sie ein kostenloses Konto und starten Sie mit Lektion 0.1. Insgesamt ca. fuenfzig Minuten. Kombinieren Sie den Kurs mit den Schwachstellenmonitoring-Tools der Plattform fuer kontinuierliches Artikel-14-Monitoring.",
+        "heading": "Bereit für Ihre erste CRA-konforme SBOM?",
+        "body": "Erstellen Sie ein kostenloses Konto und starten Sie mit Lektion 0.1. Insgesamt ca. fünfzig Minuten. Kombinieren Sie den Kurs mit den Schwachstellenmonitoring-Tools der Plattform für kontinuierliches Artikel-14-Monitoring.",
         "button": "Kostenlos starten"
       }
     },
@@ -10345,7 +10345,7 @@
     "csirtNetworkCyclone": {
       "meta": {
         "title": "CSIRTs-Netzwerk und EU-CyCLONe: wie NIS 2 Cybervorfälle EU-weit koordiniert",
-        "description": "Artikel 15 NIS 2 errichtet das CSIRTs-Netzwerk für die operative Zusammenarbeit der nationalen CSIRTs. Artikel 16 errichtet EU-CyCLONe für die politische Koordination bei grossen Cyberkrisen. Diese Seite erklärt beide Netzwerke, die Grenze dazwischen und was sie für betroffene Einrichtungen bedeuten."
+        "description": "Artikel 15 NIS 2 errichtet das CSIRTs-Netzwerk für die operative Zusammenarbeit der nationalen CSIRTs. Artikel 16 errichtet EU-CyCLONe für die politische Koordination bei großen Cyberkrisen. Diese Seite erklärt beide Netzwerke, die Grenze dazwischen und was sie für betroffene Einrichtungen bedeuten."
       },
       "title": "Das CSIRTs-Netzwerk und EU-CyCLONe nach Art. 15 und 16",
       "subtitle": "NIS 2 schafft zwei grenzüberschreitende Kooperationsnetzwerke. Das CSIRTs-Netzwerk übernimmt die technische Vorfallbearbeitung zwischen den nationalen CSIRTs. EU-CyCLONe übernimmt die politische Koordination, wenn eine Cyberkrise über ein Land hinausgeht. Beide haben die ENISA als Sekretariat.",
@@ -10353,7 +10353,7 @@
         "heading": "Die Kurzfassung",
         "p1": "NIS 2 macht zwei Dinge gleichzeitig. Betroffene Einrichtungen melden Vorfälle an ihr nationales CSIRT oder die zuständige Behörde. Gleichzeitig sollen die Mitgliedstaaten untereinander reden, wenn ein Vorfall Grenzen überschreitet oder mehrere Länder betrifft. Diesen zweiten Teil regeln die Artikel 15 und 16.",
         "p2": "Artikel 15 errichtet das CSIRTs-Netzwerk. Das ist die technisch-operative Ebene. Die nationalen CSIRTs (in Deutschland: das CERT-Bund beim BSI) sowie das CERT-EU sitzen darin. Sie tauschen Bedrohungsdaten aus, koordinieren grenzüberschreitende Vorfallbearbeitung und teilen Werkzeuge. Die ENISA führt das Sekretariat.",
-        "p3": "Artikel 16 errichtet EU-CyCLONe, das Europäische Netzwerk der Verbindungsorganisationen für Cyberkrisen. Das ist die politische Ebene. Die nationalen Behörden für Cyberkrisenmanagement (in Deutschland: das Bundesministerium des Innern) sitzen darin. Sie koordinieren die politische Antwort auf grosse Vorfälle. Die ENISA führt auch hier das Sekretariat. Dieselbe Agentur, zwei Ebenen."
+        "p3": "Artikel 16 errichtet EU-CyCLONe, das Europäische Netzwerk der Verbindungsorganisationen für Cyberkrisen. Das ist die politische Ebene. Die nationalen Behörden für Cyberkrisenmanagement (in Deutschland: das Bundesministerium des Innern) sitzen darin. Sie koordinieren die politische Antwort auf große Vorfälle. Die ENISA führt auch hier das Sekretariat. Dieselbe Agentur, zwei Ebenen."
       },
       "legalAnchor": {
         "heading": "Die Rechtsgrundlage",
@@ -10386,12 +10386,12 @@
           "monitoring": {
             "section": "Art. 16(3)",
             "title": "EU-CyCLONe: politische Koordination",
-            "body": "EU-CyCLONe baut die Vorbereitung auf das Management von Cybersicherheitsvorfällen grossen Ausmasses und Krisen aus, entwickelt ein gemeinsames Lagebild, bewertet Folgen und schlägt Abhilfemassnahmen vor, koordiniert die politische Antwort und bespricht auf Antrag eines Mitgliedstaats dessen nationalen Reaktionsplan für Grossvorfälle. Politische Arbeit zwischen politischen Vertretern."
+            "body": "EU-CyCLONe baut die Vorbereitung auf das Management von Cybersicherheitsvorfällen großen Ausmaßes und Krisen aus, entwickelt ein gemeinsames Lagebild, bewertet Folgen und schlägt Abhilfemaßnahmen vor, koordiniert die politische Antwort und bespricht auf Antrag eines Mitgliedstaats dessen nationalen Reaktionsplan für Grossvorfälle. Politische Arbeit zwischen politischen Vertretern."
           },
           "independent": {
             "section": "Die Grenze",
             "title": "Wann eskaliert die operative Ebene auf die politische?",
-            "body": "Kleinere oder routinemässige grenzüberschreitende Vorfälle bleiben im CSIRTs-Netzwerk. Vorfälle grossen Ausmasses, die Entscheidungen auf Ministerebene erfordern (branchenübergreifende Wirkung, öffentliche Kommunikation, EU-weite Stellungnahmen), eskalieren zu EU-CyCLONe. Die zwei Netzwerke sind so gebaut, dass sie Arbeit ineinander übergeben können, mit der ENISA als verbindendem Sekretariat."
+            "body": "Kleinere oder routinemässige grenzüberschreitende Vorfälle bleiben im CSIRTs-Netzwerk. Vorfälle großen Ausmaßes, die Entscheidungen auf Ministerebene erfordern (branchenübergreifende Wirkung, öffentliche Kommunikation, EU-weite Stellungnahmen), eskalieren zu EU-CyCLONe. Die zwei Netzwerke sind so gebaut, dass sie Arbeit ineinander übergeben können, mit der ENISA als verbindendem Sekretariat."
           }
         }
       },
@@ -10421,7 +10421,7 @@
           "enisa": {
             "country": "EU-weit",
             "label": "ENISA als Sekretariat für beide Netzwerke",
-            "body": "Die ENISA, die EU-Agentur für Cybersicherheit, stellt das Sekretariat sowohl für das CSIRTs-Netzwerk als auch für EU-CyCLONe. Sie produziert die Veröffentlichungen, die aus beiden Netzwerken hervorgehen (Reaktionsplaybooks, Bedrohungsberichte, Übungsauswertungen). Diese fliessen zurück in nationale Leitfäden wie die BSI-Infopakete."
+            "body": "Die ENISA, die EU-Agentur für Cybersicherheit, stellt das Sekretariat sowohl für das CSIRTs-Netzwerk als auch für EU-CyCLONe. Sie produziert die Veröffentlichungen, die aus beiden Netzwerken hervorgehen (Reaktionsplaybooks, Bedrohungsberichte, Übungsauswertungen). Diese fließen zurück in nationale Leitfäden wie die BSI-Infopakete."
           },
           "transposition": {
             "country": "Andere Mitgliedstaaten",
@@ -10436,7 +10436,7 @@
         "items": {
           "blanketTransfer": {
             "myth": "Das CSIRTs-Netzwerk regelt alle Cyber-Themen auf EU-Ebene.",
-            "reality": "Nein. Das CSIRTs-Netzwerk ist die operative und technische Ebene. Vorfälle grossen Ausmasses, die politische Koordination erfordern (branchenübergreifende Kommunikation, Attribution, ministerielle Briefings), eskalieren zu EU-CyCLONe. Zwei Netzwerke, zwei Ebenen, bewusst getrennt."
+            "reality": "Nein. Das CSIRTs-Netzwerk ist die operative und technische Ebene. Vorfälle großen Ausmaßes, die politische Koordination erfordern (branchenübergreifende Kommunikation, Attribution, ministerielle Briefings), eskalieren zu EU-CyCLONe. Zwei Netzwerke, zwei Ebenen, bewusst getrennt."
           },
           "noAssets": {
             "myth": "EU-CyCLONe ist eine Aufsichtsbehörde, an die wir melden.",
@@ -10456,7 +10456,7 @@
       "platform": {
         "heading": "Wie wir das auf der Plattform abbilden",
         "p1": "Das Vorfallmodul leitet Meldungen an Ihr nationales CSIRT nach Artikel 23 (in Deutschland: BSI). Sie haben keinen direkten Kontakt zum CSIRTs-Netzwerk oder zu EU-CyCLONe; das nationale CSIRT ist Ihr einziger Gegenpart für Vorfallmeldungen. Die Plattform übernimmt die Fristen (24 h Frühwarnung, 72 h Meldung, ein Monat Abschlussbericht).",
-        "p2": "Unsere Referenzebene macht die ENISA-Veröffentlichungen und Leitfäden sichtbar, die aus der Arbeit des CSIRTs-Netzwerks hervorgehen. Bedrohungswarnungen, gemeinsame Berichte, Übungsergebnisse: das fliesst in unsere Auslegung von 'geeignet und verhältnismässig' nach Artikel 21(1) ein. Sie müssen das nicht selbst verfolgen."
+        "p2": "Unsere Referenzebene macht die ENISA-Veröffentlichungen und Leitfäden sichtbar, die aus der Arbeit des CSIRTs-Netzwerks hervorgehen. Bedrohungswarnungen, gemeinsame Berichte, Übungsergebnisse: das fließt in unsere Auslegung von 'geeignet und verhältnismässig' nach Artikel 21(1) ein. Sie müssen das nicht selbst verfolgen."
       },
       "sources": {
         "heading": "Quellen",
@@ -11833,133 +11833,133 @@
     "nis2MicroenterpriseExemption": {
       "meta": {
         "title": "Die NIS 2 Kleinstunternehmen- und Kleinunternehmen-Ausnahme: wie Artikel 2 wirklich funktioniert",
-        "description": "NIS 2 gilt zunächst nur für mittlere und groessere Unternehmen. Der Groessentest ist aber nur Schritt eins. Die Regel verbundener Unternehmen und die Artikel 2(2) Sonderbestimmungen veraendern die Antwort fuer viele Unternehmen, die sich raus gerechnet haben. Hier die vollstaendige dreistufige Pruefung mit den Quellzitaten."
+        "description": "NIS 2 gilt zunächst nur für mittlere und größere Unternehmen. Der Größentest ist aber nur Schritt eins. Die Regel verbundener Unternehmen und die Artikel 2(2) Sonderbestimmungen verändern die Antwort für viele Unternehmen, die sich raus gerechnet haben. Hier die vollständige dreistufige Prüfung mit den Quellzitaten."
       },
-      "title": "Die NIS 2 Ausnahme fuer Kleinstunternehmen und Kleinunternehmen",
-      "subtitle": "Nach Artikel 2(1) NIS 2 gilt die Richtlinie nur fuer mittlere und groessere Einrichtungen. Das ist die Schlagzeile. Die Realitaet ist eine dreistufige Pruefung: die Groessendefinition aus der Empfehlung 2003/361/EG, die Regel fuer verbundene Unternehmen und die Sonderbestimmungen aus Artikel 2(2), die Kleinstunternehmen und kleine Einrichtungen wieder in den Anwendungsbereich holen.",
+      "title": "Die NIS 2 Ausnahme für Kleinstunternehmen und Kleinunternehmen",
+      "subtitle": "Nach Artikel 2(1) NIS 2 gilt die Richtlinie nur für mittlere und größere Einrichtungen. Das ist die Schlagzeile. Die Realität ist eine dreistufige Prüfung: die Größendefinition aus der Empfehlung 2003/361/EG, die Regel für verbundene Unternehmen und die Sonderbestimmungen aus Artikel 2(2), die Kleinstunternehmen und kleine Einrichtungen wieder in den Anwendungsbereich holen.",
       "overview": {
         "heading": "Die Kurzfassung",
-        "p1": "NIS 2 setzt eine Groessenuntergrenze. Im Grundsatz gilt die Richtlinie nur fuer Einrichtungen, die nach der Empfehlung 2003/361/EG mindestens die Schwelle fuer mittlere Unternehmen erreichen: 50 Beschaeftigte oder mehr, oder Jahresumsatz ueber 10 Millionen Euro, oder Bilanzsumme ueber 10 Millionen Euro. Kleinstunternehmen und kleine Einrichtungen liegen darunter.",
-        "p2": "Klingt einfach. Ist es nicht. Die Empfehlung hat eigene Zaehlregeln. Artikel 3(3) im Anhang sagt: haelt eine Muttergesellschaft mehr als 50 Prozent der Stimmrechte an einer Tochter, werden Mitarbeiterzahl und Umsatz aggregiert. Eine kleine Tochter eines grossen Konzerns ist unter diesem Regime keine kleine Einrichtung.",
-        "p3": "Artikel 2(2) NIS 2 nennt dann Kategorien, die unabhaengig von der Groesse erfasst sind. Telekommunikation, qualifizierte Vertrauensdienste, DNS, TLD Registries, alleinige Anbieter eines wesentlichen Dienstes in einem Mitgliedstaat, Einrichtungen der oeffentlichen Verwaltung und einige weitere. Wer in eine dieser Kategorien faellt, dem hilft der Groessentest nicht. Die Ausnahme ist der Beginn der Pruefung, nicht das Ende."
+        "p1": "NIS 2 setzt eine Größenuntergrenze. Im Grundsatz gilt die Richtlinie nur für Einrichtungen, die nach der Empfehlung 2003/361/EG mindestens die Schwelle für mittlere Unternehmen erreichen: 50 Beschäftigte oder mehr, oder Jahresumsatz über 10 Millionen Euro, oder Bilanzsumme über 10 Millionen Euro. Kleinstunternehmen und kleine Einrichtungen liegen darunter.",
+        "p2": "Klingt einfach. Ist es nicht. Die Empfehlung hat eigene Zaehlregeln. Artikel 3(3) im Anhang sagt: hält eine Muttergesellschaft mehr als 50 Prozent der Stimmrechte an einer Tochter, werden Mitarbeiterzahl und Umsatz aggregiert. Eine kleine Tochter eines großen Konzerns ist unter diesem Regime keine kleine Einrichtung.",
+        "p3": "Artikel 2(2) NIS 2 nennt dann Kategorien, die unabhängig von der Größe erfasst sind. Telekommunikation, qualifizierte Vertrauensdienste, DNS, TLD Registries, alleinige Anbieter eines wesentlichen Dienstes in einem Mitgliedstaat, Einrichtungen der öffentlichen Verwaltung und einige weitere. Wer in eine dieser Kategorien fällt, dem hilft der Größentest nicht. Die Ausnahme ist der Beginn der Prüfung, nicht das Ende."
       },
       "legalAnchor": {
         "heading": "Die rechtliche Grundlage",
-        "description": "Drei Texte muss man zusammen lesen: die Groessenregel der NIS 2, die Empfehlung, die die Groessen definiert, und die NIS 2 Sonderbestimmungen, die kleinere Einrichtungen wieder einbeziehen.",
+        "description": "Drei Texte muss man zusammen lesen: die Größenregel der NIS 2, die Empfehlung, die die Größen definiert, und die NIS 2 Sonderbestimmungen, die kleinere Einrichtungen wieder einbeziehen.",
         "directive": {
           "label": "Artikel 2(1) NIS 2 Richtlinie (2022/2555)",
-          "quote": "Diese Richtlinie gilt fuer oeffentliche oder private Einrichtungen einer der in Anhang I oder II genannten Arten, die als mittlere Unternehmen im Sinne von Artikel 2 des Anhangs der Empfehlung 2003/361/EG der Kommission gelten oder die Schwellenwerte fuer mittlere Unternehmen im Sinne von Absatz 1 jenes Artikels ueberschreiten und ihre Dienste innerhalb der Union erbringen oder ihre Taetigkeiten dort ausueben.",
+          "quote": "Diese Richtlinie gilt für öffentliche oder private Einrichtungen einer der in Anhang I oder II genannten Arten, die als mittlere Unternehmen im Sinne von Artikel 2 des Anhangs der Empfehlung 2003/361/EG der Kommission gelten oder die Schwellenwerte für mittlere Unternehmen im Sinne von Absatz 1 jenes Artikels überschreiten und ihre Dienste innerhalb der Union erbringen oder ihre Tätigkeiten dort ausüben.",
           "context": "Das ist die Grundregel des Anwendungsbereichs. Zwei Filter in einem Satz: der Sektor muss in Anhang I oder II stehen, und die Einrichtung muss mindestens mittel sein nach Empfehlung 2003/361/EG. Unterhalb von mittel gilt die Richtlinie im Grundsatz nicht."
         },
         "regulation": {
           "label": "Artikel 2(2) und (3), Anhang Empfehlung 2003/361/EG",
-          "quote": "Die Groessenklasse der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen (KMU) setzt sich aus Unternehmen zusammen, die weniger als 250 Personen beschaeftigen und die entweder einen Jahresumsatz von hoechstens 50 Mio. EUR erzielen oder deren Jahresbilanzsumme sich auf hoechstens 43 Mio. EUR belaeuft. Innerhalb der KMU-Gruppe gilt als kleines Unternehmen ein Unternehmen, das weniger als 50 Personen beschaeftigt und dessen Jahresumsatz bzw. Jahresbilanz 10 Mio. EUR nicht ueberschreitet. Innerhalb der KMU-Gruppe gilt als Kleinstunternehmen ein Unternehmen, das weniger als 10 Personen beschaeftigt und dessen Jahresumsatz bzw. Jahresbilanz 2 Mio. EUR nicht ueberschreitet.",
-          "context": "Die Empfehlung liefert die Zahlen. Kleinstunternehmen: weniger als 10 Beschaeftigte UND Umsatz oder Bilanz bis 2 Millionen Euro. Klein: weniger als 50 Beschaeftigte UND Umsatz oder Bilanz bis 10 Millionen Euro. Mittel: ab 50 Beschaeftigten bis 249 ODER Umsatz ueber 10 Millionen Euro. Um in einer Groessenklasse zu bleiben, muss man bei Beschaeftigten UND bei Umsatz oder Bilanz darunter liegen. Schon ein Wert darueber hebt einen in die naechste Klasse."
+          "quote": "Die Größenklasse der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen (KMU) setzt sich aus Unternehmen zusammen, die weniger als 250 Personen beschäftigen und die entweder einen Jahresumsatz von höchstens 50 Mio. EUR erzielen oder deren Jahresbilanzsumme sich auf höchstens 43 Mio. EUR beläuft. Innerhalb der KMU-Gruppe gilt als kleines Unternehmen ein Unternehmen, das weniger als 50 Personen beschäftigt und dessen Jahresumsatz bzw. Jahresbilanz 10 Mio. EUR nicht überschreitet. Innerhalb der KMU-Gruppe gilt als Kleinstunternehmen ein Unternehmen, das weniger als 10 Personen beschäftigt und dessen Jahresumsatz bzw. Jahresbilanz 2 Mio. EUR nicht überschreitet.",
+          "context": "Die Empfehlung liefert die Zahlen. Kleinstunternehmen: weniger als 10 Beschäftigte UND Umsatz oder Bilanz bis 2 Millionen Euro. Klein: weniger als 50 Beschäftigte UND Umsatz oder Bilanz bis 10 Millionen Euro. Mittel: ab 50 Beschäftigten bis 249 ODER Umsatz über 10 Millionen Euro. Um in einer Größenklasse zu bleiben, muss man bei Beschäftigten UND bei Umsatz oder Bilanz darunter liegen. Schon ein Wert darüber hebt einen in die nächste Klasse."
         },
         "transposition": {
-          "label": "Artikel 2(2) NIS 2 (unabhaengig von der Groesse)",
-          "quote": "Unabhaengig von ihrer Groesse gilt diese Richtlinie fuer Einrichtungen einer der in Anhang I oder II genannten Arten, sofern: a) Dienste von Anbietern oeffentlicher elektronischer Kommunikationsnetze oder oeffentlich zugaenglicher elektronischer Kommunikationsdienste erbracht werden; b) Dienste von Vertrauensdiensteanbietern erbracht werden; c) es sich um Top-Level-Domain-Namen-Registries und Domain-Name-System-Diensteanbieter handelt; d) die Einrichtung in einem Mitgliedstaat der einzige Anbieter eines Dienstes ist, der fuer die Aufrechterhaltung kritischer gesellschaftlicher oder wirtschaftlicher Taetigkeiten von wesentlicher Bedeutung ist; e) eine Stoerung des von der Einrichtung erbrachten Dienstes erhebliche Auswirkungen auf die oeffentliche Sicherheit, die oeffentliche Sicherheit oder die oeffentliche Gesundheit haben koennte; f) eine Stoerung des von der Einrichtung erbrachten Dienstes ein erhebliches Systemrisiko hervorrufen koennte, insbesondere fuer Sektoren, in denen eine solche Stoerung grenzueberschreitende Auswirkungen haben koennte; g) die Einrichtung aufgrund ihrer besonderen Bedeutung auf nationaler oder regionaler Ebene fuer den betreffenden Sektor oder die betreffende Art von Dienst oder fuer andere voneinander abhaengige Sektoren im Mitgliedstaat kritisch ist; h) es sich um eine Einrichtung der oeffentlichen Verwaltung handelt.",
-          "context": "Acht Kategorien, die die Groesse ignorieren. Wer in eine davon faellt, dem hilft die Mittelschwelle nicht. Die Buchstaben d) bis g) sind nationale Entscheidungen: die nationale Behoerde entscheidet, ob ein Unternehmen einziger Anbieter, systemrelevant oder national bzw. regional kritisch ist. In Deutschland trifft diese Feststellung das BSI."
+          "label": "Artikel 2(2) NIS 2 (unabhängig von der Größe)",
+          "quote": "Unabhängig von ihrer Größe gilt diese Richtlinie für Einrichtungen einer der in Anhang I oder II genannten Arten, sofern: a) Dienste von Anbietern öffentlicher elektronischer Kommunikationsnetze oder öffentlich zugänglicher elektronischer Kommunikationsdienste erbracht werden; b) Dienste von Vertrauensdiensteanbietern erbracht werden; c) es sich um Top-Level-Domain-Namen-Registries und Domain-Name-System-Diensteanbieter handelt; d) die Einrichtung in einem Mitgliedstaat der einzige Anbieter eines Dienstes ist, der für die Aufrechterhaltung kritischer gesellschaftlicher oder wirtschaftlicher Tätigkeiten von wesentlicher Bedeutung ist; e) eine Störung des von der Einrichtung erbrachten Dienstes erhebliche Auswirkungen auf die öffentliche Sicherheit, die öffentliche Sicherheit oder die öffentliche Gesundheit haben könnte; f) eine Störung des von der Einrichtung erbrachten Dienstes ein erhebliches Systemrisiko hervorrufen könnte, insbesondere für Sektoren, in denen eine solche Störung grenzüberschreitende Auswirkungen haben könnte; g) die Einrichtung aufgrund ihrer besonderen Bedeutung auf nationaler oder regionaler Ebene für den betreffenden Sektor oder die betreffende Art von Dienst oder für andere voneinander abhängige Sektoren im Mitgliedstaat kritisch ist; h) es sich um eine Einrichtung der öffentlichen Verwaltung handelt.",
+          "context": "Acht Kategorien, die die Größe ignorieren. Wer in eine davon fällt, dem hilft die Mittelschwelle nicht. Die Buchstaben d) bis g) sind nationale Entscheidungen: die nationale Behörde entscheidet, ob ein Unternehmen einziger Anbieter, systemrelevant oder national bzw. regional kritisch ist. In Deutschland trifft diese Feststellung das BSI."
         }
       },
       "elements": {
-        "heading": "Die dreistufige Pruefung",
-        "description": "Es ist nicht eine Pruefung. Es sind drei, in dieser Reihenfolge. Schritt eins ist die Groessendefinition. Schritt zwei ist die Regel fuer verbundene Unternehmen. Schritt drei sind die Sonderbestimmungen aus Artikel 2(2).",
+        "heading": "Die dreistufige Prüfung",
+        "description": "Es ist nicht eine Prüfung. Es sind drei, in dieser Reihenfolge. Schritt eins ist die Größendefinition. Schritt zwei ist die Regel für verbundene Unternehmen. Schritt drei sind die Sonderbestimmungen aus Artikel 2(2).",
         "items": {
           "definition": {
             "section": "Schritt 1",
-            "title": "Groessendefinition anwenden",
-            "body": "Beschaeftigte zaehlen, Jahresumsatz und Bilanzsumme addieren. Um Kleinstunternehmen zu bleiben, sind weniger als 10 Beschaeftigte UND Umsatz oder Bilanz bei 2 Millionen Euro oder darunter erforderlich. Um klein zu bleiben, weniger als 50 Beschaeftigte UND Umsatz oder Bilanz bei 10 Millionen Euro oder darunter. Wird die Beschaeftigtenzahl ueberschritten, oder die finanzielle Schwelle, geht es eine Klasse hoch."
+            "title": "Größendefinition anwenden",
+            "body": "Beschäftigte zählen, Jahresumsatz und Bilanzsumme addieren. Um Kleinstunternehmen zu bleiben, sind weniger als 10 Beschäftigte UND Umsatz oder Bilanz bei 2 Millionen Euro oder darunter erforderlich. Um klein zu bleiben, weniger als 50 Beschäftigte UND Umsatz oder Bilanz bei 10 Millionen Euro oder darunter. Wird die Beschäftigtenzahl überschritten, oder die finanzielle Schwelle, geht es eine Klasse hoch."
           },
           "linked": {
             "section": "Schritt 2",
             "title": "Verbundene Unternehmen aggregieren",
-            "body": "Artikel 3(3) im Anhang der Empfehlung 2003/361/EG sagt: haelt eine Muttergesellschaft mehr als 50 Prozent der Stimmrechte, werden Mitarbeiterzahl und Umsatz mit der eigenen Tochter aggregiert. Eine Tochter mit 30 Beschaeftigten in einem 5.000 Personen Konzern wird beim Groessentest wie Teil dieses Konzerns behandelt. Die meisten Toechter verlieren genau hier die Kleinunternehmen-Ausnahme."
+            "body": "Artikel 3(3) im Anhang der Empfehlung 2003/361/EG sagt: hält eine Muttergesellschaft mehr als 50 Prozent der Stimmrechte, werden Mitarbeiterzahl und Umsatz mit der eigenen Tochter aggregiert. Eine Tochter mit 30 Beschäftigten in einem 5.000 Personen Konzern wird beim Größentest wie Teil dieses Konzerns behandelt. Die meisten Töchter verlieren genau hier die Kleinunternehmen-Ausnahme."
           },
           "override": {
             "section": "Schritt 3",
-            "title": "Sonderbestimmungen aus Artikel 2(2) pruefen",
-            "body": "Auch wer Schritt eins und zwei besteht, kann ueber Artikel 2(2) NIS 2 hineingezogen werden. Telekommunikation, qualifizierte Vertrauensdienste, DNS, TLD Registries, alleiniger Anbieter eines wesentlichen Dienstes im Mitgliedstaat, oeffentliche Verwaltung. Nationale Behoerden koennen ein Unternehmen ueber Artikel 2(2)(g) auch als national oder regional kritisch einstufen. Trifft eines davon zu, ist die Groessenausnahme weg."
+            "title": "Sonderbestimmungen aus Artikel 2(2) prüfen",
+            "body": "Auch wer Schritt eins und zwei besteht, kann über Artikel 2(2) NIS 2 hineingezogen werden. Telekommunikation, qualifizierte Vertrauensdienste, DNS, TLD Registries, alleiniger Anbieter eines wesentlichen Dienstes im Mitgliedstaat, öffentliche Verwaltung. Nationale Behörden können ein Unternehmen über Artikel 2(2)(g) auch als national oder regional kritisch einstufen. Trifft eines davon zu, ist die Größenausnahme weg."
           }
         }
       },
       "principles": {
-        "heading": "Zwei Regeln, die die Antwort veraendern",
-        "description": "Zwei strukturelle Gedanken, die aus der Annahme 'wir sind zu klein' eine genauere Pruefung machen.",
+        "heading": "Zwei Regeln, die die Antwort verändern",
+        "description": "Zwei strukturelle Gedanken, die aus der Annahme 'wir sind zu klein' eine genauere Prüfung machen.",
         "items": {
           "notTheEnd": {
-            "title": "Die Groessenausnahme ist der Beginn der Pruefung, nicht das Ergebnis",
-            "body": "Artikel 2(1) bringt einen nur durch Filter eins. Sektor in Anhang I oder II, dann mindestens mittel. Auch wer den Groessenschritt als ausgenommen passiert, muss Artikel 2(2) noch durchgehen. Eine kleine Firma kann im Anwendungsbereich sein, weil sie alleiniger DNS-Anbieter, qualifizierter Vertrauensdiensteanbieter oder als national kritisch eingestuft ist. Artikel 2(1) ohne Artikel 2(2) zu lesen, ist der haeufigste Scoping-Fehler, den wir sehen."
+            "title": "Die Größenausnahme ist der Beginn der Prüfung, nicht das Ergebnis",
+            "body": "Artikel 2(1) bringt einen nur durch Filter eins. Sektor in Anhang I oder II, dann mindestens mittel. Auch wer den Größenschritt als ausgenommen passiert, muss Artikel 2(2) noch durchgehen. Eine kleine Firma kann im Anwendungsbereich sein, weil sie alleiniger DNS-Anbieter, qualifizierter Vertrauensdiensteanbieter oder als national kritisch eingestuft ist. Artikel 2(1) ohne Artikel 2(2) zu lesen, ist der häufigste Scoping-Fehler, den wir sehen."
           },
           "linkedLift": {
-            "title": "Die Regel fuer verbundene Unternehmen hebt die meisten Toechter aus der Ausnahme",
-            "body": "Artikel 3(3) im Anhang der Empfehlung ist hart. Haelt die Mutter mehr als 50 Prozent der Stimmrechte, werden ihre Mitarbeiterzahl und ihr Umsatz hinzugezaehlt. Eine kleine Einrichtung in einem grossen Konzern ist nach diesem Regime fast nie klein. Mittelstaendler mit Holdingstruktur stellen regelmaessig fest, dass die Tochter, die sie fuer ausgenommen hielten, mitten in der Richtlinie sitzt."
+            "title": "Die Regel für verbundene Unternehmen hebt die meisten Töchter aus der Ausnahme",
+            "body": "Artikel 3(3) im Anhang der Empfehlung ist hart. Hält die Mutter mehr als 50 Prozent der Stimmrechte, werden ihre Mitarbeiterzahl und ihr Umsatz hinzugezählt. Eine kleine Einrichtung in einem großen Konzern ist nach diesem Regime fast nie klein. Mittelständler mit Holdingstruktur stellen regelmäßig fest, dass die Tochter, die sie für ausgenommen hielten, mitten in der Richtlinie sitzt."
           }
         }
       },
       "nationalView": {
-        "heading": "Wie nationale Behoerden den Groessentest betreiben",
-        "description": "Die Groessendefinition ist EU-weit. Wie der Test umgesetzt wird, unterscheidet sich zwischen den Mitgliedstaaten ein wenig.",
+        "heading": "Wie nationale Behörden den Größentest betreiben",
+        "description": "Die Größendefinition ist EU-weit. Wie der Test umgesetzt wird, unterscheidet sich zwischen den Mitgliedstaaten ein wenig.",
         "items": {
           "bsi": {
             "country": "Deutschland",
-            "label": "BSI Betroffenheitspruefung",
-            "body": "Das BSI bietet eine Online-Betroffenheitspruefung, die durch Sektor nach Anhang I oder II, Groesse nach Empfehlung 2003/361/EG und die Sonderbestimmungen aus Artikel 2(2) fuehrt. §28 BSIG setzt Artikel 2 um und ergaenzt nationale Spezifika: die Feststellung als alleiniger Anbieter oder als kritische Einrichtung liegt beim BSI. Das Ergebnis ist eine verbindliche Selbsteinstufung, die nach §33 BSIG registriert werden muss."
+            "label": "BSI Betroffenheitsprüfung",
+            "body": "Das BSI bietet eine Online-Betroffenheitsprüfung, die durch Sektor nach Anhang I oder II, Größe nach Empfehlung 2003/361/EG und die Sonderbestimmungen aus Artikel 2(2) führt. §28 BSIG setzt Artikel 2 um und ergänzt nationale Spezifika: die Feststellung als alleiniger Anbieter oder als kritische Einrichtung liegt beim BSI. Das Ergebnis ist eine verbindliche Selbsteinstufung, die nach §33 BSIG registriert werden muss."
           },
           "enisa": {
             "country": "EU-weit",
             "label": "ENISA Scoping und Empfehlungsmaterial",
-            "body": "ENISA veroeffentlicht Scoping-Material, das die Sektor- und Groessenfilter in derselben Reihenfolge geht wie die Richtlinie. Die Europaeische Kommission gibt zusaetzlich einen User Guide to the SME Definition heraus, der die Empfehlung im Detail erlaeutert, inklusive durchgerechneter Beispiele fuer verbundene und Partnerunternehmen. Beides ist Referenzmaterial, kein Recht, aber nationale Behoerden zitieren es."
+            "body": "ENISA veröffentlicht Scoping-Material, das die Sektor- und Größenfilter in derselben Reihenfolge geht wie die Richtlinie. Die Europäische Kommission gibt zusätzlich einen User Guide to the SME Definition heraus, der die Empfehlung im Detail erläutert, inklusive durchgerechneter Beispiele für verbundene und Partnerunternehmen. Beides ist Referenzmaterial, kein Recht, aber nationale Behörden zitieren es."
           },
           "transposition": {
             "country": "Andere Mitgliedstaaten",
             "label": "Gleiche Richtlinie, andere Selbstregistrierungsmechanik",
-            "body": "Jeder Mitgliedstaat setzt Artikel 2 nahezu wortgleich um, weil Groessen- und Sonderbestimmungen EU-Recht sind. Die Niederlande nutzen die Cyberbeveiligingswet und eine Online-Selbsteinstufung beim NCSC. Belgien nutzt Safeonweb beim CCB. Oesterreich hat das NISG mit portalgestuetzter Registrierung. Inhaltlich identisch. Unterschiedlich ist, bei welcher nationalen Behoerde registriert wird und in welcher Sprache das Portal spricht."
+            "body": "Jeder Mitgliedstaat setzt Artikel 2 nahezu wortgleich um, weil Größen- und Sonderbestimmungen EU-Recht sind. Die Niederlande nutzen die Cyberbeveiligingswet und eine Online-Selbsteinstufung beim NCSC. Belgien nutzt Safeonweb beim CCB. Österreich hat das NISG mit portalgestützter Registrierung. Inhaltlich identisch. Unterschiedlich ist, bei welcher nationalen Behörde registriert wird und in welcher Sprache das Portal spricht."
           }
         }
       },
       "pitfalls": {
-        "heading": "Drei Annahmen, die wir staendig sehen",
-        "description": "Drei Annahmen, die eine offensichtlich falsche Scoping-Entscheidung in ein Vollzugsrisiko verwandeln. Alle drei kommen in echten Scoping-Gespraechen vor.",
+        "heading": "Drei Annahmen, die wir ständig sehen",
+        "description": "Drei Annahmen, die eine offensichtlich falsche Scoping-Entscheidung in ein Vollzugsrisiko verwandeln. Alle drei kommen in echten Scoping-Gesprächen vor.",
         "items": {
           "microEndOfStory": {
-            "myth": "Wir sind ein Kleinstunternehmen, also gilt NIS 2 nicht fuer uns.",
-            "reality": "Das ist nur Schritt eins. Artikel 2(2) muss trotzdem durchgegangen werden. Ein DNS-Anbieter mit neun Beschaeftigten ist im Anwendungsbereich. Ein qualifizierter Vertrauensdiensteanbieter mit sechs Beschaeftigten ist im Anwendungsbereich. Eine kleine Einrichtung, die das BSI als alleinigen Anbieter eines wesentlichen Dienstes in Deutschland einstuft, ist im Anwendungsbereich. Die Groessenklasse ist der erste Filter, nicht die endgueltige Antwort."
+            "myth": "Wir sind ein Kleinstunternehmen, also gilt NIS 2 nicht für uns.",
+            "reality": "Das ist nur Schritt eins. Artikel 2(2) muss trotzdem durchgegangen werden. Ein DNS-Anbieter mit neun Beschäftigten ist im Anwendungsbereich. Ein qualifizierter Vertrauensdiensteanbieter mit sechs Beschäftigten ist im Anwendungsbereich. Eine kleine Einrichtung, die das BSI als alleinigen Anbieter eines wesentlichen Dienstes in Deutschland einstuft, ist im Anwendungsbereich. Die Größenklasse ist der erste Filter, nicht die endgültige Antwort."
           },
           "staffOverThreshold": {
-            "myth": "Wir haben unter 50 Beschaeftigte, also gelten wir als klein.",
-            "reality": "Artikel 2(2) im Anhang der Empfehlung muss man genau lesen. Klein heisst weniger als 50 Beschaeftigte UND Umsatz oder Bilanz bei 10 Millionen Euro oder darunter. Wird eine der beiden Schwellen ueberschritten, ist man mittel. Eine Beratung mit 45 Personen und 12 Millionen Euro Umsatz ist nach der Empfehlung mittel, und damit gilt NIS 2, wenn der Sektor passt."
+            "myth": "Wir haben unter 50 Beschäftigte, also gelten wir als klein.",
+            "reality": "Artikel 2(2) im Anhang der Empfehlung muss man genau lesen. Klein heißt weniger als 50 Beschäftigte UND Umsatz oder Bilanz bei 10 Millionen Euro oder darunter. Wird eine der beiden Schwellen überschritten, ist man mittel. Eine Beratung mit 45 Personen und 12 Millionen Euro Umsatz ist nach der Empfehlung mittel, und damit gilt NIS 2, wenn der Sektor passt."
           },
           "parentIndependent": {
-            "myth": "Unsere Mutter ist gross, aber wir arbeiten unabhaengig, deshalb zaehlen wir uns alleine.",
-            "reality": "Artikel 3(3) im Anhang der Empfehlung ist strukturell, nicht verhaltensbezogen. Haelt die Mutter mehr als 50 Prozent der Stimmrechte, wird aggregiert. Operative Unabhaengigkeit aendert am Groessentest nichts. Der User Guide to the SME Definition der Europaeischen Kommission erklaert das mit durchgerechneten Beispielen. Die meisten Toechter verlieren die Groessenausnahme genau hier."
+            "myth": "Unsere Mutter ist gross, aber wir arbeiten unabhängig, deshalb zählen wir uns alleine.",
+            "reality": "Artikel 3(3) im Anhang der Empfehlung ist strukturell, nicht verhaltensbezogen. Hält die Mutter mehr als 50 Prozent der Stimmrechte, wird aggregiert. Operative Unabhängigkeit ändert am Größentest nichts. Der User Guide to the SME Definition der Europäischen Kommission erklärt das mit durchgerechneten Beispielen. Die meisten Töchter verlieren die Größenausnahme genau hier."
           }
         }
       },
       "practitioner": {
-        "heading": "Wie Mittelstaendler die Pruefung in der Praxis fahren",
-        "p1": "Was wir in der Praxis sehen: ein 30-minuetiges Scoping-Gespraech geht zuerst durch Anhang I oder II, dann durch Beschaeftigte und Finanzkennzahlen, dann durch die Frage der verbundenen Unternehmen, dann durch Artikel 2(2). Die Reihenfolge ist wichtig. Wer direkt mit der Groesse einsteigt, wie es die meisten Berater praesentieren, uebersieht Scoping-Treffer, die da sind.",
-        "p2": "Ergebnis dokumentieren. Ein kurzes Scoping-Memo, das den Sektor nach Anhang I oder II nennt, Beschaeftigte und Umsatz auflistet, verbundene Unternehmen adressiert und Artikel 2(2) durchgeht, ist das Dokument, das man braucht, wenn eine nationale Behoerde spaeter nachfragt, warum man sich als nicht erfasst eingestuft hat. Wer erfasst ist, muss zusaetzlich nach Artikel 3 Absatz 4 NIS 2 und der jeweiligen nationalen Vorschrift (in Deutschland: §33 BSIG) registrieren."
+        "heading": "Wie Mittelständler die Prüfung in der Praxis fahren",
+        "p1": "Was wir in der Praxis sehen: ein 30-minuetiges Scoping-Gespräch geht zuerst durch Anhang I oder II, dann durch Beschäftigte und Finanzkennzahlen, dann durch die Frage der verbundenen Unternehmen, dann durch Artikel 2(2). Die Reihenfolge ist wichtig. Wer direkt mit der Größe einsteigt, wie es die meisten Berater praesentieren, übersieht Scoping-Treffer, die da sind.",
+        "p2": "Ergebnis dokumentieren. Ein kurzes Scoping-Memo, das den Sektor nach Anhang I oder II nennt, Beschäftigte und Umsatz auflistet, verbundene Unternehmen adressiert und Artikel 2(2) durchgeht, ist das Dokument, das man braucht, wenn eine nationale Behörde später nachfragt, warum man sich als nicht erfasst eingestuft hat. Wer erfasst ist, muss zusätzlich nach Artikel 3 Absatz 4 NIS 2 und der jeweiligen nationalen Vorschrift (in Deutschland: §33 BSIG) registrieren."
       },
       "platform": {
         "heading": "Wie wir das auf der Plattform abbilden",
-        "p1": "Unser kostenloser Anwendbarkeitscheck geht die drei Schritte in derselben Reihenfolge wie die Richtlinie. Sektor nach Anhang I oder II, dann der Groessentest nach Empfehlung mit Aggregation verbundener Unternehmen, dann die Sonderbestimmungen aus Artikel 2(2). Am Ende steht ein schriftliches Scoping-Ergebnis, das man speichern oder mit dem Anwalt teilen kann.",
-        "p2": "Faellt das Ergebnis auf 'erfasst', baut die Plattform den Pflichtenkatalog gegen Artikel 21 und die nationalen Meldekanaele auf, die zu treffen sind. Ist man nach Artikel 2(1) nicht erfasst, will aber den Nachweis dazu sauber dokumentiert haben, liefert die Ergebnisseite ein Memo mit allen drei Schritten und belastbaren Quellenangaben."
+        "p1": "Unser kostenloser Anwendbarkeitscheck geht die drei Schritte in derselben Reihenfolge wie die Richtlinie. Sektor nach Anhang I oder II, dann der Größentest nach Empfehlung mit Aggregation verbundener Unternehmen, dann die Sonderbestimmungen aus Artikel 2(2). Am Ende steht ein schriftliches Scoping-Ergebnis, das man speichern oder mit dem Anwalt teilen kann.",
+        "p2": "Fällt das Ergebnis auf 'erfasst', baut die Plattform den Pflichtenkatalog gegen Artikel 21 und die nationalen Meldekanäle auf, die zu treffen sind. Ist man nach Artikel 2(1) nicht erfasst, will aber den Nachweis dazu sauber dokumentiert haben, liefert die Ergebnisseite ein Memo mit allen drei Schritten und belastbaren Quellenangaben."
       },
       "sources": {
         "heading": "Quellen",
         "items": [
           "Richtlinie (EU) 2022/2555 (NIS 2), Artikel 2 - eur-lex.europa.eu/eli/dir/2022/2555/oj",
           "Empfehlung 2003/361/EG der Kommission vom 6. Mai 2003 betreffend die Definition der Kleinstunternehmen sowie der kleinen und mittleren Unternehmen, Anhang Artikel 2 und 3 - eur-lex.europa.eu/eli/reco/2003/361/oj",
-          "Europaeische Kommission, Benutzerleitfaden zur KMU-Definition (Amt fuer Veroeffentlichungen, aktuelle Ausgabe)",
-          "BSI-Gesetz (BSIG), §28 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstaerkungsgesetzes",
-          "BSI Betroffenheitspruefung und NIS 2 Infopakete - bsi.bund.de/dok/nis-2-infopakete",
+          "Europäische Kommission, Benutzerleitfaden zur KMU-Definition (Amt für Veröffentlichungen, aktuelle Ausgabe)",
+          "BSI-Gesetz (BSIG), §28 in der Fassung des NIS2-Umsetzungs- und Cybersicherheitsstärkungsgesetzes",
+          "BSI Betroffenheitsprüfung und NIS 2 Infopakete - bsi.bund.de/dok/nis-2-infopakete",
           "ENISA Scoping-Material zur NIS 2 und Technical Implementation Guidance zur CIR (EU) 2024/2690"
         ]
       },
       "ctaCard": {
-        "heading": "Die dreistufige Scoping-Pruefung an einem Ort",
-        "description": "Kostenloser Anwendbarkeitscheck, schriftliches Scoping-Memo und der vollstaendige Pflichtenkatalog, falls man erfasst ist. Kostenlos, Open Source, kein Lock-in."
+        "heading": "Die dreistufige Scoping-Prüfung an einem Ort",
+        "description": "Kostenloser Anwendbarkeitscheck, schriftliches Scoping-Memo und der vollständige Pflichtenkatalog, falls man erfasst ist. Kostenlos, Open Source, kein Lock-in."
       },
       "cta": "Kostenlosen Anwendbarkeitscheck starten"
     },
@@ -13983,146 +13983,146 @@
     "nis2WhistleblowerHinweise": {
       "meta": {
         "title": "NIS 2 Hinweise: EU-Richtlinie 2019/1937 und HinSchG",
-        "description": "Wie die EU-Richtlinie 2019/1937 und das deutsche Hinweisgeberschutzgesetz Meldungen ueber NIS 2 Versaeumnisse abdecken. Interne Kanaele ab 50 Beschaeftigten, externe Stellen, Aufbewahrung und die Abgrenzung zur Meldung nach Artikel 23 NIS 2."
+        "description": "Wie die EU-Richtlinie 2019/1937 und das deutsche Hinweisgeberschutzgesetz Meldungen über NIS 2 Versäumnisse abdecken. Interne Kanäle ab 50 Beschäftigten, externe Stellen, Aufbewahrung und die Abgrenzung zur Meldung nach Artikel 23 NIS 2."
       },
-      "title": "Hinweise zu NIS 2 Versaeumnissen",
-      "subtitle": "Die EU-Richtlinie 2019/1937 schuetzt Meldungen ueber Verstoesse im Bereich der Netzwerk- und Informationssicherheit. Das Hinweisgeberschutzgesetz (HinSchG) ist die deutsche Umsetzung. Diese Seite beschreibt den Rechtsrahmen und ist keine Rechtsberatung im Einzelfall.",
+      "title": "Hinweise zu NIS 2 Versäumnissen",
+      "subtitle": "Die EU-Richtlinie 2019/1937 schützt Meldungen über Verstöße im Bereich der Netzwerk- und Informationssicherheit. Das Hinweisgeberschutzgesetz (HinSchG) ist die deutsche Umsetzung. Diese Seite beschreibt den Rechtsrahmen und ist keine Rechtsberatung im Einzelfall.",
       "overview": {
         "heading": "Worum es geht",
-        "p1": "Hinweismeldungen sind ein eigener Rechtsweg neben der NIS 2 Vorfallsmeldung. Beschaeftigte, Auftragnehmer oder Bewerberinnen, die ein NIS 2 Versaeumnis melden, sind durch die EU-Richtlinie 2019/1937 geschuetzt. Die Richtlinie nennt die Sicherheit von Netzwerk- und Informationssystemen ausdruecklich in Anhang Teil I.B als geschuetzten Meldebereich.",
-        "p2": "In Deutschland setzt das Hinweisgeberschutzgesetz (HinSchG, in Kraft seit dem 2. Juli 2023) die Richtlinie um. Das Bundesamt fuer Justiz fuehrt die zentrale externe Meldestelle. Einrichtungen mit in der Regel mindestens 50 Beschaeftigten muessen nach Paragraf 12 HinSchG eine interne Meldestelle einrichten.",
-        "p3": "Eine Meldung an eine externe Stelle ersetzt nicht die eigene Vorfallsmeldung der Einrichtung nach Artikel 23 NIS 2 (Paragraf 32 BSIG). Beide Pflichten koennen durch dasselbe Ereignis ausgeloest werden und laufen jeweils auf eigener Uhr."
+        "p1": "Hinweismeldungen sind ein eigener Rechtsweg neben der NIS 2 Vorfallsmeldung. Beschäftigte, Auftragnehmer oder Bewerberinnen, die ein NIS 2 Versäumnis melden, sind durch die EU-Richtlinie 2019/1937 geschützt. Die Richtlinie nennt die Sicherheit von Netzwerk- und Informationssystemen ausdrücklich in Anhang Teil I.B als geschützten Meldebereich.",
+        "p2": "In Deutschland setzt das Hinweisgeberschutzgesetz (HinSchG, in Kraft seit dem 2. Juli 2023) die Richtlinie um. Das Bundesamt für Justiz führt die zentrale externe Meldestelle. Einrichtungen mit in der Regel mindestens 50 Beschäftigten müssen nach Paragraf 12 HinSchG eine interne Meldestelle einrichten.",
+        "p3": "Eine Meldung an eine externe Stelle ersetzt nicht die eigene Vorfallsmeldung der Einrichtung nach Artikel 23 NIS 2 (Paragraf 32 BSIG). Beide Pflichten können durch dasselbe Ereignis ausgelöst werden und laufen jeweils auf eigener Uhr."
       },
       "legalAnchor": {
         "heading": "Rechtsanker",
-        "description": "EU-Ebene zuerst, deutsche Umsetzung danach. Nur woertliche Zitate.",
+        "description": "EU-Ebene zuerst, deutsche Umsetzung danach. Nur wörtliche Zitate.",
         "directive": {
           "label": "EU-Richtlinie 2019/1937, Anhang Teil I.B",
           "quote": "Network and information systems security, as defined in Article 4, point (1), of Directive (EU) 2016/1148 of the European Parliament and of the Council.",
-          "context": "Der Anhang zaehlt die Sachbereiche auf, in denen eine Meldung geschuetzt ist. Die Netzwerk- und Informationssicherheit steht in Teil I.B neben Verkehrssicherheit und Umweltschutz. NIS 2 (Richtlinie 2022/2555) loest die Richtlinie 2016/1148 ab; Meldungen ueber NIS 2 Versaeumnisse fallen damit in diesen Anwendungsbereich."
+          "context": "Der Anhang zählt die Sachbereiche auf, in denen eine Meldung geschützt ist. Die Netzwerk- und Informationssicherheit steht in Teil I.B neben Verkehrssicherheit und Umweltschutz. NIS 2 (Richtlinie 2022/2555) löst die Richtlinie 2016/1148 ab; Meldungen über NIS 2 Versäumnisse fallen damit in diesen Anwendungsbereich."
         },
         "regulation": {
-          "label": "EU-Richtlinie 2019/1937, Artikel 4 (persoenlicher Anwendungsbereich)",
+          "label": "EU-Richtlinie 2019/1937, Artikel 4 (persönlicher Anwendungsbereich)",
           "quote": "This Directive shall apply to reporting persons working in the private or public sector who acquired information on breaches in a work-related context.",
-          "context": "Der persoenliche Anwendungsbereich umfasst Beschaeftigte, Selbststaendige, Anteilseigner, Mitglieder von Verwaltungs-, Leitungs- oder Aufsichtsorganen, Freiwillige, bezahlte und unbezahlte Praktikanten, Auftragnehmer, Subunternehmer und Lieferanten. Auch Bewerberinnen und ehemalige Beschaeftigte sind erfasst. Anonyme Meldungen sind nach Paragraf 16 Absatz 1 HinSchG zulaessig; die Bearbeitung kann jedoch eingeschraenkt sein."
+          "context": "Der persönliche Anwendungsbereich umfasst Beschäftigte, Selbstständige, Anteilseigner, Mitglieder von Verwaltungs-, Leitungs- oder Aufsichtsorganen, Freiwillige, bezahlte und unbezahlte Praktikanten, Auftragnehmer, Subunternehmer und Lieferanten. Auch Bewerberinnen und ehemalige Beschäftigte sind erfasst. Anonyme Meldungen sind nach Paragraf 16 Absatz 1 HinSchG zulässig; die Bearbeitung kann jedoch eingeschränkt sein."
         },
         "transposition": {
           "label": "Paragraf 12 HinSchG (interne Meldestelle)",
-          "quote": "Beschaeftigungsgeber mit in der Regel mindestens 50 Beschaeftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschaeftigte zur Abgabe von Meldungen nach diesem Gesetz wenden koennen.",
-          "context": "Die Schwelle von 50 Beschaeftigten ist als Regelgroesse zu verstehen, nicht als taggenaue Zahl. Einrichtungen unter 50 koennen freiwillig eine interne Meldestelle einrichten; Einrichtungen ab 50 muessen. Das Bundesamt fuer Justiz betreibt die externe Stelle."
+          "quote": "Beschäftigungsgeber mit in der Regel mindestens 50 Beschäftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschäftigte zur Abgabe von Meldungen nach diesem Gesetz wenden können.",
+          "context": "Die Schwelle von 50 Beschäftigten ist als Regelgröße zu verstehen, nicht als taggenaue Zahl. Einrichtungen unter 50 können freiwillig eine interne Meldestelle einrichten; Einrichtungen ab 50 müssen. Das Bundesamt für Justiz betreibt die externe Stelle."
         }
       },
       "elements": {
         "heading": "Drei Bausteine",
-        "description": "Die HinSchG Architektur in drei Stuecken.",
+        "description": "Die HinSchG Architektur in drei Stücken.",
         "items": {
           "scope": {
             "section": "Sachbereich",
             "title": "Was gemeldet werden kann",
-            "body": "Paragraf 2 HinSchG zaehlt die geschuetzten Meldegegenstaende auf. Dazu zaehlen Verstoesse gegen EU-Recht, einschliesslich der Netzwerk- und Informationssicherheit. Eine Meldung ueber eine NIS 2 Pflicht, etwa fehlende Massnahmen nach Artikel 21 oder eine ausgebliebene Meldung nach Artikel 23, ist erfasst."
+            "body": "Paragraf 2 HinSchG zählt die geschützten Meldegegenstände auf. Dazu zählen Verstöße gegen EU-Recht, einschließlich der Netzwerk- und Informationssicherheit. Eine Meldung über eine NIS 2 Pflicht, etwa fehlende Maßnahmen nach Artikel 21 oder eine ausgebliebene Meldung nach Artikel 23, ist erfasst."
           },
           "channels": {
-            "section": "Kanaele",
+            "section": "Kanäle",
             "title": "Intern zuerst, extern parallel",
-            "body": "Interne Meldestelle nach Paragraf 12 HinSchG (ab 50 Beschaeftigten). Externe Stellen nach Paragraf 19 HinSchG: Bundesamt fuer Justiz als zentrale externe Stelle, dazu sektorale Behoerden. Die hinweisgebende Person kann waehlen; Erwaegungsgrund 33 der Richtlinie nennt eine Praeferenz fuer den internen Kanal, macht ihn aber nicht zur Voraussetzung."
+            "body": "Interne Meldestelle nach Paragraf 12 HinSchG (ab 50 Beschäftigten). Externe Stellen nach Paragraf 19 HinSchG: Bundesamt für Justiz als zentrale externe Stelle, dazu sektorale Behörden. Die hinweisgebende Person kann wählen; Erwägungsgrund 33 der Richtlinie nennt eine Praeferenz für den internen Kanal, macht ihn aber nicht zur Voraussetzung."
           },
           "retention": {
             "section": "Aufbewahrung",
             "title": "Dokumentationspflicht",
-            "body": "Paragraf 11 HinSchG: Meldungen werden in dauerhaft abrufbarer Form dokumentiert. Die Dokumentation wird drei Jahre nach Abschluss des Verfahrens geloescht; eine laengere Aufbewahrung ist zulaessig, soweit fuer Rechtsverfahren erforderlich. Personenbezogene Daten folgen den Grundsaetzen der DSGVO."
+            "body": "Paragraf 11 HinSchG: Meldungen werden in dauerhaft abrufbarer Form dokumentiert. Die Dokumentation wird drei Jahre nach Abschluss des Verfahrens gelöscht; eine längere Aufbewahrung ist zulässig, soweit für Rechtsverfahren erforderlich. Personenbezogene Daten folgen den Grundsätzen der DSGVO."
           }
         }
       },
       "principles": {
-        "heading": "Zwei nicht verhandelbare Grundsaetze",
-        "description": "Diese beiden Grundsaetze sind das Rueckgrat der Richtlinie 2019/1937.",
+        "heading": "Zwei nicht verhandelbare Grundsätze",
+        "description": "Diese beiden Grundsätze sind das Rückgrat der Richtlinie 2019/1937.",
         "items": {
           "internalFirst": {
-            "title": "Vertraulichkeit der Identitaet",
-            "body": "Paragraf 8 HinSchG: Die Identitaet der hinweisgebenden Person, der in der Meldung genannten Personen und sonstiger Dritter bleibt vertraulich. Eine Offenlegung ist nur in engen Ausnahmen zulaessig, etwa auf schriftliches Verlangen einer Strafverfolgungsbehoerde. Die Bearbeitenden muessen unabhaengig und frei von Interessenkonflikten sein."
+            "title": "Vertraulichkeit der Identität",
+            "body": "Paragraf 8 HinSchG: Die Identität der hinweisgebenden Person, der in der Meldung genannten Personen und sonstiger Dritter bleibt vertraulich. Eine Offenlegung ist nur in engen Ausnahmen zulässig, etwa auf schriftliches Verlangen einer Strafverfolgungsbehörde. Die Bearbeitenden müssen unabhängig und frei von Interessenkonflikten sein."
           },
           "noRetaliation": {
             "title": "Repressalienverbot",
-            "body": "Paragraf 36 HinSchG verbietet Repressalien gegen die hinweisgebende Person. Dazu zaehlen Kuendigung, Herabstufung, Verweigerung von Weiterbildung, negative Leistungsbeurteilung und vergleichbare Massnahmen. Paragraf 36 Absatz 2 dreht die Beweislast: Erfaehrt eine Person nach einer Meldung einen Nachteil, wird vermutet, dass es sich um eine Repressalie handelt, solange der Arbeitgeber das Gegenteil nicht nachweist."
+            "body": "Paragraf 36 HinSchG verbietet Repressalien gegen die hinweisgebende Person. Dazu zählen Kündigung, Herabstufung, Verweigerung von Weiterbildung, negative Leistungsbeurteilung und vergleichbare Maßnahmen. Paragraf 36 Absatz 2 dreht die Beweislast: Erfährt eine Person nach einer Meldung einen Nachteil, wird vermutet, dass es sich um eine Repressalie handelt, solange der Arbeitgeber das Gegenteil nicht nachweist."
           }
         }
       },
       "nationalView": {
         "heading": "Wer in Deutschland externe Meldungen zu NIS 2 entgegennimmt",
-        "description": "Deutschland hat mehr als eine externe Stelle. Welche zustaendig ist, haengt am Gegenstand der Meldung.",
+        "description": "Deutschland hat mehr als eine externe Stelle. Welche zuständig ist, hängt am Gegenstand der Meldung.",
         "items": {
           "bsi": {
             "country": "DE",
-            "label": "BSI als sektorale Behoerde",
-            "body": "Das Bundesamt fuer Sicherheit in der Informationstechnik (BSI) ist nach Paragraf 61 BSIG zustaendige Aufsichtsbehoerde fuer NIS 2. Eine Meldung, die einer Einrichtung fehlende Massnahmen nach Artikel 21 oder eine ausgebliebene Registrierung nach Artikel 3 Absatz 4 vorwirft, landet ueber das Routing der externen Stellen in aller Regel beim BSI, auch wenn sie zunaechst beim Bundesamt fuer Justiz eingeht."
+            "label": "BSI als sektorale Behörde",
+            "body": "Das Bundesamt für Sicherheit in der Informationstechnik (BSI) ist nach Paragraf 61 BSIG zuständige Aufsichtsbehörde für NIS 2. Eine Meldung, die einer Einrichtung fehlende Maßnahmen nach Artikel 21 oder eine ausgebliebene Registrierung nach Artikel 3 Absatz 4 vorwirft, landet über das Routing der externen Stellen in aller Regel beim BSI, auch wenn sie zunächst beim Bundesamt für Justiz eingeht."
           },
           "bfdi": {
             "country": "DE",
-            "label": "Bundesbeauftragte fuer den Datenschutz und die Informationsfreiheit",
-            "body": "Die BfDI ist die sektorale externe Meldestelle fuer Verstoesse gegen das Bundesdatenschutzrecht. NIS 2 und DSGVO ueberschneiden sich, wenn ein Vorfall personenbezogene Daten betrifft. Eine Meldung kann beide Rechtsgrundlagen nennen; die zustaendige Stelle leitet die einzelnen Teile an die jeweilige Behoerde weiter."
+            "label": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit",
+            "body": "Die BfDI ist die sektorale externe Meldestelle für Verstöße gegen das Bundesdatenschutzrecht. NIS 2 und DSGVO überschneiden sich, wenn ein Vorfall personenbezogene Daten betrifft. Eine Meldung kann beide Rechtsgrundlagen nennen; die zuständige Stelle leitet die einzelnen Teile an die jeweilige Behörde weiter."
           },
           "bafa": {
             "country": "DE",
-            "label": "Bundesamt fuer Justiz als zentrale externe Stelle",
-            "body": "Das Bundesamt fuer Justiz betreibt nach Paragraf 19 HinSchG die zentrale externe Meldestelle. Es ist die Voreinstellung, wenn keine sektorale Stelle greift, und leitet Meldungen an die jeweils zustaendige Aufsicht (BSI, BNetzA, BaFin, BfDI) weiter, sobald der Gegenstand dort hingehoert."
+            "label": "Bundesamt für Justiz als zentrale externe Stelle",
+            "body": "Das Bundesamt für Justiz betreibt nach Paragraf 19 HinSchG die zentrale externe Meldestelle. Es ist die Voreinstellung, wenn keine sektorale Stelle greift, und leitet Meldungen an die jeweils zuständige Aufsicht (BSI, BNetzA, BaFin, BfDI) weiter, sobald der Gegenstand dort hingehört."
           }
         }
       },
       "pitfalls": {
-        "heading": "Haeufige Missverstaendnisse",
+        "heading": "Häufige Missverständnisse",
         "description": "Drei Muster, die in der Praxis wiederkehren.",
         "items": {
           "onlyExternal": {
             "myth": "Eine Hinweismeldung an das BSI ersetzt unsere eigene Vorfallsmeldung nach Artikel 23.",
-            "reality": "Das stimmt nicht. Artikel 23 NIS 2 und Paragraf 32 BSIG legen die Meldepflicht auf die Einrichtung selbst. Ein Hinweis Dritter eroeffnet ein eigenes Aufsichtsverfahren. Die Fristen der Einrichtung (Fruehwarnung, 24 Stunden, 72 Stunden) laufen unabhaengig weiter."
+            "reality": "Das stimmt nicht. Artikel 23 NIS 2 und Paragraf 32 BSIG legen die Meldepflicht auf die Einrichtung selbst. Ein Hinweis Dritter eröffnet ein eigenes Aufsichtsverfahren. Die Fristen der Einrichtung (Frühwarnung, 24 Stunden, 72 Stunden) laufen unabhängig weiter."
           },
           "noProtocol": {
-            "myth": "Wir haben 60 Beschaeftigte, aber bisher hat niemand gemeldet, also brauchen wir keine Stelle.",
-            "reality": "Paragraf 12 HinSchG knuepft die Pflicht an die Beschaeftigtenzahl, nicht an eingegangene Meldungen. Paragraf 40 HinSchG sieht ein Bussgeld von bis zu 20.000 EUR vor, wenn die interne Meldestelle nicht betrieben wird. Bei 50 bis 249 Beschaeftigten gilt das Bussgeld seit dem 1. Dezember 2023."
+            "myth": "Wir haben 60 Beschäftigte, aber bisher hat niemand gemeldet, also brauchen wir keine Stelle.",
+            "reality": "Paragraf 12 HinSchG knüpft die Pflicht an die Beschäftigtenzahl, nicht an eingegangene Meldungen. Paragraf 40 HinSchG sieht ein Bußgeld von bis zu 20.000 EUR vor, wenn die interne Meldestelle nicht betrieben wird. Bei 50 bis 249 Beschäftigten gilt das Bußgeld seit dem 1. Dezember 2023."
           },
           "retaliation": {
-            "myth": "Wir koennen die Person, die gemeldet hat, wegen schwacher Leistung trennen.",
-            "reality": "Paragraf 36 HinSchG vermutet eine Repressalie, sobald eine Meldung vorliegt. Die Beweislast liegt beim Arbeitgeber, einen davon unabhaengigen, dokumentierten Grund nachzuweisen. Personalentscheidungen ueber die hinweisgebende Person stehen nach der Meldung unter erhoehter Pruefung."
+            "myth": "Wir können die Person, die gemeldet hat, wegen schwacher Leistung trennen.",
+            "reality": "Paragraf 36 HinSchG vermutet eine Repressalie, sobald eine Meldung vorliegt. Die Beweislast liegt beim Arbeitgeber, einen davon unabhängigen, dokumentierten Grund nachzuweisen. Personalentscheidungen über die hinweisgebende Person stehen nach der Meldung unter erhöhter Prüfung."
           }
         }
       },
       "practitioner": {
         "heading": "Praktikersicht",
-        "p1": "Nach einer Meldung ueber ein NIS 2 Versaeumnis laufen zwei Uhren parallel. Uhr eins ist die HinSchG Reaktionsfrist: Eingangsbestaetigung innerhalb von sieben Tagen nach Paragraf 17 Absatz 1 Nummer 1, Rueckmeldung an die hinweisgebende Person innerhalb von drei Monaten nach Paragraf 17 Absatz 1 Nummer 4. Uhr zwei ist die NIS 2 Meldepflicht, die der Inhalt der Meldung ausloest. Diese trifft die Einrichtung nach Artikel 23 und nicht die hinweisgebende Person.",
-        "p2": "Im Mittelstand bewaehrt sich folgender Aufbau: eine benannte fallbearbeitende Person in Compliance oder HR, eine zweite benannte Vertretung, ein schriftliches Aufnahmeformular, das den Sachverhalt aufnimmt ohne die Identitaet zu erzwingen, und ein schriftliches Protokoll mit Zeitstempel fuer jeden Schritt. Das Protokoll ist spaeter der einzige Nachweis, wenn ein Gericht oder eine Aufsicht den Ablauf rekonstruiert."
+        "p1": "Nach einer Meldung über ein NIS 2 Versäumnis laufen zwei Uhren parallel. Uhr eins ist die HinSchG Reaktionsfrist: Eingangsbestätigung innerhalb von sieben Tagen nach Paragraf 17 Absatz 1 Nummer 1, Rueckmeldung an die hinweisgebende Person innerhalb von drei Monaten nach Paragraf 17 Absatz 1 Nummer 4. Uhr zwei ist die NIS 2 Meldepflicht, die der Inhalt der Meldung auslöst. Diese trifft die Einrichtung nach Artikel 23 und nicht die hinweisgebende Person.",
+        "p2": "Im Mittelstand bewaehrt sich folgender Aufbau: eine benannte fallbearbeitende Person in Compliance oder HR, eine zweite benannte Vertretung, ein schriftliches Aufnahmeformular, das den Sachverhalt aufnimmt ohne die Identität zu erzwingen, und ein schriftliches Protokoll mit Zeitstempel für jeden Schritt. Das Protokoll ist später der einzige Nachweis, wenn ein Gericht oder eine Aufsicht den Ablauf rekonstruiert."
       },
       "platform": {
-        "heading": "Verhaeltnis zum Pflichtenregister",
-        "p1": "Hinweise gehoeren nicht in das NIS 2 Pflichtenregister selbst. Sie sind eine parallele Steuerungspflicht aus dem HinSchG, mit eigenem Kanal, eigener Aufbewahrung und eigener Repressalienregel.",
-        "p2": "Das Pflichtenregister beantwortet die Frage, welche NIS 2 Massnahmen die Einrichtung umgesetzt hat und wie das dokumentiert ist. Der Hinweiskanal beantwortet die Frage, wie die Einrichtung Hinweise auf Luecken in diesen Massnahmen entgegennimmt und bearbeitet. Beides sind eigenstaendige Nachweise, beides kann eine Aufsicht anfordern."
+        "heading": "Verhältnis zum Pflichtenregister",
+        "p1": "Hinweise gehören nicht in das NIS 2 Pflichtenregister selbst. Sie sind eine parallele Steuerungspflicht aus dem HinSchG, mit eigenem Kanal, eigener Aufbewahrung und eigener Repressalienregel.",
+        "p2": "Das Pflichtenregister beantwortet die Frage, welche NIS 2 Maßnahmen die Einrichtung umgesetzt hat und wie das dokumentiert ist. Der Hinweiskanal beantwortet die Frage, wie die Einrichtung Hinweise auf Lücken in diesen Maßnahmen entgegennimmt und bearbeitet. Beides sind eigenständige Nachweise, beides kann eine Aufsicht anfordern."
       },
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2019/1937 vom 23. Oktober 2019 zum Schutz von Personen, die Verstoesse gegen das Unionsrecht melden (ABl. L 305 vom 26.11.2019, S. 17). Anhang Teil I.B und Artikel 4.",
+          "Richtlinie (EU) 2019/1937 vom 23. Oktober 2019 zum Schutz von Personen, die Verstöße gegen das Unionsrecht melden (ABl. L 305 vom 26.11.2019, S. 17). Anhang Teil I.B und Artikel 4.",
           "Hinweisgeberschutzgesetz (HinSchG) vom 31. Mai 2023, BGBl. 2023 I Nr. 140. Paragraf 2, 8, 11, 12, 16, 17, 19, 36, 40.",
           "Richtlinie (EU) 2022/2555 (NIS 2) vom 14. Dezember 2022, Artikel 21, 23, 27.",
           "BSI-Gesetz (BSIG), Paragraf 32, 33, 61, 65.",
-          "Bundesamt fuer Justiz, externe Meldestelle nach Paragraf 19 HinSchG."
+          "Bundesamt für Justiz, externe Meldestelle nach Paragraf 19 HinSchG."
         ]
       },
       "ctaCard": {
-        "heading": "Erst NIS 2 Anwendbarkeit pruefen",
-        "description": "Bevor Sie Ihren Hinweiskanal auf NIS 2 abbilden, klaeren Sie, ob die Einrichtung ueberhaupt unter NIS 2 faellt."
+        "heading": "Erst NIS 2 Anwendbarkeit prüfen",
+        "description": "Bevor Sie Ihren Hinweiskanal auf NIS 2 abbilden, klären Sie, ob die Einrichtung überhaupt unter NIS 2 fällt."
       },
-      "cta": "Anwendbarkeit pruefen"
+      "cta": "Anwendbarkeit prüfen"
     },
     "phishingVorfallNis2": {
       "meta": {
         "title": "Phishing-Vorfall unter NIS 2: Reaktion und Meldung",
-        "description": "Wann ein Phishing-Vorfall die Erheblichkeitsschwelle aus Art. 23(3) NIS 2 reisst, was Anhang Abschnitt 11.6 der CIR auflistet und wie die Kaskade aus 24 Stunden, 72 Stunden und einem Monat parallel zu Art. 33 DSGVO läuft."
+        "description": "Wann ein Phishing-Vorfall die Erheblichkeitsschwelle aus Art. 23(3) NIS 2 reißt, was Anhang Abschnitt 11.6 der CIR auflistet und wie die Kaskade aus 24 Stunden, 72 Stunden und einem Monat parallel zu Art. 33 DSGVO läuft."
       },
       "title": "Phishing-Vorfall unter NIS 2",
-      "subtitle": "Wie Phishing die Erheblichkeitsschwelle reisst, was die Meldekaskade abfragt und was ein typisches Playbook parallel abarbeitet.",
+      "subtitle": "Wie Phishing die Erheblichkeitsschwelle reißt, was die Meldekaskade abfragt und was ein typisches Playbook parallel abarbeitet.",
       "overview": {
         "heading": "Worum es auf dieser Seite geht",
         "p1": "Phishing ist unter NIS 2 keine eigene regulatorische Kategorie. Die Richtlinie behandelt einen erfolgreichen Phishing-Angriff als einen möglichen erheblichen Sicherheitsvorfall unter anderen. Der qualitative Test aus Art. 23(3) NIS 2 ist derselbe wie für jeden anderen Vorfalltyp. Die Durchführungsverordnung (EU) 2024/2690 (CIR) nennt in Anhang Abschnitt 11.6 Kategorien, die für Einrichtungen der digitalen Infrastruktur per Definition als erheblich gelten.",
-        "p2": "Den entscheidenden Auslöser übersehen viele Teams: die Kompromittierung von Zugangsdaten. Eine Phishing-Mail, die funktionierende Zugangsdaten für ein kritisches Konto abgegriffen hat, ist kein Beinahe-Vorfall. Es ist ein erfolgreicher, nicht autorisierter Zugriff. Ob er die Schwelle nach Art. 23(3) tatsächlich reisst, hängt davon ab, was das Konto erreichen konnte, was abgeflossen ist und welche Dienste betroffen sind.",
+        "p2": "Den entscheidenden Auslöser übersehen viele Teams: die Kompromittierung von Zugangsdaten. Eine Phishing-Mail, die funktionierende Zugangsdaten für ein kritisches Konto abgegriffen hat, ist kein Beinahe-Vorfall. Es ist ein erfolgreicher, nicht autorisierter Zugriff. Ob er die Schwelle nach Art. 23(3) tatsächlich reißt, hängt davon ab, was das Konto erreichen konnte, was abgeflossen ist und welche Dienste betroffen sind.",
         "p3": "Diese Seite beschreibt die Mechanik, keine Rechtsberatung. Sie erklärt die Uhren der Frühwarnung, Vorfallsmeldung und Abschlussmeldung nach Art. 23(4) NIS 2, was ein typisches SOC-Playbook an Eindämmung und Beweissicherung übernimmt und wo Art. 33 DSGVO parallel mitläuft, wenn personenbezogene Daten betroffen sind."
       },
       "legalAnchor": {
@@ -14136,7 +14136,7 @@
         "regulation": {
           "label": "CIR (EU) 2024/2690, Anhang Abschnitt 11.6",
           "quote": "Ein Sicherheitsvorfall gilt als erheblich, wenn er schwerwiegende Betriebsstörungen der Dienste oder finanzielle Verluste für die betreffende Einrichtung verursacht hat oder verursachen kann oder wenn er andere natürliche oder juristische Personen durch erhebliche materielle oder immaterielle Schäden beeinträchtigt hat oder beeinträchtigen kann.",
-          "context": "Abschnitt 11.6 listet Kategorien, die für die von der CIR erfassten Einrichtungen der digitalen Infrastruktur immer als erheblich gelten: Ransomware, Abfluss personenbezogener oder sensibler Daten, Denial-of-Service gegen wesentliche Dienste, Verlust der Vertraulichkeit oder Integrität kritischer Werte. Greift eine dieser Kategorien in einem Phishing-Fall, ist die Schwellenfrage geschlossen. Für Sektoren ausserhalb der CIR steht der qualitative Test aus Art. 23(3) allein."
+          "context": "Abschnitt 11.6 listet Kategorien, die für die von der CIR erfassten Einrichtungen der digitalen Infrastruktur immer als erheblich gelten: Ransomware, Abfluss personenbezogener oder sensibler Daten, Denial-of-Service gegen wesentliche Dienste, Verlust der Vertraulichkeit oder Integrität kritischer Werte. Greift eine dieser Kategorien in einem Phishing-Fall, ist die Schwellenfrage geschlossen. Für Sektoren außerhalb der CIR steht der qualitative Test aus Art. 23(3) allein."
         },
         "transposition": {
           "label": "§32 BSIG (Deutschland)",
@@ -14146,12 +14146,12 @@
       },
       "elements": {
         "heading": "Drei Stränge laufen parallel",
-        "description": "Ein Phishing-Vorfall, der die Schwelle reisst, startet drei Arbeitsstränge gleichzeitig. Keiner wartet auf den anderen.",
+        "description": "Ein Phishing-Vorfall, der die Schwelle reißt, startet drei Arbeitsstränge gleichzeitig. Keiner wartet auf den anderen.",
         "items": {
           "triage": {
             "section": "Schritt 1",
             "title": "Triage und Schwellenentscheidung",
-            "body": "Die Uhr beginnt mit der Kenntnisnahme der Einrichtung. Kenntnisnahme heisst: eine zuständige Person in der Organisation weiss genug, um einen erheblichen Vorfall zu vermuten, nicht erst, wenn die Untersuchung abgeschlossen ist. Die Triage beantwortet drei Fragen: welche Konten sind kompromittiert, was können diese Konten erreichen, fällt der Fall unter eine Kategorie aus CIR Anhang Abschnitt 11.6. Wenn ja, ist die Schwellenfrage geschlossen und die Frühwarnung wird vorbereitet."
+            "body": "Die Uhr beginnt mit der Kenntnisnahme der Einrichtung. Kenntnisnahme heißt: eine zuständige Person in der Organisation weiß genug, um einen erheblichen Vorfall zu vermuten, nicht erst, wenn die Untersuchung abgeschlossen ist. Die Triage beantwortet drei Fragen: welche Konten sind kompromittiert, was können diese Konten erreichen, fällt der Fall unter eine Kategorie aus CIR Anhang Abschnitt 11.6. Wenn ja, ist die Schwellenfrage geschlossen und die Frühwarnung wird vorbereitet."
           },
           "contain": {
             "section": "Schritt 2",
@@ -14161,7 +14161,7 @@
           "report": {
             "section": "Schritt 3",
             "title": "Die Kaskade 24h, 72h, ein Monat",
-            "body": "Art. 23(4) NIS 2 setzt drei Fristen ab dem Zeitpunkt der Kenntnisnahme. Innerhalb von 24 Stunden reicht die Einrichtung eine Frühwarnung ein und gibt an, ob ein rechtswidriger oder böswilliger Hintergrund vermutet wird oder ob grenzüberschreitende Auswirkungen vorliegen. Innerhalb von 72 Stunden ergänzt die Vorfallsmeldung die Frühwarnung um eine erste Bewertung, Indikatoren der Kompromittierung und den Schweregrad. Innerhalb eines Monats beschreibt die Abschlussmeldung Ursache, Massnahmen und grenzüberschreitende Wirkung."
+            "body": "Art. 23(4) NIS 2 setzt drei Fristen ab dem Zeitpunkt der Kenntnisnahme. Innerhalb von 24 Stunden reicht die Einrichtung eine Frühwarnung ein und gibt an, ob ein rechtswidriger oder böswilliger Hintergrund vermutet wird oder ob grenzüberschreitende Auswirkungen vorliegen. Innerhalb von 72 Stunden ergänzt die Vorfallsmeldung die Frühwarnung um eine erste Bewertung, Indikatoren der Kompromittierung und den Schweregrad. Innerhalb eines Monats beschreibt die Abschlussmeldung Ursache, Maßnahmen und grenzüberschreitende Wirkung."
           }
         }
       },
@@ -14175,7 +14175,7 @@
           },
           "escalateEarly": {
             "title": "Schnelligkeit vor Vollständigkeit",
-            "body": "Die BSI-Position lautet 'Schnelligkeit vor Vollständigkeit'. Die Frühwarnung nach 24 Stunden ist genau für die Lage gebaut, in der das Bild unvollständig ist. Das Formular fragt eine erste Einordnung und bekannte Fakten ab, keine fertige Ursachenanalyse. Wer die Frühwarnung zurückhält, bis alles steht, reisst die Frist. Sie lässt sich später nicht nachholen, auch wenn sich am Ende herausstellt, dass der Vorfall doch nicht erheblich war."
+            "body": "Die BSI-Position lautet 'Schnelligkeit vor Vollständigkeit'. Die Frühwarnung nach 24 Stunden ist genau für die Lage gebaut, in der das Bild unvollständig ist. Das Formular fragt eine erste Einordnung und bekannte Fakten ab, keine fertige Ursachenanalyse. Wer die Frühwarnung zurückhält, bis alles steht, reißt die Frist. Sie lässt sich später nicht nachholen, auch wenn sich am Ende herausstellt, dass der Vorfall doch nicht erheblich war."
           }
         }
       },
@@ -14186,12 +14186,12 @@
           "bsi": {
             "country": "DE",
             "label": "BSI: Meldung über meldung.bsi.bund.de",
-            "body": "Das BSI betreibt den einheitlichen Meldekanal aus §32 BSIG. Das Portal strukturiert die Eingaben für die 24-Stunden-, 72-Stunden- und Ein-Monats-Stufe und führt die Beweiskette. Die BSI-Position wiederholt den Wortlaut aus Art. 23(3) und bekräftigt 'Schnelligkeit vor Vollständigkeit'. Phishing-Vorfälle, die den qualitativen Test reissen, laufen über diesen Kanal, unabhängig davon, ob auch personenbezogene Daten betroffen sind."
+            "body": "Das BSI betreibt den einheitlichen Meldekanal aus §32 BSIG. Das Portal strukturiert die Eingaben für die 24-Stunden-, 72-Stunden- und Ein-Monats-Stufe und führt die Beweiskette. Die BSI-Position wiederholt den Wortlaut aus Art. 23(3) und bekräftigt 'Schnelligkeit vor Vollständigkeit'. Phishing-Vorfälle, die den qualitativen Test reißen, laufen über diesen Kanal, unabhängig davon, ob auch personenbezogene Daten betroffen sind."
           },
           "bfdi": {
             "country": "DE",
             "label": "BfDI oder Landesdatenschutzbehörde: Art. 33 DSGVO parallel",
-            "body": "Sind personenbezogene Daten betroffen, läuft Art. 33 DSGVO neben NIS 2. Die datenschutzrechtliche Meldung geht innerhalb von 72 Stunden ab Kenntnisnahme an die zuständige Aufsichtsbehörde, ausser die Verletzung führt voraussichtlich nicht zu einem Risiko für natürliche Personen. Die NIS-2-Meldung und die DSGVO-Meldung sind zwei Dokumente an zwei Behörden. Die Faktenlage überschneidet sich, die formellen Kanäle nicht."
+            "body": "Sind personenbezogene Daten betroffen, läuft Art. 33 DSGVO neben NIS 2. Die datenschutzrechtliche Meldung geht innerhalb von 72 Stunden ab Kenntnisnahme an die zuständige Aufsichtsbehörde, außer die Verletzung führt voraussichtlich nicht zu einem Risiko für natürliche Personen. Die NIS-2-Meldung und die DSGVO-Meldung sind zwei Dokumente an zwei Behörden. Die Faktenlage überschneidet sich, die formellen Kanäle nicht."
           },
           "lka": {
             "country": "DE",
@@ -14221,12 +14221,12 @@
       "practitioner": {
         "heading": "Praktikerhinweis",
         "p1": "Das nützlichste, was ein kleines Team vor dem Ernstfall einmal durchspielt, ist die Schwellenentscheidung. Schreiben Sie vorab auf, welche Konten in der Einrichtung als kritisch gelten: Admin-Konsolen, Zahlungssysteme, Identity Provider, Kundendatenbank, OT-Steuerung. Ein Phishing-Vorfall, der eines dieser Konten trifft, ist nach Ihrer eigenen Definition ein Kandidat für Abschnitt 11.6 und die 24-Stunden-Uhr läuft.",
-        "p2": "Das zweitnützlichste ist die Meldevorlage. Das BSI-Portal fragt eine strukturierte Faktenliste ab. Wer die Frühwarnung im Ernstfall zum ersten Mal entwirft, verliert die ersten zwei Stunden. Eine vorbefüllte Vorlage mit Stammdaten, Sektor, Kontaktwegen und einem leeren Erzählteil lässt sich in unter dreissig Minuten einreichen, sobald die Fakten stehen."
+        "p2": "Das zweitnützlichste ist die Meldevorlage. Das BSI-Portal fragt eine strukturierte Faktenliste ab. Wer die Frühwarnung im Ernstfall zum ersten Mal entwirft, verliert die ersten zwei Stunden. Eine vorbefüllte Vorlage mit Stammdaten, Sektor, Kontaktwegen und einem leeren Erzählteil lässt sich in unter dreißig Minuten einreichen, sobald die Fakten stehen."
       },
       "platform": {
         "heading": "Wie wir das auf der Plattform abbilden",
         "p1": "Das Vorfall-Modul öffnet einen Fall mit einem einzigen Zeitstempel der Kenntnisnahme und verankert drei Uhren: 24 Stunden, 72 Stunden, ein Monat. Jede Uhr hat eine eigene Vorlage, vorbefüllt mit den Feldern, die Art. 23(4) und CIR Anhang Abschnitt 11.6 abfragen. Sie tragen ein, was bekannt ist, die Plattform zeigt an, was noch fehlt. Eine separate Uhr nach Art. 33 DSGVO aktiviert sich, wenn der Fall personenbezogene Daten betrifft.",
-        "p2": "Das Fallprotokoll führt die Kette aus Kenntnisnahmezeit, Eindämmungsmassnahmen, Kommunikation und Einreichungen lückenlos mit. Dieses Protokoll ist die Auditspur, die das BSI-Portal nicht erzeugt, und das Dokument, das ein Prüfer in einer Aufsichtsmassnahme nach §61 BSIG sehen will."
+        "p2": "Das Fallprotokoll führt die Kette aus Kenntnisnahmezeit, Eindämmungsmassnahmen, Kommunikation und Einreichungen lückenlos mit. Dieses Protokoll ist die Auditspur, die das BSI-Portal nicht erzeugt, und das Dokument, das ein Prüfer in einer Aufsichtsmaßnahme nach §61 BSIG sehen will."
       },
       "sources": {
         "heading": "Quellen",
@@ -15848,67 +15848,67 @@
     "nis2VsCerRichtlinie": {
       "meta": {
         "title": "NIS 2 vs CER-Richtlinie: Cyberresilienz und physische Resilienz im Vergleich",
-        "description": "NIS 2 (Richtlinie (EU) 2022/2555) regelt Cybersicherheit. CER (Richtlinie (EU) 2022/2557) regelt physische Resilienz. Gleiches Annahmedatum, gleiche Umsetzungsfrist, stark ueberlappende Sektoren, zwei getrennte nationale Behoerden. Was beide Richtlinien sagen, wo sie sich treffen und wo sie auseinandergehen."
+        "description": "NIS 2 (Richtlinie (EU) 2022/2555) regelt Cybersicherheit. CER (Richtlinie (EU) 2022/2557) regelt physische Resilienz. Gleiches Annahmedatum, gleiche Umsetzungsfrist, stark überlappende Sektoren, zwei getrennte nationale Behörden. Was beide Richtlinien sagen, wo sie sich treffen und wo sie auseinandergehen."
       },
       "title": "NIS 2 vs CER-Richtlinie: Cyberresilienz neben physischer Resilienz",
-      "subtitle": "Zwei Richtlinien, am selben Tag verabschiedet, mit derselben Umsetzungsfrist, fuer fast dieselben kritischen Sektoren, aus zwei verschiedenen Blickwinkeln.",
+      "subtitle": "Zwei Richtlinien, am selben Tag verabschiedet, mit derselben Umsetzungsfrist, für fast dieselben kritischen Sektoren, aus zwei verschiedenen Blickwinkeln.",
       "overview": {
         "heading": "Zwei Richtlinien, ein Resilienzpaket",
-        "p1": "Am 14. Dezember 2022 hat die EU zwei Richtlinien parallel verabschiedet. Richtlinie (EU) 2022/2555 (NIS 2) ist die Cybersicherheitsrichtlinie. Richtlinie (EU) 2022/2557 (CER) ist die Richtlinie ueber die Resilienz kritischer Einrichtungen. Beide mussten bis zum 17. Oktober 2024 umgesetzt werden.",
-        "p2": "NIS 2 schuetzt Netz- und Informationssysteme. CER schuetzt den physischen Betrieb kritischer Einrichtungen gegen nichtcyberbezogene Bedrohungen wie Naturgefahren, Sabotage, Terrorismus, Innentaeter und Pandemien. Die abgedeckten Sektoren ueberschneiden sich stark, das Schutzobjekt ist jedoch unterschiedlich.",
-        "p3": "Fuer Betreiber in Energie, Verkehr, Bankwesen, Finanzmarktinfrastruktur, Gesundheit, Trinkwasser, Abwasser, digitaler Infrastruktur, oeffentlicher Verwaltung und Raumfahrt gelten haeufig beide Richtlinien parallel. Diese Wikiseite zeigt, wo sich beide treffen und wo sie auseinandergehen."
+        "p1": "Am 14. Dezember 2022 hat die EU zwei Richtlinien parallel verabschiedet. Richtlinie (EU) 2022/2555 (NIS 2) ist die Cybersicherheitsrichtlinie. Richtlinie (EU) 2022/2557 (CER) ist die Richtlinie über die Resilienz kritischer Einrichtungen. Beide mussten bis zum 17. Oktober 2024 umgesetzt werden.",
+        "p2": "NIS 2 schützt Netz- und Informationssysteme. CER schützt den physischen Betrieb kritischer Einrichtungen gegen nichtcyberbezogene Bedrohungen wie Naturgefahren, Sabotage, Terrorismus, Innentaeter und Pandemien. Die abgedeckten Sektoren überschneiden sich stark, das Schutzobjekt ist jedoch unterschiedlich.",
+        "p3": "Für Betreiber in Energie, Verkehr, Bankwesen, Finanzmarktinfrastruktur, Gesundheit, Trinkwasser, Abwasser, digitaler Infrastruktur, öffentlicher Verwaltung und Raumfahrt gelten häufig beide Richtlinien parallel. Diese Wikiseite zeigt, wo sich beide treffen und wo sie auseinandergehen."
       },
       "legalAnchor": {
         "heading": "Wo die Querverweise im EU-Recht stehen",
         "description": "Beide Richtlinien verweisen aufeinander. Eine als kritische Einrichtung nach CER eingestufte Stelle gilt automatisch als wesentliche Einrichtung nach NIS 2.",
         "directive": {
-          "label": "NIS 2, Artikel 2 Absatz 3 (woertlich)",
-          "quote": "Diese Richtlinie gilt fuer Einrichtungen, die als kritische Einrichtungen im Sinne der Richtlinie (EU) 2022/2557 ermittelt werden.",
-          "context": "Artikel 2 Absatz 3 NIS 2 verknuepft beide Richtlinien ausdruecklich: Wer von einem Mitgliedstaat als kritische Einrichtung nach CER bestimmt wird, faellt in den Anwendungsbereich von NIS 2 und gilt nach Artikel 3 Absatz 1 Buchstabe f NIS 2 als wesentliche Einrichtung."
+          "label": "NIS 2, Artikel 2 Absatz 3 (wörtlich)",
+          "quote": "Diese Richtlinie gilt für Einrichtungen, die als kritische Einrichtungen im Sinne der Richtlinie (EU) 2022/2557 ermittelt werden.",
+          "context": "Artikel 2 Absatz 3 NIS 2 verknüpft beide Richtlinien ausdrücklich: Wer von einem Mitgliedstaat als kritische Einrichtung nach CER bestimmt wird, fällt in den Anwendungsbereich von NIS 2 und gilt nach Artikel 3 Absatz 1 Buchstabe f NIS 2 als wesentliche Einrichtung."
         },
         "regulation": {
-          "label": "CER, Artikel 1 (Gegenstand, woertlich)",
-          "quote": "Diese Richtlinie legt Verpflichtungen der Mitgliedstaaten fest, spezifische Massnahmen zu treffen, mit denen sichergestellt werden soll, dass Dienste, die fuer die Aufrechterhaltung lebenswichtiger gesellschaftlicher Funktionen oder wirtschaftlicher Taetigkeiten innerhalb des Anwendungsbereichs des Artikels 5 wesentlich sind, im Binnenmarkt ungehindert erbracht werden, insbesondere Verpflichtungen der Mitgliedstaaten zur Ermittlung kritischer Einrichtungen und zur Unterstuetzung kritischer Einrichtungen bei der Erfuellung der ihnen auferlegten Pflichten.",
-          "context": "CER konzentriert sich auf die Kontinuitaet wesentlicher Dienste gegenueber physischen, natuerlichen, hybriden und vom Menschen verursachten Bedrohungen. Cyberrisiken sind NIS 2 vorbehalten."
+          "label": "CER, Artikel 1 (Gegenstand, wörtlich)",
+          "quote": "Diese Richtlinie legt Verpflichtungen der Mitgliedstaaten fest, spezifische Maßnahmen zu treffen, mit denen sichergestellt werden soll, dass Dienste, die für die Aufrechterhaltung lebenswichtiger gesellschaftlicher Funktionen oder wirtschaftlicher Tätigkeiten innerhalb des Anwendungsbereichs des Artikels 5 wesentlich sind, im Binnenmarkt ungehindert erbracht werden, insbesondere Verpflichtungen der Mitgliedstaaten zur Ermittlung kritischer Einrichtungen und zur Unterstützung kritischer Einrichtungen bei der Erfüllung der ihnen auferlegten Pflichten.",
+          "context": "CER konzentriert sich auf die Kontinuität wesentlicher Dienste gegenüber physischen, natürlichen, hybriden und vom Menschen verursachten Bedrohungen. Cyberrisiken sind NIS 2 vorbehalten."
         },
         "transposition": {
           "label": "Nationale Umsetzung (Deutschland)",
-          "quote": "NIS 2 wird in Deutschland durch das BSIG (Entwurf NIS2UmsuCG) umgesetzt. CER wird durch ein eigenstaendiges KRITIS-Dachgesetz umgesetzt, federfuehrend beim Bundesministerium des Innern.",
-          "context": "Beide Richtlinien werden durch zwei verschiedene nationale Gesetze umgesetzt und durch zwei verschiedene Bundesbehoerden beaufsichtigt. Stand Juni 2026 ist die deutsche NIS 2 Umsetzung weiterhin im Gesetzgebungsverfahren, das KRITIS-Dachgesetz parallel im Entwurfsstadium."
+          "quote": "NIS 2 wird in Deutschland durch das BSIG (Entwurf NIS2UmsuCG) umgesetzt. CER wird durch ein eigenständiges KRITIS-Dachgesetz umgesetzt, federführend beim Bundesministerium des Innern.",
+          "context": "Beide Richtlinien werden durch zwei verschiedene nationale Gesetze umgesetzt und durch zwei verschiedene Bundesbehörden beaufsichtigt. Stand Juni 2026 ist die deutsche NIS 2 Umsetzung weiterhin im Gesetzgebungsverfahren, das KRITIS-Dachgesetz parallel im Entwurfsstadium."
         }
       },
       "elements": {
         "heading": "Drei strukturelle Elemente im Vergleich",
-        "description": "Anwendungsbereich, Schutzobjekt und Ueberschneidung.",
+        "description": "Anwendungsbereich, Schutzobjekt und Überschneidung.",
         "items": {
           "scope": {
             "section": "Anwendungsbereich",
-            "title": "Sektorlisten ueberschneiden sich, aber nicht vollstaendig",
-            "body": "Die Anhaenge I und II von NIS 2 nennen 18 Sektoren. Der Anhang der CER-Richtlinie nennt 11 Sektoren. Energie, Verkehr, Bankwesen, Finanzmarktinfrastruktur, Gesundheit, Trinkwasser, Abwasser, digitale Infrastruktur, oeffentliche Verwaltung und Raumfahrt erscheinen in beiden. CER erfasst zusaetzlich die Erzeugung, Verarbeitung und den Vertrieb von Lebensmitteln, der ausserhalb von NIS 2 liegt."
+            "title": "Sektorlisten überschneiden sich, aber nicht vollständig",
+            "body": "Die Anhänge I und II von NIS 2 nennen 18 Sektoren. Der Anhang der CER-Richtlinie nennt 11 Sektoren. Energie, Verkehr, Bankwesen, Finanzmarktinfrastruktur, Gesundheit, Trinkwasser, Abwasser, digitale Infrastruktur, öffentliche Verwaltung und Raumfahrt erscheinen in beiden. CER erfasst zusätzlich die Erzeugung, Verarbeitung und den Vertrieb von Lebensmitteln, der außerhalb von NIS 2 liegt."
           },
           "objectOfProtection": {
             "section": "Schutzobjekt",
-            "title": "Netz- und Informationssysteme gegenueber physischer Dienstkontinuitaet",
-            "body": "NIS 2 schuetzt die Cybersicherheit der Netz- und Informationssysteme, die die Einrichtung nutzt. CER schuetzt die Faehigkeit der Einrichtung, den wesentlichen Dienst gegen physische, natuerliche und vom Menschen verursachte Stoerungen weiter zu erbringen. Derselbe Betreiber, zwei verschiedene Risikoperspektiven."
+            "title": "Netz- und Informationssysteme gegenüber physischer Dienstkontinuität",
+            "body": "NIS 2 schützt die Cybersicherheit der Netz- und Informationssysteme, die die Einrichtung nutzt. CER schützt die Fähigkeit der Einrichtung, den wesentlichen Dienst gegen physische, natürliche und vom Menschen verursachte Störungen weiter zu erbringen. Derselbe Betreiber, zwei verschiedene Risikoperspektiven."
           },
           "overlap": {
-            "section": "Ueberschneidung",
+            "section": "Überschneidung",
             "title": "Kritische Einrichtungen nach CER sind wesentliche Einrichtungen nach NIS 2",
-            "body": "Artikel 2 Absatz 3 NIS 2 fuehrt jede nach CER bestimmte kritische Einrichtung unmittelbar als wesentliche Einrichtung in NIS 2 ein. Umgekehrt gilt das nicht automatisch: Wer in den Anwendungsbereich von NIS 2 faellt, wird damit noch nicht als kritische Einrichtung nach CER bestimmt."
+            "body": "Artikel 2 Absatz 3 NIS 2 führt jede nach CER bestimmte kritische Einrichtung unmittelbar als wesentliche Einrichtung in NIS 2 ein. Umgekehrt gilt das nicht automatisch: Wer in den Anwendungsbereich von NIS 2 fällt, wird damit noch nicht als kritische Einrichtung nach CER bestimmt."
           }
         }
       },
       "principles": {
         "heading": "Zwei Grundprinzipien, die man auseinanderhalten muss",
-        "description": "Diese zwei Gedanken entscheiden, ob ein oder zwei Massnahmenpakete noetig sind.",
+        "description": "Diese zwei Gedanken entscheiden, ob ein oder zwei Maßnahmenpakete nötig sind.",
         "items": {
           "cyberVsPhysical": {
             "title": "Cyberrisiken sind keine physischen Risiken",
-            "body": "Artikel 21 NIS 2 verlangt Cybersicherheitsmassnahmen zum Risikomanagement (Leitlinien, Bewaeltigung von Sicherheitsvorfaellen, Geschaeftskontinuitaet, Sicherheit der Lieferkette, Zugriffskontrolle, Kryptographie und weitere). Die Artikel 12 und 13 CER verlangen einen Resilienzplan mit physischen Schutzmassnahmen, Redundanz, Geschaeftskontinuitaet und Personalsicherheit. Nachweise ueberschneiden sich teilweise, etwa bei Geschaeftskontinuitaetsplaenen, der Risikokatalog ist aber unterschiedlich."
+            "body": "Artikel 21 NIS 2 verlangt Cybersicherheitsmaßnahmen zum Risikomanagement (Leitlinien, Bewältigung von Sicherheitsvorfällen, Geschäftskontinuität, Sicherheit der Lieferkette, Zugriffskontrolle, Kryptographie und weitere). Die Artikel 12 und 13 CER verlangen einen Resilienzplan mit physischen Schutzmaßnahmen, Redundanz, Geschäftskontinuität und Personalsicherheit. Nachweise überschneiden sich teilweise, etwa bei Geschäftskontinuitätsplänen, der Risikokatalog ist aber unterschiedlich."
           },
           "sameEntitiesOften": {
-            "title": "Oft derselbe Betreiber, zwei Berichte, zwei Behoerden",
-            "body": "Ein Wasserversorger, ein Krankenhausverbund, ein Energieverteiler oder eine Behoerde kann gleichzeitig Pflichten aus beiden Richtlinien haben. Das bedeutet in der Regel zwei parallele Risikobewertungen und zwei parallele Berichtslinien: eine an die NIS 2 Behoerde, eine an die CER Behoerde."
+            "title": "Oft derselbe Betreiber, zwei Berichte, zwei Behörden",
+            "body": "Ein Wasserversorger, ein Krankenhausverbund, ein Energieverteiler oder eine Behörde kann gleichzeitig Pflichten aus beiden Richtlinien haben. Das bedeutet in der Regel zwei parallele Risikobewertungen und zwei parallele Berichtslinien: eine an die NIS 2 Behörde, eine an die CER Behörde."
           }
         }
       },
@@ -15919,17 +15919,17 @@
           "bsi": {
             "country": "DE / NIS 2",
             "label": "BSI",
-            "body": "In Deutschland ist das Bundesamt fuer Sicherheit in der Informationstechnik (BSI) die zustaendige Behoerde fuer die Umsetzung von NIS 2. Das BSI nimmt Registrierungen und Meldungen entgegen und beaufsichtigt die NIS 2 Cybersicherheitsmassnahmen."
+            "body": "In Deutschland ist das Bundesamt für Sicherheit in der Informationstechnik (BSI) die zuständige Behörde für die Umsetzung von NIS 2. Das BSI nimmt Registrierungen und Meldungen entgegen und beaufsichtigt die NIS 2 Cybersicherheitsmaßnahmen."
           },
           "bbk": {
             "country": "DE / CER",
             "label": "BBK",
-            "body": "Federfuehrend fuer CER ist in Deutschland das Bundesamt fuer Bevoelkerungsschutz und Katastrophenhilfe (BBK), nicht das BSI. Das BBK soll im Rahmen des geplanten KRITIS-Dachgesetzes die Bestimmung kritischer Einrichtungen und deren physische Resilienz beaufsichtigen."
+            "body": "Federführend für CER ist in Deutschland das Bundesamt für Bevoelkerungsschutz und Katastrophenhilfe (BBK), nicht das BSI. Das BBK soll im Rahmen des geplanten KRITIS-Dachgesetzes die Bestimmung kritischer Einrichtungen und deren physische Resilienz beaufsichtigen."
           },
           "enisa": {
             "country": "EU",
             "label": "ENISA und die Critical Entities Resilience Group",
-            "body": "Auf der Cyberseite unterstuetzt ENISA Mitgliedstaaten und Betreiber unter NIS 2. Auf der CER Seite koordiniert die nach Artikel 19 CER eingerichtete Critical Entities Resilience Group zwischen den Mitgliedstaaten. Die Kommission begleitet beide Ebenen, die Cyberseite und die physische Seite bleiben auf EU Ebene jedoch institutionell getrennt."
+            "body": "Auf der Cyberseite unterstützt ENISA Mitgliedstaaten und Betreiber unter NIS 2. Auf der CER Seite koordiniert die nach Artikel 19 CER eingerichtete Critical Entities Resilience Group zwischen den Mitgliedstaaten. Die Kommission begleitet beide Ebenen, die Cyberseite und die physische Seite bleiben auf EU Ebene jedoch institutionell getrennt."
           }
         }
       },
@@ -15939,90 +15939,90 @@
         "items": {
           "cerIsCyberToo": {
             "myth": "CER deckt auch Cybersicherheit ab, also reicht ein Projekt",
-            "reality": "CER regelt keine Cybersicherheit. Erwaegungsgrund 4 und die Anwendungsbereichsvorschriften der CER Richtlinie ueberlassen Cyberrisiken ausdruecklich der NIS 2. CER richtet sich auf physische, natuerliche und vom Menschen verursachte Bedrohungen des Dienstes. Ein reines Cyber ISMS erfuellt CER nicht. Ein reiner physischer Resilienzplan erfuellt NIS 2 nicht."
+            "reality": "CER regelt keine Cybersicherheit. Erwägungsgrund 4 und die Anwendungsbereichsvorschriften der CER Richtlinie überlassen Cyberrisiken ausdrücklich der NIS 2. CER richtet sich auf physische, natürliche und vom Menschen verursachte Bedrohungen des Dienstes. Ein reines Cyber ISMS erfüllt CER nicht. Ein reiner physischer Resilienzplan erfüllt NIS 2 nicht."
           },
           "differentEntities": {
-            "myth": "Beide Richtlinien gelten fuer genau dieselben Betreiber",
-            "reality": "Die Sektorueberschneidung ist hoch, aber nicht vollstaendig. CER erfasst zusaetzlich Erzeugung, Verarbeitung und Vertrieb von Lebensmitteln. NIS 2 erfasst ICT Service Management und mehrere digitale Dienstekategorien, die in CER fehlen. Selbst wo beide gelten, verlangt CER eine ausdrueckliche Bestimmung durch den Mitgliedstaat, waehrend NIS 2 ueberwiegend ueber Selbsteinstufung anhand von Groessen- und Sektorkriterien funktioniert."
+            "myth": "Beide Richtlinien gelten für genau dieselben Betreiber",
+            "reality": "Die Sektorüberschneidung ist hoch, aber nicht vollständig. CER erfasst zusätzlich Erzeugung, Verarbeitung und Vertrieb von Lebensmitteln. NIS 2 erfasst ICT Service Management und mehrere digitale Dienstekategorien, die in CER fehlen. Selbst wo beide gelten, verlangt CER eine ausdrückliche Bestimmung durch den Mitgliedstaat, während NIS 2 überwiegend über Selbsteinstufung anhand von Größen- und Sektorkriterien funktioniert."
           },
           "onlyKritis": {
             "myth": "KRITIS ist die deutsche CER Umsetzung",
-            "reality": "KRITIS ist ein eigenstaendiges deutsches Konzept, das beiden Richtlinien vorausgeht und derzeit in BSIG, BSI-KritisV und sektorspezifischen Gesetzen verteilt ist. Das geplante KRITIS-Dachgesetz soll CER umsetzen, deckt aber nicht denselben Perimeter wie das bestehende KRITIS Konzept und ist nicht die NIS 2 Umsetzung. Drei getrennte Arbeitsstroenge, nicht einer."
+            "reality": "KRITIS ist ein eigenständiges deutsches Konzept, das beiden Richtlinien vorausgeht und derzeit in BSIG, BSI-KritisV und sektorspezifischen Gesetzen verteilt ist. Das geplante KRITIS-Dachgesetz soll CER umsetzen, deckt aber nicht denselben Perimeter wie das bestehende KRITIS Konzept und ist nicht die NIS 2 Umsetzung. Drei getrennte Arbeitsstroenge, nicht einer."
           }
         }
       },
       "practitioner": {
         "heading": "Wie das bei einem realen Betreiber aussieht",
-        "p1": "Ein regionaler Energieverteiler mit rund 400 Beschaeftigten betreibt ein ISMS fuer NIS 2 (Massnahmen nach Artikel 21, Meldung von Sicherheitsvorfaellen an das BSI innerhalb von 24 Stunden, Lieferkettensicherheit, Schulungen). Parallel fuehrt derselbe Verteiler einen Resilienzplan nach CER fuer kritische Einrichtungen mit physischem Standortschutz, Redundanz von Umspannwerken, Personalzuverlaessigkeit und Geschaeftskontinuitaet fuer physische Stoerungen. Beide Plaene teilen sich Eingaben zur Geschaeftskontinuitaet, leben aber unter zwei getrennten Governance Linien.",
-        "p2": "In der taeglichen Praxis ist die saubere Loesung ein gemeinsames Risikoregister, das jedes Risiko als cyber, physisch oder beides markiert und in zwei Ergebnisse muendet: auf der einen Seite die Cybersicherheitsmassnahmen nach NIS 2, auf der anderen Seite den Resilienzplan nach CER. Das vermeidet Doppelarbeit bei Asset Inventar und Geschaeftskontinuitaet und haelt die regulatorischen Ergebnisse trotzdem getrennt."
+        "p1": "Ein regionaler Energieverteiler mit rund 400 Beschäftigten betreibt ein ISMS für NIS 2 (Maßnahmen nach Artikel 21, Meldung von Sicherheitsvorfällen an das BSI innerhalb von 24 Stunden, Lieferkettensicherheit, Schulungen). Parallel führt derselbe Verteiler einen Resilienzplan nach CER für kritische Einrichtungen mit physischem Standortschutz, Redundanz von Umspannwerken, Personalzuverlässigkeit und Geschäftskontinuität für physische Störungen. Beide Pläne teilen sich Eingaben zur Geschäftskontinuität, leben aber unter zwei getrennten Governance Linien.",
+        "p2": "In der täglichen Praxis ist die saubere Lösung ein gemeinsames Risikoregister, das jedes Risiko als cyber, physisch oder beides markiert und in zwei Ergebnisse muendet: auf der einen Seite die Cybersicherheitsmaßnahmen nach NIS 2, auf der anderen Seite den Resilienzplan nach CER. Das vermeidet Doppelarbeit bei Asset Inventar und Geschäftskontinuität und hält die regulatorischen Ergebnisse trotzdem getrennt."
       },
       "platform": {
         "heading": "Wie diese Plattform die Abgrenzung handhabt",
-        "p1": "Diese Plattform setzt die Pflichten aus Artikel 21 NIS 2 als Pflichtenregister um: Asset Inventar, Lieferantenverzeichnis, Risikoregister, Bewaeltigung von Sicherheitsvorfaellen, Geschaeftskontinuitaet, Schulungen und Aufsichtsnachweise. CER ist nicht Bestandteil der Plattform.",
-        "p2": "Betreiber mit Pflichten aus beiden Richtlinien koennen das Asset Inventar und das Lieferantenverzeichnis aus NIS 2 als Eingabe fuer ihren CER Resilienzplan wiederverwenden. Der CER Resilienzplan selbst liegt in einem getrennten Arbeitsstrang unter Aufsicht der CER Behoerde."
+        "p1": "Diese Plattform setzt die Pflichten aus Artikel 21 NIS 2 als Pflichtenregister um: Asset Inventar, Lieferantenverzeichnis, Risikoregister, Bewältigung von Sicherheitsvorfällen, Geschäftskontinuität, Schulungen und Aufsichtsnachweise. CER ist nicht Bestandteil der Plattform.",
+        "p2": "Betreiber mit Pflichten aus beiden Richtlinien können das Asset Inventar und das Lieferantenverzeichnis aus NIS 2 als Eingabe für ihren CER Resilienzplan wiederverwenden. Der CER Resilienzplan selbst liegt in einem getrennten Arbeitsstrang unter Aufsicht der CER Behörde."
       },
       "sources": {
         "heading": "Quellen",
         "items": [
-          "Richtlinie (EU) 2022/2555 des Europaeischen Parlaments und des Rates vom 14. Dezember 2022 (NIS 2). EUR-Lex: 32022L2555.",
-          "Richtlinie (EU) 2022/2557 des Europaeischen Parlaments und des Rates vom 14. Dezember 2022 (CER). EUR-Lex: 32022L2557.",
-          "NIS 2, Artikel 2 Absatz 3 zum Verweis auf CER. NIS 2, Anhaenge I und II zu den Sektoren.",
+          "Richtlinie (EU) 2022/2555 des Europäischen Parlaments und des Rates vom 14. Dezember 2022 (NIS 2). EUR-Lex: 32022L2555.",
+          "Richtlinie (EU) 2022/2557 des Europäischen Parlaments und des Rates vom 14. Dezember 2022 (CER). EUR-Lex: 32022L2557.",
+          "NIS 2, Artikel 2 Absatz 3 zum Verweis auf CER. NIS 2, Anhänge I und II zu den Sektoren.",
           "CER, Artikel 1 (Gegenstand), Artikel 5 (Sektoren), Artikel 6 (Kriterien zur Ermittlung kritischer Einrichtungen), Artikel 12 und 13 zum Resilienzplan.",
-          "Bundesamt fuer Sicherheit in der Informationstechnik (BSI), nationale Umsetzungsseite zu NIS 2.",
-          "Bundesamt fuer Bevoelkerungsschutz und Katastrophenhilfe (BBK), nationale Umsetzungsseite zu CER."
+          "Bundesamt für Sicherheit in der Informationstechnik (BSI), nationale Umsetzungsseite zu NIS 2.",
+          "Bundesamt für Bevoelkerungsschutz und Katastrophenhilfe (BBK), nationale Umsetzungsseite zu CER."
         ]
       },
       "ctaCard": {
-        "heading": "Pruefen, ob NIS 2 fuer Sie gilt",
-        "description": "Unser Anwendbarkeitscheck deckt den NIS 2 Anwendungsbereich ab. Die Bestimmung als kritische Einrichtung nach CER trifft die zustaendige Behoerde des Mitgliedstaats, nicht die Selbsteinstufung."
+        "heading": "Prüfen, ob NIS 2 für Sie gilt",
+        "description": "Unser Anwendbarkeitscheck deckt den NIS 2 Anwendungsbereich ab. Die Bestimmung als kritische Einrichtung nach CER trifft die zuständige Behörde des Mitgliedstaats, nicht die Selbsteinstufung."
       },
       "cta": "Anwendbarkeitscheck NIS 2 starten"
     },
     "nis2VsNis1": {
       "meta": {
-        "title": "NIS 2 vs NIS 1: was sich tatsachlich geandert hat",
-        "description": "Was hat sich strukturell zwischen Richtlinie (EU) 2016/1148 (NIS 1) und Richtlinie (EU) 2022/2555 (NIS 2) geandert: Anwendungsbereich, Pflichten, Governance, Meldewesen und Durchsetzung."
+        "title": "NIS 2 vs NIS 1: was sich tatsächlich geändert hat",
+        "description": "Was hat sich strukturell zwischen Richtlinie (EU) 2016/1148 (NIS 1) und Richtlinie (EU) 2022/2555 (NIS 2) geändert: Anwendungsbereich, Pflichten, Governance, Meldewesen und Durchsetzung."
       },
-      "title": "NIS 2 vs NIS 1: was sich tatsachlich geandert hat",
+      "title": "NIS 2 vs NIS 1: was sich tatsächlich geändert hat",
       "subtitle": "Artikel 41 der Richtlinie (EU) 2022/2555 hebt die NIS 1 Richtlinie mit Wirkung vom 18. Oktober 2024 auf. Diese Seite beschreibt, was das in der Praxis bedeutet.",
       "overview": {
-        "heading": "Uberblick",
+        "heading": "Überblick",
         "p1": "NIS 1 war die Richtlinie (EU) 2016/1148. Sie erfasste sieben Sektoren und unterschied zwei Adressatengruppen: Betreiber wesentlicher Dienste (OES) und Anbieter digitaler Dienste (DSP). Die OES wurden von den Mitgliedstaaten einzeln benannt.",
-        "p2": "NIS 2 ist die Richtlinie (EU) 2022/2555. Sie erfasst 15 Sektoren in Anhang I und 7 Sektoren in Anhang II, ersetzt die Unterscheidung OES und DSP durch wesentliche und wichtige Einrichtungen und nutzt eine ausdruckliche Grossenschwelle (ab 50 Beschaftigten oder uber 10 Millionen Euro Jahresumsatz).",
-        "p3": "Artikel 41 NIS 2 hebt die NIS 1 Richtlinie mit Wirkung vom 18. Oktober 2024 auf. Verweise im nationalen Recht auf die alte Richtlinie gelten ab diesem Datum als Verweise auf NIS 2. Nationale Umsetzungsgesetze (etwa das deutsche BSIG in der NIS 2 Fassung) losen die fruhere Architektur des IT-Sicherheitsgesetzes 2.0 ab."
+        "p2": "NIS 2 ist die Richtlinie (EU) 2022/2555. Sie erfasst 15 Sektoren in Anhang I und 7 Sektoren in Anhang II, ersetzt die Unterscheidung OES und DSP durch wesentliche und wichtige Einrichtungen und nutzt eine ausdrückliche Größenschwelle (ab 50 Beschäftigten oder über 10 Millionen Euro Jahresumsatz).",
+        "p3": "Artikel 41 NIS 2 hebt die NIS 1 Richtlinie mit Wirkung vom 18. Oktober 2024 auf. Verweise im nationalen Recht auf die alte Richtlinie gelten ab diesem Datum als Verweise auf NIS 2. Nationale Umsetzungsgesetze (etwa das deutsche BSIG in der NIS 2 Fassung) lösen die frühere Architektur des IT-Sicherheitsgesetzes 2.0 ab."
       },
       "legalAnchor": {
         "heading": "Rechtliche Anker",
-        "description": "Drei Textebenen pragen die Migration: die EU Richtlinie, die NIS 1 aufhebt, die Durchfuhrungsverordnung der Kommission fur Teile der digitalen Infrastruktur und das nationale Gesetz, das die Richtlinie umsetzt.",
+        "description": "Drei Textebenen prägen die Migration: die EU Richtlinie, die NIS 1 aufhebt, die Durchführungsverordnung der Kommission fur Teile der digitalen Infrastruktur und das nationale Gesetz, das die Richtlinie umsetzt.",
         "directive": {
           "label": "Richtlinie (EU) 2022/2555 Artikel 41",
           "quote": "Die Richtlinie (EU) 2016/1148 wird mit Wirkung vom 18. Oktober 2024 aufgehoben.",
           "context": "Das Aufhebungsdatum ist zugleich die Umsetzungsfrist. Verweise auf NIS 1 in anderen EU Rechtsakten gelten als Verweise auf NIS 2."
         },
         "regulation": {
-          "label": "Durchfuhrungsverordnung (EU) 2024/2690",
-          "quote": "Diese Verordnung legt die technischen und methodischen Anforderungen der in Artikel 21 Absatz 2 der Richtlinie (EU) 2022/2555 genannten Massnahmen fest [...]",
-          "context": "Die Durchfuhrungsverordnung konkretisiert die Massnahmen nach Artikel 21 Absatz 2 fur eine eng umrissene Gruppe digitaler Infrastrukturanbieter. Der Massnahmenkatalog nach Artikel 21 gilt fur alle NIS 2 Einrichtungen."
+          "label": "Durchführungsverordnung (EU) 2024/2690",
+          "quote": "Diese Verordnung legt die technischen und methodischen Anforderungen der in Artikel 21 Absatz 2 der Richtlinie (EU) 2022/2555 genannten Maßnahmen fest [...]",
+          "context": "Die Durchführungsverordnung konkretisiert die Maßnahmen nach Artikel 21 Absatz 2 fur eine eng umrissene Gruppe digitaler Infrastrukturanbieter. Der Maßnahmenkatalog nach Artikel 21 gilt fur alle NIS 2 Einrichtungen."
         },
         "transposition": {
           "label": "Deutschland: BSIG in der NIS 2 Fassung",
-          "quote": "Gesetz uber das Bundesamt fur Sicherheit in der Informationstechnik (BSI-Gesetz).",
-          "context": "Deutschland setzt NIS 2 durch Anderung des BSIG um. Die fruhere Architektur des IT-Sicherheitsgesetzes 2.0 (nur KRITIS Betreiber) wird abgelost durch einen weiteren Anwendungsbereich mit wesentlichen und wichtigen Einrichtungen."
+          "quote": "Gesetz über das Bundesamt fur Sicherheit in der Informationstechnik (BSI-Gesetz).",
+          "context": "Deutschland setzt NIS 2 durch Änderung des BSIG um. Die frühere Architektur des IT-Sicherheitsgesetzes 2.0 (nur KRITIS Betreiber) wird abgelost durch einen weiteren Anwendungsbereich mit wesentlichen und wichtigen Einrichtungen."
         }
       },
       "elements": {
-        "heading": "Drei strukturelle Anderungen",
-        "description": "Was sich zwischen NIS 1 und NIS 2 geandert hat, lasst sich in drei Bereiche gliedern: wer erfasst ist, was zu tun ist und wie die Durchsetzung funktioniert.",
+        "heading": "Drei strukturelle Änderungen",
+        "description": "Was sich zwischen NIS 1 und NIS 2 geändert hat, lässt sich in drei Bereiche gliedern: wer erfasst ist, was zu tun ist und wie die Durchsetzung funktioniert.",
         "items": {
           "scope": {
             "section": "Anwendungsbereich",
-            "title": "Von 7 Sektoren mit OES Benennung zu 15 plus 7 Sektoren mit Grossenschwelle",
-            "body": "NIS 1 erfasste sieben Sektoren und verlangte eine Einzelbenennung der OES durch die Mitgliedstaaten. NIS 2 listet 15 Sektoren in Anhang I (wesentliche Einrichtungen) und 7 Sektoren in Anhang II (wichtige Einrichtungen) und gilt automatisch fur Einrichtungen dieser Sektoren, die die Grossenschwelle erreichen (ab 50 Beschaftigten oder uber 10 Millionen Euro Jahresumsatz). Einige Einrichtungstypen sind unabhangig von der Grosse erfasst."
+            "title": "Von 7 Sektoren mit OES Benennung zu 15 plus 7 Sektoren mit Größenschwelle",
+            "body": "NIS 1 erfasste sieben Sektoren und verlangte eine Einzelbenennung der OES durch die Mitgliedstaaten. NIS 2 listet 15 Sektoren in Anhang I (wesentliche Einrichtungen) und 7 Sektoren in Anhang II (wichtige Einrichtungen) und gilt automatisch fur Einrichtungen dieser Sektoren, die die Größenschwelle erreichen (ab 50 Beschäftigten oder über 10 Millionen Euro Jahresumsatz). Einige Einrichtungstypen sind unabhängig von der Größe erfasst."
           },
           "obligations": {
             "section": "Pflichten",
-            "title": "Von Artikel 14 mit allgemein gehaltenen Massnahmen zu Artikel 21 mit zehn Massnahmenbereichen plus Artikel 20 und Artikel 23",
-            "body": "Artikel 14 NIS 1 verlangte geeignete und verhaltnismassige Massnahmen in eher allgemeiner Form. Artikel 21 Absatz 2 NIS 2 benennt zehn konkrete Bereiche (Risikoanalyse, Bewaltigung von Sicherheitsvorfallen, Aufrechterhaltung des Betriebs, Sicherheit der Lieferkette, Schwachstellenmanagement, Wirksamkeitsbewertung, grundlegende Cyberhygiene und Schulung, Kryptographie, Zugriffskontrolle und Anlagenverwaltung, Mehrfaktorauthentifizierung und sichere Kommunikation). Artikel 20 fugt ausdruckliche Pflichten des Leitungsorgans hinzu, Artikel 23 einen strukturierten Meldeprozess und Artikel 3 Absatz 4 die Registrierung."
+            "title": "Von Artikel 14 mit allgemein gehaltenen Maßnahmen zu Artikel 21 mit zehn Maßnahmenbereichen plus Artikel 20 und Artikel 23",
+            "body": "Artikel 14 NIS 1 verlangte geeignete und verhältnismäßige Maßnahmen in eher allgemeiner Form. Artikel 21 Absatz 2 NIS 2 benennt zehn konkrete Bereiche (Risikoanalyse, Bewältigung von Sicherheitsvorfällen, Aufrechterhaltung des Betriebs, Sicherheit der Lieferkette, Schwachstellenmanagement, Wirksamkeitsbewertung, grundlegende Cyberhygiene und Schulung, Kryptographie, Zugriffskontrolle und Anlagenverwaltung, Mehrfaktorauthentifizierung und sichere Kommunikation). Artikel 20 fügt ausdrückliche Pflichten des Leitungsorgans hinzu, Artikel 23 einen strukturierten Meldeprozess und Artikel 3 Absatz 4 die Registrierung."
           },
           "enforcement": {
             "section": "Durchsetzung",
@@ -16033,82 +16033,82 @@
       },
       "principles": {
         "heading": "Was ubertragbar ist und was nicht",
-        "description": "Teile eines NIS 1 Programms bleiben unter NIS 2 nutzlich. Andere Teile mussen neu aufgebaut werden, weil sich die rechtliche Struktur geandert hat.",
+        "description": "Teile eines NIS 1 Programms bleiben unter NIS 2 nützlich. Andere Teile müssen neu aufgebaut werden, weil sich die rechtliche Struktur geändert hat.",
         "items": {
           "continuityOfMeasures": {
-            "title": "Technische Massnahmen sind weitgehend ubertragbar",
-            "body": "Eine Einrichtung, die Artikel 14 NIS 1 bereits umgesetzt hat, erkennt vieles in Artikel 21 Absatz 2 NIS 2 wieder: Bewaltigung von Sicherheitsvorfallen, Aufrechterhaltung des Betriebs, Lieferkette sowie grundlegende Cyberhygiene und Schulung. Die Bezeichnungen und die Detailtiefe haben sich geandert, der inhaltliche Kern blieb bestehen."
+            "title": "Technische Maßnahmen sind weitgehend ubertragbar",
+            "body": "Eine Einrichtung, die Artikel 14 NIS 1 bereits umgesetzt hat, erkennt vieles in Artikel 21 Absatz 2 NIS 2 wieder: Bewältigung von Sicherheitsvorfällen, Aufrechterhaltung des Betriebs, Lieferkette sowie grundlegende Cyberhygiene und Schulung. Die Bezeichnungen und die Detailtiefe haben sich geändert, der inhaltliche Kern blieb bestehen."
           },
           "newGovernance": {
             "title": "Governance und Meldewesen sind neu",
-            "body": "Artikel 20 macht das Leitungsorgan dafur verantwortlich, die Risikomanagementmassnahmen zu billigen, ihre Umsetzung zu uberwachen und an Schulungen teilzunehmen. Artikel 23 fuhrt einen dreistufigen Ablauf ein: Fruhwarnung innerhalb von 24 Stunden, Meldung innerhalb von 72 Stunden, Abschlussbericht innerhalb eines Monats. Beides war in NIS 1 in dieser Form nicht enthalten."
+            "body": "Artikel 20 macht das Leitungsorgan dafür verantwortlich, die Risikomanagementmaßnahmen zu billigen, ihre Umsetzung zu überwachen und an Schulungen teilzunehmen. Artikel 23 führt einen dreistufigen Ablauf ein: Frühwarnung innerhalb von 24 Stunden, Meldung innerhalb von 72 Stunden, Abschlussbericht innerhalb eines Monats. Beides war in NIS 1 in dieser Form nicht enthalten."
           }
         }
       },
       "nationalView": {
         "heading": "Nationale Sicht",
-        "description": "NIS 2 ist eine Richtlinie. Was eine Einrichtung tatsachlich erfullt, steht im nationalen Umsetzungsgesetz. Drei Orientierungspunkte helfen bei der Migration.",
+        "description": "NIS 2 ist eine Richtlinie. Was eine Einrichtung tatsächlich erfüllt, steht im nationalen Umsetzungsgesetz. Drei Orientierungspunkte helfen bei der Migration.",
         "items": {
           "bsi": {
             "country": "DE",
             "label": "Bundesamt fur Sicherheit in der Informationstechnik (BSI)",
-            "body": "Das BSI ist die zustandige Behorde nach dem BSIG. Es betreibt das Einrichtungsregister, veroffentlicht Handreichungen zu Geschaftsfuhrerschulung und weiteren Pflichten und beaufsichtigt wesentliche und wichtige Einrichtungen. KRITIS Betreiber bleiben als Untermenge mit zusatzlichen Pflichten bestehen."
+            "body": "Das BSI ist die zuständige Behörde nach dem BSIG. Es betreibt das Einrichtungsregister, veröffentlicht Handreichungen zu Geschäftsführerschulung und weiteren Pflichten und beaufsichtigt wesentliche und wichtige Einrichtungen. KRITIS Betreiber bleiben als Untermenge mit zusätzlichen Pflichten bestehen."
           },
           "enisa": {
             "country": "EU",
-            "label": "Agentur der Europaischen Union fur Cybersicherheit (ENISA)",
-            "body": "Die ENISA veroffentlicht den Technical Implementation Guidance zu den Massnahmen nach Artikel 21 Absatz 2 und betreibt die europaische Schwachstellendatenbank nach Artikel 12. Die Texte sind unverbindlich, werden von Aufsichtsbehorden aber als praktische Basis herangezogen."
+            "label": "Agentur der Europäischen Union fur Cybersicherheit (ENISA)",
+            "body": "Die ENISA veröffentlicht den Technical Implementation Guidance zu den Maßnahmen nach Artikel 21 Absatz 2 und betreibt die europäische Schwachstellendatenbank nach Artikel 12. Die Texte sind unverbindlich, werden von Aufsichtsbehörden aber als praktische Basis herangezogen."
           },
           "transposition": {
             "country": "DE",
             "label": "BSIG lost Architektur des IT-Sicherheitsgesetzes 2.0 ab",
-            "body": "Deutschland setzt NIS 2 durch Anderung des BSIG um. Das fruhere Modell des IT-Sicherheitsgesetzes 2.0 war auf KRITIS Betreiber ausgerichtet. Die NIS 2 Fassung des BSIG erweitert den Anwendungsbereich auf wesentliche und wichtige Einrichtungen und fugt die Pflichten aus Artikel 20, Artikel 23 und Artikel 3 Absatz 4 hinzu."
+            "body": "Deutschland setzt NIS 2 durch Änderung des BSIG um. Das frühere Modell des IT-Sicherheitsgesetzes 2.0 war auf KRITIS Betreiber ausgerichtet. Die NIS 2 Fassung des BSIG erweitert den Anwendungsbereich auf wesentliche und wichtige Einrichtungen und fügt die Pflichten aus Artikel 20, Artikel 23 und Artikel 3 Absatz 4 hinzu."
           }
         }
       },
       "pitfalls": {
-        "heading": "Haufige Fehlannahmen",
-        "description": "Drei Annahmen tauchen bei der Migration von NIS 1 zu NIS 2 wiederholt auf und fuhren regelmassig zur falschen Einschatzung.",
+        "heading": "Häufige Fehlannahmen",
+        "description": "Drei Annahmen tauchen bei der Migration von NIS 1 zu NIS 2 wiederholt auf und führen regelmäßig zur falschen Einschätzung.",
         "items": {
           "nis1Carryover": {
-            "myth": "Unsere NIS 1 Unterlagen gelten unverandert weiter.",
-            "reality": "Die technischen Massnahmen sind weitgehend ubertragbar, der rechtliche Rahmen nicht. NIS 2 fugt Pflichten des Leitungsorgans (Artikel 20), einen dreistufigen Meldeprozess (Artikel 23), eine Registrierung (Artikel 3 Absatz 4) und einen strukturierten Massnahmenkatalog (Artikel 21 Absatz 2) hinzu. Altere NIS 1 Unterlagen haben in den Bereichen Governance, Meldefristen und Lieferkette regelmassig Lucken. Sie sind Ausgangspunkt, nicht abgeschlossene Dokumentation."
+            "myth": "Unsere NIS 1 Unterlagen gelten unverändert weiter.",
+            "reality": "Die technischen Maßnahmen sind weitgehend ubertragbar, der rechtliche Rahmen nicht. NIS 2 fügt Pflichten des Leitungsorgans (Artikel 20), einen dreistufigen Meldeprozess (Artikel 23), eine Registrierung (Artikel 3 Absatz 4) und einen strukturierten Maßnahmenkatalog (Artikel 21 Absatz 2) hinzu. Altere NIS 1 Unterlagen haben in den Bereichen Governance, Meldefristen und Lieferkette regelmäßig Lücken. Sie sind Ausgangspunkt, nicht abgeschlossene Dokumentation."
           },
           "sameAuthority": {
-            "myth": "Es ist dieselbe Behorde, also dieselbe Aufsicht.",
-            "reality": "In mehreren Mitgliedstaaten ist die Aufsichtsbehorde fur NIS 1 zugleich die Aufsichtsbehorde fur NIS 2 (in Deutschland das BSI). Die Institution ist dieselbe, ihre gesetzlichen Befugnisse und der Kreis der beaufsichtigten Einrichtungen sind es nicht. Artikel 32 und Artikel 33 NIS 2 erweitern den Katalog der Aufsichts- und Durchsetzungsbefugnisse, Artikel 34 fuhrt EU weite Mindesthochstbetrage ein, die es unter NIS 1 nicht gab."
+            "myth": "Es ist dieselbe Behörde, also dieselbe Aufsicht.",
+            "reality": "In mehreren Mitgliedstaaten ist die Aufsichtsbehörde fur NIS 1 zugleich die Aufsichtsbehörde fur NIS 2 (in Deutschland das BSI). Die Institution ist dieselbe, ihre gesetzlichen Befugnisse und der Kreis der beaufsichtigten Einrichtungen sind es nicht. Artikel 32 und Artikel 33 NIS 2 erweitern den Katalog der Aufsichts- und Durchsetzungsbefugnisse, Artikel 34 führt EU weite Mindesthochstbetrage ein, die es unter NIS 1 nicht gab."
           },
           "noChange": {
-            "myth": "Inhaltlich hat sich nichts Wesentliches geandert.",
-            "reality": "Anwendungsbereich (15 plus 7 Sektoren mit Grossenschwelle), Governance (Artikel 20 Leitungspflichten), Meldewesen (Artikel 23 Kaskade), Registrierung (Artikel 3 Absatz 4) und Sanktionen (Artikel 34 Hochstbetrage) wurden alle verandert. Die Formulierung geeignet und verhaltnismassig steht in beiden Richtlinien, der Katalog dahinter ist in NIS 2 deutlich konkreter."
+            "myth": "Inhaltlich hat sich nichts Wesentliches geändert.",
+            "reality": "Anwendungsbereich (15 plus 7 Sektoren mit Größenschwelle), Governance (Artikel 20 Leitungspflichten), Meldewesen (Artikel 23 Kaskade), Registrierung (Artikel 3 Absatz 4) und Sanktionen (Artikel 34 Höchstbeträge) wurden alle verändert. Die Formulierung geeignet und verhältnismäßig steht in beiden Richtlinien, der Katalog dahinter ist in NIS 2 deutlich konkreter."
           }
         }
       },
       "practitioner": {
         "heading": "Sicht aus der Praxis",
-        "p1": "In der Praxis ist die Migration selten ein Neustart auf der grunen Wiese. Die meisten Einrichtungen ubernehmen Teile ihres NIS 1 Risikoregisters, ihrer Incident Playbooks und ihrer Lieferantenliste und erganzen die neuen Elemente: eine Entscheidung des Leitungsorgans zu den Massnahmen nach Artikel 21 Absatz 2, einen Meldeprozess nach Artikel 23 mit den Zeitstempeln 24 Stunden, 72 Stunden und ein Monat, einen Eintrag im Register nach Artikel 3 Absatz 4 und einen Abschnitt zur Lieferkette nach Artikel 21 Absatz 2 Buchstabe d.",
-        "p2": "Die sichtbarste Anderung ist meist das Meldewesen. Aus der einen Meldung ohne unangemessene Verzogerung der NIS 1 Welt werden drei getrennte Dokumente mit eigenen Fristen und unterschiedlichem internem Adressatenkreis. Praktiker ziehen daher haufig den Incident Workflow als Erstes neu auf, weil dort die neuen Fristen schnell wirksam werden."
+        "p1": "In der Praxis ist die Migration selten ein Neustart auf der grunen Wiese. Die meisten Einrichtungen übernehmen Teile ihres NIS 1 Risikoregisters, ihrer Incident Playbooks und ihrer Lieferantenliste und ergänzen die neuen Elemente: eine Entscheidung des Leitungsorgans zu den Maßnahmen nach Artikel 21 Absatz 2, einen Meldeprozess nach Artikel 23 mit den Zeitstempeln 24 Stunden, 72 Stunden und ein Monat, einen Eintrag im Register nach Artikel 3 Absatz 4 und einen Abschnitt zur Lieferkette nach Artikel 21 Absatz 2 Buchstabe d.",
+        "p2": "Die sichtbarste Änderung ist meist das Meldewesen. Aus der einen Meldung ohne unangemessene Verzögerung der NIS 1 Welt werden drei getrennte Dokumente mit eigenen Fristen und unterschiedlichem internem Adressatenkreis. Praktiker ziehen daher häufig den Incident Workflow als Erstes neu auf, weil dort die neuen Fristen schnell wirksam werden."
       },
       "platform": {
         "heading": "Wie diese Plattform die Migration abbildet",
-        "p1": "Das Pflichtenregister ist nach den Artikeln der NIS 2 strukturiert. Die Massnahmen nach Artikel 21 Absatz 2 werden als einzelne Anforderungen gefuhrt, die Meldefristen nach Artikel 23 als dreistufiger Vorfallsprozess, die Registrierung nach Artikel 3 Absatz 4 als eigener Datensatz und die Entscheidung des Leitungsorgans nach Artikel 20 als Freigabe.",
-        "p2": "Wenn eine Einrichtung bereits Nachweise aus der NIS 1 Welt hat, lassen sich diese der entsprechenden NIS 2 Anforderung zuordnen. Die Plattform unterstellt keine pauschale Ubertragung. Jede Anforderung wird gepruft und als erfullt, teilweise erfullt oder offen markiert, mit Datum und verantwortlicher Person."
+        "p1": "Das Pflichtenregister ist nach den Artikeln der NIS 2 strukturiert. Die Maßnahmen nach Artikel 21 Absatz 2 werden als einzelne Anforderungen geführt, die Meldefristen nach Artikel 23 als dreistufiger Vorfallsprozess, die Registrierung nach Artikel 3 Absatz 4 als eigener Datensatz und die Entscheidung des Leitungsorgans nach Artikel 20 als Freigabe.",
+        "p2": "Wenn eine Einrichtung bereits Nachweise aus der NIS 1 Welt hat, lassen sich diese der entsprechenden NIS 2 Anforderung zuordnen. Die Plattform unterstellt keine pauschale Übertragung. Jede Anforderung wird geprüft und als erfüllt, teilweise erfüllt oder offen markiert, mit Datum und verantwortlicher Person."
       },
       "sources": {
         "heading": "Quellen",
         "items": [
           "Richtlinie (EU) 2022/2555, Artikel 41 (Aufhebung der Richtlinie (EU) 2016/1148), Artikel 20, 21, 23, 27, 32, 33, 34 sowie Anhang I und Anhang II (EUR-Lex).",
           "Richtlinie (EU) 2016/1148, Artikel 14 (Sicherheitsanforderungen fur OES) und Artikel 16 (Sicherheitsanforderungen fur DSP) (EUR-Lex).",
-          "Durchfuhrungsverordnung (EU) 2024/2690 der Kommission vom 17. Oktober 2024, Erwagungsgrunde und Anhang (EUR-Lex).",
+          "Durchführungsverordnung (EU) 2024/2690 der Kommission vom 17. Oktober 2024, Erwägungsgründe und Anhang (EUR-Lex).",
           "Bundesamt fur Sicherheit in der Informationstechnik (BSI), Informationsseiten zur NIS 2 und Verweise zum BSIG (bsi.bund.de).",
           "ENISA, Technical Implementation Guidance zu Artikel 21 Absatz 2 NIS 2 (enisa.europa.eu)."
         ]
       },
       "ctaCard": {
-        "heading": "Prufen, ob NIS 2 fur Ihre Einrichtung gilt",
-        "description": "Die Anwendbarkeitsprufung verwendet die Sektoren aus Anhang I und Anhang II sowie die Grossenschwelle aus Artikel 2 NIS 2."
+        "heading": "Prüfen, ob NIS 2 fur Ihre Einrichtung gilt",
+        "description": "Die Anwendbarkeitsprüfung verwendet die Sektoren aus Anhang I und Anhang II sowie die Größenschwelle aus Artikel 2 NIS 2."
       },
-      "cta": "Anwendbarkeitsprufung starten"
+      "cta": "Anwendbarkeitsprüfung starten"
     },
     "nis2StatusSchweden": {
       "meta": {
@@ -16810,7 +16810,7 @@
         "regulation": {
           "label": "EU Durchführung",
           "quote": "Durchführungsverordnung (EU) 2024/2690",
-          "context": "Technische und methodische Massnahmen für digitale Infrastrukturanbieter. In Belgien unmittelbar anwendbar ohne nationale Umsetzung."
+          "context": "Technische und methodische Maßnahmen für digitale Infrastrukturanbieter. In Belgien unmittelbar anwendbar ohne nationale Umsetzung."
         },
         "transposition": {
           "label": "Belgische Umsetzung",
@@ -16860,7 +16860,7 @@
           "ccb": {
             "country": "BE",
             "label": "CCB",
-            "body": "Centre for Cybersecurity Belgium, die nationale Cybersicherheitsbehörde, angesiedelt beim Premierminister. Federführende zuständige Behörde für NIS 2: Aufsicht, Audits, Sanktionen und das Registrierungsportal Safeonweb@work. Veröffentlicht das CyberFundamentals Framework, dessen validierte Umsetzung eine Konformitätsvermutung für die NIS 2 Risikomanagementmassnahmen begründet."
+            "body": "Centre for Cybersecurity Belgium, die nationale Cybersicherheitsbehörde, angesiedelt beim Premierminister. Federführende zuständige Behörde für NIS 2: Aufsicht, Audits, Sanktionen und das Registrierungsportal Safeonweb@work. Veröffentlicht das CyberFundamentals Framework, dessen validierte Umsetzung eine Konformitätsvermutung für die NIS 2 Risikomanagementmaßnahmen begründet."
           },
           "certBe": {
             "country": "BE",
@@ -16888,7 +16888,7 @@
           },
           "onlySector": {
             "myth": "Nur Sektoren mit bereits bestehender NIS 1 Aufsicht sind betroffen.",
-            "reality": "NIS 2 erweitert den Anwendungsbereich deutlich über die NIS 1 OES Liste hinaus. Neue Sektoren sind unter anderem öffentliche Verwaltung, Fertigung, Lebensmittel, Post- und Kurierdienste, Abfallwirtschaft und Chemie. Der Grössentest kappt grundsätzlich bei mittleren und grossen Unternehmen, aber kleine Einrichtungen können erfasst sein, wenn sie alleinige Anbieter sind oder das Gesetz sie hinzufügt. Die Anwendbarkeitsprüfung muss im Einzelfall erfolgen."
+            "reality": "NIS 2 erweitert den Anwendungsbereich deutlich über die NIS 1 OES Liste hinaus. Neue Sektoren sind unter anderem öffentliche Verwaltung, Fertigung, Lebensmittel, Post- und Kurierdienste, Abfallwirtschaft und Chemie. Der Grössentest kappt grundsätzlich bei mittleren und großen Unternehmen, aber kleine Einrichtungen können erfasst sein, wenn sie alleinige Anbieter sind oder das Gesetz sie hinzufügt. Die Anwendbarkeitsprüfung muss im Einzelfall erfolgen."
           }
         }
       },
@@ -17593,19 +17593,19 @@
     },
     "meldepflichtSchema": {
       "meta": {
-        "title": "Offenes Schema fuer NIS 2 Vorfallsmeldungen",
-        "description": "Offenes, EU-verankertes Schema fuer Vorfallsmeldungen nach Art. 23 NIS 2. Verknuepft mit CIR 2024/2690, ENISA TIG und der W3C DPV NIS 2 Vokabulary. Mappings auf nationale Portale wie das BSI-Meldeportal als nachgelagerte Erweiterung."
+        "title": "Offenes Schema für NIS 2 Vorfallsmeldungen",
+        "description": "Offenes, EU-verankertes Schema für Vorfallsmeldungen nach Art. 23 NIS 2. Verknüpft mit CIR 2024/2690, ENISA TIG und der W3C DPV NIS 2 Vokabulary. Mappings auf nationale Portale wie das BSI-Meldeportal als nachgelagerte Erweiterung."
       },
       "badge": "Offener EU Standard",
       "title": "NIS 2 Vorfallsmelde-Schema",
       "subtitle": "Die Felder, die jede in der EU regulierte Einrichtung in einem Sicherheitsvorfall nach Art. 23 NIS 2 dokumentieren muss. EU-rechtlich verankert, nicht an ein einzelnes nationales Portal gebunden.",
       "intro": {
-        "p1": "Wenn ein erheblicher Sicherheitsvorfall eine NIS 2 verpflichtete Einrichtung trifft, startet die Uhr: 24 Stunden Fruehwarnung, 72 Stunden Erstmeldung, ein Monat Abschlussbericht. Die zu dokumentierenden Felder sind EU-weit weitgehend identisch, jedes Mitgliedsland betreibt aber sein eigenes Portal.",
-        "p2": "Bis das von der NIS Kooperationsgruppe am 26. Mai 2026 verabschiedete gemeinsame Template als Durchfuehrungsrechtsakt veroeffentlicht wird und bis der vorgeschlagene Single Entry Point nach Art. 23a NIS 2 (Digital Omnibus, 19. November 2025) in Kraft tritt, gibt es kein oeffentliches, maschinenlesbares Schema fuer diese Felder. Diese Bibliothek schliesst die Luecke."
+        "p1": "Wenn ein erheblicher Sicherheitsvorfall eine NIS 2 verpflichtete Einrichtung trifft, startet die Uhr: 24 Stunden Frühwarnung, 72 Stunden Erstmeldung, ein Monat Abschlussbericht. Die zu dokumentierenden Felder sind EU-weit weitgehend identisch, jedes Mitgliedsland betreibt aber sein eigenes Portal.",
+        "p2": "Bis das von der NIS Kooperationsgruppe am 26. Mai 2026 verabschiedete gemeinsame Template als Durchführungsrechtsakt veröffentlicht wird und bis der vorgeschlagene Single Entry Point nach Art. 23a NIS 2 (Digital Omnibus, 19. November 2025) in Kraft tritt, gibt es kein öffentliches, maschinenlesbares Schema für diese Felder. Diese Bibliothek schließt die Lücke."
       },
       "anchors": {
         "heading": "EU-Rechtsverankerung",
-        "description": "Das Schema ist ausschliesslich an EU-rechtliche Primaerquellen verankert. Nationale Portal-Mappings (BSI, ANSSI, NCSC-NL, ACN, INCIBE-CERT, ...) leben als feldweise Erweiterungsschicht, nicht als Primaeranker."
+        "description": "Das Schema ist ausschließlich an EU-rechtliche Primärquellen verankert. Nationale Portal-Mappings (BSI, ANSSI, NCSC-NL, ACN, INCIBE-CERT, ...) leben als feldweise Erweiterungsschicht, nicht als Primäranker."
       },
       "downloads": {
         "heading": "Schema beziehen",
@@ -17623,8 +17623,8 @@
       },
       "reportTypes": {
         "heading": "Report-Typen nach Art. 23 NIS 2",
-        "description": "Fuenf Report-Typen, jeder mit einer dauerhaften W3C DPV URI versehen.",
-        "earlyWarning": "Fruehwarnung (24h)",
+        "description": "Fünf Report-Typen, jeder mit einer dauerhaften W3C DPV URI versehen.",
+        "earlyWarning": "Frühwarnung (24h)",
         "incidentNotification": "Erstmeldung (72h)",
         "intermediate": "Zwischenbericht (auf Anfrage des CSIRT)",
         "progress": "Fortschrittsbericht (1 Monat, falls nicht abgeschlossen)",
@@ -17636,11 +17636,11 @@
         "timing": "Zeitachse",
         "geographicSectoral": "Geografische und sektorale Verbreitung",
         "causation": "Ursachenermittlung",
-        "responseMeasures": "Reaktionsmassnahmen",
+        "responseMeasures": "Reaktionsmaßnahmen",
         "affectedAssets": "Betroffene Systeme",
         "affectedSuppliers": "Betroffene Lieferanten",
         "impact": "Auswirkungen",
-        "crossBorder": "Grenzueberschreitende Auswirkung",
+        "crossBorder": "Grenzüberschreitende Auswirkung",
         "criminalProsecution": "Strafverfolgung",
         "reporterContact": "Melder-Kontakt",
         "sectoralOverlay": "Sektorspezifische Erweiterungen"
@@ -17651,33 +17651,33 @@
         "requiredIn": "Pflicht in",
         "optionalIn": "Optional in",
         "national": "Nationales Portal",
-        "overlap": "Ueberschneidung",
+        "overlap": "Überschneidung",
         "dpv": "W3C DPV URI",
         "conditional": "Bedingt anwendbar"
       },
       "useNote": {
         "heading": "Hinweis zur Nutzung",
-        "p1": "Dieses Schema deckt die EU-rechtliche Substanz der Vorfallsmeldung nach Art. 23 NIS 2 ab. Es ist als geteilte Basis gedacht. Die tatsaechliche Meldung muss in dem Portal der zustaendigen nationalen Behoerde erfolgen.",
-        "p2": "Heute populiert ist die DE-Schicht (BSI-Meldeportal). Mappings fuer FR, NL, AT, IT, ES und weitere Mitgliedstaaten leben als Platzhalter und freuen sich ueber Beitraege per Pull Request."
+        "p1": "Dieses Schema deckt die EU-rechtliche Substanz der Vorfallsmeldung nach Art. 23 NIS 2 ab. Es ist als geteilte Basis gedacht. Die tatsächliche Meldung muss in dem Portal der zuständigen nationalen Behörde erfolgen.",
+        "p2": "Heute populiert ist die DE-Schicht (BSI-Meldeportal). Mappings für FR, NL, AT, IT, ES und weitere Mitgliedstaaten leben als Platzhalter und freuen sich über Beitraege per Pull Request."
       },
       "ctaCard": {
         "heading": "Vorfallsverwaltung mit Audit-Log",
-        "description": "Auf der nisd2.eu Plattform werden Sicherheitsvorfaelle direkt erfasst, mit Assets und Lieferanten relational verknuepft und der ausgefuellte Berichtsdatensatz als Briefing-Paket exportiert. Kostenlos, Open Source, kein Lock-in."
+        "description": "Auf der nisd2.eu Plattform werden Sicherheitsvorfälle direkt erfasst, mit Assets und Lieferanten relational verknüpft und der ausgefüllte Berichtsdatensatz als Briefing-Paket exportiert. Kostenlos, Open Source, kein Lock-in."
       },
-      "cta": "Plattform oeffnen"
+      "cta": "Plattform öffnen"
     },
     "nis2StatusUngarn": {
       "meta": {
         "title": "NIS 2 in Ungarn, Gesetz XXIII von 2023, SZTFH, NKI",
-        "description": "Wie Ungarn die NIS 2 Richtlinie umsetzt. Gesetz XXIII von 2023 ueber Cybersicherheitszertifizierung und Cybersicherheitsaufsicht, SZTFH als Aufsicht, NKI als nationales CSIRT, Registrierung ueber die SZTFH, und das mit Gruenden versehene Verfahren der EU Kommission vom 7. Mai 2025."
+        "description": "Wie Ungarn die NIS 2 Richtlinie umsetzt. Gesetz XXIII von 2023 über Cybersicherheitszertifizierung und Cybersicherheitsaufsicht, SZTFH als Aufsicht, NKI als nationales CSIRT, Registrierung über die SZTFH, und das mit Gründen versehene Verfahren der EU Kommission vom 7. Mai 2025."
       },
       "title": "NIS 2 Status in Ungarn",
       "subtitle": "Was die Richtlinie fordert, wie Ungarn sie umsetzt, und wo SZTFH und NKI im Bild stehen.",
       "overview": {
-        "heading": "Ueberblick",
-        "p1": "Die NIS 2 Richtlinie ist die EU Ebene. Sie bindet jeden Mitgliedstaat, auch Ungarn, mit einem einheitlichen Mindestniveau fuer wesentliche und wichtige Einrichtungen. Ungarn muss dieses Niveau in ungarisches Recht ueberfuehren und eine Aufsicht darunter fuehren.",
-        "p2": "Ungarn setzt NIS 2 vor allem ueber das Gesetz XXIII von 2023 ueber Cybersicherheitszertifizierung und Cybersicherheitsaufsicht (2023. evi XXIII. torveny) um, ergaenzt durch spaetere Regierungsverordnungen. Das Gesetz ist vor der Umsetzungsfrist im Oktober 2024 in Kraft getreten und bildet den Rahmen, in dem die SZTFH heute Aufsicht fuehrt.",
-        "p3": "Die SZTFH (Szabalyozott Tevekenysegek Felugyeleti Hatosaga, Aufsichtsbehoerde fuer regulierte Taetigkeiten) ist die federfuehrende Aufsicht fuer Cybersicherheitsaufsicht, Zertifizierung und Audits. Das nationale CSIRT ist die NKI (Nemzeti Kibervedelmi Intezet) und sitzt innerhalb der Sonderdienste fuer nationale Sicherheit, organisatorisch unter dem Kabinettsamt des Ministerpraesidenten. Am 7. Mai 2025 hat die EU Kommission Ungarn ein mit Gruenden versehenes Verfahren wegen unvollstaendiger Mitteilung der Umsetzung uebermittelt. Weitere nationale Massnahmen sind also zu erwarten."
+        "heading": "Überblick",
+        "p1": "Die NIS 2 Richtlinie ist die EU Ebene. Sie bindet jeden Mitgliedstaat, auch Ungarn, mit einem einheitlichen Mindestniveau für wesentliche und wichtige Einrichtungen. Ungarn muss dieses Niveau in ungarisches Recht überführen und eine Aufsicht darunter führen.",
+        "p2": "Ungarn setzt NIS 2 vor allem über das Gesetz XXIII von 2023 über Cybersicherheitszertifizierung und Cybersicherheitsaufsicht (2023. evi XXIII. torveny) um, ergänzt durch spätere Regierungsverordnungen. Das Gesetz ist vor der Umsetzungsfrist im Oktober 2024 in Kraft getreten und bildet den Rahmen, in dem die SZTFH heute Aufsicht führt.",
+        "p3": "Die SZTFH (Szabalyozott Tevekenysegek Felugyeleti Hatosaga, Aufsichtsbehörde für regulierte Tätigkeiten) ist die federführende Aufsicht für Cybersicherheitsaufsicht, Zertifizierung und Audits. Das nationale CSIRT ist die NKI (Nemzeti Kibervedelmi Intezet) und sitzt innerhalb der Sonderdienste für nationale Sicherheit, organisatorisch unter dem Kabinettsamt des Ministerpraesidenten. Am 7. Mai 2025 hat die EU Kommission Ungarn ein mit Gründen versehenes Verfahren wegen unvollständiger Mitteilung der Umsetzung übermittelt. Weitere nationale Maßnahmen sind also zu erwarten."
       },
       "legalAnchor": {
         "heading": "Wo die Regeln stehen",
@@ -17685,51 +17685,51 @@
         "directive": {
           "label": "EU Richtlinie",
           "quote": "Richtlinie (EU) 2022/2555 (NIS 2)",
-          "context": "Die EU weite Cybersicherheitsrichtlinie. Sie legt die Pflichten fest, die jeder Mitgliedstaat umzusetzen hat, einschliesslich der Groessen und Sektorpruefung fuer wesentliche und wichtige Einrichtungen."
+          "context": "Die EU weite Cybersicherheitsrichtlinie. Sie legt die Pflichten fest, die jeder Mitgliedstaat umzusetzen hat, einschließlich der Größen und Sektorprüfung für wesentliche und wichtige Einrichtungen."
         },
         "regulation": {
-          "label": "EU Durchfuehrung",
-          "quote": "Durchfuehrungsverordnung (EU) 2024/2690",
-          "context": "Technische und methodische Massnahmen fuer Anbieter digitaler Infrastruktur. In Ungarn unmittelbar anwendbar, ohne nationale Umsetzung."
+          "label": "EU Durchführung",
+          "quote": "Durchführungsverordnung (EU) 2024/2690",
+          "context": "Technische und methodische Maßnahmen für Anbieter digitaler Infrastruktur. In Ungarn unmittelbar anwendbar, ohne nationale Umsetzung."
         },
         "transposition": {
           "label": "Ungarische Umsetzung",
-          "quote": "Gesetz XXIII von 2023 ueber Cybersicherheitszertifizierung und Cybersicherheitsaufsicht",
-          "context": "Die ungarische NIS 2 Umsetzung. Regierungsverordnungen und SZTFH Leitlinien fuellen den operativen Detailrahmen. Artikel 32 Absatz 2 des Gesetzes nennt die NIS 2 Richtlinie als das EU Instrument, dem es dient. Das mit Gruenden versehene Verfahren der EU Kommission vom 7. Mai 2025 zeigt, dass die vollstaendige Umsetzung noch nicht in Bruessel notifiziert ist."
+          "quote": "Gesetz XXIII von 2023 über Cybersicherheitszertifizierung und Cybersicherheitsaufsicht",
+          "context": "Die ungarische NIS 2 Umsetzung. Regierungsverordnungen und SZTFH Leitlinien füllen den operativen Detailrahmen. Artikel 32 Absatz 2 des Gesetzes nennt die NIS 2 Richtlinie als das EU Instrument, dem es dient. Das mit Gründen versehene Verfahren der EU Kommission vom 7. Mai 2025 zeigt, dass die vollständige Umsetzung noch nicht in Brüssel notifiziert ist."
         }
       },
       "elements": {
         "heading": "Drei Punkte, die man kennen muss",
-        "description": "Was sich fuer Einrichtungen mit Aktivitaet in Ungarn aendert.",
+        "description": "Was sich für Einrichtungen mit Aktivität in Ungarn ändert.",
         "items": {
           "law": {
             "section": "Umsetzung",
             "title": "Gesetz XXIII von 2023",
-            "body": "Bringt die NIS 2 Pflichten in ungarisches Recht. Definiert die Cybersicherheitsaufsicht, Zertifizierung, Auditpflichten und Aufsichtsgebuehren. Der operative Detail wird ueber Regierungsverordnungen und SZTFH Leitlinien geregelt. Das Gesetz ist 2023 in Kraft getreten und wurde stufenweise wirksam."
+            "body": "Bringt die NIS 2 Pflichten in ungarisches Recht. Definiert die Cybersicherheitsaufsicht, Zertifizierung, Auditpflichten und Aufsichtsgebühren. Der operative Detail wird über Regierungsverordnungen und SZTFH Leitlinien geregelt. Das Gesetz ist 2023 in Kraft getreten und wurde stufenweise wirksam."
           },
           "authority": {
             "section": "Aufsicht",
             "title": "SZTFH als Aufsicht, NKI als CSIRT",
-            "body": "Die SZTFH fuehrt Aufsicht, Zertifizierung, Audits und Gebuehren fuer betroffene Einrichtungen. Die NKI ist das nationale CSIRT und arbeitet innerhalb der Sonderdienste fuer nationale Sicherheit unter dem Kabinettsamt des Ministerpraesidenten. Aufsicht und Vorfallreaktion liegen in zwei verschiedenen Institutionen, anders als in Frankreich oder Deutschland."
+            "body": "Die SZTFH führt Aufsicht, Zertifizierung, Audits und Gebühren für betroffene Einrichtungen. Die NKI ist das nationale CSIRT und arbeitet innerhalb der Sonderdienste für nationale Sicherheit unter dem Kabinettsamt des Ministerpraesidenten. Aufsicht und Vorfallreaktion liegen in zwei verschiedenen Institutionen, anders als in Frankreich oder Deutschland."
           },
           "deadlines": {
             "section": "Fristen",
             "title": "Registrierung und Meldung",
-            "body": "Betroffene Einrichtungen stufen sich selbst ein und registrieren sich bei der SZTFH. Erhebliche Sicherheitsvorfaelle folgen der Richtlinie. Fruehwarnung in 24 Stunden, Meldung in 72 Stunden, Abschlussbericht in einem Monat. Konkrete ungarische Portalnamen und exakte Registrierungsfristen ergeben sich aus der jeweils aktuellen SZTFH Leitlinie und sollten dort gegengeprueft werden."
+            "body": "Betroffene Einrichtungen stufen sich selbst ein und registrieren sich bei der SZTFH. Erhebliche Sicherheitsvorfälle folgen der Richtlinie. Frühwarnung in 24 Stunden, Meldung in 72 Stunden, Abschlussbericht in einem Monat. Konkrete ungarische Portalnamen und exakte Registrierungsfristen ergeben sich aus der jeweils aktuellen SZTFH Leitlinie und sollten dort gegengeprüft werden."
           }
         }
       },
       "principles": {
-        "heading": "Zwei Prinzipien, die jeden Grenzfall klaeren",
+        "heading": "Zwei Prinzipien, die jeden Grenzfall klären",
         "description": "Vor jedem ungarischen Kommentar zu NIS 2 lesen.",
         "items": {
           "lexLocalis": {
             "title": "In Ungarn gilt ungarisches Recht",
-            "body": "Aktivitaeten auf ungarischem Staatsgebiet folgen der ungarischen Umsetzung. Eine deutsche Muttergesellschaft mit ungarischer Tochter liest fuer diese Tochter das Gesetz XXIII von 2023, nicht das BSIG. Die Richtlinienpflichten sind identisch. Verfahren, Aufsicht und Sanktionen stehen aber im ungarischen Recht."
+            "body": "Aktivitäten auf ungarischem Staatsgebiet folgen der ungarischen Umsetzung. Eine deutsche Muttergesellschaft mit ungarischer Tochter liest für diese Tochter das Gesetz XXIII von 2023, nicht das BSIG. Die Richtlinienpflichten sind identisch. Verfahren, Aufsicht und Sanktionen stehen aber im ungarischen Recht."
           },
           "euFloor": {
             "title": "Ungarn darf nicht unter das EU Niveau fallen",
-            "body": "Die Richtlinie ist eine Mindestharmonisierung. Ungarn darf strenger werden, und ist es bereits ueber die zusaetzliche Zertifizierung und Auditpflicht durch die SZTFH. Ungarn darf aber nicht unter die Richtlinie fallen, weder bei den Pflichten fuer wesentliche und wichtige Einrichtungen, noch bei Meldefristen, noch bei der Haftung des Leitungsorgans. Genau das prueft das Vertragsverletzungsverfahren vom 7. Mai 2025."
+            "body": "Die Richtlinie ist eine Mindestharmonisierung. Ungarn darf strenger werden, und ist es bereits über die zusätzliche Zertifizierung und Auditpflicht durch die SZTFH. Ungarn darf aber nicht unter die Richtlinie fallen, weder bei den Pflichten für wesentliche und wichtige Einrichtungen, noch bei Meldefristen, noch bei der Haftung des Leitungsorgans. Genau das prüft das Vertragsverletzungsverfahren vom 7. Mai 2025."
           }
         }
       },
@@ -17740,17 +17740,17 @@
           "authority": {
             "country": "HU",
             "label": "SZTFH",
-            "body": "Federfuehrende zustaendige Behoerde fuer die Cybersicherheitsaufsicht nach Gesetz XXIII von 2023. Fuehrt Aufsicht, Audits, Zertifizierung und das Gebuehrenregime. Veroeffentlicht die operativen ungarischen Leitlinien fuer betroffene Einrichtungen."
+            "body": "Federführende zuständige Behörde für die Cybersicherheitsaufsicht nach Gesetz XXIII von 2023. Führt Aufsicht, Audits, Zertifizierung und das Gebührenregime. Veröffentlicht die operativen ungarischen Leitlinien für betroffene Einrichtungen."
           },
           "csirt": {
             "country": "HU",
             "label": "NKI",
-            "body": "Nationales CSIRT. Arbeitet innerhalb der Sonderdienste fuer nationale Sicherheit unter dem Kabinettsamt des Ministerpraesidenten. Nimmt Vorfallmeldungen entgegen, koordiniert die technische Reaktion und ist die ungarische Kontaktstelle in der EU CSIRT Kooperation. Erreichbar unter csirt@nki.gov.hu."
+            "body": "Nationales CSIRT. Arbeitet innerhalb der Sonderdienste für nationale Sicherheit unter dem Kabinettsamt des Ministerpraesidenten. Nimmt Vorfallmeldungen entgegen, koordiniert die technische Reaktion und ist die ungarische Kontaktstelle in der EU CSIRT Kooperation. Erreichbar unter csirt@nki.gov.hu."
           },
           "enisa": {
             "country": "EU",
             "label": "ENISA",
-            "body": "Die EU Cybersicherheitsagentur. Veroeffentlicht Leitlinien, betreibt die europaeische Schwachstellendatenbank und koordiniert grenzueberschreitend. Keine Aufsicht fuer ungarische Einrichtungen. Die liegt bei der SZTFH."
+            "body": "Die EU Cybersicherheitsagentur. Veröffentlicht Leitlinien, betreibt die europäische Schwachstellendatenbank und koordiniert grenzüberschreitend. Keine Aufsicht für ungarische Einrichtungen. Die liegt bei der SZTFH."
           }
         }
       },
@@ -17760,58 +17760,58 @@
         "items": {
           "sameAsGermany": {
             "myth": "Die deutsche Mutter hat BSIG schon abgedeckt, dann ist die ungarische Tochter ebenfalls geregelt.",
-            "reality": "Die Richtlinienpflichten sind identisch. Aufsicht, Verfahren und Sanktionen stehen aber im ungarischen Recht. Eine ungarische Tochter registriert sich bei der SZTFH, meldet Vorfaelle ueber die NKI und folgt den Fristen aus Gesetz XXIII von 2023. Eine BSIG Freigabe in Bonn ersetzt die ungarische Registrierung nicht."
+            "reality": "Die Richtlinienpflichten sind identisch. Aufsicht, Verfahren und Sanktionen stehen aber im ungarischen Recht. Eine ungarische Tochter registriert sich bei der SZTFH, meldet Vorfälle über die NKI und folgt den Fristen aus Gesetz XXIII von 2023. Eine BSIG Freigabe in Bonn ersetzt die ungarische Registrierung nicht."
           },
           "noRegistry": {
             "myth": "Ungarn hat die Frist im Oktober 2024 verpasst, also gilt noch nichts.",
-            "reality": "Das Gesetz XXIII von 2023 ist bereits vor der Umsetzungsfrist in Kraft getreten. Die SZTFH Aufsicht laeuft. Das mit Gruenden versehene Verfahren der EU Kommission vom 7. Mai 2025 betrifft Luecken in der vollstaendigen Umsetzung, nicht die Frage, ob die Aufsicht ueberhaupt existiert. Einrichtungen koennen nicht auf weitere Gesetze warten."
+            "reality": "Das Gesetz XXIII von 2023 ist bereits vor der Umsetzungsfrist in Kraft getreten. Die SZTFH Aufsicht läuft. Das mit Gründen versehene Verfahren der EU Kommission vom 7. Mai 2025 betrifft Lücken in der vollständigen Umsetzung, nicht die Frage, ob die Aufsicht überhaupt existiert. Einrichtungen können nicht auf weitere Gesetze warten."
           },
           "onlySector": {
-            "myth": "Nur die elf CER Sektoren loesen in Ungarn NIS 2 aus.",
-            "reality": "Die Groessen und Sektorpruefung folgt den Anhaengen I und II der NIS 2 Richtlinie, insgesamt achtzehn Sektoren. CER hat einen engeren Anwendungsbereich und steht in einem eigenen nationalen Rahmen. Das Verwechseln beider Richtlinien ist ein haeufiger Grund fuer falsche Selbsteinstufungen."
+            "myth": "Nur die elf CER Sektoren lösen in Ungarn NIS 2 aus.",
+            "reality": "Die Größen und Sektorprüfung folgt den Anhängen I und II der NIS 2 Richtlinie, insgesamt achtzehn Sektoren. CER hat einen engeren Anwendungsbereich und steht in einem eigenen nationalen Rahmen. Das Verwechseln beider Richtlinien ist ein häufiger Grund für falsche Selbsteinstufungen."
           }
         }
       },
       "practitioner": {
         "heading": "Aus der Praxis",
-        "p1": "Die meisten ungarischen Betreiber, die uns begegnen, denken, NIS 2 starte erst mit einem neuen Sammelgesetz. Das stimmt nicht. Die SZTFH Aufsicht nach Gesetz XXIII von 2023 ist bereits aktiv, Audits finden statt, und die Freigabe durch das Leitungsorgan ist schon heute eine Frage, die die SZTFH stellen kann. Das mit Gruenden versehene Verfahren der EU Kommission vom 7. Mai 2025 erhoeht den politischen Druck, verschiebt aber nicht den Beginn der Aufsicht.",
-        "p2": "Der praktische Schritt ist der gleiche wie ueberall in der EU. Anwendbarkeit gegen die Richtlinie pruefen, sich bei der nationalen Aufsicht registrieren (hier SZTFH), die vier Dauerpflichten aufsetzen (Registrierungsdaten pflegen, Vorfallmeldung ueber die NKI, Lieferkettenrisiko, Aufsicht durch das Leitungsorgan) und das Minimum dokumentieren. Sektorale Regulatoren bleiben dort zustaendig, wo Lex specialis greift, im Finanzsektor insbesondere die MNB."
+        "p1": "Die meisten ungarischen Betreiber, die uns begegnen, denken, NIS 2 starte erst mit einem neuen Sammelgesetz. Das stimmt nicht. Die SZTFH Aufsicht nach Gesetz XXIII von 2023 ist bereits aktiv, Audits finden statt, und die Freigabe durch das Leitungsorgan ist schon heute eine Frage, die die SZTFH stellen kann. Das mit Gründen versehene Verfahren der EU Kommission vom 7. Mai 2025 erhöht den politischen Druck, verschiebt aber nicht den Beginn der Aufsicht.",
+        "p2": "Der praktische Schritt ist der gleiche wie überall in der EU. Anwendbarkeit gegen die Richtlinie prüfen, sich bei der nationalen Aufsicht registrieren (hier SZTFH), die vier Dauerpflichten aufsetzen (Registrierungsdaten pflegen, Vorfallmeldung über die NKI, Lieferkettenrisiko, Aufsicht durch das Leitungsorgan) und das Minimum dokumentieren. Sektorale Regulatoren bleiben dort zuständig, wo Lex specialis greift, im Finanzsektor insbesondere die MNB."
       },
       "platform": {
         "heading": "Was die Plattform liefert",
-        "p1": "Wir bauen das NIS 2 Pflichtenregister auf der EU Ebene, nicht auf einer einzelnen nationalen Umsetzung. Die gleiche Checkliste passt fuer eine ungarische Tochter unter Gesetz XXIII von 2023, eine deutsche Mutter unter BSIG und eine franzoesische Schwester unter Ordonnance n. 2024-1093. Die Artikelverweise wechseln pro Land, die Pflichten in der Sache nicht.",
-        "p2": "Fuer den ungarischen Scope startet man mit der Anwendbarkeitspruefung, dann Meldetakt mit der NKI, Lieferkettenklauseln und Freigabe durch das Leitungsorgan. Wo die SZTFH Sektorleitlinien veroeffentlicht, verlinken wir sie. Wir kopieren sie nicht."
+        "p1": "Wir bauen das NIS 2 Pflichtenregister auf der EU Ebene, nicht auf einer einzelnen nationalen Umsetzung. Die gleiche Checkliste passt für eine ungarische Tochter unter Gesetz XXIII von 2023, eine deutsche Mutter unter BSIG und eine französische Schwester unter Ordonnance n. 2024-1093. Die Artikelverweise wechseln pro Land, die Pflichten in der Sache nicht.",
+        "p2": "Für den ungarischen Scope startet man mit der Anwendbarkeitsprüfung, dann Meldetakt mit der NKI, Lieferkettenklauseln und Freigabe durch das Leitungsorgan. Wo die SZTFH Sektorleitlinien veröffentlicht, verlinken wir sie. Wir kopieren sie nicht."
       },
       "sources": {
         "heading": "Quellen",
         "items": [
           "Richtlinie (EU) 2022/2555 (NIS 2), EUR-Lex",
-          "Durchfuehrungsverordnung (EU) 2024/2690",
-          "Gesetz XXIII von 2023 ueber Cybersicherheitszertifizierung und Cybersicherheitsaufsicht (2023. evi XXIII. torveny), Nemzeti Jogszabalytar",
+          "Durchführungsverordnung (EU) 2024/2690",
+          "Gesetz XXIII von 2023 über Cybersicherheitszertifizierung und Cybersicherheitsaufsicht (2023. evi XXIII. torveny), Nemzeti Jogszabalytar",
           "SZTFH (Szabalyozott Tevekenysegek Felugyeleti Hatosaga), offizielle Seite, sztfh.hu",
           "NKI (Nemzeti Kibervedelmi Intezet), nationales CSIRT, nki.gov.hu",
-          "Europaeische Kommission, NIS 2 Umsetzungsstand Ungarn, mit Gruenden versehenes Verfahren vom 7. Mai 2025",
-          "MNB (Magyar Nemzeti Bank), zustaendige Behoerde fuer DORA im Finanzsektor"
+          "Europäische Kommission, NIS 2 Umsetzungsstand Ungarn, mit Gründen versehenes Verfahren vom 7. Mai 2025",
+          "MNB (Magyar Nemzeti Bank), zuständige Behörde für DORA im Finanzsektor"
         ]
       },
       "ctaCard": {
-        "heading": "Ungarischen Scope in unter fuenf Minuten klaeren",
-        "description": "Die Anwendbarkeitspruefung wendet den Groessen und Sektorentest der Richtlinie an. Wenn die ungarische Tochter im Scope ist, ist der naechste Schritt die Registrierung bei der SZTFH und ein Vorfallkontakt bei der NKI."
+        "heading": "Ungarischen Scope in unter fünf Minuten klären",
+        "description": "Die Anwendbarkeitsprüfung wendet den Größen und Sektorentest der Richtlinie an. Wenn die ungarische Tochter im Scope ist, ist der nächste Schritt die Registrierung bei der SZTFH und ein Vorfallkontakt bei der NKI."
       },
-      "cta": "Anwendbarkeitspruefung starten"
+      "cta": "Anwendbarkeitsprüfung starten"
     },
     "nis2StatusRumaenien": {
       "meta": {
-        "title": "NIS 2 in Rumaenien: Umsetzung, DNSC und der nationale Meldekanal",
-        "description": "Wie Rumaenien die NIS 2 Richtlinie umsetzt: das nationale Gesetz (weithin als Legea nr. 58/2024 zitiert), DNSC als zustaendige Behoerde und nationales CSIRT, und wie rumaenische Einrichtungen sich unter dem EU Rahmen registrieren und melden."
+        "title": "NIS 2 in Rumänien: Umsetzung, DNSC und der nationale Meldekanal",
+        "description": "Wie Rumänien die NIS 2 Richtlinie umsetzt: das nationale Gesetz (weithin als Legea nr. 58/2024 zitiert), DNSC als zuständige Behörde und nationales CSIRT, und wie rumaenische Einrichtungen sich unter dem EU Rahmen registrieren und melden."
       },
-      "title": "NIS 2 Status in Rumaenien",
-      "subtitle": "Was die Richtlinie fordert, wie Rumaenien sie umsetzt, und wo DNSC im Bild steht.",
+      "title": "NIS 2 Status in Rumänien",
+      "subtitle": "Was die Richtlinie fordert, wie Rumänien sie umsetzt, und wo DNSC im Bild steht.",
       "overview": {
-        "heading": "Ueberblick",
-        "p1": "Die NIS 2 Richtlinie ist die EU Ebene. Sie bindet jeden Mitgliedstaat, auch Rumaenien, mit einem einheitlichen Mindestniveau fuer wesentliche und wichtige Einrichtungen. Rumaenien muss dieses Niveau in rumaenisches Recht ueberfuehren und eine Aufsicht darunter fuehren.",
-        "p2": "Rumaenien hat NIS 2 durch ein nationales Gesetz umgesetzt, das weithin als Legea nr. 58/2024 zitiert wird. Der Umsetzungstracker der Europaeischen Kommission fuehrt Rumaenien als Mitgliedstaat, der Umsetzungsmassnahmen notifiziert hat. Der genaue Titel und die Fundstelle im Monitorul Oficial sollten vor jeder Zitierung am Originaltext geprueft werden.",
-        "p3": "DNSC, das Directoratul National de Securitate Cibernetica (Nationales Direktorat fuer Cybersicherheit), ist die zustaendige Behoerde und betreibt das nationale CSIRT. DNSC hat das frueher eigenstaendige CERT-RO im Jahr 2021 uebernommen. Kontaktdaten in EU Registern, die noch CERT-RO heissen, bezeichnen dieselbe Institution. Die Registrierung der NIS 2 Einrichtungen laeuft ueber DNSC."
+        "heading": "Überblick",
+        "p1": "Die NIS 2 Richtlinie ist die EU Ebene. Sie bindet jeden Mitgliedstaat, auch Rumänien, mit einem einheitlichen Mindestniveau für wesentliche und wichtige Einrichtungen. Rumänien muss dieses Niveau in rumaenisches Recht überführen und eine Aufsicht darunter führen.",
+        "p2": "Rumänien hat NIS 2 durch ein nationales Gesetz umgesetzt, das weithin als Legea nr. 58/2024 zitiert wird. Der Umsetzungstracker der Europäischen Kommission führt Rumänien als Mitgliedstaat, der Umsetzungsmaßnahmen notifiziert hat. Der genaue Titel und die Fundstelle im Monitorul Oficial sollten vor jeder Zitierung am Originaltext geprüft werden.",
+        "p3": "DNSC, das Directoratul National de Securitate Cibernetica (Nationales Direktorat für Cybersicherheit), ist die zuständige Behörde und betreibt das nationale CSIRT. DNSC hat das früher eigenständige CERT-RO im Jahr 2021 übernommen. Kontaktdaten in EU Registern, die noch CERT-RO heißen, bezeichnen dieselbe Institution. Die Registrierung der NIS 2 Einrichtungen läuft über DNSC."
       },
       "legalAnchor": {
         "heading": "Wo die Regeln stehen",
@@ -17819,72 +17819,72 @@
         "directive": {
           "label": "EU Richtlinie",
           "quote": "Richtlinie (EU) 2022/2555 (NIS 2)",
-          "context": "Die EU-weite Cybersicherheitsrichtlinie. Sie legt die Pflichten fest, die jeder Mitgliedstaat umzusetzen hat, einschliesslich der Groessen- und Sektorpruefung fuer wesentliche und wichtige Einrichtungen."
+          "context": "Die EU-weite Cybersicherheitsrichtlinie. Sie legt die Pflichten fest, die jeder Mitgliedstaat umzusetzen hat, einschließlich der Größen- und Sektorprüfung für wesentliche und wichtige Einrichtungen."
         },
         "regulation": {
-          "label": "EU Durchfuehrung",
-          "quote": "Durchfuehrungsverordnung (EU) 2024/2690",
-          "context": "Technische und methodische Massnahmen fuer Anbieter digitaler Infrastruktur. In Rumaenien unmittelbar anwendbar, ohne nationale Umsetzung."
+          "label": "EU Durchführung",
+          "quote": "Durchführungsverordnung (EU) 2024/2690",
+          "context": "Technische und methodische Maßnahmen für Anbieter digitaler Infrastruktur. In Rumänien unmittelbar anwendbar, ohne nationale Umsetzung."
         },
         "transposition": {
           "label": "Rumaenische Umsetzung",
           "quote": "Legea nr. 58/2024 (weithin so zitiert)",
-          "context": "Die rumaenische NIS 2 Umsetzung. Genauer Titel, Datum und Fundstelle im Monitorul Oficial sollten am amtlichen Text verifiziert werden. Untergesetzliche Normen und DNSC Leitlinien fuellen den operativen Detailrahmen."
+          "context": "Die rumaenische NIS 2 Umsetzung. Genauer Titel, Datum und Fundstelle im Monitorul Oficial sollten am amtlichen Text verifiziert werden. Untergesetzliche Normen und DNSC Leitlinien füllen den operativen Detailrahmen."
         }
       },
       "elements": {
         "heading": "Drei Punkte, die man kennen muss",
-        "description": "Was sich fuer Einrichtungen mit Aktivitaet in Rumaenien aendert.",
+        "description": "Was sich für Einrichtungen mit Aktivität in Rumänien ändert.",
         "items": {
           "law": {
             "section": "Umsetzung",
             "title": "Nationales Gesetz (Legea nr. 58/2024)",
-            "body": "Bringt die NIS 2 Pflichten in rumaenisches Recht. Definiert die Kategorien wesentlicher und wichtiger Einrichtungen, die Aufsichtsbefugnisse von DNSC, Meldepflichten und Sanktionen. Der operative Detail wird ueber untergesetzliche Normen und DNSC Leitlinien geregelt. Die genaue Gesetzesnummer und das Datum sind vor jeder Zitierung am Eintrag im Monitorul Oficial zu pruefen."
+            "body": "Bringt die NIS 2 Pflichten in rumaenisches Recht. Definiert die Kategorien wesentlicher und wichtiger Einrichtungen, die Aufsichtsbefugnisse von DNSC, Meldepflichten und Sanktionen. Der operative Detail wird über untergesetzliche Normen und DNSC Leitlinien geregelt. Die genaue Gesetzesnummer und das Datum sind vor jeder Zitierung am Eintrag im Monitorul Oficial zu prüfen."
           },
           "authority": {
             "section": "Aufsicht",
             "title": "DNSC als Aufsicht und CSIRT",
-            "body": "DNSC fuehrt Aufsicht, Audits und Sanktionsverfahren und betreibt das nationale CSIRT. CERT-RO wurde 2021 in DNSC ueberfuehrt. Verweise auf CERT-RO in aelteren EU Registern meinen dieselbe Institution. Sektorregulatoren behalten ihre Zustaendigkeit, wo Lex specialis gilt, etwa im Finanzsektor unter DORA."
+            "body": "DNSC führt Aufsicht, Audits und Sanktionsverfahren und betreibt das nationale CSIRT. CERT-RO wurde 2021 in DNSC überführt. Verweise auf CERT-RO in älteren EU Registern meinen dieselbe Institution. Sektorregulatoren behalten ihre Zuständigkeit, wo Lex specialis gilt, etwa im Finanzsektor unter DORA."
           },
           "deadlines": {
             "section": "Fristen",
             "title": "Registrierung und Meldung",
-            "body": "Die Richtlinie verlangt, dass Einrichtungen ab dem 17. April 2025 fuer den Mitgliedstaat identifizierbar sind. In Rumaenien laeuft das ueber den Registrierungskanal von DNSC. Erhebliche Sicherheitsvorfaelle folgen der Richtlinie: Fruehwarnung in 24 Stunden, Meldung in 72 Stunden, Abschlussbericht in einem Monat."
+            "body": "Die Richtlinie verlangt, dass Einrichtungen ab dem 17. April 2025 für den Mitgliedstaat identifizierbar sind. In Rumänien läuft das über den Registrierungskanal von DNSC. Erhebliche Sicherheitsvorfälle folgen der Richtlinie: Frühwarnung in 24 Stunden, Meldung in 72 Stunden, Abschlussbericht in einem Monat."
           }
         }
       },
       "principles": {
-        "heading": "Zwei Prinzipien, die jeden Grenzfall klaeren",
+        "heading": "Zwei Prinzipien, die jeden Grenzfall klären",
         "description": "Vor jedem rumaenischen Kommentar zu NIS 2 lesen.",
         "items": {
           "lexLocalis": {
-            "title": "In Rumaenien gilt rumaenisches Recht",
-            "body": "Aktivitaeten auf rumaenischem Staatsgebiet folgen der rumaenischen Umsetzung. Ein deutscher Geschaeftsfuehrer mit rumaenischer Tochter liest fuer diese Tochter das rumaenische Gesetz und die DNSC Leitlinien, nicht das BSIG. Die Richtlinienpflichten sind identisch. Verfahren, Registrierungskanal und Sanktionen stehen aber im rumaenischen Recht."
+            "title": "In Rumänien gilt rumaenisches Recht",
+            "body": "Aktivitäten auf rumaenischem Staatsgebiet folgen der rumaenischen Umsetzung. Ein deutscher Geschäftsführer mit rumaenischer Tochter liest für diese Tochter das rumaenische Gesetz und die DNSC Leitlinien, nicht das BSIG. Die Richtlinienpflichten sind identisch. Verfahren, Registrierungskanal und Sanktionen stehen aber im rumaenischen Recht."
           },
           "euFloor": {
-            "title": "Rumaenien darf nicht unter das EU Niveau fallen",
-            "body": "Die Richtlinie ist eine Mindestharmonisierung. Rumaenien darf strenger werden. Rumaenien darf aber nicht unter die Richtlinie fallen, weder bei den Pflichten fuer wesentliche und wichtige Einrichtungen, noch bei Meldefristen, noch bei der Verantwortung des Leitungsorgans nach Artikel 20."
+            "title": "Rumänien darf nicht unter das EU Niveau fallen",
+            "body": "Die Richtlinie ist eine Mindestharmonisierung. Rumänien darf strenger werden. Rumänien darf aber nicht unter die Richtlinie fallen, weder bei den Pflichten für wesentliche und wichtige Einrichtungen, noch bei Meldefristen, noch bei der Verantwortung des Leitungsorgans nach Artikel 20."
           }
         }
       },
       "nationalView": {
-        "heading": "Wer macht was in Rumaenien",
+        "heading": "Wer macht was in Rumänien",
         "description": "Drei Institutionen, die in fast jeder rumaenischen NIS 2 Frage auftauchen.",
         "items": {
           "authority": {
             "country": "RO",
             "label": "DNSC",
-            "body": "Directoratul National de Securitate Cibernetica. Federfuehrende zustaendige Behoerde. Betreibt Registrierung, Aufsicht, Audits und Sanktionsverfahren, veroeffentlicht Leitlinien und fuehrt das nationale CSIRT. Hat CERT-RO 2021 uebernommen."
+            "body": "Directoratul National de Securitate Cibernetica. Federführende zuständige Behörde. Betreibt Registrierung, Aufsicht, Audits und Sanktionsverfahren, veröffentlicht Leitlinien und führt das nationale CSIRT. Hat CERT-RO 2021 übernommen."
           },
           "csirt": {
             "country": "RO",
             "label": "Nationales CSIRT (unter DNSC)",
-            "body": "Die CSIRT Funktion fuer Rumaenien sitzt innerhalb von DNSC. Das ist der Kanal fuer Vorfallmeldungen unter NIS 2. Aeltere Verweise auf CERT-RO bezeichnen dieselbe Funktion, jetzt Teil von DNSC."
+            "body": "Die CSIRT Funktion für Rumänien sitzt innerhalb von DNSC. Das ist der Kanal für Vorfallmeldungen unter NIS 2. Ältere Verweise auf CERT-RO bezeichnen dieselbe Funktion, jetzt Teil von DNSC."
           },
           "enisa": {
             "country": "EU",
             "label": "ENISA",
-            "body": "Die EU Cybersicherheitsagentur. Veroeffentlicht Leitlinien, betreibt die europaeische Schwachstellendatenbank und koordiniert grenzueberschreitend. Keine Aufsicht fuer rumaenische Einrichtungen. Die liegt bei DNSC."
+            "body": "Die EU Cybersicherheitsagentur. Veröffentlicht Leitlinien, betreibt die europäische Schwachstellendatenbank und koordiniert grenzüberschreitend. Keine Aufsicht für rumaenische Einrichtungen. Die liegt bei DNSC."
           }
         }
       },
@@ -17893,45 +17893,45 @@
         "description": "Fehler, die wir sehen, wenn rumaenische Einrichtungen NIS 2 zum ersten Mal lesen.",
         "items": {
           "sameAsGermany": {
-            "myth": "Wir koennen einfach dem BSIG Playbook folgen, NIS 2 ist ueberall gleich.",
-            "reality": "Die Pflichten auf Richtlinienebene sind in allen Mitgliedstaaten identisch. Verfahren, Registrierungsportal, Sanktionshoehen und Aufsichtsstil stehen aber im nationalen Recht. Eine rumaenische Tochter registriert sich bei DNSC unter dem rumaenischen Gesetz, nicht beim BSI unter dem BSIG. Die Compliance Inhalte ueberschneiden sich. Der administrative Rahmen nicht."
+            "myth": "Wir können einfach dem BSIG Playbook folgen, NIS 2 ist überall gleich.",
+            "reality": "Die Pflichten auf Richtlinienebene sind in allen Mitgliedstaaten identisch. Verfahren, Registrierungsportal, Sanktionshoehen und Aufsichtsstil stehen aber im nationalen Recht. Eine rumaenische Tochter registriert sich bei DNSC unter dem rumaenischen Gesetz, nicht beim BSI unter dem BSIG. Die Compliance Inhalte überschneiden sich. Der administrative Rahmen nicht."
           },
           "noRegistry": {
-            "myth": "Rumaenien hat noch keinen NIS 2 Registrierungskanal, also koennen wir warten.",
-            "reality": "Rumaenien hat Umsetzungsmassnahmen an die Europaeische Kommission notifiziert, und DNSC betreibt den Registrierungskanal fuer wesentliche und wichtige Einrichtungen. Die EU Identifikationsfrist vom 17. April 2025 gilt. Auf ein perfektes zweisprachiges Portal zu warten ist keine Verteidigung gegen eine Anwendbarkeitsfeststellung."
+            "myth": "Rumänien hat noch keinen NIS 2 Registrierungskanal, also können wir warten.",
+            "reality": "Rumänien hat Umsetzungsmaßnahmen an die Europäische Kommission notifiziert, und DNSC betreibt den Registrierungskanal für wesentliche und wichtige Einrichtungen. Die EU Identifikationsfrist vom 17. April 2025 gilt. Auf ein perfektes zweisprachiges Portal zu warten ist keine Verteidigung gegen eine Anwendbarkeitsfeststellung."
           },
           "onlySector": {
-            "myth": "Wir sind nicht im Energie- oder Finanzsektor, also gilt NIS 2 nicht fuer uns.",
-            "reality": "Die Anhaenge I und II der Richtlinie nennen 18 Sektoren, darunter digitale Infrastruktur, Post und Kurierdienste, Abfallwirtschaft, Lebensmittel, Herstellung kritischer Gueter, Forschung und oeffentliche Verwaltung. Die Groessenpruefung entscheidet dann zwischen wesentlich und wichtig. Viele rumaenische Mittelstaendler, die sich nie als kritische Infrastruktur gesehen haben, fallen ueber diese Sektoren in den Anwendungsbereich."
+            "myth": "Wir sind nicht im Energie- oder Finanzsektor, also gilt NIS 2 nicht für uns.",
+            "reality": "Die Anhänge I und II der Richtlinie nennen 18 Sektoren, darunter digitale Infrastruktur, Post und Kurierdienste, Abfallwirtschaft, Lebensmittel, Herstellung kritischer Gueter, Forschung und öffentliche Verwaltung. Die Größenprüfung entscheidet dann zwischen wesentlich und wichtig. Viele rumaenische Mittelständler, die sich nie als kritische Infrastruktur gesehen haben, fallen über diese Sektoren in den Anwendungsbereich."
           }
         }
       },
       "practitioner": {
         "heading": "Aus der Praxis",
-        "p1": "Die meisten rumaenischen Mittelstandsbetreiber, die uns begegnen, sehen NIS 2 noch als IT Thema, nicht als Sache des Leitungsorgans. Das ist derselbe Fehler wie anderswo in der EU. Artikel 20 legt die Pflicht auf das Leitungsorgan, das Risikomanagement zu billigen, seine Umsetzung zu ueberwachen und eine Schulung zu absolvieren. DNSC wird genau diese Freigabe pruefen, nicht den Verfasser der Richtlinie.",
-        "p2": "Der praktische Schritt in Rumaenien ist derselbe wie ueberall in der EU: Anwendbarkeit gegen die Richtlinie pruefen, ueber den nationalen Kanal von DNSC registrieren, die vier Dauerpflichten aufsetzen (Registrierungsdaten pflegen, Vorfallmeldung, Lieferkettenrisiko, Aufsicht durch das Leitungsorgan) und das Minimum dokumentieren."
+        "p1": "Die meisten rumaenischen Mittelstandsbetreiber, die uns begegnen, sehen NIS 2 noch als IT Thema, nicht als Sache des Leitungsorgans. Das ist derselbe Fehler wie anderswo in der EU. Artikel 20 legt die Pflicht auf das Leitungsorgan, das Risikomanagement zu billigen, seine Umsetzung zu überwachen und eine Schulung zu absolvieren. DNSC wird genau diese Freigabe prüfen, nicht den Verfasser der Richtlinie.",
+        "p2": "Der praktische Schritt in Rumänien ist derselbe wie überall in der EU: Anwendbarkeit gegen die Richtlinie prüfen, über den nationalen Kanal von DNSC registrieren, die vier Dauerpflichten aufsetzen (Registrierungsdaten pflegen, Vorfallmeldung, Lieferkettenrisiko, Aufsicht durch das Leitungsorgan) und das Minimum dokumentieren."
       },
       "platform": {
         "heading": "Was die Plattform liefert",
-        "p1": "Wir bauen das NIS 2 Pflichtenregister auf der EU Ebene, nicht auf einer einzelnen nationalen Umsetzung. Die gleiche Checkliste passt fuer eine rumaenische Tochter unter Legea nr. 58/2024 (so weithin zitiert), eine deutsche Mutter unter BSIG und eine niederlaendische Schwester unter dem Cyberbeveiligingswet. Die Artikelverweise wechseln pro Land, die Pflichten in der Sache nicht.",
-        "p2": "Fuer den rumaenischen Scope startet man mit der Anwendbarkeitspruefung, dann Meldetakt, Lieferkettenklauseln und Freigabe durch das Leitungsorgan. Wo DNSC Sektorleitlinien veroeffentlicht, verlinken wir sie. Wir kopieren sie nicht."
+        "p1": "Wir bauen das NIS 2 Pflichtenregister auf der EU Ebene, nicht auf einer einzelnen nationalen Umsetzung. Die gleiche Checkliste passt für eine rumaenische Tochter unter Legea nr. 58/2024 (so weithin zitiert), eine deutsche Mutter unter BSIG und eine niederländische Schwester unter dem Cyberbeveiligingswet. Die Artikelverweise wechseln pro Land, die Pflichten in der Sache nicht.",
+        "p2": "Für den rumaenischen Scope startet man mit der Anwendbarkeitsprüfung, dann Meldetakt, Lieferkettenklauseln und Freigabe durch das Leitungsorgan. Wo DNSC Sektorleitlinien veröffentlicht, verlinken wir sie. Wir kopieren sie nicht."
       },
       "sources": {
         "heading": "Quellen",
         "items": [
           "Richtlinie (EU) 2022/2555 (NIS 2) auf EUR-Lex",
-          "Durchfuehrungsverordnung (EU) 2024/2690",
+          "Durchführungsverordnung (EU) 2024/2690",
           "Rumaenisches Umsetzungsgesetz (weithin als Legea nr. 58/2024 zitiert), am Monitorul Oficial zu verifizieren",
           "DNSC (Directoratul National de Securitate Cibernetica), offizielle Seite",
-          "Europaeische Kommission, NIS 2 Umsetzungstracker, Laenderseite Rumaenien",
-          "ENISA, CSIRTs interaktive Karte, Eintrag Rumaenien"
+          "Europäische Kommission, NIS 2 Umsetzungstracker, Länderseite Rumänien",
+          "ENISA, CSIRTs interaktive Karte, Eintrag Rumänien"
         ]
       },
       "ctaCard": {
-        "heading": "Rumaenischen Scope in unter fuenf Minuten klaeren",
-        "description": "Die Anwendbarkeitspruefung wendet den Groessen- und Sektorentest der Richtlinie an. Wenn die rumaenische Tochter im Scope ist, ist der naechste Schritt die Registrierung bei DNSC."
+        "heading": "Rumaenischen Scope in unter fünf Minuten klären",
+        "description": "Die Anwendbarkeitsprüfung wendet den Größen- und Sektorentest der Richtlinie an. Wenn die rumaenische Tochter im Scope ist, ist der nächste Schritt die Registrierung bei DNSC."
       },
-      "cta": "Anwendbarkeitspruefung starten"
+      "cta": "Anwendbarkeitsprüfung starten"
     },
     "nis2StatusSlowakei": {
       "meta": {

@@ -6380,10 +6380,10 @@
         },
         "q14": {
           "q": "Jak došlo k přejmenování na „Digital Energy Services“?",
-          "a": "Dřívější kategorie zařízení agregačního bodu (Buendelstelle) byla přejmenována na „Digital Energy Services“, protože tento pojem lépe odráží rostoucí roli systémů IT a digitálních procesů v odvětví energetiky než starý název, který byl těsně spjat s agregací odečtů měřidel. Důležitější než název je důsledek: pro tuto kategorii již regulace bezpečnosti informací neleží na BSIG, ale na §5c a násl. EnWG, a příslušná je Bundesnetzagentur."
+          "a": "Dřívější kategorie zařízení agregačního bodu (Bündelstelle) byla přejmenována na „Digital Energy Services“, protože tento pojem lépe odráží rostoucí roli systémů IT a digitálních procesů v odvětví energetiky než starý název, který byl těsně spjat s agregací odečtů měřidel. Důležitější než název je důsledek: pro tuto kategorii již regulace bezpečnosti informací neleží na BSIG, ale na §5c a násl. EnWG, a příslušná je Bundesnetzagentur."
         },
         "q15": {
-          "q": "Co znamená zákonná změna pro můj agregační bod (BueStel)?",
+          "q": "Co znamená zákonná změna pro můj agregační bod (BüStel)?",
           "a": "Váš agregační bod se jako „Digital Energy Service“ vyjímá z regulace BSIG. Požadavky na bezpečnost informací se napříště budou řídit §5c a násl. EnWG a příslušným dozorovým orgánem je Bundesnetzagentur, již nikoli BSI. Pro dotčené zařízení v kategorii 1.1.2 již nemusíte BSI předkládat důkazy podle §8a BSIG. Vaše kontaktní místo a vaše technické požadavky se proto mění; zkontrolujte požadavky Bundesnetzagentur včas."
         },
         "q16": {
@@ -13982,7 +13982,7 @@
       "overview": {
         "heading": "Čím tato stránka je",
         "p1": "Whistleblowing je samostatná právní kolej oddělená od hlášení incidentů podle NIS 2. Zaměstnanec, smluvní partner nebo uchazeč o práci, který nahlásí selhání shody s NIS 2, je chráněn směrnicí EU 2019/1937. Směrnice uvádí bezpečnost sítí a informací výslovně ve své příloze části I.B jako chráněnou oblast hlášení.",
-        "p2": "V Německu transponuje směrnici Hinweisgeberschutzgesetz (HinSchG, v účinnosti od 2. července 2023). Bundesamt fuer Justiz hostí centrální vnější kanál. Subjekty s 50 a více zaměstnanci jsou povinny udržovat vnitřní kanál pro hlášení podle § 12 HinSchG.",
+        "p2": "V Německu transponuje směrnici Hinweisgeberschutzgesetz (HinSchG, v účinnosti od 2. července 2023). Bundesamt für Justiz hostí centrální vnější kanál. Subjekty s 50 a více zaměstnanci jsou povinny udržovat vnitřní kanál pro hlášení podle § 12 HinSchG.",
         "p3": "Sdělení oznamovatele vnějšímu orgánu nenahrazuje vlastní oznámení incidentu subjektu podle článku 23 NIS 2 (§ 32 BSIG v Německu). Obě povinnosti může spustit tatáž událost a každá běží na vlastních hodinách."
       },
       "legalAnchor": {
@@ -14000,8 +14000,8 @@
         },
         "transposition": {
           "label": "§ 12 HinSchG (vnitřní kanály pro hlášení)",
-          "quote": "Beschaeftigungsgeber mit in der Regel mindestens 50 Beschaeftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschaeftigte zur Abgabe von Meldungen nach diesem Gesetz wenden koennen.",
-          "context": "Prahová hodnota 50 zaměstnanců je počet zpravidla, ne přesný denní údaj. Subjekty pod 50 zaměstnanci mohou vnitřní kanál zřídit dobrovolně; subjekty na 50 nebo nad tuto hranici musí. Bundesamt fuer Justiz provozuje vnější kanál."
+          "quote": "Beschäftigungsgeber mit in der Regel mindestens 50 Beschäftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschäftigte zur Abgabe von Meldungen nach diesem Gesetz wenden können.",
+          "context": "Prahová hodnota 50 zaměstnanců je počet zpravidla, ne přesný denní údaj. Subjekty pod 50 zaměstnanci mohou vnitřní kanál zřídit dobrovolně; subjekty na 50 nebo nad tuto hranici musí. Bundesamt für Justiz provozuje vnější kanál."
         }
       },
       "elements": {
@@ -14016,7 +14016,7 @@
           "channels": {
             "section": "Kanály",
             "title": "Nejprve vnitřní, vnější souběžně",
-            "body": "Vnitřní kanál podle § 12 HinSchG (50+ zaměstnanců). Vnější kanály podle § 19 HinSchG: Bundesamt fuer Justiz jako centrální vnější úřad, plus odvětvové orgány. Oznamující osoba si může vybrat kterýkoli; bod odůvodnění 33 směrnice vyjadřuje preferenci nejprve vnitřního, ale nečiní jej podmínkou."
+            "body": "Vnitřní kanál podle § 12 HinSchG (50+ zaměstnanců). Vnější kanály podle § 19 HinSchG: Bundesamt für Justiz jako centrální vnější úřad, plus odvětvové orgány. Oznamující osoba si může vybrat kterýkoli; bod odůvodnění 33 směrnice vyjadřuje preferenci nejprve vnitřního, ale nečiní jej podmínkou."
           },
           "retention": {
             "section": "Uchovávání",
@@ -14046,17 +14046,17 @@
           "bsi": {
             "country": "DE",
             "label": "BSI jako odvětvový orgán",
-            "body": "Bundesamt fuer Sicherheit in der Informationstechnik (BSI) je příslušným orgánem pro dozor nad NIS 2 podle § 61 BSIG. Hlášení oznamovatele tvrdící, že subjekt nesplňuje opatření článku 21 nebo se nezaregistroval podle článku 3 odst. 4, zpravidla skončí u BSI prostřednictvím směrování vnějšího kanálu, i když je nejprve podáno u Bundesamt fuer Justiz."
+            "body": "Bundesamt für Sicherheit in der Informationstechnik (BSI) je příslušným orgánem pro dozor nad NIS 2 podle § 61 BSIG. Hlášení oznamovatele tvrdící, že subjekt nesplňuje opatření článku 21 nebo se nezaregistroval podle článku 3 odst. 4, zpravidla skončí u BSI prostřednictvím směrování vnějšího kanálu, i když je nejprve podáno u Bundesamt für Justiz."
           },
           "bfdi": {
             "country": "DE",
-            "label": "Bundesbeauftragte fuer den Datenschutz und die Informationsfreiheit",
+            "label": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit",
             "body": "BfDI je odvětvově specifický vnější kanál pro federální porušení ochrany osobních údajů. NIS 2 a GDPR se překrývají, když incident zahrnuje osobní údaje. Hlášení oznamovatele může jmenovat oba právní základy; přijímající orgán nasměruje příslušné části kompetentnímu subjektu."
           },
           "bafa": {
             "country": "DE",
-            "label": "Bundesamt fuer Justiz jako centrální vnější kanál",
-            "body": "Bundesamt fuer Justiz provozuje centrální vnější úřad pro hlášení podle § 19 HinSchG. Je výchozí vnější adresou, pokud se neuplatní odvětvově specifický kanál, a směruje hlášení příslušnému dozorovému orgánu (BSI, BNetzA, BAFin, BfDI), pokud tam předmět spadá."
+            "label": "Bundesamt für Justiz jako centrální vnější kanál",
+            "body": "Bundesamt für Justiz provozuje centrální vnější úřad pro hlášení podle § 19 HinSchG. Je výchozí vnější adresou, pokud se neuplatní odvětvově specifický kanál, a směruje hlášení příslušnému dozorovému orgánu (BSI, BNetzA, BAFin, BfDI), pokud tam předmět spadá."
           }
         }
       },
@@ -14095,7 +14095,7 @@
           "Hinweisgeberschutzgesetz (HinSchG) ze dne 31. května 2023, BGBl. 2023 I Nr. 140. § 2, 8, 11, 12, 16, 17, 19, 36, 40.",
           "Směrnice (EU) 2022/2555 (NIS 2) ze dne 14. prosince 2022, články 21, 23, 27.",
           "Zákon o BSI (BSIG), § 32, 33, 61, 65.",
-          "Bundesamt fuer Justiz, vnější úřad pro hlášení podle § 19 HinSchG."
+          "Bundesamt für Justiz, vnější úřad pro hlášení podle § 19 HinSchG."
         ]
       },
       "ctaCard": {
@@ -15911,12 +15911,12 @@
           "bsi": {
             "country": "DE / NIS 2",
             "label": "BSI",
-            "body": "V Německu je Bundesamt fuer Sicherheit in der Informationstechnik (BSI) vedoucím orgánem pro provedení NIS 2. BSI přijímá registrace, oznámení incidentů a dohlíží na opatření k řízení rizik kybernetické bezpečnosti podle NIS 2."
+            "body": "V Německu je Bundesamt für Sicherheit in der Informationstechnik (BSI) vedoucím orgánem pro provedení NIS 2. BSI přijímá registrace, oznámení incidentů a dohlíží na opatření k řízení rizik kybernetické bezpečnosti podle NIS 2."
           },
           "bbk": {
             "country": "DE / CER",
             "label": "BBK",
-            "body": "Německým vedoucím orgánem pro CER je Bundesamt fuer Bevoelkerungsschutz und Katastrophenhilfe (BBK), nikoli BSI. BBK dohlíží na označování kritických subjektů a fyzickou odolnost podle plánovaného KRITIS-Dachgesetz."
+            "body": "Německým vedoucím orgánem pro CER je Bundesamt für Bevoelkerungsschutz und Katastrophenhilfe (BBK), nikoli BSI. BBK dohlíží na označování kritických subjektů a fyzickou odolnost podle plánovaného KRITIS-Dachgesetz."
           },
           "enisa": {
             "country": "EU",

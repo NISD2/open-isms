@@ -25,7 +25,7 @@
     "cirBadge": "CIR 2024/2690",
     "cirBadgeTooltip": "Die Durchführungsverordnung (EU) 2024/2690 definiert die strengsten technischen Anforderungen für NIS2-Compliance. Sie legt den gemeinsamen Mindeststandard für alle EU-Mitgliedstaaten fest - für DNS-Anbieter, TLD-Registrare, Cloud-Anbieter, Rechenzentren, CDNs, Managed Services, Managed Security Services, Online-Marktplätze, Suchmaschinen, soziale Netzwerke und Vertrauensdiensteanbieter.",
     "bsigBadge": "BSIG §30 | IT-Grundschutz-Standards",
-    "bsigBadgeTooltip": "Aufgebaut auf dem deutschen BSIG §30 -- der strengsten NIS2-Umsetzung in der EU -- mit IT-Grundschutz-Methodik als Standard. Einmal konform, gueltig in 27 EU-Mitgliedstaaten. §44(2) BSIG erkennt Grundschutz-Umsetzung als NIS2-Compliance an.",
+    "bsigBadgeTooltip": "Aufgebaut auf dem deutschen BSIG §30 -- der strengsten NIS2-Umsetzung in der EU -- mit IT-Grundschutz-Methodik als Standard. Einmal konform, gültig in 27 EU-Mitgliedstaaten. §44(2) BSIG erkennt Grundschutz-Umsetzung als NIS2-Compliance an.",
     "checkApplicability": "NIS2-Betroffenheit prüfen",
     "scheduleDemo": "Demo vereinbaren",
     "startTraining": "Kostenlose Geschäftsführerschulung",

@@ -6380,10 +6380,10 @@
         },
         "q14": {
           "q": "How did the renaming to \"Digital Energy Services\" come about?",
-          "a": "The former installation category of the aggregation point (Buendelstelle) was renamed \"Digital Energy Services\" because the term better reflects the growing role of IT systems and digital processes in the energy sector than the old name, which was closely tied to the aggregation of meter readings. More important than the name is the consequence: for this category, the regulation of information security no longer lies with the BSIG, but with Sections 5c et seq. EnWG, and the Bundesnetzagentur is responsible."
+          "a": "The former installation category of the aggregation point (Bündelstelle) was renamed \"Digital Energy Services\" because the term better reflects the growing role of IT systems and digital processes in the energy sector than the old name, which was closely tied to the aggregation of meter readings. More important than the name is the consequence: for this category, the regulation of information security no longer lies with the BSIG, but with Sections 5c et seq. EnWG, and the Bundesnetzagentur is responsible."
         },
         "q15": {
-          "q": "What does the statutory change mean for my aggregation point (BueStel)?",
+          "q": "What does the statutory change mean for my aggregation point (BüStel)?",
           "a": "Your aggregation point is removed from BSIG regulation as a \"Digital Energy Service\". The information security requirements will in future be governed by Sections 5c et seq. EnWG, and the competent supervisory authority is the Bundesnetzagentur, no longer the BSI. For the affected installation in category 1.1.2, you no longer have to provide evidence to the BSI under Section 8a BSIG. Your point of contact and your technical requirements therefore change; check the Bundesnetzagentur's requirements promptly."
         },
         "q16": {
@@ -13997,7 +13997,7 @@
       "overview": {
         "heading": "What this page is",
         "p1": "Whistleblowing is a separate legal track from NIS 2 incident reporting. An employee, contractor, or job applicant who reports a NIS 2 compliance failure is protected by EU Directive 2019/1937. The Directive lists network and information security explicitly in its Annex Part I.B as a protected reporting area.",
-        "p2": "In Germany the Hinweisgeberschutzgesetz (HinSchG, in force since 2 July 2023) transposes the Directive. The Bundesamt fuer Justiz hosts the central external channel. Entities with 50 or more employees are required to maintain an internal reporting channel under Section 12 HinSchG.",
+        "p2": "In Germany the Hinweisgeberschutzgesetz (HinSchG, in force since 2 July 2023) transposes the Directive. The Bundesamt für Justiz hosts the central external channel. Entities with 50 or more employees are required to maintain an internal reporting channel under Section 12 HinSchG.",
         "p3": "A whistleblower disclosure to an external authority does not replace the entity's own incident notification under Article 23 NIS 2 (Section 32 BSIG in Germany). Both duties can be triggered by the same event and both run on their own clocks."
       },
       "legalAnchor": {
@@ -14015,8 +14015,8 @@
         },
         "transposition": {
           "label": "HinSchG Section 12 (internal reporting channels)",
-          "quote": "Beschaeftigungsgeber mit in der Regel mindestens 50 Beschaeftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschaeftigte zur Abgabe von Meldungen nach diesem Gesetz wenden koennen.",
-          "context": "The 50-employee threshold is headcount as a rule, not a precise daily figure. Entities below 50 employees may set up an internal channel voluntarily; entities at or above 50 must. The Bundesamt fuer Justiz operates the external channel."
+          "quote": "Beschäftigungsgeber mit in der Regel mindestens 50 Beschäftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschäftigte zur Abgabe von Meldungen nach diesem Gesetz wenden können.",
+          "context": "The 50-employee threshold is headcount as a rule, not a precise daily figure. Entities below 50 employees may set up an internal channel voluntarily; entities at or above 50 must. The Bundesamt für Justiz operates the external channel."
         }
       },
       "elements": {
@@ -14031,7 +14031,7 @@
           "channels": {
             "section": "Channels",
             "title": "Internal first, external in parallel",
-            "body": "Internal channel under Section 12 HinSchG (50+ employees). External channels under Section 19 HinSchG: Bundesamt fuer Justiz as the central external office, plus sector-specific authorities. The reporting person may choose either; the Directive recital 33 expresses a preference for internal first but does not make it a precondition."
+            "body": "Internal channel under Section 12 HinSchG (50+ employees). External channels under Section 19 HinSchG: Bundesamt für Justiz as the central external office, plus sector-specific authorities. The reporting person may choose either; the Directive recital 33 expresses a preference for internal first but does not make it a precondition."
           },
           "retention": {
             "section": "Retention",
@@ -14061,17 +14061,17 @@
           "bsi": {
             "country": "DE",
             "label": "BSI as sector authority",
-            "body": "The Bundesamt fuer Sicherheit in der Informationstechnik (BSI) is the competent authority for NIS 2 supervision under Section 61 BSIG. A whistleblower report alleging that an entity fails to meet Article 21 measures or has not registered under Article 3(4) will typically end up at BSI through the external channel routing, even if it is first lodged with the Bundesamt fuer Justiz."
+            "body": "The Bundesamt für Sicherheit in der Informationstechnik (BSI) is the competent authority for NIS 2 supervision under Section 61 BSIG. A whistleblower report alleging that an entity fails to meet Article 21 measures or has not registered under Article 3(4) will typically end up at BSI through the external channel routing, even if it is first lodged with the Bundesamt für Justiz."
           },
           "bfdi": {
             "country": "DE",
-            "label": "Bundesbeauftragte fuer den Datenschutz und die Informationsfreiheit",
+            "label": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit",
             "body": "BfDI is the sector-specific external channel for federal data protection breaches. NIS 2 and GDPR overlap when an incident involves personal data. A whistleblower report can name both legal bases; the receiving authority routes the parts to the competent body."
           },
           "bafa": {
             "country": "DE",
-            "label": "Bundesamt fuer Justiz as central external channel",
-            "body": "Bundesamt fuer Justiz operates the central external reporting office under Section 19 HinSchG. It is the default external address if no sector-specific channel applies, and it routes reports to the competent supervisor (BSI, BNetzA, BAFin, BfDI) when the subject matter sits there."
+            "label": "Bundesamt für Justiz as central external channel",
+            "body": "Bundesamt für Justiz operates the central external reporting office under Section 19 HinSchG. It is the default external address if no sector-specific channel applies, and it routes reports to the competent supervisor (BSI, BNetzA, BAFin, BfDI) when the subject matter sits there."
           }
         }
       },
@@ -14110,7 +14110,7 @@
           "Hinweisgeberschutzgesetz (HinSchG) of 31 May 2023, BGBl. 2023 I Nr. 140. Sections 2, 8, 11, 12, 16, 17, 19, 36, 40.",
           "Directive (EU) 2022/2555 (NIS 2) of 14 December 2022, Articles 21, 23, 27.",
           "BSI-Gesetz (BSIG), Sections 32, 33, 61, 65.",
-          "Bundesamt fuer Justiz, external reporting office under Section 19 HinSchG."
+          "Bundesamt für Justiz, external reporting office under Section 19 HinSchG."
         ]
       },
       "ctaCard": {
@@ -15926,12 +15926,12 @@
           "bsi": {
             "country": "DE / NIS 2",
             "label": "BSI",
-            "body": "In Germany the Bundesamt fuer Sicherheit in der Informationstechnik (BSI) is the lead authority for NIS 2 implementation. BSI receives registrations, incident notifications, and supervises the NIS 2 cybersecurity risk management measures."
+            "body": "In Germany the Bundesamt für Sicherheit in der Informationstechnik (BSI) is the lead authority for NIS 2 implementation. BSI receives registrations, incident notifications, and supervises the NIS 2 cybersecurity risk management measures."
           },
           "bbk": {
             "country": "DE / CER",
             "label": "BBK",
-            "body": "The German lead for CER is the Bundesamt fuer Bevoelkerungsschutz und Katastrophenhilfe (BBK), not BSI. BBK supervises designation of critical entities and physical resilience under the planned KRITIS-Dachgesetz."
+            "body": "The German lead for CER is the Bundesamt für Bevoelkerungsschutz und Katastrophenhilfe (BBK), not BSI. BBK supervises designation of critical entities and physical resilience under the planned KRITIS-Dachgesetz."
           },
           "enisa": {
             "country": "EU",

@@ -6380,10 +6380,10 @@
         },
         "q14": {
           "q": "Comment le changement de dénomination en « Digital Energy Services » est-il survenu ?",
-          "a": "L'ancienne catégorie d'installation du point d'agrégation (Buendelstelle) a été renommée « Digital Energy Services » parce que le terme reflète mieux le rôle croissant des systèmes informatiques et des processus numériques dans le secteur de l'énergie que l'ancien nom, qui était étroitement lié à l'agrégation des relevés de compteurs. Plus important que le nom est la conséquence : pour cette catégorie, la réglementation de la sécurité de l'information ne relève plus du BSIG, mais des articles 5c et suivants EnWG, et la Bundesnetzagentur est compétente."
+          "a": "L'ancienne catégorie d'installation du point d'agrégation (Bündelstelle) a été renommée « Digital Energy Services » parce que le terme reflète mieux le rôle croissant des systèmes informatiques et des processus numériques dans le secteur de l'énergie que l'ancien nom, qui était étroitement lié à l'agrégation des relevés de compteurs. Plus important que le nom est la conséquence : pour cette catégorie, la réglementation de la sécurité de l'information ne relève plus du BSIG, mais des articles 5c et suivants EnWG, et la Bundesnetzagentur est compétente."
         },
         "q15": {
-          "q": "Que signifie le changement législatif pour mon point d'agrégation (BueStel) ?",
+          "q": "Que signifie le changement législatif pour mon point d'agrégation (BüStel) ?",
           "a": "Votre point d'agrégation est retiré de la réglementation du BSIG en tant que « Digital Energy Service ». Les exigences de sécurité de l'information seront à l'avenir régies par les articles 5c et suivants EnWG, et l'autorité de supervision compétente est la Bundesnetzagentur, et non plus le BSI. Pour l'installation concernée de la catégorie 1.1.2, vous n'avez plus à fournir de preuves au BSI au titre de l'article 8a BSIG. Votre point de contact et vos exigences techniques changent donc ; vérifiez sans tarder les exigences de la Bundesnetzagentur."
         },
         "q16": {
@@ -13982,7 +13982,7 @@
       "overview": {
         "heading": "Ce qu'est cette page",
         "p1": "Le lancement d'alerte est une voie juridique distincte de la déclaration d'incident NIS 2. Un salarié, un sous-traitant ou un candidat à un emploi qui signale un manquement à la conformité NIS 2 est protégé par la directive (UE) 2019/1937. La directive mentionne expressément la sécurité des réseaux et des systèmes d'information dans son annexe, partie I.B, comme domaine de signalement protégé.",
-        "p2": "En Allemagne, le Hinweisgeberschutzgesetz (HinSchG, en vigueur depuis le 2 juillet 2023) transpose la directive. Le Bundesamt fuer Justiz héberge le canal externe central. Les entités comptant 50 salariés ou plus sont tenues de maintenir un canal de signalement interne au titre de l'article 12 HinSchG.",
+        "p2": "En Allemagne, le Hinweisgeberschutzgesetz (HinSchG, en vigueur depuis le 2 juillet 2023) transpose la directive. Le Bundesamt für Justiz héberge le canal externe central. Les entités comptant 50 salariés ou plus sont tenues de maintenir un canal de signalement interne au titre de l'article 12 HinSchG.",
         "p3": "Une divulgation d'un lanceur d'alerte à une autorité externe ne remplace pas la propre notification d'incident de l'entité au titre de l'article 23 de NIS 2 (article 32 BSIG en Allemagne). Les deux obligations peuvent être déclenchées par le même événement et chacune court selon son propre calendrier."
       },
       "legalAnchor": {
@@ -14000,8 +14000,8 @@
         },
         "transposition": {
           "label": "HinSchG article 12 (canaux de signalement interne)",
-          "quote": "Beschaeftigungsgeber mit in der Regel mindestens 50 Beschaeftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschaeftigte zur Abgabe von Meldungen nach diesem Gesetz wenden koennen.",
-          "context": "Le seuil de 50 salariés correspond à un effectif en règle générale, et non à un chiffre journalier précis. Les entités de moins de 50 salariés peuvent mettre en place un canal interne à titre volontaire ; les entités atteignant ou dépassant 50 salariés y sont tenues. Le Bundesamt fuer Justiz exploite le canal externe."
+          "quote": "Beschäftigungsgeber mit in der Regel mindestens 50 Beschäftigten sind verpflichtet, eine Stelle einzurichten und zu betreiben, an die sich Beschäftigte zur Abgabe von Meldungen nach diesem Gesetz wenden können.",
+          "context": "Le seuil de 50 salariés correspond à un effectif en règle générale, et non à un chiffre journalier précis. Les entités de moins de 50 salariés peuvent mettre en place un canal interne à titre volontaire ; les entités atteignant ou dépassant 50 salariés y sont tenues. Le Bundesamt für Justiz exploite le canal externe."
         }
       },
       "elements": {
@@ -14016,7 +14016,7 @@
           "channels": {
             "section": "Canaux",
             "title": "Interne d'abord, externe en parallèle",
-            "body": "Canal interne au titre de l'article 12 HinSchG (50 salariés ou plus). Canaux externes au titre de l'article 19 HinSchG : le Bundesamt fuer Justiz comme bureau externe central, plus les autorités sectorielles. La personne à l'origine du signalement peut choisir l'un ou l'autre ; le considérant 33 de la directive exprime une préférence pour la voie interne en premier, mais n'en fait pas une condition préalable."
+            "body": "Canal interne au titre de l'article 12 HinSchG (50 salariés ou plus). Canaux externes au titre de l'article 19 HinSchG : le Bundesamt für Justiz comme bureau externe central, plus les autorités sectorielles. La personne à l'origine du signalement peut choisir l'un ou l'autre ; le considérant 33 de la directive exprime une préférence pour la voie interne en premier, mais n'en fait pas une condition préalable."
           },
           "retention": {
             "section": "Conservation",
@@ -14046,17 +14046,17 @@
           "bsi": {
             "country": "DE",
             "label": "Le BSI comme autorité sectorielle",
-            "body": "Le Bundesamt fuer Sicherheit in der Informationstechnik (BSI) est l'autorité compétente pour la supervision de NIS 2 au titre de l'article 61 BSIG. Un signalement de lanceur d'alerte affirmant qu'une entité ne respecte pas les mesures de l'article 21 ou ne s'est pas enregistrée au titre de l'article 3, paragraphe 4, aboutira généralement au BSI par le routage du canal externe, même s'il est d'abord déposé auprès du Bundesamt fuer Justiz."
+            "body": "Le Bundesamt für Sicherheit in der Informationstechnik (BSI) est l'autorité compétente pour la supervision de NIS 2 au titre de l'article 61 BSIG. Un signalement de lanceur d'alerte affirmant qu'une entité ne respecte pas les mesures de l'article 21 ou ne s'est pas enregistrée au titre de l'article 3, paragraphe 4, aboutira généralement au BSI par le routage du canal externe, même s'il est d'abord déposé auprès du Bundesamt für Justiz."
           },
           "bfdi": {
             "country": "DE",
-            "label": "Bundesbeauftragte fuer den Datenschutz und die Informationsfreiheit",
+            "label": "Bundesbeauftragte für den Datenschutz und die Informationsfreiheit",
             "body": "La BfDI est le canal externe sectoriel pour les violations de la protection des données au niveau fédéral. NIS 2 et le GDPR se recoupent lorsqu'un incident implique des données à caractère personnel. Un signalement de lanceur d'alerte peut invoquer les deux bases juridiques ; l'autorité destinataire en oriente les parties vers l'organe compétent."
           },
           "bafa": {
             "country": "DE",
-            "label": "Le Bundesamt fuer Justiz comme canal externe central",
-            "body": "Le Bundesamt fuer Justiz exploite le bureau de signalement externe central au titre de l'article 19 HinSchG. C'est l'adresse externe par défaut si aucun canal sectoriel ne s'applique, et il oriente les signalements vers le superviseur compétent (BSI, BNetzA, BAFin, BfDI) lorsque l'objet relève de celui-ci."
+            "label": "Le Bundesamt für Justiz comme canal externe central",
+            "body": "Le Bundesamt für Justiz exploite le bureau de signalement externe central au titre de l'article 19 HinSchG. C'est l'adresse externe par défaut si aucun canal sectoriel ne s'applique, et il oriente les signalements vers le superviseur compétent (BSI, BNetzA, BAFin, BfDI) lorsque l'objet relève de celui-ci."
           }
         }
       },
@@ -14095,7 +14095,7 @@
           "Hinweisgeberschutzgesetz (HinSchG) du 31 mai 2023, BGBl. 2023 I Nr. 140. Articles 2, 8, 11, 12, 16, 17, 19, 36, 40.",
           "Directive (UE) 2022/2555 (NIS 2) du 14 décembre 2022, articles 21, 23, 27.",
           "BSI-Gesetz (BSIG), articles 32, 33, 61, 65.",
-          "Bundesamt fuer Justiz, bureau de signalement externe au titre de l'article 19 HinSchG."
+          "Bundesamt für Justiz, bureau de signalement externe au titre de l'article 19 HinSchG."
         ]
       },
       "ctaCard": {
@@ -15911,12 +15911,12 @@
           "bsi": {
             "country": "DE / NIS 2",
             "label": "BSI",
-            "body": "En Allemagne, le Bundesamt fuer Sicherheit in der Informationstechnik (BSI) est l'autorité chef de file pour la mise en œuvre de NIS 2. Le BSI reçoit les enregistrements, les notifications d'incident et supervise les mesures de gestion des risques de cybersécurité de NIS 2."
+            "body": "En Allemagne, le Bundesamt für Sicherheit in der Informationstechnik (BSI) est l'autorité chef de file pour la mise en œuvre de NIS 2. Le BSI reçoit les enregistrements, les notifications d'incident et supervise les mesures de gestion des risques de cybersécurité de NIS 2."
           },
           "bbk": {
             "country": "DE / CER",
             "label": "BBK",
-            "body": "Le chef de file allemand pour CER est le Bundesamt fuer Bevoelkerungsschutz und Katastrophenhilfe (BBK), et non le BSI. Le BBK supervise la désignation des entités critiques et la résilience physique au titre de la KRITIS-Dachgesetz prévue."
+            "body": "Le chef de file allemand pour CER est le Bundesamt für Bevoelkerungsschutz und Katastrophenhilfe (BBK), et non le BSI. Le BBK supervise la désignation des entités critiques et la résilience physique au titre de la KRITIS-Dachgesetz prévue."
           },
           "enisa": {
             "country": "UE",
