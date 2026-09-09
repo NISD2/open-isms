@@ -20,7 +20,8 @@ mock.module("./send", () => ({
   sendWelcomeEmail: async () => ({ success: true, id: "no-transport" }) as const,
   mailSuppressionReason: () => null,
   isSuppressedSendId: (id: string | undefined) =>
-    id !== undefined && ["dev-blocked", "disabled", "no-transport", "dev-stub"].includes(id),
+    id !== undefined &&
+    ["dev-blocked", "disabled", "no-transport", "dev-stub"].includes(id),
 }));
 
 /**
@@ -55,7 +56,11 @@ afterEach(() => {
 
 describe("sendAuthCode with no mail transport", () => {
   test("writes the sign-in code to the log, greppable as documented", async () => {
-    await sendAuthCode({ to: "operator@example.com", code: "481920", kind: "verification" });
+    await sendAuthCode({
+      to: "operator@example.com",
+      code: "481920",
+      kind: "verification",
+    });
 
     const line = warnings.find((w) => w.includes("sign-in code"));
     expect(line).toBeDefined();
@@ -64,11 +69,15 @@ describe("sendAuthCode with no mail transport", () => {
   });
 
   test("names the password reset code separately", async () => {
-    await sendAuthCode({ to: "operator@example.com", code: "112233", kind: "password-reset" });
+    await sendAuthCode({
+      to: "operator@example.com",
+      code: "112233",
+      kind: "password-reset",
+    });
 
-    expect(warnings.some((w) => w.includes("password reset code") && w.includes("112233"))).toBe(
-      true,
-    );
+    expect(
+      warnings.some((w) => w.includes("password reset code") && w.includes("112233")),
+    ).toBe(true);
   });
 });
 
@@ -76,7 +85,11 @@ describe("sendAuthCode with a mail transport", () => {
   test("logs no code when sending through Resend", async () => {
     transport = "resend";
 
-    await sendAuthCode({ to: "operator@example.com", code: "999888", kind: "verification" });
+    await sendAuthCode({
+      to: "operator@example.com",
+      code: "999888",
+      kind: "verification",
+    });
 
     expect(warnings.join(" ")).not.toContain("999888");
   });
@@ -88,7 +101,11 @@ describe("sendAuthCode with a mail transport", () => {
   test("logs no code when sending through SMTP", async () => {
     transport = "smtp";
 
-    await sendAuthCode({ to: "operator@example.com", code: "777666", kind: "verification" });
+    await sendAuthCode({
+      to: "operator@example.com",
+      code: "777666",
+      kind: "verification",
+    });
 
     expect(warnings.join(" ")).not.toContain("777666");
     expect(warnings.join(" ")).not.toContain("No mail transport is configured");
