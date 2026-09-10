@@ -7,7 +7,7 @@ import { sendAuthCode } from "@/lib/mail";
 import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getClientIp } from "@/lib/client-ip";
-import { LOCALES, type LocaleCode } from "@/lib/locale";
+import { isLocaleCode, type LocaleCode } from "@/lib/locale";
 import type { Locale } from "@/lib/seo";
 
 // Simple in-memory rate limiter: max 5 attempts per IP per 15 minutes
@@ -70,10 +70,8 @@ export async function POST(request: Request) {
   // for all 10 locales, and the same value is persisted on the user row so
   // emails sent outside a request (lifecycle crons) can localize later.
   // Unknown values stay null on the row and fall back to "de" for the email.
-  const persistedLocale: LocaleCode | null = LOCALES.some(
-    (l) => l.code === localeInput,
-  )
-    ? (localeInput as LocaleCode)
+  const persistedLocale: LocaleCode | null = isLocaleCode(localeInput)
+    ? localeInput
     : null;
   const locale: Locale = persistedLocale ?? "de";
 

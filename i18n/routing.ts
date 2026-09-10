@@ -1,5 +1,6 @@
 import { defineRouting } from "next-intl/routing";
 import { wikiPathnames } from "@/lib/content/wiki-toc";
+import { LOCALE_COOKIE } from "@/lib/locale";
 
 /**
  * Routing config — locales + localized pathnames.
@@ -48,6 +49,9 @@ export const routing = defineRouting({
   defaultLocale: "de",
   localePrefix: "as-needed",
   localeCookie: {
+    // Same string next-intl would have defaulted to, stated explicitly because
+    // lib/auth/config.ts reads this cookie to seed user.locale on OAuth signup.
+    name: LOCALE_COOKIE,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
   },

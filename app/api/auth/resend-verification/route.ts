@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { user } from "@/schema";
 import { sendAuthCode } from "@/lib/mail";
 import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
-import { LOCALES } from "@/lib/locale";
+import { isLocaleCode } from "@/lib/locale";
 import type { Locale } from "@/lib/seo";
 
 /**
@@ -31,9 +31,7 @@ export async function POST(request: Request) {
   const email = (body.email as string | undefined)?.toLowerCase().trim();
   const localeInput = body.locale as string | undefined;
   // Full app-locale validation: the OTP templates carry all 10 locales.
-  const locale: Locale = LOCALES.some((l) => l.code === localeInput)
-    ? (localeInput as Locale)
-    : "de";
+  const locale: Locale = isLocaleCode(localeInput) ? localeInput : "de";
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });

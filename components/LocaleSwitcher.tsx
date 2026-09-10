@@ -12,15 +12,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Globe } from "lucide-react";
 import { LOCALES, type LocaleCode } from "@/lib/locale";
+import { trpc } from "@/lib/trpc/client";
 
 export function LocaleSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
+  const setLocale = trpc.user.setLocale.useMutation();
 
-  function switchTo(next: string) {
+  function switchTo(next: LocaleCode) {
     if (next === locale) return;
+
+    // Switching the language is also a statement about which language this
+    // person wants to be written to in, and mail sent from a cron has no
+    // browser to ask. The URL and the cookie below reach the next render; this
+    // reaches the daily digest. A no-op when signed out, and deliberately not
+    // awaited: a language switch should not wait on a write, and a TanStack
+    // mutation runs to completion regardless of what unmounts behind it.
+    setLocale.mutate({ locale: next });
+
     // `usePathname()` returns the route template (e.g.
     // `/compliance/[categorySlug]/[requirementCode]`); the dynamic segments
     // are filled from `params` so they survive the locale switch. Passing the
@@ -28,7 +39,7 @@ export function LocaleSwitcher() {
     // breaks every dynamic route.
     router.replace(
       { pathname, params } as Parameters<typeof router.replace>[0],
-      { locale: next as LocaleCode },
+      { locale: next },
     );
   }
 

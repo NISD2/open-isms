@@ -1,5 +1,6 @@
 import "@/lib/server-guard";
 import { cache } from "react";
+import { cookies } from "next/headers";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
@@ -20,6 +21,7 @@ import { getAppUrl } from "@/lib/utils";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
+import { LOCALE_COOKIE, isLocaleCode, type LocaleCode } from "@/lib/locale";
 import { resolveHints } from "@/lib/onboarding/hints";
 
 // Dummy hash for timing-safe comparison when user doesn't exist
@@ -40,6 +42,29 @@ class CredentialsFlowError extends CredentialsSignin {
   constructor(code: string) {
     super();
     this.code = code;
+  }
+}
+
+/**
+ * The language a Google signup was reading the site in, or null.
+ *
+ * Credentials signup posts its locale in the request body; an OAuth callback
+ * has no body, so the only trace of the choice is the cookie next-intl set when
+ * the visitor used the switcher. Absent for anyone who never touched it, which
+ * is the honest answer — `resolveEmailLocale` then falls back to the company's
+ * country rather than to a guess made here.
+ *
+ * `cookies()` throws outside a request scope. The signIn callback always runs
+ * inside one, so the catch is for the case that stops being true: a language
+ * nobody can read is worth strictly less than a sign-in that completes.
+ */
+async function signupLocaleFromCookie(): Promise<LocaleCode | null> {
+  try {
+    const store = await cookies();
+    const value = store.get(LOCALE_COOKIE)?.value;
+    return isLocaleCode(value) ? value : null;
+  } catch {
+    return null;
   }
 }
 
@@ -202,6 +227,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             // Google verified `profile.email_verified` upstream so we trust
             // the address — no separate OTP step for OAuth signups.
             emailVerifiedAt: now,
+            // /api/auth/register receives the locale in its POST body; an OAuth
+            // callback has no body to put it in, so the cookie next-intl
+            // already set is the only thing carrying it. Null when the visitor
+            // never touched the switcher, which resolveEmailLocale handles.
+            locale: await signupLocaleFromCookie(),
           })
           .onConflictDoNothing({ target: user.email })
           .returning({ id: user.id });
