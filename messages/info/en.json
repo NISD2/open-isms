@@ -11301,7 +11301,7 @@
     "amIDataCentre": {
       "meta": {
         "title": "Am I a data centre provider under NIS 2? Annex I sector 8",
-        "description": "Data centre services are Annex I sector 8. Article 6(31) covers power distribution and environmental control. Co-location and hosting qualify, in-house does not."
+        "description": "Data centre services are Annex I sector 8. Article 6(31) covers power distribution and environmental control. Co-location and hosting qualify, in-house is out."
       },
       "title": "Am I a data centre provider under NIS 2?",
       "subtitle": "NIS 2 lists data centre services in Annex I sector 8 (Digital Infrastructure). Article 6(31) defines the service to include power and cooling. The standard size test from Article 2(1) and Recommendation 2003/361/EC then decides whether the duties apply. Germany transposes through §28 BSIG. KRITIS-V (3.5 MW IT load) is a separate national overlay, not the NIS 2 entry point.",
