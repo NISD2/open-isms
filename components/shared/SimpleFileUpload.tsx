@@ -1,8 +1,17 @@
+// biome-ignore-all lint/a11y/useSemanticElements: drop zone is a drag target, not a button
 "use client";
 
-import { useState, useRef } from "react";
+// On the suppression above: the drop zone near the bottom of this file is a
+// drag-and-drop target. A real <button> would still need the drop handlers,
+// and role/tabIndex/the Enter-Space handler already give it button semantics.
+// The rule reports on a JSX attribute, which cannot carry a targeted
+// suppression, hence the file-scoped one. Inherited from the lint backlog by
+// touching this file — the change here is the Content-Type fix (audit F-4),
+// not a rewrite of the widget. Worth doing properly on its own.
+
+import { FileText, Loader2, Upload, X } from "lucide-react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Upload, X, FileText, Loader2 } from "lucide-react";
 import { exceedsUploadLimit, MAX_UPLOAD_MB } from "@/lib/storage/limits";
 import { userFacingError } from "@/lib/trpc/error-message";
 import { cn } from "@/lib/utils";
@@ -13,9 +22,21 @@ interface SimpleFileUploadProps {
   /** Called when file is removed */
   onRemoved?: () => void;
   /** Get presigned upload URL — caller provides the tRPC mutation */
-  getUploadUrl: (file: { fileName: string; contentType: string; fileSize: number }) => Promise<{
+  getUploadUrl: (file: {
+    fileName: string;
+    contentType: string;
+    fileSize: number;
+  }) => Promise<{
     uploadUrl: string;
     fileKey: string;
+    /**
+     * The content type the server actually signed into `uploadUrl`, when it
+     * differs from what we asked for. Content-Type is a signed header, so the
+     * PUT has to echo the signed value or S3 answers 403. Handlers that pin
+     * the type with a Zod regex sign exactly what they were given and can
+     * leave this unset (audit F-4).
+     */
+    contentType?: string;
   }>;
   /** Current file key (for edit mode) */
   currentFileKey?: string | null;
@@ -64,29 +85,30 @@ export function SimpleFileUpload({
     // Caught here rather than at the presigner, which throws a bare Error the
     // client can only render as a generic failure.
     if (exceedsUploadLimit(file.size)) {
-      setError(
-        tooLargeText ? tooLargeText(MAX_UPLOAD_MB) : errorText,
-      );
+      setError(tooLargeText ? tooLargeText(MAX_UPLOAD_MB) : errorText);
       return;
     }
     setUploading(true);
     try {
-      const { uploadUrl, fileKey } = await getUploadUrl({
+      const requestedType = file.type || "application/octet-stream";
+      const { uploadUrl, fileKey, contentType } = await getUploadUrl({
         fileName: file.name,
-        contentType: file.type || "application/octet-stream",
+        contentType: requestedType,
         fileSize: file.size,
       });
       const res = await fetch(uploadUrl, {
         method: "PUT",
         body: file,
         headers: {
-          "Content-Type": file.type || "application/octet-stream",
+          "Content-Type": contentType ?? requestedType,
           "x-amz-server-side-encryption": "AES256",
         },
       });
       if (!res.ok) {
         const body = await res.text().catch(() => "");
-        throw new Error(`Upload failed: ${res.status} ${res.statusText} ${body.slice(0, 200)}`);
+        throw new Error(
+          `Upload failed: ${res.status} ${res.statusText} ${body.slice(0, 200)}`,
+        );
       }
       setFileName(file.name);
       setHasFile(true);
@@ -124,7 +146,12 @@ export function SimpleFileUpload({
           <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
           <span className="text-sm truncate flex-1">{fileName}</span>
           {!disabled && (
-            <Button variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={handleRemove}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-6 px-2 text-xs"
+              onClick={handleRemove}
+            >
               <X className="h-3 w-3 mr-1" />
               {removeText}
             </Button>

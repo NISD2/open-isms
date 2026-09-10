@@ -1,2 +1,3 @@
-export { s3, BUCKET } from "./s3-client";
-export { createPresignedPut, createPresignedGet, deleteObject } from "./presign";
+export { normalizeContentType, sanitizeFilename } from "./object-key";
+export { createPresignedGet, createPresignedPut, deleteObject } from "./presign";
+export { BUCKET, s3 } from "./s3-client";

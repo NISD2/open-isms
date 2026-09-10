@@ -1,11 +1,18 @@
-import { z } from "zod";
-import { eq, and } from "drizzle-orm";
+import { randomUUID } from "node:crypto";
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../init";
-import { evidence, companyRequirementStatus, companyAssessment } from "@/schema";
-import { createPresignedPut, createPresignedGet, deleteObject } from "@/lib/storage";
+import { and, eq } from "drizzle-orm";
+import { z } from "zod";
+import {
+  createPresignedGet,
+  createPresignedPut,
+  deleteObject,
+  normalizeContentType,
+  sanitizeFilename,
+} from "@/lib/storage";
+import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
+import { companyAssessment, companyRequirementStatus, evidence } from "@/schema";
 import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
-import { randomUUID } from "crypto";
+import { companyProcedure, router } from "../init";
 
 export const evidenceRouter = router({
   /** Request a presigned upload URL and create a draft evidence record */
@@ -15,8 +22,12 @@ export const evidenceRouter = router({
         requirementStatusId: z.string().uuid(),
         fileName: z.string().min(1).max(500),
         fileType: z.string().min(1).max(100),
-        fileSize: z.number().int().positive().max(50 * 1024 * 1024),
-      })
+        // MAX_UPLOAD_BYTES, not a literal: the browser pre-checks the same
+        // constant via exceedsUploadLimit, and a router that disagrees with
+        // it turns a clear "too large" into the opaque failure limits.ts was
+        // written to prevent.
+        fileSize: z.number().int().positive().max(MAX_UPLOAD_BYTES),
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       // Enforce assignment before allowing upload
@@ -25,7 +36,10 @@ export const evidenceRouter = router({
         with: { requirement: { columns: { id: true, categoryId: true } } },
       });
       if (!statusRow) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Requirement status not found" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Requirement status not found",
+        });
       }
       await verifyAssessmentOwnership(ctx.db, statusRow.assessmentId, ctx.companyId);
       await enforceAssignment(ctx.db, {
@@ -35,7 +49,22 @@ export const evidenceRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const storageKey = `evidence/${ctx.companyId}/${input.requirementStatusId}/${randomUUID()}-${input.fileName}`;
+      // Audit F-4 (2026-09-10): the caller's filename decides part of the key
+      // and the caller's fileType decides what a later presigned GET serves.
+      // Neither is trusted raw — the supplier-portal upload paths have always
+      // done both, this one did neither. `fileName` is still stored verbatim
+      // on the row, so the download keeps the name the user recognises.
+      //
+      // The row keeps the type the browser reported and only the OBJECT is
+      // stored under the normalized one. These are two different questions:
+      // `evidence.fileType` is a description of the artifact and feeds the
+      // Prüfordner evidence register (lib/pdf/load-report-data.ts), where
+      // "application/octet-stream" for every .odt or .zip would be a worse
+      // answer than the truth. What a browser is allowed to DO with the bytes
+      // is decided by the stored Content-Type and the attachment disposition
+      // on the way out, not by this column.
+      const storedType = normalizeContentType(input.fileType);
+      const storageKey = `evidence/${ctx.companyId}/${input.requirementStatusId}/${randomUUID()}-${sanitizeFilename(input.fileName)}`;
 
       // Create draft evidence record
       const [row] = await ctx.db
@@ -51,9 +80,12 @@ export const evidenceRouter = router({
         })
         .returning();
 
-      const uploadUrl = await createPresignedPut(storageKey, input.fileType, input.fileSize);
+      const uploadUrl = await createPresignedPut(storageKey, storedType, input.fileSize);
 
-      return { uploadUrl, storageKey, evidenceId: row.id };
+      // `contentType` is signed into `uploadUrl`, so the PUT has to send this
+      // exact value back or S3 answers 403. The caller must not reuse
+      // `file.type` here — it may be the value we just downgraded.
+      return { uploadUrl, storageKey, evidenceId: row.id, contentType: storedType };
     }),
 
   /** Confirm upload completed — transition from draft to in_review */
@@ -62,7 +94,7 @@ export const evidenceRouter = router({
       z.object({
         evidenceId: z.string().uuid(),
         contentHash: z.string().length(64).optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const row = await ctx.db.query.evidence.findFirst({
@@ -77,7 +109,10 @@ export const evidenceRouter = router({
         with: { requirement: { columns: { id: true, categoryId: true } } },
       });
       if (!statusRow) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Requirement status not found" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Requirement status not found",
+        });
       }
       await verifyAssessmentOwnership(ctx.db, statusRow.assessmentId, ctx.companyId);
       await enforceAssignment(ctx.db, {
@@ -93,12 +128,7 @@ export const evidenceRouter = router({
           status: "in_review",
           contentHash: input.contentHash ?? null,
         })
-        .where(
-          and(
-            eq(evidence.id, input.evidenceId),
-            eq(evidence.status, "draft"),
-          )
-        )
+        .where(and(eq(evidence.id, input.evidenceId), eq(evidence.status, "draft")))
         .returning();
 
       return updated;
@@ -117,7 +147,12 @@ export const evidenceRouter = router({
       const [owned] = await ctx.db
         .select({ id: companyAssessment.id })
         .from(companyAssessment)
-        .where(and(eq(companyAssessment.id, statusRow.assessmentId), eq(companyAssessment.companyId, ctx.companyId)))
+        .where(
+          and(
+            eq(companyAssessment.id, statusRow.assessmentId),
+            eq(companyAssessment.companyId, ctx.companyId),
+          ),
+        )
         .limit(1);
       if (!owned) return [];
 
@@ -130,10 +165,8 @@ export const evidenceRouter = router({
         rows.map(async (row) => ({
           ...row,
           downloadUrl:
-            row.status !== "draft"
-              ? await createPresignedGet(row.storageKey)
-              : null,
-        }))
+            row.status !== "draft" ? await createPresignedGet(row.storageKey) : null,
+        })),
       );
     }),
 
@@ -155,7 +188,12 @@ export const evidenceRouter = router({
       const [owned] = await ctx.db
         .select({ id: companyAssessment.id })
         .from(companyAssessment)
-        .where(and(eq(companyAssessment.id, statusRow.assessmentId), eq(companyAssessment.companyId, ctx.companyId)))
+        .where(
+          and(
+            eq(companyAssessment.id, statusRow.assessmentId),
+            eq(companyAssessment.companyId, ctx.companyId),
+          ),
+        )
         .limit(1);
       if (!owned) return null;
 
@@ -178,7 +216,10 @@ export const evidenceRouter = router({
         with: { requirement: { columns: { id: true, categoryId: true } } },
       });
       if (!statusRow) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Requirement status not found" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Requirement status not found",
+        });
       }
 
       await verifyAssessmentOwnership(ctx.db, statusRow.assessmentId, ctx.companyId);

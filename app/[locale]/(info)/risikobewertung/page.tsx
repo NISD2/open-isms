@@ -1,12 +1,13 @@
+import { BookOpen } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { BookOpen } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { JsonLd } from "@/components/JsonLd";
 import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
 import { RiskAssessmentShell } from "@/components/risk-assessment/RiskAssessmentShell";
+import { Link } from "@/i18n/navigation";
+import { ogImages } from "@/lib/og-card";
 import { scoreMatrix } from "@/lib/risk-assessment/scoring";
 import { pageAlternates } from "@/lib/seo";
-import { ogImages } from "@/lib/og-card";
 
 // Canned example used both for SEO crawlers (the radar card renders something
 // useful before any JS runs) and as the "before you start" preview. Picked
@@ -44,34 +45,28 @@ export async function generateMetadata({
   };
 }
 
-function JsonLd() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "NIS2 Risk Assessment",
-    description:
-      "Free self-assessment heuristic in the spirit of BSI Grundschutz 200-2 §8.2 Schutzbedarfsfeststellung. Classifies V/I/A protection-need per asset (normal/hoch/sehr hoch) and recommends an Absicherungsvariante.",
-    url: "https://www.nisd2.eu/risikobewertung",
-    applicationCategory: "BusinessApplication",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "EUR",
-    },
-    provider: {
-      "@type": "Organization",
-      name: "NIS2 Compliance Platform",
-      url: "https://www.nisd2.eu",
-    },
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
-}
+// Audit F-7 (2026-09-10): see the note on the applicability page — rendered
+// through <JsonLd> so the "<" escaping is not something each page has to
+// remember.
+const applicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "NIS2 Risk Assessment",
+  description:
+    "Free self-assessment heuristic in the spirit of BSI Grundschutz 200-2 §8.2 Schutzbedarfsfeststellung. Classifies V/I/A protection-need per asset (normal/hoch/sehr hoch) and recommends an Absicherungsvariante.",
+  url: "https://www.nisd2.eu/risikobewertung",
+  applicationCategory: "BusinessApplication",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "EUR",
+  },
+  provider: {
+    "@type": "Organization",
+    name: "NIS2 Compliance Platform",
+    url: "https://www.nisd2.eu",
+  },
+};
 
 export default async function RiskAssessmentPage() {
   const t = await getTranslations("riskAssessment");
@@ -79,7 +74,7 @@ export default async function RiskAssessmentPage() {
 
   return (
     <div className="space-y-6">
-      <JsonLd />
+      <JsonLd data={applicationSchema} />
 
       <div className="space-y-3">
         <MarketingHero

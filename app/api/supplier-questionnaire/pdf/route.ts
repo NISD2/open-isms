@@ -1,14 +1,24 @@
 import { renderToBuffer } from "@react-pdf/renderer";
 import { NextResponse } from "next/server";
+import { getClientIp } from "@/lib/client-ip";
 import {
   QUESTIONNAIRE_LOCALES,
   type QuestionnaireLocale,
   SupplierQuestionnaireDocument,
 } from "@/lib/pdf/supplier-questionnaire";
+import { rateLimitPublicRoute } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function GET(request: Request): Promise<Response> {
+  // Audit F-1 (2026-09-10): unauthenticated and CPU-bound. The response is
+  // cacheable, but only `locale` changes the output, so any unknown query
+  // parameter produces a fresh cache key and a fresh render. Every other
+  // export route in the app throttles; this one had nothing.
+  if (!rateLimitPublicRoute("questionnaire:pdf", getClientIp(request.headers), 10)) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
   const url = new URL(request.url);
   const requested = url.searchParams.get("locale");
   const locale: QuestionnaireLocale =

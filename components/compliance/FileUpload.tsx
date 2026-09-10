@@ -1,18 +1,13 @@
 "use client";
 
+import { Download, FileIcon, Loader2, Trash2 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import { trpc } from "@/lib/trpc/client";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  FileIcon,
-  Loader2,
-  Trash2,
-  Download,
-} from "lucide-react";
-import { toast } from "sonner";
 import { exceedsUploadLimit, MAX_UPLOAD_MB } from "@/lib/storage/limits";
+import { trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
 import { formatFileSize } from "@/lib/utils";
 
@@ -37,7 +32,7 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
   const utils = trpc.useUtils();
   const { data: files, isLoading } = trpc.evidence.listByRequirementStatus.useQuery(
     { requirementStatusId },
-    { enabled: !!requirementStatusId }
+    { enabled: !!requirementStatusId },
   );
   const createUploadUrl = trpc.evidence.createUploadUrl.useMutation();
   const confirmUpload = trpc.evidence.confirmUpload.useMutation();
@@ -60,26 +55,30 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
       setUploading(true);
       try {
         // 1. Get presigned URL
-        const { uploadUrl, evidenceId } =
-          await createUploadUrl.mutateAsync({
-            requirementStatusId,
-            fileName: file.name,
-            fileType: file.type || "application/octet-stream",
-            fileSize: file.size,
-          });
+        const { uploadUrl, evidenceId, contentType } = await createUploadUrl.mutateAsync({
+          requirementStatusId,
+          fileName: file.name,
+          fileType: file.type || "application/octet-stream",
+          fileSize: file.size,
+        });
 
-        // 2. Upload directly to S3. SSE header must match server-signed value or S3 returns 403.
+        // 2. Upload directly to S3. Both the SSE header and Content-Type must
+        // match the server-signed values or S3 returns 403 — so send back the
+        // `contentType` the server signed, not `file.type`, which the server
+        // may have downgraded (audit F-4).
         const putRes = await fetch(uploadUrl, {
           method: "PUT",
           body: file,
           headers: {
-            "Content-Type": file.type || "application/octet-stream",
+            "Content-Type": contentType,
             "x-amz-server-side-encryption": "AES256",
           },
         });
         if (!putRes.ok) {
           const body = await putRes.text().catch(() => "");
-          throw new Error(`S3 upload failed: ${putRes.status} ${putRes.statusText} ${body.slice(0, 200)}`);
+          throw new Error(
+            `S3 upload failed: ${putRes.status} ${putRes.statusText} ${body.slice(0, 200)}`,
+          );
         }
 
         // 3. Compute hash + confirm
@@ -104,7 +103,7 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
         e.target.value = "";
       }
     },
-    [requirementStatusId, createUploadUrl, confirmUpload, utils, t]
+    [requirementStatusId, createUploadUrl, confirmUpload, utils, t],
   );
 
   const handleDelete = useCallback(
@@ -118,15 +117,13 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
         toast.error(t("deleteFailed"));
       }
     },
-    [deleteEvidence, utils, requirementStatusId, t]
+    [deleteEvidence, utils, requirementStatusId, t],
   );
 
   return (
     <div className="space-y-3">
       {/* Existing files */}
-      {isLoading && (
-        <p className="text-sm text-muted-foreground">{t("loading")}</p>
-      )}
+      {isLoading && <p className="text-sm text-muted-foreground">{t("loading")}</p>}
 
       {files && files.length > 0 && (
         <div className="space-y-2">
@@ -145,12 +142,7 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
               </div>
 
               {f.downloadUrl && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-7 w-7"
-                  asChild
-                >
+                <Button variant="ghost" size="icon" className="h-7 w-7" asChild>
                   <a
                     href={f.downloadUrl}
                     target="_blank"

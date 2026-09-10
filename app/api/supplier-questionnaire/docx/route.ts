@@ -1,18 +1,13 @@
-import { NextResponse } from "next/server";
 import {
-  Document,
-  Packer,
-  Paragraph,
-  HeadingLevel,
-  TextRun,
-  AlignmentType,
-} from "docx";
-import {
-  supplierQuestionnaire,
   groupBySection,
   type SupplierField,
+  supplierQuestionnaire,
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
+import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, TextRun } from "docx";
+import { NextResponse } from "next/server";
+import { getClientIp } from "@/lib/client-ip";
 import { pickLocalized } from "@/lib/locale";
+import { rateLimitPublicRoute } from "@/lib/rate-limit";
 
 const VERSION = supplierQuestionnaire.version;
 const LAST_UPDATED = supplierQuestionnaire.lastUpdated;
@@ -89,23 +84,27 @@ const SECTION_TITLES: Record<(typeof SECTION_ORDER)[number], Record<Locale, stri
   },
 };
 
-const STRINGS: Record<Locale, {
-  title: string;
-  subtitle: string;
-  meta: string;
-  intro: string;
-  source: string;
-  fieldType: string;
-  legalBasis: string;
-  required: string;
-  optional: string;
-  conditional: string;
-  license: string;
-  fieldsLabel: string;
-}> = {
+const STRINGS: Record<
+  Locale,
+  {
+    title: string;
+    subtitle: string;
+    meta: string;
+    intro: string;
+    source: string;
+    fieldType: string;
+    legalBasis: string;
+    required: string;
+    optional: string;
+    conditional: string;
+    license: string;
+    fieldsLabel: string;
+  }
+> = {
   de: {
     title: "NIS 2 Lieferanten-Fragebogen",
-    subtitle: "Offener, EU-verankerter Fragebogen für die Lieferantenbewertung unter NIS 2",
+    subtitle:
+      "Offener, EU-verankerter Fragebogen für die Lieferantenbewertung unter NIS 2",
     meta: `Version ${VERSION} - Stand ${LAST_UPDATED} - ${supplierQuestionnaire.fields.length} Felder in 6 Sektionen`,
     intro:
       "Jedes Feld ist an eine EU-rechtliche Primärquelle verankert: NIS 2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance, DSGVO Art. 28 oder den Cyber Resilience Act. Sektorspezifische Erweiterungen (TISAX, VDA ISA, BSI C5, KRITIS) ergänzen die Basis, ersetzen sie nicht.",
@@ -116,7 +115,8 @@ const STRINGS: Record<Locale, {
     required: "Pflichtfeld",
     optional: "Optional",
     conditional: "Bedingt",
-    license: "Lizenz: MIT (Schema) + CC BY 4.0 (Inhalt). Frei nutzbar, forkbar, anpassbar.",
+    license:
+      "Lizenz: MIT (Schema) + CC BY 4.0 (Inhalt). Frei nutzbar, forkbar, anpassbar.",
     fieldsLabel: "Felder",
   },
   en: {
@@ -148,12 +148,14 @@ const STRINGS: Record<Locale, {
     required: "Verplicht",
     optional: "Optioneel",
     conditional: "Voorwaardelijk",
-    license: "Licentie: MIT (schema) + CC BY 4.0 (inhoud). Vrij te gebruiken, te forken en aan te passen.",
+    license:
+      "Licentie: MIT (schema) + CC BY 4.0 (inhoud). Vrij te gebruiken, te forken en aan te passen.",
     fieldsLabel: "velden",
   },
   fr: {
     title: "Questionnaire fournisseur NIS 2",
-    subtitle: "Un questionnaire ouvert et ancré dans le droit de l'UE pour l'évaluation des fournisseurs au titre de NIS 2",
+    subtitle:
+      "Un questionnaire ouvert et ancré dans le droit de l'UE pour l'évaluation des fournisseurs au titre de NIS 2",
     meta: `Version ${VERSION} - Dernière mise à jour ${LAST_UPDATED} - ${supplierQuestionnaire.fields.length} champs répartis en 6 sections`,
     intro:
       "Chaque champ est ancré à une source primaire de niveau européen : NIS 2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance, GDPR Art. 28 ou le Cyber Resilience Act. Les compléments sectoriels (TISAX, VDA ISA, BSI C5, KRITIS) s'ajoutent à cette base.",
@@ -164,12 +166,14 @@ const STRINGS: Record<Locale, {
     required: "Obligatoire",
     optional: "Facultatif",
     conditional: "Conditionnel",
-    license: "Licence : MIT (schéma) + CC BY 4.0 (contenu). Libre d'utilisation, de fork et d'adaptation.",
+    license:
+      "Licence : MIT (schéma) + CC BY 4.0 (contenu). Libre d'utilisation, de fork et d'adaptation.",
     fieldsLabel: "champs",
   },
   it: {
     title: "Questionario per i fornitori NIS 2",
-    subtitle: "Un questionario aperto e ancorato al diritto dell'UE per la valutazione dei fornitori ai sensi di NIS 2",
+    subtitle:
+      "Un questionario aperto e ancorato al diritto dell'UE per la valutazione dei fornitori ai sensi di NIS 2",
     meta: `Versione ${VERSION} - Ultimo aggiornamento ${LAST_UPDATED} - ${supplierQuestionnaire.fields.length} campi in 6 sezioni`,
     intro:
       "Ogni campo è ancorato a una fonte primaria a livello UE: NIS 2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance, GDPR Art. 28 o il Cyber Resilience Act. Le integrazioni settoriali (TISAX, VDA ISA, BSI C5, KRITIS) si aggiungono a questa base.",
@@ -180,12 +184,14 @@ const STRINGS: Record<Locale, {
     required: "Obbligatorio",
     optional: "Facoltativo",
     conditional: "Condizionale",
-    license: "Licenza: MIT (schema) + CC BY 4.0 (contenuto). Libero di usare, forkare e adattare.",
+    license:
+      "Licenza: MIT (schema) + CC BY 4.0 (contenuto). Libero di usare, forkare e adattare.",
     fieldsLabel: "campi",
   },
   es: {
     title: "Cuestionario para proveedores NIS 2",
-    subtitle: "Un cuestionario abierto y anclado en el derecho de la UE para la evaluación de proveedores conforme a NIS 2",
+    subtitle:
+      "Un cuestionario abierto y anclado en el derecho de la UE para la evaluación de proveedores conforme a NIS 2",
     meta: `Versión ${VERSION} - Última actualización ${LAST_UPDATED} - ${supplierQuestionnaire.fields.length} campos en 6 secciones`,
     intro:
       "Cada campo está anclado a una fuente primaria de nivel europeo: NIS 2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance, GDPR Art. 28 o el Cyber Resilience Act. Los complementos sectoriales (TISAX, VDA ISA, BSI C5, KRITIS) se añaden a esta base.",
@@ -196,12 +202,14 @@ const STRINGS: Record<Locale, {
     required: "Obligatorio",
     optional: "Opcional",
     conditional: "Condicional",
-    license: "Licencia: MIT (esquema) + CC BY 4.0 (contenido). Libre para usar, bifurcar y adaptar.",
+    license:
+      "Licencia: MIT (esquema) + CC BY 4.0 (contenido). Libre para usar, bifurcar y adaptar.",
     fieldsLabel: "campos",
   },
   pl: {
     title: "Kwestionariusz dla dostawców NIS 2",
-    subtitle: "Otwarty, zakotwiczony w prawie UE kwestionariusz do oceny dostawców w ramach NIS 2",
+    subtitle:
+      "Otwarty, zakotwiczony w prawie UE kwestionariusz do oceny dostawców w ramach NIS 2",
     meta: `Wersja ${VERSION} - Ostatnia aktualizacja ${LAST_UPDATED} - ${supplierQuestionnaire.fields.length} pól w 6 sekcjach`,
     intro:
       "Każde pole jest zakotwiczone w pierwotnym źródle na poziomie UE: NIS 2 Art. 21(2), CIR 2024/2690, ENISA Technical Implementation Guidance, GDPR Art. 28 lub Cyber Resilience Act. Uzupełnienia sektorowe (TISAX, VDA ISA, BSI C5, KRITIS) są dodawane do tej podstawy.",
@@ -212,16 +220,23 @@ const STRINGS: Record<Locale, {
     required: "Wymagane",
     optional: "Opcjonalne",
     conditional: "Warunkowe",
-    license: "Licencja: MIT (schemat) + CC BY 4.0 (treść). Można swobodnie używać, forkować i adaptować.",
+    license:
+      "Licencja: MIT (schemat) + CC BY 4.0 (treść). Można swobodnie używać, forkować i adaptować.",
     fieldsLabel: "pól",
   },
 };
 
-function pickLocaleString(value: { en: string } & Record<string, string | undefined>, locale: Locale): string {
+function pickLocaleString(
+  value: { en: string } & Record<string, string | undefined>,
+  locale: Locale,
+): string {
   return pickLocalized(value, locale);
 }
 
-function pickRequiredLabel(field: SupplierField, strings: (typeof STRINGS)[Locale]): string {
+function pickRequiredLabel(
+  field: SupplierField,
+  strings: (typeof STRINGS)[Locale],
+): string {
   if (field.visibleWhen) return strings.conditional;
   return field.required ? strings.required : strings.optional;
 }
@@ -328,6 +343,12 @@ function buildDoc(locale: Locale): Document {
 }
 
 export async function GET(request: Request): Promise<Response> {
+  // Audit F-1 (2026-09-10): unauthenticated document build, same reasoning as
+  // the PDF sibling.
+  if (!rateLimitPublicRoute("questionnaire:docx", getClientIp(request.headers), 10)) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
   const url = new URL(request.url);
   const localeParam = url.searchParams.get("locale");
   const locale: Locale =

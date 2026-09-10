@@ -1,11 +1,20 @@
+import { TRPCError } from "@trpc/server";
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
-import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
+import {
+  invalidateModuleSignOffs,
+  recheckModuleRequirements,
+} from "@/lib/compliance/module-recheck";
+import {
+  createPresignedGet,
+  createPresignedPut,
+  normalizeContentType,
+  sanitizeFilename,
+} from "@/lib/storage";
+import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { trainingRecord } from "@/schema";
 import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
-import { createPresignedPut, createPresignedGet } from "@/lib/storage";
-import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
+import { companyProcedure, router } from "../init";
 
 /**
  * batchCreate writes one training_record row per participant, so its input
@@ -24,7 +33,12 @@ const participantColumns = {
 } as const;
 
 const batchCreateSchema = z.object({
-  training: trainingInsertSchema.omit({ ...participantColumns, id: true, companyId: true, createdAt: true }),
+  training: trainingInsertSchema.omit({
+    ...participantColumns,
+    id: true,
+    companyId: true,
+    createdAt: true,
+  }),
   participants: z.array(trainingInsertSchema.pick(participantColumns)).min(1),
 });
 
@@ -44,7 +58,12 @@ export const trainingRouter = router({
         .insert(trainingRecord)
         .values({ ...input, companyId: ctx.companyId })
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "training_record", ctx.userId).catch((err) => console.error("[background] training_record recheck:", err));
+      invalidateModuleSignOffs(
+        ctx.db,
+        ctx.companyId,
+        "training_record",
+        ctx.userId,
+      ).catch((err) => console.error("[background] training_record recheck:", err));
       return row;
     }),
 
@@ -61,7 +80,12 @@ export const trainingRouter = router({
           })),
         )
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "training_record", ctx.userId).catch((err) => console.error("[background] training_record recheck:", err));
+      invalidateModuleSignOffs(
+        ctx.db,
+        ctx.companyId,
+        "training_record",
+        ctx.userId,
+      ).catch((err) => console.error("[background] training_record recheck:", err));
       return rows;
     }),
 
@@ -72,9 +96,16 @@ export const trainingRouter = router({
       const [row] = await ctx.db
         .update(trainingRecord)
         .set(data)
-        .where(and(eq(trainingRecord.id, id), eq(trainingRecord.companyId, ctx.companyId)))
+        .where(
+          and(eq(trainingRecord.id, id), eq(trainingRecord.companyId, ctx.companyId)),
+        )
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "training_record", ctx.userId).catch((err) => console.error("[background] training_record recheck:", err));
+      invalidateModuleSignOffs(
+        ctx.db,
+        ctx.companyId,
+        "training_record",
+        ctx.userId,
+      ).catch((err) => console.error("[background] training_record recheck:", err));
       return row;
     }),
 
@@ -83,8 +114,18 @@ export const trainingRouter = router({
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .delete(trainingRecord)
-        .where(and(eq(trainingRecord.id, input.id), eq(trainingRecord.companyId, ctx.companyId)));
-      recheckModuleRequirements(ctx.db, ctx.companyId, "training_record", ctx.userId).catch((err) => console.error("[background] training:", err));
+        .where(
+          and(
+            eq(trainingRecord.id, input.id),
+            eq(trainingRecord.companyId, ctx.companyId),
+          ),
+        );
+      recheckModuleRequirements(
+        ctx.db,
+        ctx.companyId,
+        "training_record",
+        ctx.userId,
+      ).catch((err) => console.error("[background] training:", err));
       return { deleted: true };
     }),
 
@@ -101,17 +142,42 @@ export const trainingRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const key = `companies/${ctx.companyId}/training-certs/${crypto.randomUUID()}-${input.fileName}`;
-      const uploadUrl = await createPresignedPut(key, input.contentType, input.fileSize);
-      return { uploadUrl, fileKey: key };
+      // Audit F-4 (2026-09-10): same treatment as evidence.createUploadUrl —
+      // the filename does not get to shape the key, and the caller does not
+      // get to choose a content type a browser will render. `contentType` is
+      // returned because it is signed into the URL and the PUT must echo it.
+      const storedType = normalizeContentType(input.contentType);
+      const key = `companies/${ctx.companyId}/training-certs/${crypto.randomUUID()}-${sanitizeFilename(input.fileName)}`;
+      const uploadUrl = await createPresignedPut(key, storedType, input.fileSize);
+      return { uploadUrl, fileKey: key, contentType: storedType };
     }),
 
+  /**
+   * Presigned GET for a training record's certificate.
+   *
+   * Audit F-6 (2026-09-10): this used to take the object key from the caller
+   * and admit it on a `startsWith("companies/<companyId>/")` prefix test. The
+   * prefix did hold the tenant boundary, but it let a caller name any object
+   * under their company's prefix, including keys no training_record points
+   * at. Every other download path in the codebase resolves the key from a row
+   * it has already checked ownership of; this one now does too.
+   */
   getCertificateDownloadUrl: companyProcedure
-    .input(z.object({ fileKey: z.string() }))
+    .input(z.object({ trainingRecordId: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
-      if (!input.fileKey.startsWith(`companies/${ctx.companyId}/`)) {
-        throw new Error("Access denied");
+      const row = await ctx.db.query.trainingRecord.findFirst({
+        where: and(
+          eq(trainingRecord.id, input.trainingRecordId),
+          eq(trainingRecord.companyId, ctx.companyId),
+        ),
+        columns: { certificateFileKey: true },
+      });
+      if (!row?.certificateFileKey) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "No certificate on this record",
+        });
       }
-      return { downloadUrl: await createPresignedGet(input.fileKey) };
+      return { downloadUrl: await createPresignedGet(row.certificateFileKey) };
     }),
 });

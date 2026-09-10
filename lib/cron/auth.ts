@@ -29,8 +29,15 @@ export function verifyCronBearer(req: Request): boolean {
   const header = req.headers.get("authorization");
   if (!header?.startsWith("Bearer ")) return false;
 
-  const provided = header.slice("Bearer ".length);
-  if (provided.length !== secret.length) return false;
+  // Audit F-8 (2026-09-10): compare BYTE length, not JS string length. A
+  // token of equal character length but different UTF-8 byte length (any
+  // multi-byte character) passed the old string-length guard and then made
+  // timingSafeEqual throw RangeError, so the route answered 500 instead of
+  // 401 — a signal about the secret's byte length, and error-log noise on
+  // every scan.
+  const provided = Buffer.from(header.slice("Bearer ".length), "utf8");
+  const expected = Buffer.from(secret, "utf8");
+  if (provided.length !== expected.length) return false;
 
-  return timingSafeEqual(Buffer.from(provided), Buffer.from(secret));
+  return timingSafeEqual(provided, expected);
 }

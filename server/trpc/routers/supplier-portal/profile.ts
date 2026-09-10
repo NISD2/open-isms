@@ -16,20 +16,17 @@
  * logoStorageKey is set via the dedicated `setLogo` mutation which validates
  * the S3 key prefix.
  */
-import { eq } from "drizzle-orm";
+
 import { TRPCError } from "@trpc/server";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { router, companyProcedure } from "../../init";
-import { updateRow } from "../../typed";
+import { sanitizeFilename } from "@/lib/storage/object-key";
+import { createPresignedPut } from "@/lib/storage/presign";
 import { company } from "@/schema";
 import { securityProfileUpdateSchema } from "@/schema/validators";
+import { companyProcedure, router } from "../../init";
+import { updateRow } from "../../typed";
 import { normalizeDomain } from "./helpers";
-import { createPresignedPut } from "@/lib/storage/presign";
-
-/** Strip any path-traversal characters from a filename before using it in an S3 key. */
-function sanitizeFilename(name: string): string {
-  return name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 200);
-}
 
 /**
  * Shape of the supplier-portal subset of the company row, projected by `get`.
@@ -109,9 +106,7 @@ export const supplierProfileRouter = router({
     .input(securityProfileUpdateSchema)
     .mutation(async ({ ctx, input }) => {
       const normalizedDomain =
-        input.primaryDomain != null
-          ? normalizeDomain(input.primaryDomain)
-          : undefined;
+        input.primaryDomain != null ? normalizeDomain(input.primaryDomain) : undefined;
 
       const [row] = await ctx.db
         .update(company)
@@ -135,12 +130,24 @@ export const supplierProfileRouter = router({
     .input(
       z.object({
         fileName: z.string().min(1).max(500),
+        // Raster only. SVG is a document: it carries <script>, and the store
+        // serves it back with whatever type it was uploaded under, on an
+        // origin the self-host Caddyfile makes a sibling of the app domain.
+        // Audit F-4 pinned the content type on the other three upload paths
+        // and this one was missed, because its regex looked like a guard
+        // while admitting the one executable format in the list. Nothing
+        // renders logoStorageKey today, so this closed a latent hole rather
+        // than a live one.
         contentType: z
           .string()
           .min(1)
           .max(100)
-          .regex(/^image\/(png|jpeg|jpg|webp|svg\+xml)$/),
-        fileSize: z.number().int().positive().max(5 * 1024 * 1024),
+          .regex(/^image\/(png|jpeg|jpg|webp)$/),
+        fileSize: z
+          .number()
+          .int()
+          .positive()
+          .max(5 * 1024 * 1024),
       }),
     )
     .mutation(async ({ ctx, input }) => {

@@ -6,19 +6,17 @@
  * in the company_certification table for indexing. Used by the supplier portal
  * today; reusable by the entity portal in the future.
  */
-import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
+
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../../init";
-import { insertRow } from "../../typed";
+import { and, desc, eq } from "drizzle-orm";
+import { z } from "zod";
+import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
+import { sanitizeFilename } from "@/lib/storage/object-key";
+import { createPresignedPut } from "@/lib/storage/presign";
 import { companyCertification } from "@/schema";
 import { companyCertificationCreateSchema } from "@/schema/validators";
-import { createPresignedPut } from "@/lib/storage/presign";
-
-/** Strip path-traversal characters from a filename before using it in an S3 key. */
-function sanitizeFilename(name: string): string {
-  return name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 200);
-}
+import { companyProcedure, router } from "../../init";
+import { insertRow } from "../../typed";
 
 export const companyCertificationRouter = router({
   /** List all certifications I own. */
@@ -89,7 +87,7 @@ export const companyCertificationRouter = router({
           .min(1)
           .max(100)
           .regex(/^application\/pdf$/, "PDF only"),
-        fileSize: z.number().int().positive().max(50 * 1024 * 1024),
+        fileSize: z.number().int().positive().max(MAX_UPLOAD_BYTES),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -98,5 +96,4 @@ export const companyCertificationRouter = router({
       const url = await createPresignedPut(key, input.contentType, input.fileSize);
       return { url, key };
     }),
-
 });
