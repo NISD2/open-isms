@@ -11,11 +11,51 @@ curl -s http://localhost:3026/api/health # does it reach the database
 | Symptom | Cause |
 |---|---|
 | `Bind for 0.0.0.0:3026 failed: port is already allocated` | Another program on the machine holds that port. Change `APP_PORT`, `POSTGRES_PORT` or `MINIO_PORT` in `.env` and start again. If you change `MINIO_PORT`, move `AWS_S3_ENDPOINT` to the same port: presigned upload URLs are signed for that exact address. The installer picks free ports by itself. |
+| `password authentication failed`, Postgres code `28P01` | The database was created with a different `POSTGRES_PASSWORD` than the one it is being given now. See [Reinstalling](#reinstalling-and-28p01) below, which is where this nearly always comes from. |
 | `Environment validation failed: AUTH_SECRET` | Under 32 characters, or unset. |
 | Container restarts, logs stop after `[migrate] connected to database` | A migration failed. Read the lines above the exit. The container refuses to serve on a half-applied schema, and your data is intact. Pin the previous version to get back up: [Updating](/docs/self-hosting/updating). |
 | Migration waits, then gives up | Another container is migrating the same database, or a long-running query holds a lock. The migrator takes a Postgres advisory lock and waits `MIGRATE_LOCK_WAIT`, 300s by default. |
 | `no matching manifest for linux/...` | The architecture is neither x86-64 nor ARM64. Those are the two published. |
 | Build killed at exit code 137 | Only reachable when building from source. Docker has under 4 GB. A normal install pulls the image and compiles nothing. |
+
+## Reinstalling, and 28P01
+
+Reinstalling does not start over, and this catches almost everyone who tries it.
+
+The database does not live in the install directory. It lives in a Docker volume named after the compose project, which is named after the directory. `docker compose down` keeps that volume by design, and so does deleting the directory: creating a directory with the same name again re-attaches the same volume. Postgres, for its part, sets the password exactly once, when `initdb` first creates the data directory, and never looks at `POSTGRES_PASSWORD` again.
+
+So a second install writes a new random password into a new `.env`, hands it to a database that has never seen it, and the app crash-loops with:
+
+```
+error: password authentication failed for user "openisms"
+  code: '28P01'
+```
+
+Nothing is wrong with the release. Pick whichever of these is true for you.
+
+**The instance is empty and you want a genuinely clean start.** Deleting the volume is what "start over" actually requires. It cannot be undone:
+
+```bash
+docker compose down -v
+docker compose up -d
+```
+
+Your `.env` is untouched, so the new database is created with the password already in it.
+
+**The instance holds data and you have lost the old `.env`.** Keep the data and change the database's password to the new one. No old password is needed, because Postgres trusts connections made from inside its own container:
+
+```bash
+grep '^POSTGRES_PASSWORD=' .env | cut -d= -f2- \
+  | awk '{printf "ALTER USER openisms WITH PASSWORD %c%s%c;\n", 39, $0, 39}' \
+  | docker compose exec -T postgres psql -U openisms -d openisms -q
+docker compose restart app
+```
+
+The password is piped rather than typed so it stays out of your shell history. If you changed `POSTGRES_USER` or `POSTGRES_DB`, use those names instead.
+
+**The instance holds data and you still have the old `.env`.** Put it back next to `compose.yaml`. That is the only thing that opens that database as it stands, and it is the cheapest of the three.
+
+One thing that will not help you here: `docker compose ps` reports Postgres as **healthy** throughout. The health check is `pg_isready`, which asks whether the server accepts connections, not whether your credentials work. It answers yes for a user that does not exist.
 
 ## Login
 

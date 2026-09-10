@@ -93,7 +93,70 @@ if (!url) {
 }
 
 const client = new Client({ connectionString: url });
-await client.connect();
+
+// Postgres refusing the password is the single most common self-host failure
+// after a reinstall, and until this block existed it surfaced as an unhandled
+// rejection: forty lines of pg-protocol stack ending in `code: '28P01'`, which
+// reads as a bug in the software rather than as leftover state on the disk.
+//
+// The cause is always the same. Docker keeps the database in a named volume
+// that survives `docker compose down` and survives deleting the install
+// directory, because compose derives the project name from the directory name
+// and a new directory of the same name re-attaches the same volume. Postgres
+// sets the password once, when initdb first creates that data directory, and
+// never revisits it. So a second install that generates a new
+// POSTGRES_PASSWORD hands us a password the database has never seen.
+try {
+  await client.connect();
+} catch (err) {
+  if (err.code !== "28P01") throw err;
+
+  // Named in the message so the copy-paste commands below are already correct
+  // for this instance rather than for the defaults.
+  const { user, database } = (() => {
+    try {
+      const parsed = new URL(url);
+      return {
+        user: decodeURIComponent(parsed.username) || "openisms",
+        database: decodeURIComponent(parsed.pathname.slice(1)) || "openisms",
+      };
+    } catch {
+      return { user: "openisms", database: "openisms" };
+    }
+  })();
+
+  console.error(`
+[migrate] The database refused our password for ${user} (Postgres 28P01).
+
+  Nothing is wrong with this release. The database on disk was created with a
+  different password than the one this container was just given, which happens
+  when POSTGRES_PASSWORD changes while the data directory stays. Deleting the
+  install directory does not delete the data directory: it lives in a Docker
+  volume, and a reinstall picks the same one back up.
+
+  If there is nothing in this instance worth keeping, throw the database away
+  and let it be created again with the password you have now:
+
+      docker compose down -v
+      docker compose up -d
+
+  The -v is the part that matters, and it is irreversible. Your .env is left
+  alone.
+
+  If the instance holds data, keep it and tell the database the new password
+  instead. This needs no old password, because Postgres trusts connections
+  made from inside its own container:
+
+      grep '^POSTGRES_PASSWORD=' .env | cut -d= -f2- \\
+        | awk '{printf "ALTER USER ${user} WITH PASSWORD %c%s%c;\\n", 39, $0, 39}' \\
+        | docker compose exec -T postgres psql -U ${user} -d ${database} -q
+      docker compose restart app
+
+  Full walkthrough: https://www.nisd2.eu/docs/self-hosting/troubleshooting
+`);
+  process.exit(1);
+}
+
 console.log("[migrate] connected to database");
 
 try {
