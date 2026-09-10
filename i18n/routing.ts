@@ -284,8 +284,7 @@ export const routing = defineRouting({
     // Training (logged in)
     "/training/courses": "/training/courses",
     "/training/courses/[courseId]": "/training/courses/[courseId]",
-    "/training/courses/[courseId]/[lessonId]":
-      "/training/courses/[courseId]/[lessonId]",
+    "/training/courses/[courseId]/[lessonId]": "/training/courses/[courseId]/[lessonId]",
 
     // Admin
     "/platform-admin": "/platform-admin",

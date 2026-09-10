@@ -1,11 +1,11 @@
+import { and, eq, isNull } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { eq, isNull, and } from "drizzle-orm";
+import { OtpRateLimitedError, requestOtp } from "@/lib/auth/otp";
 import { db } from "@/lib/db";
-import { user } from "@/schema";
-import { sendAuthCode } from "@/lib/mail";
-import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
 import { isLocaleCode } from "@/lib/locale";
+import { sendAuthCode } from "@/lib/mail";
 import type { Locale } from "@/lib/seo";
+import { user } from "@/schema";
 
 /**
  * Resend the email-verification OTP for a pending-verify account.

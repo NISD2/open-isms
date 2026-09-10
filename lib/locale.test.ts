@@ -6,8 +6,8 @@
  * user.locale, where resolveEmailLocale would quietly turn it into English.
  */
 import { describe, expect, test } from "bun:test";
-import { isLocaleCode, LOCALES, LOCALE_COOKIE } from "./locale";
 import { routing } from "@/i18n/routing";
+import { isLocaleCode, LOCALE_COOKIE, LOCALES } from "./locale";
 
 describe("isLocaleCode", () => {
   test("accepts every locale the switcher offers", () => {

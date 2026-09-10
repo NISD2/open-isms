@@ -1,28 +1,23 @@
 import "@/lib/server-guard";
-import { cache } from "react";
-import { cookies } from "next/headers";
-import NextAuth, { CredentialsSignin } from "next-auth";
-import Google from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { user, company } from "@/schema";
+import { cookies } from "next/headers";
 import type { Session } from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import type { Provider } from "next-auth/providers";
-
-import { env } from "@/lib/env";
-import {
-  sendMail,
-  sendWelcomeEmail,
-  newUserSignupEmail,
-} from "@/lib/mail";
-import { getAppUrl } from "@/lib/utils";
+import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
+import { cache } from "react";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
-import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
-import { LOCALE_COOKIE, isLocaleCode, type LocaleCode } from "@/lib/locale";
+import { db } from "@/lib/db";
+import { env } from "@/lib/env";
+import { isLocaleCode, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
+import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { resolveHints } from "@/lib/onboarding/hints";
+import { getAppUrl } from "@/lib/utils";
+import { company, user } from "@/schema";
+import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
 // Dummy hash for timing-safe comparison when user doesn't exist
 const DUMMY_HASH = "$2a$12$000000000000000000000uGBYRMjo5lsWIKE/k.HdGZfR5YmKKKu";
@@ -144,10 +139,7 @@ const providers: Provider[] = [
 // in a production environment is a full auth bypass, so the env-var alone is
 // not sufficient — the production check is the belt and the env-var is the
 // suspenders.
-if (
-  process.env.NODE_ENV !== "production" &&
-  process.env.ENABLE_DEV_AUTH === "true"
-) {
+if (process.env.NODE_ENV !== "production" && process.env.ENABLE_DEV_AUTH === "true") {
   providers.push(
     Credentials({
       id: "dev",
@@ -162,7 +154,7 @@ if (
         if (!dbUser) return null;
         return { id: dbUser.id, email: dbUser.email, name: dbUser.name };
       },
-    })
+    }),
   );
 }
 
@@ -270,11 +262,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               ? sendMail({
                   emailType: "internal.new_signup_alert",
                   to: admins,
-                  ...newUserSignupEmail({ userEmail: authUser.email, userName: newName, provider: account.provider }),
-                }).catch((err) => console.error("[auth] Failed to send admin signup alert:", err))
+                  ...newUserSignupEmail({
+                    userEmail: authUser.email,
+                    userName: newName,
+                    provider: account.provider,
+                  }),
+                }).catch((err) =>
+                  console.error("[auth] Failed to send admin signup alert:", err),
+                )
               : Promise.resolve(),
-            sendWelcomeEmail({ name: newName, email: authUser.email })
-              .catch((err) => console.error("[auth] Failed to send welcome email:", err)),
+            sendWelcomeEmail({ name: newName, email: authUser.email }).catch((err) =>
+              console.error("[auth] Failed to send welcome email:", err),
+            ),
           ]);
         }
 

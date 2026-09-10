@@ -9,9 +9,9 @@
  * never names a user.
  */
 import { describe, expect, test } from "bun:test";
+import type { TRPCContext } from "../init";
 import { createCallerFactory } from "../init";
 import { userRouter } from "./user";
-import type { TRPCContext } from "../init";
 
 type Recorded = { set: Record<string, unknown>; where: unknown };
 

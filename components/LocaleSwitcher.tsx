@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, usePathname } from "@/i18n/navigation";
+import { Globe } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Globe } from "lucide-react";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { LOCALES, type LocaleCode } from "@/lib/locale";
 import { trpc } from "@/lib/trpc/client";
 
@@ -37,10 +37,9 @@ export function LocaleSwitcher() {
     // are filled from `params` so they survive the locale switch. Passing the
     // bare template without params leaves the `[..]` placeholders literal and
     // breaks every dynamic route.
-    router.replace(
-      { pathname, params } as Parameters<typeof router.replace>[0],
-      { locale: next },
-    );
+    router.replace({ pathname, params } as Parameters<typeof router.replace>[0], {
+      locale: next,
+    });
   }
 
   return (

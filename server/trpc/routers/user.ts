@@ -1,11 +1,11 @@
+import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { TRPCError } from "@trpc/server";
-import { router, protectedProcedure, publicProcedure } from "../init";
+import { isLocaleCode } from "@/lib/locale";
+import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
 import { user } from "@/schema";
 import { userUpdateSchema } from "@/schema/validators";
-import { HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
-import { isLocaleCode } from "@/lib/locale";
+import { protectedProcedure, publicProcedure, router } from "../init";
 
 export const userRouter = router({
   /**

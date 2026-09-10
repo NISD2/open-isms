@@ -1,13 +1,13 @@
-import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { user } from "@/schema";
-import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
-import { sendAuthCode } from "@/lib/mail";
+import { NextResponse } from "next/server";
 import { isDisposableEmail } from "@/lib/auth/disposable";
+import { OtpRateLimitedError, requestOtp } from "@/lib/auth/otp";
 import { getClientIp } from "@/lib/client-ip";
+import { db } from "@/lib/db";
 import { isLocaleCode } from "@/lib/locale";
+import { sendAuthCode } from "@/lib/mail";
 import type { Locale } from "@/lib/seo";
+import { user } from "@/schema";
 
 // In-memory IP rate limit. Matches the pattern used by /api/auth/register.
 // Per-email rate limiting lives in requestOtp itself.
