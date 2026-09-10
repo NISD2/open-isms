@@ -454,6 +454,13 @@
       "url": "https://www.dsn.gob.es",
       "description": "Spanish National Security Department under the Presidency: official record of the NIS 2 transposition bill.",
       "language": "en"
+    },
+    {
+      "id": "juridice-ro",
+      "name": "JURIDICE.ro",
+      "url": "https://www.juridice.ro",
+      "description": "Romanian legal publisher: reproduces Monitorul Oficial texts including DNSC orders under the NIS 2 transposition.",
+      "language": "en"
     }
   ],
   "events": [
@@ -2710,7 +2717,35 @@
       "sourceId": "dsn-es",
       "sourceUrl": "https://www.dsn.gob.es/en/node/24160",
       "addedAt": "2026-09-07T14:54:27Z"
+    },
+    {
+      "id": "2026-08-27-national-transposition-ro-dnsc-order-1-2026",
+      "date": "2026-08-27",
+      "category": "national-transposition",
+      "tags": ["ro", "legislation", "transposition", "in-force"],
+      "type": "update",
+      "title": "Romania: DNSC Order 1/2026 sets the binding risk management measures and a maturity self-assessment methodology",
+      "titleDe": "Rumänien: DNSC-Anordnung 1/2026 legt verbindliche Risikomanagementmaßnahmen und eine Methodik zur Reifegradselbsteinschätzung fest",
+      "summary": "Order 1/2026 of the director of the DNSC was published in Monitorul Oficial Part I nos. 712 and 712bis of 27 August 2026 and binds essential and important entities under OUG 155/2024. It approves a catalogue of cybersecurity risk management measures organised across governance, identification, protection, detection, response and recovery, plus the methodology for self-assessing how mature those measures are, and it amends the entity risk level methodology set by DNSC Order 2/2025. The DNSC published the matching self-assessment instruments for the basic, important and essential assurance levels at the start of September 2026; entities whose overall risk score has been validated file the self-assessment through the NIS2@RO platform within the period set by OUG 155/2024.",
+      "summaryDe": "Die Anordnung 1/2026 des DNSC-Direktors wurde am 27. August 2026 im Monitorul Oficial Teil I Nr. 712 und 712bis veröffentlicht und bindet wesentliche und wichtige Einrichtungen nach OUG 155/2024. Sie genehmigt einen Katalog von Maßnahmen zum Cybersicherheitsrisikomanagement, gegliedert nach Governance, Identifizierung, Schutz, Erkennung, Reaktion und Wiederherstellung, dazu die Methodik zur Selbsteinschätzung des Reifegrads dieser Maßnahmen, und ändert die mit DNSC-Anordnung 2/2025 festgelegte Methodik zur Bestimmung des Risikoniveaus. Anfang September 2026 hat das DNSC die passenden Selbsteinschätzungswerkzeuge für die Sicherheitsstufen Basis, Wichtig und Wesentlich veröffentlicht; Einrichtungen mit validiertem Gesamtrisikowert reichen die Selbsteinschätzung über die Plattform NIS2@RO innerhalb der in OUG 155/2024 gesetzten Frist ein.",
+      "sourceId": "juridice-ro",
+      "sourceUrl": "https://www.juridice.ro/847293/masuri-si-metodologie-pentru-gestionarea-riscurilor-de-securitate-cibernetica.html",
+      "addedAt": "2026-09-10T12:09:08Z"
+    },
+    {
+      "id": "2026-08-31-national-transposition-hu-sztfh-review",
+      "date": "2026-08-31",
+      "category": "national-transposition",
+      "tags": ["hu", "organisational"],
+      "type": "update",
+      "title": "Hungary: government orders a review of SZTFH, the NIS 2 supervisory authority, including the option of winding it up",
+      "titleDe": "Ungarn: Regierung ordnet eine Überprüfung der NIS-2-Aufsichtsbehörde SZTFH an, einschließlich der Option einer Auflösung",
+      "summary": "Government Resolution 1277/2026 (VIII. 31.), published in Magyar Közlöny no. 121 of 31 August 2026, is titled on the review of the Regulated Activities Supervisory Authority and the options for winding it up. It instructs the Minister of Justice to report to the government by 30 September 2026 on how the SZTFH could be dissolved and its tasks transferred to bodies under government direction. The SZTFH supervises cybersecurity under the Hungarian NIS 2 transposition and ran the first mandatory audit cycle that closed on 30 June 2026; it replied on 1 September 2026 that it remains an independent authority accountable to Parliament and will cooperate with the review.",
+      "summaryDe": "Der Regierungsbeschluss 1277/2026 (VIII. 31.), veröffentlicht im Magyar Közlöny Nr. 121 vom 31. August 2026, trägt den Titel über die Durchleuchtung der Aufsichtsbehörde für regulierte Tätigkeiten und die Möglichkeiten ihrer Auflösung. Er beauftragt den Justizminister, der Regierung bis zum 30. September 2026 zu berichten, wie die SZTFH aufgelöst und ihre Aufgaben auf regierungsgeleitete Stellen übertragen werden könnten. Die SZTFH führt nach der ungarischen NIS-2-Umsetzung die Cybersicherheitsaufsicht und hat den ersten verpflichtenden Auditzyklus zum 30. Juni 2026 abgeschlossen; sie erklärte am 1. September 2026, sie bleibe eine unabhängige, dem Parlament verantwortliche Behörde und werde an der Überprüfung mitwirken.",
+      "sourceId": "njt-hu",
+      "sourceUrl": "https://njt.jog.gov.hu/jogszabaly/2026-1277-30-22",
+      "addedAt": "2026-09-10T12:09:08Z"
     }
   ],
-  "lastUpdated": "2026-09-07T14:54:27Z"
+  "lastUpdated": "2026-09-10T12:09:08Z"
 }
