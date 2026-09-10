@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "@/i18n/navigation";
-import { pageAlternates, pageOg, type Locale } from "@/lib/seo";
-import { pickLocalized } from "@/lib/locale";
-import { routing } from "@/i18n/routing";
+import { GlossedProse } from "@/components/wiki/GlossedProse";
 import { WikiPageJsonLd } from "@/components/wiki/WikiPageJsonLd";
 import { WikiPageMeta } from "@/components/wiki/WikiPageMeta";
-import { GlossedProse } from "@/components/wiki/GlossedProse";
+import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
+import { isLocaleCode, pickLocalized } from "@/lib/locale";
 import {
   getRegistrationPortals,
   getTranspositionStatus,
   type RegistrationPortal,
   type TranspositionStatus,
 } from "@/lib/registration-portals";
+import { type Locale, pageAlternates, pageOg } from "@/lib/seo";
 
 /**
  * A locale-keyed string bundle. de/en are always authored; fr/it/es/pl are
@@ -41,9 +41,7 @@ function resolveLocale(rawLocale: string): Locale {
   // The tracker bundles carry de/en/fr/it/es/pl; nl has no strings here and
   // rendered German before the new locales existed, so keep that behaviour.
   if (rawLocale === "nl") return "de";
-  return (routing.locales as readonly string[]).includes(rawLocale)
-    ? (rawLocale as Locale)
-    : "de";
+  return isLocaleCode(rawLocale) ? rawLocale : "de";
 }
 
 export async function generateMetadata({
@@ -84,10 +82,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: pageAlternates(
-      "wiki/zeit-und-status/nis2-tracker-eu",
-      locale,
-    ),
+    alternates: pageAlternates("wiki/zeit-und-status/nis2-tracker-eu", locale),
     ...pageOg({
       slug: "wiki/zeit-und-status/nis2-tracker-eu",
       locale,
@@ -134,7 +129,7 @@ const STATUS_LABELS: Record<TranspositionStatus, Localized> = {
     pt: "Projeto de lei pendente",
     ro: "Proiect de lege în curs",
   },
-  "drafting": {
+  drafting: {
     de: "Im Entwurf",
     en: "Drafting",
     fr: "En préparation",
@@ -145,7 +140,7 @@ const STATUS_LABELS: Record<TranspositionStatus, Localized> = {
     pt: "Em elaboração",
     ro: "În pregătire",
   },
-  "unknown": {
+  unknown: {
     de: "Unbekannt",
     en: "Unknown",
     fr: "Inconnu",
@@ -204,9 +199,7 @@ export default async function Nis2TrackerEuPage({
     inForce: rows.filter((r) => r.transpositionStatus === "in-force").length,
     pending: rows.filter((r) => r.transpositionStatus === "bill-pending").length,
     drafting: rows.filter(
-      (r) =>
-        r.transpositionStatus === "drafting" ||
-        r.transpositionStatus === "unknown",
+      (r) => r.transpositionStatus === "drafting" || r.transpositionStatus === "unknown",
     ).length,
   };
 
@@ -291,11 +284,7 @@ export default async function Nis2TrackerEuPage({
 
         <WikiPageMeta
           authorSlug="simon-orzel"
-          locale={
-            locale === "de" || locale === "en" || locale === "nl"
-              ? locale
-              : "en"
-          }
+          locale={locale === "de" || locale === "en" || locale === "nl" ? locale : "en"}
           lastReviewedAt="2026-06-01"
           sourceLocale="en"
         />
@@ -512,10 +501,7 @@ export default async function Nis2TrackerEuPage({
               {rows.map((r) => {
                 const act = r.nationalLaw ?? "-";
                 const note = trackerNote(r, locale);
-                const statusLabel = pick(
-                  STATUS_LABELS[r.transpositionStatus],
-                  locale,
-                );
+                const statusLabel = pick(STATUS_LABELS[r.transpositionStatus], locale);
                 return (
                   <tr key={r.countryCode} className="border-t">
                     <td className="px-4 py-3 align-top">
@@ -525,9 +511,7 @@ export default async function Nis2TrackerEuPage({
                         </span>
                         {r.wikiSlug ? (
                           <Link
-                            href={
-                              `/wiki/zeit-und-status/${r.wikiSlug}` as never
-                            }
+                            href={`/wiki/zeit-und-status/${r.wikiSlug}` as never}
                             className="font-medium hover:underline"
                           >
                             {r.name}
@@ -601,9 +585,7 @@ export default async function Nis2TrackerEuPage({
                       </span>
                       <span className="text-sm font-medium">{r.name}</span>
                     </div>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {r.authority}
-                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">{r.authority}</p>
                   </Link>
                 ))}
             </div>

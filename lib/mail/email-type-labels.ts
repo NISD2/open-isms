@@ -8,10 +8,17 @@
  * de / en / nl only, matching the languages our email copy exists in.
  */
 import type { EmailCategory, UserConsentEmailTypeId } from "./email-types";
+import { EMAIL_LOCALES, type EmailLocale } from "./locale";
 
-export type PreferenceLocale = "de" | "en" | "nl";
+/**
+ * Alias of EmailLocale. The preference centre and the mail templates answer the
+ * same question — which of the three languages our email copy exists in — and
+ * used to declare the union twice, so a fourth language would have had to be
+ * added in two places to take effect in both.
+ */
+export type PreferenceLocale = EmailLocale;
 
-export const PREFERENCE_LOCALES: readonly PreferenceLocale[] = ["de", "en", "nl"];
+export const PREFERENCE_LOCALES: readonly PreferenceLocale[] = EMAIL_LOCALES;
 
 export function parsePreferenceLocale(raw: string | null | undefined): PreferenceLocale {
   return raw === "en" || raw === "nl" ? raw : "de";

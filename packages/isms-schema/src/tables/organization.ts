@@ -350,11 +350,17 @@ export const user = pgTable(
      */
     lastLoginAt: timestamp("last_login_at"),
     /**
-     * UI locale snapshot taken at registration (one of the app's locale codes,
-     * lib/locale.ts). Exists so emails sent OUTSIDE a request context (lifecycle
-     * crons) can pick a language; in-request emails keep using the request
-     * locale. NULL for OAuth signups and accounts predating the column; readers
-     * fall back to company.country, then "de" (lib/mail/locale.ts).
+     * Which language this account reads the platform in (one of the app's
+     * locale codes, lib/locale.ts). Exists so email sent OUTSIDE a request
+     * context (lifecycle crons, digests) can pick a language; in-request email
+     * keeps using the request locale.
+     *
+     * Written at registration, re-written every time the language switcher is
+     * used (user.setLocale), and seeded on OAuth signup from the NEXT_LOCALE
+     * cookie. NULL only for accounts predating the column — there is no
+     * backfill, because for those rows no record of the choice exists. Readers
+     * go through resolveEmailLocale, which falls back to company.country and
+     * then "de" (lib/mail/locale.ts).
      */
     locale: varchar("locale", { length: 10 }),
     /**

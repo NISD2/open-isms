@@ -1,9 +1,16 @@
 import { routing } from "@/i18n/routing";
+import { isLocaleCode, type LocaleCode } from "@/lib/locale";
 import { ogCard } from "./og-card";
 
 export const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.nisd2.eu";
 
-export type Locale = (typeof routing.locales)[number];
+/**
+ * Alias, not a second union. ~160 files import `Locale` from here, so the name
+ * stays; what it points at is `LocaleCode` in lib/locale.ts, which is also what
+ * `routing.locales` is built from. One set of codes, one type, two names for
+ * historical reasons.
+ */
+export type Locale = LocaleCode;
 
 /**
  * Resolves a canonical pathname (the key in routing.pathnames) to its
@@ -24,19 +31,12 @@ function localizedSlug(canonicalPath: string, locale: Locale): string {
  * honouring routing.pathnames. Used by sitemap, hreflang alternates,
  * and JSON-LD URL fields. Single source of truth for locale-aware URLs.
  */
-export function localizedAbsoluteUrl(
-  canonicalPath: string,
-  locale: Locale,
-): string {
+export function localizedAbsoluteUrl(canonicalPath: string, locale: Locale): string {
   const slug = localizedSlug(canonicalPath, locale);
   if (locale === routing.defaultLocale) {
     return slug === "/" ? baseUrl : `${baseUrl}${slug}`;
   }
   return slug === "/" ? `${baseUrl}/${locale}` : `${baseUrl}/${locale}${slug}`;
-}
-
-function isLocale(value: string): value is Locale {
-  return (routing.locales as readonly string[]).includes(value);
 }
 
 /**
@@ -116,7 +116,7 @@ export function pageAlternates(
   locales: readonly Locale[] = routing.locales,
 ) {
   const canonical = slug ? `/${slug}` : "/";
-  const safeLocale: Locale = isLocale(locale) ? locale : routing.defaultLocale;
+  const safeLocale: Locale = isLocaleCode(locale) ? locale : routing.defaultLocale;
 
   // A locale outside `locales` still resolves -- the route exists in all ten
   // and i18n/request.ts fills the namespace from English -- so what it serves
@@ -152,7 +152,7 @@ export function pageAlternates(
 /** Absolute URL for a page in a given locale. */
 export function pageUrl(slug: string, locale: string): string {
   const canonical = slug ? `/${slug}` : "/";
-  const safeLocale: Locale = isLocale(locale) ? locale : routing.defaultLocale;
+  const safeLocale: Locale = isLocaleCode(locale) ? locale : routing.defaultLocale;
   return localizedAbsoluteUrl(canonical, safeLocale);
 }
 
@@ -184,17 +184,14 @@ export function pageOg(args: {
   locale: string;
   title: string;
   description: string;
-  type?:
-    | "website"
-    | "article"
-    | "profile"
-    | "product.group"
-    | "book";
+  type?: "website" | "article" | "profile" | "product.group" | "book";
   image?: string;
   imageAlt?: string;
   twitterHandle?: string;
 }) {
-  const safeLocale: Locale = isLocale(args.locale) ? args.locale : routing.defaultLocale;
+  const safeLocale: Locale = isLocaleCode(args.locale)
+    ? args.locale
+    : routing.defaultLocale;
   const url = pageUrl(args.slug, safeLocale);
   const alternates: string[] = routing.locales
     .filter((l) => l !== safeLocale)
@@ -391,10 +388,7 @@ export function breadcrumbJsonLd(
 // Person byline (Simon / Cory) and the schema.org subtype variants
 // the docs categories need.
 
-import {
-  authorPersonSchema,
-  type DocsAuthor,
-} from "@/lib/content/authors";
+import { authorPersonSchema, type DocsAuthor } from "@/lib/content/authors";
 import type { DocsCategory } from "@/lib/content/content-types";
 
 const LOCALE_BCP47: Record<Locale, string> = {
@@ -552,7 +546,9 @@ export function buildTechArticleJsonLd(input: TechArticleInput): Record<string, 
   if (input.alternativeHeadline) node.alternativeHeadline = input.alternativeHeadline;
   if (input.abstract) node.abstract = input.abstract;
   if (input.image) {
-    const imageUrl = input.image.startsWith("http") ? input.image : `${baseUrl}${input.image}`;
+    const imageUrl = input.image.startsWith("http")
+      ? input.image
+      : `${baseUrl}${input.image}`;
     node.image = {
       "@type": "ImageObject",
       url: imageUrl,
@@ -642,10 +638,7 @@ export function buildSiteGraphJsonLd(_locale: Locale): Record<string, unknown> {
         ],
         knowsLanguage: [...routing.locales],
         areaServed: { "@type": "Place" as const, name: "European Union" },
-        sameAs: [
-          "https://www.linkedin.com/company/nisd2",
-          "https://github.com/NISD2",
-        ],
+        sameAs: ["https://www.linkedin.com/company/nisd2", "https://github.com/NISD2"],
         publishingPrinciples: `${baseUrl}/redaktion`,
         ethicsPolicy: `${baseUrl}/ethik`,
         correctionsPolicy: `${baseUrl}/corrections`,
