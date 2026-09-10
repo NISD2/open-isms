@@ -1,5 +1,6 @@
 import { defineRouting } from "next-intl/routing";
 import { wikiPathnames } from "@/lib/content/wiki-toc";
+import { LOCALE_CODES, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
 
 /**
  * Routing config — locales + localized pathnames.
@@ -17,8 +18,8 @@ import { wikiPathnames } from "@/lib/content/wiki-toc";
  * /supplier-invite/[token]) are intentionally NOT registered —
  * auto-generated, single-use, never indexed.
  */
-const locales = ["de", "en", "nl", "fr", "it", "es", "pl", "cs", "pt", "ro"] as const;
-type Loc = (typeof locales)[number];
+const locales = LOCALE_CODES;
+type Loc = LocaleCode;
 
 /**
  * Localized pathnames are authored for de/en/nl. New locales (fr/it/es/pl)
@@ -48,6 +49,9 @@ export const routing = defineRouting({
   defaultLocale: "de",
   localePrefix: "as-needed",
   localeCookie: {
+    // Same string next-intl would have defaulted to, stated explicitly because
+    // lib/auth/config.ts reads this cookie to seed user.locale on OAuth signup.
+    name: LOCALE_COOKIE,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
   },
@@ -280,8 +284,7 @@ export const routing = defineRouting({
     // Training (logged in)
     "/training/courses": "/training/courses",
     "/training/courses/[courseId]": "/training/courses/[courseId]",
-    "/training/courses/[courseId]/[lessonId]":
-      "/training/courses/[courseId]/[lessonId]",
+    "/training/courses/[courseId]/[lessonId]": "/training/courses/[courseId]/[lessonId]",
 
     // Admin
     "/platform-admin": "/platform-admin",

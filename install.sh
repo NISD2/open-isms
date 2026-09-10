@@ -12,7 +12,8 @@
 # doing, every failure says what to do about it, and nothing is destructive: a
 # second run reuses the .env it already wrote rather than generating new
 # secrets, because regenerating POSTGRES_PASSWORD would lock the database out
-# of its own data.
+# of its own data. If the .env is gone but the database is not, it stops and
+# says so rather than writing a password the database will refuse.
 #
 # Options (all optional):
 #   --dir <path>    where to install            (default: ./open-isms)
@@ -55,7 +56,7 @@ while [ $# -gt 0 ]; do
     --url)      URL="${2:?--url needs a URL}"; shift 2 ;;
     --domain)   DOMAIN="${2:?--domain needs a hostname}"; shift 2 ;;
     --no-start) START=0; shift ;;
-    -h|--help)  sed -n '3,25p' "$0"; exit 0 ;;
+    -h|--help)  sed -n '3,24p' "$0"; exit 0 ;;
     *)          die "unknown option: $1" ;;
   esac
 done
@@ -95,6 +96,44 @@ next_free_port() {
     port=$((port + 1))
   done
   printf '%s' "$port"
+}
+
+# The compose project name, which is what namespaces the volumes. Compose
+# derives it from the directory name: lowercased, anything outside [a-z0-9_-]
+# DROPPED (not replaced, which is the version of this that shipped in review
+# and silently missed every directory with a dot or a space in it), leading
+# separators removed. Verified against `docker compose config` for
+# "open-isms.v2", "Open ISMS" and "_weird+name".
+#
+# Reimplemented rather than read back from compose itself, because
+# `docker compose config` interpolates POSTGRES_PASSWORD and so fails at
+# exactly the moment this is needed: before there is a .env.
+#
+# COMPOSE_PROJECT_NAME wins, and compose reads it from the .env file as well
+# as from the environment, so both are checked. Someone running two instances
+# on one host sets it there.
+project_name() {
+  if [ -n "${COMPOSE_PROJECT_NAME:-}" ]; then
+    printf '%s' "$COMPOSE_PROJECT_NAME"
+    return 0
+  fi
+  from_env=$(env_value COMPOSE_PROJECT_NAME "")
+  if [ -n "$from_env" ]; then
+    printf '%s' "$from_env"
+    return 0
+  fi
+  basename "$(pwd)" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/[^a-z0-9_-]//g; s/^[_-]*//'
+}
+
+# Is there already a database on this machine that this install would attach
+# to? Volumes outlive both `docker compose down` and `rm -rf` of this
+# directory, so "starting over" usually does not start over.
+postgres_volume_exists() {
+  [ -n "$(docker volume ls -q \
+    --filter "label=com.docker.compose.project=$(project_name)" \
+    --filter "label=com.docker.compose.volume=postgres-data" 2>/dev/null)" ]
 }
 
 # ------------------------------------------------------------- preflight ----
@@ -168,6 +207,36 @@ if [ -f .env ]; then
   APP_PORT=$(env_value APP_PORT 3026)
   [ -n "$URL" ] || URL="http://localhost:${APP_PORT}"
 else
+  # No .env, so the next block would generate a new POSTGRES_PASSWORD. That is
+  # correct for a first install and fatal for a second one: initdb sets the
+  # password once, when it first creates the data directory, and a surviving
+  # volume keeps that password forever. Carrying on here produces a stack that
+  # starts, crash-loops on 28P01, and looks like a broken release.
+  if postgres_volume_exists; then
+    die "there is already an open-isms instance on this machine, and no .env to open it with.
+
+  Its data lives in Docker volumes named after $(project_name), which survived
+  whatever removed the .env: neither 'docker compose down' nor deleting this
+  directory deletes them. Generating new secrets now would lock the stack out
+  of its own data, so this installer stops instead.
+
+  If you still have the old .env, put it back next to compose.yaml and run this
+  again. That is the only thing that opens this instance as it stands, and it is
+  by far the best outcome: every secret in it is unrecoverable otherwise.
+
+  If nothing in there matters, delete it and start genuinely fresh. This throws
+  away the database AND any uploaded evidence AND any local backup archives, and
+  it cannot be undone:
+
+      cd $(pwd) && docker compose down -v
+
+  Then run this installer again.
+
+  If the data matters and the old .env is gone, some of it can still be saved
+  and some of it cannot. Read this before doing anything else:
+  https://www.nisd2.eu/docs/self-hosting/troubleshooting"
+  fi
+
   step "Choosing ports"
 
   APP_PORT=$(next_free_port 3026)
@@ -262,12 +331,53 @@ for _ in $(seq 1 90); do
 done
 
 if [ "$READY" -eq 0 ]; then
-  die "it did not come up within three minutes.
+  # Read the log before guessing at the cause. Naming the wrong two suspects is
+  # worse than naming none: it sends someone to check ports and migrations when
+  # the answer is sitting in the log they were not told to read.
+  APP_LOG=$(docker compose logs app 2>&1 | tail -200 || true)
+
+  case "$APP_LOG" in
+    *28P01*|*"password authentication failed"*)
+      # The recovery for an instance with data is deliberately NOT repeated
+      # here. It is a long pipeline whose escaping differs in every language it
+      # is written in, and three hand-kept copies had already drifted apart
+      # once. The app's own log carries it, and so does the doc.
+      die "the database refused the app's password.
+
+  The data directory in the Docker volume $(project_name)_postgres-data was
+  created with a different POSTGRES_PASSWORD than the one in $(pwd)/.env.
+  Postgres sets that password once, when it first creates the directory.
+
+  If this instance is empty, throw it away and let it be created again. Note
+  that this deletes the database, any uploaded evidence and any local backup
+  archives, and cannot be undone:
+
+      cd $(pwd) && docker compose down -v && docker compose up -d
+
+  If it holds data, keep it and change the password instead. The exact command
+  is in the app's log, and here:
+  https://www.nisd2.eu/docs/self-hosting/troubleshooting
+
+      cd $(pwd) && docker compose logs app | tail -40"
+      ;;
+    *"[migrate"*FAILED*)
+      die "a database migration failed, so the app refuses to serve.
+
+  Your data is untouched: a failed migration rolls back whole.
+
+  Read which one, and why:   cd $(pwd) && docker compose logs app | grep -A5 FAILED
+
+  Report it at https://github.com/NISD2/open-isms/issues with those lines."
+      ;;
+    *)
+      die "it did not come up within three minutes, and the log does not name a
+  cause this installer recognises.
 
   See what it says:   cd $(pwd) && docker compose logs app | tail -50
 
-  The two usual causes are a migration that failed (the log ends shortly after
-  '[migrate] connected to database') and a port already in use."
+  Troubleshooting: https://www.nisd2.eu/docs/self-hosting/troubleshooting"
+      ;;
+  esac
 fi
 ok "Running, and the database answered"
 

@@ -6380,10 +6380,10 @@
         },
         "q14": {
           "q": "Como surgiu a mudança de nome para «Serviços Digitais de Energia»?",
-          "a": "A antiga categoria de instalação do ponto de agregação (Buendelstelle) foi rebatizada «Serviços Digitais de Energia» porque o termo reflete melhor o papel crescente dos sistemas de TI e dos processos digitais no setor da energia do que o nome antigo, que estava estreitamente ligado à agregação de leituras de contadores. Mais importante do que o nome é a consequência: para esta categoria, a regulação da segurança da informação já não reside no BSIG, mas nos §§5c e seguintes EnWG, e a Bundesnetzagentur é responsável."
+          "a": "A antiga categoria de instalação do ponto de agregação (Bündelstelle) foi rebatizada «Serviços Digitais de Energia» porque o termo reflete melhor o papel crescente dos sistemas de TI e dos processos digitais no setor da energia do que o nome antigo, que estava estreitamente ligado à agregação de leituras de contadores. Mais importante do que o nome é a consequência: para esta categoria, a regulação da segurança da informação já não reside no BSIG, mas nos §§5c e seguintes EnWG, e a Bundesnetzagentur é responsável."
         },
         "q15": {
-          "q": "O que significa a alteração legal para o meu ponto de agregação (BueStel)?",
+          "q": "O que significa a alteração legal para o meu ponto de agregação (BüStel)?",
           "a": "O seu ponto de agregação é retirado da regulação do BSIG como «Serviço Digital de Energia». Os requisitos de segurança da informação serão futuramente regidos pelos §§5c e seguintes EnWG, e a autoridade de supervisão competente é a Bundesnetzagentur, já não o BSI. Para a instalação afetada na categoria 1.1.2, deixa de ter de prestar prova ao BSI ao abrigo do §8a BSIG. O seu ponto de contacto e os seus requisitos técnicos mudam, por isso; verifique prontamente os requisitos da Bundesnetzagentur."
         },
         "q16": {
@@ -15911,12 +15911,12 @@
           "bsi": {
             "country": "DE / NIS 2",
             "label": "BSI",
-            "body": "Na Alemanha, o Bundesamt fuer Sicherheit in der Informationstechnik (BSI) é a autoridade principal para a aplicação da NIS 2. O BSI recebe registos, notificações de incidentes e supervisiona as medidas de gestão de riscos de cibersegurança da NIS 2."
+            "body": "Na Alemanha, o Bundesamt für Sicherheit in der Informationstechnik (BSI) é a autoridade principal para a aplicação da NIS 2. O BSI recebe registos, notificações de incidentes e supervisiona as medidas de gestão de riscos de cibersegurança da NIS 2."
           },
           "bbk": {
             "country": "DE / CER",
             "label": "BBK",
-            "body": "A autoridade alemã principal para a CER é o Bundesamt fuer Bevoelkerungsschutz und Katastrophenhilfe (BBK), não o BSI. O BBK supervisiona a designação de entidades críticas e a resiliência física ao abrigo da projetada KRITIS-Dachgesetz."
+            "body": "A autoridade alemã principal para a CER é o Bundesamt für Bevoelkerungsschutz und Katastrophenhilfe (BBK), não o BSI. O BBK supervisiona a designação de entidades críticas e a resiliência física ao abrigo da projetada KRITIS-Dachgesetz."
           },
           "enisa": {
             "country": "UE",

@@ -4,9 +4,9 @@
       "id": "2026-09-08-product-requirement-page-and-team-signoff",
       "date": "2026-09-08",
       "category": "product",
-      "titleDe": "Anforderungsseite: Erklaerung, Nachweise ueberall, Freigabe zuruecknehmen",
+      "titleDe": "Anforderungsseite: Erklärung, Nachweise überall, Freigabe zurücknehmen",
       "titleEn": "Requirement page: guidance, evidence everywhere, withdraw a sign-off",
-      "bodyDe": "Jede Anforderung erklaert jetzt oben, was sie verlangt, mit Umsetzungsschritten zum Aufklappen. Nachweise koennen ab sofort an jeder Anforderung hochgeladen werden, nicht nur an denen vom Typ Dokument oder Nachweis: 15 der 49 NIS-2-Anforderungen hatten bisher gar kein Feld dafuer, darunter die Managementschulung, deren Nachweis genau ein Zertifikat ist. Eine erteilte Freigabe laesst sich zuruecknehmen; der Eintrag in der Freigabehistorie bleibt erhalten, sodass Pruefer weiterhin sehen, dass freigegeben und spaeter zurueckgenommen wurde. Weiter und Zurueck fuehren jetzt ueber Kategoriegrenzen hinweg, und ungespeicherte Eingaben werden beim Blaettern gespeichert statt verworfen. Wichtig fuer bestehende Konten: Anforderung 1.2 (Rollen und Zustaendigkeiten) verhaelt sich jetzt wie jedes andere Modul und geht zurueck in Pruefung, sobald sich Ihr Team oder eine Rollenzuordnung aendert. Bisher blieb die Freigabe stehen, auch wenn die Person, die eine Rolle innehatte, das Unternehmen verlassen hatte. Wer eine Freigabe erteilt hatte und sie durch eine Zuruecknahme verliert, wird darueber benachrichtigt.",
+      "bodyDe": "Jede Anforderung erklärt jetzt oben, was sie verlangt, mit Umsetzungsschritten zum Aufklappen. Nachweise können ab sofort an jeder Anforderung hochgeladen werden, nicht nur an denen vom Typ Dokument oder Nachweis: 15 der 49 NIS-2-Anforderungen hatten bisher gar kein Feld dafür, darunter die Managementschulung, deren Nachweis genau ein Zertifikat ist. Eine erteilte Freigabe lässt sich zurücknehmen; der Eintrag in der Freigabehistorie bleibt erhalten, sodass Prüfer weiterhin sehen, dass freigegeben und später zurückgenommen wurde. Weiter und Zurück führen jetzt über Kategoriegrenzen hinweg, und ungespeicherte Eingaben werden beim Blaettern gespeichert statt verworfen. Wichtig für bestehende Konten: Anforderung 1.2 (Rollen und Zuständigkeiten) verhält sich jetzt wie jedes andere Modul und geht zurück in Prüfung, sobald sich Ihr Team oder eine Rollenzuordnung ändert. Bisher blieb die Freigabe stehen, auch wenn die Person, die eine Rolle innehatte, das Unternehmen verlassen hatte. Wer eine Freigabe erteilt hatte und sie durch eine Zuruecknahme verliert, wird darüber benachrichtigt.",
       "bodyEn": "Every requirement now opens with what it asks for, plus implementation steps behind a disclosure. Evidence can be attached to any requirement rather than only the document and proof ones: 15 of the 49 NIS 2 requirements previously had no field for it at all, including the management training duty whose evidence is precisely a certificate. A sign-off can be withdrawn; the sign-off history entry stays, so an auditor still sees that it was signed and later withdrawn. Next and Previous now cross category boundaries, and unsaved input is saved on the way out instead of discarded. Note for existing accounts: requirement 1.2 (roles and responsibilities) now behaves like every other module and returns to review whenever your team or a role assignment changes. Until now the sign-off stood even after the person holding a role had left. Anyone who signed off and loses that signature to a withdrawal is notified.",
       "links": []
     },
@@ -14,9 +14,9 @@
       "id": "2026-08-30-regulatory-timeline-august-events",
       "date": "2026-08-30",
       "category": "regulatory",
-      "titleDe": "Zeitleiste: fuenf Ereignisse im August, vier Korrekturen an den Portalen",
+      "titleDe": "Zeitleiste: fünf Ereignisse im August, vier Korrekturen an den Portalen",
       "titleEn": "Timeline: five August events, four portal corrections",
-      "bodyDe": "Neu in der Zeitleiste: das BSI beziffert die Verbreitung von security.txt in Deutschland auf 1,8 Prozent, der Inspektionsdienst des belgischen CCB verlangt von wesentlichen Einrichtungen Auskunft zur Konformitaetsbewertung, das tschechische NUKIB fragt ab, welche Hilfestellungen noch fehlen, und meldet 203 Vorfaelle fuer 2025, und die ungarische SZTFH berichtet von 2.194 Einrichtungen im ersten Auditzyklus. Belgien wird dabei konkreter: geprueft wird vorrangig bis zum 18. April 2027, ob die Massnahmen dem CyFun Assurance Level Important entsprechen, das Level Essential folgt bis spaetestens 18. April 2028. Korrigiert wurden ausserdem drei Laendereintraege: Tschechiens Neufassung ist als Gesetz 264/2025 Sb. seit dem 1. November 2025 in Kraft und nicht mehr im Verfahren, CERT-SE sitzt seit dem 1. Juli 2026 im NCSC bei der FRA, und fuer die Slowakei war keine Portaladresse hinterlegt.",
+      "bodyDe": "Neu in der Zeitleiste: das BSI beziffert die Verbreitung von security.txt in Deutschland auf 1,8 Prozent, der Inspektionsdienst des belgischen CCB verlangt von wesentlichen Einrichtungen Auskunft zur Konformitätsbewertung, das tschechische NUKIB fragt ab, welche Hilfestellungen noch fehlen, und meldet 203 Vorfälle für 2025, und die ungarische SZTFH berichtet von 2.194 Einrichtungen im ersten Auditzyklus. Belgien wird dabei konkreter: geprüft wird vorrangig bis zum 18. April 2027, ob die Maßnahmen dem CyFun Assurance Level Important entsprechen, das Level Essential folgt bis spätestens 18. April 2028. Korrigiert wurden außerdem drei Laendereintraege: Tschechiens Neufassung ist als Gesetz 264/2025 Sb. seit dem 1. November 2025 in Kraft und nicht mehr im Verfahren, CERT-SE sitzt seit dem 1. Juli 2026 im NCSC bei der FRA, und für die Slowakei war keine Portaladresse hinterlegt.",
       "bodyEn": "New on the timeline: the BSI puts security.txt adoption in Germany at 1.8 percent, the Belgian CCB Inspection Service has asked essential entities for information on their conformity assessment, Czechia's NUKIB asked which guidance is still missing and reported 203 incidents for 2025, and Hungary's SZTFH reports 2,194 entities through the first audit cycle. Belgium gets more specific: it will verify by 18 April 2027 that measures match CyFun assurance level Important, with level Essential to follow by 18 April 2028 at the latest. Three country entries were also corrected: Czechia's rewrite is in force as Act 264/2025 Sb. since 1 November 2025 rather than still in the legislative process, CERT-SE has sat in the NCSC at the FRA since 1 July 2026, and Slovakia had no portal address on file.",
       "links": [
         {
@@ -30,9 +30,9 @@
       "id": "2026-08-30-content-nis2-documents-annex-anchors",
       "date": "2026-08-30",
       "category": "content",
-      "titleDe": "Dokumentenliste: alle 42 Zeilen gegen den Anhang der Durchfuehrungsverordnung geprueft",
+      "titleDe": "Dokumentenliste: alle 42 Zeilen gegen den Anhang der Durchführungsverordnung geprüft",
       "titleEn": "Document list: all 42 rows checked against the Implementing Regulation Annex",
-      "bodyDe": "Die Liste der NIS2-Dokumente nennt zu jeder Zeile den Punkt im Anhang der Durchfuehrungsverordnung (EU) 2024/2690, auf den sie sich stuetzt. Diese Verweise waren seit Juni unveraendert und von vier spaeteren Korrekturlaeufen uebersprungen worden. Jetzt wurden alle 42 Zeilen gegen den Text im Amtsblatt geprueft: drei Verweise zeigten auf Punkte, die es nicht gibt (5.3, 5.4 und 7.4), interne Revision und Managementbewertung standen unter Punkt 7 statt unter Punkt 2, und die Meldekette nach Artikel 23 Absatz 4 haengt jetzt an Punkt 3.5.3.",
+      "bodyDe": "Die Liste der NIS2-Dokumente nennt zu jeder Zeile den Punkt im Anhang der Durchführungsverordnung (EU) 2024/2690, auf den sie sich stützt. Diese Verweise waren seit Juni unverändert und von vier späteren Korrekturlaeufen übersprungen worden. Jetzt wurden alle 42 Zeilen gegen den Text im Amtsblatt geprüft: drei Verweise zeigten auf Punkte, die es nicht gibt (5.3, 5.4 und 7.4), interne Revision und Managementbewertung standen unter Punkt 7 statt unter Punkt 2, und die Meldekette nach Artikel 23 Absatz 4 hängt jetzt an Punkt 3.5.3.",
       "bodyEn": "The NIS 2 document list names, for every row, the Annex point of Implementing Regulation (EU) 2024/2690 it rests on. Those references had been untouched since June and were skipped by four later correction passes. All 42 rows have now been checked against the Official Journal text: three references pointed at points that do not exist (5.3, 5.4 and 7.4), internal audit and management review sat under point 7 instead of point 2, and the Article 23(4) reporting cascade now hangs on point 3.5.3.",
       "links": [
         {
@@ -48,7 +48,7 @@
       "category": "product",
       "titleDe": "Selbstbetrieb: Installation mit einem Befehl",
       "titleEn": "Self-hosting: install with one command",
-      "bodyDe": "Der Selbstbetrieb setzte bisher voraus, dass jemand Docker kennt, drei Dateien von Hand zusammensucht, fuenf Geheimnisse selbst erzeugt und belegte Ports einzeln aufloest. Ein Installationsskript uebernimmt das jetzt: es prueft Docker, laedt die Dateien, erzeugt die Geheimnisse einmalig, sucht freie Ports und wartet, bis die Instanz antwortet. Zwei Fehler, die eine korrekte Installation defekt aussehen liessen, sind behoben: der Anforderungskatalog wird beim Start des Containers geladen statt leer zu bleiben, und ohne eingerichteten Mailversand steht der Anmeldecode im Protokoll des Containers, damit sich das erste Konto ueberhaupt anlegen laesst.",
+      "bodyDe": "Der Selbstbetrieb setzte bisher voraus, dass jemand Docker kennt, drei Dateien von Hand zusammensucht, fünf Geheimnisse selbst erzeugt und belegte Ports einzeln aufloest. Ein Installationsskript übernimmt das jetzt: es prüft Docker, lädt die Dateien, erzeugt die Geheimnisse einmalig, sucht freie Ports und wartet, bis die Instanz antwortet. Zwei Fehler, die eine korrekte Installation defekt aussehen liessen, sind behoben: der Anforderungskatalog wird beim Start des Containers geladen statt leer zu bleiben, und ohne eingerichteten Mailversand steht der Anmeldecode im Protokoll des Containers, damit sich das erste Konto überhaupt anlegen lässt.",
       "bodyEn": "Self-hosting used to assume someone knows Docker, collects three files by hand, generates five secrets themselves and resolves occupied ports one at a time. An install script now does that: it checks Docker, downloads the files, generates the secrets once, picks free ports and waits until the instance answers. Two faults that made a correct install look broken are fixed: the requirement catalogue loads when the container starts instead of staying empty, and with no mail provider configured the sign-in code is written to the container log, so the first account can be created at all.",
       "links": [
         {
@@ -64,7 +64,7 @@
       "category": "product",
       "titleDe": "Dokumentation unter /docs",
       "titleEn": "Documentation at /docs",
-      "bodyDe": "Was bisher in sieben Dateien im Repository lag, ist jetzt eine Rubrik auf der Seite: 24 Seiten zu Einstieg, Selbstbetrieb, Datenmodell der Plattform, den npm-Paketen und zur Mitarbeit. Nur auf Englisch, weil diese Seiten liest, wer die Software installiert, und zehn Uebersetzungen einer Anleitung fuer Docker zehn weitere Texte waeren, die stimmen muessen. Kopfzeile, Navigation und Fusszeile sind die der uebrigen Seite, das Logo fuehrt zurueck.",
+      "bodyDe": "Was bisher in sieben Dateien im Repository lag, ist jetzt eine Rubrik auf der Seite: 24 Seiten zu Einstieg, Selbstbetrieb, Datenmodell der Plattform, den npm-Paketen und zur Mitarbeit. Nur auf Englisch, weil diese Seiten liest, wer die Software installiert, und zehn Uebersetzungen einer Anleitung für Docker zehn weitere Texte wären, die stimmen müssen. Kopfzeile, Navigation und Fußzeile sind die der übrigen Seite, das Logo führt zurück.",
       "bodyEn": "What lived in seven files inside the repository is now a section of the site: 24 pages covering getting started, self-hosting, the platform's data model, the npm packages and contributing. English only, because the people who read these pages are the ones installing the software, and ten translations of a Docker walkthrough would be ten more texts to keep true. The header, navigation and footer are the site's own, so the logo leads back.",
       "links": [
         {
@@ -78,7 +78,7 @@
       "id": "2026-08-29-compliance-impressum-vat-id",
       "date": "2026-08-29",
       "category": "compliance",
-      "titleDe": "Impressum: Umsatzsteueridentifikationsnummer ergaenzt",
+      "titleDe": "Impressum: Umsatzsteueridentifikationsnummer ergänzt",
       "titleEn": "Impressum: VAT identification number added",
       "bodyDe": "Das Impressum weist jetzt die Umsatzsteueridentifikationsnummer nach Paragraf 27a Umsatzsteuergesetz aus.",
       "bodyEn": "The Impressum now states the VAT identification number under section 27a of the German VAT Act.",
@@ -96,7 +96,7 @@
       "category": "product",
       "titleDe": "Selbstbetrieb kostet jetzt nichts",
       "titleEn": "Self-hosting now costs nothing",
-      "bodyDe": "Die Preisseite kannte zwei Wege: kostenlos gehostet auf nisd2.eu, oder Selbstbetrieb gegen einen einmaligen Betrag nach dem Prinzip 'Zahlen Sie, was Sie koennen'. Der Betrag entfaellt ersatzlos. Beide Wege stehen jetzt auf 0 Euro, dauerhaft, mit allen kuenftigen Updates. Es gibt keinen Vertrag und keine Freischaltung. Wer auf nisd2.eu angefangen hat, exportiert seinen Stand und betreibt ihn selbst weiter. Nebenbei korrigiert: die Seite nannte in allen zehn Sprachen die falsche Domain nis2.eu statt nisd2.eu.",
+      "bodyDe": "Die Preisseite kannte zwei Wege: kostenlos gehostet auf nisd2.eu, oder Selbstbetrieb gegen einen einmaligen Betrag nach dem Prinzip 'Zahlen Sie, was Sie können'. Der Betrag entfällt ersatzlos. Beide Wege stehen jetzt auf 0 Euro, dauerhaft, mit allen künftigen Updates. Es gibt keinen Vertrag und keine Freischaltung. Wer auf nisd2.eu angefangen hat, exportiert seinen Stand und betreibt ihn selbst weiter. Nebenbei korrigiert: die Seite nannte in allen zehn Sprachen die falsche Domain nis2.eu statt nisd2.eu.",
       "bodyEn": "The pricing page offered two routes: hosted free at nisd2.eu, or self-hosting against a one-time 'pay what you can' amount. That amount is gone for good. Both routes now read 0 euro, permanently, with all future updates. There is no contract and no activation key. Anyone who started on nisd2.eu can export their work and carry on running it themselves. Fixed along the way: the page named the wrong domain, nis2.eu instead of nisd2.eu, in all ten languages.",
       "links": [
         {
@@ -110,18 +110,18 @@
       "id": "2026-08-25-product-nis2-focus",
       "date": "2026-08-25",
       "category": "product",
-      "titleDe": "Fortschritt zaehlt nur noch die 49 NIS2-Anforderungen",
+      "titleDe": "Fortschritt zählt nur noch die 49 NIS2-Anforderungen",
       "titleEn": "Progress now counts only the 49 NIS 2 requirements",
-      "bodyDe": "Die Plattform zeigt jetzt ausschliesslich NIS 2. Bisher flossen auch Anforderungen weiterer Rahmenwerke in Dashboards, Fortschrittsanzeigen und Berichte ein; wer alle 49 NIS2-Anforderungen abgeschlossen hatte, sah teils nur rund die Haelfte als erledigt. Daten anderer Rahmenwerke bleiben vollstaendig erhalten, sie werden nur nicht mehr angezeigt.",
+      "bodyDe": "Die Plattform zeigt jetzt ausschließlich NIS 2. Bisher flossen auch Anforderungen weiterer Rahmenwerke in Dashboards, Fortschrittsanzeigen und Berichte ein; wer alle 49 NIS2-Anforderungen abgeschlossen hatte, sah teils nur rund die Hälfte als erledigt. Daten anderer Rahmenwerke bleiben vollständig erhalten, sie werden nur nicht mehr angezeigt.",
       "bodyEn": "The platform now surfaces NIS 2 exclusively. Previously, requirements from additional frameworks flowed into dashboards, progress figures and reports; a company that had completed all 49 NIS 2 requirements could read roughly half as done. Data from other frameworks is fully retained, it is just no longer shown."
     },
     {
       "id": "2026-08-25-regulatory-timeline-austria-bundestag",
       "date": "2026-08-25",
       "category": "regulatory",
-      "titleDe": "Zeitleiste: Oesterreichs NISG 2026 und die ersten Bundestagszahlen",
+      "titleDe": "Zeitleiste: Österreichs NISG 2026 und die ersten Bundestagszahlen",
       "titleEn": "Timeline: Austria's NISG 2026 and the first Bundestag figures",
-      "bodyDe": "Oesterreich fehlte als letzter Mitgliedstaat in der Zeitleiste: das NISG 2026 tritt am 1. Oktober 2026 in Kraft, registriert wird binnen drei Monaten. Neu sind ausserdem die Zahlen aus Bundestagsdrucksache 21/7573 mit 19.058 Registrierungen zum Stichtag 31. Juli 2026 und der Klarstellung der Bundesregierung, dass die kursierende Zahl von rund 29.500 eine Kostenschaetzung ist, kein Bestand. Ein aelterer Eintrag zu Paragraf 35 Absatz 2 BSIG wurde korrigiert: die Meldung an das BSI stand bereits im urspruenglichen Gesetzestext.",
+      "bodyDe": "Österreich fehlte als letzter Mitgliedstaat in der Zeitleiste: das NISG 2026 tritt am 1. Oktober 2026 in Kraft, registriert wird binnen drei Monaten. Neu sind außerdem die Zahlen aus Bundestagsdrucksache 21/7573 mit 19.058 Registrierungen zum Stichtag 31. Juli 2026 und der Klarstellung der Bundesregierung, dass die kursierende Zahl von rund 29.500 eine Kostenschaetzung ist, kein Bestand. Ein aelterer Eintrag zu Paragraf 35 Absatz 2 BSIG wurde korrigiert: die Meldung an das BSI stand bereits im ursprünglichen Gesetzestext.",
       "bodyEn": "Austria was the last Member State missing from the timeline: the NISG 2026 enters into force on 1 October 2026, with registration due within three months. Also new are the figures from Bundestag printed paper 21/7573, with 19,058 registrations as of 31 July 2026 and the government's clarification that the circulating figure of around 29,500 is a cost estimate, not a count. An older entry on section 35(2) BSIG was corrected: notifying the BSI was already part of the original statutory text.",
       "links": [
         {
@@ -135,27 +135,27 @@
       "id": "2026-08-24-product-signoff-evidence-erasure",
       "date": "2026-08-24",
       "category": "product",
-      "titleDe": "Freigabenachweise vervollstaendigt, Loeschung erfasst Freigabekopien",
+      "titleDe": "Freigabenachweise vervollständigt, Löschung erfasst Freigabekopien",
       "titleEn": "Sign-off evidence completed, erasure reaches sign-off snapshots",
-      "bodyDe": "Anforderungen, die ueber das Aufnahmeformular freigegeben wurden, zeigten im Pruefbereich und im PDF-Bericht keine Freigabedetails, obwohl der Nachweis im fortlaufenden Freigabeprotokoll vorlag. Die betroffenen Datensaetze wurden aus genau diesem Protokoll wiederhergestellt; erfunden wurde nichts, fehlende Angaben bleiben leer. Zusaetzlich entfernt die Loeschung personenbezogener Daten jetzt auch die zum Zeitpunkt der Freigabe eingefrorenen Kontaktangaben.",
+      "bodyDe": "Anforderungen, die über das Aufnahmeformular freigegeben wurden, zeigten im Pruefbereich und im PDF-Bericht keine Freigabedetails, obwohl der Nachweis im fortlaufenden Freigabeprotokoll vorlag. Die betroffenen Datensätze wurden aus genau diesem Protokoll wiederhergestellt; erfunden wurde nichts, fehlende Angaben bleiben leer. Zusätzlich entfernt die Löschung personenbezogener Daten jetzt auch die zum Zeitpunkt der Freigabe eingefrorenen Kontaktangaben.",
       "bodyEn": "Requirements approved through the intake form showed no sign-off detail in the review area and the PDF report, although the evidence existed in the append-only sign-off log. The affected records were restored from exactly that log; nothing was invented, genuinely missing details stay empty. In addition, personal-data erasure now also removes the contact details frozen into each sign-off at signing time."
     },
     {
       "id": "2026-08-21-product-gdpr-catalogue",
       "date": "2026-08-21",
       "category": "product",
-      "titleDe": "DSGVO-Katalog: zwei neue Anforderungen, Rechtsangaben geprueft",
+      "titleDe": "DSGVO-Katalog: zwei neue Anforderungen, Rechtsangaben geprüft",
       "titleEn": "GDPR catalogue: two new requirements, legal references checked",
-      "bodyDe": "Der DSGVO-Katalog erhaelt die Benachrichtigung betroffener Personen nach Artikel 34 und die Benennung von Datenschutzbeauftragten nach Artikel 37 bis 39 in Verbindung mit Paragraf 38 BDSG, der Schwelle, die deutsche Mittelstaendler am haeufigsten uebersehen. Rechtsangaben und die Elementlisten zu Artikel 30 und 32 wurden gegen den Amtsblatttext geprueft, Zitate tragen jetzt ihr eigenes Rahmenwerk, und bestehende Installationen erhalten alle Korrekturen automatisch per Migration. Inhalte in allen zehn Sprachen.",
+      "bodyDe": "Der DSGVO-Katalog erhält die Benachrichtigung betroffener Personen nach Artikel 34 und die Benennung von Datenschutzbeauftragten nach Artikel 37 bis 39 in Verbindung mit Paragraf 38 BDSG, der Schwelle, die deutsche Mittelständler am häufigsten übersehen. Rechtsangaben und die Elementlisten zu Artikel 30 und 32 wurden gegen den Amtsblatttext geprüft, Zitate tragen jetzt ihr eigenes Rahmenwerk, und bestehende Installationen erhalten alle Korrekturen automatisch per Migration. Inhalte in allen zehn Sprachen.",
       "bodyEn": "The GDPR catalogue gains notifying affected people under Article 34 and the data protection officer duty under Articles 37 to 39 together with section 38 BDSG, the threshold German SMEs miss most often. Legal references and the element lists of Articles 30 and 32 were checked against the Official Journal text, citations now carry their own framework, and existing installations receive all corrections automatically through a migration. Content in all ten languages."
     },
     {
       "id": "2026-08-21-product-self-host-stack",
       "date": "2026-08-21",
       "category": "product",
-      "titleDe": "Self-Hosting: eine Compose-Datei, Anleitung, kein AWS-Konto noetig",
+      "titleDe": "Self-Hosting: eine Compose-Datei, Anleitung, kein AWS-Konto nötig",
       "titleEn": "Self-hosting: one compose file, a guide, no AWS account needed",
-      "bodyDe": "Der Eigenbetrieb hat jetzt eine vollstaendige Anleitung, eine einzige Compose-Datei im Wurzelverzeichnis und ein Verzeichnis aller Drittdienste. Die Dateiablage laeuft ueber ein mitgeliefertes MinIO, ein AWS-Konto ist nicht mehr noetig. Webanalyse ist jetzt strikt Opt-in: eine selbst gehostete Instanz laedt ohne eigene Konfiguration kein Analyseskript und sendet nichts nach aussen.",
+      "bodyDe": "Der Eigenbetrieb hat jetzt eine vollständige Anleitung, eine einzige Compose-Datei im Wurzelverzeichnis und ein Verzeichnis aller Drittdienste. Die Dateiablage läuft über ein mitgeliefertes MinIO, ein AWS-Konto ist nicht mehr nötig. Webanalyse ist jetzt strikt Opt-in: eine selbst gehostete Instanz lädt ohne eigene Konfiguration kein Analyseskript und sendet nichts nach außen.",
       "bodyEn": "Self-hosting now comes with a complete guide, a single Docker compose file at the repository root, and an inventory of all third-party services. File storage runs on bundled MinIO, so no AWS account is needed. Web analytics is now strictly opt-in: a self-hosted instance loads no analytics script and sends nothing unless configured.",
       "links": [
         {
@@ -171,7 +171,7 @@
       "category": "product",
       "titleDe": "Rechtsgrundlagen aller 49 Anforderungen verifiziert",
       "titleEn": "Legal references of all 49 requirements verified",
-      "bodyDe": "Jede Paragrafen- und Artikelangabe im NIS2-Katalog wurde gegen das verkuendete BSIG und den Amtsblatttext der Durchfuehrungsverordnung (EU) 2024/2690 geprueft und wo noetig korrigiert. Pruefrhythmen folgen jetzt dem gesetzlichen Takt, etwa der Zweiwochenfrist fuer Registrierungsaenderungen nach Paragraf 33 Absatz 5 BSIG; drei Schritte wurden praeziser benannt, darunter die BSI-Meldefaehigkeit. Empfohlene Intervalle ohne gesetzliche Grundlage sind jetzt als Empfehlung gekennzeichnet.",
+      "bodyDe": "Jede Paragrafen- und Artikelangabe im NIS2-Katalog wurde gegen das verkuendete BSIG und den Amtsblatttext der Durchführungsverordnung (EU) 2024/2690 geprüft und wo nötig korrigiert. Pruefrhythmen folgen jetzt dem gesetzlichen Takt, etwa der Zweiwochenfrist für Registrierungsaenderungen nach Paragraf 33 Absatz 5 BSIG; drei Schritte wurden präziser benannt, darunter die BSI-Meldefähigkeit. Empfohlene Intervalle ohne gesetzliche Grundlage sind jetzt als Empfehlung gekennzeichnet.",
       "bodyEn": "Every section and article reference in the NIS2 catalogue was checked against the enacted BSIG and the Official Journal text of Implementing Regulation (EU) 2024/2690, and corrected where needed. Review rhythms now follow the statutory clocks, such as the two-week window for registration changes under section 33(5) BSIG; three steps were renamed for precision, including BSI reporting readiness. Recommended intervals without a legal basis are now labelled as recommendations."
     },
     {
@@ -180,34 +180,34 @@
       "category": "product",
       "titleDe": "Freigaberollen werden auf allen Abschlusswegen durchgesetzt",
       "titleEn": "Required signer roles enforced on every completion path",
-      "bodyDe": "Anforderungen mit vorgeschriebener Freigaberolle, etwa durch die Geschaeftsleitung, lassen sich auf keinem Weg mehr ohne diese Rolle abschliessen; Freigaben mit mehreren Unterzeichnern laufen konsequent ueber den Zuweisungsprozess. Kein Handlungsbedarf fuer bestehende Konten.",
+      "bodyDe": "Anforderungen mit vorgeschriebener Freigaberolle, etwa durch die Geschäftsleitung, lassen sich auf keinem Weg mehr ohne diese Rolle abschließen; Freigaben mit mehreren Unterzeichnern laufen konsequent über den Zuweisungsprozess. Kein Handlungsbedarf für bestehende Konten.",
       "bodyEn": "Requirements that demand a specific signer role, such as management, can no longer be completed through any path without that role; requirements with multiple signers consistently go through the assignment flow. No customer action required."
     },
     {
       "id": "2026-08-20-product-numeric-digit-caps",
       "date": "2026-08-20",
       "category": "product",
-      "titleDe": "Zahlenfelder pruefen jetzt auch die zulaessige Stellenzahl",
+      "titleDe": "Zahlenfelder prüfen jetzt auch die zulässige Stellenzahl",
       "titleEn": "Numeric fields now check the allowed number of digits",
-      "bodyDe": "Eingaben in Zahlenfelder wie CVSS-Werte oder Budgetbetraege werden vor dem Speichern gegen die zulaessige Stellenzahl des jeweiligen Feldes geprueft. Zu grosse Werte erzeugen eine verstaendliche Fehlermeldung statt eines Serverfehlers.",
+      "bodyDe": "Eingaben in Zahlenfelder wie CVSS-Werte oder Budgetbetraege werden vor dem Speichern gegen die zulässige Stellenzahl des jeweiligen Feldes geprüft. Zu große Werte erzeugen eine verstaendliche Fehlermeldung statt eines Serverfehlers.",
       "bodyEn": "Input in numeric fields such as CVSS scores or budget amounts is validated against the field's allowed number of digits before saving. Oversized values produce a clear validation message instead of a server error."
     },
     {
       "id": "2026-08-20-product-dependency-updates",
       "date": "2026-08-20",
       "category": "product",
-      "titleDe": "August: 5 Abhaengigkeitsaktualisierungen ueber Dependabot",
+      "titleDe": "August: 5 Abhängigkeitsaktualisierungen über Dependabot",
       "titleEn": "August: 5 dependency updates via Dependabot",
-      "bodyDe": "Fuenf Aktualisierungen von Drittanbieterbibliotheken, darunter Sicherheitskorrekturen an der Anmeldung. Keine Auswirkungen auf bestehende Daten.",
+      "bodyDe": "Fünf Aktualisierungen von Drittanbieterbibliotheken, darunter Sicherheitskorrekturen an der Anmeldung. Keine Auswirkungen auf bestehende Daten.",
       "bodyEn": "Five third-party library updates, including security fixes in the sign-in flow. No impact on existing data."
     },
     {
       "id": "2026-08-18-product-portal-locale-fix",
       "date": "2026-08-18",
       "category": "product",
-      "titleDe": "Portaltexte erscheinen in der gewaehlten Sprache",
+      "titleDe": "Portaltexte erscheinen in der gewählten Sprache",
       "titleEn": "Portal copy follows the selected language",
-      "bodyDe": "Ein Fehler in der Sprachaufloesung zeigte Teile des Portals unabhaengig von der gewaehlten Sprache auf Englisch. Portaltexte folgen jetzt durchgehend der eingestellten Sprache.",
+      "bodyDe": "Ein Fehler in der Sprachaufloesung zeigte Teile des Portals unabhängig von der gewählten Sprache auf Englisch. Portaltexte folgen jetzt durchgehend der eingestellten Sprache.",
       "bodyEn": "A locale resolution bug showed parts of the portal in English regardless of the selected language. Portal copy now consistently follows the configured language."
     },
     {
@@ -216,7 +216,7 @@
       "category": "regulatory",
       "titleDe": "Zeitleiste und Veranstaltungen aktualisiert, BSI-Zahlen wieder online",
       "titleEn": "Timeline and events refreshed, BSI figures back online",
-      "bodyDe": "Das BSI-Dashboard NIS-2 in Zahlen ist wieder online und weist zum 30. Juni 2026 unter anderem 17.729 registrierte Einrichtungen aus. Die Zeitleiste erhielt sechs neue Ereignisse und vier Portalkorrekturen; der Veranstaltungskalender wurde auf 86 Eintraege synchronisiert.",
+      "bodyDe": "Das BSI-Dashboard NIS-2 in Zahlen ist wieder online und weist zum 30. Juni 2026 unter anderem 17.729 registrierte Einrichtungen aus. Die Zeitleiste erhielt sechs neue Ereignisse und vier Portalkorrekturen; der Veranstaltungskalender wurde auf 86 Einträge synchronisiert.",
       "bodyEn": "The BSI dashboard NIS-2 in Zahlen is back online, reporting among other figures 17,729 registered entities as of 30 June 2026. The timeline gained six new events and four portal corrections; the events feed was synced to 86 entries.",
       "links": [
         {
@@ -230,9 +230,9 @@
       "id": "2026-08-05-regulatory-bsig-amendment-registration-lapse",
       "date": "2026-08-05",
       "category": "regulatory",
-      "titleDe": "Zeitleiste: BSIG geaendert, Registrierungsfrist verstrichen",
+      "titleDe": "Zeitleiste: BSIG geändert, Registrierungsfrist verstrichen",
       "titleEn": "Timeline: BSIG amended, registration deadline lapsed",
-      "bodyDe": "Das BSIG wurde zum 29. Juli 2026 geaendert (BGBl. 2026 I Nr. 221): Kritische Komponenten sind neu definiert, und Einrichtungen aus Finanzwesen, digitaler Infrastruktur und weiteren Sektoren melden Abhilfemassnahmen bei erheblichen Cyberbedrohungen nun auch an das BSI. Der vom BSI kommunizierte Registrierungstermin 31. Juli 2026 ist verstrichen: 18.845 von rund 29.500 erwarteten Einrichtungen waren registriert, Ordnungsmassnahmen hat das BSI bislang nicht eingeleitet. Insgesamt zwoelf neue Eintraege; die Uebersicht der Registrierungsportale wurde fuer sieben Laender aktualisiert, darunter die Niederlande vor dem Inkrafttreten am 15. August.",
+      "bodyDe": "Das BSIG wurde zum 29. Juli 2026 geändert (BGBl. 2026 I Nr. 221): Kritische Komponenten sind neu definiert, und Einrichtungen aus Finanzwesen, digitaler Infrastruktur und weiteren Sektoren melden Abhilfemaßnahmen bei erheblichen Cyberbedrohungen nun auch an das BSI. Der vom BSI kommunizierte Registrierungstermin 31. Juli 2026 ist verstrichen: 18.845 von rund 29.500 erwarteten Einrichtungen waren registriert, Ordnungsmassnahmen hat das BSI bislang nicht eingeleitet. Insgesamt zwölf neue Einträge; die Übersicht der Registrierungsportale wurde für sieben Länder aktualisiert, darunter die Niederlande vor dem Inkrafttreten am 15. August.",
       "bodyEn": "The BSIG was amended with effect from 29 July 2026 (BGBl. 2026 I Nr. 221): critical components are redefined, and entities in finance, digital infrastructure and further sectors now notify the BSI as well as their service recipients about remedial measures for significant cyberthreats. The de facto registration date of 31 July 2026 has passed with 18,845 of an expected 29,500 entities registered, and the BSI has so far opened no administrative proceedings. Twelve new entries in total; the registration portal overview was updated for seven countries, including the Netherlands ahead of entry into force on 15 August.",
       "links": [
         {
@@ -248,16 +248,16 @@
       "category": "product",
       "titleDe": "Geleerte Felder werden jetzt gespeichert",
       "titleEn": "Cleared fields now save",
-      "bodyDe": "Wer beim Bearbeiten ein optionales Textfeld leert und speichert, sieht den alten Wert nicht mehr zurueckkehren. Zahlenfelder pruefen ihre Eingaben jetzt strenger, und frei eingetragene Werte fuer Status und Schweregrad werden ueberall korrekt dargestellt.",
+      "bodyDe": "Wer beim Bearbeiten ein optionales Textfeld leert und speichert, sieht den alten Wert nicht mehr zurueckkehren. Zahlenfelder prüfen ihre Eingaben jetzt strenger, und frei eingetragene Werte für Status und Schweregrad werden überall korrekt dargestellt.",
       "bodyEn": "Clearing an optional text field while editing and saving no longer brings the old value back. Numeric fields validate their input more strictly, and freely entered status and severity values now render correctly throughout."
     },
     {
       "id": "2026-07-29-product-end-to-end-tests",
       "date": "2026-07-29",
       "category": "product",
-      "titleDe": "Automatisierte Tests fuer den gesamten NIS-2-Weg",
+      "titleDe": "Automatisierte Tests für den gesamten NIS-2-Weg",
       "titleEn": "Automated tests across the full NIS 2 journey",
-      "bodyDe": "Neun massgeschneiderte Editoren und eine vollstaendig freigegebene NIS-2-Umsetzung werden jetzt durch automatisierte Tests ueber den gesamten Ablauf abgedeckt. Sie gehen den Weg von der Erfassung der Assets ueber Nachweise bis zur Freigabe mit mehreren Unterzeichnenden und pruefen dabei auch die Trennung der Mandanten.",
+      "bodyDe": "Neun massgeschneiderte Editoren und eine vollständig freigegebene NIS-2-Umsetzung werden jetzt durch automatisierte Tests über den gesamten Ablauf abgedeckt. Sie gehen den Weg von der Erfassung der Assets über Nachweise bis zur Freigabe mit mehreren Unterzeichnenden und prüfen dabei auch die Trennung der Mandanten.",
       "bodyEn": "Nine custom editors and a complete signed-off NIS 2 implementation are now covered by automated tests that run the whole way through. They walk the path from asset intake through evidence to sign-off with multiple signers, and check tenant separation along the way."
     },
     {
@@ -266,7 +266,7 @@
       "category": "product",
       "titleDe": "Hochladen von Nachweisen in der Produktivumgebung repariert",
       "titleEn": "Evidence uploads fixed in production",
-      "bodyDe": "Das Hochladen von Nachweisdateien schlug in der Produktivumgebung fehl und funktioniert wieder. Gefunden hat den Fehler die neue automatisierte Testreihe, die den vollstaendigen Weg durch eine NIS-2-Umsetzung abgeht.",
+      "bodyDe": "Das Hochladen von Nachweisdateien schlug in der Produktivumgebung fehl und funktioniert wieder. Gefunden hat den Fehler die neue automatisierte Testreihe, die den vollständigen Weg durch eine NIS-2-Umsetzung abgeht.",
       "bodyEn": "Uploading evidence files failed in the production environment and works again. The bug was found by the new automated test suite that walks the full path through a NIS 2 implementation."
     },
     {
@@ -275,7 +275,7 @@
       "category": "regulatory",
       "titleDe": "Zeitleiste: zehn neue Ereignisse aus dem Juli 2026",
       "titleEn": "Timeline: ten new events from July 2026",
-      "bodyDe": "Die NIS-2-Zeitleiste hat zehn neue Juli-Eintraege erhalten, darunter das Inkrafttreten der schwedischen Meldepflichten und die Uebertragung von CERT-SE an das neue NCSC, den EU-Aktionsplan zu Cybersicherheit und kuenstlicher Intelligenz, das CRA-Reifegradmodell der ENISA fuer kleine und mittlere Unternehmen sowie nationale Schritte in Luxemburg, Irland und den Niederlanden. Die Uebersicht der Registrierungsportale wurde fuer die Niederlande und Frankreich aktualisiert.",
+      "bodyDe": "Die NIS-2-Zeitleiste hat zehn neue Juli-Einträge erhalten, darunter das Inkrafttreten der schwedischen Meldepflichten und die Übertragung von CERT-SE an das neue NCSC, den EU-Aktionsplan zu Cybersicherheit und kuenstlicher Intelligenz, das CRA-Reifegradmodell der ENISA für kleine und mittlere Unternehmen sowie nationale Schritte in Luxemburg, Irland und den Niederlanden. Die Übersicht der Registrierungsportale wurde für die Niederlande und Frankreich aktualisiert.",
       "bodyEn": "The NIS 2 timeline gained ten new July entries, including Sweden's incident reporting obligations entering into force and the CERT-SE transfer to its new NCSC, the EU action plan on cybersecurity and artificial intelligence, ENISA's CRA maturity model for small and medium enterprises, and national steps in Luxembourg, Ireland and the Netherlands. The registration portal overview was updated for the Netherlands and France.",
       "links": [
         {
@@ -291,7 +291,7 @@
       "category": "product",
       "titleDe": "Zuverlaessigere Formulare in der gesamten Plattform",
       "titleEn": "More reliable forms across the platform",
-      "bodyDe": "Formulare zum Anlegen neuer Eintraege pruefen jetzt nur die tatsaechlich angezeigten Felder und lassen sich dadurch ohne unnoetige Validierungsfehler absenden. Datumsfelder sind plattformweit vereinheitlicht, und fehlgeschlagene Aktionen zeigen eine klare Fehlermeldung.",
+      "bodyDe": "Formulare zum Anlegen neuer Einträge prüfen jetzt nur die tatsächlich angezeigten Felder und lassen sich dadurch ohne unnötige Validierungsfehler absenden. Datumsfelder sind plattformweit vereinheitlicht, und fehlgeschlagene Aktionen zeigen eine klare Fehlermeldung.",
       "bodyEn": "Forms for creating new records now validate only the fields actually shown, so they submit without spurious validation errors. Date fields are consistent across the platform, and failed actions surface a clear error message."
     },
     {
@@ -300,7 +300,7 @@
       "category": "content",
       "titleDe": "GRC-Vergleich um den Anbieter Kopexa erweitert",
       "titleEn": "GRC comparison expanded with the vendor Kopexa",
-      "bodyDe": "Der oeffentliche Vergleich von GRC-Plattformen enthaelt jetzt auch Kopexa mit Angaben zu Preisen und Funktionen. Der Vergleich wird laufend gepflegt.",
+      "bodyDe": "Der öffentliche Vergleich von GRC-Plattformen enthält jetzt auch Kopexa mit Angaben zu Preisen und Funktionen. Der Vergleich wird laufend gepflegt.",
       "bodyEn": "The public comparison of GRC platforms now includes Kopexa with pricing and feature details. The comparison is maintained on an ongoing basis.",
       "links": [
         {
@@ -316,7 +316,7 @@
       "category": "product",
       "titleDe": "Partnerseite: SmartCity House aufgenommen",
       "titleEn": "Partner page: SmartCity House added",
-      "bodyDe": "Die oeffentliche Partnerseite fuehrt jetzt SmartCity House unter den Partnern der Plattform, in allen unterstuetzten Sprachen.",
+      "bodyDe": "Die öffentliche Partnerseite führt jetzt SmartCity House unter den Partnern der Plattform, in allen unterstuetzten Sprachen.",
       "bodyEn": "The public partner page now lists SmartCity House among the platform's partners, in all supported languages.",
       "links": [
         {
@@ -332,7 +332,7 @@
       "category": "regulatory",
       "titleDe": "EuGH-Klage gegen vier Staaten, Niederlande verabschieden NIS-2-Gesetz",
       "titleEn": "CJEU referral against four states, Netherlands adopt NIS 2 law",
-      "bodyDe": "Die EU-Kommission hat Irland, Spanien, Frankreich und die Niederlande wegen unvollstaendiger NIS-2-Umsetzung vor dem EuGH verklagt. Die Niederlande haben zugleich das Cyberbeveiligingswet verabschiedet, das am 15. August 2026 in Kraft tritt. Beide Ereignisse sind in der Zeitleiste dokumentiert.",
+      "bodyDe": "Die EU-Kommission hat Irland, Spanien, Frankreich und die Niederlande wegen unvollständiger NIS-2-Umsetzung vor dem EuGH verklagt. Die Niederlande haben zugleich das Cyberbeveiligingswet verabschiedet, das am 15. August 2026 in Kraft tritt. Beide Ereignisse sind in der Zeitleiste dokumentiert.",
       "bodyEn": "The European Commission referred Ireland, Spain, France and the Netherlands to the Court of Justice of the EU over incomplete NIS 2 transposition. At the same time the Netherlands adopted the Cyberbeveiligingswet, entering into force on 15 August 2026. Both events are documented in the timeline.",
       "links": [
         {
@@ -348,7 +348,7 @@
       "category": "product",
       "titleDe": "NIS-2-Roadmap als klarer, gefuehrter Sechs-Schritte-Pfad",
       "titleEn": "NIS 2 roadmap as a clear, guided six-step path",
-      "bodyDe": "Die NIS-2-Roadmap-Seite zeigt die sechs Schritte jetzt als uebersichtliche Liste mit Rechtsgrundlage, Zustaendigkeit und Aufwand pro Schritt. Der eine nicht delegierbare Schritt ist hervorgehoben, und die Seite fuehrt direkt in den gefuehrten Pfad der Plattform.",
+      "bodyDe": "Die NIS-2-Roadmap-Seite zeigt die sechs Schritte jetzt als uebersichtliche Liste mit Rechtsgrundlage, Zuständigkeit und Aufwand pro Schritt. Der eine nicht delegierbare Schritt ist hervorgehoben, und die Seite führt direkt in den geführten Pfad der Plattform.",
       "bodyEn": "The NIS 2 roadmap page now presents the six steps as a clear list with the legal basis, owner and effort for each step. The one non-delegable step is highlighted, and the page leads directly into the platform's guided path.",
       "links": [
         {
@@ -362,9 +362,9 @@
       "id": "2026-07-10-product-self-host-pay-what-you-can",
       "date": "2026-07-10",
       "category": "product",
-      "titleDe": "Self-Hosting-Lizenz: zahlen Sie, was Sie koennen, ab 1 Euro",
+      "titleDe": "Self-Hosting-Lizenz: zahlen Sie, was Sie können, ab 1 Euro",
       "titleEn": "Self-hosting licence: pay what you can, from 1 euro",
-      "bodyDe": "Die Lizenz fuer den Eigenbetrieb ist jetzt 'pay what you can' ab 1 Euro. Die Plattform bleibt Open Source und selbst hostbar.",
+      "bodyDe": "Die Lizenz für den Eigenbetrieb ist jetzt 'pay what you can' ab 1 Euro. Die Plattform bleibt Open Source und selbst hostbar.",
       "bodyEn": "The self-hosting licence is now pay what you can, from 1 euro. The platform stays open source and self-hostable.",
       "links": [
         {
@@ -380,7 +380,7 @@
       "category": "course",
       "titleDe": "Name auf dem Zertifikat selbst bearbeiten",
       "titleEn": "Edit the name printed on your certificate",
-      "bodyDe": "Teilnehmer der Geschaeftsfuehrer-Schulung koennen den Namen, der auf dem Abschlusszertifikat gedruckt wird, jetzt selbst anpassen.",
+      "bodyDe": "Teilnehmer der Geschäftsführer-Schulung können den Namen, der auf dem Abschlusszertifikat gedruckt wird, jetzt selbst anpassen.",
       "bodyEn": "Learners in the managing-director course can now edit the name that is printed on their completion certificate.",
       "links": [
         {
@@ -396,7 +396,7 @@
       "category": "product",
       "titleDe": "Open-Source-Code direkt verlinkt",
       "titleEn": "Open-source code linked directly",
-      "bodyDe": "Der Quellcode der Plattform ist jetzt direkt aus der Navigation und von der Startseite aus verlinkt. Die Plattform ist Open Source und pruefbar.",
+      "bodyDe": "Der Quellcode der Plattform ist jetzt direkt aus der Navigation und von der Startseite aus verlinkt. Die Plattform ist Open Source und prüfbar.",
       "bodyEn": "The platform's source code is now linked directly from the navigation and the landing page. The platform is open source and auditable.",
       "links": [
         {
@@ -410,9 +410,9 @@
       "id": "2026-07-07-content-bsig-38-management-duties",
       "date": "2026-07-07",
       "category": "content",
-      "titleDe": "Neuer Wiki-Artikel: Pflichten der Geschaeftsleitung nach § 38 BSIG",
+      "titleDe": "Neuer Wiki-Artikel: Pflichten der Geschäftsleitung nach § 38 BSIG",
       "titleEn": "New wiki article: management duties under § 38 BSIG",
-      "bodyDe": "Ein neuer Grundlagenartikel erklaert die persoenlichen Pflichten der Geschaeftsleitung nach § 38 BSIG: Billigung der Risikomanagementmassnahmen, Ueberwachung der Umsetzung und die vorgeschriebene Schulung.",
+      "bodyDe": "Ein neuer Grundlagenartikel erklärt die persönlichen Pflichten der Geschäftsleitung nach § 38 BSIG: Billigung der Risikomanagementmaßnahmen, Überwachung der Umsetzung und die vorgeschriebene Schulung.",
       "bodyEn": "A new foundations article explains the personal duties of management under § 38 BSIG: approving the risk-management measures, overseeing their implementation, and the required training.",
       "links": [
         {
@@ -426,9 +426,9 @@
       "id": "2026-07-04-product-journey-first-login",
       "date": "2026-07-04",
       "category": "product",
-      "titleDe": "Neue Nutzer starten direkt im gefuehrten Pfad",
+      "titleDe": "Neue Nutzer starten direkt im geführten Pfad",
       "titleEn": "New users start directly in the guided path",
-      "bodyDe": "Nach der Registrierung landen neue Konten sofort im gefuehrten NIS-2-Pfad statt auf einer Einrichtungsseite. Die Organisation anzulegen ist der erste Schritt im Pfad selbst.",
+      "bodyDe": "Nach der Registrierung landen neue Konten sofort im geführten NIS-2-Pfad statt auf einer Einrichtungsseite. Die Organisation anzulegen ist der erste Schritt im Pfad selbst.",
       "bodyEn": "After signing up, new accounts land directly in the guided NIS 2 path instead of a setup wall. Creating your organisation is the first step within the path itself.",
       "links": [
         {
@@ -442,9 +442,9 @@
       "id": "2026-07-04-product-security-txt",
       "date": "2026-07-04",
       "category": "product",
-      "titleDe": "Sicherheitskontakt nach RFC 9116 veroeffentlicht",
+      "titleDe": "Sicherheitskontakt nach RFC 9116 veröffentlicht",
       "titleEn": "Security contact published per RFC 9116",
-      "bodyDe": "Unter /.well-known/security.txt steht jetzt ein Kontakt fuer die verantwortungsvolle Meldung von Sicherheitsluecken. Passwortmanager finden ausserdem den Weg zur Passwortzuruecksetzung.",
+      "bodyDe": "Unter /.well-known/security.txt steht jetzt ein Kontakt für die verantwortungsvolle Meldung von Sicherheitslücken. Passwortmanager finden außerdem den Weg zur Passwortzuruecksetzung.",
       "bodyEn": "A contact for coordinated vulnerability disclosure is now published at /.well-known/security.txt. Password managers can also find the way to password reset.",
       "links": [
         {
@@ -460,7 +460,7 @@
       "category": "product",
       "titleDe": "Konto- und Organisationsloeschung nach Art. 17 DSGVO",
       "titleEn": "Account and organisation erasure under GDPR Article 17",
-      "bodyDe": "Sie koennen jetzt Ihr Konto und Ihre Daten loeschen. Inhaber loeschen die gesamte Organisation samt aller Mitglieder, einzelne Mitglieder loeschen ihr eigenes Konto. Jede Loeschung erzeugt ein Loeschprotokoll.",
+      "bodyDe": "Sie können jetzt Ihr Konto und Ihre Daten löschen. Inhaber löschen die gesamte Organisation samt aller Mitglieder, einzelne Mitglieder löschen ihr eigenes Konto. Jede Löschung erzeugt ein Loeschprotokoll.",
       "bodyEn": "You can now erase your account and data. Owners delete the entire organisation including all members, individual members delete their own account. Every erasure produces a deletion record.",
       "links": [
         {
@@ -474,9 +474,9 @@
       "id": "2026-07-02-content-europe-events-feed",
       "date": "2026-07-02",
       "category": "content",
-      "titleDe": "Neue Uebersicht: kostenlose NIS-2-, DSGVO- und CRA-Veranstaltungen in Europa",
+      "titleDe": "Neue Übersicht: kostenlose NIS-2-, DSGVO- und CRA-Veranstaltungen in Europa",
       "titleEn": "New overview: free NIS 2, GDPR and CRA events across Europe",
-      "bodyDe": "Eine neue oeffentliche Seite sammelt kostenlose Veranstaltungen von Behoerden, Kammern und Non-Profits zu NIS 2, DSGVO und CRA in mehreren Laendern.",
+      "bodyDe": "Eine neue öffentliche Seite sammelt kostenlose Veranstaltungen von Behörden, Kammern und Non-Profits zu NIS 2, DSGVO und CRA in mehreren Ländern.",
       "bodyEn": "A new public page collects free events from authorities, chambers and non-profits on NIS 2, GDPR and the CRA across several countries.",
       "links": [
         {
@@ -490,7 +490,7 @@
       "id": "2026-06-30-product-course-journey-crosslinks",
       "date": "2026-06-30",
       "category": "product",
-      "titleDe": "Kurs und Umsetzungspfad verknuepft, Reihenfolge nur noch Empfehlung",
+      "titleDe": "Kurs und Umsetzungspfad verknüpft, Reihenfolge nur noch Empfehlung",
       "titleEn": "Course and implementation path linked, ordering now only a suggestion",
       "bodyDe": "Kurslektionen und Anforderungen sind jetzt gegenseitig verlinkt: Jede Anforderung zeigt die passende Lektion des CEO-Kurses und umgekehrt. Lektionen und Anforderungen sind nicht mehr gesperrt, die empfohlene Reihenfolge ist ein Vorschlag.",
       "bodyEn": "Course lessons and requirements are now cross-linked: each requirement shows the matching CEO course lesson and vice versa. Lessons and requirements are no longer locked, the recommended order is a suggestion, not a gate.",
@@ -506,9 +506,9 @@
       "id": "2026-06-26-content-open-source-category",
       "date": "2026-06-26",
       "category": "content",
-      "titleDe": "Neue Wiki-Kategorie: Open Source und Souveraenitaet",
+      "titleDe": "Neue Wiki-Kategorie: Open Source und Souveränität",
       "titleEn": "New wiki category: Open Source and sovereignty",
-      "bodyDe": "Eine neue Wiki-Kategorie mit vier Artikeln in zehn Sprachen erklaert, warum pruefbarer, quelloffener Code fuer Compliance und digitale Souveraenitaet zaehlt.",
+      "bodyDe": "Eine neue Wiki-Kategorie mit vier Artikeln in zehn Sprachen erklärt, warum pruefbarer, quelloffener Code für Compliance und digitale Souveränität zählt.",
       "bodyEn": "A new wiki category with four articles in ten languages explains why auditable, open-source code matters for compliance and digital sovereignty.",
       "links": [
         {
@@ -524,7 +524,7 @@
       "category": "content",
       "titleDe": "Neuer Wiki-Artikel: § 32 BSIG (Meldepflicht nach NIS 2)",
       "titleEn": "New wiki article: § 32 BSIG (NIS 2 reporting duty)",
-      "bodyDe": "Ein neuer Wiki-Artikel erlaeutert die Meldepflicht bei erheblichen Sicherheitsvorfaellen nach § 32 BSIG, verfuegbar in zehn Sprachen.",
+      "bodyDe": "Ein neuer Wiki-Artikel erläutert die Meldepflicht bei erheblichen Sicherheitsvorfällen nach § 32 BSIG, verfügbar in zehn Sprachen.",
       "bodyEn": "A new wiki article explains the duty to report significant incidents under § 32 BSIG, available in ten languages.",
       "links": [
         {
@@ -538,9 +538,9 @@
       "id": "2026-06-26-product-newsletter-archive",
       "date": "2026-06-26",
       "category": "product",
-      "titleDe": "Newsletter-Ausgaben jetzt oeffentlich im Archiv",
+      "titleDe": "Newsletter-Ausgaben jetzt öffentlich im Archiv",
       "titleEn": "Newsletter issues now public in an archive",
-      "bodyDe": "Alle Newsletter-Ausgaben erscheinen jetzt in einem oeffentlichen Archiv unter /newsletter.",
+      "bodyDe": "Alle Newsletter-Ausgaben erscheinen jetzt in einem öffentlichen Archiv unter /newsletter.",
       "bodyEn": "All newsletter issues are now published in a public archive at /newsletter.",
       "links": [
         {
@@ -556,7 +556,7 @@
       "category": "product",
       "titleDe": "Neue Partnerseite mit NVIDIA-Inception-Mitgliedschaft",
       "titleEn": "New partner page with NVIDIA Inception membership",
-      "bodyDe": "Es gibt jetzt eine oeffentliche Partnerseite, die unsere Mitgliedschaft im NVIDIA-Inception-Programm zeigt.",
+      "bodyDe": "Es gibt jetzt eine öffentliche Partnerseite, die unsere Mitgliedschaft im NVIDIA-Inception-Programm zeigt.",
       "bodyEn": "There is now a public partner page showing our membership in the NVIDIA Inception program.",
       "links": [
         {
@@ -572,7 +572,7 @@
       "category": "product",
       "titleDe": "Gefuehrter Pfad ist jetzt die Standardansicht der Umsetzung",
       "titleEn": "Guided path is now the default implementation view",
-      "bodyDe": "Die Umsetzung laeuft jetzt ueber einen gefuehrten Pfad: Anforderungen in sinnvoller Reihenfolge, Swimlanes je Rolle, Freigabefortschritt (N von M Unterschriften) und der jaehrliche Pruefzyklus mit faelligen und ueberfaelligen Aufgaben. Diese Ansicht ist fuer alle Konten voreingestellt.",
+      "bodyDe": "Die Umsetzung läuft jetzt über einen geführten Pfad: Anforderungen in sinnvoller Reihenfolge, Swimlanes je Rolle, Freigabefortschritt (N von M Unterschriften) und der jährliche Prüfzyklus mit faelligen und ueberfaelligen Aufgaben. Diese Ansicht ist für alle Konten voreingestellt.",
       "bodyEn": "Implementation now runs through a guided path: requirements in a sensible order, role swimlanes, sign-off progress (N of M signatures) and the annual review cycle with due and overdue items. This view is the default for every account.",
       "links": [
         {
@@ -588,7 +588,7 @@
       "category": "regulatory",
       "titleDe": "Wiki korrigiert: CIR 2024/2690 Anhang auf die offiziellen 13 Punkte",
       "titleEn": "Wiki corrected: CIR 2024/2690 Annex to the official 13 points",
-      "bodyDe": "Die Darstellung der technischen Massnahmen nach CIR 2024/2690 im Wiki folgt jetzt der offiziellen Anhangsstruktur mit 13 Punkten. Mehrfaktorauthentisierung steht als Punkt 11.7 unter Zugangskontrolle, nicht als eigener Bereich.",
+      "bodyDe": "Die Darstellung der technischen Maßnahmen nach CIR 2024/2690 im Wiki folgt jetzt der offiziellen Anhangsstruktur mit 13 Punkten. Mehrfaktorauthentisierung steht als Punkt 11.7 unter Zugangskontrolle, nicht als eigener Bereich.",
       "bodyEn": "The wiki presentation of the technical measures under CIR 2024/2690 now follows the official Annex structure of 13 points. Multifactor authentication appears as point 11.7 under access control, not as a standalone area."
     },
     {
@@ -604,9 +604,9 @@
       "id": "2026-06-22-regulatory-timeline-transposition-13-states",
       "date": "2026-06-22",
       "category": "regulatory",
-      "titleDe": "Zeitleiste: grundlegende Umsetzungsereignisse fuer 13 weitere Mitgliedstaaten",
+      "titleDe": "Zeitleiste: grundlegende Umsetzungsereignisse für 13 weitere Mitgliedstaaten",
       "titleEn": "Timeline: foundational transposition events for 13 more Member States",
-      "bodyDe": "Die NIS-2-Zeitleiste enthaelt jetzt grundlegende Umsetzungsereignisse, etwa Gesetz in Kraft und Registrierungsfrist, fuer 13 weitere EU-Mitgliedstaaten mit Drilldown pro Land.",
+      "bodyDe": "Die NIS-2-Zeitleiste enthält jetzt grundlegende Umsetzungsereignisse, etwa Gesetz in Kraft und Registrierungsfrist, für 13 weitere EU-Mitgliedstaaten mit Drilldown pro Land.",
       "bodyEn": "The NIS 2 timeline now carries foundational transposition events, such as law in force and registration deadline, for 13 more EU Member States with per-country drill-down.",
       "links": [
         {
@@ -622,7 +622,7 @@
       "category": "content",
       "titleDe": "Die gesamte Website jetzt in zehn Sprachen",
       "titleEn": "The entire site now in ten languages",
-      "bodyDe": "Plattform, Wiki und Kursinhalte sind jetzt in zehn Sprachen verfuegbar: Deutsch, Englisch, Niederlaendisch, Franzoesisch, Italienisch, Spanisch, Polnisch, Tschechisch, Portugiesisch und Rumaenisch.",
+      "bodyDe": "Plattform, Wiki und Kursinhalte sind jetzt in zehn Sprachen verfügbar: Deutsch, Englisch, Niederlaendisch, Französisch, Italienisch, Spanisch, Polnisch, Tschechisch, Portugiesisch und Rumaenisch.",
       "bodyEn": "The platform, wiki and course content are now available in ten languages: German, English, Dutch, French, Italian, Spanish, Polish, Czech, Portuguese and Romanian."
     },
     {
@@ -638,7 +638,7 @@
       "id": "2026-06-18-product-landing-start-refresh",
       "date": "2026-06-18",
       "category": "product",
-      "titleDe": "Startseite verschlankt, /start als gefuehrte Umsetzungsseite",
+      "titleDe": "Startseite verschlankt, /start als geführte Umsetzungsseite",
       "titleEn": "Landing page simplified, /start turned into a guided implementation page",
       "bodyDe": "Die Startseite wurde verschlankt und EU-zuerst formuliert, mit NIS 2 und CIR 2024/2690 vor den nationalen Umsetzungen. Die Seite /start ist jetzt ein ruhiger, gefuehrter Einstieg in die Umsetzung statt eines Buchungsformulars.",
       "bodyEn": "The landing page was simplified and reframed EU-first, leading with NIS 2 and CIR 2024/2690 before national transpositions. The /start page is now a calm, guided entry into implementation rather than a booking form.",
@@ -654,9 +654,9 @@
       "id": "2026-06-18-compliance-toms-personnel-availability",
       "date": "2026-06-18",
       "category": "compliance",
-      "titleDe": "TOMs ergaenzt: personelle Massnahmen und Verfuegbarkeitsueberwachung",
+      "titleDe": "TOMs ergänzt: personelle Maßnahmen und Verfuegbarkeitsueberwachung",
       "titleEn": "TOMs updated: personnel measures and availability monitoring",
-      "bodyDe": "Das Dokument der technischen und organisatorischen Massnahmen wurde um personelle Massnahmen und die Ueberwachung der Verfuegbarkeit erweitert.",
+      "bodyDe": "Das Dokument der technischen und organisatorischen Maßnahmen wurde um personelle Maßnahmen und die Überwachung der Verfügbarkeit erweitert.",
       "bodyEn": "The technical and organisational measures document was extended with personnel measures and availability monitoring.",
       "links": [
         {
@@ -672,7 +672,7 @@
       "category": "regulatory",
       "titleDe": "Zeitleiste: Kooperationsgruppe-Meldevorlagen, ENISA-Publikationen, Portugal-Portal",
       "titleEn": "Timeline: NIS Cooperation Group reporting templates, ENISA publications, Portugal portal",
-      "bodyDe": "Sechs neue Eintraege in der NIS-2-Zeitleiste: die NIS-Kooperationsgruppe hat einheitliche Meldevorlagen nach Artikel 23 vereinbart, dazu drei ENISA-Veroeffentlichungen (EUCC-Kryptoverfahren v3, Kompetenzanforderungen fuer CRA-Pruefstellen, SBOM Adoption 2026), die Stellungnahme der AG KRITIS zur Kritisverordnung und Ungarns nationale Pruefungsfrist zum 30. Juni 2026 (keine EU-weite Frist). Bei den Registrierungsportalen ist Portugals MyCiber jetzt aktiv.",
+      "bodyDe": "Sechs neue Einträge in der NIS-2-Zeitleiste: die NIS-Kooperationsgruppe hat einheitliche Meldevorlagen nach Artikel 23 vereinbart, dazu drei ENISA-Veröffentlichungen (EUCC-Kryptoverfahren v3, Kompetenzanforderungen für CRA-Prüfstellen, SBOM Adoption 2026), die Stellungnahme der AG KRITIS zur Kritisverordnung und Ungarns nationale Pruefungsfrist zum 30. Juni 2026 (keine EU-weite Frist). Bei den Registrierungsportalen ist Portugals MyCiber jetzt aktiv.",
       "bodyEn": "Six new entries on the NIS 2 timeline: the NIS Cooperation Group agreed common Article 23 incident-reporting templates, plus three ENISA publications (EUCC cryptographic mechanisms v3, competence requirements for CRA notified bodies, SBOM Adoption 2026), the AG KRITIS statement on the draft KRITIS-Verordnung, and Hungary's national first-audit deadline of 30 June 2026 (not an EU-wide deadline). On the registration portals, Portugal's MyCiber platform is now operational.",
       "links": [
         {
@@ -688,7 +688,7 @@
       "category": "course",
       "titleDe": "Kurszertifikat neu gestaltet: Deckblatt, Curriculum-Anhang, verifizierte E-Mail",
       "titleEn": "Course certificate redesigned: cover page, curriculum appendix, verified email",
-      "bodyDe": "Das Abschlusszertifikat des NIS-2-Geschaeftsfuehrerkurses wurde ueberarbeitet: ein Deckblatt mit nach Modulen gruppiertem Curriculum-Anhang. Als Identifikator erscheint jetzt die verifizierte E-Mail-Adresse statt eines Firmennamens.",
+      "bodyDe": "Das Abschlusszertifikat des NIS-2-Geschaeftsfuehrerkurses wurde überarbeitet: ein Deckblatt mit nach Modulen gruppiertem Curriculum-Anhang. Als Identifikator erscheint jetzt die verifizierte E-Mail-Adresse statt eines Firmennamens.",
       "bodyEn": "The completion certificate for the NIS 2 management course was reworked into a cover page with a module-grouped curriculum appendix. The identifier shown is now the learner's verified email address rather than a company name.",
       "links": [
         {
@@ -704,7 +704,7 @@
       "category": "product",
       "titleDe": "Strukturanalyse: eine Checkliste, Zustand in der URL, teilbarer Link",
       "titleEn": "Asset inventory: single checklist, state in the URL, shareable link",
-      "bodyDe": "Das Strukturanalyse-Tool wurde zu einer einzigen grossen Checkliste umgebaut. Der gesamte Zustand liegt im URL-Hash, sodass sich eine Aufstellung per Link teilen laesst. Es werden keine Daten gespeichert.",
+      "bodyDe": "Das Strukturanalyse-Tool wurde zu einer einzigen großen Checkliste umgebaut. Der gesamte Zustand liegt im URL-Hash, sodass sich eine Aufstellung per Link teilen lässt. Es werden keine Daten gespeichert.",
       "bodyEn": "The asset inventory tool was rebuilt as one large checklist. The full state lives in the URL hash, so an inventory can be shared by link. No data is stored.",
       "links": [
         {
@@ -720,7 +720,7 @@
       "category": "regulatory",
       "titleDe": "Zeitleiste: Cyber Europe 2026, BSI-Magazin 2026/01, LU-Registrierungsfrist",
       "titleEn": "Timeline: Cyber Europe 2026, BSI-Magazin 2026/01, LU registration deadline",
-      "bodyDe": "Zwei neue Eintraege in der NIS-2-Zeitleiste: Cyber Europe 2026 (ENISA, 10.-11. Juni, erster EU-weiter Test des EU Cyber Blueprint mit Schiene und Seeverkehr als Szenario) und das BSI-Magazin 2026/01 vom 11. Juni mit Titelthema NIS-2 und BSIG. Bei den Registrierungsportalen ergaenzt: Luxemburg hat ueber das Gesetz vom 5. Mai 2026 eine zweimonatige Selbstregistrierungsfrist, die am 10. Juli 2026 endet.",
+      "bodyDe": "Zwei neue Einträge in der NIS-2-Zeitleiste: Cyber Europe 2026 (ENISA, 10.-11. Juni, erster EU-weiter Test des EU Cyber Blueprint mit Schiene und Seeverkehr als Szenario) und das BSI-Magazin 2026/01 vom 11. Juni mit Titelthema NIS-2 und BSIG. Bei den Registrierungsportalen ergänzt: Luxemburg hat über das Gesetz vom 5. Mai 2026 eine zweimonatige Selbstregistrierungsfrist, die am 10. Juli 2026 endet.",
       "bodyEn": "Two new entries on the NIS 2 timeline: Cyber Europe 2026 (ENISA, 10-11 June, first EU-wide test of the EU Cyber Blueprint with rail and maritime as the scenario) and the BSI-Magazin 2026/01 of 11 June with NIS-2 and BSIG as the cover feature. On the registration portals: Luxembourg's Act of 5 May 2026 sets a two-month self-registration window that closes 10 July 2026.",
       "links": [
         {
@@ -736,7 +736,7 @@
       "category": "product",
       "titleDe": "Strukturanalyse Schritt 1: Sektorauswahl und Informationsverbund",
       "titleEn": "Asset inventory step 1: sector picker and Informationsverbund output",
-      "bodyDe": "Neues oeffentliches Werkzeug unter /strukturanalyse: drei universelle Schritte fuehren von Sektorauswahl zur ersten Beschreibung des Informationsverbunds nach BSI-200-2. Ergaenzt die Risikobewertung und liefert die Grundlage fuer spaetere Asset- und Schutzbedarfslagen.",
+      "bodyDe": "Neues öffentliches Werkzeug unter /strukturanalyse: drei universelle Schritte führen von Sektorauswahl zur ersten Beschreibung des Informationsverbunds nach BSI-200-2. Ergaenzt die Risikobewertung und liefert die Grundlage für spätere Asset- und Schutzbedarfslagen.",
       "bodyEn": "New public tool at /strukturanalyse: three universal steps walk from sector selection to a first description of the Informationsverbund per BSI-200-2. Complements the risk assessment and sets the foundation for later asset and Schutzbedarf layers.",
       "links": [
         {
@@ -752,7 +752,7 @@
       "category": "product",
       "titleDe": "Schutzbedarfsfeststellung als Self-Service-Werkzeug",
       "titleEn": "Self-service Schutzbedarfsfeststellung tool",
-      "bodyDe": "Neues Werkzeug unter /risikobewertung: Schutzbedarfsfeststellung nach BSI-200-2 mit Trennung von Schutzbedarf und Absicherungsvariante (Basis, Standard, Kern), Schadensszenarien pro Grundwert, Radar-Visualisierung und PDF-Export. Eingaben sind faktisch (Branche, Datenarten, Abhaengigkeiten); die Einstufung in eine Absicherungsvariante erfolgt serverseitig.",
+      "bodyDe": "Neues Werkzeug unter /risikobewertung: Schutzbedarfsfeststellung nach BSI-200-2 mit Trennung von Schutzbedarf und Absicherungsvariante (Basis, Standard, Kern), Schadensszenarien pro Grundwert, Radar-Visualisierung und PDF-Export. Eingaben sind faktisch (Branche, Datenarten, Abhängigkeiten); die Einstufung in eine Absicherungsvariante erfolgt serverseitig.",
       "bodyEn": "New tool at /risikobewertung: a Schutzbedarfsfeststellung per BSI-200-2 that separates Schutzbedarf from Absicherungsvariante (Basis, Standard, Kern), documents damage scenarios per Grundwert, renders a radar view, and exports a PDF. Inputs are factual (sector, data categories, dependencies); mapping into a protection tier happens server-side.",
       "links": [
         {
@@ -766,13 +766,13 @@
       "id": "2026-06-12-content-landing-about-og-refresh",
       "date": "2026-06-12",
       "category": "content",
-      "titleDe": "Startseite gestrafft, /pitch und /mission in /about gebuendelt, eigene Vorschaubilder pro Landingpage",
+      "titleDe": "Startseite gestrafft, /pitch und /mission in /about gebündelt, eigene Vorschaubilder pro Landingpage",
       "titleEn": "Homepage tightened, /pitch and /mission consolidated into /about, per-page OG images",
-      "bodyDe": "Aufraeumarbeiten an den oeffentlichen Marketing-Seiten: Hero-Bereich der Startseite gestrafft (Furcht-Zeile entfernt, NIS2 farblich akzentuiert), /pitch und /mission auf /about gebuendelt mit Weiterleitungen, gemeinsamer MarketingHero auf sechs Landingseiten und 41 eigene Open-Graph-Vorschaubilder fuer die wichtigsten Routen.",
+      "bodyDe": "Aufraeumarbeiten an den öffentlichen Marketing-Seiten: Hero-Bereich der Startseite gestrafft (Furcht-Zeile entfernt, NIS2 farblich akzentuiert), /pitch und /mission auf /about gebündelt mit Weiterleitungen, gemeinsamer MarketingHero auf sechs Landingseiten und 41 eigene Open-Graph-Vorschaubilder für die wichtigsten Routen.",
       "bodyEn": "Cleanup on the public marketing surfaces: tightened the homepage hero (dropped the fear line, accented NIS2 in colour), folded /pitch and /mission into /about with redirects, shared MarketingHero across six landing pages, and shipped 41 per-page Open Graph images for the highest-traffic routes.",
       "links": [
         {
-          "labelDe": "Ueber uns",
+          "labelDe": "Über uns",
           "labelEn": "About",
           "href": "/about"
         }
@@ -782,9 +782,9 @@
       "id": "2026-06-11-product-sicherheitsfragebogen-domain",
       "date": "2026-06-11",
       "category": "product",
-      "titleDe": "sicherheitsfragebogen.de als eigene Landingpage fuer den Lieferanten-Fragebogen",
+      "titleDe": "sicherheitsfragebogen.de als eigene Landingpage für den Lieferanten-Fragebogen",
       "titleEn": "sicherheitsfragebogen.de as standalone landing for the supplier questionnaire",
-      "bodyDe": "Neue Landingpage unter /sicherheitsfragebogen mit eigener Domain (sicherheitsfragebogen.de). Spiegelt vier Sektionen und 59 Fragen aus dem Schema, zeigt drei Beispielfragen live aus dem Datenformat und fuehrt zur Anmeldung und zum eingeloggten Lieferantenportal auf nisd2.eu.",
+      "bodyDe": "Neue Landingpage unter /sicherheitsfragebogen mit eigener Domain (sicherheitsfragebogen.de). Spiegelt vier Sektionen und 59 Fragen aus dem Schema, zeigt drei Beispielfragen live aus dem Datenformat und führt zur Anmeldung und zum eingeloggten Lieferantenportal auf nisd2.eu.",
       "bodyEn": "New landing at /sicherheitsfragebogen with its own domain (sicherheitsfragebogen.de). Mirrors four sections and 59 questions from the schema, previews three sample questions live from the data format, and routes sign-in and the authenticated supplier portal back to nisd2.eu.",
       "links": [
         {
@@ -798,9 +798,9 @@
       "id": "2026-06-11-content-bsig-30-eu-tracker-supplier-portal",
       "date": "2026-06-11",
       "category": "content",
-      "titleDe": "Wiki: §30 BSIG live, EU-Tracker veroeffentlicht, Lieferantenportal-Felder ergaenzt",
+      "titleDe": "Wiki: §30 BSIG live, EU-Tracker veröffentlicht, Lieferantenportal-Felder ergänzt",
       "titleEn": "Wiki: §30 BSIG page live, EU tracker published, supplier portal fields completed",
-      "bodyDe": "Neue Wiki-Seite zu §30 BSIG (Risikomanagementmassnahmen) mit Bezug zur EU-Implementierungsverordnung 2024/2690. Der 27-Laender-EU-Umsetzungstracker ist jetzt sichtbar. Im Lieferantenportal wurden 34 fehlende Felder ergaenzt sowie eine separate Service-Type-Unterseite hinzugefuegt.",
+      "bodyDe": "Neue Wiki-Seite zu §30 BSIG (Risikomanagementmaßnahmen) mit Bezug zur EU-Implementierungsverordnung 2024/2690. Der 27-Länder-EU-Umsetzungstracker ist jetzt sichtbar. Im Lieferantenportal wurden 34 fehlende Felder ergänzt sowie eine separate Service-Type-Unterseite hinzugefügt.",
       "bodyEn": "New wiki page on §30 BSIG (cybersecurity risk-management measures), linked to EU Implementing Regulation 2024/2690. The 27-country EU implementation tracker is now visible. In the supplier portal, 34 previously missing fields were filled in and a service-type sub-page added.",
       "links": [
         {
@@ -819,9 +819,9 @@
       "id": "2026-06-11-product-admin-managed-gap-assessments",
       "date": "2026-06-11",
       "category": "product",
-      "titleDe": "Admin-gefuehrte Gap-Assessments mit passwortgeschuetzten Share-Links",
+      "titleDe": "Admin-geführte Gap-Assessments mit passwortgeschuetzten Share-Links",
       "titleEn": "Admin-managed gap assessments with password-protected share links",
-      "bodyDe": "Die Plattform-Administration kann jetzt Gap-Assessments fuer Kunden anlegen und ueber einen passwortgeschuetzten Share-Link teilen. Ergaenzt das Self-Service-Gap-Tool um einen begleiteten Pfad fuer Workshops und Erstgespraeche.",
+      "bodyDe": "Die Plattform-Administration kann jetzt Gap-Assessments für Kunden anlegen und über einen passwortgeschuetzten Share-Link teilen. Ergaenzt das Self-Service-Gap-Tool um einen begleiteten Pfad für Workshops und Erstgespraeche.",
       "bodyEn": "Platform admins can now create gap assessments on behalf of customers and share them via a password-protected URL. Adds a guided workflow for workshops and first calls alongside the self-service gap tool.",
       "links": [
         {
@@ -835,9 +835,9 @@
       "id": "2026-06-11-compliance-open-isms-agpl",
       "date": "2026-06-11",
       "category": "compliance",
-      "titleDe": "open-isms unter AGPL-3.0 oeffentlich auf GitHub",
+      "titleDe": "open-isms unter AGPL-3.0 öffentlich auf GitHub",
       "titleEn": "open-isms made public on GitHub under AGPL-3.0",
-      "bodyDe": "Die komplette Plattform liegt jetzt als Open Source auf github.com/NISD2/open-isms (AGPL-3.0). Acht Pakete sind in eine Workspace-Struktur extrahiert (Schemata, UI, tRPC, Trainings- und Inhaltspakete) inklusive Referenz-App mit docker-compose. Die Lizenzwahl entkoppelt Compliance-Workloads von der Hostingseite und macht jede Aenderung am Standard nachpruefbar.",
+      "bodyDe": "Die komplette Plattform liegt jetzt als Open Source auf github.com/NISD2/open-isms (AGPL-3.0). Acht Pakete sind in eine Workspace-Struktur extrahiert (Schemata, UI, tRPC, Trainings- und Inhaltspakete) inklusive Referenz-App mit docker-compose. Die Lizenzwahl entkoppelt Compliance-Workloads von der Hostingseite und macht jede Änderung am Standard nachprüfbar.",
       "bodyEn": "The full platform is now open source at github.com/NISD2/open-isms (AGPL-3.0). Eight packages are extracted into a workspace structure (schemas, UI, tRPC, training and content packages) including a reference app with docker-compose. The licence choice decouples compliance workloads from the hosting side and makes every change to the standard auditable.",
       "links": [
         {
@@ -853,7 +853,7 @@
       "category": "compliance",
       "titleDe": "Sicherheits- und Audit-Haertungspass am Repository",
       "titleEn": "Security and audit hardening pass on the repository",
-      "bodyDe": "Begleitend zum OSS-Flip ein konzentrierter Haertungspass: Authentifizierung, Session-Revocation, Audit-Logging, Cron-Authentifizierung und Sekret-Scanning in der CI verbessert. Im Juni wurden zudem sieben Sicherheitsupdates fuer Abhaengigkeiten via Dependabot eingespielt.",
+      "bodyDe": "Begleitend zum OSS-Flip ein konzentrierter Haertungspass: Authentifizierung, Session-Revocation, Audit-Logging, Cron-Authentifizierung und Sekret-Scanning in der CI verbessert. Im Juni wurden zudem sieben Sicherheitsupdates für Abhängigkeiten via Dependabot eingespielt.",
       "bodyEn": "Alongside the OSS public flip, a focused hardening pass: improvements to authentication, session revocation, audit logging, cron authentication, and secret scanning in CI. June also brought seven dependency security updates via Dependabot.",
       "links": []
     },
@@ -863,7 +863,7 @@
       "category": "content",
       "titleDe": "EU-Umsetzungstracker, 10 Laenderseiten, NIS 2 vs DSGVO im CEO-Kurs",
       "titleEn": "EU implementation tracker, 10 country pages, NIS 2 vs GDPR in the CEO course",
-      "bodyDe": "Mehrere zusammenhaengende Aenderungen: zehn neue Vertiefungen pro Land (IT, ES, BE, SE, FI, DK, IE, PT, PL, CZ) und ein 27-Laender-EU-Umsetzungstracker unter /wiki/zeit-und-status. Fakten gegen Primaerquellen abgeglichen (retsinformation.dk, finlex.fi, ISAP Sejm, NÚKIB, samsik.dk) und Datenkorrekturen ueber Registrierungsportale und Anwendbarkeitspruefung ausgerollt. Zwei neue Grundlagenseiten (NIS 2 in fuenf Minuten fuer die Geschaeftsleitung, NIS 2 vs NIS 1) und ein neuer Abschnitt Datenschutz vs Datensicherheit im CEO-Kurs (Lektion 1.1) plus paralleler Meldetakt nach Artikel 33 DSGVO in Lektion 3.9. Wiki-Hub neu gestaltet, Wiki-Layout an die Navigationsbreite angeglichen, Suche zeigt keine geplanten Seiten mehr.",
+      "bodyDe": "Mehrere zusammenhaengende Änderungen: zehn neue Vertiefungen pro Land (IT, ES, BE, SE, FI, DK, IE, PT, PL, CZ) und ein 27-Länder-EU-Umsetzungstracker unter /wiki/zeit-und-status. Fakten gegen Primärquellen abgeglichen (retsinformation.dk, finlex.fi, ISAP Sejm, NÚKIB, samsik.dk) und Datenkorrekturen über Registrierungsportale und Anwendbarkeitsprüfung ausgerollt. Zwei neue Grundlagenseiten (NIS 2 in fünf Minuten für die Geschäftsleitung, NIS 2 vs NIS 1) und ein neuer Abschnitt Datenschutz vs Datensicherheit im CEO-Kurs (Lektion 1.1) plus paralleler Meldetakt nach Artikel 33 DSGVO in Lektion 3.9. Wiki-Hub neu gestaltet, Wiki-Layout an die Navigationsbreite angeglichen, Suche zeigt keine geplanten Seiten mehr.",
       "bodyEn": "Several related changes: ten new per-country briefings (IT, ES, BE, SE, FI, DK, IE, PT, PL, CZ) and a 27-country EU implementation tracker under /wiki/zeit-und-status. Facts verified against primary sources (retsinformation.dk, finlex.fi, ISAP Sejm, NÚKIB, samsik.dk) and data corrections propagated through registration portals and the applicability check. Two new fundamentals pages (NIS 2 in five minutes for the management body, NIS 2 vs NIS 1) and a new Datenschutz-vs-Datensicherheit section in the CEO course (Lesson 1.1) plus parallel Article 33 GDPR reporting clock in Lesson 3.9. Wiki hub redesigned, wiki layout widened to match the navbar, search no longer shows scheduled-but-not-yet-live pages.",
       "links": [
         {
@@ -877,7 +877,7 @@
           "href": "/training/courses/nis2-ceo"
         },
         {
-          "labelDe": "Anwendbarkeitspruefung",
+          "labelDe": "Anwendbarkeitsprüfung",
           "labelEn": "Applicability check",
           "href": "/applicability"
         }
@@ -889,7 +889,7 @@
       "category": "regulatory",
       "titleDe": "Zeitleiste: ENISA NIS360 2026 und neuer KRITIS-Verordnungsentwurf",
       "titleEn": "Timeline: ENISA NIS360 2026 and new KRITIS-Verordnung draft",
-      "bodyDe": "Zwei neue Ereignisse in der NIS-2-Zeitleiste: ENISA hat am 28.05.2026 die dritte Ausgabe des NIS360-Berichts zur Reife- und Kritikalitaetsbewertung aller Annex-I-Sektoren veroeffentlicht. Acht Sektoren liegen in der Risikozone (u. a. Gesundheit, Schifffahrt, oeffentliche Verwaltung). Zusaetzlich legte das BMI am 26.05.2026 den Referentenentwurf der neuen Verordnung zur Bestimmung kritischer Anlagen vor (Konsultationsfrist 16.06.2026).",
+      "bodyDe": "Zwei neue Ereignisse in der NIS-2-Zeitleiste: ENISA hat am 28.05.2026 die dritte Ausgabe des NIS360-Berichts zur Reife- und Kritikalitätsbewertung aller Annex-I-Sektoren veröffentlicht. Acht Sektoren liegen in der Risikozone (u. a. Gesundheit, Schifffahrt, öffentliche Verwaltung). Zusätzlich legte das BMI am 26.05.2026 den Referentenentwurf der neuen Verordnung zur Bestimmung kritischer Anlagen vor (Konsultationsfrist 16.06.2026).",
       "bodyEn": "Two new events on the NIS 2 timeline. ENISA published the third NIS360 report on 28 May 2026 assessing maturity and criticality across all Annex I sectors; eight sectors sit in the risk zone (including health, maritime, public administration). On 26 May 2026 the German Interior Ministry released the referral draft of the new Verordnung zur Bestimmung kritischer Anlagen (consultation deadline 16 June 2026).",
       "links": [
         {
@@ -903,9 +903,9 @@
       "id": "2026-05-28-product-supplier-questionnaire-public",
       "date": "2026-05-28",
       "category": "product",
-      "titleDe": "Lieferanten-Fragebogen als oeffentliche Seite mit PDF/DOCX-Download",
+      "titleDe": "Lieferanten-Fragebogen als öffentliche Seite mit PDF/DOCX-Download",
       "titleEn": "Supplier questionnaire as public page with PDF/DOCX download",
-      "bodyDe": "Der NIS-2-Lieferantenfragebogen ist jetzt als oeffentliche Seite unter /nis2-lieferanten-fragebogen verfuegbar. Er laesst sich als PDF oder DOCX herunterladen und an Lieferanten weiterleiten, ohne dass eine Anmeldung noetig ist. Ergaenzt die Lieferketten-Inhaltsseite und das eingeloggte Lieferantenportal.",
+      "bodyDe": "Der NIS-2-Lieferantenfragebogen ist jetzt als öffentliche Seite unter /nis2-lieferanten-fragebogen verfügbar. Er lässt sich als PDF oder DOCX herunterladen und an Lieferanten weiterleiten, ohne dass eine Anmeldung nötig ist. Ergaenzt die Lieferketten-Inhaltsseite und das eingeloggte Lieferantenportal.",
       "bodyEn": "The NIS 2 supplier questionnaire is now available as a public page at /nis2-lieferanten-fragebogen. It can be downloaded as PDF or DOCX and forwarded to suppliers with no sign-in required. Complements the supply-chain content page and the authenticated supplier portal.",
       "links": [
         {
@@ -921,7 +921,7 @@
       "category": "product",
       "titleDe": "Anmeldung: bekannte Wegwerf-E-Mail-Domains werden blockiert",
       "titleEn": "Sign-up: known disposable-email domains are blocked",
-      "bodyDe": "Registrierungen mit bekannten Wegwerf-E-Mail-Domains werden bei der Anmeldung still abgelehnt. Die Domain-Liste wird aus einer oeffentlichen Quelle gepflegt; ergaenzend gibt es eine lokale Override-Datei fuer Faelle, die die externe Liste noch nicht erfasst. Massnahme zur Sauberkeit der Nutzerbasis, keine Auswirkung auf bestehende Konten.",
+      "bodyDe": "Registrierungen mit bekannten Wegwerf-E-Mail-Domains werden bei der Anmeldung still abgelehnt. Die Domain-Liste wird aus einer öffentlichen Quelle gepflegt; ergaenzend gibt es eine lokale Override-Datei für Fälle, die die externe Liste noch nicht erfasst. Maßnahme zur Sauberkeit der Nutzerbasis, keine Auswirkung auf bestehende Konten.",
       "bodyEn": "Sign-ups using known disposable-email domains are silently rejected. The domain list is maintained from a public source, with a local override file for cases the external list does not yet cover. Cleans up the user base; existing accounts are unaffected.",
       "links": [
         {
@@ -937,7 +937,7 @@
       "category": "content",
       "titleDe": "Info-Seiten: Faktencheck und stilistische Bereinigung",
       "titleEn": "Info pages: fact-check pass and stylistic cleanup",
-      "bodyDe": "Inhaltliche Korrekturen auf den oeffentlichen Info-Seiten nach einem Footer-Faktencheck und eine durchgehende Em-Dash-Bereinigung in den DE- und EN-Texten. Reine Lesbarkeits- und Genauigkeitsarbeit, keine neuen Aussagen.",
+      "bodyDe": "Inhaltliche Korrekturen auf den öffentlichen Info-Seiten nach einem Footer-Faktencheck und eine durchgehende Em-Dash-Bereinigung in den DE- und EN-Texten. Reine Lesbarkeits- und Genauigkeitsarbeit, keine neuen Aussagen.",
       "bodyEn": "Factual corrections across the public info pages following a footer fact-check, plus a clean-up of em-dashes across the DE and EN copy. Pure readability and accuracy work; no new claims.",
       "links": []
     },
@@ -947,7 +947,7 @@
       "category": "regulatory",
       "titleDe": "Zeitleiste und nationale Registrierungsportale aktualisiert",
       "titleEn": "Timeline and national registration portals refreshed",
-      "bodyDe": "Aktualisierung der Eintraege fuer die niederlaendische Cyberbeveiligingswet (Eerste Kamer-Phase), das luxemburgische NIS-2-Gesetz vom 5. Mai 2026 und die Verweisung von 7 Mitgliedstaaten an den EuGH wegen fehlender CER-Umsetzung. Portalliste auf den jeweils verifizierten Stand gebracht.",
+      "bodyDe": "Aktualisierung der Einträge für die niederländische Cyberbeveiligingswet (Eerste Kamer-Phase), das luxemburgische NIS-2-Gesetz vom 5. Mai 2026 und die Verweisung von 7 Mitgliedstaaten an den EuGH wegen fehlender CER-Umsetzung. Portalliste auf den jeweils verifizierten Stand gebracht.",
       "bodyEn": "Updated entries for the Dutch Cyberbeveiligingswet (Eerste Kamer phase), Luxembourg's NIS 2 Act of 5 May 2026, and the Commission's CJEU referral of 7 member states for failure to transpose the CER Directive. National portal list brought up to verified state.",
       "links": [
         {
@@ -961,9 +961,9 @@
       "id": "2026-05-25-product-pricing-in-navbar",
       "date": "2026-05-25",
       "category": "product",
-      "titleDe": "Preisseite in der oeffentlichen Navigation",
+      "titleDe": "Preisseite in der öffentlichen Navigation",
       "titleEn": "Pricing surfaced in the public navbar",
-      "bodyDe": "Die Preisseite ist jetzt direkt aus der oeffentlichen Navigationsleiste erreichbar, nachdem sie zuvor nur ueber Footer und interne Links verlinkt war.",
+      "bodyDe": "Die Preisseite ist jetzt direkt aus der öffentlichen Navigationsleiste erreichbar, nachdem sie zuvor nur über Footer und interne Links verlinkt war.",
       "bodyEn": "The pricing page is now reachable directly from the public navbar; previously it was only linked from the footer and internal pages.",
       "links": [
         {

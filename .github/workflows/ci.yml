@@ -167,6 +167,14 @@ jobs:
           DATABASE_URL: postgres://drill:drill@localhost:5432/drill
           PGPASSWORD: drill
 
+      # The failure every reinstall produces. What is under test is the
+      # message, not the connection: a stack trace here costs a support thread
+      # and reads as a broken release.
+      - name: a refused database password is explained, not thrown
+        run: bash scripts/ci/wrong-password-drill.sh
+        env:
+          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
+
   # The published self-host stack has to stay parseable and internally
   # consistent. `docker compose config` resolves every variable reference and
   # profile, so a typo in a service name or an unbalanced ${...} fails here

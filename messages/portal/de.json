@@ -48,7 +48,7 @@
     "phaseOperations": "Betrieb",
     "phaseVerification": "Nachweis",
     "phaseAdmin": "Verwaltung",
-    "blockedBy": "Zuerst abschliessen: {codes}",
+    "blockedBy": "Zuerst abschließen: {codes}",
     "journey": "Weg",
     "administration": "Verwaltung",
     "journeyBoard": {

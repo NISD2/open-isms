@@ -16,7 +16,7 @@
     "errorConsentRequired": "Bitte akzeptieren Sie die Nutzungsbedingungen und Datenschutzerklärung, um fortzufahren.",
     "errorEmailNotVerified": "Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse. Wir haben Ihnen einen Code geschickt.",
     "consentLabel": "Ich akzeptiere die <terms>Nutzungsbedingungen</terms> und habe die <privacy>Datenschutzerklärung</privacy> zur Kenntnis genommen.",
-    "backToHome": "Zuruck zu nisd2.eu",
+    "backToHome": "Zurück zu nisd2.eu",
     "verifyTitle": "Letzter Schritt: E-Mail bestätigen",
     "verifyDescription": "Wir haben einen 6-stelligen Code an {email} gesendet. Einmalige Bestätigung, dass Du diese Adresse besitzt. Danach meldest Du Dich nur noch mit Passwort an, kein weiterer Code.",
     "verifyCodeLabel": "Bestätigungscode",

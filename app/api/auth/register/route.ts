@@ -1,14 +1,14 @@
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { user } from "@/schema";
-import { sendAuthCode } from "@/lib/mail";
-import { requestOtp, OtpRateLimitedError } from "@/lib/auth/otp";
+import { NextResponse } from "next/server";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
+import { OtpRateLimitedError, requestOtp } from "@/lib/auth/otp";
 import { getClientIp } from "@/lib/client-ip";
-import { LOCALES, type LocaleCode } from "@/lib/locale";
+import { db } from "@/lib/db";
+import { isLocaleCode, type LocaleCode } from "@/lib/locale";
+import { sendAuthCode } from "@/lib/mail";
 import type { Locale } from "@/lib/seo";
+import { user } from "@/schema";
 
 // Simple in-memory rate limiter: max 5 attempts per IP per 15 minutes
 const attempts = new Map<string, { count: number; resetAt: number }>();
@@ -70,10 +70,8 @@ export async function POST(request: Request) {
   // for all 10 locales, and the same value is persisted on the user row so
   // emails sent outside a request (lifecycle crons) can localize later.
   // Unknown values stay null on the row and fall back to "de" for the email.
-  const persistedLocale: LocaleCode | null = LOCALES.some(
-    (l) => l.code === localeInput,
-  )
-    ? (localeInput as LocaleCode)
+  const persistedLocale: LocaleCode | null = isLocaleCode(localeInput)
+    ? localeInput
     : null;
   const locale: Locale = persistedLocale ?? "de";
 
@@ -85,10 +83,7 @@ export async function POST(request: Request) {
   }
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return NextResponse.json(
-      { error: "Invalid email format" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
   }
 
   if (email.length > 255) {
@@ -143,15 +138,18 @@ export async function POST(request: Request) {
     // onConflictDoNothing guards against two concurrent registrations for the
     // same new email racing past the findFirst check and both attempting the
     // insert — without this the loser hits a unique-constraint 500.
-    await db.insert(user).values({
-      email,
-      name,
-      passwordHash,
-      role: "member",
-      isDisposableEmail: disposable,
-      locale: persistedLocale,
-      // emailVerifiedAt left null — set by /api/auth/verify-email
-    }).onConflictDoNothing({ target: user.email });
+    await db
+      .insert(user)
+      .values({
+        email,
+        name,
+        passwordHash,
+        role: "member",
+        isDisposableEmail: disposable,
+        locale: persistedLocale,
+        // emailVerifiedAt left null — set by /api/auth/verify-email
+      })
+      .onConflictDoNothing({ target: user.email });
   }
 
   // Disposable email: user record is kept so we can see the scoping/bot
@@ -159,10 +157,7 @@ export async function POST(request: Request) {
   // permanently unverified and unable to sign in. Response shape matches
   // the happy path to avoid leaking which domains are blocked.
   if (disposable) {
-    console.log(
-      `[register] Silent block (${quality.reason}):`,
-      email.split("@")[1],
-    );
+    console.log(`[register] Silent block (${quality.reason}):`, email.split("@")[1]);
     return NextResponse.json({ success: true, verificationRequired: true });
   }
 
@@ -173,7 +168,9 @@ export async function POST(request: Request) {
   } catch (err) {
     if (err instanceof OtpRateLimitedError) {
       return NextResponse.json(
-        { error: "Too many verification emails. Please wait a few minutes and try again." },
+        {
+          error: "Too many verification emails. Please wait a few minutes and try again.",
+        },
         { status: 429 },
       );
     }
