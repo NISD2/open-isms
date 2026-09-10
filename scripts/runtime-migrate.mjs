@@ -106,26 +106,42 @@ const client = new Client({ connectionString: url });
 // sets the password once, when initdb first creates that data directory, and
 // never revisits it. So a second install that generates a new
 // POSTGRES_PASSWORD hands us a password the database has never seen.
+// Named in the messages so the copy-paste commands are already correct for
+// this instance rather than for the defaults.
+const { user, database } = (() => {
+  try {
+    const parsed = new URL(url);
+    return {
+      user: decodeURIComponent(parsed.username) || "openisms",
+      database: decodeURIComponent(parsed.pathname.slice(1)) || "openisms",
+    };
+  } catch {
+    return { user: "openisms", database: "openisms" };
+  }
+})();
+
+// process.exit() discards anything still queued on stderr, and in the app
+// container stderr is a pipe to the Docker log driver, where writes are
+// asynchronous. Exiting straight after a kilobyte of console.error can
+// truncate or lose the one artifact this whole path exists to produce. Wait
+// for the write to drain, then leave.
+async function bail(message) {
+  await new Promise((resolve) => process.stderr.write(`${message}\n`, resolve));
+  process.exit(1);
+}
+
+// Advice for a database that will not accept us. 28P01 gets the long form,
+// because it is the common case, it has two different recoveries and picking
+// the wrong one costs someone their data. Everything else gets a short form:
+// a rethrow here dumps the same forty lines of pg-protocol internals that
+// this block exists to stop, and "the host is not up yet" or "that database
+// does not exist" reach it just as often on a Coolify-style deployment where
+// compose's service_healthy gate does not apply.
 try {
   await client.connect();
 } catch (err) {
-  if (err.code !== "28P01") throw err;
-
-  // Named in the message so the copy-paste commands below are already correct
-  // for this instance rather than for the defaults.
-  const { user, database } = (() => {
-    try {
-      const parsed = new URL(url);
-      return {
-        user: decodeURIComponent(parsed.username) || "openisms",
-        database: decodeURIComponent(parsed.pathname.slice(1)) || "openisms",
-      };
-    } catch {
-      return { user: "openisms", database: "openisms" };
-    }
-  })();
-
-  console.error(`
+  if (err.code === "28P01") {
+    await bail(`
 [migrate] The database refused our password for ${user} (Postgres 28P01).
 
   Nothing is wrong with this release. The database on disk was created with a
@@ -134,27 +150,51 @@ try {
   install directory does not delete the data directory: it lives in a Docker
   volume, and a reinstall picks the same one back up.
 
-  If there is nothing in this instance worth keeping, throw the database away
-  and let it be created again with the password you have now:
+  If there is nothing in this instance worth keeping, throw it away and let it
+  be created again with the password you have now. This deletes the database,
+  any uploaded evidence and any local backup archives, and cannot be undone:
 
       docker compose down -v
       docker compose up -d
 
-  The -v is the part that matters, and it is irreversible. Your .env is left
-  alone.
+  Your .env is left alone.
 
   If the instance holds data, keep it and tell the database the new password
-  instead. This needs no old password, because Postgres trusts connections
-  made from inside its own container:
+  instead. This needs no old password, because Postgres trusts connections made
+  from inside its own container:
 
-      grep '^POSTGRES_PASSWORD=' .env | cut -d= -f2- \\
-        | awk '{printf "ALTER USER ${user} WITH PASSWORD %c%s%c;\\n", 39, $0, 39}' \\
-        | docker compose exec -T postgres psql -U ${user} -d ${database} -q
+      docker compose exec postgres psql -U ${user} -d ${database}
+      \\password ${user}
+
+  It asks for the password twice. Paste the POSTGRES_PASSWORD value from your
+  .env, then \\q to leave, then:
+
       docker compose restart app
+
+  Use \\password rather than writing the ALTER yourself: it prompts instead of
+  taking the password on the command line, so nothing lands in your shell
+  history or in the process list, and quotes in the password need no escaping.
 
   Full walkthrough: https://www.nisd2.eu/docs/self-hosting/troubleshooting
 `);
-  process.exit(1);
+  }
+
+  await bail(`
+[migrate] Could not connect to the database at ${database} as ${user}.
+
+  ${err.code ? `Postgres reported ${err.code}. ` : ""}${err.message}
+
+  The usual causes, in the order they are worth checking:
+
+    the host in DATABASE_URL is wrong, or is not up yet
+    the database named in DATABASE_URL does not exist (Postgres code 3D000),
+      which is what a changed POSTGRES_DB looks like
+    the password is wrong (28P01), which has its own message
+
+  Nothing has been migrated, and the database is untouched.
+
+  Full walkthrough: https://www.nisd2.eu/docs/self-hosting/troubleshooting
+`);
 }
 
 console.log("[migrate] connected to database");

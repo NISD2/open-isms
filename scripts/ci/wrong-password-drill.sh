@@ -38,7 +38,7 @@ set -e
   echo "[drill] FAIL: expected exit 1, got $CODE"; echo "$OUT" | tail -20; exit 1;
 }
 
-for phrase in "28P01" "docker compose down -v" "ALTER USER"; do
+for phrase in "28P01" "docker compose down -v" "\\password"; do
   echo "$OUT" | grep -qF "$phrase" || {
     echo "[drill] FAIL: the message never mentions '$phrase'"; echo "$OUT"; exit 1;
   }
@@ -50,12 +50,49 @@ echo "$OUT" | grep -q "pg-protocol" && {
 
 echo "[drill] refused password explained, both recovery routes offered, no stack trace"
 
-# And the same script still connects when the password is right, so the guard
-# cannot pass by refusing everything.
-echo "[drill] running the migrator with the correct password"
-OUT="$(cd "$ROOT" && DATABASE_URL="$DB" node scripts/runtime-migrate.mjs 2>&1)"
-echo "$OUT" | grep -q "\[migrate\] connected to database" || {
-  echo "[drill] FAIL: the correct password no longer connects"; echo "$OUT" | tail -20; exit 1;
+# A connection failure that is NOT 28P01 must also be explained rather than
+# thrown. This is the path a Coolify-style deployment takes when the database
+# host is renamed or POSTGRES_DB changes, where compose's service_healthy gate
+# does not exist to catch it first.
+echo "[drill] running the migrator against a database that does not exist"
+MISSING_DB="${DB%/*}/no-such-database"
+set +e
+OUT="$(cd "$ROOT" && DATABASE_URL="$MISSING_DB" node scripts/runtime-migrate.mjs 2>&1)"
+CODE=$?
+set -e
+
+[ "$CODE" -eq 1 ] || { echo "[drill] FAIL: expected exit 1, got $CODE"; echo "$OUT" | tail -20; exit 1; }
+echo "$OUT" | grep -qF "Could not connect" || {
+  echo "[drill] FAIL: a non-28P01 connection failure was not explained"; echo "$OUT" | tail -20; exit 1;
 }
+echo "$OUT" | grep -q "pg-protocol" && {
+  echo "[drill] FAIL: a raw stack trace reached the log"; echo "$OUT"; exit 1;
+}
+echo "[drill] other connection failures explained too"
+
+# And the same script still connects when the password is right, so the guard
+# cannot pass by refusing everything. set +e around it deliberately: under
+# `set -e` a failing assignment kills the script before the diagnostic below
+# can say what went wrong, which is the least useful report for the assertion
+# that matters most here.
+echo "[drill] running the migrator with the correct password"
+set +e
+OUT="$(cd "$ROOT" && DATABASE_URL="$DB" node scripts/runtime-migrate.mjs 2>&1)"
+CODE=$?
+set -e
+
+[ "$CODE" -eq 0 ] || {
+  echo "[drill] FAIL: the correct password no longer connects (exit $CODE)"; echo "$OUT" | tail -20; exit 1;
+}
+echo "$OUT" | grep -q "\[migrate\] connected to database" || {
+  echo "[drill] FAIL: no connection line"; echo "$OUT" | tail -20; exit 1;
+}
+
+# No teardown, deliberately. The two drills that run before this one in the
+# same job already migrate and seed this database, and the migrator is
+# idempotent, so the final run above changes nothing. Dropping the schema to
+# "clean up" would leave the database emptier than this drill found it, which
+# is the opposite of the property bootstrap-admin-drill.sh preserves when it
+# deletes only the single row it created.
 
 echo "[drill] passed"
