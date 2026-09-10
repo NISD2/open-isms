@@ -8,7 +8,14 @@
       "!**/node_modules",
       "!**/drizzle",
       "!**/*.min.js",
-      "!bun.lock"
+      "!bun.lock",
+      // Static assets only, no JS or CSS. Biome's a11y rules assume SVG inlined
+      // into JSX, where a <title> child names the element. These files are served
+      // to <img src>, whose alt attribute supplies the accessible name instead, so
+      // the rule cannot be satisfied here and "fixing" it would mean editing
+      // third-party brand marks. Never linted before only because lint:ci checks
+      // changed files and nothing under public/ had changed.
+      "!public"
     ]
   },
   // Without this, Biome cannot parse either globals.css: Tailwind v4's

@@ -6925,12 +6925,37 @@
     },
     "partners": {
       "meta": {
-        "title": "Partners - NISD2.eu",
-        "description": "Programma's en organisaties waarmee we samenwerken. NISD2.eu is lid van het NVIDIA Inception Program."
+        "title": "Programma's en lidmaatschappen - NISD2.eu",
+        "description": "Programma's en organisaties waarmee we samenwerken. NISD2.eu is deelnemer aan de Allianz für Cyber-Sicherheit van het BSI."
       },
-      "title": "Partners",
-      "subtitle": "Programma's en organisaties waarmee we samenwerken om het platform verder te ontwikkelen.",
-      "learnMore": "Meer informatie",
+      "title": "Programma's en lidmaatschappen",
+      "subtitle": "Initiatieven en programma's waaraan we deelnemen, en de organisaties die de opbouw van het platform begeleiden.",
+      "memberships": {
+        "heading": "Lidmaatschappen"
+      },
+      "programmes": {
+        "heading": "Programma's"
+      },
+      "acs": {
+        "title": "Deelnemer aan de Allianz für Cyber-Sicherheit",
+        "description": "De Allianz für Cyber-Sicherheit is een initiatief van het Duitse Bundesamt für Sicherheit in der Informationstechnik (BSI). Het bundelt dreigingsbeelden, praktische aanbevelingen en de uitwisseling tussen overheden en bedrijven. Wij zijn als instelling geregistreerd deelnemer."
+      },
+      "microsoft": {
+        "title": "Microsoft for Startups",
+        "description": "NISD2.eu neemt deel aan de Microsoft for Startups Founders Hub, die jonge bedrijven tegoed voor Azure, ontwikkeltools en technische begeleiding biedt."
+      },
+      "google": {
+        "title": "Google for Startups Cloud",
+        "description": "NISD2.eu neemt deel aan het Google for Startups Cloud Program, dat jonge bedrijven tegoed voor Google Cloud en technische ondersteuning biedt."
+      },
+      "lambda": {
+        "title": "Lambda",
+        "description": "NISD2.eu neemt deel aan het startupprogramma van Lambda, dat rekenkracht op GPU's biedt voor het trainen en draaien van modellen."
+      },
+      "notion": {
+        "title": "Notion for Startups",
+        "description": "NISD2.eu gebruikt Notion for Startups, dat jonge bedrijven Notion met korting aanbiedt voor documentatie en planning."
+      },
       "nvidia": {
         "title": "NVIDIA Inception Program",
         "description": "NISD2.eu is lid van het NVIDIA Inception Program, dat startups ondersteunt met technische begeleiding en middelen voor het bouwen van AI-gedreven producten."
@@ -6939,7 +6964,7 @@
         "title": "SmartCity House",
         "description": "NISD2.eu maakt deel uit van het incubatieprogramma van SmartCity House in Osnabrück, dat startups ondersteunt bij het bouwen van oplossingen voor duurzame, slimmere steden."
       },
-      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries. SmartCity House and its logo are trademarks of their respective owner."
+      "legal": "© 2025 NVIDIA, the NVIDIA logo, and NVIDIA Inception are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Microsoft, Azure and Microsoft for Startups are trademarks of the Microsoft group of companies. Google, Google Cloud and Google for Startups are trademarks of Google LLC. Lambda is a trademark of Lambda, Inc. Notion is a trademark of Notion Labs, Inc. SmartCity House and its logo are trademarks of their respective owner. The Allianz für Cyber-Sicherheit participant logo is used under the ACS terms of use; all rights to the logo remain with the Allianz für Cyber-Sicherheit and the Bundesamt für Sicherheit in der Informationstechnik."
     },
     "status": {
       "meta": {
