@@ -59,7 +59,7 @@ describe("user.setLocale", () => {
     expect(await caller.setLocale({ locale: "en" })).toEqual({ persisted: false });
   });
 
-  test("signed in: writes the locale and stamps updatedAt", async () => {
+  test("signed in: writes the locale", async () => {
     const recorded: Recorded[] = [];
     const caller = callerWith({
       userId: "user-1",
@@ -69,13 +69,15 @@ describe("user.setLocale", () => {
     expect(await caller.setLocale({ locale: "en" })).toEqual({ persisted: true });
     expect(recorded).toHaveLength(1);
     expect(recorded[0].set.locale).toBe("en");
-    expect(recorded[0].set.updatedAt).toBeInstanceOf(Date);
   });
 
-  test("signed in: writes nothing but the locale and the timestamp", async () => {
-    // A future edit that widened the input into a `.set(input)` spread would
-    // let a caller write role, email or passwordHash through a public
-    // procedure. The column list is the guard, so assert on it directly.
+  test("signed in: writes the locale column and nothing else", async () => {
+    // Two things at once. A future edit that widened the input into a
+    // `.set(input)` spread would let a caller write role, email or
+    // passwordHash through a public procedure. And `updatedAt` staying out is
+    // deliberate: platform-admin's unsubscribe view orders by
+    // desc(user.updatedAt) to mean "recently unsubscribed", and a language
+    // switch bumping it would misdate that list.
     const recorded: Recorded[] = [];
     const caller = callerWith({
       userId: "user-1",
@@ -84,7 +86,7 @@ describe("user.setLocale", () => {
 
     await caller.setLocale({ locale: "nl" });
 
-    expect(Object.keys(recorded[0].set).sort()).toEqual(["locale", "updatedAt"]);
+    expect(Object.keys(recorded[0].set)).toEqual(["locale"]);
   });
 
   test("rejects a locale the app does not serve", async () => {

@@ -18,8 +18,17 @@
  *   3. "de" — the platform default (DE-canonical site, German target market;
  *      same nothing-known fallback the OTP emails use).
  */
+import type { LocaleCode } from "@/lib/locale";
 
-export type EmailLocale = "de" | "en" | "nl";
+/**
+ * The languages our email copy exists in, as a subset of the app's locales.
+ * Narrower than LocaleCode on purpose: it asserts "someone has written the mail
+ * in this", not "the site serves this". Typing it against LocaleCode means a
+ * language that is not a real app locale cannot be listed here.
+ */
+export const EMAIL_LOCALES = ["de", "en", "nl"] as const satisfies readonly LocaleCode[];
+
+export type EmailLocale = (typeof EMAIL_LOCALES)[number];
 
 const GERMAN_SPEAKING_COUNTRIES: ReadonlySet<string> = new Set(["DE", "AT", "CH", "LI"]);
 

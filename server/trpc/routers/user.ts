@@ -57,9 +57,13 @@ export const userRouter = router({
     .mutation(async ({ ctx, input }) => {
       if (!ctx.userId) return { persisted: false };
 
+      // No updatedAt bump. dismissHint, the other incidental-preference write
+      // in this router, deliberately leaves it alone, and platform-admin's
+      // unsubscribe view orders by desc(user.updatedAt) as a stand-in for
+      // "recently unsubscribed" — a language switch is not that.
       await ctx.db
         .update(user)
-        .set({ locale: input.locale, updatedAt: new Date() })
+        .set({ locale: input.locale })
         .where(eq(user.id, ctx.userId));
 
       return { persisted: true };

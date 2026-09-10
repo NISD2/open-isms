@@ -7,7 +7,8 @@
  */
 import { describe, expect, test } from "bun:test";
 import { routing } from "@/i18n/routing";
-import { isLocaleCode, LOCALE_COOKIE, LOCALES } from "./locale";
+import { EMAIL_LOCALES } from "@/lib/mail/locale";
+import { isLocaleCode, LOCALE_CODES, LOCALE_COOKIE, LOCALES } from "./locale";
 
 describe("isLocaleCode", () => {
   test("accepts every locale the switcher offers", () => {
@@ -39,20 +40,34 @@ describe("isLocaleCode", () => {
 });
 
 describe("locale sources agree", () => {
-  test("every switcher code is a locale the router serves", () => {
-    // lib/locale.ts says "every `code` must exist in i18n/routing.ts" in a
-    // comment. This is that comment as a test: a code that drifts out of
-    // routing would render a switcher entry that navigates to a 404.
-    const served: readonly string[] = routing.locales;
-    for (const { code } of LOCALES) {
-      expect(served).toContain(code);
+  test("the router serves exactly LOCALE_CODES, in that order", () => {
+    // routing.locales is now built from LOCALE_CODES, so this is a tripwire
+    // against someone re-introducing a second hardcoded list — which is what
+    // i18n/routing.ts carried before, agreeing with this one by luck.
+    expect(routing.locales).toEqual(LOCALE_CODES);
+  });
+
+  test("the switcher offers every code the router serves, no more", () => {
+    // Same set, different order: the switcher lists English first, routing
+    // lists the default locale first. Sorting is the point of the test.
+    const offered = LOCALES.map((l) => l.code).sort();
+    expect(offered).toEqual([...LOCALE_CODES].sort());
+  });
+
+  test("every switcher entry has a real label", () => {
+    // `satisfies Record<LocaleCode, string>` catches a missing label at
+    // compile time; this catches an empty or placeholder one.
+    for (const { code, label } of LOCALES) {
+      expect(label.trim().length).toBeGreaterThan(0);
+      expect(label).not.toBe(code);
     }
   });
 
-  test("the router serves nothing the switcher hides", () => {
-    const offered = LOCALES.map((l) => l.code);
-    for (const code of routing.locales) {
-      expect(offered).toContain(code);
+  test("email locales are a subset of the app's locales", () => {
+    // EMAIL_LOCALES is typed `satisfies readonly LocaleCode[]`, so this is the
+    // runtime half: mail copy can be narrower than the site, never wider.
+    for (const code of EMAIL_LOCALES) {
+      expect(isLocaleCode(code)).toBe(true);
     }
   });
 

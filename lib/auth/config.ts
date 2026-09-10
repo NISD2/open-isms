@@ -44,10 +44,15 @@ class CredentialsFlowError extends CredentialsSignin {
  * The language a Google signup was reading the site in, or null.
  *
  * Credentials signup posts its locale in the request body; an OAuth callback
- * has no body, so the only trace of the choice is the cookie next-intl set when
- * the visitor used the switcher. Absent for anyone who never touched it, which
- * is the honest answer — `resolveEmailLocale` then falls back to the company's
- * country rather than to a guess made here.
+ * has no body, so the cookie is the only thing carrying it. next-intl's
+ * middleware sets NEXT_LOCALE on every page request rather than only on an
+ * explicit switch (`GET /` answers `de`, `GET /en/pricing` answers `en`), so
+ * this reflects the language they were actually reading, not just the language
+ * they clicked. It is `SameSite=lax`, which is why it survives Google's
+ * top-level redirect back to the callback.
+ *
+ * Null only if no page was loaded first, which in practice means a direct hit
+ * on the callback URL; `resolveEmailLocale` then falls back to company.country.
  *
  * `cookies()` throws outside a request scope. The signIn callback always runs
  * inside one, so the catch is for the case that stops being true: a language
@@ -220,9 +225,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             // the address — no separate OTP step for OAuth signups.
             emailVerifiedAt: now,
             // /api/auth/register receives the locale in its POST body; an OAuth
-            // callback has no body to put it in, so the cookie next-intl
-            // already set is the only thing carrying it. Null when the visitor
-            // never touched the switcher, which resolveEmailLocale handles.
+            // callback has no body to put it in, so the cookie next-intl set
+            // while they browsed is the only thing carrying it.
             locale: await signupLocaleFromCookie(),
           })
           .onConflictDoNothing({ target: user.email })
