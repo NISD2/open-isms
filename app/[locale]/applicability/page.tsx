@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { ApplicabilitySection } from "@/components/applicability/ApplicabilitySection";
 import { JsonLd } from "@/components/JsonLd";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
-import { pageAlternates } from "@/lib/seo";
+import { Link } from "@/i18n/navigation";
 import { ogImages } from "@/lib/og-card";
+import { pageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("applicability");
   return {
@@ -32,7 +36,8 @@ const applicationSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "NIS2 Applicability Check",
-  description: "Free self-assessment tool to check if your company falls under NIS2 (EU 2022/2555) and the German BSIG 2025.",
+  description:
+    "Free self-assessment tool to check if your company falls under NIS2 (EU 2022/2555) and the German BSIG 2025.",
   url: "https://www.nisd2.eu/applicability",
   applicationCategory: "BusinessApplication",
   offers: {
@@ -72,7 +77,10 @@ export default async function ApplicabilityPage({
           headline={tLookup("title")}
           subhead={tLookup.rich("subtitle", {
             link: (chunks) => (
-              <Link href={"/wiki/anwendungsbereich/nis2-einrichtungen" as never} className="underline hover:text-foreground">
+              <Link
+                href={"/wiki/anwendungsbereich/nis2-einrichtungen" as never}
+                className="underline hover:text-foreground"
+              >
                 {chunks}
               </Link>
             ),

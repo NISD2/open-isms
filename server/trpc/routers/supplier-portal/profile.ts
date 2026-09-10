@@ -16,16 +16,17 @@
  * logoStorageKey is set via the dedicated `setLogo` mutation which validates
  * the S3 key prefix.
  */
-import { eq } from "drizzle-orm";
+
 import { TRPCError } from "@trpc/server";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { router, companyProcedure } from "../../init";
-import { updateRow } from "../../typed";
+import { sanitizeFilename } from "@/lib/storage/object-key";
+import { createPresignedPut } from "@/lib/storage/presign";
 import { company } from "@/schema";
 import { securityProfileUpdateSchema } from "@/schema/validators";
+import { companyProcedure, router } from "../../init";
+import { updateRow } from "../../typed";
 import { normalizeDomain } from "./helpers";
-import { createPresignedPut } from "@/lib/storage/presign";
-import { sanitizeFilename } from "@/lib/storage/object-key";
 
 /**
  * Shape of the supplier-portal subset of the company row, projected by `get`.
@@ -105,9 +106,7 @@ export const supplierProfileRouter = router({
     .input(securityProfileUpdateSchema)
     .mutation(async ({ ctx, input }) => {
       const normalizedDomain =
-        input.primaryDomain != null
-          ? normalizeDomain(input.primaryDomain)
-          : undefined;
+        input.primaryDomain != null ? normalizeDomain(input.primaryDomain) : undefined;
 
       const [row] = await ctx.db
         .update(company)
@@ -136,7 +135,11 @@ export const supplierProfileRouter = router({
           .min(1)
           .max(100)
           .regex(/^image\/(png|jpeg|jpg|webp|svg\+xml)$/),
-        fileSize: z.number().int().positive().max(5 * 1024 * 1024),
+        fileSize: z
+          .number()
+          .int()
+          .positive()
+          .max(5 * 1024 * 1024),
       }),
     )
     .mutation(async ({ ctx, input }) => {

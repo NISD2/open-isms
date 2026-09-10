@@ -42,20 +42,14 @@ function sweepExpired(now: number): void {
 /**
  * Returns `true` if the request is allowed, `false` if it is rate-limited.
  */
-export function rateLimit(
-  key: string,
-  limit: number,
-  windowMs: number,
-): boolean {
+export function rateLimit(key: string, limit: number, windowMs: number): boolean {
   const now = Date.now();
   const cutoff = now - windowMs;
 
   if (windows.size > SWEEP_THRESHOLD) sweepExpired(now);
 
   const existing = windows.get(key);
-  const recent = existing
-    ? existing.timestamps.filter((t) => t > cutoff)
-    : [];
+  const recent = existing ? existing.timestamps.filter((t) => t > cutoff) : [];
 
   if (recent.length >= limit) {
     // expiresAt tracks the NEWEST timestamp, not the oldest: the window is

@@ -1,17 +1,20 @@
-import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../init";
-import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import { trainingRecord } from "@/schema";
-import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
+import { and, desc, eq } from "drizzle-orm";
+import { z } from "zod";
 import {
-  createPresignedPut,
+  invalidateModuleSignOffs,
+  recheckModuleRequirements,
+} from "@/lib/compliance/module-recheck";
+import {
   createPresignedGet,
+  createPresignedPut,
   normalizeContentType,
   sanitizeFilename,
 } from "@/lib/storage";
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
+import { trainingRecord } from "@/schema";
+import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
+import { companyProcedure, router } from "../init";
 
 /**
  * batchCreate writes one training_record row per participant, so its input
@@ -30,7 +33,12 @@ const participantColumns = {
 } as const;
 
 const batchCreateSchema = z.object({
-  training: trainingInsertSchema.omit({ ...participantColumns, id: true, companyId: true, createdAt: true }),
+  training: trainingInsertSchema.omit({
+    ...participantColumns,
+    id: true,
+    companyId: true,
+    createdAt: true,
+  }),
   participants: z.array(trainingInsertSchema.pick(participantColumns)).min(1),
 });
 
@@ -50,7 +58,12 @@ export const trainingRouter = router({
         .insert(trainingRecord)
         .values({ ...input, companyId: ctx.companyId })
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "training_record", ctx.userId).catch((err) => console.error("[background] training_record recheck:", err));
+      invalidateModuleSignOffs(
+        ctx.db,
+        ctx.companyId,
+        "training_record",
+        ctx.userId,
+      ).catch((err) => console.error("[background] training_record recheck:", err));
       return row;
     }),
 
@@ -67,7 +80,12 @@ export const trainingRouter = router({
           })),
         )
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "training_record", ctx.userId).catch((err) => console.error("[background] training_record recheck:", err));
+      invalidateModuleSignOffs(
+        ctx.db,
+        ctx.companyId,
+        "training_record",
+        ctx.userId,
+      ).catch((err) => console.error("[background] training_record recheck:", err));
       return rows;
     }),
 
@@ -78,9 +96,16 @@ export const trainingRouter = router({
       const [row] = await ctx.db
         .update(trainingRecord)
         .set(data)
-        .where(and(eq(trainingRecord.id, id), eq(trainingRecord.companyId, ctx.companyId)))
+        .where(
+          and(eq(trainingRecord.id, id), eq(trainingRecord.companyId, ctx.companyId)),
+        )
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "training_record", ctx.userId).catch((err) => console.error("[background] training_record recheck:", err));
+      invalidateModuleSignOffs(
+        ctx.db,
+        ctx.companyId,
+        "training_record",
+        ctx.userId,
+      ).catch((err) => console.error("[background] training_record recheck:", err));
       return row;
     }),
 
@@ -89,8 +114,18 @@ export const trainingRouter = router({
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .delete(trainingRecord)
-        .where(and(eq(trainingRecord.id, input.id), eq(trainingRecord.companyId, ctx.companyId)));
-      recheckModuleRequirements(ctx.db, ctx.companyId, "training_record", ctx.userId).catch((err) => console.error("[background] training:", err));
+        .where(
+          and(
+            eq(trainingRecord.id, input.id),
+            eq(trainingRecord.companyId, ctx.companyId),
+          ),
+        );
+      recheckModuleRequirements(
+        ctx.db,
+        ctx.companyId,
+        "training_record",
+        ctx.userId,
+      ).catch((err) => console.error("[background] training:", err));
       return { deleted: true };
     }),
 
@@ -138,7 +173,10 @@ export const trainingRouter = router({
         columns: { certificateFileKey: true },
       });
       if (!row?.certificateFileKey) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "No certificate on this record" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "No certificate on this record",
+        });
       }
       return { downloadUrl: await createPresignedGet(row.certificateFileKey) };
     }),

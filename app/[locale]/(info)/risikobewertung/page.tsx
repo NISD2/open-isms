@@ -1,13 +1,13 @@
+import { BookOpen } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { BookOpen } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { JsonLd } from "@/components/JsonLd";
 import { MarketingHero, Underline } from "@/components/marketing/MarketingHero";
 import { RiskAssessmentShell } from "@/components/risk-assessment/RiskAssessmentShell";
-import { JsonLd } from "@/components/JsonLd";
+import { Link } from "@/i18n/navigation";
+import { ogImages } from "@/lib/og-card";
 import { scoreMatrix } from "@/lib/risk-assessment/scoring";
 import { pageAlternates } from "@/lib/seo";
-import { ogImages } from "@/lib/og-card";
 
 // Canned example used both for SEO crawlers (the radar card renders something
 // useful before any JS runs) and as the "before you start" preview. Picked

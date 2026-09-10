@@ -1,5 +1,5 @@
+import { exec } from "node:child_process";
 import { NextResponse } from "next/server";
-import { exec } from "child_process";
 
 /**
  * POST /api/dev/seed — re-run the database seed script.

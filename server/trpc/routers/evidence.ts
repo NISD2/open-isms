@@ -1,17 +1,17 @@
-import { z } from "zod";
-import { eq, and } from "drizzle-orm";
+import { randomUUID } from "node:crypto";
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../init";
-import { evidence, companyRequirementStatus, companyAssessment } from "@/schema";
+import { and, eq } from "drizzle-orm";
+import { z } from "zod";
 import {
-  createPresignedPut,
   createPresignedGet,
+  createPresignedPut,
   deleteObject,
   normalizeContentType,
   sanitizeFilename,
 } from "@/lib/storage";
+import { companyAssessment, companyRequirementStatus, evidence } from "@/schema";
 import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
-import { randomUUID } from "crypto";
+import { companyProcedure, router } from "../init";
 
 export const evidenceRouter = router({
   /** Request a presigned upload URL and create a draft evidence record */
@@ -21,8 +21,12 @@ export const evidenceRouter = router({
         requirementStatusId: z.string().uuid(),
         fileName: z.string().min(1).max(500),
         fileType: z.string().min(1).max(100),
-        fileSize: z.number().int().positive().max(50 * 1024 * 1024),
-      })
+        fileSize: z
+          .number()
+          .int()
+          .positive()
+          .max(50 * 1024 * 1024),
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       // Enforce assignment before allowing upload
@@ -31,7 +35,10 @@ export const evidenceRouter = router({
         with: { requirement: { columns: { id: true, categoryId: true } } },
       });
       if (!statusRow) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Requirement status not found" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Requirement status not found",
+        });
       }
       await verifyAssessmentOwnership(ctx.db, statusRow.assessmentId, ctx.companyId);
       await enforceAssignment(ctx.db, {
@@ -77,7 +84,7 @@ export const evidenceRouter = router({
       z.object({
         evidenceId: z.string().uuid(),
         contentHash: z.string().length(64).optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const row = await ctx.db.query.evidence.findFirst({
@@ -92,7 +99,10 @@ export const evidenceRouter = router({
         with: { requirement: { columns: { id: true, categoryId: true } } },
       });
       if (!statusRow) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Requirement status not found" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Requirement status not found",
+        });
       }
       await verifyAssessmentOwnership(ctx.db, statusRow.assessmentId, ctx.companyId);
       await enforceAssignment(ctx.db, {
@@ -108,12 +118,7 @@ export const evidenceRouter = router({
           status: "in_review",
           contentHash: input.contentHash ?? null,
         })
-        .where(
-          and(
-            eq(evidence.id, input.evidenceId),
-            eq(evidence.status, "draft"),
-          )
-        )
+        .where(and(eq(evidence.id, input.evidenceId), eq(evidence.status, "draft")))
         .returning();
 
       return updated;
@@ -132,7 +137,12 @@ export const evidenceRouter = router({
       const [owned] = await ctx.db
         .select({ id: companyAssessment.id })
         .from(companyAssessment)
-        .where(and(eq(companyAssessment.id, statusRow.assessmentId), eq(companyAssessment.companyId, ctx.companyId)))
+        .where(
+          and(
+            eq(companyAssessment.id, statusRow.assessmentId),
+            eq(companyAssessment.companyId, ctx.companyId),
+          ),
+        )
         .limit(1);
       if (!owned) return [];
 
@@ -145,10 +155,8 @@ export const evidenceRouter = router({
         rows.map(async (row) => ({
           ...row,
           downloadUrl:
-            row.status !== "draft"
-              ? await createPresignedGet(row.storageKey)
-              : null,
-        }))
+            row.status !== "draft" ? await createPresignedGet(row.storageKey) : null,
+        })),
       );
     }),
 
@@ -170,7 +178,12 @@ export const evidenceRouter = router({
       const [owned] = await ctx.db
         .select({ id: companyAssessment.id })
         .from(companyAssessment)
-        .where(and(eq(companyAssessment.id, statusRow.assessmentId), eq(companyAssessment.companyId, ctx.companyId)))
+        .where(
+          and(
+            eq(companyAssessment.id, statusRow.assessmentId),
+            eq(companyAssessment.companyId, ctx.companyId),
+          ),
+        )
         .limit(1);
       if (!owned) return null;
 
@@ -193,7 +206,10 @@ export const evidenceRouter = router({
         with: { requirement: { columns: { id: true, categoryId: true } } },
       });
       if (!statusRow) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Requirement status not found" });
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Requirement status not found",
+        });
       }
 
       await verifyAssessmentOwnership(ctx.db, statusRow.assessmentId, ctx.companyId);

@@ -10,13 +10,17 @@
  * etc.) live under server/trpc/routers/supplier-portal/ and write to the same
  * table from the supplier perspective via supplierCompanyId.
  */
+
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
-import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import { insertRow, updateRow } from "../typed";
+import {
+  invalidateModuleSignOffs,
+  recheckModuleRequirements,
+} from "@/lib/compliance/module-recheck";
 import { supplier } from "@/schema";
 import { supplierInsertSchema, supplierUpdateSchema } from "@/schema/validators";
+import { companyProcedure, router } from "../init";
+import { insertRow, updateRow } from "../typed";
 
 export const supplierRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -62,7 +66,9 @@ export const supplierRouter = router({
         .insert(supplier)
         .values(insertRow(supplier, values))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "supplier", ctx.userId).catch((err) => console.error("[background] supplier recheck:", err));
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "supplier", ctx.userId).catch(
+        (err) => console.error("[background] supplier recheck:", err),
+      );
       return row;
     }),
 
@@ -74,14 +80,11 @@ export const supplierRouter = router({
       const [row] = await ctx.db
         .update(supplier)
         .set(updateRow(supplier, updates))
-        .where(
-          and(
-            eq(supplier.id, id),
-            eq(supplier.customerCompanyId, ctx.companyId),
-          ),
-        )
+        .where(and(eq(supplier.id, id), eq(supplier.customerCompanyId, ctx.companyId)))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "supplier", ctx.userId).catch((err) => console.error("[background] supplier recheck:", err));
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "supplier", ctx.userId).catch(
+        (err) => console.error("[background] supplier recheck:", err),
+      );
       return row;
     }),
 
@@ -91,12 +94,11 @@ export const supplierRouter = router({
       await ctx.db
         .delete(supplier)
         .where(
-          and(
-            eq(supplier.id, input.id),
-            eq(supplier.customerCompanyId, ctx.companyId),
-          ),
+          and(eq(supplier.id, input.id), eq(supplier.customerCompanyId, ctx.companyId)),
         );
-      recheckModuleRequirements(ctx.db, ctx.companyId, "supplier", ctx.userId).catch((err) => console.error("[background] supplier:", err));
+      recheckModuleRequirements(ctx.db, ctx.companyId, "supplier", ctx.userId).catch(
+        (err) => console.error("[background] supplier:", err),
+      );
       return { deleted: true };
     }),
 });

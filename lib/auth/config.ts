@@ -16,7 +16,6 @@ import { env } from "@/lib/env";
 import { isLocaleCode, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { resolveHints } from "@/lib/onboarding/hints";
-import { getAppUrl } from "@/lib/utils";
 import { company, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
@@ -115,7 +114,7 @@ const providers: Provider[] = [
       const hash = dbUser?.passwordHash ?? DUMMY_HASH;
       const valid = await bcrypt.compare(password, hash);
 
-      if (!dbUser || !dbUser.passwordHash || !valid) return null;
+      if (!dbUser?.passwordHash || !valid) return null;
 
       // Block unverified email-password accounts. The signin UI handles this
       // specific error code by prompting the user to verify their email.

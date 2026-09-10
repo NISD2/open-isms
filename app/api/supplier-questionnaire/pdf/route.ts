@@ -1,11 +1,11 @@
 import { renderToBuffer } from "@react-pdf/renderer";
 import { NextResponse } from "next/server";
+import { getClientIp } from "@/lib/client-ip";
 import {
   QUESTIONNAIRE_LOCALES,
   type QuestionnaireLocale,
   SupplierQuestionnaireDocument,
 } from "@/lib/pdf/supplier-questionnaire";
-import { getClientIp } from "@/lib/client-ip";
 import { rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
