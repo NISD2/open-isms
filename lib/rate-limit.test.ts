@@ -5,7 +5,7 @@
  * spent, because that turns a memory fix into a fail-open.
  */
 import { afterEach, describe, expect, test } from "bun:test";
-import { __resetRateLimitState, rateLimit } from "./rate-limit";
+import { __rateLimitInternals, __resetRateLimitState, rateLimit } from "./rate-limit";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -44,12 +44,25 @@ describe("rateLimit", () => {
     expect(rateLimit("victim", 1, 60_000)).toBe(false);
   });
 
-  test("sweeps windows that have fully expired", async () => {
-    for (let i = 0; i < 10_050; i++) rateLimit(`stale:${i}`, 1, 20);
+  test("the sweep reclaims windows that have fully expired", async () => {
+    for (let i = 0; i < 500; i++) rateLimit(`stale:${i}`, 1, 20);
+    expect(__rateLimitInternals.windowCount()).toBe(500);
+
     await sleep(60);
-    // One more call past the threshold triggers the sweep; the stale windows
-    // are all expired by now, so it reclaims them.
-    rateLimit("trigger", 1, 60_000);
-    expect(rateLimit("stale:0", 1, 20)).toBe(true);
+    __rateLimitInternals.forceSweep();
+
+    expect(__rateLimitInternals.windowCount()).toBe(0);
+  });
+
+  test("the sweep keeps windows that are still live", async () => {
+    for (let i = 0; i < 200; i++) rateLimit(`stale:${i}`, 1, 20);
+    for (let i = 0; i < 200; i++) rateLimit(`live:${i}`, 1, 60_000);
+
+    await sleep(60);
+    __rateLimitInternals.forceSweep();
+
+    // Only the short-window half has aged out.
+    expect(__rateLimitInternals.windowCount()).toBe(200);
+    expect(rateLimit("live:0", 1, 60_000)).toBe(false);
   });
 });
