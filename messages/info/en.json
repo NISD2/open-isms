@@ -2578,7 +2578,7 @@
     "cir": {
       "meta": {
         "title": "CIR 2024/2690: the 13 requirement groups in the Annex",
-        "description": "Implementing Regulation (EU) 2024/2690 binds eleven entity types directly. The 13 requirement groups in its Annex, and how they relate to Article 21 NIS 2."
+        "description": "Implementing Regulation (EU) 2024/2690 applies directly, with no national transposition. The 13 requirement groups in its Annex, and how they map to Article 21."
       },
       "title": "CIR 2024/2690 Implementation Guide",
       "subtitle": "The EU Implementing Regulation that specifies exactly what technical and methodological measures NIS2 entities must implement - published in the Official Journal on 17 October 2024 and directly applicable across all member states.",
