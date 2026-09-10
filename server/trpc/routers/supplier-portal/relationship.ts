@@ -8,18 +8,19 @@
  *
  * Rows owned by THIS supplier are identified by supplierCompanyId = ctx.companyId.
  */
-import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
+
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../../init";
-import { insertRow, updateRow } from "../../typed";
-import { supplier, company } from "@/schema";
+import { and, desc, eq } from "drizzle-orm";
+import { z } from "zod";
+import { company, supplier } from "@/schema";
 import {
-  supplierInviteCustomerSchema,
   relationshipClausesUpdateSchema,
+  supplierInviteCustomerSchema,
 } from "@/schema/validators";
-import { generateOpaqueToken } from "./helpers";
+import { companyProcedure, router } from "../../init";
+import { insertRow, updateRow } from "../../typed";
 import { notifyCustomerAdded } from "./broadcast";
+import { generateOpaqueToken } from "./helpers";
 
 /**
  * Guard: only companies that have opted into the supplier portal
@@ -44,8 +45,13 @@ async function requireSupplierRole(
 export const supplierRelationshipRouter = router({
   /** List all customers (supplier rows) where I'm the supplier-side party. */
   listMyCustomers: companyProcedure.query(async ({ ctx }) => {
+    // Audit F-9 (2026-09-10): no `unsubscribeToken`. It is the bearer
+    // credential for /supplier-access/{token}, one per customer, and this
+    // list renders customer name and status. `invite` and `resend` build the
+    // link from a targeted read, which is where the token belongs.
     return ctx.db.query.supplier.findMany({
       where: eq(supplier.supplierCompanyId, ctx.companyId),
+      columns: { unsubscribeToken: false },
       orderBy: [desc(supplier.createdAt)],
     });
   }),
@@ -114,7 +120,11 @@ export const supplierRelationshipRouter = router({
       return inserted;
     }),
 
-  /** Get a single relationship — returns the supplier row INCLUDING per-customer contract clauses. */
+  /**
+   * Get a single relationship — returns the supplier row INCLUDING
+   * per-customer contract clauses, but not the access token (audit F-9): the
+   * detail view renders clauses and SLA, and the token is a credential.
+   */
   get: companyProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
@@ -123,6 +133,7 @@ export const supplierRelationshipRouter = router({
           eq(supplier.id, input.id),
           eq(supplier.supplierCompanyId, ctx.companyId),
         ),
+        columns: { unsubscribeToken: false },
       });
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });
       return row;
@@ -143,12 +154,7 @@ export const supplierRelationshipRouter = router({
       const [row] = await ctx.db
         .update(supplier)
         .set(updateRow(supplier, { ...clauses, updatedAt: new Date() }))
-        .where(
-          and(
-            eq(supplier.id, id),
-            eq(supplier.supplierCompanyId, ctx.companyId),
-          ),
-        )
+        .where(and(eq(supplier.id, id), eq(supplier.supplierCompanyId, ctx.companyId)))
         .returning();
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });
       return row;
@@ -167,10 +173,7 @@ export const supplierRelationshipRouter = router({
           }),
         )
         .where(
-          and(
-            eq(supplier.id, input.id),
-            eq(supplier.supplierCompanyId, ctx.companyId),
-          ),
+          and(eq(supplier.id, input.id), eq(supplier.supplierCompanyId, ctx.companyId)),
         )
         .returning();
       if (!row) throw new TRPCError({ code: "NOT_FOUND" });

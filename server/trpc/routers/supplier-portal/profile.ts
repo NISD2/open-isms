@@ -130,11 +130,19 @@ export const supplierProfileRouter = router({
     .input(
       z.object({
         fileName: z.string().min(1).max(500),
+        // Raster only. SVG is a document: it carries <script>, and the store
+        // serves it back with whatever type it was uploaded under, on an
+        // origin the self-host Caddyfile makes a sibling of the app domain.
+        // Audit F-4 pinned the content type on the other three upload paths
+        // and this one was missed, because its regex looked like a guard
+        // while admitting the one executable format in the list. Nothing
+        // renders logoStorageKey today, so this closed a latent hole rather
+        // than a live one.
         contentType: z
           .string()
           .min(1)
           .max(100)
-          .regex(/^image\/(png|jpeg|jpg|webp|svg\+xml)$/),
+          .regex(/^image\/(png|jpeg|jpg|webp)$/),
         fileSize: z
           .number()
           .int()

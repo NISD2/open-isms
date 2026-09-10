@@ -1,5 +1,6 @@
 "use client";
 
+import { Calendar, Plus, ShieldCheck, Trash2 } from "lucide-react";
 /**
  * Certifications section — embedded in the supplier portal as a section page.
  *
@@ -14,13 +15,12 @@
  */
 import { useState } from "react";
 import type { z } from "zod";
-import { useRouter } from "@/i18n/navigation";
-import { Plus, Trash2, Calendar, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { SimpleFileUpload } from "@/components/shared/SimpleFileUpload";
-import { trpc } from "@/lib/trpc/client";
-import { SchemaForm } from "@/lib/forms/schema-form";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "@/i18n/navigation";
 import type { FieldOverride } from "@/lib/forms/field-renderer";
+import { SchemaForm } from "@/lib/forms/schema-form";
+import { trpc } from "@/lib/trpc/client";
 import { companyCertificationCreateSchema } from "@/schema/validators";
 
 type CertCreateValues = z.infer<typeof companyCertificationCreateSchema>;
@@ -116,7 +116,17 @@ export function CertificationsSection({
               ...file,
               contentType: "application/pdf",
             });
-            return { uploadUrl: result.url, fileKey: result.key };
+            // ...and hand that same value back, because Content-Type is a
+            // signed header: the URL is signed for application/pdf, so a PUT
+            // sending the browser's octet-stream is a signature mismatch and
+            // a 403. That is the exact case the override above exists for,
+            // which it could not actually fix until the upload component
+            // grew this return channel.
+            return {
+              uploadUrl: result.url,
+              fileKey: result.key,
+              contentType: "application/pdf",
+            };
           }}
           onUploaded={(key) => field.onChange(key)}
           onRemoved={() => field.onChange("")}
@@ -182,8 +192,7 @@ export function CertificationsSection({
                 <ShieldCheck className="h-5 w-5 text-primary shrink-0" />
                 <div className="min-w-0">
                   <div className="font-medium text-sm truncate">
-                    {CERT_TYPES.find((t) => t.value === cert.type)?.label ??
-                      cert.type}
+                    {CERT_TYPES.find((t) => t.value === cert.type)?.label ?? cert.type}
                   </div>
                   <div className="text-xs text-muted-foreground inline-flex items-center gap-1">
                     <Calendar className="h-3 w-3" />

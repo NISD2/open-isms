@@ -10,6 +10,7 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
+import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
 import { companyCertification } from "@/schema";
@@ -86,11 +87,7 @@ export const companyCertificationRouter = router({
           .min(1)
           .max(100)
           .regex(/^application\/pdf$/, "PDF only"),
-        fileSize: z
-          .number()
-          .int()
-          .positive()
-          .max(50 * 1024 * 1024),
+        fileSize: z.number().int().positive().max(MAX_UPLOAD_BYTES),
       }),
     )
     .mutation(async ({ ctx, input }) => {

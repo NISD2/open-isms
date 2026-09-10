@@ -18,13 +18,14 @@
  * own change.
  */
 
-interface Window {
+/** Named RateWindow, not Window, so it cannot shadow the DOM global. */
+interface RateWindow {
   timestamps: number[];
   /** When the last timestamp in this window ages out. */
   expiresAt: number;
 }
 
-const windows = new Map<string, Window>();
+const windows = new Map<string, RateWindow>();
 
 /**
  * Only consider sweeping once the Map is bigger than this. Sized well above
@@ -55,8 +56,8 @@ let lastSweptAt = 0;
 /** Drop every window whose newest timestamp has already aged out. */
 function sweepExpired(now: number): void {
   lastSweptAt = now;
-  for (const [key, window] of windows) {
-    if (window.expiresAt <= now) windows.delete(key);
+  for (const [key, entry] of windows) {
+    if (entry.expiresAt <= now) windows.delete(key);
   }
 }
 
@@ -89,6 +90,31 @@ export function rateLimit(key: string, limit: number, windowMs: number): boolean
     expiresAt: now + windowMs,
   });
   return true;
+}
+
+/**
+ * Per-IP limit for an unauthenticated route, with a sane answer for the
+ * deployments that cannot report an IP.
+ *
+ * `getClientIp` returns the literal "unknown" when neither `x-real-ip` nor
+ * `x-forwarded-for` is present, which is every self-hosted instance started
+ * without the optional Caddy proxy profile. Keying on that string would put
+ * every visitor to such an instance in ONE bucket, so the eleventh download
+ * of the day from anybody 429s. Those callers get their own, much larger
+ * shared budget instead: still a ceiling on the CPU an anonymous crowd can
+ * burn, without pretending a whole instance is one person.
+ *
+ * Deployments behind Traefik or Caddy always have the header, so they get the
+ * real per-IP limit.
+ */
+export function rateLimitPublicRoute(
+  name: string,
+  ip: string,
+  perIpPerMinute: number,
+): boolean {
+  return ip === "unknown"
+    ? rateLimit(`${name}:no-client-ip`, perIpPerMinute * 12, 60_000)
+    : rateLimit(`${name}:${ip}`, perIpPerMinute, 60_000);
 }
 
 /** Test seam: drop all state. Not used in application code. */

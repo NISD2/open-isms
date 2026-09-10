@@ -7,7 +7,7 @@ import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, TextRun } fro
 import { NextResponse } from "next/server";
 import { getClientIp } from "@/lib/client-ip";
 import { pickLocalized } from "@/lib/locale";
-import { rateLimit } from "@/lib/rate-limit";
+import { rateLimitPublicRoute } from "@/lib/rate-limit";
 
 const VERSION = supplierQuestionnaire.version;
 const LAST_UPDATED = supplierQuestionnaire.lastUpdated;
@@ -345,7 +345,7 @@ function buildDoc(locale: Locale): Document {
 export async function GET(request: Request): Promise<Response> {
   // Audit F-1 (2026-09-10): unauthenticated document build, same reasoning as
   // the PDF sibling.
-  if (!rateLimit(`questionnaire:docx:${getClientIp(request.headers)}`, 10, 60_000)) {
+  if (!rateLimitPublicRoute("questionnaire:docx", getClientIp(request.headers), 10)) {
     return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 

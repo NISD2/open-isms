@@ -9,6 +9,7 @@ import {
   normalizeContentType,
   sanitizeFilename,
 } from "@/lib/storage";
+import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { companyAssessment, companyRequirementStatus, evidence } from "@/schema";
 import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
 import { companyProcedure, router } from "../init";
@@ -21,11 +22,11 @@ export const evidenceRouter = router({
         requirementStatusId: z.string().uuid(),
         fileName: z.string().min(1).max(500),
         fileType: z.string().min(1).max(100),
-        fileSize: z
-          .number()
-          .int()
-          .positive()
-          .max(50 * 1024 * 1024),
+        // MAX_UPLOAD_BYTES, not a literal: the browser pre-checks the same
+        // constant via exceedsUploadLimit, and a router that disagrees with
+        // it turns a clear "too large" into the opaque failure limits.ts was
+        // written to prevent.
+        fileSize: z.number().int().positive().max(MAX_UPLOAD_BYTES),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -53,6 +54,15 @@ export const evidenceRouter = router({
       // Neither is trusted raw — the supplier-portal upload paths have always
       // done both, this one did neither. `fileName` is still stored verbatim
       // on the row, so the download keeps the name the user recognises.
+      //
+      // The row keeps the type the browser reported and only the OBJECT is
+      // stored under the normalized one. These are two different questions:
+      // `evidence.fileType` is a description of the artifact and feeds the
+      // Prüfordner evidence register (lib/pdf/load-report-data.ts), where
+      // "application/octet-stream" for every .odt or .zip would be a worse
+      // answer than the truth. What a browser is allowed to DO with the bytes
+      // is decided by the stored Content-Type and the attachment disposition
+      // on the way out, not by this column.
       const storedType = normalizeContentType(input.fileType);
       const storageKey = `evidence/${ctx.companyId}/${input.requirementStatusId}/${randomUUID()}-${sanitizeFilename(input.fileName)}`;
 
@@ -62,7 +72,7 @@ export const evidenceRouter = router({
         .values({
           requirementStatusId: input.requirementStatusId,
           fileName: input.fileName,
-          fileType: storedType,
+          fileType: input.fileType,
           fileSize: input.fileSize,
           storageKey,
           uploadedBy: ctx.userId,

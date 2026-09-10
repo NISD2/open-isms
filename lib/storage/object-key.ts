@@ -11,20 +11,33 @@
 
 /**
  * Reduce a caller-supplied filename to the character set an object key can
- * carry without surprises. Anything outside `[A-Za-z0-9._-]` becomes `_`,
- * which also removes the `/` and `..` sequences that would otherwise decide
- * where the object lands — S3 treats keys as opaque strings, but the
- * S3-compatible servers a self-hoster may point at do not all agree on that.
+ * carry without surprises. Anything outside `[A-Za-z0-9._-]` becomes `_`.
+ *
+ * What that guarantees, exactly: no path SEPARATORS. `.` is in the allowed
+ * set, so `..` survives verbatim — `sanitizeFilename("../../etc/passwd")` is
+ * `".._.._etc_passwd"`. Traversal is defeated because the slashes are gone,
+ * not because the dots are. So this is safe for a whole filename and NOT
+ * safe for a path segment that something later joins with "/". S3 treats
+ * keys as opaque strings anyway, but the S3-compatible servers a self-hoster
+ * may point at do not all agree on that, which is why the separators go.
  */
 export function sanitizeFilename(name: string): string {
   return name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 200);
 }
 
 /**
- * Content types an evidence or certificate upload may keep.
+ * Content types an object may be STORED under as-is.
  *
- * Mirrors the `accept` list on the evidence uploader
- * (`components/compliance/FileUpload.tsx`) plus the certificate PDF.
+ * Not a mirror of any uploader's `accept` list, and deliberately not a
+ * validation allowlist — nothing is rejected for missing from this set, and
+ * the row's own `fileType` column still records what the browser reported.
+ * The only question here is what Content-Type the object carries in the
+ * bucket, i.e. what a browser would be invited to do with the bytes if it
+ * ever reached them directly. Formats a browser executes (text/html,
+ * image/svg+xml, application/xhtml+xml) are absent on purpose and everything
+ * unrecognised lands on the same safe default, so adding a format to an
+ * uploader's `accept` without touching this set costs a less specific stored
+ * type and nothing else.
  */
 const STORABLE_CONTENT_TYPES = new Set([
   "application/pdf",
@@ -41,7 +54,7 @@ const STORABLE_CONTENT_TYPES = new Set([
 ]);
 
 /** What an unrecognised type becomes: bytes, and never a document a browser renders. */
-export const FALLBACK_CONTENT_TYPE = "application/octet-stream";
+const FALLBACK_CONTENT_TYPE = "application/octet-stream";
 
 /**
  * Pin the content type an object is stored with.

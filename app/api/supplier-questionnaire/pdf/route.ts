@@ -6,7 +6,7 @@ import {
   type QuestionnaireLocale,
   SupplierQuestionnaireDocument,
 } from "@/lib/pdf/supplier-questionnaire";
-import { rateLimit } from "@/lib/rate-limit";
+import { rateLimitPublicRoute } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -15,7 +15,7 @@ export async function GET(request: Request): Promise<Response> {
   // cacheable, but only `locale` changes the output, so any unknown query
   // parameter produces a fresh cache key and a fresh render. Every other
   // export route in the app throttles; this one had nothing.
-  if (!rateLimit(`questionnaire:pdf:${getClientIp(request.headers)}`, 10, 60_000)) {
+  if (!rateLimitPublicRoute("questionnaire:pdf", getClientIp(request.headers), 10)) {
     return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
 

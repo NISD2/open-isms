@@ -5,13 +5,20 @@ import { NextResponse } from "next/server";
  * POST /api/dev/seed — re-run the database seed script.
  *
  * Hardened:
- *   - Build-time gate: outside a development build the handler answers 404
- *     and never reaches the exec. Audit F-10 (2026-09-10) — this used to be
- *     a runtime `NODE_ENV === "production"` check, which is one typo in a
- *     deployment config away from being live. The tRPC dev router next door
- *     is excluded from the bundle the same way (server/trpc/router.ts).
- *   - drizzle/seed.ts also throws at module load in production, so the guard
- *     is two-deep.
+ *   - Answers 404 unless NODE_ENV is exactly "development". Audit F-10
+ *     (2026-09-10) inverted the old `=== "production"` test, which failed
+ *     open for every value that is neither: an unset NODE_ENV, "test",
+ *     "staging", a typo. Allow-listing the one environment that should reach
+ *     the exec fails closed instead.
+ *
+ *     Be precise about what this is: a runtime env read hoisted to module
+ *     scope, which a bundler MAY fold away but is not guaranteed to. The
+ *     route file still ships. It is the same shape as the tRPC dev-router
+ *     exclusion in server/trpc/router.ts, which is also a runtime read.
+ *     Treat both as hardened runtime checks, not as absence.
+ *   - drizzle/seed.ts also throws at module load in production, and the
+ *     runner image bakes NODE_ENV=production (Dockerfile), so the guard is
+ *     three-deep in anything actually shipped.
  *   - Does NOT echo stdout/stderr back to the caller. The seed script logs
  *     row counts and table names that would be useful to an attacker probing
  *     this surface; failures should be diagnosed from server logs only.
