@@ -900,8 +900,8 @@ export const platformAdminRouter = router({
         message: "Test send failed.",
       });
     }
-    // res.id carries a sentinel instead of a Resend id when delivery was
-    // suppressed (dev block / DISABLE_EMAIL / no API key).
+    // res.id carries a sentinel instead of a transport message id when
+    // delivery was suppressed (dev block / DISABLE_EMAIL / no transport).
     const suppressed = "id" in res ? isSuppressedSendId(res.id) : false;
     if (!suppressed) {
       const caller = await ctx.db.query.user.findFirst({

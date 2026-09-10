@@ -12,7 +12,9 @@ Budget around ten minutes for a first install, most of it spent pulling images.
 
 You do **not** need an AWS account, an AI provider or a Google Cloud project.
 
-You do need a way to send email before any human can register, because sign-up verifies the address with a one-time code. That is one Resend account, or Google OAuth. See [Email](/docs/self-hosting/email).
+You do not need a mail account either, to get yourself in: `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD` create the first account at startup, and Google OAuth skips the verification code entirely.
+
+Anyone after you registers or is invited by email, and that needs a transport: an SMTP relay you already run, or a Resend account. See [Email](/docs/self-hosting/email).
 
 ## Ports
 
@@ -37,4 +39,4 @@ Pulling images needs `ghcr.io` and `pkg-ghcr.githubusercontent.com`. The rest of
 
 At runtime the application calls out only to services you configure, plus one unconfigured call: `rdap.org` is queried during sign-up to check how old a registered domain is, as a throwaway-address signal. It has a short timeout and fails open.
 
-Nothing reports to this project. Analytics renders no tag unless you set both `ANALYTICS_SCRIPT_URL` and `ANALYTICS_WEBSITE_ID` to your own endpoint, and there is no update check, no licence check and no telemetry. An air-gapped instance needs no extra setting to stay quiet, though it cannot send email, which means nobody can complete a first login. Plan for that before disconnecting.
+Nothing reports to this project. Analytics renders no tag unless you set both `ANALYTICS_SCRIPT_URL` and `ANALYTICS_WEBSITE_ID` to your own endpoint, and there is no update check, no licence check and no telemetry. An air-gapped instance needs no extra setting to stay quiet, and it can still send mail: point `SMTP_HOST` at a relay inside your own network, which is reachable where a hosted mail API is not. Only the hosted API is off the table.

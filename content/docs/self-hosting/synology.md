@@ -88,15 +88,22 @@ If the project starts but the object store never appears, Container Manager did 
 
 ## Signing in the first time
 
-Nobody can register until the instance can send email, because sign-up verifies the address with a one-time code. On a NAS the quickest path is to read the code out of the log instead:
+Sign-up verifies the address with a one-time code, so an instance with no mail transport cannot get you an account through the registration form. Two variables in `.env` create the first account at startup instead, which is the least fiddly route on a NAS:
 
-**Container Manager → Container → the `app` container → Log**, and search for `sign-in code`. The line looks like this:
-
-```text
-[mail] No RESEND_API_KEY is set, so nothing was sent. The sign-in code for you@example.com is 481920.
+```ini
+BOOTSTRAP_ADMIN_EMAIL=you@example.com
+BOOTSTRAP_ADMIN_PASSWORD=a-password-you-choose
 ```
 
-That is fine for one administrator on a machine only they can reach. Before inviting colleagues, configure a mail provider so codes reach them: [Email](/docs/self-hosting/email).
+Rebuild the project in Container Manager, sign in with exactly those credentials, then clear `BOOTSTRAP_ADMIN_PASSWORD`.
+
+The other way in reads the code out of the log. **Container Manager → Container → the `app` container → Log**, and search for `sign-in code`:
+
+```text
+[mail] No mail transport is configured, so nothing was sent. The sign-in code for you@example.com is 481920.
+```
+
+Both are fine for one administrator on a machine only they can reach. Colleagues arrive by invitation and an invitation is an email, so set `SMTP_HOST` for a relay on your own network, or `RESEND_API_KEY` for the hosted API, before you invite anyone: [Email](/docs/self-hosting/email).
 
 ## Backups
 

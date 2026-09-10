@@ -81,9 +81,13 @@ curl -o Caddyfile    https://raw.githubusercontent.com/NISD2/open-isms/main/Cadd
 docker compose up -d                        # http://localhost:3026
 ```
 
-Nobody can register until the instance can send email, because sign-up verifies
-the address with a one-time code. Until you configure a provider, the code goes
-to the log: `docker compose logs app | grep "sign-in code"`.
+Sign-up verifies the address with a one-time code, so a fresh instance needs a
+way to get you the first one. Set `BOOTSTRAP_ADMIN_EMAIL` and
+`BOOTSTRAP_ADMIN_PASSWORD` in `.env` to create your account at startup with no
+mail at all, or read the code out of the log with
+`docker compose logs app | grep "sign-in code"`. Colleagues arrive by
+invitation, which is an email, so set `SMTP_HOST` for your own relay or
+`RESEND_API_KEY` for the hosted API before inviting anyone.
 
 **[nisd2.eu/docs](https://www.nisd2.eu/docs)** is the full documentation:
 installation, every environment variable, storage, email, TLS, updates,
