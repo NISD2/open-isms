@@ -1,6 +1,7 @@
 import { ArrowRight, Check, Code2, Server } from "lucide-react";
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
+import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
 import { Button } from "@/components/ui/button";
@@ -204,6 +205,18 @@ export default async function LandingPage() {
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* Programme logos, same hairline-separated rhythm as the section above.
+            Every logo goes to /partner rather than out to the programme, so the
+            strip reads as one claim about us instead of six outbound links. */}
+        <section className="mx-auto mt-16 w-full max-w-6xl border-t border-border/60 pt-10">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {t("partnersLabel")}
+          </p>
+          <div className="mt-6">
+            <PartnerLogoStrip variant="landing" />
           </div>
         </section>
       </main>

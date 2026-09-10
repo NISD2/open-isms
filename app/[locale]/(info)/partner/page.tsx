@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { CopyProtected } from "@/components/CopyProtected";
+import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { Separator } from "@/components/ui/separator";
 import { ogImages } from "@/lib/og-card";
+import { programmes } from "@/lib/partners";
 import { pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -22,60 +24,6 @@ export async function generateMetadata({
     },
   };
 }
-
-/* heightClass is tuned per logo, not shared: these lockups run from 8.9:1 wordmarks
-   to a 2.2:1 stacked mark, so one uniform height either drowns the wide ones or
-   shrinks the tall ones past legibility. The classes aim for a similar rendered width. */
-const programmes = [
-  {
-    name: "nvidia",
-    logo: "/partners/nvidia-inception-program-badge.svg",
-    logoWidth: 450,
-    logoHeight: 165,
-    heightClass: "h-12",
-    href: "https://www.nvidia.com/en-us/startups/",
-  },
-  {
-    name: "microsoft",
-    logo: "/partners/microsoft-for-startups.png",
-    logoWidth: 792,
-    logoHeight: 89,
-    heightClass: "h-5",
-    href: "https://www.microsoft.com/en-us/startups",
-  },
-  {
-    name: "google",
-    logo: "/partners/google-for-startups.svg",
-    logoWidth: 824,
-    logoHeight: 100,
-    heightClass: "h-5",
-    href: "https://startup.google.com/",
-  },
-  {
-    name: "lambda",
-    logo: "/partners/lambda.svg",
-    logoWidth: 196,
-    logoHeight: 42,
-    heightClass: "h-6",
-    href: "https://lambda.ai/",
-  },
-  {
-    name: "notion",
-    logo: "/partners/notion-for-startups.svg",
-    logoWidth: 512,
-    logoHeight: 178,
-    heightClass: "h-8",
-    href: "https://www.notion.com/startups",
-  },
-  {
-    name: "smartcityhouse",
-    logo: "/partners/smartcityhouse-logo.png",
-    logoWidth: 701,
-    logoHeight: 317,
-    heightClass: "h-11",
-    href: "https://smartcityhouse.de/",
-  },
-] as const;
 
 export default async function PartnerPage() {
   const t = await getTranslations("info");
@@ -128,26 +76,7 @@ export default async function PartnerPage() {
             {t("partners.programmes.heading")}
           </h2>
 
-          <div className="flex flex-wrap items-center gap-x-12 gap-y-8">
-            {programmes.map((programme) => (
-              <a
-                key={programme.name}
-                href={programme.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group"
-              >
-                {/* biome-ignore lint/performance/noImgElement: programme logos are arbitrary aspect ratios from a static list; next/image adds no value here */}
-                <img
-                  src={programme.logo}
-                  alt={t(`partners.${programme.name}.title`)}
-                  width={programme.logoWidth}
-                  height={programme.logoHeight}
-                  className={`${programme.heightClass} w-auto max-w-[210px] object-contain opacity-60 brightness-0 transition-opacity group-hover:opacity-100 dark:invert`}
-                />
-              </a>
-            ))}
-          </div>
+          <PartnerLogoStrip />
 
           <dl className="grid gap-6 sm:grid-cols-2">
             {programmes.map((programme) => (
