@@ -4482,8 +4482,8 @@
     },
     "sectorWaste": {
       "meta": {
-        "title": "NIS2 pro odpadové hospodářství",
-        "description": "Odpadové hospodářství je nově v působnosti NIS2 (příloha II). Průvodce pro firmy v odpadovém hospodářství s 50+ zaměstnanci: zákonné požadavky, aktiva a první kroky."
+        "title": "NIS2 pro odpadové hospodářství: koho se týká a co dělat",
+        "description": "Odpadové hospodářství je nově v působnosti NIS2 podle přílohy II. Pro firmy od 50 zaměstnanců: zákonné požadavky, aktiva a první kroky k souladu."
       },
       "title": "NIS2 pro firmy v odpadovém hospodářství",
       "subtitle": "Vaše odvětví je nově v působnosti podle přílohy II NIS2. Pokud má vaše firma v odpadovém hospodářství 50+ zaměstnanců nebo obrat 10 mil. EUR+, toto je váš praktický průvodce tím, co zákon vyžaduje a kde začít.",
@@ -11285,8 +11285,8 @@
     },
     "amIDataCentre": {
       "meta": {
-        "title": "Jsme poskytovatel datového centra podle NIS 2? Příloha I, sektor 8 vysvětlena",
-        "description": "NIS 2 zařazuje služby datových center do přílohy I, sektoru 8 (digitální infrastruktura). Definice podle článku 6 odst. 31 výslovně pokrývá distribuci energie a regulaci prostředí. Kolokace, hosting i dedikovaná řešení kvalifikují. Vnitropodnikové datové centrum pro vlastní skupinu nikoli. Zde je, jak test ve skutečnosti funguje."
+        "title": "Datové centrum podle NIS 2? Příloha I, sektor 8",
+        "description": "Služby datových center patří do přílohy I, sektoru 8. Článek 6 odst. 31 pokrývá distribuci energie a regulaci prostředí. Kolokace a hosting ano, vlastní ne."
       },
       "title": "Jsme poskytovatel datového centra podle NIS 2?",
       "subtitle": "NIS 2 uvádí služby datových center v příloze I, sektoru 8 (digitální infrastruktura). Článek 6 odst. 31 vymezuje službu tak, aby zahrnovala napájení a chlazení. Standardní test velikosti z článku 2 odst. 1 a doporučení 2003/361/ES poté rozhoduje, zda se povinnosti uplatní. Německo transponuje prostřednictvím §28 BSIG. KRITIS-V (zátěž IT 3,5 MW) je samostatná vnitrostátní nadstavba, nikoli vstupní bod do NIS 2.",

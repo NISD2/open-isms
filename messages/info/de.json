@@ -511,8 +511,8 @@
     },
     "bsigParagraph38": {
       "meta": {
-        "title": "§ 38 BSIG: die Pflichten der Geschäftsleitung",
-        "description": "§ 38 BSIG verpflichtet die Geschäftsleitung besonders wichtiger und wichtiger Einrichtungen, die Maßnahmen nach § 30 umzusetzen und zu überwachen, an Schulungen teilzunehmen, und regelt die persönliche Innenhaftung. Was das für Geschäftsführer und Vorstände bedeutet."
+        "title": "§ 38 BSIG: Geschäftsleitung und Schulungspflicht nach Abs. 3",
+        "description": "Absatz 1 verlangt Umsetzen und Überwachen der Maßnahmen nach § 30, Absatz 3 regelmäßige Schulungen der Leitung. Dazu die Innenhaftung nach Absatz 2."
       },
       "title": "§ 38 BSIG: die Pflichten der Geschäftsleitung",
       "subtitle": "Umsetzen, überwachen, schulen: drei Pflichten, die bei der Leitung bleiben.",
@@ -586,7 +586,7 @@
     "bsigParagraph32": {
       "meta": {
         "title": "§ 32 BSIG: die NIS-2-Meldepflicht (24h, 72h, ein Monat)",
-        "description": "§ 32 BSIG regelt die Meldepflicht bei erheblichen Sicherheitsvorfällen nach NIS 2: Frühwarnung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussbericht nach einem Monat. Was als erheblich gilt und wer an wen meldet."
+        "description": "Frühwarnung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussbericht nach einem Monat. Wann ein Vorfall erheblich ist, und wer an wen meldet."
       },
       "title": "§ 32 BSIG: die NIS-2-Meldepflicht",
       "subtitle": "Drei Stufen, eine 24-Stunden-Uhr, und was als erheblich gilt.",
@@ -2576,8 +2576,8 @@
     },
     "cir": {
       "meta": {
-        "title": "CIR 2024/2690 - EU-Verordnung für NIS2",
-        "description": "Leitfaden zur Durchführungsverordnung (EU) 2024/2690: Anwendungsbereich, technische Anforderungen, 10 Maßnahmenbereiche und Verhältnis zum BSIG."
+        "title": "CIR 2024/2690: die 13 Anforderungen im Anhang",
+        "description": "Die Durchführungsverordnung (EU) 2024/2690 gilt unmittelbar, ohne nationale Umsetzung. Die 13 Anforderungsgruppen im Anhang und das Verhältnis zu § 30 BSIG."
       },
       "title": "CIR 2024/2690 Leitfaden",
       "subtitle": "Die Durchführungsverordnung der EU-Kommission definiert die technischen Mindestanforderungen für NIS2 - unmittelbar anwendbar, ohne nationale Umsetzung.",
@@ -4475,8 +4475,8 @@
     },
     "sectorWaste": {
       "meta": {
-        "title": "NIS2 für die Abfallwirtschaft - Sektorleitfaden",
-        "description": "Abfallwirtschaft fällt erstmals unter NIS2 (Anhang II). Praxisleitfaden für Entsorger: IT-Profil, Asset-Kategorien und Umsetzungsprioritäten."
+        "title": "NIS 2 Abfallwirtschaft: wer betroffen ist, was zu tun ist",
+        "description": "Abfallwirtschaft fällt erstmals unter NIS 2, über Anhang II. Für Entsorger ab 50 Beschäftigten: IT-Profil, Assetkategorien und Umsetzungsprioritäten."
       },
       "badge": "Anhang II NIS2",
       "title": "NIS2 für die Abfallwirtschaft",
@@ -4821,7 +4821,7 @@
     "bsigParagraph30": {
       "meta": {
         "title": "§ 30 BSIG: Die zehn Maßnahmen für Cybersicherheit nach NIS 2",
-        "description": "§ 30 BSIG verpflichtet besonders wichtige und wichtige Einrichtungen zu zehn Risikomanagementmaßnahmen. Wortlaut, Verhältnismäßigkeit, Verhältnis zu Artikel 21 NIS 2, Bußgelder. Mit kostenloser Vorlage."
+        "description": "Die zehn Risikomanagementmaßnahmen im Wortlaut, die Verhältnismäßigkeit nach Abs. 1 S. 2, und das Verhältnis zu Artikel 21 NIS 2. Mit kostenloser Vorlage."
       },
       "title": "§ 30 BSIG: Die zehn Maßnahmen für Cybersicherheit",
       "subtitle": "Kurzantwort: § 30 BSIG ist die deutsche Umsetzung von Artikel 21 NIS 2. Besonders wichtige und wichtige Einrichtungen müssen zehn Risikomanagementmaßnahmen umsetzen, von Risikoanalyse über Lieferkettensicherheit bis Multi-Faktor-Authentifizierung. Die Umsetzung muss verhältnismäßig sein, also an Größe, Risikolage und Stand der Technik ausgerichtet.",
@@ -6845,8 +6845,8 @@
     },
     "gapAssessmentLanding": {
       "meta": {
-        "title": "Kostenlose NIS2 Gap-Analyse",
-        "description": "116 Fragen in 15 Bereichen. Finden Sie heraus, wo Ihre NIS-2-Lücken liegen. Kostenlos, kein Lock-in.",
+        "title": "NIS 2 Gap-Analyse kostenlos: 116 Fragen, 15 Bereiche",
+        "description": "Lückenanalyse entlang § 30 BSIG und Artikel 21 NIS 2. 116 Fragen in 15 Bereichen zeigen, wo die Lücken liegen. Kostenlos, Open Source, kein Lock-in.",
         "ogTitle": "Kostenlose NIS2 Gap-Analyse, nisd2.eu",
         "ogDescription": "116 Fragen. 15 Bereiche. Finden Sie Ihre NIS2-Lücken. Kostenlos."
       },
@@ -11021,8 +11021,8 @@
     },
     "amIMsp": {
       "meta": {
-        "title": "Sind wir Managed Service Provider unter NIS 2? Anhang I Sektor 9 und die Definition in Artikel 6 Nummer 39",
-        "description": "NIS 2 hat einen Sektor neu eingeführt, den es in NIS 1 nicht gab: IKT-Dienstleistungsmanagement im Geschäftskundenverhältnis. Wer Kunden-IT remote installiert, verwaltet, betreibt oder wartet, ist sehr wahrscheinlich MSP nach Artikel 6 Nummer 39 und fällt unter Anhang I Sektor 9. Diese Seite arbeitet Sektortest, Größentest und die Abgrenzung MSP gegen MSSP ab."
+        "title": "Sind wir MSP nach NIS 2? Anhang I Sektor 9, Art. 6 Nr. 39",
+        "description": "Wer Kunden-IT remote installiert, verwaltet, betreibt oder wartet, fällt meist unter Anhang I Sektor 9. Sektortest, Größentest und MSP gegen MSSP."
       },
       "title": "Sind wir Managed Service Provider unter NIS 2?",
       "subtitle": "NIS 2 hat MSP als neuen Sektor hinzugefügt. In NIS 1 gab es diese Kategorie nicht. Wer Kunden-IT remote betreibt, fällt sehr wahrscheinlich in den Anwendungsbereich. Anhang I Sektor 9 benennt die Tätigkeit. Artikel 6 Nummer 39 sagt, was zählt. Der Größentest gilt weiter, mit einer engen Ausnahme, die MSP nicht erfasst.",
@@ -11155,8 +11155,8 @@
     },
     "amICloudProvider": {
       "meta": {
-        "title": "Bin ich Anbieter von Cloud-Computing-Diensten nach NIS 2? Anhang I Sektor 8 erklärt",
-        "description": "Anbieter von Cloud-Computing-Diensten sind in NIS 2 Anhang I Sektor 8 (Digitale Infrastruktur) genannt. Die Definition in Art. 6 Nr. 30 erfasst IaaS, PaaS und SaaS, die Größenprüfung nach Art. 2 Abs. 1 entscheidet über wesentliche oder wichtige Einrichtung, und die Durchführungsverordnung (EU) 2024/2690 bindet unmittelbar. So funktioniert die Prüfung."
+        "title": "Bin ich Cloudanbieter nach NIS 2? Anhang I Sektor 8",
+        "description": "Art. 6 Nr. 30 erfasst IaaS, PaaS und SaaS. Die Größenprüfung nach Art. 2 Abs. 1 entscheidet wesentlich oder wichtig, CIR 2024/2690 bindet unmittelbar."
       },
       "title": "Bin ich Anbieter von Cloud-Computing-Diensten nach NIS 2?",
       "subtitle": "NIS 2 listet Cloud-Computing-Dienste in Anhang I Sektor 8 (Digitale Infrastruktur). Art. 6 Nr. 30 enthält die Definition und erfasst IaaS, PaaS und SaaS. Art. 2 Abs. 1 wendet die übliche Größenprüfung für mittlere Unternehmen an. Die Durchführungsverordnung (EU) 2024/2690 nennt Cloud-Anbieter in ihrem Anhang, sodass Teile dieser Verordnung EU-weit unmittelbar binden.",
@@ -11293,8 +11293,8 @@
     },
     "amIDataCentre": {
       "meta": {
-        "title": "Bin ich Rechenzentrumsanbieter nach NIS 2? Anhang I Sektor 8 erklärt",
-        "description": "NIS 2 nennt Rechenzentrumsdienste in Anhang I Sektor 8 (Digitale Infrastruktur). Die Definition aus Art. 6 Nr. 31 erfasst ausdrücklich Stromversorgung und Klimatisierung. Colocation, Hosting und dedizierte Häuser fallen darunter. Ein Rechenzentrum nur für die eigene Unternehmensgruppe fällt nicht darunter. So funktioniert die Prüfung."
+        "title": "Bin ich Rechenzentrumsanbieter nach NIS 2? Anhang I Sektor 8",
+        "description": "Rechenzentrumsdienste stehen in Anhang I Sektor 8. Art. 6 Nr. 31 erfasst Stromversorgung und Klimatisierung. Colocation und Hosting zählen, Eigenbetrieb nicht."
       },
       "title": "Bin ich Rechenzentrumsanbieter nach NIS 2?",
       "subtitle": "NIS 2 listet Rechenzentrumsdienste in Anhang I Sektor 8 (Digitale Infrastruktur). Art. 6 Nr. 31 fasst die Definition weit und schließt Strom und Kühlung mit ein. Über die Anwendbarkeit entscheidet der reguläre Größentest aus Art. 2 Abs. 1 in Verbindung mit der Empfehlung 2003/361/EG. Deutschland setzt das in §28 BSIG um. Die KRITIS-Verordnung (3,5 MW IT-Anschlussleistung) ist ein eigenständiger nationaler Aufsatz, kein NIS 2-Einstieg.",

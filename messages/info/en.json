@@ -511,8 +511,8 @@
     },
     "bsigParagraph38": {
       "meta": {
-        "title": "Section 38 BSIG: the duties of the management body",
-        "description": "Section 38 BSIG requires the management body of essential and important entities to implement and monitor the measures under Section 30, to attend training, and it governs personal internal liability. What that means for managing directors and board members."
+        "title": "Section 38 BSIG: management duties and the training duty",
+        "description": "Subsection 1 requires implementing and monitoring the Section 30 measures, subsection 3 requires regular management training. Plus liability under subsection 2."
       },
       "title": "Section 38 BSIG: the duties of the management body",
       "subtitle": "Implement, monitor, train: three duties that stay with the management body.",
@@ -585,8 +585,8 @@
     },
     "bsigParagraph32": {
       "meta": {
-        "title": "Section 32 BSIG: the NIS 2 incident reporting duty (24h, 72h, one month)",
-        "description": "Section 32 BSIG sets the reporting duty for significant incidents under NIS 2: an early warning within 24 hours, a notification within 72 hours, and a final report after one month. What counts as significant, and who reports to whom."
+        "title": "Section 32 BSIG: incident reporting in 24h, 72h, one month",
+        "description": "Early warning within 24 hours, notification within 72 hours, final report after one month. What makes an incident significant, and who reports to whom."
       },
       "title": "Section 32 BSIG: the NIS 2 incident reporting duty",
       "subtitle": "Three stages, a 24-hour clock, and what counts as significant.",
@@ -2577,8 +2577,8 @@
     },
     "cir": {
       "meta": {
-        "title": "CIR 2024/2690 - NIS2 Technical Measures",
-        "description": "CIR 2024/2690 defines exact technical requirements for NIS2 entities. Published October 2024, it applies directly across all EU member states."
+        "title": "CIR 2024/2690: the 13 requirement groups in the Annex",
+        "description": "Implementing Regulation (EU) 2024/2690 applies directly, with no national transposition. The 13 requirement groups in its Annex, and how they map to Article 21."
       },
       "title": "CIR 2024/2690 Implementation Guide",
       "subtitle": "The EU Implementing Regulation that specifies exactly what technical and methodological measures NIS2 entities must implement - published in the Official Journal on 17 October 2024 and directly applicable across all member states.",
@@ -4482,8 +4482,8 @@
     },
     "sectorWaste": {
       "meta": {
-        "title": "NIS2 for Waste Management",
-        "description": "Waste management is newly in NIS2 scope (Annex II). Guide for waste companies with 50+ employees: legal requirements, assets, and first steps."
+        "title": "NIS 2 for waste management: who is in scope, what to do",
+        "description": "Waste management is newly in NIS 2 scope through Annex II. For waste companies with 50 or more staff: legal requirements, assets, and the first steps."
       },
       "title": "NIS2 for Waste Management Companies",
       "subtitle": "Your sector is newly in scope under NIS2 Annex II. If your waste management company has 50+ employees or €10M+ revenue, this is your practical guide to what the law requires and where to start.",
@@ -4827,8 +4827,8 @@
     },
     "bsigParagraph30": {
       "meta": {
-        "title": "Section 30 BSIG: the Ten Cybersecurity Measures (German NIS 2)",
-        "description": "Section 30 BSIG is Germany's transposition of Article 21 NIS 2. The ten risk management measures, proportionality, relationship to EU law, penalties. With free template."
+        "title": "Section 30 BSIG: the ten NIS 2 cybersecurity measures",
+        "description": "Germany's transposition of Article 21 NIS 2. The ten risk management measures in full, the proportionality rule, and how they map to EU law. Free template."
       },
       "title": "Section 30 BSIG: the Ten Cybersecurity Measures",
       "subtitle": "Short answer: Section 30 of the German BSIG is the national transposition of Article 21 NIS 2. Essential and important entities must implement ten risk management measures, from risk analysis to supply chain security to multi-factor authentication. Implementation must be proportionate to size, risk exposure, and state of the art.",
@@ -6852,8 +6852,8 @@
     },
     "gapAssessmentLanding": {
       "meta": {
-        "title": "Free NIS2 Gap Assessment",
-        "description": "116 questions across 15 domains. Find out exactly where your NIS2 gaps are and what to fix first. Free, no lock-in.",
+        "title": "Free NIS 2 gap assessment: 116 questions, 15 domains",
+        "description": "Gap analysis mapped to Article 21 NIS 2 and Section 30 BSIG. 116 questions across 15 domains show where the gaps are. Free, open source, no lock-in.",
         "ogTitle": "Free NIS2 Gap Assessment: nisd2.eu",
         "ogDescription": "116 questions. 15 domains. Find your NIS2 gaps. Free."
       },
@@ -11028,8 +11028,8 @@
     },
     "amIMsp": {
       "meta": {
-        "title": "Am I a Managed Service Provider under NIS 2? Annex I sector 9 and the Article 6(39) definition",
-        "description": "NIS 2 added a new sector that did not exist in NIS 1: ICT service management on a business-to-business basis. If you remotely install, manage, operate or maintain customer IT, you are very likely an MSP under Article 6(39) and you fall under Annex I sector 9. This page works through the sector test, the size test, and the MSP vs MSSP distinction."
+        "title": "Am I an MSP under NIS 2? Annex I sector 9, Article 6(39)",
+        "description": "If you remotely install, manage, operate or maintain customer IT, you are likely in Annex I sector 9. The sector test, the size test, and MSP versus MSSP."
       },
       "title": "Are we a Managed Service Provider under NIS 2?",
       "subtitle": "NIS 2 added MSPs as a new sector that did not exist in NIS 1. If you remotely run customer IT, you are very likely in scope. Annex I sector 9 names the activity. Article 6(39) defines what counts. The size test still applies, with one narrow exception that does not cover most MSPs.",
@@ -11162,8 +11162,8 @@
     },
     "amICloudProvider": {
       "meta": {
-        "title": "Am I a cloud computing provider under NIS 2? Annex I sector 8 explained",
-        "description": "Cloud computing service providers are named in NIS 2 Annex I sector 8 (Digital Infrastructure). The Article 6(30) definition catches IaaS, PaaS and SaaS, the Article 2(1) size test decides who is essential vs important, and CIR (EU) 2024/2690 binds you directly. Here is how the test actually works."
+        "title": "Am I a cloud provider under NIS 2? Annex I sector 8",
+        "description": "Article 6(30) catches IaaS, PaaS and SaaS. The Article 2(1) size test decides essential or important, and CIR (EU) 2024/2690 binds you directly."
       },
       "title": "Am I a cloud computing provider under NIS 2?",
       "subtitle": "NIS 2 lists cloud computing services in Annex I sector 8 (Digital Infrastructure). Article 6(30) sets the legal definition covering IaaS, PaaS and SaaS. Article 2(1) then applies the normal medium-enterprise size test. CIR (EU) 2024/2690 puts cloud providers in its Annex, which means parts of that Regulation bind you directly across the EU.",
@@ -11300,8 +11300,8 @@
     },
     "amIDataCentre": {
       "meta": {
-        "title": "Am I a data centre provider under NIS 2? Annex I sector 8 explained",
-        "description": "NIS 2 puts data centre services in Annex I sector 8 (Digital Infrastructure). The Article 6(31) definition explicitly covers power distribution and environmental control. Co-location, hosting and dedicated all qualify. An in-house data centre for your own group does not. Here is how the test actually works."
+        "title": "Am I a data centre provider under NIS 2? Annex I sector 8",
+        "description": "Data centre services are Annex I sector 8. Article 6(31) covers power distribution and environmental control. Co-location and hosting qualify, in-house is out."
       },
       "title": "Am I a data centre provider under NIS 2?",
       "subtitle": "NIS 2 lists data centre services in Annex I sector 8 (Digital Infrastructure). Article 6(31) defines the service to include power and cooling. The standard size test from Article 2(1) and Recommendation 2003/361/EC then decides whether the duties apply. Germany transposes through §28 BSIG. KRITIS-V (3.5 MW IT load) is a separate national overlay, not the NIS 2 entry point.",
