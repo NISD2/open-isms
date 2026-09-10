@@ -60,7 +60,7 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
       setUploading(true);
       try {
         // 1. Get presigned URL
-        const { uploadUrl, evidenceId } =
+        const { uploadUrl, evidenceId, contentType } =
           await createUploadUrl.mutateAsync({
             requirementStatusId,
             fileName: file.name,
@@ -68,12 +68,15 @@ export function FileUpload({ requirementStatusId, disabled }: FileUploadProps) {
             fileSize: file.size,
           });
 
-        // 2. Upload directly to S3. SSE header must match server-signed value or S3 returns 403.
+        // 2. Upload directly to S3. Both the SSE header and Content-Type must
+        // match the server-signed values or S3 returns 403 — so send back the
+        // `contentType` the server signed, not `file.type`, which the server
+        // may have downgraded (audit F-4).
         const putRes = await fetch(uploadUrl, {
           method: "PUT",
           body: file,
           headers: {
-            "Content-Type": file.type || "application/octet-stream",
+            "Content-Type": contentType,
             "x-amz-server-side-encryption": "AES256",
           },
         });

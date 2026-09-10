@@ -13,6 +13,8 @@ import {
   type SupplierField,
 } from "@nisd2/nis2-supply-chain-questionnaire-schema";
 import { pickLocalized } from "@/lib/locale";
+import { getClientIp } from "@/lib/client-ip";
+import { rateLimit } from "@/lib/rate-limit";
 
 const VERSION = supplierQuestionnaire.version;
 const LAST_UPDATED = supplierQuestionnaire.lastUpdated;
@@ -328,6 +330,12 @@ function buildDoc(locale: Locale): Document {
 }
 
 export async function GET(request: Request): Promise<Response> {
+  // Audit F-1 (2026-09-10): unauthenticated document build, same reasoning as
+  // the PDF sibling.
+  if (!rateLimit(`questionnaire:docx:${getClientIp(request.headers)}`, 10, 60_000)) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
   const url = new URL(request.url);
   const localeParam = url.searchParams.get("locale");
   const locale: Locale =

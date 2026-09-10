@@ -1,6 +1,7 @@
 import "@/lib/server-guard";
 import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
+import type { PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { cookies } from "next/headers";
 import type { Session } from "next-auth";
 import NextAuth, { CredentialsSignin } from "next-auth";
@@ -247,8 +248,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           });
           if (existing) {
             userId = existing.id;
-            const patch: Partial<typeof user.$inferInsert> = { updatedAt: now };
-            if (existing.passwordHash) patch.passwordHash = null;
+            // PgUpdateSetSource, not Partial<$inferInsert>: sessionVersion is
+            // set to an SQL expression below, which the insert-shape type
+            // does not admit.
+            const patch: PgUpdateSetSource<typeof user> = { updatedAt: now };
+            if (existing.passwordHash) {
+              patch.passwordHash = null;
+              // Audit F-5 (2026-09-10): removing the password is a credential
+              // change, so it invalidates outstanding sessions the same way a
+              // reset does (audit M-1). The jwt callback runs after this one
+              // and re-reads sessionVersion, so THIS sign-in is stamped with
+              // the incremented value and stays valid; only tokens issued
+              // before the change are rejected.
+              patch.sessionVersion = sql`${user.sessionVersion} + 1`;
+            }
             if (!existing.emailVerifiedAt) {
               patch.emailVerifiedAt = now;
               shouldProvision = true;

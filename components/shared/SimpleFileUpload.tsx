@@ -16,6 +16,14 @@ interface SimpleFileUploadProps {
   getUploadUrl: (file: { fileName: string; contentType: string; fileSize: number }) => Promise<{
     uploadUrl: string;
     fileKey: string;
+    /**
+     * The content type the server actually signed into `uploadUrl`, when it
+     * differs from what we asked for. Content-Type is a signed header, so the
+     * PUT has to echo the signed value or S3 answers 403. Handlers that pin
+     * the type with a Zod regex sign exactly what they were given and can
+     * leave this unset (audit F-4).
+     */
+    contentType?: string;
   }>;
   /** Current file key (for edit mode) */
   currentFileKey?: string | null;
@@ -71,16 +79,17 @@ export function SimpleFileUpload({
     }
     setUploading(true);
     try {
-      const { uploadUrl, fileKey } = await getUploadUrl({
+      const requestedType = file.type || "application/octet-stream";
+      const { uploadUrl, fileKey, contentType } = await getUploadUrl({
         fileName: file.name,
-        contentType: file.type || "application/octet-stream",
+        contentType: requestedType,
         fileSize: file.size,
       });
       const res = await fetch(uploadUrl, {
         method: "PUT",
         body: file,
         headers: {
-          "Content-Type": file.type || "application/octet-stream",
+          "Content-Type": contentType ?? requestedType,
           "x-amz-server-side-encryption": "AES256",
         },
       });

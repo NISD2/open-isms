@@ -25,11 +25,7 @@ import { company } from "@/schema";
 import { securityProfileUpdateSchema } from "@/schema/validators";
 import { normalizeDomain } from "./helpers";
 import { createPresignedPut } from "@/lib/storage/presign";
-
-/** Strip any path-traversal characters from a filename before using it in an S3 key. */
-function sanitizeFilename(name: string): string {
-  return name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 200);
-}
+import { sanitizeFilename } from "@/lib/storage/object-key";
 
 /**
  * Shape of the supplier-portal subset of the company row, projected by `get`.

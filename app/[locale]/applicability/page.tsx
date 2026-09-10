@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ApplicabilitySection } from "@/components/applicability/ApplicabilitySection";
+import { JsonLd } from "@/components/JsonLd";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { pageAlternates } from "@/lib/seo";
 import { ogImages } from "@/lib/og-card";
@@ -22,33 +23,29 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-function JsonLd() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "NIS2 Applicability Check",
-    description: "Free self-assessment tool to check if your company falls under NIS2 (EU 2022/2555) and the German BSIG 2025.",
-    url: "https://www.nisd2.eu/applicability",
-    applicationCategory: "BusinessApplication",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "EUR",
-    },
-    provider: {
-      "@type": "Organization",
-      name: "NIS2 Compliance Platform",
-      url: "https://www.nisd2.eu",
-    },
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
-}
+// Audit F-7 (2026-09-10): rendered through <JsonLd>, whose safeStringify
+// escapes "<" (JSON.stringify does not), so a value containing "</script>"
+// cannot close the tag early. The data here is static, so this is not a live
+// XSS — it stops the next edit that interpolates a translation or a search
+// param from becoming one.
+const applicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "NIS2 Applicability Check",
+  description: "Free self-assessment tool to check if your company falls under NIS2 (EU 2022/2555) and the German BSIG 2025.",
+  url: "https://www.nisd2.eu/applicability",
+  applicationCategory: "BusinessApplication",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "EUR",
+  },
+  provider: {
+    "@type": "Organization",
+    name: "NIS2 Compliance Platform",
+    url: "https://www.nisd2.eu",
+  },
+};
 
 export default async function ApplicabilityPage({
   params,
@@ -68,7 +65,7 @@ export default async function ApplicabilityPage({
 
   return (
     <>
-      <JsonLd />
+      <JsonLd data={applicationSchema} />
 
       <div className="mb-8">
         <MarketingHero

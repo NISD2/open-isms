@@ -3,7 +3,13 @@ import { eq, and } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { router, companyProcedure } from "../init";
 import { evidence, companyRequirementStatus, companyAssessment } from "@/schema";
-import { createPresignedPut, createPresignedGet, deleteObject } from "@/lib/storage";
+import {
+  createPresignedPut,
+  createPresignedGet,
+  deleteObject,
+  normalizeContentType,
+  sanitizeFilename,
+} from "@/lib/storage";
 import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
 import { randomUUID } from "crypto";
 
@@ -35,7 +41,13 @@ export const evidenceRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const storageKey = `evidence/${ctx.companyId}/${input.requirementStatusId}/${randomUUID()}-${input.fileName}`;
+      // Audit F-4 (2026-09-10): the caller's filename decides part of the key
+      // and the caller's fileType decides what a later presigned GET serves.
+      // Neither is trusted raw — the supplier-portal upload paths have always
+      // done both, this one did neither. `fileName` is still stored verbatim
+      // on the row, so the download keeps the name the user recognises.
+      const storedType = normalizeContentType(input.fileType);
+      const storageKey = `evidence/${ctx.companyId}/${input.requirementStatusId}/${randomUUID()}-${sanitizeFilename(input.fileName)}`;
 
       // Create draft evidence record
       const [row] = await ctx.db
@@ -43,7 +55,7 @@ export const evidenceRouter = router({
         .values({
           requirementStatusId: input.requirementStatusId,
           fileName: input.fileName,
-          fileType: input.fileType,
+          fileType: storedType,
           fileSize: input.fileSize,
           storageKey,
           uploadedBy: ctx.userId,
@@ -51,9 +63,12 @@ export const evidenceRouter = router({
         })
         .returning();
 
-      const uploadUrl = await createPresignedPut(storageKey, input.fileType, input.fileSize);
+      const uploadUrl = await createPresignedPut(storageKey, storedType, input.fileSize);
 
-      return { uploadUrl, storageKey, evidenceId: row.id };
+      // `contentType` is signed into `uploadUrl`, so the PUT has to send this
+      // exact value back or S3 answers 403. The caller must not reuse
+      // `file.type` here — it may be the value we just downgraded.
+      return { uploadUrl, storageKey, evidenceId: row.id, contentType: storedType };
     }),
 
   /** Confirm upload completed — transition from draft to in_review */

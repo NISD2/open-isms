@@ -11,14 +11,25 @@ import type { supplier as supplierSchema } from "@/schema";
 
 type SupplierRow = typeof supplierSchema.$inferSelect;
 
-const CLAUSE_FIELDS: ReadonlyArray<keyof Pick<SupplierRow, "hasSecurityClauses" | "hasIncidentNotificationClause" | "hasAuditRights" | "hasSubcontractorFlowDown">> = [
+type ClauseField = keyof Pick<
+  SupplierRow,
+  "hasSecurityClauses" | "hasIncidentNotificationClause" | "hasAuditRights" | "hasSubcontractorFlowDown"
+>;
+
+const CLAUSE_FIELDS: ReadonlyArray<ClauseField> = [
   "hasSecurityClauses",
   "hasIncidentNotificationClause",
   "hasAuditRights",
   "hasSubcontractorFlowDown",
 ];
 
-function countClausesMet(s: SupplierRow): number {
+/**
+ * Takes only the columns it reads, not the whole row. `supplier.list` stopped
+ * returning `unsubscribeToken` (audit F-9) and a full-row parameter made that
+ * projection a type error here, which is the parameter being wrong rather
+ * than the projection.
+ */
+function countClausesMet(s: Pick<SupplierRow, ClauseField>): number {
   let count = 0;
   for (const f of CLAUSE_FIELDS) {
     if (s[f]) count++;
