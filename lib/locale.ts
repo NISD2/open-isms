@@ -35,3 +35,25 @@ export const LOCALES = [
 ] as const;
 
 export type LocaleCode = (typeof LOCALES)[number]["code"];
+
+/**
+ * Narrows an untrusted string to a locale the app actually serves.
+ *
+ * The three auth routes each carried their own copy of
+ * `LOCALES.some((l) => l.code === x) ? (x as LocaleCode) : fallback`, and each
+ * copy needed the cast because `.some()` proves nothing to the compiler. A type
+ * predicate proves it once and the casts go away.
+ */
+export function isLocaleCode(value: string | null | undefined): value is LocaleCode {
+  return LOCALES.some((l) => l.code === value);
+}
+
+/**
+ * The cookie next-intl writes when a visitor switches language.
+ *
+ * "NEXT_LOCALE" is next-intl's own default; naming it here and passing it to
+ * `localeCookie` in i18n/routing.ts makes the string one value rather than a
+ * default on one side and a guess on the other. The OAuth signup path reads it
+ * to seed `user.locale`, which is the only reason it has to be nameable at all.
+ */
+export const LOCALE_COOKIE = "NEXT_LOCALE";

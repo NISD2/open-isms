@@ -1,26 +1,23 @@
 import "@/lib/server-guard";
-import { cache } from "react";
-import NextAuth, { CredentialsSignin } from "next-auth";
-import Google from "next-auth/providers/google";
-import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { user, company } from "@/schema";
+import { cookies } from "next/headers";
 import type { Session } from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import type { Provider } from "next-auth/providers";
-
-import { env } from "@/lib/env";
-import {
-  sendMail,
-  sendWelcomeEmail,
-  newUserSignupEmail,
-} from "@/lib/mail";
-import { getAppUrl } from "@/lib/utils";
+import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
+import { cache } from "react";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
-import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
+import { db } from "@/lib/db";
+import { env } from "@/lib/env";
+import { isLocaleCode, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
+import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { resolveHints } from "@/lib/onboarding/hints";
+import { getAppUrl } from "@/lib/utils";
+import { company, user } from "@/schema";
+import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
 // Dummy hash for timing-safe comparison when user doesn't exist
 const DUMMY_HASH = "$2a$12$000000000000000000000uGBYRMjo5lsWIKE/k.HdGZfR5YmKKKu";
@@ -40,6 +37,29 @@ class CredentialsFlowError extends CredentialsSignin {
   constructor(code: string) {
     super();
     this.code = code;
+  }
+}
+
+/**
+ * The language a Google signup was reading the site in, or null.
+ *
+ * Credentials signup posts its locale in the request body; an OAuth callback
+ * has no body, so the only trace of the choice is the cookie next-intl set when
+ * the visitor used the switcher. Absent for anyone who never touched it, which
+ * is the honest answer — `resolveEmailLocale` then falls back to the company's
+ * country rather than to a guess made here.
+ *
+ * `cookies()` throws outside a request scope. The signIn callback always runs
+ * inside one, so the catch is for the case that stops being true: a language
+ * nobody can read is worth strictly less than a sign-in that completes.
+ */
+async function signupLocaleFromCookie(): Promise<LocaleCode | null> {
+  try {
+    const store = await cookies();
+    const value = store.get(LOCALE_COOKIE)?.value;
+    return isLocaleCode(value) ? value : null;
+  } catch {
+    return null;
   }
 }
 
@@ -119,10 +139,7 @@ const providers: Provider[] = [
 // in a production environment is a full auth bypass, so the env-var alone is
 // not sufficient — the production check is the belt and the env-var is the
 // suspenders.
-if (
-  process.env.NODE_ENV !== "production" &&
-  process.env.ENABLE_DEV_AUTH === "true"
-) {
+if (process.env.NODE_ENV !== "production" && process.env.ENABLE_DEV_AUTH === "true") {
   providers.push(
     Credentials({
       id: "dev",
@@ -137,7 +154,7 @@ if (
         if (!dbUser) return null;
         return { id: dbUser.id, email: dbUser.email, name: dbUser.name };
       },
-    })
+    }),
   );
 }
 
@@ -202,6 +219,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             // Google verified `profile.email_verified` upstream so we trust
             // the address — no separate OTP step for OAuth signups.
             emailVerifiedAt: now,
+            // /api/auth/register receives the locale in its POST body; an OAuth
+            // callback has no body to put it in, so the cookie next-intl
+            // already set is the only thing carrying it. Null when the visitor
+            // never touched the switcher, which resolveEmailLocale handles.
+            locale: await signupLocaleFromCookie(),
           })
           .onConflictDoNothing({ target: user.email })
           .returning({ id: user.id });
@@ -240,11 +262,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               ? sendMail({
                   emailType: "internal.new_signup_alert",
                   to: admins,
-                  ...newUserSignupEmail({ userEmail: authUser.email, userName: newName, provider: account.provider }),
-                }).catch((err) => console.error("[auth] Failed to send admin signup alert:", err))
+                  ...newUserSignupEmail({
+                    userEmail: authUser.email,
+                    userName: newName,
+                    provider: account.provider,
+                  }),
+                }).catch((err) =>
+                  console.error("[auth] Failed to send admin signup alert:", err),
+                )
               : Promise.resolve(),
-            sendWelcomeEmail({ name: newName, email: authUser.email })
-              .catch((err) => console.error("[auth] Failed to send welcome email:", err)),
+            sendWelcomeEmail({ name: newName, email: authUser.email }).catch((err) =>
+              console.error("[auth] Failed to send welcome email:", err),
+            ),
           ]);
         }
 
