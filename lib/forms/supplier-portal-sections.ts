@@ -88,6 +88,60 @@ export const SECURITY_PRACTICES_PAGE_FIELDS = [
   "aiSbomUrl",
 ] as const;
 
+const SAAS_FIELDS = [
+  "saasHostingRegion",
+  "saasEncryptionAtRest",
+  "saasEncryptionInTransit",
+  "saasMfaEnforced",
+  "saasRtoHours",
+] as const;
+
+const ON_PREM_FIELDS = [
+  "onPremSbomProvided",
+  "onPremSignedReleases",
+  "onPremVulnerabilityDisclosurePolicy",
+  "onPremPatchSlaCriticalHours",
+] as const;
+
+const PRO_SERVICES_FIELDS = [
+  "proServicesBackgroundCheckScope",
+  "proServicesNdaInPlace",
+  "proServicesCustomerPremisesPolicy",
+] as const;
+
+const MANAGED_SERVICES_FIELDS = [
+  "managedPrivilegedAccessMgmt",
+  "managedSessionRecording",
+  "managedOnCall24x7",
+] as const;
+
+/**
+ * Each service-type block with the toggle that turns it on.
+ *
+ * The mapping used to live only in the comments below ("rendered when
+ * isSaas"). Anything that measures how much of the questionnaire a supplier
+ * answered needs it as data — a supplier who ships no on-prem software should
+ * not be scored against four on-prem questions — and a second, hand-kept copy
+ * would drift the first time a field moved between blocks.
+ */
+export const SERVICE_TYPE_BLOCKS = [
+  { gate: "isSaas", fields: SAAS_FIELDS },
+  { gate: "isOnPrem", fields: ON_PREM_FIELDS },
+  { gate: "isProfessionalServices", fields: PRO_SERVICES_FIELDS },
+  { gate: "isManagedService", fields: MANAGED_SERVICES_FIELDS },
+] as const;
+
+/**
+ * Fields on the practices page that only apply once another answer switches
+ * them on. Same reason as the service-type gates: the form shows them to
+ * everyone, but demanding a subprocessor list from a supplier who has no
+ * subprocessors would be measuring the wrong thing.
+ */
+export const GATED_PRACTICE_FIELDS = {
+  subprocessorList: "hasSubprocessors",
+  aiSbomUrl: "providesSbomForAi",
+} as const;
+
 /**
  * Service-type page — renders the four service-type-conditional sections
  * (SaaS, On-prem, Professional services, Managed services). Every field
@@ -98,23 +152,8 @@ export const SECURITY_PRACTICES_PAGE_FIELDS = [
  * on identity / contact + the toggle pickers.
  */
 export const SERVICE_TYPE_PAGE_FIELDS = [
-  // SaaS technical (rendered when isSaas)
-  "saasHostingRegion",
-  "saasEncryptionAtRest",
-  "saasEncryptionInTransit",
-  "saasMfaEnforced",
-  "saasRtoHours",
-  // On-prem technical (rendered when isOnPrem)
-  "onPremSbomProvided",
-  "onPremSignedReleases",
-  "onPremVulnerabilityDisclosurePolicy",
-  "onPremPatchSlaCriticalHours",
-  // Professional services (rendered when isProfessionalServices)
-  "proServicesBackgroundCheckScope",
-  "proServicesNdaInPlace",
-  "proServicesCustomerPremisesPolicy",
-  // Managed services (rendered when isManagedService)
-  "managedPrivilegedAccessMgmt",
-  "managedSessionRecording",
-  "managedOnCall24x7",
+  ...SAAS_FIELDS,
+  ...ON_PREM_FIELDS,
+  ...PRO_SERVICES_FIELDS,
+  ...MANAGED_SERVICES_FIELDS,
 ] as const;

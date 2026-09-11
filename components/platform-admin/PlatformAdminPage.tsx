@@ -4,6 +4,7 @@ import {
   Activity,
   BadgeCheck,
   Building2,
+  ChartLine,
   FlaskConical,
   GraduationCap,
   Loader2,
@@ -15,7 +16,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { type RouterInputs, trpc } from "@/lib/trpc/client";
+import { type RouterInputs, type RouterOutputs, trpc } from "@/lib/trpc/client";
 
 type CourseId = RouterInputs["platformAdmin"]["trainingMarkCourseComplete"]["courseId"];
 
@@ -25,6 +26,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link, useRouter } from "@/i18n/navigation";
 import { DevPanel } from "./DevPanel";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
+import { GraphsPanel } from "./GraphsPanel";
+import { median } from "./graphs/derive";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -110,13 +113,12 @@ const COURSES = {
   tabletop: { id: "nis2-tabletop", total: 8 },
 } as const;
 
-interface SupplierRow {
-  companyId: string;
-  companyName: string;
-  sector: string;
-  createdAt: Date;
-  customerCount: number;
-}
+/**
+ * Taken from the procedure rather than restated: the questionnaire score is a
+ * nested shape derived from the portal's own field lists, and a hand-written
+ * copy here would drift the first time a question was added.
+ */
+type SupplierRow = RouterOutputs["platformAdmin"]["supplierActivity"][number];
 
 interface EmailRow {
   id: string;
@@ -218,6 +220,7 @@ function planBadge(plan: string | null) {
 }
 
 type Tab =
+  | "graphs"
   | "users"
   | "companies"
   | "compliance"
@@ -311,6 +314,12 @@ export function PlatformAdminPage({
       {/* Tabs */}
       <div className="flex flex-wrap gap-1 rounded-lg border bg-muted/50 p-1">
         {[
+          {
+            key: "graphs" as const,
+            label: "Graphs",
+            icon: ChartLine,
+            count: undefined as number | undefined,
+          },
           { key: "users" as const, label: "Users", icon: Users, count: users.length },
           {
             key: "companies" as const,
@@ -375,6 +384,7 @@ export function PlatformAdminPage({
       </div>
 
       {/* Tab content */}
+      {tab === "graphs" && <GraphsPanel />}
       {tab === "users" && <UsersTable users={users} />}
       {tab === "companies" && <CompaniesTable companies={companies} />}
       {tab === "compliance" && <ComplianceTable rows={complianceActivity} />}
@@ -878,7 +888,16 @@ function scopeLabel(scope: string): string {
   return scope;
 }
 
-function StatCard({ label, value, sub }: { label: string; value: number; sub?: string }) {
+function StatCard({
+  label,
+  value,
+  sub,
+}: {
+  label: string;
+  /** A string when the figure is a rate or a dash, not a count. */
+  value: number | string;
+  sub?: string;
+}) {
   return (
     <Card>
       <CardContent className="p-4">
@@ -1287,43 +1306,111 @@ function MarkCourseCompleteButton({
 // ---------------------------------------------------------------------------
 
 function SuppliersTable({ rows }: { rows: SupplierRow[] }) {
+  const percentages = rows.map((r) => r.questionnaire.percent);
+  const finished = percentages.filter((p) => p === 100).length;
+  const untouched = percentages.filter((p) => p === 0).length;
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Supplier Portal Companies</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b text-left text-muted-foreground">
-                <th className="pb-2 pr-4 font-medium">Company</th>
-                <th className="pb-2 pr-4 font-medium">Sector</th>
-                <th className="pb-2 pr-4 font-medium">Customers</th>
-                <th className="pb-2 font-medium">Joined</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r) => (
-                <tr key={r.companyId} className="border-b border-border/50 last:border-0">
-                  <td className="py-2 pr-4 font-medium">{r.companyName}</td>
-                  <td className="py-2 pr-4 text-muted-foreground">{r.sector}</td>
-                  <td className="py-2 pr-4">{r.customerCount}</td>
-                  <td className="py-2 text-muted-foreground">{timeAgo(r.createdAt)}</td>
+    <div className="space-y-6">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <StatCard label="Suppliers" value={rows.length} sub="portal profiles created" />
+        <StatCard
+          label="Median answered"
+          value={rows.length === 0 ? "—" : `${median(percentages) ?? 0}%`}
+          sub="of the questions that apply to them"
+        />
+        <StatCard
+          label="Fully answered"
+          value={finished}
+          sub={rows.length > 0 ? `of ${rows.length}` : undefined}
+        />
+        <StatCard
+          label="Nothing filled in"
+          value={untouched}
+          sub="profile exists, no answers"
+        />
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Supplier Portal Companies</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="mb-3 text-xs text-muted-foreground">
+            The questionnaire bar counts only the questions that apply to each supplier:
+            the service-type blocks they did not tick (SaaS, on-prem, professional
+            services, managed services) are left out of their denominator, so a SaaS-only
+            supplier can still reach 100 percent. A &ldquo;no&rdquo; counts as answered.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b text-left text-muted-foreground">
+                  <th className="pb-2 pr-4 font-medium">Company</th>
+                  <th className="pb-2 pr-4 font-medium">Sector</th>
+                  <th className="pb-2 pr-4 font-medium">Questionnaire</th>
+                  <th className="pb-2 pr-4 font-medium">Customers</th>
+                  <th className="pb-2 pr-4 font-medium">Last saved</th>
+                  <th className="pb-2 font-medium">Joined</th>
                 </tr>
-              ))}
-              {rows.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="py-8 text-center text-muted-foreground">
-                    No supplier portal companies yet
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </CardContent>
-    </Card>
+              </thead>
+              <tbody>
+                {rows.map((r) => (
+                  <tr
+                    key={r.companyId}
+                    className="border-b border-border/50 last:border-0"
+                  >
+                    <td className="py-2 pr-4 font-medium">{r.companyName}</td>
+                    <td className="py-2 pr-4 text-muted-foreground">{r.sector}</td>
+                    <td className="py-2 pr-4">
+                      <QuestionnaireCell score={r.questionnaire} />
+                    </td>
+                    <td className="py-2 pr-4">{r.customerCount}</td>
+                    <td className="py-2 pr-4 text-muted-foreground">
+                      {r.practicesLastSavedAt ? timeAgo(r.practicesLastSavedAt) : "—"}
+                    </td>
+                    <td className="py-2 text-muted-foreground">{timeAgo(r.createdAt)}</td>
+                  </tr>
+                ))}
+                {rows.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="py-8 text-center text-muted-foreground">
+                      No supplier portal companies yet
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+/** Progress bar plus the raw ratio, with the per-page split on hover. */
+function QuestionnaireCell({ score }: { score: SupplierRow["questionnaire"] }) {
+  const breakdown = [
+    `Profile ${score.profile.answered}/${score.profile.applicable}`,
+    `Practices ${score.practices.answered}/${score.practices.applicable}`,
+    score.serviceType.applicable === 0
+      ? "Service type: no service type ticked"
+      : `Service type ${score.serviceType.answered}/${score.serviceType.applicable}`,
+  ].join(" · ");
+
+  return (
+    <div className="flex items-center gap-2" title={breakdown}>
+      <div className="h-1.5 w-20 rounded-full bg-gray-200 dark:bg-gray-700">
+        <div
+          className="h-1.5 rounded-full bg-green-500"
+          style={{ width: `${score.percent}%` }}
+        />
+      </div>
+      <span className="tabular-nums text-xs text-muted-foreground">
+        {score.answered}/{score.applicable}
+      </span>
+      <span className="tabular-nums text-xs">{score.percent}%</span>
+    </div>
   );
 }
 

@@ -39,7 +39,12 @@ import { resolveEmailLocale } from "@/lib/mail/locale";
 import { isSuppressedSendId, sendMail } from "@/lib/mail/send";
 import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
+import { loadGrowthData } from "@/lib/platform-admin/growth";
 import { rateLimit } from "@/lib/rate-limit";
+import {
+  questionnaireColumns,
+  questionnaireCompleteness,
+} from "@/lib/supplier-portal/completeness";
 import { COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
 import {
   auditLog,
@@ -285,6 +290,17 @@ export const platformAdminRouter = router({
         .returning({ id: trainingLessonProgress.id });
       return { courseId: input.courseId, removed: deleted.length };
     }),
+
+  /**
+   * Everything the Graphs tab plots: per-user and per-company fact rows plus
+   * the daily series that are not per-user facts. All-time, unfiltered — the
+   * range selector lives on the client, so one fetch answers every range.
+   *
+   * Fetched lazily by the tab rather than on every platform-admin page load:
+   * it is the heaviest read on the page and eight of the nine tabs never
+   * need it.
+   */
+  growth: platformAdminProcedure.query(({ ctx }) => loadGrowthData(ctx.db)),
 
   overview: platformAdminProcedure.query(async ({ ctx }) => {
     const thirtyDaysAgo = new Date();
@@ -1228,25 +1244,52 @@ export const platformAdminRouter = router({
       return { email: target.email, scopesCleared: removed.length };
     }),
 
-  /** Supplier portal activity — companies acting as suppliers */
+  /**
+   * Supplier portal activity — companies acting as suppliers, with how much
+   * of the questionnaire each has answered.
+   *
+   * The questionnaire columns are projected from the page field lists rather
+   * than named here, so a question added to the portal is scored without
+   * anyone touching this query.
+   */
   supplierActivity: platformAdminProcedure.query(async ({ ctx }) => {
-    // Companies that act as suppliers and their relationship count
     const rows = await ctx.db
       .select({
+        ...questionnaireColumns(),
         companyId: company.id,
         companyName: company.name,
         sector: company.sector,
         createdAt: company.createdAt,
+        practicesLastSavedAt: company.practicesLastSavedAt,
+        // "company"."id" written out rather than interpolated as ${company.id}.
+        // Drizzle only qualifies a column with its table when the outer query
+        // joins, and this one selects from `company` alone, so the
+        // interpolation rendered a bare "id" that bound to the SUBQUERY's own
+        // table: `supplier.supplier_company_id = supplier.id`, false for every
+        // row. This column read 0 for every supplier. Same trap as the
+        // Companies tab (see platformAdmin.companies).
         customerCount: sql<number>`(
           SELECT count(*)::int FROM supplier
-          WHERE supplier.supplier_company_id = ${company.id}
+          WHERE supplier.supplier_company_id = "company"."id"
         )`,
       })
       .from(company)
       .where(eq(company.actsAsSupplier, true))
       .orderBy(desc(company.createdAt));
 
-    return rows;
+    // Scored from the whole row rather than a rest-spread: a column that is
+    // both a questionnaire field and named here would silently drop out of
+    // the answers and score every supplier short (it happened with `country`
+    // in the growth query).
+    return rows.map((row) => ({
+      companyId: row.companyId,
+      companyName: row.companyName,
+      sector: row.sector,
+      createdAt: row.createdAt,
+      practicesLastSavedAt: row.practicesLastSavedAt,
+      customerCount: row.customerCount,
+      questionnaire: questionnaireCompleteness(row),
+    }));
   }),
 
   gapAssessmentCreateForCompany: platformAdminProcedure
