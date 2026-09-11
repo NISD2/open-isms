@@ -148,7 +148,7 @@ export default async function LandingPage() {
         {/* Programme logos, first thing under the hero. Every logo goes to
             /partner rather than out to the programme, so the strip reads as one
             claim about us instead of seven outbound links. */}
-        <section className="mx-auto mt-20 w-full max-w-6xl border-t border-border/60 pt-10 sm:mt-24">
+        <section className="mx-auto mt-10 w-full max-w-6xl sm:mt-12">
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             {t("partnersLabel")}
           </p>
