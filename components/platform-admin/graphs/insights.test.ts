@@ -6,7 +6,7 @@
  */
 import { describe, expect, test } from "bun:test";
 import type { CompanyFact, DailyWorkRow, UserFact } from "@/lib/platform-admin/growth";
-import { MAX_INSIGHTS, weeklyInsights } from "./insights";
+import { allInsights, MAX_INSIGHTS, weeklyInsights } from "./insights";
 import { addDays } from "./range";
 
 const TODAY = "2026-03-01";
@@ -83,24 +83,76 @@ describe("weeklyInsights", () => {
     expect(found[0]?.tone).toBe("act");
   });
 
-  test("the draft-shell backlog fires, and says whether it is still growing", () => {
+  test("the draft-shell backlog reports movement, not just a level", () => {
     const stuck = Array.from({ length: 8 }, () =>
       user({ activatedDay: null, signupDay: ago(40) }),
     );
+    // Three more crossed the seven-day line during the last week.
     const growing = [
       ...stuck,
-      ...Array.from({ length: 3 }, () =>
-        user({ activatedDay: null, signupDay: ago(10) }),
-      ),
+      ...Array.from({ length: 3 }, () => user({ activatedDay: null, signupDay: ago(8) })),
     ];
-    expect(ids(stuck)).toContain("draft-shell-backlog");
+    // Four of the eight were activated three days ago.
+    const shrinking = stuck.map((u, i) => (i < 4 ? { ...u, activatedDay: ago(3) } : u));
 
     const flat = run(stuck).find((i) => i.id === "draft-shell-backlog");
     const rising = run(growing).find((i) => i.id === "draft-shell-backlog");
-    expect(flat?.detail).toContain("stopped growing");
-    expect(rising?.detail).toContain("still growing");
-    // Growth has to raise the ranking, or a chronic backlog never gets worse.
+    const falling = run(shrinking).find((i) => i.id === "draft-shell-backlog");
+
+    expect(flat?.detail).toContain("Unchanged");
+    expect(rising?.detail).toContain("3 more than last week");
+    expect(falling?.detail).toContain("4 fewer than last week");
+
+    // A backlog that grew must outrank one that is flat, which must outrank one
+    // being worked down — otherwise acting on it never changes what you see.
     expect(rising?.severity ?? 0).toBeGreaterThan(flat?.severity ?? 0);
+    expect(flat?.severity ?? 0).toBeGreaterThan(falling?.severity ?? 0);
+    // And the advice changes once it is moving.
+    expect(falling?.action).toContain("It is moving");
+  });
+
+  test("at most one standing problem takes a slot", () => {
+    // Four chronic rules all firing at once, and nothing acute.
+    const everythingChronic = [
+      ...Array.from({ length: 40 }, () =>
+        user({ activatedDay: null, signupDay: ago(40) }),
+      ),
+      ...Array.from({ length: 20 }, () => user({ activeDays: [ago(40)], workEvents: 3 })),
+      ...Array.from({ length: 20 }, () =>
+        user({
+          coursesFinished: [{ courseId: "nis2-ceo", day: ago(30) }],
+          workEvents: 47,
+        }),
+      ),
+    ];
+    const suppliers = Array.from({ length: 6 }, () =>
+      company({ actsAsSupplier: true, questionnairePct: 0, createdDay: ago(30) }),
+    );
+    const found = run(everythingChronic, suppliers);
+    expect(found.filter((i) => i.kind === "chronic").length).toBe(1);
+    // Which one wins depends on the numbers, but it must be the most severe of
+    // them: capping the slot must never hide the worst standing problem.
+    const shown = found.find((i) => i.kind === "chronic");
+    const everyChronic = allInsights(everythingChronic, suppliers, [], TODAY).filter(
+      (i) => i.kind === "chronic",
+    );
+    expect(everyChronic.length).toBeGreaterThan(1);
+    expect(shown?.severity).toBe(Math.max(...everyChronic.map((i) => i.severity)));
+  });
+
+  test("a standing problem never crowds out something that just happened", () => {
+    const chronicPlusAcute = [
+      ...Array.from({ length: 60 }, () =>
+        user({ activatedDay: null, signupDay: ago(40) }),
+      ),
+      // Active every baseline week, silent this one.
+      ...Array.from({ length: 6 }, () =>
+        user({ activeDays: [ago(10), ago(17), ago(24), ago(31)], workEvents: 4 }),
+      ),
+    ];
+    const found = run(chronicPlusAcute);
+    expect(found[0]?.id).toBe("activity-zero");
+    expect(found.some((i) => i.kind === "acute")).toBe(true);
   });
 
   test("two stuck accounts are not worth anyone's week", () => {
@@ -211,7 +263,9 @@ describe("weeklyInsights", () => {
     const suppliers = Array.from({ length: 5 }, () =>
       company({ actsAsSupplier: true, questionnairePct: 0, createdDay: ago(30) }),
     );
-    expect(run(everything, suppliers).length).toBe(MAX_INSIGHTS);
+    const found = run(everything, suppliers);
+    expect(found.length).toBeLessThanOrEqual(MAX_INSIGHTS);
+    expect(found.filter((i) => i.kind === "chronic").length).toBeLessThanOrEqual(1);
   });
 
   test("the same facts always give the same findings in the same order", () => {
