@@ -16,7 +16,7 @@
     "lint:fix": "biome check --write .",
     "lint:ci": "biome check --changed --since=$(git merge-base origin/main HEAD) --no-errors-on-unmatched",
     "typecheck": "tsc --noEmit",
-    "test:unit": "bun test lib server schema/",
+    "test:unit": "bun test lib server schema/ components/",
     "check:migrations": "bun scripts/check-migration-journals.ts",
     "check:migration-immutability": "bun scripts/check-migration-immutability.ts",
     "check:migration-safety": "bun scripts/check-migration-safety.ts",

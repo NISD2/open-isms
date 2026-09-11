@@ -77,6 +77,13 @@ export interface UserFact {
    * would read our own batch jobs as customers being busy.
    */
   workEvents: number;
+  /**
+   * The same count without lesson progress: requirement completions, sign-offs
+   * and evidence only. Someone who finished a 47-lesson course has 47 work
+   * events and may still have done nothing at all inside their ISMS, which is
+   * a different and more interesting fact.
+   */
+  complianceEvents: number;
   /** Requirements this person signed off, all time. */
   signOffs: number;
   /** Courses with at least one lesson touched. */
@@ -369,24 +376,34 @@ export async function loadGrowthData(db: Database): Promise<GrowthData> {
 
   interface UserWork {
     events: number;
+    complianceEvents: number;
     signOffs: number;
     days: Set<string>;
   }
   const workByUser = new Map<string, UserWork>();
   const activeByDay = new Map<string, { users: Set<string>; events: number }>();
 
+  /**
+   * Which kind of work a row is. Lesson progress and ISMS work are both work,
+   * but they answer different questions: "did this person come back" counts
+   * both, while "did the course turn into anything" has to count only the
+   * second, or every course finisher looks busy on the strength of the 47
+   * lessons they just clicked through.
+   */
   const recordWork = (
     row: { userId: string | null; day: string; events: number },
-    isSignOff: boolean,
+    kind: "lesson" | "compliance" | "sign-off",
   ) => {
     if (!row.userId) return;
     const forUser: UserWork = workByUser.get(row.userId) ?? {
       events: 0,
+      complianceEvents: 0,
       signOffs: 0,
       days: new Set(),
     };
     forUser.events += row.events;
-    if (isSignOff) forUser.signOffs += row.events;
+    if (kind !== "lesson") forUser.complianceEvents += row.events;
+    if (kind === "sign-off") forUser.signOffs += row.events;
     forUser.days.add(row.day);
     workByUser.set(row.userId, forUser);
 
@@ -396,10 +413,10 @@ export async function loadGrowthData(db: Database): Promise<GrowthData> {
     activeByDay.set(row.day, forDay);
   };
 
-  for (const r of lessonTouches) recordWork(r, false);
-  for (const r of signOffRows) recordWork(r, true);
-  for (const r of evidenceRows) recordWork(r, false);
-  for (const r of requirementRows) recordWork(r, false);
+  for (const r of lessonTouches) recordWork(r, "lesson");
+  for (const r of signOffRows) recordWork(r, "sign-off");
+  for (const r of evidenceRows) recordWork(r, "compliance");
+  for (const r of requirementRows) recordWork(r, "compliance");
 
   const startedByUser = new Map<string, Set<CourseId>>();
   for (const r of lessonTouches) {
@@ -428,6 +445,7 @@ export async function loadGrowthData(db: Database): Promise<GrowthData> {
       activatedDay: u.activatedDay,
       activeDays: work ? Array.from(work.days).sort() : [],
       workEvents: work?.events ?? 0,
+      complianceEvents: work?.complianceEvents ?? 0,
       signOffs: work?.signOffs ?? 0,
       coursesStarted: Array.from(startedByUser.get(u.id) ?? []),
       coursesFinished: finishedByUser.get(u.id) ?? [],

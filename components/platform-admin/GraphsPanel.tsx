@@ -29,6 +29,8 @@ import {
   signupFunnel,
   sizeBars,
 } from "./graphs/derive";
+import { InsightsCard } from "./graphs/InsightsCard";
+import { insightWindow, weeklyInsights } from "./graphs/insights";
 import { VIZ, VIZ_PALETTE_CSS } from "./graphs/palette";
 import {
   barsTable,
@@ -329,6 +331,13 @@ function GraphsView({ data }: { data: GrowthData }) {
     [data, today],
   );
 
+  // Fixed seven-day window, deliberately not scoped by the range selector.
+  const insights = useMemo(
+    () => weeklyInsights(data.users, data.companies, data.work, today),
+    [data, today],
+  );
+  const insightDays = insightWindow(today);
+
   const accountsNow = totals.accounts.get(frame.end) ?? 0;
   const ceoLessons = data.courseLessonCounts["nis2-ceo"];
   const supplierMedian = median(questionnairePercents(scoped.suppliers));
@@ -395,6 +404,8 @@ function GraphsView({ data }: { data: GrowthData }) {
   return (
     <div data-viz className="space-y-6">
       <style>{VIZ_PALETTE_CSS}</style>
+
+      <InsightsCard insights={insights} from={insightDays.from} to={insightDays.to} />
 
       {/* One filter row, scoping every card below it. */}
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 rounded-lg border bg-muted/30 p-3">
