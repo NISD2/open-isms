@@ -13,18 +13,41 @@ type PartnerLogoStripProps = {
   variant?: "landing" | "page";
 };
 
+/* Full-strength --primary at rest, lightening on hover. The lift is brightness
+   rather than opacity: fading a fill toward the page lightens it on white but
+   darkens it on the dark theme's near-black, so opacity would invert the effect
+   between themes. brightness raises it in both. */
 const LOGO_CLASS =
-  "w-auto max-w-[210px] object-contain opacity-60 brightness-0 transition-opacity group-hover:opacity-100 dark:invert";
+  "block w-auto max-w-[210px] bg-primary transition-[filter] duration-200 group-hover:brightness-125";
 
+/**
+ * Tints each logo to the brand blue by using it as a CSS mask over a solid
+ * bg-primary fill, rather than an <img> under a filter. A filter chain can only
+ * reach black via brightness(0); approximating a hue from there with
+ * sepia/saturate/hue-rotate lands near the token rather than on it. Masking
+ * paints --primary exactly, and follows it from #284b63 to #5a93b5 in dark mode
+ * with no second rule.
+ *
+ * Every asset in the list already carries its silhouette in the alpha channel,
+ * which is what the mask reads, so nothing needed re-exporting.
+ *
+ * The element is a span rather than an img, so the accessible name comes from
+ * role and aria-label. aspectRatio against the definite height from heightClass
+ * is what resolves the width.
+ */
 function PartnerLogo({ programme, alt }: { programme: Programme; alt: string }) {
+  const mask = `url(${programme.logo}) center / contain no-repeat`;
+
   return (
-    // biome-ignore lint/performance/noImgElement: programme logos are arbitrary aspect ratios from a static list; next/image adds no value here
-    <img
-      src={programme.logo}
-      alt={alt}
-      width={programme.logoWidth}
-      height={programme.logoHeight}
+    <span
+      role="img"
+      aria-label={alt}
       className={`${programme.heightClass} ${LOGO_CLASS}`}
+      style={{
+        aspectRatio: `${programme.logoWidth} / ${programme.logoHeight}`,
+        WebkitMask: mask,
+        mask,
+      }}
     />
   );
 }
