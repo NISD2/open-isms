@@ -145,10 +145,22 @@ export default async function LandingPage() {
           </div>
         </div>
 
-        {/* Below the hero: what you get + why free. Aligned to the hero
-            width and left edge, split by a hairline, so it reads as an
-            intentional section rather than a floating centered card. */}
+        {/* Programme logos, first thing under the hero. Every logo goes to
+            /partner rather than out to the programme, so the strip reads as one
+            claim about us instead of seven outbound links. */}
         <section className="mx-auto mt-20 w-full max-w-6xl border-t border-border/60 pt-10 sm:mt-24">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {t("partnersLabel")}
+          </p>
+          <div className="mt-6">
+            <PartnerLogoStrip variant="landing" />
+          </div>
+        </section>
+
+        {/* What you get + why free. Aligned to the hero width and left edge,
+            split by a hairline, so it reads as an intentional section rather
+            than a floating centered card. */}
+        <section className="mx-auto mt-16 w-full max-w-6xl border-t border-border/60 pt-10">
           <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -205,18 +217,6 @@ export default async function LandingPage() {
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
-          </div>
-        </section>
-
-        {/* Programme logos, same hairline-separated rhythm as the section above.
-            Every logo goes to /partner rather than out to the programme, so the
-            strip reads as one claim about us instead of six outbound links. */}
-        <section className="mx-auto mt-16 w-full max-w-6xl border-t border-border/60 pt-10">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            {t("partnersLabel")}
-          </p>
-          <div className="mt-6">
-            <PartnerLogoStrip variant="landing" />
           </div>
         </section>
       </main>
