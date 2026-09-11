@@ -1,6 +1,7 @@
 import { ArrowRight, Check, Code2, Server } from "lucide-react";
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
+import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
 import { Button } from "@/components/ui/button";
@@ -69,7 +70,10 @@ export default async function LandingPage() {
           </h1>
 
           {/* Below the headline: pitch column + large frameless product */}
-          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,25rem)_1fr] lg:items-center">
+          {/* items-start, not center: the pitch column is shorter than the
+              screenshot, so centring floated it and left the subtitle starting
+              below the top of the image. */}
+          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,25rem)_1fr] lg:items-start">
             <div>
               <p className="max-w-sm text-base leading-relaxed text-muted-foreground">
                 {t.rich("subtitle", {
@@ -108,21 +112,16 @@ export default async function LandingPage() {
                 </Button>
               </div>
 
-              {/* Quiet meta row: supplier door + legal citation */}
-              <div className="mt-8 max-w-sm border-t border-border/60 pt-6">
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  <Link
-                    href="/supplier-portal"
-                    className="font-medium text-foreground/70 underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/40"
-                  >
-                    {t("supplierDoor")}
-                  </Link>
-                </p>
-                <p className="mt-4 flex items-center gap-2 text-xs text-muted-foreground/60">
-                  <span className="inline-block h-1 w-1 rounded-full bg-muted-foreground/40" />
-                  {t("regLine")}
-                </p>
-              </div>
+              {/* Supplier door. No rule above it and no legal citation below
+                  any more, so the paragraph carries its own spacing. */}
+              <p className="mt-8 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                <Link
+                  href="/supplier-portal"
+                  className="font-medium text-foreground/70 underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/40"
+                >
+                  {t("supplierDoor")}
+                </Link>
+              </p>
             </div>
 
             {/* Product: large, frameless, floating screenshot */}
@@ -144,10 +143,22 @@ export default async function LandingPage() {
           </div>
         </div>
 
-        {/* Below the hero: what you get + why free. Aligned to the hero
-            width and left edge, split by a hairline, so it reads as an
-            intentional section rather than a floating centered card. */}
-        <section className="mx-auto mt-20 w-full max-w-6xl border-t border-border/60 pt-10 sm:mt-24">
+        {/* Programme logos, first thing under the hero. Every logo goes to
+            /partner rather than out to the programme, so the strip reads as one
+            claim about us instead of seven outbound links. */}
+        <section className="mx-auto mt-10 w-full max-w-6xl sm:mt-12">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {t("partnersLabel")}
+          </p>
+          <div className="mt-6">
+            <PartnerLogoStrip variant="landing" />
+          </div>
+        </section>
+
+        {/* What you get + why free. Aligned to the hero width and left edge,
+            split by a hairline, so it reads as an intentional section rather
+            than a floating centered card. */}
+        <section className="mx-auto mt-16 w-full max-w-6xl border-t border-border/60 pt-10">
           <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
