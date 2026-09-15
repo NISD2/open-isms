@@ -39,7 +39,9 @@ export async function POST(request: Request) {
 
   const pendingUser = await db.query.user.findFirst({
     where: and(eq(user.email, email), isNull(user.emailVerifiedAt)),
-    columns: { id: true, isDisposableEmail: true },
+    // Only what this route reads: existence, and the gate's verdict (audit
+    // F-9 — a row lookup should not drag back columns nobody uses).
+    columns: { isDisposableEmail: true },
   });
 
   // No pending-verify account? Pretend success. Don't leak existence.
