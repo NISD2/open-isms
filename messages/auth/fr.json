@@ -27,6 +27,7 @@
     "verifyResent": "Nouveau code envoyé. Consultez votre boîte de réception.",
     "verifyResendCooldown": "Patientez quelques minutes avant de demander un nouveau code.",
     "verifyErrorInvalidCode": "Code invalide ou expiré. Réessayez ou demandez-en un nouveau.",
+    "verifyErrorSignInFailed": "E-mail confirmé. La connexion a échoué car un autre mot de passe est enregistré pour cette adresse. Définissez-en un nouveau via \"Mot de passe oublié\".",
     "verifyBack": "Utiliser une autre adresse e-mail",
     "forgotPasswordLink": "Mot de passe oublié ?",
     "forgotPassword": {

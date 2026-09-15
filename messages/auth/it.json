@@ -27,6 +27,7 @@
     "verifyResent": "Nuovo codice inviato. Controlla la casella di posta.",
     "verifyResendCooldown": "Attendi qualche minuto prima di richiedere un altro codice.",
     "verifyErrorInvalidCode": "Codice non valido o scaduto. Riprova o richiedine uno nuovo.",
+    "verifyErrorSignInFailed": "E-mail confermata. L'accesso non è riuscito perché per questo indirizzo è salvata una password diversa. Impostane una nuova con \"Password dimenticata\".",
     "verifyBack": "Usa un'email diversa",
     "forgotPasswordLink": "Hai dimenticato la password?",
     "forgotPassword": {

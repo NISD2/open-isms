@@ -27,6 +27,7 @@
     "verifyResent": "Cod nou trimis. Verificați-vă căsuța de e-mail.",
     "verifyResendCooldown": "Așteptați câteva minute înainte de a solicita un alt cod.",
     "verifyErrorInvalidCode": "Cod invalid sau expirat. Încercați din nou sau solicitați unul nou.",
+    "verifyErrorSignInFailed": "E-mail confirmat. Autentificarea nu a reușit deoarece pentru această adresă este salvată o altă parolă. Setați una nouă din \"Am uitat parola\".",
     "verifyBack": "Folosește altă adresă de e-mail",
     "forgotPasswordLink": "Ați uitat parola?",
     "forgotPassword": {

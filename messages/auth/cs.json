@@ -27,6 +27,7 @@
     "verifyResent": "Nový kód byl odeslán. Zkontrolujte svou schránku.",
     "verifyResendCooldown": "Před vyžádáním dalšího kódu několik minut počkejte.",
     "verifyErrorInvalidCode": "Neplatný nebo prošlý kód. Zkuste to znovu nebo si vyžádejte nový.",
+    "verifyErrorSignInFailed": "E-mail potvrzen. Přihlášení se nezdařilo, protože k této adrese je uloženo jiné heslo. Nastavte si nové přes \"Zapomenuté heslo\".",
     "verifyBack": "Použít jiný e-mail",
     "forgotPasswordLink": "Zapomněli jste heslo?",
     "forgotPassword": {

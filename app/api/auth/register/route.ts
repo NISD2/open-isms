@@ -64,7 +64,11 @@ export async function POST(request: Request) {
   }
 
   const email = (body.email as string | undefined)?.toLowerCase().trim();
-  const password = body.password as string | undefined;
+  // Type-checked rather than cast: see the note on the same guard in
+  // /api/auth/verify-email. A non-string is truthy, `.length` on it is
+  // undefined, and every comparison against undefined is false, so it reaches
+  // bcrypt.hash and 500s instead of being answered with a 400.
+  const password = body.password;
   const localeInput = body.locale as string | undefined;
   // Validated against the full app locale list: the OTP templates carry copy
   // for all 10 locales, and the same value is persisted on the user row so
@@ -75,7 +79,7 @@ export async function POST(request: Request) {
     : null;
   const locale: Locale = persistedLocale ?? "de";
 
-  if (!email || !password) {
+  if (!email || typeof password !== "string" || !password) {
     return NextResponse.json(
       { error: "Email and password are required" },
       { status: 400 },
@@ -106,7 +110,7 @@ export async function POST(request: Request) {
   // happy path leaks an enumeration oracle (audit H-4). Forgotten password
   // belongs in /api/auth/forgot-password, which proves mailbox ownership
   // before mutating anything.
-  if (existing && existing.emailVerifiedAt) {
+  if (existing?.emailVerifiedAt) {
     return NextResponse.json({ success: true, verificationRequired: true });
   }
 
@@ -119,8 +123,13 @@ export async function POST(request: Request) {
     // C-1): never overwrite passwordHash here. Without an ownership
     // proof the overwrite lets an attacker hijack any not-yet-verified
     // address by simply re-POSTing /register with their own password.
-    // Forgotten-password recovery belongs in /api/auth/forgot-password,
-    // which proves mailbox control via OTP before mutating the password.
+    //
+    // The password the user just typed is not discarded, it is deferred:
+    // /api/auth/verify-email commits it in the request that carries the
+    // correct code, which is the ownership proof this request lacks. Before
+    // that existed, a second registration kept the first password and the
+    // signup dead-ended after a correct code — see the note on that route.
+    // Forgotten-password recovery still belongs in /api/auth/forgot-password.
     await db
       .update(user)
       .set({

@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { user } from "@/schema";
+import { NextResponse } from "next/server";
 import { verifyOtp } from "@/lib/auth/otp";
 import { getClientIp } from "@/lib/client-ip";
+import { db } from "@/lib/db";
+import { user } from "@/schema";
 
 // In-memory IP rate limit. Per-OTP attempts are capped server-side at 5
 // inside verifyOtp; this exists to slow enumeration across emails.
@@ -56,9 +56,14 @@ export async function POST(request: Request) {
 
   const email = (body.email as string | undefined)?.toLowerCase().trim();
   const code = body.code as string | undefined;
-  const newPassword = body.newPassword as string | undefined;
+  // Type-checked rather than cast, and it matters most here: a non-string
+  // passes `.length` bounds (undefined compares false against everything) and
+  // only fails at bcrypt.hash, which runs AFTER verifyOtp has consumed the
+  // code. The reset would 500 having spent the one code the person had, in
+  // the flow that exists to get locked-out people back in.
+  const newPassword = body.newPassword;
 
-  if (!email || !code || !newPassword) {
+  if (!email || !code || typeof newPassword !== "string" || !newPassword) {
     return NextResponse.json(
       { error: "Email, code, and new password are required" },
       { status: 400 },
@@ -80,10 +85,7 @@ export async function POST(request: Request) {
 
   const valid = await verifyOtp(email, code, "password_reset");
   if (!valid) {
-    return NextResponse.json(
-      { error: "Invalid or expired code" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Invalid or expired code" }, { status: 400 });
   }
 
   const dbUser = await db.query.user.findFirst({

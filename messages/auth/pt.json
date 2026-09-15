@@ -27,6 +27,7 @@
     "verifyResent": "Novo código enviado. Consulte a sua caixa de entrada.",
     "verifyResendCooldown": "Aguarde alguns minutos antes de pedir outro código.",
     "verifyErrorInvalidCode": "Código inválido ou expirado. Tente novamente ou peça um novo.",
+    "verifyErrorSignInFailed": "E-mail confirmado. O início de sessão não funcionou porque está guardada outra palavra-passe para este endereço. Defina uma nova em \"Esqueceu-se da palavra-passe\".",
     "verifyBack": "Usar um email diferente",
     "forgotPasswordLink": "Esqueceu-se da palavra-passe?",
     "forgotPassword": {
