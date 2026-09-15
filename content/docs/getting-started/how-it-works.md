@@ -6,7 +6,7 @@ An instance is four moving parts: the application container, Postgres, an object
 |---|---|---|---|
 | `app` | `ghcr.io/nisd2/open-isms` | yes | nothing. Stateless. |
 | `postgres` | `postgres:17-alpine` | yes | every row, including the storage key of each uploaded file |
-| `minio` | `minio/minio` | profile `minio` | the evidence files themselves |
+| `minio` | `quay.io/minio/minio` | profile `minio` | the evidence files themselves |
 | `proxy` | `caddy:2-alpine` | profile `proxy` | certificates |
 | `updater` | `nickfedor/watchtower` | profile `updater` | nothing |
 | `backup` | `offen/docker-volume-backup` | profile `backup` | archives, until they are shipped offsite |

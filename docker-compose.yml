@@ -104,7 +104,9 @@ services:
   # Opt in with `docker compose --profile minio up`, and uncomment the
   # storage block in .env. Leave the profile off to use real S3 instead.
   minio:
-    image: minio/minio:latest
+    # quay.io rather than Docker Hub: see the note in compose.self-host.yml.
+    # Docker Hub denies these pulls to unauthenticated clients.
+    image: quay.io/minio/minio:latest
     profiles: [minio]
     restart: unless-stopped
     # The "you forgot a variable" check lives in this command rather than in a
@@ -180,7 +182,8 @@ services:
   # One-shot: create the evidence bucket, then exit. Idempotent, so it is
   # harmless on every subsequent `up`.
   minio-init:
-    image: minio/mc:latest
+    # Same registry move as the minio service above.
+    image: quay.io/minio/mc:latest
     profiles: [minio]
     depends_on:
       minio:
