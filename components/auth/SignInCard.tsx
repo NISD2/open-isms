@@ -102,14 +102,17 @@ export function SignInCard() {
         if (raw.includes("EMAIL_NOT_VERIFIED")) {
           setError(t("errorEmailNotVerified"));
           // Pre-stage the verify step so the user can immediately enter a
-          // code without retyping their email. Trigger a fresh OTP resend
-          // since the original code may have expired.
+          // code without retyping their email.
+          //
+          // Deliberately does NOT resend. Issuing a code invalidates every
+          // earlier one, so the automatic resend that used to sit here
+          // guaranteed that the code in the mail the user was reading had
+          // just been killed — they would type it, be told it was invalid,
+          // ask for another, and lose that one the same way. The account
+          // reaching this branch was sent a code seconds ago by /register;
+          // if it really has expired the error says so and "Resend code" is
+          // right there, spending a resend only when one is wanted.
           setStep("verify");
-          await fetch("/api/auth/resend-verification", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, locale }),
-          }).catch(() => {});
         } else {
           setError(t("errorInvalid"));
         }
@@ -131,10 +134,15 @@ export function SignInCard() {
     setLoading(true);
 
     try {
+      // The password rides along with the code. A second registration on a
+      // pending address cannot change the stored hash (audit C-1), so without
+      // this the account keeps whatever password the FIRST attempt set and the
+      // sign-in below fails on a correct code. The code is the ownership proof
+      // that lets the server commit this password; see the route's own note.
       const res = await fetch("/api/auth/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code }),
+        body: JSON.stringify({ email, code, password }),
       });
 
       if (!res.ok) {
@@ -152,7 +160,19 @@ export function SignInCard() {
       });
 
       if (result?.error) {
-        setError(t("errorGeneric"));
+        // The address is verified now, so a resend would send nothing and the
+        // verify step is a dead end. Point at the one route that still works:
+        // password reset, which proves ownership the same way and sets a
+        // password the user chooses.
+        //
+        // Back to LOGIN mode specifically, not just back a step: the
+        // "Forgot password?" link this message tells them to use only renders
+        // in login mode, so landing on the register form would name a way out
+        // that is not on the screen.
+        setStep("auth");
+        setMode("login");
+        setCode("");
+        setError(t("verifyErrorSignInFailed"));
         setLoading(false);
         return;
       }

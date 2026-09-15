@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { eq, isNull, and } from "drizzle-orm";
 import { db } from "@/lib/db";
@@ -34,7 +35,7 @@ function isRateLimited(ip: string): boolean {
  * (Credentials.authorize() unblocks them) and admin / welcome emails fire.
  *
  * POST /api/auth/verify-email
- *   body: { email: string, code: string }
+ *   body: { email: string, code: string, password?: string }
  *   200:  { success: true }
  *   400:  { error: "Invalid code" }
  *   404:  { error: "Account not found" } (only if the user truly doesn't exist
@@ -42,6 +43,29 @@ function isRateLimited(ip: string): boolean {
  *                                          which is impossible since OTPs are
  *                                          email-scoped. Kept for type safety.)
  *   429:  { error: "Too many attempts" }
+ *
+ * Why `password` is accepted here, and why that is not a regression of audit
+ * C-1. /api/auth/register refuses to touch passwordHash on an account that
+ * already exists and is pending verification, because a POST to /register
+ * carries no proof that the sender owns the address — without that refusal,
+ * re-registering someone else's unverified address with your own password
+ * hands you their account.
+ *
+ * The consequence was that a second registration kept the FIRST password
+ * silently. The card then verified the code (which worked) and signed in with
+ * the password the person had just typed (which could not work), so a correct
+ * code ended on "Something went wrong" and the account was left verified under
+ * a password nobody knew. Re-registering is not an edge case: it is what
+ * someone does after mistyping the password, or after forgetting they started
+ * a signup weeks ago.
+ *
+ * Submitting the correct OTP IS the missing ownership proof — the same proof
+ * /api/auth/reset-password accepts to set a password outright. So the password
+ * travels with the code rather than ahead of it, which is the part that
+ * matters: an attacker who re-registers a pending address still changes
+ * nothing, because the write happens only in the request that carries a code
+ * they cannot read. The write is also fused to the `isNull(emailVerifiedAt)`
+ * guard below, so this can never act on an already-live account.
  */
 export async function POST(request: Request) {
   const ip = getClientIp(request.headers);
@@ -62,6 +86,7 @@ export async function POST(request: Request) {
 
   const email = (body.email as string | undefined)?.toLowerCase().trim();
   const code = body.code as string | undefined;
+  const password = body.password as string | undefined;
 
   if (!email || !code) {
     return NextResponse.json(
@@ -74,17 +99,34 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid code" }, { status: 400 });
   }
 
+  // Same bounds /api/auth/register enforces. A password outside them is the
+  // caller's bug, not something to silently ignore and then fail to sign in on.
+  if (password !== undefined && (password.length < 8 || password.length > 128)) {
+    return NextResponse.json(
+      { error: "Password must be 8-128 characters" },
+      { status: 400 },
+    );
+  }
+
   const valid = await verifyOtp(email, code, "email_verify");
   if (!valid) {
     return NextResponse.json({ error: "Invalid or expired code" }, { status: 400 });
   }
 
-  // Mark the (still-unverified) user as verified. We only flip the column;
-  // if a later concurrent request also lands, the `isNull` guard makes the
-  // second update a no-op which is the desired idempotent behavior.
+  // Mark the (still-unverified) user as verified, and commit the password
+  // typed on the screen that produced this code. If a later concurrent
+  // request also lands, the `isNull` guard makes the second update a no-op
+  // which is the desired idempotent behavior — and it is the same guard that
+  // keeps the password write off an already-verified account.
+  const passwordHash = password ? await bcrypt.hash(password, 12) : undefined;
+
   const updated = await db
     .update(user)
-    .set({ emailVerifiedAt: new Date(), updatedAt: new Date() })
+    .set({
+      emailVerifiedAt: new Date(),
+      updatedAt: new Date(),
+      ...(passwordHash ? { passwordHash } : {}),
+    })
     .where(and(eq(user.email, email), isNull(user.emailVerifiedAt)))
     .returning({ id: user.id, name: user.name });
 

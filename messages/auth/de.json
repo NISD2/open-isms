@@ -27,6 +27,7 @@
     "verifyResent": "Neuer Code gesendet. Bitte E-Mails prüfen.",
     "verifyResendCooldown": "Bitte einige Minuten warten, bevor du einen neuen Code anforderst.",
     "verifyErrorInvalidCode": "Ungültiger oder abgelaufener Code. Erneut versuchen oder neuen Code anfordern.",
+    "verifyErrorSignInFailed": "E-Mail bestätigt. Die Anmeldung hat nicht geklappt, weil zu dieser Adresse ein anderes Passwort gespeichert ist. Vergeben Sie über \"Passwort vergessen\" ein neues.",
     "verifyBack": "Andere E-Mail verwenden",
     "forgotPasswordLink": "Passwort vergessen?",
     "forgotPassword": {

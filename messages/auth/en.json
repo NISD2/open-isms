@@ -27,6 +27,7 @@
     "verifyResent": "New code sent. Check your inbox.",
     "verifyResendCooldown": "Wait a few minutes before requesting another code.",
     "verifyErrorInvalidCode": "Invalid or expired code. Try again or request a new one.",
+    "verifyErrorSignInFailed": "Email confirmed. Signing in did not work because a different password is stored for this address. Set a new one with \"Forgot password\".",
     "verifyBack": "Use a different email",
     "forgotPasswordLink": "Forgot password?",
     "forgotPassword": {

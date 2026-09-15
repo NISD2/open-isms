@@ -119,8 +119,13 @@ export async function POST(request: Request) {
     // C-1): never overwrite passwordHash here. Without an ownership
     // proof the overwrite lets an attacker hijack any not-yet-verified
     // address by simply re-POSTing /register with their own password.
-    // Forgotten-password recovery belongs in /api/auth/forgot-password,
-    // which proves mailbox control via OTP before mutating the password.
+    //
+    // The password the user just typed is not discarded, it is deferred:
+    // /api/auth/verify-email commits it in the request that carries the
+    // correct code, which is the ownership proof this request lacks. Before
+    // that existed, a second registration kept the first password and the
+    // signup dead-ended after a correct code — see the note on that route.
+    // Forgotten-password recovery still belongs in /api/auth/forgot-password.
     await db
       .update(user)
       .set({
