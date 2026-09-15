@@ -64,7 +64,11 @@ export async function POST(request: Request) {
   }
 
   const email = (body.email as string | undefined)?.toLowerCase().trim();
-  const password = body.password as string | undefined;
+  // Type-checked rather than cast: see the note on the same guard in
+  // /api/auth/verify-email. A non-string is truthy, `.length` on it is
+  // undefined, and every comparison against undefined is false, so it reaches
+  // bcrypt.hash and 500s instead of being answered with a 400.
+  const password = body.password;
   const localeInput = body.locale as string | undefined;
   // Validated against the full app locale list: the OTP templates carry copy
   // for all 10 locales, and the same value is persisted on the user row so
@@ -75,7 +79,7 @@ export async function POST(request: Request) {
     : null;
   const locale: Locale = persistedLocale ?? "de";
 
-  if (!email || !password) {
+  if (!email || typeof password !== "string" || !password) {
     return NextResponse.json(
       { error: "Email and password are required" },
       { status: 400 },

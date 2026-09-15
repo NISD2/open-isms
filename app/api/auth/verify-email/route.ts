@@ -86,7 +86,13 @@ export async function POST(request: Request) {
 
   const email = (body.email as string | undefined)?.toLowerCase().trim();
   const code = body.code as string | undefined;
-  const password = body.password as string | undefined;
+  // Checked for type, not just cast. `.length` on a number or an object is
+  // undefined and every comparison against undefined is false, so a non-string
+  // would sail through the bounds below and reach bcrypt.hash, which throws.
+  // That 500 would land AFTER verifyOtp had already consumed the code: the
+  // code spent, the account still unverified, the person stuck. Exactly the
+  // failure this route exists to stop, so it is not left to a cast.
+  const password = body.password;
 
   if (!email || !code) {
     return NextResponse.json({ error: "Email and code are required" }, { status: 400 });
@@ -94,6 +100,10 @@ export async function POST(request: Request) {
 
   if (!/^\d{6}$/.test(code)) {
     return NextResponse.json({ error: "Invalid code" }, { status: 400 });
+  }
+
+  if (password !== undefined && typeof password !== "string") {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
   // Same bounds /api/auth/register enforces. A password outside them is the
