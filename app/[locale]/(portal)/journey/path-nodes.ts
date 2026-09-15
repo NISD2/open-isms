@@ -55,8 +55,10 @@ export const COLUMNS: {
     key: "leadership",
     en: "Management",
     de: "Geschäftsführung",
-    infoEn: "Approves and is accountable. Signs off governance, budget and the duties under §38.",
-    infoDe: "Genehmigt und verantwortet. Gibt Governance, Budget und die Pflichten nach §38 frei.",
+    infoEn:
+      "Approves and is accountable. Signs off governance, budget and the duties under §38.",
+    infoDe:
+      "Genehmigt und verantwortet. Gibt Governance, Budget und die Pflichten nach §38 frei.",
   },
   {
     key: "security",
@@ -166,6 +168,7 @@ export const ORDERED_CATEGORIES: {
   name: string;
   nameDe: string;
   slug: string;
+  sortOrder: number;
 }[] = [...nis2Categories]
   .sort((a, b) => a.sortOrder - b.sortOrder)
   .map((c) => ({
@@ -173,6 +176,7 @@ export const ORDERED_CATEGORIES: {
     name: c.name ?? c.code,
     nameDe: CATEGORY_NAME_DE[c.code] ?? c.name ?? c.code,
     slug: c.slug ?? c.code.toLowerCase(),
+    sortOrder: c.sortOrder,
   }));
 
 /** Localized human labels for requirement.frequency slugs. */
@@ -215,6 +219,48 @@ function columnFor(role: string): ColumnKey {
   return ROLE_COLUMN[role] ?? "security";
 }
 
+/** Where a requirement node links to. One definition for every journey view. */
+export function requirementHref(node: Pick<FlowNode, "categorySlug" | "code">) {
+  return {
+    pathname: "/compliance/[categorySlug]/[requirementCode]" as const,
+    params: { categorySlug: node.categorySlug, requirementCode: node.code },
+  };
+}
+
+/** The six visual states a requirement can be in, shared by every view. */
+export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
+
+/** Raw companyRequirementStatus to visual state. */
+export function dotStateOf(rawStatus: string): DotState {
+  // "completed" = user sign-off done; "approved" adds legal review. Both done.
+  if (rawStatus === "completed" || rawStatus === "approved") return "signed";
+  if (rawStatus === "not_applicable") return "na";
+  if (rawStatus === "needs_review") return "awaiting";
+  if (rawStatus === "rejected") return "rejected";
+  if (rawStatus === "in_progress") return "started";
+  return "todo";
+}
+
+/** Localized status wording. One vocabulary so the views cannot drift apart. */
+export function statusLabel(rawStatus: string, de: boolean): string {
+  switch (rawStatus) {
+    case "completed":
+      return de ? "Freigegeben" : "Signed off";
+    case "approved":
+      return de ? "Geprüft" : "Reviewed";
+    case "not_applicable":
+      return de ? "Nicht zutreffend" : "Not applicable";
+    case "needs_review":
+      return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
+    case "in_progress":
+      return de ? "In Arbeit" : "In progress";
+    case "rejected":
+      return de ? "Abgelehnt" : "Rejected";
+    default:
+      return de ? "Offen" : "Open";
+  }
+}
+
 function bandForPriority(priority: string | null): Band {
   if (priority === "P0") return "minimum";
   if (priority === "P2" || priority === "P3") return "later";
@@ -224,11 +270,7 @@ function bandForPriority(priority: string | null): Band {
 function isDone(status: string): boolean {
   // "completed" is the normal user sign-off result; "approved" adds the legal
   // review. Both, plus not_applicable, are terminal.
-  return (
-    status === "completed" ||
-    status === "approved" ||
-    status === "not_applicable"
-  );
+  return status === "completed" || status === "approved" || status === "not_applicable";
 }
 
 /** The single live node: lowest-order requirement not yet done. */

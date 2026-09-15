@@ -23,7 +23,7 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { aiDataSharingEnum, planEnum } from "../enums";
+import { aiDataSharingEnum, journeyModeEnum, planEnum } from "../enums";
 
 // ---------------------------------------------------------------------------
 // Companies — Regulated entities registered on the platform
@@ -73,6 +73,15 @@ export const company = pgTable("company", {
 
   // AI settings
   aiDataSharing: aiDataSharingEnum("ai_data_sharing").default("none").notNull(),
+
+  /**
+   * Journey layout. Nullable on purpose: NULL means nobody has answered yet,
+   * which is what makes the journey ask the one-question interstitial instead
+   * of guessing. Company-level rather than per-user because the answer states
+   * a fact about the company (how many people implement), not a personal
+   * preference, and a second per-user copy would be the same fact stored twice.
+   */
+  journeyMode: journeyModeEnum("journey_mode"),
 
   // Notification settings
   timezone: varchar("timezone", { length: 100 }).default("Europe/Berlin"),

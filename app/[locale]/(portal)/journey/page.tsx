@@ -1,12 +1,15 @@
 import { redirect } from "next/navigation";
+import { StalledPanel } from "@/components/help/StalledPanel";
 import { getSession } from "@/lib/auth";
 import { api } from "@/lib/trpc/server";
-import { liveNode } from "./views";
-import { PathHero } from "./PathHero";
-import { PathFlow } from "./PathFlow";
-import { buildRequirementNodes } from "./path-nodes";
 import { journeyDisclaimer } from "./disclaimer";
-import { StalledPanel } from "@/components/help/StalledPanel";
+import { JourneyModeChoice } from "./JourneyModeChoice";
+import { JourneyModeToggle } from "./JourneyModeToggle";
+import { PathFlow } from "./PathFlow";
+import { PathHero } from "./PathHero";
+import { buildRequirementNodes } from "./path-nodes";
+import { SoloPath } from "./SoloPath";
+import { liveNode } from "./views";
 
 export const dynamic = "force-dynamic";
 
@@ -24,15 +27,15 @@ export default async function JourneyPage({
   if (!session.companyId) redirect("/dashboard");
 
   const { locale: rawLocale } = await params;
-  const locale: Locale = (["en", "de", "nl"].includes(rawLocale)
-    ? rawLocale
-    : "en") as Locale;
+  const locale: Locale = (
+    ["en", "de", "nl"].includes(rawLocale) ? rawLocale : "en"
+  ) as Locale;
 
   const { focus } = await searchParams;
   const focusRaw = Array.isArray(focus) ? focus[0] : focus;
   const focusCategory = focusRaw ? focusRaw.toUpperCase() : null;
 
-  const { items, aggregate, lastActivityAt } = await api.journey.getItems({
+  const { items, aggregate, lastActivityAt, mode } = await api.journey.getItems({
     locale: rawLocale,
   });
 
@@ -52,33 +55,57 @@ export default async function JourneyPage({
   const live = liveNode(items);
   const reqNodes = buildRequirementNodes(items);
 
-  return (
-    <div className="space-y-4">
-      <div className="flex items-start justify-between gap-4">
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            {locale === "de" ? "Ihr Weg" : "Your path"}
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            {locale === "de"
-              ? "Ein Schritt nach dem anderen. Hier ist Ihr nächster."
-              : "One step at a time. Here is your next one."}
-          </p>
-        </div>
+  const header = (
+    <div className="flex items-start justify-between gap-4">
+      <div className="space-y-0.5">
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {locale === "de" ? "Ihr Weg" : "Your path"}
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          {locale === "de"
+            ? "Ein Schritt nach dem anderen. Hier ist Ihr nächster."
+            : "One step at a time. Here is your next one."}
+        </p>
+      </div>
+      <div className="flex shrink-0 items-center gap-3">
+        {mode ? <JourneyModeToggle mode={mode} locale={locale} /> : null}
         <ProgressChip done={aggregate.done} total={aggregate.total} locale={locale} />
       </div>
+    </div>
+  );
+
+  // No answer means the question was never asked. Ask it before drawing a path
+  // whose whole shape assumes one, rather than guessing and being wrong for the
+  // single implementer the swimlane was never built for.
+  if (mode === null) {
+    return (
+      <div className="space-y-4">
+        {header}
+        <JourneyModeChoice locale={locale} />
+        <PathDisclaimer locale={locale} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {header}
       <PathHero
         assetCount={assetCount}
         liveNode={live}
         locale={locale}
         needsActivation={needsActivation}
       />
-      <PathFlow
-        reqNodes={reqNodes}
-        aggregate={aggregate}
-        locale={locale}
-        focusCategory={focusCategory}
-      />
+      {mode === "solo" ? (
+        <SoloPath reqNodes={reqNodes} locale={locale} />
+      ) : (
+        <PathFlow
+          reqNodes={reqNodes}
+          aggregate={aggregate}
+          locale={locale}
+          focusCategory={focusCategory}
+        />
+      )}
       {/* Renders itself only after two weeks without a single mutation. */}
       <StalledPanel
         lastActivityAt={lastActivityAt}

@@ -1,10 +1,10 @@
-import { buildCsp } from "@/lib/security/csp";
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import createIntlMiddleware from "next-intl/middleware";
+import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
+import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
 import { env } from "@/lib/env";
+import { buildCsp } from "@/lib/security/csp";
 
 const handleI18n = createIntlMiddleware(routing);
 
@@ -104,6 +104,7 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/supplier-portal",
   // Design playgrounds for the entity + supplier portals (preview only).
   "/journey-preview",
+  "/journey-preview/fork",
   "/supplier-preview",
 ];
 
@@ -164,17 +165,14 @@ function expandPublicPaths(): {
     // key. e.g. canonical="/autor", key="/autor/simon-orzel",
     // mapping.en="/author/simon-orzel" → localized prefix "/author".
     for (const [key, mapping] of Object.entries(pathnames)) {
-      const isUnderPrefix =
-        key === canonical || key.startsWith(canonical + "/");
+      const isUnderPrefix = key === canonical || key.startsWith(`${canonical}/`);
       if (!isUnderPrefix) continue;
       if (!mapping || typeof mapping !== "object") continue;
       const suffix = key.slice(canonical.length);
       for (const localized of Object.values(mapping)) {
         if (!localized) continue;
         if (suffix && !localized.endsWith(suffix)) continue;
-        const localizedRoot = suffix
-          ? localized.slice(0, -suffix.length)
-          : localized;
+        const localizedRoot = suffix ? localized.slice(0, -suffix.length) : localized;
         if (localizedRoot) prefixes.add(localizedRoot);
       }
     }
@@ -240,28 +238,23 @@ function landerByLocale(target: string): Record<string, string> {
   const mapping = pathnames[target];
   const out: Record<string, string> = {};
   for (const locale of routing.locales) {
-    out[locale] =
-      (typeof mapping === "string" ? mapping : mapping?.[locale]) ?? target;
+    out[locale] = (typeof mapping === "string" ? mapping : mapping?.[locale]) ?? target;
   }
   return out;
 }
 
-const ANONYMOUS_LANDERS: Record<string, Record<string, string>> =
-  Object.fromEntries(
-    Object.entries(ANONYMOUS_LANDER_TARGETS).map(([root, target]) => [
-      root,
-      landerByLocale(target),
-    ]),
-  );
+const ANONYMOUS_LANDERS: Record<string, Record<string, string>> = Object.fromEntries(
+  Object.entries(ANONYMOUS_LANDER_TARGETS).map(([root, target]) => [
+    root,
+    landerByLocale(target),
+  ]),
+);
 
 /**
  * Locale-prefixed lander for an anonymous hit on `strippedPath`, or null
  * when that path has no lander and should go to signin as before.
  */
-function anonymousLanderPath(
-  pathname: string,
-  strippedPath: string,
-): string | null {
+function anonymousLanderPath(pathname: string, strippedPath: string): string | null {
   const byLocale = ANONYMOUS_LANDERS[strippedPath];
   if (!byLocale) return null;
   const match = pathname.match(NON_DEFAULT_LOCALE_PREFIX);
@@ -274,7 +267,7 @@ function isPublic(pathname: string): boolean {
   const stripped = pathname.replace(LOCALE_STRIP, "") || "/";
   if (PUBLIC_EXACT.has(stripped)) return true;
   for (const prefix of PUBLIC_PREFIXES) {
-    if (stripped === prefix || stripped.startsWith(prefix + "/")) {
+    if (stripped === prefix || stripped.startsWith(`${prefix}/`)) {
       return true;
     }
   }
@@ -356,8 +349,7 @@ async function route(request: NextRequest) {
     const authUrl = process.env.AUTH_URL ?? process.env.NEXTAUTH_URL;
     const isSecure = authUrl
       ? authUrl.startsWith("https")
-      : request.nextUrl.protocol === "https:" ||
-        process.env.NODE_ENV === "production";
+      : request.nextUrl.protocol === "https:" || process.env.NODE_ENV === "production";
     const cookieName = getAuthCookieName(isSecure);
     const token = await getToken({
       req: request,

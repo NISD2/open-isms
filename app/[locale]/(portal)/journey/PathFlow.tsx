@@ -1,42 +1,45 @@
 "use client";
 
+import {
+  AlertTriangle,
+  CalendarClock,
+  Check,
+  CheckCheck,
+  Info,
+  Minus,
+  Repeat,
+  Scale,
+  Users,
+  X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import {
-  Check,
-  CheckCheck,
-  Minus,
-  AlertTriangle,
-  CalendarClock,
-  Scale,
-  Repeat,
-  Info,
-  Users,
-  X,
-} from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { journeyDisclaimer, journeyDisclaimerLabel } from "./disclaimer";
 import {
-  BANDS,
   BAND_RANK,
+  BANDS,
+  type Band,
   COLUMNS,
+  type DotState,
+  dotStateOf,
+  type FlowNode,
   FREQUENCY_LABEL,
   ORDERED_CATEGORIES,
-  ROLE_LABEL,
-  type Band,
-  type FlowNode,
   type Order,
+  ROLE_LABEL,
+  requirementHref,
+  statusLabel,
 } from "./path-nodes";
-import { journeyDisclaimer, journeyDisclaimerLabel } from "./disclaimer";
 
 type Locale = "en" | "de" | "nl";
 type StatusFilter = "open" | "overdue" | "duesoon" | "awaiting";
-type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
 
 type Aggregate = {
   total: number;
@@ -56,7 +59,13 @@ type Section = {
   rows: { node: FlowNode; index: number }[];
 };
 
-const ORDER_OPTS: { key: Order; en: string; de: string; sub_en: string; sub_de: string }[] = [
+const ORDER_OPTS: {
+  key: Order;
+  en: string;
+  de: string;
+  sub_en: string;
+  sub_de: string;
+}[] = [
   {
     key: "defensible",
     en: "Defensible minimum",
@@ -73,41 +82,12 @@ const ORDER_OPTS: { key: Order; en: string; de: string; sub_en: string; sub_de: 
   },
 ];
 
-function dotStateOf(rawStatus: string): DotState {
-  // "completed" = user sign-off done; "approved" adds legal review. Both done.
-  if (rawStatus === "completed" || rawStatus === "approved") return "signed";
-  if (rawStatus === "not_applicable") return "na";
-  if (rawStatus === "needs_review") return "awaiting";
-  if (rawStatus === "rejected") return "rejected";
-  if (rawStatus === "in_progress") return "started";
-  return "todo";
-}
-
 function isDoneStatus(rawStatus: string): boolean {
   return (
     rawStatus === "completed" ||
     rawStatus === "approved" ||
     rawStatus === "not_applicable"
   );
-}
-
-function statusLabel(rawStatus: string, de: boolean): string {
-  switch (rawStatus) {
-    case "completed":
-      return de ? "Freigegeben" : "Signed off";
-    case "approved":
-      return de ? "Geprüft" : "Reviewed";
-    case "not_applicable":
-      return de ? "Nicht zutreffend" : "Not applicable";
-    case "needs_review":
-      return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
-    case "in_progress":
-      return de ? "In Arbeit" : "In progress";
-    case "rejected":
-      return de ? "Abgelehnt" : "Rejected";
-    default:
-      return de ? "Offen" : "Open";
-  }
 }
 
 function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section[] {
@@ -218,7 +198,12 @@ export function PathFlow({
         className="overflow-x-auto rounded-lg border bg-card"
       >
         <div className={cn(swimlane ? "min-w-[820px]" : "min-w-[460px]")}>
-          <div className={cn("grid gap-2 border-b bg-muted/40 px-3 py-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4", rowCols)}>
+          <div
+            className={cn(
+              "grid gap-2 border-b bg-muted/40 px-3 py-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground sm:px-4",
+              rowCols,
+            )}
+          >
             <span className="text-center">#</span>
             {swimlane ? (
               COLUMNS.map((c) => <ColumnHeader key={c.key} col={c} de={de} />)
@@ -235,9 +220,7 @@ export function PathFlow({
                   <li
                     key={node.id}
                     id={`step-${node.code}`}
-                    data-tour={
-                      node.id === firstNodeId ? "journey-first-step" : undefined
-                    }
+                    data-tour={node.id === firstNodeId ? "journey-first-step" : undefined}
                     className={cn("grid items-center gap-2 py-1.5", rowCols)}
                   >
                     <Rail
@@ -290,9 +273,11 @@ function OrderToggle({
   de: boolean;
 }) {
   return (
-    <div
+    // Toggle-button group rather than a radiogroup: role="radio" on a <button>
+    // is what a segmented control needs visually, but the accessible pair for
+    // that is aria-pressed. Same pattern as JourneyModeToggle.
+    <fieldset
       data-tour="journey-order"
-      role="radiogroup"
       aria-label={de ? "Reihenfolge" : "Ordering"}
       className="inline-flex rounded-lg border bg-muted/60 p-0.5"
     >
@@ -302,8 +287,7 @@ function OrderToggle({
           <button
             key={opt.key}
             type="button"
-            role="radio"
-            aria-checked={on}
+            aria-pressed={on}
             onClick={() => setOrder(opt.key)}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
@@ -321,7 +305,7 @@ function OrderToggle({
           </button>
         );
       })}
-    </div>
+    </fieldset>
   );
 }
 
@@ -434,7 +418,10 @@ function Legend({ de }: { de: boolean }) {
   return (
     <div data-tour="journey-legend" className="hidden items-center gap-3 sm:flex">
       {items.map((it) => (
-        <span key={it.state} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+        <span
+          key={it.state}
+          className="inline-flex items-center gap-1 text-[11px] text-muted-foreground"
+        >
           <Dot
             state={it.state === "current" ? "todo" : it.state}
             current={it.state === "current"}
@@ -447,13 +434,7 @@ function Legend({ de }: { de: boolean }) {
   );
 }
 
-function ColumnHeader({
-  col,
-  de,
-}: {
-  col: (typeof COLUMNS)[number];
-  de: boolean;
-}) {
+function ColumnHeader({ col, de }: { col: (typeof COLUMNS)[number]; de: boolean }) {
   return (
     <HoverCard openDelay={120} closeDelay={60}>
       <HoverCardTrigger asChild>
@@ -614,12 +595,7 @@ function Dot({
   );
 }
 
-function hrefFor(node: FlowNode) {
-  return {
-    pathname: "/compliance/[categorySlug]/[requirementCode]" as const,
-    params: { categorySlug: node.categorySlug, requirementCode: node.code },
-  };
-}
+const hrefFor = requirementHref;
 
 function NodeCard({
   node,
@@ -644,7 +620,11 @@ function NodeCard({
   // Only the action-needing states get a card corner pip, so the at-a-glance
   // signal survives the horizontal distance to the rail dot without re-cluttering.
   const cornerTone =
-    state === "awaiting" ? "bg-amber-500" : state === "rejected" ? "bg-destructive" : null;
+    state === "awaiting"
+      ? "bg-amber-500"
+      : state === "rejected"
+        ? "bg-destructive"
+        : null;
   const href = hrefFor(node);
   const so = node.signOff;
   // A partial multi-signer sign-off (e.g. 2 of 3 management members signed).
@@ -754,7 +734,12 @@ function NodeCard({
             {ownerLabel}
           </span>
         </div>
-        <p className={cn("mt-1.5 flex items-center gap-1 text-xs font-medium", statusColor)}>
+        <p
+          className={cn(
+            "mt-1.5 flex items-center gap-1 text-xs font-medium",
+            statusColor,
+          )}
+        >
           <Dot state={state} current={node.status === "current"} size="sm" />
           {statusLabel(node.rawStatus, de)}
         </p>
@@ -790,7 +775,9 @@ function NodeCard({
         ) : null}
         <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted-foreground">
           {node.priority ? (
-            <span className="rounded bg-muted px-1.5 py-0.5 font-medium">{node.priority}</span>
+            <span className="rounded bg-muted px-1.5 py-0.5 font-medium">
+              {node.priority}
+            </span>
           ) : null}
           {freqLabel ? (
             <span className="inline-flex items-center gap-0.5">
