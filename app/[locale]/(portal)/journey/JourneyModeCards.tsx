@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, User, Users } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { JourneyMode } from "./journey-mode";
 
@@ -13,12 +13,12 @@ const COPY = {
     solo: {
       title: "Im Wesentlichen ich",
       reality: "Eine Person hält alles zusammen, vielleicht mit etwas Hilfe.",
-      result: "Geführter Weg: ein Schritt nach dem anderen, in klarer Reihenfolge.",
+      result: "Ein Schritt nach dem anderen, in klarer Reihenfolge.",
     },
     team: {
-      title: "Mehrere Personen mit eigenen Rollen",
+      title: "Mehrere mit eigenen Rollen",
       reality: "Geschäftsführung, IT und Betrieb teilen sich die Aufgaben.",
-      result: "Teamansicht: alle Schritte nach Rollen, Priorität und Freigabestand.",
+      result: "Alle Schritte nach Rollen, Priorität und Freigabestand.",
     },
   },
   en: {
@@ -27,12 +27,12 @@ const COPY = {
     solo: {
       title: "Mostly me",
       reality: "One person holds it together, maybe with some help.",
-      result: "Guided path: one step at a time, in a clear order.",
+      result: "One step at a time, in a clear order.",
     },
     team: {
-      title: "Several people with their own roles",
+      title: "Several people, own roles",
       reality: "Management, IT and operations share the work.",
-      result: "Team view: every step by role, priority and sign-off state.",
+      result: "Every step by role, priority and sign-off state.",
     },
   },
 } as const;
@@ -60,39 +60,38 @@ export function JourneyModeCards({
   const copy = locale === "de" ? COPY.de : COPY.en;
 
   return (
-    <div className="mx-auto w-full max-w-3xl py-6">
-      <h2 className="text-center text-xl font-semibold tracking-tight">
-        {copy.question}
-      </h2>
-      <p className="mt-2 text-center text-sm text-muted-foreground">{copy.lede}</p>
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        <ChoiceCard
-          sketch={<SoloSketch />}
-          copy={copy.solo}
-          pending={pending === "solo"}
-          disabled={pending !== null}
-          onSelect={() => onSelect("solo")}
-        />
-        <ChoiceCard
-          sketch={<TeamSketch />}
-          copy={copy.team}
-          pending={pending === "team"}
-          disabled={pending !== null}
-          onSelect={() => onSelect("team")}
-        />
-      </div>
+    <div className="grid gap-3 sm:grid-cols-2">
+      <ChoiceCard
+        illustration={<SoloIllustration />}
+        copy={copy.solo}
+        pending={pending === "solo"}
+        disabled={pending !== null}
+        onSelect={() => onSelect("solo")}
+      />
+      <ChoiceCard
+        illustration={<TeamIllustration />}
+        copy={copy.team}
+        pending={pending === "team"}
+        disabled={pending !== null}
+        onSelect={() => onSelect("team")}
+      />
     </div>
   );
 }
 
+/** The question and its lede, for callers that render their own container. */
+export function journeyModeCopy(locale: Locale) {
+  return locale === "de" ? COPY.de : COPY.en;
+}
+
 function ChoiceCard({
-  sketch,
+  illustration,
   copy,
   pending,
   disabled,
   onSelect,
 }: {
-  sketch: React.ReactNode;
+  illustration: React.ReactNode;
   copy: { title: string; reality: string; result: string };
   pending: boolean;
   disabled: boolean;
@@ -104,84 +103,99 @@ function ChoiceCard({
       onClick={onSelect}
       disabled={disabled}
       className={cn(
-        "group flex flex-col rounded-xl border bg-card p-5 text-left transition-all",
-        "hover:border-primary hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "group flex flex-col rounded-lg border bg-card p-4 text-left transition-colors",
+        "hover:border-primary hover:bg-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         disabled && !pending && "opacity-50",
       )}
     >
-      <div className="mb-4 flex h-24 items-center justify-center rounded-lg border border-dashed bg-muted/30">
-        {sketch}
+      <div className="mb-3 flex h-20 items-center justify-center text-primary">
+        {pending ? <Loader2 className="h-5 w-5 animate-spin" /> : illustration}
       </div>
       <h3 className="text-sm font-semibold">{copy.title}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{copy.reality}</p>
-      <p className="mt-3 flex items-start gap-2 text-sm text-foreground">
-        {pending ? (
-          <Loader2 className="mt-0.5 h-3.5 w-3.5 shrink-0 animate-spin text-primary" />
-        ) : (
-          <span className="mt-0.5 shrink-0 text-primary">&rarr;</span>
-        )}
+      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{copy.reality}</p>
+      <p className="mt-2 border-t pt-2 text-xs leading-relaxed text-foreground">
         {copy.result}
       </p>
     </button>
   );
 }
 
-/** Step positions in the solo miniature: the same serpentine, scaled down. */
-const SOLO_SKETCH_STEPS = [
-  { id: "s1", offset: 0, live: true },
-  { id: "s2", offset: 14, live: false },
-  { id: "s3", offset: 22, live: false },
-  { id: "s4", offset: 14, live: false },
-  { id: "s5", offset: 0, live: false },
-] as const;
-
-/** Role columns in the team miniature, one entry per dot. */
-const TEAM_SKETCH_COLUMNS = [
-  { id: "management", rows: ["m1", "m2", "m3"] },
-  { id: "security", rows: ["s1", "s2"] },
-  { id: "it", rows: ["i1", "i2", "i3", "i4"] },
-  { id: "operations", rows: ["o1", "o2"] },
-] as const;
-
-/** A miniature of the guided path: one winding line of steps. */
-function SoloSketch() {
+/**
+ * One line, one live step. The illustrations carry the actual difference
+ * between the two layouts, so they are drawn rather than iconified: a person
+ * icon beside a group icon would say "one vs many", which is the input, not
+ * the thing being chosen.
+ */
+function SoloIllustration() {
   return (
-    <div className="flex flex-col items-center gap-1.5">
-      <User className="mb-0.5 h-4 w-4 text-muted-foreground" />
-      {SOLO_SKETCH_STEPS.map((step) => (
-        <span
-          key={step.id}
-          style={{ transform: `translateX(${step.offset}px)` }}
-          className={cn(
-            "block h-2.5 w-2.5 rounded-full",
-            step.live ? "bg-primary" : "bg-muted-foreground/30",
-          )}
-        />
-      ))}
-    </div>
+    <svg viewBox="0 0 66 78" className="h-full w-auto" fill="none" aria-hidden="true">
+      {/* The nodes sit on the curve's endpoints, so the line reads as a path
+          that winds rather than as a stack of dots with a stray squiggle. */}
+      <path
+        d="M20 13 C 40 13, 46 23, 46 39 C 46 55, 40 65, 20 65"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeDasharray="3 4"
+        className="opacity-40"
+      />
+      <circle cx="20" cy="13" r="8" fill="currentColor" />
+      <circle
+        cx="46"
+        cy="39"
+        r="7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="opacity-40"
+      />
+      <circle
+        cx="20"
+        cy="65"
+        r="7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="opacity-40"
+      />
+    </svg>
   );
 }
 
-/** A miniature of the team view: four role columns. */
-function TeamSketch() {
+/** Four role columns, each with its own queue. */
+function TeamIllustration() {
+  const columns = [
+    { x: 4, rows: [0, 1, 2] },
+    { x: 22, rows: [0, 1] },
+    { x: 40, rows: [0, 1, 2] },
+    { x: 58, rows: [0, 1] },
+  ];
   return (
-    <div className="flex flex-col items-center gap-2">
-      <Users className="h-4 w-4 text-muted-foreground" />
-      <div className="flex gap-2.5">
-        {TEAM_SKETCH_COLUMNS.map((column) => (
-          <div key={column.id} className="flex flex-col gap-1">
-            {column.rows.map((row, index) => (
-              <span
-                key={row}
-                className={cn(
-                  "block h-2.5 w-2.5 rounded-sm",
-                  index === 0 ? "bg-primary" : "bg-muted-foreground/30",
-                )}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
+    <svg viewBox="0 0 74 78" className="h-full w-auto" fill="none" aria-hidden="true">
+      {columns.map((column) => (
+        <g key={column.x}>
+          <rect
+            x={column.x}
+            y={4}
+            width="12"
+            height="3"
+            rx="1.5"
+            fill="currentColor"
+            className="opacity-30"
+          />
+          {column.rows.map((row) => (
+            <rect
+              key={row}
+              x={column.x}
+              y={15 + row * 18}
+              width="12"
+              height="13"
+              rx="2.5"
+              fill={column.x === 4 && row === 0 ? "currentColor" : "none"}
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className={column.x === 4 && row === 0 ? "" : "opacity-35"}
+            />
+          ))}
+        </g>
+      ))}
+    </svg>
   );
 }

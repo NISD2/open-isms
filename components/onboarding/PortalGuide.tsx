@@ -22,8 +22,12 @@ function presentSteps(steps: readonly TourStep[]): readonly TourStep[] {
  * How long to keep waiting for a walkthrough's page to render before giving
  * up on it. Long, deliberately: waiting costs nothing, and being impatient
  * costs the walkthrough, which is the one thing this component exists to do.
+ *
+ * A minute rather than fifteen seconds because the journey now withholds its
+ * anchor until the mode question is answered, and the wait has to cover a
+ * person reading two options and deciding, not just a route rendering.
  */
-const TARGET_WAIT_MS = 15_000;
+const TARGET_WAIT_MS = 60_000;
 
 /** Shared so "no tour here" is the same value every time and React bails out. */
 const NO_STEPS: readonly TourStep[] = [];

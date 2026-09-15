@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Tout votre parcours sur un seul écran",
-          "body": "Chaque exigence à laquelle vous devez répondre, en une seule liste, avec son état en regard. Vous n'avez jamais à chercher ce qui reste à faire."
+          "body": "Chaque exigence à laquelle vous devez répondre, avec son état en regard. Vous n'avez jamais à chercher ce qui reste à faire."
+        },
+        "stage": {
+          "title": "Où vous en êtes",
+          "body": "Le parcours se déroule en cinq étapes, de l'enregistrement jusqu'à la preuve. Ce bandeau reste en haut et indique l'étape et la section que vous lisez. Repères ouvre les explications de la section."
+        },
+        "liveStep": {
+          "title": "Votre prochaine étape",
+          "body": "Une seule étape est marquée comme en cours. Ouvrez-la, consignez ce qui vaut réellement chez vous, puis validez-la. Le repère passe ensuite à la suivante."
+        },
+        "minimum": {
+          "title": "Par où commencer",
+          "body": "Huit étapes portent la mention D'abord. Ce sont celles qui rapportent le plus si vous les traitez tôt. Les 49 sont toutes obligatoires ; la mention ne fait qu'ordonner."
         },
         "order": {
           "title": "Deux ordres pour votre parcours",

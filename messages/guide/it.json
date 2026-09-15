@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Tutto il vostro percorso su una schermata",
-          "body": "Ogni requisito che dovete soddisfare, in un unico elenco, con accanto il punto in cui si trova. Non dovete mai cercare che cosa resta da fare."
+          "body": "Ogni requisito che dovete soddisfare, con accanto il punto in cui si trova. Non dovete mai cercare che cosa resta da fare."
+        },
+        "stage": {
+          "title": "Dove vi trovate ora",
+          "body": "Il percorso si svolge in cinque fasi, dalla registrazione fino alla prova. Questa barra resta in alto e indica la fase e la sezione che state leggendo. Indicazioni apre le spiegazioni della sezione."
+        },
+        "liveStep": {
+          "title": "Il vostro prossimo passo",
+          "body": "Un solo passo è contrassegnato come attivo. Apritelo, annotate quello che vale davvero nella vostra azienda e approvatelo. Il contrassegno passa poi al successivo."
+        },
+        "minimum": {
+          "title": "Da dove cominciare",
+          "body": "Otto passi portano la dicitura Per primo. Sono quelli che rendono di più se affrontati presto. Tutti e 49 sono obbligatori; la dicitura ordina soltanto la sequenza."
         },
         "order": {
           "title": "Due modi di ordinare il percorso",

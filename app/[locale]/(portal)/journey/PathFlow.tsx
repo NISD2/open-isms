@@ -127,12 +127,16 @@ export function PathFlow({
   aggregate,
   locale,
   focusCategory = null,
+  tourAnchored = true,
 }: {
   reqNodes: FlowNode[];
   aggregate: Aggregate;
   locale: Locale;
   /** Category code (e.g. "SUP") to scroll to and highlight, from ?focus=. */
   focusCategory?: string | null;
+  /** Advertise this path to the guided tour. False while the mode question is
+   *  open, so the walkthrough cannot start underneath the dialog. */
+  tourAnchored?: boolean;
 }) {
   const de = locale === "de";
   const [order, setOrder] = useState<Order>("defensible");
@@ -194,7 +198,7 @@ export function PathFlow({
       </div>
 
       <div
-        data-tour="journey-board"
+        data-tour={tourAnchored ? "journey-path" : undefined}
         className="overflow-x-auto rounded-lg border bg-card"
       >
         <div className={cn(swimlane ? "min-w-[820px]" : "min-w-[460px]")}>

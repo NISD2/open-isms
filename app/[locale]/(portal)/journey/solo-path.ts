@@ -76,6 +76,8 @@ export type SoloStep = {
   offsetPx: number;
   /** A P0 step: part of the defensible minimum, so it carries a badge. */
   isMinimum: boolean;
+  /** The first such step on the path, which is what the tour points at. */
+  firstMinimum: boolean;
 };
 
 export type SoloStage = {
@@ -123,12 +125,15 @@ function stageAt(index: number, de: boolean): SoloStage {
  * of consecutive sections sharing a phase.
  */
 export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[] {
+  const firstMinimumIndex = nodes.findIndex((n) => n.band === "minimum");
+
   const sections = nodes.reduce<(SoloSection & { phase: number })[]>((acc, node, i) => {
     const step: SoloStep = {
       node,
       step: i + 1,
       offsetPx: WAVE[i % WAVE.length],
       isMinimum: node.band === "minimum",
+      firstMinimum: i === firstMinimumIndex,
     };
     const open = acc.at(-1);
     if (open?.key === node.categoryCode) {

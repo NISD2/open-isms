@@ -44,12 +44,35 @@ export type TourSteps = readonly [TourStep, ...TourStep[]];
  * there is no room beside a row that spans the content column, and Radix
  * shifting a colliding card is what made it look clipped.
  */
+/**
+ * One list, two walkthroughs.
+ *
+ * The journey renders in two layouts — the guided line for a company where one
+ * person implements everything, the role swimlane for one where several do —
+ * and each has controls the other does not. Rather than branch the tour on the
+ * mode, both layouts' steps live here in the order each reads in, and the
+ * drop-absent-targets pass in PortalGuide leaves exactly the ones on screen.
+ * A guided path has no ordering toggle and no filters, so those three steps
+ * remove themselves; a swimlane has no stage header, so that one does.
+ *
+ * The opening step is the exception and must exist in both, which is why both
+ * layouts tag their root `journey-path`: the guide waits on that target before
+ * starting, so a per-layout anchor would hang one of the two walkthroughs. The
+ * layouts withhold the attribute until the mode question is answered, which is
+ * what keeps the tour from starting underneath that dialog.
+ */
 const JOURNEY_STEPS: TourSteps = [
-  { target: "journey-board", key: "overview", side: "top" },
+  { target: "journey-path", key: "overview", side: "top" },
+  // Guided layout.
+  { target: "journey-stage", key: "stage", side: "bottom" },
+  { target: "journey-live-step", key: "liveStep", side: "right" },
+  { target: "journey-minimum", key: "minimum", side: "right" },
+  // Role swimlane.
   { target: "journey-first-step", key: "firstStep", side: "bottom" },
   { target: "journey-order", key: "order", side: "bottom" },
   { target: "journey-filters", key: "filters", side: "bottom" },
   { target: "journey-legend", key: "legend", side: "left" },
+  // Both.
   { target: "sidebar-nav", key: "sidebar", side: "right" },
   { target: "sidebar-registers", key: "registers", side: "right" },
 ];

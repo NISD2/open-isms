@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Todo o seu percurso num só ecrã",
-          "body": "Cada requisito que tem de cumprir, numa única lista, com o respetivo estado ao lado. Nunca precisa de procurar o que falta fazer."
+          "body": "Cada requisito que tem de cumprir, com o respetivo estado ao lado. Nunca precisa de procurar o que falta fazer."
+        },
+        "stage": {
+          "title": "Onde está neste momento",
+          "body": "O percurso decorre em cinco etapas, do registo até à prova. Esta barra fica no topo e indica a etapa e a secção que está a ler. Indicações abre as explicações dessa secção."
+        },
+        "liveStep": {
+          "title": "O seu próximo passo",
+          "body": "Apenas um passo está assinalado como ativo. Abra-o, registe o que se aplica realmente na sua empresa e aprove-o. A marca passa depois para o seguinte."
+        },
+        "minimum": {
+          "title": "Por onde começar",
+          "body": "Oito passos têm a marca Primeiro. São os que mais rendem se os tratar cedo. Os 49 são todos obrigatórios; a marca apenas ordena a sequência."
         },
         "order": {
           "title": "Duas formas de ordenar o seu percurso",

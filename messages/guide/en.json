@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Your whole path on one screen",
-          "body": "Every requirement you have to meet, in one list, with where each one stands next to it. You never have to go looking for what is left."
+          "body": "Every requirement you have to meet, with where each one stands next to it. You never have to go looking for what is left."
+        },
+        "stage": {
+          "title": "Where you are right now",
+          "body": "The path runs in five stages, from registration through to verification. This bar stays at the top and names the stage and section you are reading. Guide opens the notes for that section."
+        },
+        "liveStep": {
+          "title": "Your next step",
+          "body": "Exactly one step is marked as live. Open it, record what is actually true at your company, and sign it off. The marker then moves on to the next one."
+        },
+        "minimum": {
+          "title": "Where to begin",
+          "body": "Eight steps are marked First. Those carry the most weight if you do them early. All 49 are mandatory; the marker only ranks the order."
         },
         "order": {
           "title": "Two ways to order the path",

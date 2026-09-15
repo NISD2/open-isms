@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Todo su recorrido en una pantalla",
-          "body": "Cada requisito que debe cumplir, en una sola lista, con su estado al lado. Nunca tiene que buscar lo que queda pendiente."
+          "body": "Cada requisito que debe cumplir, con su estado al lado. Nunca tiene que buscar lo que queda pendiente."
+        },
+        "stage": {
+          "title": "Dónde se encuentra ahora",
+          "body": "El recorrido avanza en cinco etapas, del registro hasta la comprobación. Esta barra permanece arriba e indica la etapa y la sección que está leyendo. Indicaciones abre las explicaciones de esa sección."
+        },
+        "liveStep": {
+          "title": "Su siguiente paso",
+          "body": "Solo un paso está marcado como activo. Ábralo, registre lo que ocurre realmente en su empresa y apruébelo. La marca pasa entonces al siguiente."
+        },
+        "minimum": {
+          "title": "Por dónde empezar",
+          "body": "Ocho pasos llevan la marca Primero. Son los que más rinden si los aborda pronto. Los 49 son obligatorios; la marca solo ordena la secuencia."
         },
         "order": {
           "title": "Dos formas de ordenar su recorrido",

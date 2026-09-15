@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Celá vaše cesta na jedné obrazovce",
-          "body": "Každý požadavek, který musíte splnit, v jednom seznamu a vedle něj aktuální stav. Nikdy nemusíte hledat, co ještě zbývá."
+          "body": "Každý požadavek, který musíte splnit, a vedle něj aktuální stav. Nikdy nemusíte hledat, co ještě zbývá."
+        },
+        "stage": {
+          "title": "Kde se právě nacházíte",
+          "body": "Cesta probíhá v pěti fázích, od registrace až po doložení. Tento pruh zůstává nahoře a uvádí fázi i oddíl, který právě čtete. Pokyny otevřou vysvětlivky k danému oddílu."
+        },
+        "liveStep": {
+          "title": "Váš další krok",
+          "body": "Právě jeden krok je označen jako aktuální. Otevřete jej, zapište, co u vás skutečně platí, a schvalte jej. Označení se poté posune o jeden dál."
+        },
+        "minimum": {
+          "title": "Čím začít",
+          "body": "Osm kroků je označeno slovem Nejdřív. Ty přinesou nejvíc, pokud se do nich pustíte brzy. Povinných je všech 49; označení pouze řadí pořadí."
         },
         "order": {
           "title": "Dva způsoby řazení cesty",

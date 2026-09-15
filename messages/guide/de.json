@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Ihr ganzer Weg auf einem Bildschirm",
-          "body": "Jede Anforderung, die Sie erfüllen müssen, in einer Liste, mit dem aktuellen Stand daneben. Sie müssen nirgends suchen, was noch offen ist."
+          "body": "Jede Anforderung, die Sie erfüllen müssen, mit dem aktuellen Stand daneben. Sie müssen nirgends suchen, was noch offen ist."
+        },
+        "stage": {
+          "title": "Wo Sie gerade sind",
+          "body": "Der Weg läuft in fünf Stufen, von der Registrierung bis zum Nachweis. Dieser Balken bleibt oben stehen und nennt Stufe und Abschnitt, in dem Sie gerade lesen. Hinweise öffnet die Erklärungen zum Abschnitt."
+        },
+        "liveStep": {
+          "title": "Ihr nächster Schritt",
+          "body": "Genau ein Schritt ist als offen markiert. Öffnen Sie ihn, tragen Sie ein, was bei Ihnen tatsächlich gilt, und geben Sie ihn frei. Danach rückt die Markierung eins weiter."
+        },
+        "minimum": {
+          "title": "Womit Sie anfangen",
+          "body": "Acht Schritte sind mit Zuerst markiert. Die tragen am meisten, wenn Sie früh damit anfangen. Verpflichtend sind alle 49; die Markierung ordnet nur die Reihenfolge."
         },
         "order": {
           "title": "Zwei Reihenfolgen für Ihren Weg",

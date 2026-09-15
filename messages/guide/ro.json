@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Tot parcursul dumneavoastră pe un singur ecran",
-          "body": "Fiecare cerință pe care trebuie să o îndepliniți, într-o singură listă, cu stadiul alături. Nu trebuie niciodată să căutați ce a mai rămas de făcut."
+          "body": "Fiecare cerință pe care trebuie să o îndepliniți, cu stadiul alături. Nu trebuie niciodată să căutați ce a mai rămas de făcut."
+        },
+        "stage": {
+          "title": "Unde vă aflați acum",
+          "body": "Parcursul se desfășoară în cinci etape, de la înregistrare până la dovadă. Această bară rămâne sus și indică etapa și secțiunea pe care o citiți. Indicații deschide explicațiile secțiunii."
+        },
+        "liveStep": {
+          "title": "Următorul dumneavoastră pas",
+          "body": "Exact un pas este marcat ca fiind curent. Deschideți-l, consemnați ce se aplică în realitate la dumneavoastră și aprobați-l. Marcajul trece apoi la următorul."
+        },
+        "minimum": {
+          "title": "De unde începeți",
+          "body": "Opt pași poartă marcajul Întâi. Aceștia aduc cel mai mult dacă îi abordați devreme. Toate cele 49 sunt obligatorii; marcajul doar ordonează succesiunea."
         },
         "order": {
           "title": "Două moduri de a ordona parcursul",

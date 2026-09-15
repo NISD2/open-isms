@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Uw hele pad op één scherm",
-          "body": "Elke eis waaraan u moet voldoen, in één lijst, met de stand ernaast. U hoeft nooit te zoeken naar wat er nog open staat."
+          "body": "Elke eis waaraan u moet voldoen, met de stand ernaast. U hoeft nooit te zoeken naar wat er nog open staat."
+        },
+        "stage": {
+          "title": "Waar u nu bent",
+          "body": "Het pad loopt in vijf fasen, van registratie tot en met het bewijs. Deze balk blijft bovenaan staan en noemt de fase en het onderdeel dat u nu leest. Toelichting opent de uitleg bij dat onderdeel."
+        },
+        "liveStep": {
+          "title": "Uw volgende stap",
+          "body": "Precies één stap staat als open gemarkeerd. Open die, leg vast wat bij u werkelijk geldt en geef hem vrij. Daarna schuift de markering een plek op."
+        },
+        "minimum": {
+          "title": "Waar u begint",
+          "body": "Acht stappen zijn gemarkeerd met Eerst. Die leveren het meeste op als u er vroeg mee begint. Alle 49 zijn verplicht; de markering bepaalt alleen de volgorde."
         },
         "order": {
           "title": "Twee volgordes voor uw pad",

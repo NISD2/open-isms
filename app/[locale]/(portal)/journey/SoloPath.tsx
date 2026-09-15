@@ -81,18 +81,28 @@ function categoryHref(categorySlug: string) {
  * toggle, status filter chips and the state legend. All of it describes how
  * work is divided, which is the one thing a single implementer never needs.
  */
-export function SoloPath({ reqNodes, locale }: { reqNodes: FlowNode[]; locale: Locale }) {
+export function SoloPath({
+  reqNodes,
+  locale,
+  tourAnchored = true,
+}: {
+  reqNodes: FlowNode[];
+  locale: Locale;
+  /** Advertise this path to the guided tour. False while the mode question is
+   *  open, so the walkthrough cannot start underneath the dialog. */
+  tourAnchored?: boolean;
+}) {
   const de = locale === "de";
   const sections = useMemo(() => buildSoloSections(reqNodes, de), [reqNodes, de]);
 
-  const currentKey = useMemo(
-    () =>
-      sections.find((s) => s.steps.some((st) => st.node.status === "current"))?.key ??
-      sections[0]?.key,
-    [sections],
-  );
-  const [activeKey, setActiveKey] = useState(currentKey);
-  useEffect(() => setActiveKey(currentKey), [currentKey]);
+  // Starts on the first section, not on the one holding the live step. At
+  // scroll zero no section reaches the observer's band under the header, so
+  // whatever this starts as is what gets displayed — and naming a section
+  // hundreds of pixels below the one on screen is just wrong. Where the live
+  // step sits is already the banner's job.
+  const firstKey = sections[0]?.key;
+  const [activeKey, setActiveKey] = useState(firstKey);
+  useEffect(() => setActiveKey(firstKey), [firstKey]);
 
   // The sticky header names the section you are actually looking at, which is
   // the only thing that keeps a 49-step scroll oriented.
@@ -127,7 +137,10 @@ export function SoloPath({ reqNodes, locale }: { reqNodes: FlowNode[]; locale: L
   if (!active) return null;
 
   return (
-    <div className="mx-auto w-full max-w-2xl">
+    <div
+      className="mx-auto w-full max-w-2xl"
+      data-tour={tourAnchored ? "journey-path" : undefined}
+    >
       <StickySectionHeader section={active} de={de} />
 
       {sections.map((section) => (
@@ -160,7 +173,10 @@ export function SoloPath({ reqNodes, locale }: { reqNodes: FlowNode[]; locale: L
 
 function StickySectionHeader({ section, de }: { section: SoloSection; de: boolean }) {
   return (
-    <div className="sticky top-12 z-10 mb-2 flex items-center justify-between gap-3 rounded-lg bg-primary px-4 py-2.5 text-primary-foreground shadow-sm">
+    <div
+      data-tour="journey-stage"
+      className="sticky top-12 z-10 mb-2 flex items-center justify-between gap-3 rounded-lg bg-primary px-4 py-2.5 text-primary-foreground shadow-sm"
+    >
       <div className="min-w-0">
         <p className="text-[11px] font-medium uppercase tracking-wide text-primary-foreground/70">
           {de ? "Stufe" : "Stage"} {section.stage.index} {de ? "von" : "of"} {STAGE_COUNT}{" "}
@@ -199,6 +215,9 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
 
   return (
     <li
+      data-tour={
+        current ? "journey-live-step" : step.firstMinimum ? "journey-minimum" : undefined
+      }
       className="flex flex-col items-center"
       style={{ transform: `translateX(${step.offsetPx}px)` }}
     >

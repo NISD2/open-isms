@@ -3,7 +3,7 @@ import { StalledPanel } from "@/components/help/StalledPanel";
 import { getSession } from "@/lib/auth";
 import { api } from "@/lib/trpc/server";
 import { journeyDisclaimer } from "./disclaimer";
-import { JourneyModeChoice } from "./JourneyModeChoice";
+import { JourneyModeDialog } from "./JourneyModeDialog";
 import { JourneyModeToggle } from "./JourneyModeToggle";
 import { PathFlow } from "./PathFlow";
 import { PathHero } from "./PathHero";
@@ -74,37 +74,36 @@ export default async function JourneyPage({
     </div>
   );
 
-  // No answer means the question was never asked. Ask it before drawing a path
-  // whose whole shape assumes one, rather than guessing and being wrong for the
-  // single implementer the swimlane was never built for.
-  if (mode === null) {
-    return (
-      <div className="space-y-4">
-        {header}
-        <JourneyModeChoice locale={locale} />
-        <PathDisclaimer locale={locale} />
-      </div>
-    );
-  }
+  // No answer means the question was never asked. Ask it over a path that is
+  // already drawn, rather than guessing and being wrong for the single
+  // implementer the swimlane was never built for. The guided layout renders
+  // behind the question because that is the answer we expect from this ICP;
+  // picking the team view swaps it on the spot.
+  const unanswered = mode === null;
 
   return (
     <div className="space-y-4">
       {header}
+      {unanswered ? <JourneyModeDialog locale={locale} /> : null}
       <PathHero
         assetCount={assetCount}
         liveNode={live}
         locale={locale}
         needsActivation={needsActivation}
       />
-      {mode === "solo" ? (
-        <SoloPath reqNodes={reqNodes} locale={locale} />
-      ) : (
+      {mode === "team" ? (
         <PathFlow
           reqNodes={reqNodes}
           aggregate={aggregate}
           locale={locale}
           focusCategory={focusCategory}
+          // The tour opens on this anchor, so withholding it until the mode is
+          // known is what keeps the walkthrough from starting underneath the
+          // question. See tour/steps.ts.
+          tourAnchored={!unanswered}
         />
+      ) : (
+        <SoloPath reqNodes={reqNodes} locale={locale} tourAnchored={!unanswered} />
       )}
       {/* Renders itself only after two weeks without a single mutation. */}
       <StalledPanel

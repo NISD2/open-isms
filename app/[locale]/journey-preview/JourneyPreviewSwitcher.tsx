@@ -1,8 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { JourneyModeCards } from "../(portal)/journey/JourneyModeCards";
+import { JourneyModeCards, journeyModeCopy } from "../(portal)/journey/JourneyModeCards";
 import type { JourneyMode } from "../(portal)/journey/journey-mode";
 import { PathFlow } from "../(portal)/journey/PathFlow";
 import { PathHero } from "../(portal)/journey/PathHero";
@@ -32,6 +39,7 @@ export function JourneyPreviewSwitcher({
 }) {
   const [tab, setTab] = useState<Tab>("question");
   const de = locale === "de";
+  const copy = journeyModeCopy(locale);
 
   const TABS: { key: Tab; label: string }[] = [
     { key: "question", label: de ? "Die Frage" : "The question" },
@@ -81,23 +89,35 @@ export function JourneyPreviewSwitcher({
         </div>
       </div>
 
-      {tab === "question" ? (
-        <JourneyModeCards locale={locale} onSelect={setTab} />
+      <PathHero assetCount={12} liveNode={live} locale={locale} />
+      {tab === "team" ? (
+        <PathFlow
+          reqNodes={reqNodes}
+          aggregate={aggregate}
+          locale={locale}
+          focusCategory={null}
+        />
       ) : (
-        <>
-          <PathHero assetCount={12} liveNode={live} locale={locale} />
-          {tab === "solo" ? (
-            <SoloPath reqNodes={reqNodes} locale={locale} />
-          ) : (
-            <PathFlow
-              reqNodes={reqNodes}
-              aggregate={aggregate}
-              locale={locale}
-              focusCategory={null}
-            />
-          )}
-        </>
+        <SoloPath reqNodes={reqNodes} locale={locale} />
       )}
+
+      {/* The real page renders the question as a modal over the path behind
+          it, which is the thing worth reviewing; here the answer only moves
+          the tab, so the dialog is reachable again from the tab bar. */}
+      <Dialog open={tab === "question"}>
+        <DialogContent
+          showCloseButton={false}
+          onEscapeKeyDown={(event) => event.preventDefault()}
+          onInteractOutside={(event) => event.preventDefault()}
+          className="sm:max-w-xl"
+        >
+          <DialogHeader>
+            <DialogTitle>{copy.question}</DialogTitle>
+            <DialogDescription>{copy.lede}</DialogDescription>
+          </DialogHeader>
+          <JourneyModeCards locale={locale} onSelect={setTab} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

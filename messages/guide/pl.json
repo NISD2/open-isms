@@ -8,7 +8,19 @@
       "steps": {
         "overview": {
           "title": "Cała Państwa ścieżka na jednym ekranie",
-          "body": "Każdy wymóg, który muszą Państwo spełnić, w jednej liście, a obok aktualny stan. Nie trzeba nigdzie szukać tego, co zostało do zrobienia."
+          "body": "Każdy wymóg, który muszą Państwo spełnić, a obok aktualny stan. Nie trzeba nigdzie szukać tego, co zostało do zrobienia."
+        },
+        "stage": {
+          "title": "Gdzie się Państwo znajdują",
+          "body": "Ścieżka biegnie w pięciu etapach, od rejestracji po dowód wdrożenia. Ten pasek zostaje na górze i wskazuje etap oraz sekcję, którą Państwo czytają. Wskazówki otwierają objaśnienia do tej sekcji."
+        },
+        "liveStep": {
+          "title": "Państwa następny krok",
+          "body": "Dokładnie jeden krok jest oznaczony jako bieżący. Proszę go otworzyć, wpisać, co rzeczywiście obowiązuje w Państwa firmie, i zatwierdzić. Oznaczenie przesunie się wtedy o jeden dalej."
+        },
+        "minimum": {
+          "title": "Od czego zacząć",
+          "body": "Osiem kroków ma oznaczenie Najpierw. One dają najwięcej, jeśli zajmą się Państwo nimi wcześnie. Obowiązkowe jest wszystkie 49; oznaczenie porządkuje tylko kolejność."
         },
         "order": {
           "title": "Dwa sposoby uporządkowania ścieżki",
