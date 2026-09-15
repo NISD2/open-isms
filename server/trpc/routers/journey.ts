@@ -63,13 +63,16 @@ export const journeyRouter = router({
         open: 0,
       };
 
-      // NIS 2 only. Without this filter a company holding both a NIS 2 and a
-      // GDPR assessment would get whichever was inserted first, and the
-      // projection would silently fall apart because category codes would not
-      // match CISO_CATS / MSP_CATS.
-      // The layout mode rides along with the items: it is journey state, the
-      // journey view is its only reader, and fetching it here keeps the page to
-      // one round trip. null = never answered, which is what makes the view ask.
+      // Two independent reads, so they go together.
+      //
+      // The assessment lookup is NIS 2 only. Without that filter a company
+      // holding both a NIS 2 and a GDPR assessment would get whichever was
+      // inserted first, and the projection would silently fall apart because
+      // category codes would not match CISO_CATS / MSP_CATS.
+      //
+      // The layout mode rides along because it is journey state, this view is
+      // its only reader, and fetching it here keeps the page to one round
+      // trip. null = never answered, which is what makes the view ask.
       const [assessment, companyRows] = await Promise.all([
         getNis2Assessment(ctx.db, cid),
         ctx.db

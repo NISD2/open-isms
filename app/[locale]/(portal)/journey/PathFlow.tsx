@@ -30,12 +30,14 @@ import {
   type DotState,
   dotStateOf,
   type FlowNode,
-  FREQUENCY_LABEL,
+  frequencyLabel,
   ORDERED_CATEGORIES,
   type Order,
   ROLE_LABEL,
   requirementHref,
+  reviewLabel,
   statusLabel,
+  statusTone,
 } from "./path-nodes";
 
 type Locale = "en" | "de" | "nl";
@@ -618,8 +620,7 @@ function NodeCard({
   const de = locale === "de";
   const owner = ROLE_LABEL[node.ownerRole] ?? { en: node.ownerRole, de: node.ownerRole };
   const ownerLabel = de ? owner.de : owner.en;
-  const freq = node.frequency ? FREQUENCY_LABEL[node.frequency] : null;
-  const freqLabel = freq ? (de ? freq.de : freq.en) : node.frequency;
+  const freqLabel = frequencyLabel(node.frequency, de);
   const state = dotStateOf(node.rawStatus);
   // Only the action-needing states get a card corner pip, so the at-a-glance
   // signal survives the horizontal distance to the rail dot without re-cluttering.
@@ -637,20 +638,7 @@ function NodeCard({
   const due = node.dueInDays;
   const reviewState: "overdue" | "soon" | "later" | null =
     due === null ? null : due < 0 ? "overdue" : due <= 30 ? "soon" : "later";
-  const reviewText =
-    due === null
-      ? null
-      : due < 0
-        ? de
-          ? `Prüfung ${-due} ${-due === 1 ? "Tag" : "Tage"} überfällig`
-          : `Review ${-due} ${-due === 1 ? "day" : "days"} overdue`
-        : due === 0
-          ? de
-            ? "Prüfung heute fällig"
-            : "Review due today"
-          : de
-            ? `Nächste Prüfung in ${due} ${due === 1 ? "Tag" : "Tagen"}`
-            : `Next review in ${due} ${due === 1 ? "day" : "days"}`;
+  const reviewText = reviewLabel(due, de);
 
   const ring =
     node.status === "current"
@@ -659,14 +647,7 @@ function NodeCard({
         ? "border-border/60 bg-muted/30"
         : "border-border";
 
-  const statusColor =
-    state === "signed"
-      ? "text-primary"
-      : state === "awaiting"
-        ? "text-amber-600 dark:text-amber-400"
-        : state === "rejected"
-          ? "text-destructive"
-          : "text-muted-foreground";
+  const statusColor = statusTone(state);
 
   return (
     <HoverCard openDelay={140} closeDelay={60}>

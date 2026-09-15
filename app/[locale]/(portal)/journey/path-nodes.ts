@@ -241,6 +241,43 @@ export function dotStateOf(rawStatus: string): DotState {
   return "todo";
 }
 
+/** Tailwind text colour for a state, so a status reads the same in every view. */
+export function statusTone(state: DotState): string {
+  if (state === "signed") return "text-primary";
+  if (state === "awaiting") return "text-amber-600 dark:text-amber-400";
+  if (state === "rejected") return "text-destructive";
+  return "text-muted-foreground";
+}
+
+/** Localized requirement.frequency, falling back to the raw slug. */
+export function frequencyLabel(frequency: string | null, de: boolean): string | null {
+  if (!frequency) return null;
+  const label = FREQUENCY_LABEL[frequency];
+  if (!label) return frequency;
+  return de ? label.de : label.en;
+}
+
+/**
+ * Localized recurring-review clock, or null where there is no review date.
+ *
+ * Only ever called with the server-computed `dueInDays`, which is gated to
+ * review statuses: a never-done item carries an initial implementation
+ * deadline, and calling that a late review would be wrong.
+ */
+export function reviewLabel(dueInDays: number | null, de: boolean): string | null {
+  if (dueInDays === null) return null;
+  if (dueInDays < 0) {
+    const days = -dueInDays;
+    return de
+      ? `Prüfung ${days} ${days === 1 ? "Tag" : "Tage"} überfällig`
+      : `Review ${days} ${days === 1 ? "day" : "days"} overdue`;
+  }
+  if (dueInDays === 0) return de ? "Prüfung heute fällig" : "Review due today";
+  return de
+    ? `Nächste Prüfung in ${dueInDays} ${dueInDays === 1 ? "Tag" : "Tagen"}`
+    : `Next review in ${dueInDays} ${dueInDays === 1 ? "day" : "days"}`;
+}
+
 /** Localized status wording. One vocabulary so the views cannot drift apart. */
 export function statusLabel(rawStatus: string, de: boolean): string {
   switch (rawStatus) {

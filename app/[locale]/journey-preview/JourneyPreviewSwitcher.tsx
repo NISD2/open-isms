@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { JourneyHeading, ProgressChip } from "../(portal)/journey/JourneyHeading";
 import { JourneyModeCards, journeyModeCopy } from "../(portal)/journey/JourneyModeCards";
 import type { JourneyMode } from "../(portal)/journey/journey-mode";
 import { PathFlow } from "../(portal)/journey/PathFlow";
@@ -54,16 +55,7 @@ export function JourneyPreviewSwitcher({
   return (
     <div className="space-y-4 p-4">
       <div className="flex items-start justify-between gap-4">
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            {de ? "Ihr Weg" : "Your path"}
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            {de
-              ? "Ein Schritt nach dem anderen. Hier ist Ihr nächster."
-              : "One step at a time. Here is your next one."}
-          </p>
-        </div>
+        <JourneyHeading locale={locale} />
         <div className="flex shrink-0 items-center gap-3">
           <div className="inline-flex items-center gap-0.5 rounded-md border bg-muted/40 p-0.5">
             {TABS.map((option) => (
@@ -89,14 +81,7 @@ export function JourneyPreviewSwitcher({
           >
             {de ? "Frage zeigen" : "Show the question"}
           </button>
-          <div className="text-right">
-            <div className="text-xl font-semibold leading-none tabular-nums">
-              {Math.round((aggregate.done / aggregate.total) * 100)}%
-            </div>
-            <div className="mt-1 text-[11px] text-muted-foreground">
-              {aggregate.done}/{aggregate.total} {de ? "erledigt" : "done"}
-            </div>
-          </div>
+          <ProgressChip done={aggregate.done} total={aggregate.total} locale={locale} />
         </div>
       </div>
 

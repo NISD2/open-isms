@@ -15,11 +15,11 @@
  * cleans up the test relationship.
  */
 import { eq } from "drizzle-orm";
+import { db as appDb } from "@/lib/db";
+import { env } from "@/lib/env";
 import * as schema from "@/schema";
 import { createCallerFactory, type TRPCContext } from "@/server/trpc/init";
 import { appRouter } from "@/server/trpc/router";
-import { db as appDb } from "@/lib/db";
-import { env } from "@/lib/env";
 import { assertLocalDatabase as assertLocalDatabaseFor } from "./lib/assert-local-database";
 
 const TEST_CUSTOMER_EMAIL = "smoke-test-ciso@example.test";

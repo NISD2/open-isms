@@ -18,23 +18,25 @@ import {
 } from "@/lib/messages";
 import type { JourneyItem } from "../(portal)/journey/views";
 
-/** A believable mid-implementation company, keyed by global step index. */
-const SAMPLE_STATUS: Record<number, string> = {
-  0: "completed",
-  1: "completed",
-  2: "completed",
-  3: "completed",
-  4: "completed",
-  5: "completed",
-  6: "completed",
+/** Everything before this global step index is signed off. */
+const FRONTIER_STEP = 7;
+
+/**
+ * Past the frontier, a few steps touched out of order: what real progress
+ * looks like, and what puts the remaining states on screen.
+ */
+const SAMPLE_STATUS_AT: Record<number, string> = {
   7: "in_progress",
-  // The frontier: a few later steps touched out of order, which is what real
-  // progress looks like and what puts the remaining states on screen.
   8: "needs_review",
   10: "not_applicable",
   13: "needs_review",
   16: "rejected",
 };
+
+function sampleStatus(step: number): string {
+  if (step < FRONTIER_STEP) return "completed";
+  return SAMPLE_STATUS_AT[step] ?? "not_started";
+}
 
 /** Recurring-review clocks on a few signed-off items (negative = overdue). */
 const SAMPLE_DUE_IN_DAYS: Record<number, number> = {
@@ -62,7 +64,7 @@ export async function buildFullJourneyItems(locale: string): Promise<JourneyItem
       description: getRequirementDescription(messages, req.code),
       categoryCode: category.code,
       categorySlug: category.slug,
-      status: SAMPLE_STATUS[step] ?? "not_started",
+      status: sampleStatus(step),
       priority: req.priority,
       frequency: req.frequency,
       legalRef: req.legalRef || null,

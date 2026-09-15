@@ -127,7 +127,7 @@ function stageAt(index: number, de: boolean): SoloStage {
 export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[] {
   const firstMinimumIndex = nodes.findIndex((n) => n.band === "minimum");
 
-  const sections = nodes.reduce<(SoloSection & { phase: number })[]>((acc, node, i) => {
+  const sections = nodes.reduce<SoloSection[]>((acc, node, i) => {
     const step: SoloStep = {
       node,
       step: i + 1,
@@ -141,11 +141,9 @@ export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[]
       return acc;
     }
     const category = CATEGORY_BY_CODE.get(node.categoryCode);
-    const phase = phaseIndexFor(category?.sortOrder ?? 99);
     acc.push({
       key: node.categoryCode,
-      phase,
-      stage: stageAt(phase, de),
+      stage: stageAt(phaseIndexFor(category?.sortOrder ?? 99), de),
       title: (de ? category?.nameDe : category?.name) ?? node.categoryCode,
       categorySlug: node.categorySlug,
       steps: [step],
@@ -154,11 +152,15 @@ export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[]
     return acc;
   }, []);
 
-  return sections.map(({ phase, ...section }, i) => {
+  // A section closes a stage when the next one belongs to a different stage.
+  // Compared through stage.index rather than a second phase field on the
+  // section: the stage is already the answer, and storing it twice is one
+  // more thing that can disagree with itself.
+  return sections.map((section, i) => {
     const next = sections[i + 1];
-    if (!next || next.phase === phase) return section;
+    if (!next || next.stage.index === section.stage.index) return section;
     const stepsInNext = sections
-      .filter((s) => s.phase === next.phase)
+      .filter((s) => s.stage.index === next.stage.index)
       .reduce((sum, s) => sum + s.steps.length, 0);
     return { ...section, nextStage: { ...next.stage, steps: stepsInNext } };
   });

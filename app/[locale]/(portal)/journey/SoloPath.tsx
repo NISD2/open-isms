@@ -1,65 +1,14 @@
 "use client";
 
 import {
-  Activity,
   ArrowRight,
-  BellRing,
   BookOpen,
-  Boxes,
-  Bug,
-  CalendarCheck,
   CalendarClock,
-  ChartColumn,
   Check,
   CheckCheck,
-  ClipboardCheck,
-  ClipboardList,
-  CloudLightning,
-  Code,
-  Compass,
-  DatabaseBackup,
-  Eye,
-  FileCheck,
-  FileLock,
-  Fingerprint,
-  Fish,
-  FlaskConical,
-  Gauge,
-  Gavel,
-  GitBranch,
-  GraduationCap,
-  Handshake,
-  KeyRound,
-  Landmark,
-  LifeBuoy,
-  Lightbulb,
-  Lock,
-  LockKeyhole,
-  type LucideIcon,
-  Megaphone,
   Minus,
-  Presentation,
-  RadioTower,
-  RefreshCw,
   Repeat,
   Scale,
-  ScanSearch,
-  ScrollText,
-  Send,
-  ShieldAlert,
-  ShieldCheck,
-  ShoppingCart,
-  Siren,
-  Stamp,
-  Swords,
-  TrendingUp,
-  TriangleAlert,
-  Truck,
-  UserCheck,
-  UserCog,
-  Users,
-  Wallet,
-  Wrench,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -73,10 +22,13 @@ import {
   type DotState,
   dotStateOf,
   type FlowNode,
-  FREQUENCY_LABEL,
+  frequencyLabel,
   requirementHref,
+  reviewLabel,
   statusLabel,
+  statusTone,
 } from "./path-nodes";
+import { iconFor } from "./solo-icons";
 import {
   buildSoloSections,
   type SoloSection,
@@ -87,95 +39,12 @@ import {
 type Locale = "en" | "de" | "nl";
 
 /**
- * One icon per requirement, not per category.
- *
- * A long path is navigated by recognition — you learn where the backup step
- * and the phishing step sit and stop re-reading captions to find them — and
- * that only works if neighbours differ. Keyed by the requirement code so it
- * survives retitling and translation.
+ * The call to action on the live step: whether work has already begun on it.
+ * Used by the pinned bar and by the pill over the node, which must agree.
  */
-const REQUIREMENT_ICON: Record<string, LucideIcon> = {
-  // Registration
-  "12.1": ScanSearch,
-  "12.2": Landmark,
-  "12.3": RefreshCw,
-  "12.4": FileCheck,
-  // Governance
-  "1.1": GraduationCap,
-  "1.2": Users,
-  "1.3": Wallet,
-  "1.4": Gavel,
-  // Risk management
-  "2.1": Compass,
-  "2.2": Boxes,
-  "2.3": TriangleAlert,
-  "2.4": Stamp,
-  // Suppliers
-  "5.1": Truck,
-  "5.2": Handshake,
-  "5.3": ClipboardList,
-  "5.4": BellRing,
-  // Cryptography
-  "9.1": Lock,
-  "9.2": FileLock,
-  "9.3": KeyRound,
-  // Access control
-  "10.1": LockKeyhole,
-  "10.2": UserCheck,
-  "10.3": UserCog,
-  "10.4": Eye,
-  // Authentication
-  "11.1": Fingerprint,
-  "11.2": RadioTower,
-  "11.3": ShieldCheck,
-  // Patching and vulnerabilities
-  "6.1": ShoppingCart,
-  "6.2": Code,
-  "6.3": Bug,
-  "6.4": Wrench,
-  "6.5": GitBranch,
-  // Incident handling
-  "3.1": Siren,
-  "3.2": Activity,
-  "3.3": Send,
-  "3.4": Swords,
-  "3.5": Megaphone,
-  // Business continuity
-  "4.1": ChartColumn,
-  "4.2": LifeBuoy,
-  "4.3": CloudLightning,
-  "4.4": DatabaseBackup,
-  "4.5": FlaskConical,
-  // Training
-  "8.1": ScrollText,
-  "8.2": Lightbulb,
-  "8.3": Presentation,
-  "8.4": Fish,
-  // Effectiveness
-  "7.1": Gauge,
-  "7.2": ClipboardCheck,
-  "7.3": CalendarCheck,
-  "7.4": TrendingUp,
-};
-
-/** Fallback for a requirement added to the framework without an icon here. */
-const CATEGORY_ICON: Record<string, LucideIcon> = {
-  GOV: Landmark,
-  RSK: ShieldAlert,
-  INC: Siren,
-  BCP: LifeBuoy,
-  SUP: Truck,
-  PRO: Wrench,
-  EFF: Gauge,
-  TRN: GraduationCap,
-  CRY: Lock,
-  ACC: KeyRound,
-  AUT: Fingerprint,
-  REG: ClipboardCheck,
-};
-
-function iconFor(node: FlowNode): LucideIcon {
-  return REQUIREMENT_ICON[node.code] ?? CATEGORY_ICON[node.categoryCode] ?? Scale;
+function startLabel(rawStatus: string, de: boolean): string {
+  if (rawStatus === "in_progress") return de ? "Weiter" : "Continue";
+  return de ? "Anfangen" : "Start";
 }
 
 function categoryHref(categorySlug: string) {
@@ -244,6 +113,10 @@ export function SoloPath({
     return () => observer.disconnect();
   }, [sections]);
 
+  const liveNode = useMemo(
+    () => reqNodes.find((n) => n.status === "current") ?? null,
+    [reqNodes],
+  );
   const active = sections.find((s) => s.key === activeKey) ?? sections[0];
   const total = reqNodes.length;
   if (!active) return null;
@@ -253,11 +126,7 @@ export function SoloPath({
       {/* Full content width, while the path itself stays a narrow column: the
           bar is page chrome and needs the room to hold both halves on one
           line. */}
-      <StickyPathBar
-        section={active}
-        liveNode={reqNodes.find((n) => n.status === "current") ?? null}
-        de={de}
-      />
+      <StickyPathBar section={active} liveNode={liveNode} de={de} />
 
       <div className="mx-auto w-full max-w-2xl">
         {sections.map((section, i) => (
@@ -353,13 +222,7 @@ function StickyPathBar({
             href={requirementHref(liveNode)}
             className="inline-flex shrink-0 items-center gap-1 rounded-md bg-background px-2.5 py-1 text-xs font-semibold text-primary shadow-sm transition-opacity hover:opacity-90"
           >
-            {liveNode.rawStatus === "in_progress"
-              ? de
-                ? "Weiter"
-                : "Continue"
-              : de
-                ? "Anfangen"
-                : "Start"}
+            {startLabel(liveNode.rawStatus, de)}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -399,7 +262,7 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
       className="flex flex-col items-center"
       style={{ transform: `translateX(${step.offsetPx}px)` }}
     >
-      {current ? <StartPill started={node.rawStatus === "in_progress"} de={de} /> : null}
+      {current ? <StartPill rawStatus={node.rawStatus} de={de} /> : null}
       <HoverCard openDelay={120} closeDelay={60}>
         <HoverCardTrigger asChild>
           <Link
@@ -433,9 +296,7 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
           <div className="space-y-1 border-t pt-2 text-xs text-muted-foreground">
             <p>
               {de ? "Schritt" : "Step"} {step.step} {de ? "von" : "of"} {total} ·{" "}
-              <span className={statusColor(state)}>
-                {statusLabel(node.rawStatus, de)}
-              </span>
+              <span className={statusTone(state)}>{statusLabel(node.rawStatus, de)}</span>
             </p>
             {node.legalRef ? (
               <p className="flex items-center gap-1.5">
@@ -452,7 +313,7 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
             {node.dueInDays !== null ? (
               <p className="flex items-center gap-1.5">
                 <CalendarClock className="h-3 w-3 shrink-0" />
-                {reviewText(node.dueInDays, de)}
+                {reviewLabel(node.dueInDays, de)}
               </p>
             ) : null}
           </div>
@@ -478,12 +339,11 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
 }
 
 /** Speech-bubble call-out over the one live step. */
-function StartPill({ started, de }: { started: boolean; de: boolean }) {
-  const label = started ? (de ? "Weiter" : "Continue") : de ? "Anfangen" : "Start";
+function StartPill({ rawStatus, de }: { rawStatus: string; de: boolean }) {
   return (
     <div className="relative mb-2">
       <div className="rounded-lg border-2 border-primary bg-background px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary shadow-sm">
-        {label}
+        {startLabel(rawStatus, de)}
       </div>
       <div className="absolute left-1/2 top-full h-2.5 w-2.5 -translate-x-1/2 -translate-y-[60%] rotate-45 border-b-2 border-r-2 border-primary bg-background" />
     </div>
@@ -576,30 +436,4 @@ function circleClass(state: DotState, current: boolean): string {
   }
   if (state === "started") return "border-primary/60 bg-background text-primary";
   return "border-border bg-muted/40 text-muted-foreground/70";
-}
-
-function statusColor(state: DotState): string {
-  if (state === "signed") return "text-primary";
-  if (state === "awaiting") return "text-amber-600 dark:text-amber-400";
-  if (state === "rejected") return "text-destructive";
-  return "";
-}
-
-function frequencyLabel(frequency: string, de: boolean): string {
-  const label = FREQUENCY_LABEL[frequency];
-  if (!label) return frequency;
-  return de ? label.de : label.en;
-}
-
-function reviewText(dueInDays: number, de: boolean): string {
-  if (dueInDays < 0) {
-    const days = -dueInDays;
-    return de
-      ? `Prüfung ${days} ${days === 1 ? "Tag" : "Tage"} überfällig`
-      : `Review ${days} ${days === 1 ? "day" : "days"} overdue`;
-  }
-  if (dueInDays === 0) return de ? "Prüfung heute fällig" : "Review due today";
-  return de
-    ? `Nächste Prüfung in ${dueInDays} ${dueInDays === 1 ? "Tag" : "Tagen"}`
-    : `Next review in ${dueInDays} ${dueInDays === 1 ? "day" : "days"}`;
 }

@@ -1,13 +1,17 @@
 /**
  * The one-time onboarding surfaces, driven against the real app.
  *
- * These are gated server-side on `user.login_count`, so this spec owns that
- * column for the duration of the file: it arms each surface by hand, checks
- * the behaviour, then hands the user back to the rest of the suite retired.
+ * Each is gated server-side on its own dismissal column, and the requirement
+ * walkthrough and the offer of help additionally on `user.login_count`, so
+ * this spec owns those columns for the duration of the file: it arms each
+ * surface by hand, checks the behaviour, then hands the user back retired.
+ *
+ * The journey walkthroughs are asserted in the TEAM layout, which is what
+ * auth.setup.ts answers the layout question with.
  * auth.setup.ts re-retires both harness users unconditionally on every run,
  * so a crash here cannot poison the next one.
  */
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { E2E_USER_EMAIL } from "../lib/env";
 
@@ -42,7 +46,9 @@ test.afterAll(retire);
 test("the tour runs on a first login, and stays gone once dismissed", async ({
   page,
 }) => {
-  await setGuideState("login_count = 1, tour_dismissed_at = NULL, requirement_tour_dismissed_at = NULL");
+  await setGuideState(
+    "login_count = 1, tour_dismissed_at = NULL, requirement_tour_dismissed_at = NULL",
+  );
 
   await page.goto("/journey");
   const card = page.getByTestId("tour-card");
@@ -68,7 +74,9 @@ test("the tour runs on a first login, and stays gone once dismissed", async ({
 test("every tour card lands fully on screen, and the tour opens on the board", async ({
   page,
 }) => {
-  await setGuideState("login_count = 1, tour_dismissed_at = NULL, requirement_tour_dismissed_at = NULL");
+  await setGuideState(
+    "login_count = 1, tour_dismissed_at = NULL, requirement_tour_dismissed_at = NULL",
+  );
 
   await page.goto("/journey");
   const card = page.getByTestId("tour-card");
@@ -81,7 +89,7 @@ test("every tour card lands fully on screen, and the tour opens on the board", a
   await expect(ring).toHaveCount(1);
 
   const ringBox = await ring.boundingBox();
-  const boardBox = await page.locator('[data-tour="journey-board"]').boundingBox();
+  const boardBox = await page.locator('[data-tour="journey-path-team"]').boundingBox();
   if (!ringBox || !boardBox) throw new Error("board or spotlight not rendered");
   // Same box, give or take the spotlight padding, and clamped to the viewport
   // because the board runs off the bottom of the screen.
@@ -92,9 +100,7 @@ test("every tour card lands fully on screen, and the tour opens on the board", a
   if (!viewport) throw new Error("headless run has no viewport size");
 
   const total = Number(
-    (await page.getByTestId("tour-progress").textContent())?.match(
-      /(\d+)\s*$/,
-    )?.[1],
+    (await page.getByTestId("tour-progress").textContent())?.match(/(\d+)\s*$/)?.[1],
   );
   expect(total).toBeGreaterThan(4);
 
@@ -115,10 +121,9 @@ test("every tour card lands fully on screen, and the tour opens on the board", a
     expect(box.x + box.width, `step ${step} card right edge`).toBeLessThanOrEqual(
       viewport.width,
     );
-    expect(
-      box.y + box.height,
-      `step ${step} card bottom edge`,
-    ).toBeLessThanOrEqual(viewport.height);
+    expect(box.y + box.height, `step ${step} card bottom edge`).toBeLessThanOrEqual(
+      viewport.height,
+    );
 
     if (step < total) await page.getByTestId("tour-next").click();
   }
@@ -191,9 +196,7 @@ test("the requirement walkthrough survives arriving from the journey", async ({
   await dismissalLanded("requirement_tour_dismissed_at");
 });
 
-test("a second login offers help, and does not offer it twice", async ({
-  page,
-}) => {
+test("a second login offers help, and does not offer it twice", async ({ page }) => {
   await setGuideState("login_count = 2, help_offer_dismissed_at = NULL");
 
   await page.goto("/journey");

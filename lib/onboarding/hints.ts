@@ -4,17 +4,19 @@ import type { user } from "@/schema";
 /**
  * One-time surfaces a new account meets, in the order it meets them.
  *
- * All three gate on `user.loginCount`, not on browser storage. A tour keyed to
- * localStorage fires on the first *visit in this browser*, which is a
- * different fact: a second person on a shared machine is silently treated as
- * a returning user, the same person on a second device is treated as new, and
- * "this is your second login" is not a question browser storage can answer at
- * all. The counter is stamped once per sign-in in the NextAuth `jwt` callback.
+ * Every one of them is recorded in a column on the user row, never in browser
+ * storage. Storage answers "first visit in this browser", which is a different
+ * fact: a second person on a shared machine is silently treated as a returning
+ * user, the same person on a second device is treated as new, and "this is
+ * your second login" is not a question storage can answer at all. Where a
+ * surface additionally wants a login number, it reads `user.loginCount`, which
+ * the NextAuth `jwt` callback stamps once per sign-in.
  *
- * The two tours are separate entries because they are separate walkthroughs
- * on separate pages. Skipping the journey overview says nothing about whether
- * someone wants the requirement page explained, and collapsing both into one
- * flag meant skipping the first silently cancelled the second.
+ * Each is a separate entry because each is a separate walkthrough. Skipping
+ * the journey says nothing about whether someone wants the requirement page
+ * explained, and the journey itself has one per layout: being walked through
+ * the guided path says nothing about the role swimlane, which that user may
+ * not meet until they switch months later.
  */
 export const HINTS = [
   "journeyTourGuided",
