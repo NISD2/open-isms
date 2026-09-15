@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, isNotNull, isNull, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { verifyOtp } from "@/lib/auth/otp";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
@@ -132,9 +132,37 @@ export async function POST(request: Request) {
     .set({
       emailVerifiedAt: new Date(),
       updatedAt: new Date(),
-      ...(passwordHash ? { passwordHash } : {}),
+      ...(passwordHash
+        ? {
+            passwordHash,
+            // A credential change revokes outstanding tokens, the same way
+            // reset-password does (audit M-1). No live JWT can exist for a row
+            // this UPDATE matches, since authorize() refuses an unverified
+            // account — so this is belt to that reasoning rather than load
+            // bearing today. It stops a future path that issues a session
+            // before verification from turning this into a silent rotation.
+            sessionVersion: sql`${user.sessionVersion} + 1`,
+          }
+        : {}),
     })
-    .where(and(eq(user.email, email), isNull(user.emailVerifiedAt)))
+    .where(
+      and(
+        eq(user.email, email),
+        isNull(user.emailVerifiedAt),
+        // Replace a password, never create one. Two kinds of row are deliberately
+        // left with a NULL hash so they can never be signed into: the record the
+        // Google callback writes when checkEmailQuality blocks the address
+        // (lib/auth/config.ts) and the GDPR erasure tombstone
+        // (lib/gdpr/erase-user.ts). Both also have emailVerifiedAt NULL, and
+        // resend-verification will mail a code to any such address because it
+        // carries no quality check, so without this condition minting a hash
+        // here would turn either one into a working account. Every legitimate
+        // pending signup already has a hash from /register, so nothing real is
+        // excluded. Applied only when writing a password: the no-password call
+        // keeps the pre-existing behaviour of flipping verification alone.
+        passwordHash ? isNotNull(user.passwordHash) : undefined,
+      ),
+    )
     .returning({ id: user.id, name: user.name });
 
   // First-time verification → fire admin + welcome notifications.
