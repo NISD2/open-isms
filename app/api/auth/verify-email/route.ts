@@ -1,12 +1,12 @@
 import bcrypt from "bcryptjs";
+import { and, eq, isNull } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { eq, isNull, and } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { user } from "@/schema";
 import { verifyOtp } from "@/lib/auth/otp";
-import { sendMail, sendWelcomeEmail, newUserSignupEmail } from "@/lib/mail";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
+import { db } from "@/lib/db";
+import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
+import { user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
 // In-memory rate limit: max 10 verification attempts per IP per 15 min.
@@ -89,10 +89,7 @@ export async function POST(request: Request) {
   const password = body.password as string | undefined;
 
   if (!email || !code) {
-    return NextResponse.json(
-      { error: "Email and code are required" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Email and code are required" }, { status: 400 });
   }
 
   if (!/^\d{6}$/.test(code)) {

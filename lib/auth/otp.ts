@@ -1,5 +1,5 @@
 import "@/lib/server-guard";
-import { randomInt } from "crypto";
+import { randomInt } from "node:crypto";
 import bcrypt from "bcryptjs";
 import { and, eq, gt, isNull, lt, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
@@ -19,7 +19,9 @@ import { emailOtp } from "@/schema";
  *  - 5 wrong attempts triggers lockout (record consumed)
  *  - Rate-limited: max 3 requests per email+purpose per 5 minutes
  *  - Each new request invalidates prior unconsumed records for the same
- *    (email, purpose), so the most recent code is always the only valid one
+ *    (email, purpose), in the same transaction as the insert. Two overlapping
+ *    requests can still leave two live rows, so `verifyOtp` reads the newest:
+ *    the most recently issued code is the one that counts
  *  - The caller (API route) is responsible for sending the plaintext code
  *    via Resend; this module never touches the mailer to keep concerns clean
  */

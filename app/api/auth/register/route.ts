@@ -106,7 +106,7 @@ export async function POST(request: Request) {
   // happy path leaks an enumeration oracle (audit H-4). Forgotten password
   // belongs in /api/auth/forgot-password, which proves mailbox ownership
   // before mutating anything.
-  if (existing && existing.emailVerifiedAt) {
+  if (existing?.emailVerifiedAt) {
     return NextResponse.json({ success: true, verificationRequired: true });
   }
 

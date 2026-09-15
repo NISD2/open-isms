@@ -21,8 +21,8 @@
  */
 import { expect, test } from "@playwright/test";
 import bcrypt from "bcryptjs";
-import { assertE2eTargets } from "./lib/env";
 import { e2eQuery } from "./lib/db";
+import { assertE2eTargets } from "./lib/env";
 
 // Anonymous: every other project inherits the signed-in admin storage state,
 // and this spec is about arriving with no session at all.
@@ -53,7 +53,11 @@ async function plantCode(email: string, code: string): Promise<void> {
   );
 }
 
-async function registerWith(page: import("@playwright/test").Page, email: string, password: string) {
+async function registerWith(
+  page: import("@playwright/test").Page,
+  email: string,
+  password: string,
+) {
   // "Use a different email" returns to the form but leaves it in register
   // mode, so the switch is only there on the first pass.
   const toRegister = page.getByRole("button", {
@@ -67,7 +71,9 @@ async function registerWith(page: import("@playwright/test").Page, email: string
   await expect(page.locator("#code")).toBeVisible({ timeout: 30_000 });
 }
 
-test("signing up a second time signs in with the password typed that time", async ({ page }) => {
+test("signing up a second time signs in with the password typed that time", async ({
+  page,
+}) => {
   const email = `signup-twice-${Date.now()}@e2e.local`;
 
   await page.goto("/de/auth/signin");
@@ -83,10 +89,10 @@ test("signing up a second time signs in with the password typed that time", asyn
 
   await page.waitForURL(/\/(journey|dashboard)/, { timeout: 30_000 });
 
-  const [row] = await e2eQuery<{ password_hash: string; email_verified_at: string | null }>(
-    `select password_hash, email_verified_at from "user" where email = $1`,
-    [email],
-  );
+  const [row] = await e2eQuery<{
+    password_hash: string;
+    email_verified_at: string | null;
+  }>(`select password_hash, email_verified_at from "user" where email = $1`, [email]);
   expect(row.email_verified_at).not.toBeNull();
   expect(await bcrypt.compare(SECOND_PASSWORD, row.password_hash)).toBe(true);
 });

@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { Loader2, Shield } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslations, useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { signIn } from "next-auth/react";
+import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -15,7 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Shield, Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Link } from "@/i18n/navigation";
 
 type Step = "auth" | "verify";
 
@@ -34,7 +34,7 @@ export function SignInCard() {
   // (fresh registrations) are bounced from /journey to /dashboard, which
   // renders the onboarding banner, so this is safe for not-yet-onboarded users.
   const callbackUrl =
-    rawCallback && rawCallback.startsWith("/") && !rawCallback.startsWith("//")
+    rawCallback?.startsWith("/") && !rawCallback.startsWith("//")
       ? rawCallback
       : "/journey";
   const [step, setStep] = useState<Step>("auth");
@@ -48,7 +48,8 @@ export function SignInCard() {
   const [loading, setLoading] = useState(false);
 
   const domain = email.includes("@") ? email.split("@")[1] : "";
-  const isCompanyDomain = domain && !/(gmail|yahoo|hotmail|outlook|icloud|web\.de|gmx)\./i.test(domain);
+  const isCompanyDomain =
+    domain && !/(gmail|yahoo|hotmail|outlook|icloud|web\.de|gmx)\./i.test(domain);
 
   // Auth step (login or register). Register routes to verify step; login
   // routes either straight to callbackUrl or back here with an
@@ -321,9 +322,7 @@ export function SignInCard() {
           </div>
 
           {mode === "register" && isCompanyDomain && (
-            <p className="text-sm text-muted-foreground">
-              {t("orgDomain", { domain })}
-            </p>
+            <p className="text-sm text-muted-foreground">{t("orgDomain", { domain })}</p>
           )}
 
           {mode === "register" && (
@@ -338,12 +337,22 @@ export function SignInCard() {
               <span>
                 {t.rich("consentLabel", {
                   terms: (chunks) => (
-                    <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">
+                    <a
+                      href="/terms"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-foreground"
+                    >
                       {chunks}
                     </a>
                   ),
                   privacy: (chunks) => (
-                    <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">
+                    <a
+                      href="/datenschutz"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-foreground"
+                    >
                       {chunks}
                     </a>
                   ),
@@ -352,9 +361,7 @@ export function SignInCard() {
             </label>
           )}
 
-          {error && (
-            <p className="text-sm text-destructive">{error}</p>
-          )}
+          {error && <p className="text-sm text-destructive">{error}</p>}
 
           <Button
             type="submit"
@@ -370,7 +377,11 @@ export function SignInCard() {
         <button
           type="button"
           className="w-full text-center text-sm text-muted-foreground hover:text-foreground"
-          onClick={() => { setMode(mode === "login" ? "register" : "login"); setError(""); setInfo(""); }}
+          onClick={() => {
+            setMode(mode === "login" ? "register" : "login");
+            setError("");
+            setInfo("");
+          }}
         >
           {mode === "login" ? t("switchToRegister") : t("switchToLogin")}
         </button>
@@ -402,7 +413,9 @@ export function SignInCard() {
             signIn("google", { callbackUrl });
           }}
         >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+          {/* Decorative: the button's own label already says "Continue with
+              Google", so announcing the mark again is noise to a screen reader. */}
+          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
