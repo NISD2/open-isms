@@ -39,10 +39,33 @@ export async function POST(request: Request) {
 
   const pendingUser = await db.query.user.findFirst({
     where: and(eq(user.email, email), isNull(user.emailVerifiedAt)),
+    // Only what this route reads: existence, and the gate's verdict (audit
+    // F-9 — a row lookup should not drag back columns nobody uses).
+    columns: { isDisposableEmail: true },
   });
 
   // No pending-verify account? Pretend success. Don't leak existence.
   if (!pendingUser) {
+    return NextResponse.json({ success: true });
+  }
+
+  // Blocked at sign-up, so no code is issued here either.
+  //
+  // lib/auth/email-quality.ts states the gate's contract as "no OTP is issued
+  // and Google sign-in is refused", and /api/auth/register and the Google
+  // callback both honour it: each records the attempt with
+  // isDisposableEmail = true and then declines to issue anything. This route
+  // did not, and it is the only other place that mints an email_verify code,
+  // so the whole gate was one request from being decorative: register with a
+  // disposable address (row written, no code), then ask here (code sent), then
+  // verify. The row already carries the verdict, so honouring it costs a
+  // column rather than a second DNS and RDAP round trip.
+  //
+  // Same generic success shape as every other branch. Anything that
+  // distinguishes "blocked" from "sent" hands back an oracle for which domains
+  // the list covers (audit H-4).
+  if (pendingUser.isDisposableEmail) {
+    console.log("[resend-verification] Silent block (disposable):", email.split("@")[1]);
     return NextResponse.json({ success: true });
   }
 
