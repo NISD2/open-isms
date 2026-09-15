@@ -92,7 +92,12 @@ async function main() {
       companyActivated: user.companyActivated,
       jobTitle: null,
       sessionVersion: null,
-  hints: { journeyTour: false, requirementTour: false, helpOffer: false },
+      hints: {
+        journeyTourGuided: false,
+        journeyTourTeam: false,
+        requirementTour: false,
+        helpOffer: false,
+      },
     },
     userId: user.id,
     companyId: user.companyId,

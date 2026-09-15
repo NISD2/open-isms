@@ -38,12 +38,22 @@ const LOCALE_COOKIE = "NEXT_LOCALE";
  */
 const SURFACES = [
   {
-    hint: "journeyTour",
-    stamp: "journeyTourDismissedAt",
-    label: "Journey walkthrough",
-    button: "Arm the journey walkthrough",
-    testId: "arm-journey-tour",
-    armedToast: "Journey walkthrough armed. Open the journey to see it.",
+    hint: "journeyTourGuided",
+    stamp: "journeyTourGuidedDismissedAt",
+    label: "Guided-path walkthrough",
+    button: "Arm the guided-path walkthrough",
+    testId: "arm-journey-tour-guided",
+    armedToast:
+      "Guided-path walkthrough armed. Open the journey in the guided layout to see it.",
+  },
+  {
+    hint: "journeyTourTeam",
+    stamp: "journeyTourTeamDismissedAt",
+    label: "Team-view walkthrough",
+    button: "Arm the team-view walkthrough",
+    testId: "arm-journey-tour-team",
+    armedToast:
+      "Team-view walkthrough armed. Open the journey in the team layout to see it.",
   },
   {
     hint: "requirementTour",

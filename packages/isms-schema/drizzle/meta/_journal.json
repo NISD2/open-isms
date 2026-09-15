@@ -99,6 +99,13 @@
       "when": 1789483225382,
       "tag": "0013_journey_mode",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1789487364877,
+      "tag": "0014_journey_tour_per_layout",
+      "breakpoints": true
     }
   ]
 }

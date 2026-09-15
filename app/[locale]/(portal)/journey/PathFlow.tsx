@@ -198,7 +198,7 @@ export function PathFlow({
       </div>
 
       <div
-        data-tour={tourAnchored ? "journey-path" : undefined}
+        data-tour={tourAnchored ? "journey-path-team" : undefined}
         className="overflow-x-auto rounded-lg border bg-card"
       >
         <div className={cn(swimlane ? "min-w-[820px]" : "min-w-[460px]")}>

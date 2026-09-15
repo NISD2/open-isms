@@ -18,13 +18,14 @@ import { SoloPath } from "../(portal)/journey/SoloPath";
 import type { JourneyItem } from "../(portal)/journey/views";
 
 type Locale = "en" | "de" | "nl";
-type Tab = JourneyMode | "question";
 
 /**
- * Design route only. Renders the three journey states the real page can be in
- * — the unanswered fork question, the guided path, the team view — against the
- * full 49-step sample, with a tab bar the real page does not have. Selecting
- * an answer moves to that layout instead of writing to a company row.
+ * Design route only. Renders both journey layouts against the full 49-step
+ * sample, with the fork question over them exactly as the real page shows it.
+ *
+ * The layout switcher and the button that re-opens the question exist only
+ * here: on the real page the answer is written to the company row and the
+ * layout follows from it. Answering here just moves the layout.
  */
 export function JourneyPreviewSwitcher({
   reqNodes,
@@ -37,12 +38,15 @@ export function JourneyPreviewSwitcher({
   live: JourneyItem | null;
   locale: Locale;
 }) {
-  const [tab, setTab] = useState<Tab>("question");
+  // The question is a modal the layout opens over itself, so it is not a tab.
+  // A button re-opens it, because a design route wants to look at it more than
+  // once and answering here only moves the layout.
+  const [tab, setTab] = useState<JourneyMode>("solo");
+  const [askingMode, setAskingMode] = useState(true);
   const de = locale === "de";
   const copy = journeyModeCopy(locale);
 
-  const TABS: { key: Tab; label: string }[] = [
-    { key: "question", label: de ? "Die Frage" : "The question" },
+  const TABS: { key: JourneyMode; label: string }[] = [
     { key: "solo", label: de ? "Geführter Weg" : "Guided path" },
     { key: "team", label: de ? "Teamansicht" : "Team view" },
   ];
@@ -78,6 +82,13 @@ export function JourneyPreviewSwitcher({
               </button>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => setAskingMode(true)}
+            className="rounded-md border px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {de ? "Frage zeigen" : "Show the question"}
+          </button>
           <div className="text-right">
             <div className="text-xl font-semibold leading-none tabular-nums">
               {Math.round((aggregate.done / aggregate.total) * 100)}%
@@ -109,7 +120,7 @@ export function JourneyPreviewSwitcher({
       {/* The real page renders the question as a modal over the path behind
           it, which is the thing worth reviewing; here the answer only moves
           the tab, so the dialog is reachable again from the tab bar. */}
-      <Dialog open={tab === "question"}>
+      <Dialog open={askingMode}>
         <DialogContent
           showCloseButton={false}
           onEscapeKeyDown={(event) => event.preventDefault()}
@@ -120,7 +131,13 @@ export function JourneyPreviewSwitcher({
             <DialogTitle>{copy.question}</DialogTitle>
             <DialogDescription>{copy.lede}</DialogDescription>
           </DialogHeader>
-          <JourneyModeCards locale={locale} onSelect={setTab} />
+          <JourneyModeCards
+            locale={locale}
+            onSelect={(mode) => {
+              setTab(mode);
+              setAskingMode(false);
+            }}
+          />
         </DialogContent>
       </Dialog>
     </div>

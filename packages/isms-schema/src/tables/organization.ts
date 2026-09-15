@@ -373,18 +373,31 @@ export const user = pgTable(
      */
     locale: varchar("locale", { length: 10 }),
     /**
-     * When the user dismissed the journey tour.
+     * When the user dismissed the walkthrough for the ROLE SWIMLANE layout.
      *
-     * One flag per tour, not one for all of them. The journey board and a
+     * One flag per walkthrough, not one for all of them. The journey and a
      * requirement page teach different things, and skipping the overview is not
      * a statement about the page where the actual work happens, so each is
      * dismissed on its own.
      *
      * The column keeps its original name because it already holds exactly this:
-     * every dismissal recorded against it happened on the journey. Renaming it
-     * would rewrite a hot table to buy nothing.
+     * every dismissal recorded against it happened on the swimlane, the only
+     * journey layout that existed then. Renaming it would rewrite a hot table
+     * to buy nothing.
      */
-    journeyTourDismissedAt: timestamp("tour_dismissed_at"),
+    journeyTourTeamDismissedAt: timestamp("tour_dismissed_at"),
+    /**
+     * When the user dismissed the walkthrough for the GUIDED journey layout.
+     *
+     * Separate from the column above because the journey renders in two
+     * layouts with different controls, and a walkthrough of one says nothing
+     * about the other: someone who took the guided tour and later switches to
+     * the role swimlane has still never been shown the swimlane. The older
+     * column keeps its name and its meaning — every dismissal ever recorded
+     * against it happened on the swimlane, which is the only layout that
+     * existed at the time.
+     */
+    journeyTourGuidedDismissedAt: timestamp("journey_tour_guided_dismissed_at"),
     /** When the user dismissed the requirement-page tour. */
     requirementTourDismissedAt: timestamp("requirement_tour_dismissed_at"),
     /** When the user dismissed the second-login offer of help. */

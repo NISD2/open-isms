@@ -101,6 +101,17 @@ setup("provision and authenticate", async ({ page, browser }) => {
     [[E2E_USER_EMAIL, E2E_MANAGER_EMAIL]],
   );
 
+  // Answer the journey's layout question for the harness company. Unanswered
+  // is a blocking modal on /journey, and the suite asserts against the role
+  // swimlane throughout (the board, the ordering toggle, the filters, the
+  // legend), so "team" is both what unblocks it and what those assertions
+  // describe.
+  await e2eQuery(
+    `UPDATE company SET journey_mode = 'team'
+       WHERE id = (SELECT company_id FROM "user" WHERE email = $1)`,
+    [E2E_USER_EMAIL],
+  );
+
   // Log both users in through the real form; each keeps a session file.
   await signInViaForm(page, E2E_USER_EMAIL);
   await expect(page.locator("body")).toBeVisible();

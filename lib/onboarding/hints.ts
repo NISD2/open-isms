@@ -16,14 +16,20 @@ import type { user } from "@/schema";
  * someone wants the requirement page explained, and collapsing both into one
  * flag meant skipping the first silently cancelled the second.
  */
-export const HINTS = ["journeyTour", "requirementTour", "helpOffer"] as const;
+export const HINTS = [
+  "journeyTourGuided",
+  "journeyTourTeam",
+  "requirementTour",
+  "helpOffer",
+] as const;
 export type Hint = (typeof HINTS)[number];
 
 /** The `user` columns the gates below read. */
 export type HintState = Pick<
   InferSelectModel<typeof user>,
   | "loginCount"
-  | "journeyTourDismissedAt"
+  | "journeyTourGuidedDismissedAt"
+  | "journeyTourTeamDismissedAt"
   | "requirementTourDismissedAt"
   | "helpOfferDismissedAt"
 >;
@@ -36,7 +42,8 @@ export type HintState = Pick<
  * hunt through the mutations that happen to know about it.
  */
 export const HINT_COLUMN = {
-  journeyTour: "journeyTourDismissedAt",
+  journeyTourGuided: "journeyTourGuidedDismissedAt",
+  journeyTourTeam: "journeyTourTeamDismissedAt",
   requirementTour: "requirementTourDismissedAt",
   helpOffer: "helpOfferDismissedAt",
 } as const satisfies Record<Hint, keyof HintState>;
@@ -44,16 +51,27 @@ export const HINT_COLUMN = {
 /**
  * Which one-time surfaces this user still has coming.
  *
- * The tours run during the first login and the offer of help lands on the
- * second, so a tour and the offer never stack on one screen. Each is one-shot:
- * dismissing one stamps its own column and it does not come back. Both tours
- * stay replayable on demand from the help trigger in the portal header, which
- * is what lets every dismissal path be permanent without trapping anyone.
+ * Each is one-shot: dismissing one stamps its own column and it does not come
+ * back. All of them stay replayable on demand from the help trigger in the
+ * portal header, which is what lets every dismissal path be permanent without
+ * trapping anyone.
+ *
+ * The two journey walkthroughs deliberately do NOT gate on the first login,
+ * unlike the requirement one. The journey has two layouts and a user meets the
+ * second one whenever they switch, which is usually long after login one; a
+ * first-login gate would mean the layout they switched into is the one nobody
+ * ever explains. Being unseen is the gate, and the column records it.
+ *
+ * That leaves the stacking problem the first-login gate used to solve on its
+ * own — a pending walkthrough colliding with the second-login offer of help.
+ * PortalGuide holds a tour back while the help dialog is open, which is the
+ * component that owns both surfaces and can actually see the collision.
  */
 export function resolveHints(state: HintState): Record<Hint, boolean> {
   const firstLogin = state.loginCount <= 1;
   return {
-    journeyTour: firstLogin && state.journeyTourDismissedAt === null,
+    journeyTourGuided: state.journeyTourGuidedDismissedAt === null,
+    journeyTourTeam: state.journeyTourTeamDismissedAt === null,
     requirementTour: firstLogin && state.requirementTourDismissedAt === null,
     helpOffer: state.loginCount >= 2 && state.helpOfferDismissedAt === null,
   };

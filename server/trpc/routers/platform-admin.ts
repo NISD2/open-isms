@@ -207,7 +207,8 @@ export const platformAdminRouter = router({
       where: eq(user.id, ctx.userId),
       columns: {
         loginCount: true,
-        journeyTourDismissedAt: true,
+        journeyTourGuidedDismissedAt: true,
+        journeyTourTeamDismissedAt: true,
         requirementTourDismissedAt: true,
         helpOfferDismissedAt: true,
       },

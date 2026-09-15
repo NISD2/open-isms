@@ -34,7 +34,7 @@ async function dismissalLanded(column: string): Promise<void> {
 
 const retire = () =>
   setGuideState(
-    "tour_dismissed_at = NOW(), requirement_tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()",
+    "tour_dismissed_at = NOW(), journey_tour_guided_dismissed_at = NOW(), requirement_tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()",
   );
 
 test.afterAll(retire);
