@@ -89,7 +89,12 @@ export function JourneyPreviewSwitcher({
         </div>
       </div>
 
-      <PathHero assetCount={12} liveNode={live} locale={locale} />
+      <PathHero
+        assetCount={12}
+        liveNode={live}
+        locale={locale}
+        showLiveStep={tab === "team"}
+      />
       {tab === "team" ? (
         <PathFlow
           reqNodes={reqNodes}

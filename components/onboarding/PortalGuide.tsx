@@ -1,21 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { CircleQuestionMark } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { trpc } from "@/lib/trpc/client";
-import type { Hint } from "@/lib/onboarding/hints";
+import { useEffect, useState } from "react";
 import { usePortalPath } from "@/components/portal/use-portal-path";
+import { Button } from "@/components/ui/button";
+import type { Hint } from "@/lib/onboarding/hints";
+import { trpc } from "@/lib/trpc/client";
 import { HelpDialog } from "./HelpDialog";
+import { type TourStep, tourForPath } from "./tour/steps";
 import { TourOverlay } from "./tour/TourOverlay";
-import { tourForPath, type TourStep } from "./tour/steps";
 
 /** Drop steps whose target is not on this page before the tour starts. */
 function presentSteps(steps: readonly TourStep[]): readonly TourStep[] {
-  return steps.filter((step) =>
-    document.querySelector(`[data-tour="${step.target}"]`),
-  );
+  return steps.filter((step) => document.querySelector(`[data-tour="${step.target}"]`));
 }
 
 /**
@@ -83,6 +81,8 @@ export function PortalGuide({
   // Re-resolve on every navigation. Each route asks whether ITS walkthrough is
   // still armed, so walking the journey and then opening a requirement starts
   // the second one, and skipping the journey does not cancel it.
+  //
+  // biome-ignore lint/correctness/useExhaustiveDependencies: path is deliberate. tourForPath returns module constants, so moving between two requirement pages leaves routeTour identical and the walkthrough would never re-resolve for the page actually on screen.
   useEffect(() => {
     if (!routeTour || !routeArmed) {
       setSteps(NO_STEPS);

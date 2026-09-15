@@ -90,6 +90,7 @@ export default async function JourneyPage({
         liveNode={live}
         locale={locale}
         needsActivation={needsActivation}
+        showLiveStep={mode === "team"}
       />
       {mode === "team" ? (
         <PathFlow

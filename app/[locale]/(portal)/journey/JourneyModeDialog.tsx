@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 import { JourneyModeCards, journeyModeCopy } from "./JourneyModeCards";
 import type { JourneyMode } from "./journey-mode";

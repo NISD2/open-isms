@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ArrowRight,
   BookOpen,
   CalendarClock,
   Check,
@@ -123,10 +124,11 @@ export function SoloPath({
         const current = [...sections].reverse().find((s) => visible.has(s.key));
         if (current) setActiveKey(current.key);
       },
-      // A thin strip just below the app header, so the label names what is
-      // directly under it. Sections are contiguous, so something almost always
-      // crosses the strip; when nothing does, the last answer stands.
-      { rootMargin: "-80px 0px -82% 0px" },
+      // A thin strip just below the pinned bar (which ends around 112px), so
+      // the label names what is directly under it. Sections are contiguous, so
+      // something almost always crosses the strip; when nothing does, the last
+      // answer stands.
+      { rootMargin: "-112px 0px -80% 0px" },
     );
     for (const el of sectionEls.current.values()) observer.observe(el);
     return () => observer.disconnect();
@@ -137,60 +139,126 @@ export function SoloPath({
   if (!active) return null;
 
   return (
-    <div
-      className="mx-auto w-full max-w-2xl"
-      data-tour={tourAnchored ? "journey-path" : undefined}
-    >
-      <StickySectionHeader section={active} de={de} />
+    <div data-tour={tourAnchored ? "journey-path" : undefined}>
+      {/* Full content width, while the path itself stays a narrow column: the
+          bar is page chrome and needs the room to hold both halves on one
+          line. */}
+      <StickyPathBar
+        section={active}
+        liveNode={reqNodes.find((n) => n.status === "current") ?? null}
+        de={de}
+      />
 
-      {sections.map((section) => (
-        <section
-          key={section.key}
-          data-section={section.key}
-          ref={(el) => {
-            if (el) sectionEls.current.set(section.key, el);
-            else sectionEls.current.delete(section.key);
-          }}
-        >
-          <SectionDivider title={section.title} />
-          <ol className="flex flex-col items-center gap-3">
-            {section.steps.map((step) => (
-              <StepNode key={step.node.id} step={step} total={total} de={de} />
-            ))}
-          </ol>
-          {section.nextStage ? <NextStageCard stage={section.nextStage} de={de} /> : null}
-        </section>
-      ))}
+      <div className="mx-auto w-full max-w-2xl">
+        {sections.map((section, i) => (
+          <section
+            key={section.key}
+            data-section={section.key}
+            ref={(el) => {
+              if (el) sectionEls.current.set(section.key, el);
+              else sectionEls.current.delete(section.key);
+            }}
+          >
+            {/* Dividers announce a change of section, so the first one has
+                nothing to announce: the bar directly above it already says
+                which section this is. */}
+            {i > 0 ? <SectionDivider title={section.title} /> : <div className="h-4" />}
+            <ol className="flex flex-col items-center gap-3">
+              {section.steps.map((step) => (
+                <StepNode key={step.node.id} step={step} total={total} de={de} />
+              ))}
+            </ol>
+            {section.nextStage ? (
+              <NextStageCard stage={section.nextStage} de={de} />
+            ) : null}
+          </section>
+        ))}
 
-      <p className="mt-10 pb-4 text-center text-xs text-muted-foreground">
-        {de
-          ? `Das ist der ganze Weg: ${total} Schritte.`
-          : `That is the whole path: ${total} steps.`}
-      </p>
+        <p className="mt-10 pb-4 text-center text-xs text-muted-foreground">
+          {de
+            ? `Das ist der ganze Weg: ${total} Schritte.`
+            : `That is the whole path: ${total} steps.`}
+        </p>
+      </div>
     </div>
   );
 }
 
-function StickySectionHeader({ section, de }: { section: SoloSection; de: boolean }) {
+/**
+ * One pinned row: where you are on the left, what to do next on the right.
+ *
+ * These were two stacked bars, the next-step banner from PathHero above a
+ * stage header, and between them they spent a fifth of the viewport saying
+ * two halves of the same sentence. Merged, the only thing permanently on
+ * screen is the pair a guided path needs: the section you are reading and the
+ * one step that is actually live.
+ */
+function StickyPathBar({
+  section,
+  liveNode,
+  de,
+}: {
+  section: SoloSection;
+  liveNode: FlowNode | null;
+  de: boolean;
+}) {
+  // Stage one holds a single category, so its stage label and section title
+  // are the same word. Printing it twice reads as a rendering fault.
+  const showSection = section.title !== section.stage.label;
+
   return (
     <div
       data-tour="journey-stage"
-      className="sticky top-12 z-10 mb-2 flex items-center justify-between gap-3 rounded-lg bg-primary px-4 py-2.5 text-primary-foreground shadow-sm"
+      // top-[68px], not top-12: the app header ends at 48px, and parking the
+      // bar flush against it reads as one two-tone header rather than as a
+      // pinned control. The 20px gap lets the path scroll visibly behind it.
+      className="sticky top-[68px] z-20 mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-lg bg-primary px-3 py-2 text-primary-foreground shadow-sm sm:px-4"
     >
-      <div className="min-w-0">
-        <p className="text-[11px] font-medium uppercase tracking-wide text-primary-foreground/70">
-          {de ? "Stufe" : "Stage"} {section.stage.index} {de ? "von" : "of"} {STAGE_COUNT}{" "}
-          · {section.stage.label}
-        </p>
-        <h2 className="truncate text-sm font-semibold">{section.title}</h2>
-      </div>
+      <span className="shrink-0 rounded bg-primary-foreground/15 px-1.5 py-0.5 text-[11px] font-semibold tabular-nums">
+        {de ? "Stufe" : "Stage"} {section.stage.index}/{STAGE_COUNT}
+      </span>
+      <h2 className="min-w-0 truncate text-sm font-semibold">
+        {showSection ? section.title : section.stage.label}
+      </h2>
       <Link
         href={categoryHref(section.categorySlug)}
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-primary-foreground/30 px-2.5 py-1 text-xs font-medium transition-colors hover:bg-primary-foreground/10"
+        className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-primary-foreground/30 px-2 py-1 text-xs font-medium transition-colors hover:bg-primary-foreground/10"
       >
         <BookOpen className="h-3.5 w-3.5" />
         {de ? "Hinweise" : "Guide"}
       </Link>
+
+      {liveNode ? (
+        <div className="ml-auto flex min-w-0 items-center gap-2.5">
+          <span className="hidden shrink-0 text-[11px] font-medium uppercase tracking-wide text-primary-foreground/70 lg:inline">
+            {de ? "Als Nächstes" : "Next up"}
+          </span>
+          <span className="shrink-0 font-mono text-xs text-primary-foreground/70">
+            {liveNode.code}
+          </span>
+          <span className="hidden min-w-0 truncate text-sm md:inline">
+            {liveNode.label}
+          </span>
+          <Link
+            href={requirementHref(liveNode)}
+            className="inline-flex shrink-0 items-center gap-1 rounded-md bg-background px-2.5 py-1 text-xs font-semibold text-primary shadow-sm transition-opacity hover:opacity-90"
+          >
+            {liveNode.rawStatus === "in_progress"
+              ? de
+                ? "Weiter"
+                : "Continue"
+              : de
+                ? "Anfangen"
+                : "Start"}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
+      ) : (
+        <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-xs text-primary-foreground/80">
+          <CheckCheck className="h-3.5 w-3.5" />
+          {de ? "Alles erledigt" : "All done"}
+        </span>
+      )}
     </div>
   );
 }
