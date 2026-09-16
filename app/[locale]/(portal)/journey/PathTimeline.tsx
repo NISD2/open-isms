@@ -59,7 +59,7 @@ export function PathTimeline({
       // Pins below the bar, not level with it: the bar occupies 68px to about
       // 108px, so a rail sharing its offset slides underneath and loses its
       // first lines to it.
-      className="sticky top-[120px] hidden w-52 shrink-0 self-start lg:block"
+      className="sticky top-[120px] hidden w-56 shrink-0 self-start lg:block"
     >
       <ol>
         {stages.map((stage, i) => (
@@ -131,34 +131,37 @@ function StageStop({
         >
           {stage.label}
         </p>
-        {/* A sentence, not two figures. "10/12 · 2 in 3 months" made the
-            reader subtract to discover that the 2 WERE the remainder; saying
-            what is left and when it is due says the same thing in the order
-            someone thinks it. */}
-        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-          {stage.open === 0 ? (
-            <span className="inline-flex items-center gap-1">
-              <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden="true" />
-              {de ? "Erledigt" : "Done"}
-            </span>
-          ) : (
-            <>
-              {de ? `noch ${stage.open}` : `${stage.open} left`}
-              {stage.dueLabel ? (
-                <span
-                  className={cn(stage.dueUrgent && "text-amber-600 dark:text-amber-500")}
-                >
-                  {", "}
-                  {/* Only name a subset when the stage really holds a mix; on a
-                      stage whose remainder shares one horizon, repeating the
-                      count reads as two different numbers. */}
-                  {stage.dueCount < stage.open ? `${stage.dueCount} ` : ""}
-                  {stage.dueLabel}
-                </span>
-              ) : null}
-            </>
-          )}
-        </p>
+        {/* The horizon is the line that gets read, so it is the line that
+            looks like something: a chip, warm when the window is the near one.
+            The open total sits under it as the supporting figure, and only
+            when the stage holds more than the chip already accounts for. */}
+        {stage.open === 0 ? (
+          <p className="mt-1 inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+            <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden="true" />
+            {de ? "Erledigt" : "Done"}
+          </p>
+        ) : (
+          <>
+            <p
+              className={cn(
+                "mt-1.5 inline-block rounded px-1.5 py-0.5 text-[11px] font-medium leading-snug",
+                stage.dueUrgent
+                  ? "bg-amber-100 text-amber-900 dark:bg-amber-950/50 dark:text-amber-200"
+                  : "bg-muted text-muted-foreground",
+              )}
+            >
+              {stage.dueCount} {stage.dueLabel}
+            </p>
+            {/* The total, not "N later": the remainder has a horizon of its
+                own and calling it "later" states a vaguer thing than the
+                chip above it, which is the opposite of the point. */}
+            {stage.dueCount < stage.open ? (
+              <p className="mt-1 text-[11px] text-muted-foreground">
+                {stage.open} {de ? "offen" : "open"}
+              </p>
+            ) : null}
+          </>
+        )}
       </div>
     </li>
   );

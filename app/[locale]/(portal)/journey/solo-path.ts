@@ -30,7 +30,11 @@ import { type Band, type FlowNode, ORDERED_CATEGORIES } from "./path-nodes";
 const DUE_LABEL: Record<Band, { de: string; en: string }> = {
   minimum: { de: "im ersten Monat", en: "in the first month" },
   year: { de: "in den ersten 3 Monaten", en: "in the first 3 months" },
-  later: { de: "danach", en: "after that" },
+  // "Im ersten Jahr", not a month count. The band is named "Im Lauf des
+  // Jahres" and a year is what it has always meant; putting a sharper number
+  // on it would be inventing one. Still a window rather than "danach", which
+  // answered nothing.
+  later: { de: "im ersten Jahr", en: "in the first year" },
 };
 
 const BAND_URGENCY: Band[] = ["minimum", "year", "later"];
