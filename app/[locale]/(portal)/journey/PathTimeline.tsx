@@ -13,20 +13,20 @@ import type { StageProgress } from "./solo-path";
 type Locale = "en" | "de" | "nl";
 
 /**
- * The vertical rail beside the path: where you are, and how long each stage
- * takes to work through.
+ * The vertical rail beside the path: where you are, and what cannot wait.
  *
  * It answers the two questions a 49-step scroll otherwise leaves open — how
- * far through am I, and how long is this going to take — and it answers the
+ * far through am I, and how long can I take over this — and it answers the
  * first continuously, because the stage it marks is the stage the pinned bar
  * is already tracking against your scroll position. Scrolling into a new stage
  * moves the dot.
  *
- * It tracks STAGES rather than the criticality bands, and that is the honest
- * choice rather than a compromise: stages run contiguously down the path so a
- * marker can follow them, while the bands are scattered through it by design
- * and a marker would jitter between them every second node. Criticality still
- * shows on the steps themselves, as the badge on the eight that come first.
+ * The due figure is per stage a count, never a date for the stage itself.
+ * Month-one steps sit in four of the five stages, so "this stage is due in
+ * month 1" would be false for most of what any stage contains; "three of these
+ * cannot wait past month one" is true and is the thing worth acting on. It is
+ * the platform's recommended sequencing either way, not a statutory date, and
+ * the footer says so.
  *
  * Desktop only. It lives in the gutter a centred path leaves empty, which is
  * space that exists only there; narrower screens keep the stage in the pinned
@@ -45,7 +45,13 @@ export function PathTimeline({
   const de = locale === "de";
   if (stages.length === 0) return null;
 
-  const totalMinutes = stages.reduce((sum, stage) => sum + stage.minutes, 0);
+  // The one figure worth stating for the whole path: how much of it cannot
+  // wait past the first month.
+  const dueSoon = stages.reduce(
+    (sum, stage) => sum + (stage.dueLabel === soonestLabel(de) ? stage.dueCount : 0),
+    0,
+  );
+  const total = stages.reduce((sum, stage) => sum + stage.total, 0);
 
   return (
     <nav
@@ -69,15 +75,19 @@ export function PathTimeline({
                   : "ahead"
             }
             last={i === stages.length - 1}
-            de={de}
+            soonest={stage.dueLabel === soonestLabel(de)}
           />
         ))}
       </ol>
 
-      <p className="mt-1 flex items-center gap-1.5 border-t pt-3 text-[11px] text-muted-foreground">
-        {de ? "Zusammen etwa" : "About"} {durationLabel(totalMinutes, de)}
-        <DurationDisclaimer locale={locale} />
-      </p>
+      {dueSoon > 0 ? (
+        <p className="mt-1 flex items-center gap-1.5 border-t pt-3 text-[11px] text-muted-foreground">
+          <span>
+            {dueSoon} {de ? `von ${total} in Monat 1` : `of ${total} in month 1`}
+          </span>
+          <DueDisclaimer locale={locale} />
+        </p>
+      ) : null}
     </nav>
   );
 }
@@ -86,12 +96,13 @@ function StageStop({
   stage,
   state,
   last,
-  de,
+  soonest,
 }: {
   stage: StageProgress;
   state: "done" | "here" | "ahead";
   last: boolean;
-  de: boolean;
+  /** This stage holds steps in the most urgent horizon, so the count is warm. */
+  soonest: boolean;
 }) {
   return (
     <li className="flex gap-3">
@@ -120,17 +131,22 @@ function StageStop({
         >
           {stage.label}
         </p>
+        {/* Progress, then what is soonest due in this stage. A stage with
+            nothing left shows a check in place of the horizon, which is the
+            one case where there is genuinely nothing to say about timing. */}
         <p className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground">
           <span className="tabular-nums">
             {stage.done}/{stage.total}
           </span>
-          {stage.done === stage.total ? (
-            <Check className="h-3 w-3 text-primary" aria-hidden="true" />
-          ) : (
+          {stage.dueLabel ? (
             <>
               <span aria-hidden="true">·</span>
-              <span className="tabular-nums">{durationLabel(stage.minutes, de)}</span>
+              <span className={cn(soonest && "text-amber-600 dark:text-amber-500")}>
+                {stage.dueCount} {stage.dueLabel}
+              </span>
             </>
+          ) : (
+            <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden="true" />
           )}
         </p>
       </div>
@@ -138,27 +154,18 @@ function StageStop({
   );
 }
 
-/**
- * Working time, rounded the way someone would say it out loud. Minutes below
- * an hour, one decimal above, because "2.4 h" is a plan and "145 min" is a
- * measurement nobody made.
- */
-function durationLabel(minutes: number, de: boolean): string {
-  if (minutes <= 0) return de ? "kurz" : "short";
-  if (minutes < 60) return de ? `${minutes} Min.` : `${minutes} min`;
-  const hours = Math.round((minutes / 60) * 10) / 10;
-  const text = de ? String(hours).replace(".", ",") : String(hours);
-  return de ? `${text} Std.` : `${text} h`;
+/** The most urgent horizon any stage can carry, for spotting it in a row. */
+function soonestLabel(de: boolean): string {
+  return de ? "in Monat 1" : "in month 1";
 }
 
 /**
- * These durations are the framework's own per-category estimates, and they
- * measure filling the platform in — not implementing the control in the
- * business, which scales with the company and has no single honest number
- * (§ 30 Abs. 1 S. 2). Saying so is the difference between a useful figure and
- * a misleading one, so it is one hover away wherever a duration appears.
+ * These horizons are the platform's recommended sequencing, derived from each
+ * requirement's priority. They are not statutory deadlines — NIS 2 sets no
+ * per-control date — so a figure this prominent has to say so where it is
+ * read, not only at the foot of the page.
  */
-function DurationDisclaimer({ locale }: { locale: Locale }) {
+function DueDisclaimer({ locale }: { locale: Locale }) {
   const de = locale === "de";
   return (
     <HoverCard openDelay={120} closeDelay={60}>
@@ -178,8 +185,8 @@ function DurationDisclaimer({ locale }: { locale: Locale }) {
       >
         <p>
           {de
-            ? "Richtwerte für das Ausfüllen hier im Tool. Wie lange die Umsetzung im Betrieb dauert, hängt von Ihrer Größe und Ihren Systemen ab und ist damit nicht vorhersagbar."
-            : "Guide values for filling this in here in the tool. How long implementing it in the business takes depends on your size and your systems, and cannot be predicted from here."}
+            ? "Unsere empfohlene Reihenfolge, abgeleitet aus der Priorität jeder Anforderung. Das Gesetz nennt für die einzelnen Maßnahmen keine Fristen."
+            : "Our recommended order, derived from each requirement's priority. The law sets no deadline for the individual controls."}
         </p>
         <p>{journeyDisclaimer(locale)}</p>
       </HoverCardContent>

@@ -17,7 +17,23 @@
  * Nothing is filtered out and nothing is locked: these are legal duties, and
  * the sequence is a recommendation.
  */
-import { type FlowNode, ORDERED_CATEGORIES } from "./path-nodes";
+import { type Band, type FlowNode, ORDERED_CATEGORIES } from "./path-nodes";
+
+/**
+ * Deadline horizons, phrased short enough for the rail.
+ *
+ * The same three criticality bands the team view groups by, said as a "by
+ * when" rather than as a rank, because that is the question the rail answers.
+ * Kept here rather than read from BANDS: those strings are section headers
+ * ("Nächste 3 Monate") and do not fit after a count.
+ */
+const DUE_LABEL: Record<Band, { de: string; en: string }> = {
+  minimum: { de: "in Monat 1", en: "in month 1" },
+  year: { de: "in 3 Monaten", en: "in 3 months" },
+  later: { de: "später", en: "later" },
+};
+
+const BAND_URGENCY: Band[] = ["minimum", "year", "later"];
 
 /**
  * Horizontal offsets in px, cycled over the global step index so the line
@@ -88,15 +104,39 @@ export type SoloStage = {
 /** How many Stufen the path has, for the "Stufe 2 von 5" header. */
 export const STAGE_COUNT = PHASES.length;
 
-/** One stop on the vertical rail: a stage, how far through it you are, and
- *  how long the framework reckons working it through takes. */
+/**
+ * One stop on the vertical rail: a stage, how far through it you are, and the
+ * soonest its contents are due.
+ *
+ * The due figure is the count of steps in the most urgent band the stage
+ * holds, not a deadline for the stage itself. A stage is not a deadline
+ * bucket — month-one steps sit in four of the five — so "this stage is due in
+ * month 1" would be false for most of what it contains. "Three of these
+ * cannot wait past month one" is both true and the thing worth acting on.
+ */
 export type StageProgress = {
   index: number;
   label: string;
   total: number;
   done: number;
-  minutes: number;
+  /** Steps in the soonest band this stage holds; 0 when every step is done. */
+  dueCount: number;
+  /** Localized horizon for those steps, or null when there are none left. */
+  dueLabel: string | null;
 };
+
+function soonestDue(
+  steps: SoloStep[],
+  de: boolean,
+): { dueCount: number; dueLabel: string | null } {
+  const open = steps.filter((s) => s.node.status !== "done");
+  const band = BAND_URGENCY.find((b) => open.some((s) => s.node.band === b));
+  if (!band) return { dueCount: 0, dueLabel: null };
+  return {
+    dueCount: open.filter((s) => s.node.band === band).length,
+    dueLabel: de ? DUE_LABEL[band].de : DUE_LABEL[band].en,
+  };
+}
 
 /**
  * Per-stage progress, in path order.
@@ -105,25 +145,31 @@ export type StageProgress = {
  * and the path cannot disagree about which stage a step belongs to. Stages the
  * path never reaches simply do not appear.
  */
-export function buildStageProgress(sections: SoloSection[]): StageProgress[] {
-  return sections.reduce<StageProgress[]>((acc, section) => {
-    const done = section.steps.filter((s) => s.node.status === "done").length;
-    const open = acc.at(-1);
-    if (open?.index === section.stage.index) {
-      open.total += section.steps.length;
-      open.done += done;
-      open.minutes += section.estimatedMinutes;
+export function buildStageProgress(
+  sections: SoloSection[],
+  de: boolean,
+): StageProgress[] {
+  const byStage = sections.reduce<Map<number, { label: string; steps: SoloStep[] }>>(
+    (acc, section) => {
+      const open = acc.get(section.stage.index);
+      if (open) open.steps.push(...section.steps);
+      else
+        acc.set(section.stage.index, {
+          label: section.stage.label,
+          steps: [...section.steps],
+        });
       return acc;
-    }
-    acc.push({
-      index: section.stage.index,
-      label: section.stage.label,
-      total: section.steps.length,
-      done,
-      minutes: section.estimatedMinutes,
-    });
-    return acc;
-  }, []);
+    },
+    new Map(),
+  );
+
+  return [...byStage.entries()].map(([index, { label, steps }]) => ({
+    index,
+    label,
+    total: steps.length,
+    done: steps.filter((s) => s.node.status === "done").length,
+    ...soonestDue(steps, de),
+  }));
 }
 
 export type SoloSection = {
@@ -132,8 +178,6 @@ export type SoloSection = {
   /** Category name — the "Abschnitt" line. */
   title: string;
   categorySlug: string;
-  /** The framework's own estimate for working this category through. */
-  estimatedMinutes: number;
   steps: SoloStep[];
   /** Set on the last section of a stage: what comes after it. null = the end. */
   nextStage: (SoloStage & { steps: number }) | null;
@@ -181,7 +225,6 @@ export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[]
       stage: stageAt(phaseIndexFor(category?.sortOrder ?? 99), de),
       title: (de ? category?.nameDe : category?.name) ?? node.categoryCode,
       categorySlug: node.categorySlug,
-      estimatedMinutes: category?.estimatedMinutes ?? 0,
       steps: [step],
       nextStage: null,
     });

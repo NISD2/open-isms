@@ -76,7 +76,7 @@ export function SoloPath({
 }) {
   const de = locale === "de";
   const sections = useMemo(() => buildSoloSections(reqNodes, de), [reqNodes, de]);
-  const stages = useMemo(() => buildStageProgress(sections), [sections]);
+  const stages = useMemo(() => buildStageProgress(sections, de), [sections, de]);
 
   // Starts on the first section, not on the one holding the live step. At
   // scroll zero no section reaches the observer's band under the header, so
