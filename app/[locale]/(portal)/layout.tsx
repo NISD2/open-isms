@@ -24,11 +24,15 @@ import {
 } from "@/lib/messages";
 
 /** Map sortOrder ranges to i18n phase keys.
- * REG(0) | GOV(1) RSK(2) SUP(3) | CRY(4) ACC(5) AUT(6) | PRO(7) INC(8) BCP(9) | TRN(10) EFF(11) */
+ * REG(0) | GOV(1) RSK(2) SUP(3) INC(4) | CRY(5) ACC(6) AUT(7) | PRO(8) BCP(9) | TRN(10) EFF(11)
+ *
+ * Incident handling sits in the foundation group, not with operations: the
+ * plan and the reporting readiness are what you reach for the first time
+ * something goes wrong, which can be any day after you are in scope. */
 function phaseForSortOrder(sortOrder: number): string {
   if (sortOrder <= 0) return "phaseRegistration";
-  if (sortOrder <= 3) return "phaseFoundation";
-  if (sortOrder <= 6) return "phaseControls";
+  if (sortOrder <= 4) return "phaseFoundation";
+  if (sortOrder <= 7) return "phaseControls";
   if (sortOrder <= 9) return "phaseOperations";
   if (sortOrder <= 11) return "phaseVerification";
   return "phaseAdmin";
