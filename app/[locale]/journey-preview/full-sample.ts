@@ -11,6 +11,7 @@ import {
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
+import { journeyPosition } from "@/lib/compliance/journey-position";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -18,7 +19,14 @@ import {
 } from "@/lib/messages";
 import type { JourneyItem } from "../(portal)/journey/views";
 
-/** Everything before this global step index is signed off. */
+/**
+ * Everything before this point on the PATH is signed off.
+ *
+ * Keyed to path position, not to the order this file happens to build rows
+ * in: the path runs by deadline, so a sample that marks the first seven rows
+ * of the source list done would show progress scattered through a path that
+ * exists to avoid exactly that.
+ */
 const FRONTIER_STEP = 7;
 
 /**
@@ -56,6 +64,11 @@ export async function buildFullJourneyItems(locale: string): Promise<JourneyItem
         category,
         indexInCategory,
       })),
+    )
+    .sort(
+      (a, b) =>
+        journeyPosition(a.req.priority, a.category.sortOrder, a.indexInCategory) -
+        journeyPosition(b.req.priority, b.category.sortOrder, b.indexInCategory),
     )
     .map(({ req, category, indexInCategory }, step) => ({
       id: req.id,

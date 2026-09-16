@@ -67,6 +67,8 @@ export function buildSampleNodes(titles: Record<string, string>): FlowNode[] {
       label: titles[s.code] ?? s.code,
       categorySlug: s.code.split(".")[0],
       categoryCode: s.code.split(".")[0],
+      // Index within the category, as the real seed carries it.
+      sortOrder: Number(s.code.split(".")[1] ?? 0),
       band: s.band,
       column: s.column,
       ownerRole: s.ownerRole,

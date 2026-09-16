@@ -7,6 +7,9 @@ import { type JourneyStatusRow, summarizeJourneys } from "./journey-progress";
  * decide between them. An earlier version of these tests used globally
  * unique sortOrders that production never has, which let a raw-sortOrder
  * implementation pass while disagreeing with the journey view.
+ *
+ * Priority defaults to P1, the middle tier, so the cases below that say
+ * nothing about urgency keep testing the process ordering on its own.
  */
 function row(
   companyId: string,
@@ -14,11 +17,39 @@ function row(
   code: string,
   sortOrder: number | null,
   categorySortOrder: number | null,
+  priority: string | null = "P1",
 ): JourneyStatusRow {
-  return { companyId, status, code, sortOrder, categorySortOrder };
+  return { companyId, status, code, sortOrder, categorySortOrder, priority };
 }
 
 describe("summarizeJourneys", () => {
+  test("a P0 anywhere on the path beats an earlier P1", () => {
+    // EFF-1 is in the last category; GOV-1 is in the first. Urgency leads, so
+    // the defensible-minimum step is next even though the whole process sits
+    // in front of it. Process order alone would say GOV-1.
+    const summaries = summarizeJourneys([
+      row("c1", "not_started", "GOV-1", 0, 0, "P1"),
+      row("c1", "not_started", "EFF-1", 0, 11, "P0"),
+    ]);
+    expect(summaries.get("c1")?.nextCode).toBe("EFF-1");
+  });
+
+  test("within one tier the process order still decides", () => {
+    const summaries = summarizeJourneys([
+      row("c1", "not_started", "EFF-1", 0, 11, "P0"),
+      row("c1", "not_started", "GOV-1", 0, 0, "P0"),
+    ]);
+    expect(summaries.get("c1")?.nextCode).toBe("GOV-1");
+  });
+
+  test("a deferrable P2 loses to a later P1", () => {
+    const summaries = summarizeJourneys([
+      row("c1", "not_started", "GOV-1", 0, 0, "P2"),
+      row("c1", "not_started", "EFF-1", 0, 11, "P1"),
+    ]);
+    expect(summaries.get("c1")?.nextCode).toBe("EFF-1");
+  });
+
   test("empty input yields an empty map", () => {
     expect(summarizeJourneys([]).size).toBe(0);
   });

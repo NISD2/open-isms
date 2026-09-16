@@ -33,6 +33,7 @@ import {
   frequencyLabel,
   ORDERED_CATEGORIES,
   type Order,
+  processOrder,
   ROLE_LABEL,
   requirementHref,
   reviewLabel,
@@ -94,7 +95,8 @@ function isDoneStatus(rawStatus: string): boolean {
 
 function buildSections(reqNodes: FlowNode[], order: Order, de: boolean): Section[] {
   if (order === "chrono") {
-    const withIdx = reqNodes.map((node, i) => ({ node, index: i + 1 }));
+    const byProcess = [...reqNodes].sort((a, b) => processOrder(a) - processOrder(b));
+    const withIdx = byProcess.map((node, i) => ({ node, index: i + 1 }));
     return ORDERED_CATEGORIES.map((cat) => ({
       key: cat.code,
       title: de ? cat.nameDe : cat.name,

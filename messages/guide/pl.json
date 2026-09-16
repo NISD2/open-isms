@@ -12,15 +12,15 @@
         },
         "stage": {
           "title": "Gdzie się Państwo znajdują",
-          "body": "Ścieżka biegnie w pięciu etapach, od rejestracji po dowód wdrożenia. Ten pasek zostaje na górze i wskazuje etap oraz sekcję, którą Państwo czytają. Wskazówki otwierają objaśnienia do tej sekcji."
+          "body": "Ścieżka biegnie w trzech oknach: co należy do pierwszego miesiąca, co do pierwszych trzech miesięcy i reszta pierwszego roku. Ten pasek zostaje na górze i wskazuje sekcję, którą Państwo czytają. Wskazówki otwierają objaśnienia."
         },
         "liveStep": {
           "title": "Państwa następny krok",
           "body": "Dokładnie jeden krok jest oznaczony jako bieżący. Proszę go otworzyć, wpisać, co rzeczywiście obowiązuje w Państwa firmie, i zatwierdzić. Oznaczenie przesunie się wtedy o jeden dalej."
         },
         "timeline": {
-          "title": "Gdzie Państwo są i ile to zajmuje",
-          "body": "Pasek po lewej idzie za Państwem: wskazuje etap, który Państwo czytają, i podaje dla każdego etapu wartość orientacyjną wypełnienia tutaj w narzędziu. Ile zajmie wdrożenie w firmie, zależy od Państwa organizacji."
+          "title": "Ścieżka jest uporządkowana według terminu",
+          "body": "Po lewej są trzy okna, a sama ścieżka biegnie w tej kolejności: najpierw wszystko na pierwszy miesiąc, potem pierwsze trzy miesiące, potem reszta roku. Oznaczenie przesuwa się razem z Państwem. Wszystkie 49 kroków jest obowiązkowych; podział to nasza rekomendacja."
         },
         "order": {
           "title": "Dwa sposoby uporządkowania ścieżki",

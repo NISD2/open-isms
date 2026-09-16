@@ -12,15 +12,15 @@
         },
         "stage": {
           "title": "Unde vă aflați acum",
-          "body": "Parcursul se desfășoară în cinci etape, de la înregistrare până la dovadă. Această bară rămâne sus și indică etapa și secțiunea pe care o citiți. Indicații deschide explicațiile secțiunii."
+          "body": "Parcursul se desfășoară în trei ferestre: ce ține de prima lună, ce ține de primele trei luni și restul primului an. Această bară rămâne sus și indică secțiunea pe care o citiți. Indicații deschide explicațiile."
         },
         "liveStep": {
           "title": "Următorul dumneavoastră pas",
           "body": "Exact un pas este marcat ca fiind curent. Deschideți-l, consemnați ce se aplică în realitate la dumneavoastră și aprobați-l. Marcajul trece apoi la următorul."
         },
         "timeline": {
-          "title": "Unde vă aflați și cât durează",
-          "body": "Bara din stânga vă însoțește: marchează etapa pe care o citiți și indică pentru fiecare etapă o valoare orientativă pentru completarea aici, în instrument. Cât durează implementarea în firmă depinde de organizația dumneavoastră."
+          "title": "Parcursul este ordonat după termen",
+          "body": "În stânga sunt cele trei ferestre, iar parcursul urmează această ordine: întâi tot ce ține de prima lună, apoi primele trei luni, apoi restul anului. Marcajul avansează odată cu dumneavoastră. Toți cei 49 de pași sunt obligatorii; împărțirea este recomandarea noastră."
         },
         "order": {
           "title": "Două moduri de a ordona parcursul",

@@ -13,20 +13,16 @@ import type { StageProgress } from "./solo-path";
 type Locale = "en" | "de" | "nl";
 
 /**
- * The vertical rail beside the path: where you are, and what cannot wait.
+ * The vertical rail beside the path: the three deadline windows, and which one
+ * you are reading.
  *
- * It answers the two questions a 49-step scroll otherwise leaves open — how
- * far through am I, and how long can I take over this — and it answers the
- * first continuously, because the stage it marks is the stage the pinned bar
- * is already tracking against your scroll position. Scrolling into a new stage
- * moves the dot.
+ * Now that the path itself runs in deadline order, the rail is simply its
+ * table of contents — and a real timeline, because the windows are in time
+ * order and scrolling walks them. It needs no per-stage horizon label: the
+ * stage name IS the horizon.
  *
- * The due figure is per stage a count, never a date for the stage itself.
- * Month-one steps sit in four of the five stages, so "this stage is due in
- * month 1" would be false for most of what any stage contains; "three of these
- * cannot wait past month one" is true and is the thing worth acting on. It is
- * the platform's recommended sequencing either way, not a statutory date, and
- * the footer says so.
+ * It marks position continuously, because the stage it highlights is the one
+ * the pinned bar is already tracking against your scroll.
  *
  * Desktop only. It lives in the gutter a centred path leaves empty, which is
  * space that exists only there; narrower screens keep the stage in the pinned
@@ -45,13 +41,6 @@ export function PathTimeline({
   const de = locale === "de";
   if (stages.length === 0) return null;
 
-  // The one figure worth stating for the whole path: how much of what is left
-  // cannot wait past the first month.
-  const urgent = stages.reduce(
-    (sum, stage) => sum + (stage.dueUrgent ? stage.dueCount : 0),
-    0,
-  );
-
   return (
     <nav
       data-tour="journey-timeline"
@@ -67,11 +56,7 @@ export function PathTimeline({
             key={stage.index}
             stage={stage}
             state={
-              stage.index === activeStage
-                ? "here"
-                : stage.done === stage.total
-                  ? "done"
-                  : "ahead"
+              stage.index === activeStage ? "here" : stage.open === 0 ? "done" : "ahead"
             }
             last={i === stages.length - 1}
             de={de}
@@ -79,16 +64,10 @@ export function PathTimeline({
         ))}
       </ol>
 
-      {/* Not a flex row: the sentence wraps, and a centred icon beside a
-          two-line block detaches from the words it qualifies. */}
-      {urgent > 0 ? (
-        <p className="mt-1 border-t pt-3 text-[11px] leading-relaxed text-muted-foreground">
-          {de
-            ? `${urgent} Schritte sollten im ersten Monat stehen`
-            : `${urgent} steps should be in place in the first month`}{" "}
-          <DueDisclaimer locale={locale} />
-        </p>
-      ) : null}
+      <p className="mt-1 border-t pt-3 text-[11px] leading-relaxed text-muted-foreground">
+        {de ? "Empfohlene Reihenfolge" : "Recommended order"}{" "}
+        <DueDisclaimer locale={locale} />
+      </p>
     </nav>
   );
 }
@@ -107,7 +86,7 @@ function StageStop({
   return (
     <li className="flex gap-3">
       {/* Dot over a connector that runs the height of the row, so the stops
-          read as one line rather than as five separate markers. */}
+          read as one line rather than as three separate markers. */}
       <div className="flex flex-col items-center">
         <span
           className={cn(
@@ -122,7 +101,7 @@ function StageStop({
         {last ? null : <span className="w-px flex-1 bg-border" />}
       </div>
 
-      <div className={cn("min-w-0 flex-1", last ? "pb-0" : "pb-5")}>
+      <div className={cn("min-w-0 flex-1", last ? "pb-0" : "pb-6")}>
         <p
           className={cn(
             "text-sm leading-tight",
@@ -131,37 +110,18 @@ function StageStop({
         >
           {stage.label}
         </p>
-        {/* The horizon is the line that gets read, so it is the line that
-            looks like something: a chip, warm when the window is the near one.
-            The open total sits under it as the supporting figure, and only
-            when the stage holds more than the chip already accounts for. */}
-        {stage.open === 0 ? (
-          <p className="mt-1 inline-flex items-center gap-1 text-[11px] text-muted-foreground">
-            <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden="true" />
-            {de ? "Erledigt" : "Done"}
-          </p>
-        ) : (
-          <>
-            <p
-              className={cn(
-                "mt-1.5 inline-block rounded px-1.5 py-0.5 text-[11px] font-medium leading-snug",
-                stage.dueUrgent
-                  ? "bg-amber-100 text-amber-900 dark:bg-amber-950/50 dark:text-amber-200"
-                  : "bg-muted text-muted-foreground",
-              )}
-            >
-              {stage.dueCount} {stage.dueLabel}
-            </p>
-            {/* The total, not "N later": the remainder has a horizon of its
-                own and calling it "later" states a vaguer thing than the
-                chip above it, which is the opposite of the point. */}
-            {stage.dueCount < stage.open ? (
-              <p className="mt-1 text-[11px] text-muted-foreground">
-                {stage.open} {de ? "offen" : "open"}
-              </p>
-            ) : null}
-          </>
-        )}
+        <p className="mt-1 inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+          {stage.open === 0 ? (
+            <>
+              <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden="true" />
+              {de ? "Erledigt" : "Done"}
+            </>
+          ) : (
+            <span className="tabular-nums">
+              {stage.done}/{stage.total}
+            </span>
+          )}
+        </p>
       </div>
     </li>
   );

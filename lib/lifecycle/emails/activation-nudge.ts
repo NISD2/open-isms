@@ -239,6 +239,7 @@ export async function prepareActivationNudgeSample(
         code: requirement.code,
         sortOrder: requirement.sortOrder,
         categorySortOrder: requirementCategory.sortOrder,
+        priority: requirement.priority,
       })
       .from(companyRequirementStatus)
       .innerJoin(
@@ -383,6 +384,7 @@ export const activationNudge: LifecycleEmailType = {
         // journeyPosition the path view uses — requirement.sortOrder alone is
         // only unique WITHIN a category.
         categorySortOrder: requirementCategory.sortOrder,
+        priority: requirement.priority,
       })
       .from(companyRequirementStatus)
       .innerJoin(

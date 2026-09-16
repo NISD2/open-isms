@@ -18,6 +18,7 @@ export interface JourneyStatusRow {
   code: string;
   sortOrder: number | null;
   categorySortOrder: number | null;
+  priority: string | null;
 }
 
 export interface JourneySummary {
@@ -46,7 +47,11 @@ export function summarizeJourneys(
     if (isDoneStatus(row.status)) {
       entry.done++;
     } else {
-      const position = journeyPosition(row.categorySortOrder, row.sortOrder);
+      const position = journeyPosition(
+        row.priority,
+        row.categorySortOrder,
+        row.sortOrder,
+      );
       if (
         position < entry.nextPosition ||
         (position === entry.nextPosition &&

@@ -12,15 +12,15 @@
         },
         "stage": {
           "title": "Wo Sie gerade sind",
-          "body": "Der Weg läuft in fünf Stufen, von der Registrierung bis zum Nachweis. Dieser Balken bleibt oben stehen und nennt Stufe und Abschnitt, in dem Sie gerade lesen. Hinweise öffnet die Erklärungen zum Abschnitt."
+          "body": "Der Weg läuft in drei Fenstern: was in den ersten Monat gehört, was in die ersten drei Monate, und der Rest des ersten Jahres. Dieser Balken bleibt oben stehen und nennt den Abschnitt, in dem Sie gerade lesen. Hinweise öffnet die Erklärungen dazu."
         },
         "liveStep": {
           "title": "Ihr nächster Schritt",
           "body": "Genau ein Schritt ist als offen markiert. Öffnen Sie ihn, tragen Sie ein, was bei Ihnen tatsächlich gilt, und geben Sie ihn frei. Danach rückt die Markierung eins weiter."
         },
         "timeline": {
-          "title": "Wo Sie stehen, und wie lange es dauert",
-          "body": "Die Leiste links läuft mit: sie markiert die Stufe, in der Sie gerade lesen, und nennt je Stufe einen Richtwert für das Ausfüllen hier im Tool. Wie lange die Umsetzung im Betrieb dauert, hängt von Ihrem Haus ab."
+          "title": "Der Weg ist nach Frist sortiert",
+          "body": "Links stehen die drei Fenster, und der Weg selbst läuft in dieser Reihenfolge: zuerst alles für den ersten Monat, dann die ersten drei Monate, dann der Rest des Jahres. Beim Scrollen wandert die Markierung mit. Verpflichtend sind alle 49 Schritte; die Einteilung ist unsere Empfehlung."
         },
         "order": {
           "title": "Zwei Reihenfolgen für Ihren Weg",

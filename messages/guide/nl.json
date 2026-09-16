@@ -12,15 +12,15 @@
         },
         "stage": {
           "title": "Waar u nu bent",
-          "body": "Het pad loopt in vijf fasen, van registratie tot en met het bewijs. Deze balk blijft bovenaan staan en noemt de fase en het onderdeel dat u nu leest. Toelichting opent de uitleg bij dat onderdeel."
+          "body": "Het pad loopt in drie vensters: wat in de eerste maand hoort, wat in de eerste drie maanden, en de rest van het eerste jaar. Deze balk blijft bovenaan en noemt het onderdeel dat u leest. Toelichting opent de uitleg."
         },
         "liveStep": {
           "title": "Uw volgende stap",
           "body": "Precies één stap staat als open gemarkeerd. Open die, leg vast wat bij u werkelijk geldt en geef hem vrij. Daarna schuift de markering een plek op."
         },
         "timeline": {
-          "title": "Waar u staat, en hoe lang het duurt",
-          "body": "De balk links loopt mee: hij markeert de fase die u leest en noemt per fase een richtwaarde voor het invullen hier in de tool. Hoe lang de invoering in de praktijk duurt, hangt van uw organisatie af."
+          "title": "Het pad is op termijn gesorteerd",
+          "body": "Links staan de drie vensters en het pad zelf loopt in die volgorde: eerst alles voor de eerste maand, dan de eerste drie maanden, dan de rest van het jaar. De markering schuift mee terwijl u scrolt. Alle 49 stappen zijn verplicht; de indeling is onze aanbeveling."
         },
         "order": {
           "title": "Twee volgordes voor uw pad",

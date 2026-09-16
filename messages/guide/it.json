@@ -12,15 +12,15 @@
         },
         "stage": {
           "title": "Dove vi trovate ora",
-          "body": "Il percorso si svolge in cinque fasi, dalla registrazione fino alla prova. Questa barra resta in alto e indica la fase e la sezione che state leggendo. Indicazioni apre le spiegazioni della sezione."
+          "body": "Il percorso si svolge in tre finestre: ciò che spetta al primo mese, ciò che spetta ai primi tre mesi e il resto del primo anno. Questa barra resta in alto e indica la sezione che state leggendo. Indicazioni apre le spiegazioni."
         },
         "liveStep": {
           "title": "Il vostro prossimo passo",
           "body": "Un solo passo è contrassegnato come attivo. Apritelo, annotate quello che vale davvero nella vostra azienda e approvatelo. Il contrassegno passa poi al successivo."
         },
         "timeline": {
-          "title": "A che punto siete e quanto tempo serve",
-          "body": "La barra a sinistra vi segue: indica la fase che state leggendo e riporta per ogni fase un valore indicativo per la compilazione qui nello strumento. Quanto tempo richieda l'attuazione in azienda dipende dalla vostra organizzazione."
+          "title": "Il percorso è ordinato per scadenza",
+          "body": "A sinistra ci sono le tre finestre e il percorso segue quell'ordine: prima tutto ciò che spetta al primo mese, poi i primi tre mesi, poi il resto dell'anno. Il contrassegno avanza con voi. Tutti e 49 i passi sono obbligatori; la suddivisione è il nostro consiglio."
         },
         "order": {
           "title": "Due modi di ordinare il percorso",

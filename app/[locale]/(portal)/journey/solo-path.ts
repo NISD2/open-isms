@@ -5,39 +5,28 @@
  * A company where one person implements everything has no division of labour
  * for the columns to describe, so the only structure worth keeping is order.
  *
- * That order is the chronological one, deliberately, and not the criticality
- * bands the team view opens with. The bands scatter a category across stages
- * (registration P0 items land in stage one, the rest of registration in stage
- * two), so progress stops being contiguous and the one live step sinks into
- * the middle of the page — which defeats a guided path. Chronological is also
- * the order `liveNode` already computes "next" in, so what the path shows and
- * what the platform recommends are the same sequence. Criticality survives as
- * a badge on the eight P0 steps rather than as a reordering.
+ * The order is by deadline: everything that belongs in month one, then the
+ * first three months, then the rest of the first year. Inside a window the
+ * categories run in process order, so the path reads as three blocks of work
+ * rather than one list of 49.
+ *
+ * An earlier version ordered the whole path by process instead, arguing that
+ * band order scatters progress. It does not: someone working this path works
+ * down it, so progress is contiguous by construction — what scattered was the
+ * sample data, which assumed the other order. Process order also put two
+ * month-one steps at positions 32 and 34, telling the reader they were urgent
+ * and then burying them.
  *
  * Nothing is filtered out and nothing is locked: these are legal duties, and
  * the sequence is a recommendation.
  */
-import { type Band, type FlowNode, ORDERED_CATEGORIES } from "./path-nodes";
-
-/**
- * Deadline horizons, phrased for the rail.
- *
- * The same three criticality bands the team view groups by, said as a "by
- * when" rather than as a rank. "In den ersten 3 Monaten", not "in 3 Monaten":
- * the window runs from starting, and the shorter phrasing reads as three
- * months from today, which is a different and wrong promise.
- */
-const DUE_LABEL: Record<Band, { de: string; en: string }> = {
-  minimum: { de: "im ersten Monat", en: "in the first month" },
-  year: { de: "in den ersten 3 Monaten", en: "in the first 3 months" },
-  // "Im ersten Jahr", not a month count. The band is named "Im Lauf des
-  // Jahres" and a year is what it has always meant; putting a sharper number
-  // on it would be inventing one. Still a window rather than "danach", which
-  // answered nothing.
-  later: { de: "im ersten Jahr", en: "in the first year" },
-};
-
-const BAND_URGENCY: Band[] = ["minimum", "year", "later"];
+import {
+  BAND_RANK,
+  BANDS,
+  type Band,
+  type FlowNode,
+  ORDERED_CATEGORIES,
+} from "./path-nodes";
 
 /**
  * Horizontal offsets in px, cycled over the global step index so the line
@@ -47,138 +36,79 @@ const BAND_URGENCY: Band[] = ["minimum", "year", "later"];
 const WAVE = [0, 56, 88, 56, 0, -56, -88, -56] as const;
 
 /**
- * Stufen. The boundaries are category sortOrder ranges, and they are the same
- * grouping the portal sidebar renders (REG | GOV RSK SUP | CRY ACC AUT | PRO
- * INC BCP | TRN EFF), so the two navigations tell the same story.
+ * Stufen: the three deadline windows, read straight off the bands rather than
+ * restated here. The band already carries both the "by when" and the sentence
+ * under it, and a second copy is how the two views end up disagreeing about
+ * what the middle window means — which is exactly what happened when this
+ * file said "first 3 months" while the band said "over the year".
  */
-const PHASES = [
-  {
-    maxSortOrder: 0,
-    de: "Registrierung",
-    en: "Registration",
-    hintDe: "Feststellen, ob und wo Sie registriert sein müssen.",
-    hintEn: "Establish whether and where you have to register.",
-  },
-  {
-    maxSortOrder: 3,
-    de: "Grundlagen",
-    en: "Foundation",
-    hintDe: "Verantwortung, Risiken, Werte und Lieferanten festlegen.",
-    hintEn: "Set responsibility, risk, assets and suppliers.",
-  },
-  {
-    maxSortOrder: 6,
-    de: "Schutzmaßnahmen",
-    en: "Controls",
-    hintDe: "Verschlüsselung, Zugriff und Authentifizierung.",
-    hintEn: "Encryption, access and authentication.",
-  },
-  {
-    maxSortOrder: 9,
-    de: "Betrieb",
-    en: "Operations",
-    hintDe: "Patches, Vorfälle und Wiederanlauf.",
-    hintEn: "Patching, incidents and recovery.",
-  },
-  {
-    maxSortOrder: 99,
-    de: "Nachweis",
-    en: "Verification",
-    hintDe: "Schulung und der Nachweis, dass es wirkt.",
-    hintEn: "Training, and the proof that it works.",
-  },
-] as const;
+function stageForBand(band: Band, de: boolean): SoloStage {
+  const meta = BANDS.find((b) => b.key === band) ?? BANDS[1];
+  return {
+    index: BAND_RANK[band] + 1,
+    band,
+    label: de ? meta.phaseDe : meta.phaseEn,
+    hint: de ? meta.hintDe : meta.hintEn,
+  };
+}
 
 export type SoloStep = {
   node: FlowNode;
   /** 1-based position along the whole path, the "Schritt 7 von 49" number. */
   step: number;
   offsetPx: number;
-  /** A P0 step: part of the defensible minimum, so it carries a badge. */
-  isMinimum: boolean;
 };
 
 export type SoloStage = {
   /** 1-based Stufe number. */
   index: number;
+  band: Band;
   label: string;
   hint: string;
 };
 
-/** How many Stufen the path has, for the "Stufe 2 von 5" header. */
-export const STAGE_COUNT = PHASES.length;
+/** How many Stufen the path has, for the "Stufe 2 von 3" header. */
+export const STAGE_COUNT = BANDS.length;
 
-/**
- * One stop on the vertical rail: a stage, how far through it you are, and the
- * soonest its contents are due.
- *
- * The due figure is the count of steps in the most urgent band the stage
- * holds, not a deadline for the stage itself. A stage is not a deadline
- * bucket — month-one steps sit in four of the five — so "this stage is due in
- * month 1" would be false for most of what it contains. "Three of these
- * cannot wait past month one" is both true and the thing worth acting on.
- */
+/** One stop on the vertical rail: a deadline window and how much is left. */
 export type StageProgress = {
   index: number;
+  band: Band;
   label: string;
   total: number;
   done: number;
-  /** Steps not yet done. 0 means the stage is finished. */
+  /** Steps not yet done. 0 means the window is cleared. */
   open: number;
-  /** Of those, how many fall in the soonest horizon the stage still holds. */
-  dueCount: number;
-  /** Localized horizon for those steps, or null when nothing is open. */
-  dueLabel: string | null;
-  /** That horizon is the most urgent one there is. */
-  dueUrgent: boolean;
 };
 
-function soonestDue(steps: SoloStep[], de: boolean) {
-  const open = steps.filter((s) => s.node.status !== "done");
-  const band = BAND_URGENCY.find((b) => open.some((s) => s.node.band === b));
-  if (!band) {
-    return { open: 0, dueCount: 0, dueLabel: null, dueUrgent: false };
-  }
-  return {
-    open: open.length,
-    dueCount: open.filter((s) => s.node.band === band).length,
-    dueLabel: de ? DUE_LABEL[band].de : DUE_LABEL[band].en,
-    dueUrgent: band === "minimum",
-  };
-}
-
 /**
- * Per-stage progress, in path order.
+ * Per-window progress, in path order.
  *
  * Derived from the sections rather than recomputed from the nodes, so the rail
- * and the path cannot disagree about which stage a step belongs to. Stages the
- * path never reaches simply do not appear.
+ * and the path cannot disagree about which window a step belongs to. Windows
+ * the path never reaches simply do not appear.
  */
-export function buildStageProgress(
-  sections: SoloSection[],
-  de: boolean,
-): StageProgress[] {
-  const byStage = sections.reduce<Map<number, { label: string; steps: SoloStep[] }>>(
-    (acc, section) => {
-      const open = acc.get(section.stage.index);
-      if (open) open.steps.push(...section.steps);
-      else
-        acc.set(section.stage.index, {
-          label: section.stage.label,
-          steps: [...section.steps],
-        });
+export function buildStageProgress(sections: SoloSection[]): StageProgress[] {
+  return sections.reduce<StageProgress[]>((acc, section) => {
+    const steps = section.steps;
+    const done = steps.filter((s) => s.node.status === "done").length;
+    const open = acc.at(-1);
+    if (open?.index === section.stage.index) {
+      open.total += steps.length;
+      open.done += done;
+      open.open += steps.length - done;
       return acc;
-    },
-    new Map(),
-  );
-
-  return [...byStage.entries()].map(([index, { label, steps }]) => ({
-    index,
-    label,
-    total: steps.length,
-    done: steps.filter((s) => s.node.status === "done").length,
-    ...soonestDue(steps, de),
-  }));
+    }
+    acc.push({
+      index: section.stage.index,
+      band: section.stage.band,
+      label: section.stage.label,
+      total: steps.length,
+      done,
+      open: steps.length - done,
+    });
+    return acc;
+  }, []);
 }
 
 export type SoloSection = {
@@ -194,26 +124,14 @@ export type SoloSection = {
 
 const CATEGORY_BY_CODE = new Map(ORDERED_CATEGORIES.map((c) => [c.code, c]));
 
-function phaseIndexFor(categorySortOrder: number): number {
-  const found = PHASES.findIndex((p) => categorySortOrder <= p.maxSortOrder);
-  return found === -1 ? PHASES.length - 1 : found;
-}
-
-function stageAt(index: number, de: boolean): SoloStage {
-  const phase = PHASES[index];
-  return {
-    index: index + 1,
-    label: de ? phase.de : phase.en,
-    hint: de ? phase.hintDe : phase.hintEn,
-  };
-}
-
 /**
  * Group the flow nodes into the sections the solo path renders.
  *
- * The incoming nodes are already in global process order, so sections fall out
- * as the runs of consecutive nodes sharing a category, and stages as the runs
- * of consecutive sections sharing a phase.
+ * The incoming nodes are already in journey order, which is deadline first,
+ * so sections fall out as the runs of consecutive nodes sharing a category
+ * within one window, and stages as the runs of sections sharing a window. A
+ * category that spans two windows appears once in each, which is correct: its
+ * urgent steps genuinely belong to a different block of work than its rest.
  */
 export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[] {
   const sections = nodes.reduce<SoloSection[]>((acc, node, i) => {
@@ -221,17 +139,17 @@ export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[]
       node,
       step: i + 1,
       offsetPx: WAVE[i % WAVE.length],
-      isMinimum: node.band === "minimum",
     };
+    const key = `${node.band}-${node.categoryCode}`;
     const open = acc.at(-1);
-    if (open?.key === node.categoryCode) {
+    if (open?.key === key) {
       open.steps.push(step);
       return acc;
     }
     const category = CATEGORY_BY_CODE.get(node.categoryCode);
     acc.push({
-      key: node.categoryCode,
-      stage: stageAt(phaseIndexFor(category?.sortOrder ?? 99), de),
+      key,
+      stage: stageForBand(node.band, de),
       title: (de ? category?.nameDe : category?.name) ?? node.categoryCode,
       categorySlug: node.categorySlug,
       steps: [step],

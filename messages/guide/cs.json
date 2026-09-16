@@ -12,15 +12,15 @@
         },
         "stage": {
           "title": "Kde se právě nacházíte",
-          "body": "Cesta probíhá v pěti fázích, od registrace až po doložení. Tento pruh zůstává nahoře a uvádí fázi i oddíl, který právě čtete. Pokyny otevřou vysvětlivky k danému oddílu."
+          "body": "Cesta probíhá ve třech oknech: co patří do prvního měsíce, co do prvních tří měsíců a zbytek prvního roku. Tento pruh zůstává nahoře a uvádí oddíl, který právě čtete. Pokyny otevřou vysvětlivky."
         },
         "liveStep": {
           "title": "Váš další krok",
           "body": "Právě jeden krok je označen jako aktuální. Otevřete jej, zapište, co u vás skutečně platí, a schvalte jej. Označení se poté posune o jeden dál."
         },
         "timeline": {
-          "title": "Kde jste a jak dlouho to trvá",
-          "body": "Lišta vlevo se posouvá s vámi: označuje fázi, kterou právě čtete, a u každé fáze uvádí orientační čas na vyplnění zde v nástroji. Jak dlouho potrvá zavedení v provozu, závisí na vaší organizaci."
+          "title": "Cesta je seřazena podle lhůty",
+          "body": "Vlevo jsou tři okna a cesta sama běží v tomto pořadí: nejdřív vše na první měsíc, pak první tři měsíce, pak zbytek roku. Označení se posouvá s vámi. Povinných je všech 49 kroků; rozdělení je naše doporučení."
         },
         "order": {
           "title": "Dva způsoby řazení cesty",

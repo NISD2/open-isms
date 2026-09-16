@@ -12,15 +12,15 @@
         },
         "stage": {
           "title": "Dónde se encuentra ahora",
-          "body": "El recorrido avanza en cinco etapas, del registro hasta la comprobación. Esta barra permanece arriba e indica la etapa y la sección que está leyendo. Indicaciones abre las explicaciones de esa sección."
+          "body": "El recorrido avanza en tres ventanas: lo que corresponde al primer mes, lo que corresponde a los tres primeros meses y el resto del primer año. Esta barra permanece arriba e indica la sección que está leyendo. Indicaciones abre las explicaciones."
         },
         "liveStep": {
           "title": "Su siguiente paso",
           "body": "Solo un paso está marcado como activo. Ábralo, registre lo que ocurre realmente en su empresa y apruébelo. La marca pasa entonces al siguiente."
         },
         "timeline": {
-          "title": "Dónde está y cuánto tiempo lleva",
-          "body": "La barra de la izquierda le acompaña: marca la etapa que está leyendo e indica por etapa un valor orientativo para rellenarla aquí en la herramienta. Cuánto lleva implantarlo en la empresa depende de su organización."
+          "title": "El recorrido está ordenado por plazo",
+          "body": "A la izquierda están las tres ventanas y el recorrido sigue ese orden: primero todo lo del primer mes, después los tres primeros meses, después el resto del año. La marca avanza con usted. Los 49 pasos son obligatorios; el reparto es nuestra recomendación."
         },
         "order": {
           "title": "Dos formas de ordenar su recorrido",

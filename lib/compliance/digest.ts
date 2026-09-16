@@ -103,7 +103,7 @@ async function findNextJourneyStep(
     columns: { id: true, status: true },
     with: {
       requirement: {
-        columns: { code: true, sortOrder: true },
+        columns: { code: true, sortOrder: true, priority: true },
         with: { category: { columns: { slug: true, sortOrder: true } } },
       },
     },
@@ -116,6 +116,7 @@ async function findNextJourneyStep(
       code: r.requirement.code,
       slug: r.requirement.category?.slug ?? "unknown",
       position: journeyPosition(
+        r.requirement.priority,
         r.requirement.category?.sortOrder,
         r.requirement.sortOrder,
       ),

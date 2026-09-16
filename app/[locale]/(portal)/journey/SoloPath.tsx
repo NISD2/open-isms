@@ -76,7 +76,7 @@ export function SoloPath({
 }) {
   const de = locale === "de";
   const sections = useMemo(() => buildSoloSections(reqNodes, de), [reqNodes, de]);
-  const stages = useMemo(() => buildStageProgress(sections, de), [sections, de]);
+  const stages = useMemo(() => buildStageProgress(sections), [sections]);
 
   // Starts on the first section, not on the one holding the live step. At
   // scroll zero no section reaches the observer's band under the header, so
@@ -303,7 +303,6 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
               <Icon className={current ? "h-7 w-7" : "h-6 w-6"} />
             )}
             <StateBadge state={state} />
-            {step.isMinimum ? <MinimumBadge de={de} /> : null}
           </Link>
         </HoverCardTrigger>
         <HoverCardContent align="center" className="w-80 space-y-2">
@@ -370,24 +369,6 @@ function StartPill({ rawStatus, de }: { rawStatus: string; de: boolean }) {
       </div>
       <div className="absolute left-1/2 top-full h-2.5 w-2.5 -translate-x-1/2 -translate-y-[60%] rotate-45 border-b-2 border-r-2 border-primary bg-background" />
     </div>
-  );
-}
-
-/**
- * The eight P0 steps. Marked, not reordered: the path stays chronological.
- *
- * The word is "zuerst", never "Pflicht". All 49 requirements are mandatory —
- * the bands rank what to do early, and a badge reading "mandatory" would say
- * the other 41 are not, contradicting the disclaimer at the foot of the page.
- */
-function MinimumBadge({ de }: { de: boolean }) {
-  return (
-    <span
-      title={de ? "Belastbares Minimum" : "Defensible minimum"}
-      className="absolute -left-1 -top-1 rounded bg-background px-1 text-[9px] font-semibold uppercase leading-4 tracking-wide text-primary ring-1 ring-primary/40"
-    >
-      {de ? "Zuerst" : "First"}
-    </span>
   );
 }
 

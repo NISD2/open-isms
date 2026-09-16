@@ -1,4 +1,5 @@
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
+import { journeyPosition, priorityRank } from "@/lib/compliance/journey-position";
 import type { JourneyItem } from "./views";
 
 export type NodeStatus = "done" | "current" | "upcoming";
@@ -28,6 +29,8 @@ export type FlowNode = {
   description: string | null;
   legalRef: string | null;
   frequency: string | null;
+  /** Index within the category, for re-deriving process order. */
+  sortOrder: number;
   /** Assigned sign-offs done vs required (N-of-M management sign-off). */
   signOff: { signed: number; total: number };
 };
@@ -103,8 +106,8 @@ export const BANDS: {
     de: "Belastbares Minimum",
     hintEn: "The mandatory, foundational controls",
     hintDe: "Die verpflichtenden, grundlegenden Maßnahmen",
-    phaseEn: "Month 1",
-    phaseDe: "Monat 1",
+    phaseEn: "In the first month",
+    phaseDe: "Im ersten Monat",
   },
   {
     key: "year",
@@ -112,8 +115,8 @@ export const BANDS: {
     de: "Im Lauf des Jahres",
     hintEn: "The remaining measures, step by step",
     hintDe: "Die übrigen Maßnahmen, Schritt für Schritt",
-    phaseEn: "Next 3 months",
-    phaseDe: "Nächste 3 Monate",
+    phaseEn: "In the first year",
+    phaseDe: "Im ersten Jahr",
   },
   {
     key: "later",
@@ -199,13 +202,28 @@ const CATEGORY_ORDER: Record<string, number> = Object.fromEntries(
 );
 
 /**
- * True journey position. requirement.sortOrder is the requirement's index
- * WITHIN its category (0, 1, 2, ...), not a global order, so sorting by it
- * alone floats every category's first requirement to the top (e.g. MFA 11.1
- * ahead of assets 2.2). Order by the category sequence first, then the index.
+ * True journey position: the shared urgency-then-process order.
+ *
+ * Read from the canonical helper rather than restated here, because the
+ * guided path, the swimlane banner, the activation nudge and the digest are
+ * only ever consistent while they read the same function.
  */
 function globalOrder(item: JourneyItem): number {
-  return (CATEGORY_ORDER[item.categoryCode] ?? 99) * 100 + item.sortOrder;
+  return journeyPosition(
+    item.priority,
+    CATEGORY_ORDER[item.categoryCode],
+    item.sortOrder,
+  );
+}
+
+/**
+ * Process order: the category sequence, then the index within it, ignoring
+ * urgency. Journey order leads with criticality, so the swimlane's
+ * chronological mode has to re-sort rather than take the incoming order —
+ * without this its row numbers ran 1, 9, 23 inside a single category.
+ */
+export function processOrder(node: Pick<FlowNode, "categoryCode" | "sortOrder">): number {
+  return (CATEGORY_ORDER[node.categoryCode] ?? 99) * 100 + node.sortOrder;
 }
 
 /** Band display rank, for the defensible-minimum ordering. */
@@ -298,10 +316,9 @@ export function statusLabel(rawStatus: string, de: boolean): string {
   }
 }
 
+/** The band a priority falls in, off the one priority-to-tier mapping. */
 function bandForPriority(priority: string | null): Band {
-  if (priority === "P0") return "minimum";
-  if (priority === "P2" || priority === "P3") return "later";
-  return "year"; // P1 and unset
+  return (["minimum", "year", "later"] as const)[priorityRank(priority)];
 }
 
 function isDone(status: string): boolean {
@@ -357,6 +374,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         description: it.description,
         legalRef: it.legalRef,
         frequency: it.frequency,
+        sortOrder: it.sortOrder,
         signOff: it.signOff,
       };
     });
