@@ -103,8 +103,10 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/pitch",
   "/supplier-portal",
   // Design playgrounds for the entity + supplier portals (preview only).
+  // /journey-preview/fork is deliberately NOT here: it renders both journey
+  // layouts, which is the signed-in product, so it sits behind the same gate
+  // as the page it previews.
   "/journey-preview",
-  "/journey-preview/fork",
   "/supplier-preview",
 ];
 

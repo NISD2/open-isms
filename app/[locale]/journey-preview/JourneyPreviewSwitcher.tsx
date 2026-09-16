@@ -39,9 +39,11 @@ export function JourneyPreviewSwitcher({
   live: JourneyItem | null;
   locale: Locale;
 }) {
-  // The question is a modal the layout opens over itself, so it is not a tab.
-  // A button re-opens it, because a design route wants to look at it more than
-  // once and answering here only moves the layout.
+  // The question opens over the layout exactly as it does on the real page,
+  // and answering it is what dismisses it. No re-open control: on the real
+  // page the answer is a company row and the only way back is the toggle, so
+  // a button to summon the question again would be a thing that does not
+  // exist. Reload to see it again.
   const [tab, setTab] = useState<JourneyMode>("solo");
   const [askingMode, setAskingMode] = useState(true);
   const de = locale === "de";
@@ -74,13 +76,6 @@ export function JourneyPreviewSwitcher({
               </button>
             ))}
           </div>
-          <button
-            type="button"
-            onClick={() => setAskingMode(true)}
-            className="rounded-md border px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {de ? "Frage zeigen" : "Show the question"}
-          </button>
           <ProgressChip done={aggregate.done} total={aggregate.total} locale={locale} />
         </div>
       </div>
