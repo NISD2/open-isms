@@ -18,9 +18,9 @@
           "title": "Państwa następny krok",
           "body": "Dokładnie jeden krok jest oznaczony jako bieżący. Proszę go otworzyć, wpisać, co rzeczywiście obowiązuje w Państwa firmie, i zatwierdzić. Oznaczenie przesunie się wtedy o jeden dalej."
         },
-        "minimum": {
-          "title": "Od czego zacząć",
-          "body": "Osiem kroków ma oznaczenie Najpierw. One dają najwięcej, jeśli zajmą się Państwo nimi wcześnie. Obowiązkowe jest wszystkie 49; oznaczenie porządkuje tylko kolejność."
+        "horizons": {
+          "title": "Co i kiedy jest wymagane",
+          "body": "Ścieżka nie jest wymagana naraz. Osiem kroków przypada na pierwszy miesiąc, reszta rozkłada się na rok. Obowiązkowe jest wszystkie 49; podział to zalecana przez nas kolejność."
         },
         "order": {
           "title": "Dwa sposoby uporządkowania ścieżki",

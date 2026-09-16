@@ -18,9 +18,9 @@
           "title": "Su siguiente paso",
           "body": "Solo un paso está marcado como activo. Ábralo, registre lo que ocurre realmente en su empresa y apruébelo. La marca pasa entonces al siguiente."
         },
-        "minimum": {
-          "title": "Por dónde empezar",
-          "body": "Ocho pasos llevan la marca Primero. Son los que más rinden si los aborda pronto. Los 49 son obligatorios; la marca solo ordena la secuencia."
+        "horizons": {
+          "title": "Qué toca y cuándo",
+          "body": "El recorrido no vence de una vez. Ocho pasos corresponden al primer mes y el resto se reparte a lo largo del año. Los 49 son obligatorios; el reparto es el orden que recomendamos."
         },
         "order": {
           "title": "Dos formas de ordenar su recorrido",

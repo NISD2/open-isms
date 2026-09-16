@@ -18,9 +18,9 @@
           "title": "Your next step",
           "body": "Exactly one step is marked as live. Open it, record what is actually true at your company, and sign it off. The marker then moves on to the next one."
         },
-        "minimum": {
-          "title": "Where to begin",
-          "body": "Eight steps are marked First. Those carry the most weight if you do them early. All 49 are mandatory; the marker only ranks the order."
+        "horizons": {
+          "title": "What is due when",
+          "body": "The path is not all due at once. Eight steps belong in the first month and the rest spreads over the year. All 49 are mandatory; the split is our recommended order."
         },
         "order": {
           "title": "Two ways to order the path",

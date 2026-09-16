@@ -18,9 +18,9 @@
           "title": "Uw volgende stap",
           "body": "Precies één stap staat als open gemarkeerd. Open die, leg vast wat bij u werkelijk geldt en geef hem vrij. Daarna schuift de markering een plek op."
         },
-        "minimum": {
-          "title": "Waar u begint",
-          "body": "Acht stappen zijn gemarkeerd met Eerst. Die leveren het meeste op als u er vroeg mee begint. Alle 49 zijn verplicht; de markering bepaalt alleen de volgorde."
+        "horizons": {
+          "title": "Wat wanneer aan de beurt is",
+          "body": "Het pad is niet in één keer verschuldigd. Acht stappen horen in de eerste maand, de rest verdeelt zich over het jaar. Alle 49 zijn verplicht; de indeling is onze aanbevolen volgorde."
         },
         "order": {
           "title": "Twee volgordes voor uw pad",

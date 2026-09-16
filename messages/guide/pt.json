@@ -18,9 +18,9 @@
           "title": "O seu próximo passo",
           "body": "Apenas um passo está assinalado como ativo. Abra-o, registe o que se aplica realmente na sua empresa e aprove-o. A marca passa depois para o seguinte."
         },
-        "minimum": {
-          "title": "Por onde começar",
-          "body": "Oito passos têm a marca Primeiro. São os que mais rendem se os tratar cedo. Os 49 são todos obrigatórios; a marca apenas ordena a sequência."
+        "horizons": {
+          "title": "O que é devido e quando",
+          "body": "O percurso não vence de uma só vez. Oito passos pertencem ao primeiro mês e o resto distribui-se ao longo do ano. Os 49 são todos obrigatórios; a divisão é a ordem que recomendamos."
         },
         "order": {
           "title": "Duas formas de ordenar o seu percurso",

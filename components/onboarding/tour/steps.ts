@@ -46,16 +46,16 @@ export type TourSteps = readonly [TourStep, ...TourStep[]];
  */
 /**
  * Establish the line, then the pinned bar that keeps you oriented on it, then
- * the one live step, then why eight of them are marked, then the rest of the
- * portal. The path runs off the bottom of the viewport, so the opening step
- * prefers the strip above it; the nodes are a narrow centred column, so the
- * steps that point at one have room beside it.
+ * what is due when, then the one live step, then the rest of the portal. The
+ * path runs off the bottom of the viewport, so the opening step prefers the
+ * strip above it; the nodes are a narrow centred column, so the step that
+ * points at one has room beside it.
  */
 const JOURNEY_GUIDED_STEPS: TourSteps = [
   { target: "journey-path-guided", key: "overview", side: "top" },
   { target: "journey-stage", key: "stage", side: "bottom" },
+  { target: "journey-timeline", key: "horizons", side: "bottom" },
   { target: "journey-live-step", key: "liveStep", side: "right" },
-  { target: "journey-minimum", key: "minimum", side: "right" },
   { target: "sidebar-nav", key: "sidebar", side: "right" },
   { target: "sidebar-registers", key: "registers", side: "right" },
 ];

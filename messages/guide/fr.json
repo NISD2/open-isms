@@ -18,9 +18,9 @@
           "title": "Votre prochaine étape",
           "body": "Une seule étape est marquée comme en cours. Ouvrez-la, consignez ce qui vaut réellement chez vous, puis validez-la. Le repère passe ensuite à la suivante."
         },
-        "minimum": {
-          "title": "Par où commencer",
-          "body": "Huit étapes portent la mention D'abord. Ce sont celles qui rapportent le plus si vous les traitez tôt. Les 49 sont toutes obligatoires ; la mention ne fait qu'ordonner."
+        "horizons": {
+          "title": "Ce qui est attendu, et quand",
+          "body": "Le parcours n'est pas dû d'un seul coup. Huit étapes relèvent du premier mois, le reste s'étale sur l'année. Les 49 sont toutes obligatoires ; la répartition est l'ordre que nous recommandons."
         },
         "order": {
           "title": "Deux ordres pour votre parcours",

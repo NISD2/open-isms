@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/hover-card";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { PathTimeline } from "./PathTimeline";
 import {
   type DotState,
   dotStateOf,
@@ -30,7 +31,9 @@ import {
 } from "./path-nodes";
 import { iconFor } from "./solo-icons";
 import {
+  buildHorizons,
   buildSoloSections,
+  buildStageProgress,
   type SoloSection,
   type SoloStep,
   STAGE_COUNT,
@@ -74,6 +77,8 @@ export function SoloPath({
 }) {
   const de = locale === "de";
   const sections = useMemo(() => buildSoloSections(reqNodes, de), [reqNodes, de]);
+  const horizons = useMemo(() => buildHorizons(reqNodes, de), [reqNodes, de]);
+  const stages = useMemo(() => buildStageProgress(sections), [sections]);
 
   // Starts on the first section, not on the one holding the live step. At
   // scroll zero no section reaches the observer's band under the header, so
@@ -136,36 +141,45 @@ export function SoloPath({
       />
       <StickyPathBar section={active} liveNode={liveNode} de={de} />
 
-      <div className="mx-auto w-full max-w-2xl">
-        {sections.map((section, i) => (
-          <section
-            key={section.key}
-            data-section={section.key}
-            ref={(el) => {
-              if (el) sectionEls.current.set(section.key, el);
-              else sectionEls.current.delete(section.key);
-            }}
-          >
-            {/* Dividers announce a change of section, so the first one has
+      <div className="lg:flex lg:gap-8">
+        <PathTimeline
+          stages={stages}
+          activeStage={active.stage.index}
+          near={horizons[0] ?? null}
+          locale={locale}
+        />
+
+        <div className="mx-auto w-full max-w-2xl">
+          {sections.map((section, i) => (
+            <section
+              key={section.key}
+              data-section={section.key}
+              ref={(el) => {
+                if (el) sectionEls.current.set(section.key, el);
+                else sectionEls.current.delete(section.key);
+              }}
+            >
+              {/* Dividers announce a change of section, so the first one has
                 nothing to announce: the bar directly above it already says
                 which section this is. */}
-            {i > 0 ? <SectionDivider title={section.title} /> : <div className="h-4" />}
-            <ol className="flex flex-col items-center gap-3">
-              {section.steps.map((step) => (
-                <StepNode key={step.node.id} step={step} total={total} de={de} />
-              ))}
-            </ol>
-            {section.nextStage ? (
-              <NextStageCard stage={section.nextStage} de={de} />
-            ) : null}
-          </section>
-        ))}
+              {i > 0 ? <SectionDivider title={section.title} /> : <div className="h-4" />}
+              <ol className="flex flex-col items-center gap-3">
+                {section.steps.map((step) => (
+                  <StepNode key={step.node.id} step={step} total={total} de={de} />
+                ))}
+              </ol>
+              {section.nextStage ? (
+                <NextStageCard stage={section.nextStage} de={de} />
+              ) : null}
+            </section>
+          ))}
 
-        <p className="mt-10 pb-4 text-center text-xs text-muted-foreground">
-          {de
-            ? `Das ist der ganze Weg: ${total} Schritte.`
-            : `That is the whole path: ${total} steps.`}
-        </p>
+          <p className="mt-10 pb-4 text-center text-xs text-muted-foreground">
+            {de
+              ? `Das ist der ganze Weg: ${total} Schritte.`
+              : `That is the whole path: ${total} steps.`}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -272,9 +286,7 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
 
   return (
     <li
-      data-tour={
-        current ? "journey-live-step" : step.firstMinimum ? "journey-minimum" : undefined
-      }
+      data-tour={current ? "journey-live-step" : undefined}
       className="flex flex-col items-center"
       style={{ transform: `translateX(${step.offsetPx}px)` }}
     >

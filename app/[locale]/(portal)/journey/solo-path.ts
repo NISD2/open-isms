@@ -17,7 +17,13 @@
  * Nothing is filtered out and nothing is locked: these are legal duties, and
  * the sequence is a recommendation.
  */
-import { type FlowNode, ORDERED_CATEGORIES } from "./path-nodes";
+import {
+  BAND_RANK,
+  BANDS,
+  type Band,
+  type FlowNode,
+  ORDERED_CATEGORIES,
+} from "./path-nodes";
 
 /**
  * Horizontal offsets in px, cycled over the global step index so the line
@@ -69,6 +75,46 @@ const PHASES = [
   },
 ] as const;
 
+/**
+ * A time horizon: what is expected of this company by when.
+ *
+ * The same three criticality bands the team view groups by, counted rather
+ * than used as an ordering. The guided path stays chronological, because that
+ * is the sequence the platform recommends "next" in and the only one where
+ * progress marches down the page — but chronological order on its own never
+ * answers "how much of this is urgent", which is the first question anyone has.
+ * So the bands come back as a summary above the path and as a badge on the
+ * steps inside it.
+ */
+export type Horizon = {
+  band: Band;
+  /** "Month 1", "Next 3 months", "After that". */
+  phase: string;
+  /** "Defensible minimum", and so on. */
+  label: string;
+  hint: string;
+  total: number;
+  done: number;
+};
+
+/** Per-horizon progress, in order of urgency. Empty bands drop out. */
+export function buildHorizons(nodes: FlowNode[], de: boolean): Horizon[] {
+  return [...BANDS]
+    .sort((a, b) => BAND_RANK[a.key] - BAND_RANK[b.key])
+    .map((band) => {
+      const inBand = nodes.filter((node) => node.band === band.key);
+      return {
+        band: band.key,
+        phase: de ? band.phaseDe : band.phaseEn,
+        label: de ? band.de : band.en,
+        hint: de ? band.hintDe : band.hintEn,
+        total: inBand.length,
+        done: inBand.filter((node) => node.status === "done").length,
+      };
+    })
+    .filter((horizon) => horizon.total > 0);
+}
+
 export type SoloStep = {
   node: FlowNode;
   /** 1-based position along the whole path, the "Schritt 7 von 49" number. */
@@ -76,8 +122,6 @@ export type SoloStep = {
   offsetPx: number;
   /** A P0 step: part of the defensible minimum, so it carries a badge. */
   isMinimum: boolean;
-  /** The first such step on the path, which is what the tour points at. */
-  firstMinimum: boolean;
 };
 
 export type SoloStage = {
@@ -89,6 +133,40 @@ export type SoloStage = {
 
 /** How many Stufen the path has, for the "Stufe 2 von 5" header. */
 export const STAGE_COUNT = PHASES.length;
+
+/** One stop on the vertical rail: a stage, and how far through it you are. */
+export type StageProgress = {
+  index: number;
+  label: string;
+  total: number;
+  done: number;
+};
+
+/**
+ * Per-stage progress, in path order.
+ *
+ * Derived from the sections rather than recomputed from the nodes, so the rail
+ * and the path cannot disagree about which stage a step belongs to. Stages the
+ * path never reaches simply do not appear.
+ */
+export function buildStageProgress(sections: SoloSection[]): StageProgress[] {
+  return sections.reduce<StageProgress[]>((acc, section) => {
+    const done = section.steps.filter((s) => s.node.status === "done").length;
+    const open = acc.at(-1);
+    if (open?.index === section.stage.index) {
+      open.total += section.steps.length;
+      open.done += done;
+      return acc;
+    }
+    acc.push({
+      index: section.stage.index,
+      label: section.stage.label,
+      total: section.steps.length,
+      done,
+    });
+    return acc;
+  }, []);
+}
 
 export type SoloSection = {
   key: string;
@@ -125,15 +203,12 @@ function stageAt(index: number, de: boolean): SoloStage {
  * of consecutive sections sharing a phase.
  */
 export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[] {
-  const firstMinimumIndex = nodes.findIndex((n) => n.band === "minimum");
-
   const sections = nodes.reduce<SoloSection[]>((acc, node, i) => {
     const step: SoloStep = {
       node,
       step: i + 1,
       offsetPx: WAVE[i % WAVE.length],
       isMinimum: node.band === "minimum",
-      firstMinimum: i === firstMinimumIndex,
     };
     const open = acc.at(-1);
     if (open?.key === node.categoryCode) {

@@ -18,9 +18,9 @@
           "title": "Il vostro prossimo passo",
           "body": "Un solo passo è contrassegnato come attivo. Apritelo, annotate quello che vale davvero nella vostra azienda e approvatelo. Il contrassegno passa poi al successivo."
         },
-        "minimum": {
-          "title": "Da dove cominciare",
-          "body": "Otto passi portano la dicitura Per primo. Sono quelli che rendono di più se affrontati presto. Tutti e 49 sono obbligatori; la dicitura ordina soltanto la sequenza."
+        "horizons": {
+          "title": "Che cosa scade e quando",
+          "body": "Il percorso non scade tutto insieme. Otto passi spettano al primo mese, il resto si distribuisce sull'anno. Tutti e 49 sono obbligatori; la suddivisione è l'ordine che consigliamo."
         },
         "order": {
           "title": "Due modi di ordinare il percorso",

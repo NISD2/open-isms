@@ -18,9 +18,9 @@
           "title": "Următorul dumneavoastră pas",
           "body": "Exact un pas este marcat ca fiind curent. Deschideți-l, consemnați ce se aplică în realitate la dumneavoastră și aprobați-l. Marcajul trece apoi la următorul."
         },
-        "minimum": {
-          "title": "De unde începeți",
-          "body": "Opt pași poartă marcajul Întâi. Aceștia aduc cel mai mult dacă îi abordați devreme. Toate cele 49 sunt obligatorii; marcajul doar ordonează succesiunea."
+        "horizons": {
+          "title": "Ce urmează și când",
+          "body": "Parcursul nu este datorat dintr-odată. Opt pași revin primei luni, restul se întinde pe tot anul. Toate cele 49 sunt obligatorii; împărțirea este ordinea pe care o recomandăm."
         },
         "order": {
           "title": "Două moduri de a ordona parcursul",

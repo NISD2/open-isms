@@ -118,7 +118,9 @@ export function PortalHeader({
           {crumbs.map((crumb, i) => {
             const isLast = i === crumbs.length - 1;
             return (
-              <Fragment key={i}>
+              // Keyed by label: a trail never repeats one, and the position a
+              // crumb sits at changes whenever the root does.
+              <Fragment key={crumb.label}>
                 {i > 0 && <BreadcrumbSeparator />}
                 <BreadcrumbItem>
                   {isLast || !crumb.href ? (
