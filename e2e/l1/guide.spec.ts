@@ -22,6 +22,20 @@ async function setGuideState(sql: string): Promise<void> {
   await e2eQuery(`UPDATE "user" SET ${sql} WHERE email = $1`, [E2E_USER_EMAIL]);
 }
 
+/**
+ * The journey renders in two layouts and each has its own walkthrough, so a
+ * spec that wants one of them has to say which layout is on screen.
+ * auth.setup.ts answers "team" for the suite; the guided case sets it back
+ * afterwards so file order cannot leak into the specs that follow.
+ */
+async function setJourneyMode(mode: "solo" | "team"): Promise<void> {
+  await e2eQuery(
+    `UPDATE company SET journey_mode = $2
+       WHERE id = (SELECT company_id FROM "user" WHERE email = $1)`,
+    [E2E_USER_EMAIL, mode],
+  );
+}
+
 /** Both surfaces persist their dismissal through a mutation, so a reload
  *  issued straight after the click would race the write it is meant to test. */
 async function dismissalLanded(column: string): Promise<void> {
@@ -36,12 +50,18 @@ async function dismissalLanded(column: string): Promise<void> {
     .toBe(true);
 }
 
+const GUIDED_ONLY =
+  "login_count = 1, journey_tour_guided_dismissed_at = NULL, tour_dismissed_at = NOW(), requirement_tour_dismissed_at = NOW()";
+
 const retire = () =>
   setGuideState(
     "tour_dismissed_at = NOW(), journey_tour_guided_dismissed_at = NOW(), requirement_tour_dismissed_at = NOW(), help_offer_dismissed_at = NOW()",
   );
 
-test.afterAll(retire);
+test.afterAll(async () => {
+  await retire();
+  await setJourneyMode("team");
+});
 
 test("the tour runs on a first login, and stays gone once dismissed", async ({
   page,
@@ -228,4 +248,64 @@ test("the tour does not arm itself on a later login", async ({ page }) => {
 
   await page.goto("/journey");
   await expect(page.getByTestId("tour-card")).toBeHidden();
+});
+
+test("the guided layout runs its own walkthrough, and stamps its own column", async ({
+  page,
+}) => {
+  // The regression this guards: one shared journeyTour flag used to record a
+  // walkthrough of either layout as a walkthrough of both, so a user who took
+  // the swimlane tour and later switched was never shown the guided one. The
+  // rest of the suite runs against the swimlane, so without this test the
+  // guided walkthrough has no coverage at all.
+  await setJourneyMode("solo");
+  await setGuideState(GUIDED_ONLY);
+
+  await page.goto("/journey");
+  const card = page.getByTestId("tour-card");
+  await expect(card).toBeVisible();
+
+  // It has to be the GUIDED walkthrough. Its opening step spotlights the
+  // guided path, which is the anchor the swimlane never renders, so the
+  // presence of that element is what distinguishes the two.
+  await expect(page.locator('[data-tour="journey-path-guided"]')).toBeVisible();
+  await expect(page.locator('[data-tour="journey-path-team"]')).toHaveCount(0);
+
+  await expect(page.getByTestId("tour-progress")).toContainText("1");
+  await page.getByTestId("tour-next").click();
+  await expect(page.getByTestId("tour-progress")).toContainText("2");
+
+  await page.getByTestId("tour-skip").click();
+  await expect(card).toBeHidden();
+
+  // Its own column, not the swimlane's: the whole point of the split.
+  await dismissalLanded("journey_tour_guided_dismissed_at");
+  const [row] = await e2eQuery<{ stamped: Date | null }>(
+    `SELECT tour_dismissed_at AS stamped FROM "user" WHERE email = $1`,
+    [E2E_USER_EMAIL],
+  );
+  expect(row?.stamped).not.toBeNull();
+});
+
+test("switching layout brings the other walkthrough back", async ({ page }) => {
+  // Guided dismissed, swimlane still armed. Moving to the team layout has to
+  // run the swimlane's walkthrough rather than treating the journey as toured.
+  await setJourneyMode("solo");
+  await setGuideState(
+    "login_count = 1, journey_tour_guided_dismissed_at = NOW(), tour_dismissed_at = NULL, requirement_tour_dismissed_at = NOW()",
+  );
+
+  await page.goto("/journey");
+  const card = page.getByTestId("tour-card");
+  await expect(page.locator('[data-tour="journey-path-guided"]')).toBeVisible();
+  await expect(card).toBeHidden();
+
+  await setJourneyMode("team");
+  await page.goto("/journey");
+  await expect(page.locator('[data-tour="journey-path-team"]')).toBeVisible();
+  await expect(card).toBeVisible();
+
+  await page.getByTestId("tour-skip").click();
+  await expect(card).toBeHidden();
+  await dismissalLanded("tour_dismissed_at");
 });
