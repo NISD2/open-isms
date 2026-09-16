@@ -126,6 +126,14 @@ export function SoloPath({
       {/* Full content width, while the path itself stays a narrow column: the
           bar is page chrome and needs the room to hold both halves on one
           line. */}
+      {/* Fades the path out as it scrolls into the gap between the app header
+          and the pinned bar, instead of slicing a caption in half there. The
+          negative margin keeps it out of the layout: it exists only while
+          stuck. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none sticky top-12 z-20 -mb-5 h-5 bg-gradient-to-b from-background to-transparent"
+      />
       <StickyPathBar section={active} liveNode={liveNode} de={de} />
 
       <div className="mx-auto w-full max-w-2xl">
@@ -171,6 +179,14 @@ export function SoloPath({
  * two halves of the same sentence. Merged, the only thing permanently on
  * screen is the pair a guided path needs: the section you are reading and the
  * one step that is actually live.
+ *
+ * It is a pale surface, not a filled primary one. On this page `primary` is
+ * already the fill of a signed-off node, so a bar in the same colour made the
+ * strongest colour on screen mean two things at once — and being far larger
+ * than any node, the bar won every time. Quiet chrome, with the accent spent
+ * where it earns its place: the one button, and the progress on the path
+ * behind. Same translucent-and-blurred treatment as the app header above it,
+ * so the two read as one family rather than as a panel bolted under a header.
  */
 function StickyPathBar({
   section,
@@ -191,9 +207,9 @@ function StickyPathBar({
       // top-[68px], not top-12: the app header ends at 48px, and parking the
       // bar flush against it reads as one two-tone header rather than as a
       // pinned control. The 20px gap lets the path scroll visibly behind it.
-      className="sticky top-[68px] z-20 mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-lg bg-primary px-3 py-2 text-primary-foreground shadow-sm sm:px-4"
+      className="sticky top-[68px] z-20 mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-lg border bg-background/80 px-3 py-2 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/70 sm:px-4"
     >
-      <span className="shrink-0 rounded bg-primary-foreground/15 px-1.5 py-0.5 text-[11px] font-semibold tabular-nums">
+      <span className="shrink-0 rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold tabular-nums text-primary">
         {de ? "Stufe" : "Stage"} {section.stage.index}/{STAGE_COUNT}
       </span>
       <h2 className="min-w-0 truncate text-sm font-semibold">
@@ -201,7 +217,7 @@ function StickyPathBar({
       </h2>
       <Link
         href={categoryHref(section.categorySlug)}
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-primary-foreground/30 px-2 py-1 text-xs font-medium transition-colors hover:bg-primary-foreground/10"
+        className="inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
       >
         <BookOpen className="h-3.5 w-3.5" />
         {de ? "Hinweise" : "Guide"}
@@ -209,10 +225,10 @@ function StickyPathBar({
 
       {liveNode ? (
         <div className="ml-auto flex min-w-0 items-center gap-2.5">
-          <span className="hidden shrink-0 text-[11px] font-medium uppercase tracking-wide text-primary-foreground/70 lg:inline">
+          <span className="hidden shrink-0 text-[11px] font-medium uppercase tracking-wide text-muted-foreground lg:inline">
             {de ? "Als Nächstes" : "Next up"}
           </span>
-          <span className="shrink-0 font-mono text-xs text-primary-foreground/70">
+          <span className="shrink-0 font-mono text-xs text-muted-foreground">
             {liveNode.code}
           </span>
           <span className="hidden min-w-0 truncate text-sm md:inline">
@@ -220,15 +236,15 @@ function StickyPathBar({
           </span>
           <Link
             href={requirementHref(liveNode)}
-            className="inline-flex shrink-0 items-center gap-1 rounded-md bg-background px-2.5 py-1 text-xs font-semibold text-primary shadow-sm transition-opacity hover:opacity-90"
+            className="inline-flex shrink-0 items-center gap-1 rounded-md bg-primary px-2.5 py-1 text-xs font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
           >
             {startLabel(liveNode.rawStatus, de)}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       ) : (
-        <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-xs text-primary-foreground/80">
-          <CheckCheck className="h-3.5 w-3.5" />
+        <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-xs text-muted-foreground">
+          <CheckCheck className="h-3.5 w-3.5 text-primary" />
           {de ? "Alles erledigt" : "All done"}
         </span>
       )}

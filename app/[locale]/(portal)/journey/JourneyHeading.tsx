@@ -1,25 +1,23 @@
 type Locale = "en" | "de" | "nl";
 
 /**
- * The journey page's title block and its progress figure.
+ * The journey page's title and its progress figure.
  *
  * Shared with the /journey-preview design route, which renders the same two
  * layouts and had grown its own copy of both. One definition, so a wording or
  * rounding change cannot land on only one of them.
+ *
+ * The title carried a subtitle, "one step at a time, here is your next one",
+ * which promised exactly what the bar one line below it delivers by name. Both
+ * layouts now show the live step in their own chrome, so the sentence was
+ * describing the page to someone already looking at it.
  */
 export function JourneyHeading({ locale }: { locale: Locale }) {
   const de = locale === "de";
   return (
-    <div className="space-y-0.5">
-      <h1 className="text-2xl font-semibold tracking-tight">
-        {de ? "Ihr Weg" : "Your path"}
-      </h1>
-      <p className="text-sm text-muted-foreground">
-        {de
-          ? "Ein Schritt nach dem anderen. Hier ist Ihr nächster."
-          : "One step at a time. Here is your next one."}
-      </p>
-    </div>
+    <h1 className="text-2xl font-semibold tracking-tight">
+      {de ? "Ihr Weg" : "Your path"}
+    </h1>
   );
 }
 

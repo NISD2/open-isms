@@ -57,7 +57,7 @@ export default async function JourneyPage({
   const reqNodes = buildRequirementNodes(items);
 
   const header = (
-    <div className="flex items-start justify-between gap-4">
+    <div className="flex items-center justify-between gap-4">
       <JourneyHeading locale={locale} />
       <div className="flex shrink-0 items-center gap-3">
         {mode ? <JourneyModeToggle mode={mode} locale={locale} /> : null}
