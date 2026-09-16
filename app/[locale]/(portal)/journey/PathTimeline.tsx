@@ -129,9 +129,14 @@ function StageStop({
 
 /**
  * These horizons are the platform's recommended sequencing, derived from each
- * requirement's priority. They are not statutory deadlines — NIS 2 sets no
- * per-control date — so a figure this prominent has to say so where it is
- * read, not only at the foot of the page.
+ * requirement's priority, and a figure this prominent has to say so where it
+ * is read rather than only at the foot of the page.
+ *
+ * "No statutory deadline" is true of the §30 measures and false of two steps
+ * on the same path, so it is not said flatly: §33 BSIG gives registration
+ * three months from coming into scope, and §32 BSIG runs 24h/72h/one month
+ * from awareness of a significant incident. Verified against
+ * gesetze-im-internet 16.09.2026.
  */
 function DueDisclaimer({ locale }: { locale: Locale }) {
   const de = locale === "de";
@@ -153,8 +158,8 @@ function DueDisclaimer({ locale }: { locale: Locale }) {
       >
         <p>
           {de
-            ? "Unsere empfohlene Reihenfolge, abgeleitet aus der Priorität jeder Anforderung. Das Gesetz nennt für die einzelnen Maßnahmen keine Fristen."
-            : "Our recommended order, derived from each requirement's priority. The law sets no deadline for the individual controls."}
+            ? "Unsere empfohlene Reihenfolge, abgeleitet aus der Priorität jeder Anforderung. Für die Umsetzung der einzelnen Maßnahmen nennt das Gesetz keine Frist. Zwei Pflichten haben eigene Termine: die Registrierung binnen drei Monaten nach § 33 BSIG und die Meldekette nach § 32 BSIG, die ab Kenntnis eines erheblichen Vorfalls läuft."
+            : "Our recommended order, derived from each requirement's priority. The law sets no deadline for implementing the individual measures. Two duties carry dates of their own: registration within three months under § 33 BSIG, and the reporting cascade under § 32 BSIG, which runs from the moment you become aware of a significant incident."}
         </p>
         <p>{journeyDisclaimer(locale)}</p>
       </HoverCardContent>

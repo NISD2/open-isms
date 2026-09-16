@@ -30,9 +30,15 @@ export const JOURNEY_DISCLAIMER_LABEL: Record<JourneyLocale, string> = {
 };
 
 export function journeyDisclaimer(locale: string): string {
-  return JOURNEY_DISCLAIMER[(locale as JourneyLocale) in JOURNEY_DISCLAIMER ? (locale as JourneyLocale) : "en"];
+  return JOURNEY_DISCLAIMER[
+    (locale as JourneyLocale) in JOURNEY_DISCLAIMER ? (locale as JourneyLocale) : "en"
+  ];
 }
 
 export function journeyDisclaimerLabel(locale: string): string {
-  return JOURNEY_DISCLAIMER_LABEL[(locale as JourneyLocale) in JOURNEY_DISCLAIMER_LABEL ? (locale as JourneyLocale) : "en"];
+  return JOURNEY_DISCLAIMER_LABEL[
+    (locale as JourneyLocale) in JOURNEY_DISCLAIMER_LABEL
+      ? (locale as JourneyLocale)
+      : "en"
+  ];
 }
