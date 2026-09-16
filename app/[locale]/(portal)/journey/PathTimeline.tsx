@@ -45,13 +45,12 @@ export function PathTimeline({
   const de = locale === "de";
   if (stages.length === 0) return null;
 
-  // The one figure worth stating for the whole path: how much of it cannot
-  // wait past the first month.
-  const dueSoon = stages.reduce(
-    (sum, stage) => sum + (stage.dueLabel === soonestLabel(de) ? stage.dueCount : 0),
+  // The one figure worth stating for the whole path: how much of what is left
+  // cannot wait past the first month.
+  const urgent = stages.reduce(
+    (sum, stage) => sum + (stage.dueUrgent ? stage.dueCount : 0),
     0,
   );
-  const total = stages.reduce((sum, stage) => sum + stage.total, 0);
 
   return (
     <nav
@@ -75,16 +74,18 @@ export function PathTimeline({
                   : "ahead"
             }
             last={i === stages.length - 1}
-            soonest={stage.dueLabel === soonestLabel(de)}
+            de={de}
           />
         ))}
       </ol>
 
-      {dueSoon > 0 ? (
-        <p className="mt-1 flex items-center gap-1.5 border-t pt-3 text-[11px] text-muted-foreground">
-          <span>
-            {dueSoon} {de ? `von ${total} in Monat 1` : `of ${total} in month 1`}
-          </span>
+      {/* Not a flex row: the sentence wraps, and a centred icon beside a
+          two-line block detaches from the words it qualifies. */}
+      {urgent > 0 ? (
+        <p className="mt-1 border-t pt-3 text-[11px] leading-relaxed text-muted-foreground">
+          {de
+            ? `${urgent} Schritte sollten im ersten Monat stehen`
+            : `${urgent} steps should be in place in the first month`}{" "}
           <DueDisclaimer locale={locale} />
         </p>
       ) : null}
@@ -96,13 +97,12 @@ function StageStop({
   stage,
   state,
   last,
-  soonest,
+  de,
 }: {
   stage: StageProgress;
   state: "done" | "here" | "ahead";
   last: boolean;
-  /** This stage holds steps in the most urgent horizon, so the count is warm. */
-  soonest: boolean;
+  de: boolean;
 }) {
   return (
     <li className="flex gap-3">
@@ -131,32 +131,37 @@ function StageStop({
         >
           {stage.label}
         </p>
-        {/* Progress, then what is soonest due in this stage. A stage with
-            nothing left shows a check in place of the horizon, which is the
-            one case where there is genuinely nothing to say about timing. */}
-        <p className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground">
-          <span className="tabular-nums">
-            {stage.done}/{stage.total}
-          </span>
-          {stage.dueLabel ? (
-            <>
-              <span aria-hidden="true">·</span>
-              <span className={cn(soonest && "text-amber-600 dark:text-amber-500")}>
-                {stage.dueCount} {stage.dueLabel}
-              </span>
-            </>
+        {/* A sentence, not two figures. "10/12 · 2 in 3 months" made the
+            reader subtract to discover that the 2 WERE the remainder; saying
+            what is left and when it is due says the same thing in the order
+            someone thinks it. */}
+        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+          {stage.open === 0 ? (
+            <span className="inline-flex items-center gap-1">
+              <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden="true" />
+              {de ? "Erledigt" : "Done"}
+            </span>
           ) : (
-            <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden="true" />
+            <>
+              {de ? `noch ${stage.open}` : `${stage.open} left`}
+              {stage.dueLabel ? (
+                <span
+                  className={cn(stage.dueUrgent && "text-amber-600 dark:text-amber-500")}
+                >
+                  {", "}
+                  {/* Only name a subset when the stage really holds a mix; on a
+                      stage whose remainder shares one horizon, repeating the
+                      count reads as two different numbers. */}
+                  {stage.dueCount < stage.open ? `${stage.dueCount} ` : ""}
+                  {stage.dueLabel}
+                </span>
+              ) : null}
+            </>
           )}
         </p>
       </div>
     </li>
   );
-}
-
-/** The most urgent horizon any stage can carry, for spotting it in a row. */
-function soonestLabel(de: boolean): string {
-  return de ? "in Monat 1" : "in month 1";
 }
 
 /**
@@ -173,7 +178,7 @@ function DueDisclaimer({ locale }: { locale: Locale }) {
         <button
           type="button"
           aria-label={journeyDisclaimerLabel(locale)}
-          className="inline-flex text-amber-600 hover:text-amber-700 dark:text-amber-500 dark:hover:text-amber-400"
+          className="inline-flex translate-y-0.5 text-amber-600 hover:text-amber-700 dark:text-amber-500 dark:hover:text-amber-400"
         >
           <AlertTriangle className="h-3 w-3" aria-hidden="true" />
         </button>

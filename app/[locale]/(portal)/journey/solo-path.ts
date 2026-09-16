@@ -20,17 +20,17 @@
 import { type Band, type FlowNode, ORDERED_CATEGORIES } from "./path-nodes";
 
 /**
- * Deadline horizons, phrased short enough for the rail.
+ * Deadline horizons, phrased for the rail.
  *
  * The same three criticality bands the team view groups by, said as a "by
- * when" rather than as a rank, because that is the question the rail answers.
- * Kept here rather than read from BANDS: those strings are section headers
- * ("Nächste 3 Monate") and do not fit after a count.
+ * when" rather than as a rank. "In den ersten 3 Monaten", not "in 3 Monaten":
+ * the window runs from starting, and the shorter phrasing reads as three
+ * months from today, which is a different and wrong promise.
  */
 const DUE_LABEL: Record<Band, { de: string; en: string }> = {
-  minimum: { de: "in Monat 1", en: "in month 1" },
-  year: { de: "in 3 Monaten", en: "in 3 months" },
-  later: { de: "später", en: "later" },
+  minimum: { de: "im ersten Monat", en: "in the first month" },
+  year: { de: "in den ersten 3 Monaten", en: "in the first 3 months" },
+  later: { de: "danach", en: "after that" },
 };
 
 const BAND_URGENCY: Band[] = ["minimum", "year", "later"];
@@ -119,22 +119,27 @@ export type StageProgress = {
   label: string;
   total: number;
   done: number;
-  /** Steps in the soonest band this stage holds; 0 when every step is done. */
+  /** Steps not yet done. 0 means the stage is finished. */
+  open: number;
+  /** Of those, how many fall in the soonest horizon the stage still holds. */
   dueCount: number;
-  /** Localized horizon for those steps, or null when there are none left. */
+  /** Localized horizon for those steps, or null when nothing is open. */
   dueLabel: string | null;
+  /** That horizon is the most urgent one there is. */
+  dueUrgent: boolean;
 };
 
-function soonestDue(
-  steps: SoloStep[],
-  de: boolean,
-): { dueCount: number; dueLabel: string | null } {
+function soonestDue(steps: SoloStep[], de: boolean) {
   const open = steps.filter((s) => s.node.status !== "done");
   const band = BAND_URGENCY.find((b) => open.some((s) => s.node.band === b));
-  if (!band) return { dueCount: 0, dueLabel: null };
+  if (!band) {
+    return { open: 0, dueCount: 0, dueLabel: null, dueUrgent: false };
+  }
   return {
+    open: open.length,
     dueCount: open.filter((s) => s.node.band === band).length,
     dueLabel: de ? DUE_LABEL[band].de : DUE_LABEL[band].en,
+    dueUrgent: band === "minimum",
   };
 }
 
