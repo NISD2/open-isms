@@ -1,11 +1,9 @@
 "use client";
 
-import { Fragment } from "react";
-import type { Hint } from "@/lib/onboarding/hints";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Separator } from "@/components/ui/separator";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Fragment } from "react";
+import { PortalGuide } from "@/components/onboarding/PortalGuide";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,7 +12,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { PortalGuide } from "@/components/onboarding/PortalGuide";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import type { Hint } from "@/lib/onboarding/hints";
 import { usePortalPath } from "./use-portal-path";
 
 function titleCase(slug: string) {
@@ -32,6 +32,7 @@ function titleCase(slug: string) {
  */
 export function PortalHeader({
   guide,
+  journeyHome = false,
 }: {
   guide?: {
     hints: Record<Hint, boolean>;
@@ -40,6 +41,13 @@ export function PortalHeader({
     /** Support address from SUPPORT_EMAIL, "" where the instance sets none. */
     supportEmail: string;
   };
+  /**
+   * Root the trail at the journey. Only the entity portal does. The supplier
+   * portal's visitors are external and have no journey to be sent to, and the
+   * course reader is a focused surface reached from outside the portal, so
+   * both keep a trail that starts where they are.
+   */
+  journeyHome?: boolean;
 }) {
   const t = useTranslations("portal");
   const tCompliance = useTranslations("compliance");
@@ -50,12 +58,29 @@ export function PortalHeader({
   };
   const segments = usePortalPath().split("/").filter(Boolean);
 
+  /**
+   * In the entity portal every trail starts at the journey, because that is
+   * its home: the Overview item in the sidebar, where /dashboard redirects,
+   * and where a requirement page is reached from by opening a node.
+   *
+   * Before this, a requirement page read "NIS2 Compliance / Registration /
+   * 12.1" — a trail through the framework tree, which is the alternative
+   * index rather than the way anyone actually arrived. With two journey
+   * layouts and a framework tree all leading to the same pages, a breadcrumb
+   * that names only the densest of them tells a new user the product is
+   * bigger and more tangled than it is.
+   */
   function buildBreadcrumbs() {
     if (segments.length === 0) {
       return [{ label: t("overview"), href: undefined }];
     }
+    if (journeyHome && segments[0] === "journey") {
+      return [{ label: t("journey"), href: undefined }];
+    }
 
-    const crumbs: { label: string; href?: string }[] = [];
+    const crumbs: { label: string; href?: string }[] = journeyHome
+      ? [{ label: t("journey"), href: "/journey" }]
+      : [];
 
     if (segments[0] === "compliance") {
       crumbs.push({ label: tCompliance("title"), href: "/compliance" });
@@ -99,9 +124,7 @@ export function PortalHeader({
                   {isLast || !crumb.href ? (
                     <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink href={crumb.href}>
-                      {crumb.label}
-                    </BreadcrumbLink>
+                    <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
               </Fragment>

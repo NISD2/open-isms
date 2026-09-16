@@ -128,6 +128,7 @@ export default async function PortalLayout({
       />
       <SidebarInset>
         <PortalHeader
+          journeyHome
           guide={{
             hints: session.hints,
             calLink: env.CAL_LINK,
