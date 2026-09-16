@@ -5,6 +5,44 @@
  * anything below, run `bun db:framework-migration` to emit the data
  * migration that carries it forward. `bun db:generate` will not: it diffs
  * the schema, and row content is not schema.
+ *
+ * ## What `priority` means, and why P0 is the load-bearing editorial call
+ *
+ * Every one of the 49 requirements is mandatory. `priority` does NOT mark
+ * some of them optional; it orders them, and the journey's first deadline
+ * window is exactly the P0 set. That makes these nine rows the most
+ * consequential judgement in the file, so the reasoning lives here rather
+ * than only in the PR that set them.
+ *
+ * P0 is not "most important". It is: work that everything else depends on,
+ * or a duty the law gives its own clock, or a duty with no proportionality
+ * dial to turn. Concretely, the nine are
+ *
+ *   12.1 scope   — you cannot size any other duty before knowing you are in
+ *                  scope, so nothing sensible precedes it
+ *   12.2 §33(1)  — registration, three months, the one hard statutory date
+ *   3.3  §32     — the 24h/72h/1M cascade, whose clock starts on awareness
+ *                  of an incident and therefore can start tomorrow
+ *   1.1  §38(3)  — management training; the text carries no delegation and
+ *                  no waiver, so there is no proportionate smaller version
+ *   5.1  §30(2) Nr. 4 — the supplier register; the customer questionnaire
+ *                  arrives on its own schedule, not ours
+ *   2.1, 2.2, 2.4, 3.1 — the four instruments every later proportionality
+ *                  argument is built ON (method, asset inventory, risk
+ *                  acceptance and the incident plan). Art. 21(1) lets you
+ *                  argue how far a measure goes; you cannot make that
+ *                  argument without these, so they cannot themselves be
+ *                  deferred by it.
+ *
+ * The converse is the test that keeps the set honest: a measure whose
+ * extent is genuinely risk-assessable is NOT P0, however important it
+ * sounds. MFA (11.1) is the worked example — real duty, but Art. 21(1)
+ * governs its scope, so it sits in the first year rather than the first
+ * month.
+ *
+ * Changing a priority moves a requirement between deadline windows in BOTH
+ * journey layouts and changes what the lifecycle digest emails say. It is
+ * never a cosmetic edit.
  */
 import type { FrameworkCategory, FrameworkRequirement } from "./types";
 import { makeRequirementFactory } from "./types";
