@@ -18,9 +18,9 @@
           "title": "Următorul dumneavoastră pas",
           "body": "Exact un pas este marcat ca fiind curent. Deschideți-l, consemnați ce se aplică în realitate la dumneavoastră și aprobați-l. Marcajul trece apoi la următorul."
         },
-        "horizons": {
-          "title": "Ce urmează și când",
-          "body": "Parcursul nu este datorat dintr-odată. Opt pași revin primei luni, restul se întinde pe tot anul. Toate cele 49 sunt obligatorii; împărțirea este ordinea pe care o recomandăm."
+        "timeline": {
+          "title": "Unde vă aflați și cât durează",
+          "body": "Bara din stânga vă însoțește: marchează etapa pe care o citiți și indică pentru fiecare etapă o valoare orientativă pentru completarea aici, în instrument. Cât durează implementarea în firmă depinde de organizația dumneavoastră."
         },
         "order": {
           "title": "Două moduri de a ordona parcursul",

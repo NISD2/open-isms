@@ -18,9 +18,9 @@
           "title": "Il vostro prossimo passo",
           "body": "Un solo passo è contrassegnato come attivo. Apritelo, annotate quello che vale davvero nella vostra azienda e approvatelo. Il contrassegno passa poi al successivo."
         },
-        "horizons": {
-          "title": "Che cosa scade e quando",
-          "body": "Il percorso non scade tutto insieme. Otto passi spettano al primo mese, il resto si distribuisce sull'anno. Tutti e 49 sono obbligatori; la suddivisione è l'ordine che consigliamo."
+        "timeline": {
+          "title": "A che punto siete e quanto tempo serve",
+          "body": "La barra a sinistra vi segue: indica la fase che state leggendo e riporta per ogni fase un valore indicativo per la compilazione qui nello strumento. Quanto tempo richieda l'attuazione in azienda dipende dalla vostra organizzazione."
         },
         "order": {
           "title": "Due modi di ordinare il percorso",

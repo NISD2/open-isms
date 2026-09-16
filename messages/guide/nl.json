@@ -18,9 +18,9 @@
           "title": "Uw volgende stap",
           "body": "Precies één stap staat als open gemarkeerd. Open die, leg vast wat bij u werkelijk geldt en geef hem vrij. Daarna schuift de markering een plek op."
         },
-        "horizons": {
-          "title": "Wat wanneer aan de beurt is",
-          "body": "Het pad is niet in één keer verschuldigd. Acht stappen horen in de eerste maand, de rest verdeelt zich over het jaar. Alle 49 zijn verplicht; de indeling is onze aanbevolen volgorde."
+        "timeline": {
+          "title": "Waar u staat, en hoe lang het duurt",
+          "body": "De balk links loopt mee: hij markeert de fase die u leest en noemt per fase een richtwaarde voor het invullen hier in de tool. Hoe lang de invoering in de praktijk duurt, hangt van uw organisatie af."
         },
         "order": {
           "title": "Twee volgordes voor uw pad",

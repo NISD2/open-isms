@@ -17,13 +17,7 @@
  * Nothing is filtered out and nothing is locked: these are legal duties, and
  * the sequence is a recommendation.
  */
-import {
-  BAND_RANK,
-  BANDS,
-  type Band,
-  type FlowNode,
-  ORDERED_CATEGORIES,
-} from "./path-nodes";
+import { type FlowNode, ORDERED_CATEGORIES } from "./path-nodes";
 
 /**
  * Horizontal offsets in px, cycled over the global step index so the line
@@ -75,46 +69,6 @@ const PHASES = [
   },
 ] as const;
 
-/**
- * A time horizon: what is expected of this company by when.
- *
- * The same three criticality bands the team view groups by, counted rather
- * than used as an ordering. The guided path stays chronological, because that
- * is the sequence the platform recommends "next" in and the only one where
- * progress marches down the page — but chronological order on its own never
- * answers "how much of this is urgent", which is the first question anyone has.
- * So the bands come back as a summary above the path and as a badge on the
- * steps inside it.
- */
-export type Horizon = {
-  band: Band;
-  /** "Month 1", "Next 3 months", "After that". */
-  phase: string;
-  /** "Defensible minimum", and so on. */
-  label: string;
-  hint: string;
-  total: number;
-  done: number;
-};
-
-/** Per-horizon progress, in order of urgency. Empty bands drop out. */
-export function buildHorizons(nodes: FlowNode[], de: boolean): Horizon[] {
-  return [...BANDS]
-    .sort((a, b) => BAND_RANK[a.key] - BAND_RANK[b.key])
-    .map((band) => {
-      const inBand = nodes.filter((node) => node.band === band.key);
-      return {
-        band: band.key,
-        phase: de ? band.phaseDe : band.phaseEn,
-        label: de ? band.de : band.en,
-        hint: de ? band.hintDe : band.hintEn,
-        total: inBand.length,
-        done: inBand.filter((node) => node.status === "done").length,
-      };
-    })
-    .filter((horizon) => horizon.total > 0);
-}
-
 export type SoloStep = {
   node: FlowNode;
   /** 1-based position along the whole path, the "Schritt 7 von 49" number. */
@@ -134,12 +88,14 @@ export type SoloStage = {
 /** How many Stufen the path has, for the "Stufe 2 von 5" header. */
 export const STAGE_COUNT = PHASES.length;
 
-/** One stop on the vertical rail: a stage, and how far through it you are. */
+/** One stop on the vertical rail: a stage, how far through it you are, and
+ *  how long the framework reckons working it through takes. */
 export type StageProgress = {
   index: number;
   label: string;
   total: number;
   done: number;
+  minutes: number;
 };
 
 /**
@@ -156,6 +112,7 @@ export function buildStageProgress(sections: SoloSection[]): StageProgress[] {
     if (open?.index === section.stage.index) {
       open.total += section.steps.length;
       open.done += done;
+      open.minutes += section.estimatedMinutes;
       return acc;
     }
     acc.push({
@@ -163,6 +120,7 @@ export function buildStageProgress(sections: SoloSection[]): StageProgress[] {
       label: section.stage.label,
       total: section.steps.length,
       done,
+      minutes: section.estimatedMinutes,
     });
     return acc;
   }, []);
@@ -174,6 +132,8 @@ export type SoloSection = {
   /** Category name — the "Abschnitt" line. */
   title: string;
   categorySlug: string;
+  /** The framework's own estimate for working this category through. */
+  estimatedMinutes: number;
   steps: SoloStep[];
   /** Set on the last section of a stage: what comes after it. null = the end. */
   nextStage: (SoloStage & { steps: number }) | null;
@@ -221,6 +181,7 @@ export function buildSoloSections(nodes: FlowNode[], de: boolean): SoloSection[]
       stage: stageAt(phaseIndexFor(category?.sortOrder ?? 99), de),
       title: (de ? category?.nameDe : category?.name) ?? node.categoryCode,
       categorySlug: node.categorySlug,
+      estimatedMinutes: category?.estimatedMinutes ?? 0,
       steps: [step],
       nextStage: null,
     });

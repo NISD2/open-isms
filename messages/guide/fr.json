@@ -18,9 +18,9 @@
           "title": "Votre prochaine étape",
           "body": "Une seule étape est marquée comme en cours. Ouvrez-la, consignez ce qui vaut réellement chez vous, puis validez-la. Le repère passe ensuite à la suivante."
         },
-        "horizons": {
-          "title": "Ce qui est attendu, et quand",
-          "body": "Le parcours n'est pas dû d'un seul coup. Huit étapes relèvent du premier mois, le reste s'étale sur l'année. Les 49 sont toutes obligatoires ; la répartition est l'ordre que nous recommandons."
+        "timeline": {
+          "title": "Où vous en êtes, et combien de temps cela prend",
+          "body": "Le rail de gauche vous suit : il marque l'étape que vous lisez et donne par étape un ordre de grandeur pour la saisie ici dans l'outil. La durée de la mise en œuvre chez vous dépend de votre organisation."
         },
         "order": {
           "title": "Deux ordres pour votre parcours",

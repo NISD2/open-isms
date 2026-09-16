@@ -31,7 +31,6 @@ import {
 } from "./path-nodes";
 import { iconFor } from "./solo-icons";
 import {
-  buildHorizons,
   buildSoloSections,
   buildStageProgress,
   type SoloSection,
@@ -77,7 +76,6 @@ export function SoloPath({
 }) {
   const de = locale === "de";
   const sections = useMemo(() => buildSoloSections(reqNodes, de), [reqNodes, de]);
-  const horizons = useMemo(() => buildHorizons(reqNodes, de), [reqNodes, de]);
   const stages = useMemo(() => buildStageProgress(sections), [sections]);
 
   // Starts on the first section, not on the one holding the live step. At
@@ -142,12 +140,7 @@ export function SoloPath({
       <StickyPathBar section={active} liveNode={liveNode} de={de} />
 
       <div className="lg:flex lg:gap-8">
-        <PathTimeline
-          stages={stages}
-          activeStage={active.stage.index}
-          near={horizons[0] ?? null}
-          locale={locale}
-        />
+        <PathTimeline stages={stages} activeStage={active.stage.index} locale={locale} />
 
         <div className="mx-auto w-full max-w-2xl">
           {sections.map((section, i) => (
@@ -223,7 +216,9 @@ function StickyPathBar({
       // pinned control. The 20px gap lets the path scroll visibly behind it.
       className="sticky top-[68px] z-20 mb-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-lg border bg-background/80 px-3 py-2 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/70 sm:px-4"
     >
-      <span className="shrink-0 rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold tabular-nums text-primary">
+      {/* Hidden where the rail is shown: it names the stage already, and two
+          copies of the same position is one too many. */}
+      <span className="shrink-0 rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold tabular-nums text-primary lg:hidden">
         {de ? "Stufe" : "Stage"} {section.stage.index}/{STAGE_COUNT}
       </span>
       <h2 className="min-w-0 truncate text-sm font-semibold">

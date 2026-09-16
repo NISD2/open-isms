@@ -18,9 +18,9 @@
           "title": "Your next step",
           "body": "Exactly one step is marked as live. Open it, record what is actually true at your company, and sign it off. The marker then moves on to the next one."
         },
-        "horizons": {
-          "title": "What is due when",
-          "body": "The path is not all due at once. Eight steps belong in the first month and the rest spreads over the year. All 49 are mandatory; the split is our recommended order."
+        "timeline": {
+          "title": "Where you are, and how long it takes",
+          "body": "The rail on the left moves with you: it marks the stage you are reading and gives a guide value per stage for filling things in here in the tool. How long implementing it in the business takes depends on your organisation."
         },
         "order": {
           "title": "Two ways to order the path",

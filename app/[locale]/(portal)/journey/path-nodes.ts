@@ -169,6 +169,7 @@ export const ORDERED_CATEGORIES: {
   nameDe: string;
   slug: string;
   sortOrder: number;
+  estimatedMinutes: number;
 }[] = [...nis2Categories]
   .sort((a, b) => a.sortOrder - b.sortOrder)
   .map((c) => ({
@@ -177,6 +178,7 @@ export const ORDERED_CATEGORIES: {
     nameDe: CATEGORY_NAME_DE[c.code] ?? c.name ?? c.code,
     slug: c.slug ?? c.code.toLowerCase(),
     sortOrder: c.sortOrder,
+    estimatedMinutes: c.estimatedMinutes,
   }));
 
 /** Localized human labels for requirement.frequency slugs. */

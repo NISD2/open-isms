@@ -54,7 +54,7 @@ export type TourSteps = readonly [TourStep, ...TourStep[]];
 const JOURNEY_GUIDED_STEPS: TourSteps = [
   { target: "journey-path-guided", key: "overview", side: "top" },
   { target: "journey-stage", key: "stage", side: "bottom" },
-  { target: "journey-timeline", key: "horizons", side: "bottom" },
+  { target: "journey-timeline", key: "timeline", side: "bottom" },
   { target: "journey-live-step", key: "liveStep", side: "right" },
   { target: "sidebar-nav", key: "sidebar", side: "right" },
   { target: "sidebar-registers", key: "registers", side: "right" },

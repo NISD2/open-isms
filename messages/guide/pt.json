@@ -18,9 +18,9 @@
           "title": "O seu próximo passo",
           "body": "Apenas um passo está assinalado como ativo. Abra-o, registe o que se aplica realmente na sua empresa e aprove-o. A marca passa depois para o seguinte."
         },
-        "horizons": {
-          "title": "O que é devido e quando",
-          "body": "O percurso não vence de uma só vez. Oito passos pertencem ao primeiro mês e o resto distribui-se ao longo do ano. Os 49 são todos obrigatórios; a divisão é a ordem que recomendamos."
+        "timeline": {
+          "title": "Onde está e quanto tempo demora",
+          "body": "A barra à esquerda acompanha-o: assinala a etapa que está a ler e indica por etapa um valor de referência para o preenchimento aqui na ferramenta. Quanto demora a implementação na empresa depende da sua organização."
         },
         "order": {
           "title": "Duas formas de ordenar o seu percurso",

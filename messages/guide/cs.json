@@ -18,9 +18,9 @@
           "title": "Váš další krok",
           "body": "Právě jeden krok je označen jako aktuální. Otevřete jej, zapište, co u vás skutečně platí, a schvalte jej. Označení se poté posune o jeden dál."
         },
-        "horizons": {
-          "title": "Co kdy čeká",
-          "body": "Cesta není splatná najednou. Osm kroků patří do prvního měsíce, zbytek se rozloží do roka. Povinných je všech 49; rozdělení je námi doporučené pořadí."
+        "timeline": {
+          "title": "Kde jste a jak dlouho to trvá",
+          "body": "Lišta vlevo se posouvá s vámi: označuje fázi, kterou právě čtete, a u každé fáze uvádí orientační čas na vyplnění zde v nástroji. Jak dlouho potrvá zavedení v provozu, závisí na vaší organizaci."
         },
         "order": {
           "title": "Dva způsoby řazení cesty",

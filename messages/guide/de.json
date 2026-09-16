@@ -18,9 +18,9 @@
           "title": "Ihr nächster Schritt",
           "body": "Genau ein Schritt ist als offen markiert. Öffnen Sie ihn, tragen Sie ein, was bei Ihnen tatsächlich gilt, und geben Sie ihn frei. Danach rückt die Markierung eins weiter."
         },
-        "horizons": {
-          "title": "Was wann ansteht",
-          "body": "Der Weg ist nicht auf einmal fällig. Acht Schritte gehören in den ersten Monat, der Rest verteilt sich über das Jahr. Verpflichtend sind alle 49; die Einteilung ist unsere Empfehlung zur Reihenfolge."
+        "timeline": {
+          "title": "Wo Sie stehen, und wie lange es dauert",
+          "body": "Die Leiste links läuft mit: sie markiert die Stufe, in der Sie gerade lesen, und nennt je Stufe einen Richtwert für das Ausfüllen hier im Tool. Wie lange die Umsetzung im Betrieb dauert, hängt von Ihrem Haus ab."
         },
         "order": {
           "title": "Zwei Reihenfolgen für Ihren Weg",
