@@ -74,7 +74,7 @@ const ORDER_OPTS: {
     en: "Defensible minimum",
     de: "Belastbares Minimum",
     sub_en: "Biggest risk and legal exposure first.",
-    sub_de: "Groesstes Risiko und Haftung zuerst.",
+    sub_de: "Größtes Risiko und Haftung zuerst.",
   },
   {
     key: "chrono",

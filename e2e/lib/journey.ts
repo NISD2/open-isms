@@ -2,11 +2,28 @@
  * Shared journey helpers: code -> category slug, and the sign-off drive
  * used by the l3 sign-off specs and the l4 grand tour.
  */
-import { expect, type Page } from "@playwright/test";
+
 import {
-  nis2Categories,
   getNis2RequirementsForCategory,
+  nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
+import { expect, type Page } from "@playwright/test";
+import { e2eQuery } from "./db";
+import { E2E_USER_EMAIL } from "./env";
+
+/**
+ * The journey renders in two layouts and each behaves differently, so a spec
+ * that wants one of them has to say which is on screen. auth.setup.ts answers
+ * "team" for the suite; any spec that switches is responsible for setting it
+ * back, so file order cannot leak into the specs that follow.
+ */
+export async function setJourneyMode(mode: "solo" | "team"): Promise<void> {
+  await e2eQuery(
+    `UPDATE company SET journey_mode = $2
+       WHERE id = (SELECT company_id FROM "user" WHERE email = $1)`,
+    [E2E_USER_EMAIL, mode],
+  );
+}
 
 export const slugByCode = new Map<string, string>();
 export const journeyCodes: string[] = [];
@@ -38,7 +55,12 @@ export async function gotoRequirement(page: Page, code: string): Promise<void> {
  */
 export async function makeSignable(page: Page, code: string): Promise<void> {
   await gotoRequirement(page, code);
-  if (await page.getByTestId("sign-off-button").isVisible().catch(() => false)) {
+  if (
+    await page
+      .getByTestId("sign-off-button")
+      .isVisible()
+      .catch(() => false)
+  ) {
     return;
   }
   const edit = page.getByTestId("requirement-edit");

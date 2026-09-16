@@ -14,26 +14,13 @@
 import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { E2E_USER_EMAIL } from "../lib/env";
+import { setJourneyMode } from "../lib/journey";
 
 /** Mirrors SUPPORT_EMAIL in e2e/app-env.sh, which is where the app gets it. */
 const SUPPORT_EMAIL = "support@e2e.local";
 
 async function setGuideState(sql: string): Promise<void> {
   await e2eQuery(`UPDATE "user" SET ${sql} WHERE email = $1`, [E2E_USER_EMAIL]);
-}
-
-/**
- * The journey renders in two layouts and each has its own walkthrough, so a
- * spec that wants one of them has to say which layout is on screen.
- * auth.setup.ts answers "team" for the suite; the guided case sets it back
- * afterwards so file order cannot leak into the specs that follow.
- */
-async function setJourneyMode(mode: "solo" | "team"): Promise<void> {
-  await e2eQuery(
-    `UPDATE company SET journey_mode = $2
-       WHERE id = (SELECT company_id FROM "user" WHERE email = $1)`,
-    [E2E_USER_EMAIL, mode],
-  );
 }
 
 /** Both surfaces persist their dismissal through a mutation, so a reload

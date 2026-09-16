@@ -282,6 +282,10 @@ function StepNode({ step, total, de }: { step: SoloStep; total: number; de: bool
   return (
     <li
       data-tour={current ? "journey-live-step" : undefined}
+      // The caption is wider than the circle, so this is the element that
+      // reaches furthest sideways and the one a narrow screen breaks first.
+      // e2e/l1/journey-mobile.spec.ts measures it.
+      data-testid="journey-step"
       className="flex flex-col items-center"
       style={{ transform: `translateX(${step.offsetPx}px)` }}
     >
