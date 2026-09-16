@@ -5,7 +5,7 @@
  * digest email instead of individual emails per reminder.
  */
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
-import { and, asc, desc, eq, inArray, lte, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import type { Database } from "@/lib/db";
 import type { DigestItem, DigestNextStep } from "@/lib/mail";
 import { getAppUrl } from "@/lib/utils";
@@ -15,9 +15,7 @@ import {
   companyAssessment,
   companyRequirementStatus,
   notification,
-  requirement,
   requirementAssignment,
-  requirementCategory,
   user,
 } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
