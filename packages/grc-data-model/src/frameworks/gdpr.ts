@@ -26,7 +26,15 @@ export const gdprCategories: FrameworkCategory[] = [
     sortOrder: 4, estimatedMinutes: 45, relevantRoles: ["ciso", "legal"] },
   { id: "gdpr-cat-05", code: "DSR", slug: "gdpr-data-subject-rights",
     // Chapter III, not Art. 15 alone: this category spans Art. 12-22.
-    referenceUrl: "https://gdpr-info.eu/chapter-3/", nationalUrl: "",
+    // nationalUrl is set here and nowhere else in this framework, because this
+    // is the only category a German provision actually modifies: §34 BDSG
+    // restricts the Art. 15 right of access, §35 substitutes restriction of
+    // processing for Art. 17 erasure where non-automated storage makes deletion
+    // disproportionate, and §34(2) adds a duty to document the reasons for a
+    // refusal that has no GDPR equivalent. Arts. 28, 30, 32 and 33 have no such
+    // German overlay, so their categories keep nationalUrl empty.
+    referenceUrl: "https://gdpr-info.eu/chapter-3/",
+    nationalUrl: "https://www.gesetze-im-internet.de/bdsg_2018/__34.html",
     sortOrder: 5, estimatedMinutes: 60, relevantRoles: ["legal"] },
   // nationalUrl stays empty even though §38 BDSG is what actually triggers the
   // appointment for a German controller. The GDPR applies directly; §38 is an
@@ -46,16 +54,39 @@ export const gdprCategories: FrameworkCategory[] = [
 const REQUIREMENTS_BY_SLUG: Record<string, () => FrameworkRequirement[]> = {
   "gdpr-processor-agreements": () => [
     mkReq("G-DPA.1", "document", { legalRef: "GDPR Art. 28(3)", frameworkRef: "Art. 28", moduleRef: "supplier", priority: "P1", frequency: "annual" }),
-    mkReq("G-DPA.2", "document", { legalRef: "GDPR Art. 28(2)/(4)", frameworkRef: "Art. 28", moduleRef: "supplier", priority: "P1", frequency: "annual" }),
+    // Two duties, not one, and the slash in the old "Art. 28(2)/(4)" hid that.
+    // (2) is the whole authorisation rule: no sub-processor without the
+    // controller's prior specific or general written authorisation. (4) says
+    // nothing about authorisation. It requires the same Art. 28(3) obligations
+    // to be imposed on the sub-processor by contract, and keeps the initial
+    // processor fully liable for that sub-processor's performance. A register
+    // that records only consents satisfies (2) and leaves (4) unevidenced.
+    mkReq("G-DPA.2", "document", { legalRef: "GDPR Art. 28(2), Art. 28(4)", frameworkRef: "Art. 28", moduleRef: "supplier", priority: "P1", frequency: "annual" }),
   ],
   "gdpr-records-of-processing": () => [
-    mkReq("G-ROP.1", "document", { legalRef: "GDPR Art. 30(1)", frameworkRef: "Art. 30", moduleRef: "asset", priority: "P0", frequency: "annual" }),
+    // legalRef carries (5) as well as (1) because the derogation is the first
+    // thing a controller in this product's size band asks about: Art. 30(5)
+    // exempts an organisation employing fewer than 250 persons, which is every
+    // company in the 50-250 ICP. It almost never applies. The three exceptions
+    // are disjunctive and one is enough, and "the processing is not occasional"
+    // catches any employer running payroll or personnel records. Stating (1)
+    // alone invited the reader to assume the exemption was overlooked; stating
+    // both is what makes the requirement defensible to a Datenschutzbeauftragte.
+    mkReq("G-ROP.1", "document", { legalRef: "GDPR Art. 30(1), (5)", frameworkRef: "Art. 30", moduleRef: "asset", priority: "P0", frequency: "annual" }),
   ],
   "gdpr-toms": () => [
     mkReq("G-TOM.1", "document", { legalRef: "GDPR Art. 32(1)", frameworkRef: "Art. 32", moduleRef: "policy", priority: "P0", frequency: "annual" }),
   ],
   "gdpr-breach-response": () => [
-    mkReq("G-BRC.1", "document", { legalRef: "GDPR Art. 33", frameworkRef: "Art. 33", moduleRef: "policy", priority: "P0", frequency: "annual" }),
+    // (1)-(4) rather than a bare "Art. 33", so this requirement and G-BRC.2
+    // below divide the article between them instead of overlapping on it.
+    // The two clauses that decide what the procedure actually does both live
+    // in (1): notification is owed "unless the personal data breach is unlikely
+    // to result in a risk to the rights and freedoms of natural persons", and a
+    // filing made after 72 hours "shall be accompanied by reasons for the
+    // delay". A procedure that knows only the 72-hour number cannot answer
+    // either question.
+    mkReq("G-BRC.1", "document", { legalRef: "GDPR Art. 33(1)-(4)", frameworkRef: "Art. 33", moduleRef: "policy", priority: "P0", frequency: "annual" }),
     // Art. 33(5) documents each breach as it happens, not on a review cycle.
     mkReq("G-BRC.2", "document", { legalRef: "GDPR Art. 33(5)", frameworkRef: "Art. 33", moduleRef: "incident", priority: "P1", frequency: "on-change" }),
     // Art. 34 is a second, separate addressee: the data subjects themselves,

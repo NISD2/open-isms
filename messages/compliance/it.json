@@ -191,7 +191,7 @@
       },
       "ROP": {
         "name": "Registri delle attività di trattamento",
-        "description": "Documentazione di ogni attività di trattamento ai sensi dell'Art. 30 GDPR: finalità, base giuridica, destinatari, conservazione",
+        "description": "Documentazione di ogni attività di trattamento ai sensi dell'Art. 30 GDPR: finalità, categorie di interessati e di dati personali, destinatari, conservazione",
         "legalBasis": "GDPR Art. 30",
         "threatLandscape": "",
         "bsiGuidance": ""

@@ -191,7 +191,7 @@
       },
       "ROP": {
         "name": "Rejestry czynności przetwarzania",
-        "description": "Dokumentacja każdej czynności przetwarzania zgodnie z art. 30 GDPR: cel, podstawa prawna, odbiorcy, okres przechowywania",
+        "description": "Dokumentacja każdej czynności przetwarzania zgodnie z art. 30 GDPR: cel, kategorie osób, których dane dotyczą, i danych osobowych, odbiorcy, okres przechowywania",
         "legalBasis": "GDPR Art. 30",
         "threatLandscape": "",
         "bsiGuidance": ""

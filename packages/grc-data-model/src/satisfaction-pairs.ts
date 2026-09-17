@@ -39,7 +39,31 @@ export const nis2GdprSatisfactionPairs: SatisfactionPair[] = [
   ["3.3", "G-BRC.1", "Same underlying event, separate filings: the NIS2 24h/72h/1-month cascade goes to the BSI/BBK Meldestelle, the GDPR Art. 33 single 72h notification to the data protection authority."],
   ["3.5", "G-BRC.2", "Post-incident review evidence overlaps the Art. 33(5) breach documentation; the BSI final report itself is §32(1) Nr. 4 BSIG, tracked under 3.3."],
 
+  // Art. 32(1) is the widest overlap between the two regimes and until now the
+  // narrowest here: G-TOM.1 was credited by 2.4 alone, a signature. Meanwhile
+  // mappings/nis2-gdpr.ts already documented five further Art. 21(2) points
+  // that land on Art. 32(1), and none of them had a pair, so a company could
+  // finish the whole NIS2 cryptography, backup, access control, authentication
+  // and effectiveness programme without any of it reaching Art. 32. The rows
+  // below close that, one per mapping row, and every one of them is
+  // "overlapping": Art. 32(1) is a duty to have and document the whole measure
+  // set, so no single NIS2 requirement is ever the same artefact.
   ["2.4", "G-TOM.1", "CEO sign-off on the Art. 21(2) risk treatment plan attests the TOMs posture Art. 32 requires."],
+  ["9.1", "G-TOM.1", "Art. 21(2)(h) ↔ Art. 32(1)(a): the CIR 9.1 cryptography policy is the documented position on encryption that Art. 32(1)(a) expects. Scope differs in one direction only: Art. 32(1)(a) names pseudonymisation alongside encryption and NIS2 does not, so the policy can satisfy the encryption half and leave pseudonymisation unaddressed."],
+  ["9.2", "G-TOM.1", "Art. 21(2)(h) ↔ Art. 32(1)(a): encryption at rest and in transit is the same control under both regimes. NIS2 applies it to network and information systems, Art. 32 to personal data, so the measure carries over while the scope statement does not."],
+  ["4.4", "G-TOM.1", "Art. 21(2)(c) ↔ Art. 32(1)(c): 'the ability to restore the availability and access to personal data in a timely manner in the event of a physical or technical incident' is what a tested backup and restore programme evidences. A restore that has never been tested evidences neither."],
+  ["4.3", "G-TOM.1", "Art. 21(2)(c) ↔ Art. 32(1)(c): the disaster recovery plan carries the recovery-time side of the same restore duty. Art. 32(1)(c) bounds it by 'in a timely manner' rather than by a stated RTO, so the NIS2 target is evidence for it and not a substitute."],
+  ["7.1", "G-TOM.1", "Art. 21(2)(f) ↔ Art. 32(1)(d): 'a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures'. The CIR 7.1 KPI records are that process running. Art. 32(1)(d) is the one enumerated item creating an ongoing duty rather than a one-off measure."],
+  ["7.2", "G-TOM.1", "Art. 21(2)(f) ↔ Art. 32(1)(d): the internal audit programme is the assessing and evaluating half of the same clause, where 7.1 is the measuring half."],
+  ["10.1", "G-TOM.1", "Art. 21(2)(i) ↔ Art. 32(1)(b): the access control policy is the primary evidence for 'ongoing confidentiality' of processing systems. Art. 32(1)(b) also covers integrity, availability and resilience, which this requirement does not reach."],
+  ["11.1", "G-TOM.1", "Art. 21(2)(j) ↔ Art. 32 by implication: Art. 32 nowhere names MFA, and its 'appropriate measures' clause is what carries it. CIR 11.7 mandates MFA outright for the eleven digital-service entity types; for everyone else Art. 21(1) proportionality decides, exactly as Art. 32(1) does. Never 'equivalent': one is a named control, the other an open standard that the control happens to meet."],
+
+  // Art. 34 had no pair at all, though NIS2 carries the same duty shape: Art.
+  // 23(1) second subparagraph has entities notify the recipients of their
+  // services of significant incidents likely to adversely affect service
+  // provision. Tell the affected people, not only the authority. The triggers
+  // and the addressees are different, so this is where the pair stops.
+  ["3.5", "G-BRC.3", "Art. 23(1) subpara. 2 ↔ Art. 34: both require telling people outside the authority about an incident, and the post-incident communication is where a company decides who hears what. The duties do not merge. NIS2 addresses the recipients of the service when provision is adversely affected; Art. 34 addresses the data subjects when the breach is likely to result in a high risk to their rights and freedoms, and the Art. 34(3) carve-outs apply to the GDPR side only."],
 ];
 
 export const aiActNis2SatisfactionPairs: SatisfactionPair[] = [
