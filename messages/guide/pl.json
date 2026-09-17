@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Kto wdraża NIS 2 w Państwa firmie?",
+      "lede": "Od tego zależy, jak pokażemy Państwu ścieżkę. Można to zmienić w każdej chwili.",
+      "solo": {
+        "title": "Głównie ja",
+        "reality": "Jedna osoba spina wszystko, może z niewielką pomocą.",
+        "result": "Krok po kroku, w jasnej kolejności."
+      },
+      "team": {
+        "title": "Kilka osób, własne role",
+        "reality": "Zarząd, IT i dział operacyjny dzielą się zadaniami.",
+        "result": "Wszystkie kroki według roli, priorytetu i stanu zatwierdzenia."
+      }
+    },
     "tour": {
       "next": "Dalej",
       "done": "Gotowe",
@@ -8,7 +22,19 @@
       "steps": {
         "overview": {
           "title": "Cała Państwa ścieżka na jednym ekranie",
-          "body": "Każdy wymóg, który muszą Państwo spełnić, w jednej liście, a obok aktualny stan. Nie trzeba nigdzie szukać tego, co zostało do zrobienia."
+          "body": "Każdy wymóg, który muszą Państwo spełnić, a obok aktualny stan. Nie trzeba nigdzie szukać tego, co zostało do zrobienia."
+        },
+        "stage": {
+          "title": "Gdzie się Państwo znajdują",
+          "body": "Ścieżka biegnie w trzech oknach: co należy do pierwszego miesiąca, co do pierwszych trzech miesięcy i reszta pierwszego roku. Ten pasek zostaje na górze i wskazuje sekcję, którą Państwo czytają. Wskazówki otwierają objaśnienia."
+        },
+        "liveStep": {
+          "title": "Państwa następny krok",
+          "body": "Dokładnie jeden krok jest oznaczony jako bieżący. Proszę go otworzyć, wpisać, co rzeczywiście obowiązuje w Państwa firmie, i zatwierdzić. Oznaczenie przesunie się wtedy o jeden dalej."
+        },
+        "timeline": {
+          "title": "Ścieżka jest uporządkowana według terminu",
+          "body": "Po lewej są trzy okna, a sama ścieżka biegnie w tej kolejności: najpierw wszystko na pierwszy miesiąc, potem pierwsze trzy miesiące, potem reszta roku. Oznaczenie przesuwa się razem z Państwem. Wszystkie 49 kroków jest obowiązkowych; podział to nasza rekomendacja."
         },
         "order": {
           "title": "Dwa sposoby uporządkowania ścieżki",

@@ -7,30 +7,31 @@
  * the harness adds only what login and the multi-user specs need — a
  * password hash, and a second management member for N-of-M sign-offs.
  */
-import { test as setup, expect } from "@playwright/test";
-import bcrypt from "bcryptjs";
+
 import {
-  S3Client,
-  CreateBucketCommand,
-  BucketAlreadyOwnedByYou,
   BucketAlreadyExists,
+  BucketAlreadyOwnedByYou,
+  CreateBucketCommand,
+  S3Client,
 } from "@aws-sdk/client-s3";
+import { expect, test as setup } from "@playwright/test";
+import bcrypt from "bcryptjs";
+import { getTableColumns } from "drizzle-orm";
+import { HINT_COLUMN, HINTS } from "@/lib/onboarding/hints";
+import { user } from "@/schema";
+import { e2eQuery } from "./lib/db";
 import {
   assertE2eTargets,
+  E2E_MANAGER_EMAIL,
   E2E_S3_ACCESS_KEY_ID,
   E2E_S3_BUCKET,
   E2E_S3_ENDPOINT,
   E2E_S3_SECRET_ACCESS_KEY,
-  E2E_USER_EMAIL,
-  E2E_USER_PASSWORD,
-  E2E_MANAGER_EMAIL,
   E2E_STORAGE_STATE,
   E2E_STORAGE_STATE_MANAGER,
+  E2E_USER_EMAIL,
+  E2E_USER_PASSWORD,
 } from "./lib/env";
-import { getTableColumns } from "drizzle-orm";
-import { user } from "@/schema";
-import { HINTS, HINT_COLUMN } from "@/lib/onboarding/hints";
-import { e2eQuery } from "./lib/db";
 import { signInViaForm } from "./lib/signin";
 
 setup("provision and authenticate", async ({ page, browser }) => {
@@ -93,12 +94,25 @@ setup("provision and authenticate", async ({ page, browser }) => {
   // stamping the old pair, so the manager — the one harness user no spec
   // retires by name — spent every run behind an overlay that ate its sign-off
   // click. Column names come from the table, not from snake-casing the field:
-  // journeyTourDismissedAt is `tour_dismissed_at`.
+  // journeyTourTeamDismissedAt is `tour_dismissed_at`.
   const userColumns = getTableColumns(user);
-  const retireHints = HINTS.map((hint) => `${userColumns[HINT_COLUMN[hint]].name} = NOW()`);
+  const retireHints = HINTS.map(
+    (hint) => `${userColumns[HINT_COLUMN[hint]].name} = NOW()`,
+  );
   await e2eQuery(
     `UPDATE "user" SET ${retireHints.join(", ")} WHERE email = ANY($1::text[])`,
     [[E2E_USER_EMAIL, E2E_MANAGER_EMAIL]],
+  );
+
+  // Answer the journey's layout question for the harness company. Unanswered
+  // is a blocking modal on /journey, and the suite asserts against the role
+  // swimlane throughout (the board, the ordering toggle, the filters, the
+  // legend), so "team" is both what unblocks it and what those assertions
+  // describe.
+  await e2eQuery(
+    `UPDATE company SET journey_mode = 'team'
+       WHERE id = (SELECT company_id FROM "user" WHERE email = $1)`,
+    [E2E_USER_EMAIL],
   );
 
   // Log both users in through the real form; each keeps a session file.

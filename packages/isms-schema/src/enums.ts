@@ -20,11 +20,7 @@ export const evidenceStatusEnum = pgEnum("evidence_status", [
   "expired",
 ]);
 
-export const changeTypeEnum = pgEnum("change_type", [
-  "standard",
-  "normal",
-  "emergency",
-]);
+export const changeTypeEnum = pgEnum("change_type", ["standard", "normal", "emergency"]);
 
 export const changeStatusEnum = pgEnum("change_status", [
   "draft",
@@ -106,12 +102,7 @@ export const notificationStatusEnum = pgEnum("notification_status", [
   "cancelled",
 ]);
 
-export const urgencyEnum = pgEnum("urgency", [
-  "info",
-  "warning",
-  "urgent",
-  "critical",
-]);
+export const urgencyEnum = pgEnum("urgency", ["info", "warning", "urgent", "critical"]);
 
 export const vulnerabilityStatusEnum = pgEnum("vulnerability_status", [
   "discovered",
@@ -122,11 +113,15 @@ export const vulnerabilityStatusEnum = pgEnum("vulnerability_status", [
   "mitigated",
 ]);
 
-export const aiDataSharingEnum = pgEnum("ai_data_sharing", [
-  "none",
-  "basic",
-  "full",
-]);
+export const aiDataSharingEnum = pgEnum("ai_data_sharing", ["none", "basic", "full"]);
+
+/**
+ * How the journey lays itself out. Answers "who implements NIS 2 here", not
+ * "how skilled are you": with one person doing everything the role swimlanes
+ * describe a division of labour that does not exist, so "solo" renders a
+ * single guided line and "team" keeps the role columns.
+ */
+export const journeyModeEnum = pgEnum("journey_mode", ["solo", "team"]);
 
 export const supplierPublicationEventTypeEnum = pgEnum(
   "supplier_publication_event_type",

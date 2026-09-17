@@ -31,6 +31,36 @@ export type TourStep = {
 export type TourSteps = readonly [TourStep, ...TourStep[]];
 
 /**
+ * The journey renders in two layouts, so it has two walkthroughs.
+ *
+ * The guided line is for a company where one person implements everything; the
+ * role swimlane for one where several do. They share almost no controls, which
+ * is why this is two step lists with two hints rather than one list filtered
+ * down: someone who was walked through the guided path and later switches has
+ * still never been shown the swimlane, and a single hint would record the
+ * opposite.
+ *
+ * Which one runs is decided by which opening anchor is on the page. Both
+ * layouts withhold that anchor until the mode question is answered, which is
+ * what keeps a walkthrough from starting underneath the dialog.
+ */
+/**
+ * Establish the line, then the pinned bar that keeps you oriented on it, then
+ * what is due when, then the one live step, then the rest of the portal. The
+ * path runs off the bottom of the viewport, so the opening step prefers the
+ * strip above it; the nodes are a narrow centred column, so the step that
+ * points at one has room beside it.
+ */
+const JOURNEY_GUIDED_STEPS: TourSteps = [
+  { target: "journey-path-guided", key: "overview", side: "top" },
+  { target: "journey-stage", key: "stage", side: "bottom" },
+  { target: "journey-timeline", key: "timeline", side: "bottom" },
+  { target: "journey-live-step", key: "liveStep", side: "right" },
+  { target: "sidebar-nav", key: "sidebar", side: "right" },
+  { target: "sidebar-registers", key: "registers", side: "right" },
+];
+
+/**
  * Establish the whole board, narrow to what a single row is, then explain the
  * controls, then hand over to the rest of the portal.
  *
@@ -44,8 +74,8 @@ export type TourSteps = readonly [TourStep, ...TourStep[]];
  * there is no room beside a row that spans the content column, and Radix
  * shifting a colliding card is what made it look clipped.
  */
-const JOURNEY_STEPS: TourSteps = [
-  { target: "journey-board", key: "overview", side: "top" },
+const JOURNEY_TEAM_STEPS: TourSteps = [
+  { target: "journey-path-team", key: "overview", side: "top" },
   { target: "journey-first-step", key: "firstStep", side: "bottom" },
   { target: "journey-order", key: "order", side: "bottom" },
   { target: "journey-filters", key: "filters", side: "bottom" },
@@ -77,40 +107,51 @@ const REQUIREMENT_STEPS: TourSteps = [
 /** A route's walkthrough: which hint owns it, and what it points at. */
 export type RouteTour = {
   /** The hint this walkthrough arms and dismisses on its own. */
-  hint: Extract<Hint, "journeyTour" | "requirementTour">;
+  hint: Extract<Hint, "journeyTourGuided" | "journeyTourTeam" | "requirementTour">;
   /** Opening step first; the guide waits on it. See `TourSteps`. */
   steps: TourSteps;
 };
 
 /**
- * The tour for a locale-stripped portal path, or null where none is defined.
- *
- * Returning the hint alongside the steps is what keeps the two walkthroughs
- * independent: the guide arms whichever one the current route owns and stamps
- * only that one on dismissal, so skipping the journey overview leaves the
- * requirement page still to come.
- *
- * Steps whose target is absent on the page are dropped before the tour runs
- * (see PortalGuide), so a page may legitimately carry only some of these.
- */
-/**
  * Module constants, not literals built per call: the guide keeps the returned
  * tour in an effect dependency, and a fresh object each render re-ran that
  * effect and reset the walkthrough to step one on every keystroke of state.
  */
-const JOURNEY_TOUR: RouteTour = { hint: "journeyTour", steps: JOURNEY_STEPS };
+const JOURNEY_GUIDED_TOUR: RouteTour = {
+  hint: "journeyTourGuided",
+  steps: JOURNEY_GUIDED_STEPS,
+};
+const JOURNEY_TEAM_TOUR: RouteTour = {
+  hint: "journeyTourTeam",
+  steps: JOURNEY_TEAM_STEPS,
+};
 const REQUIREMENT_TOUR: RouteTour = {
   hint: "requirementTour",
   steps: REQUIREMENT_STEPS,
 };
 
-export function tourForPath(path: string): RouteTour | null {
+const NO_TOURS: readonly RouteTour[] = [];
+const JOURNEY_TOURS: readonly RouteTour[] = [JOURNEY_GUIDED_TOUR, JOURNEY_TEAM_TOUR];
+const REQUIREMENT_TOURS: readonly RouteTour[] = [REQUIREMENT_TOUR];
+
+/**
+ * The walkthroughs a locale-stripped portal path may run, in preference order.
+ *
+ * A list rather than one tour because the journey has two layouts and the path
+ * alone cannot say which is rendered. The guide takes the first candidate that
+ * is both still armed and whose opening anchor is on the page, so the layout
+ * present decides, and each candidate carries its own hint — which is what
+ * keeps the walkthroughs independent. Dismissing the guided one leaves the
+ * swimlane still to come if the user ever switches, and skipping the journey
+ * leaves the requirement page untouched.
+ */
+export function toursForPath(path: string): readonly RouteTour[] {
   const segments = path.split("/").filter(Boolean);
-  if (segments[0] === "journey") return JOURNEY_TOUR;
+  if (segments[0] === "journey") return JOURNEY_TOURS;
   // /compliance/<category>/<requirement>. The category index is a link list
   // with nothing to explain, so only the three-segment detail page tours.
   if (segments[0] === "compliance" && segments.length === 3) {
-    return REQUIREMENT_TOUR;
+    return REQUIREMENT_TOURS;
   }
-  return null;
+  return NO_TOURS;
 }

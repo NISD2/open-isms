@@ -207,7 +207,8 @@ export const platformAdminRouter = router({
       where: eq(user.id, ctx.userId),
       columns: {
         loginCount: true,
-        journeyTourDismissedAt: true,
+        journeyTourGuidedDismissedAt: true,
+        journeyTourTeamDismissedAt: true,
         requirementTourDismissedAt: true,
         helpOfferDismissedAt: true,
       },
@@ -251,8 +252,11 @@ export const platformAdminRouter = router({
   armOnboardingSurface: platformAdminProcedure
     .input(z.object({ surface: z.enum(HINTS) }))
     .mutation(async ({ ctx, input }) => {
-      // Both tours want a first-login account; the offer of help wants a
-      // second. Everything else is just clearing that surface's own stamp.
+      // The requirement walkthrough wants a first-login account and the offer
+      // of help wants a second; the two journey walkthroughs gate on their own
+      // column alone, so login_count is irrelevant to them and 0 is simply the
+      // value that leaves the other surfaces armable. Everything else is just
+      // clearing that surface's own stamp.
       //
       // The tours arm at 0, not 1, so that arming survives a sign-out. The
       // jwt callback increments this on every sign-in, so parking it on the

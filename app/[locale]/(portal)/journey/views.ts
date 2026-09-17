@@ -43,7 +43,7 @@ const CAT_ORDER: Record<string, number> = Object.fromEntries(
 
 /** True journey position — the shared category-weighted order. */
 function journeyOrder(item: JourneyItem): number {
-  return journeyPosition(CAT_ORDER[item.categoryCode], item.sortOrder);
+  return journeyPosition(item.priority, CAT_ORDER[item.categoryCode], item.sortOrder);
 }
 
 /**

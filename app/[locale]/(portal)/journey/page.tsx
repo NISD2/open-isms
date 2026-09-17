@@ -1,12 +1,16 @@
 import { redirect } from "next/navigation";
+import { StalledPanel } from "@/components/help/StalledPanel";
 import { getSession } from "@/lib/auth";
 import { api } from "@/lib/trpc/server";
-import { liveNode } from "./views";
-import { PathHero } from "./PathHero";
-import { PathFlow } from "./PathFlow";
-import { buildRequirementNodes } from "./path-nodes";
 import { journeyDisclaimer } from "./disclaimer";
-import { StalledPanel } from "@/components/help/StalledPanel";
+import { JourneyHeading, ProgressChip } from "./JourneyHeading";
+import { JourneyModeDialog } from "./JourneyModeDialog";
+import { JourneyModeToggle } from "./JourneyModeToggle";
+import { PathFlow } from "./PathFlow";
+import { PathHero } from "./PathHero";
+import { buildRequirementNodes } from "./path-nodes";
+import { SoloPath } from "./SoloPath";
+import { liveNode } from "./views";
 
 export const dynamic = "force-dynamic";
 
@@ -24,15 +28,15 @@ export default async function JourneyPage({
   if (!session.companyId) redirect("/dashboard");
 
   const { locale: rawLocale } = await params;
-  const locale: Locale = (["en", "de", "nl"].includes(rawLocale)
-    ? rawLocale
-    : "en") as Locale;
+  const locale: Locale = (
+    ["en", "de", "nl"].includes(rawLocale) ? rawLocale : "en"
+  ) as Locale;
 
   const { focus } = await searchParams;
   const focusRaw = Array.isArray(focus) ? focus[0] : focus;
   const focusCategory = focusRaw ? focusRaw.toUpperCase() : null;
 
-  const { items, aggregate, lastActivityAt } = await api.journey.getItems({
+  const { items, aggregate, lastActivityAt, mode } = await api.journey.getItems({
     locale: rawLocale,
   });
 
@@ -52,33 +56,48 @@ export default async function JourneyPage({
   const live = liveNode(items);
   const reqNodes = buildRequirementNodes(items);
 
-  return (
-    <div className="space-y-4">
-      <div className="flex items-start justify-between gap-4">
-        <div className="space-y-0.5">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            {locale === "de" ? "Ihr Weg" : "Your path"}
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            {locale === "de"
-              ? "Ein Schritt nach dem anderen. Hier ist Ihr nächster."
-              : "One step at a time. Here is your next one."}
-          </p>
-        </div>
+  const header = (
+    <div className="flex items-center justify-between gap-4">
+      <JourneyHeading locale={locale} />
+      <div className="flex shrink-0 items-center gap-3">
+        {mode ? <JourneyModeToggle mode={mode} locale={locale} /> : null}
         <ProgressChip done={aggregate.done} total={aggregate.total} locale={locale} />
       </div>
+    </div>
+  );
+
+  // No answer means the question was never asked. Ask it over a path that is
+  // already drawn, rather than guessing and being wrong for the single
+  // implementer the swimlane was never built for. The guided layout renders
+  // behind the question because that is the answer we expect from this ICP;
+  // picking the team view swaps it on the spot.
+  const unanswered = mode === null;
+
+  return (
+    <div className="space-y-4">
+      {header}
+      {unanswered ? <JourneyModeDialog /> : null}
       <PathHero
         assetCount={assetCount}
         liveNode={live}
         locale={locale}
         needsActivation={needsActivation}
+        showLiveStep={mode === "team"}
       />
-      <PathFlow
-        reqNodes={reqNodes}
-        aggregate={aggregate}
-        locale={locale}
-        focusCategory={focusCategory}
-      />
+      {mode === "team" ? (
+        <PathFlow
+          reqNodes={reqNodes}
+          aggregate={aggregate}
+          locale={locale}
+          focusCategory={focusCategory}
+          // The tour opens on this anchor, so withholding it until the mode is
+          // known is what keeps the walkthrough from starting underneath the
+          // question. See tour/steps.ts.
+          tourAnchored={!unanswered}
+        />
+      ) : (
+        <SoloPath reqNodes={reqNodes} locale={locale} tourAnchored={!unanswered} />
+      )}
       {/* Renders itself only after two weeks without a single mutation. */}
       <StalledPanel
         lastActivityAt={lastActivityAt}
@@ -86,27 +105,6 @@ export default async function JourneyPage({
         total={aggregate.total}
       />
       <PathDisclaimer locale={locale} />
-    </div>
-  );
-}
-
-/** Compact overall-progress indicator for the header (no full-width bar). */
-function ProgressChip({
-  done,
-  total,
-  locale,
-}: {
-  done: number;
-  total: number;
-  locale: Locale;
-}) {
-  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-  return (
-    <div className="shrink-0 text-right">
-      <div className="text-xl font-semibold leading-none tabular-nums">{pct}%</div>
-      <div className="mt-1 text-[11px] text-muted-foreground">
-        {done}/{total} {locale === "de" ? "erledigt" : "done"}
-      </div>
     </div>
   );
 }

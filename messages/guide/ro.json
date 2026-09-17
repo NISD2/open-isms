@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Cine implementează NIS 2 în compania dumneavoastră?",
+      "lede": "De asta depinde cum vă arătăm parcursul. Puteți schimba oricând.",
+      "solo": {
+        "title": "În principal eu",
+        "reality": "O singură persoană ține totul laolaltă, poate cu puțin ajutor.",
+        "result": "Un pas pe rând, într-o ordine clară."
+      },
+      "team": {
+        "title": "Mai multe persoane, roluri proprii",
+        "reality": "Conducerea, IT-ul și operațiunile își împart munca.",
+        "result": "Toți pașii după rol, prioritate și stadiul aprobării."
+      }
+    },
     "tour": {
       "next": "Înainte",
       "done": "Gata",
@@ -8,7 +22,19 @@
       "steps": {
         "overview": {
           "title": "Tot parcursul dumneavoastră pe un singur ecran",
-          "body": "Fiecare cerință pe care trebuie să o îndepliniți, într-o singură listă, cu stadiul alături. Nu trebuie niciodată să căutați ce a mai rămas de făcut."
+          "body": "Fiecare cerință pe care trebuie să o îndepliniți, cu stadiul alături. Nu trebuie niciodată să căutați ce a mai rămas de făcut."
+        },
+        "stage": {
+          "title": "Unde vă aflați acum",
+          "body": "Parcursul se desfășoară în trei ferestre: ce ține de prima lună, ce ține de primele trei luni și restul primului an. Această bară rămâne sus și indică secțiunea pe care o citiți. Indicații deschide explicațiile."
+        },
+        "liveStep": {
+          "title": "Următorul dumneavoastră pas",
+          "body": "Exact un pas este marcat ca fiind curent. Deschideți-l, consemnați ce se aplică în realitate la dumneavoastră și aprobați-l. Marcajul trece apoi la următorul."
+        },
+        "timeline": {
+          "title": "Parcursul este ordonat după termen",
+          "body": "În stânga sunt cele trei ferestre, iar parcursul urmează această ordine: întâi tot ce ține de prima lună, apoi primele trei luni, apoi restul anului. Marcajul avansează odată cu dumneavoastră. Toți cei 49 de pași sunt obligatorii; împărțirea este recomandarea noastră."
         },
         "order": {
           "title": "Două moduri de a ordona parcursul",
