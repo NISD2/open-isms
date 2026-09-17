@@ -468,6 +468,13 @@
       "url": "https://www.itsecurity.pt",
       "description": "Portuguese information security trade publication; carries statements from the CNCS on the national cybersecurity regime.",
       "language": "en"
+    },
+    {
+      "id": "usp-at",
+      "name": "Unternehmensserviceportal (USP)",
+      "url": "https://www.usp.gv.at",
+      "description": "Austrian federal business service portal; the registration and notification channel for NIS 2 entities under the NISG 2026.",
+      "language": "de"
     }
   ],
   "events": [
@@ -2794,7 +2801,21 @@
       "sourceId": "it-security-pt",
       "sourceUrl": "https://www.itsecurity.pt/news/compliance/myciber-apenas-metade-das-entidades-estimadas-cumpriu-o-registo-antes-do-prazo-de-15-de-setembro",
       "addedAt": "2026-09-14T11:40:00Z"
+    },
+    {
+      "id": "2026-09-08-national-transposition-at-usp-nis2-services",
+      "date": "2026-09-08",
+      "category": "national-transposition",
+      "tags": ["at", "registration", "deadline", "transposition"],
+      "type": "update",
+      "title": "Austria: registration and incident reporting move into the USP application NIS2 Services on 1 October 2026",
+      "titleDe": "Oesterreich: Registrierung und Meldungen laufen ab 1. Oktober 2026 ueber die Anwendung NIS2 Services im USP",
+      "summary": "The Unternehmensserviceportal, the Austrian federal business service portal, states on a page updated 8 September 2026 that the NIS2 Services application becomes available in the USP on 1 October 2026, the day the NISG 2026 enters into force, and that entities use it both to register and to report significant cybersecurity incidents. The portal names 1 January 2027 as the date by which initial registration has to be done; the statutory basis is the three month window from entry into force in section 29(3) NISG 2026. The date here is the page update date, because the portal does not carry a separate publication date for the announcement.",
+      "summaryDe": "Das Unternehmensserviceportal (USP) haelt auf einer am 8. September 2026 aktualisierten Seite fest, dass die Anwendung NIS2 Services am 1. Oktober 2026 im USP bereitgestellt wird, also mit Inkrafttreten des NISG 2026, und dass Einrichtungen darueber sowohl die Registrierung als auch Meldungen erheblicher Sicherheitsvorfaelle abwickeln. Als Termin fuer die initiale Registrierung nennt das Portal den 1. Jaenner 2027; gesetzliche Grundlage ist die Dreimonatsfrist ab Inkrafttreten nach § 29 Abs. 3 NISG 2026. Das Datum ist das Aktualisierungsdatum der Seite, da das Portal kein eigenes Veroeffentlichungsdatum fuer die Ankuendigung ausweist.",
+      "sourceId": "usp-at",
+      "sourceUrl": "https://www.usp.gv.at/aktuelles/newsliste/NIS-2.html",
+      "addedAt": "2026-09-17T22:34:28Z"
     }
   ],
-  "lastUpdated": "2026-09-14T11:40:00Z"
+  "lastUpdated": "2026-09-17T22:34:28Z"
 }
