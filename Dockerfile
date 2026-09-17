@@ -11,9 +11,11 @@ FROM oven/bun:1.3.8 AS deps
 
 WORKDIR /app
 
-# tsc globally for GitHub-sourced workspace deps that run `tsc` in their
-# `prepare` script after clone (nis2-gap-assessment-schema, nis2-supply-
-# chain-questionnaire-schema). The bun base image does not ship tsc.
+# tsc globally for the GitHub-sourced dep that runs `tsc` in its `prepare`
+# script after clone: nis2-gap-assessment-schema. The bun base image does
+# not ship tsc. (nis2-supply-chain-questionnaire-schema used to be in this
+# list and is now `workspace:*`, built from src by transpilePackages, so it
+# needs no tsc here.)
 #
 # Pinned to the range the repo itself typechecks with. Unpinned, this
 # resolved to whatever `latest` was on the day the layer was built: as of
@@ -221,7 +223,7 @@ USER node
 # sleeps the whole period, then polls. So the number is deploy latency, not
 # just a grace window. On the 17.09 deploy the first probe returned 0 in
 # 410ms, five seconds after the container started, and the deploy then sat
-# idle for the remaining 55 seconds of a 244-second deploy.
+# idle for the remaining 55 seconds of a 243-second deploy.
 #
 # 20s keeps a 4x margin over that observed boot, and start-interval probes
 # every 2s inside it so a faster boot is noticed sooner. A migration long
