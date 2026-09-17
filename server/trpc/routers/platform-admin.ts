@@ -58,8 +58,11 @@ import {
   complianceFramework,
   dataErasureLog,
   emailPreference,
+  evidence,
   gapAssessment,
   notification,
+  signOffHistory,
+  supplierInvite,
   trainingLessonProgress,
   user,
 } from "@/schema";
@@ -1746,4 +1749,168 @@ export const platformAdminRouter = router({
         markdown: buildErasureCertificate(row),
       };
     }),
+
+  /**
+   * The dominant-game scoreboard (private notebook, 2026-09-17-dominant-game.md).
+   *
+   * "Discharged duty" is deliberately strict — all five clauses at once:
+   * a signer (NOT the timestamp: GDPR erasure nulls the signer and leaves
+   * signed_off_at), a snapshot, applicability, a sign_off_history chain row
+   * (seed scripts can fabricate sign-offs without one), and at least one
+   * non-draft evidence row. Companies owned by platform admins are counted
+   * separately as "own", never in the headline.
+   *
+   * The drop-off proxy is the latest company_requirement_status.updated_at;
+   * a company with no assessment activity at all has null and counts as
+   * inactive from week one.
+   */
+  dominantMetrics: platformAdminProcedure.query(async ({ ctx }) => {
+    const dischargedClauses = and(
+      isNotNull(companyRequirementStatus.signedOffBy),
+      isNotNull(companyRequirementStatus.signOffSnapshot),
+      eq(companyRequirementStatus.isApplicable, true),
+      sql`exists (select 1 from ${signOffHistory} soh
+                  where soh.status_id = ${companyRequirementStatus.id})`,
+      sql`exists (select 1 from ${evidence} ev
+                  where ev.requirement_status_id = ${companyRequirementStatus.id}
+                    and ev.status <> 'draft')`,
+    );
+
+    const dischargedByCompany = ctx.db
+      .select({
+        companyId: company.id,
+        companyName: company.name,
+        ownerEmail: user.email,
+        duties: count(),
+        last30: sql<number>`count(*) filter (where ${companyRequirementStatus.signedOffAt} >= now() - interval '30 days')`.mapWith(
+          Number,
+        ),
+      })
+      .from(companyRequirementStatus)
+      .innerJoin(
+        companyAssessment,
+        eq(companyAssessment.id, companyRequirementStatus.assessmentId),
+      )
+      .innerJoin(company, eq(company.id, companyAssessment.companyId))
+      .leftJoin(user, eq(user.id, company.ownerId))
+      .where(dischargedClauses)
+      .groupBy(company.id, company.name, user.email)
+      .orderBy(desc(count()));
+
+    const inviteRows = ctx.db
+      .select({
+        toEmail: supplierInvite.toEmail,
+        fromCompany: company.name,
+        createdAt: supplierInvite.createdAt,
+        expiresAt: supplierInvite.expiresAt,
+        acceptedAt: supplierInvite.acceptedAt,
+      })
+      .from(supplierInvite)
+      .innerJoin(company, eq(company.id, supplierInvite.fromCompanyId))
+      .orderBy(desc(supplierInvite.createdAt));
+
+    const senderRows = ctx.db
+      .select({
+        company: company.name,
+        ownerEmail: user.email,
+        invites: count(),
+        accepted: count(supplierInvite.acceptedAt),
+      })
+      .from(supplierInvite)
+      .innerJoin(company, eq(company.id, supplierInvite.fromCompanyId))
+      .leftJoin(user, eq(user.id, company.ownerId))
+      .groupBy(company.name, user.email)
+      .orderBy(desc(count()));
+
+    const paidByWeek = ctx.db
+      .select({
+        week: sql<string>`to_char(date_trunc('week', ${advisoryReferral.paidAt}), 'YYYY-MM-DD')`,
+        count: count(),
+        eur: sql<number>`coalesce(sum(${advisoryReferral.feeCents}), 0) / 100.0`.mapWith(
+          Number,
+        ),
+      })
+      .from(advisoryReferral)
+      .where(isNotNull(advisoryReferral.paidAt))
+      .groupBy(sql`1`)
+      .orderBy(sql`1 desc`)
+      .limit(12);
+
+    const cohortRows = ctx.db
+      .select({
+        createdAt: company.createdAt,
+        ownerEmail: user.email,
+        lastActivity: sql<string | null>`(
+          select max(crs.updated_at)
+          from ${companyRequirementStatus} crs
+          join ${companyAssessment} ca on ca.id = crs.assessment_id
+          where ca.company_id = ${company.id}
+        )`,
+      })
+      .from(company)
+      .leftJoin(user, eq(user.id, company.ownerId));
+
+    const [byCompany, invites, senders, paid, cohorts] = await Promise.all([
+      dischargedByCompany,
+      inviteRows,
+      senderRows,
+      paidByWeek,
+      cohortRows,
+    ]);
+
+    const companies = byCompany.map((r) => ({
+      ...r,
+      own: isPlatformAdmin(r.ownerEmail),
+    }));
+    const counted = companies.filter((r) => !r.own);
+
+    const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+    const weekMarks = [1, 2, 4, 8] as const;
+    const cohortMap = new Map<
+      string,
+      { companies: number; active: [number, number, number, number] }
+    >();
+    for (const row of cohorts) {
+      if (isPlatformAdmin(row.ownerEmail)) continue;
+      const key = row.createdAt.toISOString().slice(0, 7);
+      const entry =
+        cohortMap.get(key) ?? { companies: 0, active: [0, 0, 0, 0] };
+      entry.companies += 1;
+      if (row.lastActivity) {
+        const last = new Date(row.lastActivity).getTime();
+        const created = row.createdAt.getTime();
+        weekMarks.forEach((w, i) => {
+          if (last >= created + w * WEEK_MS) entry.active[i] += 1;
+        });
+      }
+      cohortMap.set(key, entry);
+    }
+    const dropoff = [...cohortMap.entries()]
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([cohort, v]) => ({ cohort, ...v }));
+
+    return {
+      discharged: {
+        total: counted.reduce((s, r) => s + r.duties, 0),
+        last30: counted.reduce((s, r) => s + r.last30, 0),
+        companiesWithAtLeastOne: counted.length,
+        companies,
+      },
+      referrals: {
+        paidTotal: paid.reduce((s, r) => s + r.count, 0),
+        eurTotal: paid.reduce((s, r) => s + r.eur, 0),
+        byWeek: paid,
+      },
+      invites: {
+        total: invites.length,
+        accepted: invites.filter((i) => i.acceptedAt !== null).length,
+        open: invites.filter(
+          (i) => i.acceptedAt === null && i.expiresAt > new Date(),
+        ).length,
+        rows: invites,
+      },
+      senders,
+      dropoff,
+    };
+  }),
 });
