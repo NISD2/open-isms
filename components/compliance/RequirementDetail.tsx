@@ -38,6 +38,7 @@ import { PatchPolicyEditor } from "./PatchPolicyEditor";
 import { PolicyItemsPanel, SKIP_INLINE_MODULE } from "./PolicyItemsPanel";
 import { InlineModulePanel } from "./InlineModulePanel";
 import { MODULE_HREF } from "@/lib/compliance/operational-links";
+import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import { RequirementAssignPopover, type AssignmentRow } from "./RequirementAssignPopover";
 import { StuckLink } from "@/components/help/StuckLink";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
@@ -226,12 +227,12 @@ export function RequirementDetail({
     status.currentStatus === "completed" || status.currentStatus === "approved";
   const isNA = status.currentStatus === "not_applicable";
 
-  // Mirrors the server's rule in assessment.signOff. A row without signedOffAt
-  // is a roster entry: somebody was assigned and is expected to sign. A row
-  // with one is a receipt of a past sign-off and puts nobody in the way. Only
-  // an unfinished roster the viewer is absent from blocks the button, so the
-  // ordinary case — a requirement somebody already signed once — stays signable.
-  const pendingSigners = optimisticAssignments.filter((a) => a.signedOffAt === null);
+  // Offer the button exactly when assessment.signOff would accept it, reading
+  // the same roster rule the server does rather than a copy of it. Only an
+  // unfinished roster the viewer is absent from blocks sign-off, so the
+  // ordinary case — a requirement somebody already signed once — stays
+  // signable. The server still decides; this only keeps the button honest.
+  const pendingSigners = pendingSignersOf(optimisticAssignments);
   const blockedByRoster =
     pendingSigners.length > 0 && !pendingSigners.some((a) => a.userId === currentUserId);
   const awaitedSigners = pendingSigners

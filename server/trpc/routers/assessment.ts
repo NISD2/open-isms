@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eq, and, asc, sql, inArray } from "drizzle-orm";
+import { eq, and, asc, sql, inArray, isNull } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure, companyProcedure, adminProcedure } from "../init";
 import {
@@ -47,6 +47,7 @@ import {
   snapshotForVersion,
 } from "../helpers/sign-off-completion";
 import { hasReviewAccess } from "@/lib/auth";
+import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 
 import type { Database } from "@/lib/db";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
@@ -558,21 +559,13 @@ export const assessmentRouter = router({
           .where(eq(requirementAssignment.statusId, input.statusId))
           .for("update");
 
-        // A row in requirement_assignment means one of two different things,
-        // and reading them as one thing is what locked people out of any
-        // requirement somebody else had already signed:
-        //
-        //   signedOffAt NULL → a roster entry. Someone was deliberately
-        //     assigned (assignment.assignRequirement) and is expected to sign.
-        //   signedOffAt set  → a receipt. The insert below writes one for the
-        //     signer on every single-path sign-off, as the record of who signed.
-        //
-        // Only a roster with someone still to sign makes this an N-of-M
-        // requirement that belongs to the assignment flow. Branching on
-        // `length > 0` counted receipts as a roster, so the first signer
+        // Roster or receipt. Branching on `length > 0` counted the receipt
+        // that a past sign-off leaves behind as a roster, so the first signer
         // silently became the requirement's only permitted signer — forever,
-        // and with no admin bypass on this particular check.
-        const pendingSigners = lockedAssignments.filter((a) => a.signedOffAt === null);
+        // and with no admin bypass on this particular check. The rule lives in
+        // lib/compliance/sign-off-roster so the sign-off button reads the same
+        // one and cannot offer what this would refuse.
+        const pendingSigners = pendingSignersOf(lockedAssignments);
 
         if (pendingSigners.length > 0) {
           const myAssignment = pendingSigners.find((a) => a.userId === ctx.userId);
@@ -923,7 +916,11 @@ export const assessmentRouter = router({
           .from(requirementAssignment)
           .where(eq(requirementAssignment.statusId, input.statusId))
           .for("update");
-        if (lockedAssignments.length > 0) {
+        // Pending signers only, for the reason signOff spells out: the receipt
+        // a past sign-off leaves behind is not a roster, and refusing on it
+        // told people a requirement "has assigned signers" when nobody was
+        // assigned to it.
+        if (pendingSignersOf(lockedAssignments).length > 0) {
           throw new TRPCError({
             code: "FORBIDDEN",
             message: "This requirement has assigned signers; sign off through the assignment flow.",
@@ -1061,12 +1058,21 @@ export const assessmentRouter = router({
           r.currentStatus !== "not_applicable",
       );
       if (moduleRows.length === 0) return { confirmed: 0 };
+      // Rows still owed a signature, the SQL spelling of pendingSignersOf in
+      // lib/compliance/sign-off-roster. Without the isNull the set also caught
+      // requirements carrying only a receipt from a past sign-off, so a bulk
+      // confirm silently skipped every requirement anyone had ever signed.
       const confirmAssignedIds = new Set(
         (
           await ctx.db
             .select({ statusId: requirementAssignment.statusId })
             .from(requirementAssignment)
-            .where(inArray(requirementAssignment.statusId, moduleRows.map((r) => r.statusId)))
+            .where(
+              and(
+                inArray(requirementAssignment.statusId, moduleRows.map((r) => r.statusId)),
+                isNull(requirementAssignment.signedOffAt),
+              ),
+            )
         ).map((a) => a.statusId),
       );
       const toConfirm = moduleRows.filter((r) => {
@@ -1206,15 +1212,21 @@ export const assessmentRouter = router({
       // same admin-bypass rule as signOff; (2) N-of-M requirements, whose
       // assigned signers must each sign through the assignment flow. Rows
       // failing either check are left untouched, not silently completed.
+      // Rows still owed a signature, the SQL spelling of pendingSignersOf in
+      // lib/compliance/sign-off-roster. Without the isNull this also skipped
+      // every requirement that merely carried a receipt from a past sign-off.
       const assignedStatusIds = new Set(
         (
           await ctx.db
             .select({ statusId: requirementAssignment.statusId })
             .from(requirementAssignment)
             .where(
-              inArray(
-                requirementAssignment.statusId,
-                rows.map((r) => r.statusId),
+              and(
+                inArray(
+                  requirementAssignment.statusId,
+                  rows.map((r) => r.statusId),
+                ),
+                isNull(requirementAssignment.signedOffAt),
               ),
             )
         ).map((a) => a.statusId),
