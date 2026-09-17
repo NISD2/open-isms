@@ -27,6 +27,7 @@ import { dashboardRouter } from "./routers/dashboard";
 import { intakeRouter } from "./routers/intake";
 import { policyConfigRouter } from "./routers/policy-config";
 import { applicabilityRouter } from "./routers/applicability";
+import { advisoryRouter } from "./routers/advisory";
 import { supplierPortalRouter } from "./routers/supplier-portal";
 import { supplierInviteRouter } from "./routers/supplier-invite";
 import { trainingPortalRouter } from "./routers/training-portal";
@@ -69,6 +70,7 @@ export const appRouter = router({
   intake: intakeRouter,
   policyConfig: policyConfigRouter,
   applicability: applicabilityRouter,
+  advisory: advisoryRouter,
   supplierPortal: supplierPortalRouter,
   supplierInvite: supplierInviteRouter,
   trainingPortal: trainingPortalRouter,

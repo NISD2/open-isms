@@ -21,6 +21,9 @@ export * from "@nisd2/isms-schema";
 
 // SaaS-only tables — stay at NIS2 root
 export * from "./tables/leads";
+export * from "./tables/advisory-request";
+export * from "./tables/advisory-referral";
+export * from "./tables/advisory-partner";
 export * from "./tables/email-otp";
 export * from "./tables/company-invite";
 export * from "./tables/supplier-invite";

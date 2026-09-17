@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-const dataTypes = ["account", "forms", "files", "technical"] as const;
+const dataTypes = ["account", "forms", "files", "technical", "advisory"] as const;
 const purposeKeys = ["contract", "auth", "security", "legal"] as const;
 const processorKeys = ["google", "aws", "resend", "xai"] as const;
 const rightKeys = ["access", "rectification", "erasure", "restriction", "portability", "objection"] as const;

@@ -113,6 +113,41 @@
       "when": 1789585600000,
       "tag": "0015_clear_inc_policy_signoffs",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1789637092611,
+      "tag": "0016_next_hellion",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1789638461807,
+      "tag": "0017_striped_black_bird",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1789654546617,
+      "tag": "0018_lyrical_havok",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1789656305942,
+      "tag": "0019_outstanding_vargas",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1789657792943,
+      "tag": "0020_living_major_mapleleaf",
+      "breakpoints": true
     }
   ]
 }

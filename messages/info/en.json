@@ -241,20 +241,20 @@
       "cta": "Open the platform"
     },
     "wikiNextStep": {
-      "scope": {
-        "heading": "Not sure whether NIS 2 applies to you?",
-        "body": "The scope check walks the size thresholds, the sector annexes and where your entity is established, and gives you a written answer in about two minutes.",
-        "cta": "Run the scope check"
+      "scopeHelp": {
+        "heading": "Want to know whether this applies to you?",
+        "body": "Our scope check gives you an indication, not a binding determination. We are not a law firm. If you want it settled properly, tell us briefly what it is about and we will pass your request to a specialist firm. Free for you. We receive a referral fee.",
+        "cta": "Send a request"
       },
-      "timeline": {
-        "heading": "The deadline is set. Is your organisation in scope?",
-        "body": "Transposition status tells you when. The scope check tells you whether it is you — size thresholds, sector annexes and where your entity is established.",
-        "cta": "Check your scope"
+      "selfHostHelp": {
+        "heading": "Running it yourself?",
+        "body": "The source is free and stays free. If you want the setup done faster, we do it for a fixed price. Tell us briefly what your environment looks like.",
+        "cta": "Send a request"
       },
-      "advice": {
-        "heading": "Working through this against a real deadline?",
-        "body": "Talk it through with someone who has done it. Thirty minutes, no pitch — bring your situation and we will tell you what actually has to happen first.",
-        "cta": "Book a call"
+      "stuckHelp": {
+        "heading": "Need support with this?",
+        "body": "Tell us in a minute what it is about. We pass your request to a specialist firm that does exactly this work. Free for you. We receive a referral fee from the firm.",
+        "cta": "Send a request"
       }
     },
     "whatIsNisd2": {
@@ -799,7 +799,8 @@
         "account": "Account data: name and email address provided via Google OAuth during sign-in",
         "forms": "Form submissions: data you enter in compliance requirement forms",
         "files": "Uploaded files: evidence documents you upload to the platform",
-        "technical": "Technical data: IP address, browser type, and access timestamps in server logs"
+        "technical": "Technical data: IP address, browser type, and access timestamps in server logs",
+        "advisory": "Referral requests: if you ask for support through the form on /hilfe, we store what you tell us (topic, email address, and optionally name, company, sector, size, what prompted it, your timeframe and your description), the page you opened the form from, and the page you visited before that (referrer). We pass your request to a specialist firm only if you explicitly agreed in the form, and we record when that consent was given. From the moment it is passed on, the firm is its own controller. If an engagement results, the firm pays us a referral fee. You can withdraw your consent at any time."
       },
       "purpose": {
         "heading": "Purpose and Legal Basis",

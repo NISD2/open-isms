@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { CalModal } from "@/components/funnel/CalModal";
 import {
   ArrowLeft,
@@ -594,8 +595,26 @@ function ResultStep({
           </div>
         )}
 
+        {/*
+          The disclaimer says this is an "indikative Orientierungshilfe... keine
+          Rechtsberatung und keine verbindliche Einstufung", and then tells the
+          reader to consult a qualified advisor. True, and it leaves them
+          exactly where they started, so the line after it makes that advice
+          actionable. Inside the same block rather than as a banner, because it
+          is the second half of the disclaimer and not a competing offer: the
+          national authority callout further down keeps its place untouched.
+        */}
         <div className="rounded-lg border-l-4 border-muted-foreground/40 bg-muted/40 p-4 text-sm text-muted-foreground">
-          {t("result.disclaimer")}
+          <p>{t("result.disclaimer")}</p>
+          <p className="mt-2">
+            {t("result.bindingAnswer")}{" "}
+            <Link
+              href={{ pathname: "/hilfe", query: { from: "applicability" } }}
+              className="font-medium text-foreground underline underline-offset-2"
+            >
+              {t("result.bindingAnswerCta")}
+            </Link>
+          </p>
         </div>
 
         {inScope && result.penaltyCeiling && (

@@ -1,0 +1,1 @@
+ALTER TABLE "advisory_request" ADD COLUMN "referrer" varchar(1000);
