@@ -1,13 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { useTranslations } from "next-intl";
-import superjson from "superjson";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { userFacingError } from "./error-message";
+import superjson from "superjson";
 import { trpc } from "./client";
+import { userFacingError } from "./error-message";
 
 function getBaseUrl() {
   if (typeof window !== "undefined") return "";
@@ -42,7 +42,7 @@ export function TRPCProvider({ children }: { children: React.ReactNode }) {
             toast.error(userFacingError(error, tRef.current("actionFailed")));
           },
         }),
-      })
+      }),
   );
 
   const [trpcClient] = useState(() =>
@@ -53,7 +53,7 @@ export function TRPCProvider({ children }: { children: React.ReactNode }) {
           transformer: superjson,
         }),
       ],
-    })
+    }),
   );
 
   return (

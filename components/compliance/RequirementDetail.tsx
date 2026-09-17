@@ -1,13 +1,20 @@
 "use client";
 
-import { useState, useOptimistic, useTransition } from "react";
-import { useRouter, Link } from "@/i18n/navigation";
+import {
+  Ban,
+  CheckCircle2,
+  ExternalLink,
+  GraduationCap,
+  Lightbulb,
+  Loader2,
+  Pencil,
+  Save,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useForm, useFormState, Controller } from "react-hook-form";
-import { trpc } from "@/lib/trpc/client";
+import { useOptimistic, useState, useTransition } from "react";
+import { Controller, useForm, useFormState } from "react-hook-form";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { StuckLink } from "@/components/help/StuckLink";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,50 +25,43 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { SignOffButton } from "./SignOffButton";
-import { ReopenButton } from "./ReopenButton";
-import { FileUpload } from "./FileUpload";
-import { DeadlineBadge } from "./DeadlineBadge";
-import { RequirementGuidance } from "./RequirementGuidance";
-import { RequirementFooterNav, type NavLink } from "./RequirementFooterNav";
-import { StatusBadge, PriorityBadge } from "./RequirementConstants";
-
-import { RiskMethodologyEditor } from "./RiskMethodologyEditor";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Link, useRouter } from "@/i18n/navigation";
+import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
+import { buildCitationRows, type FrameworkLabel } from "@/lib/compliance/citations";
+import { MODULE_HREF } from "@/lib/compliance/operational-links";
+import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
+import type { RoleKey } from "@/lib/compliance/role-keys";
+import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
+import { renderFieldInput } from "@/lib/forms/field-renderer";
+import type { FieldMeta } from "@/lib/forms/schema-introspect";
+import { trpc } from "@/lib/trpc/client";
+import type { Asset } from "@/schema/types";
 import { AssetRiskRegister } from "../risks/AssetRiskRegister";
 import { RiskTreatmentView } from "../risks/RiskTreatmentView";
 import { SupplierRiskRegister } from "../suppliers/SupplierRiskRegister";
-import { CryptoPolicyEditor } from "./CryptoPolicyEditor";
 import { AccessControlEditor } from "./AccessControlEditor";
-import { ProcurementEditor } from "./ProcurementEditor";
-import { SecureDevEditor } from "./SecureDevEditor";
+import { CryptoPolicyEditor } from "./CryptoPolicyEditor";
+import { DeadlineBadge } from "./DeadlineBadge";
+import { FileUpload } from "./FileUpload";
+import { InlineModulePanel } from "./InlineModulePanel";
 import { PatchPolicyEditor } from "./PatchPolicyEditor";
 import { PolicyItemsPanel, SKIP_INLINE_MODULE } from "./PolicyItemsPanel";
-import { InlineModulePanel } from "./InlineModulePanel";
-import { MODULE_HREF } from "@/lib/compliance/operational-links";
-import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
-import { RequirementAssignPopover, type AssignmentRow } from "./RequirementAssignPopover";
-import { StuckLink } from "@/components/help/StuckLink";
-import { renderFieldInput } from "@/lib/forms/field-renderer";
-import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
-import type { FieldMeta } from "@/lib/forms/schema-introspect";
-import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
-import { buildCitationRows, type FrameworkLabel } from "@/lib/compliance/citations";
-import type { Asset } from "@/schema/types";
-import type { RoleKey } from "@/lib/compliance/role-keys";
-import {
-  Ban,
-  CheckCircle2,
-  ExternalLink,
-  Pencil,
-  Save,
-  Loader2,
-  Lightbulb,
-  GraduationCap,
-} from "lucide-react";
+import { ProcurementEditor } from "./ProcurementEditor";
+import { ReopenButton } from "./ReopenButton";
+import { type AssignmentRow, RequirementAssignPopover } from "./RequirementAssignPopover";
+import { PriorityBadge, StatusBadge } from "./RequirementConstants";
+import { type NavLink, RequirementFooterNav } from "./RequirementFooterNav";
+import { RequirementGuidance } from "./RequirementGuidance";
+import { RiskMethodologyEditor } from "./RiskMethodologyEditor";
+import { SecureDevEditor } from "./SecureDevEditor";
+import { SignOffButton } from "./SignOffButton";
 
 // Requirements where the built-in CEO management training course satisfies
 // the §38(3) BSIG / Art. 20(2) NIS2 training obligation.
 const CEO_COURSE_REQUIREMENT_CODES = new Set(["1.1", "8.3"]);
+
 import { teachingLessonForCategory } from "@/lib/training/lesson-journey-map";
 import { cn } from "@/lib/utils";
 
@@ -140,7 +140,14 @@ interface RequirementDetailProps {
 // ---------------------------------------------------------------------------
 // Typed against CUSTOM_EDITOR_KEYS (lib/compliance/requirement-fields.ts):
 // an editor added or removed on one side without the other is a compile error.
-const CUSTOM_EDITORS: Record<CustomEditorKey, React.ComponentType<{ disabled?: boolean; guidance?: RequirementGuidanceData | null; initialData?: Record<string, unknown> | null }>> = {
+const CUSTOM_EDITORS: Record<
+  CustomEditorKey,
+  React.ComponentType<{
+    disabled?: boolean;
+    guidance?: RequirementGuidanceData | null;
+    initialData?: Record<string, unknown> | null;
+  }>
+> = {
   "RSK:2.1": RiskMethodologyEditor,
   "RSK:2.3": AssetRiskRegister,
   "RSK:2.4": RiskTreatmentView,
@@ -205,7 +212,10 @@ export function RequirementDetail({
 
   const [optimisticAssignments, setOptimisticAssignments] = useOptimistic(
     assignments,
-    (current: AssignmentRow[], action: { type: "add"; userId: string } | { type: "remove"; userId: string }) => {
+    (
+      current: AssignmentRow[],
+      action: { type: "add"; userId: string } | { type: "remove"; userId: string },
+    ) => {
       if (action.type === "remove") {
         return current.filter((a) => a.userId !== action.userId);
       }
@@ -217,7 +227,12 @@ export function RequirementDetail({
           id: `optimistic-${action.userId}`,
           userId: action.userId,
           signedOffAt: null,
-          user: { id: user.id, name: user.name, email: user.email, jobTitle: user.jobTitle },
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            jobTitle: user.jobTitle,
+          },
         },
       ];
     },
@@ -489,20 +504,25 @@ export function RequirementDetail({
                 {t("requirement.prerequisitesBlocked")}
               </p>
               <ul className="space-y-1">
-                {prerequisites.filter((p) => !p.isComplete).map((p) => (
-                  <li key={p.code} className="text-sm flex items-center gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-muted-foreground/30" />
-                    <Link
-                      href={{
-                        pathname: "/compliance/[categorySlug]/[requirementCode]",
-                        params: { categorySlug: p.categorySlug, requirementCode: p.code },
-                      }}
-                      className="hover:text-foreground transition-colors text-muted-foreground underline underline-offset-2"
-                    >
-                      {p.code} — {p.title}
-                    </Link>
-                  </li>
-                ))}
+                {prerequisites
+                  .filter((p) => !p.isComplete)
+                  .map((p) => (
+                    <li key={p.code} className="text-sm flex items-center gap-2">
+                      <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-muted-foreground/30" />
+                      <Link
+                        href={{
+                          pathname: "/compliance/[categorySlug]/[requirementCode]",
+                          params: {
+                            categorySlug: p.categorySlug,
+                            requirementCode: p.code,
+                          },
+                        }}
+                        className="hover:text-foreground transition-colors text-muted-foreground underline underline-offset-2"
+                      >
+                        {p.code} — {p.title}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </div>
           )}
@@ -553,8 +573,9 @@ export function RequirementDetail({
                 <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   {t("requirement.specificsSection")}
                 </h2>
-                {!isNA && !isReviewer && (
-                  isEditing ? (
+                {!isNA &&
+                  !isReviewer &&
+                  (isEditing ? (
                     <div className="flex items-center gap-2">
                       <Button
                         variant="ghost"
@@ -588,22 +609,35 @@ export function RequirementDetail({
                       <Pencil className="mr-1.5 h-3.5 w-3.5" />
                       {tf("edit")}
                     </Button>
-                  )
-                )}
+                  ))}
               </div>
               <div className="space-y-4">
                 {fields.map((meta) => (
-                    <Controller
-                      key={meta.key}
-                      name={meta.key}
-                      control={form.control}
-                      render={({ field }) => (
-                        <div data-field={meta.key} className="space-y-1.5">
-                          <label className="text-sm font-medium">{meta.label}</label>
-                          {renderFieldInput(meta, field, undefined, undefined, fieldsDisabled)}
-                        </div>
-                      )}
-                    />
+                  <Controller
+                    key={meta.key}
+                    name={meta.key}
+                    control={form.control}
+                    render={({ field }) => (
+                      <div data-field={meta.key} className="space-y-1.5">
+                        {/* biome-ignore lint/a11y/noLabelWithoutControl: predates this
+                            branch and surfaces here only because CI lints changed files.
+                            renderFieldInput returns a single Input for some field types
+                            and a group of checkboxes or radios for others, so neither
+                            htmlFor nor wrapping is right for all of them — a group needs
+                            role="group" + aria-labelledby, and clicking a label wrapping
+                            radios would select the first one. The fix belongs in the
+                            renderer, which lib/forms/schema-form.tsx also uses. */}
+                        <label className="text-sm font-medium">{meta.label}</label>
+                        {renderFieldInput(
+                          meta,
+                          field,
+                          undefined,
+                          undefined,
+                          fieldsDisabled,
+                        )}
+                      </div>
+                    )}
+                  />
                 ))}
               </div>
             </div>
@@ -619,11 +653,16 @@ export function RequirementDetail({
           ) : null}
 
           {/* Module data */}
-          {requirement.moduleRef && (
-            SKIP_INLINE_MODULE.has(editorKey) ? (
+          {requirement.moduleRef &&
+            (SKIP_INLINE_MODULE.has(editorKey) ? (
               <div className="pt-2">
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={(MODULE_HREF[requirement.moduleRef] ?? `/${requirement.moduleRef}s`) as never}>
+                  <Link
+                    href={
+                      (MODULE_HREF[requirement.moduleRef] ??
+                        `/${requirement.moduleRef}s`) as never
+                    }
+                  >
                     <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
                     {t("requirement.moduleData")}
                   </Link>
@@ -651,8 +690,7 @@ export function RequirementDetail({
                   editorInitialData={editorInitialData}
                 />
               </div>
-            )
-          )}
+            ))}
 
           {/* Evidence.
 
@@ -721,7 +759,11 @@ export function RequirementDetail({
                           a.signedOffAt ? "text-emerald-500" : "text-muted-foreground/30",
                         )}
                       />
-                      <span className={cn(a.signedOffAt && "text-emerald-600 dark:text-emerald-400")}>
+                      <span
+                        className={cn(
+                          a.signedOffAt && "text-emerald-600 dark:text-emerald-400",
+                        )}
+                      >
                         {a.user.name}
                       </span>
                       {a.signedOffAt && (
@@ -735,7 +777,9 @@ export function RequirementDetail({
               )}
               {assignments.length === 0 && !isCompleted && !isNA && (
                 <p className="text-xs text-muted-foreground mt-1">
-                  {t("requirement.requiredRole", { role: requiredSignOffRole.toUpperCase() })}
+                  {t("requirement.requiredRole", {
+                    role: requiredSignOffRole.toUpperCase(),
+                  })}
                 </p>
               )}
             </div>
@@ -779,35 +823,37 @@ export function RequirementDetail({
               {requirement.importance === "mandatory" && (
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">{t("requirement.importance")}</dt>
-                  <dd className="text-xs text-red-600 dark:text-red-400">{t("mandatory")}</dd>
+                  <dd className="text-xs text-red-600 dark:text-red-400">
+                    {t("mandatory")}
+                  </dd>
                 </div>
               )}
               {/* The link sits on the framework name, not on the citation:
                   it opens that law's source page for this category, which is
                   not always the exact article the citation names. */}
               <div data-tour="requirement-legal" className="space-y-2">
-              {citationRows.map((row) => (
-                <div key={row.id} className="flex items-start justify-between gap-3">
-                  <dt className="shrink-0 text-muted-foreground">
-                    {row.href ? (
-                      <a
-                        href={row.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 hover:text-foreground transition-colors"
-                      >
-                        {citationLabel(row.label)}
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    ) : (
-                      citationLabel(row.label)
-                    )}
-                  </dt>
-                  <dd className="text-right text-xs text-muted-foreground">
-                    {row.citation}
-                  </dd>
-                </div>
-              ))}
+                {citationRows.map((row) => (
+                  <div key={row.id} className="flex items-start justify-between gap-3">
+                    <dt className="shrink-0 text-muted-foreground">
+                      {row.href ? (
+                        <a
+                          href={row.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 hover:text-foreground transition-colors"
+                        >
+                          {citationLabel(row.label)}
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      ) : (
+                        citationLabel(row.label)
+                      )}
+                    </dt>
+                    <dd className="text-right text-xs text-muted-foreground">
+                      {row.citation}
+                    </dd>
+                  </div>
+                ))}
               </div>
             </dl>
             {teachingLesson && (
@@ -831,7 +877,6 @@ export function RequirementDetail({
                 more thing available rather than an interruption. */}
             <StuckLink requirementCode={requirement.code} className="mt-1" />
           </div>
-
         </aside>
       </div>
 
@@ -858,7 +903,9 @@ export function RequirementDetail({
                 <SignOffButton
                   isSubmitting={isPending}
                   disabledReason={
-                    blockedByRoster ? t("assignedTo", { name: awaitedSigners }) : undefined
+                    blockedByRoster
+                      ? t("assignedTo", { name: awaitedSigners })
+                      : undefined
                   }
                   onSignOff={handleSignOff}
                 />

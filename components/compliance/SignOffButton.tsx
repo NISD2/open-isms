@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader2, PenTool } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,7 +9,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { PenTool, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SignOffButtonProps {
