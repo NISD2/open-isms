@@ -6,7 +6,8 @@
  *
  * Eligibility (all must hold):
  *   - email proved (emailVerifiedAt set), not a disposable domain
- *   - not opted out of soft-touch emails (emailFollowupsDisabled)
+ *   - not opted out: neither the all-off flag (emailFollowupsDisabled) nor
+ *     a preference-centre row covering this email
  *   - has a company (draft shells INCLUDED — a drive-by signup with a seeded
  *     path is exactly who this email is for; contrast the digests, which
  *     exclude drafts)
@@ -21,6 +22,8 @@
 import { and, asc, eq, gt, inArray, isNotNull, notExists, sql } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
+import { categoryScope, SCOPE_ALL, typeScope } from "@/lib/mail/consent-rules";
+import { emailTypeCategory } from "@/lib/mail/email-types";
 import type { EmailContent } from "@/lib/mail/layout";
 import { BRAND, emailLayout, escapeHtml, safeHeader } from "@/lib/mail/layout";
 import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
@@ -32,6 +35,7 @@ import {
   companyAssessment,
   companyRequirementStatus,
   complianceFramework,
+  emailPreference,
   notification,
   requirement,
   requirementCategory,
@@ -60,6 +64,9 @@ export const ACTIVATION_NUDGE_KEY = "activation_nudge_v1"; // gitleaks:allow
  * safe to tune.
  */
 export const NUDGE_AFTER_DAYS = 3;
+
+/** The message type the dispatcher sends this campaign as. */
+const NUDGE_EMAIL_TYPE = "product.lifecycle_nudge";
 
 // ---------------------------------------------------------------------------
 // Copy (de primary, en, nl — the locales the auth flow already narrows to)
@@ -312,6 +319,24 @@ export function buildCandidateQuery(db: DbOrTx, cutoff: Date) {
       ),
     );
 
+  // Opt-outs from the preference centre that cover this email. The all-off
+  // flag is checked on the user row below; these are the finer rows the
+  // consent gate also honours. Filtering here keeps the admin queue honest:
+  // nobody is listed whom the dispatcher would then skip as opted out.
+  const optedOut = db
+    .select({ one: sql`1` })
+    .from(emailPreference)
+    .where(
+      and(
+        eq(emailPreference.userId, user.id),
+        inArray(emailPreference.scope, [
+          SCOPE_ALL,
+          categoryScope(emailTypeCategory(NUDGE_EMAIL_TYPE)),
+          typeScope(NUDGE_EMAIL_TYPE),
+        ]),
+      ),
+    );
+
   return (
     db
       .select({
@@ -335,6 +360,7 @@ export function buildCandidateQuery(db: DbOrTx, cutoff: Date) {
           // any TZ-set self-host. The ISO string always carries UTC.
           sql`${dormantSince} <= ${cutoff.toISOString()}`,
           notExists(priorClaim),
+          notExists(optedOut),
         ),
       )
       // Oldest-dormant first, so the dispatcher's per-run cap defers

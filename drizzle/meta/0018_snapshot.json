@@ -1,9 +1,85 @@
 {
-  "id": "6eb72ba1-d19c-40dd-a3a1-e4aa3c4e3015",
-  "prevId": "bb7f0def-689b-44b7-9c00-894095923b8d",
+  "id": "10a23b88-8ff5-42e6-be2c-3490c4fa82c9",
+  "prevId": "cfaed424-b845-4dd0-ab83-952938e107c2",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.advisory_partner": {
+      "name": "advisory_partner",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar(60)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_advisory_partner_active": {
+          "name": "idx_advisory_partner_active",
+          "columns": [
+            {
+              "expression": "active",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "advisory_partner_slug_unique": {
+          "name": "advisory_partner_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.advisory_referral": {
       "name": "advisory_referral",
       "schema": "",
@@ -195,6 +271,12 @@
         "requirement_code": {
           "name": "requirement_code",
           "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "referrer": {
+          "name": "referrer",
+          "type": "varchar(1000)",
           "primaryKey": false,
           "notNull": false
         },

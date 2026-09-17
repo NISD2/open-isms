@@ -13,14 +13,14 @@
  * No auth required — the signed token is the credential. Same threat model
  * as a one-click email unsubscribe link.
  */
-import { NextRequest, NextResponse } from "next/server";
+
 import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { emailPreference, user } from "@/schema";
-import { verifyUnsubscribeToken } from "@/lib/email/unsubscribe";
-import { SCOPE_ALL, parseScope } from "@/lib/mail/consent";
+import { type NextRequest, NextResponse } from "next/server";
 import { logAudit } from "@/lib/audit";
+import { db } from "@/lib/db";
+import { verifyUnsubscribeToken } from "@/lib/email/unsubscribe";
 import { getAppUrl } from "@/lib/utils";
+import { user } from "@/schema";
 
 export const dynamic = "force-dynamic";
 
@@ -40,6 +40,13 @@ function invalidLinkRedirect() {
  * Verify the token and flip the flag. Returns false for any invalid input
  * (missing params, bad token, unknown user). Idempotent — a second call for
  * an already-unsubscribed user succeeds without a second audit row.
+ *
+ * Always ALL optional mail, whichever email the link came from. Someone who
+ * unsubscribes from the weekly digest means "stop emailing me", not "keep
+ * the nudges coming". Links sent while one-click was scoped to a single
+ * message type still carry a `scope` parameter; it is read only to say in
+ * the audit row which email the click came from. Finer-grained choices are
+ * the preference centre's job.
  */
 async function processUnsubscribe(req: NextRequest): Promise<boolean> {
   const url = new URL(req.url);
@@ -49,58 +56,27 @@ async function processUnsubscribe(req: NextRequest): Promise<boolean> {
   if (!userId || !token) return false;
   if (!verifyUnsubscribeToken(userId, token)) return false;
 
-  // A scope names what to switch off: one message type, a whole category, or
-  // everything optional. Absent (every link in already-delivered mail) means
-  // everything, which is what those links have always done. An unrecognised
-  // scope is treated as a broken link rather than silently widened to "all".
-  const scope = parseScope(url.searchParams.get("scope"));
-  if (!scope) return false;
-
-  // Look up the user to confirm existence and capture their companyId for
-  // the audit row. Every path here is idempotent — clicking twice is a no-op.
   const row = await db.query.user.findFirst({
     where: eq(user.id, userId),
     columns: { id: true, email: true, companyId: true, emailFollowupsDisabled: true },
   });
   if (!row) return false;
+  if (row.emailFollowupsDisabled) return true;
 
-  if (scope === SCOPE_ALL) {
-    // The coarse switch stays the boolean it has always been, so nothing that
-    // reads emailFollowupsDisabled needs to learn about the new table.
-    if (!row.emailFollowupsDisabled) {
-      await db
-        .update(user)
-        .set({ emailFollowupsDisabled: true, updatedAt: new Date() })
-        .where(eq(user.id, userId));
+  await db
+    .update(user)
+    .set({ emailFollowupsDisabled: true, updatedAt: new Date() })
+    .where(eq(user.id, userId));
 
-      logAudit({
-        companyId: row.companyId,
-        userId: row.id,
-        action: "email.unsubscribed",
-        entityType: "user",
-        entityId: row.id,
-        description: `Unsubscribed ${row.email} from all optional emails`,
-      });
-    }
-    return true;
-  }
-
-  const inserted = await db
-    .insert(emailPreference)
-    .values({ userId: row.id, scope, source: "one_click" })
-    .onConflictDoNothing()
-    .returning({ id: emailPreference.id });
-
-  if (inserted.length > 0) {
-    logAudit({
-      companyId: row.companyId,
-      userId: row.id,
-      action: "email.unsubscribed_scope",
-      entityType: "user",
-      entityId: row.id,
-      description: `Unsubscribed ${row.email} from ${scope}`,
-    });
-  }
+  const origin = url.searchParams.get("scope");
+  logAudit({
+    companyId: row.companyId,
+    userId: row.id,
+    action: "email.unsubscribed",
+    entityType: "user",
+    entityId: row.id,
+    description: `Unsubscribed ${row.email} from all optional emails${origin ? ` (link from ${origin.slice(0, 100)})` : ""}`,
+  });
   return true;
 }
 

@@ -369,7 +369,6 @@ async function notifySubmitter(
         feedback,
         footer: preferenceFooterFor(
           status.completedBy,
-          "work.review_decision",
           resolveEmailLocale(submitter.locale, country),
         ),
       }),

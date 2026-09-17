@@ -13,6 +13,7 @@
     "yes": "Ano",
     "no": "Ne",
     "noData": "Žádná data",
+    "actionFailed": "To se nepodařilo. Zkuste to prosím znovu.",
     "user": "Uživatel",
     "modules": {
       "asset": "Aktiva",

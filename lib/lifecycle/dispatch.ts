@@ -32,9 +32,10 @@ import { eq } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
 import { mailSupportEmail } from "@/lib/env";
-import { isSuppressedSendId, mailSuppressionReason, sendMail } from "@/lib/mail/send";
+import { loadEmailConsent } from "@/lib/mail/consent";
 import { FROM_NAME_PERSONAL } from "@/lib/mail/resend";
-import { notification, user } from "@/schema";
+import { isSuppressedSendId, mailSuppressionReason, sendMail } from "@/lib/mail/send";
+import { notification } from "@/schema";
 import { LIFECYCLE_EMAIL_TYPES } from "./registry";
 import {
   LIFECYCLE_ENTITY_TYPE,
@@ -103,15 +104,14 @@ async function deliverOne(
   type: LifecycleEmailType,
   email: PreparedLifecycleEmail,
 ): Promise<DeliveryOutcome> {
-  // Re-check the opt-out flag right before claiming: prepare() snapshots
-  // eligibility for the whole batch, and the throttled loop can run for a
-  // minute — long enough for someone to click unsubscribe on that morning's
-  // digest. One indexed PK read shrinks that window to milliseconds.
-  const recipient = await db.query.user.findFirst({
-    where: eq(user.id, email.userId),
-    columns: { emailFollowupsDisabled: true },
-  });
-  if (!recipient || recipient.emailFollowupsDisabled) return "opted_out";
+  // Re-check consent right before claiming: prepare() snapshots eligibility
+  // for the whole batch, and the throttled loop can run for a minute — long
+  // enough for someone to click unsubscribe on that morning's digest. Same
+  // gate sendMail applies, asked BEFORE the claim: asked only inside
+  // sendMail, an opted-out person would burn their once-ever claim on an
+  // email that never left, and the admin view would count it as sent.
+  const consent = await loadEmailConsent(db, email.userId);
+  if (!consent.allows("product.lifecycle_nudge")) return "opted_out";
 
   const now = new Date();
   const claimed = await db

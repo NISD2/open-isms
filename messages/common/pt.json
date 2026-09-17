@@ -13,6 +13,7 @@
     "yes": "Sim",
     "no": "Não",
     "noData": "Sem dados",
+    "actionFailed": "Não funcionou. Tente novamente.",
     "user": "Utilizador",
     "modules": {
       "asset": "Ativos",
