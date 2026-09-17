@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { PublicNav } from "@/components/PublicNav";
-import { PublicFooter } from "@/components/PublicFooter";
-import { DocsSidebar } from "@/components/docs/DocsSidebar";
+import { DocsHelpCta } from "@/components/docs/DocsHelpCta";
 import { DocsSearchProvider, DocsSearchTrigger } from "@/components/docs/DocsSearch";
+import { DocsSidebar } from "@/components/docs/DocsSidebar";
 import { MobileNav } from "@/components/docs/MobileNav";
+import { PublicFooter } from "@/components/PublicFooter";
+import { PublicNav } from "@/components/PublicNav";
 import "./docs.css";
 
 /**
@@ -85,6 +86,11 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                   <DocsSearchTrigger />
                 </div>
                 {children}
+                {/*
+                  Rendered from the layout for the same reason WikiNextStep is:
+                  a new page must not be able to ship without a next step.
+                */}
+                <DocsHelpCta />
               </div>
             </main>
 

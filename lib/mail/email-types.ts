@@ -83,6 +83,14 @@ export const EMAIL_TYPES = {
 
   // --- To the platform operators -------------------------------------------
   "internal.new_signup_alert": { category: "internal", consent: "operator" },
+  /**
+   * Somebody asked to be put in touch with a firm that charges money. Kept
+   * well apart from the signup alert in every visible way, because the two
+   * demand completely different reactions: a signup is a statistic, and this
+   * is the only revenue event we have. Whoever answers first tends to get the
+   * work, so it must be obvious in a full inbox at a glance.
+   */
+  "internal.advisory_request": { category: "internal", consent: "operator" },
   "internal.test_send": { category: "internal", consent: "operator" },
 } as const satisfies Record<string, EmailTypeDefinition>;
 

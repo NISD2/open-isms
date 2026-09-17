@@ -69,6 +69,8 @@
 
       "disclaimer": "Dies ist eine indikative Orientierungshilfe auf Basis öffentlich zugänglicher Quellen (NIS 2, BSIG, BSI-FAQ), keine Rechtsberatung und keine verbindliche Einstufung im Einzelfall. Die NIS2-Betroffenheit hängt von Faktoren ab, die hier nicht vollständig erfasst werden, darunter Konzernstruktur, unabhängige IT-Infrastruktur und behördliche Auslegungen. Für eine verbindliche Einstufung im Einzelfall wenden Sie sich an eine Rechtsanwältin oder einen qualifizierten Berater.",
 
+      "bindingAnswer": "Wenn Sie das belastbar geklärt haben wollen: sagen Sie uns in einer Minute, worum es geht, und wir leiten Ihre Anfrage an einen Fachbetrieb weiter. Für Sie kostenlos, wir erhalten eine Vermittlungsgebühr.",
+      "bindingAnswerCta": "Anfrage stellen",
       "obligations": "Gesetzliche Anforderungen laut NIS 2 / BSIG",
       "penalty": "Bußgeldrahmen",
       "penaltyValue": "{amount} oder {percent} des weltweiten Jahresumsatzes",

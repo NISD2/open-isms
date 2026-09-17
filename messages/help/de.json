@@ -49,8 +49,69 @@
       "authority": "Keine Zusage, dass eine Behörde Ihre Umsetzung akzeptiert, die kann Ihnen niemand seriös geben.",
       "commission": "Keine Empfehlung, die wir nicht auch ohne Provision aussprechen würden."
     },
+    "request": {
+      "heading": "Anfrage stellen",
+      "subheading": "Ein Klick und Ihre E-Mail-Adresse. Kein Konto nötig.",
+      "reassurance": "Für Sie kostenlos, wir erhalten eine Vermittlungsgebühr vom Fachbetrieb. Unverbindlich, Sie entscheiden nach dem ersten Gespräch.",
+      "fields": {
+        "topic": "Worum geht es?",
+        "sector": "Branche",
+        "companySize": "Mitarbeiter",
+        "trigger": "Was ist der Anlass?",
+        "timeframe": "Bis wann?",
+        "contactName": "Name",
+        "companyName": "Firma",
+        "email": "E-Mail",
+        "note": "Etwas, das der Fachbetrieb vorher wissen sollte"
+      },
+      "detail": {
+        "intro": "Wenn Sie noch 30 Sekunden haben: damit kann der Fachbetrieb gezielter antworten, statt erst zurückzufragen. Alles freiwillig.",
+        "cta": "Angaben ergänzen",
+        "skip": "Reicht so"
+      },
+      "topics": {
+        "scope": "Betroffenheit klären",
+        "measures": "Maßnahmen umsetzen",
+        "supplyChain": "Lieferkette und Lieferantenfragebögen",
+        "incident": "Meldepflichten und Vorfallbehandlung",
+        "managementTraining": "Schulung der Geschäftsleitung",
+        "certification": "Zertifizierung vorbereiten",
+        "selfHosting": "Selbstbetrieb der Plattform",
+        "other": "Etwas anderes"
+      },
+      "triggers": {
+        "customerAsked": "Ein Kunde hat gefragt",
+        "registration": "Registrierung beim BSI",
+        "audit": "Audit oder Prüfung steht an",
+        "tender": "Ausschreibung",
+        "internal": "Interne Initiative"
+      },
+      "timeframes": {
+        "thisMonth": "Diesen Monat",
+        "thisQuarter": "Dieses Quartal",
+        "noFixedDate": "Kein fester Termin"
+      },
+      "sizes": {
+        "under50": "Unter 50",
+        "50to250": "50 bis 250",
+        "over250": "Über 250"
+      },
+      "placeholders": {
+        "select": "Bitte wählen",
+        "sector": "z. B. Energieversorgung",
+        "email": "name@firma.de",
+        "note": "Was genau hakt gerade?"
+      },
+      "consent": "Meine Anfrage darf an einen passenden Fachbetrieb weitergeleitet werden. Was dabei mit meinen Daten passiert, steht in der Datenschutzerklärung.",
+      "cta": "Anfrage absenden",
+      "error": "Das hat nicht geklappt. Bitte versuchen Sie es noch einmal oder schreiben Sie uns eine Mail.",
+      "success": {
+        "heading": "Anfrage ist angekommen",
+        "body": "Wir sehen uns an, ob wir das kurz selbst beantworten können oder ob es ein Fachbetrieb ist, und melden uns in der Regel innerhalb von zwei Werktagen."
+      }
+    },
     "contact": {
-      "heading": "Kontakt",
+      "heading": "Lieber per Mail?",
       "email": "contact@nisd2.eu",
       "p1": "{email}. Eine Zeile reicht: wo Sie hängen, wie viele Mitarbeiter, welche Branche.",
       "cta": "Mail schreiben",
