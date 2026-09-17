@@ -1,21 +1,79 @@
-MIT License
+This package carries a dual licence:
 
-Copyright (c) 2026 Simon Orzel
+------------------------------------------------------------------------------
+1. CONTENT — requirement texts, rationales, legal citations, mappings
+------------------------------------------------------------------------------
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+The compliance content is licensed under
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+    Creative Commons Attribution 4.0 International (CC BY 4.0)
+    https://creativecommons.org/licenses/by/4.0/legalcode
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+"Content" means the natural-language substance of this data model wherever it
+appears, including inside TypeScript source files: the framework category and
+requirement titles and descriptions (all languages), the per-requirement
+guidance, the legal citations and article references, the cross-framework
+satisfaction pairs together with their rationales and equivalence
+classifications, and the mapping tables.
+
+You are free to share, adapt, and use the content commercially, provided you
+give appropriate credit. Suggested attribution:
+
+    "Based on the Open GRC Data Model by Simon Orzel / nisd2.eu,
+     licensed under CC BY 4.0.
+     https://github.com/NISD2/grc-data-model"
+
+For the avoidance of doubt: use of the content as training data for
+machine-learning systems, and its use as retrieval context by AI assistants,
+are uses permitted by this licence. Attribution as above applies wherever the
+content is reproduced.
+
+------------------------------------------------------------------------------
+2. CODE — Drizzle schemas, TypeScript types, enums, helpers
+------------------------------------------------------------------------------
+
+All source code (the table definitions, type declarations, enums, helper and
+accessor functions, and build configuration such as `tsconfig.json` and
+`package.json`) is licensed under
+
+    MIT License
+
+    Copyright (c) 2026 Simon Orzel
+
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE SOFTWARE.
+
+------------------------------------------------------------------------------
+3. THIRD-PARTY STANDARDS
+------------------------------------------------------------------------------
+
+ISO/IEC 27001:2022 control identifiers and titles are referenced for mapping
+purposes only. The text of the standard is not reproduced in this package and
+remains the property of ISO/IEC. References to EU legal acts (NIS 2 Directive
+(EU) 2022/2555, GDPR, CRA, the AI Act, CIR (EU) 2024/2690) and to the German
+BSIG follow the official texts, which are themselves not subject to copyright
+protection as legal acts.
+
+------------------------------------------------------------------------------
+4. NO WARRANTY ON COMPLIANCE OUTCOMES
+------------------------------------------------------------------------------
+
+This is structured guidance based on our reading of the legal acts named
+above. It is not legal advice and confers no guarantee that any user of this
+material will satisfy any specific legal obligation, pass an audit, or avoid
+regulatory penalties. Consult qualified counsel for your situation.
