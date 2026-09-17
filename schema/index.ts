@@ -18,25 +18,22 @@ export * from "@nisd2/grc-data-model/schema";
 
 // ISMS-process: extracted to its own package (includes enums)
 export * from "@nisd2/isms-schema";
-
-// SaaS-only tables — stay at NIS2 root
-export * from "./tables/leads";
-export * from "./tables/advisory-request";
-export * from "./tables/advisory-referral";
-export * from "./tables/advisory-partner";
-export * from "./tables/email-otp";
-export * from "./tables/company-invite";
-export * from "./tables/supplier-invite";
-export * from "./tables/supplier-portal";
-export * from "./tables/newsletter-group";
-export * from "./tables/newsletter-issue";
-export * from "./tables/data-erasure-log";
-
 // Modules (framework-specific extensions)
 export * from "./modules/bsig";
-
 // Relations (required for Drizzle relational queries)
 export * from "./relations";
+export * from "./tables/advisory-partner";
+export * from "./tables/advisory-referral";
+export * from "./tables/advisory-request";
+export * from "./tables/company-invite";
+export * from "./tables/data-erasure-log";
+export * from "./tables/email-otp";
+// SaaS-only tables — stay at NIS2 root
+export * from "./tables/leads";
+export * from "./tables/newsletter-group";
+export * from "./tables/newsletter-issue";
+export * from "./tables/supplier-invite";
+export * from "./tables/supplier-portal";
 
 // Types
 export * from "./types";

@@ -1,20 +1,20 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { CalModal } from "@/components/funnel/CalModal";
 import {
+  AlertTriangle,
   ArrowLeft,
   ArrowRight,
-  ShieldAlert,
-  ShieldX,
-  AlertTriangle,
-  RotateCcw,
+  Check,
   CheckCircle2,
   Info,
-  Check,
+  RotateCcw,
+  ShieldAlert,
+  ShieldX,
 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { useCallback, useState } from "react";
+import { CalModal } from "@/components/funnel/CalModal";
+import { Badge } from "@/components/ui/badge";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,7 +24,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
@@ -34,26 +33,31 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ObligationsTable } from "./ObligationsTable";
-import { LeadCaptureForm } from "./LeadCaptureForm";
-import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
 import {
   SECTORS,
-  SPECIAL_CASES,
   type Sector,
+  SPECIAL_CASES,
   type SpecialCaseId,
 } from "@/lib/applicability/sectors";
+import { cn } from "@/lib/utils";
+import { LeadCaptureForm } from "./LeadCaptureForm";
+import { ObligationsTable } from "./ObligationsTable";
 
 function allAlwaysEssential(ids: SpecialCaseId[]): boolean {
-  return ids.length > 0 && ids.every((id) => {
-    const sc = SPECIAL_CASES.find((s) => s.id === id);
-    return sc?.alwaysEssential;
-  });
+  return (
+    ids.length > 0 &&
+    ids.every((id) => {
+      const sc = SPECIAL_CASES.find((s) => s.id === id);
+      return sc?.alwaysEssential;
+    })
+  );
 }
+
 import {
+  type ClassificationResult,
   classify,
   computeSize,
-  type ClassificationResult,
 } from "@/lib/applicability/classify";
 
 type Step = "sector" | "specialCases" | "size" | "result";
@@ -82,9 +86,7 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
   const totalFormSteps = 3;
   const progress = step === "result" ? 100 : ((stepIndex + 1) / totalFormSteps) * 100;
 
-  const selectedSectorObjects = SECTORS.filter((s) =>
-    selectedSectors.includes(s.id)
-  );
+  const selectedSectorObjects = SECTORS.filter((s) => selectedSectors.includes(s.id));
 
   const canProceedSector = noSector || selectedSectors.length > 0;
   const canProceedSize = employees !== "" || (turnover !== "" && balanceSheet !== "");
@@ -101,10 +103,10 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
       setSelectedSectors((prev) =>
         prev.includes(sectorId)
           ? prev.filter((s) => s !== sectorId)
-          : [...prev, sectorId]
+          : [...prev, sectorId],
       );
     },
-    [noSector]
+    [noSector],
   );
 
   const handleSpecialToggle = useCallback(
@@ -118,10 +120,10 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
       setSelectedSpecialCases((prev) =>
         prev.includes(id as SpecialCaseId)
           ? prev.filter((s) => s !== id)
-          : [...prev, id as SpecialCaseId]
+          : [...prev, id as SpecialCaseId],
       );
     },
-    [noneSpecial]
+    [noneSpecial],
   );
 
   function scrollToTop() {
@@ -145,7 +147,9 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
             sectorId: s.id,
             annex: s.annex,
           }));
-          setResult(classify({ excluded: false, sectors, specialCases: selectedSpecialCases }));
+          setResult(
+            classify({ excluded: false, sectors, specialCases: selectedSpecialCases }),
+          );
           setStep("result");
         } else {
           setStep("size");
@@ -163,7 +167,12 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
           annex: s.annex,
         }));
         setResult(
-          classify({ excluded: false, sectors, specialCases: selectedSpecialCases, size })
+          classify({
+            excluded: false,
+            sectors,
+            specialCases: selectedSpecialCases,
+            size,
+          }),
         );
         setStep("result");
         break;
@@ -202,10 +211,13 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
   }
 
   const canProceed =
-    step === "sector" ? canProceedSector :
-    step === "specialCases" ? canProceedSpecial :
-    step === "size" ? canProceedSize :
-    false;
+    step === "sector"
+      ? canProceedSector
+      : step === "specialCases"
+        ? canProceedSpecial
+        : step === "size"
+          ? canProceedSize
+          : false;
 
   return (
     <TooltipProvider>
@@ -224,7 +236,7 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
                   key={s}
                   className={cn(
                     "h-1.5 w-6 rounded-full transition-colors duration-300",
-                    i <= stepIndex ? "bg-primary" : "bg-muted"
+                    i <= stepIndex ? "bg-primary" : "bg-muted",
                   )}
                 />
               ))}
@@ -273,7 +285,6 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
             />
           )}
         </Card>
-
       </div>
 
       {/* Fixed bottom navigation */}
@@ -298,11 +309,14 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
                 )}
                 {step === "specialCases" && selectedSpecialCases.length > 0 && (
                   <span className="text-xs text-muted-foreground">
-                    {t("specialCases.selectedCount", { count: selectedSpecialCases.length })}
+                    {t("specialCases.selectedCount", {
+                      count: selectedSpecialCases.length,
+                    })}
                   </span>
                 )}
                 <Button onClick={handleNext} disabled={!canProceed} className="gap-2">
-                  {step === "size" || (step === "specialCases" && selectedSpecialCases.length > 0)
+                  {step === "size" ||
+                  (step === "specialCases" && selectedSpecialCases.length > 0)
                     ? t("nav.checkResult")
                     : t("nav.next")}
                   <ArrowRight className="h-4 w-4" />
@@ -317,7 +331,11 @@ export function ApplicabilityCheck({ calLink }: { calLink: string }) {
               </Button>
               <CalModal calLink={calLink}>
                 <Button
-                  variant={result && result.classification !== "not_in_scope" ? "default" : "outline"}
+                  variant={
+                    result && result.classification !== "not_in_scope"
+                      ? "default"
+                      : "outline"
+                  }
                   className="gap-2 whitespace-normal text-right"
                 >
                   <CheckCircle2 className="h-4 w-4 hidden sm:block shrink-0" />
@@ -364,7 +382,9 @@ function SectorStep({
             <ListRow
               key={sector.id}
               label={locale === "de" ? sector.name.de : sector.name.en}
-              description={locale === "de" ? sector.description.de : sector.description.en}
+              description={
+                locale === "de" ? sector.description.de : sector.description.en
+              }
               selected={selected.includes(sector.id)}
               onClick={() => onToggle(sector.id)}
               last={i === annexI.length - 1}
@@ -376,7 +396,9 @@ function SectorStep({
             <ListRow
               key={sector.id}
               label={locale === "de" ? sector.name.de : sector.name.en}
-              description={locale === "de" ? sector.description.de : sector.description.en}
+              description={
+                locale === "de" ? sector.description.de : sector.description.en
+              }
               selected={selected.includes(sector.id)}
               onClick={() => onToggle(sector.id)}
               last={i === annexII.length - 1}
@@ -568,7 +590,9 @@ function ResultStep({
           <div className="min-w-0">
             <CardTitle className="text-2xl">{config.sublabel || config.label}</CardTitle>
             {config.sublabel && (
-              <CardDescription className="text-base mt-0.5">{config.label}</CardDescription>
+              <CardDescription className="text-base mt-0.5">
+                {config.label}
+              </CardDescription>
             )}
             <p className="mt-2 text-sm text-muted-foreground">
               {t(`result.reason.${result.reason}`)}
@@ -577,7 +601,7 @@ function ResultStep({
           <div
             className={cn(
               "flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl",
-              config.bg
+              config.bg,
             )}
           >
             <Icon className={cn("h-7 w-7", config.color)} />
@@ -630,10 +654,7 @@ function ResultStep({
           </div>
         )}
 
-        {inScope && (
-          <LeadCaptureForm classification={result.classification} />
-        )}
-
+        {inScope && <LeadCaptureForm classification={result.classification} />}
       </CardContent>
     </>
   );
@@ -641,13 +662,7 @@ function ResultStep({
 
 // ─── Shared Components ──────────────────────────────────────
 
-function ListSection({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function ListSection({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
       <div className="px-6 pt-4 pb-1">
@@ -684,7 +699,7 @@ function ListRow({
       className={cn(
         "flex w-full items-center gap-3 px-6 py-2.5 text-left transition-colors cursor-pointer",
         "hover:bg-muted/50 active:bg-muted",
-        !last && "border-b border-border/50"
+        !last && "border-b border-border/50",
       )}
     >
       {/* Checkmark */}
@@ -694,7 +709,7 @@ function ListRow({
           selected
             ? "border-primary bg-primary text-primary-foreground"
             : "border-border",
-          description && "self-start mt-0.5"
+          description && "self-start mt-0.5",
         )}
       >
         {selected && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
@@ -706,7 +721,7 @@ function ListRow({
           className={cn(
             "text-sm",
             selected ? "font-medium text-foreground" : "text-foreground",
-            muted && !selected && "text-muted-foreground"
+            muted && !selected && "text-muted-foreground",
           )}
         >
           {label}
@@ -722,17 +737,25 @@ function ListRow({
       {tooltip && (
         <Tooltip>
           <TooltipTrigger asChild>
-            <span
-              role="button"
+            {/*
+              A real button rather than a span with role="button". The span had
+              an onClick and no keyboard handler, which is the accessibility
+              rule this file has been failing; a button gets Enter and Space
+              for free. tabIndex stays -1 to keep the existing tab order, since
+              the row itself is the control and this only stops a click on the
+              icon from toggling it.
+            */}
+            <button
+              type="button"
               tabIndex={-1}
               onClick={(e) => e.stopPropagation()}
               className={cn(
                 "shrink-0 text-muted-foreground/40 hover:text-muted-foreground transition-colors",
-                description && "self-start mt-0.5"
+                description && "self-start mt-0.5",
               )}
             >
               <Info className="h-4 w-4" />
-            </span>
+            </button>
           </TooltipTrigger>
           <TooltipContent side="left" className="max-w-xs">
             {tooltip}
@@ -742,4 +765,3 @@ function ListRow({
     </button>
   );
 }
-
