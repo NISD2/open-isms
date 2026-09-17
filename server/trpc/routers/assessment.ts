@@ -1,43 +1,52 @@
-import { z } from "zod";
-import { eq, and, asc, sql, inArray } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { router, protectedProcedure, companyProcedure, adminProcedure } from "../init";
+import { addYears } from "date-fns";
+import { and, asc, eq, inArray, isNull, or, sql } from "drizzle-orm";
+import { z } from "zod";
+import { logAudit } from "@/lib/audit";
+import { hasReviewAccess } from "@/lib/auth";
 import {
+  computeInitialDeadline,
+  type Frequency,
+  isRecurringFrequency,
+  type Priority,
+  toDateString,
+} from "@/lib/compliance/deadlines";
+import { DONE_STATUSES } from "@/lib/compliance/journey-position";
+import {
+  backfillInitialDeadlines,
+  buildRequirementLink,
+  scheduleDeadlineReminders,
+} from "@/lib/compliance/schedule-notifications";
+import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
+import type { Database } from "@/lib/db";
+import { contactEmailChangedEmail, sendMail } from "@/lib/mail";
+import {
+  auditLog,
+  categoryAssignment,
   company,
-  user,
   companyAssessment,
   companyRequirementStatus,
   complianceFramework,
-  requirement,
-  requirementCategory,
   evidence,
-  auditLog,
-  categoryAssignment,
+  notification,
+  requirement,
   requirementAssignment,
+  requirementCategory,
   requirementPrerequisite,
   requirementSatisfaction,
-  notification,
+  user,
 } from "@/schema";
-import { or } from "drizzle-orm";
-import { enforceAssignment, verifyAssessmentOwnership, getSignerRole } from "../guards";
-import { sendMail, contactEmailChangedEmail } from "@/lib/mail";
-import { logAudit } from "@/lib/audit";
+import { enforceAssignment, getSignerRole, verifyAssessmentOwnership } from "../guards";
 import {
-  scheduleDeadlineReminders,
-  backfillInitialDeadlines,
-  buildRequirementLink,
-} from "@/lib/compliance/schedule-notifications";
+  buildSignOffSnapshot,
+  propagateSatisfaction,
+  recalculateProgress,
+} from "../helpers/assessment-helpers";
+import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 import {
-  computeInitialDeadline,
-  isRecurringFrequency,
-  toDateString,
-  type Frequency,
-  type Priority,
-} from "@/lib/compliance/deadlines";
-import { addYears } from "date-fns";
-
-import { buildSignOffSnapshot, recalculateProgress, propagateSatisfaction } from "../helpers/assessment-helpers";
-import { createAssessmentsForFrameworks, processTeamRoleAssignments } from "../helpers/setup-helpers";
+  createAssessmentsForFrameworks,
+  processTeamRoleAssignments,
+} from "../helpers/setup-helpers";
 import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
 import {
   completedSignOffValues,
@@ -46,12 +55,7 @@ import {
   signerMeetsRequiredRole,
   snapshotForVersion,
 } from "../helpers/sign-off-completion";
-import { hasReviewAccess } from "@/lib/auth";
-
-import type { Database } from "@/lib/db";
-import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
-
-import { DONE_STATUSES } from "@/lib/compliance/journey-position";
+import { adminProcedure, companyProcedure, protectedProcedure, router } from "../init";
 
 // Prerequisites are advisory only — the UI surfaces them as a "recommended
 // first" suggestion (see RequirementDetail), but nothing blocks sign-off.
@@ -88,7 +92,7 @@ export const assessmentRouter = router({
         bsiRegistrationId: z.string().max(100).nullish(),
         annualSecurityBudget: z.string().nullish(),
         primaryLocations: z.string().max(1000).nullish(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       // adminProcedure already enforces ctx.companyId is set + role === "admin"
@@ -205,10 +209,10 @@ export const assessmentRouter = router({
               roleKey: z.string(),
               name: z.string().max(255).optional(),
               email: z.string().email(),
-            })
+            }),
           )
           .optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       // Every verified user auto-gets a DRAFT company at email verification, so
@@ -367,7 +371,7 @@ export const assessmentRouter = router({
       z.object({
         assessmentId: z.string().uuid(),
         categoryId: z.string().uuid(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
@@ -396,10 +400,16 @@ export const assessmentRouter = router({
     .input(
       z.object({
         statusId: z.string().uuid(),
-        status: z.enum(["not_started", "in_progress", "completed", "not_applicable", "needs_review"]),
+        status: z.enum([
+          "not_started",
+          "in_progress",
+          "completed",
+          "not_applicable",
+          "needs_review",
+        ]),
         isApplicable: z.boolean().optional(),
         notApplicableReason: z.string().optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const { statusId, ...updates } = input;
@@ -468,7 +478,10 @@ export const assessmentRouter = router({
           completed: sql<number>`count(*) filter (where ${companyRequirementStatus.status} in ('completed', 'approved', 'not_applicable'))::int`,
         })
         .from(companyRequirementStatus)
-        .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
+        .innerJoin(
+          requirement,
+          eq(companyRequirementStatus.requirementId, requirement.id),
+        )
         .where(eq(companyRequirementStatus.assessmentId, input.assessmentId))
         .groupBy(requirement.categoryId);
 
@@ -484,7 +497,9 @@ export const assessmentRouter = router({
   // ---------------------------------------------------------------------------
 
   getPrerequisiteStatuses: companyProcedure
-    .input(z.object({ assessmentId: z.string().uuid(), requirementId: z.string().uuid() }))
+    .input(
+      z.object({ assessmentId: z.string().uuid(), requirementId: z.string().uuid() }),
+    )
     .query(async ({ ctx, input }) => {
       // companyProcedure only guarantees a companyId exists; it does not scope
       // the assessmentId the caller sends. Without this the leftJoin below reads
@@ -498,8 +513,14 @@ export const assessmentRouter = router({
           status: companyRequirementStatus.status,
         })
         .from(requirementPrerequisite)
-        .innerJoin(requirement, eq(requirementPrerequisite.prerequisiteId, requirement.id))
-        .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
+        .innerJoin(
+          requirement,
+          eq(requirementPrerequisite.prerequisiteId, requirement.id),
+        )
+        .innerJoin(
+          requirementCategory,
+          eq(requirement.categoryId, requirementCategory.id),
+        )
         .leftJoin(
           companyRequirementStatus,
           and(
@@ -526,7 +547,14 @@ export const assessmentRouter = router({
       const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
         where: eq(companyRequirementStatus.id, input.statusId),
         with: {
-          requirement: { columns: { id: true, categoryId: true, templateVersion: true, requiredSignOffRole: true } },
+          requirement: {
+            columns: {
+              id: true,
+              categoryId: true,
+              templateVersion: true,
+              requiredSignOffRole: true,
+            },
+          },
         },
       });
       if (!statusRow) {
@@ -558,8 +586,16 @@ export const assessmentRouter = router({
           .where(eq(requirementAssignment.statusId, input.statusId))
           .for("update");
 
-        if (lockedAssignments.length > 0) {
-          const myAssignment = lockedAssignments.find((a) => a.userId === ctx.userId);
+        // Roster or receipt. Branching on `length > 0` counted the receipt
+        // that a past sign-off leaves behind as a roster, so the first signer
+        // silently became the requirement's only permitted signer — forever,
+        // and with no admin bypass on this particular check. The rule lives in
+        // lib/compliance/sign-off-roster so the sign-off button reads the same
+        // one and cannot offer what this would refuse.
+        const pendingSigners = pendingSignersOf(lockedAssignments);
+
+        if (pendingSigners.length > 0) {
+          const myAssignment = pendingSigners.find((a) => a.userId === ctx.userId);
           if (!myAssignment) {
             throw new TRPCError({
               code: "FORBIDDEN",
@@ -592,7 +628,16 @@ export const assessmentRouter = router({
             return { row: partial, snapshot: null };
           }
         } else {
-          // Single-requirement path: refuse loudly. See signerMeetsRequiredRole.
+          // Single-requirement path: nobody is pending, so this requirement
+          // has no roster — either it never had one, or every assignee has
+          // already signed and their rows are receipts. Both are signed under
+          // the required role, which is also what restores the gate on a
+          // re-sign: reaching here through `length > 0` previously skipped
+          // signerMeetsRequiredRole entirely, so a requirement whose required
+          // role had since changed could be re-signed by its original signer
+          // without ever meeting the new rule.
+          //
+          // Refuse loudly. See signerMeetsRequiredRole.
           if (
             !signerMeetsRequiredRole({
               sessionRole: ctx.session.role,
@@ -600,7 +645,9 @@ export const assessmentRouter = router({
               requiredSignOffRole: statusRow.requirement.requiredSignOffRole,
             })
           ) {
-            const required = effectiveSignOffRole(statusRow.requirement.requiredSignOffRole);
+            const required = effectiveSignOffRole(
+              statusRow.requirement.requiredSignOffRole,
+            );
             throw new TRPCError({
               code: "FORBIDDEN",
               message: `This requirement requires sign-off by ${required.toUpperCase()}.`,
@@ -736,7 +783,8 @@ export const assessmentRouter = router({
       if (statusRow.status === "approved" && !hasReviewAccess(ctx.session.role)) {
         throw new TRPCError({
           code: "FORBIDDEN",
-          message: "This requirement was approved in review. Only a reviewer can reopen it.",
+          message:
+            "This requirement was approved in review. Only a reviewer can reopen it.",
         });
       }
 
@@ -863,14 +911,26 @@ export const assessmentRouter = router({
       const statusRow = await ctx.db.query.companyRequirementStatus.findFirst({
         where: eq(companyRequirementStatus.id, input.statusId),
         with: {
-          requirement: { columns: { id: true, code: true, moduleRef: true, categoryId: true, templateVersion: true, requiredSignOffRole: true } },
+          requirement: {
+            columns: {
+              id: true,
+              code: true,
+              moduleRef: true,
+              categoryId: true,
+              templateVersion: true,
+              requiredSignOffRole: true,
+            },
+          },
         },
       });
       if (!statusRow) {
         throw new TRPCError({ code: "NOT_FOUND", message: "Status not found" });
       }
       if (!statusRow.requirement.moduleRef) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Requirement has no module reference" });
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Requirement has no module reference",
+        });
       }
 
       await verifyAssessmentOwnership(ctx.db, statusRow.assessmentId, ctx.companyId);
@@ -898,10 +958,15 @@ export const assessmentRouter = router({
           .from(requirementAssignment)
           .where(eq(requirementAssignment.statusId, input.statusId))
           .for("update");
-        if (lockedAssignments.length > 0) {
+        // Pending signers only, for the reason signOff spells out: the receipt
+        // a past sign-off leaves behind is not a roster, and refusing on it
+        // told people a requirement "has assigned signers" when nobody was
+        // assigned to it.
+        if (pendingSignersOf(lockedAssignments).length > 0) {
           throw new TRPCError({
             code: "FORBIDDEN",
-            message: "This requirement has assigned signers; sign off through the assignment flow.",
+            message:
+              "This requirement has assigned signers; sign off through the assignment flow.",
           });
         }
         // Single-requirement path: refuse loudly. See signerMeetsRequiredRole.
@@ -912,7 +977,9 @@ export const assessmentRouter = router({
             requiredSignOffRole: statusRow.requirement.requiredSignOffRole,
           })
         ) {
-          const required = effectiveSignOffRole(statusRow.requirement.requiredSignOffRole);
+          const required = effectiveSignOffRole(
+            statusRow.requirement.requiredSignOffRole,
+          );
           throw new TRPCError({
             code: "FORBIDDEN",
             message: `This requirement requires sign-off by ${required.toUpperCase()}.`,
@@ -992,10 +1059,12 @@ export const assessmentRouter = router({
     }),
 
   bulkConfirmModuleRef: companyProcedure
-    .input(z.object({
-      assessmentId: z.string().uuid(),
-      statusIds: z.array(z.string().uuid()).min(1).max(500),
-    }))
+    .input(
+      z.object({
+        assessmentId: z.string().uuid(),
+        statusIds: z.array(z.string().uuid()).min(1).max(500),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
 
@@ -1011,7 +1080,10 @@ export const assessmentRouter = router({
           requiredSignOffRole: requirement.requiredSignOffRole,
         })
         .from(companyRequirementStatus)
-        .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
+        .innerJoin(
+          requirement,
+          eq(companyRequirementStatus.requirementId, requirement.id),
+        )
         .where(
           and(
             inArray(companyRequirementStatus.id, input.statusIds),
@@ -1036,12 +1108,24 @@ export const assessmentRouter = router({
           r.currentStatus !== "not_applicable",
       );
       if (moduleRows.length === 0) return { confirmed: 0 };
+      // Rows still owed a signature, the SQL spelling of pendingSignersOf in
+      // lib/compliance/sign-off-roster. Without the isNull the set also caught
+      // requirements carrying only a receipt from a past sign-off, so a bulk
+      // confirm silently skipped every requirement anyone had ever signed.
       const confirmAssignedIds = new Set(
         (
           await ctx.db
             .select({ statusId: requirementAssignment.statusId })
             .from(requirementAssignment)
-            .where(inArray(requirementAssignment.statusId, moduleRows.map((r) => r.statusId)))
+            .where(
+              and(
+                inArray(
+                  requirementAssignment.statusId,
+                  moduleRows.map((r) => r.statusId),
+                ),
+                isNull(requirementAssignment.signedOffAt),
+              ),
+            )
         ).map((a) => a.statusId),
       );
       const toConfirm = moduleRows.filter((r) => {
@@ -1074,7 +1158,11 @@ export const assessmentRouter = router({
       const signedOffRole = confirmerRole;
       // Company-scoped half of the snapshot, built once; each row re-stamps
       // its own templateVersion below.
-      const baseSnapshot = await buildSignOffSnapshot(ctx.db, ctx.companyId, toConfirm[0].templateVersion);
+      const baseSnapshot = await buildSignOffSnapshot(
+        ctx.db,
+        ctx.companyId,
+        toConfirm[0].templateVersion,
+      );
 
       // Audit B-2 (2026-06-10): status writes + per-row chain entries inside
       // one tx. Each row is written individually and only chained if its own
@@ -1138,10 +1226,12 @@ export const assessmentRouter = router({
     }),
 
   bulkSignOffCategory: companyProcedure
-    .input(z.object({
-      assessmentId: z.string().uuid(),
-      categoryId: z.string().uuid(),
-    }))
+    .input(
+      z.object({
+        assessmentId: z.string().uuid(),
+        categoryId: z.string().uuid(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
       await enforceAssignment(ctx.db, {
@@ -1162,7 +1252,10 @@ export const assessmentRouter = router({
           requiredSignOffRole: requirement.requiredSignOffRole,
         })
         .from(companyRequirementStatus)
-        .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
+        .innerJoin(
+          requirement,
+          eq(companyRequirementStatus.requirementId, requirement.id),
+        )
         .where(
           and(
             eq(companyRequirementStatus.assessmentId, input.assessmentId),
@@ -1181,15 +1274,21 @@ export const assessmentRouter = router({
       // same admin-bypass rule as signOff; (2) N-of-M requirements, whose
       // assigned signers must each sign through the assignment flow. Rows
       // failing either check are left untouched, not silently completed.
+      // Rows still owed a signature, the SQL spelling of pendingSignersOf in
+      // lib/compliance/sign-off-roster. Without the isNull this also skipped
+      // every requirement that merely carried a receipt from a past sign-off.
       const assignedStatusIds = new Set(
         (
           await ctx.db
             .select({ statusId: requirementAssignment.statusId })
             .from(requirementAssignment)
             .where(
-              inArray(
-                requirementAssignment.statusId,
-                rows.map((r) => r.statusId),
+              and(
+                inArray(
+                  requirementAssignment.statusId,
+                  rows.map((r) => r.statusId),
+                ),
+                isNull(requirementAssignment.signedOffAt),
               ),
             )
         ).map((a) => a.statusId),
@@ -1212,7 +1311,11 @@ export const assessmentRouter = router({
       const now = new Date();
       // Company-scoped half of the snapshot, built once; each row re-stamps
       // its own templateVersion below.
-      const baseSnapshot = await buildSignOffSnapshot(ctx.db, ctx.companyId, signableRows[0].templateVersion);
+      const baseSnapshot = await buildSignOffSnapshot(
+        ctx.db,
+        ctx.companyId,
+        signableRows[0].templateVersion,
+      );
 
       // Audit B-2 (2026-06-10): per-row chain entry inside one tx. The status
       // guard is repeated on the write, not just in the read above, so a row

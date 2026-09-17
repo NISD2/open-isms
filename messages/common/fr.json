@@ -13,6 +13,7 @@
     "yes": "Oui",
     "no": "Non",
     "noData": "Aucune donnée",
+    "actionFailed": "Cela n'a pas fonctionné. Veuillez réessayer.",
     "user": "Utilisateur",
     "modules": {
       "asset": "Actifs",
