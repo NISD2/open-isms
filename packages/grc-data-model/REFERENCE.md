@@ -34,7 +34,7 @@ BSI IT-Grundschutz module: `ISMS.1`. Estimated effort: 45 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `1.1` | training | P1 | every-3-years | Art. 20(2) | §38(3) BSIG | — |
+| `1.1` | training | P0 | every-3-years | Art. 20(2) | §38(3) BSIG | — |
 | `1.2` | proof | P1 | annual | Art. 21(2)(a) | §30(1) BSIG, CIR 1.2, CIR 10.1.3 | — |
 | `1.3` | proof | P1 | annual | Art. 20(1) | §38(1) BSIG, CIR 1.1.1(e) | — |
 | `1.4` | sign-off | P1 | on-change | Art. 20(1) | §38(2) BSIG | — |
@@ -56,10 +56,22 @@ BSI IT-Grundschutz module: `OPS.2.3`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `5.1` | document | P1 | annual | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1-5.2 | G-DPA.1 |
+| `5.1` | document | P0 | annual | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1-5.2 | G-DPA.1 |
 | `5.2` | document | P1 | on-change | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4 | G-DPA.1, G-DPA.2 |
 | `5.3` | proof | P1 | annual | Art. 21(3) | §30(2) Nr. 4 BSIG, CIR 5.1.6, 5.1.7 | — |
 | `5.4` | proof | P1 | ongoing | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4(d) | — |
+
+### INC — incident-handling
+
+BSI IT-Grundschutz module: `DER.2.1`. Estimated effort: 50 minutes.
+
+| Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
+|---|---|---|---|---|---|---|
+| `3.1` | document | P0 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.1 | G-BRC.1 |
+| `3.2` | document | P1 | quarterly | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4 | G-BRC.2 |
+| `3.3` | proof | P0 | annual | Art. 23(4) | §32(1) Nr. 1-4, §32(2) BSIG | G-BRC.1 |
+| `3.4` | proof | P2 | annual | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG, CIR 3.5 | — |
+| `3.5` | document | P1 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.6 | G-BRC.2 |
 
 ### CRY — cryptography
 
@@ -88,7 +100,7 @@ BSI IT-Grundschutz module: `ORP.4`. Estimated effort: 35 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `11.1` | technical | P0 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.7 | — |
+| `11.1` | technical | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.7 | — |
 | `11.2` | document | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG | — |
 | `11.3` | document | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.6, NIST SP 800-63B | — |
 
@@ -103,18 +115,6 @@ BSI IT-Grundschutz module: `OPS.1.1.3`. Estimated effort: 45 minutes.
 | `6.3` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.5, 6.10 | — |
 | `6.4` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.6 | — |
 | `6.5` | document | P1 | annual | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.4 | — |
-
-### INC — incident-handling
-
-BSI IT-Grundschutz module: `DER.2.1`. Estimated effort: 50 minutes.
-
-| Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
-|---|---|---|---|---|---|---|
-| `3.1` | document | P0 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.1 | G-BRC.1 |
-| `3.2` | document | P1 | quarterly | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4 | G-BRC.2 |
-| `3.3` | proof | P0 | annual | Art. 23(4) | §32(1) Nr. 1-4, §32(2) BSIG | G-BRC.1 |
-| `3.4` | proof | P2 | annual | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG, CIR 3.5 | — |
-| `3.5` | document | P1 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.6 | G-BRC.2 |
 
 ### BCP — business-continuity
 
