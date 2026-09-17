@@ -41,7 +41,6 @@ import { MODULE_HREF } from "@/lib/compliance/operational-links";
 import { RequirementAssignPopover, type AssignmentRow } from "./RequirementAssignPopover";
 import { StuckLink } from "@/components/help/StuckLink";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
-import { userFacingError } from "@/lib/trpc/error-message";
 import type { CustomEditorKey } from "@/lib/compliance/requirement-fields";
 import type { FieldMeta } from "@/lib/forms/schema-introspect";
 import type { RequirementGuidanceData } from "@/lib/ai/guidance-types";
@@ -125,6 +124,9 @@ interface RequirementDetailProps {
    *  The assignRequirement / unassignRequirement procedures are admin-only,
    *  so non-admins must not see the assign popover (broken affordance). */
   isAdmin: boolean;
+  /** The viewer, so the page can tell "assigned to me" from "assigned to
+   *  someone else" without a second round trip. */
+  currentUserId: string;
   guidance: RequirementGuidanceData | null;
   requiredSignOffRole: RoleKey;
   assignments: AssignmentRow[];
@@ -175,6 +177,7 @@ export function RequirementDetail({
   next,
   isReviewer,
   isAdmin,
+  currentUserId,
   guidance,
   requiredSignOffRole,
   assignments,
@@ -222,6 +225,18 @@ export function RequirementDetail({
   const isCompleted =
     status.currentStatus === "completed" || status.currentStatus === "approved";
   const isNA = status.currentStatus === "not_applicable";
+
+  // Mirrors the server's rule in assessment.signOff. A row without signedOffAt
+  // is a roster entry: somebody was assigned and is expected to sign. A row
+  // with one is a receipt of a past sign-off and puts nobody in the way. Only
+  // an unfinished roster the viewer is absent from blocks the button, so the
+  // ordinary case — a requirement somebody already signed once — stays signable.
+  const pendingSigners = optimisticAssignments.filter((a) => a.signedOffAt === null);
+  const blockedByRoster =
+    pendingSigners.length > 0 && !pendingSigners.some((a) => a.userId === currentUserId);
+  const awaitedSigners = pendingSigners
+    .map((a) => a.user.name || a.user.email)
+    .join(", ");
 
   const citationRows = buildCitationRows(requirement);
   const citationLabel = (label: FrameworkLabel) =>
@@ -284,7 +299,9 @@ export function RequirementDetail({
       setIsEditing(false);
       return true;
     } catch {
-      toast.error(tf("failedToSave"));
+      // The error toast is the shared mutation handler's job
+      // (lib/trpc/provider.tsx). Caught here only to report the failure to
+      // the caller, which decides whether to navigate.
       return false;
     } finally {
       setIsSaving(false);
@@ -326,7 +343,10 @@ export function RequirementDetail({
         toast.success(tf("requirementCompleted", { code: requirement.code }));
         router.refresh();
       } catch {
-        toast.error(tf("failedToSave"));
+        // Sign-off has refusals the person can act on, and the server words
+        // each one for the screen ("This requirement requires sign-off by
+        // CEO"). The shared mutation handler shows them; this catch exists
+        // so the rejection does not escape the transition.
       }
     });
   }
@@ -340,11 +360,10 @@ export function RequirementDetail({
         toast.success(tf("requirementReopened", { code: requirement.code }));
         setIsEditing(true);
         router.refresh();
-      } catch (err) {
+      } catch {
         // The server refuses with FORBIDDEN when a reviewer's approval is
-        // being withdrawn by someone without review access. That reason is
-        // worth showing; an unexpected failure falls back to the generic one.
-        toast.error(userFacingError(err, tf("failedToSave")));
+        // being withdrawn by someone without review access. The shared
+        // mutation handler shows that reason.
       }
     });
   }
@@ -364,7 +383,7 @@ export function RequirementDetail({
         setNaReason("");
         router.refresh();
       } catch {
-        toast.error(tf("failedToSave"));
+        // Shared mutation handler shows the reason.
       }
     });
   }
@@ -378,7 +397,8 @@ export function RequirementDetail({
         toast.success(tf("requirementCompleted", { code: requirement.code }));
         router.refresh();
       } catch {
-        toast.error(tf("failedToSave"));
+        // confirmModuleRef enforces the same per-requirement guards as
+        // signOff, so it raises the same refusals and they read the same way.
       }
     });
   }
@@ -834,7 +854,13 @@ export function RequirementDetail({
                   <Ban className="mr-1.5 h-3.5 w-3.5" />
                   {t("notApplicable")}
                 </Button>
-                <SignOffButton isSubmitting={isPending} onSignOff={handleSignOff} />
+                <SignOffButton
+                  isSubmitting={isPending}
+                  disabledReason={
+                    blockedByRoster ? t("assignedTo", { name: awaitedSigners }) : undefined
+                  }
+                  onSignOff={handleSignOff}
+                />
               </>
             )}
           </div>

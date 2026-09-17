@@ -13,6 +13,7 @@
     "yes": "Da",
     "no": "Nu",
     "noData": "Fără date",
+    "actionFailed": "Nu a funcționat. Încercați din nou.",
     "user": "Utilizator",
     "modules": {
       "asset": "Active",

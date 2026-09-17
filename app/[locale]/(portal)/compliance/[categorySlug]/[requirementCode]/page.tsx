@@ -274,6 +274,7 @@ export default async function RequirementDetailPage({
       next={toNavLink(adjacent.next)}
       isReviewer={isReviewer}
       isAdmin={isAdmin}
+      currentUserId={session?.user.id ?? ""}
       guidance={guidance}
       requiredSignOffRole={(req.requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE}
       assignments={assignments}

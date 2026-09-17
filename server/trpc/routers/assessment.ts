@@ -558,8 +558,24 @@ export const assessmentRouter = router({
           .where(eq(requirementAssignment.statusId, input.statusId))
           .for("update");
 
-        if (lockedAssignments.length > 0) {
-          const myAssignment = lockedAssignments.find((a) => a.userId === ctx.userId);
+        // A row in requirement_assignment means one of two different things,
+        // and reading them as one thing is what locked people out of any
+        // requirement somebody else had already signed:
+        //
+        //   signedOffAt NULL → a roster entry. Someone was deliberately
+        //     assigned (assignment.assignRequirement) and is expected to sign.
+        //   signedOffAt set  → a receipt. The insert below writes one for the
+        //     signer on every single-path sign-off, as the record of who signed.
+        //
+        // Only a roster with someone still to sign makes this an N-of-M
+        // requirement that belongs to the assignment flow. Branching on
+        // `length > 0` counted receipts as a roster, so the first signer
+        // silently became the requirement's only permitted signer — forever,
+        // and with no admin bypass on this particular check.
+        const pendingSigners = lockedAssignments.filter((a) => a.signedOffAt === null);
+
+        if (pendingSigners.length > 0) {
+          const myAssignment = pendingSigners.find((a) => a.userId === ctx.userId);
           if (!myAssignment) {
             throw new TRPCError({
               code: "FORBIDDEN",
@@ -592,7 +608,16 @@ export const assessmentRouter = router({
             return { row: partial, snapshot: null };
           }
         } else {
-          // Single-requirement path: refuse loudly. See signerMeetsRequiredRole.
+          // Single-requirement path: nobody is pending, so this requirement
+          // has no roster — either it never had one, or every assignee has
+          // already signed and their rows are receipts. Both are signed under
+          // the required role, which is also what restores the gate on a
+          // re-sign: reaching here through `length > 0` previously skipped
+          // signerMeetsRequiredRole entirely, so a requirement whose required
+          // role had since changed could be re-signed by its original signer
+          // without ever meeting the new rule.
+          //
+          // Refuse loudly. See signerMeetsRequiredRole.
           if (
             !signerMeetsRequiredRole({
               sessionRole: ctx.session.role,
