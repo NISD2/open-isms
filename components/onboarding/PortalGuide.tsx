@@ -1,29 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { CircleQuestionMark } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { trpc } from "@/lib/trpc/client";
-import type { Hint } from "@/lib/onboarding/hints";
+import { useEffect, useMemo, useState } from "react";
 import { usePortalPath } from "@/components/portal/use-portal-path";
+import { Button } from "@/components/ui/button";
+import type { Hint } from "@/lib/onboarding/hints";
+import { trpc } from "@/lib/trpc/client";
 import { HelpDialog } from "./HelpDialog";
+import { type RouteTour, type TourStep, toursForPath } from "./tour/steps";
 import { TourOverlay } from "./tour/TourOverlay";
-import { tourForPath, type TourStep } from "./tour/steps";
 
 /** Drop steps whose target is not on this page before the tour starts. */
 function presentSteps(steps: readonly TourStep[]): readonly TourStep[] {
-  return steps.filter((step) =>
-    document.querySelector(`[data-tour="${step.target}"]`),
-  );
+  return steps.filter((step) => document.querySelector(`[data-tour="${step.target}"]`));
 }
 
 /**
  * How long to keep waiting for a walkthrough's page to render before giving
  * up on it. Long, deliberately: waiting costs nothing, and being impatient
  * costs the walkthrough, which is the one thing this component exists to do.
+ *
+ * A minute rather than fifteen seconds because the journey now withholds its
+ * anchor until the mode question is answered, and the wait has to cover a
+ * person reading two options and deciding, not just a route rendering.
  */
-const TARGET_WAIT_MS = 15_000;
+const TARGET_WAIT_MS = 60_000;
 
 /** Shared so "no tour here" is the same value every time and React bails out. */
 const NO_STEPS: readonly TourStep[] = [];
@@ -61,27 +63,42 @@ export function PortalGuide({
   // this layout saw, so re-arming a surface could not reach the component at
   // all until the whole document was reloaded by hand.
   const [dismissed, setDismissed] = useState<Record<Hint, boolean>>({
-    journeyTour: false,
+    journeyTourGuided: false,
+    journeyTourTeam: false,
     requirementTour: false,
     helpOffer: false,
   });
   const [helpManual, setHelpManual] = useState(false);
   const [steps, setSteps] = useState<readonly TourStep[]>(NO_STEPS);
   const [index, setIndex] = useState(0);
+  // Which candidate actually started, so dismissal stamps the right hint.
+  const [routeTour, setRouteTour] = useState<RouteTour | null>(null);
 
   const helpAuto = hints.helpOffer && !dismissed.helpOffer;
+  const helpOpen = helpAuto || helpManual;
 
-  const routeTour = tourForPath(path);
-  const routeArmed = routeTour
-    ? hints[routeTour.hint] && !dismissed[routeTour.hint]
-    : false;
+  // Still-armed candidates for this route. The journey offers two, one per
+  // layout, and the anchor present on the page picks between them. Memoised
+  // because it is an effect dependency: a fresh array each render restarts the
+  // walkthrough at step one on every keystroke of state.
+  const candidates = useMemo(
+    () => toursForPath(path).filter((tour) => hints[tour.hint] && !dismissed[tour.hint]),
+    [path, hints, dismissed],
+  );
 
   // Re-resolve on every navigation. Each route asks whether ITS walkthrough is
   // still armed, so walking the journey and then opening a requirement starts
   // the second one, and skipping the journey does not cancel it.
+  //
+  // biome-ignore lint/correctness/useExhaustiveDependencies: path is deliberate. toursForPath returns module constants, so moving between two requirement pages leaves the candidate list identical and the walkthrough would never re-resolve for the page actually on screen.
   useEffect(() => {
-    if (!routeTour || !routeArmed) {
+    // Hold back while the offer of help is up. The journey walkthroughs are no
+    // longer gated to the first login (a user meets the second layout whenever
+    // they switch), so this is what keeps a spotlight from opening behind that
+    // dialog. It re-runs when the dialog closes, so nothing is lost.
+    if (candidates.length === 0 || helpOpen) {
       setSteps(NO_STEPS);
+      setRouteTour(null);
       return;
     }
 
@@ -93,15 +110,18 @@ export function PortalGuide({
     // empty, and nothing was left to re-run the check. That is the reload-it-
     // three-times bug.
     //
-    // So wait for the opening step's target instead. Every tour opens on
-    // something its route always renders (see TourSteps), so that element
-    // arriving is the signal that the page is here. The rest of it landed in
-    // the same commit, and presentSteps then drops only the sections that
-    // genuinely do not apply to this requirement.
-    const anchor = routeTour.steps[0].target;
+    // So wait for a candidate's opening target instead. Every tour opens on
+    // something its layout always renders (see TourSteps), so that element
+    // arriving is both the signal that the page is here and the answer to
+    // which of two layouts it is. presentSteps then drops only the sections
+    // that genuinely do not apply.
     const start = () => {
-      if (!document.querySelector(`[data-tour="${anchor}"]`)) return false;
-      setSteps(presentSteps(routeTour.steps));
+      const match = candidates.find((tour) =>
+        document.querySelector(`[data-tour="${tour.steps[0].target}"]`),
+      );
+      if (!match) return false;
+      setRouteTour(match);
+      setSteps(presentSteps(match.steps));
       setIndex(0);
       return true;
     };
@@ -116,7 +136,7 @@ export function PortalGuide({
       observer.disconnect();
       clearTimeout(giveUp);
     };
-  }, [routeArmed, routeTour, path]);
+  }, [candidates, helpOpen, path]);
 
   // Plain functions: nothing downstream is memoised and none of these sit in a
   // dependency array, so useCallback would only add a list to keep in step.
@@ -138,11 +158,20 @@ export function PortalGuide({
   };
 
   const startTour = () => {
-    if (!routeTour) return;
+    // Replay whichever layout is on screen, falling back to the route's first
+    // candidate: the help trigger is deliberately replayable, so an already
+    // dismissed walkthrough is a legitimate thing to ask for here.
+    const routeTours = toursForPath(path);
+    const match =
+      routeTours.find((tour) =>
+        document.querySelector(`[data-tour="${tour.steps[0].target}"]`),
+      ) ?? routeTours[0];
+    if (!match) return;
     // Leaving through the tour still counts as having met the offer of help,
     // otherwise the automatic one returns on the next page load.
     closeHelp();
-    setSteps(presentSteps(routeTour.steps));
+    setRouteTour(match);
+    setSteps(presentSteps(match.steps));
     setIndex(0);
   };
 
@@ -167,7 +196,7 @@ export function PortalGuide({
         calLink={calLink}
         supportEmail={supportEmail}
         permanent={helpAuto}
-        onStartTour={routeTour ? startTour : undefined}
+        onStartTour={toursForPath(path).length > 0 ? startTour : undefined}
       />
 
       {step && (

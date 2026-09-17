@@ -34,7 +34,7 @@ BSI IT-Grundschutz module: `ISMS.1`. Estimated effort: 45 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `1.1` | training | P1 | every-3-years | Art. 20(2) | §38(3) BSIG | — |
+| `1.1` | training | P0 | every-3-years | Art. 20(2) | §38(3) BSIG | — |
 | `1.2` | proof | P1 | annual | Art. 21(2)(a) | §30(1) BSIG, CIR 1.2, CIR 10.1.3 | — |
 | `1.3` | proof | P1 | annual | Art. 20(1) | §38(1) BSIG, CIR 1.1.1(e) | — |
 | `1.4` | sign-off | P1 | on-change | Art. 20(1) | §38(2) BSIG | — |
@@ -56,10 +56,22 @@ BSI IT-Grundschutz module: `OPS.2.3`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `5.1` | document | P1 | annual | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1-5.2 | G-DPA.1 |
+| `5.1` | document | P0 | annual | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1-5.2 | G-DPA.1 |
 | `5.2` | document | P1 | on-change | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4 | G-DPA.1, G-DPA.2 |
 | `5.3` | proof | P1 | annual | Art. 21(3) | §30(2) Nr. 4 BSIG, CIR 5.1.6, 5.1.7 | — |
 | `5.4` | proof | P1 | ongoing | Art. 21(2)(d) | §30(2) Nr. 4 BSIG, CIR 5.1.4(d) | — |
+
+### INC — incident-handling
+
+BSI IT-Grundschutz module: `DER.2.1`. Estimated effort: 50 minutes.
+
+| Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
+|---|---|---|---|---|---|---|
+| `3.1` | document | P0 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.1 | G-BRC.1 |
+| `3.2` | document | P1 | quarterly | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4 | G-BRC.2 |
+| `3.3` | proof | P0 | annual | Art. 23(4) | §32(1) Nr. 1-4, §32(2) BSIG | G-BRC.1 |
+| `3.4` | proof | P2 | annual | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG, CIR 3.5 | — |
+| `3.5` | document | P1 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.6 | G-BRC.2, G-BRC.3 |
 
 ### CRY — cryptography
 
@@ -67,8 +79,8 @@ BSI IT-Grundschutz module: `CON.1`. Estimated effort: 30 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `9.1` | document | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.1, 9.3, BSI TR-02102 | — |
-| `9.2` | technical | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.2(a) | — |
+| `9.1` | document | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.1, 9.3, BSI TR-02102 | G-TOM.1 |
+| `9.2` | technical | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.2(a) | G-TOM.1 |
 | `9.3` | technical | P1 | annual | Art. 21(2)(h) | §30(2) Nr. 8 BSIG, CIR 9.2(c) | — |
 
 ### ACC — access-control
@@ -77,7 +89,7 @@ BSI IT-Grundschutz module: `ORP.4`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `10.1` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.1 | — |
+| `10.1` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.1 | G-TOM.1 |
 | `10.2` | technical | P1 | on-change | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2, CIR 11.3 | — |
 | `10.3` | document | P1 | annual | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 10.2, 10.3, 11.3 | — |
 | `10.4` | proof | P1 | quarterly | Art. 21(2)(i) | §30(2) Nr. 9 BSIG, CIR 11.2.3, 11.3.3 | — |
@@ -88,7 +100,7 @@ BSI IT-Grundschutz module: `ORP.4`. Estimated effort: 35 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `11.1` | technical | P0 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.7 | — |
+| `11.1` | technical | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.7 | G-TOM.1 |
 | `11.2` | document | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG | — |
 | `11.3` | document | P1 | annual | Art. 21(2)(j) | §30(2) Nr. 10 BSIG, CIR 11.6, NIST SP 800-63B | — |
 
@@ -104,18 +116,6 @@ BSI IT-Grundschutz module: `OPS.1.1.3`. Estimated effort: 45 minutes.
 | `6.4` | technical | P1 | ongoing | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.6 | — |
 | `6.5` | document | P1 | annual | Art. 21(2)(e) | §30(2) Nr. 5 BSIG, CIR 6.4 | — |
 
-### INC — incident-handling
-
-BSI IT-Grundschutz module: `DER.2.1`. Estimated effort: 50 minutes.
-
-| Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
-|---|---|---|---|---|---|---|
-| `3.1` | document | P0 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.1 | G-BRC.1 |
-| `3.2` | document | P1 | quarterly | Art. 21(2)(b), Art. 23(3) | §30(2) Nr. 2, §2 Nr. 11 BSIG, CIR 3.2-3.4, CIR Art. 4 | G-BRC.2 |
-| `3.3` | proof | P0 | annual | Art. 23(4) | §32(1) Nr. 1-4, §32(2) BSIG | G-BRC.1 |
-| `3.4` | proof | P2 | annual | Art. 21(2)(f) | §30(2) Nr. 2+6 BSIG, CIR 3.5 | — |
-| `3.5` | document | P1 | annual | Art. 21(2)(b) | §30(2) Nr. 2 BSIG, CIR 3.6 | G-BRC.2 |
-
 ### BCP — business-continuity
 
 BSI IT-Grundschutz module: `DER.4`. Estimated effort: 50 minutes.
@@ -124,8 +124,8 @@ BSI IT-Grundschutz module: `DER.4`. Estimated effort: 50 minutes.
 |---|---|---|---|---|---|---|
 | `4.1` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.3 | — |
 | `4.2` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1, 4.3 | — |
-| `4.3` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.2 | — |
-| `4.4` | technical | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.2 | — |
+| `4.3` | document | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.1.2 | G-TOM.1 |
+| `4.4` | technical | P1 | annual | Art. 21(2)(c) | §30(2) Nr. 3 BSIG, CIR 4.2 | G-TOM.1 |
 | `4.5` | proof | P1 | annual | Art. 21(2)(c), Art. 21(2)(f) | §30(2) Nr. 3+6 BSIG, CIR 4.1.4, 4.3.4 | — |
 
 ### TRN — training
@@ -145,8 +145,8 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 | Code | Evidence | Priority | Frequency | Article | Legal ref | GDPR sibling |
 |---|---|---|---|---|---|---|
-| `7.1` | proof | P1 | quarterly | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 7.1, 7.2 | — |
-| `7.2` | proof | P1 | annual | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 2.3 | — |
+| `7.1` | proof | P1 | quarterly | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 7.1, 7.2 | G-TOM.1 |
+| `7.2` | proof | P1 | annual | Art. 21(2)(f) | §30(2) Nr. 6 BSIG, CIR 2.3 | G-TOM.1 |
 | `7.3` | sign-off | P1 | annual | Art. 21(2)(f), Art. 20(1) | §30(2) Nr. 6 BSIG, CIR 2.2.1, §38(1) | — |
 | `7.4` | document | P1 | ongoing | Art. 21(2)(f), Art. 21(4) | §30(2) Nr. 6 BSIG, CIR 2.3.3, Art. 21(4) | — |
 
@@ -159,27 +159,27 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | Code | Evidence | Priority | Article | Legal ref | NIS2 sibling |
 |---|---|---|---|---|---|
 | `G-DPA.1` | document | P1 | Art. 28 | GDPR Art. 28(3) | 5.1, 5.2 |
-| `G-DPA.2` | document | P1 | Art. 28 | GDPR Art. 28(2)/(4) | 5.2 |
+| `G-DPA.2` | document | P1 | Art. 28 | GDPR Art. 28(2), Art. 28(4) | 5.2 |
 
 ### ROP — gdpr-records-of-processing
 
 | Code | Evidence | Priority | Article | Legal ref | NIS2 sibling |
 |---|---|---|---|---|---|
-| `G-ROP.1` | document | P0 | Art. 30 | GDPR Art. 30(1) | 2.1, 2.2, 2.3 |
+| `G-ROP.1` | document | P0 | Art. 30 | GDPR Art. 30(1), (5) | 2.1, 2.2, 2.3 |
 
 ### TOM — gdpr-toms
 
 | Code | Evidence | Priority | Article | Legal ref | NIS2 sibling |
 |---|---|---|---|---|---|
-| `G-TOM.1` | document | P0 | Art. 32 | GDPR Art. 32(1) | 2.4 |
+| `G-TOM.1` | document | P0 | Art. 32 | GDPR Art. 32(1) | 2.4, 9.1, 9.2, 4.4, 4.3, 7.1, 7.2, 10.1, 11.1 |
 
 ### BRC — gdpr-breach-response
 
 | Code | Evidence | Priority | Article | Legal ref | NIS2 sibling |
 |---|---|---|---|---|---|
-| `G-BRC.1` | document | P0 | Art. 33 | GDPR Art. 33 | 3.1, 3.3 |
+| `G-BRC.1` | document | P0 | Art. 33 | GDPR Art. 33(1)-(4) | 3.1, 3.3 |
 | `G-BRC.2` | document | P1 | Art. 33 | GDPR Art. 33(5) | 3.2, 3.5 |
-| `G-BRC.3` | document | P1 | Art. 34 | GDPR Art. 34 | — |
+| `G-BRC.3` | document | P1 | Art. 34 | GDPR Art. 34 | 3.5 |
 
 ### DSR — gdpr-data-subject-rights
 
@@ -195,7 +195,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 
 ## Cross-Framework Satisfaction Pairs
 
-11 bidirectional pairs. Signing one requirement marks its linked sibling complete because the same operational evidence supports both attestations.
+20 bidirectional pairs. Signing one requirement marks its linked sibling complete because the same operational evidence supports both attestations.
 
 | NIS2 | GDPR | Rationale |
 |---|---|---|
@@ -210,6 +210,15 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | `3.3` | `G-BRC.1` | Same underlying event, separate filings: the NIS2 24h/72h/1-month cascade goes to the BSI/BBK Meldestelle, the GDPR Art. 33 single 72h notification to the data protection authority. |
 | `3.5` | `G-BRC.2` | Post-incident review evidence overlaps the Art. 33(5) breach documentation; the BSI final report itself is §32(1) Nr. 4 BSIG, tracked under 3.3. |
 | `2.4` | `G-TOM.1` | CEO sign-off on the Art. 21(2) risk treatment plan attests the TOMs posture Art. 32 requires. |
+| `9.1` | `G-TOM.1` | Art. 21(2)(h) ↔ Art. 32(1)(a): the CIR 9.1 cryptography policy is the documented position on encryption that Art. 32(1)(a) expects. Scope differs in one direction only: Art. 32(1)(a) names pseudonymisation alongside encryption and NIS2 does not, so the policy can satisfy the encryption half and leave pseudonymisation unaddressed. |
+| `9.2` | `G-TOM.1` | Art. 21(2)(h) ↔ Art. 32(1)(a): encryption at rest and in transit is the same control under both regimes. NIS2 applies it to network and information systems, Art. 32 to personal data, so the measure carries over while the scope statement does not. |
+| `4.4` | `G-TOM.1` | Art. 21(2)(c) ↔ Art. 32(1)(c): 'the ability to restore the availability and access to personal data in a timely manner in the event of a physical or technical incident' is what a tested backup and restore programme evidences. A restore that has never been tested evidences neither. |
+| `4.3` | `G-TOM.1` | Art. 21(2)(c) ↔ Art. 32(1)(c): the disaster recovery plan carries the recovery-time side of the same restore duty. Art. 32(1)(c) bounds it by 'in a timely manner' rather than by a stated RTO, so the NIS2 target is evidence for it and not a substitute. |
+| `7.1` | `G-TOM.1` | Art. 21(2)(f) ↔ Art. 32(1)(d): 'a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures'. The CIR 7.1 KPI records are that process running. Art. 32(1)(d) is the one enumerated item creating an ongoing duty rather than a one-off measure. |
+| `7.2` | `G-TOM.1` | Art. 21(2)(f) ↔ Art. 32(1)(d): the internal audit programme is the assessing and evaluating half of the same clause, where 7.1 is the measuring half. |
+| `10.1` | `G-TOM.1` | Art. 21(2)(i) ↔ Art. 32(1)(b): the access control policy is the primary evidence for 'ongoing confidentiality' of processing systems. Art. 32(1)(b) also covers integrity, availability and resilience, which this requirement does not reach. |
+| `11.1` | `G-TOM.1` | Art. 21(2)(j) ↔ Art. 32 by implication: Art. 32 nowhere names MFA, and its 'appropriate measures' clause is what carries it. CIR 11.7 mandates MFA outright for the eleven digital-service entity types; for everyone else Art. 21(1) proportionality decides, exactly as Art. 32(1) does. Never 'equivalent': one is a named control, the other an open standard that the control happens to meet. |
+| `3.5` | `G-BRC.3` | Art. 23(1) subpara. 2 ↔ Art. 34: both require telling people outside the authority about an incident, and the post-incident communication is where a company decides who hears what. The duties do not merge. NIS2 addresses the recipients of the service when provision is adversely affected; Art. 34 addresses the data subjects when the breach is likely to result in a high risk to their rights and freedoms, and the Art. 34(3) carve-outs apply to the GDPR side only. |
 
 ## Article-Level Mapping
 
@@ -237,7 +246,7 @@ BSI IT-Grundschutz module: `DER.3.1`. Estimated effort: 40 minutes.
 | NIS2 | 12 | 49 |
 | GDPR | 6 | 9 |
 
-**Total satisfaction pairs:** 11 bidirectional (NIS2 ↔ GDPR).
+**Total satisfaction pairs:** 20 bidirectional (NIS2 ↔ GDPR).
 **Article-level mappings:** 12 concept-level rows.
 
 ---

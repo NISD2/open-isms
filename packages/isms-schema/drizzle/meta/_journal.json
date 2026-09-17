@@ -92,6 +92,20 @@
       "when": 1788883904391,
       "tag": "0012_digest_once_per_day",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1789483225382,
+      "tag": "0013_journey_mode",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1789487364877,
+      "tag": "0014_journey_tour_per_layout",
+      "breakpoints": true
     }
   ]
 }

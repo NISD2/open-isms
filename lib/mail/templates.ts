@@ -802,6 +802,54 @@ export function newUserSignupEmail(opts: {
   };
 }
 
+/**
+ * Somebody asked to be put in touch with a firm that charges money.
+ *
+ * Written to be unmistakable next to `newUserSignupEmail` in a full inbox.
+ * That one says "New signup"; this one shouts ANFRAGE and leads with the
+ * subject of the request, because the two need completely different reactions.
+ * A signup is a statistic. This is the only revenue event the company has, and
+ * in referral work whoever answers first usually gets the job.
+ *
+ * Fired the moment the row is created, on the two or three fields we have at
+ * that point. Whatever the person adds on the second screen lands in the admin
+ * list rather than in a second mail, because two mails per request trains you
+ * to skim both.
+ */
+export function advisoryRequestEmail(opts: {
+  topic: string;
+  email: string;
+  sourcePath: string | null;
+  requirementCode: string | null;
+  adminUrl: string;
+}): EmailContent {
+  const { topic, email, sourcePath, requirementCode, adminUrl } = opts;
+  const safeEmail = escapeHtml(email);
+  const safeTopic = escapeHtml(topic);
+  const origin = requirementCode ?? sourcePath ?? "direkt";
+  const domain = email.split("@")[1] ?? email;
+
+  return {
+    subject: `[ANFRAGE] ${safeHeader(topic)} (${safeHeader(domain)})`,
+    html: emailLayout(`
+        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">Jemand hat um Unterstützung gebeten</h2>
+        <table style="color: ${BRAND.foreground}; line-height: 1.8; font-size: 14px; margin: 0 0 24px;">
+          <tr><td style="padding-right: 16px; font-weight: 600;">Thema</td><td>${safeTopic}</td></tr>
+          <tr><td style="padding-right: 16px; font-weight: 600;">Kontakt</td><td>${safeEmail}</td></tr>
+          <tr><td style="padding-right: 16px; font-weight: 600;">Herkunft</td><td>${escapeHtml(origin)}</td></tr>
+          <tr><td style="padding-right: 16px; font-weight: 600;">Eingegangen</td><td>${new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}</td></tr>
+        </table>
+        <p style="color: ${BRAND.foreground}; font-size: 14px; margin: 0 0 24px;">
+          Heute antworten. Wer zuerst reagiert, bekommt die Arbeit.
+        </p>
+        <a href="${escapeHtml(adminUrl)}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
+          Anfrage öffnen
+        </a>
+    `),
+    text: `[ANFRAGE] ${topic} von ${email}\n\nHerkunft: ${origin}\nHeute antworten. Wer zuerst reagiert, bekommt die Arbeit.\n\n${adminUrl}`,
+  };
+}
+
 export function supplierAddedYouEmail(opts: {
   supplierName: string;
   profileUrl: string | null;

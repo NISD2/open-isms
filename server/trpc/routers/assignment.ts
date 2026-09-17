@@ -123,7 +123,6 @@ export const assignmentRouter = router({
               categoryUrl: `${getAppUrl()}/compliance/${category.slug}`,
               footer: preferenceFooterFor(
                 input.userId,
-                "work.category_assigned",
                 resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
               ),
             }),
@@ -226,7 +225,6 @@ export const assignmentRouter = router({
               companyName: companyRow?.name ?? "your company",
               footer: preferenceFooterFor(
                 input.userId,
-                "work.category_unassigned",
                 resolveEmailLocale(assignee.locale, companyRow?.country ?? null),
               ),
             }),

@@ -195,7 +195,7 @@
       },
       "ROP": {
         "name": "Records of Processing",
-        "description": "Documentation of every processing activity per GDPR Art. 30: purpose, legal basis, recipients, retention",
+        "description": "Documentation of every processing activity per GDPR Art. 30: purpose, categories of data subjects and personal data, recipients, retention",
         "legalBasis": "GDPR Art. 30",
         "threatLandscape": "",
         "bsiGuidance": ""

@@ -3,7 +3,7 @@ import { render } from "@react-email/render";
 import * as React from "react";
 import type { DbOrTx } from "@/lib/db";
 import { db } from "@/lib/db";
-import { oneClickUnsubscribeUrl } from "@/lib/email/unsubscribe";
+import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
 import { env } from "@/lib/env";
 import { getAppUrl } from "@/lib/utils";
 import { loadEmailConsent } from "./consent";
@@ -173,8 +173,8 @@ export async function sendMail(opts: SendMailOptions) {
       return { success: true, skipped: "opted-out" as SendSkippedReason } as const;
     }
     // Derived, never passed in: an optional message always leaves with a
-    // working one-click opt-out for its own kind.
-    unsubscribeUrl = oneClickUnsubscribeUrl(opts.recipientUserId, opts.emailType);
+    // working one-click opt-out, which switches off all optional mail.
+    unsubscribeUrl = buildUnsubscribeUrl(opts.recipientUserId);
   }
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {

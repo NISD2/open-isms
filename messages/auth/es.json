@@ -27,6 +27,7 @@
     "verifyResent": "Nuevo código enviado. Revise su bandeja de entrada.",
     "verifyResendCooldown": "Espere unos minutos antes de solicitar otro código.",
     "verifyErrorInvalidCode": "Código no válido o caducado. Inténtelo de nuevo o solicite uno nuevo.",
+    "verifyErrorSignInFailed": "Correo confirmado. El inicio de sesión no funcionó porque hay otra contraseña guardada para esta dirección. Establezca una nueva con \"Contraseña olvidada\".",
     "verifyBack": "Usar otro correo electrónico",
     "forgotPasswordLink": "¿Ha olvidado su contraseña?",
     "forgotPassword": {

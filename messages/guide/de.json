@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Wer setzt NIS 2 bei Ihnen um?",
+      "lede": "Davon hängt ab, wie wir Ihnen den Weg zeigen. Sie können jederzeit umstellen.",
+      "solo": {
+        "title": "Im Wesentlichen ich",
+        "reality": "Eine Person hält alles zusammen, vielleicht mit etwas Hilfe.",
+        "result": "Ein Schritt nach dem anderen, in klarer Reihenfolge."
+      },
+      "team": {
+        "title": "Mehrere mit eigenen Rollen",
+        "reality": "Geschäftsführung, IT und Betrieb teilen sich die Aufgaben.",
+        "result": "Alle Schritte nach Rollen, Priorität und Freigabestand."
+      }
+    },
     "tour": {
       "next": "Weiter",
       "done": "Fertig",
@@ -8,7 +22,19 @@
       "steps": {
         "overview": {
           "title": "Ihr ganzer Weg auf einem Bildschirm",
-          "body": "Jede Anforderung, die Sie erfüllen müssen, in einer Liste, mit dem aktuellen Stand daneben. Sie müssen nirgends suchen, was noch offen ist."
+          "body": "Jede Anforderung, die Sie erfüllen müssen, mit dem aktuellen Stand daneben. Sie müssen nirgends suchen, was noch offen ist."
+        },
+        "stage": {
+          "title": "Wo Sie gerade sind",
+          "body": "Der Weg läuft in drei Fenstern: was in den ersten Monat gehört, was in die ersten drei Monate, und der Rest des ersten Jahres. Dieser Balken bleibt oben stehen und nennt den Abschnitt, in dem Sie gerade lesen. Hinweise öffnet die Erklärungen dazu."
+        },
+        "liveStep": {
+          "title": "Ihr nächster Schritt",
+          "body": "Genau ein Schritt ist als offen markiert. Öffnen Sie ihn, tragen Sie ein, was bei Ihnen tatsächlich gilt, und geben Sie ihn frei. Danach rückt die Markierung eins weiter."
+        },
+        "timeline": {
+          "title": "Der Weg ist nach Frist sortiert",
+          "body": "Links stehen die drei Fenster, und der Weg selbst läuft in dieser Reihenfolge: zuerst alles für den ersten Monat, dann die ersten drei Monate, dann der Rest des Jahres. Beim Scrollen wandert die Markierung mit. Verpflichtend sind alle 49 Schritte; die Einteilung ist unsere Empfehlung."
         },
         "order": {
           "title": "Zwei Reihenfolgen für Ihren Weg",

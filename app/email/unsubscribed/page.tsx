@@ -26,8 +26,8 @@ export default async function UnsubscribedPage(props: {
           <>
             <h1 className="text-2xl font-semibold">This link is no longer valid</h1>
             <p className="text-muted-foreground leading-relaxed">
-              The unsubscribe link looks expired or incomplete. This usually happens when an
-              email client cuts off the link or it gets copied incorrectly.
+              The unsubscribe link looks expired or incomplete. This usually happens when
+              an email client cuts off the link or it gets copied incorrectly.
             </p>
             <p className="text-sm text-muted-foreground">
               To stop receiving emails, reply to any email or write to{" "}
@@ -41,8 +41,9 @@ export default async function UnsubscribedPage(props: {
           <>
             <h1 className="text-2xl font-semibold">You&rsquo;re unsubscribed</h1>
             <p className="text-muted-foreground leading-relaxed">
-              You won&rsquo;t receive follow-up emails about courses or other reminders from NISD2 anymore.
-              You&rsquo;ll still receive the important ones (account, invites, deadline notifications).
+              You won&rsquo;t receive optional emails from NISD2 anymore: reminders,
+              digests, follow-ups and product updates. You&rsquo;ll still receive the
+              essential ones (sign-in codes, security and account notices, invites).
             </p>
             <p className="text-sm text-muted-foreground">
               Changed your mind? Reply to any email or write to{" "}

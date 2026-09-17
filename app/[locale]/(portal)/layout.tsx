@@ -1,34 +1,38 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { getLocale } from "next-intl/server";
+import { OnboardingBanner } from "@/components/dashboard/OnboardingBanner";
+import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
 import { AppSidebar, type FrameworkGroup } from "@/components/portal/AppSidebar";
 import { PortalHeader } from "@/components/portal/PortalHeader";
-import { AdminTestPanel } from "@/components/portal/AdminTestPanel";
-import { OnboardingBanner } from "@/components/dashboard/OnboardingBanner";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getSession } from "@/lib/auth";
-import { env } from "@/lib/env";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
-import { api } from "@/lib/trpc/server";
 import {
+  type CategoryInfo,
+  canSeeCategory,
   getAllActiveCategories,
   getUserAccess,
-  canSeeCategory,
   myRequirementCount,
-  type CategoryInfo,
 } from "@/lib/compliance/access";
-import { getLocale } from "next-intl/server";
+import { env } from "@/lib/env";
 import {
-  getComplianceMessages,
-  getCategoryName,
   type ComplianceMessages,
+  getCategoryName,
+  getComplianceMessages,
 } from "@/lib/messages";
+import { api } from "@/lib/trpc/server";
 
 /** Map sortOrder ranges to i18n phase keys.
- * REG(0) | GOV(1) RSK(2) SUP(3) | CRY(4) ACC(5) AUT(6) | PRO(7) INC(8) BCP(9) | TRN(10) EFF(11) */
+ * REG(0) | GOV(1) RSK(2) SUP(3) INC(4) | CRY(5) ACC(6) AUT(7) | PRO(8) BCP(9) | TRN(10) EFF(11)
+ *
+ * Incident handling sits in the foundation group, not with operations: the
+ * plan and the reporting readiness are what you reach for the first time
+ * something goes wrong, which can be any day after you are in scope. */
 function phaseForSortOrder(sortOrder: number): string {
   if (sortOrder <= 0) return "phaseRegistration";
-  if (sortOrder <= 3) return "phaseFoundation";
-  if (sortOrder <= 6) return "phaseControls";
+  if (sortOrder <= 4) return "phaseFoundation";
+  if (sortOrder <= 7) return "phaseControls";
   if (sortOrder <= 9) return "phaseOperations";
   if (sortOrder <= 11) return "phaseVerification";
   return "phaseAdmin";
@@ -58,11 +62,7 @@ function buildSteps(
     });
 }
 
-export default async function PortalLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function PortalLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
   if (!session) redirect("/auth/signin");
 
@@ -79,9 +79,7 @@ export default async function PortalLayout({
     [...allFrameworks.entries()].map(([code, { framework, categories }]) => {
       const assessment = assessments.find((a) => a.framework?.code === code);
       return Promise.all([
-        assessment
-          ? getUserAccess(assessment.id, session.user.id, session.role)
-          : null,
+        assessment ? getUserAccess(assessment.id, session.user.id, session.role) : null,
         assessment
           ? api.assessment.getProgressByCategory({ assessmentId: assessment.id })
           : ({} as Record<string, { completed: number; total: number }>),
@@ -109,7 +107,15 @@ export default async function PortalLayout({
   // 403-on-write shell.
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
-  const ALLOWED_WITHOUT_COMPANY = ["/dashboard", "/journey", "/organization", "/audit", "/notifications", "/settings", "/gap-assessment"];
+  const ALLOWED_WITHOUT_COMPANY = [
+    "/dashboard",
+    "/journey",
+    "/organization",
+    "/audit",
+    "/notifications",
+    "/settings",
+    "/gap-assessment",
+  ];
   const needsCompany = !ALLOWED_WITHOUT_COMPANY.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
@@ -128,6 +134,7 @@ export default async function PortalLayout({
       />
       <SidebarInset>
         <PortalHeader
+          journeyHome
           guide={{
             hints: session.hints,
             calLink: env.CAL_LINK,

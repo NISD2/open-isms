@@ -1,5 +1,5 @@
 import "@/lib/server-guard";
-import { randomInt } from "crypto";
+import { randomInt } from "node:crypto";
 import bcrypt from "bcryptjs";
 import { and, eq, gt, isNull, lt, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
@@ -19,7 +19,9 @@ import { emailOtp } from "@/schema";
  *  - 5 wrong attempts triggers lockout (record consumed)
  *  - Rate-limited: max 3 requests per email+purpose per 5 minutes
  *  - Each new request invalidates prior unconsumed records for the same
- *    (email, purpose), so the most recent code is always the only valid one
+ *    (email, purpose), in the same transaction as the insert. Two overlapping
+ *    requests can still leave two live rows, so `verifyOtp` reads the newest:
+ *    the most recently issued code is the one that counts
  *  - The caller (API route) is responsible for sending the plaintext code
  *    via Resend; this module never touches the mailer to keep concerns clean
  */
@@ -82,27 +84,37 @@ export async function requestOtp(
     throw new OtpRateLimitedError();
   }
 
-  // Invalidate any prior unconsumed records so only the freshest code is valid
-  await db
-    .update(emailOtp)
-    .set({ consumedAt: new Date() })
-    .where(
-      and(
-        eq(emailOtp.email, normalizedEmail),
-        eq(emailOtp.purpose, purpose),
-        isNull(emailOtp.consumedAt),
-      ),
-    );
-
   const code = generateCode();
   const codeHash = await bcrypt.hash(code, BCRYPT_ROUNDS);
   const expiresAt = new Date(Date.now() + EXPIRY_MS);
 
-  await db.insert(emailOtp).values({
-    email: normalizedEmail,
-    codeHash,
-    purpose,
-    expiresAt,
+  // Invalidate-then-insert in one transaction, so there is no instant where
+  // the old code is already dead and the new one does not exist yet. A verify
+  // landing in that gap was told its code was invalid when it was not.
+  //
+  // This does NOT by itself guarantee a single live row. Under READ COMMITTED
+  // a concurrent call's UPDATE scans a snapshot taken at statement start, so
+  // a row this transaction has not yet committed is invisible to it and both
+  // can end up live. The ordering in `verifyOtp` is what actually decides
+  // which code wins; this transaction closes the empty-window case.
+  await db.transaction(async (tx) => {
+    await tx
+      .update(emailOtp)
+      .set({ consumedAt: new Date() })
+      .where(
+        and(
+          eq(emailOtp.email, normalizedEmail),
+          eq(emailOtp.purpose, purpose),
+          isNull(emailOtp.consumedAt),
+        ),
+      );
+
+    await tx.insert(emailOtp).values({
+      email: normalizedEmail,
+      codeHash,
+      purpose,
+      expiresAt,
+    });
   });
 
   return { code };
@@ -135,6 +147,14 @@ export async function verifyOtp(
       isNull(emailOtp.consumedAt),
       gt(emailOtp.expiresAt, new Date()),
     ),
+    // Newest first, and load-bearing rather than cosmetic. Two overlapping
+    // requestOtp calls can leave two live rows (see the note there), and
+    // without an ordering `findFirst` takes whichever the scan reaches first
+    // — in practice the oldest. The user then types the code from the mail
+    // that just arrived, it is compared against the older row's hash, and a
+    // correct code is rejected. Ordering makes the most recently issued code
+    // the one that counts, which is the only rule a person can predict.
+    orderBy: (row, { desc }) => desc(row.createdAt),
   });
 
   if (!record) return false;

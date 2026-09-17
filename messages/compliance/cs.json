@@ -191,7 +191,7 @@
       },
       "ROP": {
         "name": "Záznamy o činnostech zpracování",
-        "description": "Dokumentace každé činnosti zpracování podle čl. 30 GDPR: účel, právní základ, příjemci, doba uchovávání",
+        "description": "Dokumentace každé činnosti zpracování podle čl. 30 GDPR: účel, kategorie subjektů údajů a osobních údajů, příjemci, doba uchovávání",
         "legalBasis": "čl. 30 GDPR",
         "threatLandscape": "",
         "bsiGuidance": ""

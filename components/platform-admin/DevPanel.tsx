@@ -1,5 +1,14 @@
 "use client";
 
+import {
+  Check,
+  Compass,
+  FileDown,
+  GraduationCap,
+  Languages,
+  Loader2,
+  RotateCcw,
+} from "lucide-react";
 /**
  * Personal dev tools — levers that act on the signed-in operator's own
  * account rather than on the platform.
@@ -15,9 +24,7 @@
  * compliance evidence.
  */
 import { Fragment, useState } from "react";
-import { RotateCcw, Check, Loader2, Languages, GraduationCap, Compass, FileDown } from "lucide-react";
 import { toast } from "sonner";
-import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,6 +33,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 
 /** next-intl writes the chosen locale here; clearing it restores detection. */
@@ -34,16 +42,26 @@ const LOCALE_COOKIE = "NEXT_LOCALE";
 /**
  * The one-time surfaces, in the order a new account meets them. One table so
  * the status rows, the arm buttons and the toasts cannot drift apart, and
- * adding a fourth surface is one entry.
+ * adding another surface is one entry.
  */
 const SURFACES = [
   {
-    hint: "journeyTour",
-    stamp: "journeyTourDismissedAt",
-    label: "Journey walkthrough",
-    button: "Arm the journey walkthrough",
-    testId: "arm-journey-tour",
-    armedToast: "Journey walkthrough armed. Open the journey to see it.",
+    hint: "journeyTourGuided",
+    stamp: "journeyTourGuidedDismissedAt",
+    label: "Guided-path walkthrough",
+    button: "Arm the guided-path walkthrough",
+    testId: "arm-journey-tour-guided",
+    armedToast:
+      "Guided-path walkthrough armed. Open the journey in the guided layout to see it.",
+  },
+  {
+    hint: "journeyTourTeam",
+    stamp: "journeyTourTeamDismissedAt",
+    label: "Team-view walkthrough",
+    button: "Arm the team-view walkthrough",
+    testId: "arm-journey-tour-team",
+    armedToast:
+      "Team-view walkthrough armed. Open the journey in the team layout to see it.",
   },
   {
     hint: "requirementTour",
@@ -126,10 +144,11 @@ export function DevPanel() {
             <Compass className="h-4 w-4" /> Onboarding surfaces
           </CardTitle>
           <CardDescription>
-            The two walkthroughs are separate and dismiss separately, so
-            skipping the journey one leaves the requirement one still to come.
-            Both want a first-login account and the offer of help wants a
-            second, so arming the offer disarms the tours and vice versa.
+            Each walkthrough is separate and dismisses separately, so skipping one leaves
+            the others still to come. The journey has one per layout, and which of the two
+            runs is decided by the layout on screen. Only the requirement walkthrough
+            wants a first-login account; the offer of help wants a second, so arming the
+            offer disarms that one and vice versa.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -145,7 +164,9 @@ export function DevPanel() {
                       <Armed on={data.hints[hint]} /> · dismissed{" "}
                       <Stamp value={data[stamp]} />
                     </>
-                  ) : "…"}
+                  ) : (
+                    "…"
+                  )}
                 </dd>
               </Fragment>
             ))}
@@ -154,22 +175,26 @@ export function DevPanel() {
             {SURFACES.map(({ hint, button, testId }) => (
               <Button
                 key={hint}
-                type="button" variant="outline" size="sm"
+                type="button"
+                variant="outline"
+                size="sm"
                 data-testid={testId}
                 disabled={arm.isPending}
                 onClick={() => arm.mutate({ surface: hint })}
               >
-                {arm.isPending && arm.variables?.surface === hint
-                  ? <Loader2 className="h-4 w-4 animate-spin" />
-                  : <RotateCcw className="h-4 w-4" />}
+                {arm.isPending && arm.variables?.surface === hint ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <RotateCcw className="h-4 w-4" />
+                )}
                 {button}
               </Button>
             ))}
           </div>
           <p className="text-xs text-muted-foreground">
-            Takes effect immediately, and survives a sign-out: the tours arm at
-            a login count of zero, so the sign-in that follows still counts as
-            a first one.
+            Takes effect immediately, and survives a sign-out: arming parks the login
+            count at zero, so the sign-in that follows still counts as a first one for the
+            surfaces that care about it.
           </p>
         </CardContent>
       </Card>
@@ -180,23 +205,27 @@ export function DevPanel() {
             <GraduationCap className="h-4 w-4" /> Course progress
           </CardTitle>
           <CardDescription>
-            Complete marks every lesson done so the certificate PDF becomes
-            reachable; reset clears your rows so the course can be walked
-            again. Both act on your account only, and both leave the company
-            training record alone: that is the § 38 BSIG evidence, not a
-            replay flag.
+            Complete marks every lesson done so the certificate PDF becomes reachable;
+            reset clears your rows so the course can be walked again. Both act on your
+            account only, and both leave the company training record alone: that is the §
+            38 BSIG evidence, not a replay flag.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="divide-y text-sm">
             {(data?.courses ?? []).map(({ courseId, lessons }) => (
-              <li key={courseId} className="flex flex-wrap items-center gap-3 py-2 first:pt-0 last:pb-0">
+              <li
+                key={courseId}
+                className="flex flex-wrap items-center gap-3 py-2 first:pt-0 last:pb-0"
+              >
                 <span className="font-mono text-xs">{courseId}</span>
                 <span className="ml-auto text-muted-foreground tabular-nums">
                   {lessons} lesson row(s)
                 </span>
                 <Button
-                  type="button" variant="outline" size="sm"
+                  type="button"
+                  variant="outline"
+                  size="sm"
                   disabled={!data || completeCourse.isPending}
                   onClick={() =>
                     data && completeCourse.mutate({ userId: data.userId, courseId })
@@ -220,7 +249,13 @@ export function DevPanel() {
                 >
                   {confirmReset === courseId ? "Delete progress?" : "Reset"}
                 </Button>
-                <Button asChild type="button" variant="ghost" size="sm" disabled={lessons === 0}>
+                <Button
+                  asChild
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  disabled={lessons === 0}
+                >
                   <a
                     href={`/api/training/certificate?courseId=${courseId}&locale=de`}
                     target="_blank"
@@ -251,7 +286,10 @@ function LanguageCard() {
 
   const current =
     typeof document !== "undefined"
-      ? (document.cookie.split("; ").find((c) => c.startsWith(`${LOCALE_COOKIE}=`))?.split("=")[1] ?? null)
+      ? (document.cookie
+          .split("; ")
+          .find((c) => c.startsWith(`${LOCALE_COOKIE}=`))
+          ?.split("=")[1] ?? null)
       : null;
 
   return (
@@ -261,9 +299,8 @@ function LanguageCard() {
           <Languages className="h-4 w-4" /> Language preference
         </CardTitle>
         <CardDescription>
-          Your locale is a cookie, not a column. Clearing it makes the site
-          detect a language from the browser again, which is what a first-time
-          visitor gets.
+          Your locale is a cookie, not a column. Clearing it makes the site detect a
+          language from the browser again, which is what a first-time visitor gets.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-wrap items-center gap-3">
@@ -276,7 +313,9 @@ function LanguageCard() {
           )}
         </span>
         <Button
-          type="button" variant="outline" size="sm"
+          type="button"
+          variant="outline"
+          size="sm"
           data-testid="reset-locale"
           onClick={() => {
             document.cookie = `${LOCALE_COOKIE}=; path=/; max-age=0; SameSite=Lax`;

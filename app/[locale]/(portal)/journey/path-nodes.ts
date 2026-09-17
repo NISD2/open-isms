@@ -1,4 +1,5 @@
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
+import { journeyPosition, priorityRank } from "@/lib/compliance/journey-position";
 import type { JourneyItem } from "./views";
 
 export type NodeStatus = "done" | "current" | "upcoming";
@@ -28,6 +29,8 @@ export type FlowNode = {
   description: string | null;
   legalRef: string | null;
   frequency: string | null;
+  /** Index within the category, for re-deriving process order. */
+  sortOrder: number;
   /** Assigned sign-offs done vs required (N-of-M management sign-off). */
   signOff: { signed: number; total: number };
 };
@@ -55,8 +58,10 @@ export const COLUMNS: {
     key: "leadership",
     en: "Management",
     de: "Geschäftsführung",
-    infoEn: "Approves and is accountable. Signs off governance, budget and the duties under §38.",
-    infoDe: "Genehmigt und verantwortet. Gibt Governance, Budget und die Pflichten nach §38 frei.",
+    infoEn:
+      "Approves and is accountable. Signs off governance, budget and the duties under §38.",
+    infoDe:
+      "Genehmigt und verantwortet. Gibt Governance, Budget und die Pflichten nach §38 frei.",
   },
   {
     key: "security",
@@ -100,18 +105,18 @@ export const BANDS: {
     en: "Defensible minimum",
     de: "Belastbares Minimum",
     hintEn: "The mandatory, foundational controls",
-    hintDe: "Die verpflichtenden, grundlegenden Massnahmen",
-    phaseEn: "Month 1",
-    phaseDe: "Monat 1",
+    hintDe: "Die verpflichtenden, grundlegenden Maßnahmen",
+    phaseEn: "In the first month",
+    phaseDe: "Im ersten Monat",
   },
   {
     key: "year",
     en: "Over the year",
     de: "Im Lauf des Jahres",
     hintEn: "The remaining measures, step by step",
-    hintDe: "Die übrigen Massnahmen, Schritt für Schritt",
-    phaseEn: "Next 3 months",
-    phaseDe: "Nächste 3 Monate",
+    hintDe: "Die übrigen Maßnahmen, Schritt für Schritt",
+    phaseEn: "In the first year",
+    phaseDe: "Im ersten Jahr",
   },
   {
     key: "later",
@@ -166,6 +171,7 @@ export const ORDERED_CATEGORIES: {
   name: string;
   nameDe: string;
   slug: string;
+  sortOrder: number;
 }[] = [...nis2Categories]
   .sort((a, b) => a.sortOrder - b.sortOrder)
   .map((c) => ({
@@ -173,6 +179,7 @@ export const ORDERED_CATEGORIES: {
     name: c.name ?? c.code,
     nameDe: CATEGORY_NAME_DE[c.code] ?? c.name ?? c.code,
     slug: c.slug ?? c.code.toLowerCase(),
+    sortOrder: c.sortOrder,
   }));
 
 /** Localized human labels for requirement.frequency slugs. */
@@ -195,13 +202,28 @@ const CATEGORY_ORDER: Record<string, number> = Object.fromEntries(
 );
 
 /**
- * True journey position. requirement.sortOrder is the requirement's index
- * WITHIN its category (0, 1, 2, ...), not a global order, so sorting by it
- * alone floats every category's first requirement to the top (e.g. MFA 11.1
- * ahead of assets 2.2). Order by the category sequence first, then the index.
+ * True journey position: the shared urgency-then-process order.
+ *
+ * Read from the canonical helper rather than restated here, because the
+ * guided path, the swimlane banner, the activation nudge and the digest are
+ * only ever consistent while they read the same function.
  */
 function globalOrder(item: JourneyItem): number {
-  return (CATEGORY_ORDER[item.categoryCode] ?? 99) * 100 + item.sortOrder;
+  return journeyPosition(
+    item.priority,
+    CATEGORY_ORDER[item.categoryCode],
+    item.sortOrder,
+  );
+}
+
+/**
+ * Process order: the category sequence, then the index within it, ignoring
+ * urgency. Journey order leads with criticality, so the swimlane's
+ * chronological mode has to re-sort rather than take the incoming order —
+ * without this its row numbers ran 1, 9, 23 inside a single category.
+ */
+export function processOrder(node: Pick<FlowNode, "categoryCode" | "sortOrder">): number {
+  return (CATEGORY_ORDER[node.categoryCode] ?? 99) * 100 + node.sortOrder;
 }
 
 /** Band display rank, for the defensible-minimum ordering. */
@@ -215,20 +237,94 @@ function columnFor(role: string): ColumnKey {
   return ROLE_COLUMN[role] ?? "security";
 }
 
+/** Where a requirement node links to. One definition for every journey view. */
+export function requirementHref(node: Pick<FlowNode, "categorySlug" | "code">) {
+  return {
+    pathname: "/compliance/[categorySlug]/[requirementCode]" as const,
+    params: { categorySlug: node.categorySlug, requirementCode: node.code },
+  };
+}
+
+/** The six visual states a requirement can be in, shared by every view. */
+export type DotState = "todo" | "started" | "awaiting" | "signed" | "na" | "rejected";
+
+/** Raw companyRequirementStatus to visual state. */
+export function dotStateOf(rawStatus: string): DotState {
+  // "completed" = user sign-off done; "approved" adds legal review. Both done.
+  if (rawStatus === "completed" || rawStatus === "approved") return "signed";
+  if (rawStatus === "not_applicable") return "na";
+  if (rawStatus === "needs_review") return "awaiting";
+  if (rawStatus === "rejected") return "rejected";
+  if (rawStatus === "in_progress") return "started";
+  return "todo";
+}
+
+/** Tailwind text colour for a state, so a status reads the same in every view. */
+export function statusTone(state: DotState): string {
+  if (state === "signed") return "text-primary";
+  if (state === "awaiting") return "text-amber-600 dark:text-amber-400";
+  if (state === "rejected") return "text-destructive";
+  return "text-muted-foreground";
+}
+
+/** Localized requirement.frequency, falling back to the raw slug. */
+export function frequencyLabel(frequency: string | null, de: boolean): string | null {
+  if (!frequency) return null;
+  const label = FREQUENCY_LABEL[frequency];
+  if (!label) return frequency;
+  return de ? label.de : label.en;
+}
+
+/**
+ * Localized recurring-review clock, or null where there is no review date.
+ *
+ * Only ever called with the server-computed `dueInDays`, which is gated to
+ * review statuses: a never-done item carries an initial implementation
+ * deadline, and calling that a late review would be wrong.
+ */
+export function reviewLabel(dueInDays: number | null, de: boolean): string | null {
+  if (dueInDays === null) return null;
+  if (dueInDays < 0) {
+    const days = -dueInDays;
+    return de
+      ? `Prüfung ${days} ${days === 1 ? "Tag" : "Tage"} überfällig`
+      : `Review ${days} ${days === 1 ? "day" : "days"} overdue`;
+  }
+  if (dueInDays === 0) return de ? "Prüfung heute fällig" : "Review due today";
+  return de
+    ? `Nächste Prüfung in ${dueInDays} ${dueInDays === 1 ? "Tag" : "Tagen"}`
+    : `Next review in ${dueInDays} ${dueInDays === 1 ? "day" : "days"}`;
+}
+
+/** Localized status wording. One vocabulary so the views cannot drift apart. */
+export function statusLabel(rawStatus: string, de: boolean): string {
+  switch (rawStatus) {
+    case "completed":
+      return de ? "Freigegeben" : "Signed off";
+    case "approved":
+      return de ? "Geprüft" : "Reviewed";
+    case "not_applicable":
+      return de ? "Nicht zutreffend" : "Not applicable";
+    case "needs_review":
+      return de ? "Wartet auf Freigabe" : "Awaiting sign-off";
+    case "in_progress":
+      return de ? "In Arbeit" : "In progress";
+    case "rejected":
+      return de ? "Abgelehnt" : "Rejected";
+    default:
+      return de ? "Offen" : "Open";
+  }
+}
+
+/** The band a priority falls in, off the one priority-to-tier mapping. */
 function bandForPriority(priority: string | null): Band {
-  if (priority === "P0") return "minimum";
-  if (priority === "P2" || priority === "P3") return "later";
-  return "year"; // P1 and unset
+  return (["minimum", "year", "later"] as const)[priorityRank(priority)];
 }
 
 function isDone(status: string): boolean {
   // "completed" is the normal user sign-off result; "approved" adds the legal
   // review. Both, plus not_applicable, are terminal.
-  return (
-    status === "completed" ||
-    status === "approved" ||
-    status === "not_applicable"
-  );
+  return status === "completed" || status === "approved" || status === "not_applicable";
 }
 
 /** The single live node: lowest-order requirement not yet done. */
@@ -278,6 +374,7 @@ export function buildRequirementNodes(items: JourneyItem[]): FlowNode[] {
         description: it.description,
         legalRef: it.legalRef,
         frequency: it.frequency,
+        sortOrder: it.sortOrder,
         signOff: it.signOff,
       };
     });

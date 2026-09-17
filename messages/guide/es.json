@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "¿Quién implementa NIS 2 en su empresa?",
+      "lede": "Esto determina cómo le mostramos el recorrido. Puede cambiarlo en cualquier momento.",
+      "solo": {
+        "title": "Principalmente yo",
+        "reality": "Una sola persona lo sostiene todo, quizá con algo de ayuda.",
+        "result": "Un paso cada vez, en un orden claro."
+      },
+      "team": {
+        "title": "Varias personas, con funciones propias",
+        "reality": "Dirección, TI y operaciones se reparten el trabajo.",
+        "result": "Todos los pasos por función, prioridad y estado de aprobación."
+      }
+    },
     "tour": {
       "next": "Siguiente",
       "done": "Listo",
@@ -8,7 +22,19 @@
       "steps": {
         "overview": {
           "title": "Todo su recorrido en una pantalla",
-          "body": "Cada requisito que debe cumplir, en una sola lista, con su estado al lado. Nunca tiene que buscar lo que queda pendiente."
+          "body": "Cada requisito que debe cumplir, con su estado al lado. Nunca tiene que buscar lo que queda pendiente."
+        },
+        "stage": {
+          "title": "Dónde se encuentra ahora",
+          "body": "El recorrido avanza en tres ventanas: lo que corresponde al primer mes, lo que corresponde a los tres primeros meses y el resto del primer año. Esta barra permanece arriba e indica la sección que está leyendo. Indicaciones abre las explicaciones."
+        },
+        "liveStep": {
+          "title": "Su siguiente paso",
+          "body": "Solo un paso está marcado como activo. Ábralo, registre lo que ocurre realmente en su empresa y apruébelo. La marca pasa entonces al siguiente."
+        },
+        "timeline": {
+          "title": "El recorrido está ordenado por plazo",
+          "body": "A la izquierda están las tres ventanas y el recorrido sigue ese orden: primero todo lo del primer mes, después los tres primeros meses, después el resto del año. La marca avanza con usted. Los 49 pasos son obligatorios; el reparto es nuestra recomendación."
         },
         "order": {
           "title": "Dos formas de ordenar su recorrido",

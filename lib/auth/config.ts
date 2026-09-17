@@ -343,7 +343,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.role = "member";
       session.jobTitle = null;
       session.sessionVersion = token.sessionVersion ?? null;
-      session.hints = { journeyTour: false, requirementTour: false, helpOffer: false };
+      session.hints = {
+        journeyTourGuided: false,
+        journeyTourTeam: false,
+        requirementTour: false,
+        helpOffer: false,
+      };
       return session;
     },
   },
@@ -369,7 +374,8 @@ export const getSession = cache(async (): Promise<Session | null> => {
       jobTitle: true,
       sessionVersion: true,
       loginCount: true,
-      journeyTourDismissedAt: true,
+      journeyTourGuidedDismissedAt: true,
+      journeyTourTeamDismissedAt: true,
       requirementTourDismissedAt: true,
       helpOfferDismissedAt: true,
     },

@@ -27,6 +27,7 @@
     "verifyResent": "Nieuwe code verstuurd. Controleer je inbox.",
     "verifyResendCooldown": "Wacht een paar minuten voordat je een nieuwe code aanvraagt.",
     "verifyErrorInvalidCode": "Ongeldige of verlopen code. Probeer opnieuw of vraag een nieuwe code aan.",
+    "verifyErrorSignInFailed": "E-mail bevestigd. Aanmelden lukte niet omdat bij dit adres een ander wachtwoord is opgeslagen. Stel een nieuw wachtwoord in via \"Wachtwoord vergeten\".",
     "verifyBack": "Ander e-mailadres gebruiken",
     "forgotPasswordLink": "Wachtwoord vergeten?",
     "forgotPassword": {

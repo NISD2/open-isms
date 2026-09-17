@@ -1,223 +1,880 @@
 {
   "requirements": {
-    "1_1": { "title": "Cybersicherheitsschulung der Geschäftsleitung", "description": "Die Geschäftsleitung nimmt regelmäßig an Cybersicherheitsschulungen teil (§38(3) BSIG). Das Gesetz nennt kein festes Intervall; Empfehlung: alle 3 Jahre und bei Wechseln in der Geschäftsleitung." },
-  "1_2": { "title": "Rollen und Verantwortlichkeiten", "description": "Rollen und Verantwortlichkeiten für die Cybersicherheit definieren. Die Teamseite zeigt die aktuelle Zuordnung." },
-  "1_3": { "title": "Budgetzuweisung für Cybersicherheit", "description": "Ausreichendes Budget für Cybersicherheitsmaßnahmen bereitstellen und von der Geschäftsleitung genehmigen lassen." },
-  "1_4": { "title": "Persönliche Haftungsanerkennung", "description": "Die Geschäftsleitung bestätigt die Kenntnisnahme der Haftungsregelung des §38(2) BSIG (Innenhaftung nach Gesellschaftsrecht). Keine gesetzliche Bestätigungspflicht, aber belastbarer Governance-Nachweis zu §38(1)." },
-  "2_1": { "title": "Risikobewertungsmethodik", "description": "Methodik zur Risikoanalyse festlegen: Skalen, Schwellenwerte, Akzeptanzkriterien. Standard: BSI 200-3 mit 4×4-Matrix." },
-  "2_2": { "title": "Asset-Inventar, Geltungsbereich & Klassifizierung", "description": "Geltungsbereich definieren, vollständiges Asset-Inventar erstellen und Schutzbedarf je Asset festlegen (BSI 200-2 Strukturanalyse + Schutzbedarfsfeststellung)." },
-  "2_3": { "title": "Risikoregister & Behandlung", "description": "Risikoregister führen: Bedrohungen identifizieren (BSI 200-3 Elementargefahren), Risiken bewerten, Behandlung festlegen (vermeiden/reduzieren/übertragen/akzeptieren)." },
-  "2_4": { "title": "Risikoakzeptanz & IS-Leitlinie", "description": "Die Geschäftsleitung unterzeichnet die Informationssicherheitsleitlinie und akzeptiert die Restrisiken aus dem Risikoregister (2.3). Leitlinie und Risikobehandlungsplan sind mindestens jährlich sowie bei erheblichen Sicherheitsvorfällen oder wesentlichen Änderungen der Betriebsabläufe oder Risiken zu überprüfen; die Freigabe wird dabei erneuert (CIR 1.1.2, 2.1.4)." },
-  "3_1": { "title": "Vorfallbehandlungsplan & Team", "description": "Vorfallbehandlungsplan mit IRT-Rollen, Eskalationswegen, Playbooks und BSI-Meldefristen erstellen." },
-  "3_2": { "title": "Erkennung, Klassifizierung & Protokollierung", "description": "Klassifizierungsschema (erheblicher Sicherheitsvorfall, §2 Nr. 11 BSIG), Meldekanal für Verdachtsfälle, Erkennungsprozesse und lückenloses Vorfallprotokoll einrichten. Wiederholte Sicherheitsvorfälle sind vierteljährlich zu bewerten (CIR 3.4.2 Buchstabe b): Vorfälle mit derselben erkennbaren Ursache, die mindestens zweimal in sechs Monaten auftreten und zusammen die Verlustschwelle erreichen, gelten gemeinsam als ein erheblicher Sicherheitsvorfall (Artikel 4 CIR)." },
-  "3_3": { "title": "BSI-Meldefähigkeit (24h/72h/1M)", "description": "BSI-Meldeprozess aufbauen: 24h-Erstmeldung, 72h-Meldung, Zwischenmeldung auf BSI-Ersuchen, Abschlussmeldung einen Monat nach der 72h-Meldung (§32(1) BSIG). Zugang zum Meldeportal und Zuständigkeiten festlegen. Die Meldefähigkeit wird in geplanten Zeitabständen getestet (CIR 3.5.5); ein festes Intervall ist nicht vorgeschrieben, Empfehlung: jährlich." },
-  "3_4": { "title": "Vorfallübung", "description": "Regelmäßig den Vorfallbehandlungsplan durch realistische Übungen testen." },
-  "3_5": { "title": "Nachbereitung & Kommunikation", "description": "Nachbereitung mit Lessons Learned, Kommunikationsvorlagen und Verbesserungsmaßnahmen." },
-  "4_1": { "title": "Business-Impact-Analyse & Wiederherstellungsziele", "description": "BIA durchführen, kritische Funktionen identifizieren und RTO/RPO-Ziele je System festlegen." },
-  "4_2": { "title": "BCP & Krisenmanagementplan", "description": "BCP mit Krisenmanagement-Team, Kommunikationsvorlagen und Aktualisierungsprozess erstellen." },
-  "4_3": { "title": "Disaster-Recovery-Plan", "description": "Technische Verfahren zur Wiederherstellung von IT/OT-Systemen nach einer Störung dokumentieren." },
-  "4_4": { "title": "Backup & Wiederherstellung", "description": "Backup-Richtlinie, regelmäßige Wiederherstellungstests und Offline-/Immutable-Backups sicherstellen." },
-  "4_5": { "title": "BCP/DR-Tests", "description": "Notfallpläne werden in geplanten Zeitabständen sowie nach erheblichen Sicherheitsvorfällen und wesentlichen Änderungen der Betriebsabläufe oder Risiken getestet; die Erkenntnisse aus den Tests fließen in die Pläne ein (CIR 4.1.4). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährlich eine Tabletop-Übung, umfassende Wiederanlauftests nach Bedarf." },
-  "5_1": { "title": "Lieferantenregister & Klassifizierung", "description": "Lieferanteninventar mit Kritikalitätsbewertung und Sicherheitsrichtlinie erstellen." },
-  "5_2": { "title": "Lieferantensicherheit in Verträgen", "description": "Sicherheitsklauseln, Auditrechte und Subunternehmer-Anforderungen in Lieferantenverträge aufnehmen." },
-  "5_3": { "title": "Lieferantenbewertung & Monitoring", "description": "Lieferanten regelmäßig bewerten, überwachen und bei Nichterfüllung eskalieren." },
-  "5_4": { "title": "Lieferanten-Vorfallmeldung", "description": "Vertragliche Vorfallmeldepflichten der Lieferanten überwachen und nachverfolgen." },
-  "6_1": { "title": "Sichere Beschaffung", "description": "Sicherheitsanforderungen und Bewertungscheckliste in den IT/OT-Beschaffungsprozess integrieren." },
-  "6_2": { "title": "Sichere Entwicklung & Konfiguration", "description": "Sichere Entwicklungsrichtlinien (SDLC) und Konfigurationsbaselines etablieren." },
-  "6_3": { "title": "Schwachstellenmanagement", "description": "Schwachstellenmanagement mit Scanning, risikobasierter Priorisierung und Offenlegungsprozess implementieren; bewusste Nichtbehebung dokumentieren." },
-  "6_4": { "title": "Patch-Management", "description": "Patch-Management-Richtlinie mit CVSS-basierter Priorisierung und technischem Tracking umsetzen." },
-  "6_5": { "title": "Änderungsmanagement", "description": "Formalen Änderungsmanagementprozess mit Sicherheitsbewertung und lückenlosem Protokoll einführen." },
-  "7_1": { "title": "Sicherheits-KPIs & Metriken", "description": "Messbare Sicherheits-KPIs definieren und im selbst festgelegten Rhythmus mit Trends und Schwellenwerten berichten (Empfehlung: quartalsweise)." },
-  "7_2": { "title": "Internes Audit", "description": "Internen Auditplan erstellen und Audits mit formalen Berichten und Korrekturmaßnahmen durchführen." },
-  "7_3": { "title": "Managementbewertung", "description": "Die Geschäftsleitung überprüft die Einhaltung der Leitlinien und lässt sich den Stand der Informationssicherheit regelmäßig berichten (§30(2) Nr. 6, §38(1) BSIG, CIR 2.2.1). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährliche Managementbewertung mit Gap-Analyse." },
-  "7_4": { "title": "Korrekturmaßnahmen & kontinuierliche Verbesserung", "description": "Verbesserungsregister führen, Pentest-Ergebnisse nachverfolgen und kontinuierliche Verbesserung nachweisen." },
-  "8_1": { "title": "IT-Sicherheitsrichtlinie & Nutzungsregeln", "description": "IT-Sicherheitsrichtlinie und Nutzungsregeln (AUP, Clean Desk) für alle Mitarbeiter definieren und durchsetzen." },
-  "8_2": { "title": "Security-Awareness-Programm", "description": "Sensibilisierungsprogramm anbieten, das wiederholt durchgeführt wird und neue Mitarbeitende erreicht (CIR 8.1.2); Inhalte und Wirksamkeit werden in geplanten Zeitabständen überprüft und aktualisiert (CIR 8.1.3). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: Onboarding-Modul plus jährliche Auffrischung. Phishing-Simulationen sind eine mögliche Methode, keine gesetzliche Pflicht (siehe 8.4)." },
-  "8_3": { "title": "Rollenspezifische & Management-Schulung", "description": "Spezialisierte Schulungen für Rollen mit Sicherheitsaufgaben, auch bei Rollenwechsel. Die Schulung der Geschäftsleitung wird unter 1.1 nachgewiesen." },
-  "8_4": { "title": "Schulungswirksamkeit & Phishing-Simulationen", "description": "Wirksamkeit von Schulungen und Awareness messen (§30(2) Nr. 6 BSIG). Phishing-Simulationen sind eine bewährte Methode, keine gesetzliche Pflicht; Betriebsrat und Datenschutz vorab einbinden." },
-  "9_1": { "title": "Verschlüsselungsrichtlinie & Standards", "description": "Verschlüsselungsrichtlinie mit zugelassenen Algorithmen gem. BSI TR-02102 und periodischer Überprüfung erstellen." },
-  "9_2": { "title": "Datenverschlüsselung", "description": "Verschlüsselung aller sensiblen Daten at-rest und in-transit inkl. Backups und Kryptoinventar." },
-  "9_3": { "title": "Schlüssel- & Zertifikatsmanagement", "description": "Schlüssel- und Zertifikatsmanagement über den gesamten Lifecycle dokumentieren und umsetzen (z. B. Key Vault oder HSM, wo angemessen)." },
-  "10_1": { "title": "Zugriffskontrollrichtlinie & Modell", "description": "Zugriffskontrollrichtlinie mit RBAC-Modell, Least-Privilege und Need-to-Know-Prinzip erstellen." },
-  "10_2": { "title": "Zugriffssteuerung je Asset", "description": "Für jedes Asset den Verantwortlichen, Zugriffsmethode und privilegierte Konten dokumentieren." },
-  "10_3": { "title": "Benutzer-Lifecycle & PAM", "description": "JML-Prozess, PAM-Tooling und Hintergrundprüfungen für Mitarbeitende dokumentieren." },
-  "10_4": { "title": "Zugriffsüberprüfungen", "description": "Zugriffsrechte einschließlich privilegierter Konten regelmäßig überprüfen und dokumentieren. Gesetzlich: in geplanten Abständen; Empfehlung: vierteljährlich." },
-  "11_1": { "title": "Authentifizierung: wo MFA verpflichtend ist", "description": "MFA risikobasiert ausrollen, Ausnahmen mit kompensierenden Maßnahmen dokumentieren. Empfohlene Reihenfolge: zuerst Admin-Konten, dann von außen erreichbare Dienste, danach die übrigen Systeme." },
-  "11_2": { "title": "Sichere & Notfallkommunikation", "description": "Sichere Kommunikationsrichtlinie, verschlüsselte Tools und Notfallkanäle (Out-of-Band) einrichten." },
-  "11_3": { "title": "Authentifizierungsstandards", "description": "Authentifizierungsverfahren und Passwortrichtlinie regelmäßig gegen aktuelle Standards prüfen (NIST SP 800-63B, BSI IT-Grundschutz ORP.4)." },
-  "12_1": { "title": "NIS2-Klassifizierung & Geltungsbereich", "description": "NIS2-Betroffenheitsprüfung und Klassifizierung als wesentliche/wichtige Einrichtung oder KRITIS durchführen." },
-  "12_2": { "title": "BSI-Registrierung", "description": "MUK-Konto einrichten, BSI-Portal-Registrierung abschließen und alle Pflichtdaten übermitteln. Gesetzliche Frist: spätestens drei Monate, nachdem das Unternehmen erstmals als besonders wichtige oder wichtige Einrichtung gilt (§33(1) BSIG). Für Einrichtungen, die seit Inkrafttreten des BSIG am 06.12.2025 im Anwendungsbereich sind, lief diese Frist am 06.03.2026 ab; die Registrierung ist dann sofort fällig." },
-  "12_3": { "title": "Registrierungspflege", "description": "Änderungen der Registrierungsdaten unverzüglich, spätestens binnen zwei Wochen an das BSI melden (§33(5) BSIG); Daten zusätzlich jährlich verifizieren und Erreichbarkeit der Kontaktperson sicherstellen." },
-  "12_4": { "title": "Compliance-Nachweise", "description": "Dokumentation der Umsetzung laufend pflegen (§30(1) S. 3 BSIG). Nur für Betreiber kritischer Anlagen: Nachweise alle 3 Jahre (§39) und Angriffserkennung (§31(2)); besondere Registrierung nach §34 nur für Einrichtungsarten des §60(1) BSIG." },
-  "G-DPA_1": { "title": "Auftragsverarbeitungsverträge", "description": "Verzeichnis aller Auftragsverarbeiter mit unterzeichnetem AVV, der die acht Pflichtklauseln nach Art. 28 Abs. 3 DSGVO abdeckt." },
-  "G-DPA_2": { "title": "Genehmigung von Unterauftragsverarbeitern", "description": "Unterauftragsverarbeiter pro Auftragsverarbeiter erfassen und vorherige Genehmigung gemäß Art. 28 Abs. 2/4 DSGVO bestätigen." },
-  "G-ROP_1": { "title": "Verzeichnis der Verarbeitungstätigkeiten", "description": "Jede Verarbeitungstätigkeit mit den sieben Angaben nach Art. 30 Abs. 1 DSGVO erfassen: Kontaktdaten von Verantwortlichem und Datenschutzbeauftragtem, Zwecke, Kategorien betroffener Personen und Daten, Empfängerkategorien, Drittlandsübermittlungen mit Garantien und, wenn möglich, Löschfristen und Beschreibung der Maßnahmen." },
-  "G-TOM_1": { "title": "Technische und organisatorische Maßnahmen", "description": "Maßnahmen zum Schutz personenbezogener Daten dokumentieren: Pseudonymisierung und Verschlüsselung, dauerhafte Vertraulichkeit, Integrität, Verfügbarkeit und Belastbarkeit, rasche Wiederherstellung nach einem Zwischenfall sowie ein Verfahren zur regelmäßigen Überprüfung und Bewertung der Wirksamkeit (Art. 32 Abs. 1 DSGVO)." },
-  "G-BRC_1": { "title": "Meldeprozess für Datenschutzverletzungen", "description": "Schriftliches Verfahren zur Bewertung und Meldung von Datenschutzverletzungen an die Aufsichtsbehörde innerhalb von 72 Stunden (Art. 33)." },
-  "G-BRC_2": { "title": "Dokumentation von Datenschutzverletzungen", "description": "Jede Datenschutzverletzung intern dokumentieren (meldepflichtig oder nicht) zur Überprüfung durch die Aufsichtsbehörde (Art. 33 Abs. 5)." },
-  "G-DSR_1": { "title": "Verfahren für Betroffenenrechte", "description": "Verfahren zur Bearbeitung von Auskunfts-, Löschungs-, Berichtigungs-, Übertragbarkeits-, Einschränkungs- und Widerspruchsanfragen innerhalb eines Monats (Art. 12-22)." },
-  "G-BRC_3": { "title": "Benachrichtigung betroffener Personen", "description": "Verfahren zur Benachrichtigung betroffener Personen bei hohem Risiko festlegen (Art. 34 Abs. 1 DSGVO). Die Meldung an die Aufsichtsbehörde nach Art. 33 ersetzt sie nicht. Inhalt in klarer, einfacher Sprache mit den Angaben nach Art. 33 Abs. 3 Buchst. b bis d. Eine Benachrichtigung entfällt, wenn die Daten unzugänglich sind (etwa durch Verschlüsselung), das hohe Risiko nachträglich beseitigt wurde oder der Aufwand unverhältnismäßig wäre; dann ist eine öffentliche Bekanntmachung erforderlich (Art. 34 Abs. 3)." },
-  "G-DPO_1": { "title": "Datenschutzbeauftragte benennen", "description": "Prüfen und dokumentieren, ob eine Datenschutzbeauftragte oder ein Datenschutzbeauftragter zu benennen ist. In Deutschland gilt die Pflicht ab 20 Personen, die ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt sind (§38 Abs. 1 BDSG), unabhängig von der Personenzahl zusätzlich bei Verarbeitungen mit Datenschutz-Folgenabschätzung oder bei geschäftsmäßiger Verarbeitung zum Zweck der Übermittlung oder der Markt- und Meinungsforschung. Stellung und Aufgaben richten sich nach Art. 38 und 39 DSGVO; die Kontaktdaten sind zu veröffentlichen und der Aufsichtsbehörde mitzuteilen (Art. 37 Abs. 7)." },
-  "IS-4_1": { "title": "Kontext der Organisation", "description": "Externe und interne Themen bestimmen, die für den ISMS-Zweck relevant sind und die Erreichung der beabsichtigten Ergebnisse beeinflussen." },
-  "IS-4_2": { "title": "Erfordernisse interessierter Parteien", "description": "Interessierte Parteien (Kunden, Behörden, Mitarbeiter, Lieferanten) und ihre informationssicherheitsrelevanten Anforderungen identifizieren." },
-  "IS-4_3": { "title": "ISMS-Anwendungsbereich", "description": "Grenzen des ISMS dokumentieren: welche Systeme, Standorte und Aktivitäten einbezogen oder ausgeschlossen sind und warum." },
-  "IS-4_4": { "title": "Informationssicherheits-Managementsystem", "description": "Ein ISMS gemäß den Anforderungen der ISO 27001 einrichten, umsetzen, aufrechterhalten und fortlaufend verbessern." },
-  "IS-5_1": { "title": "Führung und Verpflichtung", "description": "Die oberste Leitung muss Engagement zeigen: IS-Leitlinie genehmigen, ISMS-Ressourcen sicherstellen und Sicherheit in Geschäftsprozesse integrieren." },
-  "IS-5_2": { "title": "Informationssicherheitsleitlinie", "description": "IS-Leitlinie erstellen, dokumentieren und kommunizieren. Von der Unternehmensleitung unterzeichnet, mit Zielen und Verbesserungsverpflichtung." },
-  "IS-5_3": { "title": "Rollen, Verantwortlichkeiten und Befugnisse", "description": "Verantwortlichkeiten für ISMS-Rollen (CISO, Asset-Eigentümer, Prozessverantwortliche) zuweisen und kommunizieren." },
-  "IS-6_1": { "title": "Risikobeurteilungsprozess", "description": "Dokumentierte Risikobeurteilungsmethodik definieren und anwenden: Identifikation, Analyse, Bewertung und Akzeptanzkriterien." },
-  "IS-6_2": { "title": "Informationssicherheitsziele", "description": "Messbare IS-Ziele festlegen, die mit der IS-Leitlinie übereinstimmen, Pläne zur Zielerreichung dokumentieren und Fortschritt verfolgen." },
-  "IS-6_3": { "title": "Planung von Änderungen", "description": "Wenn Änderungen am ISMS erforderlich sind, kontrolliert planen: Zweck, Auswirkungen, Integrität, Ressourcen und Verantwortlichkeit bewerten." },
-  "IS-7_1": { "title": "Ressourcen", "description": "Erforderliche Ressourcen für die Einrichtung, Umsetzung, Aufrechterhaltung und fortlaufende Verbesserung des ISMS bestimmen und bereitstellen." },
-  "IS-7_2": { "title": "Kompetenz", "description": "Kompetenzanforderungen für ISMS-relevante Rollen bestimmen, Schulungen durchführen und Kompetenznachweise aufbewahren." },
-  "IS-7_3": { "title": "Bewusstsein", "description": "Sicherstellen, dass alle Personen unter Aufsicht der Organisation die IS-Leitlinie, ihren Beitrag zur ISMS-Wirksamkeit und die Folgen von Nichtkonformität kennen." },
-  "IS-7_4": { "title": "Kommunikation", "description": "Interne und externe ISMS-relevante Kommunikation festlegen: was, wann, mit wem, wie und durch wen." },
-  "IS-7_5": { "title": "Dokumentierte Information", "description": "Von ISO 27001 geforderte dokumentierte Informationen erstellen, pflegen und deren Erstellung, Aktualisierung und Aufbewahrung steuern." },
-  "IS-8_1": { "title": "Betriebliche Planung und Steuerung", "description": "Prozesse zur Erfüllung der IS-Anforderungen und zur Umsetzung der in Abschnitt 6 festgelegten Maßnahmen planen, umsetzen und steuern." },
-  "IS-8_2": { "title": "Informationssicherheitsrisikobeurteilung", "description": "Risikobeurteilungen in geplanten Abständen oder bei wesentlichen Änderungen durchführen; Ergebnisse im Risikoregister dokumentieren." },
-  "IS-8_3": { "title": "Informationssicherheitsrisikobehandlung", "description": "Risikobehandlungsoptionen auswählen und umsetzen; Risikobehandlungsplan und Anwendbarkeitserklärung (SoA) erstellen." },
-  "IS-9_1": { "title": "Überwachung, Messung, Analyse und Bewertung", "description": "Festlegen was, wie, wann und durch wen überwacht und gemessen wird; Ergebnisse analysieren und gegen IS-Ziele bewerten." },
-  "IS-9_2": { "title": "Internes Audit", "description": "Interne Audits in geplanten Abständen durchführen, um zu prüfen ob das ISMS den Anforderungen entspricht und wirksam umgesetzt ist." },
-  "IS-9_3": { "title": "Managementbewertung", "description": "Die oberste Leitung überprüft das ISMS in geplanten Abständen: Auditergebnisse, KPIs, Vorfälle, Änderungen und Verbesserungsmöglichkeiten." },
-  "IS-10_1": { "title": "Fortlaufende Verbesserung", "description": "Eignung, Angemessenheit und Wirksamkeit des ISMS fortlaufend verbessern." },
-  "IS-10_2": { "title": "Nichtkonformität und Korrekturmaßnahmen", "description": "Bei Nichtkonformität: reagieren, Grundursache ermitteln, Korrekturmaßnahmen umsetzen und deren Wirksamkeit überprüfen." },
-  "A_5_1": { "title": "Leitlinien zur Informationssicherheit", "description": "Informationssicherheitsleitlinien definieren, genehmigen, veröffentlichen und jährlich überprüfen." },
-  "A_5_2": { "title": "Rollen und Verantwortlichkeiten für Informationssicherheit", "description": "Rollen und Verantwortlichkeiten für Informationssicherheit in der gesamten Organisation zuweisen und dokumentieren." },
-  "A_5_3": { "title": "Aufgabentrennung", "description": "Widersprüchliche Aufgaben und Verantwortlichkeiten trennen, um unbefugte Änderungen von Informationen zu reduzieren." },
-  "A_5_4": { "title": "Managementverantwortung", "description": "Das Management muss von allen Mitarbeitern verlangen, Informationssicherheit gemäß den Leitlinien anzuwenden." },
-  "A_5_5": { "title": "Kontakt zu Behörden", "description": "Angemessene Kontakte zu relevanten Behörden (Datenschutzbehörde, Cybersicherheitsagentur, Strafverfolgung) pflegen." },
-  "A_5_6": { "title": "Kontakt zu speziellen Interessengruppen", "description": "Mitgliedschaft oder Kontakt zu Fachgruppen, Sicherheitsforen und Berufsverbänden aufrechterhalten." },
-  "A_5_7": { "title": "Bedrohungsanalyse", "description": "Für die Organisation relevante Bedrohungsinformationen sammeln, analysieren und aufbereiten, um Bedrohungen vorauszudenken." },
-  "A_5_8": { "title": "Informationssicherheit im Projektmanagement", "description": "Informationssicherheit in das Projektmanagement integrieren, damit Sicherheitsrisiken bei Projekten adressiert werden." },
-  "A_5_9": { "title": "Inventar der Informationen und zugehörigen Assets", "description": "Inventar der Informationen und zugehörigen Assets mit zugewiesener Eigentümerschaft identifizieren, dokumentieren und pflegen." },
-  "A_5_10": { "title": "Akzeptable Nutzung von Informationen und Assets", "description": "Regeln zur akzeptablen Nutzung von Informationen und Assets dokumentieren und umsetzen: Geräte, Datenumgang, verbotene Aktivitäten." },
-  "A_5_11": { "title": "Rückgabe von Assets", "description": "Sicherstellen, dass alle Assets bei Beendigung oder Änderung von Beschäftigungs- oder Vertragsverhältnissen zurückgegeben werden." },
-  "A_5_12": { "title": "Klassifizierung von Informationen", "description": "Informationen nach Sensitivität klassifizieren (vertraulich, intern, öffentlich), um angemessenen Schutz sicherzustellen." },
-  "A_5_13": { "title": "Kennzeichnung von Informationen", "description": "Kennzeichnungsverfahren für Informationen gemäß dem Klassifizierungsschema entwickeln und umsetzen." },
-  "A_5_14": { "title": "Informationsübertragung", "description": "Regeln und Verfahren für die Informationsübertragung über alle Kanäle festlegen: E-Mail, Messaging, physische Medien und mündlich." },
-  "A_5_15": { "title": "Zugriffskontrolle", "description": "Zugriffskontrollregeln auf Basis von Geschäfts- und Sicherheitsanforderungen nach dem Prinzip der minimalen Rechtevergabe definieren." },
-  "A_5_16": { "title": "Identitätsverwaltung", "description": "Vollständigen Identitätslebenszyklus (Bereitstellung, Änderungen, Sperrung) für alle Benutzer und Dienstkonten verwalten." },
-  "A_5_17": { "title": "Authentifizierungsinformationen", "description": "Authentifizierungsinformationen (Passwörter, Schlüssel, Token) durch einen formalen Prozess inkl. Zuweisung, Speicherung und Widerruf verwalten." },
-  "A_5_18": { "title": "Zugriffsrechte", "description": "Zugriffsrechte gemäß der Zugriffskontrollpolitik bereitstellen, überprüfen, ändern und entziehen." },
-  "A_5_19": { "title": "Informationssicherheit in Lieferantenbeziehungen", "description": "Maßnahmen zum Schutz von Assets, auf die Lieferanten zugreifen können, identifizieren und umsetzen; in Lieferantenvereinbarungen dokumentieren." },
-  "A_5_20": { "title": "IS-Anforderungen in Lieferantenvereinbarungen", "description": "Informationssicherheitsanforderungen mit jedem Lieferanten vereinbaren, der auf Organisationsinformationen zugreift oder diese verarbeitet." },
-  "A_5_21": { "title": "IS im IKT-Lieferketten-Management", "description": "Prozesse zur Steuerung von IS-Risiken in der IKT-Produkte- und Dienstleistungslieferkette definieren und umsetzen." },
-  "A_5_22": { "title": "Überwachung, Überprüfung und Änderungsmanagement für Lieferantendienste", "description": "IS-Praktiken und Leistungserbringung von Lieferanten regelmäßig überwachen, überprüfen und Änderungen verwalten." },
-  "A_5_23": { "title": "Informationssicherheit bei der Nutzung von Cloud-Diensten", "description": "Prozesse für Beschaffung, Nutzung, Verwaltung und Beendigung von Cloud-Diensten inkl. Sicherheitsanforderungen und Exit-Plänen etablieren." },
-  "A_5_24": { "title": "Planung und Vorbereitung des IS-Incident-Managements", "description": "Incident Management mit definierten Rollen, Verantwortlichkeiten, Verfahren und Kommunikationskanälen planen und vorbereiten." },
-  "A_5_25": { "title": "Bewertung und Entscheidung über IS-Ereignisse", "description": "IS-Ereignisse bewerten und anhand eines definierten Klassifizierungsschemas entscheiden, ob sie als Vorfälle einzustufen sind." },
-  "A_5_26": { "title": "Reaktion auf Informationssicherheitsvorfälle", "description": "Auf Vorfälle gemäß dokumentierten Verfahren reagieren; strukturiert eindämmen, beseitigen und wiederherstellen." },
-  "A_5_27": { "title": "Lernen aus IS-Vorfällen", "description": "Erkenntnisse aus Vorfällen nutzen, um Wahrscheinlichkeit und Auswirkungen künftiger Vorfälle zu reduzieren; Maßnahmen entsprechend aktualisieren." },
-  "A_5_28": { "title": "Beweiserhebung", "description": "Verfahren zur Identifizierung, Sammlung, Sicherstellung und Aufbewahrung von Beweisen bei IS-Vorfällen definieren und anwenden." },
-  "A_5_29": { "title": "IS bei Störungen", "description": "Planen, wie IS bei Störungen aufrechterhalten wird. Sicherheitsanforderungen in Betriebskontinuitätspläne integrieren." },
-  "A_5_30": { "title": "IKT-Bereitschaft für Betriebskontinuität", "description": "IKT-Bereitschaft basierend auf Betriebskontinuitätszielen planen, umsetzen, pflegen und testen." },
-  "A_5_31": { "title": "Gesetzliche, behördliche, regulatorische und vertragliche Anforderungen", "description": "Alle für IS relevanten gesetzlichen, regulatorischen und vertraglichen Anforderungen identifizieren, dokumentieren und aktuell halten." },
-  "A_5_32": { "title": "Rechte am geistigen Eigentum", "description": "Verfahren zum Schutz von Rechten am geistigen Eigentum und zur Einhaltung von Softwarelizenzanforderungen umsetzen." },
-  "A_5_33": { "title": "Schutz von Aufzeichnungen", "description": "Aufzeichnungen vor Verlust, Vernichtung, Fälschung, unbefugtem Zugriff und unbefugter Weitergabe gemäß gesetzlichen Anforderungen schützen." },
-  "A_5_34": { "title": "Datenschutz und Schutz personenbezogener Daten", "description": "Datenschutz- und Personendatenanforderungen gemäß anwendbarem Recht (DSGVO) identifizieren und erfüllen." },
-  "A_5_35": { "title": "Unabhängige Überprüfung der Informationssicherheit", "description": "ISMS-Ansatz und -Umsetzung in geplanten Abständen oder bei wesentlichen Änderungen unabhängig überprüfen." },
-  "A_5_36": { "title": "Einhaltung von IS-Leitlinien und -Standards", "description": "Einhaltung von IS-Leitlinien, -Standards und -Verfahren regelmäßig überprüfen; Ergebnisse dokumentieren." },
-  "A_5_37": { "title": "Dokumentierte Betriebsverfahren", "description": "Betriebsverfahren für Informationsverarbeitungseinrichtungen dokumentieren, pflegen und verfügbar machen." },
-  "A_6_1": { "title": "Überprüfung von Bewerbern", "description": "Hintergrundüberprüfungen für alle Kandidaten verhältnismäßig zur Rollensensitivität und den rechtlichen Anforderungen durchführen." },
-  "A_6_2": { "title": "Beschäftigungsbedingungen", "description": "Mitarbeitern und Auftragnehmern vertraglich die Einhaltung von IS-Leitlinien als Beschäftigungsbedingung vorschreiben." },
-  "A_6_3": { "title": "IS-Bewusstsein, Schulung und Training", "description": "Sicherstellen, dass alle Mitarbeiter bei Einstellung und jährlich angemessene IS-Sensibilisierungsschulungen erhalten." },
-  "A_6_4": { "title": "Disziplinarverfahren", "description": "Ein formelles, kommuniziertes Disziplinarverfahren für Mitarbeiter haben, die IS-Verstöße begehen." },
-  "A_6_5": { "title": "Verantwortlichkeiten nach Beendigung oder Änderung der Beschäftigung", "description": "IS-Verantwortlichkeiten, die nach Beendigung des Arbeitsverhältnisses gelten, definieren und durchsetzen (Vertraulichkeit, Asset-Rückgabe)." },
-  "A_6_6": { "title": "Vertraulichkeits- und Geheimhaltungsvereinbarungen", "description": "Vertraulichkeitsanforderungen identifizieren, dokumentieren und regelmäßig überprüfen; NDAs mit Mitarbeitern, Auftragnehmern und Dritten verwenden." },
-  "A_6_7": { "title": "Telearbeit", "description": "Sicherheitsmaßnahmen für Telearbeit definieren und umsetzen: Netzwerksicherheit, physische Sicherheit und Geräteschutz." },
-  "A_6_8": { "title": "Meldung von IS-Ereignissen", "description": "Klaren, einfach nutzbaren Mechanismus für Mitarbeiter bereitstellen, um Sicherheitsereignisse und Schwachstellen zu melden." },
-  "A_7_1": { "title": "Physische Sicherheitszonen", "description": "Physische Sicherheitszonen zum Schutz sensibler Bereiche mit Informationen und Verarbeitungseinrichtungen definieren und umsetzen." },
-  "A_7_2": { "title": "Physischer Zutritt", "description": "Sichere Bereiche mit angemessenen Zutrittskontrollmaßnahmen sichern, damit nur autorisierte Personen Zutritt erhalten." },
-  "A_7_3": { "title": "Absicherung von Büros, Räumen und Einrichtungen", "description": "Physische Sicherheit für Büros, Räume und Einrichtungen verhältnismäßig zur Sensitivität der dort verarbeiteten Informationen anwenden." },
-  "A_7_4": { "title": "Physische Sicherheitsüberwachung", "description": "Betriebsgelände auf unbefugten physischen Zugang überwachen: Alarmanlagen, CCTV, Wachpersonal oder andere geeignete Mittel." },
-  "A_7_5": { "title": "Schutz vor physischen und umweltbedingten Bedrohungen", "description": "Schutz vor physischen und umweltbedingten Bedrohungen wie Brand, Überschwemmung, Erdbeben und vorsätzlicher Beschädigung." },
-  "A_7_6": { "title": "Arbeiten in sicheren Bereichen", "description": "Verfahren für das Arbeiten in sicheren Bereichen definieren und anwenden, um unbefugten Zugang, Fotografie oder Datenexfiltration zu verhindern." },
-  "A_7_7": { "title": "Clean-Desk- und Clean-Screen-Richtlinie", "description": "Clean-Desk-Richtlinie für Papiere und Wechseldatenträger sowie Clean-Screen-Richtlinie für Informationsverarbeitungseinrichtungen anwenden." },
-  "A_7_8": { "title": "Aufstellung und Schutz von Geräten", "description": "Geräte so aufstellen und schützen, dass Risiken durch Umweltbedrohungen, unbefugten Zugang und Interferenzen reduziert werden." },
-  "A_7_9": { "title": "Sicherheit von Assets außerhalb des Betriebsgeländes", "description": "Maßnahmen für außerhalb des Betriebsgeländes mitgenommene Assets verhältnismäßig zu den Risiken des externen Betriebs anwenden." },
-  "A_7_10": { "title": "Speichermedien", "description": "Speichermedien über ihren gesamten Lebenszyklus verwalten: Beschaffung, Nutzung, Transport, Entsorgung und Löschverfahren." },
-  "A_7_11": { "title": "Versorgungseinrichtungen", "description": "Informationsverarbeitungseinrichtungen vor Stromausfällen und anderen Störungen durch Versorgungseinrichtungen schützen." },
-  "A_7_12": { "title": "Verkabelungssicherheit", "description": "Strom- und Telekommunikationskabel vor Abhören, Interferenz oder Beschädigung schützen." },
-  "A_7_13": { "title": "Gerätewartung", "description": "Geräte korrekt warten, um dauerhafte Verfügbarkeit und Integrität der Informationsverarbeitungseinrichtungen sicherzustellen." },
-  "A_7_14": { "title": "Sichere Entsorgung oder Wiederverwendung von Geräten", "description": "Vor der Entsorgung oder Wiederverwendung sicherstellen, dass alle sensiblen Daten und Lizenzsoftware entfernt oder überschrieben wurden." },
-  "A_8_1": { "title": "Benutzer-Endgeräte", "description": "Informationen auf und verarbeitet durch Benutzer-Endgeräte (Laptops, Smartphones) durch eine Endgeräte-Sicherheitsrichtlinie schützen." },
-  "A_8_2": { "title": "Privilegierte Zugriffsrechte", "description": "Zuweisung und Nutzung privilegierter Zugriffsrechte auf allen Systemen einschränken und sorgfältig verwalten." },
-  "A_8_3": { "title": "Einschränkung des Informationszugriffs", "description": "Zugriff auf Informationen und Systeme auf das für die Rolle Erforderliche beschränken (Prinzip der minimalen Rechtevergabe)." },
-  "A_8_4": { "title": "Zugriff auf Quellcode", "description": "Zugriff auf Programmquellcode und zugehörige Tools auf autorisierte Personen beschränken; Versionskontrolle anwenden." },
-  "A_8_5": { "title": "Sichere Authentifizierung", "description": "Sichere Authentifizierungstechnologien und -verfahren umsetzen, inkl. MFA für sensible Systeme und alle Fernzugriffe." },
-  "A_8_6": { "title": "Kapazitätsmanagement", "description": "Ressourcennutzung und -prognosen überwachen und anpassen, um erforderliche Systemkapazität und -leistung sicherzustellen." },
-  "A_8_7": { "title": "Schutz vor Schadsoftware", "description": "Malware-Schutzmaßnahmen (EDR, AV, Code-Signierung, E-Mail-Filterung) in Verbindung mit Benutzersensibilisierung umsetzen." },
-  "A_8_8": { "title": "Verwaltung technischer Schwachstellen", "description": "Technische Schwachstellen auf allen Systemen zeitnah identifizieren, bewerten und beheben." },
-  "A_8_9": { "title": "Konfigurationsmanagement", "description": "Konfigurationen (inkl. Sicherheitskonfigurationen) für Hardware, Software und Cloud-Dienste erstellen, dokumentieren und pflegen." },
-  "A_8_10": { "title": "Löschung von Informationen", "description": "Informationen löschen, wenn sie nicht mehr benötigt werden, gemäß gesetzlichen, vertraglichen und geschäftlichen Anforderungen." },
-  "A_8_11": { "title": "Datenmaskierung", "description": "Datenmaskierung, Pseudonymisierung oder Anonymisierung zum Schutz personenbezogener Daten in Nicht-Produktionsumgebungen verwenden." },
-  "A_8_12": { "title": "Verhinderung von Datenlecks", "description": "Maßnahmen zur Verhinderung von Datenlecks auf Systemen, Netzwerken und Endgeräten anwenden, die sensible Informationen verarbeiten." },
-  "A_8_13": { "title": "Sicherung von Informationen", "description": "Sicherungskopien von Informationen, Software und System-Images gemäß einer Backup-Richtlinie erstellen und regelmäßig testen." },
-  "A_8_14": { "title": "Redundanz von Informationsverarbeitungseinrichtungen", "description": "Ausreichende Redundanz in Informationsverarbeitungseinrichtungen umsetzen, um Verfügbarkeitsanforderungen zu erfüllen." },
-  "A_8_15": { "title": "Protokollierung", "description": "Protokolle zu Benutzeraktivitäten, Ausnahmen, Fehlern und Sicherheitsereignissen für definierte Aufbewahrungszeiten erstellen, schützen und aufbewahren." },
-  "A_8_16": { "title": "Überwachungsaktivitäten", "description": "Netzwerke, Systeme und Anwendungen überwachen, um anomales Verhalten und potenzielle Sicherheitsereignisse zu erkennen." },
-  "A_8_17": { "title": "Uhrensynchronisation", "description": "Uhren aller Informationsverarbeitungssysteme mit einer genehmigten Zeitquelle synchronisieren, um Protokollkorrelation und Forensik zu unterstützen." },
-  "A_8_18": { "title": "Nutzung privilegierter Dienstprogramme", "description": "Nutzung von Dienstprogrammen, die System- und Anwendungssteuerungen überwinden können, kontrollieren und einschränken." },
-  "A_8_19": { "title": "Installation von Software auf Betriebssystemen", "description": "Verfahren zur Steuerung der Softwareinstallation auf Betriebssystemen durch autorisierte Personen umsetzen." },
-  "A_8_20": { "title": "Netzwerksicherheit", "description": "Netzwerke und Netzwerkgeräte sichern, um Informationen in Systemen und Anwendungen zu schützen." },
-  "A_8_21": { "title": "Sicherheit von Netzwerkdiensten", "description": "Sicherheitsmechanismen für Netzwerkdienste einschließlich Cloud-Netzwerken identifizieren, umsetzen und überwachen." },
-  "A_8_22": { "title": "Netzwerktrennung", "description": "Gruppen von Informationsdiensten, Nutzern und Informationssystemen innerhalb des Netzwerks trennen." },
-  "A_8_23": { "title": "Webfilterung", "description": "Zugriff auf externe Websites verwalten, um das Risiko durch schädliche Inhalte zu reduzieren." },
-  "A_8_24": { "title": "Einsatz von Kryptografie", "description": "Kryptografierichtlinie mit genehmigten Algorithmen, Schlüsselmanagement und Verschlüsselungsanforderungen definieren und umsetzen." },
-  "A_8_25": { "title": "Sicherer Entwicklungslebenszyklus", "description": "Regeln für die sichere Entwicklung von Software und Systemen über den gesamten Entwicklungslebenszyklus festlegen und anwenden." },
-  "A_8_26": { "title": "Anforderungen an die Anwendungssicherheit", "description": "IS-Anforderungen für Anwendungsentwicklung und -beschaffung identifizieren, spezifizieren und genehmigen." },
-  "A_8_27": { "title": "Sichere Systemarchitektur und Engineering-Grundsätze", "description": "Sichere Engineering-Grundsätze für alle Entwicklungs- und Systemtechnikaktivitäten etablieren, dokumentieren und anwenden." },
-  "A_8_28": { "title": "Sicheres Codieren", "description": "Sichere Kodierungsprinzipien in der Softwareentwicklung anwenden, um häufige Schwachstellen zu vermeiden (OWASP Top 10, Injection, XSS)." },
-  "A_8_29": { "title": "Sicherheitstests in Entwicklung und Abnahme", "description": "Sicherheitstestprozesse im Entwicklungslebenszyklus und bei Abnahmetests definieren und umsetzen." },
-  "A_8_30": { "title": "Ausgelagerte Entwicklung", "description": "Ausgelagerte Systementwicklungsaktivitäten überwachen, um sicherzustellen, dass Sicherheitsanforderungen erfüllt werden." },
-  "A_8_31": { "title": "Trennung von Entwicklungs-, Test- und Produktionsumgebungen", "description": "Entwicklungs-, Test- und Produktionsumgebungen trennen, um unbefugten Zugriff auf oder Änderungen am Produktionssystem zu reduzieren." },
-  "A_8_32": { "title": "Änderungsmanagement", "description": "Änderungen an Informationsverarbeitungseinrichtungen und Systemen durch einen formalen Änderungsmanagementprozess verwalten." },
-  "A_8_33": { "title": "Testinformationen", "description": "Testinformationen schützen und verwalten; niemals Live-Produktionsdaten ohne angemessene Kontrollen in Testumgebungen verwenden." },
-  "A_8_34": { "title": "Schutz von IS bei Audittests", "description": "Anforderungen und Aktivitäten für Audits von Betriebssystemen planen und abstimmen, um Betriebsunterbrechungen zu minimieren." },
-  "AI-LIT_1": { "title": "KI-Kompetenz", "description": "Sicherstellen, dass Beschäftigte, die KI-Systeme betreiben oder nutzen, über ausreichende KI-Kompetenz verfügen (AI Act Art. 4)." },
-  "AI-LIT_2": { "title": "KI-Kompetenz der Betreiber", "description": "Geschäftsleitung und Betreiber über ihre Pflichten nach dem AI Act unterrichten und das Kompetenzprogramm bestätigen (Art. 4, Art. 26 Abs. 2)." },
-  "AI-PRO_1": { "title": "Richtlinie zu verbotenen Praktiken", "description": "Eine Richtlinie dokumentieren, die die nach AI Act Art. 5 Abs. 1 lit. a bis i verbotenen KI-Praktiken untersagt." },
-  "AI-PRO_2": { "title": "Keine verbotene KI im Einsatz", "description": "Nachweisen, dass in der Organisation keine verbotene KI-Praktik eingesetzt wird (Art. 5)." },
-  "AI-INV_1": { "title": "Inventar der KI-Systeme", "description": "Ein Inventar der KI-Systeme mit ihrer Risikoklassifizierung nach AI Act Art. 6 und Art. 26 führen." },
-  "AI-INV_2": { "title": "Hochrisiko-Klassifizierung", "description": "Die Hochrisiko-Klassifizierung und Anwendbarkeit für jedes KI-System erfassen (Art. 6, Art. 50)." },
-  "AI-INV_3": { "title": "Rolle als Anbieter oder Betreiber", "description": "Für jedes KI-System bestimmen und dokumentieren, ob Sie als Anbieter oder als Betreiber handeln (Art. 25)." },
-  "AI-RSK_1": { "title": "KI-Risikomanagementsystem", "description": "Ein Risikomanagementsystem für Hochrisiko-KI-Systeme über deren gesamten Lebenszyklus einrichten (AI Act Art. 9)." },
-  "AI-RSK_2": { "title": "Überprüfung des KI-Risikos", "description": "Das KI-Risikomanagementsystem regelmäßig überprüfen und aktualisieren (Art. 9)." },
-  "AI-FRI_1": { "title": "Grundrechte-Folgenabschätzung", "description": "Für die betreffenden Hochrisiko-KI-Systeme eine Grundrechte-Folgenabschätzung durchführen und abzeichnen (AI Act Art. 27)." },
-  "AI-OVS_1": { "title": "Maßnahmen zur menschlichen Aufsicht", "description": "Maßnahmen zur menschlichen Aufsicht für im Betrieb befindliche Hochrisiko-KI-Systeme umsetzen (Art. 14, Art. 26 Abs. 2)." },
-  "AI-OVS_2": { "title": "Überprüfung der menschlichen Aufsicht", "description": "Überprüfen, ob die Maßnahmen zur menschlichen Aufsicht weiterhin wirksam sind (Art. 14)." },
-  "AI-TRA_1": { "title": "Offenlegung der KI-Interaktion", "description": "Personen darüber informieren, wenn sie mit einem KI-System interagieren, sofern dies nicht offensichtlich ist (AI Act Art. 50 Abs. 1)." },
-  "AI-TRA_2": { "title": "Kennzeichnung synthetischer Inhalte", "description": "KI-generierte oder manipulierte Audio-, Bild-, Video- und Textinhalte maschinenlesbar kennzeichnen (Art. 50 Abs. 2)." },
-  "AI-TRA_3": { "title": "Offenlegung von Deepfakes und Emotionserkennung", "description": "Deepfakes sowie den Einsatz von Emotionserkennung oder biometrischer Kategorisierung gegenüber betroffenen Personen offenlegen (Art. 50 Abs. 4)." },
-  "AI-INC_1": { "title": "Richtlinie zur Meldung schwerwiegender Vorfälle", "description": "Ein Verfahren zur Meldung schwerwiegender KI-Vorfälle an die Behörden festlegen (AI Act Art. 73)." },
-  "AI-INC_2": { "title": "Meldung schwerwiegender Vorfälle", "description": "Schwerwiegende Vorfälle mit Hochrisiko-KI-Systemen innerhalb der Fristen des AI Act melden (Art. 73)." },
-  "AI-DOC_1": { "title": "Technische Dokumentation der KI", "description": "Technische Dokumentation gemäß AI Act Anhang IV erstellen und pflegen (Art. 11, Art. 18)." },
-  "AI-DOC_2": { "title": "Automatische Protokollierung", "description": "Automatische Ereignisprotokolle von Hochrisiko-KI-Systemen aktivieren und aufbewahren (Art. 12, Art. 19)." },
-  "AI-DOC_3": { "title": "EU-Konformitätserklärung", "description": "Die EU-Konformitätserklärung für Hochrisiko-KI-Systeme erstellen und unterzeichnen (Art. 47, Anhang V)." },
-  "AI-GPI_1": { "title": "Technische Dokumentation für GPAI", "description": "Technische Dokumentation für KI-Modelle mit allgemeinem Verwendungszweck (GPAI) pflegen (AI Act Art. 53 Abs. 1 lit. a)." },
-  "AI-GPI_2": { "title": "Urheberrechtsrichtlinie für GPAI", "description": "Eine Richtlinie zur Einhaltung des EU-Urheberrechts beim Training von GPAI-Modellen einführen (Art. 53 Abs. 1 lit. c)." },
-  "AI-GPI_3": { "title": "Zusammenfassung der GPAI-Trainingsdaten", "description": "Eine hinreichend detaillierte Zusammenfassung der zum Training des GPAI-Modells verwendeten Inhalte veröffentlichen (Art. 53 Abs. 1 lit. d)." },
-  "AI-GPI_4": { "title": "GPAI-Pflichten bei systemischem Risiko", "description": "Die zusätzlichen Pflichten für GPAI-Modelle mit systemischem Risiko erfüllen (AI Act Art. 55)." },
-  "CRA-MFG_1": { "title": "Cybersicherheits-Risikobewertung des Produkts", "description": "Eine Cybersicherheits-Risikobewertung für das Produkt mit digitalen Elementen durchführen (CRA Art. 13 Abs. 2)." },
-  "CRA-MFG_2": { "title": "Sorgfaltspflicht des Herstellers", "description": "Die Sorgfaltspflicht des Herstellers bestätigen, damit Produkte die grundlegenden Anforderungen erfüllen (Art. 13 Abs. 1)." },
-  "CRA-ESS_1": { "title": "Anforderungen an Secure-by-Design", "description": "Produkte so konzipieren und herstellen, dass sie die grundlegenden Cybersicherheitsanforderungen erfüllen (CRA Anhang I Teil I)." },
-  "CRA-ESS_2": { "title": "Sichere Standardkonfiguration", "description": "Produkte mit einer Secure-by-Default-Konfiguration ausliefern (Anhang I Teil I, Nummer 3 lit. a)." },
-  "CRA-ESS_3": { "title": "Keine bekannten ausnutzbaren Schwachstellen", "description": "Produkte ohne bekannte ausnutzbare Schwachstellen in Verkehr bringen (Anhang I Teil I, Nummer 1)." },
-  "CRA-VLN_1": { "title": "Richtlinie zur Schwachstellenbehandlung", "description": "Einen Prozess zur Identifizierung, Dokumentation und Behebung von Schwachstellen einrichten (CRA Anhang I Teil II, Nummern 1 bis 2)." },
-  "CRA-VLN_2": { "title": "Koordinierte Offenlegung von Schwachstellen", "description": "Eine Richtlinie zur koordinierten Offenlegung von Schwachstellen mit einer Kontaktadresse einführen (Anhang I Teil II, Nummer 5)." },
-  "CRA-VLN_3": { "title": "Bereitstellung von Sicherheitsupdates", "description": "Sicherheitsupdates während des Unterstützungszeitraums unverzüglich und kostenlos bereitstellen (Anhang I Teil II, Nummer 3)." },
-  "CRA-VLN_4": { "title": "Schwachstellentests", "description": "Die Sicherheit des Produkts regelmäßig testen und überprüfen (Anhang I Teil II, Nummer 8)." },
-  "CRA-INC_1": { "title": "Frühwarnung", "description": "Eine Frühwarnung über eine aktiv ausgenutzte Schwachstelle an das CSIRT und die ENISA senden (CRA Art. 14 Abs. 2 lit. a)." },
-  "CRA-INC_2": { "title": "Meldung von Schwachstellen", "description": "Die Schwachstelle oder den schwerwiegenden Vorfall innerhalb der CRA-Frist melden (Art. 14 Abs. 2 lit. b)." },
-  "CRA-INC_3": { "title": "Abschlussbericht zum Vorfall", "description": "Den Abschlussbericht zur Schwachstelle oder zum Vorfall bei den Behörden einreichen (Art. 14 Abs. 2 lit. c)." },
-  "CRA-INC_4": { "title": "Benutzerbenachrichtigung", "description": "Betroffene Nutzer über den Vorfall und etwaige Korrekturmaßnahmen informieren (Art. 14 Abs. 4)." },
-  "CRA-CONF_1": { "title": "Konformitätsbewertung", "description": "Das anwendbare Konformitätsbewertungsverfahren für das Produkt durchführen (CRA Art. 24)." },
-  "CRA-CONF_2": { "title": "CE-Kennzeichnung und Konformität", "description": "Die CE-Kennzeichnung anbringen und die EU-Konformitätserklärung erstellen (Art. 27)." },
-  "CRA-DOC_1": { "title": "Technische Dokumentation nach CRA", "description": "Die technische Dokumentation gemäß CRA Anhang VII erstellen und aktuell halten (Art. 28)." },
-  "CRA-SUP_1": { "title": "Unterstützungszeitraum", "description": "Den Unterstützungszeitraum bestimmen und abzeichnen, in dem Sicherheitsupdates bereitgestellt werden (CRA Art. 13 Abs. 8)." },
-  "CRA-SBOM_1": { "title": "Software-Stückliste (SBOM)", "description": "Eine SBOM erstellen, die die Abhängigkeiten der obersten Ebene abdeckt (CRA Anhang I Teil II, Nummer 1)." },
-  "CRA-IMP_1": { "title": "Pflichten des Einführers", "description": "Vor dem Inverkehrbringen prüfen, ob eingeführte Produkte die CRA-Anforderungen erfüllen (Art. 18)." },
-  "CRA-IMP_2": { "title": "Pflichten des Händlers", "description": "Beim Vertrieb von Produkten die CRA-Konformität prüfen und bei Nichtkonformität handeln (Art. 19)." },
-  "CRA-OSS_1": { "title": "Pflichten von Open-Source-Verwaltern", "description": "Die für Verwalter quelloffener Software erwartete Cybersicherheitsrichtlinie dokumentieren (CRA Art. 24)." }
+    "1_1": {
+      "title": "Cybersicherheitsschulung der Geschäftsleitung",
+      "description": "Die Geschäftsleitung nimmt regelmäßig an Cybersicherheitsschulungen teil (§38(3) BSIG). Das Gesetz nennt kein festes Intervall; Empfehlung: alle 3 Jahre und bei Wechseln in der Geschäftsleitung."
+    },
+    "1_2": {
+      "title": "Rollen und Verantwortlichkeiten",
+      "description": "Rollen und Verantwortlichkeiten für die Cybersicherheit definieren. Die Teamseite zeigt die aktuelle Zuordnung."
+    },
+    "1_3": {
+      "title": "Budgetzuweisung für Cybersicherheit",
+      "description": "Ausreichendes Budget für Cybersicherheitsmaßnahmen bereitstellen und von der Geschäftsleitung genehmigen lassen."
+    },
+    "1_4": {
+      "title": "Persönliche Haftungsanerkennung",
+      "description": "Die Geschäftsleitung bestätigt die Kenntnisnahme der Haftungsregelung des §38(2) BSIG (Innenhaftung nach Gesellschaftsrecht). Keine gesetzliche Bestätigungspflicht, aber belastbarer Governance-Nachweis zu §38(1)."
+    },
+    "2_1": {
+      "title": "Risikobewertungsmethodik",
+      "description": "Methodik zur Risikoanalyse festlegen: Skalen, Schwellenwerte, Akzeptanzkriterien. Standard: BSI 200-3 mit 4×4-Matrix."
+    },
+    "2_2": {
+      "title": "Asset-Inventar, Geltungsbereich & Klassifizierung",
+      "description": "Geltungsbereich definieren, vollständiges Asset-Inventar erstellen und Schutzbedarf je Asset festlegen (BSI 200-2 Strukturanalyse + Schutzbedarfsfeststellung)."
+    },
+    "2_3": {
+      "title": "Risikoregister & Behandlung",
+      "description": "Risikoregister führen: Bedrohungen identifizieren (BSI 200-3 Elementargefahren), Risiken bewerten, Behandlung festlegen (vermeiden/reduzieren/übertragen/akzeptieren)."
+    },
+    "2_4": {
+      "title": "Risikoakzeptanz & IS-Leitlinie",
+      "description": "Die Geschäftsleitung unterzeichnet die Informationssicherheitsleitlinie und akzeptiert die Restrisiken aus dem Risikoregister (2.3). Leitlinie und Risikobehandlungsplan sind mindestens jährlich sowie bei erheblichen Sicherheitsvorfällen oder wesentlichen Änderungen der Betriebsabläufe oder Risiken zu überprüfen; die Freigabe wird dabei erneuert (CIR 1.1.2, 2.1.4)."
+    },
+    "3_1": {
+      "title": "Vorfallbehandlungsplan & Team",
+      "description": "Vorfallbehandlungsplan mit IRT-Rollen, Eskalationswegen, Playbooks und BSI-Meldefristen erstellen."
+    },
+    "3_2": {
+      "title": "Erkennung, Klassifizierung & Protokollierung",
+      "description": "Klassifizierungsschema (erheblicher Sicherheitsvorfall, §2 Nr. 11 BSIG), Meldekanal für Verdachtsfälle, Erkennungsprozesse und lückenloses Vorfallprotokoll einrichten. Wiederholte Sicherheitsvorfälle sind vierteljährlich zu bewerten (CIR 3.4.2 Buchstabe b): Vorfälle mit derselben erkennbaren Ursache, die mindestens zweimal in sechs Monaten auftreten und zusammen die Verlustschwelle erreichen, gelten gemeinsam als ein erheblicher Sicherheitsvorfall (Artikel 4 CIR)."
+    },
+    "3_3": {
+      "title": "BSI-Meldefähigkeit (24h/72h/1M)",
+      "description": "BSI-Meldeprozess aufbauen: 24h-Erstmeldung, 72h-Meldung, Zwischenmeldung auf BSI-Ersuchen, Abschlussmeldung einen Monat nach der 72h-Meldung (§32(1) BSIG). Zugang zum Meldeportal und Zuständigkeiten festlegen. Die Meldefähigkeit wird in geplanten Zeitabständen getestet (CIR 3.5.5); ein festes Intervall ist nicht vorgeschrieben, Empfehlung: jährlich."
+    },
+    "3_4": {
+      "title": "Vorfallübung",
+      "description": "Regelmäßig den Vorfallbehandlungsplan durch realistische Übungen testen."
+    },
+    "3_5": {
+      "title": "Nachbereitung & Kommunikation",
+      "description": "Nachbereitung mit Lessons Learned, Kommunikationsvorlagen und Verbesserungsmaßnahmen."
+    },
+    "4_1": {
+      "title": "Business-Impact-Analyse & Wiederherstellungsziele",
+      "description": "BIA durchführen, kritische Funktionen identifizieren und RTO/RPO-Ziele je System festlegen."
+    },
+    "4_2": {
+      "title": "BCP & Krisenmanagementplan",
+      "description": "BCP mit Krisenmanagement-Team, Kommunikationsvorlagen und Aktualisierungsprozess erstellen."
+    },
+    "4_3": {
+      "title": "Disaster-Recovery-Plan",
+      "description": "Technische Verfahren zur Wiederherstellung von IT/OT-Systemen nach einer Störung dokumentieren."
+    },
+    "4_4": {
+      "title": "Backup & Wiederherstellung",
+      "description": "Backup-Richtlinie, regelmäßige Wiederherstellungstests und Offline-/Immutable-Backups sicherstellen."
+    },
+    "4_5": {
+      "title": "BCP/DR-Tests",
+      "description": "Notfallpläne werden in geplanten Zeitabständen sowie nach erheblichen Sicherheitsvorfällen und wesentlichen Änderungen der Betriebsabläufe oder Risiken getestet; die Erkenntnisse aus den Tests fließen in die Pläne ein (CIR 4.1.4). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährlich eine Tabletop-Übung, umfassende Wiederanlauftests nach Bedarf."
+    },
+    "5_1": {
+      "title": "Lieferantenregister & Klassifizierung",
+      "description": "Lieferanteninventar mit Kritikalitätsbewertung und Sicherheitsrichtlinie erstellen."
+    },
+    "5_2": {
+      "title": "Lieferantensicherheit in Verträgen",
+      "description": "Sicherheitsklauseln, Auditrechte und Subunternehmer-Anforderungen in Lieferantenverträge aufnehmen."
+    },
+    "5_3": {
+      "title": "Lieferantenbewertung & Monitoring",
+      "description": "Lieferanten regelmäßig bewerten, überwachen und bei Nichterfüllung eskalieren."
+    },
+    "5_4": {
+      "title": "Lieferanten-Vorfallmeldung",
+      "description": "Vertragliche Vorfallmeldepflichten der Lieferanten überwachen und nachverfolgen."
+    },
+    "6_1": {
+      "title": "Sichere Beschaffung",
+      "description": "Sicherheitsanforderungen und Bewertungscheckliste in den IT/OT-Beschaffungsprozess integrieren."
+    },
+    "6_2": {
+      "title": "Sichere Entwicklung & Konfiguration",
+      "description": "Sichere Entwicklungsrichtlinien (SDLC) und Konfigurationsbaselines etablieren."
+    },
+    "6_3": {
+      "title": "Schwachstellenmanagement",
+      "description": "Schwachstellenmanagement mit Scanning, risikobasierter Priorisierung und Offenlegungsprozess implementieren; bewusste Nichtbehebung dokumentieren."
+    },
+    "6_4": {
+      "title": "Patch-Management",
+      "description": "Patch-Management-Richtlinie mit CVSS-basierter Priorisierung und technischem Tracking umsetzen."
+    },
+    "6_5": {
+      "title": "Änderungsmanagement",
+      "description": "Formalen Änderungsmanagementprozess mit Sicherheitsbewertung und lückenlosem Protokoll einführen."
+    },
+    "7_1": {
+      "title": "Sicherheits-KPIs & Metriken",
+      "description": "Messbare Sicherheits-KPIs definieren und im selbst festgelegten Rhythmus mit Trends und Schwellenwerten berichten (Empfehlung: quartalsweise)."
+    },
+    "7_2": {
+      "title": "Internes Audit",
+      "description": "Internen Auditplan erstellen und Audits mit formalen Berichten und Korrekturmaßnahmen durchführen."
+    },
+    "7_3": {
+      "title": "Managementbewertung",
+      "description": "Die Geschäftsleitung überprüft die Einhaltung der Leitlinien und lässt sich den Stand der Informationssicherheit regelmäßig berichten (§30(2) Nr. 6, §38(1) BSIG, CIR 2.2.1). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: jährliche Managementbewertung mit Gap-Analyse."
+    },
+    "7_4": {
+      "title": "Korrekturmaßnahmen & kontinuierliche Verbesserung",
+      "description": "Verbesserungsregister führen, Pentest-Ergebnisse nachverfolgen und kontinuierliche Verbesserung nachweisen."
+    },
+    "8_1": {
+      "title": "IT-Sicherheitsrichtlinie & Nutzungsregeln",
+      "description": "IT-Sicherheitsrichtlinie und Nutzungsregeln (AUP, Clean Desk) für alle Mitarbeiter definieren und durchsetzen."
+    },
+    "8_2": {
+      "title": "Security-Awareness-Programm",
+      "description": "Sensibilisierungsprogramm anbieten, das wiederholt durchgeführt wird und neue Mitarbeitende erreicht (CIR 8.1.2); Inhalte und Wirksamkeit werden in geplanten Zeitabständen überprüft und aktualisiert (CIR 8.1.3). Ein festes Intervall ist nicht vorgeschrieben; Empfehlung: Onboarding-Modul plus jährliche Auffrischung. Phishing-Simulationen sind eine mögliche Methode, keine gesetzliche Pflicht (siehe 8.4)."
+    },
+    "8_3": {
+      "title": "Rollenspezifische & Management-Schulung",
+      "description": "Spezialisierte Schulungen für Rollen mit Sicherheitsaufgaben, auch bei Rollenwechsel. Die Schulung der Geschäftsleitung wird unter 1.1 nachgewiesen."
+    },
+    "8_4": {
+      "title": "Schulungswirksamkeit & Phishing-Simulationen",
+      "description": "Wirksamkeit von Schulungen und Awareness messen (§30(2) Nr. 6 BSIG). Phishing-Simulationen sind eine bewährte Methode, keine gesetzliche Pflicht; Betriebsrat und Datenschutz vorab einbinden."
+    },
+    "9_1": {
+      "title": "Verschlüsselungsrichtlinie & Standards",
+      "description": "Verschlüsselungsrichtlinie mit zugelassenen Algorithmen gem. BSI TR-02102 und periodischer Überprüfung erstellen."
+    },
+    "9_2": {
+      "title": "Datenverschlüsselung",
+      "description": "Verschlüsselung aller sensiblen Daten at-rest und in-transit inkl. Backups und Kryptoinventar."
+    },
+    "9_3": {
+      "title": "Schlüssel- & Zertifikatsmanagement",
+      "description": "Schlüssel- und Zertifikatsmanagement über den gesamten Lifecycle dokumentieren und umsetzen (z. B. Key Vault oder HSM, wo angemessen)."
+    },
+    "10_1": {
+      "title": "Zugriffskontrollrichtlinie & Modell",
+      "description": "Zugriffskontrollrichtlinie mit RBAC-Modell, Least-Privilege und Need-to-Know-Prinzip erstellen."
+    },
+    "10_2": {
+      "title": "Zugriffssteuerung je Asset",
+      "description": "Für jedes Asset den Verantwortlichen, Zugriffsmethode und privilegierte Konten dokumentieren."
+    },
+    "10_3": {
+      "title": "Benutzer-Lifecycle & PAM",
+      "description": "JML-Prozess, PAM-Tooling und Hintergrundprüfungen für Mitarbeitende dokumentieren."
+    },
+    "10_4": {
+      "title": "Zugriffsüberprüfungen",
+      "description": "Zugriffsrechte einschließlich privilegierter Konten regelmäßig überprüfen und dokumentieren. Gesetzlich: in geplanten Abständen; Empfehlung: vierteljährlich."
+    },
+    "11_1": {
+      "title": "Authentifizierung: wo MFA verpflichtend ist",
+      "description": "MFA risikobasiert ausrollen, Ausnahmen mit kompensierenden Maßnahmen dokumentieren. Empfohlene Reihenfolge: zuerst Admin-Konten, dann von außen erreichbare Dienste, danach die übrigen Systeme."
+    },
+    "11_2": {
+      "title": "Sichere & Notfallkommunikation",
+      "description": "Sichere Kommunikationsrichtlinie, verschlüsselte Tools und Notfallkanäle (Out-of-Band) einrichten."
+    },
+    "11_3": {
+      "title": "Authentifizierungsstandards",
+      "description": "Authentifizierungsverfahren und Passwortrichtlinie regelmäßig gegen aktuelle Standards prüfen (NIST SP 800-63B, BSI IT-Grundschutz ORP.4)."
+    },
+    "12_1": {
+      "title": "NIS2-Klassifizierung & Geltungsbereich",
+      "description": "NIS2-Betroffenheitsprüfung und Klassifizierung als wesentliche/wichtige Einrichtung oder KRITIS durchführen."
+    },
+    "12_2": {
+      "title": "BSI-Registrierung",
+      "description": "MUK-Konto einrichten, BSI-Portal-Registrierung abschließen und alle Pflichtdaten übermitteln. Gesetzliche Frist: spätestens drei Monate, nachdem das Unternehmen erstmals als besonders wichtige oder wichtige Einrichtung gilt (§33(1) BSIG). Für Einrichtungen, die seit Inkrafttreten des BSIG am 06.12.2025 im Anwendungsbereich sind, lief diese Frist am 06.03.2026 ab; die Registrierung ist dann sofort fällig."
+    },
+    "12_3": {
+      "title": "Registrierungspflege",
+      "description": "Änderungen der Registrierungsdaten unverzüglich, spätestens binnen zwei Wochen an das BSI melden (§33(5) BSIG); Daten zusätzlich jährlich verifizieren und Erreichbarkeit der Kontaktperson sicherstellen."
+    },
+    "12_4": {
+      "title": "Compliance-Nachweise",
+      "description": "Dokumentation der Umsetzung laufend pflegen (§30(1) S. 3 BSIG). Nur für Betreiber kritischer Anlagen: Nachweise alle 3 Jahre (§39) und Angriffserkennung (§31(2)); besondere Registrierung nach §34 nur für Einrichtungsarten des §60(1) BSIG."
+    },
+    "G-DPA_1": {
+      "title": "Auftragsverarbeitungsverträge",
+      "description": "Verzeichnis aller Auftragsverarbeiter mit unterzeichnetem AVV. Art. 28 Abs. 3 DSGVO verlangt, dass der Vertrag Gegenstand und Dauer der Verarbeitung, Art und Zweck, die Art der personenbezogenen Daten und die Kategorien betroffener Personen festlegt, bevor er zu den acht Klauseln nach Buchstaben a bis h kommt."
+    },
+    "G-DPA_2": {
+      "title": "Genehmigung von Unterauftragsverarbeitern",
+      "description": "Unterauftragsverarbeiter pro Auftragsverarbeiter erfassen. Art. 28 Abs. 2 DSGVO verlangt die vorherige gesonderte oder allgemeine schriftliche Genehmigung des Verantwortlichen, bevor ein Auftragsverarbeiter einen weiteren einschaltet. Art. 28 Abs. 4 ist eine zweite Pflicht: dem Unterauftragsverarbeiter sind dieselben Pflichten aus Art. 28 Abs. 3 vertraglich aufzuerlegen, und der erste Auftragsverarbeiter haftet weiterhin voll für dessen Leistung."
+    },
+    "G-ROP_1": {
+      "title": "Verzeichnis der Verarbeitungstätigkeiten",
+      "description": "Jede Verarbeitungstätigkeit mit den sieben Angaben nach Art. 30 Abs. 1 DSGVO erfassen: Kontaktdaten von Verantwortlichem und Datenschutzbeauftragtem, Zwecke, Kategorien betroffener Personen und Daten, Empfängerkategorien, Drittlandsübermittlungen mit Garantien und, wenn möglich, Löschfristen und Beschreibung der Maßnahmen. Art. 30 Abs. 5 nimmt Unternehmen mit weniger als 250 Mitarbeitern aus, aber nur wenn die Verarbeitung gelegentlich erfolgt, voraussichtlich kein Risiko für die Rechte und Freiheiten birgt und keine besonderen Kategorien oder Daten über Straftaten umfasst. Laufende Personalverwaltung und Lohnabrechnung sind nicht gelegentlich, das Verzeichnis ist also in der Praxis trotzdem zu führen."
+    },
+    "G-TOM_1": {
+      "title": "Technische und organisatorische Maßnahmen",
+      "description": "Maßnahmen zum Schutz personenbezogener Daten dokumentieren: Pseudonymisierung und Verschlüsselung, dauerhafte Vertraulichkeit, Integrität, Verfügbarkeit und Belastbarkeit, rasche Wiederherstellung nach einem Zwischenfall sowie ein Verfahren zur regelmäßigen Überprüfung und Bewertung der Wirksamkeit (Art. 32 Abs. 1 DSGVO)."
+    },
+    "G-BRC_1": {
+      "title": "Meldeprozess für Datenschutzverletzungen",
+      "description": "Schriftliches Verfahren zur Bewertung von Datenschutzverletzungen und zur Meldung an die Aufsichtsbehörde unverzüglich und möglichst binnen 72 Stunden (Art. 33 Abs. 1 DSGVO). Eine Meldung entfällt, wenn die Verletzung voraussichtlich nicht zu einem Risiko für die Rechte und Freiheiten natürlicher Personen führt; die Bewertung ist in beiden Fällen zu dokumentieren. Erfolgt die Meldung später als 72 Stunden, ist eine Begründung für die Verzögerung beizufügen."
+    },
+    "G-BRC_2": {
+      "title": "Dokumentation von Datenschutzverletzungen",
+      "description": "Jede Datenschutzverletzung intern dokumentieren (meldepflichtig oder nicht) zur Überprüfung durch die Aufsichtsbehörde (Art. 33 Abs. 5)."
+    },
+    "G-DSR_1": {
+      "title": "Verfahren für Betroffenenrechte",
+      "description": "Verfahren zur Bearbeitung von Anfragen auf Auskunft, Löschung, Berichtigung, Datenübertragbarkeit, Einschränkung und Widerspruch innerhalb eines Monats (Art. 12-22 DSGVO). Für deutsche Verantwortliche schränkt §34 BDSG das Auskunftsrecht nach Art. 15 ein, und §35 setzt an die Stelle der Löschung nach Art. 17 die Einschränkung der Verarbeitung, wenn eine Löschung bei nicht automatisierter Speicherung unverhältnismäßig wäre. Nach §34 Abs. 2 sind die Gründe einer Auskunftsverweigerung zu dokumentieren."
+    },
+    "G-BRC_3": {
+      "title": "Benachrichtigung betroffener Personen",
+      "description": "Verfahren zur Benachrichtigung betroffener Personen bei hohem Risiko festlegen (Art. 34 Abs. 1 DSGVO). Die Meldung an die Aufsichtsbehörde nach Art. 33 ersetzt sie nicht. Inhalt in klarer, einfacher Sprache mit den Angaben nach Art. 33 Abs. 3 Buchst. b bis d. Eine Benachrichtigung entfällt, wenn die Daten unzugänglich sind (etwa durch Verschlüsselung), das hohe Risiko nachträglich beseitigt wurde oder der Aufwand unverhältnismäßig wäre; dann ist eine öffentliche Bekanntmachung erforderlich (Art. 34 Abs. 3)."
+    },
+    "G-DPO_1": {
+      "title": "Datenschutzbeauftragte benennen",
+      "description": "Prüfen und dokumentieren, ob eine Datenschutzbeauftragte oder ein Datenschutzbeauftragter zu benennen ist. In Deutschland gilt die Pflicht ab 20 Personen, die ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt sind (§38 Abs. 1 BDSG), unabhängig von der Personenzahl zusätzlich bei Verarbeitungen mit Datenschutz-Folgenabschätzung oder bei geschäftsmäßiger Verarbeitung zum Zweck der Übermittlung oder der Markt- und Meinungsforschung. Stellung und Aufgaben richten sich nach Art. 38 und 39 DSGVO; die Kontaktdaten sind zu veröffentlichen und der Aufsichtsbehörde mitzuteilen (Art. 37 Abs. 7)."
+    },
+    "IS-4_1": {
+      "title": "Kontext der Organisation",
+      "description": "Externe und interne Themen bestimmen, die für den ISMS-Zweck relevant sind und die Erreichung der beabsichtigten Ergebnisse beeinflussen."
+    },
+    "IS-4_2": {
+      "title": "Erfordernisse interessierter Parteien",
+      "description": "Interessierte Parteien (Kunden, Behörden, Mitarbeiter, Lieferanten) und ihre informationssicherheitsrelevanten Anforderungen identifizieren."
+    },
+    "IS-4_3": {
+      "title": "ISMS-Anwendungsbereich",
+      "description": "Grenzen des ISMS dokumentieren: welche Systeme, Standorte und Aktivitäten einbezogen oder ausgeschlossen sind und warum."
+    },
+    "IS-4_4": {
+      "title": "Informationssicherheits-Managementsystem",
+      "description": "Ein ISMS gemäß den Anforderungen der ISO 27001 einrichten, umsetzen, aufrechterhalten und fortlaufend verbessern."
+    },
+    "IS-5_1": {
+      "title": "Führung und Verpflichtung",
+      "description": "Die oberste Leitung muss Engagement zeigen: IS-Leitlinie genehmigen, ISMS-Ressourcen sicherstellen und Sicherheit in Geschäftsprozesse integrieren."
+    },
+    "IS-5_2": {
+      "title": "Informationssicherheitsleitlinie",
+      "description": "IS-Leitlinie erstellen, dokumentieren und kommunizieren. Von der Unternehmensleitung unterzeichnet, mit Zielen und Verbesserungsverpflichtung."
+    },
+    "IS-5_3": {
+      "title": "Rollen, Verantwortlichkeiten und Befugnisse",
+      "description": "Verantwortlichkeiten für ISMS-Rollen (CISO, Asset-Eigentümer, Prozessverantwortliche) zuweisen und kommunizieren."
+    },
+    "IS-6_1": {
+      "title": "Risikobeurteilungsprozess",
+      "description": "Dokumentierte Risikobeurteilungsmethodik definieren und anwenden: Identifikation, Analyse, Bewertung und Akzeptanzkriterien."
+    },
+    "IS-6_2": {
+      "title": "Informationssicherheitsziele",
+      "description": "Messbare IS-Ziele festlegen, die mit der IS-Leitlinie übereinstimmen, Pläne zur Zielerreichung dokumentieren und Fortschritt verfolgen."
+    },
+    "IS-6_3": {
+      "title": "Planung von Änderungen",
+      "description": "Wenn Änderungen am ISMS erforderlich sind, kontrolliert planen: Zweck, Auswirkungen, Integrität, Ressourcen und Verantwortlichkeit bewerten."
+    },
+    "IS-7_1": {
+      "title": "Ressourcen",
+      "description": "Erforderliche Ressourcen für die Einrichtung, Umsetzung, Aufrechterhaltung und fortlaufende Verbesserung des ISMS bestimmen und bereitstellen."
+    },
+    "IS-7_2": {
+      "title": "Kompetenz",
+      "description": "Kompetenzanforderungen für ISMS-relevante Rollen bestimmen, Schulungen durchführen und Kompetenznachweise aufbewahren."
+    },
+    "IS-7_3": {
+      "title": "Bewusstsein",
+      "description": "Sicherstellen, dass alle Personen unter Aufsicht der Organisation die IS-Leitlinie, ihren Beitrag zur ISMS-Wirksamkeit und die Folgen von Nichtkonformität kennen."
+    },
+    "IS-7_4": {
+      "title": "Kommunikation",
+      "description": "Interne und externe ISMS-relevante Kommunikation festlegen: was, wann, mit wem, wie und durch wen."
+    },
+    "IS-7_5": {
+      "title": "Dokumentierte Information",
+      "description": "Von ISO 27001 geforderte dokumentierte Informationen erstellen, pflegen und deren Erstellung, Aktualisierung und Aufbewahrung steuern."
+    },
+    "IS-8_1": {
+      "title": "Betriebliche Planung und Steuerung",
+      "description": "Prozesse zur Erfüllung der IS-Anforderungen und zur Umsetzung der in Abschnitt 6 festgelegten Maßnahmen planen, umsetzen und steuern."
+    },
+    "IS-8_2": {
+      "title": "Informationssicherheitsrisikobeurteilung",
+      "description": "Risikobeurteilungen in geplanten Abständen oder bei wesentlichen Änderungen durchführen; Ergebnisse im Risikoregister dokumentieren."
+    },
+    "IS-8_3": {
+      "title": "Informationssicherheitsrisikobehandlung",
+      "description": "Risikobehandlungsoptionen auswählen und umsetzen; Risikobehandlungsplan und Anwendbarkeitserklärung (SoA) erstellen."
+    },
+    "IS-9_1": {
+      "title": "Überwachung, Messung, Analyse und Bewertung",
+      "description": "Festlegen was, wie, wann und durch wen überwacht und gemessen wird; Ergebnisse analysieren und gegen IS-Ziele bewerten."
+    },
+    "IS-9_2": {
+      "title": "Internes Audit",
+      "description": "Interne Audits in geplanten Abständen durchführen, um zu prüfen ob das ISMS den Anforderungen entspricht und wirksam umgesetzt ist."
+    },
+    "IS-9_3": {
+      "title": "Managementbewertung",
+      "description": "Die oberste Leitung überprüft das ISMS in geplanten Abständen: Auditergebnisse, KPIs, Vorfälle, Änderungen und Verbesserungsmöglichkeiten."
+    },
+    "IS-10_1": {
+      "title": "Fortlaufende Verbesserung",
+      "description": "Eignung, Angemessenheit und Wirksamkeit des ISMS fortlaufend verbessern."
+    },
+    "IS-10_2": {
+      "title": "Nichtkonformität und Korrekturmaßnahmen",
+      "description": "Bei Nichtkonformität: reagieren, Grundursache ermitteln, Korrekturmaßnahmen umsetzen und deren Wirksamkeit überprüfen."
+    },
+    "A_5_1": {
+      "title": "Leitlinien zur Informationssicherheit",
+      "description": "Informationssicherheitsleitlinien definieren, genehmigen, veröffentlichen und jährlich überprüfen."
+    },
+    "A_5_2": {
+      "title": "Rollen und Verantwortlichkeiten für Informationssicherheit",
+      "description": "Rollen und Verantwortlichkeiten für Informationssicherheit in der gesamten Organisation zuweisen und dokumentieren."
+    },
+    "A_5_3": {
+      "title": "Aufgabentrennung",
+      "description": "Widersprüchliche Aufgaben und Verantwortlichkeiten trennen, um unbefugte Änderungen von Informationen zu reduzieren."
+    },
+    "A_5_4": {
+      "title": "Managementverantwortung",
+      "description": "Das Management muss von allen Mitarbeitern verlangen, Informationssicherheit gemäß den Leitlinien anzuwenden."
+    },
+    "A_5_5": {
+      "title": "Kontakt zu Behörden",
+      "description": "Angemessene Kontakte zu relevanten Behörden (Datenschutzbehörde, Cybersicherheitsagentur, Strafverfolgung) pflegen."
+    },
+    "A_5_6": {
+      "title": "Kontakt zu speziellen Interessengruppen",
+      "description": "Mitgliedschaft oder Kontakt zu Fachgruppen, Sicherheitsforen und Berufsverbänden aufrechterhalten."
+    },
+    "A_5_7": {
+      "title": "Bedrohungsanalyse",
+      "description": "Für die Organisation relevante Bedrohungsinformationen sammeln, analysieren und aufbereiten, um Bedrohungen vorauszudenken."
+    },
+    "A_5_8": {
+      "title": "Informationssicherheit im Projektmanagement",
+      "description": "Informationssicherheit in das Projektmanagement integrieren, damit Sicherheitsrisiken bei Projekten adressiert werden."
+    },
+    "A_5_9": {
+      "title": "Inventar der Informationen und zugehörigen Assets",
+      "description": "Inventar der Informationen und zugehörigen Assets mit zugewiesener Eigentümerschaft identifizieren, dokumentieren und pflegen."
+    },
+    "A_5_10": {
+      "title": "Akzeptable Nutzung von Informationen und Assets",
+      "description": "Regeln zur akzeptablen Nutzung von Informationen und Assets dokumentieren und umsetzen: Geräte, Datenumgang, verbotene Aktivitäten."
+    },
+    "A_5_11": {
+      "title": "Rückgabe von Assets",
+      "description": "Sicherstellen, dass alle Assets bei Beendigung oder Änderung von Beschäftigungs- oder Vertragsverhältnissen zurückgegeben werden."
+    },
+    "A_5_12": {
+      "title": "Klassifizierung von Informationen",
+      "description": "Informationen nach Sensitivität klassifizieren (vertraulich, intern, öffentlich), um angemessenen Schutz sicherzustellen."
+    },
+    "A_5_13": {
+      "title": "Kennzeichnung von Informationen",
+      "description": "Kennzeichnungsverfahren für Informationen gemäß dem Klassifizierungsschema entwickeln und umsetzen."
+    },
+    "A_5_14": {
+      "title": "Informationsübertragung",
+      "description": "Regeln und Verfahren für die Informationsübertragung über alle Kanäle festlegen: E-Mail, Messaging, physische Medien und mündlich."
+    },
+    "A_5_15": {
+      "title": "Zugriffskontrolle",
+      "description": "Zugriffskontrollregeln auf Basis von Geschäfts- und Sicherheitsanforderungen nach dem Prinzip der minimalen Rechtevergabe definieren."
+    },
+    "A_5_16": {
+      "title": "Identitätsverwaltung",
+      "description": "Vollständigen Identitätslebenszyklus (Bereitstellung, Änderungen, Sperrung) für alle Benutzer und Dienstkonten verwalten."
+    },
+    "A_5_17": {
+      "title": "Authentifizierungsinformationen",
+      "description": "Authentifizierungsinformationen (Passwörter, Schlüssel, Token) durch einen formalen Prozess inkl. Zuweisung, Speicherung und Widerruf verwalten."
+    },
+    "A_5_18": {
+      "title": "Zugriffsrechte",
+      "description": "Zugriffsrechte gemäß der Zugriffskontrollpolitik bereitstellen, überprüfen, ändern und entziehen."
+    },
+    "A_5_19": {
+      "title": "Informationssicherheit in Lieferantenbeziehungen",
+      "description": "Maßnahmen zum Schutz von Assets, auf die Lieferanten zugreifen können, identifizieren und umsetzen; in Lieferantenvereinbarungen dokumentieren."
+    },
+    "A_5_20": {
+      "title": "IS-Anforderungen in Lieferantenvereinbarungen",
+      "description": "Informationssicherheitsanforderungen mit jedem Lieferanten vereinbaren, der auf Organisationsinformationen zugreift oder diese verarbeitet."
+    },
+    "A_5_21": {
+      "title": "IS im IKT-Lieferketten-Management",
+      "description": "Prozesse zur Steuerung von IS-Risiken in der IKT-Produkte- und Dienstleistungslieferkette definieren und umsetzen."
+    },
+    "A_5_22": {
+      "title": "Überwachung, Überprüfung und Änderungsmanagement für Lieferantendienste",
+      "description": "IS-Praktiken und Leistungserbringung von Lieferanten regelmäßig überwachen, überprüfen und Änderungen verwalten."
+    },
+    "A_5_23": {
+      "title": "Informationssicherheit bei der Nutzung von Cloud-Diensten",
+      "description": "Prozesse für Beschaffung, Nutzung, Verwaltung und Beendigung von Cloud-Diensten inkl. Sicherheitsanforderungen und Exit-Plänen etablieren."
+    },
+    "A_5_24": {
+      "title": "Planung und Vorbereitung des IS-Incident-Managements",
+      "description": "Incident Management mit definierten Rollen, Verantwortlichkeiten, Verfahren und Kommunikationskanälen planen und vorbereiten."
+    },
+    "A_5_25": {
+      "title": "Bewertung und Entscheidung über IS-Ereignisse",
+      "description": "IS-Ereignisse bewerten und anhand eines definierten Klassifizierungsschemas entscheiden, ob sie als Vorfälle einzustufen sind."
+    },
+    "A_5_26": {
+      "title": "Reaktion auf Informationssicherheitsvorfälle",
+      "description": "Auf Vorfälle gemäß dokumentierten Verfahren reagieren; strukturiert eindämmen, beseitigen und wiederherstellen."
+    },
+    "A_5_27": {
+      "title": "Lernen aus IS-Vorfällen",
+      "description": "Erkenntnisse aus Vorfällen nutzen, um Wahrscheinlichkeit und Auswirkungen künftiger Vorfälle zu reduzieren; Maßnahmen entsprechend aktualisieren."
+    },
+    "A_5_28": {
+      "title": "Beweiserhebung",
+      "description": "Verfahren zur Identifizierung, Sammlung, Sicherstellung und Aufbewahrung von Beweisen bei IS-Vorfällen definieren und anwenden."
+    },
+    "A_5_29": {
+      "title": "IS bei Störungen",
+      "description": "Planen, wie IS bei Störungen aufrechterhalten wird. Sicherheitsanforderungen in Betriebskontinuitätspläne integrieren."
+    },
+    "A_5_30": {
+      "title": "IKT-Bereitschaft für Betriebskontinuität",
+      "description": "IKT-Bereitschaft basierend auf Betriebskontinuitätszielen planen, umsetzen, pflegen und testen."
+    },
+    "A_5_31": {
+      "title": "Gesetzliche, behördliche, regulatorische und vertragliche Anforderungen",
+      "description": "Alle für IS relevanten gesetzlichen, regulatorischen und vertraglichen Anforderungen identifizieren, dokumentieren und aktuell halten."
+    },
+    "A_5_32": {
+      "title": "Rechte am geistigen Eigentum",
+      "description": "Verfahren zum Schutz von Rechten am geistigen Eigentum und zur Einhaltung von Softwarelizenzanforderungen umsetzen."
+    },
+    "A_5_33": {
+      "title": "Schutz von Aufzeichnungen",
+      "description": "Aufzeichnungen vor Verlust, Vernichtung, Fälschung, unbefugtem Zugriff und unbefugter Weitergabe gemäß gesetzlichen Anforderungen schützen."
+    },
+    "A_5_34": {
+      "title": "Datenschutz und Schutz personenbezogener Daten",
+      "description": "Datenschutz- und Personendatenanforderungen gemäß anwendbarem Recht (DSGVO) identifizieren und erfüllen."
+    },
+    "A_5_35": {
+      "title": "Unabhängige Überprüfung der Informationssicherheit",
+      "description": "ISMS-Ansatz und -Umsetzung in geplanten Abständen oder bei wesentlichen Änderungen unabhängig überprüfen."
+    },
+    "A_5_36": {
+      "title": "Einhaltung von IS-Leitlinien und -Standards",
+      "description": "Einhaltung von IS-Leitlinien, -Standards und -Verfahren regelmäßig überprüfen; Ergebnisse dokumentieren."
+    },
+    "A_5_37": {
+      "title": "Dokumentierte Betriebsverfahren",
+      "description": "Betriebsverfahren für Informationsverarbeitungseinrichtungen dokumentieren, pflegen und verfügbar machen."
+    },
+    "A_6_1": {
+      "title": "Überprüfung von Bewerbern",
+      "description": "Hintergrundüberprüfungen für alle Kandidaten verhältnismäßig zur Rollensensitivität und den rechtlichen Anforderungen durchführen."
+    },
+    "A_6_2": {
+      "title": "Beschäftigungsbedingungen",
+      "description": "Mitarbeitern und Auftragnehmern vertraglich die Einhaltung von IS-Leitlinien als Beschäftigungsbedingung vorschreiben."
+    },
+    "A_6_3": {
+      "title": "IS-Bewusstsein, Schulung und Training",
+      "description": "Sicherstellen, dass alle Mitarbeiter bei Einstellung und jährlich angemessene IS-Sensibilisierungsschulungen erhalten."
+    },
+    "A_6_4": {
+      "title": "Disziplinarverfahren",
+      "description": "Ein formelles, kommuniziertes Disziplinarverfahren für Mitarbeiter haben, die IS-Verstöße begehen."
+    },
+    "A_6_5": {
+      "title": "Verantwortlichkeiten nach Beendigung oder Änderung der Beschäftigung",
+      "description": "IS-Verantwortlichkeiten, die nach Beendigung des Arbeitsverhältnisses gelten, definieren und durchsetzen (Vertraulichkeit, Asset-Rückgabe)."
+    },
+    "A_6_6": {
+      "title": "Vertraulichkeits- und Geheimhaltungsvereinbarungen",
+      "description": "Vertraulichkeitsanforderungen identifizieren, dokumentieren und regelmäßig überprüfen; NDAs mit Mitarbeitern, Auftragnehmern und Dritten verwenden."
+    },
+    "A_6_7": {
+      "title": "Telearbeit",
+      "description": "Sicherheitsmaßnahmen für Telearbeit definieren und umsetzen: Netzwerksicherheit, physische Sicherheit und Geräteschutz."
+    },
+    "A_6_8": {
+      "title": "Meldung von IS-Ereignissen",
+      "description": "Klaren, einfach nutzbaren Mechanismus für Mitarbeiter bereitstellen, um Sicherheitsereignisse und Schwachstellen zu melden."
+    },
+    "A_7_1": {
+      "title": "Physische Sicherheitszonen",
+      "description": "Physische Sicherheitszonen zum Schutz sensibler Bereiche mit Informationen und Verarbeitungseinrichtungen definieren und umsetzen."
+    },
+    "A_7_2": {
+      "title": "Physischer Zutritt",
+      "description": "Sichere Bereiche mit angemessenen Zutrittskontrollmaßnahmen sichern, damit nur autorisierte Personen Zutritt erhalten."
+    },
+    "A_7_3": {
+      "title": "Absicherung von Büros, Räumen und Einrichtungen",
+      "description": "Physische Sicherheit für Büros, Räume und Einrichtungen verhältnismäßig zur Sensitivität der dort verarbeiteten Informationen anwenden."
+    },
+    "A_7_4": {
+      "title": "Physische Sicherheitsüberwachung",
+      "description": "Betriebsgelände auf unbefugten physischen Zugang überwachen: Alarmanlagen, CCTV, Wachpersonal oder andere geeignete Mittel."
+    },
+    "A_7_5": {
+      "title": "Schutz vor physischen und umweltbedingten Bedrohungen",
+      "description": "Schutz vor physischen und umweltbedingten Bedrohungen wie Brand, Überschwemmung, Erdbeben und vorsätzlicher Beschädigung."
+    },
+    "A_7_6": {
+      "title": "Arbeiten in sicheren Bereichen",
+      "description": "Verfahren für das Arbeiten in sicheren Bereichen definieren und anwenden, um unbefugten Zugang, Fotografie oder Datenexfiltration zu verhindern."
+    },
+    "A_7_7": {
+      "title": "Clean-Desk- und Clean-Screen-Richtlinie",
+      "description": "Clean-Desk-Richtlinie für Papiere und Wechseldatenträger sowie Clean-Screen-Richtlinie für Informationsverarbeitungseinrichtungen anwenden."
+    },
+    "A_7_8": {
+      "title": "Aufstellung und Schutz von Geräten",
+      "description": "Geräte so aufstellen und schützen, dass Risiken durch Umweltbedrohungen, unbefugten Zugang und Interferenzen reduziert werden."
+    },
+    "A_7_9": {
+      "title": "Sicherheit von Assets außerhalb des Betriebsgeländes",
+      "description": "Maßnahmen für außerhalb des Betriebsgeländes mitgenommene Assets verhältnismäßig zu den Risiken des externen Betriebs anwenden."
+    },
+    "A_7_10": {
+      "title": "Speichermedien",
+      "description": "Speichermedien über ihren gesamten Lebenszyklus verwalten: Beschaffung, Nutzung, Transport, Entsorgung und Löschverfahren."
+    },
+    "A_7_11": {
+      "title": "Versorgungseinrichtungen",
+      "description": "Informationsverarbeitungseinrichtungen vor Stromausfällen und anderen Störungen durch Versorgungseinrichtungen schützen."
+    },
+    "A_7_12": {
+      "title": "Verkabelungssicherheit",
+      "description": "Strom- und Telekommunikationskabel vor Abhören, Interferenz oder Beschädigung schützen."
+    },
+    "A_7_13": {
+      "title": "Gerätewartung",
+      "description": "Geräte korrekt warten, um dauerhafte Verfügbarkeit und Integrität der Informationsverarbeitungseinrichtungen sicherzustellen."
+    },
+    "A_7_14": {
+      "title": "Sichere Entsorgung oder Wiederverwendung von Geräten",
+      "description": "Vor der Entsorgung oder Wiederverwendung sicherstellen, dass alle sensiblen Daten und Lizenzsoftware entfernt oder überschrieben wurden."
+    },
+    "A_8_1": {
+      "title": "Benutzer-Endgeräte",
+      "description": "Informationen auf und verarbeitet durch Benutzer-Endgeräte (Laptops, Smartphones) durch eine Endgeräte-Sicherheitsrichtlinie schützen."
+    },
+    "A_8_2": {
+      "title": "Privilegierte Zugriffsrechte",
+      "description": "Zuweisung und Nutzung privilegierter Zugriffsrechte auf allen Systemen einschränken und sorgfältig verwalten."
+    },
+    "A_8_3": {
+      "title": "Einschränkung des Informationszugriffs",
+      "description": "Zugriff auf Informationen und Systeme auf das für die Rolle Erforderliche beschränken (Prinzip der minimalen Rechtevergabe)."
+    },
+    "A_8_4": {
+      "title": "Zugriff auf Quellcode",
+      "description": "Zugriff auf Programmquellcode und zugehörige Tools auf autorisierte Personen beschränken; Versionskontrolle anwenden."
+    },
+    "A_8_5": {
+      "title": "Sichere Authentifizierung",
+      "description": "Sichere Authentifizierungstechnologien und -verfahren umsetzen, inkl. MFA für sensible Systeme und alle Fernzugriffe."
+    },
+    "A_8_6": {
+      "title": "Kapazitätsmanagement",
+      "description": "Ressourcennutzung und -prognosen überwachen und anpassen, um erforderliche Systemkapazität und -leistung sicherzustellen."
+    },
+    "A_8_7": {
+      "title": "Schutz vor Schadsoftware",
+      "description": "Malware-Schutzmaßnahmen (EDR, AV, Code-Signierung, E-Mail-Filterung) in Verbindung mit Benutzersensibilisierung umsetzen."
+    },
+    "A_8_8": {
+      "title": "Verwaltung technischer Schwachstellen",
+      "description": "Technische Schwachstellen auf allen Systemen zeitnah identifizieren, bewerten und beheben."
+    },
+    "A_8_9": {
+      "title": "Konfigurationsmanagement",
+      "description": "Konfigurationen (inkl. Sicherheitskonfigurationen) für Hardware, Software und Cloud-Dienste erstellen, dokumentieren und pflegen."
+    },
+    "A_8_10": {
+      "title": "Löschung von Informationen",
+      "description": "Informationen löschen, wenn sie nicht mehr benötigt werden, gemäß gesetzlichen, vertraglichen und geschäftlichen Anforderungen."
+    },
+    "A_8_11": {
+      "title": "Datenmaskierung",
+      "description": "Datenmaskierung, Pseudonymisierung oder Anonymisierung zum Schutz personenbezogener Daten in Nicht-Produktionsumgebungen verwenden."
+    },
+    "A_8_12": {
+      "title": "Verhinderung von Datenlecks",
+      "description": "Maßnahmen zur Verhinderung von Datenlecks auf Systemen, Netzwerken und Endgeräten anwenden, die sensible Informationen verarbeiten."
+    },
+    "A_8_13": {
+      "title": "Sicherung von Informationen",
+      "description": "Sicherungskopien von Informationen, Software und System-Images gemäß einer Backup-Richtlinie erstellen und regelmäßig testen."
+    },
+    "A_8_14": {
+      "title": "Redundanz von Informationsverarbeitungseinrichtungen",
+      "description": "Ausreichende Redundanz in Informationsverarbeitungseinrichtungen umsetzen, um Verfügbarkeitsanforderungen zu erfüllen."
+    },
+    "A_8_15": {
+      "title": "Protokollierung",
+      "description": "Protokolle zu Benutzeraktivitäten, Ausnahmen, Fehlern und Sicherheitsereignissen für definierte Aufbewahrungszeiten erstellen, schützen und aufbewahren."
+    },
+    "A_8_16": {
+      "title": "Überwachungsaktivitäten",
+      "description": "Netzwerke, Systeme und Anwendungen überwachen, um anomales Verhalten und potenzielle Sicherheitsereignisse zu erkennen."
+    },
+    "A_8_17": {
+      "title": "Uhrensynchronisation",
+      "description": "Uhren aller Informationsverarbeitungssysteme mit einer genehmigten Zeitquelle synchronisieren, um Protokollkorrelation und Forensik zu unterstützen."
+    },
+    "A_8_18": {
+      "title": "Nutzung privilegierter Dienstprogramme",
+      "description": "Nutzung von Dienstprogrammen, die System- und Anwendungssteuerungen überwinden können, kontrollieren und einschränken."
+    },
+    "A_8_19": {
+      "title": "Installation von Software auf Betriebssystemen",
+      "description": "Verfahren zur Steuerung der Softwareinstallation auf Betriebssystemen durch autorisierte Personen umsetzen."
+    },
+    "A_8_20": {
+      "title": "Netzwerksicherheit",
+      "description": "Netzwerke und Netzwerkgeräte sichern, um Informationen in Systemen und Anwendungen zu schützen."
+    },
+    "A_8_21": {
+      "title": "Sicherheit von Netzwerkdiensten",
+      "description": "Sicherheitsmechanismen für Netzwerkdienste einschließlich Cloud-Netzwerken identifizieren, umsetzen und überwachen."
+    },
+    "A_8_22": {
+      "title": "Netzwerktrennung",
+      "description": "Gruppen von Informationsdiensten, Nutzern und Informationssystemen innerhalb des Netzwerks trennen."
+    },
+    "A_8_23": {
+      "title": "Webfilterung",
+      "description": "Zugriff auf externe Websites verwalten, um das Risiko durch schädliche Inhalte zu reduzieren."
+    },
+    "A_8_24": {
+      "title": "Einsatz von Kryptografie",
+      "description": "Kryptografierichtlinie mit genehmigten Algorithmen, Schlüsselmanagement und Verschlüsselungsanforderungen definieren und umsetzen."
+    },
+    "A_8_25": {
+      "title": "Sicherer Entwicklungslebenszyklus",
+      "description": "Regeln für die sichere Entwicklung von Software und Systemen über den gesamten Entwicklungslebenszyklus festlegen und anwenden."
+    },
+    "A_8_26": {
+      "title": "Anforderungen an die Anwendungssicherheit",
+      "description": "IS-Anforderungen für Anwendungsentwicklung und -beschaffung identifizieren, spezifizieren und genehmigen."
+    },
+    "A_8_27": {
+      "title": "Sichere Systemarchitektur und Engineering-Grundsätze",
+      "description": "Sichere Engineering-Grundsätze für alle Entwicklungs- und Systemtechnikaktivitäten etablieren, dokumentieren und anwenden."
+    },
+    "A_8_28": {
+      "title": "Sicheres Codieren",
+      "description": "Sichere Kodierungsprinzipien in der Softwareentwicklung anwenden, um häufige Schwachstellen zu vermeiden (OWASP Top 10, Injection, XSS)."
+    },
+    "A_8_29": {
+      "title": "Sicherheitstests in Entwicklung und Abnahme",
+      "description": "Sicherheitstestprozesse im Entwicklungslebenszyklus und bei Abnahmetests definieren und umsetzen."
+    },
+    "A_8_30": {
+      "title": "Ausgelagerte Entwicklung",
+      "description": "Ausgelagerte Systementwicklungsaktivitäten überwachen, um sicherzustellen, dass Sicherheitsanforderungen erfüllt werden."
+    },
+    "A_8_31": {
+      "title": "Trennung von Entwicklungs-, Test- und Produktionsumgebungen",
+      "description": "Entwicklungs-, Test- und Produktionsumgebungen trennen, um unbefugten Zugriff auf oder Änderungen am Produktionssystem zu reduzieren."
+    },
+    "A_8_32": {
+      "title": "Änderungsmanagement",
+      "description": "Änderungen an Informationsverarbeitungseinrichtungen und Systemen durch einen formalen Änderungsmanagementprozess verwalten."
+    },
+    "A_8_33": {
+      "title": "Testinformationen",
+      "description": "Testinformationen schützen und verwalten; niemals Live-Produktionsdaten ohne angemessene Kontrollen in Testumgebungen verwenden."
+    },
+    "A_8_34": {
+      "title": "Schutz von IS bei Audittests",
+      "description": "Anforderungen und Aktivitäten für Audits von Betriebssystemen planen und abstimmen, um Betriebsunterbrechungen zu minimieren."
+    },
+    "AI-LIT_1": {
+      "title": "KI-Kompetenz",
+      "description": "Sicherstellen, dass Beschäftigte, die KI-Systeme betreiben oder nutzen, über ausreichende KI-Kompetenz verfügen (AI Act Art. 4)."
+    },
+    "AI-LIT_2": {
+      "title": "KI-Kompetenz der Betreiber",
+      "description": "Geschäftsleitung und Betreiber über ihre Pflichten nach dem AI Act unterrichten und das Kompetenzprogramm bestätigen (Art. 4, Art. 26 Abs. 2)."
+    },
+    "AI-PRO_1": {
+      "title": "Richtlinie zu verbotenen Praktiken",
+      "description": "Eine Richtlinie dokumentieren, die die nach AI Act Art. 5 Abs. 1 lit. a bis i verbotenen KI-Praktiken untersagt."
+    },
+    "AI-PRO_2": {
+      "title": "Keine verbotene KI im Einsatz",
+      "description": "Nachweisen, dass in der Organisation keine verbotene KI-Praktik eingesetzt wird (Art. 5)."
+    },
+    "AI-INV_1": {
+      "title": "Inventar der KI-Systeme",
+      "description": "Ein Inventar der KI-Systeme mit ihrer Risikoklassifizierung nach AI Act Art. 6 und Art. 26 führen."
+    },
+    "AI-INV_2": {
+      "title": "Hochrisiko-Klassifizierung",
+      "description": "Die Hochrisiko-Klassifizierung und Anwendbarkeit für jedes KI-System erfassen (Art. 6, Art. 50)."
+    },
+    "AI-INV_3": {
+      "title": "Rolle als Anbieter oder Betreiber",
+      "description": "Für jedes KI-System bestimmen und dokumentieren, ob Sie als Anbieter oder als Betreiber handeln (Art. 25)."
+    },
+    "AI-RSK_1": {
+      "title": "KI-Risikomanagementsystem",
+      "description": "Ein Risikomanagementsystem für Hochrisiko-KI-Systeme über deren gesamten Lebenszyklus einrichten (AI Act Art. 9)."
+    },
+    "AI-RSK_2": {
+      "title": "Überprüfung des KI-Risikos",
+      "description": "Das KI-Risikomanagementsystem regelmäßig überprüfen und aktualisieren (Art. 9)."
+    },
+    "AI-FRI_1": {
+      "title": "Grundrechte-Folgenabschätzung",
+      "description": "Für die betreffenden Hochrisiko-KI-Systeme eine Grundrechte-Folgenabschätzung durchführen und abzeichnen (AI Act Art. 27)."
+    },
+    "AI-OVS_1": {
+      "title": "Maßnahmen zur menschlichen Aufsicht",
+      "description": "Maßnahmen zur menschlichen Aufsicht für im Betrieb befindliche Hochrisiko-KI-Systeme umsetzen (Art. 14, Art. 26 Abs. 2)."
+    },
+    "AI-OVS_2": {
+      "title": "Überprüfung der menschlichen Aufsicht",
+      "description": "Überprüfen, ob die Maßnahmen zur menschlichen Aufsicht weiterhin wirksam sind (Art. 14)."
+    },
+    "AI-TRA_1": {
+      "title": "Offenlegung der KI-Interaktion",
+      "description": "Personen darüber informieren, wenn sie mit einem KI-System interagieren, sofern dies nicht offensichtlich ist (AI Act Art. 50 Abs. 1)."
+    },
+    "AI-TRA_2": {
+      "title": "Kennzeichnung synthetischer Inhalte",
+      "description": "KI-generierte oder manipulierte Audio-, Bild-, Video- und Textinhalte maschinenlesbar kennzeichnen (Art. 50 Abs. 2)."
+    },
+    "AI-TRA_3": {
+      "title": "Offenlegung von Deepfakes und Emotionserkennung",
+      "description": "Deepfakes sowie den Einsatz von Emotionserkennung oder biometrischer Kategorisierung gegenüber betroffenen Personen offenlegen (Art. 50 Abs. 4)."
+    },
+    "AI-INC_1": {
+      "title": "Richtlinie zur Meldung schwerwiegender Vorfälle",
+      "description": "Ein Verfahren zur Meldung schwerwiegender KI-Vorfälle an die Behörden festlegen (AI Act Art. 73)."
+    },
+    "AI-INC_2": {
+      "title": "Meldung schwerwiegender Vorfälle",
+      "description": "Schwerwiegende Vorfälle mit Hochrisiko-KI-Systemen innerhalb der Fristen des AI Act melden (Art. 73)."
+    },
+    "AI-DOC_1": {
+      "title": "Technische Dokumentation der KI",
+      "description": "Technische Dokumentation gemäß AI Act Anhang IV erstellen und pflegen (Art. 11, Art. 18)."
+    },
+    "AI-DOC_2": {
+      "title": "Automatische Protokollierung",
+      "description": "Automatische Ereignisprotokolle von Hochrisiko-KI-Systemen aktivieren und aufbewahren (Art. 12, Art. 19)."
+    },
+    "AI-DOC_3": {
+      "title": "EU-Konformitätserklärung",
+      "description": "Die EU-Konformitätserklärung für Hochrisiko-KI-Systeme erstellen und unterzeichnen (Art. 47, Anhang V)."
+    },
+    "AI-GPI_1": {
+      "title": "Technische Dokumentation für GPAI",
+      "description": "Technische Dokumentation für KI-Modelle mit allgemeinem Verwendungszweck (GPAI) pflegen (AI Act Art. 53 Abs. 1 lit. a)."
+    },
+    "AI-GPI_2": {
+      "title": "Urheberrechtsrichtlinie für GPAI",
+      "description": "Eine Richtlinie zur Einhaltung des EU-Urheberrechts beim Training von GPAI-Modellen einführen (Art. 53 Abs. 1 lit. c)."
+    },
+    "AI-GPI_3": {
+      "title": "Zusammenfassung der GPAI-Trainingsdaten",
+      "description": "Eine hinreichend detaillierte Zusammenfassung der zum Training des GPAI-Modells verwendeten Inhalte veröffentlichen (Art. 53 Abs. 1 lit. d)."
+    },
+    "AI-GPI_4": {
+      "title": "GPAI-Pflichten bei systemischem Risiko",
+      "description": "Die zusätzlichen Pflichten für GPAI-Modelle mit systemischem Risiko erfüllen (AI Act Art. 55)."
+    },
+    "CRA-MFG_1": {
+      "title": "Cybersicherheits-Risikobewertung des Produkts",
+      "description": "Eine Cybersicherheits-Risikobewertung für das Produkt mit digitalen Elementen durchführen (CRA Art. 13 Abs. 2)."
+    },
+    "CRA-MFG_2": {
+      "title": "Sorgfaltspflicht des Herstellers",
+      "description": "Die Sorgfaltspflicht des Herstellers bestätigen, damit Produkte die grundlegenden Anforderungen erfüllen (Art. 13 Abs. 1)."
+    },
+    "CRA-ESS_1": {
+      "title": "Anforderungen an Secure-by-Design",
+      "description": "Produkte so konzipieren und herstellen, dass sie die grundlegenden Cybersicherheitsanforderungen erfüllen (CRA Anhang I Teil I)."
+    },
+    "CRA-ESS_2": {
+      "title": "Sichere Standardkonfiguration",
+      "description": "Produkte mit einer Secure-by-Default-Konfiguration ausliefern (Anhang I Teil I, Nummer 3 lit. a)."
+    },
+    "CRA-ESS_3": {
+      "title": "Keine bekannten ausnutzbaren Schwachstellen",
+      "description": "Produkte ohne bekannte ausnutzbare Schwachstellen in Verkehr bringen (Anhang I Teil I, Nummer 1)."
+    },
+    "CRA-VLN_1": {
+      "title": "Richtlinie zur Schwachstellenbehandlung",
+      "description": "Einen Prozess zur Identifizierung, Dokumentation und Behebung von Schwachstellen einrichten (CRA Anhang I Teil II, Nummern 1 bis 2)."
+    },
+    "CRA-VLN_2": {
+      "title": "Koordinierte Offenlegung von Schwachstellen",
+      "description": "Eine Richtlinie zur koordinierten Offenlegung von Schwachstellen mit einer Kontaktadresse einführen (Anhang I Teil II, Nummer 5)."
+    },
+    "CRA-VLN_3": {
+      "title": "Bereitstellung von Sicherheitsupdates",
+      "description": "Sicherheitsupdates während des Unterstützungszeitraums unverzüglich und kostenlos bereitstellen (Anhang I Teil II, Nummer 3)."
+    },
+    "CRA-VLN_4": {
+      "title": "Schwachstellentests",
+      "description": "Die Sicherheit des Produkts regelmäßig testen und überprüfen (Anhang I Teil II, Nummer 8)."
+    },
+    "CRA-INC_1": {
+      "title": "Frühwarnung",
+      "description": "Eine Frühwarnung über eine aktiv ausgenutzte Schwachstelle an das CSIRT und die ENISA senden (CRA Art. 14 Abs. 2 lit. a)."
+    },
+    "CRA-INC_2": {
+      "title": "Meldung von Schwachstellen",
+      "description": "Die Schwachstelle oder den schwerwiegenden Vorfall innerhalb der CRA-Frist melden (Art. 14 Abs. 2 lit. b)."
+    },
+    "CRA-INC_3": {
+      "title": "Abschlussbericht zum Vorfall",
+      "description": "Den Abschlussbericht zur Schwachstelle oder zum Vorfall bei den Behörden einreichen (Art. 14 Abs. 2 lit. c)."
+    },
+    "CRA-INC_4": {
+      "title": "Benutzerbenachrichtigung",
+      "description": "Betroffene Nutzer über den Vorfall und etwaige Korrekturmaßnahmen informieren (Art. 14 Abs. 4)."
+    },
+    "CRA-CONF_1": {
+      "title": "Konformitätsbewertung",
+      "description": "Das anwendbare Konformitätsbewertungsverfahren für das Produkt durchführen (CRA Art. 24)."
+    },
+    "CRA-CONF_2": {
+      "title": "CE-Kennzeichnung und Konformität",
+      "description": "Die CE-Kennzeichnung anbringen und die EU-Konformitätserklärung erstellen (Art. 27)."
+    },
+    "CRA-DOC_1": {
+      "title": "Technische Dokumentation nach CRA",
+      "description": "Die technische Dokumentation gemäß CRA Anhang VII erstellen und aktuell halten (Art. 28)."
+    },
+    "CRA-SUP_1": {
+      "title": "Unterstützungszeitraum",
+      "description": "Den Unterstützungszeitraum bestimmen und abzeichnen, in dem Sicherheitsupdates bereitgestellt werden (CRA Art. 13 Abs. 8)."
+    },
+    "CRA-SBOM_1": {
+      "title": "Software-Stückliste (SBOM)",
+      "description": "Eine SBOM erstellen, die die Abhängigkeiten der obersten Ebene abdeckt (CRA Anhang I Teil II, Nummer 1)."
+    },
+    "CRA-IMP_1": {
+      "title": "Pflichten des Einführers",
+      "description": "Vor dem Inverkehrbringen prüfen, ob eingeführte Produkte die CRA-Anforderungen erfüllen (Art. 18)."
+    },
+    "CRA-IMP_2": {
+      "title": "Pflichten des Händlers",
+      "description": "Beim Vertrieb von Produkten die CRA-Konformität prüfen und bei Nichtkonformität handeln (Art. 19)."
+    },
+    "CRA-OSS_1": {
+      "title": "Pflichten von Open-Source-Verwaltern",
+      "description": "Die für Verwalter quelloffener Software erwartete Cybersicherheitsrichtlinie dokumentieren (CRA Art. 24)."
+    }
   }
 }

@@ -167,7 +167,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
               nextStep: digest.nextStep,
               compliancePercentage: digest.compliancePercentage,
               dashboardUrl: digest.dashboardUrl,
-              footer: preferenceFooterFor(member.id, EMAIL_TYPE.daily, locale),
+              footer: preferenceFooterFor(member.id, locale),
             }).subject,
             summary: `${digest.overdueItems.length} overdue, ${digest.urgentItems.length} urgent, ${digest.upcomingItems.length} upcoming`,
             locale,
@@ -200,7 +200,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
               completedRequirements: mgmt.completedRequirements,
               nextStep: mgmt.nextStep,
               dashboardUrl: mgmt.dashboardUrl,
-              footer: preferenceFooterFor(member.id, EMAIL_TYPE.weekly, locale),
+              footer: preferenceFooterFor(member.id, locale),
             }).subject,
             summary: `${mgmt.compliancePercentage}% compliant, ${mgmt.overdueCount} overdue, ${mgmt.escalationCount} escalations`,
             locale,
@@ -303,7 +303,7 @@ async function executeDigestBatch(
   };
 
   for (const [index, item] of batch.entries()) {
-    const footer = preferenceFooterFor(item.userId, EMAIL_TYPE[item.kind], item.locale);
+    const footer = preferenceFooterFor(item.userId, item.locale);
     const content =
       item.kind === "daily"
         ? await compileDailyDigest(db, item.userId, item.companyId).then((d) =>

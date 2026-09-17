@@ -69,6 +69,8 @@
 
       "disclaimer": "This is an indicative assessment, not a legal determination. NIS2 applicability depends on factors that may not be fully captured here, including corporate group structure, independent IT infrastructure, and regulatory interpretations. Consult a qualified advisor to confirm your status.",
 
+      "bindingAnswer": "If you want this settled properly: tell us in a minute what it is about and we will pass your request to a specialist firm. Free for you. We receive a referral fee.",
+      "bindingAnswerCta": "Send a request",
       "obligations": "Key obligations",
       "penalty": "Penalty ceiling",
       "penaltyValue": "{amount} or {percent} of global turnover",

@@ -49,8 +49,69 @@
       "authority": "No promise that an authority will accept your implementation. Nobody can honestly give you that.",
       "commission": "No recommendation we would not also make without a commission."
     },
+    "request": {
+      "heading": "Send a request",
+      "subheading": "One click and your email address. No account needed.",
+      "reassurance": "Free for you. We receive a referral fee from the firm. No commitment, you decide after the first conversation.",
+      "fields": {
+        "topic": "What is it about?",
+        "sector": "Sector",
+        "companySize": "Employees",
+        "trigger": "What prompted this?",
+        "timeframe": "By when?",
+        "contactName": "Name",
+        "companyName": "Company",
+        "email": "Email",
+        "note": "Anything the firm should know beforehand"
+      },
+      "detail": {
+        "intro": "If you have another 30 seconds: this lets the firm answer properly instead of asking you first. All optional.",
+        "cta": "Add these details",
+        "skip": "That is enough"
+      },
+      "topics": {
+        "scope": "Work out whether we are in scope",
+        "measures": "Implement the measures",
+        "supplyChain": "Supply chain and supplier questionnaires",
+        "incident": "Reporting duties and incident handling",
+        "managementTraining": "Management training",
+        "certification": "Prepare for certification",
+        "selfHosting": "Running the platform ourselves",
+        "other": "Something else"
+      },
+      "triggers": {
+        "customerAsked": "A customer asked",
+        "registration": "Registration with the authority",
+        "audit": "An audit is coming",
+        "tender": "A tender",
+        "internal": "Internal initiative"
+      },
+      "timeframes": {
+        "thisMonth": "This month",
+        "thisQuarter": "This quarter",
+        "noFixedDate": "No fixed date"
+      },
+      "sizes": {
+        "under50": "Under 50",
+        "50to250": "50 to 250",
+        "over250": "Over 250"
+      },
+      "placeholders": {
+        "select": "Please choose",
+        "sector": "e.g. energy supply",
+        "email": "name@company.com",
+        "note": "What exactly is holding you up?"
+      },
+      "consent": "My request may be passed to a suitable specialist firm. What happens to my data is set out in the privacy policy.",
+      "cta": "Send request",
+      "error": "That did not work. Please try again, or send us an email.",
+      "success": {
+        "heading": "Request received",
+        "body": "We will look at whether we can answer it ourselves or whether it needs a specialist firm, and usually come back within two working days."
+      }
+    },
     "contact": {
-      "heading": "Contact",
+      "heading": "Prefer email?",
       "email": "contact@nisd2.eu",
       "p1": "{email}. One line is enough: where you are stuck, how many employees, which sector, which country.",
       "cta": "Write to us",

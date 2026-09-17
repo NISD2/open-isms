@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { Copyable, CopyProtected } from "@/components/CopyProtected";
+import { AdvisoryRequestForm } from "@/components/help/AdvisoryRequestForm";
+import { MarketingHero } from "@/components/marketing/MarketingHero";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Copyable, CopyProtected } from "@/components/CopyProtected";
-import { MarketingHero } from "@/components/marketing/MarketingHero";
+import { Link } from "@/i18n/navigation";
+import {
+  firstMatchingParam,
+  REQUIREMENT_CODE_PATTERN,
+  resolveDefaultTopic,
+  SOURCE_PATH_PATTERN,
+} from "@/lib/advisory-options";
 import { HELP_LOCALES, pageAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
@@ -39,7 +46,15 @@ const notDoKeys = ["legal", "authority", "commission"] as const;
  * label ("Stufe 2") stays readable for screen readers and for locales where
  * the word, not the digit, does the work.
  */
-function TierHeading({ index, label, heading }: { index: number; label: string; heading: string }) {
+function TierHeading({
+  index,
+  label,
+  heading,
+}: {
+  index: number;
+  label: string;
+  heading: string;
+}) {
   return (
     <CardHeader>
       <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -53,36 +68,26 @@ function TierHeading({ index, label, heading }: { index: number; label: string; 
   );
 }
 
-/**
- * StuckLink appends ?req=<requirementCode>. The value goes straight into a
- * mailto the user is about to send, so it is shape-checked rather than
- * trusted: a requirement code, not arbitrary query text.
- */
-const REQUIREMENT_CODE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,31}$/;
-
 export default async function HelpPage({
   searchParams,
 }: {
-  searchParams: Promise<{ req?: string | string[] }>;
+  searchParams: Promise<{ req?: string | string[]; from?: string | string[] }>;
 }) {
   const t = await getTranslations("help");
-  const { req } = await searchParams;
+  const { req, from } = await searchParams;
 
-  // Nothing read ?req before, so every code produced a distinct URL that
-  // behaved identically and the prefill the prop documents silently did not
-  // happen. Folded into the mail subject here.
-  // The one producer, components/help/StuckLink.tsx, emits a single req, so a
-  // repeated one only arrives hand-edited or mangled in transit. Taking the
-  // first value that PASSES rather than the first value present costs nothing
-  // and means ?req=&req=ART-21-1 still prefills; req[0] would drop a good code
-  // because an empty one preceded it.
-  const stuckOn =
-    (Array.isArray(req) ? req : [req]).find(
-      (value) => value !== undefined && REQUIREMENT_CODE.test(value),
-    ) ?? null;
-  const subject = stuckOn
-    ? `${t("contact.subject")} (${stuckOn})`
-    : t("contact.subject");
+  // StuckLink appends ?req=<requirementCode>, the wiki strip appends ?from=.
+  // Both reach a stored row and a mail subject a human will read, so both are
+  // shape-checked rather than trusted. The patterns and the parsing live in
+  // lib/advisory-options.ts because the tRPC input validates against the same
+  // ones, and two copies of a regex drift.
+  //
+  // ?from= is the difference between "someone wants help" and "someone reading
+  // the supply chain pages wants help", which is what makes one request worth
+  // more than another to the firm that receives it.
+  const stuckOn = firstMatchingParam(req, REQUIREMENT_CODE_PATTERN);
+  const sourcePath = firstMatchingParam(from, SOURCE_PATH_PATTERN);
+  const subject = stuckOn ? `${t("contact.subject")} (${stuckOn})` : t("contact.subject");
 
   return (
     <CopyProtected>
@@ -91,13 +96,34 @@ export default async function HelpPage({
           <MarketingHero headline={t("title")} subhead={t("intro")} />
         </header>
 
+        {/*
+          The form sits above the explanation, not below it.
+          Everything on this page under the form answers a question the reader
+          has not asked yet. They arrived by pressing a button that said "send
+          a request", and landing them in three tiers, a fee explanation and a
+          what-we-do-not-do list is answering the second question before the
+          first. Whoever wants to know how this works reads on; whoever wanted
+          to send a request is already looking at the field that does it.
+        */}
+        <section id="anfrage" className="mt-8 scroll-mt-24">
+          <AdvisoryRequestForm
+            defaultTopic={resolveDefaultTopic(stuckOn, sourcePath)}
+            requirementCode={stuckOn}
+            sourcePath={sourcePath}
+          />
+        </section>
+
         <Separator className="my-8" />
 
         <div className="space-y-6">
           {/* Tier 1 — the free platform, hosted or self-hosted */}
           <section id="tier-1">
             <Card>
-              <TierHeading index={1} label={t("tier1.label")} heading={t("tier1.heading")} />
+              <TierHeading
+                index={1}
+                label={t("tier1.label")}
+                heading={t("tier1.heading")}
+              />
               <CardContent className="space-y-3 text-sm text-muted-foreground">
                 <p>{t("tier1.p1")}</p>
                 <p>{t("tier1.p2")}</p>
@@ -127,7 +153,11 @@ export default async function HelpPage({
           {/* Tier 2 - self-host setup, the only price on this page */}
           <section id="tier-2">
             <Card>
-              <TierHeading index={2} label={t("tier2.label")} heading={t("tier2.heading")} />
+              <TierHeading
+                index={2}
+                label={t("tier2.label")}
+                heading={t("tier2.heading")}
+              />
               <CardContent className="space-y-3 text-sm text-muted-foreground">
                 <p>{t("tier2.p1")}</p>
                 <p className="text-base font-semibold text-foreground">
@@ -145,7 +175,11 @@ export default async function HelpPage({
           {/* Tier 3 — referral to a specialist firm, free for the user */}
           <section id="tier-3">
             <Card>
-              <TierHeading index={3} label={t("tier3.label")} heading={t("tier3.heading")} />
+              <TierHeading
+                index={3}
+                label={t("tier3.label")}
+                heading={t("tier3.heading")}
+              />
               <CardContent className="space-y-3 text-sm text-muted-foreground">
                 <p>{t("tier3.p1")}</p>
                 <p>{t("tier3.p2")}</p>
@@ -203,18 +237,22 @@ export default async function HelpPage({
           </Card>
         </section>
 
-        <section id="contact" className="mt-8">
+        <section id="contact" className="mt-8 space-y-4">
           <Card>
             <CardHeader>
               <CardTitle className="text-xl">{t("contact.heading")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm text-muted-foreground">
               <p>
-                <Copyable>
-                  {t("contact.p1", { email: t("contact.email") })}
-                </Copyable>
+                <Copyable>{t("contact.p1", { email: t("contact.email") })}</Copyable>
               </p>
-              <Button asChild>
+              {/*
+                The mailto stays as the second option rather than the only one.
+                Some people would rather write a mail than fill in a form, and
+                on a locked-down desktop the form is the one that works. It is
+                below the form because a mail leaves us nothing to count.
+              */}
+              <Button asChild variant="outline">
                 <a
                   href={`mailto:${t("contact.email")}?subject=${encodeURIComponent(subject)}`}
                 >

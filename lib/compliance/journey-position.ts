@@ -32,14 +32,41 @@ export function isDoneStatus(status: string | null | undefined): boolean {
 }
 
 /**
- * True journey position of a requirement. requirement.sortOrder is the
- * index WITHIN its category (0, 1, 2, ...), not a global order, so the
- * category sequence orders first, then that index. Missing values sink to
- * the end of their tier.
+ * Criticality tier: 0 is the defensible minimum, 2 is what waits longest.
+ *
+ * The one mapping from priority to tier. P1 is the middle tier and so is an
+ * absent priority, which is what an unclassified requirement should be
+ * treated as: neither urgent nor deferrable.
+ */
+export function priorityRank(priority: string | null | undefined): number {
+  if (priority === "P0") return 0;
+  if (priority === "P2" || priority === "P3") return 2;
+  return 1;
+}
+
+/**
+ * True journey position of a requirement: urgency first, then process order.
+ *
+ * Criticality leads because the path is a recommendation about what to do
+ * next, and "next" means the most pressing open thing, not the next one
+ * alphabetically through the process. Within a tier the category sequence
+ * orders, then requirement.sortOrder — which is the index WITHIN its category
+ * (0, 1, 2, ...), never a global one. Missing values sink to the end of their
+ * tier.
+ *
+ * Changing this changes every surface at once, deliberately: the guided path,
+ * the swimlane's "next up" banner, the activation nudge and the digest all
+ * read it, and they are only ever consistent because they read the same
+ * function.
  */
 export function journeyPosition(
+  priority: string | null | undefined,
   categorySortOrder: number | null | undefined,
   requirementSortOrder: number | null | undefined,
 ): number {
-  return (categorySortOrder ?? 99) * 100 + (requirementSortOrder ?? 999);
+  return (
+    priorityRank(priority) * 10_000 +
+    (categorySortOrder ?? 99) * 100 +
+    (requirementSortOrder ?? 999)
+  );
 }

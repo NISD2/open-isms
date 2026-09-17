@@ -241,20 +241,20 @@
       "cta": "Plattform öffnen"
     },
     "wikiNextStep": {
-      "scope": {
-        "heading": "Unsicher, ob NIS 2 für Sie gilt?",
-        "body": "Der Betroffenheitscheck geht Größenschwellen, Sektoranhänge und den Ort der Niederlassung durch und gibt Ihnen in rund zwei Minuten eine schriftliche Antwort.",
-        "cta": "Betroffenheit prüfen"
+      "scopeHelp": {
+        "heading": "Sie wollen wissen, ob das für Sie gilt?",
+        "body": "Unser Betroffenheitscheck gibt Ihnen eine Orientierung, aber keine verbindliche Feststellung. Wir sind keine Kanzlei. Wenn Sie es belastbar geklärt haben wollen, sagen Sie uns kurz, worum es geht, und wir leiten Ihre Anfrage an einen Fachbetrieb weiter. Für Sie kostenlos, wir erhalten eine Vermittlungsgebühr.",
+        "cta": "Anfrage stellen"
       },
-      "timeline": {
-        "heading": "Die Frist steht. Sind Sie betroffen?",
-        "body": "Der Umsetzungsstand sagt Ihnen, wann. Der Betroffenheitscheck sagt Ihnen, ob Sie es sind — Größenschwellen, Sektoranhänge und Ort der Niederlassung.",
-        "cta": "Betroffenheit prüfen"
+      "selfHostHelp": {
+        "heading": "Sie betreiben das selbst?",
+        "body": "Der Quellcode ist und bleibt kostenlos. Wenn die Einrichtung schneller gehen soll, übernehmen wir sie zum Festpreis. Sagen Sie uns kurz, wie Ihre Umgebung aussieht.",
+        "cta": "Anfrage stellen"
       },
-      "advice": {
-        "heading": "Sie arbeiten das mit einer echten Frist ab?",
-        "body": "Sprechen Sie mit jemandem, der das schon gemacht hat. 30 Minuten, kein Vertrieb — schildern Sie Ihre Lage, wir sagen Ihnen, was zuerst passieren muss.",
-        "cta": "Gespräch buchen"
+      "stuckHelp": {
+        "heading": "Sie brauchen dafür Unterstützung?",
+        "body": "Sagen Sie uns in einer Minute, worum es geht. Wir leiten Ihre Anfrage an einen Fachbetrieb weiter, der genau diese Arbeit macht. Für Sie kostenlos, wir erhalten eine Vermittlungsgebühr vom Fachbetrieb.",
+        "cta": "Anfrage stellen"
       }
     },
     "whatIsNisd2": {
@@ -799,7 +799,8 @@
         "account": "Kontodaten: Name und E-Mail-Adresse, die über Google OAuth bei der Anmeldung bereitgestellt werden",
         "forms": "Formulareingaben: Daten, die Sie in Compliance-Anforderungsformulare eingeben",
         "files": "Hochgeladene Dateien: Nachweisdokumente, die Sie auf die Plattform hochladen",
-        "technical": "Technische Daten: IP-Adresse, Browsertyp und Zugriffszeitstempel in Server-Logs"
+        "technical": "Technische Daten: IP-Adresse, Browsertyp und Zugriffszeitstempel in Server-Logs",
+      "advisory": "Vermittlungsanfragen: Wenn Sie über das Formular auf /hilfe um Unterstützung bitten, speichern wir Ihre Angaben (Thema, E-Mail-Adresse, auf Wunsch Name, Firma, Branche, Größe, Anlass, Zeitrahmen und Ihre Beschreibung), die Seite, von der aus Sie das Formular geöffnet haben, sowie die zuvor besuchte Seite (Referrer). Ihre Anfrage geben wir nur an einen Fachbetrieb weiter, wenn Sie im Formular ausdrücklich zugestimmt haben; wir speichern den Zeitpunkt dieser Einwilligung. Der Fachbetrieb ist ab der Weitergabe eigenständig verantwortlich. Für eine zustande gekommene Beauftragung erhalten wir vom Fachbetrieb eine Vermittlungsgebühr. Sie können die Einwilligung jederzeit widerrufen."
       },
       "purpose": {
         "heading": "Zweck und Rechtsgrundlage",

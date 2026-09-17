@@ -13,6 +13,7 @@
     "yes": "Ja",
     "no": "Nee",
     "noData": "Geen gegevens",
+    "actionFailed": "Dat is niet gelukt. Probeer het opnieuw.",
     "user": "Gebruiker",
     "modules": {
       "asset": "Assets",

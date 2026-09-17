@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Wie implementeert NIS 2 bij u?",
+      "lede": "Dat bepaalt hoe we het pad tonen. U kunt altijd wisselen.",
+      "solo": {
+        "title": "Vooral ikzelf",
+        "reality": "Eén persoon houdt alles bij elkaar, misschien met wat hulp.",
+        "result": "Stap voor stap, in een duidelijke volgorde."
+      },
+      "team": {
+        "title": "Meerdere mensen, eigen rollen",
+        "reality": "Directie, IT en operatie verdelen het werk.",
+        "result": "Alle stappen op rol, prioriteit en goedkeuringsstatus."
+      }
+    },
     "tour": {
       "next": "Volgende",
       "done": "Klaar",
@@ -8,7 +22,19 @@
       "steps": {
         "overview": {
           "title": "Uw hele pad op één scherm",
-          "body": "Elke eis waaraan u moet voldoen, in één lijst, met de stand ernaast. U hoeft nooit te zoeken naar wat er nog open staat."
+          "body": "Elke eis waaraan u moet voldoen, met de stand ernaast. U hoeft nooit te zoeken naar wat er nog open staat."
+        },
+        "stage": {
+          "title": "Waar u nu bent",
+          "body": "Het pad loopt in drie vensters: wat in de eerste maand hoort, wat in de eerste drie maanden, en de rest van het eerste jaar. Deze balk blijft bovenaan en noemt het onderdeel dat u leest. Toelichting opent de uitleg."
+        },
+        "liveStep": {
+          "title": "Uw volgende stap",
+          "body": "Precies één stap staat als open gemarkeerd. Open die, leg vast wat bij u werkelijk geldt en geef hem vrij. Daarna schuift de markering een plek op."
+        },
+        "timeline": {
+          "title": "Het pad is op termijn gesorteerd",
+          "body": "Links staan de drie vensters en het pad zelf loopt in die volgorde: eerst alles voor de eerste maand, dan de eerste drie maanden, dan de rest van het jaar. De markering schuift mee terwijl u scrolt. Alle 49 stappen zijn verplicht; de indeling is onze aanbeveling."
         },
         "order": {
           "title": "Twee volgordes voor uw pad",

@@ -1,18 +1,15 @@
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { api } from "@/lib/trpc/server";
-import { getSession, isReviewerRole } from "@/lib/auth";
-import {
-  getUserAccess,
-  canSeeCategory,
-} from "@/lib/compliance/access";
 import { RequirementDetail } from "@/components/compliance/RequirementDetail";
-import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
-import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
-import { introspectSchema } from "@/lib/forms/schema-introspect";
 import type { GuidanceFile } from "@/lib/ai/guidance-types";
+import { getSession, isReviewerRole } from "@/lib/auth";
+import { canSeeCategory, getUserAccess } from "@/lib/compliance/access";
+import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { PLATFORM_DEFAULTS } from "@/lib/compliance/platform-defaults";
+import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { DEFAULT_SIGN_OFF_ROLE, type RoleKey } from "@/lib/compliance/role-keys";
+import { introspectSchema } from "@/lib/forms/schema-introspect";
+import { api } from "@/lib/trpc/server";
 import type { Asset } from "@/schema/types";
 
 type Items = Record<string, unknown>[];
@@ -88,13 +85,21 @@ const EDITOR_PREFETCHERS: Record<string, () => Promise<EditorData>> = {
   },
   "CRY:9.1": () => api.policyConfig.get({ policyType: "crypto" }) as Promise<EditorData>,
   "CRY:9.2": () => api.policyConfig.get({ policyType: "crypto" }) as Promise<EditorData>,
-  "ACC:10.1": () => api.policyConfig.get({ policyType: "access_control" }) as Promise<EditorData>,
-  "PRO:6.1": () => api.policyConfig.get({ policyType: "procurement" }) as Promise<EditorData>,
-  "PRO:6.2": () => api.policyConfig.get({ policyType: "secure_dev" }) as Promise<EditorData>,
-  "PRO:6.4": () => api.policyConfig.get({ policyType: "patch_mgmt" }) as Promise<EditorData>,
+  "ACC:10.1": () =>
+    api.policyConfig.get({ policyType: "access_control" }) as Promise<EditorData>,
+  "PRO:6.1": () =>
+    api.policyConfig.get({ policyType: "procurement" }) as Promise<EditorData>,
+  "PRO:6.2": () =>
+    api.policyConfig.get({ policyType: "secure_dev" }) as Promise<EditorData>,
+  "PRO:6.4": () =>
+    api.policyConfig.get({ policyType: "patch_mgmt" }) as Promise<EditorData>,
 };
 
-function fetchEditorData(categoryCode: string, reqCode: string, moduleRef: string | null): Promise<EditorData> {
+function fetchEditorData(
+  categoryCode: string,
+  reqCode: string,
+  moduleRef: string | null,
+): Promise<EditorData> {
   const editorKey = `${categoryCode}:${reqCode}`;
   const fetcher = EDITOR_PREFETCHERS[editorKey];
   if (fetcher) return fetcher();
@@ -140,7 +145,15 @@ export default async function RequirementDetailPage({
   const isAdmin = role === "admin";
 
   // Step 3: All data fetches in parallel (assignments no longer waits for statusId)
-  const [rawStatuses, intakeAnswers, moduleData, assignableUsers, rawAssignments, editorInitialData, prerequisites] = assessment
+  const [
+    rawStatuses,
+    intakeAnswers,
+    moduleData,
+    assignableUsers,
+    rawAssignments,
+    editorInitialData,
+    prerequisites,
+  ] = assessment
     ? await Promise.all([
         api.assessment.getStatusesByCategory({
           assessmentId: assessment.id,
@@ -274,8 +287,11 @@ export default async function RequirementDetailPage({
       next={toNavLink(adjacent.next)}
       isReviewer={isReviewer}
       isAdmin={isAdmin}
+      currentUserId={session?.user.id ?? ""}
       guidance={guidance}
-      requiredSignOffRole={(req.requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE}
+      requiredSignOffRole={
+        (req.requiredSignOffRole as RoleKey | null) ?? DEFAULT_SIGN_OFF_ROLE
+      }
       assignments={assignments}
       editorInitialData={editorInitialData}
       prerequisites={prerequisites.map((p) => {

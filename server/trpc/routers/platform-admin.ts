@@ -12,6 +12,7 @@ import { TRPCError } from "@trpc/server";
 import bcrypt from "bcryptjs";
 import { and, count, desc, eq, gte, inArray, isNotNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
+import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
@@ -47,6 +48,9 @@ import {
 } from "@/lib/supplier-portal/completeness";
 import { COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
 import {
+  advisoryPartner,
+  advisoryReferral,
+  advisoryRequest,
   auditLog,
   company,
   companyAssessment,
@@ -103,7 +107,6 @@ async function buildDigestContent(
 
   const footer = preferenceFooterFor(
     userId,
-    kind === "daily" ? "reminders.daily_digest" : "reminders.weekly_management_digest",
     resolveEmailLocale(recipient?.locale ?? null, co?.country ?? null),
   );
   if (kind === "daily") {
@@ -196,6 +199,184 @@ const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
 
 export const platformAdminRouter = router({
   /**
+   * Requests raised from /hilfe, newest first, each with everywhere it has
+   * already been sent.
+   *
+   * The whole point of storing a request rather than mailing it is that
+   * somebody can count them, so this is the surface that makes the row worth
+   * writing. Capped at 200 because a page nobody can scan is the same as no
+   * page, and the day this overflows it deserves filters.
+   */
+  advisoryRequests: platformAdminProcedure.query(async ({ ctx }) => {
+    const requests = await ctx.db
+      .select()
+      .from(advisoryRequest)
+      .orderBy(desc(advisoryRequest.createdAt))
+      .limit(200);
+
+    if (requests.length === 0) return [];
+
+    // One query for the referrals of the whole page rather than one per row.
+    // At 200 rows the N+1 version is 200 round trips to render a table nobody
+    // is paginating yet.
+    const referrals = await ctx.db
+      .select()
+      .from(advisoryReferral)
+      .where(
+        inArray(
+          advisoryReferral.requestId,
+          requests.map((r) => r.id),
+        ),
+      )
+      .orderBy(desc(advisoryReferral.sentAt));
+
+    return requests.map((request) => ({
+      ...request,
+      referrals: referrals.filter((r) => r.requestId === request.id),
+    }));
+  }),
+
+  /**
+   * What the requests add up to.
+   *
+   * Grouped in SQL rather than counted in the page, so a year of data does not
+   * mean shipping a year of rows to the browser to count them. The groupings
+   * are the four questions worth asking early: which pages produce requests,
+   * what people want, where they were before they arrived, and whether the
+   * rate is moving.
+   */
+  advisoryStats: platformAdminProcedure.query(async ({ ctx }) => {
+    const bySource = ctx.db
+      .select({
+        key: sql<string>`coalesce(${advisoryRequest.sourcePath}, 'direkt')`,
+        count: count(),
+      })
+      .from(advisoryRequest)
+      .groupBy(sql`1`)
+      .orderBy(desc(count()))
+      .limit(30);
+
+    const byTopic = ctx.db
+      .select({ key: advisoryRequest.topic, count: count() })
+      .from(advisoryRequest)
+      .groupBy(advisoryRequest.topic)
+      .orderBy(desc(count()));
+
+    // Host only. The full referrer stays on the row for when one needs
+    // reading; as a statistic the question is "search, LinkedIn or direct",
+    // and the path after the host only splits that answer into noise.
+    const byReferrer = ctx.db
+      .select({
+        key: sql<string>`coalesce(nullif(split_part(split_part(${advisoryRequest.referrer}, '://', 2), '/', 1), ''), 'direkt')`,
+        count: count(),
+      })
+      .from(advisoryRequest)
+      .groupBy(sql`1`)
+      .orderBy(desc(count()))
+      .limit(20);
+
+    const byWeek = ctx.db
+      .select({
+        key: sql<string>`to_char(date_trunc('week', ${advisoryRequest.createdAt}), 'YYYY-MM-DD')`,
+        count: count(),
+      })
+      .from(advisoryRequest)
+      .groupBy(sql`1`)
+      .orderBy(sql`1 desc`)
+      .limit(12);
+
+    const [sources, topics, referrers, weeks] = await Promise.all([
+      bySource,
+      byTopic,
+      byReferrer,
+      byWeek,
+    ]);
+
+    return { sources, topics, referrers, weeks };
+  }),
+
+  /**
+   * Record that a request was passed to a firm.
+   *
+   * Append-only and allowed to run more than once per request: the same
+   * company wanting supply chain work and an audit is two engagements, and a
+   * firm that declines frees the request for the next one. What each referral
+   * earned sits on its own row, so the month's revenue is a SUM and the chase
+   * list is `feeCents IS NULL`.
+   */
+  recordAdvisoryReferral: platformAdminProcedure
+    .input(
+      z.object({
+        requestId: z.uuid(),
+        partner: z.string().regex(PARTNER_SLUG_PATTERN),
+        feeCents: z.number().int().min(0).max(10_000_00).optional(),
+        note: z.string().max(1000).optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Checked against the table rather than a code enum, so a typo cannot
+      // create a fourth spelling of a firm that already exists and then split
+      // its earnings across two rows in the totals.
+      const [partner] = await ctx.db
+        .select({ slug: advisoryPartner.slug })
+        .from(advisoryPartner)
+        .where(eq(advisoryPartner.slug, input.partner))
+        .limit(1);
+      if (!partner) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Unknown partner" });
+      }
+
+      await ctx.db.insert(advisoryReferral).values({
+        requestId: input.requestId,
+        partner: partner.slug,
+        feeCents: input.feeCents ?? null,
+        note: input.note ?? null,
+      });
+      return { ok: true };
+    }),
+
+  advisoryPartners: platformAdminProcedure.query(({ ctx }) =>
+    ctx.db.select().from(advisoryPartner).orderBy(advisoryPartner.name),
+  ),
+
+  addAdvisoryPartner: platformAdminProcedure
+    .input(
+      z.object({
+        slug: z.string().regex(PARTNER_SLUG_PATTERN),
+        name: z.string().min(1).max(200),
+        note: z.string().max(1000).optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .insert(advisoryPartner)
+        .values({ slug: input.slug, name: input.name, note: input.note ?? null })
+        // Re-adding a firm that already exists reactivates it rather than
+        // failing, because "add back the one we stopped using" is the same
+        // thought as "add a new one" to whoever is typing.
+        .onConflictDoUpdate({
+          target: advisoryPartner.slug,
+          set: { name: input.name, active: true },
+        });
+      return { ok: true };
+    }),
+
+  setAdvisoryPartnerActive: platformAdminProcedure
+    .input(
+      z.object({
+        slug: z.string().regex(PARTNER_SLUG_PATTERN),
+        active: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(advisoryPartner)
+        .set({ active: input.active })
+        .where(eq(advisoryPartner.slug, input.slug));
+      return { ok: true };
+    }),
+
+  /**
    * The caller's own resettable state, for the personal dev tab.
    *
    * Scoped to ctx.userId throughout: the admin gate decides who may reach the
@@ -207,7 +388,8 @@ export const platformAdminRouter = router({
       where: eq(user.id, ctx.userId),
       columns: {
         loginCount: true,
-        journeyTourDismissedAt: true,
+        journeyTourGuidedDismissedAt: true,
+        journeyTourTeamDismissedAt: true,
         requirementTourDismissedAt: true,
         helpOfferDismissedAt: true,
       },
@@ -251,8 +433,11 @@ export const platformAdminRouter = router({
   armOnboardingSurface: platformAdminProcedure
     .input(z.object({ surface: z.enum(HINTS) }))
     .mutation(async ({ ctx, input }) => {
-      // Both tours want a first-login account; the offer of help wants a
-      // second. Everything else is just clearing that surface's own stamp.
+      // The requirement walkthrough wants a first-login account and the offer
+      // of help wants a second; the two journey walkthroughs gate on their own
+      // column alone, so login_count is irrelevant to them and 0 is simply the
+      // value that leaves the other surfaces armable. Everything else is just
+      // clearing that surface's own stamp.
       //
       // The tours arm at 0, not 1, so that arming survives a sign-out. The
       // jwt callback increments this on every sign-in, so parking it on the

@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "journey_tour_guided_dismissed_at" timestamp;

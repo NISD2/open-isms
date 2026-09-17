@@ -366,7 +366,7 @@
       },
       "ROP": {
         "name": "Verwerkingsregister",
-        "description": "Documentatie van alle verwerkingsactiviteiten volgens art. 30 AVG: doel, rechtsgrondslag, ontvangers, bewaartermijn",
+        "description": "Documentatie van alle verwerkingsactiviteiten volgens art. 30 AVG: doel, categorieën betrokkenen en persoonsgegevens, ontvangers, bewaartermijn",
         "legalBasis": "Art. 30 AVG",
         "threatLandscape": "",
         "bsiGuidance": ""

@@ -191,7 +191,7 @@
       },
       "ROP": {
         "name": "Evidente ale activitatilor de prelucrare",
-        "description": "Documentarea fiecarei activitati de prelucrare conform GDPR art. 30: scop, temei juridic, destinatari, perioada de pastrare",
+        "description": "Documentarea fiecarei activitati de prelucrare conform GDPR art. 30: scop, categorii de persoane vizate si de date cu caracter personal, destinatari, perioada de pastrare",
         "legalBasis": "GDPR Art. 30",
         "threatLandscape": "",
         "bsiGuidance": ""

@@ -181,7 +181,13 @@ services:
   # profile: minio — bundled object store for evidence uploads
   # --------------------------------------------------------------------- #
   minio:
-    image: minio/minio:latest
+    # quay.io, not Docker Hub. Both registries are official MinIO channels and
+    # serve the same images, but Docker Hub began answering these two pulls
+    # with "pull access denied ... may require 'docker login'" for
+    # unauthenticated clients, which is what a self-hoster is. Anyone bringing
+    # the minio profile up got a stack that would not start, and it took out
+    # three CI jobs at the same time. quay.io needs no account.
+    image: quay.io/minio/minio:latest
     profiles: [minio]
     restart: unless-stopped
     command: server /data --console-address ":9001"
@@ -202,7 +208,8 @@ services:
       retries: 20
 
   minio-init:
-    image: minio/mc:latest
+    # Same registry move as the minio service above.
+    image: quay.io/minio/mc:latest
     profiles: [minio]
     depends_on:
       minio:

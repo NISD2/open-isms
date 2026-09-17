@@ -13,6 +13,7 @@
     "yes": "Sì",
     "no": "No",
     "noData": "Nessun dato",
+    "actionFailed": "Non ha funzionato. Riprovare.",
     "user": "Utente",
     "modules": {
       "asset": "Asset",

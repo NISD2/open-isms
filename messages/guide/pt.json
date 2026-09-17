@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Quem implementa a NIS 2 na sua empresa?",
+      "lede": "Isso determina como lhe mostramos o percurso. Pode mudar a qualquer momento.",
+      "solo": {
+        "title": "Sobretudo eu",
+        "reality": "Uma pessoa sustenta tudo, talvez com alguma ajuda.",
+        "result": "Um passo de cada vez, numa ordem clara."
+      },
+      "team": {
+        "title": "Várias pessoas, com funções próprias",
+        "reality": "Direção, TI e operações repartem o trabalho.",
+        "result": "Todos os passos por função, prioridade e estado de aprovação."
+      }
+    },
     "tour": {
       "next": "Seguinte",
       "done": "Concluído",
@@ -8,7 +22,19 @@
       "steps": {
         "overview": {
           "title": "Todo o seu percurso num só ecrã",
-          "body": "Cada requisito que tem de cumprir, numa única lista, com o respetivo estado ao lado. Nunca precisa de procurar o que falta fazer."
+          "body": "Cada requisito que tem de cumprir, com o respetivo estado ao lado. Nunca precisa de procurar o que falta fazer."
+        },
+        "stage": {
+          "title": "Onde está neste momento",
+          "body": "O percurso decorre em três janelas: o que pertence ao primeiro mês, o que pertence aos primeiros três meses e o resto do primeiro ano. Esta barra fica no topo e indica a secção que está a ler. Indicações abre as explicações."
+        },
+        "liveStep": {
+          "title": "O seu próximo passo",
+          "body": "Apenas um passo está assinalado como ativo. Abra-o, registe o que se aplica realmente na sua empresa e aprove-o. A marca passa depois para o seguinte."
+        },
+        "timeline": {
+          "title": "O percurso está ordenado por prazo",
+          "body": "À esquerda estão as três janelas e o percurso segue essa ordem: primeiro tudo o do primeiro mês, depois os primeiros três meses, depois o resto do ano. A marca avança consigo. Os 49 passos são todos obrigatórios; a divisão é a nossa recomendação."
         },
         "order": {
           "title": "Duas formas de ordenar o seu percurso",

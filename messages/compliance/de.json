@@ -370,7 +370,7 @@
       },
       "ROP": {
         "name": "Verarbeitungsverzeichnis",
-        "description": "Dokumentation aller Verarbeitungstätigkeiten nach Art. 30 DSGVO: Zweck, Rechtsgrundlage, Empfänger, Speicherdauer",
+        "description": "Dokumentation aller Verarbeitungstätigkeiten nach Art. 30 DSGVO: Zweck, Kategorien betroffener Personen und Daten, Empfänger, Speicherdauer",
         "legalBasis": "Art. 30 DSGVO",
         "threatLandscape": "",
         "bsiGuidance": ""

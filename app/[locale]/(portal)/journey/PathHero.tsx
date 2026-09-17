@@ -1,7 +1,7 @@
-import { Link } from "@/i18n/navigation";
+import { ArrowRight, Boxes, Building2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Boxes, Building2, CheckCircle2 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import type { JourneyItem } from "./views";
 
 type Locale = "en" | "de" | "nl";
@@ -23,11 +23,18 @@ export function PathHero({
   liveNode,
   locale,
   needsActivation = false,
+  showLiveStep = true,
 }: {
   assetCount: number;
   liveNode: JourneyItem | null;
   locale: Locale;
   needsActivation?: boolean;
+  /**
+   * Draw the next-step line. False for the guided path, which pins the live
+   * step in its own bar; the onboarding cards above still render, because
+   * those are blockers rather than navigation.
+   */
+  showLiveStep?: boolean;
 }) {
   const de = locale === "de";
 
@@ -96,6 +103,8 @@ export function PathHero({
       </Card>
     );
   }
+
+  if (!showLiveStep) return null;
 
   if (liveNode) {
     return (

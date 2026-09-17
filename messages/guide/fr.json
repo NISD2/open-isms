@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Qui met en œuvre NIS 2 chez vous ?",
+      "lede": "Cela détermine la façon dont nous présentons le parcours. Vous pouvez changer à tout moment.",
+      "solo": {
+        "title": "Essentiellement moi",
+        "reality": "Une seule personne porte l'ensemble, peut-être avec un peu d'aide.",
+        "result": "Une étape à la fois, dans un ordre clair."
+      },
+      "team": {
+        "title": "Plusieurs personnes, des rôles distincts",
+        "reality": "La direction, l'informatique et les opérations se partagent le travail.",
+        "result": "Toutes les étapes par rôle, priorité et état de validation."
+      }
+    },
     "tour": {
       "next": "Suivant",
       "done": "Terminé",
@@ -8,7 +22,19 @@
       "steps": {
         "overview": {
           "title": "Tout votre parcours sur un seul écran",
-          "body": "Chaque exigence à laquelle vous devez répondre, en une seule liste, avec son état en regard. Vous n'avez jamais à chercher ce qui reste à faire."
+          "body": "Chaque exigence à laquelle vous devez répondre, avec son état en regard. Vous n'avez jamais à chercher ce qui reste à faire."
+        },
+        "stage": {
+          "title": "Où vous en êtes",
+          "body": "Le parcours se déroule en trois fenêtres : ce qui relève du premier mois, ce qui relève des trois premiers mois, et le reste de la première année. Ce bandeau reste en haut et indique la section que vous lisez. Repères ouvre les explications."
+        },
+        "liveStep": {
+          "title": "Votre prochaine étape",
+          "body": "Une seule étape est marquée comme en cours. Ouvrez-la, consignez ce qui vaut réellement chez vous, puis validez-la. Le repère passe ensuite à la suivante."
+        },
+        "timeline": {
+          "title": "Le parcours est trié par échéance",
+          "body": "À gauche, les trois fenêtres, et le parcours suit cet ordre : d'abord tout ce qui relève du premier mois, puis les trois premiers mois, puis le reste de l'année. Le repère avance avec vous. Les 49 étapes sont toutes obligatoires ; la répartition est notre recommandation."
         },
         "order": {
           "title": "Deux ordres pour votre parcours",

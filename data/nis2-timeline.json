@@ -461,6 +461,13 @@
       "url": "https://www.juridice.ro",
       "description": "Romanian legal publisher: reproduces Monitorul Oficial texts including DNSC orders under the NIS 2 transposition.",
       "language": "en"
+    },
+    {
+      "id": "it-security-pt",
+      "name": "IT Security (Portugal)",
+      "url": "https://www.itsecurity.pt",
+      "description": "Portuguese information security trade publication; carries statements from the CNCS on the national cybersecurity regime.",
+      "language": "en"
     }
   ],
   "events": [
@@ -2745,7 +2752,49 @@
       "sourceId": "njt-hu",
       "sourceUrl": "https://njt.jog.gov.hu/jogszabaly/2026-1277-30-22",
       "addedAt": "2026-09-10T12:09:08Z"
+    },
+    {
+      "id": "2026-09-11-enisa-cra-single-reporting-platform",
+      "date": "2026-09-11",
+      "category": "enisa",
+      "tags": ["incident-reporting", "deadline"],
+      "type": "update",
+      "title": "ENISA switches on the CRA Single Reporting Platform as the reporting duties start to apply",
+      "titleDe": "ENISA nimmt die zentrale Meldeplattform zum CRA in Betrieb, zeitgleich mit dem Beginn der Meldepflichten",
+      "summary": "ENISA deployed the initial operating capability of the Single Reporting Platform on 11 September 2026, the day manufacturers became bound by the reporting duties of Regulation (EU) 2024/2847 (Cyber Resilience Act). Manufacturers of products with digital elements notify actively exploited vulnerabilities and severe incidents once through the platform: an early warning within 24 hours, a full notification within 72 hours, then a final report within 14 days of a corrective measure being available for a vulnerability or within one month for a severe incident. The notification reaches the CSIRT of the manufacturer's main establishment, which passes it to the other CSIRTs concerned and to ENISA. Open source software stewards are covered from 11 December 2027 under Article 71(2). This first release has no API, so reports go through the web interface.",
+      "summaryDe": "Die ENISA hat am 11. September 2026 die erste Ausbaustufe der zentralen Meldeplattform in Betrieb genommen, am selben Tag, an dem die Meldepflichten der Verordnung (EU) 2024/2847 (Cyber Resilience Act) fuer Hersteller zu gelten begannen. Hersteller von Produkten mit digitalen Elementen melden aktiv ausgenutzte Schwachstellen und schwerwiegende Sicherheitsvorfaelle einmalig ueber die Plattform: Fruehwarnung binnen 24 Stunden, vollstaendige Meldung binnen 72 Stunden, Abschlussbericht binnen 14 Tagen nach Verfuegbarkeit einer Abhilfemassnahme bei Schwachstellen beziehungsweise binnen eines Monats bei schwerwiegenden Vorfaellen. Die Meldung geht an das CSIRT am Ort der Hauptniederlassung, das sie an die weiteren betroffenen CSIRTs und an die ENISA weitergibt. Verwalter quelloffener Software sind nach Artikel 71 Absatz 2 ab dem 11. Dezember 2027 erfasst. Die erste Ausbaustufe bietet keine Schnittstelle, Meldungen laufen ueber die Weboberflaeche.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched",
+      "addedAt": "2026-09-14T11:40:00Z"
+    },
+    {
+      "id": "2026-09-11-eu-cooperation-group-incident-overview-2025",
+      "date": "2026-09-11",
+      "category": "eu",
+      "tags": ["incident-reporting", "publication"],
+      "type": "update",
+      "title": "NIS Cooperation Group publishes the first annual incident overview covering reporting under NIS 2",
+      "titleDe": "NIS-Kooperationsgruppe veroeffentlicht den ersten Jahresbericht zu Meldungen nach NIS 2",
+      "summary": "The 2025 Annual overview on NIS2 Cybersecurity Incident Reporting, stamped September 2026 and listed on the Cooperation Group page on 11 September 2026, is the first edition covering events notified under Article 23 and Article 30 of the NIS 2 Directive. Member States reported 1,954 events for 2025 against 1,508 for 2024, while the number of reporting Member States fell. Malicious action displaced system failure as the most reported root cause for the first time in five years, events caused by system failures lasted 48.3 hours on average against 8.6 hours for malicious ones, public administration replaced health as the most affected sector, and 41 cross-border events were reported by 8 Member States. The report is a Cooperation Group publication based on ENISA's analysis and creates no obligations.",
+      "summaryDe": "Der Jahresbericht 2025 zur Meldung von Cybersicherheitsvorfaellen nach NIS 2, datiert auf September 2026 und am 11. September 2026 auf der Seite der Kooperationsgruppe gelistet, ist die erste Ausgabe, die nach Artikel 23 und Artikel 30 der NIS-2-Richtlinie gemeldete Ereignisse erfasst. Die Mitgliedstaaten meldeten 1.954 Ereignisse fuer 2025 gegenueber 1.508 fuer 2024, waehrend die Zahl der meldenden Mitgliedstaaten zurueckging. Boeswillige Handlungen loesten erstmals seit fuenf Jahren Systemausfaelle als haeufigste Ursache ab, durch Systemausfaelle verursachte Ereignisse dauerten im Schnitt 48,3 Stunden gegenueber 8,6 Stunden bei boeswilligen Handlungen, die oeffentliche Verwaltung loeste das Gesundheitswesen als am staerksten betroffenen Sektor ab, und 8 Mitgliedstaaten meldeten 41 grenzueberschreitende Ereignisse. Der Bericht ist eine Veroeffentlichung der Kooperationsgruppe auf Grundlage der ENISA-Auswertung und begruendet keine Pflichten.",
+      "sourceId": "ec-digital",
+      "sourceUrl": "https://ec.europa.eu/newsroom/dae/redirection/document/132389",
+      "addedAt": "2026-09-14T11:40:00Z"
+    },
+    {
+      "id": "2026-09-11-national-transposition-pt-myciber-half-registered",
+      "date": "2026-09-11",
+      "category": "national-transposition",
+      "tags": ["pt", "registration", "deadline"],
+      "type": "update",
+      "title": "Portugal: about half of the entities CNCS expects had registered in MyCiber days before the deadline",
+      "titleDe": "Portugal: wenige Tage vor Fristende war rund die Haelfte der vom CNCS erwarteten Einrichtungen in MyCiber registriert",
+      "summary": "On 11 September 2026 the CNCS told the trade publication IT Security that the number of registrations on the MyCiber platform stood at roughly half of the estimated universe, which the authority puts at more than 5,000 entities under Decreto-Lei n.º 125/2025, up from about 450 under the previous regime. The registration and self-identification deadline is 15 September 2026, 60 working days after Regulamento n.º 756/2026 made MyCiber the live channel on 23 June 2026. This is a national deadline set by Portuguese law, not an EU-wide one, and missing it is a serious breach under the decree.",
+      "summaryDe": "Am 11. September 2026 erklaerte das CNCS gegenueber dem Fachmedium IT Security, die Zahl der Registrierungen auf der Plattform MyCiber liege etwa bei der Haelfte des geschaetzten Umfangs, den die Behoerde nach dem Decreto-Lei n.º 125/2025 auf mehr als 5.000 Einrichtungen beziffert, gegenueber rund 450 unter dem vorherigen Regime. Die Frist fuer Registrierung und Selbsteinstufung endet am 15. September 2026, 60 Arbeitstage nachdem das Regulamento n.º 756/2026 MyCiber am 23. Juni 2026 zum aktiven Meldeweg gemacht hat. Es handelt sich um eine nationale Frist nach portugiesischem Recht, nicht um eine EU-weite Frist; ihr Versaeumnis gilt nach dem Dekret als schwerer Verstoss.",
+      "sourceId": "it-security-pt",
+      "sourceUrl": "https://www.itsecurity.pt/news/compliance/myciber-apenas-metade-das-entidades-estimadas-cumpriu-o-registo-antes-do-prazo-de-15-de-setembro",
+      "addedAt": "2026-09-14T11:40:00Z"
     }
   ],
-  "lastUpdated": "2026-09-10T12:09:08Z"
+  "lastUpdated": "2026-09-14T11:40:00Z"
 }

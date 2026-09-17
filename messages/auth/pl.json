@@ -27,6 +27,7 @@
     "verifyResent": "Nowy kod wysłany. Sprawdź skrzynkę odbiorczą.",
     "verifyResendCooldown": "Odczekaj kilka minut przed zażądaniem kolejnego kodu.",
     "verifyErrorInvalidCode": "Nieprawidłowy lub wygasły kod. Spróbuj ponownie lub zażądaj nowego.",
+    "verifyErrorSignInFailed": "Adres e-mail potwierdzony. Logowanie się nie powiodło, ponieważ dla tego adresu zapisane jest inne hasło. Ustaw nowe przez \"Nie pamiętam hasła\".",
     "verifyBack": "Użyj innego adresu e-mail",
     "forgotPasswordLink": "Nie pamiętasz hasła?",
     "forgotPassword": {
