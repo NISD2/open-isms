@@ -198,15 +198,15 @@
     },
     "G-DPA_1": {
       "title": "Data Processing Agreements",
-      "description": "Maintain a register of every processor that handles personal data on your behalf, with a signed DPA covering the eight Art. 28(3) clauses."
+      "description": "Maintain a register of every processor that handles personal data on your behalf, with a signed DPA. Art. 28(3) requires the contract to set out the subject-matter and duration of the processing, its nature and purpose, the type of personal data and the categories of data subjects, before it reaches the eight clauses in points (a) to (h)."
     },
     "G-DPA_2": {
       "title": "Sub-processor Authorisation",
-      "description": "Track each processor's sub-processors and confirm prior authorisation per Art. 28(2)/(4)."
+      "description": "Track each processor's sub-processors. Art. 28(2) requires the controller's prior specific or general written authorisation before a processor engages another one. Art. 28(4) is a second duty: the same Art. 28(3) obligations must be imposed on the sub-processor by contract, and the initial processor stays fully liable for its performance."
     },
     "G-ROP_1": {
       "title": "Records of Processing Activities",
-      "description": "Record each processing activity with the seven Art. 30(1) entries: controller and DPO contacts, purposes, categories of data subjects and of personal data, recipient categories, third-country transfers with safeguards and, where possible, erasure periods and a description of the measures."
+      "description": "Record each processing activity with the seven Art. 30(1) entries: controller and DPO contacts, purposes, categories of data subjects and of personal data, recipient categories, third-country transfers with safeguards and, where possible, erasure periods and a description of the measures. Art. 30(5) exempts organisations employing fewer than 250 persons, but only where the processing is occasional, is unlikely to result in a risk to rights and freedoms, and involves no special categories or criminal conviction data. Regular personnel and payroll processing is not occasional, so in practice the record is still owed."
     },
     "G-TOM_1": {
       "title": "Technical and Organisational Measures",
@@ -214,7 +214,7 @@
     },
     "G-BRC_1": {
       "title": "Personal Data Breach Response Process",
-      "description": "Establish written procedure for assessing and notifying the supervisory authority of personal data breaches within 72 hours (Art. 33)."
+      "description": "Establish a written procedure for assessing personal data breaches and notifying the supervisory authority without undue delay and, where feasible, within 72 hours (Art. 33(1)). Notification is not owed where the breach is unlikely to result in a risk to the rights and freedoms of natural persons, so the procedure has to record that assessment either way. A filing made after 72 hours must state the reasons for the delay."
     },
     "G-BRC_2": {
       "title": "Personal Data Breach Documentation",
@@ -222,7 +222,7 @@
     },
     "G-DSR_1": {
       "title": "Data Subject Rights Workflow",
-      "description": "Process for handling access, erasure, rectification, portability, restriction, and objection requests within one month (Art. 12-22)."
+      "description": "Process for handling access, erasure, rectification, portability, restriction and objection requests within one month (Art. 12-22). For a German controller §34 BDSG restricts the Art. 15 right of access, and §35 substitutes restriction of processing for Art. 17 erasure where non-automated storage makes deletion disproportionate. §34(2) requires the reasons for refusing access to be documented."
     },
     "G-BRC_3": {
       "title": "Communication to affected data subjects",
