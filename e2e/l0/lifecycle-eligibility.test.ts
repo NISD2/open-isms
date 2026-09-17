@@ -62,6 +62,14 @@ describe("activation-nudge candidate query", () => {
     expect(compiled.params).toContain(ACTIVATION_NUDGE_KEY);
   });
 
+  test("excludes the all-off flag and every preference row that covers the nudge", () => {
+    expect(compiled.sql).toContain('"user"."email_followups_disabled" = $');
+    expect(compiled.sql).toContain('"email_preference"."user_id" = "user"."id"');
+    expect(compiled.params).toEqual(
+      expect.arrayContaining(["all", "category:product", "type:product.lifecycle_nudge"]),
+    );
+  });
+
   test("ordered oldest-dormant first so the per-run cap defers FIFO", () => {
     const orderBy = compiled.sql.toLowerCase().split("order by")[1];
     expect(orderBy).toBeDefined();

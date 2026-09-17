@@ -110,17 +110,17 @@ const FOOTER_COPY: Record<
   { unsubscribe: string; manage: string; separator: string }
 > = {
   de: {
-    unsubscribe: "Diese E-Mails abbestellen",
+    unsubscribe: "E-Mails abbestellen",
     manage: "E-Mail-Einstellungen",
     separator: "oder",
   },
   en: {
-    unsubscribe: "Unsubscribe from these emails",
+    unsubscribe: "Unsubscribe from emails",
     manage: "Email settings",
     separator: "or",
   },
   nl: {
-    unsubscribe: "Afmelden voor deze e-mails",
+    unsubscribe: "Afmelden voor e-mails",
     manage: "E-mailinstellingen",
     separator: "of",
   },

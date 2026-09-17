@@ -31,7 +31,7 @@ const LOCALES = ["de", "en", "nl"] as const;
 describe("preferenceFooterFor", () => {
   for (const locale of LOCALES) {
     test(`carries ${locale} to the footer and the preference-centre link`, () => {
-      const footer = preferenceFooterFor("user-1", "reminders.daily_digest", locale);
+      const footer = preferenceFooterFor("user-1", locale);
 
       expect(footer.locale).toBe(locale);
       // The opt-out page has to open in the language the email was written in.
@@ -40,21 +40,17 @@ describe("preferenceFooterFor", () => {
   }
 
   test("each language renders its own footer copy, in HTML and in text", () => {
-    const footers = LOCALES.map((locale) =>
-      preferenceFooterFor("user-1", "reminders.daily_digest", locale),
-    );
+    const footers = LOCALES.map((locale) => preferenceFooterFor("user-1", locale));
 
     expect(new Set(footers.map(preferenceFooterHtml)).size).toBe(LOCALES.length);
     expect(new Set(footers.map(preferenceFooterText)).size).toBe(LOCALES.length);
   });
 
   test("an English footer says nothing in German", () => {
-    const english = preferenceFooterHtml(
-      preferenceFooterFor("user-1", "reminders.daily_digest", "en"),
-    );
+    const english = preferenceFooterHtml(preferenceFooterFor("user-1", "en"));
 
-    expect(english).toContain("Unsubscribe from these emails");
-    expect(english).not.toContain("Diese E-Mails abbestellen");
+    expect(english).toContain("Unsubscribe from emails");
+    expect(english).not.toContain("E-Mails abbestellen");
   });
 });
 
@@ -76,13 +72,13 @@ describe("digest emails render the shared footer", () => {
       nextStep: null,
       compliancePercentage: "50",
       dashboardUrl: "https://example.test/dashboard",
-      footer: preferenceFooterFor("user-1", "reminders.daily_digest", locale),
+      footer: preferenceFooterFor("user-1", locale),
     });
 
   test("the opt-out line follows the footer language", () => {
-    expect(digest("de").html).toContain("Diese E-Mails abbestellen");
-    expect(digest("nl").html).toContain("Afmelden voor deze e-mails");
-    expect(digest("en").html).toContain("Unsubscribe from these emails");
+    expect(digest("de").html).toContain("E-Mails abbestellen");
+    expect(digest("nl").html).toContain("Afmelden voor e-mails");
+    expect(digest("en").html).toContain("Unsubscribe from emails");
   });
 
   test("the old hard-coded English line is gone from both parts", () => {

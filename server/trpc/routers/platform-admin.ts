@@ -103,7 +103,6 @@ async function buildDigestContent(
 
   const footer = preferenceFooterFor(
     userId,
-    kind === "daily" ? "reminders.daily_digest" : "reminders.weekly_management_digest",
     resolveEmailLocale(recipient?.locale ?? null, co?.country ?? null),
   );
   if (kind === "daily") {
