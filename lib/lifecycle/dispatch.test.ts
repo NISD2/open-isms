@@ -68,7 +68,9 @@ const { runLifecycleEmails } = await import("./dispatch");
 // Fake db — the narrow surface deliverOne touches, with call recording.
 // ---------------------------------------------------------------------------
 
-function makeDb(opts: { conflict?: boolean; followupsDisabled?: boolean } = {}) {
+function makeDb(
+  opts: { conflict?: boolean; followupsDisabled?: boolean; optOutScopes?: string[] } = {},
+) {
   const inserted: Array<Record<string, unknown>> = [];
   const updated: Array<Record<string, unknown>> = [];
   let deletes = 0;
@@ -82,6 +84,12 @@ function makeDb(opts: { conflict?: boolean; followupsDisabled?: boolean } = {}) 
         }),
       },
     },
+    // email_preference rows, read by the consent gate before the claim.
+    select: () => ({
+      from: () => ({
+        where: async () => (opts.optOutScopes ?? []).map((scope) => ({ scope })),
+      }),
+    }),
     insert: () => ({
       values: (values: Record<string, unknown>) => ({
         onConflictDoNothing: () => ({
@@ -207,6 +215,19 @@ describe("runLifecycleEmails", () => {
     reset();
     setTypes(stubType(prepared(1)));
     const { db, inserted } = makeDb({ followupsDisabled: true });
+
+    const result = await runLifecycleEmails(db, FAST);
+
+    if (result.skipped !== undefined) throw new Error("unexpected skip");
+    expect(result.types.test_type_v1).toMatchObject({ optedOut: 1, sent: 0 });
+    expect(inserted).toHaveLength(0);
+    expect(sendMail).toHaveBeenCalledTimes(0);
+  });
+
+  test("a preference-centre opt-out also stops the claim, not just the all-off flag", async () => {
+    reset();
+    setTypes(stubType(prepared(1)));
+    const { db, inserted } = makeDb({ optOutScopes: ["category:product"] });
 
     const result = await runLifecycleEmails(db, FAST);
 

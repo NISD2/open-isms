@@ -29,26 +29,16 @@ export function unsubscribeToken(userId: string): string {
   return signUserId(userId);
 }
 
+/**
+ * The one-click unsubscribe link every optional email carries, both as the
+ * visible footer link and as the RFC 8058 List-Unsubscribe header. It always
+ * means "all optional mail off": someone who unsubscribes from one email
+ * expects to stop hearing from us, not to keep getting the other kinds.
+ * Finer choices live in the preference centre.
+ */
 export function unsubscribeUrl(userId: string): string {
   const token = unsubscribeToken(userId);
   return `${getAppUrl()}/api/email/unsubscribe?u=${encodeURIComponent(userId)}&t=${token}`;
-}
-
-/**
- * One-click opt-out from ONE kind of message — what the RFC 8058 header and
- * the footer link point at. Scoping it to the message's own type is the least
- * surprising behaviour: a person switching off nudges keeps their deadline
- * reminders. Broader choices live in the preference centre.
- *
- * The token still signs only the user id, so links in already-delivered mail
- * (which carry no scope) keep working and mean "all optional mail off". The
- * scope is not a capability: the worst a holder of their own valid token can
- * do by editing it is unsubscribe themselves from something else, which the
- * same link already permits.
- */
-export function oneClickUnsubscribeUrl(userId: string, emailTypeId: string): string {
-  const token = unsubscribeToken(userId);
-  return `${getAppUrl()}/api/email/unsubscribe?u=${encodeURIComponent(userId)}&t=${token}&scope=${encodeURIComponent(`type:${emailTypeId}`)}`;
 }
 
 /**

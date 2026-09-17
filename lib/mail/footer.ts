@@ -1,20 +1,19 @@
 /**
  * Builds the two footer links a recipient sees on any optional email: one to
- * switch off this kind of message, one to the preference centre.
+ * switch off all optional mail, one to the preference centre.
  *
  * Kept apart from the consent rules so those stay free of URL and env
  * concerns, and apart from the layout so the layout stays a pure renderer.
  */
 import "@/lib/server-guard";
-import { oneClickUnsubscribeUrl, preferenceCentreUrl } from "@/lib/email/unsubscribe";
-import type { EmailTypeId } from "./email-types";
+import { preferenceCentreUrl, unsubscribeUrl } from "@/lib/email/unsubscribe";
 import type { PreferenceFooter } from "./layout";
 import type { EmailLocale } from "./locale";
 
 /**
- * The footer for one recipient and one message. Call sites pass the result
- * straight into a template's `footer`, so the visible opt-out and the RFC
- * 8058 header that `sendMail` derives always name the same scope.
+ * The footer for one recipient. Call sites pass the result straight into a
+ * template's `footer`. The visible opt-out is the same link `sendMail` puts in
+ * the RFC 8058 header, and both switch off all optional mail.
  *
  * `locale` is required, and that is the point. It used to be optional and
  * every one of the five call sites left it out, so `layout.ts` fell back to
@@ -26,11 +25,10 @@ import type { EmailLocale } from "./locale";
  */
 export function preferenceFooterFor(
   userId: string,
-  emailType: EmailTypeId,
   locale: EmailLocale,
 ): PreferenceFooter {
   return {
-    unsubscribeUrl: oneClickUnsubscribeUrl(userId, emailType),
+    unsubscribeUrl: unsubscribeUrl(userId),
     preferencesUrl: preferenceCentreUrl(userId, locale),
     locale,
   };
