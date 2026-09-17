@@ -10,10 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
-import { JourneyModeCards, journeyModeCopy } from "./JourneyModeCards";
+import { JourneyModeCards, useJourneyModeCopy } from "./JourneyModeCards";
 import type { JourneyMode } from "./journey-mode";
-
-type Locale = "en" | "de" | "nl";
 
 /**
  * The fork question, asked once on the first visit to the journey.
@@ -28,14 +26,14 @@ type Locale = "en" | "de" | "nl";
  * choice. Letting it be dismissed would only mean guessing on their behalf,
  * which is the thing this replaces.
  */
-export function JourneyModeDialog({ locale }: { locale: Locale }) {
+export function JourneyModeDialog() {
   const router = useRouter();
   const [pending, setPending] = useState<JourneyMode | null>(null);
   const setMode = trpc.journey.setMode.useMutation({
     onSuccess: () => router.refresh(),
     onError: () => setPending(null),
   });
-  const copy = journeyModeCopy(locale);
+  const copy = useJourneyModeCopy();
 
   return (
     <Dialog open>
@@ -50,7 +48,6 @@ export function JourneyModeDialog({ locale }: { locale: Locale }) {
           <DialogDescription>{copy.lede}</DialogDescription>
         </DialogHeader>
         <JourneyModeCards
-          locale={locale}
           pending={pending}
           onSelect={(mode) => {
             setPending(mode);

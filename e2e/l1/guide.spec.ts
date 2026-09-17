@@ -50,6 +50,33 @@ test.afterAll(async () => {
   await setJourneyMode("team");
 });
 
+/**
+ * The fork question is the first screen a new account sees, and it is the one
+ * journey surface that every locale reaches — you cannot get past it. The rest
+ * of the journey is still DE/EN inline strings, so this asserts the piece that
+ * is actually translated, in a locale that is neither, and would have caught
+ * the DE/EN-only object this copy used to live in.
+ */
+test("the fork question is asked in the reader's own language", async ({ page }) => {
+  await retire();
+  await setJourneyMode(null);
+  await page.goto("/pl/journey", { waitUntil: "networkidle" });
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible({ timeout: 20_000 });
+  await expect(dialog).toContainText("Kto wdraża NIS 2");
+  await expect(dialog.getByRole("button", { name: /Głównie ja/ })).toBeVisible();
+  await expect(dialog.getByRole("button", { name: /Kilka osób/ })).toBeVisible();
+
+  // Nothing English leaks through a partially-keyed namespace, and next-intl's
+  // missing-key fallback renders the key path itself — both would pass a
+  // toBeVisible on the dialog alone.
+  await expect(dialog).not.toContainText("Mostly me");
+  await expect(dialog).not.toContainText("journeyMode");
+
+  await setJourneyMode("team");
+});
+
 test("the tour runs on a first login, and stays gone once dismissed", async ({
   page,
 }) => {

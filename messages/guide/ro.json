@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Cine implementează NIS 2 în compania dumneavoastră?",
+      "lede": "De asta depinde cum vă arătăm parcursul. Puteți schimba oricând.",
+      "solo": {
+        "title": "În principal eu",
+        "reality": "O singură persoană ține totul laolaltă, poate cu puțin ajutor.",
+        "result": "Un pas pe rând, într-o ordine clară."
+      },
+      "team": {
+        "title": "Mai multe persoane, roluri proprii",
+        "reality": "Conducerea, IT-ul și operațiunile își împart munca.",
+        "result": "Toți pașii după rol, prioritate și stadiul aprobării."
+      }
+    },
     "tour": {
       "next": "Înainte",
       "done": "Gata",

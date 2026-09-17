@@ -17,7 +17,7 @@ import { E2E_USER_EMAIL } from "./env";
  * "team" for the suite; any spec that switches is responsible for setting it
  * back, so file order cannot leak into the specs that follow.
  */
-export async function setJourneyMode(mode: "solo" | "team"): Promise<void> {
+export async function setJourneyMode(mode: "solo" | "team" | null): Promise<void> {
   await e2eQuery(
     `UPDATE company SET journey_mode = $2
        WHERE id = (SELECT company_id FROM "user" WHERE email = $1)`,

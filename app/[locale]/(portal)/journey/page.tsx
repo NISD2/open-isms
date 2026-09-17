@@ -76,7 +76,7 @@ export default async function JourneyPage({
   return (
     <div className="space-y-4">
       {header}
-      {unanswered ? <JourneyModeDialog locale={locale} /> : null}
+      {unanswered ? <JourneyModeDialog /> : null}
       <PathHero
         assetCount={assetCount}
         liveNode={live}

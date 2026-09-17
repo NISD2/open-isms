@@ -10,7 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { JourneyHeading, ProgressChip } from "../(portal)/journey/JourneyHeading";
-import { JourneyModeCards, journeyModeCopy } from "../(portal)/journey/JourneyModeCards";
+import {
+  JourneyModeCards,
+  useJourneyModeCopy,
+} from "../(portal)/journey/JourneyModeCards";
 import type { JourneyMode } from "../(portal)/journey/journey-mode";
 import { PathFlow } from "../(portal)/journey/PathFlow";
 import { PathHero } from "../(portal)/journey/PathHero";
@@ -47,7 +50,7 @@ export function JourneyPreviewSwitcher({
   const [tab, setTab] = useState<JourneyMode>("solo");
   const [askingMode, setAskingMode] = useState(true);
   const de = locale === "de";
-  const copy = journeyModeCopy(locale);
+  const copy = useJourneyModeCopy();
 
   const TABS: { key: JourneyMode; label: string }[] = [
     { key: "solo", label: de ? "Geführter Weg" : "Guided path" },
@@ -112,7 +115,6 @@ export function JourneyPreviewSwitcher({
             <DialogDescription>{copy.lede}</DialogDescription>
           </DialogHeader>
           <JourneyModeCards
-            locale={locale}
             onSelect={(mode) => {
               setTab(mode);
               setAskingMode(false);

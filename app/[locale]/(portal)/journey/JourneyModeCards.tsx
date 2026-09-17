@@ -1,41 +1,34 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import type { JourneyMode } from "./journey-mode";
 
-type Locale = "en" | "de" | "nl";
-
-const COPY = {
-  de: {
-    question: "Wer setzt NIS 2 bei Ihnen um?",
-    lede: "Davon hängt ab, wie wir Ihnen den Weg zeigen. Sie können jederzeit umstellen.",
+/**
+ * This question is the first screen a new user sees, in every locale, so its
+ * copy lives in `messages/guide/*.json` like the walkthrough it belongs to
+ * rather than in a DE/EN object in this file. The rest of the journey is
+ * still bilingual inline strings; that debt is real but it is not this
+ * component's to carry, because this one is unavoidable on first login.
+ */
+export function useJourneyModeCopy() {
+  const t = useTranslations("guide.journeyMode");
+  return {
+    question: t("question"),
+    lede: t("lede"),
     solo: {
-      title: "Im Wesentlichen ich",
-      reality: "Eine Person hält alles zusammen, vielleicht mit etwas Hilfe.",
-      result: "Ein Schritt nach dem anderen, in klarer Reihenfolge.",
+      title: t("solo.title"),
+      reality: t("solo.reality"),
+      result: t("solo.result"),
     },
     team: {
-      title: "Mehrere mit eigenen Rollen",
-      reality: "Geschäftsführung, IT und Betrieb teilen sich die Aufgaben.",
-      result: "Alle Schritte nach Rollen, Priorität und Freigabestand.",
+      title: t("team.title"),
+      reality: t("team.reality"),
+      result: t("team.result"),
     },
-  },
-  en: {
-    question: "Who is implementing NIS 2 at your company?",
-    lede: "This decides how we lay out the path. You can switch at any time.",
-    solo: {
-      title: "Mostly me",
-      reality: "One person holds it together, maybe with some help.",
-      result: "One step at a time, in a clear order.",
-    },
-    team: {
-      title: "Several people, own roles",
-      reality: "Management, IT and operations share the work.",
-      result: "Every step by role, priority and sign-off state.",
-    },
-  },
-} as const;
+  };
+}
 
 /**
  * The one question that forks the journey layout. Presentation only: the
@@ -49,15 +42,13 @@ const COPY = {
  * simple one either, which is why neither answer mentions experience.
  */
 export function JourneyModeCards({
-  locale,
   pending = null,
   onSelect,
 }: {
-  locale: Locale;
   pending?: JourneyMode | null;
   onSelect: (mode: JourneyMode) => void;
 }) {
-  const copy = locale === "de" ? COPY.de : COPY.en;
+  const copy = useJourneyModeCopy();
 
   return (
     <div className="grid gap-3 sm:grid-cols-2">
@@ -77,11 +68,6 @@ export function JourneyModeCards({
       />
     </div>
   );
-}
-
-/** The question and its lede, for callers that render their own container. */
-export function journeyModeCopy(locale: Locale) {
-  return locale === "de" ? COPY.de : COPY.en;
 }
 
 function ChoiceCard({

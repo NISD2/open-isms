@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Qui met en œuvre NIS 2 chez vous ?",
+      "lede": "Cela détermine la façon dont nous présentons le parcours. Vous pouvez changer à tout moment.",
+      "solo": {
+        "title": "Essentiellement moi",
+        "reality": "Une seule personne porte l'ensemble, peut-être avec un peu d'aide.",
+        "result": "Une étape à la fois, dans un ordre clair."
+      },
+      "team": {
+        "title": "Plusieurs personnes, des rôles distincts",
+        "reality": "La direction, l'informatique et les opérations se partagent le travail.",
+        "result": "Toutes les étapes par rôle, priorité et état de validation."
+      }
+    },
     "tour": {
       "next": "Suivant",
       "done": "Terminé",

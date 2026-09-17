@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Who is implementing NIS 2 at your company?",
+      "lede": "This decides how we lay out the path. You can switch at any time.",
+      "solo": {
+        "title": "Mostly me",
+        "reality": "One person holds it together, maybe with some help.",
+        "result": "One step at a time, in a clear order."
+      },
+      "team": {
+        "title": "Several people, own roles",
+        "reality": "Management, IT and operations share the work.",
+        "result": "Every step by role, priority and sign-off state."
+      }
+    },
     "tour": {
       "next": "Next",
       "done": "Done",

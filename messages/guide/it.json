@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Chi attua la NIS 2 nella sua azienda?",
+      "lede": "Da questo dipende come le mostriamo il percorso. Può cambiare in qualsiasi momento.",
+      "solo": {
+        "title": "Soprattutto io",
+        "reality": "Una sola persona tiene insieme tutto, forse con un po' di aiuto.",
+        "result": "Un passo alla volta, in un ordine chiaro."
+      },
+      "team": {
+        "title": "Più persone, con ruoli propri",
+        "reality": "Direzione, IT e operazioni si dividono il lavoro.",
+        "result": "Tutti i passaggi per ruolo, priorità e stato di approvazione."
+      }
+    },
     "tour": {
       "next": "Avanti",
       "done": "Fatto",

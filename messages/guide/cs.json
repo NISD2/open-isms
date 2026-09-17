@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Kdo u vás zavádí NIS 2?",
+      "lede": "Podle toho vám cestu zobrazíme. Kdykoli to můžete změnit.",
+      "solo": {
+        "title": "Hlavně já",
+        "reality": "Všechno drží pohromadě jeden člověk, možná s menší pomocí.",
+        "result": "Krok za krokem, v jasném pořadí."
+      },
+      "team": {
+        "title": "Více lidí, vlastní role",
+        "reality": "Vedení, IT a provoz si práci rozdělují.",
+        "result": "Všechny kroky podle role, priority a stavu schválení."
+      }
+    },
     "tour": {
       "next": "Další",
       "done": "Hotovo",

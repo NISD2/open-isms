@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Quem implementa a NIS 2 na sua empresa?",
+      "lede": "Isso determina como lhe mostramos o percurso. Pode mudar a qualquer momento.",
+      "solo": {
+        "title": "Sobretudo eu",
+        "reality": "Uma pessoa sustenta tudo, talvez com alguma ajuda.",
+        "result": "Um passo de cada vez, numa ordem clara."
+      },
+      "team": {
+        "title": "Várias pessoas, com funções próprias",
+        "reality": "Direção, TI e operações repartem o trabalho.",
+        "result": "Todos os passos por função, prioridade e estado de aprovação."
+      }
+    },
     "tour": {
       "next": "Seguinte",
       "done": "Concluído",

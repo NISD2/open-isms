@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Kto wdraża NIS 2 w Państwa firmie?",
+      "lede": "Od tego zależy, jak pokażemy Państwu ścieżkę. Można to zmienić w każdej chwili.",
+      "solo": {
+        "title": "Głównie ja",
+        "reality": "Jedna osoba spina wszystko, może z niewielką pomocą.",
+        "result": "Krok po kroku, w jasnej kolejności."
+      },
+      "team": {
+        "title": "Kilka osób, własne role",
+        "reality": "Zarząd, IT i dział operacyjny dzielą się zadaniami.",
+        "result": "Wszystkie kroki według roli, priorytetu i stanu zatwierdzenia."
+      }
+    },
     "tour": {
       "next": "Dalej",
       "done": "Gotowe",

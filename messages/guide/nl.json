@@ -1,5 +1,19 @@
 {
   "guide": {
+    "journeyMode": {
+      "question": "Wie implementeert NIS 2 bij u?",
+      "lede": "Dat bepaalt hoe we het pad tonen. U kunt altijd wisselen.",
+      "solo": {
+        "title": "Vooral ikzelf",
+        "reality": "Eén persoon houdt alles bij elkaar, misschien met wat hulp.",
+        "result": "Stap voor stap, in een duidelijke volgorde."
+      },
+      "team": {
+        "title": "Meerdere mensen, eigen rollen",
+        "reality": "Directie, IT en operatie verdelen het werk.",
+        "result": "Alle stappen op rol, prioriteit en goedkeuringsstatus."
+      }
+    },
     "tour": {
       "next": "Volgende",
       "done": "Klaar",
