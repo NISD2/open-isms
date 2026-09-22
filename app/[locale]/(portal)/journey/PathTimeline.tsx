@@ -13,6 +13,19 @@ import type { StageProgress } from "./solo-path";
 type Locale = "en" | "de" | "nl";
 
 /**
+ * The rail's footprint in the row, exported because SoloPath mirrors it on the
+ * far side to keep the path centred.
+ *
+ * The docstring below says the rail "lives in the gutter a centred path leaves
+ * empty", and that was the intent, but a plain flex row does not deliver it: a
+ * 14rem rail plus the gap ate the left side and `mx-auto` then centred the path
+ * on what remained, parking it ~128px right of the content centre. The steps
+ * and the section dividers agreed with each other, so it read as the path
+ * itself being lopsided rather than as the row being off-balance.
+ */
+export const RAIL_WIDTH = "w-56";
+
+/**
  * The vertical rail beside the path: the three deadline windows, and which one
  * you are reading.
  *
@@ -48,7 +61,7 @@ export function PathTimeline({
       // Pins below the bar, not level with it: the bar occupies 68px to about
       // 108px, so a rail sharing its offset slides underneath and loses its
       // first lines to it.
-      className="sticky top-[120px] hidden w-56 shrink-0 self-start lg:block"
+      className={cn("sticky top-[120px] hidden shrink-0 self-start lg:block", RAIL_WIDTH)}
     >
       <ol>
         {stages.map((stage, i) => (

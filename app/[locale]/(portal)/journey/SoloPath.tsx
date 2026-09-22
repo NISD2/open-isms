@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/hover-card";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { PathTimeline } from "./PathTimeline";
+import { PathTimeline, RAIL_WIDTH } from "./PathTimeline";
 import {
   type DotState,
   dotStateOf,
@@ -58,6 +58,9 @@ function categoryHref(categorySlug: string) {
 
 /**
  * The guided layout: one winding line of steps, exactly one of them live.
+ *
+ * The winding is deliberate, the Duolingo-shaped path. What was wrong was its
+ * phase, not its existence: see WAVE in solo-path.ts.
  *
  * Deliberately missing next to the team view: role columns, the ordering
  * toggle, status filter chips and the state legend. All of it describes how
@@ -173,6 +176,14 @@ export function SoloPath({
               : `That is the whole path: ${total} steps.`}
           </p>
         </div>
+
+        {/* Mirrors the rail's footprint so the path centres on the content
+            area instead of on whatever the rail leaves over. Without it the
+            column is pushed right by half the rail plus half the gap, which
+            reads as the path being lopsided rather than the row being
+            off-balance. Empty and hidden from the tree: it is spacing, not
+            content. */}
+        <div aria-hidden="true" className={cn("hidden shrink-0 lg:block", RAIL_WIDTH)} />
       </div>
     </div>
   );
