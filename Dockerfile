@@ -85,9 +85,14 @@ ENV NODE_ENV=production
 ENV SKIP_ENV_VALIDATION=1
 ENV NEXT_TELEMETRY_DISABLED=1
 # Webpack + Next 16 + ~200 routes needs 4GB heap (peaks ~3.5GB during
-# compile). Static-page generation is run in-process via
-# experimental.workerThreads=false in next.config.ts so the worker
-# child process doesn't ALSO claim 4GB and double the host's peak RSS.
+# compile).
+#
+# Every static-gen worker INHERITS this value, so the ceiling here is per
+# process, not per build. This comment used to claim workerThreads=false
+# kept generation in-process; it does not, and had not for a while. The
+# knob that does is experimental.cpus, pinned to 1 in next.config.ts.
+# Raising this number without lowering that one multiplies the host's
+# peak RSS by the worker count.
 ENV NODE_OPTIONS=--max-old-space-size=4096
 
 # Migrations DO NOT run at build time — Coolify's BuildKit build network

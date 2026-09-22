@@ -17,9 +17,18 @@ const nextConfig: NextConfig = {
   //   serverSourceMaps=false       — drops the source-map cost from server
   //   bundles (saves real memory on app-router builds with many routes).
   //
-  // The `cpus:1 + workerThreads:false` legacy from the pages-router era is
-  // gone — those flags do not gate App Router static-gen concurrency.
+  // `workerThreads` is pages-router legacy and does not gate App Router
+  // static-gen concurrency. `cpus` does: build/index.js getNumberOfWorkers()
+  // reads experimental.cpus first and otherwise defaults to
+  // os.cpus().length - 1, which is three workers on the four-core Coolify
+  // builder. Each inherits the Dockerfile's --max-old-space-size=4096, so
+  // three of them can ask for 12GB on a host that is also running production.
+  // That is how the 22.09 deploy died: SIGKILL (exit 137, a bare "Killed"
+  // from the host OOM killer, not a V8 heap error) after stalling two
+  // minutes at 17 of 70 pages. One worker trades build time for a bounded
+  // peak.
   experimental: {
+    cpus: 1,
     preloadEntriesOnStart: false,
     serverSourceMaps: false,
   },
