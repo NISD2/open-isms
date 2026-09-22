@@ -29,13 +29,6 @@ import {
 } from "./path-nodes";
 
 /**
- * Horizontal offsets in px, cycled over the global step index so the line
- * serpentines continuously down the page instead of restarting at every
- * section header. Mirrors the reference spacing (0, ±44, ±70).
- */
-const WAVE = [0, 56, 88, 56, 0, -56, -88, -56] as const;
-
-/**
  * Stufen: the three deadline windows, read straight off the bands rather than
  * restated here. The band already carries both the "by when" and the sentence
  * under it, and a second copy is how the two views end up disagreeing about
@@ -51,6 +44,21 @@ function stageForBand(band: Band, de: boolean): SoloStage {
     hint: de ? meta.hintDe : meta.hintEn,
   };
 }
+
+/**
+ * Horizontal offsets in px, cycled over the global step index so the line
+ * serpentines down the page instead of restarting at every section header.
+ *
+ * The period is four, and that is the whole point. It used to be eight
+ * (0, 56, 88, 56, 0, -56, -88, -56), which has zero mean over a full cycle but
+ * opens with its entire positive lobe. Only about four steps are ever visible
+ * at once, on the landing hero and above the fold in the app, so the first
+ * screenful caught that lobe and every node sat right of the section dividers.
+ * It read as a centring bug rather than as motion. At period four any four
+ * consecutive steps average to zero, so the path still weaves but stays on the
+ * dividers' axis wherever you look at it.
+ */
+const WAVE = [0, 70, 0, -70] as const;
 
 export type SoloStep = {
   node: FlowNode;

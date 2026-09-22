@@ -59,6 +59,9 @@ function categoryHref(categorySlug: string) {
 /**
  * The guided layout: one winding line of steps, exactly one of them live.
  *
+ * The winding is deliberate, the Duolingo-shaped path. What was wrong was its
+ * phase, not its existence: see WAVE in solo-path.ts.
+ *
  * Deliberately missing next to the team view: role columns, the ordering
  * toggle, status filter chips and the state legend. All of it describes how
  * work is divided, which is the one thing a single implementer never needs.
