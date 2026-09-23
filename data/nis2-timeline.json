@@ -475,6 +475,34 @@
       "url": "https://www.usp.gv.at",
       "description": "Austrian federal business service portal; the registration and notification channel for NIS 2 entities under the NISG 2026.",
       "language": "de"
+    },
+    {
+      "id": "assemblee-nationale",
+      "name": "Assemblee nationale (France)",
+      "url": "https://www.assemblee-nationale.fr",
+      "description": "French lower house: legislative dossiers and floor agenda for the projet de loi resilience that carries the NIS 2 transposition.",
+      "language": "en"
+    },
+    {
+      "id": "bmi-at",
+      "name": "BMI Austria",
+      "url": "https://www.bmi.gv.at",
+      "description": "Austrian Federal Ministry of the Interior: parent of the Bundesamt fuer Cybersicherheit, the national authority under the NISG 2026.",
+      "language": "de"
+    },
+    {
+      "id": "anacom",
+      "name": "ANACOM",
+      "url": "https://www.anacom.pt",
+      "description": "Portuguese communications regulator; sectoral cybersecurity authority for electronic communications and postal services under Decreto-Lei n.º 125/2025.",
+      "language": "en"
+    },
+    {
+      "id": "gov-pl-cyfryzacja",
+      "name": "Ministerstwo Cyfryzacji (gov.pl)",
+      "url": "https://www.gov.pl/web/cyfryzacja",
+      "description": "Polish Ministry of Digital Affairs: operates system S46 and the register of key and important entities under the KSC act.",
+      "language": "en"
     }
   ],
   "events": [
@@ -2815,7 +2843,147 @@
       "sourceId": "usp-at",
       "sourceUrl": "https://www.usp.gv.at/aktuelles/newsliste/NIS-2.html",
       "addedAt": "2026-09-17T22:34:28Z"
+    },
+    {
+      "id": "2026-09-22-enisa-threat-landscape-2026",
+      "date": "2026-09-22",
+      "category": "enisa",
+      "tags": ["publication"],
+      "type": "update",
+      "title": "ENISA publishes the Threat Landscape 2026 covering incidents observed during 2025",
+      "titleDe": "ENISA veroeffentlicht die Threat Landscape 2026 zu den im Jahr 2025 beobachteten Vorfaellen",
+      "summary": "ENISA published its annual threat report on 22 September 2026, analysing incidents and events observed from 1 January to 31 December 2025. The agency concludes that cyber dependencies widen the attack surface and reports that public administrations in the EU were increasingly hit by hacktivist denial of service activity. The report is a situational assessment, not binding guidance, and creates no obligations of its own under the NIS 2 Directive.",
+      "summaryDe": "Die ENISA hat am 22. September 2026 ihren jaehrlichen Bedrohungsbericht veroeffentlicht und darin Vorfaelle und Ereignisse vom 1. Januar bis 31. Dezember 2025 ausgewertet. Die Agentur kommt zu dem Schluss, dass Cyberabhaengigkeiten die Angriffsflaeche vergroessern, und berichtet von zunehmenden Ueberlastungsangriffen hacktivistischer Gruppen auf oeffentliche Verwaltungen in der EU. Der Bericht ist eine Lagebeurteilung, keine verbindliche Vorgabe, und begruendet selbst keine Pflichten nach der NIS-2-Richtlinie.",
+      "sourceId": "enisa",
+      "sourceUrl": "https://www.enisa.europa.eu/publications/enisa-threat-landscape-2026",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-23-de-bsi-tr-03185-first-certificate",
+      "date": "2026-09-23",
+      "category": "de",
+      "tags": ["certification", "supply-chain"],
+      "type": "update",
+      "title": "BSI awards the first certificate for a secure software development process under TR-03185",
+      "titleDe": "BSI vergibt das erste Zertifikat fuer einen sicheren Softwareentwicklungsprozess nach TR-03185",
+      "summary": "The BSI announced on 23 September 2026 that DUX Healthcare GmbH of Karlsruhe received the first certificate under Technical Guideline TR-03185, which covers the secure software lifecycle from requirements analysis through maintenance and vulnerability management. Certified manufacturers can supply updates for certified products under defined conditions without a fresh product review each time. TR-03185 is a voluntary BSI certification scheme rather than a duty under the BSIG, and the announcement does not tie it to NIS 2 or to the Cyber Resilience Act.",
+      "summaryDe": "Das BSI hat am 23. September 2026 mitgeteilt, dass die DUX Healthcare GmbH aus Karlsruhe das erste Zertifikat nach der Technischen Richtlinie TR-03185 erhalten hat. Die Richtlinie deckt den sicheren Softwarelebenszyklus von der Anforderungsanalyse ueber die Wartung bis zum Schwachstellenmanagement ab. Zertifizierte Hersteller koennen Updates fuer zertifizierte Produkte unter definierten Voraussetzungen ohne jeweils neue Produktpruefung ausliefern. TR-03185 ist ein freiwilliges Zertifizierungsschema des BSI und keine Pflicht nach dem BSIG; die Meldung stellt keinen Bezug zu NIS 2 oder zum Cyber Resilience Act her.",
+      "sourceId": "bsi",
+      "sourceUrl": "https://www.bsi.bund.de/DE/Service-Navi/Presse/Alle-Meldungen-News/Meldungen/2026/Zertifzierung_TR-03185_260923.html",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-22-national-transposition-fr-assemblee-floor-agenda",
+      "date": "2026-09-22",
+      "category": "national-transposition",
+      "tags": ["fr", "transposition", "legislation"],
+      "type": "update",
+      "title": "France: the NIS 2 transposition bill goes on the Assemblee nationale floor agenda for 7 October 2026",
+      "titleDe": "Frankreich: Das NIS-2-Umsetzungsgesetz steht ab 7. Oktober 2026 auf der Tagesordnung der Assemblee nationale",
+      "summary": "The Conference des presidents of the Assemblee nationale fixed the autumn agenda on 22 September 2026 and scheduled the projet de loi relatif a la resilience des infrastructures critiques et au renforcement de la cybersecurite for public session on 7 October 2026, with debate continuing on 9 October. The official legislative dossier now carries that date. This is the first floor slot since the Senat adopted the bill on 12 March 2025 and the special committee reported on 10 September 2025, and it follows the Commission referral of France to the CJEU on 8 July 2026 for non transposition. A scheduled slot is not an adoption, and the examination of this bill has been postponed several times.",
+      "summaryDe": "Die Conference des presidents der Assemblee nationale hat am 22. September 2026 die Tagesordnung fuer die Herbstsitzungsperiode festgelegt und das Projet de loi relatif a la resilience des infrastructures critiques et au renforcement de la cybersecurite fuer den 7. Oktober 2026 im Plenum angesetzt, mit Fortsetzung der Beratung am 9. Oktober. Das offizielle Gesetzgebungsdossier weist diesen Termin aus. Es ist der erste Plenartermin, seit der Senat das Gesetz am 12. Maerz 2025 angenommen hat und der Sonderausschuss am 10. September 2025 berichtet hat; die Kommission hatte Frankreich am 8. Juli 2026 wegen Nichtumsetzung beim EuGH verklagt. Ein angesetzter Termin ist keine Verabschiedung, und die Beratung dieses Gesetzes wurde bereits mehrfach verschoben.",
+      "sourceId": "assemblee-nationale",
+      "sourceUrl": "https://www.assemblee-nationale.fr/dyn/17/dossiers/DLR5L17N50731",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-22-national-transposition-at-bundesamt-cybersicherheit",
+      "date": "2026-09-22",
+      "category": "national-transposition",
+      "tags": ["at", "transposition", "organisational"],
+      "type": "update",
+      "title": "Austria: the new Bundesamt fuer Cybersicherheit takes up work on 1 October 2026",
+      "titleDe": "Oesterreich: Das neue Bundesamt fuer Cybersicherheit nimmt am 1. Oktober 2026 seine Arbeit auf",
+      "summary": "The Austrian Federal Ministry of the Interior announced on 22 September 2026 that the Bundesamt fuer Cybersicherheit starts work on 1 October 2026, the day the NISG 2026 enters into force, as the national authority under that act. The office sits under the Interior Ministry and consolidates national cybersecurity supervision. From the same day, registration and incident reporting run through the NIS2 Services application in the Unternehmensserviceportal.",
+      "summaryDe": "Das oesterreichische Bundesministerium fuer Inneres hat am 22. September 2026 mitgeteilt, dass das Bundesamt fuer Cybersicherheit am 1. Oktober 2026 seine Arbeit aufnimmt, also mit Inkrafttreten des NISG 2026, und zwar als nationale Behoerde nach diesem Gesetz. Das Amt ist dem Innenministerium zugeordnet und buendelt die nationale Cybersicherheitsaufsicht. Ab demselben Tag laufen Registrierung und Meldungen ueber die Anwendung NIS2 Services im Unternehmensserviceportal.",
+      "sourceId": "bmi-at",
+      "sourceUrl": "https://www.bmi.gv.at/news.aspx?id=46424559634e697077716f3d",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-18-national-transposition-it-acn-enhanced-measures-consultation",
+      "date": "2026-09-18",
+      "category": "national-transposition",
+      "tags": ["it", "guidance", "registration"],
+      "type": "update",
+      "title": "Italy: ACN consults on enhanced security measures meant to replace the first phase basic measures",
+      "titleDe": "Italien: ACN konsultiert zu verschaerften Sicherheitsmassnahmen, die die Basismassnahmen der ersten Phase ersetzen sollen",
+      "summary": "At a plenary of the Tavolo NIS on 18 September 2026 the Italian authority ACN opened a consultation with sectoral authorities on misure di sicurezza rafforzate, enhanced security measures built on proportionality and gradualism that are intended to integrate and replace the basic security measures set in the first application phase of D.lgs. 138/2024. ACN also reported that the list of NIS subjects was updated after it handled more than 2,000 late registrations and about 2,000 revision proceedings between May and July 2026, and confirmed that the next registration and update window runs from 1 January to 28 February 2027. The enhanced measures are at consultation stage and are not yet binding.",
+      "summaryDe": "Bei einer Plenarsitzung des Tavolo NIS hat die italienische Behoerde ACN am 18. September 2026 eine Konsultation mit den Sektorbehoerden zu den Misure di sicurezza rafforzate eroeffnet, also zu verschaerften Sicherheitsmassnahmen nach den Grundsaetzen der Verhaeltnismaessigkeit und der Stufung, die die in der ersten Anwendungsphase des D.lgs. 138/2024 festgelegten Basismassnahmen ergaenzen und ersetzen sollen. ACN berichtete zudem, die Liste der NIS-Subjekte sei aktualisiert worden, nachdem zwischen Mai und Juli 2026 mehr als 2.000 verspaetete Registrierungen und rund 2.000 Ueberpruefungsverfahren bearbeitet wurden, und bestaetigte das naechste Registrierungs- und Aktualisierungsfenster vom 1. Januar bis 28. Februar 2027. Die verschaerften Massnahmen befinden sich im Konsultationsstadium und sind noch nicht verbindlich.",
+      "sourceId": "acn",
+      "sourceUrl": "https://www.acn.gov.it/portale/w/le-novita-per-i-soggetti-nis",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-11-national-transposition-it-acn-vademecum",
+      "date": "2026-09-11",
+      "category": "national-transposition",
+      "tags": ["it", "guidance", "publication"],
+      "type": "update",
+      "title": "Italy: ACN publishes the Vademecum per i soggetti NIS with a calendar of obligations",
+      "titleDe": "Italien: ACN veroeffentlicht das Vademecum per i soggetti NIS mit einem Pflichtenkalender",
+      "summary": "ACN published the Vademecum per i soggetti NIS on 11 September 2026, a general guide to the main obligations under D.lgs. 138/2024 and their deadlines, with sections on keeping entity information current and on the categorization of activities. It names the annual registration and update window of 1 January to 28 February and treats registration as the route into ACN and CSIRT Italia support services. The vademecum is guidance: it does not replace the decree or the ACN determinations that set the measures.",
+      "summaryDe": "ACN hat am 11. September 2026 das Vademecum per i soggetti NIS veroeffentlicht, einen allgemeinen Leitfaden zu den wesentlichen Pflichten nach dem D.lgs. 138/2024 und ihren Fristen, mit Abschnitten zur Aktualisierung der Angaben und zur Kategorisierung der Taetigkeiten. Es nennt das jaehrliche Registrierungs- und Aktualisierungsfenster vom 1. Januar bis 28. Februar und behandelt die Registrierung als Zugang zu den Unterstuetzungsleistungen von ACN und CSIRT Italia. Das Vademecum ist eine Orientierungshilfe: Es ersetzt weder das Dekret noch die ACN-Bestimmungen, die die Massnahmen festlegen.",
+      "sourceId": "acn",
+      "sourceUrl": "https://www.acn.gov.it/portale/w/online-il-vademecum-per-i-soggetti-nis",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-21-national-transposition-ro-dnsc-group-norms",
+      "date": "2026-09-21",
+      "category": "national-transposition",
+      "tags": ["ro", "legislation", "guidance"],
+      "type": "update",
+      "title": "Romania: DNSC norms set out how cybersecurity requirements apply inside a group of undertakings",
+      "titleDe": "Rumaenien: DNSC-Normen regeln, wie Cybersicherheitsanforderungen innerhalb einer Unternehmensgruppe gelten",
+      "summary": "Norms approved by the DNSC on how cybersecurity risk management requirements apply to entities that form part of a group of undertakings were published in Monitorul Oficial Partea I nr. 798 of 21 September 2026. They describe how governance, strategy and risk management defined at group level can satisfy the requirements at subsidiary level, classify controls as inherited from the group, implemented locally to a group standard, or shared, and state that a group level policy on its own is not proof of compliance: each entity remains individually accountable. These are binding national norms under the Romanian NIS 2 transposition, which rests on OUG 155/2024. The DNSC site is not reachable for automated checks, so the citation here rests on the Monitorul Oficial reference reproduced by the Romanian legal publisher JURIDICE.ro.",
+      "summaryDe": "Die vom DNSC gebilligten Normen dazu, wie die Anforderungen an das Cybersicherheitsrisikomanagement fuer Einrichtungen innerhalb einer Unternehmensgruppe gelten, wurden im Monitorul Oficial Partea I Nr. 798 vom 21. September 2026 veroeffentlicht. Sie beschreiben, wie auf Gruppenebene festgelegte Governance, Strategie und Risikomanagement die Anforderungen auf Tochterebene erfuellen koennen, ordnen Massnahmen als von der Gruppe uebernommen, lokal nach Gruppenvorgabe umgesetzt oder geteilt ein und stellen klar, dass eine Gruppenrichtlinie allein kein Nachweis der Einhaltung ist: Jede Einrichtung bleibt einzeln verantwortlich. Es handelt sich um verbindliche nationale Normen im Rahmen der rumaenischen NIS-2-Umsetzung auf Grundlage der OUG 155/2024. Die DNSC-Website ist fuer automatisierte Abrufe nicht erreichbar; die Fundstelle stuetzt sich daher auf den vom rumaenischen Rechtsverlag JURIDICE.ro wiedergegebenen Nachweis im Monitorul Oficial.",
+      "sourceId": "juridice-ro",
+      "sourceUrl": "https://www.juridice.ro/853870/norme-privind-securitatea-cibernetica-pentru-entitatile-din-grupuri-de-intreprinderi.html",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-18-national-transposition-pl-s46-eid-login",
+      "date": "2026-09-18",
+      "category": "national-transposition",
+      "tags": ["pl", "registration"],
+      "type": "update",
+      "title": "Poland: the S46 register accepts cross border eID logins ahead of the 3 October registration deadline",
+      "titleDe": "Polen: Das Register S46 akzeptiert vor der Registrierungsfrist am 3. Oktober grenzueberschreitende eID-Anmeldungen",
+      "summary": "The Polish Ministry of Digital Affairs announced on 18 September 2026 that system S46, which operates the register of key and important entities under the amended KSC act, has accepted logins with national eID from other EU and associated states since 2 September 2026. People without a Polish PESEL number can now sign in through login.gov.pl with an eID from one of the supported states and reach the Wykaz KSC and Cyber Hub applications. The self registration deadline for the register remains 3 October 2026, a national deadline under Polish law and not an EU wide one.",
+      "summaryDe": "Das polnische Ministerium fuer Digitalisierung hat am 18. September 2026 mitgeteilt, dass das System S46, ueber das das Verzeichnis der wesentlichen und wichtigen Einrichtungen nach dem geaenderten KSC-Gesetz gefuehrt wird, seit dem 2. September 2026 Anmeldungen mit nationaler eID aus anderen EU- und assoziierten Staaten akzeptiert. Personen ohne polnische PESEL-Nummer koennen sich nun ueber login.gov.pl mit einer eID aus einem der unterstuetzten Staaten anmelden und die Anwendungen Wykaz KSC und Cyber Hub erreichen. Die Frist fuer die Selbstregistrierung im Verzeichnis bleibt der 3. Oktober 2026; es handelt sich um eine nationale Frist nach polnischem Recht, nicht um eine EU-weite Frist.",
+      "sourceId": "gov-pl-cyfryzacja",
+      "sourceUrl": "https://www.gov.pl/web/cyfryzacja/nowa-funkcjonalnosc-w-systemie-s46--logowanie-przez-eid",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-10-national-transposition-nl-supervision-protocol",
+      "date": "2026-09-10",
+      "category": "national-transposition",
+      "tags": ["nl", "organisational", "enforcement"],
+      "type": "update",
+      "title": "Netherlands: government publishes the supervision cooperation protocol for the Cyberbeveiligingswet",
+      "titleDe": "Niederlande: Regierung veroeffentlicht das Kooperationsprotokoll fuer die Aufsicht nach der Cyberbeveiligingswet",
+      "summary": "A letter to parliament dated 10 September 2026 announced publication in the Staatscourant of the cooperation protocol on supervision under the Cyberbeveiligingswet, the Dutch NIS 2 transposition, and the Wet weerbaarheid kritieke entiteiten, which transposes the CER Directive. The protocol sets out how the supervisory bodies coordinate now that the Cyberbeveiligingswet has been in force since 15 August 2026. It organises supervision between authorities and does not change the duties entities owe under the act.",
+      "summaryDe": "Ein Schreiben an das Parlament vom 10. September 2026 kuendigt die Veroeffentlichung des Kooperationsprotokolls zur Aufsicht nach der Cyberbeveiligingswet, der niederlaendischen NIS-2-Umsetzung, und dem Wet weerbaarheid kritieke entiteiten, das die CER-Richtlinie umsetzt, im Staatscourant an. Das Protokoll regelt, wie sich die Aufsichtsstellen abstimmen, nachdem die Cyberbeveiligingswet seit dem 15. August 2026 in Kraft ist. Es ordnet die Aufsicht zwischen den Behoerden und aendert nichts an den Pflichten der Einrichtungen nach dem Gesetz.",
+      "sourceId": "officielebekendmakingen",
+      "sourceUrl": "https://zoek.officielebekendmakingen.nl/kst-1268381.html",
+      "addedAt": "2026-09-23T14:05:10Z"
+    },
+    {
+      "id": "2026-09-08-national-transposition-pt-anacom-sectoral-regulation",
+      "date": "2026-09-08",
+      "category": "national-transposition",
+      "tags": ["pt", "legislation", "guidance"],
+      "type": "update",
+      "title": "Portugal: ANACOM opens the procedure for a sectoral cybersecurity regulation for electronic communications",
+      "titleDe": "Portugal: ANACOM eroeffnet das Verfahren fuer eine sektorale Cybersicherheitsverordnung fuer elektronische Kommunikation",
+      "summary": "ANACOM, which Decreto-Lei n.º 125/2025 makes the sectoral cybersecurity authority for electronic communications and postal services, approved on 8 September 2026 the opening of a regulatory procedure towards a Regulamento Sectorial de Ciberseguranca for the electronic communications sector. Contributions can be sent in until 22 October 2026. The planned annexes cover the national cybersecurity reference framework, a risk matrix methodology, minimum measures for essential and important entities, and measures for relevant public entities. Nothing is binding yet: the decision opens the drafting procedure rather than adopting the regulation. The ANACOM site blocks automated fetches, so this entry was confirmed through the public search index of that page.",
+      "summaryDe": "ANACOM, nach dem Decreto-Lei n.º 125/2025 die sektorale Cybersicherheitsbehoerde fuer elektronische Kommunikation und Postdienste, hat am 8. September 2026 die Eroeffnung eines Regulierungsverfahrens fuer ein Regulamento Sectorial de Ciberseguranca fuer den Sektor der elektronischen Kommunikation beschlossen. Beitraege koennen bis zum 22. Oktober 2026 eingereicht werden. Die vorgesehenen Anhaenge umfassen den nationalen Cybersicherheitsreferenzrahmen, eine Methodik fuer die Risikomatrix, Mindestmassnahmen fuer wesentliche und wichtige Einrichtungen sowie Massnahmen fuer relevante oeffentliche Einrichtungen. Verbindlich ist noch nichts: Der Beschluss eroeffnet das Entwurfsverfahren und verabschiedet nicht die Verordnung. Die ANACOM-Website blockiert automatisierte Abrufe; dieser Eintrag wurde ueber den oeffentlichen Suchindex der Seite bestaetigt.",
+      "sourceId": "anacom",
+      "sourceUrl": "https://www.anacom.pt/render.jsp?contentId=1857630",
+      "addedAt": "2026-09-23T14:05:10Z"
     }
   ],
-  "lastUpdated": "2026-09-17T22:34:28Z"
+  "lastUpdated": "2026-09-23T14:05:10Z"
 }
