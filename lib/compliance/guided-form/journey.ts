@@ -70,7 +70,24 @@ interface GuidanceShape {
 }
 
 /** The journey items in the order the rest of the product already uses. */
-export const journeyItems = (): readonly ItemSource[] =>
+/**
+ * The last item the flow shows for now.
+ *
+ * Simon, 25.09.2026, on reaching the per-supplier screens: "everything after this we should just
+ * delete for now because I think you're getting mixed up and it's too much context for you."
+ * Everything up to and including 5.2 is under review; everything after it is cut from the flow
+ * until those are right. This is a cap on the flow, not on the journey: the items still exist.
+ */
+const LAST_ITEM_FOR_NOW = "5.2";
+
+export const journeyItems = (): readonly ItemSource[] => {
+  const all = allJourneyItems();
+  const cap = all.find((i) => i.code === LAST_ITEM_FOR_NOW);
+  return cap ? all.filter((i) => i.position <= cap.position) : all;
+};
+
+/** Every item, uncapped. The label coverage test reads this so a cap never hides a missing label. */
+export const allJourneyItems = (): readonly ItemSource[] =>
   nis2Categories
     .flatMap((category, ci) =>
       (getNis2RequirementsForCategory(category.slug) as readonly RequirementShape[]).map(

@@ -13,10 +13,12 @@
 
 import { describe, expect, test } from "bun:test";
 import { FIELD_LABEL_DE } from "./field-labels.de";
-import { journeyItems } from "./journey";
+import { allJourneyItems } from "./journey";
 
+// The UNCAPPED journey. The flow is capped at item 5.2 while the early screens are under review,
+// and a cap must not be able to hide a missing label on an item that comes back later.
 const reachable = [
-  ...new Set(journeyItems().flatMap((i) => [...i.fields, ...i.rowFields])),
+  ...new Set(allJourneyItems().flatMap((i) => [...i.fields, ...i.rowFields])),
 ].sort();
 
 describe("German labels cover the whole flow", () => {
