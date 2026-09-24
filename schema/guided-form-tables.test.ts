@@ -16,7 +16,6 @@
  *   - control titles stay nullable while the BSI's licence for them is unread
  */
 import { describe, expect, test } from "bun:test";
-import { getTableConfig } from "drizzle-orm/pg-core";
 import { addresseeEnum, controlGradeEnum } from "@nisd2/grc-data-model/enums";
 import {
   baustein,
@@ -30,6 +29,7 @@ import {
   controlOutcomeEnum,
   settledFactEnum,
 } from "@nisd2/isms-schema";
+import { getTableConfig } from "drizzle-orm/pg-core";
 
 const columnsOf = (t: Parameters<typeof getTableConfig>[0]) =>
   getTableConfig(t).columns.map((c) => c.name);

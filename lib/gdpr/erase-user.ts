@@ -539,8 +539,8 @@ async function erasePerson(
         .set({ signedOffBy: tid, snapshot: redacted })
         .where(eq(signOffHistory.id, r.id));
     }
-    scope.anonymized["sign_off_history"] =
-      (scope.anonymized["sign_off_history"] ?? 0) + soRows.length;
+    scope.anonymized.sign_off_history =
+      (scope.anonymized.sign_off_history ?? 0) + soRows.length;
     scope.residualNotes.push(
       `${soRows.length} sign-off history entr${soRows.length === 1 ? "y" : "ies"} had the signer reassigned to a tombstone and snapshot PII redacted; their chained checksums are intentionally no longer verifiable as a consequence of lawful erasure.`,
     );
@@ -590,8 +590,8 @@ async function erasePerson(
     }
 
     if (redactedCount > 0) {
-      scope.anonymized["company_requirement_status"] =
-        (scope.anonymized["company_requirement_status"] ?? 0) + redactedCount;
+      scope.anonymized.company_requirement_status =
+        (scope.anonymized.company_requirement_status ?? 0) + redactedCount;
       scope.residualNotes.push(
         `${redactedCount} sign-off snapshot${redactedCount === 1 ? "" : "s"} on requirement rows had the subject's name or email redacted from the frozen company profile.`,
       );
@@ -619,8 +619,8 @@ async function erasePerson(
       .update(companyInvite)
       .set({ invitedBy: tid })
       .where(eq(companyInvite.invitedBy, userId));
-    scope.anonymized["company_invite"] =
-      (scope.anonymized["company_invite"] ?? 0) + invitedByRows.length;
+    scope.anonymized.company_invite =
+      (scope.anonymized.company_invite ?? 0) + invitedByRows.length;
   }
   const ackRows = await tx
     .select({ id: policyAcknowledgment.id })
@@ -632,8 +632,8 @@ async function erasePerson(
       .update(policyAcknowledgment)
       .set({ userId: tid })
       .where(eq(policyAcknowledgment.userId, userId));
-    scope.anonymized["policy_acknowledgment"] =
-      (scope.anonymized["policy_acknowledgment"] ?? 0) + ackRows.length;
+    scope.anonymized.policy_acknowledgment =
+      (scope.anonymized.policy_acknowledgment ?? 0) + ackRows.length;
   }
   const assignedByRows = await tx
     .select({ id: categoryAssignment.id })
@@ -645,8 +645,8 @@ async function erasePerson(
       .update(categoryAssignment)
       .set({ assignedBy: tid })
       .where(eq(categoryAssignment.assignedBy, userId));
-    scope.anonymized["category_assignment"] =
-      (scope.anonymized["category_assignment"] ?? 0) + assignedByRows.length;
+    scope.anonymized.category_assignment =
+      (scope.anonymized.category_assignment ?? 0) + assignedByRows.length;
   }
 
   // Nullable attribution columns set to NULL.
@@ -839,8 +839,7 @@ async function erasePerson(
       .where(eq(auditLog.id, r.id));
   }
   if (auditRows.length)
-    scope.anonymized["audit_log"] =
-      (scope.anonymized["audit_log"] ?? 0) + auditRows.length;
+    scope.anonymized.audit_log = (scope.anonymized.audit_log ?? 0) + auditRows.length;
 
   // Email-keyed rows no FK reaches.
   await del("email_otp", () =>
