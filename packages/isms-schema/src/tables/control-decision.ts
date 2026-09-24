@@ -20,7 +20,10 @@
  */
 
 import { control } from "@nisd2/grc-data-model/schema";
+import { sql } from "drizzle-orm";
 import {
+  type AnyPgColumn,
+  check,
   foreignKey,
   index,
   integer,
@@ -86,8 +89,12 @@ export const controlDecision = pgTable(
       .notNull(),
     decidedAt: timestamp("decided_at").defaultNow().notNull(),
 
-    /** The decision this one replaces. Unique, so two concurrent writers cannot both supersede it. */
-    supersedes: uuid("supersedes"),
+    /**
+     * The decision this one replaces. Unique, so two concurrent writers cannot both supersede the
+     * same row. The self-reference matters for tenant isolation: without it this is a bare uuid
+     * that can name any row in the table, including another company's decision.
+     */
+    supersedes: uuid("supersedes").references((): AnyPgColumn => controlDecision.id),
   },
   (table) => [
     foreignKey({
@@ -103,5 +110,29 @@ export const controlDecision = pgTable(
     ),
     index("idx_control_decision_company").on(table.companyId),
     uniqueIndex("idx_control_decision_supersedes").on(table.supersedes),
+    /**
+     * Each outcome carries what makes it defensible, and the database says so rather than trusting
+     * every future caller to. Without this a "we do not have that" can be written with no register
+     * behind it, which is the one thing this design exists to prevent, and a justification can be
+     * written with no reasons in it.
+     *
+     * The procedure still validates, because it is the only thing that can COUNT the register.
+     * This is the floor under it, so a script, a backfill or a second endpoint cannot get it wrong.
+     */
+    check(
+      "control_decision_outcome_evidence",
+      sql`
+        CASE ${table.outcome}
+          WHEN 'no_object' THEN ${table.evidenceModule} IS NOT NULL
+            AND ${table.evidenceCount} IS NOT NULL
+            AND ${table.evidenceAt} IS NOT NULL
+          WHEN 'covered_otherwise' THEN ${table.reason} IS NOT NULL
+          WHEN 'justified' THEN ${table.justification} IS NOT NULL
+          WHEN 'deferred' THEN ${table.deferredUntil} IS NOT NULL
+            OR ${table.deferredUntilModule} IS NOT NULL
+          ELSE TRUE
+        END
+      `,
+    ),
   ],
 );
