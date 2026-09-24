@@ -1,3 +1,9 @@
+-- migration-safety:allow: every constraint here is on a table this same migration
+-- creates (control, requirement_control), so validation scans zero rows and cannot
+-- fail on existing data. NOT VALID plus a later VALIDATE would add a second
+-- migration to check nothing. The one column added to an existing table,
+-- requirement.addressee, is NOT NULL with a default, which Postgres 11 and later
+-- fill without rewriting the table.
 CREATE TYPE "public"."addressee" AS ENUM('all', 'critical_installation', 'service_type_60_1', 'sector_35_2');--> statement-breakpoint
 CREATE TYPE "public"."control_grade" AS ENUM('required', 'expected', 'optional');--> statement-breakpoint
 CREATE TABLE "baustein" (

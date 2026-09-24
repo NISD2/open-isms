@@ -1,3 +1,8 @@
+-- migration-safety:allow: every constraint here is on control_decision, which this
+-- same migration creates, so validation scans zero rows and cannot fail on existing
+-- data. The two columns added to company are safe on a populated table:
+-- critical_installation is NOT NULL with a default, which Postgres 11 and later fill
+-- without a rewrite, and service_types is nullable.
 CREATE TYPE "public"."control_outcome" AS ENUM('done', 'no_object', 'covered_otherwise', 'justified', 'deferred');--> statement-breakpoint
 CREATE TYPE "public"."settled_fact" AS ENUM('yes', 'no', 'unsettled');--> statement-breakpoint
 CREATE TABLE "control_decision" (
