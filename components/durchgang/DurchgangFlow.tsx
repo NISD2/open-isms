@@ -42,7 +42,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
-import { FIELD_LABEL, UI } from "@/lib/compliance/guided-form/content.de";
+import { UI } from "@/lib/compliance/guided-form/content.de";
+import { FIELD_LABEL_DE } from "@/lib/compliance/guided-form/field-labels.de";
 import type { ItemContent } from "@/lib/compliance/guided-form/journey";
 import {
   type Answers,
@@ -112,7 +113,13 @@ const REQUIRED: ReadonlySet<string> = new Set(
   ),
 );
 
-const labelOf = (meta: FieldMeta): string => FIELD_LABEL[meta.key] ?? meta.label;
+/**
+ * The German label, or the introspected English one as a visible failure.
+ *
+ * The test asserts every reachable field has an entry, so falling through here means a new field
+ * arrived and nobody named it. Better that it reads wrong on screen than that it reads plausible.
+ */
+const labelOf = (meta: FieldMeta): string => FIELD_LABEL_DE[meta.key] ?? meta.label;
 
 export function DurchgangFlow({
   screens,
@@ -134,20 +141,24 @@ export function DurchgangFlow({
   const goto = (id: string | null) => id && setCurrent(id);
   const forward = () => goto(screenAfter(screens, screen.id)?.id ?? null);
 
-  /** Record a wait and move on. The wait carries its reason, so it is never a silent skip. */
-  const leaveOpen = () => {
-    setAnswers((a) => ({
-      ...a,
-      waiting: { ...a.waiting, [screen.id]: { reason: UI.leftOpen } },
-    }));
-    forward();
-  };
-
-  /** An answer clears any wait on the same screen, so a screen is never both. */
-  const save = (values: Readonly<Record<string, unknown>>) => {
+  /**
+   * One button, and it always works.
+   *
+   * Simon, 25.09.2026: "you should be able to skip all of these steps if you don't have something.
+   * It shouldn't be disabled... And the Continue button should be the same button as Do It Later
+   * because it doesn't make a difference."
+   *
+   * It does not make a difference to the person, so it should not be two controls. What differs is
+   * what gets recorded: whatever they filled in is kept, and if anything the schema requires is
+   * still blank the screen stays outstanding so the next session comes back to it. A partly filled
+   * screen is a normal state here, not an error, which is why nothing is ever disabled and why
+   * there is no second button to find.
+   */
+  const advance = (values: Readonly<Record<string, unknown>>, complete: boolean) => {
     setAnswers((a) => {
       const waiting = { ...a.waiting };
-      delete waiting[screen.id];
+      if (complete) delete waiting[screen.id];
+      else waiting[screen.id] = { reason: UI.leftOpen };
       return { values: { ...a.values, ...values }, waiting };
     });
     forward();
@@ -164,8 +175,6 @@ export function DurchgangFlow({
     stepCount: screens.length,
     item: UI.item(screen.item),
     onBack: index > 0 ? () => goto(screenBefore(screens, screen.id)?.id ?? null) : null,
-    waitLabel: UI.leaveOpen,
-    onWait: leaveOpen,
     isWaiting: screenState(screen, answers, REQUIRED) === "blocked",
   };
 
@@ -173,7 +182,7 @@ export function DurchgangFlow({
     return (
       <StepShell
         {...shell}
-        onNext={() => save({ [screen.id]: true })}
+        onNext={() => advance({ [screen.id]: true }, true)}
         nextLabel={UI.confirmed}
       >
         <RegisterBody module={screen.ask.module} item={item} />
@@ -188,7 +197,7 @@ export function DurchgangFlow({
       screen={screen}
       values={answers.values}
       fieldHelp={fieldHelp}
-      onSave={save}
+      onAdvance={advance}
     />
   );
 }
@@ -228,12 +237,20 @@ function RegisterBody({
   return (
     <Card>
       <CardContent className="space-y-3 py-5 text-sm leading-relaxed">
-        <div className="flex items-center gap-2">
-          <Boxes className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
-          <Badge variant="outline" className="font-normal">
-            {module ? UI.register(module) : UI.noRegister}
-          </Badge>
-        </div>
+        {/*
+          The badge names the register this item's evidence lives in. An item with no register is
+          not a defect to announce: some items are recorded elsewhere entirely, like the
+          classification, which the BSI portal takes during registration. Saying "kein Register"
+          on the first screen someone sees reads as something broken.
+        */}
+        {module ? (
+          <div className="flex items-center gap-2">
+            <Boxes className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
+            <Badge variant="outline" className="font-normal">
+              {UI.register(module)}
+            </Badge>
+          </div>
+        ) : null}
         <p>{item?.description}</p>
         {item?.applicability ? (
           <p className="text-muted-foreground">{item.applicability}</p>
@@ -257,13 +274,13 @@ function FieldsScreen({
   screen,
   values,
   fieldHelp,
-  onSave,
+  onAdvance,
 }: {
   readonly shell: Shell;
   readonly screen: Screen;
   readonly values: Readonly<Record<string, unknown>>;
   readonly fieldHelp: Readonly<Record<string, string>>;
-  readonly onSave: (v: Readonly<Record<string, unknown>>) => void;
+  readonly onAdvance: (v: Readonly<Record<string, unknown>>, complete: boolean) => void;
 }) {
   const metas = metasFor(screen);
   const schema = useMemo(
@@ -291,17 +308,31 @@ function FieldsScreen({
   const complete = metas.filter((m) => m.required).every((m) => hasValue(watched[m.key]));
   const showLabels = metas.length > 1;
 
+  /**
+   * Never `handleSubmit`, and that is the point.
+   *
+   * `handleSubmit` refuses to call through when the schema is unsatisfied, which would silently
+   * turn the one button into a disabled one for anybody who has only part of the answer. What is
+   * on the form is kept either way; `complete` decides whether the screen is finished or stays
+   * outstanding for the next session.
+   */
+  const onward = () => {
+    const values = form.getValues();
+    onAdvance(
+      Object.fromEntries(
+        Object.entries(values)
+          .filter(([, v]) => hasValue(v))
+          .map(([k, v]) => [answerKey(screen, k), v]),
+      ),
+      complete,
+    );
+  };
+
   return (
     <StepShell
       {...shell}
-      onNext={form.handleSubmit((v) =>
-        onSave(
-          Object.fromEntries(
-            Object.entries(v).map(([k, val]) => [answerKey(screen, k), val]),
-          ),
-        ),
-      )}
-      nextDisabled={!complete}
+      onNext={onward}
+      nextLabel={complete ? undefined : UI.laterLabel}
     >
       <TooltipProvider>
         <Form {...form}>

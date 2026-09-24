@@ -10,9 +10,9 @@
  *
  * Three things are deliberate.
  *
- *   - **The footer has three exits, not one.** Back, leave it open, and answer. "Leave it open" is
- *     a peer of "answer" rather than something hidden in a menu, because the alternative to an easy
- *     wait is a guess, and a guessed answer in a legal record is the worst outcome available here.
+ *   - **Forward is one button and it is never disabled.** Whatever is filled in is kept; anything
+ *     still blank leaves the screen outstanding and the next session returns to it. Disabling it
+ *     would make an unanswerable screen a dead end, and the alternative to an easy skip is a guess.
  *   - **The statute is collapsed, not absent.** The explanation is in the reader's terms; the law
  *     is one click away and verbatim. Front-loading the legal text is what makes people stop
  *     reading, and paraphrasing it without offering the original is what makes them distrust it.
@@ -64,13 +64,17 @@ export interface StepShellProps {
    */
   readonly item: string | null;
   readonly onBack: (() => void) | null;
+  /**
+   * The only way forward, and it is never disabled.
+   *
+   * There used to be a second button beside it for leaving a screen open. Simon removed it: "the
+   * Continue button should be the same button as Do It Later because it doesn't make a difference."
+   * It makes no difference to the person, so it is one control. What they filled in is kept either
+   * way, and an incomplete screen simply stays outstanding.
+   */
   readonly onNext: (() => void) | null;
-  /** Label for the third exit. Null on a screen that asks for nothing. */
-  readonly waitLabel: string | null;
-  readonly onWait: (() => void) | null;
   readonly isWaiting: boolean;
   readonly nextLabel?: string;
-  readonly nextDisabled?: boolean;
   readonly children: React.ReactNode;
 }
 
@@ -84,11 +88,8 @@ export function StepShell({
   item,
   onBack,
   onNext,
-  waitLabel,
-  onWait,
   isWaiting,
   nextLabel,
-  nextDisabled,
   children,
 }: StepShellProps) {
   const [statuteOpen, setStatuteOpen] = useState(false);
@@ -160,9 +161,8 @@ export function StepShell({
       </div>
 
       {/*
-        Sticky, and for one reason: the whole design rests on the third exit being visible. The
-        service-type screen lists twelve options, so a footer in the flow sits below the fold, and
-        an exit you cannot see is an exit nobody takes. They guess instead.
+        Sticky so that forward is always reachable. An item with five inputs pushes a footer in
+        the flow below the fold, and a way out you cannot see is one nobody takes.
       */}
       <footer className="sticky bottom-0 mt-10 flex items-center gap-3 border-t bg-background/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         {onBack ? (
@@ -174,14 +174,8 @@ export function StepShell({
           <span />
         )}
         <div className="flex-1" />
-        {waitLabel && onWait ? (
-          <Button variant="outline" onClick={onWait}>
-            <Clock className="mr-1.5 h-4 w-4" aria-hidden />
-            {waitLabel}
-          </Button>
-        ) : null}
         {onNext ? (
-          <Button onClick={onNext} disabled={nextDisabled}>
+          <Button onClick={onNext}>
             {nextLabel ?? UI.next}
             <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden />
           </Button>

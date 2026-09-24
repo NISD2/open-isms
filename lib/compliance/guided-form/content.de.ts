@@ -11,42 +11,6 @@
  * keys are already the shape a message file wants, so the move is mechanical.
  */
 
-/**
- * German labels for intake fields, overriding the ones `introspectSchema` derives from the key.
- *
- * Without this a German screen reads "Muk Account Id", because the introspector title-cases the
- * identifier and the identifiers are English. Only the fields seen so far are here; an unlisted
- * field falls back to the derived label, which is visibly wrong and therefore gets noticed.
- */
-export const FIELD_LABEL: Readonly<Record<string, string>> = {
-  // Registration and scope
-  entityClassification: "Einstufung",
-  applicableSectors: "Sektoren",
-  mukAccountId: "MUK-Kontonummer",
-  bsiRegistrationDate: "Datum der Registrierung",
-  registrationProofUploaded: "Bestätigung des BSI",
-  contactPersonName: "Ansprechpartner",
-  contactPersonEmail: "E-Mail des Ansprechpartners",
-
-  // Asked once per supplier (CIR 5.2)
-  contractSecurityClauses: "Sicherheitsklauseln im Vertrag",
-  auditFrequency: "Prüfturnus",
-  monitoringMethod: "Wie überwacht",
-  lastReviewDate: "Letzte Überprüfung",
-  dueDiligenceProcess: "Prüfung vor Beauftragung",
-
-  // Asked once per asset (CIR 4(1), 4(2), § 34 BSIG)
-  rto: "Wiederanlaufzeit",
-  rpo: "Zulässiger Datenverlust",
-  hasBackup: "Wird gesichert",
-  backupFrequency: "Sicherungsturnus",
-  backupLocation: "Ort der Sicherung",
-  lastBackupTestDate: "Letzte Rücksicherung getestet",
-  endOfLife: "Supportende",
-  lastPatchDate: "Letztes Update",
-  lastVulnScanDate: "Letzter Schwachstellenscan",
-};
-
 /** The registers, named as the interface names them. */
 const REGISTER: Readonly<Record<string, string>> = {
   asset: "Asset-Inventar",
@@ -75,11 +39,15 @@ export const UI = {
   item: (code: string) => `Punkt ${code}`,
   optional: "optional",
   readStatute: "Gesetzestext lesen",
-  /** The third exit, and it is a peer of Weiter rather than something hidden in a menu. */
-  leaveOpen: "Später klären",
-  leftOpen: "Später klären",
+  /**
+   * The one forward button, worded for what it does when the screen is incomplete.
+   *
+   * There is no separate "later" control: it is the same button, so the label is the only thing
+   * that changes. Saying so beats a disabled button that explains nothing.
+   */
+  laterLabel: "Später weiter",
+  leftOpen: "Später weiter",
   waitingNote: "Offen, Sie kommen beim nächsten Mal hierher zurück.",
   confirmed: "Bestätigen",
   register: (module: string) => REGISTER[module] ?? module,
-  noRegister: "Kein Register hinterlegt",
 } as const;

@@ -17,10 +17,23 @@
  *   `moduleRef`                which register backs an item
  *   `rowFieldsFor`             which fields an item asks **per row** of that register
  *
- * The last one is the shape of the work here. An item backed by a register costs `rows x fields`
- * screens, so an empty supplier register costs one screen and a forty-supplier one costs two
- * hundred. That is where the real reduction lives, and it happens where the register is read rather
- * than in an interview beforehand.
+ * The last one is the shape of the work here: a register-backed item costs one screen per row, so
+ * its length tracks the company rather than the schema. That is where the real reduction lives, and
+ * it happens where the register is read rather than in an interview beforehand.
+ *
+ * Measured on the real journey, and the numbers are small on purpose. Simon: "most of these
+ * companies won't have 40 assets or 40 suppliers. Most of them are going to have like 10. Maximum."
+ * The recon scan of 43.633 German firms agrees: median 1 named supplier, 4 at the ninetieth
+ * percentile, 15 at the maximum; hosts median 3, 8 at the ninetieth. So:
+ *
+ *   empty registers    49 screens
+ *   3 rows in each     55
+ *   10 rows in each    76
+ *   15 rows in each    91
+ *
+ * An earlier version of this comment illustrated the same mechanism with forty rows and 535
+ * screens. That number was invented to make the point vivid and described a company that does not
+ * exist in our market.
  */
 
 import type { ItemState } from "./policy";
@@ -40,18 +53,6 @@ export type Ask =
   | { readonly kind: "row"; readonly module: string; readonly fields: readonly string[] }
   | { readonly kind: "register"; readonly module: string };
 
-/**
- * One field of an item, with the only thing the splitter needs to know about it.
- *
- * `simple` is the grouping rule, and it is about the cost of answering rather than the count.
- * A tick is not a question; a page of ticks is one question. A date, a free text or an enum with a
- * real choice in it is its own screen, because each one makes the reader stop and think.
- */
-export interface SourceField {
-  readonly key: string;
-  readonly simple: boolean;
-}
-
 /** One journey item, as the framework data and the existing maps already describe it. */
 export interface ItemSource {
   readonly code: string;
@@ -60,31 +61,26 @@ export interface ItemSource {
   /** From `journeyPosition`. Lower comes first. */
   readonly position: number;
   /** Intake fields, in the order the schema declares them. May be empty. */
-  readonly fields: readonly SourceField[];
+  readonly fields: readonly string[];
   /** The register that backs this item, where there is one. */
   readonly moduleRef: string | null;
   /** From `rowFieldsFor`. Non-empty makes this item's length depend on the company. */
-  readonly rowFields: readonly SourceField[];
+  readonly rowFields: readonly string[];
 }
 
 /**
- * Split a field list into screens: every run of simple fields becomes one screen, every other
- * field becomes its own.
+ * One item is one screen. Reach, not count.
  *
- * Runs rather than "all the simple ones together", so the schema's own order survives. Reordering
- * a form to suit the grouping would put fields in front of a reader in an order nobody chose.
+ * The earlier rule was one FIELD per screen, and Simon rejected it on the BSI registration: "it's
+ * literally the number, the date of you registering, and the evidence... It's really one item but
+ * with three inputs." All three come off the same confirmation letter, so splitting them makes
+ * someone put the letter down and pick it up again twice.
+ *
+ * The rule that replaces it: everything a person would have in front of them at the same moment
+ * belongs on the same screen. An item is that unit, because an item is what the law asks for and
+ * what gets signed. Partial answers are fine and are what the reminder is for.
  */
-export const groupFields = (
-  fields: readonly SourceField[],
-): readonly (readonly string[])[] =>
-  fields
-    .reduce<SourceField[][]>((groups, f) => {
-      const last = groups.at(-1);
-      if (f.simple && last?.every((x) => x.simple)) last.push(f);
-      else groups.push([f]);
-      return groups;
-    }, [])
-    .map((group) => group.map((f) => f.key));
+export const screenFields = (fields: readonly string[]): readonly string[] => fields;
 
 /** A screen before it is expanded against the company's registers. */
 export interface Template {
@@ -133,16 +129,12 @@ export const buildTemplates = (items: readonly ItemSource[]): readonly Template[
       };
       if (item.rowFields.length > 0 && item.moduleRef) {
         const module = item.moduleRef;
-        return groupFields(item.rowFields).map((fields) => ({
-          ...base,
-          ask: { kind: "row", module, fields },
-        }));
+        return [
+          { ...base, ask: { kind: "row", module, fields: screenFields(item.rowFields) } },
+        ];
       }
       if (item.fields.length > 0) {
-        return groupFields(item.fields).map((fields) => ({
-          ...base,
-          ask: { kind: "fields", fields },
-        }));
+        return [{ ...base, ask: { kind: "fields", fields: screenFields(item.fields) } }];
       }
       return [{ ...base, ask: { kind: "register", module: item.moduleRef ?? "" } }];
     });

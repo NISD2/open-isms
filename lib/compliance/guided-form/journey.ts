@@ -19,40 +19,26 @@ import {
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks/nis2";
-import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { journeyPosition } from "@/lib/compliance/journey-position";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
-import { ROW_SCHEMA, rowFieldsFor } from "@/lib/compliance/requirement-rows";
-import { type FieldType, introspectSchema } from "@/lib/forms/schema-introspect";
-import type { ItemSource, SourceField } from "./steps";
+import { rowFieldsFor } from "@/lib/compliance/requirement-rows";
+import type { ItemSource } from "./steps";
 
 /**
- * Which field types are cheap enough to share a screen.
+ * Intake fields the guided form does not ask, and why.
  *
- * Only a tick. Simon's rule: "if they're just checkboxes or toggle buttons or something simple, you
- * can add more than one per screen". Everything else makes the reader stop and think, and two
- * things that make you stop and think do not belong on one screen.
+ * Simon, 25.09.2026, on the classification pair: "Einstufung and Sektoren are completely useless.
+ * We don't need them at all." The reason is that the BSI portal makes a company classify itself in
+ * order to register at all, so asking again is re-doing their homework and inviting a second,
+ * different answer to a question the authority has already recorded.
+ *
+ * They stay in `REG_SCHEMA`, because the existing requirement page still offers them and the
+ * column still exists. This list is only about what the guided form puts in front of someone.
  */
-const SIMPLE_TYPES: ReadonlySet<FieldType> = new Set<FieldType>(["boolean"]);
-
-/** Field type by key, per schema, introspected once from the schema that owns the column. */
-const typesIn = (
-  schema: Parameters<typeof introspectSchema>[0],
-): ReadonlyMap<string, FieldType> =>
-  new Map(introspectSchema(schema, []).map((m) => [m.key, m.type] as const));
-
-const CATEGORY_TYPES = new Map(
-  Object.entries(CATEGORY_SCHEMAS).map(([code, s]) => [code, typesIn(s)] as const),
-);
-const ROW_TYPES = new Map(
-  Object.entries(ROW_SCHEMA).map(([module, s]) => [module, typesIn(s)] as const),
-);
-
-const toSourceFields = (
-  keys: readonly string[],
-  types: ReadonlyMap<string, FieldType> | undefined,
-): readonly SourceField[] =>
-  keys.map((key) => ({ key, simple: SIMPLE_TYPES.has(types?.get(key) ?? "unknown") }));
+const NOT_ASKED: ReadonlySet<string> = new Set([
+  "entityClassification",
+  "applicableSectors",
+]);
 
 /** Everything one screen shows about the item it belongs to. */
 export interface ItemContent {
@@ -100,15 +86,11 @@ export const journeyItems = (): readonly ItemSource[] =>
               category.sortOrder ?? ci,
               r.sortOrder ?? ri,
             ),
-            fields: toSourceFields(
-              REQUIREMENT_FIELD_MAP[r.code]?.fieldKeys ?? [],
-              CATEGORY_TYPES.get(categoryCode),
+            fields: (REQUIREMENT_FIELD_MAP[r.code]?.fieldKeys ?? []).filter(
+              (f) => !NOT_ASKED.has(f),
             ),
             moduleRef,
-            rowFields: toSourceFields(
-              rowFieldsFor(moduleRef, r.code),
-              moduleRef ? ROW_TYPES.get(moduleRef) : undefined,
-            ),
+            rowFields: rowFieldsFor(moduleRef, r.code).filter((f) => !NOT_ASKED.has(f)),
           };
         },
       ),

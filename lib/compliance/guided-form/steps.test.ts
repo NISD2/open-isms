@@ -18,13 +18,11 @@ import {
   canWait,
   expand,
   fieldsOf,
-  groupFields,
   hasValue,
   type ItemSource,
   itemStates,
   NOTHING_ANSWERED,
   type Row,
-  type SourceField,
   screenAfter,
   screenBefore,
   screenById,
@@ -32,7 +30,7 @@ import {
   screenState,
 } from "./steps";
 
-const f = (key: string, simple = false): SourceField => ({ key, simple });
+const f = (key: string): string => key;
 
 const item = (over: Partial<ItemSource> = {}): ItemSource => ({
   code: "1.1",
@@ -59,38 +57,32 @@ const answers = (
 
 // ---------------------------------------------------------------------------
 
-describe("grouping: cost of answering, not count", () => {
-  test("a run of simple fields shares one screen", () => {
-    expect(groupFields([f("a", true), f("b", true), f("c", true)])).toEqual([
-      ["a", "b", "c"],
+describe("one item is one screen: reach, not count", () => {
+  test("all of an item's fields land on the same screen", () => {
+    // Simon on the BSI registration: "it's literally the number, the date of you registering, and
+    // the evidence... It's really one item but with three inputs." They come off one letter.
+    const templates = buildTemplates([
+      item({ code: "12.2", fields: [f("muk"), f("date"), f("proof")] }),
+    ]);
+    expect(templates).toHaveLength(1);
+    expect(fieldsOf({ ...templates[0], id: "x", row: null } as never)).toEqual([
+      "muk",
+      "date",
+      "proof",
     ]);
   });
 
-  test("anything not simple gets its own screen", () => {
-    expect(groupFields([f("a"), f("b"), f("c")])).toEqual([["a"], ["b"], ["c"]]);
-  });
-
-  test("the schema's own order survives; simple fields are not gathered up", () => {
-    // Reordering to suit the grouping would put fields in front of a reader in an order nobody
-    // chose. Two runs stay two runs.
-    expect(groupFields([f("a", true), f("b"), f("c", true), f("d", true)])).toEqual([
-      ["a"],
-      ["b"],
-      ["c", "d"],
+  test("the schema's own field order survives", () => {
+    const templates = buildTemplates([item({ fields: [f("c"), f("a"), f("b")] })]);
+    expect(templates[0]?.ask.kind === "fields" && templates[0].ask.fields).toEqual([
+      "c",
+      "a",
+      "b",
     ]);
   });
 
-  test("a simple field after a non-simple one starts a new screen rather than joining it", () => {
-    expect(groupFields([f("a"), f("b", true)])).toEqual([["a"], ["b"]]);
-  });
-
-  test("grouping is pure: the same input twice gives the same answer", () => {
-    const fields = [f("a", true), f("b", true)];
-    expect(groupFields(fields)).toEqual(groupFields(fields));
-  });
-
-  test("no fields, no screens", () => {
-    expect(groupFields([])).toEqual([]);
+  test("an item with one field is still one screen", () => {
+    expect(buildTemplates([item({ fields: [f("only")] })])).toHaveLength(1);
   });
 });
 
@@ -107,8 +99,8 @@ describe("building templates from the journey", () => {
     const templates = buildTemplates([
       item({ moduleRef: "supplier", fields: [f("x")], rowFields: [f("a"), f("b")] }),
     ]);
-    expect(templates).toHaveLength(2);
-    expect(templates.every((t) => t.ask.kind === "row")).toBe(true);
+    expect(templates).toHaveLength(1);
+    expect(templates[0]?.ask.kind).toBe("row");
   });
 
   test("an item with nothing at all still gets exactly one screen", () => {
@@ -146,10 +138,13 @@ describe("expanding against what the company actually has", () => {
     expect(screens[0]?.ask.kind).toBe("register");
   });
 
-  test("rows x fields: this is why an item is variable length", () => {
-    expect(expand(templates, rows(1))).toHaveLength(2);
-    expect(expand(templates, rows(12))).toHaveLength(24);
-    expect(expand(templates, rows(40))).toHaveLength(80);
+  test("one screen per row: this is why an item is variable length", () => {
+    // Every field about one supplier sits on that supplier's screen, so the length tracks the
+    // register and not the schema. Measured on the real journey: 49 screens with empty registers,
+    // 79 with ten rows in each.
+    expect(expand(templates, rows(1))).toHaveLength(1);
+    expect(expand(templates, rows(10))).toHaveLength(10);
+    expect(expand(templates, rows(40))).toHaveLength(40);
   });
 
   test("every row screen names its row, or the question cannot be answered", () => {
@@ -172,7 +167,7 @@ describe("expanding against what the company actually has", () => {
 
   test("screenCount attributes the screens to their items", () => {
     const counts = screenCount(expand(templates, rows(10)));
-    expect(counts.get("5.2")).toBe(20);
+    expect(counts.get("5.2")).toBe(10);
   });
 });
 
