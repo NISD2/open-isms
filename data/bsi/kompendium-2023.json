@@ -1,418 +1,261 @@
 {
- "generated": "2026-09-24",
- "xml_sha256": "dd41a7467464982a79307a322be9abb7a07356a1104dd64583bab29138e410ae",
- "xml_url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium/XML_Kompendium_2023.xml?__blob=publicationFile&v=4",
- "index_url": "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/IT-Grundschutz-Kompendium/IT-Grundschutz-Bausteine/Bausteine_Download_Edition_node.html",
- "bausteine": {
-  "DER.2.1": {
-   "id": "DER.2.1",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/05_DER_Detektion_und_Reaktion/DER_2_1_Behandlung_von_Sicherheitsvorfaellen_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A2",
-     "A3",
-     "A4",
-     "A5",
-     "A6"
-    ],
-    "SOLLTE": [
-     "A7",
-     "A8",
-     "A9",
-     "A10",
-     "A11",
-     "A12",
-     "A13",
-     "A14",
-     "A15",
-     "A16",
-     "A17",
-     "A18"
-    ],
-    "KANN": [
-     "A19",
-     "A20",
-     "A21",
-     "A22"
-    ],
-    "ENTFALLEN": []
-   },
-   "sources": {
-    "xml": {
-     "count": 22
+  "generated": "2026-09-24",
+  "xml_sha256": "dd41a7467464982a79307a322be9abb7a07356a1104dd64583bab29138e410ae",
+  "xml_url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium/XML_Kompendium_2023.xml?__blob=publicationFile&v=4",
+  "index_url": "https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/IT-Grundschutz-Kompendium/IT-Grundschutz-Bausteine/Bausteine_Download_Edition_node.html",
+  "bausteine": {
+    "DER.2.1": {
+      "id": "DER.2.1",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/05_DER_Detektion_und_Reaktion/DER_2_1_Behandlung_von_Sicherheitsvorfaellen_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
+      "grades": {
+        "MUSS": ["A1", "A2", "A3", "A4", "A5", "A6"],
+        "SOLLTE": [
+          "A7",
+          "A8",
+          "A9",
+          "A10",
+          "A11",
+          "A12",
+          "A13",
+          "A14",
+          "A15",
+          "A16",
+          "A17",
+          "A18"
+        ],
+        "KANN": ["A19", "A20", "A21", "A22"],
+        "ENTFALLEN": []
+      },
+      "sources": {
+        "xml": {
+          "count": 22
+        },
+        "pdf": {
+          "count": 22,
+          "available": true
+        }
+      },
+      "agreement": true,
+      "issues": []
     },
-    "pdf": {
-     "count": 22,
-     "available": true
+    "OPS.2.3": {
+      "id": "OPS.2.3",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/04_OPS_Betrieb/OPS_2_3_Nutzung_von_Outsourcing_Edition_2023.pdf?__blob=publicationFile&v=4#download=1",
+      "grades": {
+        "MUSS": ["A1", "A2", "A3", "A4", "A5", "A6", "A7"],
+        "SOLLTE": [
+          "A8",
+          "A9",
+          "A10",
+          "A11",
+          "A12",
+          "A13",
+          "A14",
+          "A15",
+          "A16",
+          "A17",
+          "A18",
+          "A19",
+          "A20"
+        ],
+        "KANN": ["A21", "A22", "A23", "A24", "A25"],
+        "ENTFALLEN": []
+      },
+      "sources": {
+        "xml": {
+          "count": 24
+        },
+        "pdf": {
+          "count": 25,
+          "available": true
+        }
+      },
+      "agreement": false,
+      "issues": [
+        "A22 missing from XML (PDF: KANN Durchführung von gemeinsamen Notfall- und Krisenüb)"
+      ]
+    },
+    "ISMS.1": {
+      "id": "ISMS.1",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/01_ISMS_Sicherheitsmanagement/ISMS_1_Sicherheitsmanagement_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
+      "grades": {
+        "MUSS": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"],
+        "SOLLTE": ["A10", "A11", "A12", "A13", "A15"],
+        "KANN": ["A16", "A17"],
+        "ENTFALLEN": ["A14"]
+      },
+      "sources": {
+        "xml": {
+          "count": 17
+        },
+        "pdf": {
+          "count": 17,
+          "available": true
+        }
+      },
+      "agreement": true,
+      "issues": []
+    },
+    "CON.3": {
+      "id": "CON.3",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/03_CON_Konzepte_und_Vorgehensweisen/CON_3_Datensicherungskonzept_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
+      "grades": {
+        "MUSS": ["A1", "A2", "A4", "A5", "A12", "A14", "A15"],
+        "SOLLTE": ["A6", "A7", "A9"],
+        "KANN": ["A13"],
+        "ENTFALLEN": ["A3", "A8", "A10", "A11"]
+      },
+      "sources": {
+        "xml": {
+          "count": 15
+        },
+        "pdf": {
+          "count": 15,
+          "available": true
+        }
+      },
+      "agreement": true,
+      "issues": []
+    },
+    "CON.1": {
+      "id": "CON.1",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/03_CON_Konzepte_und_Vorgehensweisen/CON_1_Kryptokonzept_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
+      "grades": {
+        "MUSS": ["A1", "A2", "A4"],
+        "SOLLTE": ["A5", "A9", "A10", "A15", "A19"],
+        "KANN": ["A11", "A16", "A17", "A18", "A20"],
+        "ENTFALLEN": ["A3", "A6", "A7", "A8", "A12", "A13", "A14"]
+      },
+      "sources": {
+        "xml": {
+          "count": 20
+        },
+        "pdf": {
+          "count": 20,
+          "available": true
+        }
+      },
+      "agreement": true,
+      "issues": []
+    },
+    "OPS.1.1.3": {
+      "id": "OPS.1.1.3",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/04_OPS_Betrieb/OPS_1_1_3_Patch_und_Aenderungsmanagement_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
+      "grades": {
+        "MUSS": ["A1", "A2", "A3", "A15"],
+        "SOLLTE": ["A5", "A6", "A7", "A8", "A9", "A10", "A11"],
+        "KANN": ["A12", "A13", "A14"],
+        "ENTFALLEN": ["A4", "A16"]
+      },
+      "sources": {
+        "xml": {
+          "count": 16
+        },
+        "pdf": {
+          "count": 16,
+          "available": true
+        }
+      },
+      "agreement": true,
+      "issues": []
+    },
+    "DER.3.1": {
+      "id": "DER.3.1",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/05_DER_Detektion_und_Reaktion/DER_3_1_Audits_und_Revisionen_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
+      "grades": {
+        "MUSS": ["A1", "A2", "A3", "A4"],
+        "SOLLTE": [
+          "A5",
+          "A6",
+          "A7",
+          "A8",
+          "A9",
+          "A10",
+          "A11",
+          "A12",
+          "A13",
+          "A14",
+          "A15",
+          "A16",
+          "A17",
+          "A18",
+          "A19",
+          "A20",
+          "A21",
+          "A22",
+          "A23",
+          "A24",
+          "A25",
+          "A26",
+          "A27"
+        ],
+        "KANN": [],
+        "ENTFALLEN": ["A28"]
+      },
+      "sources": {
+        "xml": {
+          "count": 28
+        },
+        "pdf": {
+          "count": 28,
+          "available": true
+        }
+      },
+      "agreement": true,
+      "issues": []
+    },
+    "ORP.3": {
+      "id": "ORP.3",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/02_ORP_Organisation_und_Personal/ORP_3_Sensibilisierung_und_Schulung_Editon_2023.pdf?__blob=publicationFile&v=3#download=1",
+      "grades": {
+        "MUSS": ["A1", "A3"],
+        "SOLLTE": ["A4", "A6", "A7", "A8"],
+        "KANN": ["A9"],
+        "ENTFALLEN": ["A2", "A5"]
+      },
+      "sources": {
+        "xml": {
+          "count": 9
+        },
+        "pdf": {
+          "count": 9,
+          "available": true
+        }
+      },
+      "agreement": true,
+      "issues": []
+    },
+    "ORP.4": {
+      "id": "ORP.4",
+      "edition": "IT-Grundschutz-Kompendium, Edition 2023",
+      "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/02_ORP_Organisation_und_Personal/ORP_4_Identitaets_und_Berechtigungsmanagement_Editon_2023.pdf?__blob=publicationFile&v=3#download=1",
+      "grades": {
+        "MUSS": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A22", "A23"],
+        "SOLLTE": ["A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19"],
+        "KANN": ["A20", "A21", "A24"],
+        "ENTFALLEN": []
+      },
+      "sources": {
+        "xml": {
+          "count": 24
+        },
+        "pdf": {
+          "count": 24,
+          "available": true
+        }
+      },
+      "agreement": true,
+      "issues": []
     }
-   },
-   "agreement": true,
-   "issues": []
   },
-  "OPS.2.3": {
-   "id": "OPS.2.3",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/04_OPS_Betrieb/OPS_2_3_Nutzung_von_Outsourcing_Edition_2023.pdf?__blob=publicationFile&v=4#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A2",
-     "A3",
-     "A4",
-     "A5",
-     "A6",
-     "A7"
-    ],
-    "SOLLTE": [
-     "A8",
-     "A9",
-     "A10",
-     "A11",
-     "A12",
-     "A13",
-     "A14",
-     "A15",
-     "A16",
-     "A17",
-     "A18",
-     "A19",
-     "A20"
-    ],
-    "KANN": [
-     "A21",
-     "A22",
-     "A23",
-     "A24",
-     "A25"
-    ],
-    "ENTFALLEN": []
-   },
-   "sources": {
-    "xml": {
-     "count": 24
-    },
-    "pdf": {
-     "count": 25,
-     "available": true
-    }
-   },
-   "agreement": false,
-   "issues": [
-    "A22 missing from XML (PDF: KANN Durchführung von gemeinsamen Notfall- und Krisenüb)"
-   ]
-  },
-  "ISMS.1": {
-   "id": "ISMS.1",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/01_ISMS_Sicherheitsmanagement/ISMS_1_Sicherheitsmanagement_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A2",
-     "A3",
-     "A4",
-     "A5",
-     "A6",
-     "A7",
-     "A8",
-     "A9"
-    ],
-    "SOLLTE": [
-     "A10",
-     "A11",
-     "A12",
-     "A13",
-     "A15"
-    ],
-    "KANN": [
-     "A16",
-     "A17"
-    ],
-    "ENTFALLEN": [
-     "A14"
-    ]
-   },
-   "sources": {
-    "xml": {
-     "count": 17
-    },
-    "pdf": {
-     "count": 17,
-     "available": true
-    }
-   },
-   "agreement": true,
-   "issues": []
-  },
-  "CON.3": {
-   "id": "CON.3",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/03_CON_Konzepte_und_Vorgehensweisen/CON_3_Datensicherungskonzept_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A2",
-     "A4",
-     "A5",
-     "A12",
-     "A14",
-     "A15"
-    ],
-    "SOLLTE": [
-     "A6",
-     "A7",
-     "A9"
-    ],
-    "KANN": [
-     "A13"
-    ],
-    "ENTFALLEN": [
-     "A3",
-     "A8",
-     "A10",
-     "A11"
-    ]
-   },
-   "sources": {
-    "xml": {
-     "count": 15
-    },
-    "pdf": {
-     "count": 15,
-     "available": true
-    }
-   },
-   "agreement": true,
-   "issues": []
-  },
-  "CON.1": {
-   "id": "CON.1",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/03_CON_Konzepte_und_Vorgehensweisen/CON_1_Kryptokonzept_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A2",
-     "A4"
-    ],
-    "SOLLTE": [
-     "A5",
-     "A9",
-     "A10",
-     "A15",
-     "A19"
-    ],
-    "KANN": [
-     "A11",
-     "A16",
-     "A17",
-     "A18",
-     "A20"
-    ],
-    "ENTFALLEN": [
-     "A3",
-     "A6",
-     "A7",
-     "A8",
-     "A12",
-     "A13",
-     "A14"
-    ]
-   },
-   "sources": {
-    "xml": {
-     "count": 20
-    },
-    "pdf": {
-     "count": 20,
-     "available": true
-    }
-   },
-   "agreement": true,
-   "issues": []
-  },
-  "OPS.1.1.3": {
-   "id": "OPS.1.1.3",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/04_OPS_Betrieb/OPS_1_1_3_Patch_und_Aenderungsmanagement_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A2",
-     "A3",
-     "A15"
-    ],
-    "SOLLTE": [
-     "A5",
-     "A6",
-     "A7",
-     "A8",
-     "A9",
-     "A10",
-     "A11"
-    ],
-    "KANN": [
-     "A12",
-     "A13",
-     "A14"
-    ],
-    "ENTFALLEN": [
-     "A4",
-     "A16"
-    ]
-   },
-   "sources": {
-    "xml": {
-     "count": 16
-    },
-    "pdf": {
-     "count": 16,
-     "available": true
-    }
-   },
-   "agreement": true,
-   "issues": []
-  },
-  "DER.3.1": {
-   "id": "DER.3.1",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/05_DER_Detektion_und_Reaktion/DER_3_1_Audits_und_Revisionen_Edition_2023.pdf?__blob=publicationFile&v=3#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A2",
-     "A3",
-     "A4"
-    ],
-    "SOLLTE": [
-     "A5",
-     "A6",
-     "A7",
-     "A8",
-     "A9",
-     "A10",
-     "A11",
-     "A12",
-     "A13",
-     "A14",
-     "A15",
-     "A16",
-     "A17",
-     "A18",
-     "A19",
-     "A20",
-     "A21",
-     "A22",
-     "A23",
-     "A24",
-     "A25",
-     "A26",
-     "A27"
-    ],
-    "KANN": [],
-    "ENTFALLEN": [
-     "A28"
-    ]
-   },
-   "sources": {
-    "xml": {
-     "count": 28
-    },
-    "pdf": {
-     "count": 28,
-     "available": true
-    }
-   },
-   "agreement": true,
-   "issues": []
-  },
-  "ORP.3": {
-   "id": "ORP.3",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/02_ORP_Organisation_und_Personal/ORP_3_Sensibilisierung_und_Schulung_Editon_2023.pdf?__blob=publicationFile&v=3#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A3"
-    ],
-    "SOLLTE": [
-     "A4",
-     "A6",
-     "A7",
-     "A8"
-    ],
-    "KANN": [
-     "A9"
-    ],
-    "ENTFALLEN": [
-     "A2",
-     "A5"
-    ]
-   },
-   "sources": {
-    "xml": {
-     "count": 9
-    },
-    "pdf": {
-     "count": 9,
-     "available": true
-    }
-   },
-   "agreement": true,
-   "issues": []
-  },
-  "ORP.4": {
-   "id": "ORP.4",
-   "edition": "IT-Grundschutz-Kompendium, Edition 2023",
-   "url": "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/02_ORP_Organisation_und_Personal/ORP_4_Identitaets_und_Berechtigungsmanagement_Editon_2023.pdf?__blob=publicationFile&v=3#download=1",
-   "grades": {
-    "MUSS": [
-     "A1",
-     "A2",
-     "A3",
-     "A4",
-     "A5",
-     "A6",
-     "A7",
-     "A8",
-     "A9",
-     "A22",
-     "A23"
-    ],
-    "SOLLTE": [
-     "A10",
-     "A11",
-     "A12",
-     "A13",
-     "A14",
-     "A15",
-     "A16",
-     "A17",
-     "A18",
-     "A19"
-    ],
-    "KANN": [
-     "A20",
-     "A21",
-     "A24"
-    ],
-    "ENTFALLEN": []
-   },
-   "sources": {
-    "xml": {
-     "count": 24
-    },
-    "pdf": {
-     "count": 24,
-     "available": true
-    }
-   },
-   "agreement": true,
-   "issues": []
-  }
- },
- "titlesIncluded": false,
- "titlesNote": "Requirement titles are withheld: identifiers and grades are facts, the titles are BSI text and the Kompendium grants no explicit reuse licence. The interface links to the Baustein."
+  "titlesIncluded": false,
+  "titlesNote": "Requirement titles are withheld: identifiers and grades are facts, the titles are BSI text and the Kompendium grants no explicit reuse licence. The interface links to the Baustein."
 }

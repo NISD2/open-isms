@@ -11,19 +11,19 @@
 import { describe, expect, test } from "bun:test";
 import statuteJson from "@/data/law/bsig-2025.json";
 import {
-  FACTORS,
-  RULES,
-  SERVICE_TYPES,
+  type Addressee,
   allowedOutcomes,
   applies,
   bindingReference,
+  type ControlGrade,
+  type ControlState,
+  FACTORS,
   itemState,
   justificationComplete,
   noObjectStale,
+  RULES,
   resumeAt,
-  type Addressee,
-  type ControlGrade,
-  type ControlState,
+  SERVICE_TYPES,
   type ServiceType,
   type Settled,
   type StatusFacts,
@@ -31,9 +31,11 @@ import {
 
 const norms = ((): Readonly<Record<string, string>> => {
   const raw: unknown = statuteJson;
-  if (typeof raw !== "object" || raw === null) throw new Error("bsig-2025.json: not an object");
+  if (typeof raw !== "object" || raw === null)
+    throw new Error("bsig-2025.json: not an object");
   const n = (raw as Record<string, unknown>).norms;
-  if (typeof n !== "object" || n === null) throw new Error("bsig-2025.json: norms missing");
+  if (typeof n !== "object" || n === null)
+    throw new Error("bsig-2025.json: norms missing");
   const out: Record<string, string> = {};
   for (const [k, v] of Object.entries(n as Record<string, unknown>)) {
     if (typeof v === "string") out[k] = v;
@@ -77,7 +79,9 @@ describe("every rule resolves against the vendored statute", () => {
       for (const p of r.paragraphs) expect(norms[p] ?? "").not.toBe("");
       const text = r.paragraphs.map((p) => norms[p] ?? "").join("\n");
       for (const phrase of r.phrases) {
-        expect(text.includes(phrase) ? "" : `missing from the statute: ${phrase}`).toBe("");
+        expect(text.includes(phrase) ? "" : `missing from the statute: ${phrase}`).toBe(
+          "",
+        );
       }
     });
   }
@@ -122,23 +126,32 @@ describe("applies", () => {
   test("'all' applies to everyone, whatever the facts", () => {
     for (const k of SETTLED) {
       for (const s of SETTLED) {
-        expect(applies("all", facts({ criticalInstallation: k, sector35_2: s }))).toBe("yes");
+        expect(applies("all", facts({ criticalInstallation: k, sector35_2: s }))).toBe(
+          "yes",
+        );
       }
     }
   });
 
   test("an unsettled fact stays unsettled wherever it is read", () => {
-    expect(applies("critical_installation", facts({ criticalInstallation: "unsettled" }))).toBe(
+    expect(
+      applies("critical_installation", facts({ criticalInstallation: "unsettled" })),
+    ).toBe("unsettled");
+    expect(applies("sector_35_2", facts({ sector35_2: "unsettled" }))).toBe("unsettled");
+    expect(applies("service_type_60_1", facts({ serviceTypes: "unsettled" }))).toBe(
       "unsettled",
     );
-    expect(applies("sector_35_2", facts({ sector35_2: "unsettled" }))).toBe("unsettled");
-    expect(applies("service_type_60_1", facts({ serviceTypes: "unsettled" }))).toBe("unsettled");
   });
 
   test("a trust service provider is not on the § 60 list; a registry provider is", () => {
-    expect(applies("service_type_60_1", facts({ serviceTypes: ["trust_service"] }))).toBe("no");
+    expect(applies("service_type_60_1", facts({ serviceTypes: ["trust_service"] }))).toBe(
+      "no",
+    );
     expect(
-      applies("service_type_60_1", facts({ serviceTypes: ["registry_service_provider"] })),
+      applies(
+        "service_type_60_1",
+        facts({ serviceTypes: ["registry_service_provider"] }),
+      ),
     ).toBe("yes");
   });
 
@@ -155,7 +168,10 @@ describe("applies", () => {
         for (const s of SETTLED) {
           for (const l of lists) {
             expect(SETTLED).toContain(
-              applies(a, facts({ criticalInstallation: k, sector35_2: s, serviceTypes: l })),
+              applies(
+                a,
+                facts({ criticalInstallation: k, sector35_2: s, serviceTypes: l }),
+              ),
             );
           }
         }
@@ -233,9 +249,9 @@ describe("itemState and resumeAt: a wait never stops the flow", () => {
   });
 
   test("covered another way and a justification both settle", () => {
-    expect(itemState([c("required", "covered_otherwise"), c("expected", "justified")])).toBe(
-      "settled",
-    );
+    expect(
+      itemState([c("required", "covered_otherwise"), c("expected", "justified")]),
+    ).toBe("settled");
   });
 
   test("resume skips past a waiting step to real work, and returns to the wait when nothing else is left", () => {
@@ -288,7 +304,9 @@ describe("mutants: each must be caught by the property above it", () => {
   test("offering a justification on a required control is caught", () => {
     expect(
       property((g, can) =>
-        g === "required" ? [...allowedOutcomes("expected", can)] : allowedOutcomes(g, can),
+        g === "required"
+          ? [...allowedOutcomes("expected", can)]
+          : allowedOutcomes(g, can),
       ),
     ).toBe(false);
   });
@@ -304,13 +322,16 @@ describe("mutants: each must be caught by the property above it", () => {
   });
 
   test("an unmapped item counted as settled is caught", () => {
-    const broken = (cs: readonly ControlState[]) => (cs.length === 0 ? "settled" : itemState(cs));
+    const broken = (cs: readonly ControlState[]) =>
+      cs.length === 0 ? "settled" : itemState(cs);
     expect(broken([])).not.toBe(itemState([]));
   });
 
   test("treating a deferred control as settled is caught", () => {
     const broken = (cs: readonly ControlState[]) =>
       cs.every((x) => x.grade === "optional" || x.current !== null) ? "settled" : "open";
-    expect(broken([c("required", "deferred")])).not.toBe(itemState([c("required", "deferred")]));
+    expect(broken([c("required", "deferred")])).not.toBe(
+      itemState([c("required", "deferred")]),
+    );
   });
 });

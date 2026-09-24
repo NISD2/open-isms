@@ -304,7 +304,10 @@ export const RULES: readonly Rule[] = [
     basis: "statute",
     rule: "an unsettled status fact asserts nothing and cannot be signed; the status arises by operation of law, not by notice",
     paragraphs: ["§ 28", "§ 33"],
-    phrases: ["Als besonders wichtige Einrichtung gelten", "Pflicht zur Registrierung nicht erfüllt"],
+    phrases: [
+      "Als besonders wichtige Einrichtung gelten",
+      "Pflicht zur Registrierung nicht erfüllt",
+    ],
   },
   {
     id: "required_choices",
