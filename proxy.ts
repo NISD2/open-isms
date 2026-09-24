@@ -108,6 +108,11 @@ const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   // as the page it previews.
   "/journey-preview",
   "/supplier-preview",
+  // The opening of the Durchgang, rendered with the real register and no database so the flow can
+  // be clicked through before the procedures behind it exist. It shows requirement titles that are
+  // already public and statute text that is public law, and the page itself 404s when NODE_ENV is
+  // production, so it never appears on nisd2.eu.
+  "/durchgang-preview",
 ];
 
 const CANONICAL_PUBLIC_PREFIXES: readonly string[] = [
