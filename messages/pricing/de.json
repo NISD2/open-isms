@@ -23,7 +23,9 @@
         "f8": "Fristen und Erinnerungen",
         "f9": "30 Tage Geld zurück, ohne Begründung",
         "f10": "Export jederzeit, auch in den Selbstbetrieb. Kein Lock-in."
-      }
+      },
+      "badge": "Empfohlen",
+      "vatNote": "zzgl. USt. Rechnung mit 30 Tagen Zahlungsziel."
     },
     "selfHost": {
       "name": "Selbstbetrieb",
@@ -44,7 +46,8 @@
     "whyFree": "Warum der Selbstbetrieb nichts kostet: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Bezahlt wird der geführte Durchgang und der Betrieb durch uns, nicht das Recht, die Software zu benutzen.",
     "guarantee": {
       "heading": "30 Tage Geld zurück",
-      "body": "Sie erhalten eine Rechnung mit 30 Tagen Zahlungsziel. Wenn der Durchgang in dieser Zeit nichts für Sie ist, sagen Sie Bescheid und die Rechnung wird storniert. Was Sie bis dahin unterschrieben haben, gehört Ihnen und lässt sich exportieren."
+      "body": "Sie erhalten eine Rechnung mit 30 Tagen Zahlungsziel. Wenn der Durchgang in dieser Zeit nichts für Sie ist, sagen Sie Bescheid und die Rechnung wird storniert. Was Sie bis dahin unterschrieben haben, gehört Ihnen und lässt sich exportieren.",
+      "chip": "30 Tage Geld zurück"
     },
     "comparison": {
       "heading": "Wo das im Markt liegt",
@@ -73,7 +76,8 @@
           "price": "20.000 bis 60.000 €",
           "note": "Einmalprojekt, Tagessätze"
         }
-      }
+      },
+      "usLabel": "nisd2.eu"
     },
     "consultantFootnote": "Kommen Sie bei NIS 2 nicht weiter? Kurze Fachfragen kosten nichts, und wenn es einen Fachbetrieb braucht, vermitteln wir Ihnen einen, ohne Kosten für Sie.",
     "consultantCta": "Hilfe und Vermittlung"

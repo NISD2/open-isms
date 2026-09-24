@@ -20,8 +20,9 @@
  * The check is not discarded when it fails: every attempt is recorded, the outage included, and
  * retried later. The trail is the point, not the verdict.
  */
+
+import { checkStructure, type StructuralCheck, structuralMessage } from "./vat-checksum";
 import type { VatCheck } from "./vies";
-import { checkStructure, structuralMessage, type StructuralCheck } from "./vat-checksum";
 
 export type OrderGate =
   /** Proceed, with nothing to say. */

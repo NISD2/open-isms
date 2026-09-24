@@ -23,7 +23,9 @@
         "f8": "Deadlines and reminders",
         "f9": "Thirty days money back, no reason needed",
         "f10": "Export at any time, including into self-hosting. No lock-in."
-      }
+      },
+      "badge": "Recommended",
+      "vatNote": "plus VAT. Invoiced with thirty days to pay."
     },
     "selfHost": {
       "name": "Self-hosted",
@@ -44,7 +46,8 @@
     "whyFree": "Why self-hosting costs nothing: the source is on GitHub, inspectable and runnable by anyone. What is paid for is the guided pass and us running it, not the right to use the software.",
     "guarantee": {
       "heading": "Thirty days money back",
-      "body": "You get an invoice with thirty days to pay. If the pass turns out not to be for you in that time, say so and the invoice is cancelled. Whatever you signed off by then is yours and exports cleanly."
+      "body": "You get an invoice with thirty days to pay. If the pass turns out not to be for you in that time, say so and the invoice is cancelled. Whatever you signed off by then is yours and exports cleanly.",
+      "chip": "Thirty days money back"
     },
     "comparison": {
       "heading": "Where that sits in the market",
@@ -73,7 +76,8 @@
           "price": "20,000 to 60,000 €",
           "note": "One-off project, day rates"
         }
-      }
+      },
+      "usLabel": "nisd2.eu"
     },
     "consultantFootnote": "Stuck on NIS 2? Short factual questions cost nothing, and if you need a specialist firm we will introduce you to one at no cost to you.",
     "consultantCta": "Help and introductions"
