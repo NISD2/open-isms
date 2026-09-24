@@ -50,8 +50,34 @@ const clean = (s: unknown): string | null => {
  * LLO and goes to the network, which is exactly what the tests caught.
  */
 const VAT_PREFIXES = new Set([
-  "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "EL", "ES", "FI", "FR", "HR", "HU", "IE",
-  "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SI", "SK", "XI",
+  "AT",
+  "BE",
+  "BG",
+  "CY",
+  "CZ",
+  "DE",
+  "DK",
+  "EE",
+  "EL",
+  "ES",
+  "FI",
+  "FR",
+  "HR",
+  "HU",
+  "IE",
+  "IT",
+  "LT",
+  "LU",
+  "LV",
+  "MT",
+  "NL",
+  "PL",
+  "PT",
+  "RO",
+  "SE",
+  "SI",
+  "SK",
+  "XI",
 ]);
 
 /**
@@ -94,7 +120,12 @@ export type VatCheck =
       readonly checkedAt: string;
     }
   /** VIES answered and the number is not registered. Warn, do not block. */
-  | { readonly status: "invalid"; readonly countryCode: string; readonly vatNumber: string; readonly checkedAt: string }
+  | {
+      readonly status: "invalid";
+      readonly countryCode: string;
+      readonly vatNumber: string;
+      readonly checkedAt: string;
+    }
   /** VIES did not answer, or answered badly. Invisible to the customer; the invoice still goes out. */
   | { readonly status: "unavailable"; readonly reason: string };
 
@@ -108,13 +139,37 @@ interface ViesResponse {
   readonly address?: unknown;
   readonly requestIdentifier?: unknown;
   readonly requestDate?: unknown;
+  /** VIES answers failures with this shape instead of a validity, e.g. MS_UNAVAILABLE. */
+  readonly actionSucceed?: unknown;
+  readonly errorWrappers?: unknown;
 }
+
+/**
+ * VIES reports a failure as `{actionSucceed: false, errorWrappers: [{error: "MS_UNAVAILABLE"}]}`
+ * rather than as an HTTP error, so the code has to be dug out. MS_UNAVAILABLE means that member
+ * state's own register is down, which is common and says nothing about the number; INVALID_INPUT
+ * means the number is malformed. Surfacing the code matters because "we could not check" and
+ * "that is not a number" need different words in front of a customer.
+ */
+const errorCode = (d: ViesResponse): string | null => {
+  if (!Array.isArray(d.errorWrappers)) return null;
+  for (const w of d.errorWrappers) {
+    if (typeof w === "object" && w !== null) {
+      const e = (w as { error?: unknown }).error;
+      if (typeof e === "string" && e) return e;
+    }
+  }
+  return null;
+};
 
 /**
  * Check one VAT number. Never throws: every failure path returns "unavailable", because this is a
  * free third-party service on the path to taking money and it must not be able to stop a sale.
  */
-export const checkVatNumber = async (input: string, signal?: AbortSignal): Promise<VatCheck> => {
+export const checkVatNumber = async (
+  input: string,
+  signal?: AbortSignal,
+): Promise<VatCheck> => {
   const parts = splitVatNumber(input);
   if (!parts) return { status: "malformed" };
 
@@ -147,11 +202,24 @@ export const checkVatNumber = async (input: string, signal?: AbortSignal): Promi
     return { status: "unavailable", reason: "response was not an object" };
   }
   const d = json as ViesResponse;
-  if (typeof d.valid !== "boolean") return { status: "unavailable", reason: "no validity in response" };
+  const code = errorCode(d);
+  if (code) {
+    // INVALID_INPUT is about the number, everything else is about their service. Both are
+    // "unavailable" to the caller, because neither is a statement that the number is not
+    // registered, and only VIES can make that statement.
+    return { status: "unavailable", reason: code };
+  }
+  if (typeof d.valid !== "boolean")
+    return { status: "unavailable", reason: "no validity in response" };
 
   const checkedAt = clean(d.requestDate) ?? new Date().toISOString();
   if (!d.valid) {
-    return { status: "invalid", countryCode: parts.countryCode, vatNumber: parts.vatNumber, checkedAt };
+    return {
+      status: "invalid",
+      countryCode: parts.countryCode,
+      vatNumber: parts.vatNumber,
+      checkedAt,
+    };
   }
   return {
     status: "valid",
@@ -163,6 +231,71 @@ export const checkVatNumber = async (input: string, signal?: AbortSignal): Promi
     checkedAt,
   };
 };
+
+/**
+ * One attempt at checking a number, in the shape it is stored in.
+ *
+ * **Every attempt is recorded, including the ones that failed**, because an unavailable register
+ * is a fact about that date rather than an absence of work. This is the same principle the product
+ * itself sells about § 30 Abs. 1 Satz 3: where the answer cannot be had, record the diligence
+ * rather than claim the answer or leave a blank.
+ *
+ * The consultation number is the part with legal weight. An auditor asking whether a customer's
+ * VAT number was verified before a reverse-charge invoice wants this trail, and a trail that
+ * includes "the register was down at 21:14 and answered at 09:02 the next morning" is a better
+ * answer than a tick with no history behind it.
+ */
+export interface VatCheckAttempt {
+  readonly vatNumberGiven: string;
+  readonly outcome: VatCheck["status"];
+  /** The Commission's receipt, when they gave one. Null on every other outcome. */
+  readonly consultationNumber: string | null;
+  /** Their own error code where there was one, e.g. MS_UNAVAILABLE. */
+  readonly detail: string | null;
+  readonly attemptedAt: string;
+}
+
+/** Turn a result into the row that gets stored. Total: every outcome produces a record. */
+export const toAttempt = (vatNumberGiven: string, check: VatCheck): VatCheckAttempt => {
+  const attemptedAt = new Date().toISOString();
+  switch (check.status) {
+    case "valid":
+      return {
+        vatNumberGiven,
+        outcome: "valid",
+        consultationNumber: check.consultationNumber,
+        detail: null,
+        attemptedAt: check.checkedAt,
+      };
+    case "invalid":
+      return {
+        vatNumberGiven,
+        outcome: "invalid",
+        consultationNumber: null,
+        detail: null,
+        attemptedAt: check.checkedAt,
+      };
+    case "unavailable":
+      return {
+        vatNumberGiven,
+        outcome: "unavailable",
+        consultationNumber: null,
+        detail: check.reason,
+        attemptedAt,
+      };
+    case "malformed":
+      return {
+        vatNumberGiven,
+        outcome: "malformed",
+        consultationNumber: null,
+        detail: null,
+        attemptedAt,
+      };
+  }
+};
+
+/** An attempt still worth repeating: only an outage, never a settled answer. */
+export const shouldRetry = (a: VatCheckAttempt): boolean => a.outcome === "unavailable";
 
 /**
  * Which value-added tax treatment an invoice gets, from the customer's country.
@@ -187,8 +320,35 @@ export type VatTreatment =
  * ours, kept so the set is not silently wrong]`.
  */
 const EU = new Set([
-  "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "EL", "GR", "ES", "FI", "FR", "HR", "HU", "IE",
-  "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SI", "SK", "XI",
+  "AT",
+  "BE",
+  "BG",
+  "CY",
+  "CZ",
+  "DE",
+  "DK",
+  "EE",
+  "EL",
+  "GR",
+  "ES",
+  "FI",
+  "FR",
+  "HR",
+  "HU",
+  "IE",
+  "IT",
+  "LT",
+  "LU",
+  "LV",
+  "MT",
+  "NL",
+  "PL",
+  "PT",
+  "RO",
+  "SE",
+  "SI",
+  "SK",
+  "XI",
 ]);
 
 const DOMESTIC_RATE = 0.19;

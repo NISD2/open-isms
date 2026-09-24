@@ -9,7 +9,15 @@
  * whether the Commission has changed anything under us.
  */
 import { afterEach, describe, expect, test } from "bun:test";
-import { checkVatNumber, isConfirmed, splitVatNumber, vatTreatment, type VatCheck } from "./vies";
+import {
+  checkVatNumber,
+  isConfirmed,
+  shouldRetry,
+  splitVatNumber,
+  toAttempt,
+  type VatCheck,
+  vatTreatment,
+} from "./vies";
 
 const realFetch = globalThis.fetch;
 afterEach(() => {
@@ -62,8 +70,14 @@ describe("splitVatNumber", () => {
   });
 
   test("Greece is EL and Northern Ireland is XI, which are not their ISO codes", () => {
-    expect(splitVatNumber("EL123456789")).toEqual({ countryCode: "EL", vatNumber: "123456789" });
-    expect(splitVatNumber("XI123456789")).toEqual({ countryCode: "XI", vatNumber: "123456789" });
+    expect(splitVatNumber("EL123456789")).toEqual({
+      countryCode: "EL",
+      vatNumber: "123456789",
+    });
+    expect(splitVatNumber("XI123456789")).toEqual({
+      countryCode: "XI",
+      vatNumber: "123456789",
+    });
   });
 
   test("letters are allowed inside the number, as several member states use them", () => {
@@ -71,7 +85,10 @@ describe("splitVatNumber", () => {
       countryCode: "NL",
       vatNumber: "123456789B01",
     });
-    expect(splitVatNumber("IE1234567FA")).toEqual({ countryCode: "IE", vatNumber: "1234567FA" });
+    expect(splitVatNumber("IE1234567FA")).toEqual({
+      countryCode: "IE",
+      vatNumber: "1234567FA",
+    });
   });
 });
 
@@ -96,7 +113,12 @@ describe("checkVatNumber", () => {
   });
 
   test("a member state that does disclose fills name and address", async () => {
-    stub({ ...GERMAN_VALID, countryCode: "NL", name: "Voorbeeld B.V.", address: "Damrak 1, Amsterdam" });
+    stub({
+      ...GERMAN_VALID,
+      countryCode: "NL",
+      name: "Voorbeeld B.V.",
+      address: "Damrak 1, Amsterdam",
+    });
     const r = await checkVatNumber("NL123456789B01");
     if (!isConfirmed(r)) throw new Error("expected valid");
     expect(r.name).toBe("Voorbeeld B.V.");
@@ -160,7 +182,10 @@ describe("vatTreatment", () => {
 
   test("outside the EU is out of scope and carries no German VAT", () => {
     expect(vatTreatment("CH", confirmed)).toMatchObject({ kind: "outside_eu", rate: 0 });
-    expect(vatTreatment("US", unavailable)).toMatchObject({ kind: "outside_eu", rate: 0 });
+    expect(vatTreatment("US", unavailable)).toMatchObject({
+      kind: "outside_eu",
+      rate: 0,
+    });
   });
 
   test("every reverse-charge or out-of-scope treatment carries the wording the invoice needs", () => {
@@ -184,4 +209,71 @@ describe("live check against the Commission (VIES_LIVE=1 to run)", () => {
       expect(r.name).toBeNull();
     },
   );
+});
+
+describe("the attempt log, which is the part with legal weight", () => {
+  test("every outcome produces a record, including the failures", async () => {
+    const cases: readonly VatCheck[] = [
+      {
+        status: "valid",
+        countryCode: "DE",
+        vatNumber: "462889433",
+        name: null,
+        address: null,
+        consultationNumber: "WAPIAAAAaDVL-xnd",
+        checkedAt: "2026-09-24T21:00:00.000Z",
+      },
+      {
+        status: "invalid",
+        countryCode: "DE",
+        vatNumber: "000000000",
+        checkedAt: "2026-09-24T21:00:00.000Z",
+      },
+      { status: "unavailable", reason: "MS_UNAVAILABLE" },
+      { status: "malformed" },
+    ];
+    for (const c of cases) {
+      const a = toAttempt("DE462889433", c);
+      expect(a.outcome).toBe(c.status);
+      expect(typeof a.attemptedAt).toBe("string");
+      expect(a.attemptedAt.length).toBeGreaterThan(10);
+    }
+  });
+
+  test("the consultation number survives only where the Commission issued one", () => {
+    const withNumber = toAttempt("DE462889433", {
+      status: "valid",
+      countryCode: "DE",
+      vatNumber: "462889433",
+      name: null,
+      address: null,
+      consultationNumber: "WAPIAAAAaDVL-xnd",
+      checkedAt: "2026-09-24T21:00:00.000Z",
+    });
+    expect(withNumber.consultationNumber).toBe("WAPIAAAAaDVL-xnd");
+    expect(
+      toAttempt("DE1", { status: "unavailable", reason: "MS_UNAVAILABLE" })
+        .consultationNumber,
+    ).toBeNull();
+  });
+
+  test("an outage records WHY, because 'the register was down' is the evidence", () => {
+    const a = toAttempt("DE462889433", {
+      status: "unavailable",
+      reason: "MS_UNAVAILABLE",
+    });
+    expect(a.detail).toBe("MS_UNAVAILABLE");
+  });
+
+  test("only an outage is retried; a settled answer is not asked again", () => {
+    const outage = toAttempt("DE1", { status: "unavailable", reason: "MS_UNAVAILABLE" });
+    const settled = toAttempt("DE1", {
+      status: "invalid",
+      countryCode: "DE",
+      vatNumber: "1",
+      checkedAt: "x",
+    });
+    expect(shouldRetry(outage)).toBe(true);
+    expect(shouldRetry(settled)).toBe(false);
+  });
 });
