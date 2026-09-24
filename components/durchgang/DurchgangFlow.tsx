@@ -224,7 +224,10 @@ const questionFor = (screen: Screen, item: ItemContent | undefined): string => {
  */
 const sublineFor = (screen: Screen, item: ItemContent | undefined): string => {
   if (screen.row) return `${item?.title ?? screen.item} · ${screen.row.label}`;
-  return item?.title ?? "";
+  // When the heading already IS the item title, repeating it says nothing. The description is
+  // what a reader wants underneath it; the title returns only when there is no description.
+  const heading = questionFor(screen, item);
+  return heading === item?.title ? (item?.description ?? "") : (item?.title ?? "");
 };
 
 function RegisterBody({
