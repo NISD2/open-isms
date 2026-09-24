@@ -24,68 +24,65 @@
  * failure rolls the entire erasure back, so a partial deletion is impossible.
  */
 import { createHash, createHmac } from "node:crypto";
-import { and, eq, gte, inArray, isNotNull, lt, or, sql } from "drizzle-orm";
-import { redactPiiInJson } from "./redact-pii";
 import type { InferSelectModel } from "drizzle-orm";
-import { db } from "@/lib/db";
+import { and, eq, gte, inArray, isNotNull, lt, or, sql } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
+import { db } from "@/lib/db";
+import type { ErasureMethod, ErasureScope } from "@/schema";
+// Remaining table objects, kept in a second import to keep the list readable.
 import {
-  user,
-  company,
-  // personal
-  gapAssessment,
-  trainingLessonProgress,
-  newsletterGroupMember,
-  notification,
-  requirementAssignment,
-  categoryAssignment,
-  // hash chain + evidence
-  controlDecision,
-  signOffHistory,
-  policyAcknowledgment,
-  companyInvite,
-  // nullable attribution
-  evidence,
-  policy,
-  trainingRecord,
-  changeRequest,
-  companyRequirementStatus,
-  companyCategoryIntake,
-  improvementItem,
-  patchRecord,
-  riskTreatment,
+  asset,
+  assetSupplierOffering,
   auditFinding,
   auditLog,
   bsiIncidentReport,
-  incident,
+  bsiRegistration,
+  categoryAssignment,
+  changeRequest,
+  company,
   // teardown-only roots + children
   companyAssessment,
-  internalAudit,
-  dataErasureLog,
-} from "@/schema";
-import type { ErasureMethod, ErasureScope } from "@/schema";
-
-// Remaining table objects, kept in a second import to keep the list readable.
-import {
+  companyCategoryIntake,
+  companyCertification,
+  companyInvite,
   companyPolicyConfig,
+  companyRequirementStatus,
   companyRiskMethodology,
-  kpiMeasurement,
-  managementReview,
-  vulnerability,
+  // hash chain + evidence
+  controlDecision,
+  dataErasureLog,
+  emailOtp,
+  // nullable attribution
+  evidence,
   exercise,
-  bsiRegistration,
-  asset,
+  // personal
+  gapAssessment,
+  improvementItem,
+  incident,
+  incidentBroadcast,
+  internalAudit,
+  kpiMeasurement,
+  lead,
+  managementReview,
+  newsletterGroupMember,
+  notification,
+  patchRecord,
+  policy,
+  policyAcknowledgment,
+  requirementAssignment,
   risk,
-  supplier,
   riskAsset,
   riskSupplier,
-  assetSupplierOffering,
-  incidentBroadcast,
-  companyCertification,
+  riskTreatment,
+  signOffHistory,
+  supplier,
   supplierInvite,
-  emailOtp,
-  lead,
+  trainingLessonProgress,
+  trainingRecord,
+  user,
+  vulnerability,
 } from "@/schema";
+import { redactPiiInJson } from "./redact-pii";
 
 type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
@@ -104,10 +101,14 @@ function hashEmail(email: string): string {
   const key = process.env.ERASURE_EMAIL_HASH_SALT;
   if (!key) {
     if (process.env.NODE_ENV === "production") {
-      throw new Error("ERASURE_EMAIL_HASH_SALT must be set in production to fingerprint erased emails.");
+      throw new Error(
+        "ERASURE_EMAIL_HASH_SALT must be set in production to fingerprint erased emails.",
+      );
     }
     // Dev-only fallback so local flows work; never reached in prod.
-    return createHmac("sha256", "dev-only-erasure-key").update(email.trim().toLowerCase()).digest("hex");
+    return createHmac("sha256", "dev-only-erasure-key")
+      .update(email.trim().toLowerCase())
+      .digest("hex");
   }
   return createHmac("sha256", key).update(email.trim().toLowerCase()).digest("hex");
 }
@@ -137,18 +138,16 @@ export interface ErasurePreview {
   personalRecordCount: number;
   signOffCount: number;
   /** What an owner-teardown would delete. Null unless isOwner. */
-  orgData:
-    | {
-        memberAccounts: number;
-        assessments: number;
-        assets: number;
-        risks: number;
-        incidents: number;
-        suppliers: number;
-        policies: number;
-        signOffs: number;
-      }
-    | null;
+  orgData: {
+    memberAccounts: number;
+    assessments: number;
+    assets: number;
+    risks: number;
+    incidents: number;
+    suppliers: number;
+    policies: number;
+    signOffs: number;
+  } | null;
   predictedMethod: ErasureMethod;
 }
 
@@ -179,7 +178,13 @@ export async function previewUserErasure(userId: string): Promise<ErasurePreview
   const cid = subject.companyId;
   if (cid) {
     const [c] = await db
-      .select({ id: company.id, name: company.name, sector: company.sector, plan: company.plan, ownerId: company.ownerId })
+      .select({
+        id: company.id,
+        name: company.name,
+        sector: company.sector,
+        plan: company.plan,
+        ownerId: company.ownerId,
+      })
       .from(company)
       .where(eq(company.id, cid))
       .limit(1);
@@ -187,30 +192,80 @@ export async function previewUserErasure(userId: string): Promise<ErasurePreview
       companyInfo = { id: c.id, name: c.name, sector: c.sector, plan: c.plan };
       isOwner = c.ownerId === userId;
     }
-    memberCount = await len(db.select({ id: user.id }).from(user).where(eq(user.companyId, cid)));
+    memberCount = await len(
+      db.select({ id: user.id }).from(user).where(eq(user.companyId, cid)),
+    );
   }
 
   const personalRecordCount =
-    (await len(db.select({ id: gapAssessment.id }).from(gapAssessment).where(eq(gapAssessment.userId, userId)))) +
-    (await len(db.select({ id: trainingLessonProgress.id }).from(trainingLessonProgress).where(eq(trainingLessonProgress.userId, userId)))) +
-    (await len(db.select({ id: newsletterGroupMember.id }).from(newsletterGroupMember).where(eq(newsletterGroupMember.userId, userId)))) +
-    (await len(db.select({ id: notification.id }).from(notification).where(eq(notification.recipientId, userId))));
+    (await len(
+      db
+        .select({ id: gapAssessment.id })
+        .from(gapAssessment)
+        .where(eq(gapAssessment.userId, userId)),
+    )) +
+    (await len(
+      db
+        .select({ id: trainingLessonProgress.id })
+        .from(trainingLessonProgress)
+        .where(eq(trainingLessonProgress.userId, userId)),
+    )) +
+    (await len(
+      db
+        .select({ id: newsletterGroupMember.id })
+        .from(newsletterGroupMember)
+        .where(eq(newsletterGroupMember.userId, userId)),
+    )) +
+    (await len(
+      db
+        .select({ id: notification.id })
+        .from(notification)
+        .where(eq(notification.recipientId, userId)),
+    ));
 
   const signOffCount = await len(
-    db.select({ id: signOffHistory.id }).from(signOffHistory).where(eq(signOffHistory.signedOffBy, userId)),
+    db
+      .select({ id: signOffHistory.id })
+      .from(signOffHistory)
+      .where(eq(signOffHistory.signedOffBy, userId)),
   );
 
   let orgData: ErasurePreview["orgData"] = null;
   if (isOwner && cid) {
     orgData = {
       memberAccounts: memberCount,
-      assessments: await len(db.select({ id: companyAssessment.id }).from(companyAssessment).where(eq(companyAssessment.companyId, cid))),
-      assets: await len(db.select({ id: asset.id }).from(asset).where(eq(asset.companyId, cid))),
-      risks: await len(db.select({ id: risk.id }).from(risk).where(eq(risk.companyId, cid))),
-      incidents: await len(db.select({ id: incident.id }).from(incident).where(eq(incident.companyId, cid))),
-      suppliers: await len(db.select({ id: supplier.id }).from(supplier).where(or(eq(supplier.customerCompanyId, cid), eq(supplier.supplierCompanyId, cid)))),
-      policies: await len(db.select({ id: policy.id }).from(policy).where(eq(policy.companyId, cid))),
-      signOffs: await len(db.select({ id: signOffHistory.id }).from(signOffHistory).where(eq(signOffHistory.companyId, cid))),
+      assessments: await len(
+        db
+          .select({ id: companyAssessment.id })
+          .from(companyAssessment)
+          .where(eq(companyAssessment.companyId, cid)),
+      ),
+      assets: await len(
+        db.select({ id: asset.id }).from(asset).where(eq(asset.companyId, cid)),
+      ),
+      risks: await len(
+        db.select({ id: risk.id }).from(risk).where(eq(risk.companyId, cid)),
+      ),
+      incidents: await len(
+        db.select({ id: incident.id }).from(incident).where(eq(incident.companyId, cid)),
+      ),
+      suppliers: await len(
+        db
+          .select({ id: supplier.id })
+          .from(supplier)
+          .where(
+            or(eq(supplier.customerCompanyId, cid), eq(supplier.supplierCompanyId, cid)),
+          ),
+      ),
+      policies: await len(
+        db.select({ id: policy.id }).from(policy).where(eq(policy.companyId, cid)),
+      ),
+      signOffs: await len(
+        db
+          .select({ id: signOffHistory.id })
+          .from(signOffHistory)
+          .where(eq(signOffHistory.companyId, cid)),
+      ),
     };
   }
 
@@ -257,12 +312,18 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
   const { userId, actor, request } = input;
 
   const [subject] = await tx
-    .select({ id: user.id, email: user.email, name: user.name, companyId: user.companyId })
+    .select({
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      companyId: user.companyId,
+    })
     .from(user)
     .where(eq(user.id, userId))
     .limit(1);
   if (!subject) throw new Error(`User ${userId} not found`);
-  if (subject.email === TOMBSTONE_EMAIL) throw new Error("Refusing to erase the erasure tombstone user");
+  if (subject.email === TOMBSTONE_EMAIL)
+    throw new Error("Refusing to erase the erasure tombstone user");
 
   const scope: ErasureScope = {
     deleted: {},
@@ -273,26 +334,25 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     residualNotes: [],
   };
 
-  const del = async (
-    label: string,
-    run: () => Promise<unknown[]>,
-  ): Promise<void> => {
+  const del = async (label: string, run: () => Promise<unknown[]>): Promise<void> => {
     const rows = await run();
     if (rows.length) scope.deleted[label] = (scope.deleted[label] ?? 0) + rows.length;
   };
-  const anon = async (
-    label: string,
-    run: () => Promise<unknown[]>,
-  ): Promise<void> => {
+  const anon = async (label: string, run: () => Promise<unknown[]>): Promise<void> => {
     const rows = await run();
-    if (rows.length) scope.anonymized[label] = (scope.anonymized[label] ?? 0) + rows.length;
+    if (rows.length)
+      scope.anonymized[label] = (scope.anonymized[label] ?? 0) + rows.length;
   };
 
   // Tombstone user is created lazily and reused across all erasures.
   let tombstoneId: string | null = null;
   const tombstone = async (): Promise<string> => {
     if (tombstoneId) return tombstoneId;
-    const [existing] = await tx.select({ id: user.id }).from(user).where(eq(user.email, TOMBSTONE_EMAIL)).limit(1);
+    const [existing] = await tx
+      .select({ id: user.id })
+      .from(user)
+      .where(eq(user.email, TOMBSTONE_EMAIL))
+      .limit(1);
     if (existing) {
       tombstoneId = existing.id;
       return tombstoneId;
@@ -364,7 +424,8 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     "Resend (transactional email logs)",
   );
 
-    const method: ErasureMethod = Object.keys(scope.anonymized).length > 0 ? "anonymized" : "hard_delete";
+  const method: ErasureMethod =
+    Object.keys(scope.anonymized).length > 0 ? "anonymized" : "hard_delete";
 
   // ── Phase 8: durable, tamper-evident erasure log (same transaction) ──────
   const now = new Date();
@@ -383,7 +444,8 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     companyName,
     requestReceivedAt: request?.requestReceivedAt ?? null,
     requestChannel: request?.requestChannel ?? "email",
-    rightsInvoked: request?.rightsInvoked ?? "Right to erasure (Art. 17), all GDPR rights invoked",
+    rightsInvoked:
+      request?.rightsInvoked ?? "Right to erasure (Art. 17), all GDPR rights invoked",
     legalBasis: "GDPR Art. 17(1)(a), 17(1)(b)",
     erasedAt: now,
     actorUserId: actor.userId,
@@ -401,7 +463,13 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     .values({ ...logCore, subjectEmail: subject.email, checksum })
     .returning({ id: dataErasureLog.id });
 
-  return { caseRef, logId: logRow.id, method, scope, companyTornDown: scope.companyTornDown };
+  return {
+    caseRef,
+    logId: logRow.id,
+    method,
+    scope,
+    companyTornDown: scope.companyTornDown,
+  };
 }
 
 /** Erase one person: delete their purely-personal rows, sever or anonymise
@@ -422,15 +490,40 @@ async function erasePerson(
   // (see redact-pii.ts), but it must be disclosed: an erasure certificate that
   // silently leaves the subject's name in free text overstates what happened.
   const skippedNeedles: string[] = [];
-  const redact = <T,>(v: T) => redactPiiInJson(v, [email, name], { skipped: skippedNeedles });
+  const redact = <T>(v: T) =>
+    redactPiiInJson(v, [email, name], { skipped: skippedNeedles });
 
   // Purely-personal rows.
-  await del("gap_assessment", () => tx.delete(gapAssessment).where(eq(gapAssessment.userId, userId)).returning());
-  await del("training_lesson_progress", () => tx.delete(trainingLessonProgress).where(eq(trainingLessonProgress.userId, userId)).returning());
-  await del("newsletter_group_member", () => tx.delete(newsletterGroupMember).where(eq(newsletterGroupMember.userId, userId)).returning());
-  await del("notification", () => tx.delete(notification).where(eq(notification.recipientId, userId)).returning());
-  await del("requirement_assignment", () => tx.delete(requirementAssignment).where(eq(requirementAssignment.userId, userId)).returning());
-  await del("category_assignment", () => tx.delete(categoryAssignment).where(eq(categoryAssignment.userId, userId)).returning());
+  await del("gap_assessment", () =>
+    tx.delete(gapAssessment).where(eq(gapAssessment.userId, userId)).returning(),
+  );
+  await del("training_lesson_progress", () =>
+    tx
+      .delete(trainingLessonProgress)
+      .where(eq(trainingLessonProgress.userId, userId))
+      .returning(),
+  );
+  await del("newsletter_group_member", () =>
+    tx
+      .delete(newsletterGroupMember)
+      .where(eq(newsletterGroupMember.userId, userId))
+      .returning(),
+  );
+  await del("notification", () =>
+    tx.delete(notification).where(eq(notification.recipientId, userId)).returning(),
+  );
+  await del("requirement_assignment", () =>
+    tx
+      .delete(requirementAssignment)
+      .where(eq(requirementAssignment.userId, userId))
+      .returning(),
+  );
+  await del("category_assignment", () =>
+    tx
+      .delete(categoryAssignment)
+      .where(eq(categoryAssignment.userId, userId))
+      .returning(),
+  );
 
   // Sign-off hash chain: reassign signer to the tombstone + redact snapshot PII.
   const soRows = await tx
@@ -441,9 +534,13 @@ async function erasePerson(
     const tid = await tombstone();
     for (const r of soRows) {
       const redacted = redact(r.snapshot);
-      await tx.update(signOffHistory).set({ signedOffBy: tid, snapshot: redacted }).where(eq(signOffHistory.id, r.id));
+      await tx
+        .update(signOffHistory)
+        .set({ signedOffBy: tid, snapshot: redacted })
+        .where(eq(signOffHistory.id, r.id));
     }
-    scope.anonymized["sign_off_history"] = (scope.anonymized["sign_off_history"] ?? 0) + soRows.length;
+    scope.anonymized["sign_off_history"] =
+      (scope.anonymized["sign_off_history"] ?? 0) + soRows.length;
     scope.residualNotes.push(
       `${soRows.length} sign-off history entr${soRows.length === 1 ? "y" : "ies"} had the signer reassigned to a tombstone and snapshot PII redacted; their chained checksums are intentionally no longer verifiable as a consequence of lawful erasure.`,
     );
@@ -511,56 +608,224 @@ async function erasePerson(
     );
   }
 
-
   // Remaining NOT-NULL attribution reassigned to the tombstone.
-  const invitedByRows = await tx.select({ id: companyInvite.id }).from(companyInvite).where(eq(companyInvite.invitedBy, userId));
+  const invitedByRows = await tx
+    .select({ id: companyInvite.id })
+    .from(companyInvite)
+    .where(eq(companyInvite.invitedBy, userId));
   if (invitedByRows.length) {
     const tid = await tombstone();
-    await tx.update(companyInvite).set({ invitedBy: tid }).where(eq(companyInvite.invitedBy, userId));
-    scope.anonymized["company_invite"] = (scope.anonymized["company_invite"] ?? 0) + invitedByRows.length;
+    await tx
+      .update(companyInvite)
+      .set({ invitedBy: tid })
+      .where(eq(companyInvite.invitedBy, userId));
+    scope.anonymized["company_invite"] =
+      (scope.anonymized["company_invite"] ?? 0) + invitedByRows.length;
   }
-  const ackRows = await tx.select({ id: policyAcknowledgment.id }).from(policyAcknowledgment).where(eq(policyAcknowledgment.userId, userId));
+  const ackRows = await tx
+    .select({ id: policyAcknowledgment.id })
+    .from(policyAcknowledgment)
+    .where(eq(policyAcknowledgment.userId, userId));
   if (ackRows.length) {
     const tid = await tombstone();
-    await tx.update(policyAcknowledgment).set({ userId: tid }).where(eq(policyAcknowledgment.userId, userId));
-    scope.anonymized["policy_acknowledgment"] = (scope.anonymized["policy_acknowledgment"] ?? 0) + ackRows.length;
+    await tx
+      .update(policyAcknowledgment)
+      .set({ userId: tid })
+      .where(eq(policyAcknowledgment.userId, userId));
+    scope.anonymized["policy_acknowledgment"] =
+      (scope.anonymized["policy_acknowledgment"] ?? 0) + ackRows.length;
   }
-  const assignedByRows = await tx.select({ id: categoryAssignment.id }).from(categoryAssignment).where(eq(categoryAssignment.assignedBy, userId));
+  const assignedByRows = await tx
+    .select({ id: categoryAssignment.id })
+    .from(categoryAssignment)
+    .where(eq(categoryAssignment.assignedBy, userId));
   if (assignedByRows.length) {
     const tid = await tombstone();
-    await tx.update(categoryAssignment).set({ assignedBy: tid }).where(eq(categoryAssignment.assignedBy, userId));
-    scope.anonymized["category_assignment"] = (scope.anonymized["category_assignment"] ?? 0) + assignedByRows.length;
+    await tx
+      .update(categoryAssignment)
+      .set({ assignedBy: tid })
+      .where(eq(categoryAssignment.assignedBy, userId));
+    scope.anonymized["category_assignment"] =
+      (scope.anonymized["category_assignment"] ?? 0) + assignedByRows.length;
   }
 
   // Nullable attribution columns set to NULL.
-  await anon("company_invite", () => tx.update(companyInvite).set({ acceptedBy: null }).where(eq(companyInvite.acceptedBy, userId)).returning());
-  await anon("evidence", () => tx.update(evidence).set({ uploadedBy: null }).where(eq(evidence.uploadedBy, userId)).returning());
-  await anon("evidence", () => tx.update(evidence).set({ reviewedBy: null }).where(eq(evidence.reviewedBy, userId)).returning());
-  await anon("policy", () => tx.update(policy).set({ approvedBy: null }).where(eq(policy.approvedBy, userId)).returning());
-  await anon("training_record", () => tx.update(trainingRecord).set({ userId: null }).where(eq(trainingRecord.userId, userId)).returning());
-  await anon("change_request", () => tx.update(changeRequest).set({ requestedBy: null }).where(eq(changeRequest.requestedBy, userId)).returning());
-  await anon("change_request", () => tx.update(changeRequest).set({ approvedBy: null }).where(eq(changeRequest.approvedBy, userId)).returning());
-  await anon("change_request", () => tx.update(changeRequest).set({ implementedBy: null }).where(eq(changeRequest.implementedBy, userId)).returning());
-  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ completedBy: null }).where(eq(companyRequirementStatus.completedBy, userId)).returning());
-  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ signedOffBy: null }).where(eq(companyRequirementStatus.signedOffBy, userId)).returning());
-  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ reviewedBy: null }).where(eq(companyRequirementStatus.reviewedBy, userId)).returning());
-  await anon("company_requirement_status", () => tx.update(companyRequirementStatus).set({ assignedTo: null }).where(eq(companyRequirementStatus.assignedTo, userId)).returning());
-  await anon("company_category_intake", () => tx.update(companyCategoryIntake).set({ lastSavedBy: null }).where(eq(companyCategoryIntake.lastSavedBy, userId)).returning());
-  await anon("company_category_intake", () => tx.update(companyCategoryIntake).set({ signedOffBy: null }).where(eq(companyCategoryIntake.signedOffBy, userId)).returning());
-  await anon("improvement_item", () => tx.update(improvementItem).set({ assignedTo: null }).where(eq(improvementItem.assignedTo, userId)).returning());
-  await anon("patch_record", () => tx.update(patchRecord).set({ exceptionApprovedBy: null }).where(eq(patchRecord.exceptionApprovedBy, userId)).returning());
-  await anon("risk_treatment", () => tx.update(riskTreatment).set({ responsibleUserId: null }).where(eq(riskTreatment.responsibleUserId, userId)).returning());
-  await anon("risk_treatment", () => tx.update(riskTreatment).set({ verifiedBy: null }).where(eq(riskTreatment.verifiedBy, userId)).returning());
-  await anon("audit_finding", () => tx.update(auditFinding).set({ assignedTo: null }).where(eq(auditFinding.assignedTo, userId)).returning());
-  await anon("audit_finding", () => tx.update(auditFinding).set({ verifiedBy: null }).where(eq(auditFinding.verifiedBy, userId)).returning());
-  await anon("bsi_incident_report", () => tx.update(bsiIncidentReport).set({ createdBy: null }).where(eq(bsiIncidentReport.createdBy, userId)).returning());
-  await anon("requirement_assignment", () => tx.update(requirementAssignment).set({ assignedBy: null }).where(eq(requirementAssignment.assignedBy, userId)).returning());
-  await anon("incident", () => tx.update(incident).set({ createdBy: null }).where(eq(incident.createdBy, userId)).returning());
-  await anon("risk", () => tx.update(risk).set({ acceptedBy: null }).where(eq(risk.acceptedBy, userId)).returning());
+  await anon("company_invite", () =>
+    tx
+      .update(companyInvite)
+      .set({ acceptedBy: null })
+      .where(eq(companyInvite.acceptedBy, userId))
+      .returning(),
+  );
+  await anon("evidence", () =>
+    tx
+      .update(evidence)
+      .set({ uploadedBy: null })
+      .where(eq(evidence.uploadedBy, userId))
+      .returning(),
+  );
+  await anon("evidence", () =>
+    tx
+      .update(evidence)
+      .set({ reviewedBy: null })
+      .where(eq(evidence.reviewedBy, userId))
+      .returning(),
+  );
+  await anon("policy", () =>
+    tx
+      .update(policy)
+      .set({ approvedBy: null })
+      .where(eq(policy.approvedBy, userId))
+      .returning(),
+  );
+  await anon("training_record", () =>
+    tx
+      .update(trainingRecord)
+      .set({ userId: null })
+      .where(eq(trainingRecord.userId, userId))
+      .returning(),
+  );
+  await anon("change_request", () =>
+    tx
+      .update(changeRequest)
+      .set({ requestedBy: null })
+      .where(eq(changeRequest.requestedBy, userId))
+      .returning(),
+  );
+  await anon("change_request", () =>
+    tx
+      .update(changeRequest)
+      .set({ approvedBy: null })
+      .where(eq(changeRequest.approvedBy, userId))
+      .returning(),
+  );
+  await anon("change_request", () =>
+    tx
+      .update(changeRequest)
+      .set({ implementedBy: null })
+      .where(eq(changeRequest.implementedBy, userId))
+      .returning(),
+  );
+  await anon("company_requirement_status", () =>
+    tx
+      .update(companyRequirementStatus)
+      .set({ completedBy: null })
+      .where(eq(companyRequirementStatus.completedBy, userId))
+      .returning(),
+  );
+  await anon("company_requirement_status", () =>
+    tx
+      .update(companyRequirementStatus)
+      .set({ signedOffBy: null })
+      .where(eq(companyRequirementStatus.signedOffBy, userId))
+      .returning(),
+  );
+  await anon("company_requirement_status", () =>
+    tx
+      .update(companyRequirementStatus)
+      .set({ reviewedBy: null })
+      .where(eq(companyRequirementStatus.reviewedBy, userId))
+      .returning(),
+  );
+  await anon("company_requirement_status", () =>
+    tx
+      .update(companyRequirementStatus)
+      .set({ assignedTo: null })
+      .where(eq(companyRequirementStatus.assignedTo, userId))
+      .returning(),
+  );
+  await anon("company_category_intake", () =>
+    tx
+      .update(companyCategoryIntake)
+      .set({ lastSavedBy: null })
+      .where(eq(companyCategoryIntake.lastSavedBy, userId))
+      .returning(),
+  );
+  await anon("company_category_intake", () =>
+    tx
+      .update(companyCategoryIntake)
+      .set({ signedOffBy: null })
+      .where(eq(companyCategoryIntake.signedOffBy, userId))
+      .returning(),
+  );
+  await anon("improvement_item", () =>
+    tx
+      .update(improvementItem)
+      .set({ assignedTo: null })
+      .where(eq(improvementItem.assignedTo, userId))
+      .returning(),
+  );
+  await anon("patch_record", () =>
+    tx
+      .update(patchRecord)
+      .set({ exceptionApprovedBy: null })
+      .where(eq(patchRecord.exceptionApprovedBy, userId))
+      .returning(),
+  );
+  await anon("risk_treatment", () =>
+    tx
+      .update(riskTreatment)
+      .set({ responsibleUserId: null })
+      .where(eq(riskTreatment.responsibleUserId, userId))
+      .returning(),
+  );
+  await anon("risk_treatment", () =>
+    tx
+      .update(riskTreatment)
+      .set({ verifiedBy: null })
+      .where(eq(riskTreatment.verifiedBy, userId))
+      .returning(),
+  );
+  await anon("audit_finding", () =>
+    tx
+      .update(auditFinding)
+      .set({ assignedTo: null })
+      .where(eq(auditFinding.assignedTo, userId))
+      .returning(),
+  );
+  await anon("audit_finding", () =>
+    tx
+      .update(auditFinding)
+      .set({ verifiedBy: null })
+      .where(eq(auditFinding.verifiedBy, userId))
+      .returning(),
+  );
+  await anon("bsi_incident_report", () =>
+    tx
+      .update(bsiIncidentReport)
+      .set({ createdBy: null })
+      .where(eq(bsiIncidentReport.createdBy, userId))
+      .returning(),
+  );
+  await anon("requirement_assignment", () =>
+    tx
+      .update(requirementAssignment)
+      .set({ assignedBy: null })
+      .where(eq(requirementAssignment.assignedBy, userId))
+      .returning(),
+  );
+  await anon("incident", () =>
+    tx
+      .update(incident)
+      .set({ createdBy: null })
+      .where(eq(incident.createdBy, userId))
+      .returning(),
+  );
+  await anon("risk", () =>
+    tx
+      .update(risk)
+      .set({ acceptedBy: null })
+      .where(eq(risk.acceptedBy, userId))
+      .returning(),
+  );
 
   // audit_log: sever the userId link AND scrub the subject's PII in the JSONB.
   const auditRows = await tx
-    .select({ id: auditLog.id, previousValue: auditLog.previousValue, newValue: auditLog.newValue })
+    .select({
+      id: auditLog.id,
+      previousValue: auditLog.previousValue,
+      newValue: auditLog.newValue,
+    })
     .from(auditLog)
     .where(eq(auditLog.userId, userId));
   for (const r of auditRows) {
@@ -573,12 +838,24 @@ async function erasePerson(
       })
       .where(eq(auditLog.id, r.id));
   }
-  if (auditRows.length) scope.anonymized["audit_log"] = (scope.anonymized["audit_log"] ?? 0) + auditRows.length;
+  if (auditRows.length)
+    scope.anonymized["audit_log"] =
+      (scope.anonymized["audit_log"] ?? 0) + auditRows.length;
 
   // Email-keyed rows no FK reaches.
-  await del("email_otp", () => tx.delete(emailOtp).where(eq(emailOtp.email, email.toLowerCase())).returning());
-  await del("lead", () => tx.delete(lead).where(eq(lead.email, email.toLowerCase())).returning());
-  await anon("notification", () => tx.update(notification).set({ recipientEmail: REDACTED_EMAIL }).where(sql`lower(${notification.recipientEmail}) = ${email.toLowerCase()}`).returning());
+  await del("email_otp", () =>
+    tx.delete(emailOtp).where(eq(emailOtp.email, email.toLowerCase())).returning(),
+  );
+  await del("lead", () =>
+    tx.delete(lead).where(eq(lead.email, email.toLowerCase())).returning(),
+  );
+  await anon("notification", () =>
+    tx
+      .update(notification)
+      .set({ recipientEmail: REDACTED_EMAIL })
+      .where(sql`lower(${notification.recipientEmail}) = ${email.toLowerCase()}`)
+      .returning(),
+  );
 
   // Delete the account row.
   await del("user", () => tx.delete(user).where(eq(user.id, userId)).returning());
@@ -592,54 +869,185 @@ async function tearDownCompany(
   del: (label: string, run: () => Promise<unknown[]>) => Promise<void>,
   _anon: (label: string, run: () => Promise<unknown[]>) => Promise<void>,
 ): Promise<void> {
-  const ids = async (rows: Promise<Array<{ id: string }>>): Promise<string[]> => (await rows).map((r) => r.id);
+  const ids = async (rows: Promise<Array<{ id: string }>>): Promise<string[]> =>
+    (await rows).map((r) => r.id);
 
-  const assessmentIds = await ids(tx.select({ id: companyAssessment.id }).from(companyAssessment).where(eq(companyAssessment.companyId, cid)));
+  const assessmentIds = await ids(
+    tx
+      .select({ id: companyAssessment.id })
+      .from(companyAssessment)
+      .where(eq(companyAssessment.companyId, cid)),
+  );
   const statusIds =
     assessmentIds.length === 0
       ? []
-      : await ids(tx.select({ id: companyRequirementStatus.id }).from(companyRequirementStatus).where(inArray(companyRequirementStatus.assessmentId, assessmentIds)));
-  const policyIds = await ids(tx.select({ id: policy.id }).from(policy).where(eq(policy.companyId, cid)));
-  const riskIds = await ids(tx.select({ id: risk.id }).from(risk).where(eq(risk.companyId, cid)));
-  const assetIds = await ids(tx.select({ id: asset.id }).from(asset).where(eq(asset.companyId, cid)));
-  const incidentIds = await ids(tx.select({ id: incident.id }).from(incident).where(eq(incident.companyId, cid)));
-  const auditIds = await ids(tx.select({ id: internalAudit.id }).from(internalAudit).where(eq(internalAudit.companyId, cid)));
+      : await ids(
+          tx
+            .select({ id: companyRequirementStatus.id })
+            .from(companyRequirementStatus)
+            .where(inArray(companyRequirementStatus.assessmentId, assessmentIds)),
+        );
+  const policyIds = await ids(
+    tx.select({ id: policy.id }).from(policy).where(eq(policy.companyId, cid)),
+  );
+  const riskIds = await ids(
+    tx.select({ id: risk.id }).from(risk).where(eq(risk.companyId, cid)),
+  );
+  const assetIds = await ids(
+    tx.select({ id: asset.id }).from(asset).where(eq(asset.companyId, cid)),
+  );
+  const incidentIds = await ids(
+    tx.select({ id: incident.id }).from(incident).where(eq(incident.companyId, cid)),
+  );
+  const auditIds = await ids(
+    tx
+      .select({ id: internalAudit.id })
+      .from(internalAudit)
+      .where(eq(internalAudit.companyId, cid)),
+  );
 
-  const byIds = async (label: string, run: (list: string[]) => Promise<unknown[]>, list: string[]): Promise<void> => {
+  const byIds = async (
+    label: string,
+    run: (list: string[]) => Promise<unknown[]>,
+    list: string[],
+  ): Promise<void> => {
     if (list.length === 0) return;
     await del(label, () => run(list));
   };
 
   // Level 1 — leaves
-  await byIds("evidence", (l) => tx.delete(evidence).where(inArray(evidence.requirementStatusId, l)).returning(), statusIds);
-  await byIds("requirement_assignment", (l) => tx.delete(requirementAssignment).where(inArray(requirementAssignment.statusId, l)).returning(), statusIds);
-  await del("sign_off_history", () => tx.delete(signOffHistory).where(eq(signOffHistory.companyId, cid)).returning());
+  await byIds(
+    "evidence",
+    (l) =>
+      tx.delete(evidence).where(inArray(evidence.requirementStatusId, l)).returning(),
+    statusIds,
+  );
+  await byIds(
+    "requirement_assignment",
+    (l) =>
+      tx
+        .delete(requirementAssignment)
+        .where(inArray(requirementAssignment.statusId, l))
+        .returning(),
+    statusIds,
+  );
+  await del("sign_off_history", () =>
+    tx.delete(signOffHistory).where(eq(signOffHistory.companyId, cid)).returning(),
+  );
   // Control decisions are append-only everywhere else; tenant erasure is the one path that removes
   // them, and it must, because they carry the deciding user and the company's own justifications.
-  await del("control_decision", () => tx.delete(controlDecision).where(eq(controlDecision.companyId, cid)).returning());
-  await byIds("company_category_intake", (l) => tx.delete(companyCategoryIntake).where(inArray(companyCategoryIntake.assessmentId, l)).returning(), assessmentIds);
-  await byIds("category_assignment", (l) => tx.delete(categoryAssignment).where(inArray(categoryAssignment.assessmentId, l)).returning(), assessmentIds);
-  await byIds("policy_acknowledgment", (l) => tx.delete(policyAcknowledgment).where(inArray(policyAcknowledgment.policyId, l)).returning(), policyIds);
-  await byIds("risk_treatment", (l) => tx.delete(riskTreatment).where(inArray(riskTreatment.riskId, l)).returning(), riskIds);
-  await byIds("risk_asset", (l) => tx.delete(riskAsset).where(inArray(riskAsset.riskId, l)).returning(), riskIds);
-  await byIds("risk_supplier", (l) => tx.delete(riskSupplier).where(inArray(riskSupplier.riskId, l)).returning(), riskIds);
-  await byIds("audit_finding", (l) => tx.delete(auditFinding).where(inArray(auditFinding.auditId, l)).returning(), auditIds);
-  await byIds("asset_supplier_offering", (l) => tx.delete(assetSupplierOffering).where(inArray(assetSupplierOffering.assetId, l)).returning(), assetIds);
-  await byIds("incident_broadcast", (l) => tx.delete(incidentBroadcast).where(inArray(incidentBroadcast.incidentId, l)).returning(), incidentIds);
-  await byIds("bsi_incident_report", (l) => tx.delete(bsiIncidentReport).where(inArray(bsiIncidentReport.incidentId, l)).returning(), incidentIds);
+  await del("control_decision", () =>
+    tx.delete(controlDecision).where(eq(controlDecision.companyId, cid)).returning(),
+  );
+  await byIds(
+    "company_category_intake",
+    (l) =>
+      tx
+        .delete(companyCategoryIntake)
+        .where(inArray(companyCategoryIntake.assessmentId, l))
+        .returning(),
+    assessmentIds,
+  );
+  await byIds(
+    "category_assignment",
+    (l) =>
+      tx
+        .delete(categoryAssignment)
+        .where(inArray(categoryAssignment.assessmentId, l))
+        .returning(),
+    assessmentIds,
+  );
+  await byIds(
+    "policy_acknowledgment",
+    (l) =>
+      tx
+        .delete(policyAcknowledgment)
+        .where(inArray(policyAcknowledgment.policyId, l))
+        .returning(),
+    policyIds,
+  );
+  await byIds(
+    "risk_treatment",
+    (l) => tx.delete(riskTreatment).where(inArray(riskTreatment.riskId, l)).returning(),
+    riskIds,
+  );
+  await byIds(
+    "risk_asset",
+    (l) => tx.delete(riskAsset).where(inArray(riskAsset.riskId, l)).returning(),
+    riskIds,
+  );
+  await byIds(
+    "risk_supplier",
+    (l) => tx.delete(riskSupplier).where(inArray(riskSupplier.riskId, l)).returning(),
+    riskIds,
+  );
+  await byIds(
+    "audit_finding",
+    (l) => tx.delete(auditFinding).where(inArray(auditFinding.auditId, l)).returning(),
+    auditIds,
+  );
+  await byIds(
+    "asset_supplier_offering",
+    (l) =>
+      tx
+        .delete(assetSupplierOffering)
+        .where(inArray(assetSupplierOffering.assetId, l))
+        .returning(),
+    assetIds,
+  );
+  await byIds(
+    "incident_broadcast",
+    (l) =>
+      tx
+        .delete(incidentBroadcast)
+        .where(inArray(incidentBroadcast.incidentId, l))
+        .returning(),
+    incidentIds,
+  );
+  await byIds(
+    "bsi_incident_report",
+    (l) =>
+      tx
+        .delete(bsiIncidentReport)
+        .where(inArray(bsiIncidentReport.incidentId, l))
+        .returning(),
+    incidentIds,
+  );
 
   // Level 2 — company-scoped mid tables (delete asset-referencing rows before assets)
-  await del("patch_record", () => tx.delete(patchRecord).where(eq(patchRecord.companyId, cid)).returning());
-  await del("change_request", () => tx.delete(changeRequest).where(eq(changeRequest.companyId, cid)).returning());
-  await del("vulnerability", () => tx.delete(vulnerability).where(eq(vulnerability.companyId, cid)).returning());
-  await byIds("company_requirement_status", (l) => tx.delete(companyRequirementStatus).where(inArray(companyRequirementStatus.assessmentId, l)).returning(), assessmentIds);
+  await del("patch_record", () =>
+    tx.delete(patchRecord).where(eq(patchRecord.companyId, cid)).returning(),
+  );
+  await del("change_request", () =>
+    tx.delete(changeRequest).where(eq(changeRequest.companyId, cid)).returning(),
+  );
+  await del("vulnerability", () =>
+    tx.delete(vulnerability).where(eq(vulnerability.companyId, cid)).returning(),
+  );
+  await byIds(
+    "company_requirement_status",
+    (l) =>
+      tx
+        .delete(companyRequirementStatus)
+        .where(inArray(companyRequirementStatus.assessmentId, l))
+        .returning(),
+    assessmentIds,
+  );
 
   // Level 3 — roots
-  await del("company_assessment", () => tx.delete(companyAssessment).where(eq(companyAssessment.companyId, cid)).returning());
-  await del("policy", () => tx.delete(policy).where(eq(policy.companyId, cid)).returning());
-  await del("internal_audit", () => tx.delete(internalAudit).where(eq(internalAudit.companyId, cid)).returning());
+  await del("company_assessment", () =>
+    tx.delete(companyAssessment).where(eq(companyAssessment.companyId, cid)).returning(),
+  );
+  await del("policy", () =>
+    tx.delete(policy).where(eq(policy.companyId, cid)).returning(),
+  );
+  await del("internal_audit", () =>
+    tx.delete(internalAudit).where(eq(internalAudit.companyId, cid)).returning(),
+  );
   await del("risk", () => tx.delete(risk).where(eq(risk.companyId, cid)).returning());
-  await del("incident", () => tx.delete(incident).where(eq(incident.companyId, cid)).returning());
+  await del("incident", () =>
+    tx.delete(incident).where(eq(incident.companyId, cid)).returning(),
+  );
   await del("asset", () => tx.delete(asset).where(eq(asset.companyId, cid)).returning());
   // supplier is the only two-company relationship row (customerCompanyId +
   // supplierCompanyId). Delete only rows cid owns as the CUSTOMER: those are
@@ -650,19 +1058,51 @@ async function tearDownCompany(
   // touched. Rows where cid is merely the SUPPLIER to another surviving company
   // are that company's records: we sever cid's identity (null supplierCompanyId)
   // rather than delete, so we never destroy or FK-block another tenant.
-  await del("supplier", () => tx.delete(supplier).where(eq(supplier.customerCompanyId, cid)).returning());
-  await tx.update(supplier).set({ supplierCompanyId: null }).where(eq(supplier.supplierCompanyId, cid));
+  await del("supplier", () =>
+    tx.delete(supplier).where(eq(supplier.customerCompanyId, cid)).returning(),
+  );
+  await tx
+    .update(supplier)
+    .set({ supplierCompanyId: null })
+    .where(eq(supplier.supplierCompanyId, cid));
 
   // Remaining company-scoped tables
-  await del("improvement_item", () => tx.delete(improvementItem).where(eq(improvementItem.companyId, cid)).returning());
-  await del("kpi_measurement", () => tx.delete(kpiMeasurement).where(eq(kpiMeasurement.companyId, cid)).returning());
-  await del("exercise", () => tx.delete(exercise).where(eq(exercise.companyId, cid)).returning());
-  await del("management_review", () => tx.delete(managementReview).where(eq(managementReview.companyId, cid)).returning());
-  await del("company_policy_config", () => tx.delete(companyPolicyConfig).where(eq(companyPolicyConfig.companyId, cid)).returning());
-  await del("company_risk_methodology", () => tx.delete(companyRiskMethodology).where(eq(companyRiskMethodology.companyId, cid)).returning());
-  await del("training_record", () => tx.delete(trainingRecord).where(eq(trainingRecord.companyId, cid)).returning());
-  await del("training_lesson_progress", () => tx.delete(trainingLessonProgress).where(eq(trainingLessonProgress.companyId, cid)).returning());
-  await del("gap_assessment", () => tx.delete(gapAssessment).where(eq(gapAssessment.companyId, cid)).returning());
+  await del("improvement_item", () =>
+    tx.delete(improvementItem).where(eq(improvementItem.companyId, cid)).returning(),
+  );
+  await del("kpi_measurement", () =>
+    tx.delete(kpiMeasurement).where(eq(kpiMeasurement.companyId, cid)).returning(),
+  );
+  await del("exercise", () =>
+    tx.delete(exercise).where(eq(exercise.companyId, cid)).returning(),
+  );
+  await del("management_review", () =>
+    tx.delete(managementReview).where(eq(managementReview.companyId, cid)).returning(),
+  );
+  await del("company_policy_config", () =>
+    tx
+      .delete(companyPolicyConfig)
+      .where(eq(companyPolicyConfig.companyId, cid))
+      .returning(),
+  );
+  await del("company_risk_methodology", () =>
+    tx
+      .delete(companyRiskMethodology)
+      .where(eq(companyRiskMethodology.companyId, cid))
+      .returning(),
+  );
+  await del("training_record", () =>
+    tx.delete(trainingRecord).where(eq(trainingRecord.companyId, cid)).returning(),
+  );
+  await del("training_lesson_progress", () =>
+    tx
+      .delete(trainingLessonProgress)
+      .where(eq(trainingLessonProgress.companyId, cid))
+      .returning(),
+  );
+  await del("gap_assessment", () =>
+    tx.delete(gapAssessment).where(eq(gapAssessment.companyId, cid)).returning(),
+  );
   // Lifecycle claims (entity_type 'lifecycle_email') are per-USER once-ever
   // dedup records (lib/lifecycle) that merely carry the company the recipient
   // belonged to at claim time. Deleting them with this company would re-arm a
@@ -696,13 +1136,31 @@ async function tearDownCompany(
       description: `Company teardown re-homed ${rehomed.rowCount} lifecycle claim row(s) to their recipients' current companies (once-ever email dedup preserved)`,
     });
   }
-  await del("notification", () => tx.delete(notification).where(eq(notification.companyId, cid)).returning());
-  await del("company_invite", () => tx.delete(companyInvite).where(eq(companyInvite.companyId, cid)).returning());
-  await del("bsi_registration", () => tx.delete(bsiRegistration).where(eq(bsiRegistration.companyId, cid)).returning());
-  await del("audit_log", () => tx.delete(auditLog).where(eq(auditLog.companyId, cid)).returning());
-  await del("company_certification", () => tx.delete(companyCertification).where(eq(companyCertification.companyId, cid)).returning());
-  await del("supplier_invite", () => tx.delete(supplierInvite).where(eq(supplierInvite.fromCompanyId, cid)).returning());
-  await tx.update(supplierInvite).set({ acceptedByCompanyId: null }).where(eq(supplierInvite.acceptedByCompanyId, cid));
+  await del("notification", () =>
+    tx.delete(notification).where(eq(notification.companyId, cid)).returning(),
+  );
+  await del("company_invite", () =>
+    tx.delete(companyInvite).where(eq(companyInvite.companyId, cid)).returning(),
+  );
+  await del("bsi_registration", () =>
+    tx.delete(bsiRegistration).where(eq(bsiRegistration.companyId, cid)).returning(),
+  );
+  await del("audit_log", () =>
+    tx.delete(auditLog).where(eq(auditLog.companyId, cid)).returning(),
+  );
+  await del("company_certification", () =>
+    tx
+      .delete(companyCertification)
+      .where(eq(companyCertification.companyId, cid))
+      .returning(),
+  );
+  await del("supplier_invite", () =>
+    tx.delete(supplierInvite).where(eq(supplierInvite.fromCompanyId, cid)).returning(),
+  );
+  await tx
+    .update(supplierInvite)
+    .set({ acceptedByCompanyId: null })
+    .where(eq(supplierInvite.acceptedByCompanyId, cid));
 
   // Finally the company itself
   await del("company", () => tx.delete(company).where(eq(company.id, cid)).returning());
@@ -741,7 +1199,9 @@ function sortValue(value: unknown): unknown {
 }
 
 function computeRecordChecksum(payload: Record<string, unknown>): string {
-  return createHash("sha256").update(JSON.stringify(sortValue(payload))).digest("hex");
+  return createHash("sha256")
+    .update(JSON.stringify(sortValue(payload)))
+    .digest("hex");
 }
 
 type ErasureLogRow = InferSelectModel<typeof dataErasureLog>;
@@ -781,7 +1241,9 @@ export async function purgeExpiredErasureRecords(now: Date): Promise<number> {
   const rows = await db
     .update(dataErasureLog)
     .set({ subjectEmail: null })
-    .where(and(lt(dataErasureLog.retentionUntil, now), isNotNull(dataErasureLog.subjectEmail)))
+    .where(
+      and(lt(dataErasureLog.retentionUntil, now), isNotNull(dataErasureLog.subjectEmail)),
+    )
     .returning({ id: dataErasureLog.id });
   return rows.length;
 }

@@ -19,17 +19,17 @@
  * References: requirement, control.
  */
 import {
+  foreignKey,
+  index,
   pgTable,
-  uuid,
-  varchar,
+  primaryKey,
   text,
   timestamp,
-  index,
-  primaryKey,
-  foreignKey,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { requirement } from "./requirement";
 import { control } from "./control";
+import { requirement } from "./requirement";
 
 export const requirementControl = pgTable(
   "requirement_control",
@@ -59,5 +59,5 @@ export const requirementControl = pgTable(
     }),
     index("idx_requirement_control_requirement").on(table.requirementId),
     index("idx_requirement_control_control").on(table.controlId, table.edition),
-  ]
+  ],
 );

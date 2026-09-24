@@ -1,22 +1,22 @@
 import { sql } from "drizzle-orm";
 import {
+  boolean,
+  index,
+  integer,
   pgTable,
+  text,
+  timestamp,
+  uniqueIndex,
   uuid,
   varchar,
-  text,
-  boolean,
-  integer,
-  timestamp,
-  index,
-  uniqueIndex,
 } from "drizzle-orm/pg-core";
 import {
   addresseeEnum,
+  effortLevelEnum,
   evidenceTypeEnum,
   frequencyEnum,
   priorityEnum,
   requirementImportanceEnum,
-  effortLevelEnum,
 } from "../enums";
 import { requirementCategory } from "./framework";
 
@@ -43,9 +43,7 @@ export const requirement = pgTable(
     appliesToEssential: boolean("applies_to_essential").default(true),
     appliesToImportant: boolean("applies_to_important").default(true),
     appliesToKritis: boolean("applies_to_kritis").default(true),
-    sectorSpecific: text("sector_specific")
-      .array()
-      .default(sql`'{}'::text[]`),
+    sectorSpecific: text("sector_specific").array().default(sql`'{}'::text[]`),
     minEmployees: integer("min_employees"),
 
     legalRef: varchar("legal_ref", { length: 255 }),
@@ -87,7 +85,7 @@ export const requirement = pgTable(
     index("idx_requirement_category").on(table.categoryId),
     index("idx_requirement_parent").on(table.parentId),
     index("idx_requirement_priority").on(table.priority),
-  ]
+  ],
 );
 
 export const requirementPrerequisite = pgTable(
@@ -104,9 +102,6 @@ export const requirementPrerequisite = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [
-    uniqueIndex("idx_req_prereq_pair").on(
-      table.requirementId,
-      table.prerequisiteId
-    ),
-  ]
+    uniqueIndex("idx_req_prereq_pair").on(table.requirementId, table.prerequisiteId),
+  ],
 );

@@ -11,11 +11,7 @@ export const frameworkEnum = pgEnum("framework", [
   "eu_cra",
 ]);
 
-export const entityTypeEnum = pgEnum("entity_type", [
-  "essential",
-  "important",
-  "kritis",
-]);
+export const entityTypeEnum = pgEnum("entity_type", ["essential", "important", "kritis"]);
 
 export const evidenceTypeEnum = pgEnum("evidence_type", [
   "document",

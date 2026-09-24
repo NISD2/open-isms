@@ -23,12 +23,7 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import {
-  aiDataSharingEnum,
-  journeyModeEnum,
-  planEnum,
-  settledFactEnum,
-} from "../enums";
+import { aiDataSharingEnum, journeyModeEnum, planEnum, settledFactEnum } from "../enums";
 
 // ---------------------------------------------------------------------------
 // Companies — Regulated entities registered on the platform

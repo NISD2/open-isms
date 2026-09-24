@@ -24,15 +24,15 @@
  * References: none (content, not company data).
  */
 import {
-  pgTable,
-  varchar,
-  text,
   boolean,
-  integer,
-  timestamp,
-  index,
-  primaryKey,
   foreignKey,
+  index,
+  integer,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
+  varchar,
 } from "drizzle-orm/pg-core";
 import { controlGradeEnum } from "../enums";
 
@@ -60,7 +60,7 @@ export const baustein = pgTable(
     issues: text("issues").array(),
     extractedAt: timestamp("extracted_at").defaultNow().notNull(),
   },
-  (table) => [primaryKey({ columns: [table.id, table.edition] })]
+  (table) => [primaryKey({ columns: [table.id, table.edition] })],
 );
 
 /**
@@ -94,5 +94,5 @@ export const control = pgTable(
     }),
     index("idx_control_baustein").on(table.bausteinId, table.edition),
     index("idx_control_grade").on(table.grade),
-  ]
+  ],
 );

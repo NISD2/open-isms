@@ -12,10 +12,10 @@
  */
 import { describe, expect, test } from "bun:test";
 import { getTableConfig } from "drizzle-orm/pg-core";
-import { baustein, control } from "./control";
-import { requirementControl } from "./requirement-control";
-import { requirement } from "./requirement";
 import { addresseeEnum, controlGradeEnum } from "../enums";
+import { baustein, control } from "./control";
+import { requirement } from "./requirement";
+import { requirementControl } from "./requirement-control";
 
 const columns = (t: Parameters<typeof getTableConfig>[0]) =>
   getTableConfig(t).columns.map((c) => c.name);
@@ -56,11 +56,17 @@ describe("the BSI content tables", () => {
 describe("the crosswalk, which is the one editorial table", () => {
   test("it is many-to-many on requirement and control, so one control can serve several items", () => {
     const pk = getTableConfig(requirementControl).primaryKeys[0];
-    expect(pk?.columns.map((c) => c.name)).toEqual(["requirement_id", "control_id", "edition"]);
+    expect(pk?.columns.map((c) => c.name)).toEqual([
+      "requirement_id",
+      "control_id",
+      "edition",
+    ]);
   });
 
   test("every row says where the mapping came from, and the default is honest", () => {
-    const provenance = getTableConfig(requirementControl).columns.find((c) => c.name === "provenance");
+    const provenance = getTableConfig(requirementControl).columns.find(
+      (c) => c.name === "provenance",
+    );
     expect(provenance?.notNull).toBe(true);
     expect(provenance?.default).toBe("ours");
   });
@@ -68,7 +74,9 @@ describe("the crosswalk, which is the one editorial table", () => {
 
 describe("the addressee column on requirement", () => {
   test("it defaults to 'all', so adding it changes nothing for the existing items", () => {
-    const addressee = getTableConfig(requirement).columns.find((c) => c.name === "addressee");
+    const addressee = getTableConfig(requirement).columns.find(
+      (c) => c.name === "addressee",
+    );
     expect(addressee?.notNull).toBe(true);
     expect(addressee?.default).toBe("all");
   });

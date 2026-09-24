@@ -6,9 +6,9 @@
  */
 import { describe, expect, test } from "bun:test";
 import { getTableConfig } from "drizzle-orm/pg-core";
+import { controlOutcomeEnum, settledFactEnum } from "../enums";
 import { controlDecision } from "./control-decision";
 import { company } from "./organization";
-import { controlOutcomeEnum, settledFactEnum } from "../enums";
 
 const cfg = getTableConfig(controlDecision);
 const names = cfg.columns.map((c) => c.name);
@@ -25,7 +25,8 @@ describe("a control decision", () => {
   });
 
   test("carries the register and the count the SERVER found, for a no-object decision", () => {
-    for (const c of ["evidence_module", "evidence_count", "evidence_at"]) expect(names).toContain(c);
+    for (const c of ["evidence_module", "evidence_count", "evidence_at"])
+      expect(names).toContain(c);
   });
 
   test("carries a reason for covered-another-way and the five factors for a justification", () => {
@@ -47,7 +48,9 @@ describe("a control decision", () => {
 
   test("supersedes is unique, so two concurrent writers cannot both replace the same decision", () => {
     const unique = cfg.indexes.find((i) => i.config.unique === true);
-    expect(unique?.config.columns.map((c) => ("name" in c ? c.name : ""))).toEqual(["supersedes"]);
+    expect(unique?.config.columns.map((c) => ("name" in c ? c.name : ""))).toEqual([
+      "supersedes",
+    ]);
   });
 
   test("the outcomes are the five the BSI's own method and the statute allow", () => {

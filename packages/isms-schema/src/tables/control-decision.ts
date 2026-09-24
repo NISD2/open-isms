@@ -18,21 +18,22 @@
  * Supports: the guided form (§ 30 Abs. 1 and Abs. 2 BSIG).
  * References: company, user, control.
  */
+
+import { control } from "@nisd2/grc-data-model/schema";
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
+  foreignKey,
+  index,
   integer,
   jsonb,
+  pgTable,
+  text,
   timestamp,
-  index,
   uniqueIndex,
-  foreignKey,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { control } from "@nisd2/grc-data-model/schema";
-import { company, user } from "./organization";
 import { controlOutcomeEnum } from "../enums";
+import { company, user } from "./organization";
 
 /**
  * The company's own words on each of the five factors § 30 Abs. 1 Satz 2 BSIG names. Free text,
@@ -98,9 +99,9 @@ export const controlDecision = pgTable(
     index("idx_control_decision_current").on(
       table.companyId,
       table.controlId,
-      table.decidedAt
+      table.decidedAt,
     ),
     index("idx_control_decision_company").on(table.companyId),
     uniqueIndex("idx_control_decision_supersedes").on(table.supersedes),
-  ]
+  ],
 );
