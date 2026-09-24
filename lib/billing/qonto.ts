@@ -174,6 +174,8 @@ export interface InvoiceLine {
 
 export interface InvoiceInput {
   readonly clientId: string;
+  /** Required when Qonto's automatic numbering is off, which it is on this account. */
+  readonly number?: string;
   /** The account the customer pays into. Read from listBankAccounts rather than typed. */
   readonly iban: string;
   readonly issueDate: string;
@@ -209,6 +211,7 @@ export const createInvoice = (
 ): Promise<QontoResult<InvoiceRecord>> =>
   request<InvoiceRecord>(c, "POST", "/client_invoices", {
     client_id: input.clientId,
+    ...(input.number ? { number: input.number } : {}),
     issue_date: input.issueDate,
     due_date: input.dueDate,
     currency: "EUR",
