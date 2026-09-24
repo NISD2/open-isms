@@ -27,13 +27,17 @@ export interface QontoConfig {
 }
 
 /** Reads config from the environment. Returns null rather than throwing when it is not set up. */
-export const qontoConfigFromEnv = (env: NodeJS.ProcessEnv = process.env): QontoConfig | null => {
+export const qontoConfigFromEnv = (
+  env: NodeJS.ProcessEnv = process.env,
+): QontoConfig | null => {
   const baseUrl = env.QONTO_API_BASE ?? "https://thirdparty.qonto.com/v2";
   const login = env.QONTO_SANDBOX_LOGIN ?? env.QONTO_LOGIN ?? "";
   const secretKey = env.QONTO_SANDBOX_SECRET_KEY ?? env.QONTO_SECRET_KEY ?? "";
   if (!login || !secretKey) return null;
   const stagingToken = env.QONTO_STAGING_TOKEN;
-  return stagingToken ? { baseUrl, login, secretKey, stagingToken } : { baseUrl, login, secretKey };
+  return stagingToken
+    ? { baseUrl, login, secretKey, stagingToken }
+    : { baseUrl, login, secretKey };
 };
 
 export type QontoResult<T> =
@@ -209,10 +213,16 @@ export const createInvoice = (
     due_date: input.dueDate,
     currency: "EUR",
     payment_methods: { iban: input.iban },
-    ...(input.performanceStartDate ? { performance_start_date: input.performanceStartDate } : {}),
-    ...(input.performanceEndDate ? { performance_end_date: input.performanceEndDate } : {}),
+    ...(input.performanceStartDate
+      ? { performance_start_date: input.performanceStartDate }
+      : {}),
+    ...(input.performanceEndDate
+      ? { performance_end_date: input.performanceEndDate }
+      : {}),
     ...(input.purchaseOrder ? { purchase_order: input.purchaseOrder } : {}),
-    ...(input.termsAndConditions ? { terms_and_conditions: input.termsAndConditions } : {}),
+    ...(input.termsAndConditions
+      ? { terms_and_conditions: input.termsAndConditions }
+      : {}),
     items: input.items.map((i) => ({
       title: i.title,
       ...(i.description ? { description: i.description } : {}),
@@ -223,7 +233,10 @@ export const createInvoice = (
     })),
   });
 
-export const getInvoice = (c: QontoConfig, id: string): Promise<QontoResult<InvoiceRecord>> =>
+export const getInvoice = (
+  c: QontoConfig,
+  id: string,
+): Promise<QontoResult<InvoiceRecord>> =>
   request<InvoiceRecord>(c, "GET", `/client_invoices/${encodeURIComponent(id)}`);
 
 /** Sends the invoice to the billing email. §7.8: that is usually not the person who signed up. */

@@ -1,35 +1,35 @@
 {
   "pricing": {
     "meta": {
-      "title": "Preise - NIS2-Compliance-Plattform",
-      "description": "Die Plattform ist kostenlos, dauerhaft. Gehostet auf nisd2.eu oder im Selbstbetrieb auf eigener Infrastruktur, Quellcode offen unter AGPL-3.0. Kein Vertrag, keine Freischaltung, kein Lock-in."
+      "title": "Preis - ein Angebot, 4.800 € im Jahr",
+      "description": "Der geführte Durchgang durch alle NIS-2-Pflichten: 4.800 € netto im Jahr, 30 Tage Geld zurück, Export jederzeit. Der Quellcode bleibt offen, der Selbstbetrieb kostenlos."
     },
-    "title": "Preise",
-    "subtitle": "Kostenlos, dauerhaft. Sie entscheiden nur, wer sie betreibt.",
+    "title": "Preis",
+    "subtitle": "Ein Angebot. Ein Preis. 30 Tage Geld zurück, und Ihre Daten gehen jederzeit mit Ihnen.",
     "free": {
       "name": "Gehostet auf nisd2.eu",
-      "description": "Die vollständige Plattform, von uns auf EU-Infrastruktur betrieben.",
-      "price": "0 €",
-      "priceSub": "für immer",
-      "cta": "Kostenlos starten",
+      "description": "Der vollständige Durchgang durch Ihre Pflichten, von uns auf EU-Infrastruktur betrieben.",
+      "price": "4.800 €",
+      "priceSub": "pro Jahr, netto, auf Rechnung",
+      "cta": "Durchgang starten",
       "features": {
-        "f1": "Alle 49 BSIG-Anforderungen Schritt für Schritt",
-        "f2": "Nachweisupload und Dokumentation",
-        "f3": "PDF-Export für Prüfer und Geschäftsführung",
-        "f4": "Vollständiger Audit-Trail",
-        "f5": "Fristenüberwachung und Erinnerungen",
-        "f6": "BSI-Registrierungshilfe",
+        "f1": "Alle Pflichten aus § 30 BSIG, ein Punkt pro Bildschirm",
+        "f2": "Die Anforderungen des BSI zu jedem Bereich, mit Quelle",
+        "f3": "Ihre Entscheidung, Ihre Begründung, mit Datum und Namen",
+        "f4": "Standbericht als PDF für Prüfer und Geschäftsführung",
+        "f5": "Vollständiger Nachweisverlauf: wer was wann entschieden hat",
+        "f6": "Risiko-, Anlagen- und Lieferantenverzeichnis",
         "f7": "Unbegrenzte Teammitglieder",
-        "f8": "Risiko-, Asset- und Lieferantenregister",
-        "f9": "KI-gestützte Formularausfüllung",
-        "f10": "Kein Lock-in. Offenes Datenmodell. Export jederzeit, auch in den Selbstbetrieb."
+        "f8": "Fristen und Erinnerungen",
+        "f9": "30 Tage Geld zurück, ohne Begründung",
+        "f10": "Export jederzeit, auch in den Selbstbetrieb. Kein Lock-in."
       }
     },
     "selfHost": {
       "name": "Selbstbetrieb",
-      "description": "Vollständiger Quellcode. Auf eigener Infrastruktur, dauerhaft.",
+      "description": "Derselbe Quellcode, auf Ihrer Infrastruktur, dauerhaft kostenlos.",
       "price": "0 €",
-      "priceSub": "für immer",
+      "priceSub": "dauerhaft",
       "cta": "Zum Quellcode",
       "features": {
         "h1": "Vollständiger Plattform-Quellcode, offen unter AGPL-3.0",
@@ -41,7 +41,40 @@
         "h7": "Einrichtung durch uns, wenn Sie möchten: 500 € netto, einmalig"
       }
     },
-    "whyFree": "Warum kostenlos: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Geld nehmen wir für die Einrichtung des Selbstbetriebs und von Fachbetrieben, an die wir vermitteln, nicht für die Plattform.",
+    "whyFree": "Warum der Selbstbetrieb nichts kostet: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Bezahlt wird der geführte Durchgang und der Betrieb durch uns, nicht das Recht, die Software zu benutzen.",
+    "guarantee": {
+      "heading": "30 Tage Geld zurück",
+      "body": "Sie erhalten eine Rechnung mit 30 Tagen Zahlungsziel. Wenn der Durchgang in dieser Zeit nichts für Sie ist, sagen Sie Bescheid und die Rechnung wird storniert. Was Sie bis dahin unterschrieben haben, gehört Ihnen und lässt sich exportieren."
+    },
+    "comparison": {
+      "heading": "Wo das im Markt liegt",
+      "intro": "Vergleichbare Angebote für einen Betrieb mit 50 bis 250 Beschäftigten, Stand September 2026. Preise der Anbieter, nicht unsere Schätzung.",
+      "colProvider": "Angebot",
+      "colPrice": "Pro Jahr",
+      "colNote": "Was dafür enthalten ist",
+      "rows": {
+        "r1": {
+          "provider": "Kataloge und Dokumentenpakete",
+          "price": "240 bis 2.000 €",
+          "note": "Vorlagen und Checklisten, kein Nachweisverlauf"
+        },
+        "r2": {
+          "provider": "nisd2.eu",
+          "price": "4.800 €",
+          "note": "Geführter Durchgang, Nachweisverlauf, Export jederzeit"
+        },
+        "r3": {
+          "provider": "Plattform mit Pflichtberatung",
+          "price": "9.600 bis 21.600 €",
+          "note": "Software nur zusammen mit einem Berater nutzbar"
+        },
+        "r4": {
+          "provider": "Beratung",
+          "price": "20.000 bis 60.000 €",
+          "note": "Einmalprojekt, Tagessätze"
+        }
+      }
+    },
     "consultantFootnote": "Kommen Sie bei NIS 2 nicht weiter? Kurze Fachfragen kosten nichts, und wenn es einen Fachbetrieb braucht, vermitteln wir Ihnen einen, ohne Kosten für Sie.",
     "consultantCta": "Hilfe und Vermittlung"
   }

@@ -1,48 +1,81 @@
 {
   "pricing": {
     "meta": {
-      "title": "Cennik - Platforma zgodności z NIS2",
-      "description": "Platforma jest darmowa, na stałe. Hostowana na nisd2.eu albo we własnym hostingu na Twojej infrastrukturze, kod źródłowy otwarty na AGPL-3.0. Bez umowy, bez aktywacji, bez lock-inu."
+      "title": "Pricing - one offer, 4,800 € a year",
+      "description": "The guided pass through every NIS 2 duty: 4,800 € net a year, 30 days money back, export at any time. The source stays open and self-hosting stays free."
     },
-    "title": "Cennik",
-    "subtitle": "Darmowa, na stałe. Wybierasz tylko, kto ją uruchamia.",
+    "title": "Pricing",
+    "subtitle": "One offer. One price. Thirty days to change your mind, and your data leaves with you whenever you want.",
     "free": {
-      "name": "Hostowana na nisd2.eu",
-      "description": "Pełna platforma, obsługiwana przez nas na infrastrukturze w UE.",
-      "price": "0 €",
-      "priceSub": "na zawsze",
-      "cta": "Rozpocznij",
+      "name": "Hosted on nisd2.eu",
+      "description": "The full pass through your duties, run by us on EU infrastructure.",
+      "price": "4,800 €",
+      "priceSub": "per year, net, by invoice",
+      "cta": "Start the pass",
       "features": {
-        "f1": "Wszystkie 49 wymagań BSIG krok po kroku",
-        "f2": "Przesyłanie dowodów i dokumentacja",
-        "f3": "Eksport do PDF dla audytorów i kierownictwa",
-        "f4": "Pełna ścieżka audytu",
-        "f5": "Śledzenie terminów i przypomnienia",
-        "f6": "Wskazówki dotyczące rejestracji w BSI",
-        "f7": "Nieograniczona liczba członków zespołu",
-        "f8": "Rejestry ryzyk, aktywów i dostawców",
-        "f9": "Wsparcie formularzy oparte na AI",
-        "f10": "Bez lock-inu. Otwarty model danych. Eksport w dowolnym momencie, także do własnego hostingu."
+        "f1": "Every duty under § 30 BSIG, one item per screen",
+        "f2": "The BSI's own requirements for each area, with the source",
+        "f3": "Your decision and your reason, with a name and a date",
+        "f4": "A status report as a PDF for auditors and management",
+        "f5": "A complete trail: who decided what, and when",
+        "f6": "Risk, asset and supplier registers",
+        "f7": "Unlimited team members",
+        "f8": "Deadlines and reminders",
+        "f9": "Thirty days money back, no reason needed",
+        "f10": "Export at any time, including into self-hosting. No lock-in."
       }
     },
     "selfHost": {
-      "name": "Hosting własny",
-      "description": "Pełny kod źródłowy. Na własnej infrastrukturze, na stałe.",
+      "name": "Self-hosted",
+      "description": "The same source code, on your own infrastructure, free for good.",
       "price": "0 €",
-      "priceSub": "na zawsze",
-      "cta": "Zobacz kod źródłowy",
+      "priceSub": "for good",
+      "cta": "Go to the source",
       "features": {
-        "h1": "Pełny kod źródłowy platformy, otwarty na AGPL-3.0",
-        "h2": "Wszystkie przyszłe aktualizacje w cenie, na stałe",
-        "h3": "Na własnej infrastrukturze, z własnymi danymi",
-        "h4": "Bez umowy, bez klucza aktywacyjnego, bez konta u nas",
-        "h5": "Wyeksportuj swoją pracę z nisd2.eu i prowadź ją dalej samodzielnie",
-        "h6": "Bezpośredni kontakt przez e-mail i Signal",
-        "h7": "Wdrożenie przez nas, jeśli chcesz: 500 € netto, jednorazowo"
+        "h1": "The complete platform source, open under AGPL-3.0",
+        "h2": "Every future update included, for good",
+        "h3": "On your own infrastructure, with your own data",
+        "h4": "No contract, no activation, no account with us",
+        "h5": "Export your work from nisd2.eu and carry on running it yourself",
+        "h6": "Direct contact by email and Signal",
+        "h7": "Setup by us if you want it: 500 € net, one off"
       }
     },
-    "whyFree": "Dlaczego bezpłatnie: kod źródłowy jest otwarty na GitHubie, można go sprawdzić i uruchomić samodzielnie. Rozliczamy wdrożenie hostingu własnego i otrzymujemy prowizję od wyspecjalizowanych firm, do których kierujemy. Nie za platformę.",
-    "consultantFootnote": "Utknąłeś przy NIS 2? Krótkie pytania merytoryczne nic nie kosztują, a jeśli potrzebna jest wyspecjalizowana firma, polecimy ją bez kosztów dla Ciebie.",
-    "consultantCta": "Pomoc i polecenia"
+    "whyFree": "Why self-hosting costs nothing: the source is on GitHub, inspectable and runnable by anyone. What is paid for is the guided pass and us running it, not the right to use the software.",
+    "guarantee": {
+      "heading": "Thirty days money back",
+      "body": "You get an invoice with thirty days to pay. If the pass turns out not to be for you in that time, say so and the invoice is cancelled. Whatever you signed off by then is yours and exports cleanly."
+    },
+    "comparison": {
+      "heading": "Where that sits in the market",
+      "intro": "Comparable offers for a company of 50 to 250 people, as of September 2026. Providers' own prices, not our estimate.",
+      "colProvider": "Offer",
+      "colPrice": "Per year",
+      "colNote": "What that includes",
+      "rows": {
+        "r1": {
+          "provider": "Catalogues and document packs",
+          "price": "240 to 2,000 €",
+          "note": "Templates and checklists, no record of what was decided"
+        },
+        "r2": {
+          "provider": "nisd2.eu",
+          "price": "4,800 €",
+          "note": "Guided pass, full decision trail, export at any time"
+        },
+        "r3": {
+          "provider": "Platform with a required advisor",
+          "price": "9,600 to 21,600 €",
+          "note": "The software only works alongside a consultant"
+        },
+        "r4": {
+          "provider": "Consultancy",
+          "price": "20,000 to 60,000 €",
+          "note": "One-off project, day rates"
+        }
+      }
+    },
+    "consultantFootnote": "Stuck on NIS 2? Short factual questions cost nothing, and if you need a specialist firm we will introduce you to one at no cost to you.",
+    "consultantCta": "Help and introductions"
   }
 }

@@ -1,48 +1,81 @@
 {
   "pricing": {
     "meta": {
-      "title": "Precios - Plataforma de cumplimiento NIS2",
-      "description": "La plataforma es gratuita, de forma permanente. Alojada en nisd2.eu o autoalojada en su propia infraestructura, código abierto bajo AGPL-3.0. Sin contrato, sin activación, sin dependencia del proveedor."
+      "title": "Pricing - one offer, 4,800 € a year",
+      "description": "The guided pass through every NIS 2 duty: 4,800 € net a year, 30 days money back, export at any time. The source stays open and self-hosting stays free."
     },
-    "title": "Precios",
-    "subtitle": "Gratis, de forma permanente. Lo único que elige es quién la opera.",
+    "title": "Pricing",
+    "subtitle": "One offer. One price. Thirty days to change your mind, and your data leaves with you whenever you want.",
     "free": {
-      "name": "Alojada en nisd2.eu",
-      "description": "La plataforma completa, operada por nosotros en infraestructura de la UE.",
-      "price": "0 €",
-      "priceSub": "para siempre",
-      "cta": "Empezar",
+      "name": "Hosted on nisd2.eu",
+      "description": "The full pass through your duties, run by us on EU infrastructure.",
+      "price": "4,800 €",
+      "priceSub": "per year, net, by invoice",
+      "cta": "Start the pass",
       "features": {
-        "f1": "Los 49 requisitos del BSIG paso a paso",
-        "f2": "Carga de evidencias y documentación",
-        "f3": "Exportación a PDF para auditores y dirección",
-        "f4": "Registro de auditoría completo",
-        "f5": "Seguimiento de plazos y recordatorios",
-        "f6": "Guía para el registro ante el BSI",
-        "f7": "Miembros del equipo ilimitados",
-        "f8": "Registros de riesgos, activos y proveedores",
-        "f9": "Asistencia de formularios con IA",
-        "f10": "Sin dependencia del proveedor. Modelo de datos abierto. Exporte cuando quiera, también al autoalojamiento."
+        "f1": "Every duty under § 30 BSIG, one item per screen",
+        "f2": "The BSI's own requirements for each area, with the source",
+        "f3": "Your decision and your reason, with a name and a date",
+        "f4": "A status report as a PDF for auditors and management",
+        "f5": "A complete trail: who decided what, and when",
+        "f6": "Risk, asset and supplier registers",
+        "f7": "Unlimited team members",
+        "f8": "Deadlines and reminders",
+        "f9": "Thirty days money back, no reason needed",
+        "f10": "Export at any time, including into self-hosting. No lock-in."
       }
     },
     "selfHost": {
-      "name": "Autoalojamiento",
-      "description": "Código fuente completo. En su propia infraestructura, de forma permanente.",
+      "name": "Self-hosted",
+      "description": "The same source code, on your own infrastructure, free for good.",
       "price": "0 €",
-      "priceSub": "para siempre",
-      "cta": "Ver el código fuente",
+      "priceSub": "for good",
+      "cta": "Go to the source",
       "features": {
-        "h1": "Código fuente completo de la plataforma, abierto bajo AGPL-3.0",
-        "h2": "Todas las actualizaciones futuras incluidas, de forma permanente",
-        "h3": "En su propia infraestructura, con sus propios datos",
-        "h4": "Sin contrato, sin clave de activación, sin cuenta con nosotros",
-        "h5": "Exporte su trabajo desde nisd2.eu y siga operándolo usted mismo",
-        "h6": "Contacto directo por correo electrónico y Signal",
-        "h7": "Instalación por nuestra parte si lo desea: 500 € sin IVA, pago único"
+        "h1": "The complete platform source, open under AGPL-3.0",
+        "h2": "Every future update included, for good",
+        "h3": "On your own infrastructure, with your own data",
+        "h4": "No contract, no activation, no account with us",
+        "h5": "Export your work from nisd2.eu and carry on running it yourself",
+        "h6": "Direct contact by email and Signal",
+        "h7": "Setup by us if you want it: 500 € net, one off"
       }
     },
-    "whyFree": "Por qué es gratis: el código fuente está abierto en GitHub, auditable y ejecutable por su cuenta. Cobramos por la instalación en autoalojamiento y recibimos una comisión de las empresas especializadas a las que le derivamos. No la plataforma.",
-    "consultantFootnote": "¿Atascado con NIS 2? Las preguntas técnicas breves no cuestan nada y, si hace falta una empresa especializada, le recomendamos una sin coste para usted.",
-    "consultantCta": "Ayuda y derivación"
+    "whyFree": "Why self-hosting costs nothing: the source is on GitHub, inspectable and runnable by anyone. What is paid for is the guided pass and us running it, not the right to use the software.",
+    "guarantee": {
+      "heading": "Thirty days money back",
+      "body": "You get an invoice with thirty days to pay. If the pass turns out not to be for you in that time, say so and the invoice is cancelled. Whatever you signed off by then is yours and exports cleanly."
+    },
+    "comparison": {
+      "heading": "Where that sits in the market",
+      "intro": "Comparable offers for a company of 50 to 250 people, as of September 2026. Providers' own prices, not our estimate.",
+      "colProvider": "Offer",
+      "colPrice": "Per year",
+      "colNote": "What that includes",
+      "rows": {
+        "r1": {
+          "provider": "Catalogues and document packs",
+          "price": "240 to 2,000 €",
+          "note": "Templates and checklists, no record of what was decided"
+        },
+        "r2": {
+          "provider": "nisd2.eu",
+          "price": "4,800 €",
+          "note": "Guided pass, full decision trail, export at any time"
+        },
+        "r3": {
+          "provider": "Platform with a required advisor",
+          "price": "9,600 to 21,600 €",
+          "note": "The software only works alongside a consultant"
+        },
+        "r4": {
+          "provider": "Consultancy",
+          "price": "20,000 to 60,000 €",
+          "note": "One-off project, day rates"
+        }
+      }
+    },
+    "consultantFootnote": "Stuck on NIS 2? Short factual questions cost nothing, and if you need a specialist firm we will introduce you to one at no cost to you.",
+    "consultantCta": "Help and introductions"
   }
 }
