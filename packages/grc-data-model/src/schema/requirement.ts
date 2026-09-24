@@ -11,6 +11,7 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 import {
+  addresseeEnum,
   evidenceTypeEnum,
   frequencyEnum,
   priorityEnum,
@@ -62,7 +63,19 @@ export const requirement = pgTable(
 
     requiredSignOffRole: varchar("required_sign_off_role", { length: 50 }),
 
+    /**
+     * Free-text Grundschutz reference. Empty on all 49 NIS 2 requirements and unable to express a
+     * control that stands behind more than one item, so the guided form uses the
+     * `requirement_control` crosswalk instead. Kept for other frameworks.
+     */
     grundschutzRef: varchar("grundschutz_ref", { length: 100 }),
+
+    /**
+     * Who this provision addresses, read off the statute. "all" for everything in § 30, which is
+     * why it is the default; the status-bound duties (§§ 31 Abs. 2, 34, 35 Abs. 2, 39 Abs. 1)
+     * carry their own value and stay invisible until the company's profile settles the fact.
+     */
+    addressee: addresseeEnum("addressee").notNull().default("all"),
 
     templateVersion: integer("template_version").default(1).notNull(),
 

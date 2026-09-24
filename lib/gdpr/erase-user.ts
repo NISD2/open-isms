@@ -40,6 +40,7 @@ import {
   requirementAssignment,
   categoryAssignment,
   // hash chain + evidence
+  controlDecision,
   signOffHistory,
   policyAcknowledgment,
   companyInvite,
@@ -613,6 +614,9 @@ async function tearDownCompany(
   await byIds("evidence", (l) => tx.delete(evidence).where(inArray(evidence.requirementStatusId, l)).returning(), statusIds);
   await byIds("requirement_assignment", (l) => tx.delete(requirementAssignment).where(inArray(requirementAssignment.statusId, l)).returning(), statusIds);
   await del("sign_off_history", () => tx.delete(signOffHistory).where(eq(signOffHistory.companyId, cid)).returning());
+  // Control decisions are append-only everywhere else; tenant erasure is the one path that removes
+  // them, and it must, because they carry the deciding user and the company's own justifications.
+  await del("control_decision", () => tx.delete(controlDecision).where(eq(controlDecision.companyId, cid)).returning());
   await byIds("company_category_intake", (l) => tx.delete(companyCategoryIntake).where(inArray(companyCategoryIntake.assessmentId, l)).returning(), assessmentIds);
   await byIds("category_assignment", (l) => tx.delete(categoryAssignment).where(inArray(categoryAssignment.assessmentId, l)).returning(), assessmentIds);
   await byIds("policy_acknowledgment", (l) => tx.delete(policyAcknowledgment).where(inArray(policyAcknowledgment.policyId, l)).returning(), policyIds);

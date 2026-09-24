@@ -38,6 +38,41 @@ export const frequencyEnum = pgEnum("frequency", [
 
 export const priorityEnum = pgEnum("priority", ["P0", "P1", "P2", "P3"]);
 
+/**
+ * The BSI's own grading of a control, in English.
+ *
+ *   required  Basis-Anforderung, printed "(B)" and worded MUSS. Not sizeable.
+ *   expected  Standard-Anforderung, "(S)", SOLLTE. Meet it or record why not; this is where
+ *             § 30 Abs. 1 S. 2 BSIG bites.
+ *   optional  Anforderung bei erhöhtem Schutzbedarf, "(H)", KANN. Shown, never signed.
+ *
+ * The German words stay in the interface as the BSI's labels; identifiers are English.
+ */
+export const controlGradeEnum = pgEnum("control_grade", [
+  "required",
+  "expected",
+  "optional",
+]);
+
+/**
+ * Who a provision addresses, read off the statute's own wording rather than inferred.
+ *
+ *   all                    every entity in scope
+ *   critical_installation  §§ 31 Abs. 2, 39 Abs. 1 BSIG
+ *   service_type_60_1      § 34 BSIG, which points at the list in § 60 Abs. 1 Satz 1
+ *   sector_35_2            § 35 Abs. 2 BSIG, which names five sectors
+ *
+ * § 60 Abs. 1 Satz 1 and § 30 Abs. 3 are two different lists that differ by two entries, so the
+ * § 30 Abs. 3 question (which rulebook binds the areas) is answered separately and is not an
+ * addressee.
+ */
+export const addresseeEnum = pgEnum("addressee", [
+  "all",
+  "critical_installation",
+  "service_type_60_1",
+  "sector_35_2",
+]);
+
 export const requirementImportanceEnum = pgEnum("requirement_importance", [
   "mandatory",
   "recommended",
