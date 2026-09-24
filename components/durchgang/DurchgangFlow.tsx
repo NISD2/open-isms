@@ -1,59 +1,53 @@
 "use client";
 
 /**
- * The opening of the Durchgang: journey item 12.1 split across three questions, with the answers
- * shown back.
+ * The opening of the Durchgang: the journey's own first items, one question per screen.
  *
- * Every screen validates. That is the gap this closes: the existing requirement step runs a bare
- * `useForm` with `Controller` and no resolver, so nothing on it can be wrong, only empty. These
- * answers decide which of the 49 items address the company, so "nobody said" has to be a state the
- * form cannot leave behind by accident. Each screen therefore carries its own small schema and the
- * forward button is disabled until it passes.
+ * There is no interview in front of this and there will not be one. The version deleted on
+ * 25.09.2026 asked twenty-one options across three screens to move four of fifty-three items, which
+ * is the proportionality engine's own failure ratio in new clothes.
  *
- * The state shape is `Answers` from the policy's own module, which is what the server will persist
- * once the procedure exists. Nothing here is a throwaway prototype of a different shape.
+ * Every screen validates against the slice of `REG_SCHEMA` it collects. That is the gap this
+ * closes: the existing requirement step runs a bare `useForm` with `Controller` and no resolver, so
+ * a field there can be empty but never wrong, on a screen whose output is a legal record.
+ *
+ * The schema is the source for what a field is and whether it is required. Nothing about the fields
+ * is restated here, so adding one to `REG_SCHEMA` reaches these screens without an edit.
  */
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Minus } from "lucide-react";
 import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { type Resolver, useForm } from "react-hook-form";
 import { z } from "zod";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Separator } from "@/components/ui/separator";
-import { ADDRESSEE_LABEL, STEP_COPY, UI } from "@/lib/compliance/guided-form/content.de";
 import {
-  type Addressee,
-  SERVICE_TYPES,
-  type ServiceTypeId,
-} from "@/lib/compliance/guided-form/policy";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { REG_SCHEMA } from "@/lib/compliance/category-schemas";
+import { FIELD_LABEL, STEP_COPY, UI } from "@/lib/compliance/guided-form/content.de";
 import {
   type Answers,
   canWait,
+  hasValue,
   NOTHING_ANSWERED,
-  type Removed,
-  reduction,
   STEPS,
+  type Step,
   type StepId,
   stepAfter,
   stepBefore,
   stepState,
 } from "@/lib/compliance/guided-form/steps";
+import { renderFieldInput } from "@/lib/forms/field-renderer";
+import { introspectSchema } from "@/lib/forms/schema-introspect";
 import { StepShell } from "./StepShell";
 
-/** Items the register holds, with who each one addresses. Read server side. */
-export interface RegisterItem {
-  readonly code: string;
-  readonly title: string;
-  readonly addressee: Addressee;
-}
-
 export interface DurchgangFlowProps {
-  readonly register: readonly RegisterItem[];
   /** The verbatim statute text per step, sliced server side so the whole law is not shipped. */
   readonly statutes: Readonly<Partial<Record<StepId, string>>>;
 }
@@ -61,22 +55,35 @@ export interface DurchgangFlowProps {
 const choiceCard =
   "flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-colors hover:bg-accent/40 has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5";
 
-export function DurchgangFlow({ register, statutes }: DurchgangFlowProps) {
+/** What one screen collects: a bag of fields the category schema validates. */
+type StepValues = Record<string, unknown>;
+
+/**
+ * The category's shape, read by key.
+ *
+ * Widened rather than cast: a step names its fields as data, so the lookup is by string and an
+ * unknown key reads as undefined, which the caller already handles. The test asserts every key a
+ * step names exists here, so a typo fails a test rather than silently skipping validation.
+ */
+const REG_SHAPE: Readonly<Record<string, z.ZodType>> = REG_SCHEMA.shape;
+
+/** Every field the registration category defines, by key. The one source for type and requiredness. */
+const REG_FIELDS = introspectSchema(REG_SCHEMA, []);
+const metaOf = (key: string) => REG_FIELDS.find((f) => f.key === key);
+const REQUIRED = new Set(REG_FIELDS.filter((f) => f.required).map((f) => f.key));
+
+export function DurchgangFlow({ statutes }: DurchgangFlowProps) {
   const [current, setCurrent] = useState<StepId>("welcome");
   const [answers, setAnswers] = useState<Answers>(NOTHING_ANSWERED);
 
   const step = STEPS.find((s) => s.id === current) ?? STEPS[0];
   const index = STEPS.findIndex((s) => s.id === step.id);
   const copy = STEP_COPY[step.id];
-  const counts = useMemo(
-    () => reduction(register, answers.facts),
-    [register, answers.facts],
-  );
 
   const goto = (id: StepId | null) => id && setCurrent(id);
   const forward = () => goto(stepAfter(step.id)?.id ?? null);
 
-  /** Record a wait and move on. The wait is the reason, so it is never a silent skip. */
+  /** Record a wait and move on. The wait carries its reason, so it is never a silent skip. */
   const leaveOpen = () => {
     if (!copy.wait) return;
     setAnswers((a) => ({
@@ -86,12 +93,12 @@ export function DurchgangFlow({ register, statutes }: DurchgangFlowProps) {
     forward();
   };
 
-  /** An answer clears any wait on the same step, which is the property the tests pin down. */
-  const answer = (patch: Partial<Answers["facts"]>) => {
+  /** An answer clears any wait on the same step, so a step is never both. */
+  const save = (values: Record<string, unknown>) => {
     setAnswers((a) => {
       const waiting = { ...a.waiting };
       delete waiting[step.id];
-      return { facts: { ...a.facts, ...patch }, waiting };
+      return { values: { ...a.values, ...values }, waiting };
     });
     forward();
   };
@@ -103,74 +110,48 @@ export function DurchgangFlow({ register, statutes }: DurchgangFlowProps) {
     statute: statutes[step.id] ?? null,
     stepNumber: index + 1,
     stepCount: STEPS.length,
-    // What could still apply, not what does. It falls as answers of "no" come in, and it never
-    // claims an unanswered item is theirs.
-    counter:
-      step.kind === "fact"
-        ? { value: counts.addressed + counts.unsettled, label: UI.inPlay }
-        : null,
+    item: step.kind === "question" ? UI.item(step.item) : null,
     onBack: index > 0 ? () => goto(stepBefore(step.id)?.id ?? null) : null,
     waitLabel: canWait(step) ? (copy.wait ?? null) : null,
     onWait: canWait(step) ? leaveOpen : null,
-    isWaiting: stepState(step, answers) === "blocked",
+    isWaiting: stepState(step, answers, REQUIRED) === "blocked",
   };
 
-  switch (step.id) {
-    case "welcome":
-      return (
-        <StepShell {...shell} onNext={forward} nextLabel={UI.start}>
-          <WelcomeBody total={register.length} />
-        </StepShell>
-      );
-
-    case "sector":
-      return (
-        <SectorStep
-          shell={shell}
-          onAnswer={(inList) => answer({ sector35_2: inList ? "yes" : "no" })}
-        />
-      );
-
-    case "service_types":
-      return (
-        <ServiceTypesStep
-          shell={shell}
-          onAnswer={(types) => answer({ serviceTypes: types })}
-        />
-      );
-
-    case "critical_installation":
-      return (
-        <CriticalInstallationStep
-          shell={shell}
-          onAnswer={(yes) => answer({ criticalInstallation: yes ? "yes" : "no" })}
-        />
-      );
-
-    case "your_number":
-      return (
-        <StepShell {...shell} onNext={null}>
-          <YourNumber counts={counts} register={register} />
-        </StepShell>
-      );
+  if (step.kind === "provision") {
+    return (
+      <StepShell {...shell} onNext={forward} nextLabel={UI.start}>
+        <WelcomeBody />
+      </StepShell>
+    );
   }
+
+  return (
+    <QuestionStep
+      key={step.id}
+      shell={shell}
+      step={step}
+      values={answers.values}
+      onSave={save}
+      isLast={stepAfter(step.id) === null}
+    />
+  );
 }
 
 // ---------------------------------------------------------------------------
 
 type Shell = Omit<React.ComponentProps<typeof StepShell>, "children" | "onNext">;
 
-function WelcomeBody({ total }: { readonly total: number }) {
+function WelcomeBody() {
   return (
     <Card>
       <CardContent className="space-y-3 py-5 text-sm leading-relaxed">
         <p>
-          Wir gehen {total} Punkte durch, einen pro Bildschirm. Zu jedem steht daneben,
-          woher er kommt und was er verlangt.
+          Wir gehen die Punkte einzeln durch, einen pro Bildschirm. Zu jedem steht
+          daneben, woher er kommt und was er verlangt.
         </p>
         <p>
-          Die nächsten drei Fragen entscheiden, welche dieser Punkte überhaupt für Sie
-          gelten. Danach sehen Sie Ihre Liste.
+          Wir fangen bei der Einstufung und der Registrierung an, weil das Gesetz dort
+          anfängt und alles Weitere daran hängt.
         </p>
         <p className="text-muted-foreground">
           Sie können jede Frage offen lassen und später beantworten. Beim nächsten
@@ -183,295 +164,129 @@ function WelcomeBody({ total }: { readonly total: number }) {
 
 // ---------------------------------------------------------------------------
 
-const sectorSchema = z.object({ sector: z.string().min(1) });
-
-function SectorStep({
-  shell,
-  onAnswer,
-}: {
-  readonly shell: Shell;
-  readonly onAnswer: (inList: boolean) => void;
-}) {
-  const copy = STEP_COPY.sector;
-  const form = useForm<z.infer<typeof sectorSchema>>({
-    resolver: zodResolver(sectorSchema),
-    defaultValues: { sector: "" },
-  });
-  const chosen = form.watch("sector");
-
-  return (
-    <StepShell
-      {...shell}
-      onNext={form.handleSubmit((v) => onAnswer(v.sector !== "none"))}
-      nextDisabled={!chosen}
-    >
-      <Form {...form}>
-        <FormField
-          control={form.control}
-          name="sector"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <RadioGroup
-                  className="gap-2"
-                  onValueChange={field.onChange}
-                  value={field.value}
-                >
-                  {copy.choices?.map((c) => (
-                    <FormLabel
-                      key={c.value}
-                      className={choiceCard}
-                      htmlFor={`sector-${c.value}`}
-                    >
-                      <FormControl>
-                        <RadioGroupItem
-                          id={`sector-${c.value}`}
-                          value={c.value}
-                          className="mt-0.5"
-                        />
-                      </FormControl>
-                      <span className="space-y-0.5">
-                        <span className="block font-normal leading-snug">{c.label}</span>
-                        {c.hint ? (
-                          <span className="block text-muted-foreground text-xs">
-                            {c.hint}
-                          </span>
-                        ) : null}
-                      </span>
-                    </FormLabel>
-                  ))}
-                </RadioGroup>
-              </FormControl>
-            </FormItem>
-          )}
-        />
-      </Form>
-    </StepShell>
-  );
-}
-
-// ---------------------------------------------------------------------------
-
 /**
- * The multi-select, and the one place the tri-valued answer is enforced.
+ * One journey item's fields on one screen.
  *
- * "None of these" is a box rather than an empty form, because an empty selection is ambiguous: it
- * could mean none apply or it could mean nobody has looked. The schema refuses a submission that
- * says neither, so the ambiguous state cannot be recorded.
+ * The Zod schema is sliced to this step's fields, so the resolver enforces exactly what the
+ * category schema says about them and nothing is restated. Where the copy supplies German choices
+ * for an enum, they replace the raw schema values, which are English identifiers.
  */
-const serviceSchema = z
-  .object({ types: z.array(z.string()), none: z.boolean() })
-  .refine((v) => v.none !== v.types.length > 0, {
-    message: "Bitte wählen Sie die zutreffenden Dienste oder ausdrücklich keinen davon.",
-  });
-
-function ServiceTypesStep({
+function QuestionStep({
   shell,
-  onAnswer,
+  step,
+  values,
+  onSave,
+  isLast,
 }: {
   readonly shell: Shell;
-  readonly onAnswer: (types: readonly ServiceTypeId[]) => void;
+  readonly step: Step;
+  readonly values: Readonly<Record<string, unknown>>;
+  readonly onSave: (v: Record<string, unknown>) => void;
+  readonly isLast: boolean;
 }) {
-  const form = useForm<z.infer<typeof serviceSchema>>({
-    resolver: zodResolver(serviceSchema),
-    defaultValues: { types: [], none: false },
-  });
-  const types = form.watch("types");
-  const none = form.watch("none");
+  const copy = STEP_COPY[step.id];
 
-  const toggle = (id: string, on: boolean) => {
-    form.setValue("types", on ? [...types, id] : types.filter((t) => t !== id), {
-      shouldValidate: true,
-    });
-    if (on) form.setValue("none", false, { shouldValidate: true });
-  };
+  /**
+   * The step's own schema, built from the category schema's shape rather than restated.
+   *
+   * `.pick()` is not used because it wants a literal mask and this list is data, which is the
+   * whole point: a step names its fields and the validation follows. The keys are checked against
+   * the shape in test, so a typo here is a failing test rather than a silently unvalidated field.
+   */
+  const schema = useMemo(
+    () =>
+      z.object(
+        Object.fromEntries(
+          step.fields.flatMap((f) => {
+            const member = REG_SHAPE[f];
+            return member ? [[f, member] as const] : [];
+          }),
+        ),
+      ),
+    [step.fields],
+  );
+  const metas = step.fields.map(metaOf).filter((m) => m !== undefined);
+
+  // react-hook-form cannot infer a type from a schema assembled at runtime. The values are a bag
+  // of schema-validated fields, so that is what the form is typed as, and the resolver is narrowed
+  // to match rather than cast to any.
+  const form = useForm<StepValues>({
+    resolver: zodResolver(schema) as Resolver<StepValues>,
+    defaultValues: Object.fromEntries(step.fields.map((f) => [f, values[f] ?? ""])),
+  });
+
+  const watched = form.watch();
+  const requiredHere = metas.filter((m) => m.required).map((m) => m.key);
+  const complete = requiredHere.every((k) => hasValue(watched[k]));
 
   return (
     <StepShell
       {...shell}
-      onNext={form.handleSubmit((v) => onAnswer(v.types as ServiceTypeId[]))}
-      nextDisabled={!none && types.length === 0}
+      onNext={form.handleSubmit((v) => onSave(v))}
+      nextLabel={isLast ? UI.done : undefined}
+      nextDisabled={!complete}
     >
       <Form {...form}>
-        <div className="space-y-2">
-          {SERVICE_TYPES.map((s) => {
-            // Every type is named by at least one of the two lists, which the policy test pins.
-            const label = s.phrase60Abs1 ?? s.phrase30Abs3;
-            const onlyOnOne = s.phrase60Abs1 === null || s.phrase30Abs3 === null;
-            return (
-              <FormLabel key={s.id} className={choiceCard} htmlFor={`svc-${s.id}`}>
-                <Checkbox
-                  id={`svc-${s.id}`}
-                  className="mt-0.5"
-                  checked={types.includes(s.id)}
-                  onCheckedChange={(v) => toggle(s.id, v === true)}
-                />
-                <span className="space-y-0.5">
-                  <span className="block font-normal leading-snug">{label}</span>
-                  {onlyOnOne ? (
-                    <span className="block text-muted-foreground text-xs">
-                      {s.phrase30Abs3 === null
-                        ? "Nur in § 60 Abs. 1 Satz 1 genannt"
-                        : "Nur in § 30 Abs. 3 genannt"}
-                    </span>
+        <div className="space-y-5">
+          {metas.map((meta) => (
+            <FormField
+              key={meta.key}
+              control={form.control}
+              name={meta.key}
+              render={({ field }) => (
+                <FormItem className="space-y-2">
+                  {metas.length > 1 ? (
+                    <FormLabel>
+                      {FIELD_LABEL[meta.key] ?? meta.label}
+                      {meta.required ? null : (
+                        <span className="ml-1 font-normal text-muted-foreground">
+                          ({UI.optional})
+                        </span>
+                      )}
+                    </FormLabel>
                   ) : null}
-                </span>
-              </FormLabel>
-            );
-          })}
-
-          <Separator className="my-3" />
-
-          <FormLabel className={choiceCard} htmlFor="svc-none">
-            <Checkbox
-              id="svc-none"
-              className="mt-0.5"
-              checked={none}
-              onCheckedChange={(v) => {
-                form.setValue("none", v === true, { shouldValidate: true });
-                if (v === true) form.setValue("types", [], { shouldValidate: true });
-              }}
+                  {copy.choices && meta.options ? (
+                    <FormControl>
+                      <RadioGroup
+                        className="gap-2"
+                        onValueChange={field.onChange}
+                        value={typeof field.value === "string" ? field.value : ""}
+                      >
+                        {copy.choices.map((c) => (
+                          <FormLabel
+                            key={c.value}
+                            className={choiceCard}
+                            htmlFor={`${meta.key}-${c.value}`}
+                          >
+                            <RadioGroupItem
+                              id={`${meta.key}-${c.value}`}
+                              value={c.value}
+                              className="mt-0.5"
+                            />
+                            <span className="space-y-0.5">
+                              <span className="block font-normal leading-snug">
+                                {c.label}
+                              </span>
+                              {c.hint ? (
+                                <span className="block text-muted-foreground text-xs">
+                                  {c.hint}
+                                </span>
+                              ) : null}
+                            </span>
+                          </FormLabel>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                  ) : (
+                    <FormControl>{renderFieldInput(meta, field)}</FormControl>
+                  )}
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            <span className="space-y-0.5">
-              <span className="block font-normal leading-snug">{UI.none}</span>
-              <span className="block text-muted-foreground text-xs">
-                Das ist eine Antwort, kein Überspringen.
-              </span>
-            </span>
-          </FormLabel>
+          ))}
         </div>
       </Form>
     </StepShell>
-  );
-}
-
-// ---------------------------------------------------------------------------
-
-const criticalSchema = z.object({ answer: z.enum(["yes", "no"]) });
-
-function CriticalInstallationStep({
-  shell,
-  onAnswer,
-}: {
-  readonly shell: Shell;
-  readonly onAnswer: (yes: boolean) => void;
-}) {
-  const copy = STEP_COPY.critical_installation;
-  const form = useForm<z.infer<typeof criticalSchema>>({
-    resolver: zodResolver(criticalSchema),
-  });
-  const chosen = form.watch("answer");
-
-  return (
-    <StepShell
-      {...shell}
-      onNext={form.handleSubmit((v) => onAnswer(v.answer === "yes"))}
-      nextDisabled={!chosen}
-    >
-      <Form {...form}>
-        <FormField
-          control={form.control}
-          name="answer"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <RadioGroup
-                  className="gap-2"
-                  onValueChange={field.onChange}
-                  value={field.value}
-                >
-                  {copy.choices?.map((c) => (
-                    <FormLabel
-                      key={c.value}
-                      className={choiceCard}
-                      htmlFor={`crit-${c.value}`}
-                    >
-                      <FormControl>
-                        <RadioGroupItem
-                          id={`crit-${c.value}`}
-                          value={c.value}
-                          className="mt-0.5"
-                        />
-                      </FormControl>
-                      <span className="font-normal leading-snug">{c.label}</span>
-                    </FormLabel>
-                  ))}
-                </RadioGroup>
-              </FormControl>
-            </FormItem>
-          )}
-        />
-      </Form>
-    </StepShell>
-  );
-}
-
-// ---------------------------------------------------------------------------
-
-function YourNumber({
-  counts,
-  register,
-}: {
-  readonly counts: ReturnType<typeof reduction>;
-  readonly register: readonly RegisterItem[];
-}) {
-  const removedTitles = (r: Removed) =>
-    register.filter((i) => i.addressee === r.addressee).map((i) => i.title);
-
-  return (
-    <div className="space-y-6">
-      <div className="flex items-baseline gap-3">
-        <span className="font-semibold text-5xl tabular-nums">{counts.addressed}</span>
-        <span className="text-muted-foreground">{UI.addressed(counts.total)}</span>
-      </div>
-
-      {counts.removed.length > 0 ? (
-        <section className="space-y-2">
-          <h2 className="font-medium text-sm">{UI.removedHeading}</h2>
-          {counts.removed.map((r) => (
-            <Card key={r.addressee}>
-              <CardContent className="flex items-start gap-3 py-4">
-                <Minus
-                  className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground"
-                  aria-hidden
-                />
-                <div className="space-y-1">
-                  <p className="font-medium text-sm">{UI.removedCount(r.count)}</p>
-                  <p className="text-muted-foreground text-xs">
-                    {ADDRESSEE_LABEL[r.addressee]}, und das haben Sie verneint.
-                  </p>
-                  <ul className="list-inside list-disc text-muted-foreground text-xs">
-                    {removedTitles(r).map((t) => (
-                      <li key={t}>{t}</li>
-                    ))}
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </section>
-      ) : null}
-
-      {counts.unsettled > 0 ? (
-        <section className="space-y-2">
-          <h2 className="font-medium text-sm">{UI.unsettledHeading}</h2>
-          <Card>
-            <CardContent className="space-y-1 py-4">
-              <p className="text-sm">
-                <Badge variant="secondary" className="mr-2 tabular-nums">
-                  {counts.unsettled}
-                </Badge>
-                {UI.unsettledNote}
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-      ) : null}
-
-      <p className="flex items-start gap-2 text-muted-foreground text-sm">
-        <Check className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-        Jede weggefallene Zeile steht mit Grund und Datum in Ihrem Nachweis.
-      </p>
-    </div>
   );
 }

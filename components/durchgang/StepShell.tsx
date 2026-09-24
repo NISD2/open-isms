@@ -41,8 +41,15 @@ export interface StepShellProps {
   readonly statute: string | null;
   readonly stepNumber: number;
   readonly stepCount: number;
-  /** What is left to decide. Absent on screens where no honest count exists yet. */
-  readonly counter: { readonly value: number; readonly label: string } | null;
+  /**
+   * Which journey item this screen serves, so the reader can see that the screens are the journey
+   * and not a questionnaire in front of it.
+   *
+   * There is no counter here on purpose. The version deleted on 25.09.2026 showed a running count
+   * of what still applied, which only ever moved four of fifty-three and read "53 von 53" for most
+   * companies. The honest count is of control decisions and it needs the crosswalk.
+   */
+  readonly item: string | null;
   readonly onBack: (() => void) | null;
   readonly onNext: (() => void) | null;
   /** Label for the third exit. Null on a screen that asks for nothing. */
@@ -61,7 +68,7 @@ export function StepShell({
   statute,
   stepNumber,
   stepCount,
-  counter,
+  item,
   onBack,
   onNext,
   waitLabel,
@@ -79,12 +86,7 @@ export function StepShell({
         <span className="text-muted-foreground text-sm tabular-nums">
           {UI.stepOf(stepNumber, stepCount)}
         </span>
-        {counter ? (
-          <span className="text-sm">
-            <span className="font-semibold tabular-nums">{counter.value}</span>{" "}
-            <span className="text-muted-foreground">{counter.label}</span>
-          </span>
-        ) : null}
+        {item ? <span className="text-muted-foreground text-sm">{item}</span> : null}
       </header>
 
       <div className="grid flex-1 gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">

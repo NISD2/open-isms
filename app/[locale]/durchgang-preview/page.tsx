@@ -4,17 +4,14 @@ import { DurchgangFlow } from "@/components/durchgang/DurchgangFlow";
 import statuteJson from "@/data/law/bsig-2025.json";
 import type { StepId } from "@/lib/compliance/guided-form/steps";
 import { STEPS } from "@/lib/compliance/guided-form/steps";
-import { buildRegister } from "./register";
 
 /**
- * Design route for the opening of the Durchgang. Renders the real components with the real
- * register and no database, the same shape as `journey-preview`, so the flow can be clicked
- * through and argued about before the procedures behind it exist.
+ * Design route for the opening of the Durchgang. Renders the real components with no database, the
+ * same shape as `journey-preview`, so the flow can be clicked through and argued about before the
+ * procedures behind it exist.
  *
- * Not served in production, and not on the public allowlist in `proxy.ts` either, so it is behind
- * the login as well. Two gates because the copy on it has not been through the primary-source
- * fact-check yet, and an unfinished claim about the law is the one thing this audience does not
- * forgive.
+ * Not served in production. The copy has not been through the primary-source fact-check gate, and
+ * an unfinished claim about the law is the one thing this audience does not forgive.
  */
 export const metadata: Metadata = {
   title: "Durchgang (Vorschau)",
@@ -34,11 +31,13 @@ const absatz = (norm: string, n: number): string => {
   return (end < 0 ? norm.slice(start) : norm.slice(start, end)).trim();
 };
 
-/** Which Absatz each step quotes. A step with no entry gets the whole paragraph. */
+/**
+ * Which Absatz each step quotes. A step with no entry gets the whole paragraph, which is right for
+ * the classification screen: it cites both Absatz 1 and Absatz 2 and the difference between them
+ * is the answer.
+ */
 const ABSATZ: Readonly<Partial<Record<StepId, number>>> = {
-  sector: 2,
-  service_types: 1,
-  critical_installation: 1,
+  registration: 1,
 };
 
 const norms = statuteJson.norms as Readonly<Record<string, string>>;
@@ -58,7 +57,7 @@ export default function DurchgangPreviewPage() {
 
   return (
     <main className="px-6 py-10">
-      <DurchgangFlow register={buildRegister()} statutes={statutes} />
+      <DurchgangFlow statutes={statutes} />
     </main>
   );
 }
