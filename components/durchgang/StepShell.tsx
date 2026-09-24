@@ -30,8 +30,21 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-import type { SidebarCopy } from "@/lib/compliance/guided-form/content.de";
 import { UI } from "@/lib/compliance/guided-form/content.de";
+
+/**
+ * What the sidebar shows. Both halves come from content that already exists: the explanation from
+ * `data/guidance/<locale>.json`, the citation from the requirement's own `legalRef`.
+ *
+ * It explains and never recommends. The moment it recommends we are selling an opinion, which is
+ * what the proportionality engine was retired for.
+ */
+export interface SidebarCopy {
+  readonly explains: string;
+  /** For example "§30(2) Nr. 1 BSIG, CIR 2.1.2". Empty where the item names no source. */
+  readonly cite: string;
+  readonly furtherReading?: { readonly label: string; readonly href: string };
+}
 
 export interface StepShellProps {
   readonly question: string;

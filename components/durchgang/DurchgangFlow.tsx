@@ -1,24 +1,31 @@
 "use client";
 
 /**
- * The opening of the Durchgang: the journey's own first items, one question per screen.
+ * The Durchgang: the journey, one question per screen.
  *
- * There is no interview in front of this and there will not be one. The version deleted on
- * 25.09.2026 asked twenty-one options across three screens to move four of fifty-three items, which
- * is the proportionality engine's own failure ratio in new clothes.
+ * No interview in front of it. Two earlier versions built one and both were deleted; the standing
+ * rule is that the BSI portal already makes a company classify itself in order to register, so
+ * asking again is re-doing their homework.
  *
- * Every screen validates against the slice of `REG_SCHEMA` it collects. That is the gap this
- * closes: the existing requirement step runs a bare `useForm` with `Controller` and no resolver, so
- * a field there can be empty but never wrong, on a screen whose output is a legal record.
+ * Three kinds of screen, and which one you get is decided by data that already existed rather than
+ * by anything authored here:
  *
- * The schema is the source for what a field is and whether it is required. Nothing about the fields
- * is restated here, so adding one to `REG_SCHEMA` reaches these screens without an edit.
+ *   fields    one or more intake fields of the item, validated by its category schema
+ *   row       the same, about ONE row of a register, repeated per row. This is why an item can be
+ *             two hundred screens for one company and one screen for another.
+ *   register  the item is satisfied by the register existing, not by answering per entry
+ *
+ * Every screen validates. That is the gap this closes: the existing requirement step runs a bare
+ * `useForm` with `Controller` and no resolver, so a field there can be empty but never wrong, on a
+ * screen whose output is a legal record.
  */
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Boxes, Info } from "lucide-react";
 import { useMemo, useState } from "react";
 import { type Resolver, useForm } from "react-hook-form";
 import { z } from "zod";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
@@ -28,111 +35,160 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { REG_SCHEMA } from "@/lib/compliance/category-schemas";
-import { FIELD_LABEL, STEP_COPY, UI } from "@/lib/compliance/guided-form/content.de";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
+import { FIELD_LABEL, UI } from "@/lib/compliance/guided-form/content.de";
+import type { ItemContent } from "@/lib/compliance/guided-form/journey";
 import {
   type Answers,
-  canWait,
+  answerKey,
+  fieldsOf,
   hasValue,
   NOTHING_ANSWERED,
-  STEPS,
-  type Step,
-  type StepId,
-  stepAfter,
-  stepBefore,
-  stepState,
+  type Screen,
+  screenAfter,
+  screenBefore,
+  screenIndex,
+  screenState,
 } from "@/lib/compliance/guided-form/steps";
+import { ROW_SCHEMA } from "@/lib/compliance/requirement-rows";
 import { renderFieldInput } from "@/lib/forms/field-renderer";
-import { introspectSchema } from "@/lib/forms/schema-introspect";
+import { type FieldMeta, introspectSchema } from "@/lib/forms/schema-introspect";
 import { StepShell } from "./StepShell";
 
 export interface DurchgangFlowProps {
-  /** The verbatim statute text per step, sliced server side so the whole law is not shipped. */
-  readonly statutes: Readonly<Partial<Record<StepId, string>>>;
+  readonly screens: readonly Screen[];
+  /** Keyed by item code. Titles, descriptions and guidance from the existing message files. */
+  readonly content: Readonly<Record<string, ItemContent>>;
+  /** Verbatim statute per item, sliced server side so the whole law is not shipped. */
+  readonly statutes: Readonly<Record<string, string>>;
+  /**
+   * Per-field explanation for the info icon, keyed by field name.
+   *
+   * Follows the `fieldDescriptions.<key>` convention the house form already uses. Empty today for
+   * the intake fields, which is why most icons do not appear: filling those message files lights
+   * them up with no change here. Nothing English is shown on a German screen in the meantime.
+   */
+  readonly fieldHelp: Readonly<Record<string, string>>;
+  /** Screen to open on. Ignored when it names nothing, so a stale link lands at the start. */
+  readonly startAt?: string;
 }
 
-const choiceCard =
-  "flex cursor-pointer items-start gap-3 rounded-lg border p-4 transition-colors hover:bg-accent/40 has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5";
-
-/** What one screen collects: a bag of fields the category schema validates. */
-type StepValues = Record<string, unknown>;
-
 /**
- * The category's shape, read by key.
+ * Field metadata for every schema a screen can draw on, introspected once.
  *
- * Widened rather than cast: a step names its fields as data, so the lookup is by string and an
- * unknown key reads as undefined, which the caller already handles. The test asserts every key a
- * step names exists here, so a typo fails a test rather than silently skipping validation.
+ * Category schemas for intake fields, the drizzle-zod entity schemas for row fields. Both come from
+ * the schema that owns the column, so nothing about a field is restated here.
  */
-const REG_SHAPE: Readonly<Record<string, z.ZodType>> = REG_SCHEMA.shape;
+const META: ReadonlyMap<string, readonly FieldMeta[]> = new Map([
+  ...Object.entries(CATEGORY_SCHEMAS).map(
+    ([code, schema]) => [`category:${code}`, introspectSchema(schema, [])] as const,
+  ),
+  ...Object.entries(ROW_SCHEMA).map(
+    ([module, schema]) => [`row:${module}`, introspectSchema(schema, [])] as const,
+  ),
+]);
 
-/** Every field the registration category defines, by key. The one source for type and requiredness. */
-const REG_FIELDS = introspectSchema(REG_SCHEMA, []);
-const metaOf = (key: string) => REG_FIELDS.find((f) => f.key === key);
-const REQUIRED = new Set(REG_FIELDS.filter((f) => f.required).map((f) => f.key));
+const metaKey = (screen: Screen): string =>
+  screen.ask.kind === "row"
+    ? `row:${screen.ask.module}`
+    : `category:${screen.categoryCode}`;
 
-export function DurchgangFlow({ statutes }: DurchgangFlowProps) {
-  const [current, setCurrent] = useState<StepId>("welcome");
+const metasFor = (screen: Screen): readonly FieldMeta[] => {
+  const all = META.get(metaKey(screen)) ?? [];
+  return fieldsOf(screen)
+    .map((f) => all.find((m) => m.key === f))
+    .filter((m) => m !== undefined);
+};
+
+const REQUIRED: ReadonlySet<string> = new Set(
+  [...META.values()].flatMap((metas) =>
+    metas.filter((m) => m.required).map((m) => m.key),
+  ),
+);
+
+const labelOf = (meta: FieldMeta): string => FIELD_LABEL[meta.key] ?? meta.label;
+
+export function DurchgangFlow({
+  screens,
+  content,
+  statutes,
+  fieldHelp,
+  startAt,
+}: DurchgangFlowProps) {
+  const [current, setCurrent] = useState<string>(
+    (startAt && screens.some((s) => s.id === startAt) ? startAt : screens[0]?.id) ?? "",
+  );
   const [answers, setAnswers] = useState<Answers>(NOTHING_ANSWERED);
 
-  const step = STEPS.find((s) => s.id === current) ?? STEPS[0];
-  const index = STEPS.findIndex((s) => s.id === step.id);
-  const copy = STEP_COPY[step.id];
+  const screen = screens.find((s) => s.id === current) ?? screens[0];
+  if (!screen) return null;
 
-  const goto = (id: StepId | null) => id && setCurrent(id);
-  const forward = () => goto(stepAfter(step.id)?.id ?? null);
+  const index = screenIndex(screens, screen.id);
+  const item = content[screen.item];
+  const goto = (id: string | null) => id && setCurrent(id);
+  const forward = () => goto(screenAfter(screens, screen.id)?.id ?? null);
 
   /** Record a wait and move on. The wait carries its reason, so it is never a silent skip. */
   const leaveOpen = () => {
-    if (!copy.wait) return;
     setAnswers((a) => ({
       ...a,
-      waiting: { ...a.waiting, [step.id]: { reason: copy.wait ?? "" } },
+      waiting: { ...a.waiting, [screen.id]: { reason: UI.leftOpen } },
     }));
     forward();
   };
 
-  /** An answer clears any wait on the same step, so a step is never both. */
-  const save = (values: Record<string, unknown>) => {
+  /** An answer clears any wait on the same screen, so a screen is never both. */
+  const save = (values: Readonly<Record<string, unknown>>) => {
     setAnswers((a) => {
       const waiting = { ...a.waiting };
-      delete waiting[step.id];
+      delete waiting[screen.id];
       return { values: { ...a.values, ...values }, waiting };
     });
     forward();
   };
 
   const shell = {
-    question: copy.question,
-    subline: copy.subline,
-    sidebar: copy.sidebar,
-    statute: statutes[step.id] ?? null,
+    question: questionFor(screen, item),
+    subline: sublineFor(screen, item),
+    sidebar: item
+      ? { explains: item.summary ?? item.description, cite: item.legalRef ?? "" }
+      : null,
+    statute: statutes[screen.item] ?? null,
     stepNumber: index + 1,
-    stepCount: STEPS.length,
-    item: step.kind === "question" ? UI.item(step.item) : null,
-    onBack: index > 0 ? () => goto(stepBefore(step.id)?.id ?? null) : null,
-    waitLabel: canWait(step) ? (copy.wait ?? null) : null,
-    onWait: canWait(step) ? leaveOpen : null,
-    isWaiting: stepState(step, answers, REQUIRED) === "blocked",
+    stepCount: screens.length,
+    item: UI.item(screen.item),
+    onBack: index > 0 ? () => goto(screenBefore(screens, screen.id)?.id ?? null) : null,
+    waitLabel: UI.leaveOpen,
+    onWait: leaveOpen,
+    isWaiting: screenState(screen, answers, REQUIRED) === "blocked",
   };
 
-  if (step.kind === "provision") {
+  if (screen.ask.kind === "register") {
     return (
-      <StepShell {...shell} onNext={forward} nextLabel={UI.start}>
-        <WelcomeBody />
+      <StepShell
+        {...shell}
+        onNext={() => save({ [screen.id]: true })}
+        nextLabel={UI.confirmed}
+      >
+        <RegisterBody module={screen.ask.module} item={item} />
       </StepShell>
     );
   }
 
   return (
-    <QuestionStep
-      key={step.id}
+    <FieldsScreen
+      key={screen.id}
       shell={shell}
-      step={step}
+      screen={screen}
       values={answers.values}
+      fieldHelp={fieldHelp}
       onSave={save}
-      isLast={stepAfter(step.id) === null}
     />
   );
 }
@@ -141,22 +197,47 @@ export function DurchgangFlow({ statutes }: DurchgangFlowProps) {
 
 type Shell = Omit<React.ComponentProps<typeof StepShell>, "children" | "onNext">;
 
-function WelcomeBody() {
+/**
+ * The heading.
+ *
+ * A single field asks itself, which is what makes one question per screen read as a question rather
+ * than a form. A grouped screen asks the item, because the individual ticks are the answer.
+ */
+const questionFor = (screen: Screen, item: ItemContent | undefined): string => {
+  const metas = metasFor(screen);
+  const single = metas.length === 1 ? metas[0] : undefined;
+  return single ? labelOf(single) : (item?.title ?? screen.item);
+};
+
+/**
+ * A row screen has to say WHICH supplier or asset it is asking about, or the question cannot be
+ * answered. It goes here rather than in a caption so it is read before the input.
+ */
+const sublineFor = (screen: Screen, item: ItemContent | undefined): string => {
+  if (screen.row) return `${item?.title ?? screen.item} · ${screen.row.label}`;
+  return item?.title ?? "";
+};
+
+function RegisterBody({
+  module,
+  item,
+}: {
+  readonly module: string;
+  readonly item: ItemContent | undefined;
+}) {
   return (
     <Card>
       <CardContent className="space-y-3 py-5 text-sm leading-relaxed">
-        <p>
-          Wir gehen die Punkte einzeln durch, einen pro Bildschirm. Zu jedem steht
-          daneben, woher er kommt und was er verlangt.
-        </p>
-        <p>
-          Wir fangen bei der Einstufung und der Registrierung an, weil das Gesetz dort
-          anfängt und alles Weitere daran hängt.
-        </p>
-        <p className="text-muted-foreground">
-          Sie können jede Frage offen lassen und später beantworten. Beim nächsten
-          Anmelden landen Sie wieder bei der ersten offenen Frage.
-        </p>
+        <div className="flex items-center gap-2">
+          <Boxes className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
+          <Badge variant="outline" className="font-normal">
+            {module ? UI.register(module) : UI.noRegister}
+          </Badge>
+        </div>
+        <p>{item?.description}</p>
+        {item?.applicability ? (
+          <p className="text-muted-foreground">{item.applicability}</p>
+        ) : null}
       </CardContent>
     </Card>
   );
@@ -165,128 +246,122 @@ function WelcomeBody() {
 // ---------------------------------------------------------------------------
 
 /**
- * One journey item's fields on one screen.
+ * The fields of one screen, validated by the schema that owns them.
  *
- * The Zod schema is sliced to this step's fields, so the resolver enforces exactly what the
- * category schema says about them and nothing is restated. Where the copy supplies German choices
- * for an enum, they replace the raw schema values, which are English identifiers.
+ * The schema is sliced to exactly these fields, so the resolver enforces what the category or
+ * entity schema says and nothing is restated. Answers are keyed per screen as well as per field,
+ * because a row screen asks the same field about many rows and those are not the same answer.
  */
-function QuestionStep({
+function FieldsScreen({
   shell,
-  step,
+  screen,
   values,
+  fieldHelp,
   onSave,
-  isLast,
 }: {
   readonly shell: Shell;
-  readonly step: Step;
+  readonly screen: Screen;
   readonly values: Readonly<Record<string, unknown>>;
-  readonly onSave: (v: Record<string, unknown>) => void;
-  readonly isLast: boolean;
+  readonly fieldHelp: Readonly<Record<string, string>>;
+  readonly onSave: (v: Readonly<Record<string, unknown>>) => void;
 }) {
-  const copy = STEP_COPY[step.id];
-
-  /**
-   * The step's own schema, built from the category schema's shape rather than restated.
-   *
-   * `.pick()` is not used because it wants a literal mask and this list is data, which is the
-   * whole point: a step names its fields and the validation follows. The keys are checked against
-   * the shape in test, so a typo here is a failing test rather than a silently unvalidated field.
-   */
+  const metas = metasFor(screen);
   const schema = useMemo(
     () =>
       z.object(
         Object.fromEntries(
-          step.fields.flatMap((f) => {
-            const member = REG_SHAPE[f];
+          fieldsOf(screen).flatMap((f) => {
+            const member = sliceFor(screen, f);
             return member ? [[f, member] as const] : [];
           }),
         ),
       ),
-    [step.fields],
+    [screen],
   );
-  const metas = step.fields.map(metaOf).filter((m) => m !== undefined);
 
-  // react-hook-form cannot infer a type from a schema assembled at runtime. The values are a bag
-  // of schema-validated fields, so that is what the form is typed as, and the resolver is narrowed
-  // to match rather than cast to any.
-  const form = useForm<StepValues>({
-    resolver: zodResolver(schema) as Resolver<StepValues>,
-    defaultValues: Object.fromEntries(step.fields.map((f) => [f, values[f] ?? ""])),
+  type Values = Record<string, unknown>;
+  const form = useForm<Values>({
+    resolver: zodResolver(schema) as Resolver<Values>,
+    defaultValues: Object.fromEntries(
+      fieldsOf(screen).map((f) => [f, values[answerKey(screen, f)] ?? ""]),
+    ),
   });
 
   const watched = form.watch();
-  const requiredHere = metas.filter((m) => m.required).map((m) => m.key);
-  const complete = requiredHere.every((k) => hasValue(watched[k]));
+  const complete = metas.filter((m) => m.required).every((m) => hasValue(watched[m.key]));
+  const showLabels = metas.length > 1;
 
   return (
     <StepShell
       {...shell}
-      onNext={form.handleSubmit((v) => onSave(v))}
-      nextLabel={isLast ? UI.done : undefined}
+      onNext={form.handleSubmit((v) =>
+        onSave(
+          Object.fromEntries(
+            Object.entries(v).map(([k, val]) => [answerKey(screen, k), val]),
+          ),
+        ),
+      )}
       nextDisabled={!complete}
     >
-      <Form {...form}>
-        <div className="space-y-5">
-          {metas.map((meta) => (
-            <FormField
-              key={meta.key}
-              control={form.control}
-              name={meta.key}
-              render={({ field }) => (
-                <FormItem className="space-y-2">
-                  {metas.length > 1 ? (
-                    <FormLabel>
-                      {FIELD_LABEL[meta.key] ?? meta.label}
-                      {meta.required ? null : (
-                        <span className="ml-1 font-normal text-muted-foreground">
-                          ({UI.optional})
-                        </span>
-                      )}
-                    </FormLabel>
-                  ) : null}
-                  {copy.choices && meta.options ? (
-                    <FormControl>
-                      <RadioGroup
-                        className="gap-2"
-                        onValueChange={field.onChange}
-                        value={typeof field.value === "string" ? field.value : ""}
-                      >
-                        {copy.choices.map((c) => (
-                          <FormLabel
-                            key={c.value}
-                            className={choiceCard}
-                            htmlFor={`${meta.key}-${c.value}`}
-                          >
-                            <RadioGroupItem
-                              id={`${meta.key}-${c.value}`}
-                              value={c.value}
-                              className="mt-0.5"
-                            />
-                            <span className="space-y-0.5">
-                              <span className="block font-normal leading-snug">
-                                {c.label}
-                              </span>
-                              {c.hint ? (
-                                <span className="block text-muted-foreground text-xs">
-                                  {c.hint}
-                                </span>
-                              ) : null}
-                            </span>
-                          </FormLabel>
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                  ) : (
+      <TooltipProvider>
+        <Form {...form}>
+          <div className="space-y-5">
+            {metas.map((meta) => (
+              <FormField
+                key={meta.key}
+                control={form.control}
+                name={meta.key}
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    {showLabels ? (
+                      <FormLabel>
+                        {labelOf(meta)}
+                        {meta.required ? null : (
+                          <span className="ml-1 font-normal text-muted-foreground">
+                            ({UI.optional})
+                          </span>
+                        )}
+                        <FieldInfo text={fieldHelp[meta.key]} />
+                      </FormLabel>
+                    ) : null}
                     <FormControl>{renderFieldInput(meta, field)}</FormControl>
-                  )}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
-        </div>
-      </Form>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
+          </div>
+        </Form>
+      </TooltipProvider>
     </StepShell>
   );
 }
+
+/** The info icon. Absent rather than empty when there is nothing to say. */
+function FieldInfo({ text }: { readonly text: string | undefined }) {
+  if (!text) return null;
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Info className="ml-1 inline h-3.5 w-3.5 cursor-help text-muted-foreground" />
+      </TooltipTrigger>
+      <TooltipContent side="top" className="max-w-xs">
+        {text}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+/**
+ * The member of the owning schema that validates one field of this screen.
+ *
+ * Return type inferred rather than annotated: the shape's member type is Zod's own internal one,
+ * and naming it here would be restating a library detail that `z.object` already understands.
+ */
+const sliceFor = (screen: Screen, field: string) => {
+  const owner =
+    screen.ask.kind === "row"
+      ? ROW_SCHEMA[screen.ask.module]
+      : CATEGORY_SCHEMAS[screen.categoryCode];
+  return owner?.shape[field] ?? null;
+};

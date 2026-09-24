@@ -2,20 +2,24 @@
 
 import type { ComponentType } from "react";
 import { AssetsPage } from "@/components/assets/AssetsPage";
+import { ChangesPage } from "@/components/changes/ChangesPage";
+import { ExercisesPage } from "@/components/exercises/ExercisesPage";
+import { ImprovementsPage } from "@/components/improvements/ImprovementsPage";
+import { InternalAuditsPage } from "@/components/internal-audits/InternalAuditsPage";
+import { KpisPage } from "@/components/kpis/KpisPage";
+import { ManagementReviewsPage } from "@/components/management-reviews/ManagementReviewsPage";
+import { PatchesPage } from "@/components/patches/PatchesPage";
+import { PoliciesPage } from "@/components/policies/PoliciesPage";
 import { RisksPage } from "@/components/risks/RisksPage";
 import { SuppliersPage } from "@/components/suppliers/SuppliersPage";
-import { PoliciesPage } from "@/components/policies/PoliciesPage";
-import { ExercisesPage } from "@/components/exercises/ExercisesPage";
-import { KpisPage } from "@/components/kpis/KpisPage";
-import { InternalAuditsPage } from "@/components/internal-audits/InternalAuditsPage";
-import { ManagementReviewsPage } from "@/components/management-reviews/ManagementReviewsPage";
-import { ImprovementsPage } from "@/components/improvements/ImprovementsPage";
-import { ChangesPage } from "@/components/changes/ChangesPage";
-import { PatchesPage } from "@/components/patches/PatchesPage";
 import { VulnerabilitiesPage } from "@/components/vulnerabilities/VulnerabilitiesPage";
+import { rowFieldsFor } from "@/lib/compliance/requirement-rows";
 import { ModuleRefPanel } from "./ModuleRefPanel";
 
-type InlineComponent = ComponentType<{ items: Record<string, unknown>[]; inline?: boolean }>;
+type InlineComponent = ComponentType<{
+  items: Record<string, unknown>[];
+  inline?: boolean;
+}>;
 
 const INLINE_MODULES: Record<string, InlineComponent> = {
   asset: AssetsPage,
@@ -32,23 +36,9 @@ const INLINE_MODULES: Record<string, InlineComponent> = {
   vulnerability: VulnerabilitiesPage,
 };
 
-// CIR 5.2: per-supplier contract & monitoring fields
-const SUPPLIER_FOCUS: Record<string, string[]> = {
-  "5.2": [
-    "contractSecurityClauses", "auditFrequency", "monitoringMethod",
-    "lastReviewDate", "dueDiligenceProcess",
-  ],
-};
-
-// CIR/BSIG-grounded field groups per requirement code
-const ASSET_FOCUS: Record<string, string[]> = {
-  // CIR 4(1): disaster recovery targets per asset
-  "4.3": ["rto", "rpo"],
-  // CIR 4(2): backup management per asset (OPS.1.2.2)
-  "4.4": ["hasBackup", "backupFrequency", "backupLocation", "lastBackupTestDate"],
-  // §34 BSIG: compliance evidence — asset lifecycle
-  "12.4": ["endOfLife", "lastPatchDate", "lastVulnScanDate"],
-};
+// The per-row field maps moved to lib/compliance/requirement-rows.ts. They are data about
+// requirements rather than about rendering, and the guided form needs them too: a requirement with
+// per-row fields is not one screen, it is one screen per row.
 
 interface InlineModulePanelProps {
   moduleRef: string;
@@ -90,22 +80,22 @@ export function InlineModulePanel({
 
   // SuppliersPage: per-requirement field focus for contract/monitoring requirements
   if (moduleRef === "supplier" && requirementCode) {
-    const focus = SUPPLIER_FOCUS[requirementCode];
-    if (focus) {
-      return <SuppliersPage items={items} inline focus={focus} />;
+    const focus = rowFieldsFor(moduleRef, requirementCode);
+    if (focus.length > 0) {
+      return <SuppliersPage items={items} inline focus={[...focus]} />;
     }
   }
 
   // AssetsPage: per-requirement field focus for enrichment requirements
   if (moduleRef === "asset" && requirementCode) {
-    const focus = ASSET_FOCUS[requirementCode];
-    if (focus) {
+    const focus = rowFieldsFor(moduleRef, requirementCode);
+    if (focus.length > 0) {
       const needsCryptoPolicy = focus.includes("encryptionAtRest");
       return (
         <AssetsPage
           items={items}
           inline
-          focus={focus}
+          focus={[...focus]}
           policyData={needsCryptoPolicy ? editorInitialData : undefined}
         />
       );
