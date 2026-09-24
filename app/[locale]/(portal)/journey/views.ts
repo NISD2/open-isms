@@ -6,8 +6,7 @@
  * and liveNode (the first not-done requirement in journey order).
  */
 
-import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
-import { isDoneStatus, journeyPosition } from "@/lib/compliance/journey-position";
+import { isDoneStatus, journeyIndex } from "@/lib/compliance/journey-position";
 
 export type JourneyItem = {
   id: string;
@@ -37,13 +36,9 @@ function isDone(item: JourneyItem): boolean {
   return isDoneStatus(item.status);
 }
 
-const CAT_ORDER: Record<string, number> = Object.fromEntries(
-  nis2Categories.map((c) => [c.code, c.sortOrder]),
-);
-
-/** True journey position — the shared category-weighted order. */
+/** True journey position: the one order every surface sorts by. */
 function journeyOrder(item: JourneyItem): number {
-  return journeyPosition(item.priority, CAT_ORDER[item.categoryCode], item.sortOrder);
+  return journeyIndex(item.code);
 }
 
 /**

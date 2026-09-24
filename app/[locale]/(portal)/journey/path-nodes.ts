@@ -1,5 +1,5 @@
 import { nis2Categories } from "@nisd2/grc-data-model/frameworks";
-import { journeyPosition, priorityRank } from "@/lib/compliance/journey-position";
+import { journeyIndex, priorityRank } from "@/lib/compliance/journey-position";
 import type { JourneyItem } from "./views";
 
 export type NodeStatus = "done" | "current" | "upcoming";
@@ -209,11 +209,7 @@ const CATEGORY_ORDER: Record<string, number> = Object.fromEntries(
  * only ever consistent while they read the same function.
  */
 function globalOrder(item: JourneyItem): number {
-  return journeyPosition(
-    item.priority,
-    CATEGORY_ORDER[item.categoryCode],
-    item.sortOrder,
-  );
+  return journeyIndex(item.code);
 }
 
 /**

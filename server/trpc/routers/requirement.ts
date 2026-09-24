@@ -1,7 +1,8 @@
+import { asc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, asc } from "drizzle-orm";
-import { router, publicProcedure } from "../init";
-import { requirementCategory, requirement } from "@/schema";
+import { journeyIndex } from "@/lib/compliance/journey-position";
+import { requirement, requirementCategory } from "@/schema";
+import { publicProcedure, router } from "../init";
 
 export const requirementRouter = router({
   getByCode: publicProcedure
@@ -48,9 +49,9 @@ export const requirementRouter = router({
    * each carries its slug so the caller can build the link without a second
    * lookup.
    *
-   * Ordering is (category.sortOrder, requirement.sortOrder) — the same order
-   * the journey board and the sidebar walk, read from the database rather
-   * than restated, so seeded reordering moves all three together.
+   * Ordering is the journey order from `journeyIndex`: prerequisites first,
+   * then urgency, then process. The same order the journey board, the digest
+   * and the activation nudge use, so all of them move together.
    */
   getAdjacent: publicProcedure
     .input(z.object({ code: z.string() }))
@@ -81,8 +82,12 @@ export const requirementRouter = router({
           requirementCategory,
           eq(requirement.categoryId, requirementCategory.id),
         )
-        .where(eq(requirementCategory.frameworkId, current.category.frameworkId))
-        .orderBy(asc(requirementCategory.sortOrder), asc(requirement.sortOrder));
+        .where(eq(requirementCategory.frameworkId, current.category.frameworkId));
+
+      // Journey order, not process order. This is the prev/next a person walks, and it used to
+      // run 1.1, 1.2, 1.3 while the map beside it showed urgency first and the prerequisites were
+      // ignored by both. One sort key for every surface, so they cannot disagree again.
+      siblings.sort((a, b) => journeyIndex(a.code) - journeyIndex(b.code));
 
       const idx = siblings.findIndex((r) => r.code === input.code);
       if (idx === -1) return { prev: null, next: null };

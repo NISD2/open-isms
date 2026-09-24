@@ -38,7 +38,6 @@ import {
   emailPreference,
   notification,
   requirement,
-  requirementCategory,
   user,
 } from "@/schema";
 import { NIS2_FRAMEWORK_CODE } from "@/server/trpc/helpers/nis2-scope";
@@ -244,9 +243,6 @@ export async function prepareActivationNudgeSample(
         companyId: companyAssessment.companyId,
         status: companyRequirementStatus.status,
         code: requirement.code,
-        sortOrder: requirement.sortOrder,
-        categorySortOrder: requirementCategory.sortOrder,
-        priority: requirement.priority,
       })
       .from(companyRequirementStatus)
       .innerJoin(
@@ -261,7 +257,6 @@ export async function prepareActivationNudgeSample(
         ),
       )
       .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
-      .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
       .where(eq(companyAssessment.companyId, target.companyId));
     const journey = summarizeJourneys(statusRows).get(target.companyId);
     if (journey && journey.total > 0) {
@@ -405,12 +400,6 @@ export const activationNudge: LifecycleEmailType = {
         companyId: companyAssessment.companyId,
         status: companyRequirementStatus.status,
         code: requirement.code,
-        sortOrder: requirement.sortOrder,
-        // Category order joins in so summarizeJourneys can rank by the same
-        // journeyPosition the path view uses — requirement.sortOrder alone is
-        // only unique WITHIN a category.
-        categorySortOrder: requirementCategory.sortOrder,
-        priority: requirement.priority,
       })
       .from(companyRequirementStatus)
       .innerJoin(
@@ -425,7 +414,6 @@ export const activationNudge: LifecycleEmailType = {
         ),
       )
       .innerJoin(requirement, eq(companyRequirementStatus.requirementId, requirement.id))
-      .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
       .where(inArray(companyAssessment.companyId, companyIds));
     const journeys = summarizeJourneys(statusRows);
 

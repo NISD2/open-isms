@@ -19,7 +19,7 @@ import {
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks/nis2";
-import { journeyPosition } from "@/lib/compliance/journey-position";
+import { journeyIndex } from "@/lib/compliance/journey-position";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import { rowFieldsFor } from "@/lib/compliance/requirement-rows";
 import type { ItemSource } from "./steps";
@@ -57,8 +57,6 @@ export interface ItemContent {
 
 interface RequirementShape {
   readonly code: string;
-  readonly priority?: string | null;
-  readonly sortOrder?: number | null;
   readonly legalRef?: string | null;
   readonly moduleRef?: string | null;
 }
@@ -69,7 +67,6 @@ interface GuidanceShape {
   readonly quickTip?: string;
 }
 
-/** The journey items in the order the rest of the product already uses. */
 /**
  * The last item the flow shows for now.
  *
@@ -89,20 +86,16 @@ export const journeyItems = (): readonly ItemSource[] => {
 /** Every item, uncapped. The label coverage test reads this so a cap never hides a missing label. */
 export const allJourneyItems = (): readonly ItemSource[] =>
   nis2Categories
-    .flatMap((category, ci) =>
+    .flatMap((category) =>
       (getNis2RequirementsForCategory(category.slug) as readonly RequirementShape[]).map(
-        (r, ri) => {
+        (r) => {
           const categoryCode =
             REQUIREMENT_FIELD_MAP[r.code]?.categoryCode ?? category.code;
           const moduleRef = r.moduleRef ?? null;
           return {
             code: r.code,
             categoryCode,
-            position: journeyPosition(
-              r.priority,
-              category.sortOrder ?? ci,
-              r.sortOrder ?? ri,
-            ),
+            position: journeyIndex(r.code),
             fields: (REQUIREMENT_FIELD_MAP[r.code]?.fieldKeys ?? []).filter(
               (f) => !NOT_ASKED.has(f),
             ),
