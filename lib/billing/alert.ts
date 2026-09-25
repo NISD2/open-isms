@@ -6,6 +6,13 @@
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { billingAlertEmail, sendMail } from "@/lib/mail";
 
+/** An error the operators have already been told about, so it is not reported twice. */
+export class AlreadyAlerted extends Error {
+  constructor(cause: unknown) {
+    super(cause instanceof Error ? cause.message : String(cause), { cause });
+  }
+}
+
 export const alertOperators = async (subject: string, lines: readonly string[]) => {
   console.error(`[billing] ${subject}\n${lines.join("\n")}`);
   const admins = [...getPlatformAdminEmails()];

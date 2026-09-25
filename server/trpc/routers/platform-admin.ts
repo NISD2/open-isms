@@ -22,6 +22,11 @@ import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { clearCheckedOrder, listOrderChecks } from "@/lib/billing/order-check";
 import { orderingMode } from "@/lib/billing/ordering";
 import { quoteFor } from "@/lib/billing/quote";
+import {
+  listSubscriptions,
+  markRefundDone,
+  revokeAccess,
+} from "@/lib/billing/subscriptions";
 import { viesConfigFromEnv } from "@/lib/billing/vies";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import type { Database } from "@/lib/db";
@@ -535,6 +540,59 @@ export const platformAdminRouter = router({
         createdUser: outcome.createdUser,
         setupSent: outcome.setupSent,
       };
+    }),
+
+  /** The Subscriptions tab: paying customers, their current invoice read live, refunds owed. */
+  subscriptions: platformAdminProcedure.query(({ ctx }) =>
+    listSubscriptions(ctx.db, orderingMode(env)),
+  ),
+
+  /**
+   * Revoke a full account by hand, for an invoice that stays unpaid. It falls back to free, or to
+   * grandfathered for a grandfathered holder (lib/billing/subscriptions.ts). Audited.
+   */
+  revokeAccess: platformAdminProcedure
+    .input(z.object({ billingAccountId: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const level = await revokeAccess(ctx.db, input.billingAccountId);
+      if (!level) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "No full account to revoke." });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.access_revoked",
+        entityType: "billing_account",
+        entityId: input.billingAccountId,
+        description: `Access revoked by hand for billing account ${input.billingAccountId}, now ${level}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { level };
+    }),
+
+  /** Record that a refund was transferred in Qonto, with who and when. Audited. */
+  markRefundDone: platformAdminProcedure
+    .input(z.object({ creditNoteId: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const number = await markRefundDone(ctx.db, input.creditNoteId, ctx.userId);
+      if (!number) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "No open refund on this credit note.",
+        });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.refund_done",
+        entityType: "credit_note",
+        entityId: input.creditNoteId,
+        description: `Refund for credit note ${number} marked as transferred`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { number };
     }),
 
   /** Accounts blocked after an unclear order, waiting for someone to check Qonto. */

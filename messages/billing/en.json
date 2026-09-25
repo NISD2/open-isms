@@ -82,7 +82,26 @@
       "priceChanged": "The EU register answered differently just now, so the price changed. Please check the new amount, then order again.",
       "unknown": "We could not tell for certain whether the invoice was created. Please do not order again. We will check and get back to you."
     },
+    "cancel": {
+      "menuItem": "Cancel licence",
+      "button": "Cancel",
+      "moneyBackTitle": "Cancel your order?",
+      "moneyBackBody": "You are still within the thirty days money back, until {lastDay}. We cancel the invoice with a credit note, and the annual licence ends right away. If you have already paid, we transfer the amount back to you.",
+      "renewalTitle": "Cancel the renewal?",
+      "renewalBody": "The thirty days money back have passed. Your licence runs until {periodEnd} and does not renew after that. The invoice stands.",
+      "kept": "Your organizations and everything you entered stay in your account.",
+      "confirm": "Yes, cancel",
+      "keep": "Keep it",
+      "doneMoneyBack": "Canceled. Credit note {number} is on its way by email.",
+      "doneMoneyBackRefund": "Canceled. Credit note {number} is on its way by email, and we will transfer the amount you paid back to you.",
+      "doneRenewal": "Canceled. Your licence runs until {date}.",
+      "unknown": "We could not tell for certain whether the cancel went through. Please do not try again. We will check and get back to you.",
+      "failed": "The cancel did not go through just now. Please try again later.",
+      "tooManyRequests": "Too many attempts. Please wait a minute."
+    },
     "page": {
+      "renewalCanceled": "Canceled. Your licence ends on {date} and does not renew.",
+      "moneyBackUntil": "Thirty days money back until {date}.",
       "title": "Billing",
       "description": "Your account's access, price and invoices.",
       "accessTitle": "Access",

@@ -5,22 +5,24 @@
  * be tested without a network, which is most of what can go wrong on an invoice.
  */
 import { z } from "zod";
-import type { AccessLevel } from "./accounts";
 import { checkStructure } from "./vat-checksum";
 import { type VatCheck, type VatTreatment, vatTreatment } from "./vies";
 
 /** 4.800 net a year, the single offer. Cents, because money is never a float. */
 export const ANNUAL_NET_CENTS = 480_000;
 
-/** What an account that got in before the paywall pays: half, for the guided path. */
+/**
+ * What a grandfathered person pays: half, on every order, renewal and re-order, including after
+ * their account became full. Grandfathering belongs to the person (./access), so the price does too.
+ */
 export const GRANDFATHERED_NET_CENTS = 240_000;
 
 /**
- * The yearly net price for an account, decided on the server from its access level and never
- * taken from a browser.
+ * The yearly net price for whoever holds the account, decided on the server and never taken from a
+ * browser. Whether the holder is grandfathered is decided by `holderNetCents` (./holder-price).
  */
-export const netCentsFor = (level: AccessLevel): number =>
-  level === "grandfathered" ? GRANDFATHERED_NET_CENTS : ANNUAL_NET_CENTS;
+export const netCentsFor = (holderGrandfathered: boolean): number =>
+  holderGrandfathered ? GRANDFATHERED_NET_CENTS : ANNUAL_NET_CENTS;
 
 /**
  * What the billing step collects. Every field here is on the invoice or decides the tax on it;
@@ -128,8 +130,11 @@ const calendarDay = (instant: Date, timeZone: string): string =>
     day: "2-digit",
   }).format(instant);
 
+/** Today as a calendar day where invoices are dated. */
+export const invoiceToday = (now: Date): string => calendarDay(now, INVOICE_TIME_ZONE);
+
 /** Calendar arithmetic on `YYYY-MM-DD`, done in UTC so no time zone can shift the day. */
-const shiftDay = (
+export const shiftDay = (
   day: string,
   change: { readonly days?: number; readonly years?: number },
 ) => {
@@ -165,6 +170,10 @@ export const invoiceDates = (
   };
 };
 
+/** The line item's title, on the invoice and on the credit note that cancels it. */
+export const licenceTitle = (locale: "de" | "en"): string =>
+  locale === "de" ? "NIS 2 Durchgang, Jahreslizenz" : "NIS 2 guided pass, annual licence";
+
 /**
  * The line item and the footer, in the customer's language.
  *
@@ -198,10 +207,7 @@ export const invoiceWording = (
       : "";
 
   return {
-    title:
-      locale === "de"
-        ? "NIS 2 Durchgang, Jahreslizenz"
-        : "NIS 2 guided pass, annual licence",
+    title: licenceTitle(locale),
     description: period,
     footer: [taxNote, guarantee, reference].filter(Boolean).join(" "),
   };

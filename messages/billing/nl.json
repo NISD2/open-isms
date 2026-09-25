@@ -82,7 +82,26 @@
       "priceChanged": "Het register van de EU gaf zojuist een ander antwoord, daarom is de prijs veranderd. Controleer het nieuwe bedrag en bestel dan opnieuw.",
       "unknown": "We konden niet zeker vaststellen of de factuur is aangemaakt. Bestel alstublieft niet opnieuw. Wij controleren het en nemen contact met u op."
     },
+    "cancel": {
+      "menuItem": "Licentie opzeggen",
+      "button": "Opzeggen",
+      "moneyBackTitle": "Bestelling annuleren?",
+      "moneyBackBody": "U zit nog binnen de 30 dagen geld terug, tot {lastDay}. Wij annuleren de factuur met een creditnota, en de jaarlicentie eindigt direct. Heeft u al betaald, dan maken wij het bedrag aan u terug over.",
+      "renewalTitle": "Verlenging opzeggen?",
+      "renewalBody": "De 30 dagen geld terug zijn voorbij. Uw licentie loopt door tot {periodEnd} en wordt daarna niet verlengd. De factuur blijft geldig.",
+      "kept": "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
+      "confirm": "Ja, opzeggen",
+      "keep": "Niet opzeggen",
+      "doneMoneyBack": "Geannuleerd. Creditnota {number} komt per e-mail.",
+      "doneMoneyBackRefund": "Geannuleerd. Creditnota {number} komt per e-mail, en wij maken het betaalde bedrag aan u terug over.",
+      "doneRenewal": "Opgezegd. Uw licentie loopt tot {date}.",
+      "unknown": "We konden niet zeker vaststellen of de opzegging is gelukt. Probeer het alstublieft niet opnieuw. Wij controleren het en nemen contact met u op.",
+      "failed": "De opzegging is zojuist niet gelukt. Probeer het later opnieuw.",
+      "tooManyRequests": "Te veel pogingen. Wacht alstublieft een minuut."
+    },
     "page": {
+      "renewalCanceled": "Opgezegd. Uw licentie loopt af op {date} en wordt niet verlengd.",
+      "moneyBackUntil": "30 dagen geld terug tot {date}.",
       "title": "Facturatie",
       "description": "Toegang, prijs en facturen van uw account.",
       "accessTitle": "Toegang",

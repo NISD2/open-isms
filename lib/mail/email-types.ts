@@ -69,6 +69,8 @@ export const EMAIL_TYPES = {
   "account.setup": { category: "account", consent: "essential" },
   /** The invoice for an order, to the billing address the customer gave. */
   "billing.invoice": { category: "account", consent: "essential" },
+  /** The confirmation of a cancel the account holder just made, with the credit note if any. */
+  "billing.canceled": { category: "account", consent: "essential" },
 
   // --- Optional, to account holders ----------------------------------------
   "work.category_assigned": { category: "work", consent: "user" },

@@ -2,9 +2,39 @@ import { describe, expect, test } from "bun:test";
 import {
   effectiveAccessLevel,
   hasGotIn,
+  isGrandfatheredPerson,
   mayOpenPortalPath,
   newAccountAccessLevel,
+  unpaidAccessLevel,
 } from "./access";
+
+describe("isGrandfatheredPerson", () => {
+  const never = {
+    grandfatheredAt: null,
+    emailVerifiedAt: null,
+    loginCount: 0,
+    lastLoginAt: null,
+  };
+  const gotIn = { ...never, emailVerifiedAt: new Date("2026-09-01") };
+  const stamped = { ...gotIn, grandfatheredAt: new Date("2026-09-20") };
+
+  test("after the launch, exactly the people it stamped", () => {
+    expect(isGrandfatheredPerson(stamped, true)).toBe(true);
+    expect(isGrandfatheredPerson(gotIn, true)).toBe(false);
+  });
+
+  test("before the launch, everyone who has got in", () => {
+    expect(isGrandfatheredPerson(gotIn, false)).toBe(true);
+    expect(isGrandfatheredPerson(never, false)).toBe(false);
+  });
+});
+
+describe("unpaidAccessLevel", () => {
+  test("a grandfathered holder falls back to grandfathered, anyone else to free", () => {
+    expect(unpaidAccessLevel(true)).toBe("grandfathered");
+    expect(unpaidAccessLevel(false)).toBe("free");
+  });
+});
 
 describe("effectiveAccessLevel", () => {
   test("before launch nobody is gated: free and grandfathered both read as grandfathered", () => {
