@@ -53,7 +53,6 @@ const payerProcedure = accountProcedure.use(async ({ ctx, next }) => {
   return next({ ctx: { ...ctx, account } });
 });
 
-
 const requireOrdering = async (db: DbOrTx, email: string | null | undefined) => {
   const { mode, open } = await billingFor(db, email);
   if (!open || mode.kind === "off") {

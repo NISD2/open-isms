@@ -48,7 +48,12 @@ export type CloseOutcome =
   | { readonly ok: false; readonly reason: "no_owned_account"; readonly message: string };
 
 /** The customer's user, created without a password (and with a draft company) when new. */
-const customerFor = async (db: Database, email: string, name: string, locale: "de" | "en") => {
+const customerFor = async (
+  db: Database,
+  email: string,
+  name: string,
+  locale: "de" | "en",
+) => {
   const inserted = await db
     .insert(user)
     .values({ email, name, locale })
@@ -88,7 +93,11 @@ const heldAccount = async (db: Database, userId: string) => {
   return any?.id ?? null;
 };
 
-const sendSetupLink = async (input: CloseDealInput, email: string, locale: "de" | "en") => {
+const sendSetupLink = async (
+  input: CloseDealInput,
+  email: string,
+  locale: "de" | "en",
+) => {
   const token = await createSetupToken(input.db, email);
   const setupUrl = `${input.appUrl}/auth/setup?token=${encodeURIComponent(token)}`;
   const sent = await sendMail({
@@ -107,7 +116,8 @@ const sendSetupLink = async (input: CloseDealInput, email: string, locale: "de" 
 
 export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
   const email = input.customerEmail.toLowerCase().trim();
-  const locale = splitVatNumber(input.order.vatNumber)?.countryCode === "DE" ? "de" : "en";
+  const locale =
+    splitVatNumber(input.order.vatNumber)?.countryCode === "DE" ? "de" : "en";
 
   const customer = await customerFor(input.db, email, input.customerName.trim(), locale);
   const accountId = await heldAccount(input.db, customer.id);

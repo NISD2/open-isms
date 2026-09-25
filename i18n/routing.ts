@@ -226,6 +226,7 @@ export const routing = defineRouting({
     "/start": "/start",
     "/auth/signin": "/auth/signin",
     "/auth/forgot-password": "/auth/forgot-password",
+    "/auth/setup": "/auth/setup",
     "/auth/signout": "/auth/signout",
     "/supplier-portal": {
       de: "/supplier-portal",

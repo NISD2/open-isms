@@ -28,7 +28,8 @@ export const parseSetupToken = (
   token: string,
 ): { readonly id: string; readonly secret: string } | null => {
   const [id, secret, ...rest] = token.split(".");
-  if (rest.length > 0 || !id || !secret || !UUID.test(id) || secret.length < 32) return null;
+  if (rest.length > 0 || !id || !secret || !UUID.test(id) || secret.length < 32)
+    return null;
   return { id, secret };
 };
 

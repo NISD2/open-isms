@@ -31,18 +31,26 @@ export async function POST(request: Request) {
   const token =
     typeof body === "object" && body && "token" in body ? body.token : undefined;
   const newPassword =
-    typeof body === "object" && body && "newPassword" in body ? body.newPassword : undefined;
+    typeof body === "object" && body && "newPassword" in body
+      ? body.newPassword
+      : undefined;
   if (typeof token !== "string" || typeof newPassword !== "string") {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
   // The same policy as register and reset.
   if (newPassword.length < 8 || newPassword.length > 128) {
-    return NextResponse.json({ error: "Password must be 8-128 characters" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Password must be 8-128 characters" },
+      { status: 400 },
+    );
   }
 
   const link = await readSetupToken(db, token);
   if (!link) {
-    return NextResponse.json({ error: "This link is invalid or has expired" }, { status: 400 });
+    return NextResponse.json(
+      { error: "This link is invalid or has expired" },
+      { status: 400 },
+    );
   }
   const account = await db.query.user.findFirst({
     where: eq(user.email, link.email),
@@ -55,7 +63,10 @@ export async function POST(request: Request) {
   // Hashed before the token is spent, so a failure here leaves the link usable.
   const passwordHash = await bcrypt.hash(newPassword, 12);
   if (!(await consumeSetupToken(db, link.id))) {
-    return NextResponse.json({ error: "This link has already been used" }, { status: 400 });
+    return NextResponse.json(
+      { error: "This link has already been used" },
+      { status: 400 },
+    );
   }
   const now = new Date();
   await db

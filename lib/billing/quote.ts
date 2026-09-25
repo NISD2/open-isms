@@ -30,7 +30,9 @@ export const quoteFor = async (input: {
     ? checkStructure(parts.countryCode, parts.vatNumber)
     : ({ ok: false, reason: "format", countryCode } as const);
   // A malformed number is a typo, and typos are not sent to the Commission.
-  const registry = structural.ok ? await checkVatNumber(input.vatNumber, input.vies) : null;
+  const registry = structural.ok
+    ? await checkVatNumber(input.vatNumber, input.vies)
+    : null;
   return {
     gate: gateFromInput(countryCode, parts?.vatNumber ?? "", registry),
     attempt: registry ? toAttempt(input.vatNumber, registry) : null,

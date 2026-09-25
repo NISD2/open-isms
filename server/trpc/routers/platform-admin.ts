@@ -16,8 +16,16 @@ import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { createBillingAccount } from "@/lib/billing/accounts";
+import { closeDeal } from "@/lib/billing/close-deal";
 import { launchBilling, pricingState } from "@/lib/billing/launch";
+import {
+  ANNUAL_NET_CENTS,
+  formatEuro,
+  orderSchemaWithVatCheck,
+} from "@/lib/billing/order";
 import { orderingMode } from "@/lib/billing/ordering";
+import { quoteFor } from "@/lib/billing/quote";
+import { viesConfigFromEnv } from "@/lib/billing/vies";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import type { Database } from "@/lib/db";
 import { env, mailSupportEmail } from "@/lib/env";
@@ -56,6 +64,7 @@ import {
   questionnaireCompleteness,
 } from "@/lib/supplier-portal/completeness";
 import { COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
+import { getAppUrl } from "@/lib/utils";
 import {
   advisoryPartner,
   advisoryReferral,
@@ -442,6 +451,87 @@ export const platformAdminRouter = router({
     });
     return launch;
   }),
+
+  /** The price for the demo close, as the customer's form would show it, at an optional amount. */
+  closeQuote: platformAdminProcedure
+    .input(
+      z.object({
+        vatNumber: z.string().trim().min(2).max(32),
+        countryCode: z.string().trim().length(2).optional(),
+        netCents: z.number().int().positive().max(10_000_000).nullable(),
+      }),
+    )
+    .mutation(({ input }) =>
+      quoteFor({
+        vatNumber: input.vatNumber,
+        countryCode: input.countryCode,
+        netCents: input.netCents ?? ANNUAL_NET_CENTS,
+        vies: viesConfigFromEnv(env),
+      }),
+    ),
+
+  /**
+   * Door two: close a sale on the call (lib/billing/close-deal.ts). Creates the customer if new,
+   * places the order on their account, and sends them a setup link when they have never signed in.
+   */
+  closeDeal: platformAdminProcedure
+    .input(
+      z.object({
+        customerEmail: z.email(),
+        customerName: z.string().trim().min(1).max(255),
+        order: orderSchemaWithVatCheck,
+        netCents: z.number().int().positive().max(10_000_000).nullable(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const mode = orderingMode(env);
+      if (mode.kind === "off") {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "Qonto is not configured.",
+        });
+      }
+      const outcome = await closeDeal({
+        db: ctx.db,
+        mode,
+        customerEmail: input.customerEmail,
+        customerName: input.customerName,
+        order: input.order,
+        netCentsOverride: input.netCents,
+        adminUserId: ctx.userId,
+        invoicePrefix: env.INVOICE_PREFIX,
+        vies: viesConfigFromEnv(env),
+        appUrl: getAppUrl(),
+      });
+      if (!outcome.ok) {
+        const code =
+          outcome.reason === "already_ordered"
+            ? "CONFLICT"
+            : outcome.reason === "qonto_unknown"
+              ? "TIMEOUT"
+              : outcome.reason === "qonto"
+                ? "INTERNAL_SERVER_ERROR"
+                : "BAD_REQUEST";
+        throw new TRPCError({ code, message: outcome.message });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.close_deal",
+        entityType: "invoice",
+        entityId: null,
+        description: `Closed ${outcome.number} for ${input.customerEmail}${outcome.createdUser ? " (new customer)" : ""}${outcome.setupSent ? ", setup link sent" : ""}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return {
+        number: outcome.number,
+        gross: formatEuro(outcome.grossCents),
+        dueDate: outcome.dueDate,
+        createdUser: outcome.createdUser,
+        setupSent: outcome.setupSent,
+      };
+    }),
 
   myDevState: platformAdminProcedure.query(async ({ ctx }) => {
     const row = await ctx.db.query.user.findFirst({
