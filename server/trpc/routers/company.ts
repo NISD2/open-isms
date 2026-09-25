@@ -8,25 +8,14 @@ import { insertDraftCompany } from "../helpers/setup-helpers";
 import { activatedCompanyProcedure, protectedProcedure, router } from "../init";
 
 /**
- * The account of the caller's open company, when the caller owns that account and the company is
- * set up. Only then may they add companies to it.
+ * The account of a set-up company. Any member of it may add companies to that account, because one
+ * payment covers unlimited companies; a draft cannot, so a half-finished signup does not multiply.
  */
-const ownedAccountOfOpenCompany = async (
-  db: DbOrTx,
-  userId: string,
-  companyId: string,
-) => {
+const accountOfSetUpCompany = async (db: DbOrTx, companyId: string) => {
   const [row] = await db
     .select({ billingAccountId: company.billingAccountId })
     .from(company)
-    .innerJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
-    .where(
-      and(
-        eq(company.id, companyId),
-        isNotNull(company.activatedAt),
-        eq(billingAccount.ownerUserId, userId),
-      ),
-    )
+    .where(and(eq(company.id, companyId), isNotNull(company.activatedAt)))
     .limit(1);
   return row?.billingAccountId ?? null;
 };
@@ -36,7 +25,7 @@ export const companyRouter = router({
   listMine: protectedProcedure.query(async ({ ctx }) => {
     const companies = await listUserCompanies(ctx.db, ctx.userId);
     const canAddCompany = ctx.companyId
-      ? (await ownedAccountOfOpenCompany(ctx.db, ctx.userId, ctx.companyId)) !== null
+      ? (await accountOfSetUpCompany(ctx.db, ctx.companyId)) !== null
       : false;
     return {
       companies: companies.map(({ id, name, activatedAt, role }) => ({
@@ -65,20 +54,17 @@ export const companyRouter = router({
 
   /**
    * Start another company under the paying account of the open one, so it inherits the account's
-   * access level. Only the account's owner may add companies to it. The new company is a draft,
-   * opened for the caller, and set up through the same journey as a first one; a draft the caller
-   * already started under this account is reopened instead of adding a second.
+   * access level. Any member of a set-up company may add one; the caller owns the new company, and
+   * the account keeps its owner, who pays. The new company is a draft, opened for the caller, and
+   * set up through the same journey as a first one; a draft the caller already started under this
+   * account is reopened instead of adding a second.
    */
   createAnother: activatedCompanyProcedure.mutation(async ({ ctx }) => {
-    const billingAccountId = await ownedAccountOfOpenCompany(
-      ctx.db,
-      ctx.userId,
-      ctx.companyId,
-    );
+    const billingAccountId = await accountOfSetUpCompany(ctx.db, ctx.companyId);
     if (!billingAccountId) {
       throw new TRPCError({
         code: "FORBIDDEN",
-        message: "Only the owner of this company's account can add companies to it.",
+        message: "Set up this company before adding another.",
       });
     }
 
