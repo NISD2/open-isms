@@ -232,6 +232,19 @@ If a copy choice fails one of these, fix it before shipping.
 5. Add sidebar link in `components/portal/AppSidebar.tsx`
 
 
+## Billing (`lib/billing/`)
+
+Rules learned from three review passes over the first billing PR. Each one prevented a real defect.
+
+- **Tax follows the VAT number, never the address.** The country in the VAT number decides German VAT, reverse charge or none. The order service must price once and invoice that price. (The sandbox order page still re-checks VIES at submit; it is replaced by the order service, not extended.)
+- **VIES informs, it never blocks.** An outage or an invalid answer is recorded, never an error. Our own VAT number is the requester, parsed by the same `splitVatNumber` as a customer's; one that cannot be read is sent as no requester, never as a wrong one.
+- **Credentials go only to Qonto's two hosts, over https.** The host picks the pair (sandbox pair and staging token for the sandbox, production pair otherwise), with no fallback between them. Anything else yields no config.
+- **Settings live in `lib/billing/config-schema.ts`**, included by `lib/env.ts`. Billing modules take settings as parameters and never read `process.env`. A wrong billing value switches billing off; it never stops the app booting.
+- **Qonto is the source of truth for invoices.** Our tables keep only what cannot change after issue, including the VAT amount, the VAT treatment and the VIES consultation number, with CHECK constraints so a row cannot contradict itself. Status is always read from Qonto.
+- **Invoice dates are calendar days in `Europe/Berlin`.** Real invoice numbers must come from `document_number_counter` by upsert, committed before Qonto is called, so they are unique even when a call fails. The sandbox number is for the sandbox only.
+- **Tests use synthetic identifiers.** Generate VAT numbers and IBANs that pass their checksum; never a real company's or our own account's.
+- **Migrations run when the container starts** (`scripts/runtime-migrate.mjs`), so merging a migration is the moment it runs on production.
+
 ## Public-repo hygiene
 
 This is the public OSS platform (AGPL-3.0). Some kinds of content do not belong in this repo regardless of how convenient it would be to write them here:
