@@ -17,7 +17,7 @@ import {
   relationshipClausesUpdateSchema,
   supplierInviteCustomerSchema,
 } from "@/schema/validators";
-import { companyProcedure, router } from "../../init";
+import { accountProcedure, router } from "../../init";
 import { insertRow, updateRow } from "../../typed";
 import { notifyCustomerAdded } from "./broadcast";
 import { generateOpaqueToken } from "./helpers";
@@ -44,7 +44,7 @@ async function requireSupplierRole(
 
 export const supplierRelationshipRouter = router({
   /** List all customers (supplier rows) where I'm the supplier-side party. */
-  listMyCustomers: companyProcedure.query(async ({ ctx }) => {
+  listMyCustomers: accountProcedure.query(async ({ ctx }) => {
     // Audit F-9 (2026-09-10): no `unsubscribeToken`. It is the bearer
     // credential for /supplier-access/{token}, one per customer, and this
     // list renders customer name and status. `invite` and `resend` build the
@@ -57,7 +57,7 @@ export const supplierRelationshipRouter = router({
   }),
 
   /** Add a single customer subscription. Idempotent on (supplier, email). */
-  invite: companyProcedure
+  invite: accountProcedure
     .input(supplierInviteCustomerSchema)
     .mutation(async ({ ctx, input }) => {
       await requireSupplierRole(ctx.db, ctx.companyId);
@@ -125,7 +125,7 @@ export const supplierRelationshipRouter = router({
    * per-customer contract clauses, but not the access token (audit F-9): the
    * detail view renders clauses and SLA, and the token is a credential.
    */
-  get: companyProcedure
+  get: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       const row = await ctx.db.query.supplier.findFirst({
@@ -147,7 +147,7 @@ export const supplierRelationshipRouter = router({
    * customerCompanyId, customerEmail, status, unsubscribeToken, or any of
    * the entity-side classification columns from this endpoint.
    */
-  updateClauses: companyProcedure
+  updateClauses: accountProcedure
     .input(relationshipClausesUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...clauses } = input;
@@ -161,7 +161,7 @@ export const supplierRelationshipRouter = router({
     }),
 
   /** Remove (soft-revoke) a customer relationship. */
-  remove: companyProcedure
+  remove: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const [row] = await ctx.db

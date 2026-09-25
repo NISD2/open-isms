@@ -15,12 +15,12 @@ import { sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
 import { companyCertification } from "@/schema";
 import { companyCertificationCreateSchema } from "@/schema/validators";
-import { companyProcedure, router } from "../../init";
+import { accountProcedure, router } from "../../init";
 import { insertRow } from "../../typed";
 
 export const companyCertificationRouter = router({
   /** List all certifications I own. */
-  list: companyProcedure.query(async ({ ctx }) => {
+  list: accountProcedure.query(async ({ ctx }) => {
     return ctx.db.query.companyCertification.findMany({
       where: eq(companyCertification.companyId, ctx.companyId),
       orderBy: [desc(companyCertification.validUntil)],
@@ -28,7 +28,7 @@ export const companyCertificationRouter = router({
   }),
 
   /** Create a new cert (file already uploaded via uploadUrl). */
-  create: companyProcedure
+  create: accountProcedure
     .input(companyCertificationCreateSchema)
     .mutation(async ({ ctx, input }) => {
       // Defense-in-depth: prevent a supplier from referencing another
@@ -61,7 +61,7 @@ export const companyCertificationRouter = router({
     }),
 
   /** Delete a cert (does not delete the S3 object — that's a separate cleanup). */
-  delete: companyProcedure
+  delete: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const result = await ctx.db
@@ -78,7 +78,7 @@ export const companyCertificationRouter = router({
     }),
 
   /** Presigned PUT URL for uploading a new cert PDF. */
-  uploadUrl: companyProcedure
+  uploadUrl: accountProcedure
     .input(
       z.object({
         fileName: z.string().min(1).max(500),

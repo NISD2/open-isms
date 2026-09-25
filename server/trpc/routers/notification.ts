@@ -1,16 +1,18 @@
+import { and, count, desc, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and, count, isNull } from "drizzle-orm";
-import { desc } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
 import { notification } from "@/schema";
+import { accountProcedure, router } from "../init";
 
 export const notificationRouter = router({
-  list: companyProcedure
+  list: accountProcedure
     .input(
-      z.object({
-        limit: z.number().int().min(1).max(100).optional().default(50),
-        offset: z.number().int().min(0).optional().default(0),
-      }).optional().default({ limit: 50, offset: 0 })
+      z
+        .object({
+          limit: z.number().int().min(1).max(100).optional().default(50),
+          offset: z.number().int().min(0).optional().default(0),
+        })
+        .optional()
+        .default({ limit: 50, offset: 0 }),
     )
     .query(async ({ ctx, input }) => {
       return ctx.db.query.notification.findMany({
@@ -30,7 +32,7 @@ export const notificationRouter = router({
       });
     }),
 
-  countUnread: companyProcedure.query(async ({ ctx }) => {
+  countUnread: accountProcedure.query(async ({ ctx }) => {
     const [result] = await ctx.db
       .select({ count: count() })
       .from(notification)
@@ -40,12 +42,12 @@ export const notificationRouter = router({
           eq(notification.companyId, ctx.companyId),
           eq(notification.channel, "in_app"),
           isNull(notification.acknowledgedAt),
-        )
+        ),
       );
     return result?.count ?? 0;
   }),
 
-  acknowledge: companyProcedure
+  acknowledge: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const [row] = await ctx.db
@@ -56,7 +58,7 @@ export const notificationRouter = router({
             eq(notification.id, input.id),
             eq(notification.recipientId, ctx.userId),
             eq(notification.companyId, ctx.companyId),
-          )
+          ),
         )
         .returning();
       return row;
