@@ -7,6 +7,7 @@
       "sandboxNotice": "Testmodus: deze bestelling maakt een factuur aan in de Qonto sandbox en geeft dit account toegang.",
       "alreadyPaid": "Uw account is betaald tot {date}, factuur {number}.",
       "payerOnly": "De accounthouder kan de bestelling plaatsen. Meestal is dat degene die de organisatie heeft aangemaakt.",
+      "pendingCheck": "We controleren een eerdere bestelling voor dit account. Bestel alstublieft niet opnieuw; wij nemen contact met u op.",
       "toInvoices": "Naar uw facturen"
     },
     "form": {

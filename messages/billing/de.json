@@ -7,6 +7,7 @@
       "sandboxNotice": "Testmodus: Diese Bestellung erzeugt eine Rechnung in der Qonto Sandbox und schaltet dieses Konto frei.",
       "alreadyPaid": "Ihr Konto ist bis {date} bezahlt, Rechnung {number}.",
       "payerOnly": "Bestellen kann die Person, der das Konto gehört. In der Regel ist das, wer die Organisation angelegt hat.",
+      "pendingCheck": "Wir prüfen gerade eine frühere Bestellung für dieses Konto. Bitte bestellen Sie nicht noch einmal, wir melden uns bei Ihnen.",
       "toInvoices": "Zu Ihren Rechnungen"
     },
     "form": {

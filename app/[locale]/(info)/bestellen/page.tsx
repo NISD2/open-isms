@@ -45,9 +45,11 @@ export default async function BestellenPage({
         }).format(new Date(`${status.activeInvoice.periodEnd}T12:00:00Z`)),
         number: status.activeInvoice.number,
       })
-    : status.isPayer
-      ? null
-      : t("payerOnly");
+    : status.orderPending
+      ? t("pendingCheck")
+      : status.isPayer
+        ? null
+        : t("payerOnly");
 
   return (
     <div className="space-y-8">

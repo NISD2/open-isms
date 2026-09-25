@@ -488,7 +488,7 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
       scope.deleted.billing_account = (scope.deleted.billing_account ?? 0) + 1;
     } else {
       scope.residualNotes.push(
-        "The organization's billing account was kept, because invoices were issued to it or another organization still uses it.",
+        "The organization's billing account was kept, because invoices were issued to it, another organization still uses it, or an order for it is awaiting a check in Qonto.",
       );
     }
     scope.companyTornDown = true;
