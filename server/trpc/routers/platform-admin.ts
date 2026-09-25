@@ -25,7 +25,12 @@ import {
   buildErasureCertificate,
   erasureCertificateFilename,
 } from "@/lib/gdpr/certificate";
-import { eraseUser, erasureCompanyOf, previewUserErasure } from "@/lib/gdpr/erase-user";
+import {
+  ErasureRefused,
+  eraseUser,
+  erasureCompanyOf,
+  previewUserErasure,
+} from "@/lib/gdpr/erase-user";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
@@ -193,6 +198,14 @@ function generateSharePassword(): string {
     out += SHARE_PASSWORD_ALPHABET[byte % SHARE_PASSWORD_ALPHABET.length];
   }
   return out;
+}
+
+/** Show an erasure the tool refuses as a precondition the operator can read, not a server error. */
+function refusalAsTrpcError(err: unknown): never {
+  if (err instanceof ErasureRefused) {
+    throw new TRPCError({ code: "PRECONDITION_FAILED", message: err.message });
+  }
+  throw err;
 }
 
 const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -1627,7 +1640,7 @@ export const platformAdminRouter = router({
   previewErasure: platformAdminProcedure
     .input(z.object({ userId: z.string().uuid() }))
     .query(async ({ input }) => {
-      const preview = await previewUserErasure(input.userId);
+      const preview = await previewUserErasure(input.userId).catch(refusalAsTrpcError);
       if (!preview) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
       return preview;
     }),
@@ -1682,9 +1695,11 @@ export const platformAdminRouter = router({
           message: "Confirmation email does not match the account.",
         });
       }
-      // If the target owns the org they are in, erasing tears it down. Require
-      // its name typed as a second confirmation.
-      const { owned } = await erasureCompanyOf(ctx.db, target.id);
+      // If the target owns an org they belong to, erasing tears it down, whether
+      // or not they have it open. Require its name typed as a second confirmation.
+      const { owned } = await erasureCompanyOf(ctx.db, target.id).catch(
+        refusalAsTrpcError,
+      );
       if (
         owned &&
         (!input.confirmOrgName ||
@@ -1706,7 +1721,7 @@ export const platformAdminRouter = router({
           rightsInvoked: input.rightsInvoked ?? null,
           notes: input.notes ?? null,
         },
-      });
+      }).catch(refusalAsTrpcError);
 
       await logAudit({
         companyId: null,

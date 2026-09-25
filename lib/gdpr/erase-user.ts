@@ -31,7 +31,11 @@ import { and, eq, gte, inArray, isNotNull, lt, ne, or, sql } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
 import { type DbOrTx, db } from "@/lib/db";
-import { findMembershipRole, leaveCompany } from "@/lib/organization/membership";
+import {
+  findMembershipRole,
+  isMemberOf,
+  leaveCompany,
+} from "@/lib/organization/membership";
 import type { ErasureMethod, ErasureScope } from "@/schema";
 // Remaining table objects, kept in a second import to keep the list readable.
 import {
@@ -170,91 +174,91 @@ const companySummary = {
   ownerId: company.ownerId,
 };
 
-/**
- * Every company a person may appear in, for redaction, where wider is safer:
- * their memberships, stale ones included, plus the one they have open, which a
- * container on the previous release may have set without a membership.
- */
+/** Every company the person belongs to. */
 const companiesOfPerson = (q: DbOrTx, userId: string) =>
   q
     .select({ id: companyMembership.companyId })
     .from(companyMembership)
-    .where(eq(companyMembership.userId, userId))
-    .union(
-      q
-        // Narrowed by the IS NOT NULL below.
-        .select({ id: sql<string>`${user.companyId}` })
-        .from(user)
-        .where(and(eq(user.id, userId), isNotNull(user.companyId))),
-    );
+    .where(eq(companyMembership.userId, userId));
+
+/** Thrown when an erasure needs a decision this tool does not support. */
+export class ErasureRefused extends Error {
+  override name = "ErasureRefused";
+}
 
 /**
- * The company an erasure is about, and whether it tears it down: the company
- * the person has open, torn down when they own it. Until the release that
- * reconciles memberships, a person belongs only to the company they have open
- * (see lib/organization/membership.ts), so an owner who was removed, or who
- * holds only a stale membership, tears nothing down.
+ * The company an erasure is about, and whether it tears it down. It tears down
+ * the company the person owns and still belongs to, whether or not it is open;
+ * an owner who was removed from their company tears nothing down. Otherwise it
+ * is about the company they have open. An owner of several companies is
+ * refused, because one typed confirmation must not tear several organizations
+ * down.
  */
 export async function erasureCompanyOf(q: DbOrTx, userId: string) {
+  const owned = await q
+    .select(companySummary)
+    .from(company)
+    .where(
+      and(eq(company.ownerId, userId), inArray(company.id, companiesOfPerson(q, userId))),
+    );
+  if (owned.length > 1) {
+    throw new ErasureRefused(
+      `This account owns ${owned.length} organizations (${owned.map((c) => c.name).join(", ")}). Erasing it would tear all of them down, which this tool does not support; handle this request by hand.`,
+    );
+  }
+  const [own] = owned;
+  if (own) return { company: own, owned: own };
   const [open] = await q
     .select(companySummary)
     .from(company)
     .innerJoin(user, eq(user.companyId, company.id))
     .where(eq(user.id, userId))
     .limit(1);
-  return { company: open ?? null, owned: open?.ownerId === userId ? open : null };
+  return { company: open ?? null, owned: null };
 }
 
 type Person = { userId: string; email: string; name: string };
 
 /**
- * What tearing an owned company down does to its other members: whoever has
- * another company open keeps their account and loses only this membership;
- * everyone else is erased with it. The owner is not in either list; they are
- * always erased.
+ * What tearing an owned company down does to its other members: whoever also
+ * belongs to another company keeps their account and loses only this
+ * membership; everyone else is erased with it. The owner is not in either
+ * list; they are always erased.
  */
 async function teardownMembers(
   q: DbOrTx,
   companyId: string,
   ownerId: string,
 ): Promise<{ erased: Person[]; kept: Person[] }> {
-  // Everyone with a membership or with the company open: an open company
-  // without a membership (written during a deploy) would otherwise block the
-  // company delete on the user foreign key.
-  const rows = await q
-    .select({
-      userId: user.id,
-      email: user.email,
-      name: user.name,
-      openCompanyId: user.companyId,
-    })
+  const members = await q
+    .select({ userId: user.id, email: user.email, name: user.name })
     .from(user)
     .where(
       and(
-        or(
-          eq(user.companyId, companyId),
-          inArray(
-            user.id,
-            q
-              .select({ id: companyMembership.userId })
-              .from(companyMembership)
-              .where(eq(companyMembership.companyId, companyId)),
-          ),
-        ),
+        isMemberOf(q, companyId),
         ne(user.id, ownerId),
         ne(user.email, TOMBSTONE_EMAIL),
       ),
     );
-  const belongsElsewhere = (r: (typeof rows)[number]) =>
-    r.openCompanyId !== null && r.openCompanyId !== companyId;
-  const person = ({ userId, email, name }: (typeof rows)[number]): Person => ({
-    userId,
-    email,
-    name,
-  });
+  const elsewhere =
+    members.length === 0
+      ? []
+      : await q
+          .selectDistinct({ userId: companyMembership.userId })
+          .from(companyMembership)
+          .where(
+            and(
+              inArray(
+                companyMembership.userId,
+                members.map((m) => m.userId),
+              ),
+              ne(companyMembership.companyId, companyId),
+            ),
+          );
+  const belongsElsewhere = new Set(elsewhere.map((r) => r.userId));
   return {
-    erased: rows.filter((r) => !belongsElsewhere(r)).map(person),
-    kept: rows.filter(belongsElsewhere).map(person),
+    erased: members.filter((m) => !belongsElsewhere.has(m.userId)),
+    kept: members.filter((m) => belongsElsewhere.has(m.userId)),
   };
 }
 
@@ -476,14 +480,12 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     }
     await erasePerson(tx, self, scope, del, anon, tombstone);
     await tearDownCompany(tx, owned.id, del, anon);
-    if (owned.billingAccountId) {
-      if (await deleteBillingAccountIfUnused(tx, owned.billingAccountId)) {
-        scope.deleted.billing_account = (scope.deleted.billing_account ?? 0) + 1;
-      } else {
-        scope.residualNotes.push(
-          "The organization's billing account was kept, because invoices were issued to it or another organization still uses it.",
-        );
-      }
+    if (await deleteBillingAccountIfUnused(tx, owned.billingAccountId)) {
+      scope.deleted.billing_account = (scope.deleted.billing_account ?? 0) + 1;
+    } else {
+      scope.residualNotes.push(
+        "The organization's billing account was kept, because invoices were issued to it or another organization still uses it.",
+      );
     }
     scope.companyTornDown = true;
     scope.systemsCleared.push(
