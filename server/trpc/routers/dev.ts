@@ -64,8 +64,7 @@ export const devRouter = router({
   /**
    * Wipe the caller's tenant entirely — assessments, statuses, assignments,
    * evidence, category assignments, audit log, and the company row itself.
-   * Members' user rows are preserved: each leaves the company, so whoever had it open moves to
-   * their next company, or none, and can sign up again.
+   * Members' user rows are preserved: each leaves the company and can sign up again.
    *
    * Used by AdminTestPanel's "Delete Org" button to reset between dev sessions.
    * Order is FK-safe: child rows first, then parent. The audit log is wiped

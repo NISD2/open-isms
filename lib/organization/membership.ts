@@ -9,7 +9,7 @@
  * While `user.role` still exists it mirrors the role in the open company. Nothing reads it any more;
  * roles are read from the membership.
  */
-import { and, asc, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { companyMembership, membershipRoleEnum, user } from "@/schema";
 
@@ -102,8 +102,10 @@ export const joinCompany = async (
 };
 
 /**
- * Remove the person from the company. If it was the one they had open, their oldest remaining
- * membership is opened instead, or none if they have no other company.
+ * Remove the person from the company. If it was the one they had open, they are left with no
+ * company open. Until the reconciling release, any other membership they hold can only be a stale
+ * row (see `opensCompany`), so reopening one would hand back access that was taken away; that
+ * release opens the next membership instead.
  */
 export const leaveCompany = async (
   db: DbOrTx,
@@ -117,17 +119,9 @@ export const leaveCompany = async (
         eq(companyMembership.companyId, input.companyId),
       ),
     );
-  const next = await db.query.companyMembership.findFirst({
-    where: eq(companyMembership.userId, input.userId),
-    orderBy: asc(companyMembership.createdAt),
-  });
   await db
     .update(user)
-    .set({
-      companyId: next?.companyId ?? null,
-      role: next?.role ?? "member",
-      updatedAt: new Date(),
-    })
+    .set({ companyId: null, role: "member", updatedAt: new Date() })
     .where(and(eq(user.id, input.userId), eq(user.companyId, input.companyId)));
 };
 

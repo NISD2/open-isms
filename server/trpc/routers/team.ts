@@ -466,8 +466,6 @@ export const teamRouter = router({
           ),
         );
 
-      // Remove the membership. If this was the company they had open, their next membership is
-      // opened instead, so a person who belongs elsewhere keeps their other companies.
       await leaveCompany(ctx.db, { userId: input.userId, companyId: ctx.companyId });
 
       // Notify removed member (fire-and-forget)
