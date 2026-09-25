@@ -5,11 +5,9 @@
     "step": "Krok {current} z {total}",
     "steps": {
       "company": "Údaje o organizaci",
-      "team": "Klíčové osoby",
-      "ai": "Asistent AI"
+      "team": "Klíčové osoby"
     },
     "nav": {
-      "back": "Zpět",
       "next": "Další",
       "skip": "Zatím přeskočit",
       "submit": "Vytvořit organizaci"

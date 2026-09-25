@@ -72,7 +72,6 @@
       "removeMember": "Remover",
       "back": "Voltar",
       "skip": "Ignorar por agora",
-      "submit": "Continuar",
       "roles": {
         "ceo": {
           "label": "CEO / Administrador",
