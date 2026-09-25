@@ -1,3 +1,7 @@
+-- migration-safety:allow: every constraint here validates against no data. Eight
+-- are on tables this migration creates, so they are empty. The ninth,
+-- company.billing_account_id, is on a column this migration adds, so it is NULL
+-- on every existing row and a foreign key check passes without a failing row.
 CREATE TYPE "public"."access_level" AS ENUM('free', 'grandfathered', 'full');--> statement-breakpoint
 CREATE TYPE "public"."document_series" AS ENUM('invoice', 'credit_note');--> statement-breakpoint
 CREATE TYPE "public"."invoice_source" AS ENUM('self_serve', 'admin');--> statement-breakpoint
