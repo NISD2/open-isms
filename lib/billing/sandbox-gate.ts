@@ -13,18 +13,23 @@
 
 export const QONTO_SANDBOX_HOST = "thirdparty-sandbox.staging.qonto.co";
 
-const hostnameOf = (url: string | undefined): string | null => {
-  if (!url) return null;
+const parse = (url: string): URL | null => {
   try {
-    return new URL(url).hostname;
+    return new URL(url);
   } catch {
     return null;
   }
 };
 
-/** True only when the URL's host is exactly the Qonto sandbox. */
-export const isSandboxBase = (url: string | undefined): boolean =>
-  hostnameOf(url) === QONTO_SANDBOX_HOST;
+/**
+ * True only when the URL is https and its host is exactly the Qonto sandbox. Plain http is
+ * refused, because the credentials and the staging token travel in the request headers.
+ */
+export const isSandboxBase = (url: string): boolean => {
+  const u = parse(url);
+  return u?.protocol === "https:" && u.hostname === QONTO_SANDBOX_HOST;
+};
 
-export const isSandboxHarnessEnabled = (env: NodeJS.ProcessEnv = process.env): boolean =>
-  isSandboxBase(env.QONTO_API_BASE);
+export const isSandboxHarnessEnabled = (env: {
+  readonly QONTO_API_BASE: string;
+}): boolean => isSandboxBase(env.QONTO_API_BASE);

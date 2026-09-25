@@ -1,4 +1,13 @@
 import { z } from "zod";
+import { QONTO_PRODUCTION_BASE } from "@/lib/billing/qonto";
+import { VIES_DEFAULT_ENDPOINT } from "@/lib/billing/vies";
+
+/**
+ * An environment variable set to an empty string means "not set". Copying an example file leaves
+ * many keys as `KEY=`, and a default must still apply to those.
+ */
+const blankIsUnset = <T extends z.ZodType>(schema: T) =>
+  z.preprocess((v) => (v === "" ? undefined : v), schema);
 
 const envSchema = z.object({
   // Required always
@@ -114,25 +123,42 @@ const envSchema = z.object({
     .regex(/^[A-Za-z0-9-]{8,128}$/, "INDEXNOW_KEY must be 8-128 chars of [A-Za-z0-9-]")
     .optional(),
 
-  // Billing through Qonto — optional. Unset means no invoicing: the order
-  // page and the invoice route stay unreachable, which is the correct default
-  // for a self-hosted instance. The base URL decides which credential pair is
-  // used, and each host only ever gets its own: the sandbox pair for the
-  // sandbox host, the production pair otherwise.
-  QONTO_API_BASE: z.string().optional(),
-  QONTO_LOGIN: z.string().optional(),
-  QONTO_SECRET_KEY: z.string().optional(),
-  QONTO_SANDBOX_LOGIN: z.string().optional(),
-  QONTO_SANDBOX_SECRET_KEY: z.string().optional(),
-  QONTO_STAGING_TOKEN: z.string().optional(),
-  // Invoice number prefix. Defaults to RE in lib/billing/invoice-number.ts,
-  // because Qonto only matches a transfer to an invoice for known prefixes.
-  INVOICE_PREFIX: z.string().optional(),
+  // Billing through Qonto — optional. Unset credentials mean no invoicing: the
+  // order page and the billing routes stay unreachable, which is the correct
+  // default for a self-hosted instance. The base URL decides which credential
+  // pair is used, and each host only ever gets its own: the sandbox pair for
+  // the sandbox host, the production pair otherwise. This schema is the one
+  // place billing settings are read and defaulted; lib/billing takes them as
+  // parameters and has no defaults of its own.
+  QONTO_API_BASE: blankIsUnset(z.url().default(QONTO_PRODUCTION_BASE)),
+  QONTO_LOGIN: blankIsUnset(z.string().optional()),
+  QONTO_SECRET_KEY: blankIsUnset(z.string().optional()),
+  QONTO_SANDBOX_LOGIN: blankIsUnset(z.string().optional()),
+  QONTO_SANDBOX_SECRET_KEY: blankIsUnset(z.string().optional()),
+  QONTO_STAGING_TOKEN: blankIsUnset(z.string().optional()),
+  // Invoice number prefix. RE because Qonto only matches a transfer to an
+  // invoice by itself for prefixes it recognises. Letters and digits only, so
+  // the number stays one unbroken token the payer can type.
+  INVOICE_PREFIX: blankIsUnset(
+    z
+      .string()
+      .regex(
+        /^[A-Z0-9]{1,12}$/,
+        "INVOICE_PREFIX must be 1-12 uppercase letters or digits",
+      )
+      .default("RE"),
+  ),
   // The seller's own VAT number, sent to VIES as the requester so each check
-  // returns a consultation number that can be kept as evidence.
-  OWN_VAT_COUNTRY: z.string().optional(),
-  OWN_VAT_NUMBER: z.string().optional(),
-  VIES_ENDPOINT: z.string().optional(),
+  // returns a consultation number that can be kept as evidence. The number may
+  // be written with or without its country prefix.
+  OWN_VAT_COUNTRY: blankIsUnset(
+    z
+      .string()
+      .regex(/^[A-Z]{2}$/, "OWN_VAT_COUNTRY must be a two-letter VAT country code")
+      .default("DE"),
+  ),
+  OWN_VAT_NUMBER: blankIsUnset(z.string().optional()),
+  VIES_ENDPOINT: blankIsUnset(z.url().default(VIES_DEFAULT_ENDPOINT)),
 
   // App URL
   NEXT_PUBLIC_APP_URL: z.string().default("https://www.nisd2.eu"),

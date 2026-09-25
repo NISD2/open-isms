@@ -21,15 +21,44 @@
  * No API key, no account, no rate-limit documented. Free service, so treat it as best-effort.
  */
 
-/** Our own VAT number, sent as the requester so the response carries a consultation number. */
-const REQUESTER = {
-  memberStateCode: process.env.OWN_VAT_COUNTRY ?? "DE",
-  number: process.env.OWN_VAT_NUMBER ?? "",
-} as const;
-
-const ENDPOINT =
-  process.env.VIES_ENDPOINT ??
+export const VIES_DEFAULT_ENDPOINT =
   "https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number";
+
+/** Our own VAT number, sent so the response carries a consultation number. */
+export interface ViesRequester {
+  readonly memberStateCode: string;
+  readonly number: string;
+}
+
+export interface ViesConfig {
+  readonly endpoint: string;
+  /** Null when our own VAT number is not set. */
+  readonly requester: ViesRequester | null;
+}
+
+/** The settings the check needs, as the validated environment provides them. */
+export interface ViesEnv {
+  readonly OWN_VAT_COUNTRY: string;
+  readonly OWN_VAT_NUMBER?: string | undefined;
+  readonly VIES_ENDPOINT: string;
+}
+
+/**
+ * Builds the check's config from the validated environment.
+ *
+ * Our own number is accepted with or without its country prefix and with any spacing, because VIES
+ * rejects a requester written as "DE 123 456 789", and a rejected requester would turn every check
+ * into "unavailable", which silently puts domestic VAT on every EU customer.
+ */
+export const viesConfigFromEnv = (env: ViesEnv): ViesConfig => {
+  const country = env.OWN_VAT_COUNTRY.toUpperCase();
+  const compact = (env.OWN_VAT_NUMBER ?? "").replace(/[\s.\-/]/g, "").toUpperCase();
+  const number = compact.startsWith(country) ? compact.slice(country.length) : compact;
+  return {
+    endpoint: env.VIES_ENDPOINT,
+    requester: number ? { memberStateCode: country, number } : null,
+  };
+};
 
 const TIMEOUT_MS = 6_000;
 
@@ -168,26 +197,29 @@ const errorCode = (d: ViesResponse): string | null => {
  */
 export const checkVatNumber = async (
   input: string,
+  config: ViesConfig,
   signal?: AbortSignal,
 ): Promise<VatCheck> => {
   const parts = splitVatNumber(input);
   if (!parts) return { status: "malformed" };
 
-  const body: Record<string, string> = {
+  // Without the requester the consultation number comes back empty, and the consultation number is
+  // the only part of this with legal weight.
+  const body = {
     countryCode: parts.countryCode,
     vatNumber: parts.vatNumber,
+    ...(config.requester
+      ? {
+          requesterMemberStateCode: config.requester.memberStateCode,
+          requesterNumber: config.requester.number,
+        }
+      : {}),
   };
-  // Without these the consultation number comes back empty, and the consultation number is the
-  // only part of this with legal weight.
-  if (REQUESTER.number) {
-    body.requesterMemberStateCode = REQUESTER.memberStateCode;
-    body.requesterNumber = REQUESTER.number;
-  }
 
   const timeout = AbortSignal.timeout(TIMEOUT_MS);
   const merged = signal ? AbortSignal.any([signal, timeout]) : timeout;
 
-  const res = await fetch(ENDPOINT, {
+  const res = await fetch(config.endpoint, {
     method: "POST",
     headers: { "content-type": "application/json", accept: "application/json" },
     body: JSON.stringify(body),
@@ -314,10 +346,13 @@ export type VatTreatment =
   | { readonly kind: "outside_eu"; readonly rate: 0; readonly note: string };
 
 /**
- * Where reverse charge can apply. EL and GR are both accepted for Greece, because the VAT prefix
- * and the ISO code differ and a caller may pass either. XI is Northern Ireland, which stays inside
- * the EU VAT area for goods under the Windsor Framework `[recalled; irrelevant for a service like
- * ours, kept so the set is not silently wrong]`.
+ * Where reverse charge can apply to what we sell, which is a service. EL and GR are both accepted
+ * for Greece, because the VAT prefix and the ISO code differ and a caller may pass either.
+ *
+ * XI, Northern Ireland, is deliberately absent. Under the Windsor Framework it stays inside the EU
+ * VAT area for goods only; a service to a Northern Irish business follows UK rules, so it is treated
+ * like any other customer outside the EU. VIES still validates XI numbers, which is why XI remains
+ * a valid prefix for the check itself.
  */
 const EU = new Set([
   "AT",
@@ -348,7 +383,6 @@ const EU = new Set([
   "SE",
   "SI",
   "SK",
-  "XI",
 ]);
 
 const DOMESTIC_RATE = 0.19;

@@ -10,10 +10,11 @@
  */
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { env } from "@/lib/env";
 import { isSandboxHarnessEnabled } from "./sandbox-gate";
 
 export const mayUseBillingHarness = async (): Promise<boolean> => {
-  if (!isSandboxHarnessEnabled()) return false;
+  if (!isSandboxHarnessEnabled(env)) return false;
   const session = await getSession();
   return isPlatformAdmin(session?.user.email);
 };

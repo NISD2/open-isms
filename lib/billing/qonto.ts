@@ -30,31 +30,44 @@ export interface QontoConfig {
 
 export const QONTO_PRODUCTION_BASE = "https://thirdparty.qonto.com/v2";
 
+/** The settings the client needs, as the validated environment provides them. */
+export interface QontoEnv {
+  readonly QONTO_API_BASE: string;
+  readonly QONTO_LOGIN?: string | undefined;
+  readonly QONTO_SECRET_KEY?: string | undefined;
+  readonly QONTO_SANDBOX_LOGIN?: string | undefined;
+  readonly QONTO_SANDBOX_SECRET_KEY?: string | undefined;
+  readonly QONTO_STAGING_TOKEN?: string | undefined;
+}
+
 /**
- * Reads config from the environment. Returns null rather than throwing when it is not set up.
+ * Builds the client config from the validated environment. Returns null rather than throwing when
+ * it is not set up.
  *
- * The base URL decides which credential pair is used, and each host only ever gets its own: the
- * sandbox pair for the sandbox host, the production pair for everything else. There is no fallback
- * between them, so a production secret is never sent to the shared sandbox, and a sandbox key never
- * reaches a real account.
+ * The base URL decides which credentials are used, and each host only ever gets its own: the
+ * sandbox pair and the staging token for the sandbox host, the production pair for everything
+ * else. There is no fallback between them, so a production secret is never sent to the shared
+ * sandbox, and no sandbox credential ever reaches the production host.
  */
-export const qontoConfigFromEnv = (
-  env: NodeJS.ProcessEnv = process.env,
-): QontoConfig | null => {
-  const baseUrl = env.QONTO_API_BASE || QONTO_PRODUCTION_BASE;
+export const qontoConfigFromEnv = (env: QontoEnv): QontoConfig | null => {
+  const baseUrl = env.QONTO_API_BASE;
   const sandbox = isSandboxBase(baseUrl);
   const login = (sandbox ? env.QONTO_SANDBOX_LOGIN : env.QONTO_LOGIN) ?? "";
   const secretKey = (sandbox ? env.QONTO_SANDBOX_SECRET_KEY : env.QONTO_SECRET_KEY) ?? "";
   if (!login || !secretKey) return null;
-  const stagingToken = env.QONTO_STAGING_TOKEN;
+  const stagingToken = sandbox ? env.QONTO_STAGING_TOKEN : undefined;
   return stagingToken
     ? { baseUrl, login, secretKey, stagingToken }
     : { baseUrl, login, secretKey };
 };
 
-export type QontoResult<T> =
-  | { readonly ok: true; readonly data: T }
-  | { readonly ok: false; readonly status: number | null; readonly error: string };
+type QontoFailure = {
+  readonly ok: false;
+  readonly status: number | null;
+  readonly error: string;
+};
+
+export type QontoResult<T> = { readonly ok: true; readonly data: T } | QontoFailure;
 
 const headers = (c: QontoConfig): Record<string, string> => {
   const h: Record<string, string> = {
@@ -67,12 +80,17 @@ const headers = (c: QontoConfig): Record<string, string> => {
   return h;
 };
 
-const request = async <T>(
+type Exchanged =
+  | { readonly ok: true; readonly status: number; readonly text: string }
+  | QontoFailure;
+
+/** One HTTP exchange. Only transport and non-2xx failures are decided here. */
+const exchange = async (
   c: QontoConfig,
   method: "GET" | "POST",
   path: string,
   body?: unknown,
-): Promise<QontoResult<T>> => {
+): Promise<Exchanged> => {
   const init: RequestInit = {
     method,
     headers: body ? { ...headers(c), "content-type": "application/json" } : headers(c),
@@ -87,21 +105,44 @@ const request = async <T>(
 
   const text = await res.text().catch(() => "");
   if (!res.ok) return { ok: false, status: res.status, error: text.slice(0, 500) };
+  return { ok: true, status: res.status, text };
+};
 
-  // A 2xx that is not JSON is still a failure: the sandbox answers a missing staging token with an
-  // HTML login page and status 200, and parsing that must not throw out of a client that promises
-  // never to throw.
-  const parsed = parseJson(text);
+/**
+ * A call that answers with a JSON body. An empty or non-JSON 2xx is a failure, not data: the
+ * sandbox answers a missing staging token with an HTML login page and status 200, and a caller
+ * that reads a field off `null` would throw out of a client that promises never to throw.
+ */
+const request = async <T>(
+  c: QontoConfig,
+  method: "GET" | "POST",
+  path: string,
+  body?: unknown,
+): Promise<QontoResult<T>> => {
+  const r = await exchange(c, method, path, body);
+  if (!r.ok) return r;
+  if (!r.text) return { ok: false, status: r.status, error: "empty response" };
+  const parsed = parseJson(r.text);
   if (!parsed.ok) {
-    return { ok: false, status: res.status, error: `not JSON: ${text.slice(0, 200)}` };
+    return { ok: false, status: r.status, error: `not JSON: ${r.text.slice(0, 200)}` };
   }
   return { ok: true, data: parsed.value as T };
+};
+
+/** A call whose success carries no body, such as sending an invoice (204 No Content). */
+const requestNoContent = async (
+  c: QontoConfig,
+  method: "GET" | "POST",
+  path: string,
+  body?: unknown,
+): Promise<QontoResult<null>> => {
+  const r = await exchange(c, method, path, body);
+  return r.ok ? { ok: true, data: null } : r;
 };
 
 const parseJson = (
   text: string,
 ): { readonly ok: true; readonly value: unknown } | { readonly ok: false } => {
-  if (!text) return { ok: true, value: null };
   try {
     return { ok: true, value: JSON.parse(text) };
   } catch {
@@ -292,8 +333,8 @@ export const sendInvoiceByEmail = (
   c: QontoConfig,
   id: string,
   email: InvoiceEmail,
-): Promise<QontoResult<unknown>> =>
-  request<unknown>(c, "POST", `/client_invoices/${encodeURIComponent(id)}/send`, {
+): Promise<QontoResult<null>> =>
+  requestNoContent(c, "POST", `/client_invoices/${encodeURIComponent(id)}/send`, {
     send_to: email.to,
     email_title: email.subject,
     ...(email.body ? { email_body: email.body } : {}),

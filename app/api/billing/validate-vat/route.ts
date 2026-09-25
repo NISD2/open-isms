@@ -18,7 +18,13 @@ import { mayUseBillingHarness } from "@/lib/billing/harness-access";
 import { formatEuro, priceFor } from "@/lib/billing/order";
 import { gateFromInput } from "@/lib/billing/order-gate";
 import { checkStructure } from "@/lib/billing/vat-checksum";
-import { checkVatNumber, splitVatNumber, toAttempt } from "@/lib/billing/vies";
+import {
+  checkVatNumber,
+  splitVatNumber,
+  toAttempt,
+  viesConfigFromEnv,
+} from "@/lib/billing/vies";
+import { env } from "@/lib/env";
 
 const body = z.object({
   vatNumber: z.string().trim().min(2).max(32),
@@ -45,7 +51,9 @@ export async function POST(req: NextRequest) {
 
   // Only ask the register once the number is structurally sound. A malformed number is a typo,
   // and sending typos to the Commission is neither useful nor polite.
-  const registry = structural.ok ? await checkVatNumber(parsed.data.vatNumber) : null;
+  const registry = structural.ok
+    ? await checkVatNumber(parsed.data.vatNumber, viesConfigFromEnv(env))
+    : null;
   const attempt = registry ? toAttempt(parsed.data.vatNumber, registry) : null;
   const gate = gateFromInput(countryCode, parts?.vatNumber ?? "", registry);
   const money = priceFor(countryCode, registry);

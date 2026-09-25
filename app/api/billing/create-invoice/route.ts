@@ -35,14 +35,20 @@ import {
   qontoConfigFromEnv,
   sendInvoiceByEmail,
 } from "@/lib/billing/qonto";
-import { checkVatNumber, splitVatNumber, toAttempt } from "@/lib/billing/vies";
+import {
+  checkVatNumber,
+  splitVatNumber,
+  toAttempt,
+  viesConfigFromEnv,
+} from "@/lib/billing/vies";
+import { env } from "@/lib/env";
 
 export async function POST(req: NextRequest) {
   if (!(await mayUseBillingHarness())) {
     return new NextResponse(null, { status: 404 });
   }
 
-  const config = qontoConfigFromEnv();
+  const config = qontoConfigFromEnv(env);
   if (!config) {
     return NextResponse.json(
       {
@@ -67,17 +73,21 @@ export async function POST(req: NextRequest) {
 
   // The schema has already checked the VAT number's structure, so this only fails on a number the
   // check accepted but the splitter cannot read. Refuse rather than fall back to the address.
-  const taxCountry = splitVatNumber(order.vatNumber)?.countryCode;
-  if (!taxCountry) {
+  const vat = splitVatNumber(order.vatNumber);
+  if (!vat) {
     return NextResponse.json(
       { error: "the VAT number does not name a member state" },
       { status: 400 },
     );
   }
+  const taxCountry = vat.countryCode;
+  // Printed on the invoice as the customer's VAT number, so it goes to Qonto in its one canonical
+  // form (country prefix, no spaces), not however it happened to be typed.
+  const canonicalVatNumber = `${vat.countryCode}${vat.vatNumber}`;
   const language = taxCountry === "DE" ? "de" : "en";
 
   // The register is consulted for the record. It cannot stop the invoice; see order-gate.ts.
-  const registry = await checkVatNumber(order.vatNumber);
+  const registry = await checkVatNumber(order.vatNumber, viesConfigFromEnv(env));
   const attempt = toAttempt(order.vatNumber, registry);
   const money = priceFor(taxCountry, registry);
   const dates = invoiceDates(new Date());
@@ -106,8 +116,8 @@ export async function POST(req: NextRequest) {
   const client = await createClient(config, {
     name: order.companyName,
     email: order.invoiceEmail,
-    vatNumber: order.vatNumber,
-    taxIdentificationNumber: order.vatNumber,
+    vatNumber: canonicalVatNumber,
+    taxIdentificationNumber: canonicalVatNumber,
     address: {
       street_address: order.street,
       city: order.city,
@@ -133,7 +143,10 @@ export async function POST(req: NextRequest) {
 
   // Automatic numbering is off on this account: Qonto answers "number must have a value". The
   // number is also what the payer types as the reference, so it is ours to own either way.
-  const number = sandboxInvoiceNumber();
+  const number = sandboxInvoiceNumber(
+    env.INVOICE_PREFIX,
+    Number(dates.issueDate.slice(0, 4)),
+  );
 
   const invoice = await createInvoice(config, {
     clientId,

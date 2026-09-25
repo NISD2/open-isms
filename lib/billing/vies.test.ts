@@ -16,12 +16,39 @@ import {
   splitVatNumber,
   toAttempt,
   type VatCheck,
+  VIES_DEFAULT_ENDPOINT,
   vatTreatment,
+  viesConfigFromEnv,
 } from "./vies";
 
 const realFetch = globalThis.fetch;
 afterEach(() => {
   globalThis.fetch = realFetch;
+});
+
+/** Every stubbed check goes through one config; fetch is replaced, so the endpoint is never hit. */
+const STUB_CONFIG = { endpoint: "https://vies.invalid/check", requester: null } as const;
+const check = (input: string) => checkVatNumber(input, STUB_CONFIG);
+
+describe("viesConfigFromEnv", () => {
+  test("accepts our own number with its prefix and spacing, and sends it bare", () => {
+    for (const own of ["DE 123 456 788", "de123456788", "123456788", "DE-123.456.788"]) {
+      expect(
+        viesConfigFromEnv({
+          OWN_VAT_COUNTRY: "DE",
+          OWN_VAT_NUMBER: own,
+          VIES_ENDPOINT: VIES_DEFAULT_ENDPOINT,
+        }).requester,
+      ).toEqual({ memberStateCode: "DE", number: "123456788" });
+    }
+  });
+
+  test("sends no requester when our own number is not set", () => {
+    expect(
+      viesConfigFromEnv({ OWN_VAT_COUNTRY: "DE", VIES_ENDPOINT: VIES_DEFAULT_ENDPOINT })
+        .requester,
+    ).toBeNull();
+  });
 });
 
 /** The body VIES actually returned for a valid German number, recorded live. */
@@ -97,12 +124,12 @@ describe("checkVatNumber", () => {
     globalThis.fetch = (async () => {
       throw new Error("should not be called");
     }) as typeof fetch;
-    expect(await checkVatNumber("nonsense")).toEqual({ status: "malformed" });
+    expect(await check("nonsense")).toEqual({ status: "malformed" });
   });
 
   test("a valid German number is confirmed, and its withheld name becomes null rather than '---'", async () => {
     stub(GERMAN_VALID);
-    const r = await checkVatNumber("DE123456788");
+    const r = await check("DE123456788");
     expect(r.status).toBe("valid");
     if (!isConfirmed(r)) throw new Error("expected valid");
     // Germany does not disclose. The dashes must never reach a form field or an invoice.
@@ -119,7 +146,7 @@ describe("checkVatNumber", () => {
       name: "Voorbeeld B.V.",
       address: "Damrak 1, Amsterdam",
     });
-    const r = await checkVatNumber("NL123456789B01");
+    const r = await check("NL123456789B01");
     if (!isConfirmed(r)) throw new Error("expected valid");
     expect(r.name).toBe("Voorbeeld B.V.");
     expect(r.address).toBe("Damrak 1, Amsterdam");
@@ -127,30 +154,30 @@ describe("checkVatNumber", () => {
 
   test("the consultation number is kept when VIES returns one", async () => {
     stub({ ...GERMAN_VALID, requestIdentifier: "WAPIAAAAaDVL-xnd" });
-    const r = await checkVatNumber("DE123456788");
+    const r = await check("DE123456788");
     if (!isConfirmed(r)) throw new Error("expected valid");
     expect(r.consultationNumber).toBe("WAPIAAAAaDVL-xnd");
   });
 
   test("an unregistered number is invalid, not an outage", async () => {
     stub({ ...GERMAN_VALID, vatNumber: "000000000", valid: false });
-    expect((await checkVatNumber("DE000000000")).status).toBe("invalid");
+    expect((await check("DE000000000")).status).toBe("invalid");
   });
 
   test("every failure is an outage, and nothing throws", async () => {
     stub(null, false, 503);
-    expect((await checkVatNumber("DE123456788")).status).toBe("unavailable");
+    expect((await check("DE123456788")).status).toBe("unavailable");
 
     globalThis.fetch = (async () => {
       throw new Error("network down");
     }) as typeof fetch;
-    const r = await checkVatNumber("DE123456788");
+    const r = await check("DE123456788");
     expect(r.status).toBe("unavailable");
     if (r.status !== "unavailable") throw new Error("unreachable");
     expect(r.reason).toContain("network down");
 
     stub({ noValidityHere: true });
-    expect((await checkVatNumber("DE123456788")).status).toBe("unavailable");
+    expect((await check("DE123456788")).status).toBe("unavailable");
   });
 });
 
@@ -182,6 +209,8 @@ describe("vatTreatment", () => {
 
   test("outside the EU is out of scope and carries no German VAT", () => {
     expect(vatTreatment("CH", confirmed)).toMatchObject({ kind: "outside_eu", rate: 0 });
+    // Northern Ireland is in the EU VAT area for goods only; a service follows UK rules.
+    expect(vatTreatment("XI", confirmed)).toMatchObject({ kind: "outside_eu", rate: 0 });
     expect(vatTreatment("US", unavailable)).toMatchObject({
       kind: "outside_eu",
       rate: 0,
@@ -206,7 +235,14 @@ describe("live check against the Commission (VIES_LIVE=1 and VIES_LIVE_NUMBER to
   test.skipIf(process.env.VIES_LIVE !== "1" || !LIVE_NUMBER)(
     "a known-valid German number still validates and still withholds the name",
     async () => {
-      const r = await checkVatNumber(LIVE_NUMBER);
+      const r = await checkVatNumber(
+        LIVE_NUMBER,
+        viesConfigFromEnv({
+          OWN_VAT_COUNTRY: process.env.OWN_VAT_COUNTRY ?? "DE",
+          OWN_VAT_NUMBER: process.env.OWN_VAT_NUMBER,
+          VIES_ENDPOINT: VIES_DEFAULT_ENDPOINT,
+        }),
+      );
       expect(r.status).toBe("valid");
       if (!isConfirmed(r)) throw new Error("expected valid");
       // If this ever starts returning a name, the autofill design can be revisited.
