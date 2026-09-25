@@ -248,8 +248,9 @@ Rules learned from three review passes over the first billing PR. Each one preve
 ## Companies and memberships
 
 - **`company_membership` is the truth** for who belongs to a company and with which role. `user.companyId` is only the company the person has open. Ask "is a member" with `isMemberOf`, list members with `listCompanyMembers`, read a role with `findMembershipRole` (all in `lib/organization/membership.ts`), never with `user.companyId` or `user.role`.
-- **Only `joinCompany`, `leaveCompany` and `setMembershipRole` write memberships**, and they keep `user.companyId` pointing at a company the person belongs to, or at none.
-- **Every company gets a billing account** in the transaction that creates it (`lib/billing/accounts.ts`).
+- **Only `joinCompany`, `leaveCompany`, `setMembershipRole` and `openCompany` write memberships or the open company**, and they keep `user.companyId` pointing at a company the person belongs to, or at none. `user.role` is no longer read or written and is being dropped.
+- **Every company gets a billing account** in the transaction that creates it (`lib/billing/accounts.ts`). A further company started from the switcher joins the account of the open one, so it inherits its access level; only the account's owner may add one.
+- **Erasing an owner tears down the company they own and still belong to.** Owning several is refused, because one typed confirmation must not tear down several organizations.
 - **Per-person numbers use the open company** (signups, activation, nudges), so each person counts once.
 
 ## Public-repo hygiene
