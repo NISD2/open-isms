@@ -6,25 +6,25 @@
  *
  * References: companies, complianceFrameworks, requirements, users
  */
+
+import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
+import { complianceFramework, requirement } from "@nisd2/grc-data-model/schema";
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
   boolean,
-  integer,
-  timestamp,
   date,
   decimal,
-  jsonb,
   index,
+  integer,
+  jsonb,
+  pgTable,
+  text,
+  timestamp,
   uniqueIndex,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
-import { entityTypeEnum } from "@nisd2/grc-data-model/enums";
 import { itemStatusEnum } from "../enums";
 import { company, user } from "./organization";
-import { complianceFramework } from "@nisd2/grc-data-model/schema";
-import { requirement } from "@nisd2/grc-data-model/schema";
 
 /** Shape of the sign-off snapshot captured when a user signs off a requirement */
 export interface SignOffSnapshot {
@@ -74,7 +74,7 @@ export const companyAssessment = pgTable(
   (table) => [
     index("idx_assessment_company").on(table.companyId),
     index("idx_assessment_framework").on(table.frameworkId),
-  ]
+  ],
 );
 
 // ---------------------------------------------------------------------------
@@ -135,10 +135,7 @@ export const companyRequirementStatus = pgTable(
   (table) => [
     index("idx_req_status_assessment").on(table.assessmentId),
     index("idx_req_status_requirement").on(table.requirementId),
-    uniqueIndex("idx_req_status_unique").on(
-      table.assessmentId,
-      table.requirementId
-    ),
+    uniqueIndex("idx_req_status_unique").on(table.assessmentId, table.requirementId),
     index("idx_req_status_next_review").on(table.nextReviewDate),
-  ]
+  ],
 );
