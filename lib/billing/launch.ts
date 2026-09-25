@@ -16,7 +16,7 @@
  * nothing in the app switches it off again: grandfathering is a promise made at one moment.
  */
 import "@/lib/server-guard";
-import { and, count, desc, eq, gt, isNotNull, isNull, like, or, sql } from "drizzle-orm";
+import { and, count, eq, gt, isNotNull, isNull, like, or, sql } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { setFeature } from "@/lib/feature-flags";
 import {
@@ -47,19 +47,28 @@ export const pricingState = async (db: DbOrTx, liveKeys: boolean) => {
     .from(featureFlag)
     .where(eq(featureFlag.key, "billing"))
     .limit(1);
-  const [group] = await db
-    .select({ id: newsletterGroup.id, name: newsletterGroup.name })
-    .from(newsletterGroup)
-    .where(like(newsletterGroup.name, `${GROUP_PREFIX} %`))
-    .orderBy(desc(newsletterGroup.createdAt))
-    .limit(1);
+  const launched = flag?.enabled ?? false;
+  // The group the launch wrote, not any group with a similar name: it carries the launch's own
+  // timestamp (launchBilling writes both with the same `now`).
+  const [group] =
+    launched && flag
+      ? await db
+          .select({ id: newsletterGroup.id, name: newsletterGroup.name })
+          .from(newsletterGroup)
+          .where(
+            and(
+              eq(newsletterGroup.createdAt, flag.updatedAt),
+              like(newsletterGroup.name, `${GROUP_PREFIX} %`),
+            ),
+          )
+          .limit(1)
+      : [];
   const [members] = group
     ? await db
         .select({ n: count() })
         .from(newsletterGroupMember)
         .where(eq(newsletterGroupMember.groupId, group.id))
     : [];
-  const launched = flag?.enabled ?? false;
   return {
     launched,
     launchedAt: launched ? (flag?.updatedAt ?? null) : null,
@@ -116,6 +125,8 @@ export const launchBilling = async (
       name: `${GROUP_PREFIX} ${berlinDay(now)}`,
       description:
         "Everyone grandfathered at the billing launch: the audience of the announcement mail.",
+      // The same instant as the switch below, which is how pricingState finds this group.
+      createdAt: now,
     })
     .returning({ id: newsletterGroup.id });
   if (!group) throw new Error("newsletter group insert returned no row");
@@ -135,7 +146,7 @@ export const launchBilling = async (
     )
     .returning({ id: newsletterGroupMember.id });
 
-  await setFeature(db, "billing", true, byUserId);
+  await setFeature(db, "billing", true, byUserId, now);
 
   return {
     stampedUsers: stamped.length,

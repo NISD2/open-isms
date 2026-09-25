@@ -3,18 +3,22 @@ import { effectiveAccessLevel, mayOpenPortalPath, newAccountAccessLevel } from "
 
 describe("effectiveAccessLevel", () => {
   test("before launch nobody is gated: free and grandfathered both read as grandfathered", () => {
-    expect(effectiveAccessLevel("free", false)).toBe("grandfathered");
-    expect(effectiveAccessLevel("grandfathered", false)).toBe("grandfathered");
+    expect(effectiveAccessLevel("free", false, false)).toBe("grandfathered");
+    expect(effectiveAccessLevel("grandfathered", false, false)).toBe("grandfathered");
   });
 
-  test("before launch a paid account keeps full", () => {
-    expect(effectiveAccessLevel("full", false)).toBe("full");
+  test("a paid account keeps full, before and after launch", () => {
+    expect(effectiveAccessLevel("full", false, false)).toBe("full");
+    expect(effectiveAccessLevel("full", true, false)).toBe("full");
   });
 
-  test("after launch the stored level is the level", () => {
-    expect(effectiveAccessLevel("free", true)).toBe("free");
-    expect(effectiveAccessLevel("grandfathered", true)).toBe("grandfathered");
-    expect(effectiveAccessLevel("full", true)).toBe("full");
+  test("after launch the stored level is the level for an unstamped person", () => {
+    expect(effectiveAccessLevel("free", true, false)).toBe("free");
+    expect(effectiveAccessLevel("grandfathered", true, false)).toBe("grandfathered");
+  });
+
+  test("after launch a stamped person is grandfathered even in a free company", () => {
+    expect(effectiveAccessLevel("free", true, true)).toBe("grandfathered");
   });
 });
 

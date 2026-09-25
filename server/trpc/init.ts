@@ -40,10 +40,15 @@ export const publicProcedure = setup.publicProcedure;
 export const protectedProcedure = setup.protectedProcedure;
 
 /**
- * The access gate (NIS2 plan, slice 5). Every company tier below refuses an account whose effective
- * level is free, which only exists once billing is launched (lib/billing/access.ts). Gated by
- * default, so a router added later is behind the paywall unless it opts out through the account
- * tiers. The portal layout redirects a free account first; this is what stops a direct API call.
+ * The access gate (NIS2 plan, slice 5). Every company tier below (companyProcedure, adminProcedure,
+ * reviewerProcedure, and activatedCompanyProcedure built on them) refuses an account whose
+ * effective level is free, which only exists once billing is launched (lib/billing/access.ts). A
+ * router added on these tiers is behind the paywall unless it opts out through the account tiers.
+ * The portal layout redirects a free account first; this is what stops a direct API call.
+ *
+ * NOT gated: `protectedProcedure`. A few of its routes read the caller's own company (the gap
+ * assessment, audit log reads, the team list, the assessment list) and stay reachable to a free
+ * account through the API, though the layout hides their pages. None of them is the journey.
  */
 const assertNotFree = (session: TRPCContext["session"]) => {
   if (session?.accessLevel === "free") {
