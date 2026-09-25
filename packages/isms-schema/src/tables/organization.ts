@@ -94,14 +94,10 @@ export const company = pgTable("company", {
   primaryLocations: varchar("primary_locations", { length: 1000 }),
 
   // Billing
-  /**
-   * The paying customer this company belongs to. The application sets it on every company it
-   * creates. It becomes not null in the release after the one that starts writing it: a container
-   * still running the previous release during a deploy creates companies without it.
-   */
-  billingAccountId: uuid("billing_account_id").references(
-    (): AnyPgColumn => billingAccount.id,
-  ),
+  /** The paying customer this company belongs to. Every company has one. */
+  billingAccountId: uuid("billing_account_id")
+    .notNull()
+    .references((): AnyPgColumn => billingAccount.id),
   plan: planEnum("plan").default("free").notNull(),
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
   stripeSubscriptionId: varchar("stripe_subscription_id", { length: 255 }),
@@ -335,7 +331,12 @@ export const user = pgTable(
     email: varchar("email", { length: 255 }).notNull().unique(),
     name: varchar("name", { length: 255 }).notNull(),
     passwordHash: varchar("password_hash", { length: 255 }),
-    role: varchar("role", { length: 100 }).notNull(),
+    /**
+     * Superseded by `company_membership.role` and no longer read or written. Kept, with a default,
+     * for one more release, because the previous release still writes it during a deploy; the
+     * release after this one drops it.
+     */
+    role: varchar("role", { length: 100 }).notNull().default("member"),
     jobTitle: varchar("job_title", { length: 255 }),
     isManagement: boolean("is_management").default(false),
     /**

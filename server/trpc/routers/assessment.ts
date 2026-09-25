@@ -230,12 +230,7 @@ export const assessmentRouter = router({
       const existing = current?.companyId
         ? await ctx.db.query.company.findFirst({
             where: eq(company.id, current.companyId),
-            columns: {
-              id: true,
-              activatedAt: true,
-              ownerId: true,
-              billingAccountId: true,
-            },
+            columns: { id: true, activatedAt: true, ownerId: true },
           })
         : null;
       // Reject if the caller is already in a real (activated) company, OR is a
@@ -285,15 +280,10 @@ export const assessmentRouter = router({
           // status rows were seeded at draft time, so restamp their entityType
           // snapshot instead of re-seeding.
           companyId = existing.id;
-          // A draft the previous release created during a deploy has no account and no
-          // membership yet; both writes are no-ops for every other draft.
-          const billingAccountId =
-            existing.billingAccountId ?? (await createBillingAccount(tx, ctx.userId));
           await tx
             .update(company)
-            .set({ ...activatedValues, billingAccountId, updatedAt: new Date() })
+            .set({ ...activatedValues, updatedAt: new Date() })
             .where(eq(company.id, companyId));
-          await joinCompany(tx, { userId: ctx.userId, companyId, role: "admin" });
 
           const seeded = await tx.query.companyAssessment.findMany({
             where: eq(companyAssessment.companyId, companyId),
