@@ -79,6 +79,11 @@ export interface PlaceOrderInput {
    * price nobody agreed to.
    */
   readonly expectedGrossCents: number | null;
+  /**
+   * A net amount a platform admin agreed on a call (door two), in place of the access level's
+   * price. Null on the customer's own order page, which never takes an amount from a browser.
+   */
+  readonly netCentsOverride: number | null;
   readonly now?: Date;
 }
 
@@ -240,7 +245,11 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
         );
       }
 
-      const money = priceFor(vat.countryCode, registry, netCentsFor(account.accessLevel));
+      const money = priceFor(
+        vat.countryCode,
+        registry,
+        input.netCentsOverride ?? netCentsFor(account.accessLevel),
+      );
       if (
         input.expectedGrossCents !== null &&
         money.grossCents !== input.expectedGrossCents

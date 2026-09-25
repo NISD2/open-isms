@@ -31,6 +31,18 @@ export const newAccountAccessLevel = (
 ): AccessLevel => (launched && !ownerGrandfathered ? "free" : "grandfathered");
 
 /**
+ * Whether a person has ever got in: a verified email, a login count, or a last login. The same
+ * signal the 0016 backfill and the launch (./launch) use. login_count alone is not enough: it
+ * arrived with migration 0007 at 0 for everyone and was never backfilled.
+ */
+export const hasGotIn = (person: {
+  readonly emailVerifiedAt: Date | null;
+  readonly loginCount: number;
+  readonly lastLoginAt: Date | null;
+}): boolean =>
+  person.emailVerifiedAt !== null || person.loginCount > 0 || person.lastLoginAt !== null;
+
+/**
  * The portal pages an account without a paid or grandfathered level still reaches. Everything else
  * in the portal sends it to /bestellen. The course and /bestellen live outside the portal.
  */

@@ -185,11 +185,12 @@ export async function verifyOtp(
 }
 
 /**
- * Cron-friendly cleanup. Removes OTP rows older than 24h. Active records
- * inside that window are kept so we don't race with in-flight verifications.
+ * Cron-friendly cleanup. Removes OTP rows that expired more than 24h ago. Keyed on expiry rather
+ * than creation, because account setup links (lib/auth/setup-link.ts) share this table and live
+ * seven days; a creation cutoff would delete them while still valid.
  */
 export async function cleanupExpiredOtps(): Promise<number> {
   const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
-  const result = await db.delete(emailOtp).where(lt(emailOtp.createdAt, cutoff));
+  const result = await db.delete(emailOtp).where(lt(emailOtp.expiresAt, cutoff));
   return result.rowCount ?? 0;
 }

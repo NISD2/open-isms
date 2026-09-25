@@ -15,25 +15,13 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import {
-  formatEuro,
-  type Money,
-  netCentsFor,
-  orderSchemaWithVatCheck,
-  priceFor,
-} from "@/lib/billing/order";
-import { gateFromInput } from "@/lib/billing/order-gate";
+import { formatEuro, netCentsFor, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { type OrderingMode, orderingMode } from "@/lib/billing/ordering";
 import { billingFor } from "@/lib/billing/ordering-access";
 import { findActiveInvoice, placeOrder } from "@/lib/billing/place-order";
 import { getInvoice } from "@/lib/billing/qonto";
-import { checkStructure } from "@/lib/billing/vat-checksum";
-import {
-  checkVatNumber,
-  splitVatNumber,
-  toAttempt,
-  viesConfigFromEnv,
-} from "@/lib/billing/vies";
+import { quoteFor } from "@/lib/billing/quote";
+import { viesConfigFromEnv } from "@/lib/billing/vies";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
@@ -63,15 +51,6 @@ const payerProcedure = accountProcedure.use(async ({ ctx, next }) => {
     throw new TRPCError({ code: "FORBIDDEN", message: "Only the account holder." });
   }
   return next({ ctx: { ...ctx, account } });
-});
-
-const priceView = (money: Money) => ({
-  net: formatEuro(money.netCents),
-  vat: formatEuro(money.vatCents),
-  gross: formatEuro(money.grossCents),
-  grossCents: money.grossCents,
-  vatRatePercent: Math.round(money.vatRate * 100),
-  treatment: money.treatment.kind,
 });
 
 const requireOrdering = async (db: DbOrTx, email: string | null | undefined) => {
@@ -132,25 +111,11 @@ export const billingRouter = router({
     .mutation(async ({ ctx, input }) => {
       await requireOrdering(ctx.db, ctx.session.user.email);
       limited(`billing:quote:${ctx.userId}`, 10);
-      const { account } = ctx;
-
-      const parts = splitVatNumber(input.vatNumber);
-      const countryCode = parts?.countryCode ?? input.countryCode?.toUpperCase() ?? "";
-      const structural = parts
-        ? checkStructure(parts.countryCode, parts.vatNumber)
-        : ({ ok: false, reason: "format", countryCode } as const);
-      // A malformed number is a typo, and typos are not sent to the Commission.
-      const registry = structural.ok
-        ? await checkVatNumber(input.vatNumber, viesConfigFromEnv(env))
-        : null;
-
-      return {
-        gate: gateFromInput(countryCode, parts?.vatNumber ?? "", registry),
-        attempt: registry ? toAttempt(input.vatNumber, registry) : null,
-        price: priceView(
-          priceFor(countryCode, registry, netCentsFor(account.accessLevel)),
-        ),
-      };
+      return quoteFor({
+        ...input,
+        netCents: netCentsFor(ctx.account.accessLevel),
+        vies: viesConfigFromEnv(env),
+      });
     }),
 
   place: payerProcedure
@@ -175,6 +140,7 @@ export const billingRouter = router({
         invoicePrefix: env.INVOICE_PREFIX,
         vies: viesConfigFromEnv(env),
         expectedGrossCents: input.quotedGrossCents,
+        netCentsOverride: null,
       });
       if (outcome.ok) {
         return {

@@ -8,6 +8,9 @@
  *   2. Send the announcement: a newsletter draft, written in the Newsletter tab, sent to that frozen
  *      group through the ordinary newsletter send, so it is logged and people who opted out of
  *      follow-up mail are skipped.
+ *
+ * Below them, door two: closing a sale on the call (./DemoCloseForm), which works before and after
+ * the launch.
  */
 import { Megaphone, Rocket } from "lucide-react";
 import { useState } from "react";
@@ -22,6 +25,7 @@ import {
 } from "@/components/ui/card";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { trpc } from "@/lib/trpc/client";
+import { DemoCloseForm } from "./DemoCloseForm";
 
 const when = (d: Date | string) => new Date(d).toLocaleString("de-DE");
 
@@ -153,6 +157,8 @@ export function PricingPanel() {
           )}
         </CardContent>
       </Card>
+
+      <DemoCloseForm />
     </div>
   );
 }

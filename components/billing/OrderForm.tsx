@@ -13,52 +13,21 @@
  *   - The invoice email is its own field, defaulted to nothing rather than to the person ordering,
  *     because in a German company of this size it goes to Buchhaltung and quietly assuming
  *     otherwise is the most common way an invoice sits unpaid for six weeks.
+ *
+ * The fields themselves are ./OrderFields, shared with the platform admin demo close.
  */
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import type { z } from "zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  useFormField,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { Form } from "@/components/ui/form";
 import { Link } from "@/i18n/navigation";
 import { orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { trpc } from "@/lib/trpc/client";
-
-type OrderValues = z.input<typeof orderSchemaWithVatCheck>;
-
-/** The schema's messages are codes (lib/billing/order.ts); this says them in the page's language. */
-function FieldMessage() {
-  const t = useTranslations("billing.errors");
-  const { error, formMessageId } = useFormField();
-  if (!error) return null;
-  const code = String(error.message ?? "");
-  return (
-    <p id={formMessageId} className="text-destructive text-sm">
-      {t.has(code) ? t(code) : t("generic")}
-    </p>
-  );
-}
+import { OrderFields, type OrderValues, orderDefaults } from "./OrderFields";
 
 /** An ISO calendar day, shown as that same day in the reader's locale. */
 const formatDay = (isoDay: string, locale: string) =>
@@ -84,17 +53,7 @@ export function OrderForm() {
 
   const form = useForm<OrderValues>({
     resolver: zodResolver(orderSchemaWithVatCheck),
-    defaultValues: {
-      companyName: "",
-      street: "",
-      zip: "",
-      city: "",
-      countryCode: locale === "nl" ? "NL" : "DE",
-      vatNumber: "",
-      invoiceEmail: "",
-      copyToEmail: "",
-      purchaseOrder: "",
-    },
+    defaultValues: orderDefaults(locale),
   });
 
   const checkVat = (vatNumber: string) => {
@@ -141,15 +100,6 @@ export function OrderForm() {
     );
   }
 
-  const registry = quote.data?.attempt?.outcome ?? null;
-  const price = quote.data?.price ?? null;
-  const gate = quote.data?.gate ?? null;
-  const warning =
-    gate && !gate.proceed
-      ? t("warnings.checkNumber")
-      : gate?.warning && registry === "invalid"
-        ? t("warnings.notInRegister")
-        : null;
   const placeError = place.error?.data?.code;
   // After an unclear answer from Qonto an invoice may exist, so the button stays off.
   const outcomeUnknown = placeError === "TIMEOUT";
@@ -172,218 +122,12 @@ export function OrderForm() {
     <div className="mx-auto max-w-2xl space-y-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("form.recipientTitle")}</CardTitle>
-              <CardDescription>{t("form.recipientDescription")}</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <FormField
-                control={form.control}
-                name="companyName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("form.companyName")}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t("form.companyNamePlaceholder")} {...field} />
-                    </FormControl>
-                    <FormDescription>{t("form.companyNameHint")}</FormDescription>
-                    <FieldMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="street"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("form.street")}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t("form.streetPlaceholder")} {...field} />
-                    </FormControl>
-                    <FieldMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="grid gap-4 sm:grid-cols-3">
-                <FormField
-                  control={form.control}
-                  name="zip"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("form.zip")}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t("form.zipPlaceholder")} {...field} />
-                      </FormControl>
-                      <FieldMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem className="sm:col-span-2">
-                      <FormLabel>{t("form.city")}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t("form.cityPlaceholder")} {...field} />
-                      </FormControl>
-                      <FieldMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-3">
-                <FormField
-                  control={form.control}
-                  name="countryCode"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("form.countryCode")}</FormLabel>
-                      <FormControl>
-                        <Input placeholder="DE" maxLength={2} {...field} />
-                      </FormControl>
-                      <FieldMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="vatNumber"
-                  render={({ field }) => (
-                    <FormItem className="sm:col-span-2">
-                      <FormLabel>{t("form.vatNumber")}</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t("form.vatNumberPlaceholder")}
-                          {...field}
-                          onBlur={(e) => {
-                            field.onBlur();
-                            checkVat(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormDescription className="flex items-center gap-2">
-                        {quote.isPending ? (
-                          <>
-                            <Loader2 className="h-3 w-3 animate-spin" aria-hidden />
-                            {t("form.vatChecking")}
-                          </>
-                        ) : registry ? (
-                          <Badge variant={registry === "valid" ? "default" : "secondary"}>
-                            {t(`registry.${registry}`)}
-                          </Badge>
-                        ) : (
-                          t("form.vatHint")
-                        )}
-                      </FormDescription>
-                      <FieldMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              {warning ? (
-                <Alert>
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>{warning}</AlertDescription>
-                </Alert>
-              ) : null}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("form.deliveryTitle")}</CardTitle>
-              <CardDescription>{t("form.deliveryDescription")}</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <FormField
-                control={form.control}
-                name="invoiceEmail"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("form.invoiceEmail")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder={t("form.invoiceEmailPlaceholder")}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FieldMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="copyToEmail"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("form.copyToEmail")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="email"
-                        placeholder={t("form.copyToEmailPlaceholder")}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FieldMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="purchaseOrder"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("form.purchaseOrder")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={t("form.purchaseOrderPlaceholder")}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>{t("form.purchaseOrderHint")}</FormDescription>
-                    <FieldMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-
-          {price ? (
-            <Card className="border-primary/30 bg-primary/5">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">{t("price.title")}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-1 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t("price.net")}</span>
-                  <span className="tabular-nums">{price.net}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">
-                    {t("price.vat", { rate: price.vatRatePercent })}
-                  </span>
-                  <span className="tabular-nums">{price.vat}</span>
-                </div>
-                <Separator className="my-2" />
-                <div className="flex justify-between font-semibold">
-                  <span>{t("price.gross")}</span>
-                  <span className="tabular-nums">{price.gross}</span>
-                </div>
-                {price.treatment !== "domestic" ? (
-                  <p className="pt-2 text-muted-foreground text-xs">
-                    {t(`treatment.${price.treatment}`)}
-                  </p>
-                ) : null}
-              </CardContent>
-            </Card>
-          ) : null}
+          <OrderFields
+            form={form}
+            quote={quote.data}
+            quoting={quote.isPending}
+            onVatBlur={checkVat}
+          />
 
           {failure ? (
             <Alert variant="destructive">
