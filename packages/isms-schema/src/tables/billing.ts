@@ -58,7 +58,17 @@ export const invoice = pgTable(
     archivedPdfKey: varchar("archived_pdf_key", { length: 512 }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
-  (table) => [index("idx_invoice_billing_account").on(table.billingAccountId)],
+  (table) => [
+    index("idx_invoice_billing_account").on(table.billingAccountId),
+    // The VAT facts cannot contradict each other: only German VAT carries tax, and no amount is
+    // negative. The row is kept for eight years, so it has to be right when it is written.
+    check("invoice_net_positive", sql`${table.netCents} > 0`),
+    check("invoice_vat_not_negative", sql`${table.vatCents} >= 0`),
+    check(
+      "invoice_vat_matches_treatment",
+      sql`${table.vatTreatment} IN ('domestic', 'unconfirmed_eu') OR ${table.vatCents} = 0`,
+    ),
+  ],
 );
 
 /**
@@ -92,10 +102,15 @@ export const creditNote = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [
-    // A refund can only be recorded as done if one was owed.
+    // A refund can only be recorded as done if one was owed, and a person can only be named as
+    // having done it once it is done. The person may later be deleted, so the reverse is allowed.
     check(
       "credit_note_refund_done_only_if_owed",
       sql`${table.refundDoneAt} IS NULL OR ${table.refundOwed}`,
+    ),
+    check(
+      "credit_note_refund_by_only_if_done",
+      sql`${table.refundDoneByUserId} IS NULL OR ${table.refundDoneAt} IS NOT NULL`,
     ),
   ],
 );

@@ -1,6 +1,6 @@
 {
-  "id": "8785666d-0165-4dc5-baa6-d7be6c2ce96d",
-  "prevId": "5c6f6436-ac3b-4d6a-aca2-0f02f00cf03b",
+  "id": "50b01708-8e77-4690-bbd4-9b19ddcedfd5",
+  "prevId": "5d4cacc3-015c-4ad0-b0ed-0d0dc96ad552",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -1329,6 +1329,10 @@
         "credit_note_refund_done_only_if_owed": {
           "name": "credit_note_refund_done_only_if_owed",
           "value": "\"credit_note\".\"refund_done_at\" IS NULL OR \"credit_note\".\"refund_owed\""
+        },
+        "credit_note_refund_by_only_if_done": {
+          "name": "credit_note_refund_by_only_if_done",
+          "value": "\"credit_note\".\"refund_done_by_user_id\" IS NULL OR \"credit_note\".\"refund_done_at\" IS NOT NULL"
         }
       },
       "isRLSEnabled": false
@@ -1536,7 +1540,20 @@
         }
       },
       "policies": {},
-      "checkConstraints": {},
+      "checkConstraints": {
+        "invoice_net_positive": {
+          "name": "invoice_net_positive",
+          "value": "\"invoice\".\"net_cents\" > 0"
+        },
+        "invoice_vat_not_negative": {
+          "name": "invoice_vat_not_negative",
+          "value": "\"invoice\".\"vat_cents\" >= 0"
+        },
+        "invoice_vat_matches_treatment": {
+          "name": "invoice_vat_matches_treatment",
+          "value": "\"invoice\".\"vat_treatment\" IN ('domestic', 'unconfirmed_eu') OR \"invoice\".\"vat_cents\" = 0"
+        }
+      },
       "isRLSEnabled": false
     },
     "public.category_assignment": {

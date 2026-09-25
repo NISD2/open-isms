@@ -17,7 +17,8 @@ CREATE TABLE "credit_note" (
 	CONSTRAINT "credit_note_invoice_id_unique" UNIQUE("invoice_id"),
 	CONSTRAINT "credit_note_qonto_credit_note_id_unique" UNIQUE("qonto_credit_note_id"),
 	CONSTRAINT "credit_note_number_unique" UNIQUE("number"),
-	CONSTRAINT "credit_note_refund_done_only_if_owed" CHECK ("credit_note"."refund_done_at" IS NULL OR "credit_note"."refund_owed")
+	CONSTRAINT "credit_note_refund_done_only_if_owed" CHECK ("credit_note"."refund_done_at" IS NULL OR "credit_note"."refund_owed"),
+	CONSTRAINT "credit_note_refund_by_only_if_done" CHECK ("credit_note"."refund_done_by_user_id" IS NULL OR "credit_note"."refund_done_at" IS NOT NULL)
 );
 --> statement-breakpoint
 CREATE TABLE "document_number_counter" (
@@ -44,7 +45,10 @@ CREATE TABLE "invoice" (
 	"archived_pdf_key" varchar(512),
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "invoice_qonto_invoice_id_unique" UNIQUE("qonto_invoice_id"),
-	CONSTRAINT "invoice_number_unique" UNIQUE("number")
+	CONSTRAINT "invoice_number_unique" UNIQUE("number"),
+	CONSTRAINT "invoice_net_positive" CHECK ("invoice"."net_cents" > 0),
+	CONSTRAINT "invoice_vat_not_negative" CHECK ("invoice"."vat_cents" >= 0),
+	CONSTRAINT "invoice_vat_matches_treatment" CHECK ("invoice"."vat_treatment" IN ('domestic', 'unconfirmed_eu') OR "invoice"."vat_cents" = 0)
 );
 --> statement-breakpoint
 CREATE TABLE "company_membership" (
