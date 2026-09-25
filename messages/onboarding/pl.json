@@ -5,11 +5,9 @@
     "step": "Krok {current} z {total}",
     "steps": {
       "company": "Dane organizacji",
-      "team": "Kluczowy personel",
-      "ai": "Asystent AI"
+      "team": "Kluczowy personel"
     },
     "nav": {
-      "back": "Wstecz",
       "next": "Dalej",
       "skip": "Pomiń na razie",
       "submit": "Utwórz organizację"
