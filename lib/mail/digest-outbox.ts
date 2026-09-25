@@ -34,7 +34,8 @@ import { preferenceFooterFor } from "@/lib/mail/footer";
 import { type EmailLocale, resolveEmailLocale } from "@/lib/mail/locale";
 import { isSuppressedSendId, mailSuppressionReason, sendMail } from "@/lib/mail/send";
 import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templates";
-import { company, notification, user } from "@/schema";
+import { listCompanyMembers } from "@/lib/organization/membership";
+import { company, notification } from "@/schema";
 
 export type DigestKind = "daily" | "weekly";
 
@@ -137,10 +138,7 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
 
   const queue: QueuedDigest[] = [];
   for (const co of companies) {
-    const members = await db.query.user.findMany({
-      where: eq(user.companyId, co.id),
-      columns: { id: true, email: true, isManagement: true, role: true, locale: true },
-    });
+    const members = await listCompanyMembers(db, co.id);
 
     for (const member of members) {
       const consent = await loadEmailConsent(db, member.id);

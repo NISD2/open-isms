@@ -1,6 +1,6 @@
 import "@/lib/server-guard";
 import bcrypt from "bcryptjs";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import type { PgUpdateSetSource } from "drizzle-orm/pg-core";
 import { cookies } from "next/headers";
 import type { Session } from "next-auth";
@@ -16,7 +16,7 @@ import { env } from "@/lib/env";
 import { isLocaleCode, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { resolveHints } from "@/lib/onboarding/hints";
-import { company, user } from "@/schema";
+import { company, companyMembership, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
 // Dummy hash for timing-safe comparison when user doesn't exist
@@ -354,6 +354,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 });
 
+const openMembership = async (userId: string, companyId: string) => {
+  const [row] = await db
+    .select({ role: companyMembership.role, activatedAt: company.activatedAt })
+    .from(companyMembership)
+    .innerJoin(company, eq(company.id, companyMembership.companyId))
+    .where(
+      and(
+        eq(companyMembership.userId, userId),
+        eq(companyMembership.companyId, companyId),
+      ),
+    )
+    .limit(1);
+  return row;
+};
+
 /**
  * Get the current session with fresh id/companyId/role from DB, and
  * verify the JWT's sessionVersion against the live user row (audit
@@ -370,7 +385,6 @@ export const getSession = cache(async (): Promise<Session | null> => {
       id: true,
       name: true,
       companyId: true,
-      role: true,
       jobTitle: true,
       sessionVersion: true,
       loginCount: true,
@@ -395,25 +409,22 @@ export const getSession = cache(async (): Promise<Session | null> => {
   // DB name wins over the JWT snapshot so an in-app name change (e.g. fixing
   // the name printed on a training certificate) shows up without re-login.
   session.user.name = dbUser.name;
-  session.companyId = dbUser.companyId;
-  session.role = dbUser.role;
   session.jobTitle = dbUser.jobTitle ?? null;
   // Derived here rather than queried at the point of use: the row is already
   // loaded and cache()d for the request, so the one-time onboarding surfaces
   // cost no extra round trip on any page that renders them.
   session.hints = resolveHints(dbUser);
 
-  // Resolve activation once, here, so every gate reads session.companyActivated
-  // instead of re-deriving it (a draft shell has companyId set but activatedAt
-  // null). cache() keeps this to one extra indexed lookup per request.
-  session.companyActivated = false;
-  if (dbUser.companyId) {
-    const companyRow = await db.query.company.findFirst({
-      where: eq(company.id, dbUser.companyId),
-      columns: { activatedAt: true },
-    });
-    session.companyActivated = companyRow?.activatedAt != null;
-  }
+  // The role comes from the membership in the open company, and activation is
+  // resolved once here so every gate reads session.companyActivated (a draft
+  // shell has a company but no activatedAt). An open company without a
+  // membership gets no company and the least role rather than a guess.
+  const open = dbUser.companyId
+    ? await openMembership(dbUser.id, dbUser.companyId)
+    : undefined;
+  session.companyId = open ? dbUser.companyId : null;
+  session.role = open?.role ?? "member";
+  session.companyActivated = open?.activatedAt != null;
 
   return session;
 });

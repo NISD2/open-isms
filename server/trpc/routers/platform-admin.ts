@@ -55,6 +55,7 @@ import {
   auditLog,
   company,
   companyAssessment,
+  companyMembership,
   companyRequirementStatus,
   complianceFramework,
   dataErasureLog,
@@ -581,7 +582,7 @@ export const platformAdminRouter = router({
         id: user.id,
         email: user.email,
         name: user.name,
-        role: user.role,
+        role: companyMembership.role,
         createdAt: user.createdAt,
         companyId: user.companyId,
         companyName: company.name,
@@ -590,6 +591,13 @@ export const platformAdminRouter = router({
       })
       .from(user)
       .leftJoin(company, eq(user.companyId, company.id))
+      .leftJoin(
+        companyMembership,
+        and(
+          eq(companyMembership.userId, user.id),
+          eq(companyMembership.companyId, user.companyId),
+        ),
+      )
       .orderBy(desc(user.createdAt));
 
     return rows;
@@ -618,7 +626,7 @@ export const platformAdminRouter = router({
         // key (always false: userCount 0, compliancePct '0' for every row),
         // and became an outright "column reference id is ambiguous" error the
         // moment the compliance_framework join below put a second id in scope.
-        userCount: sql<number>`(SELECT count(*)::int FROM "user" u WHERE u.company_id = "company"."id")`,
+        userCount: sql<number>`(SELECT count(*)::int FROM company_membership m WHERE m.company_id = "company"."id")`,
         // NIS 2 only. LIMIT 1 with no ORDER BY and no framework predicate
         // returned an arbitrary framework's percentage for the Companies tab.
         compliancePct: sql<string>`COALESCE(

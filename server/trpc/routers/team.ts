@@ -10,8 +10,10 @@ import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
 import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
 import {
   asMembershipRole,
+  isMemberOf,
   joinCompany,
   leaveCompany,
+  listCompanyMembers,
 } from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import {
@@ -40,17 +42,16 @@ export const teamRouter = router({
   listMembers: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
 
-    const members = await ctx.db.query.user.findMany({
-      where: eq(user.companyId, ctx.companyId),
-      columns: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        jobTitle: true,
-        createdAt: true,
-      },
-    });
+    const members = (await listCompanyMembers(ctx.db, ctx.companyId)).map(
+      ({ id, name, email, role, jobTitle, createdAt }) => ({
+        id,
+        name,
+        email,
+        role,
+        jobTitle,
+        createdAt,
+      }),
+    );
 
     // Category-level assignments, NIS 2 only: the /team page listed member
     // assignments carrying DSGVO / AI-Act / CRA category codes otherwise.
@@ -419,9 +420,8 @@ export const teamRouter = router({
         });
       }
 
-      // Verify user belongs to this company
       const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
+        where: and(eq(user.id, input.userId), isMemberOf(ctx.db, ctx.companyId)),
       });
       if (!member) {
         throw new TRPCError({
@@ -517,9 +517,8 @@ export const teamRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      // Verify user belongs to this company
       const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
+        where: and(eq(user.id, input.userId), isMemberOf(ctx.db, ctx.companyId)),
       });
       if (!member) {
         throw new TRPCError({
