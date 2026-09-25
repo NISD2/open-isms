@@ -1,5 +1,50 @@
 import { describe, expect, test } from "bun:test";
-import { invoiceDates } from "./order";
+import { invoiceDates, netCentsFor, priceFor } from "./order";
+
+describe("netCentsFor", () => {
+  test("charges a grandfathered account half, everyone else the full price", () => {
+    expect(netCentsFor("grandfathered")).toBe(240_000);
+    expect(netCentsFor("free")).toBe(480_000);
+    expect(netCentsFor("full")).toBe(480_000);
+  });
+});
+
+describe("priceFor", () => {
+  const confirmed = {
+    status: "valid",
+    countryCode: "NL",
+    vatNumber: "000000000B01",
+    name: null,
+    address: null,
+    consultationNumber: null,
+    checkedAt: "2026-09-25T10:00:00Z",
+  } as const;
+
+  test("adds German VAT for a German customer, on whatever net the account pays", () => {
+    const full = priceFor("DE", null, 480_000);
+    expect(full).toMatchObject({
+      netCents: 480_000,
+      vatCents: 91_200,
+      grossCents: 571_200,
+    });
+    const half = priceFor("DE", null, 240_000);
+    expect(half).toMatchObject({
+      netCents: 240_000,
+      vatCents: 45_600,
+      grossCents: 285_600,
+    });
+  });
+
+  test("reverse charges a confirmed EU business and charges VAT when unconfirmed", () => {
+    expect(priceFor("NL", confirmed, 480_000)).toMatchObject({
+      vatCents: 0,
+      grossCents: 480_000,
+    });
+    expect(
+      priceFor("NL", { status: "unavailable", reason: "down" }, 480_000).vatCents,
+    ).toBe(91_200);
+  });
+});
 
 describe("invoiceDates", () => {
   test("dates an order by the calendar day in Berlin, not the server's clock", () => {

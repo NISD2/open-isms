@@ -133,29 +133,6 @@ const request = async <T>(
   return { ok: true, data: parsed.value as T };
 };
 
-/**
- * A call whose success carries no body, such as sending an invoice (204 No Content). Only an empty
- * or JSON body counts as success: the sandbox's HTML login page arrives as a 200 too, and reporting
- * that as "sent" would mean nobody resends an invoice that never went out.
- */
-const requestNoContent = async (
-  c: QontoConfig,
-  method: "GET" | "POST",
-  path: string,
-  body?: unknown,
-): Promise<QontoResult<null>> => {
-  const r = await exchange(c, method, path, body);
-  if (!r.ok) return r;
-  if (r.text && !parseJson(r.text).ok) {
-    return {
-      ok: false,
-      status: r.status,
-      error: `unexpected body: ${r.text.slice(0, 200)}`,
-    };
-  }
-  return { ok: true, data: null };
-};
-
 const parseJson = (
   text: string,
 ): { readonly ok: true; readonly value: unknown } | { readonly ok: false } => {
@@ -230,6 +207,24 @@ export interface ClientRecord {
   readonly client?: { readonly id?: string; readonly name?: string };
 }
 
+export interface ClientList {
+  readonly clients?: readonly { readonly id?: string }[];
+}
+
+/**
+ * Clients with this VAT number. Qonto has no uniqueness rule on clients, so a returning customer
+ * is found here before a second record is created for them.
+ */
+export const findClientsByVatNumber = (
+  c: QontoConfig,
+  vatNumber: string,
+): Promise<QontoResult<ClientList>> =>
+  request<ClientList>(
+    c,
+    "GET",
+    `/clients?filter[vat_number]=${encodeURIComponent(vatNumber)}`,
+  );
+
 export const createClient = (
   c: QontoConfig,
   input: ClientInput,
@@ -282,6 +277,8 @@ export interface InvoiceRecord {
     readonly number?: string;
     readonly status?: string;
     readonly attachment_id?: string | null;
+    /** The invoice's public page, open without login for 180 days after issue. */
+    readonly invoice_url?: string;
     readonly total_amount?: { readonly value?: string; readonly currency?: string };
   };
 }
@@ -328,31 +325,37 @@ export const getInvoice = (
 ): Promise<QontoResult<InvoiceRecord>> =>
   request<InvoiceRecord>(c, "GET", `/client_invoices/${encodeURIComponent(id)}`);
 
-export interface InvoiceEmail {
-  /** Every recipient, billing mailbox first, because that is usually not the person who signed up. */
-  readonly to: readonly string[];
-  readonly subject: string;
-  readonly body?: string;
-  /** Qonto also mails the account owner; on by default in the API, and worth keeping. */
-  readonly copyToSelf?: boolean;
+export interface AttachmentRecord {
+  readonly attachment?: { readonly url?: string };
 }
 
-/**
- * Sends the invoice by email. Creating an invoice does not send it; this is the second call.
- *
- * Field names are the documented ones (`send_to`, `email_title`, `email_body`, `copy_to_self`).
- * The sandbox validates them: a payload with `recipients` came back 422 with "SendTo failed on
- * the not_blank tag" and "Subject must have a value", which is how this shape was confirmed.
- * Success is 204 with no body.
- */
-export const sendInvoiceByEmail = (
+/** An attachment's download link, which Qonto keeps valid for thirty minutes. */
+export const getAttachment = (
   c: QontoConfig,
   id: string,
-  email: InvoiceEmail,
-): Promise<QontoResult<null>> =>
-  requestNoContent(c, "POST", `/client_invoices/${encodeURIComponent(id)}/send`, {
-    send_to: email.to,
-    email_title: email.subject,
-    ...(email.body ? { email_body: email.body } : {}),
-    copy_to_self: email.copyToSelf ?? true,
-  });
+): Promise<QontoResult<AttachmentRecord>> =>
+  request<AttachmentRecord>(c, "GET", `/attachments/${encodeURIComponent(id)}`);
+
+/** Larger than any invoice PDF, small enough that a wrong link cannot fill memory. */
+const MAX_PDF_BYTES = 10 * 1024 * 1024;
+
+/**
+ * Download a PDF from a link Qonto handed out. The link is signed and carries no credential of
+ * ours, so none is sent. The answer is checked like any other response: https only, a success
+ * status, a body that really is a PDF, and a size limit.
+ */
+export const downloadPdf = async (url: string): Promise<QontoResult<Uint8Array>> => {
+  if (!httpsHostOf(url)) return { ok: false, status: null, error: "not an https link" };
+  const res = await fetch(url, { signal: AbortSignal.timeout(15_000) }).catch(
+    (e: unknown) => (e instanceof Error ? e : new Error(String(e))),
+  );
+  if (res instanceof Error) return { ok: false, status: null, error: res.message };
+  if (!res.ok) return { ok: false, status: res.status, error: "download failed" };
+  const bytes = new Uint8Array(await res.arrayBuffer().catch(() => new ArrayBuffer(0)));
+  if (bytes.length === 0 || bytes.length > MAX_PDF_BYTES) {
+    return { ok: false, status: res.status, error: `unexpected size ${bytes.length}` };
+  }
+  const isPdf = String.fromCharCode(...bytes.slice(0, 5)) === "%PDF-";
+  if (!isPdf) return { ok: false, status: res.status, error: "not a PDF" };
+  return { ok: true, data: bytes };
+};

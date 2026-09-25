@@ -5,11 +5,22 @@
  * be tested without a network, which is most of what can go wrong on an invoice.
  */
 import { z } from "zod";
+import type { AccessLevel } from "./accounts";
 import { checkStructure } from "./vat-checksum";
 import { type VatCheck, type VatTreatment, vatTreatment } from "./vies";
 
 /** 4.800 net a year, the single offer. Cents, because money is never a float. */
 export const ANNUAL_NET_CENTS = 480_000;
+
+/** What an account that got in before the paywall pays: half, for the guided path. */
+export const GRANDFATHERED_NET_CENTS = 240_000;
+
+/**
+ * The yearly net price for an account, decided on the server from its access level and never
+ * taken from a browser.
+ */
+export const netCentsFor = (level: AccessLevel): number =>
+  level === "grandfathered" ? GRANDFATHERED_NET_CENTS : ANNUAL_NET_CENTS;
 
 /**
  * What the billing step collects. Every field here is on the invoice or decides the tax on it;
@@ -20,27 +31,27 @@ export const ANNUAL_NET_CENTS = 480_000;
  * schema rather than a separate step, so a typo is caught by the same validation that catches an
  * empty field.
  */
+/**
+ * The messages are codes, not sentences: the order form translates them (messages/billing,
+ * `errors.<code>`), so a German customer is not corrected in English.
+ */
 export const orderSchema = z.object({
-  companyName: z
-    .string()
-    .trim()
-    .min(2, "The company's registered name is needed for the invoice.")
-    .max(255),
-  street: z.string().trim().min(2, "Street and number.").max(255),
-  zip: z.string().trim().min(3, "Postcode.").max(20),
-  city: z.string().trim().min(2, "City.").max(255),
+  companyName: z.string().trim().min(2, "companyName").max(255, "tooLong"),
+  street: z.string().trim().min(2, "street").max(255, "tooLong"),
+  zip: z.string().trim().min(3, "zip").max(20, "tooLong"),
+  city: z.string().trim().min(2, "city").max(255, "tooLong"),
   countryCode: z
     .string()
     .trim()
-    .length(2, "Two-letter country code.")
+    .length(2, "countryCode")
     .transform((s) => s.toUpperCase()),
-  vatNumber: z.string().trim().min(4, "VAT identification number."),
+  vatNumber: z.string().trim().min(4, "vatFormat"),
   /** Where the invoice is sent. Usually not the person ordering: it goes to Buchhaltung. */
-  invoiceEmail: z.email("An address the invoice can be sent to."),
+  invoiceEmail: z.email("email"),
   /** So the person who ordered can see what their accounting received. */
-  copyToEmail: z.union([z.email(), z.literal("")]).optional(),
+  copyToEmail: z.union([z.email("email"), z.literal("")]).optional(),
   /** Their own Bestellnummer or Kostenstelle. Many companies will not pay without it. */
-  purchaseOrder: z.string().trim().max(120).optional(),
+  purchaseOrder: z.string().trim().max(120, "tooLong").optional(),
 });
 
 export type OrderInput = z.infer<typeof orderSchema>;
@@ -50,12 +61,7 @@ export const orderSchemaWithVatCheck = orderSchema.superRefine((v, ctx) => {
   const compact = v.vatNumber.replace(/[\s.\-/]/g, "").toUpperCase();
   const m = /^([A-Z]{2})([0-9A-Z]{2,14})$/.exec(compact);
   if (!m?.[1] || !m[2]) {
-    ctx.addIssue({
-      code: "custom",
-      path: ["vatNumber"],
-      message:
-        "That does not look like a VAT identification number. It starts with a country code.",
-    });
+    ctx.addIssue({ code: "custom", path: ["vatNumber"], message: "vatFormat" });
     return;
   }
   const r = checkStructure(m[1], m[2]);
@@ -63,10 +69,7 @@ export const orderSchemaWithVatCheck = orderSchema.superRefine((v, ctx) => {
     ctx.addIssue({
       code: "custom",
       path: ["vatNumber"],
-      message:
-        r.reason === "checksum"
-          ? "That number has a digit wrong somewhere. Check it against your tax office letter."
-          : "That does not look like a VAT identification number for that country.",
+      message: r.reason === "checksum" ? "vatChecksum" : "vatCountry",
     });
   }
 });
@@ -85,16 +88,20 @@ export interface Money {
  * could not be confirmed carries domestic VAT, because the confirmation is what justifies zeroing
  * it. That last branch is the one that quietly costs money if it is got wrong.
  */
-export const priceFor = (countryCode: string, check: VatCheck | null): Money => {
+export const priceFor = (
+  countryCode: string,
+  check: VatCheck | null,
+  netCents: number,
+): Money => {
   const treatment = vatTreatment(
     countryCode,
     check ?? { status: "unavailable", reason: "not checked" },
   );
-  const vatCents = Math.round(ANNUAL_NET_CENTS * treatment.rate);
+  const vatCents = Math.round(netCents * treatment.rate);
   return {
-    netCents: ANNUAL_NET_CENTS,
+    netCents,
     vatCents,
-    grossCents: ANNUAL_NET_CENTS + vatCents,
+    grossCents: netCents + vatCents,
     vatRate: treatment.rate,
     treatment,
   };
@@ -205,28 +212,36 @@ export const invoiceWording = (
  * two things repeated here are the ones a payer acts on without opening it: the term, and the
  * number to quote.
  */
-export const invoiceEmailWording = (
-  number: string,
-  locale: "de" | "en",
-): { readonly subject: string; readonly body: string } =>
-  locale === "de"
+export const invoiceEmailWording = (opts: {
+  readonly number: string;
+  readonly locale: "de" | "en";
+  /** Where the invoice is when the PDF could not be attached: Qonto's public invoice page. */
+  readonly invoiceUrl: string | null;
+}): { readonly subject: string; readonly paragraphs: readonly string[] } => {
+  const { number, locale, invoiceUrl } = opts;
+  return locale === "de"
     ? {
         subject: `Rechnung ${number}: NIS 2 Durchgang, Jahreslizenz`,
-        body: [
+        paragraphs: [
           "Guten Tag,",
-          `anbei erhalten Sie die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang.`,
+          invoiceUrl
+            ? `die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang finden Sie hier: ${invoiceUrl}`
+            : `anbei erhalten Sie die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang.`,
           "Zahlbar innerhalb von 30 Tagen. Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an. 30 Tage Geld zurück ab Bestelldatum.",
           "Mit freundlichen Grüßen",
           "nisd2.eu",
-        ].join("\n\n"),
+        ],
       }
     : {
         subject: `Invoice ${number}: NIS 2 guided pass, annual licence`,
-        body: [
+        paragraphs: [
           "Hello,",
-          `please find attached invoice ${number} for the NIS 2 guided pass annual licence.`,
+          invoiceUrl
+            ? `invoice ${number} for the NIS 2 guided pass annual licence is here: ${invoiceUrl}`
+            : `please find attached invoice ${number} for the NIS 2 guided pass annual licence.`,
           "Payable within 30 days. Please quote the invoice number as the payment reference. Thirty days money back from the order date.",
           "Kind regards",
           "nisd2.eu",
-        ].join("\n\n"),
+        ],
       };
+};

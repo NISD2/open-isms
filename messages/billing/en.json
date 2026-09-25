@@ -1,0 +1,112 @@
+{
+  "billing": {
+    "order": {
+      "metaTitle": "Order",
+      "title": "Order",
+      "intro": "The NIS 2 guided pass for one year, {price} net. One payment covers every organization and user on your account. You pay by invoice within 30 days, and access opens as soon as you order. If you cancel within 30 days of ordering, you get your money back.",
+      "sandboxNotice": "Test mode: this order creates an invoice in the Qonto sandbox and unlocks this account.",
+      "alreadyPaid": "Your account is paid until {date}, invoice {number}.",
+      "adminOnly": "Someone with admin rights in your organization can place the order. Ask them to open this page.",
+      "toInvoices": "Your invoices"
+    },
+    "form": {
+      "recipientTitle": "Billed to",
+      "recipientDescription": "The invoice is made out to the company. Where it is sent is set further down.",
+      "companyName": "Company name",
+      "companyNamePlaceholder": "Example Holding Ltd",
+      "companyNameHint": "Exactly as registered. We cannot check it for you, because the EU VAT register does not disclose German company names.",
+      "street": "Street and number",
+      "streetPlaceholder": "1 Example Street",
+      "zip": "Postcode",
+      "zipPlaceholder": "50676",
+      "city": "City",
+      "cityPlaceholder": "Cologne",
+      "countryCode": "Country",
+      "vatNumber": "VAT number",
+      "vatNumberPlaceholder": "DE123456789",
+      "vatHint": "Decides the VAT on the invoice.",
+      "vatChecking": "Checking the EU register",
+      "deliveryTitle": "Where the invoice goes",
+      "deliveryDescription": "In most companies the invoice goes to accounting, not to the person ordering.",
+      "invoiceEmail": "Invoice email",
+      "invoiceEmailPlaceholder": "invoices@example.invalid",
+      "copyToEmail": "Copy to (optional)",
+      "copyToEmailPlaceholder": "you@example.invalid",
+      "purchaseOrder": "Purchase order or cost centre (optional)",
+      "purchaseOrderPlaceholder": "PO-2026-0042",
+      "purchaseOrderHint": "Many companies only pay an invoice that carries their own reference.",
+      "submit": "Place order",
+      "submitting": "Creating the invoice"
+    },
+    "registry": {
+      "valid": "Confirmed by the EU register",
+      "invalid": "Not in the register yet",
+      "unavailable": "Register unreachable, which holds nothing up",
+      "malformed": "Not checked"
+    },
+    "warnings": {
+      "notInRegister": "The EU register does not know this number yet, which is normal for a newly issued one. We check again later, and the invoice is not held up.",
+      "checkNumber": "Please check the VAT number."
+    },
+    "price": {
+      "title": "What is charged",
+      "net": "Net",
+      "vat": "VAT {rate}%",
+      "gross": "Total"
+    },
+    "treatment": {
+      "reverse_charge": "Reverse charge: you account for the VAT yourself.",
+      "unconfirmed_eu": "Reverse charge needs a number the EU register has confirmed. This one is not confirmed yet, so the invoice carries German VAT.",
+      "outside_eu": "Supplied outside Germany for VAT purposes, so no German VAT."
+    },
+    "errors": {
+      "companyName": "The registered company name goes on the invoice.",
+      "street": "Street and number are missing.",
+      "zip": "The postcode is missing.",
+      "city": "The city is missing.",
+      "countryCode": "Two-letter country code, for example DE.",
+      "vatFormat": "That does not look like a VAT number. It starts with the country code.",
+      "vatChecksum": "A digit in that number is wrong. Check it against your tax office letter.",
+      "vatCountry": "That does not match the VAT number format of that country.",
+      "email": "An address the invoice can be sent to.",
+      "tooLong": "That is too long.",
+      "generic": "Please check this field."
+    },
+    "result": {
+      "title": "Ordered",
+      "body": "Invoice {number} for {gross} reaches {email} within a few minutes. Payable by {dueDate}. Your access is open.",
+      "alreadyOrdered": "This account already has a current invoice. You find it under your invoices.",
+      "tooManyRequests": "Too many attempts. Please wait a minute.",
+      "failed": "The order could not be completed just now. Please try again later."
+    },
+    "page": {
+      "title": "Billing",
+      "description": "Your account's access, price and invoices.",
+      "accessTitle": "Access",
+      "level": {
+        "free": "No licence",
+        "grandfathered": "Early account: the current journey stays free for you",
+        "full": "NIS 2 guided pass, annual licence"
+      },
+      "price": "Your price: {price} net a year",
+      "order": "Order",
+      "invoicesTitle": "Invoices",
+      "adminOnly": "People with admin rights in your organization see the invoices.",
+      "empty": "No invoices yet.",
+      "number": "Number",
+      "amount": "Amount",
+      "period": "Period",
+      "status": "Status",
+      "download": "PDF",
+      "pdfPending": "PDF to follow",
+      "credited": "Credited ({number})",
+      "statuses": {
+        "paid": "Paid",
+        "unpaid": "Open",
+        "canceled": "Canceled",
+        "draft": "Draft",
+        "unknown": "Unavailable"
+      }
+    }
+  }
+}

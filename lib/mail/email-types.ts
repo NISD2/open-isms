@@ -65,6 +65,8 @@ export const EMAIL_TYPES = {
   "account.contact_email_changed": { category: "security", consent: "essential" },
   "account.invite": { category: "account", consent: "essential" },
   "account.member_removed": { category: "account", consent: "essential" },
+  /** The invoice for an order, to the billing address the customer gave. */
+  "billing.invoice": { category: "account", consent: "essential" },
 
   // --- Optional, to account holders ----------------------------------------
   "work.category_assigned": { category: "work", consent: "user" },

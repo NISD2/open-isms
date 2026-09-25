@@ -1,0 +1,112 @@
+{
+  "billing": {
+    "order": {
+      "metaTitle": "Bestellen",
+      "title": "Bestelling",
+      "intro": "De NIS 2 begeleide doorloop voor een jaar, {price} netto. Eén betaling geldt voor alle organisaties en gebruikers in uw account. U betaalt op factuur binnen 30 dagen, en de toegang gaat open zodra u bestelt. Als u binnen 30 dagen na de bestelling opzegt, krijgt u uw geld terug.",
+      "sandboxNotice": "Testmodus: deze bestelling maakt een factuur aan in de Qonto sandbox en geeft dit account toegang.",
+      "alreadyPaid": "Uw account is betaald tot {date}, factuur {number}.",
+      "adminOnly": "Iemand met beheerdersrechten in uw organisatie kan de bestelling plaatsen. Vraag die persoon deze pagina te openen.",
+      "toInvoices": "Naar uw facturen"
+    },
+    "form": {
+      "recipientTitle": "Factuur aan",
+      "recipientDescription": "De factuur staat op naam van het bedrijf. Waar hij naartoe gaat, stelt u verderop in.",
+      "companyName": "Bedrijfsnaam",
+      "companyNamePlaceholder": "Voorbeeld Beheer B.V.",
+      "companyNameHint": "Precies zoals ingeschreven. Wij kunnen dat niet controleren, omdat het btw-register van de EU Duitse bedrijfsnamen niet vrijgeeft.",
+      "street": "Straat en huisnummer",
+      "streetPlaceholder": "Voorbeeldstraat 1",
+      "zip": "Postcode",
+      "zipPlaceholder": "1011 AB",
+      "city": "Plaats",
+      "cityPlaceholder": "Amsterdam",
+      "countryCode": "Land",
+      "vatNumber": "Btw-nummer",
+      "vatNumberPlaceholder": "NL123456789B01",
+      "vatHint": "Bepaalt de btw op de factuur.",
+      "vatChecking": "Controle in het register van de EU",
+      "deliveryTitle": "Waar de factuur naartoe gaat",
+      "deliveryDescription": "In de meeste bedrijven gaat de factuur naar de boekhouding, niet naar degene die bestelt.",
+      "invoiceEmail": "E-mail voor de factuur",
+      "invoiceEmailPlaceholder": "facturen@example.invalid",
+      "copyToEmail": "Kopie aan (optioneel)",
+      "copyToEmailPlaceholder": "u@example.invalid",
+      "purchaseOrder": "Inkoopordernummer of kostenplaats (optioneel)",
+      "purchaseOrderPlaceholder": "PO-2026-0042",
+      "purchaseOrderHint": "Veel bedrijven betalen een factuur alleen als hun eigen referentie erop staat.",
+      "submit": "Bestelling plaatsen",
+      "submitting": "Factuur wordt aangemaakt"
+    },
+    "registry": {
+      "valid": "Bevestigd door het register van de EU",
+      "invalid": "Nog niet bekend in het register",
+      "unavailable": "Register niet bereikbaar, dat houdt niets op",
+      "malformed": "Niet gecontroleerd"
+    },
+    "warnings": {
+      "notInRegister": "Het register van de EU kent dit nummer nog niet. Bij een nieuw uitgegeven nummer is dat normaal. Wij controleren later opnieuw, en de factuur wordt er niet door opgehouden.",
+      "checkNumber": "Controleer het btw-nummer."
+    },
+    "price": {
+      "title": "Wat in rekening wordt gebracht",
+      "net": "Netto",
+      "vat": "Btw {rate}%",
+      "gross": "Totaal"
+    },
+    "treatment": {
+      "reverse_charge": "Btw verlegd: u draagt de btw zelf af.",
+      "unconfirmed_eu": "Verlegging vraagt een nummer dat het register van de EU heeft bevestigd. Dit nummer is nog niet bevestigd, daarom bevat de factuur Duitse btw.",
+      "outside_eu": "Plaats van dienst buiten Duitsland, daarom zonder Duitse btw."
+    },
+    "errors": {
+      "companyName": "De bedrijfsnaam komt op de factuur en is nodig.",
+      "street": "Straat en huisnummer ontbreken.",
+      "zip": "De postcode ontbreekt.",
+      "city": "De plaats ontbreekt.",
+      "countryCode": "Landcode van twee letters, bijvoorbeeld NL.",
+      "vatFormat": "Dat lijkt geen btw-nummer. Het begint met de landcode.",
+      "vatChecksum": "Er zit een verkeerd cijfer in dat nummer. Vergelijk het met de brief van de Belastingdienst.",
+      "vatCountry": "Dat past niet bij de opbouw van een btw-nummer uit dat land.",
+      "email": "Een adres waar de factuur naartoe kan.",
+      "tooLong": "Dat is te lang.",
+      "generic": "Controleer dit veld."
+    },
+    "result": {
+      "title": "Besteld",
+      "body": "Factuur {number} van {gross} komt binnen enkele minuten aan bij {email}. Te betalen voor {dueDate}. Uw toegang is open.",
+      "alreadyOrdered": "Voor dit account bestaat al een geldige factuur. U vindt die onder uw facturen.",
+      "tooManyRequests": "Te veel pogingen. Wacht een minuut.",
+      "failed": "De bestelling kon nu niet worden afgerond. Probeer het later opnieuw."
+    },
+    "page": {
+      "title": "Facturatie",
+      "description": "Toegang, prijs en facturen van uw account.",
+      "accessTitle": "Toegang",
+      "level": {
+        "free": "Zonder licentie",
+        "grandfathered": "Bestaand account: de huidige doorloop blijft voor u vrij te gebruiken",
+        "full": "Jaarlicentie NIS 2 begeleide doorloop"
+      },
+      "price": "Uw prijs: {price} netto per jaar",
+      "order": "Bestellen",
+      "invoicesTitle": "Facturen",
+      "adminOnly": "Mensen met beheerdersrechten in uw organisatie zien de facturen.",
+      "empty": "Nog geen facturen.",
+      "number": "Nummer",
+      "amount": "Bedrag",
+      "period": "Periode",
+      "status": "Status",
+      "download": "PDF",
+      "pdfPending": "PDF volgt",
+      "credited": "Gecrediteerd ({number})",
+      "statuses": {
+        "paid": "Betaald",
+        "unpaid": "Open",
+        "canceled": "Geannuleerd",
+        "draft": "Concept",
+        "unknown": "Niet op te halen"
+      }
+    }
+  }
+}

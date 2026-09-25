@@ -236,7 +236,11 @@ If a copy choice fails one of these, fix it before shipping.
 
 Rules learned from three review passes over the first billing PR. Each one prevented a real defect.
 
-- **Tax follows the VAT number, never the address.** The country in the VAT number decides German VAT, reverse charge or none. The order service must price once and invoice that price. (The sandbox order page still re-checks VIES at submit; it is replaced by the order service, not extended.)
+- **One order service, `placeOrder` in `lib/billing/place-order.ts`.** The order page (tRPC `billing.place`) and the admin close both call it; nothing else creates an invoice. The price comes from the account's access level on the server, never from a browser.
+- **Who may order is `lib/billing/ordering.ts` plus the company role.** Off while Qonto or the invoice prefix is unusable, platform admins only against the sandbox, everyone live; and only a company admin, because an order binds the company. `/bestellen` is a 404 whenever ordering is not open to the visitor.
+- **Nothing on our side may fail after Qonto has issued an invoice.** Everything that can refuse (the account lock, an unexpired uncredited invoice, which Qonto client this account may use) is decided before `createInvoice`. A Qonto client belongs to one billing account, so a client another account holds is never reused.
+- **We deliver the invoice, not Qonto** (`lib/billing/deliver-invoice.ts`): poll for the PDF, archive it to S3, and send it from our address as `billing.invoice`, with Qonto's public link as the fallback. It runs after the order commits and can never undo it.
+- **Tax follows the VAT number, never the address.** The country in the VAT number decides German VAT, reverse charge or none. The order service prices once and invoices that price.
 - **VIES informs, it never blocks.** An outage or an invalid answer is recorded, never an error. Our own VAT number is the requester, parsed by the same `splitVatNumber` as a customer's; one that cannot be read is sent as no requester, never as a wrong one.
 - **Credentials go only to Qonto's two hosts, over https.** The host picks the pair (sandbox pair and staging token for the sandbox, production pair otherwise), with no fallback between them. Anything else yields no config.
 - **Settings live in `lib/billing/config-schema.ts`**, included by `lib/env.ts`. Billing modules take settings as parameters and never read `process.env`. A wrong billing value switches billing off; it never stops the app booting.

@@ -7,8 +7,9 @@
  *
  *   - The VAT number is checked offline as they type, and against the EU register when they leave
  *     the field. Only the offline check can stop them. A register outage is silent.
- *   - The price is not a constant on the page: it is computed from the country and the register's
- *     answer, so a reverse-charged customer sees the zero rate and the reason before they commit.
+ *   - The price is not a constant on the page: the server computes it from the account's access
+ *     level, the country and the register's answer, so a reverse-charged customer sees the zero
+ *     rate and the reason before they commit.
  *   - The invoice email is its own field, defaulted to nothing rather than to the person ordering,
  *     because in a German company of this size it goes to Buchhaltung and quietly assuming
  *     otherwise is the most common way an invoice sits unpaid for six weeks.
@@ -16,7 +17,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -36,75 +37,40 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  useFormField,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Link } from "@/i18n/navigation";
 import { orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { trpc } from "@/lib/trpc/client";
 
-type OrderValues = z.infer<typeof orderSchemaWithVatCheck>;
+type OrderValues = z.input<typeof orderSchemaWithVatCheck>;
 
-interface PriceView {
-  readonly net: string;
-  readonly vat: string;
-  readonly gross: string;
-  readonly vatRatePercent: number;
-  readonly treatment: string;
-  readonly treatmentNote: string | null;
+/** The schema's messages are codes (lib/billing/order.ts); this says them in the page's language. */
+function FieldMessage() {
+  const t = useTranslations("billing.errors");
+  const { error, formMessageId } = useFormField();
+  if (!error) return null;
+  const code = String(error.message ?? "");
+  return (
+    <p id={formMessageId} className="text-destructive text-sm">
+      {t.has(code) ? t(code) : t("generic")}
+    </p>
+  );
 }
 
-interface ValidateResponse {
-  readonly gate?: { readonly proceed: boolean; readonly warning: string | null };
-  readonly attempt?: {
-    readonly outcome: string;
-    readonly detail: string | null;
-    readonly consultationNumber: string | null;
-  };
-  readonly price?: PriceView;
-}
-
-interface InvoiceResult {
-  readonly ok?: boolean;
-  readonly sandbox?: boolean;
-  readonly error?: string;
-  readonly detail?: string;
-  readonly invoice?: {
-    readonly id: string | null;
-    readonly number: string | null;
-    readonly status: string | null;
-  };
-  readonly money?: {
-    readonly net: string;
-    readonly vat: string;
-    readonly gross: string;
-    readonly treatment: string;
-  };
-  readonly dates?: {
-    readonly issueDate: string;
-    readonly dueDate: string;
-    readonly performanceEndDate: string;
-  };
-  readonly vatCheck?: {
-    readonly outcome: string;
-    readonly consultationNumber: string | null;
-    readonly detail: string | null;
-  };
-}
-
-const registryLabel: Record<string, string> = {
-  valid: "Confirmed by the EU register",
-  invalid: "Not known to the register yet",
-  unavailable: "Register unreachable, which does not hold anything up",
-  malformed: "Not checked",
-};
+/** An ISO calendar day, shown as that same day in the reader's locale. */
+const formatDay = (isoDay: string, locale: string) =>
+  new Intl.DateTimeFormat(locale, { dateStyle: "long", timeZone: "UTC" }).format(
+    new Date(`${isoDay}T12:00:00Z`),
+  );
 
 export function OrderForm() {
-  const [price, setPrice] = useState<PriceView | null>(null);
-  const [registry, setRegistry] = useState<ValidateResponse["attempt"] | null>(null);
-  const [warning, setWarning] = useState<string | null>(null);
-  const [checking, setChecking] = useState(false);
-  const [result, setResult] = useState<InvoiceResult | null>(null);
-  const [submitting, setSubmitting] = useState(false);
+  const t = useTranslations("billing");
+  const locale = useLocale();
+  const quote = trpc.billing.quote.useMutation();
+  const place = trpc.billing.place.useMutation();
 
   const form = useForm<OrderValues>({
     resolver: zodResolver(orderSchemaWithVatCheck),
@@ -113,7 +79,7 @@ export function OrderForm() {
       street: "",
       zip: "",
       city: "",
-      countryCode: "DE",
+      countryCode: locale === "nl" ? "NL" : "DE",
       vatNumber: "",
       invoiceEmail: "",
       copyToEmail: "",
@@ -121,65 +87,64 @@ export function OrderForm() {
     },
   });
 
-  const validateVat = async (vatNumber: string) => {
+  const checkVat = (vatNumber: string) => {
     if (vatNumber.trim().length < 4) return;
-    setChecking(true);
-    try {
-      const res = await fetch("/api/billing/validate-vat", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ vatNumber, countryCode: form.getValues("countryCode") }),
-      });
-      const data = (await res.json()) as ValidateResponse;
-      setPrice(data.price ?? null);
-      setRegistry(data.attempt ?? null);
-      setWarning(data.gate?.warning ?? null);
-    } catch {
-      // A failed check is not the customer's problem and must not surface as an error.
-      setRegistry(null);
-    } finally {
-      setChecking(false);
-    }
+    // A failed check is not the customer's problem, so its error is never shown.
+    quote.mutate({ vatNumber, countryCode: form.getValues("countryCode") });
   };
 
-  const onSubmit = async (values: OrderValues) => {
-    setSubmitting(true);
-    setResult(null);
-    try {
-      const res = await fetch("/api/billing/create-invoice", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      setResult((await res.json()) as InvoiceResult);
-    } catch (e) {
-      setResult({ error: e instanceof Error ? e.message : "request failed" });
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const onSubmit = (values: OrderValues) =>
+    place.mutate(orderSchemaWithVatCheck.parse(values));
+
+  if (place.data) {
+    return (
+      <Alert>
+        <CheckCircle2 className="h-4 w-4" />
+        <AlertTitle>{t("result.title")}</AlertTitle>
+        <AlertDescription className="space-y-3">
+          <p>
+            {t("result.body", {
+              number: place.data.number,
+              gross: place.data.gross,
+              email: form.getValues("invoiceEmail"),
+              dueDate: formatDay(place.data.dueDate, locale),
+            })}
+          </p>
+          <Link href="/billing" className="font-medium underline underline-offset-4">
+            {t("order.toInvoices")}
+          </Link>
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
+  const registry = quote.data?.attempt?.outcome ?? null;
+  const price = quote.data?.price ?? null;
+  const gate = quote.data?.gate ?? null;
+  const warning =
+    gate && !gate.proceed
+      ? t("warnings.checkNumber")
+      : gate?.warning && registry === "invalid"
+        ? t("warnings.notInRegister")
+        : null;
+  const placeError = place.error?.data?.code;
+  const failure =
+    placeError === "CONFLICT"
+      ? t("result.alreadyOrdered")
+      : placeError === "TOO_MANY_REQUESTS"
+        ? t("result.tooManyRequests")
+        : place.error
+          ? t("result.failed")
+          : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <Alert>
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Sandbox only</AlertTitle>
-        <AlertDescription>
-          This page creates a real invoice in the Qonto <strong>sandbox</strong>. The
-          route refuses to run against production, so nobody can be billed from here. Use
-          an obviously fake company: the sandbox is a shared test environment.
-        </AlertDescription>
-      </Alert>
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Rechnungsempfänger</CardTitle>
-              <CardDescription>
-                The invoice is made out to the company. Where it is sent is the field
-                below.
-              </CardDescription>
+              <CardTitle>{t("form.recipientTitle")}</CardTitle>
+              <CardDescription>{t("form.recipientDescription")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <FormField
@@ -187,15 +152,12 @@ export function OrderForm() {
                 name="companyName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Firmenname</FormLabel>
+                    <FormLabel>{t("form.companyName")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Muster Verwaltungs GmbH" {...field} />
+                      <Input placeholder={t("form.companyNamePlaceholder")} {...field} />
                     </FormControl>
-                    <FormDescription>
-                      Exactly as the register has it. We cannot verify this for you: the
-                      EU register does not disclose German company names.
-                    </FormDescription>
-                    <FormMessage />
+                    <FormDescription>{t("form.companyNameHint")}</FormDescription>
+                    <FieldMessage />
                   </FormItem>
                 )}
               />
@@ -205,11 +167,11 @@ export function OrderForm() {
                 name="street"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Straße und Hausnummer</FormLabel>
+                    <FormLabel>{t("form.street")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Musterweg 1" {...field} />
+                      <Input placeholder={t("form.streetPlaceholder")} {...field} />
                     </FormControl>
-                    <FormMessage />
+                    <FieldMessage />
                   </FormItem>
                 )}
               />
@@ -220,11 +182,11 @@ export function OrderForm() {
                   name="zip"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>PLZ</FormLabel>
+                      <FormLabel>{t("form.zip")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="50676" {...field} />
+                        <Input placeholder={t("form.zipPlaceholder")} {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FieldMessage />
                     </FormItem>
                   )}
                 />
@@ -233,11 +195,11 @@ export function OrderForm() {
                   name="city"
                   render={({ field }) => (
                     <FormItem className="sm:col-span-2">
-                      <FormLabel>Ort</FormLabel>
+                      <FormLabel>{t("form.city")}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Köln" {...field} />
+                        <Input placeholder={t("form.cityPlaceholder")} {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FieldMessage />
                     </FormItem>
                   )}
                 />
@@ -249,11 +211,11 @@ export function OrderForm() {
                   name="countryCode"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Land</FormLabel>
+                      <FormLabel>{t("form.countryCode")}</FormLabel>
                       <FormControl>
                         <Input placeholder="DE" maxLength={2} {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FieldMessage />
                     </FormItem>
                   )}
                 />
@@ -262,36 +224,32 @@ export function OrderForm() {
                   name="vatNumber"
                   render={({ field }) => (
                     <FormItem className="sm:col-span-2">
-                      <FormLabel>USt-IdNr.</FormLabel>
+                      <FormLabel>{t("form.vatNumber")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="DE123456789"
+                          placeholder={t("form.vatNumberPlaceholder")}
                           {...field}
                           onBlur={(e) => {
                             field.onBlur();
-                            void validateVat(e.target.value);
+                            checkVat(e.target.value);
                           }}
                         />
                       </FormControl>
                       <FormDescription className="flex items-center gap-2">
-                        {checking ? (
+                        {quote.isPending ? (
                           <>
                             <Loader2 className="h-3 w-3 animate-spin" aria-hidden />
-                            Checking the EU register
+                            {t("form.vatChecking")}
                           </>
                         ) : registry ? (
-                          <Badge
-                            variant={
-                              registry.outcome === "valid" ? "default" : "secondary"
-                            }
-                          >
-                            {registryLabel[registry.outcome] ?? registry.outcome}
+                          <Badge variant={registry === "valid" ? "default" : "secondary"}>
+                            {t(`registry.${registry}`)}
                           </Badge>
                         ) : (
-                          "Decides the tax on the invoice."
+                          t("form.vatHint")
                         )}
                       </FormDescription>
-                      <FormMessage />
+                      <FieldMessage />
                     </FormItem>
                   )}
                 />
@@ -308,10 +266,8 @@ export function OrderForm() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Rechnungsversand</CardTitle>
-              <CardDescription>
-                Usually not the person ordering. In most companies this is Buchhaltung.
-              </CardDescription>
+              <CardTitle>{t("form.deliveryTitle")}</CardTitle>
+              <CardDescription>{t("form.deliveryDescription")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <FormField
@@ -319,15 +275,15 @@ export function OrderForm() {
                 name="invoiceEmail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>E-Mail für die Rechnung</FormLabel>
+                    <FormLabel>{t("form.invoiceEmail")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="rechnung@example.invalid"
+                        placeholder={t("form.invoiceEmailPlaceholder")}
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FieldMessage />
                   </FormItem>
                 )}
               />
@@ -336,11 +292,15 @@ export function OrderForm() {
                 name="copyToEmail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Kopie an (optional)</FormLabel>
+                    <FormLabel>{t("form.copyToEmail")}</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="sie@example.invalid" {...field} />
+                      <Input
+                        type="email"
+                        placeholder={t("form.copyToEmailPlaceholder")}
+                        {...field}
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FieldMessage />
                   </FormItem>
                 )}
               />
@@ -349,15 +309,15 @@ export function OrderForm() {
                 name="purchaseOrder"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bestellnummer / Kostenstelle (optional)</FormLabel>
+                    <FormLabel>{t("form.purchaseOrder")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="PO-2026-0042" {...field} />
+                      <Input
+                        placeholder={t("form.purchaseOrderPlaceholder")}
+                        {...field}
+                      />
                     </FormControl>
-                    <FormDescription>
-                      Many companies will not pay an invoice that does not carry their own
-                      reference.
-                    </FormDescription>
-                    <FormMessage />
+                    <FormDescription>{t("form.purchaseOrderHint")}</FormDescription>
+                    <FieldMessage />
                   </FormItem>
                 )}
               />
@@ -367,63 +327,52 @@ export function OrderForm() {
           {price ? (
             <Card className="border-primary/30 bg-primary/5">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base">Was berechnet wird</CardTitle>
+                <CardTitle className="text-base">{t("price.title")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Netto</span>
+                  <span className="text-muted-foreground">{t("price.net")}</span>
                   <span className="tabular-nums">{price.net}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">
-                    USt. {price.vatRatePercent}%
+                    {t("price.vat", { rate: price.vatRatePercent })}
                   </span>
                   <span className="tabular-nums">{price.vat}</span>
                 </div>
                 <Separator className="my-2" />
                 <div className="flex justify-between font-semibold">
-                  <span>Gesamt</span>
+                  <span>{t("price.gross")}</span>
                   <span className="tabular-nums">{price.gross}</span>
                 </div>
-                {price.treatmentNote ? (
+                {price.treatment !== "domestic" ? (
                   <p className="pt-2 text-muted-foreground text-xs">
-                    {price.treatmentNote}
+                    {t(`treatment.${price.treatment}`)}
                   </p>
                 ) : null}
               </CardContent>
             </Card>
           ) : null}
 
-          <Button type="submit" size="lg" className="w-full" disabled={submitting}>
-            {submitting ? (
+          {failure ? (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{failure}</AlertDescription>
+            </Alert>
+          ) : null}
+
+          <Button type="submit" size="lg" className="w-full" disabled={place.isPending}>
+            {place.isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden />
-                Rechnung wird erstellt
+                {t("form.submitting")}
               </>
             ) : (
-              "Rechnung im Sandbox erstellen"
+              t("form.submit")
             )}
           </Button>
         </form>
       </Form>
-
-      {result ? (
-        <Alert variant={result.ok ? "default" : "destructive"}>
-          {result.ok ? (
-            <CheckCircle2 className="h-4 w-4" />
-          ) : (
-            <AlertCircle className="h-4 w-4" />
-          )}
-          <AlertTitle>
-            {result.ok ? "Invoice created in the sandbox" : "Not created"}
-          </AlertTitle>
-          <AlertDescription>
-            <pre className="mt-2 max-h-80 overflow-auto whitespace-pre-wrap break-all text-xs">
-              {JSON.stringify(result, null, 2)}
-            </pre>
-          </AlertDescription>
-        </Alert>
-      ) : null}
     </div>
   );
 }

@@ -214,6 +214,7 @@ export const routing = defineRouting({
     "/status": "/status",
     "/nis2-tool": "/nis2-tool",
     "/toms": "/toms",
+    "/bestellen": "/bestellen",
 
     // Training (course landing under (info)) — keep DE unchanged
     "/training/nis2-ceo": "/training/nis2-ceo",
@@ -239,6 +240,7 @@ export const routing = defineRouting({
     "/assets": "/assets",
     "/audit": "/audit",
     "/audit-readiness": "/audit-readiness",
+    "/billing": "/billing",
     "/changes": "/changes",
     "/compliance": "/compliance",
     "/compliance/[categorySlug]": "/compliance/[categorySlug]",

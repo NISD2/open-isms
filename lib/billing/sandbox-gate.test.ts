@@ -1,15 +1,13 @@
 import { describe, expect, test } from "bun:test";
-import { isSandboxHarnessEnabled } from "./sandbox-gate";
+import { isSandboxBase } from "./sandbox-gate";
 
-const on = (QONTO_API_BASE: string) => isSandboxHarnessEnabled({ QONTO_API_BASE });
-
-describe("isSandboxHarnessEnabled", () => {
-  test("is off for the production Qonto host, which is what a real deploy looks like", () => {
-    expect(on("https://thirdparty.qonto.com/v2")).toBe(false);
+describe("isSandboxBase", () => {
+  test("is false for the production Qonto host, which is what a real deploy looks like", () => {
+    expect(isSandboxBase("https://thirdparty.qonto.com/v2")).toBe(false);
   });
 
-  test("is on only for the sandbox host over https", () => {
-    expect(on("https://thirdparty-sandbox.staging.qonto.co/v2")).toBe(true);
+  test("is true only for the sandbox host over https", () => {
+    expect(isSandboxBase("https://thirdparty-sandbox.staging.qonto.co/v2")).toBe(true);
   });
 
   test("is not fooled by a URL that only contains the sandbox name", () => {
@@ -19,11 +17,11 @@ describe("isSandboxHarnessEnabled", () => {
       "thirdparty-sandbox.staging.qonto.co",
       "",
     ]) {
-      expect(on(base)).toBe(false);
+      expect(isSandboxBase(base)).toBe(false);
     }
   });
 
   test("refuses plain http, because credentials travel in the headers", () => {
-    expect(on("http://thirdparty-sandbox.staging.qonto.co/v2")).toBe(false);
+    expect(isSandboxBase("http://thirdparty-sandbox.staging.qonto.co/v2")).toBe(false);
   });
 });

@@ -1,0 +1,112 @@
+{
+  "billing": {
+    "order": {
+      "metaTitle": "Bestellen",
+      "title": "Bestellung",
+      "intro": "NIS 2 Durchgang für ein Jahr, {price} netto. Eine Zahlung gilt für alle Organisationen und Nutzer Ihres Kontos. Sie zahlen auf Rechnung mit 30 Tagen Zahlungsziel, und der Zugang ist ab der Bestellung freigeschaltet. Wenn Sie innerhalb von 30 Tagen ab Bestellung kündigen, bekommen Sie Ihr Geld zurück.",
+      "sandboxNotice": "Testmodus: Diese Bestellung erzeugt eine Rechnung in der Qonto Sandbox und schaltet dieses Konto frei.",
+      "alreadyPaid": "Ihr Konto ist bis {date} bezahlt, Rechnung {number}.",
+      "adminOnly": "Bestellen kann eine Person mit Administratorrechten in Ihrer Organisation. Bitten Sie sie, diese Seite zu öffnen.",
+      "toInvoices": "Zu Ihren Rechnungen"
+    },
+    "form": {
+      "recipientTitle": "Rechnungsempfänger",
+      "recipientDescription": "Die Rechnung lautet auf das Unternehmen. Wohin sie geschickt wird, legen Sie weiter unten fest.",
+      "companyName": "Firmenname",
+      "companyNamePlaceholder": "Muster Verwaltungs GmbH",
+      "companyNameHint": "Genau so, wie er im Handelsregister steht. Prüfen können wir das nicht, denn das Mehrwertsteuerregister der EU gibt deutsche Firmennamen nicht heraus.",
+      "street": "Straße und Hausnummer",
+      "streetPlaceholder": "Musterweg 1",
+      "zip": "PLZ",
+      "zipPlaceholder": "50676",
+      "city": "Ort",
+      "cityPlaceholder": "Köln",
+      "countryCode": "Land",
+      "vatNumber": "USt-IdNr.",
+      "vatNumberPlaceholder": "DE123456789",
+      "vatHint": "Bestimmt die Umsatzsteuer auf der Rechnung.",
+      "vatChecking": "Abfrage beim Register der EU",
+      "deliveryTitle": "Rechnungsversand",
+      "deliveryDescription": "In den meisten Unternehmen geht die Rechnung an die Buchhaltung, nicht an die Person, die bestellt.",
+      "invoiceEmail": "E-Mail für die Rechnung",
+      "invoiceEmailPlaceholder": "rechnung@example.invalid",
+      "copyToEmail": "Kopie an (optional)",
+      "copyToEmailPlaceholder": "sie@example.invalid",
+      "purchaseOrder": "Bestellnummer oder Kostenstelle (optional)",
+      "purchaseOrderPlaceholder": "PO-2026-0042",
+      "purchaseOrderHint": "Viele Unternehmen bezahlen eine Rechnung nur, wenn sie ihre eigene Referenz trägt.",
+      "submit": "Kostenpflichtig bestellen",
+      "submitting": "Rechnung wird erstellt"
+    },
+    "registry": {
+      "valid": "Im Register der EU bestätigt",
+      "invalid": "Im Register noch nicht bekannt",
+      "unavailable": "Register nicht erreichbar, das hält nichts auf",
+      "malformed": "Nicht geprüft"
+    },
+    "warnings": {
+      "notInRegister": "Das Register der EU kennt diese Nummer noch nicht. Bei einer neu vergebenen Nummer ist das normal. Wir prüfen später noch einmal, und die Rechnung wird dadurch nicht aufgehalten.",
+      "checkNumber": "Bitte prüfen Sie die USt-IdNr."
+    },
+    "price": {
+      "title": "Was berechnet wird",
+      "net": "Netto",
+      "vat": "USt. {rate} %",
+      "gross": "Gesamt"
+    },
+    "treatment": {
+      "reverse_charge": "Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge): Sie führen die Umsatzsteuer selbst ab.",
+      "unconfirmed_eu": "Reverse Charge setzt eine im Register der EU bestätigte Nummer voraus. Diese ist noch nicht bestätigt, deshalb enthält die Rechnung deutsche Umsatzsteuer.",
+      "outside_eu": "Leistungsort außerhalb Deutschlands, deshalb ohne deutsche Umsatzsteuer."
+    },
+    "errors": {
+      "companyName": "Der Firmenname steht auf der Rechnung und wird gebraucht.",
+      "street": "Straße und Hausnummer fehlen.",
+      "zip": "Die Postleitzahl fehlt.",
+      "city": "Der Ort fehlt.",
+      "countryCode": "Zweistelliger Ländercode, zum Beispiel DE.",
+      "vatFormat": "Das sieht nicht nach einer USt-IdNr. aus. Sie beginnt mit dem Ländercode.",
+      "vatChecksum": "In der Nummer ist eine Ziffer falsch. Vergleichen Sie sie mit dem Schreiben Ihres Finanzamts.",
+      "vatCountry": "Das passt nicht zum Aufbau einer USt-IdNr. aus diesem Land.",
+      "email": "Bitte eine Adresse angeben, an die die Rechnung gehen kann.",
+      "tooLong": "Das ist zu lang.",
+      "generic": "Bitte prüfen Sie dieses Feld."
+    },
+    "result": {
+      "title": "Bestellt",
+      "body": "Rechnung {number} über {gross} geht in wenigen Minuten an {email}. Zahlbar bis {dueDate}. Ihr Zugang ist freigeschaltet.",
+      "alreadyOrdered": "Für dieses Konto gibt es schon eine gültige Rechnung. Sie finden sie unter Ihren Rechnungen.",
+      "tooManyRequests": "Zu viele Versuche. Bitte warten Sie eine Minute.",
+      "failed": "Die Bestellung konnte gerade nicht abgeschlossen werden. Bitte versuchen Sie es später noch einmal."
+    },
+    "page": {
+      "title": "Abrechnung",
+      "description": "Zugang, Preis und Rechnungen Ihres Kontos.",
+      "accessTitle": "Zugang",
+      "level": {
+        "free": "Ohne Lizenz",
+        "grandfathered": "Bestandskonto: der heutige Durchgang bleibt für Sie frei nutzbar",
+        "full": "Jahreslizenz NIS 2 Durchgang"
+      },
+      "price": "Ihr Preis: {price} netto im Jahr",
+      "order": "Bestellen",
+      "invoicesTitle": "Rechnungen",
+      "adminOnly": "Die Rechnungen sehen Personen mit Administratorrechten in Ihrer Organisation.",
+      "empty": "Noch keine Rechnungen.",
+      "number": "Nummer",
+      "amount": "Betrag",
+      "period": "Zeitraum",
+      "status": "Status",
+      "download": "PDF",
+      "pdfPending": "PDF folgt",
+      "credited": "Gutgeschrieben ({number})",
+      "statuses": {
+        "paid": "Bezahlt",
+        "unpaid": "Offen",
+        "canceled": "Storniert",
+        "draft": "Entwurf",
+        "unknown": "Nicht abrufbar"
+      }
+    }
+  }
+}

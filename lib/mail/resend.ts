@@ -75,6 +75,11 @@ export async function sendViaResend(mail: OutgoingMail): Promise<TransportResult
         text: mail.text,
         replyTo: mail.replyTo,
         headers: mail.headers,
+        attachments: mail.attachments?.map((a) => ({
+          filename: a.filename,
+          content: Buffer.from(a.content),
+          contentType: a.contentType,
+        })),
       },
       mail.idempotencyKey ? { idempotencyKey: mail.idempotencyKey } : undefined,
     );
