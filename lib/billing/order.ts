@@ -24,10 +24,11 @@ export const orderSchema = z.object({
   companyName: z
     .string()
     .trim()
-    .min(2, "The company's registered name is needed for the invoice."),
-  street: z.string().trim().min(2, "Street and number."),
-  zip: z.string().trim().min(3, "Postcode."),
-  city: z.string().trim().min(2, "City."),
+    .min(2, "The company's registered name is needed for the invoice.")
+    .max(255),
+  street: z.string().trim().min(2, "Street and number.").max(255),
+  zip: z.string().trim().min(3, "Postcode.").max(20),
+  city: z.string().trim().min(2, "City.").max(255),
   countryCode: z
     .string()
     .trim()
