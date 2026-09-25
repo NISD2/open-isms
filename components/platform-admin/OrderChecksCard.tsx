@@ -70,7 +70,10 @@ export function OrderChecksCard() {
                       "Checked Qonto, and any invoice there is recorded or credited? Clearing lets this customer order again.",
                     )
                   ) {
-                    clear.mutate({ billingAccountId: r.billingAccountId });
+                    clear.mutate({
+                      billingAccountId: r.billingAccountId,
+                      since: r.since,
+                    });
                   }
                 }}
               >

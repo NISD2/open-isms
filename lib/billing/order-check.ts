@@ -9,7 +9,7 @@
  * it (the Pricing tab). A failure before the Qonto call writes no row and blocks nothing.
  */
 import "@/lib/server-guard";
-import { asc, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import type { Database, DbOrTx } from "@/lib/db";
 import { billingAccount, orderCheck, user } from "@/schema";
 
@@ -47,6 +47,30 @@ export const clearOrderCheck = async (db: DbOrTx, billingAccountId: string) => {
     .returning({ id: orderCheck.billingAccountId });
   return cleared.length === 1;
 };
+
+/**
+ * A platform admin lifts a block after checking Qonto. Under the account lock, so it waits for an
+ * order still running to finish rather than removing that order's mark mid-flight, and only the
+ * mark the admin looked at (its `since`), so a newer mark from a later order stays.
+ */
+export const clearCheckedOrder = (db: Database, billingAccountId: string, since: Date) =>
+  db.transaction(async (tx) => {
+    await tx
+      .select({ id: billingAccount.id })
+      .from(billingAccount)
+      .where(eq(billingAccount.id, billingAccountId))
+      .for("no key update");
+    const cleared = await tx
+      .delete(orderCheck)
+      .where(
+        and(
+          eq(orderCheck.billingAccountId, billingAccountId),
+          eq(orderCheck.since, since),
+        ),
+      )
+      .returning({ id: orderCheck.billingAccountId });
+    return cleared.length === 1;
+  });
 
 /** Every blocked account, oldest first, with its holder and the number to look up in Qonto. */
 export const listOrderChecks = (db: DbOrTx) =>
