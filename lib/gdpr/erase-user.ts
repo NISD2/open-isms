@@ -451,7 +451,7 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     }
     const [created] = await tx
       .insert(user)
-      .values({ email: TOMBSTONE_EMAIL, name: "Erased user", role: "member" })
+      .values({ email: TOMBSTONE_EMAIL, name: "Erased user" })
       .returning({ id: user.id });
     tombstoneId = created.id;
     return tombstoneId;

@@ -72,8 +72,8 @@ setup("provision and authenticate", async ({ page, browser }) => {
 
   // Second user: management member in the same company, for N-of-M.
   await e2eQuery(
-    `INSERT INTO "user" (company_id, email, name, role, is_management, email_verified_at, password_hash)
-     SELECT company_id, $2, 'E2E Management', 'member', true, NOW(), $3
+    `INSERT INTO "user" (company_id, email, name, is_management, email_verified_at, password_hash)
+     SELECT company_id, $2, 'E2E Management', true, NOW(), $3
        FROM "user" WHERE email = $1
      ON CONFLICT (email) DO UPDATE
        SET password_hash = EXCLUDED.password_hash,

@@ -197,7 +197,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             .values({
               email: authUser.email,
               name: authUser.name ?? profile?.name ?? authUser.email,
-              role: "member",
               isDisposableEmail: true,
               // emailVerifiedAt stays null — disposable cannot be verified
             })
@@ -220,7 +219,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .values({
             email: authUser.email,
             name: newName,
-            role: "member",
             // Google verified `profile.email_verified` upstream so we trust
             // the address — no separate OTP step for OAuth signups.
             emailVerifiedAt: now,

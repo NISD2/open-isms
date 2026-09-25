@@ -543,7 +543,6 @@ async function main() {
     .values({
       email: DEMO_EMAIL,
       name: "Bernd Schwieger",
-      role: "admin",
       jobTitle: "Geschäftsführer",
       isManagement: true,
       passwordHash,
@@ -557,7 +556,6 @@ async function main() {
     .values({
       email: IT_EMAIL,
       name: "Sandra Koch",
-      role: "member",
       jobTitle: "IT-Leitung",
       isManagement: false,
       passwordHash,

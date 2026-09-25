@@ -600,7 +600,6 @@ async function seed() {
           companyId: co.id,
           email: config.userEmail,
           name: config.userName,
-          role: "admin",
           isManagement: true,
           emailVerifiedAt: new Date(),
         })
@@ -610,7 +609,7 @@ async function seed() {
     } else {
       await db
         .update(schema.user)
-        .set({ companyId: co.id, role: "admin", isManagement: true, emailVerifiedAt: new Date() })
+        .set({ companyId: co.id, isManagement: true, emailVerifiedAt: new Date() })
         .where(eq(schema.user.email, config.userEmail));
       const u = await db.query.user.findFirst({
         where: eq(schema.user.email, config.userEmail),

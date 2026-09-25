@@ -282,7 +282,6 @@ export const securityProfileUpdateSchema = companyInsertSchema.partial().pick({
 export const userInsertSchema = createInsertSchema(user, {
   email: z.string().email().max(255),
   name: z.string().min(1).max(255),
-  role: z.string().min(1).max(100),
 });
 export const userSelectSchema = createSelectSchema(user);
 export const userUpdateSchema = userInsertSchema.partial().omit(omitTenantMeta);
