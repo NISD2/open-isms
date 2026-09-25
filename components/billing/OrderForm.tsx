@@ -110,7 +110,12 @@ export function OrderForm() {
       quote.variables?.vatNumber === values.vatNumber
         ? quote.data?.price.grossCents
         : undefined;
-    place.mutate({ order, quotedGrossCents: quoted ?? null });
+    // No price shown yet (Enter pressed inside the VAT field): show it first, order on the next click.
+    if (quoted === undefined) {
+      quote.mutate({ vatNumber: values.vatNumber, countryCode: values.countryCode });
+      return;
+    }
+    place.mutate({ order, quotedGrossCents: quoted });
   };
 
   if (place.data) {

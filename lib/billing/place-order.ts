@@ -1,5 +1,6 @@
 /**
- * Placing an order: the one function both doors call, the order page and the admin demo close.
+ * Placing an order: the one function that issues an invoice. The order page calls it; the admin
+ * demo close (not built yet) must call it too, never Qonto directly.
  *
  *   1. The price comes from the billing account's access level, on the server. No amount is ever
  *      taken from a browser.
@@ -86,6 +87,13 @@ const failure = (
   message: string,
 ) => ({ ok: false, reason, message }) as const;
 
+/** An error the operators have already been told about, so it is not reported twice. */
+class AlreadyAlerted extends Error {
+  constructor(cause: unknown) {
+    super(cause instanceof Error ? cause.message : String(cause), { cause });
+  }
+}
+
 /** Today as a calendar day where invoices are dated, to compare against a paid year. */
 const today = (now: Date) =>
   new Intl.DateTimeFormat("en-CA", { timeZone: INVOICE_TIME_ZONE }).format(now);
@@ -144,8 +152,14 @@ const unclaimedClient = async (
   canonicalVatNumber: string,
 ): Promise<string | undefined> => {
   const found = await findClientsByVatNumber(qonto, canonicalVatNumber);
+  // The filter is Qonto's; the match is checked here too, so a filter Qonto ignored cannot put the
+  // invoice on another customer's client.
+  const sameVat = (v: string | undefined) =>
+    v?.replace(/\s/g, "").toUpperCase() === canonicalVatNumber;
   const ids = found.ok
-    ? (found.data.clients ?? []).flatMap((c) => (c.id ? [c.id] : []))
+    ? (found.data.clients ?? []).flatMap((c) =>
+        c.id && sameVat(c.vat_number) ? [c.id] : [],
+      )
     : [];
   if (ids.length === 0) return undefined;
   const claimed = await tx
@@ -204,142 +218,161 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     : undefined;
   if (!iban) return failure("qonto", "No Qonto account with a payable IBAN.");
 
-  const outcome = await db.transaction(async (tx) => {
-    const [account] = await tx
-      .select({
-        id: billingAccount.id,
-        accessLevel: billingAccount.accessLevel,
-        qontoClientId: billingAccount.qontoClientId,
-      })
-      .from(billingAccount)
-      .where(eq(billingAccount.id, input.billingAccountId))
-      .for("update");
-    if (!account)
-      return failure("no_account", "This organization has no billing account.");
-
-    const active = await findActiveInvoice(tx, account.id, now);
-    if (active) {
-      return failure(
-        "already_ordered",
-        `This account is already paid for, invoice ${active.number}.`,
-      );
-    }
-
-    const money = priceFor(vat.countryCode, registry, netCentsFor(account.accessLevel));
-    if (
-      input.expectedGrossCents !== null &&
-      money.grossCents !== input.expectedGrossCents
-    ) {
-      return failure("price_changed", "The price changed since it was shown.");
-    }
-
-    // Two accounts ordering for one VAT number at once would otherwise both pick the same unclaimed
-    // Qonto client, and the second would fail on it after Qonto had issued its invoice.
-    await tx.execute(sql`select pg_advisory_xact_lock(hashtext(${canonicalVatNumber}))`);
-    const client = await qontoClientFor(
-      tx,
-      mode.qonto,
-      account.qontoClientId,
-      order,
-      canonicalVatNumber,
-      locale,
-    );
-    if (!client.ok) return failure("qonto", `Qonto client: ${client.message}`);
-
-    const dates = invoiceDates(now);
-    const year = Number(dates.issueDate.slice(0, 4));
-    // The sandbox never touches the real counter: its invoices are not real ones.
-    const number =
-      mode.kind === "live"
-        ? await takeInvoiceNumber(db, input.invoicePrefix, year)
-        : sandboxInvoiceNumber(input.invoicePrefix, year, now);
-    const wording = invoiceWording(dates, money, locale);
-
-    const issued = await createInvoice(mode.qonto, {
-      clientId: client.id,
-      number,
-      iban,
-      issueDate: dates.issueDate,
-      dueDate: dates.dueDate,
-      performanceStartDate: dates.performanceStartDate,
-      performanceEndDate: dates.performanceEndDate,
-      ...(order.purchaseOrder ? { purchaseOrder: order.purchaseOrder } : {}),
-      termsAndConditions: wording.footer,
-      items: [
-        {
-          title: wording.title,
-          description: wording.description,
-          quantity: "1",
-          unit: "unit",
-          unitPrice: { value: (money.netCents / 100).toFixed(2), currency: "EUR" },
-          vatRate: money.vatRate.toFixed(2),
-        },
-      ],
-    });
-    const qontoInvoiceId = issued.ok ? issued.data.client_invoice?.id : undefined;
-    if (!qontoInvoiceId) {
-      // A 4xx is Qonto refusing, so nothing exists. A timeout, a 5xx or a 2xx without an id can
-      // mean the invoice was created and the answer lost; a retry would then issue a second one.
-      const refused = !issued.ok && issued.status !== null && issued.status < 500;
-      if (refused) {
-        console.error(
-          `[billing] invoice ${number} refused; the number stays unused`,
-          issued,
-        );
-        return failure("qonto", "Qonto did not issue the invoice.");
-      }
-      void alertOperators(`Unklar, ob ${number} ausgestellt wurde`, [
-        `Qonto hat auf die Rechnung ${number} nicht eindeutig geantwortet: ${issued.ok ? "kein id" : issued.error}.`,
-        `Billing account ${account.id}, Qonto client ${client.id}.`,
-        "In Qonto nachsehen. Gibt es die Rechnung, die Zeile von Hand anlegen und den Zugang freischalten, oder gutschreiben.",
-      ]);
-      return failure("qonto_unknown", "Qonto did not answer clearly.");
-    }
-
-    try {
-      const [row] = await tx
-        .insert(invoice)
-        .values({
-          billingAccountId: account.id,
-          qontoInvoiceId,
-          number,
-          netCents: money.netCents,
-          vatCents: money.vatCents,
-          vatTreatment: money.treatment.kind,
-          viesRequestIdentifier:
-            registry.status === "valid" ? registry.consultationNumber : null,
-          issueDate: dates.issueDate,
-          periodStart: dates.performanceStartDate,
-          periodEnd: dates.performanceEndDate,
-          source: input.source,
-          createdByUserId: input.createdByUserId,
+  const outcome = await db
+    .transaction(async (tx) => {
+      const [account] = await tx
+        .select({
+          id: billingAccount.id,
+          accessLevel: billingAccount.accessLevel,
+          qontoClientId: billingAccount.qontoClientId,
         })
-        .returning({ id: invoice.id });
-      if (!row) throw new Error("invoice insert returned no row");
-      await tx
-        .update(billingAccount)
-        .set({ accessLevel: "full", qontoClientId: client.id, updatedAt: now })
-        .where(eq(billingAccount.id, account.id));
-      return {
-        ok: true,
+        .from(billingAccount)
+        .where(eq(billingAccount.id, input.billingAccountId))
+        .for("update");
+      if (!account)
+        return failure("no_account", "This organization has no billing account.");
+
+      const active = await findActiveInvoice(tx, account.id, now);
+      if (active) {
+        return failure(
+          "already_ordered",
+          `This account is already paid for, invoice ${active.number}.`,
+        );
+      }
+
+      const money = priceFor(vat.countryCode, registry, netCentsFor(account.accessLevel));
+      if (
+        input.expectedGrossCents !== null &&
+        money.grossCents !== input.expectedGrossCents
+      ) {
+        return failure("price_changed", "The price changed since it was shown.");
+      }
+
+      // Two accounts ordering for one VAT number at once would otherwise both pick the same unclaimed
+      // Qonto client, and the second would fail on it after Qonto had issued its invoice.
+      await tx.execute(
+        sql`select pg_advisory_xact_lock(hashtext(${canonicalVatNumber}))`,
+      );
+      const client = await qontoClientFor(
+        tx,
+        mode.qonto,
+        account.qontoClientId,
+        order,
+        canonicalVatNumber,
+        locale,
+      );
+      if (!client.ok) return failure("qonto", `Qonto client: ${client.message}`);
+
+      const dates = invoiceDates(now);
+      const year = Number(dates.issueDate.slice(0, 4));
+      // The sandbox never touches the real counter: its invoices are not real ones.
+      const number =
+        mode.kind === "live"
+          ? await takeInvoiceNumber(db, input.invoicePrefix, year)
+          : sandboxInvoiceNumber(input.invoicePrefix, year, now);
+      const wording = invoiceWording(dates, money, locale);
+
+      const issued = await createInvoice(mode.qonto, {
+        clientId: client.id,
         number,
-        invoiceRowId: row.id,
-        qontoInvoiceId,
-        money,
-        dates,
-      } as const;
-    } catch (err) {
-      // Qonto has issued an invoice we could not record. It needs a person: credit it in Qonto or
-      // insert the row by hand. Sent with everything needed to do either.
-      void alertOperators(`${number} ausgestellt, aber nicht erfasst`, [
-        `Qonto hat ${number} (${qontoInvoiceId}) ausgestellt, der Eintrag bei uns ist fehlgeschlagen.`,
-        `Billing account ${account.id}, Qonto client ${client.id}.`,
-        `Fehler: ${err instanceof Error ? err.message : String(err)}`,
-        "Die Zeile von Hand anlegen und den Zugang freischalten, oder in Qonto gutschreiben.",
-      ]);
-      throw err;
-    }
-  });
+        iban,
+        issueDate: dates.issueDate,
+        dueDate: dates.dueDate,
+        performanceStartDate: dates.performanceStartDate,
+        performanceEndDate: dates.performanceEndDate,
+        ...(order.purchaseOrder ? { purchaseOrder: order.purchaseOrder } : {}),
+        termsAndConditions: wording.footer,
+        items: [
+          {
+            title: wording.title,
+            description: wording.description,
+            quantity: "1",
+            unit: "unit",
+            unitPrice: { value: (money.netCents / 100).toFixed(2), currency: "EUR" },
+            vatRate: money.vatRate.toFixed(2),
+          },
+        ],
+      });
+      const qontoInvoiceId = issued.ok ? issued.data.client_invoice?.id : undefined;
+      if (!qontoInvoiceId) {
+        // A 4xx is Qonto refusing, so nothing exists. A timeout, a 5xx or a 2xx without an id can
+        // mean the invoice was created and the answer lost; a retry would then issue a second one.
+        // An empty or unreadable 2xx body is a failure in `request` too, so only a real 4xx counts.
+        const refused =
+          !issued.ok &&
+          issued.status !== null &&
+          issued.status >= 400 &&
+          issued.status < 500;
+        if (refused) {
+          console.error(
+            `[billing] invoice ${number} refused; the number stays unused`,
+            issued,
+          );
+          return failure("qonto", "Qonto did not issue the invoice.");
+        }
+        void alertOperators(`Unklar, ob ${number} ausgestellt wurde`, [
+          `Qonto hat auf die Rechnung ${number} nicht eindeutig geantwortet: ${issued.ok ? "kein id" : issued.error}.`,
+          `Billing account ${account.id}, Qonto client ${client.id}, Rechnung an ${order.invoiceEmail}.`,
+          "In Qonto nachsehen. Gibt es die Rechnung, die Zeile von Hand anlegen und den Zugang freischalten, oder gutschreiben.",
+        ]);
+        return failure("qonto_unknown", "Qonto did not answer clearly.");
+      }
+
+      try {
+        const [row] = await tx
+          .insert(invoice)
+          .values({
+            billingAccountId: account.id,
+            qontoInvoiceId,
+            number,
+            netCents: money.netCents,
+            vatCents: money.vatCents,
+            vatTreatment: money.treatment.kind,
+            viesRequestIdentifier:
+              registry.status === "valid" ? registry.consultationNumber : null,
+            issueDate: dates.issueDate,
+            periodStart: dates.performanceStartDate,
+            periodEnd: dates.performanceEndDate,
+            source: input.source,
+            createdByUserId: input.createdByUserId,
+          })
+          .returning({ id: invoice.id });
+        if (!row) throw new Error("invoice insert returned no row");
+        await tx
+          .update(billingAccount)
+          .set({ accessLevel: "full", qontoClientId: client.id, updatedAt: now })
+          .where(eq(billingAccount.id, account.id));
+        return {
+          ok: true,
+          number,
+          invoiceRowId: row.id,
+          qontoInvoiceId,
+          money,
+          dates,
+        } as const;
+      } catch (err) {
+        // Qonto has issued an invoice we could not record. It needs a person: credit it in Qonto or
+        // insert the row by hand. Sent with everything needed to do either.
+        void alertOperators(`${number} ausgestellt, aber nicht erfasst`, [
+          `Qonto hat ${number} (${qontoInvoiceId}) ausgestellt, der Eintrag bei uns ist fehlgeschlagen.`,
+          `Billing account ${account.id}, Qonto client ${client.id}, Rechnung an ${order.invoiceEmail}.`,
+          `Fehler: ${err instanceof Error ? err.message : String(err)}`,
+          "Die Zeile von Hand anlegen und den Zugang freischalten, oder in Qonto gutschreiben.",
+        ]);
+        throw new AlreadyAlerted(err);
+      }
+    })
+    .catch((err: unknown) => {
+      // Whatever broke, we cannot say whether Qonto issued an invoice, so the customer is told not
+      // to order again, and the operators hear about it once.
+      if (!(err instanceof AlreadyAlerted)) {
+        void alertOperators("Bestellung abgebrochen", [
+          `Die Bestellung für billing account ${input.billingAccountId} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
+          `Rechnung an ${order.invoiceEmail}. In Qonto nachsehen, ob eine Rechnung entstanden ist.`,
+        ]);
+      }
+      return failure("qonto_unknown", "The order stopped part way.");
+    });
 
   if (!outcome.ok) return outcome;
 

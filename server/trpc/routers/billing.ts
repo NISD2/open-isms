@@ -163,8 +163,8 @@ export const billingRouter = router({
     .input(
       z.object({
         order: orderSchemaWithVatCheck,
-        /** The gross the form showed, if it showed one; the order is refused if it moved. */
-        quotedGrossCents: z.number().int().nonnegative().nullable(),
+        /** The gross the form showed. Required: nobody orders at a price they did not see. */
+        quotedGrossCents: z.number().int().nonnegative(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

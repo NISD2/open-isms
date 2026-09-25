@@ -208,7 +208,7 @@ export interface ClientRecord {
 }
 
 export interface ClientList {
-  readonly clients?: readonly { readonly id?: string }[];
+  readonly clients?: readonly { readonly id?: string; readonly vat_number?: string }[];
 }
 
 /**
