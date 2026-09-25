@@ -8,6 +8,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
   canSeeCategory,
@@ -131,6 +132,7 @@ export default async function PortalLayout({ children }: { children: React.React
           isPlatformAdmin: isPlatformAdmin(session.user.email),
         }}
         frameworks={frameworks}
+        showBilling={billingFor(session.user.email).open}
       />
       <SidebarInset>
         <PortalHeader

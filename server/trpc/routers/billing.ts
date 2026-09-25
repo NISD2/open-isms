@@ -6,7 +6,7 @@
  *   - Ordering and the invoices are for the account holder (`billing_account.ownerUserId`), the
  *     person who pays. Not for company admins: any member may add an organization and is its
  *     admin, so a company role says nothing about who may put the account on an invoice.
- *   - On top of that, `mayOrderIn` decides from the configuration: nobody while Qonto is not set
+ *   - On top of that, `billingFor` decides from the configuration: nobody while Qonto is not set
  *     up, platform admins only against the sandbox, everyone live.
  *
  * The account is always the open company's own, read from the session. No procedure takes an
@@ -15,7 +15,6 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import {
   formatEuro,
   type Money,
@@ -24,7 +23,8 @@ import {
   priceFor,
 } from "@/lib/billing/order";
 import { gateFromInput } from "@/lib/billing/order-gate";
-import { mayOrderIn, type OrderingMode, orderingMode } from "@/lib/billing/ordering";
+import { type OrderingMode, orderingMode } from "@/lib/billing/ordering";
+import { billingFor } from "@/lib/billing/ordering-access";
 import { findActiveInvoice, placeOrder } from "@/lib/billing/place-order";
 import { getInvoice } from "@/lib/billing/qonto";
 import { checkStructure } from "@/lib/billing/vat-checksum";
@@ -74,14 +74,8 @@ const priceView = (money: Money) => ({
   treatment: money.treatment.kind,
 });
 
-/** The mode, and whether ordering is open to this person at all. */
-const orderingFor = (email: string | null | undefined) => {
-  const mode = orderingMode(env);
-  return { mode, open: mayOrderIn(mode, isPlatformAdmin(email)) };
-};
-
 const requireOrdering = (email: string | null | undefined) => {
-  const { mode, open } = orderingFor(email);
+  const { mode, open } = billingFor(email);
   if (!open || mode.kind === "off") {
     throw new TRPCError({ code: "FORBIDDEN", message: "Ordering is not open." });
   }
@@ -107,7 +101,7 @@ const liveStatus = async (mode: OrderingMode, qontoInvoiceId: string) => {
 export const billingRouter = router({
   status: companyProcedure.query(async ({ ctx }) => {
     const account = await accountOf(ctx.db, ctx.companyId);
-    const { mode, open } = orderingFor(ctx.session.user.email);
+    const { mode, open } = billingFor(ctx.session.user.email);
     const active = await findActiveInvoice(ctx.db, account.id, new Date());
     const isPayer = account.ownerUserId === ctx.userId;
     return {

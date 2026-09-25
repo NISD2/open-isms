@@ -1,5 +1,5 @@
 import { Receipt } from "lucide-react";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { InvoicePdfButton } from "@/components/billing/InvoicePdfButton";
 import { Badge } from "@/components/ui/badge";
@@ -36,6 +36,8 @@ export default async function BillingPage({
 
   const t = await getTranslations("billing.page");
   const status = await api.billing.status();
+  // Not launched for this person yet: the page does not exist for them.
+  if (!status.open) notFound();
   const invoices = status.isPayer ? await api.billing.invoices() : null;
 
   const days = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" });
