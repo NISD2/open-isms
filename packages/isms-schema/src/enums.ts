@@ -2,6 +2,26 @@ import { pgEnum } from "drizzle-orm/pg-core";
 
 export const planEnum = pgEnum("plan", ["free", "guided", "enterprise"]);
 
+/**
+ * What a paying customer's companies may use. Free is the course and its certificate only;
+ * grandfathered keeps the journey it had before invoicing existed; full is everything.
+ */
+export const accessLevelEnum = pgEnum("access_level", ["free", "grandfathered", "full"]);
+
+/** Which door an order came through: the customer's own order page, or platform admin. */
+export const invoiceSourceEnum = pgEnum("invoice_source", ["self_serve", "admin"]);
+
+/** Each series has its own gapless counter, because invoice and credit note numbers never share. */
+export const documentSeriesEnum = pgEnum("document_series", ["invoice", "credit_note"]);
+
+/** A person's role inside one company. The same person can hold a different role elsewhere. */
+export const membershipRoleEnum = pgEnum("membership_role", [
+  "admin",
+  "member",
+  "reviewer",
+  "legal_reviewer",
+]);
+
 export const itemStatusEnum = pgEnum("item_status", [
   "not_started",
   "in_progress",
