@@ -99,7 +99,8 @@ export function OrderForm() {
 
   const checkVat = (vatNumber: string) => {
     if (vatNumber.trim().length < 4) return;
-    // A failed check is not the customer's problem, so its error is never shown.
+    // A register outage never surfaces: the quote still answers, only without a confirmation.
+    // Only the quote call itself failing is shown (below), because ordering waits on it.
     quote.mutate({ vatNumber, countryCode: form.getValues("countryCode") });
   };
 
@@ -161,8 +162,10 @@ export function OrderForm() {
           ? t("result.priceChanged")
           : outcomeUnknown
             ? t("result.unknown")
-            : place.error
-              ? t("result.failed")
+            : place.error || quote.error
+              ? quote.error?.data?.code === "TOO_MANY_REQUESTS"
+                ? t("result.tooManyRequests")
+                : t("result.failed")
               : null;
 
   return (
@@ -393,7 +396,7 @@ export function OrderForm() {
             type="submit"
             size="lg"
             className="w-full"
-            disabled={place.isPending || outcomeUnknown}
+            disabled={place.isPending || quote.isPending || outcomeUnknown}
           >
             {place.isPending ? (
               <>
