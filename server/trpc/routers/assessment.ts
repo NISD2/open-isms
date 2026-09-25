@@ -437,9 +437,12 @@ export const assessmentRouter = router({
 
       const values: Record<string, unknown> = { ...updates, updatedAt: new Date() };
       if (input.status === "not_applicable") {
+        const now = new Date();
         values.isApplicable = false;
-        values.nextReviewDate = toDateString(addYears(new Date(), 1));
-        values.lastReviewedAt = new Date();
+        values.nextReviewDate = toDateString(addYears(now, 1));
+        values.lastReviewedAt = now;
+        values.notApplicableBy = ctx.userId;
+        values.notApplicableAt = now;
       }
       if (input.status === "completed") {
         values.completedAt = new Date();

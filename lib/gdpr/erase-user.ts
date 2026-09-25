@@ -828,6 +828,13 @@ async function erasePerson(
   await anon("company_requirement_status", () =>
     tx
       .update(companyRequirementStatus)
+      .set({ notApplicableBy: null })
+      .where(eq(companyRequirementStatus.notApplicableBy, userId))
+      .returning(),
+  );
+  await anon("company_requirement_status", () =>
+    tx
+      .update(companyRequirementStatus)
       .set({ assignedTo: null })
       .where(eq(companyRequirementStatus.assignedTo, userId))
       .returning(),
