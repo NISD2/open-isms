@@ -10,10 +10,12 @@ import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
 import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
 import {
   asMembershipRole,
+  findMembershipRole,
   isMemberOf,
   joinCompany,
   leaveCompany,
   listCompanyMembers,
+  openCompany,
 } from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import {
@@ -119,36 +121,16 @@ export const teamRouter = router({
     .mutation(async ({ ctx, input }) => {
       const email = input.email.toLowerCase();
 
-      // Check if user with this email already exists
-      const existing = await ctx.db.query.user.findFirst({
-        where: eq(user.email, email),
-        columns: { id: true, companyId: true },
+      // Someone who belongs to another organization can be invited too: accepting adds a
+      // membership and leaves their other organizations as they are.
+      const alreadyMember = await ctx.db.query.user.findFirst({
+        where: and(eq(user.email, email), isMemberOf(ctx.db, ctx.companyId)),
+        columns: { id: true },
       });
-      const existingCompany = existing?.companyId
-        ? await ctx.db.query.company.findFirst({
-            where: eq(company.id, existing.companyId),
-            columns: { activatedAt: true },
-          })
-        : null;
-
-      if (existing?.companyId === ctx.companyId) {
+      if (alreadyMember) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "This person is already a member of your company.",
-        });
-      }
-
-      // Block only if they already belong to a DIFFERENT, ACTIVATED company. A
-      // draft shell (auto-provisioned, never activated) is discarded when they
-      // accept, so inviting a draft-only user is legitimate.
-      if (
-        existing?.companyId &&
-        existing.companyId !== ctx.companyId &&
-        existingCompany?.activatedAt
-      ) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "This email is already associated with another organization.",
         });
       }
 
@@ -321,32 +303,39 @@ export const teamRouter = router({
         });
       }
 
-      // The user must not already belong to an ACTIVATED company. Every verified
-      // user auto-gets a draft shell, so accepting an invite is legitimate for a
-      // draft-only user: their draft is discarded and they move into the
-      // inviting company. Only a real (activated) membership blocks the accept.
+      // Accepting adds a membership in the inviting company and opens it; the person keeps every
+      // other organization they belong to. Every verified user gets a draft shell, and the one
+      // they had open is discarded afterwards if it is still an untouched draft of their own.
       const currentCompany = ctx.companyId
         ? await ctx.db.query.company.findFirst({
             where: eq(company.id, ctx.companyId),
-            columns: { id: true, activatedAt: true },
+            columns: { id: true, activatedAt: true, ownerId: true },
           })
         : null;
-      if (currentCompany?.activatedAt) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "You are already a member of a company.",
-        });
-      }
+      const ownDraft =
+        currentCompany &&
+        currentCompany.id !== invite.companyId &&
+        currentCompany.activatedAt === null &&
+        currentCompany.ownerId === ctx.userId
+          ? currentCompany
+          : null;
+      const existingRole = await findMembershipRole(ctx.db, {
+        userId: ctx.userId,
+        companyId: invite.companyId,
+      });
 
       await ctx.db.transaction(async (tx) => {
-        // Join the inviting company and open it, clearing the draft's user FK before the draft
-        // shell is discarded. The invite row stores its role as free text; anything a membership
-        // cannot hold falls back to the least privileged role.
-        await joinCompany(tx, {
-          userId: ctx.userId,
-          companyId: invite.companyId,
-          role: asMembershipRole(invite.role) ?? "member",
-        });
+        // An existing member keeps their role; the invite does not change it. Otherwise the invite
+        // row's free-text role falls back to the least privileged one a membership can hold.
+        if (existingRole) {
+          await openCompany(tx, { userId: ctx.userId, companyId: invite.companyId });
+        } else {
+          await joinCompany(tx, {
+            userId: ctx.userId,
+            companyId: invite.companyId,
+            role: asMembershipRole(invite.role) ?? "member",
+          });
+        }
 
         await tx
           .update(companyInvite)
@@ -358,12 +347,12 @@ export const teamRouter = router({
           .where(eq(companyInvite.id, invite.id));
       });
 
-      // Discard the now-abandoned draft shell (best-effort, post-commit, its own
-      // transaction). An impure draft is left orphaned rather than failing the
-      // accept the user already completed above.
-      if (currentCompany) {
+      // Discard the now-abandoned draft shell when nobody else is in it (best-effort, post-commit,
+      // its own transaction). An impure draft is left orphaned rather than failing the accept the
+      // user already completed above.
+      if (ownDraft && (await listCompanyMembers(ctx.db, ownDraft.id)).length <= 1) {
         try {
-          await discardDraftCompany(ctx.db, currentCompany.id);
+          await discardDraftCompany(ctx.db, ownDraft.id);
         } catch (err) {
           console.error("[team.acceptInvite] draft discard skipped:", err);
         }
