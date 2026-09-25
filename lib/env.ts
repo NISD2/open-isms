@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { billingEnvShape } from "@/lib/billing/config-schema";
 
 const envSchema = z.object({
   // Required always
@@ -113,6 +114,13 @@ const envSchema = z.object({
     .string()
     .regex(/^[A-Za-z0-9-]{8,128}$/, "INDEXNOW_KEY must be 8-128 chars of [A-Za-z0-9-]")
     .optional(),
+
+  // Billing through Qonto — optional. Unset credentials mean no invoicing: the
+  // order page and the billing routes stay unreachable, which is the correct
+  // default for a self-hosted instance. Defined in lib/billing/config-schema.ts,
+  // where they are trimmed and defaulted but never rejected: a wrong billing
+  // value switches billing off, it does not stop the application starting.
+  ...billingEnvShape,
 
   // App URL
   NEXT_PUBLIC_APP_URL: z.string().default("https://www.nisd2.eu"),
