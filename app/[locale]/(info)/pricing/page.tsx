@@ -8,6 +8,7 @@ import {
   ANNUAL_NET_CENTS,
   formatEuro,
   GRANDFATHERED_NET_CENTS,
+  netCentsFor,
 } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
 import { db } from "@/lib/db";
@@ -18,6 +19,7 @@ import {
   pageAlternates,
   pageOg,
 } from "@/lib/seo";
+import { api } from "@/lib/trpc/server";
 
 export async function generateMetadata({
   params,
@@ -45,6 +47,26 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * Whether this visitor may order, and at what yearly price. The price comes from the open company's
+ * stored level, as on /bestellen (billing.status), so the card shows what the invoice will say. A
+ * public page must not fail on the database: any error reads as "not open" at the public price.
+ */
+const visitorOffer = async () => {
+  const session = await getSession().catch(() => null);
+  const orderOpen = await billingFor(db, session?.user.email).then(
+    (b) => b.open,
+    () => false,
+  );
+  const level = session?.companyId
+    ? await api.billing.status().then(
+        (s) => s.accessLevel,
+        () => null,
+      )
+    : null;
+  return { orderOpen, netCents: level ? netCentsFor(level) : ANNUAL_NET_CENTS };
+};
+
 export default async function PricingPage({
   params,
 }: {
@@ -53,8 +75,7 @@ export default async function PricingPage({
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
   const t = await getTranslations("pricing");
-  const session = await getSession();
-  const billing = await billingFor(db, session?.user.email);
+  const offer = await visitorOffer();
   const price = formatEuro(ANNUAL_NET_CENTS, rawLocale);
   const annualNet = (ANNUAL_NET_CENTS / 100).toFixed(2);
   const softwareJsonLd = buildSoftwareApplicationJsonLd({
@@ -90,8 +111,8 @@ export default async function PricingPage({
       </header>
 
       <PricingCards
-        orderOpen={billing.open}
-        price={price}
+        orderOpen={offer.orderOpen}
+        price={formatEuro(offer.netCents, rawLocale)}
         grandfatheredPrice={formatEuro(GRANDFATHERED_NET_CENTS, rawLocale)}
       />
     </div>

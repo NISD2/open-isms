@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 
-const paidKeys = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"] as const;
+const paidKeys = ["p1", "p2", "p3", "p4", "p5", "p6"] as const;
 const selfHostKeys = ["h1", "h2", "h3", "h4"] as const;
 
 export function PricingCards({
@@ -20,6 +20,7 @@ export function PricingCards({
 }: {
   /** Whether /bestellen exists for this visitor (lib/billing/ordering-access.ts). */
   readonly orderOpen: boolean;
+  /** The yearly net price this visitor would be invoiced: 2.400 for a grandfathered account. */
   readonly price: string;
   readonly grandfatheredPrice: string;
 }) {
@@ -64,6 +65,7 @@ export function PricingCards({
                 </li>
               ))}
             </ul>
+            <p className="text-sm">{t("paid.delivery")}</p>
             <p className="text-sm text-muted-foreground">
               {t("paid.grandfathered", { price: grandfatheredPrice })}
             </p>

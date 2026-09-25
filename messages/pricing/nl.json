@@ -17,14 +17,13 @@
       "features": {
         "p1": "De NIS 2 vereisten stap voor stap, met status, bewijs en goedkeuring per vereiste",
         "p2": "Bewijs uploaden en direct bij de vereiste opslaan",
-        "p3": "Compliancerapport als pdf met de stand van elke vereiste, het bewijs en de goedkeuringen",
-        "p4": "Wijzigingslog voor uw organisatie",
-        "p5": "Registers voor assets, risico's en leveranciers",
-        "p6": "Deadlines en herbeoordelingsdata per vereiste",
-        "p7": "Onbeperkt organisaties en gebruikers met één betaling",
-        "p8": "Altijd exporteerbaar als pdf en csv"
+        "p3": "Wijzigingslog voor uw organisatie",
+        "p4": "Registers voor assets, risico's en leveranciers",
+        "p5": "Deadlines en herbeoordelingsdata per vereiste",
+        "p6": "Onbeperkt organisaties en gebruikers met één betaling"
       },
-      "grandfathered": "Wie zich vóór de start van de betaalde toegang minstens één keer heeft aangemeld, gebruikt het platform verder zoals voorheen, zonder ervoor te betalen. De begeleide doorloop krijgt deze persoon voor {price} netto per jaar."
+      "delivery": "U krijgt de huidige doorloop direct, en het begeleide formulier zodra het klaar is, binnen hetzelfde betaalde jaar.",
+      "grandfathered": "Wie zich vóór de start van de betaalde toegang minstens één keer heeft aangemeld, houdt de huidige doorloop zonder ervoor te betalen. Voor hen kost het betaalde jaar {price} netto."
     },
     "selfHost": {
       "name": "Eigen beheer",
@@ -34,7 +33,7 @@
       "cta": "Naar de broncode",
       "features": {
         "h1": "Volledige platformbroncode, open onder AGPL-3.0",
-        "h2": "Alle toekomstige updates inbegrepen, blijvend",
+        "h2": "Alle toekomstige updates inbegrepen",
         "h3": "Op uw eigen infrastructuur, met uw eigen data",
         "h4": "Geen contract, geen activering"
       }

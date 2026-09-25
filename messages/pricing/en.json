@@ -17,14 +17,13 @@
       "features": {
         "p1": "The NIS 2 requirements step by step, with status, evidence and approval for each one",
         "p2": "Upload evidence and file it against the requirement it proves",
-        "p3": "Compliance report as a PDF with the state of every requirement, the evidence and the approvals",
-        "p4": "Change log for your organization",
-        "p5": "Registers for assets, risks and suppliers",
-        "p6": "Deadlines and review dates for each requirement",
-        "p7": "Any number of organizations and users on one payment",
-        "p8": "Export at any time as PDF and CSV"
+        "p3": "Change log for your organization",
+        "p4": "Registers for assets, risks and suppliers",
+        "p5": "Deadlines and review dates for each requirement",
+        "p6": "Any number of organizations and users on one payment"
       },
-      "grandfathered": "Anyone who signed in at least once before paid access started keeps using the platform as before, without paying for it. They get the guided pass for {price} net a year."
+      "delivery": "You get today's journey straight away, and the guided form when it is ready, within the same paid year.",
+      "grandfathered": "Anyone who signed in at least once before paid access started keeps today's journey without paying for it. For them the paid year costs {price} net."
     },
     "selfHost": {
       "name": "Self-host",
@@ -34,7 +33,7 @@
       "cta": "View the source",
       "features": {
         "h1": "Full platform source, open under AGPL-3.0",
-        "h2": "All future updates included, permanently",
+        "h2": "All future updates included",
         "h3": "On your own infrastructure, with your own data",
         "h4": "No contract, no activation key"
       }
