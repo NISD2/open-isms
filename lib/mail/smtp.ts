@@ -80,6 +80,11 @@ export async function sendViaSmtp(mail: OutgoingMail): Promise<TransportResult> 
       replyTo: mail.replyTo,
       headers: mail.headers,
       messageId: messageIdFor(mail),
+      attachments: mail.attachments?.map((a) => ({
+        filename: a.filename,
+        content: Buffer.from(a.content),
+        contentType: a.contentType,
+      })),
     });
 
     // A relay that accepted the envelope for nobody delivered to nobody.

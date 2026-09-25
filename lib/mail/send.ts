@@ -11,7 +11,7 @@ import type { UngatedEmailTypeId, UserConsentEmailTypeId } from "./email-types";
 import { recordEmailFailure } from "./failure-log";
 import { FROM_EMAIL, FROM_NAME } from "./resend";
 import { WelcomeEmail } from "./templates/WelcomeEmail";
-import { configuredTransport, sendViaTransport } from "./transport";
+import { configuredTransport, type MailAttachment, sendViaTransport } from "./transport";
 
 interface BaseMailOptions {
   subject: string;
@@ -45,6 +45,8 @@ interface BaseMailOptions {
    * guarantee. See OutgoingMail.idempotencyKey in ./transport.
    */
   idempotencyKey?: string;
+  /** Files sent with the message, such as an invoice PDF. */
+  attachments?: readonly MailAttachment[];
 }
 
 /**
@@ -196,6 +198,7 @@ export async function sendMail(opts: SendMailOptions) {
         replyTo: opts.replyTo,
         headers,
         idempotencyKey: opts.idempotencyKey,
+        attachments: opts.attachments,
       });
 
       if (!result.ok) {

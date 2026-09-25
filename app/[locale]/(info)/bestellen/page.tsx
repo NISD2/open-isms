@@ -1,38 +1,77 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { OrderForm } from "@/components/billing/OrderForm";
-import { mayUseBillingHarness } from "@/lib/billing/harness-access";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { getPathname, Link } from "@/i18n/navigation";
+import { getSession } from "@/lib/auth";
+import { api } from "@/lib/trpc/server";
 
 /**
- * The order step, as a page you can open and drive by hand.
+ * Door one: the customer orders for their own account.
  *
- * It is the real billing step rather than a mock: the same schema, the same VAT check, the same
- * price arithmetic and the same Qonto call the product will use. What makes it safe to leave in
- * the tree is that this page and both billing routes are gated on the same rule: a platform admin,
- * against the Qonto sandbox. On nisd2.eu the page is a 404.
- *
- * Not indexed, and no locale alternates, because it is not a page anyone should arrive at from a
- * search result while it is still a harness.
+ * The page exists only while ordering is open to the visitor (lib/billing/ordering.ts): never
+ * while Qonto is unconfigured, and only for platform admins against the sandbox. Everyone else gets
+ * a 404, so a closed door is indistinguishable from none. Not indexed: nobody should arrive here
+ * from a search result without an account behind them.
  */
-export const metadata: Metadata = {
-  title: "Bestellung (Sandbox)",
-  description: "Rechnung im Qonto-Sandbox erstellen.",
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("billing.order");
+  return { title: t("metaTitle"), robots: { index: false, follow: false } };
+}
 
-export default async function BestellenPage() {
-  if (!(await mayUseBillingHarness())) notFound();
+export default async function BestellenPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const session = await getSession();
+  if (!session) {
+    const back = getPathname({ href: "/bestellen", locale });
+    redirect(`/auth/signin?callbackUrl=${encodeURIComponent(back)}`);
+  }
+  if (!session.companyId) redirect("/onboarding");
+
+  const status = await api.billing.status();
+  if (!status.open) notFound();
+
+  const t = await getTranslations("billing.order");
+  const blocked = status.activeInvoice
+    ? t("alreadyPaid", {
+        date: new Intl.DateTimeFormat(locale, {
+          dateStyle: "long",
+          timeZone: "UTC",
+        }).format(new Date(`${status.activeInvoice.periodEnd}T12:00:00Z`)),
+        number: status.activeInvoice.number,
+      })
+    : status.isPayer
+      ? null
+      : t("payerOnly");
 
   return (
     <div className="space-y-8">
       <header className="space-y-2">
-        <h1 className="font-bold text-3xl tracking-tight">Bestellung</h1>
-        <p className="text-muted-foreground">
-          NIS 2 Durchgang für ein Jahr. 4.800 € netto im Jahr, 30 Tage Geld zurück,
-          Rechnung mit 30 Tagen Zahlungsziel.
-        </p>
+        <h1 className="font-bold text-3xl tracking-tight">{t("title")}</h1>
+        <p className="text-muted-foreground">{t("intro", { price: status.netPrice })}</p>
       </header>
-      <OrderForm />
+      {status.mode === "sandbox" ? (
+        <Alert>
+          <AlertDescription>{t("sandboxNotice")}</AlertDescription>
+        </Alert>
+      ) : null}
+      {blocked ? (
+        <Alert>
+          <AlertDescription className="space-y-2">
+            <p>{blocked}</p>
+            <Link href="/billing" className="font-medium underline underline-offset-4">
+              {t("toInvoices")}
+            </Link>
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <OrderForm />
+      )}
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
   canSeeCategory,
@@ -15,6 +16,7 @@ import {
   getUserAccess,
   myRequirementCount,
 } from "@/lib/compliance/access";
+import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import {
   type ComplianceMessages,
@@ -105,6 +107,7 @@ export default async function PortalLayout({ children }: { children: React.React
   // not manage a team before activating. Gating on companyActivated (not merely
   // companyId) is what makes a draft see the banner here instead of an empty,
   // 403-on-write shell.
+  const billing = await billingFor(db, session.user.email);
   const h = await headers();
   const pathname = h.get("x-pathname") ?? "";
   const ALLOWED_WITHOUT_COMPANY = [
@@ -131,6 +134,7 @@ export default async function PortalLayout({ children }: { children: React.React
           isPlatformAdmin: isPlatformAdmin(session.user.email),
         }}
         frameworks={frameworks}
+        showBilling={billing.open}
       />
       <SidebarInset>
         <PortalHeader

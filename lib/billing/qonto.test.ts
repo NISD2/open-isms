@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test } from "bun:test";
 import { QONTO_PRODUCTION_BASE as PRODUCTION_BASE } from "./config-schema";
-import { getOrganization, qontoConfigFromEnv, sendInvoiceByEmail } from "./qonto";
+import { getOrganization, qontoConfigFromEnv } from "./qonto";
 
 const SANDBOX_BASE = "https://thirdparty-sandbox.staging.qonto.co/v2";
 
@@ -106,23 +106,5 @@ describe("responses", () => {
   test("an empty 200 on a call that promises a body is a failure, not null data", async () => {
     answer("", 200);
     expect((await getOrganization(config)).ok).toBe(false);
-  });
-
-  test("sending an invoice is not reported as sent when an HTML page comes back", async () => {
-    answer("<html>OneLogin</html>", 200);
-    const r = await sendInvoiceByEmail(config, "inv", {
-      to: ["a@example.invalid"],
-      subject: "s",
-    });
-    expect(r.ok).toBe(false);
-  });
-
-  test("sending an invoice succeeds on 204 with no body", async () => {
-    answer("", 204);
-    const r = await sendInvoiceByEmail(config, "inv", {
-      to: ["a@example.invalid"],
-      subject: "s",
-    });
-    expect(r.ok).toBe(true);
   });
 });

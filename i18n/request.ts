@@ -1,5 +1,5 @@
-import { getRequestConfig } from "next-intl/server";
 import { hasLocale } from "next-intl";
+import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
 
 const namespaces = [
@@ -8,6 +8,7 @@ const namespaces = [
   "auth",
   "audit",
   "audit-readiness",
+  "billing",
   "changes",
   "common",
   "companyLookup",
@@ -75,9 +76,7 @@ async function load(ns: string, locale: string): Promise<Messages> {
 }
 
 function isPlainObject(value: unknown): value is Messages {
-  return (
-    typeof value === "object" && value !== null && !Array.isArray(value)
-  );
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 /**

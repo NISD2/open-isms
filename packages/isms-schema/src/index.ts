@@ -12,6 +12,7 @@ export * from "./tables/change-management";
 export * from "./tables/email-preference";
 export * from "./tables/evidence";
 export * from "./tables/exercise";
+export * from "./tables/feature-flag";
 export * from "./tables/gap-assessment";
 export * from "./tables/improvement";
 export * from "./tables/incident-broadcast";

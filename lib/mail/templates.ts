@@ -282,6 +282,56 @@ export function memberRemovedEmail(opts: {
 }
 
 // ---------------------------------------------------------------------------
+// Invoice
+// ---------------------------------------------------------------------------
+
+/**
+ * The invoice for an order. The wording lives with the invoice in lib/billing/order.ts, so the
+ * email and the invoice say the same thing; this only lays it out. The invoice link is made
+ * clickable, because when the PDF could not be attached it is where the invoice is.
+ */
+export function invoiceEmail(wording: {
+  readonly subject: string;
+  readonly paragraphs: readonly string[];
+  readonly invoiceUrl: string | null;
+}): EmailContent {
+  const link = wording.invoiceUrl ? escapeHtml(wording.invoiceUrl) : null;
+  const paragraph = (p: string) => {
+    const safe = escapeHtml(p);
+    const linked = link
+      ? safe.replace(
+          link,
+          `<a href="${link}" style="color: ${BRAND.primary};">${link}</a>`,
+        )
+      : safe;
+    return `<p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 12px;">${linked}</p>`;
+  };
+  return {
+    subject: safeHeader(wording.subject),
+    html: emailLayout(wording.paragraphs.map(paragraph).join("\n")),
+    text: wording.paragraphs.join("\n\n"),
+  };
+}
+
+/** To the operators: an order or invoice that needs a person in Qonto. Plain facts, one per line. */
+export function billingAlertEmail(opts: {
+  readonly subject: string;
+  readonly lines: readonly string[];
+}): EmailContent {
+  const rows = opts.lines
+    .map(
+      (l) =>
+        `<p style="color: ${BRAND.foreground}; font-size: 14px; margin: 0 0 8px;">${escapeHtml(l)}</p>`,
+    )
+    .join("\n");
+  return {
+    subject: `[RECHNUNG] ${safeHeader(opts.subject)}`,
+    html: emailLayout(rows),
+    text: opts.lines.join("\n"),
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Deadline Reminder
 // ---------------------------------------------------------------------------
 

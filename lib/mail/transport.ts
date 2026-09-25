@@ -30,6 +30,14 @@ export interface OutgoingMail {
    * double send must not rely on the transport for it.
    */
   readonly idempotencyKey?: string;
+  readonly attachments?: readonly MailAttachment[];
+}
+
+/** A file sent with a message, such as an invoice PDF. */
+export interface MailAttachment {
+  readonly filename: string;
+  readonly content: Uint8Array;
+  readonly contentType: string;
 }
 
 export type TransportResult =
