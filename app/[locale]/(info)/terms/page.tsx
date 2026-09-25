@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CopyProtected } from "@/components/CopyProtected";
 import { pageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("info");
   return {
@@ -20,7 +18,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-const customerResponsibilityKeys = ["accuracy", "applicability", "compliance", "decisions", "review"] as const;
+const customerResponsibilityKeys = [
+  "accuracy",
+  "applicability",
+  "compliance",
+  "decisions",
+  "review",
+] as const;
 const noGuaranteeKeys = ["audit", "compliant", "penalty", "requirements"] as const;
 const indemnificationKeys = ["misuse", "data", "claims"] as const;
 
@@ -28,17 +32,12 @@ export default async function TermsPage() {
   const t = await getTranslations("info");
 
   return (
-    <CopyProtected><article>
+    // Not copy-protected: contract terms must be storable by the customer (§ 312i Abs. 1 Nr. 4 BGB).
+    <article>
       <header className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">
-          {t("terms.title")}
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          {t("terms.subtitle")}
-        </p>
-        <p className="text-sm text-muted-foreground">
-          {t("terms.lastUpdated")}
-        </p>
+        <h1 className="text-4xl font-bold tracking-tight">{t("terms.title")}</h1>
+        <p className="text-lg text-muted-foreground">{t("terms.subtitle")}</p>
+        <p className="text-sm text-muted-foreground">{t("terms.lastUpdated")}</p>
       </header>
 
       <Separator className="my-8" />
@@ -86,7 +85,9 @@ export default async function TermsPage() {
                 </li>
               ))}
             </ul>
-            <p className="font-medium text-foreground">{t("terms.customerResponsibility.p2")}</p>
+            <p className="font-medium text-foreground">
+              {t("terms.customerResponsibility.p2")}
+            </p>
           </CardContent>
         </Card>
       </section>
@@ -217,10 +218,12 @@ export default async function TermsPage() {
             <p>{t("terms.contact.p1")}</p>
             <p className="mt-3 font-medium text-foreground">{t("terms.contact.name")}</p>
             <p>{t("terms.contact.address")}</p>
-            <p>{t("terms.contact.emailLabel")}: {t("terms.contact.email")}</p>
+            <p>
+              {t("terms.contact.emailLabel")}: {t("terms.contact.email")}
+            </p>
           </CardContent>
         </Card>
       </section>
-    </article></CopyProtected>
+    </article>
   );
 }
