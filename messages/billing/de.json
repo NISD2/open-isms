@@ -6,7 +6,7 @@
       "intro": "NIS 2 Durchgang für ein Jahr, {price} netto. Eine Zahlung gilt für alle Organisationen und Nutzer Ihres Kontos. Sie zahlen auf Rechnung mit 30 Tagen Zahlungsziel, und der Zugang ist ab der Bestellung freigeschaltet. Wenn Sie innerhalb von 30 Tagen ab Bestellung kündigen, bekommen Sie Ihr Geld zurück.",
       "sandboxNotice": "Testmodus: Diese Bestellung erzeugt eine Rechnung in der Qonto Sandbox und schaltet dieses Konto frei.",
       "alreadyPaid": "Ihr Konto ist bis {date} bezahlt, Rechnung {number}.",
-      "adminOnly": "Bestellen kann eine Person mit Administratorrechten in Ihrer Organisation. Bitten Sie sie, diese Seite zu öffnen.",
+      "payerOnly": "Bestellen kann die Person, der das Konto gehört. In der Regel ist das, wer die Organisation angelegt hat.",
       "toInvoices": "Zu Ihren Rechnungen"
     },
     "form": {
@@ -45,7 +45,7 @@
       "malformed": "Nicht geprüft"
     },
     "warnings": {
-      "notInRegister": "Das Register der EU kennt diese Nummer noch nicht. Bei einer neu vergebenen Nummer ist das normal. Wir prüfen später noch einmal, und die Rechnung wird dadurch nicht aufgehalten.",
+      "notInRegister": "Das Register der EU kennt diese Nummer noch nicht. Bei einer neu vergebenen Nummer ist das normal, und die Bestellung wird dadurch nicht aufgehalten.",
       "checkNumber": "Bitte prüfen Sie die USt-IdNr."
     },
     "price": {
@@ -77,7 +77,9 @@
       "body": "Rechnung {number} über {gross} geht in wenigen Minuten an {email}. Zahlbar bis {dueDate}. Ihr Zugang ist freigeschaltet.",
       "alreadyOrdered": "Für dieses Konto gibt es schon eine gültige Rechnung. Sie finden sie unter Ihren Rechnungen.",
       "tooManyRequests": "Zu viele Versuche. Bitte warten Sie eine Minute.",
-      "failed": "Die Bestellung konnte gerade nicht abgeschlossen werden. Bitte versuchen Sie es später noch einmal."
+      "failed": "Die Bestellung konnte gerade nicht abgeschlossen werden. Bitte versuchen Sie es später noch einmal.",
+      "priceChanged": "Das Register der EU hat eben anders geantwortet als vorhin, deshalb hat sich der Preis geändert. Bitte prüfen Sie den neuen Betrag und bestellen Sie dann noch einmal.",
+      "unknown": "Wir konnten nicht sicher feststellen, ob die Rechnung erstellt wurde. Bitte bestellen Sie nicht noch einmal. Wir prüfen es und melden uns bei Ihnen."
     },
     "page": {
       "title": "Abrechnung",
@@ -91,7 +93,7 @@
       "price": "Ihr Preis: {price} netto im Jahr",
       "order": "Bestellen",
       "invoicesTitle": "Rechnungen",
-      "adminOnly": "Die Rechnungen sehen Personen mit Administratorrechten in Ihrer Organisation.",
+      "payerOnly": "Die Rechnungen sieht die Person, der das Konto gehört. In der Regel ist das, wer die Organisation angelegt hat.",
       "empty": "Noch keine Rechnungen.",
       "number": "Nummer",
       "amount": "Betrag",

@@ -1,6 +1,7 @@
 export { sendAuthCode } from "./auth-code";
 export { type SendMailOptions, sendMail, sendWelcomeEmail } from "./send";
 export {
+  billingAlertEmail,
   categoryAssignedEmail,
   categoryUnassignedEmail,
   contactEmailChangedEmail,

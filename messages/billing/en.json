@@ -6,7 +6,7 @@
       "intro": "The NIS 2 guided pass for one year, {price} net. One payment covers every organization and user on your account. You pay by invoice within 30 days, and access opens as soon as you order. If you cancel within 30 days of ordering, you get your money back.",
       "sandboxNotice": "Test mode: this order creates an invoice in the Qonto sandbox and unlocks this account.",
       "alreadyPaid": "Your account is paid until {date}, invoice {number}.",
-      "adminOnly": "Someone with admin rights in your organization can place the order. Ask them to open this page.",
+      "payerOnly": "The account holder can place the order. Usually that is whoever set up the organization.",
       "toInvoices": "Your invoices"
     },
     "form": {
@@ -45,7 +45,7 @@
       "malformed": "Not checked"
     },
     "warnings": {
-      "notInRegister": "The EU register does not know this number yet, which is normal for a newly issued one. We check again later, and the invoice is not held up.",
+      "notInRegister": "The EU register does not know this number yet, which is normal for a newly issued one. It does not hold up the order.",
       "checkNumber": "Please check the VAT number."
     },
     "price": {
@@ -77,7 +77,9 @@
       "body": "Invoice {number} for {gross} reaches {email} within a few minutes. Payable by {dueDate}. Your access is open.",
       "alreadyOrdered": "This account already has a current invoice. You find it under your invoices.",
       "tooManyRequests": "Too many attempts. Please wait a minute.",
-      "failed": "The order could not be completed just now. Please try again later."
+      "failed": "The order could not be completed just now. Please try again later.",
+      "priceChanged": "The EU register answered differently just now, so the price changed. Please check the new amount, then order again.",
+      "unknown": "We could not tell for certain whether the invoice was created. Please do not order again. We will check and get back to you."
     },
     "page": {
       "title": "Billing",
@@ -91,7 +93,7 @@
       "price": "Your price: {price} net a year",
       "order": "Order",
       "invoicesTitle": "Invoices",
-      "adminOnly": "People with admin rights in your organization see the invoices.",
+      "payerOnly": "The account holder sees the invoices. Usually that is whoever set up the organization.",
       "empty": "No invoices yet.",
       "number": "Number",
       "amount": "Amount",

@@ -13,6 +13,7 @@ import type { Database } from "@/lib/db";
 import { invoiceEmail, sendMail } from "@/lib/mail";
 import { putObject } from "@/lib/storage";
 import { invoice } from "@/schema";
+import { alertOperators } from "./alert";
 import { invoiceEmailWording } from "./order";
 import { downloadPdf, getAttachment, getInvoice, type QontoConfig } from "./qonto";
 import { httpsHostOf } from "./sandbox-gate";
@@ -119,8 +120,14 @@ const sendInvoice = async (input: DeliverInvoiceInput, document: InvoiceDocument
         }
       : {}),
   });
-  if (!result.success) console.error(`[billing] invoice ${input.number} email not sent`);
+  if (!result.success) await notSent(input, "the email could not be sent");
 };
+
+const notSent = (input: DeliverInvoiceInput, why: string) =>
+  alertOperators(`${input.number} nicht zugestellt`, [
+    `Die Rechnung ${input.number} ging nicht an ${input.recipients.join(", ")}: ${why}.`,
+    "Aus Qonto von Hand senden.",
+  ]);
 
 export async function deliverInvoice(input: DeliverInvoiceInput): Promise<void> {
   const document = await fetchInvoiceDocument(
@@ -130,9 +137,7 @@ export async function deliverInvoice(input: DeliverInvoiceInput): Promise<void> 
   );
   if (document.pdf) await archivePdf(input, document.pdf);
   if (!document.pdf && !document.invoiceUrl) {
-    console.error(
-      `[billing] invoice ${input.number} has neither a PDF nor a link yet; no email sent, send it from Qonto by hand`,
-    );
+    await notSent(input, "Qonto had neither a PDF nor a link for it");
     return;
   }
   await sendInvoice(input, document);

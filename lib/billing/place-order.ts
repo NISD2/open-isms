@@ -17,6 +17,7 @@
 import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
 import type { Database, DbOrTx } from "@/lib/db";
 import { billingAccount, creditNote, documentNumberCounter, invoice } from "@/schema";
+import { alertOperators } from "./alert";
 import { deliverInvoice } from "./deliver-invoice";
 import { pickPayableAccount } from "./iban";
 import { invoiceNumber, sandboxInvoiceNumber } from "./invoice-number";
@@ -50,7 +51,15 @@ export type OrderOutcome =
     }
   | {
       readonly ok: false;
-      readonly reason: "already_ordered" | "invalid_vat" | "no_account" | "qonto";
+      readonly reason:
+        | "already_ordered"
+        | "invalid_vat"
+        | "no_account"
+        | "price_changed"
+        /** Qonto refused: nothing was issued. */
+        | "qonto"
+        /** Qonto did not answer clearly: an invoice may exist, and the operators are told. */
+        | "qonto_unknown";
       readonly message: string;
     };
 
@@ -63,6 +72,12 @@ export interface PlaceOrderInput {
   readonly createdByUserId: string;
   readonly invoicePrefix: string;
   readonly vies: ViesConfig;
+  /**
+   * The gross the customer was shown, when they were shown one. The register is asked again here
+   * and may answer differently, so an order whose price moved is refused rather than invoiced at a
+   * price nobody agreed to.
+   */
+  readonly expectedGrossCents: number | null;
   readonly now?: Date;
 }
 
@@ -211,6 +226,16 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     }
 
     const money = priceFor(vat.countryCode, registry, netCentsFor(account.accessLevel));
+    if (
+      input.expectedGrossCents !== null &&
+      money.grossCents !== input.expectedGrossCents
+    ) {
+      return failure("price_changed", "The price changed since it was shown.");
+    }
+
+    // Two accounts ordering for one VAT number at once would otherwise both pick the same unclaimed
+    // Qonto client, and the second would fail on it after Qonto had issued its invoice.
+    await tx.execute(sql`select pg_advisory_xact_lock(hashtext(${canonicalVatNumber}))`);
     const client = await qontoClientFor(
       tx,
       mode.qonto,
@@ -253,11 +278,22 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     });
     const qontoInvoiceId = issued.ok ? issued.data.client_invoice?.id : undefined;
     if (!qontoInvoiceId) {
-      console.error(
-        `[billing] invoice ${number} not issued; the number stays unused`,
-        issued,
-      );
-      return failure("qonto", "Qonto did not issue the invoice.");
+      // A 4xx is Qonto refusing, so nothing exists. A timeout, a 5xx or a 2xx without an id can
+      // mean the invoice was created and the answer lost; a retry would then issue a second one.
+      const refused = !issued.ok && issued.status !== null && issued.status < 500;
+      if (refused) {
+        console.error(
+          `[billing] invoice ${number} refused; the number stays unused`,
+          issued,
+        );
+        return failure("qonto", "Qonto did not issue the invoice.");
+      }
+      void alertOperators(`Unklar, ob ${number} ausgestellt wurde`, [
+        `Qonto hat auf die Rechnung ${number} nicht eindeutig geantwortet: ${issued.ok ? "kein id" : issued.error}.`,
+        `Billing account ${account.id}, Qonto client ${client.id}.`,
+        "In Qonto nachsehen. Gibt es die Rechnung, die Zeile von Hand anlegen und den Zugang freischalten, oder gutschreiben.",
+      ]);
+      return failure("qonto_unknown", "Qonto did not answer clearly.");
     }
 
     try {
@@ -294,11 +330,13 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       } as const;
     } catch (err) {
       // Qonto has issued an invoice we could not record. It needs a person: credit it in Qonto or
-      // insert the row by hand. Logged with everything needed to do either.
-      console.error(
-        `[billing] Qonto issued invoice ${number} (${qontoInvoiceId}) for account ${account.id} but it was not recorded`,
-        err,
-      );
+      // insert the row by hand. Sent with everything needed to do either.
+      void alertOperators(`${number} ausgestellt, aber nicht erfasst`, [
+        `Qonto hat ${number} (${qontoInvoiceId}) ausgestellt, der Eintrag bei uns ist fehlgeschlagen.`,
+        `Billing account ${account.id}, Qonto client ${client.id}.`,
+        `Fehler: ${err instanceof Error ? err.message : String(err)}`,
+        "Die Zeile von Hand anlegen und den Zugang freischalten, oder in Qonto gutschreiben.",
+      ]);
       throw err;
     }
   });
@@ -315,7 +353,10 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     recipients: [order.invoiceEmail, ...(order.copyToEmail ? [order.copyToEmail] : [])],
     locale,
   }).catch((err) =>
-    console.error(`[billing] delivering invoice ${outcome.number} failed`, err),
+    alertOperators(`${outcome.number} nicht zugestellt`, [
+      `Die Zustellung der Rechnung ${outcome.number} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
+      "Aus Qonto von Hand senden.",
+    ]),
   );
 
   return {

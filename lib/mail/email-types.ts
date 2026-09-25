@@ -94,6 +94,8 @@ export const EMAIL_TYPES = {
    */
   "internal.advisory_request": { category: "internal", consent: "operator" },
   "internal.test_send": { category: "internal", consent: "operator" },
+  /** An order or invoice that a person has to look at in Qonto: never routine, always acted on. */
+  "internal.billing_alert": { category: "internal", consent: "operator" },
 } as const satisfies Record<string, EmailTypeDefinition>;
 
 export type EmailTypeId = keyof typeof EMAIL_TYPES;

@@ -36,7 +36,7 @@ export default async function BillingPage({
 
   const t = await getTranslations("billing.page");
   const status = await api.billing.status();
-  const invoices = status.isCompanyAdmin ? await api.billing.invoices() : null;
+  const invoices = status.isPayer ? await api.billing.invoices() : null;
 
   const days = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" });
   const noon = (iso: string) => new Date(`${iso}T12:00:00Z`);
@@ -78,7 +78,7 @@ export default async function BillingPage({
         </CardHeader>
         <CardContent>
           {invoices === null ? (
-            <p className="text-muted-foreground text-sm">{t("adminOnly")}</p>
+            <p className="text-muted-foreground text-sm">{t("payerOnly")}</p>
           ) : invoices.length === 0 ? (
             <p className="text-muted-foreground text-sm">{t("empty")}</p>
           ) : (

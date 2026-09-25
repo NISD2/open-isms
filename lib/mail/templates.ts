@@ -313,6 +313,24 @@ export function invoiceEmail(wording: {
   };
 }
 
+/** To the operators: an order or invoice that needs a person in Qonto. Plain facts, one per line. */
+export function billingAlertEmail(opts: {
+  readonly subject: string;
+  readonly lines: readonly string[];
+}): EmailContent {
+  const rows = opts.lines
+    .map(
+      (l) =>
+        `<p style="color: ${BRAND.foreground}; font-size: 14px; margin: 0 0 8px;">${escapeHtml(l)}</p>`,
+    )
+    .join("\n");
+  return {
+    subject: `[RECHNUNG] ${safeHeader(opts.subject)}`,
+    html: emailLayout(rows),
+    text: opts.lines.join("\n"),
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Deadline Reminder
 // ---------------------------------------------------------------------------

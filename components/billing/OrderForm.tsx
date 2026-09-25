@@ -70,7 +70,17 @@ export function OrderForm() {
   const t = useTranslations("billing");
   const locale = useLocale();
   const quote = trpc.billing.quote.useMutation();
-  const place = trpc.billing.place.useMutation();
+  const place = trpc.billing.place.useMutation({
+    // The register answered differently at order time: show the new price before they try again.
+    onError: (err, vars) => {
+      if (err.data?.code === "PRECONDITION_FAILED") {
+        quote.mutate({
+          vatNumber: vars.order.vatNumber,
+          countryCode: vars.order.countryCode,
+        });
+      }
+    },
+  });
 
   const form = useForm<OrderValues>({
     resolver: zodResolver(orderSchemaWithVatCheck),
@@ -93,8 +103,15 @@ export function OrderForm() {
     quote.mutate({ vatNumber, countryCode: form.getValues("countryCode") });
   };
 
-  const onSubmit = (values: OrderValues) =>
-    place.mutate(orderSchemaWithVatCheck.parse(values));
+  const onSubmit = (values: OrderValues) => {
+    const order = orderSchemaWithVatCheck.parse(values);
+    // Only a price quoted for this very number counts as the one they saw.
+    const quoted =
+      quote.variables?.vatNumber === values.vatNumber
+        ? quote.data?.price.grossCents
+        : undefined;
+    place.mutate({ order, quotedGrossCents: quoted ?? null });
+  };
 
   if (place.data) {
     return (
@@ -128,14 +145,20 @@ export function OrderForm() {
         ? t("warnings.notInRegister")
         : null;
   const placeError = place.error?.data?.code;
+  // After an unclear answer from Qonto an invoice may exist, so the button stays off.
+  const outcomeUnknown = placeError === "TIMEOUT";
   const failure =
     placeError === "CONFLICT"
       ? t("result.alreadyOrdered")
       : placeError === "TOO_MANY_REQUESTS"
         ? t("result.tooManyRequests")
-        : place.error
-          ? t("result.failed")
-          : null;
+        : placeError === "PRECONDITION_FAILED"
+          ? t("result.priceChanged")
+          : outcomeUnknown
+            ? t("result.unknown")
+            : place.error
+              ? t("result.failed")
+              : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
@@ -361,7 +384,12 @@ export function OrderForm() {
             </Alert>
           ) : null}
 
-          <Button type="submit" size="lg" className="w-full" disabled={place.isPending}>
+          <Button
+            type="submit"
+            size="lg"
+            className="w-full"
+            disabled={place.isPending || outcomeUnknown}
+          >
             {place.isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden />

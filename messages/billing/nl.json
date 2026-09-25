@@ -6,7 +6,7 @@
       "intro": "De NIS 2 begeleide doorloop voor een jaar, {price} netto. Eén betaling geldt voor alle organisaties en gebruikers in uw account. U betaalt op factuur binnen 30 dagen, en de toegang gaat open zodra u bestelt. Als u binnen 30 dagen na de bestelling opzegt, krijgt u uw geld terug.",
       "sandboxNotice": "Testmodus: deze bestelling maakt een factuur aan in de Qonto sandbox en geeft dit account toegang.",
       "alreadyPaid": "Uw account is betaald tot {date}, factuur {number}.",
-      "adminOnly": "Iemand met beheerdersrechten in uw organisatie kan de bestelling plaatsen. Vraag die persoon deze pagina te openen.",
+      "payerOnly": "De accounthouder kan de bestelling plaatsen. Meestal is dat degene die de organisatie heeft aangemaakt.",
       "toInvoices": "Naar uw facturen"
     },
     "form": {
@@ -45,7 +45,7 @@
       "malformed": "Niet gecontroleerd"
     },
     "warnings": {
-      "notInRegister": "Het register van de EU kent dit nummer nog niet. Bij een nieuw uitgegeven nummer is dat normaal. Wij controleren later opnieuw, en de factuur wordt er niet door opgehouden.",
+      "notInRegister": "Het register van de EU kent dit nummer nog niet. Bij een nieuw uitgegeven nummer is dat normaal, en de bestelling wordt er niet door opgehouden.",
       "checkNumber": "Controleer het btw-nummer."
     },
     "price": {
@@ -77,7 +77,9 @@
       "body": "Factuur {number} van {gross} komt binnen enkele minuten aan bij {email}. Te betalen voor {dueDate}. Uw toegang is open.",
       "alreadyOrdered": "Voor dit account bestaat al een geldige factuur. U vindt die onder uw facturen.",
       "tooManyRequests": "Te veel pogingen. Wacht een minuut.",
-      "failed": "De bestelling kon nu niet worden afgerond. Probeer het later opnieuw."
+      "failed": "De bestelling kon nu niet worden afgerond. Probeer het later opnieuw.",
+      "priceChanged": "Het register van de EU gaf zojuist een ander antwoord, daarom is de prijs veranderd. Controleer het nieuwe bedrag en bestel dan opnieuw.",
+      "unknown": "We konden niet zeker vaststellen of de factuur is aangemaakt. Bestel alstublieft niet opnieuw. Wij controleren het en nemen contact met u op."
     },
     "page": {
       "title": "Facturatie",
@@ -91,7 +93,7 @@
       "price": "Uw prijs: {price} netto per jaar",
       "order": "Bestellen",
       "invoicesTitle": "Facturen",
-      "adminOnly": "Mensen met beheerdersrechten in uw organisatie zien de facturen.",
+      "payerOnly": "De accounthouder ziet de facturen. Meestal is dat degene die de organisatie heeft aangemaakt.",
       "empty": "Nog geen facturen.",
       "number": "Nummer",
       "amount": "Bedrag",

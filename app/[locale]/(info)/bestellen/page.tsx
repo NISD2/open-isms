@@ -45,9 +45,9 @@ export default async function BestellenPage({
         }).format(new Date(`${status.activeInvoice.periodEnd}T12:00:00Z`)),
         number: status.activeInvoice.number,
       })
-    : status.isCompanyAdmin
+    : status.isPayer
       ? null
-      : t("adminOnly");
+      : t("payerOnly");
 
   return (
     <div className="space-y-8">

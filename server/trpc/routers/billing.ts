@@ -3,9 +3,9 @@
  *
  * Who may do what:
  *   - `status` is for any member, so the page can say why there is no order button.
- *   - Ordering and the invoices are for the company's admins. An order commits the company to an
- *     invoice, so it belongs to the people who can bind the company. Adding an organization costs
- *     nothing and stays open to every member.
+ *   - Ordering and the invoices are for the account holder (`billing_account.ownerUserId`), the
+ *     person who pays. Not for company admins: any member may add an organization and is its
+ *     admin, so a company role says nothing about who may put the account on an invoice.
  *   - On top of that, `mayOrderIn` decides from the configuration: nobody while Qonto is not set
  *     up, platform admins only against the sandbox, everyone live.
  *
@@ -39,11 +39,15 @@ import { env } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
 import { createPresignedGet } from "@/lib/storage";
 import { billingAccount, company, creditNote, invoice } from "@/schema";
-import { adminProcedure, companyProcedure, router } from "../init";
+import { companyProcedure, router } from "../init";
 
 const accountOf = async (db: DbOrTx, companyId: string) => {
   const [row] = await db
-    .select({ id: billingAccount.id, accessLevel: billingAccount.accessLevel })
+    .select({
+      id: billingAccount.id,
+      accessLevel: billingAccount.accessLevel,
+      ownerUserId: billingAccount.ownerUserId,
+    })
     .from(company)
     .innerJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
     .where(eq(company.id, companyId))
@@ -52,27 +56,33 @@ const accountOf = async (db: DbOrTx, companyId: string) => {
   return row;
 };
 
+/** The open company's billing account, and only for the person who holds it. */
+const payerProcedure = companyProcedure.use(async ({ ctx, next }) => {
+  const account = await accountOf(ctx.db, ctx.companyId);
+  if (account.ownerUserId !== ctx.userId) {
+    throw new TRPCError({ code: "FORBIDDEN", message: "Only the account holder." });
+  }
+  return next({ ctx: { ...ctx, account } });
+});
+
 const priceView = (money: Money) => ({
   net: formatEuro(money.netCents),
   vat: formatEuro(money.vatCents),
   gross: formatEuro(money.grossCents),
+  grossCents: money.grossCents,
   vatRatePercent: Math.round(money.vatRate * 100),
   treatment: money.treatment.kind,
 });
 
-/**
- * The mode, whether ordering is open to this person at all (`open`), and whether they may order
- * for the open company (`canOrder`), which also takes its admin role.
- */
-const orderingFor = (session: { user: { email?: string | null }; role: string }) => {
+/** The mode, and whether ordering is open to this person at all. */
+const orderingFor = (email: string | null | undefined) => {
   const mode = orderingMode(env);
-  const open = mayOrderIn(mode, isPlatformAdmin(session.user.email));
-  return { mode, open, canOrder: open && session.role === "admin" };
+  return { mode, open: mayOrderIn(mode, isPlatformAdmin(email)) };
 };
 
-const requireOrdering = (session: { user: { email?: string | null }; role: string }) => {
-  const { mode, canOrder } = orderingFor(session);
-  if (!canOrder || mode.kind === "off") {
+const requireOrdering = (email: string | null | undefined) => {
+  const { mode, open } = orderingFor(email);
+  if (!open || mode.kind === "off") {
     throw new TRPCError({ code: "FORBIDDEN", message: "Ordering is not open." });
   }
   return mode;
@@ -97,13 +107,14 @@ const liveStatus = async (mode: OrderingMode, qontoInvoiceId: string) => {
 export const billingRouter = router({
   status: companyProcedure.query(async ({ ctx }) => {
     const account = await accountOf(ctx.db, ctx.companyId);
-    const { mode, open, canOrder } = orderingFor(ctx.session);
+    const { mode, open } = orderingFor(ctx.session.user.email);
     const active = await findActiveInvoice(ctx.db, account.id, new Date());
+    const isPayer = account.ownerUserId === ctx.userId;
     return {
       mode: mode.kind,
       open,
-      canOrder: canOrder && !active,
-      isCompanyAdmin: ctx.session.role === "admin",
+      canOrder: open && isPayer && !active,
+      isPayer,
       accessLevel: account.accessLevel,
       netPrice: formatEuro(netCentsFor(account.accessLevel)),
       activeInvoice: active,
@@ -117,7 +128,7 @@ export const billingRouter = router({
    * Every lookup is filed with the Commission under the seller's VAT number, so this is rate
    * limited per person and open only to someone who may order.
    */
-  quote: adminProcedure
+  quote: payerProcedure
     .input(
       z.object({
         vatNumber: z.string().trim().min(2).max(32),
@@ -125,9 +136,9 @@ export const billingRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      requireOrdering(ctx.session);
+      requireOrdering(ctx.session.user.email);
       limited(`billing:quote:${ctx.userId}`, 10);
-      const account = await accountOf(ctx.db, ctx.companyId);
+      const { account } = ctx;
 
       const parts = splitVatNumber(input.vatNumber);
       const countryCode = parts?.countryCode ?? input.countryCode?.toUpperCase() ?? "";
@@ -148,22 +159,28 @@ export const billingRouter = router({
       };
     }),
 
-  place: adminProcedure
-    .input(orderSchemaWithVatCheck)
+  place: payerProcedure
+    .input(
+      z.object({
+        order: orderSchemaWithVatCheck,
+        /** The gross the form showed, if it showed one; the order is refused if it moved. */
+        quotedGrossCents: z.number().int().nonnegative().nullable(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      const mode = requireOrdering(ctx.session);
+      const mode = requireOrdering(ctx.session.user.email);
       limited(`billing:place:${ctx.userId}`, 3);
-      const account = await accountOf(ctx.db, ctx.companyId);
 
       const outcome = await placeOrder({
         db: ctx.db,
         mode,
-        billingAccountId: account.id,
-        order: input,
+        billingAccountId: ctx.account.id,
+        order: input.order,
         source: "self_serve",
         createdByUserId: ctx.userId,
         invoicePrefix: env.INVOICE_PREFIX,
         vies: viesConfigFromEnv(env),
+        expectedGrossCents: input.quotedGrossCents,
       });
       if (outcome.ok) {
         return {
@@ -180,18 +197,22 @@ export const billingRouter = router({
           throw new TRPCError({ code: "BAD_REQUEST", message: outcome.message });
         case "no_account":
           throw new TRPCError({ code: "NOT_FOUND", message: outcome.message });
+        case "price_changed":
+          throw new TRPCError({ code: "PRECONDITION_FAILED", message: outcome.message });
         case "qonto":
           console.error(`[billing] order failed: ${outcome.message}`);
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message:
-              "The invoice could not be created. Nothing was charged; please try again later.",
+            message: "The invoice could not be created. Please try again later.",
           });
+        case "qonto_unknown":
+          // The client tells the customer not to order again; the operators have been alerted.
+          throw new TRPCError({ code: "TIMEOUT", message: outcome.message });
       }
     }),
 
-  invoices: adminProcedure.query(async ({ ctx }) => {
-    const account = await accountOf(ctx.db, ctx.companyId);
+  invoices: payerProcedure.query(async ({ ctx }) => {
+    const { account } = ctx;
     const rows = await ctx.db
       .select({
         id: invoice.id,
@@ -224,10 +245,10 @@ export const billingRouter = router({
   }),
 
   /** A short-lived download link for our archived copy of one of the account's own invoices. */
-  invoicePdf: adminProcedure
+  invoicePdf: payerProcedure
     .input(z.object({ invoiceId: z.uuid() }))
     .mutation(async ({ ctx, input }) => {
-      const account = await accountOf(ctx.db, ctx.companyId);
+      const { account } = ctx;
       const [row] = await ctx.db
         .select({ key: invoice.archivedPdfKey })
         .from(invoice)
