@@ -114,6 +114,25 @@ const envSchema = z.object({
     .regex(/^[A-Za-z0-9-]{8,128}$/, "INDEXNOW_KEY must be 8-128 chars of [A-Za-z0-9-]")
     .optional(),
 
+  // Billing through Qonto — optional. Unset means no invoicing: the order
+  // page and the invoice route stay unreachable, which is the correct default
+  // for a self-hosted instance. The sandbox pair wins over the production pair
+  // when both are set, so a sandbox run can never invoice for real by accident.
+  QONTO_API_BASE: z.string().optional(),
+  QONTO_LOGIN: z.string().optional(),
+  QONTO_SECRET_KEY: z.string().optional(),
+  QONTO_SANDBOX_LOGIN: z.string().optional(),
+  QONTO_SANDBOX_SECRET_KEY: z.string().optional(),
+  QONTO_STAGING_TOKEN: z.string().optional(),
+  // Invoice number prefix. Defaults to RE in lib/billing/invoice-number.ts,
+  // because Qonto only matches a transfer to an invoice for known prefixes.
+  INVOICE_PREFIX: z.string().optional(),
+  // The seller's own VAT number, sent to VIES as the requester so each check
+  // returns a consultation number that can be kept as evidence.
+  OWN_VAT_COUNTRY: z.string().optional(),
+  OWN_VAT_NUMBER: z.string().optional(),
+  VIES_ENDPOINT: z.string().optional(),
+
   // App URL
   NEXT_PUBLIC_APP_URL: z.string().default("https://www.nisd2.eu"),
 
