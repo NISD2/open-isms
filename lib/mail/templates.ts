@@ -313,6 +313,45 @@ export function invoiceEmail(wording: {
   };
 }
 
+/**
+ * The way into an account a platform admin opened on a sales call. Sent next to the invoice; the
+ * link sets a first password, or the person continues with Google under the same address.
+ */
+export function accountSetupEmail(opts: {
+  readonly setupUrl: string;
+  readonly locale: "de" | "en";
+}): EmailContent {
+  const url = escapeHtml(opts.setupUrl);
+  const copy =
+    opts.locale === "de"
+      ? {
+          subject: "Ihr Zugang zu nisd2.eu",
+          heading: "Ihr Zugang ist eingerichtet",
+          body: "Wir haben Ihr Konto für den NIS 2 Durchgang angelegt. Legen Sie über den Link ein Passwort fest, oder melden Sie sich mit Google unter dieser E-Mail-Adresse an.",
+          button: "Zugang einrichten",
+          note: "Der Link gilt sieben Tage und lässt sich einmal verwenden. Die Rechnung kommt in einer eigenen E-Mail.",
+        }
+      : {
+          subject: "Your access to nisd2.eu",
+          heading: "Your access is ready",
+          body: "We have set up your account for the NIS 2 guided pass. Use the link to set a password, or sign in with Google under this email address.",
+          button: "Set up access",
+          note: "The link is valid for seven days and works once. The invoice arrives in a separate email.",
+        };
+  return {
+    subject: copy.subject,
+    html: emailLayout(`
+        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
+        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${copy.body}</p>
+        <a href="${url}" style="display: inline-block; background: ${BRAND.primary}; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500;">
+          ${copy.button}
+        </a>
+        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">${copy.note}</p>
+    `),
+    text: [copy.heading, "", copy.body, "", opts.setupUrl, "", copy.note].join("\n"),
+  };
+}
+
 /** To the operators: an order or invoice that needs a person in Qonto. Plain facts, one per line. */
 export function billingAlertEmail(opts: {
   readonly subject: string;

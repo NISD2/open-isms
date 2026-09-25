@@ -32,9 +32,10 @@ export const emailOtp = pgTable(
     /** bcrypt hash of the 6-digit plaintext code. */
     codeHash: varchar("code_hash", { length: 255 }).notNull(),
     /**
-     * Purpose discriminator. Current values: "email_verify" (registration)
-     * and "password_reset". Validated at application level (see
-     * lib/auth/otp.ts) to avoid migration friction when adding values.
+     * Purpose discriminator. Current values: "email_verify" (registration),
+     * "password_reset", and "account_setup" (a seven-day link token, see
+     * lib/auth/setup-link.ts, whose codeHash is a sha256 rather than bcrypt).
+     * Validated at application level to avoid migration friction.
      */
     purpose: varchar("purpose", { length: 32 }).notNull(),
     /** Wrong-code attempts. At MAX_ATTEMPTS the record is consumed. */
