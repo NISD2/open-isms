@@ -82,7 +82,7 @@ function InvoiceCell({ inv }: { readonly inv: Row["invoice"] }) {
 
 export function SubscriptionsPanel() {
   const subs = trpc.platformAdmin.subscriptions.useQuery();
-  const [refundsOnly, setRefundsOnly] = useState(false);
+  const [filter, setFilter] = useState<"all" | "refund" | "watch">("all");
 
   const revoke = trpc.platformAdmin.revokeAccess.useMutation({
     onSuccess: async (r) => {
@@ -99,9 +99,22 @@ export function SubscriptionsPanel() {
     onError: (e) => toast.error(e.message),
   });
 
+  const paymentArrived = trpc.platformAdmin.markPaymentArrived.useMutation({
+    onSuccess: async (r) => {
+      await subs.refetch();
+      toast.success(
+        `Refund for ${r.number} is now owed. Transfer it, then mark it done.`,
+      );
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
   const all = subs.data ?? [];
-  const owed = all.filter((r) => r.refundOwed).length;
-  const rows = refundsOnly ? all.filter((r) => r.refundOwed) : all;
+  const owedRows = all.filter((r) => r.refundOwed);
+  const watchRows = all.filter((r) => r.latePaymentWatch.length > 0);
+  const rows = filter === "refund" ? owedRows : filter === "watch" ? watchRows : all;
+  const toggle = (next: "refund" | "watch") =>
+    setFilter((current) => (current === next ? "all" : next));
 
   return (
     <div className="space-y-4">
@@ -120,11 +133,19 @@ export function SubscriptionsPanel() {
           <div className="flex items-center gap-2">
             <Button
               size="sm"
-              variant={refundsOnly ? "default" : "outline"}
-              onClick={() => setRefundsOnly((v) => !v)}
+              variant={filter === "refund" ? "default" : "outline"}
+              onClick={() => toggle("refund")}
               data-testid="refunds-filter"
             >
-              Refund owed ({owed})
+              Refund owed ({owedRows.length})
+            </Button>
+            <Button
+              size="sm"
+              variant={filter === "watch" ? "default" : "outline"}
+              onClick={() => toggle("watch")}
+              data-testid="late-payment-filter"
+            >
+              Watch for a late payment ({watchRows.length})
             </Button>
             {subs.isFetching ? (
               <span className="text-muted-foreground">loading…</span>
@@ -132,7 +153,11 @@ export function SubscriptionsPanel() {
           </div>
           {rows.length === 0 ? (
             <p className="text-muted-foreground">
-              {refundsOnly ? "No refund owed." : "No subscriptions yet."}
+              {filter === "refund"
+                ? "No refund owed."
+                : filter === "watch"
+                  ? "No credited unpaid invoice in the last 30 days."
+                  : "No subscriptions yet."}
             </p>
           ) : (
             <Table>
@@ -171,7 +196,34 @@ export function SubscriptionsPanel() {
                     <TableCell className="align-top">
                       <InvoiceCell inv={r.invoice} />
                     </TableCell>
-                    <TableCell className="align-top">
+                    <TableCell className="align-top space-y-2">
+                      {r.latePaymentWatch.map((w) => (
+                        <div key={w.creditNoteId} className="space-y-1">
+                          <Badge variant="secondary">Watch for a late payment</Badge>
+                          <p className="text-xs">
+                            {w.invoiceNumber} was unpaid when {w.creditNoteNumber}{" "}
+                            credited it on{" "}
+                            {new Date(w.creditedAt).toLocaleDateString("de-DE")}. A
+                            transfer of {w.gross} referencing it may still arrive.
+                          </p>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled={paymentArrived.isPending}
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  `A transfer for ${w.invoiceNumber} arrived in Qonto? This marks a refund of ${w.gross} as owed.`,
+                                )
+                              ) {
+                                paymentArrived.mutate({ creditNoteId: w.creditNoteId });
+                              }
+                            }}
+                          >
+                            Payment arrived, refund owed
+                          </Button>
+                        </div>
+                      ))}
                       {r.refunds.length === 0 ? (
                         <span className="text-muted-foreground">none</span>
                       ) : (

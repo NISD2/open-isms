@@ -24,6 +24,7 @@ import { orderingMode } from "@/lib/billing/ordering";
 import { quoteFor } from "@/lib/billing/quote";
 import {
   listSubscriptions,
+  markPaymentArrived,
   markRefundDone,
   revokeAccess,
 } from "@/lib/billing/subscriptions";
@@ -569,6 +570,33 @@ export const platformAdminRouter = router({
         userAgent: ctx.userAgent,
       });
       return { level };
+    }),
+
+  /**
+   * A transfer for a credited invoice arrived after the cancel: the refund is owed from now on.
+   * Audited.
+   */
+  markPaymentArrived: platformAdminProcedure
+    .input(z.object({ creditNoteId: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const number = await markPaymentArrived(ctx.db, input.creditNoteId);
+      if (!number) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "This credit note already owes a refund.",
+        });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.late_payment_refund_owed",
+        entityType: "credit_note",
+        entityId: input.creditNoteId,
+        description: `Payment arrived after credit note ${number}; refund now owed`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { number };
     }),
 
   /** Record that a refund was transferred in Qonto, with who and when. Audited. */

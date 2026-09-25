@@ -14,6 +14,7 @@ import {
   desc,
   eq,
   exists,
+  gte,
   inArray,
   isNull,
   or,
@@ -102,7 +103,7 @@ export const listSubscriptions = async (
   if (accounts.length === 0) return [];
   const ids = accounts.map((a) => a.id);
 
-  const [companies, people, invoices, refunds] = await Promise.all([
+  const [companies, people, invoices, refunds, watch] = await Promise.all([
     db
       .select({ accountId: company.billingAccountId, n: count() })
       .from(company)
@@ -133,6 +134,7 @@ export const listSubscriptions = async (
       .where(inArray(invoice.billingAccountId, ids))
       .orderBy(desc(invoice.issueDate), desc(invoice.createdAt)),
     listRefunds(db, ids),
+    listLatePaymentWatch(db, ids, now),
   ]);
 
   return Promise.all(
@@ -170,12 +172,54 @@ export const listSubscriptions = async (
         invoice: current,
         refunds: accountRefunds.map(({ accountId: _, ...r }) => r),
         refundOwed: accountRefunds.some((r) => r.doneAt === null),
+        latePaymentWatch: watch
+          .filter((w) => w.accountId === a.id)
+          .map(({ accountId: _, ...w }) => w),
       };
     }),
   );
 };
 
 /** Every credit note that owed a refund, done or not, with who recorded it and when. */
+/** How long a credit note on an unpaid invoice stays on the watch list. */
+const LATE_PAYMENT_WATCH_DAYS = 30;
+
+/**
+ * Credit notes on invoices Qonto reported unpaid, from the last thirty days. Customers pay by
+ * transfer and a credited invoice never turns "paid", so a transfer that was already on its way
+ * only shows up in Qonto's account: a person watches for it. Derived from the rows, no flag.
+ */
+const listLatePaymentWatch = (db: DbOrTx, accountIds: readonly string[], now: Date) =>
+  db
+    .select({
+      accountId: invoice.billingAccountId,
+      creditNoteId: creditNote.id,
+      creditNoteNumber: creditNote.number,
+      invoiceNumber: invoice.number,
+      netCents: invoice.netCents,
+      vatCents: invoice.vatCents,
+      creditedAt: creditNote.createdAt,
+    })
+    .from(creditNote)
+    .innerJoin(invoice, eq(invoice.id, creditNote.invoiceId))
+    .where(
+      and(
+        eq(creditNote.refundOwed, false),
+        gte(
+          creditNote.createdAt,
+          new Date(now.getTime() - LATE_PAYMENT_WATCH_DAYS * 86_400_000),
+        ),
+        inArray(invoice.billingAccountId, [...accountIds]),
+      ),
+    )
+    .orderBy(desc(creditNote.createdAt))
+    .then((rows) =>
+      rows.map(({ netCents, vatCents, ...r }) => ({
+        ...r,
+        gross: formatEuro(netCents + vatCents),
+      })),
+    );
+
 const listRefunds = (db: DbOrTx, accountIds: readonly string[]) => {
   const doneBy = alias(user, "refund_done_by");
   return db
@@ -242,6 +286,24 @@ export const revokeAccess = async (
  * recorded, which is also what the table's CHECK constraints allow. Returns the credit note's
  * number, or null when there was nothing to record.
  */
+/**
+ * A transfer for a credited invoice turned up in Qonto after the cancel: the refund becomes owed,
+ * and it then shows as owed until someone marks it done. Only on a credit note that owed nothing
+ * yet; the CHECK constraints allow it, since nothing is recorded as done. Returns the credit
+ * note's number, or null when there was nothing to change.
+ */
+export const markPaymentArrived = async (
+  db: DbOrTx,
+  creditNoteId: string,
+): Promise<string | null> => {
+  const [owed] = await db
+    .update(creditNote)
+    .set({ refundOwed: true })
+    .where(and(eq(creditNote.id, creditNoteId), eq(creditNote.refundOwed, false)))
+    .returning({ number: creditNote.number });
+  return owed?.number ?? null;
+};
+
 export const markRefundDone = async (
   db: DbOrTx,
   creditNoteId: string,

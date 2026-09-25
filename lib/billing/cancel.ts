@@ -124,16 +124,29 @@ const cancelRenewal = async (
   current: CurrentInvoice,
   now: Date,
 ): Promise<CancelOutcome> => {
-  const marked = await input.db
-    .update(billingAccount)
-    .set({ renewalCanceledAt: now, updatedAt: now })
-    .where(
-      and(
-        eq(billingAccount.id, input.billingAccountId),
-        isNull(billingAccount.renewalCanceledAt),
-      ),
-    )
-    .returning({ id: billingAccount.id });
+  // The same lock an order and a money-back cancel take, and the same refusal while an earlier
+  // order or cancel is still being checked in Qonto.
+  const marked = await input.db.transaction(async (tx) => {
+    await tx
+      .select({ id: billingAccount.id })
+      .from(billingAccount)
+      .where(eq(billingAccount.id, input.billingAccountId))
+      .for("no key update");
+    if (await hasOrderCheck(tx, input.billingAccountId)) return null;
+    return tx
+      .update(billingAccount)
+      .set({ renewalCanceledAt: now, updatedAt: now })
+      .where(
+        and(
+          eq(billingAccount.id, input.billingAccountId),
+          isNull(billingAccount.renewalCanceledAt),
+        ),
+      )
+      .returning({ id: billingAccount.id });
+  });
+  if (!marked) {
+    return failure("pending", "An earlier order or cancel is still being checked.");
+  }
   const alreadyCanceled = marked.length === 0;
   if (!alreadyCanceled) {
     const contact = await holderContact(input.db, input.userId);
@@ -308,6 +321,17 @@ const creditInvoice = async (
     });
 
   if (!outcome.ok) return outcome;
+
+  // "Unpaid" only means Qonto has not matched a transfer yet. Customers pay by transfer, and a
+  // credited invoice can never turn "paid" afterwards, so a transfer already on its way would go
+  // unnoticed. A person watches for it; the Subscriptions tab lists these for thirty days.
+  if (!refundOwed) {
+    void alertOperators(`${current.number} gutgeschrieben, auf späte Zahlung achten`, [
+      `Die Rechnung ${current.number} ist mit der Gutschrift ${outcome.number} storniert. Qonto meldete sie als unbezahlt.`,
+      `In Qonto auf eine eingehende Überweisung mit ${current.number} im Verwendungszweck achten. Kommt eine, den Betrag zurücküberweisen und im Subscriptions Tab "Payment arrived, refund owed" setzen.`,
+      `Billing account ${input.billingAccountId}.`,
+    ]);
+  }
 
   const contact = await holderContact(db, input.userId);
   if (contact) {

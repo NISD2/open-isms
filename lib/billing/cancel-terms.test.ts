@@ -61,6 +61,9 @@ describe("canceledEmailWording", () => {
     const unpaid = canceledEmailWording({ ...base, refundOwed: false }, "de").paragraphs;
     expect(paid.join(" ")).toContain("überweisen");
     expect(unpaid.join(" ")).not.toContain("überweisen");
+    // Unpaid in Qonto is not proof that no transfer is on its way.
+    expect(unpaid.join(" ")).toContain("sobald die Zahlung ankommt");
+    expect(unpaid.join(" ")).not.toContain("nichts weiter");
   });
 
   test("carries no em dash in any language", () => {

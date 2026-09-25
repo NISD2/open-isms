@@ -157,7 +157,7 @@ export const canceledEmailWording = (
           `Sie haben die Jahreslizenz NIS 2 Durchgang innerhalb der 30 Tage gekündigt. Die Rechnung ${inv} ist mit der Gutschrift ${cn} storniert${attached ? ", die Sie im Anhang finden" : ""}.`,
           refundOwed
             ? "Sie hatten die Rechnung schon bezahlt. Wir überweisen Ihnen den Betrag zurück, auf das Konto, von dem Ihre Zahlung kam."
-            : "Die Rechnung war noch nicht bezahlt. Sie müssen nichts weiter tun.",
+            : "Bei uns ist noch keine Zahlung eingegangen, und die Rechnung müssen Sie nicht mehr bezahlen. Haben Sie den Betrag schon überwiesen, erstatten wir ihn, sobald die Zahlung ankommt.",
           "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
           "Mit freundlichen Grüßen",
           "nisd2.eu",
@@ -171,7 +171,7 @@ export const canceledEmailWording = (
           `U heeft de jaarlicentie NIS 2 begeleide doorloop binnen de 30 dagen opgezegd. Factuur ${inv} is geannuleerd met creditnota ${cn}${attached ? ", die u in de bijlage vindt" : ""}.`,
           refundOwed
             ? "U had de factuur al betaald. Wij maken het bedrag terug over naar de rekening waarvan uw betaling kwam."
-            : "De factuur was nog niet betaald. U hoeft verder niets te doen.",
+            : "Bij ons is nog geen betaling binnengekomen, en de factuur hoeft u niet meer te betalen. Heeft u het bedrag al overgemaakt, dan betalen wij het terug zodra de betaling binnenkomt.",
           "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
           "Met vriendelijke groet",
           "nisd2.eu",
@@ -185,7 +185,7 @@ export const canceledEmailWording = (
           `You canceled the NIS 2 guided pass annual licence within the thirty days. Invoice ${inv} is canceled by credit note ${cn}${attached ? ", attached to this email" : ""}.`,
           refundOwed
             ? "You had already paid the invoice. We will transfer the amount back to the account your payment came from."
-            : "The invoice had not been paid yet. There is nothing more for you to do.",
+            : "No payment has reached us yet, and you no longer need to pay the invoice. If you have already transferred the amount, we refund it as soon as the payment arrives.",
           "Your organizations and everything you entered stay in your account.",
           "Kind regards",
           "nisd2.eu",

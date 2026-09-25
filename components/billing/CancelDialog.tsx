@@ -61,9 +61,11 @@ export function CancelDialog({
       toast.error(
         code === "TIMEOUT"
           ? t("unknown")
-          : code === "TOO_MANY_REQUESTS"
-            ? t("tooManyRequests")
-            : t("failed"),
+          : code === "PRECONDITION_FAILED"
+            ? t("pending")
+            : code === "TOO_MANY_REQUESTS"
+              ? t("tooManyRequests")
+              : t("failed"),
       );
       onOpenChange(false);
     },

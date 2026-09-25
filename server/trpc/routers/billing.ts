@@ -179,8 +179,10 @@ export const billingRouter = router({
           code: "INTERNAL_SERVER_ERROR",
           message: "The cancel could not be made. Please try again later.",
         });
-      case "qonto_unknown":
       case "pending":
+        // Nothing was sent to Qonto: an earlier order or cancel is still being checked.
+        throw new TRPCError({ code: "PRECONDITION_FAILED", message: outcome.message });
+      case "qonto_unknown":
         // The client tells the customer not to try again; the operators have been alerted.
         throw new TRPCError({ code: "TIMEOUT", message: outcome.message });
     }
