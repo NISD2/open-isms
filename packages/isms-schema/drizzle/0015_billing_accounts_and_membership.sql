@@ -2,6 +2,7 @@ CREATE TYPE "public"."access_level" AS ENUM('free', 'grandfathered', 'full');-->
 CREATE TYPE "public"."document_series" AS ENUM('invoice', 'credit_note');--> statement-breakpoint
 CREATE TYPE "public"."invoice_source" AS ENUM('self_serve', 'admin');--> statement-breakpoint
 CREATE TYPE "public"."membership_role" AS ENUM('admin', 'member', 'reviewer', 'legal_reviewer');--> statement-breakpoint
+CREATE TYPE "public"."vat_treatment" AS ENUM('domestic', 'reverse_charge', 'unconfirmed_eu', 'outside_eu');--> statement-breakpoint
 CREATE TABLE "credit_note" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"invoice_id" uuid NOT NULL,
@@ -15,7 +16,8 @@ CREATE TABLE "credit_note" (
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "credit_note_invoice_id_unique" UNIQUE("invoice_id"),
 	CONSTRAINT "credit_note_qonto_credit_note_id_unique" UNIQUE("qonto_credit_note_id"),
-	CONSTRAINT "credit_note_number_unique" UNIQUE("number")
+	CONSTRAINT "credit_note_number_unique" UNIQUE("number"),
+	CONSTRAINT "credit_note_refund_done_only_if_owed" CHECK ("credit_note"."refund_done_at" IS NULL OR "credit_note"."refund_owed")
 );
 --> statement-breakpoint
 CREATE TABLE "document_number_counter" (
@@ -31,6 +33,9 @@ CREATE TABLE "invoice" (
 	"qonto_invoice_id" varchar(64) NOT NULL,
 	"number" varchar(40) NOT NULL,
 	"net_cents" integer NOT NULL,
+	"vat_cents" integer NOT NULL,
+	"vat_treatment" "vat_treatment" NOT NULL,
+	"vies_request_identifier" varchar(64),
 	"issue_date" date NOT NULL,
 	"period_start" date NOT NULL,
 	"period_end" date NOT NULL,

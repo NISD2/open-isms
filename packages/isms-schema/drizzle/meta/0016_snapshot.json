@@ -1,6 +1,6 @@
 {
-  "id": "c9f6a32f-e85b-4484-ae98-b0eff0a65382",
-  "prevId": "edca54d7-276d-4cd9-9d8c-79bbc18484e1",
+  "id": "8785666d-0165-4dc5-baa6-d7be6c2ce96d",
+  "prevId": "5c6f6436-ac3b-4d6a-aca2-0f02f00cf03b",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -1325,7 +1325,12 @@
         }
       },
       "policies": {},
-      "checkConstraints": {},
+      "checkConstraints": {
+        "credit_note_refund_done_only_if_owed": {
+          "name": "credit_note_refund_done_only_if_owed",
+          "value": "\"credit_note\".\"refund_done_at\" IS NULL OR \"credit_note\".\"refund_owed\""
+        }
+      },
       "isRLSEnabled": false
     },
     "public.document_number_counter": {
@@ -1403,6 +1408,25 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true
+        },
+        "vat_cents": {
+          "name": "vat_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vat_treatment": {
+          "name": "vat_treatment",
+          "type": "vat_treatment",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vies_request_identifier": {
+          "name": "vies_request_identifier",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": false
         },
         "issue_date": {
           "name": "issue_date",
@@ -6446,6 +6470,16 @@
         "warning",
         "urgent",
         "critical"
+      ]
+    },
+    "public.vat_treatment": {
+      "name": "vat_treatment",
+      "schema": "public",
+      "values": [
+        "domestic",
+        "reverse_charge",
+        "unconfirmed_eu",
+        "outside_eu"
       ]
     },
     "public.vulnerability_status": {

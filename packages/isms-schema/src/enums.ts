@@ -11,8 +11,20 @@ export const accessLevelEnum = pgEnum("access_level", ["free", "grandfathered", 
 /** Which door an order came through: the customer's own order page, or platform admin. */
 export const invoiceSourceEnum = pgEnum("invoice_source", ["self_serve", "admin"]);
 
-/** Each series has its own gapless counter, because invoice and credit note numbers never share. */
+/** Each series has its own counter, because invoice and credit note numbers never share. */
 export const documentSeriesEnum = pgEnum("document_series", ["invoice", "credit_note"]);
+
+/**
+ * How VAT was applied on an invoice, fixed at issue. The same four outcomes the billing code's VAT
+ * treatment produces: German VAT, reverse charge on a confirmed EU number, German VAT on an EU
+ * number the register could not confirm, and no German VAT outside the EU.
+ */
+export const vatTreatmentEnum = pgEnum("vat_treatment", [
+  "domestic",
+  "reverse_charge",
+  "unconfirmed_eu",
+  "outside_eu",
+]);
 
 /** A person's role inside one company. The same person can hold a different role elsewhere. */
 export const membershipRoleEnum = pgEnum("membership_role", [
