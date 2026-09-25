@@ -132,6 +132,8 @@ describe("reopenedSignOffValues", () => {
   test("restores applicability and drops the N/A reason", () => {
     expect(reopened.isApplicable).toBe(true);
     expect(reopened.notApplicableReason).toBeNull();
+    expect(reopened.notApplicableBy).toBeNull();
+    expect(reopened.notApplicableAt).toBeNull();
   });
 
   // Cleared here, then recomputed by reopenRequirement for recurring
@@ -176,8 +178,11 @@ describe("effectiveSignOffRole", () => {
 });
 
 describe("signerMeetsRequiredRole", () => {
-  const check = (signerRole: string, requiredSignOffRole: string | null, sessionRole = "member") =>
-    signerMeetsRequiredRole({ sessionRole, signerRole, requiredSignOffRole });
+  const check = (
+    signerRole: string,
+    requiredSignOffRole: string | null,
+    sessionRole = "member",
+  ) => signerMeetsRequiredRole({ sessionRole, signerRole, requiredSignOffRole });
 
   test("admits the named signer", () => {
     expect(check("ceo", "ceo")).toBe(true);

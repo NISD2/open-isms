@@ -439,15 +439,12 @@ export const assessmentRouter = router({
 
       const values: Record<string, unknown> = { ...updates, updatedAt: new Date() };
       if (input.status === "not_applicable") {
-        // completedBy and completedAt share one instant with lastReviewedAt so
-        // the Standbericht can tell this decision's author from a stale
-        // completion left on the row (lib/pdf/load-report-data.ts).
         const now = new Date();
         values.isApplicable = false;
         values.nextReviewDate = toDateString(addYears(now, 1));
         values.lastReviewedAt = now;
-        values.completedAt = now;
-        values.completedBy = ctx.userId;
+        values.notApplicableBy = ctx.userId;
+        values.notApplicableAt = now;
       }
       if (input.status === "completed") {
         values.completedAt = new Date();

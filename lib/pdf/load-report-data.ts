@@ -27,31 +27,10 @@ import {
 type StatusRow = InferSelectModel<typeof companyRequirementStatus>;
 type UserName = InferSelectModel<typeof user>["name"];
 
-/**
- * A "not applicable" decision as the report prints it. The date is
- * `lastReviewedAt`, which the not-applicable write sets on every decision,
- * older rows included.
- */
 export interface NotApplicableDecision {
   reason: StatusRow["notApplicableReason"];
-  decidedAt: StatusRow["lastReviewedAt"];
+  decidedAt: StatusRow["notApplicableAt"];
   decidedBy: UserName | null;
-}
-
-/**
- * Who decided "not applicable". The write stamps `completedBy` with the same
- * instant as `lastReviewedAt`; decisions made before it did carry either no
- * `completedBy` or one left over from an earlier completion, and that person
- * did not make this decision. A matching instant is the only proof.
- */
-function notApplicableDeciderId(
-  row: Pick<StatusRow, "completedBy" | "completedAt" | "lastReviewedAt">,
-): string | null {
-  const stampedTogether =
-    row.completedAt !== null &&
-    row.lastReviewedAt !== null &&
-    row.completedAt.getTime() === row.lastReviewedAt.getTime();
-  return stampedTogether ? row.completedBy : null;
 }
 
 export interface ReportEvidence {
@@ -149,7 +128,7 @@ export async function loadReportData(
   const personIds = [
     ...new Set(
       statuses
-        .flatMap((s) => [s.signedOffBy, s.completedBy])
+        .flatMap((s) => [s.signedOffBy, s.notApplicableBy])
         .filter((id): id is string => id !== null),
     ),
   ];
@@ -199,8 +178,8 @@ export async function loadReportData(
           status && currentStatus === "not_applicable"
             ? {
                 reason: status.notApplicableReason,
-                decidedAt: status.lastReviewedAt,
-                decidedBy: nameFor(notApplicableDeciderId(status)),
+                decidedAt: status.notApplicableAt,
+                decidedBy: nameFor(status.notApplicableBy),
               }
             : null,
         evidence: (status?.evidence ?? []).map((e) => ({

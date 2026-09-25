@@ -96,6 +96,10 @@ export const companyRequirementStatus = pgTable(
     status: itemStatusEnum("status").default("not_started").notNull(),
     isApplicable: boolean("is_applicable").default(true),
     notApplicableReason: text("not_applicable_reason"),
+    // Who declared the requirement not applicable, and when. Kept apart from
+    // completedBy/completedAt and lastReviewedAt, which other flows also write.
+    notApplicableBy: uuid("not_applicable_by").references(() => user.id),
+    notApplicableAt: timestamp("not_applicable_at"),
 
     // Completion
     completedAt: timestamp("completed_at"),

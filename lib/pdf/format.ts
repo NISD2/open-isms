@@ -34,7 +34,7 @@ export function formatSigner(name: string | null, role: string | null): string |
   return name || role || null;
 }
 
-/** "12.09.2026, Name". Either half alone when the other is missing. */
+/** "12.9.2026, Name". Either half alone when the other is missing. */
 export function formatDecision(
   date: Date | null,
   name: string | null,
