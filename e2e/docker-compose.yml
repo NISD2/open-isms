@@ -27,13 +27,14 @@ services:
       retries: 30
 
   minio:
-    # quay.io rather than Docker Hub: Docker Hub started denying these pulls to
-    # unauthenticated clients, which is what a GitHub Actions runner is. The
-    # stack then never came up and Playwright reported "Process from
-    # config.webServer was not able to start" about 40s in, with no spec having
-    # run. Red e2e that says nothing about the branch under test is worse than
-    # no e2e, because it trains everyone to ignore the check.
-    image: quay.io/minio/minio:latest
+    # Chainguard's build of MinIO. MinIO's own images stopped being pullable
+    # without an account, Docker Hub first and quay.io on 25.09.2026, and a
+    # GitHub Actions runner has none. The stack then never came up and
+    # Playwright reported "Process from config.webServer was not able to start"
+    # about 40s in, with no spec having run. Red e2e that says nothing about the
+    # branch under test is worse than no e2e, because it trains everyone to
+    # ignore the check. See the note in compose.self-host.yml.
+    image: cgr.dev/chainguard/minio:latest
     command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
@@ -48,7 +49,8 @@ services:
       # gitleaks; the key is a public localhost dummy either way).
       MINIO_KMS_SECRET_KEY: "e2e-key:${E2E_MINIO_KMS_B64:-}"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      # No curl in the image: see the healthcheck note in compose.self-host.yml.
+      test: ["CMD", "/bin/sh", "-c", "exec 3<>/dev/tcp/127.0.0.1/9000 && printf 'GET /minio/health/live HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && read -r status <&3 && [[ $$status == *' 200 '* ]]"]
       interval: 2s
       timeout: 3s
       retries: 30

@@ -181,15 +181,20 @@ services:
   # profile: minio — bundled object store for evidence uploads
   # --------------------------------------------------------------------- #
   minio:
-    # quay.io, not Docker Hub. Both registries are official MinIO channels and
-    # serve the same images, but Docker Hub began answering these two pulls
-    # with "pull access denied ... may require 'docker login'" for
-    # unauthenticated clients, which is what a self-hoster is. Anyone bringing
-    # the minio profile up got a stack that would not start, and it took out
-    # three CI jobs at the same time. quay.io needs no account.
-    image: quay.io/minio/minio:latest
+    # Chainguard's build of the MinIO server, not MinIO's own images. MinIO's
+    # images stopped being pullable without an account: Docker Hub first
+    # ("pull access denied"), then quay.io on 25.09.2026 ("unauthorized"), for
+    # every tag including pinned releases. Anyone bringing the minio profile up
+    # got a stack that would not start, and it took out three CI jobs.
+    # Chainguard publishes `latest` free and rebuilds it with security fixes.
+    # The image carries minio, mc and bash, but no curl (see the healthcheck).
+    image: cgr.dev/chainguard/minio:latest
     profiles: [minio]
     restart: unless-stopped
+    # The image runs as a non-root user by default, but every existing
+    # minio-data volume was written by MinIO's own image as root. Root keeps
+    # those volumes readable across the image change.
+    user: "0:0"
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:-}
@@ -202,14 +207,16 @@ services:
     ports:
       - "${MINIO_BIND:-127.0.0.1}:${MINIO_PORT:-9000}:9000"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      # No curl or grep in the image, so the liveness request is made with
+      # bash's /dev/tcp and the status line matched in bash itself.
+      test: ["CMD", "/bin/sh", "-c", "exec 3<>/dev/tcp/127.0.0.1/9000 && printf 'GET /minio/health/live HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && read -r status <&3 && [[ $$status == *' 200 '* ]]"]
       interval: 5s
       timeout: 5s
       retries: 20
 
   minio-init:
-    # Same registry move as the minio service above.
-    image: quay.io/minio/mc:latest
+    # The server image carries mc too, so one image serves both services.
+    image: cgr.dev/chainguard/minio:latest
     profiles: [minio]
     depends_on:
       minio:
