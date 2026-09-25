@@ -42,6 +42,32 @@ export const hasGotIn = (person: {
 }): boolean =>
   person.emailVerifiedAt !== null || person.loginCount > 0 || person.lastLoginAt !== null;
 
+/** What decides whether a person is grandfathered: the launch stamp, and the got-in signal. */
+export interface GrandfatherFacts {
+  readonly grandfatheredAt: Date | null;
+  readonly emailVerifiedAt: Date | null;
+  readonly loginCount: number;
+  readonly lastLoginAt: Date | null;
+}
+
+/**
+ * Whether this person is grandfathered. After the launch, exactly the people it stamped. Before it,
+ * everyone who has got in, because the launch will stamp exactly them.
+ */
+export const isGrandfatheredPerson = (
+  person: GrandfatherFacts,
+  launched: boolean,
+): boolean => person.grandfatheredAt !== null || (!launched && hasGotIn(person));
+
+/**
+ * The level an account falls back to when it stops being paid for (a cancel inside the thirty
+ * days, or a revoke): grandfathered when its holder is a grandfathered person, otherwise free. The
+ * level before the order is not recorded anywhere, so the holder decides, the same person-based
+ * rule `newAccountAccessLevel` applies to a new account.
+ */
+export const unpaidAccessLevel = (holderGrandfathered: boolean): AccessLevel =>
+  holderGrandfathered ? "grandfathered" : "free";
+
 /**
  * The portal pages an account without a paid or grandfathered level still reaches. Everything else
  * in the portal sends it to /bestellen. The course and /bestellen live outside the portal.

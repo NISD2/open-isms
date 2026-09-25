@@ -5,6 +5,7 @@ import {
   BadgeCheck,
   Building2,
   ChartLine,
+  CreditCard,
   FlaskConical,
   GraduationCap,
   Loader2,
@@ -30,6 +31,7 @@ import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
 import { median } from "./graphs/derive";
 import { PricingPanel } from "./PricingPanel";
+import { SubscriptionsPanel } from "./SubscriptionsPanel";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -232,6 +234,7 @@ type Tab =
   | "emails"
   | "erasures"
   | "pricing"
+  | "subscriptions"
   | "dev";
 
 /** Human-readable label for a notification.entityType value. */
@@ -368,6 +371,12 @@ export function PlatformAdminPage({
             count: undefined as number | undefined,
           },
           {
+            key: "subscriptions" as const,
+            label: "Subscriptions",
+            icon: CreditCard,
+            count: undefined as number | undefined,
+          },
+          {
             key: "dev" as const,
             label: "Dev",
             icon: FlaskConical,
@@ -403,6 +412,7 @@ export function PlatformAdminPage({
       {tab === "emails" && <EmailsPanel data={emailActivity} />}
       {tab === "erasures" && <ErasuresPanel />}
       {tab === "pricing" && <PricingPanel />}
+      {tab === "subscriptions" && <SubscriptionsPanel />}
       {tab === "dev" && <DevPanel />}
     </div>
   );

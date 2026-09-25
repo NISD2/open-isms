@@ -1,6 +1,7 @@
 import { Receipt } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { CancelButton } from "@/components/billing/CancelButton";
 import { InvoicePdfButton } from "@/components/billing/InvoicePdfButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,8 +22,8 @@ const KNOWN_STATUSES = new Set(["paid", "unpaid", "canceled", "draft"]);
 
 /**
  * What the open company's account pays and what it has been invoiced. Payment status is read live
- * from Qonto on every visit, never stored (packages/isms-schema/src/tables/billing.ts). Cancelling
- * is slice 9.
+ * from Qonto on every visit, never stored (packages/isms-schema/src/tables/billing.ts). The account
+ * holder cancels here or from the user menu (components/billing/CancelDialog).
  */
 export default async function BillingPage({
   params,
@@ -65,12 +66,27 @@ export default async function BillingPage({
                 {t("price", { price: status.netPrice })}
               </p>
             ) : null}
+            {status.cancel?.kind === "money_back" ? (
+              <p className="text-muted-foreground text-sm">
+                {t("moneyBackUntil", { date: days.format(noon(status.cancel.lastDay)) })}
+              </p>
+            ) : null}
+            {status.accessLevel === "full" &&
+            status.renewalCanceledAt &&
+            status.activeInvoice ? (
+              <p className="text-muted-foreground text-sm">
+                {t("renewalCanceled", {
+                  date: days.format(noon(status.activeInvoice.periodEnd)),
+                })}
+              </p>
+            ) : null}
           </div>
           {status.canOrder ? (
             <Button asChild>
               <Link href="/bestellen">{t("order")}</Link>
             </Button>
           ) : null}
+          {status.cancel ? <CancelButton option={status.cancel} /> : null}
         </CardContent>
       </Card>
 

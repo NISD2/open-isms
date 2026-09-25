@@ -2,10 +2,9 @@ import { describe, expect, test } from "bun:test";
 import { invoiceDates, netCentsFor, priceFor } from "./order";
 
 describe("netCentsFor", () => {
-  test("charges a grandfathered account half, everyone else the full price", () => {
-    expect(netCentsFor("grandfathered")).toBe(240_000);
-    expect(netCentsFor("free")).toBe(480_000);
-    expect(netCentsFor("full")).toBe(480_000);
+  test("charges a grandfathered holder half, everyone else the full price", () => {
+    expect(netCentsFor(true)).toBe(240_000);
+    expect(netCentsFor(false)).toBe(480_000);
   });
 });
 

@@ -275,10 +275,13 @@ export interface InvoiceRecord {
   readonly client_invoice?: {
     readonly id?: string;
     readonly number?: string;
+    /** One of draft, unpaid, paid, canceled (verified on docs.qonto.com, 26.09.2026). */
     readonly status?: string;
+    readonly due_date?: string;
     readonly attachment_id?: string | null;
-    /** The invoice's public page, open without login for 180 days after issue. */
+    /** The invoice's public page, open without login for 180 days after issue, dead on cancel. */
     readonly invoice_url?: string;
+    readonly client?: { readonly name?: string };
     readonly total_amount?: { readonly value?: string; readonly currency?: string };
   };
 }
@@ -288,6 +291,15 @@ export interface InvoiceRecord {
  * produced asynchronously, so `attachment_id` is usually null in this response and has to be
  * polled for afterwards.
  */
+const itemPayload = (i: InvoiceLine) => ({
+  title: i.title,
+  ...(i.description ? { description: i.description } : {}),
+  quantity: i.quantity,
+  unit: i.unit,
+  unit_price: i.unitPrice,
+  vat_rate: i.vatRate,
+});
+
 export const createInvoice = (
   c: QontoConfig,
   input: InvoiceInput,
@@ -309,14 +321,7 @@ export const createInvoice = (
     ...(input.termsAndConditions
       ? { terms_and_conditions: input.termsAndConditions }
       : {}),
-    items: input.items.map((i) => ({
-      title: i.title,
-      ...(i.description ? { description: i.description } : {}),
-      quantity: i.quantity,
-      unit: i.unit,
-      unit_price: i.unitPrice,
-      vat_rate: i.vatRate,
-    })),
+    items: input.items.map(itemPayload),
   });
 
 export const getInvoice = (
@@ -324,6 +329,61 @@ export const getInvoice = (
   id: string,
 ): Promise<QontoResult<InvoiceRecord>> =>
   request<InvoiceRecord>(c, "GET", `/client_invoices/${encodeURIComponent(id)}`);
+
+// ---------------------------------------------------------------------------
+// Credit notes: how an invoice is canceled
+// ---------------------------------------------------------------------------
+
+/**
+ * A credit note against one invoice. Verified against docs.qonto.com (Create a credit note,
+ * `POST /v2/credit_notes`) on 26.09.2026:
+ *
+ *   - required: `invoice_id`, `issue_date`, `currency`, `reason` (at most 500 characters), `items`
+ *   - `number` is required while automatic numbering is off, which it is on this account, at most
+ *     40 characters and unique within the organization
+ *   - item quantities are sent positive; Qonto negates them
+ *   - the credit notes of one invoice may not add up to more than the invoice, and one for the full
+ *     amount cancels the invoice automatically, paid or not
+ *   - the answer is 201 with `{ credit_note: { id, number, attachment_id, client, ... } }`
+ *
+ * Not verified: whether `attachment_id` is empty at first and filled later, as it is for invoices.
+ * The delivery polls for it either way (./deliver-credit-note).
+ */
+export interface CreditNoteInput {
+  readonly invoiceId: string;
+  readonly number?: string;
+  readonly issueDate: string;
+  readonly reason: string;
+  readonly items: readonly InvoiceLine[];
+}
+
+export interface CreditNoteRecord {
+  readonly credit_note?: {
+    readonly id?: string;
+    readonly number?: string;
+    readonly attachment_id?: string | null;
+    readonly client?: { readonly email?: string | null };
+  };
+}
+
+export const createCreditNote = (
+  c: QontoConfig,
+  input: CreditNoteInput,
+): Promise<QontoResult<CreditNoteRecord>> =>
+  request<CreditNoteRecord>(c, "POST", "/credit_notes", {
+    invoice_id: input.invoiceId,
+    issue_date: input.issueDate,
+    currency: "EUR",
+    reason: input.reason,
+    ...(input.number ? { number: input.number } : {}),
+    items: input.items.map(itemPayload),
+  });
+
+export const getCreditNote = (
+  c: QontoConfig,
+  id: string,
+): Promise<QontoResult<CreditNoteRecord>> =>
+  request<CreditNoteRecord>(c, "GET", `/credit_notes/${encodeURIComponent(id)}`);
 
 export interface AttachmentRecord {
   readonly attachment?: { readonly url?: string };

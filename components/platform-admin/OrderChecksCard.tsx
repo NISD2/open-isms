@@ -32,12 +32,13 @@ export function OrderChecksCard() {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
-          <ShieldAlert className="h-4 w-4" /> Orders to check in Qonto ({rows.length})
+          <ShieldAlert className="h-4 w-4" /> Orders and cancels to check in Qonto (
+          {rows.length})
         </CardTitle>
         <CardDescription>
-          Qonto did not answer these orders clearly, so an invoice may exist that we did
-          not record. Ordering is blocked for each account until you check Qonto and clear
-          it here.
+          Qonto did not answer these clearly, so an invoice (RE) or a credit note (GS) may
+          exist that we did not record. Ordering and canceling are blocked for each
+          account until you check Qonto and clear it here.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2 text-sm">

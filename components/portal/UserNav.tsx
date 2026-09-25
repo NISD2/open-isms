@@ -1,9 +1,11 @@
 "use client";
 
-import { Check, ChevronsUpDown, Globe, LogOut, Shield } from "lucide-react";
+import { Check, ChevronsUpDown, CircleX, Globe, LogOut, Shield } from "lucide-react";
 import { useParams } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
+import { CancelDialog } from "@/components/billing/CancelDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -24,6 +26,7 @@ import {
 } from "@/components/ui/sidebar";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { LOCALES, type LocaleCode } from "@/lib/locale";
+import { trpc } from "@/lib/trpc/client";
 import { getInitials } from "@/lib/utils";
 import { OrganizationSubmenu } from "./OrganizationSubmenu";
 
@@ -43,6 +46,12 @@ export function UserNav({ user }: UserNavProps) {
   const pathname = usePathname();
   const params = useParams();
   const { isMobile } = useSidebar();
+  const tCancel = useTranslations("billing.cancel");
+  const [cancelOpen, setCancelOpen] = useState(false);
+  // Only the holder of a full account gets an option back. Without an open company (training or
+  // supplier portal) the query fails quietly and there is simply no item.
+  const billing = trpc.billing.status.useQuery(undefined, { retry: false });
+  const cancelOption = billing.data?.cancel ?? null;
 
   function switchLocale(next: string) {
     if (next === locale) return;
@@ -146,12 +155,25 @@ export function UserNav({ user }: UserNavProps) {
               </>
             )}
             <DropdownMenuSeparator />
+            {cancelOption && (
+              <DropdownMenuItem onSelect={() => setCancelOpen(true)}>
+                <CircleX className="mr-2 h-4 w-4" />
+                {tCancel("menuItem")}
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
               <LogOut className="mr-2 h-4 w-4" />
               {t("signOut")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        {cancelOption && (
+          <CancelDialog
+            option={cancelOption}
+            open={cancelOpen}
+            onOpenChange={setCancelOpen}
+          />
+        )}
       </SidebarMenuItem>
     </SidebarMenu>
   );

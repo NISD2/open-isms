@@ -46,7 +46,8 @@ const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve,
 const safeInvoiceUrl = (url: string | undefined): string | null =>
   url && httpsHostOf(url) ? url : null;
 
-const pdfFromAttachment = async (qonto: QontoConfig, attachmentId: string) => {
+/** The PDF behind a Qonto attachment, or null when it could not be fetched. */
+export const pdfFromAttachment = async (qonto: QontoConfig, attachmentId: string) => {
   const attachment = await getAttachment(qonto, attachmentId);
   const url = attachment.ok ? attachment.data.attachment?.url : undefined;
   if (!url) {

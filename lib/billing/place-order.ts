@@ -2,7 +2,7 @@
  * Placing an order: the one function that issues an invoice. The order page calls it; the admin
  * demo close (not built yet) must call it too, never Qonto directly.
  *
- *   1. The price comes from the billing account's access level, on the server. No amount is ever
+ *   1. The price comes from the account holder (./holder-price), on the server. No amount is ever
  *      taken from a browser.
  *   2. The customer is found in Qonto by VAT number, or created, and remembered on the account.
  *   3. The invoice number is taken and committed on its own, before Qonto is called (see
@@ -17,16 +17,17 @@
  */
 import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
 import type { Database, DbOrTx } from "@/lib/db";
-import { billingAccount, creditNote, documentNumberCounter, invoice } from "@/schema";
-import { alertOperators } from "./alert";
+import { billingAccount, creditNote, invoice } from "@/schema";
+import { AlreadyAlerted, alertOperators } from "./alert";
 import { deliverInvoice } from "./deliver-invoice";
+import { takeDocumentNumber } from "./document-number";
+import { holderNetCents } from "./holder-price";
 import { pickPayableAccount } from "./iban";
-import { invoiceNumber, sandboxInvoiceNumber } from "./invoice-number";
+import { sandboxInvoiceNumber } from "./invoice-number";
 import {
-  INVOICE_TIME_ZONE,
   invoiceDates,
+  invoiceToday,
   invoiceWording,
-  netCentsFor,
   type OrderInput,
   priceFor,
 } from "./order";
@@ -95,17 +96,6 @@ const failure = (
   message: string,
 ) => ({ ok: false, reason, message }) as const;
 
-/** An error the operators have already been told about, so it is not reported twice. */
-class AlreadyAlerted extends Error {
-  constructor(cause: unknown) {
-    super(cause instanceof Error ? cause.message : String(cause), { cause });
-  }
-}
-
-/** Today as a calendar day where invoices are dated, to compare against a paid year. */
-const today = (now: Date) =>
-  new Intl.DateTimeFormat("en-CA", { timeZone: INVOICE_TIME_ZONE }).format(now);
-
 /**
  * The invoice that pays for the account right now: its year has not ended and it was not credited.
  * One definition for the order's refusal and the billing page, so they cannot disagree.
@@ -116,36 +106,24 @@ export const findActiveInvoice = async (
   now: Date,
 ) => {
   const [active] = await db
-    .select({ id: invoice.id, number: invoice.number, periodEnd: invoice.periodEnd })
+    .select({
+      id: invoice.id,
+      number: invoice.number,
+      issueDate: invoice.issueDate,
+      periodEnd: invoice.periodEnd,
+    })
     .from(invoice)
     .leftJoin(creditNote, eq(creditNote.invoiceId, invoice.id))
     .where(
       and(
         eq(invoice.billingAccountId, billingAccountId),
-        gte(invoice.periodEnd, today(now)),
+        gte(invoice.periodEnd, invoiceToday(now)),
         isNull(creditNote.id),
       ),
     )
     .orderBy(desc(invoice.periodEnd))
     .limit(1);
   return active ?? null;
-};
-
-/**
- * The next real invoice number, committed on its own (the pool, not the order's transaction), so a
- * Qonto failure afterwards cannot return a number that another order then takes as well.
- */
-const takeInvoiceNumber = async (db: Database, prefix: string, year: number) => {
-  const [row] = await db
-    .insert(documentNumberCounter)
-    .values({ series: "invoice", year, lastValue: 1 })
-    .onConflictDoUpdate({
-      target: [documentNumberCounter.series, documentNumberCounter.year],
-      set: { lastValue: sql`${documentNumberCounter.lastValue} + 1` },
-    })
-    .returning({ lastValue: documentNumberCounter.lastValue });
-  if (!row) throw new Error("invoice number counter returned no row");
-  return invoiceNumber(prefix, year, row.lastValue);
 };
 
 /**
@@ -238,7 +216,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       const [account] = await tx
         .select({
           id: billingAccount.id,
-          accessLevel: billingAccount.accessLevel,
+          ownerUserId: billingAccount.ownerUserId,
           qontoClientId: billingAccount.qontoClientId,
         })
         .from(billingAccount)
@@ -266,7 +244,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       const money = priceFor(
         vat.countryCode,
         registry,
-        input.netCentsOverride ?? netCentsFor(account.accessLevel),
+        input.netCentsOverride ?? (await holderNetCents(tx, account.ownerUserId)),
       );
       if (
         input.expectedGrossCents !== null &&
@@ -295,7 +273,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       // The sandbox never touches the real counter: its invoices are not real ones.
       const number =
         mode.kind === "live"
-          ? await takeInvoiceNumber(db, input.invoicePrefix, year)
+          ? await takeDocumentNumber(db, "invoice", input.invoicePrefix, year)
           : sandboxInvoiceNumber(input.invoicePrefix, year, now);
       const wording = invoiceWording(dates, money, locale);
 
@@ -375,7 +353,13 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
         if (!row) throw new Error("invoice insert returned no row");
         await tx
           .update(billingAccount)
-          .set({ accessLevel: "full", qontoClientId: client.id, updatedAt: now })
+          // A new paid year starts uncanceled, whatever was canceled about the last one.
+          .set({
+            accessLevel: "full",
+            qontoClientId: client.id,
+            renewalCanceledAt: null,
+            updatedAt: now,
+          })
           .where(eq(billingAccount.id, account.id));
         // Recorded, so nothing is left to check; if this transaction fails to commit, the mark
         // stays with it and the account is blocked, which is the safe side.
