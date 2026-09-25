@@ -33,12 +33,13 @@ export const createBillingAccount = async (
 
 /**
  * Delete an account nothing uses any more: no company points at it and no invoice was ever issued
- * to it. Accounts with invoices are kept, because issued invoices must be kept.
+ * to it. Accounts with invoices are kept, because issued invoices must be kept. Returns whether it
+ * was deleted.
  */
 export const deleteBillingAccountIfUnused = async (
   db: DbOrTx,
   accountId: string,
-): Promise<void> => {
+): Promise<boolean> => {
   const inUse = await db.query.company.findFirst({
     where: eq(company.billingAccountId, accountId),
     columns: { id: true },
@@ -47,6 +48,10 @@ export const deleteBillingAccountIfUnused = async (
     where: eq(invoice.billingAccountId, accountId),
     columns: { id: true },
   });
-  if (inUse || invoiced) return;
-  await db.delete(billingAccount).where(eq(billingAccount.id, accountId));
+  if (inUse || invoiced) return false;
+  const deleted = await db
+    .delete(billingAccount)
+    .where(eq(billingAccount.id, accountId))
+    .returning({ id: billingAccount.id });
+  return deleted.length > 0;
 };

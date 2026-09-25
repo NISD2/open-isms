@@ -25,7 +25,12 @@ import {
   buildErasureCertificate,
   erasureCertificateFilename,
 } from "@/lib/gdpr/certificate";
-import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
+import {
+  ErasureRefused,
+  eraseUser,
+  ownedCompanyOf,
+  previewUserErasure,
+} from "@/lib/gdpr/erase-user";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
@@ -193,6 +198,14 @@ function generateSharePassword(): string {
     out += SHARE_PASSWORD_ALPHABET[byte % SHARE_PASSWORD_ALPHABET.length];
   }
   return out;
+}
+
+/** Show an erasure the tool refuses as a precondition the operator can read, not a server error. */
+function refusalAsTrpcError(err: unknown): never {
+  if (err instanceof ErasureRefused) {
+    throw new TRPCError({ code: "PRECONDITION_FAILED", message: err.message });
+  }
+  throw err;
 }
 
 const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -1626,7 +1639,7 @@ export const platformAdminRouter = router({
   previewErasure: platformAdminProcedure
     .input(z.object({ userId: z.string().uuid() }))
     .query(async ({ input }) => {
-      const preview = await previewUserErasure(input.userId);
+      const preview = await previewUserErasure(input.userId).catch(refusalAsTrpcError);
       if (!preview) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
       return preview;
     }),
@@ -1681,26 +1694,19 @@ export const platformAdminRouter = router({
           message: "Confirmation email does not match the account.",
         });
       }
-      // If the target owns their org, erasing tears the entire org down (every
-      // member + all data). Require the org name typed as a second confirmation.
-      if (target.companyId) {
-        const [org] = await ctx.db
-          .select({ ownerId: company.ownerId, name: company.name })
-          .from(company)
-          .where(eq(company.id, target.companyId))
-          .limit(1);
-        if (org && org.ownerId === target.id) {
-          if (
-            !input.confirmOrgName ||
-            input.confirmOrgName.trim().toLowerCase() !== org.name.trim().toLowerCase()
-          ) {
-            throw new TRPCError({
-              code: "BAD_REQUEST",
-              message:
-                "This account owns its organization; type the organization name to confirm the full teardown.",
-            });
-          }
-        }
+      // If the target owns an org, erasing tears it down, whether or not they
+      // have it open. Require its name typed as a second confirmation.
+      const owned = await ownedCompanyOf(ctx.db, target.id).catch(refusalAsTrpcError);
+      if (
+        owned &&
+        (!input.confirmOrgName ||
+          input.confirmOrgName.trim().toLowerCase() !== owned.name.trim().toLowerCase())
+      ) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message:
+            "This account owns its organization; type the organization name to confirm the full teardown.",
+        });
       }
 
       const result = await eraseUser({
@@ -1712,7 +1718,7 @@ export const platformAdminRouter = router({
           rightsInvoked: input.rightsInvoked ?? null,
           notes: input.notes ?? null,
         },
-      });
+      }).catch(refusalAsTrpcError);
 
       await logAudit({
         companyId: null,

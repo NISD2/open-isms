@@ -11,23 +11,27 @@
  *      the subject's own sign-off snapshots have their PII redacted);
  *   3. sweeps email-keyed rows (email_otp, lead) that no FK reaches;
  *   4. deletes the account;
- *   5. if the subject was the SOLE member of a company, tears that company and
- *      all its tenant data down in FK-safe order;
+ *   5. if the subject owns a company, tears that company and all its tenant
+ *      data down in FK-safe order. Members who belong to no other company are
+ *      erased with it; members who also belong elsewhere keep their account and
+ *      lose only this membership;
  *   6. returns a structured {@link ErasureScope} describing exactly what happened.
  *
  * Multi-tenant safety: every attribution-severing statement filters by the
  * subject's userId, so it only ever touches rows attributed to THIS person.
  * Company data shared with other members is never deleted — only detached from
- * the erased user — unless the subject is the company's only member.
+ * the erased user — unless the subject owns the company.
  *
  * The whole thing runs inside one transaction (see {@link eraseUser}); any
  * failure rolls the entire erasure back, so a partial deletion is impossible.
  */
 import { createHash, createHmac } from "node:crypto";
 import type { InferSelectModel } from "drizzle-orm";
-import { and, eq, gte, inArray, isNotNull, lt, or, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, isNotNull, lt, ne, or, sql } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
-import { db } from "@/lib/db";
+import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
+import { type DbOrTx, db } from "@/lib/db";
+import { findMembershipRole, leaveCompany } from "@/lib/organization/membership";
 import type { ErasureMethod, ErasureScope } from "@/schema";
 // Remaining table objects, kept in a second import to keep the list readable.
 import {
@@ -45,6 +49,7 @@ import {
   companyCategoryIntake,
   companyCertification,
   companyInvite,
+  companyMembership,
   companyPolicyConfig,
   companyRequirementStatus,
   companyRiskMethodology,
@@ -132,12 +137,13 @@ export interface ErasurePreview {
   company: { id: string; name: string; sector: string; plan: string } | null;
   /** The subject owns the org. Deleting them tears the whole org down. */
   isOwner: boolean;
-  /** Total accounts in the org (all deleted when isOwner). */
+  /** Members of the org, the subject included. */
   memberCount: number;
   personalRecordCount: number;
   signOffCount: number;
   /** What an owner-teardown would delete. Null unless isOwner. */
   orgData: {
+    /** Accounts erased with the org: the subject and every member who belongs nowhere else. */
     memberAccounts: number;
     assessments: number;
     assets: number;
@@ -155,13 +161,104 @@ async function len(q: Promise<unknown[]>): Promise<number> {
   return (await q).length;
 }
 
+/** Thrown when an erasure needs a decision this tool does not support. */
+export class ErasureRefused extends Error {
+  override name = "ErasureRefused";
+}
+
+const companySummary = {
+  id: company.id,
+  name: company.name,
+  sector: company.sector,
+  plan: company.plan,
+  billingAccountId: company.billingAccountId,
+};
+
+/**
+ * The company that erasing this person tears down: the one they own, whether or
+ * not they have it open. An owner of several companies is refused, because one
+ * confirmation must not tear several organizations down.
+ */
+export async function ownedCompanyOf(q: DbOrTx, userId: string) {
+  const rows = await q
+    .select(companySummary)
+    .from(company)
+    .where(eq(company.ownerId, userId));
+  if (rows.length > 1) {
+    throw new ErasureRefused(
+      `This account owns ${rows.length} organizations. Erasing it would tear all of them down, which this tool does not support.`,
+    );
+  }
+  return rows[0] ?? null;
+}
+
+/**
+ * The company an erasure is about: the one it tears down if the person owns
+ * one, otherwise the one they have open.
+ */
+async function erasureCompanyOf(q: DbOrTx, userId: string, openCompanyId: string | null) {
+  const owned = await ownedCompanyOf(q, userId);
+  if (owned || !openCompanyId) return { owned, company: owned };
+  const [open] = await q
+    .select(companySummary)
+    .from(company)
+    .where(eq(company.id, openCompanyId))
+    .limit(1);
+  return { owned: null, company: open ?? null };
+}
+
+type Person = { userId: string; email: string; name: string };
+
+/**
+ * What tearing an owned company down does to its other members: whoever belongs
+ * to no other company is erased with it, whoever does keeps their account and
+ * loses only this membership. The owner is not in either list; they are always
+ * erased.
+ */
+async function teardownMembers(
+  q: DbOrTx,
+  companyId: string,
+  ownerId: string,
+): Promise<{ erased: Person[]; kept: Person[] }> {
+  const members = await q
+    .select({ userId: user.id, email: user.email, name: user.name })
+    .from(companyMembership)
+    .innerJoin(user, eq(user.id, companyMembership.userId))
+    .where(
+      and(
+        eq(companyMembership.companyId, companyId),
+        ne(user.id, ownerId),
+        ne(user.email, TOMBSTONE_EMAIL),
+      ),
+    );
+  const elsewhere =
+    members.length === 0
+      ? []
+      : await q
+          .selectDistinct({ userId: companyMembership.userId })
+          .from(companyMembership)
+          .where(
+            and(
+              inArray(
+                companyMembership.userId,
+                members.map((m) => m.userId),
+              ),
+              ne(companyMembership.companyId, companyId),
+            ),
+          );
+  const belongsElsewhere = new Set(elsewhere.map((r) => r.userId));
+  return {
+    erased: members.filter((m) => !belongsElsewhere.has(m.userId)),
+    kept: members.filter((m) => belongsElsewhere.has(m.userId)),
+  };
+}
+
 export async function previewUserErasure(userId: string): Promise<ErasurePreview | null> {
   const [subject] = await db
     .select({
       id: user.id,
       email: user.email,
       name: user.name,
-      role: user.role,
       createdAt: user.createdAt,
       companyId: user.companyId,
     })
@@ -171,30 +268,21 @@ export async function previewUserErasure(userId: string): Promise<ErasurePreview
 
   if (!subject) return null;
 
-  let companyInfo: ErasurePreview["company"] = null;
-  let memberCount = 0;
-  let isOwner = false;
-  const cid = subject.companyId;
-  if (cid) {
-    const [c] = await db
-      .select({
-        id: company.id,
-        name: company.name,
-        sector: company.sector,
-        plan: company.plan,
-        ownerId: company.ownerId,
-      })
-      .from(company)
-      .where(eq(company.id, cid))
-      .limit(1);
-    if (c) {
-      companyInfo = { id: c.id, name: c.name, sector: c.sector, plan: c.plan };
-      isOwner = c.ownerId === userId;
-    }
-    memberCount = await len(
-      db.select({ id: user.id }).from(user).where(eq(user.companyId, cid)),
-    );
-  }
+  const { owned, company: c } = await erasureCompanyOf(db, userId, subject.companyId);
+  const isOwner = owned !== null;
+  const cid = c?.id ?? null;
+  const companyInfo: ErasurePreview["company"] = c
+    ? { id: c.id, name: c.name, sector: c.sector, plan: c.plan }
+    : null;
+  const memberCount = cid
+    ? await len(
+        db
+          .select({ id: companyMembership.userId })
+          .from(companyMembership)
+          .where(eq(companyMembership.companyId, cid)),
+      )
+    : 0;
+  const role = cid ? await findMembershipRole(db, { userId, companyId: cid }) : null;
 
   const personalRecordCount =
     (await len(
@@ -232,7 +320,7 @@ export async function previewUserErasure(userId: string): Promise<ErasurePreview
   let orgData: ErasurePreview["orgData"] = null;
   if (isOwner && cid) {
     orgData = {
-      memberAccounts: memberCount,
+      memberAccounts: (await teardownMembers(db, cid, userId)).erased.length + 1,
       assessments: await len(
         db
           .select({ id: companyAssessment.id })
@@ -278,7 +366,7 @@ export async function previewUserErasure(userId: string): Promise<ErasurePreview
       id: subject.id,
       email: subject.email,
       name: subject.name,
-      role: subject.role,
+      role: role ?? "none",
       createdAt: subject.createdAt,
     },
     company: companyInfo,
@@ -364,48 +452,46 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     return tombstoneId;
   };
 
-  const cid = subject.companyId;
+  // Ownership decides the blast radius: erasing an owner tears their org down
+  // (all org data, and every member who belongs nowhere else); erasing anyone
+  // else removes only them. The record names the torn-down org, or else the one
+  // the subject had open.
+  const { owned, company: about } = await erasureCompanyOf(tx, userId, subject.companyId);
+  const cid = about?.id ?? null;
+  const companyName = about?.name ?? null;
+  const self: Person = { userId, email: subject.email, name: subject.name };
 
-  // Ownership decides the blast radius: deleting the owner tears the whole org
-  // down (every member + all org data); deleting a non-owner removes only them.
-  let isOwner = false;
-  let companyName: string | null = null;
-  if (cid) {
-    const [c] = await tx
-      .select({ name: company.name, ownerId: company.ownerId })
-      .from(company)
-      .where(eq(company.id, cid))
-      .limit(1);
-    companyName = c?.name ?? null;
-    isOwner = c?.ownerId === userId;
-  }
-
-  if (isOwner && cid) {
-    // Erase every member (including the owner), then the org and all its data.
-    const members = await tx
-      .select({ userId: user.id, email: user.email, name: user.name })
-      .from(user)
-      .where(eq(user.companyId, cid));
-    let membersErased = 0;
-    for (const m of members) {
-      if (m.email === TOMBSTONE_EMAIL) continue;
-      await erasePerson(tx, { ...m, companyId: cid }, scope, del, anon, tombstone);
-      membersErased += 1;
+  if (owned) {
+    const { erased, kept } = await teardownMembers(tx, owned.id, userId);
+    for (const m of erased) {
+      await erasePerson(tx, m, scope, del, anon, tombstone);
     }
-    await tearDownCompany(tx, cid, del, anon);
+    for (const m of kept) {
+      await leaveCompany(tx, { userId: m.userId, companyId: owned.id });
+    }
+    await erasePerson(tx, self, scope, del, anon, tombstone);
+    await tearDownCompany(tx, owned.id, del, anon);
+    await del("billing_account", async () =>
+      (await deleteBillingAccountIfUnused(tx, owned.billingAccountId))
+        ? [owned.billingAccountId]
+        : [],
+    );
     scope.companyTornDown = true;
     scope.systemsCleared.push(
-      `Entire organization torn down: ${membersErased} member account(s) and all organization compliance data`,
+      `Entire organization torn down: ${erased.length + 1} member account(s) and all organization compliance data`,
     );
+    if (kept.length > 0) {
+      scope.residualNotes.push(
+        `${kept.length} member account(s) that also belong to other organizations were kept; only their membership in this organization was removed.`,
+      );
+    }
+    if (!scope.deleted.billing_account) {
+      scope.residualNotes.push(
+        "The organization's billing account was kept, because invoices were issued to it or another organization still uses it.",
+      );
+    }
   } else {
-    await erasePerson(
-      tx,
-      { userId, email: subject.email, name: subject.name, companyId: cid },
-      scope,
-      del,
-      anon,
-      tombstone,
-    );
+    await erasePerson(tx, self, scope, del, anon, tombstone);
   }
 
   scope.systemsCleared.push(
@@ -477,13 +563,20 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
  *  a whole-organization teardown. */
 async function erasePerson(
   tx: Tx,
-  person: { userId: string; email: string; name: string; companyId: string | null },
+  person: Person,
   scope: ErasureScope,
   del: (label: string, run: () => Promise<unknown[]>) => Promise<void>,
   anon: (label: string, run: () => Promise<unknown[]>) => Promise<void>,
   tombstone: () => Promise<string>,
 ): Promise<void> {
-  const { userId, email, name, companyId } = person;
+  const { userId, email, name } = person;
+  // Read before anything is deleted: the memberships go with the account row.
+  const companyIds = (
+    await tx
+      .select({ companyId: companyMembership.companyId })
+      .from(companyMembership)
+      .where(eq(companyMembership.userId, userId))
+  ).map((r) => r.companyId);
 
   // A name too short to bound safely is not redacted. That is the right call
   // (see redact-pii.ts), but it must be disclosed: an erasure certificate that
@@ -552,11 +645,12 @@ async function erasePerson(
   // now nothing here swept that column: redacting sign_off_history alone left
   // the subject's name and email sitting in the live evidence rows.
   //
-  // Scoped by company, not by signer. The names in a snapshot describe whoever
-  // held the role when it was taken, so the subject can appear in a
-  // requirement they never signed. Company scope is also what keeps this from
-  // reaching another tenant's rows that happen to contain the same name.
-  if (companyId) {
+  // Scoped to the person's companies, not by signer. The names in a snapshot
+  // describe whoever held the role when it was taken, so the subject can
+  // appear in a requirement they never signed. Company scope is also what
+  // keeps this from reaching another tenant's rows that happen to contain the
+  // same name.
+  if (companyIds.length > 0) {
     const snapRows = await tx
       .select({
         id: companyRequirementStatus.id,
@@ -569,7 +663,7 @@ async function erasePerson(
       )
       .where(
         and(
-          eq(companyAssessment.companyId, companyId),
+          inArray(companyAssessment.companyId, companyIds),
           isNotNull(companyRequirementStatus.signOffSnapshot),
         ),
       );
