@@ -26,6 +26,7 @@ import {
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { trpc } from "@/lib/trpc/client";
 import { DemoCloseForm } from "./DemoCloseForm";
+import { OrderChecksCard } from "./OrderChecksCard";
 
 const when = (d: Date | string) => new Date(d).toLocaleString("de-DE");
 
@@ -158,6 +159,7 @@ export function PricingPanel() {
         </CardContent>
       </Card>
 
+      <OrderChecksCard />
       <DemoCloseForm />
     </div>
   );
