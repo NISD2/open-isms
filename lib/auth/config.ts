@@ -11,12 +11,14 @@ import Google from "next-auth/providers/google";
 import { cache } from "react";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
+import { effectiveAccessLevel } from "@/lib/billing/access";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
+import { isFeatureOn } from "@/lib/feature-flags";
 import { isLocaleCode, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { resolveHints } from "@/lib/onboarding/hints";
-import { company, companyMembership, user } from "@/schema";
+import { billingAccount, company, companyMembership, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
 // Dummy hash for timing-safe comparison when user doesn't exist
@@ -340,6 +342,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.companyActivated = false;
       session.role = "member";
       session.jobTitle = null;
+      session.accessLevel = null;
       session.sessionVersion = token.sessionVersion ?? null;
       session.hints = {
         journeyTourGuided: false,
@@ -358,9 +361,11 @@ const openMembership = async (userId: string, companyId: string) => {
       role: companyMembership.role,
       jobTitle: companyMembership.jobTitle,
       activatedAt: company.activatedAt,
+      accessLevel: billingAccount.accessLevel,
     })
     .from(companyMembership)
     .innerJoin(company, eq(company.id, companyMembership.companyId))
+    .innerJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
     .where(
       and(
         eq(companyMembership.userId, userId),
@@ -426,6 +431,9 @@ export const getSession = cache(async (): Promise<Session | null> => {
   session.role = open?.role ?? "member";
   session.jobTitle = open?.jobTitle ?? null;
   session.companyActivated = open?.activatedAt != null;
+  session.accessLevel = open
+    ? effectiveAccessLevel(open.accessLevel, await isFeatureOn(db, "billing"))
+    : null;
 
   return session;
 });

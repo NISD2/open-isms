@@ -16,10 +16,12 @@ import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { createBillingAccount } from "@/lib/billing/accounts";
+import { launchBilling, pricingState } from "@/lib/billing/launch";
+import { orderingMode } from "@/lib/billing/ordering";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import type { Database } from "@/lib/db";
-import { mailSupportEmail } from "@/lib/env";
-import { FEATURE_FLAG_KEYS, listFeatures, setFeature } from "@/lib/feature-flags";
+import { env, mailSupportEmail } from "@/lib/env";
+import { isFeatureOn } from "@/lib/feature-flags";
 import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import {
@@ -402,25 +404,44 @@ export const platformAdminRouter = router({
    * tab, and every read and write here is fixed to the caller's own row. No
    * procedure in this group takes an id that could point at somebody else.
    */
-  /** Platform switches (lib/feature-flags.ts). Unlike the rest of the Dev tab, these act on everyone. */
-  featureFlags: platformAdminProcedure.query(({ ctx }) => listFeatures(ctx.db)),
+  /** The Pricing tab: whether pricing is launched, whether it can be, and the announcement group. */
+  pricingState: platformAdminProcedure.query(({ ctx }) =>
+    pricingState(ctx.db, orderingMode(env).kind === "live"),
+  ),
 
-  setFeatureFlag: platformAdminProcedure
-    .input(z.object({ key: z.enum(FEATURE_FLAG_KEYS), enabled: z.boolean() }))
-    .mutation(async ({ ctx, input }) => {
-      await setFeature(ctx.db, input.key, input.enabled, ctx.userId);
-      await logAudit({
-        companyId: null,
-        userId: ctx.userId,
-        action: "platform.feature_flag",
-        entityType: "feature_flag",
-        entityId: null,
-        description: `${input.key} switched ${input.enabled ? "on" : "off"}`,
-        ipAddress: ctx.ip,
-        userAgent: ctx.userAgent,
+  /**
+   * Launch pricing, once. Grandfathers everyone who has got in, freezes the announcement group and
+   * turns the paywall on, all or nothing (lib/billing/launch.ts). There is no way back: nothing in
+   * the app turns it off, because grandfathering is a promise made at one moment.
+   */
+  launchPricing: platformAdminProcedure.mutation(async ({ ctx }) => {
+    // Without live keys /bestellen does not exist, and every new signup would be sent to a 404.
+    if (orderingMode(env).kind !== "live") {
+      throw new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message: "Pricing needs live Qonto keys before it can launch.",
       });
-      return { key: input.key, enabled: input.enabled };
-    }),
+    }
+    const launch = await ctx.db.transaction(async (tx) => {
+      // Under the transaction, so two clicks cannot both launch.
+      await tx.execute(sql`select pg_advisory_xact_lock(hashtext('pricing-launch'))`);
+      if (await isFeatureOn(tx, "billing")) return null;
+      return launchBilling(tx, ctx.userId);
+    });
+    if (!launch)
+      throw new TRPCError({ code: "CONFLICT", message: "Pricing is already launched." });
+    await logAudit({
+      companyId: null,
+      userId: ctx.userId,
+      action: "platform.pricing_launch",
+      entityType: "feature_flag",
+      entityId: null,
+      description: `Pricing launched: ${launch.stampedUsers} people grandfathered, ${launch.accountsGrandfathered} accounts moved to grandfathered, announcement group of ${launch.groupMembers}`,
+      ipAddress: ctx.ip,
+      userAgent: ctx.userAgent,
+    });
+    return launch;
+  }),
 
   myDevState: platformAdminProcedure.query(async ({ ctx }) => {
     const row = await ctx.db.query.user.findFirst({

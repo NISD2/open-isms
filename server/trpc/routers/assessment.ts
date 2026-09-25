@@ -57,7 +57,12 @@ import {
   signerMeetsRequiredRole,
   snapshotForVersion,
 } from "../helpers/sign-off-completion";
-import { adminProcedure, companyProcedure, protectedProcedure, router } from "../init";
+import {
+  accountAdminProcedure,
+  companyProcedure,
+  protectedProcedure,
+  router,
+} from "../init";
 
 // Prerequisites are advisory only — the UI surfaces them as a "recommended
 // first" suggestion (see RequirementDetail), but nothing blocks sign-off.
@@ -76,7 +81,8 @@ export const assessmentRouter = router({
     return row ?? null;
   }),
 
-  updateCompany: adminProcedure
+  // Company master data stays editable before an order: it is on the invoice and on /organization.
+  updateCompany: accountAdminProcedure
     .input(
       z.object({
         name: z.string().min(1).max(255).optional(),

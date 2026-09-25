@@ -39,7 +39,7 @@ import { env } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
 import { createPresignedGet } from "@/lib/storage";
 import { billingAccount, company, creditNote, invoice } from "@/schema";
-import { companyProcedure, router } from "../init";
+import { accountProcedure, router } from "../init";
 
 const accountOf = async (db: DbOrTx, companyId: string) => {
   const [row] = await db
@@ -57,7 +57,7 @@ const accountOf = async (db: DbOrTx, companyId: string) => {
 };
 
 /** The open company's billing account, and only for the person who holds it. */
-const payerProcedure = companyProcedure.use(async ({ ctx, next }) => {
+const payerProcedure = accountProcedure.use(async ({ ctx, next }) => {
   const account = await accountOf(ctx.db, ctx.companyId);
   if (account.ownerUserId !== ctx.userId) {
     throw new TRPCError({ code: "FORBIDDEN", message: "Only the account holder." });
@@ -99,7 +99,7 @@ const liveStatus = async (mode: OrderingMode, qontoInvoiceId: string) => {
 };
 
 export const billingRouter = router({
-  status: companyProcedure.query(async ({ ctx }) => {
+  status: accountProcedure.query(async ({ ctx }) => {
     const account = await accountOf(ctx.db, ctx.companyId);
     const { mode, open } = await billingFor(ctx.db, ctx.session.user.email);
     const active = await findActiveInvoice(ctx.db, account.id, new Date());

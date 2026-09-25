@@ -4,8 +4,8 @@
  *
  *   - Platform admins: whenever Qonto is configured (sandbox or live), so ordering can be tested
  *     before it is launched.
- *   - Everyone else: only with live Qonto keys AND the `billing` switch on in the platform admin
- *     Dev tab. Setting the keys does not launch anything; flipping the switch does.
+ *   - Everyone else: only with live Qonto keys AND pricing launched in the platform admin Pricing
+ *     tab (lib/billing/launch.ts). Setting the keys does not launch anything; the launch does.
  */
 import "@/lib/server-guard";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";

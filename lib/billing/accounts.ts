@@ -7,25 +7,33 @@
  */
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { type accessLevelEnum, billingAccount, company, invoice } from "@/schema";
+import { isFeatureOn } from "@/lib/feature-flags";
+import { type accessLevelEnum, billingAccount, company, invoice, user } from "@/schema";
+import { newAccountAccessLevel } from "./access";
 
 export type AccessLevel = (typeof accessLevelEnum.enumValues)[number];
 
 /**
- * The level a brand-new account gets. Grandfathered until the access gate ships, because
- * grandfathering stops when the paywall goes live, and everyone who gets in before that keeps the
- * current journey free. The change that ships the gate sets this to "free".
+ * Open a new billing account and return its id. It starts grandfathered until billing is launched,
+ * and after that free unless its owner was grandfathered at the launch (./access).
  */
-export const NEW_ACCOUNT_ACCESS_LEVEL: AccessLevel = "grandfathered";
-
-/** Open a new billing account and return its id. */
 export const createBillingAccount = async (
   db: DbOrTx,
   ownerUserId: string | null,
 ): Promise<string> => {
+  const owner = ownerUserId
+    ? await db.query.user.findFirst({
+        where: eq(user.id, ownerUserId),
+        columns: { grandfatheredAt: true },
+      })
+    : undefined;
+  const accessLevel = newAccountAccessLevel(
+    await isFeatureOn(db, "billing"),
+    owner?.grandfatheredAt != null,
+  );
   const [account] = await db
     .insert(billingAccount)
-    .values({ ownerUserId, accessLevel: NEW_ACCOUNT_ACCESS_LEVEL })
+    .values({ ownerUserId, accessLevel })
     .returning({ id: billingAccount.id });
   if (!account) throw new Error("billing account insert returned no row");
   return account.id;

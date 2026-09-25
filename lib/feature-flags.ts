@@ -1,14 +1,13 @@
 /**
- * Platform switches flipped from the platform admin Dev tab. A switch with no row is off.
+ * Platform switches. A switch with no row is off. Today there is one, `billing`, set once by the
+ * pricing launch in platform admin (lib/billing/launch.ts).
  */
 import "@/lib/server-guard";
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { featureFlag, featureFlagKeyEnum } from "@/schema";
+import { featureFlag, type featureFlagKeyEnum } from "@/schema";
 
 export type FeatureFlagKey = (typeof featureFlagKeyEnum.enumValues)[number];
-
-export const FEATURE_FLAG_KEYS = featureFlagKeyEnum.enumValues;
 
 export const isFeatureOn = async (db: DbOrTx, key: FeatureFlagKey): Promise<boolean> => {
   const [row] = await db
@@ -33,13 +32,4 @@ export const setFeature = async (
       target: featureFlag.key,
       set: { enabled, updatedAt: now, updatedByUserId: userId },
     });
-};
-
-/** Every switch with its state, including the ones never set. */
-export const listFeatures = async (db: DbOrTx) => {
-  const rows = await db.select().from(featureFlag);
-  return FEATURE_FLAG_KEYS.map((key) => {
-    const row = rows.find((r) => r.key === key);
-    return { key, enabled: row?.enabled ?? false, updatedAt: row?.updatedAt ?? null };
-  });
 };

@@ -9,6 +9,7 @@ import {
   GraduationCap,
   Loader2,
   Mail,
+  Rocket,
   Shield,
   Trash2,
   Truck,
@@ -28,6 +29,7 @@ import { DevPanel } from "./DevPanel";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
 import { median } from "./graphs/derive";
+import { PricingPanel } from "./PricingPanel";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -229,6 +231,7 @@ type Tab =
   | "suppliers"
   | "emails"
   | "erasures"
+  | "pricing"
   | "dev";
 
 /** Human-readable label for a notification.entityType value. */
@@ -359,6 +362,12 @@ export function PlatformAdminPage({
             count: undefined as number | undefined,
           },
           {
+            key: "pricing" as const,
+            label: "Pricing",
+            icon: Rocket,
+            count: undefined as number | undefined,
+          },
+          {
             key: "dev" as const,
             label: "Dev",
             icon: FlaskConical,
@@ -393,6 +402,7 @@ export function PlatformAdminPage({
       {tab === "suppliers" && <SuppliersTable rows={supplierActivity} />}
       {tab === "emails" && <EmailsPanel data={emailActivity} />}
       {tab === "erasures" && <ErasuresPanel />}
+      {tab === "pricing" && <PricingPanel />}
       {tab === "dev" && <DevPanel />}
     </div>
   );

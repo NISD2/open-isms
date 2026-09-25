@@ -8,6 +8,7 @@ import { PortalHeader } from "@/components/portal/PortalHeader";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getSession } from "@/lib/auth";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { mayOpenPortalPath } from "@/lib/billing/access";
 import { billingFor } from "@/lib/billing/ordering-access";
 import {
   type CategoryInfo,
@@ -68,6 +69,13 @@ export default async function PortalLayout({ children }: { children: React.React
   const session = await getSession();
   if (!session) redirect("/auth/signin");
 
+  // The access gate (lib/billing/access.ts): an account that must order first reaches only the few
+  // pages that let it do so, and is sent to /bestellen before any journey data is loaded.
+  const h = await headers();
+  const pathname = h.get("x-pathname") ?? "";
+  const mustOrder = session.accessLevel === "free";
+  if (mustOrder && !mayOpenPortalPath("free", pathname)) redirect("/bestellen");
+
   // Always load framework structure so the sidebar shows NIS2 / GDPR groups
   // even before the user has set up their company. Pre-onboarding the
   // category links work as a preview — clicking lands on the onboarding banner.
@@ -82,7 +90,7 @@ export default async function PortalLayout({ children }: { children: React.React
       const assessment = assessments.find((a) => a.framework?.code === code);
       return Promise.all([
         assessment ? getUserAccess(assessment.id, session.user.id, session.role) : null,
-        assessment
+        assessment && !mustOrder
           ? api.assessment.getProgressByCategory({ assessmentId: assessment.id })
           : ({} as Record<string, { completed: number; total: number }>),
       ]).then(([access, progress]) => {
@@ -108,8 +116,6 @@ export default async function PortalLayout({ children }: { children: React.React
   // companyId) is what makes a draft see the banner here instead of an empty,
   // 403-on-write shell.
   const billing = await billingFor(db, session.user.email);
-  const h = await headers();
-  const pathname = h.get("x-pathname") ?? "";
   const ALLOWED_WITHOUT_COMPANY = [
     "/dashboard",
     "/journey",

@@ -11,8 +11,7 @@ import {
 } from "lucide-react";
 /**
  * Personal dev tools — levers that act on the signed-in operator's own
- * account rather than on the platform. The one exception sits on top, in its
- * own card: the platform switches (./FeatureFlagsCard), which act on everyone.
+ * account rather than on the platform.
  *
  * Every other tab here reports across companies. This one is the opposite: a
  * place for the small self-service resets that otherwise mean opening a SQL
@@ -36,7 +35,6 @@ import {
 } from "@/components/ui/card";
 import { useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
-import { FeatureFlagsCard } from "./FeatureFlagsCard";
 
 /** next-intl writes the chosen locale here; clearing it restores detection. */
 const LOCALE_COOKIE = "NEXT_LOCALE";
@@ -140,7 +138,6 @@ export function DevPanel() {
 
   return (
     <div className="space-y-4">
-      <FeatureFlagsCard />
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">

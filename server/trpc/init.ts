@@ -1,11 +1,11 @@
-import { eq } from "drizzle-orm";
+import { createTRPCSetup } from "@nisd2/isms-trpc";
 import { TRPCError } from "@trpc/server";
+import { eq } from "drizzle-orm";
+import { logAudit } from "@/lib/audit";
+import { getSession, hasReviewAccess } from "@/lib/auth";
+import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { company } from "@/schema";
-import { getSession, hasReviewAccess } from "@/lib/auth";
-import { logAudit } from "@/lib/audit";
-import { getClientIp } from "@/lib/client-ip";
-import { createTRPCSetup } from "@nisd2/isms-trpc";
 
 // ============================================================================
 // Context
@@ -38,9 +38,42 @@ export const mergeRouters = setup.mergeRouters;
 export const createCallerFactory = setup.createCallerFactory;
 export const publicProcedure = setup.publicProcedure;
 export const protectedProcedure = setup.protectedProcedure;
-export const companyProcedure = setup.companyProcedure;
-export const adminProcedure = setup.adminProcedure;
-export const reviewerProcedure = setup.reviewerProcedure;
+
+/**
+ * The access gate (NIS2 plan, slice 5). Every company tier below refuses an account whose effective
+ * level is free, which only exists once billing is launched (lib/billing/access.ts). Gated by
+ * default, so a router added later is behind the paywall unless it opts out through the account
+ * tiers. The portal layout redirects a free account first; this is what stops a direct API call.
+ */
+const assertNotFree = (session: TRPCContext["session"]) => {
+  if (session?.accessLevel === "free") {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Order the NIS 2 Durchgang first.",
+    });
+  }
+};
+
+export const companyProcedure = setup.companyProcedure.use(({ ctx, next }) => {
+  assertNotFree(ctx.session);
+  return next({ ctx });
+});
+export const adminProcedure = setup.adminProcedure.use(({ ctx, next }) => {
+  assertNotFree(ctx.session);
+  return next({ ctx });
+});
+export const reviewerProcedure = setup.reviewerProcedure.use(({ ctx, next }) => {
+  assertNotFree(ctx.session);
+  return next({ ctx });
+});
+
+/**
+ * The company tiers WITHOUT the access gate, for what an account that has not paid must still
+ * reach: billing and ordering, notifications, its own company master data, and the supplier
+ * portal (suppliers answer for paying customers). Nothing else uses these.
+ */
+export const accountProcedure = setup.companyProcedure;
+export const accountAdminProcedure = setup.adminProcedure;
 
 /**
  * A company that has completed activation (activatedAt stamped). Extends
@@ -53,18 +86,16 @@ export const reviewerProcedure = setup.reviewerProcedure;
  * companyProcedure still gates reads and lets a draft user browse the seeded
  * journey.
  */
-export const activatedCompanyProcedure = companyProcedure.use(
-  async ({ ctx, next }) => {
-    const c = await ctx.db.query.company.findFirst({
-      where: eq(company.id, ctx.companyId),
-      columns: { activatedAt: true },
+export const activatedCompanyProcedure = companyProcedure.use(async ({ ctx, next }) => {
+  const c = await ctx.db.query.company.findFirst({
+    where: eq(company.id, ctx.companyId),
+    columns: { activatedAt: true },
+  });
+  if (!c?.activatedAt) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Finish setting up your organization first.",
     });
-    if (!c?.activatedAt) {
-      throw new TRPCError({
-        code: "FORBIDDEN",
-        message: "Finish setting up your organization first.",
-      });
-    }
-    return next({ ctx });
-  },
-);
+  }
+  return next({ ctx });
+});

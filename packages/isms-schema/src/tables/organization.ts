@@ -396,6 +396,12 @@ export const user = pgTable(
      */
     lastLoginAt: timestamp("last_login_at"),
     /**
+     * When this person was grandfathered: stamped once, at the billing launch, on everyone who had
+     * got in before it (lib/billing/launch.ts). A stamped person keeps the current journey free in
+     * every company they belong to or start later. Null for everyone who arrived after the launch.
+     */
+    grandfatheredAt: timestamp("grandfathered_at"),
+    /**
      * Which language this account reads the platform in (one of the app's
      * locale codes, lib/locale.ts). Exists so email sent OUTSIDE a request
      * context (lifecycle crons, digests) can pick a language; in-request email
