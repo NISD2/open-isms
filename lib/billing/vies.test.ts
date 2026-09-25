@@ -9,6 +9,7 @@
  * whether the Commission has changed anything under us.
  */
 import { afterEach, describe, expect, test } from "bun:test";
+import { VIES_DEFAULT_ENDPOINT } from "./config-schema";
 import {
   checkVatNumber,
   isConfirmed,
@@ -16,7 +17,6 @@ import {
   splitVatNumber,
   toAttempt,
   type VatCheck,
-  VIES_DEFAULT_ENDPOINT,
   vatTreatment,
   viesConfigFromEnv,
 } from "./vies";
@@ -30,24 +30,29 @@ afterEach(() => {
 const STUB_CONFIG = { endpoint: "https://vies.invalid/check", requester: null } as const;
 const check = (input: string) => checkVatNumber(input, STUB_CONFIG);
 
+const requesterFor = (own?: string) =>
+  viesConfigFromEnv({ OWN_VAT_NUMBER: own, VIES_ENDPOINT: VIES_DEFAULT_ENDPOINT })
+    .requester;
+
 describe("viesConfigFromEnv", () => {
-  test("accepts our own number with its prefix and spacing, and sends it bare", () => {
-    for (const own of ["DE 123 456 788", "de123456788", "123456788", "DE-123.456.788"]) {
-      expect(
-        viesConfigFromEnv({
-          OWN_VAT_COUNTRY: "DE",
-          OWN_VAT_NUMBER: own,
-          VIES_ENDPOINT: VIES_DEFAULT_ENDPOINT,
-        }).requester,
-      ).toEqual({ memberStateCode: "DE", number: "123456788" });
+  test("reads our own number like a customer's, whatever the spacing", () => {
+    for (const own of ["DE 123 456 788", "de123456788", "DE-123.456.788"]) {
+      expect(requesterFor(own)).toEqual({ memberStateCode: "DE", number: "123456788" });
     }
   });
 
-  test("sends no requester when our own number is not set", () => {
-    expect(
-      viesConfigFromEnv({ OWN_VAT_COUNTRY: "DE", VIES_ENDPOINT: VIES_DEFAULT_ENDPOINT })
-        .requester,
-    ).toBeNull();
+  test("takes the country from the number's own prefix", () => {
+    expect(requesterFor("NL123456789B01")).toEqual({
+      memberStateCode: "NL",
+      number: "123456789B01",
+    });
+  });
+
+  test("sends no requester rather than a wrong one", () => {
+    // Without a requester every check still works; only the consultation number is missing.
+    for (const own of [undefined, "", "123456788", "not a number"]) {
+      expect(requesterFor(own)).toBeNull();
+    }
   });
 });
 
@@ -238,7 +243,6 @@ describe("live check against the Commission (VIES_LIVE=1 and VIES_LIVE_NUMBER to
       const r = await checkVatNumber(
         LIVE_NUMBER,
         viesConfigFromEnv({
-          OWN_VAT_COUNTRY: process.env.OWN_VAT_COUNTRY ?? "DE",
           OWN_VAT_NUMBER: process.env.OWN_VAT_NUMBER,
           VIES_ENDPOINT: VIES_DEFAULT_ENDPOINT,
         }),

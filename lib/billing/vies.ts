@@ -21,9 +21,6 @@
  * No API key, no account, no rate-limit documented. Free service, so treat it as best-effort.
  */
 
-export const VIES_DEFAULT_ENDPOINT =
-  "https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number";
-
 /** Our own VAT number, sent so the response carries a consultation number. */
 export interface ViesRequester {
   readonly memberStateCode: string;
@@ -38,7 +35,6 @@ export interface ViesConfig {
 
 /** The settings the check needs, as the validated environment provides them. */
 export interface ViesEnv {
-  readonly OWN_VAT_COUNTRY: string;
   readonly OWN_VAT_NUMBER?: string | undefined;
   readonly VIES_ENDPOINT: string;
 }
@@ -46,17 +42,17 @@ export interface ViesEnv {
 /**
  * Builds the check's config from the validated environment.
  *
- * Our own number is accepted with or without its country prefix and with any spacing, because VIES
- * rejects a requester written as "DE 123 456 789", and a rejected requester would turn every check
- * into "unavailable", which silently puts domestic VAT on every EU customer.
+ * Our own number is read by the same splitter as a customer's, so it gets the same normalisation
+ * and the same checks, and its own prefix decides its country. A number that cannot be read is
+ * sent as no requester at all rather than as a wrong one: without a requester every check still
+ * works and only the consultation number is missing, whereas a requester VIES rejects would turn
+ * every check into "unavailable" and silently put domestic VAT on every EU customer.
  */
 export const viesConfigFromEnv = (env: ViesEnv): ViesConfig => {
-  const country = env.OWN_VAT_COUNTRY.toUpperCase();
-  const compact = (env.OWN_VAT_NUMBER ?? "").replace(/[\s.\-/]/g, "").toUpperCase();
-  const number = compact.startsWith(country) ? compact.slice(country.length) : compact;
+  const own = env.OWN_VAT_NUMBER ? splitVatNumber(env.OWN_VAT_NUMBER) : null;
   return {
     endpoint: env.VIES_ENDPOINT,
-    requester: number ? { memberStateCode: country, number } : null,
+    requester: own ? { memberStateCode: own.countryCode, number: own.vatNumber } : null,
   };
 };
 

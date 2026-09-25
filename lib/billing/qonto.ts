@@ -18,7 +18,8 @@
  * party being slow must surface as a value the caller can decide about, not as an exception that
  * takes a request down.
  */
-import { isSandboxBase } from "./sandbox-gate";
+import { QONTO_PRODUCTION_BASE, QONTO_SANDBOX_HOST } from "./config-schema";
+import { httpsHostOf } from "./sandbox-gate";
 
 export interface QontoConfig {
   readonly baseUrl: string;
@@ -28,7 +29,7 @@ export interface QontoConfig {
   readonly stagingToken?: string;
 }
 
-export const QONTO_PRODUCTION_BASE = "https://thirdparty.qonto.com/v2";
+const QONTO_PRODUCTION_HOST = new URL(QONTO_PRODUCTION_BASE).hostname;
 
 /** The settings the client needs, as the validated environment provides them. */
 export interface QontoEnv {
@@ -44,14 +45,17 @@ export interface QontoEnv {
  * Builds the client config from the validated environment. Returns null rather than throwing when
  * it is not set up.
  *
- * The base URL decides which credentials are used, and each host only ever gets its own: the
- * sandbox pair and the staging token for the sandbox host, the production pair for everything
- * else. There is no fallback between them, so a production secret is never sent to the shared
- * sandbox, and no sandbox credential ever reaches the production host.
+ * Credentials only ever go to one of Qonto's two hosts, over https: anything else, including
+ * plain http or a mistyped host, yields no config, and billing is off. The host decides which
+ * credentials are used, and each gets only its own: the sandbox pair and the staging token for the
+ * sandbox, the production pair for production. There is no fallback between them, so a production
+ * secret is never sent to the shared sandbox, and no sandbox credential reaches production.
  */
 export const qontoConfigFromEnv = (env: QontoEnv): QontoConfig | null => {
   const baseUrl = env.QONTO_API_BASE;
-  const sandbox = isSandboxBase(baseUrl);
+  const host = httpsHostOf(baseUrl);
+  if (host !== QONTO_PRODUCTION_HOST && host !== QONTO_SANDBOX_HOST) return null;
+  const sandbox = host === QONTO_SANDBOX_HOST;
   const login = (sandbox ? env.QONTO_SANDBOX_LOGIN : env.QONTO_LOGIN) ?? "";
   const secretKey = (sandbox ? env.QONTO_SANDBOX_SECRET_KEY : env.QONTO_SECRET_KEY) ?? "";
   if (!login || !secretKey) return null;
@@ -129,7 +133,11 @@ const request = async <T>(
   return { ok: true, data: parsed.value as T };
 };
 
-/** A call whose success carries no body, such as sending an invoice (204 No Content). */
+/**
+ * A call whose success carries no body, such as sending an invoice (204 No Content). Only an empty
+ * or JSON body counts as success: the sandbox's HTML login page arrives as a 200 too, and reporting
+ * that as "sent" would mean nobody resends an invoice that never went out.
+ */
 const requestNoContent = async (
   c: QontoConfig,
   method: "GET" | "POST",
@@ -137,7 +145,15 @@ const requestNoContent = async (
   body?: unknown,
 ): Promise<QontoResult<null>> => {
   const r = await exchange(c, method, path, body);
-  return r.ok ? { ok: true, data: null } : r;
+  if (!r.ok) return r;
+  if (r.text && !parseJson(r.text).ok) {
+    return {
+      ok: false,
+      status: r.status,
+      error: `unexpected body: ${r.text.slice(0, 200)}`,
+    };
+  }
+  return { ok: true, data: null };
 };
 
 const parseJson = (

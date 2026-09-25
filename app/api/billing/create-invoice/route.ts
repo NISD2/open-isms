@@ -18,7 +18,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { mayUseBillingHarness } from "@/lib/billing/harness-access";
 import { formatIban, pickPayableAccount } from "@/lib/billing/iban";
-import { sandboxInvoiceNumber } from "@/lib/billing/invoice-number";
+import { isValidInvoicePrefix, sandboxInvoiceNumber } from "@/lib/billing/invoice-number";
 import {
   formatEuro,
   invoiceDates,
@@ -53,8 +53,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "Qonto credentials are not configured for this host. The sandbox host needs QONTO_SANDBOX_LOGIN and QONTO_SANDBOX_SECRET_KEY.",
+          "Qonto is not configured: QONTO_API_BASE must be one of Qonto's hosts over https, with that host's credential pair set.",
       },
+      { status: 503 },
+    );
+  }
+  if (!isValidInvoicePrefix(env.INVOICE_PREFIX)) {
+    return NextResponse.json(
+      { error: "INVOICE_PREFIX must be one to twelve uppercase letters or digits." },
       { status: 503 },
     );
   }

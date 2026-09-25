@@ -15,6 +15,13 @@
  * recognises); this module has no default of its own.
  */
 
+/**
+ * A usable prefix: one to twelve uppercase letters or digits, so the whole number stays a single
+ * unbroken token a payer can type into a transfer reference.
+ */
+export const isValidInvoicePrefix = (prefix: string): boolean =>
+  /^[A-Z0-9]{1,12}$/.test(prefix);
+
 /** Zero-padded so the numbers sort as text and line up in a column. */
 const pad = (n: number, width = 4): string => String(n).padStart(width, "0");
 

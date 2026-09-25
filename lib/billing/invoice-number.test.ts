@@ -1,5 +1,23 @@
 import { describe, expect, test } from "bun:test";
-import { invoiceNumber, sandboxInvoiceNumber } from "./invoice-number";
+import {
+  invoiceNumber,
+  isValidInvoicePrefix,
+  sandboxInvoiceNumber,
+} from "./invoice-number";
+
+describe("isValidInvoicePrefix", () => {
+  test("accepts short uppercase letter-and-digit prefixes", () => {
+    for (const p of ["RE", "INV", "R2026", "ABCDEFGHIJKL"]) {
+      expect(isValidInvoicePrefix(p)).toBe(true);
+    }
+  });
+
+  test("refuses anything that would split the number or not be typed back", () => {
+    for (const p of ["", "re", "NISD2-RE", "RE ", "ABCDEFGHIJKLM", "RÉ"]) {
+      expect(isValidInvoicePrefix(p)).toBe(false);
+    }
+  });
+});
 
 describe("invoiceNumber", () => {
   test("pads so numbers sort as text and line up in a column", () => {
