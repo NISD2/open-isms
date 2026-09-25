@@ -59,28 +59,40 @@ export async function createDraftCompany(
     if (current?.companyId) return null;
 
     const billingAccountId = await createBillingAccount(tx, userId);
-    const [draft] = await tx
-      .insert(company)
-      .values({
-        name: DRAFT_COMPANY_NAME,
-        sector: DRAFT_COMPANY_SECTOR,
-        entityType: "important",
-        ownerId: userId,
-        billingAccountId,
-        // activatedAt stays NULL (draft); actsAsNis2Entity stays false until
-        // the user confirms they are a regulated entity in activateCompany.
-      })
-      .returning({ id: company.id });
-    if (!draft) throw new Error("draft company insert returned no row");
-
-    await joinCompany(tx, { userId, companyId: draft.id, role: "admin" });
-
-    // Seed the assessment + status rows so journey.getItems is non-empty. No
-    // deadline backfill / reminder scheduling here — those wait for activation.
-    await createAssessmentsForFrameworks(tx, draft.id, "important");
-
-    return { companyId: draft.id };
+    return insertDraftCompany(tx, { userId, billingAccountId });
   });
+}
+
+/**
+ * Insert a draft company under a billing account, make the user its admin and open it, and seed
+ * its assessments. A first company brings a new account; a further one joins the account of the
+ * company the user creates it from, so it inherits that account's access level.
+ */
+export async function insertDraftCompany(
+  tx: DbOrTx,
+  input: { readonly userId: string; readonly billingAccountId: string },
+): Promise<{ companyId: string }> {
+  const [draft] = await tx
+    .insert(company)
+    .values({
+      name: DRAFT_COMPANY_NAME,
+      sector: DRAFT_COMPANY_SECTOR,
+      entityType: "important",
+      ownerId: input.userId,
+      billingAccountId: input.billingAccountId,
+      // activatedAt stays NULL (draft); actsAsNis2Entity stays false until
+      // the user confirms they are a regulated entity in activateCompany.
+    })
+    .returning({ id: company.id });
+  if (!draft) throw new Error("draft company insert returned no row");
+
+  await joinCompany(tx, { userId: input.userId, companyId: draft.id, role: "admin" });
+
+  // Seed the assessment + status rows so journey.getItems is non-empty. No
+  // deadline backfill / reminder scheduling here — those wait for activation.
+  await createAssessmentsForFrameworks(tx, draft.id, "important");
+
+  return { companyId: draft.id };
 }
 
 /**

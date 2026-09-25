@@ -6,6 +6,7 @@ import { assetRouter } from "./routers/asset";
 import { assignmentRouter } from "./routers/assignment";
 import { auditRouter } from "./routers/audit";
 import { changeRouter } from "./routers/change";
+import { companyRouter } from "./routers/company";
 import { dashboardRouter } from "./routers/dashboard";
 import { devRouter } from "./routers/dev";
 import { evidenceRouter } from "./routers/evidence";
@@ -49,6 +50,7 @@ export const appRouter = router({
   audit: auditRouter,
   assignment: assignmentRouter,
   team: teamRouter,
+  company: companyRouter,
   review: reviewRouter,
   ...(isDev ? { dev: devRouter } : {}),
   asset: assetRouter,
