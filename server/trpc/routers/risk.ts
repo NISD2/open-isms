@@ -1,19 +1,33 @@
-import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../init";
-import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import { insertRow, updateRow } from "../typed";
-import { risk, riskAsset, riskSupplier, riskTreatment, companyRiskMethodology, asset, supplier } from "@/schema";
-import { getDefaultMethodology, type ScaleLevel } from "@/lib/compliance/risk-methodology-defaults";
+import { and, desc, eq } from "drizzle-orm";
+import { z } from "zod";
 import {
-  riskInsertSchema,
-  riskUpdateSchema,
+  invalidateModuleSignOffs,
+  recheckModuleRequirements,
+} from "@/lib/compliance/module-recheck";
+import {
+  getDefaultMethodology,
+  type ScaleLevel,
+} from "@/lib/compliance/risk-methodology-defaults";
+import {
+  asset,
+  companyRiskMethodology,
+  risk,
+  riskAsset,
+  riskSupplier,
+  riskTreatment,
+  supplier,
+} from "@/schema";
+import {
   riskAssetInsertSchema,
+  riskInsertSchema,
   riskSupplierInsertSchema,
   riskTreatmentInsertSchema,
   riskTreatmentUpdateSchema,
+  riskUpdateSchema,
 } from "@/schema/validators";
+import { companyProcedure, router } from "../init";
+import { insertRow, updateRow } from "../typed";
 
 const scaleLevelSchema = z.object({
   value: z.number().int().min(1),
@@ -63,7 +77,7 @@ export const riskRouter = router({
         impactLevels: z.array(scaleLevelSchema).min(2).max(6).optional(),
         acceptanceThreshold: z.number().int().min(1).optional(),
         includesOt: z.boolean().optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       // Renumber levels sequentially if provided
@@ -72,9 +86,11 @@ export const riskRouter = router({
 
       const updates: Record<string, unknown> = { updatedAt: new Date() };
       if (input.name != null) updates.name = input.name;
-      if (input.likelihoodLevels) updates.likelihoodLevels = normalize(input.likelihoodLevels);
+      if (input.likelihoodLevels)
+        updates.likelihoodLevels = normalize(input.likelihoodLevels);
       if (input.impactLevels) updates.impactLevels = normalize(input.impactLevels);
-      if (input.acceptanceThreshold != null) updates.acceptanceThreshold = input.acceptanceThreshold;
+      if (input.acceptanceThreshold != null)
+        updates.acceptanceThreshold = input.acceptanceThreshold;
       if (input.includesOt != null) updates.includesOt = input.includesOt;
 
       const [row] = await ctx.db
@@ -83,7 +99,8 @@ export const riskRouter = router({
         .where(eq(companyRiskMethodology.companyId, ctx.companyId))
         .returning();
 
-      if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "No methodology found" });
+      if (!row)
+        throw new TRPCError({ code: "NOT_FOUND", message: "No methodology found" });
       return row;
     }),
 
@@ -101,7 +118,11 @@ export const riskRouter = router({
     if (!ctx.companyId) return [];
     return ctx.db.query.risk.findMany({
       where: eq(risk.companyId, ctx.companyId),
-      with: { riskAssets: { with: { asset: { columns: { id: true, name: true, type: true } } } } },
+      with: {
+        riskAssets: {
+          with: { asset: { columns: { id: true, name: true, type: true } } },
+        },
+      },
       orderBy: [desc(risk.updatedAt)],
     });
   }),
@@ -116,14 +137,24 @@ export const riskRouter = router({
   }),
 
   create: companyProcedure
-    .input(riskInsertSchema.omit({ id: true, companyId: true, createdAt: true, updatedAt: true, riskScore: true }))
+    .input(
+      riskInsertSchema.omit({
+        id: true,
+        companyId: true,
+        createdAt: true,
+        updatedAt: true,
+        riskScore: true,
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const riskScore = input.likelihood * input.impact;
       const [row] = await ctx.db
         .insert(risk)
         .values(insertRow(risk, { ...input, riskScore, companyId: ctx.companyId }))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "risk", ctx.userId).catch((err) => console.error("[background] risk recheck:", err));
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "risk", ctx.userId).catch((err) =>
+        console.error("[background] risk recheck:", err),
+      );
       return row;
     }),
 
@@ -132,7 +163,8 @@ export const riskRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
       const needsScoreCalc = data.likelihood != null || data.impact != null;
-      const needsResidualCalc = data.residualLikelihood != null || data.residualImpact != null;
+      const needsResidualCalc =
+        data.residualLikelihood != null || data.residualImpact != null;
 
       let riskScore: number | undefined;
       let residualRiskScore: number | undefined;
@@ -140,12 +172,18 @@ export const riskRouter = router({
       if (needsScoreCalc || needsResidualCalc) {
         const current = await ctx.db.query.risk.findFirst({
           where: and(eq(risk.id, id), eq(risk.companyId, ctx.companyId)),
-          columns: { likelihood: true, impact: true, residualLikelihood: true, residualImpact: true },
+          columns: {
+            likelihood: true,
+            impact: true,
+            residualLikelihood: true,
+            residualImpact: true,
+          },
         });
         if (!current) throw new TRPCError({ code: "NOT_FOUND" });
 
         if (needsScoreCalc) {
-          riskScore = (data.likelihood ?? current.likelihood) * (data.impact ?? current.impact);
+          riskScore =
+            (data.likelihood ?? current.likelihood) * (data.impact ?? current.impact);
         }
         if (needsResidualCalc) {
           const rl = data.residualLikelihood ?? current.residualLikelihood;
@@ -166,7 +204,9 @@ export const riskRouter = router({
         .set(updateRow(risk, updates))
         .where(and(eq(risk.id, id), eq(risk.companyId, ctx.companyId)))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "risk", ctx.userId).catch((err) => console.error("[background] risk recheck:", err));
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "risk", ctx.userId).catch((err) =>
+        console.error("[background] risk recheck:", err),
+      );
       return row;
     }),
 
@@ -182,7 +222,9 @@ export const riskRouter = router({
       await ctx.db.delete(riskAsset).where(eq(riskAsset.riskId, input.id));
       await ctx.db.delete(riskSupplier).where(eq(riskSupplier.riskId, input.id));
       await ctx.db.delete(risk).where(eq(risk.id, input.id));
-      recheckModuleRequirements(ctx.db, ctx.companyId, "risk", ctx.userId).catch((err) => console.error("[background] risk:", err));
+      recheckModuleRequirements(ctx.db, ctx.companyId, "risk", ctx.userId).catch((err) =>
+        console.error("[background] risk:", err),
+      );
       return { deleted: true };
     }),
 
@@ -221,7 +263,10 @@ export const riskRouter = router({
           code: "NOT_FOUND",
           message: "Asset not found in this company",
         });
-      const [row] = await ctx.db.insert(riskAsset).values(insertRow(riskAsset, input)).returning();
+      const [row] = await ctx.db
+        .insert(riskAsset)
+        .values(insertRow(riskAsset, input))
+        .returning();
       return row;
     }),
 
@@ -265,7 +310,10 @@ export const riskRouter = router({
         columns: { id: true },
       });
       if (!parentRisk) throw new TRPCError({ code: "NOT_FOUND" });
-      const [row] = await ctx.db.insert(riskTreatment).values(insertRow(riskTreatment, input)).returning();
+      const [row] = await ctx.db
+        .insert(riskTreatment)
+        .values(insertRow(riskTreatment, input))
+        .returning();
       return row;
     }),
 
@@ -315,7 +363,11 @@ export const riskRouter = router({
     if (!ctx.companyId) return [];
     return ctx.db.query.risk.findMany({
       where: eq(risk.companyId, ctx.companyId),
-      with: { riskSuppliers: { with: { supplier: { columns: { id: true, name: true, riskLevel: true } } } } },
+      with: {
+        riskSuppliers: {
+          with: { supplier: { columns: { id: true, name: true, riskLevel: true } } },
+        },
+      },
       orderBy: [desc(risk.updatedAt)],
     });
   }),
@@ -341,7 +393,10 @@ export const riskRouter = router({
           code: "NOT_FOUND",
           message: "Supplier not found in this company",
         });
-      const [row] = await ctx.db.insert(riskSupplier).values(insertRow(riskSupplier, input)).returning();
+      const [row] = await ctx.db
+        .insert(riskSupplier)
+        .values(insertRow(riskSupplier, input))
+        .returning();
       return row;
     }),
 

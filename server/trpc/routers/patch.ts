@@ -1,10 +1,13 @@
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
-import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import { insertRow, updateRow } from "../typed";
+import {
+  invalidateModuleSignOffs,
+  recheckModuleRequirements,
+} from "@/lib/compliance/module-recheck";
 import { patchRecord } from "@/schema";
 import { patchRecordInsertSchema, patchRecordUpdateSchema } from "@/schema/validators";
+import { companyProcedure, router } from "../init";
+import { insertRow, updateRow } from "../typed";
 
 export const patchRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -16,14 +19,23 @@ export const patchRouter = router({
   }),
 
   create: companyProcedure
-    .input(patchRecordInsertSchema.omit({ id: true, companyId: true, createdAt: true, updatedAt: true }))
+    .input(
+      patchRecordInsertSchema.omit({
+        id: true,
+        companyId: true,
+        createdAt: true,
+        updatedAt: true,
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const values = { ...input, companyId: ctx.companyId };
       const [row] = await ctx.db
         .insert(patchRecord)
         .values(insertRow(patchRecord, values))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "patch_record", ctx.userId).catch((err) => console.error("[background] patch_record recheck:", err));
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "patch_record", ctx.userId).catch(
+        (err) => console.error("[background] patch_record recheck:", err),
+      );
       return row;
     }),
 
@@ -37,7 +49,9 @@ export const patchRouter = router({
         .set(updateRow(patchRecord, updates))
         .where(and(eq(patchRecord.id, id), eq(patchRecord.companyId, ctx.companyId)))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "patch_record", ctx.userId).catch((err) => console.error("[background] patch_record recheck:", err));
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "patch_record", ctx.userId).catch(
+        (err) => console.error("[background] patch_record recheck:", err),
+      );
       return row;
     }),
 
@@ -46,8 +60,12 @@ export const patchRouter = router({
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .delete(patchRecord)
-        .where(and(eq(patchRecord.id, input.id), eq(patchRecord.companyId, ctx.companyId)));
-      recheckModuleRequirements(ctx.db, ctx.companyId, "patch_record", ctx.userId).catch((err) => console.error("[background] patch:", err));
+        .where(
+          and(eq(patchRecord.id, input.id), eq(patchRecord.companyId, ctx.companyId)),
+        );
+      recheckModuleRequirements(ctx.db, ctx.companyId, "patch_record", ctx.userId).catch(
+        (err) => console.error("[background] patch:", err),
+      );
       return { deleted: true };
     }),
 });

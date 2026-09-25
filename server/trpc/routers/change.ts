@@ -1,10 +1,16 @@
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
-import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import { insertRow, updateRow } from "../typed";
+import {
+  invalidateModuleSignOffs,
+  recheckModuleRequirements,
+} from "@/lib/compliance/module-recheck";
 import { changeRequest } from "@/schema";
-import { changeRequestInsertSchema, changeRequestUpdateSchema } from "@/schema/validators";
+import {
+  changeRequestInsertSchema,
+  changeRequestUpdateSchema,
+} from "@/schema/validators";
+import { companyProcedure, router } from "../init";
+import { insertRow, updateRow } from "../typed";
 
 export const changeRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -16,14 +22,23 @@ export const changeRouter = router({
   }),
 
   create: companyProcedure
-    .input(changeRequestInsertSchema.omit({ id: true, companyId: true, createdAt: true, updatedAt: true }))
+    .input(
+      changeRequestInsertSchema.omit({
+        id: true,
+        companyId: true,
+        createdAt: true,
+        updatedAt: true,
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const values = { ...input, companyId: ctx.companyId, requestedBy: ctx.userId };
       const [row] = await ctx.db
         .insert(changeRequest)
         .values(insertRow(changeRequest, values))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "change_request", ctx.userId).catch((err) => console.error("[background] change_request recheck:", err));
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "change_request", ctx.userId).catch(
+        (err) => console.error("[background] change_request recheck:", err),
+      );
       return row;
     }),
 
@@ -37,7 +52,9 @@ export const changeRouter = router({
         .set(updateRow(changeRequest, updates))
         .where(and(eq(changeRequest.id, id), eq(changeRequest.companyId, ctx.companyId)))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "change_request", ctx.userId).catch((err) => console.error("[background] change_request recheck:", err));
+      invalidateModuleSignOffs(ctx.db, ctx.companyId, "change_request", ctx.userId).catch(
+        (err) => console.error("[background] change_request recheck:", err),
+      );
       return row;
     }),
 
@@ -46,8 +63,15 @@ export const changeRouter = router({
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .delete(changeRequest)
-        .where(and(eq(changeRequest.id, input.id), eq(changeRequest.companyId, ctx.companyId)));
-      recheckModuleRequirements(ctx.db, ctx.companyId, "change_request", ctx.userId).catch((err) => console.error("[background] change:", err));
+        .where(
+          and(eq(changeRequest.id, input.id), eq(changeRequest.companyId, ctx.companyId)),
+        );
+      recheckModuleRequirements(
+        ctx.db,
+        ctx.companyId,
+        "change_request",
+        ctx.userId,
+      ).catch((err) => console.error("[background] change:", err));
       return { deleted: true };
     }),
 });

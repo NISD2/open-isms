@@ -1,10 +1,16 @@
+import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
-import { router, companyProcedure } from "../init";
-import { recheckModuleRequirements, invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
-import { insertRow, updateRow } from "../typed";
+import {
+  invalidateModuleSignOffs,
+  recheckModuleRequirements,
+} from "@/lib/compliance/module-recheck";
 import { improvementItem } from "@/schema";
-import { improvementItemInsertSchema, improvementItemUpdateSchema } from "@/schema/validators";
+import {
+  improvementItemInsertSchema,
+  improvementItemUpdateSchema,
+} from "@/schema/validators";
+import { companyProcedure, router } from "../init";
+import { insertRow, updateRow } from "../typed";
 
 export const improvementRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
@@ -16,14 +22,26 @@ export const improvementRouter = router({
   }),
 
   create: companyProcedure
-    .input(improvementItemInsertSchema.omit({ id: true, companyId: true, createdAt: true, updatedAt: true }))
+    .input(
+      improvementItemInsertSchema.omit({
+        id: true,
+        companyId: true,
+        createdAt: true,
+        updatedAt: true,
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const values = { ...input, companyId: ctx.companyId };
       const [row] = await ctx.db
         .insert(improvementItem)
         .values(insertRow(improvementItem, values))
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "improvement_item", ctx.userId).catch((err) => console.error("[background] improvement_item recheck:", err));
+      invalidateModuleSignOffs(
+        ctx.db,
+        ctx.companyId,
+        "improvement_item",
+        ctx.userId,
+      ).catch((err) => console.error("[background] improvement_item recheck:", err));
       return row;
     }),
 
@@ -35,9 +53,16 @@ export const improvementRouter = router({
       const [row] = await ctx.db
         .update(improvementItem)
         .set(updateRow(improvementItem, updates))
-        .where(and(eq(improvementItem.id, id), eq(improvementItem.companyId, ctx.companyId)))
+        .where(
+          and(eq(improvementItem.id, id), eq(improvementItem.companyId, ctx.companyId)),
+        )
         .returning();
-      invalidateModuleSignOffs(ctx.db, ctx.companyId, "improvement_item", ctx.userId).catch((err) => console.error("[background] improvement_item recheck:", err));
+      invalidateModuleSignOffs(
+        ctx.db,
+        ctx.companyId,
+        "improvement_item",
+        ctx.userId,
+      ).catch((err) => console.error("[background] improvement_item recheck:", err));
       return row;
     }),
 
@@ -46,8 +71,18 @@ export const improvementRouter = router({
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .delete(improvementItem)
-        .where(and(eq(improvementItem.id, input.id), eq(improvementItem.companyId, ctx.companyId)));
-      recheckModuleRequirements(ctx.db, ctx.companyId, "improvement_item", ctx.userId).catch((err) => console.error("[background] improvement:", err));
+        .where(
+          and(
+            eq(improvementItem.id, input.id),
+            eq(improvementItem.companyId, ctx.companyId),
+          ),
+        );
+      recheckModuleRequirements(
+        ctx.db,
+        ctx.companyId,
+        "improvement_item",
+        ctx.userId,
+      ).catch((err) => console.error("[background] improvement:", err));
       return { deleted: true };
     }),
 });
