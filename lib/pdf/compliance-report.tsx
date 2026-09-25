@@ -12,7 +12,7 @@ import {
   SectionHeading,
   StatPlate,
 } from "./chrome";
-import { formatFieldValue, getDateLocale } from "./format";
+import { formatDecision, formatFieldValue, formatSigner, getDateLocale } from "./format";
 import type { ReportData, ReportRequirement } from "./load-report-data";
 import { getDocumentLabels, getReportLabels, getStatusLabel } from "./policy-labels";
 import { styles } from "./styles";
@@ -34,6 +34,10 @@ const STATUS_TONE: Record<string, StatusTone> = {
 function RequirementSection({ req, locale }: { req: ReportRequirement; locale: string }) {
   const dateLocale = getDateLocale(locale);
   const labels = getReportLabels(locale);
+  const signer = formatSigner(req.signedOffByName, req.signedOffRole);
+  const notApplicableDecided = req.notApplicable
+    ? formatDecision(req.notApplicable.decidedAt, req.notApplicable.decidedBy, locale)
+    : null;
 
   return (
     <View style={styles.record} wrap={false}>
@@ -45,9 +49,23 @@ function RequirementSection({ req, locale }: { req: ReportRequirement; locale: s
         </Badge>
       </View>
 
-      {req.signedOffRole && (
+      {req.notApplicable && (
         <View>
-          <FieldRow label={labels.signedOffBy} value={req.signedOffRole} />
+          {req.notApplicable.reason && (
+            <FieldRow
+              label={labels.notApplicableReason}
+              value={req.notApplicable.reason}
+            />
+          )}
+          {notApplicableDecided && (
+            <FieldRow label={labels.notApplicableDecided} value={notApplicableDecided} />
+          )}
+        </View>
+      )}
+
+      {signer && (
+        <View>
+          <FieldRow label={labels.signedOffBy} value={signer} />
           {req.signedOffAt && (
             <FieldRow
               label={labels.signedOffAt}

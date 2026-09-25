@@ -6,7 +6,7 @@
  */
 
 import type { SignOffSnapshot } from "@nisd2/isms-schema/tables/assessments";
-import { asc, eq, inArray } from "drizzle-orm";
+import { asc, eq, type InferSelectModel, inArray } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
   getCategory,
@@ -21,7 +21,38 @@ import {
   companyRequirementStatus,
   requirement,
   requirementCategory,
+  user,
 } from "@/schema";
+
+type StatusRow = InferSelectModel<typeof companyRequirementStatus>;
+type UserName = InferSelectModel<typeof user>["name"];
+
+/**
+ * A "not applicable" decision as the report prints it. The date is
+ * `lastReviewedAt`, which the not-applicable write sets on every decision,
+ * older rows included.
+ */
+export interface NotApplicableDecision {
+  reason: StatusRow["notApplicableReason"];
+  decidedAt: StatusRow["lastReviewedAt"];
+  decidedBy: UserName | null;
+}
+
+/**
+ * Who decided "not applicable". The write stamps `completedBy` with the same
+ * instant as `lastReviewedAt`; decisions made before it did carry either no
+ * `completedBy` or one left over from an earlier completion, and that person
+ * did not make this decision. A matching instant is the only proof.
+ */
+function notApplicableDeciderId(
+  row: Pick<StatusRow, "completedBy" | "completedAt" | "lastReviewedAt">,
+): string | null {
+  const stampedTogether =
+    row.completedAt !== null &&
+    row.lastReviewedAt !== null &&
+    row.completedAt.getTime() === row.lastReviewedAt.getTime();
+  return stampedTogether ? row.completedBy : null;
+}
 
 export interface ReportEvidence {
   fileName: string;
@@ -40,9 +71,11 @@ export interface ReportRequirement {
   evidenceType: string;
   status: string;
   reviewFeedback: string | null;
+  signedOffByName: UserName | null;
   signedOffRole: string | null;
   signedOffAt: Date | null;
   signOffSnapshot: SignOffSnapshot | null;
+  notApplicable: NotApplicableDecision | null;
   evidence: ReportEvidence[];
 }
 
@@ -111,6 +144,25 @@ export async function loadReportData(
   const statusMap = new Map(statuses.map((s) => [s.requirementId, s]));
   const intakeMap = new Map(intakes.map((i) => [i.categoryId, i]));
 
+  // Only the people this assessment's own rows point at, so the lookup cannot
+  // reach past the tenant the assessment belongs to.
+  const personIds = [
+    ...new Set(
+      statuses
+        .flatMap((s) => [s.signedOffBy, s.completedBy])
+        .filter((id): id is string => id !== null),
+    ),
+  ];
+  const people =
+    personIds.length === 0
+      ? []
+      : await db
+          .select({ id: user.id, name: user.name })
+          .from(user)
+          .where(inArray(user.id, personIds));
+  const nameOf = new Map(people.map((p) => [p.id, p.name]));
+  const nameFor = (id: string | null) => (id === null ? null : (nameOf.get(id) ?? null));
+
   let completedCount = 0;
   let approvedCount = 0;
 
@@ -139,9 +191,18 @@ export async function loadReportData(
         evidenceType: req.evidenceType,
         status: currentStatus,
         reviewFeedback: status?.reviewFeedback ?? null,
+        signedOffByName: nameFor(status?.signedOffBy ?? null),
         signedOffRole: status?.signedOffRole ?? null,
         signedOffAt: status?.signedOffAt ?? null,
         signOffSnapshot: status?.signOffSnapshot ?? null,
+        notApplicable:
+          status && currentStatus === "not_applicable"
+            ? {
+                reason: status.notApplicableReason,
+                decidedAt: status.lastReviewedAt,
+                decidedBy: nameFor(notApplicableDeciderId(status)),
+              }
+            : null,
         evidence: (status?.evidence ?? []).map((e) => ({
           fileName: e.fileName,
           fileType: e.fileType,

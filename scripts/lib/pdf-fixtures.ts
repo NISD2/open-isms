@@ -45,12 +45,14 @@ export const REPORT_FIXTURE: ReportData = {
           evidenceType: "document",
           status: "approved",
           reviewFeedback: null,
+          signedOffByName: "Katrin Albers",
           signedOffRole: "Geschäftsführung",
           signedOffAt: FIXTURE_DATE,
           signOffSnapshot: {
             templateVersion: 3,
             derivedData: { measures: { total: 10 }, openFindings: { total: 2 } },
           },
+          notApplicable: null,
           evidence: [
             {
               fileName: "gf-beschluss-2026-02-10.pdf",
@@ -71,9 +73,11 @@ export const REPORT_FIXTURE: ReportData = {
           status: "rejected",
           reviewFeedback:
             "Der eingereichte Nachweis belegt eine allgemeine IT-Sicherheitsschulung, nicht die nach §38 Abs. 3 BSIG geforderte NIS-2-Schulung des Leitungsorgans. Bitte Teilnahmebescheinigung nachreichen.",
+          signedOffByName: null,
           signedOffRole: null,
           signedOffAt: null,
           signOffSnapshot: null,
+          notApplicable: null,
           evidence: [],
         },
       ],
@@ -97,9 +101,11 @@ export const REPORT_FIXTURE: ReportData = {
           evidenceType: "register",
           status: "completed",
           reviewFeedback: null,
+          signedOffByName: "Jonas Pieper",
           signedOffRole: "IT-Leitung",
           signedOffAt: FIXTURE_DATE,
           signOffSnapshot: null,
+          notApplicable: null,
           evidence: [
             {
               fileName: "lieferantenregister-q1-2026.xlsx",
@@ -109,6 +115,27 @@ export const REPORT_FIXTURE: ReportData = {
               status: "pending",
             },
           ],
+        },
+        {
+          code: "SUP-04",
+          title: "Sicherheitsanforderungen an Cloud-Dienstleister",
+          description: "",
+          priority: "medium",
+          legalRef: "§30 Abs. 2 Nr. 4 BSIG",
+          evidenceType: "document",
+          status: "not_applicable",
+          reviewFeedback: null,
+          signedOffByName: null,
+          signedOffRole: null,
+          signedOffAt: null,
+          signOffSnapshot: null,
+          notApplicable: {
+            reason:
+              "Wir beziehen keine Cloud-Dienste; alle Systeme laufen im eigenen Rechenzentrum.",
+            decidedAt: FIXTURE_DATE,
+            decidedBy: "Jonas Pieper",
+          },
+          evidence: [],
         },
       ],
     },

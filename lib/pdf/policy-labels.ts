@@ -87,6 +87,8 @@ interface ReportLabels {
   signedOffBy: string;
   signedOffAt: string;
   templateVersion: string;
+  notApplicableReason: string;
+  notApplicableDecided: string;
   operationalData: string;
   evidenceFiles: string;
   reviewerFeedback: string;
@@ -111,6 +113,8 @@ const REPORT_LABELS: Record<string, ReportLabels> = {
     signedOffBy: "Signed off by",
     signedOffAt: "Signed off at",
     templateVersion: "Template version",
+    notApplicableReason: "Reason not applicable",
+    notApplicableDecided: "Decided",
     operationalData: "Operational data",
     evidenceFiles: "Evidence Files",
     reviewerFeedback: "Reviewer Feedback",
@@ -133,6 +137,8 @@ const REPORT_LABELS: Record<string, ReportLabels> = {
     signedOffBy: "Freigegeben von",
     signedOffAt: "Freigegeben am",
     templateVersion: "Vorlagenversion",
+    notApplicableReason: "Begründung",
+    notApplicableDecided: "Entschieden",
     operationalData: "Betriebsdaten",
     evidenceFiles: "Nachweisdateien",
     reviewerFeedback: "Prüferfeedback",

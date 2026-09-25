@@ -22,6 +22,30 @@ export function getDateLocale(locale: string): string {
   return locale === "de" ? "de-DE" : "en-US";
 }
 
+/** Calendar day in German time, so a decision made just after midnight in
+ *  Berlin does not print as the day before on a UTC server. */
+export function formatReportDate(date: Date, locale: string): string {
+  return date.toLocaleDateString(getDateLocale(locale), { timeZone: "Europe/Berlin" });
+}
+
+/** "Name (Role)". Either half alone when the other is missing. */
+export function formatSigner(name: string | null, role: string | null): string | null {
+  if (name && role) return `${name} (${role})`;
+  return name || role || null;
+}
+
+/** "12.09.2026, Name". Either half alone when the other is missing. */
+export function formatDecision(
+  date: Date | null,
+  name: string | null,
+  locale: string,
+): string | null {
+  const parts = [date ? formatReportDate(date, locale) : null, name].filter(
+    (part): part is string => Boolean(part),
+  );
+  return parts.length > 0 ? parts.join(", ") : null;
+}
+
 export function formatFieldValue(
   value: unknown,
   fieldType: string,
