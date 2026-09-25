@@ -105,7 +105,7 @@ export interface PrerequisiteStatus {
   isComplete: boolean;
 }
 
-interface RequirementDetailProps {
+export interface RequirementDetailProps {
   requirement: RequirementData;
   status: StatusData;
   categoryName: string;
@@ -133,6 +133,13 @@ interface RequirementDetailProps {
   assignments: AssignmentRow[];
   editorInitialData: Record<string, unknown> | null;
   prerequisites?: PrerequisiteStatus[];
+  /**
+   * Set when the requirement renders as one step of the Durchgang. The
+   * guidance then moves from above the input to the aside and these notes
+   * follow it, so the left column holds only the work and everything that
+   * explains it sits beside it.
+   */
+  stepNotes?: React.ReactNode;
 }
 
 // ---------------------------------------------------------------------------
@@ -191,6 +198,7 @@ export function RequirementDetail({
   assignments,
   editorInitialData,
   prerequisites = [],
+  stepNotes,
 }: RequirementDetailProps) {
   const t = useTranslations("compliance");
   const tf = useTranslations("form");
@@ -439,6 +447,10 @@ export function RequirementDetail({
     });
   }
 
+  const guidancePanel = (
+    <RequirementGuidance description={requirement.description} guidance={guidance} />
+  );
+
   return (
     <div>
       {/* ------------------------------------------------------------------ */}
@@ -481,10 +493,7 @@ export function RequirementDetail({
         {/* ============================================================== */}
         <div className="space-y-6 min-w-0">
           {/* What this requirement asks for, before any input is requested */}
-          <RequirementGuidance
-            description={requirement.description}
-            guidance={guidance}
-          />
+          {!stepNotes && guidancePanel}
 
           {/* Review feedback — shown first when rejected */}
           {status.currentStatus === "rejected" && status.reviewFeedback && (
@@ -728,6 +737,13 @@ export function RequirementDetail({
         {/* SIDEBAR: Context + Assignments + Metadata */}
         {/* ============================================================== */}
         <aside className="space-y-6 lg:border-l lg:pl-6">
+          {stepNotes && (
+            <>
+              {guidancePanel}
+              {stepNotes}
+            </>
+          )}
+
           {/* Assigned to + sign-off progress */}
           {status.statusId && (
             <div data-tour="requirement-assign" className="space-y-2">
@@ -886,8 +902,6 @@ export function RequirementDetail({
       <RequirementFooterNav
         prev={prev}
         next={next}
-        categorySlug={categorySlug}
-        categoryName={categoryName}
         onBeforeNavigate={handleSaveBeforeNavigate}
       >
         {status.statusId && !isReviewer && (

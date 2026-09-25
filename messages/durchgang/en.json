@@ -1,0 +1,104 @@
+{
+  "durchgang": {
+    "title": "Walkthrough",
+    "stepOf": "Step {step} of {total}",
+    "overview": "To the overview",
+    "back": "Back",
+    "next": "Continue",
+    "finish": "Continue to the overview",
+    "who": "Who does it",
+    "ask": "Ask your team",
+    "missed": "Often missed",
+    "steps": {
+      "12_1": {
+        "who": "Compliance or legal gathers sector, headcount and turnover. Management confirms the classification: with it, it decides which duties the company takes on.",
+        "ask": "Are we an essential or an important entity, and which entity types from Annex 1 and 2 apply to us?",
+        "missed": [
+          "Several sectors: the main one is not the only one that counts. Record every entity type that applies.",
+          "Groups: each company is classified on its own. Data of partner enterprises counts pro rata and of linked enterprises in full, unless the company's own IT demonstrably runs independently of them (§28(4) BSIG).",
+          "Negligible side activities may be left out of the classification (§28(3) BSIG). Re-check the classification after growth, new lines of business or acquisitions."
+        ]
+      },
+      "12_2": {
+        "who": "Compliance or legal requests the organisation certificate and enters the details in the BSI portal. IT supplies contact details and public IP ranges. Management reviews the details before they are submitted.",
+        "ask": "Are we registered with the BSI, and when were the registered details last checked for accuracy?",
+        "missed": [
+          "Access runs through an ELSTER organisation certificate (Mein Unternehmenskonto). An existing certificate, for instance from tax filings, can be used; a new one arrives by post with an activation letter. Apply early.",
+          "Public IP ranges are part of the mandatory details (§33(1) Nr. 2 BSIG). Ask IT beforehand, or the registration stalls at this point.",
+          "Register a functional mailbox as the contact, not a personal one. People change; the reporting office must still reach someone."
+        ]
+      },
+      "1_1": {
+        "who": "Every member of the management body in person. The duty in §38(3) BSIG rests on management itself; nobody can attend on their behalf. IT or information security selects the content, HR or compliance archives the records.",
+        "ask": "Has every member of the management body taken part, and does the record show content, duration and date?",
+        "missed": [
+          "The training has to cover the learning goals in §38(3) BSIG: identifying and assessing risks, assessing risk management practices, and judging their impact on the company's own services.",
+          "The law sets neither an interval nor a minimum duration, only \"regularly\". Set your own rhythm and write down the reasoning. A change in the management body or a clearly changed risk situation is a trigger outside the calendar.",
+          "The record counts, not the provider: capture participants, content, duration and date. There is no accreditation requirement for training providers."
+        ]
+      },
+      "2_1": {
+        "who": "Information security (the ISB or CISO) picks the method and sets the scales. Management decides how much residual risk the company carries: that threshold is its decision, not IT's.",
+        "ask": "Show me the risk matrix and the top right corner. What is our threshold for acceptable risk, and did I approve it?",
+        "missed": [
+          "All-hazards means more than cyber. §30(2) BSIG requires an approach that also covers fire, water, power failure and other physical hazards.",
+          "The acceptance threshold is often never set explicitly. It belongs in the methodology as a dated management decision of its own, not buried in the risk register.",
+          "The threat landscape is part of the method: name a source of current threat intelligence, at minimum the BSI situation reports."
+        ]
+      },
+      "2_2": {
+        "who": "Every row has an owner in the business who knows the system and keeps the entry current. Information security consolidates the inventory and checks the protection needs. IT supplies the technical details, data protection flags systems holding personal data.",
+        "ask": "Show me the inventory. When was it last updated, and are cloud services and external access in it?",
+        "missed": [
+          "Every asset needs an owner. A list without that column does not survive an audit.",
+          "Cloud, SaaS and third-party access are assets. So is operational technology in production and buildings (OT), which brings requirements of its own.",
+          "The GDPR record of processing activities (RoPA, Art. 30) is a good starting stock: many systems are already listed there."
+        ]
+      },
+      "5_1": {
+        "who": "Procurement, or whoever holds the contract, adds the supplier. Information security rates risk and criticality, legal reviews the contract clauses. Management knows the list of critical suppliers.",
+        "ask": "Which suppliers could halt our operations or have access to our systems, data or premises, and who on our side is responsible for each of them?",
+        "missed": [
+          "Not only IT suppliers: §30(2) Nr. 4 BSIG speaks of direct suppliers and service providers without qualification. Anyone who can disrupt operations belongs in the register.",
+          "Every row needs an owner and a rating. Without both, the register is a list of names in an audit.",
+          "Subcontractors do not end at the first link. For critical services, ask whom the supplier relies on in turn."
+        ]
+      },
+      "12_3": {
+        "who": "Compliance or legal reviews the registered details and reports changes. IT and information security speak up when contact details or IP ranges change.",
+        "ask": "Who at our company learns of a change of contact person, address or sector, and who updates it with the BSI?",
+        "missed": [
+          "The deadline is short: changes without undue delay, at the latest within two weeks of becoming aware of them (§33(5) BSIG). An annual check alone is not enough.",
+          "The data goes stale quietly: the contact person leaves, the mailbox is switched off. A functional mailbox and an item in the leaver process prevent that."
+        ]
+      },
+      "1_2": {
+        "who": "Information security drafts who carries which task. Management appoints the person responsible for information security and approves the division of tasks. Legal checks the lines of authority, HR supplies the org chart.",
+        "ask": "Who is responsible for information security here, does that person report directly to me, and have I seen the division of tasks for the remaining measures?",
+        "missed": [
+          "The role does not have to be called CISO. What matters is one person who is responsible for information security towards management; BSI Standard 200-2 calls this role the information security officer (ISB).",
+          "An ISB placed under the head of IT is a conflict of roles: whoever runs the systems should not be the only one judging their security. BSI Standard 200-2 provides for a direct reporting line to management.",
+          "Data protection officer and ISB in one person: then write down where one role ends and the other begins."
+        ]
+      },
+      "3_1": {
+        "who": "Information security writes the plan and names the lead of the incident team. Legal or compliance drafts the notification texts, data protection covers incidents involving personal data. Management approves the plan.",
+        "ask": "Who decides whether an incident is significant? By which route and from which threshold does the escalation reach me, and when did we last test the fallback communication channel?",
+        "missed": [
+          "A second communication channel outside your own IT. In a real incident, email and chat are often affected too; §30(2) Nr. 10 BSIG names secured emergency communication explicitly.",
+          "Detecting is not handling. Monitoring without a defined response, ownership and escalation is not a plan.",
+          "Whoever drafts the report to the BSI is rarely in the plan. Fill that role in advance; in smaller companies it sits with compliance or legal."
+        ]
+      },
+      "3_3": {
+        "who": "Information security classifies the incident and clears the report, compliance or legal drafts it, IT supplies the facts. Management is informed without delay. Data protection checks in parallel whether the supervisory authority has to be notified (Art. 33 GDPR).",
+        "ask": "Who decides what counts as significant, and when did we last exercise the reporting route, in a real incident or a drill?",
+        "missed": [
+          "Three reports, one incident: an early warning within 24 hours, a notification within 72 hours, and a final report one month after the second report (§32(1) BSIG). If the incident is still ongoing, a progress report takes its place (§32(2) BSIG).",
+          "The recipient is the joint reporting office of the BSI and the BBK. Reports are filed through the BSI portal with the same access used for registration.",
+          "If personal data is affected, the notification to the data protection authority under Art. 33 GDPR runs in parallel, with its own 72-hour deadline."
+        ]
+      }
+    }
+  }
+}

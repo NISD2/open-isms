@@ -1,22 +1,26 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
-import { usePathname } from "@/i18n/navigation";
-import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
-import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import type { LucideIcon } from "lucide-react";
 import {
   Building2,
   Check,
   ChevronRight,
   Compass,
   FileText,
+  Footprints,
   ScrollText,
   Server,
   ShieldCheck,
   Users,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
@@ -31,13 +35,9 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { UserNav } from "./UserNav";
+import { Link, usePathname } from "@/i18n/navigation";
 import { PortalSwitcher } from "./PortalSwitcher";
+import { UserNav } from "./UserNav";
 
 interface CategoryStep {
   slug: string;
@@ -97,10 +97,7 @@ function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
   );
 }
 
-export function AppSidebar({
-  user,
-  frameworks,
-}: AppSidebarProps) {
+export function AppSidebar({ user, frameworks }: AppSidebarProps) {
   const t = useTranslations("portal");
   const pathname = usePathname();
   // `usePathname()` returns the route template (e.g. `/compliance/[categorySlug]`),
@@ -109,6 +106,7 @@ export function AppSidebar({
 
   const overviewItems: NavItem[] = [
     { href: "/journey", label: t("journey"), icon: Compass },
+    { href: "/durchgang", label: t("durchgang"), icon: Footprints },
   ];
 
   // Living registers the journey strands: /assets only appears in the journey
@@ -163,8 +161,7 @@ export function AppSidebar({
             }
           }
 
-          const pct =
-            fw.total > 0 ? Math.round((fw.completed / fw.total) * 100) : 0;
+          const pct = fw.total > 0 ? Math.round((fw.completed / fw.total) * 100) : 0;
 
           return (
             <SidebarGroup key={fw.code} className="py-0.5">
@@ -194,7 +191,10 @@ export function AppSidebar({
                       </div>
                     </div>
                     {phases.map((phase) => (
-                      <div key={phase.label} className="group-data-[collapsible=icon]:hidden">
+                      <div
+                        key={phase.label}
+                        className="group-data-[collapsible=icon]:hidden"
+                      >
                         <p className="px-2 pb-0.5 pt-2 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
                           {t(phase.label)}
                         </p>
@@ -208,7 +208,10 @@ export function AppSidebar({
                               <SidebarMenuItem key={step.slug}>
                                 <SidebarMenuButton
                                   asChild
-                                  isActive={params.categorySlug === step.slug && !params.requirementCode}
+                                  isActive={
+                                    params.categorySlug === step.slug &&
+                                    !params.requirementCode
+                                  }
                                   tooltip={step.name}
                                   size="sm"
                                 >
@@ -248,7 +251,6 @@ export function AppSidebar({
             <NavMenu items={managementItems} pathname={pathname} />
           </SidebarGroupContent>
         </SidebarGroup>
-
       </SidebarContent>
 
       <SidebarFooter>
