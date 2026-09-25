@@ -6,8 +6,8 @@
  *   - Ordering and the invoices are for the account holder (`billing_account.ownerUserId`), the
  *     person who pays. Not for company admins: any member may add an organization and is its
  *     admin, so a company role says nothing about who may put the account on an invoice.
- *   - On top of that, `billingFor` decides from the configuration: nobody while Qonto is not set
- *     up, platform admins only against the sandbox, everyone live.
+ *   - On top of that, `billingFor` decides: nobody while Qonto is not set up, platform admins
+ *     whenever it is, everyone else only with live keys and the `billing` switch on.
  *
  * The account is always the open company's own, read from the session. No procedure takes an
  * account id from the browser, and the one that takes an invoice id checks it belongs to it.
@@ -74,8 +74,8 @@ const priceView = (money: Money) => ({
   treatment: money.treatment.kind,
 });
 
-const requireOrdering = (email: string | null | undefined) => {
-  const { mode, open } = billingFor(email);
+const requireOrdering = async (db: DbOrTx, email: string | null | undefined) => {
+  const { mode, open } = await billingFor(db, email);
   if (!open || mode.kind === "off") {
     throw new TRPCError({ code: "FORBIDDEN", message: "Ordering is not open." });
   }
@@ -101,7 +101,7 @@ const liveStatus = async (mode: OrderingMode, qontoInvoiceId: string) => {
 export const billingRouter = router({
   status: companyProcedure.query(async ({ ctx }) => {
     const account = await accountOf(ctx.db, ctx.companyId);
-    const { mode, open } = billingFor(ctx.session.user.email);
+    const { mode, open } = await billingFor(ctx.db, ctx.session.user.email);
     const active = await findActiveInvoice(ctx.db, account.id, new Date());
     const isPayer = account.ownerUserId === ctx.userId;
     return {
@@ -130,7 +130,7 @@ export const billingRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      requireOrdering(ctx.session.user.email);
+      await requireOrdering(ctx.db, ctx.session.user.email);
       limited(`billing:quote:${ctx.userId}`, 10);
       const { account } = ctx;
 
@@ -162,7 +162,7 @@ export const billingRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const mode = requireOrdering(ctx.session.user.email);
+      const mode = await requireOrdering(ctx.db, ctx.session.user.email);
       limited(`billing:place:${ctx.userId}`, 3);
 
       const outcome = await placeOrder({

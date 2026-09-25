@@ -19,6 +19,7 @@ import { createBillingAccount } from "@/lib/billing/accounts";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import type { Database } from "@/lib/db";
 import { mailSupportEmail } from "@/lib/env";
+import { FEATURE_FLAG_KEYS, listFeatures, setFeature } from "@/lib/feature-flags";
 import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import {
@@ -401,6 +402,26 @@ export const platformAdminRouter = router({
    * tab, and every read and write here is fixed to the caller's own row. No
    * procedure in this group takes an id that could point at somebody else.
    */
+  /** Platform switches (lib/feature-flags.ts). Unlike the rest of the Dev tab, these act on everyone. */
+  featureFlags: platformAdminProcedure.query(({ ctx }) => listFeatures(ctx.db)),
+
+  setFeatureFlag: platformAdminProcedure
+    .input(z.object({ key: z.enum(FEATURE_FLAG_KEYS), enabled: z.boolean() }))
+    .mutation(async ({ ctx, input }) => {
+      await setFeature(ctx.db, input.key, input.enabled, ctx.userId);
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "platform.feature_flag",
+        entityType: "feature_flag",
+        entityId: null,
+        description: `${input.key} switched ${input.enabled ? "on" : "off"}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { key: input.key, enabled: input.enabled };
+    }),
+
   myDevState: platformAdminProcedure.query(async ({ ctx }) => {
     const row = await ctx.db.query.user.findFirst({
       where: eq(user.id, ctx.userId),
