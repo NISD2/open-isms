@@ -1,5 +1,10 @@
 import { describe, expect, test } from "bun:test";
-import { effectiveAccessLevel, mayOpenPortalPath, newAccountAccessLevel } from "./access";
+import {
+  effectiveAccessLevel,
+  hasGotIn,
+  mayOpenPortalPath,
+  newAccountAccessLevel,
+} from "./access";
 
 describe("effectiveAccessLevel", () => {
   test("before launch nobody is gated: free and grandfathered both read as grandfathered", () => {
@@ -19,6 +24,20 @@ describe("effectiveAccessLevel", () => {
 
   test("after launch a stamped person is grandfathered even in a free company", () => {
     expect(effectiveAccessLevel("free", true, true)).toBe("grandfathered");
+  });
+});
+
+describe("hasGotIn", () => {
+  const never = { emailVerifiedAt: null, loginCount: 0, lastLoginAt: null };
+
+  test("nobody who never verified, signed in or was seen has got in", () => {
+    expect(hasGotIn(never)).toBe(false);
+  });
+
+  test("any one of the three signals counts, including a verified email with login_count 0", () => {
+    expect(hasGotIn({ ...never, emailVerifiedAt: new Date() })).toBe(true);
+    expect(hasGotIn({ ...never, loginCount: 1 })).toBe(true);
+    expect(hasGotIn({ ...never, lastLoginAt: new Date() })).toBe(true);
   });
 });
 

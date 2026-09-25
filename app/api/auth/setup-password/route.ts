@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     );
   }
 
-  // Only while the account has never signed in: once they are in, an old link sets nothing.
+  // Only while the account has never got in: once they are in, an old link sets nothing.
   const link = await readOpenSetupToken(db, token);
   if (!link) {
     return NextResponse.json(
@@ -55,24 +55,29 @@ export async function POST(request: Request) {
   }
   const { account } = link;
 
-  // Hashed before the token is spent, so a failure here leaves the link usable.
+  // Hashed before anything is written, and the link is spent in the same transaction as the
+  // password, so a failure anywhere leaves the link usable and no half-set account.
   const passwordHash = await bcrypt.hash(newPassword, 12);
-  if (!(await consumeSetupToken(db, link.id))) {
+  const now = new Date();
+  const set = await db.transaction(async (tx) => {
+    if (!(await consumeSetupToken(tx, link.id, now))) return false;
+    await tx
+      .update(user)
+      .set({
+        passwordHash,
+        emailVerifiedAt: account.emailVerifiedAt ?? now,
+        sessionVersion: sql`${user.sessionVersion} + 1`,
+        updatedAt: now,
+      })
+      .where(eq(user.id, account.id));
+    return true;
+  });
+  if (!set) {
     return NextResponse.json(
       { error: "This link has already been used" },
       { status: 400 },
     );
   }
-  const now = new Date();
-  await db
-    .update(user)
-    .set({
-      passwordHash,
-      emailVerifiedAt: account.emailVerifiedAt ?? now,
-      sessionVersion: sql`${user.sessionVersion} + 1`,
-      updatedAt: now,
-    })
-    .where(eq(user.id, account.id));
 
   return NextResponse.json({ success: true, email: link.email });
 }

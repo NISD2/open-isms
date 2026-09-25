@@ -21,6 +21,7 @@ import type { Database, DbOrTx } from "@/lib/db";
 import { accountSetupEmail, sendMail } from "@/lib/mail";
 import { billingAccount, company, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
+import { hasGotIn } from "./access";
 import { alertOperators } from "./alert";
 import { ANNUAL_NET_CENTS, netCentsFor, type OrderInput } from "./order";
 import { type OrderOutcome, type PlaceOrderInput, placeOrder } from "./place-order";
@@ -62,13 +63,35 @@ const customerFor = async (
     .onConflictDoNothing({ target: user.email })
     .returning({ id: user.id });
   const [row] = await db
-    .select({ id: user.id, companyId: user.companyId, loginCount: user.loginCount })
+    .select({
+      id: user.id,
+      emailVerifiedAt: user.emailVerifiedAt,
+      loginCount: user.loginCount,
+      lastLoginAt: user.lastLoginAt,
+    })
     .from(user)
     .where(eq(user.email, email))
     .limit(1);
   if (!row) throw new Error(`customer ${email} neither inserted nor found`);
   // Idempotent: a user who already has a company gets no second one.
-  await createDraftCompany(db, row.id);
+  const draft = await createDraftCompany(db, row.id);
+  // A customer sold to on a call never got in before the paywall, so their fresh account is free,
+  // not the grandfathered level a signup gets before the launch. The order makes it full; if the
+  // order fails, it stays free rather than holding the free journey nobody promised them.
+  if (inserted.length > 0 && draft) {
+    await db
+      .update(billingAccount)
+      .set({ accessLevel: "free" })
+      .where(
+        eq(
+          billingAccount.id,
+          db
+            .select({ id: company.billingAccountId })
+            .from(company)
+            .where(eq(company.id, draft.companyId)),
+        ),
+      );
+  }
   return { ...row, created: inserted.length > 0 };
 };
 
@@ -92,10 +115,11 @@ const heldAccount = async (db: DbOrTx, userId: string) => {
 };
 
 /**
- * The net a close invoices, decided once for the quote and the order. An agreed amount wins; an
- * existing customer pays their account's price; a new customer, whom this close creates, pays the
- * list price. A fresh account may start grandfathered before the launch, but grandfathering is for
- * people who got in before the paywall, not for someone sold to on a call.
+ * The net a close invoices, decided once for the quote and the order. An agreed amount wins.
+ * Otherwise a person who has got in pays their account's price, and anyone who has not (someone
+ * new, or someone a failed earlier close created) pays the list price: grandfathering is for
+ * people who got in before the paywall, not for someone sold to on a call. Deciding by the person
+ * rather than by the account keeps a retry at the same price as the first attempt.
  */
 export const closeNetCents = async (
   db: DbOrTx,
@@ -104,11 +128,17 @@ export const closeNetCents = async (
 ): Promise<number> => {
   if (override !== null) return override;
   const [existing] = await db
-    .select({ id: user.id })
+    .select({
+      id: user.id,
+      emailVerifiedAt: user.emailVerifiedAt,
+      loginCount: user.loginCount,
+      lastLoginAt: user.lastLoginAt,
+    })
     .from(user)
     .where(eq(user.email, customerEmail.toLowerCase().trim()))
     .limit(1);
-  const account = existing ? await heldAccount(db, existing.id) : null;
+  if (!existing || !hasGotIn(existing)) return ANNUAL_NET_CENTS;
+  const account = await heldAccount(db, existing.id);
   return account ? netCentsFor(account.accessLevel) : ANNUAL_NET_CENTS;
 };
 
@@ -175,9 +205,10 @@ export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
   });
   if (!outcome.ok) return outcome;
 
-  // Someone who has signed in already has a way in. Everyone else gets the link, including a person
-  // who registered with a password but never finished verifying their email.
-  const setupSent =
-    customer.loginCount === 0 ? await sendSetupLink(input, email, locale) : false;
+  // Someone who has got in already has a way in (lib/billing/access.ts hasGotIn). Everyone else
+  // gets the link, including a person who registered but never verified their email.
+  const setupSent = hasGotIn(customer)
+    ? false
+    : await sendSetupLink(input, email, locale);
   return { ...outcome, createdUser: customer.created, setupSent };
 }

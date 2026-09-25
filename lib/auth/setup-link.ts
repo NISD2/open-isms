@@ -14,6 +14,7 @@
 import "@/lib/server-guard";
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { and, eq, gt, isNull } from "drizzle-orm";
+import { hasGotIn } from "@/lib/billing/access";
 import type { DbOrTx } from "@/lib/db";
 import { emailOtp, user } from "@/schema";
 
@@ -84,10 +85,11 @@ export const readSetupToken = async (db: DbOrTx, token: string, now = new Date()
 };
 
 /**
- * A live token whose account still needs setting up: it has never signed in. Once the customer is
- * in by any route (Google, a reset, a password set here), an old link must not be able to set a
- * password over theirs, so it stops counting even before it expires. The page and the route both
- * read links through this.
+ * A live token whose account still needs setting up: its person has never got in (hasGotIn in
+ * lib/billing/access.ts: a verified email, a login count or a last login). Once the customer is in
+ * by any route (Google, a reset, a password set here, each of which verifies the email), an old
+ * link must not be able to set a password over theirs, so it stops counting even before it
+ * expires. The page and the route both read links through this.
  */
 export const readOpenSetupToken = async (db: DbOrTx, token: string, now = new Date()) => {
   const link = await readSetupToken(db, token, now);
@@ -96,12 +98,13 @@ export const readOpenSetupToken = async (db: DbOrTx, token: string, now = new Da
     .select({
       id: user.id,
       loginCount: user.loginCount,
+      lastLoginAt: user.lastLoginAt,
       emailVerifiedAt: user.emailVerifiedAt,
     })
     .from(user)
     .where(eq(user.email, link.email))
     .limit(1);
-  return account && account.loginCount === 0 ? { ...link, account } : null;
+  return account && !hasGotIn(account) ? { ...link, account } : null;
 };
 
 /** Use a token up, so the link works once. Returns whether this call used it. */
