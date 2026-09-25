@@ -324,7 +324,7 @@ const creditInvoice = async (
 
   // "Unpaid" only means Qonto has not matched a transfer yet. Customers pay by transfer, and a
   // credited invoice can never turn "paid" afterwards, so a transfer already on its way would go
-  // unnoticed. A person watches for it; the Subscriptions tab lists these for thirty days.
+  // unnoticed. A person watches for it; the Subscriptions tab lists these for ninety days.
   if (!refundOwed) {
     void alertOperators(`${current.number} gutgeschrieben, auf späte Zahlung achten`, [
       `Die Rechnung ${current.number} ist mit der Gutschrift ${outcome.number} storniert. Qonto meldete sie als unbezahlt.`,

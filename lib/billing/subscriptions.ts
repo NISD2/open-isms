@@ -18,6 +18,7 @@ import {
   inArray,
   isNull,
   or,
+  sql,
 } from "drizzle-orm";
 import { alias } from "drizzle-orm/pg-core";
 import { z } from "zod";
@@ -34,7 +35,7 @@ import { unpaidAccessLevel } from "./access";
 import type { AccessLevel } from "./accounts";
 import { cancelWindow } from "./cancel-terms";
 import { isGrandfatheredHolder } from "./holder-price";
-import { formatEuro, invoiceToday } from "./order";
+import { formatEuro, INVOICE_TIME_ZONE, invoiceToday, shiftDay } from "./order";
 import type { OrderingMode } from "./ordering";
 import { getInvoice } from "./qonto";
 import { httpsHostOf } from "./sandbox-gate";
@@ -180,14 +181,18 @@ export const listSubscriptions = async (
   );
 };
 
-/** Every credit note that owed a refund, done or not, with who recorded it and when. */
-/** How long a credit note on an unpaid invoice stays on the watch list. */
-const LATE_PAYMENT_WATCH_DAYS = 30;
+/**
+ * How long a credit note on an unpaid invoice stays on the watch list, in Berlin calendar days.
+ * Long enough for a slow bank transfer or a payment run at the end of a quarter; the customer copy
+ * promises a refund when a transfer arrives, so the list has to outlast any plausible delay.
+ */
+const LATE_PAYMENT_WATCH_DAYS = 90;
 
 /**
- * Credit notes on invoices Qonto reported unpaid, from the last thirty days. Customers pay by
- * transfer and a credited invoice never turns "paid", so a transfer that was already on its way
- * only shows up in Qonto's account: a person watches for it. Derived from the rows, no flag.
+ * Credit notes on invoices Qonto reported unpaid, from the last LATE_PAYMENT_WATCH_DAYS days.
+ * Customers pay by transfer and a credited invoice never turns "paid", so a transfer that was
+ * already on its way only shows up in Qonto's account: a person watches for it. Derived from the
+ * rows, no flag.
  */
 const listLatePaymentWatch = (db: DbOrTx, accountIds: readonly string[], now: Date) =>
   db
@@ -205,10 +210,8 @@ const listLatePaymentWatch = (db: DbOrTx, accountIds: readonly string[], now: Da
     .where(
       and(
         eq(creditNote.refundOwed, false),
-        gte(
-          creditNote.createdAt,
-          new Date(now.getTime() - LATE_PAYMENT_WATCH_DAYS * 86_400_000),
-        ),
+        // Compared as Berlin calendar days (created_at is stored as UTC), like the cancel window.
+        sql`(${creditNote.createdAt} AT TIME ZONE 'UTC' AT TIME ZONE ${INVOICE_TIME_ZONE})::date >= ${shiftDay(invoiceToday(now), { days: -LATE_PAYMENT_WATCH_DAYS })}::date`,
         inArray(invoice.billingAccountId, [...accountIds]),
       ),
     )
@@ -220,6 +223,7 @@ const listLatePaymentWatch = (db: DbOrTx, accountIds: readonly string[], now: Da
       })),
     );
 
+/** Every credit note that owed a refund, done or not, with who recorded it and when. */
 const listRefunds = (db: DbOrTx, accountIds: readonly string[]) => {
   const doneBy = alias(user, "refund_done_by");
   return db
@@ -282,11 +286,6 @@ export const revokeAccess = async (
 };
 
 /**
- * Record that the refund transfer was made in Qonto. Only a refund that was owed and is not yet
- * recorded, which is also what the table's CHECK constraints allow. Returns the credit note's
- * number, or null when there was nothing to record.
- */
-/**
  * A transfer for a credited invoice turned up in Qonto after the cancel: the refund becomes owed,
  * and it then shows as owed until someone marks it done. Only on a credit note that owed nothing
  * yet; the CHECK constraints allow it, since nothing is recorded as done. Returns the credit
@@ -304,6 +303,11 @@ export const markPaymentArrived = async (
   return owed?.number ?? null;
 };
 
+/**
+ * Record that the refund transfer was made in Qonto. Only a refund that was owed and is not yet
+ * recorded, which is also what the table's CHECK constraints allow. Returns the credit note's
+ * number, or null when there was nothing to record.
+ */
 export const markRefundDone = async (
   db: DbOrTx,
   creditNoteId: string,

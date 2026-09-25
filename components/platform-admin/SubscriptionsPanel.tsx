@@ -156,7 +156,7 @@ export function SubscriptionsPanel() {
               {filter === "refund"
                 ? "No refund owed."
                 : filter === "watch"
-                  ? "No credited unpaid invoice in the last 30 days."
+                  ? "No credited unpaid invoice in the last 90 days."
                   : "No subscriptions yet."}
             </p>
           ) : (
