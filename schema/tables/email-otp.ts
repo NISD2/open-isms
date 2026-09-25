@@ -1,11 +1,4 @@
-import {
-  pgTable,
-  uuid,
-  varchar,
-  smallint,
-  timestamp,
-  index,
-} from "drizzle-orm/pg-core";
+import { index, pgTable, smallint, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 /**
  * Email OTP records — one row per one-time code issued.

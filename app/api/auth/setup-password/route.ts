@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { consumeSetupToken, readSetupToken } from "@/lib/auth/setup-link";
+import { consumeSetupToken, readOpenSetupToken } from "@/lib/auth/setup-link";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { rateLimit } from "@/lib/rate-limit";
@@ -45,20 +45,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const link = await readSetupToken(db, token);
+  // Only while the account has never signed in: once they are in, an old link sets nothing.
+  const link = await readOpenSetupToken(db, token);
   if (!link) {
     return NextResponse.json(
       { error: "This link is invalid or has expired" },
       { status: 400 },
     );
   }
-  const account = await db.query.user.findFirst({
-    where: eq(user.email, link.email),
-    columns: { id: true, emailVerifiedAt: true },
-  });
-  if (!account) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
-  }
+  const { account } = link;
 
   // Hashed before the token is spent, so a failure here leaves the link usable.
   const passwordHash = await bcrypt.hash(newPassword, 12);

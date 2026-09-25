@@ -17,12 +17,12 @@
 import "@/lib/server-guard";
 import { and, eq } from "drizzle-orm";
 import { createSetupToken } from "@/lib/auth/setup-link";
-import type { Database } from "@/lib/db";
+import type { Database, DbOrTx } from "@/lib/db";
 import { accountSetupEmail, sendMail } from "@/lib/mail";
 import { billingAccount, company, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 import { alertOperators } from "./alert";
-import type { OrderInput } from "./order";
+import { ANNUAL_NET_CENTS, netCentsFor, type OrderInput } from "./order";
 import { type OrderOutcome, type PlaceOrderInput, placeOrder } from "./place-order";
 import { splitVatNumber } from "./vies";
 
@@ -33,6 +33,8 @@ export interface CloseDealInput {
   readonly customerName: string;
   readonly order: OrderInput;
   readonly netCentsOverride: number | null;
+  /** The gross the admin confirmed; the order is refused if the price moved (door one's guard). */
+  readonly expectedGrossCents: number;
   readonly adminUserId: string;
   readonly invoicePrefix: string;
   readonly vies: PlaceOrderInput["vies"];
@@ -60,12 +62,7 @@ const customerFor = async (
     .onConflictDoNothing({ target: user.email })
     .returning({ id: user.id });
   const [row] = await db
-    .select({
-      id: user.id,
-      companyId: user.companyId,
-      passwordHash: user.passwordHash,
-      loginCount: user.loginCount,
-    })
+    .select({ id: user.id, companyId: user.companyId, loginCount: user.loginCount })
     .from(user)
     .where(eq(user.email, email))
     .limit(1);
@@ -76,21 +73,43 @@ const customerFor = async (
 };
 
 /** The account the customer holds: the one behind their open company, else any they own. */
-const heldAccount = async (db: Database, userId: string) => {
+const heldAccount = async (db: DbOrTx, userId: string) => {
+  const columns = { id: billingAccount.id, accessLevel: billingAccount.accessLevel };
   const [open] = await db
-    .select({ id: billingAccount.id })
+    .select(columns)
     .from(user)
     .innerJoin(company, eq(company.id, user.companyId))
     .innerJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
     .where(and(eq(user.id, userId), eq(billingAccount.ownerUserId, userId)))
     .limit(1);
-  if (open) return open.id;
+  if (open) return open;
   const [any] = await db
-    .select({ id: billingAccount.id })
+    .select(columns)
     .from(billingAccount)
     .where(eq(billingAccount.ownerUserId, userId))
     .limit(1);
-  return any?.id ?? null;
+  return any ?? null;
+};
+
+/**
+ * The net a close invoices, decided once for the quote and the order. An agreed amount wins; an
+ * existing customer pays their account's price; a new customer, whom this close creates, pays the
+ * list price. A fresh account may start grandfathered before the launch, but grandfathering is for
+ * people who got in before the paywall, not for someone sold to on a call.
+ */
+export const closeNetCents = async (
+  db: DbOrTx,
+  customerEmail: string,
+  override: number | null,
+): Promise<number> => {
+  if (override !== null) return override;
+  const [existing] = await db
+    .select({ id: user.id })
+    .from(user)
+    .where(eq(user.email, customerEmail.toLowerCase().trim()))
+    .limit(1);
+  const account = existing ? await heldAccount(db, existing.id) : null;
+  return account ? netCentsFor(account.accessLevel) : ANNUAL_NET_CENTS;
 };
 
 const sendSetupLink = async (
@@ -98,20 +117,31 @@ const sendSetupLink = async (
   email: string,
   locale: "de" | "en",
 ) => {
-  const token = await createSetupToken(input.db, email);
-  const setupUrl = `${input.appUrl}/auth/setup?token=${encodeURIComponent(token)}`;
-  const sent = await sendMail({
-    emailType: "account.setup",
-    to: email,
-    ...accountSetupEmail({ setupUrl, locale }),
-  });
-  if (!sent.success) {
+  // The invoice exists by now, so nothing here may fail the close: a failure is told to the
+  // operators and the close still reports its invoice.
+  const sent = await createSetupToken(input.db, email)
+    .then((token) =>
+      sendMail({
+        emailType: "account.setup",
+        to: email,
+        ...accountSetupEmail({
+          setupUrl: `${input.appUrl}/auth/setup?token=${encodeURIComponent(token)}`,
+          locale,
+        }),
+      }),
+    )
+    .then((r) => r.success)
+    .catch((err: unknown) => {
+      console.error(`[billing] setup link for ${email} failed`, err);
+      return false;
+    });
+  if (!sent) {
     await alertOperators(`Zugangslink an ${email} nicht gesendet`, [
       "Die Bestellung steht, aber der Link zum Einrichten des Zugangs ging nicht raus.",
       "Die Person kann sich mit Google unter dieser Adresse anmelden oder das Passwort zurücksetzen.",
     ]);
   }
-  return sent.success;
+  return sent;
 };
 
 export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
@@ -119,9 +149,11 @@ export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
   const locale =
     splitVatNumber(input.order.vatNumber)?.countryCode === "DE" ? "de" : "en";
 
+  // Priced before the customer is created, so a new customer is priced as new.
+  const netCents = await closeNetCents(input.db, email, input.netCentsOverride);
   const customer = await customerFor(input.db, email, input.customerName.trim(), locale);
-  const accountId = await heldAccount(input.db, customer.id);
-  if (!accountId) {
+  const account = await heldAccount(input.db, customer.id);
+  if (!account) {
     return {
       ok: false,
       reason: "no_owned_account",
@@ -132,19 +164,20 @@ export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
   const outcome = await placeOrder({
     db: input.db,
     mode: input.mode,
-    billingAccountId: accountId,
+    billingAccountId: account.id,
     order: input.order,
     source: "admin",
     createdByUserId: input.adminUserId,
     invoicePrefix: input.invoicePrefix,
     vies: input.vies,
-    expectedGrossCents: null,
-    netCentsOverride: input.netCentsOverride,
+    expectedGrossCents: input.expectedGrossCents,
+    netCentsOverride: netCents,
   });
   if (!outcome.ok) return outcome;
 
-  // Someone who has signed in already has a way in; only a customer who never has gets the link.
-  const needsSetup = !customer.passwordHash && customer.loginCount === 0;
-  const setupSent = needsSetup ? await sendSetupLink(input, email, locale) : false;
+  // Someone who has signed in already has a way in. Everyone else gets the link, including a person
+  // who registered with a password but never finished verifying their email.
+  const setupSent =
+    customer.loginCount === 0 ? await sendSetupLink(input, email, locale) : false;
   return { ...outcome, createdUser: customer.created, setupSent };
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { SetupAccessCard } from "@/components/auth/SetupAccessCard";
 import { Link } from "@/i18n/navigation";
-import { readSetupToken } from "@/lib/auth/setup-link";
+import { readOpenSetupToken } from "@/lib/auth/setup-link";
 import { db } from "@/lib/db";
 
 /**
@@ -22,7 +22,7 @@ export default async function SetupPage({
 }) {
   const { token } = await searchParams;
   const t = await getTranslations("auth");
-  const link = token ? await readSetupToken(db, token) : null;
+  const link = token ? await readOpenSetupToken(db, token) : null;
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-4">

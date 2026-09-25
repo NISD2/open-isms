@@ -33,10 +33,17 @@ import { orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { trpc } from "@/lib/trpc/client";
 
 /** "4800", "4.800" or "4.800,50" euros as cents; null when blank, NaN when not a positive amount. */
-const centsFrom = (euros: string): number | null => {
+export const centsFrom = (euros: string): number | null => {
   const t = euros.trim();
   if (!t) return null;
-  const n = Number(t.replace(/\./g, "").replace(",", "."));
+  // A comma is the decimal mark ("4.800,50"). Without one, dots in groups of three are thousands
+  // ("4.800"), and any other dot is a decimal point ("99.50"). This is typed text, not code.
+  const normalised = t.includes(",")
+    ? t.replace(/\./g, "").replace(",", ".")
+    : /^\d{1,3}(\.\d{3})+$/.test(t)
+      ? t.replace(/\./g, "")
+      : t;
+  const n = Number(normalised);
   return Number.isFinite(n) && n > 0 ? Math.round(n * 100) : Number.NaN;
 };
 
@@ -49,29 +56,64 @@ export function DemoCloseForm() {
   const amountInvalid = Number.isNaN(netCents);
 
   const quote = trpc.platformAdmin.closeQuote.useMutation();
-  const close = trpc.platformAdmin.closeDeal.useMutation();
+  const close = trpc.platformAdmin.closeDeal.useMutation({
+    // The price moved between the quote and the order: show the new one before trying again.
+    onError: (err, vars) => {
+      if (err.data?.code === "PRECONDITION_FAILED") {
+        quote.mutate({
+          customerEmail: vars.customerEmail,
+          vatNumber: vars.order.vatNumber,
+          countryCode: vars.order.countryCode,
+          netCents: vars.netCents,
+        });
+      }
+    },
+  });
   const form = useForm<OrderValues>({
     resolver: zodResolver(orderSchemaWithVatCheck),
     defaultValues: orderDefaults(locale),
   });
 
+  const quoteInput = (vatNumber: string) => ({
+    customerEmail: customerEmail.trim(),
+    vatNumber,
+    countryCode: form.getValues("countryCode"),
+    netCents,
+  });
+
   const requote = (vatNumber: string) => {
     if (vatNumber.trim().length < 4 || amountInvalid) return;
-    quote.mutate({ vatNumber, countryCode: form.getValues("countryCode"), netCents });
+    quote.mutate(quoteInput(vatNumber));
   };
 
   const onSubmit = (values: OrderValues) => {
     if (!customerEmail.trim() || !customerName.trim() || amountInvalid) return;
-    const shown = quote.data?.price.gross ?? "the listed price";
+    // Only a price quoted for exactly what is on screen counts. Otherwise quote first: the admin
+    // sees the new price and confirms it on the next click.
+    const current = quoteInput(values.vatNumber);
+    const v = quote.variables;
+    const fresh =
+      v &&
+      v.customerEmail === current.customerEmail &&
+      v.vatNumber === current.vatNumber &&
+      v.netCents === current.netCents;
+    const price = fresh ? quote.data?.price : undefined;
+    if (!price) {
+      quote.mutate(current);
+      return;
+    }
     if (
-      !window.confirm(`Issue a real invoice for ${shown} to ${values.companyName} now?`)
+      !window.confirm(
+        `Issue a real invoice for ${price.gross} to ${values.companyName} now?`,
+      )
     )
       return;
     close.mutate({
-      customerEmail: customerEmail.trim(),
+      customerEmail: current.customerEmail,
       customerName: customerName.trim(),
       order: orderSchemaWithVatCheck.parse(values),
       netCents,
+      quotedGrossCents: price.grossCents,
     });
   };
 
@@ -116,6 +158,8 @@ export function DemoCloseForm() {
                   type="email"
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
+                  // An existing customer's price depends on their account.
+                  onBlur={() => requote(form.getValues("vatNumber"))}
                 />
               </div>
               <div className="space-y-2">

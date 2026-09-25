@@ -16,13 +16,9 @@ import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { createBillingAccount } from "@/lib/billing/accounts";
-import { closeDeal } from "@/lib/billing/close-deal";
+import { closeDeal, closeNetCents } from "@/lib/billing/close-deal";
 import { launchBilling, pricingState } from "@/lib/billing/launch";
-import {
-  ANNUAL_NET_CENTS,
-  formatEuro,
-  orderSchemaWithVatCheck,
-} from "@/lib/billing/order";
+import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { orderingMode } from "@/lib/billing/ordering";
 import { quoteFor } from "@/lib/billing/quote";
 import { viesConfigFromEnv } from "@/lib/billing/vies";
@@ -456,16 +452,18 @@ export const platformAdminRouter = router({
   closeQuote: platformAdminProcedure
     .input(
       z.object({
+        customerEmail: z.string().trim().max(255),
         vatNumber: z.string().trim().min(2).max(32),
         countryCode: z.string().trim().length(2).optional(),
         netCents: z.number().int().positive().max(10_000_000).nullable(),
       }),
     )
-    .mutation(({ input }) =>
+    .mutation(async ({ ctx, input }) =>
       quoteFor({
         vatNumber: input.vatNumber,
         countryCode: input.countryCode,
-        netCents: input.netCents ?? ANNUAL_NET_CENTS,
+        // The same function closeDeal prices with, so the quote is the invoice.
+        netCents: await closeNetCents(ctx.db, input.customerEmail, input.netCents),
         vies: viesConfigFromEnv(env),
       }),
     ),
@@ -481,6 +479,8 @@ export const platformAdminRouter = router({
         customerName: z.string().trim().min(1).max(255),
         order: orderSchemaWithVatCheck,
         netCents: z.number().int().positive().max(10_000_000).nullable(),
+        /** The gross the admin confirmed. Required: nothing is invoiced at an unseen price. */
+        quotedGrossCents: z.number().int().nonnegative(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -498,6 +498,7 @@ export const platformAdminRouter = router({
         customerName: input.customerName,
         order: input.order,
         netCentsOverride: input.netCents,
+        expectedGrossCents: input.quotedGrossCents,
         adminUserId: ctx.userId,
         invoicePrefix: env.INVOICE_PREFIX,
         vies: viesConfigFromEnv(env),
@@ -507,11 +508,13 @@ export const platformAdminRouter = router({
         const code =
           outcome.reason === "already_ordered"
             ? "CONFLICT"
-            : outcome.reason === "qonto_unknown"
-              ? "TIMEOUT"
-              : outcome.reason === "qonto"
-                ? "INTERNAL_SERVER_ERROR"
-                : "BAD_REQUEST";
+            : outcome.reason === "price_changed"
+              ? "PRECONDITION_FAILED"
+              : outcome.reason === "qonto_unknown"
+                ? "TIMEOUT"
+                : outcome.reason === "qonto"
+                  ? "INTERNAL_SERVER_ERROR"
+                  : "BAD_REQUEST";
         throw new TRPCError({ code, message: outcome.message });
       }
       await logAudit({

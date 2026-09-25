@@ -15,7 +15,7 @@ import "@/lib/server-guard";
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { and, eq, gt, isNull } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
-import { emailOtp } from "@/schema";
+import { emailOtp, user } from "@/schema";
 
 const PURPOSE = "account_setup";
 const VALID_MS = 7 * 24 * 60 * 60 * 1000;
@@ -81,6 +81,27 @@ export const readSetupToken = async (db: DbOrTx, token: string, now = new Date()
   const stored = Buffer.from(row.codeHash, "hex");
   if (given.length !== stored.length || !timingSafeEqual(given, stored)) return null;
   return { id: row.id, email: row.email };
+};
+
+/**
+ * A live token whose account still needs setting up: it has never signed in. Once the customer is
+ * in by any route (Google, a reset, a password set here), an old link must not be able to set a
+ * password over theirs, so it stops counting even before it expires. The page and the route both
+ * read links through this.
+ */
+export const readOpenSetupToken = async (db: DbOrTx, token: string, now = new Date()) => {
+  const link = await readSetupToken(db, token, now);
+  if (!link) return null;
+  const [account] = await db
+    .select({
+      id: user.id,
+      loginCount: user.loginCount,
+      emailVerifiedAt: user.emailVerifiedAt,
+    })
+    .from(user)
+    .where(eq(user.email, link.email))
+    .limit(1);
+  return account && account.loginCount === 0 ? { ...link, account } : null;
 };
 
 /** Use a token up, so the link works once. Returns whether this call used it. */
