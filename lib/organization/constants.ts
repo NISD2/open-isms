@@ -42,6 +42,10 @@ export const COMPANY_FORM_OMIT = [
   "id",
   "createdAt",
   "updatedAt",
+  // Set by the server: who owns the organization and which account pays for it. Required since the
+  // billing account became NOT NULL, so rendering it would make every submit fail.
+  "ownerId",
+  "billingAccountId",
   // Onboarding lifecycle — stamped by activateCompany, never edited via the form
   "activatedAt",
   "subSector",
