@@ -25,7 +25,7 @@ import {
   requirement,
   requirementCategory,
 } from "@/schema";
-import { enforceAssignment, getSignerRole, verifyAssessmentOwnership } from "../guards";
+import { enforceAssignment, signerRoleOf, verifyAssessmentOwnership } from "../guards";
 import { buildSignOffSnapshot } from "../helpers/assessment-helpers";
 import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
 import {
@@ -251,7 +251,7 @@ export const intakeRouter = router({
         })
         .where(eq(companyCategoryIntake.id, intake.id));
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Mark ALL mapped requirements as approved (sign-off = approval).
       // Audit B-2 (2026-06-10): passes a chainContext so each

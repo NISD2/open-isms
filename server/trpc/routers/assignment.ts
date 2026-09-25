@@ -10,6 +10,7 @@ import { getAppUrl } from "@/lib/utils";
 import {
   categoryAssignment,
   company,
+  companyMembership,
   companyRequirementStatus,
   notification,
   requirement,
@@ -310,12 +311,19 @@ export const assignmentRouter = router({
     .query(async ({ ctx, input }) => {
       await verifyStatusOwnership(ctx.db, input.statusId, ctx.companyId);
 
-      return ctx.db.query.requirementAssignment.findMany({
+      const rows = await ctx.db.query.requirementAssignment.findMany({
         where: eq(requirementAssignment.statusId, input.statusId),
         with: {
-          user: { columns: { id: true, name: true, email: true, jobTitle: true } },
+          user: { columns: { id: true, name: true, email: true } },
         },
       });
+      const jobTitles = new Map(
+        (await listCompanyMembers(ctx.db, ctx.companyId)).map((m) => [m.id, m.jobTitle]),
+      );
+      return rows.map((r) => ({
+        ...r,
+        user: { ...r.user, jobTitle: jobTitles.get(r.user.id) ?? null },
+      }));
     }),
 
   /** List assignments by assessment + requirement — single JOIN, no sequential lookups */
@@ -333,7 +341,7 @@ export const assignmentRouter = router({
           signedOffAt: requirementAssignment.signedOffAt,
           userName: user.name,
           userEmail: user.email,
-          userJobTitle: user.jobTitle,
+          userJobTitle: companyMembership.jobTitle,
         })
         .from(requirementAssignment)
         .innerJoin(
@@ -341,6 +349,13 @@ export const assignmentRouter = router({
           eq(requirementAssignment.statusId, companyRequirementStatus.id),
         )
         .innerJoin(user, eq(requirementAssignment.userId, user.id))
+        .leftJoin(
+          companyMembership,
+          and(
+            eq(companyMembership.userId, user.id),
+            eq(companyMembership.companyId, ctx.companyId),
+          ),
+        )
         .where(
           and(
             eq(companyRequirementStatus.assessmentId, input.assessmentId),

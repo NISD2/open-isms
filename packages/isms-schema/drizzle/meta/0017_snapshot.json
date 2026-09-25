@@ -1,5 +1,5 @@
 {
-  "id": "c1ab566a-0ef9-4371-9f54-ffa6da44e5e8",
+  "id": "cb8d7998-5445-499a-8782-12ac80f4b4fe",
   "prevId": "50b01708-8e77-4690-bbd4-9b19ddcedfd5",
   "version": "7",
   "dialect": "postgresql",
@@ -3176,6 +3176,12 @@
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
+        },
+        "job_title": {
+          "name": "job_title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",

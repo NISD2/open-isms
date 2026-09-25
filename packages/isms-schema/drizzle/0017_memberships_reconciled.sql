@@ -14,8 +14,11 @@
 --   2. people it put into a company have no membership (the 0016 statement, rerun);
 --   3. people it removed kept their membership, which no longer matches their open company;
 --   4. role changes it made landed on user.role only.
+-- The compliance role (job title) moves onto the membership too, because it differs per company.
 -- This is the backfill's LAST run. It must not run after the paywall goes live, because every
 -- company it fills can come out grandfathered.
+ALTER TABLE "company_membership" ADD COLUMN "job_title" varchar(255);
+--> statement-breakpoint
 INSERT INTO "billing_account" ("id", "owner_user_id", "access_level")
 SELECT
   c."id",
@@ -54,11 +57,10 @@ WHERE u."id" = m."user_id"
   AND u."company_id" IS DISTINCT FROM m."company_id";
 --> statement-breakpoint
 UPDATE "company_membership" m
-SET "role" = u."role"::"membership_role"
+SET "role" = u."role"::"membership_role", "job_title" = u."job_title"
 FROM "user" u
 WHERE u."id" = m."user_id"
-  AND u."company_id" = m."company_id"
-  AND m."role"::text <> u."role";
+  AND u."company_id" = m."company_id";
 --> statement-breakpoint
 ALTER TABLE "company" ALTER COLUMN "billing_account_id" SET NOT NULL;--> statement-breakpoint
 ALTER TABLE "user" ALTER COLUMN "role" SET DEFAULT 'member';

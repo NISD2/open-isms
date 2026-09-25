@@ -1224,6 +1224,7 @@ export const platformAdminRouter = router({
         kind: q.kind,
         userId: q.userId,
         email: q.email,
+        companyId: q.companyId,
         companyName: q.companyName,
         subject: q.subject,
         summary: q.summary,
@@ -1278,12 +1279,14 @@ export const platformAdminRouter = router({
     .input(
       z.object({
         userId: z.string().uuid(),
+        companyId: z.string().uuid(),
         kind: z.enum(["daily", "weekly"]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       return sendDigestBatch(ctx.db, 1, ctx.userId, {
         userId: input.userId,
+        companyId: input.companyId,
         kind: input.kind as DigestKind,
       });
     }),

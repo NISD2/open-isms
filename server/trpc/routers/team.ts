@@ -15,7 +15,10 @@ import {
   joinCompany,
   leaveCompany,
   listCompanyMembers,
+  listUserCompanies,
   openCompany,
+  setMembershipJobTitle,
+  signupDraftOf,
 } from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import {
@@ -23,6 +26,7 @@ import {
   company,
   companyAssessment,
   companyInvite,
+  companyMembership,
   notification,
   requirementCategory,
   user,
@@ -304,21 +308,14 @@ export const teamRouter = router({
       }
 
       // Accepting adds a membership in the inviting company and opens it; the person keeps every
-      // other organization they belong to. Every verified user gets a draft shell, and the one
-      // they had open is discarded afterwards if it is still an untouched draft of their own.
-      const currentCompany = ctx.companyId
-        ? await ctx.db.query.company.findFirst({
-            where: eq(company.id, ctx.companyId),
-            columns: { id: true, activatedAt: true, ownerId: true },
-          })
-        : null;
-      const ownDraft =
-        currentCompany &&
-        currentCompany.id !== invite.companyId &&
-        currentCompany.activatedAt === null &&
-        currentCompany.ownerId === ctx.userId
-          ? currentCompany
-          : null;
+      // other organization they belong to. Every verified user gets a draft shell at signup; when
+      // that draft is still the only organization they are in, it was never used and is discarded
+      // once they have joined. A draft started from an existing organization is theirs to keep.
+      const signupDraft = signupDraftOf(
+        await listUserCompanies(ctx.db, ctx.userId),
+        ctx.userId,
+      );
+      const ownDraft = signupDraft?.id === invite.companyId ? null : signupDraft;
       const existingRole = await findMembershipRole(ctx.db, {
         userId: ctx.userId,
         companyId: invite.companyId,
@@ -504,23 +501,28 @@ export const teamRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), isMemberOf(ctx.db, ctx.companyId)),
+      const membership = await ctx.db.query.companyMembership.findFirst({
+        where: and(
+          eq(companyMembership.userId, input.userId),
+          eq(companyMembership.companyId, ctx.companyId),
+        ),
+        columns: { jobTitle: true },
       });
-      if (!member) {
+      if (!membership) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "User not found in your company.",
         });
       }
 
-      const roleChanged = member.jobTitle !== input.roleKey;
+      const roleChanged = membership.jobTitle !== input.roleKey;
 
-      // Set the user's jobTitle to the compliance role
-      await ctx.db
-        .update(user)
-        .set({ jobTitle: input.roleKey, updatedAt: new Date() })
-        .where(eq(user.id, input.userId));
+      // The compliance role is held per company, so this changes it here only.
+      await setMembershipJobTitle(ctx.db, {
+        userId: input.userId,
+        companyId: ctx.companyId,
+        jobTitle: input.roleKey,
+      });
 
       // Fired here, right after the role actually changes, rather than after
       // the category assignments below: a role that resolves to no categories

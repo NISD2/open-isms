@@ -83,6 +83,12 @@ export const companyRouter = router({
     }
 
     return ctx.db.transaction(async (tx) => {
+      // Serialises concurrent adds on this account, so a double click cannot start two drafts.
+      await tx
+        .select({ id: billingAccount.id })
+        .from(billingAccount)
+        .where(eq(billingAccount.id, billingAccountId))
+        .for("update");
       const [draft] = await tx
         .select({ id: company.id })
         .from(company)

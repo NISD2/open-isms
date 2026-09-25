@@ -686,10 +686,12 @@ function SendOneLifecycleButton({ userId, email }: { userId: string; email: stri
 /** The per-row send for one queued digest (recipient + kind). */
 function SendOneDigestButton({
   userId,
+  companyId,
   kind,
   email,
 }: {
   userId: string;
+  companyId: string;
   kind: "daily" | "weekly";
   email: string;
 }) {
@@ -710,7 +712,7 @@ function SendOneDigestButton({
     <Button
       variant="outline"
       size="sm"
-      onClick={() => send.mutate({ userId, kind })}
+      onClick={() => send.mutate({ userId, companyId, kind })}
       disabled={send.isPending}
       title={`Send only to ${email}`}
     >
@@ -817,6 +819,7 @@ function DigestQueuePanel() {
                     <td className="py-1 pr-2 text-right">
                       <SendOneDigestButton
                         userId={item.userId}
+                        companyId={item.companyId}
                         kind={item.kind}
                         email={item.email}
                       />

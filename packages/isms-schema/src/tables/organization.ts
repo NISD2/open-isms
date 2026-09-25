@@ -337,6 +337,7 @@ export const user = pgTable(
      * release after this one drops it.
      */
     role: varchar("role", { length: 100 }).notNull().default("member"),
+    /** Superseded by `company_membership.job_title`; dropped together with `role`. */
     jobTitle: varchar("job_title", { length: 255 }),
     isManagement: boolean("is_management").default(false),
     /**

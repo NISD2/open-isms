@@ -48,7 +48,7 @@ import { PgTable } from "drizzle-orm/pg-core";
 import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { db } from "@/lib/db";
-import { joinCompany } from "@/lib/organization/membership";
+import { joinCompany, setMembershipJobTitle } from "@/lib/organization/membership";
 import { BUCKET, s3 } from "@/lib/storage";
 import { s3Signer } from "@/lib/storage/s3-client";
 import * as schema from "@/schema";
@@ -543,7 +543,6 @@ async function main() {
     .values({
       email: DEMO_EMAIL,
       name: "Bernd Schwieger",
-      jobTitle: "Geschäftsführer",
       isManagement: true,
       passwordHash,
       emailVerifiedAt: at("2026-02-19", 10, 4),
@@ -556,7 +555,6 @@ async function main() {
     .values({
       email: IT_EMAIL,
       name: "Sandra Koch",
-      jobTitle: "IT-Leitung",
       isManagement: false,
       passwordHash,
       emailVerifiedAt: at("2026-02-21", 8, 47),
@@ -602,6 +600,16 @@ async function main() {
 
   await joinCompany(db, { userId: gf.id, companyId: co.id, role: "admin" });
   await joinCompany(db, { userId: itLead.id, companyId: co.id, role: "member" });
+  await setMembershipJobTitle(db, {
+    userId: gf.id,
+    companyId: co.id,
+    jobTitle: "Geschäftsführer",
+  });
+  await setMembershipJobTitle(db, {
+    userId: itLead.id,
+    companyId: co.id,
+    jobTitle: "IT-Leitung",
+  });
 
   console.log("company", co.id);
 

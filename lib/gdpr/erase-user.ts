@@ -172,6 +172,7 @@ const companySummary = {
   plan: company.plan,
   billingAccountId: company.billingAccountId,
   ownerId: company.ownerId,
+  activatedAt: company.activatedAt,
 };
 
 /** Every company the person belongs to. */
@@ -190,9 +191,11 @@ export class ErasureRefused extends Error {
  * The company an erasure is about, and whether it tears it down. It tears down
  * the company the person owns and still belongs to, whether or not it is open;
  * an owner who was removed from their company tears nothing down. Otherwise it
- * is about the company they have open. An owner of several companies is
- * refused, because one typed confirmation must not tear several organizations
- * down.
+ * is about the company they have open. An owner of several set-up companies
+ * is refused, because one typed confirmation must not tear several
+ * organizations down. Drafts they started and never set up do not count: the
+ * set-up company is torn down and a draft is left ownerless, as an abandoned
+ * draft always has been.
  */
 export async function erasureCompanyOf(q: DbOrTx, userId: string) {
   const owned = await q
@@ -201,12 +204,13 @@ export async function erasureCompanyOf(q: DbOrTx, userId: string) {
     .where(
       and(eq(company.ownerId, userId), inArray(company.id, companiesOfPerson(q, userId))),
     );
-  if (owned.length > 1) {
+  const setUp = owned.filter((c) => c.activatedAt !== null);
+  if (setUp.length > 1) {
     throw new ErasureRefused(
-      `This account owns ${owned.length} organizations (${owned.map((c) => c.name).join(", ")}). Erasing it would tear all of them down, which this tool does not support; handle this request by hand.`,
+      `This account owns ${setUp.length} organizations (${setUp.map((c) => c.name).join(", ")}). Erasing it would tear all of them down, which this tool does not support; handle this request by hand.`,
     );
   }
-  const [own] = owned;
+  const own = setUp[0] ?? owned[0];
   if (own) return { company: own, owned: own };
   const [open] = await q
     .select(companySummary)

@@ -38,7 +38,7 @@ import {
   requirementSatisfaction,
   user,
 } from "@/schema";
-import { enforceAssignment, getSignerRole, verifyAssessmentOwnership } from "../guards";
+import { enforceAssignment, signerRoleOf, verifyAssessmentOwnership } from "../guards";
 import {
   buildSignOffSnapshot,
   propagateSatisfaction,
@@ -570,7 +570,7 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Audit B-2 + B-5 (2026-06-10): everything that touches the
       // (assignments, status row, chain) trio happens in one transaction
@@ -942,7 +942,7 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Audit B-2 (2026-06-10): assignment + status + chain entry inside
       // the same tx so a partial commit cannot leave the chain disagreeing
@@ -1097,7 +1097,7 @@ export const assessmentRouter = router({
       // requirement whose required signer role the caller does not hold
       // (admin bypass matches signOff), nor an N-of-M requirement whose
       // assigned signers must sign individually. See bulkSignOffCategory.
-      const confirmerRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const confirmerRole = signerRoleOf(ctx.session);
       // not_applicable is excluded here as it is in bulkSignOffCategory:
       // a requirement documented as out of scope must not come back signed
       // off as done while its is_applicable flag still says otherwise.
@@ -1267,7 +1267,7 @@ export const assessmentRouter = router({
 
       if (rows.length === 0) return { signedOff: 0 };
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Bulk sign-off must not be a back door around the per-requirement
       // guards the single signOff path enforces. Two things it cannot

@@ -75,8 +75,16 @@ function utcDay(now = new Date()): string {
   return now.toISOString().slice(0, 10);
 }
 
-function digestClaimKey(userId: string, kind: DigestKind): string {
-  return `${userId}:${kind}`;
+/** One digest: a person, the company it reports on, and its kind. A person in two companies gets both. */
+export type DigestTarget = { userId: string; companyId: string; kind: DigestKind };
+
+function digestClaimKey({ userId, companyId, kind }: DigestTarget): string {
+  return `${userId}:${companyId}:${kind}`;
+}
+
+/** The per-day claim carries the company, so the once-per-day index allows one digest per company. */
+function claimTriggerField(day: string, companyId: string): string {
+  return `${day}:${companyId}`;
 }
 
 /**
@@ -89,6 +97,7 @@ async function loadTodaysDigestRecipients(db: Database): Promise<Set<string>> {
   const rows = await db
     .select({
       recipientId: notification.recipientId,
+      companyId: notification.companyId,
       entityType: notification.entityType,
     })
     .from(notification)
@@ -103,7 +112,7 @@ async function loadTodaysDigestRecipients(db: Database): Promise<Set<string>> {
   for (const row of rows) {
     if (!row.recipientId) continue;
     const kind: DigestKind = row.entityType === ENTITY_TYPE.daily ? "daily" : "weekly";
-    sent.add(digestClaimKey(row.recipientId, kind));
+    sent.add(digestClaimKey({ userId: row.recipientId, companyId: row.companyId, kind }));
   }
   return sent;
 }
@@ -146,7 +155,9 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
 
       if (
         consent.allows(EMAIL_TYPE.daily) &&
-        !alreadySentToday.has(digestClaimKey(member.id, "daily"))
+        !alreadySentToday.has(
+          digestClaimKey({ userId: member.id, companyId: co.id, kind: "daily" }),
+        )
       ) {
         const digest = await compileDailyDigest(db, member.id, co.id);
         if (digest) {
@@ -177,7 +188,9 @@ export async function buildDigestQueue(db: Database): Promise<QueuedDigest[]> {
       if (
         isManagementOrAdmin &&
         consent.allows(EMAIL_TYPE.weekly) &&
-        !alreadySentToday.has(digestClaimKey(member.id, "weekly"))
+        !alreadySentToday.has(
+          digestClaimKey({ userId: member.id, companyId: co.id, kind: "weekly" }),
+        )
       ) {
         const mgmt = await compileManagementDigest(db, member.id, co.id);
         if (mgmt) {
@@ -242,12 +255,12 @@ export async function sendDigestBatch(
   limit: number,
   actorUserId: string,
   /**
-   * Restrict the batch to one queued (recipient, kind) pair: the per-row
+   * Restrict the batch to one queued (recipient, company, kind): the per-row
    * "Send" button. The person must still be in the built queue, so this
    * cannot mail anyone the digest logic would not have mailed, and the
    * per-day claim still arbitrates duplicates.
    */
-  only?: { userId: string; kind: DigestKind },
+  only?: DigestTarget,
 ): Promise<DigestSendResult> {
   if (activeDigestRun) {
     return {
@@ -272,7 +285,7 @@ async function executeDigestBatch(
   db: Database,
   limit: number,
   actorUserId: string,
-  only?: { userId: string; kind: DigestKind },
+  only?: DigestTarget,
 ): Promise<DigestSendResult> {
   const suppression = mailSuppressionReason();
   if (suppression) {
@@ -288,7 +301,12 @@ async function executeDigestBatch(
 
   const allQueued = await buildDigestQueue(db);
   const queue = only
-    ? allQueued.filter((q) => q.userId === only.userId && q.kind === only.kind)
+    ? allQueued.filter(
+        (q) =>
+          q.userId === only.userId &&
+          q.companyId === only.companyId &&
+          q.kind === only.kind,
+      )
     : allQueued;
   const batch = queue.slice(0, Math.max(1, limit));
   const result: DigestSendResult = {
@@ -351,7 +369,7 @@ async function executeDigestBatch(
         recipientId: item.userId,
         entityType: ENTITY_TYPE[item.kind],
         entityId: item.userId,
-        triggerField: utcDay(now),
+        triggerField: claimTriggerField(utcDay(now), item.companyId),
         subject: content.subject,
         channel: "email" as const,
         status: "sent" as const,

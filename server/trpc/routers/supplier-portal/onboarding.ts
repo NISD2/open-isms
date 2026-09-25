@@ -21,7 +21,11 @@ import { and, eq, gt, isNull } from "drizzle-orm";
 import { z } from "zod";
 import { createBillingAccount } from "@/lib/billing/accounts";
 import type { DbOrTx } from "@/lib/db";
-import { joinCompany } from "@/lib/organization/membership";
+import {
+  joinCompany,
+  listUserCompanies,
+  signupDraftOf,
+} from "@/lib/organization/membership";
 import { company, supplier, supplierInvite, user } from "@/schema";
 import {
   supplierAcceptInviteSchema,
@@ -39,15 +43,6 @@ import { generateOpaqueToken } from "./helpers";
  * portal is sector-agnostic, so it gets a placeholder; entityType likewise only matters if the
  * company later opts into the entity portal.
  */
-/**
- * The draft's billing account carries over to the supplier company only when the caller owns the
- * draft; someone who merely joined another person's draft gets an account of their own.
- */
-const reusableAccountOf = (
-  draft: { ownerId: string | null; billingAccountId: string | null } | null | undefined,
-  userId: string,
-): string | null => (draft?.ownerId === userId ? draft.billingAccountId : null);
-
 const createSupplierCompany = async (
   tx: DbOrTx,
   input: {
@@ -84,6 +79,18 @@ const createSupplierCompany = async (
   return newCompany;
 };
 
+/**
+ * A supplier signup is for someone with no set-up organization yet, whichever one they have open.
+ * Returns their signup draft, which the supplier company replaces, if they still have one.
+ */
+const draftReplacedBySupplierSignup = async (db: DbOrTx, userId: string) => {
+  const mine = await listUserCompanies(db, userId);
+  if (mine.some((c) => c.activatedAt !== null)) {
+    throw new TRPCError({ code: "CONFLICT", message: "Already a member of a company" });
+  }
+  return signupDraftOf(mine, userId);
+};
+
 export const supplierOnboardingRouter = router({
   /**
    * Bootstrap a supplier-only company and bind the calling user as admin.
@@ -93,26 +100,7 @@ export const supplierOnboardingRouter = router({
   bootstrap: protectedProcedure
     .input(supplierOnboardingBootstrapSchema)
     .mutation(async ({ ctx, input }) => {
-      // Only an ACTIVATED company blocks supplier bootstrap. A verified user
-      // holds a draft entity-shell; supplier signup discards that draft and
-      // creates the supplier company instead.
-      const currentCompany = ctx.companyId
-        ? await ctx.db.query.company.findFirst({
-            where: eq(company.id, ctx.companyId),
-            columns: {
-              id: true,
-              activatedAt: true,
-              ownerId: true,
-              billingAccountId: true,
-            },
-          })
-        : null;
-      if (currentCompany?.activatedAt) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "Already a member of a company",
-        });
-      }
+      const signupDraft = await draftReplacedBySupplierSignup(ctx.db, ctx.userId);
 
       // Insert the company. Sector is required by the schema (notNull) but the
       // supplier portal is sector-agnostic — set a placeholder. The supplier
@@ -125,15 +113,15 @@ export const supplierOnboardingRouter = router({
           userId: ctx.userId,
           name: input.name,
           country: input.country ?? null,
-          replacesBillingAccountId: reusableAccountOf(currentCompany, ctx.userId),
+          replacesBillingAccountId: signupDraft?.billingAccountId ?? null,
         }),
       );
 
       // Discard the abandoned entity-draft shell (+ its seeded NIS2 rows),
       // best-effort after the user points at the supplier company.
-      if (currentCompany) {
+      if (signupDraft) {
         try {
-          await discardDraftCompany(ctx.db, currentCompany.id);
+          await discardDraftCompany(ctx.db, signupDraft.id);
         } catch (err) {
           console.error("[supplier.bootstrap] draft discard skipped:", err);
         }
@@ -188,28 +176,9 @@ export const supplierOnboardingRouter = router({
     .mutation(async ({ ctx, input }) => {
       const current = await ctx.db.query.user.findFirst({
         where: eq(user.id, ctx.userId),
-        columns: { companyId: true, email: true },
+        columns: { email: true },
       });
-      // Only an ACTIVATED company blocks accepting a supplier invite. A verified
-      // user's draft entity-shell is discarded and replaced by the supplier
-      // company bound to the inviting entity.
-      const currentCompany = current?.companyId
-        ? await ctx.db.query.company.findFirst({
-            where: eq(company.id, current.companyId),
-            columns: {
-              id: true,
-              activatedAt: true,
-              ownerId: true,
-              billingAccountId: true,
-            },
-          })
-        : null;
-      if (currentCompany?.activatedAt) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "Already a member of a company",
-        });
-      }
+      const signupDraft = await draftReplacedBySupplierSignup(ctx.db, ctx.userId);
 
       const invite = await ctx.db.query.supplierInvite.findFirst({
         where: and(
@@ -242,7 +211,7 @@ export const supplierOnboardingRouter = router({
           userId: ctx.userId,
           name: input.name,
           country: input.country ?? null,
-          replacesBillingAccountId: reusableAccountOf(currentCompany, ctx.userId),
+          replacesBillingAccountId: signupDraft?.billingAccountId ?? null,
         });
 
         // Mark the invite accepted (audit trail).
@@ -310,9 +279,9 @@ export const supplierOnboardingRouter = router({
       });
 
       // Discard the abandoned entity-draft shell (best-effort, post-commit).
-      if (currentCompany) {
+      if (signupDraft) {
         try {
-          await discardDraftCompany(ctx.db, currentCompany.id);
+          await discardDraftCompany(ctx.db, signupDraft.id);
         } catch (err) {
           console.error("[supplier.acceptInvite] draft discard skipped:", err);
         }

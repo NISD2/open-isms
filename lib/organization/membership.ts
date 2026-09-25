@@ -53,7 +53,7 @@ export const listCompanyMembers = (db: DbOrTx, companyId: string) =>
       name: user.name,
       email: user.email,
       role: companyMembership.role,
-      jobTitle: user.jobTitle,
+      jobTitle: companyMembership.jobTitle,
       isManagement: user.isManagement,
       locale: user.locale,
       createdAt: user.createdAt,
@@ -70,12 +70,33 @@ export const listUserCompanies = (db: DbOrTx, userId: string) =>
       name: company.name,
       activatedAt: company.activatedAt,
       billingAccountId: company.billingAccountId,
+      ownerId: company.ownerId,
       role: companyMembership.role,
     })
     .from(companyMembership)
     .innerJoin(company, eq(company.id, companyMembership.companyId))
     .where(eq(companyMembership.userId, userId))
     .orderBy(asc(company.name));
+
+/**
+ * The draft every verified user gets at signup, while it is still the only organization they are in
+ * and their own: the one a first invite or a supplier signup replaces. Null otherwise, so a draft
+ * started from an existing organization is never discarded.
+ */
+export const signupDraftOf = <
+  C extends { readonly activatedAt: Date | null; readonly ownerId: string | null },
+>(
+  companies: readonly C[],
+  userId: string,
+): C | null => {
+  const [only] = companies;
+  return companies.length === 1 &&
+    only &&
+    only.activatedAt === null &&
+    only.ownerId === userId
+    ? only
+    : null;
+};
 
 /**
  * Make the person a member of the company with this role, and open it. An existing membership has
@@ -147,6 +168,24 @@ export const leaveCompany = async (
     .update(user)
     .set({ companyId: next?.companyId ?? null, updatedAt: new Date() })
     .where(and(eq(user.id, input.userId), eq(user.companyId, input.companyId)));
+};
+
+/**
+ * Set the compliance role the person holds in one company. Other companies they belong to are not
+ * affected. Does nothing if they are not a member of it.
+ */
+export const setMembershipJobTitle = async (
+  db: DbOrTx,
+  input: {
+    readonly userId: string;
+    readonly companyId: string;
+    readonly jobTitle: string;
+  },
+): Promise<void> => {
+  await db
+    .update(companyMembership)
+    .set({ jobTitle: input.jobTitle })
+    .where(membershipOf(input.userId, input.companyId));
 };
 
 /** Change the person's role in one company. Does nothing if they are not a member of it. */
