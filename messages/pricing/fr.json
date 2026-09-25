@@ -1,30 +1,9 @@
 {
   "pricing": {
     "meta": {
-      "title": "Tarifs - Plateforme de conformité NIS2",
-      "description": "La plateforme est gratuite, durablement. Hébergée sur nisd2.eu ou auto-hébergée sur votre propre infrastructure, code source ouvert sous AGPL-3.0. Pas de contrat, pas d'activation, pas de verrouillage."
+      "title": "Tarifs - Plateforme de conformité NIS2"
     },
     "title": "Tarifs",
-    "subtitle": "Gratuite, durablement. Le seul choix, c'est qui l'exploite.",
-    "free": {
-      "name": "Hébergée sur nisd2.eu",
-      "description": "La plateforme complète, exploitée par nos soins sur une infrastructure de l'UE.",
-      "price": "0 €",
-      "priceSub": "pour toujours",
-      "cta": "Commencer",
-      "features": {
-        "f1": "Les 49 exigences BSIG, étape par étape",
-        "f2": "Téléversement de preuves et documentation",
-        "f3": "Export PDF pour les auditeurs et la direction",
-        "f4": "Piste d'audit complète",
-        "f5": "Suivi des échéances et rappels",
-        "f6": "Accompagnement à l'enregistrement auprès du BSI",
-        "f7": "Membres d'équipe illimités",
-        "f8": "Registres des risques, des actifs et des fournisseurs",
-        "f9": "Assistance aux formulaires par IA",
-        "f10": "Aucun verrouillage. Modèle de données ouvert. Export à tout moment, y compris vers l'auto-hébergement."
-      }
-    },
     "selfHost": {
       "name": "Auto-hébergement",
       "description": "Code source complet. Sur votre propre infrastructure, durablement.",
@@ -34,14 +13,9 @@
       "features": {
         "h1": "Code source complet de la plateforme, ouvert sous AGPL-3.0",
         "h2": "Toutes les mises à jour futures incluses, durablement",
-        "h3": "Sur votre propre infrastructure, avec vos propres données",
-        "h4": "Pas de contrat, pas de clé d'activation, pas de compte chez nous",
-        "h5": "Exportez votre travail depuis nisd2.eu et continuez à l'exploiter vous-même",
-        "h6": "Contact direct par e-mail et Signal",
-        "h7": "Installation par nos soins si vous le souhaitez : 500 € HT, paiement unique"
+        "h3": "Sur votre propre infrastructure, avec vos propres données"
       }
     },
-    "whyFree": "Pourquoi gratuit : le code source est ouvert sur GitHub, vérifiable et exploitable par vos soins. Nous facturons l'installation en auto-hébergement et percevons une commission des entreprises spécialisées vers lesquelles nous vous orientons. Pas la plateforme.",
     "consultantFootnote": "Bloqué avec NIS 2 ? Les questions techniques courtes ne coûtent rien, et s'il faut une entreprise spécialisée, nous vous en recommandons une, sans frais pour vous.",
     "consultantCta": "Aide et recommandation"
   }

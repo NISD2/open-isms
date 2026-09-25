@@ -1,29 +1,30 @@
 {
   "pricing": {
     "meta": {
-      "title": "Pricing - NIS2 Compliance Platform",
-      "description": "The platform is free, permanently. Hosted at nisd2.eu, or self-hosted on your own infrastructure, source open under AGPL-3.0. No contract, no activation, no lock-in."
+      "title": "Pricing: the NIS 2 guided pass and self-hosting",
+      "description": "The NIS 2 guided pass at nisd2.eu: {price} net a year, by invoice, 30 days money back, any number of organizations and users. Self-host under AGPL-3.0."
     },
     "title": "Pricing",
-    "subtitle": "Free, permanently. The only choice is who runs it.",
-    "free": {
-      "name": "Hosted at nisd2.eu",
-      "description": "The full platform, operated by us on EU infrastructure.",
-      "price": "€0",
-      "priceSub": "forever",
-      "cta": "Get started",
+    "subtitle": "One offer at nisd2.eu, one price. Or run the open source yourself.",
+    "paid": {
+      "name": "NIS 2 guided pass",
+      "description": "A yearly licence at nisd2.eu, operated by us. One payment covers every organization and user on your account.",
+      "priceSub": "net a year, plus VAT",
+      "terms": "You pay by invoice within 30 days. If you cancel within 30 days of ordering, you get your money back.",
+      "cta": "Order",
+      "courseLine": "For management, there is the NIS 2 course.",
+      "courseCta": "Go to the course",
       "features": {
-        "f1": "All 49 BSIG requirements step by step",
-        "f2": "Evidence upload and documentation",
-        "f3": "PDF export for auditors and management",
-        "f4": "Complete audit trail",
-        "f5": "Deadline tracking and reminders",
-        "f6": "BSI registration guidance",
-        "f7": "Unlimited team members",
-        "f8": "Risk, asset, and supplier registers",
-        "f9": "AI-powered form assistance",
-        "f10": "No lock-in. Open data model. Export anytime, including into self-hosting."
-      }
+        "p1": "The NIS 2 requirements step by step, with status, evidence and approval for each one",
+        "p2": "Upload evidence and file it against the requirement it proves",
+        "p3": "Compliance report as a PDF with the state of every requirement, the evidence and the approvals",
+        "p4": "Change log for your organization",
+        "p5": "Registers for assets, risks and suppliers",
+        "p6": "Deadlines and review dates for each requirement",
+        "p7": "Any number of organizations and users on one payment",
+        "p8": "Export at any time as PDF and CSV"
+      },
+      "grandfathered": "Anyone who signed in at least once before paid access started keeps using the platform as before, without paying for it. They get the guided pass for {price} net a year."
     },
     "selfHost": {
       "name": "Self-host",
@@ -35,13 +36,10 @@
         "h1": "Full platform source, open under AGPL-3.0",
         "h2": "All future updates included, permanently",
         "h3": "On your own infrastructure, with your own data",
-        "h4": "No contract, no activation key, no account with us",
-        "h5": "Export your work from nisd2.eu and carry on running it yourself",
-        "h6": "Direct contact by email and Signal",
-        "h7": "Setup by us if you want it: €500 net, one-time"
+        "h4": "No contract, no activation key"
       }
     },
-    "whyFree": "Why free: the source is open on GitHub, auditable and yours to run. We charge for setting up self-hosted installations, and we take a commission from the specialist firms we refer you to. Not for the platform.",
+    "whyFree": "Why self-hosting costs nothing: the source is open on GitHub, auditable and yours to run. What you pay for is us running it at nisd2.eu.",
     "consultantFootnote": "Stuck with NIS 2? Short technical questions cost nothing, and if it needs a specialist firm, we refer you to one at no cost to you.",
     "consultantCta": "Help and referrals"
   }

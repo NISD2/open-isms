@@ -1,29 +1,30 @@
 {
   "pricing": {
     "meta": {
-      "title": "Preise - NIS2-Compliance-Plattform",
-      "description": "Die Plattform ist kostenlos, dauerhaft. Gehostet auf nisd2.eu oder im Selbstbetrieb auf eigener Infrastruktur, Quellcode offen unter AGPL-3.0. Kein Vertrag, keine Freischaltung, kein Lock-in."
+      "title": "Preise: NIS 2 Durchgang und Selbstbetrieb",
+      "description": "Der NIS 2 Durchgang auf nisd2.eu: {price} netto im Jahr, auf Rechnung, 30 Tage Geld zurück, beliebig viele Organisationen und Nutzer. Selbstbetrieb unter AGPL-3.0."
     },
     "title": "Preise",
-    "subtitle": "Kostenlos, dauerhaft. Sie entscheiden nur, wer sie betreibt.",
-    "free": {
-      "name": "Gehostet auf nisd2.eu",
-      "description": "Die vollständige Plattform, von uns auf EU-Infrastruktur betrieben.",
-      "price": "0 €",
-      "priceSub": "für immer",
-      "cta": "Kostenlos starten",
+    "subtitle": "Ein Angebot auf nisd2.eu, ein Preis. Oder Sie betreiben den offenen Quellcode selbst.",
+    "paid": {
+      "name": "NIS 2 Durchgang",
+      "description": "Jahreslizenz auf nisd2.eu, von uns betrieben. Eine Zahlung gilt für alle Organisationen und Nutzer Ihres Kontos.",
+      "priceSub": "netto im Jahr, zzgl. USt.",
+      "terms": "Sie zahlen auf Rechnung mit 30 Tagen Zahlungsziel. Wenn Sie innerhalb von 30 Tagen ab Bestellung kündigen, bekommen Sie Ihr Geld zurück.",
+      "cta": "Bestellen",
+      "courseLine": "Für die Geschäftsleitung gibt es den NIS 2 Kurs.",
+      "courseCta": "Zum Kurs",
       "features": {
-        "f1": "Alle 49 BSIG-Anforderungen Schritt für Schritt",
-        "f2": "Nachweisupload und Dokumentation",
-        "f3": "PDF-Export für Prüfer und Geschäftsführung",
-        "f4": "Vollständiger Audit-Trail",
-        "f5": "Fristenüberwachung und Erinnerungen",
-        "f6": "BSI-Registrierungshilfe",
-        "f7": "Unbegrenzte Teammitglieder",
-        "f8": "Risiko-, Asset- und Lieferantenregister",
-        "f9": "KI-gestützte Formularausfüllung",
-        "f10": "Kein Lock-in. Offenes Datenmodell. Export jederzeit, auch in den Selbstbetrieb."
-      }
+        "p1": "Die NIS 2 Anforderungen Schritt für Schritt, mit Status, Nachweis und Freigabe je Anforderung",
+        "p2": "Nachweise hochladen und direkt an der Anforderung ablegen",
+        "p3": "Compliance-Bericht als PDF mit dem Stand jeder Anforderung, den Nachweisen und den Freigaben",
+        "p4": "Änderungsprotokoll für Ihre Organisation",
+        "p5": "Register für Assets, Risiken und Lieferanten",
+        "p6": "Fristen und Wiedervorlagen je Anforderung",
+        "p7": "Beliebig viele Organisationen und Nutzer mit einer Zahlung",
+        "p8": "Export jederzeit als PDF und CSV"
+      },
+      "grandfathered": "Wer sich vor dem Start der Bezahlung mindestens einmal angemeldet hat, nutzt die Plattform weiter wie bisher, ohne dafür zu zahlen. Den geführten Durchgang bekommt diese Person für {price} netto im Jahr."
     },
     "selfHost": {
       "name": "Selbstbetrieb",
@@ -35,13 +36,10 @@
         "h1": "Vollständiger Plattform-Quellcode, offen unter AGPL-3.0",
         "h2": "Alle künftigen Updates inklusive, dauerhaft",
         "h3": "Auf eigener Infrastruktur, mit eigenen Daten",
-        "h4": "Kein Vertrag, keine Freischaltung, keine Anmeldung bei uns",
-        "h5": "Ihren Stand von nisd2.eu exportieren und selbst weiterbetreiben",
-        "h6": "Direkter Kontakt per E-Mail und Signal",
-        "h7": "Einrichtung durch uns, wenn Sie möchten: 500 € netto, einmalig"
+        "h4": "Kein Vertrag, keine Freischaltung"
       }
     },
-    "whyFree": "Warum kostenlos: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Geld nehmen wir für die Einrichtung des Selbstbetriebs und von Fachbetrieben, an die wir vermitteln, nicht für die Plattform.",
+    "whyFree": "Warum der Selbstbetrieb nichts kostet: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Bezahlt wird der Betrieb auf nisd2.eu.",
     "consultantFootnote": "Kommen Sie bei NIS 2 nicht weiter? Kurze Fachfragen kosten nichts, und wenn es einen Fachbetrieb braucht, vermitteln wir Ihnen einen, ohne Kosten für Sie.",
     "consultantCta": "Hilfe und Vermittlung"
   }
