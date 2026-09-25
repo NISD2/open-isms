@@ -8,6 +8,13 @@ import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
 import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
+import {
+  asMembershipRole,
+  isMemberOf,
+  joinCompany,
+  leaveCompany,
+  listCompanyMembers,
+} from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import {
   categoryAssignment,
@@ -35,17 +42,16 @@ export const teamRouter = router({
   listMembers: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
 
-    const members = await ctx.db.query.user.findMany({
-      where: eq(user.companyId, ctx.companyId),
-      columns: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        jobTitle: true,
-        createdAt: true,
-      },
-    });
+    const members = (await listCompanyMembers(ctx.db, ctx.companyId)).map(
+      ({ id, name, email, role, jobTitle, createdAt }) => ({
+        id,
+        name,
+        email,
+        role,
+        jobTitle,
+        createdAt,
+      }),
+    );
 
     // Category-level assignments, NIS 2 only: the /team page listed member
     // assignments carrying DSGVO / AI-Act / CRA category codes otherwise.
@@ -333,16 +339,14 @@ export const teamRouter = router({
       }
 
       await ctx.db.transaction(async (tx) => {
-        // Move the user onto the inviting company first, clearing the draft's
-        // user FK before the draft shell is discarded.
-        await tx
-          .update(user)
-          .set({
-            companyId: invite.companyId,
-            role: invite.role,
-            updatedAt: new Date(),
-          })
-          .where(eq(user.id, ctx.userId));
+        // Join the inviting company and open it, clearing the draft's user FK before the draft
+        // shell is discarded. The invite row stores its role as free text; anything a membership
+        // cannot hold falls back to the least privileged role.
+        await joinCompany(tx, {
+          userId: ctx.userId,
+          companyId: invite.companyId,
+          role: asMembershipRole(invite.role) ?? "member",
+        });
 
         await tx
           .update(companyInvite)
@@ -416,9 +420,8 @@ export const teamRouter = router({
         });
       }
 
-      // Verify user belongs to this company
       const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
+        where: and(eq(user.id, input.userId), isMemberOf(ctx.db, ctx.companyId)),
       });
       if (!member) {
         throw new TRPCError({
@@ -463,11 +466,7 @@ export const teamRouter = router({
           ),
         );
 
-      // Unlink user from company
-      await ctx.db
-        .update(user)
-        .set({ companyId: null, role: "member", updatedAt: new Date() })
-        .where(eq(user.id, input.userId));
+      await leaveCompany(ctx.db, { userId: input.userId, companyId: ctx.companyId });
 
       // Notify removed member (fire-and-forget)
       const companyRow = await ctx.db.query.company.findFirst({
@@ -516,9 +515,8 @@ export const teamRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      // Verify user belongs to this company
       const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
+        where: and(eq(user.id, input.userId), isMemberOf(ctx.db, ctx.companyId)),
       });
       if (!member) {
         throw new TRPCError({

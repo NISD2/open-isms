@@ -4,6 +4,7 @@ import { and, asc, eq, inArray, isNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { hasReviewAccess } from "@/lib/auth";
+import { createBillingAccount } from "@/lib/billing/accounts";
 import {
   computeInitialDeadline,
   type Frequency,
@@ -20,6 +21,7 @@ import {
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import type { Database } from "@/lib/db";
 import { contactEmailChangedEmail, sendMail } from "@/lib/mail";
+import { joinCompany } from "@/lib/organization/membership";
 import {
   auditLog,
   categoryAssignment,
@@ -228,7 +230,12 @@ export const assessmentRouter = router({
       const existing = current?.companyId
         ? await ctx.db.query.company.findFirst({
             where: eq(company.id, current.companyId),
-            columns: { id: true, activatedAt: true, ownerId: true },
+            columns: {
+              id: true,
+              activatedAt: true,
+              ownerId: true,
+              billingAccountId: true,
+            },
           })
         : null;
       // Reject if the caller is already in a real (activated) company, OR is a
@@ -278,10 +285,15 @@ export const assessmentRouter = router({
           // status rows were seeded at draft time, so restamp their entityType
           // snapshot instead of re-seeding.
           companyId = existing.id;
+          // A draft the previous release created during a deploy has no account and no
+          // membership yet; both writes are no-ops for every other draft.
+          const billingAccountId =
+            existing.billingAccountId ?? (await createBillingAccount(tx, ctx.userId));
           await tx
             .update(company)
-            .set({ ...activatedValues, updatedAt: new Date() })
+            .set({ ...activatedValues, billingAccountId, updatedAt: new Date() })
             .where(eq(company.id, companyId));
+          await joinCompany(tx, { userId: ctx.userId, companyId, role: "admin" });
 
           const seeded = await tx.query.companyAssessment.findMany({
             where: eq(companyAssessment.companyId, companyId),
@@ -318,15 +330,14 @@ export const assessmentRouter = router({
           }
         } else {
           // No draft (edge / legacy path) — create, own, seed, activate in one.
+          const billingAccountId = await createBillingAccount(tx, ctx.userId);
           const [newCompany] = await tx
             .insert(company)
-            .values(activatedValues)
+            .values({ ...activatedValues, billingAccountId })
             .returning();
+          if (!newCompany) throw new Error("company insert returned no row");
           companyId = newCompany.id;
-          await tx
-            .update(user)
-            .set({ companyId, role: "admin", updatedAt: new Date() })
-            .where(eq(user.id, ctx.userId));
+          await joinCompany(tx, { userId: ctx.userId, companyId, role: "admin" });
           const created = await createAssessmentsForFrameworks(
             tx,
             companyId,

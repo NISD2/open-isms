@@ -23,7 +23,34 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { aiDataSharingEnum, journeyModeEnum, planEnum } from "../enums";
+import { accessLevelEnum, aiDataSharingEnum, journeyModeEnum, planEnum } from "../enums";
+
+// ---------------------------------------------------------------------------
+// Billing accounts — The paying customer, above its companies
+// ---------------------------------------------------------------------------
+
+/**
+ * One payment covers every company under the account, so what a company may use is decided here
+ * and inherited by each company that points at it.
+ *
+ * Billing name, address and VAT number are deliberately absent: they live on the Qonto client, and
+ * `qontoClientId` is the reference to it. The access level is kept here because it is our own
+ * authorisation decision, read on every request, not a copy of anything Qonto holds.
+ */
+export const billingAccount = pgTable("billing_account", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  /** The person who pays and may cancel. Survives their deletion as null, like `company.ownerId`. */
+  ownerUserId: uuid("owner_user_id").references((): AnyPgColumn => user.id, {
+    onDelete: "set null",
+  }),
+  /** Null until the first order creates or finds the customer in Qonto. */
+  qontoClientId: varchar("qonto_client_id", { length: 64 }).unique(),
+  accessLevel: accessLevelEnum("access_level").default("free").notNull(),
+  /** Set when the customer cancels after the thirty days: access runs out, nothing renews. */
+  renewalCanceledAt: timestamp("renewal_canceled_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
 
 // ---------------------------------------------------------------------------
 // Companies — Regulated entities registered on the platform
@@ -67,6 +94,14 @@ export const company = pgTable("company", {
   primaryLocations: varchar("primary_locations", { length: 1000 }),
 
   // Billing
+  /**
+   * The paying customer this company belongs to. The application sets it on every company it
+   * creates. It becomes not null in the release after the one that starts writing it: a container
+   * still running the previous release during a deploy creates companies without it.
+   */
+  billingAccountId: uuid("billing_account_id").references(
+    (): AnyPgColumn => billingAccount.id,
+  ),
   plan: planEnum("plan").default("free").notNull(),
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
   stripeSubscriptionId: varchar("stripe_subscription_id", { length: 255 }),

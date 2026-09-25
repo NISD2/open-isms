@@ -52,6 +52,7 @@ import { SEED_INTAKE_ANSWERS } from "./seed-intake-data";
 import { backfillInitialDeadlines } from "@/lib/compliance/schedule-notifications";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { getDefaultPolicyConfig, POLICY_TYPES } from "@/lib/compliance/policy-config-defaults";
+import { joinCompany } from "@/lib/organization/membership";
 
 const dbUrl = process.env.DATABASE_URL;
 if (!dbUrl) throw new Error("DATABASE_URL is required");
@@ -537,7 +538,18 @@ async function seed() {
       for (const table of companyTables) {
         await db.delete(table).where(eq(table.companyId, savedCompanyId)).catch(() => {});
       }
+      const saved = await db.query.company.findFirst({
+        where: eq(schema.company.id, savedCompanyId),
+        columns: { billingAccountId: true },
+      });
+      // Memberships go with the company (they cascade); the seed's own account goes after it.
       await db.delete(schema.company).where(eq(schema.company.id, savedCompanyId));
+      if (saved?.billingAccountId) {
+        await db
+          .delete(schema.billingAccount)
+          .where(eq(schema.billingAccount.id, saved.billingAccountId))
+          .catch(() => {});
+      }
     }
   }
 
@@ -546,9 +558,17 @@ async function seed() {
 
     await cleanUserAndCompany(config.userEmail);
 
+    // The demo company shows everything, so its account has full access.
+    const [account] = await db
+      .insert(schema.billingAccount)
+      .values({ accessLevel: "full" })
+      .returning({ id: schema.billingAccount.id });
+    if (!account) throw new Error("billing account insert returned no row");
+
     const [co] = await db
       .insert(schema.company)
       .values({
+        billingAccountId: account.id,
         name: config.companyName,
         legalForm: config.companyProfile.legalForm,
         sector: config.companyProfile.sector,
@@ -600,6 +620,12 @@ async function seed() {
       userId = u.id;
       console.log(`    User: ${config.userEmail} (${userId}) [updated]`);
     }
+
+    await joinCompany(db, { userId, companyId: co.id, role: "admin" });
+    await db
+      .update(schema.billingAccount)
+      .set({ ownerUserId: userId })
+      .where(eq(schema.billingAccount.id, account.id));
 
     const [assessment] = await db
       .insert(schema.companyAssessment)

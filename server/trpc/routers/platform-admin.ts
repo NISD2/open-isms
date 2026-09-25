@@ -15,6 +15,7 @@ import { z } from "zod";
 import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { createBillingAccount } from "@/lib/billing/accounts";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import type { Database } from "@/lib/db";
 import { mailSupportEmail } from "@/lib/env";
@@ -24,7 +25,7 @@ import {
   buildErasureCertificate,
   erasureCertificateFilename,
 } from "@/lib/gdpr/certificate";
-import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
+import { eraseUser, erasureCompanyOf, previewUserErasure } from "@/lib/gdpr/erase-user";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
@@ -54,6 +55,7 @@ import {
   auditLog,
   company,
   companyAssessment,
+  companyMembership,
   companyRequirementStatus,
   complianceFramework,
   dataErasureLog,
@@ -580,7 +582,7 @@ export const platformAdminRouter = router({
         id: user.id,
         email: user.email,
         name: user.name,
-        role: user.role,
+        role: companyMembership.role,
         createdAt: user.createdAt,
         companyId: user.companyId,
         companyName: company.name,
@@ -589,6 +591,13 @@ export const platformAdminRouter = router({
       })
       .from(user)
       .leftJoin(company, eq(user.companyId, company.id))
+      .leftJoin(
+        companyMembership,
+        and(
+          eq(companyMembership.userId, user.id),
+          eq(companyMembership.companyId, user.companyId),
+        ),
+      )
       .orderBy(desc(user.createdAt));
 
     return rows;
@@ -617,7 +626,7 @@ export const platformAdminRouter = router({
         // key (always false: userCount 0, compliancePct '0' for every row),
         // and became an outright "column reference id is ambiguous" error the
         // moment the compliance_framework join below put a second id in scope.
-        userCount: sql<number>`(SELECT count(*)::int FROM "user" u WHERE u.company_id = "company"."id")`,
+        userCount: sql<number>`(SELECT count(*)::int FROM company_membership m WHERE m.company_id = "company"."id")`,
         // NIS 2 only. LIMIT 1 with no ORDER BY and no framework predicate
         // returned an arbitrary framework's percentage for the Companies tab.
         compliancePct: sql<string>`COALESCE(
@@ -641,9 +650,10 @@ export const platformAdminRouter = router({
       .select({
         companyName: company.name,
         companyId: company.id,
-        adminEmail: sql<string | null>`COALESCE(
-          (SELECT u.email FROM "user" u WHERE u.company_id = ${company.id} AND u.role = 'admin' ORDER BY u.created_at ASC LIMIT 1),
-          (SELECT u.email FROM "user" u WHERE u.company_id = ${company.id} ORDER BY u.created_at ASC LIMIT 1)
+        adminEmail: sql<string | null>`(
+          SELECT u.email FROM company_membership m JOIN "user" u ON u.id = m.user_id
+          WHERE m.company_id = ${company.id}
+          ORDER BY (m.role = 'admin') DESC, u.created_at ASC LIMIT 1
         )`,
         total: sql<number>`count(*)::int`,
         completed: sql<number>`count(*) FILTER (WHERE ${companyRequirementStatus.status} IN ('completed', 'approved'))::int`,
@@ -1490,20 +1500,25 @@ export const platformAdminRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const [newCompany] = await ctx.db
-        .insert(company)
-        .values({
-          name: input.companyName,
-          sector: input.sector,
-          entityType: input.entityType,
-          employeeCount: input.employeeCount,
-          actsAsNis2Entity: true,
-          // A deliberately admin-created, named prospect company — not an
-          // onboarding draft shell. Stamp activated so it is counted as a real
-          // org, not folded into the draft/funnel-gap metric.
-          activatedAt: new Date(),
-        })
-        .returning({ id: company.id });
+      // A prospect company with no owner and no members yet, so its account has no owner either.
+      const [newCompany] = await ctx.db.transaction(async (tx) => {
+        const billingAccountId = await createBillingAccount(tx, null);
+        return tx
+          .insert(company)
+          .values({
+            name: input.companyName,
+            sector: input.sector,
+            entityType: input.entityType,
+            employeeCount: input.employeeCount,
+            actsAsNis2Entity: true,
+            // A deliberately admin-created, named prospect company — not an
+            // onboarding draft shell. Stamp activated so it is counted as a real
+            // org, not folded into the draft/funnel-gap metric.
+            activatedAt: new Date(),
+            billingAccountId,
+          })
+          .returning({ id: company.id });
+      });
       if (!newCompany) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -1667,26 +1682,19 @@ export const platformAdminRouter = router({
           message: "Confirmation email does not match the account.",
         });
       }
-      // If the target owns their org, erasing tears the entire org down (every
-      // member + all data). Require the org name typed as a second confirmation.
-      if (target.companyId) {
-        const [org] = await ctx.db
-          .select({ ownerId: company.ownerId, name: company.name })
-          .from(company)
-          .where(eq(company.id, target.companyId))
-          .limit(1);
-        if (org && org.ownerId === target.id) {
-          if (
-            !input.confirmOrgName ||
-            input.confirmOrgName.trim().toLowerCase() !== org.name.trim().toLowerCase()
-          ) {
-            throw new TRPCError({
-              code: "BAD_REQUEST",
-              message:
-                "This account owns its organization; type the organization name to confirm the full teardown.",
-            });
-          }
-        }
+      // If the target owns the org they are in, erasing tears it down. Require
+      // its name typed as a second confirmation.
+      const { owned } = await erasureCompanyOf(ctx.db, target.id);
+      if (
+        owned &&
+        (!input.confirmOrgName ||
+          input.confirmOrgName.trim().toLowerCase() !== owned.name.trim().toLowerCase())
+      ) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message:
+            "This account owns its organization; type the organization name to confirm the full teardown.",
+        });
       }
 
       const result = await eraseUser({
@@ -1782,9 +1790,10 @@ export const platformAdminRouter = router({
         companyName: company.name,
         ownerEmail: user.email,
         duties: count(),
-        last30: sql<number>`count(*) filter (where ${companyRequirementStatus.signedOffAt} >= now() - interval '30 days')`.mapWith(
-          Number,
-        ),
+        last30:
+          sql<number>`count(*) filter (where ${companyRequirementStatus.signedOffAt} >= now() - interval '30 days')`.mapWith(
+            Number,
+          ),
       })
       .from(companyRequirementStatus)
       .innerJoin(
@@ -1873,8 +1882,7 @@ export const platformAdminRouter = router({
     for (const row of cohorts) {
       if (isPlatformAdmin(row.ownerEmail)) continue;
       const key = row.createdAt.toISOString().slice(0, 7);
-      const entry =
-        cohortMap.get(key) ?? { companies: 0, active: [0, 0, 0, 0] };
+      const entry = cohortMap.get(key) ?? { companies: 0, active: [0, 0, 0, 0] };
       entry.companies += 1;
       if (row.lastActivity) {
         const last = new Date(row.lastActivity).getTime();
@@ -1904,9 +1912,8 @@ export const platformAdminRouter = router({
       invites: {
         total: invites.length,
         accepted: invites.filter((i) => i.acceptedAt !== null).length,
-        open: invites.filter(
-          (i) => i.acceptedAt === null && i.expiresAt > new Date(),
-        ).length,
+        open: invites.filter((i) => i.acceptedAt === null && i.expiresAt > new Date())
+          .length,
         rows: invites,
       },
       senders,

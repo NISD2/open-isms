@@ -243,7 +243,14 @@ Rules learned from three review passes over the first billing PR. Each one preve
 - **Qonto is the source of truth for invoices.** Our tables keep only what cannot change after issue, including the VAT amount, the VAT treatment and the VIES consultation number, with CHECK constraints so a row cannot contradict itself. Status is always read from Qonto.
 - **Invoice dates are calendar days in `Europe/Berlin`.** Real invoice numbers must come from `document_number_counter` by upsert, committed before Qonto is called, so they are unique even when a call fails. The sandbox number is for the sandbox only.
 - **Tests use synthetic identifiers.** Generate VAT numbers and IBANs that pass their checksum; never a real company's or our own account's.
-- **Migrations run when the container starts** (`scripts/runtime-migrate.mjs`), so merging a migration is the moment it runs on production.
+- **Migrations run when the container starts** (`scripts/runtime-migrate.mjs`), so merging a migration is the moment it runs on production. The previous release keeps serving until the new container is healthy, so a migration must work with the previous release's code: add in one release, and set NOT NULL, drop or rename in the next.
+
+## Companies and memberships
+
+- **`company_membership` is the truth** for who belongs to a company and with which role. `user.companyId` is only the company the person has open. Ask "is a member" with `isMemberOf`, list members with `listCompanyMembers`, read a role with `findMembershipRole` (all in `lib/organization/membership.ts`), never with `user.companyId` or `user.role`.
+- **Only `joinCompany`, `leaveCompany` and `setMembershipRole` write memberships**, and they keep `user.companyId` pointing at a company the person belongs to, or at none.
+- **Every company gets a billing account** in the transaction that creates it (`lib/billing/accounts.ts`).
+- **Per-person numbers use the open company** (signups, activation, nudges), so each person counts once.
 
 ## Public-repo hygiene
 

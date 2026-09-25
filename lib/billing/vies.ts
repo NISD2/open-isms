@@ -20,6 +20,7 @@
  *
  * No API key, no account, no rate-limit documented. Free service, so treat it as best-effort.
  */
+import type { vatTreatmentEnum } from "@nisd2/isms-schema";
 
 /** Our own VAT number, sent so the response carries a consultation number. */
 export interface ViesRequester {
@@ -335,11 +336,29 @@ export const shouldRetry = (a: VatCheckAttempt): boolean => a.outcome === "unava
  * `[The rates and the reverse-charge rule are recalled; confirm both with the Steuerberater before
  * the first cross-border invoice.]`
  */
+/**
+ * The four outcomes come from the database enum that stores them on an invoice, so a treatment the
+ * database cannot hold does not compile: `Extract` of a kind the enum lacks is `never`.
+ */
+type TreatmentKind = (typeof vatTreatmentEnum.enumValues)[number];
+
 export type VatTreatment =
-  | { readonly kind: "domestic"; readonly rate: number }
-  | { readonly kind: "reverse_charge"; readonly rate: 0; readonly note: string }
-  | { readonly kind: "unconfirmed_eu"; readonly rate: number; readonly why: string }
-  | { readonly kind: "outside_eu"; readonly rate: 0; readonly note: string };
+  | { readonly kind: Extract<TreatmentKind, "domestic">; readonly rate: number }
+  | {
+      readonly kind: Extract<TreatmentKind, "reverse_charge">;
+      readonly rate: 0;
+      readonly note: string;
+    }
+  | {
+      readonly kind: Extract<TreatmentKind, "unconfirmed_eu">;
+      readonly rate: number;
+      readonly why: string;
+    }
+  | {
+      readonly kind: Extract<TreatmentKind, "outside_eu">;
+      readonly rate: 0;
+      readonly note: string;
+    };
 
 /**
  * Where reverse charge can apply to what we sell, which is a service. EL and GR are both accepted

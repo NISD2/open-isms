@@ -236,7 +236,7 @@ export async function loadGrowthData(db: Database): Promise<GrowthData> {
         // the outer query has a join, and this one selects from `company`
         // alone, so the interpolation would render as a bare "id" that binds
         // to the SUBQUERY's table. Same trap the Companies tab hit.
-        seats: sql<number>`(SELECT count(*)::int FROM "user" u WHERE u.company_id = "company"."id")`,
+        seats: sql<number>`(SELECT count(*)::int FROM company_membership m WHERE m.company_id = "company"."id")`,
         compliancePct: sql<number>`COALESCE(
           (SELECT ca.compliance_percentage::float8
              FROM company_assessment ca

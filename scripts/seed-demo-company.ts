@@ -40,35 +40,38 @@ if (!process.argv.includes("--confirm")) {
   );
 }
 
-import { eq, and, inArray, is, getTableName, getTableColumns } from "drizzle-orm";
+import { randomBytes, randomUUID } from "node:crypto";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import bcrypt from "bcryptjs";
+import { and, eq, getTableColumns, getTableName, inArray, is } from "drizzle-orm";
 import { PgTable } from "drizzle-orm/pg-core";
+import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
+import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { db } from "@/lib/db";
+import { joinCompany } from "@/lib/organization/membership";
+import { BUCKET, s3 } from "@/lib/storage";
+import { s3Signer } from "@/lib/storage/s3-client";
 import * as schema from "@/schema";
 import {
+  asset,
+  billingAccount,
   company,
-  user,
   companyAssessment,
-  companyRequirementStatus,
   companyCategoryIntake,
-  requirementCategory,
+  companyRequirementStatus,
+  companyRiskMethodology,
   complianceFramework,
   evidence,
-  asset,
-  supplier,
-  risk,
-  trainingRecord,
   incident,
-  companyRiskMethodology,
+  requirementCategory,
+  risk,
   riskAsset,
   riskSupplier,
+  supplier,
+  trainingRecord,
+  user,
 } from "@/schema";
 import { createAssessmentsForFrameworks } from "@/server/trpc/helpers/setup-helpers";
-import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
-import bcrypt from "bcryptjs";
-import { randomUUID, randomBytes } from "node:crypto";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { s3, BUCKET } from "@/lib/storage";
-import { s3Signer } from "@/lib/storage/s3-client";
 
 const DEMO_EMAIL = "gf@wertstoff-nordkreis.example";
 const IT_EMAIL = "it@wertstoff-nordkreis.example";
@@ -150,7 +153,9 @@ async function storageAccepts(): Promise<boolean> {
 }
 const dateStr = (n: number) => days(n).toISOString().slice(0, 10);
 const at = (iso: string, hour: number, minute: number) =>
-  new Date(`${iso}T${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00+02:00`);
+  new Date(
+    `${iso}T${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00+02:00`,
+  );
 
 // ── Friday review meetings; every sign-off falls into one of these ────────
 const REVIEW: Record<string, string> = {
@@ -181,7 +186,8 @@ const PROGRESS_NOTES: Record<string, string> = {
   "7.4": "Maßnahmenverfolgung startet mit den Auditergebnissen.",
 };
 const REVIEW_FEEDBACK: Record<string, string> = {
-  "3.3": "Erstfassung ohne Vertretungsregelung zurückgewiesen, Nachweis am 17.07. nachgereicht und freigegeben.",
+  "3.3":
+    "Erstfassung ohne Vertretungsregelung zurückgewiesen, Nachweis am 17.07. nachgereicht und freigegeben.",
   "10.3": "Offboarding-Checkliste auf Rückfrage um Fahrzeugterminals ergänzt.",
 };
 
@@ -256,6 +262,8 @@ const NOT_WIPED = new Set([
   // Deleting it explicitly first would work but says something untrue about
   // who owns the row's lifetime.
   "supplier_invite",
+  // Same: memberships cascade with the company.
+  "company_membership",
 ]);
 
 /**
@@ -272,20 +280,38 @@ const NOT_WIPED = new Set([
  */
 /** Wiped with a plain `where(companyId = …)`, children already gone by then. */
 const BY_COMPANY_ID = [
-  schema.auditLog, schema.notification,
-  schema.trainingLessonProgress, trainingRecord,
-  schema.vulnerability, schema.patchRecord, schema.changeRequest,
-  schema.kpiMeasurement, schema.improvementItem, schema.exercise,
-  schema.managementReview, schema.internalAudit, schema.policy,
-  schema.gapAssessment, schema.companyCertification, schema.companyInvite,
-  schema.bsiRegistration, companyRiskMethodology, schema.companyPolicyConfig,
-  incident, risk, asset,
+  schema.auditLog,
+  schema.notification,
+  schema.trainingLessonProgress,
+  trainingRecord,
+  schema.vulnerability,
+  schema.patchRecord,
+  schema.changeRequest,
+  schema.kpiMeasurement,
+  schema.improvementItem,
+  schema.exercise,
+  schema.managementReview,
+  schema.internalAudit,
+  schema.policy,
+  schema.gapAssessment,
+  schema.companyCertification,
+  schema.companyInvite,
+  schema.bsiRegistration,
+  companyRiskMethodology,
+  schema.companyPolicyConfig,
+  incident,
+  risk,
+  asset,
 ] as const;
 
 /** Wiped by joining through a parent, so they carry no companyId predicate. */
 const VIA_PARENT = [
-  schema.signOffHistory, companyAssessment, companyRequirementStatus,
-  companyCategoryIntake, supplier, company,
+  schema.signOffHistory,
+  companyAssessment,
+  companyRequirementStatus,
+  companyCategoryIntake,
+  supplier,
+  company,
 ] as const;
 
 /**
@@ -413,7 +439,10 @@ async function wipeExisting() {
         .where(eq(supplier.customerCompanyId, cid))
     ).map((r) => r.id);
     const incidentIds = (
-      await tx.select({ id: incident.id }).from(incident).where(eq(incident.companyId, cid))
+      await tx
+        .select({ id: incident.id })
+        .from(incident)
+        .where(eq(incident.companyId, cid))
     ).map((r) => r.id);
     const auditIds = (
       await tx
@@ -422,37 +451,60 @@ async function wipeExisting() {
         .where(eq(schema.internalAudit.companyId, cid))
     ).map((r) => r.id);
     const policyIds = (
-      await tx.select({ id: schema.policy.id }).from(schema.policy).where(eq(schema.policy.companyId, cid))
+      await tx
+        .select({ id: schema.policy.id })
+        .from(schema.policy)
+        .where(eq(schema.policy.companyId, cid))
     ).map((r) => r.id);
 
     // Children first: these have no company_id of their own and reach the
     // tenant only through a parent row.
     if (statusIds.length) {
       await tx.delete(evidence).where(inArray(evidence.requirementStatusId, statusIds));
-      await tx.delete(schema.signOffHistory).where(inArray(schema.signOffHistory.statusId, statusIds));
-      await tx.delete(schema.requirementAssignment).where(inArray(schema.requirementAssignment.statusId, statusIds));
+      await tx
+        .delete(schema.signOffHistory)
+        .where(inArray(schema.signOffHistory.statusId, statusIds));
+      await tx
+        .delete(schema.requirementAssignment)
+        .where(inArray(schema.requirementAssignment.statusId, statusIds));
     }
     if (riskIds.length) {
       await tx.delete(riskAsset).where(inArray(riskAsset.riskId, riskIds));
       await tx.delete(riskSupplier).where(inArray(riskSupplier.riskId, riskIds));
-      await tx.delete(schema.riskTreatment).where(inArray(schema.riskTreatment.riskId, riskIds));
+      await tx
+        .delete(schema.riskTreatment)
+        .where(inArray(schema.riskTreatment.riskId, riskIds));
     }
     if (assetIds.length) {
-      await tx.delete(schema.assetSupplierOffering).where(inArray(schema.assetSupplierOffering.assetId, assetIds));
+      await tx
+        .delete(schema.assetSupplierOffering)
+        .where(inArray(schema.assetSupplierOffering.assetId, assetIds));
     }
     if (incidentIds.length) {
-      await tx.delete(schema.bsiIncidentReport).where(inArray(schema.bsiIncidentReport.incidentId, incidentIds));
+      await tx
+        .delete(schema.bsiIncidentReport)
+        .where(inArray(schema.bsiIncidentReport.incidentId, incidentIds));
     }
     if (auditIds.length) {
-      await tx.delete(schema.auditFinding).where(inArray(schema.auditFinding.auditId, auditIds));
+      await tx
+        .delete(schema.auditFinding)
+        .where(inArray(schema.auditFinding.auditId, auditIds));
     }
     if (policyIds.length) {
-      await tx.delete(schema.policyAcknowledgment).where(inArray(schema.policyAcknowledgment.policyId, policyIds));
+      await tx
+        .delete(schema.policyAcknowledgment)
+        .where(inArray(schema.policyAcknowledgment.policyId, policyIds));
     }
     if (assessmentIds.length) {
-      await tx.delete(schema.categoryAssignment).where(inArray(schema.categoryAssignment.assessmentId, assessmentIds));
-      await tx.delete(companyCategoryIntake).where(inArray(companyCategoryIntake.assessmentId, assessmentIds));
-      await tx.delete(companyRequirementStatus).where(inArray(companyRequirementStatus.assessmentId, assessmentIds));
+      await tx
+        .delete(schema.categoryAssignment)
+        .where(inArray(schema.categoryAssignment.assessmentId, assessmentIds));
+      await tx
+        .delete(companyCategoryIntake)
+        .where(inArray(companyCategoryIntake.assessmentId, assessmentIds));
+      await tx
+        .delete(companyRequirementStatus)
+        .where(inArray(companyRequirementStatus.assessmentId, assessmentIds));
     }
 
     // Then everything keyed directly on the company.
@@ -471,8 +523,13 @@ async function wipeExisting() {
       .delete(user)
       .where(and(eq(user.companyId, cid), inArray(user.email, [DEMO_EMAIL, IT_EMAIL])));
     await tx.update(user).set({ companyId: null }).where(eq(user.companyId, cid));
+    const demo = await tx.query.company.findFirst({
+      where: eq(company.id, cid),
+      columns: { billingAccountId: true },
+    });
     await tx.delete(company).where(eq(company.id, cid));
-
+    if (demo?.billingAccountId)
+      await deleteBillingAccountIfUnused(tx, demo.billingAccountId);
   });
 }
 
@@ -509,9 +566,17 @@ async function main() {
     })
     .returning();
 
+  // The demo company shows everything, so its account has full access.
+  const [account] = await db
+    .insert(billingAccount)
+    .values({ ownerUserId: gf.id, accessLevel: "full" })
+    .returning({ id: billingAccount.id });
+  if (!account) throw new Error("billing account insert returned no row");
+
   const [co] = await db
     .insert(company)
     .values({
+      billingAccountId: account.id,
       name: "Wertstoff Nordkreis GmbH",
       legalForm: "GmbH",
       sector: "Abfallbewirtschaftung",
@@ -537,10 +602,8 @@ async function main() {
     })
     .returning();
 
-  await db
-    .update(user)
-    .set({ companyId: co.id })
-    .where(inArray(user.id, [gf.id, itLead.id]));
+  await joinCompany(db, { userId: gf.id, companyId: co.id, role: "admin" });
+  await joinCompany(db, { userId: itLead.id, companyId: co.id, role: "member" });
 
   console.log("company", co.id);
 
@@ -556,14 +619,19 @@ async function main() {
     name: "BSI 200-3 (vereinfachte 5x5-Matrix)",
     likelihoodLevels: [
       ...de.likelihoodLevels,
-      { value: 5, label: "Praktisch dauerhaft", description: "Laufend, ohne wirksame Gegenmaßnahme" },
+      {
+        value: 5,
+        label: "Praktisch dauerhaft",
+        description: "Laufend, ohne wirksame Gegenmaßnahme",
+      },
     ],
     impactLevels: [
       ...de.impactLevels,
       {
         value: 5,
         label: "Existenzgefährdend",
-        description: "Betrieb steht, gesetzliche Nachweispflichten nicht erfüllbar, Fortbestand fraglich",
+        description:
+          "Betrieb steht, gesetzliche Nachweispflichten nicht erfüllbar, Fortbestand fraglich",
       },
     ],
     acceptanceThreshold: 6,
@@ -628,7 +696,8 @@ async function main() {
     const cat = r.catCode ?? "";
     const inProgress = IN_PROGRESS.has(r.code);
     const reviewDate = REVIEW[cat] ?? "2026-07-31";
-    const slot = (slotByDate[reviewDate] = (slotByDate[reviewDate] ?? 0) + 1);
+    const slot = (slotByDate[reviewDate] ?? 0) + 1;
+    slotByDate[reviewDate] = slot;
     const signAt = at(reviewDate, 9 + Math.floor(slot / 3), 12 + ((slot * 17) % 45));
     const completeAt = at(reviewDate, 8, 30 + (slot % 20));
     const gfSigns = GF_CATS.has(cat) || r.code === "2.4";
@@ -690,7 +759,9 @@ async function main() {
       const override = EVIDENCE_UPLOAD_OVERRIDE[r.code];
       const upload = override
         ? at(override, 11, 5)
-        : new Date(at(reviewDate, 10, 0).getTime() - (3 + ((evCount * 2) % 6)) * 86_400_000);
+        : new Date(
+            at(reviewDate, 10, 0).getTime() - (3 + ((evCount * 2) % 6)) * 86_400_000,
+          );
 
       // Same key shape the app writes (server/trpc/routers/evidence.ts), and a
       // real object behind it. The previous version invented a `demo/…` prefix
@@ -721,61 +792,113 @@ async function main() {
       evCount++;
     }
   }
-  console.log(`evidence rows: ${evCount}${storageReady ? "" : " (skipped: no object storage)"}`);
+  console.log(
+    `evidence rows: ${evCount}${storageReady ? "" : " (skipped: no object storage)"}`,
+  );
 
   // ── intake answers for all 12 categories ───────────────────────────────
-  const intakeByCat: Record<string, { answers: Record<string, unknown>; signed: boolean }> = {
-    REG: { signed: true, answers: {
-      registrierungsdatum: "18.04.2026 über das BSI-Portal (Mein Unternehmenskonto)",
-      registrierungsId: "REG-2026-04-18-7743",
-      benannteKontaktstelle: "Sandra Koch (IT-Leitung), Vertretung: Rufbereitschaft Systemhaus Hasetal",
-    }},
-    GOV: { signed: true, answers: {
-      leitlinieVerabschiedet: "Ja, am 12.03.2026 durch die Geschäftsführung",
-      sicherheitsverantwortliche: "Sandra Koch (IT-Leitung), berichtet an die Geschäftsführung",
-      berichtswegAnGf: "Quartalsweise Statusbericht, ad hoc bei Vorfällen",
-    }},
-    RSK: { signed: true, answers: {
-      methodik: "BSI-Standard 200-3, vereinfachte 5x5-Matrix (Richtlinie v1.1)",
-      turnus: "Halbjährlich, zuletzt 06/2026",
-      risikoakzeptanzDurch: "Geschäftsführung",
-    }},
-    SUP: { signed: true, answers: {
-      lieferantenregister: "10 Lieferanten erfasst, 3 als kritisch eingestuft",
-      vertragsklauseln: "Bei Neuverträgen seit 04/2026 Standard, Bestandsverträge in Nachverhandlung",
-    }},
-    CRY: { signed: true, answers: {
-      verschluesselungImEinsatz: "BitLocker auf allen Verwaltungsgeräten, TLS erzwungen, DATEV/M365 anbieterverschlüsselt",
-      schluesselverwaltung: "BitLocker-Recovery-Keys in Entra ID, Zertifikate über Systemhaus",
-    }},
-    ACC: { signed: true, answers: {
-      zugriffsmodell: "Rollenbasiert über Entra ID Gruppen, dokumentiert in Berechtigungsmatrix",
-      rezertifizierung: "Quartalsweise Review durch IT-Leitung, zuletzt Q2 2026",
-    }},
-    AUT: { signed: true, answers: {
-      mfaAbdeckung: "Verpflichtend für alle Entra-Konten und Fernzugriffe, Ausnahmen: keine",
-      notfallkommunikation: "Mobilfunk-Fallback und Erreichbarkeitsmatrix im Notfallhandbuch",
-    }},
-    PRO: { signed: true, answers: {
-      patchprozess: "IT monatlich, OT quartalsweise im Wartungsfenster mit tonnex",
-      schwachstellenscans: "Quartalsweise durch Systemhaus Hasetal, zuletzt 07/2026",
-    }},
-    INC: { signed: true, answers: {
-      meldeweg: "Intern an IT-Leitung, BSI-Meldung über Registrierung REG-2026-04-18-7743",
-      erreichbarkeit: "Rufbereitschaft IT-Leitung, Vertretung Systemhaus 24/7-Vertrag",
-      vorfallregister: "Geführt seit 03/2026, 2 Einträge, beide nicht meldepflichtig",
-    }},
-    BCP: { signed: true, answers: {
-      backupStand: "Täglich, Offsite-Kopie, monatlicher Restore-Test (zuletzt 28.07.2026)",
-      rtoRpoStand: "Für Kernsysteme definiert, BIA zur Verfeinerung terminiert 09/2026",
-    }},
-    TRN: { signed: true, answers: {
-      schulungsstand: "GF-Schulung (2 Personen), Awareness Verwaltung (28), Kurzunterweisung gewerblich (48)",
-      turnus: "Jährlich, Phishing-Simulation halbjährlich",
-    }},
-    EFF: { signed: false, answers: {
-      stand: "KPI-Satz definiert, erste interne Auditrunde Q4 2026 geplant",
-    }},
+  const intakeByCat: Record<
+    string,
+    { answers: Record<string, unknown>; signed: boolean }
+  > = {
+    REG: {
+      signed: true,
+      answers: {
+        registrierungsdatum: "18.04.2026 über das BSI-Portal (Mein Unternehmenskonto)",
+        registrierungsId: "REG-2026-04-18-7743",
+        benannteKontaktstelle:
+          "Sandra Koch (IT-Leitung), Vertretung: Rufbereitschaft Systemhaus Hasetal",
+      },
+    },
+    GOV: {
+      signed: true,
+      answers: {
+        leitlinieVerabschiedet: "Ja, am 12.03.2026 durch die Geschäftsführung",
+        sicherheitsverantwortliche:
+          "Sandra Koch (IT-Leitung), berichtet an die Geschäftsführung",
+        berichtswegAnGf: "Quartalsweise Statusbericht, ad hoc bei Vorfällen",
+      },
+    },
+    RSK: {
+      signed: true,
+      answers: {
+        methodik: "BSI-Standard 200-3, vereinfachte 5x5-Matrix (Richtlinie v1.1)",
+        turnus: "Halbjährlich, zuletzt 06/2026",
+        risikoakzeptanzDurch: "Geschäftsführung",
+      },
+    },
+    SUP: {
+      signed: true,
+      answers: {
+        lieferantenregister: "10 Lieferanten erfasst, 3 als kritisch eingestuft",
+        vertragsklauseln:
+          "Bei Neuverträgen seit 04/2026 Standard, Bestandsverträge in Nachverhandlung",
+      },
+    },
+    CRY: {
+      signed: true,
+      answers: {
+        verschluesselungImEinsatz:
+          "BitLocker auf allen Verwaltungsgeräten, TLS erzwungen, DATEV/M365 anbieterverschlüsselt",
+        schluesselverwaltung:
+          "BitLocker-Recovery-Keys in Entra ID, Zertifikate über Systemhaus",
+      },
+    },
+    ACC: {
+      signed: true,
+      answers: {
+        zugriffsmodell:
+          "Rollenbasiert über Entra ID Gruppen, dokumentiert in Berechtigungsmatrix",
+        rezertifizierung: "Quartalsweise Review durch IT-Leitung, zuletzt Q2 2026",
+      },
+    },
+    AUT: {
+      signed: true,
+      answers: {
+        mfaAbdeckung:
+          "Verpflichtend für alle Entra-Konten und Fernzugriffe, Ausnahmen: keine",
+        notfallkommunikation:
+          "Mobilfunk-Fallback und Erreichbarkeitsmatrix im Notfallhandbuch",
+      },
+    },
+    PRO: {
+      signed: true,
+      answers: {
+        patchprozess: "IT monatlich, OT quartalsweise im Wartungsfenster mit tonnex",
+        schwachstellenscans: "Quartalsweise durch Systemhaus Hasetal, zuletzt 07/2026",
+      },
+    },
+    INC: {
+      signed: true,
+      answers: {
+        meldeweg:
+          "Intern an IT-Leitung, BSI-Meldung über Registrierung REG-2026-04-18-7743",
+        erreichbarkeit: "Rufbereitschaft IT-Leitung, Vertretung Systemhaus 24/7-Vertrag",
+        vorfallregister: "Geführt seit 03/2026, 2 Einträge, beide nicht meldepflichtig",
+      },
+    },
+    BCP: {
+      signed: true,
+      answers: {
+        backupStand:
+          "Täglich, Offsite-Kopie, monatlicher Restore-Test (zuletzt 28.07.2026)",
+        rtoRpoStand: "Für Kernsysteme definiert, BIA zur Verfeinerung terminiert 09/2026",
+      },
+    },
+    TRN: {
+      signed: true,
+      answers: {
+        schulungsstand:
+          "GF-Schulung (2 Personen), Awareness Verwaltung (28), Kurzunterweisung gewerblich (48)",
+        turnus: "Jährlich, Phishing-Simulation halbjährlich",
+      },
+    },
+    EFF: {
+      signed: false,
+      answers: {
+        stand: "KPI-Satz definiert, erste interne Auditrunde Q4 2026 geplant",
+      },
+    },
   };
   const catRowsAll = await db.query.requirementCategory.findMany({
     where: eq(requirementCategory.frameworkId, nis2.id),
@@ -802,23 +925,187 @@ async function main() {
   // ── assets ─────────────────────────────────────────────────────────────
   const assetCreated = at("2026-03-10", 9, 0);
   const assets: Array<Partial<typeof asset.$inferInsert>> = [
-    { name: "Microsoft 365 (E-Mail, Office, Teams)", type: "cloud_service", isCritical: true, hasMfa: true, owner: "Sandra Koch", accessManagement: "Entra ID, rollenbasiert", encryptionAtRest: "anbieterverschlüsselt (Microsoft)", encryptionInTransit: "TLS 1.2+", hasBackup: true, backupLocation: "M365-Retention + Veeam M365-Backup", privilegedAccountCount: 2 },
-    { name: "Entra ID (Identitäten und Anmeldung)", type: "cloud_service", isCritical: true, hasMfa: true, owner: "Sandra Koch", privilegedAccountCount: 2, lastVulnScanDate: dateStr(34) },
-    { name: "Wiege- und Verwiegesoftware (Anlage Waage 1+2)", type: "application", isOT: true, isCritical: true, owner: "Betriebsleitung", location: "Umschlaghalle Hasbergen", hostname: "waage-srv-01", ipAddress: "10.20.8.11", operatingSystem: "Windows Server 2019", softwareVersion: "tonnex 7.4.2", rto: 4, rpo: 24, lastPatchDate: "2026-05-16", lastVulnScanDate: dateStr(34), hasBackup: true, backupFrequency: "täglich (Veeam)", privilegedAccountCount: 3 },
-    { name: "Tourenplanung und Disposition", type: "application", isCritical: true, owner: "Disposition", hostname: "dispo-srv-01", ipAddress: "10.10.4.21", rto: 8, rpo: 24, lastPatchDate: dateStr(25), lastVulnScanDate: dateStr(34), hasBackup: true, backupFrequency: "täglich (Veeam)", privilegedAccountCount: 2 },
-    { name: "Finanzbuchhaltung (DATEV)", type: "application", isCritical: true, owner: "Verwaltung", processesPersonalData: true, rto: 24, rpo: 24, lastPatchDate: dateStr(16), encryptionAtRest: "anbieterverschlüsselt (DATEV-RZ)", encryptionInTransit: "TLS 1.2+", hasBackup: true, backupLocation: "DATEV-RZ (Anbieter)" },
-    { name: "Lohn und Gehalt (DATEV LODAS)", type: "cloud_service", processesPersonalData: true, owner: "Verwaltung", encryptionAtRest: "anbieterverschlüsselt (DATEV-RZ)", encryptionInTransit: "TLS 1.2+" },
-    { name: "Fileserver Verwaltung", type: "server", hostname: "srv-file-01", ipAddress: "10.10.4.10", operatingSystem: "Windows Server 2022", rto: 8, rpo: 24, hasBackup: true, backupFrequency: "täglich", backupLocation: "Veeam Repository + Offsite", lastBackupTestDate: dateStr(21), encryptionAtRest: "BitLocker", owner: "Sandra Koch", lastPatchDate: dateStr(11), lastVulnScanDate: dateStr(34), privilegedAccountCount: 3 },
-    { name: "Backup-Server (Veeam)", type: "server", isCritical: true, hostname: "srv-bak-01", ipAddress: "10.10.4.15", hasBackup: true, backupFrequency: "täglich, monatl. Restore-Test", lastBackupTestDate: dateStr(21), owner: "Sandra Koch", lastPatchDate: dateStr(11), lastVulnScanDate: dateStr(34), privilegedAccountCount: 2 },
-    { name: "Firewall (Perimeter, 2 Standorte)", type: "network_device", quantity: 2, isCritical: true, owner: "Systemhaus Hasetal", lastPatchDate: dateStr(12), lastVulnScanDate: dateStr(34), privilegedAccountCount: 2 },
-    { name: "Netzwerk-Switches und Access Points", type: "network_device", quantity: 14, owner: "Systemhaus Hasetal", lastPatchDate: dateStr(47) },
-    { name: "Arbeitsplätze Verwaltung (Notebooks/PCs)", type: "endpoint", quantity: 28, encryptionAtRest: "BitLocker", hasMfa: true, owner: "Sandra Koch", lastPatchDate: dateStr(9) },
-    { name: "Fahrzeugterminals und mobile Scanner", type: "endpoint", quantity: 22, owner: "Disposition", isOT: true, lastPatchDate: "2026-05-16" },
-    { name: "Telefonanlage (Cloud)", type: "cloud_service", owner: "Verwaltung", encryptionInTransit: "SRTP/TLS" },
-    { name: "Website und Kundenportal Sperrmüllanmeldung", type: "application", processesPersonalData: true, owner: "Agentur (extern)", encryptionInTransit: "TLS 1.3", lastPatchDate: dateStr(19) },
-    { name: "Werkstatt-Diagnosesysteme", type: "application", quantity: 3, isOT: true, owner: "Werkstattleitung", location: "Georgsmarienhütte", lastPatchDate: "2026-05-16" },
-    { name: "E-Mail-Gateway und Spamfilter", type: "cloud_service", isCritical: true, owner: "Systemhaus Hasetal", encryptionInTransit: "TLS 1.2+" },
-    { name: "Zutrittskontrolle Betriebsgelände", type: "network_device", quantity: 2, isOT: true, owner: "Betriebsleitung" },
+    {
+      name: "Microsoft 365 (E-Mail, Office, Teams)",
+      type: "cloud_service",
+      isCritical: true,
+      hasMfa: true,
+      owner: "Sandra Koch",
+      accessManagement: "Entra ID, rollenbasiert",
+      encryptionAtRest: "anbieterverschlüsselt (Microsoft)",
+      encryptionInTransit: "TLS 1.2+",
+      hasBackup: true,
+      backupLocation: "M365-Retention + Veeam M365-Backup",
+      privilegedAccountCount: 2,
+    },
+    {
+      name: "Entra ID (Identitäten und Anmeldung)",
+      type: "cloud_service",
+      isCritical: true,
+      hasMfa: true,
+      owner: "Sandra Koch",
+      privilegedAccountCount: 2,
+      lastVulnScanDate: dateStr(34),
+    },
+    {
+      name: "Wiege- und Verwiegesoftware (Anlage Waage 1+2)",
+      type: "application",
+      isOT: true,
+      isCritical: true,
+      owner: "Betriebsleitung",
+      location: "Umschlaghalle Hasbergen",
+      hostname: "waage-srv-01",
+      ipAddress: "10.20.8.11",
+      operatingSystem: "Windows Server 2019",
+      softwareVersion: "tonnex 7.4.2",
+      rto: 4,
+      rpo: 24,
+      lastPatchDate: "2026-05-16",
+      lastVulnScanDate: dateStr(34),
+      hasBackup: true,
+      backupFrequency: "täglich (Veeam)",
+      privilegedAccountCount: 3,
+    },
+    {
+      name: "Tourenplanung und Disposition",
+      type: "application",
+      isCritical: true,
+      owner: "Disposition",
+      hostname: "dispo-srv-01",
+      ipAddress: "10.10.4.21",
+      rto: 8,
+      rpo: 24,
+      lastPatchDate: dateStr(25),
+      lastVulnScanDate: dateStr(34),
+      hasBackup: true,
+      backupFrequency: "täglich (Veeam)",
+      privilegedAccountCount: 2,
+    },
+    {
+      name: "Finanzbuchhaltung (DATEV)",
+      type: "application",
+      isCritical: true,
+      owner: "Verwaltung",
+      processesPersonalData: true,
+      rto: 24,
+      rpo: 24,
+      lastPatchDate: dateStr(16),
+      encryptionAtRest: "anbieterverschlüsselt (DATEV-RZ)",
+      encryptionInTransit: "TLS 1.2+",
+      hasBackup: true,
+      backupLocation: "DATEV-RZ (Anbieter)",
+    },
+    {
+      name: "Lohn und Gehalt (DATEV LODAS)",
+      type: "cloud_service",
+      processesPersonalData: true,
+      owner: "Verwaltung",
+      encryptionAtRest: "anbieterverschlüsselt (DATEV-RZ)",
+      encryptionInTransit: "TLS 1.2+",
+    },
+    {
+      name: "Fileserver Verwaltung",
+      type: "server",
+      hostname: "srv-file-01",
+      ipAddress: "10.10.4.10",
+      operatingSystem: "Windows Server 2022",
+      rto: 8,
+      rpo: 24,
+      hasBackup: true,
+      backupFrequency: "täglich",
+      backupLocation: "Veeam Repository + Offsite",
+      lastBackupTestDate: dateStr(21),
+      encryptionAtRest: "BitLocker",
+      owner: "Sandra Koch",
+      lastPatchDate: dateStr(11),
+      lastVulnScanDate: dateStr(34),
+      privilegedAccountCount: 3,
+    },
+    {
+      name: "Backup-Server (Veeam)",
+      type: "server",
+      isCritical: true,
+      hostname: "srv-bak-01",
+      ipAddress: "10.10.4.15",
+      hasBackup: true,
+      backupFrequency: "täglich, monatl. Restore-Test",
+      lastBackupTestDate: dateStr(21),
+      owner: "Sandra Koch",
+      lastPatchDate: dateStr(11),
+      lastVulnScanDate: dateStr(34),
+      privilegedAccountCount: 2,
+    },
+    {
+      name: "Firewall (Perimeter, 2 Standorte)",
+      type: "network_device",
+      quantity: 2,
+      isCritical: true,
+      owner: "Systemhaus Hasetal",
+      lastPatchDate: dateStr(12),
+      lastVulnScanDate: dateStr(34),
+      privilegedAccountCount: 2,
+    },
+    {
+      name: "Netzwerk-Switches und Access Points",
+      type: "network_device",
+      quantity: 14,
+      owner: "Systemhaus Hasetal",
+      lastPatchDate: dateStr(47),
+    },
+    {
+      name: "Arbeitsplätze Verwaltung (Notebooks/PCs)",
+      type: "endpoint",
+      quantity: 28,
+      encryptionAtRest: "BitLocker",
+      hasMfa: true,
+      owner: "Sandra Koch",
+      lastPatchDate: dateStr(9),
+    },
+    {
+      name: "Fahrzeugterminals und mobile Scanner",
+      type: "endpoint",
+      quantity: 22,
+      owner: "Disposition",
+      isOT: true,
+      lastPatchDate: "2026-05-16",
+    },
+    {
+      name: "Telefonanlage (Cloud)",
+      type: "cloud_service",
+      owner: "Verwaltung",
+      encryptionInTransit: "SRTP/TLS",
+    },
+    {
+      name: "Website und Kundenportal Sperrmüllanmeldung",
+      type: "application",
+      processesPersonalData: true,
+      owner: "Agentur (extern)",
+      encryptionInTransit: "TLS 1.3",
+      lastPatchDate: dateStr(19),
+    },
+    {
+      name: "Werkstatt-Diagnosesysteme",
+      type: "application",
+      quantity: 3,
+      isOT: true,
+      owner: "Werkstattleitung",
+      location: "Georgsmarienhütte",
+      lastPatchDate: "2026-05-16",
+    },
+    {
+      name: "E-Mail-Gateway und Spamfilter",
+      type: "cloud_service",
+      isCritical: true,
+      owner: "Systemhaus Hasetal",
+      encryptionInTransit: "TLS 1.2+",
+    },
+    {
+      name: "Zutrittskontrolle Betriebsgelände",
+      type: "network_device",
+      quantity: 2,
+      isOT: true,
+      owner: "Betriebsleitung",
+    },
   ];
   for (const [i, a] of assets.entries()) {
     await db.insert(asset).values({
@@ -835,16 +1122,131 @@ async function main() {
   // ── suppliers: full contract fields; exactly 3 critical (= intake) ─────
   const supCreated = at("2026-03-24", 10, 0);
   const suppliers: Array<Partial<typeof supplier.$inferInsert>> = [
-    { name: "Systemhaus Hasetal GmbH", serviceType: "IT-Betrieb, Netzwerk, Firewall, 24/7-Rufbereitschaft", riskLevel: "high", isCritical: true, hasAccessToSystems: true, hasSecurityClauses: true, hasAuditRights: true, incidentAssistanceCommitment: true, contractStartDate: "2024-09-01", lastReviewDate: "2026-06-20", contactName: "T. Brinkmann", contractSecurityClauses: "IS-Anlage v2 vom 15.04.2026, Meldepflicht 24h, Dokumentationspflicht, Exit-Klausel" },
-    { name: "Microsoft Ireland Operations Ltd.", serviceType: "Microsoft 365, Entra ID", riskLevel: "medium", isCritical: false, hasAccessToData: true, hasSecurityCertification: true, securityCertificationType: "ISO 27001", dpaAvailable: true, hasSecurityClauses: true, incidentAssistanceCommitment: true, contractStartDate: "2024-01-15", lastReviewDate: "2026-06-20", contractSecurityClauses: "Microsoft DPA (Standardvertrag), AVV Bestandteil der Lizenzbedingungen" },
-    { name: "DATEV eG", serviceType: "Finanzbuchhaltung, Lohn", riskLevel: "medium", isCritical: true, hasAccessToData: true, hasSecurityCertification: true, securityCertificationType: "ISO 27001", dpaAvailable: true, processesPersonalData: true, hasSecurityClauses: true, incidentAssistanceCommitment: true, contractStartDate: "2019-01-01", lastReviewDate: "2026-06-20", contractSecurityClauses: "AVV vom 12.02.2019, aktualisiert 03/2026" },
-    { name: "tonnex software GmbH", serviceType: "Wiege- und Entsorgungssoftware, Wartungsvertrag", riskLevel: "high", isCritical: true, hasAccessToSystems: true, hasSecurityClauses: false, incidentAssistanceCommitment: true, contractStartDate: "2022-11-01", lastReviewDate: "2026-07-04", contactName: "Support-Hotline", contractSecurityClauses: "Bestandsvertrag ohne IS-Anlage, Nachverhandlung angestoßen 06/2026" },
-    { name: "Präzisa Waagentechnik KG", serviceType: "Eichung und Wartung Fahrzeugwaagen", riskLevel: "medium", isCritical: false, hasAccessToSystems: true, hasSecurityClauses: false, contractStartDate: "2021-05-01", lastReviewDate: "2026-06-27", contractSecurityClauses: "Bestandsvertrag, Nachverhandlung geplant Q4 2026" },
-    { name: "Deutsche Telekom AG", serviceType: "Internet-Anbindung beide Standorte, Mobilfunk", riskLevel: "medium", isCritical: false, hasSecurityClauses: true, contractStartDate: "2023-03-01", lastReviewDate: "2026-06-27", contractSecurityClauses: "Rahmenvertrag Geschäftskunden inkl. Sicherheitsbedingungen" },
-    { name: "Veeam Software", serviceType: "Backup-Software (Lizenz über Systemhaus)", riskLevel: "low", hasSecurityCertification: true, securityCertificationType: "ISO 27001", hasSecurityClauses: true, contractStartDate: "2024-09-01", lastReviewDate: "2026-06-27" },
-    { name: "Werbeagentur Nordhaus", serviceType: "Website, Kundenportal Sperrmüll", riskLevel: "medium", hasAccessToData: true, processesPersonalData: true, hasSecurityClauses: true, dpaAvailable: true, incidentAssistanceCommitment: true, contractStartDate: "2023-08-01", lastReviewDate: "2026-07-04", contractSecurityClauses: "AVV vom 04.05.2026" },
-    { name: "NFON AG (Cloud-Telefonie)", serviceType: "Telefonanlage", riskLevel: "low", hasSecurityClauses: true, contractStartDate: "2024-02-01", lastReviewDate: "2026-07-04" },
-    { name: "Lohnbüro Steuerkanzlei Meyering", serviceType: "Lohnabrechnung Fahrer (Alt-Verträge)", riskLevel: "medium", processesPersonalData: true, dpaAvailable: true, hasSecurityClauses: false, contractStartDate: "2018-01-01", lastReviewDate: "2026-07-04", contractSecurityClauses: "AVV vom 24.05.2018, Aktualisierung in Nachverhandlung" },
+    {
+      name: "Systemhaus Hasetal GmbH",
+      serviceType: "IT-Betrieb, Netzwerk, Firewall, 24/7-Rufbereitschaft",
+      riskLevel: "high",
+      isCritical: true,
+      hasAccessToSystems: true,
+      hasSecurityClauses: true,
+      hasAuditRights: true,
+      incidentAssistanceCommitment: true,
+      contractStartDate: "2024-09-01",
+      lastReviewDate: "2026-06-20",
+      contactName: "T. Brinkmann",
+      contractSecurityClauses:
+        "IS-Anlage v2 vom 15.04.2026, Meldepflicht 24h, Dokumentationspflicht, Exit-Klausel",
+    },
+    {
+      name: "Microsoft Ireland Operations Ltd.",
+      serviceType: "Microsoft 365, Entra ID",
+      riskLevel: "medium",
+      isCritical: false,
+      hasAccessToData: true,
+      hasSecurityCertification: true,
+      securityCertificationType: "ISO 27001",
+      dpaAvailable: true,
+      hasSecurityClauses: true,
+      incidentAssistanceCommitment: true,
+      contractStartDate: "2024-01-15",
+      lastReviewDate: "2026-06-20",
+      contractSecurityClauses:
+        "Microsoft DPA (Standardvertrag), AVV Bestandteil der Lizenzbedingungen",
+    },
+    {
+      name: "DATEV eG",
+      serviceType: "Finanzbuchhaltung, Lohn",
+      riskLevel: "medium",
+      isCritical: true,
+      hasAccessToData: true,
+      hasSecurityCertification: true,
+      securityCertificationType: "ISO 27001",
+      dpaAvailable: true,
+      processesPersonalData: true,
+      hasSecurityClauses: true,
+      incidentAssistanceCommitment: true,
+      contractStartDate: "2019-01-01",
+      lastReviewDate: "2026-06-20",
+      contractSecurityClauses: "AVV vom 12.02.2019, aktualisiert 03/2026",
+    },
+    {
+      name: "tonnex software GmbH",
+      serviceType: "Wiege- und Entsorgungssoftware, Wartungsvertrag",
+      riskLevel: "high",
+      isCritical: true,
+      hasAccessToSystems: true,
+      hasSecurityClauses: false,
+      incidentAssistanceCommitment: true,
+      contractStartDate: "2022-11-01",
+      lastReviewDate: "2026-07-04",
+      contactName: "Support-Hotline",
+      contractSecurityClauses:
+        "Bestandsvertrag ohne IS-Anlage, Nachverhandlung angestoßen 06/2026",
+    },
+    {
+      name: "Präzisa Waagentechnik KG",
+      serviceType: "Eichung und Wartung Fahrzeugwaagen",
+      riskLevel: "medium",
+      isCritical: false,
+      hasAccessToSystems: true,
+      hasSecurityClauses: false,
+      contractStartDate: "2021-05-01",
+      lastReviewDate: "2026-06-27",
+      contractSecurityClauses: "Bestandsvertrag, Nachverhandlung geplant Q4 2026",
+    },
+    {
+      name: "Deutsche Telekom AG",
+      serviceType: "Internet-Anbindung beide Standorte, Mobilfunk",
+      riskLevel: "medium",
+      isCritical: false,
+      hasSecurityClauses: true,
+      contractStartDate: "2023-03-01",
+      lastReviewDate: "2026-06-27",
+      contractSecurityClauses:
+        "Rahmenvertrag Geschäftskunden inkl. Sicherheitsbedingungen",
+    },
+    {
+      name: "Veeam Software",
+      serviceType: "Backup-Software (Lizenz über Systemhaus)",
+      riskLevel: "low",
+      hasSecurityCertification: true,
+      securityCertificationType: "ISO 27001",
+      hasSecurityClauses: true,
+      contractStartDate: "2024-09-01",
+      lastReviewDate: "2026-06-27",
+    },
+    {
+      name: "Werbeagentur Nordhaus",
+      serviceType: "Website, Kundenportal Sperrmüll",
+      riskLevel: "medium",
+      hasAccessToData: true,
+      processesPersonalData: true,
+      hasSecurityClauses: true,
+      dpaAvailable: true,
+      incidentAssistanceCommitment: true,
+      contractStartDate: "2023-08-01",
+      lastReviewDate: "2026-07-04",
+      contractSecurityClauses: "AVV vom 04.05.2026",
+    },
+    {
+      name: "NFON AG (Cloud-Telefonie)",
+      serviceType: "Telefonanlage",
+      riskLevel: "low",
+      hasSecurityClauses: true,
+      contractStartDate: "2024-02-01",
+      lastReviewDate: "2026-07-04",
+    },
+    {
+      name: "Lohnbüro Steuerkanzlei Meyering",
+      serviceType: "Lohnabrechnung Fahrer (Alt-Verträge)",
+      riskLevel: "medium",
+      processesPersonalData: true,
+      dpaAvailable: true,
+      hasSecurityClauses: false,
+      contractStartDate: "2018-01-01",
+      lastReviewDate: "2026-07-04",
+      contractSecurityClauses: "AVV vom 24.05.2018, Aktualisierung in Nachverhandlung",
+    },
   ];
   for (const [i, s] of suppliers.entries()) {
     await db.insert(supplier).values({
@@ -860,15 +1262,112 @@ async function main() {
 
   // ── risks: residual on every mitigated risk ────────────────────────────
   const riskCreated = at("2026-05-12", 14, 0);
-  const risks: Array<Partial<typeof risk.$inferInsert> & { title: string; description: string; likelihood: number; impact: number; treatment: string }> = [
-    { title: "Ransomware legt Verwaltung und Disposition lahm", description: "Verschlüsselung von Fileserver und Dispositionssystem über kompromittierten Arbeitsplatz. Tourenausfall ab Tag 1.", likelihood: 3, impact: 5, treatment: "mitigate", treatmentDescription: "MFA flächendeckend, E-Mail-Gateway, Offline-Backup, Restore-Tests monatlich.", riskOwner: "Sandra Koch", residualLikelihood: 2, residualImpact: 4 },
-    { title: "Ausfall Wiegesoftware (Annahmestopp)", description: "Waage 1+2 ohne Software: keine Verwiegung, kein gesetzeskonformer Nachweis, Annahmestopp am Standort.", likelihood: 2, impact: 5, treatment: "mitigate", treatmentDescription: "Wartungsvertrag tonnex, Notfallprozedur Handaufschreibung, Ersatzterminal.", riskOwner: "Betriebsleitung", residualLikelihood: 2, residualImpact: 3 },
-    { title: "Phishing auf Geschäftsführung (CEO-Fraud)", description: "Zahlungsanweisungen per gefälschter GF-Mail an Buchhaltung.", likelihood: 4, impact: 3, treatment: "mitigate", treatmentDescription: "Vier-Augen-Prinzip Zahlungen, Awareness-Schulung, externes Banner.", riskOwner: "Bernd Schwieger", residualLikelihood: 2, residualImpact: 3 },
-    { title: "Abhängigkeit vom Systemhaus", description: "Kritisches Wissen (Firewall, Netzwerk, Backup) liegt vollständig beim Dienstleister.", likelihood: 2, impact: 4, treatment: "mitigate", treatmentDescription: "Dokumentationspflicht im Vertrag, Notfallzugänge im Tresor, Exit-Klausel.", riskOwner: "Sandra Koch", residualLikelihood: 2, residualImpact: 3 },
-    { title: "Ungepatchte OT-Systeme (Waage, Werkstatt)", description: "Windows-Server 2019 an der Waage, Diagnosesysteme mit Herstellerbindung, Patchfenster selten.", likelihood: 3, impact: 4, treatment: "mitigate", treatmentDescription: "Netzsegmentierung OT/IT, quartalsweise Patchfenster mit tonnex (zuletzt 16.05., nächstes 09/2026).", riskOwner: "Sandra Koch", residualLikelihood: 2, residualImpact: 3 },
-    { title: "Backup-Wiederherstellung schlägt fehl", description: "Backup läuft, aber Restore ungetestet: Datenverlust FiBu und Disposition möglich.", likelihood: 2, impact: 5, treatment: "mitigate", treatmentDescription: "Monatlicher Restore-Test mit Protokoll, Offsite-Kopie.", riskOwner: "Sandra Koch", residualLikelihood: 1, residualImpact: 3 },
-    { title: "Berechtigungswildwuchs nach Personalwechseln", description: "Alt-Konten und Sammelpostfächer mit weitreichenden Rechten.", likelihood: 3, impact: 3, treatment: "mitigate", treatmentDescription: "Quartalsweise Rezertifizierung, Offboarding-Checkliste.", riskOwner: "Sandra Koch", residualLikelihood: 2, residualImpact: 2 },
-    { title: "Ausfall Cloud-Telefonanlage im Störfall", description: "Bürgerhotline und Behördenerreichbarkeit im Vorfall nicht gegeben.", likelihood: 2, impact: 2, treatment: "accept", treatmentDescription: "Akzeptiert durch GF Bernd Schwieger am 20.05.2026: Mobilfunk-Fallback dokumentiert, Kosten einer Zweitlösung unverhältnismäßig.", acceptedAt: at("2026-05-20", 11, 15) },
+  const risks: Array<
+    Partial<typeof risk.$inferInsert> & {
+      title: string;
+      description: string;
+      likelihood: number;
+      impact: number;
+      treatment: string;
+    }
+  > = [
+    {
+      title: "Ransomware legt Verwaltung und Disposition lahm",
+      description:
+        "Verschlüsselung von Fileserver und Dispositionssystem über kompromittierten Arbeitsplatz. Tourenausfall ab Tag 1.",
+      likelihood: 3,
+      impact: 5,
+      treatment: "mitigate",
+      treatmentDescription:
+        "MFA flächendeckend, E-Mail-Gateway, Offline-Backup, Restore-Tests monatlich.",
+      riskOwner: "Sandra Koch",
+      residualLikelihood: 2,
+      residualImpact: 4,
+    },
+    {
+      title: "Ausfall Wiegesoftware (Annahmestopp)",
+      description:
+        "Waage 1+2 ohne Software: keine Verwiegung, kein gesetzeskonformer Nachweis, Annahmestopp am Standort.",
+      likelihood: 2,
+      impact: 5,
+      treatment: "mitigate",
+      treatmentDescription:
+        "Wartungsvertrag tonnex, Notfallprozedur Handaufschreibung, Ersatzterminal.",
+      riskOwner: "Betriebsleitung",
+      residualLikelihood: 2,
+      residualImpact: 3,
+    },
+    {
+      title: "Phishing auf Geschäftsführung (CEO-Fraud)",
+      description: "Zahlungsanweisungen per gefälschter GF-Mail an Buchhaltung.",
+      likelihood: 4,
+      impact: 3,
+      treatment: "mitigate",
+      treatmentDescription:
+        "Vier-Augen-Prinzip Zahlungen, Awareness-Schulung, externes Banner.",
+      riskOwner: "Bernd Schwieger",
+      residualLikelihood: 2,
+      residualImpact: 3,
+    },
+    {
+      title: "Abhängigkeit vom Systemhaus",
+      description:
+        "Kritisches Wissen (Firewall, Netzwerk, Backup) liegt vollständig beim Dienstleister.",
+      likelihood: 2,
+      impact: 4,
+      treatment: "mitigate",
+      treatmentDescription:
+        "Dokumentationspflicht im Vertrag, Notfallzugänge im Tresor, Exit-Klausel.",
+      riskOwner: "Sandra Koch",
+      residualLikelihood: 2,
+      residualImpact: 3,
+    },
+    {
+      title: "Ungepatchte OT-Systeme (Waage, Werkstatt)",
+      description:
+        "Windows-Server 2019 an der Waage, Diagnosesysteme mit Herstellerbindung, Patchfenster selten.",
+      likelihood: 3,
+      impact: 4,
+      treatment: "mitigate",
+      treatmentDescription:
+        "Netzsegmentierung OT/IT, quartalsweise Patchfenster mit tonnex (zuletzt 16.05., nächstes 09/2026).",
+      riskOwner: "Sandra Koch",
+      residualLikelihood: 2,
+      residualImpact: 3,
+    },
+    {
+      title: "Backup-Wiederherstellung schlägt fehl",
+      description:
+        "Backup läuft, aber Restore ungetestet: Datenverlust FiBu und Disposition möglich.",
+      likelihood: 2,
+      impact: 5,
+      treatment: "mitigate",
+      treatmentDescription: "Monatlicher Restore-Test mit Protokoll, Offsite-Kopie.",
+      riskOwner: "Sandra Koch",
+      residualLikelihood: 1,
+      residualImpact: 3,
+    },
+    {
+      title: "Berechtigungswildwuchs nach Personalwechseln",
+      description: "Alt-Konten und Sammelpostfächer mit weitreichenden Rechten.",
+      likelihood: 3,
+      impact: 3,
+      treatment: "mitigate",
+      treatmentDescription: "Quartalsweise Rezertifizierung, Offboarding-Checkliste.",
+      riskOwner: "Sandra Koch",
+      residualLikelihood: 2,
+      residualImpact: 2,
+    },
+    {
+      title: "Ausfall Cloud-Telefonanlage im Störfall",
+      description: "Bürgerhotline und Behördenerreichbarkeit im Vorfall nicht gegeben.",
+      likelihood: 2,
+      impact: 2,
+      treatment: "accept",
+      treatmentDescription:
+        "Akzeptiert durch GF Bernd Schwieger am 20.05.2026: Mobilfunk-Fallback dokumentiert, Kosten einer Zweitlösung unverhältnismäßig.",
+      acceptedAt: at("2026-05-20", 11, 15),
+    },
   ];
   for (const [i, r] of risks.entries()) {
     await db.insert(risk).values({
@@ -890,12 +1389,96 @@ async function main() {
   console.log(`risks: ${risks.length}`);
 
   // ── training records: coverage across all 82 employees ─────────────────
-  const trainings: Array<Partial<typeof trainingRecord.$inferInsert> & { title: string; trainingType: string; participantName: string }> = [
-    { trainingType: "management", title: "NIS2-Schulung der Geschäftsleitung (Art. 20(2) NIS2, §38 BSIG)", participantName: "Bernd Schwieger", participantRole: "Geschäftsführer", isManagement: true, providerName: "nisd2.eu CEO-Kurs", completedAt: at("2026-04-21", 18, 40), durationMinutes: 240, topicsCovered: ["Pflichtenlage", "Risikomanagement", "Meldewege", "Lieferkette", "persönliche Verantwortung"], nextTrainingDue: "2027-04-21", createdAt: at("2026-04-21", 18, 45) },
-    { trainingType: "management", title: "NIS2-Schulung der Geschäftsleitung (Art. 20(2) NIS2, §38 BSIG)", participantName: "Petra Schwieger-Voss", participantRole: "Geschäftsführerin (kaufm.)", isManagement: true, providerName: "nisd2.eu CEO-Kurs", completedAt: at("2026-04-28", 17, 55), durationMinutes: 240, topicsCovered: ["Pflichtenlage", "Risikomanagement", "Meldewege", "Lieferkette", "persönliche Verantwortung"], nextTrainingDue: "2027-04-28", createdAt: at("2026-04-28", 18, 0) },
-    { trainingType: "awareness", title: "Phishing- und Awareness-Schulung Verwaltung", participantName: "Verwaltung gesamt (28 Beschäftigte, Teilnehmerliste als Nachweis)", participantRole: "Verwaltung", providerName: "Systemhaus Hasetal", completedAt: at("2026-06-04", 10, 30), durationMinutes: 90, topicsCovered: ["Phishing", "Passwörter", "Meldung von Auffälligkeiten"], nextTrainingDue: "2027-06-04", createdAt: at("2026-06-04", 12, 0) },
-    { trainingType: "awareness", title: "Kurzunterweisung gewerbliches Personal (Fahrer, Hof, Werkstatt)", participantName: "Gewerbliches Personal (48 Beschäftigte, in 4 Gruppen)", participantRole: "Fahrer, Hof, Werkstatt", providerName: "intern (IT-Leitung), 4 Termine", completedAt: at("2026-06-25", 6, 45), durationMinutes: 30, topicsCovered: ["Fahrzeugterminals", "Meldung von Auffälligkeiten", "USB und Fremdgeräte"], nextTrainingDue: "2027-06-25", createdAt: at("2026-06-25", 8, 0) },
-    { trainingType: "technical", title: "Notfallübung Wiederanlauf Waage (Tabletop)", participantName: "IT, Betriebsleitung, Disposition (6 Personen)", participantRole: "Schlüsselfunktionen", providerName: "intern (nisd2.eu Tabletop-Kurs)", completedAt: at("2026-07-09", 14, 0), durationMinutes: 50, topicsCovered: ["Ausfallszenario Wiegesoftware", "Handbetrieb", "Kommunikationskette"], nextTrainingDue: "2027-01-09", createdAt: at("2026-07-09", 15, 0) },
+  const trainings: Array<
+    Partial<typeof trainingRecord.$inferInsert> & {
+      title: string;
+      trainingType: string;
+      participantName: string;
+    }
+  > = [
+    {
+      trainingType: "management",
+      title: "NIS2-Schulung der Geschäftsleitung (Art. 20(2) NIS2, §38 BSIG)",
+      participantName: "Bernd Schwieger",
+      participantRole: "Geschäftsführer",
+      isManagement: true,
+      providerName: "nisd2.eu CEO-Kurs",
+      completedAt: at("2026-04-21", 18, 40),
+      durationMinutes: 240,
+      topicsCovered: [
+        "Pflichtenlage",
+        "Risikomanagement",
+        "Meldewege",
+        "Lieferkette",
+        "persönliche Verantwortung",
+      ],
+      nextTrainingDue: "2027-04-21",
+      createdAt: at("2026-04-21", 18, 45),
+    },
+    {
+      trainingType: "management",
+      title: "NIS2-Schulung der Geschäftsleitung (Art. 20(2) NIS2, §38 BSIG)",
+      participantName: "Petra Schwieger-Voss",
+      participantRole: "Geschäftsführerin (kaufm.)",
+      isManagement: true,
+      providerName: "nisd2.eu CEO-Kurs",
+      completedAt: at("2026-04-28", 17, 55),
+      durationMinutes: 240,
+      topicsCovered: [
+        "Pflichtenlage",
+        "Risikomanagement",
+        "Meldewege",
+        "Lieferkette",
+        "persönliche Verantwortung",
+      ],
+      nextTrainingDue: "2027-04-28",
+      createdAt: at("2026-04-28", 18, 0),
+    },
+    {
+      trainingType: "awareness",
+      title: "Phishing- und Awareness-Schulung Verwaltung",
+      participantName:
+        "Verwaltung gesamt (28 Beschäftigte, Teilnehmerliste als Nachweis)",
+      participantRole: "Verwaltung",
+      providerName: "Systemhaus Hasetal",
+      completedAt: at("2026-06-04", 10, 30),
+      durationMinutes: 90,
+      topicsCovered: ["Phishing", "Passwörter", "Meldung von Auffälligkeiten"],
+      nextTrainingDue: "2027-06-04",
+      createdAt: at("2026-06-04", 12, 0),
+    },
+    {
+      trainingType: "awareness",
+      title: "Kurzunterweisung gewerbliches Personal (Fahrer, Hof, Werkstatt)",
+      participantName: "Gewerbliches Personal (48 Beschäftigte, in 4 Gruppen)",
+      participantRole: "Fahrer, Hof, Werkstatt",
+      providerName: "intern (IT-Leitung), 4 Termine",
+      completedAt: at("2026-06-25", 6, 45),
+      durationMinutes: 30,
+      topicsCovered: [
+        "Fahrzeugterminals",
+        "Meldung von Auffälligkeiten",
+        "USB und Fremdgeräte",
+      ],
+      nextTrainingDue: "2027-06-25",
+      createdAt: at("2026-06-25", 8, 0),
+    },
+    {
+      trainingType: "technical",
+      title: "Notfallübung Wiederanlauf Waage (Tabletop)",
+      participantName: "IT, Betriebsleitung, Disposition (6 Personen)",
+      participantRole: "Schlüsselfunktionen",
+      providerName: "intern (nisd2.eu Tabletop-Kurs)",
+      completedAt: at("2026-07-09", 14, 0),
+      durationMinutes: 50,
+      topicsCovered: [
+        "Ausfallszenario Wiegesoftware",
+        "Handbetrieb",
+        "Kommunikationskette",
+      ],
+      nextTrainingDue: "2027-01-09",
+      createdAt: at("2026-07-09", 15, 0),
+    },
   ];
   for (const t of trainings) {
     await db.insert(trainingRecord).values({
@@ -921,7 +1504,8 @@ async function main() {
       isMalicious: true,
       threatType: "Phishing",
       rootCause: "Breite Kampagne, kein gezielter Angriff",
-      countermeasures: "Gateway-Regel verschärft, betroffene Konten geprüft, Awareness-Hinweis an alle",
+      countermeasures:
+        "Gateway-Regel verschärft, betroffene Konten geprüft, Awareness-Hinweis an alle",
       preventiveMeasures: "Phishing-Simulation vorgezogen (06/2026)",
       internalRef: "VF-2026-001",
       createdBy: itLead.id,
@@ -940,10 +1524,13 @@ async function main() {
       isMalicious: false,
       availabilityImpacted: true,
       threatType: "Systemausfall (Update)",
-      rootCause: "Fehlgeschlagenes Herstellerupdate ohne vorherigen Test im Wartungsfenster",
+      rootCause:
+        "Fehlgeschlagenes Herstellerupdate ohne vorherigen Test im Wartungsfenster",
       countermeasures: "Rollback, Annahme über Waage 1, Handaufschreibung",
-      preventiveMeasures: "Updates nur noch im Wartungsfenster mit Rückfallplan (mit tonnex vereinbart)",
-      serviceDeliveryImpact: "Verzögerte Annahme am Standort Hasbergen, kein Annahmestopp",
+      preventiveMeasures:
+        "Updates nur noch im Wartungsfenster mit Rückfallplan (mit tonnex vereinbart)",
+      serviceDeliveryImpact:
+        "Verzögerte Annahme am Standort Hasbergen, kein Annahmestopp",
       internalRef: "VF-2026-002",
       createdBy: itLead.id,
       createdAt: at("2026-06-24", 10, 0),

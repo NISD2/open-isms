@@ -49,7 +49,8 @@ interface UserRow {
   id: string;
   email: string;
   name: string;
-  role: string;
+  /** Role in the company the person has open; null without one. */
+  role: string | null;
   createdAt: Date;
   companyId: string | null;
   companyName: string | null;

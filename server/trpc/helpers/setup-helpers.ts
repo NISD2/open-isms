@@ -1,20 +1,29 @@
-import { eq, inArray } from "drizzle-orm";
 import { randomBytes } from "crypto";
-import {
-  company,
-  user,
-  companyAssessment,
-  companyRequirementStatus,
-  requirementCategory,
-  complianceFramework,
-  companyInvite,
-  categoryAssignment,
-} from "@/schema";
-import { getSlugsForRole, ALL_ROLE_KEYS, type RoleKey } from "@/lib/compliance/role-mapping";
-import { sendMail, inviteEmail } from "@/lib/mail";
+import { eq, inArray } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
-import { getAppUrl } from "@/lib/utils";
+import {
+  createBillingAccount,
+  deleteBillingAccountIfUnused,
+} from "@/lib/billing/accounts";
+import {
+  ALL_ROLE_KEYS,
+  getSlugsForRole,
+  type RoleKey,
+} from "@/lib/compliance/role-mapping";
 import type { Database, DbOrTx } from "@/lib/db";
+import { inviteEmail, sendMail } from "@/lib/mail";
+import { joinCompany } from "@/lib/organization/membership";
+import { getAppUrl } from "@/lib/utils";
+import {
+  categoryAssignment,
+  company,
+  companyAssessment,
+  companyInvite,
+  companyRequirementStatus,
+  complianceFramework,
+  requirementCategory,
+  user,
+} from "@/schema";
 
 const INVITE_EXPIRY_DAYS = 7;
 
@@ -49,6 +58,7 @@ export async function createDraftCompany(
     });
     if (current?.companyId) return null;
 
+    const billingAccountId = await createBillingAccount(tx, userId);
     const [draft] = await tx
       .insert(company)
       .values({
@@ -56,15 +66,14 @@ export async function createDraftCompany(
         sector: DRAFT_COMPANY_SECTOR,
         entityType: "important",
         ownerId: userId,
+        billingAccountId,
         // activatedAt stays NULL (draft); actsAsNis2Entity stays false until
         // the user confirms they are a regulated entity in activateCompany.
       })
       .returning({ id: company.id });
+    if (!draft) throw new Error("draft company insert returned no row");
 
-    await tx
-      .update(user)
-      .set({ companyId: draft.id, role: "admin", updatedAt: new Date() })
-      .where(eq(user.id, userId));
+    await joinCompany(tx, { userId, companyId: draft.id, role: "admin" });
 
     // Seed the assessment + status rows so journey.getItems is non-empty. No
     // deadline backfill / reminder scheduling here — those wait for activation.
@@ -83,12 +92,18 @@ export async function createDraftCompany(
  * is removed cleanly, and a draft that somehow accumulated FK-referenced data
  * (a user who did requirement work before joining) is left orphaned — harmless
  * and filtered from admin metrics — rather than rolling back the join.
+ *
+ * The draft's billing account goes with it when nothing else uses the account.
  */
 export async function discardDraftCompany(
   db: Database,
   companyId: string,
 ): Promise<void> {
   await db.transaction(async (tx) => {
+    const draft = await tx.query.company.findFirst({
+      where: eq(company.id, companyId),
+      columns: { billingAccountId: true },
+    });
     const assessments = await tx.query.companyAssessment.findMany({
       where: eq(companyAssessment.companyId, companyId),
       columns: { id: true },
@@ -103,6 +118,9 @@ export async function discardDraftCompany(
         .where(eq(companyAssessment.companyId, companyId));
     }
     await tx.delete(company).where(eq(company.id, companyId));
+    if (draft?.billingAccountId) {
+      await deleteBillingAccountIfUnused(tx, draft.billingAccountId);
+    }
   });
 }
 
@@ -145,7 +163,7 @@ export async function createAssessmentsForFrameworks(
         allRequirements.map((r) => ({
           assessmentId: assessment.id,
           requirementId: r.id,
-        }))
+        })),
       );
     }
   }
@@ -174,8 +192,9 @@ export async function processTeamRoleAssignments(
   }
 
   const validRoleKeys = new Set<string>(ALL_ROLE_KEYS);
-  const uniqueRoleKeys = [...new Set(opts.teamRoles.map((r) => r.roleKey))]
-    .filter((rk) => validRoleKeys.has(rk));
+  const uniqueRoleKeys = [...new Set(opts.teamRoles.map((r) => r.roleKey))].filter((rk) =>
+    validRoleKeys.has(rk),
+  );
   const roleSlugsMap = new Map<string, string[]>();
   for (const rk of uniqueRoleKeys) {
     roleSlugsMap.set(rk, await getSlugsForRole(db, rk as RoleKey));
@@ -188,7 +207,11 @@ export async function processTeamRoleAssignments(
 
   for (const role of opts.teamRoles) {
     const email = role.email.toLowerCase();
-    const entry = byEmail.get(email) ?? { name: role.name, roleKeys: [], categoryIds: new Set() };
+    const entry = byEmail.get(email) ?? {
+      name: role.name,
+      roleKeys: [],
+      categoryIds: new Set(),
+    };
     entry.roleKeys.push(role.roleKey);
     if (role.name && !entry.name) entry.name = role.name;
 
@@ -214,7 +237,14 @@ export async function processTeamRoleAssignments(
         if (!catInfo) return [];
         const assessmentId = opts.frameworkAssessmentMap.get(catInfo.frameworkId);
         if (!assessmentId) return [];
-        return [{ assessmentId, categoryId: catId, userId: opts.userId, assignedBy: opts.userId }];
+        return [
+          {
+            assessmentId,
+            categoryId: catId,
+            userId: opts.userId,
+            assignedBy: opts.userId,
+          },
+        ];
       });
 
       for (const val of assignmentValues) {
@@ -223,7 +253,11 @@ export async function processTeamRoleAssignments(
           .values(val)
           .onConflictDoUpdate({
             target: [categoryAssignment.assessmentId, categoryAssignment.categoryId],
-            set: { userId: val.userId, assignedBy: val.assignedBy, assignedAt: new Date() },
+            set: {
+              userId: val.userId,
+              assignedBy: val.assignedBy,
+              assignedAt: new Date(),
+            },
           });
       }
     } else {

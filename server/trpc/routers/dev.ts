@@ -1,19 +1,25 @@
-import { z } from "zod";
-import { eq, and, inArray, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { router, protectedProcedure, adminProcedure } from "../init";
+import { and, eq, inArray, sql } from "drizzle-orm";
+import { z } from "zod";
+import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
 import {
-  user,
+  leaveCompany,
+  listCompanyMembers,
+  setMembershipRole,
+} from "@/lib/organization/membership";
+import {
+  auditLog,
+  categoryAssignment,
   company,
   companyAssessment,
   companyRequirementStatus,
-  requirementAssignment,
   evidence,
-  auditLog,
-  categoryAssignment,
+  membershipRoleEnum,
   requirement,
+  requirementAssignment,
   requirementCategory,
 } from "@/schema";
+import { adminProcedure, protectedProcedure, router } from "../init";
 
 /**
  * Dev-only router. Built into the appRouter only when NODE_ENV === "development"
@@ -40,21 +46,25 @@ import {
  * intentionally does not exist yet.
  */
 export const devRouter = router({
-  /** Switch the current user's role between admin / member / reviewer */
+  /** Switch the current user's role in the company they have open */
   switchRole: protectedProcedure
-    .input(z.object({ role: z.enum(["admin", "member", "reviewer", "legal_reviewer"]) }))
+    .input(z.object({ role: z.enum(membershipRoleEnum.enumValues) }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db
-        .update(user)
-        .set({ role: input.role, updatedAt: new Date() })
-        .where(eq(user.id, ctx.userId));
+      if (!ctx.companyId) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Open a company first." });
+      }
+      await setMembershipRole(ctx.db, {
+        userId: ctx.userId,
+        companyId: ctx.companyId,
+        role: input.role,
+      });
       return { role: input.role };
     }),
 
   /**
    * Wipe the caller's tenant entirely — assessments, statuses, assignments,
    * evidence, category assignments, audit log, and the company row itself.
-   * Caller's user row is preserved with companyId=null so they can re-sign-up.
+   * Members' user rows are preserved: each leaves the company and can sign up again.
    *
    * Used by AdminTestPanel's "Delete Org" button to reset between dev sessions.
    * Order is FK-safe: child rows first, then parent. The audit log is wiped
@@ -98,16 +108,20 @@ export const devRouter = router({
         .where(eq(companyAssessment.companyId, companyId));
     }
 
-    await ctx.db
-      .delete(auditLog)
-      .where(eq(auditLog.companyId, companyId));
+    await ctx.db.delete(auditLog).where(eq(auditLog.companyId, companyId));
 
-    await ctx.db
-      .update(user)
-      .set({ companyId: null, updatedAt: new Date() })
-      .where(eq(user.companyId, companyId));
+    const members = await listCompanyMembers(ctx.db, companyId);
+    for (const m of members) {
+      await leaveCompany(ctx.db, { userId: m.id, companyId });
+    }
 
-    await ctx.db.delete(company).where(eq(company.id, companyId));
+    const [deleted] = await ctx.db
+      .delete(company)
+      .where(eq(company.id, companyId))
+      .returning({ billingAccountId: company.billingAccountId });
+    if (deleted?.billingAccountId) {
+      await deleteBillingAccountIfUnused(ctx.db, deleted.billingAccountId);
+    }
 
     return { deleted: true };
   }),
@@ -129,7 +143,10 @@ export const devRouter = router({
           categoryId: requirement.categoryId,
         })
         .from(requirement)
-        .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
+        .innerJoin(
+          requirementCategory,
+          eq(requirement.categoryId, requirementCategory.id),
+        )
         .where(inArray(requirement.id, input.requirementIds));
 
       if (reqs.length === 0) {

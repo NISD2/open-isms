@@ -81,6 +81,14 @@ setup("provision and authenticate", async ({ page, browser }) => {
            is_management = true`,
     [E2E_USER_EMAIL, E2E_MANAGER_EMAIL, hash],
   );
+  // Membership is what makes someone part of a company; the company_id above is only the one they
+  // have open.
+  await e2eQuery(
+    `INSERT INTO company_membership (user_id, company_id, role)
+     SELECT id, company_id, 'member' FROM "user" WHERE email = $1 AND company_id IS NOT NULL
+     ON CONFLICT (user_id, company_id) DO UPDATE SET role = EXCLUDED.role`,
+    [E2E_MANAGER_EMAIL],
+  );
 
   // Retire the one-time onboarding surfaces for both harness users. The tour
   // is a blocking overlay on /journey and on every requirement page, i.e. on
