@@ -16,6 +16,7 @@ import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { formatEuro, netCentsFor, orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { hasOrderCheck } from "@/lib/billing/order-check";
 import { type OrderingMode, orderingMode } from "@/lib/billing/ordering";
 import { billingFor } from "@/lib/billing/ordering-access";
 import { findActiveInvoice, placeOrder } from "@/lib/billing/place-order";
@@ -35,7 +36,6 @@ const accountOf = async (db: DbOrTx, companyId: string) => {
       id: billingAccount.id,
       accessLevel: billingAccount.accessLevel,
       ownerUserId: billingAccount.ownerUserId,
-      orderCheckSince: billingAccount.orderCheckSince,
     })
     .from(company)
     .innerJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
@@ -84,13 +84,14 @@ export const billingRouter = router({
     const { mode, open } = await billingFor(ctx.db, ctx.session.user.email);
     const active = await findActiveInvoice(ctx.db, account.id, new Date());
     const isPayer = account.ownerUserId === ctx.userId;
+    const pending = await hasOrderCheck(ctx.db, account.id);
     return {
       mode: mode.kind,
       open,
-      canOrder: open && isPayer && !active && !account.orderCheckSince,
+      canOrder: open && isPayer && !active && !pending,
       isPayer,
       /** An earlier order is being checked in Qonto; ordering waits for that. */
-      orderPending: account.orderCheckSince !== null,
+      orderPending: pending,
       accessLevel: account.accessLevel,
       netPrice: formatEuro(netCentsFor(account.accessLevel)),
       activeInvoice: active,

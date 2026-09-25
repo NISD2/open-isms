@@ -50,10 +50,13 @@ export function OrderChecksCard() {
               className="flex items-center justify-between gap-4"
             >
               <div>
-                <p className="font-medium">{r.ownerEmail ?? "no account holder"}</p>
+                <p className="font-medium">
+                  {r.ownerEmail ?? "no account holder"}: look up {r.invoiceNumber} in
+                  Qonto
+                </p>
                 <p className="text-muted-foreground text-xs">
-                  since {r.since ? new Date(r.since).toLocaleString("de-DE") : "?"} ·
-                  account {r.billingAccountId}
+                  since {new Date(r.since).toLocaleString("de-DE")} · account{" "}
+                  {r.billingAccountId}
                   {r.qontoClientId ? ` · Qonto client ${r.qontoClientId}` : ""}
                 </p>
               </div>

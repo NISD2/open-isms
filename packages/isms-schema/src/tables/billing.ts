@@ -133,3 +133,24 @@ export const documentNumberCounter = pgTable(
   },
   (table) => [primaryKey({ columns: [table.series, table.year] })],
 );
+
+/**
+ * An order whose outcome in Qonto is not known yet (lib/billing/order-check.ts). Written in its own
+ * committed statement just before Qonto is asked to issue the invoice, and deleted in the order's
+ * transaction once Qonto has clearly issued or clearly refused it. A row that stays means Qonto did
+ * not answer clearly, or the order broke after the call: an invoice may exist that we did not
+ * record. While a row exists every order for the account is refused, until a platform admin has
+ * checked Qonto and cleared it.
+ *
+ * Its own table rather than a column on billing_account, because the order holds that row's lock
+ * while it runs: the mark has to be committed before the Qonto call without waiting on that lock,
+ * so a waiting order sees it the moment the lock is released.
+ */
+export const orderCheck = pgTable("order_check", {
+  billingAccountId: uuid("billing_account_id")
+    .primaryKey()
+    .references(() => billingAccount.id, { onDelete: "restrict" }),
+  /** The number the order was issuing, to look up in Qonto. */
+  invoiceNumber: varchar("invoice_number", { length: 40 }).notNull(),
+  since: timestamp("since").defaultNow().notNull(),
+});

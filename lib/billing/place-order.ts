@@ -30,7 +30,7 @@ import {
   type OrderInput,
   priceFor,
 } from "./order";
-import { markOrderCheck } from "./order-check";
+import { clearOrderCheck, hasOrderCheck, markOrderCheck } from "./order-check";
 import type { OrderingMode } from "./ordering";
 import {
   createClient,
@@ -226,22 +226,29 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     : undefined;
   if (!iban) return failure("qonto", "No Qonto account with a payable IBAN.");
 
+  // Whether this order got as far as asking Qonto. Only past that point can an invoice exist, so
+  // only past it is a failure "unclear"; before it, nothing was issued and nothing is blocked.
+  const progress = { qontoCalled: false };
+
   const outcome = await db
     .transaction(async (tx) => {
+      // NO KEY UPDATE, not UPDATE: it still serialises orders on this account, but lets the
+      // order_check insert below (on the pool, with a foreign key to this row) commit while the
+      // lock is held. FOR UPDATE would make that insert wait on this very transaction.
       const [account] = await tx
         .select({
           id: billingAccount.id,
           accessLevel: billingAccount.accessLevel,
           qontoClientId: billingAccount.qontoClientId,
-          orderCheckSince: billingAccount.orderCheckSince,
         })
         .from(billingAccount)
         .where(eq(billingAccount.id, input.billingAccountId))
-        .for("update");
+        .for("no key update");
       if (!account)
         return failure("no_account", "This organization has no billing account.");
-      // Under the lock, so an order racing the one that set the block cannot slip past it.
-      if (account.orderCheckSince) {
+      // Under the lock: an earlier order's mark is committed before its Qonto call, so an order
+      // that waited here while that one ran sees it the moment it gets the lock.
+      if (await hasOrderCheck(tx, account.id)) {
         return failure(
           "order_pending",
           "An earlier order is still being checked in Qonto.",
@@ -292,6 +299,10 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
           : sandboxInvoiceNumber(input.invoicePrefix, year, now);
       const wording = invoiceWording(dates, money, locale);
 
+      // Committed on its own before Qonto is asked, so it survives whatever happens to this
+      // transaction; removed below, inside the transaction, once Qonto has answered clearly.
+      await markOrderCheck(db, account.id, number, now);
+      progress.qontoCalled = true;
       const issued = await createInvoice(mode.qonto, {
         clientId: client.id,
         number,
@@ -328,6 +339,8 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
             `[billing] invoice ${number} refused; the number stays unused`,
             issued,
           );
+          // Qonto refused, so nothing exists: the mark goes with this transaction's commit.
+          await clearOrderCheck(tx, account.id);
           return failure("qonto", "Qonto did not issue the invoice.");
         }
         void alertOperators(`Unklar, ob ${number} ausgestellt wurde`, [
@@ -336,8 +349,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
           "In Qonto nachsehen. Gibt es die Rechnung, die Zeile von Hand anlegen und den Zugang freischalten, oder gutschreiben.",
           "Weitere Bestellungen dieses Kontos sind gesperrt, bis die Prüfung im Pricing Tab aufgehoben wird.",
         ]);
-        // Committed with this transaction, which returns rather than throws on this path.
-        await markOrderCheck(tx, account.id, now);
+        // The mark written before the call stays: that is the block.
         return failure("qonto_unknown", "Qonto did not answer clearly.");
       }
 
@@ -365,6 +377,9 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
           .update(billingAccount)
           .set({ accessLevel: "full", qontoClientId: client.id, updatedAt: now })
           .where(eq(billingAccount.id, account.id));
+        // Recorded, so nothing is left to check; if this transaction fails to commit, the mark
+        // stays with it and the account is blocked, which is the safe side.
+        await clearOrderCheck(tx, account.id);
         return {
           ok: true,
           number,
@@ -385,23 +400,25 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
         throw new AlreadyAlerted(err);
       }
     })
-    .catch(async (err: unknown) => {
-      // Whatever broke, we cannot say whether Qonto issued an invoice, so the customer is told not
-      // to order again, the account is blocked until someone checks, and the operators hear about
-      // it once. The transaction rolled back, so the block is written on its own.
+    .catch((err: unknown) => {
+      // Broke before Qonto was asked: nothing can have been issued, nothing is blocked, and the
+      // customer may simply try again.
+      if (!progress.qontoCalled) {
+        console.error(
+          `[billing] order for ${input.billingAccountId} failed before Qonto`,
+          err,
+        );
+        return failure("qonto", "The order could not be placed.");
+      }
+      // Broke after: an invoice may exist. The mark committed before the call blocks the account,
+      // the customer is told not to order again, and the operators hear about it once.
       if (!(err instanceof AlreadyAlerted)) {
         void alertOperators("Bestellung abgebrochen", [
-          `Die Bestellung für billing account ${input.billingAccountId} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
+          `Die Bestellung für billing account ${input.billingAccountId} ist nach der Anfrage an Qonto abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
           `Rechnung an ${order.invoiceEmail}. In Qonto nachsehen, ob eine Rechnung entstanden ist.`,
           "Weitere Bestellungen dieses Kontos sind gesperrt, bis die Prüfung im Pricing Tab aufgehoben wird.",
         ]);
       }
-      await markOrderCheck(db, input.billingAccountId, now).catch((markErr: unknown) =>
-        console.error(
-          `[billing] could not block account ${input.billingAccountId}`,
-          markErr,
-        ),
-      );
       return failure("qonto_unknown", "The order stopped part way.");
     });
 

@@ -1,55 +1,64 @@
 /**
- * The durable block after an unclear order (billing_account.order_check_since).
+ * The durable block after an unclear order (the `order_check` table).
  *
- * When Qonto does not answer an order clearly, an invoice may exist that we did not record. The
- * customer is told not to order again, and this makes that true on the server too: every further
- * order for the account is refused, from either door, any browser, any device, until a platform
- * admin has looked in Qonto and cleared it (the Pricing tab). The operators are alerted when it is
- * set (./place-order).
+ * An order writes its row in its own committed statement just before asking Qonto for the invoice,
+ * and deletes it in the order's transaction once Qonto has clearly issued or clearly refused. So a
+ * row that stays means Qonto did not answer clearly, or the order broke after the call, and an
+ * invoice may exist that we did not record. While a row exists every order for the account is
+ * refused, from either door and any device, until a platform admin has checked Qonto and cleared
+ * it (the Pricing tab). A failure before the Qonto call writes no row and blocks nothing.
  */
 import "@/lib/server-guard";
-import { and, asc, eq, isNotNull, isNull } from "drizzle-orm";
-import type { DbOrTx } from "@/lib/db";
-import { billingAccount, user } from "@/schema";
+import { asc, eq } from "drizzle-orm";
+import type { Database, DbOrTx } from "@/lib/db";
+import { billingAccount, orderCheck, user } from "@/schema";
 
-/** Block further orders for this account. Keeps the time it was first set. */
-export const markOrderCheck = async (db: DbOrTx, billingAccountId: string, now: Date) => {
+/**
+ * Mark an order as in flight at Qonto. On the pool, not the order's transaction, so it stays
+ * committed whatever happens to the transaction afterwards.
+ */
+export const markOrderCheck = async (
+  db: Database,
+  billingAccountId: string,
+  invoiceNumber: string,
+  now: Date,
+) => {
   await db
-    .update(billingAccount)
-    .set({ orderCheckSince: now })
-    .where(
-      and(
-        eq(billingAccount.id, billingAccountId),
-        isNull(billingAccount.orderCheckSince),
-      ),
-    );
+    .insert(orderCheck)
+    .values({ billingAccountId, invoiceNumber, since: now })
+    .onConflictDoNothing({ target: orderCheck.billingAccountId });
 };
 
-/** Lift the block once someone has checked Qonto. Returns whether there was one to lift. */
+/** Whether an earlier order for this account is still unresolved. */
+export const hasOrderCheck = async (db: DbOrTx, billingAccountId: string) => {
+  const [row] = await db
+    .select({ id: orderCheck.billingAccountId })
+    .from(orderCheck)
+    .where(eq(orderCheck.billingAccountId, billingAccountId))
+    .limit(1);
+  return row !== undefined;
+};
+
+/** Remove the mark: Qonto answered clearly, or someone checked Qonto. Returns whether one existed. */
 export const clearOrderCheck = async (db: DbOrTx, billingAccountId: string) => {
   const cleared = await db
-    .update(billingAccount)
-    .set({ orderCheckSince: null })
-    .where(
-      and(
-        eq(billingAccount.id, billingAccountId),
-        isNotNull(billingAccount.orderCheckSince),
-      ),
-    )
-    .returning({ id: billingAccount.id });
+    .delete(orderCheck)
+    .where(eq(orderCheck.billingAccountId, billingAccountId))
+    .returning({ id: orderCheck.billingAccountId });
   return cleared.length === 1;
 };
 
-/** Every blocked account, oldest first, with who holds it: the list a platform admin works through. */
+/** Every blocked account, oldest first, with its holder and the number to look up in Qonto. */
 export const listOrderChecks = (db: DbOrTx) =>
   db
     .select({
-      billingAccountId: billingAccount.id,
-      since: billingAccount.orderCheckSince,
+      billingAccountId: orderCheck.billingAccountId,
+      invoiceNumber: orderCheck.invoiceNumber,
+      since: orderCheck.since,
       ownerEmail: user.email,
       qontoClientId: billingAccount.qontoClientId,
     })
-    .from(billingAccount)
+    .from(orderCheck)
+    .innerJoin(billingAccount, eq(billingAccount.id, orderCheck.billingAccountId))
     .leftJoin(user, eq(user.id, billingAccount.ownerUserId))
-    .where(isNotNull(billingAccount.orderCheckSince))
-    .orderBy(asc(billingAccount.orderCheckSince));
+    .orderBy(asc(orderCheck.since));

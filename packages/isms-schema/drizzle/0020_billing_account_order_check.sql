@@ -1,1 +1,0 @@
-ALTER TABLE "billing_account" ADD COLUMN "order_check_since" timestamp;

@@ -1,5 +1,5 @@
 {
-  "id": "6b376acb-6987-4874-a271-f6bb9014d9a7",
+  "id": "370f5a81-79c4-4222-bb50-f0b2f3904449",
   "prevId": "ebe2bb91-0820-4ae5-b49d-94b40533a0d9",
   "version": "7",
   "dialect": "postgresql",
@@ -1554,6 +1554,52 @@
           "value": "\"invoice\".\"vat_treatment\" IN ('domestic', 'unconfirmed_eu') OR \"invoice\".\"vat_cents\" = 0"
         }
       },
+      "isRLSEnabled": false
+    },
+    "public.order_check": {
+      "name": "order_check",
+      "schema": "",
+      "columns": {
+        "billing_account_id": {
+          "name": "billing_account_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "invoice_number": {
+          "name": "invoice_number",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "since": {
+          "name": "since",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "order_check_billing_account_id_billing_account_id_fk": {
+          "name": "order_check_billing_account_id_billing_account_id_fk",
+          "tableFrom": "order_check",
+          "tableTo": "billing_account",
+          "columnsFrom": [
+            "billing_account_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
       "isRLSEnabled": false
     },
     "public.category_assignment": {
@@ -3650,12 +3696,6 @@
         },
         "renewal_canceled_at": {
           "name": "renewal_canceled_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "order_check_since": {
-          "name": "order_check_since",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false
