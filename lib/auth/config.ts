@@ -394,6 +394,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
       companyId: true,
       sessionVersion: true,
       loginCount: true,
+      grandfatheredAt: true,
       journeyTourGuidedDismissedAt: true,
       journeyTourTeamDismissedAt: true,
       requirementTourDismissedAt: true,
@@ -432,7 +433,11 @@ export const getSession = cache(async (): Promise<Session | null> => {
   session.jobTitle = open?.jobTitle ?? null;
   session.companyActivated = open?.activatedAt != null;
   session.accessLevel = open
-    ? effectiveAccessLevel(open.accessLevel, await isFeatureOn(db, "billing"))
+    ? effectiveAccessLevel(
+        open.accessLevel,
+        await isFeatureOn(db, "billing"),
+        dbUser.grandfatheredAt !== null,
+      )
     : null;
 
   return session;

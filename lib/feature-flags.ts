@@ -23,8 +23,8 @@ export const setFeature = async (
   key: FeatureFlagKey,
   enabled: boolean,
   userId: string,
+  now = new Date(),
 ) => {
-  const now = new Date();
   await db
     .insert(featureFlag)
     .values({ key, enabled, updatedAt: now, updatedByUserId: userId })

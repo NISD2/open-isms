@@ -8,11 +8,18 @@
  */
 import type { AccessLevel } from "./accounts";
 
-/** The level the gate enforces, given the stored level and whether billing is launched. */
+/**
+ * The level the gate enforces for one person in one company: the account's stored level, lifted to
+ * grandfathered before the launch for everyone, and after it for a person stamped at the launch.
+ * Grandfathering belongs to the person, so it holds in any company they open, including one they
+ * joined after the launch whose account is free.
+ */
 export const effectiveAccessLevel = (
   stored: AccessLevel,
   launched: boolean,
-): AccessLevel => (launched || stored === "full" ? stored : "grandfathered");
+  personGrandfathered: boolean,
+): AccessLevel =>
+  stored === "free" && (!launched || personGrandfathered) ? "grandfathered" : stored;
 
 /**
  * The level a brand-new account is created with. Grandfathering belongs to the person: someone
