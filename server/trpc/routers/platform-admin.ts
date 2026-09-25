@@ -663,9 +663,10 @@ export const platformAdminRouter = router({
       .select({
         companyName: company.name,
         companyId: company.id,
-        adminEmail: sql<string | null>`COALESCE(
-          (SELECT u.email FROM "user" u WHERE u.company_id = ${company.id} AND u.role = 'admin' ORDER BY u.created_at ASC LIMIT 1),
-          (SELECT u.email FROM "user" u WHERE u.company_id = ${company.id} ORDER BY u.created_at ASC LIMIT 1)
+        adminEmail: sql<string | null>`(
+          SELECT u.email FROM company_membership m JOIN "user" u ON u.id = m.user_id
+          WHERE m.company_id = ${company.id}
+          ORDER BY (m.role = 'admin') DESC, u.created_at ASC LIMIT 1
         )`,
         total: sql<number>`count(*)::int`,
         completed: sql<number>`count(*) FILTER (WHERE ${companyRequirementStatus.status} IN ('completed', 'approved'))::int`,

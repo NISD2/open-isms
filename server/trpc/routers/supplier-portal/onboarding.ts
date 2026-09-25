@@ -39,6 +39,15 @@ import { generateOpaqueToken } from "./helpers";
  * portal is sector-agnostic, so it gets a placeholder; entityType likewise only matters if the
  * company later opts into the entity portal.
  */
+/**
+ * The draft's billing account carries over to the supplier company only when the caller owns the
+ * draft; someone who merely joined another person's draft gets an account of their own.
+ */
+const reusableAccountOf = (
+  draft: { ownerId: string | null; billingAccountId: string | null } | null | undefined,
+  userId: string,
+): string | null => (draft?.ownerId === userId ? draft.billingAccountId : null);
+
 const createSupplierCompany = async (
   tx: DbOrTx,
   input: {
@@ -90,7 +99,12 @@ export const supplierOnboardingRouter = router({
       const currentCompany = ctx.companyId
         ? await ctx.db.query.company.findFirst({
             where: eq(company.id, ctx.companyId),
-            columns: { id: true, activatedAt: true, billingAccountId: true },
+            columns: {
+              id: true,
+              activatedAt: true,
+              ownerId: true,
+              billingAccountId: true,
+            },
           })
         : null;
       if (currentCompany?.activatedAt) {
@@ -111,7 +125,7 @@ export const supplierOnboardingRouter = router({
           userId: ctx.userId,
           name: input.name,
           country: input.country ?? null,
-          replacesBillingAccountId: currentCompany?.billingAccountId ?? null,
+          replacesBillingAccountId: reusableAccountOf(currentCompany, ctx.userId),
         }),
       );
 
@@ -182,7 +196,12 @@ export const supplierOnboardingRouter = router({
       const currentCompany = current?.companyId
         ? await ctx.db.query.company.findFirst({
             where: eq(company.id, current.companyId),
-            columns: { id: true, activatedAt: true, billingAccountId: true },
+            columns: {
+              id: true,
+              activatedAt: true,
+              ownerId: true,
+              billingAccountId: true,
+            },
           })
         : null;
       if (currentCompany?.activatedAt) {
@@ -223,7 +242,7 @@ export const supplierOnboardingRouter = router({
           userId: ctx.userId,
           name: input.name,
           country: input.country ?? null,
-          replacesBillingAccountId: currentCompany?.billingAccountId ?? null,
+          replacesBillingAccountId: reusableAccountOf(currentCompany, ctx.userId),
         });
 
         // Mark the invite accepted (audit trail).

@@ -20,17 +20,28 @@ export const asMembershipRole = (role: string): MembershipRole | null =>
   membershipRoleEnum.enumValues.find((r) => r === role) ?? null;
 
 /**
+ * Until the release that reconciles memberships, a member must also have the company open. Nobody
+ * can hold two memberships yet, so for every row this code writes that is the same thing; it drops
+ * rows a container on the previous release wrote during a deploy (a removal that nulled
+ * `user.companyId` but left the membership). The reconciling release deletes those rows and
+ * removes this condition, before anyone can belong to two companies.
+ */
+const opensCompany = (companyId: string) => eq(user.companyId, companyId);
+
+/**
  * Condition on the `user` table: the person belongs to the company. Use this, never
- * `user.companyId`, to ask whether someone is a member, because a member may have another of their
- * companies open.
+ * `user.companyId` alone, to ask whether someone is a member.
  */
 export const isMemberOf = (db: DbOrTx, companyId: string) =>
-  inArray(
-    user.id,
-    db
-      .select({ id: companyMembership.userId })
-      .from(companyMembership)
-      .where(eq(companyMembership.companyId, companyId)),
+  and(
+    inArray(
+      user.id,
+      db
+        .select({ id: companyMembership.userId })
+        .from(companyMembership)
+        .where(eq(companyMembership.companyId, companyId)),
+    ),
+    opensCompany(companyId),
   );
 
 /** The person's role in the company, or null if they are not a member of it. */
@@ -63,7 +74,7 @@ export const listCompanyMembers = (db: DbOrTx, companyId: string) =>
     })
     .from(companyMembership)
     .innerJoin(user, eq(user.id, companyMembership.userId))
-    .where(eq(companyMembership.companyId, companyId));
+    .where(and(eq(companyMembership.companyId, companyId), opensCompany(companyId)));
 
 /**
  * Make the person a member of the company with this role, and open it. An existing membership has

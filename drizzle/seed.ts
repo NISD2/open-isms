@@ -52,6 +52,7 @@ import { SEED_INTAKE_ANSWERS } from "./seed-intake-data";
 import { backfillInitialDeadlines } from "@/lib/compliance/schedule-notifications";
 import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { getDefaultPolicyConfig, POLICY_TYPES } from "@/lib/compliance/policy-config-defaults";
+import { joinCompany } from "@/lib/organization/membership";
 
 const dbUrl = process.env.DATABASE_URL;
 if (!dbUrl) throw new Error("DATABASE_URL is required");
@@ -620,13 +621,7 @@ async function seed() {
       console.log(`    User: ${config.userEmail} (${userId}) [updated]`);
     }
 
-    await db
-      .insert(schema.companyMembership)
-      .values({ userId, companyId: co.id, role: "admin" })
-      .onConflictDoUpdate({
-        target: [schema.companyMembership.userId, schema.companyMembership.companyId],
-        set: { role: "admin" },
-      });
+    await joinCompany(db, { userId, companyId: co.id, role: "admin" });
     await db
       .update(schema.billingAccount)
       .set({ ownerUserId: userId })

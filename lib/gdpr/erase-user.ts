@@ -175,15 +175,36 @@ const companySummary = {
 };
 
 /**
- * The company that erasing this person tears down: the one they own, whether or
- * not they have it open. An owner of several companies is refused, because one
+ * The companies a person is in: their memberships, plus the one they have open,
+ * which a container on the previous release may have set without a membership
+ * during a deploy.
+ */
+const companiesOfPerson = (q: DbOrTx, userId: string) =>
+  q
+    .select({ id: companyMembership.companyId })
+    .from(companyMembership)
+    .where(eq(companyMembership.userId, userId))
+    .union(
+      q
+        // Narrowed by the IS NOT NULL below.
+        .select({ id: sql<string>`${user.companyId}` })
+        .from(user)
+        .where(and(eq(user.id, userId), isNotNull(user.companyId))),
+    );
+
+/**
+ * The company that erasing this person tears down: the one they own and are
+ * still in, whether or not they have it open. An owner who was removed from
+ * their company tears nothing down. An owner of several is refused, because one
  * confirmation must not tear several organizations down.
  */
 export async function ownedCompanyOf(q: DbOrTx, userId: string) {
   const rows = await q
     .select(companySummary)
     .from(company)
-    .where(eq(company.ownerId, userId));
+    .where(
+      and(eq(company.ownerId, userId), inArray(company.id, companiesOfPerson(q, userId))),
+    );
   if (rows.length > 1) {
     throw new ErasureRefused(
       `This account owns ${rows.length} organizations. Erasing it would tear all of them down, which this tool does not support.`,
@@ -220,13 +241,24 @@ async function teardownMembers(
   companyId: string,
   ownerId: string,
 ): Promise<{ erased: Person[]; kept: Person[] }> {
+  // Everyone with a membership or with the company open: an open company
+  // without a membership (written during a deploy) would otherwise block the
+  // company delete on the user foreign key.
   const members = await q
     .select({ userId: user.id, email: user.email, name: user.name })
-    .from(companyMembership)
-    .innerJoin(user, eq(user.id, companyMembership.userId))
+    .from(user)
     .where(
       and(
-        eq(companyMembership.companyId, companyId),
+        or(
+          eq(user.companyId, companyId),
+          inArray(
+            user.id,
+            q
+              .select({ id: companyMembership.userId })
+              .from(companyMembership)
+              .where(eq(companyMembership.companyId, companyId)),
+          ),
+        ),
         ne(user.id, ownerId),
         ne(user.email, TOMBSTONE_EMAIL),
       ),
@@ -570,12 +602,7 @@ async function erasePerson(
 ): Promise<void> {
   const { userId, email, name } = person;
   // Read before anything is deleted: the memberships go with the account row.
-  const companyIds = (
-    await tx
-      .select({ companyId: companyMembership.companyId })
-      .from(companyMembership)
-      .where(eq(companyMembership.userId, userId))
-  ).map((r) => r.companyId);
+  const companyIds = (await companiesOfPerson(tx, userId)).map((r) => r.id);
 
   // A name too short to bound safely is not redacted. That is the right call
   // (see redact-pii.ts), but it must be disclosed: an erasure certificate that
