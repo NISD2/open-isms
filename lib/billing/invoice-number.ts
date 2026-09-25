@@ -37,6 +37,12 @@ export const invoiceNumber = (
   prefix = INVOICE_PREFIX,
 ): string => `${prefix}-${year}-${pad(sequence)}`;
 
+/**
+ * The shape of an invoice number inside free text: prefix, year, sequence. The reference field of a
+ * bank transfer is free text typed by a person, so a pattern search is the right tool here.
+ */
+const INVOICE_NUMBER_IN_TEXT = /([A-Z0-9]{2,12})-(\d{4})-(\d{3,8})/;
+
 /** Parse one back, so an incoming payment reference can be matched to an invoice. */
 export const parseInvoiceNumber = (
   reference: string,
@@ -45,7 +51,7 @@ export const parseInvoiceNumber = (
   readonly year: number;
   readonly sequence: number;
 } | null => {
-  const m = /([A-Z0-9]{2,12})-(\d{4})-(\d{3,8})/i.exec(reference.toUpperCase());
+  const m = INVOICE_NUMBER_IN_TEXT.exec(reference.toUpperCase());
   const prefix = m?.[1];
   const year = m?.[2];
   const sequence = m?.[3];
@@ -57,24 +63,22 @@ export const parseInvoiceNumber = (
  * Find our invoice number inside whatever the payer typed in the Verwendungszweck. People add
  * their own words, their customer number, and sometimes nothing at all, so this looks for the
  * pattern anywhere in the string rather than expecting the field to contain only the number.
+ *
+ * It returns the number exactly as found, only uppercased. Rebuilding it from its parts would pad
+ * the sequence to four digits and turn a longer number into one that matches nothing.
  */
-export const findInvoiceNumberInReference = (reference: string): string | null => {
-  const parsed = parseInvoiceNumber(reference);
-  return parsed ? invoiceNumber(parsed.year, parsed.sequence, parsed.prefix) : null;
-};
+export const findInvoiceNumberInReference = (reference: string): string | null =>
+  INVOICE_NUMBER_IN_TEXT.exec(reference.toUpperCase())?.[0] ?? null;
 
 /**
  * A number for the sandbox, where there is no counter and none is wanted. Derived from the clock so
- * repeated manual runs do not collide.
+ * repeated manual runs do not collide: the Unix time in seconds, kept to eight digits, which repeats
+ * only after about three years.
  *
  * Never use this for a real invoice: it is not gapless and two requests in the same second would
  * produce the same number.
  */
 export const sandboxInvoiceNumber = (now = new Date()): string => {
-  const secondsToday = Math.floor(
-    (now.getTime() -
-      new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()) /
-      1000,
-  );
-  return `${INVOICE_PREFIX}-${now.getFullYear()}-${pad(secondsToday, 5)}`;
+  const seconds = Math.floor(now.getTime() / 1000) % 100_000_000;
+  return `${INVOICE_PREFIX}-${now.getUTCFullYear()}-${pad(seconds, 8)}`;
 };

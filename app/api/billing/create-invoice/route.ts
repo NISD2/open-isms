@@ -1,15 +1,22 @@
 /**
  * Create the annual invoice in Qonto.
  *
- * SANDBOX ONLY, AND ENFORCED HERE. The route answers 404 unless the configured Qonto host is the
- * sandbox, which is the same rule the page is gated on. Refusing with 404 rather than 403 means
- * that on a real deploy the endpoint is indistinguishable from one that was never written.
+ * SANDBOX AND PLATFORM ADMINS ONLY, AND ENFORCED HERE. The route answers 404 unless the caller is a
+ * platform admin and the configured Qonto host is the sandbox, which is the same rule the page is
+ * gated on. Refusing with 404 rather than 403 means that on a real deploy the endpoint is
+ * indistinguishable from one that was never written.
+ *
+ * The tax follows the VAT number, never the address: the country in the VAT number is where the
+ * customer is registered for VAT, and it is what decides between German VAT, reverse charge and no
+ * German VAT. Reading it from the address would let a German company typed with a foreign address
+ * be invoiced without VAT.
  *
  * The order of operations follows the API: a client must exist before an invoice can name it, and
- * the invoice is created directly as unpaid with no finalize call. The PDF is generated
- * asynchronously, so the attachment id is usually absent from the response.
+ * the invoice is created directly as unpaid. The PDF is generated asynchronously, so the attachment
+ * id is usually absent from the response.
  */
 import { type NextRequest, NextResponse } from "next/server";
+import { mayUseBillingHarness } from "@/lib/billing/harness-access";
 import { formatIban, pickPayableAccount } from "@/lib/billing/iban";
 import { sandboxInvoiceNumber } from "@/lib/billing/invoice-number";
 import {
@@ -28,11 +35,10 @@ import {
   qontoConfigFromEnv,
   sendInvoiceByEmail,
 } from "@/lib/billing/qonto";
-import { isSandboxHarnessEnabled } from "@/lib/billing/sandbox-gate";
-import { checkVatNumber, toAttempt } from "@/lib/billing/vies";
+import { checkVatNumber, splitVatNumber, toAttempt } from "@/lib/billing/vies";
 
 export async function POST(req: NextRequest) {
-  if (!isSandboxHarnessEnabled()) {
+  if (!(await mayUseBillingHarness())) {
     return new NextResponse(null, { status: 404 });
   }
 
@@ -41,7 +47,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "Qonto credentials are not configured. Set QONTO_SANDBOX_LOGIN and QONTO_SANDBOX_SECRET_KEY.",
+          "Qonto credentials are not configured for this host. The sandbox host needs QONTO_SANDBOX_LOGIN and QONTO_SANDBOX_SECRET_KEY.",
       },
       { status: 503 },
     );
@@ -59,12 +65,23 @@ export async function POST(req: NextRequest) {
   }
   const order = parsed.data;
 
+  // The schema has already checked the VAT number's structure, so this only fails on a number the
+  // check accepted but the splitter cannot read. Refuse rather than fall back to the address.
+  const taxCountry = splitVatNumber(order.vatNumber)?.countryCode;
+  if (!taxCountry) {
+    return NextResponse.json(
+      { error: "the VAT number does not name a member state" },
+      { status: 400 },
+    );
+  }
+  const language = taxCountry === "DE" ? "de" : "en";
+
   // The register is consulted for the record. It cannot stop the invoice; see order-gate.ts.
   const registry = await checkVatNumber(order.vatNumber);
   const attempt = toAttempt(order.vatNumber, registry);
-  const money = priceFor(order.countryCode, registry);
+  const money = priceFor(taxCountry, registry);
   const dates = invoiceDates(new Date());
-  const wording = invoiceWording(dates, money, order.countryCode === "DE" ? "de" : "en");
+  const wording = invoiceWording(dates, money, language);
 
   // The IBAN the invoice endpoint requires is read from the account rather than typed by anyone.
   const accounts = await listBankAccounts(config);
@@ -97,7 +114,7 @@ export async function POST(req: NextRequest) {
       zip_code: order.zip,
       country_code: order.countryCode,
     },
-    locale: order.countryCode === "DE" ? "DE" : "EN",
+    locale: language === "de" ? "DE" : "EN",
     currency: "EUR",
   });
   if (!client.ok) {
@@ -157,7 +174,7 @@ export async function POST(req: NextRequest) {
   const sent = invoiceId
     ? await sendInvoiceByEmail(config, invoiceId, {
         to: recipients,
-        ...invoiceEmailWording(number, order.countryCode === "DE" ? "de" : "en"),
+        ...invoiceEmailWording(number, language),
       })
     : null;
 

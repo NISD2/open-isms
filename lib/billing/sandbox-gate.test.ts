@@ -20,6 +20,17 @@ describe("isSandboxHarnessEnabled", () => {
     ).toBe(true);
   });
 
+  test("is not fooled by a URL that only contains the sandbox name", () => {
+    for (const base of [
+      "https://proxy.example/thirdparty-sandbox.staging.qonto.co/v2",
+      "https://thirdparty-sandbox.staging.qonto.co.attacker.example/v2",
+      "thirdparty-sandbox.staging.qonto.co",
+      "",
+    ]) {
+      expect(isSandboxHarnessEnabled({ QONTO_API_BASE: base })).toBe(false);
+    }
+  });
+
   test("cannot be turned on by credentials alone", () => {
     // The point of the gate: having a login and a secret is not permission to bill anyone.
     expect(isSandboxHarnessEnabled({ QONTO_LOGIN: "x", QONTO_SECRET_KEY: "y" })).toBe(

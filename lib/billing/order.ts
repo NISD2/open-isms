@@ -104,12 +104,31 @@ export const formatEuro = (cents: number, locale = "de-DE"): string =>
     cents / 100,
   );
 
-/** ISO date, which is what the Qonto endpoint wants for issue, due and performance dates. */
-const isoDate = (d: Date): string => {
-  const s = d.toISOString();
-  const day = s.slice(0, 10);
-  if (!day) throw new Error("unreachable: ISO string is always at least 10 characters");
-  return day;
+/**
+ * The time zone invoice dates are counted in: the seller's. An invoice's issue date is a calendar
+ * day where the seller is, not wherever the server's clock happens to be, so an order at 00:30 in
+ * Berlin is dated that day even on a server running in UTC.
+ */
+export const INVOICE_TIME_ZONE = "Europe/Berlin";
+
+/** The calendar day of an instant in a time zone, as `YYYY-MM-DD` (the en-CA format). */
+const calendarDay = (instant: Date, timeZone: string): string =>
+  new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(instant);
+
+/** Calendar arithmetic on `YYYY-MM-DD`, done in UTC so no time zone can shift the day. */
+const shiftDay = (
+  day: string,
+  change: { readonly days?: number; readonly years?: number },
+) => {
+  const d = new Date(`${day}T00:00:00Z`);
+  d.setUTCFullYear(d.getUTCFullYear() + (change.years ?? 0));
+  d.setUTCDate(d.getUTCDate() + (change.days ?? 0));
+  return d.toISOString().slice(0, 10);
 };
 
 export interface InvoiceDates {
@@ -120,21 +139,21 @@ export interface InvoiceDates {
 }
 
 /**
- * Dates for the invoice. Thirty days to pay, and the service period is the year that starts the
- * day they order, because access starts at order rather than at payment and the invoice should
- * describe the same thing the product does.
+ * Dates for the invoice, as ISO calendar days, which is what the Qonto endpoint wants. Thirty days
+ * to pay, and the service period is the year that starts the day they order, because access starts
+ * at order rather than at payment and the invoice should describe the same thing the product does.
  */
-export const invoiceDates = (orderedAt: Date, termDays = 30): InvoiceDates => {
-  const due = new Date(orderedAt);
-  due.setDate(due.getDate() + termDays);
-  const end = new Date(orderedAt);
-  end.setFullYear(end.getFullYear() + 1);
-  end.setDate(end.getDate() - 1);
+export const invoiceDates = (
+  orderedAt: Date,
+  termDays = 30,
+  timeZone = INVOICE_TIME_ZONE,
+): InvoiceDates => {
+  const issueDate = calendarDay(orderedAt, timeZone);
   return {
-    issueDate: isoDate(orderedAt),
-    dueDate: isoDate(due),
-    performanceStartDate: isoDate(orderedAt),
-    performanceEndDate: isoDate(end),
+    issueDate,
+    dueDate: shiftDay(issueDate, { days: termDays }),
+    performanceStartDate: issueDate,
+    performanceEndDate: shiftDay(issueDate, { years: 1, days: -1 }),
   };
 };
 

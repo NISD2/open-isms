@@ -10,13 +10,13 @@ import { gateFromInput, orderGate } from "./order-gate";
 import { checkStructure } from "./vat-checksum";
 import type { VatCheck } from "./vies";
 
-const SOUND = checkStructure("DE", "462889433");
-const TYPO = checkStructure("DE", "462889434");
+const SOUND = checkStructure("DE", "345678906");
+const TYPO = checkStructure("DE", "345678900");
 
 const valid: VatCheck = {
   status: "valid",
   countryCode: "DE",
-  vatNumber: "462889433",
+  vatNumber: "345678906",
   name: null,
   address: null,
   consultationNumber: "WAPIAAAAaDVL-xnd",
@@ -25,7 +25,7 @@ const valid: VatCheck = {
 const invalid: VatCheck = {
   status: "invalid",
   countryCode: "DE",
-  vatNumber: "462889433",
+  vatNumber: "345678906",
   checkedAt: "2026-09-24T21:00:00.000Z",
 };
 const down: VatCheck = { status: "unavailable", reason: "MS_UNAVAILABLE" };

@@ -27,7 +27,7 @@ afterEach(() => {
 /** The body VIES actually returned for a valid German number, recorded live. */
 const GERMAN_VALID = {
   countryCode: "DE",
-  vatNumber: "811569869",
+  vatNumber: "123456788",
   requestDate: "2026-09-24T20:51:04.673Z",
   valid: true,
   requestIdentifier: "",
@@ -50,13 +50,13 @@ const stub = (body: unknown, ok = true, status = 200): void => {
 
 describe("splitVatNumber", () => {
   test("accepts the ways a person actually types it", () => {
-    for (const s of ["DE811569869", "de811569869", "DE 811 569 869", " DE-811569869 "]) {
-      expect(splitVatNumber(s)).toEqual({ countryCode: "DE", vatNumber: "811569869" });
+    for (const s of ["DE123456788", "de123456788", "DE 123 456 788", " DE-123456788 "]) {
+      expect(splitVatNumber(s)).toEqual({ countryCode: "DE", vatNumber: "123456788" });
     }
   });
 
   test("rejects what is not a VAT number", () => {
-    for (const s of ["", "811569869", "D811569869", "DE"]) {
+    for (const s of ["", "123456788", "D123456788", "DE"]) {
       expect(splitVatNumber(s)).toBeNull();
     }
   });
@@ -102,7 +102,7 @@ describe("checkVatNumber", () => {
 
   test("a valid German number is confirmed, and its withheld name becomes null rather than '---'", async () => {
     stub(GERMAN_VALID);
-    const r = await checkVatNumber("DE811569869");
+    const r = await checkVatNumber("DE123456788");
     expect(r.status).toBe("valid");
     if (!isConfirmed(r)) throw new Error("expected valid");
     // Germany does not disclose. The dashes must never reach a form field or an invoice.
@@ -127,7 +127,7 @@ describe("checkVatNumber", () => {
 
   test("the consultation number is kept when VIES returns one", async () => {
     stub({ ...GERMAN_VALID, requestIdentifier: "WAPIAAAAaDVL-xnd" });
-    const r = await checkVatNumber("DE811569869");
+    const r = await checkVatNumber("DE123456788");
     if (!isConfirmed(r)) throw new Error("expected valid");
     expect(r.consultationNumber).toBe("WAPIAAAAaDVL-xnd");
   });
@@ -139,18 +139,18 @@ describe("checkVatNumber", () => {
 
   test("every failure is an outage, and nothing throws", async () => {
     stub(null, false, 503);
-    expect((await checkVatNumber("DE811569869")).status).toBe("unavailable");
+    expect((await checkVatNumber("DE123456788")).status).toBe("unavailable");
 
     globalThis.fetch = (async () => {
       throw new Error("network down");
     }) as typeof fetch;
-    const r = await checkVatNumber("DE811569869");
+    const r = await checkVatNumber("DE123456788");
     expect(r.status).toBe("unavailable");
     if (r.status !== "unavailable") throw new Error("unreachable");
     expect(r.reason).toContain("network down");
 
     stub({ noValidityHere: true });
-    expect((await checkVatNumber("DE811569869")).status).toBe("unavailable");
+    expect((await checkVatNumber("DE123456788")).status).toBe("unavailable");
   });
 });
 
@@ -198,11 +198,15 @@ describe("vatTreatment", () => {
   });
 });
 
-describe("live check against the Commission (VIES_LIVE=1 to run)", () => {
-  test.skipIf(process.env.VIES_LIVE !== "1")(
+// The live check needs a VAT number that is really registered, and none is kept in the repository.
+// Run it with VIES_LIVE=1 and VIES_LIVE_NUMBER set to a German number you know is valid.
+const LIVE_NUMBER = process.env.VIES_LIVE_NUMBER ?? "";
+
+describe("live check against the Commission (VIES_LIVE=1 and VIES_LIVE_NUMBER to run)", () => {
+  test.skipIf(process.env.VIES_LIVE !== "1" || !LIVE_NUMBER)(
     "a known-valid German number still validates and still withholds the name",
     async () => {
-      const r = await checkVatNumber("DE811569869");
+      const r = await checkVatNumber(LIVE_NUMBER);
       expect(r.status).toBe("valid");
       if (!isConfirmed(r)) throw new Error("expected valid");
       // If this ever starts returning a name, the autofill design can be revisited.
@@ -217,7 +221,7 @@ describe("the attempt log, which is the part with legal weight", () => {
       {
         status: "valid",
         countryCode: "DE",
-        vatNumber: "462889433",
+        vatNumber: "345678906",
         name: null,
         address: null,
         consultationNumber: "WAPIAAAAaDVL-xnd",
@@ -233,7 +237,7 @@ describe("the attempt log, which is the part with legal weight", () => {
       { status: "malformed" },
     ];
     for (const c of cases) {
-      const a = toAttempt("DE462889433", c);
+      const a = toAttempt("DE345678906", c);
       expect(a.outcome).toBe(c.status);
       expect(typeof a.attemptedAt).toBe("string");
       expect(a.attemptedAt.length).toBeGreaterThan(10);
@@ -241,10 +245,10 @@ describe("the attempt log, which is the part with legal weight", () => {
   });
 
   test("the consultation number survives only where the Commission issued one", () => {
-    const withNumber = toAttempt("DE462889433", {
+    const withNumber = toAttempt("DE345678906", {
       status: "valid",
       countryCode: "DE",
-      vatNumber: "462889433",
+      vatNumber: "345678906",
       name: null,
       address: null,
       consultationNumber: "WAPIAAAAaDVL-xnd",
@@ -258,7 +262,7 @@ describe("the attempt log, which is the part with legal weight", () => {
   });
 
   test("an outage records WHY, because 'the register was down' is the evidence", () => {
-    const a = toAttempt("DE462889433", {
+    const a = toAttempt("DE345678906", {
       status: "unavailable",
       reason: "MS_UNAVAILABLE",
     });

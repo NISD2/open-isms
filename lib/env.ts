@@ -116,8 +116,9 @@ const envSchema = z.object({
 
   // Billing through Qonto — optional. Unset means no invoicing: the order
   // page and the invoice route stay unreachable, which is the correct default
-  // for a self-hosted instance. The sandbox pair wins over the production pair
-  // when both are set, so a sandbox run can never invoice for real by accident.
+  // for a self-hosted instance. The base URL decides which credential pair is
+  // used, and each host only ever gets its own: the sandbox pair for the
+  // sandbox host, the production pair otherwise.
   QONTO_API_BASE: z.string().optional(),
   QONTO_LOGIN: z.string().optional(),
   QONTO_SECRET_KEY: z.string().optional(),

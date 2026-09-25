@@ -10,13 +10,15 @@
  *     bounced to a OneLogin redirect
  *   - a client must exist before an invoice can name it; inline creation is not supported
  *   - an invoice needs `client_id`, `issue_date`, `due_date`, `currency`, `payment_methods.iban`
- *     and `items`, and there is **no finalize call**: it is created as `unpaid`
+ *     and `items`; it is created as `unpaid` unless `status: "draft"` is sent, and a draft is
+ *     finalized with its own call
  *   - the PDF is generated asynchronously, so `attachment_id` has to be polled for
  *
  * Nothing here throws on an API failure. Billing sits on the path to taking money and a third
  * party being slow must surface as a value the caller can decide about, not as an exception that
  * takes a request down.
  */
+import { isSandboxBase } from "./sandbox-gate";
 
 export interface QontoConfig {
   readonly baseUrl: string;
@@ -26,13 +28,23 @@ export interface QontoConfig {
   readonly stagingToken?: string;
 }
 
-/** Reads config from the environment. Returns null rather than throwing when it is not set up. */
+export const QONTO_PRODUCTION_BASE = "https://thirdparty.qonto.com/v2";
+
+/**
+ * Reads config from the environment. Returns null rather than throwing when it is not set up.
+ *
+ * The base URL decides which credential pair is used, and each host only ever gets its own: the
+ * sandbox pair for the sandbox host, the production pair for everything else. There is no fallback
+ * between them, so a production secret is never sent to the shared sandbox, and a sandbox key never
+ * reaches a real account.
+ */
 export const qontoConfigFromEnv = (
   env: NodeJS.ProcessEnv = process.env,
 ): QontoConfig | null => {
-  const baseUrl = env.QONTO_API_BASE ?? "https://thirdparty.qonto.com/v2";
-  const login = env.QONTO_SANDBOX_LOGIN ?? env.QONTO_LOGIN ?? "";
-  const secretKey = env.QONTO_SANDBOX_SECRET_KEY ?? env.QONTO_SECRET_KEY ?? "";
+  const baseUrl = env.QONTO_API_BASE || QONTO_PRODUCTION_BASE;
+  const sandbox = isSandboxBase(baseUrl);
+  const login = (sandbox ? env.QONTO_SANDBOX_LOGIN : env.QONTO_LOGIN) ?? "";
+  const secretKey = (sandbox ? env.QONTO_SANDBOX_SECRET_KEY : env.QONTO_SECRET_KEY) ?? "";
   if (!login || !secretKey) return null;
   const stagingToken = env.QONTO_STAGING_TOKEN;
   return stagingToken
@@ -76,8 +88,25 @@ const request = async <T>(
   const text = await res.text().catch(() => "");
   if (!res.ok) return { ok: false, status: res.status, error: text.slice(0, 500) };
 
-  const json: unknown = text ? JSON.parse(text) : null;
-  return { ok: true, data: json as T };
+  // A 2xx that is not JSON is still a failure: the sandbox answers a missing staging token with an
+  // HTML login page and status 200, and parsing that must not throw out of a client that promises
+  // never to throw.
+  const parsed = parseJson(text);
+  if (!parsed.ok) {
+    return { ok: false, status: res.status, error: `not JSON: ${text.slice(0, 200)}` };
+  }
+  return { ok: true, data: parsed.value as T };
+};
+
+const parseJson = (
+  text: string,
+): { readonly ok: true; readonly value: unknown } | { readonly ok: false } => {
+  if (!text) return { ok: true, value: null };
+  try {
+    return { ok: true, value: JSON.parse(text) };
+  } catch {
+    return { ok: false };
+  }
 };
 
 // ---------------------------------------------------------------------------

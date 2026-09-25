@@ -6,11 +6,15 @@
  * facade with no service guarantee and it was observed down for forty minutes on 24.09.2026 while
  * its own status endpoint claimed otherwise.
  *
- * Read-only and cheap, so it needs no auth, but it is deliberately not a proxy for arbitrary
- * lookups: it takes one number and returns one answer about one order.
+ * Gated like the rest of the billing harness: platform admins, against the Qonto sandbox, and a 404
+ * for everyone else. Every lookup is filed with the Commission under the seller's own VAT number,
+ * so an open endpoint would be an unlimited VIES lookup service run in the seller's name, and heavy
+ * use can get the server throttled by VIES, which then silently costs real customers their reverse
+ * charge.
  */
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { mayUseBillingHarness } from "@/lib/billing/harness-access";
 import { formatEuro, priceFor } from "@/lib/billing/order";
 import { gateFromInput } from "@/lib/billing/order-gate";
 import { checkStructure } from "@/lib/billing/vat-checksum";
@@ -23,6 +27,10 @@ const body = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  if (!(await mayUseBillingHarness())) {
+    return new NextResponse(null, { status: 404 });
+  }
+
   const parsed = body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) {
     return NextResponse.json({ error: "vatNumber is required" }, { status: 400 });
