@@ -4,6 +4,15 @@
 -- company.billing_account_id NOT NULL can run the same statements again first and pick up any
 -- company or user created in between.
 --
+-- That later migration is the LAST run, and it must ship before the paywall does. Grandfathering
+-- stops when the paywall goes live, and every company this backfill touches can come out
+-- grandfathered, so it must never run once new signups are meant to pay. From that migration on,
+-- the application attaches an account to every company it creates, and nothing is left to fill.
+--
+-- It is also meant to ship together with the code that starts maintaining these tables. Until
+-- then, a role change or a member leaving updates user.role and user.company_id but not
+-- company_membership, and a rerun would not repair that drift.
+--
 -- 1. One billing account per company that has none.
 --
 --    A backfilled account reuses its company's id. That gives the insert and the link a key they
