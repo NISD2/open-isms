@@ -15,6 +15,7 @@ import { z } from "zod";
 import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { createBillingAccount } from "@/lib/billing/accounts";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import type { Database } from "@/lib/db";
 import { mailSupportEmail } from "@/lib/env";
@@ -1490,20 +1491,25 @@ export const platformAdminRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const [newCompany] = await ctx.db
-        .insert(company)
-        .values({
-          name: input.companyName,
-          sector: input.sector,
-          entityType: input.entityType,
-          employeeCount: input.employeeCount,
-          actsAsNis2Entity: true,
-          // A deliberately admin-created, named prospect company — not an
-          // onboarding draft shell. Stamp activated so it is counted as a real
-          // org, not folded into the draft/funnel-gap metric.
-          activatedAt: new Date(),
-        })
-        .returning({ id: company.id });
+      // A prospect company with no owner and no members yet, so its account has no owner either.
+      const [newCompany] = await ctx.db.transaction(async (tx) => {
+        const billingAccountId = await createBillingAccount(tx, null);
+        return tx
+          .insert(company)
+          .values({
+            name: input.companyName,
+            sector: input.sector,
+            entityType: input.entityType,
+            employeeCount: input.employeeCount,
+            actsAsNis2Entity: true,
+            // A deliberately admin-created, named prospect company — not an
+            // onboarding draft shell. Stamp activated so it is counted as a real
+            // org, not folded into the draft/funnel-gap metric.
+            activatedAt: new Date(),
+            billingAccountId,
+          })
+          .returning({ id: company.id });
+      });
       if (!newCompany) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -1782,9 +1788,10 @@ export const platformAdminRouter = router({
         companyName: company.name,
         ownerEmail: user.email,
         duties: count(),
-        last30: sql<number>`count(*) filter (where ${companyRequirementStatus.signedOffAt} >= now() - interval '30 days')`.mapWith(
-          Number,
-        ),
+        last30:
+          sql<number>`count(*) filter (where ${companyRequirementStatus.signedOffAt} >= now() - interval '30 days')`.mapWith(
+            Number,
+          ),
       })
       .from(companyRequirementStatus)
       .innerJoin(
@@ -1873,8 +1880,7 @@ export const platformAdminRouter = router({
     for (const row of cohorts) {
       if (isPlatformAdmin(row.ownerEmail)) continue;
       const key = row.createdAt.toISOString().slice(0, 7);
-      const entry =
-        cohortMap.get(key) ?? { companies: 0, active: [0, 0, 0, 0] };
+      const entry = cohortMap.get(key) ?? { companies: 0, active: [0, 0, 0, 0] };
       entry.companies += 1;
       if (row.lastActivity) {
         const last = new Date(row.lastActivity).getTime();
@@ -1904,9 +1910,8 @@ export const platformAdminRouter = router({
       invites: {
         total: invites.length,
         accepted: invites.filter((i) => i.acceptedAt !== null).length,
-        open: invites.filter(
-          (i) => i.acceptedAt === null && i.expiresAt > new Date(),
-        ).length,
+        open: invites.filter((i) => i.acceptedAt === null && i.expiresAt > new Date())
+          .length,
         rows: invites,
       },
       senders,

@@ -15,17 +15,65 @@
  * The supplier can later flip actsAsNis2Entity=true if they ALSO want to use the
  * entity portal — that's a separate explicit action.
  */
-import { eq, and, isNull, gt } from "drizzle-orm";
-import { z } from "zod";
+
 import { TRPCError } from "@trpc/server";
-import { router, protectedProcedure } from "../../init";
-import { company, user, supplierInvite, supplier } from "@/schema";
-import { discardDraftCompany } from "../../helpers/setup-helpers";
+import { and, eq, gt, isNull } from "drizzle-orm";
+import { z } from "zod";
+import { createBillingAccount } from "@/lib/billing/accounts";
+import type { DbOrTx } from "@/lib/db";
+import { joinCompany } from "@/lib/organization/membership";
+import { company, supplier, supplierInvite, user } from "@/schema";
 import {
-  supplierOnboardingBootstrapSchema,
   supplierAcceptInviteSchema,
+  supplierOnboardingBootstrapSchema,
 } from "@/schema/validators";
+import { discardDraftCompany } from "../../helpers/setup-helpers";
+import { protectedProcedure, router } from "../../init";
 import { generateOpaqueToken } from "./helpers";
+
+/**
+ * Create a supplier company owned by the user and make them its admin.
+ *
+ * It takes over the billing account of the draft it replaces, when there is one, so that account
+ * survives the draft being discarded afterwards. Sector is required by the schema but the supplier
+ * portal is sector-agnostic, so it gets a placeholder; entityType likewise only matters if the
+ * company later opts into the entity portal.
+ */
+const createSupplierCompany = async (
+  tx: DbOrTx,
+  input: {
+    readonly userId: string;
+    readonly name: string;
+    readonly country: string | null;
+    readonly replacesBillingAccountId: string | null;
+  },
+) => {
+  const billingAccountId =
+    input.replacesBillingAccountId ?? (await createBillingAccount(tx, input.userId));
+  const [newCompany] = await tx
+    .insert(company)
+    .values({
+      name: input.name,
+      sector: "n/a",
+      entityType: "important",
+      country: input.country,
+      actsAsNis2Entity: false,
+      actsAsSupplier: true,
+      // A supplier company is a real, activated org (no NIS2 assessment).
+      activatedAt: new Date(),
+      // The creator owns the org. Deleting the owner tears the org down.
+      ownerId: input.userId,
+      billingAccountId,
+    })
+    .returning();
+  if (!newCompany) throw new Error("supplier company insert returned no row");
+  await joinCompany(tx, {
+    userId: input.userId,
+    companyId: newCompany.id,
+    role: "admin",
+  });
+  return newCompany;
+};
 
 export const supplierOnboardingRouter = router({
   /**
@@ -42,7 +90,7 @@ export const supplierOnboardingRouter = router({
       const currentCompany = ctx.companyId
         ? await ctx.db.query.company.findFirst({
             where: eq(company.id, ctx.companyId),
-            columns: { id: true, activatedAt: true },
+            columns: { id: true, activatedAt: true, billingAccountId: true },
           })
         : null;
       if (currentCompany?.activatedAt) {
@@ -58,34 +106,14 @@ export const supplierOnboardingRouter = router({
       // entity portal too. entityType is also required; default to "important"
       // since it's the most common NIS2 classification and only matters if the
       // company later opts into the entity portal.
-      const result = await ctx.db.transaction(async (tx) => {
-        const [newCompany] = await tx
-          .insert(company)
-          .values({
-            name: input.name,
-            sector: "n/a",
-            entityType: "important",
-            country: input.country ?? null,
-            actsAsNis2Entity: false,
-            actsAsSupplier: true,
-            // A supplier company is a real, activated org (no NIS2 assessment).
-            activatedAt: new Date(),
-            // The creator owns the org. Deleting the owner tears the org down.
-            ownerId: ctx.userId,
-          })
-          .returning();
-
-        await tx
-          .update(user)
-          .set({
-            companyId: newCompany.id,
-            role: "admin",
-            updatedAt: new Date(),
-          })
-          .where(eq(user.id, ctx.userId));
-
-        return newCompany;
-      });
+      const result = await ctx.db.transaction((tx) =>
+        createSupplierCompany(tx, {
+          userId: ctx.userId,
+          name: input.name,
+          country: input.country ?? null,
+          replacesBillingAccountId: currentCompany?.billingAccountId ?? null,
+        }),
+      );
 
       // Discard the abandoned entity-draft shell (+ its seeded NIS2 rows),
       // best-effort after the user points at the supplier company.
@@ -154,7 +182,7 @@ export const supplierOnboardingRouter = router({
       const currentCompany = current?.companyId
         ? await ctx.db.query.company.findFirst({
             where: eq(company.id, current.companyId),
-            columns: { id: true, activatedAt: true },
+            columns: { id: true, activatedAt: true, billingAccountId: true },
           })
         : null;
       if (currentCompany?.activatedAt) {
@@ -191,30 +219,12 @@ export const supplierOnboardingRouter = router({
       }
 
       const result = await ctx.db.transaction(async (tx) => {
-        const [newCompany] = await tx
-          .insert(company)
-          .values({
-            name: input.name,
-            sector: "n/a",
-            entityType: "important",
-            country: input.country ?? null,
-            actsAsNis2Entity: false,
-            actsAsSupplier: true,
-            // A supplier company is a real, activated org (no NIS2 assessment).
-            activatedAt: new Date(),
-            // The creator owns the org. Deleting the owner tears the org down.
-            ownerId: ctx.userId,
-          })
-          .returning();
-
-        await tx
-          .update(user)
-          .set({
-            companyId: newCompany.id,
-            role: "admin",
-            updatedAt: new Date(),
-          })
-          .where(eq(user.id, ctx.userId));
+        const newCompany = await createSupplierCompany(tx, {
+          userId: ctx.userId,
+          name: input.name,
+          country: input.country ?? null,
+          replacesBillingAccountId: currentCompany?.billingAccountId ?? null,
+        });
 
         // Mark the invite accepted (audit trail).
         await tx

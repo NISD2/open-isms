@@ -27,7 +27,7 @@
  * must not become. Every assertion afterwards goes through the real HTTP
  * surface, unauthenticated.
  */
-import { test, expect, type APIRequestContext } from "@playwright/test";
+import { type APIRequestContext, expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 
 const TOKEN_A = "a1".repeat(32);
@@ -62,9 +62,12 @@ const ids = { company: "", relA: "", relB: "", relC: "" };
 
 async function getByToken(request: APIRequestContext, token: string) {
   const input = encodeURIComponent(JSON.stringify({ "0": { json: { token } } }));
-  return request.get(`/api/trpc/supplierPortal.public.getByToken?batch=1&input=${input}`, {
-    failOnStatusCode: false,
-  });
+  return request.get(
+    `/api/trpc/supplierPortal.public.getByToken?batch=1&input=${input}`,
+    {
+      failOnStatusCode: false,
+    },
+  );
 }
 
 test.describe("supplier portal: token-gated customer access", () => {
@@ -73,9 +76,10 @@ test.describe("supplier portal: token-gated customer access", () => {
 
   test.beforeAll(async () => {
     const [c] = await e2eQuery<{ id: string }>(
-      `INSERT INTO company (name, legal_name, sector, entity_type, acts_as_supplier,
-                            activated_at, ciso_name, stripe_customer_id, country)
-       VALUES ($1, $1, 'ict', 'important', true, NOW(), $2, $3, 'DE')
+      `WITH account AS (INSERT INTO billing_account DEFAULT VALUES RETURNING id)
+       INSERT INTO company (name, legal_name, sector, entity_type, acts_as_supplier,
+                            activated_at, ciso_name, stripe_customer_id, country, billing_account_id)
+       SELECT $1, $1, 'ict', 'important', true, NOW(), $2, $3, 'DE', account.id FROM account
        RETURNING id`,
       [SUPPLIER_NAME, SECRETS.cisoName, SECRETS.stripe],
     );
@@ -123,7 +127,13 @@ test.describe("supplier portal: token-gated customer access", () => {
                              root_cause, countermeasures, estimated_financial_damage)
        VALUES ($1, 'significant', $2, 'Verschluesselung mehrerer Hosts', NOW(), $3, $4, $5)
        RETURNING id`,
-      [ids.company, INCIDENT_TITLE, SECRETS.rootCause, SECRETS.countermeasures, SECRETS.damage],
+      [
+        ids.company,
+        INCIDENT_TITLE,
+        SECRETS.rootCause,
+        SECRETS.countermeasures,
+        SECRETS.damage,
+      ],
     );
     await e2eQuery(
       `INSERT INTO incident_broadcast (incident_id, customer_relationship_id, status)
@@ -151,7 +161,9 @@ test.describe("supplier portal: token-gated customer access", () => {
     );
     await e2eQuery(`DELETE FROM incident WHERE company_id = $1`, [ids.company]);
     await e2eQuery(`DELETE FROM asset WHERE company_id = $1`, [ids.company]);
-    await e2eQuery(`DELETE FROM company_certification WHERE company_id = $1`, [ids.company]);
+    await e2eQuery(`DELETE FROM company_certification WHERE company_id = $1`, [
+      ids.company,
+    ]);
     await e2eQuery(`DELETE FROM audit_log WHERE company_id = $1`, [ids.company]);
     await e2eQuery(`DELETE FROM supplier WHERE supplier_company_id = $1`, [ids.company]);
     await e2eQuery(`DELETE FROM company WHERE id = $1`, [ids.company]);
@@ -164,7 +176,9 @@ test.describe("supplier portal: token-gated customer access", () => {
     });
     // The banner proves the token resolved to THIS relationship and not just
     // to some supplier: it greets the customer by the invited address.
-    await expect(page.getByText("alpha@kunde.local", { exact: false }).first()).toBeVisible();
+    await expect(
+      page.getByText("alpha@kunde.local", { exact: false }).first(),
+    ).toBeVisible();
     // By testid, not by label: the chrome is translated into ten locales and
     // an accessible-name regex would quietly stop matching on the next one.
     await expect(page.getByTestId("revoke-access")).toBeVisible();
@@ -270,7 +284,9 @@ test.describe("supplier portal: token-gated customer access", () => {
     expect(row.unsubscribed_at, "unsubscribed_at stamped").not.toBeNull();
 
     // The token is dead for reads, over the API and in the browser.
-    expect(await (await getByToken(request, TOKEN_C)).text()).not.toContain(SUPPLIER_NAME);
+    expect(await (await getByToken(request, TOKEN_C)).text()).not.toContain(
+      SUPPLIER_NAME,
+    );
     await page.goto(`/de/supplier-access/${TOKEN_C}`);
     await expect(page.getByText(SUPPLIER_NAME, { exact: false })).toHaveCount(0);
 

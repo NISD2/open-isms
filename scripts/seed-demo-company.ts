@@ -40,35 +40,38 @@ if (!process.argv.includes("--confirm")) {
   );
 }
 
-import { eq, and, inArray, is, getTableName, getTableColumns } from "drizzle-orm";
+import { randomBytes, randomUUID } from "node:crypto";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import bcrypt from "bcryptjs";
+import { and, eq, getTableColumns, getTableName, inArray, is } from "drizzle-orm";
 import { PgTable } from "drizzle-orm/pg-core";
+import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
+import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
 import { db } from "@/lib/db";
+import { joinCompany } from "@/lib/organization/membership";
+import { BUCKET, s3 } from "@/lib/storage";
+import { s3Signer } from "@/lib/storage/s3-client";
 import * as schema from "@/schema";
 import {
+  asset,
+  billingAccount,
   company,
-  user,
   companyAssessment,
-  companyRequirementStatus,
   companyCategoryIntake,
-  requirementCategory,
+  companyRequirementStatus,
+  companyRiskMethodology,
   complianceFramework,
   evidence,
-  asset,
-  supplier,
-  risk,
-  trainingRecord,
   incident,
-  companyRiskMethodology,
+  requirementCategory,
+  risk,
   riskAsset,
   riskSupplier,
+  supplier,
+  trainingRecord,
+  user,
 } from "@/schema";
 import { createAssessmentsForFrameworks } from "@/server/trpc/helpers/setup-helpers";
-import { getDefaultMethodology } from "@/lib/compliance/risk-methodology-defaults";
-import bcrypt from "bcryptjs";
-import { randomUUID, randomBytes } from "node:crypto";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { s3, BUCKET } from "@/lib/storage";
-import { s3Signer } from "@/lib/storage/s3-client";
 
 const DEMO_EMAIL = "gf@wertstoff-nordkreis.example";
 const IT_EMAIL = "it@wertstoff-nordkreis.example";
@@ -259,6 +262,8 @@ const NOT_WIPED = new Set([
   // Deleting it explicitly first would work but says something untrue about
   // who owns the row's lifetime.
   "supplier_invite",
+  // Same: memberships cascade with the company.
+  "company_membership",
 ]);
 
 /**
@@ -518,7 +523,13 @@ async function wipeExisting() {
       .delete(user)
       .where(and(eq(user.companyId, cid), inArray(user.email, [DEMO_EMAIL, IT_EMAIL])));
     await tx.update(user).set({ companyId: null }).where(eq(user.companyId, cid));
+    const demo = await tx.query.company.findFirst({
+      where: eq(company.id, cid),
+      columns: { billingAccountId: true },
+    });
     await tx.delete(company).where(eq(company.id, cid));
+    if (demo?.billingAccountId)
+      await deleteBillingAccountIfUnused(tx, demo.billingAccountId);
   });
 }
 
@@ -555,9 +566,17 @@ async function main() {
     })
     .returning();
 
+  // The demo company shows everything, so its account has full access.
+  const [account] = await db
+    .insert(billingAccount)
+    .values({ ownerUserId: gf.id, accessLevel: "full" })
+    .returning({ id: billingAccount.id });
+  if (!account) throw new Error("billing account insert returned no row");
+
   const [co] = await db
     .insert(company)
     .values({
+      billingAccountId: account.id,
       name: "Wertstoff Nordkreis GmbH",
       legalForm: "GmbH",
       sector: "Abfallbewirtschaftung",
@@ -583,10 +602,8 @@ async function main() {
     })
     .returning();
 
-  await db
-    .update(user)
-    .set({ companyId: co.id })
-    .where(inArray(user.id, [gf.id, itLead.id]));
+  await joinCompany(db, { userId: gf.id, companyId: co.id, role: "admin" });
+  await joinCompany(db, { userId: itLead.id, companyId: co.id, role: "member" });
 
   console.log("company", co.id);
 
@@ -679,7 +696,8 @@ async function main() {
     const cat = r.catCode ?? "";
     const inProgress = IN_PROGRESS.has(r.code);
     const reviewDate = REVIEW[cat] ?? "2026-07-31";
-    const slot = (slotByDate[reviewDate] = (slotByDate[reviewDate] ?? 0) + 1);
+    const slot = (slotByDate[reviewDate] ?? 0) + 1;
+    slotByDate[reviewDate] = slot;
     const signAt = at(reviewDate, 9 + Math.floor(slot / 3), 12 + ((slot * 17) % 45));
     const completeAt = at(reviewDate, 8, 30 + (slot % 20));
     const gfSigns = GF_CATS.has(cat) || r.code === "2.4";

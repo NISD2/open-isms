@@ -4,6 +4,7 @@ import { and, asc, eq, inArray, isNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { hasReviewAccess } from "@/lib/auth";
+import { createBillingAccount } from "@/lib/billing/accounts";
 import {
   computeInitialDeadline,
   type Frequency,
@@ -20,6 +21,7 @@ import {
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import type { Database } from "@/lib/db";
 import { contactEmailChangedEmail, sendMail } from "@/lib/mail";
+import { joinCompany } from "@/lib/organization/membership";
 import {
   auditLog,
   categoryAssignment,
@@ -318,15 +320,14 @@ export const assessmentRouter = router({
           }
         } else {
           // No draft (edge / legacy path) — create, own, seed, activate in one.
+          const billingAccountId = await createBillingAccount(tx, ctx.userId);
           const [newCompany] = await tx
             .insert(company)
-            .values(activatedValues)
+            .values({ ...activatedValues, billingAccountId })
             .returning();
+          if (!newCompany) throw new Error("company insert returned no row");
           companyId = newCompany.id;
-          await tx
-            .update(user)
-            .set({ companyId, role: "admin", updatedAt: new Date() })
-            .where(eq(user.id, ctx.userId));
+          await joinCompany(tx, { userId: ctx.userId, companyId, role: "admin" });
           const created = await createAssessmentsForFrameworks(
             tx,
             companyId,

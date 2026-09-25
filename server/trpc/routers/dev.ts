@@ -1,19 +1,21 @@
-import { z } from "zod";
-import { eq, and, inArray, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { router, protectedProcedure, adminProcedure } from "../init";
+import { and, eq, inArray, sql } from "drizzle-orm";
+import { z } from "zod";
+import { setMembershipRole } from "@/lib/organization/membership";
 import {
-  user,
+  auditLog,
+  categoryAssignment,
   company,
   companyAssessment,
   companyRequirementStatus,
-  requirementAssignment,
   evidence,
-  auditLog,
-  categoryAssignment,
+  membershipRoleEnum,
   requirement,
+  requirementAssignment,
   requirementCategory,
+  user,
 } from "@/schema";
+import { adminProcedure, protectedProcedure, router } from "../init";
 
 /**
  * Dev-only router. Built into the appRouter only when NODE_ENV === "development"
@@ -40,14 +42,18 @@ import {
  * intentionally does not exist yet.
  */
 export const devRouter = router({
-  /** Switch the current user's role between admin / member / reviewer */
+  /** Switch the current user's role in the company they have open */
   switchRole: protectedProcedure
-    .input(z.object({ role: z.enum(["admin", "member", "reviewer", "legal_reviewer"]) }))
+    .input(z.object({ role: z.enum(membershipRoleEnum.enumValues) }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db
-        .update(user)
-        .set({ role: input.role, updatedAt: new Date() })
-        .where(eq(user.id, ctx.userId));
+      if (!ctx.companyId) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Open a company first." });
+      }
+      await setMembershipRole(ctx.db, {
+        userId: ctx.userId,
+        companyId: ctx.companyId,
+        role: input.role,
+      });
       return { role: input.role };
     }),
 
@@ -98,9 +104,7 @@ export const devRouter = router({
         .where(eq(companyAssessment.companyId, companyId));
     }
 
-    await ctx.db
-      .delete(auditLog)
-      .where(eq(auditLog.companyId, companyId));
+    await ctx.db.delete(auditLog).where(eq(auditLog.companyId, companyId));
 
     await ctx.db
       .update(user)
@@ -129,7 +133,10 @@ export const devRouter = router({
           categoryId: requirement.categoryId,
         })
         .from(requirement)
-        .innerJoin(requirementCategory, eq(requirement.categoryId, requirementCategory.id))
+        .innerJoin(
+          requirementCategory,
+          eq(requirement.categoryId, requirementCategory.id),
+        )
         .where(inArray(requirement.id, input.requirementIds));
 
       if (reqs.length === 0) {

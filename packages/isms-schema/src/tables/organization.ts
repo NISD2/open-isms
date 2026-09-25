@@ -94,13 +94,10 @@ export const company = pgTable("company", {
   primaryLocations: varchar("primary_locations", { length: 1000 }),
 
   // Billing
-  /**
-   * The paying customer this company belongs to. Nullable only until every path that creates a
-   * company also attaches an account; the migration backfills every existing company.
-   */
-  billingAccountId: uuid("billing_account_id").references(
-    (): AnyPgColumn => billingAccount.id,
-  ),
+  /** The paying customer this company belongs to. Every company has one. */
+  billingAccountId: uuid("billing_account_id")
+    .notNull()
+    .references((): AnyPgColumn => billingAccount.id),
   plan: planEnum("plan").default("free").notNull(),
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
   stripeSubscriptionId: varchar("stripe_subscription_id", { length: 255 }),
