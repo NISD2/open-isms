@@ -14,6 +14,7 @@ import {
 import { MAX_UPLOAD_BYTES } from "@/lib/storage/limits";
 import { trainingRecord } from "@/schema";
 import { trainingInsertSchema, trainingUpdateSchema } from "@/schema/validators";
+import { verifyMemberReferences } from "../guards";
 import { companyProcedure, router } from "../init";
 
 /**
@@ -42,6 +43,25 @@ const batchCreateSchema = z.object({
   participants: z.array(trainingInsertSchema.pick(participantColumns)).min(1),
 });
 
+/** Where getCertificateUploadUrl puts a company's certificates; the only keys a record may hold. */
+const certificatePrefix = (companyId: string) => `companies/${companyId}/training-certs/`;
+
+const isOwnCertificateKey = (companyId: string, key: string) =>
+  key.startsWith(certificatePrefix(companyId));
+
+/**
+ * A certificate key must be one this company's upload URL issued. A record holding any other key
+ * would have its download sign someone else's object, such as another tenant's evidence.
+ */
+const assertOwnCertificateKey = (companyId: string, key: string | null | undefined) => {
+  if (key && !isOwnCertificateKey(companyId, key)) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "The certificate file was not uploaded for this company.",
+    });
+  }
+};
+
 export const trainingRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
@@ -54,6 +74,8 @@ export const trainingRouter = router({
   create: companyProcedure
     .input(trainingInsertSchema.omit({ id: true, companyId: true, createdAt: true }))
     .mutation(async ({ ctx, input }) => {
+      assertOwnCertificateKey(ctx.companyId, input.certificateFileKey);
+      await verifyMemberReferences(ctx.db, [input.userId], ctx.companyId);
       const [row] = await ctx.db
         .insert(trainingRecord)
         .values({ ...input, companyId: ctx.companyId })
@@ -70,6 +92,12 @@ export const trainingRouter = router({
   batchCreate: companyProcedure
     .input(batchCreateSchema)
     .mutation(async ({ ctx, input }) => {
+      assertOwnCertificateKey(ctx.companyId, input.training.certificateFileKey);
+      await verifyMemberReferences(
+        ctx.db,
+        input.participants.map((p) => p.userId),
+        ctx.companyId,
+      );
       const rows = await ctx.db
         .insert(trainingRecord)
         .values(
@@ -93,6 +121,8 @@ export const trainingRouter = router({
     .input(trainingUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
+      assertOwnCertificateKey(ctx.companyId, data.certificateFileKey);
+      await verifyMemberReferences(ctx.db, [data.userId], ctx.companyId);
       const [row] = await ctx.db
         .update(trainingRecord)
         .set(data)
@@ -147,7 +177,7 @@ export const trainingRouter = router({
       // get to choose a content type a browser will render. `contentType` is
       // returned because it is signed into the URL and the PUT must echo it.
       const storedType = normalizeContentType(input.contentType);
-      const key = `companies/${ctx.companyId}/training-certs/${crypto.randomUUID()}-${sanitizeFilename(input.fileName)}`;
+      const key = `${certificatePrefix(ctx.companyId)}${crypto.randomUUID()}-${sanitizeFilename(input.fileName)}`;
       const uploadUrl = await createPresignedPut(key, storedType, input.fileSize);
       return { uploadUrl, fileKey: key, contentType: storedType };
     }),
@@ -172,7 +202,12 @@ export const trainingRouter = router({
         ),
         columns: { certificateFileKey: true },
       });
-      if (!row?.certificateFileKey) {
+      // Checked again here, because rows written before the key was checked on write may hold any
+      // key; one outside this company's prefix is treated as no certificate at all.
+      if (
+        !row?.certificateFileKey ||
+        !isOwnCertificateKey(ctx.companyId, row.certificateFileKey)
+      ) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "No certificate on this record",

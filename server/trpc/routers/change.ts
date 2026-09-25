@@ -9,6 +9,7 @@ import {
   changeRequestInsertSchema,
   changeRequestUpdateSchema,
 } from "@/schema/validators";
+import { verifyAssetReference, verifyMemberReferences } from "../guards";
 import { companyProcedure, router } from "../init";
 import { insertRow, updateRow } from "../typed";
 
@@ -31,6 +32,12 @@ export const changeRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      await verifyAssetReference(ctx.db, input.assetId, ctx.companyId);
+      await verifyMemberReferences(
+        ctx.db,
+        [input.approvedBy, input.implementedBy],
+        ctx.companyId,
+      );
       const values = { ...input, companyId: ctx.companyId, requestedBy: ctx.userId };
       const [row] = await ctx.db
         .insert(changeRequest)
@@ -46,6 +53,12 @@ export const changeRouter = router({
     .input(changeRequestUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
+      await verifyAssetReference(ctx.db, data.assetId, ctx.companyId);
+      await verifyMemberReferences(
+        ctx.db,
+        [data.requestedBy, data.approvedBy, data.implementedBy],
+        ctx.companyId,
+      );
       const updates = { ...data, updatedAt: new Date() };
       const [row] = await ctx.db
         .update(changeRequest)

@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { TRPCError } from "@trpc/server";
-import { and, desc, eq, inArray, ne } from "drizzle-orm";
+import { and, desc, eq, inArray, ne, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
@@ -449,6 +449,22 @@ export const teamRouter = router({
             eq(notification.companyId, ctx.companyId),
             inArray(notification.status, ["pending", "sent"]),
             ne(notification.entityType, LIFECYCLE_ENTITY_TYPE),
+          ),
+        );
+
+      // Pending invites in this company that the person sent, or that are addressed to them, are
+      // revoked, so neither can bring them back after the removal.
+      await ctx.db
+        .update(companyInvite)
+        .set({ status: "revoked" })
+        .where(
+          and(
+            eq(companyInvite.companyId, ctx.companyId),
+            eq(companyInvite.status, "pending"),
+            or(
+              eq(companyInvite.invitedBy, input.userId),
+              sql`lower(${companyInvite.email}) = ${member.email.toLowerCase()}`,
+            ),
           ),
         );
 

@@ -947,6 +947,13 @@ async function erasePerson(
   await del("lead", () =>
     tx.delete(lead).where(eq(lead.email, email.toLowerCase())).returning(),
   );
+  // Invites addressed to the person, in every company, including ones that survive this erasure.
+  await del("company_invite", () =>
+    tx
+      .delete(companyInvite)
+      .where(sql`lower(${companyInvite.email}) = ${email.toLowerCase()}`)
+      .returning(),
+  );
   await anon("notification", () =>
     tx
       .update(notification)

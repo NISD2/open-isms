@@ -6,6 +6,7 @@ import {
 } from "@/lib/compliance/module-recheck";
 import { patchRecord } from "@/schema";
 import { patchRecordInsertSchema, patchRecordUpdateSchema } from "@/schema/validators";
+import { verifyAssetReference } from "../guards";
 import { companyProcedure, router } from "../init";
 import { insertRow, updateRow } from "../typed";
 
@@ -28,6 +29,7 @@ export const patchRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      await verifyAssetReference(ctx.db, input.assetId, ctx.companyId);
       const values = { ...input, companyId: ctx.companyId };
       const [row] = await ctx.db
         .insert(patchRecord)
@@ -43,6 +45,7 @@ export const patchRouter = router({
     .input(patchRecordUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
+      await verifyAssetReference(ctx.db, data.assetId, ctx.companyId);
       const updates = { ...data, updatedAt: new Date() };
       const [row] = await ctx.db
         .update(patchRecord)

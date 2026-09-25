@@ -193,7 +193,7 @@ async function main() {
     customerOrgName: "Smoke Test Customer GmbH",
     source: "manual",
   });
-  console.log(`   ✓ relationship id=${invited.id} status=${invited.status}\n`);
+  console.log(`   ✓ relationship id=${invited.id}\n`);
 
   // ---------------------------------------------------------------------
   // 3b. Save per-customer contract clauses on the relationship row

@@ -26,6 +26,7 @@ import {
   riskTreatmentUpdateSchema,
   riskUpdateSchema,
 } from "@/schema/validators";
+import { verifyMemberReferences } from "../guards";
 import { companyProcedure, router } from "../init";
 import { insertRow, updateRow } from "../typed";
 
@@ -310,6 +311,11 @@ export const riskRouter = router({
         columns: { id: true },
       });
       if (!parentRisk) throw new TRPCError({ code: "NOT_FOUND" });
+      await verifyMemberReferences(
+        ctx.db,
+        [input.responsibleUserId, input.verifiedBy],
+        ctx.companyId,
+      );
       const [row] = await ctx.db
         .insert(riskTreatment)
         .values(insertRow(riskTreatment, input))
@@ -331,6 +337,11 @@ export const riskRouter = router({
         columns: { id: true },
       });
       if (!parentRisk) throw new TRPCError({ code: "NOT_FOUND" });
+      await verifyMemberReferences(
+        ctx.db,
+        [data.responsibleUserId, data.verifiedBy],
+        ctx.companyId,
+      );
       const updates = { ...data, updatedAt: new Date() };
       const [row] = await ctx.db
         .update(riskTreatment)

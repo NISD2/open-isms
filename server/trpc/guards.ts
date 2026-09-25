@@ -1,9 +1,11 @@
 import { TRPCError } from "@trpc/server";
-import { and, eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import type { Database } from "@/lib/db";
 import {
+  asset,
   categoryAssignment,
   companyAssessment,
+  companyMembership,
   companyRequirementStatus,
 } from "@/schema";
 
@@ -77,6 +79,49 @@ export async function verifyStatusOwnership(
   }
   await verifyAssessmentOwnership(db, row.assessmentId, companyId);
   return row;
+}
+
+/**
+ * Verify that a referenced asset belongs to the caller's company. A record pointing at another
+ * tenant's asset would confirm the asset exists and, through the foreign key, stop its owner
+ * deleting it. Does nothing when no asset is referenced.
+ */
+export async function verifyAssetReference(
+  db: Database,
+  assetId: string | null | undefined,
+  companyId: string,
+): Promise<void> {
+  if (!assetId) return;
+  const row = await db.query.asset.findFirst({
+    where: and(eq(asset.id, assetId), eq(asset.companyId, companyId)),
+    columns: { id: true },
+  });
+  if (!row) throw new TRPCError({ code: "NOT_FOUND", message: "Asset not found" });
+}
+
+/**
+ * Verify that every referenced person is a member of the caller's company, for columns such as
+ * an assignee or a training participant. Does nothing for an empty list.
+ */
+export async function verifyMemberReferences(
+  db: Database,
+  userIds: readonly (string | null | undefined)[],
+  companyId: string,
+): Promise<void> {
+  const wanted = [...new Set(userIds.filter((id): id is string => Boolean(id)))];
+  if (wanted.length === 0) return;
+  const found = await db
+    .select({ userId: companyMembership.userId })
+    .from(companyMembership)
+    .where(
+      and(
+        eq(companyMembership.companyId, companyId),
+        inArray(companyMembership.userId, wanted),
+      ),
+    );
+  if (found.length !== wanted.length) {
+    throw new TRPCError({ code: "NOT_FOUND", message: "User not found in your company" });
+  }
 }
 
 /**

@@ -12,6 +12,7 @@ import {
   internalAuditInsertSchema,
   internalAuditUpdateSchema,
 } from "@/schema/validators";
+import { verifyMemberReferences } from "../guards";
 import { companyProcedure, router } from "../init";
 import { insertRow, updateRow } from "../typed";
 
@@ -107,6 +108,11 @@ export const internalAuditRouter = router({
         columns: { id: true },
       });
       if (!parentAudit) throw new TRPCError({ code: "NOT_FOUND" });
+      await verifyMemberReferences(
+        ctx.db,
+        [input.assignedTo, input.verifiedBy],
+        ctx.companyId,
+      );
       const [row] = await ctx.db
         .insert(auditFinding)
         .values(insertRow(auditFinding, input))
@@ -134,6 +140,11 @@ export const internalAuditRouter = router({
         columns: { id: true },
       });
       if (!parentAudit) throw new TRPCError({ code: "NOT_FOUND" });
+      await verifyMemberReferences(
+        ctx.db,
+        [data.assignedTo, data.verifiedBy],
+        ctx.companyId,
+      );
       const updates = { ...data, updatedAt: new Date() };
       const [row] = await ctx.db
         .update(auditFinding)

@@ -9,6 +9,7 @@ import {
   improvementItemInsertSchema,
   improvementItemUpdateSchema,
 } from "@/schema/validators";
+import { verifyMemberReferences } from "../guards";
 import { companyProcedure, router } from "../init";
 import { insertRow, updateRow } from "../typed";
 
@@ -31,6 +32,7 @@ export const improvementRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      await verifyMemberReferences(ctx.db, [input.assignedTo], ctx.companyId);
       const values = { ...input, companyId: ctx.companyId };
       const [row] = await ctx.db
         .insert(improvementItem)
@@ -49,6 +51,7 @@ export const improvementRouter = router({
     .input(improvementItemUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
+      await verifyMemberReferences(ctx.db, [data.assignedTo], ctx.companyId);
       const updates = { ...data, updatedAt: new Date() };
       const [row] = await ctx.db
         .update(improvementItem)

@@ -12,7 +12,6 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { listUserCompanies } from "@/lib/organization/membership";
 import { company, supplier } from "@/schema";
 import {
   relationshipClausesUpdateSchema,
@@ -70,26 +69,16 @@ export const supplierRelationshipRouter = router({
         columns: { name: true },
       });
 
-      // Resolve the customer email to a tenant only when it names exactly one: a person in several
-      // organizations would otherwise link whichever one they happen to have open, and the row
-      // then stays unlinked, as it does for an email we do not know.
-      const matchingUser = await ctx.db.query.user.findFirst({
-        where: (u, { eq, sql }) => eq(sql`lower(${u.email})`, email),
-        columns: { id: true },
-      });
-      const customerCompanies = matchingUser
-        ? await listUserCompanies(ctx.db, matchingUser.id)
-        : [];
-      const customerCompanyId =
-        customerCompanies.length === 1 ? (customerCompanies[0]?.id ?? null) : null;
-
-      // Atomic upsert keyed on (supplierCompanyId, customerEmail)
+      // The row is never linked to a customer organization from the email alone: that would let
+      // any supplier place itself in any tenant's supplier inventory, and learn which tenant an
+      // address belongs to. The customer reaches it through the emailed token link; a link into
+      // their inventory is made only by the token flow they start (onboarding.acceptInvite).
       const [inserted] = await ctx.db
         .insert(supplier)
         .values(
           insertRow(supplier, {
             supplierCompanyId: ctx.companyId,
-            customerCompanyId,
+            customerCompanyId: null,
             customerEmail: email,
             name: me?.name ?? "Supplier",
             customerOrgName: input.customerOrgName ?? null,
@@ -111,6 +100,7 @@ export const supplierRelationshipRouter = router({
             eq(supplier.supplierCompanyId, ctx.companyId),
             eq(supplier.customerEmail, email),
           ),
+          columns: { id: true },
         });
         if (!existing) {
           throw new TRPCError({
@@ -125,7 +115,9 @@ export const supplierRelationshipRouter = router({
       notifyCustomerAdded(ctx.companyId, email).catch((err) => {
         console.error("[supplier-portal] customer added email failed:", err);
       });
-      return inserted;
+      // Only the id: the row carries the customer's access token, which is their credential and
+      // never the supplier's to see (as in `get`).
+      return { id: inserted.id };
     }),
 
   /**
