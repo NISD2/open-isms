@@ -19,6 +19,7 @@ import { createBillingAccount } from "@/lib/billing/accounts";
 import { closeDeal, closeNetCents } from "@/lib/billing/close-deal";
 import { launchBilling, pricingState } from "@/lib/billing/launch";
 import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { clearOrderCheck, listOrderChecks } from "@/lib/billing/order-check";
 import { orderingMode } from "@/lib/billing/ordering";
 import { quoteFor } from "@/lib/billing/quote";
 import { viesConfigFromEnv } from "@/lib/billing/vies";
@@ -534,6 +535,36 @@ export const platformAdminRouter = router({
         createdUser: outcome.createdUser,
         setupSent: outcome.setupSent,
       };
+    }),
+
+  /** Accounts blocked after an unclear order, waiting for someone to check Qonto. */
+  orderChecks: platformAdminProcedure.query(({ ctx }) => listOrderChecks(ctx.db)),
+
+  /**
+   * Lift the block after checking Qonto: either no invoice exists, or it was recorded or credited
+   * by hand. Audited, because it re-opens ordering for a customer who may already have an invoice.
+   */
+  clearOrderCheck: platformAdminProcedure
+    .input(z.object({ billingAccountId: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const cleared = await clearOrderCheck(ctx.db, input.billingAccountId);
+      if (!cleared) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "No order check on this account.",
+        });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.order_check_cleared",
+        entityType: "billing_account",
+        entityId: input.billingAccountId,
+        description: `Order check cleared for billing account ${input.billingAccountId}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { cleared };
     }),
 
   myDevState: platformAdminProcedure.query(async ({ ctx }) => {

@@ -35,6 +35,7 @@ const accountOf = async (db: DbOrTx, companyId: string) => {
       id: billingAccount.id,
       accessLevel: billingAccount.accessLevel,
       ownerUserId: billingAccount.ownerUserId,
+      orderCheckSince: billingAccount.orderCheckSince,
     })
     .from(company)
     .innerJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
@@ -86,8 +87,10 @@ export const billingRouter = router({
     return {
       mode: mode.kind,
       open,
-      canOrder: open && isPayer && !active,
+      canOrder: open && isPayer && !active && !account.orderCheckSince,
       isPayer,
+      /** An earlier order is being checked in Qonto; ordering waits for that. */
+      orderPending: account.orderCheckSince !== null,
       accessLevel: account.accessLevel,
       netPrice: formatEuro(netCentsFor(account.accessLevel)),
       activeInvoice: active,
@@ -166,7 +169,9 @@ export const billingRouter = router({
             message: "The invoice could not be created. Please try again later.",
           });
         case "qonto_unknown":
-          // The client tells the customer not to order again; the operators have been alerted.
+        case "order_pending":
+          // The client tells the customer not to order again; the operators have been alerted and
+          // the account stays blocked until someone clears it (lib/billing/order-check.ts).
           throw new TRPCError({ code: "TIMEOUT", message: outcome.message });
       }
     }),

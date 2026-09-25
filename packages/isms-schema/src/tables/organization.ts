@@ -48,6 +48,12 @@ export const billingAccount = pgTable("billing_account", {
   accessLevel: accessLevelEnum("access_level").default("free").notNull(),
   /** Set when the customer cancels after the thirty days: access runs out, nothing renews. */
   renewalCanceledAt: timestamp("renewal_canceled_at"),
+  /**
+   * Set when Qonto did not answer an order clearly, so an invoice may exist that we did not record.
+   * While set, every order for this account is refused, from any door or device, until a platform
+   * admin has checked Qonto and cleared it (lib/billing/order-check.ts). Null otherwise.
+   */
+  orderCheckSince: timestamp("order_check_since"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

@@ -7,6 +7,7 @@
       "sandboxNotice": "Test mode: this order creates an invoice in the Qonto sandbox and unlocks this account.",
       "alreadyPaid": "Your account is paid until {date}, invoice {number}.",
       "payerOnly": "The account holder can place the order. Usually that is whoever set up the organization.",
+      "pendingCheck": "We are checking an earlier order for this account. Please do not order again; we will get back to you.",
       "toInvoices": "Your invoices"
     },
     "form": {

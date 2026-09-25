@@ -30,6 +30,7 @@ import {
   type OrderInput,
   priceFor,
 } from "./order";
+import { markOrderCheck } from "./order-check";
 import type { OrderingMode } from "./ordering";
 import {
   createClient,
@@ -57,6 +58,8 @@ export type OrderOutcome =
         | "invalid_vat"
         | "no_account"
         | "price_changed"
+        /** An earlier order for this account is still being checked in Qonto (./order-check). */
+        | "order_pending"
         /** Qonto refused: nothing was issued. */
         | "qonto"
         /** Qonto did not answer clearly: an invoice may exist, and the operators are told. */
@@ -230,12 +233,20 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
           id: billingAccount.id,
           accessLevel: billingAccount.accessLevel,
           qontoClientId: billingAccount.qontoClientId,
+          orderCheckSince: billingAccount.orderCheckSince,
         })
         .from(billingAccount)
         .where(eq(billingAccount.id, input.billingAccountId))
         .for("update");
       if (!account)
         return failure("no_account", "This organization has no billing account.");
+      // Under the lock, so an order racing the one that set the block cannot slip past it.
+      if (account.orderCheckSince) {
+        return failure(
+          "order_pending",
+          "An earlier order is still being checked in Qonto.",
+        );
+      }
 
       const active = await findActiveInvoice(tx, account.id, now);
       if (active) {
@@ -323,7 +334,10 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
           `Qonto hat auf die Rechnung ${number} nicht eindeutig geantwortet: ${issued.ok ? "kein id" : issued.error}.`,
           `Billing account ${account.id}, Qonto client ${client.id}, Rechnung an ${order.invoiceEmail}.`,
           "In Qonto nachsehen. Gibt es die Rechnung, die Zeile von Hand anlegen und den Zugang freischalten, oder gutschreiben.",
+          "Weitere Bestellungen dieses Kontos sind gesperrt, bis die Prüfung im Pricing Tab aufgehoben wird.",
         ]);
+        // Committed with this transaction, which returns rather than throws on this path.
+        await markOrderCheck(tx, account.id, now);
         return failure("qonto_unknown", "Qonto did not answer clearly.");
       }
 
@@ -371,15 +385,23 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
         throw new AlreadyAlerted(err);
       }
     })
-    .catch((err: unknown) => {
+    .catch(async (err: unknown) => {
       // Whatever broke, we cannot say whether Qonto issued an invoice, so the customer is told not
-      // to order again, and the operators hear about it once.
+      // to order again, the account is blocked until someone checks, and the operators hear about
+      // it once. The transaction rolled back, so the block is written on its own.
       if (!(err instanceof AlreadyAlerted)) {
         void alertOperators("Bestellung abgebrochen", [
           `Die Bestellung für billing account ${input.billingAccountId} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
           `Rechnung an ${order.invoiceEmail}. In Qonto nachsehen, ob eine Rechnung entstanden ist.`,
+          "Weitere Bestellungen dieses Kontos sind gesperrt, bis die Prüfung im Pricing Tab aufgehoben wird.",
         ]);
       }
+      await markOrderCheck(db, input.billingAccountId, now).catch((markErr: unknown) =>
+        console.error(
+          `[billing] could not block account ${input.billingAccountId}`,
+          markErr,
+        ),
+      );
       return failure("qonto_unknown", "The order stopped part way.");
     });
 
