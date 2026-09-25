@@ -74,10 +74,11 @@ export function DemoCloseForm() {
     defaultValues: orderDefaults(locale),
   });
 
+  // Trimmed like the order schema trims, so blur and submit quote the same thing.
   const quoteInput = (vatNumber: string) => ({
     customerEmail: customerEmail.trim(),
-    vatNumber,
-    countryCode: form.getValues("countryCode"),
+    vatNumber: vatNumber.trim(),
+    countryCode: form.getValues("countryCode").trim(),
     netCents,
   });
 
@@ -96,6 +97,7 @@ export function DemoCloseForm() {
       v &&
       v.customerEmail === current.customerEmail &&
       v.vatNumber === current.vatNumber &&
+      v.countryCode === current.countryCode &&
       v.netCents === current.netCents;
     const price = fresh ? quote.data?.price : undefined;
     if (!price) {
