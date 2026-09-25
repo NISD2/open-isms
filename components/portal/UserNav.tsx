@@ -1,16 +1,9 @@
 "use client";
 
-import { useRouter, usePathname } from "@/i18n/navigation";
+import { Check, ChevronsUpDown, Globe, LogOut, Shield } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
 import { signOut } from "next-auth/react";
-import {
-  Check,
-  ChevronsUpDown,
-  Globe,
-  LogOut,
-  Shield,
-} from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -29,8 +22,10 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { getInitials } from "@/lib/utils";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { LOCALES, type LocaleCode } from "@/lib/locale";
+import { getInitials } from "@/lib/utils";
+import { OrganizationSubmenu } from "./OrganizationSubmenu";
 
 interface UserNavProps {
   user: {
@@ -56,10 +51,9 @@ export function UserNav({ user }: UserNavProps) {
     // filled from `params` so they survive the locale switch. Passing the bare
     // template without params leaves the `[..]` placeholders literal and
     // breaks every dynamic route (compliance requirements, course lessons).
-    router.replace(
-      { pathname, params } as Parameters<typeof router.replace>[0],
-      { locale: next as LocaleCode },
-    );
+    router.replace({ pathname, params } as Parameters<typeof router.replace>[0], {
+      locale: next as LocaleCode,
+    });
   }
 
   return (
@@ -127,6 +121,7 @@ export function UserNav({ user }: UserNavProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <OrganizationSubmenu />
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
                 <Globe className="mr-2 h-4 w-4" />

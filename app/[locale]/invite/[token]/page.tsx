@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { companyInvite, company } from "@/schema";
-import { getSession } from "@/lib/auth";
-import { AcceptInviteCard } from "@/components/invite/AcceptInviteCard";
 import { getTranslations } from "next-intl/server";
+import { AcceptInviteCard } from "@/components/invite/AcceptInviteCard";
+import { getSession } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { company, companyInvite } from "@/schema";
 
 interface Props {
   params: Promise<{ token: string }>;
@@ -23,28 +23,17 @@ export default async function InvitePage({ params }: Props) {
 
   if (!invite) {
     return (
-      <CenteredCard
-        title={t("invalidTitle")}
-        description={t("invalidDescription")}
-      />
+      <CenteredCard title={t("invalidTitle")} description={t("invalidDescription")} />
     );
   }
 
   if (invite.status !== "pending") {
-    return (
-      <CenteredCard
-        title={t("usedTitle")}
-        description={t("usedDescription")}
-      />
-    );
+    return <CenteredCard title={t("usedTitle")} description={t("usedDescription")} />;
   }
 
   if (invite.expiresAt < new Date()) {
     return (
-      <CenteredCard
-        title={t("expiredTitle")}
-        description={t("expiredDescription")}
-      />
+      <CenteredCard title={t("expiredTitle")} description={t("expiredDescription")} />
     );
   }
 
@@ -58,19 +47,12 @@ export default async function InvitePage({ params }: Props) {
       role={invite.role}
       redirectPath={invite.redirectPath}
       userEmail={session?.user.email ?? null}
-      hasCompany={session?.companyActivated ?? false}
       isSignedIn={!!session}
     />
   );
 }
 
-function CenteredCard({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
+function CenteredCard({ title, description }: { title: string; description: string }) {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-lg border bg-card p-6 text-center shadow-sm">

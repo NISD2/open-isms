@@ -6,7 +6,14 @@
  * filter keeps working; switching company rewrites it only after a row here says they belong.
  */
 
-import { index, pgTable, primaryKey, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  index,
+  pgTable,
+  primaryKey,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { membershipRoleEnum } from "../enums";
 import { company, user } from "./organization";
 
@@ -20,6 +27,12 @@ export const companyMembership = pgTable(
       .notNull()
       .references(() => company.id, { onDelete: "cascade" }),
     role: membershipRoleEnum("role").notNull(),
+    /**
+     * The compliance role this person holds in this company (a role key such as "ciso"). Per
+     * membership, because a person in two companies holds a different role in each, and it is
+     * stamped on their sign-offs there.
+     */
+    jobTitle: varchar("job_title", { length: 255 }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [

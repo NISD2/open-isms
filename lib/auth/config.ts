@@ -197,7 +197,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             .values({
               email: authUser.email,
               name: authUser.name ?? profile?.name ?? authUser.email,
-              role: "member",
               isDisposableEmail: true,
               // emailVerifiedAt stays null — disposable cannot be verified
             })
@@ -220,7 +219,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .values({
             email: authUser.email,
             name: newName,
-            role: "member",
             // Google verified `profile.email_verified` upstream so we trust
             // the address — no separate OTP step for OAuth signups.
             emailVerifiedAt: now,
@@ -356,7 +354,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 const openMembership = async (userId: string, companyId: string) => {
   const [row] = await db
-    .select({ role: companyMembership.role, activatedAt: company.activatedAt })
+    .select({
+      role: companyMembership.role,
+      jobTitle: companyMembership.jobTitle,
+      activatedAt: company.activatedAt,
+    })
     .from(companyMembership)
     .innerJoin(company, eq(company.id, companyMembership.companyId))
     .where(
@@ -385,7 +387,6 @@ export const getSession = cache(async (): Promise<Session | null> => {
       id: true,
       name: true,
       companyId: true,
-      jobTitle: true,
       sessionVersion: true,
       loginCount: true,
       journeyTourGuidedDismissedAt: true,
@@ -409,13 +410,12 @@ export const getSession = cache(async (): Promise<Session | null> => {
   // DB name wins over the JWT snapshot so an in-app name change (e.g. fixing
   // the name printed on a training certificate) shows up without re-login.
   session.user.name = dbUser.name;
-  session.jobTitle = dbUser.jobTitle ?? null;
   // Derived here rather than queried at the point of use: the row is already
   // loaded and cache()d for the request, so the one-time onboarding surfaces
   // cost no extra round trip on any page that renders them.
   session.hints = resolveHints(dbUser);
 
-  // The role comes from the membership in the open company, and activation is
+  // The role and the compliance role come from the membership in the open company, and activation is
   // resolved once here so every gate reads session.companyActivated (a draft
   // shell has a company but no activatedAt). An open company without a
   // membership gets no company and the least role rather than a guess.
@@ -424,6 +424,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
     : undefined;
   session.companyId = open ? dbUser.companyId : null;
   session.role = open?.role ?? "member";
+  session.jobTitle = open?.jobTitle ?? null;
   session.companyActivated = open?.activatedAt != null;
 
   return session;

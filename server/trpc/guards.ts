@@ -1,7 +1,11 @@
-import { and, eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
-import { categoryAssignment, companyAssessment, companyRequirementStatus, user } from "@/schema";
+import { and, eq } from "drizzle-orm";
 import type { Database } from "@/lib/db";
+import {
+  categoryAssignment,
+  companyAssessment,
+  companyRequirementStatus,
+} from "@/schema";
 
 /**
  * Verify that the given user is the category owner (or admin).
@@ -75,11 +79,11 @@ export async function verifyStatusOwnership(
   return row;
 }
 
-/** Look up the signer's jobTitle, falling back to session role. */
-export async function getSignerRole(db: Database, userId: string, sessionRole: string): Promise<string> {
-  const row = await db.query.user.findFirst({
-    where: eq(user.id, userId),
-    columns: { jobTitle: true },
-  });
-  return row?.jobTitle ?? sessionRole;
+/**
+ * The role stamped on a sign-off: the signer's compliance role in the company they have open,
+ * falling back to their membership role. Both come from the session, which resolves the open
+ * company's membership on every request.
+ */
+export function signerRoleOf(session: { jobTitle: string | null; role: string }): string {
+  return session.jobTitle ?? session.role;
 }

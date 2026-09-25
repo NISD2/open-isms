@@ -38,7 +38,7 @@ import {
   requirementSatisfaction,
   user,
 } from "@/schema";
-import { enforceAssignment, getSignerRole, verifyAssessmentOwnership } from "../guards";
+import { enforceAssignment, signerRoleOf, verifyAssessmentOwnership } from "../guards";
 import {
   buildSignOffSnapshot,
   propagateSatisfaction,
@@ -230,12 +230,7 @@ export const assessmentRouter = router({
       const existing = current?.companyId
         ? await ctx.db.query.company.findFirst({
             where: eq(company.id, current.companyId),
-            columns: {
-              id: true,
-              activatedAt: true,
-              ownerId: true,
-              billingAccountId: true,
-            },
+            columns: { id: true, activatedAt: true, ownerId: true },
           })
         : null;
       // Reject if the caller is already in a real (activated) company, OR is a
@@ -285,15 +280,10 @@ export const assessmentRouter = router({
           // status rows were seeded at draft time, so restamp their entityType
           // snapshot instead of re-seeding.
           companyId = existing.id;
-          // A draft the previous release created during a deploy has no account and no
-          // membership yet; both writes are no-ops for every other draft.
-          const billingAccountId =
-            existing.billingAccountId ?? (await createBillingAccount(tx, ctx.userId));
           await tx
             .update(company)
-            .set({ ...activatedValues, billingAccountId, updatedAt: new Date() })
+            .set({ ...activatedValues, updatedAt: new Date() })
             .where(eq(company.id, companyId));
-          await joinCompany(tx, { userId: ctx.userId, companyId, role: "admin" });
 
           const seeded = await tx.query.companyAssessment.findMany({
             where: eq(companyAssessment.companyId, companyId),
@@ -580,7 +570,7 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Audit B-2 + B-5 (2026-06-10): everything that touches the
       // (assignments, status row, chain) trio happens in one transaction
@@ -952,7 +942,7 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Audit B-2 (2026-06-10): assignment + status + chain entry inside
       // the same tx so a partial commit cannot leave the chain disagreeing
@@ -1107,7 +1097,7 @@ export const assessmentRouter = router({
       // requirement whose required signer role the caller does not hold
       // (admin bypass matches signOff), nor an N-of-M requirement whose
       // assigned signers must sign individually. See bulkSignOffCategory.
-      const confirmerRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const confirmerRole = signerRoleOf(ctx.session);
       // not_applicable is excluded here as it is in bulkSignOffCategory:
       // a requirement documented as out of scope must not come back signed
       // off as done while its is_applicable flag still says otherwise.
@@ -1277,7 +1267,7 @@ export const assessmentRouter = router({
 
       if (rows.length === 0) return { signedOff: 0 };
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Bulk sign-off must not be a back door around the per-requirement
       // guards the single signOff path enforces. Two things it cannot

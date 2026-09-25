@@ -6,40 +6,46 @@
  *   save      — upsert draft answers (auto-save, debounced from client)
  *   submit    — validate, snapshot, derive requirement statuses, sign off
  */
-import { z } from "zod";
-import { eq, and, inArray } from "drizzle-orm";
+
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../init";
-import { verifyAssessmentOwnership, enforceAssignment, getSignerRole } from "../guards";
+import { and, eq, inArray } from "drizzle-orm";
+import { z } from "zod";
 import {
-  companyCategoryIntake,
+  CATEGORY_FIELD_MAPPING,
+  CATEGORY_SCHEMAS,
+} from "@/lib/compliance/category-schemas";
+import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
+import type { Database } from "@/lib/db";
+import { introspectSchema } from "@/lib/forms/schema-introspect";
+import {
+  company,
   companyAssessment,
+  companyCategoryIntake,
   companyRequirementStatus,
   requirement,
   requirementCategory,
-  company,
 } from "@/schema";
-import {
-  CATEGORY_SCHEMAS,
-  CATEGORY_FIELD_MAPPING,
-} from "@/lib/compliance/category-schemas";
-import { introspectSchema } from "@/lib/forms/schema-introspect";
-import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
-import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
+import { enforceAssignment, signerRoleOf, verifyAssessmentOwnership } from "../guards";
 import { buildSignOffSnapshot } from "../helpers/assessment-helpers";
-import { completedSignOffValues, snapshotForVersion } from "../helpers/sign-off-completion";
-import type { Database } from "@/lib/db";
+import { recordSignOffChainEntry } from "../helpers/sign-off-chain";
+import {
+  completedSignOffValues,
+  snapshotForVersion,
+} from "../helpers/sign-off-completion";
+import { companyProcedure, router } from "../init";
 
 export const intakeRouter = router({
   // --------------------------------------------------------------------------
   // getForm — load schema metadata + existing answers
   // --------------------------------------------------------------------------
   getForm: companyProcedure
-    .input(z.object({
-      assessmentId: z.string().uuid(),
-      categoryId: z.string().uuid(),
-      categoryCode: z.string(),
-    }))
+    .input(
+      z.object({
+        assessmentId: z.string().uuid(),
+        categoryId: z.string().uuid(),
+        categoryCode: z.string(),
+      }),
+    )
     .query(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
 
@@ -86,12 +92,14 @@ export const intakeRouter = router({
   // save — upsert draft answers (auto-save)
   // --------------------------------------------------------------------------
   save: companyProcedure
-    .input(z.object({
-      assessmentId: z.string().uuid(),
-      categoryId: z.string().uuid(),
-      categoryCode: z.string(),
-      answers: z.record(z.string(), z.unknown()),
-    }))
+    .input(
+      z.object({
+        assessmentId: z.string().uuid(),
+        categoryId: z.string().uuid(),
+        categoryCode: z.string(),
+        answers: z.record(z.string(), z.unknown()),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
 
@@ -112,9 +120,10 @@ export const intakeRouter = router({
         if (typeof val === "boolean") return true;
         return true;
       });
-      const completionPct = requiredFields.length > 0
-        ? Math.round((filledRequired.length / requiredFields.length) * 100)
-        : 0;
+      const completionPct =
+        requiredFields.length > 0
+          ? Math.round((filledRequired.length / requiredFields.length) * 100)
+          : 0;
 
       // Upsert
       const existing = await ctx.db.query.companyCategoryIntake.findFirst({
@@ -162,11 +171,13 @@ export const intakeRouter = router({
   // submit — validate, snapshot, sign off all mapped requirements
   // --------------------------------------------------------------------------
   submit: companyProcedure
-    .input(z.object({
-      assessmentId: z.string().uuid(),
-      categoryId: z.string().uuid(),
-      categoryCode: z.string(),
-    }))
+    .input(
+      z.object({
+        assessmentId: z.string().uuid(),
+        categoryId: z.string().uuid(),
+        categoryCode: z.string(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
       await enforceAssignment(ctx.db, {
@@ -240,7 +251,7 @@ export const intakeRouter = router({
         })
         .where(eq(companyCategoryIntake.id, intake.id));
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Mark ALL mapped requirements as approved (sign-off = approval).
       // Audit B-2 (2026-06-10): passes a chainContext so each
@@ -270,16 +281,19 @@ export const intakeRouter = router({
   // getRequirementAnswers — scoped read of intake answers for one requirement
   // --------------------------------------------------------------------------
   getRequirementAnswers: companyProcedure
-    .input(z.object({
-      assessmentId: z.string().uuid(),
-      categoryId: z.string().uuid(),
-      requirementCode: z.string(),
-    }))
+    .input(
+      z.object({
+        assessmentId: z.string().uuid(),
+        categoryId: z.string().uuid(),
+        requirementCode: z.string(),
+      }),
+    )
     .query(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
 
       const fieldInfo = REQUIREMENT_FIELD_MAP[input.requirementCode];
-      if (!fieldInfo) return { answers: {} as Record<string, unknown>, fieldKeys: [] as string[] };
+      if (!fieldInfo)
+        return { answers: {} as Record<string, unknown>, fieldKeys: [] as string[] };
 
       const intake = await ctx.db.query.companyCategoryIntake.findFirst({
         where: and(
@@ -304,13 +318,15 @@ export const intakeRouter = router({
   // saveRequirementAnswers — scoped write: merge answers for one requirement
   // --------------------------------------------------------------------------
   saveRequirementAnswers: companyProcedure
-    .input(z.object({
-      assessmentId: z.string().uuid(),
-      categoryId: z.string().uuid(),
-      categoryCode: z.string(),
-      requirementCode: z.string(),
-      answers: z.record(z.string(), z.unknown()),
-    }))
+    .input(
+      z.object({
+        assessmentId: z.string().uuid(),
+        categoryId: z.string().uuid(),
+        categoryCode: z.string(),
+        requirementCode: z.string(),
+        answers: z.record(z.string(), z.unknown()),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await verifyAssessmentOwnership(ctx.db, input.assessmentId, ctx.companyId);
 
@@ -347,9 +363,10 @@ export const intakeRouter = router({
         const val = merged[f.key];
         return val !== undefined && val !== null && val !== "";
       });
-      const completionPct = requiredFields.length > 0
-        ? Math.round((filledRequired.length / requiredFields.length) * 100)
-        : 0;
+      const completionPct =
+        requiredFields.length > 0
+          ? Math.round((filledRequired.length / requiredFields.length) * 100)
+          : 0;
 
       if (existing) {
         await ctx.db
@@ -546,7 +563,10 @@ async function recalculateProgress(
     where: eq(companyRequirementStatus.assessmentId, assessmentId),
   });
   const completed = allStatuses.filter(
-    (s) => s.status === "completed" || s.status === "approved" || s.status === "not_applicable",
+    (s) =>
+      s.status === "completed" ||
+      s.status === "approved" ||
+      s.status === "not_applicable",
   ).length;
   const total = allStatuses.length;
   const percentage = total > 0 ? ((completed / total) * 100).toFixed(2) : "0";
