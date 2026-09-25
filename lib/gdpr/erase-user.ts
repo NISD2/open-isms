@@ -471,11 +471,15 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     }
     await erasePerson(tx, self, scope, del, anon, tombstone);
     await tearDownCompany(tx, owned.id, del, anon);
-    await del("billing_account", async () =>
-      (await deleteBillingAccountIfUnused(tx, owned.billingAccountId))
-        ? [owned.billingAccountId]
-        : [],
-    );
+    if (owned.billingAccountId) {
+      if (await deleteBillingAccountIfUnused(tx, owned.billingAccountId)) {
+        scope.deleted.billing_account = (scope.deleted.billing_account ?? 0) + 1;
+      } else {
+        scope.residualNotes.push(
+          "The organization's billing account was kept, because invoices were issued to it or another organization still uses it.",
+        );
+      }
+    }
     scope.companyTornDown = true;
     scope.systemsCleared.push(
       `Entire organization torn down: ${erased.length + 1} member account(s) and all organization compliance data`,
@@ -483,11 +487,6 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     if (kept.length > 0) {
       scope.residualNotes.push(
         `${kept.length} member account(s) that also belong to other organizations were kept; only their membership in this organization was removed.`,
-      );
-    }
-    if (!scope.deleted.billing_account) {
-      scope.residualNotes.push(
-        "The organization's billing account was kept, because invoices were issued to it or another organization still uses it.",
       );
     }
   } else {

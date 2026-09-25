@@ -94,10 +94,14 @@ export const company = pgTable("company", {
   primaryLocations: varchar("primary_locations", { length: 1000 }),
 
   // Billing
-  /** The paying customer this company belongs to. Every company has one. */
-  billingAccountId: uuid("billing_account_id")
-    .notNull()
-    .references((): AnyPgColumn => billingAccount.id),
+  /**
+   * The paying customer this company belongs to. The application sets it on every company it
+   * creates. It becomes not null in the release after the one that starts writing it: a container
+   * still running the previous release during a deploy creates companies without it.
+   */
+  billingAccountId: uuid("billing_account_id").references(
+    (): AnyPgColumn => billingAccount.id,
+  ),
   plan: planEnum("plan").default("free").notNull(),
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
   stripeSubscriptionId: varchar("stripe_subscription_id", { length: 255 }),

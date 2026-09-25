@@ -120,7 +120,9 @@ export const devRouter = router({
       .delete(company)
       .where(eq(company.id, companyId))
       .returning({ billingAccountId: company.billingAccountId });
-    if (deleted) await deleteBillingAccountIfUnused(ctx.db, deleted.billingAccountId);
+    if (deleted?.billingAccountId) {
+      await deleteBillingAccountIfUnused(ctx.db, deleted.billingAccountId);
+    }
 
     return { deleted: true };
   }),
