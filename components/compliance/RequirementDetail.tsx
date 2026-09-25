@@ -134,12 +134,14 @@ export interface RequirementDetailProps {
   editorInitialData: Record<string, unknown> | null;
   prerequisites?: PrerequisiteStatus[];
   /**
-   * Set when the requirement renders as one step of the Durchgang. The
-   * guidance then moves from above the input to the aside and these notes
-   * follow it, so the left column holds only the work and everything that
-   * explains it sits beside it.
+   * Set when the requirement renders as one step of the Durchgang, which is
+   * data entry only. The guidance moves from above the input to the aside and
+   * the notes follow it, so the left column holds only the work. Approval,
+   * not-applicable, reopen, the sign-off roster and the module shortcut that
+   * completes a requirement are not offered: deciding is a later flow for the
+   * people who sign.
    */
-  stepNotes?: React.ReactNode;
+  durchgang?: { notes: React.ReactNode };
 }
 
 // ---------------------------------------------------------------------------
@@ -198,7 +200,7 @@ export function RequirementDetail({
   assignments,
   editorInitialData,
   prerequisites = [],
-  stepNotes,
+  durchgang,
 }: RequirementDetailProps) {
   const t = useTranslations("compliance");
   const tf = useTranslations("form");
@@ -450,6 +452,8 @@ export function RequirementDetail({
   const guidancePanel = (
     <RequirementGuidance description={requirement.description} guidance={guidance} />
   );
+  // A Durchgang step collects data and decides nothing; see the prop's doc.
+  const decidesHere = durchgang === undefined;
 
   return (
     <div>
@@ -493,7 +497,7 @@ export function RequirementDetail({
         {/* ============================================================== */}
         <div className="space-y-6 min-w-0">
           {/* What this requirement asks for, before any input is requested */}
-          {!stepNotes && guidancePanel}
+          {decidesHere && guidancePanel}
 
           {/* Review feedback — shown first when rejected */}
           {status.currentStatus === "rejected" && status.reviewFeedback && (
@@ -692,7 +696,10 @@ export function RequirementDetail({
                     // Assigned requirements complete through the sign-off flow
                     // (the server rejects module-confirm for them), so don't
                     // offer a button that can only fail.
-                    isReviewer || !status.statusId || optimisticAssignments.length > 0
+                    isReviewer ||
+                    !decidesHere ||
+                    !status.statusId ||
+                    optimisticAssignments.length > 0
                       ? undefined
                       : handleModuleConfirm
                   }
@@ -737,15 +744,15 @@ export function RequirementDetail({
         {/* SIDEBAR: Context + Assignments + Metadata */}
         {/* ============================================================== */}
         <aside className="space-y-6 lg:border-l lg:pl-6">
-          {stepNotes && (
+          {durchgang && (
             <>
               {guidancePanel}
-              {stepNotes}
+              {durchgang.notes}
             </>
           )}
 
           {/* Assigned to + sign-off progress */}
-          {status.statusId && (
+          {status.statusId && decidesHere && (
             <div data-tour="requirement-assign" className="space-y-2">
               <h3 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("assign")}
@@ -904,7 +911,7 @@ export function RequirementDetail({
         next={next}
         onBeforeNavigate={handleSaveBeforeNavigate}
       >
-        {status.statusId && !isReviewer && (
+        {status.statusId && !isReviewer && decidesHere && (
           <div data-tour="requirement-decide" className="flex items-center gap-2">
             {isCompleted || isNA ? (
               <ReopenButton isSubmitting={isPending} onReopen={handleReopen} />

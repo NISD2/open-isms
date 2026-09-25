@@ -138,7 +138,7 @@ async function loadGuidance(
 
 export type RequirementDetailData = Omit<
   RequirementDetailProps,
-  "prev" | "next" | "stepNotes"
+  "prev" | "next" | "durchgang"
 >;
 
 /**

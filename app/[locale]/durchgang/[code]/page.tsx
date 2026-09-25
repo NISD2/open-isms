@@ -9,9 +9,10 @@ import { loadRequirementDetail } from "@/lib/compliance/requirement-detail-data"
 
 /**
  * One requirement per screen, walked in journey order. The body is the
- * requirement page's own: same editors, same register, same evidence and
- * sign-off, same save on the way out. Only the neighbours differ, and the
- * explanation sits beside the input instead of above it.
+ * requirement page's own: same editors, same register, same evidence upload,
+ * same save on the way out. The walk collects data and decides nothing:
+ * sign-off is a later flow for the people who sign. Only the neighbours
+ * differ, and the explanation sits beside the input instead of above it.
  */
 export default async function DurchgangStepPage({
   params,
@@ -56,7 +57,7 @@ export default async function DurchgangStepPage({
         {...data}
         prev={prev}
         next={next}
-        stepNotes={<StepNotes code={code} />}
+        durchgang={{ notes: <StepNotes code={code} /> }}
       />
     </main>
   );
