@@ -13,39 +13,47 @@
  *   import { companyInsertSchema } from "@/schema/validators";
  *   const parsed = companyInsertSchema.parse(req.body);
  */
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { getTableColumns, is, type Table } from "drizzle-orm";
-import { PgNumeric } from "drizzle-orm/pg-core";
-import { z } from "zod";
 
+import {
+  asset,
+  assetSupplierOffering,
+  complianceFramework,
+  incident,
+  requirement,
+  requirementCategory,
+  risk,
+  riskAsset,
+  riskSupplier,
+  supplier,
+} from "@nisd2/grc-data-model/schema";
 // --- Table imports (alphabetical by file) ---
 import { policyAcknowledgment } from "@nisd2/isms-schema/tables/acknowledgment";
-import { companyAssessment, companyRequirementStatus } from "@nisd2/isms-schema/tables/assessments";
-import { asset, assetSupplierOffering } from "@nisd2/grc-data-model/schema";
-import { internalAudit, auditFinding } from "@nisd2/isms-schema/tables/audit";
+import {
+  companyAssessment,
+  companyRequirementStatus,
+} from "@nisd2/isms-schema/tables/assessments";
+import { auditFinding, internalAudit } from "@nisd2/isms-schema/tables/audit";
 import { auditLog } from "@nisd2/isms-schema/tables/audit-log";
 import { changeRequest } from "@nisd2/isms-schema/tables/change-management";
 import { evidence } from "@nisd2/isms-schema/tables/evidence";
 import { exercise } from "@nisd2/isms-schema/tables/exercise";
-
-import { complianceFramework, requirementCategory } from "@nisd2/grc-data-model/schema";
 import { improvementItem } from "@nisd2/isms-schema/tables/improvement";
-import { incident } from "@nisd2/grc-data-model/schema";
 import { kpiMeasurement } from "@nisd2/isms-schema/tables/kpi";
 import { notification } from "@nisd2/isms-schema/tables/notification";
 import { company, user } from "@nisd2/isms-schema/tables/organization";
 import { patchRecord } from "@nisd2/isms-schema/tables/patch-management";
-import { vulnerability } from "@nisd2/isms-schema/tables/vulnerability";
 import { policy } from "@nisd2/isms-schema/tables/policies";
-import { requirement } from "@nisd2/grc-data-model/schema";
 import { managementReview } from "@nisd2/isms-schema/tables/review";
-import { risk, riskAsset, riskSupplier } from "@nisd2/grc-data-model/schema";
 import { riskTreatment } from "@nisd2/isms-schema/tables/risk-treatment";
-import { supplier } from "@nisd2/grc-data-model/schema";
 import { trainingRecord } from "@nisd2/isms-schema/tables/training";
+import { vulnerability } from "@nisd2/isms-schema/tables/vulnerability";
+import { getTableColumns, is, type Table } from "drizzle-orm";
+import { PgNumeric } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
 
 // --- Module imports ---
-import { bsiRegistration, bsiIncidentReport } from "./modules/bsig";
+import { bsiIncidentReport, bsiRegistration } from "./modules/bsig";
 
 // ============================================================================
 // Helpers
@@ -110,9 +118,7 @@ function numericColumns<T extends Table>(
       // Free-text validation of a number is a genuine free-text case, so the
       // regex is appropriate here. Integers and decimals only; "" is rejected
       // (SchemaForm strips it to undefined for optional columns).
-      const base = z
-        .string()
-        .regex(/^-?\d+(\.\d+)?$/, "Must be a number");
+      const base = z.string().regex(/^-?\d+(\.\d+)?$/, "Must be a number");
       // pg rejects values whose integer digits exceed precision - scale with
       // "numeric field overflow" (a 500, not a validation error), while excess
       // fractional digits are silently rounded. Bound the integer digits from
@@ -124,16 +130,13 @@ function numericColumns<T extends Table>(
       const numericStr =
         intDigitCap === null
           ? base
-          : base.refine(
-              (v) => {
-                // Strip ALL leading zeros: pg counts significant digits of
-                // the value, so "0" and "0.95" have zero integer digits.
-                const intPart = v.replace(/^-/, "").split(".")[0] ?? "";
-                const significant = intPart.replace(/^0+/, "");
-                return significant.length <= intDigitCap;
-              },
-              `Must be at most ${intDigitCap} digits before the decimal point`,
-            );
+          : base.refine((v) => {
+              // Strip ALL leading zeros: pg counts significant digits of
+              // the value, so "0" and "0.95" have zero integer digits.
+              const intPart = v.replace(/^-/, "").split(".")[0] ?? "";
+              const significant = intPart.replace(/^0+/, "");
+              return significant.length <= intDigitCap;
+            }, `Must be at most ${intDigitCap} digits before the decimal point`);
       out[name as keyof T["_"]["columns"]] = col.notNull
         ? numericStr
         : numericStr.nullish();
@@ -150,10 +153,9 @@ export const companyInsertSchema = createInsertSchema(company, {
   ...numericColumns(company),
   name: z.string().min(2).max(255),
   sector: z.string().min(1).max(255),
-  contactEmail: z.union([
-    z.string().email(),
-    z.literal("").transform(() => null),
-  ]).nullish(),
+  contactEmail: z
+    .union([z.string().email(), z.literal("").transform(() => null)])
+    .nullish(),
   employeeCount: z.number().int().positive().nullish(),
   // Universal company facts (surfaced by both entity and supplier portals).
   primaryDomain: z
@@ -201,83 +203,81 @@ export const companyUpdateSchema = companyInsertSchema.partial().omit(omitMeta);
  * Drives the "Profile" + "Security practices" pages of the supplier portal AND
  * the company-identity portion of the customer view at /supplier-access/{token}.
  */
-export const securityProfileUpdateSchema = companyInsertSchema
-  .partial()
-  .pick({
-    // Profile metadata
-    primaryDomain: true,
-    tagline: true,
-    description: true,
-    // Customer-facing incident contact (default — per-customer SLA on supplier row)
-    incidentContactEmail: true,
-    incidentContactPhone: true,
-    // Identity (ENISA TIG §5.2 supplier register)
-    legalName: true,
-    registeredAddress: true,
-    country: true,
-    securityContactName: true,
-    // CIR §5.1.4 universal facts about how the company runs
-    hasIsms: true,
-    hasIso27001OrEquivalent: true,
-    staffSecurityTraining: true,
-    backgroundChecks: true,
-    vulnerabilityHandling: true,
-    // NIS2 Art 21(2) / CIR §5.1 universal baseline practices
-    securityPolicyReviewedAnnually: true,
-    hasIncidentResponsePlan: true,
-    hasBusinessContinuityPlan: true,
-    hasCryptographyPolicy: true,
-    hasPrivilegedAccessMgmt: true,
-    mfaEnforcedInternal: true,
-    hasAssetInventory: true,
-    hasPenetrationTestingProgram: true,
-    // ENISA TIG §5 — universal company-wide declarations
-    cooperateWithAuthorities: true,
-    pastBreachesDisclosed: true,
-    // ENISA TIG §5.1.2 — supplier's own NIS2-regulated status (reuses the
-    // existing bsiRegistrationId column from the entity-side profile)
-    bsiRegistrationId: true,
-    // ENISA TIG §5.2(b) / §5.1.4 TIPS — profile extensions
-    serviceDescription: true,
-    dataProcessingLocations: true,
-    incidentSlaHours: true,
-    isSaas: true,
-    isOnPrem: true,
-    isProfessionalServices: true,
-    isManagedService: true,
-    usesAiSystems: true,
-    // CIR §5.1.4 / GDPR Art. 28 / ENISA TIG §5.1.4 TIPS — security practice extensions
-    acceptRightToAudit: true,
-    hasSubprocessors: true,
-    subprocessorList: true,
-    dataReturnOnTermination: true,
-    dpaAvailable: true,
-    incidentAssistanceCommitment: true,
-    notifyMaterialChanges: true,
-    notifyOnLocationChange: true,
-    hasExitPlan: true,
-    providesSbomForAi: true,
-    aiSbomUrl: true,
-    // SaaS technical (rendered when isSaas)
-    saasHostingRegion: true,
-    saasEncryptionAtRest: true,
-    saasEncryptionInTransit: true,
-    saasMfaEnforced: true,
-    saasRtoHours: true,
-    // On-prem technical (rendered when isOnPrem)
-    onPremSbomProvided: true,
-    onPremSignedReleases: true,
-    onPremVulnerabilityDisclosurePolicy: true,
-    onPremPatchSlaCriticalHours: true,
-    // Professional services (rendered when isProfessionalServices)
-    proServicesBackgroundCheckScope: true,
-    proServicesNdaInPlace: true,
-    proServicesCustomerPremisesPolicy: true,
-    // Managed services (rendered when isManagedService)
-    managedPrivilegedAccessMgmt: true,
-    managedSessionRecording: true,
-    managedOnCall24x7: true,
-  });
+export const securityProfileUpdateSchema = companyInsertSchema.partial().pick({
+  // Profile metadata
+  primaryDomain: true,
+  tagline: true,
+  description: true,
+  // Customer-facing incident contact (default — per-customer SLA on supplier row)
+  incidentContactEmail: true,
+  incidentContactPhone: true,
+  // Identity (ENISA TIG §5.2 supplier register)
+  legalName: true,
+  registeredAddress: true,
+  country: true,
+  securityContactName: true,
+  // CIR §5.1.4 universal facts about how the company runs
+  hasIsms: true,
+  hasIso27001OrEquivalent: true,
+  staffSecurityTraining: true,
+  backgroundChecks: true,
+  vulnerabilityHandling: true,
+  // NIS2 Art 21(2) / CIR §5.1 universal baseline practices
+  securityPolicyReviewedAnnually: true,
+  hasIncidentResponsePlan: true,
+  hasBusinessContinuityPlan: true,
+  hasCryptographyPolicy: true,
+  hasPrivilegedAccessMgmt: true,
+  mfaEnforcedInternal: true,
+  hasAssetInventory: true,
+  hasPenetrationTestingProgram: true,
+  // ENISA TIG §5 — universal company-wide declarations
+  cooperateWithAuthorities: true,
+  pastBreachesDisclosed: true,
+  // ENISA TIG §5.1.2 — supplier's own NIS2-regulated status (reuses the
+  // existing bsiRegistrationId column from the entity-side profile)
+  bsiRegistrationId: true,
+  // ENISA TIG §5.2(b) / §5.1.4 TIPS — profile extensions
+  serviceDescription: true,
+  dataProcessingLocations: true,
+  incidentSlaHours: true,
+  isSaas: true,
+  isOnPrem: true,
+  isProfessionalServices: true,
+  isManagedService: true,
+  usesAiSystems: true,
+  // CIR §5.1.4 / GDPR Art. 28 / ENISA TIG §5.1.4 TIPS — security practice extensions
+  acceptRightToAudit: true,
+  hasSubprocessors: true,
+  subprocessorList: true,
+  dataReturnOnTermination: true,
+  dpaAvailable: true,
+  incidentAssistanceCommitment: true,
+  notifyMaterialChanges: true,
+  notifyOnLocationChange: true,
+  hasExitPlan: true,
+  providesSbomForAi: true,
+  aiSbomUrl: true,
+  // SaaS technical (rendered when isSaas)
+  saasHostingRegion: true,
+  saasEncryptionAtRest: true,
+  saasEncryptionInTransit: true,
+  saasMfaEnforced: true,
+  saasRtoHours: true,
+  // On-prem technical (rendered when isOnPrem)
+  onPremSbomProvided: true,
+  onPremSignedReleases: true,
+  onPremVulnerabilityDisclosurePolicy: true,
+  onPremPatchSlaCriticalHours: true,
+  // Professional services (rendered when isProfessionalServices)
+  proServicesBackgroundCheckScope: true,
+  proServicesNdaInPlace: true,
+  proServicesCustomerPremisesPolicy: true,
+  // Managed services (rendered when isManagedService)
+  managedPrivilegedAccessMgmt: true,
+  managedSessionRecording: true,
+  managedOnCall24x7: true,
+});
 
 export const userInsertSchema = createInsertSchema(user, {
   email: z.string().email().max(255),
@@ -325,9 +325,12 @@ export const assessmentInsertSchema = createInsertSchema(companyAssessment, {
 });
 export const assessmentSelectSchema = createSelectSchema(companyAssessment);
 
-export const requirementStatusInsertSchema = createInsertSchema(companyRequirementStatus, {
-  ...isoDateColumns(companyRequirementStatus),
-});
+export const requirementStatusInsertSchema = createInsertSchema(
+  companyRequirementStatus,
+  {
+    ...isoDateColumns(companyRequirementStatus),
+  },
+);
 export const requirementStatusSelectSchema = createSelectSchema(companyRequirementStatus);
 // assessmentId + requirementId are immutable parent FKs — never patchable.
 export const requirementStatusUpdateSchema = requirementStatusInsertSchema
@@ -401,12 +404,7 @@ export const assetSupplierOfferingInsertSchema = createInsertSchema(
     proServicesBackgroundCheckScope: z
       .enum(["criminal", "employment", "both"])
       .nullable(),
-    onPremPatchSlaCriticalHours: z
-      .number()
-      .int()
-      .positive()
-      .max(720)
-      .nullable(),
+    onPremPatchSlaCriticalHours: z.number().int().positive().max(720).nullable(),
   },
 );
 
@@ -537,20 +535,18 @@ export const supplierUpdateSchema = supplierInsertSchema.partial().omit({
  * portal can never mass-assign supplierCompanyId / customerCompanyId or the
  * portal-share state (status, token, etc.).
  */
-export const relationshipClausesUpdateSchema = supplierInsertSchema
-  .partial()
-  .pick({
-    acceptRightToAudit: true,
-    hasSubprocessors: true,
-    subprocessorList: true,
-    dataReturnOnTermination: true,
-    dpaAvailable: true,
-    notifyOnLocationChange: true,
-    incidentAssistanceCommitment: true,
-    notifyMaterialChanges: true,
-    hasExitPlan: true,
-    incidentSlaHours: true,
-  });
+export const relationshipClausesUpdateSchema = supplierInsertSchema.partial().pick({
+  acceptRightToAudit: true,
+  hasSubprocessors: true,
+  subprocessorList: true,
+  dataReturnOnTermination: true,
+  dpaAvailable: true,
+  notifyOnLocationChange: true,
+  incidentAssistanceCommitment: true,
+  notifyMaterialChanges: true,
+  hasExitPlan: true,
+  incidentSlaHours: true,
+});
 
 // ============================================================================
 // Training
@@ -592,7 +588,9 @@ export const changeRequestInsertSchema = createInsertSchema(changeRequest, {
   description: z.string().min(1),
 });
 export const changeRequestSelectSchema = createSelectSchema(changeRequest);
-export const changeRequestUpdateSchema = changeRequestInsertSchema.partial().omit(omitTenantMeta);
+export const changeRequestUpdateSchema = changeRequestInsertSchema
+  .partial()
+  .omit(omitTenantMeta);
 
 // ============================================================================
 // Operations: Patch Management
@@ -604,7 +602,9 @@ export const patchRecordInsertSchema = createInsertSchema(patchRecord, {
   severity: z.string().min(1).max(50),
 });
 export const patchRecordSelectSchema = createSelectSchema(patchRecord);
-export const patchRecordUpdateSchema = patchRecordInsertSchema.partial().omit(omitTenantMeta);
+export const patchRecordUpdateSchema = patchRecordInsertSchema
+  .partial()
+  .omit(omitTenantMeta);
 
 // ============================================================================
 // Operations: Vulnerability Management
@@ -617,7 +617,9 @@ export const vulnerabilityInsertSchema = createInsertSchema(vulnerability, {
   severity: z.string().min(1).max(50),
 });
 export const vulnerabilitySelectSchema = createSelectSchema(vulnerability);
-export const vulnerabilityUpdateSchema = vulnerabilityInsertSchema.partial().omit(omitTenantMeta);
+export const vulnerabilityUpdateSchema = vulnerabilityInsertSchema
+  .partial()
+  .omit(omitTenantMeta);
 
 // ============================================================================
 // Operations: Audit
@@ -629,7 +631,9 @@ export const internalAuditInsertSchema = createInsertSchema(internalAudit, {
   auditArea: z.string().min(1).max(255),
 });
 export const internalAuditSelectSchema = createSelectSchema(internalAudit);
-export const internalAuditUpdateSchema = internalAuditInsertSchema.partial().omit(omitTenantMeta);
+export const internalAuditUpdateSchema = internalAuditInsertSchema
+  .partial()
+  .omit(omitTenantMeta);
 
 export const auditFindingInsertSchema = createInsertSchema(auditFinding, {
   ...isoDateColumns(auditFinding),
@@ -652,7 +656,9 @@ export const improvementItemInsertSchema = createInsertSchema(improvementItem, {
   description: z.string().min(1),
 });
 export const improvementItemSelectSchema = createSelectSchema(improvementItem);
-export const improvementItemUpdateSchema = improvementItemInsertSchema.partial().omit(omitTenantMeta);
+export const improvementItemUpdateSchema = improvementItemInsertSchema
+  .partial()
+  .omit(omitTenantMeta);
 
 // ============================================================================
 // Operations: KPI
@@ -673,7 +679,9 @@ export const managementReviewInsertSchema = createInsertSchema(managementReview,
   title: z.string().min(1).max(500),
 });
 export const managementReviewSelectSchema = createSelectSchema(managementReview);
-export const managementReviewUpdateSchema = managementReviewInsertSchema.partial().omit(omitTenantMeta);
+export const managementReviewUpdateSchema = managementReviewInsertSchema
+  .partial()
+  .omit(omitTenantMeta);
 
 // ============================================================================
 // Operations: Risk Treatment
@@ -716,7 +724,9 @@ export const bsiRegistrationInsertSchema = createInsertSchema(bsiRegistration, {
   ...isoDateColumns(bsiRegistration),
 });
 export const bsiRegistrationSelectSchema = createSelectSchema(bsiRegistration);
-export const bsiRegistrationUpdateSchema = bsiRegistrationInsertSchema.partial().omit(omitTenantMeta);
+export const bsiRegistrationUpdateSchema = bsiRegistrationInsertSchema
+  .partial()
+  .omit(omitTenantMeta);
 
 export const bsiIncidentReportInsertSchema = createInsertSchema(bsiIncidentReport);
 export const bsiIncidentReportSelectSchema = createSelectSchema(bsiIncidentReport);
