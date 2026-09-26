@@ -1,19 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter, Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-
-/** A neighbouring requirement. `categoryName` is set only when it sits in a
- *  different category, so the label can say the reader is changing section. */
-export interface NavLink {
-  code: string;
-  categorySlug: string;
-  categoryName: string | null;
-}
 
 /**
  * The typed-route href shape this bar navigates to.
@@ -23,13 +14,21 @@ export interface NavLink {
  * satisfies both, so one value can drive the anchor and the programmatic
  * navigation without a cast.
  */
-type NavHref = Parameters<ReturnType<typeof useRouter>["push"]>[0];
+export type NavHref = Parameters<ReturnType<typeof useRouter>["push"]>[0];
+
+/**
+ * One direction out of the page: where it leads and what the button says.
+ * The page decides both, so the same bar walks the category pages and the
+ * Durchgang without knowing either URL scheme.
+ */
+export interface NavLink {
+  href: NavHref;
+  label: string;
+}
 
 interface RequirementFooterNavProps {
   prev: NavLink | null;
   next: NavLink | null;
-  categorySlug: string;
-  categoryName: string;
   /**
    * Persist unsaved form input before leaving, and resolve false to abort the
    * navigation if that fails.
@@ -67,20 +66,13 @@ function isModifiedClick(e: React.MouseEvent): boolean {
 export function RequirementFooterNav({
   prev,
   next,
-  categorySlug,
-  categoryName,
   onBeforeNavigate,
   children,
 }: RequirementFooterNavProps) {
-  const t = useTranslations("compliance");
   const router = useRouter();
   const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
 
-  function handleNavigate(
-    e: React.MouseEvent,
-    target: string,
-    href: NavHref,
-  ): void {
+  function handleNavigate(e: React.MouseEvent, target: string, href: NavHref): void {
     if (isModifiedClick(e)) return;
     e.preventDefault();
     if (navigatingTo) return;
@@ -100,12 +92,6 @@ export function RequirementFooterNav({
     })();
   }
 
-  const requirementHref = (link: NavLink) =>
-    ({
-      pathname: "/compliance/[categorySlug]/[requirementCode]",
-      params: { categorySlug: link.categorySlug, requirementCode: link.code },
-    }) as const;
-
   const busyClass = (target: string) =>
     cn(navigatingTo && navigatingTo !== target && "pointer-events-none opacity-60");
 
@@ -116,38 +102,19 @@ export function RequirementFooterNav({
     >
       <div className="flex items-center justify-between px-6 py-3">
         <div>
-          {prev ? (
+          {prev && (
             <Button variant="outline" size="sm" asChild className={busyClass("prev")}>
               <Link
-                href={requirementHref(prev)}
+                href={prev.href}
                 data-testid="requirement-prev"
-                onClick={(e) => handleNavigate(e, "prev", requirementHref(prev))}
+                onClick={(e) => handleNavigate(e, "prev", prev.href)}
               >
                 {navigatingTo === "prev" ? (
                   <Loader2 className="mr-1 h-4 w-4 animate-spin" />
                 ) : (
                   <ChevronLeft className="mr-1 h-4 w-4" />
                 )}
-                {prev.categoryName ?? t("requirement.prevRequirement")}
-              </Link>
-            </Button>
-          ) : (
-            <Button variant="outline" size="sm" asChild className={busyClass("category")}>
-              <Link
-                href={{
-                  pathname: "/compliance/[categorySlug]",
-                  params: { categorySlug },
-                }}
-                data-testid="requirement-back-to-category"
-                onClick={(e) =>
-                  handleNavigate(e, "category", {
-                    pathname: "/compliance/[categorySlug]",
-                    params: { categorySlug },
-                  })
-                }
-              >
-                <ChevronLeft className="mr-1 h-4 w-4" />
-                {t("requirement.backToCategory", { category: categoryName })}
+                {prev.label}
               </Link>
             </Button>
           )}
@@ -159,11 +126,11 @@ export function RequirementFooterNav({
           {next && (
             <Button size="sm" asChild className={busyClass("next")}>
               <Link
-                href={requirementHref(next)}
+                href={next.href}
                 data-testid="requirement-next"
-                onClick={(e) => handleNavigate(e, "next", requirementHref(next))}
+                onClick={(e) => handleNavigate(e, "next", next.href)}
               >
-                {next.categoryName ?? t("requirement.nextRequirement")}
+                {next.label}
                 {navigatingTo === "next" ? (
                   <Loader2 className="ml-1 h-4 w-4 animate-spin" />
                 ) : (

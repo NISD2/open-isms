@@ -4,21 +4,19 @@
  * open step comes next on the path. Kept free of I/O so it is unit-testable;
  * the caller supplies NIS 2-scoped rows.
  *
- * "Next" uses the same category-weighted journey order as the path view
- * (journeyPosition), so the step the email names is the step the journey
- * page highlights when the reader clicks through. Ties (identical position,
- * which real data should not produce) break on the requirement code so the
- * pick is deterministic across runs.
+ * "Next" uses the one journey order every surface sorts by (journeyIndex),
+ * so the step the email names is the step the journey page highlights when
+ * the reader clicks through. The order is a property of the code, not of the
+ * row, which is why a row carries nothing but company, status and code. Ties
+ * (only possible between codes the journey does not know) break on the code
+ * so the pick is deterministic across runs.
  */
-import { isDoneStatus, journeyPosition } from "@/lib/compliance/journey-position";
+import { isDoneStatus, journeyIndex } from "@/lib/compliance/journey-position";
 
 export interface JourneyStatusRow {
   companyId: string;
   status: string | null;
   code: string;
-  sortOrder: number | null;
-  categorySortOrder: number | null;
-  priority: string | null;
 }
 
 export interface JourneySummary {
@@ -47,11 +45,7 @@ export function summarizeJourneys(
     if (isDoneStatus(row.status)) {
       entry.done++;
     } else {
-      const position = journeyPosition(
-        row.priority,
-        row.categorySortOrder,
-        row.sortOrder,
-      );
+      const position = journeyIndex(row.code);
       if (
         position < entry.nextPosition ||
         (position === entry.nextPosition &&

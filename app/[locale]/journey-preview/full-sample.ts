@@ -11,7 +11,7 @@ import {
   getNis2RequirementsForCategory,
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
-import { journeyPosition } from "@/lib/compliance/journey-position";
+import { journeyIndex } from "@/lib/compliance/journey-position";
 import {
   getRequirementDescription,
   getRequirementsMessages,
@@ -65,11 +65,7 @@ export async function buildFullJourneyItems(locale: string): Promise<JourneyItem
         indexInCategory,
       })),
     )
-    .sort(
-      (a, b) =>
-        journeyPosition(a.req.priority, a.category.sortOrder, a.indexInCategory) -
-        journeyPosition(b.req.priority, b.category.sortOrder, b.indexInCategory),
-    )
+    .sort((a, b) => journeyIndex(a.req.code) - journeyIndex(b.req.code))
     .map(({ req, category, indexInCategory }, step) => ({
       id: req.id,
       code: req.code,

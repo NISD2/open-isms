@@ -1,6 +1,7 @@
-export * from "./types";
-export { nis2Categories, getNis2RequirementsForCategory } from "./nis2";
-export { gdprCategories, getGdprRequirementsForCategory } from "./gdpr";
 export { euAiActCategories, getEuAiActRequirementsForCategory } from "./eu-ai-act";
 export { euCraCategories, getEuCraRequirementsForCategory } from "./eu-cra";
-export { iso27001Categories, getIso27001RequirementsForCategory } from "./iso27001";
+export { gdprCategories, getGdprRequirementsForCategory } from "./gdpr";
+export { getIso27001RequirementsForCategory, iso27001Categories } from "./iso27001";
+export { getNis2RequirementsForCategory, nis2Categories } from "./nis2";
+export { NIS2_PREREQUISITES, type Prerequisite } from "./nis2-prerequisites";
+export * from "./types";

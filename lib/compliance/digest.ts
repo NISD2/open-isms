@@ -20,7 +20,7 @@ import {
 } from "@/schema";
 import { getNis2FrameworkId } from "@/server/trpc/helpers/nis2-scope";
 import { daysUntilDeadline } from "./deadlines";
-import { isDoneStatus, journeyPosition } from "./journey-position";
+import { isDoneStatus, journeyIndex } from "./journey-position";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -113,11 +113,7 @@ async function findNextJourneyStep(
       statusId: r.id,
       code: r.requirement.code,
       slug: r.requirement.category?.slug ?? "unknown",
-      position: journeyPosition(
-        r.requirement.priority,
-        r.requirement.category?.sortOrder,
-        r.requirement.sortOrder,
-      ),
+      position: journeyIndex(r.requirement.code),
     }))
     .sort((a, b) => a.position - b.position || a.code.localeCompare(b.code))[0];
 

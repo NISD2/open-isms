@@ -14,6 +14,7 @@ const namespaces = [
   "companyLookup",
   "compliance",
   "dashboard",
+  "durchgang",
   "evidence",
   "exercises",
   "export",

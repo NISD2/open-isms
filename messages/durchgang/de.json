@@ -1,0 +1,104 @@
+{
+  "durchgang": {
+    "title": "Durchgang",
+    "stepOf": "Schritt {step} von {total}",
+    "overview": "Zur Übersicht",
+    "back": "Zurück",
+    "next": "Weiter",
+    "finish": "Weiter zur Übersicht",
+    "who": "Wer es erledigt",
+    "ask": "Fragen Sie Ihr Team",
+    "missed": "Häufig übersehen",
+    "steps": {
+      "12_1": {
+        "who": "Compliance oder Recht trägt Sektor, Mitarbeiterzahl und Umsatz zusammen. Die Geschäftsleitung bestätigt die Einstufung: sie entscheidet damit, welche Pflichten das Unternehmen auf sich nimmt.",
+        "ask": "Sind wir eine besonders wichtige oder eine wichtige Einrichtung, und welche Einrichtungsarten aus Anlage 1 und 2 treffen auf uns zu?",
+        "missed": [
+          "Mehrere Sektoren: nicht nur der Hauptsektor zählt. Alle zutreffenden Einrichtungsarten festhalten.",
+          "Konzern: jede Gesellschaft wird einzeln eingestuft. Daten von Partnerunternehmen zählen anteilig, von verbundenen Unternehmen voll, sofern die eigene IT nicht nachweislich unabhängig von ihnen betrieben wird (§28(4) BSIG).",
+          "Vernachlässigbare Nebentätigkeiten dürfen bei der Zuordnung unberücksichtigt bleiben (§28(3) BSIG). Die Einstufung bei Wachstum, neuen Geschäftsfeldern oder Zukäufen erneut prüfen."
+        ]
+      },
+      "12_2": {
+        "who": "Compliance oder Recht beantragt das Organisationszertifikat und trägt die Angaben im BSI-Portal ein. Die IT liefert Kontaktdaten und öffentliche IP-Adressbereiche. Die Geschäftsleitung sieht die Angaben vor dem Absenden durch.",
+        "ask": "Sind wir beim BSI registriert, und wann wurden die hinterlegten Angaben zuletzt auf Richtigkeit geprüft?",
+        "missed": [
+          "Der Zugang läuft über ein ELSTER-Organisationszertifikat (Mein Unternehmenskonto). Ein vorhandenes Zertifikat, etwa aus der Steuer, lässt sich nutzen; ein neues kommt per Aktivierungsbrief mit der Post. Früh beantragen.",
+          "Die öffentlichen IP-Adressbereiche gehören zu den Pflichtangaben (§33(1) Nr. 2 BSIG). Die IT vorab fragen, sonst stockt die Registrierung an dieser Stelle.",
+          "Als Kontakt eine Funktionsadresse hinterlegen, keine persönliche. Personen wechseln, die Meldestelle muss weiter jemanden erreichen."
+        ]
+      },
+      "1_1": {
+        "who": "Jedes Mitglied der Geschäftsleitung persönlich. Die Pflicht aus §38(3) BSIG trifft die Geschäftsleitung selbst; niemand kann stellvertretend teilnehmen. IT oder Informationssicherheit wählt die Inhalte aus, HR oder Compliance archiviert die Nachweise.",
+        "ask": "Haben alle Mitglieder der Geschäftsleitung teilgenommen, und belegt der Nachweis Inhalte, Dauer und Datum?",
+        "missed": [
+          "Die Schulung muss die Lernziele aus §38(3) BSIG abdecken: Risiken erkennen und bewerten, Risikomanagementpraktiken bewerten und deren Auswirkungen auf die eigenen Dienste beurteilen können.",
+          "Das Gesetz nennt weder Intervall noch Mindestdauer, nur „regelmäßig“. Den eigenen Rhythmus festlegen und begründen. Ein Wechsel in der Geschäftsleitung oder eine deutlich veränderte Risikolage ist ein Anlass außerhalb des Kalenders.",
+          "Der Nachweis zählt, nicht der Anbieter: Teilnehmer, Inhalte, Dauer und Datum festhalten. Eine Akkreditierungspflicht für Schulungsanbieter gibt es nicht."
+        ]
+      },
+      "2_1": {
+        "who": "Die Informationssicherheit (ISB oder CISO) wählt die Methode und stellt die Skalen ein. Die Geschäftsleitung legt fest, welches Restrisiko das Unternehmen trägt: diese Schwelle ist ihre Entscheidung, nicht die der IT.",
+        "ask": "Zeigen Sie mir die Risikomatrix und die Felder oben rechts. Welche Schwelle gilt bei uns für akzeptable Risiken, und habe ich sie freigegeben?",
+        "missed": [
+          "Gefahrenübergreifend heißt nicht nur Cyber. §30(2) BSIG verlangt einen Ansatz, der auch Feuer, Wasser, Stromausfall und andere physische Gefahren einschließt.",
+          "Die Akzeptanzschwelle wird oft nie ausdrücklich festgelegt. Sie gehört als eigene, datierte Entscheidung der Geschäftsleitung in die Methodik, nicht versteckt ins Risikoregister.",
+          "Die Bedrohungslage gehört zur Methode: eine Quelle für aktuelle Bedrohungsinformationen benennen, mindestens die Lageberichte des BSI."
+        ]
+      },
+      "2_2": {
+        "who": "Jede Zeile hat einen Verantwortlichen im Fachbereich, der das System kennt und die Angaben pflegt. Die Informationssicherheit führt das Inventar zusammen und prüft die Schutzbedarfe. Die IT liefert die technischen Angaben, der Datenschutz markiert Systeme mit personenbezogenen Daten.",
+        "ask": "Zeigen Sie mir das Inventar. Wann wurde es zuletzt aktualisiert, und stehen Clouddienste und externe Zugänge darin?",
+        "missed": [
+          "Jedes Asset braucht einen Verantwortlichen. Eine Liste ohne diese Spalte hält im Audit nicht stand.",
+          "Cloud, SaaS und Fremdzugänge sind Assets. Ebenso Betriebstechnik in Produktion und Gebäuden (OT), die eigene Anforderungen mitbringt.",
+          "Das Verzeichnis der Verarbeitungstätigkeiten aus der DSGVO (RoPA, Art. 30) ist ein guter Startbestand: viele Systeme stehen dort schon."
+        ]
+      },
+      "5_1": {
+        "who": "Der Einkauf oder die Person, die den Vertrag hält, legt den Lieferanten an. Die Informationssicherheit stuft Risiko und Kritikalität ein, Recht prüft die Vertragsklauseln. Die Geschäftsleitung kennt die Liste der kritischen Lieferanten.",
+        "ask": "Welche Lieferanten könnten unseren Betrieb anhalten oder haben Zugang zu unseren Systemen, Daten oder Räumen, und wer bei uns ist für jeden davon zuständig?",
+        "missed": [
+          "Nicht nur IT-Lieferanten: §30(2) Nr. 4 BSIG spricht von unmittelbaren Anbietern und Diensteanbietern ohne Einschränkung. Wer den Betrieb stören kann, gehört ins Register.",
+          "Jede Zeile braucht einen Zuständigen und eine Einstufung. Ohne beides ist das Register im Audit eine Namensliste.",
+          "Unterauftragnehmer enden nicht beim ersten Glied. Bei kritischen Diensten fragen, wen der Lieferant selbst einsetzt."
+        ]
+      },
+      "12_3": {
+        "who": "Compliance oder Recht prüft die hinterlegten Angaben und meldet Änderungen nach. IT und Informationssicherheit sagen Bescheid, wenn Kontaktdaten oder IP-Adressbereiche wechseln.",
+        "ask": "Wer erfährt bei uns von einem Wechsel der Kontaktperson, der Anschrift oder des Sektors, und wer trägt ihn beim BSI nach?",
+        "missed": [
+          "Die Frist ist kurz: Änderungen unverzüglich, spätestens binnen zwei Wochen nach Kenntnis (§33(5) BSIG). Eine jährliche Prüfung allein reicht nicht.",
+          "Die Daten veralten leise: die Kontaktperson verlässt das Haus, die Mailadresse wird abgeschaltet. Eine Funktionsadresse und ein Punkt im Austrittsprozess beugen vor."
+        ]
+      },
+      "1_2": {
+        "who": "Die Informationssicherheit entwirft, wer welche Aufgabe trägt. Die Geschäftsleitung benennt die für Informationssicherheit verantwortliche Person und gibt die Aufgabenverteilung frei. Recht prüft die Weisungsbefugnisse, HR liefert das Organigramm.",
+        "ask": "Wer ist bei uns für Informationssicherheit verantwortlich, berichtet diese Person direkt an mich, und habe ich die Aufgabenverteilung für die übrigen Maßnahmen gesehen?",
+        "missed": [
+          "Die Rolle muss nicht CISO heißen. Entscheidend ist eine Person, die gegenüber der Geschäftsleitung für Informationssicherheit verantwortlich ist; der BSI-Standard 200-2 nennt sie Informationssicherheitsbeauftragte (ISB).",
+          "ISB unter der IT-Leitung ist ein Rollenkonflikt: wer die Systeme betreibt, soll ihre Sicherheit nicht allein bewerten. Der BSI-Standard 200-2 sieht den direkten Berichtsweg an die Leitung vor.",
+          "Datenschutzbeauftragte und ISB in einer Person: dann die Grenze zwischen beiden Rollen schriftlich festhalten."
+        ]
+      },
+      "3_1": {
+        "who": "Die Informationssicherheit schreibt den Plan und benennt die Leitung des Vorfallteams. Recht oder Compliance formuliert die Meldetexte, der Datenschutz deckt Vorfälle mit personenbezogenen Daten ab. Die Geschäftsleitung gibt den Plan frei.",
+        "ask": "Wer entscheidet bei uns, ob ein Vorfall erheblich ist? Auf welchem Weg und ab welcher Schwelle erreicht mich die Eskalation, und wann haben wir den Ersatzkommunikationsweg zuletzt getestet?",
+        "missed": [
+          "Ein zweiter Kommunikationsweg außerhalb der eigenen IT. Bei einem echten Vorfall sind E-Mail und Chat oft mitbetroffen; §30(2) Nr. 10 BSIG nennt gesicherte Notfallkommunikation ausdrücklich.",
+          "Erkennen ist nicht Bewältigen. Ein Monitoring ohne festgelegte Reaktion, Zuständigkeit und Eskalation ist kein Plan.",
+          "Wer die Meldung an das BSI formuliert, steht selten im Plan. Diese Rolle vorab besetzen, in kleineren Häusern bei Compliance oder Recht."
+        ]
+      },
+      "3_3": {
+        "who": "Die Informationssicherheit stuft den Vorfall ein und gibt die Meldung frei, Compliance oder Recht formuliert sie, die IT liefert die Fakten. Die Geschäftsleitung wird unverzüglich informiert. Der Datenschutz prüft parallel die Meldung an die Datenschutzaufsicht (Art. 33 DSGVO).",
+        "ask": "Wer entscheidet, was als erheblich gilt, und wann haben wir den Meldeweg zuletzt geübt, im Ernstfall oder als Übung?",
+        "missed": [
+          "Drei Meldungen, ein Vorfall: frühe Erstmeldung binnen 24 Stunden, Meldung binnen 72 Stunden, Abschlussmeldung einen Monat nach der zweiten Meldung (§32(1) BSIG). Dauert der Vorfall noch an, tritt eine Fortschrittsmeldung an ihre Stelle (§32(2) BSIG).",
+          "Empfänger ist die gemeinsame Meldestelle von BSI und BBK. Gemeldet wird über das BSI-Portal mit demselben Zugang wie die Registrierung.",
+          "Sind personenbezogene Daten betroffen, läuft die Meldung an die Datenschutzaufsicht nach Art. 33 DSGVO parallel, mit eigener Frist von 72 Stunden."
+        ]
+      }
+    }
+  }
+}

@@ -7,6 +7,7 @@ import {
   ChevronRight,
   Compass,
   FileText,
+  Footprints,
   Receipt,
   ScrollText,
   Server,
@@ -108,6 +109,7 @@ export function AppSidebar({ user, frameworks, showBilling }: AppSidebarProps) {
 
   const overviewItems: NavItem[] = [
     { href: "/journey", label: t("journey"), icon: Compass },
+    { href: "/durchgang", label: t("durchgang"), icon: Footprints },
   ];
 
   // Living registers the journey strands: /assets only appears in the journey

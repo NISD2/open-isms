@@ -247,6 +247,8 @@ export const routing = defineRouting({
     "/compliance/[categorySlug]": "/compliance/[categorySlug]",
     "/compliance/[categorySlug]/[requirementCode]":
       "/compliance/[categorySlug]/[requirementCode]",
+    "/durchgang": "/durchgang",
+    "/durchgang/[code]": "/durchgang/[code]",
     "/exercises": "/exercises",
     "/export": "/export",
     "/gap-assessment": "/gap-assessment",
