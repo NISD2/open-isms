@@ -59,10 +59,10 @@
         "features": {
           "guided": "Begeleide NIS 2 implementatie, stap voor stap",
           "unlimited": "Onbeperkt organisaties en gebruikers",
-          "history": "Een geschiedenis van wijzigingen en goedkeuringen",
+          "history": "Een geschiedenis van wijzigingen en goedkeuringen, om aan uw toezichthouder te tonen",
           "deadlines": "Deadlines en herinneringen per vereiste",
           "suppliers": "Beveiligingsvragenlijst voor uw leveranciers",
-          "export": "Export naar PDF en CSV, altijd",
+          "export": "Export naar PDF of CSV, op elk moment",
           "updates": "Alle updates inbegrepen"
         },
         "grandfatheredNote": "Aangemeld voordat de betaalde toegang begon? U betaalt {price} netto per jaar, ook bij verlenging."

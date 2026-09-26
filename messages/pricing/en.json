@@ -59,10 +59,10 @@
         "features": {
           "guided": "Guided NIS 2 implementation, step by step",
           "unlimited": "Unlimited organizations and users",
-          "history": "A history of changes and sign-offs",
+          "history": "A history of changes and sign-offs to show your regulator",
           "deadlines": "Deadlines and reminders for each requirement",
           "suppliers": "Security questionnaire for your suppliers",
-          "export": "Export to PDF and CSV, any time",
+          "export": "Export to PDF or CSV at any time",
           "updates": "All updates included"
         },
         "grandfatheredNote": "Signed in before paid plans started? You pay {price} net a year, renewals included."

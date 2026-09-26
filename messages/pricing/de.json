@@ -59,10 +59,10 @@
         "features": {
           "guided": "Geführte NIS 2 Umsetzung, Schritt für Schritt",
           "unlimited": "Unbegrenzt Organisationen und Nutzer",
-          "history": "Verlauf der Änderungen und Freigaben",
+          "history": "Verlauf der Änderungen und Freigaben, vorzeigbar beim BSI",
           "deadlines": "Fristen und Erinnerungen je Anforderung",
           "suppliers": "Sicherheitsfragebogen an Ihre Lieferanten",
-          "export": "Export als PDF und CSV, jederzeit",
+          "export": "Export als PDF oder CSV, jederzeit",
           "updates": "Alle Updates inklusive"
         },
         "grandfatheredNote": "Vor dem Start angemeldet? Dann zahlen Sie {price} netto im Jahr, auch bei Verlängerung."
