@@ -24,8 +24,16 @@
 // Vocabulary. English in code; the BSI's German labels belong in the interface.
 // ---------------------------------------------------------------------------
 
+// Type-only: the values come from the database enums, and nothing from drizzle reaches a bundle.
+import type {
+  addresseeEnum,
+  controlGradeEnum,
+  controlOutcomeEnum,
+  settledFactEnum,
+} from "@/schema";
+
 /** BSI grade. required = Basis (MUSS), expected = Standard (SOLLTE), optional = erhöhter Schutzbedarf (KANN). */
-export type ControlGrade = "required" | "expected" | "optional";
+export type ControlGrade = (typeof controlGradeEnum.enumValues)[number];
 
 /**
  * What a company may record against one control.
@@ -35,22 +43,13 @@ export type ControlGrade = "required" | "expected" | "optional";
  * it. Leaving the second out would force a company that meets a requirement differently to either
  * overclaim "done" or leave the item open for ever.
  */
-export type ControlOutcome =
-  | "done"
-  | "no_object"
-  | "covered_otherwise"
-  | "justified"
-  | "deferred";
+export type ControlOutcome = (typeof controlOutcomeEnum.enumValues)[number];
 
 /** A fact that may be unknown. Unknown asserts nothing, in either direction. */
-export type Settled = "yes" | "no" | "unsettled";
+export type Settled = (typeof settledFactEnum.enumValues)[number];
 
 /** Who a provision addresses, read off the statute's own wording. */
-export type Addressee =
-  | "all"
-  | "critical_installation"
-  | "service_type_60_1"
-  | "sector_35_2";
+export type Addressee = (typeof addresseeEnum.enumValues)[number];
 
 export type FactorId =
   | "risk_exposure"
