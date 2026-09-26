@@ -925,11 +925,11 @@
     "toms": {
       "meta": {
         "title": "Technical and Organisational Measures (TOMs) - Art. 32 GDPR",
-        "description": "Technical and organisational measures of the NISD2.eu platform under Art. 32 GDPR. Hetzner Germany hosting, TLS, audit trail with SHA-256 chaining, multi-tenant isolation, RBAC."
+        "description": "Technical and organisational measures of the NISD2.eu platform under Art. 32 GDPR. Hetzner Germany hosting, TLS, audit trail with SHA-256 checksums, multi-tenant isolation, RBAC."
       },
       "title": "Technical and Organisational Measures (TOMs)",
       "subtitle": "Measures under Art. 32 GDPR ensuring the security of personal data processing on the NISD2.eu platform.",
-      "lastUpdated": "Last updated: June 2026.",
+      "revised": "As of 26 September 2026. Checked against the code and corrected.",
       "intro": {
         "heading": "Overview",
         "p1": "This document describes the technical and organisational measures actually implemented by Simon Orzel as operator of the NISD2.eu platform. It is an honest inventory, not a wish list - we list only what is already in place.",
@@ -937,18 +937,18 @@
       },
       "hosting": {
         "heading": "Hosting in the EU",
-        "p1": "Production processing of personal data takes place exclusively within the EU:",
+        "scopeNote": "Servers, database and file storage are in the EU. Two services are based in the USA and receive only the data for their function:",
         "items": {
           "appServers": "Application servers and PostgreSQL database: Hetzner Online GmbH, data centre Falkenstein/Nuremberg, Germany",
           "fileStorage": "Storage of uploaded evidence documents: AWS S3, EU region",
-          "noUSTransfer": "No production data processing outside the EU. US sub-services (Resend for transactional email, xAI for optional AI prefill) only process the data necessary for their function."
+          "usServices": "In the USA: Resend for sending email and xAI for AI prefill, the latter only if an organisation switches data sharing on (off by default). Transfers are based on the EU standard contractual clauses (Art. 46 GDPR)."
         }
       },
       "pseudonymization": {
         "heading": "Encryption (Art. 32(1)(a) GDPR)",
         "items": {
           "transit": "Transport encryption: TLS for all connections to the platform (HTTPS)",
-          "rest": "Encryption at rest: AWS S3 server-side encryption (AES256, set explicitly on every upload via PutObject); PostgreSQL data on Hetzner infrastructure",
+          "restStorage": "Encryption at rest: AWS S3 server-side encryption (AES256, set explicitly on every upload, including archived invoices). The application does not additionally encrypt the PostgreSQL database.",
           "secrets": "Credentials and API keys are managed via server environment variables, not stored in source or databases"
         }
       },
@@ -957,9 +957,9 @@
         "p1": "Measures ensuring confidentiality:",
         "items": {
           "physical": "Physical access control: data centres of the hosting providers (Hetzner, AWS) hold ISO 27001 certifications",
-          "auth": "Authentication: sign-in by email and password or through Google OAuth 2.0. Passwords are stored only as a bcrypt hash at cost factor 12, never in clear text. Password registrations confirm the email address once through a one-time code, and failed sign-in attempts are limited to 10 in 15 minutes per application instance. The platform offers no second factor on the password path. Users who sign in with Google rely on the MFA of their own Google account.",
-          "rbac": "Role-based permissions: admin, reviewer, member; enforced in the application layer via tRPC middleware",
-          "separation": "Multi-tenant isolation: every data-bearing query filters at the database layer on the company ID of the authenticated user; no shared data pools between customers",
+          "authMethods": "Authentication: sign-in by email and password or through Google OAuth 2.0. Passwords are stored only as a bcrypt hash at cost factor 12, never in clear text. Password registrations confirm the email address once through a one-time code. Sign-in attempts are limited to 10 in 15 minutes per email address and application instance; every attempt counts. Sessions end after eight hours. The platform offers no second factor on the password path. Users who sign in with Google rely on the MFA of their own Google account.",
+          "roles": "Role-based permissions: admin, reviewer, legal reviewer, member; enforced in the application layer via tRPC middleware",
+          "tenantSeparation": "Multi-tenant isolation in the application: every data-bearing query filters on the company ID from the authenticated user's session. There is no additional separation in the database (row level security).",
           "secrets": "Passwords are never stored in clear text. Every sign-in is compared against a bcrypt hash, including when no account exists for the address supplied, so that response time cannot reveal who is registered.",
           "personnel": "Personnel measures: access to production systems and personal data is limited to a small, named group bound by confidentiality. Access follows the principle of least privilege and is revoked when a role ends."
         }
@@ -967,8 +967,8 @@
       "integrity": {
         "heading": "Integrity (Art. 32(1)(b) GDPR)",
         "items": {
-          "input": "Input control: audit trail of all mutations capturing user ID, action, entity type, timestamp, IP address, user agent, and before/after values",
-          "checksum": "Audit trail tamper detection: every audit row carries a SHA-256 checksum over its contents so changes to a row are detectable",
+          "inputLog": "Input control: every change a signed-in user makes through the platform's API is logged with user ID, action, entity type, timestamp, IP address, user agent and the input values (sensitive fields removed). Only selected operations also store the previous value.",
+          "rowChecksum": "Audit trail checksum: every audit row gets a SHA-256 checksum over its contents when it is written. A tool that recomputes these checksums later does not exist yet.",
           "transfer": "Transfer control: data transmission only via TLS; all authenticated endpoints require a valid session",
           "evidenceHash": "Evidence documents: storage location and metadata are written on upload; an optional client-supplied SHA-256 hash can be stored alongside the file",
           "signoff": "Sign-off mechanism: at the moment of approval, the requirement state is snapshotted into a sign-off history table whose entries form a SHA-256 chain (each entry's checksum covers the previous one) - tampering with the history is detectable end-to-end"
@@ -977,18 +977,18 @@
       "availability": {
         "heading": "Availability (Art. 32(1)(b) GDPR)",
         "items": {
-          "backup": "Database backups according to the Hetzner Cloud service defaults; details on the current backup configuration are available on request",
+          "backupSetup": "Database backups are set up by the operator in the hosting environment. They are not part of the source code. We share the current configuration on request.",
           "redundancy": "Storage of evidence documents in AWS S3 with the object durability guarantees provided by AWS",
-          "rateLimit": "Rate limiting on login attempts, public endpoints (applicability check, supplier portal), and resource-heavy authenticated endpoints (PDF exports, certificate generation)",
+          "rateLimits": "Rate limiting per application instance (in memory) on login attempts, public endpoints (applicability check, supplier portal), and resource-heavy authenticated endpoints (PDF exports, certificate generation)",
           "uploadLimit": "Uploaded files are limited to 50 MB per file",
-          "status": "Availability display: nisd2.eu/status checks database reachability on each request and shows the result publicly, cached for 30 seconds. We do not run continuous monitoring with automated alerting."
+          "statusPage": "Availability display: nisd2.eu/status checks database reachability at most every 30 seconds and shows the result publicly. We do not run continuous monitoring with automated alerting."
         }
       },
       "evaluation": {
         "heading": "Procedure for regular review (Art. 32(1)(d) GDPR)",
         "items": {
           "review": "These TOMs are reviewed when triggered by an event and at least once per year",
-          "patch": "Updates of dependencies and security-relevant libraries: Dependabot is enabled to surface security patches and version updates as pull requests on a weekly cadence",
+          "dependencyUpdates": "Dependency updates: Dependabot proposes new versions of the npm packages and GitHub Actions as pull requests every week",
           "incident": "Reporting obligations: personal data breaches will be reported to the competent supervisory authority within 72 hours per Art. 33 GDPR",
           "code": "Development practice: code changes go through pull requests; TypeScript strict-mode type checks are enforced; targeted automated tests cover security-critical logic (e.g. applicability classification)"
         }
