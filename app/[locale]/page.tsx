@@ -138,7 +138,7 @@ export default async function LandingPage() {
                       className="group h-11 px-0 has-[>svg]:px-0 text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground hover:no-underline"
                     >
                       <Link href="/training/nis2-ceo">
-                        {t("startTraining")}
+                        {t("guided.trainingCta")}
                         <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                       </Link>
                     </Button>
