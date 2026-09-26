@@ -935,7 +935,7 @@
       },
       "hosting": {
         "heading": "Hosting in der EU",
-        "scopeNote": "Server, Datenbank und Dateispeicher liegen in der EU. Zwei Dienste sitzen in den USA und erhalten nur die Daten für ihre Funktion:",
+        "scopeNote": "Server, Datenbank und Dateispeicher liegen in der EU. Ein Dienst sitzt in den USA und erhält nur die Daten für seine Funktion:",
         "items": {
           "appServers": "Anwendungsserver und PostgreSQL-Datenbank: Hetzner Online GmbH, Rechenzentrum Falkenstein/Nürnberg, Deutschland",
           "fileStorage": "Speicherung hochgeladener Nachweisdokumente: AWS S3, EU-Region",
