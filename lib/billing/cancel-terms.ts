@@ -11,16 +11,21 @@ export const MONEY_BACK_DAYS = 30;
 
 export type CancelWindow =
   | {
-      /** Inside the thirty days: a full credit note cancels the invoice. */
+      /** Inside the thirty days of the account's first invoice: a full credit note cancels it. */
       readonly kind: "money_back";
       /** Days since the issue date: 0 on the order day, 30 on the last day. */
       readonly day: number;
       readonly lastDay: string;
     }
   | {
-      /** After them: nothing is credited, the paid year runs out and does not renew. */
+      /** Otherwise: nothing is credited, the paid year runs out and does not renew. */
       readonly kind: "renewal";
       readonly day: number;
+      /**
+       * Why there is no money back: the thirty days have passed, or the invoice is not the
+       * account's first (a renewal, or a new order after a cancel), which never has them (AGB B7).
+       */
+      readonly reason: "window_passed" | "not_first_invoice";
     };
 
 const daysBetween = (from: string, to: string): number =>
@@ -29,16 +34,21 @@ const daysBetween = (from: string, to: string): number =>
   );
 
 /**
- * Which cancel applies to an invoice today. The order day does not count and the thirtieth day
- * after it does (§ 187 Abs. 1, § 188 Abs. 1 BGB), so an order on the 1st can be canceled for its
- * money until the end of the 31st, in Berlin, where invoices are dated.
+ * Which cancel applies to an invoice today. Money back belongs to the account's first invoice
+ * only. The order day does not count and the thirtieth day after it does (§ 187 Abs. 1, § 188
+ * Abs. 1 BGB), so an order on the 1st can be canceled for its money until the end of the 31st, in
+ * Berlin, where invoices are dated.
  */
-export const cancelWindow = (issueDate: string, now: Date): CancelWindow => {
-  const lastDay = shiftDay(issueDate, { days: MONEY_BACK_DAYS });
-  const day = daysBetween(issueDate, invoiceToday(now));
+export const cancelWindow = (
+  inv: { readonly issueDate: string; readonly firstInvoice: boolean },
+  now: Date,
+): CancelWindow => {
+  const lastDay = shiftDay(inv.issueDate, { days: MONEY_BACK_DAYS });
+  const day = daysBetween(inv.issueDate, invoiceToday(now));
+  if (!inv.firstInvoice) return { kind: "renewal", day, reason: "not_first_invoice" };
   return invoiceToday(now) <= lastDay
     ? { kind: "money_back", day, lastDay }
-    : { kind: "renewal", day };
+    : { kind: "renewal", day, reason: "window_passed" };
 };
 
 /** The facts of the invoice a credit note cancels, as our row keeps them. */
@@ -97,6 +107,7 @@ export type CanceledEmail =
       readonly kind: "renewal";
       readonly invoiceNumber: string;
       readonly periodEnd: string;
+      readonly reason: Extract<CancelWindow, { kind: "renewal" }>["reason"];
     };
 
 /** The confirmation a customer gets for either cancel, in their language. */
@@ -107,6 +118,7 @@ export const canceledEmailWording = (
   if (mail.kind === "renewal") {
     const end = dayFormat(mail.periodEnd, locale);
     const inv = mail.invoiceNumber;
+    const firstOnly = mail.reason === "not_first_invoice";
     switch (locale) {
       case "de":
         return {
@@ -114,7 +126,7 @@ export const canceledEmailWording = (
           paragraphs: [
             "Guten Tag,",
             "Sie haben die Jahreslizenz NIS 2 Durchgang gekündigt. Sie wird nicht verlängert.",
-            `Ihr Zugang bleibt bis zum Ende des bezahlten Jahres am ${end} bestehen. Die 30 Tage Geld zurück sind vorbei, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
+            `Ihr Zugang bleibt bis zum Ende des bezahlten Jahres am ${end} bestehen. ${firstOnly ? "Die 30 Tage Geld zurück gelten nur für die erste Bestellung eines Kontos" : "Die 30 Tage Geld zurück sind vorbei"}, deshalb bleibt die Rechnung ${inv} gültig. Ist sie noch offen, zahlen Sie sie bitte wie vereinbart.`,
             "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
             "Mit freundlichen Grüßen",
             "nisd2.eu",
@@ -126,7 +138,7 @@ export const canceledEmailWording = (
           paragraphs: [
             "Goedendag,",
             "U heeft de jaarlicentie NIS 2 begeleide doorloop opgezegd. Deze wordt niet verlengd.",
-            `Uw toegang blijft tot het einde van het betaalde jaar op ${end} bestaan. De 30 dagen geld terug zijn voorbij, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
+            `Uw toegang blijft tot het einde van het betaalde jaar op ${end} bestaan. ${firstOnly ? "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account" : "De 30 dagen geld terug zijn voorbij"}, daarom blijft factuur ${inv} geldig. Staat die nog open, betaal deze dan zoals afgesproken.`,
             "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
             "Met vriendelijke groet",
             "nisd2.eu",
@@ -138,7 +150,7 @@ export const canceledEmailWording = (
           paragraphs: [
             "Hello,",
             "You have canceled the NIS 2 guided pass annual licence. It will not renew.",
-            `Your access stays open until the end of the paid year on ${end}. The thirty days money back have passed, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
+            `Your access stays open until the end of the paid year on ${end}. ${firstOnly ? "The thirty days money back apply only to an account's first order" : "The thirty days money back have passed"}, so invoice ${inv} stands. If it is still open, please pay it as agreed.`,
             "Your organizations and everything you entered stay in your account.",
             "Kind regards",
             "nisd2.eu",
@@ -156,8 +168,8 @@ export const canceledEmailWording = (
           "Guten Tag,",
           `Sie haben die Jahreslizenz NIS 2 Durchgang innerhalb der 30 Tage gekündigt. Die Rechnung ${inv} ist mit der Gutschrift ${cn} storniert${attached ? ", die Sie im Anhang finden" : ""}.`,
           refundOwed
-            ? "Sie hatten die Rechnung schon bezahlt. Wir überweisen Ihnen den Betrag zurück, auf das Konto, von dem Ihre Zahlung kam."
-            : "Bei uns ist noch keine Zahlung eingegangen, und die Rechnung müssen Sie nicht mehr bezahlen. Haben Sie den Betrag schon überwiesen, erstatten wir ihn, sobald die Zahlung ankommt.",
+            ? "Sie hatten die Rechnung schon bezahlt. Wir überweisen Ihnen den Betrag innerhalb von 30 Tagen nach der Kündigung zurück, auf das Konto, von dem Ihre Zahlung kam."
+            : "Bei uns ist noch keine Zahlung eingegangen, und die Rechnung müssen Sie nicht mehr bezahlen. Haben Sie den Betrag schon überwiesen, erstatten wir ihn innerhalb von 30 Tagen nach ihrem Eingang.",
           "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
           "Mit freundlichen Grüßen",
           "nisd2.eu",
@@ -170,8 +182,8 @@ export const canceledEmailWording = (
           "Goedendag,",
           `U heeft de jaarlicentie NIS 2 begeleide doorloop binnen de 30 dagen opgezegd. Factuur ${inv} is geannuleerd met creditnota ${cn}${attached ? ", die u in de bijlage vindt" : ""}.`,
           refundOwed
-            ? "U had de factuur al betaald. Wij maken het bedrag terug over naar de rekening waarvan uw betaling kwam."
-            : "Bij ons is nog geen betaling binnengekomen, en de factuur hoeft u niet meer te betalen. Heeft u het bedrag al overgemaakt, dan betalen wij het terug zodra de betaling binnenkomt.",
+            ? "U had de factuur al betaald. Wij maken het bedrag binnen 30 dagen na de opzegging terug over naar de rekening waarvan uw betaling kwam."
+            : "Bij ons is nog geen betaling binnengekomen, en de factuur hoeft u niet meer te betalen. Heeft u het bedrag al overgemaakt, dan betalen wij het binnen 30 dagen na ontvangst terug.",
           "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
           "Met vriendelijke groet",
           "nisd2.eu",
@@ -184,8 +196,8 @@ export const canceledEmailWording = (
           "Hello,",
           `You canceled the NIS 2 guided pass annual licence within the thirty days. Invoice ${inv} is canceled by credit note ${cn}${attached ? ", attached to this email" : ""}.`,
           refundOwed
-            ? "You had already paid the invoice. We will transfer the amount back to the account your payment came from."
-            : "No payment has reached us yet, and you no longer need to pay the invoice. If you have already transferred the amount, we refund it as soon as the payment arrives.",
+            ? "You had already paid the invoice. We will transfer the amount back within 30 days of the cancellation, to the account your payment came from."
+            : "No payment has reached us yet, and you no longer need to pay the invoice. If you have already transferred the amount, we refund it within 30 days of its arrival.",
           "Your organizations and everything you entered stay in your account.",
           "Kind regards",
           "nisd2.eu",

@@ -1196,16 +1196,17 @@
         "moneyBack": {
           "heading": "B7. 30 Tage Geld zurück",
           "paragraphs": [
-            "Innerhalb von 30 Tagen nach dem Tag der Bestellung kann der Kunde die Jahreslizenz ohne Angabe von Gründen kündigen. Der Tag der Bestellung zählt nicht mit, der dreißigste Tag danach zählt mit. Maßgeblich sind Kalendertage in Deutschland.",
+            "Bei der ersten Bestellung für sein Konto kann der Kunde die Jahreslizenz innerhalb von 30 Tagen nach dem Tag der Bestellung ohne Angabe von Gründen kündigen. Der Tag der Bestellung zählt nicht mit, der dreißigste Tag danach zählt mit. Maßgeblich sind Kalendertage in Deutschland.",
+            "Für Verlängerungen gilt das nicht, und ebenso wenig für jede spätere Bestellung für dasselbe Konto, auch nicht für eine neue Bestellung nach einer Kündigung. Für sie gilt B8 vom ersten Tag an.",
             "Der Kunde erklärt die Kündigung unter Abrechnung mit dem Button oder in Textform per E-Mail an contact@nisd2.eu.",
-            "Der Anbieter storniert die Rechnung dann vollständig mit einer Gutschrift. War sie noch offen, muss der Kunde nichts mehr zahlen. Hatte er schon gezahlt, überweist der Anbieter den vollen Betrag unverzüglich auf das Konto zurück, von dem die Zahlung kam. Eine Zahlung, die erst nach der Stornierung eingeht, erstattet er ebenso.",
+            "Der Anbieter storniert die Rechnung dann vollständig mit einer Gutschrift. War sie noch offen, muss der Kunde nichts mehr zahlen. Hatte er schon gezahlt, überweist der Anbieter den vollen Betrag innerhalb von 30 Tagen nach der Kündigung auf das Konto zurück, von dem die Zahlung kam. Eine Zahlung, die erst nach der Stornierung eingeht, erstattet er innerhalb von 30 Tagen nach ihrem Eingang.",
             "Die Jahreslizenz endet sofort. Das Konto fällt auf die Nutzung ohne Lizenz zurück, bei Bestandsnutzern auf die weiter kostenlose Nutzung des bisherigen Durchgangs. Die Daten des Kunden bleiben gespeichert (B10)."
           ]
         },
         "cancelAfter": {
           "heading": "B8. Kündigung nach den 30 Tagen",
           "paragraphs": [
-            "Nach Ablauf der 30 Tage beendet eine Kündigung die Verlängerung. Die Jahreslizenz läuft bis zum Ende des bezahlten Lizenzjahres weiter. Die Rechnung für dieses Jahr bleibt fällig, eine anteilige Erstattung gibt es nicht.",
+            "Nach Ablauf der 30 Tage, und bei Verlängerungen und späteren Bestellungen von Anfang an, beendet eine Kündigung die Verlängerung. Die Jahreslizenz läuft bis zum Ende des bezahlten Lizenzjahres weiter. Die Rechnung für dieses Jahr bleibt fällig, eine anteilige Erstattung gibt es nicht.",
             "Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt."
           ]
         },

@@ -1196,16 +1196,17 @@
         "moneyBack": {
           "heading": "B7. Thirty days money back",
           "paragraphs": [
-            "Within 30 days after the day of the order, the customer can cancel the annual licence without giving a reason. The day of the order does not count; the thirtieth day after it does. Calendar days in Germany apply.",
+            "On the first order for their account, the customer can cancel the annual licence within 30 days after the day of the order without giving a reason. The day of the order does not count; the thirtieth day after it does. Calendar days in Germany apply.",
+            "This does not apply to renewals, nor to any later order for the same account, including a new order after a cancellation. B8 applies to those from the first day.",
             "The customer cancels under Billing with the button, or in text form by email to contact@nisd2.eu.",
-            "The Provider then cancels the invoice in full with a credit note. If it was still open, the customer owes nothing more. If the customer had already paid, the Provider transfers the full amount back without undue delay to the account the payment came from. The same applies to a payment that arrives only after the cancellation.",
+            "The Provider then cancels the invoice in full with a credit note. If it was still open, the customer owes nothing more. If the customer had already paid, the Provider transfers the full amount back within 30 days of the cancellation to the account the payment came from. A payment that arrives only after the cancellation is refunded within 30 days of its arrival.",
             "The annual licence ends at once. The account falls back to use without a licence; for existing users, to the continued free use of the current guided pass. The customer's data stays stored (B10)."
           ]
         },
         "cancelAfter": {
           "heading": "B8. Cancelling after the thirty days",
           "paragraphs": [
-            "After the thirty days, cancelling ends the renewal. The annual licence runs until the end of the paid licence year. The invoice for that year remains due; there is no pro rata refund.",
+            "After the thirty days, and from the start for renewals and later orders, cancelling ends the renewal. The annual licence runs until the end of the paid licence year. The invoice for that year remains due; there is no pro rata refund.",
             "The right to terminate for good cause is not affected."
           ]
         },

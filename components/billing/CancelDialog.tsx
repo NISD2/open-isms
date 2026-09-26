@@ -83,7 +83,12 @@ export function CancelDialog({
           <AlertDialogDescription>
             {option.kind === "money_back"
               ? t("moneyBackBody", { lastDay: day(option.lastDay) })
-              : t("renewalBody", { periodEnd: day(option.periodEnd) })}{" "}
+              : t(
+                  option.reason === "not_first_invoice"
+                    ? "renewalLaterInvoiceBody"
+                    : "renewalBody",
+                  { periodEnd: day(option.periodEnd) },
+                )}{" "}
             {t("kept")}
           </AlertDialogDescription>
         </AlertDialogHeader>

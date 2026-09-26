@@ -1,12 +1,14 @@
 /**
  * Cancel: the one function that ends a paid year, for the account holder only (billing.cancel).
  *
- *   - Inside the thirty days (./cancel-terms): a full credit note in Qonto, which cancels the
+ *   - Inside the thirty days of the account's first invoice (cancelWindowFor): a full credit
+ *     note in Qonto, which cancels the
  *     invoice whether it was paid or not. Our credit_note row is written, the account falls back
  *     to the level it has without payment (./access unpaidAccessLevel), and if the invoice had been
  *     paid the refund is marked owed: a credit note moves no money, and our key cannot send a
  *     transfer, so a person makes it in Qonto and records it in the Subscriptions tab.
- *   - After them: `renewal_canceled_at` is set and access runs to the end of the paid year.
+ *   - After them, or on any later invoice: `renewal_canceled_at` is set and access runs to the
+ *     end of the paid year.
  *
  * The credit note follows the order's safety pattern (./place-order): everything that can refuse
  * is decided before Qonto is called, the number is committed before the call, the account is
@@ -15,7 +17,7 @@
  * the account until a platform admin has checked Qonto, and the operators are told.
  */
 import "@/lib/server-guard";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, asc, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
 import type { Database, DbOrTx } from "@/lib/db";
 import { invoiceEmail, sendMail } from "@/lib/mail";
@@ -25,6 +27,7 @@ import { unpaidAccessLevel } from "./access";
 import type { AccessLevel } from "./accounts";
 import { AlreadyAlerted, alertOperators } from "./alert";
 import {
+  type CancelWindow,
   canceledEmailWording,
   cancelWindow,
   creditNoteLine,
@@ -85,6 +88,29 @@ const failure = (
   message: string,
 ) => ({ ok: false, reason, message }) as const;
 
+/**
+ * Which cancel applies to one of the account's invoices today: the one place the thirty days are
+ * decided. An invoice is the first when no invoice of the account was created before it, credited
+ * or not, so a renewal and a new order after a cancel never carry money back.
+ */
+export const cancelWindowFor = async (
+  db: DbOrTx,
+  billingAccountId: string,
+  inv: { readonly id: string; readonly issueDate: string },
+  now: Date,
+): Promise<CancelWindow> => {
+  const [earliest] = await db
+    .select({ id: invoice.id })
+    .from(invoice)
+    .where(eq(invoice.billingAccountId, billingAccountId))
+    .orderBy(asc(invoice.createdAt), asc(invoice.id))
+    .limit(1);
+  return cancelWindow(
+    { issueDate: inv.issueDate, firstInvoice: earliest?.id === inv.id },
+    now,
+  );
+};
+
 /** The invoice paying for the account right now, with the facts a credit note mirrors. */
 const currentInvoice = async (db: DbOrTx, billingAccountId: string, now: Date) => {
   const active = await findActiveInvoice(db, billingAccountId, now);
@@ -122,6 +148,7 @@ const holderContact = async (db: DbOrTx, userId: string) => {
 const cancelRenewal = async (
   input: CancelInput,
   current: CurrentInvoice,
+  reason: Extract<CancelWindow, { kind: "renewal" }>["reason"],
   now: Date,
 ): Promise<CancelOutcome> => {
   // The same lock an order and a money-back cancel take, and the same refusal while an earlier
@@ -152,7 +179,12 @@ const cancelRenewal = async (
     const contact = await holderContact(input.db, input.userId);
     if (contact) {
       const wording = canceledEmailWording(
-        { kind: "renewal", invoiceNumber: current.number, periodEnd: current.periodEnd },
+        {
+          kind: "renewal",
+          invoiceNumber: current.number,
+          periodEnd: current.periodEnd,
+          reason,
+        },
         contact.locale,
       );
       const sent = await sendMail({
@@ -365,7 +397,8 @@ export async function cancelSubscription(input: CancelInput): Promise<CancelOutc
   const now = input.now ?? new Date();
   const current = await currentInvoice(input.db, input.billingAccountId, now);
   if (!current) return failure("no_invoice", "Nothing to cancel.");
-  return cancelWindow(current.issueDate, now).kind === "money_back"
+  const window = await cancelWindowFor(input.db, input.billingAccountId, current, now);
+  return window.kind === "money_back"
     ? creditInvoice(input, current, now)
-    : cancelRenewal(input, current, now);
+    : cancelRenewal(input, current, window.reason, now);
 }

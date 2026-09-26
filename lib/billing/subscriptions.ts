@@ -33,7 +33,7 @@ import {
 } from "@/schema";
 import { unpaidAccessLevel } from "./access";
 import type { AccessLevel } from "./accounts";
-import { cancelWindow } from "./cancel-terms";
+import { cancelWindowFor } from "./cancel";
 import { isGrandfatheredHolder } from "./holder-price";
 import { formatEuro, INVOICE_TIME_ZONE, invoiceToday, shiftDay } from "./order";
 import type { OrderingMode } from "./ordering";
@@ -121,6 +121,7 @@ export const listSubscriptions = async (
       .groupBy(company.billingAccountId),
     db
       .select({
+        id: invoice.id,
         accountId: invoice.billingAccountId,
         qontoInvoiceId: invoice.qontoInvoiceId,
         number: invoice.number,
@@ -144,8 +145,8 @@ export const listSubscriptions = async (
       const live = latest ? await readLive(mode, latest.qontoInvoiceId) : null;
       const current =
         latest && live
-          ? (() => {
-              const window = cancelWindow(latest.issueDate, now);
+          ? await (async () => {
+              const window = await cancelWindowFor(db, a.id, latest, now);
               return {
                 number: latest.number,
                 gross: formatEuro(latest.netCents + latest.vatCents),
@@ -158,6 +159,9 @@ export const listSubscriptions = async (
                 creditNoteNumber: latest.creditNoteNumber,
                 windowDay: window.day,
                 insideWindow: window.kind === "money_back" && !latest.creditNoteNumber,
+                firstInvoice: !(
+                  window.kind === "renewal" && window.reason === "not_first_invoice"
+                ),
               };
             })()
           : null;

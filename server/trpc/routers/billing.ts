@@ -17,8 +17,7 @@ import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import type { AccessLevel } from "@/lib/billing/accounts";
-import { cancelSubscription } from "@/lib/billing/cancel";
-import { cancelWindow } from "@/lib/billing/cancel-terms";
+import { cancelSubscription, cancelWindowFor } from "@/lib/billing/cancel";
 import { holderNetCents } from "@/lib/billing/holder-price";
 import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { hasOrderCheck } from "@/lib/billing/order-check";
@@ -79,17 +78,26 @@ const limited = (key: string, limit: number) => {
 };
 
 /**
- * Which cancel the holder is offered, if any: money back inside the thirty days, or no renewal
- * after them, once. Only a full account with a running, uncredited invoice has anything to cancel.
+ * Which cancel the holder is offered, if any: money back inside the thirty days of the first
+ * invoice, otherwise no renewal, once. Only a full account with a running, uncredited invoice has
+ * anything to cancel.
  */
-const cancelOption = (
-  level: AccessLevel,
-  active: { readonly issueDate: string; readonly periodEnd: string } | null,
-  renewalCanceledAt: Date | null,
+const cancelOption = async (
+  db: DbOrTx,
+  account: {
+    readonly id: string;
+    readonly accessLevel: AccessLevel;
+    readonly renewalCanceledAt: Date | null;
+  },
+  active: {
+    readonly id: string;
+    readonly issueDate: string;
+    readonly periodEnd: string;
+  } | null,
   now: Date,
 ) => {
-  if (level !== "full" || !active) return null;
-  const window = cancelWindow(active.issueDate, now);
+  if (account.accessLevel !== "full" || !active) return null;
+  const window = await cancelWindowFor(db, account.id, active, now);
   if (window.kind === "money_back") {
     return {
       kind: "money_back",
@@ -97,9 +105,9 @@ const cancelOption = (
       periodEnd: active.periodEnd,
     } as const;
   }
-  return renewalCanceledAt
+  return account.renewalCanceledAt
     ? null
-    : ({ kind: "renewal", periodEnd: active.periodEnd } as const);
+    : ({ kind: "renewal", reason: window.reason, periodEnd: active.periodEnd } as const);
 };
 
 /**
@@ -157,7 +165,7 @@ export const billingRouter = router({
       renewalCanceledAt: account.renewalCanceledAt,
       cancel:
         open && isPayer && !pending
-          ? cancelOption(account.accessLevel, active, account.renewalCanceledAt, now)
+          ? await cancelOption(ctx.db, account, active, now)
           : null,
     };
   }),
