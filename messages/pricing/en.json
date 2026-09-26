@@ -51,7 +51,16 @@
         "description": "Guided implementation at nisd2.eu.",
         "priceSub": "net a year, plus VAT",
         "moneyBack": "30 days money back",
-        "moneyBackDetail": "On your first order you can cancel for 30 days without giving a reason, under Billing or by email. We cancel the invoice. If you have already paid, we refund the full amount within 30 days. Your data stays stored. Does not apply to renewals.",
+        "moneyBackTip": {
+          "title": "30 days money back",
+          "points": {
+            "first": "On your first order, no reason needed",
+            "cancel": "Cancel under Billing or by email",
+            "refund": "An open invoice is cancelled; a paid one is refunded within 30 days",
+            "data": "Your data stays stored"
+          },
+          "note": "Does not apply to renewals. The details are in the terms, section B7."
+        },
         "grandfatheredBadge": "Your existing-user price",
         "cta": "Order",
         "terms": "By invoice, due in 30 days. Cancel within the first 30 days: invoice cancelled or money back.",
@@ -63,9 +72,17 @@
           "deadlines": "Deadlines and reminders for each requirement",
           "suppliers": "Security questionnaire for your suppliers",
           "export": "Export to PDF or CSV at any time",
-          "updates": "All updates included"
+          "updates": "All future updates included"
         },
-        "unlimitedDetail": "For your own company structure: parent company, subsidiaries and sister companies, each as its own organization with its own users, all on one payment. Not for IT service providers, consultants or external officers who look after clients: there, each client organization needs its own license.",
+        "unlimitedTip": {
+          "title": "For your own company structure",
+          "points": {
+            "structure": "Parent company, subsidiaries and sister companies",
+            "users": "Each as its own organization with its own users",
+            "payment": "All on one payment"
+          },
+          "note": "Not for IT service providers, consultants or external officers who look after clients. There, each client organization needs its own license (terms, section B1)."
+        },
         "grandfatheredNote": "Signed in before paid plans started? You pay {price} net a year, renewals included."
       },
       "selfHost": {

@@ -51,7 +51,16 @@
         "description": "Begeleide implementatie op nisd2.eu.",
         "priceSub": "netto per jaar, excl. btw",
         "moneyBack": "30 dagen geld terug",
-        "moneyBackDetail": "Bij uw eerste bestelling kunt u 30 dagen lang opzeggen zonder opgave van reden, onder Facturatie of per e-mail. Wij annuleren de factuur. Heeft u al betaald, dan betalen wij het volledige bedrag binnen 30 dagen terug. Uw gegevens blijven bewaard. Geldt niet voor verlengingen.",
+        "moneyBackTip": {
+          "title": "30 dagen geld terug",
+          "points": {
+            "first": "Bij uw eerste bestelling, zonder opgave van reden",
+            "cancel": "Opzeggen onder Facturatie of per e-mail",
+            "refund": "Een openstaande factuur wordt geannuleerd, een betaalde betalen wij binnen 30 dagen terug",
+            "data": "Uw gegevens blijven bewaard"
+          },
+          "note": "Geldt niet voor verlengingen. De details staan in de voorwaarden, artikel B7."
+        },
         "grandfatheredBadge": "Uw prijs als bestaande gebruiker",
         "cta": "Bestellen",
         "terms": "Op factuur, betaling binnen 30 dagen. Opzeggen in de eerste 30 dagen: factuur geannuleerd of geld terug.",
@@ -63,9 +72,17 @@
           "deadlines": "Deadlines en herinneringen per vereiste",
           "suppliers": "Beveiligingsvragenlijst voor uw leveranciers",
           "export": "Export naar PDF of CSV, op elk moment",
-          "updates": "Alle updates inbegrepen"
+          "updates": "Alle toekomstige updates inbegrepen"
         },
-        "unlimitedDetail": "Voor uw eigen bedrijfsstructuur: moedermaatschappij, dochters en zusterbedrijven, elk als eigen organisatie met eigen gebruikers, allemaal met één betaling. Niet voor IT-dienstverleners, adviseurs of externe functionarissen die klanten begeleiden: daar heeft elke begeleide organisatie een eigen licentie nodig.",
+        "unlimitedTip": {
+          "title": "Voor uw eigen bedrijfsstructuur",
+          "points": {
+            "structure": "Moedermaatschappij, dochters en zusterbedrijven",
+            "users": "Elk als eigen organisatie met eigen gebruikers",
+            "payment": "Allemaal met één betaling"
+          },
+          "note": "Niet voor IT-dienstverleners, adviseurs of externe functionarissen die klanten begeleiden. Daar heeft elke begeleide organisatie een eigen licentie nodig (voorwaarden, artikel B1)."
+        },
         "grandfatheredNote": "Aangemeld voordat de betaalde toegang begon? U betaalt {price} netto per jaar, ook bij verlenging."
       },
       "selfHost": {

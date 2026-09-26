@@ -1,10 +1,16 @@
-import { api } from "@/lib/trpc/server";
-import { getTranslations, getLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { BookOpen, CheckCircle2, ChevronRight, Users } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookOpen, ChevronRight, CheckCircle2 } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
+import { api } from "@/lib/trpc/server";
 
 const COURSES = [
   { id: "nis2-ceo", badge: "NIS 2" },
@@ -12,13 +18,17 @@ const COURSES = [
   { id: "cra-sbom", badge: "CRA" },
 ] as const;
 
+/** Below this a count reads as "nobody takes this", so the line is left out. */
+const MIN_PARTICIPANTS_SHOWN = 10;
+
 export default async function CoursesRoute() {
   const t = await getTranslations("trainingPortal");
   const locale = await getLocale();
 
-  const courseData = await Promise.all(
-    COURSES.map(({ id }) => api.trainingPortal.getCourse({ courseId: id })),
-  );
+  const [courseData, participants] = await Promise.all([
+    Promise.all(COURSES.map(({ id }) => api.trainingPortal.getCourse({ courseId: id }))),
+    api.trainingPortal.participants({ courseIds: COURSES.map(({ id }) => id) }),
+  ]);
 
   return (
     <div className="px-6 py-6 space-y-8">
@@ -35,6 +45,7 @@ export default async function CoursesRoute() {
           const hasStarted = progress.length > 0;
           const isFinished = completedCount === totalLessons && totalLessons > 0;
           const pct = totalLessons > 0 ? (completedCount / totalLessons) * 100 : 0;
+          const people = participants[course.id] ?? 0;
 
           return (
             <Card key={course.id}>
@@ -58,6 +69,12 @@ export default async function CoursesRoute() {
                     <CardDescription className="line-clamp-2">
                       {course.description[locale] ?? course.description.en}
                     </CardDescription>
+                    {people >= MIN_PARTICIPANTS_SHOWN ? (
+                      <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <Users className="size-3.5" />
+                        {t("participants", { count: people })}
+                      </p>
+                    ) : null}
                   </div>
                 </div>
               </CardHeader>
@@ -65,7 +82,10 @@ export default async function CoursesRoute() {
                 <div className="flex items-center justify-between gap-4">
                   <div className="space-y-1.5 flex-1">
                     <p className="text-sm text-muted-foreground">
-                      {t("progressLabel", { completed: completedCount, total: totalLessons })}
+                      {t("progressLabel", {
+                        completed: completedCount,
+                        total: totalLessons,
+                      })}
                     </p>
                     <div className="w-full max-w-48 h-2 bg-muted rounded-full overflow-hidden">
                       <div
@@ -81,7 +101,10 @@ export default async function CoursesRoute() {
                       params: { courseId: course.id },
                     }}
                   >
-                    <Button variant={hasStarted ? "default" : "outline"} className="gap-2 shrink-0">
+                    <Button
+                      variant={hasStarted ? "default" : "outline"}
+                      className="gap-2 shrink-0"
+                    >
                       {hasStarted ? t("continueCourse") : t("startCourse")}
                       <ChevronRight className="h-4 w-4" />
                     </Button>

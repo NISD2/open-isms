@@ -40,6 +40,7 @@
       "incorrect": "Onjuist"
     },
     "progressLabel": "{completed} van {total} lessen voltooid",
+    "participants": "{count, plural, one {# persoon is begonnen} other {# mensen zijn begonnen}}",
     "estimatedTime": "{minutes} min leestijd",
     "certificate": {
       "lockedTitle": "Deelnamecertificaat",

@@ -40,6 +40,7 @@
       "incorrect": "Falsch"
     },
     "progressLabel": "{completed} von {total} Lektionen abgeschlossen",
+    "participants": "{count, plural, one {# Person hat begonnen} other {# Personen haben begonnen}}",
     "estimatedTime": "{minutes} Min. Lesezeit",
     "certificate": {
       "lockedTitle": "Teilnahmebescheinigung",

@@ -1,4 +1,13 @@
-import { Check, Code2, FileText, Info, Receipt, ShieldCheck } from "lucide-react";
+import {
+  Building2,
+  Check,
+  Code2,
+  FileText,
+  Info,
+  Receipt,
+  Scale,
+  ShieldCheck,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -40,15 +49,75 @@ const PAID_CARD_ID = "durchgang";
 // From the LICENSE files and package.json licence fields (the README's table is older than
 // they are). `spdx` is shown as is; the other two rows carry translated wording.
 const LICENCES = [
-  { key: "app", packages: "app, @nisd2/isms-*", spdx: "AGPL-3.0-or-later" },
+  { key: "app", packages: ["app", "@nisd2/isms-*"], spdx: "AGPL-3.0-or-later" },
   {
     key: "dual",
-    packages:
-      "@nisd2/grc-data-model, @nisd2/nis2-supply-chain-questionnaire-schema, @nisd2/incident-notification-schema",
+    packages: [
+      "@nisd2/grc-data-model",
+      "@nisd2/nis2-supply-chain-questionnaire-schema",
+      "@nisd2/incident-notification-schema",
+    ],
     spdx: null,
   },
-  { key: "courses", packages: "courses/", spdx: null },
+  { key: "courses", packages: ["courses/"], spdx: null },
 ] as const;
+
+const moneyBackPoints = ["first", "cancel", "refund", "data"] as const;
+const unlimitedPoints = ["structure", "users", "payment"] as const;
+
+/**
+ * A tooltip styled like the app's popovers (popover tokens, border, shadow) rather than the
+ * default dark chip: the popover pair keeps full contrast in both themes, and a longer
+ * explanation reads better on it. The default arrow is dark, so it is made invisible (not
+ * `hidden`: Radix sets `display: block` on it inline).
+ */
+function InfoPanel({
+  title,
+  icon,
+  note,
+  children,
+}: {
+  readonly title: string;
+  readonly icon: ReactNode;
+  readonly note?: ReactNode;
+  readonly children: ReactNode;
+}) {
+  return (
+    <TooltipContent
+      sideOffset={8}
+      className="w-80 max-w-[calc(100vw-2rem)] rounded-lg border bg-popover p-0 text-left text-sm text-popover-foreground shadow-lg [&_.fill-foreground]:invisible"
+    >
+      <div className="space-y-3 p-4">
+        <p className="flex items-center gap-2 font-semibold leading-none">
+          {icon}
+          {title}
+        </p>
+        {children}
+      </div>
+      {note ? (
+        <p className="rounded-b-lg border-t bg-muted/60 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
+          {note}
+        </p>
+      ) : null}
+    </TooltipContent>
+  );
+}
+
+function PanelPoints({ points }: { readonly points: readonly string[] }) {
+  return (
+    <ul className="space-y-2">
+      {points.map((point) => (
+        <li key={point} className="flex items-start gap-2 leading-snug">
+          <Check
+            className="mt-0.5 size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400"
+            strokeWidth={3}
+          />
+          <span>{point}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 function FeatureItem({
   children,
@@ -151,7 +220,7 @@ export function PaidPricingCards({
           priceSub={t("free.priceSub")}
           cta={
             <Button variant="outline" className="w-full" size="lg" asChild>
-              <Link href="/training/nis2-ceo">{t("free.cta")}</Link>
+              <Link href="/training/courses">{t("free.cta")}</Link>
             </Button>
           }
           features={freeFeatures.map((key) => ({
@@ -210,12 +279,19 @@ export function PaidPricingCards({
                     <Info className="size-3.5 opacity-60" />
                   </button>
                 </TooltipTrigger>
-                <TooltipContent
-                  className="max-w-xs text-left leading-relaxed"
-                  sideOffset={6}
+                <InfoPanel
+                  title={t("paid.moneyBackTip.title")}
+                  icon={
+                    <ShieldCheck className="size-4 text-emerald-600 dark:text-emerald-400" />
+                  }
+                  note={t("paid.moneyBackTip.note")}
                 >
-                  {t("paid.moneyBackDetail")}
-                </TooltipContent>
+                  <PanelPoints
+                    points={moneyBackPoints.map((key) =>
+                      t(`paid.moneyBackTip.points.${key}`),
+                    )}
+                  />
+                </InfoPanel>
               </Tooltip>
               {grandfathered ? (
                 <Badge variant="secondary" className="rounded-full px-3 py-1 text-sm">
@@ -263,12 +339,17 @@ export function PaidPricingCards({
                           {t(`paid.features.${key}`)}
                         </button>
                       </TooltipTrigger>
-                      <TooltipContent
-                        className="max-w-xs text-left leading-relaxed"
-                        sideOffset={6}
+                      <InfoPanel
+                        title={t("paid.unlimitedTip.title")}
+                        icon={<Building2 className="size-4 text-primary" />}
+                        note={t("paid.unlimitedTip.note")}
                       >
-                        {t("paid.unlimitedDetail")}
-                      </TooltipContent>
+                        <PanelPoints
+                          points={unlimitedPoints.map((point) =>
+                            t(`paid.unlimitedTip.points.${point}`),
+                          )}
+                        />
+                      </InfoPanel>
                     </Tooltip>
                   ) : (
                     t(`paid.features.${key}`)
@@ -310,23 +391,31 @@ export function PaidPricingCards({
                         {text}
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent
-                      className="max-w-sm text-left leading-relaxed"
-                      sideOffset={6}
+                    <InfoPanel
+                      title={t("selfHost.licences.title")}
+                      icon={<Scale className="size-4 text-primary" />}
                     >
-                      <p className="mb-1.5 font-medium">{t("selfHost.licences.title")}</p>
-                      <ul className="space-y-1.5">
+                      <dl className="divide-y">
                         {LICENCES.map((licence) => (
-                          <li key={licence.key}>
-                            <span className="font-mono text-[0.7rem] opacity-80">
-                              {licence.packages}
-                            </span>
-                            <br />
-                            {licence.spdx ?? t(`selfHost.licences.${licence.key}`)}
-                          </li>
+                          <div
+                            key={licence.key}
+                            className="space-y-1 py-2.5 first:pt-0 last:pb-0"
+                          >
+                            <dt className="font-medium">
+                              {licence.spdx ?? t(`selfHost.licences.${licence.key}`)}
+                            </dt>
+                            {licence.packages.map((name) => (
+                              <dd
+                                key={name}
+                                className="break-all font-mono text-xs text-muted-foreground"
+                              >
+                                {name}
+                              </dd>
+                            ))}
+                          </div>
                         ))}
-                      </ul>
-                    </TooltipContent>
+                      </dl>
+                    </InfoPanel>
                   </Tooltip>
                 ) : (
                   text
