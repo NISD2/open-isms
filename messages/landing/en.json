@@ -1,5 +1,15 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "For companies with 50 to 150 employees",
+      "title": "Been asked to handle <blue>NIS2</blue>?",
+      "subtitle": "We guide you step by step. You fill it in, we explain every point in plain words, and at the end management signs.",
+      "cta": "Get started",
+      "meta": {
+        "title": "NIS2 step by step, for companies with 50 to 150 employees",
+        "description": "You fill it in, we explain every point in plain words, and at the end management signs. For companies without their own security department."
+      }
+    },
     "title": "Halve Europe's <blue>NIS2</blue> bill.",
     "eyebrow": "Open source · Free · No lock-in",
     "subtitle": "The free platform for regulated companies and their suppliers to implement NIS2: self-assessment, templates, and management training. <os>Open source</os>, no lock-in.",

@@ -1,5 +1,15 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "Voor bedrijven met 50 tot 150 medewerkers",
+      "title": "Moet u zich met <blue>NIS2</blue> bezighouden?",
+      "subtitle": "We begeleiden u stap voor stap. U vult in, wij leggen elk punt in eenvoudige woorden uit, en aan het eind tekent de directie.",
+      "cta": "Nu beginnen",
+      "meta": {
+        "title": "NIS2 stap voor stap, voor bedrijven met 50 tot 150 medewerkers",
+        "description": "U vult in, wij leggen elk punt in eenvoudige woorden uit, en aan het eind tekent de directie. Voor bedrijven zonder eigen beveiligingsafdeling."
+      }
+    },
     "title": "Halveer Europa's <blue>NIS2</blue>-rekening.",
     "eyebrow": "Open source · Gratis · Geen lock-in",
     "subtitle": "Het gratis platform waarmee gereguleerde bedrijven en hun leveranciers NIS2 implementeren: met zelfbeoordeling, sjablonen en bestuurstraining. <os>Open source</os>, geen lock-in.",
