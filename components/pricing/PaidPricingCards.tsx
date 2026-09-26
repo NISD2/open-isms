@@ -1,5 +1,7 @@
-import { Check } from "lucide-react";
+import { Check, Code2, FileText, Receipt, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,117 +10,264 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
 
-const paidKeys = ["p1", "p2", "p3", "p4", "p5", "p6"] as const;
-// h1 and h3 keep the self-host wording every locale already has; h2 and h4 drop the promises the
-// paid offer no longer makes.
-const selfHostFeatures = [
-  "selfHost.features.h1",
-  "paid.selfHost.h2",
-  "selfHost.features.h3",
-  "paid.selfHost.h4",
+// Every line is checked against the code or the AGB. "Deadlines and reminders" means the in-app
+// reminders the nightly cron schedules; deadline digests by email go out only when an operator
+// presses send (lib/mail/digest-outbox.ts), so the list does not promise email.
+const freeFeatures = ["courses", "wiki", "tools"] as const;
+const paidFeatures = [
+  "guided",
+  "unlimited",
+  "history",
+  "deadlines",
+  "suppliers",
+  "export",
+  "updates",
 ] as const;
+const selfHostFeatures = ["everything", "infrastructure", "licence", "contract"] as const;
 
-/** The /pricing cards once billing is launched; PricingCards is the free offer shown before. */
+const SOURCE_URL = "https://github.com/NISD2/open-isms";
+
+function FeatureItem({
+  children,
+  highlighted,
+}: {
+  children: ReactNode;
+  highlighted?: boolean;
+}) {
+  return (
+    <li className="flex items-start gap-3 text-sm leading-snug">
+      {highlighted ? (
+        <span className="mt-px flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400">
+          <Check className="size-3.5" strokeWidth={3} />
+        </span>
+      ) : (
+        <Check className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+      )}
+      <span className={highlighted ? "text-foreground" : "text-muted-foreground"}>
+        {children}
+      </span>
+    </li>
+  );
+}
+
+function SideTier({
+  name,
+  description,
+  price,
+  priceSub,
+  cta,
+  features,
+}: {
+  readonly name: string;
+  readonly description: string;
+  readonly price: string;
+  readonly priceSub: string;
+  readonly cta: ReactNode;
+  readonly features: readonly string[];
+}) {
+  return (
+    <Card className="h-full border-border/70 shadow-none">
+      <CardHeader>
+        <CardTitle className="text-lg">{name}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+        <div className="mt-4 flex items-baseline gap-2">
+          <span className="text-4xl font-semibold tracking-tight">{price}</span>
+          <span className="text-sm text-muted-foreground">{priceSub}</span>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {cta}
+        <Separator />
+        <ul className="space-y-3">
+          {features.map((feature) => (
+            <FeatureItem key={feature}>{feature}</FeatureItem>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
+  );
+}
+
+/**
+ * The /pricing tiers once billing is launched: learning on the left, the paid Durchgang in the
+ * middle as the obvious choice, self-hosting on the right. PricingCards is the free offer shown
+ * before the launch.
+ */
 export function PaidPricingCards({
   orderOpen,
   price,
+  listPrice,
+  grandfathered,
   grandfatheredPrice,
 }: {
   /** Whether /bestellen exists for this visitor (lib/billing/ordering-access.ts). */
   readonly orderOpen: boolean;
-  /** The yearly net price this visitor would be invoiced: 2.400 for a grandfathered account. */
+  /** The yearly net price this visitor would be invoiced. */
   readonly price: string;
+  /** The public yearly net price, struck through when the visitor pays less. */
+  readonly listPrice: string;
+  /** Whether this visitor is a grandfathered account holder (AGB B4). */
+  readonly grandfathered: boolean;
   readonly grandfatheredPrice: string;
 }) {
-  const t = useTranslations("pricing");
+  const t = useTranslations("pricing.tiers");
+  const tp = useTranslations("pricing");
+
+  const externalLink =
+    "underline decoration-primary/30 underline-offset-4 hover:decoration-primary";
 
   return (
-    <div className="space-y-8 max-w-3xl mx-auto">
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card className="border-primary">
-          <CardHeader>
-            <CardTitle>{t("paid.name")}</CardTitle>
+    <div className="mx-auto max-w-6xl space-y-10">
+      <div className="grid gap-6 lg:grid-cols-3 lg:items-start">
+        <SideTier
+          name={t("free.name")}
+          description={t("free.description")}
+          price={t("free.price")}
+          priceSub={t("free.priceSub")}
+          cta={
+            <Button variant="outline" className="w-full" size="lg" asChild>
+              <Link href="/training/nis2-ceo">{t("free.cta")}</Link>
+            </Button>
+          }
+          features={freeFeatures.map((key) => t(`free.features.${key}`))}
+        />
+
+        {/* order-first: on a phone the paid tier is the first card, not the third. */}
+        <Card className="relative order-first border-2 border-primary shadow-xl shadow-primary/10 lg:order-none lg:-mt-4">
+          <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1">
+            {t("recommended")}
+          </Badge>
+          <CardHeader className="pt-2">
+            <CardTitle className="text-xl">{t("paid.name")}</CardTitle>
             <CardDescription>{t("paid.description")}</CardDescription>
-            <div className="mt-4">
-              <span className="text-4xl font-bold">{price}</span>
-              <span className="ml-2 text-sm text-muted-foreground">
-                {t("paid.priceSub")}
-              </span>
+            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              {grandfathered ? (
+                <span className="text-xl text-muted-foreground line-through decoration-2">
+                  {listPrice}
+                </span>
+              ) : null}
+              <span className="text-5xl font-bold tracking-tight">{price}</span>
+              <span className="text-sm text-muted-foreground">{t("paid.priceSub")}</span>
             </div>
-            <p className="text-sm text-muted-foreground">{t("paid.terms")}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700 ring-1 ring-emerald-600/20 ring-inset dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-400/20">
+                <ShieldCheck className="size-4" />
+                {t("paid.moneyBack")}
+              </span>
+              {grandfathered ? (
+                <Badge variant="secondary" className="rounded-full px-3 py-1 text-sm">
+                  {t("paid.grandfatheredBadge")}
+                </Badge>
+              ) : null}
+            </div>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {orderOpen ? (
-              <Button className="w-full" size="lg" asChild>
-                <Link href="/bestellen">{t("paid.cta")}</Link>
-              </Button>
-            ) : (
-              <p className="text-sm">
-                {t("paid.courseLine")}{" "}
-                <Link
-                  href="/training/nis2-ceo"
-                  className="underline hover:text-foreground"
+          <CardContent className="space-y-6">
+            <div className="space-y-3">
+              {orderOpen ? (
+                <Button className="h-12 w-full text-base" size="lg" asChild>
+                  <Link href="/bestellen">{t("paid.cta")}</Link>
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  className="h-12 w-full text-base"
+                  size="lg"
+                  asChild
                 >
-                  {t("paid.courseCta")}
+                  <Link href="/training/nis2-ceo">{t("paid.ctaClosed")}</Link>
+                </Button>
+              )}
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                {t("paid.terms")}{" "}
+                <Link
+                  href="/terms"
+                  className="underline underline-offset-2 hover:text-foreground"
+                >
+                  {t("paid.termsLink")}
                 </Link>
               </p>
-            )}
-            <ul className="space-y-2 text-sm">
-              {paidKeys.map((key) => (
-                <li key={key} className="flex items-start gap-2">
-                  <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                  <span>{t(`paid.features.${key}`)}</span>
-                </li>
+            </div>
+            <Separator />
+            <ul className="space-y-3">
+              {paidFeatures.map((key) => (
+                <FeatureItem key={key} highlighted>
+                  {key === "unlimited" ? (
+                    <strong className="font-semibold">{t(`paid.features.${key}`)}</strong>
+                  ) : (
+                    t(`paid.features.${key}`)
+                  )}
+                </FeatureItem>
               ))}
             </ul>
-            <p className="text-sm">{t("paid.delivery")}</p>
-            <p className="text-sm text-muted-foreground">
-              {t("paid.grandfathered", { price: grandfatheredPrice })}
-            </p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("selfHost.name")}</CardTitle>
-            <CardDescription>{t("selfHost.description")}</CardDescription>
-            <div className="mt-4">
-              <span className="text-4xl font-bold">{t("selfHost.price")}</span>
-              <span className="ml-2 text-sm text-muted-foreground">
-                {t("selfHost.priceSub")}
-              </span>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <SideTier
+          name={t("selfHost.name")}
+          description={t("selfHost.description")}
+          price={t("selfHost.price")}
+          priceSub={t("selfHost.priceSub")}
+          cta={
             <Button variant="outline" className="w-full" size="lg" asChild>
               <Link href="/open-source">{t("selfHost.cta")}</Link>
             </Button>
-            <ul className="space-y-2 text-sm">
-              {selfHostFeatures.map((key) => (
-                <li key={key} className="flex items-start gap-2">
-                  <Check className="h-4 w-4 mt-0.5 text-primary shrink-0" />
-                  <span>{t(key)}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+          }
+          features={selfHostFeatures.map((key) => t(`selfHost.features.${key}`))}
+        />
       </div>
 
-      <p className="mx-auto max-w-2xl text-center text-sm text-muted-foreground">
-        {t("paid.whyFree")}
-      </p>
+      <ul className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground sm:flex-row sm:flex-wrap">
+        <li className="flex items-center gap-2">
+          <Receipt className="size-4 text-primary" />
+          {t("trust.invoice")}
+        </li>
+        <li className="flex items-center gap-2">
+          <FileText className="size-4 text-primary" />
+          <span>
+            {t.rich("trust.documents", {
+              terms: (chunks) => (
+                <Link href="/terms" className={externalLink}>
+                  {chunks}
+                </Link>
+              ),
+              avv: (chunks) => (
+                <Link href="/avv" className={externalLink}>
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </span>
+        </li>
+        <li className="flex items-center gap-2">
+          <Code2 className="size-4 text-primary" />
+          <a
+            href={SOURCE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={externalLink}
+          >
+            {t("trust.openSource")}
+          </a>
+        </li>
+      </ul>
+
+      {grandfathered ? null : (
+        <p className="text-center text-sm text-muted-foreground">
+          {t("paid.grandfatheredNote", { price: grandfatheredPrice })}
+        </p>
+      )}
 
       <p className="text-center text-sm text-muted-foreground">
-        {t("consultantFootnote")}{" "}
+        {tp("consultantFootnote")}{" "}
         {/* /hilfe, not a bare mailto: the referral earns us a commission, and
             the page is where that is disclosed. Sending the reader straight to
             an email composer advertises the offer while leaving out the part
             that makes it honest. */}
         <Link href="/hilfe" className="underline hover:text-foreground">
-          {t("consultantCta")}
+          {tp("consultantCta")}
         </Link>
       </p>
     </div>

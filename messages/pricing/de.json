@@ -29,30 +29,62 @@
       "meta": {
         "title": "Preise: NIS 2 Durchgang und Selbstbetrieb",
         "description": "Der NIS 2 Durchgang auf nisd2.eu: {price} netto im Jahr, auf Rechnung, 30 Tage Geld zurück, beliebig viele Organisationen und Nutzer. Selbstbetrieb unter AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "Ein Preis, alles inklusive. Kurse und Wiki kosten nichts.",
+      "recommended": "Empfohlen",
+      "free": {
+        "name": "Lernen",
+        "description": "Für alle, die NIS 2 verstehen wollen.",
+        "price": "0 €",
+        "priceSub": "dauerhaft",
+        "cta": "Zu den Kursen",
+        "features": {
+          "courses": "Alle Kurse, auch für die Geschäftsleitung",
+          "wiki": "Das NIS 2 Wiki",
+          "tools": "Werkzeuge für Risikobewertung und Strukturanalyse"
+        }
       },
-      "subtitle": "Ein Angebot auf nisd2.eu, ein Preis. Oder Sie betreiben den offenen Quellcode selbst.",
-      "name": "NIS 2 Durchgang",
-      "description": "Jahreslizenz auf nisd2.eu, von uns betrieben. Eine Zahlung gilt für alle Organisationen und Nutzer Ihres Kontos.",
-      "priceSub": "netto im Jahr, zzgl. USt.",
-      "terms": "Sie zahlen auf Rechnung mit 30 Tagen Zahlungsziel. Wenn Sie innerhalb von 30 Tagen ab Bestellung kündigen, bekommen Sie Ihr Geld zurück.",
-      "cta": "Bestellen",
-      "courseLine": "Für die Geschäftsleitung gibt es den NIS 2 Kurs.",
-      "courseCta": "Zum Kurs",
-      "features": {
-        "p1": "Die NIS 2 Anforderungen Schritt für Schritt, mit Status, Nachweis und Freigabe je Anforderung",
-        "p2": "Nachweise hochladen und direkt an der Anforderung ablegen",
-        "p3": "Änderungsprotokoll für Ihre Organisation",
-        "p4": "Register für Assets, Risiken und Lieferanten",
-        "p5": "Fristen und Wiedervorlagen je Anforderung",
-        "p6": "Beliebig viele Organisationen und Nutzer mit einer Zahlung"
+      "paid": {
+        "name": "NIS 2 Durchgang",
+        "description": "Die geführte Umsetzung auf nisd2.eu.",
+        "priceSub": "netto im Jahr, zzgl. USt.",
+        "moneyBack": "30 Tage Geld zurück",
+        "grandfatheredBadge": "Ihr Bestandspreis",
+        "cta": "Bestellen",
+        "ctaClosed": "Zum Kurs für die Geschäftsleitung",
+        "terms": "Auf Rechnung, 30 Tage Zahlungsziel. Kündigung in den ersten 30 Tagen: Rechnung storniert oder Geld zurück.",
+        "termsLink": "AGB",
+        "features": {
+          "guided": "Geführte NIS 2 Umsetzung, Schritt für Schritt",
+          "unlimited": "Unbegrenzt Organisationen und Nutzer",
+          "history": "Verlauf der Änderungen und Freigaben",
+          "deadlines": "Fristen und Erinnerungen je Anforderung",
+          "suppliers": "Sicherheitsfragebogen an Ihre Lieferanten",
+          "export": "Export als PDF und CSV, jederzeit",
+          "updates": "Alle Updates inklusive"
+        },
+        "grandfatheredNote": "Vor dem Start angemeldet? Dann zahlen Sie {price} netto im Jahr, auch bei Verlängerung."
       },
-      "delivery": "Sie bekommen den heutigen Durchgang sofort und das geführte Formular, sobald es fertig ist, im selben bezahlten Jahr.",
-      "grandfathered": "Wer sich vor dem Start der Bezahlung mindestens einmal angemeldet hat, nutzt den heutigen Durchgang weiter, ohne dafür zu zahlen. Für diese Personen kostet das bezahlte Jahr {price} netto.",
       "selfHost": {
-        "h2": "Alle künftigen Updates inklusive",
-        "h4": "Kein Vertrag, keine Freischaltung"
+        "name": "Selbstbetrieb",
+        "description": "Derselbe Quellcode, auf Ihren Servern.",
+        "price": "0 €",
+        "priceSub": "dauerhaft",
+        "cta": "Zum Quellcode",
+        "features": {
+          "everything": "Alles aus dem Durchgang",
+          "infrastructure": "Auf Ihrer eigenen Infrastruktur",
+          "licence": "Quellcode offen unter AGPL-3.0",
+          "contract": "Kein Vertrag mit uns"
+        }
       },
-      "whyFree": "Warum der Selbstbetrieb nichts kostet: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Bezahlt wird der Betrieb auf nisd2.eu."
+      "trust": {
+        "invoice": "Rechnung statt Kreditkarte",
+        "documents": "<terms>AGB</terms> und <avv>AVV</avv> offen einsehbar",
+        "openSource": "Open Source unter AGPL-3.0"
+      }
     },
     "selfHost": {
       "name": "Selbstbetrieb",

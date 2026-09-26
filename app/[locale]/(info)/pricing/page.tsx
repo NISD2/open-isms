@@ -11,6 +11,7 @@ import { holderNetCents } from "@/lib/billing/holder-price";
 import {
   ANNUAL_NET_CENTS,
   formatEuro,
+  formatWholeEuro,
   GRANDFATHERED_NET_CENTS,
 } from "@/lib/billing/order";
 import { billingFor } from "@/lib/billing/ordering-access";
@@ -149,13 +150,15 @@ const PaidPricing = async ({
         }}
       />
       <header>
-        <MarketingHero centered headline={t("title")} subhead={t("paid.subtitle")} />
+        <MarketingHero centered headline={t("title")} subhead={t("tiers.subtitle")} />
       </header>
 
       <PaidPricingCards
         orderOpen={offer.orderOpen}
-        price={formatEuro(offer.netCents, rawLocale)}
-        grandfatheredPrice={formatEuro(GRANDFATHERED_NET_CENTS, rawLocale)}
+        price={formatWholeEuro(offer.netCents, rawLocale)}
+        listPrice={formatWholeEuro(ANNUAL_NET_CENTS, rawLocale)}
+        grandfathered={offer.netCents === GRANDFATHERED_NET_CENTS}
+        grandfatheredPrice={formatWholeEuro(GRANDFATHERED_NET_CENTS, rawLocale)}
       />
     </div>
   );
