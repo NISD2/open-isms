@@ -6,6 +6,7 @@ import { MarketingHero } from "@/components/marketing/MarketingHero";
 import { PaidPricingCards } from "@/components/pricing/PaidPricingCards";
 import { PricingCards } from "@/components/pricing/PricingCards";
 import { getSession } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
 import { holderNetCents } from "@/lib/billing/holder-price";
 import {
   ANNUAL_NET_CENTS,
@@ -30,6 +31,16 @@ import {
  * error reads as "not launched".
  */
 const billingLaunched = cache(() => isFeatureOn(db, "billing").catch(() => false));
+
+const visitorSession = cache(() => getSession().catch(() => null));
+
+/**
+ * A platform admin sees the paid page before the launch, to test it with real ordering (which
+ * billingFor already opens for them). Metadata stays on billingLaunched alone, so crawlers never
+ * see the preview.
+ */
+const showPaid = async () =>
+  (await billingLaunched()) || isPlatformAdmin((await visitorSession())?.user.email);
 
 export async function generateMetadata({
   params,
@@ -65,7 +76,7 @@ export async function generateMetadata({
  * the public price.
  */
 const visitorOffer = async () => {
-  const session = await getSession().catch(() => null);
+  const session = await visitorSession();
   const orderOpen = await billingFor(db, session?.user.email).then(
     (b) => b.open,
     () => false,
@@ -158,7 +169,7 @@ export default async function PricingPage({
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "en" || rawLocale === "nl" ? rawLocale : "de";
 
-  return (await billingLaunched()) ? (
+  return (await showPaid()) ? (
     <PaidPricing locale={locale} rawLocale={rawLocale} />
   ) : (
     <FreePricing locale={locale} />
