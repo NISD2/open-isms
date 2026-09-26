@@ -1,9 +1,30 @@
 {
   "pricing": {
     "meta": {
-      "title": "Prețuri - Platformă de conformitate NIS2"
+      "title": "Prețuri - Platformă de conformitate NIS2",
+      "description": "Platforma este gratuită, permanent. Găzduită la nisd2.eu sau auto-găzduită pe propria infrastructură, cod sursă deschis sub AGPL-3.0. Fără contract, fără activare, fără lock-in."
     },
     "title": "Prețuri",
+    "subtitle": "Gratuită, permanent. Alegeți doar cine o operează.",
+    "free": {
+      "name": "Găzduită la nisd2.eu",
+      "description": "Platforma completă, operată de noi pe infrastructură din UE.",
+      "price": "0 €",
+      "priceSub": "pentru totdeauna",
+      "cta": "Începe acum",
+      "features": {
+        "f1": "Toate cele 49 de cerințe BSIG, pas cu pas",
+        "f2": "Încărcarea dovezilor și documentația",
+        "f3": "Export PDF pentru auditori și management",
+        "f4": "Pistă de audit completă",
+        "f5": "Urmărirea termenelor și mementouri",
+        "f6": "Îndrumare pentru înregistrarea BSI",
+        "f7": "Membri de echipă nelimitați",
+        "f8": "Registre de riscuri, active și furnizori",
+        "f9": "Asistență la formulare bazată pe AI",
+        "f10": "Fără lock-in. Model de date deschis. Export oricând, inclusiv către auto-găzduire."
+      }
+    },
     "selfHost": {
       "name": "Auto-găzduire",
       "description": "Cod sursă complet. Pe propria infrastructură, permanent.",
@@ -12,9 +33,15 @@
       "cta": "Vezi codul sursă",
       "features": {
         "h1": "Cod sursă complet al platformei, deschis sub AGPL-3.0",
-        "h3": "Pe propria infrastructură, cu propriile date"
+        "h2": "Toate actualizările viitoare incluse, permanent",
+        "h3": "Pe propria infrastructură, cu propriile date",
+        "h4": "Fără contract, fără cheie de activare, fără cont la noi",
+        "h5": "Exportați lucrul dvs. din nisd2.eu și continuați să îl rulați singuri",
+        "h6": "Contact direct prin e-mail și Signal",
+        "h7": "Instalare de către noi, dacă doriți: 500 € fără TVA, o singură dată"
       }
     },
+    "whyFree": "De ce este gratuit: codul sursă este deschis pe GitHub, verificabil și rulabil de dumneavoastră. Facturăm instalarea în regim de auto-găzduire și primim un comision de la firmele specializate către care vă îndrumăm. Nu platforma.",
     "consultantFootnote": "V-ați blocat cu NIS 2? Întrebările tehnice scurte nu costă nimic, iar dacă e nevoie de o firmă specializată, vă recomandăm una fără costuri pentru dumneavoastră.",
     "consultantCta": "Ajutor și recomandare"
   }

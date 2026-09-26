@@ -1,9 +1,30 @@
 {
   "pricing": {
     "meta": {
-      "title": "Cennik - Platforma zgodności z NIS2"
+      "title": "Cennik - Platforma zgodności z NIS2",
+      "description": "Platforma jest darmowa, na stałe. Hostowana na nisd2.eu albo we własnym hostingu na Twojej infrastrukturze, kod źródłowy otwarty na AGPL-3.0. Bez umowy, bez aktywacji, bez lock-inu."
     },
     "title": "Cennik",
+    "subtitle": "Darmowa, na stałe. Wybierasz tylko, kto ją uruchamia.",
+    "free": {
+      "name": "Hostowana na nisd2.eu",
+      "description": "Pełna platforma, obsługiwana przez nas na infrastrukturze w UE.",
+      "price": "0 €",
+      "priceSub": "na zawsze",
+      "cta": "Rozpocznij",
+      "features": {
+        "f1": "Wszystkie 49 wymagań BSIG krok po kroku",
+        "f2": "Przesyłanie dowodów i dokumentacja",
+        "f3": "Eksport do PDF dla audytorów i kierownictwa",
+        "f4": "Pełna ścieżka audytu",
+        "f5": "Śledzenie terminów i przypomnienia",
+        "f6": "Wskazówki dotyczące rejestracji w BSI",
+        "f7": "Nieograniczona liczba członków zespołu",
+        "f8": "Rejestry ryzyk, aktywów i dostawców",
+        "f9": "Wsparcie formularzy oparte na AI",
+        "f10": "Bez lock-inu. Otwarty model danych. Eksport w dowolnym momencie, także do własnego hostingu."
+      }
+    },
     "selfHost": {
       "name": "Hosting własny",
       "description": "Pełny kod źródłowy. Na własnej infrastrukturze, na stałe.",
@@ -12,9 +33,15 @@
       "cta": "Zobacz kod źródłowy",
       "features": {
         "h1": "Pełny kod źródłowy platformy, otwarty na AGPL-3.0",
-        "h3": "Na własnej infrastrukturze, z własnymi danymi"
+        "h2": "Wszystkie przyszłe aktualizacje w cenie, na stałe",
+        "h3": "Na własnej infrastrukturze, z własnymi danymi",
+        "h4": "Bez umowy, bez klucza aktywacyjnego, bez konta u nas",
+        "h5": "Wyeksportuj swoją pracę z nisd2.eu i prowadź ją dalej samodzielnie",
+        "h6": "Bezpośredni kontakt przez e-mail i Signal",
+        "h7": "Wdrożenie przez nas, jeśli chcesz: 500 € netto, jednorazowo"
       }
     },
+    "whyFree": "Dlaczego bezpłatnie: kod źródłowy jest otwarty na GitHubie, można go sprawdzić i uruchomić samodzielnie. Rozliczamy wdrożenie hostingu własnego i otrzymujemy prowizję od wyspecjalizowanych firm, do których kierujemy. Nie za platformę.",
     "consultantFootnote": "Utknąłeś przy NIS 2? Krótkie pytania merytoryczne nic nie kosztują, a jeśli potrzebna jest wyspecjalizowana firma, polecimy ją bez kosztów dla Ciebie.",
     "consultantCta": "Pomoc i polecenia"
   }

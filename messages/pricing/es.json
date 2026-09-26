@@ -1,9 +1,30 @@
 {
   "pricing": {
     "meta": {
-      "title": "Precios - Plataforma de cumplimiento NIS2"
+      "title": "Precios - Plataforma de cumplimiento NIS2",
+      "description": "La plataforma es gratuita, de forma permanente. Alojada en nisd2.eu o autoalojada en su propia infraestructura, código abierto bajo AGPL-3.0. Sin contrato, sin activación, sin dependencia del proveedor."
     },
     "title": "Precios",
+    "subtitle": "Gratis, de forma permanente. Lo único que elige es quién la opera.",
+    "free": {
+      "name": "Alojada en nisd2.eu",
+      "description": "La plataforma completa, operada por nosotros en infraestructura de la UE.",
+      "price": "0 €",
+      "priceSub": "para siempre",
+      "cta": "Empezar",
+      "features": {
+        "f1": "Los 49 requisitos del BSIG paso a paso",
+        "f2": "Carga de evidencias y documentación",
+        "f3": "Exportación a PDF para auditores y dirección",
+        "f4": "Registro de auditoría completo",
+        "f5": "Seguimiento de plazos y recordatorios",
+        "f6": "Guía para el registro ante el BSI",
+        "f7": "Miembros del equipo ilimitados",
+        "f8": "Registros de riesgos, activos y proveedores",
+        "f9": "Asistencia de formularios con IA",
+        "f10": "Sin dependencia del proveedor. Modelo de datos abierto. Exporte cuando quiera, también al autoalojamiento."
+      }
+    },
     "selfHost": {
       "name": "Autoalojamiento",
       "description": "Código fuente completo. En su propia infraestructura, de forma permanente.",
@@ -12,9 +33,15 @@
       "cta": "Ver el código fuente",
       "features": {
         "h1": "Código fuente completo de la plataforma, abierto bajo AGPL-3.0",
-        "h3": "En su propia infraestructura, con sus propios datos"
+        "h2": "Todas las actualizaciones futuras incluidas, de forma permanente",
+        "h3": "En su propia infraestructura, con sus propios datos",
+        "h4": "Sin contrato, sin clave de activación, sin cuenta con nosotros",
+        "h5": "Exporte su trabajo desde nisd2.eu y siga operándolo usted mismo",
+        "h6": "Contacto directo por correo electrónico y Signal",
+        "h7": "Instalación por nuestra parte si lo desea: 500 € sin IVA, pago único"
       }
     },
+    "whyFree": "Por qué es gratis: el código fuente está abierto en GitHub, auditable y ejecutable por su cuenta. Cobramos por la instalación en autoalojamiento y recibimos una comisión de las empresas especializadas a las que le derivamos. No la plataforma.",
     "consultantFootnote": "¿Atascado con NIS 2? Las preguntas técnicas breves no cuestan nada y, si hace falta una empresa especializada, le recomendamos una sin coste para usted.",
     "consultantCta": "Ayuda y derivación"
   }
