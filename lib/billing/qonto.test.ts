@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test } from "bun:test";
 import { QONTO_PRODUCTION_BASE as PRODUCTION_BASE } from "./config-schema";
-import { getOrganization, qontoConfigFromEnv } from "./qonto";
+import { createCreditNote, getOrganization, qontoConfigFromEnv } from "./qonto";
 
 const SANDBOX_BASE = "https://thirdparty-sandbox.staging.qonto.co/v2";
 
@@ -106,5 +106,51 @@ describe("responses", () => {
   test("an empty 200 on a call that promises a body is a failure, not null data", async () => {
     answer("", 200);
     expect((await getOrganization(config)).ok).toBe(false);
+  });
+
+  test("a credit note is posted with the fields Qonto requires and our own number", async () => {
+    const seen: { url: string; body: unknown }[] = [];
+    globalThis.fetch = Object.assign(
+      async (url: string | URL | Request, init?: RequestInit) => {
+        seen.push({ url: String(url), body: JSON.parse(String(init?.body)) });
+        return new Response(JSON.stringify({ credit_note: { id: "cn-1" } }), {
+          status: 201,
+        });
+      },
+      { preconnect: realFetch.preconnect },
+    );
+    const res = await createCreditNote(config, {
+      invoiceId: "inv-1",
+      number: "GS-2026-0001",
+      issueDate: "2026-09-26",
+      reason: "Kündigung",
+      items: [
+        {
+          title: "NIS 2 Durchgang, Jahreslizenz",
+          quantity: "1",
+          unit: "unit",
+          unitPrice: { value: "4800.00", currency: "EUR" },
+          vatRate: "0.19",
+        },
+      ],
+    });
+    expect(res.ok && res.data.credit_note?.id).toBe("cn-1");
+    expect(seen[0]?.url).toBe(`${SANDBOX_BASE}/credit_notes`);
+    expect(seen[0]?.body).toEqual({
+      invoice_id: "inv-1",
+      issue_date: "2026-09-26",
+      currency: "EUR",
+      reason: "Kündigung",
+      number: "GS-2026-0001",
+      items: [
+        {
+          title: "NIS 2 Durchgang, Jahreslizenz",
+          quantity: "1",
+          unit: "unit",
+          unit_price: { value: "4800.00", currency: "EUR" },
+          vat_rate: "0.19",
+        },
+      ],
+    });
   });
 });

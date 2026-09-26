@@ -8,7 +8,14 @@
 import { eq } from "drizzle-orm";
 import type { DbOrTx } from "@/lib/db";
 import { isFeatureOn } from "@/lib/feature-flags";
-import { type accessLevelEnum, billingAccount, company, invoice, user } from "@/schema";
+import {
+  type accessLevelEnum,
+  billingAccount,
+  company,
+  invoice,
+  orderCheck,
+  user,
+} from "@/schema";
 import { newAccountAccessLevel } from "./access";
 
 export type AccessLevel = (typeof accessLevelEnum.enumValues)[number];
@@ -40,9 +47,10 @@ export const createBillingAccount = async (
 };
 
 /**
- * Delete an account nothing uses any more: no company points at it and no invoice was ever issued
- * to it. Accounts with invoices are kept, because issued invoices must be kept. Returns whether it
- * was deleted.
+ * Delete an account nothing uses any more: no company points at it, no invoice was ever issued to
+ * it, and no order for it is waiting to be checked in Qonto. Accounts with invoices are kept,
+ * because issued invoices must be kept; an account under an order check is kept because an invoice
+ * may exist for it that we did not record. Returns whether it was deleted.
  */
 export const deleteBillingAccountIfUnused = async (
   db: DbOrTx,
@@ -56,7 +64,12 @@ export const deleteBillingAccountIfUnused = async (
     where: eq(invoice.billingAccountId, accountId),
     columns: { id: true },
   });
-  if (inUse || invoiced) return false;
+  const [checking] = await db
+    .select({ id: orderCheck.billingAccountId })
+    .from(orderCheck)
+    .where(eq(orderCheck.billingAccountId, accountId))
+    .limit(1);
+  if (inUse || invoiced || checking) return false;
   const deleted = await db
     .delete(billingAccount)
     .where(eq(billingAccount.id, accountId))

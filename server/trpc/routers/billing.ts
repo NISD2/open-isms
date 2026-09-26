@@ -15,7 +15,13 @@
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
-import { formatEuro, netCentsFor, orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { logAudit } from "@/lib/audit";
+import type { AccessLevel } from "@/lib/billing/accounts";
+import { cancelSubscription } from "@/lib/billing/cancel";
+import { cancelWindow } from "@/lib/billing/cancel-terms";
+import { holderNetCents } from "@/lib/billing/holder-price";
+import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { hasOrderCheck } from "@/lib/billing/order-check";
 import { type OrderingMode, orderingMode } from "@/lib/billing/ordering";
 import { billingFor } from "@/lib/billing/ordering-access";
 import { findActiveInvoice, placeOrder } from "@/lib/billing/place-order";
@@ -35,6 +41,7 @@ const accountOf = async (db: DbOrTx, companyId: string) => {
       id: billingAccount.id,
       accessLevel: billingAccount.accessLevel,
       ownerUserId: billingAccount.ownerUserId,
+      renewalCanceledAt: billingAccount.renewalCanceledAt,
     })
     .from(company)
     .innerJoin(billingAccount, eq(billingAccount.id, company.billingAccountId))
@@ -70,6 +77,30 @@ const limited = (key: string, limit: number) => {
   }
 };
 
+/**
+ * Which cancel the holder is offered, if any: money back inside the thirty days, or no renewal
+ * after them, once. Only a full account with a running, uncredited invoice has anything to cancel.
+ */
+const cancelOption = (
+  level: AccessLevel,
+  active: { readonly issueDate: string; readonly periodEnd: string } | null,
+  renewalCanceledAt: Date | null,
+  now: Date,
+) => {
+  if (level !== "full" || !active) return null;
+  const window = cancelWindow(active.issueDate, now);
+  if (window.kind === "money_back") {
+    return {
+      kind: "money_back",
+      lastDay: window.lastDay,
+      periodEnd: active.periodEnd,
+    } as const;
+  }
+  return renewalCanceledAt
+    ? null
+    : ({ kind: "renewal", periodEnd: active.periodEnd } as const);
+};
+
 /** Qonto's status for an invoice, read live and never stored: it is Qonto's fact, not ours. */
 const liveStatus = async (mode: OrderingMode, qontoInvoiceId: string) => {
   if (mode.kind === "off") return null;
@@ -81,17 +112,80 @@ export const billingRouter = router({
   status: accountProcedure.query(async ({ ctx }) => {
     const account = await accountOf(ctx.db, ctx.companyId);
     const { mode, open } = await billingFor(ctx.db, ctx.session.user.email);
-    const active = await findActiveInvoice(ctx.db, account.id, new Date());
+    const now = new Date();
+    const active = await findActiveInvoice(ctx.db, account.id, now);
     const isPayer = account.ownerUserId === ctx.userId;
+    const pending = await hasOrderCheck(ctx.db, account.id);
     return {
       mode: mode.kind,
       open,
-      canOrder: open && isPayer && !active,
+      canOrder: open && isPayer && !active && !pending,
       isPayer,
+      /** An earlier order is being checked in Qonto; ordering waits for that. */
+      orderPending: pending,
       accessLevel: account.accessLevel,
-      netPrice: formatEuro(netCentsFor(account.accessLevel)),
+      // The holder's price: what this account pays, whoever is looking.
+      netPrice: formatEuro(await holderNetCents(ctx.db, account.ownerUserId)),
       activeInvoice: active,
+      renewalCanceledAt: account.renewalCanceledAt,
+      cancel:
+        open && isPayer && !pending
+          ? cancelOption(account.accessLevel, active, account.renewalCanceledAt, now)
+          : null,
     };
+  }),
+
+  /**
+   * Cancel, for the account holder only: a full credit note inside the thirty days, otherwise no
+   * renewal (lib/billing/cancel.ts). The dialog showed which one; the server decides again by date.
+   */
+  cancel: payerProcedure.mutation(async ({ ctx }) => {
+    const mode = await requireOrdering(ctx.db, ctx.session.user.email);
+    limited(`billing:cancel:${ctx.userId}`, 3);
+    const outcome = await cancelSubscription({
+      db: ctx.db,
+      mode,
+      billingAccountId: ctx.account.id,
+      userId: ctx.userId,
+    });
+    if (outcome.ok) {
+      await logAudit({
+        companyId: ctx.companyId,
+        userId: ctx.userId,
+        action: "billing.cancel",
+        entityType: "billing_account",
+        entityId: ctx.account.id,
+        description:
+          outcome.kind === "money_back"
+            ? `Canceled inside the thirty days: credit note ${outcome.creditNoteNumber}${outcome.refundOwed ? ", refund owed" : ""}, access ${outcome.accessLevel}`
+            : `Renewal canceled, access until ${outcome.periodEnd}${outcome.alreadyCanceled ? " (already canceled)" : ""}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return outcome.kind === "money_back"
+        ? {
+            kind: outcome.kind,
+            creditNoteNumber: outcome.creditNoteNumber,
+            refundOwed: outcome.refundOwed,
+          }
+        : { kind: outcome.kind, periodEnd: outcome.periodEnd };
+    }
+    switch (outcome.reason) {
+      case "no_invoice":
+        throw new TRPCError({ code: "NOT_FOUND", message: outcome.message });
+      case "qonto":
+        console.error(`[billing] cancel failed: ${outcome.message}`);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "The cancel could not be made. Please try again later.",
+        });
+      case "pending":
+        // Nothing was sent to Qonto: an earlier order or cancel is still being checked.
+        throw new TRPCError({ code: "PRECONDITION_FAILED", message: outcome.message });
+      case "qonto_unknown":
+        // The client tells the customer not to try again; the operators have been alerted.
+        throw new TRPCError({ code: "TIMEOUT", message: outcome.message });
+    }
   }),
 
   /**
@@ -113,7 +207,7 @@ export const billingRouter = router({
       limited(`billing:quote:${ctx.userId}`, 10);
       return quoteFor({
         ...input,
-        netCents: netCentsFor(ctx.account.accessLevel),
+        netCents: await holderNetCents(ctx.db, ctx.userId),
         vies: viesConfigFromEnv(env),
       });
     }),
@@ -166,7 +260,9 @@ export const billingRouter = router({
             message: "The invoice could not be created. Please try again later.",
           });
         case "qonto_unknown":
-          // The client tells the customer not to order again; the operators have been alerted.
+        case "order_pending":
+          // The client tells the customer not to order again; the operators have been alerted and
+          // the account stays blocked until someone clears it (lib/billing/order-check.ts).
           throw new TRPCError({ code: "TIMEOUT", message: outcome.message });
       }
     }),

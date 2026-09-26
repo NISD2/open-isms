@@ -7,6 +7,7 @@
       "sandboxNotice": "Testmodus: Diese Bestellung erzeugt eine Rechnung in der Qonto Sandbox und schaltet dieses Konto frei.",
       "alreadyPaid": "Ihr Konto ist bis {date} bezahlt, Rechnung {number}.",
       "payerOnly": "Bestellen kann die Person, der das Konto gehört. In der Regel ist das, wer die Organisation angelegt hat.",
+      "pendingCheck": "Wir prüfen gerade eine frühere Bestellung für dieses Konto. Bitte bestellen Sie nicht noch einmal, wir melden uns bei Ihnen.",
       "toInvoices": "Zu Ihren Rechnungen"
     },
     "form": {
@@ -81,7 +82,27 @@
       "priceChanged": "Das Register der EU hat eben anders geantwortet als vorhin, deshalb hat sich der Preis geändert. Bitte prüfen Sie den neuen Betrag und bestellen Sie dann noch einmal.",
       "unknown": "Wir konnten nicht sicher feststellen, ob die Rechnung erstellt wurde. Bitte bestellen Sie nicht noch einmal. Wir prüfen es und melden uns bei Ihnen."
     },
+    "cancel": {
+      "menuItem": "Lizenz kündigen",
+      "button": "Kündigen",
+      "moneyBackTitle": "Bestellung stornieren?",
+      "moneyBackBody": "Sie sind noch in den 30 Tagen Geld zurück, bis {lastDay}. Wir stornieren die Rechnung mit einer Gutschrift, und die Jahreslizenz endet sofort. Haben Sie schon bezahlt, überweisen wir Ihnen den Betrag zurück.",
+      "renewalTitle": "Verlängerung kündigen?",
+      "renewalBody": "Die 30 Tage Geld zurück sind vorbei. Ihre Lizenz läuft bis {periodEnd} weiter und wird danach nicht verlängert. Die Rechnung bleibt gültig.",
+      "kept": "Ihre Organisationen und alles, was Sie eingetragen haben, bleiben in Ihrem Konto erhalten.",
+      "confirm": "Ja, kündigen",
+      "keep": "Nicht kündigen",
+      "doneMoneyBack": "Storniert. Die Gutschrift {number} kommt per E-Mail. Haben Sie den Betrag schon überwiesen, erstatten wir ihn, sobald die Zahlung ankommt.",
+      "pending": "Wir prüfen gerade noch eine frühere Bestellung oder Kündigung für dieses Konto. Es wurde nichts geändert. Bitte versuchen Sie es später noch einmal oder schreiben Sie uns.",
+      "doneMoneyBackRefund": "Storniert. Die Gutschrift {number} kommt per E-Mail, und wir überweisen Ihnen den bezahlten Betrag zurück.",
+      "doneRenewal": "Gekündigt. Ihre Lizenz läuft bis {date}.",
+      "unknown": "Wir konnten nicht sicher feststellen, ob die Kündigung durchgegangen ist. Bitte versuchen Sie es nicht noch einmal. Wir prüfen es und melden uns bei Ihnen.",
+      "failed": "Die Kündigung ging gerade nicht durch. Bitte versuchen Sie es später noch einmal.",
+      "tooManyRequests": "Zu viele Versuche. Bitte warten Sie eine Minute."
+    },
     "page": {
+      "renewalCanceled": "Gekündigt. Ihre Lizenz läuft am {date} aus und wird nicht verlängert.",
+      "moneyBackUntil": "30 Tage Geld zurück bis {date}.",
       "title": "Abrechnung",
       "description": "Zugang, Preis und Rechnungen Ihres Kontos.",
       "accessTitle": "Zugang",

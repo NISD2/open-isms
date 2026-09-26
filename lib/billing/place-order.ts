@@ -2,7 +2,7 @@
  * Placing an order: the one function that issues an invoice. The order page calls it; the admin
  * demo close (not built yet) must call it too, never Qonto directly.
  *
- *   1. The price comes from the billing account's access level, on the server. No amount is ever
+ *   1. The price comes from the account holder (./holder-price), on the server. No amount is ever
  *      taken from a browser.
  *   2. The customer is found in Qonto by VAT number, or created, and remembered on the account.
  *   3. The invoice number is taken and committed on its own, before Qonto is called (see
@@ -17,19 +17,21 @@
  */
 import { and, desc, eq, gte, inArray, isNull, sql } from "drizzle-orm";
 import type { Database, DbOrTx } from "@/lib/db";
-import { billingAccount, creditNote, documentNumberCounter, invoice } from "@/schema";
-import { alertOperators } from "./alert";
+import { billingAccount, creditNote, invoice } from "@/schema";
+import { AlreadyAlerted, alertOperators } from "./alert";
 import { deliverInvoice } from "./deliver-invoice";
+import { takeDocumentNumber } from "./document-number";
+import { holderNetCents } from "./holder-price";
 import { pickPayableAccount } from "./iban";
-import { invoiceNumber, sandboxInvoiceNumber } from "./invoice-number";
+import { sandboxInvoiceNumber } from "./invoice-number";
 import {
-  INVOICE_TIME_ZONE,
   invoiceDates,
+  invoiceToday,
   invoiceWording,
-  netCentsFor,
   type OrderInput,
   priceFor,
 } from "./order";
+import { clearOrderCheck, hasOrderCheck, markOrderCheck } from "./order-check";
 import type { OrderingMode } from "./ordering";
 import {
   createClient,
@@ -57,6 +59,8 @@ export type OrderOutcome =
         | "invalid_vat"
         | "no_account"
         | "price_changed"
+        /** An earlier order for this account is still being checked in Qonto (./order-check). */
+        | "order_pending"
         /** Qonto refused: nothing was issued. */
         | "qonto"
         /** Qonto did not answer clearly: an invoice may exist, and the operators are told. */
@@ -92,17 +96,6 @@ const failure = (
   message: string,
 ) => ({ ok: false, reason, message }) as const;
 
-/** An error the operators have already been told about, so it is not reported twice. */
-class AlreadyAlerted extends Error {
-  constructor(cause: unknown) {
-    super(cause instanceof Error ? cause.message : String(cause), { cause });
-  }
-}
-
-/** Today as a calendar day where invoices are dated, to compare against a paid year. */
-const today = (now: Date) =>
-  new Intl.DateTimeFormat("en-CA", { timeZone: INVOICE_TIME_ZONE }).format(now);
-
 /**
  * The invoice that pays for the account right now: its year has not ended and it was not credited.
  * One definition for the order's refusal and the billing page, so they cannot disagree.
@@ -113,36 +106,24 @@ export const findActiveInvoice = async (
   now: Date,
 ) => {
   const [active] = await db
-    .select({ id: invoice.id, number: invoice.number, periodEnd: invoice.periodEnd })
+    .select({
+      id: invoice.id,
+      number: invoice.number,
+      issueDate: invoice.issueDate,
+      periodEnd: invoice.periodEnd,
+    })
     .from(invoice)
     .leftJoin(creditNote, eq(creditNote.invoiceId, invoice.id))
     .where(
       and(
         eq(invoice.billingAccountId, billingAccountId),
-        gte(invoice.periodEnd, today(now)),
+        gte(invoice.periodEnd, invoiceToday(now)),
         isNull(creditNote.id),
       ),
     )
     .orderBy(desc(invoice.periodEnd))
     .limit(1);
   return active ?? null;
-};
-
-/**
- * The next real invoice number, committed on its own (the pool, not the order's transaction), so a
- * Qonto failure afterwards cannot return a number that another order then takes as well.
- */
-const takeInvoiceNumber = async (db: Database, prefix: string, year: number) => {
-  const [row] = await db
-    .insert(documentNumberCounter)
-    .values({ series: "invoice", year, lastValue: 1 })
-    .onConflictDoUpdate({
-      target: [documentNumberCounter.series, documentNumberCounter.year],
-      set: { lastValue: sql`${documentNumberCounter.lastValue} + 1` },
-    })
-    .returning({ lastValue: documentNumberCounter.lastValue });
-  if (!row) throw new Error("invoice number counter returned no row");
-  return invoiceNumber(prefix, year, row.lastValue);
 };
 
 /**
@@ -223,19 +204,34 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     : undefined;
   if (!iban) return failure("qonto", "No Qonto account with a payable IBAN.");
 
+  // Whether this order got as far as asking Qonto. Only past that point can an invoice exist, so
+  // only past it is a failure "unclear"; before it, nothing was issued and nothing is blocked.
+  const progress = { qontoCalled: false };
+
   const outcome = await db
     .transaction(async (tx) => {
+      // NO KEY UPDATE, not UPDATE: it still serialises orders on this account, but lets the
+      // order_check insert below (on the pool, with a foreign key to this row) commit while the
+      // lock is held. FOR UPDATE would make that insert wait on this very transaction.
       const [account] = await tx
         .select({
           id: billingAccount.id,
-          accessLevel: billingAccount.accessLevel,
+          ownerUserId: billingAccount.ownerUserId,
           qontoClientId: billingAccount.qontoClientId,
         })
         .from(billingAccount)
         .where(eq(billingAccount.id, input.billingAccountId))
-        .for("update");
+        .for("no key update");
       if (!account)
         return failure("no_account", "This organization has no billing account.");
+      // Under the lock: an earlier order's mark is committed before its Qonto call, so an order
+      // that waited here while that one ran sees it the moment it gets the lock.
+      if (await hasOrderCheck(tx, account.id)) {
+        return failure(
+          "order_pending",
+          "An earlier order is still being checked in Qonto.",
+        );
+      }
 
       const active = await findActiveInvoice(tx, account.id, now);
       if (active) {
@@ -248,7 +244,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       const money = priceFor(
         vat.countryCode,
         registry,
-        input.netCentsOverride ?? netCentsFor(account.accessLevel),
+        input.netCentsOverride ?? (await holderNetCents(tx, account.ownerUserId)),
       );
       if (
         input.expectedGrossCents !== null &&
@@ -277,10 +273,14 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       // The sandbox never touches the real counter: its invoices are not real ones.
       const number =
         mode.kind === "live"
-          ? await takeInvoiceNumber(db, input.invoicePrefix, year)
+          ? await takeDocumentNumber(db, "invoice", input.invoicePrefix, year)
           : sandboxInvoiceNumber(input.invoicePrefix, year, now);
       const wording = invoiceWording(dates, money, locale);
 
+      // Committed on its own before Qonto is asked, so it survives whatever happens to this
+      // transaction; removed below, inside the transaction, once Qonto has answered clearly.
+      await markOrderCheck(db, account.id, number, now);
+      progress.qontoCalled = true;
       const issued = await createInvoice(mode.qonto, {
         clientId: client.id,
         number,
@@ -317,13 +317,17 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
             `[billing] invoice ${number} refused; the number stays unused`,
             issued,
           );
+          // Qonto refused, so nothing exists: the mark goes with this transaction's commit.
+          await clearOrderCheck(tx, account.id);
           return failure("qonto", "Qonto did not issue the invoice.");
         }
         void alertOperators(`Unklar, ob ${number} ausgestellt wurde`, [
           `Qonto hat auf die Rechnung ${number} nicht eindeutig geantwortet: ${issued.ok ? "kein id" : issued.error}.`,
           `Billing account ${account.id}, Qonto client ${client.id}, Rechnung an ${order.invoiceEmail}.`,
           "In Qonto nachsehen. Gibt es die Rechnung, die Zeile von Hand anlegen und den Zugang freischalten, oder gutschreiben.",
+          "Weitere Bestellungen dieses Kontos sind gesperrt, bis die Prüfung im Pricing Tab aufgehoben wird.",
         ]);
+        // The mark written before the call stays: that is the block.
         return failure("qonto_unknown", "Qonto did not answer clearly.");
       }
 
@@ -349,8 +353,17 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
         if (!row) throw new Error("invoice insert returned no row");
         await tx
           .update(billingAccount)
-          .set({ accessLevel: "full", qontoClientId: client.id, updatedAt: now })
+          // A new paid year starts uncanceled, whatever was canceled about the last one.
+          .set({
+            accessLevel: "full",
+            qontoClientId: client.id,
+            renewalCanceledAt: null,
+            updatedAt: now,
+          })
           .where(eq(billingAccount.id, account.id));
+        // Recorded, so nothing is left to check; if this transaction fails to commit, the mark
+        // stays with it and the account is blocked, which is the safe side.
+        await clearOrderCheck(tx, account.id);
         return {
           ok: true,
           number,
@@ -372,12 +385,22 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
       }
     })
     .catch((err: unknown) => {
-      // Whatever broke, we cannot say whether Qonto issued an invoice, so the customer is told not
-      // to order again, and the operators hear about it once.
+      // Broke before Qonto was asked: nothing can have been issued, nothing is blocked, and the
+      // customer may simply try again.
+      if (!progress.qontoCalled) {
+        console.error(
+          `[billing] order for ${input.billingAccountId} failed before Qonto`,
+          err,
+        );
+        return failure("qonto", "The order could not be placed.");
+      }
+      // Broke after: an invoice may exist. The mark committed before the call blocks the account,
+      // the customer is told not to order again, and the operators hear about it once.
       if (!(err instanceof AlreadyAlerted)) {
         void alertOperators("Bestellung abgebrochen", [
-          `Die Bestellung für billing account ${input.billingAccountId} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
+          `Die Bestellung für billing account ${input.billingAccountId} ist nach der Anfrage an Qonto abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,
           `Rechnung an ${order.invoiceEmail}. In Qonto nachsehen, ob eine Rechnung entstanden ist.`,
+          "Weitere Bestellungen dieses Kontos sind gesperrt, bis die Prüfung im Pricing Tab aufgehoben wird.",
         ]);
       }
       return failure("qonto_unknown", "The order stopped part way.");

@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CopyProtected } from "@/components/CopyProtected";
 import { pageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("info");
   return {
@@ -35,13 +33,13 @@ const scopeKeys = [
 
 const requestKeys = ["company", "register", "represented", "contact"] as const;
 
-const subprocessorKeys = ["hetzner", "aws", "google", "resend", "xai"] as const;
+const subprocessorKeys = ["hetzner", "aws", "google", "resend"] as const;
 
 export default async function AvvPage() {
   const t = await getTranslations("info");
 
   return (
-    <CopyProtected><article>
+    <article>
       <header className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">{t("avv.title")}</h1>
         <p className="text-lg text-muted-foreground">{t("avv.subtitle")}</p>
@@ -146,6 +144,6 @@ export default async function AvvPage() {
           </CardContent>
         </Card>
       </section>
-    </article></CopyProtected>
+    </article>
   );
 }

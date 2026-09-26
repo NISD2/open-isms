@@ -23,7 +23,8 @@ import { billingAccount, company, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 import { hasGotIn } from "./access";
 import { alertOperators } from "./alert";
-import { ANNUAL_NET_CENTS, netCentsFor, type OrderInput } from "./order";
+import { holderNetCents } from "./holder-price";
+import type { OrderInput } from "./order";
 import { type OrderOutcome, type PlaceOrderInput, placeOrder } from "./place-order";
 import { splitVatNumber } from "./vies";
 
@@ -97,7 +98,7 @@ const customerFor = async (
 
 /** The account the customer holds: the one behind their open company, else any they own. */
 const heldAccount = async (db: DbOrTx, userId: string) => {
-  const columns = { id: billingAccount.id, accessLevel: billingAccount.accessLevel };
+  const columns = { id: billingAccount.id };
   const [open] = await db
     .select(columns)
     .from(user)
@@ -116,10 +117,10 @@ const heldAccount = async (db: DbOrTx, userId: string) => {
 
 /**
  * The net a close invoices, decided once for the quote and the order. An agreed amount wins.
- * Otherwise a person who has got in pays their account's price, and anyone who has not (someone
- * new, or someone a failed earlier close created) pays the list price: grandfathering is for
- * people who got in before the paywall, not for someone sold to on a call. Deciding by the person
- * rather than by the account keeps a retry at the same price as the first attempt.
+ * Otherwise the customer is priced as the holder they will be (./holder-price): a grandfathered
+ * person pays 2.400, and anyone else (someone new, or someone a failed earlier close created and
+ * who never got in) pays the list price. Deciding by the person rather than by the account keeps a
+ * retry at the same price as the first attempt.
  */
 export const closeNetCents = async (
   db: DbOrTx,
@@ -128,18 +129,11 @@ export const closeNetCents = async (
 ): Promise<number> => {
   if (override !== null) return override;
   const [existing] = await db
-    .select({
-      id: user.id,
-      emailVerifiedAt: user.emailVerifiedAt,
-      loginCount: user.loginCount,
-      lastLoginAt: user.lastLoginAt,
-    })
+    .select({ id: user.id })
     .from(user)
     .where(eq(user.email, customerEmail.toLowerCase().trim()))
     .limit(1);
-  if (!existing || !hasGotIn(existing)) return ANNUAL_NET_CENTS;
-  const account = await heldAccount(db, existing.id);
-  return account ? netCentsFor(account.accessLevel) : ANNUAL_NET_CENTS;
+  return holderNetCents(db, existing?.id ?? null);
 };
 
 const sendSetupLink = async (
