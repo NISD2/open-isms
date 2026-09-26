@@ -92,6 +92,7 @@
       "tooManyRequests": "Te veel pogingen. Wacht een minuut.",
       "failed": "De bestelling kon nu niet worden afgerond. Probeer het later opnieuw.",
       "priceChanged": "Het register van de EU gaf zojuist een ander antwoord, daarom is de prijs veranderd. Controleer het nieuwe bedrag en bestel dan opnieuw.",
+      "termsChanged": "Onze voorwaarden zijn gewijzigd sinds u deze pagina opende. Laad de pagina opnieuw, lees de actuele versie en bestel dan opnieuw.",
       "unknown": "We konden niet zeker vaststellen of de factuur is aangemaakt. Bestel alstublieft niet opnieuw. Wij controleren het en nemen contact met u op."
     },
     "cancel": {

@@ -92,6 +92,7 @@
       "tooManyRequests": "Too many attempts. Please wait a minute.",
       "failed": "The order could not be completed just now. Please try again later.",
       "priceChanged": "The EU register answered differently just now, so the price changed. Please check the new amount, then order again.",
+      "termsChanged": "Our terms have changed since you opened this page. Please reload it, read the current version, then order again.",
       "unknown": "We could not tell for certain whether the invoice was created. Please do not order again. We will check and get back to you."
     },
     "cancel": {

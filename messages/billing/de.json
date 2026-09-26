@@ -92,6 +92,7 @@
       "tooManyRequests": "Zu viele Versuche. Bitte warten Sie eine Minute.",
       "failed": "Die Bestellung konnte gerade nicht abgeschlossen werden. Bitte versuchen Sie es später noch einmal.",
       "priceChanged": "Das Register der EU hat eben anders geantwortet als vorhin, deshalb hat sich der Preis geändert. Bitte prüfen Sie den neuen Betrag und bestellen Sie dann noch einmal.",
+      "termsChanged": "Unsere AGB haben sich geändert, seit Sie diese Seite geöffnet haben. Bitte laden Sie die Seite neu, lesen Sie die aktuelle Fassung und bestellen Sie dann noch einmal.",
       "unknown": "Wir konnten nicht sicher feststellen, ob die Rechnung erstellt wurde. Bitte bestellen Sie nicht noch einmal. Wir prüfen es und melden uns bei Ihnen."
     },
     "cancel": {

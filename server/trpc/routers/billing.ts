@@ -251,11 +251,19 @@ export const billingRouter = router({
          */
         terms: z.object({
           accepted: z.literal(true),
-          version: z.literal(TERMS_VERSION),
+          version: z.string().max(20),
         }),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // Checked here rather than in the schema, so a page left open across a terms change gets its
+      // own answer ("the terms changed, reload and read them") instead of a generic bad request.
+      if (input.terms.version !== TERMS_VERSION) {
+        throw new TRPCError({
+          code: "UNPROCESSABLE_CONTENT",
+          message: "The terms have changed since this page was loaded.",
+        });
+      }
       const mode = await requireOrdering(ctx.db, ctx.session.user.email);
       limited(`billing:place:${ctx.userId}`, 3);
 

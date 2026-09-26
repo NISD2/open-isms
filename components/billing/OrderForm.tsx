@@ -157,13 +157,15 @@ export function OrderForm() {
         ? t("result.tooManyRequests")
         : placeError === "PRECONDITION_FAILED"
           ? t("result.priceChanged")
-          : outcomeUnknown
-            ? t("result.unknown")
-            : place.error || quote.error
-              ? quote.error?.data?.code === "TOO_MANY_REQUESTS"
-                ? t("result.tooManyRequests")
-                : t("result.failed")
-              : null;
+          : placeError === "UNPROCESSABLE_CONTENT"
+            ? t("result.termsChanged")
+            : outcomeUnknown
+              ? t("result.unknown")
+              : place.error || quote.error
+                ? quote.error?.data?.code === "TOO_MANY_REQUESTS"
+                  ? t("result.tooManyRequests")
+                  : t("result.failed")
+                : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
