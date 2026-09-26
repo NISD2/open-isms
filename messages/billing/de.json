@@ -39,6 +39,18 @@
       "submit": "Kostenpflichtig bestellen",
       "submitting": "Rechnung wird erstellt"
     },
+    "accept": {
+      "label": "Ich bestelle für das oben genannte Unternehmen und bin dazu berechtigt. Es gelten die <terms>AGB</terms> mit dem <avv>Auftragsverarbeitungsvertrag</avv> in der Fassung vom {date}. Rechnungen erhalten wir als PDF per E-Mail.",
+      "required": "Bitte bestätigen Sie die AGB und den Auftragsverarbeitungsvertrag. Ohne diese Bestätigung können wir die Bestellung nicht annehmen."
+    },
+    "legal": {
+      "title": "Vor der Bestellung",
+      "b2b": "Nur für Unternehmen. Verkäufer ist Simon Orzel, Trierer Str. 6, 50676 Köln.",
+      "term": "Die Lizenz gilt ein Jahr ab heute und verlängert sich danach jeweils um ein Jahr. 14 Tage bevor wir die Rechnung für das neue Jahr stellen, erinnern wir Sie per E-Mail. Kündigen können Sie bis zum Tag der Verlängerung.",
+      "moneyBack": "Innerhalb von 30 Tagen ab heute können Sie ohne Angabe von Gründen kündigen. Ist die Rechnung noch offen, stornieren wir sie mit einer Gutschrift. Haben Sie schon gezahlt, überweisen wir den Betrag zurück.",
+      "payment": "Zahlung per Überweisung innerhalb von 30 Tagen ab Rechnungsdatum. Ist die Rechnung bis dahin nicht bezahlt, sperren wir den Zugang zur Lizenz, bis die Zahlung eingeht.",
+      "contract": "So kommt der Vertrag zustande: Sie prüfen Ihre Angaben und den Preis, bestätigen die AGB und klicken auf „Kostenpflichtig bestellen“. Wir nehmen die Bestellung an, indem wir den Zugang sofort freischalten und die Rechnung per E-Mail senden. Eingabefehler korrigieren Sie vor dem Klick direkt in den Feldern. Welche Fassung der AGB Sie angenommen haben, steht danach unter Abrechnung. AGB und AVV können Sie jetzt speichern oder drucken. Vertragssprache ist Deutsch oder Englisch, je nachdem, in welcher Sprache Sie bestellen."
+    },
     "registry": {
       "valid": "Im Register der EU bestätigt",
       "invalid": "Im Register noch nicht bekannt",
@@ -103,6 +115,13 @@
     "page": {
       "renewalCanceled": "Gekündigt. Ihre Lizenz läuft am {date} aus und wird nicht verlängert.",
       "moneyBackUntil": "30 Tage Geld zurück bis {date}.",
+      "contractTitle": "Vertrag",
+      "contractAccepted": "AGB und Auftragsverarbeitungsvertrag in der Fassung vom {version}, am {date} von {name} angenommen.",
+      "contractOnCall": "AGB und Auftragsverarbeitungsvertrag in der Fassung vom {version}, am {date} im Gespräch angenommen ({name}).",
+      "contractNotRecorded": "Für die laufende Rechnung ist keine Annahme der AGB gespeichert. Schreiben Sie uns, wenn Sie den Vertrag in Textform brauchen.",
+      "contractUnknownName": "ohne Namen",
+      "contractLinks": "Aktuelle Fassung lesen: <terms>AGB</terms>, <avv>Auftragsverarbeitungsvertrag</avv>.",
+      "cancelRoute": "Kündigen können Sie hier mit dem Button oder in Textform per E-Mail an contact@nisd2.eu. Innerhalb der 30 Tage ab Bestellung bekommen Sie Ihr Geld zurück, danach endet die Lizenz zum Ende des bezahlten Jahres.",
       "title": "Abrechnung",
       "description": "Zugang, Preis und Rechnungen Ihres Kontos.",
       "accessTitle": "Zugang",

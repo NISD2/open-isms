@@ -1,6 +1,7 @@
 import { Receipt } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import type { ReactNode } from "react";
 import { CancelButton } from "@/components/billing/CancelButton";
 import { InvoicePdfButton } from "@/components/billing/InvoicePdfButton";
 import { Badge } from "@/components/ui/badge";
@@ -16,9 +17,16 @@ import {
 } from "@/components/ui/table";
 import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/auth";
+import { termsVersionLabel } from "@/lib/billing/terms";
 import { api } from "@/lib/trpc/server";
 
 const KNOWN_STATUSES = new Set(["paid", "unpaid", "canceled", "draft"]);
+
+const legalLink = (href: "/terms" | "/avv", chunks: ReactNode) => (
+  <Link href={href} className="font-medium text-foreground underline underline-offset-4">
+    {chunks}
+  </Link>
+);
 
 /**
  * What the open company's account pays and what it has been invoiced. Payment status is read live
@@ -89,6 +97,32 @@ export default async function BillingPage({
           {status.cancel ? <CancelButton option={status.cancel} /> : null}
         </CardContent>
       </Card>
+
+      {status.activeInvoice ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">{t("contractTitle")}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2 text-muted-foreground text-sm">
+            <p>
+              {status.contract
+                ? t(status.contract.onCall ? "contractOnCall" : "contractAccepted", {
+                    version: termsVersionLabel(locale, status.contract.version),
+                    date: days.format(status.contract.acceptedAt),
+                    name: status.contract.acceptedBy ?? t("contractUnknownName"),
+                  })
+                : t("contractNotRecorded")}
+            </p>
+            <p>
+              {t.rich("contractLinks", {
+                terms: (chunks) => legalLink("/terms", chunks),
+                avv: (chunks) => legalLink("/avv", chunks),
+              })}
+            </p>
+            {status.isPayer ? <p>{t("cancelRoute")}</p> : null}
+          </CardContent>
+        </Card>
+      ) : null}
 
       <Card>
         <CardHeader>

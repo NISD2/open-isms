@@ -59,6 +59,8 @@ export type OrderOutcome =
         | "invalid_vat"
         | "no_account"
         | "price_changed"
+        /** A customer's own order without the AGB and AVV accepted. */
+        | "terms_not_accepted"
         /** An earlier order for this account is still being checked in Qonto (./order-check). */
         | "order_pending"
         /** Qonto refused: nothing was issued. */
@@ -88,7 +90,18 @@ export interface PlaceOrderInput {
    * price. Null on the customer's own order page, which never takes an amount from a browser.
    */
   readonly netCentsOverride: number | null;
+  /**
+   * Who accepted which AGB and AVV version (./terms), stored on the invoice with the order's time.
+   * Required on the customer's own order; on a close from platform admin it is the customer's
+   * acceptance on the call, or null when the admin did not record one.
+   */
+  readonly terms: TermsAcceptance | null;
   readonly now?: Date;
+}
+
+export interface TermsAcceptance {
+  readonly version: string;
+  readonly acceptedByUserId: string;
 }
 
 const failure = (
@@ -190,6 +203,11 @@ const qontoClientFor = async (
 export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> {
   const { db, mode, order } = input;
   const now = input.now ?? new Date();
+
+  // Checked here as well as in billing.place, so no caller can issue a customer's own order without it.
+  if (input.source === "self_serve" && !input.terms) {
+    return failure("terms_not_accepted", "The AGB and the AVV were not accepted.");
+  }
 
   const vat = splitVatNumber(order.vatNumber);
   if (!vat) return failure("invalid_vat", "The VAT number does not name a member state.");
@@ -348,6 +366,9 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
             periodEnd: dates.performanceEndDate,
             source: input.source,
             createdByUserId: input.createdByUserId,
+            termsVersion: input.terms?.version ?? null,
+            termsAcceptedAt: input.terms ? now : null,
+            termsAcceptedByUserId: input.terms?.acceptedByUserId ?? null,
           })
           .returning({ id: invoice.id });
         if (!row) throw new Error("invoice insert returned no row");
@@ -417,6 +438,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<OrderOutcome> 
     billingAccountId: input.billingAccountId,
     recipients: [order.invoiceEmail, ...(order.copyToEmail ? [order.copyToEmail] : [])],
     locale,
+    termsVersion: input.terms?.version ?? null,
   }).catch((err) =>
     alertOperators(`${outcome.number} nicht zugestellt`, [
       `Die Zustellung der Rechnung ${outcome.number} ist abgebrochen: ${err instanceof Error ? err.message : String(err)}.`,

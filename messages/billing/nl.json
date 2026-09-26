@@ -39,6 +39,18 @@
       "submit": "Bestelling plaatsen",
       "submitting": "Factuur wordt aangemaakt"
     },
+    "accept": {
+      "label": "Ik bestel voor het bovengenoemde bedrijf en ben daartoe bevoegd. De <terms>algemene voorwaarden</terms> met de <avv>verwerkersovereenkomst</avv> in de versie van {date} zijn van toepassing. Facturen ontvangen wij als pdf per e-mail.",
+      "required": "Bevestig de algemene voorwaarden en de verwerkersovereenkomst. Zonder die bevestiging kunnen wij de bestelling niet aannemen."
+    },
+    "legal": {
+      "title": "Voor u bestelt",
+      "b2b": "Alleen voor bedrijven. Verkoper is Simon Orzel, Trierer Str. 6, 50676 Keulen, Duitsland.",
+      "term": "De licentie geldt een jaar vanaf vandaag en wordt daarna telkens met een jaar verlengd. 14 dagen voordat wij de factuur voor het nieuwe jaar sturen, herinneren wij u per e-mail. U kunt opzeggen tot de dag van verlenging.",
+      "moneyBack": "Binnen 30 dagen vanaf vandaag kunt u zonder opgave van redenen opzeggen. Staat de factuur nog open, dan annuleren wij die met een creditnota. Heeft u al betaald, dan maken wij het bedrag terug over.",
+      "payment": "Betaling per overschrijving binnen 30 dagen na de factuurdatum. Is de factuur dan niet betaald, dan blokkeren wij de toegang tot de licentie tot de betaling binnen is.",
+      "contract": "Zo komt de overeenkomst tot stand: u controleert uw gegevens en de prijs, bevestigt de voorwaarden en klikt op \"Bestelling plaatsen\". Wij nemen de bestelling aan door de toegang direct te openen en de factuur per e-mail te sturen. Invoerfouten verbetert u voor de klik in de velden zelf. Welke versie van de voorwaarden u heeft aanvaard, staat daarna onder Facturatie. U kunt de voorwaarden en de verwerkersovereenkomst nu opslaan of afdrukken. De contracttaal is Duits of Engels; de voorwaarden zijn niet in het Nederlands beschikbaar, bij een bestelling in het Nederlands geldt de Engelse versie."
+    },
     "registry": {
       "valid": "Bevestigd door het register van de EU",
       "invalid": "Nog niet bekend in het register",
@@ -103,6 +115,13 @@
     "page": {
       "renewalCanceled": "Opgezegd. Uw licentie loopt af op {date} en wordt niet verlengd.",
       "moneyBackUntil": "30 dagen geld terug tot {date}.",
+      "contractTitle": "Overeenkomst",
+      "contractAccepted": "Algemene voorwaarden en verwerkersovereenkomst in de versie van {version}, aanvaard op {date} door {name}.",
+      "contractOnCall": "Algemene voorwaarden en verwerkersovereenkomst in de versie van {version}, aanvaard in het gesprek op {date} ({name}).",
+      "contractNotRecorded": "Voor de lopende factuur is geen aanvaarding van de voorwaarden opgeslagen. Schrijf ons als u de overeenkomst op schrift nodig heeft.",
+      "contractUnknownName": "zonder naam",
+      "contractLinks": "Huidige versie lezen: <terms>algemene voorwaarden</terms>, <avv>verwerkersovereenkomst</avv>.",
+      "cancelRoute": "U kunt hier opzeggen met de knop, of schriftelijk per e-mail aan contact@nisd2.eu. Binnen 30 dagen na de bestelling krijgt u uw geld terug, daarna eindigt de licentie aan het einde van het betaalde jaar.",
       "title": "Facturatie",
       "description": "Toegang, prijs en facturen van uw account.",
       "accessTitle": "Toegang",

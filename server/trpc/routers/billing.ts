@@ -27,12 +27,13 @@ import { billingFor } from "@/lib/billing/ordering-access";
 import { findActiveInvoice, placeOrder } from "@/lib/billing/place-order";
 import { getInvoice } from "@/lib/billing/qonto";
 import { quoteFor } from "@/lib/billing/quote";
+import { TERMS_VERSION } from "@/lib/billing/terms";
 import { viesConfigFromEnv } from "@/lib/billing/vies";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
 import { createPresignedGet } from "@/lib/storage";
-import { billingAccount, company, creditNote, invoice } from "@/schema";
+import { billingAccount, company, creditNote, invoice, user } from "@/schema";
 import { accountProcedure, router } from "../init";
 
 const accountOf = async (db: DbOrTx, companyId: string) => {
@@ -101,6 +102,31 @@ const cancelOption = (
     : ({ kind: "renewal", periodEnd: active.periodEnd } as const);
 };
 
+/**
+ * The contract behind the paying invoice: which AGB and AVV version, accepted when and by whom, and
+ * whether it was on the call (a close from platform admin). Null when no acceptance was recorded.
+ */
+const contractOf = async (db: DbOrTx, invoiceId: string) => {
+  const [row] = await db
+    .select({
+      version: invoice.termsVersion,
+      acceptedAt: invoice.termsAcceptedAt,
+      source: invoice.source,
+      acceptedBy: user.name,
+    })
+    .from(invoice)
+    .leftJoin(user, eq(user.id, invoice.termsAcceptedByUserId))
+    .where(eq(invoice.id, invoiceId))
+    .limit(1);
+  if (!row?.version || !row.acceptedAt) return null;
+  return {
+    version: row.version,
+    acceptedAt: row.acceptedAt,
+    acceptedBy: row.acceptedBy,
+    onCall: row.source === "admin",
+  };
+};
+
 /** Qonto's status for an invoice, read live and never stored: it is Qonto's fact, not ours. */
 const liveStatus = async (mode: OrderingMode, qontoInvoiceId: string) => {
   if (mode.kind === "off") return null;
@@ -127,6 +153,7 @@ export const billingRouter = router({
       // The holder's price: what this account pays, whoever is looking.
       netPrice: formatEuro(await holderNetCents(ctx.db, account.ownerUserId)),
       activeInvoice: active,
+      contract: active ? await contractOf(ctx.db, active.id) : null,
       renewalCanceledAt: account.renewalCanceledAt,
       cancel:
         open && isPayer && !pending
@@ -218,6 +245,14 @@ export const billingRouter = router({
         order: orderSchemaWithVatCheck,
         /** The gross the form showed. Required: nobody orders at a price they did not see. */
         quotedGrossCents: z.number().int().nonnegative(),
+        /**
+         * The checkbox at the button, and the AGB version the page showed. Both required: an order
+         * without them, or from a page older than the current terms, is refused.
+         */
+        terms: z.object({
+          accepted: z.literal(true),
+          version: z.literal(TERMS_VERSION),
+        }),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -235,6 +270,7 @@ export const billingRouter = router({
         vies: viesConfigFromEnv(env),
         expectedGrossCents: input.quotedGrossCents,
         netCentsOverride: null,
+        terms: { version: input.terms.version, acceptedByUserId: ctx.userId },
       });
       if (outcome.ok) {
         return {
@@ -248,6 +284,7 @@ export const billingRouter = router({
         case "already_ordered":
           throw new TRPCError({ code: "CONFLICT", message: outcome.message });
         case "invalid_vat":
+        case "terms_not_accepted":
           throw new TRPCError({ code: "BAD_REQUEST", message: outcome.message });
         case "no_account":
           throw new TRPCError({ code: "NOT_FOUND", message: outcome.message });

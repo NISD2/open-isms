@@ -18,31 +18,33 @@ export async function generateMetadata({
   };
 }
 
-const hostingKeys = ["appServers", "fileStorage", "noUSTransfer"] as const;
-const pseudoKeys = ["transit", "rest", "secrets"] as const;
+// Keys corrected on 26.09.2026 against the code carry new names, so a locale that still has the old
+// wording falls back to the corrected English instead of repeating the old claim.
+const hostingKeys = ["appServers", "fileStorage", "usServices"] as const;
+const pseudoKeys = ["transit", "restStorage", "secrets"] as const;
 const confidentialityKeys = [
   "physical",
   "personnel",
-  "auth",
-  "rbac",
-  "separation",
+  "authMethods",
+  "roles",
+  "tenantSeparation",
   "secrets",
 ] as const;
 const integrityKeys = [
-  "input",
-  "checksum",
+  "inputLog",
+  "rowChecksum",
   "transfer",
   "evidenceHash",
   "signoff",
 ] as const;
 const availabilityKeys = [
-  "backup",
+  "backupSetup",
   "redundancy",
-  "rateLimit",
+  "rateLimits",
   "uploadLimit",
-  "status",
+  "statusPage",
 ] as const;
-const evaluationKeys = ["review", "patch", "incident", "code"] as const;
+const evaluationKeys = ["review", "dependencyUpdates", "incident", "code"] as const;
 
 export default async function TomsPage() {
   const t = await getTranslations("info");
@@ -52,7 +54,7 @@ export default async function TomsPage() {
       <header className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">{t("toms.title")}</h1>
         <p className="text-lg text-muted-foreground">{t("toms.subtitle")}</p>
-        <p className="text-xs text-muted-foreground">{t("toms.lastUpdated")}</p>
+        <p className="text-xs text-muted-foreground">{t("toms.revised")}</p>
       </header>
 
       <Separator className="my-8" />
@@ -75,7 +77,7 @@ export default async function TomsPage() {
             <CardTitle>{t("toms.hosting.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("toms.hosting.p1")}</p>
+            <p>{t("toms.hosting.scopeNote")}</p>
             <ul className="space-y-2">
               {hostingKeys.map((key) => (
                 <li key={key} className="flex items-start gap-2">

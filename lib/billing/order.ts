@@ -5,6 +5,7 @@
  * be tested without a network, which is most of what can go wrong on an invoice.
  */
 import { z } from "zod";
+import { termsVersionLabel } from "./terms";
 import { checkStructure } from "./vat-checksum";
 import { type VatCheck, type VatTreatment, vatTreatment } from "./vies";
 
@@ -223,8 +224,17 @@ export const invoiceEmailWording = (opts: {
   readonly locale: "de" | "en";
   /** Where the invoice is when the PDF could not be attached: Qonto's public invoice page. */
   readonly invoiceUrl: string | null;
+  /** The AGB version the order accepted; the email names it when there is one. */
+  readonly termsVersion: string | null;
 }): { readonly subject: string; readonly paragraphs: readonly string[] } => {
-  const { number, locale, invoiceUrl } = opts;
+  const { number, locale, invoiceUrl, termsVersion } = opts;
+  const terms = termsVersion
+    ? locale === "de"
+      ? [
+          `Es gelten unsere AGB in der Fassung vom ${termsVersionLabel("de", termsVersion)}.`,
+        ]
+      : [`Our terms as of ${termsVersionLabel("en", termsVersion)} apply.`]
+    : [];
   return locale === "de"
     ? {
         subject: `Rechnung ${number}: NIS 2 Durchgang, Jahreslizenz`,
@@ -234,6 +244,7 @@ export const invoiceEmailWording = (opts: {
             ? `die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang finden Sie hier: ${invoiceUrl}`
             : `anbei erhalten Sie die Rechnung ${number} für die Jahreslizenz NIS 2 Durchgang.`,
           "Zahlbar innerhalb von 30 Tagen. Bitte geben Sie bei der Überweisung die Rechnungsnummer als Verwendungszweck an. 30 Tage Geld zurück ab Bestelldatum.",
+          ...terms,
           "Mit freundlichen Grüßen",
           "nisd2.eu",
         ],
@@ -246,6 +257,7 @@ export const invoiceEmailWording = (opts: {
             ? `invoice ${number} for the NIS 2 guided pass annual licence is here: ${invoiceUrl}`
             : `please find attached invoice ${number} for the NIS 2 guided pass annual licence.`,
           "Payable within 30 days. Please quote the invoice number as the payment reference. Thirty days money back from the order date.",
+          ...terms,
           "Kind regards",
           "nisd2.eu",
         ],

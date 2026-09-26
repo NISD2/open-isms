@@ -488,6 +488,8 @@ export const platformAdminRouter = router({
         netCents: z.number().int().positive().max(10_000_000).nullable(),
         /** The gross the admin confirmed. Required: nothing is invoiced at an unseen price. */
         quotedGrossCents: z.number().int().nonnegative(),
+        /** The admin records that the customer accepted the AGB and AVV on the call. */
+        termsAcceptedOnCall: z.boolean(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -510,6 +512,7 @@ export const platformAdminRouter = router({
         invoicePrefix: env.INVOICE_PREFIX,
         vies: viesConfigFromEnv(env),
         appUrl: getAppUrl(),
+        termsAcceptedOnCall: input.termsAcceptedOnCall,
       });
       if (!outcome.ok) {
         const code =
@@ -530,7 +533,7 @@ export const platformAdminRouter = router({
         action: "billing.close_deal",
         entityType: "invoice",
         entityId: null,
-        description: `Closed ${outcome.number} for ${input.customerEmail}${outcome.createdUser ? " (new customer)" : ""}${outcome.setupSent ? ", setup link sent" : ""}`,
+        description: `Closed ${outcome.number} for ${input.customerEmail}${outcome.createdUser ? " (new customer)" : ""}${outcome.setupSent ? ", setup link sent" : ""}${input.termsAcceptedOnCall ? ", terms accepted on the call" : ", terms acceptance not recorded"}`,
         ipAddress: ctx.ip,
         userAgent: ctx.userAgent,
       });

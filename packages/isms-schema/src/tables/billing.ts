@@ -56,10 +56,32 @@ export const invoice = pgTable(
     }),
     /** Where our own copy of the PDF is kept. Null until it has been archived. */
     archivedPdfKey: varchar("archived_pdf_key", { length: 512 }),
+    /**
+     * The AGB and AVV this order was made under: their version (lib/billing/terms.ts), when
+     * they were accepted, and by whom. On the order page the person who ticked the box; on a close
+     * from platform admin (`source` = admin) the customer, who accepted on the call and whom the
+     * admin recorded. Null on invoices issued before acceptance was recorded, and on a close where
+     * the admin did not record it.
+     */
+    termsVersion: varchar("terms_version", { length: 10 }),
+    termsAcceptedAt: timestamp("terms_accepted_at"),
+    termsAcceptedByUserId: uuid("terms_accepted_by_user_id").references(() => user.id, {
+      onDelete: "set null",
+    }),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [
     index("idx_invoice_billing_account").on(table.billingAccountId),
+    // A version was accepted exactly when there is a time, and a person is named only for an
+    // acceptance. The person may later be deleted, so the version and the time can stand alone.
+    check(
+      "invoice_terms_version_with_time",
+      sql`(${table.termsVersion} IS NULL) = (${table.termsAcceptedAt} IS NULL)`,
+    ),
+    check(
+      "invoice_terms_by_only_if_accepted",
+      sql`${table.termsAcceptedByUserId} IS NULL OR ${table.termsAcceptedAt} IS NOT NULL`,
+    ),
     // The VAT facts cannot contradict each other: only German VAT carries tax, and no amount is
     // negative. The row is kept for eight years, so it has to be right when it is written.
     check("invoice_net_positive", sql`${table.netCents} > 0`),

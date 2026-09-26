@@ -39,6 +39,18 @@
       "submit": "Place order",
       "submitting": "Creating the invoice"
     },
+    "accept": {
+      "label": "I am ordering for the company above and I am authorised to do so. The <terms>terms</terms> and the <avv>data processing agreement</avv> as of {date} apply. We receive invoices as PDF by email.",
+      "required": "Please confirm the terms and the data processing agreement. We cannot accept the order without it."
+    },
+    "legal": {
+      "title": "Before you order",
+      "b2b": "For businesses only. The seller is Simon Orzel, Trierer Str. 6, 50676 Köln, Germany.",
+      "term": "The licence runs for one year from today and then renews for one year at a time. We remind you by email 14 days before we issue the invoice for the new year. You can cancel up to the renewal date.",
+      "moneyBack": "Within 30 days from today you can cancel without giving a reason. If the invoice is still open, we cancel it with a credit note. If you have already paid, we transfer the amount back.",
+      "payment": "Payment by bank transfer within 30 days of the invoice date. If the invoice is not paid by then, we suspend access to the licence until the payment arrives.",
+      "contract": "How the contract is made: you check your details and the price, confirm the terms and click \"Place order\". We accept the order by opening access at once and sending the invoice by email. You correct input errors in the fields before you click. Which version of the terms you accepted is shown under Billing afterwards. You can save or print the terms and the DPA now. The contract language is German or English, depending on the language you order in."
+    },
     "registry": {
       "valid": "Confirmed by the EU register",
       "invalid": "Not in the register yet",
@@ -103,6 +115,13 @@
     "page": {
       "renewalCanceled": "Canceled. Your licence ends on {date} and does not renew.",
       "moneyBackUntil": "Thirty days money back until {date}.",
+      "contractTitle": "Contract",
+      "contractAccepted": "Terms and data processing agreement as of {version}, accepted on {date} by {name}.",
+      "contractOnCall": "Terms and data processing agreement as of {version}, accepted on the call on {date} ({name}).",
+      "contractNotRecorded": "No acceptance of the terms is stored for the current invoice. Write to us if you need the contract in text form.",
+      "contractUnknownName": "no name",
+      "contractLinks": "Read the current version: <terms>terms</terms>, <avv>data processing agreement</avv>.",
+      "cancelRoute": "You can cancel here with the button, or in text form by email to contact@nisd2.eu. Within 30 days of the order you get your money back; after that the licence ends at the end of the paid year.",
       "title": "Billing",
       "description": "Your account's access, price and invoices.",
       "accessTitle": "Access",
