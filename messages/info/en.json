@@ -935,7 +935,7 @@
       },
       "hosting": {
         "heading": "Hosting in the EU",
-        "scopeNote": "Servers, database and file storage are in the EU. Two services are based in the USA and receive only the data for their function:",
+        "scopeNote": "Servers, database and file storage are in the EU. One service is based in the USA and receives only the data for its function:",
         "items": {
           "appServers": "Application servers and PostgreSQL database: Hetzner Online GmbH, data centre Falkenstein/Nuremberg, Germany",
           "fileStorage": "Storage of uploaded evidence documents: AWS S3, EU region",
