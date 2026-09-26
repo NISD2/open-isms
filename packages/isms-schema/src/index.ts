@@ -9,6 +9,7 @@ export * from "./tables/billing";
 export * from "./tables/category-assignment";
 export * from "./tables/category-intake";
 export * from "./tables/change-management";
+export * from "./tables/control-decision";
 export * from "./tables/email-preference";
 export * from "./tables/evidence";
 export * from "./tables/exercise";

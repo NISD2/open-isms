@@ -189,3 +189,32 @@ export const supplierPublicationBroadcastStatusEnum = pgEnum(
   "supplier_publication_broadcast_status",
   ["queued", "sending", "sent", "failed"],
 );
+
+/**
+ * What a company may record against one BSI control in the guided form.
+ *
+ * The two dispensable outcomes follow the BSI's own Grundschutz-Check, which lets a requirement be
+ * "entbehrlich" either because nothing it applies to exists or because an equivalent measure
+ * covers it. Leaving the second out would force a company that meets a requirement differently to
+ * either overclaim "done" or leave the item open.
+ *
+ *   done               implemented
+ *   no_object          nothing this applies to; needs a server-counted zero from the register
+ *   covered_otherwise  met by a different measure; needs a reason
+ *   justified          not met and proportionate not to; needs all five § 30 Abs. 1 S. 2 factors
+ *   deferred           later; needs a date or a register whose next change resolves it
+ */
+export const controlOutcomeEnum = pgEnum("control_outcome", [
+  "done",
+  "no_object",
+  "covered_otherwise",
+  "justified",
+  "deferred",
+]);
+
+/**
+ * A fact that may be unknown. "unsettled" asserts nothing in either direction and is the default,
+ * because a wrongly-answered status question switches off whole duties: status under § 28 Abs. 1
+ * Nr. 1 BSIG arises by operation of law ("gelten"), not by anyone being told.
+ */
+export const settledFactEnum = pgEnum("settled_fact", ["yes", "no", "unsettled"]);

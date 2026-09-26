@@ -162,6 +162,13 @@
       "when": 1790382100883,
       "tag": "0022_terms_acceptance",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1790422961077,
+      "tag": "0023_guided_form_control_decision",
+      "breakpoints": true
     }
   ]
 }

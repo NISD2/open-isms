@@ -57,6 +57,7 @@ import {
   companyPolicyConfig,
   companyRequirementStatus,
   companyRiskMethodology,
+  controlDecision,
   dataErasureLog,
   emailOtp,
   // nullable attribution
@@ -643,6 +644,27 @@ async function erasePerson(
     );
   }
 
+  // Control decisions: same treatment as the sign-off chain, and for the same reason. decidedBy is
+  // NOT NULL because a decision with no decider is not the documentation § 30 Abs. 1 S. 3 asks for,
+  // so the person is replaced by the tombstone rather than nulled. Deleting the rows instead would
+  // erase the company's compliance record because one employee left.
+  const cdRows = await tx
+    .select({ id: controlDecision.id })
+    .from(controlDecision)
+    .where(eq(controlDecision.decidedBy, userId));
+  if (cdRows.length) {
+    const tid = await tombstone();
+    await tx
+      .update(controlDecision)
+      .set({ decidedBy: tid })
+      .where(eq(controlDecision.decidedBy, userId));
+    scope.anonymized["control_decision"] =
+      (scope.anonymized["control_decision"] ?? 0) + cdRows.length;
+    scope.residualNotes.push(
+      `${cdRows.length} control decision${cdRows.length === 1 ? "" : "s"} had the decider reassigned to a tombstone; the decisions themselves are retained because they are the company's record under § 30 Abs. 1 Satz 3 BSIG, not personal data of the person who entered them.`,
+    );
+  }
+
   // The same PII is frozen a second time on the status row itself.
   // buildSignOffSnapshot copies the company's cisoName, cisoReportsTo,
   // bsiContactName, bsiContactEmail and bsiContactPhone into
@@ -1045,6 +1067,11 @@ async function tearDownCompany(
   );
   await del("sign_off_history", () =>
     tx.delete(signOffHistory).where(eq(signOffHistory.companyId, cid)).returning(),
+  );
+  // Control decisions are append-only everywhere else; tenant erasure is the one path that removes
+  // them, and it must, because they carry the deciding user and the company's own justifications.
+  await del("control_decision", () =>
+    tx.delete(controlDecision).where(eq(controlDecision.companyId, cid)).returning(),
   );
   await byIds(
     "company_category_intake",

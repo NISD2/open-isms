@@ -23,7 +23,13 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { accessLevelEnum, aiDataSharingEnum, journeyModeEnum, planEnum } from "../enums";
+import {
+  accessLevelEnum,
+  aiDataSharingEnum,
+  journeyModeEnum,
+  planEnum,
+  settledFactEnum,
+} from "../enums";
 
 // ---------------------------------------------------------------------------
 // Billing accounts — The paying customer, above its companies
@@ -92,6 +98,35 @@ export const company = pgTable("company", {
   bsiRegistrationId: varchar("bsi_registration_id", { length: 100 }),
   annualSecurityBudget: decimal("annual_security_budget", { precision: 15, scale: 2 }),
   primaryLocations: varchar("primary_locations", { length: 1000 }),
+
+  // ---------------------------------------------------------------------------
+  // Guided-form status facts — the only answers that change WHICH duties apply
+  //
+  // Read on every step, asked once. Everything else the form needs is read from the registers the
+  // company fills anyway, because filling them is itself several of the requirements.
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Whether this company operates a critical installation over the threshold set for its
+   * installation type. It follows from the numbers in the Rechtsverordnung, not from anyone being
+   * told: § 28 Abs. 1 Nr. 1 BSIG says such operators "gelten" as besonders wichtige Einrichtungen,
+   * and § 33 Abs. 3 lets the BSI register an entity that failed to register itself. Defaults to
+   * "unsettled" so an unmeasured threshold leaves §§ 31 Abs. 2 and 39 Abs. 1 open rather than off.
+   */
+  criticalInstallation: settledFactEnum("critical_installation")
+    .notNull()
+    .default("unsettled"),
+
+  /**
+   * Which of the twelve singled-out service types this company provides TO OTHERS and is in scope
+   * as. Using a managed service provider is not being one; the applicability classifier settles
+   * that. Null means unsettled, an empty array means none.
+   *
+   * Two statutory lists read this: § 60 Abs. 1 Satz 1, which § 34 points at for the special
+   * registration duty, and § 30 Abs. 3, which gives the EU implementing act precedence over
+   * § 30 Abs. 2. They differ by two entries, so one boolean cannot serve both.
+   */
+  serviceTypes: text("service_types").array(),
 
   // Billing
   /** The paying customer this company belongs to. Every company has one. */
