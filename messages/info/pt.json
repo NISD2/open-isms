@@ -817,8 +817,7 @@
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nuremberga, Alemanha): alojamento dos servidores de aplicações e da base de dados PostgreSQL",
         "google": "Google (OAuth): autenticação, trata o seu nome e endereço de email para o início de sessão",
         "aws": "Amazon Web Services (S3): armazenamento de ficheiros, guarda os documentos de prova que carrega",
-        "resend": "Resend: email transacional, entrega emails de notificação e de convite",
-        "xai": "xAI: preenchimento prévio de formulários assistido por IA, trata informações da empresa para gerar respostas em rascunho aos formulários"
+        "resend": "Resend: email transacional, entrega emails de notificação e de convite"
       },
       "analytics": {
         "heading": "Análise de Utilização",
@@ -909,8 +908,7 @@
           "hetzner": "Hetzner Online GmbH (Falkenstein/Nuremberga, Alemanha), alojamento dos servidores de aplicação e da base de dados",
           "aws": "Amazon Web Services EMEA SARL, armazenamento de documentos de prova carregados (S3, região UE)",
           "google": "Google Ireland Limited, autenticação OAuth",
-          "resend": "Resend, Inc. (EUA), envio de emails transacionais",
-          "xai": "xAI Corp. (EUA), preenchimento prévio de formulários assistido por IA (opcional, pode ser desativado)"
+          "resend": "Resend, Inc. (EUA), envio de emails transacionais"
         },
         "p2": "As alterações à lista de subcontratantes ulteriores serão anunciadas com antecedência. Tem o direito de se opor às alterações."
       },
@@ -919,89 +917,6 @@
         "p1": "As medidas técnicas e organizativas relevantes para este DPA ao abrigo do Art. 32.o RGPD estão descritas no nosso documento TOMs.",
         "linkLabel": "Ver documento TOMs",
         "linkHref": "/toms"
-      }
-    },
-    "toms": {
-      "meta": {
-        "title": "Medidas Técnicas e Organizativas (TOMs), Art. 32.o RGPD",
-        "description": "Medidas técnicas e organizativas da plataforma NISD2.eu ao abrigo do Art. 32.o RGPD. Alojamento Hetzner Alemanha, TLS, registo de auditoria com encadeamento SHA-256, isolamento multilocatário, RBAC."
-      },
-      "title": "Medidas Técnicas e Organizativas (TOMs)",
-      "subtitle": "Medidas ao abrigo do Art. 32.o RGPD que garantem a segurança do tratamento de dados pessoais na plataforma NISD2.eu.",
-      "lastUpdated": "Última atualização: junho de 2026.",
-      "intro": {
-        "heading": "Síntese",
-        "p1": "Este documento descreve as medidas técnicas e organizativas efetivamente implementadas por Simon Orzel na qualidade de operador da plataforma NISD2.eu. Trata-se de um inventário honesto, não de uma lista de desejos. Listamos apenas o que já está implementado.",
-        "p2": "As medidas estão alinhadas com o IT-Grundschutz (BSI) e serão alargadas à medida que a plataforma cresce."
-      },
-      "hosting": {
-        "heading": "Alojamento na UE",
-        "p1": "O tratamento em produção de dados pessoais ocorre exclusivamente dentro da UE:",
-        "items": {
-          "appServers": "Servidores de aplicação e base de dados PostgreSQL: Hetzner Online GmbH, centro de dados Falkenstein/Nuremberga, Alemanha",
-          "fileStorage": "Armazenamento de documentos de prova carregados: AWS S3, região UE",
-          "noUSTransfer": "Nenhum tratamento de dados de produção fora da UE. Os subserviços dos EUA (Resend para email transacional, xAI para preenchimento prévio opcional por IA) tratam apenas os dados necessários à sua função."
-        }
-      },
-      "pseudonymization": {
-        "heading": "Cifragem (Art. 32.o, n.o 1, alínea a) RGPD)",
-        "items": {
-          "transit": "Cifragem em trânsito: TLS para todas as ligações à plataforma (HTTPS)",
-          "rest": "Cifragem em repouso: cifragem do lado do servidor do AWS S3 (AES256, definida explicitamente em cada carregamento via PutObject); dados PostgreSQL na infraestrutura Hetzner",
-          "secrets": "As credenciais e chaves de API são geridas através de variáveis de ambiente do servidor, não armazenadas no código-fonte nem em bases de dados"
-        }
-      },
-      "confidentiality": {
-        "heading": "Confidencialidade (Art. 32.o, n.o 1, alínea b) RGPD)",
-        "p1": "Medidas que garantem a confidencialidade:",
-        "items": {
-          "physical": "Controlo de acesso físico: os centros de dados dos fornecedores de alojamento (Hetzner, AWS) possuem certificações ISO 27001",
-          "auth": "Autenticação: início de sessão com endereço de e-mail e palavra-passe ou através de Google OAuth 2.0. As palavras-passe são guardadas exclusivamente como hash bcrypt com fator de custo 12, nunca em texto simples. No registo com palavra-passe, o endereço de e-mail é confirmado uma vez através de um código de utilização única, e as tentativas falhadas de início de sessão estão limitadas a 10 em 15 minutos por instância da aplicação. A plataforma não oferece um segundo fator na via da palavra-passe. Quem inicia sessão com Google utiliza a MFA da própria conta Google.",
-          "rbac": "Permissões baseadas em funções: administrador, revisor, membro; aplicadas na camada de aplicação através de middleware tRPC",
-          "separation": "Isolamento multilocatário: cada consulta que transporta dados filtra na camada da base de dados pelo ID da empresa do utilizador autenticado; não existem conjuntos de dados partilhados entre clientes",
-          "secrets": "As palavras-passe nunca são guardadas em texto simples. Cada início de sessão é comparado com um hash bcrypt, mesmo quando não existe qualquer conta para o endereço indicado, para que o tempo de resposta não revele quem está registado.",
-          "personnel": "Medidas relativas ao pessoal: o acesso aos sistemas de produção e aos dados pessoais está limitado a um grupo reduzido e nominal, vinculado por confidencialidade. O acesso segue o princípio do menor privilégio e é revogado quando uma função termina."
-        }
-      },
-      "integrity": {
-        "heading": "Integridade (Art. 32.o, n.o 1, alínea b) RGPD)",
-        "items": {
-          "input": "Controlo de entrada: registo de auditoria de todas as alterações, capturando o ID do utilizador, a ação, o tipo de entidade, a data e hora, o endereço IP, o agente do utilizador e os valores antes/depois",
-          "checksum": "Deteção de adulteração no registo de auditoria: cada linha de auditoria contém uma soma de verificação SHA-256 sobre o seu conteúdo, de modo a que as alterações a uma linha sejam detetáveis",
-          "transfer": "Controlo de transferência: transmissão de dados apenas via TLS; todos os pontos de extremidade autenticados exigem uma sessão válida",
-          "evidenceHash": "Documentos de prova: o local de armazenamento e os metadados são gravados no carregamento; um hash SHA-256 opcional fornecido pelo cliente pode ser armazenado junto com o ficheiro",
-          "signoff": "Mecanismo de aprovação: no momento da aprovação, o estado do requisito é fotografado para uma tabela de histórico de aprovações cujas entradas formam uma cadeia SHA-256 (a soma de verificação de cada entrada cobre a anterior). A adulteração do histórico é detetável de ponta a ponta"
-        }
-      },
-      "availability": {
-        "heading": "Disponibilidade (Art. 32.o, n.o 1, alínea b) RGPD)",
-        "items": {
-          "backup": "Cópias de segurança da base de dados de acordo com as predefinições do serviço Hetzner Cloud; os detalhes sobre a configuração atual das cópias de segurança estão disponíveis mediante pedido",
-          "redundancy": "Armazenamento dos documentos de prova no AWS S3 com as garantias de durabilidade de objetos fornecidas pela AWS",
-          "rateLimit": "Limitação de taxa nas tentativas de início de sessão, nos pontos de extremidade públicos (verificação de aplicabilidade, portal de fornecedores) e nos pontos de extremidade autenticados com utilização intensiva de recursos (exportações PDF, geração de certificados)",
-          "uploadLimit": "Os ficheiros carregados estão limitados a 50 MB por ficheiro",
-          "status": "Indicador de disponibilidade: nisd2.eu/status verifica em cada pedido a acessibilidade da base de dados e mostra o resultado publicamente, em cache durante 30 segundos. Não operamos monitorização contínua com alerta automático."
-        }
-      },
-      "evaluation": {
-        "heading": "Procedimento de revisão regular (Art. 32.o, n.o 1, alínea d) RGPD)",
-        "items": {
-          "review": "Estas TOMs são revistas mediante a ocorrência de um evento e, pelo menos, uma vez por ano",
-          "patch": "Atualizações de dependências e de bibliotecas relevantes para a segurança: o Dependabot está ativado para apresentar correções de segurança e atualizações de versão como pull requests com periodicidade semanal",
-          "incident": "Obrigações de comunicação: as violações de dados pessoais serão comunicadas à autoridade de controlo competente no prazo de 72 horas, nos termos do Art. 33.o RGPD",
-          "code": "Prática de desenvolvimento: as alterações ao código passam por pull requests; as verificações de tipos em modo estrito do TypeScript são aplicadas; testes automatizados direcionados cobrem a lógica crítica para a segurança (por exemplo, a classificação de aplicabilidade)"
-        }
-      },
-      "subprocessors": {
-        "heading": "Subcontratantes ulteriores",
-        "p1": "Todos os subcontratantes ulteriores estão vinculados por contratos ao abrigo do Art. 28.o RGPD. A lista completa consta do documento DPA.",
-        "linkLabel": "Ver lista completa de subcontratantes ulteriores (DPA)",
-        "linkHref": "/avv"
-      },
-      "contact": {
-        "heading": "Contacto para proteção de dados",
-        "p1": "As questões sobre estas TOMs ou sobre o nosso tratamento de dados devem ser enviadas para:",
-        "email": "contact@nisd2.eu"
       }
     },
     "terms": {
@@ -6706,15 +6621,12 @@
         },
         "resend": {
           "purpose": "Emails transacionais"
-        },
-        "xai": {
-          "purpose": "Preenchimento prévio de formulários assistido por IA (opcional)"
         }
       },
       "basisEU": "Estado-Membro da UE",
       "basisSCC": "Cláusulas Contratuais-Tipo da UE",
       "noteHeading": "Nota sobre transferências para países terceiros",
-      "noteBody": "A Resend Inc. e a xAI Corp. têm sede nos Estados Unidos. As transferências de dados pessoais são feitas com base nas Cláusulas Contratuais-Tipo (CCT) da UE ao abrigo do Art. 46.o RGPD. A xAI é utilizada apenas para preenchimento prévio de formulários assistido por IA e apenas quando o utilizador usa ativamente essa funcionalidade. Os utilizadores são informados da partilha de dados de forma transparente dentro da plataforma.",
+      "noteBody": "A Resend Inc. tem sede nos Estados Unidos. As transferências de dados pessoais são feitas com base nas Cláusulas Contratuais-Tipo (CCT) da UE ao abrigo do Art. 46.o RGPD.",
       "changesHeading": "Alterações",
       "changesBody": "Notificaremos os clientes de auto-alojamento sobre alterações materiais a esta lista com, pelo menos, 30 dias de antecedência."
     },

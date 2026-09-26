@@ -33,7 +33,7 @@ const scopeKeys = [
 
 const requestKeys = ["company", "register", "represented", "contact"] as const;
 
-const subprocessorKeys = ["hetzner", "aws", "google", "resend", "xai"] as const;
+const subprocessorKeys = ["hetzner", "aws", "google", "resend"] as const;
 
 export default async function AvvPage() {
   const t = await getTranslations("info");

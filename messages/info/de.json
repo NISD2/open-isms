@@ -818,8 +818,7 @@
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nürnberg, Deutschland): Hosting der Anwendungsserver und PostgreSQL-Datenbank",
         "google": "Google (OAuth): Authentifizierung, verarbeitet Ihren Namen und Ihre E-Mail-Adresse für die Anmeldung",
         "aws": "Amazon Web Services (S3): Dateispeicherung, speichert von Ihnen hochgeladene Nachweisdokumente",
-        "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails",
-        "xai": "xAI: KI-gestützte Formularvorausfüllung, verarbeitet Unternehmensinformationen zur Generierung von Formularentwürfen"
+        "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails"
       },
       "analytics": {
         "heading": "Analyse",
@@ -910,8 +909,7 @@
           "hetzner": "Hetzner Online GmbH (Falkenstein/Nürnberg, Deutschland) - Hosting der Anwendungsserver und Datenbank",
           "aws": "Amazon Web Services EMEA SARL - Speicherung hochgeladener Nachweisdokumente (S3, EU-Region)",
           "google": "Google Ireland Limited - OAuth-Authentifizierung",
-          "resend": "Resend, Inc. (USA) - Versand von Transaktions-E-Mails",
-          "xai": "xAI Corp. (USA) - KI-gestützte Formularvorausfüllung (optional, kann deaktiviert werden)"
+          "resend": "Resend, Inc. (USA) - Versand von Transaktions-E-Mails"
         },
         "p2": "Änderungen am Bestand der Unterauftragsverarbeiter werden mit Vorlauf angekündigt. Sie haben das Recht, einer Änderung zu widersprechen."
       },
@@ -929,7 +927,7 @@
       },
       "title": "Technische und organisatorische Maßnahmen (TOMs)",
       "subtitle": "Maßnahmen gemäß Art. 32 DSGVO zur Sicherheit der Verarbeitung personenbezogener Daten auf der NISD2.eu-Plattform.",
-      "lastUpdated": "Stand: Juni 2026.",
+      "revised": "Stand: 26.09.2026. Am Code geprüft und korrigiert.",
       "intro": {
         "heading": "Überblick",
         "p1": "Dieses Dokument beschreibt die technischen und organisatorischen Maßnahmen, die Simon Orzel als Betreiber der NISD2.eu-Plattform tatsächlich umsetzt. Es ist eine ehrliche Bestandsaufnahme, keine Wunschliste - wir nennen nur, was bereits implementiert ist.",
@@ -937,18 +935,18 @@
       },
       "hosting": {
         "heading": "Hosting in der EU",
-        "p1": "Die produktive Verarbeitung personenbezogener Daten findet ausschließlich in der EU statt:",
+        "scopeNote": "Server, Datenbank und Dateispeicher liegen in der EU. Zwei Dienste sitzen in den USA und erhalten nur die Daten für ihre Funktion:",
         "items": {
           "appServers": "Anwendungsserver und PostgreSQL-Datenbank: Hetzner Online GmbH, Rechenzentrum Falkenstein/Nürnberg, Deutschland",
           "fileStorage": "Speicherung hochgeladener Nachweisdokumente: AWS S3, EU-Region",
-          "noUSTransfer": "Keine produktive Datenverarbeitung außerhalb der EU. US-Subdienste (Resend für Transaktions-E-Mails, xAI für optionale KI-Vorausfüllung) verarbeiten nur die für ihre Funktion notwendigen Daten."
+          "usServices": "In den USA: Resend, über das wir E-Mails versenden. Grundlage der Übermittlung sind die EU-Standardvertragsklauseln (Art. 46 DSGVO)."
         }
       },
       "pseudonymization": {
         "heading": "Verschlüsselung (Art. 32 Abs. 1 lit. a DSGVO)",
         "items": {
           "transit": "Transportverschlüsselung: TLS für sämtliche Verbindungen zur Plattform (HTTPS)",
-          "rest": "Verschlüsselung im Ruhezustand: AWS S3 Server-Side Encryption (AES256, explizit bei jedem Upload via PutObject gesetzt); PostgreSQL-Daten auf der Hetzner-Infrastruktur",
+          "restStorage": "Verschlüsselung im Ruhezustand: AWS S3 Server-Side Encryption (AES256, bei jedem Upload ausdrücklich gesetzt, auch für archivierte Rechnungen). Die PostgreSQL-Datenbank verschlüsselt die Anwendung nicht zusätzlich.",
           "secrets": "Zugangsdaten und API-Schlüssel werden über Server-Umgebungsvariablen verwaltet, nicht im Quellcode oder in Datenbanken gespeichert"
         }
       },
@@ -957,9 +955,9 @@
         "p1": "Maßnahmen zur Sicherstellung der Vertraulichkeit:",
         "items": {
           "physical": "Zutrittskontrolle: Rechenzentren der eingesetzten Hoster (Hetzner, AWS) verfügen über ISO 27001-Zertifizierungen",
-          "auth": "Authentifizierung: Anmeldung per E-Mail und Passwort oder über Google OAuth 2.0. Passwörter speichern wir ausschließlich als bcrypt-Hash mit Kostenfaktor 12, nie im Klartext. Bei der Registrierung per Passwort wird die E-Mail-Adresse einmalig über einen Einmalcode bestätigt, fehlgeschlagene Anmeldeversuche sind je Anwendungsinstanz auf 10 in 15 Minuten begrenzt. Eine zweite Stufe bietet die Plattform für den Passwortweg nicht an. Wer sich über Google anmeldet, nutzt die MFA des eigenen Google-Kontos.",
-          "rbac": "Rollenbasierte Berechtigungen: Admin, Reviewer, Member; Trennung in der Anwendungsschicht über tRPC-Middleware",
-          "separation": "Mandantentrennung: jede datentragende Abfrage filtert auf der Datenbankebene über die Company-ID des angemeldeten Nutzers; keine gemeinsamen Datenpools zwischen Kunden",
+          "authMethods": "Authentifizierung: Anmeldung per E-Mail und Passwort oder über Google OAuth 2.0. Passwörter speichern wir ausschließlich als bcrypt-Hash mit Kostenfaktor 12, nie im Klartext. Bei der Registrierung per Passwort wird die E-Mail-Adresse einmalig über einen Einmalcode bestätigt. Anmeldeversuche sind je E-Mail-Adresse und Anwendungsinstanz auf 10 in 15 Minuten begrenzt; gezählt wird jeder Versuch. Sitzungen enden nach acht Stunden. Eine zweite Stufe bietet die Plattform für den Passwortweg nicht an. Wer sich über Google anmeldet, nutzt die MFA des eigenen Google-Kontos.",
+          "roles": "Rollenbasierte Berechtigungen: Admin, Reviewer, Legal Reviewer, Member; durchgesetzt in der Anwendungsschicht über tRPC-Middleware",
+          "tenantSeparation": "Mandantentrennung in der Anwendung: jede datentragende Abfrage filtert auf die Company-ID aus der Sitzung des angemeldeten Nutzers. Eine zusätzliche Trennung in der Datenbank (Row Level Security) gibt es nicht.",
           "secrets": "Passwörter werden nie im Klartext gespeichert. Der Abgleich läuft immer gegen einen bcrypt-Hash, auch wenn zu der angefragten E-Mail-Adresse kein Konto existiert, damit sich aus der Antwortzeit nicht ableiten lässt, wer registriert ist.",
           "personnel": "Personelle Maßnahmen: Zugriff auf Produktivsysteme und personenbezogene Daten ist auf einen kleinen, namentlich benannten Personenkreis beschränkt, der zur Vertraulichkeit verpflichtet ist. Zugänge folgen dem Prinzip der minimalen Rechte und werden bei Beendigung der Tätigkeit entzogen."
         }
@@ -967,8 +965,8 @@
       "integrity": {
         "heading": "Integrität (Art. 32 Abs. 1 lit. b DSGVO)",
         "items": {
-          "input": "Eingabekontrolle: Audit-Trail aller Mutationen mit Benutzer-ID, Aktion, Entitätstyp, Zeitstempel, IP-Adresse, User-Agent sowie Vorher-/Nachher-Werten",
-          "checksum": "Manipulationserkennung im Audit-Trail: jede Audit-Zeile trägt eine SHA-256-Prüfsumme über ihren Inhalt, sodass nachträgliche Änderungen einer Zeile erkennbar sind",
+          "inputLog": "Eingabekontrolle: Jede Änderung, die ein angemeldeter Nutzer über die Programmierschnittstelle der Plattform auslöst, wird mit Benutzer-ID, Aktion, Entitätstyp, Zeitstempel, IP-Adresse, User-Agent und den Eingabewerten protokolliert (sensible Felder entfernt). Den vorherigen Wert speichern nur ausgewählte Vorgänge.",
+          "rowChecksum": "Prüfsumme im Audit-Trail: Jede Audit-Zeile erhält beim Schreiben eine SHA-256-Prüfsumme über ihren Inhalt. Ein Werkzeug, das diese Prüfsummen später nachrechnet, gibt es noch nicht.",
           "transfer": "Weitergabekontrolle: Datenübertragung ausschließlich über TLS; alle authentifizierten Endpunkte erfordern eine gültige Session",
           "evidenceHash": "Nachweisdokumente: Speicherort und Metadaten werden bei Upload festgeschrieben; ein Datei-Hash kann optional vom Client mitgesendet und gespeichert werden",
           "signoff": "Sign-Off-Mechanismus: zum Zeitpunkt einer Freigabe wird der Zustand der Anforderung in eine Sign-Off-Historie geschrieben, deren Einträge eine SHA-256-Kette bilden (jede Zeile schließt die Prüfsumme der Vorgängerzeile ein) - Manipulationen am Verlauf werden Ende-zu-Ende erkannt"
@@ -977,18 +975,18 @@
       "availability": {
         "heading": "Verfügbarkeit (Art. 32 Abs. 1 lit. b DSGVO)",
         "items": {
-          "backup": "Datenbank-Backups gemäß den Voreinstellungen des Hetzner-Cloud-Dienstes; auf Anfrage stellen wir Details zur aktuellen Backup-Konfiguration bereit",
+          "backupSetup": "Datenbanksicherungen richtet der Betreiber in der Hosting-Umgebung ein. Sie sind nicht Teil des Quellcodes. Die aktuelle Konfiguration nennen wir auf Anfrage.",
           "redundancy": "Speicherung von Nachweisdokumenten in AWS S3 mit der von AWS bereitgestellten Objekt-Haltbarkeit",
-          "rateLimit": "Rate-Limiting auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie ressourcenintensiven authentifizierten Endpunkten (PDF-Exports, Zertifikat-Generierung)",
+          "rateLimits": "Begrenzung der Anfragen je Anwendungsinstanz (im Arbeitsspeicher) auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie aufwendigen authentifizierten Endpunkten (PDF-Exporte, Erstellung von Zertifikaten)",
           "uploadLimit": "Hochgeladene Dateien sind auf 50 MB pro Datei begrenzt",
-          "status": "Verfügbarkeitsanzeige: nisd2.eu/status prüft bei jedem Aufruf die Erreichbarkeit der Datenbank und zeigt das Ergebnis öffentlich an, zwischengespeichert für 30 Sekunden. Eine durchgehende Überwachung mit automatischer Alarmierung betreiben wir nicht."
+          "statusPage": "Verfügbarkeitsanzeige: nisd2.eu/status prüft die Erreichbarkeit der Datenbank höchstens alle 30 Sekunden und zeigt das Ergebnis öffentlich an. Eine durchgehende Überwachung mit automatischer Alarmierung betreiben wir nicht."
         }
       },
       "evaluation": {
         "heading": "Verfahren zur regelmäßigen Überprüfung (Art. 32 Abs. 1 lit. d DSGVO)",
         "items": {
           "review": "Diese TOMs werden anlassbezogen sowie mindestens jährlich überprüft und aktualisiert",
-          "patch": "Aktualisierung von Abhängigkeiten und sicherheitsrelevanten Bibliotheken: Dependabot ist aktiviert und stellt Sicherheits-Patches sowie Versions-Updates wöchentlich als Pull-Requests bereit",
+          "dependencyUpdates": "Aktualisierung von Abhängigkeiten: Dependabot schlägt wöchentlich neue Versionen der npm-Pakete und GitHub Actions als Pull-Requests vor",
           "incident": "Meldepflichten: Datenschutzverletzungen werden gemäß Art. 33 DSGVO innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde gemeldet",
           "code": "Entwicklungspraxis: Codeänderungen laufen über Pull-Requests; TypeScript strict-mode wird durchgesetzt; automatisierte Tests bestehen für sicherheitskritische Logik (z. B. Anwendbarkeits-Klassifizierung)"
         }
@@ -6709,15 +6707,12 @@
         },
         "resend": {
           "purpose": "Transaktionale E-Mails"
-        },
-        "xai": {
-          "purpose": "KI-gestützte Formularausfüllung (optional)"
         }
       },
       "basisEU": "EU-Mitgliedstaat",
       "basisSCC": "EU-Standardvertragsklauseln",
       "noteHeading": "Hinweis zu Drittlandtransfers",
-      "noteBody": "Resend Inc. und xAI Corp. sitzen in den USA. Die Übermittlung personenbezogener Daten erfolgt auf Grundlage der EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO. xAI wird nur für die KI-gestützte Formularvorbefüllung eingesetzt und nur wenn der Nutzer diese Funktion aktiv verwendet. Über die Datenweitergabe wird in der Plattform transparent informiert.",
+      "noteBody": "Resend Inc. sitzt in den USA. Die Übermittlung personenbezogener Daten erfolgt auf Grundlage der EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO.",
       "changesHeading": "Änderungen",
       "changesBody": "Wir informieren Self-Host-Kunden bei wesentlichen Änderungen an dieser Liste mindestens 30 Tage im Voraus."
     },
