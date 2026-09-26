@@ -135,7 +135,7 @@ export default async function LandingPage() {
                       asChild
                       variant="link"
                       size="lg"
-                      className="group h-11 px-0 has-[>svg]:px-0 text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground hover:no-underline"
+                      className="group h-auto min-h-11 justify-start whitespace-normal px-0 py-2 text-left has-[>svg]:px-0 text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground hover:no-underline"
                     >
                       <Link href="/training/nis2-ceo">
                         {t("guided.trainingCta")}
