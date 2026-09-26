@@ -185,16 +185,18 @@ export default async function LandingPage() {
                 </>
               )}
 
-              {/* Supplier door. No rule above it and no legal citation below
-                  any more, so the paragraph carries its own spacing. */}
-              <p className="mt-8 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                <Link
-                  href="/supplier-portal"
-                  className="font-medium text-foreground/70 underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/40"
-                >
-                  {t("supplierDoor")}
-                </Link>
-              </p>
+              {/* Supplier door, on the old hero only: the guided hero speaks to one reader, the
+                  company doing its own NIS2, and a second door above the fold pulls them away. */}
+              {guided ? null : (
+                <p className="mt-8 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                  <Link
+                    href="/supplier-portal"
+                    className="font-medium text-foreground/70 underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/40"
+                  >
+                    {t("supplierDoor")}
+                  </Link>
+                </p>
+              )}
             </div>
 
             {/* Product: large, frameless, floating screenshot */}
