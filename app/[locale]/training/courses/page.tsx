@@ -10,16 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
+import { COURSES, MIN_PARTICIPANTS_SHOWN } from "@/lib/training/catalog";
 import { api } from "@/lib/trpc/server";
-
-const COURSES = [
-  { id: "nis2-ceo", badge: "NIS 2" },
-  { id: "nis2-tabletop", badge: "NIS 2" },
-  { id: "cra-sbom", badge: "CRA" },
-] as const;
-
-/** Below this a count reads as "nobody takes this", so the line is left out. */
-const MIN_PARTICIPANTS_SHOWN = 10;
 
 export default async function CoursesRoute() {
   const t = await getTranslations("trainingPortal");

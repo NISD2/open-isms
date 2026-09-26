@@ -220,7 +220,7 @@ export function PaidPricingCards({
           priceSub={t("free.priceSub")}
           cta={
             <Button variant="outline" className="w-full" size="lg" asChild>
-              <Link href="/training/courses">{t("free.cta")}</Link>
+              <Link href="/kurse">{t("free.cta")}</Link>
             </Button>
           }
           features={freeFeatures.map((key) => ({

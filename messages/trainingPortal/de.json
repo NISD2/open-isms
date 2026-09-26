@@ -41,6 +41,14 @@
     },
     "progressLabel": "{completed} von {total} Lektionen abgeschlossen",
     "participants": "{count, plural, one {# Person hat begonnen} other {# Personen haben begonnen}}",
+    "publicOverview": {
+      "metaTitle": "Kurse zu NIS 2 und dem Cyber Resilience Act",
+      "metaDescription": "Drei Kurse, offen unter CC BY 4.0: für die Geschäftsleitung, eine Tabletop-Übung und die SBOM nach dem Cyber Resilience Act.",
+      "title": "Kurse",
+      "subtitle": "Offen unter CC BY 4.0. Anmelden und sofort beginnen.",
+      "length": "{lessons} Lektionen, rund {minutes} Minuten",
+      "cta": "Zum Kurs"
+    },
     "estimatedTime": "{minutes} Min. Lesezeit",
     "certificate": {
       "lockedTitle": "Teilnahmebescheinigung",

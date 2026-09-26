@@ -1,4 +1,4 @@
-import { and, countDistinct, eq, inArray } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import {
   loadCourse,
@@ -7,6 +7,7 @@ import {
   loadLessonContent,
   loadQuiz,
 } from "@/lib/training/course-loader";
+import { courseParticipants } from "@/lib/training/participants";
 import { quizSeed, shuffleIndices } from "@/lib/training/quiz-shuffle";
 import { renderLesson } from "@/lib/training/render-lesson";
 import { trainingLessonProgress } from "@/schema";
@@ -51,24 +52,10 @@ export const trainingPortalRouter = router({
       return { course, progress, lessonMetas };
     }),
 
-  /**
-   * How many people have started each course: distinct users with any lesson row. A course has
-   * no separate sign-up, so opening the first lesson is the sign-up. Only the count leaves the
-   * query, nothing about who the people are.
-   */
+  /** How many people have started each course (lib/training/participants.ts). */
   participants: protectedProcedure
     .input(z.object({ courseIds: z.array(z.string().min(1)).min(1).max(20) }))
-    .query(async ({ ctx, input }) => {
-      const rows = await ctx.db
-        .select({
-          courseId: trainingLessonProgress.courseId,
-          people: countDistinct(trainingLessonProgress.userId),
-        })
-        .from(trainingLessonProgress)
-        .where(inArray(trainingLessonProgress.courseId, input.courseIds))
-        .groupBy(trainingLessonProgress.courseId);
-      return Object.fromEntries(rows.map((row) => [row.courseId, row.people]));
-    }),
+    .query(({ ctx, input }) => courseParticipants(ctx.db, input.courseIds)),
 
   getLesson: protectedProcedure
     .input(

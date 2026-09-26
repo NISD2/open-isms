@@ -41,6 +41,14 @@
     },
     "progressLabel": "{completed} van {total} lessen voltooid",
     "participants": "{count, plural, one {# persoon is begonnen} other {# mensen zijn begonnen}}",
+    "publicOverview": {
+      "metaTitle": "Cursussen over NIS 2 en de Cyber Resilience Act",
+      "metaDescription": "Drie cursussen, open onder CC BY 4.0: voor de directie, een tabletop-oefening en de SBOM onder de Cyber Resilience Act.",
+      "title": "Cursussen",
+      "subtitle": "Open onder CC BY 4.0. Meld u aan en begin meteen.",
+      "length": "{lessons} lessen, ongeveer {minutes} minuten",
+      "cta": "Naar de cursus"
+    },
     "estimatedTime": "{minutes} min leestijd",
     "certificate": {
       "lockedTitle": "Deelnamecertificaat",
