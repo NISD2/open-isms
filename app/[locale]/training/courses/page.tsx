@@ -1,5 +1,6 @@
-import { BookOpen, CheckCircle2, ChevronRight, Users } from "lucide-react";
+import { BookOpen, CheckCircle2, ChevronRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
+import { LearnerCountBadge } from "@/components/training/LearnerCountBadge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,6 +48,13 @@ export default async function CoursesRoute() {
                     <BookOpen className="h-6 w-6 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
+                    {people >= MIN_PARTICIPANTS_SHOWN ? (
+                      <div className="mb-2">
+                        <LearnerCountBadge>
+                          {t("participants", { count: people })}
+                        </LearnerCountBadge>
+                      </div>
+                    ) : null}
                     <div className="flex items-center gap-2 mb-1">
                       <CardTitle className="text-base leading-snug">
                         {course.title[locale] ?? course.title.en}
@@ -61,12 +69,6 @@ export default async function CoursesRoute() {
                     <CardDescription className="line-clamp-2">
                       {course.description[locale] ?? course.description.en}
                     </CardDescription>
-                    {people >= MIN_PARTICIPANTS_SHOWN ? (
-                      <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                        <Users className="size-3.5" />
-                        {t("participants", { count: people })}
-                      </p>
-                    ) : null}
                   </div>
                 </div>
               </CardHeader>

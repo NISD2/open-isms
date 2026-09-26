@@ -72,7 +72,8 @@
           "deadlines": "Fristen und Erinnerungen je Anforderung",
           "suppliers": "Sicherheitsfragebogen an Ihre Lieferanten",
           "export": "Export als PDF oder CSV, jederzeit",
-          "updates": "Alle künftigen Updates inklusive"
+          "updates": "Alle künftigen Updates inklusive",
+          "call": "<cal>Persönliche Termine mit uns</cal>, jederzeit buchbar"
         },
         "unlimitedTip": {
           "title": "Für Ihre eigene Unternehmensstruktur",

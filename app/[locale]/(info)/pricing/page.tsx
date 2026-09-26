@@ -129,7 +129,7 @@ const PaidPricing = async ({
   });
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       <JsonLd
         data={{
           ...softwareJsonLd,

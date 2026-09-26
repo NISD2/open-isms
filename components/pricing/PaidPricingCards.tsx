@@ -40,11 +40,13 @@ const paidFeatures = [
   "suppliers",
   "export",
   "updates",
+  "call",
 ] as const;
 const selfHostFeatures = ["everything", "infrastructure", "licence", "contract"] as const;
 
 const SOURCE_URL = "https://github.com/NISD2/open-isms";
 const PAID_CARD_ID = "durchgang";
+const BOOKING_URL = "https://cal.com/nisd2";
 
 // From the LICENSE files and package.json licence fields (the README's table is older than
 // they are). `spdx` is shown as is; the other two rows carry translated wording.
@@ -212,7 +214,7 @@ export function PaidPricingCards({
     <div className="mx-auto max-w-6xl space-y-10">
       {/* group/tiers: hovering or focusing the self-host link to the paid tier lights the
           paid card up, without client state. */}
-      <div className="group/tiers grid gap-6 lg:grid-cols-3 lg:items-start">
+      <div className="group/tiers grid gap-6 lg:grid-cols-[1fr_1.6fr_1fr] lg:items-start">
         <SideTier
           name={t("free.name")}
           description={t("free.description")}
@@ -352,7 +354,18 @@ export function PaidPricingCards({
                       </InfoPanel>
                     </Tooltip>
                   ) : (
-                    t(`paid.features.${key}`)
+                    t.rich(`paid.features.${key}`, {
+                      cal: (chunks) => (
+                        <a
+                          href={BOOKING_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={externalLink}
+                        >
+                          {chunks}
+                        </a>
+                      ),
+                    })
                   )}
                 </FeatureItem>
               ))}

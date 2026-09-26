@@ -72,7 +72,8 @@
           "deadlines": "Deadlines and reminders for each requirement",
           "suppliers": "Security questionnaire for your suppliers",
           "export": "Export to PDF or CSV at any time",
-          "updates": "All future updates included"
+          "updates": "All future updates included",
+          "call": "<cal>Personal calls with us</cal>, bookable any time"
         },
         "unlimitedTip": {
           "title": "For your own company structure",

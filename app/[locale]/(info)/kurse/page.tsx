@@ -1,7 +1,8 @@
-import { ArrowRight, BookOpen, Clock, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { MarketingHero } from "@/components/marketing/MarketingHero";
+import { LearnerCountBadge } from "@/components/training/LearnerCountBadge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -80,6 +81,11 @@ export default async function PublicCoursesPage({
                   </span>
                   <Badge variant="secondary">{badge}</Badge>
                 </div>
+                {people >= MIN_PARTICIPANTS_SHOWN ? (
+                  <LearnerCountBadge>
+                    {tp("participants", { count: people })}
+                  </LearnerCountBadge>
+                ) : null}
                 <CardTitle className="text-lg leading-snug">
                   {course.title[locale] ?? course.title.en}
                 </CardTitle>
@@ -88,18 +94,10 @@ export default async function PublicCoursesPage({
                 </CardDescription>
               </CardHeader>
               <CardContent className="mt-auto space-y-4">
-                <div className="space-y-1.5 text-sm text-muted-foreground">
-                  <p className="flex items-center gap-2">
-                    <Clock className="size-4" />
-                    {t("length", { lessons: totals.lessons, minutes: totals.minutes })}
-                  </p>
-                  {people >= MIN_PARTICIPANTS_SHOWN ? (
-                    <p className="flex items-center gap-2">
-                      <Users className="size-4" />
-                      {tp("participants", { count: people })}
-                    </p>
-                  ) : null}
-                </div>
+                <p className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Clock className="size-4" />
+                  {t("length", { lessons: totals.lessons, minutes: totals.minutes })}
+                </p>
                 <Button asChild className="w-full">
                   <Link href={landing}>
                     {t("cta")}
