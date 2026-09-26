@@ -1,13 +1,14 @@
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import {
-  SidebarProvider,
-  SidebarInset,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/portal/AppSidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { JourneyBoard } from "./JourneyBoard";
-import { SAMPLE_FRAMEWORKS, SAMPLE_USER, buildSampleNodes, sampleAggregate } from "./sample-data";
+import {
+  buildSampleNodes,
+  SAMPLE_FRAMEWORKS,
+  SAMPLE_USER,
+  sampleAggregate,
+} from "./sample-data";
 import { titlesFor } from "./sample-titles";
 
 // Public design route for the portal sidebar + journey redesign. No auth, no
@@ -24,7 +25,7 @@ export default async function JourneyPreviewPage() {
 
   return (
     <SidebarProvider>
-      <AppSidebar user={SAMPLE_USER} frameworks={SAMPLE_FRAMEWORKS} />
+      <AppSidebar user={SAMPLE_USER} frameworks={SAMPLE_FRAMEWORKS} showBilling={false} />
       <SidebarInset>
         <header className="flex h-14 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-sm">
           <SidebarTrigger />

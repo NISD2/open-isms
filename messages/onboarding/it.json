@@ -5,11 +5,9 @@
     "step": "Passo {current} di {total}",
     "steps": {
       "company": "Dettagli dell'organizzazione",
-      "team": "Personale chiave",
-      "ai": "Assistente AI"
+      "team": "Personale chiave"
     },
     "nav": {
-      "back": "Indietro",
       "next": "Avanti",
       "skip": "Salta per ora",
       "submit": "Crea organizzazione"

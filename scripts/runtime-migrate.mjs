@@ -421,8 +421,8 @@ try {
   //
   // These two variables replace the verification email and nothing else. The
   // row written here is exactly what registering would have written, minus
-  // the round trip: same bcrypt cost, same "member" role, no company. The
-  // first company you create promotes you to admin through the normal path,
+  // the round trip: same bcrypt cost, no company and so no role. The first
+  // company you create makes you its admin through the normal path,
   // so this grants no privilege that signing up would not have.
   //
   // Deliberately NOT an upsert. An existing account is left alone, because a
@@ -497,8 +497,8 @@ async function bootstrapAdmin(client) {
     const name = email.split("@")[0] || "Administrator";
 
     await client.query(
-      `INSERT INTO "user" (email, name, password_hash, role, email_verified_at)
-       VALUES ($1, $2, $3, 'member', now())`,
+      `INSERT INTO "user" (email, name, password_hash, email_verified_at)
+       VALUES ($1, $2, $3, now())`,
       [email, name, passwordHash],
     );
 

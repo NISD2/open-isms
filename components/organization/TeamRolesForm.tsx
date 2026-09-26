@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { ArrowLeft, Plus, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -13,8 +15,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ALL_ROLE_KEYS } from "@/lib/compliance/role-keys";
-import { ArrowLeft, Plus, X } from "lucide-react";
-import { z } from "zod";
 
 const emailSchema = z.string().email();
 
@@ -38,6 +38,7 @@ interface TeamRolesFormProps {
   onSkip: () => void;
   onBack: () => void;
   isSubmitting: boolean;
+  submitLabel: string;
 }
 
 interface MemberRow {
@@ -53,6 +54,7 @@ export function TeamRolesForm({
   onSkip,
   onBack,
   isSubmitting,
+  submitLabel,
 }: TeamRolesFormProps) {
   const t = useTranslations("organization.teamRoles");
   const [members, setMembers] = useState<MemberRow[]>([]);
@@ -74,9 +76,7 @@ export function TeamRolesForm({
   }
 
   function updateMember(id: number, field: keyof Omit<MemberRow, "id">, value: string) {
-    setMembers((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, [field]: value } : m)),
-    );
+    setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, [field]: value } : m)));
     if (field === "email") {
       setErrors((prev) => {
         const next = { ...prev };
@@ -119,10 +119,7 @@ export function TeamRolesForm({
       {members.length > 0 && (
         <div className="space-y-3">
           {members.map((m) => (
-            <div
-              key={m.id}
-              className="flex items-start gap-3 rounded-lg border p-3"
-            >
+            <div key={m.id} className="flex items-start gap-3 rounded-lg border p-3">
               <div className="grid flex-1 gap-3 sm:grid-cols-3">
                 <div className="space-y-1">
                   <Label className="text-xs">{t("name")}</Label>
@@ -197,12 +194,7 @@ export function TeamRolesForm({
       </Button>
 
       <div className="flex items-center justify-between gap-3 pt-2">
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={onBack}
-          disabled={isSubmitting}
-        >
+        <Button type="button" variant="ghost" onClick={onBack} disabled={isSubmitting}>
           <ArrowLeft className="mr-1.5 h-4 w-4" />
           {t("back")}
         </Button>
@@ -216,7 +208,7 @@ export function TeamRolesForm({
             {t("skip")}
           </Button>
           <Button type="submit" disabled={isSubmitting}>
-            {t("submit")}
+            {submitLabel}
           </Button>
         </div>
       </div>

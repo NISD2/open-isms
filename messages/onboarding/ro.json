@@ -5,11 +5,9 @@
     "step": "Pasul {current} din {total}",
     "steps": {
       "company": "Detalii despre organizație",
-      "team": "Personal-cheie",
-      "ai": "Asistent AI"
+      "team": "Personal-cheie"
     },
     "nav": {
-      "back": "Înapoi",
       "next": "Înainte",
       "skip": "Sari peste deocamdată",
       "submit": "Creează organizația"

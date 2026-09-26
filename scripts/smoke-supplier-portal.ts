@@ -91,6 +91,8 @@ async function main() {
       companyId: user.companyId,
       companyActivated: user.companyActivated,
       jobTitle: null,
+      // The supplier portal is not behind the access gate; any level exercises the same path.
+      accessLevel: "full",
       sessionVersion: null,
       hints: {
         journeyTourGuided: false,
@@ -193,7 +195,7 @@ async function main() {
     customerOrgName: "Smoke Test Customer GmbH",
     source: "manual",
   });
-  console.log(`   ✓ relationship id=${invited.id} status=${invited.status}\n`);
+  console.log(`   ✓ relationship id=${invited.id}\n`);
 
   // ---------------------------------------------------------------------
   // 3b. Save per-customer contract clauses on the relationship row

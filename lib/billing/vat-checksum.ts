@@ -92,7 +92,7 @@ export const checkStructure = (
   const cc = countryCode.toUpperCase();
   const n = vatNumber.toUpperCase();
   const format = FORMATS[cc];
-  if (!format || !format.test(n)) return { ok: false, reason: "format", countryCode: cc };
+  if (!format?.test(n)) return { ok: false, reason: "format", countryCode: cc };
 
   if (cc === "DE") {
     const expected = germanCheckDigit(n);

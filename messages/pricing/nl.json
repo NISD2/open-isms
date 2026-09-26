@@ -25,6 +25,35 @@
         "f10": "Geen lock-in. Open datamodel. Altijd exporteerbaar, ook naar eigen beheer."
       }
     },
+    "paid": {
+      "meta": {
+        "title": "Prijzen: de NIS 2 begeleide doorloop en eigen beheer",
+        "description": "De NIS 2 begeleide doorloop op nisd2.eu: {price} netto per jaar, op factuur, 30 dagen geld terug, onbeperkt organisaties en gebruikers. Eigen beheer onder AGPL-3.0."
+      },
+      "subtitle": "Eén aanbod op nisd2.eu, één prijs. Of u draait de open broncode zelf.",
+      "name": "NIS 2 begeleide doorloop",
+      "description": "Jaarlicentie op nisd2.eu, door ons beheerd. Eén betaling geldt voor alle organisaties en gebruikers in uw account.",
+      "priceSub": "netto per jaar, excl. btw",
+      "terms": "U betaalt op factuur binnen 30 dagen. Als u binnen 30 dagen na de bestelling opzegt, krijgt u uw geld terug.",
+      "cta": "Bestellen",
+      "courseLine": "Voor de directie is er de NIS 2 cursus.",
+      "courseCta": "Naar de cursus",
+      "features": {
+        "p1": "De NIS 2 vereisten stap voor stap, met status, bewijs en goedkeuring per vereiste",
+        "p2": "Bewijs uploaden en direct bij de vereiste opslaan",
+        "p3": "Wijzigingslog voor uw organisatie",
+        "p4": "Registers voor assets, risico's en leveranciers",
+        "p5": "Deadlines en herbeoordelingsdata per vereiste",
+        "p6": "Onbeperkt organisaties en gebruikers met één betaling"
+      },
+      "delivery": "U krijgt de huidige doorloop direct, en het begeleide formulier zodra het klaar is, binnen hetzelfde betaalde jaar.",
+      "grandfathered": "Wie zich vóór de start van de betaalde toegang minstens één keer heeft aangemeld, houdt de huidige doorloop zonder ervoor te betalen. Voor hen kost het betaalde jaar {price} netto.",
+      "selfHost": {
+        "h2": "Alle toekomstige updates inbegrepen",
+        "h4": "Geen contract, geen activering"
+      },
+      "whyFree": "Waarom eigen beheer niets kost: de broncode staat open op GitHub, controleerbaar en zelf te draaien. U betaalt ervoor dat wij het op nisd2.eu draaien."
+    },
     "selfHost": {
       "name": "Eigen beheer",
       "description": "Volledige broncode. Op uw eigen infrastructuur, blijvend.",

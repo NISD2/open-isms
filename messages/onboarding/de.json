@@ -5,11 +5,9 @@
     "step": "Schritt {current} von {total}",
     "steps": {
       "company": "Organisationsdaten",
-      "team": "Schlüsselpersonal",
-      "ai": "KI-Assistent"
+      "team": "Schlüsselpersonal"
     },
     "nav": {
-      "back": "Zurück",
       "next": "Weiter",
       "skip": "Vorerst überspringen",
       "submit": "Organisation erstellen"

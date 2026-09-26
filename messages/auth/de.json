@@ -41,6 +41,17 @@
       "submit": "Passwort setzen",
       "errorResetFailed": "Code ungültig oder abgelaufen. Bitte neu anfordern.",
       "backToSignIn": "Zurück zur Anmeldung"
+    },
+    "setup": {
+      "title": "Zugang einrichten",
+      "description": "Ihr Konto für den NIS 2 Durchgang ist angelegt. Wählen Sie, wie Sie sich künftig anmelden.",
+      "forEmail": "Für {email}",
+      "passwordLabel": "Passwort festlegen",
+      "passwordHint": "Mindestens 8 Zeichen.",
+      "submit": "Passwort speichern und anmelden",
+      "submitting": "Wird gespeichert",
+      "invalidTitle": "Dieser Link gilt nicht mehr",
+      "invalidDescription": "Der Link ist abgelaufen oder wurde schon verwendet. Melden Sie sich mit Google an oder setzen Sie über „Passwort vergessen“ ein Passwort für diese E-Mail-Adresse."
     }
   }
 }

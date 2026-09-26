@@ -104,11 +104,13 @@ services:
   # Opt in with `docker compose --profile minio up`, and uncomment the
   # storage block in .env. Leave the profile off to use real S3 instead.
   minio:
-    # quay.io rather than Docker Hub: see the note in compose.self-host.yml.
-    # Docker Hub denies these pulls to unauthenticated clients.
-    image: quay.io/minio/minio:latest
+    # Chainguard's build of MinIO: MinIO's own images can no longer be pulled
+    # without an account. See the note in compose.self-host.yml.
+    image: cgr.dev/chainguard/minio:latest
     profiles: [minio]
     restart: unless-stopped
+    # Existing minio-data volumes were written as root by MinIO's own image.
+    user: "0:0"
     # The "you forgot a variable" check lives in this command rather than in a
     # `${VAR:?}` on the environment below, because Compose interpolates EVERY
     # service in the file regardless of which profiles are active. With the
@@ -152,7 +154,8 @@ services:
     ports:
       - "${MINIO_PORT:-9000}:9000"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      # No curl in the image: see the healthcheck note in compose.self-host.yml.
+      test: ["CMD", "/bin/sh", "-c", "exec 3<>/dev/tcp/127.0.0.1/9000 && printf 'GET /minio/health/live HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && read -r status <&3 && [[ $$status == *' 200 '* ]]"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -182,8 +185,8 @@ services:
   # One-shot: create the evidence bucket, then exit. Idempotent, so it is
   # harmless on every subsequent `up`.
   minio-init:
-    # Same registry move as the minio service above.
-    image: quay.io/minio/mc:latest
+    # The server image carries mc too, so one image serves both services.
+    image: cgr.dev/chainguard/minio:latest
     profiles: [minio]
     depends_on:
       minio:

@@ -5,10 +5,12 @@ import { logAudit } from "@/lib/audit";
 import { categoryAssignedEmail, categoryUnassignedEmail, sendMail } from "@/lib/mail";
 import { preferenceFooterFor } from "@/lib/mail/footer";
 import { resolveEmailLocale } from "@/lib/mail/locale";
+import { isMemberOf, listCompanyMembers } from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import {
   categoryAssignment,
   company,
+  companyMembership,
   companyRequirementStatus,
   notification,
   requirement,
@@ -37,10 +39,14 @@ export const assignmentRouter = router({
 
   /** List users in the same company (for assignment dropdown) */
   listAssignableUsers: companyProcedure.query(async ({ ctx }) => {
-    return ctx.db.query.user.findMany({
-      where: eq(user.companyId, ctx.companyId),
-      columns: { id: true, name: true, email: true, role: true, jobTitle: true },
-    });
+    const members = await listCompanyMembers(ctx.db, ctx.companyId);
+    return members.map(({ id, name, email, role, jobTitle }) => ({
+      id,
+      name,
+      email,
+      role,
+      jobTitle,
+    }));
   }),
 
   /** Assign a user as category owner (replaces previous owner) */
@@ -57,7 +63,7 @@ export const assignmentRouter = router({
 
       // Verify the target user belongs to this company
       const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
+        where: and(eq(user.id, input.userId), isMemberOf(ctx.db, ctx.companyId)),
         columns: { id: true },
       });
       if (!member) {
@@ -256,7 +262,7 @@ export const assignmentRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
+        where: and(eq(user.id, input.userId), isMemberOf(ctx.db, ctx.companyId)),
         columns: { id: true },
       });
       if (!member) {
@@ -305,12 +311,19 @@ export const assignmentRouter = router({
     .query(async ({ ctx, input }) => {
       await verifyStatusOwnership(ctx.db, input.statusId, ctx.companyId);
 
-      return ctx.db.query.requirementAssignment.findMany({
+      const rows = await ctx.db.query.requirementAssignment.findMany({
         where: eq(requirementAssignment.statusId, input.statusId),
         with: {
-          user: { columns: { id: true, name: true, email: true, jobTitle: true } },
+          user: { columns: { id: true, name: true, email: true } },
         },
       });
+      const jobTitles = new Map(
+        (await listCompanyMembers(ctx.db, ctx.companyId)).map((m) => [m.id, m.jobTitle]),
+      );
+      return rows.map((r) => ({
+        ...r,
+        user: { ...r.user, jobTitle: jobTitles.get(r.user.id) ?? null },
+      }));
     }),
 
   /** List assignments by assessment + requirement — single JOIN, no sequential lookups */
@@ -328,7 +341,7 @@ export const assignmentRouter = router({
           signedOffAt: requirementAssignment.signedOffAt,
           userName: user.name,
           userEmail: user.email,
-          userJobTitle: user.jobTitle,
+          userJobTitle: companyMembership.jobTitle,
         })
         .from(requirementAssignment)
         .innerJoin(
@@ -336,6 +349,13 @@ export const assignmentRouter = router({
           eq(requirementAssignment.statusId, companyRequirementStatus.id),
         )
         .innerJoin(user, eq(requirementAssignment.userId, user.id))
+        .leftJoin(
+          companyMembership,
+          and(
+            eq(companyMembership.userId, user.id),
+            eq(companyMembership.companyId, ctx.companyId),
+          ),
+        )
         .where(
           and(
             eq(companyRequirementStatus.assessmentId, input.assessmentId),

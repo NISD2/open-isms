@@ -125,6 +125,8 @@ export function reopenedSignOffValues(args: { now: Date }) {
     signOffSnapshot: null,
     isApplicable: true,
     notApplicableReason: null,
+    notApplicableBy: null,
+    notApplicableAt: null,
     nextReviewDate: null,
     updatedAt: args.now,
   };

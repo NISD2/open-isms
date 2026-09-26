@@ -5,10 +5,12 @@ import {
   BadgeCheck,
   Building2,
   ChartLine,
+  CreditCard,
   FlaskConical,
   GraduationCap,
   Loader2,
   Mail,
+  Rocket,
   Shield,
   Trash2,
   Truck,
@@ -28,6 +30,8 @@ import { DevPanel } from "./DevPanel";
 import { EraseUserButton, ErasuresPanel } from "./GdprErasure";
 import { GraphsPanel } from "./GraphsPanel";
 import { median } from "./graphs/derive";
+import { PricingPanel } from "./PricingPanel";
+import { SubscriptionsPanel } from "./SubscriptionsPanel";
 
 // ---------------------------------------------------------------------------
 // Types (inferred from tRPC, kept flat for props)
@@ -49,7 +53,8 @@ interface UserRow {
   id: string;
   email: string;
   name: string;
-  role: string;
+  /** Role in the company the person has open; null without one. */
+  role: string | null;
   createdAt: Date;
   companyId: string | null;
   companyName: string | null;
@@ -228,6 +233,8 @@ type Tab =
   | "suppliers"
   | "emails"
   | "erasures"
+  | "pricing"
+  | "subscriptions"
   | "dev";
 
 /** Human-readable label for a notification.entityType value. */
@@ -358,6 +365,18 @@ export function PlatformAdminPage({
             count: undefined as number | undefined,
           },
           {
+            key: "pricing" as const,
+            label: "Pricing",
+            icon: Rocket,
+            count: undefined as number | undefined,
+          },
+          {
+            key: "subscriptions" as const,
+            label: "Subscriptions",
+            icon: CreditCard,
+            count: undefined as number | undefined,
+          },
+          {
             key: "dev" as const,
             label: "Dev",
             icon: FlaskConical,
@@ -392,6 +411,8 @@ export function PlatformAdminPage({
       {tab === "suppliers" && <SuppliersTable rows={supplierActivity} />}
       {tab === "emails" && <EmailsPanel data={emailActivity} />}
       {tab === "erasures" && <ErasuresPanel />}
+      {tab === "pricing" && <PricingPanel />}
+      {tab === "subscriptions" && <SubscriptionsPanel />}
       {tab === "dev" && <DevPanel />}
     </div>
   );
@@ -685,10 +706,12 @@ function SendOneLifecycleButton({ userId, email }: { userId: string; email: stri
 /** The per-row send for one queued digest (recipient + kind). */
 function SendOneDigestButton({
   userId,
+  companyId,
   kind,
   email,
 }: {
   userId: string;
+  companyId: string;
   kind: "daily" | "weekly";
   email: string;
 }) {
@@ -709,7 +732,7 @@ function SendOneDigestButton({
     <Button
       variant="outline"
       size="sm"
-      onClick={() => send.mutate({ userId, kind })}
+      onClick={() => send.mutate({ userId, companyId, kind })}
       disabled={send.isPending}
       title={`Send only to ${email}`}
     >
@@ -816,6 +839,7 @@ function DigestQueuePanel() {
                     <td className="py-1 pr-2 text-right">
                       <SendOneDigestButton
                         userId={item.userId}
+                        companyId={item.companyId}
                         kind={item.kind}
                         email={item.email}
                       />

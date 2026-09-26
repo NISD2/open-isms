@@ -2,9 +2,10 @@ import { describe, expect, test } from "bun:test";
 import { checkStructure, structuralMessage } from "./vat-checksum";
 
 describe("German check digit", () => {
-  test("accepts published German VAT numbers", () => {
-    // Three real, published numbers. If the algorithm were wrong, at least one would fail.
-    for (const n of ["811569869", "136695976", "462889433"]) {
+  test("accepts German VAT numbers with a correct check digit", () => {
+    // Synthetic numbers whose last digit is the MOD 11,10 check digit of the first eight. No real
+    // company's number is kept in the repository.
+    for (const n of ["123456788", "234567894", "345678906"]) {
       expect(checkStructure("DE", n)).toEqual({
         ok: true,
         countryCode: "DE",
@@ -14,33 +15,29 @@ describe("German check digit", () => {
   });
 
   test("rejects a single altered digit, which is the failure that actually happens", () => {
-    const r = checkStructure("DE", "462889434");
+    const r = checkStructure("DE", "345678900");
     expect(r.ok).toBe(false);
     if (r.ok) throw new Error("unreachable");
     expect(r.reason).toBe("checksum");
   });
 
   test("rejects every single-digit corruption of a valid number", () => {
-    const good = "811569869";
-    let caught = 0;
-    let missed = 0;
-    for (let i = 0; i < good.length; i += 1) {
-      for (let d = 0; d <= 9; d += 1) {
-        const digit = String(d);
-        if (good[i] === digit) continue;
-        const corrupted = good.slice(0, i) + digit + good.slice(i + 1);
-        if (checkStructure("DE", corrupted).ok) missed += 1;
-        else caught += 1;
-      }
-    }
+    const good = "123456788";
+    const corruptions = [...good].flatMap((original, i) =>
+      [..."0123456789"]
+        .filter((digit) => digit !== original)
+        .map((digit) => good.slice(0, i) + digit + good.slice(i + 1)),
+    );
+    const missed = corruptions.filter((c) => checkStructure("DE", c).ok);
     // A MOD 11,10 check digit catches every single-digit error by construction. If this ever
-    // regresses, the algorithm has been broken rather than merely weakened.
-    expect(missed).toBe(0);
-    expect(caught).toBe(81);
+    // regresses, the algorithm has been broken rather than merely weakened, and the failure
+    // names the exact numbers that slipped through.
+    expect(corruptions).toHaveLength(81);
+    expect(missed).toEqual([]);
   });
 
   test("rejects the wrong length before doing any arithmetic", () => {
-    for (const n of ["81156986", "8115698690", "", "81156986X"]) {
+    for (const n of ["12345678", "1234567880", "", "12345678X"]) {
       const r = checkStructure("DE", n);
       expect(r.ok).toBe(false);
       if (r.ok) throw new Error("unreachable");
@@ -74,12 +71,12 @@ describe("other member states are format-checked and say so", () => {
 
 describe("the message shown to a person", () => {
   test("says nothing when the number is fine", () => {
-    expect(structuralMessage(checkStructure("DE", "811569869"))).toBeNull();
+    expect(structuralMessage(checkStructure("DE", "123456788"))).toBeNull();
   });
 
   test("distinguishes a wrong shape from a wrong digit, and blames neither the person nor fraud", () => {
     const format = structuralMessage(checkStructure("DE", "123"));
-    const checksum = structuralMessage(checkStructure("DE", "462889434"));
+    const checksum = structuralMessage(checkStructure("DE", "345678900"));
     expect(format).toContain("country prefix");
     expect(checksum).toContain("digit wrong");
     for (const m of [format, checksum]) {

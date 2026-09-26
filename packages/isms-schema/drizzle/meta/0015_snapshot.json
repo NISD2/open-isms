@@ -1,5 +1,5 @@
 {
-  "id": "74240e73-8bcb-4b9a-9acb-8a78b6a636bf",
+  "id": "5d4cacc3-015c-4ad0-b0ed-0d0dc96ad552",
   "prevId": "68d9af37-fbfb-48e0-ad62-08399063dd24",
   "version": "7",
   "dialect": "postgresql",
@@ -1191,6 +1191,371 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.credit_note": {
+      "name": "credit_note",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "invoice_id": {
+          "name": "invoice_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "qonto_credit_note_id": {
+          "name": "qonto_credit_note_id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "number": {
+          "name": "number",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refund_owed": {
+          "name": "refund_owed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refund_done_at": {
+          "name": "refund_done_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "refund_done_by_user_id": {
+          "name": "refund_done_by_user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_by_user_id": {
+          "name": "created_by_user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "credit_note_invoice_id_invoice_id_fk": {
+          "name": "credit_note_invoice_id_invoice_id_fk",
+          "tableFrom": "credit_note",
+          "tableTo": "invoice",
+          "columnsFrom": [
+            "invoice_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "credit_note_refund_done_by_user_id_user_id_fk": {
+          "name": "credit_note_refund_done_by_user_id_user_id_fk",
+          "tableFrom": "credit_note",
+          "tableTo": "user",
+          "columnsFrom": [
+            "refund_done_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "credit_note_created_by_user_id_user_id_fk": {
+          "name": "credit_note_created_by_user_id_user_id_fk",
+          "tableFrom": "credit_note",
+          "tableTo": "user",
+          "columnsFrom": [
+            "created_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "credit_note_invoice_id_unique": {
+          "name": "credit_note_invoice_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "invoice_id"
+          ]
+        },
+        "credit_note_qonto_credit_note_id_unique": {
+          "name": "credit_note_qonto_credit_note_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "qonto_credit_note_id"
+          ]
+        },
+        "credit_note_number_unique": {
+          "name": "credit_note_number_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "number"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "credit_note_refund_done_only_if_owed": {
+          "name": "credit_note_refund_done_only_if_owed",
+          "value": "\"credit_note\".\"refund_done_at\" IS NULL OR \"credit_note\".\"refund_owed\""
+        },
+        "credit_note_refund_by_only_if_done": {
+          "name": "credit_note_refund_by_only_if_done",
+          "value": "\"credit_note\".\"refund_done_by_user_id\" IS NULL OR \"credit_note\".\"refund_done_at\" IS NOT NULL"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.document_number_counter": {
+      "name": "document_number_counter",
+      "schema": "",
+      "columns": {
+        "series": {
+          "name": "series",
+          "type": "document_series",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "last_value": {
+          "name": "last_value",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "document_number_counter_series_year_pk": {
+          "name": "document_number_counter_series_year_pk",
+          "columns": [
+            "series",
+            "year"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.invoice": {
+      "name": "invoice",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "billing_account_id": {
+          "name": "billing_account_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "qonto_invoice_id": {
+          "name": "qonto_invoice_id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "number": {
+          "name": "number",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "net_cents": {
+          "name": "net_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vat_cents": {
+          "name": "vat_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vat_treatment": {
+          "name": "vat_treatment",
+          "type": "vat_treatment",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vies_request_identifier": {
+          "name": "vies_request_identifier",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "issue_date": {
+          "name": "issue_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "period_start": {
+          "name": "period_start",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "period_end": {
+          "name": "period_end",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "invoice_source",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_by_user_id": {
+          "name": "created_by_user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "archived_pdf_key": {
+          "name": "archived_pdf_key",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_invoice_billing_account": {
+          "name": "idx_invoice_billing_account",
+          "columns": [
+            {
+              "expression": "billing_account_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "invoice_billing_account_id_billing_account_id_fk": {
+          "name": "invoice_billing_account_id_billing_account_id_fk",
+          "tableFrom": "invoice",
+          "tableTo": "billing_account",
+          "columnsFrom": [
+            "billing_account_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "invoice_created_by_user_id_user_id_fk": {
+          "name": "invoice_created_by_user_id_user_id_fk",
+          "tableFrom": "invoice",
+          "tableTo": "user",
+          "columnsFrom": [
+            "created_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "invoice_qonto_invoice_id_unique": {
+          "name": "invoice_qonto_invoice_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "qonto_invoice_id"
+          ]
+        },
+        "invoice_number_unique": {
+          "name": "invoice_number_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "number"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "invoice_net_positive": {
+          "name": "invoice_net_positive",
+          "value": "\"invoice\".\"net_cents\" > 0"
+        },
+        "invoice_vat_not_negative": {
+          "name": "invoice_vat_not_negative",
+          "value": "\"invoice\".\"vat_cents\" >= 0"
+        },
+        "invoice_vat_matches_treatment": {
+          "name": "invoice_vat_matches_treatment",
+          "value": "\"invoice\".\"vat_treatment\" IN ('domestic', 'unconfirmed_eu') OR \"invoice\".\"vat_cents\" = 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
     "public.category_assignment": {
       "name": "category_assignment",
       "schema": "",
@@ -1701,212 +2066,6 @@
           ],
           "columnsTo": [
             "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.control_decision": {
-      "name": "control_decision",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "company_id": {
-          "name": "company_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "control_id": {
-          "name": "control_id",
-          "type": "varchar(32)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "edition": {
-          "name": "edition",
-          "type": "varchar(32)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "outcome": {
-          "name": "outcome",
-          "type": "control_outcome",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "reason": {
-          "name": "reason",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "evidence_module": {
-          "name": "evidence_module",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "evidence_count": {
-          "name": "evidence_count",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "evidence_at": {
-          "name": "evidence_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "justification": {
-          "name": "justification",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "deferred_until": {
-          "name": "deferred_until",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "deferred_until_module": {
-          "name": "deferred_until_module",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "decided_by": {
-          "name": "decided_by",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "decided_at": {
-          "name": "decided_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "supersedes": {
-          "name": "supersedes",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "idx_control_decision_current": {
-          "name": "idx_control_decision_current",
-          "columns": [
-            {
-              "expression": "company_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "control_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "decided_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "idx_control_decision_company": {
-          "name": "idx_control_decision_company",
-          "columns": [
-            {
-              "expression": "company_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "idx_control_decision_supersedes": {
-          "name": "idx_control_decision_supersedes",
-          "columns": [
-            {
-              "expression": "supersedes",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "control_decision_company_id_company_id_fk": {
-          "name": "control_decision_company_id_company_id_fk",
-          "tableFrom": "control_decision",
-          "tableTo": "company",
-          "columnsFrom": [
-            "company_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "control_decision_decided_by_user_id_fk": {
-          "name": "control_decision_decided_by_user_id_fk",
-          "tableFrom": "control_decision",
-          "tableTo": "user",
-          "columnsFrom": [
-            "decided_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "control_decision_control_fk": {
-          "name": "control_decision_control_fk",
-          "tableFrom": "control_decision",
-          "tableTo": "control",
-          "columnsFrom": [
-            "control_id",
-            "edition"
-          ],
-          "columnsTo": [
-            "id",
-            "edition"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -2995,6 +3154,96 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.company_membership": {
+      "name": "company_membership",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "company_id": {
+          "name": "company_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "membership_role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_company_membership_company": {
+          "name": "idx_company_membership_company",
+          "columns": [
+            {
+              "expression": "company_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "company_membership_user_id_user_id_fk": {
+          "name": "company_membership_user_id_user_id_fk",
+          "tableFrom": "company_membership",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "company_membership_company_id_company_id_fk": {
+          "name": "company_membership_company_id_company_id_fk",
+          "tableFrom": "company_membership",
+          "tableTo": "company",
+          "columnsFrom": [
+            "company_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "company_membership_user_id_company_id_pk": {
+          "name": "company_membership_user_id_company_id_pk",
+          "columns": [
+            "user_id",
+            "company_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.notification": {
       "name": "notification",
       "schema": "",
@@ -3308,6 +3557,88 @@
       },
       "isRLSEnabled": false
     },
+    "public.billing_account": {
+      "name": "billing_account",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "owner_user_id": {
+          "name": "owner_user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "qonto_client_id": {
+          "name": "qonto_client_id",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "access_level": {
+          "name": "access_level",
+          "type": "access_level",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'free'"
+        },
+        "renewal_canceled_at": {
+          "name": "renewal_canceled_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_account_owner_user_id_user_id_fk": {
+          "name": "billing_account_owner_user_id_user_id_fk",
+          "tableFrom": "billing_account",
+          "tableTo": "user",
+          "columnsFrom": [
+            "owner_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_account_qonto_client_id_unique": {
+          "name": "billing_account_qonto_client_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "qonto_client_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.company": {
       "name": "company",
       "schema": "",
@@ -3434,17 +3765,9 @@
           "primaryKey": false,
           "notNull": false
         },
-        "critical_installation": {
-          "name": "critical_installation",
-          "type": "settled_fact",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'unsettled'"
-        },
-        "service_types": {
-          "name": "service_types",
-          "type": "text[]",
+        "billing_account_id": {
+          "name": "billing_account_id",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
@@ -3905,6 +4228,19 @@
             "id"
           ],
           "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "company_billing_account_id_billing_account_id_fk": {
+          "name": "company_billing_account_id_billing_account_id_fk",
+          "tableFrom": "company",
+          "tableTo": "billing_account",
+          "columnsFrom": [
+            "billing_account_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
@@ -5889,6 +6225,15 @@
     }
   },
   "enums": {
+    "public.access_level": {
+      "name": "access_level",
+      "schema": "public",
+      "values": [
+        "free",
+        "grandfathered",
+        "full"
+      ]
+    },
     "public.ai_data_sharing": {
       "name": "ai_data_sharing",
       "schema": "public",
@@ -5930,15 +6275,12 @@
         "emergency"
       ]
     },
-    "public.control_outcome": {
-      "name": "control_outcome",
+    "public.document_series": {
+      "name": "document_series",
       "schema": "public",
       "values": [
-        "done",
-        "no_object",
-        "covered_otherwise",
-        "justified",
-        "deferred"
+        "invoice",
+        "credit_note"
       ]
     },
     "public.evidence_status": {
@@ -6008,6 +6350,14 @@
         "progress"
       ]
     },
+    "public.invoice_source": {
+      "name": "invoice_source",
+      "schema": "public",
+      "values": [
+        "self_serve",
+        "admin"
+      ]
+    },
     "public.item_status": {
       "name": "item_status",
       "schema": "public",
@@ -6048,6 +6398,16 @@
         "unknown"
       ]
     },
+    "public.membership_role": {
+      "name": "membership_role",
+      "schema": "public",
+      "values": [
+        "admin",
+        "member",
+        "reviewer",
+        "legal_reviewer"
+      ]
+    },
     "public.notification_channel": {
       "name": "notification_channel",
       "schema": "public",
@@ -6085,15 +6445,6 @@
         "free",
         "guided",
         "enterprise"
-      ]
-    },
-    "public.settled_fact": {
-      "name": "settled_fact",
-      "schema": "public",
-      "values": [
-        "yes",
-        "no",
-        "unsettled"
       ]
     },
     "public.supplier_publication_broadcast_status": {
@@ -6136,6 +6487,16 @@
         "warning",
         "urgent",
         "critical"
+      ]
+    },
+    "public.vat_treatment": {
+      "name": "vat_treatment",
+      "schema": "public",
+      "values": [
+        "domestic",
+        "reverse_charge",
+        "unconfirmed_eu",
+        "outside_eu"
       ]
     },
     "public.vulnerability_status": {

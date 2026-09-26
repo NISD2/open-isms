@@ -1,0 +1,156 @@
+{
+  "billing": {
+    "order": {
+      "metaTitle": "Bestellen",
+      "title": "Bestelling",
+      "intro": "De NIS 2 begeleide doorloop voor een jaar, {price} netto. Eén betaling geldt voor alle organisaties en gebruikers in uw account. U betaalt op factuur binnen 30 dagen, en de toegang gaat open zodra u bestelt. Als u binnen 30 dagen na uw eerste bestelling opzegt, krijgt u uw geld terug.",
+      "sandboxNotice": "Testmodus: deze bestelling maakt een factuur aan in de Qonto sandbox en geeft dit account toegang.",
+      "alreadyPaid": "Uw account is betaald tot {date}, factuur {number}.",
+      "payerOnly": "De accounthouder kan de bestelling plaatsen. Meestal is dat degene die de organisatie heeft aangemaakt.",
+      "pendingCheck": "We controleren een eerdere bestelling voor dit account. Bestel alstublieft niet opnieuw; wij nemen contact met u op.",
+      "toInvoices": "Naar uw facturen"
+    },
+    "form": {
+      "recipientTitle": "Factuur aan",
+      "recipientDescription": "De factuur staat op naam van het bedrijf. Waar hij naartoe gaat, stelt u verderop in.",
+      "companyName": "Bedrijfsnaam",
+      "companyNamePlaceholder": "Voorbeeld Beheer B.V.",
+      "companyNameHint": "Precies zoals ingeschreven. Wij kunnen dat niet controleren, omdat het btw-register van de EU Duitse bedrijfsnamen niet vrijgeeft.",
+      "street": "Straat en huisnummer",
+      "streetPlaceholder": "Voorbeeldstraat 1",
+      "zip": "Postcode",
+      "zipPlaceholder": "1011 AB",
+      "city": "Plaats",
+      "cityPlaceholder": "Amsterdam",
+      "countryCode": "Land",
+      "vatNumber": "Btw-nummer",
+      "vatNumberPlaceholder": "NL123456789B01",
+      "vatHint": "Bepaalt de btw op de factuur.",
+      "vatChecking": "Controle in het register van de EU",
+      "deliveryTitle": "Waar de factuur naartoe gaat",
+      "deliveryDescription": "In de meeste bedrijven gaat de factuur naar de boekhouding, niet naar degene die bestelt.",
+      "invoiceEmail": "E-mail voor de factuur",
+      "invoiceEmailPlaceholder": "facturen@example.invalid",
+      "copyToEmail": "Kopie aan (optioneel)",
+      "copyToEmailPlaceholder": "u@example.invalid",
+      "purchaseOrder": "Inkoopordernummer of kostenplaats (optioneel)",
+      "purchaseOrderPlaceholder": "PO-2026-0042",
+      "purchaseOrderHint": "Veel bedrijven betalen een factuur alleen als hun eigen referentie erop staat.",
+      "submit": "Bestelling plaatsen",
+      "submitting": "Factuur wordt aangemaakt"
+    },
+    "accept": {
+      "label": "Ik bestel voor het bovengenoemde bedrijf en ben daartoe bevoegd. De <terms>algemene voorwaarden</terms> met de <avv>verwerkersovereenkomst</avv> in de versie van {date} zijn van toepassing. Facturen ontvangen wij als pdf per e-mail.",
+      "required": "Bevestig de algemene voorwaarden en de verwerkersovereenkomst. Zonder die bevestiging kunnen wij de bestelling niet aannemen."
+    },
+    "legal": {
+      "title": "Voor u bestelt",
+      "b2b": "Alleen voor bedrijven. Verkoper is Simon Orzel, Trierer Str. 6, 50676 Keulen, Duitsland.",
+      "term": "De licentie geldt een jaar vanaf vandaag en wordt daarna telkens met een jaar verlengd. 14 dagen voordat wij de factuur voor het nieuwe jaar sturen, herinneren wij u per e-mail. U kunt opzeggen tot de dag van verlenging.",
+      "moneyBack": "Is dit de eerste bestelling van uw account, dan kunt u binnen 30 dagen vanaf vandaag zonder opgave van redenen opzeggen. Staat de factuur nog open, dan annuleren wij die met een creditnota. Heeft u al betaald, dan maken wij het bedrag binnen 30 dagen na de opzegging terug over. Voor verlengingen en latere bestellingen geldt dit niet.",
+      "payment": "Betaling per overschrijving binnen 30 dagen na de factuurdatum. Is de factuur dan niet betaald, dan blokkeren wij de toegang tot de licentie tot de betaling binnen is.",
+      "contract": "Zo komt de overeenkomst tot stand: u controleert uw gegevens en de prijs, bevestigt de voorwaarden en klikt op \"Bestelling plaatsen\". Wij nemen de bestelling aan door de toegang direct te openen en de factuur per e-mail te sturen. Invoerfouten verbetert u voor de klik in de velden zelf. Welke versie van de voorwaarden u heeft aanvaard, staat daarna onder Facturatie. U kunt de voorwaarden en de verwerkersovereenkomst nu opslaan of afdrukken. De contracttaal is Duits of Engels; de voorwaarden zijn niet in het Nederlands beschikbaar, bij een bestelling in het Nederlands geldt de Engelse versie."
+    },
+    "registry": {
+      "valid": "Bevestigd door het register van de EU",
+      "invalid": "Nog niet bekend in het register",
+      "unavailable": "Register niet bereikbaar, dat houdt niets op",
+      "malformed": "Niet gecontroleerd"
+    },
+    "warnings": {
+      "notInRegister": "Het register van de EU kent dit nummer nog niet. Bij een nieuw uitgegeven nummer is dat normaal, en de bestelling wordt er niet door opgehouden.",
+      "checkNumber": "Controleer het btw-nummer."
+    },
+    "price": {
+      "title": "Wat in rekening wordt gebracht",
+      "net": "Netto",
+      "vat": "Btw {rate}%",
+      "gross": "Totaal"
+    },
+    "treatment": {
+      "reverse_charge": "Btw verlegd: u draagt de btw zelf af.",
+      "unconfirmed_eu": "Verlegging vraagt een nummer dat het register van de EU heeft bevestigd. Dit nummer is nog niet bevestigd, daarom bevat de factuur Duitse btw.",
+      "outside_eu": "Plaats van dienst buiten Duitsland, daarom zonder Duitse btw."
+    },
+    "errors": {
+      "companyName": "De bedrijfsnaam komt op de factuur en is nodig.",
+      "street": "Straat en huisnummer ontbreken.",
+      "zip": "De postcode ontbreekt.",
+      "city": "De plaats ontbreekt.",
+      "countryCode": "Landcode van twee letters, bijvoorbeeld NL.",
+      "vatFormat": "Dat lijkt geen btw-nummer. Het begint met de landcode.",
+      "vatChecksum": "Er zit een verkeerd cijfer in dat nummer. Vergelijk het met de brief van de Belastingdienst.",
+      "vatCountry": "Dat past niet bij de opbouw van een btw-nummer uit dat land.",
+      "email": "Een adres waar de factuur naartoe kan.",
+      "tooLong": "Dat is te lang.",
+      "generic": "Controleer dit veld."
+    },
+    "result": {
+      "title": "Besteld",
+      "body": "Factuur {number} van {gross} komt binnen enkele minuten aan bij {email}. Te betalen voor {dueDate}. Uw toegang is open.",
+      "alreadyOrdered": "Voor dit account bestaat al een geldige factuur. U vindt die onder uw facturen.",
+      "tooManyRequests": "Te veel pogingen. Wacht een minuut.",
+      "failed": "De bestelling kon nu niet worden afgerond. Probeer het later opnieuw.",
+      "priceChanged": "Het register van de EU gaf zojuist een ander antwoord, daarom is de prijs veranderd. Controleer het nieuwe bedrag en bestel dan opnieuw.",
+      "termsChanged": "Onze voorwaarden zijn gewijzigd sinds u deze pagina opende. Laad de pagina opnieuw, lees de actuele versie en bestel dan opnieuw.",
+      "unknown": "We konden niet zeker vaststellen of de factuur is aangemaakt. Bestel alstublieft niet opnieuw. Wij controleren het en nemen contact met u op."
+    },
+    "cancel": {
+      "menuItem": "Licentie opzeggen",
+      "button": "Opzeggen",
+      "moneyBackTitle": "Bestelling annuleren?",
+      "moneyBackBody": "U zit nog binnen de 30 dagen geld terug, tot {lastDay}. Wij annuleren de factuur met een creditnota, en de jaarlicentie eindigt direct. Heeft u al betaald, dan maken wij het bedrag binnen 30 dagen na de opzegging aan u terug over.",
+      "renewalTitle": "Verlenging opzeggen?",
+      "renewalBody": "De 30 dagen geld terug zijn voorbij. Uw licentie loopt door tot {periodEnd} en wordt daarna niet verlengd. De factuur blijft geldig.",
+      "renewalLaterInvoiceBody": "De 30 dagen geld terug gelden alleen voor de eerste bestelling van een account. Uw licentie loopt door tot {periodEnd} en wordt daarna niet verlengd. De factuur blijft geldig.",
+      "kept": "Uw organisaties en alles wat u heeft ingevoerd, blijven in uw account bewaard.",
+      "confirm": "Ja, opzeggen",
+      "keep": "Niet opzeggen",
+      "doneMoneyBack": "Geannuleerd. Creditnota {number} komt per e-mail. Heeft u het bedrag al overgemaakt, dan betalen wij het binnen 30 dagen na ontvangst terug.",
+      "pending": "We controleren nog een eerdere bestelling of opzegging voor dit account. Er is niets gewijzigd. Probeer het later opnieuw of schrijf ons.",
+      "doneMoneyBackRefund": "Geannuleerd. Creditnota {number} komt per e-mail, en wij maken het betaalde bedrag binnen 30 dagen aan u terug over.",
+      "doneRenewal": "Opgezegd. Uw licentie loopt tot {date}.",
+      "unknown": "We konden niet zeker vaststellen of de opzegging is gelukt. Probeer het alstublieft niet opnieuw. Wij controleren het en nemen contact met u op.",
+      "failed": "De opzegging is zojuist niet gelukt. Probeer het later opnieuw.",
+      "tooManyRequests": "Te veel pogingen. Wacht alstublieft een minuut."
+    },
+    "page": {
+      "renewalCanceled": "Opgezegd. Uw licentie loopt af op {date} en wordt niet verlengd.",
+      "moneyBackUntil": "30 dagen geld terug tot {date}.",
+      "contractTitle": "Overeenkomst",
+      "contractAccepted": "Algemene voorwaarden en verwerkersovereenkomst in de versie van {version}, aanvaard op {date} door {name}.",
+      "contractOnCall": "Algemene voorwaarden en verwerkersovereenkomst in de versie van {version}, aanvaard in het gesprek op {date} ({name}).",
+      "contractNotRecorded": "Voor de lopende factuur is geen aanvaarding van de voorwaarden opgeslagen. Schrijf ons als u de overeenkomst op schrift nodig heeft.",
+      "contractUnknownName": "zonder naam",
+      "contractLinks": "Huidige versie lezen: <terms>algemene voorwaarden</terms>, <avv>verwerkersovereenkomst</avv>.",
+      "cancelRoute": "U kunt hier opzeggen met de knop, of schriftelijk per e-mail aan contact@nisd2.eu. Binnen 30 dagen na de eerste bestelling van uw account krijgt u uw geld terug. Daarna, en bij elke verlenging, eindigt de licentie aan het einde van het betaalde jaar.",
+      "title": "Facturatie",
+      "description": "Toegang, prijs en facturen van uw account.",
+      "accessTitle": "Toegang",
+      "level": {
+        "free": "Zonder licentie",
+        "grandfathered": "Bestaand account: de huidige doorloop blijft voor u vrij te gebruiken",
+        "full": "Jaarlicentie NIS 2 begeleide doorloop"
+      },
+      "price": "Uw prijs: {price} netto per jaar",
+      "order": "Bestellen",
+      "invoicesTitle": "Facturen",
+      "payerOnly": "De accounthouder ziet de facturen. Meestal is dat degene die de organisatie heeft aangemaakt.",
+      "empty": "Nog geen facturen.",
+      "number": "Nummer",
+      "amount": "Bedrag",
+      "period": "Periode",
+      "status": "Status",
+      "download": "PDF",
+      "pdfPending": "PDF volgt",
+      "credited": "Gecrediteerd ({number})",
+      "statuses": {
+        "paid": "Betaald",
+        "unpaid": "Open",
+        "canceled": "Geannuleerd",
+        "draft": "Concept",
+        "unknown": "Niet op te halen"
+      }
+    }
+  }
+}

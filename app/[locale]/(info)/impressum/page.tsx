@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CopyProtected } from "@/components/CopyProtected";
 import { pageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("info");
   return {
@@ -24,14 +22,10 @@ export default async function ImpressumPage() {
   const t = await getTranslations("info");
 
   return (
-    <CopyProtected><article>
+    <article>
       <header className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">
-          {t("impressum.title")}
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          {t("impressum.subtitle")}
-        </p>
+        <h1 className="text-4xl font-bold tracking-tight">{t("impressum.title")}</h1>
+        <p className="text-lg text-muted-foreground">{t("impressum.subtitle")}</p>
       </header>
 
       <Separator className="my-8" />
@@ -42,9 +36,13 @@ export default async function ImpressumPage() {
             <CardTitle>{t("impressum.responsible.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-1 text-sm text-muted-foreground">
-            <p className="font-medium text-foreground">{t("impressum.responsible.company")}</p>
+            <p className="font-medium text-foreground">
+              {t("impressum.responsible.company")}
+            </p>
             <p>{t("impressum.responsible.address")}</p>
-            <p>{t("impressum.responsible.emailLabel")}: {t("impressum.responsible.email")}</p>
+            <p>
+              {t("impressum.responsible.emailLabel")}: {t("impressum.responsible.email")}
+            </p>
           </CardContent>
         </Card>
       </section>
@@ -118,6 +116,6 @@ export default async function ImpressumPage() {
           </CardContent>
         </Card>
       </section>
-    </article></CopyProtected>
+    </article>
   );
 }

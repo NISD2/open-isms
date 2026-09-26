@@ -12,7 +12,12 @@ import {
   SectionHeading,
   StatPlate,
 } from "./chrome";
-import { formatFieldValue, getDateLocale } from "./format";
+import {
+  formatDecision,
+  formatFieldValue,
+  formatReportDate,
+  formatSigner,
+} from "./format";
 import type { ReportData, ReportRequirement } from "./load-report-data";
 import { getDocumentLabels, getReportLabels, getStatusLabel } from "./policy-labels";
 import { styles } from "./styles";
@@ -32,8 +37,11 @@ const STATUS_TONE: Record<string, StatusTone> = {
 };
 
 function RequirementSection({ req, locale }: { req: ReportRequirement; locale: string }) {
-  const dateLocale = getDateLocale(locale);
   const labels = getReportLabels(locale);
+  const signer = formatSigner(req.signedOffByName, req.signedOffRole);
+  const notApplicableDecided = req.notApplicable
+    ? formatDecision(req.notApplicable.decidedAt, req.notApplicable.decidedBy, locale)
+    : null;
 
   return (
     <View style={styles.record} wrap={false}>
@@ -45,13 +53,27 @@ function RequirementSection({ req, locale }: { req: ReportRequirement; locale: s
         </Badge>
       </View>
 
-      {req.signedOffRole && (
+      {req.notApplicable && (
         <View>
-          <FieldRow label={labels.signedOffBy} value={req.signedOffRole} />
+          {req.notApplicable.reason && (
+            <FieldRow
+              label={labels.notApplicableReason}
+              value={req.notApplicable.reason}
+            />
+          )}
+          {notApplicableDecided && (
+            <FieldRow label={labels.notApplicableDecided} value={notApplicableDecided} />
+          )}
+        </View>
+      )}
+
+      {signer && (
+        <View>
+          <FieldRow label={labels.signedOffBy} value={signer} />
           {req.signedOffAt && (
             <FieldRow
               label={labels.signedOffAt}
-              value={new Date(req.signedOffAt).toLocaleDateString(dateLocale)}
+              value={formatReportDate(new Date(req.signedOffAt), locale)}
             />
           )}
           {req.signOffSnapshot?.templateVersion && (
@@ -111,7 +133,8 @@ export function ComplianceReport({ data, locale }: ComplianceReportProps) {
   const unapprovedCount = data.completedCount - data.approvedCount;
   const labels = getReportLabels(locale);
   const docLabels = getDocumentLabels(locale);
-  const dateLocale = getDateLocale(locale);
+  // Every date in the report is a calendar day in Berlin, so dates side by side never disagree.
+  const today = formatReportDate(new Date(), locale);
   const footerContext = `${data.companyName} - ${data.frameworkName}`;
 
   const stats = [
@@ -132,10 +155,7 @@ export function ComplianceReport({ data, locale }: ComplianceReportProps) {
     >
       <Page size="A4" style={[styles.page, styles.coverPage]}>
         <BrandBands />
-        <DocHeader
-          label={labels.generated}
-          value={new Date().toLocaleDateString(dateLocale)}
-        />
+        <DocHeader label={labels.generated} value={today} />
 
         <View style={styles.coverBody}>
           <CoverHeading
@@ -148,11 +168,11 @@ export function ComplianceReport({ data, locale }: ComplianceReportProps) {
                 : []),
               {
                 label: labels.assessmentStarted,
-                value: data.assessmentDate.toLocaleDateString(dateLocale),
+                value: formatReportDate(data.assessmentDate, locale),
               },
               {
                 label: labels.generated,
-                value: new Date().toLocaleDateString(dateLocale),
+                value: today,
               },
             ]}
           />
@@ -194,7 +214,7 @@ export function ComplianceReport({ data, locale }: ComplianceReportProps) {
               {cat.intakeSignedOffAt && (
                 <FieldRow
                   label={labels.signedOff}
-                  value={new Date(cat.intakeSignedOffAt).toLocaleDateString(dateLocale)}
+                  value={formatReportDate(new Date(cat.intakeSignedOffAt), locale)}
                 />
               )}
               {Object.entries(cat.intakeAnswers).map(([key, val]) => (

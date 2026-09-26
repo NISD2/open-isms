@@ -1,0 +1,156 @@
+{
+  "billing": {
+    "order": {
+      "metaTitle": "Order",
+      "title": "Order",
+      "intro": "The NIS 2 guided pass for one year, {price} net. One payment covers every organization and user on your account. You pay by invoice within 30 days, and access opens as soon as you order. If you cancel within 30 days of your first order, you get your money back.",
+      "sandboxNotice": "Test mode: this order creates an invoice in the Qonto sandbox and unlocks this account.",
+      "alreadyPaid": "Your account is paid until {date}, invoice {number}.",
+      "payerOnly": "The account holder can place the order. Usually that is whoever set up the organization.",
+      "pendingCheck": "We are checking an earlier order for this account. Please do not order again; we will get back to you.",
+      "toInvoices": "Your invoices"
+    },
+    "form": {
+      "recipientTitle": "Billed to",
+      "recipientDescription": "The invoice is made out to the company. Where it is sent is set further down.",
+      "companyName": "Company name",
+      "companyNamePlaceholder": "Example Holding Ltd",
+      "companyNameHint": "Exactly as registered. We cannot check it for you, because the EU VAT register does not disclose German company names.",
+      "street": "Street and number",
+      "streetPlaceholder": "1 Example Street",
+      "zip": "Postcode",
+      "zipPlaceholder": "50676",
+      "city": "City",
+      "cityPlaceholder": "Cologne",
+      "countryCode": "Country",
+      "vatNumber": "VAT number",
+      "vatNumberPlaceholder": "DE123456789",
+      "vatHint": "Decides the VAT on the invoice.",
+      "vatChecking": "Checking the EU register",
+      "deliveryTitle": "Where the invoice goes",
+      "deliveryDescription": "In most companies the invoice goes to accounting, not to the person ordering.",
+      "invoiceEmail": "Invoice email",
+      "invoiceEmailPlaceholder": "invoices@example.invalid",
+      "copyToEmail": "Copy to (optional)",
+      "copyToEmailPlaceholder": "you@example.invalid",
+      "purchaseOrder": "Purchase order or cost centre (optional)",
+      "purchaseOrderPlaceholder": "PO-2026-0042",
+      "purchaseOrderHint": "Many companies only pay an invoice that carries their own reference.",
+      "submit": "Place order",
+      "submitting": "Creating the invoice"
+    },
+    "accept": {
+      "label": "I am ordering for the company above and I am authorised to do so. The <terms>terms</terms> and the <avv>data processing agreement</avv> as of {date} apply. We receive invoices as PDF by email.",
+      "required": "Please confirm the terms and the data processing agreement. We cannot accept the order without it."
+    },
+    "legal": {
+      "title": "Before you order",
+      "b2b": "For businesses only. The seller is Simon Orzel, Trierer Str. 6, 50676 Köln, Germany.",
+      "term": "The licence runs for one year from today and then renews for one year at a time. We remind you by email 14 days before we issue the invoice for the new year. You can cancel up to the renewal date.",
+      "moneyBack": "If this is your account's first order, you can cancel within 30 days from today without giving a reason. If the invoice is still open, we cancel it with a credit note. If you have already paid, we transfer the amount back within 30 days of the cancellation. This does not apply to renewals or later orders.",
+      "payment": "Payment by bank transfer within 30 days of the invoice date. If the invoice is not paid by then, we suspend access to the licence until the payment arrives.",
+      "contract": "How the contract is made: you check your details and the price, confirm the terms and click \"Place order\". We accept the order by opening access at once and sending the invoice by email. You correct input errors in the fields before you click. Which version of the terms you accepted is shown under Billing afterwards. You can save or print the terms and the DPA now. The contract language is German or English, depending on the language you order in."
+    },
+    "registry": {
+      "valid": "Confirmed by the EU register",
+      "invalid": "Not in the register yet",
+      "unavailable": "Register unreachable, which holds nothing up",
+      "malformed": "Not checked"
+    },
+    "warnings": {
+      "notInRegister": "The EU register does not know this number yet, which is normal for a newly issued one. It does not hold up the order.",
+      "checkNumber": "Please check the VAT number."
+    },
+    "price": {
+      "title": "What is charged",
+      "net": "Net",
+      "vat": "VAT {rate}%",
+      "gross": "Total"
+    },
+    "treatment": {
+      "reverse_charge": "Reverse charge: you account for the VAT yourself.",
+      "unconfirmed_eu": "Reverse charge needs a number the EU register has confirmed. This one is not confirmed yet, so the invoice carries German VAT.",
+      "outside_eu": "Supplied outside Germany for VAT purposes, so no German VAT."
+    },
+    "errors": {
+      "companyName": "The registered company name goes on the invoice.",
+      "street": "Street and number are missing.",
+      "zip": "The postcode is missing.",
+      "city": "The city is missing.",
+      "countryCode": "Two-letter country code, for example DE.",
+      "vatFormat": "That does not look like a VAT number. It starts with the country code.",
+      "vatChecksum": "A digit in that number is wrong. Check it against your tax office letter.",
+      "vatCountry": "That does not match the VAT number format of that country.",
+      "email": "An address the invoice can be sent to.",
+      "tooLong": "That is too long.",
+      "generic": "Please check this field."
+    },
+    "result": {
+      "title": "Ordered",
+      "body": "Invoice {number} for {gross} reaches {email} within a few minutes. Payable by {dueDate}. Your access is open.",
+      "alreadyOrdered": "This account already has a current invoice. You find it under your invoices.",
+      "tooManyRequests": "Too many attempts. Please wait a minute.",
+      "failed": "The order could not be completed just now. Please try again later.",
+      "priceChanged": "The EU register answered differently just now, so the price changed. Please check the new amount, then order again.",
+      "termsChanged": "Our terms have changed since you opened this page. Please reload it, read the current version, then order again.",
+      "unknown": "We could not tell for certain whether the invoice was created. Please do not order again. We will check and get back to you."
+    },
+    "cancel": {
+      "menuItem": "Cancel licence",
+      "button": "Cancel",
+      "moneyBackTitle": "Cancel your order?",
+      "moneyBackBody": "You are still within the thirty days money back, until {lastDay}. We cancel the invoice with a credit note, and the annual licence ends right away. If you have already paid, we transfer the amount back to you within 30 days of the cancellation.",
+      "renewalTitle": "Cancel the renewal?",
+      "renewalBody": "The thirty days money back have passed. Your licence runs until {periodEnd} and does not renew after that. The invoice stands.",
+      "renewalLaterInvoiceBody": "The thirty days money back apply only to an account's first order. Your licence runs until {periodEnd} and does not renew after that. The invoice stands.",
+      "kept": "Your organizations and everything you entered stay in your account.",
+      "confirm": "Yes, cancel",
+      "keep": "Keep it",
+      "doneMoneyBack": "Canceled. Credit note {number} is on its way by email. If you have already transferred the amount, we refund it within 30 days of its arrival.",
+      "pending": "We are still checking an earlier order or cancel for this account. Nothing was changed. Please try again later or write to us.",
+      "doneMoneyBackRefund": "Canceled. Credit note {number} is on its way by email, and we will transfer the amount you paid back to you within 30 days.",
+      "doneRenewal": "Canceled. Your licence runs until {date}.",
+      "unknown": "We could not tell for certain whether the cancel went through. Please do not try again. We will check and get back to you.",
+      "failed": "The cancel did not go through just now. Please try again later.",
+      "tooManyRequests": "Too many attempts. Please wait a minute."
+    },
+    "page": {
+      "renewalCanceled": "Canceled. Your licence ends on {date} and does not renew.",
+      "moneyBackUntil": "Thirty days money back until {date}.",
+      "contractTitle": "Contract",
+      "contractAccepted": "Terms and data processing agreement as of {version}, accepted on {date} by {name}.",
+      "contractOnCall": "Terms and data processing agreement as of {version}, accepted on the call on {date} ({name}).",
+      "contractNotRecorded": "No acceptance of the terms is stored for the current invoice. Write to us if you need the contract in text form.",
+      "contractUnknownName": "no name",
+      "contractLinks": "Read the current version: <terms>terms</terms>, <avv>data processing agreement</avv>.",
+      "cancelRoute": "You can cancel here with the button, or in text form by email to contact@nisd2.eu. Within 30 days of your account's first order you get your money back. After that, and on every renewal, the licence ends at the end of the paid year.",
+      "title": "Billing",
+      "description": "Your account's access, price and invoices.",
+      "accessTitle": "Access",
+      "level": {
+        "free": "No licence",
+        "grandfathered": "Early account: the current journey stays free for you",
+        "full": "NIS 2 guided pass, annual licence"
+      },
+      "price": "Your price: {price} net a year",
+      "order": "Order",
+      "invoicesTitle": "Invoices",
+      "payerOnly": "The account holder sees the invoices. Usually that is whoever set up the organization.",
+      "empty": "No invoices yet.",
+      "number": "Number",
+      "amount": "Amount",
+      "period": "Period",
+      "status": "Status",
+      "download": "PDF",
+      "pdfPending": "PDF to follow",
+      "credited": "Credited ({number})",
+      "statuses": {
+        "paid": "Paid",
+        "unpaid": "Open",
+        "canceled": "Canceled",
+        "draft": "Draft",
+        "unknown": "Unavailable"
+      }
+    }
+  }
+}

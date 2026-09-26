@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { CopyProtected } from "@/components/CopyProtected";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { pageAlternates } from "@/lib/seo";
@@ -21,7 +20,7 @@ export async function generateMetadata({
 
 const dataTypes = ["account", "forms", "files", "technical", "advisory"] as const;
 const purposeKeys = ["contract", "auth", "security", "legal"] as const;
-const processorKeys = ["google", "aws", "resend", "xai"] as const;
+const processorKeys = ["google", "aws", "resend"] as const;
 const rightKeys = [
   "access",
   "rectification",
@@ -35,7 +34,7 @@ export default async function DatenschutzPage() {
   const t = await getTranslations("info");
 
   return (
-    <CopyProtected>
+    <>
       <article>
         <header className="space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">{t("datenschutz.title")}</h1>
@@ -232,6 +231,6 @@ export default async function DatenschutzPage() {
           </Card>
         </section>
       </article>
-    </CopyProtected>
+    </>
   );
 }

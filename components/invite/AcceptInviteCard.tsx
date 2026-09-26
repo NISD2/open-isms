@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter, Link } from "@/i18n/navigation";
+import { Shield, UserPlus } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,11 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Shield, UserPlus } from "lucide-react";
+import { Link, useRouter } from "@/i18n/navigation";
 import { trpc } from "@/lib/trpc/client";
 import { userFacingError } from "@/lib/trpc/error-message";
-import { toast } from "sonner";
-import { useTranslations } from "next-intl";
 
 interface Props {
   token: string;
@@ -24,7 +24,6 @@ interface Props {
   role: string;
   redirectPath?: string | null;
   userEmail: string | null;
-  hasCompany: boolean;
   isSignedIn: boolean;
 }
 
@@ -35,7 +34,6 @@ export function AcceptInviteCard({
   role,
   redirectPath,
   userEmail,
-  hasCompany,
   isSignedIn,
 }: Props) {
   const t = useTranslations("team");
@@ -86,26 +84,15 @@ export function AcceptInviteCard({
     );
   }
 
-  // Case 2: Already in a company
-  if (hasCompany) {
-    return (
-      <CenteredCard
-        title={t("accept.alreadyMemberTitle")}
-        description={t("accept.alreadyMemberDescription")}
-      >
-        <Button variant="outline" className="w-full" onClick={() => router.push("/dashboard")}>
-          {t("accept.goToDashboard")}
-        </Button>
-      </CenteredCard>
-    );
-  }
-
-  // Case 3: Email mismatch
+  // Case 2: Email mismatch
   if (userEmail?.toLowerCase() !== inviteEmail.toLowerCase()) {
     return (
       <CenteredCard
         title={t("accept.wrongAccountTitle")}
-        description={t("accept.wrongAccountDescription", { inviteEmail, userEmail: userEmail ?? "" })}
+        description={t("accept.wrongAccountDescription", {
+          inviteEmail,
+          userEmail: userEmail ?? "",
+        })}
       >
         <Button
           className="w-full"
@@ -118,18 +105,13 @@ export function AcceptInviteCard({
     );
   }
 
-  // Case 4: Email matches — accept
+  // Case 3: Email matches — accept
   return (
     <CenteredCard
       title={t("accept.joinTitle", { company: companyName })}
       description={t("accept.joinDescription", { role })}
     >
-      <Button
-        className="w-full"
-        size="lg"
-        disabled={accepting}
-        onClick={handleAccept}
-      >
+      <Button className="w-full" size="lg" disabled={accepting} onClick={handleAccept}>
         <UserPlus className="mr-2 h-4 w-4" />
         {accepting ? t("accept.joining") : t("accept.acceptInvite")}
       </Button>

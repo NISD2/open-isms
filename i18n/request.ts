@@ -8,6 +8,7 @@ const namespaces = [
   "auth",
   "audit",
   "audit-readiness",
+  "billing",
   "changes",
   "common",
   "companyLookup",

@@ -23,7 +23,40 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { aiDataSharingEnum, journeyModeEnum, planEnum, settledFactEnum } from "../enums";
+import {
+  accessLevelEnum,
+  aiDataSharingEnum,
+  journeyModeEnum,
+  planEnum,
+  settledFactEnum,
+} from "../enums";
+
+// ---------------------------------------------------------------------------
+// Billing accounts — The paying customer, above its companies
+// ---------------------------------------------------------------------------
+
+/**
+ * One payment covers every company under the account, so what a company may use is decided here
+ * and inherited by each company that points at it.
+ *
+ * Billing name, address and VAT number are deliberately absent: they live on the Qonto client, and
+ * `qontoClientId` is the reference to it. The access level is kept here because it is our own
+ * authorisation decision, read on every request, not a copy of anything Qonto holds.
+ */
+export const billingAccount = pgTable("billing_account", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  /** The person who pays and may cancel. Survives their deletion as null, like `company.ownerId`. */
+  ownerUserId: uuid("owner_user_id").references((): AnyPgColumn => user.id, {
+    onDelete: "set null",
+  }),
+  /** Null until the first order creates or finds the customer in Qonto. */
+  qontoClientId: varchar("qonto_client_id", { length: 64 }).unique(),
+  accessLevel: accessLevelEnum("access_level").default("free").notNull(),
+  /** Set when the customer cancels after the thirty days: access runs out, nothing renews. */
+  renewalCanceledAt: timestamp("renewal_canceled_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
 
 // ---------------------------------------------------------------------------
 // Companies — Regulated entities registered on the platform
@@ -96,6 +129,10 @@ export const company = pgTable("company", {
   serviceTypes: text("service_types").array(),
 
   // Billing
+  /** The paying customer this company belongs to. Every company has one. */
+  billingAccountId: uuid("billing_account_id")
+    .notNull()
+    .references((): AnyPgColumn => billingAccount.id),
   plan: planEnum("plan").default("free").notNull(),
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
   stripeSubscriptionId: varchar("stripe_subscription_id", { length: 255 }),
@@ -329,7 +366,13 @@ export const user = pgTable(
     email: varchar("email", { length: 255 }).notNull().unique(),
     name: varchar("name", { length: 255 }).notNull(),
     passwordHash: varchar("password_hash", { length: 255 }),
-    role: varchar("role", { length: 100 }).notNull(),
+    /**
+     * Superseded by `company_membership.role` and no longer read or written. Kept, with a default,
+     * for one more release, because the previous release still writes it during a deploy; the
+     * release after this one drops it.
+     */
+    role: varchar("role", { length: 100 }).notNull().default("member"),
+    /** Superseded by `company_membership.job_title`; dropped together with `role`. */
     jobTitle: varchar("job_title", { length: 255 }),
     isManagement: boolean("is_management").default(false),
     /**
@@ -387,6 +430,12 @@ export const user = pgTable(
      * only durable "when were they last here" fact.
      */
     lastLoginAt: timestamp("last_login_at"),
+    /**
+     * When this person was grandfathered: stamped once, at the billing launch, on everyone who had
+     * got in before it (lib/billing/launch.ts). A stamped person keeps the current journey free in
+     * every company they belong to or start later. Null for everyone who arrived after the launch.
+     */
+    grandfatheredAt: timestamp("grandfathered_at"),
     /**
      * Which language this account reads the platform in (one of the app's
      * locale codes, lib/locale.ts). Exists so email sent OUTSIDE a request

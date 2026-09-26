@@ -25,6 +25,35 @@
         "f10": "Kein Lock-in. Offenes Datenmodell. Export jederzeit, auch in den Selbstbetrieb."
       }
     },
+    "paid": {
+      "meta": {
+        "title": "Preise: NIS 2 Durchgang und Selbstbetrieb",
+        "description": "Der NIS 2 Durchgang auf nisd2.eu: {price} netto im Jahr, auf Rechnung, 30 Tage Geld zurück, beliebig viele Organisationen und Nutzer. Selbstbetrieb unter AGPL-3.0."
+      },
+      "subtitle": "Ein Angebot auf nisd2.eu, ein Preis. Oder Sie betreiben den offenen Quellcode selbst.",
+      "name": "NIS 2 Durchgang",
+      "description": "Jahreslizenz auf nisd2.eu, von uns betrieben. Eine Zahlung gilt für alle Organisationen und Nutzer Ihres Kontos.",
+      "priceSub": "netto im Jahr, zzgl. USt.",
+      "terms": "Sie zahlen auf Rechnung mit 30 Tagen Zahlungsziel. Wenn Sie innerhalb von 30 Tagen ab Bestellung kündigen, bekommen Sie Ihr Geld zurück.",
+      "cta": "Bestellen",
+      "courseLine": "Für die Geschäftsleitung gibt es den NIS 2 Kurs.",
+      "courseCta": "Zum Kurs",
+      "features": {
+        "p1": "Die NIS 2 Anforderungen Schritt für Schritt, mit Status, Nachweis und Freigabe je Anforderung",
+        "p2": "Nachweise hochladen und direkt an der Anforderung ablegen",
+        "p3": "Änderungsprotokoll für Ihre Organisation",
+        "p4": "Register für Assets, Risiken und Lieferanten",
+        "p5": "Fristen und Wiedervorlagen je Anforderung",
+        "p6": "Beliebig viele Organisationen und Nutzer mit einer Zahlung"
+      },
+      "delivery": "Sie bekommen den heutigen Durchgang sofort und das geführte Formular, sobald es fertig ist, im selben bezahlten Jahr.",
+      "grandfathered": "Wer sich vor dem Start der Bezahlung mindestens einmal angemeldet hat, nutzt den heutigen Durchgang weiter, ohne dafür zu zahlen. Für diese Personen kostet das bezahlte Jahr {price} netto.",
+      "selfHost": {
+        "h2": "Alle künftigen Updates inklusive",
+        "h4": "Kein Vertrag, keine Freischaltung"
+      },
+      "whyFree": "Warum der Selbstbetrieb nichts kostet: Der Quellcode liegt offen auf GitHub, prüfbar und selbst betreibbar. Bezahlt wird der Betrieb auf nisd2.eu."
+    },
     "selfHost": {
       "name": "Selbstbetrieb",
       "description": "Vollständiger Quellcode. Auf eigener Infrastruktur, dauerhaft.",

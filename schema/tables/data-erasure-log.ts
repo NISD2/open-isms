@@ -25,14 +25,14 @@
  *    wired to a cron.
  */
 import {
+  boolean,
+  index,
+  jsonb,
   pgTable,
+  text,
+  timestamp,
   uuid,
   varchar,
-  text,
-  boolean,
-  timestamp,
-  jsonb,
-  index,
 } from "drizzle-orm/pg-core";
 
 /** How a given table's rows relating to the subject were resolved. */
@@ -47,7 +47,7 @@ export interface ErasureScope {
    *  instruction-to-delete. This lists recipients; it does not assert that an
    *  automated notification was sent. */
   processorsInScope: string[];
-  /** true when the subject was the sole member of a company and that company + all its tenant data were torn down */
+  /** true when the subject owned a company and that company + all its tenant data were torn down */
   companyTornDown: boolean;
   /** residual caveats worth recording (e.g. JSONB snapshot scrub was best-effort) */
   residualNotes: string[];

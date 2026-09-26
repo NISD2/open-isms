@@ -8,6 +8,7 @@ import {
   Compass,
   FileText,
   Footprints,
+  Receipt,
   ScrollText,
   Server,
   ShieldCheck,
@@ -74,6 +75,8 @@ interface AppSidebarProps {
     isPlatformAdmin?: boolean;
   };
   frameworks: FrameworkGroup[];
+  /** Whether billing is launched for this person (lib/billing/ordering-access.ts). */
+  showBilling: boolean;
 }
 
 function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
@@ -97,7 +100,7 @@ function NavMenu({ items, pathname }: { items: NavItem[]; pathname: string }) {
   );
 }
 
-export function AppSidebar({ user, frameworks }: AppSidebarProps) {
+export function AppSidebar({ user, frameworks, showBilling }: AppSidebarProps) {
   const t = useTranslations("portal");
   const pathname = usePathname();
   // `usePathname()` returns the route template (e.g. `/compliance/[categorySlug]`),
@@ -120,6 +123,7 @@ export function AppSidebar({ user, frameworks }: AppSidebarProps) {
   const managementItems: NavItem[] = [
     { href: "/team", label: t("team"), icon: Users },
     { href: "/organization", label: t("organization"), icon: Building2 },
+    ...(showBilling ? [{ href: "/billing", label: t("billing"), icon: Receipt }] : []),
     { href: "/audit", label: t("auditTrail"), icon: ScrollText },
   ];
 

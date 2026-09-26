@@ -9,13 +9,14 @@
  * Permission model: every procedure verifies the parent supplier row belongs
  * to the caller's tenant before reading or writing the asset/offering.
  */
-import { z } from "zod";
-import { eq, and, asc } from "drizzle-orm";
+
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../../init";
-import { insertRow, updateRow } from "../../typed";
-import { asset, supplier, assetSupplierOffering } from "@/schema";
+import { and, asc, eq } from "drizzle-orm";
+import { z } from "zod";
+import { asset, assetSupplierOffering, supplier } from "@/schema";
 import { assetServiceUpdateSchema } from "@/schema/validators";
+import { accountProcedure, router } from "../../init";
+import { insertRow, updateRow } from "../../typed";
 
 async function verifyRelationshipOwnership(
   db: typeof import("@/lib/db").db,
@@ -47,7 +48,7 @@ const managedAssetUpdateSchema = assetServiceUpdateSchema.extend({
 });
 
 export const supplierManagedAssetRouter = router({
-  listByRelationship: companyProcedure
+  listByRelationship: accountProcedure
     .input(z.object({ relationshipId: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       await verifyRelationshipOwnership(ctx.db, input.relationshipId, ctx.companyId);
@@ -68,7 +69,7 @@ export const supplierManagedAssetRouter = router({
       return rows.map((r) => ({ ...r.asset, ...r.offering }));
     }),
 
-  get: companyProcedure
+  get: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       const row = await ctx.db
@@ -80,11 +81,15 @@ export const supplierManagedAssetRouter = router({
       if (row.length === 0) throw new TRPCError({ code: "NOT_FOUND" });
       const r = row[0];
       if (!r) throw new TRPCError({ code: "NOT_FOUND" });
-      await verifyRelationshipOwnership(ctx.db, r.offering.customerRelationshipId, ctx.companyId);
+      await verifyRelationshipOwnership(
+        ctx.db,
+        r.offering.customerRelationshipId,
+        ctx.companyId,
+      );
       return { ...r.asset, ...r.offering };
     }),
 
-  create: companyProcedure
+  create: accountProcedure
     .input(managedAssetCreateSchema)
     .mutation(async ({ ctx, input }) => {
       const {
@@ -129,7 +134,10 @@ export const supplierManagedAssetRouter = router({
         )
         .returning();
       if (!assetRow) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to create asset" });
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create asset",
+        });
       }
 
       if (!serviceType) {
@@ -161,7 +169,7 @@ export const supplierManagedAssetRouter = router({
       return assetRow;
     }),
 
-  update: companyProcedure
+  update: accountProcedure
     .input(managedAssetUpdateSchema)
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input;
@@ -218,7 +226,9 @@ export const supplierManagedAssetRouter = router({
           ...(onPremVulnerabilityDisclosurePolicy !== undefined && {
             onPremVulnerabilityDisclosurePolicy,
           }),
-          ...(onPremPatchSlaCriticalHours !== undefined && { onPremPatchSlaCriticalHours }),
+          ...(onPremPatchSlaCriticalHours !== undefined && {
+            onPremPatchSlaCriticalHours,
+          }),
           ...(proServicesBackgroundCheckScope !== undefined && {
             proServicesBackgroundCheckScope,
           }),
@@ -226,7 +236,9 @@ export const supplierManagedAssetRouter = router({
           ...(proServicesCustomerPremisesPolicy !== undefined && {
             proServicesCustomerPremisesPolicy,
           }),
-          ...(managedPrivilegedAccessMgmt !== undefined && { managedPrivilegedAccessMgmt }),
+          ...(managedPrivilegedAccessMgmt !== undefined && {
+            managedPrivilegedAccessMgmt,
+          }),
           ...(managedSessionRecording !== undefined && { managedSessionRecording }),
           ...(managedOnCall24x7 !== undefined && { managedOnCall24x7 }),
           updatedAt: new Date(),
@@ -236,7 +248,7 @@ export const supplierManagedAssetRouter = router({
       return row;
     }),
 
-  delete: companyProcedure
+  delete: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.db

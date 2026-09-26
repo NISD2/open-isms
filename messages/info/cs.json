@@ -817,8 +817,7 @@
         "hetzner": "Hetzner Online GmbH (Falkenstein/Norimberk, Německo): hosting aplikačních serverů a databáze PostgreSQL",
         "google": "Google (OAuth): ověřování, zpracovává vaše jméno a e-mailovou adresu pro přihlášení",
         "aws": "Amazon Web Services (S3): úložiště souborů, ukládá dokumenty s důkazy, které nahráváte",
-        "resend": "Resend: transakční e-maily, doručuje oznámení a pozvánky",
-        "xai": "xAI: předvyplnění formulářů s pomocí AI, zpracovává firemní informace pro generování návrhů odpovědí ve formulářích"
+        "resend": "Resend: transakční e-maily, doručuje oznámení a pozvánky"
       },
       "analytics": {
         "heading": "Analytika",
@@ -909,8 +908,7 @@
           "hetzner": "Hetzner Online GmbH (Falkenstein/Norimberk, Německo), hosting aplikačních serverů a databáze",
           "aws": "Amazon Web Services EMEA SARL, úložiště nahraných důkazních dokumentů (S3, region EU)",
           "google": "Google Ireland Limited, ověřování OAuth",
-          "resend": "Resend, Inc. (USA), doručování transakčních e-mailů",
-          "xai": "xAI Corp. (USA), předvyplnění formulářů s podporou AI (volitelné, lze vypnout)"
+          "resend": "Resend, Inc. (USA), doručování transakčních e-mailů"
         },
         "p2": "Změny seznamu dalších zpracovatelů budou oznamovány předem. Máte právo proti změnám vznést námitku."
       },
@@ -919,89 +917,6 @@
         "p1": "Technická a organizační opatření relevantní pro tuto DPA podle čl. 32 GDPR jsou popsána v našem dokumentu TOMs.",
         "linkLabel": "Zobrazit dokument TOMs",
         "linkHref": "/toms"
-      }
-    },
-    "toms": {
-      "meta": {
-        "title": "Technická a organizační opatření (TOMs), čl. 32 GDPR",
-        "description": "Technická a organizační opatření platformy NISD2.eu podle čl. 32 GDPR. Hosting Hetzner Německo, TLS, audit trail s řetězením SHA-256, izolace více tenantů, RBAC."
-      },
-      "title": "Technická a organizační opatření (TOMs)",
-      "subtitle": "Opatření podle čl. 32 GDPR zajišťující bezpečnost zpracování osobních údajů na platformě NISD2.eu.",
-      "lastUpdated": "Naposledy aktualizováno: červen 2026.",
-      "intro": {
-        "heading": "Přehled",
-        "p1": "Tento dokument popisuje technická a organizační opatření, která skutečně zavedl Simon Orzel jako provozovatel platformy NISD2.eu. Jde o poctivý soupis, nikoli o seznam přání. Uvádíme jen to, co je již zavedeno.",
-        "p2": "Opatření jsou v souladu s IT-Grundschutz (BSI) a budou rozšiřována s tím, jak platforma poroste."
-      },
-      "hosting": {
-        "heading": "Hosting v EU",
-        "p1": "Produkční zpracování osobních údajů probíhá výhradně v rámci EU:",
-        "items": {
-          "appServers": "Aplikační servery a databáze PostgreSQL: Hetzner Online GmbH, datové centrum Falkenstein/Norimberk, Německo",
-          "fileStorage": "Úložiště nahraných důkazních dokumentů: AWS S3, region EU",
-          "noUSTransfer": "Žádné produkční zpracování dat mimo EU. Americké subslužby (Resend pro transakční e-maily, xAI pro volitelné předvyplnění s AI) zpracovávají pouze data nezbytná pro svou funkci."
-        }
-      },
-      "pseudonymization": {
-        "heading": "Šifrování (čl. 32 odst. 1 písm. a) GDPR)",
-        "items": {
-          "transit": "Šifrování přenosu: TLS pro všechna připojení k platformě (HTTPS)",
-          "rest": "Šifrování při uložení: serverové šifrování AWS S3 (AES256, nastavené explicitně při každém nahrání přes PutObject); data PostgreSQL na infrastruktuře Hetzner",
-          "secrets": "Přístupové údaje a API klíče se spravují přes proměnné prostředí serveru, neukládají se do zdrojového kódu ani databází"
-        }
-      },
-      "confidentiality": {
-        "heading": "Důvěrnost (čl. 32 odst. 1 písm. b) GDPR)",
-        "p1": "Opatření zajišťující důvěrnost:",
-        "items": {
-          "physical": "Kontrola fyzického přístupu: datová centra poskytovatelů hostingu (Hetzner, AWS) mají certifikace ISO 27001",
-          "auth": "Ověřování: přihlášení e-mailovou adresou a heslem nebo přes Google OAuth 2.0. Hesla ukládáme výhradně jako otisk bcrypt s nákladovým faktorem 12, nikdy v otevřené podobě. Při registraci heslem se e-mailová adresa jednorázově potvrzuje jednorázovým kódem a neúspěšné pokusy o přihlášení jsou omezeny na 10 za 15 minut na instanci aplikace. Platforma nenabízí druhý faktor na heslové cestě. Kdo se přihlašuje přes Google, používá MFA vlastního účtu Google.",
-          "rbac": "Oprávnění založená na rolích: admin, reviewer, member; vynucená v aplikační vrstvě přes middleware tRPC",
-          "separation": "Izolace více tenantů: každý dotaz nesoucí data filtruje na databázové vrstvě podle ID společnosti ověřeného uživatele; žádné sdílené datové fondy mezi zákazníky",
-          "secrets": "Hesla nikdy neukládáme v otevřené podobě. Každé přihlášení se porovnává s otiskem bcrypt, i když k zadané adrese žádný účet neexistuje, aby z doby odpovědi nešlo odvodit, kdo je registrovaný.",
-          "personnel": "Personální opatření: přístup k produkčním systémům a osobním údajům je omezen na malou, jmenovitě určenou skupinu vázanou mlčenlivostí. Přístup se řídí zásadou nejmenších oprávnění a odebírá se při ukončení role."
-        }
-      },
-      "integrity": {
-        "heading": "Integrita (čl. 32 odst. 1 písm. b) GDPR)",
-        "items": {
-          "input": "Kontrola vstupu: audit trail všech změn zaznamenávající ID uživatele, akci, typ entity, časové razítko, IP adresu, user agent a hodnoty před změnou a po ní",
-          "checksum": "Detekce neoprávněných zásahů v audit trailu: každý řádek auditu nese kontrolní součet SHA-256 nad svým obsahem, takže změny řádku jsou zjistitelné",
-          "transfer": "Kontrola přenosu: přenos dat pouze přes TLS; všechny ověřené endpointy vyžadují platnou relaci",
-          "evidenceHash": "Důkazní dokumenty: umístění úložiště a metadata se zapisují při nahrání; volitelný hash SHA-256 dodaný klientem lze uložit společně se souborem",
-          "signoff": "Mechanismus schvalování: v okamžiku schválení se stav požadavku zaznamená do tabulky historie schválení, jejíž záznamy tvoří řetězec SHA-256 (kontrolní součet každého záznamu pokrývá ten předchozí), takže neoprávněný zásah do historie je zjistitelný od začátku do konce"
-        }
-      },
-      "availability": {
-        "heading": "Dostupnost (čl. 32 odst. 1 písm. b) GDPR)",
-        "items": {
-          "backup": "Zálohy databáze podle výchozího nastavení služby Hetzner Cloud; podrobnosti o aktuální konfiguraci záloh jsou k dispozici na vyžádání",
-          "redundancy": "Ukládání důkazních dokumentů v AWS S3 se zárukami trvanlivosti objektů poskytovanými AWS",
-          "rateLimit": "Omezení četnosti u pokusů o přihlášení, veřejných endpointů (kontrola působnosti, dodavatelský portál) a náročných ověřených endpointů (exporty PDF, generování certifikátů)",
-          "uploadLimit": "Nahrávané soubory jsou omezeny na 50 MB na soubor",
-          "status": "Ukazatel dostupnosti: nisd2.eu/status při každém vyvolání ověří dostupnost databáze a výsledek veřejně zobrazí, s mezipamětí 30 sekund. Neprovozujeme průběžné sledování s automatickým alarmem."
-        }
-      },
-      "evaluation": {
-        "heading": "Postup pro pravidelnou kontrolu (čl. 32 odst. 1 písm. d) GDPR)",
-        "items": {
-          "review": "Tato TOMs jsou přezkoumávána při výskytu události a nejméně jednou ročně",
-          "patch": "Aktualizace závislostí a bezpečnostně relevantních knihoven: Dependabot je zapnutý a bezpečnostní záplaty i aktualizace verzí předkládá jako pull requesty v týdenním rytmu",
-          "incident": "Ohlašovací povinnosti: porušení zabezpečení osobních údajů budou ohlášena příslušnému dozorovému úřadu do 72 hodin podle čl. 33 GDPR",
-          "code": "Vývojová praxe: změny kódu procházejí pull requesty; vynucuje se typová kontrola v režimu strict TypeScriptu; cílené automatizované testy pokrývají bezpečnostně kritickou logiku (například klasifikaci působnosti)"
-        }
-      },
-      "subprocessors": {
-        "heading": "Další zpracovatelé",
-        "p1": "Všichni další zpracovatelé jsou vázáni smlouvami podle čl. 28 GDPR. Úplný seznam je v dokumentu DPA.",
-        "linkLabel": "Zobrazit úplný seznam dalších zpracovatelů (DPA)",
-        "linkHref": "/avv"
-      },
-      "contact": {
-        "heading": "Kontakt pro ochranu osobních údajů",
-        "p1": "Dotazy k těmto TOMs nebo k našemu zpracování údajů zasílejte na:",
-        "email": "contact@nisd2.eu"
       }
     },
     "terms": {
@@ -6706,15 +6621,12 @@
         },
         "resend": {
           "purpose": "Transakční e-maily"
-        },
-        "xai": {
-          "purpose": "Předvyplnění formulářů s podporou AI (volitelné)"
         }
       },
       "basisEU": "Členský stát EU",
       "basisSCC": "Standardní smluvní doložky EU",
       "noteHeading": "Poznámka k předávání do třetích zemí",
-      "noteBody": "Resend Inc. a xAI Corp. sídlí ve Spojených státech. Předávání osobních údajů probíhá na základě standardních smluvních doložek EU (SCC) podle čl. 46 GDPR. xAI se používá pouze k předvyplnění formulářů s podporou AI, a to jen tehdy, když uživatel tuto funkci aktivně použije. Uživatelé jsou o sdílení dat transparentně informováni v rámci platformy.",
+      "noteBody": "Resend Inc. sídlí ve Spojených státech. Předávání osobních údajů probíhá na základě standardních smluvních doložek EU (SCC) podle čl. 46 GDPR.",
       "changesHeading": "Změny",
       "changesBody": "O podstatných změnách tohoto seznamu budeme self-host zákazníky informovat nejméně 30 dní předem."
     },

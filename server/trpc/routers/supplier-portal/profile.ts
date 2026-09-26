@@ -24,7 +24,7 @@ import { sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
 import { company } from "@/schema";
 import { securityProfileUpdateSchema } from "@/schema/validators";
-import { companyProcedure, router } from "../../init";
+import { accountProcedure, router } from "../../init";
 import { updateRow } from "../../typed";
 import { normalizeDomain } from "./helpers";
 
@@ -68,7 +68,7 @@ export const supplierProfileRouter = router({
    * Get my supplier portal data. Always returns the supplier-portal subset
    * of the company row (with `actsAsSupplier` so the UI knows whether the
    * company has saved anything yet). Returns null only if the company row
-   * itself is missing — which shouldn't happen for a `companyProcedure`.
+   * itself is missing — which shouldn't happen for a `accountProcedure`.
    *
    * Profile and questionnaire are independently fillable: this query never
    * blocks on actsAsSupplier so the user can land on either tab first and
@@ -76,7 +76,7 @@ export const supplierProfileRouter = router({
    * layout uses `actsAsSupplier` to drive the "Active / Not yet created"
    * badge.
    */
-  get: companyProcedure.query(async ({ ctx }) => {
+  get: accountProcedure.query(async ({ ctx }) => {
     const row = await ctx.db.query.company.findFirst({
       where: eq(company.id, ctx.companyId),
       columns: SUPPLIER_PORTAL_COLUMNS,
@@ -102,7 +102,7 @@ export const supplierProfileRouter = router({
    * (overridden server-side anyway), actsAsNis2Entity, plan, stripeCustomerId,
    * cisoName, etc.
    */
-  save: companyProcedure
+  save: accountProcedure
     .input(securityProfileUpdateSchema)
     .mutation(async ({ ctx, input }) => {
       const normalizedDomain =
@@ -126,7 +126,7 @@ export const supplierProfileRouter = router({
     }),
 
   /** Get a presigned PUT URL for the logo upload. */
-  logoUploadUrl: companyProcedure
+  logoUploadUrl: accountProcedure
     .input(
       z.object({
         fileName: z.string().min(1).max(500),
@@ -162,7 +162,7 @@ export const supplierProfileRouter = router({
    * Validates that the key belongs to the caller's S3 namespace — prevents a
    * supplier from cloning another supplier's logo by guessing keys.
    */
-  setLogo: companyProcedure
+  setLogo: accountProcedure
     .input(z.object({ storageKey: z.string().min(1).max(500).nullable() }))
     .mutation(async ({ ctx, input }) => {
       if (input.storageKey !== null) {
