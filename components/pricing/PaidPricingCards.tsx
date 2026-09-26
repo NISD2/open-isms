@@ -162,6 +162,16 @@ export function PaidPricingCards({
                   {chunks}
                 </Link>
               ),
+              risk: (chunks) => (
+                <Link href="/risikobewertung" className={externalLink}>
+                  {chunks}
+                </Link>
+              ),
+              structure: (chunks) => (
+                <Link href="/strukturanalyse" className={externalLink}>
+                  {chunks}
+                </Link>
+              ),
             }),
           }))}
         />

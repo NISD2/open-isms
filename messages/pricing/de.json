@@ -43,7 +43,7 @@
         "features": {
           "courses": "Alle Kurse, auch <course>für die Geschäftsleitung</course>",
           "wiki": "Das NIS 2 Wiki",
-          "tools": "Werkzeuge für Risikobewertung und Strukturanalyse"
+          "tools": "Werkzeuge für <risk>Risikobewertung</risk> und <structure>Strukturanalyse</structure>"
         }
       },
       "paid": {

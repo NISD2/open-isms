@@ -43,7 +43,7 @@
         "features": {
           "courses": "All courses, including <course>for management</course>",
           "wiki": "The NIS 2 wiki",
-          "tools": "Tools for risk assessment and structure analysis"
+          "tools": "Tools for <risk>risk assessment</risk> and <structure>asset inventory</structure>"
         }
       },
       "paid": {

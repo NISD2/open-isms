@@ -43,7 +43,7 @@
         "features": {
           "courses": "Alle cursussen, ook <course>voor de directie</course>",
           "wiki": "De NIS 2 wiki",
-          "tools": "Tools voor risicobeoordeling en structuuranalyse"
+          "tools": "Tools voor <risk>risicobeoordeling</risk> en <structure>asset-inventarisatie</structure>"
         }
       },
       "paid": {
