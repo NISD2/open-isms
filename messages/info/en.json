@@ -861,63 +861,104 @@
         "p1": "We may update this privacy policy from time to time. The current version is always available on this page. Last updated: February 2025."
       }
     },
-    "avv": {
+    "avvContract": {
       "meta": {
-        "title": "Data Processing Agreement (DPA / AVV) - Art. 28 GDPR",
-        "description": "Data processing agreement under Art. 28 GDPR for customers of the NISD2.eu platform. Signed individually on request."
+        "title": "Data processing agreement (DPA) under Art. 28 GDPR | nisd2.eu",
+        "description": "The nisd2.eu DPA: the European Commission's standard contractual clauses (2021/915) with annexes on the parties, the processing, technical and organisational measures and sub-processors."
       },
-      "title": "Data Processing Agreement (AVV / DPA)",
-      "subtitle": "Agreement under Art. 28 GDPR for customers of the NISD2.eu platform.",
-      "intro": {
-        "heading": "What this is",
-        "p1": "When you use the NISD2.eu platform, we process personal data on your behalf (e.g. names of your employees in compliance forms, evidence you upload). Art. 28 GDPR requires a written data processing agreement (DPA, in German AVV) between you as controller and us as processor.",
-        "p2": "On request, we provide a DPA and sign it individually for your organisation - typically within one business day."
-      },
-      "scope": {
-        "heading": "Contents of the DPA",
-        "p1": "The DPA we provide meets Art. 28 GDPR requirements and includes:",
-        "items": {
-          "subject": "Subject and duration of processing",
-          "purpose": "Nature and purpose of processing, types of data, categories of data subjects",
-          "instructions": "Processor acts only on documented instructions",
-          "confidentiality": "Confidentiality obligations of personnel",
-          "toms": "Technical and organisational measures (Art. 32 GDPR) - see TOMs document",
-          "subprocessors": "List of sub-processors and approval procedure",
-          "rights": "Assistance with data subject rights (Art. 15-22 GDPR)",
-          "audit": "Audit rights of the controller",
-          "deletion": "Deletion or return of data on termination",
-          "liability": "Liability and cooperation obligations"
+      "title": "Data processing agreement (DPA)",
+      "subtitle": "Annex 1 to the nisd2.eu terms. Agreement under Art. 28 GDPR between you as controller and us as processor.",
+      "version": "Version of {date}",
+      "annexesTitle": "Annexes to the standard contractual clauses",
+      "sections": {
+        "clauses": {
+          "heading": "1. The European Commission's standard contractual clauses",
+          "paragraphs": [
+            "This agreement applies between the customer as controller and Simon Orzel as processor (Annex I) to every processing of personal data the processor carries out on the customer's behalf when the hosted platform nisd2.eu is used.",
+            "The parties agree the standard contractual clauses between controllers and processors in the annex to Commission Implementing Decision (EU) 2021/915 of 4 June 2021 (OJ L 199, 7.6.2021, p. 18). By this reference they become part of this agreement in their official wording. Annexes I to IV below are their annexes.",
+            "In Clause 1, Option 1 (Art. 28(3) and (4) GDPR) is chosen, and in Clause 7.7 Option 2 (general written authorisation) with a period of 30 days. The optional Clause 5 (docking clause) is not agreed.",
+            "Under Clause 4, the standard contractual clauses prevail over the terms and every other agreement between the parties."
+          ],
+          "link": {
+            "label": "Official text on EUR-Lex",
+            "href": "https://eur-lex.europa.eu/eli/dec_impl/2021/915/oj/eng"
+          }
+        },
+        "conclusion": {
+          "heading": "2. Conclusion",
+          "paragraphs": [
+            "The agreement is concluded when the terms, of which it is Annex 1, are accepted. When ordering the annual licence, the customer confirms it at the order button; the version, time and person are stored. Art. 28(9) GDPR allows an electronic form.",
+            "Customers without an annual licence conclude the agreement by an email to contact@nisd2.eu in which they accept it. On request, every customer also receives the agreement as a signed PDF."
+          ]
+        },
+        "subprocessorChanges": {
+          "heading": "3. Changes of sub-processors (Clause 7.7)",
+          "paragraphs": [
+            "The customer gives its general authorisation for the sub-processors in Annex IV. If the processor intends to add or replace a sub-processor, it informs the person who holds the customer's account by email at least 30 days in advance.",
+            "The customer may object within that period. If the processor cannot refrain from the change for this customer, the customer may terminate the annual licence as of the day of the change; the processor refunds fees paid in advance for the time after that pro rata."
+          ]
+        },
+        "instructions": {
+          "heading": "4. Instructions, duration, deletion and return",
+          "paragraphs": [
+            "The customer gives instructions by using the platform and in text form to contact@nisd2.eu.",
+            "The agreement applies as long as the processor processes data for the customer. When an annual licence ends, the account and its data remain (terms B10), and with them this agreement.",
+            "After termination, the customer chooses between deletion and return under Clause 10(d), by email to contact@nisd2.eu. Return is a copy of the data in a common, machine-readable format. The processor certifies deletion in text form. The platform does not yet offer self-service for either; the processor carries out both on request."
+          ]
+        },
+        "liability": {
+          "heading": "5. Liability",
+          "paragraphs": [
+            "Liability follows A7 of the terms. Art. 82 GDPR is not affected."
+          ]
+        },
+        "annex1": {
+          "heading": "Annex I: List of parties",
+          "paragraphs": [
+            "Controller: the customer, with the company name, address and VAT number from its order. The contact person is the person who holds the account. The stored acceptance (version, time, person), which the customer sees under Billing, takes the place of signature and date.",
+            "Processor: Simon Orzel, Trierer Str. 6, 50676 Köln, Germany. Data protection contact: contact@nisd2.eu. Signature and date: by providing this agreement in the version stated above."
+          ]
+        },
+        "annex2": {
+          "heading": "Annex II: Description of the processing",
+          "paragraphs": [
+            "Categories of data subjects: users of the account (employees and agents of the customer). Persons the customer names in the platform: employees, members of management, contact persons for information security, data protection and reporting, participants in training and exercises, owners of risks, assets and measures. Contact persons at suppliers and service providers, including persons who answer through the supplier portal.",
+            "Categories of personal data: account data (name, email, phone, job title, role, language, password only as a bcrypt hash, times of login and verification). Content data (names, job titles and contact details in forms, responsibilities, sign-offs with name, role and time, training records and certificates, free text and incident descriptions, uploaded evidence documents). Log data (audit log with user, action, time, IP address, user agent and the submitted values).",
+            "Sensitive data: the platform is not designed for special categories of personal data under Art. 9 GDPR and does not ask for them. If the customer enters such data in free text or documents, the measures in Annex III apply to them.",
+            "Nature of the processing: storing, displaying, changing, exporting, sending by email and deleting in the operation of the platform.",
+            "Purpose: providing the platform with which the customer organises and documents its NIS 2 duties; sending notifications.",
+            "Duration: for as long as the customer uses the platform, until deletion or return under section 4.",
+            "Processing by sub-processors: subject matter, nature and duration are set out in Annex IV; the duration is that of this agreement."
+          ]
+        },
+        "annex3": {
+          "heading": "Annex III: Technical and organisational measures",
+          "paragraphs": [
+            "The measures under Art. 32 GDPR are described on the TOMs page, in the version that applied at acceptance. It lists only what is implemented in the code and in operation. The main points:",
+            "Encryption: TLS for every connection to the platform. Uploaded files and archived invoices are stored in AWS S3 with server-side encryption (AES256), set on every upload. The application does not additionally encrypt the database.",
+            "Access and permissions: login with email and password (bcrypt, cost factor 12, address confirmed by a one-time code) or with Google. There is no second factor for the password route. Sessions end after eight hours. Four roles (Admin, Reviewer, Legal Reviewer, Member). Customers are separated in the application: every query filters on the company ID of the session.",
+            "Input control: every change made through the platform is logged with user, action, time, IP address, user agent and the input values; only selected operations also store the previous value. Sign-offs form a chain of SHA-256 checksums.",
+            "Assistance (Clauses 8 and 9): the customer can view, change and delete data in the platform itself. The processor notifies the customer of data subject requests and personal data breaches without undue delay, to the person who holds the account."
+          ],
+          "link": {
+            "label": "All measures: TOMs",
+            "href": "/toms"
+          }
+        },
+        "annex4": {
+          "heading": "Annex IV: List of sub-processors",
+          "paragraphs": [
+            "Hetzner Online GmbH, Germany: operation of the application servers and the database, and so of all data in Annex II.",
+            "Amazon Web Services EMEA SARL, Luxembourg: file storage in AWS S3 in an EU region (evidence documents, training certificates, certificates from the supplier portal).",
+            "Resend, Inc., USA: sending the platform's emails (recipient, subject, content, attachments). Transfer to the USA based on the EU standard contractual clauses under Art. 46 GDPR.",
+            "Google Ireland Limited, Ireland: sign-in with Google, only for users who choose that route.",
+            "Qonto (invoicing) and the EU VAT check (VIES) are not sub-processors: they process only billing data for which the processor is itself responsible. The privacy policy covers that."
+          ],
+          "link": {
+            "label": "Sub-processors with location and legal basis",
+            "href": "/subprozessoren"
+          }
         }
-      },
-      "request": {
-        "heading": "Request a DPA",
-        "p1": "Send an email to contact@nisd2.eu with the following information:",
-        "items": {
-          "company": "Full company name and registered address",
-          "register": "Commercial register number (if applicable)",
-          "represented": "Authorised representative",
-          "contact": "Data protection contact person"
-        },
-        "p2": "We typically return the signed DPA within one business day by email. A signed paper copy by post is available on request.",
-        "emailLabel": "Request DPA by email",
-        "emailHref": "mailto:contact@nisd2.eu?subject=DPA%20request%20NISD2.eu"
-      },
-      "subprocessors": {
-        "heading": "Sub-processors",
-        "p1": "The following sub-processors are used to operate the platform:",
-        "items": {
-          "hetzner": "Hetzner Online GmbH (Falkenstein/Nuremberg, Germany) - hosting of application servers and database",
-          "aws": "Amazon Web Services EMEA SARL - storage of uploaded evidence documents (S3, EU region)",
-          "google": "Google Ireland Limited - OAuth authentication",
-          "resend": "Resend, Inc. (USA) - delivery of transactional emails"
-        },
-        "p2": "Changes to the sub-processor list will be announced in advance. You have the right to object to changes."
-      },
-      "toms": {
-        "heading": "Technical and organisational measures",
-        "p1": "The technical and organisational measures relevant to this DPA under Art. 32 GDPR are described in our TOMs document.",
-        "linkLabel": "View TOMs document",
-        "linkHref": "/toms"
       }
     },
     "toms": {
@@ -927,7 +968,7 @@
       },
       "title": "Technical and Organisational Measures (TOMs)",
       "subtitle": "Measures under Art. 32 GDPR ensuring the security of personal data processing on the NISD2.eu platform.",
-      "revised": "As of 26 September 2026. Checked against the code and corrected.",
+      "revised": "As of 26 September 2026. Checked against the code and corrected; this version is Annex III of the data processing agreement.",
       "intro": {
         "heading": "Overview",
         "p1": "This document describes the technical and organisational measures actually implemented by Simon Orzel as operator of the NISD2.eu platform. It is an honest inventory, not a wish list - we list only what is already in place.",
@@ -1003,91 +1044,211 @@
         "email": "contact@nisd2.eu"
       }
     },
-    "terms": {
+    "agb": {
       "meta": {
-        "title": "Terms of Service - NISD2.eu",
-        "description": "Terms of service for the NISD2.eu NIS2 compliance platform. Information on usage scope, liability, and data protection."
+        "title": "General terms and conditions | nisd2.eu",
+        "description": "Terms of nisd2.eu: use of the platform, the NIS 2 guided pass annual licence, price, term and renewal, thirty days money back, liability and data processing."
       },
-      "title": "Terms of Service",
-      "subtitle": "Please read these terms carefully before using the NISD2.eu platform.",
-      "lastUpdated": "Last updated: February 2026.",
-      "scope": {
-        "heading": "1. Scope of Service",
-        "p1": "NISD2.eu (\"Platform\") is a compliance management tool operated by Simon Orzel (\"Provider\"). The Platform provides structured workflows, forms, document management, and tracking features to support organizations in managing their NIS2/BSIG compliance obligations.",
-        "p2": "The Platform is exclusively a support tool for areas that are within the customer's sole responsibility. The Provider does not assume any responsibility for a specific compliance result or success."
-      },
-      "noLegalAdvice": {
-        "heading": "2. No Legal Advice",
-        "p1": "The Platform does not constitute legal advice, legal counsel, or any form of professional legal service. Content provided on the Platform - including requirement descriptions, guidance text, form fields, and informational pages - is for general informational purposes only.",
-        "p2": "The Platform is not a substitute for qualified legal, regulatory, or professional advice. Users should consult with qualified professionals for advice specific to their situation.",
-        "p3": "No attorney-client relationship or professional advisory relationship is created between the Provider and users of the Platform."
-      },
-      "customerResponsibility": {
-        "heading": "3. Customer Responsibility",
-        "p1": "The customer is solely responsible for:",
-        "items": {
-          "accuracy": "The accuracy, completeness, and truthfulness of all data entered into the Platform",
-          "applicability": "Determining whether specific requirements, measures, or obligations apply to their organization",
-          "compliance": "Achieving and maintaining compliance with NIS2, BSIG, and all other applicable laws and regulations",
-          "decisions": "All compliance decisions made based on or in connection with the use of the Platform",
-          "review": "Having qualified professionals review their compliance documentation where appropriate"
+      "title": "General terms and conditions",
+      "subtitle": "For the use of the hosted platform nisd2.eu, free and with an annual licence. The data processing agreement is Annex 1.",
+      "version": "Version of {date}",
+      "partA": "Part A: For every use of the platform",
+      "partB": "Part B: Paid annual licence",
+      "partC": "Part C: Final provisions",
+      "sections": {
+        "provider": {
+          "heading": "A1. Provider and scope",
+          "paragraphs": [
+            "The platform nisd2.eu (\"Platform\") is provided by Simon Orzel, Trierer Str. 6, 50676 Köln, Germany (\"Provider\").",
+            "These terms apply to the use of the Platform the Provider operates at nisd2.eu, free and with an annual licence. Part A applies to every use, Part B also to the paid annual licence.",
+            "Anyone who runs the software themselves uses it under the open source licence AGPL 3.0. These terms do not apply to that.",
+            "The customer's own general terms apply only if the Provider expressly agrees to them in text form."
+          ]
         },
-        "p2": "The Platform validates the completeness of form submissions, not the correctness or legal sufficiency of the content provided by the customer."
-      },
-      "noGuarantee": {
-        "heading": "4. No Guarantee of Compliance Outcomes",
-        "p1": "The Provider does not guarantee or warrant that:",
-        "items": {
-          "audit": "Use of the Platform will result in passing any audit, inspection, or regulatory review",
-          "compliant": "Information or workflows provided through the Platform are complete, accurate, or suitable for any specific organization's compliance needs",
-          "penalty": "Use of the Platform will prevent fines, penalties, or enforcement actions by regulatory authorities",
-          "requirements": "The Platform covers all requirements that may apply to a specific organization"
+        "scope": {
+          "heading": "A2. Scope of service",
+          "paragraphs": [
+            "The Platform is software with which organisations organise their duties under NIS 2 and the German BSIG. It offers structured workflows, forms, document management and tracking of open points.",
+            "The Platform supports the customer in areas that are the customer's sole responsibility. The Provider does not owe any particular outcome of the implementation."
+          ]
         },
-        "p2": "The Provider does not assume any guarantees, not even with regard to certain characteristics or properties of the service. Results provided by the Platform rely on customer inputs, assumptions, and individual circumstances."
-      },
-      "liability": {
-        "heading": "5. Limitation of Liability",
-        "p1": "The Provider's liability is limited to cases of willful intent and gross negligence. For minor negligence involving essential contractual obligations, liability is limited to foreseeable, contract-typical damages up to the total fees paid by the customer in the twelve (12) months preceding the event giving rise to the claim.",
-        "p2": "The Provider is not liable for indirect damages, consequential damages, loss of profit, loss of data, loss of savings, regulatory fines imposed on the customer, or business interruption, to the extent permitted by applicable law.",
-        "p3": "The limitations above do not apply to liability for personal injury or liability under the German Product Liability Act (Produkthaftungsgesetz)."
-      },
-      "indemnification": {
-        "heading": "6. Indemnification",
-        "p1": "The customer agrees to indemnify and hold the Provider harmless from any third-party claims, damages, losses, or expenses arising from:",
-        "items": {
-          "misuse": "The customer's use of the Platform in violation of these terms",
-          "data": "Inaccurate, incomplete, or misleading data provided by the customer",
-          "claims": "Claims related to the customer's compliance status or regulatory obligations"
+        "noLegalAdvice": {
+          "heading": "A3. No legal advice",
+          "paragraphs": [
+            "The Platform is not legal advice, not an examination of a specific matter of another person within the meaning of § 2 RDG, and not any other legal service. Its content (requirement descriptions, guidance text, form fields, information pages) is general legal information based on public sources: Directive (EU) 2022/2555 (NIS 2), the BSIG, BSI publications and ENISA guidance.",
+            "The Platform does not replace legal or professional advice on an individual case. For advice on their situation, users should consult professionals.",
+            "No client relationship and no advisory relationship arises between the Provider and users."
+          ]
+        },
+        "customerResponsibility": {
+          "heading": "A4. Responsibility of the customer and its management",
+          "paragraphs": [
+            "The customer is solely responsible for the accuracy and completeness of its input, for determining which requirements apply to it, for its decisions, and for complying with NIS 2, the BSIG and every other rule that applies to it. Where appropriate, it has its documentation reviewed by professionals.",
+            "The duties under NIS 2 fall on the entity and its management. In Germany, the management bodies of essential and important entities must implement the cybersecurity risk management measures the entity has to take under § 30 BSIG and oversee their implementation (§ 38(1) BSIG). This responsibility stays with the customer and its management. The Provider does not take over any of these duties by providing the Platform.",
+            "The Platform checks whether forms are complete. It does not check whether the content is correct or legally sufficient."
+          ]
+        },
+        "noGuarantee": {
+          "heading": "A5. No promised outcome",
+          "paragraphs": [
+            "The Provider does not promise that using the Platform leads to passing audits, inspections or regulatory reviews, that it prevents action by supervisory authorities, or that it covers every requirement that applies to a particular organisation. The Platform's results rest on the customer's input.",
+            "The Platform has the properties described in A2 and, for the annual licence, in B1. The Provider gives a guarantee in the legal sense only if it expressly calls it a guarantee in text form."
+          ]
+        },
+        "availability": {
+          "heading": "A6. Availability",
+          "paragraphs": [
+            "The Provider operates the Platform with due care and fixes faults within a reasonable time. No particular availability rate is agreed. The Provider announces maintenance in advance where possible.",
+            "The Provider is liable for outages under A7."
+          ]
+        },
+        "liability": {
+          "heading": "A7. Liability",
+          "paragraphs": [
+            "(1) The Provider is liable without limitation for intent and gross negligence, for injury to life, body or health, under the German Product Liability Act, and where it has given a guarantee.",
+            "(2) For slight negligence, the Provider is liable only if it breaches an essential contractual duty. Essential duties are those whose fulfilment makes the proper performance of the contract possible in the first place and on whose fulfilment the customer may regularly rely; for the annual licence this includes providing the Platform. Liability is then limited to the typical damage foreseeable when the contract was made.",
+            "(3) In the cases of paragraph 2, liability is also limited in total to the fees the customer paid the Provider in the twelve months before the event that caused the damage.",
+            "(4) Otherwise, liability for slight negligence is excluded.",
+            "(5) Liability under Art. 82 GDPR is not affected. The limitations also apply in favour of the Provider's employees and agents.",
+            "(6) The Provider does not take over the customer's duties under NIS 2 and the BSIG (A4). The customer, not the Provider, is therefore liable for fulfilling them."
+          ]
+        },
+        "indemnification": {
+          "heading": "A8. Indemnification",
+          "paragraphs": [
+            "The customer indemnifies the Provider against third-party claims, damage and costs that arise because the customer uses the Platform in breach of these terms, because it enters inaccurate, incomplete or misleading data, or that concern its own state of implementation or its regulatory duties."
+          ]
+        },
+        "ip": {
+          "heading": "A9. Rights in the Platform and in the data",
+          "paragraphs": [
+            "The Platform's content, including software, requirement structures, form designs, guidance text and workflows, is the Provider's intellectual property. The rights granted by the software's open source licence are not affected.",
+            "All data the customer enters remains the customer's data. The Provider processes personal data in it only as a processor under the data processing agreement (Annex 1)."
+          ]
+        },
+        "dataProtection": {
+          "heading": "A10. Data protection and processing",
+          "paragraphs": [
+            "Where the Provider processes personal data on the customer's behalf when the Platform is used, the data processing agreement applies as Annex 1 to these terms. It consists of the European Commission's standard contractual clauses under Implementing Decision (EU) 2021/915 and the Provider's annexes. In case of conflict, the standard contractual clauses prevail.",
+            "How the Provider processes data for which it is itself responsible, such as the user account and billing data, is set out in the privacy policy."
+          ],
+          "link": {
+            "label": "Annex 1: data processing agreement",
+            "href": "/avv"
+          }
+        },
+        "changes": {
+          "heading": "A11. Changes to these terms",
+          "paragraphs": [
+            "The Provider may change these terms and the data processing agreement if the Platform, the law or case law changes. It announces every change in text form at least six weeks before it takes effect, names the changed passages, and points out the right to object and the consequence of silence.",
+            "The customer may object until the change takes effect. If it objects, either side may terminate the annual licence as of the day the change takes effect; the Provider refunds fees paid in advance for the time after that pro rata. If the customer does not object, the changes apply from the announced day.",
+            "The Provider does not change the price of a licence year that is running."
+          ]
+        },
+        "licence": {
+          "heading": "B1. Subject of the contract",
+          "paragraphs": [
+            "The subject is the right to use the hosted Platform with the NIS 2 guided pass for one licence year (\"annual licence\"). The Provider makes the Platform available over the internet. The customer does not receive a copy of the software.",
+            "The annual licence covers the customer's account: every organisation and every user on that account. One payment covers all of them."
+          ]
+        },
+        "businessOnly": {
+          "heading": "B2. Businesses only",
+          "paragraphs": [
+            "The annual licence is offered only to businesses (Unternehmer within the meaning of § 14 BGB), meaning persons and companies that act in the course of their trade, business or profession when they order. A VAT number is required to order.",
+            "Whoever orders declares that they act for the company named and are authorised to do so."
+          ]
+        },
+        "formation": {
+          "heading": "B3. How the contract is made",
+          "paragraphs": [
+            "Order on the Platform: the customer enters the billing details, sees the price including VAT, confirms these terms with the data processing agreement and clicks \"Place order\". This is a binding offer. The Provider accepts it by opening the annual licence at once and sending the invoice by email. The customer can correct input errors in the fields until the click.",
+            "Order on a call: if the customer and the Provider agree the annual licence on a call, the contract is made on that call. The Provider confirms it with the invoice and access to the Platform.",
+            "For every order, the Provider stores which version of these terms and the data processing agreement was accepted, when and by whom. The customer sees this under Billing. It can save or print the text on this page before ordering."
+          ]
+        },
+        "price": {
+          "heading": "B4. Price",
+          "paragraphs": [
+            "The annual licence costs 4,800 euros net per licence year plus VAT where it applies.",
+            "Anyone who used the Platform before prices were introduced and is therefore recorded as an existing user pays 2,400 euros net per licence year, including every renewal. What counts is whether the person who holds the account is an existing user.",
+            "VAT follows the VAT number: customers in Germany pay German VAT. For customers in another EU member state whose VAT number is confirmed in the EU register, the customer owes the tax (reverse charge). The customer sees the amount including tax before the click.",
+            "If a different price was agreed on a call, that price applies. The invoice states it."
+          ]
+        },
+        "payment": {
+          "heading": "B5. Invoice and payment",
+          "paragraphs": [
+            "The invoice is issued on the day of the order. It is payable by bank transfer within 30 days of the invoice date, quoting the invoice number as the reference. Access starts with the order, not with the payment.",
+            "The customer agrees to receive invoices and credit notes as PDF by email (§ 14(1) and § 27(38) UStG). Invoices go to the address it gives for them when ordering."
+          ]
+        },
+        "term": {
+          "heading": "B6. Term and renewal",
+          "paragraphs": [
+            "The first licence year starts on the day of the order and ends on the day before the same calendar day of the following year.",
+            "The annual licence renews for one further licence year at a time unless the customer cancels by the last day of the running licence year. It can cancel under Billing with the button, or in text form by email to contact@nisd2.eu.",
+            "The Provider issues the invoice for a new licence year when that year starts. 14 days before, it reminds the customer by email of the renewal, the price and how to cancel. The licence renews at the previous price; for existing users it stays at 2,400 euros net. B5 applies to every renewal."
+          ]
+        },
+        "moneyBack": {
+          "heading": "B7. Thirty days money back",
+          "paragraphs": [
+            "On the first order for their account, the customer can cancel the annual licence within 30 days after the day of the order without giving a reason. The day of the order does not count; the thirtieth day after it does. Calendar days in Germany apply.",
+            "This does not apply to renewals, nor to any later order for the same account, including a new order after a cancellation. B8 applies to those from the first day.",
+            "The customer cancels under Billing with the button, or in text form by email to contact@nisd2.eu.",
+            "The Provider then cancels the invoice in full with a credit note. If it was still open, the customer owes nothing more. If the customer had already paid, the Provider transfers the full amount back within 30 days of the cancellation to the account the payment came from. A payment that arrives only after the cancellation is refunded within 30 days of its arrival.",
+            "The annual licence ends at once. The account falls back to use without a licence; for existing users, to the continued free use of the current guided pass. The customer's data stays stored (B10)."
+          ]
+        },
+        "cancelAfter": {
+          "heading": "B8. Cancelling after the thirty days",
+          "paragraphs": [
+            "After the thirty days, and from the start for renewals and later orders, cancelling ends the renewal. The annual licence runs until the end of the paid licence year. The invoice for that year remains due; there is no pro rata refund.",
+            "The right to terminate for good cause is not affected."
+          ]
+        },
+        "nonPayment": {
+          "heading": "B9. Unpaid invoice",
+          "paragraphs": [
+            "If the invoice is not paid by the end of the due date, which is 30 days after the invoice date, the Provider suspends access to the annual licence without a further period. The account then falls back to use without a licence as in B7. The data stays stored.",
+            "The invoice remains due. When the payment arrives, the Provider reopens the annual licence for the rest of the licence year.",
+            "The statutory rights in case of late payment are not affected."
+          ]
+        },
+        "endOfContract": {
+          "heading": "B10. End of the annual licence and the data",
+          "paragraphs": [
+            "When the annual licence ends, by cancellation, by expiry without renewal, or by suspension under B9, the account remains and falls back to use without a licence. The Provider does not delete any data when this happens.",
+            "Without a licence, the account reaches only Billing, Settings, Organisation and Notifications. The other content and the exports are reachable again only with a new order. Existing users keep the free use of the current guided pass.",
+            "On the customer's instruction, the Provider returns or deletes the data as the data processing agreement provides. An email to contact@nisd2.eu is enough."
+          ]
+        },
+        "governing": {
+          "heading": "C1. Governing law and jurisdiction",
+          "paragraphs": [
+            "The law of the Federal Republic of Germany applies, excluding the United Nations Convention on Contracts for the International Sale of Goods (CISG).",
+            "If the customer is a merchant (Kaufmann), a legal person under public law or a special fund under public law, Köln is the exclusive place of jurisdiction for all disputes arising from this contract."
+          ]
+        },
+        "language": {
+          "heading": "C2. Contract language",
+          "paragraphs": [
+            "These terms exist in German and in English. The contract language is the language in which the customer orders. If the versions differ, the German version prevails."
+          ]
+        },
+        "severability": {
+          "heading": "C3. Severability",
+          "paragraphs": [
+            "If a provision of these terms is invalid or unenforceable, the others remain valid. The statutory rule takes the place of the invalid provision."
+          ]
+        },
+        "contact": {
+          "heading": "C4. Contact",
+          "paragraphs": [
+            "Questions about these terms: Simon Orzel, Trierer Str. 6, 50676 Köln, Germany, contact@nisd2.eu."
+          ]
         }
-      },
-      "ip": {
-        "heading": "7. Intellectual Property and Data",
-        "p1": "All Platform content, including software, requirement structures, form designs, guidance text, and workflows, is the intellectual property of the Provider.",
-        "p2": "All data entered by the customer into the Platform remains the property of the customer. The Provider processes customer data solely for the purpose of providing the service, in accordance with the Privacy Policy."
-      },
-      "availability": {
-        "heading": "8. Service Availability",
-        "p1": "The Provider endeavors to maintain Platform availability but does not guarantee uninterrupted or error-free operation. Scheduled maintenance and unforeseen outages may occur. The Provider is not liable for any damages resulting from service interruptions."
-      },
-      "changes": {
-        "heading": "9. Changes to These Terms",
-        "p1": "The Provider may update these terms from time to time. Material changes will be communicated to registered users. Continued use of the Platform after changes take effect constitutes acceptance of the updated terms."
-      },
-      "governing": {
-        "heading": "10. Governing Law and Jurisdiction",
-        "p1": "These terms are governed by the laws of the Federal Republic of Germany. The exclusive place of jurisdiction for all disputes arising from or in connection with these terms is Cologne (Köln), Germany, to the extent permitted by law."
-      },
-      "severability": {
-        "heading": "11. Severability",
-        "p1": "If any provision of these terms is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect. The invalid provision shall be replaced by a valid provision that most closely reflects the economic intent of the original."
-      },
-      "contact": {
-        "heading": "12. Contact",
-        "p1": "For questions about these terms, please contact:",
-        "name": "Simon Orzel",
-        "address": "Trierer Str. 6, 50676 Cologne, Germany",
-        "emailLabel": "Email",
-        "email": "contact@nisd2.eu"
       }
     },
     "whatIsNis2": {
@@ -6721,7 +6882,7 @@
       "noteHeading": "Note on third-country transfers",
       "noteBody": "Resend Inc. is based in the United States. Personal data is transferred on the basis of the EU Standard Contractual Clauses (SCCs) under Art. 46 GDPR.",
       "changesHeading": "Changes",
-      "changesBody": "We will notify self-host customers of material changes to this list at least 30 days in advance."
+      "changeNotice": "If we intend to add or replace a sub-processor, we tell customers of the hosted platform by email at least 30 days in advance. They may object (data processing agreement, section 3). Anyone who runs the software themselves does not use these sub-processors."
     },
     "nis2Roadmap": {
       "meta": {

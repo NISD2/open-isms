@@ -123,7 +123,9 @@ export default async function SubprocessorsPage() {
 
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">{t("subprozessoren.changesHeading")}</h2>
-        <p className="text-sm text-muted-foreground">{t("subprozessoren.changesBody")}</p>
+        <p className="text-sm text-muted-foreground">
+          {t("subprozessoren.changeNotice")}
+        </p>
       </section>
     </article>
   );

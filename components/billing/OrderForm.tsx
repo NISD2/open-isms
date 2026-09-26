@@ -20,12 +20,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { type ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import { orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { TERMS_VERSION, termsVersionLabel } from "@/lib/billing/terms";
 import { trpc } from "@/lib/trpc/client";
 import { OrderFields, type OrderValues, orderDefaults } from "./OrderFields";
 
@@ -34,6 +38,38 @@ const formatDay = (isoDay: string, locale: string) =>
   new Intl.DateTimeFormat(locale, { dateStyle: "long", timeZone: "UTC" }).format(
     new Date(`${isoDay}T12:00:00Z`),
   );
+
+/** A legal page, opened in a new tab so the filled form is not lost. */
+const legalLink = (href: "/terms" | "/avv", chunks: ReactNode) => (
+  <Link
+    href={href}
+    target="_blank"
+    rel="noopener"
+    className="font-medium underline underline-offset-4"
+  >
+    {chunks}
+  </Link>
+);
+
+const LEGAL_NOTES = ["b2b", "term", "moneyBack", "payment", "contract"] as const;
+
+/**
+ * What the customer should know before the button: who sells, for how long, the money back, when
+ * to pay, and how the contract is made (§ 312i Abs. 1 Nr. 2 BGB). The full text is in /terms.
+ */
+function OrderLegalNotes() {
+  const t = useTranslations("billing.legal");
+  return (
+    <div className="space-y-2 rounded-md border bg-muted/30 p-4 text-muted-foreground text-sm">
+      <p className="font-medium text-foreground">{t("title")}</p>
+      <ul className="list-disc space-y-1 pl-5">
+        {LEGAL_NOTES.map((key) => (
+          <li key={key}>{t(key)}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export function OrderForm() {
   const t = useTranslations("billing");
@@ -55,6 +91,9 @@ export function OrderForm() {
     resolver: zodResolver(orderSchemaWithVatCheck),
     defaultValues: orderDefaults(locale),
   });
+  // Outside the order schema, which the platform admin close shares: only a customer ticks it.
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsMissing, setTermsMissing] = useState(false);
 
   const checkVat = (vatNumber: string) => {
     if (vatNumber.trim().length < 4) return;
@@ -64,6 +103,10 @@ export function OrderForm() {
   };
 
   const onSubmit = (values: OrderValues) => {
+    if (!termsAccepted) {
+      setTermsMissing(true);
+      return;
+    }
     const order = orderSchemaWithVatCheck.parse(values);
     // Only a price quoted for this very number counts as the one they saw.
     const quoted =
@@ -75,7 +118,11 @@ export function OrderForm() {
       quote.mutate({ vatNumber: values.vatNumber, countryCode: values.countryCode });
       return;
     }
-    place.mutate({ order, quotedGrossCents: quoted });
+    place.mutate({
+      order,
+      quotedGrossCents: quoted,
+      terms: { accepted: true, version: TERMS_VERSION },
+    });
   };
 
   if (place.data) {
@@ -110,13 +157,15 @@ export function OrderForm() {
         ? t("result.tooManyRequests")
         : placeError === "PRECONDITION_FAILED"
           ? t("result.priceChanged")
-          : outcomeUnknown
-            ? t("result.unknown")
-            : place.error || quote.error
-              ? quote.error?.data?.code === "TOO_MANY_REQUESTS"
-                ? t("result.tooManyRequests")
-                : t("result.failed")
-              : null;
+          : placeError === "UNPROCESSABLE_CONTENT"
+            ? t("result.termsChanged")
+            : outcomeUnknown
+              ? t("result.unknown")
+              : place.error || quote.error
+                ? quote.error?.data?.code === "TOO_MANY_REQUESTS"
+                  ? t("result.tooManyRequests")
+                  : t("result.failed")
+                : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
@@ -128,6 +177,37 @@ export function OrderForm() {
             quoting={quote.isPending}
             onVatBlur={checkVat}
           />
+
+          <OrderLegalNotes />
+
+          <div className="space-y-2">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="order-terms"
+                checked={termsAccepted}
+                aria-invalid={termsMissing && !termsAccepted}
+                aria-describedby={
+                  termsMissing && !termsAccepted ? "order-terms-missing" : undefined
+                }
+                onCheckedChange={(v) => {
+                  setTermsAccepted(v === true);
+                  setTermsMissing(false);
+                }}
+              />
+              <Label htmlFor="order-terms" className="font-normal text-sm leading-snug">
+                {t.rich("accept.label", {
+                  date: termsVersionLabel(locale),
+                  terms: (chunks) => legalLink("/terms", chunks),
+                  avv: (chunks) => legalLink("/avv", chunks),
+                })}
+              </Label>
+            </div>
+            {termsMissing && !termsAccepted ? (
+              <p id="order-terms-missing" className="text-destructive text-sm">
+                {t("accept.required")}
+              </p>
+            ) : null}
+          </div>
 
           {failure ? (
             <Alert variant="destructive">

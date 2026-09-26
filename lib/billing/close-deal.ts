@@ -26,6 +26,7 @@ import { alertOperators } from "./alert";
 import { holderNetCents } from "./holder-price";
 import type { OrderInput } from "./order";
 import { type OrderOutcome, type PlaceOrderInput, placeOrder } from "./place-order";
+import { TERMS_VERSION } from "./terms";
 import { splitVatNumber } from "./vies";
 
 export interface CloseDealInput {
@@ -41,6 +42,11 @@ export interface CloseDealInput {
   readonly invoicePrefix: string;
   readonly vies: PlaceOrderInput["vies"];
   readonly appUrl: string;
+  /**
+   * The admin records that the customer accepted the AGB and AVV (./terms) on the call. Stored on
+   * the invoice as the customer's acceptance; not required, because the call is the contract.
+   */
+  readonly termsAcceptedOnCall: boolean;
 }
 
 export type CloseOutcome =
@@ -196,6 +202,9 @@ export async function closeDeal(input: CloseDealInput): Promise<CloseOutcome> {
     vies: input.vies,
     expectedGrossCents: input.expectedGrossCents,
     netCentsOverride: netCents,
+    terms: input.termsAcceptedOnCall
+      ? { version: TERMS_VERSION, acceptedByUserId: customer.id }
+      : null,
   });
   if (!outcome.ok) return outcome;
 

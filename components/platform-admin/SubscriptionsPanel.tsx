@@ -61,6 +61,10 @@ function InvoiceCell({ inv }: { readonly inv: Row["invoice"] }) {
         </p>
       ) : inv.insideWindow ? (
         <p className="text-xs">day {inv.windowDay} of 30, money back open</p>
+      ) : !inv.firstInvoice ? (
+        <p className="text-muted-foreground text-xs">
+          day {inv.windowDay}, not the first invoice, no money back
+        </p>
       ) : (
         <p className="text-muted-foreground text-xs">
           day {inv.windowDay}, past the 30 days

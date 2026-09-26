@@ -17,8 +17,7 @@ import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import type { AccessLevel } from "@/lib/billing/accounts";
-import { cancelSubscription } from "@/lib/billing/cancel";
-import { cancelWindow } from "@/lib/billing/cancel-terms";
+import { cancelSubscription, cancelWindowFor } from "@/lib/billing/cancel";
 import { holderNetCents } from "@/lib/billing/holder-price";
 import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { hasOrderCheck } from "@/lib/billing/order-check";
@@ -27,12 +26,13 @@ import { billingFor } from "@/lib/billing/ordering-access";
 import { findActiveInvoice, placeOrder } from "@/lib/billing/place-order";
 import { getInvoice } from "@/lib/billing/qonto";
 import { quoteFor } from "@/lib/billing/quote";
+import { TERMS_VERSION } from "@/lib/billing/terms";
 import { viesConfigFromEnv } from "@/lib/billing/vies";
 import type { DbOrTx } from "@/lib/db";
 import { env } from "@/lib/env";
 import { rateLimit } from "@/lib/rate-limit";
 import { createPresignedGet } from "@/lib/storage";
-import { billingAccount, company, creditNote, invoice } from "@/schema";
+import { billingAccount, company, creditNote, invoice, user } from "@/schema";
 import { accountProcedure, router } from "../init";
 
 const accountOf = async (db: DbOrTx, companyId: string) => {
@@ -78,17 +78,26 @@ const limited = (key: string, limit: number) => {
 };
 
 /**
- * Which cancel the holder is offered, if any: money back inside the thirty days, or no renewal
- * after them, once. Only a full account with a running, uncredited invoice has anything to cancel.
+ * Which cancel the holder is offered, if any: money back inside the thirty days of the first
+ * invoice, otherwise no renewal, once. Only a full account with a running, uncredited invoice has
+ * anything to cancel.
  */
-const cancelOption = (
-  level: AccessLevel,
-  active: { readonly issueDate: string; readonly periodEnd: string } | null,
-  renewalCanceledAt: Date | null,
+const cancelOption = async (
+  db: DbOrTx,
+  account: {
+    readonly id: string;
+    readonly accessLevel: AccessLevel;
+    readonly renewalCanceledAt: Date | null;
+  },
+  active: {
+    readonly id: string;
+    readonly issueDate: string;
+    readonly periodEnd: string;
+  } | null,
   now: Date,
 ) => {
-  if (level !== "full" || !active) return null;
-  const window = cancelWindow(active.issueDate, now);
+  if (account.accessLevel !== "full" || !active) return null;
+  const window = await cancelWindowFor(db, account.id, active, now);
   if (window.kind === "money_back") {
     return {
       kind: "money_back",
@@ -96,9 +105,34 @@ const cancelOption = (
       periodEnd: active.periodEnd,
     } as const;
   }
-  return renewalCanceledAt
+  return account.renewalCanceledAt
     ? null
-    : ({ kind: "renewal", periodEnd: active.periodEnd } as const);
+    : ({ kind: "renewal", reason: window.reason, periodEnd: active.periodEnd } as const);
+};
+
+/**
+ * The contract behind the paying invoice: which AGB and AVV version, accepted when and by whom, and
+ * whether it was on the call (a close from platform admin). Null when no acceptance was recorded.
+ */
+const contractOf = async (db: DbOrTx, invoiceId: string) => {
+  const [row] = await db
+    .select({
+      version: invoice.termsVersion,
+      acceptedAt: invoice.termsAcceptedAt,
+      source: invoice.source,
+      acceptedBy: user.name,
+    })
+    .from(invoice)
+    .leftJoin(user, eq(user.id, invoice.termsAcceptedByUserId))
+    .where(eq(invoice.id, invoiceId))
+    .limit(1);
+  if (!row?.version || !row.acceptedAt) return null;
+  return {
+    version: row.version,
+    acceptedAt: row.acceptedAt,
+    acceptedBy: row.acceptedBy,
+    onCall: row.source === "admin",
+  };
 };
 
 /** Qonto's status for an invoice, read live and never stored: it is Qonto's fact, not ours. */
@@ -127,10 +161,11 @@ export const billingRouter = router({
       // The holder's price: what this account pays, whoever is looking.
       netPrice: formatEuro(await holderNetCents(ctx.db, account.ownerUserId)),
       activeInvoice: active,
+      contract: active ? await contractOf(ctx.db, active.id) : null,
       renewalCanceledAt: account.renewalCanceledAt,
       cancel:
         open && isPayer && !pending
-          ? cancelOption(account.accessLevel, active, account.renewalCanceledAt, now)
+          ? await cancelOption(ctx.db, account, active, now)
           : null,
     };
   }),
@@ -218,9 +253,25 @@ export const billingRouter = router({
         order: orderSchemaWithVatCheck,
         /** The gross the form showed. Required: nobody orders at a price they did not see. */
         quotedGrossCents: z.number().int().nonnegative(),
+        /**
+         * The checkbox at the button, and the AGB version the page showed. Both required: an order
+         * without them, or from a page older than the current terms, is refused.
+         */
+        terms: z.object({
+          accepted: z.literal(true),
+          version: z.string().max(20),
+        }),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      // Checked here rather than in the schema, so a page left open across a terms change gets its
+      // own answer ("the terms changed, reload and read them") instead of a generic bad request.
+      if (input.terms.version !== TERMS_VERSION) {
+        throw new TRPCError({
+          code: "UNPROCESSABLE_CONTENT",
+          message: "The terms have changed since this page was loaded.",
+        });
+      }
       const mode = await requireOrdering(ctx.db, ctx.session.user.email);
       limited(`billing:place:${ctx.userId}`, 3);
 
@@ -235,6 +286,7 @@ export const billingRouter = router({
         vies: viesConfigFromEnv(env),
         expectedGrossCents: input.quotedGrossCents,
         netCentsOverride: null,
+        terms: { version: input.terms.version, acceptedByUserId: ctx.userId },
       });
       if (outcome.ok) {
         return {
@@ -248,6 +300,7 @@ export const billingRouter = router({
         case "already_ordered":
           throw new TRPCError({ code: "CONFLICT", message: outcome.message });
         case "invalid_vat":
+        case "terms_not_accepted":
           throw new TRPCError({ code: "BAD_REQUEST", message: outcome.message });
         case "no_account":
           throw new TRPCError({ code: "NOT_FOUND", message: outcome.message });

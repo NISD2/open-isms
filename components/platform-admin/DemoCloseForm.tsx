@@ -26,10 +26,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { TERMS_VERSION } from "@/lib/billing/terms";
 import { trpc } from "@/lib/trpc/client";
 
 /** "4800", "4.800" or "4.800,50" euros as cents; null when blank, NaN when not a positive amount. */
@@ -52,6 +54,7 @@ export function DemoCloseForm() {
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [amount, setAmount] = useState("");
+  const [termsAcceptedOnCall, setTermsAcceptedOnCall] = useState(false);
   const netCents = centsFrom(amount);
   const amountInvalid = Number.isNaN(netCents);
 
@@ -116,6 +119,7 @@ export function DemoCloseForm() {
       order: orderSchemaWithVatCheck.parse(values),
       netCents,
       quotedGrossCents: price.grossCents,
+      termsAcceptedOnCall,
     });
   };
 
@@ -198,6 +202,19 @@ export function DemoCloseForm() {
               quoting={quote.isPending}
               onVatBlur={requote}
             />
+
+            <div className="flex items-start gap-2 rounded-md border p-3">
+              <Checkbox
+                id="close-terms"
+                checked={termsAcceptedOnCall}
+                onCheckedChange={(v) => setTermsAcceptedOnCall(v === true)}
+              />
+              <Label htmlFor="close-terms" className="font-normal text-sm leading-snug">
+                Admin record: the customer accepted the AGB and the AVV (version{" "}
+                {TERMS_VERSION}) on the call. Stored on the invoice as their acceptance.
+                Leave unticked if they did not.
+              </Label>
+            </div>
 
             {close.error ? (
               <Alert variant="destructive">

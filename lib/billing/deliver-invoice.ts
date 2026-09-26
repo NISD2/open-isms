@@ -27,6 +27,8 @@ export interface DeliverInvoiceInput {
   readonly billingAccountId: string;
   readonly recipients: readonly string[];
   readonly locale: "de" | "en";
+  /** The AGB version the order accepted (invoice.terms_version); null when none was recorded. */
+  readonly termsVersion: string | null;
   /** Replaced in tests, so the polling does not really wait. */
   readonly wait?: (ms: number) => Promise<void>;
 }
@@ -102,6 +104,7 @@ const sendInvoice = async (input: DeliverInvoiceInput, document: InvoiceDocument
     number: input.number,
     locale: input.locale,
     invoiceUrl,
+    termsVersion: input.termsVersion,
   });
   const content = invoiceEmail({ ...wording, invoiceUrl });
   const result = await sendMail({
