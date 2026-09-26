@@ -1,16 +1,17 @@
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and } from "drizzle-orm";
-import { router, protectedProcedure } from "../init";
-import { trainingLessonProgress } from "@/schema";
 import {
   loadCourse,
-  loadLesson,
-  loadQuiz,
   loadDictionary,
+  loadLesson,
   loadLessonContent,
+  loadQuiz,
 } from "@/lib/training/course-loader";
+import { courseParticipants } from "@/lib/training/participants";
+import { quizSeed, shuffleIndices } from "@/lib/training/quiz-shuffle";
 import { renderLesson } from "@/lib/training/render-lesson";
-import { shuffleIndices, quizSeed } from "@/lib/training/quiz-shuffle";
+import { trainingLessonProgress } from "@/schema";
+import { protectedProcedure, router } from "../init";
 
 /** Progress queries filter by userId only - companyId is metadata, not a filter. */
 function progressWhere(userId: string, courseId: string, lessonId?: string) {
@@ -33,7 +34,10 @@ export const trainingPortalRouter = router({
         .where(progressWhere(ctx.userId, input.courseId));
 
       const allLessonIds = course.modules.flatMap((m) => m.lessonIds);
-      const lessonMetas: Record<string, { title: Record<string, string>; estimatedMinutes: number; hasQuiz: boolean }> = {};
+      const lessonMetas: Record<
+        string,
+        { title: Record<string, string>; estimatedMinutes: number; hasQuiz: boolean }
+      > = {};
       await Promise.all(
         allLessonIds.map(async (id) => {
           const lesson = await loadLesson(input.courseId, id);
@@ -47,6 +51,11 @@ export const trainingPortalRouter = router({
 
       return { course, progress, lessonMetas };
     }),
+
+  /** How many people have started each course (lib/training/participants.ts). */
+  participants: protectedProcedure
+    .input(z.object({ courseIds: z.array(z.string().min(1)).min(1).max(20) }))
+    .query(({ ctx, input }) => courseParticipants(ctx.db, input.courseIds)),
 
   getLesson: protectedProcedure
     .input(
@@ -63,11 +72,7 @@ export const trainingPortalRouter = router({
         loadLessonContent(input.courseId, input.lessonId, input.locale),
       ]);
 
-      const { html, termsUsed } = await renderLesson(
-        markdown,
-        dictionary,
-        input.locale,
-      );
+      const { html, termsUsed } = await renderLesson(markdown, dictionary, input.locale);
 
       const sidebarTerms = termsUsed.map((t) => ({
         term: t.term,
@@ -158,7 +163,9 @@ export const trainingPortalRouter = router({
         );
         const originalSelected = permutation[shuffledSelected];
         if (originalSelected === undefined) {
-          throw new Error(`Answer index ${shuffledSelected} out of range for question ${i}`);
+          throw new Error(
+            `Answer index ${shuffledSelected} out of range for question ${i}`,
+          );
         }
         const isCorrect = originalSelected === q.correctIndex;
         if (isCorrect) correct++;
@@ -168,8 +175,7 @@ export const trainingPortalRouter = router({
           selectedIndex: shuffledSelected,
           correctIndex: shuffledCorrectIndex,
           isCorrect,
-          explanation:
-            q.explanation?.[input.locale] ?? q.explanation?.en ?? null,
+          explanation: q.explanation?.[input.locale] ?? q.explanation?.en ?? null,
         };
       });
 

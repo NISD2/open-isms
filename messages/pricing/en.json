@@ -29,30 +29,86 @@
       "meta": {
         "title": "Pricing: the NIS 2 guided pass and self-hosting",
         "description": "The NIS 2 guided pass at nisd2.eu: {price} net a year, by invoice, 30 days money back, any number of organizations and users. Self-host under AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "One price, everything included. Courses and wiki cost nothing.",
+      "recommended": "Recommended",
+      "free": {
+        "name": "Learn",
+        "description": "For anyone who wants to understand NIS 2.",
+        "price": "€0",
+        "priceSub": "forever",
+        "cta": "Go to the courses",
+        "features": {
+          "courses": "All courses, including <course>for management</course>",
+          "wiki": "The NIS 2 wiki",
+          "tools": "Tools for <risk>risk assessment</risk> and <structure>asset inventory</structure>"
+        }
       },
-      "subtitle": "One offer at nisd2.eu, one price. Or run the open source yourself.",
-      "name": "NIS 2 guided pass",
-      "description": "A yearly licence at nisd2.eu, operated by us. One payment covers every organization and user on your account.",
-      "priceSub": "net a year, plus VAT",
-      "terms": "You pay by invoice within 30 days. If you cancel within 30 days of ordering, you get your money back.",
-      "cta": "Order",
-      "courseLine": "For management, there is the NIS 2 course.",
-      "courseCta": "Go to the course",
-      "features": {
-        "p1": "The NIS 2 requirements step by step, with status, evidence and approval for each one",
-        "p2": "Upload evidence and file it against the requirement it proves",
-        "p3": "Change log for your organization",
-        "p4": "Registers for assets, risks and suppliers",
-        "p5": "Deadlines and review dates for each requirement",
-        "p6": "Any number of organizations and users on one payment"
+      "paid": {
+        "name": "NIS 2 guided pass",
+        "description": "Guided implementation at nisd2.eu.",
+        "priceSub": "net a year, plus VAT",
+        "moneyBack": "30 days money back",
+        "moneyBackTip": {
+          "title": "30 days money back",
+          "points": {
+            "first": "On your first order, no reason needed",
+            "cancel": "Cancel under Billing or by email",
+            "refund": "An open invoice is cancelled; a paid one is refunded within 30 days",
+            "data": "Your data stays stored"
+          },
+          "note": "Does not apply to renewals. The details are in the terms, section B7."
+        },
+        "grandfatheredBadge": "Your existing-user price",
+        "cta": "Order",
+        "terms": "By invoice, due in 30 days. Cancel within the first 30 days: invoice cancelled or money back.",
+        "termsLink": "Terms",
+        "features": {
+          "guided": "Guided NIS 2 implementation, step by step",
+          "unlimited": "Unlimited organizations and users",
+          "history": "A history of changes and sign-offs to show your regulator",
+          "deadlines": "Deadlines and reminders for each requirement",
+          "suppliers": "Security questionnaire for your suppliers",
+          "export": "Export to PDF or CSV at any time",
+          "updates": "All future updates included",
+          "call": "<cal>Personal calls with us</cal>, bookable any time"
+        },
+        "unlimitedTip": {
+          "title": "For your own company structure",
+          "points": {
+            "structure": "Parent company, subsidiaries and sister companies",
+            "users": "Each as its own organization with its own users",
+            "payment": "All on one payment"
+          },
+          "note": "Not for IT service providers, consultants or external officers who look after clients. There, each client organization needs its own license (terms, section B1)."
+        },
+        "grandfatheredNote": "Signed in before paid plans started? You pay {price} net a year, renewals included."
       },
-      "delivery": "You get today's journey straight away, and the guided form when it is ready, within the same paid year.",
-      "grandfathered": "Anyone who signed in at least once before paid access started keeps today's journey without paying for it. For them the paid year costs {price} net.",
       "selfHost": {
-        "h2": "All future updates included",
-        "h4": "No contract, no activation key"
+        "name": "Self-hosting",
+        "description": "The same source code, on your own servers.",
+        "price": "€0",
+        "priceSub": "forever",
+        "cta": "View the source",
+        "features": {
+          "everything": "Everything in the <paid>guided pass</paid>",
+          "infrastructure": "On your own infrastructure",
+          "licence": "Source open under AGPL-3.0",
+          "contract": "No contract with us"
+        },
+        "licences": {
+          "title": "Licenses in the repository",
+          "dual": "Code under MIT, content under CC BY 4.0",
+          "courses": "Course content under CC BY 4.0"
+        }
       },
-      "whyFree": "Why self-hosting costs nothing: the source is open on GitHub, auditable and yours to run. What you pay for is us running it at nisd2.eu."
+      "trust": {
+        "invoice": "Invoice, no credit card",
+        "documents": "<terms>Terms</terms> and <avv>DPA</avv> open to read",
+        "openSource": "Open source under AGPL-3.0"
+      }
     },
     "selfHost": {
       "name": "Self-host",

@@ -1149,7 +1149,8 @@
           "heading": "B1. Subject of the contract",
           "paragraphs": [
             "The subject is the right to use the hosted Platform with the NIS 2 guided pass for one licence year (\"annual licence\"). The Provider makes the Platform available over the internet. The customer does not receive a copy of the software.",
-            "The annual licence covers the customer's account: every organisation and every user on that account. One payment covers all of them."
+            "The annual licence covers the customer's account: every organisation and every user on that account. One payment covers all of them.",
+            "Organisations in this sense are the customer itself and the companies of its own group: companies affiliated with it or majority-owned by the same shareholders. If the customer uses the Platform for organisations it looks after as a service provider, for example as an IT service provider, managed service provider, consultant or external information security officer, each of those organisations needs its own annual licence unless agreed otherwise."
           ]
         },
         "businessOnly": {

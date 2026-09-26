@@ -1149,7 +1149,8 @@
           "heading": "B1. Vertragsgegenstand",
           "paragraphs": [
             "Gegenstand ist das Recht, die gehostete Plattform mit dem NIS 2 Durchgang für ein Lizenzjahr zu nutzen („Jahreslizenz“). Der Anbieter stellt die Plattform über das Internet bereit. Eine Kopie der Software erhält der Kunde nicht.",
-            "Die Jahreslizenz gilt für das Konto des Kunden: für alle Organisationen und alle Nutzer, die dieses Konto verwendet. Eine Zahlung deckt sie alle ab."
+            "Die Jahreslizenz gilt für das Konto des Kunden: für alle Organisationen und alle Nutzer, die dieses Konto verwendet. Eine Zahlung deckt sie alle ab.",
+            "Organisationen in diesem Sinne sind der Kunde selbst und die Unternehmen seiner eigenen Gruppe: Unternehmen, die mit ihm verbunden sind oder mehrheitlich denselben Gesellschaftern gehören. Nutzt der Kunde die Plattform für Organisationen, die er als Dienstleister betreut, etwa als IT-Dienstleister, Managed Service Provider, Berater oder externer Informationssicherheitsbeauftragter, braucht jede dieser Organisationen eine eigene Jahreslizenz, soweit nichts anderes vereinbart ist."
           ]
         },
         "businessOnly": {

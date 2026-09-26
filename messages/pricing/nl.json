@@ -29,30 +29,86 @@
       "meta": {
         "title": "Prijzen: de NIS 2 begeleide doorloop en eigen beheer",
         "description": "De NIS 2 begeleide doorloop op nisd2.eu: {price} netto per jaar, op factuur, 30 dagen geld terug, onbeperkt organisaties en gebruikers. Eigen beheer onder AGPL-3.0."
+      }
+    },
+    "tiers": {
+      "subtitle": "Eén prijs, alles inbegrepen. Cursussen en wiki kosten niets.",
+      "recommended": "Aanbevolen",
+      "free": {
+        "name": "Leren",
+        "description": "Voor iedereen die NIS 2 wil begrijpen.",
+        "price": "€ 0",
+        "priceSub": "voor altijd",
+        "cta": "Naar de cursussen",
+        "features": {
+          "courses": "Alle cursussen, ook <course>voor de directie</course>",
+          "wiki": "De NIS 2 wiki",
+          "tools": "Tools voor <risk>risicobeoordeling</risk> en <structure>asset-inventarisatie</structure>"
+        }
       },
-      "subtitle": "Eén aanbod op nisd2.eu, één prijs. Of u draait de open broncode zelf.",
-      "name": "NIS 2 begeleide doorloop",
-      "description": "Jaarlicentie op nisd2.eu, door ons beheerd. Eén betaling geldt voor alle organisaties en gebruikers in uw account.",
-      "priceSub": "netto per jaar, excl. btw",
-      "terms": "U betaalt op factuur binnen 30 dagen. Als u binnen 30 dagen na de bestelling opzegt, krijgt u uw geld terug.",
-      "cta": "Bestellen",
-      "courseLine": "Voor de directie is er de NIS 2 cursus.",
-      "courseCta": "Naar de cursus",
-      "features": {
-        "p1": "De NIS 2 vereisten stap voor stap, met status, bewijs en goedkeuring per vereiste",
-        "p2": "Bewijs uploaden en direct bij de vereiste opslaan",
-        "p3": "Wijzigingslog voor uw organisatie",
-        "p4": "Registers voor assets, risico's en leveranciers",
-        "p5": "Deadlines en herbeoordelingsdata per vereiste",
-        "p6": "Onbeperkt organisaties en gebruikers met één betaling"
+      "paid": {
+        "name": "NIS 2 begeleide doorloop",
+        "description": "Begeleide implementatie op nisd2.eu.",
+        "priceSub": "netto per jaar, excl. btw",
+        "moneyBack": "30 dagen geld terug",
+        "moneyBackTip": {
+          "title": "30 dagen geld terug",
+          "points": {
+            "first": "Bij uw eerste bestelling, zonder opgave van reden",
+            "cancel": "Opzeggen onder Facturatie of per e-mail",
+            "refund": "Een openstaande factuur wordt geannuleerd, een betaalde betalen wij binnen 30 dagen terug",
+            "data": "Uw gegevens blijven bewaard"
+          },
+          "note": "Geldt niet voor verlengingen. De details staan in de voorwaarden, artikel B7."
+        },
+        "grandfatheredBadge": "Uw prijs als bestaande gebruiker",
+        "cta": "Bestellen",
+        "terms": "Op factuur, betaling binnen 30 dagen. Opzeggen in de eerste 30 dagen: factuur geannuleerd of geld terug.",
+        "termsLink": "Voorwaarden",
+        "features": {
+          "guided": "Begeleide NIS 2 implementatie, stap voor stap",
+          "unlimited": "Onbeperkt organisaties en gebruikers",
+          "history": "Een geschiedenis van wijzigingen en goedkeuringen, om aan uw toezichthouder te tonen",
+          "deadlines": "Deadlines en herinneringen per vereiste",
+          "suppliers": "Beveiligingsvragenlijst voor uw leveranciers",
+          "export": "Export naar PDF of CSV, op elk moment",
+          "updates": "Alle toekomstige updates inbegrepen",
+          "call": "<cal>Persoonlijke gesprekken met ons</cal>, altijd te boeken"
+        },
+        "unlimitedTip": {
+          "title": "Voor uw eigen bedrijfsstructuur",
+          "points": {
+            "structure": "Moedermaatschappij, dochters en zusterbedrijven",
+            "users": "Elk als eigen organisatie met eigen gebruikers",
+            "payment": "Allemaal met één betaling"
+          },
+          "note": "Niet voor IT-dienstverleners, adviseurs of externe functionarissen die klanten begeleiden. Daar heeft elke begeleide organisatie een eigen licentie nodig (voorwaarden, artikel B1)."
+        },
+        "grandfatheredNote": "Aangemeld voordat de betaalde toegang begon? U betaalt {price} netto per jaar, ook bij verlenging."
       },
-      "delivery": "U krijgt de huidige doorloop direct, en het begeleide formulier zodra het klaar is, binnen hetzelfde betaalde jaar.",
-      "grandfathered": "Wie zich vóór de start van de betaalde toegang minstens één keer heeft aangemeld, houdt de huidige doorloop zonder ervoor te betalen. Voor hen kost het betaalde jaar {price} netto.",
       "selfHost": {
-        "h2": "Alle toekomstige updates inbegrepen",
-        "h4": "Geen contract, geen activering"
+        "name": "Eigen beheer",
+        "description": "Dezelfde broncode, op uw eigen servers.",
+        "price": "€ 0",
+        "priceSub": "voor altijd",
+        "cta": "Naar de broncode",
+        "features": {
+          "everything": "Alles uit de <paid>begeleide doorloop</paid>",
+          "infrastructure": "Op uw eigen infrastructuur",
+          "licence": "Broncode open onder AGPL-3.0",
+          "contract": "Geen contract met ons"
+        },
+        "licences": {
+          "title": "Licenties in de repository",
+          "dual": "Code onder MIT, inhoud onder CC BY 4.0",
+          "courses": "Cursusinhoud onder CC BY 4.0"
+        }
       },
-      "whyFree": "Waarom eigen beheer niets kost: de broncode staat open op GitHub, controleerbaar en zelf te draaien. U betaalt ervoor dat wij het op nisd2.eu draaien."
+      "trust": {
+        "invoice": "Factuur, geen creditcard",
+        "documents": "<terms>Voorwaarden</terms> en <avv>verwerkersovereenkomst</avv> openbaar",
+        "openSource": "Open source onder AGPL-3.0"
+      }
     },
     "selfHost": {
       "name": "Eigen beheer",

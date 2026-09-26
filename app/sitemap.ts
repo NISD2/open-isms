@@ -1,11 +1,11 @@
-import type { MetadataRoute } from "next";
 import { isNotNull } from "drizzle-orm";
+import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-import { HELP_LOCALES, localizedAbsoluteUrl, type Locale } from "@/lib/seo";
 import { wikiSitemapPaths } from "@/lib/content/wiki-toc";
-import { DOCS_ENTRIES } from "@/lib/docs/toc";
-import { DOCS_REVISED, docsUrl } from "@/lib/docs/seo";
 import { db } from "@/lib/db";
+import { DOCS_REVISED, docsUrl } from "@/lib/docs/seo";
+import { DOCS_ENTRIES } from "@/lib/docs/toc";
+import { HELP_LOCALES, type Locale, localizedAbsoluteUrl } from "@/lib/seo";
 import { newsletterIssue } from "@/schema";
 
 // Rendered at request time, not at build. The published-issue lookup hits the
@@ -139,7 +139,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...multilingualEntries("/nis2-tool", { priority: 0.9 }),
     ...multilingualEntries("/features", { priority: 0.9 }),
 
-
     ...multilingualEntries("/nis2-lieferanten-fragebogen", { priority: 0.8 }),
     ...multilingualEntries("/nis2-meldepflicht-schema", { priority: 0.8 }),
     // Sicherheitsfragebogen wedge — canonical home for the EMD
@@ -172,6 +171,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.4,
       locales: HELP_LOCALES,
     }),
+    ...multilingualEntries("/kurse", { priority: 0.8 }),
     ...multilingualEntries("/training/nis2-ceo", { priority: 0.9 }),
 
     // About + open-source. /pitch and /mission are 308-redirects to /about,

@@ -1,5 +1,12 @@
 import { describe, expect, test } from "bun:test";
-import { invoiceDates, netCentsFor, priceFor } from "./order";
+import { formatWholeEuro, invoiceDates, netCentsFor, priceFor } from "./order";
+
+describe("formatWholeEuro", () => {
+  test("drops the cents a price card does not need, in the locale's own format", () => {
+    expect(formatWholeEuro(480_000, "de")).toBe("4.800 €");
+    expect(formatWholeEuro(240_000, "en")).toBe("€2,400");
+  });
+});
 
 describe("netCentsFor", () => {
   test("charges a grandfathered holder half, everyone else the full price", () => {

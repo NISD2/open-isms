@@ -116,6 +116,17 @@ export const formatEuro = (cents: number, locale = "de-DE"): string =>
   );
 
 /**
+ * A price for the /pricing cards, where "4.800 €" reads better than "4.800,00 €". Only for the
+ * whole-euro list prices; anything that can carry cents (an invoice, a quote) uses formatEuro.
+ */
+export const formatWholeEuro = (cents: number, locale = "de-DE"): string =>
+  new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(cents / 100);
+
+/**
  * The time zone invoice dates are counted in: the seller's. An invoice's issue date is a calendar
  * day where the seller is, not wherever the server's clock happens to be, so an order at 00:30 in
  * Berlin is dated that day even on a server running in UTC.

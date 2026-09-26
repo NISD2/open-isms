@@ -136,6 +136,11 @@ export const routing = defineRouting({
       en: "/asset-inventory",
       nl: "/asset-inventarisatie",
     },
+    "/kurse": {
+      de: "/kurse",
+      en: "/courses",
+      nl: "/cursussen",
+    },
     "/features": {
       de: "/features",
       en: "/features",
