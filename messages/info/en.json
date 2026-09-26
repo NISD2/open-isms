@@ -818,8 +818,7 @@
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nuremberg, Germany): hosting of application servers and PostgreSQL database",
         "google": "Google (OAuth): authentication, processes your name and email address for sign-in",
         "aws": "Amazon Web Services (S3): file storage, stores evidence documents you upload",
-        "resend": "Resend: transactional email, delivers notification and invitation emails",
-        "xai": "xAI: AI-assisted form prefill, processes company information to generate draft form responses"
+        "resend": "Resend: transactional email, delivers notification and invitation emails"
       },
       "analytics": {
         "heading": "Analytics",
@@ -927,7 +926,7 @@
             "Categories of personal data: account data (name, email, phone, job title, role, language, password only as a bcrypt hash, times of login and verification). Content data (names, job titles and contact details in forms, responsibilities, sign-offs with name, role and time, training records and certificates, free text and incident descriptions, uploaded evidence documents). Log data (audit log with user, action, time, IP address, user agent and the submitted values).",
             "Sensitive data: the platform is not designed for special categories of personal data under Art. 9 GDPR and does not ask for them. If the customer enters such data in free text or documents, the measures in Annex III apply to them.",
             "Nature of the processing: storing, displaying, changing, exporting, sending by email and deleting in the operation of the platform.",
-            "Purpose: providing the platform with which the customer organises and documents its NIS 2 duties; sending notifications; at the customer's request, prefill and evaluation with AI (Annex IV).",
+            "Purpose: providing the platform with which the customer organises and documents its NIS 2 duties; sending notifications.",
             "Duration: for as long as the customer uses the platform, until deletion or return under section 4.",
             "Processing by sub-processors: subject matter, nature and duration are set out in Annex IV; the duration is that of this agreement."
           ]
@@ -952,7 +951,6 @@
             "Hetzner Online GmbH, Germany: operation of the application servers and the database, and so of all data in Annex II.",
             "Amazon Web Services EMEA SARL, Luxembourg: file storage in AWS S3 in an EU region (evidence documents, training certificates, certificates from the supplier portal).",
             "Resend, Inc., USA: sending the platform's emails (recipient, subject, content, attachments). Transfer to the USA based on the EU standard contractual clauses under Art. 46 GDPR.",
-            "xAI Corp., USA: form prefill and evaluation with AI. Only if the customer switches on data sharing in its organisation settings (off by default), and only with the text and details it submits for this. Transfer to the USA based on the EU standard contractual clauses under Art. 46 GDPR.",
             "Google Ireland Limited, Ireland: sign-in with Google, only for users who choose that route.",
             "Qonto (invoicing) and the EU VAT check (VIES) are not sub-processors: they process only billing data for which the processor is itself responsible. The privacy policy covers that."
           ],
@@ -978,11 +976,11 @@
       },
       "hosting": {
         "heading": "Hosting in the EU",
-        "scopeNote": "Servers, database and file storage are in the EU. Two services are based in the USA and receive only the data for their function:",
+        "scopeNote": "Servers, database and file storage are in the EU. One service is based in the USA and receives only the data for its function:",
         "items": {
           "appServers": "Application servers and PostgreSQL database: Hetzner Online GmbH, data centre Falkenstein/Nuremberg, Germany",
           "fileStorage": "Storage of uploaded evidence documents: AWS S3, EU region",
-          "usServices": "In the USA: Resend for sending email and xAI for AI prefill, the latter only if an organisation switches data sharing on (off by default). Transfers are based on the EU standard contractual clauses (Art. 46 GDPR)."
+          "usServices": "In the USA: Resend, which sends our emails. The transfer is based on the EU standard contractual clauses (Art. 46 GDPR)."
         }
       },
       "pseudonymization": {
@@ -6877,15 +6875,12 @@
         },
         "resend": {
           "purpose": "Transactional emails"
-        },
-        "xai": {
-          "purpose": "AI-assisted form prefill (optional)"
         }
       },
       "basisEU": "EU member state",
       "basisSCC": "EU Standard Contractual Clauses",
       "noteHeading": "Note on third-country transfers",
-      "noteBody": "Resend Inc. and xAI Corp. are based in the United States. Personal data transfers are made on the basis of EU Standard Contractual Clauses (SCCs) under Art. 46 GDPR. xAI is used only for AI-assisted form prefill and only when the user actively uses that feature. Users are informed of data sharing transparently within the platform.",
+      "noteBody": "Resend Inc. is based in the United States. Personal data is transferred on the basis of the EU Standard Contractual Clauses (SCCs) under Art. 46 GDPR.",
       "changesHeading": "Changes",
       "changeNotice": "If we intend to add or replace a sub-processor, we tell customers of the hosted platform by email at least 30 days in advance. They may object (data processing agreement, section 3). Anyone who runs the software themselves does not use these sub-processors."
     },

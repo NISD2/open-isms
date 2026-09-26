@@ -818,8 +818,7 @@
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nürnberg, Deutschland): Hosting der Anwendungsserver und PostgreSQL-Datenbank",
         "google": "Google (OAuth): Authentifizierung, verarbeitet Ihren Namen und Ihre E-Mail-Adresse für die Anmeldung",
         "aws": "Amazon Web Services (S3): Dateispeicherung, speichert von Ihnen hochgeladene Nachweisdokumente",
-        "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails",
-        "xai": "xAI: KI-gestützte Formularvorausfüllung, verarbeitet Unternehmensinformationen zur Generierung von Formularentwürfen"
+        "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails"
       },
       "analytics": {
         "heading": "Analyse",
@@ -927,7 +926,7 @@
             "Kategorien personenbezogener Daten: Kontodaten (Name, E-Mail, Telefon, Funktion, Rolle, Sprache, Passwort nur als bcrypt Hash, Zeitpunkte von Anmeldung und Bestätigung). Inhaltsdaten (Namen, Funktionen und Kontaktdaten in Formularen, Zuständigkeiten, Freigaben mit Name, Rolle und Zeitpunkt, Schulungsnachweise und Zertifikate, Freitexte und Vorfallbeschreibungen, hochgeladene Nachweisdokumente). Protokolldaten (Prüfprotokoll mit Nutzer, Aktion, Zeitpunkt, IP-Adresse, User Agent und den übermittelten Werten).",
             "Sensible Daten: Die Plattform ist nicht für besondere Kategorien personenbezogener Daten nach Art. 9 DSGVO ausgelegt und fragt sie nicht ab. Gibt der Kunde solche Daten in Freitexte oder Dokumente ein, gelten für sie die Maßnahmen in Anhang III.",
             "Art der Verarbeitung: Speichern, Anzeigen, Ändern, Exportieren, Versenden per E-Mail und Löschen im Betrieb der Plattform.",
-            "Zweck: Bereitstellung der Plattform, mit der der Kunde seine Pflichten aus NIS 2 organisiert und dokumentiert; Versand von Benachrichtigungen; auf Wunsch des Kunden Vorausfüllung und Auswertung mit KI (Anhang IV).",
+            "Zweck: Bereitstellung der Plattform, mit der der Kunde seine Pflichten aus NIS 2 organisiert und dokumentiert; Versand von Benachrichtigungen.",
             "Dauer: für die Dauer der Nutzung der Plattform durch den Kunden, bis zur Löschung oder Rückgabe nach Abschnitt 4.",
             "Verarbeitung durch Unterauftragsverarbeiter: Gegenstand, Art und Dauer stehen in Anhang IV; die Dauer entspricht der Dauer dieses Vertrags."
           ]
@@ -952,7 +951,6 @@
             "Hetzner Online GmbH, Deutschland: Betrieb der Anwendungsserver und der Datenbank, also aller Daten aus Anhang II.",
             "Amazon Web Services EMEA SARL, Luxemburg: Speicherung von Dateien in AWS S3 in einer Region der EU (Nachweisdokumente, Schulungszertifikate, Zertifikate aus dem Lieferantenportal).",
             "Resend, Inc., USA: Versand von E-Mails der Plattform (Empfänger, Betreff, Inhalt, Anhänge). Übermittlung in die USA auf Grundlage der EU Standardvertragsklauseln nach Art. 46 DSGVO.",
-            "xAI Corp., USA: Vorausfüllung von Formularen und Auswertung mit KI. Nur wenn der Kunde die Weitergabe in den Einstellungen seiner Organisation einschaltet (voreingestellt: aus), und nur mit den Texten und Angaben, die er dafür auslöst. Übermittlung in die USA auf Grundlage der EU Standardvertragsklauseln nach Art. 46 DSGVO.",
             "Google Ireland Limited, Irland: Anmeldung mit Google, nur für Nutzer, die diesen Weg wählen.",
             "Keine Unterauftragsverarbeiter sind Qonto (Rechnungen) und die MwSt Prüfung der EU (VIES): Sie verarbeiten nur Rechnungsdaten, für die der Auftragsverarbeiter selbst verantwortlich ist. Das regelt die Datenschutzerklärung."
           ],
@@ -978,11 +976,11 @@
       },
       "hosting": {
         "heading": "Hosting in der EU",
-        "scopeNote": "Server, Datenbank und Dateispeicher liegen in der EU. Zwei Dienste sitzen in den USA und erhalten nur die Daten für ihre Funktion:",
+        "scopeNote": "Server, Datenbank und Dateispeicher liegen in der EU. Ein Dienst sitzt in den USA und erhält nur die Daten für seine Funktion:",
         "items": {
           "appServers": "Anwendungsserver und PostgreSQL-Datenbank: Hetzner Online GmbH, Rechenzentrum Falkenstein/Nürnberg, Deutschland",
           "fileStorage": "Speicherung hochgeladener Nachweisdokumente: AWS S3, EU-Region",
-          "usServices": "In den USA: Resend für den Versand von E-Mails und xAI für die Vorausfüllung mit KI, Letzteres nur, wenn eine Organisation die Weitergabe einschaltet (voreingestellt: aus). Grundlage der Übermittlung sind die EU-Standardvertragsklauseln (Art. 46 DSGVO)."
+          "usServices": "In den USA: Resend, über das wir E-Mails versenden. Grundlage der Übermittlung sind die EU-Standardvertragsklauseln (Art. 46 DSGVO)."
         }
       },
       "pseudonymization": {
@@ -6870,15 +6868,12 @@
         },
         "resend": {
           "purpose": "Transaktionale E-Mails"
-        },
-        "xai": {
-          "purpose": "KI-gestützte Formularausfüllung (optional)"
         }
       },
       "basisEU": "EU-Mitgliedstaat",
       "basisSCC": "EU-Standardvertragsklauseln",
       "noteHeading": "Hinweis zu Drittlandtransfers",
-      "noteBody": "Resend Inc. und xAI Corp. sitzen in den USA. Die Übermittlung personenbezogener Daten erfolgt auf Grundlage der EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO. xAI wird nur für die KI-gestützte Formularvorbefüllung eingesetzt und nur wenn der Nutzer diese Funktion aktiv verwendet. Über die Datenweitergabe wird in der Plattform transparent informiert.",
+      "noteBody": "Resend Inc. sitzt in den USA. Die Übermittlung personenbezogener Daten erfolgt auf Grundlage der EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO.",
       "changesHeading": "Änderungen",
       "changeNotice": "Wollen wir einen Unterauftragsverarbeiter hinzufügen oder ersetzen, teilen wir das Kunden der gehosteten Plattform mindestens 30 Tage vorher per E-Mail mit. Sie können widersprechen (Auftragsverarbeitungsvertrag, Abschnitt 3). Wer die Software selbst betreibt, nutzt diese Unterauftragsverarbeiter nicht."
     },

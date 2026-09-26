@@ -50,13 +50,6 @@ const processors = [
     basisKey: "SCC",
     url: "https://resend.com/privacy",
   },
-  {
-    key: "xai",
-    name: "xAI Corp.",
-    location: "USA",
-    basisKey: "SCC",
-    url: "https://x.ai/legal/privacy-policy",
-  },
 ] as const;
 
 export default async function SubprocessorsPage() {
