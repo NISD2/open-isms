@@ -82,12 +82,14 @@ export const requirementRouter = router({
           requirementCategory,
           eq(requirement.categoryId, requirementCategory.id),
         )
-        .where(eq(requirementCategory.frameworkId, current.category.frameworkId));
+        .where(eq(requirementCategory.frameworkId, current.category.frameworkId))
+        .orderBy(asc(requirementCategory.sortOrder), asc(requirement.sortOrder));
 
       // Journey order, not process order. This is the prev/next a person walks, and it used to
       // run 1.1, 1.2, 1.3 while the map beside it showed urgency first and the prerequisites were
-      // ignored by both. One sort key for every surface, so they cannot disagree again.
-      siblings.sort((a, b) => journeyIndex(a.code) - journeyIndex(b.code));
+      // ignored by both. One sort key for every surface, so they cannot disagree again. The sort is
+      // stable, so codes the journey does not know (every other framework) keep process order.
+      siblings.sort((a, b) => journeyIndex(a.code) - journeyIndex(b.code) || 0);
 
       const idx = siblings.findIndex((r) => r.code === input.code);
       if (idx === -1) return { prev: null, next: null };
