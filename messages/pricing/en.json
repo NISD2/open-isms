@@ -65,6 +65,7 @@
           "export": "Export to PDF or CSV at any time",
           "updates": "All updates included"
         },
+        "unlimitedDetail": "For your own company structure: parent company, subsidiaries and sister companies, each as its own organization with its own users, all on one payment. Not for IT service providers, consultants or external officers who look after clients: there, each client organization needs its own license.",
         "grandfatheredNote": "Signed in before paid plans started? You pay {price} net a year, renewals included."
       },
       "selfHost": {

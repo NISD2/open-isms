@@ -65,6 +65,7 @@
           "export": "Export als PDF oder CSV, jederzeit",
           "updates": "Alle Updates inklusive"
         },
+        "unlimitedDetail": "Für Ihre eigene Unternehmensstruktur: Muttergesellschaft, Töchter und Schwesterfirmen, jede als eigene Organisation mit eigenen Nutzern, alle mit einer Zahlung. Nicht für IT-Dienstleister, Berater oder externe Beauftragte, die Kunden betreuen: Dort braucht jede betreute Organisation eine eigene Lizenz.",
         "grandfatheredNote": "Vor dem Start angemeldet? Dann zahlen Sie {price} netto im Jahr, auch bei Verlängerung."
       },
       "selfHost": {

@@ -65,6 +65,7 @@
           "export": "Export naar PDF of CSV, op elk moment",
           "updates": "Alle updates inbegrepen"
         },
+        "unlimitedDetail": "Voor uw eigen bedrijfsstructuur: moedermaatschappij, dochters en zusterbedrijven, elk als eigen organisatie met eigen gebruikers, allemaal met één betaling. Niet voor IT-dienstverleners, adviseurs of externe functionarissen die klanten begeleiden: daar heeft elke begeleide organisatie een eigen licentie nodig.",
         "grandfatheredNote": "Aangemeld voordat de betaalde toegang begon? U betaalt {price} netto per jaar, ook bij verlenging."
       },
       "selfHost": {

@@ -242,7 +242,24 @@ export function PaidPricingCards({
               {paidFeatures.map((key) => (
                 <FeatureItem key={key} highlighted>
                   {key === "unlimited" ? (
-                    <strong className="font-semibold">{t(`paid.features.${key}`)}</strong>
+                    // Who counts as one customer is AGB B1: the customer's own group, not the
+                    // clients of an MSP or a consultant.
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          className="cursor-help text-left font-semibold underline decoration-foreground/30 decoration-dotted underline-offset-4 hover:decoration-foreground"
+                        >
+                          {t(`paid.features.${key}`)}
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        className="max-w-xs text-left leading-relaxed"
+                        sideOffset={6}
+                      >
+                        {t("paid.unlimitedDetail")}
+                      </TooltipContent>
+                    </Tooltip>
                   ) : (
                     t(`paid.features.${key}`)
                   )}
