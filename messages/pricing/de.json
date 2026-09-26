@@ -41,7 +41,7 @@
         "priceSub": "dauerhaft",
         "cta": "Zu den Kursen",
         "features": {
-          "courses": "Alle Kurse, auch für die Geschäftsleitung",
+          "courses": "Alle Kurse, auch <course>für die Geschäftsleitung</course>",
           "wiki": "Das NIS 2 Wiki",
           "tools": "Werkzeuge für Risikobewertung und Strukturanalyse"
         }
@@ -51,9 +51,9 @@
         "description": "Die geführte Umsetzung auf nisd2.eu.",
         "priceSub": "netto im Jahr, zzgl. USt.",
         "moneyBack": "30 Tage Geld zurück",
+        "moneyBackDetail": "Bei Ihrer ersten Bestellung können Sie 30 Tage lang ohne Angabe von Gründen kündigen, unter Abrechnung oder per E-Mail. Wir stornieren die Rechnung. Haben Sie schon gezahlt, erstatten wir den vollen Betrag innerhalb von 30 Tagen. Ihre Daten bleiben gespeichert. Gilt nicht für Verlängerungen.",
         "grandfatheredBadge": "Ihr Bestandspreis",
         "cta": "Bestellen",
-        "ctaClosed": "Zum Kurs für die Geschäftsleitung",
         "terms": "Auf Rechnung, 30 Tage Zahlungsziel. Kündigung in den ersten 30 Tagen: Rechnung storniert oder Geld zurück.",
         "termsLink": "AGB",
         "features": {
@@ -74,10 +74,15 @@
         "priceSub": "dauerhaft",
         "cta": "Zum Quellcode",
         "features": {
-          "everything": "Alles aus dem Durchgang",
+          "everything": "Alles aus dem <paid>Durchgang</paid>",
           "infrastructure": "Auf Ihrer eigenen Infrastruktur",
           "licence": "Quellcode offen unter AGPL-3.0",
           "contract": "Kein Vertrag mit uns"
+        },
+        "licences": {
+          "title": "Lizenzen im Repository",
+          "dual": "Code unter MIT, Inhalte unter CC BY 4.0",
+          "courses": "Kursinhalte unter CC BY 4.0"
         }
       },
       "trust": {

@@ -41,7 +41,7 @@
         "priceSub": "voor altijd",
         "cta": "Naar de cursussen",
         "features": {
-          "courses": "Alle cursussen, ook voor de directie",
+          "courses": "Alle cursussen, ook <course>voor de directie</course>",
           "wiki": "De NIS 2 wiki",
           "tools": "Tools voor risicobeoordeling en structuuranalyse"
         }
@@ -51,9 +51,9 @@
         "description": "Begeleide implementatie op nisd2.eu.",
         "priceSub": "netto per jaar, excl. btw",
         "moneyBack": "30 dagen geld terug",
+        "moneyBackDetail": "Bij uw eerste bestelling kunt u 30 dagen lang opzeggen zonder opgave van reden, onder Facturatie of per e-mail. Wij annuleren de factuur. Heeft u al betaald, dan betalen wij het volledige bedrag binnen 30 dagen terug. Uw gegevens blijven bewaard. Geldt niet voor verlengingen.",
         "grandfatheredBadge": "Uw prijs als bestaande gebruiker",
         "cta": "Bestellen",
-        "ctaClosed": "Naar de cursus voor de directie",
         "terms": "Op factuur, betaling binnen 30 dagen. Opzeggen in de eerste 30 dagen: factuur geannuleerd of geld terug.",
         "termsLink": "Voorwaarden",
         "features": {
@@ -74,10 +74,15 @@
         "priceSub": "voor altijd",
         "cta": "Naar de broncode",
         "features": {
-          "everything": "Alles uit de begeleide doorloop",
+          "everything": "Alles uit de <paid>begeleide doorloop</paid>",
           "infrastructure": "Op uw eigen infrastructuur",
           "licence": "Broncode open onder AGPL-3.0",
           "contract": "Geen contract met ons"
+        },
+        "licences": {
+          "title": "Licenties in de repository",
+          "dual": "Code onder MIT, inhoud onder CC BY 4.0",
+          "courses": "Cursusinhoud onder CC BY 4.0"
         }
       },
       "trust": {

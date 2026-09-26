@@ -41,7 +41,7 @@
         "priceSub": "forever",
         "cta": "Go to the courses",
         "features": {
-          "courses": "All courses, including for management",
+          "courses": "All courses, including <course>for management</course>",
           "wiki": "The NIS 2 wiki",
           "tools": "Tools for risk assessment and structure analysis"
         }
@@ -51,9 +51,9 @@
         "description": "Guided implementation at nisd2.eu.",
         "priceSub": "net a year, plus VAT",
         "moneyBack": "30 days money back",
+        "moneyBackDetail": "On your first order you can cancel for 30 days without giving a reason, under Billing or by email. We cancel the invoice. If you have already paid, we refund the full amount within 30 days. Your data stays stored. Does not apply to renewals.",
         "grandfatheredBadge": "Your existing-user price",
         "cta": "Order",
-        "ctaClosed": "Go to the management course",
         "terms": "By invoice, due in 30 days. Cancel within the first 30 days: invoice cancelled or money back.",
         "termsLink": "Terms",
         "features": {
@@ -74,10 +74,15 @@
         "priceSub": "forever",
         "cta": "View the source",
         "features": {
-          "everything": "Everything in the guided pass",
+          "everything": "Everything in the <paid>guided pass</paid>",
           "infrastructure": "On your own infrastructure",
           "licence": "Source open under AGPL-3.0",
           "contract": "No contract with us"
+        },
+        "licences": {
+          "title": "Licenses in the repository",
+          "dual": "Code under MIT, content under CC BY 4.0",
+          "courses": "Course content under CC BY 4.0"
         }
       },
       "trust": {
