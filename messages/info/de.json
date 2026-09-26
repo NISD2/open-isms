@@ -818,8 +818,7 @@
         "hetzner": "Hetzner Online GmbH (Falkenstein/Nürnberg, Deutschland): Hosting der Anwendungsserver und PostgreSQL-Datenbank",
         "google": "Google (OAuth): Authentifizierung, verarbeitet Ihren Namen und Ihre E-Mail-Adresse für die Anmeldung",
         "aws": "Amazon Web Services (S3): Dateispeicherung, speichert von Ihnen hochgeladene Nachweisdokumente",
-        "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails",
-        "xai": "xAI: KI-gestützte Formularvorausfüllung, verarbeitet Unternehmensinformationen zur Generierung von Formularentwürfen"
+        "resend": "Resend: Transaktions-E-Mail, versendet Benachrichtigungs- und Einladungs-E-Mails"
       },
       "analytics": {
         "heading": "Analyse",
@@ -862,64 +861,104 @@
         "p1": "Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Die aktuelle Version ist immer auf dieser Seite verfügbar. Letztes Update: Februar 2025."
       }
     },
-    "avv": {
+    "avvContract": {
       "meta": {
-        "title": "Auftragsverarbeitungsvertrag (AVV) - Art. 28 DSGVO",
-        "description": "Auftragsverarbeitungsvertrag gemäß Art. 28 DSGVO für Kunden der NISD2.eu-Plattform. Wird auf Anfrage individuell unterzeichnet."
+        "title": "Auftragsverarbeitungsvertrag (AVV) nach Art. 28 DSGVO | nisd2.eu",
+        "description": "Der AVV von nisd2.eu: die Standardvertragsklauseln der EU Kommission (2021/915) mit Anhängen zu Parteien, Verarbeitung, technischen und organisatorischen Maßnahmen und Unterauftragsverarbeitern."
       },
       "title": "Auftragsverarbeitungsvertrag (AVV)",
-      "subtitle": "Vertrag gemäß Art. 28 DSGVO für Kunden der NISD2.eu-Plattform.",
-      "intro": {
-        "heading": "Worum geht es",
-        "p1": "Wenn Sie die NISD2.eu-Plattform nutzen, verarbeiten wir personenbezogene Daten in Ihrem Auftrag (z. B. Namen Ihrer Mitarbeitenden in Compliance-Formularen, hochgeladene Nachweise). Art. 28 DSGVO verlangt dafür einen schriftlichen Auftragsverarbeitungsvertrag (AVV) zwischen Ihnen als Verantwortlichem und uns als Auftragsverarbeiter.",
-        "p2": "Auf Anfrage stellen wir einen AVV bereit und unterzeichnen ihn individuell für Ihre Organisation - in der Regel innerhalb eines Werktags."
-      },
-      "scope": {
-        "heading": "Inhalt des AVV",
-        "p1": "Der von uns bereitgestellte AVV entspricht den Anforderungen von Art. 28 DSGVO und enthält:",
-        "items": {
-          "subject": "Gegenstand und Dauer der Verarbeitung",
-          "purpose": "Art und Zweck der Verarbeitung, Art der Daten, Kategorien betroffener Personen",
-          "instructions": "Weisungsgebundenheit des Auftragsverarbeiters",
-          "confidentiality": "Vertraulichkeitsverpflichtung der Mitarbeitenden",
-          "toms": "Technische und organisatorische Maßnahmen (Art. 32 DSGVO) - siehe TOMs-Dokument",
-          "subprocessors": "Liste der Unterauftragsverarbeiter und Genehmigungsverfahren",
-          "rights": "Unterstützung bei Betroffenenrechten (Art. 15-22 DSGVO)",
-          "audit": "Kontrollrechte des Verantwortlichen",
-          "deletion": "Löschung oder Rückgabe der Daten nach Vertragsende",
-          "liability": "Haftung und Mitwirkungspflichten"
+      "subtitle": "Anlage 1 zu den AGB von nisd2.eu. Vertrag nach Art. 28 DSGVO zwischen Ihnen als Verantwortlichem und uns als Auftragsverarbeiter.",
+      "version": "Fassung vom {date}",
+      "annexesTitle": "Anhänge zu den Standardvertragsklauseln",
+      "sections": {
+        "clauses": {
+          "heading": "1. Standardvertragsklauseln der EU Kommission",
+          "paragraphs": [
+            "Dieser Vertrag gilt zwischen dem Kunden als Verantwortlichem und Simon Orzel als Auftragsverarbeiter (Anhang I) für jede Verarbeitung personenbezogener Daten, die der Auftragsverarbeiter bei der Nutzung der gehosteten Plattform nisd2.eu im Auftrag des Kunden durchführt.",
+            "Die Parteien vereinbaren die Standardvertragsklauseln zwischen Verantwortlichen und Auftragsverarbeitern aus dem Anhang des Durchführungsbeschlusses (EU) 2021/915 der Kommission vom 4. Juni 2021 (ABl. L 199 vom 7.6.2021, S. 18). Sie werden durch diesen Verweis in ihrem amtlichen Wortlaut Bestandteil dieses Vertrags. Die Anhänge I bis IV unten sind ihre Anhänge.",
+            "Gewählt sind in Klausel 1 die Option 1 (Art. 28 Abs. 3 und 4 DSGVO) und in Klausel 7.7 die Option 2 (allgemeine schriftliche Genehmigung) mit einer Frist von 30 Tagen. Die fakultative Klausel 5 (Kopplungsklausel) ist nicht vereinbart.",
+            "Nach Klausel 4 haben die Standardvertragsklauseln Vorrang vor den AGB und allen anderen Vereinbarungen der Parteien."
+          ],
+          "link": {
+            "label": "Amtlicher Wortlaut bei EUR-Lex",
+            "href": "https://eur-lex.europa.eu/eli/dec_impl/2021/915/oj/deu"
+          }
+        },
+        "conclusion": {
+          "heading": "2. Abschluss",
+          "paragraphs": [
+            "Der Vertrag kommt mit der Annahme der AGB zustande, deren Anlage 1 er ist. Bei einer Bestellung der Jahreslizenz bestätigt der Kunde ihn an der Schaltfläche; gespeichert werden Fassung, Zeitpunkt und Person. Art. 28 Abs. 9 DSGVO lässt ein elektronisches Format zu.",
+            "Kunden ohne Jahreslizenz schließen den Vertrag mit einer E-Mail an contact@nisd2.eu ab, in der sie ihn annehmen. Auf Wunsch erhält jeder Kunde den Vertrag zusätzlich als unterschriebenes PDF."
+          ]
+        },
+        "subprocessorChanges": {
+          "heading": "3. Änderungen bei Unterauftragsverarbeitern (Klausel 7.7)",
+          "paragraphs": [
+            "Der Kunde erteilt die allgemeine Genehmigung für die Unterauftragsverarbeiter in Anhang IV. Beabsichtigt der Auftragsverarbeiter, einen Unterauftragsverarbeiter hinzuzufügen oder zu ersetzen, teilt er das mindestens 30 Tage vorher per E-Mail der Person mit, der das Konto des Kunden gehört.",
+            "Der Kunde kann innerhalb dieser Frist widersprechen. Kann der Auftragsverarbeiter die Änderung für ihn nicht unterlassen, kann der Kunde die Jahreslizenz zum Tag der Änderung kündigen; im voraus bezahlte Vergütung für die Zeit danach erstattet der Auftragsverarbeiter anteilig."
+          ]
+        },
+        "instructions": {
+          "heading": "4. Weisungen, Dauer, Löschung und Rückgabe",
+          "paragraphs": [
+            "Weisungen erteilt der Kunde durch die Nutzung der Plattform und in Textform an contact@nisd2.eu.",
+            "Der Vertrag gilt, solange der Auftragsverarbeiter Daten für den Kunden verarbeitet. Endet eine Jahreslizenz, bleibt das Konto mit seinen Daten bestehen (AGB B10), und mit ihm dieser Vertrag.",
+            "Nach Beendigung wählt der Kunde nach Klausel 10 Buchstabe d zwischen Löschung und Rückgabe, per E-Mail an contact@nisd2.eu. Die Rückgabe erfolgt als Kopie der Daten in einem gängigen, maschinenlesbaren Format. Die Löschung bescheinigt der Auftragsverarbeiter in Textform. Eine Selbstbedienung dafür bietet die Plattform noch nicht; beides führt der Auftragsverarbeiter auf Anfrage aus."
+          ]
+        },
+        "liability": {
+          "heading": "5. Haftung",
+          "paragraphs": [
+            "Die Haftung richtet sich nach A7 der AGB. Art. 82 DSGVO bleibt unberührt."
+          ]
+        },
+        "annex1": {
+          "heading": "Anhang I: Liste der Parteien",
+          "paragraphs": [
+            "Verantwortlicher: der Kunde, mit Firma, Anschrift und USt-IdNr. aus seiner Bestellung. Kontaktperson ist die Person, der das Konto gehört. An die Stelle von Unterschrift und Datum tritt die gespeicherte Annahme (Fassung, Zeitpunkt, Person), die der Kunde unter Abrechnung sieht.",
+            "Auftragsverarbeiter: Simon Orzel, Trierer Str. 6, 50676 Köln, Deutschland. Kontakt für den Datenschutz: contact@nisd2.eu. Unterschrift und Datum: durch Bereitstellung dieses Vertrags in der oben genannten Fassung."
+          ]
+        },
+        "annex2": {
+          "heading": "Anhang II: Beschreibung der Verarbeitung",
+          "paragraphs": [
+            "Kategorien betroffener Personen: Nutzer des Kontos (Beschäftigte und Beauftragte des Kunden). Personen, die der Kunde in der Plattform nennt: Beschäftigte, Mitglieder der Geschäftsleitung, Ansprechpersonen für Informationssicherheit, Datenschutz und Meldungen, Teilnehmende an Schulungen und Übungen, Verantwortliche für Risiken, Assets und Maßnahmen. Ansprechpersonen bei Lieferanten und Dienstleistern, auch Personen, die über das Lieferantenportal antworten.",
+            "Kategorien personenbezogener Daten: Kontodaten (Name, E-Mail, Telefon, Funktion, Rolle, Sprache, Passwort nur als bcrypt Hash, Zeitpunkte von Anmeldung und Bestätigung). Inhaltsdaten (Namen, Funktionen und Kontaktdaten in Formularen, Zuständigkeiten, Freigaben mit Name, Rolle und Zeitpunkt, Schulungsnachweise und Zertifikate, Freitexte und Vorfallbeschreibungen, hochgeladene Nachweisdokumente). Protokolldaten (Prüfprotokoll mit Nutzer, Aktion, Zeitpunkt, IP-Adresse, User Agent und den übermittelten Werten).",
+            "Sensible Daten: Die Plattform ist nicht für besondere Kategorien personenbezogener Daten nach Art. 9 DSGVO ausgelegt und fragt sie nicht ab. Gibt der Kunde solche Daten in Freitexte oder Dokumente ein, gelten für sie die Maßnahmen in Anhang III.",
+            "Art der Verarbeitung: Speichern, Anzeigen, Ändern, Exportieren, Versenden per E-Mail und Löschen im Betrieb der Plattform.",
+            "Zweck: Bereitstellung der Plattform, mit der der Kunde seine Pflichten aus NIS 2 organisiert und dokumentiert; Versand von Benachrichtigungen.",
+            "Dauer: für die Dauer der Nutzung der Plattform durch den Kunden, bis zur Löschung oder Rückgabe nach Abschnitt 4.",
+            "Verarbeitung durch Unterauftragsverarbeiter: Gegenstand, Art und Dauer stehen in Anhang IV; die Dauer entspricht der Dauer dieses Vertrags."
+          ]
+        },
+        "annex3": {
+          "heading": "Anhang III: Technische und organisatorische Maßnahmen",
+          "paragraphs": [
+            "Die Maßnahmen nach Art. 32 DSGVO beschreibt die Seite TOMs in der Fassung, die zum Zeitpunkt der Annahme galt. Sie nennt nur, was im Code und im Betrieb umgesetzt ist. Die wichtigsten Punkte:",
+            "Verschlüsselung: TLS für alle Verbindungen zur Plattform. Hochgeladene Dateien und archivierte Rechnungen liegen in AWS S3 mit serverseitiger Verschlüsselung (AES256), die bei jedem Hochladen gesetzt wird. Die Datenbank verschlüsselt die Anwendung nicht zusätzlich.",
+            "Zugang und Berechtigungen: Anmeldung mit E-Mail und Passwort (bcrypt, Kostenfaktor 12, Bestätigung der Adresse per Einmalcode) oder mit Google. Einen zweiten Faktor für den Passwortweg gibt es nicht. Sitzungen enden nach acht Stunden. Vier Rollen (Admin, Reviewer, Legal Reviewer, Member). Die Trennung zwischen Kunden erfolgt in der Anwendung: jede Abfrage filtert auf die Company ID der Sitzung.",
+            "Eingabekontrolle: Jede Änderung über die Plattform wird mit Nutzer, Aktion, Zeitpunkt, IP-Adresse, User Agent und den Eingabewerten protokolliert, den vorherigen Wert speichern nur ausgewählte Vorgänge. Freigaben bilden eine Kette von SHA-256 Prüfsummen.",
+            "Unterstützung (Klauseln 8 und 9): Der Kunde kann Daten in der Plattform selbst einsehen, ändern und löschen. Anfragen betroffener Personen und Datenschutzverletzungen meldet der Auftragsverarbeiter dem Kunden unverzüglich an die Person, der das Konto gehört."
+          ],
+          "link": {
+            "label": "Alle Maßnahmen: TOMs",
+            "href": "/toms"
+          }
+        },
+        "annex4": {
+          "heading": "Anhang IV: Liste der Unterauftragsverarbeiter",
+          "paragraphs": [
+            "Hetzner Online GmbH, Deutschland: Betrieb der Anwendungsserver und der Datenbank, also aller Daten aus Anhang II.",
+            "Amazon Web Services EMEA SARL, Luxemburg: Speicherung von Dateien in AWS S3 in einer Region der EU (Nachweisdokumente, Schulungszertifikate, Zertifikate aus dem Lieferantenportal).",
+            "Resend, Inc., USA: Versand von E-Mails der Plattform (Empfänger, Betreff, Inhalt, Anhänge). Übermittlung in die USA auf Grundlage der EU Standardvertragsklauseln nach Art. 46 DSGVO.",
+            "Google Ireland Limited, Irland: Anmeldung mit Google, nur für Nutzer, die diesen Weg wählen.",
+            "Keine Unterauftragsverarbeiter sind Qonto (Rechnungen) und die MwSt Prüfung der EU (VIES): Sie verarbeiten nur Rechnungsdaten, für die der Auftragsverarbeiter selbst verantwortlich ist. Das regelt die Datenschutzerklärung."
+          ],
+          "link": {
+            "label": "Unterauftragsverarbeiter mit Standort und Rechtsgrundlage",
+            "href": "/subprozessoren"
+          }
         }
-      },
-      "request": {
-        "heading": "AVV anfordern",
-        "p1": "Senden Sie uns eine E-Mail an contact@nisd2.eu mit folgenden Angaben:",
-        "items": {
-          "company": "Vollständiger Firmenname und Anschrift",
-          "register": "Handelsregister-Nummer (falls vorhanden)",
-          "represented": "Vertretungsberechtigte Person",
-          "contact": "Ansprechperson für Datenschutzthemen"
-        },
-        "p2": "Wir senden Ihnen den unterzeichneten AVV in der Regel innerhalb eines Werktags per E-Mail zurück. Eine händische Unterschrift per Post ist auf Wunsch ebenfalls möglich.",
-        "emailLabel": "AVV per E-Mail anfordern",
-        "emailHref": "mailto:contact@nisd2.eu?subject=AVV-Anfrage%20NISD2.eu"
-      },
-      "subprocessors": {
-        "heading": "Unterauftragsverarbeiter",
-        "p1": "Folgende Unterauftragsverarbeiter werden für den Betrieb der Plattform eingesetzt:",
-        "items": {
-          "hetzner": "Hetzner Online GmbH (Falkenstein/Nürnberg, Deutschland) - Hosting der Anwendungsserver und Datenbank",
-          "aws": "Amazon Web Services EMEA SARL - Speicherung hochgeladener Nachweisdokumente (S3, EU-Region)",
-          "google": "Google Ireland Limited - OAuth-Authentifizierung",
-          "resend": "Resend, Inc. (USA) - Versand von Transaktions-E-Mails",
-          "xai": "xAI Corp. (USA) - KI-gestützte Formularvorausfüllung (optional, kann deaktiviert werden)"
-        },
-        "p2": "Änderungen am Bestand der Unterauftragsverarbeiter werden mit Vorlauf angekündigt. Sie haben das Recht, einer Änderung zu widersprechen."
-      },
-      "toms": {
-        "heading": "Technische und organisatorische Maßnahmen",
-        "p1": "Die für diesen AVV maßgeblichen technischen und organisatorischen Maßnahmen gemäß Art. 32 DSGVO sind in unserem TOMs-Dokument beschrieben.",
-        "linkLabel": "TOMs-Dokument anzeigen",
-        "linkHref": "/toms"
       }
     },
     "toms": {
@@ -929,7 +968,7 @@
       },
       "title": "Technische und organisatorische Maßnahmen (TOMs)",
       "subtitle": "Maßnahmen gemäß Art. 32 DSGVO zur Sicherheit der Verarbeitung personenbezogener Daten auf der NISD2.eu-Plattform.",
-      "lastUpdated": "Stand: Juni 2026.",
+      "revised": "Stand: 26.09.2026. Am Code geprüft und korrigiert; die Fassung ist Anhang III des Auftragsverarbeitungsvertrags.",
       "intro": {
         "heading": "Überblick",
         "p1": "Dieses Dokument beschreibt die technischen und organisatorischen Maßnahmen, die Simon Orzel als Betreiber der NISD2.eu-Plattform tatsächlich umsetzt. Es ist eine ehrliche Bestandsaufnahme, keine Wunschliste - wir nennen nur, was bereits implementiert ist.",
@@ -937,18 +976,18 @@
       },
       "hosting": {
         "heading": "Hosting in der EU",
-        "p1": "Die produktive Verarbeitung personenbezogener Daten findet ausschließlich in der EU statt:",
+        "scopeNote": "Server, Datenbank und Dateispeicher liegen in der EU. Ein Dienst sitzt in den USA und erhält nur die Daten für seine Funktion:",
         "items": {
           "appServers": "Anwendungsserver und PostgreSQL-Datenbank: Hetzner Online GmbH, Rechenzentrum Falkenstein/Nürnberg, Deutschland",
           "fileStorage": "Speicherung hochgeladener Nachweisdokumente: AWS S3, EU-Region",
-          "noUSTransfer": "Keine produktive Datenverarbeitung außerhalb der EU. US-Subdienste (Resend für Transaktions-E-Mails, xAI für optionale KI-Vorausfüllung) verarbeiten nur die für ihre Funktion notwendigen Daten."
+          "usServices": "In den USA: Resend, über das wir E-Mails versenden. Grundlage der Übermittlung sind die EU-Standardvertragsklauseln (Art. 46 DSGVO)."
         }
       },
       "pseudonymization": {
         "heading": "Verschlüsselung (Art. 32 Abs. 1 lit. a DSGVO)",
         "items": {
           "transit": "Transportverschlüsselung: TLS für sämtliche Verbindungen zur Plattform (HTTPS)",
-          "rest": "Verschlüsselung im Ruhezustand: AWS S3 Server-Side Encryption (AES256, explizit bei jedem Upload via PutObject gesetzt); PostgreSQL-Daten auf der Hetzner-Infrastruktur",
+          "restStorage": "Verschlüsselung im Ruhezustand: AWS S3 Server-Side Encryption (AES256, bei jedem Upload ausdrücklich gesetzt, auch für archivierte Rechnungen). Die PostgreSQL-Datenbank verschlüsselt die Anwendung nicht zusätzlich.",
           "secrets": "Zugangsdaten und API-Schlüssel werden über Server-Umgebungsvariablen verwaltet, nicht im Quellcode oder in Datenbanken gespeichert"
         }
       },
@@ -957,9 +996,9 @@
         "p1": "Maßnahmen zur Sicherstellung der Vertraulichkeit:",
         "items": {
           "physical": "Zutrittskontrolle: Rechenzentren der eingesetzten Hoster (Hetzner, AWS) verfügen über ISO 27001-Zertifizierungen",
-          "auth": "Authentifizierung: Anmeldung per E-Mail und Passwort oder über Google OAuth 2.0. Passwörter speichern wir ausschließlich als bcrypt-Hash mit Kostenfaktor 12, nie im Klartext. Bei der Registrierung per Passwort wird die E-Mail-Adresse einmalig über einen Einmalcode bestätigt, fehlgeschlagene Anmeldeversuche sind je Anwendungsinstanz auf 10 in 15 Minuten begrenzt. Eine zweite Stufe bietet die Plattform für den Passwortweg nicht an. Wer sich über Google anmeldet, nutzt die MFA des eigenen Google-Kontos.",
-          "rbac": "Rollenbasierte Berechtigungen: Admin, Reviewer, Member; Trennung in der Anwendungsschicht über tRPC-Middleware",
-          "separation": "Mandantentrennung: jede datentragende Abfrage filtert auf der Datenbankebene über die Company-ID des angemeldeten Nutzers; keine gemeinsamen Datenpools zwischen Kunden",
+          "authMethods": "Authentifizierung: Anmeldung per E-Mail und Passwort oder über Google OAuth 2.0. Passwörter speichern wir ausschließlich als bcrypt-Hash mit Kostenfaktor 12, nie im Klartext. Bei der Registrierung per Passwort wird die E-Mail-Adresse einmalig über einen Einmalcode bestätigt. Anmeldeversuche sind je E-Mail-Adresse und Anwendungsinstanz auf 10 in 15 Minuten begrenzt; gezählt wird jeder Versuch. Sitzungen enden nach acht Stunden. Eine zweite Stufe bietet die Plattform für den Passwortweg nicht an. Wer sich über Google anmeldet, nutzt die MFA des eigenen Google-Kontos.",
+          "roles": "Rollenbasierte Berechtigungen: Admin, Reviewer, Legal Reviewer, Member; durchgesetzt in der Anwendungsschicht über tRPC-Middleware",
+          "tenantSeparation": "Mandantentrennung in der Anwendung: jede datentragende Abfrage filtert auf die Company-ID aus der Sitzung des angemeldeten Nutzers. Eine zusätzliche Trennung in der Datenbank (Row Level Security) gibt es nicht.",
           "secrets": "Passwörter werden nie im Klartext gespeichert. Der Abgleich läuft immer gegen einen bcrypt-Hash, auch wenn zu der angefragten E-Mail-Adresse kein Konto existiert, damit sich aus der Antwortzeit nicht ableiten lässt, wer registriert ist.",
           "personnel": "Personelle Maßnahmen: Zugriff auf Produktivsysteme und personenbezogene Daten ist auf einen kleinen, namentlich benannten Personenkreis beschränkt, der zur Vertraulichkeit verpflichtet ist. Zugänge folgen dem Prinzip der minimalen Rechte und werden bei Beendigung der Tätigkeit entzogen."
         }
@@ -967,8 +1006,8 @@
       "integrity": {
         "heading": "Integrität (Art. 32 Abs. 1 lit. b DSGVO)",
         "items": {
-          "input": "Eingabekontrolle: Audit-Trail aller Mutationen mit Benutzer-ID, Aktion, Entitätstyp, Zeitstempel, IP-Adresse, User-Agent sowie Vorher-/Nachher-Werten",
-          "checksum": "Manipulationserkennung im Audit-Trail: jede Audit-Zeile trägt eine SHA-256-Prüfsumme über ihren Inhalt, sodass nachträgliche Änderungen einer Zeile erkennbar sind",
+          "inputLog": "Eingabekontrolle: Jede Änderung, die ein angemeldeter Nutzer über die Programmierschnittstelle der Plattform auslöst, wird mit Benutzer-ID, Aktion, Entitätstyp, Zeitstempel, IP-Adresse, User-Agent und den Eingabewerten protokolliert (sensible Felder entfernt). Den vorherigen Wert speichern nur ausgewählte Vorgänge.",
+          "rowChecksum": "Prüfsumme im Audit-Trail: Jede Audit-Zeile erhält beim Schreiben eine SHA-256-Prüfsumme über ihren Inhalt. Ein Werkzeug, das diese Prüfsummen später nachrechnet, gibt es noch nicht.",
           "transfer": "Weitergabekontrolle: Datenübertragung ausschließlich über TLS; alle authentifizierten Endpunkte erfordern eine gültige Session",
           "evidenceHash": "Nachweisdokumente: Speicherort und Metadaten werden bei Upload festgeschrieben; ein Datei-Hash kann optional vom Client mitgesendet und gespeichert werden",
           "signoff": "Sign-Off-Mechanismus: zum Zeitpunkt einer Freigabe wird der Zustand der Anforderung in eine Sign-Off-Historie geschrieben, deren Einträge eine SHA-256-Kette bilden (jede Zeile schließt die Prüfsumme der Vorgängerzeile ein) - Manipulationen am Verlauf werden Ende-zu-Ende erkannt"
@@ -977,18 +1016,18 @@
       "availability": {
         "heading": "Verfügbarkeit (Art. 32 Abs. 1 lit. b DSGVO)",
         "items": {
-          "backup": "Datenbank-Backups gemäß den Voreinstellungen des Hetzner-Cloud-Dienstes; auf Anfrage stellen wir Details zur aktuellen Backup-Konfiguration bereit",
+          "backupSetup": "Datenbanksicherungen richtet der Betreiber in der Hosting-Umgebung ein. Sie sind nicht Teil des Quellcodes. Die aktuelle Konfiguration nennen wir auf Anfrage.",
           "redundancy": "Speicherung von Nachweisdokumenten in AWS S3 mit der von AWS bereitgestellten Objekt-Haltbarkeit",
-          "rateLimit": "Rate-Limiting auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie ressourcenintensiven authentifizierten Endpunkten (PDF-Exports, Zertifikat-Generierung)",
+          "rateLimits": "Begrenzung der Anfragen je Anwendungsinstanz (im Arbeitsspeicher) auf Login-Versuchen, öffentlichen Endpunkten (Anwendbarkeitsprüfung, Lieferantenportal) sowie aufwendigen authentifizierten Endpunkten (PDF-Exporte, Erstellung von Zertifikaten)",
           "uploadLimit": "Hochgeladene Dateien sind auf 50 MB pro Datei begrenzt",
-          "status": "Verfügbarkeitsanzeige: nisd2.eu/status prüft bei jedem Aufruf die Erreichbarkeit der Datenbank und zeigt das Ergebnis öffentlich an, zwischengespeichert für 30 Sekunden. Eine durchgehende Überwachung mit automatischer Alarmierung betreiben wir nicht."
+          "statusPage": "Verfügbarkeitsanzeige: nisd2.eu/status prüft die Erreichbarkeit der Datenbank höchstens alle 30 Sekunden und zeigt das Ergebnis öffentlich an. Eine durchgehende Überwachung mit automatischer Alarmierung betreiben wir nicht."
         }
       },
       "evaluation": {
         "heading": "Verfahren zur regelmäßigen Überprüfung (Art. 32 Abs. 1 lit. d DSGVO)",
         "items": {
           "review": "Diese TOMs werden anlassbezogen sowie mindestens jährlich überprüft und aktualisiert",
-          "patch": "Aktualisierung von Abhängigkeiten und sicherheitsrelevanten Bibliotheken: Dependabot ist aktiviert und stellt Sicherheits-Patches sowie Versions-Updates wöchentlich als Pull-Requests bereit",
+          "dependencyUpdates": "Aktualisierung von Abhängigkeiten: Dependabot schlägt wöchentlich neue Versionen der npm-Pakete und GitHub Actions als Pull-Requests vor",
           "incident": "Meldepflichten: Datenschutzverletzungen werden gemäß Art. 33 DSGVO innerhalb von 72 Stunden an die zuständige Aufsichtsbehörde gemeldet",
           "code": "Entwicklungspraxis: Codeänderungen laufen über Pull-Requests; TypeScript strict-mode wird durchgesetzt; automatisierte Tests bestehen für sicherheitskritische Logik (z. B. Anwendbarkeits-Klassifizierung)"
         }
@@ -1005,91 +1044,211 @@
         "email": "contact@nisd2.eu"
       }
     },
-    "terms": {
+    "agb": {
       "meta": {
-        "title": "Nutzungsbedingungen der Plattform",
-        "description": "Nutzungsbedingungen der NIS2-Compliance-Plattform NISD2.eu. Informationen zu Nutzungsumfang, Haftungsbeschränkung und Datenschutzrichtlinien."
+        "title": "Allgemeine Geschäftsbedingungen | nisd2.eu",
+        "description": "AGB von nisd2.eu: Nutzung der Plattform, Jahreslizenz NIS 2 Durchgang, Preis, Laufzeit und Verlängerung, 30 Tage Geld zurück, Haftung und Auftragsverarbeitung."
       },
-      "title": "Nutzungsbedingungen",
-      "subtitle": "Bitte lesen Sie diese Bedingungen sorgfältig, bevor Sie die Plattform NISD2.eu nutzen.",
-      "lastUpdated": "Letztes Update: Februar 2026.",
-      "scope": {
-        "heading": "1. Leistungsumfang",
-        "p1": "NISD2.eu (\"Plattform\") ist ein Compliance-Management-Tool, betrieben von Simon Orzel (\"Anbieter\"). Die Plattform stellt strukturierte Workflows, Formulare, Dokumentenmanagement und Tracking-Funktionen zur Verfügung, um Organisationen bei der Verwaltung ihrer NIS2/BSIG-Compliance-Pflichten zu unterstützen.",
-        "p2": "Die Plattform dient ausschließlich der Unterstützung des Kunden in Bereichen, die in dessen alleiniger Verantwortung liegen. Der Anbieter übernimmt keine Verantwortung für ein bestimmtes Compliance-Ergebnis oder einen bestimmten Erfolg."
-      },
-      "noLegalAdvice": {
-        "heading": "2. Keine Rechtsberatung",
-        "p1": "Die Plattform stellt keine Rechtsberatung, keine Einzelfallprüfung in konkreter fremder Angelegenheit im Sinne des § 2 RDG, keine anwaltliche Beratung und keine sonstige Rechtsdienstleistung dar. Inhalte der Plattform - einschließlich Anforderungsbeschreibungen, Hinweistexte, Formularfelder und Informationsseiten - sind allgemeine Rechtsinformation auf Basis öffentlich zugänglicher Quellen (NIS-2-Richtlinie, BSIG, BSI-Veröffentlichungen, ENISA-Guidance).",
-        "p2": "Die Plattform ersetzt keine qualifizierte rechtliche, regulatorische oder fachliche Beratung. Nutzer sollten für auf ihre Situation zugeschnittene Beratung qualifizierte Fachleute hinzuziehen.",
-        "p3": "Zwischen dem Anbieter und den Nutzern der Plattform wird kein Mandatsverhältnis oder professionelles Beratungsverhältnis begründet."
-      },
-      "customerResponsibility": {
-        "heading": "3. Verantwortung des Kunden",
-        "p1": "Der Kunde ist allein verantwortlich für:",
-        "items": {
-          "accuracy": "Die Richtigkeit, Vollständigkeit und Wahrhaftigkeit aller in die Plattform eingegebenen Daten",
-          "applicability": "Die Feststellung, ob bestimmte Anforderungen, Maßnahmen oder Pflichten auf seine Organisation zutreffen",
-          "compliance": "Die Erreichung und Aufrechterhaltung der Compliance mit NIS2, BSIG und allen anderen anwendbaren Gesetzen und Vorschriften",
-          "decisions": "Alle Compliance-Entscheidungen, die auf Grundlage oder im Zusammenhang mit der Nutzung der Plattform getroffen werden",
-          "review": "Die Überprüfung der Compliance-Dokumentation durch qualifizierte Fachleute, soweit angemessen"
+      "title": "Allgemeine Geschäftsbedingungen",
+      "subtitle": "Für die Nutzung der gehosteten Plattform nisd2.eu, kostenlos und mit Jahreslizenz. Der Auftragsverarbeitungsvertrag ist Anlage 1.",
+      "version": "Fassung vom {date}",
+      "partA": "Teil A: Für jede Nutzung der Plattform",
+      "partB": "Teil B: Kostenpflichtige Jahreslizenz",
+      "partC": "Teil C: Schlussbestimmungen",
+      "sections": {
+        "provider": {
+          "heading": "A1. Anbieter und Geltungsbereich",
+          "paragraphs": [
+            "Anbieter der Plattform nisd2.eu („Plattform“) ist Simon Orzel, Trierer Str. 6, 50676 Köln, Deutschland („Anbieter“).",
+            "Diese Bedingungen gelten für die Nutzung der Plattform, die der Anbieter unter nisd2.eu betreibt, kostenlos wie mit Jahreslizenz. Teil A gilt für jede Nutzung, Teil B zusätzlich für die kostenpflichtige Jahreslizenz.",
+            "Wer die Software selbst betreibt, nutzt sie unter der Open Source Lizenz AGPL 3.0. Für diesen Betrieb gelten diese Bedingungen nicht.",
+            "Allgemeine Geschäftsbedingungen des Kunden gelten nur, wenn der Anbieter ihnen ausdrücklich in Textform zustimmt."
+          ]
         },
-        "p2": "Die Plattform prüft die Vollständigkeit von Formulareingaben, nicht die Richtigkeit oder rechtliche Hinlänglichkeit der vom Kunden bereitgestellten Inhalte."
-      },
-      "noGuarantee": {
-        "heading": "4. Keine Garantie für Compliance-Ergebnisse",
-        "p1": "Der Anbieter garantiert oder gewährleistet nicht, dass:",
-        "items": {
-          "audit": "Die Nutzung der Plattform zum Bestehen von Audits, Prüfungen oder behördlichen Überprüfungen führt",
-          "compliant": "Die durch die Plattform bereitgestellten Informationen oder Workflows vollständig, korrekt oder für die spezifischen Compliance-Anforderungen einer Organisation geeignet sind",
-          "penalty": "Die Nutzung der Plattform Bußgelder, Sanktionen oder Durchsetzungsmaßnahmen durch Aufsichtsbehörden verhindert",
-          "requirements": "Die Plattform alle Anforderungen abdeckt, die auf eine bestimmte Organisation zutreffen können"
+        "scope": {
+          "heading": "A2. Leistungsumfang",
+          "paragraphs": [
+            "Die Plattform ist eine Software, mit der Organisationen ihre Pflichten aus NIS 2 und dem BSIG organisieren. Sie bietet strukturierte Abläufe, Formulare, eine Dokumentenverwaltung und die Nachverfolgung offener Punkte.",
+            "Die Plattform unterstützt den Kunden in Bereichen, die in seiner alleinigen Verantwortung liegen. Der Anbieter schuldet kein bestimmtes Ergebnis der Umsetzung."
+          ]
         },
-        "p2": "Der Anbieter übernimmt keinerlei Garantien, auch nicht hinsichtlich bestimmter Eigenschaften oder Beschaffenheiten des Dienstes. Die von der Plattform bereitgestellten Ergebnisse basieren auf Kundeneingaben, Annahmen und individuellen Umständen."
-      },
-      "liability": {
-        "heading": "5. Haftungsbeschränkung",
-        "p1": "Die Haftung des Anbieters beschränkt sich auf Fälle von Vorsatz und grober Fahrlässigkeit. Bei leichter Fahrlässigkeit bei Verletzung wesentlicher Vertragspflichten ist die Haftung auf vorhersehbare, vertragstypische Schäden begrenzt, maximal in Höhe der vom Kunden in den letzten zwölf (12) Monaten vor dem schadensauslösenden Ereignis gezahlten Vergütung.",
-        "p2": "Der Anbieter haftet nicht für mittelbare Schäden, Folgeschäden, entgangenen Gewinn, Datenverluste, entgangene Einsparungen, dem Kunden auferlegte Bußgelder oder Betriebsunterbrechungen, soweit dies nach geltendem Recht zulässig ist.",
-        "p3": "Die vorstehenden Beschränkungen gelten nicht für die Haftung für Personenschäden oder die Haftung nach dem Produkthaftungsgesetz."
-      },
-      "indemnification": {
-        "heading": "6. Freistellung",
-        "p1": "Der Kunde stellt den Anbieter von sämtlichen Ansprüchen Dritter, Schäden, Verlusten oder Aufwendungen frei, die entstehen aus:",
-        "items": {
-          "misuse": "Der Nutzung der Plattform durch den Kunden unter Verstoß gegen diese Bedingungen",
-          "data": "Unrichtigen, unvollständigen oder irreführenden Daten, die vom Kunden bereitgestellt wurden",
-          "claims": "Ansprüchen im Zusammenhang mit dem Compliance-Status oder den regulatorischen Pflichten des Kunden"
+        "noLegalAdvice": {
+          "heading": "A3. Keine Rechtsberatung",
+          "paragraphs": [
+            "Die Plattform ist keine Rechtsberatung, keine Prüfung einer konkreten fremden Angelegenheit im Sinne des § 2 RDG und keine sonstige Rechtsdienstleistung. Ihre Inhalte (Anforderungsbeschreibungen, Hinweistexte, Formularfelder, Informationsseiten) sind allgemeine Rechtsinformation auf Grundlage öffentlicher Quellen: Richtlinie (EU) 2022/2555 (NIS 2), BSIG, Veröffentlichungen des BSI und Leitfäden der ENISA.",
+            "Die Plattform ersetzt keine rechtliche oder fachliche Beratung im Einzelfall. Für eine Beratung zu ihrer Lage sollten Nutzer Fachleute hinzuziehen.",
+            "Zwischen dem Anbieter und den Nutzern entsteht kein Mandatsverhältnis und kein Beratungsverhältnis."
+          ]
+        },
+        "customerResponsibility": {
+          "heading": "A4. Verantwortung des Kunden und seiner Geschäftsleitung",
+          "paragraphs": [
+            "Der Kunde ist allein verantwortlich für die Richtigkeit und Vollständigkeit seiner Eingaben, für die Feststellung, welche Anforderungen auf ihn zutreffen, für seine Entscheidungen und für die Einhaltung von NIS 2, dem BSIG und allen anderen für ihn geltenden Vorschriften. Wo es angemessen ist, lässt er seine Dokumentation von Fachleuten prüfen.",
+            "Die Pflichten aus NIS 2 treffen die Einrichtung und ihre Geschäftsleitung. In Deutschland sind die Geschäftsleitungen besonders wichtiger und wichtiger Einrichtungen verpflichtet, die nach § 30 BSIG zu ergreifenden Risikomanagementmaßnahmen umzusetzen und ihre Umsetzung zu überwachen (§ 38 Abs. 1 BSIG). Diese Verantwortung bleibt beim Kunden und seiner Geschäftsleitung. Der Anbieter übernimmt mit der Plattform keine dieser Pflichten.",
+            "Die Plattform prüft, ob Formulare vollständig ausgefüllt sind. Ob die Inhalte richtig oder rechtlich ausreichend sind, prüft sie nicht."
+          ]
+        },
+        "noGuarantee": {
+          "heading": "A5. Kein zugesagtes Ergebnis",
+          "paragraphs": [
+            "Der Anbieter sagt nicht zu, dass die Nutzung der Plattform zum Bestehen von Audits, Prüfungen oder behördlichen Überprüfungen führt, dass sie Maßnahmen von Aufsichtsbehörden verhindert oder dass sie alle Anforderungen abdeckt, die für eine bestimmte Organisation gelten. Die Ergebnisse der Plattform beruhen auf den Eingaben des Kunden.",
+            "Die Plattform hat die Eigenschaften, die in A2 und für die Jahreslizenz in B1 beschrieben sind. Eine Garantie im Rechtssinne übernimmt der Anbieter nur, wenn er sie ausdrücklich in Textform als Garantie bezeichnet."
+          ]
+        },
+        "availability": {
+          "heading": "A6. Verfügbarkeit",
+          "paragraphs": [
+            "Der Anbieter betreibt die Plattform mit der gebotenen Sorgfalt und behebt Störungen in angemessener Zeit. Eine bestimmte Verfügbarkeitsquote ist nicht vereinbart. Wartungsarbeiten kündigt der Anbieter nach Möglichkeit vorher an.",
+            "Für Ausfälle haftet der Anbieter nach A7."
+          ]
+        },
+        "liability": {
+          "heading": "A7. Haftung",
+          "paragraphs": [
+            "(1) Der Anbieter haftet unbeschränkt bei Vorsatz und grober Fahrlässigkeit, bei Verletzung von Leben, Körper oder Gesundheit, nach dem Produkthaftungsgesetz und soweit er eine Garantie übernommen hat.",
+            "(2) Bei leichter Fahrlässigkeit haftet der Anbieter nur, wenn er eine wesentliche Vertragspflicht verletzt. Wesentlich sind Pflichten, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags erst möglich macht und auf deren Einhaltung der Kunde regelmäßig vertrauen darf; bei der Jahreslizenz gehört dazu die Bereitstellung der Plattform. Die Haftung ist dann auf den bei Vertragsschluss vorhersehbaren, vertragstypischen Schaden begrenzt.",
+            "(3) In den Fällen von Absatz 2 ist die Haftung außerdem insgesamt auf die Vergütung begrenzt, die der Kunde in den zwölf Monaten vor dem schadensauslösenden Ereignis an den Anbieter gezahlt hat.",
+            "(4) Im Übrigen ist die Haftung für leichte Fahrlässigkeit ausgeschlossen.",
+            "(5) Die Haftung nach Art. 82 DSGVO bleibt unberührt. Die Beschränkungen gelten auch zugunsten der Mitarbeitenden und Beauftragten des Anbieters.",
+            "(6) Die Pflichten des Kunden aus NIS 2 und dem BSIG übernimmt der Anbieter nicht (A4). Für ihre Erfüllung haftet deshalb der Kunde, nicht der Anbieter."
+          ]
+        },
+        "indemnification": {
+          "heading": "A8. Freistellung",
+          "paragraphs": [
+            "Der Kunde stellt den Anbieter von Ansprüchen Dritter, Schäden und Aufwendungen frei, die daraus entstehen, dass der Kunde die Plattform unter Verstoß gegen diese Bedingungen nutzt, dass er unrichtige, unvollständige oder irreführende Daten eingibt, oder die seinen eigenen Stand der Umsetzung oder seine regulatorischen Pflichten betreffen."
+          ]
+        },
+        "ip": {
+          "heading": "A9. Rechte an der Plattform und an den Daten",
+          "paragraphs": [
+            "Die Inhalte der Plattform, einschließlich Software, Anforderungsstrukturen, Formulargestaltungen, Hinweistexten und Abläufen, sind geistiges Eigentum des Anbieters. Die Rechte aus der Open Source Lizenz der Software bleiben unberührt.",
+            "Alle Daten, die der Kunde eingibt, bleiben seine Daten. Personenbezogene Daten darin verarbeitet der Anbieter nur als Auftragsverarbeiter nach dem Auftragsverarbeitungsvertrag (Anlage 1)."
+          ]
+        },
+        "dataProtection": {
+          "heading": "A10. Datenschutz und Auftragsverarbeitung",
+          "paragraphs": [
+            "Soweit der Anbieter bei der Nutzung der Plattform personenbezogene Daten im Auftrag des Kunden verarbeitet, gilt der Auftragsverarbeitungsvertrag als Anlage 1 zu diesen AGB. Er besteht aus den Standardvertragsklauseln der Europäischen Kommission nach dem Durchführungsbeschluss (EU) 2021/915 und den Anhängen des Anbieters. Bei Widersprüchen haben die Standardvertragsklauseln Vorrang.",
+            "Wie der Anbieter Daten verarbeitet, für die er selbst verantwortlich ist, etwa das Nutzerkonto und die Rechnungsdaten, steht in der Datenschutzerklärung."
+          ],
+          "link": {
+            "label": "Anlage 1: Auftragsverarbeitungsvertrag",
+            "href": "/avv"
+          }
+        },
+        "changes": {
+          "heading": "A11. Änderungen dieser AGB",
+          "paragraphs": [
+            "Der Anbieter kann diese AGB und den Auftragsverarbeitungsvertrag ändern, wenn sich die Plattform, die Rechtslage oder die Rechtsprechung ändert. Er kündigt jede Änderung mindestens sechs Wochen vor ihrem Inkrafttreten in Textform an, nennt die geänderten Stellen und weist auf das Recht zum Widerspruch und auf die Folgen eines Schweigens hin.",
+            "Der Kunde kann bis zum Inkrafttreten widersprechen. Widerspricht er, können beide Seiten die Jahreslizenz zum Tag des Inkrafttretens kündigen; im voraus bezahlte Vergütung für die Zeit danach erstattet der Anbieter anteilig. Widerspricht der Kunde nicht, gelten die Änderungen ab dem angekündigten Tag.",
+            "Den Preis eines laufenden Lizenzjahres ändert der Anbieter nicht."
+          ]
+        },
+        "licence": {
+          "heading": "B1. Vertragsgegenstand",
+          "paragraphs": [
+            "Gegenstand ist das Recht, die gehostete Plattform mit dem NIS 2 Durchgang für ein Lizenzjahr zu nutzen („Jahreslizenz“). Der Anbieter stellt die Plattform über das Internet bereit. Eine Kopie der Software erhält der Kunde nicht.",
+            "Die Jahreslizenz gilt für das Konto des Kunden: für alle Organisationen und alle Nutzer, die dieses Konto verwendet. Eine Zahlung deckt sie alle ab."
+          ]
+        },
+        "businessOnly": {
+          "heading": "B2. Nur für Unternehmen",
+          "paragraphs": [
+            "Die Jahreslizenz richtet sich ausschließlich an Unternehmer im Sinne von § 14 BGB, also an Personen und Gesellschaften, die bei der Bestellung in Ausübung ihrer gewerblichen oder selbständigen beruflichen Tätigkeit handeln. Für die Bestellung ist eine USt-IdNr. anzugeben.",
+            "Wer bestellt, erklärt, für das angegebene Unternehmen zu handeln und dazu berechtigt zu sein."
+          ]
+        },
+        "formation": {
+          "heading": "B3. Vertragsschluss",
+          "paragraphs": [
+            "Bestellung auf der Plattform: Der Kunde gibt die Rechnungsdaten ein, sieht den Preis mit Umsatzsteuer, bestätigt diese AGB mit dem Auftragsverarbeitungsvertrag und klickt auf „Kostenpflichtig bestellen“. Damit gibt er ein verbindliches Angebot ab. Der Anbieter nimmt es an, indem er die Jahreslizenz sofort freischaltet und die Rechnung per E-Mail sendet. Eingabefehler kann der Kunde bis zum Klick in den Feldern korrigieren.",
+            "Bestellung im Gespräch: Vereinbaren Kunde und Anbieter die Jahreslizenz in einem Gespräch, kommt der Vertrag dort zustande. Der Anbieter bestätigt ihn mit der Rechnung und einem Zugang zur Plattform.",
+            "Der Anbieter speichert zu jeder Bestellung, welche Fassung dieser AGB und des Auftragsverarbeitungsvertrags angenommen wurde, wann und von wem. Der Kunde sieht diese Angaben unter Abrechnung. Den Text kann er vor der Bestellung auf dieser Seite speichern oder drucken."
+          ]
+        },
+        "price": {
+          "heading": "B4. Preis",
+          "paragraphs": [
+            "Die Jahreslizenz kostet 4.800 Euro netto je Lizenzjahr zuzüglich Umsatzsteuer, soweit sie anfällt.",
+            "Wer die Plattform schon vor Einführung der Preise genutzt hat und deshalb als Bestandsnutzer geführt wird, zahlt 2.400 Euro netto je Lizenzjahr, auch bei jeder Verlängerung. Maßgeblich ist, ob die Person, der das Konto gehört, Bestandsnutzer ist.",
+            "Die Umsatzsteuer richtet sich nach der USt-IdNr.: Kunden in Deutschland zahlen deutsche Umsatzsteuer. Bei Kunden in einem anderen Mitgliedstaat der EU, deren USt-IdNr. im Register der EU bestätigt ist, schuldet der Kunde die Steuer (Reverse Charge). Den Betrag mit Steuer sieht der Kunde vor dem Klick.",
+            "Ist im Gespräch ein anderer Preis vereinbart, gilt dieser. Die Rechnung nennt ihn."
+          ]
+        },
+        "payment": {
+          "heading": "B5. Rechnung und Zahlung",
+          "paragraphs": [
+            "Die Rechnung wird am Tag der Bestellung ausgestellt. Sie ist innerhalb von 30 Tagen ab Rechnungsdatum per Überweisung zu zahlen, mit der Rechnungsnummer als Verwendungszweck. Der Zugang beginnt mit der Bestellung, nicht erst mit der Zahlung.",
+            "Der Kunde ist damit einverstanden, Rechnungen und Gutschriften als PDF per E-Mail zu erhalten (§ 14 Abs. 1 und § 27 Abs. 38 UStG). Rechnungen gehen an die Adresse, die er bei der Bestellung dafür angibt."
+          ]
+        },
+        "term": {
+          "heading": "B6. Laufzeit und Verlängerung",
+          "paragraphs": [
+            "Das erste Lizenzjahr beginnt am Tag der Bestellung und endet am Tag vor demselben Kalendertag des Folgejahres.",
+            "Die Jahreslizenz verlängert sich jeweils um ein weiteres Lizenzjahr, wenn der Kunde nicht bis zum letzten Tag des laufenden Lizenzjahres kündigt. Kündigen kann er unter Abrechnung mit dem Button oder in Textform per E-Mail an contact@nisd2.eu.",
+            "Die Rechnung für ein neues Lizenzjahr stellt der Anbieter zu dessen Beginn. 14 Tage vorher erinnert er den Kunden per E-Mail an die Verlängerung, den Preis und den Weg zur Kündigung. Die Verlängerung erfolgt zum bisherigen Preis; für Bestandsnutzer bleibt es bei 2.400 Euro netto. B5 gilt für jede Verlängerung."
+          ]
+        },
+        "moneyBack": {
+          "heading": "B7. 30 Tage Geld zurück",
+          "paragraphs": [
+            "Bei der ersten Bestellung für sein Konto kann der Kunde die Jahreslizenz innerhalb von 30 Tagen nach dem Tag der Bestellung ohne Angabe von Gründen kündigen. Der Tag der Bestellung zählt nicht mit, der dreißigste Tag danach zählt mit. Maßgeblich sind Kalendertage in Deutschland.",
+            "Für Verlängerungen gilt das nicht, und ebenso wenig für jede spätere Bestellung für dasselbe Konto, auch nicht für eine neue Bestellung nach einer Kündigung. Für sie gilt B8 vom ersten Tag an.",
+            "Der Kunde erklärt die Kündigung unter Abrechnung mit dem Button oder in Textform per E-Mail an contact@nisd2.eu.",
+            "Der Anbieter storniert die Rechnung dann vollständig mit einer Gutschrift. War sie noch offen, muss der Kunde nichts mehr zahlen. Hatte er schon gezahlt, überweist der Anbieter den vollen Betrag innerhalb von 30 Tagen nach der Kündigung auf das Konto zurück, von dem die Zahlung kam. Eine Zahlung, die erst nach der Stornierung eingeht, erstattet er innerhalb von 30 Tagen nach ihrem Eingang.",
+            "Die Jahreslizenz endet sofort. Das Konto fällt auf die Nutzung ohne Lizenz zurück, bei Bestandsnutzern auf die weiter kostenlose Nutzung des bisherigen Durchgangs. Die Daten des Kunden bleiben gespeichert (B10)."
+          ]
+        },
+        "cancelAfter": {
+          "heading": "B8. Kündigung nach den 30 Tagen",
+          "paragraphs": [
+            "Nach Ablauf der 30 Tage, und bei Verlängerungen und späteren Bestellungen von Anfang an, beendet eine Kündigung die Verlängerung. Die Jahreslizenz läuft bis zum Ende des bezahlten Lizenzjahres weiter. Die Rechnung für dieses Jahr bleibt fällig, eine anteilige Erstattung gibt es nicht.",
+            "Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt."
+          ]
+        },
+        "nonPayment": {
+          "heading": "B9. Nicht bezahlte Rechnung",
+          "paragraphs": [
+            "Ist die Rechnung am Ende des Fälligkeitstags, also 30 Tage nach dem Rechnungsdatum, nicht bezahlt, sperrt der Anbieter den Zugang zur Jahreslizenz ohne weitere Frist. Das Konto fällt dann auf die Nutzung ohne Lizenz zurück wie in B7. Die Daten bleiben gespeichert.",
+            "Die Rechnung bleibt fällig. Geht die Zahlung ein, schaltet der Anbieter die Jahreslizenz für den Rest des Lizenzjahres wieder frei.",
+            "Die gesetzlichen Rechte bei Zahlungsverzug bleiben unberührt."
+          ]
+        },
+        "endOfContract": {
+          "heading": "B10. Ende der Jahreslizenz und Daten",
+          "paragraphs": [
+            "Endet die Jahreslizenz, durch Kündigung, durch Ablauf ohne Verlängerung oder durch eine Sperre nach B9, bleibt das Konto bestehen und fällt auf die Nutzung ohne Lizenz zurück. Der Anbieter löscht dabei keine Daten.",
+            "Ohne Lizenz erreicht das Konto nur noch die Bereiche Abrechnung, Einstellungen, Organisation und Benachrichtigungen. Die übrigen Inhalte und die Exporte sind erst mit einer neuen Bestellung wieder erreichbar. Bestandsnutzer behalten die kostenlose Nutzung des bisherigen Durchgangs.",
+            "Auf Weisung des Kunden gibt der Anbieter die Daten heraus oder löscht sie, wie es der Auftragsverarbeitungsvertrag regelt. Eine E-Mail an contact@nisd2.eu genügt."
+          ]
+        },
+        "governing": {
+          "heading": "C1. Anwendbares Recht und Gerichtsstand",
+          "paragraphs": [
+            "Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des Übereinkommens der Vereinten Nationen über Verträge über den internationalen Warenkauf (CISG).",
+            "Ist der Kunde Kaufmann, eine juristische Person des öffentlichen Rechts oder ein öffentlich-rechtliches Sondervermögen, ist Köln ausschließlicher Gerichtsstand für alle Streitigkeiten aus diesem Vertrag."
+          ]
+        },
+        "language": {
+          "heading": "C2. Vertragssprache",
+          "paragraphs": [
+            "Diese AGB gibt es auf Deutsch und auf Englisch. Vertragssprache ist die Sprache, in der der Kunde bestellt. Weichen die Fassungen voneinander ab, gilt die deutsche."
+          ]
+        },
+        "severability": {
+          "heading": "C3. Salvatorische Klausel",
+          "paragraphs": [
+            "Ist eine Bestimmung dieser AGB unwirksam oder undurchführbar, bleiben die übrigen wirksam. An die Stelle der unwirksamen Bestimmung tritt die gesetzliche Regelung."
+          ]
+        },
+        "contact": {
+          "heading": "C4. Kontakt",
+          "paragraphs": [
+            "Fragen zu diesen AGB: Simon Orzel, Trierer Str. 6, 50676 Köln, Deutschland, contact@nisd2.eu."
+          ]
         }
-      },
-      "ip": {
-        "heading": "7. Geistiges Eigentum und Daten",
-        "p1": "Alle Inhalte der Plattform, einschließlich Software, Anforderungsstrukturen, Formulargestaltungen, Hinweistexte und Workflows, sind geistiges Eigentum des Anbieters.",
-        "p2": "Alle vom Kunden in die Plattform eingegebenen Daten verbleiben im Eigentum des Kunden. Der Anbieter verarbeitet Kundendaten ausschließlich zum Zweck der Diensterbringung, gemäß der Datenschutzerklärung."
-      },
-      "availability": {
-        "heading": "8. Verfügbarkeit",
-        "p1": "Der Anbieter bemüht sich um die Verfügbarkeit der Plattform, garantiert jedoch keinen unterbrechungsfreien oder fehlerfreien Betrieb. Geplante Wartungsarbeiten und unvorhergesehene Ausfälle können auftreten. Der Anbieter haftet nicht für Schäden aus Dienstunterbrechungen."
-      },
-      "changes": {
-        "heading": "9. Änderungen dieser Bedingungen",
-        "p1": "Der Anbieter kann diese Bedingungen von Zeit zu Zeit aktualisieren. Wesentliche Änderungen werden registrierten Nutzern mitgeteilt. Die fortgesetzte Nutzung der Plattform nach Inkrafttreten von Änderungen gilt als Zustimmung zu den aktualisierten Bedingungen."
-      },
-      "governing": {
-        "heading": "10. Anwendbares Recht und Gerichtsstand",
-        "p1": "Diese Bedingungen unterliegen dem Recht der Bundesrepublik Deutschland. Ausschließlicher Gerichtsstand für alle Streitigkeiten aus oder im Zusammenhang mit diesen Bedingungen ist Köln, soweit gesetzlich zulässig."
-      },
-      "severability": {
-        "heading": "11. Salvatorische Klausel",
-        "p1": "Sollte eine Bestimmung dieser Bedingungen unwirksam oder undurchführbar sein, bleiben die übrigen Bestimmungen in vollem Umfang wirksam. An die Stelle der unwirksamen Bestimmung tritt eine wirksame Bestimmung, die dem wirtschaftlichen Zweck der ursprünglichen Bestimmung am nächsten kommt."
-      },
-      "contact": {
-        "heading": "12. Kontakt",
-        "p1": "Bei Fragen zu diesen Bedingungen kontaktieren Sie bitte:",
-        "name": "Simon Orzel",
-        "address": "Trierer Str. 6, 50676 Köln, Deutschland",
-        "emailLabel": "E-Mail",
-        "email": "contact@nisd2.eu"
       }
     },
     "whatIsNis2": {
@@ -6709,17 +6868,14 @@
         },
         "resend": {
           "purpose": "Transaktionale E-Mails"
-        },
-        "xai": {
-          "purpose": "KI-gestützte Formularausfüllung (optional)"
         }
       },
       "basisEU": "EU-Mitgliedstaat",
       "basisSCC": "EU-Standardvertragsklauseln",
       "noteHeading": "Hinweis zu Drittlandtransfers",
-      "noteBody": "Resend Inc. und xAI Corp. sitzen in den USA. Die Übermittlung personenbezogener Daten erfolgt auf Grundlage der EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO. xAI wird nur für die KI-gestützte Formularvorbefüllung eingesetzt und nur wenn der Nutzer diese Funktion aktiv verwendet. Über die Datenweitergabe wird in der Plattform transparent informiert.",
+      "noteBody": "Resend Inc. sitzt in den USA. Die Übermittlung personenbezogener Daten erfolgt auf Grundlage der EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO.",
       "changesHeading": "Änderungen",
-      "changesBody": "Wir informieren Self-Host-Kunden bei wesentlichen Änderungen an dieser Liste mindestens 30 Tage im Voraus."
+      "changeNotice": "Wollen wir einen Unterauftragsverarbeiter hinzufügen oder ersetzen, teilen wir das Kunden der gehosteten Plattform mindestens 30 Tage vorher per E-Mail mit. Sie können widersprechen (Auftragsverarbeitungsvertrag, Abschnitt 3). Wer die Software selbst betreibt, nutzt diese Unterauftragsverarbeiter nicht."
     },
     "nis2Roadmap": {
       "meta": {

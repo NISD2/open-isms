@@ -51,6 +51,22 @@ export async function createPresignedGet(key: string): Promise<string> {
   return getSignedUrl(s3Signer, command, { expiresIn: 3600 });
 }
 
+/** Store an object the server itself produced, such as an archived invoice PDF. */
+export async function putObject(
+  key: string,
+  body: Uint8Array,
+  contentType: string,
+): Promise<void> {
+  const command = new PutObjectCommand({
+    Bucket: BUCKET,
+    Key: key,
+    Body: body,
+    ContentType: contentType,
+    ServerSideEncryption: "AES256",
+  });
+  await s3.send(command);
+}
+
 /** Delete an object from S3 */
 export async function deleteObject(key: string): Promise<void> {
   const command = new DeleteObjectCommand({

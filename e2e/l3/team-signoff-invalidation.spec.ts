@@ -13,7 +13,7 @@
  *
  * Runs in l3 so a real sign-off exists to invalidate.
  */
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 import { E2E_MANAGER_EMAIL } from "../lib/env";
 import { signOffViaUi } from "../lib/journey";
@@ -56,7 +56,9 @@ test("re-roling a member reverts the roles-and-responsibilities sign-off", async
   // Change the role map through the real mutation surface. The manager user
   // exists in this tenant from the N-of-M sign-off spec.
   const [manager] = await e2eQuery<{ id: string; job_title: string | null }>(
-    `SELECT id, job_title FROM "user" WHERE email = $1`,
+    `SELECT u.id, m.job_title
+       FROM "user" u JOIN company_membership m ON m.user_id = u.id AND m.company_id = u.company_id
+      WHERE u.email = $1`,
     [E2E_MANAGER_EMAIL],
   );
   expect(manager, `${E2E_MANAGER_EMAIL} exists in the e2e tenant`).toBeTruthy();

@@ -15,16 +15,36 @@ import { z } from "zod";
 import { PARTNER_SLUG_PATTERN } from "@/lib/advisory-options";
 import { logAudit } from "@/lib/audit";
 import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { createBillingAccount } from "@/lib/billing/accounts";
+import { closeDeal, closeNetCents } from "@/lib/billing/close-deal";
+import { launchBilling, pricingState } from "@/lib/billing/launch";
+import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
+import { clearCheckedOrder, listOrderChecks } from "@/lib/billing/order-check";
+import { orderingMode } from "@/lib/billing/ordering";
+import { quoteFor } from "@/lib/billing/quote";
+import {
+  listSubscriptions,
+  markPaymentArrived,
+  markRefundDone,
+  revokeAccess,
+} from "@/lib/billing/subscriptions";
+import { viesConfigFromEnv } from "@/lib/billing/vies";
 import { compileDailyDigest, compileManagementDigest } from "@/lib/compliance/digest";
 import type { Database } from "@/lib/db";
-import { mailSupportEmail } from "@/lib/env";
+import { env, mailSupportEmail } from "@/lib/env";
+import { isFeatureOn } from "@/lib/feature-flags";
 import { answerMapSchema, getGapAssessmentData } from "@/lib/gap-assessment";
 import { computeScores } from "@/lib/gap-assessment/scoring";
 import {
   buildErasureCertificate,
   erasureCertificateFilename,
 } from "@/lib/gdpr/certificate";
-import { eraseUser, previewUserErasure } from "@/lib/gdpr/erase-user";
+import {
+  ErasureRefused,
+  eraseUser,
+  erasureCompanyOf,
+  previewUserErasure,
+} from "@/lib/gdpr/erase-user";
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
@@ -47,6 +67,7 @@ import {
   questionnaireCompleteness,
 } from "@/lib/supplier-portal/completeness";
 import { COURSE_IDS, loadCourse } from "@/lib/training/course-loader";
+import { getAppUrl } from "@/lib/utils";
 import {
   advisoryPartner,
   advisoryReferral,
@@ -54,6 +75,7 @@ import {
   auditLog,
   company,
   companyAssessment,
+  companyMembership,
   companyRequirementStatus,
   complianceFramework,
   dataErasureLog,
@@ -191,6 +213,14 @@ function generateSharePassword(): string {
     out += SHARE_PASSWORD_ALPHABET[byte % SHARE_PASSWORD_ALPHABET.length];
   }
   return out;
+}
+
+/** Show an erasure the tool refuses as a precondition the operator can read, not a server error. */
+function refusalAsTrpcError(err: unknown): never {
+  if (err instanceof ErasureRefused) {
+    throw new TRPCError({ code: "PRECONDITION_FAILED", message: err.message });
+  }
+  throw err;
 }
 
 const platformAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -386,6 +416,251 @@ export const platformAdminRouter = router({
    * tab, and every read and write here is fixed to the caller's own row. No
    * procedure in this group takes an id that could point at somebody else.
    */
+  /** The Pricing tab: whether pricing is launched, whether it can be, and the announcement group. */
+  pricingState: platformAdminProcedure.query(({ ctx }) =>
+    pricingState(ctx.db, orderingMode(env).kind === "live"),
+  ),
+
+  /**
+   * Launch pricing, once. Grandfathers everyone who has got in, freezes the announcement group and
+   * turns the paywall on, all or nothing (lib/billing/launch.ts). There is no way back: nothing in
+   * the app turns it off, because grandfathering is a promise made at one moment.
+   */
+  launchPricing: platformAdminProcedure.mutation(async ({ ctx }) => {
+    // Without live keys /bestellen does not exist, and every new signup would be sent to a 404.
+    if (orderingMode(env).kind !== "live") {
+      throw new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message: "Pricing needs live Qonto keys before it can launch.",
+      });
+    }
+    const launch = await ctx.db.transaction(async (tx) => {
+      // Under the transaction, so two clicks cannot both launch.
+      await tx.execute(sql`select pg_advisory_xact_lock(hashtext('pricing-launch'))`);
+      if (await isFeatureOn(tx, "billing")) return null;
+      return launchBilling(tx, ctx.userId);
+    });
+    if (!launch)
+      throw new TRPCError({ code: "CONFLICT", message: "Pricing is already launched." });
+    await logAudit({
+      companyId: null,
+      userId: ctx.userId,
+      action: "platform.pricing_launch",
+      entityType: "feature_flag",
+      entityId: null,
+      description: `Pricing launched: ${launch.stampedUsers} people grandfathered, ${launch.accountsGrandfathered} accounts moved to grandfathered, announcement group of ${launch.groupMembers}`,
+      ipAddress: ctx.ip,
+      userAgent: ctx.userAgent,
+    });
+    return launch;
+  }),
+
+  /** The price for the demo close, as the customer's form would show it, at an optional amount. */
+  closeQuote: platformAdminProcedure
+    .input(
+      z.object({
+        customerEmail: z.string().trim().max(255),
+        vatNumber: z.string().trim().min(2).max(32),
+        countryCode: z.string().trim().length(2).optional(),
+        netCents: z.number().int().positive().max(10_000_000).nullable(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) =>
+      quoteFor({
+        vatNumber: input.vatNumber,
+        countryCode: input.countryCode,
+        // The same function closeDeal prices with, so the quote is the invoice.
+        netCents: await closeNetCents(ctx.db, input.customerEmail, input.netCents),
+        vies: viesConfigFromEnv(env),
+      }),
+    ),
+
+  /**
+   * Door two: close a sale on the call (lib/billing/close-deal.ts). Creates the customer if new,
+   * places the order on their account, and sends them a setup link when they have never signed in.
+   */
+  closeDeal: platformAdminProcedure
+    .input(
+      z.object({
+        customerEmail: z.email(),
+        customerName: z.string().trim().min(1).max(255),
+        order: orderSchemaWithVatCheck,
+        netCents: z.number().int().positive().max(10_000_000).nullable(),
+        /** The gross the admin confirmed. Required: nothing is invoiced at an unseen price. */
+        quotedGrossCents: z.number().int().nonnegative(),
+        /** The admin records that the customer accepted the AGB and AVV on the call. */
+        termsAcceptedOnCall: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const mode = orderingMode(env);
+      if (mode.kind === "off") {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "Qonto is not configured.",
+        });
+      }
+      const outcome = await closeDeal({
+        db: ctx.db,
+        mode,
+        customerEmail: input.customerEmail,
+        customerName: input.customerName,
+        order: input.order,
+        netCentsOverride: input.netCents,
+        expectedGrossCents: input.quotedGrossCents,
+        adminUserId: ctx.userId,
+        invoicePrefix: env.INVOICE_PREFIX,
+        vies: viesConfigFromEnv(env),
+        appUrl: getAppUrl(),
+        termsAcceptedOnCall: input.termsAcceptedOnCall,
+      });
+      if (!outcome.ok) {
+        const code =
+          outcome.reason === "already_ordered"
+            ? "CONFLICT"
+            : outcome.reason === "price_changed"
+              ? "PRECONDITION_FAILED"
+              : outcome.reason === "qonto_unknown"
+                ? "TIMEOUT"
+                : outcome.reason === "qonto"
+                  ? "INTERNAL_SERVER_ERROR"
+                  : "BAD_REQUEST";
+        throw new TRPCError({ code, message: outcome.message });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.close_deal",
+        entityType: "invoice",
+        entityId: null,
+        description: `Closed ${outcome.number} for ${input.customerEmail}${outcome.createdUser ? " (new customer)" : ""}${outcome.setupSent ? ", setup link sent" : ""}${input.termsAcceptedOnCall ? ", terms accepted on the call" : ", terms acceptance not recorded"}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return {
+        number: outcome.number,
+        gross: formatEuro(outcome.grossCents),
+        dueDate: outcome.dueDate,
+        createdUser: outcome.createdUser,
+        setupSent: outcome.setupSent,
+      };
+    }),
+
+  /** The Subscriptions tab: paying customers, their current invoice read live, refunds owed. */
+  subscriptions: platformAdminProcedure.query(({ ctx }) =>
+    listSubscriptions(ctx.db, orderingMode(env)),
+  ),
+
+  /**
+   * Revoke a full account by hand, for an invoice that stays unpaid. It falls back to free, or to
+   * grandfathered for a grandfathered holder (lib/billing/subscriptions.ts). Audited.
+   */
+  revokeAccess: platformAdminProcedure
+    .input(z.object({ billingAccountId: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const level = await revokeAccess(ctx.db, input.billingAccountId);
+      if (!level) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "No full account to revoke." });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.access_revoked",
+        entityType: "billing_account",
+        entityId: input.billingAccountId,
+        description: `Access revoked by hand for billing account ${input.billingAccountId}, now ${level}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { level };
+    }),
+
+  /**
+   * A transfer for a credited invoice arrived after the cancel: the refund is owed from now on.
+   * Audited.
+   */
+  markPaymentArrived: platformAdminProcedure
+    .input(z.object({ creditNoteId: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const number = await markPaymentArrived(ctx.db, input.creditNoteId);
+      if (!number) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "This credit note already owes a refund.",
+        });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.late_payment_refund_owed",
+        entityType: "credit_note",
+        entityId: input.creditNoteId,
+        description: `Payment arrived after credit note ${number}; refund now owed`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { number };
+    }),
+
+  /** Record that a refund was transferred in Qonto, with who and when. Audited. */
+  markRefundDone: platformAdminProcedure
+    .input(z.object({ creditNoteId: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const number = await markRefundDone(ctx.db, input.creditNoteId, ctx.userId);
+      if (!number) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "No open refund on this credit note.",
+        });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.refund_done",
+        entityType: "credit_note",
+        entityId: input.creditNoteId,
+        description: `Refund for credit note ${number} marked as transferred`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { number };
+    }),
+
+  /** Accounts blocked after an unclear order, waiting for someone to check Qonto. */
+  orderChecks: platformAdminProcedure.query(({ ctx }) => listOrderChecks(ctx.db)),
+
+  /**
+   * Lift the block after checking Qonto: either no invoice exists, or it was recorded or credited
+   * by hand. Audited, because it re-opens ordering for a customer who may already have an invoice.
+   */
+  clearOrderCheck: platformAdminProcedure
+    // `since` is the mark the admin looked at, so a newer mark from a later order is not cleared.
+    .input(z.object({ billingAccountId: z.uuid(), since: z.date() }))
+    .mutation(async ({ ctx, input }) => {
+      const cleared = await clearCheckedOrder(
+        ctx.db,
+        input.billingAccountId,
+        input.since,
+      );
+      if (!cleared) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "No order check on this account.",
+        });
+      }
+      await logAudit({
+        companyId: null,
+        userId: ctx.userId,
+        action: "billing.order_check_cleared",
+        entityType: "billing_account",
+        entityId: input.billingAccountId,
+        description: `Order check cleared for billing account ${input.billingAccountId}`,
+        ipAddress: ctx.ip,
+        userAgent: ctx.userAgent,
+      });
+      return { cleared };
+    }),
+
   myDevState: platformAdminProcedure.query(async ({ ctx }) => {
     const row = await ctx.db.query.user.findFirst({
       where: eq(user.id, ctx.userId),
@@ -580,7 +855,7 @@ export const platformAdminRouter = router({
         id: user.id,
         email: user.email,
         name: user.name,
-        role: user.role,
+        role: companyMembership.role,
         createdAt: user.createdAt,
         companyId: user.companyId,
         companyName: company.name,
@@ -589,6 +864,13 @@ export const platformAdminRouter = router({
       })
       .from(user)
       .leftJoin(company, eq(user.companyId, company.id))
+      .leftJoin(
+        companyMembership,
+        and(
+          eq(companyMembership.userId, user.id),
+          eq(companyMembership.companyId, user.companyId),
+        ),
+      )
       .orderBy(desc(user.createdAt));
 
     return rows;
@@ -617,7 +899,7 @@ export const platformAdminRouter = router({
         // key (always false: userCount 0, compliancePct '0' for every row),
         // and became an outright "column reference id is ambiguous" error the
         // moment the compliance_framework join below put a second id in scope.
-        userCount: sql<number>`(SELECT count(*)::int FROM "user" u WHERE u.company_id = "company"."id")`,
+        userCount: sql<number>`(SELECT count(*)::int FROM company_membership m WHERE m.company_id = "company"."id")`,
         // NIS 2 only. LIMIT 1 with no ORDER BY and no framework predicate
         // returned an arbitrary framework's percentage for the Companies tab.
         compliancePct: sql<string>`COALESCE(
@@ -641,9 +923,10 @@ export const platformAdminRouter = router({
       .select({
         companyName: company.name,
         companyId: company.id,
-        adminEmail: sql<string | null>`COALESCE(
-          (SELECT u.email FROM "user" u WHERE u.company_id = ${company.id} AND u.role = 'admin' ORDER BY u.created_at ASC LIMIT 1),
-          (SELECT u.email FROM "user" u WHERE u.company_id = ${company.id} ORDER BY u.created_at ASC LIMIT 1)
+        adminEmail: sql<string | null>`(
+          SELECT u.email FROM company_membership m JOIN "user" u ON u.id = m.user_id
+          WHERE m.company_id = ${company.id}
+          ORDER BY (m.role = 'admin') DESC, u.created_at ASC LIMIT 1
         )`,
         total: sql<number>`count(*)::int`,
         completed: sql<number>`count(*) FILTER (WHERE ${companyRequirementStatus.status} IN ('completed', 'approved'))::int`,
@@ -1201,6 +1484,7 @@ export const platformAdminRouter = router({
         kind: q.kind,
         userId: q.userId,
         email: q.email,
+        companyId: q.companyId,
         companyName: q.companyName,
         subject: q.subject,
         summary: q.summary,
@@ -1255,12 +1539,14 @@ export const platformAdminRouter = router({
     .input(
       z.object({
         userId: z.string().uuid(),
+        companyId: z.string().uuid(),
         kind: z.enum(["daily", "weekly"]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       return sendDigestBatch(ctx.db, 1, ctx.userId, {
         userId: input.userId,
+        companyId: input.companyId,
         kind: input.kind as DigestKind,
       });
     }),
@@ -1490,20 +1776,25 @@ export const platformAdminRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const [newCompany] = await ctx.db
-        .insert(company)
-        .values({
-          name: input.companyName,
-          sector: input.sector,
-          entityType: input.entityType,
-          employeeCount: input.employeeCount,
-          actsAsNis2Entity: true,
-          // A deliberately admin-created, named prospect company — not an
-          // onboarding draft shell. Stamp activated so it is counted as a real
-          // org, not folded into the draft/funnel-gap metric.
-          activatedAt: new Date(),
-        })
-        .returning({ id: company.id });
+      // A prospect company with no owner and no members yet, so its account has no owner either.
+      const [newCompany] = await ctx.db.transaction(async (tx) => {
+        const billingAccountId = await createBillingAccount(tx, null);
+        return tx
+          .insert(company)
+          .values({
+            name: input.companyName,
+            sector: input.sector,
+            entityType: input.entityType,
+            employeeCount: input.employeeCount,
+            actsAsNis2Entity: true,
+            // A deliberately admin-created, named prospect company — not an
+            // onboarding draft shell. Stamp activated so it is counted as a real
+            // org, not folded into the draft/funnel-gap metric.
+            activatedAt: new Date(),
+            billingAccountId,
+          })
+          .returning({ id: company.id });
+      });
       if (!newCompany) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -1612,7 +1903,7 @@ export const platformAdminRouter = router({
   previewErasure: platformAdminProcedure
     .input(z.object({ userId: z.string().uuid() }))
     .query(async ({ input }) => {
-      const preview = await previewUserErasure(input.userId);
+      const preview = await previewUserErasure(input.userId).catch(refusalAsTrpcError);
       if (!preview) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
       return preview;
     }),
@@ -1667,26 +1958,21 @@ export const platformAdminRouter = router({
           message: "Confirmation email does not match the account.",
         });
       }
-      // If the target owns their org, erasing tears the entire org down (every
-      // member + all data). Require the org name typed as a second confirmation.
-      if (target.companyId) {
-        const [org] = await ctx.db
-          .select({ ownerId: company.ownerId, name: company.name })
-          .from(company)
-          .where(eq(company.id, target.companyId))
-          .limit(1);
-        if (org && org.ownerId === target.id) {
-          if (
-            !input.confirmOrgName ||
-            input.confirmOrgName.trim().toLowerCase() !== org.name.trim().toLowerCase()
-          ) {
-            throw new TRPCError({
-              code: "BAD_REQUEST",
-              message:
-                "This account owns its organization; type the organization name to confirm the full teardown.",
-            });
-          }
-        }
+      // If the target owns an org they belong to, erasing tears it down, whether
+      // or not they have it open. Require its name typed as a second confirmation.
+      const { owned } = await erasureCompanyOf(ctx.db, target.id).catch(
+        refusalAsTrpcError,
+      );
+      if (
+        owned &&
+        (!input.confirmOrgName ||
+          input.confirmOrgName.trim().toLowerCase() !== owned.name.trim().toLowerCase())
+      ) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message:
+            "This account owns its organization; type the organization name to confirm the full teardown.",
+        });
       }
 
       const result = await eraseUser({
@@ -1698,7 +1984,7 @@ export const platformAdminRouter = router({
           rightsInvoked: input.rightsInvoked ?? null,
           notes: input.notes ?? null,
         },
-      });
+      }).catch(refusalAsTrpcError);
 
       await logAudit({
         companyId: null,
@@ -1782,9 +2068,10 @@ export const platformAdminRouter = router({
         companyName: company.name,
         ownerEmail: user.email,
         duties: count(),
-        last30: sql<number>`count(*) filter (where ${companyRequirementStatus.signedOffAt} >= now() - interval '30 days')`.mapWith(
-          Number,
-        ),
+        last30:
+          sql<number>`count(*) filter (where ${companyRequirementStatus.signedOffAt} >= now() - interval '30 days')`.mapWith(
+            Number,
+          ),
       })
       .from(companyRequirementStatus)
       .innerJoin(
@@ -1873,8 +2160,7 @@ export const platformAdminRouter = router({
     for (const row of cohorts) {
       if (isPlatformAdmin(row.ownerEmail)) continue;
       const key = row.createdAt.toISOString().slice(0, 7);
-      const entry =
-        cohortMap.get(key) ?? { companies: 0, active: [0, 0, 0, 0] };
+      const entry = cohortMap.get(key) ?? { companies: 0, active: [0, 0, 0, 0] };
       entry.companies += 1;
       if (row.lastActivity) {
         const last = new Date(row.lastActivity).getTime();
@@ -1904,9 +2190,8 @@ export const platformAdminRouter = router({
       invites: {
         total: invites.length,
         accepted: invites.filter((i) => i.acceptedAt !== null).length,
-        open: invites.filter(
-          (i) => i.acceptedAt === null && i.expiresAt > new Date(),
-        ).length,
+        open: invites.filter((i) => i.acceptedAt === null && i.expiresAt > new Date())
+          .length,
         rows: invites,
       },
       senders,

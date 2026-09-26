@@ -6,26 +6,27 @@
  * row per incident-customer pair). Affected-asset linkage uses
  * `asset_supplier_offering` to scope assets to a relationship.
  */
-import { z } from "zod";
-import { eq, and, desc, inArray } from "drizzle-orm";
+
 import { TRPCError } from "@trpc/server";
-import { router, companyProcedure } from "../../init";
-import { insertRow } from "../../typed";
+import { and, desc, eq, inArray } from "drizzle-orm";
+import { z } from "zod";
 import {
-  incident,
-  supplier,
   asset,
-  company,
-  incidentBroadcast,
   assetSupplierOffering,
+  company,
+  incident,
+  incidentBroadcast,
+  supplier,
 } from "@/schema";
+import { accountProcedure, router } from "../../init";
+import { insertRow } from "../../typed";
 import { broadcastIncidentBroadcast } from "./broadcast";
 
 const severityEnum = z.enum(["info", "warning", "critical"]);
 
 export const supplierIncidentRouter = router({
   /** List all supplier-broadcast incidents I have published. */
-  list: companyProcedure.query(async ({ ctx }) => {
+  list: accountProcedure.query(async ({ ctx }) => {
     const rows = await ctx.db
       .select({ incident: incident, broadcast: incidentBroadcast })
       .from(incident)
@@ -42,7 +43,7 @@ export const supplierIncidentRouter = router({
     }));
   }),
 
-  publish: companyProcedure
+  publish: accountProcedure
     .input(
       z.object({
         relationshipId: z.string().uuid(),

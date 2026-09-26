@@ -41,6 +41,17 @@
       "submit": "Set password",
       "errorResetFailed": "Invalid or expired code. Please request a new one.",
       "backToSignIn": "Back to sign in"
+    },
+    "setup": {
+      "title": "Set up your access",
+      "description": "Your account for the NIS 2 guided pass is ready. Choose how you will sign in.",
+      "forEmail": "For {email}",
+      "passwordLabel": "Set a password",
+      "passwordHint": "At least 8 characters.",
+      "submit": "Save password and sign in",
+      "submitting": "Saving",
+      "invalidTitle": "This link no longer works",
+      "invalidDescription": "The link has expired or was already used. Sign in with Google, or set a password for this email address through \"Forgot password\"."
     }
   }
 }

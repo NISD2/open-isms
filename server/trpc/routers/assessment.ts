@@ -4,6 +4,7 @@ import { and, asc, eq, inArray, isNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { hasReviewAccess } from "@/lib/auth";
+import { createBillingAccount } from "@/lib/billing/accounts";
 import {
   computeInitialDeadline,
   type Frequency,
@@ -20,6 +21,7 @@ import {
 import { pendingSignersOf } from "@/lib/compliance/sign-off-roster";
 import type { Database } from "@/lib/db";
 import { contactEmailChangedEmail, sendMail } from "@/lib/mail";
+import { joinCompany } from "@/lib/organization/membership";
 import {
   auditLog,
   categoryAssignment,
@@ -36,7 +38,7 @@ import {
   requirementSatisfaction,
   user,
 } from "@/schema";
-import { enforceAssignment, getSignerRole, verifyAssessmentOwnership } from "../guards";
+import { enforceAssignment, signerRoleOf, verifyAssessmentOwnership } from "../guards";
 import {
   buildSignOffSnapshot,
   propagateSatisfaction,
@@ -55,7 +57,12 @@ import {
   signerMeetsRequiredRole,
   snapshotForVersion,
 } from "../helpers/sign-off-completion";
-import { adminProcedure, companyProcedure, protectedProcedure, router } from "../init";
+import {
+  accountAdminProcedure,
+  companyProcedure,
+  protectedProcedure,
+  router,
+} from "../init";
 
 // Prerequisites are advisory only — the UI surfaces them as a "recommended
 // first" suggestion (see RequirementDetail), but nothing blocks sign-off.
@@ -74,7 +81,8 @@ export const assessmentRouter = router({
     return row ?? null;
   }),
 
-  updateCompany: adminProcedure
+  // Company master data stays editable before an order: it is on the invoice and on /organization.
+  updateCompany: accountAdminProcedure
     .input(
       z.object({
         name: z.string().min(1).max(255).optional(),
@@ -194,7 +202,6 @@ export const assessmentRouter = router({
         legalForm: z.string().max(100).optional(),
         employeeCount: z.number().int().positive().optional(),
         contactEmail: z.string().email().optional(),
-        aiDataSharing: z.enum(["none", "basic", "full"]).optional(),
         cisoName: z.string().max(255).optional(),
         cisoReportsTo: z.string().max(255).optional(),
         bsiContactName: z.string().max(255).optional(),
@@ -257,7 +264,6 @@ export const assessmentRouter = router({
         legalForm: input.legalForm ?? null,
         employeeCount: input.employeeCount ?? null,
         contactEmail: input.contactEmail ?? null,
-        aiDataSharing: input.aiDataSharing ?? "none",
         cisoName: input.cisoName ?? null,
         cisoReportsTo: input.cisoReportsTo ?? null,
         bsiContactName: input.bsiContactName ?? null,
@@ -318,15 +324,14 @@ export const assessmentRouter = router({
           }
         } else {
           // No draft (edge / legacy path) — create, own, seed, activate in one.
+          const billingAccountId = await createBillingAccount(tx, ctx.userId);
           const [newCompany] = await tx
             .insert(company)
-            .values(activatedValues)
+            .values({ ...activatedValues, billingAccountId })
             .returning();
+          if (!newCompany) throw new Error("company insert returned no row");
           companyId = newCompany.id;
-          await tx
-            .update(user)
-            .set({ companyId, role: "admin", updatedAt: new Date() })
-            .where(eq(user.id, ctx.userId));
+          await joinCompany(tx, { userId: ctx.userId, companyId, role: "admin" });
           const created = await createAssessmentsForFrameworks(
             tx,
             companyId,
@@ -432,9 +437,12 @@ export const assessmentRouter = router({
 
       const values: Record<string, unknown> = { ...updates, updatedAt: new Date() };
       if (input.status === "not_applicable") {
+        const now = new Date();
         values.isApplicable = false;
-        values.nextReviewDate = toDateString(addYears(new Date(), 1));
-        values.lastReviewedAt = new Date();
+        values.nextReviewDate = toDateString(addYears(now, 1));
+        values.lastReviewedAt = now;
+        values.notApplicableBy = ctx.userId;
+        values.notApplicableAt = now;
       }
       if (input.status === "completed") {
         values.completedAt = new Date();
@@ -569,7 +577,7 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Audit B-2 + B-5 (2026-06-10): everything that touches the
       // (assignments, status row, chain) trio happens in one transaction
@@ -941,7 +949,7 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Audit B-2 (2026-06-10): assignment + status + chain entry inside
       // the same tx so a partial commit cannot leave the chain disagreeing
@@ -1096,7 +1104,7 @@ export const assessmentRouter = router({
       // requirement whose required signer role the caller does not hold
       // (admin bypass matches signOff), nor an N-of-M requirement whose
       // assigned signers must sign individually. See bulkSignOffCategory.
-      const confirmerRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const confirmerRole = signerRoleOf(ctx.session);
       // not_applicable is excluded here as it is in bulkSignOffCategory:
       // a requirement documented as out of scope must not come back signed
       // off as done while its is_applicable flag still says otherwise.
@@ -1266,7 +1274,7 @@ export const assessmentRouter = router({
 
       if (rows.length === 0) return { signedOff: 0 };
 
-      const signedOffRole = await getSignerRole(ctx.db, ctx.userId, ctx.session.role);
+      const signedOffRole = signerRoleOf(ctx.session);
 
       // Bulk sign-off must not be a back door around the per-requirement
       // guards the single signOff path enforces. Two things it cannot

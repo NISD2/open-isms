@@ -41,7 +41,7 @@ export default async function JourneyForkPreviewPage() {
 
   return (
     <SidebarProvider>
-      <AppSidebar user={SAMPLE_USER} frameworks={SAMPLE_FRAMEWORKS} />
+      <AppSidebar user={SAMPLE_USER} frameworks={SAMPLE_FRAMEWORKS} showBilling={false} />
       <SidebarInset>
         <header className="sticky top-0 z-20 flex h-12 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-sm">
           <SidebarTrigger />

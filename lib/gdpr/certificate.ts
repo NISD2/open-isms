@@ -5,8 +5,8 @@
  * the accountability proof (Art. 5(2)/24) that the request was honoured.
  */
 import type { InferSelectModel } from "drizzle-orm";
-import { dataErasureLog } from "@/schema";
 import type { ErasureScope } from "@/schema";
+import { dataErasureLog } from "@/schema";
 
 export type ErasureLogRow = InferSelectModel<typeof dataErasureLog>;
 
@@ -95,7 +95,7 @@ at intake per our procedure. No fee was charged (Art. 12(5)).
 
 **Method:** ${methodLabel}
 **Executed:** ${fmtDate(row.erasedAt)} by ${esc(row.actorEmail)}
-**Company teardown:** ${row.companyTornDown ? "Yes. The subject was the sole member, so the company and all its tenant data were deleted." : "No"}
+**Company teardown:** ${row.companyTornDown ? "Yes. The subject owned the organization, so it and all its tenant data were deleted, together with every member account that belonged to no other organization." : "No"}
 
 ### Data categories and systems cleared
 ${scope.systemsCleared.length ? scope.systemsCleared.map((s) => `- ${esc(s)}`).join("\n") : "_none recorded_"}

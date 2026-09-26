@@ -44,6 +44,24 @@ describe("running footers", () => {
   });
 });
 
+describe("compliance report content", () => {
+  test("prints a not-applicable reason with its date and the person who decided", async () => {
+    const text = (
+      await pagesOf(ComplianceReport({ data: REPORT_FIXTURE, locale: "de" }))
+    ).join(" ");
+    expect(text).toContain("Begründung");
+    expect(text).toContain("Wir beziehen keine Cloud-Dienste");
+    expect(text).toContain("Entschieden 2.3.2026, Jonas Pieper");
+  });
+
+  test("prints the signer's name with the role", async () => {
+    const text = (
+      await pagesOf(ComplianceReport({ data: REPORT_FIXTURE, locale: "de" }))
+    ).join(" ");
+    expect(text).toContain("Katrin Albers (Geschäftsführung)");
+  });
+});
+
 describe("glyph coverage", () => {
   // IBM Plex Mono's Google Fonts build puts `space` in the last four glyphs of
   // `glyf`, where fontkit reads past the end of the table and throws. Any mono

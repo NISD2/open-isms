@@ -20,16 +20,42 @@
  *
  * No API key, no account, no rate-limit documented. Free service, so treat it as best-effort.
  */
+import type { vatTreatmentEnum } from "@nisd2/isms-schema";
 
-/** Our own VAT number, sent as the requester so the response carries a consultation number. */
-const REQUESTER = {
-  memberStateCode: process.env.OWN_VAT_COUNTRY ?? "DE",
-  number: process.env.OWN_VAT_NUMBER ?? "",
-} as const;
+/** Our own VAT number, sent so the response carries a consultation number. */
+export interface ViesRequester {
+  readonly memberStateCode: string;
+  readonly number: string;
+}
 
-const ENDPOINT =
-  process.env.VIES_ENDPOINT ??
-  "https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number";
+export interface ViesConfig {
+  readonly endpoint: string;
+  /** Null when our own VAT number is not set. */
+  readonly requester: ViesRequester | null;
+}
+
+/** The settings the check needs, as the validated environment provides them. */
+export interface ViesEnv {
+  readonly OWN_VAT_NUMBER?: string | undefined;
+  readonly VIES_ENDPOINT: string;
+}
+
+/**
+ * Builds the check's config from the validated environment.
+ *
+ * Our own number is read by the same splitter as a customer's, so it gets the same normalisation
+ * and the same checks, and its own prefix decides its country. A number that cannot be read is
+ * sent as no requester at all rather than as a wrong one: without a requester every check still
+ * works and only the consultation number is missing, whereas a requester VIES rejects would turn
+ * every check into "unavailable" and silently put domestic VAT on every EU customer.
+ */
+export const viesConfigFromEnv = (env: ViesEnv): ViesConfig => {
+  const own = env.OWN_VAT_NUMBER ? splitVatNumber(env.OWN_VAT_NUMBER) : null;
+  return {
+    endpoint: env.VIES_ENDPOINT,
+    requester: own ? { memberStateCode: own.countryCode, number: own.vatNumber } : null,
+  };
+};
 
 const TIMEOUT_MS = 6_000;
 
@@ -82,7 +108,7 @@ const VAT_PREFIXES = new Set([
 
 /**
  * A VAT number as the user typed it, split into the two parts VIES wants.
- * "DE 811569869", "de811569869" and "DE811569869" all mean the same thing.
+ * "DE 123456789", "de123456789" and "DE123456789" all mean the same thing.
  *
  * The number part must contain at least one digit: every member state's format does, and requiring
  * it stops a word being mistaken for a VAT number when its first two letters happen to be a
@@ -168,26 +194,29 @@ const errorCode = (d: ViesResponse): string | null => {
  */
 export const checkVatNumber = async (
   input: string,
+  config: ViesConfig,
   signal?: AbortSignal,
 ): Promise<VatCheck> => {
   const parts = splitVatNumber(input);
   if (!parts) return { status: "malformed" };
 
-  const body: Record<string, string> = {
+  // Without the requester the consultation number comes back empty, and the consultation number is
+  // the only part of this with legal weight.
+  const body = {
     countryCode: parts.countryCode,
     vatNumber: parts.vatNumber,
+    ...(config.requester
+      ? {
+          requesterMemberStateCode: config.requester.memberStateCode,
+          requesterNumber: config.requester.number,
+        }
+      : {}),
   };
-  // Without these the consultation number comes back empty, and the consultation number is the
-  // only part of this with legal weight.
-  if (REQUESTER.number) {
-    body.requesterMemberStateCode = REQUESTER.memberStateCode;
-    body.requesterNumber = REQUESTER.number;
-  }
 
   const timeout = AbortSignal.timeout(TIMEOUT_MS);
   const merged = signal ? AbortSignal.any([signal, timeout]) : timeout;
 
-  const res = await fetch(ENDPOINT, {
+  const res = await fetch(config.endpoint, {
     method: "POST",
     headers: { "content-type": "application/json", accept: "application/json" },
     body: JSON.stringify(body),
@@ -307,17 +336,38 @@ export const shouldRetry = (a: VatCheckAttempt): boolean => a.outcome === "unava
  * `[The rates and the reverse-charge rule are recalled; confirm both with the Steuerberater before
  * the first cross-border invoice.]`
  */
+/**
+ * The four outcomes come from the database enum that stores them on an invoice, so a treatment the
+ * database cannot hold does not compile: `Extract` of a kind the enum lacks is `never`.
+ */
+type TreatmentKind = (typeof vatTreatmentEnum.enumValues)[number];
+
 export type VatTreatment =
-  | { readonly kind: "domestic"; readonly rate: number }
-  | { readonly kind: "reverse_charge"; readonly rate: 0; readonly note: string }
-  | { readonly kind: "unconfirmed_eu"; readonly rate: number; readonly why: string }
-  | { readonly kind: "outside_eu"; readonly rate: 0; readonly note: string };
+  | { readonly kind: Extract<TreatmentKind, "domestic">; readonly rate: number }
+  | {
+      readonly kind: Extract<TreatmentKind, "reverse_charge">;
+      readonly rate: 0;
+      readonly note: string;
+    }
+  | {
+      readonly kind: Extract<TreatmentKind, "unconfirmed_eu">;
+      readonly rate: number;
+      readonly why: string;
+    }
+  | {
+      readonly kind: Extract<TreatmentKind, "outside_eu">;
+      readonly rate: 0;
+      readonly note: string;
+    };
 
 /**
- * Where reverse charge can apply. EL and GR are both accepted for Greece, because the VAT prefix
- * and the ISO code differ and a caller may pass either. XI is Northern Ireland, which stays inside
- * the EU VAT area for goods under the Windsor Framework `[recalled; irrelevant for a service like
- * ours, kept so the set is not silently wrong]`.
+ * Where reverse charge can apply to what we sell, which is a service. EL and GR are both accepted
+ * for Greece, because the VAT prefix and the ISO code differ and a caller may pass either.
+ *
+ * XI, Northern Ireland, is deliberately absent. Under the Windsor Framework it stays inside the EU
+ * VAT area for goods only; a service to a Northern Irish business follows UK rules, so it is treated
+ * like any other customer outside the EU. VIES still validates XI numbers, which is why XI remains
+ * a valid prefix for the check itself.
  */
 const EU = new Set([
   "AT",
@@ -348,7 +398,6 @@ const EU = new Set([
   "SE",
   "SI",
   "SK",
-  "XI",
 ]);
 
 const DOMESTIC_RATE = 0.19;

@@ -65,6 +65,12 @@ export const EMAIL_TYPES = {
   "account.contact_email_changed": { category: "security", consent: "essential" },
   "account.invite": { category: "account", consent: "essential" },
   "account.member_removed": { category: "account", consent: "essential" },
+  /** The setup link for an account a platform admin opened on a sales call (door two). */
+  "account.setup": { category: "account", consent: "essential" },
+  /** The invoice for an order, to the billing address the customer gave. */
+  "billing.invoice": { category: "account", consent: "essential" },
+  /** The confirmation of a cancel the account holder just made, with the credit note if any. */
+  "billing.canceled": { category: "account", consent: "essential" },
 
   // --- Optional, to account holders ----------------------------------------
   "work.category_assigned": { category: "work", consent: "user" },
@@ -92,6 +98,8 @@ export const EMAIL_TYPES = {
    */
   "internal.advisory_request": { category: "internal", consent: "operator" },
   "internal.test_send": { category: "internal", consent: "operator" },
+  /** An order or invoice that a person has to look at in Qonto: never routine, always acted on. */
+  "internal.billing_alert": { category: "internal", consent: "operator" },
 } as const satisfies Record<string, EmailTypeDefinition>;
 
 export type EmailTypeId = keyof typeof EMAIL_TYPES;

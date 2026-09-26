@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CopyProtected } from "@/components/CopyProtected";
 import { pageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations("info");
   return {
@@ -20,22 +18,43 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-const hostingKeys = ["appServers", "fileStorage", "noUSTransfer"] as const;
-const pseudoKeys = ["transit", "rest", "secrets"] as const;
-const confidentialityKeys = ["physical", "personnel", "auth", "rbac", "separation", "secrets"] as const;
-const integrityKeys = ["input", "checksum", "transfer", "evidenceHash", "signoff"] as const;
-const availabilityKeys = ["backup", "redundancy", "rateLimit", "uploadLimit", "status"] as const;
-const evaluationKeys = ["review", "patch", "incident", "code"] as const;
+// Keys corrected on 26.09.2026 against the code carry new names, so a locale that still has the old
+// wording falls back to the corrected English instead of repeating the old claim.
+const hostingKeys = ["appServers", "fileStorage", "usServices"] as const;
+const pseudoKeys = ["transit", "restStorage", "secrets"] as const;
+const confidentialityKeys = [
+  "physical",
+  "personnel",
+  "authMethods",
+  "roles",
+  "tenantSeparation",
+  "secrets",
+] as const;
+const integrityKeys = [
+  "inputLog",
+  "rowChecksum",
+  "transfer",
+  "evidenceHash",
+  "signoff",
+] as const;
+const availabilityKeys = [
+  "backupSetup",
+  "redundancy",
+  "rateLimits",
+  "uploadLimit",
+  "statusPage",
+] as const;
+const evaluationKeys = ["review", "dependencyUpdates", "incident", "code"] as const;
 
 export default async function TomsPage() {
   const t = await getTranslations("info");
 
   return (
-    <CopyProtected><article>
+    <article>
       <header className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">{t("toms.title")}</h1>
         <p className="text-lg text-muted-foreground">{t("toms.subtitle")}</p>
-        <p className="text-xs text-muted-foreground">{t("toms.lastUpdated")}</p>
+        <p className="text-xs text-muted-foreground">{t("toms.revised")}</p>
       </header>
 
       <Separator className="my-8" />
@@ -58,7 +77,7 @@ export default async function TomsPage() {
             <CardTitle>{t("toms.hosting.heading")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("toms.hosting.p1")}</p>
+            <p>{t("toms.hosting.scopeNote")}</p>
             <ul className="space-y-2">
               {hostingKeys.map((key) => (
                 <li key={key} className="flex items-start gap-2">
@@ -199,6 +218,6 @@ export default async function TomsPage() {
           </CardContent>
         </Card>
       </section>
-    </article></CopyProtected>
+    </article>
   );
 }

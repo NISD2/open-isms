@@ -153,7 +153,6 @@ export async function POST(request: Request) {
         email,
         name,
         passwordHash,
-        role: "member",
         isDisposableEmail: disposable,
         locale: persistedLocale,
         // emailVerifiedAt left null — set by /api/auth/verify-email

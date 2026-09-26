@@ -72,14 +72,22 @@ setup("provision and authenticate", async ({ page, browser }) => {
 
   // Second user: management member in the same company, for N-of-M.
   await e2eQuery(
-    `INSERT INTO "user" (company_id, email, name, role, is_management, email_verified_at, password_hash)
-     SELECT company_id, $2, 'E2E Management', 'member', true, NOW(), $3
+    `INSERT INTO "user" (company_id, email, name, is_management, email_verified_at, password_hash)
+     SELECT company_id, $2, 'E2E Management', true, NOW(), $3
        FROM "user" WHERE email = $1
      ON CONFLICT (email) DO UPDATE
        SET password_hash = EXCLUDED.password_hash,
            company_id = EXCLUDED.company_id,
            is_management = true`,
     [E2E_USER_EMAIL, E2E_MANAGER_EMAIL, hash],
+  );
+  // Membership is what makes someone part of a company; the company_id above is only the one they
+  // have open.
+  await e2eQuery(
+    `INSERT INTO company_membership (user_id, company_id, role)
+     SELECT id, company_id, 'member' FROM "user" WHERE email = $1 AND company_id IS NOT NULL
+     ON CONFLICT (user_id, company_id) DO UPDATE SET role = EXCLUDED.role`,
+    [E2E_MANAGER_EMAIL],
   );
 
   // Retire the one-time onboarding surfaces for both harness users. The tour

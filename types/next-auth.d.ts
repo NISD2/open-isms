@@ -1,5 +1,6 @@
 import "next-auth";
 import "next-auth/jwt";
+import type { AccessLevel } from "@/lib/billing/accounts";
 import type { Hint } from "@/lib/onboarding/hints";
 
 /**
@@ -23,6 +24,11 @@ declare module "next-auth" {
     companyActivated: boolean;
     role: string;
     jobTitle: string | null;
+    /**
+     * What the open company's billing account may use right now, as the gate enforces it
+     * (lib/billing/access.ts). "free" only once billing is launched; null without a company.
+     */
+    accessLevel: AccessLevel | null;
     /**
      * Session revocation counter copied from the JWT. getSession
      * compares this against the live user row; if the row's

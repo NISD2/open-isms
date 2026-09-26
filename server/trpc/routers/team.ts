@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { TRPCError } from "@trpc/server";
-import { and, desc, eq, inArray, ne } from "drizzle-orm";
+import { and, desc, eq, inArray, ne, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { logAudit } from "@/lib/audit";
 import { invalidateModuleSignOffs } from "@/lib/compliance/module-recheck";
@@ -8,12 +8,25 @@ import { ALL_ROLE_KEYS } from "@/lib/compliance/role-mapping";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
 import { inviteEmail, memberRemovedEmail, sendMail } from "@/lib/mail";
 import { isSuppressedSendId, mailSuppressionReason } from "@/lib/mail/send";
+import {
+  asMembershipRole,
+  findMembershipRole,
+  isMemberOf,
+  joinCompany,
+  leaveCompany,
+  listCompanyMembers,
+  listUserCompanies,
+  openCompany,
+  setMembershipJobTitle,
+  signupDraftOf,
+} from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
 import {
   categoryAssignment,
   company,
   companyAssessment,
   companyInvite,
+  companyMembership,
   notification,
   requirementCategory,
   user,
@@ -35,17 +48,16 @@ export const teamRouter = router({
   listMembers: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
 
-    const members = await ctx.db.query.user.findMany({
-      where: eq(user.companyId, ctx.companyId),
-      columns: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        jobTitle: true,
-        createdAt: true,
-      },
-    });
+    const members = (await listCompanyMembers(ctx.db, ctx.companyId)).map(
+      ({ id, name, email, role, jobTitle, createdAt }) => ({
+        id,
+        name,
+        email,
+        role,
+        jobTitle,
+        createdAt,
+      }),
+    );
 
     // Category-level assignments, NIS 2 only: the /team page listed member
     // assignments carrying DSGVO / AI-Act / CRA category codes otherwise.
@@ -113,36 +125,16 @@ export const teamRouter = router({
     .mutation(async ({ ctx, input }) => {
       const email = input.email.toLowerCase();
 
-      // Check if user with this email already exists
-      const existing = await ctx.db.query.user.findFirst({
-        where: eq(user.email, email),
-        columns: { id: true, companyId: true },
+      // Someone who belongs to another organization can be invited too: accepting adds a
+      // membership and leaves their other organizations as they are.
+      const alreadyMember = await ctx.db.query.user.findFirst({
+        where: and(eq(user.email, email), isMemberOf(ctx.db, ctx.companyId)),
+        columns: { id: true },
       });
-      const existingCompany = existing?.companyId
-        ? await ctx.db.query.company.findFirst({
-            where: eq(company.id, existing.companyId),
-            columns: { activatedAt: true },
-          })
-        : null;
-
-      if (existing?.companyId === ctx.companyId) {
+      if (alreadyMember) {
         throw new TRPCError({
           code: "CONFLICT",
           message: "This person is already a member of your company.",
-        });
-      }
-
-      // Block only if they already belong to a DIFFERENT, ACTIVATED company. A
-      // draft shell (auto-provisioned, never activated) is discarded when they
-      // accept, so inviting a draft-only user is legitimate.
-      if (
-        existing?.companyId &&
-        existing.companyId !== ctx.companyId &&
-        existingCompany?.activatedAt
-      ) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "This email is already associated with another organization.",
         });
       }
 
@@ -315,34 +307,32 @@ export const teamRouter = router({
         });
       }
 
-      // The user must not already belong to an ACTIVATED company. Every verified
-      // user auto-gets a draft shell, so accepting an invite is legitimate for a
-      // draft-only user: their draft is discarded and they move into the
-      // inviting company. Only a real (activated) membership blocks the accept.
-      const currentCompany = ctx.companyId
-        ? await ctx.db.query.company.findFirst({
-            where: eq(company.id, ctx.companyId),
-            columns: { id: true, activatedAt: true },
-          })
-        : null;
-      if (currentCompany?.activatedAt) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "You are already a member of a company.",
-        });
-      }
+      // Accepting adds a membership in the inviting company and opens it; the person keeps every
+      // other organization they belong to. Every verified user gets a draft shell at signup; when
+      // that draft is still the only organization they are in, it was never used and is discarded
+      // once they have joined. A draft started from an existing organization is theirs to keep.
+      const signupDraft = signupDraftOf(
+        await listUserCompanies(ctx.db, ctx.userId),
+        ctx.userId,
+      );
+      const ownDraft = signupDraft?.id === invite.companyId ? null : signupDraft;
+      const existingRole = await findMembershipRole(ctx.db, {
+        userId: ctx.userId,
+        companyId: invite.companyId,
+      });
 
       await ctx.db.transaction(async (tx) => {
-        // Move the user onto the inviting company first, clearing the draft's
-        // user FK before the draft shell is discarded.
-        await tx
-          .update(user)
-          .set({
+        // An existing member keeps their role; the invite does not change it. Otherwise the invite
+        // row's free-text role falls back to the least privileged one a membership can hold.
+        if (existingRole) {
+          await openCompany(tx, { userId: ctx.userId, companyId: invite.companyId });
+        } else {
+          await joinCompany(tx, {
+            userId: ctx.userId,
             companyId: invite.companyId,
-            role: invite.role,
-            updatedAt: new Date(),
-          })
-          .where(eq(user.id, ctx.userId));
+            role: asMembershipRole(invite.role) ?? "member",
+          });
+        }
 
         await tx
           .update(companyInvite)
@@ -354,12 +344,12 @@ export const teamRouter = router({
           .where(eq(companyInvite.id, invite.id));
       });
 
-      // Discard the now-abandoned draft shell (best-effort, post-commit, its own
-      // transaction). An impure draft is left orphaned rather than failing the
-      // accept the user already completed above.
-      if (currentCompany) {
+      // Discard the now-abandoned draft shell when nobody else is in it (best-effort, post-commit,
+      // its own transaction). An impure draft is left orphaned rather than failing the accept the
+      // user already completed above.
+      if (ownDraft && (await listCompanyMembers(ctx.db, ownDraft.id)).length <= 1) {
         try {
-          await discardDraftCompany(ctx.db, currentCompany.id);
+          await discardDraftCompany(ctx.db, ownDraft.id);
         } catch (err) {
           console.error("[team.acceptInvite] draft discard skipped:", err);
         }
@@ -416,9 +406,8 @@ export const teamRouter = router({
         });
       }
 
-      // Verify user belongs to this company
       const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
+        where: and(eq(user.id, input.userId), isMemberOf(ctx.db, ctx.companyId)),
       });
       if (!member) {
         throw new TRPCError({
@@ -463,11 +452,23 @@ export const teamRouter = router({
           ),
         );
 
-      // Unlink user from company
+      // Pending invites in this company that the person sent, or that are addressed to them, are
+      // revoked, so neither can bring them back after the removal.
       await ctx.db
-        .update(user)
-        .set({ companyId: null, role: "member", updatedAt: new Date() })
-        .where(eq(user.id, input.userId));
+        .update(companyInvite)
+        .set({ status: "revoked" })
+        .where(
+          and(
+            eq(companyInvite.companyId, ctx.companyId),
+            eq(companyInvite.status, "pending"),
+            or(
+              eq(companyInvite.invitedBy, input.userId),
+              sql`lower(${companyInvite.email}) = ${member.email.toLowerCase()}`,
+            ),
+          ),
+        );
+
+      await leaveCompany(ctx.db, { userId: input.userId, companyId: ctx.companyId });
 
       // Notify removed member (fire-and-forget)
       const companyRow = await ctx.db.query.company.findFirst({
@@ -516,24 +517,28 @@ export const teamRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      // Verify user belongs to this company
-      const member = await ctx.db.query.user.findFirst({
-        where: and(eq(user.id, input.userId), eq(user.companyId, ctx.companyId)),
+      const membership = await ctx.db.query.companyMembership.findFirst({
+        where: and(
+          eq(companyMembership.userId, input.userId),
+          eq(companyMembership.companyId, ctx.companyId),
+        ),
+        columns: { jobTitle: true },
       });
-      if (!member) {
+      if (!membership) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "User not found in your company.",
         });
       }
 
-      const roleChanged = member.jobTitle !== input.roleKey;
+      const roleChanged = membership.jobTitle !== input.roleKey;
 
-      // Set the user's jobTitle to the compliance role
-      await ctx.db
-        .update(user)
-        .set({ jobTitle: input.roleKey, updatedAt: new Date() })
-        .where(eq(user.id, input.userId));
+      // The compliance role is held per company, so this changes it here only.
+      await setMembershipJobTitle(ctx.db, {
+        userId: input.userId,
+        companyId: ctx.companyId,
+        jobTitle: input.roleKey,
+      });
 
       // Fired here, right after the role actually changes, rather than after
       // the category assignments below: a role that resolves to no categories

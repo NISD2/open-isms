@@ -75,17 +75,24 @@ export type StructuralCheck =
   /** The right shape, but the check digit does not match. Almost always a typo. */
   | { readonly ok: false; readonly reason: "checksum"; readonly countryCode: string }
   /** Structurally sound. Says nothing about whether it is registered or whose it is. */
-  | { readonly ok: true; readonly countryCode: string; readonly verified: "checksum" | "format_only" };
+  | {
+      readonly ok: true;
+      readonly countryCode: string;
+      readonly verified: "checksum" | "format_only";
+    };
 
 /**
  * Validate the structure of a VAT number that has already been split into country and number.
  * Never touches the network.
  */
-export const checkStructure = (countryCode: string, vatNumber: string): StructuralCheck => {
+export const checkStructure = (
+  countryCode: string,
+  vatNumber: string,
+): StructuralCheck => {
   const cc = countryCode.toUpperCase();
   const n = vatNumber.toUpperCase();
   const format = FORMATS[cc];
-  if (!format || !format.test(n)) return { ok: false, reason: "format", countryCode: cc };
+  if (!format?.test(n)) return { ok: false, reason: "format", countryCode: cc };
 
   if (cc === "DE") {
     const expected = germanCheckDigit(n);

@@ -5,9 +5,10 @@
  * 1. Category owner (single owner per category)
  * 2. Company admins (fallback when no owner assigned)
  */
-import { eq, and, inArray } from "drizzle-orm";
-import { categoryAssignment, user } from "@/schema";
+import { and, eq, inArray } from "drizzle-orm";
 import type { Database } from "@/lib/db";
+import { listCompanyMembers } from "@/lib/organization/membership";
+import { categoryAssignment, user } from "@/schema";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -24,10 +25,7 @@ export interface RecipientInfo {
 // ---------------------------------------------------------------------------
 
 /** Fetch user info for a set of user IDs, deduplicated. Single query. */
-async function fetchUserInfo(
-  db: Database,
-  userIds: string[],
-): Promise<RecipientInfo[]> {
+async function fetchUserInfo(db: Database, userIds: string[]): Promise<RecipientInfo[]> {
   if (userIds.length === 0) return [];
 
   const unique = [...new Set(userIds)];
@@ -82,12 +80,10 @@ export async function resolveManagement(
   db: Database,
   companyId: string,
 ): Promise<RecipientInfo[]> {
-  const rows = await db
-    .select({ id: user.id, name: user.name, email: user.email })
-    .from(user)
-    .where(and(eq(user.companyId, companyId), eq(user.role, "admin")));
-
-  return rows.map((r) => ({ userId: r.id, name: r.name, email: r.email }));
+  const members = await listCompanyMembers(db, companyId);
+  return members
+    .filter((m) => m.role === "admin")
+    .map((m) => ({ userId: m.id, name: m.name, email: m.email }));
 }
 
 // ---------------------------------------------------------------------------

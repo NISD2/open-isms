@@ -9,39 +9,34 @@
  * Ground truth is always Postgres after the attack, not the HTTP envelope,
  * so the assertions hold regardless of how tRPC reports a rejected call.
  */
-import { test, expect, type APIRequestContext } from "@playwright/test";
+import { type APIRequestContext, expect, test } from "@playwright/test";
 import { e2eQuery } from "../lib/db";
 
 const RIVAL_ASSET_NAME = "RIVAL Kronjuwelen Server";
 
 /** superjson httpBatchLink call shapes. */
-async function trpcMutation(
-  request: APIRequestContext,
-  proc: string,
-  input: unknown,
-) {
+async function trpcMutation(request: APIRequestContext, proc: string, input: unknown) {
   return request.post(`/api/trpc/${proc}?batch=1`, {
     data: { "0": { json: input } },
     headers: { "content-type": "application/json" },
     failOnStatusCode: false,
   });
 }
-async function trpcQuery(
-  request: APIRequestContext,
-  proc: string,
-  input: unknown,
-) {
+async function trpcQuery(request: APIRequestContext, proc: string, input: unknown) {
   const q = encodeURIComponent(JSON.stringify({ "0": { json: input } }));
   return request.get(`/api/trpc/${proc}?batch=1&input=${q}`, {
     failOnStatusCode: false,
   });
 }
 
-test("cross-tenant: one company cannot read, update or delete another's asset", async ({ request }) => {
+test("cross-tenant: one company cannot read, update or delete another's asset", async ({
+  request,
+}) => {
   // Provision Rival GmbH + its asset directly (a real second tenant).
   const [company] = await e2eQuery<{ id: string }>(
-    `INSERT INTO company (name, sector, entity_type, activated_at, acts_as_nis2_entity)
-     VALUES ('Rival GmbH (Testdaten)', 'energy', 'important', NOW(), true)
+    `WITH account AS (INSERT INTO billing_account DEFAULT VALUES RETURNING id)
+     INSERT INTO company (name, sector, entity_type, activated_at, acts_as_nis2_entity, billing_account_id)
+     SELECT 'Rival GmbH (Testdaten)', 'energy', 'important', NOW(), true, account.id FROM account
      RETURNING id`,
   );
   const rivalCompanyId = company.id;
@@ -71,20 +66,27 @@ test("cross-tenant: one company cannot read, update or delete another's asset", 
      VALUES ($1, 'E2E Eigenes Asset (Kontrolle)', 'server') RETURNING id`,
     [attacker.company_id],
   );
-  await trpcMutation(request, "asset.update", { id: own.id, name: "E2E Eigenes Asset UMBENANNT" });
+  await trpcMutation(request, "asset.update", {
+    id: own.id,
+    name: "E2E Eigenes Asset UMBENANNT",
+  });
   const ownAfterUpdate = await e2eQuery<{ name: string }>(
     `SELECT name FROM asset WHERE id = $1`,
     [own.id],
   );
-  expect(ownAfterUpdate[0]?.name, "own-asset update did not persist (mutation path is dead)").toBe(
-    "E2E Eigenes Asset UMBENANNT",
-  );
+  expect(
+    ownAfterUpdate[0]?.name,
+    "own-asset update did not persist (mutation path is dead)",
+  ).toBe("E2E Eigenes Asset UMBENANNT");
   await trpcMutation(request, "asset.delete", { id: own.id });
   const ownAfterDelete = await e2eQuery<{ id: string }>(
     `SELECT id FROM asset WHERE id = $1`,
     [own.id],
   );
-  expect(ownAfterDelete.length, "own-asset delete did not persist (delete path is dead)").toBe(0);
+  expect(
+    ownAfterDelete.length,
+    "own-asset delete did not persist (delete path is dead)",
+  ).toBe(0);
 
   // Attack 1 — read: asset.list returns only the caller's own assets.
   const listRes = await trpcQuery(request, "asset.list", null);
@@ -112,10 +114,9 @@ test("cross-tenant: one company cannot read, update or delete another's asset", 
   expect(delRes.status(), "asset.delete endpoint reachable").not.toBe(404);
 
   // Ground truth: Rival's asset still exists with its original name.
-  const rows = await e2eQuery<{ name: string }>(
-    `SELECT name FROM asset WHERE id = $1`,
-    [rivalAssetId],
-  );
+  const rows = await e2eQuery<{ name: string }>(`SELECT name FROM asset WHERE id = $1`, [
+    rivalAssetId,
+  ]);
   expect(rows.length, "Rival asset was deleted across tenants").toBe(1);
   expect(rows[0].name, "Rival asset was renamed across tenants").toBe(RIVAL_ASSET_NAME);
 });

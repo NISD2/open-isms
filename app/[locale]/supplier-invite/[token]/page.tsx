@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { getSession } from "@/lib/auth";
-import { api } from "@/lib/trpc/server";
 import { SupplierInviteAcceptForm } from "@/components/supplier-portal/SupplierInviteAcceptForm";
+import { getSession } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { listUserCompanies } from "@/lib/organization/membership";
+import { api } from "@/lib/trpc/server";
 
 /**
  * Direction-B landing page — supplier opens this link from their email.
@@ -43,11 +45,13 @@ export default async function SupplierInvitePage({ params }: PageProps) {
   const userEmail = session.user.email?.toLowerCase() ?? "";
   const emailMatch = userEmail === invite.toEmail.toLowerCase();
 
-  // If the user already has an ACTIVATED company, they can't accept this invite
-  // under their current account. A draft shell (auto-provisioned at
-  // verification) is fine — the accept handler discards it. Server-side accept
-  // enforces the same; this is the user-friendly preview.
-  const alreadyHasCompany = session.companyActivated;
+  // If the user already has an ACTIVATED company, whichever one is open, they
+  // can't accept this invite under their current account. A draft shell
+  // (auto-provisioned at verification) is fine — the accept handler discards
+  // it. Server-side accept enforces the same; this is the user-friendly preview.
+  const alreadyHasCompany = (await listUserCompanies(db, session.user.id)).some(
+    (c) => c.activatedAt !== null,
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/20 px-4 py-10">

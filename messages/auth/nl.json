@@ -41,6 +41,17 @@
       "submit": "Wachtwoord instellen",
       "errorResetFailed": "Code ongeldig of verlopen. Vraag een nieuwe code aan.",
       "backToSignIn": "Terug naar aanmelden"
+    },
+    "setup": {
+      "title": "Toegang instellen",
+      "description": "Uw account voor de NIS 2 begeleide doorloop is aangemaakt. Kies hoe u zich voortaan aanmeldt.",
+      "forEmail": "Voor {email}",
+      "passwordLabel": "Wachtwoord instellen",
+      "passwordHint": "Minstens 8 tekens.",
+      "submit": "Wachtwoord opslaan en aanmelden",
+      "submitting": "Bezig met opslaan",
+      "invalidTitle": "Deze link werkt niet meer",
+      "invalidDescription": "De link is verlopen of al gebruikt. Meld u aan met Google, of stel via \"Wachtwoord vergeten\" een wachtwoord in voor dit e-mailadres."
     }
   }
 }

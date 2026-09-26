@@ -1,33 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { Building2, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
-import { Building2, Sparkles, Users } from "lucide-react";
-
-import { Progress } from "@/components/ui/progress";
-import { SchemaForm } from "@/lib/forms/schema-form";
-import type { FieldOverride } from "@/lib/forms/field-renderer";
-import { trpc } from "@/lib/trpc/client";
-import {
-  TeamRolesForm,
-  type TeamRoleEntry,
-} from "@/components/organization/TeamRolesForm";
-import { AiDataSharingOnboarding } from "@/components/settings/AiDataSharingOnboarding";
+import { useState } from "react";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
 import {
-  companyFormSchema,
-  SECTORS,
-  ONBOARDING_OMIT,
+  type TeamRoleEntry,
+  TeamRolesForm,
+} from "@/components/organization/TeamRolesForm";
+import { Progress } from "@/components/ui/progress";
+import { useRouter } from "@/i18n/navigation";
+import type { FieldOverride } from "@/lib/forms/field-renderer";
+import { SchemaForm } from "@/lib/forms/schema-form";
+import {
   type CompanyFormData,
+  companyFormSchema,
+  ONBOARDING_OMIT,
   parseCompanyFormData,
+  SECTORS,
 } from "@/lib/organization/constants";
-import type { AiDataSharingLevel } from "@/lib/ai/build-context";
+import { trpc } from "@/lib/trpc/client";
+import { cn } from "@/lib/utils";
 
-type Step = "company" | "team" | "ai";
+type Step = "company" | "team";
 
-const STEPS: Step[] = ["company", "team", "ai"];
+const STEPS: Step[] = ["company", "team"];
 
 interface OnboardingFlowProps {
   /** roleKey → translated names of the compliance areas that role owns. */
@@ -41,11 +38,8 @@ export function OnboardingFlow({ roleAreas }: OnboardingFlowProps) {
 
   const [step, setStep] = useState<Step>("company");
   const [companyData, setCompanyData] = useState<CompanyFormData | null>(null);
-  const [teamRoles, setTeamRoles] = useState<TeamRoleEntry[] | undefined>();
-  const [aiDataSharing, setAiDataSharing] = useState<AiDataSharingLevel>("none");
 
-  const createMutation =
-    trpc.assessment.createCompanyAndAssessment.useMutation();
+  const createMutation = trpc.assessment.createCompanyAndAssessment.useMutation();
 
   const stepIndex = STEPS.indexOf(step);
   const progress = ((stepIndex + 1) / STEPS.length) * 100;
@@ -92,20 +86,14 @@ export function OnboardingFlow({ roleAreas }: OnboardingFlowProps) {
     setStep("team");
   }
 
-  function handleTeamSubmit(roles?: TeamRoleEntry[]) {
-    setTeamRoles(roles && roles.length > 0 ? roles : undefined);
-    setStep("ai");
-  }
-
-  async function handleFinalSubmit(level: AiDataSharingLevel) {
+  async function handleFinalSubmit(roles?: TeamRoleEntry[]) {
     if (!companyData) return;
 
     const toastId = toast.loading(t("creating"));
     try {
       await createMutation.mutateAsync({
         ...companyData,
-        teamRoles,
-        aiDataSharing: level,
+        teamRoles: roles && roles.length > 0 ? roles : undefined,
       });
       toast.dismiss(toastId);
       router.push("/journey");
@@ -178,26 +166,11 @@ export function OnboardingFlow({ roleAreas }: OnboardingFlowProps) {
           </div>
           <TeamRolesForm
             roleAreas={roleAreas}
-            onSubmit={(roles) => handleTeamSubmit(roles)}
-            onSkip={() => handleTeamSubmit()}
+            onSubmit={(roles) => handleFinalSubmit(roles)}
+            onSkip={() => handleFinalSubmit()}
             onBack={() => setStep("company")}
-            isSubmitting={false}
-          />
-        </div>
-      )}
-
-      {step === "ai" && (
-        <div>
-          <div className="flex items-center gap-2 mb-6">
-            <Sparkles className="h-5 w-5 text-primary" />
-            <h2 className="text-lg font-semibold">{t("steps.ai")}</h2>
-          </div>
-          <AiDataSharingOnboarding
-            value={aiDataSharing}
-            onChange={setAiDataSharing}
-            onSubmit={() => handleFinalSubmit(aiDataSharing)}
-            onBack={() => setStep("team")}
             isSubmitting={createMutation.isPending}
+            submitLabel={t("nav.submit")}
           />
         </div>
       )}

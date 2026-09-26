@@ -17,7 +17,7 @@ import {
   relationshipClausesUpdateSchema,
   supplierInviteCustomerSchema,
 } from "@/schema/validators";
-import { companyProcedure, router } from "../../init";
+import { accountProcedure, router } from "../../init";
 import { insertRow, updateRow } from "../../typed";
 import { notifyCustomerAdded } from "./broadcast";
 import { generateOpaqueToken } from "./helpers";
@@ -44,7 +44,7 @@ async function requireSupplierRole(
 
 export const supplierRelationshipRouter = router({
   /** List all customers (supplier rows) where I'm the supplier-side party. */
-  listMyCustomers: companyProcedure.query(async ({ ctx }) => {
+  listMyCustomers: accountProcedure.query(async ({ ctx }) => {
     // Audit F-9 (2026-09-10): no `unsubscribeToken`. It is the bearer
     // credential for /supplier-access/{token}, one per customer, and this
     // list renders customer name and status. `invite` and `resend` build the
@@ -57,7 +57,7 @@ export const supplierRelationshipRouter = router({
   }),
 
   /** Add a single customer subscription. Idempotent on (supplier, email). */
-  invite: companyProcedure
+  invite: accountProcedure
     .input(supplierInviteCustomerSchema)
     .mutation(async ({ ctx, input }) => {
       await requireSupplierRole(ctx.db, ctx.companyId);
@@ -69,19 +69,16 @@ export const supplierRelationshipRouter = router({
         columns: { name: true },
       });
 
-      // Try to resolve customer email to a Sorzel tenant
-      const matchingUser = await ctx.db.query.user.findFirst({
-        where: (u, { eq, sql }) => eq(sql`lower(${u.email})`, email),
-        columns: { companyId: true },
-      });
-
-      // Atomic upsert keyed on (supplierCompanyId, customerEmail)
+      // The row is never linked to a customer organization from the email alone: that would let
+      // any supplier place itself in any tenant's supplier inventory, and learn which tenant an
+      // address belongs to. The customer reaches it through the emailed token link; a link into
+      // their inventory is made only by the token flow they start (onboarding.acceptInvite).
       const [inserted] = await ctx.db
         .insert(supplier)
         .values(
           insertRow(supplier, {
             supplierCompanyId: ctx.companyId,
-            customerCompanyId: matchingUser?.companyId ?? null,
+            customerCompanyId: null,
             customerEmail: email,
             name: me?.name ?? "Supplier",
             customerOrgName: input.customerOrgName ?? null,
@@ -103,6 +100,7 @@ export const supplierRelationshipRouter = router({
             eq(supplier.supplierCompanyId, ctx.companyId),
             eq(supplier.customerEmail, email),
           ),
+          columns: { id: true },
         });
         if (!existing) {
           throw new TRPCError({
@@ -117,7 +115,9 @@ export const supplierRelationshipRouter = router({
       notifyCustomerAdded(ctx.companyId, email).catch((err) => {
         console.error("[supplier-portal] customer added email failed:", err);
       });
-      return inserted;
+      // Only the id: the row carries the customer's access token, which is their credential and
+      // never the supplier's to see (as in `get`).
+      return { id: inserted.id };
     }),
 
   /**
@@ -125,7 +125,7 @@ export const supplierRelationshipRouter = router({
    * per-customer contract clauses, but not the access token (audit F-9): the
    * detail view renders clauses and SLA, and the token is a credential.
    */
-  get: companyProcedure
+  get: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
       const row = await ctx.db.query.supplier.findFirst({
@@ -147,7 +147,7 @@ export const supplierRelationshipRouter = router({
    * customerCompanyId, customerEmail, status, unsubscribeToken, or any of
    * the entity-side classification columns from this endpoint.
    */
-  updateClauses: companyProcedure
+  updateClauses: accountProcedure
     .input(relationshipClausesUpdateSchema.extend({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id, ...clauses } = input;
@@ -161,7 +161,7 @@ export const supplierRelationshipRouter = router({
     }),
 
   /** Remove (soft-revoke) a customer relationship. */
-  remove: companyProcedure
+  remove: accountProcedure
     .input(z.object({ id: z.string().uuid() }))
     .mutation(async ({ ctx, input }) => {
       const [row] = await ctx.db
