@@ -38,16 +38,17 @@ export async function generateMetadata({
   const { locale } = await params;
   const isDE = locale === "de";
   const isNL = locale === "nl";
-  const og = {
-    alternates: pageAlternates("", locale),
-    openGraph: {
-      type: "website",
-      images: ogImages("home", locale, "nisd2.eu: kostenlose NIS 2 Plattform"),
-    },
-  } satisfies Metadata;
+  const og = (imageAlt: string) =>
+    ({
+      alternates: pageAlternates("", locale),
+      openGraph: {
+        type: "website",
+        images: ogImages("home", locale, imageAlt),
+      },
+    }) satisfies Metadata;
   if (await billingLaunched()) {
     const t = await getTranslations("landing.guided.meta");
-    return { title: t("title"), description: t("description"), ...og };
+    return { title: t("title"), description: t("description"), ...og(t("title")) };
   }
   return {
     title: isDE
@@ -60,7 +61,7 @@ export async function generateMetadata({
       : isNL
         ? "Zelfbeoordeling met 116 vragen, sjablonen voor Artikel 21 NIS 2, registratiehulp en bestuurstraining. Open source, geen lock-in."
         : "Self-assessment with 116 questions, templates for Article 21 NIS 2, BSI registration guide, and management training. Open Source, no lock-in.",
-    ...og,
+    ...og("nisd2.eu: kostenlose NIS 2 Plattform"),
   };
 }
 
