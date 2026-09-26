@@ -1,13 +1,34 @@
 import { ArrowRight, Check, Code2, Server } from "lucide-react";
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
+import { cache } from "react";
 import { PartnerLogoStrip } from "@/components/PartnerLogoStrip";
 import { PublicFooter } from "@/components/PublicFooter";
 import { PublicNav } from "@/components/PublicNav";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { getSession } from "@/lib/auth";
+import { isPlatformAdmin } from "@/lib/auth/platform-admin";
+import { db } from "@/lib/db";
+import { isFeatureOn } from "@/lib/feature-flags";
 import { ogImages } from "@/lib/og-card";
 import { pageAlternates } from "@/lib/seo";
+
+/**
+ * Per request, so pressing "Launch pricing" in platform admin switches the hero without a redeploy.
+ * Explicit because both reads below swallow their errors: a caught dynamic bailout during the
+ * build would otherwise let Next prerender the page once as "not launched".
+ */
+export const dynamic = "force-dynamic";
+
+/** Same switch as /pricing (lib/billing/launch.ts). A public page must not fail on the database. */
+const billingLaunched = cache(() => isFeatureOn(db, "billing").catch(() => false));
+
+const visitorSession = cache(() => getSession().catch(() => null));
+
+/** A platform admin previews the new hero before the launch; metadata follows the launch alone. */
+const showGuided = async () =>
+  (await billingLaunched()) || isPlatformAdmin((await visitorSession())?.user.email);
 
 export async function generateMetadata({
   params,
@@ -17,6 +38,18 @@ export async function generateMetadata({
   const { locale } = await params;
   const isDE = locale === "de";
   const isNL = locale === "nl";
+  const og = (imageAlt: string) =>
+    ({
+      alternates: pageAlternates("", locale),
+      openGraph: {
+        type: "website",
+        images: ogImages("home", locale, imageAlt),
+      },
+    }) satisfies Metadata;
+  if (await billingLaunched()) {
+    const t = await getTranslations("landing.guided.meta");
+    return { title: t("title"), description: t("description"), ...og(t("title")) };
+  }
   return {
     title: isDE
       ? "Kostenlose NIS 2 Plattform: Gap-Analyse, Vorlagen, Training"
@@ -28,11 +61,7 @@ export async function generateMetadata({
       : isNL
         ? "Zelfbeoordeling met 116 vragen, sjablonen voor Artikel 21 NIS 2, registratiehulp en bestuurstraining. Open source, geen lock-in."
         : "Self-assessment with 116 questions, templates for Article 21 NIS 2, BSI registration guide, and management training. Open Source, no lock-in.",
-    alternates: pageAlternates("", locale),
-    openGraph: {
-      type: "website",
-      images: ogImages("home", locale, "nisd2.eu: kostenlose NIS 2 Plattform"),
-    },
+    ...og("nisd2.eu: kostenlose NIS 2 Plattform"),
   };
 }
 
@@ -42,6 +71,7 @@ export default async function LandingPage() {
   // NL roadmap copy is not authored yet; send the NL "start" CTA to sign-in
   // rather than the not-yet-localised roadmap.
   const ctaStartHref = locale === "nl" ? "/auth/signin" : "/wiki/umsetzung/nis2-roadmap";
+  const guided = await showGuided();
 
   return (
     <>
@@ -63,11 +93,24 @@ export default async function LandingPage() {
 
         <div className="mx-auto w-full max-w-6xl">
           {/* Headline: full-width, standing on its own (the logo lives in the nav) */}
-          <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-            {t.rich("title", {
-              blue: (chunks) => <span className="text-primary">{chunks}</span>,
-            })}
-          </h1>
+          {guided ? (
+            <>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {t("guided.eyebrow")}
+              </p>
+              <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+                {t.rich("guided.title", {
+                  blue: (chunks) => <span className="text-primary">{chunks}</span>,
+                })}
+              </h1>
+            </>
+          ) : (
+            <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+              {t.rich("title", {
+                blue: (chunks) => <span className="text-primary">{chunks}</span>,
+              })}
+            </h1>
+          )}
 
           {/* Below the headline: pitch column + large frameless product */}
           {/* items-start, not center: the pitch column is shorter than the
@@ -75,53 +118,85 @@ export default async function LandingPage() {
               below the top of the image. */}
           <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,25rem)_1fr] lg:items-start">
             <div>
-              <p className="max-w-sm text-base leading-relaxed text-muted-foreground">
-                {t.rich("subtitle", {
-                  os: (chunks) => (
-                    <a
-                      href="https://github.com/NISD2/open-isms"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-foreground"
+              {guided ? (
+                <>
+                  <p className="max-w-sm text-base leading-relaxed text-muted-foreground">
+                    {t("guided.subtitle")}
+                  </p>
+                  <div className="mt-8 flex flex-col items-start gap-3">
+                    <Button
+                      asChild
+                      size="lg"
+                      className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
                     >
-                      {chunks}
-                    </a>
-                  ),
-                })}
-              </p>
+                      <Link href="/auth/signin">{t("guided.cta")}</Link>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="link"
+                      size="lg"
+                      className="group h-11 px-0 text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground hover:no-underline"
+                    >
+                      <Link href="/training/nis2-ceo">
+                        {t("startTraining")}
+                        <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                      </Link>
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="max-w-sm text-base leading-relaxed text-muted-foreground">
+                    {t.rich("subtitle", {
+                      os: (chunks) => (
+                        <a
+                          href="https://github.com/NISD2/open-isms"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-foreground"
+                        >
+                          {chunks}
+                        </a>
+                      ),
+                    })}
+                  </p>
 
-              {/* CTAs stacked for the narrow column */}
-              <div className="mt-8 flex flex-col items-start gap-3">
-                <Button
-                  asChild
-                  size="lg"
-                  className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <Link href="/training/nis2-ceo">{t("startTraining")}</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="link"
-                  size="lg"
-                  className="group h-11 px-0 text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground hover:no-underline"
-                >
-                  <Link href={ctaStartHref as never}>
-                    {t("ctaStart")}
-                    <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  {/* CTAs stacked for the narrow column */}
+                  <div className="mt-8 flex flex-col items-start gap-3">
+                    <Button
+                      asChild
+                      size="lg"
+                      className="h-11 rounded-lg px-5 text-[0.9375rem] font-medium shadow-sm transition-shadow hover:shadow-md"
+                    >
+                      <Link href="/training/nis2-ceo">{t("startTraining")}</Link>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="link"
+                      size="lg"
+                      className="group h-11 px-0 text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground hover:no-underline"
+                    >
+                      <Link href={ctaStartHref as never}>
+                        {t("ctaStart")}
+                        <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                      </Link>
+                    </Button>
+                  </div>
+                </>
+              )}
+
+              {/* Supplier door, on the old hero only: the guided hero speaks to one reader, the
+                  company doing its own NIS2, and a second door above the fold pulls them away. */}
+              {guided ? null : (
+                <p className="mt-8 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                  <Link
+                    href="/supplier-portal"
+                    className="font-medium text-foreground/70 underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/40"
+                  >
+                    {t("supplierDoor")}
                   </Link>
-                </Button>
-              </div>
-
-              {/* Supplier door. No rule above it and no legal citation below
-                  any more, so the paragraph carries its own spacing. */}
-              <p className="mt-8 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                <Link
-                  href="/supplier-portal"
-                  className="font-medium text-foreground/70 underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground/40"
-                >
-                  {t("supplierDoor")}
-                </Link>
-              </p>
+                </p>
+              )}
             </div>
 
             {/* Product: large, frameless, floating screenshot */}

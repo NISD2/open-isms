@@ -1,5 +1,15 @@
 {
   "landing": {
+    "guided": {
+      "eyebrow": "Für Betriebe mit 50 bis 150 Beschäftigten",
+      "title": "Sie sollen sich um <blue>NIS2</blue> kümmern?",
+      "subtitle": "Wir führen Sie Schritt für Schritt. Sie füllen aus, wir erklären jeden Punkt in einfachen Worten, und am Ende unterschreibt die Geschäftsführung.",
+      "cta": "Jetzt starten",
+      "meta": {
+        "title": "NIS2 Schritt für Schritt, für Betriebe mit 50 bis 150 Beschäftigten",
+        "description": "Sie füllen aus, wir erklären jeden Punkt in einfachen Worten, am Ende unterschreibt die Geschäftsführung. Für Betriebe ohne eigene Sicherheitsabteilung."
+      }
+    },
     "title": "Wir halbieren Europas <blue>NIS2</blue>-Rechnung.",
     "eyebrow": "Open Source · Kostenlos · Kein Lock-in",
     "subtitle": "Die kostenlose Plattform, mit der regulierte Unternehmen und ihre Lieferanten NIS2 umsetzen: mit Selbsteinschätzung, Vorlagen und Schulung für die Geschäftsführung. <os>Open Source</os>, kein Lock-in.",
