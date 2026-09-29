@@ -475,15 +475,24 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
   const cid = about?.id ?? null;
   const companyName = about?.name ?? null;
   const self: Person = { userId, email: subject.email, name: subject.name };
-  // Read before the account row goes: deleting it nulls the row's user_id.
+  const teardown = owned ? await teardownMembers(tx, owned.id, userId) : null;
+  // Read before the account rows go: deleting them nulls close_crm_sync.user_id.
   const [inClose] = await tx
     .select({ id: closeCrmSync.id })
     .from(closeCrmSync)
-    .where(and(eq(closeCrmSync.userId, userId), isNotNull(closeCrmSync.contactId)))
+    .where(
+      and(
+        inArray(closeCrmSync.userId, [
+          userId,
+          ...(teardown?.erased ?? []).map((m) => m.userId),
+        ]),
+        isNotNull(closeCrmSync.contactId),
+      ),
+    )
     .limit(1);
 
-  if (owned) {
-    const { erased, kept } = await teardownMembers(tx, owned.id, userId);
+  if (owned && teardown) {
+    const { erased, kept } = teardown;
     for (const m of erased) {
       await erasePerson(tx, m, scope, del, anon, tombstone);
     }

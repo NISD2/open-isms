@@ -88,9 +88,13 @@ export const closeFactsFor = (input: {
         !person.emailFollowupsDisabled && !input.optedOutUserIds.has(person.userId),
       freeMail: isFreeMailAddress(person.email),
       ceoCourse: {
-        done: ceo.completedCount,
+        done: ceo.completedInCourse,
         total: ceo.totalCount,
-        completedAt: ceo.completionDate,
+        // The certificate's epoch fallback means "no date recorded", not 1970.
+        completedAt:
+          ceo.completionDate && ceo.completionDate.getTime() > 0
+            ? ceo.completionDate
+            : null,
       },
       company: open?.company ?? null,
       // The rule the session applies (lib/auth/config.ts), so Close shows what the person gets.

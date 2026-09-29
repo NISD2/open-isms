@@ -67,12 +67,12 @@ describe("closeFieldValues", () => {
     });
   });
 
-  test("a person without a company clears the company fields", () => {
+  test("a person without a company writes nothing to the lead", () => {
     const values = closeFieldValues(
       { ...facts, company: null, access: null, path: null },
-      { company: "h", supplier: "j", pathProgress: "l" },
+      { company: "h", supplier: "j", pathProgress: "l", access: "k" },
     );
-    expect(values.lead).toEqual({ "custom.h": null, "custom.j": "No", "custom.l": null });
+    expect(values).toEqual({ contact: { "custom.k": null }, lead: {} });
   });
 });
 

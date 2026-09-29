@@ -18,6 +18,7 @@ import {
   type CloseSyncLinkRow,
   type CloseSyncPerson,
   type CloseSyncStore,
+  ERASED_LEAD_NAME,
   type ErasedCloseRow,
   MAX_PER_RUN,
   MAX_REFUSALS,
@@ -32,8 +33,14 @@ const facts = (n: number): CloseFacts => ({
   mayEmail: true,
   freeMail: false,
   ceoCourse: { done: 0, total: 10, completedAt: null },
-  company: null,
-  access: null,
+  company: {
+    name: "Muster GmbH",
+    sector: "waste",
+    employeeCount: 10,
+    country: "DE",
+    actsAsSupplier: false,
+  },
+  access: "free",
   path: null,
 });
 
@@ -295,11 +302,24 @@ describe("runCloseSync", () => {
     const { store, rows } = memoryStore([person(1), person(2)]);
     const close = fakeClose({ refuseField: "custom.cf_sup" });
     const result = await runCloseSync(store, settings(), close.impl);
-    expect(result).toMatchObject({ created: 0, refused: 0, pending: 2 });
-    expect(result).toHaveProperty(
-      "stopped",
-      "Close refused custom.cf_sup: check that field's type, level and choices in Close",
-    );
+    expect(result).toMatchObject({
+      created: 0,
+      refused: 0,
+      pending: 2,
+      stopped: expect.stringContaining("HTTP 400: custom.cf_sup"),
+    });
+    expect(rows.size).toBe(0);
+  });
+
+  test("a wrong status id is a setting too, not something to hold against people", async () => {
+    const { store, rows } = memoryStore([person(1), person(2)]);
+    const close = fakeClose({ refuseField: "status_id" });
+    const withStatus = { ...settings(), statusId: "stat_wrong" };
+    const result = await runCloseSync(store, withStatus, close.impl);
+    expect(result).toMatchObject({
+      refused: 0,
+      stopped: expect.stringContaining("status_id"),
+    });
     expect(rows.size).toBe(0);
   });
 
@@ -388,6 +408,12 @@ describe("erasure", () => {
     expect(close.contacts.has("cont_a")).toBe(false);
     expect(close.contacts.has("cont_b")).toBe(true);
     expect(close.leads.get("lead_a")).toEqual(["cont_b"]);
+    // The lead was titled with the erased person's name.
+    expect(close.calls).toContainEqual({
+      method: "PUT",
+      path: "/lead/lead_a/",
+      body: { name: ERASED_LEAD_NAME },
+    });
   });
 
   test("on a lead it did not make, deletes only the person's contact", async () => {

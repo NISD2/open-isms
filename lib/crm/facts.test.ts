@@ -71,6 +71,20 @@ describe("closeFactsFor", () => {
     expect(context({ ceoProgress: all })(row({ userId: "u2" })).ceoCourse.done).toBe(0);
   });
 
+  test("a finished course with no recorded date shows no date, not 1970", () => {
+    const undated = ["1.1", "1.2", "2.1", "2.2"].map((lessonId) => ({
+      userId: "u1",
+      lessonId,
+      completed: true,
+      completedAt: null,
+    }));
+    expect(context({ ceoProgress: undated })(row()).ceoCourse).toEqual({
+      done: 4,
+      total: 4,
+      completedAt: null,
+    });
+  });
+
   test("the path is the open company's NIS 2 progress", () => {
     const pathRows = [
       { companyId: "c1", status: "implemented", code: "GOV-01" },

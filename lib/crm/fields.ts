@@ -5,8 +5,9 @@
  * Every field lives where it belongs in Close. Facts about the person go on their
  * contact, so colleagues on one company lead never overwrite each other and an
  * erasure that deletes the contact takes them along. Facts about the company go on
- * the lead, where every colleague writes the same value. Create each field in
- * Close at that level: a contact custom field or a lead custom field.
+ * the lead; a person with no open company writes none, and colleagues of the same
+ * company write the same values. Create each field in Close at that level: a
+ * contact custom field or a lead custom field.
  *
  * To sync a new fact: add it to CloseFacts, compute it in ./facts, add one entry
  * here, create the field in Close, and put its id under the new key in
@@ -127,7 +128,11 @@ export type CloseFieldValues = {
   readonly lead: Readonly<Record<string, CloseFieldValue>>;
 };
 
-/** The configured fields, split by level, in registry order. */
+/**
+ * The configured fields, split by level, in registry order. A person with no open
+ * company writes nothing to the lead: their empty company must not blank out what
+ * a colleague, or sales, put there.
+ */
 export const closeFieldValues = (
   facts: CloseFacts,
   fieldIds: CloseFieldIds,
@@ -140,5 +145,5 @@ export const closeFieldValues = (
         return id && field.level === level ? [[`custom.${id}`, field.value(facts)]] : [];
       }),
     );
-  return { contact: at("contact"), lead: at("lead") };
+  return { contact: at("contact"), lead: facts.company ? at("lead") : {} };
 };

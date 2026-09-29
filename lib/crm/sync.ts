@@ -142,16 +142,29 @@ const isStop = (step: Step): step is { readonly stopped: string } =>
 const isNotFound = (result: CloseResult<unknown>) =>
   !result.ok && result.kind === "rejected" && result.status === 404;
 
-/** An outage, or a refused custom field (a setting wrong for everyone), ends the run. */
+/** The request keys that carry the person's own data: a refusal naming only these is theirs. */
+const PERSON_KEYS = new Set(["name", "contacts", "emails", "email"]);
+
+/**
+ * An outage ends the run. So does any refusal that is not about the person's own
+ * name or address, because it is a setting wrong for everyone (a custom field's
+ * type or choices, the status id, a request Close no longer accepts); counting it
+ * against each person would drop everyone within a few runs.
+ */
 const stopFor = (failure: CloseFailure): Step | null => {
   if (failure.kind === "unavailable") return { stopped: failure.detail };
-  const settings = failure.fields.filter((f) => f.startsWith("custom."));
-  return settings.length > 0
-    ? {
-        stopped: `Close refused ${settings.join(", ")}: check that field's type, level and choices in Close`,
-      }
-    : null;
+  const aboutPerson =
+    failure.fields.length > 0 &&
+    failure.fields.every((f) => PERSON_KEYS.has(f.split(".")[0] ?? ""));
+  return aboutPerson
+    ? null
+    : {
+        stopped: `Close refused a setting (${failure.detail}): check CLOSE_FIELD_IDS against each field's type, level and choices, and CLOSE_SIGNUP_STATUS_ID`,
+      };
 };
+
+/** A kept lead's title was the erased person's name; this replaces it. */
+export const ERASED_LEAD_NAME = "Platform signup (contact erased)";
 
 async function eraseRow(
   close: CloseClient,
@@ -166,12 +179,16 @@ async function eraseRow(
     if (!contact.ok) return fail(contact);
   }
   if (row.createdLead && row.leadId) {
-    // A lead the sync made for this person goes too, unless sales put others on it.
+    // A lead the sync made for this person goes too, unless sales put others on it;
+    // then it stays, without the person's name as its title.
     const left = await close.leadContactCount(row.leadId);
     if (!left.ok) return fail(left);
     if (left.value === 0) {
-      const lead = await close.deleteLead(row.leadId);
-      if (!lead.ok) return fail(lead);
+      const deleted = await close.deleteLead(row.leadId);
+      if (!deleted.ok) return fail(deleted);
+    } else if (left.value !== null) {
+      const renamed = await close.updateLead(row.leadId, { name: ERASED_LEAD_NAME });
+      if (!renamed.ok) return fail(renamed);
     }
   }
   await store.forget(row.id);
