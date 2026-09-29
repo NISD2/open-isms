@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { billingEnvShape } from "@/lib/billing/config-schema";
+import { closeEnvShape } from "@/lib/crm/config-schema";
 
 const envSchema = z.object({
   // Required always
@@ -99,6 +100,12 @@ const envSchema = z.object({
   // Implisense (German company data via RapidAPI). Company lookup in the
   // applicability wizard degrades to manual entry without it.
   RAPIDAPI_KEY: z.string().optional(),
+
+  // Close CRM — optional. When CLOSE_API_KEY is set, the app keeps a lead in
+  // Close for every verified account (lib/crm/schedule.ts). Unset means
+  // nothing leaves the instance, which is the correct default for a self-hoster.
+  // Defined in lib/crm/config-schema.ts, normalised once and never rejected.
+  ...closeEnvShape,
 
   // Cron — optional
   CRON_SECRET: z.string().optional(),
