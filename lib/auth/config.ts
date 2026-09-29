@@ -12,7 +12,6 @@ import { cache } from "react";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { effectiveAccessLevel } from "@/lib/billing/access";
-import { closeSettings, pushSignupToClose } from "@/lib/crm/close";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import { isFeatureOn } from "@/lib/feature-flags";
@@ -290,10 +289,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               : Promise.resolve(),
             sendWelcomeEmail({ name: newName, email: authUser.email }).catch((err) =>
               console.error("[auth] Failed to send welcome email:", err),
-            ),
-            pushSignupToClose(
-              { email: authUser.email, name: newName, provider: account.provider },
-              closeSettings(env),
             ),
           ]);
         }

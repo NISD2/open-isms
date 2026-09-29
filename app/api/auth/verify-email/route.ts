@@ -4,9 +4,7 @@ import { NextResponse } from "next/server";
 import { verifyOtp } from "@/lib/auth/otp";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
-import { closeSettings, pushSignupToClose } from "@/lib/crm/close";
 import { db } from "@/lib/db";
-import { env } from "@/lib/env";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
 import { user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
@@ -203,10 +201,6 @@ export async function POST(request: Request) {
         : Promise.resolve(),
       sendWelcomeEmail({ name: userRow.name, email }).catch((err) =>
         console.error("[verify-email] Failed to send welcome email:", err),
-      ),
-      pushSignupToClose(
-        { email, name: userRow.name, provider: "credentials" },
-        closeSettings(env),
       ),
     ]);
   }

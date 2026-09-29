@@ -1,10 +1,12 @@
-Three endpoints do scheduled work. None runs on its own: nothing inside the container has a timer, so an instance where these are never called simply never does any of it.
+Five endpoints do scheduled work. Four of them run only when something calls them: nothing inside the container has a timer for them, so an instance where they are never called simply never does any of it. The fifth, the Close CRM sync, runs by itself inside the app every 30 minutes once `CLOSE_API_KEY` is set, and its endpoint is only for running it by hand.
 
 | Path | Suggested schedule (UTC) | |
 |---|---|---|
 | `/api/cron/deadlines` | `0 6 * * *` | the daily heartbeat, seven phases |
 | `/api/cron/course-reminders` | `0 7 * * *` | follow-ups for people who started a course and have not finished |
 | `/api/cron/lifecycle` | `0 8 * * *` | one-time re-engagement emails, e.g. the activation nudge for quiet accounts with open path steps |
+| `/api/cron/indexnow` | `0 5 * * *` | only if you set an IndexNow key: tells Bing and others which public pages changed |
+| `/api/cron/close-sync` | none, runs itself | only if you use the Close CRM: keeps a lead per account there, up to date |
 
 ## What the daily heartbeat actually does
 
@@ -67,9 +69,29 @@ curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
 
 `limit` can only lower the built-in per-run cap, never raise it. The platform admin's Emails tab also has "Send me a test nudge", which delivers the rendered email to your own mailbox without touching any claim.
 
+## Close CRM sync
+
+Skip this unless you set `CLOSE_API_KEY`. Without it nothing runs, the endpoint answers `{"skipped": ...}` and nothing leaves the instance.
+
+With a key, the app runs the sync by itself every 30 minutes, starting two minutes after the server boots. You schedule nothing. Runs take a Postgres advisory lock, so with several containers, or during a deploy when old and new overlap, only one runs at a time, and a manual call to `/api/cron/close-sync` while one is running answers `skipped`. Every run lands in the audit log as `cron.close_sync`, or `cron.close_sync.error` when it failed.
+
+With a key, the job keeps every verified account in Close and writes what the platform knows into custom fields. Facts about the person go on their contact: when they signed up and last logged in, how often they logged in, whether they are grandfathered, may be emailed or use a free mail address, their CEO course progress and their access level. Facts about their company go on the lead: name, sector, size, country, supplier role and NIS 2 path progress. Colleagues on one company lead therefore never overwrite each other. You choose which of these to sync with `CLOSE_FIELD_IDS`; `.env.example` lists each key, whether to create it as a contact or a lead field in Close, and its type. The platform owns those fields and overwrites them on every change, so do not edit them in Close by hand.
+
+Each run:
+
+1. Deletes erased accounts from Close. Erasing a user on the platform leaves only the Close ids behind in `close_crm_sync`. The run deletes the person's contact, wherever it sits by now, and the lead too when the job created it and nobody else is on it, then that row.
+2. Links new accounts. It searches Close for a contact with the account's email address. If one exists, as with people you imported by hand, the job writes its fields onto that contact and lead; otherwise it creates a lead with your `CLOSE_SIGNUP_STATUS_ID`.
+3. Updates changed accounts. The job stores a fingerprint of the values it last wrote. When a fact changes, or you add a field id, the fingerprint no longer matches and the person is updated, so a new field reaches everyone already in Close over the next runs.
+
+At most 50 accounts per run, new ones first. When a lead was merged in Close, the job follows the contact by its id, then by email, to the lead it now sits on. When the contact was deleted in Close, the job leaves that person alone and never creates them again.
+
+Reading the result (in the audit log, or the response of a manual call): `created`, `linked`, `updated` and `erased` count this run's work, `refused` the accounts Close turned down because of their own data (retried on later runs), `gaveUp` the ones skipped for good, and `pending` what is left for the next run. After five refusals an account is skipped; `close_crm_sync.last_error` names what Close objected to, and setting `rejected_count` back to 0 retries it.
+
+Two things stop a run at once and name the reason in `stopped`: Close being unavailable (down, rate limiting, the key refused, or an answer the job does not recognise), and Close refusing one of your custom fields, which means a field in `CLOSE_FIELD_IDS` has the wrong type, level or choices. Nobody is counted against for either; fix the cause and the next run continues. A stopped run, or one where Close refused an erasure (`erasureRefused`), is logged as `cron.close_sync.error` and a manual call answers HTTP 500.
+
 ## Authentication
 
-All three endpoints check a bearer token against `CRON_SECRET`. With the variable unset they return 500 and `CRON_SECRET not configured` rather than running unauthenticated, so an empty value is a closed door and not an open one.
+All five endpoints check a bearer token against `CRON_SECRET`. With the variable unset they return 500 and `CRON_SECRET not configured` rather than running unauthenticated, so an empty value is a closed door and not an open one.
 
 ```ini
 CRON_SECRET=   # openssl rand -hex 32
@@ -86,11 +108,15 @@ Anything that can make an HTTP request will do. From the host's crontab:
   https://isms.example.com/api/cron/course-reminders > /dev/null
 0 8 * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
   https://isms.example.com/api/cron/lifecycle > /dev/null
+0 5 * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
+  https://isms.example.com/api/cron/indexnow > /dev/null
 ```
+
+The Close sync needs no line here; it schedules itself.
 
 Use the public URL rather than `localhost`, so the request passes through the same proxy a browser would, and keep `-f` so a failing job shows up as a failing cron line rather than a silent 500.
 
-All three are safe to run more than once a day. Work is selected by what is due and what has not yet been marked sent, so a second call in the same day finds little to do. Users with `emailFollowupsDisabled` are skipped entirely by the course and lifecycle jobs.
+All five are safe to run more than once a day. Work is selected by what is due and what has not yet been marked sent, so a second call in the same day finds little to do. Users with `emailFollowupsDisabled` are skipped entirely by the course and lifecycle jobs.
 
 ## Checking that it ran
 

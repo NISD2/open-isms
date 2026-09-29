@@ -47,6 +47,7 @@ import {
   bsiRegistration,
   categoryAssignment,
   changeRequest,
+  closeCrmSync,
   company,
   // teardown-only roots + children
   companyAssessment,
@@ -474,6 +475,12 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
   const cid = about?.id ?? null;
   const companyName = about?.name ?? null;
   const self: Person = { userId, email: subject.email, name: subject.name };
+  // Read before the account row goes: deleting it nulls the row's user_id.
+  const [inClose] = await tx
+    .select({ id: closeCrmSync.id })
+    .from(closeCrmSync)
+    .where(and(eq(closeCrmSync.userId, userId), isNotNull(closeCrmSync.contactId)))
+    .limit(1);
 
   if (owned) {
     const { erased, kept } = await teardownMembers(tx, owned.id, userId);
@@ -518,6 +525,13 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
   scope.processorsInScope.push(
     "Hetzner (infrastructure and database hosting)",
     "Resend (transactional email logs)",
+    // Deleting the user row leaves its close_crm_sync row with user_id null, and
+    // the close-sync deletes the person from Close on its next run.
+    ...(inClose
+      ? [
+          "Close (CRM contact, and the lead when the sync created it; deleted by the close-sync on its next run, which needs CLOSE_API_KEY)",
+        ]
+      : []),
   );
 
   const method: ErasureMethod =

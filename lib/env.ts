@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { billingEnvShape } from "@/lib/billing/config-schema";
+import { closeEnvShape } from "@/lib/crm/config-schema";
 
 const envSchema = z.object({
   // Required always
@@ -100,14 +101,11 @@ const envSchema = z.object({
   // applicability wizard degrades to manual entry without it.
   RAPIDAPI_KEY: z.string().optional(),
 
-  // Close CRM — optional. When CLOSE_API_KEY is set, every new signup is pushed
-  // to Close as a lead (lib/crm/close.ts). Unset means nothing leaves the
-  // instance, which is the correct default for a self-hoster.
-  // CLOSE_SIGNUP_STATUS_ID: the lead status id for new signups.
-  // CLOSE_SIGNUP_CUSTOM_FIELDS: JSON object of custom field id to value.
-  CLOSE_API_KEY: z.string().optional(),
-  CLOSE_SIGNUP_STATUS_ID: z.string().optional(),
-  CLOSE_SIGNUP_CUSTOM_FIELDS: z.string().optional(),
+  // Close CRM — optional. When CLOSE_API_KEY is set, the app keeps a lead in
+  // Close for every verified account (lib/crm/schedule.ts). Unset means
+  // nothing leaves the instance, which is the correct default for a self-hoster.
+  // Defined in lib/crm/config-schema.ts, normalised once and never rejected.
+  ...closeEnvShape,
 
   // Cron — optional
   CRON_SECRET: z.string().optional(),

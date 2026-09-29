@@ -1,8 +1,9 @@
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
-import { eq, and } from "drizzle-orm";
-import { router, protectedProcedure } from "../init";
-import { trainingLessonProgress, user } from "@/schema";
+import { courseCompletion } from "@/lib/training/completion";
 import { loadCourse, loadLesson } from "@/lib/training/course-loader";
+import { trainingLessonProgress, user } from "@/schema";
+import { protectedProcedure, router } from "../init";
 
 export const trainingCertificateRouter = router({
   getCourseCompletion: protectedProcedure
@@ -21,28 +22,18 @@ export const trainingCertificateRouter = router({
           ),
         );
 
-      const completedIds = new Set(
-        progress.filter((p) => p.completed).map((p) => p.lessonId),
+      const { completedCount, allCompleted, completionDate } = courseCompletion(
+        allLessonIds,
+        progress,
       );
-
-      const allCompleted = allLessonIds.every((id) => completedIds.has(id));
-
-      const completionDate = allCompleted
-        ? progress
-            .filter((p) => p.completed && p.completedAt)
-            .reduce(
-              (latest, p) =>
-                p.completedAt && p.completedAt > latest ? p.completedAt : latest,
-              new Date(0),
-            )
-        : null;
 
       const courseModules: {
         title: Record<string, string>;
         lessons: { id: string; title: Record<string, string>; minutes: number }[];
       }[] = [];
       for (const mod of course.modules) {
-        const lessons: { id: string; title: Record<string, string>; minutes: number }[] = [];
+        const lessons: { id: string; title: Record<string, string>; minutes: number }[] =
+          [];
         for (const lessonId of mod.lessonIds) {
           const lesson = await loadLesson(input.courseId, lessonId);
           lessons.push({
@@ -71,7 +62,7 @@ export const trainingCertificateRouter = router({
         courseTitle: course.title,
         certificate: course.certificate,
         allCompleted,
-        completedCount: completedIds.size,
+        completedCount,
         totalCount: allLessonIds.length,
         completionDate: completionDate?.toISOString() ?? null,
         totalMinutes,
