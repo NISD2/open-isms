@@ -25,6 +25,7 @@ export * from "./relations";
 export * from "./tables/advisory-partner";
 export * from "./tables/advisory-referral";
 export * from "./tables/advisory-request";
+export * from "./tables/close-crm-sync";
 export * from "./tables/company-invite";
 export * from "./tables/data-erasure-log";
 export * from "./tables/email-otp";
