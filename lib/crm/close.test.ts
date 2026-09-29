@@ -113,7 +113,10 @@ describe("findContact", () => {
 
 describe("createLead", () => {
   test("puts person fields on the contact and company fields on the lead", async () => {
-    const { impl, calls } = fakeFetch([json({ id: "lead_9", contact_ids: ["cont_9"] })]);
+    // The shape Close really answers with (live API, 30.09.2026): contacts, no contact_ids.
+    const { impl, calls } = fakeFetch([
+      json({ id: "lead_9", contacts: [{ id: "cont_9", lead_id: "lead_9" }] }),
+    ]);
     const created = await closeClient(settings, impl).createLead(
       { name: "Jane Doe", email: "jane@example.test" },
       { contact: { "custom.cf_gf": "Yes" }, lead: { "custom.cf_co": "Muster GmbH" } },
@@ -139,7 +142,7 @@ describe("createLead", () => {
   });
 
   test("a response without a contact is an outage", async () => {
-    const { impl } = fakeFetch([json({ id: "lead_9", contact_ids: [] })]);
+    const { impl } = fakeFetch([json({ id: "lead_9", contacts: [] })]);
     const created = await closeClient(settings, impl).createLead(
       { name: "J", email: "j@example.test" },
       { contact: {}, lead: {} },

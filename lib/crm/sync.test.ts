@@ -185,7 +185,7 @@ function fakeClose(
       const [leadId, contactId] = [`lead_new${next}`, `cont_new${next}`];
       contacts.set(contactId, { leadId, email });
       leads.set(leadId, [contactId]);
-      return json({ id: leadId, contact_ids: [contactId] });
+      return json({ id: leadId, contacts: [{ id: contactId, lead_id: leadId }] });
     }
     if (kind === "contact" && id) {
       const contact = contacts.get(id);

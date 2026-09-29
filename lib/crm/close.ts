@@ -121,7 +121,12 @@ const contactsInStatus = (statusId: string, cursor: string | null) => ({
   _limit: 200,
   ...(cursor ? { cursor } : {}),
 });
-const createdLeadBody = z.object({ id: z.string(), contact_ids: z.array(z.string()) });
+// Creating a lead answers with the lead and its `contacts`, each with its id; it carries
+// no `contact_ids`, though the docs show one (checked against the live API, 30.09.2026).
+const createdLeadBody = z.object({
+  id: z.string(),
+  contacts: z.array(z.object({ id: z.string() })),
+});
 const contactBody = z.object({ id: z.string(), lead_id: z.string() });
 const leadContactsBody = z.object({ id: z.string(), contact_ids: z.array(z.string()) });
 const idBody = z.object({ id: z.string() });
@@ -283,9 +288,9 @@ export const closeClient = (settings: CloseSettings, fetchImpl: FetchLike = fetc
         ...fields.lead,
       });
       if (!created.ok) return created;
-      const [contactId] = created.value.contact_ids;
-      return contactId
-        ? ok({ leadId: created.value.id, contactId })
+      const [contact] = created.value.contacts;
+      return contact
+        ? ok({ leadId: created.value.id, contactId: contact.id })
         : unavailable("POST /lead/: no contact in the response", 200);
     },
 
