@@ -4,25 +4,23 @@ import { PromoNotice } from "@/components/auth/PromoNotice";
 import { SignInCard } from "@/components/auth/SignInCard";
 import { Link } from "@/i18n/navigation";
 import { applyPromoToSession } from "@/lib/billing/promo-session";
-import { pageAlternates } from "@/lib/seo";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
+/**
+ * Where the promo link lands (`/anmelden?promo=2400`, `/en/login?promo=2400`, …).
+ * The sign-in card everyone uses, with what the link means said above it: the
+ * price and its last day, or that the offer has ended. The code itself is
+ * remembered by proxy.ts and applied at the next sign-in. Not indexed: it is for
+ * people sent a link.
+ */
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("auth");
-
   return {
-    title: t("title"),
-    description: t("description"),
+    title: t("promo.metaTitle"),
     robots: { index: false, follow: false },
-    alternates: pageAlternates("auth/signin", locale),
   };
 }
 
-export default async function SignInPage({
+export default async function PromoSignInPage({
   searchParams,
 }: {
   searchParams: Promise<{ promo?: string | string[] }>;

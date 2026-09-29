@@ -21,6 +21,8 @@ import { launchBilling, pricingState } from "@/lib/billing/launch";
 import { formatEuro, orderSchemaWithVatCheck } from "@/lib/billing/order";
 import { clearCheckedOrder, listOrderChecks } from "@/lib/billing/order-check";
 import { orderingMode } from "@/lib/billing/ordering";
+import { promoSummary } from "@/lib/billing/promo";
+import { PROMO_GRANT_ACTION } from "@/lib/billing/promo-grant";
 import { quoteFor } from "@/lib/billing/quote";
 import {
   listSubscriptions,
@@ -48,6 +50,7 @@ import {
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
+import { LOCALE_CODES } from "@/lib/locale";
 import { loadEmailConsent } from "@/lib/mail/consent";
 import {
   buildDigestQueue,
@@ -62,6 +65,7 @@ import { dailyDigestEmail, weeklyManagementDigestEmail } from "@/lib/mail/templa
 import { HINT_COLUMN, HINTS, resolveHints } from "@/lib/onboarding/hints";
 import { loadGrowthData } from "@/lib/platform-admin/growth";
 import { rateLimit } from "@/lib/rate-limit";
+import { localizedAbsoluteUrl } from "@/lib/seo";
 import {
   questionnaireColumns,
   questionnaireCompleteness,
@@ -416,10 +420,27 @@ export const platformAdminRouter = router({
    * tab, and every read and write here is fixed to the caller's own row. No
    * procedure in this group takes an id that could point at somebody else.
    */
-  /** The Pricing tab: whether pricing is launched, whether it can be, and the announcement group. */
-  pricingState: platformAdminProcedure.query(({ ctx }) =>
-    pricingState(ctx.db, orderingMode(env).kind === "live"),
-  ),
+  /**
+   * The Pricing tab: whether pricing is launched, whether it can be, the announcement group, and the
+   * promo link: its code and last day, how many it has grandfathered, and the links to send.
+   */
+  pricingState: platformAdminProcedure.query(async ({ ctx }) => {
+    const summary = promoSummary(env);
+    const [state, [granted]] = await Promise.all([
+      pricingState(ctx.db, orderingMode(env).kind === "live"),
+      ctx.db
+        .select({ n: count() })
+        .from(auditLog)
+        .where(eq(auditLog.action, PROMO_GRANT_ACTION)),
+    ]);
+    const links = summary.configured
+      ? LOCALE_CODES.map((locale) => ({
+          locale,
+          url: `${localizedAbsoluteUrl("/anmelden", locale)}?promo=${encodeURIComponent(summary.code)}`,
+        }))
+      : [];
+    return { ...state, promo: { summary, grandfathered: granted?.n ?? 0, links } };
+  }),
 
   /**
    * Launch pricing, once. Grandfathers everyone who has got in, freezes the announcement group and

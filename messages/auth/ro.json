@@ -1,5 +1,13 @@
 {
   "auth": {
+    "promo": {
+      "metaTitle": "Autentificare la prețul pentru primii utilizatori",
+      "heading": "Pentru dumneavoastră se aplică prețul pentru primii utilizatori",
+      "body": "Autentificați-vă sau creați un cont: parcursul ghidat NIS 2 vă costă atunci {price} net pe an în loc de {fullPrice}, inclusiv la fiecare reînnoire. Contul în sine nu costă nimic.",
+      "until": "Valabil prin acest link până la {date}.",
+      "expiredHeading": "Această ofertă s-a încheiat",
+      "expiredBody": "Prețul pentru primii utilizatori prin acest link a fost valabil până la {date}. Vă puteți autentifica sau crea un cont în continuare, la prețurile care se aplică contului dumneavoastră."
+    },
     "title": "Începeți conformitatea NIS2",
     "description": "Creați un cont sau autentificați-vă.",
     "email": "E-mail",

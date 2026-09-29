@@ -1,6 +1,7 @@
 import { defineRouting } from "next-intl/routing";
 import { wikiPathnames } from "@/lib/content/wiki-toc";
 import { LOCALE_CODES, LOCALE_COOKIE, type LocaleCode } from "@/lib/locale";
+import { ORDER_SLUGS, PRICING_SLUGS, PROMO_SIGNIN_SLUGS } from "./slugs";
 
 /**
  * Routing config — locales + localized pathnames.
@@ -146,11 +147,7 @@ export const routing = defineRouting({
       en: "/features",
       nl: "/functies",
     },
-    "/pricing": {
-      de: "/pricing",
-      en: "/pricing",
-      nl: "/prijzen",
-    },
+    "/pricing": PRICING_SLUGS,
     "/about": {
       de: "/about",
       en: "/about",
@@ -219,7 +216,7 @@ export const routing = defineRouting({
     "/status": "/status",
     "/nis2-tool": "/nis2-tool",
     "/toms": "/toms",
-    "/bestellen": "/bestellen",
+    "/bestellen": ORDER_SLUGS,
 
     // Training (course landing under (info)) — keep DE unchanged
     "/training/nis2-ceo": "/training/nis2-ceo",
@@ -230,6 +227,7 @@ export const routing = defineRouting({
     "/onboarding": "/onboarding",
     "/start": "/start",
     "/auth/signin": "/auth/signin",
+    "/anmelden": PROMO_SIGNIN_SLUGS,
     "/auth/forgot-password": "/auth/forgot-password",
     "/auth/setup": "/auth/setup",
     "/auth/signout": "/auth/signout",

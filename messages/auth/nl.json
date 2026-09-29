@@ -1,5 +1,13 @@
 {
   "auth": {
+    "promo": {
+      "metaTitle": "Inloggen tegen de prijs voor vroege gebruikers",
+      "heading": "Voor u geldt de prijs voor vroege gebruikers",
+      "body": "Log in of maak een account aan. Dan betaalt u voor de NIS 2 begeleide doorloop {price} netto per jaar in plaats van {fullPrice}, ook bij elke verlenging, en uw account zelf kost niets.",
+      "until": "Via deze link geldig tot {date}.",
+      "expiredHeading": "Deze aanbieding is verlopen",
+      "expiredBody": "De prijs voor vroege gebruikers via deze link gold tot {date}. U kunt nog steeds inloggen of een account aanmaken, tegen de prijzen die voor uw account gelden."
+    },
     "title": "Start NIS2 compliance",
     "description": "Create an account or sign in.",
     "email": "Email",

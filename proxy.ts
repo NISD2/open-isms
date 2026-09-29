@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
+import { isActivePromo, PROMO_COOKIE, PROMO_COOKIE_MAX_AGE_S } from "@/lib/billing/promo";
 import { env } from "@/lib/env";
 import { buildCsp } from "@/lib/security/csp";
 
@@ -65,6 +66,8 @@ function getAuthCookieName(isSecure: boolean): string {
  */
 const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/",
+  // The promo link's sign-in page (lib/billing/promo.ts)
+  "/anmelden",
   // Marketing / info pages — every page under app/[locale]/(info)/
   "/about",
   "/avv",
@@ -343,24 +346,7 @@ async function route(request: NextRequest) {
   // M-3 (commit e351163) — explicit cookieName + salt + secureCookie
   // because Auth.js v5 derives the encryption salt from the cookie name.
   if (!isPublic(pathname)) {
-    // Mirror Auth.js's own secure-cookie decision: it derives the cookie
-    // name from AUTH_URL's protocol when set. NODE_ENV alone misfires on a
-    // production build served over plain http (local e2e stack, self-hosts
-    // behind an external TLS terminator): Auth.js writes the non-secure
-    // cookie while this check would look for the __Secure- name, so no
-    // login can ever pass the default-deny.
-    const authUrl = process.env.AUTH_URL ?? process.env.NEXTAUTH_URL;
-    const isSecure = authUrl
-      ? authUrl.startsWith("https")
-      : request.nextUrl.protocol === "https:" || process.env.NODE_ENV === "production";
-    const cookieName = getAuthCookieName(isSecure);
-    const token = await getToken({
-      req: request,
-      secret: env.AUTH_SECRET,
-      cookieName,
-      salt: cookieName,
-      secureCookie: isSecure,
-    });
+    const token = await sessionToken(request);
 
     if (!token) {
       // The protected roots an anonymous visitor is expected to arrive at
@@ -401,7 +387,61 @@ async function route(request: NextRequest) {
 export async function proxy(request: NextRequest) {
   const response = await route(request);
   response.headers.set("Content-Security-Policy", buildCsp(process.env));
+  await rememberPromo(request, response);
   return response;
+}
+
+/**
+ * Mirror Auth.js's own secure-cookie decision: it derives the cookie name from
+ * AUTH_URL's protocol when set. NODE_ENV alone misfires on a production build
+ * served over plain http (local e2e stack, self-hosts behind an external TLS
+ * terminator): Auth.js writes the non-secure cookie while a check would look for
+ * the __Secure- name, so no login could ever pass the default-deny.
+ */
+function authCookiesSecure(request: NextRequest): boolean {
+  const authUrl = process.env.AUTH_URL ?? process.env.NEXTAUTH_URL;
+  return authUrl
+    ? authUrl.startsWith("https")
+    : request.nextUrl.protocol === "https:" || process.env.NODE_ENV === "production";
+}
+
+/**
+ * The signed-in session, or null. The same getToken contract as M-3 (commit
+ * e351163): explicit cookieName + salt + secureCookie, because Auth.js v5 derives
+ * the encryption salt from the cookie name.
+ */
+async function sessionToken(request: NextRequest) {
+  const isSecure = authCookiesSecure(request);
+  const cookieName = getAuthCookieName(isSecure);
+  return getToken({
+    req: request,
+    secret: env.AUTH_SECRET,
+    cookieName,
+    salt: cookieName,
+    secureCookie: isSecure,
+  });
+}
+
+/**
+ * A signed-out visitor who opens any page with `?promo=<the active code>` has the
+ * code remembered for their next sign-in, which applies it (lib/auth/config.ts).
+ * A cookie, because the sign-in that follows may go through Google or an emailed
+ * code first; SameSite=lax survives Google's redirect back. A signed-in visitor
+ * gets the promo on the page itself (lib/billing/promo-session.ts), so no cookie
+ * is left for the next person on the browser. An unknown or expired code sets
+ * nothing.
+ */
+async function rememberPromo(request: NextRequest, response: NextResponse) {
+  const code = request.nextUrl.searchParams.get("promo");
+  if (code === null || !isActivePromo(code, env)) return;
+  if (await sessionToken(request)) return;
+  response.cookies.set(PROMO_COOKIE, code, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: authCookiesSecure(request),
+    maxAge: PROMO_COOKIE_MAX_AGE_S,
+    path: "/",
+  });
 }
 
 export const config = {

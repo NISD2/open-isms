@@ -12,7 +12,7 @@
  * Below them, the orders and cancels waiting to be checked in Qonto (./OrderChecksCard). Door two,
  * closing a sale on the call, lives in the Subscriptions tab as "New customer".
  */
-import { Megaphone, Rocket } from "lucide-react";
+import { Megaphone, Rocket, Ticket } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -24,10 +24,72 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
-import { trpc } from "@/lib/trpc/client";
+import { type RouterOutputs, trpc } from "@/lib/trpc/client";
 import { OrderChecksCard } from "./OrderChecksCard";
 
 const when = (d: Date | string) => new Date(d).toLocaleString("de-DE");
+
+/** A YYYY-MM-DD calendar day as the admin reads it, e.g. "13.10.2026". */
+const day = (isoDay: string) =>
+  new Date(`${isoDay}T12:00:00Z`).toLocaleDateString("de-DE", { timeZone: "UTC" });
+
+type Promo = NonNullable<RouterOutputs["platformAdmin"]["pricingState"]>["promo"];
+
+/**
+ * The promo link (lib/billing/promo.ts): set by GRANDFATHER_PROMO_CODE and
+ * GRANDFATHER_PROMO_UNTIL on the deployment, so this card only reads. It says
+ * whether the link runs, until when, how many it grandfathered, and the links.
+ */
+function PromoCard({ promo }: { promo: Promo | undefined }) {
+  const summary = promo?.summary;
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-base">
+          <Ticket className="h-4 w-4" /> Promo link
+        </CardTitle>
+        <CardDescription>
+          Whoever opens a page with the code and then signs in or signs up is
+          grandfathered, until the last day (Berlin, inclusive). After it the sign-in
+          pages say the offer has ended. Set on the deployment, not here.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2 text-sm">
+        {!promo || !summary ? (
+          "…"
+        ) : !summary.configured ? (
+          <p className="text-muted-foreground">
+            {summary.missing === "valid last day"
+              ? "Off: GRANDFATHER_PROMO_UNTIL is not a YYYY-MM-DD date, so the promo is closed."
+              : `Off: no ${summary.missing} set. Needs GRANDFATHER_PROMO_CODE and GRANDFATHER_PROMO_UNTIL (YYYY-MM-DD).`}
+          </p>
+        ) : (
+          <>
+            <p>
+              Code <span className="font-mono font-medium">{summary.code}</span>, last day{" "}
+              <span className="font-medium">{day(summary.until)}</span>:{" "}
+              {summary.state === "active"
+                ? summary.daysLeft === 0
+                  ? "running, ends tonight."
+                  : `running, ${summary.daysLeft} day(s) left.`
+                : `ended ${-summary.daysLeft} day(s) ago.`}
+            </p>
+            <p>
+              Grandfathered through promo links so far (all codes): {promo.grandfathered}.
+            </p>
+            <ul className="space-y-1">
+              {promo.links.map((link) => (
+                <li key={link.locale} className="break-all font-mono text-xs">
+                  {link.locale.toUpperCase()}: {link.url}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
 
 export function PricingPanel() {
   const state = trpc.platformAdmin.pricingState.useQuery();
@@ -106,6 +168,8 @@ export function PricingPanel() {
           )}
         </CardContent>
       </Card>
+
+      <PromoCard promo={s?.promo} />
 
       <Card>
         <CardHeader>

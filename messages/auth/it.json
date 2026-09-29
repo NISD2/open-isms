@@ -1,5 +1,13 @@
 {
   "auth": {
+    "promo": {
+      "metaTitle": "Accedi al prezzo per i primi utenti",
+      "heading": "Per lei vale il prezzo per i primi utenti",
+      "body": "Acceda o crei un account: il percorso guidato NIS 2 le costerà {price} netti all'anno invece di {fullPrice}, rinnovi inclusi. L'account in sé non costa nulla.",
+      "until": "Valido tramite questo link fino al {date}.",
+      "expiredHeading": "Questa offerta è terminata",
+      "expiredBody": "Il prezzo per i primi utenti tramite questo link era valido fino al {date}. Può comunque accedere o creare un account, ai prezzi validi per il suo account."
+    },
     "title": "Avvia la conformità NIS2",
     "description": "Crea un account o accedi.",
     "email": "Email",

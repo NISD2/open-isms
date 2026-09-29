@@ -1,5 +1,13 @@
 {
   "auth": {
+    "promo": {
+      "metaTitle": "Logowanie w cenie dla pierwszych użytkowników",
+      "heading": "Obowiązuje Państwa cena dla pierwszych użytkowników",
+      "body": "Proszę się zalogować lub założyć konto. Wtedy prowadzony przebieg NIS 2 kosztuje {price} netto rocznie zamiast {fullPrice}, także przy każdym odnowieniu. Samo konto nic nie kosztuje.",
+      "until": "Obowiązuje przez ten link do {date}.",
+      "expiredHeading": "Ta oferta wygasła",
+      "expiredBody": "Cena dla pierwszych użytkowników przez ten link obowiązywała do {date}. Nadal mogą Państwo się zalogować lub założyć konto, w cenach obowiązujących dla Państwa konta."
+    },
     "title": "Rozpocznij zgodność z NIS2",
     "description": "Utwórz konto lub zaloguj się.",
     "email": "E-mail",

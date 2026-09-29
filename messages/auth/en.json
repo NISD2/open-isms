@@ -1,5 +1,13 @@
 {
   "auth": {
+    "promo": {
+      "metaTitle": "Sign in at the early-user price",
+      "heading": "The early-user price applies to you",
+      "body": "Sign in or create an account, and the NIS 2 guided pass costs you {price} net a year instead of {fullPrice}, renewals included. The account itself costs nothing.",
+      "until": "Available through this link until {date}.",
+      "expiredHeading": "This offer has ended",
+      "expiredBody": "The early-user price through this link was available until {date}. You can still sign in or create an account, at the prices that apply to your account."
+    },
     "title": "Start NIS2 compliance",
     "description": "Create an account or sign in.",
     "email": "Email",
