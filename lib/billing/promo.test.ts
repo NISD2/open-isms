@@ -79,13 +79,18 @@ describe("GRANDFATHER_PROMO_UNTIL", () => {
     expect(parse(undefined)).toBeUndefined();
   });
 
-  test("a value that is not a date closes the promo instead of leaving it open", () => {
+  test("a value that is not a date closes the promo and reads as a setting error", () => {
     expect(parse("05.11.2026")).toBe(PROMO_ENDED);
-    expect(
-      isActivePromo("2400", {
-        GRANDFATHER_PROMO_CODE: "2400",
-        GRANDFATHER_PROMO_UNTIL: PROMO_ENDED,
-      }),
-    ).toBe(false);
+    const broken = {
+      GRANDFATHER_PROMO_CODE: "2400",
+      GRANDFATHER_PROMO_UNTIL: PROMO_ENDED,
+    };
+    expect(isActivePromo("2400", broken)).toBe(false);
+    // Not "ended on 1 January 1" on the sign-in pages: no notice at all.
+    expect(promoState("2400", broken)).toEqual({ state: "none" });
+    expect(promoSummary(broken)).toEqual({
+      configured: false,
+      missing: "valid last day",
+    });
   });
 });

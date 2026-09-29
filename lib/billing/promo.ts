@@ -14,7 +14,11 @@
  * Pure, so the edge proxy can import it.
  */
 export const PROMO_COOKIE = "nisd2_promo";
-export const PROMO_COOKIE_MAX_AGE_S = 30 * 24 * 60 * 60;
+/**
+ * Long enough for a sign-up through Google or the email code, short enough that the
+ * next person on a shared browser does not inherit it. Sign-out clears it too.
+ */
+export const PROMO_COOKIE_MAX_AGE_S = 24 * 60 * 60;
 
 /** A last day long past: what an unreadable GRANDFATHER_PROMO_UNTIL becomes, so the promo is closed. */
 export const PROMO_ENDED = "0001-01-01";
@@ -45,7 +49,10 @@ export const promoState = (
 ): PromoState => {
   const code = settings.GRANDFATHER_PROMO_CODE;
   const until = settings.GRANDFATHER_PROMO_UNTIL;
-  if (!code || !until || candidate !== code) return { state: "none" };
+  // An unreadable last day is a setting error, not an offer that ended in year 1.
+  if (!code || !until || until === PROMO_ENDED || candidate !== code) {
+    return { state: "none" };
+  }
   return berlinDay(now) <= until
     ? { state: "active", until }
     : { state: "expired", until };
@@ -53,7 +60,10 @@ export const promoState = (
 
 /** What the platform admin's Pricing tab shows about the promo. */
 export type PromoSummary =
-  | { readonly configured: false; readonly missing: "code" | "last day" }
+  | {
+      readonly configured: false;
+      readonly missing: "code" | "last day" | "valid last day";
+    }
   | {
       readonly configured: true;
       readonly code: string;
@@ -73,6 +83,7 @@ export const promoSummary = (
   const until = settings.GRANDFATHER_PROMO_UNTIL;
   if (!code) return { configured: false, missing: "code" };
   if (!until) return { configured: false, missing: "last day" };
+  if (until === PROMO_ENDED) return { configured: false, missing: "valid last day" };
   const state = promoState(code, settings, now).state === "active" ? "active" : "expired";
   return {
     configured: true,
@@ -87,4 +98,4 @@ export const isActivePromo = (
   candidate: string | null | undefined,
   settings: PromoSettings,
   now: Date = new Date(),
-): candidate is string => promoState(candidate, settings, now).state === "active";
+): boolean => promoState(candidate, settings, now).state === "active";

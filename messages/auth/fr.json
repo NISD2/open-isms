@@ -3,7 +3,7 @@
     "promo": {
       "metaTitle": "Connexion au prix des premiers utilisateurs",
       "heading": "Le prix des premiers utilisateurs s'applique à vous",
-      "body": "Connectez-vous ou créez un compte : le parcours guidé NIS 2 vous coûte alors 2 400 € HT par an au lieu de 4 800 €, renouvellements compris. Le compte lui-même ne coûte rien.",
+      "body": "Connectez-vous ou créez un compte : le parcours guidé NIS 2 vous coûte alors {price} HT par an au lieu de {fullPrice}, renouvellements compris. Le compte lui-même ne coûte rien.",
       "until": "Valable via ce lien jusqu'au {date}.",
       "expiredHeading": "Cette offre a pris fin",
       "expiredBody": "Le prix des premiers utilisateurs via ce lien était valable jusqu'au {date}. Vous pouvez toujours vous connecter ou créer un compte, aux prix qui s'appliquent à votre compte."

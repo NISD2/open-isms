@@ -50,6 +50,7 @@ import {
 import { runLifecycleEmails } from "@/lib/lifecycle/dispatch";
 import { prepareActivationNudgeSample } from "@/lib/lifecycle/emails/activation-nudge";
 import { LIFECYCLE_ENTITY_TYPE } from "@/lib/lifecycle/types";
+import { LOCALE_CODES } from "@/lib/locale";
 import { loadEmailConsent } from "@/lib/mail/consent";
 import {
   buildDigestQueue,
@@ -425,20 +426,20 @@ export const platformAdminRouter = router({
    */
   pricingState: platformAdminProcedure.query(async ({ ctx }) => {
     const summary = promoSummary(env);
-    const [granted] = await ctx.db
-      .select({ n: count() })
-      .from(auditLog)
-      .where(eq(auditLog.action, PROMO_GRANT_ACTION));
+    const [state, [granted]] = await Promise.all([
+      pricingState(ctx.db, orderingMode(env).kind === "live"),
+      ctx.db
+        .select({ n: count() })
+        .from(auditLog)
+        .where(eq(auditLog.action, PROMO_GRANT_ACTION)),
+    ]);
     const links = summary.configured
-      ? (["de", "en", "nl"] as const).map((locale) => ({
+      ? LOCALE_CODES.map((locale) => ({
           locale,
           url: `${localizedAbsoluteUrl("/anmelden", locale)}?promo=${encodeURIComponent(summary.code)}`,
         }))
       : [];
-    return {
-      ...(await pricingState(ctx.db, orderingMode(env).kind === "live")),
-      promo: { summary, grandfathered: granted?.n ?? 0, links },
-    };
+    return { ...state, promo: { summary, grandfathered: granted?.n ?? 0, links } };
   }),
 
   /**

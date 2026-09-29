@@ -59,8 +59,9 @@ function PromoCard({ promo }: { promo: Promo | undefined }) {
           "…"
         ) : !summary.configured ? (
           <p className="text-muted-foreground">
-            Off: no {summary.missing} set. Needs GRANDFATHER_PROMO_CODE and
-            GRANDFATHER_PROMO_UNTIL (YYYY-MM-DD).
+            {summary.missing === "valid last day"
+              ? "Off: GRANDFATHER_PROMO_UNTIL is not a YYYY-MM-DD date, so the promo is closed."
+              : `Off: no ${summary.missing} set. Needs GRANDFATHER_PROMO_CODE and GRANDFATHER_PROMO_UNTIL (YYYY-MM-DD).`}
           </p>
         ) : (
           <>
@@ -73,7 +74,9 @@ function PromoCard({ promo }: { promo: Promo | undefined }) {
                   : `running, ${summary.daysLeft} day(s) left.`
                 : `ended ${-summary.daysLeft} day(s) ago.`}
             </p>
-            <p>Grandfathered through the link so far: {promo.grandfathered}.</p>
+            <p>
+              Grandfathered through promo links so far (all codes): {promo.grandfathered}.
+            </p>
             <ul className="space-y-1">
               {promo.links.map((link) => (
                 <li key={link.locale} className="break-all font-mono text-xs">

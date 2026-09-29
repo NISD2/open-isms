@@ -1,5 +1,10 @@
 import { cookies } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
+import {
+  ANNUAL_NET_CENTS,
+  formatWholeEuro,
+  GRANDFATHERED_NET_CENTS,
+} from "@/lib/billing/order";
 import { PROMO_COOKIE, type PromoState, promoState } from "@/lib/billing/promo";
 import { env } from "@/lib/env";
 
@@ -32,7 +37,12 @@ export async function PromoNotice({ fromLink }: { fromLink: string | undefined }
     >
       <p className="font-medium text-foreground">{heading}</p>
       <p className="mt-1 text-muted-foreground">
-        {active ? t("promo.body") : t("promo.expiredBody", { date })}
+        {active
+          ? t("promo.body", {
+              price: formatWholeEuro(GRANDFATHERED_NET_CENTS, locale),
+              fullPrice: formatWholeEuro(ANNUAL_NET_CENTS, locale),
+            })
+          : t("promo.expiredBody", { date })}
       </p>
       {active && (
         <p className="mt-2 text-muted-foreground">{t("promo.until", { date })}</p>

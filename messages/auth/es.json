@@ -3,7 +3,7 @@
     "promo": {
       "metaTitle": "Acceder al precio para primeros usuarios",
       "heading": "Se le aplica el precio para primeros usuarios",
-      "body": "Inicie sesión o cree una cuenta: el recorrido guiado NIS 2 le costará 2.400 € netos al año en lugar de 4.800 €, renovaciones incluidas. La cuenta en sí no cuesta nada.",
+      "body": "Inicie sesión o cree una cuenta: el recorrido guiado NIS 2 le costará {price} netos al año en lugar de {fullPrice}, renovaciones incluidas. La cuenta en sí no cuesta nada.",
       "until": "Disponible a través de este enlace hasta el {date}.",
       "expiredHeading": "Esta oferta ha finalizado",
       "expiredBody": "El precio para primeros usuarios a través de este enlace estuvo disponible hasta el {date}. Aún puede iniciar sesión o crear una cuenta, con los precios que se apliquen a su cuenta."

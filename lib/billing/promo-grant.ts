@@ -1,62 +1,62 @@
 /**
- * Grandfathering a person who signed in through the promo link (./promo): the same
- * two things the billing launch does for everyone who got in before it (./launch),
- * for this one person. Their grandfatheredAt is stamped, which gives them the free
- * journey and prices their Durchgang at 2.400; and the free billing accounts they
- * own or belong to become grandfathered, as launch step 2 does for any account with
- * a stamped owner or member.
+ * Grandfathering a person who signed in through the promo link (./promo): what the
+ * billing launch does for everyone who got in before it (./launch), narrowed to
+ * this one person. Their grandfatheredAt is stamped, which gives them the free
+ * journey in every company and prices a Durchgang they hold at 2.400; and the free
+ * billing accounts they own become grandfathered.
  *
- * Someone already grandfathered is left as they are: the stamp is a promise made
- * once, and its date means something.
+ * Only accounts they own: unlike the launch, which moves an account with any
+ * stamped member, a public code must not let a member (a colleague, an outside
+ * reviewer) change the level of an account somebody else holds.
+ *
+ * Both writes happen in one transaction, so a failure leaves nothing half done for
+ * the next sign-in to skip. Someone already grandfathered is left as they are: the
+ * stamp is a promise made once, and its date means something.
  */
 import "@/lib/server-guard";
-import { and, eq, isNull, sql } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
-import type { DbOrTx } from "@/lib/db";
+import type { Database } from "@/lib/db";
 import { billingAccount, user } from "@/schema";
 
 /** The audit action of a promo grant; the Pricing tab counts them by it. */
 export const PROMO_GRANT_ACTION = "billing.promo_grandfathered";
 
-/** Returns whether this sign-in grandfathered the person. */
+/** Returns whether this call grandfathered the person. */
 export async function grandfatherByPromo(
-  db: DbOrTx,
+  db: Database,
   email: string,
   code: string,
   now: Date = new Date(),
 ): Promise<boolean> {
-  const [stamped] = await db
-    .update(user)
-    .set({ grandfatheredAt: now, updatedAt: now })
-    .where(and(eq(user.email, email), isNull(user.grandfatheredAt)))
-    .returning({ id: user.id, companyId: user.companyId });
-  if (!stamped) return false;
-
-  const upgraded = await db
-    .update(billingAccount)
-    .set({ accessLevel: "grandfathered", updatedAt: now })
-    .where(
-      and(
-        eq(billingAccount.accessLevel, "free"),
-        sql`(
-          ${billingAccount.ownerUserId} = ${stamped.id}
-          OR EXISTS (
-            SELECT 1 FROM "company" c
-            JOIN "company_membership" m ON m."company_id" = c."id"
-            WHERE c."billing_account_id" = ${billingAccount.id} AND m."user_id" = ${stamped.id}
-          )
-        )`,
-      ),
-    )
-    .returning({ id: billingAccount.id });
+  const granted = await db.transaction(async (tx) => {
+    const [stamped] = await tx
+      .update(user)
+      .set({ grandfatheredAt: now, updatedAt: now })
+      .where(and(eq(user.email, email), isNull(user.grandfatheredAt)))
+      .returning({ id: user.id, companyId: user.companyId });
+    if (!stamped) return null;
+    const upgraded = await tx
+      .update(billingAccount)
+      .set({ accessLevel: "grandfathered", updatedAt: now })
+      .where(
+        and(
+          eq(billingAccount.accessLevel, "free"),
+          eq(billingAccount.ownerUserId, stamped.id),
+        ),
+      )
+      .returning({ id: billingAccount.id });
+    return { ...stamped, upgraded: upgraded.length };
+  });
+  if (!granted) return false;
 
   logAudit({
-    companyId: stamped.companyId,
-    userId: stamped.id,
+    companyId: granted.companyId,
+    userId: granted.id,
     action: PROMO_GRANT_ACTION,
     entityType: "user",
-    entityId: stamped.id,
-    description: `Grandfathered through promo code ${code}; ${upgraded.length} free billing account(s) moved to grandfathered`,
+    entityId: granted.id,
+    description: `Grandfathered through promo code ${code}; ${granted.upgraded} owned free billing account(s) moved to grandfathered`,
   });
   return true;
 }

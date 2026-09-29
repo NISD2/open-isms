@@ -73,10 +73,11 @@ async function signupLocaleFromCookie(): Promise<LocaleCode | null> {
 }
 
 /**
- * A sign-in that follows the promo link (?promo=…, remembered by proxy.ts)
- * grandfathers the person (lib/billing/promo-grant.ts), then forgets the code so
- * a colleague signing in on the same browser later does not inherit it. Any
- * failure is logged: a promo is worth strictly less than a sign-in that completes.
+ * A sign-in that follows the promo link (?promo=…, remembered by proxy.ts for a
+ * signed-out visitor) grandfathers the person (lib/billing/promo-grant.ts), then
+ * forgets the code. The cookie lives a day and sign-out clears it (events.signOut
+ * below), so the next person on a shared browser is not handed it. Any failure is
+ * logged: a promo is worth strictly less than a sign-in that completes.
  */
 async function applyPromoFromCookie(email: string): Promise<void> {
   try {
@@ -198,6 +199,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   pages: {
     signIn: "/auth/signin",
+  },
+
+  events: {
+    // A promo code a signed-out visitor opened must not pass to whoever signs in
+    // next on this browser (lib/billing/promo.ts).
+    async signOut() {
+      try {
+        (await cookies()).delete(PROMO_COOKIE);
+      } catch (err) {
+        console.error("[auth] promo cookie not cleared on sign-out:", err);
+      }
+    },
   },
 
   callbacks: {
