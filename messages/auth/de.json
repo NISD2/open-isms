@@ -1,5 +1,13 @@
 {
   "auth": {
+    "promo": {
+      "metaTitle": "Anmelden zum Preis für frühe Nutzer",
+      "heading": "Für Sie gilt der Preis für frühe Nutzer",
+      "body": "Melden Sie sich an oder legen Sie ein Konto an. Dann zahlen Sie für den NIS 2 Durchgang 2.400 € netto im Jahr statt 4.800 €, auch bei jeder Verlängerung, und Ihr Konto selbst kostet nichts.",
+      "until": "Gilt über diesen Link bis zum {date}.",
+      "expiredHeading": "Dieses Angebot ist abgelaufen",
+      "expiredBody": "Der Preis für frühe Nutzer über diesen Link galt bis zum {date}. Anmelden oder ein Konto anlegen können Sie weiterhin, zu den Preisen, die für Ihr Konto gelten."
+    },
     "title": "NIS2-Compliance starten",
     "description": "Konto erstellen oder anmelden.",
     "email": "E-Mail",

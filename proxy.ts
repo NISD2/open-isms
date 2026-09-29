@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
+import { isActivePromo, PROMO_COOKIE, PROMO_COOKIE_MAX_AGE_S } from "@/lib/billing/promo";
 import { env } from "@/lib/env";
 import { buildCsp } from "@/lib/security/csp";
 
@@ -65,6 +66,8 @@ function getAuthCookieName(isSecure: boolean): string {
  */
 const CANONICAL_PUBLIC_EXACT: readonly string[] = [
   "/",
+  // The promo link's sign-in page (lib/billing/promo.ts)
+  "/anmelden",
   // Marketing / info pages — every page under app/[locale]/(info)/
   "/about",
   "/avv",
@@ -401,7 +404,26 @@ async function route(request: NextRequest) {
 export async function proxy(request: NextRequest) {
   const response = await route(request);
   response.headers.set("Content-Security-Policy", buildCsp(process.env));
+  rememberPromo(request, response);
   return response;
+}
+
+/**
+ * Any page opened with `?promo=<the active code>` remembers the code for the next
+ * sign-in, which applies it (lib/auth/config.ts). A cookie, because the sign-in
+ * that follows may go through Google or an emailed code first; SameSite=lax
+ * survives Google's redirect back. An unknown or expired code sets nothing.
+ */
+function rememberPromo(request: NextRequest, response: NextResponse) {
+  const code = request.nextUrl.searchParams.get("promo");
+  if (!isActivePromo(code, env)) return;
+  response.cookies.set(PROMO_COOKIE, code, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: request.nextUrl.protocol === "https:",
+    maxAge: PROMO_COOKIE_MAX_AGE_S,
+    path: "/",
+  });
 }
 
 export const config = {

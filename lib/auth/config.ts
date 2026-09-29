@@ -12,6 +12,8 @@ import { cache } from "react";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { effectiveAccessLevel } from "@/lib/billing/access";
+import { isActivePromo, PROMO_COOKIE } from "@/lib/billing/promo";
+import { grandfatherByPromo } from "@/lib/billing/promo-grant";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 import { isFeatureOn } from "@/lib/feature-flags";
@@ -67,6 +69,24 @@ async function signupLocaleFromCookie(): Promise<LocaleCode | null> {
     return isLocaleCode(value) ? value : null;
   } catch {
     return null;
+  }
+}
+
+/**
+ * A sign-in that follows the promo link (?promo=…, remembered by proxy.ts)
+ * grandfathers the person (lib/billing/promo-grant.ts), then forgets the code so
+ * a colleague signing in on the same browser later does not inherit it. Any
+ * failure is logged: a promo is worth strictly less than a sign-in that completes.
+ */
+async function applyPromoFromCookie(email: string): Promise<void> {
+  try {
+    const store = await cookies();
+    const code = store.get(PROMO_COOKIE)?.value;
+    if (code === undefined) return;
+    if (isActivePromo(code, env)) await grandfatherByPromo(db, email, code);
+    store.delete(PROMO_COOKIE);
+  } catch (err) {
+    console.error("[auth] promo not applied:", err);
   }
 }
 
@@ -333,6 +353,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .where(eq(user.email, authUser.email))
           .returning({ sessionVersion: user.sessionVersion });
         token.sessionVersion = dbUser?.sessionVersion ?? 1;
+        await applyPromoFromCookie(authUser.email);
       }
       return token;
     },

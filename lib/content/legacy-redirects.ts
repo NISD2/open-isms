@@ -14,10 +14,13 @@
  * one per locale — pointing OLD locale slug → NEW localized /docs path.
  */
 
+// Relative imports: next.config.ts loads this file, and its loader resolves no path aliases.
+import { ORDER_SLUGS, PRICING_SLUGS, REPLACED_SLUGS } from "../../i18n/slugs";
+import { LOCALE_CODES, type LocaleCode } from "../locale";
 import {
-  wikiLegacyRedirects,
   docsToWikiRedirects,
   localizedWikiSlugRedirects,
+  wikiLegacyRedirects,
 } from "./wiki-toc";
 
 export interface LegacyRedirect {
@@ -26,10 +29,37 @@ export interface LegacyRedirect {
   permanent: boolean;
 }
 
+const localePath = (locale: LocaleCode, slug: string) =>
+  locale === "de" ? slug : `/${locale}${slug}`;
+
+/**
+ * A route whose slug was translated per locale: the one slug it had everywhere
+ * before now 301s to the locale's own, wherever the two differ. Query strings
+ * pass through, so an old order or pricing link with parameters still lands.
+ */
+export const translatedSlugRedirects = (
+  replaced: string,
+  now: Readonly<Record<LocaleCode, string>>,
+): LegacyRedirect[] =>
+  LOCALE_CODES.flatMap((locale) =>
+    now[locale] === replaced
+      ? []
+      : [
+          {
+            source: localePath(locale, replaced),
+            destination: localePath(locale, now[locale]),
+            permanent: true,
+          },
+        ],
+  );
+
 export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   ...wikiLegacyRedirects(),
   ...docsToWikiRedirects(),
   // pl/ro/fr/it moved off English slugs onto localized ones; the English
   // URLs they were indexed on still have to resolve.
   ...localizedWikiSlugRedirects(),
+  // Pricing and the order page got a slug per locale on 30.09.2026.
+  ...translatedSlugRedirects(REPLACED_SLUGS.pricing, PRICING_SLUGS),
+  ...translatedSlugRedirects(REPLACED_SLUGS.order, ORDER_SLUGS),
 ];

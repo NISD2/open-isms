@@ -1,5 +1,13 @@
 {
   "auth": {
+    "promo": {
+      "metaTitle": "Přihlášení za cenu pro první uživatele",
+      "heading": "Platí pro vás cena pro první uživatele",
+      "body": "Přihlaste se nebo si založte účet. Provázený průchod NIS 2 vás pak bude stát 2 400 € bez DPH ročně místo 4 800 €, i při každém prodloužení. Samotný účet nic nestojí.",
+      "until": "Platí přes tento odkaz do {date}.",
+      "expiredHeading": "Tato nabídka skončila",
+      "expiredBody": "Cena pro první uživatele přes tento odkaz platila do {date}. Stále se můžete přihlásit nebo založit účet, za ceny platné pro váš účet."
+    },
     "title": "Začněte se shodou s NIS2",
     "description": "Vytvořte si účet nebo se přihlaste.",
     "email": "E-mail",
