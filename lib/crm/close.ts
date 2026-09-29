@@ -21,6 +21,8 @@ export type CloseSettings = {
   readonly apiKey: string;
   /** Lead status for a lead the sync creates. Unset: Close uses the org's first status. */
   readonly statusId: string | undefined;
+  /** Lead status meaning "objected to contact". Unset: nothing is read back. */
+  readonly suppressedStatusId: string | undefined;
   readonly fieldIds: CloseFieldIds;
 };
 
@@ -28,15 +30,20 @@ export type CloseSettings = {
 export const closeSettings = (source: {
   readonly CLOSE_API_KEY?: string;
   readonly CLOSE_SIGNUP_STATUS_ID?: string;
+  readonly CLOSE_SUPPRESSED_STATUS_ID?: string;
   readonly CLOSE_FIELD_IDS: CloseFieldIds;
 }): CloseSettings | null =>
   source.CLOSE_API_KEY
     ? {
         apiKey: source.CLOSE_API_KEY,
         statusId: source.CLOSE_SIGNUP_STATUS_ID,
+        suppressedStatusId: source.CLOSE_SUPPRESSED_STATUS_ID,
         fieldIds: source.CLOSE_FIELD_IDS,
       }
     : null;
+
+/** Enough pages for 10,000 contacts, Close's own ceiling for one paginated search. */
+const MAX_SEARCH_PAGES = 50;
 
 export type CloseFailure = {
   readonly ok: false;
@@ -79,6 +86,40 @@ const searchBody = z.object({
       emails: z.array(z.object({ email: z.string() })),
     }),
   ),
+});
+const contactPageBody = z.object({
+  data: z.array(
+    z.object({ id: z.string(), emails: z.array(z.object({ email: z.string() })) }),
+  ),
+  cursor: z.string().nullable().optional(),
+});
+type ContactPage = z.infer<typeof contactPageBody>;
+
+/** One page of contacts whose lead is in this status (Close advanced filtering). */
+const contactsInStatus = (statusId: string, cursor: string | null) => ({
+  query: {
+    type: "and",
+    queries: [
+      { type: "object_type", object_type: "contact" },
+      {
+        type: "has_related",
+        this_object_type: "contact",
+        related_object_type: "lead",
+        related_query: {
+          type: "field_condition",
+          field: { type: "regular_field", object_type: "lead", field_name: "status_id" },
+          condition: {
+            type: "reference",
+            reference_type: "lead_status",
+            object_ids: [statusId],
+          },
+        },
+      },
+    ],
+  },
+  _fields: { contact: ["id", "emails"] },
+  _limit: 200,
+  ...(cursor ? { cursor } : {}),
 });
 const createdLeadBody = z.object({ id: z.string(), contact_ids: z.array(z.string()) });
 const contactBody = z.object({ id: z.string(), lead_id: z.string() });
@@ -174,6 +215,27 @@ export const closeClient = (settings: CloseSettings, fetchImpl: FetchLike = fetc
         contact.emails.some((e) => e.email.toLowerCase() === wanted),
       );
       return ok(hit ? { leadId: hit.lead_id, contactId: hit.id } : null);
+    },
+
+    /** Every email address on the contacts of leads in this status, lowercased. */
+    emailsInStatus: async (statusId: string): Promise<CloseResult<string[]>> => {
+      const emails: string[] = [];
+      let cursor: string | null = null;
+      for (let page = 0; page < MAX_SEARCH_PAGES; page++) {
+        const found: CloseResult<ContactPage> = await request(
+          "POST",
+          "/data/search/",
+          contactPageBody,
+          contactsInStatus(statusId, cursor),
+        );
+        if (!found.ok) return found;
+        emails.push(
+          ...found.value.data.flatMap((c) => c.emails.map((e) => e.email.toLowerCase())),
+        );
+        cursor = found.value.cursor ?? null;
+        if (!cursor) return ok(emails);
+      }
+      return unavailable(`POST /data/search/: more than ${MAX_SEARCH_PAGES} pages`);
     },
 
     /** Where this contact sits now, e.g. after its lead was merged; null when deleted. */

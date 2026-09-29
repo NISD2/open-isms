@@ -8,7 +8,9 @@
  *  1. Erasures first. Deleting a user leaves its close_crm_sync row with user_id
  *     null. The run deletes the person's contact in Close, wherever it sits by now,
  *     and the lead too when the sync created it and nobody else is left on it.
- *  2. Everyone else is compared with what was last written. A person with no link
+ *  2. Objections come back. With CLOSE_SUPPRESSED_STATUS_ID set, everyone on a lead
+ *     sales put in that status gets all optional platform email switched off.
+ *  3. Everyone else is compared with what was last written. A person with no link
  *     is looked up by email and linked to the contact Close already holds, or gets
  *     a new lead. A linked person whose values changed is updated. When the link
  *     no longer answers (a merge in Close), the contact is followed by its id, then
@@ -69,12 +71,19 @@ export interface CloseSyncStore {
   ): Promise<void>;
   refused(userId: string, detail: string, giveUp: boolean): Promise<void>;
   forget(rowId: string): Promise<void>;
+  /**
+   * Switch off all optional email for the accounts with these addresses (from
+   * leads sales marked as objecting). Returns how many were newly switched off.
+   */
+  optOut(emails: readonly string[]): Promise<number>;
 }
 
 export type CloseSyncRunResult =
   | { readonly skipped: string }
   | {
       readonly erased: number;
+      /** Accounts whose optional email was switched off because sales suppressed them. */
+      readonly optedOut: number;
       readonly created: number;
       readonly linked: number;
       readonly updated: number;
@@ -151,7 +160,7 @@ const PERSON_KEYS = new Set(["name", "contacts", "emails", "email"]);
  * type or choices, the status id, a request Close no longer accepts); counting it
  * against each person would drop everyone within a few runs.
  */
-const stopFor = (failure: CloseFailure): Step | null => {
+const stopFor = (failure: CloseFailure): { readonly stopped: string } | null => {
   if (failure.kind === "unavailable") return { stopped: failure.detail };
   const aboutPerson =
     failure.fields.length > 0 &&
@@ -267,6 +276,21 @@ async function syncPerson(
   return "created";
 }
 
+/**
+ * Read back who sales marked as objecting to contact, and switch off their
+ * optional platform email: an objection taken on the phone holds on every channel.
+ * Any failure stops the run, since a wrong status id is a setting wrong for everyone.
+ */
+async function readSuppressions(
+  close: CloseClient,
+  store: CloseSyncStore,
+  statusId: string,
+): Promise<number | { readonly stopped: string }> {
+  const emails = await close.emailsInStatus(statusId);
+  if (!emails.ok) return stopFor(emails) ?? { stopped: emails.detail };
+  return emails.value.length > 0 ? store.optOut(emails.value) : 0;
+}
+
 /** One step per item, in order, until an item answers "stopped". */
 async function stepThrough<T>(
   items: readonly T[],
@@ -296,19 +320,28 @@ export async function runCloseSync(
   const erasures = await stepThrough(await store.erased(), (row) =>
     eraseRow(close, store, row),
   );
-  const plan = erasures.some(isStop)
-    ? { work: [], gaveUp: 0 }
-    : planCloseSync(await store.people(), settings.fieldIds);
+  const suppressed =
+    erasures.some(isStop) || !settings.suppressedStatusId
+      ? 0
+      : await readSuppressions(close, store, settings.suppressedStatusId);
+  const suppressionStop = typeof suppressed === "number" ? [] : [suppressed];
+  // Suppressions come before the people are read, so this run already writes
+  // "may email: No" for everyone just switched off.
+  const plan =
+    erasures.some(isStop) || suppressionStop.length > 0
+      ? { work: [], gaveUp: 0 }
+      : planCloseSync(await store.people(), settings.fieldIds);
   const syncs = await stepThrough(plan.work.slice(0, MAX_PER_RUN), (work) =>
     syncPerson(close, store, work),
   );
 
-  const steps = [...erasures, ...syncs];
+  const steps: Step[] = [...erasures, ...suppressionStop, ...syncs];
   const count = (done: Done) => steps.filter((s) => s === done).length;
   const finished = count("created") + count("linked") + count("updated") + count("gone");
   const stop = steps.find(isStop);
   return {
     erased: count("erased"),
+    optedOut: typeof suppressed === "number" ? suppressed : 0,
     created: count("created"),
     linked: count("linked"),
     updated: count("updated"),

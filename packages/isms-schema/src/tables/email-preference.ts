@@ -40,7 +40,10 @@ export const emailPreference = pgTable(
       .notNull(),
     /** "all" | "category:<category>" | "type:<email type id>" */
     scope: varchar("scope", { length: 100 }).notNull(),
-    /** How the opt-out was made: "one_click", "preference_centre", "admin". */
+    /**
+     * How the opt-out was made: "one_click", "preference_centre", "admin", or
+     * "crm" (sales recorded an objection in the CRM; nisd2.eu's Close sync).
+     */
     source: varchar("source", { length: 40 }).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },

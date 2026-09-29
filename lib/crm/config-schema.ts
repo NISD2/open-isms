@@ -53,6 +53,11 @@ export const closeEnvShape = {
   CLOSE_API_KEY: optional,
   /** Lead status for a lead the sync creates, e.g. "Platform user". Unset: Close's first status. */
   CLOSE_SIGNUP_STATUS_ID: optional,
+  /**
+   * Lead status sales sets when someone objected to contact, e.g. "Suppressed".
+   * Everyone on such a lead gets all optional platform email switched off.
+   */
+  CLOSE_SUPPRESSED_STATUS_ID: optional,
   /** JSON object, field key to Close custom field id, e.g. {"grandfathered":"cf_…"}. */
   CLOSE_FIELD_IDS: z.preprocess(parseFieldIds, z.custom<CloseFieldIds>()),
 };

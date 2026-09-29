@@ -4,7 +4,8 @@
  * at a few thousand people is cheaper than being clever.
  */
 import "@/lib/server-guard";
-import { and, eq, isNotNull, isNull, sql } from "drizzle-orm";
+import { and, eq, inArray, isNotNull, isNull, sql } from "drizzle-orm";
+import { logAudit } from "@/lib/audit";
 import type { DbOrTx } from "@/lib/db";
 import { isFeatureOn } from "@/lib/feature-flags";
 import { SCOPE_ALL } from "@/lib/mail/consent-rules";
@@ -205,5 +206,33 @@ export const closeSyncStore = (db: DbOrTx): CloseSyncStore => ({
 
   forget: async (rowId) => {
     await db.delete(closeCrmSync).where(eq(closeCrmSync.id, rowId));
+  },
+
+  optOut: async (emails) => {
+    const people = await db
+      .select({ id: user.id, companyId: user.companyId })
+      .from(user)
+      .where(inArray(sql`lower(${user.email})`, [...new Set(emails)]));
+    if (people.length === 0) return 0;
+    // The same row an unsubscribe writes, so the mail consent gate honours it;
+    // source "crm" tells it apart from the person's own choice.
+    const added = await db
+      .insert(emailPreference)
+      .values(people.map((p) => ({ userId: p.id, scope: SCOPE_ALL, source: "crm" })))
+      .onConflictDoNothing()
+      .returning({ userId: emailPreference.userId });
+    const companyOf = new Map(people.map((p) => [p.id, p.companyId]));
+    for (const row of added) {
+      logAudit({
+        companyId: companyOf.get(row.userId) ?? null,
+        userId: row.userId,
+        action: "email.unsubscribed_scope",
+        entityType: "user",
+        entityId: row.userId,
+        description:
+          "All optional email switched off: sales marked the person as objecting in Close",
+      });
+    }
+    return added.length;
   },
 });

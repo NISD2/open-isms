@@ -55,17 +55,38 @@ const person = (n: number, sync: CloseSyncLinkRow | null = null): CloseSyncPerso
 /** logins is a contact field, supplier a lead field. */
 const settings = (
   fieldIds: CloseFieldIds = { logins: "cf_logins", supplier: "cf_sup" },
-): CloseSettings => ({ apiKey: "test-key", statusId: undefined, fieldIds });
+): CloseSettings => ({
+  apiKey: "test-key",
+  statusId: undefined,
+  suppressedStatusId: undefined,
+  fieldIds,
+});
 
-/** The store as a map of rows, so a second run sees what the first one wrote. */
+/**
+ * The store as a map of rows, so a second run sees what the first one wrote. An
+ * opted-out address reads back as "may email: no", as the consent gate would.
+ */
 function memoryStore(people: CloseSyncPerson[], erased: ErasedCloseRow[] = []) {
   const rows = new Map<string, CloseSyncLinkRow & { lastError: string | null }>(
     people.flatMap((p) => (p.sync ? [[p.userId, { ...p.sync, lastError: null }]] : [])),
   );
   const erasedRows = [...erased];
+  const optedOut = new Set<string>();
   const store: CloseSyncStore = {
     erased: async () => [...erasedRows],
-    people: async () => people.map((p) => ({ ...p, sync: rows.get(p.userId) ?? null })),
+    people: async () =>
+      people.map((p) => ({
+        ...p,
+        facts: { ...p.facts, mayEmail: p.facts.mayEmail && !optedOut.has(p.email) },
+        sync: rows.get(p.userId) ?? null,
+      })),
+    optOut: async (emails) => {
+      const fresh = people.filter(
+        (p) => emails.includes(p.email) && !optedOut.has(p.email),
+      );
+      for (const p of fresh) optedOut.add(p.email);
+      return fresh.length;
+    },
     linked: async (userId, link, createdLead, fieldsHash) => {
       rows.set(userId, {
         ...link,
@@ -114,6 +135,8 @@ function fakeClose(
     contacts?: Record<string, { leadId: string; email: string }>;
     refuse?: string[];
     refuseField?: string;
+    /** Addresses on leads sales put in the suppressed status. */
+    suppressed?: string[];
     down?: boolean;
   } = {},
 ) {
@@ -136,6 +159,16 @@ function fakeClose(
     }
     const [, kind, id] = path.split("/");
 
+    if (
+      path === "/data/search/" &&
+      body.query.queries[1].related_object_type === "lead"
+    ) {
+      const data = (opts.suppressed ?? []).map((email, i) => ({
+        id: `cont_supp${i}`,
+        emails: [{ email }],
+      }));
+      return json({ data, cursor: null });
+    }
     if (path === "/data/search/") {
       const email: string = body.query.queries[1].related_query.condition.value;
       const hit = [...contacts].find(([, c]) => c.email === email);
@@ -369,6 +402,51 @@ describe("runCloseSync", () => {
     const created = close.calls.some((c) => c.method === "POST" && c.path === "/lead/");
     expect(created).toBe(false);
     expect(rows.get("user-1")?.rejectedCount).toBe(MAX_REFUSALS);
+  });
+});
+
+describe("objections recorded in Close", () => {
+  const withSuppression = {
+    ...settings({ mayEmail: "cf_may" }),
+    suppressedStatusId: "stat_supp",
+  };
+
+  test("switch off the person's platform email, and Close hears 'may email: No' in the same run", async () => {
+    const { store } = memoryStore([person(1), person(2)]);
+    const close = fakeClose({ suppressed: ["user-1@example.test"] });
+    expect(await runCloseSync(store, withSuppression, close.impl)).toMatchObject({
+      optedOut: 1,
+      created: 2,
+    });
+    const created = close.calls
+      .filter((c) => c.method === "POST" && c.path === "/lead/")
+      .map((c) => (c.body as { contacts: Record<string, unknown>[] }).contacts[0]);
+    expect(created).toContainEqual(
+      expect.objectContaining({ name: "User 1", "custom.cf_may": "No" }),
+    );
+    expect(created).toContainEqual(
+      expect.objectContaining({ name: "User 2", "custom.cf_may": "Yes" }),
+    );
+  });
+
+  test("an objection already applied is not counted again", async () => {
+    const { store } = memoryStore([person(1)]);
+    const close = fakeClose({ suppressed: ["user-1@example.test"] });
+    await runCloseSync(store, withSuppression, close.impl);
+    expect(await runCloseSync(store, withSuppression, close.impl)).toMatchObject({
+      optedOut: 0,
+    });
+  });
+
+  test("a status id Close refuses stops the run before anyone is written", async () => {
+    const { store, rows } = memoryStore([person(1)]);
+    const close = fakeClose({ refuseField: "lead_status" });
+    expect(await runCloseSync(store, withSuppression, close.impl)).toMatchObject({
+      optedOut: 0,
+      created: 0,
+      stopped: expect.stringContaining("HTTP 400"),
+    });
+    expect(rows.size).toBe(0);
   });
 });
 

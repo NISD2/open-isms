@@ -9,6 +9,7 @@ import { type CloseSettings, closeClient, closeSettings } from "./close";
 const settings: CloseSettings = {
   apiKey: "test-key",
   statusId: "stat_platform_user",
+  suppressedStatusId: undefined,
   fieldIds: { leadSource: "cf_source", grandfathered: "cf_gf" },
 };
 
@@ -48,7 +49,12 @@ describe("closeSettings", () => {
         CLOSE_SIGNUP_STATUS_ID: "stat_x",
         CLOSE_FIELD_IDS: { logins: "cf_l" },
       }),
-    ).toEqual({ apiKey: "k", statusId: "stat_x", fieldIds: { logins: "cf_l" } });
+    ).toEqual({
+      apiKey: "k",
+      statusId: "stat_x",
+      suppressedStatusId: undefined,
+      fieldIds: { logins: "cf_l" },
+    });
   });
 });
 
@@ -139,6 +145,26 @@ describe("createLead", () => {
       { contact: {}, lead: {} },
     );
     expect(created).toMatchObject({ ok: false, kind: "unavailable" });
+  });
+});
+
+describe("emailsInStatus", () => {
+  test("pages through every contact on leads in the status, lowercasing addresses", async () => {
+    const { impl, calls } = fakeFetch([
+      json({ data: [{ id: "c1", emails: [{ email: "A@X.test" }] }], cursor: "next" }),
+      json({ data: [{ id: "c2", emails: [{ email: "b@x.test" }] }], cursor: null }),
+    ]);
+    expect(await closeClient(settings, impl).emailsInStatus("stat_supp")).toEqual({
+      ok: true,
+      value: ["a@x.test", "b@x.test"],
+    });
+    const condition = bodyOf(calls[0]).query.queries[1].related_query.condition;
+    expect(condition).toEqual({
+      type: "reference",
+      reference_type: "lead_status",
+      object_ids: ["stat_supp"],
+    });
+    expect(bodyOf(calls[1]).cursor).toBe("next");
   });
 });
 
