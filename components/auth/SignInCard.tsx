@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
+import { localCallbackPath } from "@/lib/auth/local-path";
 
 type Step = "auth" | "verify";
 
@@ -24,19 +25,14 @@ export function SignInCard() {
   const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
-  // Audit H-3 (2026-06-10): only accept absolute-path local URLs. An
-  // attacker-controlled absolute URL ("https://evil.tld") or protocol-
-  // relative URL ("//evil.tld") would let router.push escape origin via
-  // window.location.assign on the next nav and host a credible
+  // Audit H-3 (2026-06-10): only accept same-origin paths. An attacker-
+  // controlled callback that resolves off-site would let router.push escape
+  // origin via window.location.assign on the next nav and host a credible
   // re-login-phish on the genuine nisd2.eu chrome.
-  const rawCallback = searchParams.get("callbackUrl");
   // Default post-login surface is the journey path view. Company-less users
   // (fresh registrations) are bounced from /journey to /dashboard, which
   // renders the onboarding banner, so this is safe for not-yet-onboarded users.
-  const callbackUrl =
-    rawCallback?.startsWith("/") && !rawCallback.startsWith("//")
-      ? rawCallback
-      : "/journey";
+  const callbackUrl = localCallbackPath(searchParams.get("callbackUrl"), "/journey");
   const [step, setStep] = useState<Step>("auth");
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");

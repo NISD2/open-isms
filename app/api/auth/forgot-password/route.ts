@@ -6,25 +6,14 @@ import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { isLocaleCode } from "@/lib/locale";
 import { sendAuthCode } from "@/lib/mail";
+import { rateLimit } from "@/lib/rate-limit";
 import type { Locale } from "@/lib/seo";
 import { user } from "@/schema";
 
-// In-memory IP rate limit. Matches the pattern used by /api/auth/register.
+// Per-IP rate limit. Matches the pattern used by /api/auth/register.
 // Per-email rate limiting lives in requestOtp itself.
-const attempts = new Map<string, { count: number; resetAt: number }>();
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_ATTEMPTS = 10;
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = attempts.get(ip);
-  if (!entry || now > entry.resetAt) {
-    attempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return false;
-  }
-  entry.count++;
-  return entry.count > MAX_ATTEMPTS;
-}
 
 /**
  * Request a password-reset code by email.
@@ -42,7 +31,7 @@ function isRateLimited(ip: string): boolean {
 export async function POST(request: Request) {
   const ip = getClientIp(request.headers);
 
-  if (isRateLimited(ip)) {
+  if (!rateLimit(`auth:forgot-password:${ip}`, MAX_ATTEMPTS, WINDOW_MS)) {
     return NextResponse.json(
       { error: "Too many attempts. Please try again later." },
       { status: 429 },

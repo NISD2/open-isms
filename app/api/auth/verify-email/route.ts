@@ -6,28 +6,15 @@ import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
 import { getClientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { newUserSignupEmail, sendMail, sendWelcomeEmail } from "@/lib/mail";
+import { rateLimit } from "@/lib/rate-limit";
 import { user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 
-// In-memory rate limit: max 10 verification attempts per IP per 15 min.
+// Rate limit: max 10 verification attempts per IP per 15 min.
 // Per-OTP attempts are already capped server-side at 5 in `verifyOtp`,
 // so this exists primarily to slow down enumeration across many emails.
-const attempts = new Map<string, { count: number; resetAt: number }>();
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_ATTEMPTS = 10;
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = attempts.get(ip);
-
-  if (!entry || now > entry.resetAt) {
-    attempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return false;
-  }
-
-  entry.count++;
-  return entry.count > MAX_ATTEMPTS;
-}
 
 /**
  * Verify an email address by submitting the 6-digit code from the
@@ -70,7 +57,7 @@ function isRateLimited(ip: string): boolean {
 export async function POST(request: Request) {
   const ip = getClientIp(request.headers);
 
-  if (isRateLimited(ip)) {
+  if (!rateLimit(`auth:verify-email:${ip}`, MAX_ATTEMPTS, WINDOW_MS)) {
     return NextResponse.json(
       { error: "Too many attempts. Please try again later." },
       { status: 429 },

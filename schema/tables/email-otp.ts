@@ -10,7 +10,7 @@ import { index, pgTable, smallint, timestamp, uuid, varchar } from "drizzle-orm/
  *
  * Lifecycle:
  *  - INSERT on `requestOtp`
- *  - UPDATE attempts on each failed `verifyOtp`
+ *  - UPDATE attempts on each `verifyOtp`, before the code is compared
  *  - UPDATE consumedAt on success OR on attempt-limit lockout
  *  - DELETE on cleanup cron (rows older than 24h)
  */
