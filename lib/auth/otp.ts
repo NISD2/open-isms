@@ -16,7 +16,7 @@ import { emailOtp } from "@/schema";
  *  - 6-digit codes from a CSPRNG (Node `crypto.randomInt`)
  *  - bcrypt-hashed at rest, never stored in plaintext
  *  - 10-minute hard expiry
- *  - 5 wrong attempts triggers lockout (record consumed)
+ *  - 5 attempts per code; after that no attempt can be claimed, so it is dead
  *  - Rate-limited: max 3 requests per email+purpose per 5 minutes
  *  - Each new request invalidates prior unconsumed records for the same
  *    (email, purpose), in the same transaction as the insert. Two overlapping
@@ -127,8 +127,8 @@ export async function requestOtp(
  * On any failure path (no active record, wrong code, expired, locked) the
  * function returns `false` without revealing which case occurred — caller
  * shows a generic error. Every attempt is counted before the compare; once
- * `MAX_ATTEMPTS` are spent the next call consumes the record so further
- * guesses cannot succeed even if the user later types the right code.
+ * `MAX_ATTEMPTS` are spent no further attempt can be claimed, so the code is
+ * dead even if the user later types the right code.
  */
 export async function verifyOtp(
   email: string,
@@ -171,10 +171,10 @@ export async function verifyOtp(
     .where(and(unconsumed, lt(emailOtp.attempts, MAX_ATTEMPTS)))
     .returning({ id: emailOtp.id });
 
-  if (!claimed) {
-    await db.update(emailOtp).set({ consumedAt: new Date() }).where(unconsumed);
-    return false;
-  }
+  // No consume here. With attempts at the cap nothing can claim again, so the
+  // code is already dead; consuming it as well would reject a right code whose
+  // claimed attempt is still at the compare below when a burst passes the cap.
+  if (!claimed) return false;
 
   if (!(await bcrypt.compare(code, record.codeHash))) return false;
 

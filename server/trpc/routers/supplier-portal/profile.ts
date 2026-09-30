@@ -25,9 +25,13 @@ import { sanitizeFilename } from "@/lib/storage/object-key";
 import { createPresignedPut } from "@/lib/storage/presign";
 import { company } from "@/schema";
 import { securityProfileUpdateSchema } from "@/schema/validators";
+import { assertOwnObjectKey } from "../../guards";
 import { accountProcedure, router } from "../../init";
 import { updateRow } from "../../typed";
 import { normalizeDomain } from "./helpers";
+
+/** Where the logo upload URL puts a company's logos; the only keys setLogo accepts. */
+const logoPrefix = (companyId: string) => `supplier-profile/${companyId}/`;
 
 /**
  * Logo PUT URLs per company per hour. Same exposure as the certificate upload
@@ -168,7 +172,7 @@ export const supplierProfileRouter = router({
         });
       }
       const safeName = sanitizeFilename(input.fileName);
-      const key = `supplier-profile/${ctx.companyId}/logo-${Date.now()}-${safeName}`;
+      const key = `${logoPrefix(ctx.companyId)}logo-${Date.now()}-${safeName}`;
       const url = await createPresignedPut(key, input.contentType, input.fileSize);
       return { url, key };
     }),
@@ -181,15 +185,7 @@ export const supplierProfileRouter = router({
   setLogo: accountProcedure
     .input(z.object({ storageKey: z.string().min(1).max(500).nullable() }))
     .mutation(async ({ ctx, input }) => {
-      if (input.storageKey !== null) {
-        const expectedPrefix = `supplier-profile/${ctx.companyId}/`;
-        if (!input.storageKey.startsWith(expectedPrefix)) {
-          throw new TRPCError({
-            code: "FORBIDDEN",
-            message: "Storage key does not belong to this company",
-          });
-        }
-      }
+      assertOwnObjectKey(logoPrefix(ctx.companyId), input.storageKey);
       const [row] = await ctx.db
         .update(company)
         .set({

@@ -6,7 +6,14 @@
  * absent from the parsed output — the router then cannot write it.
  */
 import { describe, expect, test } from "bun:test";
-import { supplierUpdateSchema, trainingUpdateSchema } from "./validators";
+import {
+  incidentUpdateSchema,
+  patchRecordUpdateSchema,
+  policyUpdateSchema,
+  riskUpdateSchema,
+  supplierUpdateSchema,
+  trainingUpdateSchema,
+} from "./validators";
 
 describe("supplierUpdateSchema", () => {
   // unsubscribeToken is the portal's bearer credential: holding it grants read
@@ -57,5 +64,57 @@ describe("trainingUpdateSchema", () => {
     });
     expect(parsed).not.toHaveProperty("companyId");
     expect(parsed.title).toBe("NIS2 Basics");
+  });
+});
+
+describe("riskUpdateSchema", () => {
+  // The sign-off on a residual risk: the router stamps who and when from the session.
+  test("drops who accepted the risk and when", () => {
+    const parsed = riskUpdateSchema.parse({
+      title: "Ransomware",
+      acceptedBy: "44444444-4444-4444-4444-444444444444",
+      acceptedAt: new Date(),
+    });
+    expect(parsed).not.toHaveProperty("acceptedBy");
+    expect(parsed).not.toHaveProperty("acceptedAt");
+    expect(parsed.title).toBe("Ransomware");
+  });
+});
+
+describe("incidentUpdateSchema", () => {
+  test("drops createdBy", () => {
+    const parsed = incidentUpdateSchema.parse({
+      title: "Phishing",
+      createdBy: "55555555-5555-5555-5555-555555555555",
+    });
+    expect(parsed).not.toHaveProperty("createdBy");
+    expect(parsed.title).toBe("Phishing");
+  });
+});
+
+describe("policyUpdateSchema", () => {
+  // A member naming a real Geschäftsführer, back-dated, passes any membership check.
+  test("drops the approver, the approval date and the approver's role", () => {
+    const parsed = policyUpdateSchema.parse({
+      title: "IT-Sicherheitsleitlinie",
+      approvedBy: "66666666-6666-6666-6666-666666666666",
+      approvedAt: new Date("2026-01-01T00:00:00.000Z"),
+      approverRole: "geschaeftsfuehrer",
+    });
+    for (const k of ["approvedBy", "approvedAt", "approverRole"]) {
+      expect(parsed).not.toHaveProperty(k);
+    }
+    expect(parsed.title).toBe("IT-Sicherheitsleitlinie");
+  });
+});
+
+describe("patchRecordUpdateSchema", () => {
+  test("drops who approved the exception", () => {
+    const parsed = patchRecordUpdateSchema.parse({
+      exceptionReason: "Vendor patch breaks the SCADA client",
+      exceptionApprovedBy: "77777777-7777-7777-7777-777777777777",
+    });
+    expect(parsed).not.toHaveProperty("exceptionApprovedBy");
+    expect(parsed.exceptionReason).toBe("Vendor patch breaks the SCADA client");
   });
 });

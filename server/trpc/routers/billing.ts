@@ -4,7 +4,7 @@
  * Who may do what:
  *   - `status` is for any member, so the page can say why there is no order button.
  *   - Ordering and the invoices are for the account holder (`billing_account.ownerUserId`), the
- *     person who pays. Not for company admins: any member may add an organization and is its
+ *     person who pays. Not for company admins: any admin may add an organization and is its
  *     admin, so a company role says nothing about who may put the account on an invoice.
  *   - On top of that, `billingFor` decides: nobody while Qonto is not set up, platform admins
  *     whenever it is, everyone else only with live keys and the `billing` switch on.
