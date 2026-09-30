@@ -36,7 +36,11 @@ import {
   propagateSatisfaction,
   recalculateProgress,
 } from "../helpers/assessment-helpers";
-import { MANUAL_STATUSES, REOPEN_APPROVED_FIRST } from "../helpers/manual-status";
+import {
+  MANUAL_STATUSES,
+  REOPEN_APPROVED_FIRST,
+  reopenChange,
+} from "../helpers/manual-status";
 import { getNis2Assessment, getNis2FrameworkId } from "../helpers/nis2-scope";
 import {
   createAssessmentsForFrameworks,
@@ -49,6 +53,7 @@ import {
   signerMeetsRequiredRole,
   snapshotForVersion,
 } from "../helpers/sign-off-completion";
+import { lockStatusRow } from "../helpers/status-lock";
 import {
   announceWithdrawal,
   reopenedReviewDate,
@@ -590,6 +595,8 @@ export const assessmentRouter = router({
       // off without a corresponding history row, defeating
       // verifySignOffChain (B-2).
       const result = await ctx.db.transaction(async (tx) => {
+        // The status row before the signer rows (see lockStatusRow).
+        await lockStatusRow(tx, input.statusId);
         const lockedAssignments = await tx
           .select()
           .from(requirementAssignment)
@@ -782,29 +789,26 @@ export const assessmentRouter = router({
         categoryId: statusRow.requirement.categoryId,
       });
 
-      if (!DONE_STATUSES.has(statusRow.status)) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: `Requirement is ${statusRow.status} and has nothing to reopen.`,
-        });
-      }
-
-      if (statusRow.status === "approved" && !hasReviewAccess(ctx.session.role)) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message:
-            "This requirement was approved in review. Only a reviewer can reopen it.",
-        });
-      }
-
       const now = new Date();
       const assessment = await ctx.db.query.companyAssessment.findFirst({
         where: eq(companyAssessment.id, statusRow.assessmentId),
         columns: { startedAt: true },
       });
 
-      const { row: reopened, losingSignature } = await ctx.db.transaction((tx) =>
-        withdrawSignOff(tx, {
+      const outcome = await ctx.db.transaction(async (tx) => {
+        // Decided on the row as locked, not as read above: an approval or a
+        // sign-off landing in between would otherwise be withdrawn by
+        // someone the check would have refused.
+        const locked = await lockStatusRow(tx, input.statusId);
+        if (!locked) {
+          throw new TRPCError({ code: "NOT_FOUND", message: "Status not found" });
+        }
+        const change = reopenChange(locked, hasReviewAccess(ctx.session.role));
+        if (!change.ok) {
+          throw new TRPCError({ code: change.code, message: change.message });
+        }
+
+        const withdrawn = await withdrawSignOff(tx, {
           statusId: input.statusId,
           companyId: ctx.companyId,
           actorId: ctx.userId,
@@ -814,8 +818,10 @@ export const assessmentRouter = router({
             priority: statusRow.requirement.priority,
           }),
           now,
-        }),
-      );
+        });
+        return { ...withdrawn, previous: locked };
+      });
+      const { row: reopened, losingSignature, previous } = outcome;
 
       if (reopened) {
         await recalculateProgress(ctx.db, reopened.assessmentId);
@@ -823,11 +829,7 @@ export const assessmentRouter = router({
           companyId: ctx.companyId,
           actorId: ctx.userId,
           requirement: statusRow.requirement,
-          previous: {
-            status: statusRow.status,
-            signedOffBy: statusRow.signedOffBy,
-            signedOffAt: statusRow.signedOffAt,
-          },
+          previous,
           newStatus: reopened.status,
           losingSignature,
           now,
@@ -882,9 +884,10 @@ export const assessmentRouter = router({
         // Same guard pair as signOff: an N-of-M requirement belongs to the
         // assignment flow (each signer signs individually), and an unassigned
         // requirement completes only with the required signer role (admin
-        // bypass). FOR UPDATE matches signOff's locking; like there, it locks
-        // existing rows only, so a concurrent first assignment can still race
-        // the empty read.
+        // bypass). FOR UPDATE matches signOff's locking, status row first;
+        // like there, it locks existing signer rows only, so a concurrent
+        // first assignment can still race the empty read.
+        await lockStatusRow(tx, input.statusId);
         const lockedAssignments = await tx
           .select()
           .from(requirementAssignment)

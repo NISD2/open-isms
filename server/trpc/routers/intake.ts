@@ -3,7 +3,6 @@
  *
  * Endpoints:
  *   getForm                — returns schema fields metadata + existing answers + company context
- *   save                   — upsert a category's draft answers
  *   getRequirementAnswers  — one requirement's answers
  *   saveRequirementAnswers — upsert one requirement's answers (the requirement page)
  *
@@ -15,10 +14,7 @@ import { TRPCError } from "@trpc/server";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { hasReviewAccess } from "@/lib/auth";
-import {
-  CATEGORY_FIELD_MAPPING,
-  CATEGORY_SCHEMAS,
-} from "@/lib/compliance/category-schemas";
+import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
 import type { Database, DbOrTx } from "@/lib/db";
 import { introspectSchema } from "@/lib/forms/schema-introspect";
@@ -32,7 +28,7 @@ import {
 } from "@/schema";
 import { enforceAssignment, verifyAssessmentOwnership } from "../guards";
 import { recalculateProgress } from "../helpers/assessment-helpers";
-import { answerSaveChange } from "../helpers/manual-status";
+import { answerSaveChange, hasSignOffToWithdraw } from "../helpers/manual-status";
 import {
   announceWithdrawal,
   reopenedReviewDate,
@@ -92,62 +88,6 @@ export const intakeRouter = router({
         signedOffAt: existing?.signedOffAt?.toISOString() ?? null,
         companyProfile: companyProfile ?? {},
       };
-    }),
-
-  // --------------------------------------------------------------------------
-  // save — upsert draft answers (auto-save)
-  // --------------------------------------------------------------------------
-  save: companyProcedure
-    .input(
-      z.object({
-        assessmentId: z.string().uuid(),
-        categoryId: z.string().uuid(),
-        answers: z.record(z.string(), z.unknown()),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const categoryCode = await authorizeIntakeWrite(ctx, input);
-
-      const schema = CATEGORY_SCHEMAS[categoryCode];
-      if (!schema) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: `No intake schema for category ${categoryCode}`,
-        });
-      }
-
-      // Calculate completion percentage from filled fields
-      const fields = introspectSchema(schema, []);
-      const requiredFields = fields.filter((f) => f.required);
-      const filledRequired = requiredFields.filter((f) => {
-        const val = input.answers[f.key];
-        if (val === undefined || val === null || val === "") return false;
-        if (typeof val === "boolean") return true;
-        return true;
-      });
-      const completionPct =
-        requiredFields.length > 0
-          ? Math.round((filledRequired.length / requiredFields.length) * 100)
-          : 0;
-
-      const existing = await ctx.db.query.companyCategoryIntake.findFirst({
-        where: and(
-          eq(companyCategoryIntake.assessmentId, input.assessmentId),
-          eq(companyCategoryIntake.categoryId, input.categoryId),
-        ),
-        columns: { id: true },
-      });
-
-      await writeAnswers(ctx, {
-        assessmentId: input.assessmentId,
-        categoryId: input.categoryId,
-        existingId: existing?.id ?? null,
-        answers: input.answers,
-        completionPct,
-        requirementCodes: answeredRequirementCodes(categoryCode, input.answers),
-      });
-
-      return { completionPct };
     }),
 
   // --------------------------------------------------------------------------
@@ -319,24 +259,9 @@ function isAnswered(value: unknown): boolean {
   return value !== undefined && value !== null && value !== "";
 }
 
-/** The category's requirements that have at least one answered field. */
-function answeredRequirementCodes(
-  categoryCode: string,
-  answers: Record<string, unknown>,
-): string[] {
-  const mapping = CATEGORY_FIELD_MAPPING[categoryCode] ?? {};
-  return [
-    ...new Set(
-      Object.entries(mapping)
-        .filter(([fieldKey]) => isAnswered(answers[fieldKey]))
-        .flatMap(([, codes]) => codes),
-    ),
-  ];
-}
-
 /**
- * Store a category's intake answers and move the requirements they cover to
- * in progress, in one transaction, so a refused move stores no answers.
+ * Store a category's intake answers and move the requirements the save covers
+ * to in progress, in one transaction, so a refused move stores no answers.
  */
 async function writeAnswers(
   ctx: IntakeWriter,
@@ -422,9 +347,11 @@ async function moveToInProgress(
   if (reqs.length === 0) return [];
   const reqById = new Map(reqs.map((r) => [r.id, r]));
 
-  // Locked in a stable order: a concurrent sign-off touching an overlapping
-  // set cannot deadlock against this, and an approval cannot land between the
-  // check below and the writes after it.
+  // Status rows are locked first and in id order, before withdrawSignOff
+  // touches any signer rows, which is the order signOff, confirmModuleRef and
+  // reopenRequirement take them in (see lockStatusRow). The lock also keeps
+  // an approval or a sign-off from landing between the checks below and the
+  // writes after them.
   const rows = await tx
     .select({
       id: companyRequirementStatus.id,
@@ -448,12 +375,12 @@ async function moveToInProgress(
     hasReviewAccess(args.role),
   );
   if (!change.ok) {
-    throw new TRPCError({ code: "FORBIDDEN", message: change.message });
+    throw new TRPCError({ code: change.code, message: change.message });
   }
 
-  const isSigned = (status: string) => status === "completed" || status === "approved";
-  const unsignedIds = rows
-    .filter((row) => row.status !== "not_applicable" && !isSigned(row.status))
+  const movable = rows.filter((row) => row.status !== "not_applicable");
+  const unsignedIds = movable
+    .filter((row) => !hasSignOffToWithdraw(row))
     .map((row) => row.id);
   if (unsignedIds.length > 0) {
     await tx
@@ -462,7 +389,7 @@ async function moveToInProgress(
       .where(inArray(companyRequirementStatus.id, unsignedIds));
   }
 
-  const signed = rows.filter((row) => isSigned(row.status));
+  const signed = movable.filter(hasSignOffToWithdraw);
   if (signed.length === 0) return [];
 
   const assessment = await tx.query.companyAssessment.findFirst({

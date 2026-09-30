@@ -56,30 +56,37 @@ function setup(opts: {
   categoryCode: string | null;
   /** The status of the saved requirement's row. */
   rowStatus?: string;
+  /** Whether that row carries a signature. */
+  rowSigned?: boolean;
   /** Answers already stored for the category. */
   storedAnswers?: Record<string, unknown>;
 }) {
   const writes: Write[] = [];
   const requirementLookups: SQL[] = [];
+  const signedAt = opts.rowSigned ? new Date("2026-09-01") : null;
   const statusRows = opts.rowStatus
     ? [
         {
           id: "status-1",
           requirementId: "requirement-1",
           status: opts.rowStatus,
-          signedOffBy: USER,
-          signedOffAt: new Date("2026-09-01"),
+          signedOffBy: signedAt ? USER : null,
+          signedOffAt: signedAt,
         },
       ]
     : [];
 
-  // A select either reads the saved requirement's status rows under a lock,
-  // reads who had signed, or becomes a subquery that is never awaited.
+  // A select either locks status rows (all the save covers, or one before its
+  // signer rows are touched), reads who had signed, or becomes a subquery that
+  // is never awaited.
   const select = () => ({
     from: (table: unknown) => ({
       where: () =>
         table === companyRequirementStatus
-          ? { orderBy: () => ({ for: async () => statusRows }) }
+          ? {
+              orderBy: () => ({ for: async () => statusRows }),
+              for: async () => statusRows,
+            }
           : Promise.resolve([]),
     }),
   });
@@ -176,57 +183,50 @@ const GOV_OWNER = { role: "member", ownsCategory: true, categoryCode: "GOV" } as
 const writesTo = (writes: Write[], table: unknown) =>
   writes.filter((w) => w.table === table);
 
-describe("intake.save", () => {
+describe("intake.saveRequirementAnswers", () => {
   test.each(["reviewer", "legal_reviewer", "member"] as const)(
     "refuses a %s who does not own the category, before writing",
     async (role) => {
-      const { caller, writes } = setup({ ...GOV_OWNER, role, ownsCategory: false });
-      await expect(
-        caller.save({ assessmentId: ASSESSMENT, categoryId: CATEGORY, answers: {} }),
-      ).rejects.toMatchObject({ code: "FORBIDDEN" });
+      const { saveGovRequirement, writes } = setup({
+        ...GOV_OWNER,
+        role,
+        ownsCategory: false,
+      });
+      await expect(saveGovRequirement()).rejects.toMatchObject({ code: "FORBIDDEN" });
       expect(writes).toEqual([]);
     },
   );
 
   test("lets the category owner save", async () => {
-    const { caller, writes } = setup(GOV_OWNER);
-    await caller.save({ assessmentId: ASSESSMENT, categoryId: CATEGORY, answers: {} });
+    const { saveGovRequirement, writes } = setup(GOV_OWNER);
+    await saveGovRequirement();
     expect(writesTo(writes, companyCategoryIntake)).toHaveLength(1);
   });
 
   test("refuses a category outside the assessment's framework", async () => {
-    const { caller, writes } = setup({ ...GOV_OWNER, role: "admin", categoryCode: null });
-    await expect(
-      caller.save({ assessmentId: ASSESSMENT, categoryId: CATEGORY, answers: {} }),
-    ).rejects.toMatchObject({ code: "NOT_FOUND" });
+    const { saveGovRequirement, writes } = setup({
+      ...GOV_OWNER,
+      role: "admin",
+      categoryCode: null,
+    });
+    await expect(saveGovRequirement()).rejects.toMatchObject({ code: "NOT_FOUND" });
     expect(writes).toEqual([]);
   });
 
-  // The category code the caller sends is ignored; the schema looked up is the
-  // one for the code the database holds for the id.
+  // A category code sent alongside the id is ignored: the requirement is
+  // checked against the code the database holds for the id.
   test("takes the category code from the database, not from the caller", async () => {
     const { caller } = setup({ ...GOV_OWNER, categoryCode: "NOPE" });
     const input = {
       assessmentId: ASSESSMENT,
       categoryId: CATEGORY,
       categoryCode: "GOV",
-      answers: {},
+      requirementCode: GOV_REQUIREMENT.code,
+      answers: GOV_ANSWERS,
     };
-    await expect(caller.save(input)).rejects.toThrow(
-      "No intake schema for category NOPE",
+    await expect(caller.saveRequirementAnswers(input)).rejects.toThrow(
+      "in category NOPE",
     );
-  });
-});
-
-describe("intake.saveRequirementAnswers", () => {
-  test("refuses a reviewer who does not own the category, before writing", async () => {
-    const { saveGovRequirement, writes } = setup({
-      ...GOV_OWNER,
-      role: "reviewer",
-      ownsCategory: false,
-    });
-    await expect(saveGovRequirement()).rejects.toMatchObject({ code: "FORBIDDEN" });
-    expect(writes).toEqual([]);
   });
 
   test("refuses a requirement from another category than the one owned", async () => {
@@ -272,7 +272,11 @@ describe("intake.saveRequirementAnswers", () => {
   });
 
   test("refuses to undo an approval for a member without review access", async () => {
-    const { saveGovRequirement, writes } = setup({ ...GOV_OWNER, rowStatus: "approved" });
+    const { saveGovRequirement, writes } = setup({
+      ...GOV_OWNER,
+      rowStatus: "approved",
+      rowSigned: true,
+    });
     await expect(saveGovRequirement()).rejects.toMatchObject({
       code: "FORBIDDEN",
       message: REOPEN_APPROVED_FIRST,
@@ -285,6 +289,7 @@ describe("intake.saveRequirementAnswers", () => {
       ...GOV_OWNER,
       role: "admin",
       rowStatus: "approved",
+      rowSigned: true,
     });
     await saveGovRequirement();
     expect(writesTo(writes, companyRequirementStatus)).toEqual([
@@ -297,27 +302,47 @@ describe("intake.saveRequirementAnswers", () => {
 
   // Clearing only the row's signature left each signer's own row signed, so
   // one new signature could close a multi-signer requirement on stale ones.
-  test("reopening a completed requirement clears every signer's signature", async () => {
+  test.each(["completed", "needs_review"] as const)(
+    "reopening a signed %s requirement clears every signer's signature",
+    async (rowStatus) => {
+      const { saveGovRequirement, writes } = setup({
+        ...GOV_OWNER,
+        rowStatus,
+        rowSigned: true,
+      });
+      await saveGovRequirement();
+      expectWithdrawn(writes);
+    },
+  );
+
+  // A needs_review row the module recheck left unsigned has nothing to clear.
+  test("puts an unsigned needs_review requirement in progress", async () => {
     const { saveGovRequirement, writes } = setup({
       ...GOV_OWNER,
-      rowStatus: "completed",
+      rowStatus: "needs_review",
+      rowSigned: false,
     });
     await saveGovRequirement();
-    expect(writesTo(writes, requirementAssignment)).toContainEqual(
-      expect.objectContaining({
-        op: "update",
-        values: { signedOffAt: null, signedOffRole: null },
-      }),
-    );
-    expect(writesTo(writes, companyRequirementStatus)).toEqual([
-      expect.objectContaining({
-        values: expect.objectContaining({
-          status: "in_progress",
-          signedOffBy: null,
-          signOffSnapshot: null,
-          completedAt: null,
-        }),
-      }),
-    ]);
+    expect(writesTo(writes, requirementAssignment)).toEqual([]);
   });
 });
+
+/** The writes of a sign-off withdrawn the way reopenRequirement withdraws it. */
+function expectWithdrawn(writes: Write[]) {
+  expect(writesTo(writes, requirementAssignment)).toContainEqual(
+    expect.objectContaining({
+      op: "update",
+      values: { signedOffAt: null, signedOffRole: null },
+    }),
+  );
+  expect(writesTo(writes, companyRequirementStatus)).toEqual([
+    expect.objectContaining({
+      values: expect.objectContaining({
+        status: "in_progress",
+        signedOffBy: null,
+        signOffSnapshot: null,
+        completedAt: null,
+      }),
+    }),
+  ]);
+}

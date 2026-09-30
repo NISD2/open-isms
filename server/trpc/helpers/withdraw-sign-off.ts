@@ -16,6 +16,7 @@ import {
   requirementAssignment,
 } from "@/schema";
 import { reopenedSignOffValues } from "./sign-off-completion";
+import { lockStatusRow } from "./status-lock";
 
 /**
  * Withdrawing a sign-off and putting the requirement back in progress. Two
@@ -65,6 +66,10 @@ export async function withdrawSignOff(
     now: Date;
   },
 ) {
+  // The status row before the signer rows, the order every sign-off path
+  // takes (see lockStatusRow). A caller that already holds it loses nothing.
+  await lockStatusRow(tx, args.statusId);
+
   const memberIds = () =>
     tx
       .select({ userId: companyMembership.userId })
@@ -182,7 +187,11 @@ export function announceWithdrawal(
     entityType: "requirement",
     entityId: requirement.id,
     description: `${requirement.code} reopened from ${args.previous.status}`,
-    previousValue: args.previous,
+    previousValue: {
+      status: args.previous.status,
+      signedOffBy: args.previous.signedOffBy,
+      signedOffAt: args.previous.signedOffAt,
+    },
     newValue: { status: args.newStatus },
   }).catch((err) => console.error("[audit] sign-off withdrawn:", err));
 }
