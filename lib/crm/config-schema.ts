@@ -7,13 +7,10 @@
  * or a CLOSE_FIELD_IDS that is not a JSON object, is dropped with one warning.
  */
 import { z } from "zod";
+import { trimmed } from "@/lib/env-value";
 import { CLOSE_FIELD_KEYS, type CloseFieldIds } from "./fields";
 
 const CONFIGURABLE = new Set<string>([...CLOSE_FIELD_KEYS, "leadSource"]);
-
-/** Trimmed; empty or only whitespace counts as unset. */
-const trimmed = (v: unknown): unknown =>
-  typeof v === "string" ? v.trim() || undefined : v;
 
 const parseJson = (raw: string): unknown => {
   try {

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { billingEnvShape } from "@/lib/billing/config-schema";
 import { closeEnvShape } from "@/lib/crm/config-schema";
+import { withoutBlanks } from "@/lib/env-value";
 
 const envSchema = z.object({
   // Required always
@@ -116,11 +117,18 @@ const envSchema = z.object({
   // protocol requires. Unset on a self-hosted instance means no
   // submission and no key file, which is the correct default: a
   // self-hoster must not ping search engines with someone else's key.
-  // Must be 8–128 hex-ish characters per the IndexNow spec.
+  // Must be 8–128 hex-ish characters per the IndexNow spec. A key that is not
+  // one switches submission off with a warning; it does not stop the app.
   INDEXNOW_KEY: z
     .string()
-    .regex(/^[A-Za-z0-9-]{8,128}$/, "INDEXNOW_KEY must be 8-128 chars of [A-Za-z0-9-]")
-    .optional(),
+    .regex(/^[A-Za-z0-9-]{8,128}$/)
+    .optional()
+    .catch(() => {
+      console.warn(
+        "[env] INDEXNOW_KEY must be 8-128 chars of [A-Za-z0-9-]; IndexNow is off",
+      );
+      return undefined;
+    }),
 
   // Billing through Qonto — optional. Unset credentials mean no invoicing: the
   // order page and the billing routes stay unreachable, which is the correct
@@ -161,7 +169,7 @@ function validateEnv() {
     return process.env as unknown as z.infer<typeof envSchema>;
   }
 
-  const result = envSchema.safeParse(process.env);
+  const result = envSchema.safeParse(withoutBlanks(process.env));
 
   if (!result.success) {
     const formatted = result.error.issues

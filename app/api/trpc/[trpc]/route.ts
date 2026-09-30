@@ -1,4 +1,6 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+import { TRPC_MAX_BATCH_SIZE } from "@/lib/trpc/batch";
+import { checkTransport } from "@/lib/trpc/request-guard";
 import { createTRPCContext } from "@/server/trpc/init";
 import { appRouter } from "@/server/trpc/router";
 
@@ -18,13 +20,23 @@ import { appRouter } from "@/server/trpc/router";
  * Deliberately no `input`: procedure inputs carry requirement answers and
  * other company content, and a log line is the wrong place for it. The stack
  * is kept for unexpected errors only, where it is the whole point, and dropped
- * for the intentional ones, where it is noise.
+ * for the intentional ones, where it is noise. The client gets neither the stack nor an unexpected
+ * error's text: the errorFormatter (packages/isms-trpc/src/error-formatter.ts) drops the one and
+ * replaces the other, so this log line is the only place the original survives.
  */
-function handler(req: Request) {
+async function handler(req: Request): Promise<Response> {
+  const verdict = checkTransport(req.method, req.headers);
+  if (!verdict.ok) {
+    console.warn(
+      `[trpc] ${req.method} ${new URL(req.url).pathname} refused: ${verdict.status}`,
+    );
+    return new Response(verdict.message, { status: verdict.status });
+  }
   return fetchRequestHandler({
     endpoint: "/api/trpc",
     req,
     router: appRouter,
+    maxBatchSize: TRPC_MAX_BATCH_SIZE,
     createContext: () => createTRPCContext({ req }),
     onError: ({ error, path, type }) => {
       const where = `${type} ${path ?? "<no path>"}`;

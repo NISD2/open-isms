@@ -1,6 +1,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import type { AuditEntry } from "./audit";
+import { formatError } from "./error-formatter";
 
 /**
  * Minimum session shape required by the auth-gated procedures.
@@ -50,7 +51,9 @@ export interface TRPCSetupOptions {
  * routers can keep importing `protectedProcedure` etc. unchanged.
  */
 export function createTRPCSetup<TContext extends BaseContext>(options: TRPCSetupOptions) {
-  const t = initTRPC.context<TContext>().create({ transformer: superjson });
+  const t = initTRPC
+    .context<TContext>()
+    .create({ transformer: superjson, errorFormatter: formatError });
 
   // The company a row is filed under decides who can read it (audit.list
   // filters on company_id), so the scope is fixed per procedure tier and
