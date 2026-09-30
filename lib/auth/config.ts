@@ -100,14 +100,15 @@ const LOGIN_MAX_PER_IP = 30;
 /**
  * Per email caps guessing at one account; per IP caps one source trying a
  * password across many accounts, which the email key alone never slowed.
- * Both are counted on every attempt. An "unknown" IP (self-hosted without a
- * proxy) would put every visitor in one bucket, so it gets the email cap only.
+ * The IP goes first and stops the check, so a source over its budget no longer
+ * counts against the emails it names and can lock out at most three accounts
+ * per window. An "unknown" IP would put every visitor in one bucket, so it
+ * gets the email cap only.
  */
 function isLoginAllowed(email: string, ip: string): boolean {
-  const byEmail = rateLimit(`login:email:${email}`, LOGIN_MAX_PER_EMAIL, LOGIN_WINDOW_MS);
   const byIp =
     ip === "unknown" || rateLimit(`login:ip:${ip}`, LOGIN_MAX_PER_IP, LOGIN_WINDOW_MS);
-  return byEmail && byIp;
+  return byIp && rateLimit(`login:email:${email}`, LOGIN_MAX_PER_EMAIL, LOGIN_WINDOW_MS);
 }
 
 const providers: Provider[] = [
