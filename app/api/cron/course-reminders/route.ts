@@ -19,18 +19,19 @@
  * Security: Bearer token from CRON_SECRET env var.
  * Schedule: Vercel Cron at 07:00 UTC (09:00 CET).
  */
-import { NextRequest, NextResponse } from "next/server";
 import { and, eq, inArray, sql } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { notification, user } from "@/schema";
+import { type NextRequest, NextResponse } from "next/server";
 import { logAudit } from "@/lib/audit";
-import { env, mailSupportEmail } from "@/lib/env";
 import { verifyCronBearer } from "@/lib/cron/auth";
-import { getAppUrl } from "@/lib/utils";
-import { sendMail, courseFollowupEmail } from "@/lib/mail";
+import { db } from "@/lib/db";
+import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
+import { env, mailSupportEmail } from "@/lib/env";
+import { courseFollowupEmail, sendMail } from "@/lib/mail";
+import { maskAddressesIn } from "@/lib/mail/mask-address";
 import { FROM_NAME_PERSONAL } from "@/lib/mail/resend";
 import { loadCourse } from "@/lib/training/course-loader";
-import { unsubscribeUrl as buildUnsubscribeUrl } from "@/lib/email/unsubscribe";
+import { getAppUrl } from "@/lib/utils";
+import { notification, user } from "@/schema";
 
 export const dynamic = "force-dynamic";
 
@@ -263,14 +264,16 @@ export async function GET(req: NextRequest) {
             // userId null by cron convention: rows with a non-null userId
             // mean "a person did something" (journey idle detection and the
             // lifecycle dormancy check both filter on it), and a failed
-            // send is the cron's doing, not the recipient's.
+            // send is the cron's doing, not the recipient's. The recipient
+            // is named by id: the row needs no address, and one in free
+            // text is personal data every later reader of the log sees.
             logAudit({
               companyId: meta.companyId,
               userId: null,
               action: "email.course_followup_failed",
               entityType: "notification",
               entityId: firstNotificationId,
-              description: `Course follow-up to ${u.email} failed`,
+              description: `Course follow-up to user ${u.id} failed`,
             });
           }
         })
@@ -281,7 +284,7 @@ export async function GET(req: NextRequest) {
             action: "email.course_followup_failed",
             entityType: "notification",
             entityId: firstNotificationId,
-            description: `Course follow-up to ${u.email} threw: ${err instanceof Error ? err.message : "unknown"}`,
+            description: `Course follow-up to user ${u.id} threw: ${err instanceof Error ? maskAddressesIn(err.message) : "unknown"}`,
           });
         });
 

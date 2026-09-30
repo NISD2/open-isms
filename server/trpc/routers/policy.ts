@@ -5,6 +5,7 @@ import {
   invalidateModuleSignOffs,
   recheckModuleRequirements,
 } from "@/lib/compliance/module-recheck";
+import { companyUploadPrefixes } from "@/lib/storage/object-key";
 import { policy, policyAcknowledgment } from "@/schema";
 import { policyInsertSchema, policyUpdateSchema } from "@/schema/validators";
 import { assertOwnObjectKey } from "../guards";
@@ -15,7 +16,7 @@ import { companyProcedure, router } from "../init";
  * must put them here. Until then this keeps a stored key inside the company's own folder, so a
  * download built on the column cannot be pointed at another company's object.
  */
-const policyFilePrefix = (companyId: string) => `companies/${companyId}/policies/`;
+const policyFilePrefix = companyUploadPrefixes.policyFiles;
 
 export const policyRouter = router({
   list: companyProcedure.query(async ({ ctx }) => {

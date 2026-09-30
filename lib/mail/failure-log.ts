@@ -1,5 +1,6 @@
 import "@/lib/server-guard";
 import { logAudit } from "@/lib/audit";
+import { maskAddressesIn } from "./mask-address";
 
 /** The audit action the platform-admin email page reads back. */
 export const EMAIL_FAILURE_ACTION = "email.send_failed";
@@ -34,10 +35,16 @@ export async function recordEmailFailure(input: {
   readonly companyId?: string | null;
   readonly userId?: string | null;
 }): Promise<void> {
-  const reason = input.error instanceof Error ? input.error.message : String(input.error);
+  // A transport's refusal often quotes the address it refused
+  // ("550 5.1.1 <anna@kunde.de>: Recipient address rejected").
+  const reason = maskAddressesIn(
+    input.error instanceof Error ? input.error.message : String(input.error),
+  );
   const recipient = input.recipient ?? "unknown recipient";
 
-  console.error(`[mail] send failed type=${input.emailType} to=${recipient}: ${reason}`);
+  console.error(
+    `[mail] send failed type=${input.emailType} to=${maskAddressesIn(recipient)}: ${reason}`,
+  );
 
   try {
     await logAudit({
@@ -46,11 +53,10 @@ export async function recordEmailFailure(input: {
       action: EMAIL_FAILURE_ACTION,
       entityType: "email",
       entityId: null,
-      // The address goes in newValue, not into the description, because GDPR
-      // erasure redacts the JSONB columns and leaves free text alone
-      // (lib/gdpr/erase-user.ts). An address in the description would outlive
-      // the erasure request that was supposed to remove it, and this row is
-      // rendered back out in /platform-admin.
+      // The full address goes in newValue only, which the /platform-admin email
+      // page reads back. GDPR erasure finds the row by that address even when
+      // userId is null (lib/gdpr/scrub-audit-log.ts), and the description
+      // carries none of its own.
       description: `${input.emailType} failed: ${reason}`,
       newValue: { recipient },
     });

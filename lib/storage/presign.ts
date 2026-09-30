@@ -2,6 +2,7 @@ import "@/lib/server-guard";
 import {
   DeleteObjectCommand,
   GetObjectCommand,
+  ListObjectsV2Command,
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
@@ -74,4 +75,27 @@ export async function deleteObject(key: string): Promise<void> {
     Key: key,
   });
   await s3.send(command);
+}
+
+/**
+ * Every key under a prefix. S3 answers in pages of up to 1,000, so the
+ * continuation token is followed until the listing is complete. Needs
+ * s3:ListBucket on the bucket, which the upload and download paths never did.
+ */
+export async function listObjectKeys(prefix: string): Promise<string[]> {
+  const page = async (continuationToken?: string): Promise<string[]> => {
+    const res = await s3.send(
+      new ListObjectsV2Command({
+        Bucket: BUCKET,
+        Prefix: prefix,
+        ContinuationToken: continuationToken,
+      }),
+    );
+    const keys = (res.Contents ?? []).flatMap((object) =>
+      object.Key ? [object.Key] : [],
+    );
+    if (!res.IsTruncated || !res.NextContinuationToken) return keys;
+    return [...keys, ...(await page(res.NextContinuationToken))];
+  };
+  return page();
 }

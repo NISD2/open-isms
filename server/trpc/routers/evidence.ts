@@ -3,6 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import {
+  companyUploadPrefixes,
   createPresignedGet,
   createPresignedPut,
   deleteObject,
@@ -64,7 +65,7 @@ export const evidenceRouter = router({
       // is decided by the stored Content-Type and the attachment disposition
       // on the way out, not by this column.
       const storedType = normalizeContentType(input.fileType);
-      const storageKey = `evidence/${ctx.companyId}/${input.requirementStatusId}/${randomUUID()}-${sanitizeFilename(input.fileName)}`;
+      const storageKey = `${companyUploadPrefixes.evidence(ctx.companyId)}${input.requirementStatusId}/${randomUUID()}-${sanitizeFilename(input.fileName)}`;
 
       // Create draft evidence record
       const [row] = await ctx.db

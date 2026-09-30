@@ -10,6 +10,29 @@
  */
 
 /**
+ * The folder each upload path issues a company's keys under. One list, because
+ * GDPR erasure deletes a torn-down company's files by these folders: an upload
+ * path that picked its folder somewhere else would leave that company's files
+ * in the bucket after the erasure certificate said they were gone.
+ *
+ * Archived invoices are not here. They live under `billing/<billing account>/`
+ * and are kept for the eight years § 14b UStG asks, whatever happens to the
+ * company.
+ */
+export const companyUploadPrefixes = {
+  evidence: (companyId: string) => `evidence/${companyId}/`,
+  trainingCertificates: (companyId: string) => `companies/${companyId}/training-certs/`,
+  policyFiles: (companyId: string) => `companies/${companyId}/policies/`,
+  certifications: (companyId: string) => `supplier-certifications/${companyId}/`,
+  logos: (companyId: string) => `supplier-profile/${companyId}/`,
+} as const;
+
+/** Every upload folder of one company. */
+export function companyUploadFolders(companyId: string): string[] {
+  return Object.values(companyUploadPrefixes).map((prefix) => prefix(companyId));
+}
+
+/**
  * Reduce a caller-supplied filename to the character set an object key can
  * carry without surprises. Anything outside `[A-Za-z0-9._-]` becomes `_`.
  *

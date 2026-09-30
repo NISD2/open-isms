@@ -15,19 +15,35 @@
  *      data down in FK-safe order. Members who belong to no other company are
  *      erased with it; members who also belong elsewhere keep their account and
  *      lose only this membership;
- *   6. returns a structured {@link ErasureScope} describing exactly what happened.
+ *   6. returns a structured {@link ErasureScope} describing exactly what happened;
+ *   7. after the transaction commits, deletes a torn-down company's stored
+ *      files from object storage (./stored-files.ts).
  *
  * Multi-tenant safety: every attribution-severing statement filters by the
  * subject's userId, so it only ever touches rows attributed to THIS person.
  * Company data shared with other members is never deleted — only detached from
  * the erased user — unless the subject owns the company.
  *
- * The whole thing runs inside one transaction (see {@link eraseUser}); any
- * failure rolls the entire erasure back, so a partial deletion is impossible.
+ * The database part runs inside one transaction (see {@link eraseUser}); any
+ * failure rolls it all back, so a partial deletion is impossible. Stored files
+ * cannot join that transaction, so they go after it commits, and a file that
+ * cannot be deleted is recorded and retried rather than undoing the erasure.
  */
 import { createHash, createHmac } from "node:crypto";
 import type { InferSelectModel } from "drizzle-orm";
-import { and, eq, gte, inArray, isNotNull, isNull, lt, ne, or, sql } from "drizzle-orm";
+import {
+  and,
+  desc,
+  eq,
+  gte,
+  inArray,
+  isNotNull,
+  isNull,
+  lt,
+  ne,
+  or,
+  sql,
+} from "drizzle-orm";
 import { logAudit } from "@/lib/audit";
 import { deleteBillingAccountIfUnused } from "@/lib/billing/accounts";
 import { type DbOrTx, db } from "@/lib/db";
@@ -36,6 +52,7 @@ import {
   isMemberOf,
   leaveCompany,
 } from "@/lib/organization/membership";
+import { deleteObject, listObjectKeys } from "@/lib/storage";
 import type { ErasureMethod, ErasureScope } from "@/schema";
 // Remaining table objects, kept in a second import to keep the list readable.
 import {
@@ -92,9 +109,29 @@ import {
   user,
   vulnerability,
 } from "@/schema";
+import { alertGdprOperators } from "./alert";
 import { redactPiiInJson } from "./redact-pii";
+import { scrubAuditTrail } from "./scrub-audit-log";
+import {
+  afterRetryWindow,
+  collectCompanyFiles,
+  ERASURE_FILE_RETRY_DAYS,
+  ERASURE_FILES_ACTION,
+  type FileOutcome,
+  type FileStore,
+  fileOutcomeSchema,
+  followUp,
+  pendingOutcome,
+  retryFiles,
+  type StoredFileState,
+  type StoredFiles,
+  settleStoredFiles,
+  storedFileState,
+} from "./stored-files";
 
 type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
+
+const objectStore: FileStore = { list: listObjectKeys, remove: deleteObject };
 
 const TOMBSTONE_EMAIL = "erased-user@deleted.invalid";
 /** Marker written over an erased subject's address where a row must keep a
@@ -404,13 +441,30 @@ export interface ErasureResult {
   companyTornDown: boolean;
 }
 
-/** Runs the full erasure in a single transaction. Throws (and rolls back) on
- *  any failure, including if the subject or a durable log write fails. */
-export async function eraseUser(input: EraseUserInput): Promise<ErasureResult> {
-  return db.transaction((tx) => eraseUserInTx(tx, input));
+/** Runs the database erasure in a single transaction. Throws (and rolls back)
+ *  on any failure, including if the subject or a durable log write fails.
+ *  A torn-down company's stored files are deleted once it has committed, and
+ *  nothing about them can make this throw. */
+export async function eraseUser(
+  input: EraseUserInput,
+  store: FileStore = objectStore,
+): Promise<ErasureResult> {
+  const { result, files } = await db.transaction((tx) => eraseUserInTx(tx, input));
+  if (files) {
+    await settleStoredFiles(
+      store,
+      files,
+      (outcome) => db.transaction((tx) => recordFileOutcome(tx, result, outcome)),
+      `erasure ${result.caseRef}`,
+    );
+  }
+  return result;
 }
 
-async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResult> {
+async function eraseUserInTx(
+  tx: Tx,
+  input: EraseUserInput,
+): Promise<{ result: ErasureResult; files: StoredFiles | null }> {
   const { userId, actor, request } = input;
 
   const [subject] = await tx
@@ -490,6 +544,9 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
       ),
     )
     .limit(1);
+  // Read before the rows holding the keys are deleted; the files themselves
+  // are deleted by eraseUser once this transaction has committed.
+  const files = owned ? await collectCompanyFiles(tx, owned.id) : null;
 
   if (owned && teardown) {
     const { erased, kept } = teardown;
@@ -541,6 +598,13 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
           "Close (CRM contact, and the lead when the sync created it; deleted by the close-sync on its next run, which needs CLOSE_API_KEY)",
         ]
       : []),
+    // Written before the files are deleted, so this states what will happen;
+    // the certificate reads what did from the recorded outcome.
+    ...(files
+      ? [
+          "Amazon Web Services (S3 file storage: the organization's uploaded files, deleted after this record was written; the outcome is recorded under this case reference)",
+        ]
+      : []),
   );
 
   const method: ErasureMethod =
@@ -581,13 +645,21 @@ async function eraseUserInTx(tx: Tx, input: EraseUserInput): Promise<ErasureResu
     .insert(dataErasureLog)
     .values({ ...logCore, subjectEmail: subject.email, checksum })
     .returning({ id: dataErasureLog.id });
+  // In this transaction, so an erasure cannot commit without a pending
+  // outcome for the cron to find, even if nothing after the commit runs.
+  if (files) {
+    await recordFileOutcome(tx, { logId: logRow.id, caseRef }, pendingOutcome(files));
+  }
 
   return {
-    caseRef,
-    logId: logRow.id,
-    method,
-    scope,
-    companyTornDown: scope.companyTornDown,
+    result: {
+      caseRef,
+      logId: logRow.id,
+      method,
+      scope,
+      companyTornDown: scope.companyTornDown,
+    },
+    files,
   };
 }
 
@@ -969,28 +1041,11 @@ async function erasePerson(
       .returning(),
   );
 
-  // audit_log: sever the userId link AND scrub the subject's PII in the JSONB.
-  const auditRows = await tx
-    .select({
-      id: auditLog.id,
-      previousValue: auditLog.previousValue,
-      newValue: auditLog.newValue,
-    })
-    .from(auditLog)
-    .where(eq(auditLog.userId, userId));
-  for (const r of auditRows) {
-    await tx
-      .update(auditLog)
-      .set({
-        userId: null,
-        previousValue: redact(r.previousValue),
-        newValue: redact(r.newValue),
-      })
-      .where(eq(auditLog.id, r.id));
-  }
-  if (auditRows.length)
-    scope.anonymized["audit_log"] =
-      (scope.anonymized["audit_log"] ?? 0) + auditRows.length;
+  // audit_log: sever the userId link and scrub the subject's PII, on the rows
+  // they wrote and on the rows that name their address without a user id.
+  const auditRows = await scrubAuditTrail(tx, { userId, email }, redact);
+  if (auditRows > 0)
+    scope.anonymized.audit_log = (scope.anonymized.audit_log ?? 0) + auditRows;
 
   // Email-keyed rows no FK reaches.
   await del("email_otp", () =>
@@ -1415,4 +1470,157 @@ export async function purgeExpiredErasureRecords(now: Date): Promise<number> {
     )
     .returning({ id: dataErasureLog.id });
   return rows.length;
+}
+
+// ── Stored files after commit ────────────────────────────────────────────────
+
+/**
+ * Record what happened to an erasure's files. The erasure record is
+ * checksummed over its scope when it is written, before the files go, so the
+ * outcome lives beside it in the audit log, keyed by the record's id.
+ *
+ * Written directly rather than through logAudit, which swallows its errors:
+ * inside the erasure transaction a failure has to roll the erasure back, and
+ * after it a failure has to reach settleStoredFiles. Each new outcome drops
+ * the keys from the ones before, so only the newest row names files.
+ */
+async function recordFileOutcome(
+  tx: DbOrTx,
+  erasure: { logId: string; caseRef: string },
+  outcome: FileOutcome,
+): Promise<void> {
+  const outstanding = outcome.pendingPrefixes.length;
+  const description = {
+    pending: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted, ${outstanding} folder(s) still to delete`,
+    complete: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted`,
+    manual: `Erasure ${erasure.caseRef}: ${outcome.deleted} stored file(s) deleted, ${outstanding} folder(s) need manual deletion, ${outcome.alerted ? "operators mailed" : "operator mail not sent yet"}`,
+  }[outcome.state];
+  await tx
+    .update(auditLog)
+    .set({ newValue: sql`${auditLog.newValue} - 'keys'` })
+    .where(
+      and(
+        eq(auditLog.action, ERASURE_FILES_ACTION),
+        eq(auditLog.entityId, erasure.logId),
+      ),
+    );
+  await tx.insert(auditLog).values({
+    companyId: null,
+    userId: null,
+    action: ERASURE_FILES_ACTION,
+    entityType: "data_erasure_log",
+    entityId: erasure.logId,
+    description,
+    newValue: outcome,
+  });
+}
+
+/** Tell the operators an erasure's files need a person, and say whether the mail went out. Folders name only the company id. */
+async function alertManualDeletion(
+  erasure: { logId: string; caseRef: string },
+  outcome: FileOutcome,
+): Promise<boolean> {
+  return alertGdprOperators(`${erasure.caseRef}: Dateien von Hand löschen`, [
+    `Löschvorgang ${erasure.caseRef}: Auch ${ERASURE_FILE_RETRY_DAYS} Tage danach sind nicht alle gespeicherten Dateien aus dem Speicher (AWS S3) gelöscht. Automatisch wird es nicht mehr versucht.`,
+    `${outcome.deleted} Datei(en) gelöscht. Offene Ordner: ${outcome.pendingPrefixes.join(", ")}.`,
+    `${outcome.keys.length} bekannte Datei(en) liegen noch dort, ${outcome.refused} wurden nicht angefasst, weil ihr Schlüssel aus dem Ordner der Firma herausführt.`,
+    `Die Schlüssel stehen in der neuesten Zeile von audit_log mit action ${ERASURE_FILES_ACTION} und entity_id ${erasure.logId}. Diese Dateien und alles Übrige in den Ordnern von Hand löschen. Das Löschzertifikat sagt, dass die Dateien zur Löschung von Hand übergeben wurden.`,
+  ]);
+}
+
+/** What happened to an erasure's stored files, for its certificate. */
+export async function erasureStoredFiles(
+  q: DbOrTx,
+  row: { id: string; companyTornDown: boolean },
+): Promise<StoredFileState> {
+  if (!row.companyTornDown) return storedFileState(false, null);
+  const [latest] = await q
+    .select({ outcome: auditLog.newValue })
+    .from(auditLog)
+    .where(and(eq(auditLog.action, ERASURE_FILES_ACTION), eq(auditLog.entityId, row.id)))
+    .orderBy(desc(auditLog.createdAt))
+    .limit(1);
+  return storedFileState(true, latest?.outcome);
+}
+
+/**
+ * Retry every erasure whose files are still owed something, and return how
+ * many. Called by the deadlines cron. Every committed teardown has at least
+ * the pending outcome its transaction wrote. The folders come from the
+ * erasure record's company and the recorded keys are checked against them
+ * (retryFiles), so a damaged outcome cannot widen what is deleted. After
+ * ERASURE_FILE_RETRY_DAYS the outcome turns "manual" and the operators are
+ * mailed, again each day until the mail has actually gone out.
+ */
+export async function retryPendingErasureFiles(
+  store: FileStore = objectStore,
+  now: Date = new Date(),
+): Promise<number> {
+  const latest = await db
+    .selectDistinctOn([auditLog.entityId], {
+      logId: dataErasureLog.id,
+      caseRef: dataErasureLog.caseRef,
+      companyId: dataErasureLog.companyId,
+      erasedAt: dataErasureLog.erasedAt,
+      outcome: auditLog.newValue,
+    })
+    .from(auditLog)
+    .innerJoin(dataErasureLog, eq(dataErasureLog.id, auditLog.entityId))
+    .where(eq(auditLog.action, ERASURE_FILES_ACTION))
+    .orderBy(auditLog.entityId, desc(auditLog.createdAt));
+  const owed = latest.flatMap((row) => {
+    const parsed = fileOutcomeSchema.safeParse(row.outcome);
+    if (!parsed.success || !row.companyId) return [];
+    const next = followUp(parsed.data);
+    return next
+      ? [{ ...row, companyId: row.companyId, previous: parsed.data, next }]
+      : [];
+  });
+  for (const erasure of owed) {
+    if (erasure.next === "alert") {
+      await retryManualAlert(erasure);
+      continue;
+    }
+    await settleStoredFiles(
+      store,
+      retryFiles(erasure.companyId, erasure.previous),
+      async (outcome) => {
+        const settled = afterRetryWindow(
+          { ...outcome, deleted: erasure.previous.deleted + outcome.deleted },
+          erasure.erasedAt,
+          now,
+        );
+        const alerted =
+          settled.state === "manual" && (await alertManualDeletion(erasure, settled));
+        await db.transaction((tx) =>
+          recordFileOutcome(tx, erasure, { ...settled, alerted }),
+        );
+      },
+      `erasure ${erasure.caseRef}`,
+    );
+  }
+  return owed.length;
+}
+
+/**
+ * Mail the operators about a manual deletion whose mail has not gone out, and
+ * record it once it has. An unsent attempt adds no row: the outcome already
+ * says the mail is owed, and the cron tries again tomorrow.
+ */
+async function retryManualAlert(erasure: {
+  logId: string;
+  caseRef: string;
+  previous: FileOutcome;
+}): Promise<void> {
+  if (!(await alertManualDeletion(erasure, erasure.previous))) return;
+  await db
+    .transaction((tx) =>
+      recordFileOutcome(tx, erasure, { ...erasure.previous, alerted: true }),
+    )
+    .catch((err: unknown) =>
+      console.error(
+        `[gdpr] erasure ${erasure.caseRef}: sent operator mail not recorded:`,
+        err instanceof Error ? err.name : "unknown error",
+      ),
+    );
 }

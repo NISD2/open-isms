@@ -1,9 +1,28 @@
 import { describe, expect, test } from "bun:test";
-import { isOwnObjectKey, sanitizeFilename } from "./object-key";
+import { companyUploadFolders, isOwnObjectKey, sanitizeFilename } from "./object-key";
 
 const OWN = "11111111-1111-4111-8111-111111111111";
 const OTHER = "22222222-2222-4222-8222-222222222222";
 const prefix = `supplier-certifications/${OWN}/`;
+
+// Erasure deletes a torn-down company's files by these folders, so a folder
+// that reached past the company, or into the invoice archive, would delete
+// someone else's files.
+describe("companyUploadFolders", () => {
+  test("every folder is the company's own, closed with a slash", () => {
+    const folders = companyUploadFolders(OWN);
+    expect(folders.length).toBeGreaterThan(0);
+    for (const folder of folders) {
+      expect(folder.includes(`/${OWN}/`)).toBe(true);
+      expect(folder.endsWith("/")).toBe(true);
+    }
+    expect(companyUploadFolders(OTHER).some((f) => f.includes(OWN))).toBe(false);
+  });
+
+  test("leaves the invoice archive alone", () => {
+    expect(companyUploadFolders(OWN).some((f) => f.startsWith("billing/"))).toBe(false);
+  });
+});
 
 describe("isOwnObjectKey", () => {
   test("accepts a key its upload path issues", () => {

@@ -1,7 +1,7 @@
 /**
  * Cron Job: Daily Deadline Heartbeat
  *
- * Single daily cron (Vercel Cron or manual trigger), 7 phases:
+ * Single daily cron (Vercel Cron or manual trigger), 8 phases:
  *   1. Status transitions: nextReviewDate <= today → "needs_review"
  *   2. Backfill: NULL nextReviewDate → compute from priority
  *   3. Notification creation: schedule reminders for approaching deadlines
@@ -13,6 +13,8 @@
  *      that failed in the publish path.
  *   7. GDPR retention: minimise the raw email on erasure records past their
  *      three-year window, leaving only the pseudonymous fingerprint.
+ *   8. GDPR stored files: retry deleting a torn-down organization's files
+ *      that an erasure could not delete after it committed.
  *
  * Security: Bearer token from CRON_SECRET env var.
  * Schedule: Vercel Cron at 06:00 UTC (08:00 CET)
@@ -37,7 +39,10 @@ import { resolveRecipients } from "@/lib/compliance/resolve-recipients";
 import { verifyCronBearer } from "@/lib/cron/auth";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
-import { purgeExpiredErasureRecords } from "@/lib/gdpr/erase-user";
+import {
+  purgeExpiredErasureRecords,
+  retryPendingErasureFiles,
+} from "@/lib/gdpr/erase-user";
 import requirementsEn from "@/messages/requirements/en.json";
 import {
   company,
@@ -72,6 +77,7 @@ export async function GET(req: NextRequest) {
     phase6_supplier_events: 0,
     phase6_supplier_emails: 0,
     phase7_erasure_records_minimised: 0,
+    phase8_erasure_files_retried: 0,
   };
 
   try {
@@ -394,6 +400,27 @@ export async function GET(req: NextRequest) {
         entityType: "system",
         entityId: null,
         description: `Phase 7 erasure retention purge failed: ${message}`,
+      });
+    }
+
+    // -----------------------------------------------------------------------
+    // Phase 8: GDPR erasure — retry deleting a torn-down organization's stored
+    // files where the erasure could not finish that after it committed. The
+    // certificate says "outstanding" until this succeeds; after 14 days the
+    // platform admins are emailed to finish by hand. Isolated like 7.
+    // -----------------------------------------------------------------------
+    try {
+      stats.phase8_erasure_files_retried = await retryPendingErasureFiles();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      console.error("[cron] erasure file retry failed:", err);
+      logAudit({
+        companyId: null,
+        userId: null,
+        action: "cron.deadlines.phase8_error",
+        entityType: "system",
+        entityId: null,
+        description: `Phase 8 erasure file retry failed: ${message}`,
       });
     }
 

@@ -8,7 +8,9 @@
 import { describe, expect, mock, test } from "bun:test";
 import type { SQL } from "drizzle-orm";
 import { PgDialect } from "drizzle-orm/pg-core";
+import { CATEGORY_SCHEMAS } from "@/lib/compliance/category-schemas";
 import { REQUIREMENT_FIELD_MAP } from "@/lib/compliance/requirement-fields";
+import { type FieldMeta, introspectSchema } from "@/lib/forms/schema-introspect";
 import {
   companyCategoryIntake,
   companyRequirementStatus,
@@ -41,12 +43,38 @@ function requirementsIn(categoryCode: string) {
 }
 const requirementIn = (categoryCode: string) => requirementsIn(categoryCode)[0];
 
+const GOV_FIELDS = new Map(
+  introspectSchema(CATEGORY_SCHEMAS.GOV, []).map((field) => [field.key, field]),
+);
+
+/** A value of the kind the form sends for the field. */
+function sampleAnswer(field: FieldMeta | undefined): unknown {
+  switch (field?.type) {
+    case "number":
+      return 1;
+    case "boolean":
+      return true;
+    case "enum":
+      return field.options?.[0];
+    case "date":
+      return new Date("2026-09-01");
+    default:
+      return "answered";
+  }
+}
+
 const answering = (fieldKeys: readonly string[]) =>
-  Object.fromEntries(fieldKeys.map((key) => [key, "answered"]));
+  Object.fromEntries(fieldKeys.map((key) => [key, sampleAnswer(GOV_FIELDS.get(key))]));
 
 const [GOV_REQUIREMENT, GOV_SIBLING] = requirementsIn("GOV");
 /** Answers that fill every field of GOV_REQUIREMENT. */
 const GOV_ANSWERS = answering(GOV_REQUIREMENT.fieldKeys);
+
+function govKeyOfType(type: FieldMeta["type"]): string {
+  const key = GOV_REQUIREMENT.fieldKeys.find((k) => GOV_FIELDS.get(k)?.type === type);
+  if (!key) throw new Error(`GOV ${GOV_REQUIREMENT.code} has no ${type} field`);
+  return key;
+}
 
 type Write = { op: "insert" | "update" | "delete"; table: unknown; values?: unknown };
 
@@ -201,6 +229,56 @@ describe("intake.saveRequirementAnswers", () => {
     const { saveGovRequirement, writes } = setup(GOV_OWNER);
     await saveGovRequirement();
     expect(writesTo(writes, companyCategoryIntake)).toHaveLength(1);
+  });
+
+  // The answers are rendered into the report PDF, and nine megabytes in one
+  // field made react-pdf exhaust the app container on export.
+  test("refuses an answer longer than its field allows, before writing", async () => {
+    const { caller, writes } = setup(GOV_OWNER);
+    const textKey = govKeyOfType("text");
+    await expect(
+      caller.saveRequirementAnswers({
+        assessmentId: ASSESSMENT,
+        categoryId: CATEGORY,
+        requirementCode: GOV_REQUIREMENT.code,
+        answers: { ...GOV_ANSWERS, [textKey]: "x".repeat(300) },
+      }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(writes).toEqual([]);
+  });
+
+  test("refuses an answer of the wrong kind, before writing", async () => {
+    const { caller, writes } = setup(GOV_OWNER);
+    const dateKey = govKeyOfType("date");
+    await expect(
+      caller.saveRequirementAnswers({
+        assessmentId: ASSESSMENT,
+        categoryId: CATEGORY,
+        requirementCode: GOV_REQUIREMENT.code,
+        answers: { ...GOV_ANSWERS, [dateKey]: { nested: "object" } },
+      }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(writes).toEqual([]);
+  });
+
+  test("turns away an oversized payload of unknown keys", async () => {
+    const { caller, writes } = setup(GOV_OWNER);
+    await expect(
+      caller.saveRequirementAnswers({
+        assessmentId: ASSESSMENT,
+        categoryId: CATEGORY,
+        requirementCode: GOV_REQUIREMENT.code,
+        answers: { ...GOV_ANSWERS, notAField: "x".repeat(9 * 1024 * 1024) },
+      }),
+    ).rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(writes).toEqual([]);
+  });
+
+  test("stores only the checked answers of the saved requirement", async () => {
+    const { saveGovRequirement, writes } = setup(GOV_OWNER);
+    await saveGovRequirement();
+    const [stored] = writesTo(writes, companyCategoryIntake);
+    expect(stored?.values).toMatchObject({ answers: GOV_ANSWERS });
   });
 
   test("refuses a category outside the assessment's framework", async () => {

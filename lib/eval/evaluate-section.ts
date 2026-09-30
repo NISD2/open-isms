@@ -1,11 +1,11 @@
 import "@/lib/server-guard";
-import { generateObject } from "ai";
 import { createXai } from "@ai-sdk/xai";
-import { sectionEvaluationSchema, type SectionEvaluation } from "./eval-schema";
-import { BSIG_SECTIONS } from "./bsig-sections";
-import type { ReportCategory } from "@/lib/pdf/load-report-data";
-
+import { generateObject } from "ai";
+import { clipAnswer } from "@/lib/compliance/intake-answers";
 import { env } from "@/lib/env";
+import type { ReportCategory } from "@/lib/pdf/load-report-data";
+import { BSIG_SECTIONS } from "./bsig-sections";
+import { type SectionEvaluation, sectionEvaluationSchema } from "./eval-schema";
 
 const xai = createXai({ apiKey: env.XAI_API_KEY });
 
@@ -70,7 +70,8 @@ function formatValue(val: unknown): string {
   if (val === false) return "No";
   if (val === null || val === undefined) return "Not provided";
   if (val instanceof Date) return val.toISOString().slice(0, 10);
-  return String(val);
+  // A stored answer written before saves were checked can be megabytes long.
+  return clipAnswer(String(val));
 }
 
 export async function evaluateSection(
@@ -82,7 +83,8 @@ export async function evaluateSection(
     throw new Error(`Unknown category code: ${category.code}`);
   }
 
-  const hasIntake = category.intakeAnswers && Object.keys(category.intakeAnswers).length > 0;
+  const hasIntake =
+    category.intakeAnswers && Object.keys(category.intakeAnswers).length > 0;
 
   const systemParts = [
     "You are a BSIG/NIS2 compliance auditor evaluating an organization's audit readiness.",

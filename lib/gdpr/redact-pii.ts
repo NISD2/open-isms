@@ -6,10 +6,13 @@
  * code that decides what survives an erasure, so it is exactly the code that
  * should have tests.
  */
+import { replaceAddress } from "./address-match";
+
 /** Shortest name we will redact on. Below this a name is more likely to be a
  *  fragment of an unrelated word than a match, and over-redaction silently
- *  damages other people's compliance evidence. Emails have no floor: they are
- *  distinctive enough that a substring hit is a real hit. */
+ *  damages other people's compliance evidence. Emails have no floor, but match
+ *  only as a whole address (./address-match.ts): as a bare substring, erasing
+ *  anna@web.de rewrote hanna@web.de. */
 const MIN_NAME_NEEDLE = 4;
 
 /** Word-boundary wrapper for a name. \b is ASCII-only in JS, which is wrong for
@@ -27,8 +30,8 @@ function escapeRe(s: string): string {
  *  still matched — string-replacing over JSON text would miss their escaped
  *  encodings. Literal free-text PII redaction, not code/structure parsing.
  *
- *  Names match on word boundaries, emails anywhere. A bare substring match on a
- *  name is how erasing one person corrupts another's records: since this is now
+ *  Names match on word boundaries, emails as whole addresses. A bare substring
+ *  match is how erasing one person corrupts another's records: since this is now
  *  applied to every frozen sign-off snapshot in the company, a subject called
  *  "Ott" would rewrite "Bottrop", "Schrott" and "Ottomotor" inside a different
  *  employee's evidence, and a snapshot is meant to be the immutable record of
@@ -39,25 +42,22 @@ export function redactPiiInJson<T>(
   needles: string[],
   opts?: { skipped?: string[] },
 ): T {
-  const patterns = needles
+  const redactions = needles
     .map((n) => n?.trim())
     .filter((n): n is string => !!n)
-    .flatMap((n) => {
-      if (n.includes("@")) return [new RegExp(escapeRe(n), "gi")];
+    .flatMap((n): Array<(text: string) => string> => {
+      if (n.includes("@")) return [(text) => replaceAddress(text, n, "[erased]")];
       if (n.length < MIN_NAME_NEEDLE) {
         opts?.skipped?.push(n);
         return [];
       }
-      return [
-        new RegExp(`(?<!${NAME_EDGE})${escapeRe(n)}(?!${NAME_EDGE})`, "gi"),
-      ];
+      const name = new RegExp(`(?<!${NAME_EDGE})${escapeRe(n)}(?!${NAME_EDGE})`, "gi");
+      return [(text) => text.replace(name, "[erased]")];
     });
-  if (patterns.length === 0) return value;
+  if (redactions.length === 0) return value;
   const walk = (v: unknown): unknown => {
     if (typeof v === "string") {
-      let out = v;
-      for (const re of patterns) out = out.replace(re, "[erased]");
-      return out;
+      return redactions.reduce((out, redact) => redact(out), v);
     }
     if (Array.isArray(v)) return v.map(walk);
     if (v && typeof v === "object") {

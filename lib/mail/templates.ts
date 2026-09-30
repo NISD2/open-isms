@@ -371,6 +371,24 @@ export function billingAlertEmail(opts: {
   };
 }
 
+/** To the operators: a GDPR erasure that needs a person to finish it. Plain facts, one per line. */
+export function gdprAlertEmail(opts: {
+  readonly subject: string;
+  readonly lines: readonly string[];
+}): EmailContent {
+  const rows = opts.lines
+    .map(
+      (l) =>
+        `<p style="color: ${BRAND.foreground}; font-size: 14px; margin: 0 0 8px;">${escapeHtml(l)}</p>`,
+    )
+    .join("\n");
+  return {
+    subject: `[DSGVO] ${safeHeader(opts.subject)}`,
+    html: emailLayout(rows),
+    text: opts.lines.join("\n"),
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Deadline Reminder
 // ---------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 /**
  * Shared formatting utilities for PDF document rendering.
  */
+import { clipAnswer } from "@/lib/compliance/intake-answers";
 
 export type PdfLocale = "en" | "de";
 
@@ -66,5 +67,8 @@ export function formatFieldValue(
   }
 
   if (typeof value === "number") return String(value);
-  return String(value).replace(/_/g, " ");
+  // Clipped before anything else touches it: react-pdf lays the document out
+  // synchronously, and one oversized stored answer was enough to exhaust the
+  // container's memory.
+  return clipAnswer(String(value)).replace(/_/g, " ");
 }

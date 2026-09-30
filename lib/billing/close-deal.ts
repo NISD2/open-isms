@@ -19,6 +19,7 @@ import { and, eq } from "drizzle-orm";
 import { createSetupToken } from "@/lib/auth/setup-link";
 import type { Database, DbOrTx } from "@/lib/db";
 import { accountSetupEmail, sendMail } from "@/lib/mail";
+import { maskAddress } from "@/lib/mail/mask-address";
 import { billingAccount, company, user } from "@/schema";
 import { createDraftCompany } from "@/server/trpc/helpers/setup-helpers";
 import { hasGotIn } from "./access";
@@ -162,7 +163,7 @@ const sendSetupLink = async (
     )
     .then((r) => r.success)
     .catch((err: unknown) => {
-      console.error(`[billing] setup link for ${email} failed`, err);
+      console.error(`[billing] setup link for ${maskAddress(email)} failed`, err);
       return false;
     });
   if (!sent) {

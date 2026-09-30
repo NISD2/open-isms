@@ -53,6 +53,16 @@ describe("redactPiiInJson", () => {
     });
   });
 
+  // As a bare substring, erasing anna@web.de rewrote these three.
+  test("leaves other people's addresses that contain the email alone", () => {
+    const others = {
+      a: "hanna@web.de",
+      b: "susanna@web.de",
+      c: "anna@web.de.example.org",
+    };
+    expect(redactPiiInJson(others, ["anna@web.de"])).toEqual(others);
+  });
+
   test("walks nested structures and arrays", () => {
     expect(
       redactPiiInJson({ team: [{ lead: "Anna Muster" }, { lead: "Bernd Schwieger" }] }, [
