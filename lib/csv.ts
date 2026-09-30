@@ -8,8 +8,9 @@ const FORMULA_STARTS = ["=", "+", "-", "@", "\t", "\r"] as const;
 const NEEDS_QUOTES = [",", '"', "\r", "\n"] as const;
 
 /**
- * One CSV field, safe to open in a spreadsheet. The leading quote is what spreadsheets read as
- * "this is text"; it shows in a plain text editor, which is the price of the cell not running.
+ * One CSV field, safe to open in a spreadsheet. The leading quote makes the cell text rather
+ * than a formula; it can stay visible in the cell and always shows in a text editor, which is the
+ * price of the cell not running. Only free text starting with one of FORMULA_STARTS gets it.
  */
 export function csvCell(value: string): string {
   const inert = FORMULA_STARTS.some((start) => value.startsWith(start))

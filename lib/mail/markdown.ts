@@ -27,7 +27,12 @@ export async function renderNewsletterMarkdown(markdown: string): Promise<string
   return String(result);
 }
 
-const SAFE_PROTOCOLS: ReadonlySet<string> = new Set(["http:", "https:", "mailto:"]);
+const SAFE_PROTOCOLS: ReadonlySet<string> = new Set([
+  "http:",
+  "https:",
+  "mailto:",
+  "tel:",
+]);
 const URL_PROPERTIES = ["href", "src"] as const;
 const BASE = "http://local.invalid";
 

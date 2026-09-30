@@ -15,8 +15,9 @@ declare global {
 
 /**
  * The Umami tag, left out on pages whose URL is a credential (lib/analytics/token-routes.ts).
- * Query strings and fragments are never sent: sign-in carries an invite path in ?callbackUrl=,
- * and the asset inventory keeps a company's whole list in the fragment.
+ * Fragments are never sent (the asset inventory keeps a company's whole list there), and the
+ * before-send hook keeps only utm_* from the query string, since sign-in carries an invite path
+ * in ?callbackUrl=.
  */
 export function Analytics({ src, websiteId }: { src: string; websiteId: string }) {
   const pathname = usePathname();
@@ -30,7 +31,6 @@ export function Analytics({ src, websiteId }: { src: string; websiteId: string }
       defer
       src={src}
       data-website-id={websiteId}
-      data-exclude-search="true"
       data-exclude-hash="true"
       data-before-send={BEFORE_SEND}
     />

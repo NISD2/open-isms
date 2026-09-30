@@ -55,7 +55,19 @@ describe("analyticsBeforeSend", () => {
 
   test("passes an ordinary page view through unchanged", () => {
     const payload = event("https://nisd2.eu/journey", "https://www.google.com/");
-    expect(analyticsBeforeSend("event", payload)).toBe(payload);
+    expect(analyticsBeforeSend("event", payload)).toEqual(payload);
+  });
+
+  test("keeps only campaign tags from the query string, in the form it came in", () => {
+    const payload = event(
+      "/de/journey?utm_source=digest&utm_campaign=weekly&callbackUrl=/invite/5f0c",
+      "https://nisd2.eu/auth/signin?callbackUrl=%2Finvite%2F5f0c",
+    );
+    expect(analyticsBeforeSend("event", payload)).toEqual({
+      ...payload,
+      url: "/de/journey?utm_source=digest&utm_campaign=weekly",
+      referrer: "https://nisd2.eu/auth/signin",
+    });
   });
 
   test("drops a view of a token page, full URL or path", () => {

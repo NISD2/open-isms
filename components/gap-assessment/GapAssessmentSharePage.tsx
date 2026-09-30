@@ -28,7 +28,8 @@ export function GapAssessmentSharePage({
 }: GapAssessmentSharePageProps) {
   const [passwordInput, setPasswordInput] = useState("");
 
-  const unlock = trpc.gapAssessment.openShared.useMutation();
+  // The page shows its own error; an empty handler keeps the app-wide toast out of it.
+  const unlock = trpc.gapAssessment.openShared.useMutation({ onError: () => {} });
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
