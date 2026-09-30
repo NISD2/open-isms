@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Invito inviato a {email}",
+      "notEmailed": "Invito creato per {email}. Questa istanza non invia email, quindi invia tu il link.",
       "linkCopied": "Link copiato"
     },
     "invalidTitle": "Invito non valido",
@@ -72,6 +73,14 @@
       "hr_director": "Direttore delle risorse umane",
       "legal": "Responsabile legale / della conformità",
       "dpo": "Responsabile della protezione dei dati"
+    },
+    "memberRole": {
+      "admin": "Amministratore",
+      "member": "Membro",
+      "reviewer": "Revisore",
+      "legal_reviewer": "Revisore legale",
+      "owner": "Ha creato l'organizzazione",
+      "success": "Ruolo di accesso aggiornato"
     }
   }
 }

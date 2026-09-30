@@ -40,6 +40,15 @@
       "incorrect": "Incorect"
     },
     "progressLabel": "{completed} din {total} lecții finalizate",
+    "participants": "{count, plural, one {# persoană a început} few {# persoane au început} other {# de persoane au început}}",
+    "publicOverview": {
+      "metaTitle": "Cursuri despre NIS 2 și Cyber Resilience Act",
+      "metaDescription": "Trei cursuri, deschise sub licența CC BY 4.0: pentru conducere, un exercițiu tabletop și SBOM conform Cyber Resilience Act.",
+      "title": "Cursuri",
+      "subtitle": "Deschise sub licența CC BY 4.0. Autentificați-vă și începeți imediat.",
+      "length": "{lessons} lecții, aproximativ {minutes} minute",
+      "cta": "Mergi la curs"
+    },
     "estimatedTime": "{minutes} min de citit",
     "certificate": {
       "lockedTitle": "Certificat de absolvire",
@@ -58,6 +67,13 @@
       "download": "Descarcă certificatul",
       "downloadHint": "Se descarcă ca PDF, pe care îl poți salva sau tipări.",
       "finishEditingHint": "Salvează sau anulează mai întâi modificarea numelui."
+    },
+    "overview": {
+      "lessonCount": "{count, plural, one {# lecție} few {# lecții} other {# de lecții}}",
+      "moduleCount": "{count, plural, one {# modul} few {# module} other {# de module}}",
+      "minutes": "{minutes} min",
+      "duration": "{hours} h {minutes} min",
+      "moduleProgress": "{completed}/{total} lecții"
     }
   }
 }

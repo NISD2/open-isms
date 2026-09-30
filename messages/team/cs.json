@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Pozvánka odeslána na {email}",
+      "notEmailed": "Pozvánka pro {email} byla vytvořena. Tato instance neodesílá e-maily, pošlete proto odkaz sami.",
       "linkCopied": "Odkaz zkopírován"
     },
     "invalidTitle": "Neplatná pozvánka",
@@ -72,6 +73,14 @@
       "hr_director": "Personální ředitel",
       "legal": "Právní / Compliance referent",
       "dpo": "Pověřenec pro ochranu osobních údajů"
+    },
+    "memberRole": {
+      "admin": "Administrátor",
+      "member": "Člen",
+      "reviewer": "Revizor",
+      "legal_reviewer": "Právní revizor",
+      "owner": "Založil(a) organizaci",
+      "success": "Přístupová role změněna"
     }
   }
 }

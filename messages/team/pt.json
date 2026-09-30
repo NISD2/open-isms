@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Convite enviado para {email}",
+      "notEmailed": "Convite criado para {email}. Esta instância não envia emails, por isso envie-lhe a ligação diretamente.",
       "linkCopied": "Ligação copiada"
     },
     "invalidTitle": "Convite inválido",
@@ -72,6 +73,14 @@
       "hr_director": "Diretor de Recursos Humanos",
       "legal": "Responsável Jurídico / de Conformidade",
       "dpo": "Encarregado da Proteção de Dados"
+    },
+    "memberRole": {
+      "admin": "Administrador",
+      "member": "Membro",
+      "reviewer": "Revisor",
+      "legal_reviewer": "Revisor jurídico",
+      "owner": "Criou a organização",
+      "success": "Função de acesso atualizada"
     }
   }
 }

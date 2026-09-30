@@ -43,6 +43,7 @@
     },
     "inline": {
       "sent": "Invitación enviada a {email}",
+      "notEmailed": "Invitación creada para {email}. Esta instancia no envía correos electrónicos, así que envíele el enlace usted mismo.",
       "linkCopied": "Enlace copiado"
     },
     "invalidTitle": "Invitación no válida",
@@ -72,6 +73,14 @@
       "hr_director": "Director de RR. HH.",
       "legal": "Responsable jurídico / de cumplimiento",
       "dpo": "Delegado de protección de datos"
+    },
+    "memberRole": {
+      "admin": "Administrador",
+      "member": "Miembro",
+      "reviewer": "Revisor",
+      "legal_reviewer": "Revisor jurídico",
+      "owner": "Creó la organización",
+      "success": "Rol de acceso actualizado"
     }
   }
 }
