@@ -14,7 +14,8 @@ const envSchema = z.object({
 
   // AWS S3 — optional with defaults
   AWS_S3_REGION: z.string().default("eu-north-1"),
-  AWS_S3_BUCKET: z.string().default("nisd2-dev-evidence"),
+  // Matches the bucket the compose MinIO init creates when AWS_S3_BUCKET is unset.
+  AWS_S3_BUCKET: z.string().default("evidence"),
   AWS_ACCESS_KEY_ID: z.string().default(""),
   AWS_SECRET_ACCESS_KEY: z.string().default(""),
   // S3-compatible endpoint override (MinIO in the e2e and self-host stacks).

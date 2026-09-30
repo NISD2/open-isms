@@ -96,7 +96,9 @@ function processCompanyData(company: ImplisenseCompany) {
       id: company.id,
       name: company.name,
       legalForm: company.legalForm,
-      address: `${company.street}, ${company.zip} ${company.city}`,
+      address: [company.street, [company.zip, company.city].filter(Boolean).join(" ")]
+        .filter(Boolean)
+        .join(", "),
       city: company.city,
       purpose: company.purpose,
       capital: company.capital,

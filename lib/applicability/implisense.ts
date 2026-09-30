@@ -26,33 +26,41 @@ export const implisenseSearchSchema = z.object({
 
 const codeAndName = z.object({ code: z.string(), name: z.string() });
 
+/**
+ * Missing or null both read as null. Public bodies (Zweckverband, Landkreis) can come back without
+ * a legal form or size, and a lookup that failed on a field it does not need would read as "not
+ * found" and pay for the same call again on every retry, since nothing gets cached.
+ */
+const optionalField = <T extends z.ZodType>(schema: T) =>
+  schema.nullish().transform((value) => value ?? null);
+
 /** Only the fields the applicability check reads; anything else in the answer is dropped. */
 export const implisenseCompanySchema = z.object({
   id: implisenseIdSchema,
   name: z.string(),
-  street: z.string(),
-  zip: z.string(),
+  street: optionalField(z.string()),
+  zip: optionalField(z.string()),
   city: z.string(),
-  legalForm: z.string(),
-  purpose: z.string().nullable(),
-  capital: z.string().nullable(),
-  foundingDate: z.number().nullable(),
-  size: codeAndName.nullable(),
-  revenue: codeAndName.nullable(),
-  industries: z
-    .object({
+  legalForm: optionalField(z.string()),
+  purpose: optionalField(z.string()),
+  capital: optionalField(z.string()),
+  foundingDate: optionalField(z.number()),
+  size: optionalField(codeAndName),
+  revenue: optionalField(codeAndName),
+  industries: optionalField(
+    z.object({
       wz2008: z.array(
         z.object({ type: z.string(), code: z.string(), title: z.string() }),
       ),
-    })
-    .nullable(),
-  externalIds: z
-    .object({
+    }),
+  ),
+  externalIds: optionalField(
+    z.object({
       hr: z
         .object({ court: z.string(), type: z.string(), number: z.string() })
         .optional(),
-    })
-    .nullable(),
+    }),
+  ),
 });
 
 export type ImplisenseSearchResult = z.infer<typeof implisenseSearchSchema>;

@@ -14,8 +14,8 @@ export const UNEXPECTED_ERROR_MESSAGE = "Something went wrong. Please try again.
  * message takes the cause's message, so a message copied from the cause is one nobody chose.
  *
  * Input validation is the exception: its message is zod's issue list, the path and the rule that
- * failed but never the submitted value, which a form can use and which says nothing the public
- * source does not.
+ * failed, which a form can use and which says nothing the public source does not. It carries no
+ * submitted value, only the caller's own key names where a strict object refuses an unknown key.
  */
 function isChosenMessage(error: TRPCError): boolean {
   if (error.code === "INTERNAL_SERVER_ERROR") return false;
