@@ -72,9 +72,9 @@
     {
       // The Durchgang core is a package in all but name: pure data and rules, reached only
       // through lib/durchgang/index.ts. Rendering, requests and the database stay outside, so
-      // moving it into packages/ later is a move and not a rewrite. Type-only imports from
-      // @/schema are fine; they reach no bundle.
-      "includes": ["lib/durchgang/**"],
+      // moving it into packages/ later is a move and not a rewrite. Row types come from
+      // @/schema/types; the tables themselves stay out. Tests are exempt: they are never bundled.
+      "includes": ["lib/durchgang/**", "!lib/durchgang/**/*.test.ts"],
       "linter": {
         "rules": {
           "style": {
@@ -93,6 +93,12 @@
                       "next-intl/**",
                       "drizzle-orm",
                       "drizzle-orm/**",
+                      "@/schema",
+                      "@/schema/tables/**",
+                      "@/schema/modules/**",
+                      "@nisd2/isms-schema",
+                      "@nisd2/isms-schema/**",
+                      "@nisd2/grc-data-model/schema",
                       "@/app/**",
                       "@/components/**",
                       "@/server/**",

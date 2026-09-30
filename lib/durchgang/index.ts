@@ -10,7 +10,13 @@ import type { AnyItem } from "./types";
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, resolveItem } from "./copy";
 export type { DurchgangEvent, ItemState, StatusRow, WaitReason } from "./state";
-export { DURCHGANG_ACTIONS, itemState, resumeAt, WAIT_REASONS } from "./state";
+export {
+  DURCHGANG_ACTIONS,
+  itemState,
+  resumeAt,
+  STATE_ACTIONS,
+  WAIT_REASONS,
+} from "./state";
 export type {
   Adoptable,
   AnyItem,

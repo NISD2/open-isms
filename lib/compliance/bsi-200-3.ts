@@ -3,8 +3,9 @@
  * bands (Tabelle 8), four damage levels (Tabelle 9), four risk categories (Tabelle 10) and the
  * matrix that assigns a category to each pair (Abbildung 3).
  *
- * The one copy in the codebase. The seeded methodology rows, the Durchgang's matrix screen and
- * its worked example all read from here, so the scales and the matrix cannot drift apart.
+ * The one copy in code. The seeded methodology rows, the Durchgang's matrix screen and its worked
+ * example read from here. The requirement page's 2.1 guidance (data/guidance) shortens the same
+ * scales in JSON, which cannot import this file; a test keeps its labels in step.
  *
  * Both languages are the BSI's own words: the German standard (pages 26 to 28) and the BSI's
  * English edition, Version 1.0, October 2017 (pages 21 to 23). Its figure uses shorter labels

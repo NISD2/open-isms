@@ -11,17 +11,31 @@ import { z } from "zod";
 import type { ItemState as PolicyState } from "@/lib/compliance/guided-form/policy";
 import { resumeAt as policyResumeAt } from "@/lib/compliance/guided-form/policy";
 import { hasSignOffToWithdraw } from "@/lib/compliance/sign-off-state";
-import type { AuditLog, CompanyRequirementStatus } from "@/schema";
+import type { AuditLog, CompanyRequirementStatus } from "@/schema/types";
 
 /** Why an item cannot be finished yet. Codes only: a free-text note goes to `internal_notes`. */
 export const WAIT_REASONS = ["letter", "ask", "decide", "unclear"] as const;
 export type WaitReason = (typeof WAIT_REASONS)[number];
 
-/** The audit actions the flow writes, against the requirement status row. */
+/**
+ * The audit actions the flow writes. They are logged the way `announceWithdrawal` logs a withdrawn
+ * sign-off: entity type "requirement", the requirement's id and the company. One query then finds
+ * both.
+ */
 export const DURCHGANG_ACTIONS = [
   "durchgang.waiting",
   "durchgang.resumed",
   "durchgang.item_done",
+] as const;
+
+/**
+ * Every action that moves an item: the ones the query picking `latest` reads. A withdrawn
+ * sign-off (a reopen, or an intake save on a signed item) puts the item back in progress, so a
+ * "filled" from before it must not survive it.
+ */
+export const STATE_ACTIONS = [
+  ...DURCHGANG_ACTIONS,
+  "requirement.sign_off_withdrawn",
 ] as const;
 
 /**
@@ -31,7 +45,10 @@ export const DURCHGANG_ACTIONS = [
  */
 const WAITING_VALUE = z.object({ reason: z.enum(WAIT_REASONS).nullable().catch(null) });
 
-export type StatusRow = Pick<CompanyRequirementStatus, "status" | "signedOffAt">;
+export type StatusRow = Pick<
+  CompanyRequirementStatus,
+  "status" | "signedOffAt" | "reviewedAt"
+>;
 export type DurchgangEvent = Pick<AuditLog, "action" | "newValue" | "createdAt">;
 
 export type ItemState =
@@ -42,13 +59,27 @@ export type ItemState =
   | { readonly kind: "not_applicable" };
 
 /**
- * `latest` is the newest audit row with one of `DURCHGANG_ACTIONS` for this status row, or null.
- * An action outside that list reads as no event, so a caller that passes the wrong row cannot
- * make an item look finished.
+ * `latest` is the company's newest audit row for this requirement with one of `STATE_ACTIONS`,
+ * or null. Any other action reads as no event, so a caller that passes the wrong row cannot make
+ * an item look finished.
+ *
+ * A rejection is read before the signature: `review.reject` keeps `signedOffAt` and writes no
+ * audit row, so its only trace is the status and `reviewedAt`. Work in the flow counts only when
+ * it provably came after the rejection.
  */
 export function itemState(row: StatusRow, latest: DurchgangEvent | null): ItemState {
   if (row.status === "not_applicable") return { kind: "not_applicable" };
+  if (row.status === "rejected") {
+    const { reviewedAt } = row;
+    return fromEvent(
+      latest && reviewedAt && latest.createdAt > reviewedAt ? latest : null,
+    );
+  }
   if (hasSignOffToWithdraw(row)) return { kind: "signed" };
+  return fromEvent(latest);
+}
+
+function fromEvent(latest: DurchgangEvent | null): ItemState {
   switch (latest?.action) {
     case "durchgang.waiting":
       return {

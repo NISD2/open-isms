@@ -101,7 +101,7 @@
         "headline": "Festlegen, wie Sie Risiken einstufen",
         "teaser": "Das BSI hat dafür eine fertige Methode.",
         "missed": [
-          "Nicht nur Angriffe zählen. Das Gesetz verlangt einen gefahrenübergreifenden Ansatz (§ 30 Abs. 2 BSIG). Die EU-Richtlinie nennt dabei ausdrücklich die physische Umgebung der Systeme (Art. 21 Abs. 2 NIS 2), also zum Beispiel Feuer, Wasser oder Stromausfall.",
+          "Nicht nur Angriffe zählen. Das Gesetz verlangt einen gefahrenübergreifenden Ansatz (§ 30 Abs. 2 BSIG). Die EU-Richtlinie verlangt ausdrücklich, auch die physische Umgebung der Systeme zu schützen (Art. 21 Abs. 2 NIS 2), zum Beispiel vor Feuer, Wasser oder Stromausfall.",
           "Welche Risiken hingenommen werden, entscheidet die Geschäftsführung. So sieht es auch der BSI-Standard 200-3 vor. Halten Sie diese Grenze mit Datum fest."
         ],
         "screens": {
@@ -254,7 +254,7 @@
         "who": "Die Informationssicherheit (ISB oder CISO) wählt die Methode und stellt die Skalen ein. Die Geschäftsleitung legt fest, welches Restrisiko das Unternehmen trägt: diese Schwelle ist ihre Entscheidung, nicht die der IT.",
         "ask": "Zeigen Sie mir die Risikomatrix und die Felder oben rechts. Welche Schwelle gilt bei uns für akzeptable Risiken, und habe ich sie freigegeben?",
         "missed": [
-          "Gefahrenübergreifend heißt nicht nur Cyber. §30(2) BSIG verlangt einen Ansatz, der auch Feuer, Wasser, Stromausfall und andere physische Gefahren einschließt.",
+          "Gefahrenübergreifend heißt nicht nur Cyber. §30(2) BSIG verlangt einen gefahrenübergreifenden Ansatz, und Art. 21(2) NIS 2 verlangt ausdrücklich, auch die physische Umgebung der Systeme zu schützen, etwa vor Feuer, Wasser oder Stromausfall.",
           "Die Akzeptanzschwelle wird oft nie ausdrücklich festgelegt. Sie gehört als eigene, datierte Entscheidung der Geschäftsleitung in die Methodik, nicht versteckt ins Risikoregister.",
           "Die Bedrohungslage gehört zur Methode: eine Quelle für aktuelle Bedrohungsinformationen benennen, mindestens die Lageberichte des BSI."
         ]

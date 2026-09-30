@@ -12,22 +12,26 @@ import {
 
 type Status = StatusRow["status"];
 
+const before = new Date("2026-09-29T10:00:00Z");
 const at = new Date("2026-09-30T10:00:00Z");
-const event = (action: string, newValue: unknown = null): DurchgangEvent => ({
-  action,
-  newValue,
-  createdAt: at,
-});
-const row = (status: Status, signedOffAt: Date | null = null): StatusRow => ({
-  status,
-  signedOffAt,
-});
+const after = new Date("2026-10-01T10:00:00Z");
+const event = (
+  action: string,
+  newValue: unknown = null,
+  createdAt: Date = at,
+): DurchgangEvent => ({ action, newValue, createdAt });
+const row = (
+  status: Status,
+  signedOffAt: Date | null = null,
+  reviewedAt: Date | null = null,
+): StatusRow => ({ status, signedOffAt, reviewedAt });
 
 const EVENTS = {
   none: null,
   waiting: event("durchgang.waiting", { reason: "letter" }),
   resumed: event("durchgang.resumed"),
   itemDone: event("durchgang.item_done"),
+  withdrawn: event("requirement.sign_off_withdrawn"),
   foreign: event("assessment.sign_off"),
 } as const;
 
@@ -36,7 +40,8 @@ const BY_STATUS: Readonly<Record<Status, ItemState["kind"] | "by_event">> = {
   not_started: "by_event",
   in_progress: "by_event",
   needs_review: "by_event",
-  rejected: "by_event",
+  // With no review date to compare against, no event provably follows the rejection.
+  rejected: "open",
   completed: "signed",
   approved: "signed",
   not_applicable: "not_applicable",
@@ -47,6 +52,7 @@ const BY_EVENT: Readonly<Record<keyof typeof EVENTS, ItemState["kind"]>> = {
   waiting: "waiting",
   resumed: "open",
   itemDone: "filled",
+  withdrawn: "open",
   foreign: "open",
 };
 
@@ -71,6 +77,36 @@ describe("item state", () => {
     });
     expect(itemState(row("needs_review", at), EVENTS.waiting)).toEqual({
       kind: "signed",
+    });
+  });
+
+  test("a rejected item is open again, although review.reject keeps the old signature", () => {
+    // review.reject turns a completed row into a rejected one and clears nothing.
+    const rejected = row("rejected", before, at);
+    expect(itemState(rejected, null)).toEqual({ kind: "open" });
+    expect(itemState(rejected, event("durchgang.item_done", null, before))).toEqual({
+      kind: "open",
+    });
+    expect(itemState(rejected, event("durchgang.item_done", null, after))).toEqual({
+      kind: "filled",
+      since: after,
+    });
+    expect(
+      itemState(rejected, event("durchgang.waiting", { reason: "ask" }, after)),
+    ).toEqual({ kind: "waiting", reason: "ask", since: after });
+  });
+
+  test("a withdrawn sign-off undoes an earlier 'filled in'", () => {
+    // withdrawSignOff leaves the row in progress with no signature and logs the withdrawal,
+    // which is then the latest event for the requirement.
+    const reopened = row("in_progress");
+    expect(itemState(reopened, event("durchgang.item_done", null, before)).kind).toBe(
+      "filled",
+    );
+    expect(
+      itemState(reopened, event("requirement.sign_off_withdrawn", null, at)),
+    ).toEqual({
+      kind: "open",
     });
   });
 

@@ -1,7 +1,11 @@
 import { describe, expect, test } from "bun:test";
+import guidanceDe from "@/data/guidance/de.json";
+import guidanceEn from "@/data/guidance/en.json";
 import {
   FREQUENCIES,
+  FREQUENCY_TEXT,
   type Frequency,
+  IMPACT_TEXT,
   IMPACTS,
   type Impact,
   RISK_LEVELS,
@@ -11,6 +15,25 @@ import {
 const rank = (f: Frequency, i: Impact) => RISK_LEVELS.indexOf(riskLevel(f, i));
 
 describe("BSI-Standard 200-3", () => {
+  test("the 2.1 guidance examples name the scales in the module's words and order", () => {
+    for (const [locale, guidance] of [
+      ["de", guidanceDe],
+      ["en", guidanceEn],
+    ] as const) {
+      const fields = guidance["2.1"].fields;
+      const numbered = (labels: readonly string[]) =>
+        labels.map((label, i) => `${i + 1} - ${label}`);
+      for (const line of numbered(
+        FREQUENCIES.map((f) => FREQUENCY_TEXT[locale][f].label),
+      )) {
+        expect(fields.likelihoodScale.example).toContain(line);
+      }
+      for (const line of numbered(IMPACTS.map((i) => IMPACT_TEXT[locale][i].label))) {
+        expect(fields.impactScale.example).toContain(line);
+      }
+    }
+  });
+
   test("the matrix is Abbildung 3 (page 27), cell for cell", () => {
     // As printed: rows top to bottom, columns selten, mittel, häufig, sehr häufig.
     const printed: Record<Impact, readonly string[]> = {

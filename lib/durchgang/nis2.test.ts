@@ -4,6 +4,7 @@ import {
   nis2Categories,
 } from "@nisd2/grc-data-model/frameworks";
 import { FUNCTIONAL_GROUPS } from "@/lib/asset-inventory/catalog";
+import { DURCHGANG_CODES } from "@/lib/compliance/durchgang";
 import { JOURNEY_ORDER } from "@/lib/compliance/journey-position";
 import {
   CUSTOM_EDITOR_KEYS,
@@ -17,8 +18,8 @@ import { resolveItem, WAIT_REASONS, WALK } from "./index";
 import { NIS2_SCRIPT } from "./nis2";
 import type { AnyScreen, ScreenKind } from "./types";
 
-/** v1 walks the first ten items of the journey (spec §0.7). */
-const V1 = JOURNEY_ORDER.slice(0, 10);
+/** v1 walks the items today's Durchgang walks (spec §0.7). */
+const V1 = DURCHGANG_CODES;
 
 const FRAMEWORK = new Map(
   nis2Categories.flatMap((c) =>

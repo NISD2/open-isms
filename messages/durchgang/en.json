@@ -101,7 +101,7 @@
         "headline": "Decide how you rate risks",
         "teaser": "The BSI has a ready-made method for this.",
         "missed": [
-          "Attacks are not the only thing that counts. The law requires an all-hazards approach (§ 30(2) BSIG). The EU directive explicitly names the physical environment of the systems (Art. 21(2) NIS 2), for example fire, water or a power cut.",
+          "Attacks are not the only thing that counts. The law requires an all-hazards approach (§ 30(2) BSIG). The EU directive explicitly requires protecting the physical environment of the systems too (Art. 21(2) NIS 2), for example against fire, water or a power cut.",
           "Which risks are accepted is decided by management, as BSI Standard 200-3 also provides. Record that limit with a date."
         ],
         "screens": {
@@ -260,7 +260,7 @@
         "who": "Information security (the ISB or CISO) picks the method and sets the scales. Management decides how much residual risk the company carries: that threshold is its decision, not IT's.",
         "ask": "Show me the risk matrix and the top right corner. What is our threshold for acceptable risk, and did I approve it?",
         "missed": [
-          "All-hazards means more than cyber. §30(2) BSIG requires an approach that also covers fire, water, power failure and other physical hazards.",
+          "All-hazards means more than cyber. §30(2) BSIG requires an all-hazards approach, and Art. 21(2) NIS 2 explicitly requires protecting the physical environment of the systems too, for example against fire, water or a power cut.",
           "The acceptance threshold is often never set explicitly. It belongs in the methodology as a dated management decision of its own, not buried in the risk register.",
           "The threat landscape is part of the method: name a source of current threat intelligence, at minimum the BSI situation reports."
         ]
