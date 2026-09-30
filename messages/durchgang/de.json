@@ -278,9 +278,20 @@
             "title": "Ihre Lieferanten",
             "lead": "Tragen Sie jeden ein und sagen Sie, wie wichtig er für Ihren Betrieb ist. Im Zweifel gilt: lieber aufschreiben als weglassen."
           },
+          "dependence": {
+            "title": "Wer Sie allein anhalten könnte",
+            "lead": "Wie viele Lieferanten gibt es, ohne die Ihr Betrieb stehen würde und für die kein zweiter bereitsteht?",
+            "document": "Ihre Lieferantenliste"
+          },
           "done": {
             "title": "Ihre Liste steht",
             "note": "Kommt ein Lieferant dazu, ergänzen Sie ihn. Am Ende sieht die Geschäftsführung die Liste durch."
+          }
+        },
+        "fields": {
+          "singlePointOfFailureCount": {
+            "label": "Anzahl solcher Lieferanten",
+            "hint": "Zählen Sie die Einträge, bei denen ein Ausfall Ihren Betrieb anhält und es keinen Ersatz gibt."
           }
         },
         "sources": {

@@ -49,12 +49,9 @@ export const NIS2_SCRIPT: readonly AnyItem[] = [
       { kind: "sample", id: "list" },
       { kind: "sources", id: "sources", sources: ["payables", "contracts", "provider"] },
       { kind: "register", id: "suppliers", module: "supplier" },
+      { kind: "fields", id: "dependence", fields: ["singlePointOfFailureCount"] },
       { kind: "done", id: "done" },
     ],
-    notAsked: {
-      singlePointOfFailureCount:
-        "Neither § 30 BSIG nor Art. 21 NIS 2 asks for a count of irreplaceable suppliers; only CIR 2.1.2(d) names single points of failure, for its digital providers. Each supplier is rated on its own row instead.",
-    },
   }),
   item({
     code: "12.3",

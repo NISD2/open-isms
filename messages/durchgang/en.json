@@ -272,9 +272,20 @@
             "title": "Your suppliers",
             "lead": "Enter each one and say how important it is to your business. When in doubt, write it down rather than leave it out."
           },
+          "dependence": {
+            "title": "Who could stop you on their own",
+            "lead": "How many suppliers are there without whom your business would stop, and for whom no second one is ready?",
+            "document": "Your supplier list"
+          },
           "done": {
             "title": "Your list is in place",
             "note": "When a supplier comes along, add it. At the end, management reviews the list."
+          }
+        },
+        "fields": {
+          "singlePointOfFailureCount": {
+            "label": "Number of such suppliers",
+            "hint": "Count the entries where a failure stops your business and there is no replacement."
           }
         },
         "sources": {
