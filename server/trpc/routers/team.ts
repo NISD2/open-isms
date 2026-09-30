@@ -18,6 +18,7 @@ import {
   listUserCompanies,
   openCompany,
   setMembershipJobTitle,
+  setMembershipRole,
   signupDraftOf,
 } from "@/lib/organization/membership";
 import { getAppUrl } from "@/lib/utils";
@@ -27,6 +28,7 @@ import {
   companyAssessment,
   companyInvite,
   companyMembership,
+  membershipRoleEnum,
   notification,
   requirementCategory,
   user,
@@ -48,6 +50,7 @@ export const teamRouter = router({
   listMembers: protectedProcedure.query(async ({ ctx }) => {
     if (!ctx.companyId) return [];
 
+    const ownerId = await companyOwnerId(ctx.db, ctx.companyId);
     const members = (await listCompanyMembers(ctx.db, ctx.companyId)).map(
       ({ id, name, email, role, jobTitle, createdAt }) => ({
         id,
@@ -56,6 +59,7 @@ export const teamRouter = router({
         role,
         jobTitle,
         createdAt,
+        isOwner: id === ownerId,
       }),
     );
 
@@ -416,6 +420,15 @@ export const teamRouter = router({
         });
       }
 
+      // With several admins, another admin could otherwise remove the person who created the
+      // organization and take it over.
+      if ((await companyOwnerId(ctx.db, ctx.companyId)) === input.userId) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "The person who created the organization cannot be removed.",
+        });
+      }
+
       // Delete category assignments for this user in company assessments
       const assessments = await ctx.db.query.companyAssessment.findMany({
         where: eq(companyAssessment.companyId, ctx.companyId),
@@ -508,6 +521,70 @@ export const teamRouter = router({
       return { removed: true };
     }),
 
+  /**
+   * Change a member's access role (admin only), so an organization can have a backup admin. The
+   * person who created the organization always stays an admin, and there is always at least one.
+   */
+  setMemberRole: adminProcedure
+    .input(
+      z.object({
+        userId: z.string().uuid(),
+        role: z.enum(membershipRoleEnum.enumValues),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const ownerId = await companyOwnerId(ctx.db, ctx.companyId);
+
+      return ctx.db.transaction(async (tx) => {
+        // Locking the admin rows serializes two admins demoting each other at once, which could
+        // otherwise leave the organization with none.
+        const admins = await tx
+          .select({ userId: companyMembership.userId })
+          .from(companyMembership)
+          .where(
+            and(
+              eq(companyMembership.companyId, ctx.companyId),
+              eq(companyMembership.role, "admin"),
+            ),
+          )
+          .for("update");
+
+        const current = await findMembershipRole(tx, {
+          userId: input.userId,
+          companyId: ctx.companyId,
+        });
+        if (!current) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "User not found in your company.",
+          });
+        }
+        if (current === input.role) return { changed: false };
+
+        if (current === "admin") {
+          if (input.userId === ownerId) {
+            throw new TRPCError({
+              code: "FORBIDDEN",
+              message: "The person who created the organization stays an admin.",
+            });
+          }
+          if (admins.length <= 1) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "An organization needs at least one admin.",
+            });
+          }
+        }
+
+        await setMembershipRole(tx, {
+          userId: input.userId,
+          companyId: ctx.companyId,
+          role: input.role,
+        });
+        return { changed: true };
+      });
+    }),
+
   /** Assign a compliance role to an existing member (admin only) */
   assignRole: adminProcedure
     .input(
@@ -584,6 +661,18 @@ export const teamRouter = router({
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
+
+/** The person who created the organization, or null once they are gone. */
+async function companyOwnerId(
+  db: import("@/lib/db").DbOrTx,
+  companyId: string,
+): Promise<string | null> {
+  const row = await db.query.company.findFirst({
+    where: eq(company.id, companyId),
+    columns: { ownerId: true },
+  });
+  return row?.ownerId ?? null;
+}
 
 const batchAssignmentSchema = z.object({
   roleKeys: z.array(z.string()),

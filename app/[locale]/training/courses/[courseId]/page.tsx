@@ -1,12 +1,13 @@
-import { api } from "@/lib/trpc/server";
+import { Check, ChevronDown, Clock, PlayCircle } from "lucide-react";
 import { getLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
-import { Check, Clock, PlayCircle, ChevronDown } from "lucide-react";
+import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Link } from "@/i18n/navigation";
+import { api } from "@/lib/trpc/server";
 
 export default async function CourseOverviewRoute({
   params,
@@ -15,18 +16,16 @@ export default async function CourseOverviewRoute({
 }) {
   const { courseId } = await params;
   const locale = await getLocale();
-  const { course, progress, lessonMetas } = await api.trainingPortal.getCourse({
-    courseId,
-  });
+  const [{ course, progress, lessonMetas }, completion] = await Promise.all([
+    api.trainingPortal.getCourse({ courseId }),
+    api.trainingCertificate.getCourseCompletion({ courseId }),
+  ]);
 
   const completedSet = new Set(
     progress.filter((p) => p.completed).map((p) => p.lessonId),
   );
 
-  const totalLessons = course.modules.reduce(
-    (n, m) => n + m.lessonIds.length,
-    0,
-  );
+  const totalLessons = course.modules.reduce((n, m) => n + m.lessonIds.length, 0);
   const completedCount = completedSet.size;
   const pct = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
@@ -74,6 +73,19 @@ export default async function CourseOverviewRoute({
           />
         </div>
       </div>
+
+      {/* Someone who finished comes back here for the PDF, so it does not
+          hide on the final lesson alone. */}
+      {completion.allCompleted && (
+        <CertificateDownload
+          courseId={courseId}
+          locale={locale}
+          allCompleted
+          completedCount={completion.completedCount}
+          totalCount={completion.totalCount}
+          userName={completion.userName}
+        />
+      )}
 
       {/* Modules */}
       <div className="space-y-3">
@@ -143,9 +155,7 @@ export default async function CourseOverviewRoute({
                             </div>
                           )}
                           <div className="flex-1 min-w-0">
-                            <div className="text-sm font-medium truncate">
-                              {title}
-                            </div>
+                            <div className="text-sm font-medium truncate">{title}</div>
                           </div>
                           <div className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
                             <Clock className="size-3" />
