@@ -9,6 +9,8 @@ import type { AnyItem } from "./types";
 
 export type { ResolvedItem, ResolvedScreen } from "./copy";
 export { itemKey, resolveItem } from "./copy";
+export type { NoteLocale } from "./notes";
+export { acceptanceNote, methodNote, noteLine, sourcesNote, waitingNote } from "./notes";
 export type { DurchgangEvent, ItemState, StatusRow, WaitReason } from "./state";
 export {
   DURCHGANG_ACTIONS,
@@ -27,6 +29,7 @@ export type {
   ScreenKind,
   SourceId,
 } from "./types";
+export { SOURCE_IDS } from "./types";
 
 const BY_CODE: ReadonlyMap<string, AnyItem> = new Map(
   NIS2_SCRIPT.map((i) => [i.code, i]),

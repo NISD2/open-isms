@@ -41,7 +41,14 @@ export type Decision = "risk_acceptance";
 export type Adoptable = "bsi_200_3_method";
 
 /** Where a list the company needs usually exists already. */
-export type SourceId = "ropa" | "ledger" | "provider" | "payables" | "contracts";
+export const SOURCE_IDS = [
+  "ropa",
+  "ledger",
+  "provider",
+  "payables",
+  "contracts",
+] as const;
+export type SourceId = (typeof SOURCE_IDS)[number];
 
 export type Screen<C extends CategoryCode> =
   | { readonly kind: "learn"; readonly id: string }
