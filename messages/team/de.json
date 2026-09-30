@@ -73,6 +73,14 @@
       "hr_director": "Personalleiter",
       "legal": "Rechtsabteilung / Compliance-Beauftragter",
       "dpo": "Datenschutzbeauftragter"
+    },
+    "memberRole": {
+      "admin": "Admin",
+      "member": "Mitglied",
+      "reviewer": "Prüfer",
+      "legal_reviewer": "Rechtlicher Prüfer",
+      "owner": "Hat die Organisation angelegt",
+      "success": "Zugriffsrolle geändert"
     }
   }
 }

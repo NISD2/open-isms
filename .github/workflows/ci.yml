@@ -167,6 +167,15 @@ jobs:
           DATABASE_URL: postgres://drill:drill@localhost:5432/drill
           PGPASSWORD: drill
 
+      # Same migrated database. The attempt cap and single use of an OTP only
+      # hold if concurrent UPDATEs are conditional, which no unit test with a
+      # fake database can show.
+      - name: parallel OTP guesses stay within the attempt cap
+        run: bun scripts/ci/otp-concurrency-drill.ts
+        env:
+          DATABASE_URL: postgres://drill:drill@localhost:5432/drill
+          AUTH_SECRET: "ci-drill-secret-at-least-32-characters-long"
+
       # The failure every reinstall produces. What is under test is the
       # message, not the connection: a stack trace here costs a support thread
       # and reads as a broken release.

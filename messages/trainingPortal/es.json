@@ -40,6 +40,15 @@
       "incorrect": "Incorrecto"
     },
     "progressLabel": "{completed} de {total} lecciones completadas",
+    "participants": "{count, plural, one {# persona ha empezado} other {# personas han empezado}}",
+    "publicOverview": {
+      "metaTitle": "Cursos sobre NIS 2 y la Cyber Resilience Act",
+      "metaDescription": "Tres cursos, abiertos bajo CC BY 4.0: para la dirección, un ejercicio de simulación y el SBOM conforme a la Cyber Resilience Act.",
+      "title": "Cursos",
+      "subtitle": "Abiertos bajo CC BY 4.0. Inicie sesión y empiece enseguida.",
+      "length": "{lessons} lecciones, unos {minutes} minutos",
+      "cta": "Ir al curso"
+    },
     "estimatedTime": "{minutes} min de lectura",
     "certificate": {
       "lockedTitle": "Certificado de finalización",
@@ -58,6 +67,13 @@
       "download": "Descargar certificado",
       "downloadHint": "Se descarga como PDF que puede guardar o imprimir.",
       "finishEditingHint": "Guarde o cancele primero el cambio de nombre."
+    },
+    "overview": {
+      "lessonCount": "{count, plural, one {# lección} other {# lecciones}}",
+      "moduleCount": "{count, plural, one {# módulo} other {# módulos}}",
+      "minutes": "{minutes} min",
+      "duration": "{hours} h {minutes} min",
+      "moduleProgress": "{completed}/{total} lecciones"
     }
   }
 }

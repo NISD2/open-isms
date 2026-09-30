@@ -1,11 +1,11 @@
-import { api } from "@/lib/trpc/server";
 import { getLocale } from "next-intl/server";
+import { StuckLink } from "@/components/help/StuckLink";
+import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
+import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
+import { StartJourneyCta } from "@/components/training-portal/StartJourneyCta";
 import { getSession } from "@/lib/auth";
 import { journeyCategoryForLesson } from "@/lib/training/lesson-journey-map";
-import { LessonViewerPage } from "@/components/training-portal/LessonViewerPage";
-import { CertificateDownload } from "@/components/training-portal/CertificateDownload";
-import { StartJourneyCta } from "@/components/training-portal/StartJourneyCta";
-import { StuckLink } from "@/components/help/StuckLink";
+import { api } from "@/lib/trpc/server";
 
 export default async function LessonRoute({
   params,
@@ -20,9 +20,12 @@ export default async function LessonRoute({
     api.trainingPortal.getQuiz({ courseId, lessonId, locale }).catch(() => null),
   ]);
 
-  const isCertificateLesson = lessonData.lesson.slug === "certificate-of-completion";
+  // The certificate sits on each course's final lesson. It used to match the
+  // NIS 2 CEO course's "certificate-of-completion" slug, so the other courses,
+  // whose final lesson is the attestation quiz, never offered their PDF.
+  const isFinalLesson = lessonData.lesson.nextLessonId === null;
 
-  const completion = isCertificateLesson
+  const completion = isFinalLesson
     ? await api.trainingCertificate.getCourseCompletion({ courseId })
     : null;
 

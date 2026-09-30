@@ -73,6 +73,14 @@
       "hr_director": "HR Director",
       "legal": "Legal / Compliance Officer",
       "dpo": "Data Protection Officer"
+    },
+    "memberRole": {
+      "admin": "Admin",
+      "member": "Member",
+      "reviewer": "Reviewer",
+      "legal_reviewer": "Legal reviewer",
+      "owner": "Created the organization",
+      "success": "Access role updated"
     }
   }
 }

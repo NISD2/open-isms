@@ -16,7 +16,7 @@ import { emailOtp } from "@/schema";
  *  - 6-digit codes from a CSPRNG (Node `crypto.randomInt`)
  *  - bcrypt-hashed at rest, never stored in plaintext
  *  - 10-minute hard expiry
- *  - 5 wrong attempts triggers lockout (record consumed)
+ *  - 5 attempts per code; after that no attempt can be claimed, so it is dead
  *  - Rate-limited: max 3 requests per email+purpose per 5 minutes
  *  - Each new request invalidates prior unconsumed records for the same
  *    (email, purpose), in the same transaction as the insert. Two overlapping
@@ -126,9 +126,9 @@ export async function requestOtp(
  *
  * On any failure path (no active record, wrong code, expired, locked) the
  * function returns `false` without revealing which case occurred — caller
- * shows a generic error. Wrong-code attempts are tracked; the
- * `MAX_ATTEMPTS`-th wrong attempt consumes the record so further guesses
- * cannot succeed even if the user later types the right code.
+ * shows a generic error. Every attempt is counted before the compare; once
+ * `MAX_ATTEMPTS` are spent no further attempt can be claimed, so the code is
+ * dead even if the user later types the right code.
  */
 export async function verifyOtp(
   email: string,
@@ -159,29 +159,33 @@ export async function verifyOtp(
 
   if (!record) return false;
 
-  if (record.attempts >= MAX_ATTEMPTS) {
-    await db
-      .update(emailOtp)
-      .set({ consumedAt: new Date() })
-      .where(eq(emailOtp.id, record.id));
-    return false;
-  }
+  const unconsumed = and(eq(emailOtp.id, record.id), isNull(emailOtp.consumedAt));
 
-  const valid = await bcrypt.compare(code, record.codeHash);
+  // The attempt is claimed in one conditional UPDATE before the compare. Reading
+  // `attempts` and writing back `attempts + 1` afterwards let a burst of parallel
+  // guesses all read the same count, so one code took far more than
+  // MAX_ATTEMPTS tries.
+  const [claimed] = await db
+    .update(emailOtp)
+    .set({ attempts: sql`${emailOtp.attempts} + 1` })
+    .where(and(unconsumed, lt(emailOtp.attempts, MAX_ATTEMPTS)))
+    .returning({ id: emailOtp.id });
 
-  if (!valid) {
-    await db
-      .update(emailOtp)
-      .set({ attempts: record.attempts + 1 })
-      .where(eq(emailOtp.id, record.id));
-    return false;
-  }
+  // No consume here. With attempts at the cap nothing can claim again, so the
+  // code is already dead; consuming it as well would reject a right code whose
+  // claimed attempt is still at the compare below when a burst passes the cap.
+  if (!claimed) return false;
 
-  await db
+  if (!(await bcrypt.compare(code, record.codeHash))) return false;
+
+  // Conditional on consumedAt too, so two parallel submissions of the right
+  // code cannot both succeed.
+  const [consumed] = await db
     .update(emailOtp)
     .set({ consumedAt: new Date() })
-    .where(eq(emailOtp.id, record.id));
-  return true;
+    .where(unconsumed)
+    .returning({ id: emailOtp.id });
+  return consumed !== undefined;
 }
 
 /**

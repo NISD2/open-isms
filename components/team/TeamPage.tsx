@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
+import { Check, Copy, UserMinus, UserPlus, X } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -13,6 +13,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -21,20 +30,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Copy, UserMinus, UserPlus, X, Check } from "lucide-react";
-import { trpc } from "@/lib/trpc/client";
-import { userFacingError } from "@/lib/trpc/error-message";
-import { toast } from "sonner";
+import { useRouter } from "@/i18n/navigation";
 import { ALL_ROLE_KEYS, type RoleKey } from "@/lib/compliance/role-keys";
 import { ROLE_HIERARCHY } from "@/lib/compliance/role-mapping";
+import type { MembershipRole } from "@/lib/organization/membership";
+import { trpc } from "@/lib/trpc/client";
+import { userFacingError } from "@/lib/trpc/error-message";
+
+const MEMBERSHIP_ROLES: readonly MembershipRole[] = [
+  "admin",
+  "member",
+  "reviewer",
+  "legal_reviewer",
+];
 
 interface CategoryInfo {
   categoryCode: string;
@@ -45,9 +53,10 @@ interface Member {
   id: string;
   name: string;
   email: string;
-  role: string;
+  role: MembershipRole;
   jobTitle: string | null;
   createdAt: Date;
+  isOwner: boolean;
   assignments: CategoryInfo[];
 }
 
@@ -71,11 +80,7 @@ interface Props {
 export function TeamPage({ members, invites, currentUserId, isAdmin }: Props) {
   return (
     <div className="space-y-6">
-      <MembersCard
-        members={members}
-        currentUserId={currentUserId}
-        isAdmin={isAdmin}
-      />
+      <MembersCard members={members} currentUserId={currentUserId} isAdmin={isAdmin} />
       {isAdmin && <InvitesCard invites={invites} />}
       {isAdmin && <InviteForm />}
     </div>
@@ -101,10 +106,14 @@ function MembersCard({
 
   // Sort by role hierarchy (users with compliance roles first, then unassigned)
   const sortedMembers = [...members].sort((a, b) => {
-    const aOrder = a.jobTitle && a.jobTitle in ROLE_HIERARCHY
-      ? ROLE_HIERARCHY[a.jobTitle as RoleKey] : 100;
-    const bOrder = b.jobTitle && b.jobTitle in ROLE_HIERARCHY
-      ? ROLE_HIERARCHY[b.jobTitle as RoleKey] : 100;
+    const aOrder =
+      a.jobTitle && a.jobTitle in ROLE_HIERARCHY
+        ? ROLE_HIERARCHY[a.jobTitle as RoleKey]
+        : 100;
+    const bOrder =
+      b.jobTitle && b.jobTitle in ROLE_HIERARCHY
+        ? ROLE_HIERARCHY[b.jobTitle as RoleKey]
+        : 100;
     return aOrder - bOrder;
   });
 
@@ -115,6 +124,17 @@ function MembersCard({
     },
     onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
   });
+
+  const setMemberRoleMutation = trpc.team.setMemberRole.useMutation({
+    onSuccess: () => {
+      toast.success(t("memberRole.success"));
+      router.refresh();
+    },
+    onError: (err) => toast.error(userFacingError(err, tc("actionFailed"))),
+  });
+
+  // The creator always stays an admin and there is always at least one, as the server enforces.
+  const adminCount = members.filter((m) => m.role === "admin").length;
 
   const assignRoleMutation = trpc.team.assignRole.useMutation({
     onSuccess: (data) => {
@@ -161,13 +181,44 @@ function MembersCard({
                     )}
                   </div>
                 </TableCell>
-                <TableCell className="text-muted-foreground">
-                  {m.email}
-                </TableCell>
+                <TableCell className="text-muted-foreground">{m.email}</TableCell>
                 <TableCell>
-                  <Badge variant={m.role === "admin" ? "default" : "secondary"}>
-                    {m.role}
-                  </Badge>
+                  {isAdmin ? (
+                    <Select
+                      value={m.role}
+                      onValueChange={(role) =>
+                        setMemberRoleMutation.mutate({
+                          userId: m.id,
+                          role: role as MembershipRole,
+                        })
+                      }
+                      disabled={
+                        setMemberRoleMutation.isPending ||
+                        m.isOwner ||
+                        (m.role === "admin" && adminCount <= 1)
+                      }
+                    >
+                      <SelectTrigger size="sm" className="w-36">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {MEMBERSHIP_ROLES.map((role) => (
+                          <SelectItem key={role} value={role}>
+                            {t(`memberRole.${role}`)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Badge variant={m.role === "admin" ? "default" : "secondary"}>
+                      {t(`memberRole.${m.role}`)}
+                    </Badge>
+                  )}
+                  {m.isOwner && (
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {t("memberRole.owner")}
+                    </p>
+                  )}
                 </TableCell>
                 <TableCell>
                   {m.assignments.length > 0 ? (
@@ -213,14 +264,12 @@ function MembersCard({
                       <span className="text-xs text-muted-foreground">
                         {t("members.you")}
                       </span>
-                    ) : (
+                    ) : m.isOwner ? null : (
                       <Button
                         variant="ghost"
                         size="sm"
                         disabled={removeMutation.isPending}
-                        onClick={() =>
-                          removeMutation.mutate({ userId: m.id })
-                        }
+                        onClick={() => removeMutation.mutate({ userId: m.id })}
                       >
                         <UserMinus className="h-4 w-4" />
                       </Button>
@@ -296,9 +345,7 @@ function InvitesCard({ invites }: { invites: Invite[] }) {
                       variant="ghost"
                       size="sm"
                       disabled={revokeMutation.isPending}
-                      onClick={() =>
-                        revokeMutation.mutate({ inviteId: inv.id })
-                      }
+                      onClick={() => revokeMutation.mutate({ inviteId: inv.id })}
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -397,9 +444,7 @@ function InviteForm() {
           </div>
           <Button type="submit" disabled={inviteMutation.isPending}>
             <UserPlus className="mr-2 h-4 w-4" />
-            {inviteMutation.isPending
-              ? t("invite.submitting")
-              : t("invite.submit")}
+            {inviteMutation.isPending ? t("invite.submitting") : t("invite.submit")}
           </Button>
         </form>
 
@@ -407,11 +452,7 @@ function InviteForm() {
           <div className="mt-4 flex items-center gap-2 rounded-md border bg-muted/50 p-3">
             <code className="flex-1 truncate text-sm">{inviteUrl}</code>
             <Button variant="outline" size="sm" onClick={handleCopy}>
-              {copied ? (
-                <Check className="h-4 w-4" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
+              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
             </Button>
           </div>
         )}
