@@ -16,9 +16,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
+import { type GoogleSignInError, isGoogleSignInError } from "@/lib/auth/google-link";
 import { localCallbackPath } from "@/lib/auth/local-path";
 
 type Step = "auth" | "verify";
+
+/**
+ * A refused Google sign-in comes back through a redirect, not a return value, so its reason
+ * arrives as `?error=` (lib/auth/google-link.ts). Codes we did not issue are ignored.
+ */
+const GOOGLE_ERROR_MESSAGE_KEYS = {
+  GOOGLE_PASSWORD_ACCOUNT: "errorGooglePasswordAccount",
+  GOOGLE_ACCOUNT_MISMATCH: "errorGoogleAccountMismatch",
+} as const satisfies Record<GoogleSignInError, string>;
 
 export function SignInCard() {
   const t = useTranslations("auth");
@@ -39,7 +49,10 @@ export function SignInCard() {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [consent, setConsent] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(() => {
+    const code = searchParams.get("error");
+    return isGoogleSignInError(code) ? t(GOOGLE_ERROR_MESSAGE_KEYS[code]) : "";
+  });
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
 

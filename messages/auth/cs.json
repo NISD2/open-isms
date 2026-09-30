@@ -24,6 +24,8 @@
     "errorConsentRequired": "Pro pokračování prosím přijměte Podmínky a Zásady ochrany osobních údajů.",
     "errorEmailNotVerified": "Nejprve prosím ověřte svůj e-mail. Zkontrolujte schránku, kam jsme poslali kód.",
     "errorRateLimited": "Příliš mnoho pokusů. Počkejte prosím několik minut a zkuste to znovu.",
+    "errorGooglePasswordAccount": "K této adrese již existuje účet s heslem. Přihlaste se prosím heslem.",
+    "errorGoogleAccountMismatch": "Tato adresa je propojena s jiným účtem Google. Přihlaste se tímto účtem, nebo si nastavte heslo přes \"Zapomněli jste heslo?\".",
     "consentLabel": "Přijímám <terms>Podmínky služby</terms> a beru na vědomí <privacy>Zásady ochrany osobních údajů</privacy>.",
     "backToHome": "Zpět na nisd2.eu",
     "verifyTitle": "Poslední krok: ověřte svůj e-mail",

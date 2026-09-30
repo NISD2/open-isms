@@ -94,6 +94,7 @@ async function main() {
       // The supplier portal is not behind the access gate; any level exercises the same path.
       accessLevel: "full",
       sessionVersion: null,
+      authTime: null,
       hints: {
         journeyTourGuided: false,
         journeyTourTeam: false,

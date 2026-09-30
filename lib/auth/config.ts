@@ -1,7 +1,6 @@
 import "@/lib/server-guard";
 import bcrypt from "bcryptjs";
-import { and, eq, sql } from "drizzle-orm";
-import type { PgUpdateSetSource } from "drizzle-orm/pg-core";
+import { and, eq, isNull, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
 import type { Session } from "next-auth";
 import NextAuth, { CredentialsSignin } from "next-auth";
@@ -10,7 +9,13 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { cache } from "react";
 import { checkEmailQuality } from "@/lib/auth/email-quality";
+import {
+  decideGoogleLink,
+  type GoogleSignInError,
+  googleSignInErrorPath,
+} from "@/lib/auth/google-link";
 import { getPlatformAdminEmails } from "@/lib/auth/platform-admin";
+import { epochSeconds, isWithinAbsoluteSessionAge } from "@/lib/auth/session-age";
 import { effectiveAccessLevel } from "@/lib/billing/access";
 import { isActivePromo, PROMO_COOKIE } from "@/lib/billing/promo";
 import { grandfatherByPromo } from "@/lib/billing/promo-grant";
@@ -115,6 +120,104 @@ async function isLoginAllowed(email: string, ip: string): Promise<boolean> {
   );
 }
 
+type GoogleAdmission =
+  | {
+      readonly admitted: true;
+      readonly userId: string;
+      readonly isNew: boolean;
+      /** Provision a draft company: a new account, or one Google just verified. */
+      readonly provision: boolean;
+    }
+  | { readonly admitted: false; readonly error: GoogleSignInError | null };
+
+/**
+ * The account a verified Google sign-in enters, created or linked under the rule in
+ * lib/auth/google-link.ts. A refusal with no error code is an edge the sign-in card has no
+ * message for, and falls through to Auth.js's own AccessDenied page.
+ */
+async function admitGoogleAccount(google: {
+  email: string;
+  name: string;
+  subject: string;
+}): Promise<GoogleAdmission> {
+  const now = new Date();
+
+  // Atomic upsert: survives concurrent OAuth flows for the same new email (otherwise both lookups
+  // miss, both inserts race, and the loser hits a unique-constraint 500 on /api/auth/callback). No
+  // conflict target, so it also stands down when this Google account is already linked to another
+  // address, which leaves the lookup below with no row.
+  const [created] = await db
+    .insert(user)
+    .values({
+      email: google.email,
+      name: google.name,
+      // Google verified `profile.email_verified` upstream so we trust
+      // the address — no separate OTP step for OAuth signups.
+      emailVerifiedAt: now,
+      googleSubject: google.subject,
+      // /api/auth/register receives the locale in its POST body; an OAuth
+      // callback has no body to put it in, so the cookie next-intl set
+      // while they browsed is the only thing carrying it.
+      locale: await signupLocaleFromCookie(),
+    })
+    .onConflictDoNothing()
+    .returning({ id: user.id });
+  if (created) {
+    return { admitted: true, userId: created.id, isNew: true, provision: true };
+  }
+
+  const existing = await db.query.user.findFirst({
+    where: eq(user.email, google.email),
+    columns: { id: true, googleSubject: true, passwordHash: true, emailVerifiedAt: true },
+  });
+  if (!existing) {
+    console.warn(
+      "[auth] Google sign-in refused: that Google account is linked to another address",
+    );
+    return { admitted: false, error: null };
+  }
+
+  const decision = decideGoogleLink(existing, google.subject);
+  if (decision.kind === "refuse") return { admitted: false, error: decision.error };
+  if (decision.kind === "sign-in") {
+    return { admitted: true, userId: existing.id, isNew: false, provision: false };
+  }
+
+  // Only while the account is still unlinked, so of two Google accounts racing for one address
+  // only the first links. A subject already linked to a different account trips the unique index
+  // instead; Auth.js turns that throw into AccessDenied.
+  const linked = await db
+    .update(user)
+    .set({
+      googleSubject: google.subject,
+      updatedAt: now,
+      ...(decision.clearPassword
+        ? {
+            passwordHash: null,
+            // Audit F-5 (2026-09-10): removing the password is a credential
+            // change, so it invalidates outstanding sessions the same way a
+            // reset does (audit M-1). The jwt callback runs after this one
+            // and re-reads sessionVersion, so THIS sign-in is stamped with
+            // the incremented value and stays valid; only tokens issued
+            // before the change are rejected.
+            sessionVersion: sql`${user.sessionVersion} + 1`,
+          }
+        : {}),
+      // A pending-verify account whose owner chose Google over the email code.
+      ...(decision.markVerified ? { emailVerifiedAt: now } : {}),
+    })
+    .where(and(eq(user.id, existing.id), isNull(user.googleSubject)))
+    .returning({ id: user.id });
+  if (linked.length === 0) return { admitted: false, error: null };
+
+  return {
+    admitted: true,
+    userId: existing.id,
+    isNew: false,
+    provision: decision.markVerified,
+  };
+}
+
 const providers: Provider[] = [
   // Email/password. Email is proven-owned once at registration via the
   // verify-email OTP flow; subsequent logins are password-only.
@@ -198,22 +301,37 @@ if (process.env.NODE_ENV !== "production" && process.env.ENABLE_DEV_AUTH === "tr
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
 
-  // Audit EW-12 (2026-06-11): 8h dropped from 24h. Auth.js refreshes
-  // the JWT silently during active use, so engaged users see no UX hit;
-  // idle users sign back in once a workday instead of once every three.
-  // Cuts the exposure window for a leaked JWT by 3x. M-1 already lets
-  // password reset revoke immediately, so the maxAge is mostly the
-  // "user wandered off, didn't reset" window.
-  session: { strategy: "jwt", maxAge: 8 * 60 * 60 }, // 8 hours
+  // Audit EW-12 (2026-06-11): 8h dropped from 24h. This is an IDLE timeout,
+  // not a lifetime: every read of /api/auth/session re-signs the JWT with a
+  // fresh 8h expiry, so a session in use (or a copied cookie being polled)
+  // never reaches it. The lifetime is the absolute 12h from sign-in that
+  // getSession enforces (lib/auth/session-age.ts). Password reset and sign-out
+  // revoke before either (audit M-1, sessionVersion).
+  session: { strategy: "jwt", maxAge: 8 * 60 * 60 },
 
   pages: {
     signIn: "/auth/signin",
   },
 
   events: {
-    // A promo code a signed-out visitor opened must not pass to whoever signs in
-    // next on this browser (lib/billing/promo.ts).
-    async signOut() {
+    async signOut(message) {
+      // Sign-out revokes every session of the account, on all devices. A JWT
+      // cannot be revoked on its own, and clearing this browser's cookie leaves
+      // a copied one working, which is the session someone signing out most
+      // wants gone.
+      const email = "token" in message ? message.token?.email : undefined;
+      if (email) {
+        try {
+          await db
+            .update(user)
+            .set({ sessionVersion: sql`${user.sessionVersion} + 1` })
+            .where(eq(user.email, email));
+        } catch (err) {
+          console.error("[auth] sessions not revoked on sign-out:", err);
+        }
+      }
+      // A promo code a signed-out visitor opened must not pass to whoever signs in
+      // next on this browser (lib/billing/promo.ts).
       try {
         (await cookies()).delete(PROMO_COOKIE);
       } catch (err) {
@@ -229,6 +347,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (account?.provider === "google") {
         // Only allow verified Google emails
         if (!profile?.email_verified) return false;
+
+        // The OIDC subject, which Auth.js also passes as account.providerAccountId.
+        // Read from the profile because providerAccountId falls back to a random
+        // UUID when a profile carries no id, and linking to that would bind the
+        // account to a Google identity nobody holds.
+        const subject = profile.sub;
+        if (!subject) return false;
 
         // Disposable-email parity with /api/auth/register: capture the user
         // record so the scope attempt shows in admin, but refuse the signin.
@@ -254,64 +379,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const newName = authUser.name ?? profile?.name ?? authUser.email;
 
-        // Atomic upsert — survives concurrent OAuth flows for the same new
-        // email (otherwise both `findFirst` calls miss, both inserts race,
-        // and the loser hits a unique-constraint 500 on /api/auth/callback).
-        const now = new Date();
-        const inserted = await db
-          .insert(user)
-          .values({
-            email: authUser.email,
-            name: newName,
-            // Google verified `profile.email_verified` upstream so we trust
-            // the address — no separate OTP step for OAuth signups.
-            emailVerifiedAt: now,
-            // /api/auth/register receives the locale in its POST body; an OAuth
-            // callback has no body to put it in, so the cookie next-intl set
-            // while they browsed is the only thing carrying it.
-            locale: await signupLocaleFromCookie(),
-          })
-          .onConflictDoNothing({ target: user.email })
-          .returning({ id: user.id });
+        const admission = await admitGoogleAccount({
+          email: authUser.email,
+          name: newName,
+          subject,
+        });
+        if (!admission.admitted) {
+          // A returned path makes Auth.js redirect there without creating a
+          // session (handleAuthorized in @auth/core), which is how the sign-in
+          // card gets a code; `false` would land on its generic error page.
+          return admission.error ? googleSignInErrorPath(admission.error) : false;
+        }
 
-        let userId: string | null = inserted[0]?.id ?? null;
-        // Provision a draft company for genuinely new signups, and for pending-
-        // verify accounts that complete verification via Google (their first
-        // proven-owned moment). Not for returning, already-provisioned logins.
-        let shouldProvision = inserted.length > 0;
-
-        if (inserted.length === 0) {
-          // Email already existed → clear any password so Google takes
-          // precedence, and mark verified (covers pending-verify accounts
-          // who chose Google instead of completing the email OTP step).
-          const existing = await db.query.user.findFirst({
-            where: eq(user.email, authUser.email),
-          });
-          if (existing) {
-            userId = existing.id;
-            // PgUpdateSetSource, not Partial<$inferInsert>: sessionVersion is
-            // set to an SQL expression below, which the insert-shape type
-            // does not admit.
-            const patch: PgUpdateSetSource<typeof user> = { updatedAt: now };
-            if (existing.passwordHash) {
-              patch.passwordHash = null;
-              // Audit F-5 (2026-09-10): removing the password is a credential
-              // change, so it invalidates outstanding sessions the same way a
-              // reset does (audit M-1). The jwt callback runs after this one
-              // and re-reads sessionVersion, so THIS sign-in is stamped with
-              // the incremented value and stays valid; only tokens issued
-              // before the change are rejected.
-              patch.sessionVersion = sql`${user.sessionVersion} + 1`;
-            }
-            if (!existing.emailVerifiedAt) {
-              patch.emailVerifiedAt = now;
-              shouldProvision = true;
-            }
-            if (Object.keys(patch).length > 1) {
-              await db.update(user).set(patch).where(eq(user.id, existing.id));
-            }
-          }
-        } else {
+        if (admission.isNew) {
           // Truly new user — notify admins + welcome.
           // Awaited so serverless doesn't terminate before send.
           const admins = [...getPlatformAdminEmails()];
@@ -338,9 +418,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         // Google users bypass the verify-email route, so this is their draft-
         // company provisioning boundary. Idempotent; a failure logs but never
         // blocks signin.
-        if (shouldProvision && userId) {
+        if (admission.provision) {
           try {
-            await createDraftCompany(db, userId);
+            await createDraftCompany(db, admission.userId);
           } catch (err) {
             console.error("[auth] Failed to provision draft company:", err);
           }
@@ -375,6 +455,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .where(eq(user.email, authUser.email))
           .returning({ sessionVersion: user.sessionVersion });
         token.sessionVersion = dbUser?.sessionVersion ?? 1;
+        // Stamped here and never again, so it stays the sign-in time however
+        // often the token is re-signed (lib/auth/session-age.ts).
+        token.authTime = epochSeconds(new Date());
         await applyPromoFromCookie(authUser.email);
       }
       return token;
@@ -387,6 +470,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.jobTitle = null;
       session.accessLevel = null;
       session.sessionVersion = token.sessionVersion ?? null;
+      session.authTime = token.authTime ?? null;
       session.hints = {
         journeyTourGuided: false,
         journeyTourTeam: false,
@@ -428,6 +512,10 @@ const openMembership = async (userId: string, companyId: string) => {
 export const getSession = cache(async (): Promise<Session | null> => {
   const session = await auth();
   if (!session?.user?.email) return null;
+  // Before the row lookup: an expired sign-in needs no query to refuse.
+  if (!isWithinAbsoluteSessionAge(session.authTime, epochSeconds(new Date()))) {
+    return null;
+  }
 
   const dbUser = await db.query.user.findFirst({
     where: eq(user.email, session.user.email),

@@ -7,9 +7,9 @@ import type { Hint } from "@/lib/onboarding/hints";
  * NextAuth type augmentation — extends Session with our custom fields.
  *
  * companyId / role / jobTitle are resolved from the DB in getSession()
- * — not via JWT callbacks. The JWT only holds the email and the
- * session revocation marker (audit M-1, 2026-06-10); everything else
- * is always fresh from DB.
+ * — not via JWT callbacks. The JWT only holds the email, the
+ * session revocation marker (audit M-1, 2026-06-10) and the sign-in
+ * time; everything else is always fresh from DB.
  */
 declare module "next-auth" {
   interface Session {
@@ -37,6 +37,11 @@ declare module "next-auth" {
      */
     sessionVersion: number | null;
     /**
+     * When this sign-in happened (epoch seconds), copied from the JWT. getSession rejects a
+     * session older than the absolute limit in lib/auth/session-age.ts, and one without it.
+     */
+    authTime: number | null;
+    /**
      * One-time onboarding surfaces this user still has coming, derived in
      * getSession() from the already-loaded user row (see
      * lib/onboarding/hints.ts). Always false on the raw NextAuth session
@@ -55,5 +60,6 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     sessionVersion?: number;
+    authTime?: number;
   }
 }

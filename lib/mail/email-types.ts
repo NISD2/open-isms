@@ -61,6 +61,8 @@ export const EMAIL_TYPES = {
   // --- Essential: identity, security, and account state ---------------------
   "auth.verification_code": { category: "security", consent: "essential" },
   "auth.password_reset_code": { category: "security", consent: "essential" },
+  /** To the owner, when someone registers with an address that already has an account. */
+  "auth.registration_attempt": { category: "security", consent: "essential" },
   "auth.welcome": { category: "account", consent: "essential" },
   "account.contact_email_changed": { category: "security", consent: "essential" },
   "account.invite": { category: "account", consent: "essential" },

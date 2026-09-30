@@ -18,6 +18,7 @@ export {
   newsletterEmail,
   newUserSignupEmail,
   passwordResetCodeEmail,
+  registrationAttemptEmail,
   reviewDecisionEmail,
   supplierAddedYouEmail,
   supplierIncidentBroadcastEmail,

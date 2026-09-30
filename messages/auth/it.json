@@ -24,6 +24,8 @@
     "errorConsentRequired": "Accetta i Termini e l'Informativa sulla privacy per continuare.",
     "errorEmailNotVerified": "Verifica prima la tua email. Controlla la casella di posta per il codice che ti abbiamo inviato.",
     "errorRateLimited": "Troppi tentativi. Attendi qualche minuto e riprova.",
+    "errorGooglePasswordAccount": "Per questo indirizzo esiste già un account con password. Accedi con la tua password.",
+    "errorGoogleAccountMismatch": "Questo indirizzo è collegato a un altro account Google. Accedi con quell'account oppure imposta una password con \"Hai dimenticato la password?\".",
     "consentLabel": "Accetto i <terms>Termini di servizio</terms> e prendo atto dell''<privacy>Informativa sulla privacy</privacy>.",
     "backToHome": "Torna a nisd2.eu",
     "verifyTitle": "Un ultimo passaggio: verifica la tua email",

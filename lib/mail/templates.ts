@@ -1276,6 +1276,182 @@ const PASSWORD_RESET_COPY: Record<
 };
 
 // ---------------------------------------------------------------------------
+// Registration attempt on an existing account
+//
+// /api/auth/register answers every address the same way, so a sign-up on an
+// address that already has an account cannot say so on screen. The owner is
+// told here instead, in the mailbox that proves they are the owner.
+// ---------------------------------------------------------------------------
+
+const REGISTRATION_ATTEMPT_COPY: Record<
+  Locale,
+  {
+    subject: string;
+    heading: string;
+    intro: string;
+    action: string;
+    signIn: string;
+    reset: string;
+    ignoreNote: string;
+  }
+> = {
+  de: {
+    subject: "Registrierung mit deiner Adresse bei NISD2",
+    heading: "Jemand wollte sich mit deiner Adresse registrieren",
+    intro:
+      "Gerade wurde bei NISD2 ein neues Konto für diese Adresse angefragt. Zu dieser Adresse gibt es bereits ein Konto, deshalb wurde nichts geändert.",
+    action:
+      "Warst du das? Melde dich mit deinem bestehenden Konto an. Falls du dein Passwort nicht mehr weißt, setze es zurück.",
+    signIn: "Anmelden",
+    reset: "Passwort zurücksetzen",
+    ignoreNote:
+      "Falls du das nicht warst, ignoriere diese E-Mail. Dein Konto bleibt unverändert.",
+  },
+  en: {
+    subject: "Sign-up attempt with your NISD2 address",
+    heading: "Someone tried to register with your address",
+    intro:
+      "A new NISD2 account was just requested for this email address. An account with this address already exists, so nothing was changed.",
+    action:
+      "Was this you? Sign in to your existing account. If you no longer know your password, reset it.",
+    signIn: "Sign in",
+    reset: "Reset password",
+    ignoreNote: "If this was not you, ignore this email. Your account is unchanged.",
+  },
+  nl: {
+    subject: "Registratiepoging met je adres bij NISD2",
+    heading: "Iemand probeerde zich met je adres te registreren",
+    intro:
+      "Er is zojuist een nieuw NISD2-account aangevraagd voor dit e-mailadres. Er bestaat al een account met dit adres, dus er is niets gewijzigd.",
+    action:
+      "Was jij dit? Meld je aan met je bestaande account. Weet je je wachtwoord niet meer, stel het dan opnieuw in.",
+    signIn: "Aanmelden",
+    reset: "Wachtwoord opnieuw instellen",
+    ignoreNote: "Was jij dit niet? Negeer deze e-mail. Je account blijft ongewijzigd.",
+  },
+  fr: {
+    subject: "Tentative d'inscription avec votre adresse sur NISD2",
+    heading: "Quelqu'un a tenté de s'inscrire avec votre adresse",
+    intro:
+      "Un nouveau compte NISD2 vient d'être demandé pour cette adresse e-mail. Un compte existe déjà pour cette adresse, rien n'a donc été modifié.",
+    action:
+      "C'était vous ? Connectez-vous à votre compte existant. Si vous ne connaissez plus votre mot de passe, réinitialisez-le.",
+    signIn: "Se connecter",
+    reset: "Réinitialiser le mot de passe",
+    ignoreNote:
+      "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail. Votre compte reste inchangé.",
+  },
+  it: {
+    subject: "Tentativo di registrazione con il tuo indirizzo su NISD2",
+    heading: "Qualcuno ha provato a registrarsi con il tuo indirizzo",
+    intro:
+      "È appena stato richiesto un nuovo account NISD2 per questo indirizzo e-mail. Esiste già un account con questo indirizzo, quindi non è stato modificato nulla.",
+    action:
+      "Sei stato tu? Accedi con il tuo account esistente. Se non ricordi più la password, reimpostala.",
+    signIn: "Accedi",
+    reset: "Reimposta la password",
+    ignoreNote:
+      "Se non sei stato tu, ignora questa e-mail. Il tuo account rimane invariato.",
+  },
+  es: {
+    subject: "Intento de registro con tu dirección en NISD2",
+    heading: "Alguien ha intentado registrarse con tu dirección",
+    intro:
+      "Se acaba de solicitar una nueva cuenta de NISD2 para esta dirección de correo electrónico. Ya existe una cuenta con esta dirección, así que no se ha modificado nada.",
+    action:
+      "¿Has sido tú? Inicia sesión con tu cuenta existente. Si ya no recuerdas tu contraseña, restablécela.",
+    signIn: "Iniciar sesión",
+    reset: "Restablecer la contraseña",
+    ignoreNote:
+      "Si no has sido tú, ignora este correo electrónico. Tu cuenta no se ha modificado.",
+  },
+  pl: {
+    subject: "Próba rejestracji z Twoim adresem w NISD2",
+    heading: "Ktoś próbował zarejestrować się z Twoim adresem",
+    intro:
+      "Właśnie złożono prośbę o nowe konto NISD2 dla tego adresu e-mail. Konto z tym adresem już istnieje, więc nic nie zostało zmienione.",
+    action:
+      "To Ty? Zaloguj się na swoje istniejące konto. Jeśli nie pamiętasz hasła, zresetuj je.",
+    signIn: "Zaloguj się",
+    reset: "Zresetuj hasło",
+    ignoreNote:
+      "Jeśli to nie Ty, zignoruj tę wiadomość. Twoje konto pozostaje bez zmian.",
+  },
+  cs: {
+    subject: "Pokus o registraci s vaší adresou v NISD2",
+    heading: "Někdo se pokusil zaregistrovat s vaší adresou",
+    intro:
+      "Právě byl vyžádán nový účet NISD2 pro tuto e-mailovou adresu. Účet s touto adresou již existuje, proto se nic nezměnilo.",
+    action:
+      "Byli jste to vy? Přihlaste se ke svému stávajícímu účtu. Pokud si heslo nepamatujete, obnovte ho.",
+    signIn: "Přihlásit se",
+    reset: "Obnovit heslo",
+    ignoreNote:
+      "Pokud jste to nebyli vy, tento e-mail ignorujte. Váš účet zůstává beze změny.",
+  },
+  pt: {
+    subject: "Tentativa de registo com o seu endereço na NISD2",
+    heading: "Alguém tentou registar-se com o seu endereço",
+    intro:
+      "Acabou de ser pedida uma nova conta NISD2 para este endereço de e-mail. Já existe uma conta com este endereço, por isso nada foi alterado.",
+    action:
+      "Se foi quem fez o pedido, inicie sessão na sua conta existente. Se já não se lembra da palavra-passe, redefina-a.",
+    signIn: "Iniciar sessão",
+    reset: "Redefinir a palavra-passe",
+    ignoreNote:
+      "Se não fez este pedido, ignore este e-mail. A sua conta permanece inalterada.",
+  },
+  ro: {
+    subject: "Încercare de înregistrare cu adresa dumneavoastră la NISD2",
+    heading: "Cineva a încercat să se înregistreze cu adresa dumneavoastră",
+    intro:
+      "Tocmai a fost solicitat un cont NISD2 nou pentru această adresă de e-mail. Există deja un cont cu această adresă, așa că nu s-a modificat nimic.",
+    action:
+      "Dumneavoastră ați fost? Autentificați-vă în contul existent. Dacă nu vă mai amintiți parola, resetați-o.",
+    signIn: "Autentificare",
+    reset: "Resetare parolă",
+    ignoreNote:
+      "Dacă nu ați fost dumneavoastră, ignorați acest e-mail. Contul dumneavoastră rămâne neschimbat.",
+  },
+};
+
+export function registrationAttemptEmail(opts: {
+  signInUrl: string;
+  resetUrl: string;
+  locale?: Locale;
+}): EmailContent {
+  const copy = REGISTRATION_ATTEMPT_COPY[opts.locale ?? "de"];
+  const button = (href: string, label: string, background: string, color: string) =>
+    `<a href="${href}" style="display: inline-block; background: ${background}; color: ${color}; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; margin: 0 8px 8px 0;">${label}</a>`;
+
+  return {
+    subject: safeHeader(copy.subject),
+    html: emailLayout(`
+        <h2 style="margin: 0 0 16px; color: ${BRAND.foreground};">${copy.heading}</h2>
+        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 8px;">${copy.intro}</p>
+        <p style="color: ${BRAND.foreground}; line-height: 1.6; margin: 0 0 24px;">${copy.action}</p>
+        ${button(opts.signInUrl, copy.signIn, BRAND.primary, "#fff")}
+        ${button(opts.resetUrl, copy.reset, BRAND.muted, BRAND.foreground)}
+        <p style="color: ${BRAND.mutedForeground}; font-size: 13px; margin: 16px 0 0; line-height: 1.5;">
+          ${copy.ignoreNote}
+        </p>
+    `),
+    text: [
+      copy.heading,
+      ``,
+      copy.intro,
+      ``,
+      copy.action,
+      ``,
+      `${copy.signIn}: ${opts.signInUrl}`,
+      `${copy.reset}: ${opts.resetUrl}`,
+      ``,
+      copy.ignoreNote,
+    ].join("\n"),
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Newsletter / lifecycle email
 //
 // Opportunistic bottom-of-funnel email sent to verified, opted-in users.

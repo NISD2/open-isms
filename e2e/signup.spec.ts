@@ -53,6 +53,15 @@ async function plantCode(email: string, code: string): Promise<void> {
   );
 }
 
+async function issuedCodes(email: string): Promise<number> {
+  assertE2eTargets();
+  const [row] = await e2eQuery<{ n: number }>(
+    `select count(*)::int as n from email_otp where email = $1 and purpose = 'email_verify'`,
+    [email],
+  );
+  return row?.n ?? 0;
+}
+
 async function registerWith(
   page: import("@playwright/test").Page,
   email: string,
@@ -64,11 +73,19 @@ async function registerWith(
     name: "Noch kein Konto? Jetzt registrieren",
   });
   if (await toRegister.isVisible().catch(() => false)) await toRegister.click();
+  const issued = await issuedCodes(email);
   await page.locator("#email").fill(email);
   await page.locator("#password").fill(password);
   await page.locator('input[type="checkbox"]').check();
   await page.getByRole("button", { name: "Konto erstellen" }).click();
   await expect(page.locator("#code")).toBeVisible({ timeout: 30_000 });
+  // /api/auth/register answers every address before it looks the address up,
+  // and creates the account and issues the code after the response. The code
+  // step appearing therefore does not mean the code exists yet, and a code
+  // planted before it does would be consumed by the one issued late.
+  await expect
+    .poll(() => issuedCodes(email), { timeout: 30_000 })
+    .toBeGreaterThan(issued);
 }
 
 test("signing up a second time signs in with the password typed that time", async ({
