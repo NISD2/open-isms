@@ -55,7 +55,7 @@ export function createTRPCSetup<TContext extends BaseContext>(options: TRPCSetup
   // The company a row is filed under decides who can read it (audit.list
   // filters on company_id), so the scope is fixed per procedure tier and
   // never left to each handler to remember.
-  const authenticatedAndAudited = (auditScope: "callerCompany" | "platform") =>
+  const authenticatedAndAudited = (auditScope: AuditScope) =>
     t.procedure.use(async ({ ctx, next, type, path, getRawInput }) => {
       if (!ctx.userId || !ctx.session) {
         throw new TRPCError({
@@ -82,7 +82,7 @@ export function createTRPCSetup<TContext extends BaseContext>(options: TRPCSetup
           entityType: path.split(".")[0] ?? path,
           entityId: extractEntityId(rawInput),
           description: path,
-          newValue: scrubSensitiveValues(rawInput),
+          newValue: scrubSensitiveValues(rawInput, REDACT_KEYS_BY_SCOPE[auditScope]),
           ipAddress: ctx.ip === "unknown" ? null : ctx.ip,
           userAgent: ctx.userAgent,
         });
@@ -199,10 +199,18 @@ const AUDIT_REDACT_KEYS = new Set([
   // confirmation; it must never be persisted in the (non-retention-managed)
   // audit log, which would defeat the erasure.
   "confirmemail",
+]);
+
+/**
+ * Platform rows only (company_id null), whose inputs belong to other people: a
+ * customer's billing identity, the organization name typed to confirm an
+ * erasure. Erasure reaches only rows the erased user wrote or their own company
+ * holds, so a copy here would outlive it. A tenant's own rows keep these values:
+ * its order address, or the customer a supplier invited, is its own record.
+ */
+const PLATFORM_AUDIT_REDACT_KEYS = new Set([
+  ...AUDIT_REDACT_KEYS,
   "confirmorgname",
-  // Billing identity (the order form, the operator's close and quote). The
-  // invoice and billing account already hold these; a copy in the audit log is
-  // one erasure cannot reach once the row sits outside the customer's company.
   "customeremail",
   "customername",
   "companyname",
@@ -215,16 +223,23 @@ const AUDIT_REDACT_KEYS = new Set([
   "purchaseorder",
 ]);
 
-function scrubSensitiveValues(value: unknown): unknown {
+type AuditScope = "callerCompany" | "platform";
+
+const REDACT_KEYS_BY_SCOPE: Record<AuditScope, ReadonlySet<string>> = {
+  callerCompany: AUDIT_REDACT_KEYS,
+  platform: PLATFORM_AUDIT_REDACT_KEYS,
+};
+
+function scrubSensitiveValues(value: unknown, keys: ReadonlySet<string>): unknown {
   if (value === null || value === undefined) return value;
-  if (Array.isArray(value)) return value.map(scrubSensitiveValues);
+  if (Array.isArray(value)) return value.map((v) => scrubSensitiveValues(v, keys));
   if (typeof value !== "object") return value;
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-    if (AUDIT_REDACT_KEYS.has(k.toLowerCase())) {
+    if (keys.has(k.toLowerCase())) {
       out[k] = "[REDACTED]";
     } else {
-      out[k] = scrubSensitiveValues(v);
+      out[k] = scrubSensitiveValues(v, keys);
     }
   }
   return out;

@@ -1,7 +1,20 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, notInArray } from "drizzle-orm";
 import { z } from "zod";
 import { auditLog } from "@/schema";
 import { reviewerProcedure, router } from "../init";
+
+/**
+ * Router keys (server/trpc/router.ts) whose procedures are the platform operator's. Their automatic
+ * rows carry the key as entity_type. Before those procedures moved to the platform audit scope, the
+ * rows were filed under the operator's own open company with inputs naming other customers, and the
+ * log is append-only, so tenant reads leave them out instead.
+ */
+const PLATFORM_ROUTER_KEYS = ["platformAdmin", "newsletter"] as const;
+
+const tenantRows = (companyId: string) => [
+  eq(auditLog.companyId, companyId),
+  notInArray(auditLog.entityType, [...PLATFORM_ROUTER_KEYS]),
+];
 
 // Reviewer tier: each row carries the raw input of a mutation anywhere in the
 // company, wider than what a member scoped to assigned categories can open.
@@ -17,15 +30,11 @@ export const auditRouter = router({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const conditions = [eq(auditLog.companyId, ctx.companyId)];
-      if (input.entityType) {
-        conditions.push(eq(auditLog.entityType, input.entityType));
-      }
-      if (input.entityId) {
-        conditions.push(eq(auditLog.entityId, input.entityId));
-      }
-
-      const where = and(...conditions);
+      const where = and(
+        ...tenantRows(ctx.companyId),
+        input.entityType ? eq(auditLog.entityType, input.entityType) : undefined,
+        input.entityId ? eq(auditLog.entityId, input.entityId) : undefined,
+      );
 
       const rows = await ctx.db.query.auditLog.findMany({
         where,
@@ -62,7 +71,7 @@ export const auditRouter = router({
     .query(async ({ ctx, input }) => {
       return ctx.db.query.auditLog.findMany({
         where: and(
-          eq(auditLog.companyId, ctx.companyId),
+          ...tenantRows(ctx.companyId),
           eq(auditLog.entityType, input.entityType),
           eq(auditLog.entityId, input.entityId),
         ),

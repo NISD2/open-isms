@@ -105,11 +105,11 @@ describe("audit scope per procedure tier", () => {
   });
 });
 
-describe("audit redaction", () => {
-  test("billing identity fields keep their names and lose their values", async () => {
+describe("audit redaction per scope", () => {
+  test("platform rows keep the billing identity's field names and lose its values", async () => {
     const { logged, callerAs } = harness();
 
-    await callerAs(MEMBER).tenant.save(CLOSE_DEAL_INPUT);
+    await callerAs(OPERATOR).platformAdmin.closeDeal(CLOSE_DEAL_INPUT);
 
     expect(logged[0]?.newValue).toEqual({
       customerEmail: "[REDACTED]",
@@ -131,7 +131,24 @@ describe("audit redaction", () => {
     });
   });
 
-  test("the erasure confirmations are redacted", async () => {
+  test("tenant rows keep their own billing identity and still lose the base secrets", async () => {
+    const { logged, callerAs } = harness();
+
+    // A supplier inviting its customer, and a tenant's own order: its own record.
+    await callerAs(MEMBER).tenant.save({
+      ...CLOSE_DEAL_INPUT,
+      confirmOrgName: "Beispiel Entsorgung GmbH",
+      password: "placeholder-not-a-secret",
+    });
+
+    expect(logged[0]?.newValue).toEqual({
+      ...CLOSE_DEAL_INPUT,
+      confirmOrgName: "Beispiel Entsorgung GmbH",
+      password: "[REDACTED]",
+    });
+  });
+
+  test("the erasure confirmations are redacted on platform rows", async () => {
     const { logged, callerAs } = harness();
 
     await callerAs(OPERATOR).platformAdmin.eraseUser({
